@@ -10,10 +10,6 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
 	DWORD frame = _dwFrame;
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
-
 	if (frame == 2) {
 		_TRACE_("GameDemoScene:OK稼動しますった！");
 	}
@@ -22,8 +18,6 @@ void GameDemoScene::processBehavior() {
 		_TRACE_("GameDemoScene:STAGE1準備開始！");
 		((GameMainScene*)getNext())->readyStage01();
 	}
-
-
 }
 
 void GameDemoScene::processFinal() {
@@ -38,7 +32,6 @@ void GameDemoScene::processFinal() {
 			declareStop();
 		}
 	}
-
 }
 
 

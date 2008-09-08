@@ -139,8 +139,15 @@ GgafMainActor* MyFactory::createEnemyCeres(void* x) {
 }
 
 
-GgafMainActor* MyFactory::createEnemyFormation001(void* x) {
-	EnemyFormation001* pEnemyFormation001 = NEW EnemyFormation001("Formation001");
-	return pEnemyFormation001;
+GgafMainActor* MyFactory::createFormationCeres001(void* x) {
+	FormationCeres001* pFormationCeres001 = NEW FormationCeres001("F_CER001");
+	return pFormationCeres001;
 }
+
+
+GgafMainActor* MyFactory::createFormationJuno001(void* x) {
+	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001");
+	return pFormationJuno001;
+}
+
 

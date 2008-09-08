@@ -23,7 +23,9 @@ public:
 
 
 	static GgafMainActor* createEnemyCeres(void* x);
-	static GgafMainActor* createEnemyFormation001(void* x);
+	static GgafMainActor* createFormationCeres001(void* x);
+	static GgafMainActor* createFormationJuno001(void* x);
+
 };
 
 #endif /*MYFACTORY_H_*/

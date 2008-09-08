@@ -9,12 +9,6 @@ void Stage04Scene::initialize() {
 }
 
 void Stage04Scene::processBehavior() {
-	//DWORD frame = _dwFrame;
-
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
-
 }
 
 void Stage04Scene::processFinal() {

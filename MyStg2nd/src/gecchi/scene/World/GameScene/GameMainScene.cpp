@@ -93,10 +93,6 @@ void GameMainScene::enableStage05() {
 
 void GameMainScene::processBehavior() {
 	DWORD frame = _dwFrame;
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
-
 
 	if (_readyStage01Flg) {
 		if (frame == (_dwFrame_ReadyStage01 + 180)) {  //180フレーム余裕をみてから自シーンに追加

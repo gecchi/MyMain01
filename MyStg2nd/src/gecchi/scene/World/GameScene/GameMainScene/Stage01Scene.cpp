@@ -5,17 +5,12 @@ Stage01Scene::Stage01Scene(string prm_name) : DefaultScene(prm_name) {
 	_bgm_st1 = NULL; //工場で設定される
 	_TRACE_("Stage01Scene::Finally 私はいきなり自分停止。GameMainSceneが解除してくれるまで待つす");
 	stopImmediately(); //GameMainSceneが解除してくれる
-
 }
 
 void Stage01Scene::initialize() {
 }
 
 void Stage01Scene::processBehavior() {
-	//DWORD frame = _dwFrame;
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
 }
 
 

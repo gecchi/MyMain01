@@ -20,13 +20,6 @@ void GameScene::initialize() {
 
 void GameScene::processBehavior() {
 	VirtualButton::update(); //入力情報更新
-
-	//DWORD frame = _dwFrame;
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
-
-
 }
 
 

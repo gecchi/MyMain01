@@ -23,10 +23,6 @@ void MyShipScene::initialize() {
 }
 
 void MyShipScene::processBehavior() {
-	//DWORD frame = _dwFrame;
-	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
-	// gen start
-	// gen end
 }
 
 MyShipScene::~MyShipScene() {
