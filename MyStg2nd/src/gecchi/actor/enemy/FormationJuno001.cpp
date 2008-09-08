@@ -2,7 +2,7 @@
 
 FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
-	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
+	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
 		_pEnemyJuno[i] = NEW EnemyJuno("Juno01", "ebi");
 		_pEnemyJuno[i] -> stopImmediately();
 		addSubLast(_pEnemyJuno[i] );

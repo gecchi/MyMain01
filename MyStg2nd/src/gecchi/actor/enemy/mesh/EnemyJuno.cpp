@@ -6,32 +6,21 @@ EnemyJuno::EnemyJuno(string prm_name, string prm_xname) : DefaultMeshEnemyActor(
 
 void EnemyJuno::initialize() {
 	setBumpable(true);
-	_X = _X_OffScreen_Right+100;
-	_Y = 0;
-	_Z = 0;
-	_pMover -> setXYMoveVelocityRenge(-8000, 8000);
-	_pMover -> setXYMoveVelocity(8000);
-	_pMover -> setXYMoveAcceleration(-500);
-	_pMover -> setXYMoveAngle(ANGLE90);
-
-	_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 0, 5000);
-	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
-	_pMover -> setAxisRotAngleAcceleration(AXIS_X, 0);
-
-	_pMover -> setAxisRotAngle(AXIS_Z, ANGLE180);
-
+	if (isFirst()) {
+		_X = _X_OffScreen_Right/2;
+	} else {
+		_X = getPrev()->_X;
+	}
+	_Z = 500*1000;
+	_pMover -> setAxisRotAngle(AXIS_Y, -90000);
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pChecker -> setStatus(100, 1, 1, 1);
 }
 
 void EnemyJuno::processBehavior() {
-	if (_pMover->_iVelocity_XYMove <= -8000) {
-		_pMover -> setXYMoveAcceleration(+500);
-	} else if (_pMover->_iVelocity_XYMove >= +8000) {
-		_pMover -> setXYMoveAcceleration(-500);
-	}
 	_X -= 2000;
+	_Z -= 10000;
 
 	//À•W‚É”½‰f
 	_pMover -> behave();
