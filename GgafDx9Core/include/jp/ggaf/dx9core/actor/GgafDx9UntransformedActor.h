@@ -72,6 +72,14 @@ public:
 	 */
 	GgafDx9UntransformedActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
+	virtual GgafDx9UntransformedActor* getPrev() {
+		return (GgafDx9UntransformedActor*)GgafActor::getPrev();
+	}
+
+	virtual GgafDx9UntransformedActor* getNext() {
+		return (GgafDx9UntransformedActor*)GgafActor::getNext();
+	}
+
 	virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent);
 
 	virtual bool isOffScreen() { return false; }

@@ -22,6 +22,14 @@ public:
 
 	GgafDx9TransformedActor(string prm_name);
 
+	virtual GgafDx9TransformedActor* getPrev() {
+		return (GgafDx9TransformedActor*)GgafActor::getPrev();
+	}
+
+	virtual GgafDx9TransformedActor* getNext() {
+		return (GgafDx9TransformedActor*)GgafActor::getNext();
+	}
+
 	virtual ~GgafDx9TransformedActor();		//デストラクタ
 
 
