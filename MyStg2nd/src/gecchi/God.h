@@ -12,7 +12,6 @@ public:
 	 */
 	GgafWorld* createWorld();
 
-
 	virtual ~God();
 };
 
