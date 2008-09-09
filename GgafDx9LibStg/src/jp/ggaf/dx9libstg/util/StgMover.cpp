@@ -8,8 +8,8 @@ StgMover::StgMover(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryMover
 	//XY平面移動方角Y成分単位ベクトル = 0
 	_vY_XYMove = 0;
 
-	//XY平面移動速度（XY平面移動座標増分） = 1 px/fream
-	_iVelocity_XYMove = LEN_UNIT;  //1フレームにLEN_UNIT(＝1px)進む
+	//XY平面移動速度（XY平面移動座標増分） = 0 px/fream
+	_iVelocity_XYMove = 0;
 
 	//XY平面移動速度上限 = 256 px/fream
 	_iTopVelocity_XYMove = 256*LEN_UNIT;  //_iVelocity_XYMove が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。

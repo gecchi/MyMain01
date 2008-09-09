@@ -34,8 +34,8 @@ public:
 		TRACE("DefaultScene::processDrawTerminate " << getName() << "frame:" << _dwFrame);
 	};
 
-	virtual void processOccur(int prm_no) {
-		TRACE("DefaultScene::processOccur " << getName() << "no:" << prm_no);
+	virtual void processHappen(int prm_no) {
+		TRACE("DefaultScene::processHappen " << getName() << "no:" << prm_no);
 	};
 
 	virtual void processFinal() {
