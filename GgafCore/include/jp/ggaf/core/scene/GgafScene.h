@@ -123,7 +123,7 @@ public:
 	 * 自ツリーシーンに何かする .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void occur(int prm_no);
+	virtual void happen(int prm_no);
 
     /**
 	 * 自ツリーシーンに何かする .

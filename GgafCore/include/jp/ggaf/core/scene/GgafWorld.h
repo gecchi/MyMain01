@@ -49,7 +49,7 @@ public:
 	/*
 	 * ‰½‚©‚Ìˆ—<BR>
 	 */
-	void processOccur(int prm_no) {};
+	void processHappen(int prm_no) {};
 
 	/**
 	 * ÅIˆ—<BR>

@@ -52,7 +52,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
 	 */
- 	virtual void processOccur(int prm_no) {};
+ 	virtual void processHappen(int prm_no) {};
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

@@ -55,9 +55,9 @@ void GgafScene::drawTerminate() {
 	_pLordActor->drawTerminate();
 }
 
-void GgafScene::occur(int prm_no) {
-	GgafFactor<GgafScene>::occur(prm_no);
-	_pLordActor->occur(prm_no);
+void GgafScene::happen(int prm_no) {
+	GgafFactor<GgafScene>::happen(prm_no);
+	_pLordActor->happen(prm_no);
 }
 
 void GgafScene::finally() {

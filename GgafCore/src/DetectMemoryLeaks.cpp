@@ -4,38 +4,38 @@ std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 bool detectMemoryLeaksFlag = false;
 
 void *
-operator new(std::size_t size, char * pszFileName, int nLineNum)
+operator new(std::size_t size, std::string strFileName, int nLineNum)
 throw (std::bad_alloc)
 {
     void * address = malloc(size);
 	if(address == 0) {
-		_TRACE_(pszFileName << ":" << nLineNum << " bad_alloc....");
+		_TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
         throw std::bad_alloc();
 	}
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "new: " << pszFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
+        // std::cout << "new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
         std::ostringstream oss;
-        oss << pszFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
+        oss << strFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
         detectMemoryLeaksMemoryMap.insert( std::pair<std::size_t, std::string>((std::size_t)address, oss.str()) );
     }
     return address;
 }
 
 void *
-operator new[](std::size_t size, char * pszFileName, int nLineNum)
+operator new[](std::size_t size, std::string strFileName, int nLineNum)
 throw (std::bad_alloc)
 {
     void * address = malloc(size);
 	if(address == 0) {
-		_TRACE_(pszFileName << ":" << nLineNum << " bad_alloc....");
+		_TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
         throw std::bad_alloc();
 	}
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "new[]: " << pszFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
+        // std::cout << "new[]: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
         std::ostringstream oss;
-        oss << pszFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
+        oss << strFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
         detectMemoryLeaksMemoryMap.insert( std::pair<std::size_t, std::string>((std::size_t)address, oss.str()) );
     }
     return address;

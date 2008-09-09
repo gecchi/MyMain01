@@ -48,7 +48,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
 	 */
-	void processOccur(int prm_no) {};
+	void processHappen(int prm_no) {};
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

@@ -3,6 +3,9 @@
 
 
 #define SUPER GgafTreeLinkedList<T>
+#define HAPPEN_PLAY_BEGIN 1
+
+
 /**
  * GgafTreeLinkedListに、様々な状態管理（フラグ管理）を追加
  * @version 1.00
@@ -79,7 +82,7 @@ public:
 
 	/**
 	 * ノード初期処理 .
-	 * 生成後、nextFrame(),behave(),judge(),drawPrior(),drawMain(),drawTerminate(),occur(int),finally() の
+	 * 生成後、nextFrame(),behave(),judge(),drawPrior(),drawMain(),drawTerminate(),happen(int),finally() の
 	 * 何れかが呼び出された時、最初に必ず１回だけ呼び出されます。<BR>
 	 */
 	virtual void initialize();
@@ -159,10 +162,10 @@ public:
 	/**
 	 * ノードの何かの処理(フレーム毎ではない) .
 	 * 活動フラグがセット、(つまり _isPlaying)の場合 <BR>
-	 * processOccur(int) をコールした後、配下のノード全てについて occur() を実行します。<BR>
+	 * processHappen(int) をコールした後、配下のノード全てについて happen() を実行します。<BR>
 	 * @param	prm_no 何かの番号
 	 */
-	virtual void occur(int prm_no);
+	virtual void happen(int prm_no);
 
 	/**
 	 * フレーム毎の個別振る舞い処理を実装。 .
@@ -223,11 +226,11 @@ public:
 
 	/**
 	 * ノードの個別何かの処理を記述
-	 * occur() 時の処理先頭でコールバックされます。
+	 * happen() 時の処理先頭でコールバックされます。
 	 * 利用目的不定の汎用イベント用メソッド
 	 * @param	int prm_no 何かの番号
 	 */
-	virtual void processOccur(int prm_no) = 0;
+	virtual void processHappen(int prm_no) = 0;
 
     /**
 	 * 神様に接見 .
@@ -479,6 +482,10 @@ void GgafFactor<T>::nextFrame() {
 		}
 
 		//フラグたちを反映
+		if (_isPlaying == false && _willPlayNextFrame) {
+			// not Play → Play 状態の場合呼び出す
+			happen(HAPPEN_PLAY_BEGIN);
+		}
 		_isPlaying = _willPlayNextFrame;
 		_wasPaused = _willPauseNextFrame;
 		_wasBlinded = _willBlindNextFrame;
@@ -630,7 +637,7 @@ void GgafFactor<T>::drawTerminate() {
 
 
 template<class T>
-void GgafFactor<T>::occur(int prm_no) {
+void GgafFactor<T>::happen(int prm_no) {
 	if(_wasInitialized == false) {
 		initialize();
 		_wasInitialized = true;
@@ -638,11 +645,11 @@ void GgafFactor<T>::occur(int prm_no) {
 
 	if (_isAlive) {
 		_dwFrame_relative = 0;
-		processOccur(prm_no);
+		processHappen(prm_no);
 		if (SUPER::_pSubFirst != NULL) {
 			_pNodeTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pNodeTemp -> occur(prm_no);
+				_pNodeTemp -> happen(prm_no);
 				if (_pNodeTemp -> _isLast) {
 					break;
 				} else {
@@ -702,6 +709,9 @@ void GgafFactor<T>::declarePlay() {
 template<class T>
 void GgafFactor<T>::playImmediately() {
 	if (_isAlive) {
+		if (_isPlaying == false) {
+			happen(HAPPEN_PLAY_BEGIN);
+		}
 		_isPlaying = true;
 		_wasPaused = false;
 		_wasBlinded = false;
