@@ -7,7 +7,9 @@ FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 		_pEnemyJuno[i] -> stopImmediately();
 		addSubLast(_pEnemyJuno[i] );
 	}
+	_X_whole = GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT;
 }
+
 
 
 void FormationJuno001::initialize() {
@@ -15,6 +17,11 @@ void FormationJuno001::initialize() {
 		_pEnemyJuno[i] -> playAfter(i*3+1);
 	}
 }
+
+void FormationJuno001::processBehavior() {
+	_X_whole -= 1000;
+}
+
 
 FormationJuno001::~FormationJuno001() {
 }

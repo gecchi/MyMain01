@@ -9,7 +9,9 @@ void EnemyJuno::initialize() {
 	_Z = 1000000;
 	_pMover -> setXYMoveVelocity(0);
 	_pMover -> setZMoveVelocity(-20000);
+	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
 	_pMover -> setAxisRotAngle(AXIS_Y, 90000);
+
 
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
@@ -22,10 +24,11 @@ void EnemyJuno::processHappen(int prm_no) {
 		CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
 		_X = (pRndGen->genrand_int32() % (_X_OffScreen_Right*2)) - _X_OffScreen_Right; // _X_OffScreen_Right > 0
 		_Y = (pRndGen->genrand_int32() % (_Y_OffScreen_Top*2)) - _Y_OffScreen_Top;     // _Y_OffScreen_Top   > 0
+		_X += ((FormationJuno001*)getParent())->_X_whole;
 	}
 }
 void EnemyJuno::processBehavior() {
-
+	_X -= 1000;
 	//À•W‚É”½‰f
 	_pMover -> behave();
 }
