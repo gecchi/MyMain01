@@ -8,7 +8,7 @@ void EnemyJuno::initialize() {
 	setBumpable(true);
 	_Z = 5000000;
 	_pMover -> setXYMoveVelocity(0);
-	_pMover -> setZMoveVelocity(-20000);
+	_pMover -> setZMoveVelocity(-40000);
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
 	_pMover -> setAxisRotAngle(AXIS_Y, 90000);
 
@@ -21,11 +21,11 @@ void EnemyJuno::initialize() {
 void EnemyJuno::processHappen(int prm_no) {
 
 	if (prm_no == HAPPEN_PLAY_BEGIN) {
-		_X += ((FormationJuno001*)getParent())->_X_whole;
+		_X += FormationJuno001::_X_whole;
 	}
 }
 void EnemyJuno::processBehavior() {
-	_X -= 1000;
+	_X += FormationJuno001::_incX_whole;
 	//À•W‚É”½‰f
 	_pMover -> behave();
 }

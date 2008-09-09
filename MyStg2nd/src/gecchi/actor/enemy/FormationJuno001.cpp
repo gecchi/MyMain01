@@ -1,5 +1,8 @@
 #include "stdafx.h"
 
+int FormationJuno001::_X_whole = 0;
+int FormationJuno001::_incX_whole = -500;
+
 FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
 	CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
@@ -13,8 +16,9 @@ FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 		_pEnemyJuno[i]->_X = (pRndGen->genrand_int32() % (iScreenWidth)) - (iScreenHeight/2);
 		_pEnemyJuno[i]->_Y = (pRndGen->genrand_int32() % (iScreenHeight)) - (iScreenHeight/2);
 		addSubLast(_pEnemyJuno[i] );
+		Sleep(1);
 	}
-	_X_whole = iScreenWidth;
+
 }
 
 
@@ -26,7 +30,7 @@ void FormationJuno001::initialize() {
 }
 
 void FormationJuno001::processBehavior() {
-	_X_whole -= 1000; //‘S‘Ì‚ÌX
+	_X_whole += _incX_whole; //‘S‘Ì‚ÌX
 }
 
 
