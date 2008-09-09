@@ -9,9 +9,10 @@ FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	}
 }
 
+
 void FormationJuno001::initialize() {
 	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-		_pEnemyJuno[i] -> playAfter(i*30+1);
+		_pEnemyJuno[i] -> playAfter(i*3+1);
 	}
 }
 

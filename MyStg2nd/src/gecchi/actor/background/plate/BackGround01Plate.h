@@ -16,7 +16,7 @@ public:
 
 	virtual void processDrawTerminate() {};
 
-	virtual void processOccur(int prm_no) {};
+	virtual void processHappen(int prm_no) {};
 
 	virtual void processFinal() {};
 

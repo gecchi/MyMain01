@@ -15,6 +15,8 @@ public:
 
 	void processJudgement();
 
+	void processHappen(int prm_no);
+
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
 	bool isOffScreen();

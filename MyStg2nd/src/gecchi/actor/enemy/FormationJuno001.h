@@ -2,7 +2,7 @@
 #define FORMATIONJUNO001_H_
 
 
-#define NUM_JUNO_FORMATION001 300
+#define NUM_JUNO_FORMATION001 500
 /**
  * フォーメーションアクタークラス .
  */
