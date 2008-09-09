@@ -1,7 +1,7 @@
 #ifndef ENEMYJUNO_H_
 #define ENEMYJUNO_H_
 
-//パラス
+//ジュノー
 class EnemyJuno : public DefaultMeshEnemyActor {
 
 public:
