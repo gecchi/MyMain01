@@ -50,6 +50,14 @@ void GgafActor::setBumpable(bool prm_canBump ) {
 	}
 }
 
+bool GgafActor::canBump() {
+	if (isPlaying() && _canBump) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 void GgafActor::executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent) {
 	if (prm_pActor_Opponent == this) {
 		return;

@@ -95,13 +95,19 @@ public:
 	 * 自アクターの衝突判定有無を設定する。 .
 	 * @param	prm_canBump  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-	virtual void setBumpableOnlySelf(bool prm_canBump );
+	virtual void setBumpableOnlySelf(bool prm_canBump);
 
 	/**
 	 * 自ツリーアクターの衝突判定有無を設定する。 .
 	 * @param	prm_canBump  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
 	 */
-	virtual void setBumpable(bool prm_canBump );
+	virtual void setBumpable(bool prm_canBump);
+
+	/**
+	 * 衝突できるかどうか
+	 * @return	bool true:衝突できる／false:衝突できない
+	 */
+	virtual bool canBump();
 
     /**
 	 * 所属しているシーンを取得。 .

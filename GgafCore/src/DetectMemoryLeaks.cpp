@@ -4,7 +4,7 @@ std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 bool detectMemoryLeaksFlag = false;
 
 void *
-operator new(std::size_t size, std::string strFileName, int nLineNum)
+operator new(std::size_t size, char* strFileName, int nLineNum)
 throw (std::bad_alloc)
 {
     void * address = malloc(size);
@@ -23,7 +23,7 @@ throw (std::bad_alloc)
 }
 
 void *
-operator new[](std::size_t size, std::string strFileName, int nLineNum)
+operator new[](std::size_t size, char* strFileName, int nLineNum)
 throw (std::bad_alloc)
 {
     void * address = malloc(size);

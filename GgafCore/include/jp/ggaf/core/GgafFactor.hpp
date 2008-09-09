@@ -394,7 +394,6 @@ public:
 	 */
 	virtual bool canDraw();
 
-
 	/**
 	 * ノードの現在の経過フレームを取得する
 	 */
