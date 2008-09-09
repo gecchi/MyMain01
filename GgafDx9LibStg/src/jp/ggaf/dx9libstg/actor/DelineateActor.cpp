@@ -38,7 +38,7 @@ void DelineateActor::drawLine(int prm_x1, int prm_y1, int prm_x2, int prm_y2) {
 	drawMain();
 }
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
-	if (prm_pChecker != NULL && prm_pChecker->_pHitArea2D != NULL) {
+	if (prm_pChecker != NULL && prm_pChecker->_pHitArea2D != NULL && prm_pChecker->_pActor->canBump()) {
 		//Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
 		GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 
