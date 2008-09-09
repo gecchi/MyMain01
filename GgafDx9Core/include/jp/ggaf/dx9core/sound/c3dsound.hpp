@@ -3,6 +3,21 @@
  *	@author		Ander/Echigo-ya koubou
  ******************************************************************************/
 
+// このプログラムのオリジナルは、「越後屋Cyber」のメンバーのAnder氏が、
+// Blogで公開していたサンプルプログラムです。
+// 当時、DirectSound + ogg のストリーミング再生で悩んでいた日々から解き放たれ、
+// 頭上から光が差し込まれた思いでした。
+// 有益なサンプルを開発・公開して下さったAnder氏に感謝しつつ、流用させて頂きます。
+//
+//                                2008/09/09 Masatoshi Tsuge
+//
+// 【対象コード】
+// c3dsound.hpp, oggdecorder.hpp, wavedecorder.hpp
+// 【越後屋Cyber】
+// http://www.e-cyber.org/
+// 【Ander氏Blog:サンプル公開の記事】
+// http://ecyber.exblog.jp/824656/
+
 #ifndef	_INCLUDE_C3DSOUND_HPP
 #define	_INCLUDE_C3DSOUND_HPP
 
