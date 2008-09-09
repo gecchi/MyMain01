@@ -6,7 +6,7 @@ EnemyJuno::EnemyJuno(string prm_name, string prm_xname) : DefaultMeshEnemyActor(
 
 void EnemyJuno::initialize() {
 	setBumpable(true);
-	_Z = 1000000;
+	_Z = 5000000;
 	_pMover -> setXYMoveVelocity(0);
 	_pMover -> setZMoveVelocity(-20000);
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
@@ -21,9 +21,6 @@ void EnemyJuno::initialize() {
 void EnemyJuno::processHappen(int prm_no) {
 
 	if (prm_no == HAPPEN_PLAY_BEGIN) {
-		CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-		_X = (pRndGen->genrand_int32() % (_X_OffScreen_Right*2)) - _X_OffScreen_Right; // _X_OffScreen_Right > 0
-		_Y = (pRndGen->genrand_int32() % (_Y_OffScreen_Top*2)) - _Y_OffScreen_Top;     // _Y_OffScreen_Top   > 0
 		_X += ((FormationJuno001*)getParent())->_X_whole;
 	}
 }
