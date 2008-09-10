@@ -74,7 +74,7 @@ void* GgafSubcontractor::obtain(string prm_id) {
 				if (pOrder->_progress != 2) {
 					_TRACE_("GgafSubcontractor::obtain 別スレッドさん、["<<prm_id<<"]まだ～？、ちょこっと待ちます。pOrder->_progress "<<(pOrder->_progress)<<"だった");
 					::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
-					Sleep(2);
+					Sleep(10);
 					::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
 					continue;
 				} else {
@@ -163,9 +163,9 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 				func = _pOrder_InManufacturing ->_functionForBuild;
 				void* arg = _pOrder_InManufacturing ->_argumentForBuild;
 				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
-				Sleep(1);
+				Sleep(5);
 				pObject = (*func)(arg); //製品の製造！
-				Sleep(1);
+				Sleep(5);
 				::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
 				if (_pOrder_InManufacturing == NULL) {
 					TRACE2("GgafSubcontractor::work せっかく作ったのに遅かったようだ(T_T)!無かった事にします。pObjectの削除");
