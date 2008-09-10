@@ -155,18 +155,24 @@ void GgafSubcontractor::clean() {
 unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 	GgafObject* (*func)(void*);
 	GgafObject* pObject;
+	GgafOrder* pOrder_InManufacturing_save;
 	while(_isWorking) {
 		::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
 		if (_pOrder_InManufacturing != NULL) {
 			if (_pOrder_InManufacturing  -> _progress == 0) { //未着手ならまず作る
+				TRACE2("GgafSubcontractor::work 注文["<<_pOrder_InManufacturing->_id<<"]は未着手(_progress == "<<_pOrder_InManufacturing  -> _progress<<")ゆえに作ります。");
 				_pOrder_InManufacturing  -> _progress = 1;    //ステータスを製造中へ
 				func = _pOrder_InManufacturing ->_functionForBuild;
+				pOrder_InManufacturing_save = _pOrder_InManufacturing; //一時退避
 				void* arg = _pOrder_InManufacturing ->_argumentForBuild;
+				TRACE2("GgafSubcontractor::work 製造開始！["<<_pOrder_InManufacturing->_id<<"]");
 				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
 				Sleep(5);
 				pObject = (*func)(arg); //製品の製造！
 				Sleep(5);
 				::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+				_pOrder_InManufacturing = pOrder_InManufacturing_save;//復帰
+				TRACE2("GgafSubcontractor::work 製造完了！["<<_pOrder_InManufacturing->_id<<"]");
 				if (_pOrder_InManufacturing == NULL) {
 					TRACE2("GgafSubcontractor::work せっかく作ったのに遅かったようだ(T_T)!無かった事にします。pObjectの削除");
 					delete ((GgafActor*)pObject);
@@ -178,6 +184,8 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 					_pOrder_InManufacturing -> _progress = 2; //ステータスを製造済みへ
 					TRACE2("GgafSubcontractor::work 注文の品["<<(_pOrder_InManufacturing->_id)<<"]が、でけました！");
 				}
+			} else {
+				TRACE2("GgafSubcontractor::work 注文["<<_pOrder_InManufacturing->_id<<"]は着手済み(_progress == "<<_pOrder_InManufacturing  -> _progress<<")ゆえにとばす");
 			}
 		}
 		if (_pOrder_First == NULL) {
@@ -186,7 +194,7 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 			::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
 		} else {
 			if (_pOrder_First != NULL && _pOrder_First -> _pOrder_Prev -> _progress == 0) {
-				TRACE2("GgafSubcontractor::work ･･･む、未製造の注文がありんす");
+				TRACE2("GgafSubcontractor::work ･･･む、次に未製造の注文["<<_pOrder_InManufacturing->_pOrder_Next->_id<<"]がありんす");
 				_pOrder_InManufacturing = _pOrder_InManufacturing -> _pOrder_Next;
 				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
 				Sleep(10);

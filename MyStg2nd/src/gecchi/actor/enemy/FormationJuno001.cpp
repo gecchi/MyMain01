@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 int FormationJuno001::_X_whole = 0;
-int FormationJuno001::_incX_whole = -500;
+int FormationJuno001::_incX_whole = -2000;
 
 FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
