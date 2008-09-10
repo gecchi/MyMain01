@@ -59,10 +59,10 @@ public:
 	GgafDx9GeometryChecker* _pGeoChecker;
 
 
-	const int _X_OffScreen_Left;
-	const int _X_OffScreen_Right;
-	const int _Y_OffScreen_Top;
-	const int _Y_OffScreen_Bottom;
+	const int _X_OffScreenLeft;
+	const int _X_OffScreenRight;
+	const int _Y_OffScreenTop;
+	const int _Y_OffScreenBottom;
 
 
 
