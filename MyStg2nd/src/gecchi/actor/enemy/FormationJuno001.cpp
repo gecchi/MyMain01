@@ -30,7 +30,9 @@ void FormationJuno001::initialize() {
 }
 
 void FormationJuno001::processBehavior() {
-	_X_whole += _incX_whole; //‘S‘Ì‚ÌX
+	if (isFirst()) {
+		_X_whole += _incX_whole; //‘S‘Ì‚ÌX
+	}
 }
 
 

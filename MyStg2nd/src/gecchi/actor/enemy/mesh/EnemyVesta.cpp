@@ -6,7 +6,7 @@ EnemyVesta::EnemyVesta(string prm_name, string prm_xname) : DefaultMeshEnemyActo
 
 void EnemyVesta::initialize() {
 	setBumpable(true);
-	_X = _X_OffScreen_Right+100;
+	_X = _X_OffScreenRight+100;
 	_Y = 0;
 	_Z = 0;
 	_pMover -> setXYMoveVelocityRenge(-8000, 8000);
@@ -49,7 +49,7 @@ void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 bool EnemyVesta::isOffScreen() {
-	if (_Y < _Y_OffScreen_Bottom-100000) {
+	if (_Y < _Y_OffScreenBottom-100000) {
 		return true;
 	} else {
 		return false;
