@@ -13,7 +13,7 @@ protected:
 public:
 
 	/** 前回描画Model定義名 */
-	static string _modelname_lastdraw;
+	static string _s_modelname_lastdraw;
 
 	/**
 	 * コンストラクタ<BR>

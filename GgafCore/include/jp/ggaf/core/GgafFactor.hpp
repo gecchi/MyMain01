@@ -1021,7 +1021,7 @@ T* GgafFactor<T>::becomeIndependent() {
 
 template<class T>
 void GgafFactor<T>::cleane() {
-	if (SUPER::_pSubFirst == NULL || GgafGod::_iNumClean_Node != 0) {
+	if (SUPER::_pSubFirst == NULL || GgafGod::_s_iNumClean_Node != 0) {
 		return;
 	}
 
@@ -1031,19 +1031,19 @@ void GgafFactor<T>::cleane() {
 
 	//Žq‚ð’²‚×‚Ädelete‚·‚é
 	_pNodeTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
-	while(GgafGod::_iNumClean_Node == 0) {
+	while(GgafGod::_s_iNumClean_Node == 0) {
 		if (_pNodeTemp->_isFirst) { //––”ö‚©‚çŒ©‚Äs‚«ÅŒã‚Ìˆê‚Â
 
 			if (_pNodeTemp->_isAlive == false) {
 				delete (_pNodeTemp);
-				GgafGod::_iNumClean_Node++;
+				GgafGod::_s_iNumClean_Node++;
 			}
 			break;
 		} else { //––”ö‚©‚ç‡‚ÉŒ©‚Ä‚¢‚­
 			_pNodeTemp = _pNodeTemp -> SUPER::_pPrev;
 			if (_pNodeTemp->SUPER::_pNext->_isAlive == false) {
 				delete (_pNodeTemp->SUPER::_pNext);
-				GgafGod::_iNumClean_Node++;
+				GgafGod::_s_iNumClean_Node++;
 			}
 		}
 	}

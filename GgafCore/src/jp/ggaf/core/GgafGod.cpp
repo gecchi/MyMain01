@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
 
-CRITICAL_SECTION GgafGod::_cs1;
-CRITICAL_SECTION GgafGod::_cs2;
-int GgafGod::_iNumClean_Node = 0;
+CRITICAL_SECTION GgafGod::CS1;
+CRITICAL_SECTION GgafGod::CS2;
+int GgafGod::_s_iNumClean_Node = 0;
 DWORD GgafGod::_dwNextTimeOffset[] = {17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16,17,17,16};
 GgafGod::GgafGod() : GgafObject(),
 _pWorld(NULL)
@@ -23,8 +23,8 @@ _pWorld(NULL)
 	if (_handleFactory01 == 0) {
         throw_GgafCriticalException("GgafGod::GgafGod() Error! ÉXÉåÉbÉhçÏê¨é∏îsÅI");
     }
-	::InitializeCriticalSection(&(GgafGod::_cs1));
-	::InitializeCriticalSection(&(GgafGod::_cs2));
+	::InitializeCriticalSection(&(GgafGod::CS1));
+	::InitializeCriticalSection(&(GgafGod::CS2));
 	::ResumeThread(_handleFactory01);
 	::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
 	GgafSubcontractor::_pGod = this;
@@ -52,7 +52,7 @@ void GgafGod::be(){
 	TRACE("GgafGod::being()");
 	_dwTime_FrameBegin = timeGetTime();
 	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) {
-		::EnterCriticalSection(&(GgafGod::_cs1)); // -----> îrëºäJén
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> îrëºäJén
 		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _dwNextTimeOffset[_dwFrame_God % 60]; //ó\íËÇÕïœÇÌÇÁÇ»Ç¢
 		_dwFrame_God++;
 
@@ -63,7 +63,7 @@ void GgafGod::be(){
 			_dwTime_Prev = _dwTime_FrameBegin;
 			_dwFrame_PrevVisualize = _dwFrame_Visualize;
 		}
-		_iNumClean_Node = 0;
+		_s_iNumClean_Node = 0;
 		makeWorldBe();
 		makeWorldJudge();
 		DWORD dwTime_Now = timeGetTime();
@@ -78,20 +78,20 @@ void GgafGod::be(){
 				_dwFrame_Visualize++;
 				makeWorldMaterialize();
 				makeWorldVisualize();
-				if (getWorld() != NULL && _iNumClean_Node == 0) {
+				if (getWorld() != NULL && _s_iNumClean_Node == 0) {
 					getWorld()->cleane(); //ë|èú
 				}
 			}
 		}
 		makeWorldFinalize();
-		::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- îrëºèIóπ
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- îrëºèIóπ
 
 	} else {
-		::EnterCriticalSection(&(GgafGod::_cs1)); // -----> îrëºäJén
-		if (getWorld() != NULL && _iNumClean_Node == 0) {
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> îrëºäJén
+		if (getWorld() != NULL && _s_iNumClean_Node == 0) {
 			getWorld()->cleane(); //ë|èú
 		}
-		::LeaveCriticalSection(&(GgafGod::_cs1));
+		::LeaveCriticalSection(&(GgafGod::CS1));
 		Sleep(1); //çHèÍÇ™ìÆÇ≠Ç≈ÇµÇÂÇ§ÅB
 	}
 	return;
@@ -129,12 +129,12 @@ GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");
 	//_pWorld->pronounceFinishLife();
 	Sleep(20);
-	::EnterCriticalSection(&(GgafGod::_cs1)); // -----> îrëºäJén
+	::EnterCriticalSection(&(GgafGod::CS1)); // -----> îrëºäJén
     delete _pWorld;
-	::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- îrëºèIóπ
+	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- îrëºèIóπ
     CloseHandle(_handleFactory01);
-    DeleteCriticalSection(&(GgafGod::_cs2));
-	DeleteCriticalSection(&(GgafGod::_cs1));
+    DeleteCriticalSection(&(GgafGod::CS2));
+	DeleteCriticalSection(&(GgafGod::CS1));
 	GgafSubcontractor::_pGod = NULL;
 
 	TRACE("GgafGod::~GgafGod end");

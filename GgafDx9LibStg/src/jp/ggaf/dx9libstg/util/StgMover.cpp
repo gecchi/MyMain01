@@ -156,8 +156,8 @@ void StgMover::setXYMoveAngle(angle prm_angXYMove) {
 		angSimple += ANGLE360;
 	}
 	_angXYMove = angSimple;
-	_vX_XYMove = GgafDx9Util::_aCos_UnitLen[angSimple];
-	_vY_XYMove = GgafDx9Util::_aSin_UnitLen[angSimple];
+	_vX_XYMove = GgafDx9Util::COS_UNITLEN[angSimple];
+	_vY_XYMove = GgafDx9Util::SIN_UNITLEN[angSimple];
 	if (_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg) {
 		setAxisRotAngle(AXIS_Z, angSimple);
 	}

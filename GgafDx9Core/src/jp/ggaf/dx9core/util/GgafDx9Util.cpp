@@ -1,54 +1,54 @@
 #include "stdafx.h"
-bool GgafDx9Util::_radian_init_flg = false;
-int GgafDx9Util::_aCos_UnitLen[ANGLE360];
-int GgafDx9Util::_aSin_UnitLen[ANGLE360];
-int GgafDx9Util::_aTan_UnitLen[ANGLE360];
-int GgafDx9Util::_aRad_UnitLen[ANGLE360];
-float GgafDx9Util::_aCos[ANGLE360];
-float GgafDx9Util::_aSin[ANGLE360];
+bool GgafDx9Util::_isInit = false;
+int GgafDx9Util::COS_UNITLEN[ANGLE360];
+int GgafDx9Util::SIN_UNITLEN[ANGLE360];
+int GgafDx9Util::TAN_UNITLEN[ANGLE360];
+int GgafDx9Util::RAD_UNITLEN[ANGLE360];
+float GgafDx9Util::COS[ANGLE360];
+float GgafDx9Util::SIN[ANGLE360];
 
 
 void GgafDx9Util::init() {
-	if (_radian_init_flg) {
+	if (_isInit) {
 		return;
 	} else {
 		for (angle angle = 0; angle < ANGLE360; angle++) {
 			double rad = PI*2.0/ANGLE360*angle;
-			_aCos_UnitLen[angle] = (int)(cos(rad)*LEN_UNIT);
-			_aSin_UnitLen[angle] = (int)(sin(rad)*LEN_UNIT);
-			_aTan_UnitLen[angle] = (int)(tan(rad)*LEN_UNIT);
-			_aRad_UnitLen[angle] = (int)(rad*LEN_UNIT);
+			COS_UNITLEN[angle] = (int)(cos(rad)*LEN_UNIT);
+			SIN_UNITLEN[angle] = (int)(sin(rad)*LEN_UNIT);
+			TAN_UNITLEN[angle] = (int)(tan(rad)*LEN_UNIT);
+			RAD_UNITLEN[angle] = (int)(rad*LEN_UNIT);
 
-			_aCos[angle] = (float)(cos(rad));
-			_aSin[angle] = (float)(sin(rad));
+			COS[angle] = (float)(cos(rad));
+			SIN[angle] = (float)(sin(rad));
 
 		}
 
-		_aCos_UnitLen[0]        =  1*LEN_UNIT;
-		_aCos_UnitLen[ANGLE90]  =  0;
-		_aCos_UnitLen[ANGLE180] = -1*LEN_UNIT;
-		_aCos_UnitLen[ANGLE270] =  0;
+		COS_UNITLEN[0]        =  1*LEN_UNIT;
+		COS_UNITLEN[ANGLE90]  =  0;
+		COS_UNITLEN[ANGLE180] = -1*LEN_UNIT;
+		COS_UNITLEN[ANGLE270] =  0;
 
-		_aSin_UnitLen[0]        =  0;
-		_aSin_UnitLen[ANGLE90]  =  1*LEN_UNIT;
-		_aSin_UnitLen[ANGLE180] =  0;
-		_aSin_UnitLen[ANGLE270] = -1*LEN_UNIT;
+		SIN_UNITLEN[0]        =  0;
+		SIN_UNITLEN[ANGLE90]  =  1*LEN_UNIT;
+		SIN_UNITLEN[ANGLE180] =  0;
+		SIN_UNITLEN[ANGLE270] = -1*LEN_UNIT;
 
-		_aTan_UnitLen[0]        =  0;
-		_aTan_UnitLen[ANGLE90]  =  LONG_MAX;
-		_aTan_UnitLen[ANGLE180] =  0;
-		_aTan_UnitLen[ANGLE270] = -1*LONG_MAX;
-		//_aTan_UnitLen[ANGLE360] = 0;
+		TAN_UNITLEN[0]        =  0;
+		TAN_UNITLEN[ANGLE90]  =  LONG_MAX;
+		TAN_UNITLEN[ANGLE180] =  0;
+		TAN_UNITLEN[ANGLE270] = -1*LONG_MAX;
+		//TAN_UNITLEN[ANGLE360] = 0;
 
-		_aCos[0]        =  1;
-		_aCos[ANGLE90]  =  0;
-		_aCos[ANGLE180] = -1;
-		_aCos[ANGLE270] =  0;
+		COS[0]        =  1;
+		COS[ANGLE90]  =  0;
+		COS[ANGLE180] = -1;
+		COS[ANGLE270] =  0;
 
-		_aSin[0]        =  0;
-		_aSin[ANGLE90]  =  1;
-		_aSin[ANGLE180] =  0;
-		_aSin[ANGLE270] = -1;
+		SIN[0]        =  0;
+		SIN[ANGLE90]  =  1;
+		SIN[ANGLE180] =  0;
+		SIN[ANGLE270] = -1;
 
 	}
 }
@@ -98,7 +98,7 @@ angle GgafDx9Util::getAngle(int prm_vx, int prm_vy) {
 		angle lTerget = (angle)(LEN_UNIT*((1.0*prm_vy) / (1.0*prm_vx)));
 		while (true) {
 			middle = (left + right) / 2;
-			if (_aTan_UnitLen[middle] < lTerget) {
+			if (TAN_UNITLEN[middle] < lTerget) {
 
 				left = middle ;
 			} else {
@@ -144,8 +144,8 @@ angle GgafDx9Util::addAngle(angle prm_angNow, angle prm_angOffset) {
 }
 
 void GgafDx9Util::rotXY(int prm_pX, int prm_pY, angle prm_ang, int* out_pX, int* out_pY) {
-	*out_pX = (int)(floor((prm_pX*GgafDx9Util::_aCos[prm_ang]) - (prm_pY*GgafDx9Util::_aSin[prm_ang])));
-	*out_pY = (int)(floor((prm_pX*GgafDx9Util::_aSin[prm_ang]) + (prm_pY*GgafDx9Util::_aCos[prm_ang])));
+	*out_pX = (int)(floor((prm_pX*GgafDx9Util::COS[prm_ang]) - (prm_pY*GgafDx9Util::SIN[prm_ang])));
+	*out_pY = (int)(floor((prm_pX*GgafDx9Util::SIN[prm_ang]) + (prm_pY*GgafDx9Util::COS[prm_ang])));
 }
 
 

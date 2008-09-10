@@ -1,17 +1,17 @@
 #include "stdafx.h"
 
-DelineateActor* DelineateActor::_pObj = NULL;
+DelineateActor* DelineateActor::_s_pObj = NULL;
 
 DelineateActor* DelineateActor::get() {
-	if (_pObj == NULL) {
-		_pObj = NEW DelineateActor("HITAREA", "DelineateSprite");
+	if (_s_pObj == NULL) {
+		_s_pObj = NEW DelineateActor("HITAREA", "DelineateSprite");
 	}
-	return _pObj;
+	return _s_pObj;
 }
 
 void DelineateActor::release() {
-	if (_pObj != NULL) {
-		delete _pObj;
+	if (_s_pObj != NULL) {
+		delete _s_pObj;
 	}
 }
 

@@ -67,8 +67,8 @@ protected:
 	/** このシーンの管理アクター */
 	GgafLordActor* _pLordActor;
 
-	static GgafHeadActor* _apHeadActor01[];
-	static GgafHeadActor* _apHeadActor02[];
+	static GgafHeadActor* _s_apHeadActor01[];
+	static GgafHeadActor* _s_apHeadActor02[];
 public:
 	/**
 	 * コンストラクタ .

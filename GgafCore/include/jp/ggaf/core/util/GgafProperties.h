@@ -11,7 +11,7 @@ public:
 	static void clean();
 
 protected:
-	static map<string, string>* _pMapProperties;
+	static map<string, string>* _s_pMapProperties;
 
 	static int read(string prm_properties_filename);
 	static void parse(char* p);

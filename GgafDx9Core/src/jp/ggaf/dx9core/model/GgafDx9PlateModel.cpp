@@ -24,7 +24,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	TRACE("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9God::_pID3DDevice9 ->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
 	GgafDx9PlateActor* pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;
-	if (GgafDx9Model::_modelname_lastdraw != _model_name) {
+	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
 		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pID3DTexture9));
@@ -36,7 +36,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9God::_pID3DDevice9 -> DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Verte_unit);
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
-	GgafDx9Model::_modelname_lastdraw = _model_name; //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
+	GgafDx9Model::_s_modelname_lastdraw = _model_name; //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
 	return D3D_OK;
 }
 

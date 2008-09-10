@@ -12,9 +12,9 @@ class FormationJuno001 : public FormationActor {
 public:
 
 	/** ‘S‘Ì‚ÌX */
-	static int _X_whole;
+	static int _s_X_FormationWhole;
 	/** ‘S‘Ì‚ÌX‘•ª */
-	static int _incX_whole;
+	static int _s_incX;
 
 	FormationJuno001(string prm_name);
 

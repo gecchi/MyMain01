@@ -5,30 +5,30 @@ class GgafDx9Input {
 
 public:
 	/** IDirectInput8インターフェイス */
-	static LPDIRECTINPUT8 _pIDirectInput8;
+	static LPDIRECTINPUT8 _s_pIDirectInput8;
 	/** キーボードインプットデバイス */
-	static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Keyboard;
+	static LPDIRECTINPUTDEVICE8 _s_pIDirectInputDevice8_Keyboard;
 	/** ジョイスティックインプットデバイス */
-	static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Joystick;
+	static LPDIRECTINPUTDEVICE8 _s_pIDirectInputDevice8_Joystick;
 	/** ジョイスティックの性能 */
-	static DIDEVCAPS _didevcap;
+	static DIDEVCAPS _s_didevcap;
 
 	static const int BUFFER_SIZE;
 	
 	/** キーボードの状態 */	
-	static char _caKeyboardState[256];
+	static char _s_caKeyboardState[256];
 	/** ジョイスティックの状態 */
-	static DIJOYSTATE _dijoystate;
+	static DIJOYSTATE _s_dijoystate;
 
 
-	static bool _isReleasedKey[256];
-	static bool _isReleasedJoyRgbButton[32];
-	static bool _isReleasedJoyUp;
-	static bool _isReleasedJoyDown;
-	static bool _isReleasedJoyLeft;
-	static bool _isReleasedJoyRight;
+	static bool _s_isReleasedKey[256];
+	static bool _s_isReleasedJoyRgbButton[32];
+	static bool _s_isReleasedJoyUp;
+	static bool _s_isReleasedJoyDown;
+	static bool _s_isReleasedJoyLeft;
+	static bool _s_isReleasedJoyRight;
 
-	static bool _isReleasedJoyDirection[10];
+	static bool _s_isReleasedJoyDirection[10];
 
  	/**
 	 * コンストラクタ<BR>

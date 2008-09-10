@@ -21,7 +21,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	TRACE("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9SquareActor* pSquareActor_Target = (GgafDx9SquareActor*)prm_pActor_Target;
 	//HRESULT	hr;
-	if (GgafDx9Model::_modelname_lastdraw != _model_name) { //‘O‰ñ‚Æ•`‰æƒ‚ƒfƒ‹‚ªˆá‚¤
+	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) { //‘O‰ñ‚Æ•`‰æƒ‚ƒfƒ‹‚ªˆá‚¤
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Verte_unit);
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SquareModel::FVF);
@@ -36,7 +36,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
-	GgafDx9Model::_modelname_lastdraw = _model_name;
+	GgafDx9Model::_s_modelname_lastdraw = _model_name;
 
 	return D3D_OK;
 }

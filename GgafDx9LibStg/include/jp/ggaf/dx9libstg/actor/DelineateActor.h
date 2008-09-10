@@ -3,7 +3,7 @@
 
 
 class DelineateActor : public DefaultSquareActor {
-	static DelineateActor* _pObj;
+	static DelineateActor* _s_pObj;
 public:
 	static DelineateActor* get();
 	static void release();

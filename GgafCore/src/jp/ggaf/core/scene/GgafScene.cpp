@@ -1,6 +1,6 @@
 #include "stdafx.h"
-GgafHeadActor* GgafScene::_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
-GgafHeadActor* GgafScene::_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
+GgafHeadActor* GgafScene::_s_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
+GgafHeadActor* GgafScene::_s_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
 
 GgafScene::GgafScene(string prm_name) : GgafFactor<GgafScene>(prm_name)  {
 	TRACE("GgafScene::GgafScene() "+prm_name);
@@ -306,11 +306,11 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
 		if (pHeadActor != NULL) {
 			do {
 				if((pHeadActor->_kind & prm_actorkindmask01) > 0) {
-					_apHeadActor01[iIndex01] = pHeadActor;
+					_s_apHeadActor01[iIndex01] = pHeadActor;
 					iIndex01++;
 				}
 				if((pHeadActor->_kind & prm_actorkindmask02) > 0) {
-					_apHeadActor02[iIndex02] = pHeadActor;
+					_s_apHeadActor02[iIndex02] = pHeadActor;
 					iIndex02++;
 				}
 				if (pHeadActor->_isLast) {
@@ -348,10 +348,10 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
 	for (int i = 0; i < iIndex01; i++) {
 		for (int j = 0; j < iIndex02; j++) {
 
-			if (_apHeadActor01[i] == _apHeadActor02[j]) {
-				_apHeadActor01[i]->executeBumpChkRoundRobin2(_apHeadActor02[j]);
+			if (_s_apHeadActor01[i] == _s_apHeadActor02[j]) {
+				_s_apHeadActor01[i]->executeBumpChkRoundRobin2(_s_apHeadActor02[j]);
 			} else {
-				_apHeadActor01[i]->executeBumpChkRoundRobin(_apHeadActor02[j]);
+				_s_apHeadActor01[i]->executeBumpChkRoundRobin(_s_apHeadActor02[j]);
 			}
 		}
 	}

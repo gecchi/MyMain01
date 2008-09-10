@@ -6,15 +6,15 @@ typedef int angle;
 class GgafDx9Util : GgafUtil {
 
 public:
-	static int _aCos_UnitLen[];
-	static int _aSin_UnitLen[];
-	static int _aTan_UnitLen[];
-	static int _aRad_UnitLen[];
-	static float _aCos[];
-	static float _aSin[];
+	static int COS_UNITLEN[];
+	static int SIN_UNITLEN[];
+	static int TAN_UNITLEN[];
+	static int RAD_UNITLEN[];
+	static float COS[];
+	static float SIN[];
 
 
-	static bool _radian_init_flg;
+	static bool _isInit;
 
 	static void init();
 	static angle getAngle(int prm_vx, int prm_vy);

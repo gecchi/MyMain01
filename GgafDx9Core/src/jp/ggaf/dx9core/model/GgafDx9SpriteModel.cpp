@@ -30,7 +30,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9RectUV* pRectUV_Active = _paRectUV + (pSpriteActor_Target->_iAnimationPatternNo_Active);
 
 	HRESULT	hr;
-	if (GgafDx9Model::_modelname_lastdraw != _model_name) {
+	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
 		//前回描画とモデルが違う！
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Verte_unit);
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
@@ -64,7 +64,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//前回描画モデル名保存
-	GgafDx9Model::_modelname_lastdraw = _model_name;
+	GgafDx9Model::_s_modelname_lastdraw = _model_name;
 	//前回描画UV座標（へのポインタ）を保存
 	_pRectUV_drawlast = pRectUV_Active;
 

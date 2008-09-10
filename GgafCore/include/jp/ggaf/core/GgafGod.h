@@ -6,7 +6,7 @@
 class GgafGod : public GgafObject {
 
 public:
-	static int _iNumClean_Node;
+	static int _s_iNumClean_Node;
 
 	static DWORD _dwNextTimeOffset[];
 	/** GgafSubcontractor::work スレッドハンドル  */
@@ -14,8 +14,8 @@ public:
 	/** GgafSubcontractor::work スレッドID  */
 	unsigned int _thID01;
 	/** クリティカルセクション（セマフォ） */
-	static CRITICAL_SECTION _cs1;
-	static CRITICAL_SECTION _cs2;
+	static CRITICAL_SECTION CS1;
+	static CRITICAL_SECTION CS2;
 	/** フレーム開始システム時間 */
 	DWORD _dwTime_FrameBegin;
 	/** 次にGgafWorldを活動させる時間 */

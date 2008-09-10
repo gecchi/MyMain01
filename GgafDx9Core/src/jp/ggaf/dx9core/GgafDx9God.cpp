@@ -292,7 +292,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			//モデル再設定
 			GgafDx9ModelManager::restoreAll();
 			//前回描画モデル情報を無効にする
-			GgafDx9Model::_modelname_lastdraw = "";
+			GgafDx9Model::_s_modelname_lastdraw = "";
 			_deviceLostFlg = false;
 		}
 	}
@@ -333,12 +333,12 @@ void GgafDx9God::makeWorldVisualize() {
 GgafDx9God::~GgafDx9God() {
 	TRACE("GgafDx9God::~GgafDx9God() start -->");
 
-	::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+	::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	Sleep(20);
 	//工場掃除
 	GgafSubcontractor::_isWorking = false;
 	GgafSubcontractor::clean();
-	::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 
 	//保持モデル解放
 	GgafDx9ModelManager::clear();

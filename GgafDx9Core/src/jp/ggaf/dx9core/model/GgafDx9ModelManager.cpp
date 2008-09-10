@@ -1,12 +1,12 @@
 #include "stdafx.h"
 
-GgafDx9Model* GgafDx9ModelManager::_pModel_First = NULL;
-IDirectXFile* GgafDx9ModelManager::_pIDirectXFile = NULL;
+GgafDx9Model* GgafDx9ModelManager::_s_pModel_First = NULL;
+IDirectXFile* GgafDx9ModelManager::_s_pIDirectXFile = NULL;
 
 
 GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
 	static GgafDx9Model* pModel_Current;
-	pModel_Current = _pModel_First;
+	pModel_Current = _s_pModel_First;
 	while (pModel_Current != NULL) {
 		if (pModel_Current->_model_name == prm_model_name) {
 			return pModel_Current;
@@ -17,12 +17,12 @@ GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
 }
 
 void GgafDx9ModelManager::add(GgafDx9Model* prm_pModel_New) {
-	if (_pModel_First == NULL) {
-		_pModel_First = prm_pModel_New;
+	if (_s_pModel_First == NULL) {
+		_s_pModel_First = prm_pModel_New;
 		return;
 	} else {
 		static GgafDx9Model* pModel_Current;
-		pModel_Current = _pModel_First;
+		pModel_Current = _s_pModel_First;
 		while (pModel_Current -> _pModel_Next != NULL) {
 			pModel_Current = pModel_Current -> _pModel_Next;
 		}
@@ -35,7 +35,7 @@ void GgafDx9ModelManager::clear() {
 		TRACE("GgafDx9ModelManager::clear() start-->");
 	//保持しているModelインスタンスを解放
 	static GgafDx9Model* pModel_Current;
-	pModel_Current = _pModel_First;
+	pModel_Current = _s_pModel_First;
 	static GgafDx9Model* pModel_tmp;
 	while (pModel_Current != NULL) {
 		pModel_tmp = pModel_Current -> _pModel_Next;
@@ -48,10 +48,10 @@ void GgafDx9ModelManager::clear() {
 			pModel_Current = pModel_tmp;
 		}
 	}
-	_pModel_First = NULL;
+	_s_pModel_First = NULL;
 
-	if (_pIDirectXFile != NULL) {
-		_pIDirectXFile -> Release();
+	if (_s_pIDirectXFile != NULL) {
+		_s_pIDirectXFile -> Release();
 	}
 
 	TRACE("GgafDx9ModelManager::clear() end<--");
@@ -61,7 +61,7 @@ void GgafDx9ModelManager::restoreAll() {
 	TRACE("GgafDx9ModelManager::restoreAll() start-->");
 	//保持しているModelインスタンスの再構築
 	static GgafDx9Model* pModel_Current;
-	pModel_Current = _pModel_First;
+	pModel_Current = _s_pModel_First;
 	while (pModel_Current != NULL) {
 		pModel_Current -> restore();
 		pModel_Current = pModel_Current -> _pModel_Next;
@@ -75,7 +75,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 	TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
 	//保持しているModelインスタンスを解放
 	static GgafDx9Model* pModel_Current;
-	pModel_Current = _pModel_First;
+	pModel_Current = _s_pModel_First;
 	while (pModel_Current != NULL) {
 		pModel_Current -> onDeviceLost();
 		pModel_Current = pModel_Current -> _pModel_Next;
@@ -261,13 +261,13 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pSpriteModel->_model_name + ".x";
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
-	if (_pIDirectXFile == NULL) {
-		DirectXFileCreate( &_pIDirectXFile );
+	if (_s_pIDirectXFile == NULL) {
+		DirectXFileCreate( &_s_pIDirectXFile );
 		char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
 		if (paChar_SpriteModelineTemplate == NULL) {
 			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\"ggaf_spritemodel_define.x\" が開けません。");
 		}
-		hr = _pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+		hr = _s_pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 		if(FAILED(hr)) {
 			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\"ggaf_spritemodel_define.x\"を確認して下さい。");
 		}
@@ -276,7 +276,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
-	hr = _pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+	hr = _s_pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
 	if(FAILED(hr)) {
 		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 	}
@@ -561,13 +561,13 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = prm_pPlateModel->_pD3DMaterial9->Ambient.a = 0.3f;
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
-	if (_pIDirectXFile == NULL) {
-		DirectXFileCreate( &_pIDirectXFile );
+	if (_s_pIDirectXFile == NULL) {
+		DirectXFileCreate( &_s_pIDirectXFile );
 		char* paChar_PlateModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
 		if (paChar_PlateModelineTemplate == NULL) {
 			throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] スプライト情報読込みテンプレート\"ggaf_spritemodel_define.x\" が開けません。");
 		}
-		hr = _pIDirectXFile -> RegisterTemplates(paChar_PlateModelineTemplate, (DWORD)(strlen(paChar_PlateModelineTemplate)));
+		hr = _s_pIDirectXFile -> RegisterTemplates(paChar_PlateModelineTemplate, (DWORD)(strlen(paChar_PlateModelineTemplate)));
 		if(FAILED(hr)) {
 			throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] RegisterTemplatesに失敗しました。\"ggaf_spritemodel_define.x\"を確認して下さい。");
 		}
@@ -576,7 +576,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
-	hr = _pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+	hr = _s_pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
 	if(FAILED(hr)) {
 		throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 	}

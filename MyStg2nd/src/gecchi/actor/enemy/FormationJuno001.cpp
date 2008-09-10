@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-int FormationJuno001::_X_whole = 0;
-int FormationJuno001::_incX_whole = -2000;
+int FormationJuno001::_s_X_FormationWhole = 0;
+int FormationJuno001::_s_incX = -2000;
 
 FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
@@ -31,7 +31,7 @@ void FormationJuno001::initialize() {
 
 void FormationJuno001::processBehavior() {
 	if (isFirst()) {
-		_X_whole += _incX_whole; //‘S‘Ì‚ÌX
+		_s_X_FormationWhole += _s_incX; //‘S‘Ì‚ÌX
 	}
 }
 

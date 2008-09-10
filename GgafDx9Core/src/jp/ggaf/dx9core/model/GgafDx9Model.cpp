@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-string GgafDx9Model::_modelname_lastdraw = "";
+string GgafDx9Model::_s_modelname_lastdraw = "";
 
 GgafDx9Model::GgafDx9Model(string prm_model_name) {
     TRACE("GgafDx9Model::GgafDx9Model(" <<  prm_model_name << ")");

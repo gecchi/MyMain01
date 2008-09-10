@@ -52,7 +52,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	}
 
 	//‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f
-	GgafDx9Model::_modelname_lastdraw = _model_name;
+	GgafDx9Model::_s_modelname_lastdraw = _model_name;
 	return D3D_OK;
 }
 

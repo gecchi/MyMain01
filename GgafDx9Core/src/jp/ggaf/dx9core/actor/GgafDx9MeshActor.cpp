@@ -18,40 +18,40 @@ void GgafDx9MeshActor::processDrawMain() {
 	// |(sinX*sinY*cosZ + cosX*-sinZ)*sx  , (sinX*sinY*sinZ + cosX*cosZ)*sy	 , sinX*cosY*sz , 0  |
 	// |(cosX*sinY*cosZ + -sinX*-sinZ)*sx , (cosX*sinY*sinZ + -sinX*cosZ)*sy , cosX*cosY*sz , 0  |
 	// |dx								  , dy								 ,dz			, 1  |
-	matrixTransWorld._11 = GgafDx9Util::_aCos[_RY] * GgafDx9Util::_aCos[_RZ] * (_SX/fRateScale);
-	matrixTransWorld._12 = GgafDx9Util::_aCos[_RY] * GgafDx9Util::_aSin[_RZ] * (_SY/fRateScale);
-	matrixTransWorld._13 = -1*GgafDx9Util::_aSin[_RY] * (_SZ/fRateScale);
+	matrixTransWorld._11 = GgafDx9Util::COS[_RY] * GgafDx9Util::COS[_RZ] * (_SX/fRateScale);
+	matrixTransWorld._12 = GgafDx9Util::COS[_RY] * GgafDx9Util::SIN[_RZ] * (_SY/fRateScale);
+	matrixTransWorld._13 = -1*GgafDx9Util::SIN[_RY] * (_SZ/fRateScale);
 	matrixTransWorld._14 = 0;
 
 	matrixTransWorld._21 = (
-		 (GgafDx9Util::_aSin[_RX] * GgafDx9Util::_aSin[_RY] * GgafDx9Util::_aCos[_RZ]) +
-		 (GgafDx9Util::_aCos[_RX] * -1 * GgafDx9Util::_aSin[_RZ])
+		 (GgafDx9Util::SIN[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::COS[_RZ]) +
+		 (GgafDx9Util::COS[_RX] * -1 * GgafDx9Util::SIN[_RZ])
 	   ) * (
 		 _SX/fRateScale
 	   );
 	matrixTransWorld._22 = (
-		 (GgafDx9Util::_aSin[_RX] * GgafDx9Util::_aSin[_RY] * GgafDx9Util::_aSin[_RZ]) +
-		 (GgafDx9Util::_aCos[_RX] * GgafDx9Util::_aCos[_RZ])
+		 (GgafDx9Util::SIN[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::SIN[_RZ]) +
+		 (GgafDx9Util::COS[_RX] * GgafDx9Util::COS[_RZ])
 	   ) * (
 		 _SY/fRateScale
 	   );
-	matrixTransWorld._23 = GgafDx9Util::_aSin[_RX] * GgafDx9Util::_aCos[_RY] * (_SZ/fRateScale);
+	matrixTransWorld._23 = GgafDx9Util::SIN[_RX] * GgafDx9Util::COS[_RY] * (_SZ/fRateScale);
 
 	matrixTransWorld._24 = 0;
 
 	matrixTransWorld._31 = (
-		 (GgafDx9Util::_aCos[_RX] * GgafDx9Util::_aSin[_RY] * GgafDx9Util::_aCos[_RZ]) +
-		 (-1 * GgafDx9Util::_aSin[_RX] * -1 * GgafDx9Util::_aSin[_RZ])
+		 (GgafDx9Util::COS[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::COS[_RZ]) +
+		 (-1 * GgafDx9Util::SIN[_RX] * -1 * GgafDx9Util::SIN[_RZ])
 	   ) * (
 		 _SX/fRateScale
 	   );
 	matrixTransWorld._32 = (
-		 (GgafDx9Util::_aCos[_RX] * GgafDx9Util::_aSin[_RY] * GgafDx9Util::_aSin[_RZ]) +
-		 (GgafDx9Util::_aSin[_RX] * -1 * GgafDx9Util::_aCos[_RZ])
+		 (GgafDx9Util::COS[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::SIN[_RZ]) +
+		 (GgafDx9Util::SIN[_RX] * -1 * GgafDx9Util::COS[_RZ])
 	   ) * (
 		 _SY/fRateScale
 	   );
-	matrixTransWorld._33 = GgafDx9Util::_aCos[_RX] * GgafDx9Util::_aCos[_RY] * (_SZ/fRateScale);
+	matrixTransWorld._33 = GgafDx9Util::COS[_RX] * GgafDx9Util::COS[_RY] * (_SZ/fRateScale);
 	matrixTransWorld._34 = 0;
 
 	matrixTransWorld._41 = (float)(1.0*_X/LEN_UNIT/PX_UNIT);
@@ -100,9 +100,9 @@ void GgafDx9MeshActor::processDrawMain() {
 	//ïÅí ÇÃÇ‚ÇËï˚
 	float fRateScale = LEN_UNIT;
 	D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-	D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::_aRad_UnitLen[_RX]/fRateScale);
-	D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::_aRad_UnitLen[_RY]/fRateScale);
-	D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::_aRad_UnitLen[_RZ]/fRateScale);
+	D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[_RX]/fRateScale);
+	D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[_RY]/fRateScale);
+	D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[_RZ]/fRateScale);
 	D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
 	D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
 */

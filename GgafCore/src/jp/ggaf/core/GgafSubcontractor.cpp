@@ -29,7 +29,7 @@ void GgafSubcontractor::order(string prm_id, GgafObject* (*prm_functionForBuild)
 	pOrder_New->_functionForBuild = prm_functionForBuild;
 	pOrder_New->_argumentForBuild = prm_argumentForBuild;
 	pOrder_New->_progress = 0;
-	//::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+	//::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	if (_pOrder_First == NULL) {
 		TRACE("GgafSubcontractor::order ["<<prm_id<<"] を、空っきしの工場へ注文してやんよ");
         pOrder_New -> _isFirstOrder = true;
@@ -38,7 +38,7 @@ void GgafSubcontractor::order(string prm_id, GgafObject* (*prm_functionForBuild)
         pOrder_New->_pOrder_Prev = pOrder_New;
         _pOrder_First = pOrder_New;
         _pOrder_InManufacturing = pOrder_New;
-        //::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+        //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 	} else {
 		TRACE("GgafSubcontractor::order ["<<prm_id<<"] をさらに追加注文");
         pOrder_New -> _isFirstOrder = false;
@@ -49,14 +49,14 @@ void GgafSubcontractor::order(string prm_id, GgafObject* (*prm_functionForBuild)
         pOrder_New->_pOrder_Prev = pOrder_Last;
         pOrder_New->_pOrder_Next = _pOrder_First;
         _pOrder_First->_pOrder_Prev = pOrder_New;
-        //::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+        //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 	}
 }
 
 
 
 void* GgafSubcontractor::obtain(string prm_id) {
-	//::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+	//::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	TRACE("GgafSubcontractor::obtain "<<prm_id<<"/");
 	GgafOrder* pOrder = _pOrder_First;
 	GgafOrder* pOrder_MyNext;
@@ -64,7 +64,7 @@ void* GgafSubcontractor::obtain(string prm_id) {
 
 	void* objectCreation;
 	if (pOrder == NULL) {
-		//::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+		//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 		throw_GgafCriticalException("GgafSubcontractor::obtain Error! 注文はNULLです。orederとobtainの対応が取れていません)");
 	}
 	while(_isWorking) {
@@ -73,9 +73,9 @@ void* GgafSubcontractor::obtain(string prm_id) {
 			while(_isWorking) {
 				if (pOrder->_progress != 2) {
 					_TRACE_("GgafSubcontractor::obtain 別スレッドさん、["<<prm_id<<"]まだ～？、ちょこっと待ちます。pOrder->_progress "<<(pOrder->_progress)<<"だった");
-					::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(10);
-					::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 					continue;
 				} else {
 					TRACE("GgafSubcontractor::obtain おぉ、製品["<<prm_id<<"]は製造完了ですね、あざーす！");
@@ -87,7 +87,7 @@ void* GgafSubcontractor::obtain(string prm_id) {
 						_pOrder_First = NULL;
 						_pOrder_InManufacturing = NULL;
 						TRACE("GgafSubcontractor::obtain 製品["<<prm_id<<"]頂きました。工場は空ですね");
-						//::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+						//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 						return (void*)objectCreation;
 					} else {
 						pOrder_MyNext = pOrder -> _pOrder_Next;
@@ -108,14 +108,14 @@ void* GgafSubcontractor::obtain(string prm_id) {
 						delete pOrder;
 						pOrder = NULL;
 
-						//::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+						//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 						return (void*)objectCreation;
 					}
 				}
 			}
 		} else {
 			if (pOrder->_isLastOrder) {
-				//::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+				//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 				throw_GgafCriticalException("GgafSubcontractor::obtain Error! 全部探しましたけど、そんな注文(prm_id="<<prm_id<<")はありませんでした。orederとobtainの対応が取れていません");
 			} else {
 				pOrder = pOrder ->_pOrder_Next;
@@ -157,7 +157,7 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 	GgafObject* pObject;
 	GgafOrder* pOrder_InManufacturing_save;
 	while(_isWorking) {
-		::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 		if (_pOrder_InManufacturing != NULL) {
 			if (_pOrder_InManufacturing  -> _progress == 0) { //未着手ならまず作る
 				TRACE2("GgafSubcontractor::work 注文["<<_pOrder_InManufacturing->_id<<"]は未着手(_progress == "<<_pOrder_InManufacturing  -> _progress<<")ゆえに作ります。");
@@ -166,17 +166,17 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 				pOrder_InManufacturing_save = _pOrder_InManufacturing; //一時退避
 				void* arg = _pOrder_InManufacturing ->_argumentForBuild;
 				TRACE2("GgafSubcontractor::work 製造開始！["<<_pOrder_InManufacturing->_id<<"]");
-				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
-				Sleep(5);
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+				Sleep(2);
 				pObject = (*func)(arg); //製品の製造！
-				Sleep(5);
-				::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始
+				Sleep(2);
+				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 				_pOrder_InManufacturing = pOrder_InManufacturing_save;//復帰
 				TRACE2("GgafSubcontractor::work 製造完了！["<<_pOrder_InManufacturing->_id<<"]");
 				if (_pOrder_InManufacturing == NULL) {
 					TRACE2("GgafSubcontractor::work せっかく作ったのに遅かったようだ(T_T)!無かった事にします。pObjectの削除");
 					delete ((GgafActor*)pObject);
-					::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(10);
 					continue;
 				} else {
@@ -191,17 +191,17 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 		if (_pOrder_First == NULL) {
 			//無条件待機
 			TRACE2("GgafSubcontractor::work 工場には何もありません。さぁなんでも注文来やがれ！（待機）");
-			::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+			::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 		} else {
 			if (_pOrder_First != NULL && _pOrder_First -> _pOrder_Prev -> _progress == 0) {
 				TRACE2("GgafSubcontractor::work ･･･む、次に未製造の注文["<<_pOrder_InManufacturing->_pOrder_Next->_id<<"]がありんす");
 				_pOrder_InManufacturing = _pOrder_InManufacturing -> _pOrder_Next;
-				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 				Sleep(10);
 				continue;
 			} else {
 				TRACE2("GgafSubcontractor::work 製造済の注文はあるが、未製造注文は無し。ってかよゆ～ｗ（待機）");
-				::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			}
 		}
 

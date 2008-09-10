@@ -21,11 +21,11 @@ void EnemyJuno::initialize() {
 void EnemyJuno::processHappen(int prm_no) {
 
 	if (prm_no == HAPPEN_PLAY_BEGIN) {
-		_X += FormationJuno001::_X_whole;
+		_X += FormationJuno001::_s_X_FormationWhole;
 	}
 }
 void EnemyJuno::processBehavior() {
-	_X += FormationJuno001::_incX_whole;
+	_X += FormationJuno001::_s_incX;
 	//À•W‚É”½‰f
 	_pMover -> behave();
 }

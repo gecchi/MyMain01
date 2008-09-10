@@ -30,13 +30,13 @@ void GgafDx9SpriteActor::processDrawMain() {
 	static D3DXMATRIX matrixTransWorld;  //WORLDïœä∑çsóÒ
 	D3DXMatrixIdentity(&matrixTransWorld); //íPà çsóÒÇ÷
 	//float fRateScale = (LEN_UNIT*PX_UNIT);
-	matrixTransWorld._11 = GgafDx9Util::_aCos[_RZ];
-	matrixTransWorld._12 = GgafDx9Util::_aSin[_RZ];
+	matrixTransWorld._11 = GgafDx9Util::COS[_RZ];
+	matrixTransWorld._12 = GgafDx9Util::SIN[_RZ];
 	matrixTransWorld._13 = 0.0;
 	matrixTransWorld._14 = 0.0;
 
-	matrixTransWorld._21 = (float)(-1.0*GgafDx9Util::_aSin[_RZ]);
-	matrixTransWorld._22 = GgafDx9Util::_aCos[_RZ];
+	matrixTransWorld._21 = (float)(-1.0*GgafDx9Util::SIN[_RZ]);
+	matrixTransWorld._22 = GgafDx9Util::COS[_RZ];
 	matrixTransWorld._23 = 0.0;
 	matrixTransWorld._24 = 0.0;
 

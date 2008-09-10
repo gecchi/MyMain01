@@ -74,9 +74,9 @@ public:
 	 * _pOrder_First が指している製品の連結リストを全て解放する<BR>
 	 * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
 	 * ＜コード例＞ <BR>
-	 * ::EnterCriticalSection(&(GgafGod::_cs1)); // -----> 排他開始<BR>
+	 * ::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始<BR>
 	 * GgafSubcontractor::clean();<BR>
-	 * ::LeaveCriticalSection(&(GgafGod::_cs1)); // <----- 排他終了<BR>
+	 * ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了<BR>
 	 */
 	static void clean();
 
