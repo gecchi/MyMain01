@@ -11,7 +11,6 @@ GgafDx9SquareModel::GgafDx9SquareModel(string prm_platemodel_name) : GgafDx9Mode
 	_pModel_Next = NULL;
 	_iSize_Vertecs = 0;
 	_iSize_Verte_unit = 0;
-
 	//デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
 	//GgafDx9ModelManager::restoreSquareModel で行っている。
 }
