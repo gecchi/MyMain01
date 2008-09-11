@@ -8,9 +8,9 @@ private:
 	static GgafGod* _pGod;
 
 	/** 先頭の注文 */
-	static GgafOrder* _pOrder_First;
+	static GgafOrder* ROOT_ORDER;
 	/** 現在製造中の注文 */
-	static GgafOrder* _pOrder_InManufacturing;
+	static GgafOrder* CREATING_ORDER;
 	//全て製造済みの場合、最終注文を指しつづける
 	//全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
 	//_isLastOrder == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
@@ -71,7 +71,7 @@ public:
 
 	/**
 	 * 工場を掃除する<BR>
-	 * _pOrder_First が指している製品の連結リストを全て解放する<BR>
+	 * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>
 	 * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
 	 * ＜コード例＞ <BR>
 	 * ::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始<BR>
