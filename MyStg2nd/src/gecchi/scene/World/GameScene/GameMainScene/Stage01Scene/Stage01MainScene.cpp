@@ -5,9 +5,9 @@ Stage01MainScene::Stage01MainScene(string prm_name) : DefaultScene(prm_name) {
 
 	// 以下の gen start ～ end はマクロにより自動生成されたコードです。変更はマクロから行って下さい。
 	// gen01 start
-	DWORD dw[] = {1,7,9,10,11,29,49,69,89,109,129,149,169,189,209,229,249,269,289,309,329,349,369,389,409,429,449,469,489,509,529,549,569,589,609,629,649,669,689,709,729,749,769,789,809,829,849,869,889,909,929,949,969,989,1009,1029,1049,1069,1089,1109,1129,1149,1169,1189,1209,1229,1249,1269,1289,1309,1329,1349,1369,1389,1409,1429,1449,1469,1489,1509,1529,1549,1569,1589,1609,1629,1649,1669,1689,1709,1729,1749,1769,1789,1809,1829,1849,1869,1889,1909,1929,1949,1969,1989,2009,2029,2049,2069,2089,2109,2129,2149,2169,2189,2209,2229,2249,2269,2289,2309,2329,2349,2369,2389,2409,2429,2449,2469,2489,2509,2529,2549,2569,2589,2609,2629,2649,2669,2689,2709,2729,2749,2769,2789,2809,2829,2849,2869,2889,2909,2929,2949,2969,2989};
-	_paFrame_NextEvent = new DWORD[154];
-	for (int i = 0; i < 154; i++) {
+	DWORD dw[] = {1,20,21,22,40,60,80,100,120,140,160,180,200,220,240,260,280,300,320,321,322,340,360,380,400,420,440,460,480,500,520,540,560,580,600,620,640,660,680,700,720,740,760,780,800,820,840,860,880,900,920,940,960,980,1000,1020,1040,1060,1080,1100,1120,1140,1160,1180,1200,1220,1240,1260,1280,1300,1320,1340,1360,1380,1400,1420,1440,1460,1480,1500,1520,1540,1560,1580,1600,1620,1640,1660,1680,1700,1720,1740,1760,1780,1800,1820,1840,1860,1880,1900,1920,1940,1960,1980,2000,2020,2040,2060,2080,2100,2120,2140,2160,2180,2200,2220,2240,2260,2280,2300,2320,2340,2360,2380,2400,2420,2440,2460,2480,2500,2520,2540,2560,2580,2600,2620,2640,2660,2680,2700,2720,2740,2760,2780,2800,2820,2840,2860,2880,2900,2920,2940,2960,2980,3000};
+	_paFrame_NextEvent = new DWORD[155];
+	for (int i = 0; i < 155; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
 	// gen01 end
@@ -24,618 +24,590 @@ void Stage01MainScene::processBehavior() {
 	if (_dwFrame == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (_dwFrame) {
 			case 1:
-				MyFactory::orderActor("[106-6]7", MyFactory::createFormationJuno001First, (void*)(NEW int(GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT*2)));
-				MyFactory::orderActor("[108-6]9", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]29", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]49", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]69", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]89", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]109", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]129", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]149", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]169", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]189", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]209", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]229", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]249", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]269", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]289", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]309", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]329", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]349", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]369", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]389", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]409", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]429", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]449", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]469", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]489", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]509", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]529", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]549", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]569", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]589", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]609", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]629", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]649", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]669", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[108-6]689", MyFactory::createFormationJuno001, NULL);
-				MyFactory::orderActor("[109-6]10", MyFactory::createFormationCeres001, NULL);
-				MyFactory::orderActor("[110-6]11", MyFactory::createFormationCeres001, NULL);
-				break;
-			case 7:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[106-6]7"));
-				break;
-			case 9:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]9"));
-				MyFactory::orderActor("[108-6]709", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 10:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[109-6]10"));
-				break;
-			case 11:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[110-6]11"));
-				break;
-			case 29:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]29"));
-				MyFactory::orderActor("[108-6]729", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 49:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]49"));
-				MyFactory::orderActor("[108-6]749", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 69:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]69"));
-				MyFactory::orderActor("[108-6]769", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 89:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]89"));
-				MyFactory::orderActor("[108-6]789", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 109:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]109"));
-				MyFactory::orderActor("[108-6]809", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 129:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]129"));
-				MyFactory::orderActor("[108-6]829", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 149:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]149"));
-				MyFactory::orderActor("[108-6]849", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 169:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]169"));
-				MyFactory::orderActor("[108-6]869", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 189:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]189"));
-				MyFactory::orderActor("[108-6]889", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 209:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]209"));
-				MyFactory::orderActor("[108-6]909", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 229:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]229"));
-				MyFactory::orderActor("[108-6]929", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 249:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]249"));
-				MyFactory::orderActor("[108-6]949", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 269:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]269"));
-				MyFactory::orderActor("[108-6]969", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 289:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]289"));
-				MyFactory::orderActor("[108-6]989", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 309:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]309"));
-				MyFactory::orderActor("[108-6]1009", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 329:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]329"));
-				MyFactory::orderActor("[108-6]1029", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 349:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]349"));
-				MyFactory::orderActor("[108-6]1049", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 369:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]369"));
-				MyFactory::orderActor("[108-6]1069", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 389:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]389"));
-				MyFactory::orderActor("[108-6]1089", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 409:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]409"));
-				MyFactory::orderActor("[108-6]1109", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 429:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]429"));
-				MyFactory::orderActor("[108-6]1129", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 449:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]449"));
-				MyFactory::orderActor("[108-6]1149", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 469:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]469"));
-				MyFactory::orderActor("[108-6]1169", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 489:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]489"));
-				MyFactory::orderActor("[108-6]1189", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 509:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]509"));
-				MyFactory::orderActor("[108-6]1209", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 529:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]529"));
-				MyFactory::orderActor("[108-6]1229", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 549:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]549"));
-				MyFactory::orderActor("[108-6]1249", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 569:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]569"));
-				MyFactory::orderActor("[108-6]1269", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 589:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]589"));
-				MyFactory::orderActor("[108-6]1289", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 609:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]609"));
-				MyFactory::orderActor("[108-6]1309", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 629:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]629"));
-				MyFactory::orderActor("[108-6]1329", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 649:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]649"));
-				MyFactory::orderActor("[108-6]1349", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 669:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]669"));
-				MyFactory::orderActor("[108-6]1369", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 689:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]689"));
-				MyFactory::orderActor("[108-6]1389", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 709:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]709"));
-				MyFactory::orderActor("[108-6]1409", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 729:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]729"));
-				MyFactory::orderActor("[108-6]1429", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 749:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]749"));
-				MyFactory::orderActor("[108-6]1449", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 769:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]769"));
-				MyFactory::orderActor("[108-6]1469", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 789:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]789"));
-				MyFactory::orderActor("[108-6]1489", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 809:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]809"));
-				MyFactory::orderActor("[108-6]1509", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 829:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]829"));
-				MyFactory::orderActor("[108-6]1529", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 849:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]849"));
-				MyFactory::orderActor("[108-6]1549", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 869:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]869"));
-				MyFactory::orderActor("[108-6]1569", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 889:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]889"));
-				MyFactory::orderActor("[108-6]1589", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 909:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]909"));
-				MyFactory::orderActor("[108-6]1609", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 929:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]929"));
-				MyFactory::orderActor("[108-6]1629", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 949:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]949"));
-				MyFactory::orderActor("[108-6]1649", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 969:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]969"));
-				MyFactory::orderActor("[108-6]1669", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 989:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]989"));
-				MyFactory::orderActor("[108-6]1689", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1009:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1009"));
-				MyFactory::orderActor("[108-6]1709", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1029:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1029"));
-				MyFactory::orderActor("[108-6]1729", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1049:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1049"));
-				MyFactory::orderActor("[108-6]1749", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1069:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1069"));
-				MyFactory::orderActor("[108-6]1769", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1089:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1089"));
-				MyFactory::orderActor("[108-6]1789", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1109:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1109"));
-				MyFactory::orderActor("[108-6]1809", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1129:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1129"));
-				MyFactory::orderActor("[108-6]1829", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1149:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1149"));
-				MyFactory::orderActor("[108-6]1849", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1169:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1169"));
-				MyFactory::orderActor("[108-6]1869", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1189:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1189"));
-				MyFactory::orderActor("[108-6]1889", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1209:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1209"));
-				MyFactory::orderActor("[108-6]1909", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1229:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1229"));
-				MyFactory::orderActor("[108-6]1929", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1249:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1249"));
-				MyFactory::orderActor("[108-6]1949", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1269:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1269"));
-				MyFactory::orderActor("[108-6]1969", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1289:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1289"));
-				MyFactory::orderActor("[108-6]1989", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1309:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1309"));
-				MyFactory::orderActor("[108-6]2009", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1329:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1329"));
-				MyFactory::orderActor("[108-6]2029", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1349:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1349"));
-				MyFactory::orderActor("[108-6]2049", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1369:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1369"));
-				MyFactory::orderActor("[108-6]2069", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1389:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1389"));
-				MyFactory::orderActor("[108-6]2089", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1409:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1409"));
-				MyFactory::orderActor("[108-6]2109", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1429:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1429"));
-				MyFactory::orderActor("[108-6]2129", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1449:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1449"));
-				MyFactory::orderActor("[108-6]2149", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1469:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1469"));
-				MyFactory::orderActor("[108-6]2169", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1489:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1489"));
-				MyFactory::orderActor("[108-6]2189", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1509:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1509"));
-				MyFactory::orderActor("[108-6]2209", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1529:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1529"));
-				MyFactory::orderActor("[108-6]2229", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1549:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1549"));
-				MyFactory::orderActor("[108-6]2249", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1569:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1569"));
-				MyFactory::orderActor("[108-6]2269", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1589:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1589"));
-				MyFactory::orderActor("[108-6]2289", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1609:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1609"));
-				MyFactory::orderActor("[108-6]2309", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1629:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1629"));
-				MyFactory::orderActor("[108-6]2329", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1649:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1649"));
-				MyFactory::orderActor("[108-6]2349", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1669:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1669"));
-				MyFactory::orderActor("[108-6]2369", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1689:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1689"));
-				MyFactory::orderActor("[108-6]2389", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1709:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1709"));
-				MyFactory::orderActor("[108-6]2409", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1729:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1729"));
-				MyFactory::orderActor("[108-6]2429", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1749:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1749"));
-				MyFactory::orderActor("[108-6]2449", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1769:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1769"));
-				MyFactory::orderActor("[108-6]2469", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1789:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1789"));
-				MyFactory::orderActor("[108-6]2489", MyFactory::createFormationJuno001, NULL);
-				break;
-			case 1809:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1809"));
-				MyFactory::orderActor("[108-6]2509", MyFactory::createFormationJuno001, NULL);
+				MyFactory::orderActor("[106-6]300", MyFactory::createFormationJuno001First, (void*)(NEW int(GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT*2)));
 				break;
-			case 1829:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1829"));
-				MyFactory::orderActor("[108-6]2529", MyFactory::createFormationJuno001, NULL);
+			case 20:
+				MyFactory::orderActor("[108-6]320", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1849:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1849"));
-				MyFactory::orderActor("[108-6]2549", MyFactory::createFormationJuno001, NULL);
+			case 21:
+				MyFactory::orderActor("[109-6]321", MyFactory::createFormationCeres001, NULL);
 				break;
-			case 1869:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1869"));
-				MyFactory::orderActor("[108-6]2569", MyFactory::createFormationJuno001, NULL);
+			case 22:
+				MyFactory::orderActor("[110-6]322", MyFactory::createFormationCeres001, NULL);
 				break;
-			case 1889:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1889"));
-				MyFactory::orderActor("[108-6]2589", MyFactory::createFormationJuno001, NULL);
+			case 40:
+				MyFactory::orderActor("[108-6]340", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1909:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1909"));
-				MyFactory::orderActor("[108-6]2609", MyFactory::createFormationJuno001, NULL);
+			case 60:
+				MyFactory::orderActor("[108-6]360", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1929:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1929"));
-				MyFactory::orderActor("[108-6]2629", MyFactory::createFormationJuno001, NULL);
+			case 80:
+				MyFactory::orderActor("[108-6]380", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1949:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1949"));
-				MyFactory::orderActor("[108-6]2649", MyFactory::createFormationJuno001, NULL);
+			case 100:
+				MyFactory::orderActor("[108-6]400", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1969:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1969"));
-				MyFactory::orderActor("[108-6]2669", MyFactory::createFormationJuno001, NULL);
+			case 120:
+				MyFactory::orderActor("[108-6]420", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 1989:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1989"));
-				MyFactory::orderActor("[108-6]2689", MyFactory::createFormationJuno001, NULL);
+			case 140:
+				MyFactory::orderActor("[108-6]440", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2009:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2009"));
-				MyFactory::orderActor("[108-6]2709", MyFactory::createFormationJuno001, NULL);
+			case 160:
+				MyFactory::orderActor("[108-6]460", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2029:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2029"));
-				MyFactory::orderActor("[108-6]2729", MyFactory::createFormationJuno001, NULL);
+			case 180:
+				MyFactory::orderActor("[108-6]480", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2049:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2049"));
-				MyFactory::orderActor("[108-6]2749", MyFactory::createFormationJuno001, NULL);
+			case 200:
+				MyFactory::orderActor("[108-6]500", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2069:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2069"));
-				MyFactory::orderActor("[108-6]2769", MyFactory::createFormationJuno001, NULL);
+			case 220:
+				MyFactory::orderActor("[108-6]520", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2089:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2089"));
-				MyFactory::orderActor("[108-6]2789", MyFactory::createFormationJuno001, NULL);
+			case 240:
+				MyFactory::orderActor("[108-6]540", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2109:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2109"));
-				MyFactory::orderActor("[108-6]2809", MyFactory::createFormationJuno001, NULL);
+			case 260:
+				MyFactory::orderActor("[108-6]560", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2129:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2129"));
-				MyFactory::orderActor("[108-6]2829", MyFactory::createFormationJuno001, NULL);
+			case 280:
+				MyFactory::orderActor("[108-6]580", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2149:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2149"));
-				MyFactory::orderActor("[108-6]2849", MyFactory::createFormationJuno001, NULL);
+			case 300:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[106-6]300"));
+				MyFactory::orderActor("[108-6]600", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2169:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2169"));
-				MyFactory::orderActor("[108-6]2869", MyFactory::createFormationJuno001, NULL);
+			case 320:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]320"));
+				MyFactory::orderActor("[108-6]620", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2189:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2189"));
-				MyFactory::orderActor("[108-6]2889", MyFactory::createFormationJuno001, NULL);
+			case 321:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[109-6]321"));
 				break;
-			case 2209:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2209"));
-				MyFactory::orderActor("[108-6]2909", MyFactory::createFormationJuno001, NULL);
+			case 322:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[110-6]322"));
 				break;
-			case 2229:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2229"));
-				MyFactory::orderActor("[108-6]2929", MyFactory::createFormationJuno001, NULL);
+			case 340:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]340"));
+				MyFactory::orderActor("[108-6]640", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2249:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2249"));
-				MyFactory::orderActor("[108-6]2949", MyFactory::createFormationJuno001, NULL);
+			case 360:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]360"));
+				MyFactory::orderActor("[108-6]660", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2269:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2269"));
-				MyFactory::orderActor("[108-6]2969", MyFactory::createFormationJuno001, NULL);
+			case 380:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]380"));
+				MyFactory::orderActor("[108-6]680", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2289:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2289"));
-				MyFactory::orderActor("[108-6]2989", MyFactory::createFormationJuno001, NULL);
+			case 400:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]400"));
+				MyFactory::orderActor("[108-6]700", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2309:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2309"));
+			case 420:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]420"));
+				MyFactory::orderActor("[108-6]720", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2329:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2329"));
+			case 440:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]440"));
+				MyFactory::orderActor("[108-6]740", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2349:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2349"));
+			case 460:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]460"));
+				MyFactory::orderActor("[108-6]760", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2369:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2369"));
+			case 480:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]480"));
+				MyFactory::orderActor("[108-6]780", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2389:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2389"));
+			case 500:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]500"));
+				MyFactory::orderActor("[108-6]800", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2409:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2409"));
+			case 520:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]520"));
+				MyFactory::orderActor("[108-6]820", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 540:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]540"));
+				MyFactory::orderActor("[108-6]840", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 560:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]560"));
+				MyFactory::orderActor("[108-6]860", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 580:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]580"));
+				MyFactory::orderActor("[108-6]880", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 600:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]600"));
+				MyFactory::orderActor("[108-6]900", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 620:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]620"));
+				MyFactory::orderActor("[108-6]920", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 640:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]640"));
+				MyFactory::orderActor("[108-6]940", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 660:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]660"));
+				MyFactory::orderActor("[108-6]960", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 680:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]680"));
+				MyFactory::orderActor("[108-6]980", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 700:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]700"));
+				MyFactory::orderActor("[108-6]1000", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 720:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]720"));
+				MyFactory::orderActor("[108-6]1020", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 740:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]740"));
+				MyFactory::orderActor("[108-6]1040", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 760:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]760"));
+				MyFactory::orderActor("[108-6]1060", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 780:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]780"));
+				MyFactory::orderActor("[108-6]1080", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 800:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]800"));
+				MyFactory::orderActor("[108-6]1100", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 820:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]820"));
+				MyFactory::orderActor("[108-6]1120", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 840:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]840"));
+				MyFactory::orderActor("[108-6]1140", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 860:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]860"));
+				MyFactory::orderActor("[108-6]1160", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 880:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]880"));
+				MyFactory::orderActor("[108-6]1180", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 900:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]900"));
+				MyFactory::orderActor("[108-6]1200", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 920:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]920"));
+				MyFactory::orderActor("[108-6]1220", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 940:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]940"));
+				MyFactory::orderActor("[108-6]1240", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 960:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]960"));
+				MyFactory::orderActor("[108-6]1260", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 980:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]980"));
+				MyFactory::orderActor("[108-6]1280", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1000:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1000"));
+				MyFactory::orderActor("[108-6]1300", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1020:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1020"));
+				MyFactory::orderActor("[108-6]1320", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1040:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1040"));
+				MyFactory::orderActor("[108-6]1340", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1060:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1060"));
+				MyFactory::orderActor("[108-6]1360", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1080:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1080"));
+				MyFactory::orderActor("[108-6]1380", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1100:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1100"));
+				MyFactory::orderActor("[108-6]1400", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1120:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1120"));
+				MyFactory::orderActor("[108-6]1420", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1140:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1140"));
+				MyFactory::orderActor("[108-6]1440", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1160:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1160"));
+				MyFactory::orderActor("[108-6]1460", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1180:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1180"));
+				MyFactory::orderActor("[108-6]1480", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1200:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1200"));
+				MyFactory::orderActor("[108-6]1500", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1220:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1220"));
+				MyFactory::orderActor("[108-6]1520", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1240:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1240"));
+				MyFactory::orderActor("[108-6]1540", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1260:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1260"));
+				MyFactory::orderActor("[108-6]1560", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1280:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1280"));
+				MyFactory::orderActor("[108-6]1580", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1300:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1300"));
+				MyFactory::orderActor("[108-6]1600", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1320:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1320"));
+				MyFactory::orderActor("[108-6]1620", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1340:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1340"));
+				MyFactory::orderActor("[108-6]1640", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1360:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1360"));
+				MyFactory::orderActor("[108-6]1660", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1380:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1380"));
+				MyFactory::orderActor("[108-6]1680", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1400:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1400"));
+				MyFactory::orderActor("[108-6]1700", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1420:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1420"));
+				MyFactory::orderActor("[108-6]1720", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1440:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1440"));
+				MyFactory::orderActor("[108-6]1740", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1460:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1460"));
+				MyFactory::orderActor("[108-6]1760", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1480:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1480"));
+				MyFactory::orderActor("[108-6]1780", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1500:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1500"));
+				MyFactory::orderActor("[108-6]1800", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1520:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1520"));
+				MyFactory::orderActor("[108-6]1820", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1540:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1540"));
+				MyFactory::orderActor("[108-6]1840", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1560:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1560"));
+				MyFactory::orderActor("[108-6]1860", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1580:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1580"));
+				MyFactory::orderActor("[108-6]1880", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1600:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1600"));
+				MyFactory::orderActor("[108-6]1900", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1620:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1620"));
+				MyFactory::orderActor("[108-6]1920", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1640:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1640"));
+				MyFactory::orderActor("[108-6]1940", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1660:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1660"));
+				MyFactory::orderActor("[108-6]1960", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1680:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1680"));
+				MyFactory::orderActor("[108-6]1980", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1700:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1700"));
+				MyFactory::orderActor("[108-6]2000", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1720:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1720"));
+				MyFactory::orderActor("[108-6]2020", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1740:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1740"));
+				MyFactory::orderActor("[108-6]2040", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1760:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1760"));
+				MyFactory::orderActor("[108-6]2060", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1780:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1780"));
+				MyFactory::orderActor("[108-6]2080", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1800:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1800"));
+				MyFactory::orderActor("[108-6]2100", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1820:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1820"));
+				MyFactory::orderActor("[108-6]2120", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1840:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1840"));
+				MyFactory::orderActor("[108-6]2140", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1860:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1860"));
+				MyFactory::orderActor("[108-6]2160", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1880:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1880"));
+				MyFactory::orderActor("[108-6]2180", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1900:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1900"));
+				MyFactory::orderActor("[108-6]2200", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1920:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1920"));
+				MyFactory::orderActor("[108-6]2220", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1940:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1940"));
+				MyFactory::orderActor("[108-6]2240", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1960:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1960"));
+				MyFactory::orderActor("[108-6]2260", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 1980:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]1980"));
+				MyFactory::orderActor("[108-6]2280", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2000:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2000"));
+				MyFactory::orderActor("[108-6]2300", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2020:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2020"));
+				MyFactory::orderActor("[108-6]2320", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2040:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2040"));
+				MyFactory::orderActor("[108-6]2340", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2060:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2060"));
+				MyFactory::orderActor("[108-6]2360", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2080:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2080"));
+				MyFactory::orderActor("[108-6]2380", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2100:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2100"));
+				MyFactory::orderActor("[108-6]2400", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2120:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2120"));
+				MyFactory::orderActor("[108-6]2420", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2140:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2140"));
+				MyFactory::orderActor("[108-6]2440", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2160:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2160"));
+				MyFactory::orderActor("[108-6]2460", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2180:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2180"));
+				MyFactory::orderActor("[108-6]2480", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2200:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2200"));
+				MyFactory::orderActor("[108-6]2500", MyFactory::createFormationJuno001, NULL);
+				break;
+			case 2220:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2220"));
+				MyFactory::orderActor("[108-6]2520", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2429:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2429"));
+			case 2240:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2240"));
+				MyFactory::orderActor("[108-6]2540", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2449:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2449"));
+			case 2260:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2260"));
+				MyFactory::orderActor("[108-6]2560", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2469:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2469"));
+			case 2280:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2280"));
+				MyFactory::orderActor("[108-6]2580", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2489:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2489"));
+			case 2300:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2300"));
+				MyFactory::orderActor("[108-6]2600", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2509:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2509"));
+			case 2320:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2320"));
+				MyFactory::orderActor("[108-6]2620", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2529:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2529"));
+			case 2340:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2340"));
+				MyFactory::orderActor("[108-6]2640", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2549:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2549"));
+			case 2360:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2360"));
+				MyFactory::orderActor("[108-6]2660", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2569:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2569"));
+			case 2380:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2380"));
+				MyFactory::orderActor("[108-6]2680", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2589:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2589"));
+			case 2400:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2400"));
+				MyFactory::orderActor("[108-6]2700", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2609:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2609"));
+			case 2420:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2420"));
+				MyFactory::orderActor("[108-6]2720", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2629:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2629"));
+			case 2440:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2440"));
+				MyFactory::orderActor("[108-6]2740", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2649:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2649"));
+			case 2460:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2460"));
+				MyFactory::orderActor("[108-6]2760", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2669:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2669"));
+			case 2480:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2480"));
+				MyFactory::orderActor("[108-6]2780", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2689:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2689"));
+			case 2500:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2500"));
+				MyFactory::orderActor("[108-6]2800", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2709:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2709"));
+			case 2520:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2520"));
+				MyFactory::orderActor("[108-6]2820", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2729:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2729"));
+			case 2540:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2540"));
+				MyFactory::orderActor("[108-6]2840", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2749:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2749"));
+			case 2560:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2560"));
+				MyFactory::orderActor("[108-6]2860", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2769:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2769"));
+			case 2580:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2580"));
+				MyFactory::orderActor("[108-6]2880", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2789:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2789"));
+			case 2600:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2600"));
+				MyFactory::orderActor("[108-6]2900", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2809:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2809"));
+			case 2620:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2620"));
+				MyFactory::orderActor("[108-6]2920", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2829:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2829"));
+			case 2640:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2640"));
+				MyFactory::orderActor("[108-6]2940", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2849:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2849"));
+			case 2660:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2660"));
+				MyFactory::orderActor("[108-6]2960", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2869:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2869"));
+			case 2680:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2680"));
+				MyFactory::orderActor("[108-6]2980", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2889:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2889"));
+			case 2700:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2700"));
+				MyFactory::orderActor("[108-6]3000", MyFactory::createFormationJuno001, NULL);
 				break;
-			case 2909:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2909"));
+			case 2720:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2720"));
 				break;
-			case 2929:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2929"));
+			case 2740:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2740"));
 				break;
-			case 2949:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2949"));
+			case 2760:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2760"));
 				break;
-			case 2969:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2969"));
+			case 2780:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2780"));
 				break;
-			case 2989:
-				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2989"));
+			case 2800:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2800"));
+				break;
+			case 2820:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2820"));
+				break;
+			case 2840:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2840"));
+				break;
+			case 2860:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2860"));
+				break;
+			case 2880:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2880"));
+				break;
+			case 2900:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2900"));
+				break;
+			case 2920:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2920"));
+				break;
+			case 2940:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2940"));
+				break;
+			case 2960:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2960"));
+				break;
+			case 2980:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]2980"));
+				break;
+			case 3000:
+				getLordActor()->accept(KIND_ENEMY, MyFactory::obtainActor("[108-6]3000"));
 				break;
 			default :
 				break;

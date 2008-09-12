@@ -17,11 +17,9 @@ ATOM				MyRegisterClass(HINSTANCE hInstance);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
-/*
-	gccコンパイルのためにmainから開始します。
-	int STDCALL WinMain(HANDLE hInstance, HANDLE hPrevInstance,
-						LPSTR lpszCmdParam, int nCmdShow) {
-*/
+/**
+ * GNU GCC ならばエントリポイント
+ */
 int main(int argc,char *argv[]) {
 	STARTUPINFO	StatUpInfo;
 	HINSTANCE		hInstance;
@@ -32,10 +30,6 @@ int main(int argc,char *argv[]) {
 	HWND		hWnd;
 //	MSG			msg;
 
-	/*
-		WinMainの引数を求めます。 WinMainからStartUpの場合は
-		要らない無駄なコードです。
-	 */
 	GetStartupInfo(&StatUpInfo);
 	hInstance = GetModuleHandle(0);
 	hPrevInstance = 0;
@@ -56,6 +50,8 @@ cout << lpCmdLine << endl;
 		SetForegroundWindow(hWnd);
 		return 0;
 	}
+
+	//本来のWinMainへ
 	WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
@@ -78,7 +74,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
 	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
 
-	strcpy(szTitle,"MySTG2nd");        //無理やりｗ
+	strcpy(szTitle,"MySTG2nd");        //無理やり
 	strcpy(szWindowClass,"MYSTG2ND");  //ですよ！
 
 
@@ -100,9 +96,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		szTitle,				// ウインドウのタイトル名
 		WS_OVERLAPPEDWINDOW,	// ウインドウスタイル
 		CW_USEDEFAULT,			// ウィンドウの表示Ｘ座標
-		CW_USEDEFAULT,						// ウィンドウの表示Ｙ座標
-		GGAFDX9_PROPERTY(SCREEN_WIDTH),			// ウィンドウの幅
-		GGAFDX9_PROPERTY(SCREEN_HEIGHT),						// ウィンドウの高さ
+		CW_USEDEFAULT,			// ウィンドウの表示Ｙ座標
+		GGAFDX9_PROPERTY(SCREEN_WIDTH),		// ウィンドウの幅
+		GGAFDX9_PROPERTY(SCREEN_HEIGHT),	// ウィンドウの高さ
 		NULL,					// 親ウインドウ
 		NULL,					// ウインドウメニュー
 		hInstance,				// インスタンスハンドル
@@ -122,17 +118,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//メモリーリ－クチェックBEGIN
 	::detectMemoryLeaksStart(std::cout);
 #endif
-	//神の誕生
+
+	//神の誕生！
 	God* god = NEW God(hInstance, hWnd);
 	if (SUCCEEDED(god->init())) {
-		// メイン メッセージ ループ:
-		::timeBeginPeriod(1);//タイマー精度
+
+		// ループ・ザ・ループ
+		::timeBeginPeriod(1);
 		while (true) {
 			if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
 				if (msg.message == WM_QUIT) {
-					delete god; //神の最後
+					delete god; //神様さようなら
 					GgafDx9Properties::clean();
-					::timeEndPeriod(1);//タイマー精度終了処理
+					::timeEndPeriod(1);
 #ifdef OREDEBUG
 					//メモリーリ－クチェックEND
 					::detectMemoryLeaksEnd(std::cout);
@@ -145,9 +143,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				try {
 					god->be(); //神が存在したらしめる（世界が動く）
 				} catch (GgafCriticalException& e) {
+					//異常終了時
+					string message = "以下のエラーが発生してしまいました。\n「"+e.getMsg()+"」\n誠に申\し訳ございません。"; //"申"はダメ字(0x905C)
+					MessageBox(NULL, message.c_str(),"Error", MB_OK|MB_ICONSTOP);
 					GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
 					god->_pWorld->dump();
-					delete god;
+					delete god; //神あぼん
 					GgafDx9Properties::clean();
 					::timeEndPeriod(1);//タイマー精度終了処理
 #ifdef OREDEBUG
