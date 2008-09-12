@@ -37,6 +37,9 @@ public:
 	/** 活動フラグ(神が操作する) */
 	static bool _isWorking;
 
+	/** 完全店終い */
+	static bool _isFinish;
+
 	/**
 	 * 工場にアクター作成の注文を行う<BR>
 	 * @param   prm_id	注文識別ID

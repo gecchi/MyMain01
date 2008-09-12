@@ -5,6 +5,7 @@ GgafGod* GgafSubcontractor::_pGod = NULL;
 GgafOrder* GgafSubcontractor::ROOT_ORDER = NULL;
 GgafOrder* GgafSubcontractor::CREATING_ORDER = NULL;
 bool       GgafSubcontractor::_isWorking = true;
+bool       GgafSubcontractor::_isFinish  = false;
 
 void GgafSubcontractor::orderActor(string prm_id, GgafMainActor* (*prm_functionForBuild)(void*), void* prm_argumentForBuild) {
 	order(prm_id, (GgafObject* (*)(void*))prm_functionForBuild, prm_argumentForBuild);
@@ -207,6 +208,7 @@ unsigned __stdcall GgafSubcontractor::work(void* prm_arg) {
 		Sleep(10);
 	}
 	TRACE2("GgafSubcontractor::work çHèÍÇÕÇ±ÇÍÇ…ÇƒìXÇ∂Ç‹Ç¢Ç≈Ç∑ÅBÇ≈ÇÕÅAÇ‹ÇΩâÔÇ¢Ç‹ÇµÇÂÇ§ÅB");
+	_isFinish = true;
 	return 0;
 }
 
