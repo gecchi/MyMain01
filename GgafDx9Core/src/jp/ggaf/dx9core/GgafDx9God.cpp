@@ -339,6 +339,10 @@ GgafDx9God::~GgafDx9God() {
 	GgafSubcontractor::_isWorking = false;
 	GgafSubcontractor::clean();
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+	//Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
+	while (GgafSubcontractor::_isFinish == false) {
+		Sleep(10);
+	}
 
 	//•ÛŽƒ‚ƒfƒ‹‰ð•ú
 	GgafDx9ModelManager::clear();
