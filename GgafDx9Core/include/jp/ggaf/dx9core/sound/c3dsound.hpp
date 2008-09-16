@@ -9,7 +9,7 @@
 // 頭上から光が差し込まれた思いでした。
 // 有益なサンプルを開発・公開して下さったAnder氏に感謝しつつ、流用させて頂きます。
 //
-//                                2008/09/09 Masatoshi Tsuge
+//                                2008/03/25 Masatoshi Tsuge
 //
 // 【対象コード】
 // c3dsound.hpp, oggdecorder.hpp, wavedecorder.hpp

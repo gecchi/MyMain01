@@ -117,8 +117,8 @@ public:
 	/**
 	 * Actorの目標回転方向自動制御機能を有効(現在XY座標からの対象XY座標で設定)<BR>
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_tX	xXY座標
-	 * @param	prm_tY	yXY座標
+	 * @param	prm_tX	対象X座標
+	 * @param	prm_tY	対象Y座標
 	 */
 	void setTargetAxisRotAngle(int prm_iAxis, int prm_tX, int prm_tY);
 

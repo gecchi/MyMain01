@@ -336,11 +336,11 @@ GgafDx9God::~GgafDx9God() {
 	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJn
 	Sleep(20);
 	//Hê‘|œ
-	GgafSubcontractor::_isWorking = false;
-	GgafSubcontractor::clean();
+	GgafFactory::_isWorking = false;
+	GgafFactory::clean();
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 	//Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
-	while (GgafSubcontractor::_isFinish == false) {
+	while (GgafFactory::_isFinish == false) {
 		Sleep(10);
 	}
 
