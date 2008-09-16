@@ -144,7 +144,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					god->be(); //神が存在したらしめる（世界が動く）
 				} catch (GgafCriticalException& e) {
 					//異常終了時
-					string message = "以下のエラーが発生してしまいました。\n「"+e.getMsg()+"」\n誠に恐れ入りますが、再現するようでしたらご連絡お願いいたします。"; //"申"はダメ字(0x905C)
+					string message = "以下のエラーが発生してしまいました。\n「"+e.getMsg()+"」\n誠に恐れ入りますが、再現するようでしたらご連絡お願いいたします。";
 					MessageBox(NULL, message.c_str(),"Error", MB_OK|MB_ICONSTOP);
 					GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
 					god->_pWorld->dump();
