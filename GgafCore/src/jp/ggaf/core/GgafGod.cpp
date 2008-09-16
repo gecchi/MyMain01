@@ -14,7 +14,7 @@ _pWorld(NULL)
 	_handleFactory01 = (HANDLE)::_beginthreadex(
         NULL,
         0,
-        GgafSubcontractor::work,
+        GgafFactory::work,
         NULL,
         CREATE_SUSPENDED,
         &_thID01
@@ -27,7 +27,7 @@ _pWorld(NULL)
 	::InitializeCriticalSection(&(GgafGod::CS2));
 	::ResumeThread(_handleFactory01);
 	::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
-	GgafSubcontractor::_pGod = this;
+	GgafFactory::_pGod = this;
 
 	_dwTime_FrameBegin = timeGetTime();
 	_dwTime_ScheduledNextFrame = (DWORD)(_dwTime_FrameBegin + 1000);
@@ -135,7 +135,7 @@ GgafGod::~GgafGod() {
     CloseHandle(_handleFactory01);
     DeleteCriticalSection(&(GgafGod::CS2));
 	DeleteCriticalSection(&(GgafGod::CS1));
-	GgafSubcontractor::_pGod = NULL;
+	GgafFactory::_pGod = NULL;
 
 	TRACE("GgafGod::~GgafGod end");
 }

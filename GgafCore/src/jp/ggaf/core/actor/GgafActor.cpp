@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-GgafActor::GgafActor(string prm_name) : GgafFactor<GgafActor>(prm_name) {
+GgafActor::GgafActor(string prm_name) : GgafElement<GgafActor>(prm_name) {
 	TRACE("GgafActor::GgafActor("+prm_name+")");
 	_class_name = "GgafActor";
 	_canBump  = true;

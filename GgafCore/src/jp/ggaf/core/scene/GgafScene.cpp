@@ -2,7 +2,7 @@
 GgafHeadActor* GgafScene::_s_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
 GgafHeadActor* GgafScene::_s_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
 
-GgafScene::GgafScene(string prm_name) : GgafFactor<GgafScene>(prm_name)  {
+GgafScene::GgafScene(string prm_name) : GgafElement<GgafScene>(prm_name)  {
 	TRACE("GgafScene::GgafScene() "+prm_name);
 	_class_name = "GgafScene";
 	_pLordActor = NEW GgafLordActor(this);
@@ -21,117 +21,117 @@ GgafScene::~GgafScene() {
 
 void GgafScene::nextFrame() {
 	TRACE("GgafScene::nextFrame() "+getName());
-	GgafFactor<GgafScene>::nextFrame();
+	GgafElement<GgafScene>::nextFrame();
 	_pLordActor->nextFrame();
 }
 
 void GgafScene::behave() {
 	TRACE("GgafScene::behave() "+getName());
-	GgafFactor<GgafScene>::behave();
+	GgafElement<GgafScene>::behave();
 	_pLordActor->behave();
 }
 
 void GgafScene::judge() {
 	TRACE("GgafScene::judge() "+getName());
-	GgafFactor<GgafScene>::judge();
+	GgafElement<GgafScene>::judge();
 	_pLordActor->judge();
 }
 
 void GgafScene::drawPrior() {
 	TRACE("GgafScene::drawPrior() "+getName());
-	GgafFactor<GgafScene>::drawPrior();
+	GgafElement<GgafScene>::drawPrior();
 	_pLordActor->drawPrior();
 }
 
 void GgafScene::drawMain() {
 	TRACE("GgafScene::drawMain() "+getName());
-	GgafFactor<GgafScene>::drawMain();
+	GgafElement<GgafScene>::drawMain();
 	_pLordActor->drawMain();
 }
 
 void GgafScene::drawTerminate() {
 	TRACE("GgafScene::drawTerminate() "+getName());
-	GgafFactor<GgafScene>::drawTerminate();
+	GgafElement<GgafScene>::drawTerminate();
 	_pLordActor->drawTerminate();
 }
 
 void GgafScene::happen(int prm_no) {
-	GgafFactor<GgafScene>::happen(prm_no);
+	GgafElement<GgafScene>::happen(prm_no);
 	_pLordActor->happen(prm_no);
 }
 
 void GgafScene::finally() {
-	GgafFactor<GgafScene>::finally();
+	GgafElement<GgafScene>::finally();
 	_pLordActor->finally();
 }
 
 void GgafScene::declarePlay() {
-	GgafFactor<GgafScene>::declarePlay();
+	GgafElement<GgafScene>::declarePlay();
 	_pLordActor->declarePlay();
 }
 
 void GgafScene::playImmediately() {
-	GgafFactor<GgafScene>::playImmediately();
+	GgafElement<GgafScene>::playImmediately();
 	_pLordActor->playImmediately();
 }
 
 void GgafScene::declareStop() {
-	GgafFactor<GgafScene>::declareStop();
+	GgafElement<GgafScene>::declareStop();
 	_pLordActor->declareStop();
 }
 
 void GgafScene::stopImmediately() {
-	GgafFactor<GgafScene>::stopImmediately();
+	GgafElement<GgafScene>::stopImmediately();
 	_pLordActor->stopImmediately();
 }
 
 void GgafScene::declarePause() {
-	GgafFactor<GgafScene>::declarePause();
+	GgafElement<GgafScene>::declarePause();
 	_pLordActor->declarePause();
 }
 
 void GgafScene::pauseImmediately() {
-	GgafFactor<GgafScene>::pauseImmediately();
+	GgafElement<GgafScene>::pauseImmediately();
 	_pLordActor->pauseImmediately();
 }
 
 void GgafScene::declareUnpause() {
-	GgafFactor<GgafScene>::declareUnpause();
+	GgafElement<GgafScene>::declareUnpause();
 	_pLordActor->declareUnpause();
 }
 
 void GgafScene::unpauseImmediately() {
-	GgafFactor<GgafScene>::unpauseImmediately();
+	GgafElement<GgafScene>::unpauseImmediately();
 	_pLordActor->unpauseImmediately();
 }
 
 void GgafScene::declareBlind() {
-	GgafFactor<GgafScene>::declareBlind();
+	GgafElement<GgafScene>::declareBlind();
 	_pLordActor->declareBlind();
 }
 
 void GgafScene::blindImmediately() {
-	GgafFactor<GgafScene>::blindImmediately();
+	GgafElement<GgafScene>::blindImmediately();
 	_pLordActor->blindImmediately();
 }
 
 void GgafScene::declareUnblind() {
-	GgafFactor<GgafScene>::declareUnblind();
+	GgafElement<GgafScene>::declareUnblind();
 	_pLordActor->declareUnblind();
 }
 
 void GgafScene::unblindImmediately() {
-	GgafFactor<GgafScene>::unblindImmediately();
+	GgafElement<GgafScene>::unblindImmediately();
 	_pLordActor->unblindImmediately();
 }
 
 void GgafScene::declareFinishLife() {
-	GgafFactor<GgafScene>::declareFinishLife();
+	GgafElement<GgafScene>::declareFinishLife();
 	_pLordActor->declareFinishLife();
 }
 
 void GgafScene::cleane() {
-	GgafFactor<GgafScene>::cleane();
+	GgafElement<GgafScene>::cleane();
 	_pLordActor->cleane();
 }
 
