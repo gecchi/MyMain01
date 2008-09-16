@@ -11,7 +11,7 @@ FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	int iScreenWidth = GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT;
 	int iScreenHeight = GGAFDX9_PROPERTY(SCREEN_HEIGHT)*LEN_UNIT;
 	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-		_pEnemyJuno[i] = NEW EnemyJuno("Juno01", "ebi");
+		_pEnemyJuno[i] = NEW EnemyJuno("Juno01", "vic2");
 		_pEnemyJuno[i] -> stopImmediately();
 		_pEnemyJuno[i]->_X = (pRndGen->genrand_int32() % (iScreenWidth)) - (iScreenHeight/2);
 		_pEnemyJuno[i]->_Y = (pRndGen->genrand_int32() % (iScreenHeight)) - (iScreenHeight/2);

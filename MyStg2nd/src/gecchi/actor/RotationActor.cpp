@@ -5,7 +5,7 @@ RotationActor::RotationActor(string prm_name) : GgafDummyActor(prm_name) {
     setBumpable(false);
 }
 
-GgafActor* RotationActor::getFreeOne() {
+GgafActor* RotationActor::get() {
 	if (_pSubFirst == NULL) {
 		throw_GgafCriticalException("RotationActor::getFreeOne() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
 	}

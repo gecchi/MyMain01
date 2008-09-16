@@ -9,7 +9,7 @@ class RotationActor : public GgafDummyActor {
 public:
 	RotationActor(string prm_name);
 
-	GgafActor* getFreeOne();
+	GgafActor* get();
 
 	virtual ~RotationActor();
 };

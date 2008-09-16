@@ -144,7 +144,7 @@ void MyShipActor::processBehavior() {
 
 	//ショットボタン
 	if (VirtualButton::arePushedDownAtOnce(VB_SHOT2, VB_SHOT3) || VirtualButton::isBeingPressed(VB_SHOT1)) {
-		Shot001Actor* pShot = (Shot001Actor*)(_pShot001Rotation->getFreeOne());
+		Shot001Actor* pShot = (Shot001Actor*)(_pShot001Rotation->get());
 		if (pShot) {
 			pShot->shotBegin();
 		}
