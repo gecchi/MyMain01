@@ -3,9 +3,9 @@
 
 /**
  * アクターの基底クラス .
- * 本プログラムで言う『アクター（演劇者）』とは、主にキャラクターオブジェクトを表します。<BR>
+ * 本プログラムで言う『アクター（演者）』とは、主にゲームのキャラクターを表します。<BR>
  * 全てのアクタークラスは、本クラスを直接・間接継承しなければなりません。<BR>
- * また、アクター同士で、ツリー階層構造を採る事ができます。<BR>
+ * また、アクター同士で、双方向環状連結リストのツリー階層構造を採る事ができます。<BR>
  * アクターに実装されているメソッド郡のほとんどは、自分自身と自分配下のアクター全てに影響する仕様になっています。<BR>
  * 基底テンプレートクラスの GgafNode も説明を参照のこと。
  * @version 1.00
@@ -39,7 +39,7 @@ private:
 	void setScenePlatform(GgafScene* prm_pScene_Platform);
 
     /**
-	 * 【自アクター ｘ　自ツリーアクターのどれか1つのアクター】の衝突判定処理を実行する .
+	 * 【自アクター 対 自ツリーアクターのどれか1つのアクター】の衝突判定処理を実行する .
 	 * 本メソッドは executeBumpChk2_WeAnd(GgafActor*)から呼び出される専用メソッド。汎用性はない。<BR>
 	 * 実行すると自アクターのprocessHitLogic()を呼び出し、その結果がtrueの場合(衝突した場合)は自身のprocessOnHit()と、
 	 * 相手のアクターのprocessOnHit()を呼び出す。<BR>
@@ -51,7 +51,7 @@ private:
 	bool executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent);
 
     /**
-	 * 【自ツリーアクター ｘ　自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
+	 * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
 	 * executeBumpChkRoundRobin2() から呼び出される。<BR>
 	 * executeBumpChk_WeAnd(GgafActor*)と基本的に同じアルゴリズムであるが、必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で<BR>
 	 * 離脱し、それ以上再帰ループを行わないようしている。残りの組み合わせは後続のループで補われる。（ハズである）<BR>
@@ -116,21 +116,21 @@ public:
 	virtual GgafScene* getPlatformScene();
 
     /**
-	 * 【自アクター ｘ　他アクター】の衝突判定処理を実行する .
+	 * 【自アクター 対 他アクター】の衝突判定処理を実行する .
 	 * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のprocessOnHit()と、相手アクターのprocessOnHit()が実行される .
 	 * @param	prm_pActor_Opponent	相手の他アクター
 	 */
 	virtual void executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent);
 
     /**
-	 * 【自ツリーアクター ｘ　他アクター】の衝突判定処理を実行する .
+	 * 【自ツリーアクター 対 他アクター】の衝突判定処理を実行する .
 	 * 内部的には、自ツリーアクター 全てについて、executeBumpChk_MeAnd(GgafActor*) を順次実行。<BR>
 	 * @param	prm_pActor_Opponent	相手の他アクター
 	 */
 	virtual void executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent);
 
     /**
-     * 【自ツリーアクター ｘ　他ツリーアクター】の総当たりで衝突判定を実行する .
+     * 【自ツリーアクター 対 他ツリーアクター】の総当たりで衝突判定を実行する .
 	 * 内部的には、引数である 他ツリーアクター の全てについて、executeBumpChk_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
 	 * @param	prm_pActor_Opponent	相手の他ツリーアクター
 	 */
@@ -138,7 +138,7 @@ public:
 
 
     /**
-     * 【自ツリーアクター ｘ　自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
+     * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
 	 * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
 	 * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
 	 */
