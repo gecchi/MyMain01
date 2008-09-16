@@ -1,7 +1,7 @@
 #ifndef MYFACTORY_H_
 #define MYFACTORY_H_
 
-class MyFactory : public GgafSubcontractor {
+class MyFactory : public GgafFactory {
 
 public:
 //	static GgafMainScene* createGameScene(void* x);
