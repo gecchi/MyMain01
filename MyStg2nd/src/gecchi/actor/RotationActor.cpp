@@ -14,6 +14,7 @@ GgafActor* RotationActor::getFreeOne() {
 		if(pActor->isPlaying()) {
 			if (pActor->isLast()) {
 				pActor = NULL;
+				break;
 			} else {
 				pActor = pActor->getNext();
 			}
