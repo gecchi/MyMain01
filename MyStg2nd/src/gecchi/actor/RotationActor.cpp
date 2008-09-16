@@ -18,6 +18,7 @@ GgafActor* RotationActor::getFreeOne() {
 				pActor = pActor->getNext();
 			}
 		} else {
+			pActor->declareMoveLast();
 			break;
 		}
 	} while(true);
