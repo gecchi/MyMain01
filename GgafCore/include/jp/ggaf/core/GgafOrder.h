@@ -3,7 +3,7 @@
 
 class GgafOrder : public GgafObject {
 	friend class GgafGod;
-	friend class GgafSubcontractor;
+	friend class GgafFactory;
 	
 private:	
 	/** íçï∂éØï ID */

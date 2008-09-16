@@ -1,5 +1,5 @@
-#ifndef GGAFTREENODE_H_
-#define GGAFTREENODE_H_
+#ifndef GGAFNODE_H_
+#define GGAFNODE_H_
 /**
  * 要素同士を環状双方向連結リストで繋ぎ、それらの連結リスト達のツリー構造を作ることができる要素クラスです。.
  *
@@ -46,7 +46,7 @@
  * <TD>自ノードが含まれているツリー構造の全てを指します。</TD>
  * </TR><TR>
  * <TD>「ノードクラス」</TD>
- * <TD>GgafTreeLinkedListクラスを直接・間接継承しているクラスを指します。</TD>
+ * <TD>GgafNodeクラスを直接・間接継承しているクラスを指します。</TD>
  * </TR><TR>
  * <TD>「上位」「下位」</TD>
  * <TD>ノードクラスのクラス継承関係を表しています。
@@ -61,7 +61,7 @@
  */
 
 template<class T>
-class GgafTreeLinkedList : public GgafObject {
+class GgafNode : public GgafObject {
 
 protected:
 public:
@@ -93,7 +93,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafTreeLinkedList(string prm_name);
+	GgafNode(string prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -103,7 +103,7 @@ public:
 	 * 自ノードが中間ノードだった場合、両隣のノードの連結を再構築した後解放する。<BR>
 	 * 自ノードの連結が自身を指す（１人ぼっちだった）場合、親ノード の 子ノードの先頭ノード（自分を指していた）をNULLに変更してから解放する。<BR>
 	 */
-	virtual ~GgafTreeLinkedList();
+	virtual ~GgafNode();
 
 	/**
 	 * ノード名取得 .
@@ -246,7 +246,7 @@ public:
 
 
 template<class T>
-GgafTreeLinkedList<T>::GgafTreeLinkedList(string prm_name) : GgafObject() ,
+GgafNode<T>::GgafNode(string prm_name) : GgafObject() ,
 _name("NOT_OBJECT_YET"),
 _pParent(NULL),
 _pSubFirst(NULL),
@@ -256,15 +256,15 @@ _isLast(false)
 	_pNext = (T*)this;
 	_pPrev = (T*)this;
 	_name = prm_name;
-	TRACE("template<class T> GgafTreeLinkedList<T>::GgafTreeLinkedList("+_name+")");
-	_class_name = "GgafTreeLinkedList<T>";
+	TRACE("template<class T> GgafNode<T>::GgafNode("+_name+")");
+	_class_name = "GgafNode<T>";
 
 }
 
 
 
 template<class T>
-T* GgafTreeLinkedList<T>::tear() {
+T* GgafNode<T>::tear() {
 	if (_pParent != NULL) {
 		//連結から外す
 		T* pMyNext = _pNext;
@@ -292,14 +292,14 @@ T* GgafTreeLinkedList<T>::tear() {
 		_isLast = true;
 		return (T*)this;
 	} else {
-		throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::tear()] ＜警告＞ "<<getName()<<"は、何所にも所属していません");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::tear()] ＜警告＞ "<<getName()<<"は、何所にも所属していません");
 	}
 
 }
 
 
 template<class T>
-void GgafTreeLinkedList<T>::moveLast() {
+void GgafNode<T>::moveLast() {
 	if (_isLast) { //既に最終ノードならば何もしない
 		return;
 	} else if (_isFirst) {  //先頭ノードならば、親の指している先頭ノードを次へずらす
@@ -326,7 +326,7 @@ void GgafTreeLinkedList<T>::moveLast() {
 
 
 template<class T>
-void GgafTreeLinkedList<T>::moveFirst() {
+void GgafNode<T>::moveFirst() {
 	if (_isFirst) { //既に先頭ノードならば何もしない
 		return;
 	} else if (_isLast) {  //末尾ノードならば、親の指している先頭ノードを前にずらす
@@ -352,37 +352,37 @@ void GgafTreeLinkedList<T>::moveFirst() {
 
 
 template<class T>
-void GgafTreeLinkedList<T>::setParent(T* prm_pParent) {
+void GgafNode<T>::setParent(T* prm_pParent) {
 	_pParent = prm_pParent;
 }
 
 template<class T>
-T* GgafTreeLinkedList<T>::getNext() {
+T* GgafNode<T>::getNext() {
 	return (T*)_pNext;
 }
 
 template<class T>
-T* GgafTreeLinkedList<T>::getPrev() {
+T* GgafNode<T>::getPrev() {
 	return (T*)_pPrev;
 }
 
 
 template<class T>
-T* GgafTreeLinkedList<T>::getParent() {
+T* GgafNode<T>::getParent() {
 	if (_pParent == NULL) {
-		throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::getParent()] Error! 親ノードがありません。");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getParent()] Error! 親ノードがありません。");
 	}
 	return (T*)_pParent;
 }
 
 
 template<class T>
-T* GgafTreeLinkedList<T>::getParent(string prm_parent_name) {
+T* GgafNode<T>::getParent(string prm_parent_name) {
 	_pNodeTemp = (T*)this;
 	while(true) {
 		_pNodeTemp = _pNodeTemp->_pParent;
 		if (_pNodeTemp == NULL) {
-			throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::getParent()] Error! 親ノードがありません。(prm_parent_name="+prm_parent_name+")");
+			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getParent()] Error! 親ノードがありません。(prm_parent_name="+prm_parent_name+")");
 		} else if (_pNodeTemp->_name == prm_parent_name) {
 			break;
 		}
@@ -391,9 +391,9 @@ T* GgafTreeLinkedList<T>::getParent(string prm_parent_name) {
 }
 
 template<class T>
-T* GgafTreeLinkedList<T>::getSub(string prm_sub_actor_name) {
+T* GgafNode<T>::getSub(string prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
-		throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::getSub()] Error! _pSubFirstがNULLです。");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! _pSubFirstがNULLです。");
 	}
 	_pNodeTemp = _pSubFirst;
 	do {
@@ -401,7 +401,7 @@ T* GgafTreeLinkedList<T>::getSub(string prm_sub_actor_name) {
 			break;
 		}
 		if (_pNodeTemp -> _isLast) {
-			throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name="+prm_sub_actor_name+")");
+			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name="+prm_sub_actor_name+")");
 		} else {
 			_pNodeTemp = _pNodeTemp -> _pNext;
 		}
@@ -410,13 +410,13 @@ T* GgafTreeLinkedList<T>::getSub(string prm_sub_actor_name) {
 }
 
 template<class T>
-T* GgafTreeLinkedList<T>::getSubFirst() {
+T* GgafNode<T>::getSubFirst() {
 	return (T*)_pSubFirst;
 }
 
 
 template<class T>
-bool GgafTreeLinkedList<T>::hasSub(string prm_sub_actor_name) {
+bool GgafNode<T>::hasSub(string prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
 		return false;
 	} else {
@@ -436,9 +436,9 @@ bool GgafTreeLinkedList<T>::hasSub(string prm_sub_actor_name) {
 
 
 template<class T>
-void GgafTreeLinkedList<T>::addSubLast(T* prm_pSub) {
+void GgafNode<T>::addSubLast(T* prm_pSub) {
 	if (prm_pSub->_pParent != NULL) {
-		throw_GgafCriticalException("[GgafTreeLinkedList<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
 	}
 	prm_pSub -> _pParent = (T*)this;
 	prm_pSub -> _isLast = true;
@@ -463,12 +463,12 @@ void GgafTreeLinkedList<T>::addSubLast(T* prm_pSub) {
 
 
 template<class T>
-string GgafTreeLinkedList<T>::getName() {
+string GgafNode<T>::getName() {
 	return _name;
 }
 /*
 template<class T>
-bool GgafTreeLinkedList<T>::isNamed(string prm_name) {
+bool GgafNode<T>::isNamed(string prm_name) {
 	string::size_type iLen = prm_name.length();
 	if (prm_name.rfind('*') == iLen-1) {}
 
@@ -478,22 +478,22 @@ bool GgafTreeLinkedList<T>::isNamed(string prm_name) {
 */
 
 template<class T>
-bool GgafTreeLinkedList<T>::isLast() {
+bool GgafNode<T>::isLast() {
 	return _isLast;
 }
 
 template<class T>
-bool GgafTreeLinkedList<T>::isFirst() {
+bool GgafNode<T>::isFirst() {
 	return _isFirst;
 }
 
 template<class T>
-GgafTreeLinkedList<T>::~GgafTreeLinkedList() {
-	_TRACE_("~GgafTreeLinkedList<"<<_class_name<<">() "+_name+" start-->");
+GgafNode<T>::~GgafNode() {
+	_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" start-->");
 	//自ノードのメンバの解放
 
 //	if (_isAlive) {
-//		_TRACE_("template<class T> GgafTreeLinkedList<T>::~GgafTreeLinkedList() "+_name+"：_isAliveはtrueおかしいクマー");
+//		_TRACE_("template<class T> GgafNode<T>::~GgafNode() "+_name+"：_isAliveはtrueおかしいクマー");
 //	}
 
 	//→現在の所無し
@@ -556,7 +556,7 @@ GgafTreeLinkedList<T>::~GgafTreeLinkedList() {
 			_isLast = true;
 		}
 	}
-	_TRACE_("~GgafTreeLinkedList<"<<_class_name<<">() "+_name+" <---end");
+	_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" <---end");
 }
 
-#endif /*GGAFTREENODE_H_*/
+#endif /*GGAFNODE_H_*/

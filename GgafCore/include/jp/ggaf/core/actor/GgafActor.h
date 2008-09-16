@@ -7,12 +7,12 @@
  * 全てのアクタークラスは、本クラスを直接・間接継承しなければなりません。<BR>
  * また、アクター同士で、ツリー階層構造を採る事ができます。<BR>
  * アクターに実装されているメソッド郡のほとんどは、自分自身と自分配下のアクター全てに影響する仕様になっています。<BR>
- * 基底テンプレートクラスの GgafTreeLinkedList も説明を参照のこと。
+ * 基底テンプレートクラスの GgafNode も説明を参照のこと。
  * @version 1.00
  * @since 2008/06/20
  * @auther Masatoshi Tsuge
  */
-class GgafActor : public GgafFactor<GgafActor> {
+class GgafActor : public GgafElement<GgafActor> {
 
     friend class GgafGod;
     friend class GgafMainActor;

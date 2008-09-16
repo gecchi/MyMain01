@@ -1,7 +1,7 @@
-#ifndef GGAFSUBCONTRACTOR_H_
-#define GGAFSUBCONTRACTOR_H_
+#ifndef GGAFGACTORY_H_
+#define GGAFGACTORY_H_
 
-class GgafSubcontractor {
+class GgafFactory {
 	friend class GgafGod;
 
 private:
@@ -78,7 +78,7 @@ public:
 	 * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
 	 * ＜コード例＞ <BR>
 	 * ::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始<BR>
-	 * GgafSubcontractor::clean();<BR>
+	 * GgafFactory::clean();<BR>
 	 * ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了<BR>
 	 */
 	static void clean();
@@ -93,4 +93,4 @@ public:
 
 
 
-#endif /*GGAFSUBCONTRACTOR_H_*/
+#endif /*GGAFGACTORY_H_*/

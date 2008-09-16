@@ -9,9 +9,9 @@ public:
 	static int _s_iNumClean_Node;
 
 	static DWORD _dwNextTimeOffset[];
-	/** GgafSubcontractor::work スレッドハンドル  */
+	/** GgafFactory::work スレッドハンドル  */
 	HANDLE _handleFactory01;
-	/** GgafSubcontractor::work スレッドID  */
+	/** GgafFactory::work スレッドID  */
 	unsigned int _thID01;
 	/** クリティカルセクション（セマフォ） */
 	static CRITICAL_SECTION CS1;

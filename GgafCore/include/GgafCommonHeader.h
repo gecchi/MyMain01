@@ -70,7 +70,7 @@ class GgafLogger;
 class GgafGod;
 class GgafEvent;
 class GgafEventmanager;
-//class GgafFactor;
+//class GgafElement;
 class GgafScene;
 class GgafActor;
 class GgafMainActor;
@@ -80,7 +80,7 @@ class GgafMainScene;
 class GgafLordActor;
 class GgafHeadActor;
 class GgafOrder;
-class GgafSubcontractor;
+class GgafFactory;
 class GgafUtil;
 class GgafProperties;
 class GgafRect;
@@ -93,8 +93,8 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/util/GgafLogger.h"
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/core/GgafTreeLinkedList.hpp"
-#include "jp/ggaf/core/GgafFactor.hpp"
+#include "jp/ggaf/core/GgafNode.hpp"
+#include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/util/basic_symbol.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
@@ -105,7 +105,7 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
-#include "jp/ggaf/core/GgafSubcontractor.h"
+#include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
 
 

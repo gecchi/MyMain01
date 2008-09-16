@@ -54,7 +54,7 @@
  * @since 2008/06/20
  * @auther Masatoshi Tsuge
  */
-class GgafScene : public GgafFactor<GgafScene> {
+class GgafScene : public GgafElement<GgafScene> {
 
     friend class GgafGod;
     friend class GgafWorld;
