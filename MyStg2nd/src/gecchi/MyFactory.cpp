@@ -18,6 +18,7 @@
 GgafMainScene* MyFactory::createStage01Scene(void* x) {
 _TRACE_("HêFStage01Scene ì‚Á‚Ä‚Ü‚·");
 	Stage01Scene* pStage01Scene = NEW Stage01Scene("Stage01");
+
 	Stage01MainScene* pStage01MainScene = NEW Stage01MainScene("Stage01Main");
 	BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01");
 	pStage01Scene->getLordActor()->accept(KIND_EFFECT, pBack);
@@ -25,6 +26,7 @@ _TRACE_("HêFStage01Scene ì‚Á‚Ä‚Ü‚·");
 	pStage01Scene->_bgm_st1 = GgafDx9BgmManager::get("JM5");
 	pStage01Scene->_bgm_st1->play();
 
+	pStage01Scene->stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 _TRACE_("HêFStage01Scene Š´“®‚Ì‘åŠ®¬");
 	return pStage01Scene;
 }
