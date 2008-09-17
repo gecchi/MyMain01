@@ -77,8 +77,6 @@ void GgafDx9MeshModel::onDeviceLost() {
 	_papID3DTexture9 = NULL;
 	delete [] _paD3DMaterial9;
 	_paD3DMaterial9 = NULL;
-	//_pAdjacency -> Release();
-	//_pAdjacency = NULL;
 	_pID3DXMesh -> Release();
 	_pID3DXMesh = NULL;
 	_TRACE_("GgafDx9MeshModel::onDeviceLost() " <<  _model_name << " end");
@@ -99,8 +97,6 @@ GgafDx9MeshModel::~GgafDx9MeshModel() {
 	_papID3DTexture9 = NULL;
 	delete [] _paD3DMaterial9;
 	_paD3DMaterial9 = NULL;
-	//_pAdjacency -> Release();
-	//_pAdjacency = NULL;
 	_pID3DXMesh -> Release();
 	_pID3DXMesh = NULL;
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " end");

@@ -21,7 +21,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) : GgafGod() {
 }
 
 HRESULT GgafDx9God::init() {
-	bool FULLSCRREEN = false;
+	bool FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
 
 	HRESULT hr;
 
@@ -51,7 +51,7 @@ HRESULT GgafDx9God::init() {
 	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(SCREEN_WIDTH);
 	//バックバッファのフォーマット
 	if (FULLSCRREEN) {
-		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_R5G6B5;	//16bit(フルスクリーン時)
+		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
 	} else {
 		_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
 	}
@@ -204,6 +204,9 @@ HRESULT GgafDx9God::initDx9Device() {
 	// レンダリングの設定
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
+	//アンチエイリアスにかかわるレンダリングステート
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
 /*
  * IDirect3DDevice9::SetTextureStageStateの、

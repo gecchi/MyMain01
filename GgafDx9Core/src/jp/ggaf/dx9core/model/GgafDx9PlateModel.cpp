@@ -12,7 +12,7 @@ GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(
 	_iPatternNo_Max = 1;
 	_pID3DTexture9 = NULL;
 	_pModel_Next = NULL;
-
+	_paRectUV = NULL;
 	_pRectUV_drawlast = NULL;
 }
 
@@ -54,6 +54,8 @@ void GgafDx9PlateModel::onDeviceLost() {
 	_pID3DTexture9 = NULL;
 	delete _pD3DMaterial9;
 	_pD3DMaterial9 = NULL;
+	delete[] _paRectUV;
+	_paRectUV = NULL;
 	_TRACE_("GgafDx9PlateModel::onDeviceLost() " <<  _model_name << " end");
 }
 
