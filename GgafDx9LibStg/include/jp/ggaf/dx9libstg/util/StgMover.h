@@ -133,7 +133,7 @@ public:
 	 * 内部的には、addXYMoveAngle(int) が毎フレーム行われる仕組みです。<BR>
 	 * 目標のXY平面移動方角に到達したならば、この目標のXY平面移動方角自動制御機能は解除されます。<BR>
 	 *
-	 * @param	prm_angXYMove	到達目標のXY平面移動方角値増分(0～360,000)
+	 * @param	prm_angXYMove	到達目標のXY平面移動方角値(-360,000～360,000)
 	 */
 	void setTargetXYMoveAngle(angle prm_angXYMove);
 
