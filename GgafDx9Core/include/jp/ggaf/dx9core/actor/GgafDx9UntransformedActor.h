@@ -84,6 +84,12 @@ public:
 
 	virtual bool isOffScreen() { return false; }
 
+	virtual void setGeometry(int X, int Y, int Z) {
+		_X = X;
+		_Y = Y;
+		_Z = Z;
+	}
+
 	virtual ~GgafDx9UntransformedActor();		//デストラクタ
 
 
