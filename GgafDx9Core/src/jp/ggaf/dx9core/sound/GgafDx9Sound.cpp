@@ -1,13 +1,17 @@
 #include "stdafx.h"
 
 CC3DSound* GgafDx9Sound::_pC3DSound = NULL;
+bool GgafDx9Sound::ENABLE = false;
 
 void GgafDx9Sound::init() {
 	if (_pC3DSound == NULL) {
 		_pC3DSound = NEW CC3DSound();
 	}
 	if (!_pC3DSound->CreateSound(GgafDx9God::_hWnd)) {
-		throw_GgafCriticalException("[GgafDx9Sound::init] Error! GgafDx9Sound‰Šú‰»¸”sB");
+		_TRACE_("GgafDx9Sound::init() GgafDx9Sound‚ª—˜—p‚Å‚«‚Ü‚¹‚ñB");
+		ENABLE = false;
+	} else {
+		ENABLE = true;
 	}
 }
 

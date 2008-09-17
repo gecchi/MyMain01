@@ -12,11 +12,15 @@ GgafDx9Bgm::GgafDx9Bgm(string prm_ogg_name) : GgafObject() {
 }
 
 void GgafDx9Bgm::play() {
-	_pSoundBgm -> Play(0,0);
+	if (GgafDx9Sound::ENABLE) {
+		_pSoundBgm -> Play(0,0);
+	}
 }
 
 void GgafDx9Bgm::play(int prm_iVolume, int prm_iPan) {
-	_pSoundBgm -> Play(prm_iVolume, prm_iPan);
+	if (GgafDx9Sound::ENABLE) {
+		_pSoundBgm -> Play(prm_iVolume, prm_iPan);
+	}
 }
 
 void GgafDx9Bgm::stop() {
