@@ -5,7 +5,7 @@
 class MyShipActor : public DefaultMeshActor {
 
 public:
-	RotationActor* _pShot001Rotation;
+	RotationActor* _pMyShots001Rotation;
 
 	bool _turboFlg;
 

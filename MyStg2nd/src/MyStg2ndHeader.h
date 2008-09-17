@@ -24,7 +24,7 @@ class God;
 class InterfaceGameActor;
 class World;
 class GameDemoScene;
-class MyShipScene;
+class CommonScene;
 
 class DispFpsActor;
 class BackGround01Plate;
@@ -61,7 +61,7 @@ class MyFactory;
 #include "gecchi/scene/World.h"
 #include "gecchi/scene/World/GameScene.h"
 #include "gecchi/scene/World/GameScene/GameDemoScene.h"
-#include "gecchi/scene/World/GameScene/MyShipScene.h"
+#include "gecchi/scene/World/GameScene/CommonScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene/Stage01MainScene.h"

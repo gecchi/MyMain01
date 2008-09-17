@@ -6,7 +6,7 @@ class GameScene : public DefaultScene {
 public:
 	GameDemoScene* _pGameDemoScene;
 	GameMainScene* _pGameMainScene;
-	MyShipScene* _pMyShipScene;
+	CommonScene* _pCommonScene;
 	GameScene(string prm_name);
 	/**
 	 * ‰Šúˆ—

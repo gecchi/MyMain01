@@ -11,7 +11,7 @@ GgafActor* RotationActor::get() {
 	}
 	GgafActor* pActor = getSubFirst();
 	do {
-		if(pActor->isPlaying()) {
+		if(pActor->isPlaying() || pActor->_willPlayNextFrame) {
 			if (pActor->isLast()) {
 				pActor = NULL;
 				break;

@@ -20,7 +20,7 @@ public:
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void processJudgement();
+	bool isOffScreen();
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

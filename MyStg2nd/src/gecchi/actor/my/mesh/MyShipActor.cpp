@@ -9,7 +9,7 @@
 
 MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
 	GameGlobal::_pMyShipActor = this;
-	_pShot001Rotation = NULL;
+	_pMyShots001Rotation = NULL;
 }
 
 void MyShipActor::initialize() {
@@ -144,7 +144,7 @@ void MyShipActor::processBehavior() {
 
 	//ショットボタン
 	if (VirtualButton::arePushedDownAtOnce(VB_SHOT2, VB_SHOT3) || VirtualButton::isBeingPressed(VB_SHOT1)) {
-		Shot001Actor* pShot = (Shot001Actor*)(_pShot001Rotation->get());
+		Shot001Actor* pShot = (Shot001Actor*)(_pMyShots001Rotation->get());
 		if (pShot) {
 			pShot->shotBegin();
 		}

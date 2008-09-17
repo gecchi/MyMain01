@@ -9,8 +9,8 @@ GameScene::GameScene(string prm_name) : DefaultScene(prm_name) {
 	_pGameMainScene = NEW GameMainScene("GameMain");
 	addSubLast(_pGameMainScene);
 
-	_pMyShipScene = NEW MyShipScene("MyShip");
-	_pMyShipScene -> stopImmediately();
+	_pCommonScene = NEW CommonScene("MyShip");
+	addSubLast(_pCommonScene);
 }
 
 void GameScene::initialize() {
@@ -27,7 +27,6 @@ void GameScene::processFinal() {
 	if (_dwFrame == 120) {
 		GgafDx9SeManager::get("logon")->play();
 		_TRACE_("GameScene ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
-		_pGameDemoScene->addSubLast(_pMyShipScene);
 		_pGameDemoScene->declarePlay();
 	}
 }

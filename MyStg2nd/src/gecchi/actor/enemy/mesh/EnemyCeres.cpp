@@ -45,6 +45,20 @@ void EnemyCeres::processBehavior() {
 		_pMover -> setAxisRotAngleVelocity(AXIS_Y, -4000);
 		_pMover -> setTargetAxisRotAngle(AXIS_Y, ANGLE180);
 
+		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
+
+		angle way[10] ;
+		GgafDx9Util::getWayAngle(180000, 10, 10000, way);
+		EnemyShot001Actor* pTama;
+		for (int i = 0; i < 10; i++) {
+			pTama = (EnemyShot001Actor*)(GameGlobal::_pSceneCommon->_pEnemyShots001Rotation->get());
+			if (pTama) {
+				pTama -> setGeometry (_X, _Y, 0);
+				pTama -> _pMover -> setXYMoveAngle(way[i]);
+				pTama -> begin();
+			}
+		}
+
 		_iMovePatternNo++;
 	}
 

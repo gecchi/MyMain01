@@ -13,7 +13,6 @@ void EnemyShotSpriteActor::initialize() {
 //	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 //	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	setBumpable(false);
-	declareStop();
 }
 
 void EnemyShotSpriteActor::begin() {

@@ -11,6 +11,8 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
 	DWORD frame = _dwFrame;
 	if (frame == 2) {
+		//自機表示
+		GameGlobal::_pSceneCommon->_pMyShipActor->declarePlay();
 		_TRACE_("GameDemoScene:OK稼動しますった！");
 	}
 
@@ -27,8 +29,7 @@ void GameDemoScene::processFinal() {
 			_TRACE_("GameDemoScene::processFinally STAGE1スタート！！私はSTOP");
 			((GameMainScene*)getNext())->enableStage01();
 
-			//_pMyShipSceneの移動
-			((GameMainScene*)getNext())->_pStage01Scene->addSubLast(((GameScene*)getParent())->_pMyShipScene->becomeIndependent()); //シーンをplayしてから追加しないと玉が飛び散る
+			//自分は停止
 			declareStop();
 		}
 	}

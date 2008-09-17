@@ -7,7 +7,7 @@ public:
 //	static GgafMainScene* createGameScene(void* x);
 //	static GgafMainScene* createGameDemoScene(void* x);
 //	static GgafMainScene* createGameMainScene(void* x);
-//	static GgafMainScene* createMyShipScene(void* x);
+//	static GgafMainScene* createCommonScene(void* x);
 	static GgafMainScene* createStage01Scene(void* x);
 	static GgafMainScene* createStage02Scene(void* x);
 	static GgafMainScene* createStage03Scene(void* x);

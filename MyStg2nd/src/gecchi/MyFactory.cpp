@@ -48,48 +48,10 @@ GgafMainScene* MyFactory::createStage05Scene(void* x) {
 	Stage05Scene* pStage05Scene = NEW Stage05Scene("Stage05");
 	return pStage05Scene;
 }
-
-//GgafMainScene* MyFactory::createMyShipScene(void* x) {
-//	MyShipScene* pMyShipScene = NEW MyShipScene("MyShip");
-//
-//	MyShipActor* pMyShipActor = NEW MyShipActor("MYSHIP", "ebi");
-//
-//	GgafDummyActor* pDummy = NEW GgafDummyActor("MYSHOTS");
-//	pDummy->addSubLast(NEW Shot001Actor("S1", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S2", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S3", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S4", "hoge"));
-//	pDummy->addSubLast(NEW Shot001Actor("S5", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S6", "hoge"));
-//	pDummy->addSubLast(NEW Shot001Actor("S7", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S8", "moji2"));
-//	pDummy->addSubLast(NEW Shot001Actor("S9", "moji2"));
-//
-//	pMyShipActor->_pShotParent = pDummy;
-//	pMyShipScene->getLordActor()->accept(KIND_MY, pMyShipActor);
-//	pMyShipScene->getLordActor()->accept(KIND_MY, pDummy);
-//
-//	return pMyShipScene;
-//}
-
-
-
-//GgafMainActor* MyFactory::createDispFpsActor(void* x) {
-//	DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "moji");
-//	return pDispFpsActor;
-//}
 GgafMainActor* MyFactory::createDebugDelineateActor(void* x) {
 	DelineateActor* pDelineateActor = NEW DelineateActor("HITAREA", "DelineateSprite");
 	return pDelineateActor;
 }
-
-
-//GgafMainActor* MyFactory::createBackGroundPlateSet01(void* x) {
-//	GgafDummyActor* pDummyActor = NEW GgafDummyActor("DUMMY");
-//
-//
-//}
-
 
 
 GgafMainActor* MyFactory::createTamagoSet01(void* x) {

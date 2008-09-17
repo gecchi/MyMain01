@@ -4,6 +4,7 @@
 Stage01Scene::Stage01Scene(string prm_name) : DefaultScene(prm_name) {
 	_bgm_st1 = NULL; //Hê‚Åİ’è‚³‚ê‚é
 	_TRACE_("Stage01Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
+
 	stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 }
 

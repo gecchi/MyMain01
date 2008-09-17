@@ -15,7 +15,7 @@ public:
 	virtual void processBehavior();
 
 	virtual void processJudgement();
-	
+
 	virtual void processFinal();
 
 	virtual ~Stage01Scene();
