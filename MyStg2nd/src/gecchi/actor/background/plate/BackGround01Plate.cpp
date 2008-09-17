@@ -37,7 +37,7 @@ void BackGround01Plate::processBehavior() {
 	if (_x < -1024) {
 		_x += 1024;
 	} else {
-		_x -= 0.3;
+		_x -= 1;
 	}
 
 }
