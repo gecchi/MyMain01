@@ -97,8 +97,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		WS_OVERLAPPEDWINDOW,	// ウインドウスタイル
 		CW_USEDEFAULT,			// ウィンドウの表示Ｘ座標
 		CW_USEDEFAULT,			// ウィンドウの表示Ｙ座標
-		GGAFDX9_PROPERTY(SCREEN_WIDTH),		// ウィンドウの幅
-		GGAFDX9_PROPERTY(SCREEN_HEIGHT),	// ウィンドウの高さ
+		GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH),		// ウィンドウの幅
+		GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT),	// ウィンドウの高さ
 		NULL,					// 親ウインドウ
 		NULL,					// ウインドウメニュー
 		hInstance,				// インスタンスハンドル
@@ -193,7 +193,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hInstance		= hInstance;
 	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground	= NULL;//(HBRUSH)(COLOR_WINDOW+1);
+	wcex.hbrBackground	= CreateSolidBrush(RGB(30, 30, 30) ); //0~255
 	wcex.lpszMenuName	= NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
 	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
@@ -269,6 +269,31 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 		break;
 */
+	case WM_SIZE:
+		_TRACE_("!!WM_SIZE!!");
+		if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+			RECT rect;
+			GetClientRect(hWnd , &rect); //あるいは？
+			if (1.0 *rect.right / rect.bottom > 1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
+				//より横長になってしまっている
+				double rate = 1.0 * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //縮小率=縦幅の比率
+				GgafDx9God::_rectPresentDest.left   = (rect.right/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
+				GgafDx9God::_rectPresentDest.top    = 0;
+				GgafDx9God::_rectPresentDest.right  = (rect.right/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
+				GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate;
+			} else {
+				//より縦長になってしまっている
+				double rate = 1.0 * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);  //縮小率=横幅の比率
+				GgafDx9God::_rectPresentDest.left   = 0;
+				GgafDx9God::_rectPresentDest.top    = (rect.bottom/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
+				GgafDx9God::_rectPresentDest.right  = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate;
+				GgafDx9God::_rectPresentDest.bottom = (rect.bottom/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
+			}
+		} else {
+			GetClientRect(hWnd , &(GgafDx9God::_rectPresentDest));
+		}
+		break;
+
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
