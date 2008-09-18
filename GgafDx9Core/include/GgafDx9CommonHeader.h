@@ -27,7 +27,7 @@
 #include <dxfile.h>
 
 
-
+class CmRandomNumberGenerator;
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
@@ -64,7 +64,7 @@ class CC3DSoundSE;
 class COggDecorder;
 class CWaveDecorder;
 
-
+#include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
 #include "jp/ggaf/dx9core/model/GgafDx9ModelManager.h"

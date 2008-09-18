@@ -20,6 +20,8 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) : GgafGod() {
 	GgafDx9God::_hWnd = _hWnd;
 	GgafDx9God::_hInstance = prm_hInstance;
 	_deviceLostFlg = false;
+	CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 ‚Í Seed
+
 }
 
 HRESULT GgafDx9God::init() {
@@ -354,6 +356,7 @@ GgafDx9God::~GgafDx9God() {
 		Sleep(10);
 	}
 
+	CmRandomNumberGenerator::getInstance()->release();
 	//•Ûƒ‚ƒfƒ‹‰ğ•ú
 	GgafDx9ModelManager::clear();
 	//DirectInput‰ğ•ú
