@@ -24,7 +24,7 @@ void Stage01MainScene::processBehavior() {
 	if (_dwFrame == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (_dwFrame) {
 			case 1:
-				MyFactory::orderActor("[106-6]300", MyFactory::createFormationJuno001First, (void*)(NEW int(GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT*2)));
+				MyFactory::orderActor("[106-6]300", MyFactory::createFormationJuno001First, (void*)(NEW int(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT*2)));
 				break;
 			case 20:
 				MyFactory::orderActor("[108-6]520", MyFactory::createFormationJuno001, NULL);

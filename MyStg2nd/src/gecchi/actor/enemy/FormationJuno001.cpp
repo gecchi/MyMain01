@@ -8,8 +8,8 @@ FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
 	pRndGen->changeSeed(GameGlobal::_pMyShipActor->_X);
 
-	int iScreenWidth = GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT;
-	int iScreenHeight = GGAFDX9_PROPERTY(SCREEN_HEIGHT)*LEN_UNIT;
+	int iScreenWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT;
+	int iScreenHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT;
 	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
 		_pEnemyJuno[i] = NEW EnemyJuno("Juno01", "vic2");
 		_pEnemyJuno[i] -> stopImmediately();
