@@ -2,7 +2,7 @@
 #define GGAFDX9LIBSTGHEADER_H_
 #include "GgafDx9CommonHeader.h"
 
-class CmRandomNumberGenerator;
+
 class DefaultGod;
 class DefaultWorld;
 class StgUtil;
@@ -21,7 +21,7 @@ class StgMover;
 class StgChecker;
 class HitArea2D;
 
-#include "jp/ggaf/dx9libstg/util/CmRandomNumberGenerator.h"
+
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
