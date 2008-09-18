@@ -15,10 +15,10 @@ public:
 	static IDirect3DDevice9* _pID3DDevice9;
 	/** デフォルトのライト */
 	static D3DLIGHT9 _d3dlight9;
-	/* スクリーン幅（ピクセル） */
-	//static int const SCREEN_WIDTH;
+	/** Present領域 */
+	static RECT _rectPresentDest;
 	/* スクリーン高さ（ピクセル） */
-	//static int const SCREEN_HEIGHT;
+	//static int const GAME_SCREEN_HEIGHT;
 
     static D3DPRESENT_PARAMETERS _structD3dPresent_Parameters;
 

@@ -1,10 +1,10 @@
 #include "stdafx.h"
 
 GgafDx9UntransformedActor::GgafDx9UntransformedActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9MainActor(prm_name),
-_X_OffScreenLeft((int)(-1*GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT/2)),
-_X_OffScreenRight((int)(GGAFDX9_PROPERTY(SCREEN_WIDTH)*LEN_UNIT/2)),
-_Y_OffScreenTop((int)(GGAFDX9_PROPERTY(SCREEN_HEIGHT)*LEN_UNIT/2)),
-_Y_OffScreenBottom((int)(-1*GGAFDX9_PROPERTY(SCREEN_HEIGHT)*LEN_UNIT/2))
+_X_OffScreenLeft((int)(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)),
+_X_OffScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)),
+_Y_OffScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2)),
+_Y_OffScreenBottom((int)(-1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2))
 {
 	_class_name = "GgafDx9UntransformedActor";
 	_X  = _Y  = _Z  = 0;

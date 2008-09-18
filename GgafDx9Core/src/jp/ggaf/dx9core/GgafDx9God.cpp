@@ -7,9 +7,11 @@ HINSTANCE GgafDx9God::_hInstance = NULL;
 IDirect3D9* GgafDx9God::_pID3D9 = NULL;
 IDirect3DDevice9* GgafDx9God::_pID3DDevice9 = NULL;
 D3DLIGHT9 GgafDx9God::_d3dlight9;
+RECT GgafDx9God::_rectPresentDest;
 
-//int const GGAFDX9_PROPERTY(SCREEN_WIDTH)  = 1024;
-//int const GGAFDX9_PROPERTY(SCREEN_HEIGHT) = 600;
+
+//int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
+//int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
 bool GgafDx9God::_deviceLostFlg = false;
 
@@ -22,6 +24,10 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) : GgafGod() {
 
 HRESULT GgafDx9God::init() {
 	bool FULLSCRREEN = GGAFDX9_PROPERTY(FULL_SCREEN);
+	_rectPresentDest.left = 0;
+	_rectPresentDest.top = 0;
+	_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
+	_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
 
 	HRESULT hr;
 
@@ -46,9 +52,9 @@ HRESULT GgafDx9God::init() {
 	//デバイス作成
 	ZeroMemory(&_structD3dPresent_Parameters,sizeof(D3DPRESENT_PARAMETERS));
 	//バックバッファの縦サイズ
-	_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(SCREEN_HEIGHT);
+	_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
 	//バックバッファの横サイズ
-	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(SCREEN_WIDTH);
+	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
 	//バックバッファのフォーマット
 	if (FULLSCRREEN) {
 		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
@@ -151,7 +157,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	GgafDx9God::_d3dlight9.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
 	GgafDx9God::_d3dlight9.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
 	//下は平行光では関係ない
-	//GgafDx9God::_d3dlight9.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(SCREEN_HEIGHT)/2);
+	//GgafDx9God::_d3dlight9.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
 	//GgafDx9God::_d3dlight9.Range = 1000;
 */
 	ZeroMemory(&_d3dlight9, sizeof(D3DLIGHT9) );
@@ -205,7 +211,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
 	//アンチエイリアスにかかわるレンダリングステート
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
 	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
 /*
@@ -229,7 +235,7 @@ D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
 
 
 	// ビュー変換（カメラ位置）設定
-	double dCam = -1.0*(GGAFDX9_PROPERTY(SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
+	double dCam = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
 	_TRACE_("カメラの位置(0,0,"<<dCam<<")");
 	D3DXMATRIX matrixView;   // ビュー変換行列
 	D3DXVECTOR3 vFromPt   = D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)dCam); //位置
@@ -248,7 +254,7 @@ D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
 	D3DXMatrixPerspectiveFovLH(
 		&matrixProjrction,
 		2.0*(PI/9),     //y方向視野角ラディアン(0～π)
-		(FLOAT)(1.0 * GGAFDX9_PROPERTY(SCREEN_WIDTH) / GGAFDX9_PROPERTY(SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
+		(FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
 		1.0,            //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
 		2000.0          //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
 		//(FLOAT)(-1.0*dCam*4)
@@ -259,10 +265,10 @@ D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
 	//左手座標系正射影
 	D3DXMatrixOrthoLH(
 		&matrixProjrction,
-		GGAFDX9_PROPERTY(SCREEN_WIDTH),
-		GGAFDX9_PROPERTY(SCREEN_HEIGHT),
+		GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
+		GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT),
 		1.0f,
-		GGAFDX9_PROPERTY(SCREEN_HEIGHT)
+		GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
 	);
 */
 	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
@@ -325,7 +331,8 @@ void GgafDx9God::makeWorldMaterialize() {
 void GgafDx9God::makeWorldVisualize() {
 	if (_deviceLostFlg != true) {
 		//バックバッファをプライマリバッファに転送
-		if (GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL) == D3DERR_DEVICELOST) {
+		if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
+		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL) == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
 			_TRACE_("デバイスロスト！");
 			_deviceLostFlg = true;
