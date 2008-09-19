@@ -125,11 +125,11 @@ void MyShipActor::processBehavior() {
 		_pMover -> setXYMoveAcceleration(0);
 
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = true;
-		if (GgafDx9Util::sgn(_pMover->_angVelocity_AxisRotAngle[AXIS_X]) > 0) {
+		if (sgn(_pMover->_angVelocity_AxisRotAngle[AXIS_X]) > 0) {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 360*1000, 1*1000);
 			_pMover -> setAxisRotAngleVelocity(AXIS_X, 6*1000);
 			_pMover -> setAxisRotAngleAcceleration(AXIS_X, 0);
-		} else if (GgafDx9Util::sgn(_pMover->_angVelocity_AxisRotAngle[AXIS_X]) < 0) {
+		} else if (sgn(_pMover->_angVelocity_AxisRotAngle[AXIS_X]) < 0) {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*1000, -360*1000);
 			_pMover -> setAxisRotAngleVelocity(AXIS_X, -6*1000);
 			_pMover -> setAxisRotAngleAcceleration(AXIS_X, 0);

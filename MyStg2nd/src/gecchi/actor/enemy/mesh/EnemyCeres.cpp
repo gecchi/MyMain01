@@ -2,19 +2,27 @@
 
 EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActor(prm_name, prm_xname) {
 	_iMovePatternNo = 0;
+
+
+
 }
 
 void EnemyCeres::initialize() {
 	setBumpable(true);
 	_X = -256000;
 	_Y = -100000;
-	_Z = -800000;
+	_Z = -1800000;
+	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 150000;
+	_Y_turn = 200000;
+	_iBeginVelocity = 4000;
+	_incZ =  (_Z / GgafDx9Util::getDistance(0, _X_turn, _Z, _X) ) *_iBeginVelocity;
+
 	_pMover -> setAxisRotAngle(AXIS_X, 0);
-	_pMover -> setAxisRotAngle(AXIS_Y, -45000);
+	_pMover -> setAxisRotAngle(AXIS_Y, sgn(_Z) * GgafDx9Util::getAngle(abs(_Z), abs(_X_turn-_X)));
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
 
-	_pMover -> setXYMoveAngle(900000, 0);
-	_pMover -> setXYMoveVelocity(4000);
+	_pMover -> setXYMoveAngle(_Y_turn, 0);
+	_pMover -> setXYMoveVelocity(_iBeginVelocity);
 
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
 
@@ -25,18 +33,13 @@ void EnemyCeres::initialize() {
 
 void EnemyCeres::processBehavior() {
 	if (_Z < 0 ) {
-		_Z += 4000;
+		_Z += _incZ;
 	} else {
 		_Z = 0;
 	}
 
-	if (_iMovePatternNo == 1 && _pMover -> _auto_xymove_angle_target_Flg == false) {
-		_pMover -> setXYMoveVelocity(2000);
-		_pMover -> setXYMoveAcceleration(100);
-		_iMovePatternNo++;
-	}
 
-	if (_iMovePatternNo == 0 && _X > 450000) {
+	if (_iMovePatternNo == 0 && _X > _X_turn) {
 		_pMover -> setXYMoveAngle(90000);
 		_pMover -> setXYMoveAngleVelocity(3000);
 		_pMover -> setTargetXYMoveAngle(ANGLE180);
@@ -59,6 +62,12 @@ void EnemyCeres::processBehavior() {
 			}
 		}
 
+		_iMovePatternNo++;
+	}
+
+	if (_iMovePatternNo == 1 && _pMover -> _auto_xymove_angle_target_Flg == false) {
+		_pMover -> setXYMoveVelocity(2000);
+		_pMover -> setXYMoveAcceleration(100);
 		_iMovePatternNo++;
 	}
 
