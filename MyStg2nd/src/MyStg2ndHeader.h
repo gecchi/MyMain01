@@ -51,8 +51,6 @@ class DefaultSpriteEffectActor;
 class EnemyCeres;
 class EnemyPallas;
 
-class FormationActor;
-class RotationActor;
 class FormationCeres001;
 
 class MyFactory;
@@ -88,9 +86,6 @@ class MyFactory;
 #include "gecchi/actor/enemy/mesh/EnemyPallas.h"
 #include "gecchi/actor/enemy/mesh/EnemyJuno.h"
 #include "gecchi/actor/enemy/mesh/EnemyVesta.h"
-
-#include "gecchi/actor/FormationActor.h"
-#include "gecchi/actor/RotationActor.h"
 
 #include "gecchi/actor/enemy/FormationCeres001.h"
 #include "gecchi/actor/enemy/FormationJuno001.h"

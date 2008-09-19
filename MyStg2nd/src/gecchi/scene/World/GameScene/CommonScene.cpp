@@ -9,6 +9,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	getLordActor()->accept(KIND_MY, _pMyShipActor);
 	_pMyShipActor->stopImmediately();
 
+
 	//MyShots001
 	_pMyShots001Rotation = NEW RotationActor("MYSHOTS");
 	getLordActor()->accept(KIND_MY, _pMyShots001Rotation);
@@ -21,6 +22,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	_pMyShipActor->_pMyShots001Rotation = this->_pMyShots001Rotation;
 
 
+
 	//EnemyShot001
 	_pEnemyShots001Rotation = NEW RotationActor("TAMAS001");
 	getLordActor()->accept(KIND_ENEMY, _pEnemyShots001Rotation);
@@ -30,7 +32,6 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		pEnemyShot->stopImmediately(); //Å‰”ñ•\Ž¦
 		_pEnemyShots001Rotation->addSubLast(pEnemyShot);
 	}
-
 }
 
 void CommonScene::initialize() {
