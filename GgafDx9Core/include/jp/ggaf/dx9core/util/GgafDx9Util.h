@@ -1,6 +1,6 @@
 #ifndef GGAFDX9UTIL_H_
 #define GGAFDX9UTIL_H_
-
+#define sgn(X) (GgafDx9Util::sign(X))
 typedef int angle;
 
 class GgafDx9Util : GgafUtil {
@@ -24,13 +24,15 @@ public:
 	static angle addAngle(angle prm_angNow, angle prm_angOffset);
 	static void rotXY(int prm_pX, int prm_pY, angle prm_ang, int* out_pX, int* out_pY);
 
+	static int getDistance(int x1, int y1, int x2, int y2);
+
 	/**
 	 * ü•ª‚Ì“–‚½‚è”»’è<BR>
 	 * @param (x1,y1)-(x2,y2) ~ (x3,y3)-(x4,y4)
 	 * @return true:ƒqƒbƒg/false:ƒqƒbƒg‚µ‚Ä‚È‚¢
 	 */
 	static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
-	static int sgn(int x);
+	static int sign(int x);
 
 };
 

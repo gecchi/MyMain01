@@ -1,4 +1,6 @@
 #include "stdafx.h"
+
+
 bool GgafDx9Util::_isInit = false;
 int GgafDx9Util::COS_UNITLEN[ANGLE360];
 int GgafDx9Util::SIN_UNITLEN[ANGLE360];
@@ -181,7 +183,13 @@ bool GgafDx9Util::chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21,
     return  true;
 }
 
-int GgafDx9Util::sgn(int x) {
+int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
+	return sqrt( (double)(x2-x1)*(double)(x2-x1) + (double)(y2-y1)*(double)(y2-y1) );
+}
+
+
+
+int GgafDx9Util::sign(int x) {
 	if(x < 0) {
         return -1;
     } else if(x > 0) {
