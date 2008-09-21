@@ -184,7 +184,7 @@ bool GgafDx9Util::chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21,
 }
 
 int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
-	return sqrt( (double)(x2-x1)*(double)(x2-x1) + (double)(y2-y1)*(double)(y2-y1) );
+	return sqrt( (((double)(x2-x1))*((double)(x2-x1))) + (((double)(y2-y1))*((double)(y2-y1))) );
 }
 
 
