@@ -10,6 +10,11 @@
 MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
 	GameGlobal::_pMyShipActor = this;
 	_pMyShots001Rotation = NULL;
+	_pMyLaser001Rotation = NULL;
+
+	_iShotKind01 = 0;
+	_iShotKind02 = 0;
+	_iShotKind03 = 0;
 }
 
 void MyShipActor::initialize() {
@@ -143,10 +148,27 @@ void MyShipActor::processBehavior() {
 
 
 	//ショットボタン
-	if (VirtualButton::arePushedDownAtOnce(VB_SHOT2, VB_SHOT3) || VirtualButton::isBeingPressed(VB_SHOT1)) {
+	if (VirtualButton::isPushedDown(VB_SHOT1)) {
 		Shot001Actor* pShot = (Shot001Actor*)(_pMyShots001Rotation->get());
 		if (pShot) {
 			pShot->shotBegin();
+		}
+	}
+
+	if (VirtualButton::isBeingPressed(VB_SHOT2)) {
+		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+		Laser001Actor* pLastLaser = (Laser001Actor*)_pMyLaser001Rotation->getSubFirst()->getPrev();
+		if (!pLastLaser->isPlaying() && !pLastLaser->_willPlayNextFrame) {
+			Laser001Actor* pLaser = (Laser001Actor*)(_pMyLaser001Rotation->get());
+			if (pLaser) {
+				Laser001Actor::_pHeadLaser001Actor = pLaser;
+				pLaser->shotBegin();
+			}
+		} else if (Laser001Actor::_pHeadLaser001Actor != NULL) {
+			Laser001Actor* pLaser = (Laser001Actor*)(_pMyLaser001Rotation->get());
+			if (pLaser) {
+				pLaser->shotBegin();
+			}
 		}
 	}
 

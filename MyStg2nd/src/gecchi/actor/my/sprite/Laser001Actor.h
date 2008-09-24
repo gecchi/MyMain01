@@ -7,6 +7,8 @@ class Laser001Actor : public DefaultSpriteActor {
 public:
 	Laser001Actor(string prm_name, string prm_xname);
 
+	static Laser001Actor* _pHeadLaser001Actor;
+
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */

@@ -1,32 +1,23 @@
 #include "stdafx.h"
 
+Laser001Actor* Laser001Actor::_pHeadLaser001Actor = NULL;
+
 Laser001Actor::Laser001Actor(string prm_name, string prm_xname) : DefaultSpriteActor(prm_name, prm_xname) {
 
 }
 
 void Laser001Actor::initialize() {
-	_iAnimationMethod = OSCILLATE_LOOP;
-	_iAnimationFrame_Interval = 2;
+	_iAnimationMethod = ORDER_LOOP;
+	_iAnimationFrame_Interval = 3;
 
 	_pMover -> setXYMoveAngleVelocity(0);
-	_pMover -> setAxisRotAngleVelocity(AXIS_Z, 10*1000);
 	_pMover -> setXYMoveAngle(0);
-	_pMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pMover -> setXYMoveVelocity(1000);
+	_pMover -> setXYMoveVelocity(64000);
 
-	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 6);
-	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
+	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
+	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
 
-	_pChecker -> _pHitArea2D -> setLine(0, -20000, 20000, 20000, 20000, true);
-	_pChecker -> _pHitArea2D -> setLine(1, 20000, 20000, 20000, -20000, true);
-	_pChecker -> _pHitArea2D -> setLine(2, 20000, -20000, -20000, -20000, true);
-	_pChecker -> _pHitArea2D -> setLine(3, -20000, -20000, -20000, 20000, true);
-	_pChecker -> _pHitArea2D -> setLine(4, 30000, 30000, -30000, -30000, true);
-	_pChecker -> _pHitArea2D -> setLine(5, -30000, 30000, 30000, -30000, true);
-//
 	setBumpable(false);
-	declareStop();
-
 }
 
 void Laser001Actor::shotBegin() {
@@ -39,13 +30,16 @@ void Laser001Actor::shotBegin() {
 
 void Laser001Actor::shotFinish() {
 	setBumpable(false);
+	if (Laser001Actor::_pHeadLaser001Actor == this) {
+		Laser001Actor::_pHeadLaser001Actor = NULL;
+	}
 	declareStop();
 	declareMoveFirst();
 }
 
 void Laser001Actor::processBehavior() {
 	addAnimationFrame();
-
+	_Y = GameGlobal::_pMyShipActor->_Y;
 	//À•W‚É”½‰f
 	_pMover -> behave();
 

@@ -40,6 +40,7 @@ class Stage05Scene;
 class Stage01MainScene;
 class MyShipActor;
 class Shot001Actor;
+class Laser001Actor;
 class Explosion001Actor;
 class TamagoActor;
 class MyUtil;
@@ -74,6 +75,7 @@ class MyFactory;
 
 #include "gecchi/actor/my/mesh/MyShipActor.h"
 #include "gecchi/actor/my/sprite/Shot001Actor.h"
+#include "gecchi/actor/my/sprite/Laser001Actor.h"
 #include "gecchi/actor/effect/sprite/Explosion001Actor.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"

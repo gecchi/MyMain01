@@ -112,7 +112,7 @@ GgafMainActor* MyFactory::createFormationCeres001(void* x) {
 GgafMainActor* MyFactory::createFormationJuno001First(void* x) {
 	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F");
 	FormationJuno001::_s_X_FormationWhole = *((int*)(x));
-	delete x;
+	delete (int*)(x);
 	return pFormationJuno001;
 }
 

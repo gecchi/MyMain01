@@ -144,6 +144,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					god->be(); //神が存在したらしめる（世界が動く）
 				} catch (GgafCriticalException& e) {
 					//異常終了時
+					_TRACE_("＜例外＞"<<e.getMsg());
 					string message = "以下のエラーが発生してしまいました。\n「"+e.getMsg()+"」\n誠に恐れ入りますが、再現するようでしたらご連絡お願いいたします。";
 					MessageBox(NULL, message.c_str(),"Error", MB_OK|MB_ICONSTOP);
 					GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
@@ -155,7 +156,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					//メモリーリ－クチェックEND
 					::detectMemoryLeaksEnd(std::cout);
 #endif
-					return EXIT_FAILURE;
+					return EXIT_SUCCESS;
 				}
 			}
 		}

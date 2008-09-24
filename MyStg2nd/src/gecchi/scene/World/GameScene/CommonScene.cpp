@@ -11,7 +11,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 
 
 	//MyShots001
-	_pMyShots001Rotation = NEW RotationActor("MYSHOTS");
+	_pMyShots001Rotation = NEW RotationActor("RotShot001");
 	getLordActor()->accept(KIND_MY, _pMyShots001Rotation);
 	Shot001Actor* pShot;
 	for (int i = 0; i < 30; i++) { //自弾ストック３０個
@@ -21,6 +21,16 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	}
 	_pMyShipActor->_pMyShots001Rotation = this->_pMyShots001Rotation;
 
+	//MyLaser001
+	_pMyLaser001Rotation = NEW RotationActor("RotLaser001");
+	getLordActor()->accept(KIND_MY, _pMyLaser001Rotation);
+	Laser001Actor* pLaser;
+	for (int i = 0; i < 10; i++) { //レーザーストック３０個
+		pLaser = NEW Laser001Actor("L1", "MyLaser001");
+		pLaser->stopImmediately();
+		_pMyLaser001Rotation->addSubLast(pLaser);
+	}
+	_pMyShipActor->_pMyLaser001Rotation = this->_pMyLaser001Rotation;
 
 
 	//EnemyShot001
