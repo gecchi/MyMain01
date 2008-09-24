@@ -12,7 +12,7 @@ void Laser001Actor::initialize() {
 
 	_pMover -> setXYMoveAngleVelocity(0);
 	_pMover -> setXYMoveAngle(0);
-	_pMover -> setXYMoveVelocity(64000);
+	_pMover -> setXYMoveVelocity((_pSpriteModel->_fSize_SpriteModelWidthPx)*1000);
 
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
