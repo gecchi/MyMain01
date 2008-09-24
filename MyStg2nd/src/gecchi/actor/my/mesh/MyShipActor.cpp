@@ -15,6 +15,10 @@ MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(p
 	_iShotKind01 = 0;
 	_iShotKind02 = 0;
 	_iShotKind03 = 0;
+
+	//キャッシュロード
+	GgafDx9SeManager::get("laser001");
+
 }
 
 void MyShipActor::initialize() {
@@ -163,6 +167,7 @@ void MyShipActor::processBehavior() {
 			if (pLaser) {
 				Laser001Actor::_pHeadLaser001Actor = pLaser;
 				pLaser->shotBegin();
+				GgafDx9SeManager::get("laser001")->play();
 			}
 		} else if (Laser001Actor::_pHeadLaser001Actor != NULL) {
 			Laser001Actor* pLaser = (Laser001Actor*)(_pMyLaser001Rotation->get());
