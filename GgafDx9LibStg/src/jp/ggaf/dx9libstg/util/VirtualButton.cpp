@@ -6,9 +6,9 @@ VirtualButton::VBMap* VirtualButton::_s_pVBMap = NULL;
 
 VirtualButton::KEYBOARDMAP VirtualButton::_s_tagKeymap = {
 	DIK_Z,       // SHOT1
-	DIK_Q,       // SHOT2
-	DIK_W,       // SHOT3
-	DIK_X,       // TURBO
+	DIK_X,       // SHOT2
+	DIK_A,       // SHOT3
+	DIK_Q,       // TURBO
 	DIK_C,       // GUARD
 	DIK_V,       // POWERUP
 	DIK_ESCAPE,  // PAUSE
