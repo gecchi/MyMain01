@@ -4,7 +4,6 @@
 class GgafDx9Sound  {
 public:
 	static CC3DSound* _pC3DSound;
-	static bool ENABLE;
 	static void init();
 	static void release();
 	static GgafDx9Se*  createSe(string prm_wave_name);

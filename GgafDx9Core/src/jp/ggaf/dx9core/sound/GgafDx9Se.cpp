@@ -13,15 +13,11 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 }
 
 void GgafDx9Se::play() {
-	if (GgafDx9Sound::ENABLE) {
-		_pSoundSE -> Play(0,0);
-	}
+	_pSoundSE -> Play(0,0);
 }
 
 void GgafDx9Se::play(int prm_iVolume, int prm_iPan) {
-	if (GgafDx9Sound::ENABLE) {
-		_pSoundSE -> Play(prm_iVolume, prm_iPan);
-	}
+	_pSoundSE -> Play(prm_iVolume, prm_iPan);
 }
 
 GgafDx9Se::~GgafDx9Se() {
