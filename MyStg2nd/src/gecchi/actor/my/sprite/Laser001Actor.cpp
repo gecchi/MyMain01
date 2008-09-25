@@ -3,7 +3,7 @@
 Laser001Actor* Laser001Actor::_pHeadLaser001Actor = NULL;
 
 Laser001Actor::Laser001Actor(string prm_name, string prm_xname) : DefaultSpriteActor(prm_name, prm_xname) {
-
+	_X_prevFrame = 0;
 }
 
 void Laser001Actor::initialize() {
@@ -12,7 +12,7 @@ void Laser001Actor::initialize() {
 
 	_pMover -> setXYMoveAngleVelocity(0);
 	_pMover -> setXYMoveAngle(0);
-	_pMover -> setXYMoveVelocity((_pSpriteModel->_fSize_SpriteModelWidthPx)*1000);
+	_pMover -> setXYMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
@@ -22,6 +22,7 @@ void Laser001Actor::initialize() {
 
 void Laser001Actor::shotBegin() {
 	_X = GameGlobal::_pMyShipActor->_X;
+	_X_prevFrame = _X;
 	_Y = GameGlobal::_pMyShipActor->_Y;
 	_Z = GameGlobal::_pMyShipActor->_Z;
 	setBumpable(true);
@@ -39,10 +40,12 @@ void Laser001Actor::shotFinish() {
 
 void Laser001Actor::processBehavior() {
 	addAnimationFrame();
-	_Y = GameGlobal::_pMyShipActor->_Y;
 	//À•W‚É”½‰f
 	_pMover -> behave();
 
+	_Y = GameGlobal::_pMyShipActor->_Y;
+//	_X -= (_X_prevFrame - GameGlobal::_pMyShipActor->_X);
+//	_X_prevFrame = _X;
 }
 
 void Laser001Actor::processJudgement() {

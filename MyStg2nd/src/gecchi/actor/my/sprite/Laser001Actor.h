@@ -4,6 +4,8 @@
 
 class Laser001Actor : public DefaultSpriteActor {
 
+	int _X_prevFrame;
+
 public:
 	Laser001Actor(string prm_name, string prm_xname);
 
