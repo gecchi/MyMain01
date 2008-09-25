@@ -341,7 +341,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
 	prm_pSpriteModel->_iSize_Vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
-	prm_pSpriteModel->_iSize_Verte_unit = sizeof(GgafDx9SpriteModel::VERTEX);
+	prm_pSpriteModel->_iSize_Vertec_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 	paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
@@ -364,7 +364,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	paVertex[1].nx    = 0.0f;
 	paVertex[1].ny    = 0.0f;
 	paVertex[1].nz    = -1.0f;
-	paVertex[1].color = D3DCOLOR_ARGB(100,255,255,255);
+	paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[1].tu    = 1.0f;
 	paVertex[1].tv    = 0.0f;
 
@@ -374,7 +374,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	paVertex[2].nx    = 0.0f;
 	paVertex[2].ny    = 0.0f;
 	paVertex[2].nz    = -1.0f;
-	paVertex[2].color = D3DCOLOR_ARGB(100,255,255,255);
+	paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[2].tu    = 0.0f;
 	paVertex[2].tv    = 1.0f;
 
@@ -384,7 +384,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	paVertex[3].nx    = 0.0f;
 	paVertex[3].ny    = 0.0f;
 	paVertex[3].nz    = -1.0f;
-	paVertex[3].color = D3DCOLOR_ARGB(100,255,255,255);
+	paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[3].tu    = 1.0f;
 	paVertex[3].tv    = 1.0f;
 
@@ -472,7 +472,7 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
 
 	GgafDx9SquareModel::VERTEX* paVertex = NEW GgafDx9SquareModel::VERTEX[12];
 	prm_pSquareModel->_iSize_Vertecs = sizeof(GgafDx9SquareModel::VERTEX)*4;
-	prm_pSquareModel->_iSize_Verte_unit = sizeof(GgafDx9SquareModel::VERTEX);
+	prm_pSquareModel->_iSize_Vertec_unit = sizeof(GgafDx9SquareModel::VERTEX);
 	paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
 	paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
 	paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);

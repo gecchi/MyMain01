@@ -20,7 +20,7 @@ protected:
 	/** 矩形の頂点合計のサイズ */
 	UINT _iSize_Vertecs;
 	/** 1頂点のサイズ */
-	UINT _iSize_Verte_unit;
+	UINT _iSize_Vertec_unit;
 //	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
 //	GgafDx9RectUV*  _paRectUV;
 	

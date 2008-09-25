@@ -9,7 +9,7 @@ GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_nam
 	_iPatternNo_Active  = 0;
 	_paVertex = NEW VERTEX[4];
 	_iSize_Vertecs = sizeof(VERTEX)*4;
-	_iSize_Verte_unit = sizeof(VERTEX);
+	_iSize_Vertec_unit = sizeof(VERTEX);
 
 	_paVertex[0].x = 0.0f;
 	_paVertex[0].y = 0.0f;

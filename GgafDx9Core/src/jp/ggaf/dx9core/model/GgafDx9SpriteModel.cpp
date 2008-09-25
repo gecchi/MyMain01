@@ -13,9 +13,9 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(string prm_platemodel_name) : GgafDx9Mode
 	_iColNum_TextureSplit    = 1;
 	_iAnimationPatternNo_Max = 1;
 	_pModel_Next = NULL;
-
+	_isChangedAlpha = false;
 	_pIDirect3DVertexBuffer9 = NULL;
-
+	_iChangeVertexAlpha = 255;
 	//デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
 	//GgafDx9ModelManager::restoreSpriteModel で行っている。
 }
@@ -32,7 +32,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	HRESULT	hr;
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
 		//前回描画とモデルが違う！
-		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Verte_unit);
+		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SpriteModel::FVF);
 		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pID3DTexture9));
@@ -40,10 +40,10 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 
 	if (_pRectUV_drawlast != pRectUV_Active) {
 		//前回描画UV違う！、頂点バッファの tu, tv を直接変更
- 		static VERTEX* paVertexBuffer;
+		static VERTEX* paVertexBuffer;
 		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
 		if(FAILED(hr)) {
-			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗 model="<<_model_name<<"/hr="<<hr);
+			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗１ model="<<_model_name<<"/hr="<<hr);
 		}
 		paVertexBuffer[0].tu = pRectUV_Active->_aUV[0].tu;
 		paVertexBuffer[0].tv = pRectUV_Active->_aUV[0].tv;
@@ -53,11 +53,36 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 		paVertexBuffer[2].tv = pRectUV_Active->_aUV[2].tv;
 		paVertexBuffer[3].tu = pRectUV_Active->_aUV[3].tu;
 		paVertexBuffer[3].tv = pRectUV_Active->_aUV[3].tv;
+		if (_isChangedAlpha) { //Alpha変更があるならついでにする。
+			paVertexBuffer[0].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+			paVertexBuffer[1].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+			paVertexBuffer[2].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+			paVertexBuffer[3].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+			_isChangedAlpha = false;
+		}
 		_pIDirect3DVertexBuffer9->Unlock();
 	} else {
 		//前回描画モデルもUVも同じ
 		// → 何もせんでよい。こりゃはやいでっせ～！(たぶん)
 	}
+
+	if (_isChangedAlpha) {
+		//前回描画UVが同じでもAlpha変更な場合
+		static VERTEX* paVertexBuffer;
+		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
+		if(FAILED(hr)) {
+			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
+		}
+		paVertexBuffer[0].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+		paVertexBuffer[1].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+		paVertexBuffer[2].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+		paVertexBuffer[3].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
+		_isChangedAlpha = false;
+		_pIDirect3DVertexBuffer9->Unlock();
+	}
+
+
+
 	//描画して、ライトまたつけとく
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
 	GgafDx9God::_pID3DDevice9 -> DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -91,6 +116,11 @@ void GgafDx9SpriteModel::onDeviceLost() {
 	delete[] _paRectUV;
 	_paRectUV = NULL;
 	_TRACE_("GgafDx9SpriteModel::onDeviceLost() " <<  _model_name << " end");
+}
+
+void GgafDx9SpriteModel::changeVertexAlpha(int prm_iVertexAlpha) {
+	_isChangedAlpha = true;
+	_iChangeVertexAlpha = prm_iVertexAlpha;
 }
 
 GgafDx9SpriteModel::~GgafDx9SpriteModel() {

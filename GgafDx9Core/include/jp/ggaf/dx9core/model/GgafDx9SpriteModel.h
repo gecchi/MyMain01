@@ -5,11 +5,11 @@ class GgafDx9SpriteModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
-	struct VERTEX{  
-		float x, y, z;    // 頂点座標 
+	struct VERTEX{
+		float x, y, z;    // 頂点座標
 		float nx, ny, nz; // 法線
-		DWORD color;      // 頂点の色 
-		float tu, tv;     // テクスチャ座標 
+		DWORD color;      // 頂点の色
+		float tu, tv;     // テクスチャ座標
 	};
 	/** VERTEXのFVF */
 	static DWORD FVF;
@@ -20,17 +20,18 @@ protected:
 	/** 矩形の頂点合計のサイズ */
 	UINT _iSize_Vertecs;
 	/** 1頂点のサイズ */
-	UINT _iSize_Verte_unit;
+	UINT _iSize_Vertec_unit;
 	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
 	GgafDx9RectUV*  _paRectUV;
-	
-	
+
+
 	/** 頂点バッファへのポインタ */
 	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
 
 	/** 前回表示のUV */
 	GgafDx9RectUV*  _pRectUV_drawlast;
-	
+
+	bool _isChangedAlpha;
 
 public:
 	/** 全アニメパターン数 */
@@ -39,6 +40,7 @@ public:
 	float  _fSize_SpriteModelHeightPx;
 	int    _iRowNum_TextureSplit;
 	int    _iColNum_TextureSplit;
+	int	   _iChangeVertexAlpha;
 
 	/**
 	 * コンストラクタ<BR>
@@ -56,6 +58,9 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	void changeVertexAlpha(int prm_iVertexAlpha);
+
 	/**
 	 * デストラクタ<BR>
 	 * deleteするのはGgafDx9SpriteModelManagerである<BR>

@@ -33,7 +33,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 	}
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
-	GgafDx9God::_pID3DDevice9 -> DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Verte_unit);
+	GgafDx9God::_pID3DDevice9 -> DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Vertec_unit);
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	GgafDx9Model::_s_modelname_lastdraw = _model_name; //前回描画モデル名保存

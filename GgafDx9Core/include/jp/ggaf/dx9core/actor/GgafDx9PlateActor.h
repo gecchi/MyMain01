@@ -26,7 +26,7 @@ public:
 	/** 矩形の頂点合計のサイズ */
 	UINT _iSize_Vertecs;
 	/** 1頂点のサイズ */
-	UINT _iSize_Verte_unit;
+	UINT _iSize_Vertec_unit;
 
 	/** アニメパターン番号の上限番号 */
 	int _iPatternNo_Top;
