@@ -14,7 +14,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	_pMyShots001Rotation = NEW RotationActor("RotShot001");
 	getLordActor()->accept(KIND_MY, _pMyShots001Rotation);
 	Shot001Actor* pShot;
-	for (int i = 0; i < 30; i++) { //自弾ストック３０個
+	for (int i = 0; i < 50; i++) { //自弾ストック３０個
 		pShot = NEW Shot001Actor("S1", "moji2");
 		pShot->stopImmediately();
 		_pMyShots001Rotation->addSubLast(pShot);
@@ -25,7 +25,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	_pMyLaser001Rotation = NEW RotationActor("RotLaser001");
 	getLordActor()->accept(KIND_MY, _pMyLaser001Rotation);
 	Laser001Actor* pLaser;
-	for (int i = 0; i < 10; i++) { //レーザーストック３０個
+	for (int i = 0; i < 50; i++) { //レーザーストック３０個
 		pLaser = NEW Laser001Actor("L1", "MyLaser001");
 		pLaser->stopImmediately();
 		_pMyLaser001Rotation->addSubLast(pLaser);
