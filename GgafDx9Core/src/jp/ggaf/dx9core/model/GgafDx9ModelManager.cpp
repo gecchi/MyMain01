@@ -354,7 +354,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	paVertex[0].nx    = 0.0f;
 	paVertex[0].ny    = 0.0f;
 	paVertex[0].nz    = -1.0f;
-	paVertex[0].color = D3DCOLOR_ARGB(100,255,255,255);
+	paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
 	paVertex[0].tu    = 0.0f;
 	paVertex[0].tv    = 0.0f;
 

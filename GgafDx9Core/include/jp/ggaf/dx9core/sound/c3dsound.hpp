@@ -267,6 +267,7 @@ private:
 
 		// DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
 		if (DSERR_BUFFERLOST == hr) {
+			_TRACE_("DSERR_BUFFERLOST!");
 			m_lpdsBuffer->Restore();
 			hr = m_lpdsBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1,
 					&dwBytes1, &lpvPtr2, &dwBytes2, 0);
@@ -683,23 +684,17 @@ private:
 		ZeroMemory(&m_WaveFormat, sizeof(m_WaveFormat));
 		m_WaveFormat.nSamplesPerSec = vorbisInfo.rate;
 		m_WaveFormat.wBitsPerSample = 16; // 適当?
-		m_WaveFormat.nBlockAlign = m_WaveFormat.wBitsPerSample
-				* vorbisInfo.channels / 8;
-		m_WaveFormat.nAvgBytesPerSec = m_WaveFormat.nBlockAlign
-				* m_WaveFormat.nSamplesPerSec;
+		m_WaveFormat.nBlockAlign = m_WaveFormat.wBitsPerSample * vorbisInfo.channels / 8;
+		m_WaveFormat.nAvgBytesPerSec = m_WaveFormat.nBlockAlign	* m_WaveFormat.nSamplesPerSec;
 		m_WaveFormat.wFormatTag = WAVE_FORMAT_PCM;
 		m_WaveFormat.nChannels = vorbisInfo.channels;
 
 		// SoundBufferの作成
 		ZeroMemory(&m_dsBufferDesc, sizeof(m_dsBufferDesc));
 		m_dsBufferDesc.dwSize = sizeof(m_dsBufferDesc);
-		m_dsBufferDesc.dwFlags = DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLPAN
-				| DSBCAPS_CTRLPOSITIONNOTIFY | DSBCAPS_LOCDEFER
-				| DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
-		m_dsBufferDesc.dwBufferBytes = m_lBufferSecond
-				* m_WaveFormat.nAvgBytesPerSec;
-		m_dsBufferDesc.dwBufferBytes -= ((m_dsBufferDesc.dwBufferBytes
-				/ m_lNotifyCount) % 4) * m_lNotifyCount;
+		m_dsBufferDesc.dwFlags = DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLPAN | DSBCAPS_CTRLPOSITIONNOTIFY | DSBCAPS_LOCDEFER | DSBCAPS_GLOBALFOCUS | DSBCAPS_GETCURRENTPOSITION2;
+		m_dsBufferDesc.dwBufferBytes = m_lBufferSecond * m_WaveFormat.nAvgBytesPerSec;
+		m_dsBufferDesc.dwBufferBytes -= ((m_dsBufferDesc.dwBufferBytes/m_lNotifyCount) % 4) * m_lNotifyCount;
 		m_dsBufferDesc.guid3DAlgorithm = GUID_NULL;
 		m_dsBufferDesc.lpwfxFormat = &m_WaveFormat;
 
@@ -792,6 +787,7 @@ private:
 
 		// DSERR_BUFFERLOSTが返された場合，Restoreメソッドを使ってバッファを復元する
 		if (DSERR_BUFFERLOST == hr) {
+			_TRACE_("DSERR_BUFFERLOST!2");
 			m_lpdsBuffer->Restore();
 			hr = m_lpdsBuffer->Lock(m_dwNextWriteOffset, m_dwNotifySize
 					* uiBlock, &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
