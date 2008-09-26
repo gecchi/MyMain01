@@ -19,7 +19,7 @@ namespace Dix {
 	OggDecoder::OggDecoder() {
 	}
 
-	OggDecoder::OggDecoder( sp< OggVorbisResource > oggVorbisResource ) {
+	OggDecoder::OggDecoder( OggVorbisResource* oggVorbisResource ) {
 		setResource( oggVorbisResource );
 	}
 
@@ -105,7 +105,7 @@ namespace Dix {
 	}
 
 	//! サウンドをセット
-	bool OggDecoder::setResource( sp< OggVorbisResource > oggVorbisResource ) {
+	bool OggDecoder::setResource( OggVorbisResource* oggVorbisResource ) {
 
 		clear();
 

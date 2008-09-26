@@ -21,7 +21,7 @@ namespace Dix {
 		virtual void clear();
 
 		//! 安全なクローンを作成
-		virtual sp< OggVorbisResource > createClone();
+		virtual OggVorbisResource* createClone();
 
 		//! Oggファイルオープン
 		bool open( const char* filePath );

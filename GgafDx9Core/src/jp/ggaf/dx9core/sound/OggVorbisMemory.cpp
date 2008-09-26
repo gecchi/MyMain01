@@ -41,7 +41,7 @@ namespace Dix {
 	}
 
 	// ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
-	sp< OggVorbisResource > OggVorbisMemory::createClone() {
+	OggVorbisResource* OggVorbisMemory::createClone() {
 		if ( isReady_ == false ) {
 			return 0;
 		}

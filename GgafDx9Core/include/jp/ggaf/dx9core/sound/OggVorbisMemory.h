@@ -17,7 +17,7 @@ namespace Dix {
 		bool createBuffer( const char* filePath );
 
 		// 安全なクローンを作成
-		virtual sp< OggVorbisResource > createClone();
+		virtual OggVorbisResource* createClone();
 
 		//! クリア
 		virtual void clear();

@@ -29,7 +29,7 @@ namespace Dix {
 	}
 
 	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
-	sp< OggVorbisResource > OggVorbisFile::createClone() {
+	OggVorbisResource* OggVorbisFile::createClone() {
 		OggVorbisFile* obj = new OggVorbisFile;
 		if ( obj->open( filePath_ ) == false ) {
 			return 0;

@@ -30,7 +30,7 @@ namespace Dix {
 		}
 
 		// 安全なクローンを作成
-		virtual sp< OggVorbisResource > createClone() = 0;
+		virtual OggVorbisResource* createClone() = 0;
 
 		// 準備できた？
 		bool isReady() {
