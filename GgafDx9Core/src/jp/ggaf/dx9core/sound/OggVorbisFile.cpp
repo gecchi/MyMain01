@@ -35,8 +35,8 @@ namespace Dix {
 			return 0;
 		}
 
-		sp< OggVorbisFile > spObj( obj );
-		return spObj;
+		//OggVorbisFile* spObj( obj );
+		return obj;
 	}
 
 	//! Oggファイルオープン

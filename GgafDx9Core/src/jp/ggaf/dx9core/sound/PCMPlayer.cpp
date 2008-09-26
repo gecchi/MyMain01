@@ -22,7 +22,7 @@ namespace Dix {
 		clear();
 	}
 
-	PCMPlayer::PCMPlayer( Com_ptr< IDirectSound8 > cpDS8 ) :
+	PCMPlayer::PCMPlayer( IDirectSound8* cpDS8 ) :
 		cpDS8_			( cpDS8 ),
 		isReady_		( false ),
 		threadHandle_	( 0 ),
@@ -33,7 +33,7 @@ namespace Dix {
 		clear();
 	}
 
-	PCMPlayer::PCMPlayer( Com_ptr< IDirectSound8 > cpDS8, sp< PCMDecoder > spDecoder ) :
+	PCMPlayer::PCMPlayer( IDirectSound8* cpDS8, PCMDecoder* spDecoder ) :
 		cpDS8_			( cpDS8 ),
 		isReady_		( false ),
 		threadHandle_	( 0 ),
@@ -86,13 +86,13 @@ namespace Dix {
 	}
 
 	//! デバイス設定
-	void PCMPlayer::setDevice( Com_ptr< IDirectSound8 > cpDS8 ) {
+	void PCMPlayer::setDevice( IDirectSound8* cpDS8 ) {
 		cpDS8_ = cpDS8;
 	}
 
 	//! PCMデコーダを設定
-	bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
-		if ( cpDS8_.GetPtr() == 0 || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
+	bool PCMPlayer::setDecoder( PCMDecoder* pcmDecoder ) {
+		if ( cpDS8_ == 0 || pcmDecoder == 0 || pcmDecoder->isReady() == false ) {
 			isReady_ = false;
 			return false;
 		}
@@ -113,10 +113,10 @@ namespace Dix {
 		spPCMDecoder_ = pcmDecoder;
 
 		// セカンダリバッファがまだ無い場合は作成
-		if ( cpDSBuffer_.GetPtr() == 0 ) {
+		if ( cpDSBuffer_ == 0 ) {
 			IDirectSoundBuffer*	 ptmpBuf = 0;
 			if ( SUCCEEDED( cpDS8_->CreateSoundBuffer( &DSBufferDesc_, &ptmpBuf, NULL ) ) ) {
-				ptmpBuf->QueryInterface( IID_IDirectSoundBuffer8 , (void**)cpDSBuffer_.ToCreator() );
+				ptmpBuf->QueryInterface( IID_IDirectSoundBuffer8 , (void**)&cpDSBuffer_);
 			}
 			else {
 				clear();
@@ -142,7 +142,7 @@ namespace Dix {
 
 	//! バッファを初期化する
 	bool PCMPlayer::initializeBuffer() {
-		if ( spPCMDecoder_.GetPtr() == 0 ) {
+		if ( spPCMDecoder_ == 0 ) {
 			return false;
 		}
 

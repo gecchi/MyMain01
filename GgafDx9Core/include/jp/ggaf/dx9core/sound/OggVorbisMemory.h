@@ -37,7 +37,7 @@ namespace Dix {
 
 	protected:
 		char		filePath_[ 256 ];	// ファイルパス
-		sp< char >	spBuffer_;			// Oggファイルバッファ
+		char*	spBuffer_;			// Oggファイルバッファ
 		int			size_;				// バッファサイズ
 		long		curPos_;			// 現在の位置
 	};

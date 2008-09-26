@@ -4,10 +4,10 @@
 #ifndef IKD_DIX_OGGDECODER_H
 #define IKD_DIX_OGGDECODER_H
 
-#include "vorbis/vorbisfile.h"
-#include "PCMDecoder.h"
-#include "OggVorbisResource.h"
-#include "DixSmartPtr.h"
+//#include "vorbis/vorbisfile.h"
+//#include "PCMDecoder.h"
+//#include "OggVorbisResource.h"
+//#include "DixSmartPtr.h"
 
 namespace Dix {
 	class OggDecoder : public PCMDecoder {

@@ -48,9 +48,9 @@ namespace Dix {
 		OggVorbisMemory* obj = new OggVorbisMemory;
 		*obj = *this;
 		obj->curPos_ = 0;
-		sp< OggVorbisMemory > spObj( obj );
+//		OggVorbisMemory* spObj( obj );
 
-		return spObj;
+		return obj;
 	}
 
 	//! メモリ読み込み
@@ -69,7 +69,7 @@ namespace Dix {
 			count = maxCount;
 		}
 
-		memcpy( buffer, p->spBuffer_.GetPtr() + p->curPos_, size * count );
+		memcpy( buffer, p->spBuffer_ + p->curPos_, size * count );
 
 		// ポインタ位置を移動
 		p->curPos_ += size * count;
@@ -138,8 +138,8 @@ namespace Dix {
 		size_ = ftell( f );
 		fseek( f, 0, SEEK_SET );
 
-		spBuffer_.SetPtr( new char[ size_ ], true );
-		size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
+		//spBuffer_.SetPtr( new char[ size_ ], true );
+		size_t readSize = fread( spBuffer_, size_, 1, f );
 		if ( readSize != 1 ) {
 			// 何か変です
 			clear();

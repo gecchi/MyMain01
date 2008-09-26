@@ -60,14 +60,12 @@ class GgafDx9BgmManager;
 
 class DixComPtr;
 class DixSmartPtr;
-class OggDecoder;
-class OggVorbisFile;
-class OggVorbisMemory;
-class OggVorbisResource;
 class PCMDecoder;
 class PCMPlayer;
-
-
+class OggDecoder;
+class OggVorbisResource;
+class OggVorbisFile;
+class OggVorbisMemory;
 
 class CC3DSound;
 class CC3DSoundBGM;
@@ -108,12 +106,13 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/sound/vorbis/vorbisfile.h"
 #include "jp/ggaf/dx9core/sound/DixComPtr.h"
 #include "jp/ggaf/dx9core/sound/DixSmartPtr.h"
-#include "jp/ggaf/dx9core/sound/OggDecoder.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
-#include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
 #include "jp/ggaf/dx9core/sound/PCMDecoder.h"
 #include "jp/ggaf/dx9core/sound/PCMPlayer.h"
+#include "jp/ggaf/dx9core/sound/OggDecoder.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
+
 
 
 
