@@ -57,6 +57,18 @@ class GgafDx9Se;
 class GgafDx9Bgm;
 class GgafDx9SeManager;
 class GgafDx9BgmManager;
+
+class DixComPtr;
+class DixSmartPtr;
+class OggDecoder;
+class OggVorbisFile;
+class OggVorbisMemory;
+class OggVorbisResource;
+class PCMDecoder;
+class PCMPlayer;
+
+
+
 class CC3DSound;
 class CC3DSoundBGM;
 class CC3DSoundBufferSE;
@@ -91,6 +103,20 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/sound/c3dsound.hpp"
 #include "jp/ggaf/dx9core/sound/oggdecorder.hpp"
 #include "jp/ggaf/dx9core/sound/wavedecorder.hpp"
+
+
+#include "jp/ggaf/dx9core/sound/vorbis/vorbisfile.h"
+#include "jp/ggaf/dx9core/sound/DixComPtr.h"
+#include "jp/ggaf/dx9core/sound/DixSmartPtr.h"
+#include "jp/ggaf/dx9core/sound/OggDecoder.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
+#include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
+#include "jp/ggaf/dx9core/sound/PCMDecoder.h"
+#include "jp/ggaf/dx9core/sound/PCMPlayer.h"
+
+
+
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"

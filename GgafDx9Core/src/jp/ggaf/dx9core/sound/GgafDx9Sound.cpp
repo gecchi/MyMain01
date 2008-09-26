@@ -23,7 +23,7 @@ GgafDx9Se* GgafDx9Sound::createSe(string prm_wave_name) {
 	if (_pC3DSound == NULL) {
 		throw_GgafCriticalException("[GgafDx9Sound::createSe] Error! GgafDx9Sound‚Í‰Šú‰»‚µ‚Ä‚Ü‚¹‚ñBinit()‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B");
 	}
-	GgafDx9Se* pSe_New = NEW GgafDx9Se(prm_wave_name, 1);
+	GgafDx9Se* pSe_New = NEW GgafDx9Se(prm_wave_name, 1); //1‚ÍÅ‘å“¯Ä¶”
 	return pSe_New;
 }
 

@@ -361,7 +361,7 @@ public:
 		ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
 		dsbdesc.dwSize = sizeof(DSBUFFERDESC);
 		dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME
-				| DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS;
+				| DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_LOCSOFTWARE; //DSBCAPS_LOCSOFTWARE‚ð•t‚¯‘«‚µ‚½
 		dsbdesc.dwBufferBytes = WaveFile.GetWaveSize();
 		dsbdesc.lpwfxFormat = WaveFile.GetWaveFormat();
 
