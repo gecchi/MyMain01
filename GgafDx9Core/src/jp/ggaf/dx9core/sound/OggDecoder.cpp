@@ -14,7 +14,6 @@ namespace {
 	const unsigned int requestSize_g = 4096;	// 読み込み単位
 }
 
-namespace Dix {
 	//! コンストラクタ
 	OggDecoder::OggDecoder() {
 	}
@@ -109,7 +108,7 @@ namespace Dix {
 
 		clear();
 
-		if ( oggVorbisResource.GetPtr() == 0 || oggVorbisResource->isReady() == false ) {
+		if ( oggVorbisResource == 0 || oggVorbisResource->isReady() == false ) {
 			return false;
 		}
 
@@ -125,4 +124,3 @@ namespace Dix {
 
 		return true;
 	}
-}

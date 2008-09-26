@@ -7,8 +7,6 @@
 //#include <windows.h>
 //#include <mmsystem.h>
 
-namespace Dix
-{
 	class PCMDecoder {
 	public:
 		//! コンストラクタ
@@ -59,6 +57,5 @@ namespace Dix
 		unsigned int samplingRate_;	//!< サンプリングレート
 		unsigned int bitRate_;		//!< ビットレート
 	};
-}
 
 #endif

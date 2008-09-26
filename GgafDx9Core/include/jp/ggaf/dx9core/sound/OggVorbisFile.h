@@ -9,7 +9,6 @@
 //#include "DixSmartPtr.h"
 //#include "memory.h"
 
-namespace Dix {
 	class OggVorbisFile : public OggVorbisResource {
 	public:
 		OggVorbisFile();
@@ -29,6 +28,5 @@ namespace Dix {
 	protected:
 		char filePath_[ 256 ];	// ƒtƒ@ƒCƒ‹–¼
 	};
-}
 
 #endif

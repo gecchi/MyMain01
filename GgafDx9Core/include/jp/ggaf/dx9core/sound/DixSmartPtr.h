@@ -1,7 +1,7 @@
 // DixSmartPtr.h
 
 // スマートポインタテンプレート  v2.11
-//  Created by IKD (2008. 6. 30) 
+//  Created by IKD (2008. 6. 30)
 //   http://marupeke296.com
 
 // 2007. 3. 6
@@ -30,7 +30,6 @@
 #ifndef IKD_DIXSMARTPTR_H
 #define IKD_DIXSMARTPTR_H
 
-namespace Dix {
 	template <class T>
 	class sp
 	{
@@ -230,7 +229,7 @@ namespace Dix {
 			 return (*this);
 		  }
 
-	   
+
 	   ///////////////
 	   // *間接演算子
 	   /////
@@ -401,7 +400,6 @@ namespace Dix {
 	template <class T>
 	T* sp<T>::m_NullPtr = 0;
 
-} // end namespace Dix
 
 
 #endif // !defined(AFX_SMARTPTR_H__4D5E5A30_6FF3_4C18_ACEC_19EA17209FC1__INCLUDED_)

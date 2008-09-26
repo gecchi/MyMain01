@@ -7,7 +7,6 @@
 //#include "DixSmartPtr.h"
 //#include "memory.h"
 
-namespace Dix {
 	class OggVorbisResource {
 	public:
 		OggVorbisResource() : isReady_( false ){
@@ -41,6 +40,5 @@ namespace Dix {
 		OggVorbis_File	oggVorbisFile_;	// OggVorbis_File\‘¢‘Ì
 		bool			isReady_;		// €”õ‚Å‚«‚½H
 	};
-}
 
 #endif

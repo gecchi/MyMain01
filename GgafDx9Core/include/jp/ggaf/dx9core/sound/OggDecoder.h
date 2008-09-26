@@ -9,7 +9,6 @@
 //#include "OggVorbisResource.h"
 //#include "DixSmartPtr.h"
 
-namespace Dix {
 	class OggDecoder : public PCMDecoder {
 	public:
 		OggDecoder();
@@ -31,6 +30,5 @@ namespace Dix {
 	protected:
 		OggVorbisResource* oggVorbisResource_;
 	};
-}
 
 #endif

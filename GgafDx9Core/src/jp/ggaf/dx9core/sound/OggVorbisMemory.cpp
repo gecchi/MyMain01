@@ -11,7 +11,6 @@
 //#include <stdio.h>
 //#include <string.h>
 
-namespace Dix {
 	// コンストラクタ
 	OggVorbisMemory::OggVorbisMemory() :
 		size_	( 0 ),
@@ -167,4 +166,3 @@ namespace Dix {
 		return true;
 	}
 
-}

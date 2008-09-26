@@ -11,7 +11,6 @@
 //#pragma warning ( disable : 4996 )
 
 
-namespace Dix {
 	OggVorbisFile::OggVorbisFile() {
 	}
 
@@ -56,4 +55,3 @@ namespace Dix {
 
 		return true;
 	}
-}

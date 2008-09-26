@@ -9,7 +9,6 @@
 //#include "DixComPtr.h"
 //#include "dsound.h"
 
-namespace Dix {
 	class PCMPlayer {
 	public:
 		// Ä¶ó‘Ô
@@ -82,6 +81,5 @@ namespace Dix {
 		bool							isLoop_;			//!< ƒ‹[ƒv‚·‚éH
 		STATE							state_;				//!< Ä¶ó‘Ô
 	};
-}
 
 #endif

@@ -37,7 +37,6 @@
 
 
 
-namespace Dix{
 
 template <class T>
 class Com_ptr
@@ -431,7 +430,6 @@ public:
 template <class T>
 T* Com_ptr<T>::m_NullPtr = NULL;
 
-}
 
 
 #endif

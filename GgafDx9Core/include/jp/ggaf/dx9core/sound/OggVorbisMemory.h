@@ -6,7 +6,6 @@
 
 //#include "OggVorbisResource.h"
 
-namespace Dix {
 	class OggVorbisMemory : public OggVorbisResource {
 	public:
 		OggVorbisMemory();
@@ -41,6 +40,5 @@ namespace Dix {
 		int			size_;				// バッファサイズ
 		long		curPos_;			// 現在の位置
 	};
-}
 
 #endif

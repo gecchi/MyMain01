@@ -11,7 +11,6 @@ namespace {
 	unsigned int playTime_g = 1;	// 1 sec.
 }
 
-namespace Dix {
 	PCMPlayer::PCMPlayer() :
 		isReady_		( false ),
 		threadHandle_	( 0 ),
@@ -277,4 +276,3 @@ namespace Dix {
 	PCMPlayer::STATE PCMPlayer::getState() {
 		return state_;
 	}
-}

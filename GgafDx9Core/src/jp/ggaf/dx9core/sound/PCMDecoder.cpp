@@ -7,7 +7,6 @@
 //#include "PCMDecoder.h"
 //#include <string.h>
 
-namespace Dix {
 	//! コンストラクタ
 	PCMDecoder::PCMDecoder() :
 		isLoop_			( false ),
@@ -83,4 +82,3 @@ namespace Dix {
 		bitRate_ = bitRate;
 	}
 
-}
