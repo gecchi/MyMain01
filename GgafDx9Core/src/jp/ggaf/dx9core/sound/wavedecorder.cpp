@@ -1,28 +1,13 @@
+#include "stdafx.h"
+
 /****************************************************************
  *			waveデコーダ制御クラス
  *	@author		Ander/Echigo-ya koubou
  ****************************************************************/
-
-#ifndef	_INCLUDE_WAVEDECORDER_HPP
-#define	_INCLUDE_WAVEDECORDER_HPP
-
-#include <mmreg.h>
-#include <mmsystem.h>
-
-/**
- @brief		Waveファイルデコーダ
- */
-class CWaveDecorder {
-private:
-	WAVEFORMATEX* m_pwfx; /// Waveフォーマット
-	HMMIO m_hmmioIn; /// MM I/Oハンドル
-	MMCKINFO m_ckIn; /// Multimedia RIFF chunk
-	MMCKINFO m_ckInRiff; /// Use in opening a WAVE file
-
 	/**
 	 @brief		MM I/Oの読み込み
 	 */
-	int readMMIO(void) {
+	int CWaveDecorder::readMMIO(void) {
 		MMCKINFO ckIn; // chunk info. for general use.
 		PCMWAVEFORMAT pcmWaveFormat; // Temp PCM structure to load in.
 
@@ -96,19 +81,18 @@ private:
 		return true;
 	}
 
-public:
-	virtual ~CWaveDecorder(void) {
+	CWaveDecorder::~CWaveDecorder(void) {
 		Close();
 	}
 
-	CWaveDecorder(void) :
+	CWaveDecorder::CWaveDecorder(void) :
 		m_pwfx(NULL), m_hmmioIn(NULL) {
 	}
 
 	/**
 	 @brief		Waveファイルを開く
 	 */
-	int Open(LPSTR lpszFilename) {
+	int CWaveDecorder::Open(LPSTR lpszFilename) {
 		if (NULL == (m_hmmioIn = mmioOpen(lpszFilename, NULL, MMIO_ALLOCBUF
 				| MMIO_READ))) {
 			return false;
@@ -129,7 +113,7 @@ public:
 	/**
 	 @brief		Waveファイルを閉じる
 	 */
-	void Close(void) {
+	void CWaveDecorder::Close(void) {
 		if (m_pwfx) {
 			delete m_pwfx;
 			m_pwfx = NULL;
@@ -142,7 +126,7 @@ public:
 	 @brief		バッファ読み出し位置を指定
 	 @param		lPosition		バッファ読み出し位置(offsetで指定)
 	 */
-	int SetPosition(long lPosition) {
+	int CWaveDecorder::SetPosition(long lPosition) {
 		// Seek to the data
 		if (-1 == mmioSeek(m_hmmioIn, m_ckInRiff.dwDataOffset + sizeof(FOURCC)
 				+ lPosition, SEEK_SET)) {
@@ -162,7 +146,7 @@ public:
 	 @brief		Waveデータの転送
 	 @return		0以上：転送されたバイト数／負数：NG
 	 */
-	long GetWave(LPBYTE lpDest, long lSize) {
+	long CWaveDecorder::GetWave(LPBYTE lpDest, long lSize) {
 		long lReadSize = 0;
 		MMIOINFO mmioinfoIn; // current status of <hmmioIn>
 
@@ -206,17 +190,14 @@ public:
 	/**
 	 @brief		Waveデータのサイズを取得
 	 */
-	DWORD GetWaveSize(void) {
+	DWORD CWaveDecorder::GetWaveSize(void) {
 		return m_ckIn.cksize;
 	}
 
 	/**
 	 @brief		WaveFormatの取得
 	 */
-	WAVEFORMATEX* GetWaveFormat(void) {
+	WAVEFORMATEX* CWaveDecorder::GetWaveFormat(void) {
 		return m_pwfx;
 	}
 
-};
-
-#endif	//	_INCLUDE_WAVEDECORDER_HPP

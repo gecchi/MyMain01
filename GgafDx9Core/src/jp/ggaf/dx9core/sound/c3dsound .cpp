@@ -1,3 +1,5 @@
+#include "stdafx.h"
+
 /******************************************************************************
  * DirectSound制御クラス
  *	@author		Ander/Echigo-ya koubou
@@ -18,74 +20,14 @@
 // 【Ander氏Blog:サンプル公開の記事】
 // http://ecyber.exblog.jp/824656/
 
-#ifndef	_INCLUDE_C3DSOUND_HPP
-#define	_INCLUDE_C3DSOUND_HPP
 
-#include <MMSystem.h>
-#include <dxerr9.h>
-#include <dsound.h>
-#include <vector>
-#include <map>
-#include <algorithm>
-
-#include "wavedecorder.hpp"
-#include "oggdecorder.hpp"
-
-#ifndef	SAFE_RELEASE
-#define	SAFE_RELEASE( x )		{if( x ){(x)->Release();(x)=NULL;}}
-#endif	// SAFE_RELEASE
-static const int _DS_MINVOLUME_ = -9600;
-static const int _DS_PAN_LEFT_ = -10000;
-static const int _DS_PAN_RIGHT_ = 10000;
-
-/**
- @brief		DirectSound制御クラス
- */
-class CC3DSound {
-public:
-	/**
-	 @brief		SoundBuffer基本クラス
-	 */
-	class CC3DSoundBuffer {
-	public:
-		virtual ~CC3DSoundBuffer(void) {
-		}
-		virtual void Release(void) {
-		}
-		virtual int Play(long, long) {
-			return true;
-		}
-		virtual int Stop(void) {
-			return true;
-		}
-		virtual int SetVolume(long) {
-			return true;
-		}
-		virtual int SetPan(long) {
-			return true;
-		}
-	};
-
-	/// ボリューム設定コンテナタイプ
-	typedef std::map< unsigned int, float> float_map;
-
-	typedef std::vector< CC3DSoundBuffer*> soundbuffer_vector;
-
-private:
-	LPDIRECTSOUND8 m_lpDS; /// DirectSound
-	DSCAPS m_dsCaps; ///
-	float_map m_mapVolume; /// ボリューム設定
-	float m_fMasterVolume; /// マスタボリューム
-	soundbuffer_vector m_vecSoundBuffer; /// 登録されたサウンドバッファ
-
-public:
-	virtual ~CC3DSound(void) {
+	CC3DSound::~CC3DSound(void) {
 		Release();
 	}
-	CC3DSound(void) :
+	CC3DSound::CC3DSound(void) :
 		m_lpDS(NULL), m_fMasterVolume(1.0f) {
 	}
-	void Release(void) {
+	void CC3DSound::Release(void) {
 		// 解放されていないサウンドバッファを全て解放する
 		soundbuffer_vector::iterator it = m_vecSoundBuffer.begin();
 		for (; it != m_vecSoundBuffer.end();) {
@@ -105,7 +47,7 @@ public:
 	 @return		true:OK/false:NG
 	 @note		DirectSound作成および各種初期設定。
 	 */
-	int CreateSound(HWND hWnd) {
+	int CC3DSound::CreateSound(HWND hWnd) {
 		HRESULT hr;
 		hr = DirectSoundCreate8(NULL, &m_lpDS, NULL);
 		if (FAILED(hr)) {
@@ -129,7 +71,7 @@ public:
 	 @brief		DirectSoundオブジェクトの取得
 	 @return		DirectSoundオブジェクト
 	 */
-	LPDIRECTSOUND8 GetDirectSound(void) {
+	LPDIRECTSOUND8 CC3DSound::GetDirectSound(void) {
 		return m_lpDS;
 	}
 
@@ -140,7 +82,7 @@ public:
 	 @return		true:OK/false:NG
 	 @note		SE/BGMなど別々にボリュームを設定する場合に使用する。
 	 */
-	int SetVolumeSetting(unsigned int uiID, float fVolume) {
+	int CC3DSound::SetVolumeSetting(unsigned int uiID, float fVolume) {
 		m_mapVolume[uiID] = fVolume;
 		return true;
 	}
@@ -148,7 +90,7 @@ public:
 	/**
 	 @brief	ボリューム設定からボリュームを取得
 	 */
-	long GetVolume(unsigned int uiID, long lVolumeSrc) {
+	long CC3DSound::GetVolume(unsigned int uiID, long lVolumeSrc) {
 		float fVolumeSetting = GetVolumeSetting(uiID);
 
 		// Volume = src * VolumeSetting * MasterVolume
@@ -162,7 +104,7 @@ public:
 	 @param		uiID		取得するボリューム設定のID
 	 @return		ボリューム設定
 	 */
-	float GetVolumeSetting(unsigned int uiID) {
+	float CC3DSound::GetVolumeSetting(unsigned int uiID) {
 		float_map::iterator it = m_mapVolume.find(uiID);
 		if (it == m_mapVolume.end()) {
 			return 1.0f;
@@ -176,7 +118,7 @@ public:
 	 @return		true:OK/false:NG
 	 @note		マスタボリュームの初期値は1.0。
 	 */
-	int SetMasterVolume(float fVolume) {
+	int CC3DSound::SetMasterVolume(float fVolume) {
 		m_fMasterVolume = fVolume;
 		return true;
 	}
@@ -184,14 +126,14 @@ public:
 	 @brief		マスタボリュームの取得
 	 @return		マスタボリューム値
 	 */
-	float GetMasterVolume(void) {
+	float CC3DSound::GetMasterVolume(void) {
 		return m_fMasterVolume;
 	}
 
 	/**
 	 @brief		DirectSound性能の取得
 	 */
-	int GetDirectSoundCaps(DSCAPS& dsCaps) {
+	int CC3DSound::GetDirectSoundCaps(DSCAPS& dsCaps) {
 		if (m_lpDS == NULL) {
 			return false;
 		}
@@ -204,7 +146,7 @@ public:
 	 @note		サウンドバッファを登録することで、Soundクラスの解放(Release)時に
 	 全てのサウンドバッファを解放できる。(Leak対策)
 	 */
-	int RegistSoundBuffer(CC3DSoundBuffer* lpSoundBuffer) {
+	int CC3DSound::RegistSoundBuffer(CC3DSoundBuffer* lpSoundBuffer) {
 		m_vecSoundBuffer.push_back(lpSoundBuffer);
 
 		return true;
@@ -213,7 +155,7 @@ public:
 	 @brief		SoundBufferの登録を解除する
 	 @note		サウンドバッファの解放時にサウンドバッファから呼びだす。
 	 */
-	int UnregistSoundBuffer(CC3DSoundBuffer* lpSoundBuffer) {
+	int CC3DSound::UnregistSoundBuffer(CC3DSoundBuffer* lpSoundBuffer) {
 		soundbuffer_vector::iterator it = std::find(m_vecSoundBuffer.begin(),
 				m_vecSoundBuffer.end(), lpSoundBuffer);
 		if (it == m_vecSoundBuffer.end()) {
@@ -226,7 +168,7 @@ public:
 	/**
 	 @brief		全てのバッファの演奏を停止する
 	 */
-	int Stop(void) {
+	int CC3DSound::Stop(void) {
 		if (m_lpDS == NULL) {
 			return false;
 		}
@@ -238,22 +180,11 @@ public:
 
 		return true;
 	}
-};
-
-/**
- @brief		SE用サウンドバッファ制御クラス
- */
-class CC3DSoundBufferSE: public CC3DSound::CC3DSoundBuffer {
-private:
-	LPDIRECTSOUNDBUFFER m_lpdsBuffer; /// サウンドバッファ
-	CC3DSound* m_lpc3dSound; /// Soundのポインタ
-	std::string m_strFilename; /// ファイル名
-	UINT m_uiVolumeSettingID; /// ボリューム設定ID
 
 	/**
 	 @brief		バッファへWaveデータを転送
 	 */
-	int writeBuffer(CWaveDecorder& WaveFile) {
+	int CC3DSoundBufferSE::writeBuffer(CWaveDecorder& WaveFile) {
 		// セカンダリ・バッファにWaveデータを書き込む
 		LPVOID lpvPtr1; // 最初のブロックのポインタ
 		DWORD dwBytes1; // 最初のブロックのサイズ
@@ -298,7 +229,7 @@ private:
 	/**
 	 @brief		SoundBufferの復帰
 	 */
-	int restore(void) {
+	int CC3DSoundBufferSE::restore(void) {
 		// Waveファイルを開く
 		CWaveDecorder WaveFile;
 		if (!WaveFile.Open(const_cast<LPSTR> (m_strFilename.c_str()))) {
@@ -311,15 +242,14 @@ private:
 		return true;
 	}
 
-public:
-	virtual ~CC3DSoundBufferSE(void) {
+	CC3DSoundBufferSE::~CC3DSoundBufferSE(void) {
 		Release();
 	}
-	CC3DSoundBufferSE(void) :
+	CC3DSoundBufferSE::CC3DSoundBufferSE(void) :
 		m_lpdsBuffer(NULL), m_lpc3dSound(NULL), m_uiVolumeSettingID(0) {
 	}
 
-	CC3DSoundBufferSE(const CC3DSoundBufferSE& c3dsb) {
+	CC3DSoundBufferSE::CC3DSoundBufferSE(const CC3DSoundBufferSE& c3dsb) {
 		*this = c3dsb;
 	}
 
@@ -327,7 +257,7 @@ public:
 	 @brief		SEの解放
 	 @note		この関数はCreateされていない状態で呼び出された場合、何もしない
 	 */
-	void Release(void) {
+	void CC3DSoundBufferSE::Release(void) {
 		SAFE_RELEASE( m_lpdsBuffer );
 		m_strFilename.clear();
 
@@ -343,8 +273,8 @@ public:
 	 @param		c3dSound			Soundクラス
 	 @return		true:OK/false:NG
 	 */
-	int Create(LPCSTR lpszFileName, CC3DSound& c3dSound,
-			UINT uiVolumeSettingID = 0) {
+	int CC3DSoundBufferSE::Create(LPCSTR lpszFileName, CC3DSound& c3dSound,
+			UINT uiVolumeSettingID) {
 		Release();
 
 		HRESULT hr;
@@ -397,7 +327,7 @@ public:
 	 @param		lPan		パン(left:-10000 right:10000)
 	 @return		true:OK/false:NG
 	 */
-	int Play(long lVolume, long lPan) {
+	int CC3DSoundBufferSE::Play(long lVolume, long lPan) {
 		DWORD dwStatus;
 
 		if (FAILED(m_lpdsBuffer->GetStatus(&dwStatus))) {
@@ -425,7 +355,7 @@ public:
 	 @brief		バッファの複製
 	 @param		c3dsbSE		コピー元
 	 */
-	int operator =(const CC3DSoundBufferSE& c3dsbSE) {
+	int CC3DSoundBufferSE::operator =(const CC3DSoundBufferSE& c3dsbSE) {
 		Release();
 		if (c3dsbSE.m_lpc3dSound == NULL || c3dsbSE.m_lpdsBuffer == NULL) {
 			return false;
@@ -444,24 +374,16 @@ public:
 
 		return true;
 	}
-};
 
-/**
- @brief		SE制御クラス
- @note		同じのSEを同時に再生できるように、ひとつのSEにつき複数のバッファを確保している
- */
-class CC3DSoundSE: public CC3DSound::CC3DSoundBuffer {
-private:
-	CC3DSoundBufferSE* m_lpSoundBuffer; /// SoundBufferクラスの配列
-	unsigned int m_uiBufferIndex; /// 次に再生するSoundBuffer
-	unsigned int m_uiBufferCount; /// SoundBufferの確保数
 
-public:
-	virtual ~CC3DSoundSE(void) {
+
+
+
+	CC3DSoundSE::~CC3DSoundSE(void) {
 		Release();
 	}
 
-	CC3DSoundSE(void) :
+	CC3DSoundSE::CC3DSoundSE(void) :
 		m_lpSoundBuffer(NULL) {
 	}
 
@@ -469,7 +391,7 @@ public:
 	 @brief		SEを解放する
 	 @note		この関数はCreateされずに呼ばれた場合は何もしない
 	 */
-	void Release(void) {
+	void CC3DSoundSE::Release(void) {
 		delete[] m_lpSoundBuffer;
 		m_lpSoundBuffer = NULL;
 	}
@@ -482,8 +404,8 @@ public:
 	 @param		uiVolumeSettingID	ボリューム設定ID(SOUNDのマスタボリューム設定)
 	 @return		true:OK/false:NG
 	 */
-	int CreateSE(CC3DSound& c3dSound, LPCSTR lpszFilename,
-			unsigned int nBufferCount, UINT uiVolumeSettingID = 0) {
+	int CC3DSoundSE::CreateSE(CC3DSound& c3dSound, LPCSTR lpszFilename,
+			unsigned int nBufferCount, UINT uiVolumeSettingID) {
 		if (nBufferCount == 0) {
 			return false;
 		}
@@ -515,7 +437,7 @@ public:
 	 @param		lPan		パン(left:-10000 right:10000)
 	 @return		true:OK/false:NG
 	 */
-	int Play(long lVolume, long lPan) {
+	int CC3DSoundSE::Play(long lVolume, long lPan) {
 		if (m_lpSoundBuffer == NULL) {
 			return false;
 		}
@@ -531,61 +453,11 @@ public:
 		return true;
 	}
 
-};
 
-/**
- @brief		oggファイルの再生
- */
-class CC3DSoundBGM: public CC3DSound::CC3DSoundBuffer {
-public:
 
-	struct fade_effect {
-		DWORD dwEffect;
-		long lVolumeSpeed;
-		long lVolumeTo;
-		long lPanSpeed;
-		long lPanTo;
 
-		enum {
-			FADEEFFECT_NONE = 0,
-			FADEEFFECT_VOLUME = 1,
-			FADEEFFECT_PAN = 2,
-			FADEEFFECT_FADEOUT = 4,
-		};
-	};
 
-	struct play_info {
-		long lVolume;
-		long lPan;
-
-		int operator +=(fade_effect& fadeEffect) {
-			bool bUpdate = false;
-			if (fadeEffect.dwEffect & fadeEffect.FADEEFFECT_VOLUME) {
-				lVolume += fadeEffect.lVolumeSpeed;
-				if ((fadeEffect.lVolumeSpeed < 0 && lVolume
-						<= fadeEffect.lVolumeTo) || (fadeEffect.lVolumeSpeed
-						> 0 && lVolume >= fadeEffect.lVolumeTo)) {
-					fadeEffect.dwEffect &= ~fadeEffect.FADEEFFECT_VOLUME;
-					lVolume = fadeEffect.lVolumeTo;
-				}
-				bUpdate = true;
-			}
-			if (fadeEffect.dwEffect & fadeEffect.FADEEFFECT_PAN) {
-				lPan += fadeEffect.lPanSpeed;
-				if ((fadeEffect.lPanSpeed < 0 && lPan <= fadeEffect.lPanTo)
-						|| (fadeEffect.lPanSpeed > 0 && lPan
-								>= fadeEffect.lPanTo)) {
-					fadeEffect.dwEffect &= ~fadeEffect.FADEEFFECT_PAN;
-					lPan = fadeEffect.lPanTo;
-				}
-				bUpdate = true;
-			}
-
-			return bUpdate;
-		}
-	};
-
-	void releaseNotifyObject(void) {
+	void CC3DSoundBGM::releaseNotifyObject(void) {
 		if (m_lpdsNotify) {
 			// Notifyの解放
 			SAFE_RELEASE( m_lpdsNotify );
@@ -600,36 +472,6 @@ public:
 		}
 	}
 
-private:
-	/// 通知イベントハンドルのコンテナ
-	typedef std::vector< HANDLE> handle_vector;
-	/// Notifyする再生位置のコンテナ
-	typedef std::vector< DSBPOSITIONNOTIFY> notify_vector;
-
-	std::string m_strFileName; /// ファイル名
-	COggDecorder m_OggDecorder; /// oggデコーダ
-	CC3DSound* m_lpc3dSound; /// Soundクラスへのポインタ
-	LPDIRECTSOUNDBUFFER8 m_lpdsBuffer; /// SoundBuffer
-	DSBUFFERDESC m_dsBufferDesc; /// SoundBuffer情報
-	WAVEFORMATEX m_WaveFormat; /// WaveFormat
-	LPDIRECTSOUNDNOTIFY8 m_lpdsNotify; /// 通知
-	HANDLE m_hThread; /// 再生管理用スレッド
-	HANDLE m_hEventNotify; /// 再生位置の通知イベント
-	HANDLE m_hEventExit; /// スレッド終了通知用のイベント
-	DWORD m_dwThreadResult; /// スレッドの完了コード格納先
-	DWORD m_dwNextWriteOffset; /// 次の書き込みポインタのオフセット
-	notify_vector m_vecNotifyPosition; /// 再生位置通知用のコンテナ
-	DWORD m_dwNotifySize; /// Notifyサイズ
-	long m_lLastBufferCount; /// 現在バッファに設定してある数
-	bool m_bExitThread; /// スレッド終了フラグ
-	CRITICAL_SECTION m_csThread; /// スレッド通信用クリティカルセクション
-	handle_vector m_vecEvent; /// スレッドのイベント待ちハンドルコンテナ
-	long m_lNotifyCount; /// サウンドバッファの通知の細かさ
-	long m_lBufferSecond; /// サウンドバッファへ確保する時間
-	UINT m_uiVolumeSettingID; /// ボリューム設定ID
-
-	play_info m_PlayInfo; /// 演奏状態
-	fade_effect m_FadeEffect; /// フェード効果
 
 
 	/**
@@ -637,7 +479,7 @@ private:
 	 @note		スレッド停止指示後、タイムアウト時間停止を待つ。
 	 タイムアウトした場合、強制的にスレッドを停止させてエラーを返す。
 	 */
-	int closeThread(int nTimeOut) {
+	int CC3DSoundBGM::closeThread(int nTimeOut) {
 		if (m_hThread) {
 			// スレッドへ終了イベントを投げて終了するのを待つ
 
@@ -674,7 +516,7 @@ private:
 	 @brief		SoundBufferの作成
 	 @return		true:OK/false:NG
 	 */
-	int createSoundBuffer(void) {
+	int CC3DSoundBGM::createSoundBuffer(void) {
 		// vorbis情報の取得
 		vorbis_info vorbisInfo;
 		if (!m_OggDecorder.GetVorbisInfo(vorbisInfo)) {
@@ -724,7 +566,7 @@ private:
 	 @return		true:OK/false:NG
 	 @note		このクラスでスレッドを生成する
 	 */
-	int createNotify(void) {
+	int CC3DSoundBGM::createNotify(void) {
 		HRESULT hr;
 
 		// Notifyインタフェースの作成
@@ -773,7 +615,7 @@ private:
 	 @param		uiBlock		転送するブロック数
 	 @return		true:OK/false:NG
 	 */
-	int loadStream(UINT uiBlock) {
+	int CC3DSoundBGM::loadStream(UINT uiBlock) {
 		// バッファへ新しいデータを転送
 		// セカンダリ・バッファにWaveデータを書き込む
 		LPVOID lpvPtr1; // 最初のブロックのポインタ
@@ -819,7 +661,7 @@ private:
 	/**
 	 @brief		エフェクトの更新
 	 */
-	int updateFadeEffect(void) {
+	int CC3DSoundBGM::updateFadeEffect(void) {
 		// Fade効果を更新
 		DWORD dwEffect = m_FadeEffect.dwEffect;
 		m_PlayInfo += m_FadeEffect;
@@ -841,7 +683,7 @@ private:
 	 @brief		再生管理スレッド
 	 @note		createNotifyにより開始・Stopにより終了する
 	 */
-	DWORD ThreadProcedure(LPVOID lpParam) {
+	DWORD CC3DSoundBGM::ThreadProcedure(LPVOID lpParam) {
 		DWORD dwResult;
 		while (!m_bExitThread) {
 			dwResult = MsgWaitForMultipleObjects(
@@ -887,21 +729,20 @@ private:
 		return 0L;
 	}
 
-	void setVolume(long lVolume) {
+	void CC3DSoundBGM::setVolume(long lVolume) {
 		m_lpdsBuffer->SetVolume(m_lpc3dSound->GetVolume(m_uiVolumeSettingID,
 				lVolume));
 		m_PlayInfo.lVolume = lVolume;
 	}
-	void setPan(long lPan) {
+	void CC3DSoundBGM::setPan(long lPan) {
 		m_lpdsBuffer->SetPan(lPan);
 		m_PlayInfo.lPan = lPan;
 	}
 
-public:
-	virtual ~CC3DSoundBGM(void) {
+	CC3DSoundBGM::~CC3DSoundBGM(void) {
 	}
 
-	CC3DSoundBGM(void) :
+	CC3DSoundBGM::CC3DSoundBGM(void) :
 		m_lpc3dSound(NULL), m_lpdsBuffer(NULL), m_lpdsNotify(NULL), m_hThread(
 				NULL) {
 	}
@@ -909,7 +750,7 @@ public:
 	 @brief		SoundBufferの解放
 	 @note		この関数はCreateされていない状態で呼ばれても何もしない
 	 */
-	void Release(void) {
+	void CC3DSoundBGM::Release(void) {
 		// 演奏の停止
 		Stop();
 
@@ -935,9 +776,9 @@ public:
 	 @param		lpszFilename	ファイル名(ogg)
 	 @return		true:OK/false:NG
 	 */
-	int CreateBGM(CC3DSound& c3dSound, LPCSTR lpszFilename,
-			UINT uiVolumeSettingID = 0, UINT uiNotifyCount = 16,
-			long lBufferSecond = 5) {
+	int CC3DSoundBGM::CreateBGM(CC3DSound& c3dSound, LPCSTR lpszFilename,
+			UINT uiVolumeSettingID, UINT uiNotifyCount,
+			long lBufferSecond) {
 		Release();
 
 		m_lNotifyCount = uiNotifyCount;
@@ -973,7 +814,7 @@ public:
 	 @brief		演奏の停止
 	 @note		この関数はCreateまたはPlayされていない場合に呼ばれても何もしない
 	 */
-	int Stop(void) {
+	int CC3DSoundBGM::Stop(void) {
 		if (m_lpdsNotify) {
 			// 再生中(Notifyが機能している)場合は、再生の停止・スレッド終了・オブジェクト解放を行う
 			// バッファの停止
@@ -994,7 +835,7 @@ public:
 	/**
 	 @brief		演奏開始
 	 */
-	int Play(long lVolume = 0, long lPan = 0) {
+	int CC3DSoundBGM::Play(long lVolume, long lPan) {
 		if (m_lpdsBuffer == NULL) {
 			return false;
 		}
@@ -1027,7 +868,7 @@ public:
 	}
 
 	//減衰。1/100 dB (デシベル) 単位で指定する。
-	int SetVolume(long lVolume) {
+	int CC3DSoundBGM::SetVolume(long lVolume) {
 		if (m_lpdsBuffer == NULL) {
 			return false;
 		}
@@ -1038,7 +879,7 @@ public:
 
 		return true;
 	}
-	int SetPan(long lPan) {
+	int CC3DSoundBGM::SetPan(long lPan) {
 		if (m_lpdsBuffer == NULL) {
 			return false;
 		}
@@ -1050,7 +891,7 @@ public:
 		return true;
 	}
 
-	void SetFadeEffectVolume(long lVolumeTo, long lVolumeSpeed) {
+	void CC3DSoundBGM::SetFadeEffectVolume(long lVolumeTo, long lVolumeSpeed) {
 		if (m_lpdsBuffer) {
 			EnterCriticalSection(&m_csThread);
 
@@ -1062,7 +903,7 @@ public:
 		}
 	}
 
-	void SetFadeEffectPan(long lPanTo, long lPanSpeed) {
+	void CC3DSoundBGM::SetFadeEffectPan(long lPanTo, long lPanSpeed) {
 		if (m_lpdsBuffer) {
 			EnterCriticalSection(&m_csThread);
 
@@ -1074,7 +915,7 @@ public:
 		}
 	}
 
-	int GetPlayInfo(play_info& playInfo) {
+	int CC3DSoundBGM::GetPlayInfo(play_info& playInfo) {
 		if (m_lpdsBuffer == NULL) {
 			return false;
 		}
@@ -1088,7 +929,8 @@ public:
 		return true;
 	}
 
-	static DWORD _ThreadProcedure(LPVOID lpParam) {
+	//static
+	DWORD CC3DSoundBGM::_ThreadProcedure(LPVOID lpParam) {
 		CC3DSoundBGM* lpBGM = reinterpret_cast<CC3DSoundBGM*> (lpParam);
 		if (lpBGM) {
 			return lpBGM->ThreadProcedure(NULL);
@@ -1096,14 +938,14 @@ public:
 		return 0L;
 	}
 
-	void SetPlayModeLoop(bool bEnable) {
+	void CC3DSoundBGM::SetPlayModeLoop(bool bEnable) {
 		EnterCriticalSection(&m_csThread);
 
 		m_OggDecorder.SetPlayModeLoop(bEnable);
 
 		LeaveCriticalSection(&m_csThread);
 	}
-	void SetPlayModeABRepeat(double dfPosA, double dfPosB, ULONG ulCount) {
+	void CC3DSoundBGM::SetPlayModeABRepeat(double dfPosA, double dfPosB, ULONG ulCount) {
 		EnterCriticalSection(&m_csThread);
 
 		COggDecorder::repeat_info repeatInfo;
@@ -1116,7 +958,7 @@ public:
 
 		LeaveCriticalSection(&m_csThread);
 	}
-	int SetFadeOut(long lVolumeSpeed) {
+	int CC3DSoundBGM::SetFadeOut(long lVolumeSpeed) {
 		if (m_lpdsBuffer == NULL) {
 			return false;
 		}
@@ -1140,12 +982,10 @@ public:
 	/**
 	 @brief		ファイル名の取得
 	 */
-	LPCSTR GetFileName(void) {
+	LPCSTR CC3DSoundBGM::GetFileName(void) {
 		if (m_strFileName.empty()) {
 			return NULL;
 		}
 		return m_strFileName.c_str();
 	}
-};
 
-#endif	//_INCLUDE_C3DSOUND_HPP

@@ -23,7 +23,7 @@ extern "C"
 {
 #endif /* __cplusplus */
 
-#include "codec.h"
+//#include "codec.h"
 
 extern int vorbis_encode_init(vorbis_info *vi,
 			      long channels,

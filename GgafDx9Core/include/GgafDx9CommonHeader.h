@@ -52,6 +52,30 @@ class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
 
 class GgafDx9RectUV;
+
+
+#include "ogg/os_types.h"
+#include "ogg/ogg.h"
+#include "vorbis/codec.h"
+#include "vorbis/vorbisenc.h"
+#include "vorbis/vorbisfile.h"
+
+
+
+class CWaveDecorder;
+class COggDecorder;
+class CC3DSound;
+class CC3DSoundBGM;
+class CC3DSoundBufferSE;
+class CC3DSoundSE;
+
+
+#include "jp/ggaf/dx9core/sound/oggdecorder.h"
+#include "jp/ggaf/dx9core/sound/wavedecorder.h"
+#include "jp/ggaf/dx9core/sound/c3dsound.h"
+
+
+
 class GgafDx9Sound;
 class GgafDx9Se;
 class GgafDx9Bgm;
@@ -67,12 +91,7 @@ class OggVorbisResource;
 class OggVorbisFile;
 class OggVorbisMemory;
 
-class CC3DSound;
-class CC3DSoundBGM;
-class CC3DSoundBufferSE;
-class CC3DSoundSE;
-class COggDecorder;
-class CWaveDecorder;
+
 
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
@@ -98,12 +117,15 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryChecker.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"
-#include "jp/ggaf/dx9core/sound/c3dsound.hpp"
-#include "jp/ggaf/dx9core/sound/oggdecorder.hpp"
-#include "jp/ggaf/dx9core/sound/wavedecorder.hpp"
+//#include "jp/ggaf/dx9core/sound/c3dsound.hpp"
+//#include "jp/ggaf/dx9core/sound/oggdecorder.hpp"
+//#include "jp/ggaf/dx9core/sound/wavedecorder.hpp"
+//
 
 
-#include "jp/ggaf/dx9core/sound/vorbis/vorbisfile.h"
+
+
+
 #include "jp/ggaf/dx9core/sound/DixComPtr.h"
 #include "jp/ggaf/dx9core/sound/DixSmartPtr.h"
 #include "jp/ggaf/dx9core/sound/PCMDecoder.h"
