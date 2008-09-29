@@ -29,7 +29,7 @@
 
 	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ðì¬
 	OggVorbisResource* OggVorbisFile::createClone() {
-		OggVorbisFile* obj = new OggVorbisFile;
+		OggVorbisFile* obj = NEW OggVorbisFile;
 		if ( obj->open( filePath_ ) == false ) {
 			return 0;
 		}

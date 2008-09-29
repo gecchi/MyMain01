@@ -28,9 +28,9 @@ void GgafDx9Sound::release() {
 	GgafDx9SeManager::clear();
 	GgafDx9BgmManager::clear();
 	_pIDirectSound8->Release();
-//	_pC3DSound -> Release();
-//	delete _pC3DSound;
-//	_pC3DSound = NULL;
+	_pC3DSound -> Release();
+	delete _pC3DSound;
+	_pC3DSound = NULL;
 }
 
 GgafDx9Se* GgafDx9Sound::createSe(string prm_wave_name) {

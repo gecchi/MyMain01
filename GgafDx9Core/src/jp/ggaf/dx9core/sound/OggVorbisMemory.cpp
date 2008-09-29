@@ -44,7 +44,7 @@
 		if ( isReady_ == false ) {
 			return 0;
 		}
-		OggVorbisMemory* obj = new OggVorbisMemory;
+		OggVorbisMemory* obj = NEW OggVorbisMemory;
 		*obj = *this;
 		obj->curPos_ = 0;
 //		OggVorbisMemory* spObj( obj );
@@ -137,7 +137,7 @@
 		size_ = ftell( f );
 		fseek( f, 0, SEEK_SET );
 
-		//spBuffer_.SetPtr( new char[ size_ ], true );
+		//spBuffer_.SetPtr( NEW char[ size_ ], true );
 		size_t readSize = fread( spBuffer_, size_, 1, f );
 		if ( readSize != 1 ) {
 			// ‰½‚©•Ï‚Å‚·

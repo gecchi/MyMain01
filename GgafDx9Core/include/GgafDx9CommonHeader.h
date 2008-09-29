@@ -37,14 +37,11 @@ class CmRandomNumberGenerator;
 #include "vorbis/vorbisfile.h"
 
 class CWaveDecorder;
-class COggDecorder;
 class CC3DSound;
-class CC3DSoundBGM;
 class CC3DSoundBufferSE;
 class CC3DSoundSE;
 
 
-#include "jp/ggaf/dx9core/sound/oggdecorder.h"
 #include "jp/ggaf/dx9core/sound/wavedecorder.h"
 #include "jp/ggaf/dx9core/sound/c3dsound.h"
 

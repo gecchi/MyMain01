@@ -25,6 +25,10 @@ namespace {
 	//! デストラクタ
 	OggDecoder::~OggDecoder() {
 		clear();
+
+		if (oggVorbisResource_ != NULL) {
+			delete oggVorbisResource_;
+		}
 	}
 
 	//! クリア
