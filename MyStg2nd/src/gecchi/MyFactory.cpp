@@ -24,8 +24,7 @@ _TRACE_("HêFStage01Scene ì‚Á‚Ä‚Ü‚·");
 	pStage01Scene->getLordActor()->accept(KIND_EFFECT, pBack);
 	pStage01Scene->addSubLast(pStage01MainScene);
 	pStage01Scene->_bgm_st1 = GgafDx9BgmManager::get("JM5");
-	pStage01Scene->_bgm_st1->play();
-
+	pStage01Scene->_bgm_st1->play(true);
 	pStage01Scene->stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 _TRACE_("HêFStage01Scene Š´“®‚Ì‘åŠ®¬");
 	return pStage01Scene;
