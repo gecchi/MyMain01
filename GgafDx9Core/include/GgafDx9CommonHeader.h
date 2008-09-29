@@ -28,6 +28,27 @@
 
 
 class CmRandomNumberGenerator;
+
+
+#include "ogg/os_types.h"
+#include "ogg/ogg.h"
+#include "vorbis/codec.h"
+#include "vorbis/vorbisenc.h"
+#include "vorbis/vorbisfile.h"
+
+class CWaveDecorder;
+class COggDecorder;
+class CC3DSound;
+class CC3DSoundBGM;
+class CC3DSoundBufferSE;
+class CC3DSoundSE;
+
+
+#include "jp/ggaf/dx9core/sound/oggdecorder.h"
+#include "jp/ggaf/dx9core/sound/wavedecorder.h"
+#include "jp/ggaf/dx9core/sound/c3dsound.h"
+
+
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
@@ -50,31 +71,7 @@ class GgafDx9Util;
 class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
-
 class GgafDx9RectUV;
-
-
-#include "ogg/os_types.h"
-#include "ogg/ogg.h"
-#include "vorbis/codec.h"
-#include "vorbis/vorbisenc.h"
-#include "vorbis/vorbisfile.h"
-
-
-
-class CWaveDecorder;
-class COggDecorder;
-class CC3DSound;
-class CC3DSoundBGM;
-class CC3DSoundBufferSE;
-class CC3DSoundSE;
-
-
-#include "jp/ggaf/dx9core/sound/oggdecorder.h"
-#include "jp/ggaf/dx9core/sound/wavedecorder.h"
-#include "jp/ggaf/dx9core/sound/c3dsound.h"
-
-
 
 class GgafDx9Sound;
 class GgafDx9Se;
