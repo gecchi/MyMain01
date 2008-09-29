@@ -50,14 +50,8 @@ void GgafDx9Bgm::clear() {
 	_pPcmPlayer->clear();
 }
 
-
 GgafDx9Bgm::~GgafDx9Bgm() {
 	delete _pPcmPlayer;
 	delete _pOggDecoder;
 	delete _pOggResource;
-//
-//	if (_pOggResource != NULL) {
-//		delete _pOggResource;
-//		_pOggResource = NULL;
-//	}
 }

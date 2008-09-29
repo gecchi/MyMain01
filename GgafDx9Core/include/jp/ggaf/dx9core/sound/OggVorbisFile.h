@@ -4,32 +4,30 @@
 #ifndef IKD_DIX_OGGVORBISFILE_H
 #define IKD_DIX_OGGVORBISFILE_H
 
-
 //#include "OggVorbisResource.h"
 //#include "DixSmartPtr.h"
 //#include "memory.h"
 
-	class OggVorbisFile : public OggVorbisResource {
-		FILE* m_lpFile;
+class OggVorbisFile: public OggVorbisResource {
+	FILE* m_lpFile;
 
+public:
+	OggVorbisFile();
+	OggVorbisFile(const char* filePath);
 
-	public:
-		OggVorbisFile();
-		OggVorbisFile( const char* filePath );
+	virtual ~OggVorbisFile();
 
-		virtual ~OggVorbisFile();
+	//! クリア
+	virtual void clear();
 
-		//! クリア
-		virtual void clear();
+	//! 安全なクローンを作成
+	virtual OggVorbisResource* createClone();
 
-		//! 安全なクローンを作成
-		virtual OggVorbisResource* createClone();
+	//! Oggファイルオープン
+	bool open(const char* filePath);
 
-		//! Oggファイルオープン
-		bool open( const char* filePath );
-
-	protected:
-		char filePath_[ 256 ];	// ファイル名
-	};
+protected:
+	char filePath_[256]; // ファイル名
+};
 
 #endif

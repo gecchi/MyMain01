@@ -6,39 +6,40 @@
 
 //#include "OggVorbisResource.h"
 
-	class OggVorbisMemory : public OggVorbisResource {
-	public:
-		OggVorbisMemory();
-		OggVorbisMemory( const char* filePath );
-		virtual ~OggVorbisMemory();
+class OggVorbisMemory: public OggVorbisResource {
+public:
+	OggVorbisMemory();
+	OggVorbisMemory(const char* filePath);
+	virtual ~OggVorbisMemory();
 
-		//! Oggバッファを作成
-		bool createBuffer( const char* filePath );
+	//! Oggバッファを作成
+	bool createBuffer(const char* filePath);
 
-		// 安全なクローンを作成
-		virtual OggVorbisResource* createClone();
+	// 安全なクローンを作成
+	virtual OggVorbisResource* createClone();
 
-		//! クリア
-		virtual void clear();
+	//! クリア
+	virtual void clear();
 
-	protected:
-		//! メモリ読み込み
-		static size_t read( void* buffer, size_t size, size_t maxCount, void* stream );
+protected:
+	//! メモリ読み込み
+	static size_t
+			read(void* buffer, size_t size, size_t maxCount, void* stream);
 
-		//! メモリシーク
-		static int seek( void* buffer, ogg_int64_t offset, int flag );
+	//! メモリシーク
+	static int seek(void* buffer, ogg_int64_t offset, int flag);
 
-		//! メモリクローズ
-		static int close( void* buffer );
+	//! メモリクローズ
+	static int close(void* buffer);
 
-		//! メモリ位置通達
-		static long tell( void* buffer );
+	//! メモリ位置通達
+	static long tell(void* buffer);
 
-	protected:
-		char		filePath_[ 256 ];	// ファイルパス
-		char*	spBuffer_;			// Oggファイルバッファ
-		int			size_;				// バッファサイズ
-		long		curPos_;			// 現在の位置
-	};
+protected:
+	char filePath_[256]; // ファイルパス
+	char* spBuffer_; // Oggファイルバッファ
+	int size_; // バッファサイズ
+	long curPos_; // 現在の位置
+};
 
 #endif

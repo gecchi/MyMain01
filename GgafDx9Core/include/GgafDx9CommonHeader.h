@@ -119,9 +119,6 @@ class OggVorbisMemory;
 
 
 
-
-#include "jp/ggaf/dx9core/sound/DixComPtr.h"
-#include "jp/ggaf/dx9core/sound/DixSmartPtr.h"
 #include "jp/ggaf/dx9core/sound/PCMDecoder.h"
 #include "jp/ggaf/dx9core/sound/PCMPlayer.h"
 #include "jp/ggaf/dx9core/sound/OggDecoder.h"
