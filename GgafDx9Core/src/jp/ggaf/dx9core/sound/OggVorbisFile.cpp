@@ -19,6 +19,10 @@ OggVorbisFile::OggVorbisFile(const char* filePath) {
 }
 
 OggVorbisFile::~OggVorbisFile() {
+	//	if (m_lpFile) {
+	//		fclose(m_lpFile);
+	//	}
+
 }
 
 //! クリア
@@ -30,7 +34,7 @@ void OggVorbisFile::clear() {
 //! 安全なクローンを作成
 OggVorbisResource* OggVorbisFile::createClone() {
 	OggVorbisFile* obj = NEW OggVorbisFile;
-	if ( obj->open( filePath_ ) == false ){
+	if (obj->open(filePath_) == false) {
 		return 0;
 	}
 	//OggVorbisFile* spObj( obj );
@@ -41,26 +45,29 @@ OggVorbisResource* OggVorbisFile::createClone() {
 bool OggVorbisFile::open(const char* filePath) {
 
 	clear();
-	m_lpFile = fopen(filePath, "rb");
-	if (m_lpFile == NULL) {
-		return false;
-	}
+//	FILE *pFile = fopen((char*) filePath, "rb");
+//	if (!pFile) {
+//		clear();
+//		return false;
+//	} else {
+//		int ret = ov_open(pFile, &oggVorbisFile_, NULL, 0);
+//		if (ret) {
+//			fclose(pFile);
+//		} else {
+//			clear();
+//			return false;
+//		}
 
-	if (ov_open(m_lpFile, &oggVorbisFile_, NULL, 0) < 0) {
-		clear();
-		fclose(m_lpFile);
-		return false;
-	}
+				// Oggファイルオープン
+				if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
+					// 失敗
+					clear();
+					return false;
+				}
 
-	//		// Oggファイルオープン
-	//		if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
-	//			// 失敗
-	//			clear();
-	//			return false;
-	//		}
+		strcpy(filePath_, filePath);
+		isReady_ = true;
 
-	strcpy(filePath_, filePath);
-	isReady_ = true;
-
-	return true;
+		return true;
+//	}
 }

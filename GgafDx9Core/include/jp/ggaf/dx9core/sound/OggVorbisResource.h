@@ -9,25 +9,19 @@
 
 class OggVorbisResource {
 public:
-	OggVorbisResource() :
-		isReady_(false) {
-		memset(&oggVorbisFile_, 0, sizeof(OggVorbis_File));
-	}
+	OggVorbisResource();
 
 	virtual ~OggVorbisResource() {
 		clear();
-	}
+	};
 
 	// クリア
-	virtual void clear() {
-		memset(&oggVorbisFile_, 0, sizeof(OggVorbis_File));
-		isReady_ = false;
-	}
+	virtual void clear();
 
 	// OggVorbis_File構造体を取得
 	virtual OggVorbis_File& getOggVorbisFile() {
 		return oggVorbisFile_;
-	}
+	};
 
 	// 安全なクローンを作成
 	virtual OggVorbisResource* createClone() = 0;
@@ -35,7 +29,7 @@ public:
 	// 準備できた？
 	bool isReady() {
 		return isReady_;
-	}
+	};
 
 protected:
 	OggVorbis_File oggVorbisFile_; // OggVorbis_File構造体

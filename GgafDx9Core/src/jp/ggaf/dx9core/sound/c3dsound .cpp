@@ -36,7 +36,7 @@ void CC3DSound::Release(void) {
 	}
 	m_vecSoundBuffer.clear();
 
-	SAFE_RELEASE( GgafDx9Sound::_pIDirectSound8 );
+//	SAFE_RELEASE( GgafDx9Sound::_pIDirectSound8 );
 }
 
 /**
