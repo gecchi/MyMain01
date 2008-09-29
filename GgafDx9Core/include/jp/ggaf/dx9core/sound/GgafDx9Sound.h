@@ -3,6 +3,9 @@
 
 class GgafDx9Sound  {
 public:
+	/** IDirectSound8インターフェイス */
+	static 	IDirectSound8* _pIDirectSound8;
+
 	static CC3DSound* _pC3DSound;
 	static void init();
 	static void release();

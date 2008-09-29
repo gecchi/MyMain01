@@ -10,6 +10,9 @@
 //#include "memory.h"
 
 	class OggVorbisFile : public OggVorbisResource {
+		FILE* m_lpFile;
+
+
 	public:
 		OggVorbisFile();
 		OggVorbisFile( const char* filePath );

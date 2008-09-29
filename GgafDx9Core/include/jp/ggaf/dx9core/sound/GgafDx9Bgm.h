@@ -3,18 +3,34 @@
 
 class GgafDx9Bgm : public GgafObject {
 public:
-	CC3DSoundBGM* _pSoundBgm;
+	//CC3DSoundBGM* _pSoundBgm;
 	string _ogg_name;
 	GgafDx9Bgm* _pBgm_Next;
+	OggDecoder* _pOggDecoder;
+	OggVorbisFile* _pOggResource;
+	PCMPlayer* _pPcmPlayer;
 
 	GgafDx9Bgm(string prm_wave_name);
 
 	//virtual void behave();フェードインフェードアウトを実装するぞ！
 
-	virtual void play();
+	//! 再生
+	void play( bool isLoop );
 
-	virtual void play(int prm_iVolume, int prm_iPan);
-	virtual void stop();
+	//! 一時停止
+	void pause();
+
+	//! 停止
+	void stop();
+
+	//! 音量を変える
+	void setVolume( int volume );
+
+	//! パンの位置を変える
+	void setPan( int pan );
+	//! 停止
+	void clear();
+
 
 	virtual ~GgafDx9Bgm();
 };

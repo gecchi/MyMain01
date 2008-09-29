@@ -42,13 +42,23 @@
 	bool OggVorbisFile::open( const char* filePath ) {
 
 		clear();
-
-		// Oggファイルオープン
-		if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
-			// 失敗
-			clear();
+		m_lpFile = fopen(filePath, "rb");
+		if (m_lpFile == NULL) {
 			return false;
 		}
+
+		if (ov_open(m_lpFile, &oggVorbisFile_, NULL, 0) < 0) {
+			clear();
+			fclose(m_lpFile);
+			return false;
+		}
+
+//		// Oggファイルオープン
+//		if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
+//			// 失敗
+//			clear();
+//			return false;
+//		}
 
 		strcpy( filePath_, filePath );
 		isReady_ = true;
