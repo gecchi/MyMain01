@@ -107,6 +107,11 @@ GgafMainActor* MyFactory::createFormationCeres001(void* x) {
 	return pFormationCeres001;
 }
 
+GgafMainActor* MyFactory::createFormationCeres002(void* x) {
+	FormationCeres002* pFormationCeres002 = NEW FormationCeres002("F_CER002");
+	return pFormationCeres002;
+}
+
 
 GgafMainActor* MyFactory::createFormationJuno001First(void* x) {
 	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F");

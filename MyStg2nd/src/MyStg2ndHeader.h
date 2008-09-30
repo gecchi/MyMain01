@@ -53,6 +53,9 @@ class EnemyCeres;
 class EnemyPallas;
 
 class FormationCeres001;
+class FormationCeres002;
+class FormationJuno001;
+class FormationVesta001;
 
 class MyFactory;
 
@@ -90,6 +93,7 @@ class MyFactory;
 #include "gecchi/actor/enemy/mesh/EnemyVesta.h"
 
 #include "gecchi/actor/enemy/FormationCeres001.h"
+#include "gecchi/actor/enemy/FormationCeres002.h"
 #include "gecchi/actor/enemy/FormationJuno001.h"
 #include "gecchi/actor/enemy/FormationVesta001.h"
 #include "gecchi/MyFactory.h"
