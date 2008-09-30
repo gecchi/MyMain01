@@ -11,8 +11,8 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActo
 
 
 	_X = -556000; //äJénç¿ïW
-	_Y = 100000;
-	_Z = -180000;
+	_Y = -100000;
+	_Z = -480000;
 	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 50000;
 	_Y_turn = -10000;
 	_iBeginVelocity = 5000;
