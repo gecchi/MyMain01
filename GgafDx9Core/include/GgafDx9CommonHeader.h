@@ -3,6 +3,8 @@
 
 #include "GgafCommonHeader.h"
 
+
+
 #define DIRECTINPUT_VERSION 0x0800
 #define ANGLE360 (360000)
 #define ANGLE45 (45000)
