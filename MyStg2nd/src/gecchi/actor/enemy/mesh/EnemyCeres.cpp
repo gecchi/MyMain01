@@ -37,15 +37,9 @@ void EnemyCeres::initialize() {
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pChecker -> setStatus(100, 1, 1, 1);
 
-
-//	_TRACE_("_incZ="<<_incZ);
-//	_TRACE_("AXIS_Y="<<(sgn(_Z) * GgafDx9Util::getAngle(abs(_Z), abs(_X_turn-_X))) );
 }
 
 void EnemyCeres::processBehavior() {
-
-
-
 	if (_iMovePatternNo == 0 && _X > _X_turn) {
 		_pMover -> setXYMoveAngle(sgn(_incZ)*-1*90000);
 		_pMover -> setXYMoveAngleVelocity(sgn(_incZ)*-1*3000);
@@ -93,7 +87,7 @@ void EnemyCeres::processBehavior() {
 		}
 	}
 
-	_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pMover ->_iVelocity_ZMove));
+	//_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pMover ->_iVelocity_ZMove));
 }
 
 void EnemyCeres::processJudgement() {
