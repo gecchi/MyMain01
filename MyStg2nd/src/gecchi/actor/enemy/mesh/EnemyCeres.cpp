@@ -12,7 +12,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActo
 
 	_X = -556000; //開始座標
 	_Y = 100000;
-	_Z = -1880000;
+	_Z = -180000;
 	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 50000;
 	_Y_turn = -10000;
 	_iBeginVelocity = 5000;
@@ -22,7 +22,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActo
 void EnemyCeres::initialize() {
 	setBumpable(true);
 
-	_incZ =  (1.0*abs(_Z) / GgafDx9Util::getDistance(0, _X_turn, abs(_Z), _X) ) *_iBeginVelocity * sgn(_Z) * -1;//_incZがおかしい?
+	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZがおかしい?
 
 	_pMover -> setAxisRotAngle(AXIS_X, 0);
 	_pMover -> setAxisRotAngle(AXIS_Y, sgn(_Z) * GgafDx9Util::getAngle(abs(_Z), abs(_X_turn-_X)));
@@ -43,17 +43,7 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::processBehavior() {
-	if (_incZ > 0) {
-		if (_Z > 0) {
-			_Z = 0;
-			_pMover -> setZMoveVelocity(0);
-		}
-	} else {
-		if (_Z < 0) {
-			_Z = 0;
-			_pMover -> setZMoveVelocity(0);
-		}
-	}
+
 
 
 	if (_iMovePatternNo == 0 && _X > _X_turn) {
@@ -90,6 +80,20 @@ void EnemyCeres::processBehavior() {
 
 	//座標に反映
 	_pMover -> behave();
+
+	if (_incZ > 0) {
+		if (_Z > 0) {
+			_Z = 0;
+			_pMover -> setZMoveVelocity(0);
+		}
+	} else if (_incZ < 0) {
+		if (_Z < 0) {
+			_Z = 0;
+			_pMover -> setZMoveVelocity(0);
+		}
+	}
+
+	_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pMover ->_iVelocity_ZMove));
 }
 
 void EnemyCeres::processJudgement() {
