@@ -15,7 +15,7 @@ MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(p
 	STATE = new State();
 	newState(STATE, 10);
 	STATE->e[S_OPTION]->n = 0;
-
+	//‰ð•ú‚à‚â‚ë‚¤
 	_iShotKind01 = 0;
 	_iShotKind02 = 0;
 	_iShotKind03 = 0;
