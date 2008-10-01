@@ -42,6 +42,9 @@ public:
 
 	virtual ~GgafDx9SpriteActor();		//デストラクタ
 
+ 	/**
+	 * アニメーションを次のコマへ進める
+	 */
 	virtual void addAnimationFrame();
 
 };

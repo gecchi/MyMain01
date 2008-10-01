@@ -36,8 +36,7 @@ HRESULT GgafDx9God::init() {
 	//IDirect3D9コンポーネントの取得
 	if (!(GgafDx9God::_pID3D9 = Direct3DCreate9(D3D_SDK_VERSION)))
 	{
-		MessageBox(GgafDx9God::_hWnd,TEXT("DirectX9の作成に失敗しました"),
-				TEXT("ERROR"),MB_OK | MB_ICONSTOP);
+		throw_GgafCriticalException("Direct3DCreate9 に失敗しました");
 		return E_FAIL;  //失敗
 	}
 
@@ -47,7 +46,7 @@ HRESULT GgafDx9God::init() {
 	D3DDISPLAYMODE structD3DDisplayMode;  //結果が格納される構造体
 	hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT,&structD3DDisplayMode);
 	if (FAILED(hr))	{
-		MessageBox(GgafDx9God::_hWnd,TEXT("画面モードの習得に失敗しました"),TEXT("ERROR"),MB_OK | MB_ICONSTOP);
+		throw_GgafCriticalException("GetAdapterDisplayMode に失敗しました");
 		return E_FAIL;
 	}
 
@@ -98,6 +97,32 @@ HRESULT GgafDx9God::init() {
 		_structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
 	} else {
 		_structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座(Windowモードはこちらが良いらしい）
+	}
+
+	//フルスクリーンに出来るか調べる
+	if (FULLSCRREEN) {
+		int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT, _structD3dPresent_Parameters.BackBufferFormat);
+	    if(cc){
+	        D3DDISPLAYMODE adp;
+	        for(int i = 0; i < cc; i++){
+	        	GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT, _structD3dPresent_Parameters.BackBufferFormat, i, &adp);
+	            if (adp.Format == _structD3dPresent_Parameters.BackBufferFormat &&
+	                adp.Width  == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)     &&
+	                adp.Height == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) )
+	            {
+	            	//OK
+	            	break;
+	            }
+	            if (cc == i) {
+	            	//要求した使える解像度が見つからない
+	            	throw_GgafCriticalException(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) <<"x"<<GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) << "のフルスクリーンモードにする事ができません。");
+	            	return E_FAIL;
+	            }
+	        }
+	    } else {
+			throw_GgafCriticalException("GetAdapterModeCount に失敗しました");
+			return E_FAIL;
+		}
 	}
 
 	//デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
@@ -209,31 +234,24 @@ HRESULT GgafDx9God::initDx9Device() {
 	GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
 	GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
 	GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+    // アンチエイリアスの指定
+	GgafDx9God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
+	//GgafDx9God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
+
 	// レンダリングの設定
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+//	TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時） ??D3DTSS_MAGFILTER
+//	ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
+//	D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
+//	D3DTEXF_LINEAR　　　：リニアフィルタ（線形補完）
+//	D3DTEXF_ANISOTROPIC　：異方性フィルタ。地表面などの、拡大縮小率が手前と奥で異なる場合に使う
+//	D3DTEXF_PYRAMIDALQUAD：テントフィルタ。リニアフィルタとあまり変わんないらしい
+//	D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
+//	を指定する。
 
 	//アンチエイリアスにかかわるレンダリングステート
-	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
-	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
-
-/*
- * IDirect3DDevice9::SetTextureStageStateの、
-
-TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時）
-ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
-D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
-D3DTEXF_LINEAR　　　：リニアフィルタ（線形補完）
-D3DTEXF_ANISOTROPIC　：異方性フィルタ。地表面などの、拡大縮小率が手前と奥で異なる場合に使う
-D3DTEXF_PYRAMIDALQUAD：テントフィルタ。リニアフィルタとあまり変わんないらしい
-D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
-を指定する。
- */
-
-
-
-
-
-
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
 
 	// ビュー変換（カメラ位置）設定
