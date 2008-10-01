@@ -6,8 +6,8 @@ FormationCeres002::FormationCeres002(string prm_name) : FormationActor(prm_name)
 		_pEnemyCeres[i] = NEW EnemyCeres("Ceres01", "ebi");
 		_pEnemyCeres[i] -> stopImmediately();
 		_pEnemyCeres[i] -> _Y_turn = (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2) - (i*40000);
-		_pEnemyCeres[i] -> _iBeginVelocity = 15000;
-		_pEnemyCeres[i] -> _Z = -1000000;
+		_pEnemyCeres[i] -> _iBeginVelocity = 10000;
+		_pEnemyCeres[i] -> _Z = -4000000;
 		addSubLast(_pEnemyCeres[i] );
 	}
 }
