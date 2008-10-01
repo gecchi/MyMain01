@@ -161,7 +161,7 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 			&pID3DXMesh                //[out] LPD3DXMESH* pMesh
 		 );
 	if(FAILED(hr)) {
-		throw_GgafCriticalException("[GgafDx9MeshModelManager::load] D3DXLoadMeshFromX失敗");
+		throw_GgafCriticalException("[GgafDx9MeshModelManager::load] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 //		TRACE(DXGetErrorString9(HRESULT hr));
 	}
 
@@ -207,9 +207,9 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 					NULL,                        // [in] PALETTEENTRY *pPalette,
 					&papID3DTexture9[i]          // [out] LPDIRECT3DTEXTURE9 *ppTexture
 				 );
-		}
-		if(FAILED(hr)) {
-			throw_GgafCriticalException("[GgafDx9MeshModelManager::load] D3DXCreateTextureFromFile失敗");
+			if(FAILED(hr)) {
+				throw_GgafCriticalException("[GgafDx9MeshModelManager::load] D3DXCreateTextureFromFile失敗。対象="<<xfile_name);
+			}
 		}
 	}
 	pID3DXBuffer->Release();//テクスチャファイル名はもういらないのでバッファ解放
@@ -265,11 +265,11 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 		DirectXFileCreate( &_s_pIDirectXFile );
 		char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
 		if (paChar_SpriteModelineTemplate == NULL) {
-			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\"ggaf_spritemodel_define.x\" が開けません。");
+			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
 		}
 		hr = _s_pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 		if(FAILED(hr)) {
-			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\"ggaf_spritemodel_define.x\"を確認して下さい。");
+			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
 		}
 		delete paChar_SpriteModelineTemplate;
 	}
@@ -293,7 +293,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	// 1セットだけ読込み
 	hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
 	if(FAILED(hr)) {
-		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"の読込みに失敗しました。項目名を見直して");
+		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
 	}
 	const GUID *pGuid;
 	pIDirectXFileData->GetType( &pGuid );
@@ -311,7 +311,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 		prm_pSpriteModel->_iRowNum_TextureSplit    = *pInt_RowNum_TextureSplit;
 		prm_pSpriteModel->_iColNum_TextureSplit    = *pInt_ColNum_TextureSplit;
 	} else {
-		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のGUIDが一致しません。");
+		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
 	}
 
 	//テクスチャ取得しモデルに保持させる
@@ -334,7 +334,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 			&pID3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
 		 );
 	if(FAILED(hr)) {
-		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] テクスチャ読込みに失敗しました。");
+		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] テクスチャファイル読込みに失敗しました。対象="<<texture_filename);
 	}
  	prm_pSpriteModel->_pID3DTexture9 = pID3DTexture9;
 
@@ -636,7 +636,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 			&pID3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
 		 );
 	if(FAILED(hr)) {
-		throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] テクスチャ読込みに失敗しました。");
+		throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] テクスチャファイル読込みに失敗しました。対象="<<texture_filename);
 	}
 	prm_pPlateModel->_pID3DTexture9 = pID3DTexture9;
 
