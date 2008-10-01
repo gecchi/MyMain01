@@ -1,16 +1,20 @@
 #include "stdafx.h"
 
-
+#define newState(H,X) do { H->e = new State*[X]; for (int i = 0; i < X; i++) {H->e[i] = new State(); } } while(0)
+#define S_OPTION 0
 
 #define VSP 3
 //DIAGONAL = 1000 / √2
 #define DIAGONAL_LEN_UNIT 707
 
-
 MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
 	GameGlobal::_pMyShipActor = this;
 	_pMyShots001Rotation = NULL;
 	_pMyLaser001Rotation = NULL;
+
+	STATE = new State();
+	newState(STATE, 10);
+	STATE->e[S_OPTION]->n = 0;
 
 	_iShotKind01 = 0;
 	_iShotKind02 = 0;
@@ -18,6 +22,9 @@ MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(p
 
 	//キャッシュロード
 	GgafDx9SeManager::get("laser001");
+
+
+	//_state->e = new State[10];
 
 }
 
