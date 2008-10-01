@@ -40,6 +40,8 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::processBehavior() {
+
+	//•ûŒü“]Š·
 	if (_iMovePatternNo == 0 && _X > _X_turn) {
 		_pMover -> setXYMoveAngle(sgn(_incZ)*-1*90000);
 		_pMover -> setXYMoveAngleVelocity(sgn(_incZ)*-1*3000);
