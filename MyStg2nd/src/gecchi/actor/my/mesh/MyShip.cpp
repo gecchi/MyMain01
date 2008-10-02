@@ -159,7 +159,7 @@ void MyShip::processBehavior() {
 		if (pShot) {
 			pShot->declarePlay();
 
-			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectEffectExplosion001Rotation->obtain();
+			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 			if (pExplo001) {
 				pExplo001->declarePlay();
 			}

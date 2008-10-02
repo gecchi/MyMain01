@@ -1,11 +1,11 @@
-#ifndef ENEMYSHOT001ACTOR_H_
-#define ENEMYSHOT001ACTOR_H_
+#ifndef ENEMYSHOT001_H_
+#define ENEMYSHOT001_H_
 
 
-class EnemyMyShot001 : public EnemyShotSpriteActor {
+class EnemyShot001 : public EnemyShotSpriteActor {
 
 public:
-	EnemyMyShot001(string prm_name, string prm_xname);
+	EnemyShot001(string prm_name, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -27,9 +27,9 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
-	virtual ~EnemyMyShot001();
+	virtual ~EnemyShot001();
 };
 
 
-#endif /*ENEMYSHOT001ACTOR_H_*/
+#endif /*ENEMYSHOT001_H_*/
 

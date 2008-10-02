@@ -84,7 +84,7 @@ class MyFactory;
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
-#include "gecchi/actor/enemy/sprite/EnemyMyShot001.h"
+#include "gecchi/actor/enemy/sprite/EnemyShot001.h"
 #include "gecchi/actor/_debug/DispFpsActor.h"
 #include "gecchi/actor/background/plate/BackGround01Plate.h"
 #include "gecchi/GameGlobal.h"
