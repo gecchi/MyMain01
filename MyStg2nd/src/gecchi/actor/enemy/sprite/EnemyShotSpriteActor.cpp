@@ -18,10 +18,10 @@ void EnemyShotSpriteActor::initialize() {
 //オーバーライド
 void EnemyShotSpriteActor::happen(int prm_event) {
 	switch (prm_event) {
-	case EVENT_PLAY_BEGIN:
+	case GGAF_EVENT_PLAY_BEGIN:
 		setBumpable(true);
 		break;
-	case EVENT_STOP_BEGIN:
+	case GGAF_EVENT_STOP_BEGIN:
 		setBumpable(false);
 		break;
 	default:
@@ -38,19 +38,19 @@ void EnemyShotSpriteActor::processBehavior() {
 	if (_iProgress == 9) {
 
 	}
-	addAnimationFrame();
+	nextAnimationFrame();
 	_pMover -> behave();
 }
 
 void EnemyShotSpriteActor::processJudgement() {
 	if (isOffScreen()) {
-		finish();
+		declareStop();
 	}
 }
 
 void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
 	_TRACE_("EnemyShotSpriteActorヒットしました。("<<_X<<","<<_Y<<")");
-	finish();
+	declareStop();
 }
 
 

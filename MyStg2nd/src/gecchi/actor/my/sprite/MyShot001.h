@@ -1,11 +1,11 @@
-#ifndef EXPLOSION001PACTOR_H_
-#define EXPLOSION001PACTOR_H_
+#ifndef MYSHOT001_H_
+#define MYSHOT001_H_
 
 
-class Explosion001Actor : public DefaultSpriteActor {
+class MyShot001 : public DefaultSpriteMyActor {
 
 public:
-	Explosion001Actor(string prm_name, string prm_xname);
+	MyShot001(string prm_name, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -30,11 +30,12 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void playBegin();
+	void happen(int prm_event);
 
-	virtual ~Explosion001Actor();
+
+	virtual ~MyShot001();
 };
 
 
-#endif /*EXPLOSION001PACTOR_H_*/
+#endif /*MYSHOT001_H_*/
 

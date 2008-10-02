@@ -20,7 +20,7 @@ void EnemyJuno::initialize() {
 
 void EnemyJuno::processHappen(int prm_no) {
 
-	if (prm_no == EVENT_PLAY_BEGIN) {
+	if (prm_no == GGAF_EVENT_PLAY_BEGIN) {
 		_X += FormationJuno001::_s_X_FormationWhole;
 	}
 }

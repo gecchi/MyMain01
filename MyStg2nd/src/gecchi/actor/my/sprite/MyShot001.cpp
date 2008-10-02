@@ -1,10 +1,10 @@
 #include "stdafx.h"
 
-Shot001Actor::Shot001Actor(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
+MyShot001::MyShot001(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
 
 }
 
-void Shot001Actor::initialize() {
+void MyShot001::initialize() {
 	_iAnimationMethod = OSCILLATE_LOOP;
 	_iAnimationFrame_Interval = 2;
 
@@ -31,18 +31,18 @@ void Shot001Actor::initialize() {
 
 
 //オーバーライド
-void EnemyShot001Actor::happen(int prm_event) {
+void MyShot001::happen(int prm_event) {
 	switch (prm_event) {
 
-	case EVENT_PLAY_BEGIN:
+	case GGAF_EVENT_PLAY_BEGIN:
 		//出現時共通処理
 		setBumpable(true);
-		_X = GameGlobal::_pMyShipActor->_X;
-		_Y = GameGlobal::_pMyShipActor->_Y;
-		_Z = GameGlobal::_pMyShipActor->_Z;
+		_X = GameGlobal::_pMyShip->_X;
+		_Y = GameGlobal::_pMyShip->_Y;
+		_Z = GameGlobal::_pMyShip->_Z;
 		break;
 
-	case EVENT_STOP_BEGIN:
+	case GGAF_EVENT_STOP_BEGIN:
 		//消失時共通処理
 		setBumpable(false);
 		declareMoveFirst();
@@ -53,36 +53,36 @@ void EnemyShot001Actor::happen(int prm_event) {
 	}
 }
 
-void Shot001Actor::processBehavior() {
-	addAnimationFrame();
+void MyShot001::processBehavior() {
+	nextAnimationFrame();
 
 	//座標に反映
 	_pMover -> behave();
 
 }
 
-void Shot001Actor::processJudgement() {
+void MyShot001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		playFinish();
+		declareStop();
 	}
 }
 
 /*
-bool Shot001Actor::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
-	//TRACE("Shot001Actor::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
+bool MyShot001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
+	//TRACE("MyShot001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
 	return false;
 }
 */
 
-void Shot001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
-//_TRACE_("Shot001Actor::processOnHit ショットがヒットしました");
-	_TRACE_("Shot001Actorヒットしました。("<<_X<<","<<_Y<<")");
+void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
+//_TRACE_("MyShot001::processOnHit ショットがヒットしました");
+	_TRACE_("MyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-	playFinish();
+	declareStop();
 }
 
 
 
-Shot001Actor::~Shot001Actor() {
+MyShot001::~MyShot001() {
 }

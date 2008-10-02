@@ -2,10 +2,10 @@
 #define ENEMYSHOT001ACTOR_H_
 
 
-class EnemyShot001Actor : public EnemyShotSpriteActor {
+class EnemyMyShot001 : public EnemyShotSpriteActor {
 
 public:
-	EnemyShot001Actor(string prm_name, string prm_xname);
+	EnemyMyShot001(string prm_name, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -27,7 +27,7 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
-	virtual ~EnemyShot001Actor();
+	virtual ~EnemyMyShot001();
 };
 
 

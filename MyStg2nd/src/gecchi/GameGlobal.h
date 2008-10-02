@@ -14,7 +14,7 @@ public:
 	static int _iRank;
 
 	/** 自機へのポインタ */
-	static MyShipActor* _pMyShipActor;
+	static MyShip* _pMyShip;
 
 	static CommonScene* _pSceneCommon;
 };

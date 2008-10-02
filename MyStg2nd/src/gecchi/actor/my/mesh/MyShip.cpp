@@ -7,8 +7,8 @@
 //DIAGONAL = 1000 / √2
 #define DIAGONAL_LEN_UNIT 707
 
-MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
-	GameGlobal::_pMyShipActor = this;
+MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
+	GameGlobal::_pMyShip = this;
 
 	//CommonSceneがnewの場合設定
 	_iShotKind01 = 0;
@@ -23,14 +23,14 @@ MyShipActor::MyShipActor(string prm_name, string prm_xname) : DefaultMeshActor(p
 
 }
 
-void MyShipActor::initialize() {
+void MyShip::initialize() {
 	_turboFlg = false;
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pMover -> setXYMoveVelocity(0);
 }
 
-void MyShipActor::processBehavior() {
+void MyShip::processBehavior() {
 
 	if (VirtualButton::isBeingPressed(VB_UP_STC)) {
 		_Y += LEN_UNIT*VSP;
@@ -155,13 +155,13 @@ void MyShipActor::processBehavior() {
 
 	//ショットボタン
 	if (VirtualButton::isPushedDown(VB_SHOT1)) {
-		Shot001Actor* pShot = (Shot001Actor*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
+		MyShot001* pShot = (MyShot001*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
 		if (pShot) {
-			pShot->playBegin();
+			pShot->declarePlay();
 
-			Explosion001Actor* pExplo001 = (Explosion001Actor*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectEffectExplosion001Rotation->obtain();
 			if (pExplo001) {
-				pExplo001->playBegin();
+				pExplo001->declarePlay();
 			}
 		}
 	}
@@ -169,18 +169,18 @@ void MyShipActor::processBehavior() {
 	if (VirtualButton::isBeingPressed(VB_SHOT2)) {
 		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
 		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
-		Laser001Actor* pLastLaser = (Laser001Actor*)pLasersStock->getSubFirst()->getPrev();
+		MyLaser001* pLastLaser = (MyLaser001*)pLasersStock->getSubFirst()->getPrev();
 		if (!pLastLaser->isPlaying() && !pLastLaser->_willPlayNextFrame) {
-			Laser001Actor* pLaser = (Laser001Actor*)pLasersStock->obtain();
+			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
 			if (pLaser) {
-				Laser001Actor::_pHeadLaser001Actor = pLaser;
-				pLaser->playBegin();
+				MyLaser001::_pHeadMyLaser001 = pLaser;
+				pLaser->declarePlay();
 				GgafDx9SeManager::get("laser001")->play();
 			}
-		} else if (Laser001Actor::_pHeadLaser001Actor != NULL) {
-			Laser001Actor* pLaser = (Laser001Actor*)pLasersStock->obtain();
+		} else if (MyLaser001::_pHeadMyLaser001 != NULL) {
+			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
 			if (pLaser) {
-				pLaser->playBegin();
+				pLaser->declarePlay();
 			}
 		}
 	}
@@ -203,21 +203,21 @@ void MyShipActor::processBehavior() {
 
 }
 
-void MyShipActor::processJudgement() {
+void MyShip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 }
 
 /*
-bool MyShipActor::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
-	//TRACE("MyShipActor::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
+bool MyShip::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
+	//TRACE("MyShip::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
 	return false;
 }
 */
 
-void MyShipActor::processOnHit(GgafActor* prm_pActor_Opponent) {
+void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareFinishLife();
 }
 
 
-MyShipActor::~MyShipActor() {
+MyShip::~MyShip() {
 }

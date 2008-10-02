@@ -1,10 +1,10 @@
 #include "stdafx.h"
 
-EnemyShot001Actor::EnemyShot001Actor(string prm_name, string prm_xname) : EnemyShotSpriteActor(prm_name, prm_xname) {
+EnemyMyShot001::EnemyMyShot001(string prm_name, string prm_xname) : EnemyShotSpriteActor(prm_name, prm_xname) {
 	declareStop();
 }
 
-void EnemyShot001Actor::initialize() {
+void EnemyMyShot001::initialize() {
 	_iAnimationMethod = ORDER_LOOP;
 	_iAnimationFrame_Interval = 1;
 
@@ -18,14 +18,14 @@ void EnemyShot001Actor::initialize() {
 
 
 
-void EnemyShot001Actor::processBehavior() {
-	addAnimationFrame();
+void EnemyMyShot001::processBehavior() {
+	nextAnimationFrame();
 	//座標に反映
 	_pMover -> behave();
 
 }
 
-bool EnemyShot001Actor::isOffScreen() {
+bool EnemyMyShot001::isOffScreen() {
 	if (_X < _X_OffScreenLeft) {
 		return true;
 	} else {
@@ -45,9 +45,9 @@ bool EnemyShot001Actor::isOffScreen() {
 	}
 }
 
-void EnemyShot001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
-//_TRACE_("EnemyShot001Actor::processOnHit ショットがヒットしました");
-	_TRACE_("EnemyShot001Actorヒットしました。("<<_X<<","<<_Y<<")");
+void EnemyMyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
+//_TRACE_("EnemyMyShot001::processOnHit ショットがヒットしました");
+	_TRACE_("EnemyMyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
 
 	//体力計算
@@ -58,5 +58,5 @@ void EnemyShot001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 }
 
-EnemyShot001Actor::~EnemyShot001Actor() {
+EnemyMyShot001::~EnemyMyShot001() {
 }

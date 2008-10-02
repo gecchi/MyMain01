@@ -12,7 +12,7 @@ void GameDemoScene::processBehavior() {
 	DWORD frame = _dwFrame;
 	if (frame == 2) {
 		//é©ã@ï\é¶
-		GameGlobal::_pSceneCommon->_pMyShipActor->declarePlay();
+		GameGlobal::_pSceneCommon->_pMyShip->declarePlay();
 		_TRACE_("GameDemoScene:OKâ“ìÆÇµÇ‹Ç∑Ç¡ÇΩÅI");
 	}
 

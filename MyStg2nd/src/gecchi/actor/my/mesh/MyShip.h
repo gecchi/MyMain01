@@ -1,11 +1,11 @@
-#ifndef MYSHIPACTOR_H_
-#define MYSHIPACTOR_H_
+#ifndef MYSHIP_H_
+#define MYSHIP_H_
 
 #define SH_NOMAL 0;
 #define SH_LASER 1;
 
 
-class MyShipActor : public DefaultMeshActor {
+class MyShip : public DefaultMeshActor {
 
 public:
 
@@ -16,7 +16,7 @@ public:
 	int _iShotKind02;
 	int _iShotKind03;
 
-	MyShipActor(string prm_name, string prm_xname);
+	MyShip(string prm_name, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -39,9 +39,9 @@ public:
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
 
-	virtual ~MyShipActor();
+	virtual ~MyShip();
 };
 
 
-#endif /*MYSHIPACTOR_H_*/
+#endif /*MYSHIP_H_*/
 

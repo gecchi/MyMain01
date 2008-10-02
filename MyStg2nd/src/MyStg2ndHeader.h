@@ -38,10 +38,10 @@ class Stage04Scene;
 class Stage05Scene;
 
 class Stage01MainScene;
-class MyShipActor;
-class Shot001Actor;
-class Laser001Actor;
-class Explosion001Actor;
+class MyShip;
+class MyShot001;
+class MyLaser001;
+class EffectExplosion001;
 class TamagoActor;
 class MyUtil;
 class GameGlobal;
@@ -78,13 +78,13 @@ class MyFactory;
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 
-#include "gecchi/actor/my/mesh/MyShipActor.h"
-#include "gecchi/actor/my/sprite/Shot001Actor.h"
-#include "gecchi/actor/my/sprite/Laser001Actor.h"
-#include "gecchi/actor/effect/sprite/Explosion001Actor.h"
+#include "gecchi/actor/my/mesh/MyShip.h"
+#include "gecchi/actor/my/sprite/MyShot001.h"
+#include "gecchi/actor/my/sprite/MyLaser001.h"
+#include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
-#include "gecchi/actor/enemy/sprite/EnemyShot001Actor.h"
+#include "gecchi/actor/enemy/sprite/EnemyMyShot001.h"
 #include "gecchi/actor/_debug/DispFpsActor.h"
 #include "gecchi/actor/background/plate/BackGround01Plate.h"
 #include "gecchi/GameGlobal.h"

@@ -1,15 +1,11 @@
-#ifndef LASER001PACTOR_H_
-#define LASER001PACTOR_H_
+#ifndef EFFECTEXPLOSION001_H_
+#define EFFECTEXPLOSION001_H_
 
 
-class Laser001Actor : public DefaultSpriteMyActor {
-
-	int _X_prevFrame;
+class EffectExplosion001 : public DefaultSpriteActor {
 
 public:
-	Laser001Actor(string prm_name, string prm_xname);
-
-	static Laser001Actor* _pHeadLaser001Actor;
+	EffectExplosion001(string prm_name, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -36,9 +32,10 @@ public:
 	 */
 	void happen(int prm_event);
 
-	virtual ~Laser001Actor();
+
+	virtual ~EffectExplosion001();
 };
 
 
-#endif /*LASER001PACTOR_H_*/
+#endif /*EFFECTEXPLOSION001_H_*/
 

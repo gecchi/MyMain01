@@ -6,7 +6,7 @@ int FormationJuno001::_s_incX = -2000;
 FormationJuno001::FormationJuno001(string prm_name) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
 	CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-	pRndGen->changeSeed(GameGlobal::_pMyShipActor->_X);
+	pRndGen->changeSeed(GameGlobal::_pMyShip->_X);
 
 	int iScreenWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT;
 	int iScreenHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT;

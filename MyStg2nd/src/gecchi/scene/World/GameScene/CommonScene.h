@@ -4,12 +4,12 @@
 class CommonScene : public DefaultScene {
 
 public:
-	MyShipActor* _pMyShipActor;
+	MyShip* _pMyShip;
 
 	RotationActor* _pMyShots001Rotation;
 	RotationActor* _pMyLaser001Rotation;
 	RotationActor* _pEnemyShots001Rotation;
-	RotationActor* _pEffectExplosion001Rotation;
+	RotationActor* _pEffectEffectExplosion001Rotation;
 
 
 	CommonScene(string prm_name);

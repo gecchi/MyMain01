@@ -49,7 +49,7 @@ void TamagoActor::processBehavior() {
 	if (_dwFrameOffset % _rnd == 0) {
 		_rnd = (110+(rand()%90));
 
-		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShipActor->_X,GameGlobal::_pMyShipActor->_Y);
+		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 		if (_pMover->getDistanceFromXYMoveAngleTo(_pMover->_angTarget_XYMove,TURN_CLOSE_TO) > 0) {
 			_pMover -> setXYMoveAngleVelocity(2*1000);
 		} else {
@@ -59,19 +59,19 @@ void TamagoActor::processBehavior() {
 		_pMover -> setXYMoveVelocityRenge(ANGLE360, 2*1000);
 		_pMover -> setXYMoveVelocity(10*1000); //‰‘¬10px
 		_pMover -> setXYMoveAcceleration(-80);
-//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShipActor->_X,GameGlobal::_pMyShipActor->_Y);
+//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 	}
 
 //	if (_dwFrameOffset == 10) {
 //		//_pMover -> setTargetXYMoveAngle(c);
 //		_pMover -> setXYMoveVelocity(2000);
-//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShipActor->_X,GameGlobal::_pMyShipActor->_Y);
+//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
 //	if (_dwFrameOffset == 150) {
 //		_pMover -> setXYMoveVelocity(6000);
 //		_pMover -> setTargetXYMoveAngle(ANGLE360*1000);
-//		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShipActor->_X,GameGlobal::_pMyShipActor->_Y);
+//		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
 //
@@ -79,7 +79,7 @@ void TamagoActor::processBehavior() {
 //
 //		_pMover -> setXYMoveVelocity(6000);
 //		_pMover -> setTargetXYMoveAngle(ANGLE90*1000);
-//		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShipActor->_X,GameGlobal::_pMyShipActor->_Y);
+//		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
 //	if (_dwFrameOffset == 250) {
