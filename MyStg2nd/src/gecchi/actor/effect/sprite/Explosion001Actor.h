@@ -27,6 +27,11 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
+	/**
+	 * ÅÉOverRide Ç≈Ç∑ÅÑ
+	 */
+ 	void playBegin();
+
 	virtual ~Explosion001Actor();
 };
 

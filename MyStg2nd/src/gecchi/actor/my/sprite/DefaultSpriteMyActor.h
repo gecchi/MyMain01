@@ -1,5 +1,5 @@
-#ifndef DEFAULTSPRITEENEMYACTOR_H_
-#define DEFAULTSPRITEENEMYACTOR_H_
+#ifndef DEFAULTSPRITEMYACTOR_H_
+#define DEFAULTSPRITEMYACTOR_H_
 
 
 class DefaultSpriteMyActor : public DefaultSpriteActor {
@@ -10,5 +10,5 @@ public:
 	virtual ~DefaultSpriteMyActor();
 };
 
-#endif /*DEFAULTSPRITEENEMYACTOR_H_*/
+#endif /*DEFAULTSPRITEMYACTOR_H_*/
 

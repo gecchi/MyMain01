@@ -31,9 +31,12 @@ public:
 	 */
  	virtual void processOnHit(GgafActor* prm_pActor_Opponent);
 
-	virtual void begin();
 
-	virtual void finish();
+	/**
+	 * ÅÉOverRide Ç≈Ç∑ÅÑ
+	 */
+	void happen(int prm_event);
+
 
 	virtual ~EnemyShotSpriteActor();
 };

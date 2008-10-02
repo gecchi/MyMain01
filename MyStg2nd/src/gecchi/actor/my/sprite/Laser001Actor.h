@@ -2,7 +2,7 @@
 #define LASER001PACTOR_H_
 
 
-class Laser001Actor : public DefaultSpriteActor {
+class Laser001Actor : public DefaultSpriteMyActor {
 
 	int _X_prevFrame;
 
@@ -31,10 +31,10 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
-
-	void shotBegin();
-
-	void shotFinish();
+	/**
+	 * ÅÉOverRide Ç≈Ç∑ÅÑ
+	 */
+	void happen(int prm_event);
 
 	virtual ~Laser001Actor();
 };

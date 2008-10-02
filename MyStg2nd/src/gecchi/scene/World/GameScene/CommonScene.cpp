@@ -19,7 +19,6 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 			pShot->stopImmediately();
 			_pMyShots001Rotation->addSubLast(pShot);
 		}
-		_pMyShipActor->_pMyShots001Rotation = this->_pMyShots001Rotation;
 	}
 
 	{ //MyLaser001
@@ -31,7 +30,6 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 			pLaser->stopImmediately();
 			_pMyLaser001Rotation->addSubLast(pLaser);
 		}
-		_pMyShipActor->_pMyLaser001Rotation = this->_pMyLaser001Rotation;
 	}
 
 	{ //EnemyShot001
@@ -50,7 +48,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		getLordActor()->accept(KIND_ENEMY, _pEffectExplosion001Rotation);
 		Explosion001Actor* pEffectExplosion;
 		for (int i = 0; i < 100; i++) { //ストック100個
-			pEffectExplosion = NEW Explosion001Actor("Explo001", "hoge");
+			pEffectExplosion = NEW Explosion001Actor("Explo001", "EffectExplosion001");
 			pEffectExplosion->stopImmediately(); //最初非表示
 			_pEffectExplosion001Rotation->addSubLast(pEffectExplosion);
 		}

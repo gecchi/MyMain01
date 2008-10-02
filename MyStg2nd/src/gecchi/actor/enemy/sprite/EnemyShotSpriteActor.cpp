@@ -15,16 +15,19 @@ void EnemyShotSpriteActor::initialize() {
 	setBumpable(false);
 }
 
-void EnemyShotSpriteActor::begin() {
-	setBumpable(true);
-	declarePlay();
+//オーバーライド
+void EnemyShotSpriteActor::happen(int prm_event) {
+	switch (prm_event) {
+	case EVENT_PLAY_BEGIN:
+		setBumpable(true);
+		break;
+	case EVENT_STOP_BEGIN:
+		setBumpable(false);
+		break;
+	default:
+		break;
+	}
 }
-
-void EnemyShotSpriteActor::finish() {
-	setBumpable(false);
-	declareStop();
-}
-
 void EnemyShotSpriteActor::processBehavior() {
 	if (_iProgress == 0) {
 		if (_pEffectBegin != NULL) {

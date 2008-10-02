@@ -5,8 +5,10 @@ Explosion001Actor::Explosion001Actor(string prm_name, string prm_xname) : Defaul
 
 void Explosion001Actor::initialize() {
 	_canBump  = false;
-	_iAnimationMethod = ORDER_LOOP;
+	_iAnimationMethod = EVENT_REVERSE_NOLOOP_ANIMATION_FINISH;
 	_iAnimationPatternNo_Active = 0;
+	_iAnimationPatternNo_Top = 0;
+	_iAnimationPatternNo_Bottom = 15;
 }
 
 void Explosion001Actor::processBehavior() {
@@ -23,6 +25,23 @@ void Explosion001Actor::processJudgement() {
 	}
 }
 
+//オーバーライド
+void Explosion001Actor::happen(int prm_event) {
+	//共通呼び出し
+	DefaultSpriteActor::happen(prm_event);
+
+	switch (prm_event) {
+	case EVENT_PLAY_BEGIN:
+		//出現時共通処理
+		_iAnimationPatternNo_Active = 0;
+		_X = GameGlobal::_pMyShipActor->_X;
+		_Y = GameGlobal::_pMyShipActor->_Y;
+		_Z = GameGlobal::_pMyShipActor->_Z;
+		break;
+	default:
+		break;
+	}
+}
 
 void Explosion001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
 }

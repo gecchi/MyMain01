@@ -2,7 +2,7 @@
 #define SHOT001PACTOR_H_
 
 
-class Shot001Actor : public DefaultSpriteActor {
+class Shot001Actor : public DefaultSpriteMyActor {
 
 public:
 	Shot001Actor(string prm_name, string prm_xname);
@@ -27,10 +27,11 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
+	/**
+	 * ÅÉOverRide Ç≈Ç∑ÅÑ
+	 */
+	void happen(int prm_event);
 
-	void shotBegin();
-
-	void shotFinish();
 
 	virtual ~Shot001Actor();
 };

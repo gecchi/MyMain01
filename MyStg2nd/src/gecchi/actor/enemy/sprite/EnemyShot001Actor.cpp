@@ -16,22 +16,14 @@ void EnemyShot001Actor::initialize() {
 	setBumpable(true);
 }
 
-//オーバーライド
-void EnemyShot001Actor::begin() {
-	//発射エフェクトを出力
 
-
-	EnemyShotSpriteActor::begin();
-}
 
 void EnemyShot001Actor::processBehavior() {
 	addAnimationFrame();
-
 	//座標に反映
 	_pMover -> behave();
 
 }
-
 
 bool EnemyShot001Actor::isOffScreen() {
 	if (_X < _X_OffScreenLeft) {

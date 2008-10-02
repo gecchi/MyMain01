@@ -2,7 +2,7 @@
 
 Laser001Actor* Laser001Actor::_pHeadLaser001Actor = NULL;
 
-Laser001Actor::Laser001Actor(string prm_name, string prm_xname) : DefaultSpriteActor(prm_name, prm_xname) {
+Laser001Actor::Laser001Actor(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
 	_X_prevFrame = 0;
 }
 
@@ -19,23 +19,31 @@ void Laser001Actor::initialize() {
 
 	setBumpable(false);
 }
+//オーバーライド
+void EnemyShot001Actor::happen(int prm_event) {
+	switch (prm_event) {
 
-void Laser001Actor::shotBegin() {
-	_X = GameGlobal::_pMyShipActor->_X;
-	_X_prevFrame = _X;
-	_Y = GameGlobal::_pMyShipActor->_Y;
-	_Z = GameGlobal::_pMyShipActor->_Z;
-	setBumpable(true);
-	declarePlay();
-}
+	case EVENT_PLAY_BEGIN:
+		//出現時共通処理
+		setBumpable(true);
+		_X = GameGlobal::_pMyShipActor->_X;
+		_X_prevFrame = _X;
+		_Y = GameGlobal::_pMyShipActor->_Y;
+		_Z = GameGlobal::_pMyShipActor->_Z;
+		break;
 
-void Laser001Actor::shotFinish() {
-	setBumpable(false);
-	if (Laser001Actor::_pHeadLaser001Actor == this) {
-		Laser001Actor::_pHeadLaser001Actor = NULL;
+	case EVENT_STOP_BEGIN:
+		//消失時共通処理
+		setBumpable(false);
+		if (Laser001Actor::_pHeadLaser001Actor == this) {
+			Laser001Actor::_pHeadLaser001Actor = NULL;
+		}
+		declareMoveFirst();
+		break;
+
+	default:
+		break;
 	}
-	declareStop();
-	declareMoveFirst();
 }
 
 void Laser001Actor::processBehavior() {
@@ -51,7 +59,7 @@ void Laser001Actor::processBehavior() {
 void Laser001Actor::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		shotFinish();
+		playFinish();
 	}
 }
 
@@ -66,7 +74,7 @@ void Laser001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("Laser001Actor::processOnHit ショットがヒットしました");
 	_TRACE_("Laser001Actorヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-	shotFinish();
+	playFinish();
 }
 
 

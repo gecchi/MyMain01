@@ -4,27 +4,12 @@
 #define SH_NOMAL 0;
 #define SH_LASER 1;
 
-class State {
-public:
-	int n;
-	string s;
-	State** e;
-	State() {};
-	virtual ~State() {};
-};
 
 class MyShipActor : public DefaultMeshActor {
 
 public:
-	RotationActor* _pMyShots001Rotation;
-	RotationActor* _pMyLaser001Rotation;
 
 	bool _turboFlg;
-
-	State* STATE;
-
-
-
 
 
 	int _iShotKind01;

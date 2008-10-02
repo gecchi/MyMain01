@@ -46,6 +46,7 @@ class TamagoActor;
 class MyUtil;
 class GameGlobal;
 
+class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;
 class DefaultSpriteEffectActor;
@@ -72,6 +73,7 @@ class MyFactory;
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage04Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage05Scene.h"
 
+#include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"

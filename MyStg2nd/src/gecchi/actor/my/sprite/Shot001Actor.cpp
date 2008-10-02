@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-Shot001Actor::Shot001Actor(string prm_name, string prm_xname) : DefaultSpriteActor(prm_name, prm_xname) {
+Shot001Actor::Shot001Actor(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
 
 }
 
@@ -29,18 +29,28 @@ void Shot001Actor::initialize() {
 
 }
 
-void Shot001Actor::shotBegin() {
-	_X = GameGlobal::_pMyShipActor->_X;
-	_Y = GameGlobal::_pMyShipActor->_Y;
-	_Z = GameGlobal::_pMyShipActor->_Z;
-	setBumpable(true);
-	declarePlay();
-}
 
-void Shot001Actor::shotFinish() {
-	setBumpable(false);
-	declareStop();
-	declareMoveFirst();
+//オーバーライド
+void EnemyShot001Actor::happen(int prm_event) {
+	switch (prm_event) {
+
+	case EVENT_PLAY_BEGIN:
+		//出現時共通処理
+		setBumpable(true);
+		_X = GameGlobal::_pMyShipActor->_X;
+		_Y = GameGlobal::_pMyShipActor->_Y;
+		_Z = GameGlobal::_pMyShipActor->_Z;
+		break;
+
+	case EVENT_STOP_BEGIN:
+		//消失時共通処理
+		setBumpable(false);
+		declareMoveFirst();
+		break;
+
+	default:
+		break;
+	}
 }
 
 void Shot001Actor::processBehavior() {
@@ -54,7 +64,7 @@ void Shot001Actor::processBehavior() {
 void Shot001Actor::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		shotFinish();
+		playFinish();
 	}
 }
 
@@ -69,7 +79,7 @@ void Shot001Actor::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("Shot001Actor::processOnHit ショットがヒットしました");
 	_TRACE_("Shot001Actorヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-	shotFinish();
+	playFinish();
 }
 
 
