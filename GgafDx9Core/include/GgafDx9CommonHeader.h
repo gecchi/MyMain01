@@ -18,7 +18,7 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
-#define LEN_UNIT (1024)
+#define LEN_UNIT (1000)
 #define PX_UNIT (16)
 #define PI (3.14159265358979)
 

@@ -55,7 +55,7 @@ void GgafDx9SpriteActor::processDrawMain() {
 }
 
 
-void GgafDx9SpriteActor::addAnimationFrame() {
+void GgafDx9SpriteActor::nextAnimationFrame() {
 	_iCounter_AnimationFrame++;
 	if (_iAnimationFrame_Interval < _iCounter_AnimationFrame) {
 		switch (_iAnimationMethod) {
@@ -77,7 +77,7 @@ void GgafDx9SpriteActor::addAnimationFrame() {
 				if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active++;
 				} else {
-					happen(EVENT_ORDER_NOLOOP_ANIMATION_FINISH); //もうアニメーションは進まないことを通知
+					happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
 				}
 				break;
@@ -85,7 +85,7 @@ void GgafDx9SpriteActor::addAnimationFrame() {
 				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active--;
 				} else {
-					happen(EVENT_REVERSE_NOLOOP_ANIMATION_FINISH); //もうアニメーションは進まないことを通知
+					happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
 				}
 				break;
