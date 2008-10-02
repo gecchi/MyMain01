@@ -3,8 +3,8 @@
 
 
 #define SUPER GgafNode<T>
-#define EVENT_PLAY_BEGIN 1
-#define EVENT_STOP_BEGIN 2
+#define GGAF_EVENT_PLAY_BEGIN 1
+#define GGAF_EVENT_STOP_BEGIN 2
 
 /**
  * GgafNodeに、様々な状態管理（フラグ管理）を追加するクラス。
@@ -479,10 +479,10 @@ void GgafElement<T>::nextFrame() {
 		//フラグたちを反映
 		if (_isPlaying == false && _willPlayNextFrame) {
 			// not Play → Play 状態の場合呼び出す
-			happen(EVENT_PLAY_BEGIN);
+			happen(GGAF_EVENT_PLAY_BEGIN);
 		} else if (_isPlaying && _willPlayNextFrame == false) {
 			// Play → not Play 状態の場合呼び出す
-			happen(EVENT_STOP_BEGIN);
+			happen(GGAF_EVENT_STOP_BEGIN);
 		}
 		_isPlaying = _willPlayNextFrame;
 		_wasPaused = _willPauseNextFrame;
@@ -708,7 +708,7 @@ template<class T>
 void GgafElement<T>::playImmediately() {
 	if (_isAlive) {
 		if (_isPlaying == false) {
-			happen(EVENT_PLAY_BEGIN);
+			happen(GGAF_EVENT_PLAY_BEGIN);
 		}
 		_isPlaying = true;
 		_wasPaused = false;
@@ -765,7 +765,7 @@ template<class T>
 void GgafElement<T>::stopImmediately() {
 	if (_isAlive) {
 		if (_isPlaying) {
-			happen(EVENT_STOP_BEGIN);
+			happen(GGAF_EVENT_STOP_BEGIN);
 		}
 		_isPlaying = false;
 		_willPlayNextFrame = false;
