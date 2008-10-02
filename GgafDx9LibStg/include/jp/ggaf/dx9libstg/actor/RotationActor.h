@@ -9,7 +9,10 @@ class RotationActor : public GgafDummyActor {
 
 public:
 
-	RotationActor(string prm_name);
+ 	RotationActor(string prm_name) : GgafDummyActor(prm_name) {
+ 		_class_name = "RotationActor";
+ 	    setBumpable(false);
+ 	};
 
 	void initialize() {};
 
@@ -29,15 +32,32 @@ public:
 
  	void processOnHit(GgafActor* prm_pActor_Opponent) {};
 
-	/**
-	 * 子アクターのを先頭から検索し、最初に出会った play 可能なアクターを取得.
-	 * 取得できた場合、そのアクターを返すと同時に 連結リストの最後に移動される。<BR>
-	 * 空きが無い場合 NULL を返す。<BR>
-	 * @return play 可能な Actor
-	 */
-	GgafActor* get();
 
-	virtual ~RotationActor();
+ 	GgafActor* obtain() {
+ 		if (_pSubFirst == NULL) {
+ 			throw_GgafCriticalException("RotationActor::getFreeOne() 子がありません");
+ 		}
+ 		GgafActor* pActor = getSubFirst();
+ 		do {
+ 			if(pActor->isPlaying() || pActor->_willPlayNextFrame) {
+ 				if (pActor->isLast()) {
+ 					pActor = NULL;
+ 					break;
+ 				} else {
+ 					pActor = pActor->getNext();
+ 				}
+ 			} else {
+ 				pActor->declareMoveLast();
+ 				break;
+ 			}
+ 		} while(true);
+ 		return pActor;
+ 	};
+
+
+ 	virtual ~RotationActor() {
+ 	};
 };
+
 
 #endif /*ROTATIONACTOR_H_*/
