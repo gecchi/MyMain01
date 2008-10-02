@@ -1,6 +1,8 @@
 #ifndef GGAFDX9SPRITEACTORD_H_
 #define GGAFDX9SPRITEACTORD_H_
 
+#define EVENT_ORDER_NOLOOP_ANIMATION_FINISH 201
+#define EVENT_REVERSE_NOLOOP_ANIMATION_FINISH 202
 
 class GgafDx9SpriteActor : public GgafDx9UntransformedActor {
 

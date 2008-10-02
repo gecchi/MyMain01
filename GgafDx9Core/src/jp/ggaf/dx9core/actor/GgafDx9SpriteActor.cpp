@@ -59,35 +59,37 @@ void GgafDx9SpriteActor::addAnimationFrame() {
 	_iCounter_AnimationFrame++;
 	if (_iAnimationFrame_Interval < _iCounter_AnimationFrame) {
 		switch (_iAnimationMethod) {
-			case ORDER_LOOP :  //1,2,3,4,5,1,2,3,4,5,...
+			case ORDER_LOOP :  //0,1,2,3,4,5,0,1,2,3,4,5,...
 				if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active++;
 				} else {
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
 				}
 				break;
-			case REVERSE_LOOP : //5,4,3,2,1,5,4,3,2,1,5,4...
+			case REVERSE_LOOP : //5,4,3,2,1,0,5,4,3,2,1,5,4...
 				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active--;
 				} else {
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
 				}
 				break;
-			case ORDER_NOLOOP : //3,3,3,3,3,3,3,3,3,3,3,3...
+			case ORDER_NOLOOP : //0,1,2,3,4,5,5,5,5,5,5,5...
 				if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active++;
 				} else {
+					happen(EVENT_ORDER_NOLOOP_ANIMATION_FINISH); //もうアニメーションは進まないことを通知
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
 				}
 				break;
-			case REVERSE_NOLOOP : //1,2,3,4,5,4,3,2,1,2,3,4,...
+			case REVERSE_NOLOOP : //5,4,3,2,1,0,0,0,0,0,0...
 				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active--;
 				} else {
+					happen(EVENT_REVERSE_NOLOOP_ANIMATION_FINISH); //もうアニメーションは進まないことを通知
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
 				}
 				break;
-			case OSCILLATE_LOOP :
+			case OSCILLATE_LOOP :  //0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
                 if (_oscillateAnimationOrderFlg) {
 					if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 						_iAnimationPatternNo_Active++;
