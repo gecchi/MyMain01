@@ -34,7 +34,7 @@ protected:
 	bool _isChangedAlpha;
 
 public:
-	/** 全アニメパターン数 */
+	/** 全アニメパターン数(0～) */
 	int _iAnimationPatternNo_Max;
 	float  _fSize_SpriteModelWidthPx;
 	float  _fSize_SpriteModelHeightPx;

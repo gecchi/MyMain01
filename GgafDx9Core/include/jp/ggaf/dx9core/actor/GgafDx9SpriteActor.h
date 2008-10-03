@@ -24,7 +24,7 @@ public:
 	unsigned int _iAnimationPatternNo_Top;
 	/** 現在表示中のアニメパターン番号 */
 	unsigned int _iAnimationPatternNo_Bottom;
-	/** 現在表示中のアニメパターン番号 */
+	/** 現在表示中のアニメパターン番号(0～) */
 	unsigned int _iAnimationPatternNo_Active;
 	/** パターンとパターンの間隔フレーム数 */
 	unsigned int _iAnimationFrame_Interval;
@@ -43,10 +43,20 @@ public:
 
 	virtual ~GgafDx9SpriteActor();		//デストラクタ
 
- 	/**
+	/**
 	 * アニメーションを次のコマへ進める
 	 */
-	virtual void nextAnimationFrame();
+	void nextAnimationFrame();
+
+	/**
+	 * アニメーションパターンの範囲を制限する
+	 */
+	void setAnimationPatternRenge(int prm_iTop, int prm_bottom);
+
+	/**
+	 * アニメーション方法を設定する
+	 */
+	void setAnimationMethod(int prm_iMethodNo, int prm_iInterval);
 
 };
 
