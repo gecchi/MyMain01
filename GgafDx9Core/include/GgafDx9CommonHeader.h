@@ -38,14 +38,14 @@ class CmRandomNumberGenerator;
 #include "vorbis/vorbisenc.h"
 #include "vorbis/vorbisfile.h"
 
-class CWaveDecorder;
-class CC3DSound;
-class CC3DSoundBufferSE;
-class CC3DSoundSE;
+//class CWaveDecorder;
+//class CC3DSound;
+//class CC3DSoundBufferSE;
+//class CC3DSoundSE;
 
-
-#include "jp/ggaf/dx9core/sound/wavedecorder.h"
-#include "jp/ggaf/dx9core/sound/c3dsound.h"
+//
+//#include "jp/ggaf/dx9core/sound/wavedecorder.h"
+//#include "jp/ggaf/dx9core/sound/c3dsound.h"
 
 
 class GgafDx9God;
@@ -72,6 +72,8 @@ class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
 class GgafDx9RectUV;
 
+
+class CWaveDecorder;
 class GgafDx9Sound;
 class GgafDx9Se;
 class GgafDx9Bgm;
@@ -127,7 +129,7 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
 #include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
 #include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
-
+#include "jp/ggaf/dx9core/sound/CWaveDecorder.h"
 
 
 
