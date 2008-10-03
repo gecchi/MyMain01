@@ -19,41 +19,23 @@ void MyLaser001::initialize() {
 
 	setBumpable(false);
 }
-//オーバーライド
-void MyLaser001::happen(int prm_event) {
-	switch (prm_event) {
 
-	case GGAF_EVENT_PLAY_BEGIN:
-		//出現時共通処理
+
+void MyLaser001::processBehavior() {
+	if (switchedToPlay()) {
+		//出現時処理
 		setBumpable(true);
 		_X = GameGlobal::_pMyShip->_X;
 		_X_prevFrame = _X;
 		_Y = GameGlobal::_pMyShip->_Y;
 		_Z = GameGlobal::_pMyShip->_Z;
-		break;
-
-	case GGAF_EVENT_STOP_BEGIN:
-		//消失時共通処理
-		setBumpable(false);
-		if (MyLaser001::_pHeadMyLaser001 == this) {
-			MyLaser001::_pHeadMyLaser001 = NULL;
-		}
-		declareMoveFirst();
-		break;
-
-	default:
-		break;
+	} else {
+		//通常処理
+		nextAnimationFrame();
+		//座標に反映
+		_pMover -> behave();
+		_Y = GameGlobal::_pMyShip->_Y;
 	}
-}
-
-void MyLaser001::processBehavior() {
-	nextAnimationFrame();
-	//座標に反映
-	_pMover -> behave();
-
-	_Y = GameGlobal::_pMyShip->_Y;
-//	_X -= (_X_prevFrame - GameGlobal::_pMyShip->_X);
-//	_X_prevFrame = _X;
 }
 
 void MyLaser001::processJudgement() {
@@ -61,6 +43,18 @@ void MyLaser001::processJudgement() {
 	if (isOffScreen()) {
 		declareStop();
 	}
+
+
+	if (switchedToStop()) {
+		//消失時処理
+		setBumpable(false);
+		if (MyLaser001::_pHeadMyLaser001 == this) {
+			MyLaser001::_pHeadMyLaser001 = NULL;
+		}
+		declareMoveFirst();
+	}
+
+
 }
 
 /*

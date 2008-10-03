@@ -10,7 +10,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void happen(int prm_event);
+	void processHappen(int prm_event);
 
 	virtual ~DefaultSpriteEffectActor();
 };

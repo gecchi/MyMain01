@@ -4,7 +4,7 @@ DefaultSpriteEffectActor::DefaultSpriteEffectActor(string prm_name, string prm_x
 	setBumpable(false);
 }
 //オーバーライド
-void DefaultSpriteEffectActor::happen(int prm_event) {
+void DefaultSpriteEffectActor::processHappen(int prm_event) {
 	switch (prm_event) {
 
 	case GGAF_EVENT_NOLOOP_ANIMATION_FINISHED:

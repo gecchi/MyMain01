@@ -12,11 +12,20 @@ void EffectExplosion001::initialize() {
 }
 
 void EffectExplosion001::processBehavior() {
-	nextAnimationFrame();
-	_SX += 3000;
-	_SY += 3000;
-	//座標に反映
-	_pMover -> behave();
+	if (switchedToPlay()) {
+		//出現時処理
+		_iAnimationPatternNo_Active = 0;
+		_X = GameGlobal::_pMyShip->_X;
+		_Y = GameGlobal::_pMyShip->_Y;
+		_Z = GameGlobal::_pMyShip->_Z;
+	} else {
+		//普通の処理
+		nextAnimationFrame();
+		_SX += 3000;
+		_SY += 3000;
+		//座標に反映
+		_pMover -> behave();
+	}
 }
 
 void EffectExplosion001::processJudgement() {
@@ -25,26 +34,6 @@ void EffectExplosion001::processJudgement() {
 	}
 }
 
-//オーバーライド
-void EffectExplosion001::happen(int prm_event) {
-	//共通呼び出し
-	DefaultSpriteActor::happen(prm_event);
-
-	switch (prm_event) {
-	case GGAF_EVENT_PLAY_BEGIN:
-		//出現時共通処理
-		_iAnimationPatternNo_Active = 0;
-		_X = GameGlobal::_pMyShip->_X;
-		_Y = GameGlobal::_pMyShip->_Y;
-		_Z = GameGlobal::_pMyShip->_Z;
-		break;
-	default:
-		break;
-	}
-}
-
-void EffectExplosion001::processOnHit(GgafActor* prm_pActor_Opponent) {
-}
 
 EffectExplosion001::~EffectExplosion001() {
 }

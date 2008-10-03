@@ -22,15 +22,6 @@ public:
 	 */
 	void processJudgement();
 
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
-
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	void happen(int prm_event);
 
 
 	virtual ~EffectExplosion001();

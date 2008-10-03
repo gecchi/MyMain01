@@ -15,28 +15,11 @@ void EnemyShotSpriteActor::initialize() {
 	setBumpable(false);
 }
 
-//オーバーライド
-void EnemyShotSpriteActor::happen(int prm_event) {
-	switch (prm_event) {
-	case GGAF_EVENT_PLAY_BEGIN:
-		setBumpable(true);
-		break;
-	case GGAF_EVENT_STOP_BEGIN:
-		setBumpable(false);
-		break;
-	default:
-		break;
-	}
-}
+
 void EnemyShotSpriteActor::processBehavior() {
-	if (_iProgress == 0) {
-		if (_pEffectBegin != NULL) {
-
-		}
-	}
-
-	if (_iProgress == 9) {
-
+	//標準処理（たぶんオーバーライドされるだろうけども)
+	if (switchedToPlay()) {
+		setBumpable(true);
 	}
 	nextAnimationFrame();
 	_pMover -> behave();
@@ -45,6 +28,10 @@ void EnemyShotSpriteActor::processBehavior() {
 void EnemyShotSpriteActor::processJudgement() {
 	if (isOffScreen()) {
 		declareStop();
+	}
+
+	if (switchedToStop()) {
+		setBumpable(false);
 	}
 }
 

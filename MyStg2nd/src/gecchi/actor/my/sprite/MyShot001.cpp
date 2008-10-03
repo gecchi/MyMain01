@@ -30,35 +30,19 @@ void MyShot001::initialize() {
 }
 
 
-//オーバーライド
-void MyShot001::happen(int prm_event) {
-	switch (prm_event) {
-
-	case GGAF_EVENT_PLAY_BEGIN:
+void MyShot001::processBehavior() {
+	if (switchedToPlay()) {
 		//出現時共通処理
 		setBumpable(true);
 		_X = GameGlobal::_pMyShip->_X;
 		_Y = GameGlobal::_pMyShip->_Y;
 		_Z = GameGlobal::_pMyShip->_Z;
-		break;
-
-	case GGAF_EVENT_STOP_BEGIN:
-		//消失時共通処理
-		setBumpable(false);
-		declareMoveFirst();
-		break;
-
-	default:
-		break;
+	} else {
+		//通常処理
+		nextAnimationFrame();
+		//座標に反映
+		_pMover -> behave();
 	}
-}
-
-void MyShot001::processBehavior() {
-	nextAnimationFrame();
-
-	//座標に反映
-	_pMover -> behave();
-
 }
 
 void MyShot001::processJudgement() {
@@ -66,6 +50,13 @@ void MyShot001::processJudgement() {
 	if (isOffScreen()) {
 		declareStop();
 	}
+
+	if (switchedToStop()) {
+		//消失時共通処理
+		setBumpable(false);
+		declareMoveFirst();
+	}
+
 }
 
 /*

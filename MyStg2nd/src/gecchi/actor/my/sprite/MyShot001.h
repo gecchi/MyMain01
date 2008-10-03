@@ -27,11 +27,6 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	void happen(int prm_event);
-
 
 	virtual ~MyShot001();
 };
