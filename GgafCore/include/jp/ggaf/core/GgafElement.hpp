@@ -3,8 +3,6 @@
 
 
 #define SUPER GgafNode<T>
-#define GGAF_EVENT_PLAY_BEGIN 1
-#define GGAF_EVENT_STOP_BEGIN 2
 
 /**
  * GgafNodeに、様々な状態管理（フラグ管理）を追加するクラス。
@@ -63,6 +61,13 @@ public:
 	bool _willStopAfterFrame;
 	/** あとで停止残フレーム */
 	DWORD _dwGodFremeWhenStop;
+
+	/** ノードが活動に切り替わった(stop→play)瞬間に１フレームだけセットされるフラグ */
+	bool _switchedToPlay;
+	/** ノードが停止に切り替わった(play→stop)瞬間に１フレームだけセットされるフラグ */
+	bool _switchedToStop;
+
+
 
 	/**
 	 * コンストラクタ
@@ -239,7 +244,7 @@ public:
 	 * 自身と自分より下位のノード全てに再生(declarePlay())が実行される。<BR>
 	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
 	 */
-	virtual void declarePlay();
+	void declarePlay();
 
 	/**
 	 * 自ツリーノードを即座に再生状態にする .
@@ -247,19 +252,19 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外に実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void playImmediately();
+	void playImmediately();
 
 	/**
 	 * 自ツリーノードをNフレーム後に再生状態にする .
 	 * @param prm_dwFrameOffset 遅延フレーム数
 	 */
-	virtual void playAfter(DWORD prm_dwFrameOffset);
+	void playAfter(DWORD prm_dwFrameOffset);
 
 	/**
 	 * 自ツリーノードを次フレームから停止状態にする .
 	 * 自身と自分より下位のノード全てに停止(declarePlay())が実行される。<BR>
 	 */
-	virtual void declareStop();
+	void declareStop();
 
 	/**
 	 * 自ツリーノードを即座に停止状態にする .
@@ -267,20 +272,20 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void stopImmediately();
+	void stopImmediately();
 
 	/**
 	 * 自ツリーノードをNフレーム後に停止状態にする .
 	 * @param prm_dwFrameOffset 遅延フレーム数
 	 */
-	virtual void stopAfter(DWORD prm_dwFrameOffset);
+	void stopAfter(DWORD prm_dwFrameOffset);
 
 	/**
 	 * 自ツリーノードを次フレームから一時停止状態にする .
 	 * 自身と自分より下位のノード全てに一時停止(declarePause())が実行される。<BR>
 	 * <B>[補足]</B>再生中に本関数を実行すると静止画像表示状態となる。<BR>
 	 */
-	virtual void declarePause();
+	void declarePause();
 
 	/**
 	 * 自ツリーノードを即座に一時停止状態にする .
@@ -288,14 +293,14 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void pauseImmediately();
+	void pauseImmediately();
 
 	/**
 	 * 自ツリーノードを次フレームから一時停止解除にする .
 	 * 自身と自分より下位のノード全てに一時停止解除(declareUnpause())が実行される。<BR>
 	 * <B>[補足]</B>declarePause()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
 	 */
-	virtual void declareUnpause();
+	void declareUnpause();
 
 	/**
 	 * 自ツリーノードを即座に一時停止解除にする .
@@ -303,14 +308,14 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void unpauseImmediately();
+	void unpauseImmediately();
 
 	/**
 	 * 自ツリーノードを次フレームから非表示状態にする .
 	 * 自身と自分より下位のノード全てに非表示状態(declareBlind())が実行される。<BR>
 	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
 	 */
-	virtual void declareBlind();
+	void declareBlind();
 
 	/**
 	 * 自ツリーノードを即座に非表示状態にする .
@@ -318,14 +323,14 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void blindImmediately();
+	void blindImmediately();
 
 	/**
 	 * 自ツリーノードを次フレームから非表示解除にする .
 	 * 自身と自分より下位のノード全てに非表示解除(非表示())が実行される。<BR>
 	 * <B>[補足]</B>declareBlind()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
 	 */
-	virtual void declareUnblind();
+	void declareUnblind();
 
 	/**
 	 * 自ツリーノードを即座に非表示解除にする .
@@ -333,7 +338,7 @@ public:
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	virtual void unblindImmediately();
+	void unblindImmediately();
 
 	/**
 	 * 自ノードを次フレームから絶命させることを宣言します .
@@ -343,57 +348,71 @@ public:
 	 * これにより、神(GgafGod)が処理時間の余裕のあるフレームに実行する cleane()時に delete の対象となる。<BR>
 	 * したがって、本メンバ関数を実行しても、フラグはアンセットされるため表面にはでませんが、インスタンスがすぐに解放されるとは限りません。<BR>
 	 */
-	virtual void declareFinishLife();
+	void declareFinishLife();
 
 	/**
 	 * 自ツリーノードを最終ノードに順繰りする .
 	 * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトします。<BR>
 	 * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
 	 */
-	virtual void declareMoveLast();
+	void declareMoveLast();
 
 	/**
 	 * 自ツリーノードを先頭ノードに順繰りする .
 	 * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトします。<BR>
 	 * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
 	 */
-	virtual void declareMoveFirst();
+	void declareMoveFirst();
 
 	/**
 	 * 所属ツリーから独立する
 	 * @return	T* 脱退し独立した自ノードのポインタ
 	 *
 	 */
-	virtual T* becomeIndependent();
+	T* becomeIndependent();
 
 	/**
 	 * 生存可能か調べる
 	 * @return	bool true:生存可能／false:生存不可
 	 */
-	virtual bool isAlive();
+	bool isAlive();
 
 	/**
 	 * 再生中か
 	 * @return	bool true:再生中／false:停止中
 	 */
-	virtual bool isPlaying();
+	bool isPlaying();
+
 
 	/**
-	 * 描画しているか
-	 * @return	bool true:生存可能／false:生存不可
+	 * 停止から再生に切り替わったかどうか
+	 * @return	bool true:切り替わった／false:切り替わっていない
 	 */
-	virtual bool isBehaving();
+	bool switchedToPlay();
+
+	/**
+	 * 再生から停止に切り替わったかどうか
+	 * @return	bool true:切り替わった／false:切り替わっていない
+	 */
+	bool switchedToStop();
+
+
+	/**
+	 * 活動しているか
+	 * @return	bool true:活動可能／false:活動不可
+	 */
+	bool isBehaving();
 
 	/**
 	 * 描画できるか（非表示でないかどうか）
 	 * @return	bool true:描画できる／false:描画はしない
 	 */
-	virtual bool canDraw();
+	bool canDraw();
 
 	/**
 	 * ノードの現在の経過フレームを取得する
 	 */
-	virtual DWORD getFrame();
+	DWORD getFrame();
 
 
 	/**
@@ -403,7 +422,7 @@ public:
 	 * @param	prm_dwFrame_relative	経過フレーム数
 	 * @return	bool	true:経過フレーム数に達した/false:達していない
 	 */
-	virtual bool relativeFrame(DWORD prm_dwFrame_relative);
+	bool relativeFrame(DWORD prm_dwFrame_relative);
 
 };
 
@@ -436,7 +455,9 @@ _willMoveLastNextFrame(false),
 _willPlayAfterFrame(false),
 _dwGodFremeWhenPlay(0),
 _willStopAfterFrame(false),
-_dwGodFremeWhenStop(0)
+_dwGodFremeWhenStop(0),
+_switchedToPlay(false),
+_switchedToStop(false)
 {
 }
 
@@ -478,11 +499,14 @@ void GgafElement<T>::nextFrame() {
 
 		//フラグたちを反映
 		if (_isPlaying == false && _willPlayNextFrame) {
-			// not Play → Play 状態の場合呼び出す
-			happen(GGAF_EVENT_PLAY_BEGIN);
+			// not Play → Play 状態の場合
+			_switchedToPlay = true;
 		} else if (_isPlaying && _willPlayNextFrame == false) {
-			// Play → not Play 状態の場合呼び出す
-			happen(GGAF_EVENT_STOP_BEGIN);
+			// Play → not Play 状態の場合
+			_switchedToStop = true;
+		} else {
+			_switchedToPlay = false;
+			_switchedToStop = false;
 		}
 		_isPlaying = _willPlayNextFrame;
 		_wasPaused = _willPauseNextFrame;
@@ -708,7 +732,9 @@ template<class T>
 void GgafElement<T>::playImmediately() {
 	if (_isAlive) {
 		if (_isPlaying == false) {
-			happen(GGAF_EVENT_PLAY_BEGIN);
+			_switchedToPlay = true;
+		} else {
+			_switchedToPlay = false;
 		}
 		_isPlaying = true;
 		_wasPaused = false;
@@ -765,7 +791,9 @@ template<class T>
 void GgafElement<T>::stopImmediately() {
 	if (_isAlive) {
 		if (_isPlaying) {
-			happen(GGAF_EVENT_STOP_BEGIN);
+			_switchedToStop = true;
+		} else {
+			_switchedToStop = false;
 		}
 		_isPlaying = false;
 		_willPlayNextFrame = false;
@@ -966,6 +994,24 @@ bool GgafElement<T>::isAlive() {
 template<class T>
 bool GgafElement<T>::isPlaying() {
 	if (_isAlive && _isPlaying) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+template<class T>
+bool GgafElement<T>::switchedToPlay() {
+	if (_isAlive && _switchedToPlay) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
+template<class T>
+bool GgafElement<T>::switchedToStop() {
+	if (_isAlive && _switchedToStop) {
 		return true;
 	} else {
 		return false;

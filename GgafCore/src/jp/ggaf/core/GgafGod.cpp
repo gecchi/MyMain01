@@ -48,7 +48,7 @@ void GgafGod::be(){
 	if (_pWorld == NULL) {
 		_pWorld = createWorld();
 		if (_pWorld == NULL) {
-			throw_GgafCriticalException("GgafGod::be() Error! World‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
+			throw_GgafCriticalException("GgafGod::be() Error! ¢ŠE‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
 		}
 		_pWorld -> _pGod = this;
 	}

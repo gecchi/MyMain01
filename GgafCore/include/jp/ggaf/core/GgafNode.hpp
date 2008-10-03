@@ -122,14 +122,14 @@ public:
 	 * １つ上の親ノードを設定する。
 	 * @param	prm_pParent	親ノード
 	 */
-	virtual void setParent(T* prm_pParent);
+	void setParent(T* prm_pParent);
 
 	/**
 	 * 自ツリーノードを連結リストから切り離し、独立する。
 	 * @return	T* 自ノードのポインタ
 	 *
 	 */
-	virtual T* tear();
+	T* tear();
 
 	/**
 	 * 自ノードを、最終ノードへ移動する .
@@ -148,7 +148,7 @@ public:
 	 * -----------------------
 	 * </PRE>
 	 */
-	virtual void moveLast();
+	void moveLast();
 
 	/**
 	 * 自ノードを、先頭ノードへ移動する .
@@ -167,26 +167,26 @@ public:
 	 * -----------------------
 	 * </PRE>
 	 */
-	 virtual void moveFirst();
+	 void moveFirst();
 
 
 	/**
 	 * 次のノード取得する。
 	 * @return	T*	次ノード
 	 */
-	virtual T* getNext();
+	T* getNext();
 
 	/**
 	 * 前のノード取得する。
 	 * @return	T*	前ノード
 	 */
-	virtual T* getPrev();
+	T* getPrev();
 
 	/**
 	 * １つ上の親ノード取得する。
 	 * @return	T*	親ノード
 	 */
-	virtual T* getParent();
+	T* getParent();
 
 	/**
 	 * 親ノードを全て検索し取得する。
@@ -194,7 +194,7 @@ public:
 	 * @param	prm_parent_name	親ノード名
 	 * @return	T*	親ノード
 	 */
-	virtual T* getParent(string prm_parent_name);
+	T* getParent(string prm_parent_name);
 
 	/**
 	 * 引数ノードを子ノードとして追加する .
@@ -216,7 +216,7 @@ public:
 	 *
 	 * @param	prm_pSub	インスタンス生成済みノードのポインタ
 	 */
-	virtual void addSubLast(T* prm_pSub);
+	void addSubLast(T* prm_pSub);
 
 	/**
 	 * 子ノードをノード名称を指定して取得する .
@@ -224,34 +224,33 @@ public:
 	 * @param	prm_sub_actor_name	子ノード名
 	 * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
 	 */
-	virtual T* getSub(string prm_sub_actor_name);
+	T* getSub(string prm_sub_actor_name);
 
 	/**
 	 * 子ノードのグループの先頭ノードを取得する .
 	 * 子ノードが存在しない場合はエラー。
 	 * @return	T*	子ノードの先頭ノード
 	 */
-	virtual T* getSubFirst();
+	T* getSubFirst();
 
 	/**
 	 * 子ノード存在チェック .
 	 * @param	prm_sub_actor_name	存在チェックする子ノード名
 	 * @return	bool true:存在する／false:存在しない
 	 */
-	virtual bool hasSub(string prm_sub_actor_name);
+	bool hasSub(string prm_sub_actor_name);
 
 	/**
 	 * 自ノードが先頭ノードか調べる .
 	 * @return	bool true:先頭ノード／false:先頭ノードではない
 	 */
-	virtual bool isFirst();
+	bool isFirst();
 
 	/**
 	 * 自ノードが末尾ノードか調べる .
 	 * @return	bool true:末尾ノード／false:末尾ノードではない
 	 */
-	virtual bool isLast();
-
+	bool isLast();
 
 };
 
