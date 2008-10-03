@@ -11,7 +11,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(string prm_platemodel_name) : GgafDx9Mode
 	_fSize_SpriteModelHeightPx = 32.0f;
 	_iRowNum_TextureSplit    = 1;
 	_iColNum_TextureSplit    = 1;
-	_iAnimationPatternNo_Max = 1;
+	_iAnimationPatternNo_Max = 0;
 	_pModel_Next = NULL;
 	_isChangedAlpha = false;
 	_pIDirect3DVertexBuffer9 = NULL;

@@ -54,6 +54,20 @@ void GgafDx9SpriteActor::processDrawMain() {
 	_pSpriteModel->draw(this);
 }
 
+void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_iTop, int prm_bottom) {
+	if (prm_iTop < 0 || prm_bottom > (_pSpriteModel->_iAnimationPatternNo_Max)) {
+
+
+
+		throw_GgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
+	}
+	_iAnimationPatternNo_Top = prm_iTop;
+	_iAnimationPatternNo_Bottom = prm_bottom;
+}
+
+void GgafDx9SpriteActor::setAnimationMethod(int prm_iMethodNo, int prm_iInterval) {
+	_iAnimationFrame_Interval = prm_iInterval;
+}
 
 void GgafDx9SpriteActor::nextAnimationFrame() {
 	_iCounter_AnimationFrame++;
@@ -66,7 +80,7 @@ void GgafDx9SpriteActor::nextAnimationFrame() {
 					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
 				}
 				break;
-			case REVERSE_LOOP : //5,4,3,2,1,0,5,4,3,2,1,5,4...
+			case REVERSE_LOOP : //0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
 				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active--;
 				} else {
