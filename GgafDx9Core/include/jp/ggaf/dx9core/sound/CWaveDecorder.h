@@ -62,3 +62,20 @@ public:
 };
 
 #endif	//	_INCLUDE_WAVEDECORDER_HPP
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

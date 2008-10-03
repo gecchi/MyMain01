@@ -4,9 +4,9 @@
 class GgafDx9Sound  {
 public:
 	/** IDirectSound8インターフェイス */
-	static 	IDirectSound8* _pIDirectSound8;
-
-	static CC3DSound* _pC3DSound;
+	static IDirectSound8* _pIDirectSound8;
+	static DSCAPS _dsCaps;
+	//static CC3DSound* _pC3DSound;
 	static void init();
 	static void release();
 	static GgafDx9Se*  createSe(string prm_wave_name);
