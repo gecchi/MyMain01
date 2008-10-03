@@ -5,14 +5,10 @@ EnemyShot001::EnemyShot001(string prm_name, string prm_xname) : EnemyShotSpriteA
 }
 
 void EnemyShot001::initialize() {
-	_animation_method = ORDER_LOOP;
-	_iAnimationFrame_Interval = 1;
-
+	setAnimationMethod(ORDER_LOOP, 1);
 	_pMover -> setXYMoveVelocity(3000);
-
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
-
 	setBumpable(false);
 }
 
@@ -54,8 +50,6 @@ void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	if (_pChecker->_iStaminaPoint < 0) {
 		declareStop();
 	}
-
-
 }
 
 EnemyShot001::~EnemyShot001() {
