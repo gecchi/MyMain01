@@ -51,12 +51,6 @@ void MyShot001::processJudgement() {
 		declareStop();
 	}
 
-	if (switchedToStop()) {
-		//è¡é∏éûã§í èàóù
-		setBumpable(false);
-		declareMoveFirst();
-	}
-
 }
 
 /*
@@ -73,7 +67,15 @@ void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
+void MyShot001::processFinal() {
+	if (switchedToStop()) {
+		//è¡é∏éûèàóù
+		setBumpable(false);
+		declareMoveFirst();
+	}
+}
 
 
 MyShot001::~MyShot001() {
+
 }

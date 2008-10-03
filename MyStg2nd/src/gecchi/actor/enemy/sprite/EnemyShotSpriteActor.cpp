@@ -30,9 +30,6 @@ void EnemyShotSpriteActor::processJudgement() {
 		declareStop();
 	}
 
-	if (switchedToStop()) {
-		setBumpable(false);
-	}
 }
 
 void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
@@ -40,7 +37,11 @@ void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
-
+void EnemyShotSpriteActor::processFinal() {
+	if (switchedToStop()) {
+		setBumpable(false);
+	}
+}
 
 EnemyShotSpriteActor::~EnemyShotSpriteActor() {
 }

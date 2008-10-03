@@ -43,18 +43,6 @@ void MyLaser001::processJudgement() {
 	if (isOffScreen()) {
 		declareStop();
 	}
-
-
-	if (switchedToStop()) {
-		//è¡é∏éûèàóù
-		setBumpable(false);
-		if (MyLaser001::_pHeadMyLaser001 == this) {
-			MyLaser001::_pHeadMyLaser001 = NULL;
-		}
-		declareMoveFirst();
-	}
-
-
 }
 
 /*
@@ -71,7 +59,17 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
-
+void MyLaser001::processFinal() {
+	if (switchedToStop()) {
+		//è¡é∏éûèàóù
+		setBumpable(false);
+		if (MyLaser001::_pHeadMyLaser001 == this) {
+			MyLaser001::_pHeadMyLaser001 = NULL;
+		}
+		declareMoveFirst();
+	}
+}
 
 MyLaser001::~MyLaser001() {
+
 }
