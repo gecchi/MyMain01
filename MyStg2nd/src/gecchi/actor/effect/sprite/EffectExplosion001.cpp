@@ -4,22 +4,19 @@ EffectExplosion001::EffectExplosion001(string prm_name, string prm_xname) : Defa
 }
 
 void EffectExplosion001::initialize() {
-	_canBump  = false;
-	_iAnimationMethod = ORDER_NOLOOP;
-	_iAnimationPatternNo_Active = 0;
-	_iAnimationPatternNo_Top = 0;
-	_iAnimationPatternNo_Bottom = 15;
+	setAnimationMethod(ORDER_NOLOOP, 1);
+	setAnimationPatternRenge(0, 15);
+	setBumpable(false);
 }
 
 void EffectExplosion001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»ˆ—
-		_iAnimationPatternNo_Active = 0;
+		setActivAnimationPattern(0);
 		_X = GameGlobal::_pMyShip->_X;
 		_Y = GameGlobal::_pMyShip->_Y;
 		_Z = GameGlobal::_pMyShip->_Z;
 	} else {
-		//•’Ê‚Ìˆ—
 		nextAnimationFrame();
 		_SX += 3000;
 		_SY += 3000;

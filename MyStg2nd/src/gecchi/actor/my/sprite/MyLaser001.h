@@ -34,7 +34,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void processFinal();
+ 	void onStop();
 
 	virtual ~MyLaser001();
 };

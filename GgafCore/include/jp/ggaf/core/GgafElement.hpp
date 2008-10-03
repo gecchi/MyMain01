@@ -81,18 +81,18 @@ public:
 	virtual ~GgafElement();
 
 	/**
-	 * ノード初期処理 .
-	 * インスタンス生成後、nextFrame(),behave(),judge(),drawPrior(),drawMain(),drawTerminate(),happen(int),finally() の
-	 * 何れかが呼び出された時、最初に必ず１回だけ呼び出されます。<BR>
-	 */
-	virtual void initialize();
-
-	/**
 	 * 掃除 .
 	 * 神が処理時間に余裕がでたときに呼ばれます。<BR>
 	 * 配下ノードの中にノード生存フラグ(_isAlive)が false になっているノードがあれば１つだけ解放します。<BR>
 	 */
 	virtual void cleane();
+
+	/**
+	 * ノード初期処理 .
+	 * インスタンス生成後、nextFrame(),behave(),judge(),drawPrior(),drawMain(),drawTerminate(),happen(int),finally() の
+	 * 何れかが呼び出された時、最初に必ず１回だけ呼び出されます。<BR>
+	 */
+	virtual void initialize() {};
 
 	/**
 	 * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理 .
@@ -114,6 +114,20 @@ public:
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、judge()を実行します。<BR>
 	 */
 	virtual void behave();
+
+	/**
+	 * 再生時処理 .
+	 * 停止状態から再生状態に変化したときに１度だけ呼ばれる。
+	 * 必要に応じてオーバーライドします。
+	 */
+	virtual void onPlay() {};
+
+	/**
+	 * 停止時処理 .
+	 * 再生状態から停止状態に変化したときに１度だけ呼ばれる。
+	 * 必要に応じてオーバーライドします。
+	 */
+	virtual void onStop() {};
 
 	/**
 	 * ノードのフレーム毎の判定処理 .
@@ -385,13 +399,15 @@ public:
 
 
 	/**
-	 * 停止から再生に切り替わったかどうか
+	 * 停止から再生に切り替わったかどうか .
+	 * ただし、onPlay() で代用できる場合は、そちらをオーバーライドしたほうがすっきり記述できるはず。
 	 * @return	bool true:切り替わった／false:切り替わっていない
 	 */
 	bool switchedToPlay();
 
 	/**
-	 * 再生から停止に切り替わったかどうか
+	 * 再生から停止に切り替わったかどうか .
+	 * このメソッドは今のところ使いどころは無いかもしれません。
 	 * @return	bool true:切り替わった／false:切り替わっていない
 	 */
 	bool switchedToStop();
@@ -461,10 +477,6 @@ _switchedToStop(false)
 {
 }
 
-
-template<class T>
-void GgafElement<T>::initialize() {
-}
 
 template<class T>
 void GgafElement<T>::nextFrame() {
@@ -539,6 +551,12 @@ void GgafElement<T>::behave() {
 	if(_wasInitialized == false) {
 		initialize();
 		_wasInitialized = true;
+	}
+
+	if (_switchedToPlay) {
+		onPlay();
+	} else if (_switchedToStop) {
+		onStop();
 	}
 
 	if (_isPlaying && !_wasPaused && _isAlive) {

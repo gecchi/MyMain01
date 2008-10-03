@@ -7,20 +7,14 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_xname) : 
 }
 
 void EnemyShotSpriteActor::initialize() {
-	_iAnimationMethod = GgafDx9SpriteActor::ORDER_LOOP;
-	_iAnimationFrame_Interval = 1;
-
+	setAnimationMethod(ORDER_LOOP, 1);
 //	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 //	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	setBumpable(false);
 }
 
-
 void EnemyShotSpriteActor::processBehavior() {
 	//標準処理（たぶんオーバーライドされるだろうけども)
-	if (switchedToPlay()) {
-		setBumpable(true);
-	}
 	nextAnimationFrame();
 	_pMover -> behave();
 }
@@ -37,11 +31,7 @@ void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
-void EnemyShotSpriteActor::processFinal() {
-	if (switchedToStop()) {
-		setBumpable(false);
-	}
-}
+
 
 EnemyShotSpriteActor::~EnemyShotSpriteActor() {
 }

@@ -52,6 +52,7 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 	// Waveƒtƒ@ƒCƒ‹‚ðŠJ‚­
 	CWaveDecorder WaveFile;
 	if (!WaveFile.Open((LPSTR) wave_filename.c_str())) {
+		_TRACE_("Ž¸”s1");
 		//return false;
 	}
 
@@ -71,6 +72,7 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 //		return false;
 //	}
 	if (GgafDx9Sound::_pIDirectSound8 == NULL) {
+		_TRACE_("Ž¸”s2");
 		//return false;
 	}
 
@@ -78,6 +80,7 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 //	hr = lpDS->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
 	hr = GgafDx9Sound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
 	if (FAILED(hr)) {
+		_TRACE_("Ž¸”s3");
 		//return false;
 	}
 
@@ -86,6 +89,7 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 	//m_uiVolumeSettingID = uiVolumeSettingID;
 
 	if (!writeBuffer(WaveFile)) {
+		_TRACE_("Ž¸”s4");
 		//Release();
 		//return false;
 	}
@@ -119,19 +123,22 @@ void GgafDx9Se::play() {
 	DWORD dwStatus;
 
 	if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {
+		_TRACE_("Ž¸”s5");
 		//return false;
 	}
 	if (dwStatus == (DWORD) DSERR_BUFFERLOST) {
 		if (FAILED(_pIDirectSoundBuffer->Restore())) {
+			_TRACE_("Ž¸”s6");
 			//return false;
 		}
 		if (!restore()) {
+			_TRACE_("Ž¸”s7");
 			//return false;
 		}
 	}
 
 //	_pIDirectSoundBuffer->SetVolume(m_lpc3dSound->GetVolume(m_uiVolumeSettingID, lVolume));
-	_pIDirectSoundBuffer->SetVolume(_DS_MINVOLUME_ );
+	_pIDirectSoundBuffer->SetVolume(0);
 	//_pIDirectSoundBuffer->SetPan(lPan);
 	_pIDirectSoundBuffer->SetPan(0);
 	_pIDirectSoundBuffer->SetCurrentPosition(0);

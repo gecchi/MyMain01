@@ -1,11 +1,6 @@
 #include "stdafx.h"
 
-const int GgafDx9SpriteActor::ORDER_LOOP   = 1;
-const int GgafDx9SpriteActor::REVERSE_LOOP   = 2;
-const int GgafDx9SpriteActor::OSCILLATE_LOOP = 3;
-const int GgafDx9SpriteActor::ORDER_NOLOOP = 11;
-const int GgafDx9SpriteActor::REVERSE_NOLOOP = 12;
-const int GgafDx9SpriteActor::NOT_ANIMATED  = 99;
+
 
 GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
 	_class_name = "GgafDx9SpriteActor";
@@ -14,7 +9,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_n
 	_iAnimationPatternNo_Bottom  = _pSpriteModel->_iAnimationPatternNo_Max;
 	_iAnimationPatternNo_Active  = 0;
 	_iAnimationFrame_Interval    = 0;
-	_iAnimationMethod            = ORDER_LOOP;
+	_animation_method            = ORDER_LOOP;
 	_iCounter_AnimationFrame     = 0;
 	_oscillateAnimationOrderFlg = true;
 }
@@ -54,74 +49,75 @@ void GgafDx9SpriteActor::processDrawMain() {
 	_pSpriteModel->draw(this);
 }
 
-void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_iTop, int prm_bottom) {
-	if (prm_iTop < 0 || prm_bottom > (_pSpriteModel->_iAnimationPatternNo_Max)) {
-
-
-
-		throw_GgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
+void GgafDx9SpriteActor::setActivAnimationPattern(int prm_iAnimationPatternNo) {
+	if (0 > prm_iAnimationPatternNo || prm_iAnimationPatternNo > (_pSpriteModel->_iAnimationPatternNo_Max)) {
+		throw_GgafCriticalException("GgafDx9SpriteActor::setActivAnimationPattern アニメーションパターン番号が範囲外です。引数="<<prm_iAnimationPatternNo);
+	} else {
+		_iAnimationPatternNo_Active = prm_iAnimationPatternNo;
 	}
-	_iAnimationPatternNo_Top = prm_iTop;
-	_iAnimationPatternNo_Bottom = prm_bottom;
 }
 
-void GgafDx9SpriteActor::setAnimationMethod(int prm_iMethodNo, int prm_iInterval) {
+void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_iTop, int prm_bottom = 1) {
+	if (prm_iTop < 0 || prm_bottom > (_pSpriteModel->_iAnimationPatternNo_Max)) {
+		throw_GgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
+	} else {
+		_iAnimationPatternNo_Top = prm_iTop;
+		_iAnimationPatternNo_Bottom = prm_bottom;
+	}
+}
+
+void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval) {
+	_animation_method = prm_method;
 	_iAnimationFrame_Interval = prm_iInterval;
 }
 
 void GgafDx9SpriteActor::nextAnimationFrame() {
 	_iCounter_AnimationFrame++;
 	if (_iAnimationFrame_Interval < _iCounter_AnimationFrame) {
-		switch (_iAnimationMethod) {
-			case ORDER_LOOP :  //0,1,2,3,4,5,0,1,2,3,4,5,...
+		if (_animation_method == ORDER_LOOP) {  //0,1,2,3,4,5,0,1,2,3,4,5,...
+			if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
+				_iAnimationPatternNo_Active++;
+			} else {
+				_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
+			}
+		} else if (_animation_method == REVERSE_LOOP) { //0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+			if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
+				_iAnimationPatternNo_Active--;
+			} else {
+				_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
+			}
+		} else if (_animation_method == ORDER_NOLOOP) { //0,1,2,3,4,5,5,5,5,5,5,5...
+			if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
+				_iAnimationPatternNo_Active++;
+			} else {
+				happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
+				_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
+			}
+		} else if (_animation_method == REVERSE_NOLOOP) { //5,4,3,2,1,0,0,0,0,0,0...
+			if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
+				_iAnimationPatternNo_Active--;
+			} else {
+				happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
+				_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
+			}
+		} else if (_animation_method == OSCILLATE_LOOP) { //0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+		   if (_oscillateAnimationOrderFlg) {
 				if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active++;
 				} else {
-					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
+					_iAnimationPatternNo_Active--;
+					_oscillateAnimationOrderFlg = false;
 				}
-				break;
-			case REVERSE_LOOP : //0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+			} else {
 				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active--;
 				} else {
-					_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
-				}
-				break;
-			case ORDER_NOLOOP : //0,1,2,3,4,5,5,5,5,5,5,5...
-				if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
 					_iAnimationPatternNo_Active++;
-				} else {
-					happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
-					_iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
+					_oscillateAnimationOrderFlg = true;
 				}
-				break;
-			case REVERSE_NOLOOP : //5,4,3,2,1,0,0,0,0,0,0...
-				if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
-					_iAnimationPatternNo_Active--;
-				} else {
-					happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
-					_iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
-				}
-				break;
-			case OSCILLATE_LOOP :  //0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-                if (_oscillateAnimationOrderFlg) {
-					if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
-						_iAnimationPatternNo_Active++;
-					} else {
-						_iAnimationPatternNo_Active--;
-						_oscillateAnimationOrderFlg = false;
-					}
-                } else {
-					if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
-						_iAnimationPatternNo_Active--;
-					} else {
-						_iAnimationPatternNo_Active++;
-						_oscillateAnimationOrderFlg = true;
-					}
-                }
-				break;
-			case NOT_ANIMATED :
-				break;
+			}
+		} else if (_animation_method == NOT_ANIMATED) {
+			//何もしない
 		}
 		_iCounter_AnimationFrame = 0;
 	}

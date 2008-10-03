@@ -7,8 +7,7 @@ MyLaser001::MyLaser001(string prm_name, string prm_xname) : DefaultSpriteMyActor
 }
 
 void MyLaser001::initialize() {
-	_iAnimationMethod = ORDER_LOOP;
-	_iAnimationFrame_Interval = 3;
+	setAnimationMethod(ORDER_LOOP, 1);
 
 	_pMover -> setXYMoveAngleVelocity(0);
 	_pMover -> setXYMoveAngle(0);
@@ -59,14 +58,10 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
-void MyLaser001::processFinal() {
-	if (switchedToStop()) {
-		//è¡é∏éûèàóù
-		setBumpable(false);
-		if (MyLaser001::_pHeadMyLaser001 == this) {
-			MyLaser001::_pHeadMyLaser001 = NULL;
-		}
-		declareMoveFirst();
+void MyLaser001::onStop() {
+	setBumpable(false);
+	if (MyLaser001::_pHeadMyLaser001 == this) {
+		MyLaser001::_pHeadMyLaser001 = NULL;
 	}
 }
 

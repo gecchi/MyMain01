@@ -5,8 +5,7 @@ MyShot001::MyShot001(string prm_name, string prm_xname) : DefaultSpriteMyActor(p
 }
 
 void MyShot001::initialize() {
-	_iAnimationMethod = OSCILLATE_LOOP;
-	_iAnimationFrame_Interval = 2;
+	setAnimationMethod(OSCILLATE_LOOP, 2);
 
 	_pMover -> setXYMoveAngleVelocity(0);
 	_pMover -> setAxisRotAngleVelocity(AXIS_Z, 10*1000);
@@ -67,12 +66,10 @@ void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareStop();
 }
 
-void MyShot001::processFinal() {
-	if (switchedToStop()) {
-		//Á¸ˆ—
-		setBumpable(false);
-		declareMoveFirst();
-	}
+void MyShot001::onStop() {
+	//Á¸ˆ—
+	setBumpable(false);
+	declareMoveFirst();
 }
 
 

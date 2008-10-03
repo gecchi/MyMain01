@@ -2,6 +2,15 @@
 #define GGAFDX9SPRITEACTORD_H_
 
 #define GGAF_EVENT_NOLOOP_ANIMATION_FINISHED 201
+enum GgafDx9AnimationMethod {
+	ORDER_LOOP,
+	REVERSE_LOOP,
+	OSCILLATE_LOOP,
+	ORDER_NOLOOP,
+	REVERSE_NOLOOP,
+	NOT_ANIMATED
+};
+
 
 class GgafDx9SpriteActor : public GgafDx9UntransformedActor {
 
@@ -12,12 +21,6 @@ private:
 
 
 public:
-	static const int ORDER_LOOP;
-	static const int REVERSE_LOOP;
-	static const int OSCILLATE_LOOP;
-	static const int ORDER_NOLOOP;
-	static const int REVERSE_NOLOOP;
-	static const int NOT_ANIMATED;
 	GgafDx9SpriteModel* _pSpriteModel;
 
 	/** アニメパターン番号の上限番号 */
@@ -29,7 +32,7 @@ public:
 	/** パターンとパターンの間隔フレーム数 */
 	unsigned int _iAnimationFrame_Interval;
 	/** アニメ方式 */
-	unsigned int _iAnimationMethod;
+	GgafDx9AnimationMethod _animation_method;
 	/** OSCILLATE_LOOP用の現在のアニメ方向 */
 	bool _oscillateAnimationOrderFlg;
 
@@ -48,15 +51,26 @@ public:
 	 */
 	void nextAnimationFrame();
 
+
 	/**
-	 * アニメーションパターンの範囲を制限する
+	 * アニメーションパターンを設定する .
+	 * @param prm_iAnimationPatternNo アニメーションパターン番号
+	 */
+	void setActivAnimationPattern(int prm_iAnimationPatternNo);
+
+	/**
+	 * アニメーションパターンの範囲を制限する .
+	 * @param prm_iTop上限のアニメーションパターン番号
+	 * @param prm_bottom 下限のアニメーションパターン番号
 	 */
 	void setAnimationPatternRenge(int prm_iTop, int prm_bottom);
 
 	/**
-	 * アニメーション方法を設定する
+	 * アニメーション方法を設定する.
+	 * @param prm_method アニメーション方法定数
+	 * @param prm_iInterval アニメーション間隔フレーム（default=1)
 	 */
-	void setAnimationMethod(int prm_iMethodNo, int prm_iInterval);
+	void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval);
 
 };
 
