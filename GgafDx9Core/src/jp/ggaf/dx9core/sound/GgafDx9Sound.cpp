@@ -1,8 +1,8 @@
 #include "stdafx.h"
 
 IDirectSound8* GgafDx9Sound::_pIDirectSound8 = NULL;
-
-CC3DSound* GgafDx9Sound::_pC3DSound = NULL;
+DSCAPS GgafDx9Sound::_dsCaps;
+//CC3DSound* GgafDx9Sound::_pC3DSound = NULL;
 
 void GgafDx9Sound::init() {
 	HRESULT hr;
@@ -15,22 +15,28 @@ void GgafDx9Sound::init() {
 		throw_GgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel失敗。");
 	}
 
+	_dsCaps.dwSize = sizeof(_dsCaps);
+	hr = GgafDx9Sound::_pIDirectSound8->GetCaps(&_dsCaps);
+	if (FAILED(hr)) {
+		throw_GgafCriticalException("GgafDx9Sound::init() GetCaps失敗。");
+	}
 
-	if (_pC3DSound == NULL) {
-		_pC3DSound = NEW CC3DSound();
-	}
-	if (!_pC3DSound->CreateSound(GgafDx9God::_hWnd)) {
-		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
-	}
+//	if (_pC3DSound == NULL) {
+//		_pC3DSound = NEW CC3DSound();
+//	}
+//
+//	if (!_pC3DSound->CreateSound(GgafDx9God::_hWnd)) {
+//		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
+//	}
 }
 
 void GgafDx9Sound::release() {
 	GgafDx9SeManager::clear();
 	GgafDx9BgmManager::clear();
 	_pIDirectSound8->Release();
-	_pC3DSound -> Release();
-	delete _pC3DSound;
-	_pC3DSound = NULL;
+//	_pC3DSound -> Release();
+//	delete _pC3DSound;
+//	_pC3DSound = NULL;
 }
 
 GgafDx9Se* GgafDx9Sound::createSe(string prm_wave_name) {

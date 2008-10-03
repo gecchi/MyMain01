@@ -58,12 +58,12 @@ bool OggVorbisFile::open(const char* filePath) {
 //			return false;
 //		}
 
-				// Oggファイルオープン
-				if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
-					// 失敗
-					clear();
-					return false;
-				}
+		// Oggファイルオープン
+		if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
+			// 失敗
+			clear();
+			return false;
+		}
 
 		strcpy(filePath_, filePath);
 		isReady_ = true;
