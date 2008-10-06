@@ -53,9 +53,11 @@ HRESULT GgafDx9God::init() {
 	//デバイス作成
 	ZeroMemory(&_structD3dPresent_Parameters,sizeof(D3DPRESENT_PARAMETERS));
 	//バックバッファの縦サイズ
-	_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
+	//_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT);
+	_structD3dPresent_Parameters.BackBufferHeight = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT);
 	//バックバッファの横サイズ
-	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
+	//_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);
+	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
 	//バックバッファのフォーマット
 	if (FULLSCRREEN) {
 		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
@@ -278,7 +280,11 @@ HRESULT GgafDx9God::initDx9Device() {
 				&vLookatPt,
 				&vUpVec
 	);
-	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &matrixView);
+	if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
+		//何もしない
+	} else {
+		GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &matrixView);
+	}
 
 	// 射影変換（３Ｄ→平面）
 	D3DXMATRIX matrixProjrction;   // 射影変換行列
