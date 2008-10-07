@@ -280,11 +280,8 @@ HRESULT GgafDx9God::initDx9Device() {
 				&vLookatPt,
 				&vUpVec
 	);
-	if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
-		//何もしない
-	} else {
-		GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &matrixView);
-	}
+	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &matrixView);
+
 
 	// 射影変換（３Ｄ→平面）
 	D3DXMATRIX matrixProjrction;   // 射影変換行列
@@ -368,8 +365,8 @@ void GgafDx9God::makeWorldMaterialize() {
 void GgafDx9God::makeWorldVisualize() {
 	if (_deviceLostFlg != true) {
 		//バックバッファをプライマリバッファに転送
-		if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
-		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL) == D3DERR_DEVICELOST) {
+		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
+		if (GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL) == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
 			_TRACE_("デバイスロスト！");
 			_deviceLostFlg = true;
