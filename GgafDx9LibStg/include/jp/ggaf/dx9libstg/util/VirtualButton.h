@@ -35,7 +35,7 @@
 #define VB_NUM 29
 
 
-
+#define VB VirtualButton
 
 
 
