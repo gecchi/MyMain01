@@ -24,7 +24,7 @@ void GameDemoScene::processBehavior() {
 
 void GameDemoScene::processFinal() {
 	if (_dwFrame > 300) {
-		if (VirtualButton::isPushedDown(VB_UI_EXECUTE)) {
+		if (VB::isPushedDown(VB_UI_EXECUTE)) {
 
 			_TRACE_("GameDemoScene::processFinally STAGE1スタート！！私はSTOP");
 			((GameMainScene*)getNext())->enableStage01();

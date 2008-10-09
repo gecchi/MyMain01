@@ -4,6 +4,9 @@
 #define SH_NOMAL 0;
 #define SH_LASER 1;
 
+#define MAX_LEVEL_MOVE_SPEED 5
+#define MIN_LEVEL_MOVE_SPEED 0
+
 
 class MyShip : public DefaultMeshActor {
 
@@ -11,6 +14,10 @@ public:
 
 	bool _turboFlg;
 
+	/** 移動スピードレベル */
+	int _lv_MoveSpeed;
+	/** 移動スピードレベルに相応する移動スピード */
+	int _iMoveSpeed;
 
 	int _iShotKind01;
 	int _iShotKind02;
@@ -39,7 +46,19 @@ public:
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
 
-	virtual ~MyShip();
+ 	void setMoveSpeedLv(int lv) {
+ 		_lv_MoveSpeed = lv;
+ 		_iMoveSpeed = _lv_MoveSpeed*1000;
+ 	}
+ 	//画面奥へ移動初めX軸回転処理
+ 	void onMoveZPlusBegin();
+
+ 	//画面手前へ移動初めX軸回転処理
+ 	void onMoveZMinusBegin();
+
+ 	//画面奥へ移動終了X軸回転処理
+ 	void onMoveZFinish();
+ 	virtual ~MyShip();
 };
 
 

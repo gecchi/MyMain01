@@ -19,7 +19,7 @@ void GameScene::initialize() {
 
 
 void GameScene::processBehavior() {
-	VirtualButton::update(); //入力情報更新
+	VB::update(); //入力情報更新
 }
 
 
