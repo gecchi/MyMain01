@@ -18,7 +18,7 @@ HitArea2D::HitArea2D(int prm_iRectNum, int prm_iLineNum) : GgafObject() {
 	}
 }
 
-void HitArea2D::setRect(int prm_index, int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_z1, int prm_z2) {
+void HitArea2D::setRect(int prm_index, int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_thick_z1, int prm_thick_z2) {
 	if (_iRectNum < prm_index) {
 		_TRACE_("HitArea2D::setRect() 要素オーバー。_iRectNum="<<_iRectNum<<"/prm_index="<<prm_index);
 		throw_GgafCriticalException("HitArea2D::setRect() 要素オーバー。_iRectNum="<<_iRectNum<<"/prm_index="<<prm_index);
@@ -27,10 +27,12 @@ void HitArea2D::setRect(int prm_index, int prm_x1, int prm_y1, int prm_x2, int p
 	_paRect[prm_index].y1 = prm_y1;
 	_paRect[prm_index].x2 = prm_x2;
 	_paRect[prm_index].y2 = prm_y2;
+	_paRect[prm_index].thick_z1 = prm_thick_z1;
+	_paRect[prm_index].thick_z2 = prm_thick_z2;
 
 }
 
-void HitArea2D::setLine(int prm_index, int prm_x1, int prm_y1, int prm_x2, int prm_y2, bool prm_zrot, int prm_z1, int prm_z2) {
+void HitArea2D::setLine(int prm_index, int prm_x1, int prm_y1, int prm_x2, int prm_y2, bool zrot, int prm_thick_z1, int prm_thick_z2) {
 	if (_iLineNum < prm_index) {
 		_TRACE_("HitArea2D::setLine() 要素オーバー。_iLineNum="<<_iLineNum<<"/prm_index="<<prm_index);
 		throw_GgafCriticalException("HitArea2D::setLine() 要素オーバー。_iLineNum="<<_iLineNum<<"/prm_index="<<prm_index);
@@ -39,9 +41,13 @@ void HitArea2D::setLine(int prm_index, int prm_x1, int prm_y1, int prm_x2, int p
 	_paLine[prm_index].y1 = prm_y1;
 	_paLine[prm_index].x2 = prm_x2;
 	_paLine[prm_index].y2 = prm_y2;
-	_paLine[prm_index].zrot = prm_zrot;
+	_paLine[prm_index].zrot = zrot;
+	_paLine[prm_index].thick_z1 = prm_thick_z1;
+	_paLine[prm_index].thick_z2 = prm_thick_z2;
 
 }
+
+
 
 HitArea2D::~HitArea2D() {
 	TRACE("HitArea2D::~HitArea2D() start--->");

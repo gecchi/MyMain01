@@ -45,10 +45,10 @@ public:
 
 	/**
 	 * オーバーライド
-	 * @param prm_pOppChecker
+	 * @param prm_pOtherChecker
 	 * @return
 	 */
-	bool isBump(GgafDx9GeometryChecker* prm_pOppChecker);
+	bool isBump(GgafDx9GeometryChecker* prm_pOtherChecker);
 
 	virtual ~StgChecker();
 };

@@ -9,6 +9,7 @@ class StgUtil;
 class VirtualButton;
 class DefaultScene;
 class DefaultMeshActor;
+class DefaultCubeActor;
 class DefaultSpriteActor;
 class DefaultPlateActor;
 class DefaultSquareActor;
@@ -30,6 +31,7 @@ class HitArea2D;
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultWorld.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultPlateActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSquareActor.h"
