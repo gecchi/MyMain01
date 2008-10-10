@@ -10,8 +10,7 @@ void GgafDx9MeshActor::processDrawMain() {
 	//WORLD変換
 	static D3DXMATRIX matrixTransWorld;  //WORLD変換行列
 	D3DXMatrixIdentity(&matrixTransWorld); //単位行列へ
-	static float fRateScale = LEN_UNIT;
-
+	static float fRateScale = LEN_UNIT*PX_UNIT;
 
 	//単位行列→X軸回転→Y軸回転→Z軸回転→拡大縮小→平行移動　の変換行列を作成
 	// |cosY*cosZ*sx					  , cosY*sinZ*sy					 , -sinY*sz	    , 0  |

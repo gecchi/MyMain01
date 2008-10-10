@@ -220,8 +220,9 @@ HRESULT GgafDx9God::initDx9Device() {
 	//Zバッファ書き込み不可
 	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 	//左（反時計回り）回りにカリング ∵左手座標系
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
-
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+	//カリングしない
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	// アルファブレンドＯＮ
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);

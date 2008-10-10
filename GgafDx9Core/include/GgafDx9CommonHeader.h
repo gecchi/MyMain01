@@ -19,7 +19,7 @@
 #define ANGLE_2PI (360000)
 
 #define LEN_UNIT (1000)
-#define PX_UNIT (16)
+#define PX_UNIT (10)
 #define PI (3.14159265358979)
 
 #include <d3d9.h>
@@ -55,6 +55,7 @@ class GgafDx9ModelManager;
 class GgafDx9MainActor;
 class GgafDx9UntransformedActor;
 class GgafDx9MeshActor;
+class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
 class GgafDx9TransformedActor;
@@ -98,6 +99,7 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/actor/GgafDx9MainActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9CubeActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SquareActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9TransformedActor.h"

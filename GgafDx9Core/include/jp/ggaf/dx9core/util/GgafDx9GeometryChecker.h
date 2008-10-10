@@ -22,7 +22,7 @@ public:
 	//virtual void draw();
 
 
-	virtual bool isBump(GgafDx9GeometryChecker* prm_pOppChecker) = 0;
+	virtual bool isBump(GgafDx9GeometryChecker* prm_pOtherChecker) = 0;
 
 	virtual ~GgafDx9GeometryChecker();
 };

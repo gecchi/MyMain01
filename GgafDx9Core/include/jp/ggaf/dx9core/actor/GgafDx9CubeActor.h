@@ -1,0 +1,20 @@
+#ifndef GGAFDX9CUBEACTORD_H_
+#define GGAFDX9CUBEACTORD_H_
+
+
+class GgafDx9CubeActor : public GgafDx9UntransformedActor {
+private:
+	GgafDx9MeshModel* _pMeshModel;
+
+public:
+	GgafDx9CubeActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+
+ 	/**
+	 * ＜OverRide です＞<BR>
+	 */
+	virtual void processDrawMain();
+
+	virtual ~GgafDx9CubeActor();		//デストラクタ
+};
+
+#endif /*GGAFDX9CUBEACTORD_H_*/
