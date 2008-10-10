@@ -46,7 +46,7 @@ public:
 	 */
 	virtual void makeWorldVisualize();
 
-
+	D3DXMATRIX getInvRotateMat();
 //    /**
 //     * WorldƒV[ƒ“‚ğì¬B
 //	 * ƒOverRide ‚Å‚·„<BR>

@@ -268,7 +268,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
 
 
-	// ビュー変換（カメラ位置）設定
+	// VIEW変換（カメラ位置）設定
 	double dCam = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
 	_TRACE_("カメラの位置(0,0,"<<dCam<<")");
 	D3DXMATRIX matrixView;   // ビュー変換行列
@@ -308,6 +308,8 @@ HRESULT GgafDx9God::initDx9Device() {
 */
 	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
 
+
+
 	//その他必要な初期化
 	GgafDx9Util::init(); //ユーティリティ準備
 	GgafDx9Input::init(); //DirectInput準備
@@ -315,6 +317,16 @@ HRESULT GgafDx9God::initDx9Device() {
 	return S_OK;
 }
 
+// カメラと対峙する回転行列を取得
+// ビルボードのVIEW変換行列を取得
+D3DXMATRIX GgafDx9God::getInvRotateMat() {
+   D3DXMATRIX Inv;
+//   D3DXMatrixIdentity(&Inv);
+//   D3DXMatrixLookAtLH(&Inv, &D3DXVECTOR3(0,0,0), &D3DXVECTOR3( 0.0f, 0.0f, 0.0f ), &D3DXVECTOR3( 0.0f, 1.0f, 0.0f ));
+//   D3DXMatrixInverse(&Inv, NULL, &Inv);
+
+   return Inv;
+}
 
 void GgafDx9God::makeWorldMaterialize() {
 	TRACE("GgafDx9God::materialize() start");
