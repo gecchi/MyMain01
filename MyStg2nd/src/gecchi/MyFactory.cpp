@@ -42,7 +42,7 @@ GgafMainScene* MyFactory::createStage05Scene(void* x) {
 	return pStage05Scene;
 }
 GgafMainActor* MyFactory::createDebugDelineateActor(void* x) {
-	DelineateActor* pDelineateActor = NEW DelineateActor("HITAREA", "DelineateSprite");
+	DelineateActor* pDelineateActor = NEW DelineateActor("HITAREA");
 	return pDelineateActor;
 }
 
