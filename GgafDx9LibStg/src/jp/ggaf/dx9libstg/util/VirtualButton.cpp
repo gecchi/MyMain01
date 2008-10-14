@@ -39,6 +39,8 @@ VirtualButton::JOYSTICKMAP VirtualButton::_s_tagJoymap = {
 
 
 
+
+
 VirtualButton::VBMap* VirtualButton::getVirtualButtonMapHistory(DWORD prm_dwFrameAgo) {
 	VBMap* pVBMTemp = _s_pVBMap;
 	for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
@@ -80,6 +82,20 @@ bool VirtualButton::isPushedDown(int prm_VB) {
 		return false;
 	}
 }
+
+////‰½Š‚à‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢¨‰Ÿ‚µ‚½
+//bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
+//	if (_s_pVBMap->_state[prm_VB]) {
+//		for (int i = 0; i < VB_NUM; i++) {
+//			if (_s_pVBMap->_prev->_state[i]) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	} else {
+//		return false;
+//	}
+//}
 
 bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 
