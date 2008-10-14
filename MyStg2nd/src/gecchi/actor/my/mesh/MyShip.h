@@ -41,7 +41,7 @@ public:
 	int _iRXTopVelo_MZ;
 	//奥又は手前へ通常Z移動中のX軸回転角の停止角度位置
 	//Rotation axisX Stop Angle while I Move Z
-	int _iRXStopAng_MZ;
+	angle _iRXStopAng_MZ;
 
 	//TURBO移動開始時の移動速度の初速度
 	//Move Velocity when I Begin To Move with Turbo
@@ -66,7 +66,7 @@ public:
 	//奥の場合は範囲を _iRXBtmVelo_MZT < X軸回転角速度正 < 360,000
 	//手前の場合は     -360,000 < X軸回転角速度正 < -1*_iRXBtmVelo_MZT
 	//として、TURBO移動中最低限の回転力を保証する。
-	//Rotation axisX Bottom Velocity while I Move Z with Turbo
+	//Rotation axisX Bottom Angle Velocity while I Move Z with Turbo
 	int _iRXBtmVelo_MZT;
 	//奥又は手前へTURBO移動中のTURBO移動が終了と判断されるX軸回転角速度
 	//奥の場合は正、手前の場合はこれに -1 を乗ずる

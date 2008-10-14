@@ -277,7 +277,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveAcceleration(_iMAcce_MT);
 		//_pMover -> setXYMoveAngle(ANGLE90);
 
-		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, _iRXBtmVelo_MZT, 360,000);
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, _iRXBtmVelo_MZT, 360000);
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _iRXVelo_BMZT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _iRXAcce_MZT);
 		break;
@@ -300,7 +300,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveAcceleration(-1*_iMAcce_MT);
 		//_pMover -> setXYMoveAngle(ANGLE90);
 
-		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, -360,000, -1*_iRXBtmVelo_MZT);
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, -360000, -1*_iRXBtmVelo_MZT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, -1*_iRXVelo_BMZT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_iRXAcce_MZT);
 		break;
