@@ -12,7 +12,7 @@ StgMover::StgMover(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryMover
 	_iVelocity_XYMove = 0;
 
 	//XY平面移動速度上限 = 256 px/fream
-	_iTopVelocity_XYMove = 256*LEN_UNIT;  //_iVelocity_XYMove が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
+	_iTopAngVelocity_XYMove = 256*LEN_UNIT;  //_iVelocity_XYMove が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
 
 	//XY平面移動速度下限 = 0   px/fream
 	_iBottomVelocity_XYMove = -256*LEN_UNIT; //_iVelocity_XYMove が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
@@ -27,7 +27,7 @@ StgMover::StgMover(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryMover
 	_angVelocity_XYMoveAngle = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
 
 	//XY平面移動方角の角速度上限 = +360,000 angle/fream
-	_angTopVelocity_XYMoveAngle = ANGLE360;  //_angVelocity_XYMoveAngle の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
+	_angTopAngVelocity_XYMoveAngle = ANGLE360;  //_angVelocity_XYMoveAngle の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
 
 	//XY平面移動方角の角速度下限 = -360,000 angle/fream
 	_angBottomVelocity_XYMoveAngle = ANGLE360*-1; //_angVelocity_XYMoveAngle の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
@@ -45,7 +45,7 @@ StgMover::StgMover(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryMover
 	_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 
 	_iVelocity_ZMove = 0;         //Z軸XY平面移動速度（Z移動座標増分）＝ 0 px/fream
-	_iTopVelocity_ZMove = 256*LEN_UNIT;  //Z軸XY平面移動速度上限 ＝ 256 px/fream
+	_iTopAngVelocity_ZMove = 256*LEN_UNIT;  //Z軸XY平面移動速度上限 ＝ 256 px/fream
 	_iBottomVelocity_ZMove = -256*LEN_UNIT; //Z軸XY平面移動速度下限 ＝ 256 px/fream
 	_iAcceleration_ZMoveVelocity = 0;     //Z軸XY平面移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
 
@@ -95,7 +95,7 @@ void StgMover::behave() {
 			addXYMoveAngle(0);
 		}
 		if (_auto_xymove_angle_target_Flg == false) {
-			_angTopVelocity_XYMoveAngle = ANGLE360;       //XY平面移動方角の角速度上限 ＝ 360,000 angle/fream
+			_angTopAngVelocity_XYMoveAngle = ANGLE360;       //XY平面移動方角の角速度上限 ＝ 360,000 angle/fream
 			_angBottomVelocity_XYMoveAngle = ANGLE360*-1;  //XY平面移動方角の角速度下限 ＝ -360,000 angle/fream
 			_angAcceleration_XYMoveAngleVelocity = 0;  //XY平面移動方向角、角加速度を０へ
 			setXYMoveAngleVelocity(0);               //XY平面移動方向角、角速度を０へ
@@ -119,10 +119,10 @@ void StgMover::behave() {
 
 void StgMover::setXYMoveVelocityRenge(int prm_iVelocity01_XYMove, int prm_iVelocity02_XYMove) {
 	if (prm_iVelocity01_XYMove < prm_iVelocity02_XYMove) {
-		_iTopVelocity_XYMove = prm_iVelocity02_XYMove;
+		_iTopAngVelocity_XYMove = prm_iVelocity02_XYMove;
 		_iBottomVelocity_XYMove = prm_iVelocity01_XYMove;
 	} else {
-		_iTopVelocity_XYMove = prm_iVelocity01_XYMove;
+		_iTopAngVelocity_XYMove = prm_iVelocity01_XYMove;
 		_iBottomVelocity_XYMove = prm_iVelocity02_XYMove;
 	}
 }
@@ -130,8 +130,8 @@ void StgMover::setXYMoveVelocityRenge(int prm_iVelocity01_XYMove, int prm_iVeloc
 
 
 void StgMover::setXYMoveVelocity(int prm_iVelocity_XYMove) {
-	if (prm_iVelocity_XYMove > _iTopVelocity_XYMove) {
-		_iVelocity_XYMove = _iTopVelocity_XYMove;
+	if (prm_iVelocity_XYMove > _iTopAngVelocity_XYMove) {
+		_iVelocity_XYMove = _iTopAngVelocity_XYMove;
 	} else if (prm_iVelocity_XYMove < _iBottomVelocity_XYMove) {
 		_iVelocity_XYMove = _iBottomVelocity_XYMove;
 	} else {
@@ -167,15 +167,15 @@ void StgMover::addXYMoveAngle(angle prm_angDistance_XYMoveAngle) {
 	angle angOffset_XYMove = prm_angDistance_XYMoveAngle;
 	if (_angBottomVelocity_XYMoveAngle > prm_angDistance_XYMoveAngle) {
 		angOffset_XYMove = _angBottomVelocity_XYMoveAngle;
-	} else if (prm_angDistance_XYMoveAngle > _angTopVelocity_XYMoveAngle) {
-		angOffset_XYMove = _angTopVelocity_XYMoveAngle;
+	} else if (prm_angDistance_XYMoveAngle > _angTopAngVelocity_XYMoveAngle) {
+		angOffset_XYMove = _angTopAngVelocity_XYMoveAngle;
 	}
 	setXYMoveAngle(_angXYMove + angOffset_XYMove);
 }
 
 void StgMover::setXYMoveAngleVelocity(angle prm_angVelocity_XYMoveAngle) {
-	if (prm_angVelocity_XYMoveAngle > _angTopVelocity_XYMoveAngle) {
-		_angVelocity_XYMoveAngle = _angTopVelocity_XYMoveAngle;
+	if (prm_angVelocity_XYMoveAngle > _angTopAngVelocity_XYMoveAngle) {
+		_angVelocity_XYMoveAngle = _angTopAngVelocity_XYMoveAngle;
 	} else if (prm_angVelocity_XYMoveAngle < _angBottomVelocity_XYMoveAngle) {
 		_angVelocity_XYMoveAngle = _angBottomVelocity_XYMoveAngle;
 	} else {
@@ -190,10 +190,10 @@ void StgMover::setXYMoveAngleAcceleration(angle prm_angAcceleration_XYMoveAngleV
 
 void StgMover::setXYMoveAngleVelocityRenge(angle prm_angVelocity01_XYMoveAngle, angle prm_angVelocity02_XYMoveAngle) {
 	if (prm_angVelocity01_XYMoveAngle < prm_angVelocity02_XYMoveAngle) {
-		_angTopVelocity_XYMoveAngle = prm_angVelocity02_XYMoveAngle;
+		_angTopAngVelocity_XYMoveAngle = prm_angVelocity02_XYMoveAngle;
 		_angBottomVelocity_XYMoveAngle = prm_angVelocity01_XYMoveAngle;
 	} else {
-		_angTopVelocity_XYMoveAngle = prm_angVelocity01_XYMoveAngle;
+		_angTopAngVelocity_XYMoveAngle = prm_angVelocity01_XYMoveAngle;
 		_angBottomVelocity_XYMoveAngle = prm_angVelocity02_XYMoveAngle;
 	}
 }
@@ -224,85 +224,86 @@ angle StgMover::getDistanceFromXYMoveAngleTo(int prm_tX, int prm_tY, int prm_iWa
 
 
 angle StgMover::getDistanceFromXYMoveAngleTo(angle prm_angTarget_XYMove, int prm_iWay) {
+	angle angTarget_XYMove = simplifyAngle(prm_angTarget_XYMove);
 	if (prm_iWay ==  TURN_CLOSE_TO) { //近いほう回転
 		if (0 <= _angXYMove && _angXYMove < ANGLE180) {
-			if (0 <= prm_angTarget_XYMove && prm_angTarget_XYMove < _angXYMove) {
-				return -1*(_angXYMove - prm_angTarget_XYMove);
-			} else if (prm_angTarget_XYMove == _angXYMove) {
+			if (0 <= angTarget_XYMove && angTarget_XYMove < _angXYMove) {
+				return -1*(_angXYMove - angTarget_XYMove);
+			} else if (angTarget_XYMove == _angXYMove) {
 				//重なってる場合
 				return 0;
-			} else if (_angXYMove < prm_angTarget_XYMove && prm_angTarget_XYMove < _angXYMove+ANGLE180) {
-				return prm_angTarget_XYMove - _angXYMove;
-			} else if (prm_angTarget_XYMove == _angXYMove+ANGLE180) {
+			} else if (_angXYMove < angTarget_XYMove && angTarget_XYMove < _angXYMove+ANGLE180) {
+				return angTarget_XYMove - _angXYMove;
+			} else if (angTarget_XYMove == _angXYMove+ANGLE180) {
 				//正反対を向いている（＝距離は等しい）
 				//仕方ないので正の値とする。
 				return ANGLE180;
-			} else if (_angXYMove+ANGLE180 < prm_angTarget_XYMove && prm_angTarget_XYMove <= ANGLE360) {
-				return -1*(_angXYMove+(ANGLE360 - prm_angTarget_XYMove));
+			} else if (_angXYMove+ANGLE180 < angTarget_XYMove && angTarget_XYMove <= ANGLE360) {
+				return -1*(_angXYMove+(ANGLE360 - angTarget_XYMove));
 			} else {
 				//おかしい
-				_TRACE_("_angXYMove=" << _angXYMove << "/prm_angTarget_XYMove=" << prm_angTarget_XYMove);
+				_TRACE_("_angXYMove=" << _angXYMove << "/angTarget_XYMove=" << angTarget_XYMove);
 				throw_GgafCriticalException("StgMover::behave() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(1)。");
 			}
 		} else if(ANGLE180 <= _angXYMove && _angXYMove <= ANGLE360) {
-			if (0 <= prm_angTarget_XYMove && prm_angTarget_XYMove < _angXYMove-ANGLE180) {
-				return ANGLE360 - _angXYMove + prm_angTarget_XYMove;
-			} else if (prm_angTarget_XYMove == _angXYMove-ANGLE180) {
+			if (0 <= angTarget_XYMove && angTarget_XYMove < _angXYMove-ANGLE180) {
+				return ANGLE360 - _angXYMove + angTarget_XYMove;
+			} else if (angTarget_XYMove == _angXYMove-ANGLE180) {
 				//正反対を向いている（＝距離は等しい）
 				//仕方ないので正の値とする。
 				return ANGLE180;
-			} else if (_angXYMove-ANGLE180 < prm_angTarget_XYMove && prm_angTarget_XYMove < _angXYMove) {
-				return -1*(_angXYMove - prm_angTarget_XYMove);
-			} else if (_angXYMove == prm_angTarget_XYMove) {
+			} else if (_angXYMove-ANGLE180 < angTarget_XYMove && angTarget_XYMove < _angXYMove) {
+				return -1*(_angXYMove - angTarget_XYMove);
+			} else if (_angXYMove == angTarget_XYMove) {
 				//重なってる場合
 				return 0;
-			} else if (_angXYMove < prm_angTarget_XYMove && prm_angTarget_XYMove <= ANGLE360) {
-				return prm_angTarget_XYMove - _angXYMove;
+			} else if (_angXYMove < angTarget_XYMove && angTarget_XYMove <= ANGLE360) {
+				return angTarget_XYMove - _angXYMove;
 			} else {
 				//おかしい
-				_TRACE_("_angXYMove=" << _angXYMove << "/prm_angTarget_XYMove=" << prm_angTarget_XYMove);
+				_TRACE_("_angXYMove=" << _angXYMove << "/angTarget_XYMove=" << angTarget_XYMove);
 				throw_GgafCriticalException("StgMover::getDistanceFromXYMoveAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(2)。");
 			}
 		}
 	} else if (prm_iWay == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
-		if (0 <= _angXYMove && _angXYMove < prm_angTarget_XYMove) {
-			return (prm_angTarget_XYMove - _angXYMove);
-		} else if (prm_angTarget_XYMove < _angXYMove && _angXYMove < ANGLE360) {
-			return ANGLE360 - _angXYMove + prm_angTarget_XYMove;
-		} else if (_angXYMove == prm_angTarget_XYMove) {
+		if (0 <= _angXYMove && _angXYMove < angTarget_XYMove) {
+			return (angTarget_XYMove - _angXYMove);
+		} else if (angTarget_XYMove < _angXYMove && _angXYMove < ANGLE360) {
+			return ANGLE360 - _angXYMove + angTarget_XYMove;
+		} else if (_angXYMove == angTarget_XYMove) {
 			//重なってる場合
 			return 0;
 		}else {
 			//おかしい
-			_TRACE_("_angXYMove=" << _angXYMove << "/prm_angTarget_XYMove=" << prm_angTarget_XYMove);
+			_TRACE_("_angXYMove=" << _angXYMove << "/angTarget_XYMove=" << angTarget_XYMove);
 			throw_GgafCriticalException("StgMover::getDistanceFromXYMoveAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(3)。");
 		}
 	} else if (prm_iWay == TURN_CLOCKWISE) { //時計回りの場合
-		if (0 <= _angXYMove && _angXYMove < prm_angTarget_XYMove) {
-			return -1*( _angXYMove + ANGLE360 - prm_angTarget_XYMove);
-		} else if (prm_angTarget_XYMove < _angXYMove && _angXYMove < ANGLE360) {
-			return -1*(_angXYMove - prm_angTarget_XYMove);
-		} else if (_angXYMove == prm_angTarget_XYMove) {
+		if (0 <= _angXYMove && _angXYMove < angTarget_XYMove) {
+			return -1*( _angXYMove + ANGLE360 - angTarget_XYMove);
+		} else if (angTarget_XYMove < _angXYMove && _angXYMove < ANGLE360) {
+			return -1*(_angXYMove - angTarget_XYMove);
+		} else if (_angXYMove == angTarget_XYMove) {
 			//重なってる場合
 			return 0;
 		}else {
 			//おかしい
-			_TRACE_("_angXYMove=" << _angXYMove << "/prm_angTarget_XYMove=" << prm_angTarget_XYMove);
+			_TRACE_("_angXYMove=" << _angXYMove << "/angTarget_XYMove=" << angTarget_XYMove);
 			throw_GgafCriticalException("StgMover::getDistanceFromXYMoveAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(4)。");
 		}
 	}
 
-	_TRACE_("_angXYMove=" << _angXYMove << "/prm_angTarget_XYMove=" << prm_angTarget_XYMove);
+	_TRACE_("_angXYMove=" << _angXYMove << "/angTarget_XYMove=" << angTarget_XYMove);
 	throw_GgafCriticalException("StgMover::getDistanceFromXYMoveAngleTo() 何故かしら角の距離が求めれません。(1)");
 
 }
 
 void StgMover::setZMoveVelocityRenge(int prm_iVelocity01_ZMove, int prm_iVelocity02_ZMove) {
 	if (prm_iVelocity01_ZMove < prm_iVelocity02_ZMove) {
-		_iTopVelocity_ZMove = prm_iVelocity02_ZMove;
+		_iTopAngVelocity_ZMove = prm_iVelocity02_ZMove;
 		_iBottomVelocity_ZMove = prm_iVelocity01_ZMove;
 	} else {
-		_iTopVelocity_ZMove = prm_iVelocity01_ZMove;
+		_iTopAngVelocity_ZMove = prm_iVelocity01_ZMove;
 		_iBottomVelocity_ZMove = prm_iVelocity02_ZMove;
 	}
 }
@@ -310,8 +311,8 @@ void StgMover::setZMoveVelocityRenge(int prm_iVelocity01_ZMove, int prm_iVelocit
 
 
 void StgMover::setZMoveVelocity(int prm_iVelocity_ZMove) {
-	if (prm_iVelocity_ZMove > _iTopVelocity_ZMove) {
-		_iVelocity_ZMove = _iTopVelocity_ZMove;
+	if (prm_iVelocity_ZMove > _iTopAngVelocity_ZMove) {
+		_iVelocity_ZMove = _iTopAngVelocity_ZMove;
 	} else if (prm_iVelocity_ZMove < _iBottomVelocity_ZMove) {
 		_iVelocity_ZMove = _iBottomVelocity_ZMove;
 	} else {

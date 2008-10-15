@@ -18,7 +18,7 @@ public:
 	angle _angVelocity_XYMoveAngle;
 
 	/** XY平面移動方角値の角速度上限(最高値は360,000) */
-	angle _angTopVelocity_XYMoveAngle;
+	angle _angTopAngVelocity_XYMoveAngle;
 
 	/** XY平面移動方角値の角速度下限(最高値は-360,000) */
 	angle _angBottomVelocity_XYMoveAngle;
@@ -38,7 +38,7 @@ public:
 	int _iVelocity_XYMove;
 
 	/** XY平面移動速度上限 */
-	int _iTopVelocity_XYMove;
+	int _iTopAngVelocity_XYMove;
 
 	/** XY平面移動速度下限 */
 	int _iBottomVelocity_XYMove;
@@ -51,7 +51,7 @@ public:
 	int _iVelocity_ZMove;
 
 	/** Z軸移動速度上限 */
-	int _iTopVelocity_ZMove;
+	int _iTopAngVelocity_ZMove;
 
 	/** Z軸移動速度下限 */
 	int _iBottomVelocity_ZMove;
@@ -103,7 +103,7 @@ public:
 	 * 引数である加算（減算）するXY平面移動方角値は、XY平面移動加速度の上限と下限の間の範囲に限ります。<BR>
 	 * つまり、引数の有効な範囲は以下の通りとなります。<BR>
 	 *
-	 *   _angBottomVelocity_XYMoveAngle ≦ 引数の動方角値増分 ≦ _angTopVelocity_XYMoveAngle  です。<BR>
+	 *   _angBottomVelocity_XYMoveAngle ≦ 引数の動方角値増分 ≦ _angTopAngVelocity_XYMoveAngle  です。<BR>
 	 *
 	 * もし範囲外の引数のXY平面移動方角値増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
 	 * また、自動前方向き機能が有効(_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg)の場合、<BR>
@@ -112,13 +112,13 @@ public:
 	 * 【補足：】<BR>
 	 * 引数のXY平面移動方角値が、数直線上の 0 に、より近い値を加算し続けた場合は、緩やかなカーブ描きながら向転換することを意味します。<BR>
 	 * 逆に、引数のXY平面移動方角値が、0 から、より離れた値を加算し続けた場合は、より鋭角的なカーブ描きながら向転換することを意味します。<BR>
-	 * デフォルトのXY平面移動加速度の上限と下限（_angBottomVelocity_XYMoveAngle、_angTopVelocity_XYMoveAngle) は<BR>
+	 * デフォルトのXY平面移動加速度の上限と下限（_angBottomVelocity_XYMoveAngle、_angTopAngVelocity_XYMoveAngle) は<BR>
 	 *
 	 *  -360,000 ≦ 引数の動方角値増分 ≦ 360,000<BR>
 	 *
 	 * となっています。これは瞬時に（1フレームで）どんなXY平面移動方角にも向きを変えれることを意味します。<BR>
 	 *
-	 * @param	prm_iDistance_XYMoveAngle	XY平面移動方角値増分(範囲：_angBottomVelocity_XYMoveAngle ～ _angTopVelocity_XYMoveAngle)
+	 * @param	prm_iDistance_XYMoveAngle	XY平面移動方角値増分(範囲：_angBottomVelocity_XYMoveAngle ～ _angTopAngVelocity_XYMoveAngle)
 	 */
 	void addXYMoveAngle(angle prm_iDistance_XYMoveAngle);
 
@@ -130,7 +130,7 @@ public:
 	 * 引数に設定されたXY平面移動方角値になるまで、XY平面移動方角値を加算(減算)を毎フレーム行い続けます。<BR>
 	 * 加算か減算かは、XY平面移動方角の角速度（_angVelocity_XYMoveAngle）の正負で決定されます。<BR>
 	 * XY平面移動方角の角速度が 0 ならば、何も起こりません。<BR>
-	 * 内部的には、addXYMoveAngle(int) が毎フレーム行われる仕組みです。<BR>
+	 * 内部的には、addXYMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
 	 * 目標のXY平面移動方角に到達したならば、この目標のXY平面移動方角自動制御機能は解除されます。<BR>
 	 *
 	 * @param	prm_angXYMove	到達目標のXY平面移動方角値(-360,000～360,000)
@@ -198,9 +198,6 @@ public:
 	 * _pActor->_X += _vX_XYMove*_iVelocity_XYMove/LEN_UNIT;<BR>
 	 * _pActor->_Y += _vY_XYMove*_iVelocity_XYMove/LEN_UNIT;<BR>
 	 * _pActor->_Z += _iVelocity_ZMove
-	 * _pActor->_RX = _angAxisRot[0];<BR>
-	 * _pActor->_RY = _angAxisRot[1];<BR>
-	 * _pActor->_RZ = _angAxisRot[2];<BR>
 	 */
 	virtual void behave();
 
