@@ -47,21 +47,22 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_tmpY = _Y;
 	_tmpZ = _Z;
 
-	_angRZVelo_BeginMY = 100;
-	_angRZTopVelo_MY = 2000;
-	_angRZAcce_MY = 300;
-	_angRZStop_MY = 30000;
+	_angRZVelo_BeginMY = 100;	//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŠJŽnŽž‚ÌXŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
+	_angRZTopVelo_MY = 2000;	//ã–”‚Í‰º‚ÖˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌãŒÀŠp‘¬“x
+	_angRZAcce_MY = 300;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
+	_angRZStop_MY = 30000;		//ã–”‚Í‰º‚Ö’ÊíZˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‚Ì’âŽ~Šp“x
 
-	_iMvBtmVelo_MT = 1000;
-	_iMvVelo_BeginMT = 12000;
-	_iMvAcce_MT = -500;
+	_iMvBtmVelo_MT = 1000;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
+	_iMvVelo_BeginMT = 12000;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
+	_iMvAcce_MT = -500;			//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
-	_angRZVelo_BeginMYT = 30000;
-	_angRZAcce_MYT = -1000;
-	_angRZBtmVelo_MYT = 1000;
+	_angRZVelo_BeginMYT = 30000;//ã–”‚Í‰º‚ÖTURBOˆÚ“®ŠJŽnŽž‚ÌZŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
+	_angRZAcce_MYT = -1000;		//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌXŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
+	_angRZBtmVelo_MYT = 1000;	//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌXŽ²‰ñ“]Šp‘¬“x‚ÌÅ’á‘¬“x
 
-	_angRZTopVelo_MNY = 1000;
-	_angRZAcce_MNY = 100;
+	_angRZTopVelo_MNY = 1000;	//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŽžAŽ©“®“I‚ÉAngle0‚É–ß‚ë‚¤‚Æ‚·‚éZŽ²‰ñ“]Šp‘¬“x‚ÌãŒÀŠp‘¬“x
+	_angRZAcce_MNY = 100;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŽžAŽ©“®“I‚ÉAngle0‚É–ß‚ë‚¤‚Æ‚·‚éŽž‚ÌYŽ²‰ñ“]Šp‰Á‘¬“x(³•‰‹¤’Ê)
+
 	_iFrameNextTurboOut = 0;
 
 }
@@ -385,7 +386,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setXYMoveAngle(ANGLE90);
 
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3601000, _angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 
@@ -407,7 +408,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setXYMoveAngle(-1*ANGLE90);
 
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -360000, -1*_angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
 
