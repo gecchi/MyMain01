@@ -485,7 +485,7 @@ void MyShip::beginMoveXY(int prm_VB) {
 	case VB_UP_RIGHT_STC:
 		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü‚É‰ñ‚Á‚Ä‚½ê‡
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY); //‹t•ûŒü‚ÉŠp‰Á‘¬
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4); //‹­‚ß‚É‹t•ûŒü‚ÉŠp‰Á‘¬
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü‚É‰ñ‚Á‚½‚éê‡                                                   //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY); //”½”­‚·‚é³‹t•ûŒü‚ÉŠp‰Á‘¬
 		} else {
@@ -511,7 +511,7 @@ void MyShip::beginMoveXY(int prm_VB) {
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü‚É‰ñ‚Á‚½‚éê‡                                                   //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY); //‹t•ûŒü‚ÉŠp‰Á‘¬
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4); //‹­‚ß‚É‹t•ûŒü‚ÉŠp‰Á‘¬
 
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
