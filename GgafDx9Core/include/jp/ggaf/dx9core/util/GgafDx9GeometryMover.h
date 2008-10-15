@@ -32,7 +32,7 @@ public:
 	angle _angVelocity_AxisRotAngle[3];
 
 	/** 軸回転方角値の角速度上限(最高値は360,000) */
-	angle _angTopVelocity_AxisRotAngle[3];
+	angle _angTopAngVelocity_AxisRotAngle[3];
 
 	/** 軸回転方角値の角速度下限(最高値は-360,000) */
 	angle _angBottomVelocity_AxisRotAngle[3];
@@ -53,12 +53,19 @@ public:
 	 */
 	GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor);
 
+	/**
+	 * 方角値を簡単にする。
+	 * @param prm_ang 方角値
+	 * @return 簡単にされた方角値
+	 */
+	angle simplifyAngle(angle prm_ang);
+
 
 	/**
 	 * Actorの軸の回転方角値を設定。<BR>
 	 *
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_angAxisRot	XY平面移動方角値(0～360,000)
+	 * @param	prm_angAxisRot	方角値(-360,000～360,000)
 	 */
 	void setAxisRotAngle(int prm_iAxis, angle prm_angAxisRot);
 
@@ -67,8 +74,8 @@ public:
 	 * 今の所Z軸指定ぐらいしか用途が思い浮かびません。<BR>
 	 *
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_tX	xXY座標
-	 * @param	prm_tY	yXY座標
+	 * @param	prm_tX	x XY座標
+	 * @param	prm_tY	y XY座標
 	 */
 	void setAxisRotAngle(int prm_iAxis, int prm_tX, int prm_tY);
 
@@ -82,7 +89,7 @@ public:
 	 * 引数である加算（減算）する回転方角値は、回転加速度の上限と下限の間の範囲に限ります。<BR>
 	 * つまり、引数の有効な範囲は以下の通りとなります。<BR>
 	 *
-	 *   _iBottom_AxisRotVelocityAngle ≦ 引数の回転角値増分 ≦ _angTopVelocity_AxisRotAngle  です。<BR>
+	 *   _iBottom_AxisRotVelocityAngle ≦ 引数の回転角値増分 ≦ _angTopAngVelocity_AxisRotAngle  です。<BR>
 	 *
 	 * もし範囲外の引数の回転方角値増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
 	 * また、自動前方向き機能が有効(synchronize_ZaxisAxisRotAngle_to_AxisRotAngle_Flg)の場合、<BR>
@@ -91,14 +98,14 @@ public:
 	 * 【補足：】<BR>
 	 * 引数の回転方角値が、数直線上の 0 に、より近い値を加算し続けた場合は、ゆっくりな軸回転することを意味します。<BR>
 	 * 逆に、引数の回転方角値が、0 から、より離れた値を加算し続けた場合は、速く軸回転することを意味します。<BR>
-	 * デフォルトの回転加速度の上限と下限（_iBottom_AxisRotVelocityAngle、_angTopVelocity_AxisRotAngle) は<BR>
+	 * デフォルトの回転加速度の上限と下限（_iBottom_AxisRotVelocityAngle、_angTopAngVelocity_AxisRotAngle) は<BR>
 	 *
 	 *  -360,000 ≦ 引数の動方角値増分 ≦ 360,000<BR>
 	 *
 	 * となっています。これは瞬時に（1フレームで）指定軸についてどんな回転方角にも向きを変えれることを意味します。<BR>
 	 *
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_iDistance_AxisRotAngle	回転方角値増分(範囲：_iBottom_AxisRotVelocityAngle ～ _angTopVelocity_AxisRotAngle)
+	 * @param	prm_iDistance_AxisRotAngle	回転方角値増分(範囲：_iBottom_AxisRotVelocityAngle ～ _angTopAngVelocity_AxisRotAngle)
 	 */
 	void addAxisRotAngle(int prm_iAxis, angle prm_iDistance_AxisRotAngle);
 
