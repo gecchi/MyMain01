@@ -182,7 +182,7 @@ angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, angle p
 			} else {
 				//おかしい
 				_TRACE_("_angAxisRot["<<prm_iAxis<<"]=" << _angAxisRot[prm_iAxis] << "/angTarget_AxisRot=" << angTarget_AxisRot);
-				throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(1)。");
+				throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(1)。");
 			}
 		} else if(ANGLE180 <= _angAxisRot[prm_iAxis] && _angAxisRot[prm_iAxis] <= ANGLE360) {
 			if (0 <= angTarget_AxisRot && angTarget_AxisRot < _angAxisRot[prm_iAxis]-ANGLE180) {
@@ -201,7 +201,7 @@ angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, angle p
 			} else {
 				//おかしい
 				_TRACE_("_angAxisRot["<<prm_iAxis<<"]=" << _angAxisRot[prm_iAxis] << "/angTarget_AxisRot=" << angTarget_AxisRot);
-				throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(2)。");
+				throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(2)。");
 			}
 		}
 	} else if (prm_iWay == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -215,7 +215,7 @@ angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, angle p
 		}else {
 			//おかしい
 			_TRACE_("_angAxisRot["<<prm_iAxis<<"]=" << _angAxisRot[prm_iAxis] << "/angTarget_AxisRot=" << angTarget_AxisRot);
-			throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(3)。");
+			throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(3)。");
 		}
 	} else if (prm_iWay == TURN_CLOCKWISE) { //時計回りの場合
 		if (0 <= _angAxisRot[prm_iAxis] && _angAxisRot[prm_iAxis] < angTarget_AxisRot) {
@@ -228,7 +228,7 @@ angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, angle p
 		}else {
 			//おかしい
 			_TRACE_("_angAxisRot["<<prm_iAxis<<"]=" << _angAxisRot[prm_iAxis] << "/angTarget_AxisRot=" << angTarget_AxisRot);
-			throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() XY平面移動方角アングル値か、ターゲットアングル値が範囲外です(4)。");
+			throw_GgafCriticalException("GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo() 現在の軸回転方角アングル値か、ターゲットアングル値が範囲外です(4)。");
 		}
 	}
 	_TRACE_("_angAxisRot["<<prm_iAxis<<"]=" << _angAxisRot[prm_iAxis] << "/angTarget_AxisRot=" << angTarget_AxisRot);
