@@ -15,7 +15,7 @@ public:
 	int _tmpY;
 	int _tmpZ;
 
-	int _iFrameNextTurboOut;
+	DWORD _dwFrameNextTurboOut;
 
 	/** ターボ中かどうか */
 	bool _isTurbo;
@@ -142,17 +142,6 @@ public:
 
 	/** 上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通) */
 	angle _angRZAcce_MNY;		//Rotation X angle Acceleration while I Not Move Not Y
-
-
-
-
-
-
-
-
-
-
-
 
 
 

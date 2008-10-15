@@ -63,7 +63,7 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZTopVelo_MNY = 1000;	//上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度
 	_angRZAcce_MNY = 100;		//上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通)
 
-	_iFrameNextTurboOut = 0;
+	_dwFrameNextTurboOut = 0;
 
 }
 
@@ -126,7 +126,7 @@ void MyShip::processBehavior() {
 	}
 
 	//ターボ終了判定
-	if (_isTurbo == true && _iFrameNextTurboOut == _dwFrame) {
+	if (_isTurbo == true && _dwFrameNextTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
 		_pMover -> setXYMoveVelocityRenge(0, 10000000);
 		_isTurbo = false;
@@ -374,7 +374,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 
 void MyShip::beginTurboXY(int prm_VB) {
 	_isTurbo = true;
-	_iFrameNextTurboOut = _dwFrame + 20; //ターボ期間は20フレーム
+	_dwFrameNextTurboOut = _dwFrame + 20; //ターボ期間は20フレーム
 
 	switch(prm_VB) {
 
