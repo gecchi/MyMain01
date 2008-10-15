@@ -379,48 +379,75 @@ void MyShip::beginTurboXY(int prm_VB) {
 	switch(prm_VB) {
 
 	case VB_UP_STC:
-
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setXYMoveAngle(ANGLE90);
-
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-
-		break;
-
-	case VB_UP_RIGHT_STC:
-		break;
-
-	case VB_RIGHT_STC:
-		break;
-
-	case VB_DOWN_RIGHT_STC:
-		break;
-
-	case VB_DOWN_STC:
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setXYMoveAngle(-1*ANGLE90);
-
-		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT);
-		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-
+		_pMover -> setXYMoveAngle(ANGLE90);
 		break;
 
-	case VB_DOWN_LEFT_STC:
+	case VB_UP_RIGHT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/2); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(ANGLE45);
+		break;
+
+	case VB_UP_LEFT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/2); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(ANGLE135);
 		break;
 
 	case VB_LEFT_STC:
 		break;
+	case VB_RIGHT_STC:
+		break;
 
-	case VB_UP_LEFT_STC:
+
+	case VB_DOWN_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT);
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(-1*ANGLE90);
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT/2);
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(-1*ANGLE45);
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT/2);
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(-1*ANGLE135);
 		break;
 
 	default:
