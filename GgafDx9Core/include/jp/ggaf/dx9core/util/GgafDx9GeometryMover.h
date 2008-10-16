@@ -7,6 +7,8 @@
 #define TURN_CLOCKWISE (-1)
 //反時計回りに回転
 #define TURN_COUNTERCLOCKWISE 1
+//回転どちらでも
+#define TURN_BOTH 0
 
 
 
@@ -40,13 +42,15 @@ public:
 	/** 軸回転方角の角加速度（角速度に毎フレーム加算する値） */
 	angle _angAcceleration_AxisRotAngleVelocity[3];
 
+
+	/** 目標の軸回転方角自動停止機能有効フラグ */
+	bool _auto_rot_angle_target_Flg[3];
 	/** 目標とするキャラの軸回転方角の方角値(0～360,000) */
 	angle _angTarget_AxisRot[3];
-
-	/** 目標の軸回転方角自動制御機能有効フラグ */
-	bool _auto_rot_angle_target_Flg[3];
-
-
+	/** 目標の軸回転方角自動停止機能が有効になる回転方向 */
+	int _auto_rot_angle_target_allow_way[3]; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
+	/** 目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
+	angle _auto_rot_angle_target_allow_velocity[3]; //この角速度より小さい値の場合機能有効とする
 	/**
 	 * コンストラクタ<BR>
 	 * @param	prm_pActor	適用Actor
@@ -110,24 +114,28 @@ public:
 	void addAxisRotAngle(int prm_iAxis, angle prm_iDistance_AxisRotAngle);
 
 	/**
-	 * Actorの目標の軸回転方角自動制御機能を有効(目標の軸回転方角値設定)<BR>
+	 * Actorの目標の軸回転方角自動停止機能を有効(目標の軸回転方角値設定)<BR>
 	 * 引数に設定された軸の回転方角値になるまで、回転方角値を加算(減算)を毎フレーム行い続けます。<BR>
 	 * 加算か減算かは、現在の回転方角の角速度（_angVelocity_AxisRotAngle[prm_iAxis]）の正負で決定されます。<BR>
 	 * 回転方角の角速度が 0 ならば、何も起こりません。<BR>
 	 * 内部的には、addAxisRotAngle(prm_iAxis, int) が毎フレーム行われる仕組みです。<BR>
-	 * 目標の回転方角に到達したならば、この目標の軸回転方角自動制御機能は解除されます。<BR>
+	 * 目標の回転方角に到達したならば、この目標の軸回転方角自動停止機能は解除されます。<BR>
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
 	 * @param	prm_angXYMove	到達目標の回転方角値(0～360,000)
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_angAllowVelocity 自動停止機能が有効になる回転角速度
 	 */
-	 void setTargetAxisRotAngle(int prm_iAxis, angle prm_angXYMove);
+	 void setTargetAxisRotAngle(int prm_iAxis, angle prm_angXYMove, int prm_iAllowRotWay = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
 
 	/**
-	 * Actorの目標回転方向自動制御機能を有効(現在XY座標からの対象XY座標で設定)<BR>
+	 * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
 	 * @param	prm_tX	対象X座標
 	 * @param	prm_tY	対象Y座標
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_angAllowVelocity 自動停止機能が有効になる回転角速度
 	 */
-	void setTargetAxisRotAngle(int prm_iAxis, int prm_tX, int prm_tY);
+	void setTargetAxisRotAngleV(int prm_iAxis, int prm_tX, int prm_tY, int prm_iAllowRotWay = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
 
 	void setAxisRotAngleVelocity(int prm_iAxis, angle prm_angVelocity_AxisRotAngle);
 
@@ -139,7 +147,7 @@ public:
 
 	angle getDistanceFromAxisRotAngleTo(int prm_iAxis, angle prm_angTarget_AxisRot, int prm_iWay);
 
-/**
+	/**
 	 * 毎フレームのActorの振る舞い。<BR>
 	 */
 	virtual void behave();

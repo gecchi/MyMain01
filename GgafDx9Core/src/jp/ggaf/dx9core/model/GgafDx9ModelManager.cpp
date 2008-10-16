@@ -173,7 +173,7 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	// だが解放すると D3DXMATERIAL構造体配列もどうやら消えるらしい（すぐには消えない、だいぶここでハマる；）。
 	// そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保持することにしましょ～、あ～そ～しましょう。
 	paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
-	for( DWORD i = 0; i < dwNumMaterials; i++ ) {
+	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
 	}
 
@@ -181,13 +181,13 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
 	//xファイル（MatD3D）にはDiffuse反射値しか設定されていないみたいである（たぶん）、そこでDiffuse反射の値で
 	//Ambient反射値を代用することにする。TODO:いろいろ実験をするべき
-	for( DWORD i = 0; i < dwNumMaterials; i++ ) {
+	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
 	}
 
 	//テクスチャを取り出す
 	papID3DTexture9 = NEW LPDIRECT3DTEXTURE9[dwNumMaterials];
-	for( DWORD i = 0; i < dwNumMaterials; i++ ) {
+	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		papID3DTexture9[i] = NULL;
 		if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename) > 0 ) {
 			string texture_filename = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(paD3DMaterial9_tmp[i].pTextureFilename);

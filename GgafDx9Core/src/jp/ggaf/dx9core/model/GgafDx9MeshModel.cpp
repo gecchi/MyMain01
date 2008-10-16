@@ -15,7 +15,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9MeshActor* pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
 
 	HRESULT hr;
-	for(DWORD i = 0; i < _dwNumMaterials; i++ ) {
+	for(DWORD i = 0; i < _dwNumMaterials; i++) {
 
         hr = GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i]));	//マテリアルのセット
 		if(FAILED(hr)) {
@@ -67,7 +67,7 @@ void GgafDx9MeshModel::onDeviceLost() {
 	if (_pID3DXMesh == NULL) {
 		throw_GgafCriticalException("[GgafDx9MeshModel::onDeviceLost] Error! オブジェクトになっていないため remove できません！");
 	}
-	for( DWORD i = 0; i < _dwNumMaterials; i++ ) {
+	for( DWORD i = 0; i < _dwNumMaterials; i++) {
 		if (_papID3DTexture9[i] != NULL) { //テクスチャが無い場合もあるため
 			_papID3DTexture9[i] -> Release();
 			_papID3DTexture9[i] = NULL;
@@ -87,7 +87,7 @@ GgafDx9MeshModel::~GgafDx9MeshModel() {
 	if (_pID3DXMesh == NULL) {
 		throw_GgafCriticalException("[GgafDx9MeshModel::remove] Error! オブジェクトになっていないため remove できません！");
 	}
-	for( DWORD i = 0; i < _dwNumMaterials; i++ ) {
+	for( DWORD i = 0; i < _dwNumMaterials; i++) {
 		if (_papID3DTexture9[i] != NULL) { //テクスチャが無い場合もあるため
 			_papID3DTexture9[i] -> Release();
 			_papID3DTexture9[i] = NULL;

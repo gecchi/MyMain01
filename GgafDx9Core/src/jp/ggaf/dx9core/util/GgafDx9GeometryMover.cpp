@@ -22,9 +22,12 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 
 		//目標軸回転方角への自動制御フラグ = 無効
 		_auto_rot_angle_target_Flg[i] = false;
-
 		//目標の軸回転方角
 		_angTarget_AxisRot[i] = 0; //目標軸回転方角への自動制御フラグ = 無効、の場合は無意味
+		//目標の軸回転方角自動停止機能が有効になる回転方向
+		_auto_rot_angle_target_allow_way[i] = TURN_BOTH;
+		//目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通）
+		_auto_rot_angle_target_allow_velocity[i] = ANGLE180;
 	}
 
 }
@@ -38,7 +41,10 @@ void GgafDx9GeometryMover::behave() {
 
 			if (_angVelocity_AxisRotAngle[i] > 0) { //反時計回りの場合
 				angDistance = getDistanceFromAxisRotAngleTo(i, _angTarget_AxisRot[i], TURN_COUNTERCLOCKWISE);
-				if (_angVelocity_AxisRotAngle[i] > angDistance) { //目標を行き過ぎてしまいそう･･･な日
+				if (_angVelocity_AxisRotAngle[i] > angDistance &&
+					_auto_rot_angle_target_allow_way[i] != TURN_CLOCKWISE &&
+					_auto_rot_angle_target_allow_velocity[i] >= _angVelocity_AxisRotAngle[i])
+				{
 					addAxisRotAngle(i, angDistance);
 					_auto_rot_angle_target_Flg[i] = false; //フラグを戻して終了
 				} else {
@@ -46,7 +52,10 @@ void GgafDx9GeometryMover::behave() {
 				}
 			} else if (_angVelocity_AxisRotAngle[i] < 0) { //時計回りの場合
 				angDistance = getDistanceFromAxisRotAngleTo(i, _angTarget_AxisRot[i], TURN_CLOCKWISE);
-				if (_angVelocity_AxisRotAngle[i] < angDistance) { //目標を行き過ぎてしまいそう･･･な日
+				if (_angVelocity_AxisRotAngle[i] < angDistance &&
+					_auto_rot_angle_target_allow_way[i] != TURN_COUNTERCLOCKWISE &&
+					-1*_auto_rot_angle_target_allow_velocity[i] <= _angVelocity_AxisRotAngle[i])
+				{ //目標を行き過ぎてしまいそう･･･な日
 					addAxisRotAngle(i, angDistance);
 					_auto_rot_angle_target_Flg[i] = false; //フラグを戻して終了
 				} else {
@@ -123,34 +132,23 @@ void GgafDx9GeometryMover::setAxisRotAngleVelocityRenge(int prm_iAxis, angle prm
 		_angTopAngVelocity_AxisRotAngle[prm_iAxis] = prm_angVelocity01_AxisRotAngle;
 		_angBottomVelocity_AxisRotAngle[prm_iAxis] = prm_angVelocity02_AxisRotAngle;
 	}
+	setAxisRotAngleVelocity(prm_iAxis, _angVelocity_AxisRotAngle[prm_iAxis]); //再設定して範囲内に補正
 }
 
 void GgafDx9GeometryMover::setAxisRotAngleAcceleration(int prm_iAxis, angle prm_angAcceleration_AxisRotAngleVelocity) {
 	_angAcceleration_AxisRotAngleVelocity[prm_iAxis] = prm_angAcceleration_AxisRotAngleVelocity;
 }
 
-void GgafDx9GeometryMover::setTargetAxisRotAngle(int prm_iAxis, int prm_tX, int prm_tY) {
-	setTargetAxisRotAngle(prm_iAxis, _angTarget_AxisRot[prm_iAxis] = GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
+void GgafDx9GeometryMover::setTargetAxisRotAngleV(int prm_iAxis, int prm_tX, int prm_tY, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
+	setTargetAxisRotAngle(prm_iAxis, _angTarget_AxisRot[prm_iAxis] = GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay, prm_angAllowVelocity);
 }
 
 
-
-
-
-
-
-
-void GgafDx9GeometryMover::setTargetAxisRotAngle(int prm_iAxis, angle prm_angTarget_AxisRot) {
-	angle angSimple = prm_angTarget_AxisRot;
-	while(angSimple >= ANGLE360) {
-		angSimple -= ANGLE360;
-	}
-	while(angSimple < 0) {
-		angSimple += ANGLE360;
-	}
+void GgafDx9GeometryMover::setTargetAxisRotAngle(int prm_iAxis, angle prm_angTarget_AxisRot, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
 	_auto_rot_angle_target_Flg[prm_iAxis] = true;
-	//_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg = false;
-	_angTarget_AxisRot[prm_iAxis] = angSimple;
+	_angTarget_AxisRot[prm_iAxis] = simplifyAngle(prm_angTarget_AxisRot);
+	_auto_rot_angle_target_allow_way[prm_iAxis] = prm_iAllowRotWay;
+	_auto_rot_angle_target_allow_velocity[prm_iAxis] = prm_angAllowVelocity;
 }
 
 
