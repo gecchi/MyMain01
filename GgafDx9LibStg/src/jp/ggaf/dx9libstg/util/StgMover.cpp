@@ -39,7 +39,10 @@ StgMover::StgMover(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryMover
 	_auto_xymove_angle_target_Flg = false;
 	//目標のXY平面移動方角
 	_angTarget_XYMove = 0;
-
+	//目標のXY平面移動方角自動停止機能が有効になる回転方向
+	_auto_xymove_angle_target_allow_way = TURN_BOTH;
+	//目標のXY平面移動方角自動停止機能が有効になる移動方角角速度(角速度正負共通)
+	_auto_xymove_angle_target_allow_velocity = ANGLE180;
 
 	//XY平面移動方角に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
 	_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
@@ -67,7 +70,7 @@ void StgMover::behave() {
 
 	setXYMoveVelocity(_iVelocity_XYMove);
 
-	//目標XY平面移動方角アングル自動制御機能使用時の場合
+	//目標XY平面移動方角アングル自動停止機能使用時の場合
 	if (_auto_xymove_angle_target_Flg) {
 
 		_angVelocity_XYMoveAngle += _angAcceleration_XYMoveAngleVelocity;
@@ -75,7 +78,10 @@ void StgMover::behave() {
 
 		if (_angVelocity_XYMoveAngle > 0) { //反時計回りの場合
 			angle angDistance = getDistanceFromXYMoveAngleTo(_angTarget_XYMove, TURN_COUNTERCLOCKWISE);
-			if (_angVelocity_XYMoveAngle > angDistance) { //目標を行き過ぎてしまいそう･･･な日
+			if (_angVelocity_XYMoveAngle > angDistance &&
+				_auto_xymove_angle_target_allow_way != TURN_CLOCKWISE &&
+				_auto_xymove_angle_target_allow_velocity >= _angVelocity_XYMoveAngle)
+			{ //目標を行き過ぎてしまいそう･･･な日
 				addXYMoveAngle(angDistance);
 				_auto_xymove_angle_target_Flg = false; //フラグを戻して終了
 			} else {
@@ -84,7 +90,10 @@ void StgMover::behave() {
 		} else if (_angVelocity_XYMoveAngle < 0) { //時計回りの場合
 
 			angle angDistance = getDistanceFromXYMoveAngleTo(_angTarget_XYMove, TURN_CLOCKWISE);
-			if (_angVelocity_XYMoveAngle < angDistance) {
+			if (_angVelocity_XYMoveAngle < angDistance &&
+				_auto_xymove_angle_target_allow_way != TURN_COUNTERCLOCKWISE &&
+				_auto_xymove_angle_target_allow_velocity <= _angVelocity_XYMoveAngle)
+			{
 				addXYMoveAngle(angDistance);
 				_auto_xymove_angle_target_Flg = false; //フラグを戻して終了
 			} else {
@@ -125,6 +134,7 @@ void StgMover::setXYMoveVelocityRenge(int prm_iVelocity01_XYMove, int prm_iVeloc
 		_iTopAngVelocity_XYMove = prm_iVelocity01_XYMove;
 		_iBottomVelocity_XYMove = prm_iVelocity02_XYMove;
 	}
+	setXYMoveVelocity(_iVelocity_XYMove); //再設定して範囲内に補正
 }
 
 
@@ -196,23 +206,19 @@ void StgMover::setXYMoveAngleVelocityRenge(angle prm_angVelocity01_XYMoveAngle, 
 		_angTopAngVelocity_XYMoveAngle = prm_angVelocity01_XYMoveAngle;
 		_angBottomVelocity_XYMoveAngle = prm_angVelocity02_XYMoveAngle;
 	}
+	setXYMoveAngleVelocity(_angVelocity_XYMoveAngle); //再設定して範囲内に補正
 }
 
 
-void StgMover::setTargetXYMoveAngle(angle prm_angTarget_XYMove) {
-	int angSimple = prm_angTarget_XYMove;
-	while(angSimple >= ANGLE360) {
-		angSimple -= ANGLE360;
-	}
-	while(angSimple < 0) {
-		angSimple += ANGLE360;
-	}
+void StgMover::setTargetXYMoveAngle(angle prm_angTarget_XYMove, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
 	_auto_xymove_angle_target_Flg = true;
-	_angTarget_XYMove = angSimple;
+	_angTarget_XYMove = simplifyAngle(prm_angTarget_XYMove);
+	_auto_xymove_angle_target_allow_way = prm_iAllowRotWay;
+	_auto_xymove_angle_target_allow_velocity = prm_angAllowVelocity;
 }
 
-void StgMover::setTargetXYMoveAngle(int prm_tX, int prm_tY) {
-	setTargetXYMoveAngle(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
+void StgMover::setTargetXYMoveAngleV(int prm_tX, int prm_tY, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
+	setTargetXYMoveAngle(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay);
 }
 
 angle StgMover::getDistanceFromXYMoveAngleTo(int prm_tX, int prm_tY, int prm_iWay) {
@@ -306,6 +312,7 @@ void StgMover::setZMoveVelocityRenge(int prm_iVelocity01_ZMove, int prm_iVelocit
 		_iTopAngVelocity_ZMove = prm_iVelocity01_ZMove;
 		_iBottomVelocity_ZMove = prm_iVelocity02_ZMove;
 	}
+	setZMoveVelocity(_iVelocity_ZMove); //再設定して範囲内に補正
 }
 
 

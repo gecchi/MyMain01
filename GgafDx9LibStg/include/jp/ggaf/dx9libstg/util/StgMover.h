@@ -26,11 +26,14 @@ public:
 	/** XY平面移動方角の角加速度（角速度に毎フレーム加算する値） */
 	angle _angAcceleration_XYMoveAngleVelocity;
 
-	/** 目標のXY平面移動方角自動制御機能有効フラグ */
+	/** 目標のXY平面移動方角自動停止機能有効フラグ */
 	bool _auto_xymove_angle_target_Flg;
-
 	/** 目標とするキャラのXY平面移動方角の方角値(0～360,000) */
 	int _angTarget_XYMove;
+	/** 目標のXY平面移動方角自動停止機能が有効になる回転方向 */
+	int _auto_xymove_angle_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
+	/** 目標のXY平面移動方角自動停止機能が有効になる移動方角角速度 */
+	int _auto_xymove_angle_target_allow_velocity;
 
 ///////////////////////////
 
@@ -126,25 +129,29 @@ public:
 
 
 	/**
-	 * Actorの目標のXY平面移動方角自動制御機能を有効(目標のXY平面移動方角値設定)<BR>
+	 * Actorの目標のXY平面移動方角自動停止機能を有効(目標のXY平面移動方角値設定)<BR>
 	 * 引数に設定されたXY平面移動方角値になるまで、XY平面移動方角値を加算(減算)を毎フレーム行い続けます。<BR>
 	 * 加算か減算かは、XY平面移動方角の角速度（_angVelocity_XYMoveAngle）の正負で決定されます。<BR>
 	 * XY平面移動方角の角速度が 0 ならば、何も起こりません。<BR>
 	 * 内部的には、addXYMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
-	 * 目標のXY平面移動方角に到達したならば、この目標のXY平面移動方角自動制御機能は解除されます。<BR>
+	 * 目標のXY平面移動方角に到達したならば、この目標のXY平面移動方角自動停止機能は解除されます。<BR>
 	 *
 	 * @param	prm_angXYMove	到達目標のXY平面移動方角値(-360,000～360,000)
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
-	void setTargetXYMoveAngle(angle prm_angXYMove);
+	void setTargetXYMoveAngle(angle prm_angXYMove, int _auto_xymove_angle_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
 
 	/**
-	 * Actorの目標のXY平面移動方角自動制御機能を有効(目標のXY平面移動方角を現在XY座標からの対象XY座標で設定)<BR>
+	 * Actorの目標のXY平面移動方角自動停止機能を有効(目標のXY平面移動方角を現在XY座標からの対象XY座標で設定)<BR>
 	 * 機能はsetTargetXYMoveAngle(int)と同じ<BR>
 	 *
 	 * @param	prm_tX	xXY座標
 	 * @param	prm_tY	yXY座標
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
-	void setTargetXYMoveAngle(int prm_tX, int prm_tY);
+	void setTargetXYMoveAngleV(int prm_tX, int prm_tY, int _auto_xymove_angle_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
 
 
 	/**
@@ -178,13 +185,13 @@ public:
 	 * behave() の具体的な毎フレームの処理は以下の通り。<BR>
 	 * ・加速度(_iAcceleration_XYMoveVelocity)が0でない場合、加速度によるスピード増加処理。<BR>
 	 * 　　→加算後のスピードで setXYMoveVelocity(int) が毎フレーム実行されます。<BR>
-	 * ・目標のXY平面移動方角自動制御機能が使用時の場合、XY平面移動方角変更処理<BR>
+	 * ・目標のXY平面移動方角自動停止機能が使用時の場合、XY平面移動方角変更処理<BR>
 	 * 　　→計算されたXY平面移動方角値で addXYMoveAngle(int) が毎フレーム実行されます。<BR>
-	 * ・目標のXY平面移動方角自動制御機能使用時ではない場合、一定量XY平面移動方角値加算処理<BR>
+	 * ・目標のXY平面移動方角自動停止機能使用時ではない場合、一定量XY平面移動方角値加算処理<BR>
 	 * 　　→addXYMoveAngle(int) が毎フレーム実行されます。<BR>
-	 * ・目標の軸回転方角自動制御機能使用時の場合、軸回転方角変更処理<BR>
+	 * ・目標の軸回転方角自動停止機能使用時の場合、軸回転方角変更処理<BR>
 	 * 　　→計算された軸回転方角値で addAxisRotAngle(int) が毎フレーム実行されます。<BR>
-	 * ・目標の軸回転方角自動制御機能が使用時ではない場合、一定量軸回転方角値加算処理<BR>
+	 * ・目標の軸回転方角自動停止機能が使用時ではない場合、一定量軸回転方角値加算処理<BR>
 	 * 　　→addAxisRotAngle(int) が毎フレーム実行されます。<BR>
 	 * 以上の処理を行った後、Actorの以下のメンバへ、座標増分情報、Z軸回転情報を設定します。<BR>
 	 *  _X ･･･ XY平面移動方角値とXY平面移動スピードからX座標増分計算し加算<BR>
