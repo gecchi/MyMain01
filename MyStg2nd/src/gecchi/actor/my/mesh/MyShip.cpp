@@ -52,13 +52,13 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZVelo_BeginMY = 100;	//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŠJŽnŽž‚ÌXŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
 	_angRZTopVelo_MY = 3000;	//ã–”‚Í‰º‚ÖˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌãŒÀŠp‘¬“x
 	_angRZAcce_MY = 300;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
-	_angRZStop_MY = 30000;		//ã–”‚Í‰º‚Ö’ÊíZˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‚Ì’âŽ~Šp“x
+	_angRZStop_MY = 90000;		//ã–”‚Í‰º‚Ö’ÊíZˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‚Ì’âŽ~Šp“x
 
-	_iMvBtmVelo_MT = _iMoveSpeed*2;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
-	_iMvVelo_BeginMT = _iMoveSpeed*4;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
-	_iMvAcce_MT = -300;			//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
+	_iMvBtmVelo_MT = _iMoveSpeed*3;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
+	_iMvVelo_BeginMT = _iMoveSpeed*6;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
+	_iMvAcce_MT = -300;					//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
-	_angRZVelo_BeginMYT = 20000;//ã–”‚Í‰º‚ÖTURBOˆÚ“®ŠJŽnŽž‚ÌZŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
+	_angRZVelo_BeginMYT = 30000;//ã–”‚Í‰º‚ÖTURBOˆÚ“®ŠJŽnŽž‚ÌZŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
 	_angRZAcce_MYT = -200;		//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
 	_angRZBtmVelo_MYT = 4000;	//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌÅ’á‘¬“x
 
@@ -66,7 +66,7 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZAcce_MNY = 100;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŽžAŽ©“®“I‚ÉAngle0‚É–ß‚ë‚¤‚Æ‚·‚éŽž‚ÌYŽ²‰ñ“]Šp‰Á‘¬“x(³•‰‹¤’Ê)
 
 	_dwFrameNextTurboOut = 0;
-	_dwIntervalTurbo = 50;		//ƒ^[ƒ{ŠúŠÔ
+	_dwIntervalTurbo = 90;		//ƒ^[ƒ{ŠúŠÔ
 	_isMoveZX = false;
 	_wayTurbo = NONE;
 	_dRate_TurboControl = 0.8; //ƒ^[ƒ{’†ˆÚ“®§Œä‚Å‚«‚éŠ„‡
@@ -144,6 +144,7 @@ void MyShip::processBehavior() {
 	}
 
 	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
+
 		//ZX’ÊíˆÚ“®
 		if (VB::isBeingPressed(VB_UP_STC)) {
 			if (VB::isPushedDown(VB_UP_STC)) {
@@ -193,52 +194,55 @@ void MyShip::processBehavior() {
 
 		}
 	} else {
+		int iTurboControl = _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+		int iTurboControlRevers = _pMover->_iVelocity_XYMove*_dRate_TurboControl;//‚Ç[‚·‚Á‚©‚È
+
 		//XY’ÊíˆÚ“®
 		if (VB::isBeingPressed(VB_UP_STC)) {
 			if (VB::isPushedDown(VB_UP_STC)) {
 				beginMoveXY(VB_UP_STC);
 			}
-			_Y += _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+			_Y += _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
 				beginMoveXY(VB_UP_RIGHT_STC);
 			}
-			_X += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X += NANAME * (_iMoveSpeed + iTurboControl);
+			_Y += NANAME * (_iMoveSpeed + iTurboControl);
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_RIGHT_STC)) {
 				beginMoveXY(VB_RIGHT_STC);
 			}
-			_X += _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+			_X += _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
 				beginMoveXY(VB_DOWN_RIGHT_STC);
 			} else {
-				_X += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-				_Y -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+				_X += NANAME * (_iMoveSpeed + iTurboControl);
+				_Y -= NANAME * (_iMoveSpeed + iTurboControl);
 			}
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
 			if (VB::isPushedDown(VB_DOWN_STC)) {
 				beginMoveXY(VB_DOWN_STC);
 			}
-			_Y -= _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+			_Y -= _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
 			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
 				beginMoveXY(VB_DOWN_LEFT_STC);
 			}
-			_X -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X -= NANAME * (_iMoveSpeed + iTurboControl);
+			_Y -= NANAME * (_iMoveSpeed + iTurboControl);
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
 			if (VB::isPushedDown(VB_LEFT_STC)) {
 				beginMoveXY(VB_LEFT_STC);
 			}
-			_X -= _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+			_X -= _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
 			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
 				beginMoveXY(VB_UP_LEFT_STC);
 			}
-			_X -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X -= NANAME * (_iMoveSpeed + iTurboControl);
+			_Y += NANAME * (_iMoveSpeed + iTurboControl);
 		} else {
 
 		}
@@ -301,8 +305,6 @@ void MyShip::processBehavior() {
 		_wayTurbo != DOWN &&
 		_wayTurbo != DOWN_FRONT &&
 		_wayTurbo != DOWN_BEHIND &&
-		_wayTurbo != FRONT &&
-		_wayTurbo != BEHIND &&
 		_pMover->_angAxisRot[AXIS_Z] != 0 &&
 		!VB::isBeingPressed(VB_UP_STC) &&
 		!VB::isBeingPressed(VB_UP_RIGHT_STC) &&
