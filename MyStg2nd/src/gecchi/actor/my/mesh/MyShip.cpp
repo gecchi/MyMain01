@@ -4,7 +4,7 @@
 #define S_OPTION 0
 
 //ã2
-#define ROOT2 1.41421356
+#define NANAME 0.7
 
 
 
@@ -54,9 +54,9 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZAcce_MY = 300;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
 	_angRZStop_MY = 30000;		//ã–”‚Í‰º‚Ö’ÊíZˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‚Ì’âŽ~Šp“x
 
-	_iMvBtmVelo_MT = 1000;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
-	_iMvVelo_BeginMT = 12000;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
-	_iMvAcce_MT = -500;			//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
+	_iMvBtmVelo_MT = _iMoveSpeed*2;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
+	_iMvVelo_BeginMT = _iMoveSpeed*4;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
+	_iMvAcce_MT = -300;			//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
 	_angRZVelo_BeginMYT = 20000;//ã–”‚Í‰º‚ÖTURBOˆÚ“®ŠJŽnŽž‚ÌZŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
 	_angRZAcce_MYT = -200;		//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
@@ -66,10 +66,10 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZAcce_MNY = 100;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®ŽžAŽ©“®“I‚ÉAngle0‚É–ß‚ë‚¤‚Æ‚·‚éŽž‚ÌYŽ²‰ñ“]Šp‰Á‘¬“x(³•‰‹¤’Ê)
 
 	_dwFrameNextTurboOut = 0;
-	_dwIntervalTurbo = 20;		//ƒ^[ƒ{ŠúŠÔ
+	_dwIntervalTurbo = 50;		//ƒ^[ƒ{ŠúŠÔ
 	_isMoveZX = false;
 	_wayTurbo = NONE;
-	_dRate_TurboControl = 0.5; //ƒ^[ƒ{’†ˆÚ“®§Œä‚Å‚«‚éŠ„‡
+	_dRate_TurboControl = 0.8; //ƒ^[ƒ{’†ˆÚ“®§Œä‚Å‚«‚éŠ„‡
 }
 
 void MyShip::initialize() {
@@ -138,9 +138,8 @@ void MyShip::processBehavior() {
 
 	//ƒ^[ƒ{I—¹”»’è
 	if (_wayTurbo != NONE && _dwFrameNextTurboOut == _dwFrame) {
-		_TRACE_("ƒ^[ƒ{I—¹");
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
-		//_pMover -> setXYMoveVelocityRenge(0, 10000000);
+		_pMover -> setXYMoveVelocityRenge(0, 10000000);
 		_wayTurbo = NONE;
 	}
 
@@ -155,8 +154,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
 				beginMoveZX(VB_UP_RIGHT_STC);
 			}
-			_X += ROOT2*_iMoveSpeed;
-			_Z += ROOT2*_iMoveSpeed;
+			_X += NANAME*_iMoveSpeed;
+			_Z += NANAME*_iMoveSpeed;
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_RIGHT_STC)) {
 				beginMoveZX(VB_RIGHT_STC);
@@ -166,8 +165,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
 				beginMoveZX(VB_DOWN_RIGHT_STC);
 			}
-			_X += ROOT2*_iMoveSpeed;
-			_Z -= ROOT2*_iMoveSpeed;
+			_X += NANAME*_iMoveSpeed;
+			_Z -= NANAME*_iMoveSpeed;
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
 			if (VB::isPushedDown(VB_DOWN_STC)) {
 				beginMoveZX(VB_DOWN_STC);
@@ -177,8 +176,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
 				beginMoveZX(VB_DOWN_LEFT_STC);
 			}
-			_X -= ROOT2*_iMoveSpeed;
-			_Z -= ROOT2*_iMoveSpeed;
+			_X -= NANAME*_iMoveSpeed;
+			_Z -= NANAME*_iMoveSpeed;
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
 			if (VB::isPushedDown(VB_LEFT_STC)) {
 				beginMoveZX(VB_LEFT_STC);
@@ -188,8 +187,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
 				beginMoveZX(VB_UP_LEFT_STC);
 			}
-			_X -= ROOT2*_iMoveSpeed;
-			_Z += ROOT2*_iMoveSpeed;
+			_X -= NANAME*_iMoveSpeed;
+			_Z += NANAME*_iMoveSpeed;
 		} else {
 
 		}
@@ -204,8 +203,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
 				beginMoveXY(VB_UP_RIGHT_STC);
 			}
-			_X += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_RIGHT_STC)) {
 				beginMoveXY(VB_RIGHT_STC);
@@ -215,8 +214,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
 				beginMoveXY(VB_DOWN_RIGHT_STC);
 			} else {
-				_X += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-				_Y -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+				_X += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+				_Y -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 			}
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
 			if (VB::isPushedDown(VB_DOWN_STC)) {
@@ -227,8 +226,8 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
 				beginMoveXY(VB_DOWN_LEFT_STC);
 			}
-			_X -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
 			if (VB::isPushedDown(VB_LEFT_STC)) {
 				beginMoveXY(VB_LEFT_STC);
@@ -238,21 +237,12 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
 				beginMoveXY(VB_UP_LEFT_STC);
 			}
-			_X -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
-			_Y += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_X -= NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y += NANAME * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else {
 
 		}
 	}
-
-
-
-
-
-
-
-
-
 
 //	if (_isMoveZX && VB::isReleasedUp(VB_TURBO)) {
 //		_isMoveZX = false;
@@ -328,16 +318,8 @@ void MyShip::processBehavior() {
 	}
 
 
-
-
 	//À•W‚É”½‰f
 	_pMover -> behave();
-
-
-
-	_TRACE_("_angAxisRot[z]="<<(_pMover->_angAxisRot[AXIS_Z])<<"/_angTarget_AxisRot[z]="<<(_pMover->_angTarget_AxisRot[AXIS_Z])<<"/_auto_rot_angle_target_Flg[Z]="<<(_pMover->_auto_rot_angle_target_Flg[AXIS_Z])<<"/_auto_rot_angle_target_allow_way[Z]="<<(_pMover->_auto_rot_angle_target_allow_way[AXIS_Z])<<"/_auto_rot_angle_target_allow_velocity[Z]="<<(_pMover->_auto_rot_angle_target_allow_velocity[AXIS_Z])<<"/_angVelocity_AxisRotAngle[Z]="<<(_pMover->_angVelocity_AxisRotAngle[AXIS_Z]));
-
-
 }
 
 //‰æ–Ê‰œŽè‘OˆÚ“®‰‚ßˆ—
@@ -417,7 +399,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_RIGHT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/0.7); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -428,7 +410,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_LEFT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/0.7); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -466,7 +448,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_DOWN_RIGHT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT/2);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -477,7 +459,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_DOWN_LEFT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT/2);
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -549,7 +531,7 @@ void MyShip::beginMoveXY(int prm_VB) {
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 			//”½”­‚µ‚Ä‹tŽü‚è
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
 			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY, TURN_CLOSE_TO);
@@ -566,20 +548,20 @@ void MyShip::beginMoveXY(int prm_VB) {
 		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
 			//™X‚É‚ä‚é‚â‚©‚É
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*0.7); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*NANAME); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 			//”½”­‚µ‚Ä‹tŽü‚è
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4*0.7); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*NANAME); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY*0.7, TURN_CLOSE_TO);
+			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY*NANAME, TURN_CLOSE_TO);
 			if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
 				_pMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
 			}
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*0.7); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
 		}
-		_pMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY*0.7, TURN_BOTH, _angRZBtmVelo_MYT);
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY*NANAME, TURN_BOTH, _angRZBtmVelo_MYT);
 		break;
 
 	case VB_RIGHT_STC:
@@ -589,7 +571,7 @@ void MyShip::beginMoveXY(int prm_VB) {
 		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
 			//”½”­‚µ‚Ä‹tŽü‚è
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                           //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 			//™X‚É‚ä‚é‚â‚©‚É
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
@@ -610,20 +592,20 @@ void MyShip::beginMoveXY(int prm_VB) {
 		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
 			//”½”­‚µ‚Ä‹tŽü‚è
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4*0.7); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*NANAME); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
 		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                           //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
 			//™X‚É‚ä‚é‚â‚©‚É
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*0.7); //Šp‰Á‘¬‚Í³‚Å™X‚É‚ä‚é‚â‚©‚É
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*NANAME); //Šp‰Á‘¬‚Í³‚Å™X‚É‚ä‚é‚â‚©‚É
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY*0.7, TURN_CLOSE_TO);
+			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY*NANAME, TURN_CLOSE_TO);
 			if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
 				_pMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
 			}
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*0.7); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
 		}
-		_pMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY*0.7, TURN_BOTH, _angRZBtmVelo_MYT);
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY*NANAME, TURN_BOTH, _angRZBtmVelo_MYT);
 		break;
 
 	case VB_LEFT_STC:
@@ -658,12 +640,6 @@ void MyShip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 }
 
-/*
-bool MyShip::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
-	//TRACE("MyShip::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"‚˜"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
-	return false;
-}
-*/
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareFinishLife();
