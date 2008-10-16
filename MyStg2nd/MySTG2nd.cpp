@@ -163,6 +163,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 					//メモリーリ－クチェックEND
 					::detectMemoryLeaksEnd(std::cout);
 #endif
+					PostQuitMessage(0);
 					return EXIT_SUCCESS;
 				}
 			}

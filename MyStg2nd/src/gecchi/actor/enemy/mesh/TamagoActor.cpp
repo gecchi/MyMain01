@@ -49,7 +49,7 @@ void TamagoActor::processBehavior() {
 	if (_dwFrameOffset % _rnd == 0) {
 		_rnd = (110+(rand()%90));
 
-		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+		_pMover -> setTargetXYMoveAngleV(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 		if (_pMover->getDistanceFromXYMoveAngleTo(_pMover->_angTarget_XYMove,TURN_CLOSE_TO) > 0) {
 			_pMover -> setXYMoveAngleVelocity(2*1000);
 		} else {

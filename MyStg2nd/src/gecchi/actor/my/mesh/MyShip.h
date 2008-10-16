@@ -7,6 +7,23 @@
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
 
+enum MoveWay {
+	NONE,
+	UP,
+	UP_FRONT,
+	UP_BEHIND,
+	DOWN,
+	DOWN_FRONT,
+	DOWN_BEHIND,
+	FRONT,
+	BEHIND,
+	ZLEFT,
+	ZLEFT_FRONT,
+	ZLEFT_BEHIND,
+	ZRIGHT,
+	ZRIGHT_FRONT,
+	ZRIGHT_BEHIND
+};
 
 class MyShip : public DefaultMeshActor {
 
@@ -17,13 +34,12 @@ public:
 
 	DWORD _dwFrameNextTurboOut;
 
-	/** ターボ中かどうか */
-	bool _isTurbo;
+	/** ターボ期間(Frame) */
+	DWORD _dwIntervalTurbo;
 
-	/** 奥手前ターボ中かどうか */
-	bool _isZTurbo;
+	/** ターボ中、移動方角 */
+	MoveWay _wayTurbo;
 
-	int _iVB_turbo;
 	/** 移動スピードレベル */
 	int _lv_MoveSpeed;
 	/** 移動スピードレベルに相応する移動スピード */
@@ -124,11 +140,11 @@ public:
 	angle _angRZVelo_BeginMYT;	//Rotation axisZ angle Velocity when I Begin To Move Y with Turbo
 								//上の場合は正、下の場合はこれに -1 を乗ずる
 
-	/** 上又は下へTURBO移動中のX軸回転角速度の角加速度 */
+	/** 上又は下へTURBO移動中のZ軸回転角速度の角加速度 */
 	angle _angRZAcce_MYT;		//Rotation axisZ angle Acceleration while I Move Y with Turbo
 								//上の場合は正、下の場合はこれに -1 を乗ずる。但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
 
-	/** 上又は下へTURBO移動中のX軸回転角速度の最低速度 */
+	/** 上又は下へTURBO移動中のZ軸回転角速度の最低速度 */
 	angle _angRZBtmVelo_MYT;	//Rotation axisZ Bottom angle Velocity while I Move Y with Turbo
 								//上の場合は範囲を _angRZBtmVelo_MYT < Z軸回転角速度正 < 360,000
 								//上の場合は       -360,000 < X軸回転角速度正 < -1*_angRZBtmVelo_MYT
@@ -143,8 +159,8 @@ public:
 	/** 上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通) */
 	angle _angRZAcce_MNY;		//Rotation X angle Acceleration while I Not Move Not Y
 
-
-
+	/** TURBO移動中移動制御できる割合 */
+	double _dRate_TurboControl;
 
 
 

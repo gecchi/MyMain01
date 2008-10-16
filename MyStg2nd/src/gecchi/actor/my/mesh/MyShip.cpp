@@ -14,9 +14,9 @@
 MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */
-	_lv_MoveSpeed = 1;
+	_lv_MoveSpeed = 2;
 	/** 移動スピードレベルに相応する移動スピード */
-	_iMoveSpeed = 1000;
+	_iMoveSpeed = 2000;
 
 	//CommonSceneがnewの場合設定
 	_iShotKind01 = 0;
@@ -47,8 +47,10 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_tmpY = _Y;
 	_tmpZ = _Z;
 
+
+
 	_angRZVelo_BeginMY = 100;	//上又は下へ通常移動開始時のX軸回転角速度の初速度
-	_angRZTopVelo_MY = 2000;	//上又は下へ移動中のZ軸回転角速度の上限角速度
+	_angRZTopVelo_MY = 3000;	//上又は下へ移動中のZ軸回転角速度の上限角速度
 	_angRZAcce_MY = 300;		//上又は下へ通常移動中のZ軸回転角速度の角加速度
 	_angRZStop_MY = 30000;		//上又は下へ通常Z移動中のZ軸回転角の停止角度
 
@@ -56,20 +58,21 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_iMvVelo_BeginMT = 12000;	//TURBO移動開始時の移動速度の初速度
 	_iMvAcce_MT = -500;			//TURBO移動中の移動速度の加速度
 
-	_angRZVelo_BeginMYT = 30000;//上又は下へTURBO移動開始時のZ軸回転角速度の初速度
-	_angRZAcce_MYT = -1000;		//上又は下へTURBO移動中のX軸回転角速度の角加速度
-	_angRZBtmVelo_MYT = 1000;	//上又は下へTURBO移動中のX軸回転角速度の最低速度
+	_angRZVelo_BeginMYT = 20000;//上又は下へTURBO移動開始時のZ軸回転角速度の初速度
+	_angRZAcce_MYT = -200;		//上又は下へTURBO移動中のZ軸回転角速度の角加速度
+	_angRZBtmVelo_MYT = 4000;	//上又は下へTURBO移動中のZ軸回転角速度の最低速度
 
 	_angRZTopVelo_MNY = 1000;	//上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度
 	_angRZAcce_MNY = 100;		//上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通)
 
 	_dwFrameNextTurboOut = 0;
-
+	_dwIntervalTurbo = 20;		//ターボ期間
+	_isMoveZX = false;
+	_wayTurbo = NONE;
+	_dRate_TurboControl = 0.5; //ターボ中移動制御できる割合
 }
 
 void MyShip::initialize() {
-
-	_iVB_turbo = 0;
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pMover -> setXYMoveVelocity(0);
@@ -83,41 +86,49 @@ void MyShip::processBehavior() {
 
 	//奥手前移動初めのTURBOか否か
 	if (VB::arePushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
-		_isMoveZX = true;
+		_wayTurbo = ZLEFT;
 		beginTurboZX(VB_UP_STC);
 	} else if (VB::arePushedDownAtOnce(VB_TURBO, VB_DOWN_STC))  {      //手前、始動
-		_isMoveZX = true;
+		_wayTurbo = ZRIGHT;
 		beginTurboZX(VB_DOWN_STC);
 	} else if (VB::arePushedDownAtOnce(VB_TURBO, VB_UP_LEFT_STC)) {    //左斜め奥、始動
-		_isMoveZX = true;
+		_wayTurbo = ZLEFT_BEHIND;
 		beginTurboZX(VB_UP_LEFT_STC);
 	} else if (VB::arePushedDownAtOnce(VB_TURBO, VB_UP_RIGHT_STC)) {   //右斜め奥、始動
-		_isMoveZX = true;
+		_wayTurbo = ZLEFT_FRONT;
 		beginTurboZX(VB_UP_RIGHT_STC);
 	} else if (VB::arePushedDownAtOnce(VB_TURBO, VB_DOWN_LEFT_STC)) {  //左斜め手前、始動
-		_isMoveZX = true;
+		_wayTurbo = ZRIGHT_BEHIND;
 		beginTurboZX(VB_DOWN_LEFT_STC);
 	} else if (VB::arePushedDownAtOnce(VB_TURBO, VB_DOWN_RIGHT_STC)) { //右斜め手前、始動
-		_isMoveZX = true;
+		_wayTurbo = ZRIGHT_FRONT;
 		beginTurboZX(VB_DOWN_RIGHT_STC);
 	} else {
 		//上下左右移動初めのTURBOか否か
 		if (VB::isPushedDown(VB_TURBO)) {
 			if (VB::isBeingPressed(VB_UP_STC)) {                 //上、始動
+				_wayTurbo = UP;
 				beginTurboXY(VB_UP_STC);
 			} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {    //右上、始動
+				_wayTurbo = UP_FRONT;
 				beginTurboXY(VB_UP_RIGHT_STC);
 			} else if (VB::isBeingPressed(VB_RIGHT_STC)) {       //右、始動
+				_wayTurbo = FRONT;
 				beginTurboXY(VB_RIGHT_STC);
 			} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {  //右下、始動
+				_wayTurbo = DOWN_FRONT;
 				beginTurboXY(VB_DOWN_RIGHT_STC);
 			} else if (VB::isBeingPressed(VB_DOWN_STC)) {        //下、始動
+				_wayTurbo = DOWN;
 				beginTurboXY(VB_DOWN_STC);
-			} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {   //右下、始動
+			} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {   //左下、始動
+				_wayTurbo = DOWN_BEHIND;
 				beginTurboXY(VB_DOWN_LEFT_STC);
 			} else if (VB::isBeingPressed(VB_LEFT_STC)) {        //左、始動
+				_wayTurbo = BEHIND;
 				beginTurboXY(VB_LEFT_STC);
 			} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {     //左上、始動
+				_wayTurbo = UP_BEHIND;
 				beginTurboXY(VB_UP_LEFT_STC);
 			} else {
 
@@ -126,10 +137,11 @@ void MyShip::processBehavior() {
 	}
 
 	//ターボ終了判定
-	if (_isTurbo == true && _dwFrameNextTurboOut == _dwFrame) {
+	if (_wayTurbo != NONE && _dwFrameNextTurboOut == _dwFrame) {
+		_TRACE_("ターボ終了");
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
-		_pMover -> setXYMoveVelocityRenge(0, 10000000);
-		_isTurbo = false;
+		//_pMover -> setXYMoveVelocityRenge(0, 10000000);
+		_wayTurbo = NONE;
 	}
 
 	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
@@ -187,47 +199,47 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_UP_STC)) {
 				beginMoveXY(VB_UP_STC);
 			}
-			_Y += _iMoveSpeed;
+			_Y += _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
 		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
 				beginMoveXY(VB_UP_RIGHT_STC);
 			}
-			_X += ROOT2*_iMoveSpeed;
-			_Y += ROOT2*_iMoveSpeed;
+			_X += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_RIGHT_STC)) {
 				beginMoveXY(VB_RIGHT_STC);
 			}
-			_X += _iMoveSpeed;
+			_X += _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
 		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
 				beginMoveXY(VB_DOWN_RIGHT_STC);
 			} else {
-				_X += ROOT2*_iMoveSpeed;
-				_Y -= ROOT2*_iMoveSpeed;
+				_X += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+				_Y -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 			}
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
 			if (VB::isPushedDown(VB_DOWN_STC)) {
 				beginMoveXY(VB_DOWN_STC);
 			}
-			_Y -= _iMoveSpeed;
+			_Y -= _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
 		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
 			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
 				beginMoveXY(VB_DOWN_LEFT_STC);
 			}
-			_X -= ROOT2*_iMoveSpeed;
-			_Y -= ROOT2*_iMoveSpeed;
+			_X -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
 			if (VB::isPushedDown(VB_LEFT_STC)) {
 				beginMoveXY(VB_LEFT_STC);
 			}
-			_X -= _iMoveSpeed;
+			_X -= _iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl;
 		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
 			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
 				beginMoveXY(VB_UP_LEFT_STC);
 			}
-			_X -= ROOT2*_iMoveSpeed;
-			_Y += ROOT2*_iMoveSpeed;
+			_X -= ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
+			_Y += ROOT2 * (_iMoveSpeed + _pMover->_iVelocity_XYMove*_dRate_TurboControl);
 		} else {
 
 		}
@@ -293,7 +305,15 @@ void MyShip::processBehavior() {
 
 
 	//仰角、俯角を元に戻すフラグ発生
-	if (!_isTurbo && !_isMoveZX && _pMover->_angAxisRot[AXIS_Z] != 0 &&
+	if (_wayTurbo != UP &&
+		_wayTurbo != UP_FRONT &&
+		_wayTurbo != UP_BEHIND &&
+		_wayTurbo != DOWN &&
+		_wayTurbo != DOWN_FRONT &&
+		_wayTurbo != DOWN_BEHIND &&
+		_wayTurbo != FRONT &&
+		_wayTurbo != BEHIND &&
+		_pMover->_angAxisRot[AXIS_Z] != 0 &&
 		!VB::isBeingPressed(VB_UP_STC) &&
 		!VB::isBeingPressed(VB_UP_RIGHT_STC) &&
 		!VB::isBeingPressed(VB_UP_LEFT_STC) &&
@@ -304,17 +324,24 @@ void MyShip::processBehavior() {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
 		int rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MNY);
-		_pMover -> setTargetAxisRotAngle(AXIS_Z, 0);
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
 	}
+
+
+
 
 	//座標に反映
 	_pMover -> behave();
+
+
+
+	_TRACE_("_angAxisRot[z]="<<(_pMover->_angAxisRot[AXIS_Z])<<"/_angTarget_AxisRot[z]="<<(_pMover->_angTarget_AxisRot[AXIS_Z])<<"/_auto_rot_angle_target_Flg[Z]="<<(_pMover->_auto_rot_angle_target_Flg[AXIS_Z])<<"/_auto_rot_angle_target_allow_way[Z]="<<(_pMover->_auto_rot_angle_target_allow_way[AXIS_Z])<<"/_auto_rot_angle_target_allow_velocity[Z]="<<(_pMover->_auto_rot_angle_target_allow_velocity[AXIS_Z])<<"/_angVelocity_AxisRotAngle[Z]="<<(_pMover->_angVelocity_AxisRotAngle[AXIS_Z]));
+
 
 }
 
 //画面奥手前移動初め処理
 void MyShip::beginTurboZX(int prm_VB) {
-	_isTurbo = true;
 	switch(prm_VB) {
 
 	case VB_UP_STC:
@@ -363,7 +390,6 @@ void MyShip::beginTurboZX(int prm_VB) {
 	case VB_UP_LEFT_STC:
 		break;
 
-
 	default:
 		throw_GgafCriticalException("MyShip::beginTurboZX prm_VB="<<prm_VB<<"はありえません");
 		break;
@@ -373,8 +399,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 
 
 void MyShip::beginTurboXY(int prm_VB) {
-	_isTurbo = true;
-	_dwFrameNextTurboOut = _dwFrame + 20; //ターボ期間は20フレーム
+	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ターボ期間
 
 	switch(prm_VB) {
 
@@ -392,7 +417,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_RIGHT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/2); //斜めなので回転力半分
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/0.7); //斜めなので回転力半分
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -403,7 +428,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_LEFT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/2); //斜めなので回転力半分
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT/0.7); //斜めなので回転力半分
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -412,10 +437,20 @@ void MyShip::beginTurboXY(int prm_VB) {
 		break;
 
 	case VB_LEFT_STC:
-		break;
-	case VB_RIGHT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(ANGLE180);
 		break;
 
+	case VB_RIGHT_STC:
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
+		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setXYMoveAngle(0);
+		break;
 
 	case VB_DOWN_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
@@ -460,7 +495,6 @@ void MyShip::beginTurboXY(int prm_VB) {
 
 //画面奥手前移動初め処理
 void MyShip::beginMoveZX(int prm_VB) {
-	_isTurbo = true;
 	switch(prm_VB) {
 
 	case VB_UP_STC:
@@ -507,14 +541,15 @@ void MyShip::beginMoveXY(int prm_VB) {
 	int rd;
 	switch(prm_VB) {
 
-	case VB_UP_STC: //仰角発生
-	case VB_UP_LEFT_STC:
-	case VB_UP_RIGHT_STC:
-		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //けっこうな勢いで正方向に回ってた場合
+	case VB_UP_STC: //仰角発生（＝正方向周り発生）
+		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) {  //けっこうな勢いで正方向(順)周りに回ってた場合
+			//徐々にゆるやかに
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4); //強めに逆方向に角加速
-		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向に回ったる場合                                                   //負方向に回ってる場合
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY); //反発する正逆方向に角加速
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2); //角加速は負で徐々にゆるやかに
+		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向(逆)周りに回ってた場合                                          //負方向に回ってる場合
+			//反発して逆周り
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4); //反発する正方向に角加速、通常の２倍角加速でいく
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
 			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY, TURN_CLOSE_TO);
@@ -523,23 +558,42 @@ void MyShip::beginMoveXY(int prm_VB) {
 			}
 			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY); //近いほうに角加速
 		}
-		_pMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY);
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY, TURN_BOTH, _angRZBtmVelo_MYT);
+		break;
+
+	case VB_UP_LEFT_STC:
+	case VB_UP_RIGHT_STC:
+		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) {  //けっこうな勢いで正方向(順)周りに回ってた場合
+			//徐々にゆるやかに
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*0.7); //角加速は負で徐々にゆるやかに
+		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向(逆)周りに回ってた場合                                          //負方向に回ってる場合
+			//反発して逆周り
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4*0.7); //反発する正方向に角加速、通常の２倍角加速でいく
+		} else {
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
+			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY*0.7, TURN_CLOSE_TO);
+			if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //停止している場合
+				_pMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //初速
+			}
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*0.7); //近いほうに角加速
+		}
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY*0.7, TURN_BOTH, _angRZBtmVelo_MYT);
 		break;
 
 	case VB_RIGHT_STC:
 		break;
 
-	case VB_DOWN_STC: //俯角発生
-	case VB_DOWN_LEFT_STC:
-	case VB_DOWN_RIGHT_STC:
-		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //けっこうな勢いで正方向に回った場合
-			//初速なし
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY); //反発する逆方向に角加速
-		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向に回ったる場合                                                   //負方向に回ってる場合
-
+	case VB_DOWN_STC: //俯角発生（＝負方向周り発生）
+		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //けっこうな勢いで正方向(逆)周りに回ってた場合
+			//反発して逆周り
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4); //反発する負方向に角加速、通常の２倍角加速でいく
+		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向(順)周りに回ってた場合                                           //負方向に回ってる場合
+			//徐々にゆるやかに
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
-			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*4); //強めに逆方向に角加速
-
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2); //角加速は正で徐々にゆるやかに
 		} else {
 			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
 			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY, TURN_CLOSE_TO);
@@ -548,11 +602,31 @@ void MyShip::beginMoveXY(int prm_VB) {
 			}
 			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY); //近いほうに角加速
 		}
-		_pMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY);
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY, TURN_BOTH, _angRZBtmVelo_MYT);
+		break;
+
+	case VB_DOWN_LEFT_STC:
+	case VB_DOWN_RIGHT_STC:
+		if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //けっこうな勢いで正方向(逆)周りに回ってた場合
+			//反発して逆周り
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*4*0.7); //反発する負方向に角加速、通常の２倍角加速でいく
+		} else if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //けっこうな勢いで負方向(順)周りに回ってた場合                                           //負方向に回ってる場合
+			//徐々にゆるやかに
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*0.7); //角加速は正で徐々にゆるやかに
+		} else {
+			_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
+			rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY*0.7, TURN_CLOSE_TO);
+			if (_pMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //停止している場合
+				_pMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //初速
+			}
+			_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*0.7); //近いほうに角加速
+		}
+		_pMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY*0.7, TURN_BOTH, _angRZBtmVelo_MYT);
 		break;
 
 	case VB_LEFT_STC:
-		beginTurboXY(VB_LEFT_STC);
 		break;
 
 	default:
