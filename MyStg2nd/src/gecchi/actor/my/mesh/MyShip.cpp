@@ -381,7 +381,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 
 }
 
-
+//XYÀ•Wƒ^[ƒ{Žn“®Žž
 void MyShip::beginTurboXY(int prm_VB) {
 	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ƒ^[ƒ{ŠúŠÔ
 
@@ -401,7 +401,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_RIGHT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—ÍŒ¸
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
@@ -412,7 +412,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 	case VB_UP_LEFT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—Í”¼•ª
+		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—ÍŒ¸
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
 		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
