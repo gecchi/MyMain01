@@ -131,6 +131,9 @@ public:
 		return arePushedDownAtOnce(vb, 4);
 	};
 
+	static bool areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB2);
+
+
 	static void update();
 
 	static void init();

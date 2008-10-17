@@ -152,6 +152,65 @@ bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 	return false;
 }
 
+//Zターボ始動判定
+bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB2) {
+	//現在は両方て押されていなければならない
+	if (_s_pVBMap->_state[prm_VB1] && _s_pVBMap->_state[prm_VB2]) {
+		//OK
+	} else {
+		return false;
+	}
+
+	//押されていない時間は２フレーム要求し、かつ同時押しは１フレームの猶予を与える
+	//↑ > ↑ > ↑ > ↓
+	//↓ > ↑ > ↑ > ↓
+	//↑ > ↑ > ↓ > ↓
+	static VBMap* pVBMap_Prev1;
+	static VBMap* pVBMap_Prev2;
+	static VBMap* pVBMap_Prev3;
+	pVBMap_Prev1 = _s_pVBMap -> _prev;
+	pVBMap_Prev2 = pVBMap_Prev1 -> _prev;
+	pVBMap_Prev3 = pVBMap_Prev2 -> _prev;
+	static bool prev1Flg, prev2Flg, prev3Flg;
+
+	prev1Flg = pVBMap_Prev1 -> _state[prm_VB1];
+	prev2Flg = pVBMap_Prev2 -> _state[prm_VB1];
+	prev3Flg = pVBMap_Prev3 -> _state[prm_VB1];
+	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ > ↓
+		//OK
+	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ > ↓
+		//OK
+	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ > ↓
+		//OK
+	} else {
+		return false;
+	}
+
+	prev1Flg = pVBMap_Prev1 -> _state[prm_VB2];
+	prev2Flg = pVBMap_Prev2 -> _state[prm_VB2];
+	prev3Flg = pVBMap_Prev3 -> _state[prm_VB2];
+
+	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ > ↓
+		//OK
+	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ > ↓
+		//OK
+	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ > ↓
+		//OK
+	} else {
+		return false;
+	}
+
+	//但し1つ前のフレームで、全て押されていては成立しない。
+	//（この条件入れないと、「同時押し→押しっぱなし」の場合、連続で成立してしまう）
+	if (pVBMap_Prev1->_state[prm_VB1]) {
+		return true;
+	} else if (pVBMap_Prev1->_state[prm_VB1]) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 
 
 bool VirtualButton::wasPushedDown(int prm_VB, DWORD prm_dwFrameAgo) {
