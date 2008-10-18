@@ -124,17 +124,17 @@ bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 		prev1Flg = pVBMap_Prev1 -> _state[prm_aVB[i]];
 		prev2Flg = pVBMap_Prev2 -> _state[prm_aVB[i]];
 		prev3Flg = pVBMap_Prev3 -> _state[prm_aVB[i]];
-		if (!prev3Flg && prev2Flg && prev1Flg) {
+		if (!prev3Flg && prev2Flg && prev1Flg) {          //↑ > ↓ > ↓ >
 			continue;
-		} else if (!prev3Flg && !prev2Flg &&  prev1Flg) {
+		} else if (!prev3Flg && !prev2Flg &&  prev1Flg) { //↑ > ↑ > ↓ >
 			continue;
-		} else if (!prev3Flg && !prev2Flg && !prev1Flg) {
+		} else if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ >
 			continue;
-		} else if ( prev3Flg &&  prev2Flg && !prev1Flg) {
+		} else if ( prev3Flg &&  prev2Flg && !prev1Flg) { //↓ > ↓ > ↑ >
 			continue;
-		} else if ( prev3Flg && !prev2Flg && !prev1Flg) {
+		} else if ( prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ >
 			continue;
-		} else if ( prev3Flg && !prev2Flg &&  prev1Flg) {
+		} else if ( prev3Flg && !prev2Flg &&  prev1Flg) { //↓ > ↑ > ↓ >
 			continue;
 		} else {
 			return false;
@@ -176,11 +176,11 @@ bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm
 	prev1Flg = pVBMap_Prev1 -> _state[prm_VB1];
 	prev2Flg = pVBMap_Prev2 -> _state[prm_VB1];
 	prev3Flg = pVBMap_Prev3 -> _state[prm_VB1];
-	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ > ↓
+	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ >
 		//OK
-	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ > ↓
+	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ >
 		//OK
-	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ > ↓
+	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ >
 		//OK
 	} else {
 		return false;
@@ -190,11 +190,11 @@ bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm
 	prev2Flg = pVBMap_Prev2 -> _state[prm_VB2];
 	prev3Flg = pVBMap_Prev3 -> _state[prm_VB2];
 
-	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ > ↓
+	if (!prev3Flg && !prev2Flg && !prev1Flg) { //↑ > ↑ > ↑ >
 		//OK
-	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ > ↓
+	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //↓ > ↑ > ↑ >
 		//OK
-	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ > ↓
+	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //↑ > ↑ > ↓ >
 		//OK
 	} else {
 		return false;
@@ -202,12 +202,10 @@ bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm
 
 	//但し1つ前のフレームで、全て押されていては成立しない。
 	//（この条件入れないと、「同時押し→押しっぱなし」の場合、連続で成立してしまう）
-	if (pVBMap_Prev1->_state[prm_VB1]) {
-		return true;
-	} else if (pVBMap_Prev1->_state[prm_VB1]) {
-		return true;
-	} else {
+	if (pVBMap_Prev1->_state[prm_VB1] && pVBMap_Prev1->_state[prm_VB2]) {
 		return false;
+	} else {
+		return true;
 	}
 }
 

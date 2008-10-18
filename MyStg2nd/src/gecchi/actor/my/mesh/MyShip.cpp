@@ -52,7 +52,7 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRZVelo_BeginMY = 100;	//上又は下へ通常移動開始時のX軸回転角速度の初速度
 	_angRZTopVelo_MY = 3000;	//上又は下へ移動中のZ軸回転角速度の上限角速度
 	_angRZAcce_MY = 300;		//上又は下へ通常移動中のZ軸回転角速度の角加速度
-	_angRZStop_MY = 90000;		//上又は下へ通常Z移動中のZ軸回転角の停止角度
+	_angRZStop_MY = 45000;		//上又は下へ通常Z移動中のZ軸回転角の停止角度
 
 	_iMvBtmVelo_MT = _iMoveSpeed*3;		//TURBO移動中の移動速度の最低速度
 	_iMvVelo_BeginMT = _iMoveSpeed*6;	//TURBO移動開始時の移動速度の初速度
@@ -69,14 +69,14 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRXAcce_MZT = -200;			//奥又は手前へTURBO移動中のX軸回転角速度の角加速度
 	_angRXBtmVelo_MZT = 4000;		//奥又は手前へTURBO移動中のX軸回転角速度の最低速度
 
+	_angRXTopVelo_MNZ = 1000; 		//奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとするX軸回転角速度の上限角速度
+	_angRXAcce_MNZ = 100;			//奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとする時のX軸回転角加速度(正負共通)
 
 
 
-
-
-
-	_dwFrameNextTurboOut = 0;
-	_dwIntervalTurbo = 90;		//ターボ期間
+	_dwFrameNextTurboOut = 0;	//次回ターボ終了フレーム
+	_dwIntervalTurbo = 60;		//ターボ終了フレーム間隔
+	_dwFrameTurbo = 0;			//ターボ経過フレーム
 	_isMoveZX = false;
 	_wayTurbo = NONE;
 	_dRate_TurboControl = 0.8; //ターボ中移動制御できる割合
@@ -93,55 +93,58 @@ void MyShip::processBehavior() {
 	_tmpX = _X;
 	_tmpY = _Y;
 	_tmpZ = _Z;
+	_dwFrameTurbo++; // ターボ経過フレーム
 
 	//奥手前移動初めのTURBOか否か
-	if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
-		_wayTurbo = ZLEFT;
-		beginTurboZX(VB_UP_STC);
-	} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_STC))  {      //手前、始動
-		_wayTurbo = ZRIGHT;
-		beginTurboZX(VB_DOWN_STC);
-	} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_LEFT_STC)) {    //左斜め奥、始動
-		_wayTurbo = ZLEFT_BEHIND;
-		beginTurboZX(VB_UP_LEFT_STC);
-	} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_RIGHT_STC)) {   //右斜め奥、始動
-		_wayTurbo = ZLEFT_FRONT;
-		beginTurboZX(VB_UP_RIGHT_STC);
-	} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_LEFT_STC)) {  //左斜め手前、始動
-		_wayTurbo = ZRIGHT_BEHIND;
-		beginTurboZX(VB_DOWN_LEFT_STC);
-	} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_RIGHT_STC)) { //右斜め手前、始動
-		_wayTurbo = ZRIGHT_FRONT;
-		beginTurboZX(VB_DOWN_RIGHT_STC);
-	} else {
-		//上下左右移動初めのTURBOか否か
-		if (VB::isPushedDown(VB_TURBO)) {
-			if (VB::isBeingPressed(VB_UP_STC)) {                 //上、始動
-				_wayTurbo = UP;
-				beginTurboXY(VB_UP_STC);
-			} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {    //右上、始動
-				_wayTurbo = UP_FRONT;
-				beginTurboXY(VB_UP_RIGHT_STC);
-			} else if (VB::isBeingPressed(VB_RIGHT_STC)) {       //右、始動
-				_wayTurbo = FRONT;
-				beginTurboXY(VB_RIGHT_STC);
-			} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {  //右下、始動
-				_wayTurbo = DOWN_FRONT;
-				beginTurboXY(VB_DOWN_RIGHT_STC);
-			} else if (VB::isBeingPressed(VB_DOWN_STC)) {        //下、始動
-				_wayTurbo = DOWN;
-				beginTurboXY(VB_DOWN_STC);
-			} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {   //左下、始動
-				_wayTurbo = DOWN_BEHIND;
-				beginTurboXY(VB_DOWN_LEFT_STC);
-			} else if (VB::isBeingPressed(VB_LEFT_STC)) {        //左、始動
-				_wayTurbo = BEHIND;
-				beginTurboXY(VB_LEFT_STC);
-			} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {     //左上、始動
-				_wayTurbo = UP_BEHIND;
-				beginTurboXY(VB_UP_LEFT_STC);
-			} else {
+	if (_dwFrameTurbo > 2) {
+		if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
+			_wayTurbo = ZLEFT;
+			beginTurboZX(VB_UP_STC);
+		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_STC))  {      //手前、始動
+			_wayTurbo = ZRIGHT;
+			beginTurboZX(VB_DOWN_STC);
+		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_LEFT_STC)) {    //左斜め奥、始動
+			_wayTurbo = ZLEFT_BEHIND;
+			beginTurboZX(VB_UP_LEFT_STC);
+		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_RIGHT_STC)) {   //右斜め奥、始動
+			_wayTurbo = ZLEFT_FRONT;
+			beginTurboZX(VB_UP_RIGHT_STC);
+		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_LEFT_STC)) {  //左斜め手前、始動
+			_wayTurbo = ZRIGHT_BEHIND;
+			beginTurboZX(VB_DOWN_LEFT_STC);
+		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_RIGHT_STC)) { //右斜め手前、始動
+			_wayTurbo = ZRIGHT_FRONT;
+			beginTurboZX(VB_DOWN_RIGHT_STC);
+		} else {
+			//上下左右移動初めのTURBOか否か
+			if (VB::isPushedDown(VB_TURBO)) {
+				if (VB::isBeingPressed(VB_UP_STC)) {                 //上、始動
+					_wayTurbo = UP;
+					beginTurboXY(VB_UP_STC);
+				} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {    //右上、始動
+					_wayTurbo = UP_FRONT;
+					beginTurboXY(VB_UP_RIGHT_STC);
+				} else if (VB::isBeingPressed(VB_RIGHT_STC)) {       //右、始動
+					_wayTurbo = FRONT;
+					beginTurboXY(VB_RIGHT_STC);
+				} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {  //右下、始動
+					_wayTurbo = DOWN_FRONT;
+					beginTurboXY(VB_DOWN_RIGHT_STC);
+				} else if (VB::isBeingPressed(VB_DOWN_STC)) {        //下、始動
+					_wayTurbo = DOWN;
+					beginTurboXY(VB_DOWN_STC);
+				} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {   //左下、始動
+					_wayTurbo = DOWN_BEHIND;
+					beginTurboXY(VB_DOWN_LEFT_STC);
+				} else if (VB::isBeingPressed(VB_LEFT_STC)) {        //左、始動
+					_wayTurbo = BEHIND;
+					beginTurboXY(VB_LEFT_STC);
+				} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {     //左上、始動
+					_wayTurbo = UP_BEHIND;
+					beginTurboXY(VB_UP_LEFT_STC);
+				} else {
 
+				}
 			}
 		}
 	}
@@ -150,6 +153,8 @@ void MyShip::processBehavior() {
 	if (_wayTurbo != NONE && _dwFrameNextTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
 		_pMover -> setXYMoveVelocityRenge(0, 10000000);
+		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = true;
+		_pMover -> setZMoveVelocityRenge(0, sgn(_pMover->_iVelocity_ZMove)*10000000);
 		_wayTurbo = NONE;
 	}
 
@@ -325,8 +330,7 @@ void MyShip::processBehavior() {
 		!VB::isBeingPressed(VB_DOWN_LEFT_STC) )
 	{
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
-		int rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO);
-		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MNY);
+		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(_pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
 		_pMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
 	}
 
@@ -337,7 +341,7 @@ void MyShip::processBehavior() {
 		_wayTurbo != ZRIGHT &&
 		_wayTurbo != ZRIGHT_FRONT &&
 		_wayTurbo != ZRIGHT_BEHIND &&
-		_pMover->_angAxisRot[AXIS_Z] != 0 &&
+		_pMover->_angAxisRot[AXIS_X] != 0 &&
 		!VB::isBeingPressed(VB_UP_STC) &&
 		!VB::isBeingPressed(VB_UP_RIGHT_STC) &&
 		!VB::isBeingPressed(VB_UP_LEFT_STC) &&
@@ -345,11 +349,9 @@ void MyShip::processBehavior() {
 		!VB::isBeingPressed(VB_DOWN_RIGHT_STC) &&
 		!VB::isBeingPressed(VB_DOWN_LEFT_STC) )
 	{
-//ここここここここ
-//		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
-//		int rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO);
-//		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MNY);
-//		_pMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
+		int rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_X, 0, TURN_CLOSE_TO);
+		_pMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MNZ);
+		_pMover -> setTargetAxisRotAngle(AXIS_X, 0, TURN_BOTH);
 	}
 
 
@@ -360,7 +362,7 @@ void MyShip::processBehavior() {
 //画面奥手前移動初め処理
 void MyShip::beginTurboZX(int prm_VB) {
 	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ターボ期間
-
+	_dwFrameTurbo = 0; //リセット
 	switch(prm_VB) {
 
 	case VB_UP_STC: //奥
@@ -414,7 +416,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 
 //XY座標ターボ始動時
 void MyShip::beginTurboXY(int prm_VB) {
+
 	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ターボ期間
+	_dwFrameTurbo = 0; //リセット
 
 	switch(prm_VB) {
 

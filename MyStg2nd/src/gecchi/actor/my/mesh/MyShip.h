@@ -162,8 +162,8 @@ public:
 	/** TURBO移動中移動制御できる割合 */
 	double _dRate_TurboControl;
 
-
-
+	/** ターボ経過フレーム */
+	DWORD _dwFrameTurbo;
 
 	int _iShotKind01;
 	int _iShotKind02;
