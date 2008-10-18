@@ -74,8 +74,12 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 
 
 
-	_dwFrameNextTurboOut = 0;	//次回ターボ終了フレーム
-	_dwIntervalTurbo = 60;		//ターボ終了フレーム間隔
+	_dwFrameNextXYTurboOut = 0;	//XY次回ターボ終了フレーム
+	_dwIntervalXYTurbo = 60;	//XYターボ終了フレーム間隔
+
+	_dwFrameNextZTurboOut = 0;	//Z次回ターボ終了フレーム
+	_dwIntervalZTurbo = 60;		//Zターボ終了フレーム間隔
+
 	_dwFrameTurbo = 0;			//ターボ経過フレーム
 	_isMoveZX = false;
 	_wayTurbo = NONE;
@@ -150,28 +154,33 @@ void MyShip::processBehavior() {
 	}
 
 	//ターボ終了判定
-	if (_wayTurbo != NONE && _dwFrameNextTurboOut == _dwFrame) {
+	if (_dwFrameNextXYTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
 		_pMover -> setXYMoveVelocityRenge(0, 10000000);
+		_wayTurbo = NONE;
+	}
+	if (_dwFrameNextZTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = true;
 		_pMover -> setZMoveVelocityRenge(0, sgn(_pMover->_iVelocity_ZMove)*10000000);
 		_wayTurbo = NONE;
 	}
 
 	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
+		int iTurboControl = abs(_pMover->_iVelocity_ZMove*_dRate_TurboControl);
+		int iTurboControlRevers = abs(_pMover->_iVelocity_ZMove*_dRate_TurboControl);//どーすっかな
 
 		//ZX通常移動
 		if (VB::isBeingPressed(VB_UP_STC)) {
 			if (VB::isPushedDown(VB_UP_STC)) {
 				beginMoveZX(VB_UP_STC);
 			}
-			_Z += _iMoveSpeed;
+			_Z += _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
 				beginMoveZX(VB_UP_RIGHT_STC);
 			}
-			_X += NANAME*_iMoveSpeed;
-			_Z += NANAME*_iMoveSpeed;
+			_X += NANAME * (_iMoveSpeed + iTurboControl);
+			_Z += NANAME * (_iMoveSpeed + iTurboControl);
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
 			if (VB::isPushedDown(VB_RIGHT_STC)) {
 				beginMoveZX(VB_RIGHT_STC);
@@ -181,34 +190,35 @@ void MyShip::processBehavior() {
 			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
 				beginMoveZX(VB_DOWN_RIGHT_STC);
 			}
-			_X += NANAME*_iMoveSpeed;
-			_Z -= NANAME*_iMoveSpeed;
+			_X += NANAME * (_iMoveSpeed + iTurboControl);
+			_Z -= NANAME * (_iMoveSpeed + iTurboControl);
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
 			if (VB::isPushedDown(VB_DOWN_STC)) {
 				beginMoveZX(VB_DOWN_STC);
 			}
-			_Z -= _iMoveSpeed;
+			_Z -= _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
 			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
 				beginMoveZX(VB_DOWN_LEFT_STC);
 			}
-			_X -= NANAME*_iMoveSpeed;
-			_Z -= NANAME*_iMoveSpeed;
+			_X -= NANAME * (_iMoveSpeed + iTurboControl);
+			_Z -= NANAME * (_iMoveSpeed + iTurboControl);
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
 			if (VB::isPushedDown(VB_LEFT_STC)) {
 				beginMoveZX(VB_LEFT_STC);
 			}
-			_X -= _iMoveSpeed;
+			_X -= _iMoveSpeed + iTurboControl;
 		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
 			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
 				beginMoveZX(VB_UP_LEFT_STC);
 			}
-			_X -= NANAME*_iMoveSpeed;
-			_Z += NANAME*_iMoveSpeed;
+			_X -= NANAME * (_iMoveSpeed + iTurboControl);
+			_Z += NANAME * (_iMoveSpeed + iTurboControl);
 		} else {
 
 		}
 	} else {
+		_isMoveZX = false;
 		int iTurboControl = _pMover->_iVelocity_XYMove*_dRate_TurboControl;
 		int iTurboControlRevers = _pMover->_iVelocity_XYMove*_dRate_TurboControl;//どーすっかな
 
@@ -361,11 +371,13 @@ void MyShip::processBehavior() {
 
 //画面奥手前移動初め処理
 void MyShip::beginTurboZX(int prm_VB) {
-	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ターボ期間
-	_dwFrameTurbo = 0; //リセット
 	switch(prm_VB) {
 
 	case VB_UP_STC: //奥
+		_isMoveZX = true;
+		_dwFrameNextZTurboOut = _dwFrame + _dwIntervalZTurbo; //ターボ期間
+		_dwFrameTurbo = 0; //リセット
+
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT);
@@ -387,6 +399,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		break;
 
 	case VB_DOWN_STC:
+		_isMoveZX = true;
+		_dwFrameNextZTurboOut = _dwFrame + _dwIntervalZTurbo; //ターボ期間
+		_dwFrameTurbo = 0; //リセット
+
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, -3000000, -1*_angRXBtmVelo_MZT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT);
@@ -417,7 +433,7 @@ void MyShip::beginTurboZX(int prm_VB) {
 //XY座標ターボ始動時
 void MyShip::beginTurboXY(int prm_VB) {
 
-	_dwFrameNextTurboOut = _dwFrame + _dwIntervalTurbo; //ターボ期間
+	_dwFrameNextXYTurboOut = _dwFrame + _dwIntervalXYTurbo; //ターボ期間
 	_dwFrameTurbo = 0; //リセット
 
 	switch(prm_VB) {

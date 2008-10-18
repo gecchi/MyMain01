@@ -32,10 +32,15 @@ public:
 	int _tmpY;
 	int _tmpZ;
 
-	DWORD _dwFrameNextTurboOut;
+	DWORD _dwFrameNextXYTurboOut;
 
 	/** ターボ期間(Frame) */
-	DWORD _dwIntervalTurbo;
+	DWORD _dwIntervalXYTurbo;
+
+	DWORD _dwFrameNextZTurboOut;
+
+	/** ターボ期間(Frame) */
+	DWORD _dwIntervalZTurbo;
 
 	/** ターボ中、移動方角 */
 	MoveWay _wayTurbo;
