@@ -32,15 +32,17 @@ public:
 	int _tmpY;
 	int _tmpZ;
 
+	/** XYターボ終了時期(Frame) */
 	DWORD _dwFrameNextXYTurboOut;
 
-	/** ターボ期間(Frame) */
+	/** XYターボ期間(Frame) */
 	DWORD _dwIntervalXYTurbo;
 
-	DWORD _dwFrameNextZTurboOut;
+	/** ZXターボ終了時期(Frame) */
+	DWORD _dwFrameNextZXTurboOut;
 
-	/** ターボ期間(Frame) */
-	DWORD _dwIntervalZTurbo;
+	/** ZXターボ期間(Frame) */
+	DWORD _dwIntervalZXTurbo;
 
 	/** ターボ中、移動方角 */
 	MoveWay _wayTurbo;
@@ -73,13 +75,6 @@ public:
 								//これもZ軸が絡む場合、うまくこの値から計算しよう
 
 
-
-
-
-
-
-
-
 	/** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
 	angle _angRXVelo_BeginMZ;	//Rotation axisX angle Velocity when I Begin To Move Z
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
@@ -94,8 +89,6 @@ public:
 
 	/** 奥又は手前へ通常Z移動中のX軸回転角の停止角度 */
 	angle _angRXStop_MZ;		//Rotation axisX Stop angle while I Move Z
-
-
 
 
 	/** 奥又は手前へTURBO移動開始時のX軸回転角速度の初速度 */
@@ -113,16 +106,12 @@ public:
 								//として、TURBO移動中最低限の回転力を保証する。
 
 
-
-
 	/** 奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとするX軸回転角速度の上限角速度 */
 	angle _angRXTopVelo_MNZ;	//Rotation X Top angle Velocity while I Move Not Z
 								//下限角速度はこれに -1 を乗ずる
 
-
 	/** 奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとする時のX軸回転角加速度(正負共通) */
 	angle _angRXAcce_MNZ;		//Rotation X angle Acceleration while I Not Move Not Z
-
 
 
 	/** 上又は下へ通常移動開始時のX軸回転角速度の初速度 */
@@ -166,6 +155,8 @@ public:
 
 	/** TURBO移動中移動制御できる割合 */
 	double _dRate_TurboControl;
+	/** TURBO移動中移動制御増分 */
+	int _iTurboControl;
 
 	/** ターボ経過フレーム */
 	DWORD _dwFrameTurbo;
