@@ -58,12 +58,12 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_iMvVelo_BeginMT = _iMoveSpeed*6;	//TURBO移動開始時の移動速度の初速度
 	_iMvAcce_MT = -300;					//TURBO移動中の移動速度の加速度
 
-	_angRZVelo_BeginMYT = 5000;//上又は下へTURBO移動開始時のZ軸回転角速度の初速度
-	_angRZAcce_MYT = -200;		//上又は下へTURBO移動中のZ軸回転角速度の角加速度
-	_angRZBtmVelo_MYT = 3000;	//上又は下へTURBO移動中のZ軸回転角速度の最低速度
+	_angRZVelo_BeginMYT = 5000;		//上又は下へTURBO移動開始時のZ軸回転角速度の初速度
+	_angRZAcce_MYT = -200;			//上又は下へTURBO移動中のZ軸回転角速度の角加速度
+	_angRZBtmVelo_MYT = 3000;		//上又は下へTURBO移動中のZ軸回転角速度の最低速度
 
-	_angRZTopVelo_MNY = 1000;	//上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度
-	_angRZAcce_MNY = 100;		//上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のZ軸回転角加速度(正負共通)
+	_angRZTopVelo_MNY = 1000;		//上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度
+	_angRZAcce_MNY = 100;			//上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のZ軸回転角加速度(正負共通)
 
 	_angRXVelo_BeginMZT = 10000;	//奥又は手前へTURBO移動開始時のX軸回転角速度の初速度
 	_angRXAcce_MZT = -200;			//奥又は手前へTURBO移動中のX軸回転角速度の角加速度
@@ -72,7 +72,10 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_angRXTopVelo_MNZ = 1000; 		//奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとするX軸回転角速度の上限角速度
 	_angRXAcce_MNZ = 100;			//奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとする時のX軸回転角加速度(正負共通)
 
-
+	_angRXTopVelo_MZ = 3000;		//奥又は手前へ移動中のX軸回転角速度の上限角速度
+	_angRXAcce_MZ = 200;			//奥又は手前へ通常移動中のX軸回転角速度の角加速度
+	_angRXStop_MZ = 80000;			//奥又は手前へ通常Z移動中のX軸回転角の停止角度
+	_angRXVelo_BeginMZ = 100;		//奥又は手前へ通常移動開始時のX軸回転角速度の初速度
 
 	_dwFrameNextXYTurboOut = 0;	//XY次回ターボ終了フレーム
 	_dwIntervalXYTurbo = 60;	//XYターボ終了フレーム間隔
