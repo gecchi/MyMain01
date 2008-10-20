@@ -6,6 +6,7 @@
 
 
 #define DIRECTINPUT_VERSION 0x0800
+#define ANGLE0 (0)
 #define ANGLE360 (360000)
 #define ANGLE45 (45000)
 #define ANGLE90 (90000)
