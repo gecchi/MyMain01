@@ -25,6 +25,17 @@ public:
 	/** デバイスロストフラグ (true=ロスト中) */
 	static bool _deviceLostFlg;
 
+	/** カメラのZ座標 */
+	static double _dCamZ;
+	/** カメラの位置 */
+	static D3DXVECTOR3* _pVecCamFromPoint;
+	/** カメラの注視点 */
+	static D3DXVECTOR3*  _pVecCamLookatPoint;
+	/** カメラの上ベクトル */
+	static D3DXVECTOR3*  _pVecCamUp;
+	/** VIEW変換行列 */
+	static D3DXMATRIX _vMatrixView;
+
  	/**
 	 * コンストラクタ<BR>
 	 */
@@ -61,6 +72,8 @@ public:
 //	 * ＜OverRide です＞<BR>
 //	 */
 //	virtual GgafDx9World* createDx9World() = 0;
+
+	void setCam(D3DXVECTOR3* prm_pEye, D3DXVECTOR3* prm_pAt, D3DXVECTOR3* prm_pUp);
 
 	/**
 	 * デストラクタ<BR>

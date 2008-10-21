@@ -9,6 +9,14 @@ IDirect3DDevice9* GgafDx9God::_pID3DDevice9 = NULL;
 D3DLIGHT9 GgafDx9God::_d3dlight9;
 RECT GgafDx9God::_rectPresentDest;
 
+double GgafDx9God::_dCamZ = 0;
+D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
+D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
+D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
+D3DXMATRIX GgafDx9God::_vMatrixView;
+
+
+
 
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
@@ -269,20 +277,14 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
 	// VIEW変換（カメラ位置）設定
-	double dCam = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
-	_TRACE_("カメラの位置(0,0,"<<dCam<<")");
-	D3DXMATRIX matrixView;   // ビュー変換行列
-	D3DXVECTOR3 vFromPt   = D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)dCam); //位置
-	D3DXVECTOR3 vLookatPt = D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
-	D3DXVECTOR3 vUpVec    = D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
-	D3DXMatrixLookAtLH(
-				&matrixView,
-				&vFromPt,
-				&vLookatPt,
-				&vUpVec
-	);
-	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &matrixView);
+	_dCamZ = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
+	_TRACE_("カメラの位置(0,0,"<<_dCamZ<<")");
+	D3DXMATRIX _vMatrixView;   // ビュー変換行列
 
+	_pVecCamFromPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_dCamZ); //位置
+	_pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
+	_pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
+	setCam(_pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 
 	// 射影変換（３Ｄ→平面）
 	D3DXMATRIX matrixProjrction;   // 射影変換行列
@@ -317,6 +319,19 @@ HRESULT GgafDx9God::initDx9Device() {
 	return S_OK;
 }
 
+void GgafDx9God::setCam(D3DXVECTOR3* prm_pEye, D3DXVECTOR3* prm_pAt, D3DXVECTOR3* prm_pUp) {
+	_pVecCamFromPoint = prm_pEye; //位置
+	_pVecCamLookatPoint = prm_pAt; //注視する方向
+	_pVecCamUp = prm_pUp; //上方向
+	D3DXMatrixLookAtLH(
+				&_vMatrixView,
+				_pVecCamFromPoint,
+				_pVecCamLookatPoint,
+				_pVecCamUp
+	);
+	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &_vMatrixView);
+}
+
 // カメラと対峙する回転行列を取得
 // ビルボードのVIEW変換行列を取得
 D3DXMATRIX GgafDx9God::getInvRotateMat() {
@@ -331,6 +346,8 @@ D3DXMATRIX GgafDx9God::getInvRotateMat() {
 void GgafDx9God::makeWorldMaterialize() {
 	TRACE("GgafDx9God::materialize() start");
 
+	//カメラ設定
+	setCam(_pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 
 	if (_deviceLostFlg) {
 		//デバイスロスと復帰を試みる
@@ -400,6 +417,11 @@ GgafDx9God::~GgafDx9God() {
 	while (GgafFactory::_isFinish == false) {
 		Sleep(10);
 	}
+
+	delete _pVecCamFromPoint;
+	delete _pVecCamLookatPoint;
+	delete _pVecCamUp;
+
 
 	CmRandomNumberGenerator::getInstance()->release();
 	//保持モデル解放
