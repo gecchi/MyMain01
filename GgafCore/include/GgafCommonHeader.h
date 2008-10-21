@@ -108,7 +108,6 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/util/GgafUtil.h"
-#include "jp/ggaf/core/util/GgafDrawActorList.h"
 
 
 #endif /*GGAFCOMMONHEADER_H_*/

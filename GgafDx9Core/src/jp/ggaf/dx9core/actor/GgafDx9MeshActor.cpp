@@ -5,13 +5,6 @@ GgafDx9MeshActor::GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, G
 	_class_name = "GgafDx9MeshActor";
 }
 
-void GgafDx9MeshActor::processDrawPrior() {
-	int iDepthLevel = _Z / 100;
-	if (iDepthLevel > MAX_DEPTH_LEVEL) {
-		iDepthLevel = MAX_DEPTH_LEVEL-1;
-	}
-	GgafWorld::_apActorDrawOrder[iDepthLevel]->addSubLast(this);
-}
 
 void GgafDx9MeshActor::processDrawMain() {
 

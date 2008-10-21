@@ -90,6 +90,14 @@ public:
 		_Z = Z;
 	}
 
+	/**
+	 * _Zの値により、大まかにレンダリング順序を設定する。
+	 * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
+	 * GgafWorld::_apActorDrawDepthLevel_first[n] の好きな n に addSubLast(this) を行って下さい。
+	 * 但し 0 ≦ n ＜ MAX_DEPTH_LEVEL
+	 */
+	virtual void processDrawPrior();
+
 	virtual ~GgafDx9UntransformedActor();		//デストラクタ
 
 

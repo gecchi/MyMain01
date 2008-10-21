@@ -1,7 +1,7 @@
 #ifndef GGAFWORLD_H_
 #define GGAFWORLD_H_
 
-#define MAX_DEPTH_LEVEL 10
+#define MAX_DEPTH_LEVEL 2028
 /**
  * 世界の基底クラス .
  * 本プログラムで言う『世界』とは、全てのシーン(GgafSceneオブジェクト)の頂点に位置する特別なシーンです。<BR>
@@ -15,8 +15,10 @@
     friend class GgafScene;
 
 public:
-	/** アクター順序レンダリング */
-    static GgafDummyActor* _apActorDrawOrder[];
+	/** アクター順序レンダリングのための遠さのレベルグループ */
+    static GgafActor* _apActorDrawDepthLevel_first[];
+	/** アクター順序レンダリングのための遠さのレベルグループ別最終アクター */
+    static GgafActor* _apActorDrawDepthLevel_last[];
 
 
 	GgafWorld(string prm_name);
