@@ -58,8 +58,9 @@ public:
 	 */
 	void processDrawTerminate() {};
 
-	/*
+	/**
 	 * 何かの処理<BR>
+	 * @param prm_no 何かを表す数値
 	 */
 	void processHappen(int prm_no) {};
 
@@ -67,6 +68,13 @@ public:
 	 * 最終処理<BR>
 	 */
 	void processFinal() {};
+
+	/**
+	 * 描画レベル（順序）を登録
+	 * @param prm_iDrawDepthLevel レベル
+	 * @param prm_pActor アクター
+	 */
+	static void setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pActor);
 
 	virtual ~GgafWorld();
 };

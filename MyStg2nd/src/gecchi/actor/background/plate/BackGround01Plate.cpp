@@ -13,7 +13,8 @@ void BackGround01Plate::initialize() {
 
 	_x = 0;
 	_y = -216;
-	_z = 0.999;//たぶん最背面 （0 < _z < 1.0）
+	_z = 0.999;//たぶん最背面 （0 <= _z < 1.0）
+	//_z = 0.001;//たぶん最全面 （0 <= _z < 1.0）
 
 	for (int i = 0; i < 4; i++) {
 		for (int j = 0; j < 4; j++) {
@@ -52,7 +53,7 @@ void BackGround01Plate::processDrawMain() {
 	_papChipPlate[3]->_x = _x+_papChipPlate[0]->_pPlateModel->_fSize_PlateModelWidth;
 	_papChipPlate[3]->_y = _y+_papChipPlate[0]->_pPlateModel->_fSize_PlateModelHeight;
 	for (int i = 0; i < 4; i++) {
-		_papChipPlate[i]->drawMain();
+		_papChipPlate[i]->processDrawMain();
 	}
 
 	_papChipPlate[0]->_x = _x+1024;
@@ -64,7 +65,7 @@ void BackGround01Plate::processDrawMain() {
 	_papChipPlate[3]->_x = _x+_papChipPlate[0]->_pPlateModel->_fSize_PlateModelWidth+1024;
 	_papChipPlate[3]->_y = _y+_papChipPlate[0]->_pPlateModel->_fSize_PlateModelHeight;
 	for (int i = 0; i < 4; i++) {
-		_papChipPlate[i]->drawMain();
+		_papChipPlate[i]->processDrawMain();
 	}
 
 }

@@ -26,19 +26,7 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 }
 
 void GgafDx9UntransformedActor::processDrawPrior() {
-	int iDepthLevel = (_Z / LEN_UNIT) + (MAX_DEPTH_LEVEL/2);
-	if (iDepthLevel > MAX_DEPTH_LEVEL) {
-		iDepthLevel = MAX_DEPTH_LEVEL-1;
-	} else if (iDepthLevel < 0) {
-		iDepthLevel = 0;
-	}
-	if (GgafWorld::_apActorDrawDepthLevel_first[iDepthLevel] == NULL) {
-		GgafWorld::_apActorDrawDepthLevel_first[iDepthLevel] = this;
-		GgafWorld::_apActorDrawDepthLevel_last[iDepthLevel] = this;
-	} else {
-		GgafWorld::_apActorDrawDepthLevel_last[iDepthLevel]->_pNext2 = this;
-		GgafWorld::_apActorDrawDepthLevel_last[iDepthLevel] = this;
-	}
+	GgafWorld::setDrawDepthLevel((_Z / LEN_UNIT) + (MAX_DEPTH_LEVEL/2), this);
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {

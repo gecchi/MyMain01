@@ -29,7 +29,25 @@ void GgafWorld::drawMain() {
 		_apActorDrawDepthLevel_last[i] = NULL;
 	}
 	//残りも全部レンダリング
-	//GgafMainScene::drawMain();
+	GgafMainScene::drawMain();
+}
+
+void GgafWorld::setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pActor) {
+	int iDrawDepthLevel;
+	if (prm_iDrawDepthLevel > MAX_DEPTH_LEVEL-1) {
+		iDrawDepthLevel = MAX_DEPTH_LEVEL-1;
+	} else if (prm_iDrawDepthLevel < 0) {
+		iDrawDepthLevel = 0;
+	} else {
+		iDrawDepthLevel = prm_iDrawDepthLevel;
+	}
+	if (_apActorDrawDepthLevel_first[iDrawDepthLevel] == NULL) {
+		_apActorDrawDepthLevel_first[iDrawDepthLevel] = prm_pActor;
+		_apActorDrawDepthLevel_last[iDrawDepthLevel] = prm_pActor;
+	} else {
+		_apActorDrawDepthLevel_last[iDrawDepthLevel]->_pNext2 = prm_pActor;
+		_apActorDrawDepthLevel_last[iDrawDepthLevel] = prm_pActor;
+	}
 }
 
 

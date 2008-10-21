@@ -27,7 +27,7 @@ void DelineateActor::drawRect(int prm_x1, int prm_y1, int prm_x2, int prm_y2, in
 	_X = prm_x1 + (prm_x2 - prm_x1)/2;
 	_Y = prm_y1 + (prm_y2 - prm_y1)/2;
 	_Z = prm_thick_z1 + (prm_thick_z2 - prm_thick_z1)/2;
-	drawMain();
+	processDrawMain();
 }
 
 void DelineateActor::drawLine(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_thick_z1, int prm_thick_z2) {
@@ -40,7 +40,7 @@ void DelineateActor::drawLine(int prm_x1, int prm_y1, int prm_x2, int prm_y2, in
 	_Y = prm_y1 + (prm_y2 - prm_y1)/2;
 	_Z = prm_thick_z1 + (prm_thick_z2 - prm_thick_z1)/2;
 
-	drawMain();
+	processDrawMain();
 }
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
 	if (prm_pChecker != NULL && prm_pChecker->_pHitArea2D != NULL && prm_pChecker->_pActor->canBump()) {

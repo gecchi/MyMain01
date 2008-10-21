@@ -12,7 +12,10 @@ public:
 
 	virtual void processJudgement() {};
 
-	virtual void processDrawPrior() {};
+	virtual void processDrawPrior() {
+		//ç≈îwñ ÅÅÇ¢ÇøÇŒÇÒç≈èâÇ…ï`âÊ
+		GgafWorld::setDrawDepthLevel(MAX_DEPTH_LEVEL-1, this);
+	};
 
 	virtual void processDrawTerminate() {};
 

@@ -92,7 +92,7 @@ void StgMover::behave() {
 			angle angDistance = getDistanceFromXYMoveAngleTo(_angTarget_XYMove, TURN_CLOCKWISE);
 			if (_angVelocity_XYMoveAngle < angDistance &&
 				_auto_xymove_angle_target_allow_way != TURN_COUNTERCLOCKWISE &&
-				_auto_xymove_angle_target_allow_velocity <= _angVelocity_XYMoveAngle)
+				-1*_auto_xymove_angle_target_allow_velocity <= _angVelocity_XYMoveAngle)
 			{
 				addXYMoveAngle(angDistance);
 				_auto_xymove_angle_target_Flg = false; //ƒtƒ‰ƒO‚ð–ß‚µ‚ÄI—¹
