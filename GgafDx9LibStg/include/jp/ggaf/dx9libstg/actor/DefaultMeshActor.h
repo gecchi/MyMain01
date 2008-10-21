@@ -19,7 +19,9 @@ public:
 
 	virtual void processJudgement() {};
 
-	virtual void processDrawPrior() {};
+	virtual void processDrawPrior() {
+		GgafDx9MeshActor::processDrawPrior();
+	};
 
 	virtual void processDrawMain() {
 		GgafDx9MeshActor::processDrawMain();
