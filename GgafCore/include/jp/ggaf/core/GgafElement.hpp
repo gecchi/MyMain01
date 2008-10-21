@@ -67,6 +67,8 @@ public:
 	/** ノードが停止に切り替わった(play→stop)瞬間に１フレームだけセットされるフラグ */
 	bool _switchedToStop;
 
+	/** 描画されましたフラグ */
+	bool _wasDrawed;
 
 
 	/**
@@ -473,7 +475,8 @@ _dwGodFremeWhenPlay(0),
 _willStopAfterFrame(false),
 _dwGodFremeWhenStop(0),
 _switchedToPlay(false),
-_switchedToStop(false)
+_switchedToStop(false),
+_wasDrawed(false)
 {
 }
 
@@ -489,6 +492,8 @@ void GgafElement<T>::nextFrame() {
 			initialize();
 			_wasInitialized = true;
 		}
+
+		_wasDrawed = false; //未描画に
 
 		if (_isAlive) {
 			if (_willPlayAfterFrame) {
@@ -633,9 +638,10 @@ void GgafElement<T>::drawMain() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive) {
+	if (_isPlaying && !_wasBlinded && _isAlive && !_wasDrawed) {
 		_dwFrame_relative = 0;
 		processDrawMain();
+		_wasDrawed = true;
 		if (SUPER::_pSubFirst != NULL) {
 			_pElementTemp = SUPER::_pSubFirst;
 			while(true) {
