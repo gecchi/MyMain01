@@ -203,8 +203,7 @@ public:
 
  	void beginMoveXY(int prm_VB);
 
- 	//‰æ–Ê‰œ‚ÖˆÚ“®I—¹X²‰ñ“]ˆ—
- 	void onMoveZFinish();
+
  	virtual ~MyShip();
 };
 

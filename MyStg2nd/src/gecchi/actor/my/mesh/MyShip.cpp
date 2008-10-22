@@ -94,6 +94,7 @@ void MyShip::initialize() {
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pMover -> setXYMoveVelocity(0);
+	//_pMeshModel->setAlpha(0.2);
 }
 
 void MyShip::processBehavior() {
@@ -104,7 +105,7 @@ void MyShip::processBehavior() {
 	_dwFrameTurbo++; // ターボ経過フレーム
 
 	//奥手前移動初めのTURBOか否か
-	if (_dwFrameTurbo > 2) {
+	if (_dwFrameTurbo > 2 && VB::isBeingPressed(VB_TURBO)) {
 		if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
 			_wayTurbo = ZLEFT;
 			beginTurboZX(VB_UP_STC);
@@ -195,7 +196,6 @@ void MyShip::processBehavior() {
 	}
 
 	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
-
 		//ZX通常移動
 		if (VB::isBeingPressed(VB_UP_STC)) {
 			if (VB::isPushedDown(VB_UP_STC)) {
@@ -298,9 +298,6 @@ void MyShip::processBehavior() {
 		}
 	}
 
-//	if (_isMoveZX && VB::isReleasedUp(VB_TURBO)) {
-//		_isMoveZX = false;
-//	}
 
 	//ショットボタン
 	if (VB::isPushedDown(VB_SHOT1)) {
@@ -728,7 +725,6 @@ void MyShip::beginMoveZX(int prm_VB) {
 
 //XY前移動初め処理
 void MyShip::beginMoveXY(int prm_VB) {
-	_TRACE_("beginMoveXY::来ました("<<prm_VB<<")");
 	int rd;
 	switch(prm_VB) {
 
@@ -825,22 +821,6 @@ void MyShip::beginMoveXY(int prm_VB) {
 		break;
 	}
 
-}
-
-
-
-
-
-
-
-//画面奥へ移動終了X軸回転処理
-void MyShip::onMoveZFinish() {
-	//目標Angle0
-	_pMover -> setTargetAxisRotAngle(AXIS_X, 0);
-	//角度0に近いほうを探す
-	int rd = _pMover->getDistanceFromAxisRotAngleTo(AXIS_X, _pMover->_angTarget_AxisRot[AXIS_X], TURN_CLOSE_TO);
-	_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, _angRXTopVelo_MNZ, -1*_angRXTopVelo_MNZ);
-	_pMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MNZ);
 }
 
 
