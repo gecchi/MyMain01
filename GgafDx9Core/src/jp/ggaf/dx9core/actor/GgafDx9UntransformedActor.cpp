@@ -26,7 +26,9 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 }
 
 void GgafDx9UntransformedActor::processDrawPrior() {
-	GgafWorld::setDrawDepthLevel((_Z / LEN_UNIT) + (MAX_DEPTH_LEVEL/2), this);
+	//óvåüèÿ
+	int level = ((_Z/LEN_UNIT)+(GgafDx9God::_iPxDep / 2)) / (GgafDx9God::_iPxDep / MAX_DRAW_DEPTH_LEVEL);
+	GgafDx9World::setDrawDepthLevel(level, this);
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {

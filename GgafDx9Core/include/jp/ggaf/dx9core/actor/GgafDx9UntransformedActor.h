@@ -65,7 +65,6 @@ public:
 	const int _Y_OffScreenBottom;
 
 
-
 	/**
 	 * コンストラクタ<BR>
 	 * @param	prm_name 識別名
@@ -94,7 +93,7 @@ public:
 	 * _Zの値により、大まかにレンダリング順序を設定する。
 	 * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
 	 * GgafWorld::_apActorDrawDepthLevel_first[n] の好きな n に addSubLast(this) を行って下さい。
-	 * 但し 0 ≦ n ＜ MAX_DEPTH_LEVEL
+	 * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
 	 */
 	virtual void processDrawPrior();
 

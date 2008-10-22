@@ -7,8 +7,17 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name) : GgafDx9Model(prm_mod
 	_papID3DTexture9 = NULL;
 	_dwNumMaterials  = 0L;
 	_pModel_Next     = NULL;
+	_fAlpha = 1.0f;
 }
 
+
+void GgafDx9MeshModel::setAlpha(float prm_fAlpha) {
+	_fAlpha = prm_fAlpha;
+	for( DWORD i = 0; i < _dwNumMaterials; i++) {
+		_paD3DMaterial9[i].Ambient.a = prm_fAlpha;
+		_paD3DMaterial9[i].Diffuse.a = prm_fAlpha;
+	}
+}
 
 
 HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {

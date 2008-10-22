@@ -16,6 +16,8 @@ public:
 	/** マテリアル数(=メッシュ数) */
 	DWORD               _dwNumMaterials;
 
+	float	_fAlpha;
+
 public:
 	/**
 	 * コンストラクタ<BR>
@@ -33,6 +35,8 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	void setAlpha(float prm_fAlpha);
 
 	/**
 	 * デストラクタ<BR>

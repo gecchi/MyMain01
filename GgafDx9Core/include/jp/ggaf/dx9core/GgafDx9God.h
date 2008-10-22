@@ -25,6 +25,9 @@ public:
 	/** デバイスロストフラグ (true=ロスト中) */
 	static bool _deviceLostFlg;
 
+	/** カメラのZ座標初期位置 */
+	static double _dCamZ_ini;
+
 	/** カメラのZ座標 */
 	static double _dCamZ;
 	/** カメラの位置 */
@@ -35,6 +38,9 @@ public:
 	static D3DXVECTOR3*  _pVecCamUp;
 	/** VIEW変換行列 */
 	static D3DXMATRIX _vMatrixView;
+
+	static int _iPxDep;
+
 
  	/**
 	 * コンストラクタ<BR>

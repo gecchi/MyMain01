@@ -4,9 +4,11 @@
 
 class GgafDx9MeshActor : public GgafDx9UntransformedActor {
 private:
-	GgafDx9MeshModel* _pMeshModel;
+	//GgafDx9MeshModel* _pMeshModel;
 
 public:
+	GgafDx9MeshModel* _pMeshModel;
+
 	GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	/**

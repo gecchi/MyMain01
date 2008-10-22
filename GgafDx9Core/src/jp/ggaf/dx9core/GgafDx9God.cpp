@@ -10,10 +10,12 @@ D3DLIGHT9 GgafDx9God::_d3dlight9;
 RECT GgafDx9God::_rectPresentDest;
 
 double GgafDx9God::_dCamZ = 0;
+double GgafDx9God::_dCamZ_ini = 0;
 D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
 D3DXMATRIX GgafDx9God::_vMatrixView;
+int GgafDx9God::_iPxDep = 0;
 
 
 
@@ -200,9 +202,12 @@ HRESULT GgafDx9God::initDx9Device() {
 	ZeroMemory(&_d3dlight9, sizeof(D3DLIGHT9) );
 	GgafDx9God::_d3dlight9.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
 	GgafDx9God::_d3dlight9.Type = D3DLIGHT_DIRECTIONAL;
+	GgafDx9God::_d3dlight9.Diffuse.a = 1.0f;
 	GgafDx9God::_d3dlight9.Diffuse.r = 1.0f;
 	GgafDx9God::_d3dlight9.Diffuse.g = 1.0f;
 	GgafDx9God::_d3dlight9.Diffuse.b = 1.0f;
+
+	GgafDx9God::_d3dlight9.Ambient.a = 1.0f;
 	GgafDx9God::_d3dlight9.Ambient.r = 0.0f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
 	GgafDx9God::_d3dlight9.Ambient.g = 0.0f;
 	GgafDx9God::_d3dlight9.Ambient.b = 0.0f;
@@ -217,7 +222,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	//レンダ時にライトの影響（陰影）を有効
 	GgafDx9God::_pID3DDevice9->SetRenderState( D3DRS_LIGHTING, TRUE);
 	//世界に共通のアンビエントライト
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0x00303030);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0xff303030);
 
 	// Zバッファを有効に
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
@@ -278,6 +283,9 @@ HRESULT GgafDx9God::initDx9Device() {
 
 	// VIEW変換（カメラ位置）設定
 	_dCamZ = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
+	_dCamZ_ini = _dCamZ;
+	_iPxDep = abs(_dCamZ_ini * PX_UNIT*2);
+
 	_TRACE_("カメラの位置(0,0,"<<_dCamZ<<")");
 	D3DXMATRIX _vMatrixView;   // ビュー変換行列
 
