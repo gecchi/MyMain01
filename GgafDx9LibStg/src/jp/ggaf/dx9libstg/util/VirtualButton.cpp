@@ -124,17 +124,11 @@ bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 		prev1Flg = pVBMap_Prev1 -> _state[prm_aVB[i]];
 		prev2Flg = pVBMap_Prev2 -> _state[prm_aVB[i]];
 		prev3Flg = pVBMap_Prev3 -> _state[prm_aVB[i]];
-		if (!prev3Flg && prev2Flg && prev1Flg) {          //ª > « > « >
+		if        (                          !prev1Flg) { //– > – > ª >
 			continue;
-		} else if (!prev3Flg && !prev2Flg &&  prev1Flg) { //ª > ª > « >
+		} else if (             !prev2Flg             ) { //– > ª > – >
 			continue;
-		} else if (!prev3Flg && !prev2Flg && !prev1Flg) { //ª > ª > ª >
-			continue;
-		} else if ( prev3Flg &&  prev2Flg && !prev1Flg) { //« > « > ª >
-			continue;
-		} else if ( prev3Flg && !prev2Flg && !prev1Flg) { //« > ª > ª >
-			continue;
-		} else if ( prev3Flg && !prev2Flg &&  prev1Flg) { //« > ª > « >
+		} else if (!prev3Flg                          ) { //ª > – > – >
 			continue;
 		} else {
 			return false;
@@ -153,48 +147,51 @@ bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 }
 
 //Zƒ^[ƒ{n“®”»’è
-bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB2) {
+bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB_STC) {
 	//Œ»İ‚Í—¼•û‚Ä‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
-	if (_s_pVBMap->_state[prm_VB1] && _s_pVBMap->_state[prm_VB2]) {
+	if (_s_pVBMap->_state[prm_VB1] && _s_pVBMap->_state[prm_VB_STC]) {
 		//OK
 	} else {
 		return false;
 	}
 
-	//‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢ŠÔ‚Í‚QƒtƒŒ[ƒ€—v‹‚µA‚©‚Â“¯‰Ÿ‚µ‚Í‚PƒtƒŒ[ƒ€‚Ì—P—\‚ğ—^‚¦‚é
-	//ª > ª > ª > «
-	//« > ª > ª > «
-	//ª > ª > « > «
-	static VBMap* pVBMap_Prev1;
-	static VBMap* pVBMap_Prev2;
-	static VBMap* pVBMap_Prev3;
-	pVBMap_Prev1 = _s_pVBMap -> _prev;
-	pVBMap_Prev2 = pVBMap_Prev1 -> _prev;
-	pVBMap_Prev3 = pVBMap_Prev2 -> _prev;
-	static bool prev1Flg, prev2Flg, prev3Flg;
+	//STC‚Íƒjƒ…[ƒgƒ‰ƒ‹‚ğ‚QƒtƒŒ[ƒ€—v‹‚µA‚©‚ÂA
+	//ƒ{ƒ^ƒ“‚Ì‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢ŠÔ‚Í‚QƒtƒŒ[ƒ€—v‹‚µA‚©‚ÂA
+	//“¯‰Ÿ‚µŠÔ·‚Í2ƒtƒŒ[ƒ€‚Ì—P—\‚ğ—^‚¦‚é
+	static VBMap* pVBMap__Prev1;
+	static VBMap* pVBMap__Prev2;
+	static VBMap* pVBMap__Prev3;
+	static VBMap* pVBMap__Prev4;
+	pVBMap__Prev1 = _s_pVBMap -> _prev;
+	pVBMap__Prev2 = pVBMap__Prev1 -> _prev;
+	pVBMap__Prev3 = pVBMap__Prev2 -> _prev;
+	pVBMap__Prev4 = pVBMap__Prev3 -> _prev;
+	static bool prev1_Flg, prev2_Flg, prev3_Flg, prev4_Flg;
 
-	prev1Flg = pVBMap_Prev1 -> _state[prm_VB1];
-	prev2Flg = pVBMap_Prev2 -> _state[prm_VB1];
-	prev3Flg = pVBMap_Prev3 -> _state[prm_VB1];
-	if (!prev3Flg && !prev2Flg && !prev1Flg) { //ª > ª > ª >
+	prev1_Flg = pVBMap__Prev1 -> _state[prm_VB1];
+	prev2_Flg = pVBMap__Prev2 -> _state[prm_VB1];
+	prev3_Flg = pVBMap__Prev3 -> _state[prm_VB1];
+	prev4_Flg = pVBMap__Prev4 -> _state[prm_VB1];
+	if (                                   !prev2_Flg && !prev1_Flg) { //– > – > ª > ª >
 		//OK
-	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //« > ª > ª >
+	} else if (              !prev3_Flg && !prev2_Flg              ) { //– > ª > ª > – >
 		//OK
-	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //ª > ª > « >
+	} else if (!prev4_Flg && !prev3_Flg                            ) { //ª > ª > – > – >
 		//OK
 	} else {
 		return false;
 	}
 
-	prev1Flg = pVBMap_Prev1 -> _state[prm_VB2];
-	prev2Flg = pVBMap_Prev2 -> _state[prm_VB2];
-	prev3Flg = pVBMap_Prev3 -> _state[prm_VB2];
-
-	if (!prev3Flg && !prev2Flg && !prev1Flg) { //ª > ª > ª >
+	static bool prev1NFlg, prev2NFlg, prev3NFlg, prev4NFlg;
+	prev1NFlg = pVBMap__Prev1 -> _state[VB_NEUTRAL_STC];
+	prev2NFlg = pVBMap__Prev2 -> _state[VB_NEUTRAL_STC];
+	prev3NFlg = pVBMap__Prev3 -> _state[VB_NEUTRAL_STC];
+	prev4NFlg = pVBMap__Prev4 -> _state[VB_NEUTRAL_STC];
+	if (                                 prev2NFlg && prev1NFlg) { //– > – > ‚m > ‚m >
 		//OK
-	} else if (prev3Flg && !prev2Flg && !prev1Flg) { //« > ª > ª >
+	} else if (             prev3NFlg && prev2NFlg             ) { //– > ‚m > ‚m > – >
 		//OK
-	} else if (!prev3Flg && !prev2Flg && prev1Flg) { //ª > ª > « >
+	} else if (prev4NFlg && prev3NFlg                          ) { //‚m > ‚m > – > – >
 		//OK
 	} else {
 		return false;
@@ -202,7 +199,7 @@ bool VirtualButton::areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm
 
 	//’A‚µ1‚Â‘O‚ÌƒtƒŒ[ƒ€‚ÅA‘S‚Ä‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í¬—§‚µ‚È‚¢B
 	//i‚±‚ÌğŒ“ü‚ê‚È‚¢‚ÆAu“¯‰Ÿ‚µ¨‰Ÿ‚µ‚Á‚Ï‚È‚µv‚Ìê‡A˜A‘±‚Å¬—§‚µ‚Ä‚µ‚Ü‚¤j
-	if (pVBMap_Prev1->_state[prm_VB1] && pVBMap_Prev1->_state[prm_VB2]) {
+	if (pVBMap__Prev1->_state[prm_VB1] && pVBMap__Prev1->_state[prm_VB_STC]) {
 		return false;
 	} else {
 		return true;
