@@ -3,6 +3,7 @@
 GgafActor::GgafActor(string prm_name) : GgafElement<GgafActor>(prm_name) {
 	TRACE("GgafActor::GgafActor("+prm_name+")");
 	_class_name = "GgafActor";
+	_pNext_TheSameDrawDepthLevel = NULL;
 	_canBump  = true;
 	_pScene_Platform = NULL;
 	_pGod = NULL;

@@ -82,8 +82,6 @@ public:
 	/** 子ノードの先頭ノード */
 	T* _pSubFirst;
 
-	/** 何かへのノード */
-	T* _pNext2;
 
 	/** 先頭ノードフラグ (自ノードが先頭ノードの場合 true)*/
 	bool _isFirst;
@@ -276,7 +274,6 @@ _isLast(false)
 {
 	_pNext = (T*)this;
 	_pPrev = (T*)this;
-	_pNext2 = NULL;
 	_name = prm_name;
 	TRACE("template<class T> GgafNode<T>::GgafNode("+_name+")");
 	_class_name = "GgafNode<T>";

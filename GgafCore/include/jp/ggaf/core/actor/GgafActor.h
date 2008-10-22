@@ -32,6 +32,9 @@ private:
     GgafActor* _pActor_tmp2;
     GgafActor* _pActor_tmp3;
     GgafActor* _pActor_tmp4;
+
+
+
     /**
 	 * 所属シーンを設定する。<BR>
 	 */
@@ -76,6 +79,9 @@ public:
 
   	/** アクター衝突判定有無フラグ */
 	bool _canBump ;
+
+	/** 同一描画レベルの次のアクター */
+    GgafActor* _pNext_TheSameDrawDepthLevel;
 
 	/**
 	 * コンストラクタ .
