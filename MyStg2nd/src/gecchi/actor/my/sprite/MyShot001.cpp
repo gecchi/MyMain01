@@ -23,6 +23,10 @@ void MyShot001::initialize() {
 	_pChecker -> _pHitArea2D -> setLine(4, 30000, 30000, -30000, -30000, true);
 	_pChecker -> _pHitArea2D -> setLine(5, -30000, 30000, 30000, -30000, true);
 //
+	_SX = 10000;
+	_SY = 10000;
+	setAlpha(0.2);
+
 	setBumpable(false);
 	declareStop();
 
@@ -32,7 +36,7 @@ void MyShot001::initialize() {
 void MyShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žž‹¤’Êˆ—
-		setBumpable(true);
+		setBumpable(false);
 		_X = GameGlobal::_pMyShip->_X;
 		_Y = GameGlobal::_pMyShip->_Y;
 		_Z = GameGlobal::_pMyShip->_Z;
