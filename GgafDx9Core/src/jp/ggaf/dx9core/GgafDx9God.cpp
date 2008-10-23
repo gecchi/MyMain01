@@ -237,15 +237,15 @@ HRESULT GgafDx9God::initDx9Device() {
 	//カリングしない
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
-
-	// アルファブレンドＯＮ
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-
 	// ディザリング
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
 	// マルチサンプリングアンチエイリアス
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+
+
+	// アルファブレンドＯＮ
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
 	//1段階目ポリゴンとテクスチャの合成方法設定
 	//テクスチャーの色と、頂点カラーのDIFFUSE色を乗算するように設定
@@ -266,6 +266,10 @@ HRESULT GgafDx9God::initDx9Device() {
 	//下地の画像の合成法
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
+	//マテリアルαを使えるようにする（デフォルトは頂点アルファ）
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_MATERIAL);
+	//上の設定を有効にする
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE);
 
 
 

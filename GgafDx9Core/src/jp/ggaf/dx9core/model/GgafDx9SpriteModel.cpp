@@ -31,10 +31,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 
 	HRESULT	hr;
 
-	//α設定
-	_pD3DMaterial9->Diffuse.a = 0.1f;//pSpriteActor_Target->_fAlpha;
-	_pD3DMaterial9->Ambient.a = 0.1f;//pSpriteActor_Target->_fAlpha;
-	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
 		//前回描画とモデルが違う！
@@ -70,6 +66,10 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 		//前回描画モデルもUVも同じ
 		// → 何もせんでよい。こりゃはやいでっせ～！(たぶん)
 	}
+	//α設定
+	_pD3DMaterial9->Diffuse.a = pSpriteActor_Target->_fAlpha;
+	_pD3DMaterial9->Ambient.a = pSpriteActor_Target->_fAlpha;
+	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
 //	if (_isChangedAlpha) {
 //		//前回描画UVが同じでもAlpha変更な場合
