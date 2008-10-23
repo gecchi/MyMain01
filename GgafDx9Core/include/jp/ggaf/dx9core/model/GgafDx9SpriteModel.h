@@ -31,7 +31,7 @@ protected:
 	/** 前回表示のUV */
 	GgafDx9RectUV*  _pRectUV_drawlast;
 
-	bool _isChangedAlpha;
+	//bool _isChangedAlpha;
 
 public:
 	/** 全アニメパターン数(0～) */
@@ -40,7 +40,7 @@ public:
 	float  _fSize_SpriteModelHeightPx;
 	int    _iRowNum_TextureSplit;
 	int    _iColNum_TextureSplit;
-	int	   _iChangeVertexAlpha;
+	//int	   _iChangeVertexAlpha;
 
 	/**
 	 * コンストラクタ<BR>

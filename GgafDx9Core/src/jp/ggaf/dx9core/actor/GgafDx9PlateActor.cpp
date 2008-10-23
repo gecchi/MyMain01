@@ -42,6 +42,8 @@ GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_nam
 	_paVertex[2].color = 0xFFFFFFFF;
 	_paVertex[3].color = 0xFFFFFFFF; //‚¢‚é‚Ì‚©??
 
+	_fAlpha = 1.0f;
+
 }
 
 

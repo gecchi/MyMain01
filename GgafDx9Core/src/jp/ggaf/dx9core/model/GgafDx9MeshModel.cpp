@@ -7,17 +7,9 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name) : GgafDx9Model(prm_mod
 	_papID3DTexture9 = NULL;
 	_dwNumMaterials  = 0L;
 	_pModel_Next     = NULL;
-	_fAlpha = 1.0f;
 }
 
 
-void GgafDx9MeshModel::setAlpha(float prm_fAlpha) {
-	_fAlpha = prm_fAlpha;
-	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		_paD3DMaterial9[i].Ambient.a = prm_fAlpha;
-		_paD3DMaterial9[i].Diffuse.a = prm_fAlpha;
-	}
-}
 
 
 HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
@@ -26,8 +18,10 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	HRESULT hr;
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
 
+		_paD3DMaterial9[i].Ambient.a = pMeshActor_Target->_fAlpha;
+		_paD3DMaterial9[i].Diffuse.a = pMeshActor_Target->_fAlpha;
         hr = GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i]));	//マテリアルのセット
-		if(FAILED(hr)) {
+        if(FAILED(hr)) {
 			throw_GgafCriticalException("[GgafDx9MeshModel::draw]["<<prm_pActor_Target->getName()<<"]のSetMaterial(&(paD3DMaterial9[i].MatD3D)失敗 model="<<_model_name<<"/hr="<<hr);
 		}
 		if (_papID3DTexture9[i] != NULL) {

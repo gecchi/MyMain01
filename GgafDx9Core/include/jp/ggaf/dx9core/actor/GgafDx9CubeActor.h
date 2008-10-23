@@ -2,9 +2,8 @@
 #define GGAFDX9CUBEACTORD_H_
 
 
-class GgafDx9CubeActor : public GgafDx9UntransformedActor {
+class GgafDx9CubeActor : public GgafDx9MeshActor {
 private:
-	GgafDx9MeshModel* _pMeshModel;
 
 public:
 	GgafDx9CubeActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);

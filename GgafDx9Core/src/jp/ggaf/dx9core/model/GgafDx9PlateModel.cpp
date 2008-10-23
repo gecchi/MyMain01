@@ -24,17 +24,22 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	TRACE("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9God::_pID3DDevice9 ->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
 	GgafDx9PlateActor* pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;
+
+
+	//α設定
+	_pD3DMaterial9->Diffuse.a = pPlateActor_Target->_fAlpha;
+	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
+	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
+
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
-		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
 		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pID3DTexture9));
 	} else {
 		//ちょっとだけ早いのよ！
-		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 	}
-	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
+	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
 	GgafDx9God::_pID3DDevice9 -> DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Vertec_unit);
-	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
+	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	GgafDx9Model::_s_modelname_lastdraw = _model_name; //前回描画モデル名保存
 	return D3D_OK;

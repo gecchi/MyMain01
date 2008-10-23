@@ -184,10 +184,6 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
 	}
-	for( DWORD i = 0; i < dwNumMaterials; i++) {
-		paD3DMaterial9[i].Ambient.a = prm_pMeshModel->_fAlpha;
-		paD3DMaterial9[i].Diffuse.a = prm_pMeshModel->_fAlpha;
-	}
 
 	//テクスチャを取り出す
 	papID3DTexture9 = NEW LPDIRECT3DTEXTURE9[dwNumMaterials];
@@ -259,7 +255,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	prm_pSpriteModel->_pD3DMaterial9->Diffuse.g = prm_pSpriteModel->_pD3DMaterial9->Ambient.g = 1.0f;
 	prm_pSpriteModel->_pD3DMaterial9->Diffuse.b = prm_pSpriteModel->_pD3DMaterial9->Ambient.b = 1.0f;
 	prm_pSpriteModel->_pD3DMaterial9->Diffuse.a = prm_pSpriteModel->_pD3DMaterial9->Ambient.a = 1.0f;
-
 
 	HRESULT	hr;
 	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pSpriteModel->_model_name + ".x";
@@ -559,10 +554,12 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	prm_pPlateModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
 	ZeroMemory( prm_pPlateModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.r = prm_pPlateModel->_pD3DMaterial9->Ambient.r = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.g = prm_pPlateModel->_pD3DMaterial9->Ambient.g = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.b = prm_pPlateModel->_pD3DMaterial9->Ambient.b = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = prm_pPlateModel->_pD3DMaterial9->Ambient.a = 0.3f;
+	prm_pPlateModel->_pD3DMaterial9->Diffuse.r = 1.0f;
+	prm_pPlateModel->_pD3DMaterial9->Diffuse.g = 1.0f;
+	prm_pPlateModel->_pD3DMaterial9->Diffuse.b = 1.0f;
+	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = 0.2f;
+	prm_pPlateModel->_pD3DMaterial9->Ambient = prm_pPlateModel->_pD3DMaterial9->Diffuse;
+
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
 	if (_s_pIDirectXFile == NULL) {

@@ -18,8 +18,10 @@ private:
 	int _iCounter_AnimationFrame;
 
 public:
+	/** モデルオブジェクトへのポインタ */
 	GgafDx9PlateModel* _pPlateModel;
-
+	/** キャラ全体のα */
+	float _fAlpha;
 
 	/** 矩形の頂点情報 */
 	VERTEX* _paVertex;
@@ -44,6 +46,14 @@ public:
 	virtual void processDrawMain();
 
 	virtual void setPatternNo(int prm_iPlateNo);
+
+	void setAlpha(float prm_fAlpha) {
+		_fAlpha = prm_fAlpha;
+	}
+
+	float getAlpha() {
+		return _fAlpha;
+	}
 
 	virtual ~GgafDx9PlateActor();		//デストラクタ
 

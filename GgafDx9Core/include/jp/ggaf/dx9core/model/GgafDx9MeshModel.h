@@ -16,8 +16,6 @@ public:
 	/** マテリアル数(=メッシュ数) */
 	DWORD               _dwNumMaterials;
 
-	float	_fAlpha;
-
 public:
 	/**
 	 * コンストラクタ<BR>

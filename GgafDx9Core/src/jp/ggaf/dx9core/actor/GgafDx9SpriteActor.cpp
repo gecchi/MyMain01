@@ -12,6 +12,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_n
 	_animation_method            = ORDER_LOOP;
 	_iCounter_AnimationFrame     = 0;
 	_oscillateAnimationOrderFlg = true;
+	_fAlpha = 1.0f;
 }
 
 void GgafDx9SpriteActor::processDrawMain() {

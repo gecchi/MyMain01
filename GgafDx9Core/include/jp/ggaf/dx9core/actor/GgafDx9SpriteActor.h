@@ -21,7 +21,10 @@ private:
 
 
 public:
+	/** モデルオブジェクトへのポインタ */
 	GgafDx9SpriteModel* _pSpriteModel;
+	/** キャラ全体のα */
+	float _fAlpha;
 
 	/** アニメパターン番号の上限番号 */
 	unsigned int _iAnimationPatternNo_Top;
@@ -71,6 +74,15 @@ public:
 	 * @param prm_iInterval アニメーション間隔フレーム（default=1)
 	 */
 	void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval);
+
+
+	void setAlpha(float prm_fAlpha) {
+		_fAlpha = prm_fAlpha;
+	}
+
+	float getAlpha() {
+		return _fAlpha;
+	}
 
 };
 
