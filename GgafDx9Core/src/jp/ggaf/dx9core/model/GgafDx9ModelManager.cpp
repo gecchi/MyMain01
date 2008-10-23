@@ -251,10 +251,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	prm_pSpriteModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
 	ZeroMemory(prm_pSpriteModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-	prm_pSpriteModel->_pD3DMaterial9->Diffuse.r = prm_pSpriteModel->_pD3DMaterial9->Ambient.r = 1.0f;
-	prm_pSpriteModel->_pD3DMaterial9->Diffuse.g = prm_pSpriteModel->_pD3DMaterial9->Ambient.g = 1.0f;
-	prm_pSpriteModel->_pD3DMaterial9->Diffuse.b = prm_pSpriteModel->_pD3DMaterial9->Ambient.b = 1.0f;
-	prm_pSpriteModel->_pD3DMaterial9->Diffuse.a = prm_pSpriteModel->_pD3DMaterial9->Ambient.a = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Diffuse.r = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Diffuse.g = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Diffuse.b = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Diffuse.a = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Ambient.r = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Ambient.g = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Ambient.b = 1.0f;
+	prm_pSpriteModel->_pD3DMaterial9->Ambient.a = 1.0f;
 
 	HRESULT	hr;
 	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pSpriteModel->_model_name + ".x";
@@ -341,10 +345,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
 	prm_pSpriteModel->_iSize_Vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
 	prm_pSpriteModel->_iSize_Vertec_unit = sizeof(GgafDx9SpriteModel::VERTEX);
-	paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-	paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-	paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-	paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
 
 	//頂点配列情報をモデルに保持させる
 	paVertex[0].x     = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
@@ -433,10 +433,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	}
 	prm_pSpriteModel->_paRectUV = paRectUV;
 	prm_pSpriteModel->_iAnimationPatternNo_Max=iAnimationPatternNum-1;
-
-
-
-
 
 	//後始末
 

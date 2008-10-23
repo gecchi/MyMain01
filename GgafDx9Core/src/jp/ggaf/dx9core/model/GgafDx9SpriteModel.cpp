@@ -32,8 +32,8 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	HRESULT	hr;
 
 	//ƒ¿Ý’è
-	_pD3DMaterial9->Diffuse.a = pSpriteActor_Target->_fAlpha;
-	_pD3DMaterial9->Ambient.a = pSpriteActor_Target->_fAlpha;
+	_pD3DMaterial9->Diffuse.a = 0.1f;//pSpriteActor_Target->_fAlpha;
+	_pD3DMaterial9->Ambient.a = 0.1f;//pSpriteActor_Target->_fAlpha;
 	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
