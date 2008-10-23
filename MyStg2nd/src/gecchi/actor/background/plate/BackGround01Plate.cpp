@@ -1,11 +1,11 @@
 #include "stdafx.h"
 
 BackGround01Plate::BackGround01Plate(string prm_name) : GgafDx9TransformedActor(prm_name) {
-	_papChipPlate = NEW DefaultPlateActor*[4];
-	_papChipPlate[0] = NEW DefaultPlateActor("Bg01_Chip01", "background01");
-	_papChipPlate[1] = NEW DefaultPlateActor("Bg01_Chip02", "background02");
-	_papChipPlate[2] = NEW DefaultPlateActor("Bg01_Chip03", "background03");
-	_papChipPlate[3] = NEW DefaultPlateActor("Bg01_Chip04", "background04");
+	_papChipPlate = NEW BackGroundChipPlate*[4];
+	_papChipPlate[0] = NEW BackGroundChipPlate("Bg01_Chip01", "background01");
+	_papChipPlate[1] = NEW BackGroundChipPlate("Bg01_Chip02", "background02");
+	_papChipPlate[2] = NEW BackGroundChipPlate("Bg01_Chip03", "background03");
+	_papChipPlate[3] = NEW BackGroundChipPlate("Bg01_Chip04", "background04");
 	stopImmediately();
 }
 
@@ -17,9 +17,6 @@ void BackGround01Plate::initialize() {
 	//_z = 0.001;//たぶん最全面 （0 <= _z < 1.0）
 
 	for (int i = 0; i < 4; i++) {
-		for (int j = 0; j < 4; j++) {
-			_papChipPlate[i]->_paVertex[j].color = D3DCOLOR_ARGB(0 ,255,255,255);
-		}
 		_papChipPlate[i]->_z = _z;
 	}
 
@@ -27,11 +24,17 @@ void BackGround01Plate::initialize() {
 
 void BackGround01Plate::processBehavior() {
 	//フェードイン
+//	if (0 < _dwFrame && _dwFrame <= 255) {
+//		for (int i = 0; i < 4; i++) {
+//			for (int j = 0; j < 4; j++) {
+//				_papChipPlate[i]->_paVertex[j].color = D3DCOLOR_ARGB(_dwFrame,255,255,255);
+//			}
+//		}
+//	}
+	//フェードイン
 	if (0 < _dwFrame && _dwFrame <= 255) {
 		for (int i = 0; i < 4; i++) {
-			for (int j = 0; j < 4; j++) {
-				_papChipPlate[i]->_paVertex[j].color = D3DCOLOR_ARGB(_dwFrame,255,255,255);
-			}
+			_papChipPlate[i]->setAlpha(float(_dwFrame/255.0));
 		}
 	}
 

@@ -94,7 +94,7 @@ void MyShip::initialize() {
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
 	_pMover -> setXYMoveVelocity(0);
-	//_pMeshModel->setAlpha(0.2);
+	setAlpha(0.2);
 }
 
 void MyShip::processBehavior() {

@@ -4,7 +4,7 @@
 
 class BackGround01Plate : public GgafDx9TransformedActor {
 
-	DefaultPlateActor** _papChipPlate;
+	BackGroundChipPlate** _papChipPlate;
 
 public:
 	BackGround01Plate(string prm_name);

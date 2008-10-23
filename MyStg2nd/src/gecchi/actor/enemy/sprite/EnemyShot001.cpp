@@ -10,6 +10,7 @@ void EnemyShot001::initialize() {
 	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
 	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
 	setBumpable(false);
+	setAlpha(0.2);
 }
 
 
