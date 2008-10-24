@@ -102,6 +102,11 @@ void EnemyCeres::processJudgement() {
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 	setBumpable(false);
 	declareFinishLife();
+	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+	if (pExplo001) {
+		pExplo001->setGeometry(this);
+		pExplo001->declarePlay();
+	}
 }
 
 bool EnemyCeres::isOffScreen() {

@@ -15,11 +15,10 @@ void BackGround01Plate::initialize() {
 	_y = -216;
 	_z = 0.999;//たぶん最背面 （0 <= _z < 1.0）
 	//_z = 0.001;//たぶん最全面 （0 <= _z < 1.0）
-
 	for (int i = 0; i < 4; i++) {
+		_papChipPlate[i]->setAlpha(0);
 		_papChipPlate[i]->_z = _z;
 	}
-
 }
 
 void BackGround01Plate::processBehavior() {
