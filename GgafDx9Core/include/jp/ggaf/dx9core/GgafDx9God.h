@@ -14,7 +14,12 @@ public:
 	/** デバイス */
 	static IDirect3DDevice9* _pID3DDevice9;
 	/** デフォルトのライト */
-	static D3DLIGHT9 _d3dlight9;
+	static D3DLIGHT9 _d3dlight9_default;
+	/** 一時的なライト（現在未使用） */
+	static D3DLIGHT9 _d3dlight9_temp;
+	/** アンビエントライトのデフォルトの明るさ */
+	static DWORD _dwAmbientBrightness_default;
+
 	/** Present領域 */
 	static RECT _rectPresentDest;
 	/* スクリーン高さ（ピクセル） */

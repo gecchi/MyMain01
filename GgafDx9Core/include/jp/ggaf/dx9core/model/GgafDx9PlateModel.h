@@ -8,9 +8,10 @@ class GgafDx9PlateModel : public GgafDx9Model {
 public:
 
 	/** VERTEXのFVF */
-	static DWORD FVF;	
-	/** マテリアル */
-	D3DMATERIAL9* 		_pD3DMaterial9;
+	static DWORD FVF;
+	// /** マテリアル */
+	// D3DMATERIAL9* 		_pD3DMaterial9;
+	//
 	/** テクスチャ(アニメーションパターン） */
 	LPDIRECT3DTEXTURE9 _pID3DTexture9;
 

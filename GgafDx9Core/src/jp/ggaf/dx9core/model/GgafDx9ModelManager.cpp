@@ -167,6 +167,7 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 	//マテリアルを取り出す
 	D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
+	//＜2008/02/02 の脳みそ＞
 	// やっていることメモ
 	// GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
 	//（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
@@ -179,8 +180,8 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 	//Diffuse反射をAmbient反射にコピーする
 	//理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-	//xファイル（MatD3D）にはDiffuse反射値しか設定されていないみたいである（たぶん）、そこでDiffuse反射の値で
-	//Ambient反射値を代用することにする。TODO:いろいろ実験をするべき
+	//xファイル（MatD3D）にはDiffuse反射値しか設定されていないみたいである、そこでDiffuse反射の値で
+	//Ambient反射値を代用することにする。
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
 	}
@@ -548,13 +549,13 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	HRESULT	hr;
 	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pPlateModel->_model_name + ".x";
 
-	prm_pPlateModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
-	ZeroMemory( prm_pPlateModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.r = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.g = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.b = 1.0f;
-	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = 0.2f;
-	prm_pPlateModel->_pD3DMaterial9->Ambient = prm_pPlateModel->_pD3DMaterial9->Diffuse;
+//	prm_pPlateModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
+//	ZeroMemory( prm_pPlateModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
+//	prm_pPlateModel->_pD3DMaterial9->Diffuse.r = 1.0f;
+//	prm_pPlateModel->_pD3DMaterial9->Diffuse.g = 1.0f;
+//	prm_pPlateModel->_pD3DMaterial9->Diffuse.b = 1.0f;
+//	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = 0.2f;
+//	prm_pPlateModel->_pD3DMaterial9->Ambient = prm_pPlateModel->_pD3DMaterial9->Diffuse;
 
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)

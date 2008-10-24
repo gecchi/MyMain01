@@ -6,7 +6,10 @@ HINSTANCE GgafDx9God::_hInstance = NULL;
 
 IDirect3D9* GgafDx9God::_pID3D9 = NULL;
 IDirect3DDevice9* GgafDx9God::_pID3DDevice9 = NULL;
-D3DLIGHT9 GgafDx9God::_d3dlight9;
+D3DLIGHT9 GgafDx9God::_d3dlight9_default;
+D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
+DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff040404;
+
 RECT GgafDx9God::_rectPresentDest;
 
 double GgafDx9God::_dCamZ = 0;
@@ -77,10 +80,7 @@ HRESULT GgafDx9God::init() {
 	//_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_UNKNOWN;	//現在の画面モードを利用
 	//バックバッファの数
 	_structD3dPresent_Parameters.BackBufferCount = 1;
-	//マルチサンプルの数
-	_structD3dPresent_Parameters.MultiSampleType = D3DMULTISAMPLE_NONE;
-	//マルチサンプルの品質レベル
-	_structD3dPresent_Parameters.MultiSampleQuality = 0;
+
 	//スワップ効果を指定する
 	_structD3dPresent_Parameters.SwapEffect = D3DSWAPEFFECT_DISCARD;
 	//ウィンドウハンドル
@@ -111,6 +111,36 @@ HRESULT GgafDx9God::init() {
 		_structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座(Windowモードはこちらが良いらしい）
 	}
 
+
+	//アンチアイリアスにできるかチェック
+	DWORD qualityLevels = D3DMULTISAMPLE_NONE;
+	D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
+
+	if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
+		D3DADAPTER_DEFAULT,
+		D3DDEVTYPE_HAL,
+		D3DFMT_A8R8G8B8,
+		FULLSCRREEN ? FALSE : TRUE,
+		D3DMULTISAMPLE_2_SAMPLES,
+		&qualityLevels) ) )
+	{
+		if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
+			D3DADAPTER_DEFAULT,
+			D3DDEVTYPE_HAL,
+			D3DFMT_D24S8,
+			FULLSCRREEN ? FALSE : TRUE,
+			D3DMULTISAMPLE_2_SAMPLES,
+			NULL) ) )
+		{
+			multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+			_TRACE_("MultiSampleType = D3DMULTISAMPLE_2_SAMPLES");
+		}
+	}
+	//マルチサンプルの数
+	_structD3dPresent_Parameters.MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
+	//マルチサンプルの品質レベル
+	_structD3dPresent_Parameters.MultiSampleQuality = qualityLevels - ( qualityLevels > 0 ? 1 : 0 );
+
 	//フルスクリーンに出来るか調べる
 	if (FULLSCRREEN) {
 		int cc = GgafDx9God::_pID3D9->GetAdapterModeCount(D3DADAPTER_DEFAULT, _structD3dPresent_Parameters.BackBufferFormat);
@@ -136,6 +166,7 @@ HRESULT GgafDx9God::init() {
 			return E_FAIL;
 		}
 	}
+
 
 	//デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
 	//ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
@@ -190,39 +221,39 @@ HRESULT GgafDx9God::init() {
 HRESULT GgafDx9God::initDx9Device() {
 	 // デフォルトのライト
 /*
-	ZeroMemory(&_d3dlight9, sizeof(D3DLIGHT9) );
-	GgafDx9God::_d3dlight9.Type = D3DLIGHT_DIRECTIONAL; //平行光、色と方向だけでよい
-	GgafDx9God::_d3dlight9.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
-	GgafDx9God::_d3dlight9.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
-	GgafDx9God::_d3dlight9.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+	ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9) );
+	GgafDx9God::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL; //平行光、色と方向だけでよい
+	GgafDx9God::_d3dlight9_default.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
+	GgafDx9God::_d3dlight9_default.Diffuse = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
+	GgafDx9God::_d3dlight9_default.Ambient = D3DXCOLOR(1.0f, 1.0f, 1.0f, 0.0f);
 	//下は平行光では関係ない
-	//GgafDx9God::_d3dlight9.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
-	//GgafDx9God::_d3dlight9.Range = 1000;
+	//GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
+	//GgafDx9God::_d3dlight9_default.Range = 1000;
 */
-	ZeroMemory(&_d3dlight9, sizeof(D3DLIGHT9) );
-	GgafDx9God::_d3dlight9.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
-	GgafDx9God::_d3dlight9.Type = D3DLIGHT_DIRECTIONAL;
-	GgafDx9God::_d3dlight9.Diffuse.a = 1.0f;
-	GgafDx9God::_d3dlight9.Diffuse.r = 1.0f;
-	GgafDx9God::_d3dlight9.Diffuse.g = 1.0f;
-	GgafDx9God::_d3dlight9.Diffuse.b = 1.0f;
+	ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9) );
+	GgafDx9God::_d3dlight9_default.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
+	GgafDx9God::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL;
+	GgafDx9God::_d3dlight9_default.Diffuse.a = 1.0f;
+	GgafDx9God::_d3dlight9_default.Diffuse.r = 1.0f;
+	GgafDx9God::_d3dlight9_default.Diffuse.g = 1.0f;
+	GgafDx9God::_d3dlight9_default.Diffuse.b = 1.0f;
 
-	GgafDx9God::_d3dlight9.Ambient.a = 1.0f;
-	GgafDx9God::_d3dlight9.Ambient.r = 0.0f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
-	GgafDx9God::_d3dlight9.Ambient.g = 0.0f;
-	GgafDx9God::_d3dlight9.Ambient.b = 0.0f;
-	//GgafDx9God::_d3dlight9.Range = 1000.0f;
+	GgafDx9God::_d3dlight9_default.Ambient.a = 1.0f;
+	GgafDx9God::_d3dlight9_default.Ambient.r = 0.0f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
+	GgafDx9God::_d3dlight9_default.Ambient.g = 0.0f;
+	GgafDx9God::_d3dlight9_default.Ambient.b = 0.0f;
+	//GgafDx9God::_d3dlight9_default.Range = 1000.0f;
 
 
 
 	//ライトをセット
-	GgafDx9God::_pID3DDevice9->SetLight( 0, &GgafDx9God::_d3dlight9 );
+	GgafDx9God::_pID3DDevice9->SetLight( 0, &GgafDx9God::_d3dlight9_default );
 	//ライトスイッチON
 	GgafDx9God::_pID3DDevice9->LightEnable( 0, TRUE );
 	//レンダ時にライトの影響（陰影）を有効
 	GgafDx9God::_pID3DDevice9->SetRenderState( D3DRS_LIGHTING, TRUE);
-	//世界に共通のアンビエントライト
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0xff303030);
+	//レンダ時、世界に共通のアンビエントライトを有効にしたように描く
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
 
 	// Zバッファを有効に
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
@@ -238,9 +269,10 @@ HRESULT GgafDx9God::initDx9Device() {
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
 	// ディザリング
-	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
-	// マルチサンプリングアンチエイリアス
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );
+	// マルチサンプリングアンチエイリアス(といってもフルスクリーンだけ？)
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS, TRUE);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK, 0x00ffffff);
 
 
 	// アルファブレンドＯＮ
@@ -266,8 +298,11 @@ HRESULT GgafDx9God::initDx9Device() {
 	//下地の画像の合成法
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
-	//マテリアルαを使えるようにする（デフォルトは頂点アルファ）
+	//マテリアルαを使えるようにする
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_MATERIAL);
+	//頂点αを使用する
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
+
 	//上の設定を有効にする
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE);
 

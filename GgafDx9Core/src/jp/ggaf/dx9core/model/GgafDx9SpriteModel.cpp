@@ -88,10 +88,19 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 
 
 
-	//描画して、ライトまたつけとく
 	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
-	GgafDx9God::_pID3DDevice9 -> DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0xffffffff);//陰影を無くすため環境光を最高にする
+	GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, GgafDx9God::_dwAmbientBrightness_default);//環境光を元通り
 	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
+
+	//↑＜2008/10/24 の脳みそ＞
+	//ライトを切らずにアンビエントを強めてスプライトらしく平面的な表示をすることにした（角度によって影がでない）。
+	//ライトを切らないのは、レンダリングでマテリアルによるαブレンドを行うというもくろみのため。
+	//しかし、ライトを切って、頂点αという手もある。そのほうが多分軽いし最初は頂点αだった。
+	//しかし、スペキュラ反射のアニメーションとかもやりたいかもしれない。頂点カラーでスペキュラできる？のかわからないので、
+	//マテリアルαでいけるようにしておく。ここはいろいろ実験すべき。
+	//TODO
 
 	//前回描画モデル名保存
 	GgafDx9Model::_s_modelname_lastdraw = _model_name;

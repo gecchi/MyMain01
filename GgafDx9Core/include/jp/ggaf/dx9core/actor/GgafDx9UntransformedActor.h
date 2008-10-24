@@ -89,6 +89,12 @@ public:
 		_Z = Z;
 	}
 
+	virtual void setGeometry(GgafDx9UntransformedActor* prm_pActor) {
+		_X = prm_pActor->_X;
+		_Y = prm_pActor->_Y;
+		_Z = prm_pActor->_Z;
+	}
+
 	/**
 	 * _Zの値により、大まかにレンダリング順序を設定する。
 	 * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
