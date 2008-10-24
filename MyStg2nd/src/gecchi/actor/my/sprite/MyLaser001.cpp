@@ -16,7 +16,7 @@ void MyLaser001::initialize() {
 	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
 	_pChecker -> _pHitAreaBoxs -> setBox(0, -5000, -5000, 5000, 5000);
 
-	setBumpable(false);
+	setBumpable(true);
 }
 
 

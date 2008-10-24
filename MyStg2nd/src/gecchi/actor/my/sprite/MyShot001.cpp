@@ -27,7 +27,7 @@ void MyShot001::initialize() {
 	_SY = 10000;
 	setAlpha(0.2);
 
-	setBumpable(false);
+	setBumpable(true);
 	declareStop();
 
 }
