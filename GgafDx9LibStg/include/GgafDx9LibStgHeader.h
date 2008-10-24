@@ -22,7 +22,7 @@ class FontPlateString;
 class DelineateActor;
 class StgMover;
 class StgChecker;
-class HitArea2D;
+class HitAreaBoxs;
 
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
@@ -44,7 +44,7 @@ class HitArea2D;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/StgMover.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
-#include "jp/ggaf/dx9libstg/util/HitArea2D.h"
+#include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 
 
 #define DISP_HITAREA 1

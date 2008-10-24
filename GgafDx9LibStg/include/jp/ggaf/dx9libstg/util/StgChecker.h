@@ -22,7 +22,7 @@ public:
 	int _iDefensePoint;
 
 	/** 当たり判定領域 */
-	HitArea2D* _pHitArea2D;
+	HitAreaBoxs* _pHitAreaBoxs;
 
 	/**
 	 * コンストラクタ<BR>

@@ -12,9 +12,8 @@ public:
 
 	//void processDrawMain() {}; //オーバーライド未実装にする。
 
-	void drawRect(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_thick_z1, int prm_thick_z2);
+	void drawBox(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_z1, int prm_z2);
 
-	void drawLine(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_thick_z1, int prm_thick_z2);
 
 	void drawHitarea(StgChecker* prm_pChecker);
 
