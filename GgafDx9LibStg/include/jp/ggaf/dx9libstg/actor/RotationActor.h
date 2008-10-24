@@ -12,6 +12,9 @@ public:
  	RotationActor(string prm_name) : GgafDummyActor(prm_name) {
  		_class_name = "RotationActor";
  	    setBumpable(false);
+ 	    _wasDrawed = true; //無駄な描画を防ぐ、
+						   //これにより、描画順序リストに登録されなかったサブアクターたちに、
+						   //processDrawMain()が呼ばれることは無い。ちょっとだけ最適化。
  	};
 
 	void initialize() {};
