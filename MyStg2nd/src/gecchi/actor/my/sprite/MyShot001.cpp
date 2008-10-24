@@ -13,15 +13,15 @@ void MyShot001::initialize() {
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
 	_pMover -> setXYMoveVelocity(1000);
 
-	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 6);
-	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
+	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
+	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
 
-	_pChecker -> _pHitArea2D -> setLine(0, -20000, 20000, 20000, 20000, true);
-	_pChecker -> _pHitArea2D -> setLine(1, 20000, 20000, 20000, -20000, true);
-	_pChecker -> _pHitArea2D -> setLine(2, 20000, -20000, -20000, -20000, true);
-	_pChecker -> _pHitArea2D -> setLine(3, -20000, -20000, -20000, 20000, true);
-	_pChecker -> _pHitArea2D -> setLine(4, 30000, 30000, -30000, -30000, true);
-	_pChecker -> _pHitArea2D -> setLine(5, -30000, 30000, 30000, -30000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(0, -20000, 20000, 20000, 20000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(1, 20000, 20000, 20000, -20000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(2, 20000, -20000, -20000, -20000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(3, -20000, -20000, -20000, 20000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(4, 30000, 30000, -30000, -30000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(5, -30000, 30000, 30000, -30000, true);
 //
 	_SX = 10000;
 	_SY = 10000;

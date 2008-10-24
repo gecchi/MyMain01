@@ -7,9 +7,9 @@ EnemyShot001::EnemyShot001(string prm_name, string prm_xname) : EnemyShotSpriteA
 void EnemyShot001::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
 	_pMover -> setXYMoveVelocity(3000);
-	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
-	_pChecker -> _pHitArea2D -> setRect(0, -5000, -5000, 5000, 5000);
-	setBumpable(false);
+	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
+	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
+	setBumpable(true);
 }
 
 
@@ -45,12 +45,15 @@ void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("EnemyShot001::processOnHit ショットがヒットしました");
 	_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-
-	//体力計算
-	if (_pChecker->_iStaminaPoint < 0) {
-		declareStop();
+	setBumpable(false);
+	declareFinishLife();
+	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+	if (pExplo001) {
+		pExplo001->setGeometry(this);
+		pExplo001->declarePlay();
 	}
 }
+
 
 EnemyShot001::~EnemyShot001() {
 }

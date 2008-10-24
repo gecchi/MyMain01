@@ -13,8 +13,8 @@ void EnemyJuno::initialize() {
 	_pMover -> setAxisRotAngle(AXIS_Y, 90000);
 
 
-	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
-	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
+	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
+	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
 	_pChecker -> setStatus(100, 1, 1, 1);
 }
 

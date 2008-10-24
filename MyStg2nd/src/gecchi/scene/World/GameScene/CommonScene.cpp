@@ -34,7 +34,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 
 	{ //EnemyShot001
 		_pEnemyShots001Rotation = NEW RotationActor("TAMAS001");
-		getLordActor()->accept(KIND_ENEMY, _pEnemyShots001Rotation);
+		getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pEnemyShots001Rotation);
 		EnemyShot001* pEnemyShot;
 		for (int i = 0; i < 256; i++) { //ストック256個
 			pEnemyShot = NEW EnemyShot001("EneShot001", "hoge");

@@ -21,15 +21,15 @@ void TamagoActor::initialize() {
 //	_pMover -> _synchronize_ZaxisAxisRotAngle_to_XYMoveAngle_Flg = true;
 //	_pMover -> _iType_AutoXYMoveAngleTarget = TURN_COUNTERCLOCKWISE;
 
-//	_pChecker -> _pHitArea2D = NEW HitArea2D(1, 0);
-//	_pChecker -> _pHitArea2D -> setRect(0, -10000, -10000, 10000, 10000);
+//	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1, 0);
+//	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
 
-	_pChecker -> _pHitArea2D = NEW HitArea2D(0, 4);
-	_pChecker -> _pHitArea2D -> setLine(0, -10000, -10000, 10000, -10000, true);
-	_pChecker -> _pHitArea2D -> setLine(1, 10000, -10000, 10000, 10000, true);
-	_pChecker -> _pHitArea2D -> setLine(2, 10000, 10000, -10000, 10000, true);
-	_pChecker -> _pHitArea2D -> setLine(3, -10000, 10000, -10000, -10000, true);
-	_pChecker -> setStatus(100, 1, 2, 1);
+//	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(0, 4);
+//	_pChecker -> _pHitAreaBoxs -> setLine(0, -10000, -10000, 10000, -10000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(1, 10000, -10000, 10000, 10000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(2, 10000, 10000, -10000, 10000, true);
+//	_pChecker -> _pHitAreaBoxs -> setLine(3, -10000, 10000, -10000, -10000, true);
+//	_pChecker -> setStatus(100, 1, 2, 1);
 	_dwFrameOffset = 0;
 	//_pMover -> _iIncrementAxisRotAngle[AXIS_X] = -100*1000;
 
