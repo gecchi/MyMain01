@@ -663,7 +663,7 @@ void GgafElement<T>::drawTerminate() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive && _wasDrawed) {
+	if (_isPlaying && !_wasBlinded && _isAlive && !_wasDrawed) {
 		_dwFrame_relative = 0;
 		processDrawTerminate();
 		_wasDrawed = true;

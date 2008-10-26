@@ -8,7 +8,7 @@ IDirect3D9* GgafDx9God::_pID3D9 = NULL;
 IDirect3DDevice9* GgafDx9God::_pID3DDevice9 = NULL;
 D3DLIGHT9 GgafDx9God::_d3dlight9_default;
 D3DLIGHT9 GgafDx9God::_d3dlight9_temp;
-DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff040404;
+DWORD GgafDx9God::_dwAmbientBrightness_default = 0xff404040;
 
 RECT GgafDx9God::_rectPresentDest;
 

@@ -15,7 +15,6 @@ Stage01MainScene::Stage01MainScene(string prm_name) : DefaultScene(prm_name) {
 }
 
 void Stage01MainScene::initialize() {
-
 }
 
 void Stage01MainScene::processBehavior() {
@@ -81,7 +80,11 @@ void Stage01MainScene::processBehavior() {
 	// gen02 end
 
 	if (_dwFrame == 2) {
+
 		_TRACE_("Stage01MainScene::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
+		// 共通シーンを配下に移動
+		addSubLast(GameGlobal::_pSceneCommon->tear());
+
 	}
 
 }

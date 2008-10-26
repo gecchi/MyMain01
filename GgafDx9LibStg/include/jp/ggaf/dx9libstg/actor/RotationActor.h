@@ -5,17 +5,13 @@
  * ローテーションアクタークラス .
  * 自機のショットなど、画面上にキャラクタ数MAX制限付で表示したい場合等に有効。
  */
-class RotationActor : public GgafDummyActor {
+class RotationActor : public GgafDx9UntransformedActor {
 
 public:
+	StgMover* _pMover;
+	StgChecker* _pChecker;
 
- 	RotationActor(string prm_name) : GgafDummyActor(prm_name) {
- 		_class_name = "RotationActor";
- 	    setBumpable(false);
- 	    _wasDrawed = true; //無駄な描画を防ぐ、
-						   //これにより、描画順序リストに登録されなかったサブアクターたちに、
-						   //processDrawMain()が呼ばれることは無い。ちょっとだけ最適化。
- 	};
+ 	RotationActor(string prm_name);
 
 	void initialize() {};
 

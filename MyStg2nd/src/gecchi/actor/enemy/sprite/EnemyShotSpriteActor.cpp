@@ -8,7 +8,7 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_xname) : 
 
 void EnemyShotSpriteActor::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
-	setBumpable(false);
+	setBumpableOnlySelf(true);
 }
 
 void EnemyShotSpriteActor::processBehavior() {

@@ -5,7 +5,7 @@ EnemyPallas::EnemyPallas(string prm_name, string prm_xname) : DefaultMeshEnemyAc
 }
 
 void EnemyPallas::initialize() {
-	setBumpable(true);
+	setBumpableOnlySelf(true);
 	_X = _X_OffScreenRight+100;
 	_Y = 0;
 	_Z = 0;
@@ -44,7 +44,7 @@ void EnemyPallas::processJudgement() {
 }
 
 void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
-	setBumpable(false);
+	setBumpableOnlySelf(false);
 	declareFinishLife();
 }
 

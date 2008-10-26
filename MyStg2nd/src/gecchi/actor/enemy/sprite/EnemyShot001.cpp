@@ -9,7 +9,7 @@ void EnemyShot001::initialize() {
 	_pMover -> setXYMoveVelocity(3000);
 	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
 	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
-	setBumpable(true);
+	setBumpableOnlySelf(true);
 }
 
 
@@ -45,7 +45,7 @@ void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("EnemyShot001::processOnHit ショットがヒットしました");
 	_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-	setBumpable(false);
+	setBumpableOnlySelf(false);
 	declareFinishLife();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001) {

@@ -21,7 +21,7 @@ void EnemyJuno::initialize() {
 void EnemyJuno::processBehavior() {
 	if (switchedToPlay()) {
 		//èoåªéûèàóù
-		setBumpable(true);
+		setBumpableOnlySelf(true);
 		_X += FormationJuno001::_s_X_FormationWhole;
 	}
 
@@ -32,13 +32,13 @@ void EnemyJuno::processBehavior() {
 
 void EnemyJuno::processJudgement() {
 	if (isOffScreen()) {
-		setBumpable(false);
+		setBumpableOnlySelf(false);
 		declareFinishLife();
 	}
 }
 
 void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
-	setBumpable(false);
+	setBumpableOnlySelf(false);
 	declareFinishLife();
 }
 

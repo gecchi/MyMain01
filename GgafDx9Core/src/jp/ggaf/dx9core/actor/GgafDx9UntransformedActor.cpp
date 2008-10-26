@@ -17,6 +17,7 @@ _Y_OffScreenBottom((int)(-1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2))
 }
 
 bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+	_TRACE_(this->getName()<<"("<<this->_class_name<<") ~ "<<prm_pActor_Opponent->getName()<<"("<<prm_pActor_Opponent->_class_name<<")");
 	GgafDx9UntransformedActor* pActor_Opponent = dynamic_cast<GgafDx9UntransformedActor*>(prm_pActor_Opponent);
 	if (pActor_Opponent != NULL) {
 		return _pGeoChecker -> isBump(pActor_Opponent->_pGeoChecker);

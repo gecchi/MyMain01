@@ -16,14 +16,14 @@ void MyLaser001::initialize() {
 	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
 	_pChecker -> _pHitAreaBoxs -> setBox(0, -5000, -5000, 5000, 5000);
 
-	setBumpable(true);
+	setBumpableOnlySelf(true);
 }
 
 
 void MyLaser001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žžˆ—
-		setBumpable(true);
+		setBumpableOnlySelf(true);
 		_X = GameGlobal::_pMyShip->_X;
 		_X_prevFrame = _X;
 		_Y = GameGlobal::_pMyShip->_Y;
@@ -59,7 +59,7 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 void MyLaser001::onStop() {
-	setBumpable(false);
+	setBumpableOnlySelf(false);
 	if (MyLaser001::_pHeadMyLaser001 == this) {
 		MyLaser001::_pHeadMyLaser001 = NULL;
 	}

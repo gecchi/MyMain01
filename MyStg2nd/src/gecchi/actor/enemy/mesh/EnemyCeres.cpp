@@ -20,7 +20,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActo
 }
 
 void EnemyCeres::initialize() {
-	setBumpable(true);
+	setBumpableOnlySelf(true);
 
 	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
 
@@ -100,7 +100,7 @@ void EnemyCeres::processJudgement() {
 }
 
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
-	setBumpable(false);
+	setBumpableOnlySelf(false);
 	declareFinishLife();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001) {
