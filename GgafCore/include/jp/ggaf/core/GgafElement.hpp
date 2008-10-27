@@ -68,7 +68,7 @@ public:
 	bool _switchedToStop;
 
 	/** •`‰æ‚³‚ê‚Ü‚µ‚½ƒtƒ‰ƒO */
-	bool _wasDrawed;
+	bool _wasExecuted_processDrawMain;
 
 
 	/**
@@ -476,7 +476,7 @@ _willStopAfterFrame(false),
 _dwGodFremeWhenStop(0),
 _switchedToPlay(false),
 _switchedToStop(false),
-_wasDrawed(false)
+_wasExecuted_processDrawMain(false)
 {
 }
 
@@ -493,7 +493,7 @@ void GgafElement<T>::nextFrame() {
 			_wasInitialized = true;
 		}
 
-		_wasDrawed = false; //–¢•`‰æ‚É
+		_wasExecuted_processDrawMain = false; //–¢•`‰æ‚É
 
 		if (_isAlive) {
 			if (_willPlayAfterFrame) {
@@ -613,7 +613,7 @@ void GgafElement<T>::drawPrior() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive && !_wasDrawed) {
+	if (_isPlaying && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
 		processDrawPrior();
 		if (SUPER::_pSubFirst != NULL) {
@@ -638,9 +638,12 @@ void GgafElement<T>::drawMain() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive && !_wasDrawed) {
+	if (_isPlaying && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
-		processDrawMain();
+		if (!_wasExecuted_processDrawMain) {
+			processDrawMain();
+			_wasExecuted_processDrawMain = true;
+		}
 		if (SUPER::_pSubFirst != NULL) {
 			_pElementTemp = SUPER::_pSubFirst;
 			while(true) {
@@ -663,10 +666,9 @@ void GgafElement<T>::drawTerminate() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive && !_wasDrawed) {
+	if (_isPlaying && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
 		processDrawTerminate();
-		_wasDrawed = true;
 		if (SUPER::_pSubFirst != NULL) {
 			_pElementTemp = SUPER::_pSubFirst;
 			while(true) {

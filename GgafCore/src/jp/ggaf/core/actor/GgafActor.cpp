@@ -93,13 +93,13 @@ void GgafActor::executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent) {
 void GgafActor::executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent) {
 	executeBumpChk_WeAnd(prm_pActor_Opponent);
 	if (prm_pActor_Opponent->_pSubFirst != NULL) {
-		_pActor_tmp1 = prm_pActor_Opponent->_pSubFirst;
+		GgafActor* _pActor_tmpZ = prm_pActor_Opponent->_pSubFirst;
 		while(true) {
-			executeBumpChkRoundRobin(_pActor_tmp1);
-			if (_pActor_tmp1 -> _isLast) {
+			executeBumpChkRoundRobin(_pActor_tmpZ);
+			if (_pActor_tmpZ -> _isLast) {
 				break;
 			} else {
-				_pActor_tmp1 = _pActor_tmp1 -> _pNext;
+				_pActor_tmpZ = _pActor_tmpZ -> _pNext;
 			}
 		}
 	}
@@ -150,13 +150,13 @@ bool GgafActor::executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
 void GgafActor::executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent) {
 	executeBumpChk2_WeAnd(prm_pActor_Opponent);
 	if (prm_pActor_Opponent->_pSubFirst != NULL) {
-		_pActor_tmp2 = prm_pActor_Opponent->_pSubFirst;
+		GgafActor* _pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
 		while(true) {
-			executeBumpChkRoundRobin2(_pActor_tmp2);
-			if (_pActor_tmp2 -> _isLast) {
+			executeBumpChkRoundRobin2(_pActor_tmpZ2);
+			if (_pActor_tmpZ2 -> _isLast) {
 				break;
 			} else {
-				_pActor_tmp2 = _pActor_tmp2 -> _pNext;
+				_pActor_tmpZ2 = _pActor_tmpZ2 -> _pNext;
 			}
 		}
 	}
