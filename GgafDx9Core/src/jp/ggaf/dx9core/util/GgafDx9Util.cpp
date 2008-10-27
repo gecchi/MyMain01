@@ -15,7 +15,7 @@ void GgafDx9Util::init() {
 		return;
 	} else {
 		for (angle angle = 0; angle < ANGLE360; angle++) {
-			double rad = PI*2.0/ANGLE360*angle;
+			double rad = (PI*2.0*angle)/ANGLE360;
 			COS_UNITLEN[angle] = (int)(cos(rad)*LEN_UNIT);
 			SIN_UNITLEN[angle] = (int)(sin(rad)*LEN_UNIT);
 			TAN_UNITLEN[angle] = (int)(tan(rad)*LEN_UNIT);
