@@ -8,13 +8,18 @@ void MyShot001::initialize() {
 	setAnimationMethod(OSCILLATE_LOOP, 2);
 
 	_pMover -> setXYMoveAngleVelocity(0);
-	_pMover -> setAxisRotAngleVelocity(AXIS_Z, 10*1000);
+	_pMover -> setAxisRotAngleVelocity(AXIS_Y, 1*1000);
 	_pMover -> setXYMoveAngle(0);
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
 	_pMover -> setXYMoveVelocity(1000);
 
-	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1);
+	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(5);
 	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
+	_pChecker -> _pHitAreaBoxs -> setBox(1, -10000,-140000,-10000, 10000,-120000,10000, true,true,true);
+	_pChecker -> _pHitAreaBoxs -> setBox(2, -10000, 120000,-10000, 10000, 140000,10000, true,true,true);
+
+	_pChecker -> _pHitAreaBoxs -> setBox(3, -140000,-10000,-10000, -120000, 10000,10000, true,true,true);
+	_pChecker -> _pHitAreaBoxs -> setBox(4, 120000, -10000,-10000,  140000, 10000,10000, true,true,true);
 
 //	_pChecker -> _pHitAreaBoxs -> setLine(0, -20000, 20000, 20000, 20000, true);
 //	_pChecker -> _pHitAreaBoxs -> setLine(1, 20000, 20000, 20000, -20000, true);
@@ -45,6 +50,7 @@ void MyShot001::processBehavior() {
 		nextAnimationFrame();
 		//À•W‚É”½‰f
 		_pMover -> behave();
+		_pChecker -> behave();
 	}
 }
 
