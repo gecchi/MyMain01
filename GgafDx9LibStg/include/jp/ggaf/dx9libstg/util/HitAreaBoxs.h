@@ -4,22 +4,33 @@
 class HitAreaBoxs : public GgafObject {
 
 	struct Box {
-		int x1;		//頂点のx座標
-		int y1;		//頂点のy座標
-		int z1;		//頂点のz座標
-		int x2;		//対角の頂点のx座標
-		int y2;		//対角の頂点のy座標
-		int z2;		//対角の頂点のz座標
+		int x1;		//x座標の小さい方
+		int y1;		//y座標の小さい方
+		int z1;		//z座標の小さい方
+		int x2;		//対角の頂点となるx座標大きい方
+		int y2;		//対角の頂点となるy座標大きい方
+		int z2;		//対角の頂点となるz座標大きい方
+		int cx;		//中心点x座標
+		int cy;		//中心点y座標
+		int cz;		//中心点z座標
+		int hdx;	//x幅の半分
+		int hdy;	//y幅の半分
+		int hdz;	//z幅の半分
+		bool rotX;  //中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（箱が回転するのではない）
+		bool rotY;	//中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（箱が回転するのではない）
+		bool rotZ;	//中心点を、オブジェクトの(0,0)を中心にZ軸回転の移動をさせるかどうか（箱が回転するのではない）
 	};
 
 public:
 
 	int _iBoxNum;
 
-	Box* _paBox;
+	Box* _paBase;
+	Box* _paHitArea;
 
 	HitAreaBoxs(int prm_iBoxNum);
 
+	void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 	void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2);
 	void setBox(int prm_index, int x1, int y1, int x2, int y2);
 	virtual ~HitAreaBoxs();

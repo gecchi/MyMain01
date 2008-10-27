@@ -3,44 +3,74 @@
 
 HitAreaBoxs::HitAreaBoxs(int prm_iBoxNum) : GgafObject() {
 	if (prm_iBoxNum > 0) {
-		_paBox = NEW Box[prm_iBoxNum];
+		_paBase = NEW Box[prm_iBoxNum];
+		_paHitArea = NEW Box[prm_iBoxNum];
 		_iBoxNum = prm_iBoxNum;
 	} else {
 		throw_GgafCriticalException("HitAreaBoxs::HitAreaBoxs Box数が不正。prm_iBoxNum="<<prm_iBoxNum);
 	}
 }
 
-void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
+
+void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
 	if (_iBoxNum < prm_index) {
 		throw_GgafCriticalException("HitAreaBoxs::setBox() 要素オーバー。_iBoxNum="<<_iBoxNum<<"/prm_index="<<prm_index);
 	}
-	_paBox[prm_index].x1 = x1;
-	_paBox[prm_index].y1 = y1;
-	_paBox[prm_index].z1 = z1;
-	_paBox[prm_index].x2 = x2;
-	_paBox[prm_index].y2 = y2;
-	_paBox[prm_index].z2 = z2;
+	if (x1 < x2) {
+		_paBase[prm_index].x1 = x1;
+		_paBase[prm_index].x2 = x2;
+	} else {
+		_paBase[prm_index].x1 = x2;
+		_paBase[prm_index].x2 = x1;
+	}
 
+	if (y1 < y2) {
+		_paBase[prm_index].y1 = y1;
+		_paBase[prm_index].y2 = y2;
+	} else {
+		_paBase[prm_index].y1 = y2;
+		_paBase[prm_index].y2 = y1;
+	}
+
+	if (z1 < z2) {
+		_paBase[prm_index].z1 = z1;
+		_paBase[prm_index].z2 = z2;
+	} else {
+		_paBase[prm_index].z1 = z2;
+		_paBase[prm_index].z2 = z1;
+	}
+
+
+	_paBase[prm_index].hdx = (_paBase[prm_index].x2 - _paBase[prm_index].x1) / 2;
+	_paBase[prm_index].hdy = (_paBase[prm_index].y2 - _paBase[prm_index].y1) / 2;
+	_paBase[prm_index].hdz = (_paBase[prm_index].z2 - _paBase[prm_index].z1) / 2;
+
+	_paBase[prm_index].cx = _paBase[prm_index].x1 + _paBase[prm_index].hdx;
+	_paBase[prm_index].cy = _paBase[prm_index].y1 + _paBase[prm_index].hdy;
+	_paBase[prm_index].cz = _paBase[prm_index].z1 + _paBase[prm_index].hdz;
+
+	_paBase[prm_index].rotX = rotX;
+	_paBase[prm_index].rotY = rotY;
+	_paBase[prm_index].rotZ = rotZ;
+
+	_paHitArea[prm_index] = _paBase[prm_index];
+}
+
+
+void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
+	setBox(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
 }
 
 void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int x2, int y2) {
-	if (_iBoxNum < prm_index) {
-		throw_GgafCriticalException("HitAreaBoxs::setBox() 要素オーバー2。_iBoxNum="<<_iBoxNum<<"/prm_index="<<prm_index);
-	}
-	_paBox[prm_index].x1 = x1;
-	_paBox[prm_index].y1 = y1;
-	_paBox[prm_index].z1 = -5000; //-5px～+5px で厚み10px
-	_paBox[prm_index].x2 = x2;
-	_paBox[prm_index].y2 = y2;
-	_paBox[prm_index].z2 = 5000;
-
+	setBox(prm_index, x1, y1, -5000, x2, y2, 5000, false, false, false);
 }
 
 
 HitAreaBoxs::~HitAreaBoxs() {
 	TRACE("HitAreaBoxs::~HitAreaBoxs() start--->");
-	if (_paBox != NULL) {
-		delete[] _paBox;
+	if (_paBase != NULL) {
+		delete[] _paBase;
+		delete[] _paHitArea;
 	}
 	TRACE("HitAreaBoxs::~HitAreaBoxs() <---end");
 }
