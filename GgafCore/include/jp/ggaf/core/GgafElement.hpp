@@ -483,6 +483,7 @@ _wasExecuted_processDrawMain(false)
 
 template<class T>
 void GgafElement<T>::nextFrame() {
+	TRACE("GgafElement::nextFrame BEGIN _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 	if (_willMoveLastNextFrame) {
 		_willMoveLastNextFrame = false;
 		SUPER::moveLast();
@@ -549,6 +550,7 @@ void GgafElement<T>::nextFrame() {
 		}
 
 	}
+	TRACE("GgafElement::nextFrame END _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>

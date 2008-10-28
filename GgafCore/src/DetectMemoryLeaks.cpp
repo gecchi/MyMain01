@@ -14,7 +14,7 @@ throw (std::bad_alloc)
 	}
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
+        TRACE("new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address );
         std::ostringstream oss;
         oss << strFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
         detectMemoryLeaksMemoryMap.insert( std::pair<std::size_t, std::string>((std::size_t)address, oss.str()) );
@@ -33,7 +33,7 @@ throw (std::bad_alloc)
 	}
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "new[]: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address << std::endl;
+    	TRACE("new[]: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address);
         std::ostringstream oss;
         oss << strFileName << ":" << nLineNum << " size=" << size  << " address=" << address;
         detectMemoryLeaksMemoryMap.insert( std::pair<std::size_t, std::string>((std::size_t)address, oss.str()) );
@@ -48,7 +48,7 @@ operator delete(void * address)
         return;
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "delete: " << " address=" << address << std::endl;
+    	//TRACE("delete: " << " address=" << address );
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
@@ -69,7 +69,7 @@ operator delete[](void * address)
         return;
 
     if(detectMemoryLeaksFlag){
-        // std::cout << "delete[]: " << " address=" << address << std::endl;
+    	//TRACE("delete[]: " << " address=" << address);
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
