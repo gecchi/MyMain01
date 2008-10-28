@@ -98,7 +98,6 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
-
 	_tmpX = _X;
 	_tmpY = _Y;
 	_tmpZ = _Z;

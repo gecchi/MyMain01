@@ -75,21 +75,33 @@ void EnemyCeres::processBehavior() {
 		_iMovePatternNo++;
 	}
 
+	if (_iMovePatternNo == 2 && _X < -100000) {
+		_pMover -> setXYMoveAcceleration(0);
+		_pMover -> setXYZMove(
+				5000,
+				GameGlobal::_pMyShip->_X,
+				GameGlobal::_pMyShip->_Y,
+				GameGlobal::_pMyShip->_Z
+				);
+		_iMovePatternNo++;
+	}
+
 	//À•W‚É”½‰f
 	_pMover -> behave();
 
-	if (_incZ > 0) {
-		if (_Z > 0) {
-			_Z = 0;
-			_pMover -> setZMoveVelocity(0);
-		}
-	} else if (_incZ < 0) {
-		if (_Z < 0) {
-			_Z = 0;
-			_pMover -> setZMoveVelocity(0);
+	if (_iMovePatternNo == 2) {
+		if (_incZ > 0) {
+			if (_Z > 0) {
+				_Z = 0;
+				_pMover -> setZMoveVelocity(0);
+			}
+		} else if (_incZ < 0) {
+			if (_Z < 0) {
+				_Z = 0;
+				_pMover -> setZMoveVelocity(0);
+			}
 		}
 	}
-
 	//_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pMover ->_iVelocity_ZMove));
 }
 
