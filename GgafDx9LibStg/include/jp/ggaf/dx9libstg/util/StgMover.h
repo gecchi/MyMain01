@@ -215,6 +215,9 @@ public:
 
 	void setZMoveAcceleration(int prm_iAcceleration_ZMoveVelocity);
 
+
+	void setXYZMove(int prm_iVelocity, int tx, int ty, int tz);
+
 	virtual ~StgMover();
 };
 

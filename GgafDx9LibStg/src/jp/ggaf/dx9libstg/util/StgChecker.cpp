@@ -24,7 +24,7 @@ void StgChecker::setHitArea(int prm_index, int x1, int y1, int z1, int x2, int y
 	if (_pHitAreaBoxs == NULL) {
 		throw_GgafCriticalException("StgChecker::setHitArea まず useHitArea を実行して、要素数を宣言してください。");
 	} else {
-		setHitArea(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
+		_pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
 	}
 }
 
