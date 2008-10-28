@@ -57,15 +57,6 @@ void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, 
 }
 
 
-void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
-	setBox(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
-}
-
-void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int x2, int y2) {
-	setBox(prm_index, x1, y1, -5000, x2, y2, 5000, false, false, false);
-}
-
-
 HitAreaBoxs::~HitAreaBoxs() {
 	TRACE("HitAreaBoxs::~HitAreaBoxs() start--->");
 	if (_paBase != NULL) {

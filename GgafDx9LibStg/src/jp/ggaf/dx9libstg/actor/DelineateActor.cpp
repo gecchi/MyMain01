@@ -19,7 +19,7 @@ DelineateActor::DelineateActor(string prm_name) : DefaultCubeActor(prm_name) {
 	_class_name = "DelineateActor";
 }
 
-void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int prm_z1, int prm_z2) {
+void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2,  int prm_z2) {
 	_SX = (prm_x2 - prm_x1);
 	_SY = (prm_y2 - prm_y1);
 	_SZ = (prm_z2 - prm_z1);
@@ -31,9 +31,9 @@ void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_x2, int prm_y2, int
 }
 
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
-	if (prm_pChecker != NULL && prm_pChecker->_pHitAreaBoxs != NULL && prm_pChecker->_pActor->canBump()) {
-		GgafDx9UntransformedActor* pActor     = prm_pChecker->_pActor;
-		HitAreaBoxs*                 pHitAreaBoxs = prm_pChecker->_pHitAreaBoxs;
+	if (prm_pChecker != NULL && prm_pChecker->getHitAreaBoxs() != NULL && prm_pChecker->getTargetActor()->canBump()) {
+		GgafDx9UntransformedActor* pActor     = prm_pChecker->getTargetActor();
+		HitAreaBoxs*                 pHitAreaBoxs = prm_pChecker->getHitAreaBoxs();
 
 		//Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
 		//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
@@ -44,9 +44,9 @@ void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
 				drawBox(
 					pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
 					pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
+					pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1,
 					pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
 					pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2,
-					pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1,
 					pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2
 				);
 			}

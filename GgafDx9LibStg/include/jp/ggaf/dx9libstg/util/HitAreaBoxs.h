@@ -31,8 +31,7 @@ public:
 	HitAreaBoxs(int prm_iBoxNum);
 
 	void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
-	void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2);
-	void setBox(int prm_index, int x1, int y1, int x2, int y2);
+
 	virtual ~HitAreaBoxs();
 };
 
