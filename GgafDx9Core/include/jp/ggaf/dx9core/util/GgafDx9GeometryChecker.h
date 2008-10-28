@@ -25,6 +25,9 @@ public:
 	//virtual void draw();
 
 	GgafDx9UntransformedActor* getTargetActor() {
+		if (_pActor == NULL) {
+			_TRACE_("GgafDx9GeometryChecker::getTargetActor NULLÇ≈Ç†ÇÈÇ™ÇÊÇ¢ÇÃÇ©ÅI");
+		}
 		return _pActor;
 	}
 
