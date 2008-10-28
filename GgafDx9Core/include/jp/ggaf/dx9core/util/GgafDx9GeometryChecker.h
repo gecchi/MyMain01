@@ -6,9 +6,12 @@
 
 class GgafDx9GeometryChecker {
 
-public:
+protected:
 	/** 対象アクター */
 	GgafDx9UntransformedActor* _pActor;
+
+
+public:
 
 	/**
 	 * コンストラクタ<BR>
@@ -21,6 +24,9 @@ public:
 
 	//virtual void draw();
 
+	GgafDx9UntransformedActor* getTargetActor() {
+		return _pActor;
+	}
 
 	virtual bool isBump(GgafDx9GeometryChecker* prm_pOtherChecker) = 0;
 
