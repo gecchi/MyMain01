@@ -21,10 +21,10 @@ void TamagoActor::initialize() {
 //	_pMover -> _synchronize_ZaxisAxisRotAngle_to_XYMoveAngle_Flg = true;
 //	_pMover -> _iType_AutoXYMoveAngleTarget = TURN_COUNTERCLOCKWISE;
 
-//	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(1, 0);
-//	_pChecker -> _pHitAreaBoxs -> setBox(0, -10000, -10000, 10000, 10000);
+//	_pChecker -> useHitArea(1, 0);
+//	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
 
-//	_pChecker -> _pHitAreaBoxs = NEW HitAreaBoxs(0, 4);
+//	_pChecker -> useHitArea(0, 4);
 //	_pChecker -> _pHitAreaBoxs -> setLine(0, -10000, -10000, 10000, -10000, true);
 //	_pChecker -> _pHitAreaBoxs -> setLine(1, 10000, -10000, 10000, 10000, true);
 //	_pChecker -> _pHitAreaBoxs -> setLine(2, 10000, 10000, -10000, 10000, true);
