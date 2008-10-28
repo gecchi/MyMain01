@@ -331,31 +331,31 @@ void StgMover::setZMoveAcceleration(int prm_iAcceleration_ZMoveVelocity) {
 	_iAcceleration_ZMoveVelocity = prm_iAcceleration_ZMoveVelocity;
 }
 
-void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
-	setXYMoveAngle(tx, ty);
-	double dz = abs(tz - _pActor->_Z);
-	double dxy = sqrt( ((tx - _pActor->_X)*(tx - _pActor->_X)) +
-			           ((ty - _pActor->_Y)*(ty - _pActor->_Y))
-			         );
-	_TRACE_("("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")　→　("<<tx<<","<<ty<<","<<tz<<")  dz="<<dz<<" dxy="<<dxy);
-	if (dz > dxy) {
-		//z基準で
-		setZMoveVelocity(sgn(tz - _pActor->_Z) * prm_iVelocity);
-		if (dz != 0) {
-			setXYMoveVelocity((dxy/dz) * prm_iVelocity);
-		} else {
-			setXYMoveVelocity(0);
-		}
-	} else {
-		if (dxy != 0) {
-			setZMoveVelocity(sgn(tz - _pActor->_Z) * (dz/dxy) * prm_iVelocity);
-		} else {
-			setZMoveVelocity(0);
-		}
-		setXYMoveVelocity(prm_iVelocity);
-	}
-
-}
+//void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
+//	setXYMoveAngle(tx, ty);
+//	double dz = abs(tz - _pActor->_Z);
+//	double dxy = sqrt( ((tx - _pActor->_X)*(tx - _pActor->_X)) +
+//			           ((ty - _pActor->_Y)*(ty - _pActor->_Y))
+//			         );
+//	_TRACE_("("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")　→　("<<tx<<","<<ty<<","<<tz<<")  dz="<<dz<<" dxy="<<dxy);
+//	if (dz > dxy) {
+//		//z基準で
+//		setZMoveVelocity(sgn(tz - _pActor->_Z) * prm_iVelocity);
+//		if (dz != 0) {
+//			setXYMoveVelocity((dxy/dz) * prm_iVelocity);
+//		} else {
+//			setXYMoveVelocity(0);
+//		}
+//	} else {
+//		if (dxy != 0) {
+//			setZMoveVelocity(sgn(tz - _pActor->_Z) * (dz/dxy) * prm_iVelocity);
+//		} else {
+//			setZMoveVelocity(0);
+//		}
+//		setXYMoveVelocity(prm_iVelocity);
+//	}
+//
+//}
 
 
 

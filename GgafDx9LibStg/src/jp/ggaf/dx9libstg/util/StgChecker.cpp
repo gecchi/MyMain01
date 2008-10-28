@@ -2,7 +2,7 @@
 
 StgChecker::StgChecker(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryChecker(prm_pActor) {
 	_pHitAreaBoxs = NULL;
-
+	__int64 a;
 
 	_iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
 	_iScorePointOriginally = 0;  //Œ³—ˆ‚Ì“¾“_
