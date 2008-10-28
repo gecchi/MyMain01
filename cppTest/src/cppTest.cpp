@@ -8,13 +8,13 @@
 
 #include "stdafx.h"
 struct vec{
-  short x;
-  short y;
-  short z;
+	unsigned short x;
+	unsigned short z;
+	unsigned short y;
 };
 
 union MyVec {
-	long long xyz;
+	long long yzx;
 	vec v;
 };
 
@@ -22,16 +22,16 @@ union MyVec {
 int main() {
 	MyVec myvec;
 
-	myvec.xyz = 272889206077488LL;
+	myvec.yzx = 0LL;
 
-	cout << (myvec.xyz)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
+	cout << (myvec.yzx)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
 
-	myvec.v.x = -2000;
-	cout << (myvec.xyz)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
-	myvec.v.y = -2000;
-	cout << (myvec.xyz)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
-	myvec.v.z = -2000;
-	cout << (myvec.xyz)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
+	myvec.v.x = 1;
+	cout << (myvec.yzx)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
+	myvec.v.z = 1;
+	cout << (myvec.yzx)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
+	myvec.v.y = 1;
+	cout << (myvec.yzx)  << "(" << (myvec.v.x) << "," << (myvec.v.y) << "," << (myvec.v.z) << ")" << endl;
 
 	return 0;
 }
