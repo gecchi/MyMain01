@@ -2,8 +2,6 @@
 
 StgChecker::StgChecker(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryChecker(prm_pActor) {
 	_pHitAreaBoxs = NULL;
-	__int64 a;
-
 	_iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
 	_iScorePointOriginally = 0;  //Œ³—ˆ‚Ì“¾“_
 	_iStaminaPoint = 1;          //‘Ï‹v—Í
@@ -34,6 +32,9 @@ void StgChecker::behave() {
 	}
 
 	static int cx, cy, cz;
+	s_ang s_RX = _pActor->_RX / ANGLE_RATE;
+	s_ang s_RY = _pActor->_RY / ANGLE_RATE;
+	s_ang s_RZ = _pActor->_RZ / ANGLE_RATE;
 
 	for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
 		if (!_pHitAreaBoxs->_paBase[i].rotX && !_pHitAreaBoxs->_paBase[i].rotY && !_pHitAreaBoxs->_paBase[i].rotZ) {
@@ -44,22 +45,22 @@ void StgChecker::behave() {
 		cz = _pHitAreaBoxs->_paBase[i].cz;
 
 		if (_pHitAreaBoxs->_paBase[i].rotX) {
-			_pHitAreaBoxs->_paHitArea[i].cy = (cy*GgafDx9Util::COS[_pActor->_RX]) - (cz*GgafDx9Util::SIN[_pActor->_RX]);
-			_pHitAreaBoxs->_paHitArea[i].cz = (cy*GgafDx9Util::SIN[_pActor->_RX]) + (cz*GgafDx9Util::COS[_pActor->_RX]);
+			_pHitAreaBoxs->_paHitArea[i].cy = (cy*GgafDx9Util::COS[s_RX]) - (cz*GgafDx9Util::SIN[s_RX]);
+			_pHitAreaBoxs->_paHitArea[i].cz = (cy*GgafDx9Util::SIN[s_RX]) + (cz*GgafDx9Util::COS[s_RX]);
 			cy = _pHitAreaBoxs->_paHitArea[i].cy;
 			cz = _pHitAreaBoxs->_paHitArea[i].cz;
 		}
 
 		if (_pHitAreaBoxs->_paBase[i].rotY) {
-			_pHitAreaBoxs->_paHitArea[i].cz = (cz*GgafDx9Util::COS[_pActor->_RY]) - (cx*GgafDx9Util::SIN[_pActor->_RY]);
-			_pHitAreaBoxs->_paHitArea[i].cx = (cz*GgafDx9Util::SIN[_pActor->_RY]) + (cx*GgafDx9Util::COS[_pActor->_RY]);
+			_pHitAreaBoxs->_paHitArea[i].cz = (cz*GgafDx9Util::COS[s_RY]) - (cx*GgafDx9Util::SIN[s_RY]);
+			_pHitAreaBoxs->_paHitArea[i].cx = (cz*GgafDx9Util::SIN[s_RY]) + (cx*GgafDx9Util::COS[s_RY]);
 			cz = _pHitAreaBoxs->_paHitArea[i].cz;
 			cx = _pHitAreaBoxs->_paHitArea[i].cx;
 		}
 
 		if (_pHitAreaBoxs->_paBase[i].rotZ) {
-			_pHitAreaBoxs->_paHitArea[i].cx = (cx*GgafDx9Util::COS[_pActor->_RZ]) - (cy*GgafDx9Util::SIN[_pActor->_RZ]);
-			_pHitAreaBoxs->_paHitArea[i].cy = (cx*GgafDx9Util::SIN[_pActor->_RZ]) + (cy*GgafDx9Util::COS[_pActor->_RZ]);
+			_pHitAreaBoxs->_paHitArea[i].cx = (cx*GgafDx9Util::COS[s_RZ]) - (cy*GgafDx9Util::SIN[s_RZ]);
+			_pHitAreaBoxs->_paHitArea[i].cy = (cx*GgafDx9Util::SIN[s_RZ]) + (cy*GgafDx9Util::COS[s_RZ]);
 			cx = _pHitAreaBoxs->_paHitArea[i].cx;
 			cy = _pHitAreaBoxs->_paHitArea[i].cy;
 		}

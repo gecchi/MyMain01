@@ -14,14 +14,15 @@ void GgafDx9CubeActor::processDrawMain() {
 	static float fRateScale = LEN_UNIT*PX_UNIT;
 	static D3DXMATRIX matrixTransWorld;  //WORLDïœä∑çsóÒ
 	D3DXMatrixIdentity(&matrixTransWorld); //íPà çsóÒÇ÷
+	s_ang s_RZ = _RZ / ANGLE_RATE;
 	//float fRateScale = (LEN_UNIT*PX_UNIT);
-	matrixTransWorld._11 = (_SX/fRateScale) * GgafDx9Util::COS[_RZ];
-	matrixTransWorld._12 = (_SX/fRateScale) * GgafDx9Util::SIN[_RZ];
+	matrixTransWorld._11 = (_SX/fRateScale) * GgafDx9Util::COS[s_RZ];
+	matrixTransWorld._12 = (_SX/fRateScale) * GgafDx9Util::SIN[s_RZ];
 	matrixTransWorld._13 = 0.0;
 	matrixTransWorld._14 = 0.0;
 
-	matrixTransWorld._21 = (float)((_SY/fRateScale) * -1.0 * GgafDx9Util::SIN[_RZ]);
-	matrixTransWorld._22 = (float)((_SY/fRateScale)        * GgafDx9Util::COS[_RZ]);
+	matrixTransWorld._21 = (float)((_SY/fRateScale) * -1.0 * GgafDx9Util::SIN[s_RZ]);
+	matrixTransWorld._22 = (float)((_SY/fRateScale)        * GgafDx9Util::COS[s_RZ]);
 	matrixTransWorld._23 = 0.0;
 	matrixTransWorld._24 = 0.0;
 

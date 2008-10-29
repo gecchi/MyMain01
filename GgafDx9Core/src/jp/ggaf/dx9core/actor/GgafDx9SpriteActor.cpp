@@ -16,62 +16,6 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_n
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
-
-	//WORLD変換
-//	static D3DXMATRIX matrixTransWorld;  //WORLD変換行列
-//	D3DXMatrixIdentity(&matrixTransWorld); //単位行列へ
-//	static float fRateScale = LEN_UNIT*PX_UNIT;
-//
-//	//単位行列→X軸回転→Y軸回転→Z軸回転→拡大縮小→平行移動　の変換行列を作成
-//	// |cosY*cosZ*sx					  , cosY*sinZ*sy					 , -sinY*sz	    , 0  |
-//	// |(sinX*sinY*cosZ + cosX*-sinZ)*sx  , (sinX*sinY*sinZ + cosX*cosZ)*sy	 , sinX*cosY*sz , 0  |
-//	// |(cosX*sinY*cosZ + -sinX*-sinZ)*sx , (cosX*sinY*sinZ + -sinX*cosZ)*sy , cosX*cosY*sz , 0  |
-//	// |dx								  , dy								 ,dz			, 1  |
-//	matrixTransWorld._11 = GgafDx9Util::COS[_RY] * GgafDx9Util::COS[_RZ] * (_SX/fRateScale);
-//	matrixTransWorld._12 = GgafDx9Util::COS[_RY] * GgafDx9Util::SIN[_RZ] * (_SY/fRateScale);
-//	matrixTransWorld._13 = -1*GgafDx9Util::SIN[_RY] * (_SZ/fRateScale);
-//	matrixTransWorld._14 = 0;
-//
-//	matrixTransWorld._21 = (
-//		 (GgafDx9Util::SIN[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::COS[_RZ]) +
-//		 (GgafDx9Util::COS[_RX] * -1 * GgafDx9Util::SIN[_RZ])
-//	   ) * (
-//		 _SX/fRateScale
-//	   );
-//	matrixTransWorld._22 = (
-//		 (GgafDx9Util::SIN[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::SIN[_RZ]) +
-//		 (GgafDx9Util::COS[_RX] * GgafDx9Util::COS[_RZ])
-//	   ) * (
-//		 _SY/fRateScale
-//	   );
-//	matrixTransWorld._23 = GgafDx9Util::SIN[_RX] * GgafDx9Util::COS[_RY] * (_SZ/fRateScale);
-//
-//	matrixTransWorld._24 = 0;
-//
-//	matrixTransWorld._31 = (
-//		 (GgafDx9Util::COS[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::COS[_RZ]) +
-//		 (-1 * GgafDx9Util::SIN[_RX] * -1 * GgafDx9Util::SIN[_RZ])
-//	   ) * (
-//		 _SX/fRateScale
-//	   );
-//	matrixTransWorld._32 = (
-//		 (GgafDx9Util::COS[_RX] * GgafDx9Util::SIN[_RY] * GgafDx9Util::SIN[_RZ]) +
-//		 (GgafDx9Util::SIN[_RX] * -1 * GgafDx9Util::COS[_RZ])
-//	   ) * (
-//		 _SY/fRateScale
-//	   );
-//	matrixTransWorld._33 = GgafDx9Util::COS[_RX] * GgafDx9Util::COS[_RY] * (_SZ/fRateScale);
-//	matrixTransWorld._34 = 0;
-//
-//	matrixTransWorld._41 = (float)(1.0*_X/LEN_UNIT/PX_UNIT);
-//	matrixTransWorld._42 = (float)(1.0*_Y/LEN_UNIT/PX_UNIT);
-//	matrixTransWorld._43 = (float)(1.0*_Z/LEN_UNIT/PX_UNIT);
-//	matrixTransWorld._44 = 1;
-//	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matrixTransWorld);
-//
-//	_pSpriteModel->draw(this);
-///
-
 	//WORLD変換
 	//単位行列→Z軸回転→平行移動　の変換行列を作成
 	// |cosZ  , sinZ , 0  , 0  |
@@ -80,14 +24,16 @@ void GgafDx9SpriteActor::processDrawMain() {
 	// |dx    , dy	 , dz , 1  |
 	static D3DXMATRIX matrixTransWorld;  //WORLD変換行列
 	D3DXMatrixIdentity(&matrixTransWorld); //単位行列へ
+	s_ang s_RZ = _RZ / ANGLE_RATE;
+
 	//float fRateScale = (LEN_UNIT*PX_UNIT);
-	matrixTransWorld._11 = GgafDx9Util::COS[_RZ];
-	matrixTransWorld._12 = GgafDx9Util::SIN[_RZ];
+	matrixTransWorld._11 = GgafDx9Util::COS[s_RZ];
+	matrixTransWorld._12 = GgafDx9Util::SIN[s_RZ];
 	matrixTransWorld._13 = 0.0;
 	matrixTransWorld._14 = 0.0;
 
-	matrixTransWorld._21 = (float)(-1.0*GgafDx9Util::SIN[_RZ]);
-	matrixTransWorld._22 = GgafDx9Util::COS[_RZ];
+	matrixTransWorld._21 = (float)(-1.0*GgafDx9Util::SIN[s_RZ]);
+	matrixTransWorld._22 = GgafDx9Util::COS[s_RZ];
 	matrixTransWorld._23 = 0.0;
 	matrixTransWorld._24 = 0.0;
 

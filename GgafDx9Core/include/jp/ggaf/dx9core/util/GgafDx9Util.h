@@ -4,6 +4,7 @@
 #define max3(A,B,C) (GgafDx9Util::max3(A,B,C))
 
 typedef int angle;
+typedef int s_ang;
 
 class GgafDx9Util : GgafUtil {
 
@@ -24,7 +25,7 @@ public:
 	static void getWayAngle(angle prm_angCenter, int prm_iWay, angle prm_angClearance, angle* out_paAngle);
 	static void getRadiationAngle(angle prm_angStart, int prm_iWay, angle* out_paAngle);
 	static angle addAngle(angle prm_angNow, angle prm_angOffset);
-	static void rotXY(int prm_pX, int prm_pY, angle prm_ang, int* out_pX, int* out_pY);
+	static void rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y);
 
 	static int getDistance(int x1, int y1, int x2, int y2);
 

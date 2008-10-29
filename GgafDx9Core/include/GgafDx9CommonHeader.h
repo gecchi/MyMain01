@@ -27,7 +27,7 @@
 #define S_ANG270 (2700)
 #define S_ANG315 (3150)
 
-#define SCALE_ANG (100)
+#define ANGLE_RATE (100)
 
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
