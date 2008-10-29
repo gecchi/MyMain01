@@ -82,17 +82,17 @@ using namespace std;
 
 #define DIRECTINPUT_VERSION 0x0800
 #define ANGLE0 (0)
-#define ANGLE360 (3600)
-#define ANGLE45 (450)
-#define ANGLE90 (900)
-#define ANGLE135 (1350)
-#define ANGLE180 (1800)
-#define ANGLE225 (2250)
-#define ANGLE270 (2700)
-#define ANGLE315 (3150)
+#define ANGLE360 (360000)
+#define ANGLE45 (45000)
 
-#define ANGLE_PI (1800)
-#define ANGLE_2PI (3600)
+#define ANGLE135 (135000)
+#define ANGLE180 (180000)
+#define ANGLE225 (225000)
+#define ANGLE270 (270000)
+#define ANGLE315 (315000)
+
+#define ANGLE_PI (180000)
+#define ANGLE_2PI (360000)
 
 #define LEN_UNIT (1000)
 #define PX_UNIT (10)

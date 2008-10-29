@@ -16,6 +16,19 @@
 #define ANGLE270 (270000)
 #define ANGLE315 (315000)
 
+
+#define S_ANG0 (0)
+#define S_ANG360 (3600)
+#define S_ANG45 (450)
+#define S_ANG90 (900)
+#define S_ANG135 (1350)
+#define S_ANG180 (1800)
+#define S_ANG225 (2250)
+#define S_ANG270 (2700)
+#define S_ANG315 (3150)
+
+#define SCALE_ANG (100)
+
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
@@ -69,6 +82,7 @@ class GgafDx9PlateModel;
 class GgafDx9Scene;
 class GgafDx9World;
 class GgafDx9Util;
+class GgafDx9SphereRadiusVectors;
 class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
@@ -113,6 +127,7 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9World.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Util.h"
+#include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMover.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryChecker.h"

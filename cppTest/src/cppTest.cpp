@@ -14,13 +14,19 @@ int main() {
 
 	GgafDx9SphereRadiusVectors* srvMy = new GgafDx9SphereRadiusVectors();
 
-	angle rZ, rY;
+	int rZ, rY;
 	cout << "start:" << timeGetTime() << endl;
-	for (int i = 0; i < 10; i++) {
-		srvMy->getRotAngleClosely(1489,1780,1332, rZ, rY);
+	for (int i = 0; i < 10000; i++) {
+		srvMy->getRotAngleClosely(9890,801,1231, rZ,rY);
 	}
 	cout << "end:" << timeGetTime() << endl;
 	cout << "rZ=" << rZ << " rY=" << rY << endl;
+
+	unsigned short x,y,z;
+
+	srvMy->getVectorClosely(46,246,x,y,z);
+	cout << "(" << x << "," << y << "," << z << ")" << endl;
+
 
 	delete srvMy;
 	::timeEndPeriod(1);//タイマー精度終了処理

@@ -14,7 +14,7 @@ union COMPARE_ABLE_SR_VECTOR {
 };
 //class GgafDx9SphereRadiusVectors;
 
-#define SCALE_ANG90 (ANGLE90/100)
+
 
 class GgafDx9SphereRadiusVectors {
 public:

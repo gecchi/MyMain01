@@ -4,23 +4,23 @@
 //
 //}
 
-COMPARE_ABLE_SR_VECTOR GgafDx9SphereRadiusVectors::_sr[(SCALE_ANG90+1)*(SCALE_ANG90+1)];
+COMPARE_ABLE_SR_VECTOR GgafDx9SphereRadiusVectors::_sr[(S_ANG90+1)*(S_ANG90+1)];
 
 GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
 	int index;
 	static unsigned short xXY, yXY, xXZ, zXZ;
 	static double radRotAxisZ, radRotAxisY;
-	for (angle angRotAxisZ = 0; angRotAxisZ <= SCALE_ANG90; angRotAxisZ ++) {
+	for (angle angRotAxisZ = 0; angRotAxisZ <= S_ANG90; angRotAxisZ ++) {
 		//XY平面状の球表面の点を求める。
-		radRotAxisZ = ((PI*2.0) / (SCALE_ANG90*4)) * angRotAxisZ;
+		radRotAxisZ = ((PI*2.0) / (S_ANG90*4)) * angRotAxisZ;
 		xXY = cos(radRotAxisZ)*10000.0;
 		yXY = sin(radRotAxisZ)*10000.0;
-		for (angle angRotAxisY = 0; angRotAxisY <= SCALE_ANG90; angRotAxisY ++) {
+		for (angle angRotAxisY = 0; angRotAxisY <= S_ANG90; angRotAxisY ++) {
 			//XY平面状の球表面の点を、Y軸回転する。
-			radRotAxisY = ((PI*2.0) / (SCALE_ANG90*4))* angRotAxisY;
+			radRotAxisY = ((PI*2.0) / (S_ANG90*4))* angRotAxisY;
 			xXZ = xXY*cos(radRotAxisY);
 			zXZ = xXY*sin(radRotAxisY);
-			index = angRotAxisZ*(SCALE_ANG90+1) + angRotAxisY;
+			index = angRotAxisZ*(S_ANG90+1) + angRotAxisY;
 			_sr[index].vec.y = yXY;
 			_sr[index].vec.x = xXZ;
 			_sr[index].vec.z = zXZ;
@@ -39,7 +39,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned short prm_x, unsign
 	//int cnt = 0;
 
 	top = 0;
-	bottom = (SCALE_ANG90+1)*(SCALE_ANG90+1) - 1;
+	bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
 	center_prev = -1;
 	while (true) {
@@ -64,8 +64,8 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned short prm_x, unsign
 	target.vec.x = prm_x;
 	target.vec.z = prm_z;
 
-	top = (top / (SCALE_ANG90+1)) * (SCALE_ANG90+1);
-	bottom = top + (SCALE_ANG90+1)-1;
+	top = (top / (S_ANG90+1)) * (S_ANG90+1);
+	bottom = top + (S_ANG90+1)-1;
 	center_prev = -1;
 	while (true) {
 		center = (top + bottom) / 2;
@@ -83,8 +83,8 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned short prm_x, unsign
 		//cnt++;
 	}
 
-	out_angRotZ = top / (SCALE_ANG90+1);
-	out_angRotY = top % (SCALE_ANG90+1);
+	out_angRotZ = top / (S_ANG90+1);
+	out_angRotY = top % (S_ANG90+1);
 
 
 	//cout << "cnt2=" << cnt << endl;
@@ -93,7 +93,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned short prm_x, unsign
 }
 
 void GgafDx9SphereRadiusVectors::getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned short& out_x, unsigned short& out_y, unsigned short& out_z) {
-	int index = out_angRotY*(SCALE_ANG90+1)+prm_angRotZ;
+	int index = out_angRotY*(S_ANG90+1)+prm_angRotZ;
 	out_x = _sr[index].vec.x;
 	out_y = _sr[index].vec.y;
 	out_z = _sr[index].vec.z;
