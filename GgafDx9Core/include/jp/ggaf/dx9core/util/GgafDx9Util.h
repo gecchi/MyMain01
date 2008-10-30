@@ -15,7 +15,7 @@ public:
 	static int RAD_UNITLEN[];
 	static float COS[];
 	static float SIN[];
-
+	static GgafDx9SphereRadiusVectors _srv;
 
 	static bool _isInit;
 
@@ -27,7 +27,22 @@ public:
 	static angle addAngle(angle prm_angNow, angle prm_angOffset);
 	static void rotXY(int prm_X, int prm_Y, angle prm_ang, int& out_X, int& out_Y);
 
+
 	static int getDistance(int x1, int y1, int x2, int y2);
+
+	/**
+	 * 原点からパラメータ座標を向く時の、Z軸回転アングル値とY軸回転アングル値を取得 .
+	 * ついでに単位ベクトルも貰える。
+	 * @param x [in]X座標
+	 * @param y [in]Y座標
+	 * @param z [in]Z座標
+	 * @param out_nvx [out]単位ベクトルX要素
+	 * @param out_nvy [out]単位ベクトルY要素
+	 * @param out_nvz [out]単位ベクトルZ要素
+	 * @param out_angRotZ [out]Z軸回転アングル値
+	 * @param out_angRotY [out]Y軸回転アングル値
+	 */
+	static void getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY);
 
 	/**
 	 * 線分の当たり判定<BR>

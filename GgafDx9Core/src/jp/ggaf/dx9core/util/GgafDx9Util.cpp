@@ -8,7 +8,7 @@ int GgafDx9Util::TAN_UNITLEN[S_ANG360];
 int GgafDx9Util::RAD_UNITLEN[S_ANG360];
 float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
-
+GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
 	if (_isInit) {
@@ -197,6 +197,76 @@ int GgafDx9Util::sign(int x) {
     } else {
         return 0;
     }
+}
+
+void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY) {
+	//vx,vy,vz を正規化する。
+	//求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
+	//関係式   X=t*vx; Y=t*vy; Z=t*vz; ･･･ (1) を得る
+	//単位球は X^2 + Y^2 + Z^2 = 1 ･･･(2)
+	//(1)(2)を連立させて、t について解く。
+	//t = 1 / sqrt(vx^2 + vy^2 + vz^2)
+	//これにパラメータを代入し t が求まる。
+	//求めた t を (1) に代入し (X,Y,Z) を求める。
+	double vx = ((double)x) / LEN_UNIT;
+	double vy = ((double)y) / LEN_UNIT;
+	double vz = ((double)z) / LEN_UNIT;
+	double t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
+	out_nvx = t*vx;
+	out_nvy = t*vy;
+	out_nvz = t*vz;
+
+	//GgafDx9SphereRadiusVectors を使って単位ベクトルから回転角をもとめる
+	//但し GgafDx9SphereRadiusVectors のベクトル精度は 10000を乗じた整数である。(LEN_UNIT*10)
+	//さらに、引数のベクトル要素は全て正の値（1/8 の球分）だけなのだー。
+
+	s_ang rZ, rY;
+	_srv.getRotAngleClosely(
+			(unsigned __int16) abs(out_nvx*10000),
+			(unsigned __int16) abs(out_nvy*10000),
+			(unsigned __int16) abs(out_nvz*10000),
+			rZ,
+			rY
+		);
+
+	//x > 0; y > 0; z > 0 の領域を第一象限とする
+	//x < 0; y > 0; z > 0 の領域を第二象限とする
+	//x < 0; y < 0; z > 0 の領域を第三象限とする
+	//x > 0; y < 0; z > 0 の領域を第四象限とする
+	//x > 0; y > 0; z < 0 の領域を第五象限とする
+	//x < 0; y > 0; z < 0 の領域を第六象限とする
+	//x < 0; y < 0; z < 0 の領域を第七象限とする
+	//sx > 0; y < 0; z < 0 の領域を第八象限とする
+	//象限によって回転角を補正
+	if (vx >= 0 && vy >= 0 && vz >= 0) {
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
+	} else if (vx <= 0 && vy >= 0 && vz >= 0) {
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy <= 0 && vz >= 0) {
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy <= 0 && vz >= 0) {
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
+	} else if (vx >= 0 && vy >= 0 && vz <= 0) {
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy >= 0 && vz <= 0) {
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy <= 0 && vz <= 0) {
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy <= 0 && vz <= 0) {
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+	} else {
+		_TRACE_("おかしいですぜ");
+	}
+
+	_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
 }
 
 //DWORD GgafDx9Util::max3(DWORD a, DWORD b, DWORD c) {

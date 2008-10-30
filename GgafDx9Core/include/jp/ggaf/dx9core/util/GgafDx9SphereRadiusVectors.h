@@ -3,13 +3,13 @@
 
 
 struct SR_VECTOR {
-	unsigned short x;
-	unsigned short z;
-	unsigned short y;
+	unsigned __int16 x;
+	unsigned __int16 z;
+	unsigned __int16 y;
 };
 
 union COMPARE_ABLE_SR_VECTOR {
-	long long num_yzx;
+	unsigned __int64 num_yzx;
 	SR_VECTOR vec;
 };
 //class GgafDx9SphereRadiusVectors;
@@ -22,9 +22,9 @@ public:
 
 	GgafDx9SphereRadiusVectors();
 
-	void getRotAngleClosely(unsigned short prm_x, unsigned short prm_y, unsigned short prm_z, int& out_angRotZ, int& out_angRotY);
+	void getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, int& out_angRotZ, int& out_angRotY);
 
-	void getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned short& out_x, unsigned short& out_y, unsigned short& out_z);
+	void getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z);
 
 
 	virtual ~GgafDx9SphereRadiusVectors();
