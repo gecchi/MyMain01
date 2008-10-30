@@ -331,7 +331,35 @@ void StgMover::setZMoveAcceleration(int prm_iAcceleration_ZMoveVelocity) {
 	_iAcceleration_ZMoveVelocity = prm_iAcceleration_ZMoveVelocity;
 }
 
-//void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
+void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
+	_TRACE_("setXYZMove (tx,ty,tx)=("<<tx<<","<<ty<<","<<tz<<")");
+	_TRACE_("setXYZMove _pActor->(_X,_Y,_Z)=("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")");
+	double nvx, nvy, nvz;
+	angle rZ, rY;
+	GgafDx9Util::getRotAngleZY(
+			tx - _pActor->_X,
+			ty - _pActor->_Y,
+			tz - _pActor->_Z,
+			nvx,
+			nvy,
+			nvz,
+			rZ,
+			rY
+		);
+
+	setXYMoveVelocity(prm_iVelocity);
+	//_angXYMove = rZ;
+	_vX_XYMove = nvx * LEN_UNIT;
+	_vY_XYMove = nvy * LEN_UNIT;
+
+	_pActor->_RZ = rZ;
+	_pActor->_RY = rY;
+
+
+	setZMoveVelocity(prm_iVelocity * nvz);
+
+}
+
 //	setXYMoveAngle(tx, ty);
 //	double dz = abs(tz - _pActor->_Z);
 //	double dxy = sqrt( ((tx - _pActor->_X)*(tx - _pActor->_X)) +
