@@ -74,9 +74,11 @@ void GgafDx9GeometryMover::behave() {
 			}
 
 		} else {
-			//フレーム毎のXY平面移動方角旋廻の処理
-			_angVelocity_AxisRotAngle[i] += _angAcceleration_AxisRotAngleVelocity[i];
-			addAxisRotAngle(i, _angVelocity_AxisRotAngle[i]);
+			if (_angAcceleration_AxisRotAngleVelocity[i] != 0) {
+				//フレーム毎の軸回転方角旋廻の処理
+				_angVelocity_AxisRotAngle[i] += _angAcceleration_AxisRotAngleVelocity[i];
+				addAxisRotAngle(i, _angVelocity_AxisRotAngle[i]);
+			}
 		}
 	}
 

@@ -236,32 +236,40 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& ou
 	//x > 0; y > 0; z < 0 ÇÃóÃàÊÇëÊå‹è€å¿Ç∆Ç∑ÇÈ
 	//x < 0; y > 0; z < 0 ÇÃóÃàÊÇëÊòZè€å¿Ç∆Ç∑ÇÈ
 	//x < 0; y < 0; z < 0 ÇÃóÃàÊÇëÊéµè€å¿Ç∆Ç∑ÇÈ
-	//sx > 0; y < 0; z < 0 ÇÃóÃàÊÇëÊî™è€å¿Ç∆Ç∑ÇÈ
+	//x > 0; y < 0; z < 0 ÇÃóÃàÊÇëÊî™è€å¿Ç∆Ç∑ÇÈ
 	//è€å¿Ç…ÇÊÇ¡ÇƒâÒì]äpÇï‚ê≥
-	if (vx >= 0 && vy >= 0 && vz >= 0) {
-		out_angRotZ = rZ * ANGLE_RATE;
-		out_angRotY = rY * ANGLE_RATE;
-	} else if (vx <= 0 && vy >= 0 && vz >= 0) {
-		out_angRotZ = rZ * ANGLE_RATE;
-		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
-	} else if (vx <= 0 && vy <= 0 && vz >= 0) {
-		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
-		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
-	} else if (vx >= 0 && vy <= 0 && vz >= 0) {
-		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
-		out_angRotY = rY * ANGLE_RATE;
-	} else if (vx >= 0 && vy >= 0 && vz <= 0) {
+	if (vx >= 0 && vy >= 0 && vz >= 0) {			//ëÊàÍè€å¿
+_TRACE_("ëÊàÍè€å¿");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
-	} else if (vx <= 0 && vy >= 0 && vz <= 0) {
+	} else if (vx <= 0 && vy >= 0 && vz >= 0) {		//ëÊìÒè€å¿
+		_TRACE_("ëÊìÒè€å¿");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
-	} else if (vx <= 0 && vy <= 0 && vz <= 0) {
+	} else if (vx <= 0 && vy <= 0 && vz >= 0) {		//ëÊéOè€å¿
+		_TRACE_("ëÊéOè€å¿");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
-	} else if (vx >= 0 && vy <= 0 && vz <= 0) {
+	} else if (vx >= 0 && vy <= 0 && vz >= 0) {		//ëÊélè€å¿
+		_TRACE_("ëÊélè€å¿");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy >= 0 && vz <= 0) {		//ëÊå‹è€å¿
+		_TRACE_("ëÊå‹è€å¿");
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
+	} else if (vx <= 0 && vy >= 0 && vz <= 0) {		//ëÊòZè€å¿
+		_TRACE_("ëÊòZè€å¿");
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy <= 0 && vz <= 0) {		//ëÊéµè€å¿
+		_TRACE_("ëÊéµè€å¿");
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy <= 0 && vz <= 0) {		//ëÊî™è€å¿
+		_TRACE_("ëÊî™è€å¿");
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
 	} else {
 		_TRACE_("Ç®Ç©ÇµÇ¢Ç≈Ç∑Ç∫");
 	}
