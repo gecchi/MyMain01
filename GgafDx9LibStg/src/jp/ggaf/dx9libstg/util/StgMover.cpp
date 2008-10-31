@@ -111,9 +111,11 @@ void StgMover::behave() {
 		}
 
 	} else {
-		//フレーム毎のXY平面移動方角旋廻の処理
-		_angVelocity_XYMoveAngle += _angAcceleration_XYMoveAngleVelocity;
-		addXYMoveAngle(_angVelocity_XYMoveAngle);
+		if (_angAcceleration_XYMoveAngleVelocity != 0) {
+			//フレーム毎のXY平面移動方角旋廻の処理
+			_angVelocity_XYMoveAngle += _angAcceleration_XYMoveAngleVelocity;
+			addXYMoveAngle(_angVelocity_XYMoveAngle);
+		}
 	}
 
 
@@ -333,7 +335,7 @@ void StgMover::setZMoveAcceleration(int prm_iAcceleration_ZMoveVelocity) {
 
 void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
 	_TRACE_("setXYZMove (tx,ty,tx)=("<<tx<<","<<ty<<","<<tz<<")");
-	_TRACE_("setXYZMove _pActor->(_X,_Y,_Z)=("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")");
+	_TRACE_("setXYZMove _pActor-> "<<_pActor->getName()<< " (_X,_Y,_Z)=("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")");
 	double nvx, nvy, nvz;
 	angle rZ, rY;
 	GgafDx9Util::getRotAngleZY(
@@ -347,19 +349,19 @@ void StgMover::setXYZMove(int prm_iVelocity, int tx, int ty, int tz) {
 			rY
 		);
 
-	setXYMoveVelocity(prm_iVelocity);
-	//_angXYMove = rZ;
+	setXYMoveVelocity(0);
+	setZMoveVelocity(0);
+	setXYMoveAcceleration(0);
+	setZMoveAcceleration(0);
+	_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg = false;
 	_vX_XYMove = nvx * LEN_UNIT;
 	_vY_XYMove = nvy * LEN_UNIT;
-
-	_pActor->_RZ = rZ;
-	_pActor->_RY = rY;
-
-
-	setZMoveVelocity(prm_iVelocity * nvz);
+	_iVelocity_XYMove = prm_iVelocity;
+	_iVelocity_ZMove = 	prm_iVelocity * nvz;
+	setAxisRotAngle(AXIS_Z, rZ);
+	setAxisRotAngle(AXIS_Y, rY);
 
 }
-
 //	setXYMoveAngle(tx, ty);
 //	double dz = abs(tz - _pActor->_Z);
 //	double dxy = sqrt( ((tx - _pActor->_X)*(tx - _pActor->_X)) +
