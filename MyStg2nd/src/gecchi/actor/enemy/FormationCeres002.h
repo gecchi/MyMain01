@@ -2,7 +2,7 @@
 #define FORMATIONCERES002_H_
 
 
-#define NUM_CERES_FORMATION002 20
+#define NUM_CERES_FORMATION002 15
 /**
  * フォーメーションアクタークラス .
  */
@@ -16,6 +16,5 @@ public:
 
 	virtual ~FormationCeres002();
 };
-
 
 #endif /*FORMATIONCERES002_H_*/

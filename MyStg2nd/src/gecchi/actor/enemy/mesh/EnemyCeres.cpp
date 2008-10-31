@@ -76,6 +76,11 @@ void EnemyCeres::processBehavior() {
 	}
 
 	if (_iMovePatternNo == 2 && _X < -100000) {
+		//_TRACE_("Ceres:"<<getName()<<" (_X,_Y,_Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
+
+		_TRACE_("befor VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
+		_pMover -> setXYMoveVelocity(0);
+		_pMover -> setZMoveVelocity(0);
 		_pMover -> setXYMoveAcceleration(0);
 		_pMover -> setZMoveAcceleration(0);
 		_pMover -> setXYZMove(
@@ -85,12 +90,13 @@ void EnemyCeres::processBehavior() {
 				GameGlobal::_pMyShip->_Z
 				);
 		_iMovePatternNo++;
-		_TRACE_("VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
+		_TRACE_("after VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
 	}
+	//_TRACE_("VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
 
 	//À•W‚É”½‰f
 	_pMover -> behave();
-
+	//_TRACE_("ab VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
 	if (_incZ > 0) {
 		if (_Z > 0) {
 			_Z = 0;
