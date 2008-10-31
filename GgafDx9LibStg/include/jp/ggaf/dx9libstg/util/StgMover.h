@@ -5,15 +5,18 @@
 class StgMover : public GgafDx9GeometryMover {
 
 public:
-	/** キャラのXY平面移動方角X成分単位ベクトル */
-	int _vX_XYMove;
-
-	/** キャラのXY平面移動方角Y成分単位ベクトル */
-	int _vY_XYMove;
-
-	/** キャラのXY平面移動方角の方角値(0～360,000) */
-	int _angXYMove;
-
+	/** キャラの移動方角単位ベクトル */
+	double _vX, _vY, _vZ;
+	/** 移動方角のZ軸回転 */
+	angle _angRZ_Move;
+	/** 移動方角のY軸回転 */
+	angle _angRY_Move;
+//	/** キャラのXY平面移動方角Y成分単位ベクトル */
+//	int _vY_Move;
+//
+//	/** キャラのXY平面移動方角の方角値(0～360,000) */
+//	int _angXYMove;
+//
 	/** XY平面移動方角の角速度（XY平面移動方角値に毎フレーム加算する方角値） */
 	angle _angVelocity_XYMoveAngle;
 
@@ -29,7 +32,7 @@ public:
 	/** 目標のXY平面移動方角自動停止機能有効フラグ */
 	bool _auto_xymove_angle_target_Flg;
 	/** 目標とするキャラのXY平面移動方角の方角値(0～360,000) */
-	int _angTarget_XYMove;
+	int _angTarget_Move;
 	/** 目標のXY平面移動方角自動停止機能が有効になる回転方向 */
 	int _auto_xymove_angle_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
 	/** 目標のXY平面移動方角自動停止機能が有効になる移動方角角速度 */
@@ -37,17 +40,20 @@ public:
 
 ///////////////////////////
 
+	/** 移動速度 */
+	int _iVelocity_Move;
+
 	/** XY平面移動速度（XY平面移動XY座標/frame）*/
-	int _iVelocity_XYMove;
+	//int _iVelocity_Move;
 
-	/** XY平面移動速度上限 */
-	int _iTopAngVelocity_XYMove;
+	/** 移動速度上限 */
+	int _iTopAngVelocity_Move;
 
-	/** XY平面移動速度下限 */
-	int _iBottomVelocity_XYMove;
+	/** 移動速度下限 */
+	int _iBottomVelocity_Move;
 
-	/** XY平面移動加速度 */
-	int _iAcceleration_XYMoveVelocity;
+	/** 移動加速度 */
+	int _iAcceleration_MoveVelocity;
 
 
 	/** Z軸移動速度 */
@@ -61,7 +67,7 @@ public:
 
 	/** Z軸移動加速度 */
 	int _iAcceleration_ZMoveVelocity;
-
+//
 
 	/** 自動前方向き機能有効フラグ */
 	bool _synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg;
@@ -87,6 +93,9 @@ public:
 	 */
 	void setXYMoveAngle(angle prm_angXYMove);
 
+	void setXZMoveAngle(angle prm_angXZMove);
+
+
 	/**
 	 * ActorのXY平面移動方角値を現在XY座標からの対象XY座標への方向を割り出し、設定する。<BR>
 	 * 自動前方向き機能が有効(_synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg)の場合、<BR>
@@ -96,6 +105,8 @@ public:
 	 * @param	prm_tY	対象yXY座標
 	 */
 	void setXYMoveAngle(int prm_tX, int prm_tY);
+
+	void setXYZMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
 	/**
 	 * 現在の Actor のXY平面移動方角値へ加算（負で減算）。<BR>
@@ -156,14 +167,14 @@ public:
 
 	/**
 	 * ActorのXY平面移動スピードを設定<BR>
-	 * @param	prm_iVelocity_XYMove	XY平面移動スピード
+	 * @param	prm_iVelocity_Move	XY平面移動スピード
 	 */
-	void setXYMoveVelocity(int prm_iVelocity_XYMove);
+	void setMoveVelocity(int prm_iVelocity_Move);
 
 
-	void setXYMoveVelocityRenge(int prm_iVelocity01_XYMove, int prm_iVelocity02_XYMove);
+	void setMoveVelocityRenge(int prm_iVelocity01_Move, int prm_iVelocity02_Move);
 
-	void setXYMoveAcceleration(int prm_angAcceleration_XYMoveAngleVelocity);
+	void setMoveAcceleration(int prm_angAcceleration_XYMoveAngleVelocity);
 
 
 	void setXYMoveAngleVelocity(int prm_angVelocity_XYMoveAngle);
@@ -176,15 +187,15 @@ public:
 
 	angle getDistanceFromXYMoveAngleTo(int prm_tX, int prm_tY, int prm_iWay);
 
-	angle getDistanceFromXYMoveAngleTo(angle prm_angTarget_XYMove, int prm_iWay);
+	angle getDistanceFromXYMoveAngleTo(angle prm_angTarget_Move, int prm_iWay);
 
 
 	/**
 	 * 毎フレームのActorの振る舞い。<BR>
 	 * 本インターフェースを利用する場合は、このbehave() を毎フレーム実行します。<BR>
 	 * behave() の具体的な毎フレームの処理は以下の通り。<BR>
-	 * ・加速度(_iAcceleration_XYMoveVelocity)が0でない場合、加速度によるスピード増加処理。<BR>
-	 * 　　→加算後のスピードで setXYMoveVelocity(int) が毎フレーム実行されます。<BR>
+	 * ・加速度(_iAcceleration_MoveVelocity)が0でない場合、加速度によるスピード増加処理。<BR>
+	 * 　　→加算後のスピードで setMoveVelocity(int) が毎フレーム実行されます。<BR>
 	 * ・目標のXY平面移動方角自動停止機能が使用時の場合、XY平面移動方角変更処理<BR>
 	 * 　　→計算されたXY平面移動方角値で addXYMoveAngle(int) が毎フレーム実行されます。<BR>
 	 * ・目標のXY平面移動方角自動停止機能使用時ではない場合、一定量XY平面移動方角値加算処理<BR>
@@ -201,9 +212,9 @@ public:
 	 *  _RY   ･･･ 軸回転方角値を代入<BR>
 	 *  _RZ   ･･･ 軸回転方角値を代入<BR>
 	 * 【必ず値が設定されるメンバー】<BR>
-	 * _iVelocity_XYMove,<BR>
-	 * _pActor->_X += _vX_XYMove*_iVelocity_XYMove/LEN_UNIT;<BR>
-	 * _pActor->_Y += _vY_XYMove*_iVelocity_XYMove/LEN_UNIT;<BR>
+	 * _iVelocity_Move,<BR>
+	 * _pActor->_X += _vX_Move*_iVelocity_Move/LEN_UNIT;<BR>
+	 * _pActor->_Y += _vY_Move*_iVelocity_Move/LEN_UNIT;<BR>
 	 * _pActor->_Z += _iVelocity_ZMove
 	 */
 	virtual void behave();
