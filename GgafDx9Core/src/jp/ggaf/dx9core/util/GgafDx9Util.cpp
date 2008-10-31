@@ -239,42 +239,116 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& ou
 	//x > 0; y < 0; z < 0 の領域を第八象限とする
 	//象限によって回転角を補正
 	if (vx >= 0 && vy >= 0 && vz >= 0) {			//第一象限
-_TRACE_("第一象限");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
 	} else if (vx <= 0 && vy >= 0 && vz >= 0) {		//第二象限
-		_TRACE_("第二象限");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
 	} else if (vx <= 0 && vy <= 0 && vz >= 0) {		//第三象限
-		_TRACE_("第三象限");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
 	} else if (vx >= 0 && vy <= 0 && vz >= 0) {		//第四象限
-		_TRACE_("第四象限");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
 	} else if (vx >= 0 && vy >= 0 && vz <= 0) {		//第五象限
-		_TRACE_("第五象限");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = rY * ANGLE_RATE;
 	} else if (vx <= 0 && vy >= 0 && vz <= 0) {		//第六象限
-		_TRACE_("第六象限");
 		out_angRotZ = rZ * ANGLE_RATE;
 		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
 	} else if (vx <= 0 && vy <= 0 && vz <= 0) {		//第七象限
-		_TRACE_("第七象限");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
 	} else if (vx >= 0 && vy <= 0 && vz <= 0) {		//第八象限
-		_TRACE_("第八象限");
 		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
 		out_angRotY = rY * ANGLE_RATE;
 	} else {
 		_TRACE_("おかしいですぜ");
 	}
 
-	_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
+	//_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
+}
+
+void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, double& out_nvx, double& out_nvy, double& out_nvz) {
+	//void GgafDx9SphereRadiusVectors::getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
+	//回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
+	s_ang rZ = 0;
+	s_ang rY = 0;
+	int Xsign = 0;
+	int Ysign = 0;
+	int Zsign = 0;
+
+	if (0 <= prm_angRotZ  && prm_angRotZ < ANGLE90) {
+		rZ = (prm_angRotZ - ANGLE0) / ANGLE_RATE;
+		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //第五象限
+			rY = prm_angRotY / ANGLE_RATE;
+			Xsign = 1;  Ysign = 1;  Zsign = 1;
+		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //第六象限
+			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
+			Xsign = -1;  Ysign = 1;  Zsign = -1;
+		} else if (ANGLE180 <= prm_angRotY && prm_angRotY < ANGLE270) { //第二象限
+			rY = (prm_angRotY - ANGLE180) / ANGLE_RATE;
+			Xsign = -1;  Ysign = 1;  Zsign = 1;
+		} else if (ANGLE270 <= prm_angRotY && prm_angRotY <= ANGLE360) { //第一象限
+			rY = (prm_angRotY - ANGLE270) / ANGLE_RATE;
+			Xsign = 1;  Ysign = 1;  Zsign = 1;
+		}
+	} else if (ANGLE90 <= prm_angRotZ  && prm_angRotZ < ANGLE180) {
+		rZ = (ANGLE180 - prm_angRotZ) / ANGLE_RATE;
+		//後は上と同じ
+		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //第五象限
+			rY = prm_angRotY / ANGLE_RATE;
+			Xsign = 1;  Ysign = 1;  Zsign = 1;
+		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //第六象限
+			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
+			Xsign = -1;  Ysign = 1;  Zsign = -1;
+		} else if (ANGLE180 <= prm_angRotY && prm_angRotY < ANGLE270) { //第二象限
+			rY = (prm_angRotY - ANGLE180) / ANGLE_RATE;
+			Xsign = -1;  Ysign = 1;  Zsign = 1;
+		} else if (ANGLE270 <= prm_angRotY && prm_angRotY <= ANGLE360) { //第一象限
+			rY = (prm_angRotY - ANGLE270) / ANGLE_RATE;
+			Xsign = 1;  Ysign = 1;  Zsign = 1;
+		}
+	} else if (ANGLE180 <= prm_angRotZ && prm_angRotZ < ANGLE270) {
+		rZ = (prm_angRotZ - ANGLE180) / ANGLE_RATE;
+		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //第八象限
+			rY = prm_angRotY / ANGLE_RATE;
+			Xsign = 1;  Ysign = -1;  Zsign = -1;
+		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //第七象限
+			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
+			Xsign = -1;  Ysign = -1;  Zsign = -1;
+		} else if (ANGLE180 <= prm_angRotY && prm_angRotY < ANGLE270) {  //第三象限
+			rY = (prm_angRotY - ANGLE180) / ANGLE_RATE;
+			Xsign = -1;  Ysign = -1;  Zsign = 1;
+		} else if (ANGLE270 <= prm_angRotY && prm_angRotY <= ANGLE360) {  //第四象限
+			rY = (prm_angRotY - ANGLE270) / ANGLE_RATE;
+			Xsign = 1;  Ysign = -1;  Zsign = 1;
+		}
+	} else if (ANGLE270 <= prm_angRotZ && prm_angRotZ < ANGLE360) {
+		rZ = (ANGLE360 - prm_angRotZ) / ANGLE_RATE;
+		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //第八象限
+			rY = prm_angRotY / ANGLE_RATE;
+			Xsign = 1;  Ysign = -1;  Zsign = -1;
+		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //第七象限
+			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
+			Xsign = -1;  Ysign = -1;  Zsign = -1;
+		} else if (ANGLE180 <= prm_angRotY && prm_angRotY < ANGLE270) {  //第三象限
+			rY = (prm_angRotY - ANGLE180) / ANGLE_RATE;
+			Xsign = -1;  Ysign = -1;  Zsign = 1;
+		} else if (ANGLE270 <= prm_angRotY && prm_angRotY <= ANGLE360) {  //第四象限
+			rY = (prm_angRotY - ANGLE270) / ANGLE_RATE;
+			Xsign = 1;  Ysign = -1;  Zsign = 1;
+		}
+	} else {
+		_TRACE_("おかしいですぜ");
+	}
+	unsigned __int16 vx;
+	unsigned __int16 vy;
+	unsigned __int16 vz;
+	_srv.getVectorClosely(rY, rZ, vx, vy, vz);
+	out_nvx = Xsign * vx / 10000.0;
+	out_nvy = Ysign * vy / 10000.0;
+	out_nvz = Zsign * vz / 10000.0;
 }
 
 //DWORD GgafDx9Util::max3(DWORD a, DWORD b, DWORD c) {

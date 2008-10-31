@@ -74,11 +74,11 @@ void GgafDx9GeometryMover::behave() {
 			}
 
 		} else {
-			if (_angAcceleration_AxisRotAngleVelocity[i] != 0) {
+			//if (_angAcceleration_AxisRotAngleVelocity[i] != 0) {
 				//ƒtƒŒ[ƒ€–ˆ‚Ì²‰ñ“]•ûŠpù‰ô‚Ìˆ—
 				_angVelocity_AxisRotAngle[i] += _angAcceleration_AxisRotAngleVelocity[i];
 				addAxisRotAngle(i, _angVelocity_AxisRotAngle[i]);
-			}
+			//}
 		}
 	}
 

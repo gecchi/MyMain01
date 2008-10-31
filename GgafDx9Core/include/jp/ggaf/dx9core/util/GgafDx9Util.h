@@ -45,6 +45,16 @@ public:
 	static void getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY);
 
 	/**
+	 * Z軸回転+Y軸回転から単位ベクトルを取得
+	 * @param prm_angRotZ [in]Z軸回転アングル値
+	 * @param prm_angRotY [in]Y軸回転アングル値
+	 * @param out_nvx [out]単位ベクトルX要素
+	 * @param out_nvy [out]単位ベクトルY要素
+	 * @param out_nvz [out]単位ベクトルZ要素
+	 */
+	static void getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, double& out_nvx, double& out_nvy, double& out_nvz);
+
+	/**
 	 * 線分の当たり判定<BR>
 	 * @param (x1,y1)-(x2,y2) × (x3,y3)-(x4,y4)
 	 * @return true:ヒット/false:ヒットしてない
