@@ -29,7 +29,7 @@ void EnemyCeres::initialize() {
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
 
 	_pMover -> setXYMoveAngle(_X_turn, _Y_turn);
-	_pMover -> setXYMoveVelocity(_iBeginVelocity);
+	_pMover -> setMoveVelocity(_iBeginVelocity);
 	_pMover -> setZMoveVelocity(_incZ);
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 6000);
 
@@ -46,7 +46,7 @@ void EnemyCeres::processBehavior() {
 		_pMover -> setXYMoveAngle(sgn(_incZ)*-1*90000);
 		_pMover -> setXYMoveAngleVelocity(sgn(_incZ)*-1*3000);
 		_pMover -> setTargetXYMoveAngle(ANGLE180);
-		_pMover -> setXYMoveVelocity(1000);
+		_pMover -> setMoveVelocity(1000);
 
 		_pMover -> setAxisRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
 		_pMover -> setTargetAxisRotAngle(AXIS_Y, ANGLE180);
@@ -70,18 +70,17 @@ void EnemyCeres::processBehavior() {
 	}
 
 	if (_iMovePatternNo == 1 && _pMover -> _auto_xymove_angle_target_Flg == false) {
-		_pMover -> setXYMoveVelocity(2000);
-		_pMover -> setXYMoveAcceleration(100);
+		_pMover -> setMoveVelocity(2000);
+		_pMover -> setMoveAcceleration(100);
 		_iMovePatternNo++;
 	}
 
 	if (_iMovePatternNo == 2 && _X < -100000) {
 		//_TRACE_("Ceres:"<<getName()<<" (_X,_Y,_Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
 
-		_TRACE_("befor VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
-		_pMover -> setXYMoveVelocity(0);
+		_pMover -> setMoveVelocity(0);
 		_pMover -> setZMoveVelocity(0);
-		_pMover -> setXYMoveAcceleration(0);
+		_pMover -> setMoveAcceleration(0);
 		_pMover -> setZMoveAcceleration(0);
 		_pMover -> setXYZMove(
 				5000,
@@ -90,13 +89,12 @@ void EnemyCeres::processBehavior() {
 				GameGlobal::_pMyShip->_Z
 				);
 		_iMovePatternNo++;
-		_TRACE_("after VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
 	}
-	//_TRACE_("VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
+	//_TRACE_("VX,VY="<<(_pMover ->_vX_Move)<<","<<(_pMover ->_vY_Move));
 
 	//À•W‚É”½‰f
 	_pMover -> behave();
-	//_TRACE_("ab VX,VY="<<(_pMover ->_vX_XYMove)<<","<<(_pMover ->_vY_XYMove));
+	//_TRACE_("ab VX,VY="<<(_pMover ->_vX_Move)<<","<<(_pMover ->_vY_Move));
 	if (_incZ > 0) {
 		if (_Z > 0) {
 			_Z = 0;

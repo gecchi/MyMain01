@@ -9,9 +9,9 @@ void EnemyPallas::initialize() {
 	_X = _X_OffScreenRight+100;
 	_Y = 0;
 	_Z = 0;
-	_pMover -> setXYMoveVelocityRenge(-8000, 8000);
-	_pMover -> setXYMoveVelocity(8000);
-	_pMover -> setXYMoveAcceleration(-500);
+	_pMover -> setMoveVelocityRenge(-8000, 8000);
+	_pMover -> setMoveVelocity(8000);
+	_pMover -> setMoveAcceleration(-500);
 	_pMover -> setXYMoveAngle(ANGLE90);
 
 	_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 0, 5000);
@@ -26,10 +26,10 @@ void EnemyPallas::initialize() {
 }
 
 void EnemyPallas::processBehavior() {
-	if (_pMover->_iVelocity_XYMove <= -8000) {
-		_pMover -> setXYMoveAcceleration(+500);
-	} else if (_pMover->_iVelocity_XYMove >= +8000) {
-		_pMover -> setXYMoveAcceleration(-500);
+	if (_pMover->_iVelocity_Move <= -8000) {
+		_pMover -> setMoveAcceleration(+500);
+	} else if (_pMover->_iVelocity_Move >= +8000) {
+		_pMover -> setMoveAcceleration(-500);
 	}
 	_X -= 2000;
 

@@ -11,7 +11,7 @@ void MyLaser001::initialize() {
 
 	_pMover -> setXYMoveAngleVelocity(0);
 	_pMover -> setXYMoveAngle(0);
-	_pMover -> setXYMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
+	_pMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);

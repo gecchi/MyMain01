@@ -93,7 +93,7 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 void MyShip::initialize() {
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
-	_pMover -> setXYMoveVelocity(0);
+	_pMover -> setMoveVelocity(0);
 	//_pMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	//_pMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
 	_RZ = ANGLE90;
@@ -163,7 +163,7 @@ void MyShip::processBehavior() {
 	//ターボ終了判定
 	if (_dwFrameNextXYTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
-		_pMover -> setXYMoveVelocityRenge(0, 10000000);
+		_pMover -> setMoveVelocityRenge(0, 10000000);
 		_wayTurbo = NONE;
 	}
 	if (_dwFrameNextZXTurboOut == _dwFrame) {
@@ -182,7 +182,7 @@ void MyShip::processBehavior() {
 		_wayTurbo == DOWN_BEHIND    )
 	{
 		//XYターボ中
-		_iTurboControl = _pMover->_iVelocity_XYMove*_dRate_TurboControl;
+		_iTurboControl = _pMover->_iVelocity_Move*_dRate_TurboControl;
 	} else if (_wayTurbo == ZLEFT ||
 		_wayTurbo == ZLEFT_FRONT ||
 		_wayTurbo == ZLEFT_BEHIND ||
@@ -426,9 +426,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveVelocity(_iMvVelo_BeginMT*NANAME);
 		_pMover -> setZMoveAcceleration(_iMvAcce_MT*NANAME);
 
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT*NANAME);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
 		_pMover -> setXYMoveAngle(ANGLE0);
 		break;
 
@@ -446,9 +446,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveVelocity(_iMvVelo_BeginMT*NANAME);
 		_pMover -> setZMoveAcceleration(_iMvAcce_MT*NANAME);
 
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT*NANAME);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
 		_pMover -> setXYMoveAngle(ANGLE180);
 		break;
 
@@ -489,9 +489,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveVelocity(-1*_iMvVelo_BeginMT*NANAME);
 		_pMover -> setZMoveAcceleration(-1*_iMvAcce_MT*NANAME);
 
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT*NANAME);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
 		_pMover -> setXYMoveAngle(ANGLE0);
 		break;
 
@@ -509,9 +509,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setZMoveVelocity(-1*_iMvVelo_BeginMT*NANAME);
 		_pMover -> setZMoveAcceleration(-1*_iMvAcce_MT*NANAME);
 
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT*NANAME);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
 		_pMover -> setXYMoveAngle(ANGLE180);
 		break;
 
@@ -537,9 +537,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(ANGLE90);
 		break;
 
@@ -548,9 +548,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //斜めなので回転力減
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(ANGLE45);
 		break;
 
@@ -559,25 +559,25 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //斜めなので回転力減
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(ANGLE135);
 		break;
 
 	case VB_LEFT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(ANGLE180);
 		break;
 
 	case VB_RIGHT_STC:
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(0);
 		break;
 
@@ -586,9 +586,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(-1*ANGLE90);
 		break;
 
@@ -597,9 +597,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(-1*ANGLE45);
 		break;
 
@@ -608,9 +608,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
 		_pMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pMover -> setXYMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setXYMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setXYMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
 		_pMover -> setXYMoveAngle(-1*ANGLE135);
 		break;
 

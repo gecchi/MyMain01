@@ -11,7 +11,7 @@ void MyShot001::initialize() {
 	_pMover -> setAxisRotAngleVelocity(AXIS_Y, 2*1000);
 	_pMover -> setXYMoveAngle(0);
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pMover -> setXYMoveVelocity(1000);
+	_pMover -> setMoveVelocity(1000);
 
 	_pChecker -> useHitArea(7);
 	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);

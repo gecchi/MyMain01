@@ -7,7 +7,7 @@ EnemyJuno::EnemyJuno(string prm_name, string prm_xname) : DefaultMeshEnemyActor(
 void EnemyJuno::initialize() {
 
 	_Z = 5000000;
-	_pMover -> setXYMoveVelocity(0);
+	_pMover -> setMoveVelocity(0);
 	_pMover -> setZMoveVelocity(-40000);
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
 	_pMover -> setAxisRotAngle(AXIS_Y, 90000);
