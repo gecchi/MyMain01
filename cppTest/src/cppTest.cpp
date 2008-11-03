@@ -14,18 +14,22 @@ int main() {
 
 	GgafDx9SphereRadiusVectors* srvMy = new GgafDx9SphereRadiusVectors();
 
-	int rZ, rY;
-	cout << "start:" << timeGetTime() << endl;
-	for (int i = 0; i < 10000; i++) {
-		srvMy->getRotAngleClosely(9890,801,1231, rZ,rY);
-	}
-	cout << "end:" << timeGetTime() << endl;
-	cout << "rZ=" << rZ << " rY=" << rY << endl;
-
+//	int rZ, rY;
+//	cout << "start:" << timeGetTime() << endl;
+//	for (int i = 0; i < 10000; i++) {
+//		srvMy->getRotAngleClosely(9890,801,1231, rZ,rY);
+//	}
+//	cout << "end:" << timeGetTime() << endl;
+//	cout << "rZ=" << rZ << " rY=" << rY << endl;
 	unsigned short x,y,z;
-
-	srvMy->getVectorClosely(46,246,x,y,z);
-	cout << "(" << x << "," << y << "," << z << ")" << endl;
+	int index;
+	for (int rZ = 0; rZ <= 900; rZ++) {
+		for (int rY = 0; rY <= 900; rY++) {
+			srvMy->getVectorClosely(rY,rZ,x,y,z);
+			index = (rZ*(900+1)+rY);
+			cout << "rZ=" << rZ << "/rY=" << rY << " srv[" << index << "]=" << GgafDx9SphereRadiusVectors::_sr[index].num_yzx << "(" << x << "," << y << "," << z << ")" << endl;
+		}
+	}
 
 
 	delete srvMy;

@@ -282,7 +282,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, dou
 		rZ = (prm_angRotZ - ANGLE0) / ANGLE_RATE;
 		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //‘æŒÜÛŒÀ
 			rY = prm_angRotY / ANGLE_RATE;
-			Xsign = 1;  Ysign = 1;  Zsign = 1;
+			Xsign = 1;  Ysign = 1;  Zsign = -1;
 		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //‘æ˜ZÛŒÀ
 			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
 			Xsign = -1;  Ysign = 1;  Zsign = -1;
@@ -298,7 +298,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, dou
 		//Œã‚Íã‚Æ“¯‚¶
 		if (0 <= prm_angRotY && prm_angRotY < ANGLE90) { //‘æŒÜÛŒÀ
 			rY = prm_angRotY / ANGLE_RATE;
-			Xsign = 1;  Ysign = 1;  Zsign = 1;
+			Xsign = 1;  Ysign = 1;  Zsign = -1;
 		} else if (ANGLE90 <= prm_angRotY && prm_angRotY < ANGLE180) { //‘æ˜ZÛŒÀ
 			rY = (prm_angRotY - ANGLE90) / ANGLE_RATE;
 			Xsign = -1;  Ysign = 1;  Zsign = -1;
@@ -345,6 +345,8 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, dou
 	unsigned __int16 vx;
 	unsigned __int16 vy;
 	unsigned __int16 vz;
+	_TRACE_("prm_angRotZ="<<prm_angRotZ<<"/prm_angRotY="<<prm_angRotY<<" rY="<<rY<<"/rZ="<<rZ<<")");
+	_TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
 	_srv.getVectorClosely(rY, rZ, vx, vy, vz);
 	out_nvx = Xsign * vx / 10000.0;
 	out_nvy = Ysign * vy / 10000.0;

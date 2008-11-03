@@ -118,11 +118,11 @@ void StgMover::behave() {
 		}
 
 	} else {
-		//if (_angAcceleration_XYMoveAngleVelocity != 0) {
+		if (_angAcceleration_XYMoveAngleVelocity != 0) {
 			//フレーム毎のXY平面移動方角旋廻の処理
 			_angVelocity_XYMoveAngle += _angAcceleration_XYMoveAngleVelocity;
 			addXYMoveAngle(_angVelocity_XYMoveAngle);
-		//}
+		}
 	}
 
 
@@ -131,6 +131,8 @@ void StgMover::behave() {
 	_pActor->_X += _vX*_iVelocity_Move;
 	_pActor->_Y += _vY*_iVelocity_Move;
 	_pActor->_Z += (_vZ*_iVelocity_Move + _iVelocity_ZMove);
+	//_TRACE_("www("<<_vX<<","<<_vY<<","<<_vZ<<")  _angRZ_Move/_angRY_Move="<<_angRZ_Move<<"/"<<_angRY_Move);
+
 }
 
 
@@ -168,6 +170,8 @@ void StgMover::setXYMoveAngle(int prm_tX, int prm_tY) {
 
 void StgMover::setXYZMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
 
+	_TRACE_("_pActor("<<(_pActor->_X)<<","<<(_pActor->_Y)<<","<<(_pActor->_Z)<<")　→　("<<prm_tX<<","<<prm_tY<<","<<prm_tZ<<")");
+	_TRACE_("BRFOR: _v("<<_vX<<","<<_vY<<","<<_vZ<<")  _angRZ_Move/_angRY_Move="<<_angRZ_Move<<"/"<<_angRY_Move);
 	GgafDx9Util::getRotAngleZY(
 			prm_tX - _pActor->_X,
 			prm_tY - _pActor->_Y,
@@ -178,9 +182,16 @@ void StgMover::setXYZMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
 			_angRZ_Move,
 			_angRY_Move
 		);
+
+	_TRACE_("BRFOR: _v("<<_vX<<","<<_vY<<","<<_vZ<<")  _angRZ_Move/_angRY_Move="<<_angRZ_Move<<"/"<<_angRY_Move);
+
 }
 
 void StgMover::setXYMoveAngle(angle prm_angXYMove) {
+	_TRACE_("setXYMoveAngle("<<prm_angXYMove<<")");
+	_TRACE_("setXYMoveAngle BRFOR: _v("<<_vX<<","<<_vY<<","<<_vZ<<")  _angRZ_Move/_angRY_Move="<<_angRZ_Move<<"/"<<_angRY_Move);
+
+
 	int angSimple = prm_angXYMove;
 	while(angSimple >= ANGLE360) {
 		angSimple -= ANGLE360;
@@ -193,6 +204,7 @@ void StgMover::setXYMoveAngle(angle prm_angXYMove) {
 	GgafDx9Util::getNormalizeVectorZY(_angRZ_Move, _angRY_Move, _vX, _vY, _vZ);
 
 
+	_TRACE_("setXYMoveAngle AFTER: _v("<<_vX<<","<<_vY<<","<<_vZ<<")  _angRZ_Move/_angRY_Move="<<_angRZ_Move<<"/"<<_angRY_Move);
 
 //	_vX_Move = GgafDx9Util::COS_UNITLEN[angSimple/ANGLE_RATE];
 //	_vY_Move = GgafDx9Util::SIN_UNITLEN[angSimple/ANGLE_RATE];
@@ -209,7 +221,7 @@ void StgMover::setXZMoveAngle(angle prm_angXZMove) {
 	while(angSimple < 0) {
 		angSimple += ANGLE360;
 	}
-	_angRY_Move = angSimple;
+	_angRZ_Move = angSimple;
 	//0でいいのか！！！だめだ
 	GgafDx9Util::getNormalizeVectorZY(_angRZ_Move, _angRY_Move, _vX, _vY, _vZ);
 }

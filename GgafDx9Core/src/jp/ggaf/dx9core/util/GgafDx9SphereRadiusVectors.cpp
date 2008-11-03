@@ -85,7 +85,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 }
 
 void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY, s_ang prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
-	int index = prm_angRotY*(S_ANG90+1)+prm_angRotZ;
+	int index = prm_angRotZ*(S_ANG90+1)+prm_angRotY;
 	out_x = _sr[index].vec.x;
 	out_y = _sr[index].vec.y;
 	out_z = _sr[index].vec.z;

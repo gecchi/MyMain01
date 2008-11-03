@@ -84,7 +84,7 @@ using namespace std;
 #define ANGLE0 (0)
 #define ANGLE360 (360000)
 #define ANGLE45 (45000)
-
+#define ANGLE90 (90000)
 #define ANGLE135 (135000)
 #define ANGLE180 (180000)
 #define ANGLE225 (225000)
@@ -97,5 +97,24 @@ using namespace std;
 #define LEN_UNIT (1000)
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
+
+
+#define S_ANG0 (0)
+#define S_ANG360 (3600)
+#define S_ANG45 (450)
+#define S_ANG90 (900)
+#define S_ANG135 (1350)
+#define S_ANG180 (1800)
+#define S_ANG225 (2250)
+#define S_ANG270 (2700)
+#define S_ANG315 (3150)
+
+#define ANGLE_RATE (100)
+
+
+
+
 typedef int angle;
+typedef int s_ang;
+
 #endif /*GGAFCOMMONHEADER_H_*/
