@@ -168,33 +168,14 @@ void MyShip::processBehavior() {
 	}
 	if (_dwFrameNextZXTurboOut == _dwFrame) {
 		_pMover -> _auto_rot_angle_target_Flg[AXIS_X] = true;
-		_pMover -> setZMoveVelocityRenge(0, sgn(_pMover->_iVelocity_ZMove)*10000000);
+		_pMover -> setMoveVelocityRenge(0, 10000000);
 		_wayTurbo = NONE;
 	}
 
-	if (_wayTurbo == FRONT ||
-		_wayTurbo == BEHIND ||
-		_wayTurbo == UP ||
-		_wayTurbo == UP_FRONT ||
-		_wayTurbo == UP_BEHIND ||
-		_wayTurbo == DOWN ||
-		_wayTurbo == DOWN_FRONT ||
-		_wayTurbo == DOWN_BEHIND    )
-	{
-		//XYターボ中
-		_iTurboControl = _pMover->_iVelocity_Move*_dRate_TurboControl;
-	} else if (_wayTurbo == ZLEFT ||
-		_wayTurbo == ZLEFT_FRONT ||
-		_wayTurbo == ZLEFT_BEHIND ||
-		_wayTurbo == ZRIGHT ||
-		_wayTurbo == ZRIGHT_FRONT ||
-		_wayTurbo == ZRIGHT_BEHIND    )
-	{
-		//ZXターボ中
-		_iTurboControl = abs(_pMover->_iVelocity_ZMove*_dRate_TurboControl);
-	} else {
-		//NOTターボ
+	if (_wayTurbo == NONE) {
 		_iTurboControl = 0;
+	} else {
+		_iTurboControl = _pMover->_iVelocity_Move*_dRate_TurboControl;
 	}
 
 	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
@@ -397,6 +378,8 @@ void MyShip::processBehavior() {
 void MyShip::beginTurboZX(int prm_VB) {
 	switch(prm_VB) {
 
+
+
 	case VB_UP_STC: //奥
 		_isMoveZX = true;
 		_dwFrameNextZXTurboOut = _dwFrame + _dwIntervalZXTurbo; //ターボ期間
@@ -407,10 +390,9 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-		_pMover -> setZMoveVelocity(_iMvVelo_BeginMT);
-		_pMover -> setZMoveAcceleration(_iMvAcce_MT);
-		break;
+		_pMover -> setMoveAngleRzRy(0, ANGLE270);
+
+	break;
 
 	case VB_UP_RIGHT_STC:
 		_isMoveZX = true;
@@ -422,14 +404,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setZMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setZMoveAcceleration(_iMvAcce_MT*NANAME);
-
-		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
-		_pMover -> setMoveAngleRz(ANGLE0);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveAngleRzRy(0, ANGLE315);
 		break;
 
 	case VB_UP_LEFT_STC:
@@ -442,14 +420,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setZMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setZMoveAcceleration(_iMvAcce_MT*NANAME);
-
-		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
-		_pMover -> setMoveAngleRz(ANGLE180);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveAngleRzRy(0, ANGLE225);
 		break;
 
 	case VB_RIGHT_STC:
@@ -470,9 +444,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(-1*_iMvBtmVelo_MT, -1*10000000);
-		_pMover -> setZMoveVelocity(-1*_iMvVelo_BeginMT);
-		_pMover -> setZMoveAcceleration(-1*_iMvAcce_MT);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveAngleRzRy(0, ANGLE90);
 		break;
 
 	case VB_DOWN_RIGHT_STC:
@@ -485,14 +460,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(-1*_iMvBtmVelo_MT*NANAME, -10000000);
-		_pMover -> setZMoveVelocity(-1*_iMvVelo_BeginMT*NANAME);
-		_pMover -> setZMoveAcceleration(-1*_iMvAcce_MT*NANAME);
-
-		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
-		_pMover -> setMoveAngleRz(ANGLE0);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveAngleRzRy(0, ANGLE45);
 		break;
 
 	case VB_DOWN_LEFT_STC:
@@ -505,14 +476,10 @@ void MyShip::beginTurboZX(int prm_VB) {
 		_pMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
 		_pMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
 
-		_pMover -> setZMoveVelocityRenge(-1*_iMvBtmVelo_MT*NANAME, -10000000);
-		_pMover -> setZMoveVelocity(-1*_iMvVelo_BeginMT*NANAME);
-		_pMover -> setZMoveAcceleration(-1*_iMvAcce_MT*NANAME);
-
-		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT*NANAME, 10000000);
-		_pMover -> setMoveVelocity(_iMvVelo_BeginMT*NANAME);
-		_pMover -> setMoveAcceleration(_iMvAcce_MT*NANAME);
-		_pMover -> setMoveAngleRz(ANGLE180);
+		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
+		_pMover -> setMoveAcceleration(_iMvAcce_MT);
+		_pMover -> setMoveAngleRzRy(0, ANGLE135);
 		break;
 
 
@@ -540,7 +507,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(ANGLE90);
+		_pMover -> setMoveAngleRzRy(ANGLE90, 0);
 		break;
 
 	case VB_UP_RIGHT_STC:
@@ -551,7 +518,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(ANGLE45);
+		_pMover -> setMoveAngleRzRy(ANGLE45, 0);
 		break;
 
 	case VB_UP_LEFT_STC:
@@ -562,7 +529,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(ANGLE135);
+		_pMover -> setMoveAngleRzRy(ANGLE135, 0);
 		break;
 
 	case VB_LEFT_STC:
@@ -570,7 +537,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(ANGLE180);
+		_pMover -> setMoveAngleRzRy(ANGLE180, 0);
 		break;
 
 	case VB_RIGHT_STC:
@@ -578,7 +545,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(0);
+		_pMover -> setMoveAngleRzRy(ANGLE0, 0);
 		break;
 
 	case VB_DOWN_STC:
@@ -589,7 +556,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(-1*ANGLE90);
+		_pMover -> setMoveAngleRzRy(-1*ANGLE90, 0);
 		break;
 
 	case VB_DOWN_RIGHT_STC:
@@ -600,7 +567,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(-1*ANGLE45);
+		_pMover -> setMoveAngleRzRy(-1*ANGLE45, 0);
 		break;
 
 	case VB_DOWN_LEFT_STC:
@@ -611,7 +578,7 @@ void MyShip::beginTurboXY(int prm_VB) {
 		_pMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 		_pMover -> setMoveVelocity(_iMvVelo_BeginMT);
 		_pMover -> setMoveAcceleration(_iMvAcce_MT);
-		_pMover -> setMoveAngleRz(-1*ANGLE135);
+		_pMover -> setMoveAngleRzRy(-1*ANGLE135, 0);
 		break;
 
 	default:
