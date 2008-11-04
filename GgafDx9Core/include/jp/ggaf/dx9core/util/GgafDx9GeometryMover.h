@@ -121,11 +121,11 @@ public:
 	 * 内部的には、addAxisRotAngle(prm_iAxis, int) が毎フレーム行われる仕組みです。<BR>
 	 * 目標の回転方角に到達したならば、この目標の軸回転方角自動停止機能は解除されます。<BR>
 	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_angXYMove	到達目標の回転方角値(0～360,000)
+	 * @param	prm_angRzMove	到達目標の回転方角値(0～360,000)
 	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
 	 * @param	prm_angAllowVelocity 自動停止機能が有効になる回転角速度
 	 */
-	 void setTargetAxisRotAngle(int prm_iAxis, angle prm_angXYMove, int prm_iAllowRotWay = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
+	 void setTargetAxisRotAngle(int prm_iAxis, angle prm_angRzMove, int prm_iAllowRotWay = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
 
 	/**
 	 * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
