@@ -10,6 +10,7 @@ class EnemyCeres : public DefaultMeshEnemyActor {
 public:
 	int _X_turn; // Ü‚è•Ô‚·XÀ•W
 	int _Y_turn; // Ü‚è•Ô‚·YÀ•W
+	int _Z_turn; // Ü‚è•Ô‚·ZÀ•W
 	int _iBeginVelocity;
 	int _incZ;
 

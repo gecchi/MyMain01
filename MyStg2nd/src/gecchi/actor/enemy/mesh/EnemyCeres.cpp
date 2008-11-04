@@ -8,18 +8,16 @@
 //
 EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActor(prm_name, prm_xname) {
 	_iMovePatternNo = 0;
-	_X = 300*1000;
-	_Y = 0;
+	_X = -100*1000;
+	_Y = -100*1000;
 	_Z = 0;
-
-
-
 
 //	_X = -556000; //ŠJŽnÀ•W
 //	_Y = -100000;
 //	_Z = -480000;
 //	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 50000;
 //	_Y_turn = -10000;
+//	_Z_turn = 0;
 //	_iBeginVelocity = 5000;
 
 }
@@ -28,8 +26,14 @@ void EnemyCeres::initialize() {
 	setBumpableOnlySelf(true);
 
 	_pMover->setMoveVelocity(1000);
-	//_pMover -> setXYMoveAngle(0,-100*1000,-100*1000);
-	_pMover -> setXYMoveAngle(180*1000);
+	_pMover->_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
+
+	//_pMover->setMoveAngleRzVelocityRenge(-2000, 2000);
+
+//	//_pMover -> setMoveAngleRz(0,-100*1000,-100*1000);
+//
+//
+//	_pMover -> setXYZMoveAngle(100*1000,0,-100);
 
 
 
@@ -39,19 +43,15 @@ void EnemyCeres::initialize() {
 
 
 
-
-
-	//_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
-
-	//_pMover -> setAxisRotAngle(AXIS_X, 0);
-	//_pMover -> setAxisRotAngle(AXIS_Y, sgn(_Z) * GgafDx9Util::getAngle(abs(_Z), abs(_X_turn-_X)));
-	//_pMover -> setAxisRotAngle(AXIS_Z, 0);
-
-	//_pMover -> setXYMoveAngle(_X_turn, _Y_turn);
-	//_pMover -> setMoveVelocity(_iBeginVelocity);
-	//_pMover -> setZMoveVelocity(_incZ);
-	//_pMover -> setAxisRotAngleVelocity(AXIS_X, 6000);
-
+//	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
+//
+//	_pMover -> setXYZMoveAngle(_X_turn, _Y_turn, _Z_turn);
+//	_pMover -> setMoveVelocity(_iBeginVelocity);
+//	//_pMover -> setZMoveVelocity(_incZ);
+//
+//	_pMover -> setAxisRotAngle(AXIS_Z, _pMover->_angRz_Move);
+//	_pMover -> setAxisRotAngle(AXIS_Y, _pMover->_angRy_Move);
+//	_pMover -> setAxisRotAngleVelocity(AXIS_X, 6000);
 
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
@@ -60,9 +60,69 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::processBehavior() {
-	if (_dwFrame > 5) {
-		_TRACE_(_dwFrame << ":("<<_X<<","<<_Y<<","<<_Z<<")");
+//	if (_dwFrame > 5) {
+//		_TRACE_(_dwFrame << ":("<<_X<<","<<_Y<<","<<_Z<<")");
+//	}
+//
+	if (_dwFrame == 100) {
+		_pMover -> setMoveAngleRz(0);
+	} else if (_dwFrame == 200) {
+		_TRACE_("_dwFrame="<<_dwFrame);
+		//_pMover -> setMoveAngleRz(ANGLE45);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE45);
+	} else if (_dwFrame == 300) {
+//		_pMover -> setMoveAngleRz(ANGLE90);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE90);
+	} else if (_dwFrame == 400) {
+//		_pMover -> setMoveAngleRz(ANGLE135);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE135);
+	} else if (_dwFrame == 500) {
+//		_pMover -> setMoveAngleRz(ANGLE180);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE180);
+	} else if (_dwFrame == 600) {
+//		_pMover -> setMoveAngleRz(ANGLE225);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE225);
+	} else if (_dwFrame == 700) {
+//		_pMover -> setMoveAngleRz(ANGLE270);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE270);
+	} else if (_dwFrame == 800) {
+//		_pMover -> setMoveAngleRz(ANGLE315);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE315);
+	} else if (_dwFrame == 900) {
+//		_pMover -> setMoveAngleRz(ANGLE360);
+		_pMover->setMoveAngleRzVelocity(2000);
+		_pMover -> setTargetMoveAngleRz(ANGLE360);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	_pMover -> behave();
 }
@@ -71,9 +131,9 @@ void EnemyCeres::processBehavior() {
 //
 //	//•ûŒü“]Š·
 //	if (_iMovePatternNo == 0 && _X > _X_turn) {
-//		_pMover -> setXYMoveAngle(sgn(_incZ)*-1*90000);
-//		_pMover -> setXYMoveAngleVelocity(sgn(_incZ)*-1*3000);
-//		_pMover -> setTargetXYMoveAngle(ANGLE180);
+//		_pMover -> setMoveAngleRz(sgn(_incZ)*-1*90000);
+//		_pMover -> setMoveAngleRzVelocity(sgn(_incZ)*-1*3000);
+//		_pMover -> setTargetMoveAngleRz(ANGLE180);
 //		_pMover -> setMoveVelocity(1000);
 //
 //		_pMover -> setAxisRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
@@ -89,7 +149,7 @@ void EnemyCeres::processBehavior() {
 //			pTama = (EnemyShot001*)pShots001->obtain();
 //			if (pTama) {
 //				pTama -> setGeometry (_X, _Y, 0);
-//				pTama -> _pMover -> setXYMoveAngle(way[i]);
+//				pTama -> _pMover -> setMoveAngleRz(way[i]);
 //				pTama -> declarePlay();
 //			}
 //		}
@@ -97,7 +157,7 @@ void EnemyCeres::processBehavior() {
 //		_iMovePatternNo++;
 //	}
 //
-//	if (_iMovePatternNo == 1 && _pMover -> _auto_xymove_angle_target_Flg == false) {
+//	if (_iMovePatternNo == 1 && _pMover -> _auto_move_angle_rz_target_Flg == false) {
 //		_pMover -> setMoveVelocity(2000);
 //		_pMover -> setMoveAcceleration(100);
 //		_iMovePatternNo++;

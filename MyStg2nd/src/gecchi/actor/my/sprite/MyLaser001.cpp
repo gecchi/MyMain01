@@ -9,8 +9,8 @@ MyLaser001::MyLaser001(string prm_name, string prm_xname) : DefaultSpriteMyActor
 void MyLaser001::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
 
-	_pMover -> setXYMoveAngleVelocity(0);
-	_pMover -> setXYMoveAngle(0);
+	_pMover -> setMoveAngleRzVelocity(0);
+	_pMover -> setMoveAngleRz(0);
 	_pMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
 	_pChecker -> useHitArea(1);

@@ -7,9 +7,9 @@ void TamagoActor::initialize() {
 	//declareStop();
 	setBumpable(true);
 //
-	_pMover -> setXYMoveAngle(ANGLE180);
+	_pMover -> setMoveAngleRz(ANGLE180);
 	_pMover -> setMoveVelocity(2000);
-	_pMover -> _synchronize_ZAxisRotAngle_to_XYMoveAngle_Flg = true;
+	_pMover -> _synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
 
 //	_pMover -> setAxisRotAngle(AXIS_Z, ANGLE180*1000);
 //	_pMover -> setMoveVelocity(2000);
@@ -18,7 +18,7 @@ void TamagoActor::initialize() {
 
 //	_pMover -> _iTopIncrementAxisRotAngle[AXIS_Z] = 60 * 1000;
 //
-//	_pMover -> _synchronize_ZaxisAxisRotAngle_to_XYMoveAngle_Flg = true;
+//	_pMover -> _synchronize_ZaxisAxisRotAngle_to_MoveAngleRz_Flg = true;
 //	_pMover -> _iType_AutoXYMoveAngleTarget = TURN_COUNTERCLOCKWISE;
 
 //	_pChecker -> useHitArea(1, 0);
@@ -49,28 +49,28 @@ void TamagoActor::processBehavior() {
 	if (_dwFrameOffset % _rnd == 0) {
 		_rnd = (110+(rand()%90));
 
-		_pMover -> setTargetXYMoveAngleV(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
-		if (_pMover->getDistanceFromXYMoveAngleTo(_pMover->_angTarget_Move,TURN_CLOSE_TO) > 0) {
-			_pMover -> setXYMoveAngleVelocity(2*1000);
+		_pMover -> setTargetMoveAngleRzV(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+		if (_pMover->getDistanceFromMoveAngleRzTo(_pMover->_angRzTarget_Move,TURN_CLOSE_TO) > 0) {
+			_pMover -> setMoveAngleRzVelocity(2*1000);
 		} else {
-			_pMover -> setXYMoveAngleVelocity(-2*1000);
+			_pMover -> setMoveAngleRzVelocity(-2*1000);
 		}
 
 		_pMover -> setMoveVelocityRenge(ANGLE360, 2*1000);
 		_pMover -> setMoveVelocity(10*1000); //‰‘¬10px
 		_pMover -> setMoveAcceleration(-80);
-//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+//		_pMover -> setTargetMoveAngleRz(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 	}
 
 //	if (_dwFrameOffset == 10) {
-//		//_pMover -> setTargetXYMoveAngle(c);
+//		//_pMover -> setTargetMoveAngleRz(c);
 //		_pMover -> setMoveVelocity(2000);
-//		_pMover -> setTargetXYMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+//		_pMover -> setTargetMoveAngleRz(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
 //	if (_dwFrameOffset == 150) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(ANGLE360*1000);
+//		_pMover -> setTargetMoveAngleRz(ANGLE360*1000);
 //		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
@@ -78,35 +78,35 @@ void TamagoActor::processBehavior() {
 //	if (_dwFrameOffset == 200) {
 //
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(ANGLE90*1000);
+//		_pMover -> setTargetMoveAngleRz(ANGLE90*1000);
 //		//_pMover -> setTargetAxisRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //	}
 //
 //	if (_dwFrameOffset == 250) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(0);
+//		_pMover -> setTargetMoveAngleRz(0);
 //	}
 //	if (_dwFrameOffset == 300) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(2250*1000);
+//		_pMover -> setTargetMoveAngleRz(2250*1000);
 //	}
 //	if (_dwFrameOffset == 400) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(ANGLE90*1000);
+//		_pMover -> setTargetMoveAngleRz(ANGLE90*1000);
 //	}
 //
 //	if (_dwFrameOffset == 500) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(3150*1000);
+//		_pMover -> setTargetMoveAngleRz(3150*1000);
 //	}
 //
 //	if (_dwFrameOffset == 550) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(ANGLE90*1000);
+//		_pMover -> setTargetMoveAngleRz(ANGLE90*1000);
 //	}
 //	if (_dwFrameOffset == 570) {
 //		_pMover -> setMoveVelocity(6000);
-//		_pMover -> setTargetXYMoveAngle(2250*1000);
+//		_pMover -> setTargetMoveAngleRz(2250*1000);
 //	}
 //
 //

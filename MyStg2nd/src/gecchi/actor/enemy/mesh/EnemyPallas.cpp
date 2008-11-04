@@ -12,7 +12,7 @@ void EnemyPallas::initialize() {
 	_pMover -> setMoveVelocityRenge(-8000, 8000);
 	_pMover -> setMoveVelocity(8000);
 	_pMover -> setMoveAcceleration(-500);
-	_pMover -> setXYMoveAngle(ANGLE90);
+	_pMover -> setMoveAngleRz(ANGLE90);
 
 	_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 0, 5000);
 	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
