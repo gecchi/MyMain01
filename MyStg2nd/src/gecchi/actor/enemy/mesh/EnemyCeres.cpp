@@ -26,14 +26,14 @@ void EnemyCeres::initialize() {
 	setBumpableOnlySelf(true);
 
 	_pMover->setMoveVelocity(1000);
-	_pMover->_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
+	_pMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
 
 	//_pMover->setMoveAngleRzVelocityRenge(-2000, 2000);
 
 //	//_pMover -> setMoveAngleRz(0,-100*1000,-100*1000);
 //
 //
-//	_pMover -> setXYZMoveAngle(100*1000,0,-100);
+//	_pMover -> setMoveAngle(100*1000,0,-100);
 
 
 
@@ -45,7 +45,7 @@ void EnemyCeres::initialize() {
 
 //	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
 //
-//	_pMover -> setXYZMoveAngle(_X_turn, _Y_turn, _Z_turn);
+//	_pMover -> setMoveAngle(_X_turn, _Y_turn, _Z_turn);
 //	_pMover -> setMoveVelocity(_iBeginVelocity);
 //	//_pMover -> setZMoveVelocity(_incZ);
 //
@@ -65,41 +65,42 @@ void EnemyCeres::processBehavior() {
 //	}
 //
 	if (_dwFrame == 100) {
-		_pMover -> setMoveAngleRz(0);
+		_pMover -> setMoveAngleRy(0);
 	} else if (_dwFrame == 200) {
 		_TRACE_("_dwFrame="<<_dwFrame);
-		//_pMover -> setMoveAngleRz(ANGLE45);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE45);
+		//_pMover -> setMoveAngleRy(ANGLE45);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE45);
 	} else if (_dwFrame == 300) {
-//		_pMover -> setMoveAngleRz(ANGLE90);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE90);
+//		_pMover -> setMoveAngleRy(ANGLE90);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE90);
 	} else if (_dwFrame == 400) {
-//		_pMover -> setMoveAngleRz(ANGLE135);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE135);
+//		_pMover -> setMoveAngleRy(ANGLE135);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE135);
 	} else if (_dwFrame == 500) {
-//		_pMover -> setMoveAngleRz(ANGLE180);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE180);
+//		_pMover -> setMoveAngleRy(ANGLE180);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE180);
 	} else if (_dwFrame == 600) {
-//		_pMover -> setMoveAngleRz(ANGLE225);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE225);
+//		_pMover -> setMoveAngleRy(ANGLE225);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE225);
 	} else if (_dwFrame == 700) {
-//		_pMover -> setMoveAngleRz(ANGLE270);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE270);
+//		_pMover -> setMoveAngleRy(ANGLE270);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE270);
 	} else if (_dwFrame == 800) {
-//		_pMover -> setMoveAngleRz(ANGLE315);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE315);
+//		_pMover -> setMoveAngleRy(ANGLE315);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE315);
 	} else if (_dwFrame == 900) {
-//		_pMover -> setMoveAngleRz(ANGLE360);
-		_pMover->setMoveAngleRzVelocity(2000);
-		_pMover -> setTargetMoveAngleRz(ANGLE360);
+//		_pMover -> setMoveAngleRy(ANGLE360);
+		_pMover->setMoveAngleRyVelocity(2000);
+		_pMover -> setTargetMoveAngleRy(ANGLE360);
 	}
+
 
 
 
