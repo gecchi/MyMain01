@@ -415,6 +415,18 @@ angle StgMover::getDistanceFromMoveAngleRyTo(angle prm_angRyTarget_Move, int prm
 
 ////ÉRÉsÅ[å≥end
 
+void StgMover::setMoveAngleRzRy(angle prm_angleRz, angle prm_angleRy) {
+	_angRz_Move = simplifyAngle(prm_angleRz);
+	_angRy_Move = simplifyAngle(prm_angleRy);
+	GgafDx9Util::getNormalizeVectorZY(_angRz_Move, _angRy_Move, _vX, _vY, _vZ);
+	if (_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg) {
+		setAxisRotAngle(AXIS_Z, _angRz_Move);
+	}
+	if (_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg) {
+		setAxisRotAngle(AXIS_Y, _angRy_Move);
+	}
+
+}
 
 
 

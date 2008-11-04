@@ -39,7 +39,7 @@ public:
 	bool _auto_move_angle_rz_target_Flg;
 	/** 目標とするキャラのRz平面移動方角の方角値(0～360,000) */
 	int _angRzTarget_Move;
-	/** 目標のRz平面移動方角自動停止機能が有効になる回転方向 */
+	/** 目標のRz平面移動方角自動停止機能が有効になる進入回転方向 */
 	int _auto_move_angle_rz_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
 	/** 目標のRz平面移動方角自動停止機能が有効になる移動方角角速度 */
 	int _auto_move_angle_rz_target_allow_velocity;
@@ -69,7 +69,7 @@ public:
 	bool _auto_move_angle_ry_target_Flg;
 	/** 目標とするキャラのRy平面移動方角の方角値(0～360,000) */
 	int _angRyTarget_Move;
-	/** 目標のRy平面移動方角自動停止機能が有効になる回転方向 */
+	/** 目標のRy平面移動方角自動停止機能が有効になる進入回転方向 */
 	int _auto_move_angle_ry_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
 	/** 目標のRy平面移動方角自動停止機能が有効になる移動方角角速度 */
 	int _auto_move_angle_ry_target_allow_velocity;
@@ -188,7 +188,7 @@ public:
 	 * 目標のRz平面移動方角に到達したならば、この目標のRz平面移動方角自動停止機能は解除されます。<BR>
 	 *
 	 * @param	prm_angRzMove	到達目標のRz平面移動方角値(-360,000～360,000)
-	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる進入回転方向
 	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
 	void setTargetMoveAngleRz(angle prm_angRzMove, int _auto_move_angle_rz_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
@@ -199,7 +199,7 @@ public:
 	 *
 	 * @param	prm_tX	xRz座標
 	 * @param	prm_tY	yRy座標
-	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる進入回転方向
 	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
 	void setTargetMoveAngleRzV(int prm_tX, int prm_tY, int _auto_move_angle_rz_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
@@ -277,7 +277,7 @@ public:
 	 * 目標のRy平面移動方角に到達したならば、この目標のRy平面移動方角自動停止機能は解除されます。<BR>
 	 *
 	 * @param	prm_angRyMove	到達目標のRy平面移動方角値(-360,000～360,000)
-	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる進入回転方向
 	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
 	void setTargetMoveAngleRy(angle prm_angRyMove, int _auto_move_angle_ry_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
@@ -288,7 +288,7 @@ public:
 	 *
 	 * @param	prm_tX	xRy座標
 	 * @param	prm_tY	yRy座標
-	 * @param	prm_iAllowRotWay  自動停止機能が有効になる回転方向
+	 * @param	prm_iAllowRotWay  自動停止機能が有効になる進入回転方向
 	 * @param	prm_angAllowVelocity 停止機能が有効になる移動方角角速度
 	 */
 	void setTargetMoveAngleRyV(int prm_tX, int prm_tY, int _auto_move_angle_ry_target_allow_way = TURN_BOTH, angle prm_angAllowVelocity = ANGLE180);
@@ -306,6 +306,7 @@ public:
 	angle getDistanceFromMoveAngleRyTo(angle prm_angRyTarget_Move, int prm_iWay);
 ///コピー元end
 
+	void setMoveAngleRzRy(angle prm_angleRz, angle prm_angleRy);
 
 	void setMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
