@@ -33,7 +33,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) : GgafGod() {
 	GgafDx9God::_hWnd = _hWnd;
 	GgafDx9God::_hInstance = prm_hInstance;
 	_deviceLostFlg = false;
-	CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は Seed
+	CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は乱数のSeed
 
 }
 
@@ -73,7 +73,7 @@ HRESULT GgafDx9God::init() {
 	_structD3dPresent_Parameters.BackBufferWidth = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH);
 	//バックバッファのフォーマット
 	if (FULLSCRREEN) {
-		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
+		_structD3dPresent_Parameters.BackBufferFormat = D3DFMT_A8R8G8B8;//D3DFMT_X8R8G8B8; //D3DFMT_R5G6B5;	//フルスクリーン時
 	} else {
 		_structD3dPresent_Parameters.BackBufferFormat = structD3DDisplayMode.Format; //ウィンドウ時
 	}
@@ -116,26 +116,26 @@ HRESULT GgafDx9God::init() {
 	DWORD qualityLevels = D3DMULTISAMPLE_NONE;
 	D3DMULTISAMPLE_TYPE multiSampleType = D3DMULTISAMPLE_NONE;
 
-	if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
-		D3DADAPTER_DEFAULT,
-		D3DDEVTYPE_HAL,
-		D3DFMT_A8R8G8B8,
-		FULLSCRREEN ? FALSE : TRUE,
-		D3DMULTISAMPLE_2_SAMPLES,
-		&qualityLevels) ) )
-	{
-		if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
-			D3DADAPTER_DEFAULT,
-			D3DDEVTYPE_HAL,
-			D3DFMT_D24S8,
-			FULLSCRREEN ? FALSE : TRUE,
-			D3DMULTISAMPLE_2_SAMPLES,
-			NULL) ) )
-		{
-			multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
-			_TRACE_("MultiSampleType = D3DMULTISAMPLE_2_SAMPLES");
-		}
-	}
+//	if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
+//		D3DADAPTER_DEFAULT,
+//		D3DDEVTYPE_HAL,
+//		D3DFMT_A8R8G8B8,
+//		FULLSCRREEN ? FALSE : TRUE,
+//		D3DMULTISAMPLE_2_SAMPLES,
+//		&qualityLevels) ) )
+//	{
+//		if( SUCCEEDED(GgafDx9God::_pID3D9->CheckDeviceMultiSampleType(
+//			D3DADAPTER_DEFAULT,
+//			D3DDEVTYPE_HAL,
+//			D3DFMT_D24S8,
+//			FULLSCRREEN ? FALSE : TRUE,
+//			D3DMULTISAMPLE_2_SAMPLES,
+//			NULL) ) )
+//		{
+//			multiSampleType = D3DMULTISAMPLE_2_SAMPLES;
+//			_TRACE_("MultiSampleType = D3DMULTISAMPLE_2_SAMPLES");
+//		}
+//	}
 	//マルチサンプルの数
 	_structD3dPresent_Parameters.MultiSampleType = multiSampleType;//D3DMULTISAMPLE_NONE;
 	//マルチサンプルの品質レベル
