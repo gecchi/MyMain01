@@ -281,12 +281,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	case WM_SIZE:
 		adjustGameScreen(hWnd);
 		break;
-    case WM_KEYDOWN:
-        //エスケープキーを押したら終了させる
-        case VK_ESCAPE:
-            PostMessage(hWnd,WM_CLOSE,0,0);
-            return 0;
-
+//    case WM_KEYDOWN:
+//        //エスケープキーを押したら終了させる
+//        case VK_ESCAPE:
+//            PostMessage(hWnd,WM_CLOSE,0,0);
+//            return 0;
+//
 	case WM_PAINT:
 		hdc = BeginPaint(hWnd, &ps);
 		EndPaint(hWnd, &ps);
