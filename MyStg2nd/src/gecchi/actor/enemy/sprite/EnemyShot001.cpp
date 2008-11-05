@@ -42,11 +42,10 @@ bool EnemyShot001::isOffScreen() {
 }
 
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-//_TRACE_("EnemyShot001::processOnHit ショットがヒットしました");
-	_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
+	//_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
 	setBumpableOnlySelf(false);
-	declareFinishLife();
+	declareStop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001) {
 		pExplo001->setGeometry(this);

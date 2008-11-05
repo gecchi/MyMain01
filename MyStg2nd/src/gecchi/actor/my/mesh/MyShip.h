@@ -74,6 +74,8 @@ public:
 								//但し 値 < 0 であること。
 								//これもZ軸が絡む場合、うまくこの値から計算しよう
 
+	/** TURBO中に逆方向に入力される事により減速する速度 */
+	int _iMvAcce_EOD_MT;		//Move Acceleration when I enter opposite direction while I Move with Turbo
 
 	/** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
 	angle _angRXVelo_BeginMZ;	//Rotation axisX angle Velocity when I Begin To Move Z
@@ -159,7 +161,9 @@ public:
 	int _iTurboControl;
 
 	/** ターボ経過フレーム */
-	DWORD _dwFrameTurbo;
+	DWORD _dwFrameTurboMove;
+	/** 通常移動経過フレーム */
+	DWORD _dwFrameNomalMove;
 
 	int _iShotKind01;
 	int _iShotKind02;
