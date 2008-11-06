@@ -331,39 +331,9 @@ void MyShip::processBehavior() {
 		}
 	}
 
+	//ショット関連処理
+	MyShip::transactShot(this);
 
-	//ショットボタン
-	if (VB::isPushedDown(VB_SHOT1)) {
-		MyShot001* pShot = (MyShot001*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
-		if (pShot) {
-			pShot->declarePlay();
-
-			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-			if (pExplo001) {
-				pExplo001->setGeometry(this);
-				pExplo001->declarePlay();
-			}
-		}
-	}
-
-	if (VB::isBeingPressed(VB_SHOT2)) {
-		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
-		MyLaser001* pLastLaser = (MyLaser001*)pLasersStock->getSubFirst()->getPrev();
-		if (!pLastLaser->isPlaying() && !pLastLaser->_willPlayNextFrame) {
-			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
-			if (pLaser) {
-				MyLaser001::_pHeadMyLaser001 = pLaser;
-				pLaser->declarePlay();
-				GgafDx9SeManager::get("laser001")->play();
-			}
-		} else if (MyLaser001::_pHeadMyLaser001 != NULL) {
-			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
-			if (pLaser) {
-				pLaser->declarePlay();
-			}
-		}
-	}
 
 
 	if (VB::isBeingPressed(VB_POWERUP)) {
@@ -805,6 +775,46 @@ void MyShip::processJudgement() {
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareFinishLife();
 }
+
+
+static void MyShip::shot(GgafDx9UntransformedActor* prm_pActor) {
+	//ショットボタン
+	if (VB::isPushedDown(VB_SHOT1)) {
+		MyShot001* pShot = (MyShot001*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
+		if (pShot) {
+			pShot->declarePlay();
+
+			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+			if (pExplo001) {
+				pExplo001->setGeometry(this);
+				pExplo001->declarePlay();
+			}
+		}
+	}
+
+	if (VB::isBeingPressed(VB_SHOT2)) {
+		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
+		MyLaser001* pLastLaser = (MyLaser001*)pLasersStock->getSubFirst()->getPrev();
+		if (!pLastLaser->isPlaying() && !pLastLaser->_willPlayNextFrame) {
+			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
+			if (pLaser) {
+				MyLaser001::_pHeadMyLaser001 = pLaser;
+				pLaser->declarePlay();
+				GgafDx9SeManager::get("laser001")->play();
+			}
+		} else if (MyLaser001::_pHeadMyLaser001 != NULL) {
+			MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
+			if (pLaser) {
+				pLaser->declarePlay();
+			}
+		}
+	}
+
+
+
+}
+
 
 
 void MyShip::equipOption() {

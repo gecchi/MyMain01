@@ -16,8 +16,11 @@ void MyLaser001::initialize() {
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
 
+	_pActor = NULL;
+
 	setBumpableOnlySelf(true);
 }
+
 
 
 void MyLaser001::processBehavior() {

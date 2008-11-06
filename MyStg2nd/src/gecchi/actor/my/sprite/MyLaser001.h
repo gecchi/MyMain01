@@ -5,6 +5,8 @@
 class MyLaser001 : public DefaultSpriteMyActor {
 
 	int _X_prevFrame;
+	/** 対象アクター */
+	GgafDx9UntransformedActor* _pActor;
 
 public:
 	MyLaser001(string prm_name, string prm_xname);
@@ -36,6 +38,11 @@ public:
 	 */
  	void onStop();
 
+
+ 	void setActor(GgafDx9UntransformedActor* prm_pActor) {
+ 		_pActor = prm_pActor;
+
+ 	}
 	virtual ~MyLaser001();
 };
 

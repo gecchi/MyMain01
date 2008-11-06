@@ -1,16 +1,16 @@
 #include "stdafx.h"
 
 MyOption::MyOption(DWORD prm_dwBufferFrame,  string prm_xname) : DefaultMeshActor("OPTION", prm_xname) {
-	GeometryChain* pGeometryChain = new GeometryChain(this);
-	for (DWORD i = 0; i < prm_dwBufferFrame; i++) {
-		GeometryChain* pTemp = new GeometryChain(this);
-		pGeometryChain
+	GeometryChain* pFirst = NEW GeometryChain(this);
+	GeometryChain* pWork = pFirst;
+	GeometryChain* pTemp = pFirst;
+	for (DWORD i = 0; i < prm_dwBufferFrame-1; i++) {
+		pTemp = NEW GeometryChain(this);
+		pWork->_next = pTemp;
+		pWork = pTemp;
 	}
-
-
-
-
-
+	pTemp->_next = pWork;
+	_pGeoChainRingActive = pFirst;
 }
 
 void MyOption::initialize() {
@@ -23,6 +23,14 @@ void MyOption::initialize() {
 }
 
 void MyOption::processBehavior() {
+	_X = _pGeoChainRingActive->_X;
+	_Y = _pGeoChainRingActive->_Y;
+	_Z = _pGeoChainRingActive->_Z;
+	_pGeoChainRingActive->set(GameGlobal::_pMyShip);
+	_pGeoChainRingActive = _pGeoChainRingActive ->_next;
+
+	//ショット関連処理
+	MyShip::transactShot(this);
 
 	//座標に反映
 	_pMover -> behave();
@@ -41,4 +49,17 @@ void MyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 MyOption::~MyOption() {
+	GeometryChain* pWork = _pGeoChainRingActive;
+	GeometryChain* pWorkNext = NULL;
+	while (true) {
+		pWorkNext = pWork->_next;
+		delete pWork;
+		pWork = NULL;
+		if (pWorkNext != NULL) {
+			pWork = pWorkNext;
+		} else {
+			break;
+		}
+	}
+
 }

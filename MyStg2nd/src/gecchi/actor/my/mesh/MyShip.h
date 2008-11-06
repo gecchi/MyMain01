@@ -34,7 +34,7 @@ class MyShip : public DefaultMeshActor {
  	public:
  		int eq_option;
  		int eq_speed;
- 		State::State() {
+ 		State() {
  			eq_option = 0;
  			eq_speed = 1;
  		}
@@ -225,8 +225,11 @@ public:
 
  	void beginMoveXY(int prm_VB);
 
+ 	static void transactShot(GgafDx9UntransformedActor* prm_pActor);
 
- 	void equipOption(int prm_iNnumOption);
+
+ 	/**ƒIƒvƒVƒ‡ƒ“’Ç‰Á*/
+ 	void equipOption();
 
 
  	virtual ~MyShip();

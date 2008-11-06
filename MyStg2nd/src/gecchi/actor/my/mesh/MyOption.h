@@ -9,23 +9,34 @@ class MyOption : public DefaultMeshActor {
 		int _Y;
 		int _Z;
 		GeometryChain* _next;
-		Geometry::Geometry(int prm_X, int prm_Y, int prm_Z) {
+		GeometryChain(int prm_X, int prm_Y, int prm_Z) {
 			_X = prm_X; _Y = prm_Y; _Z = prm_Z;
 			_next = NULL;
 		};
 
-		Geometry::Geometry(GgafDx9UntransformedActor prm_pActor) {
+		GeometryChain(GgafDx9UntransformedActor* prm_pActor) {
 			_X = prm_pActor->_X;
 			_Y = prm_pActor->_Y;
 			_Z = prm_pActor->_Z;
 			_next = NULL;
 		};
 
+		void set(int prm_X, int prm_Y, int prm_Z) {
+			_X = prm_X;
+			_Y = prm_Y;
+			_Z = prm_Z;
+		};
+		void set(GgafDx9UntransformedActor* prm_pActor) {
+			_X = prm_pActor->_X;
+			_Y = prm_pActor->_Y;
+			_Z = prm_pActor->_Z;
+		};
+
 	};
 
 public:
 
-	GeometryChain* _pGCBufActiv;
+	GeometryChain* _pGeoChainRingActive;
 
 	MyOption(DWORD prm_dwBufferFrame, string prm_xname);
 
