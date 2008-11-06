@@ -41,7 +41,6 @@ public:
 
  	void setActor(GgafDx9UntransformedActor* prm_pActor) {
  		_pActor = prm_pActor;
-
  	}
 	virtual ~MyLaser001();
 };
