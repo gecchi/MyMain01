@@ -1,6 +1,16 @@
 #include "stdafx.h"
 
-MyOption::MyOption(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
+MyOption::MyOption(DWORD prm_dwBufferFrame,  string prm_xname) : DefaultMeshActor("OPTION", prm_xname) {
+	GeometryChain* pGeometryChain = new GeometryChain(this);
+	for (DWORD i = 0; i < prm_dwBufferFrame; i++) {
+		GeometryChain* pTemp = new GeometryChain(this);
+		pGeometryChain
+	}
+
+
+
+
+
 }
 
 void MyOption::initialize() {
@@ -9,7 +19,6 @@ void MyOption::initialize() {
 	_pMover -> setMoveVelocity(0);
 	//_pMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	//_pMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
-	_RZ = ANGLE90;
 	//setAlpha(0.2);
 }
 

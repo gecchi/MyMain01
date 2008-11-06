@@ -3,9 +3,31 @@
 
 class MyOption : public DefaultMeshActor {
 
+	class GeometryChain {
+	public:
+		int _X;
+		int _Y;
+		int _Z;
+		GeometryChain* _next;
+		Geometry::Geometry(int prm_X, int prm_Y, int prm_Z) {
+			_X = prm_X; _Y = prm_Y; _Z = prm_Z;
+			_next = NULL;
+		};
+
+		Geometry::Geometry(GgafDx9UntransformedActor prm_pActor) {
+			_X = prm_pActor->_X;
+			_Y = prm_pActor->_Y;
+			_Z = prm_pActor->_Z;
+			_next = NULL;
+		};
+
+	};
+
 public:
 
-	MyOption(string prm_name, string prm_xname);
+	GeometryChain* _pGCBufActiv;
+
+	MyOption(DWORD prm_dwBufferFrame, string prm_xname);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

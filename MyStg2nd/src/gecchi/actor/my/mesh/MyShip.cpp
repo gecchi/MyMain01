@@ -91,6 +91,7 @@ MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, p
 	_wayTurbo = NONE;
 	_dRate_TurboControl = 0.8; //ƒ^[ƒ{’†ˆÚ“®§Œä‚Å‚«‚éŠ„‡
 	_iTurboControl = 0;
+
 }
 
 void MyShip::initialize() {
@@ -804,6 +805,15 @@ void MyShip::processJudgement() {
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareFinishLife();
 }
+
+
+void MyShip::equipOption() {
+	_state.eq_option++;
+	MyOption* pOption = NEW MyOption(_state.eq_option*50, "tamago");
+	pOption->setGeometry(_X, _Y, _Z);
+	addSubLast(pOption);
+}
+
 
 
 MyShip::~MyShip() {

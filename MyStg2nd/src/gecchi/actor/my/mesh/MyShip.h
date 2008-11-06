@@ -7,6 +7,9 @@
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
 
+#define EQ_OPTION 1
+
+
 enum MoveWay {
 	NONE,
 	UP,
@@ -26,6 +29,17 @@ enum MoveWay {
 };
 
 class MyShip : public DefaultMeshActor {
+
+	class State {
+ 	public:
+ 		int eq_option;
+ 		int eq_speed;
+ 		State::State() {
+ 			eq_option = 0;
+ 			eq_speed = 1;
+ 		}
+
+ 	};
 
 public:
 	int _tmpX;
@@ -169,6 +183,10 @@ public:
 	int _iShotKind02;
 	int _iShotKind03;
 
+
+
+	State _state;
+
 	MyShip(string prm_name, string prm_xname);
 
 	/**
@@ -208,7 +226,15 @@ public:
  	void beginMoveXY(int prm_VB);
 
 
+ 	void equipOption(int prm_iNnumOption);
+
+
  	virtual ~MyShip();
+
+
+
+
+
 };
 
 
