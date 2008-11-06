@@ -110,7 +110,7 @@ void MyShip::processBehavior() {
 	_dwFrameTurboMove++; // ターボ経過フレーム
 	_dwFrameNomalMove++; // 通常移動経過フレーム
 	//奥手前移動初めのTURBOか否か
-	if (_dwFrameTurboMove > 2 && _dwFrameNomalMove > 2 && VB::isBeingPressed(VB_TURBO)) {
+	if (_dwFrameTurboMove > 1 && _dwFrameNomalMove > 1 && VB::isBeingPressed(VB_TURBO)) {
 		if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
 			_wayTurbo = ZLEFT;
 			beginTurboZX(VB_UP_STC);

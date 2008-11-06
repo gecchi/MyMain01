@@ -15,6 +15,10 @@ void EnemyShot001::initialize() {
 
 
 void EnemyShot001::processBehavior() {
+	if (switchedToPlay()) {
+		//oŒ»
+		setBumpableOnlySelf(true);
+	}
 	nextAnimationFrame();
 	//À•W‚É”½‰f
 	_pMover -> behave();

@@ -8,7 +8,7 @@ void MyShot001::initialize() {
 	setAnimationMethod(OSCILLATE_LOOP, 2);
 
 	_pMover -> setMoveAngleRzVelocity(0);
-	_pMover -> setAxisRotAngleVelocity(AXIS_Y, 2*1000);
+	_pMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
 	_pMover -> setMoveAngleRz(0);
 	_pMover -> setAxisRotAngle(AXIS_Z, 0);
 	_pMover -> setMoveVelocity(1000);
