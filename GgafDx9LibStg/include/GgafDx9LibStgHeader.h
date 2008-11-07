@@ -20,7 +20,6 @@ class RotationActor;
 class FontPlateString;
 //class FontSpriteString;
 class DelineateActor;
-class StgMover;
 class StgChecker;
 class HitAreaBoxs;
 
@@ -42,7 +41,6 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/DelineateActor.h"
 //#include "jp/ggaf/dx9libstg/util/FontPlateString.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
-#include "jp/ggaf/dx9libstg/util/StgMover.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 

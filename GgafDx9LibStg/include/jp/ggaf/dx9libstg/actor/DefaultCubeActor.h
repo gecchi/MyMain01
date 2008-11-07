@@ -5,8 +5,6 @@
 class DefaultCubeActor : public GgafDx9CubeActor {
 
 public:
-	StgMover* _pMover;
-
 	StgChecker* _pChecker;
 
 

@@ -7,7 +7,6 @@ class DefaultMeshActor : public GgafDx9MeshActor {
 public:
 	DWORD _dwFrameOffset;
 
-	StgMover* _pMover;
 	StgChecker* _pChecker;
 
 	DefaultMeshActor(string prm_name, string prm_xname);

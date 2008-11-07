@@ -7,8 +7,6 @@ class DefaultSpriteActor : public GgafDx9SpriteActor {
 public:
 	DWORD _dwFrameOffset;
 
-	StgMover* _pMover;
-
 	StgChecker* _pChecker;
 
 	DefaultSpriteActor(string prm_name, string prm_xname);

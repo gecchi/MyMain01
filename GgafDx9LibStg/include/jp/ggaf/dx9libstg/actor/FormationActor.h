@@ -7,7 +7,6 @@
 class FormationActor : public GgafDx9UntransformedActor {
 
 public:
-	StgMover* _pMover;
 	StgChecker* _pChecker;
 
 	FormationActor(string prm_name);

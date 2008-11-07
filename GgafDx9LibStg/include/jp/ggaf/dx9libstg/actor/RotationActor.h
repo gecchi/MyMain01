@@ -8,7 +8,6 @@
 class RotationActor : public GgafDx9UntransformedActor {
 
 public:
-	StgMover* _pMover;
 	StgChecker* _pChecker;
 
  	RotationActor(string prm_name);

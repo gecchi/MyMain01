@@ -5,8 +5,6 @@
 class DefaultSquareActor : public GgafDx9SquareActor {
 
 public:
-	StgMover* _pMover;
-
 	StgChecker* _pChecker;
 
 
