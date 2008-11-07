@@ -8,7 +8,8 @@ GgafOrder::GgafOrder(string prm_id) {
 	_isLastOrder  = false;
 	_pObject_Creation = NULL;
 	_functionForBuild = NULL;
-	_argumentForBuild = NULL;
+	_argumentForBuild1 = NULL;
+	_argumentForBuild2 = NULL;
 	_progress = 0;
 }
 
@@ -30,14 +31,14 @@ GgafOrder::~GgafOrder() {
 			_pObject_Creation = NULL;
 		} else {
 			GgafScene* pScene = dynamic_cast<GgafScene*>(_pObject_Creation);
-			if (pScene != 0) { 
+			if (pScene != 0) {
 				delete pScene;
 				pScene = NULL;
 				_pObject_Creation = NULL;
 			} else {
 				throw_GgafCriticalException("GgafOrder::~GgafOrder Error! 未知の GgafOrder オブジェクトです。解放できません。");
 			}
-		}		
+		}
 	}
 }
 

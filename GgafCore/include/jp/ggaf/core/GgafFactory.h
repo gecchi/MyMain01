@@ -34,7 +34,7 @@ private:
 	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_argumentForBuild	その引数<BR>
 	 */
-	static void order(string prm_id, GgafObject* (*prm_functionForBuild)(void*), void* prm_argumentForBuild);
+	static void order(string prm_id, GgafObject* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
 
 	/**
 	 * 注文した商品を取り出す。<BR>
@@ -57,7 +57,7 @@ public:
 	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_argumentForBuild	その引数<BR>
 	 */
-	static void orderActor(string prm_id, GgafMainActor* (*prm_functionForBuild)(void*), void* prm_argumentForBuild);
+	static void orderActor(string prm_id, GgafMainActor* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
 
 	/**
 	 * 工場にシーン作成の注文を行う<BR>
@@ -65,7 +65,7 @@ public:
 	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_argumentForBuild	その引数<BR>
 	 */
-	static void orderScene(string prm_id, GgafMainScene* (*prm_functionForBuild)(void*), void* prm_argumentForBuild);
+	static void orderScene(string prm_id, GgafMainScene* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
 
 	/**
 	 * 注文したアクターを取り出す。<BR>
