@@ -21,7 +21,7 @@ void EffectExplosion001::processBehavior() {
 //		_SX += 3000;
 //		_SY += 3000;
 		//À•W‚É”½‰f
-		_pMover -> behave();
+		_pGeoMover -> behave();
 	}
 }
 

@@ -9,16 +9,16 @@ void EnemyVesta::initialize() {
 	_X = _X_OffScreenRight+100;
 	_Y = 0;
 	_Z = 0;
-	_pMover -> setMoveVelocityRenge(-8000, 8000);
-	_pMover -> setMoveVelocity(8000);
-	_pMover -> setMoveAcceleration(-500);
-	_pMover -> setMoveAngleRz(ANGLE90);
+	_pGeoMover -> setMoveVelocityRenge(-8000, 8000);
+	_pGeoMover -> setMoveVelocity(8000);
+	_pGeoMover -> setMoveAcceleration(-500);
+	_pGeoMover -> setMoveAngleRz(ANGLE90);
 
-	_pMover -> setAxisRotAngleVelocityRenge(AXIS_X, 0, 5000);
-	_pMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
-	_pMover -> setAxisRotAngleAcceleration(AXIS_X, 0);
+	_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 0, 5000);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, 5000);
+	_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, 0);
 
-	_pMover -> setAxisRotAngle(AXIS_Z, ANGLE180);
+	_pGeoMover -> setAxisRotAngle(AXIS_Z, ANGLE180);
 
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
@@ -26,15 +26,15 @@ void EnemyVesta::initialize() {
 }
 
 void EnemyVesta::processBehavior() {
-	if (_pMover->_iVelocity_Move <= -8000) {
-		_pMover -> setMoveAcceleration(+500);
-	} else if (_pMover->_iVelocity_Move >= +8000) {
-		_pMover -> setMoveAcceleration(-500);
+	if (_pGeoMover->_iVelocity_Move <= -8000) {
+		_pGeoMover -> setMoveAcceleration(+500);
+	} else if (_pGeoMover->_iVelocity_Move >= +8000) {
+		_pGeoMover -> setMoveAcceleration(-500);
 	}
 	_X -= 2000;
 
 	//À•W‚É”½‰f
-	_pMover -> behave();
+	_pGeoMover -> behave();
 }
 
 void EnemyVesta::processJudgement() {

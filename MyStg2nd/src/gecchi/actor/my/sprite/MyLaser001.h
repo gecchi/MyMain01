@@ -4,14 +4,15 @@
 
 class MyLaser001 : public DefaultSpriteMyActor {
 
-	int _X_prevFrame;
+	int _X_begin;
+	int _Y_begin;
+	int _Z_begin;
+
 	/** 対象アクター */
-	GgafDx9UntransformedActor* _pActor;
+	GgafDx9UntransformedActor* _pActor_Radical;
 
 public:
 	MyLaser001(string prm_name, string prm_xname);
-
-	static MyLaser001* _pHeadMyLaser001;
 
 	/**
 	 * ＜OverRide です＞
@@ -39,8 +40,8 @@ public:
  	void onStop();
 
 
- 	void setActor(GgafDx9UntransformedActor* prm_pActor) {
- 		_pActor = prm_pActor;
+ 	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
+ 		_pActor_Radical = prm_pActor;
  	}
 	virtual ~MyLaser001();
 };

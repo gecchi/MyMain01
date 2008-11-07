@@ -1,22 +1,18 @@
 #include "stdafx.h"
 
-MyLaser001* MyLaser001::_pHeadMyLaser001 = NULL;
-
 MyLaser001::MyLaser001(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
-	_X_prevFrame = 0;
+
 }
 
 void MyLaser001::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
 
-	_pMover -> setMoveAngleRzVelocity(0);
-	_pMover -> setMoveAngleRz(0);
-	_pMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
+	_pGeoMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
 
-	_pActor = NULL;
+	_pActor_Radical = NULL;
 
 	setBumpableOnlySelf(true);
 }
@@ -27,17 +23,30 @@ void MyLaser001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žžˆ—
 		setBumpableOnlySelf(true);
-		_X = GameGlobal::_pMyShip->_X;
-		_X_prevFrame = _X;
-		_Y = GameGlobal::_pMyShip->_Y;
-		_Z = GameGlobal::_pMyShip->_Z;
+		setGeometry(_pActor_Radical);
+		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
+		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+		_pGeoMover -> setMoveAngleRzRy(
+				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
+				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]
+				   );
+		_X_begin = _pActor_Radical->_X;
+		_Y_begin = _pActor_Radical->_Y;
+		_Z_begin = _pActor_Radical->_Z;
+
 	} else {
 		//’Êíˆ—
 		nextAnimationFrame();
-		//À•W‚É”½‰f
-		_pMover -> behave();
-		_Y = GameGlobal::_pMyShip->_Y;
+
 	}
+	//À•W‚É”½‰f
+	_pGeoMover -> behave();
+
+	_X += (_pActor_Radical->_X - _X_begin);
+	_Y += (_pActor_Radical->_Y - _Y_begin);
+	_Z = _pActor_Radical->_Z;
+
+
 }
 
 void MyLaser001::processJudgement() {
@@ -63,9 +72,6 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 void MyLaser001::onStop() {
 	setBumpableOnlySelf(false);
-	if (MyLaser001::_pHeadMyLaser001 == this) {
-		MyLaser001::_pHeadMyLaser001 = NULL;
-	}
 }
 
 MyLaser001::~MyLaser001() {

@@ -29,7 +29,7 @@ void GameMainScene::initialize() {
 
 void GameMainScene::readyStage01() {
 	_TRACE_("GameMainScene::readyStage01() : ‚æ‚µHê‚ÉcreateStage01Scene’•¶‚µ‚Ü‚µ‚½");
-	MyFactory::orderScene("createStage01Scene", MyFactory::createStage01Scene, NULL);
+	MyFactory::orderScene("createStage01Scene", MyFactory::createStage01Scene, NULL, NULL);
 	_readyStage01Flg = true;
 	_dwFrame_ReadyStage01 = _dwFrame;
 }
@@ -53,7 +53,7 @@ void GameMainScene::enableStage01() {
 
 void GameMainScene::readyStage02() {
 	getSub("Demo")->declareFinishLife();
-	MyFactory::orderScene("createStage02Scene", MyFactory::createStage02Scene, NULL);
+	MyFactory::orderScene("createStage02Scene", MyFactory::createStage02Scene, NULL, NULL);
 	_readyStage02Flg = true;
 	_dwFrame_ReadyStage02 = _dwFrame;
 }

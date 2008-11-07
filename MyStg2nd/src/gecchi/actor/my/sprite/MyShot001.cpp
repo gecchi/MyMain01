@@ -7,11 +7,11 @@ MyShot001::MyShot001(string prm_name, string prm_xname) : DefaultSpriteMyActor(p
 void MyShot001::initialize() {
 	setAnimationMethod(OSCILLATE_LOOP, 2);
 
-	_pMover -> setMoveAngleRzVelocity(0);
-	_pMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
-	_pMover -> setMoveAngleRz(0);
-	_pMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pMover -> setMoveVelocity(1000);
+	_pGeoMover -> setMoveAngleRzVelocity(0);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
+	_pGeoMover -> setMoveAngleRz(0);
+	_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
+	_pGeoMover -> setMoveVelocity(1000);
 
 	_pChecker -> useHitArea(7);
 	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
@@ -51,7 +51,7 @@ void MyShot001::processBehavior() {
 		//’Êíˆ—
 		nextAnimationFrame();
 		//À•W‚É”½‰f
-		_pMover -> behave();
+		_pGeoMover -> behave();
 		_pChecker -> behave();
 	}
 }
