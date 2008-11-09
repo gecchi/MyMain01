@@ -4,9 +4,9 @@
 
 class MyLaser001 : public DefaultSpriteMyActor {
 
-	int _X_begin;
-	int _Y_begin;
-	int _Z_begin;
+	int _X_prevFrame;
+	int _Y_prevFrame;
+	int _Z_prevFrame;
 
 	/** 対象アクター */
 	GgafDx9UntransformedActor* _pActor_Radical;

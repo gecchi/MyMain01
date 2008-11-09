@@ -30,9 +30,9 @@ void MyLaser001::processBehavior() {
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]
 				   );
-		_X_begin = _pActor_Radical->_X;
-		_Y_begin = _pActor_Radical->_Y;
-		_Z_begin = _pActor_Radical->_Z;
+		_X_prevFrame = _pActor_Radical->_X;
+		_Y_prevFrame = _pActor_Radical->_Y;
+		_Z_prevFrame = _pActor_Radical->_Z;
 
 	} else {
 		//’Êíˆ—
@@ -42,9 +42,13 @@ void MyLaser001::processBehavior() {
 	//À•W‚É”½‰f
 	_pGeoMover -> behave();
 
-	_X += (_pActor_Radical->_X - _X_begin);
-	_Y += (_pActor_Radical->_Y - _Y_begin);
+	_X += (_pActor_Radical->_X - _X_prevFrame);
+	_Y += (_pActor_Radical->_Y - _Y_prevFrame);
 	_Z = _pActor_Radical->_Z;
+	_X_prevFrame = _pActor_Radical->_X;
+	_Y_prevFrame = _pActor_Radical->_Y;
+	_Z_prevFrame = _pActor_Radical->_Z;
+
 
 
 }
