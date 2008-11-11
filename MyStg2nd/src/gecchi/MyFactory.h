@@ -49,8 +49,10 @@ public:
 
 };
 
-#define orderActor(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(MODEL))
-#define obtainActor(ID) MyFactory::obtainActor(ID)
+#define orderActorFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(MODEL))
+#define obtainActorFactory(ID) MyFactory::obtainActor(ID)
+#define orderSceneFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL))
+#define obtainSceneFactory(ID) MyFactory::obtainScene(ID)
 
 
 #endif /*MYFACTORY_H_*/

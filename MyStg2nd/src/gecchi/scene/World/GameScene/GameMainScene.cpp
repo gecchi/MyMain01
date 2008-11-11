@@ -29,7 +29,7 @@ void GameMainScene::initialize() {
 
 void GameMainScene::readyStage01() {
 	_TRACE_("GameMainScene::readyStage01() : よし工場にcreateStage01Scene注文しました");
-	MyFactory::orderScene<Stage01Scene>("createStage01Scene", MyFactory::createScene, (void*)("Stage01"), NULL);
+	orderSceneFactory("createStage01Scene", Stage01Scene, "Stage01");
 	_readyStage01Flg = true;
 	_dwFrame_ReadyStage01 = _dwFrame;
 }
@@ -53,7 +53,7 @@ void GameMainScene::enableStage01() {
 
 void GameMainScene::readyStage02() {
 	getSub("Demo")->declareFinishLife();
-	MyFactory::orderScene<Stage02Scene>("createStage02Scene", MyFactory::createScene, (void*)("Stage02"), NULL);
+	orderSceneFactory("createStage02Scene", Stage02Scene, "Stage02");
 	_readyStage02Flg = true;
 	_dwFrame_ReadyStage02 = _dwFrame;
 }
@@ -96,7 +96,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage01Flg) {
 		if (frame == (_dwFrame_ReadyStage01 + 180)) {  //180フレーム余裕をみてから自シーンに追加
-			_pStage01Scene = MyFactory::obtainScene("createStage01Scene");
+			_pStage01Scene = obtainSceneFactory("createStage01Scene");
 			addSubLast(_pStage01Scene);
 			_readyStage01Flg = false;
 			_TRACE_("GameMainScene::processBehavior : やったよ、Stage01追加したよ");
@@ -105,7 +105,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage02Flg) {
 		if (frame == _dwFrame_ReadyStage02+180) {
-			_pStage02Scene  = MyFactory::obtainScene("createStage02Scene");
+			_pStage02Scene  = obtainSceneFactory("createStage02Scene");
 			addSubLast(_pStage02Scene);
 			_readyStage02Flg = false;
 		}
