@@ -507,7 +507,7 @@ bool GgafNode<T>::isFirst() {
 
 template<class T>
 GgafNode<T>::~GgafNode() {
-	_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" start-->");
+	//_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" start-->");
 	//©ƒm[ƒh‚Ìƒƒ“ƒo‚Ì‰ğ•ú
 
 //	if (_isAlive) {
@@ -574,7 +574,7 @@ GgafNode<T>::~GgafNode() {
 			_isLast = true;
 		}
 	}
-	_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" <---end");
+	//_TRACE_("~GgafNode<"<<_class_name<<">() "+_name+" <---end");
 }
 
 #endif /*GGAFNODE_H_*/

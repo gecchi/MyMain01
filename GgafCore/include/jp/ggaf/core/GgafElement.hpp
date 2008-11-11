@@ -992,7 +992,7 @@ void GgafElement<T>::unblindImmediately() {
 
 template<class T>
 void GgafElement<T>::declareFinishLife() {
-	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName());
+	//_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName());
 	_willPlayNextFrame = false;
 	_willBeAliveNextFrame = false;
 	SUPER::_name = "_x_"+SUPER::_name;

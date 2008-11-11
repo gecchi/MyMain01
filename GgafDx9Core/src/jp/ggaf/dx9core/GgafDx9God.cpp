@@ -401,7 +401,7 @@ void GgafDx9God::makeWorldMaterialize() {
 
 	//カメラ設定
 	setCam(_pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
-
+	HRESULT hr;
 	if (_deviceLostFlg) {
 		//デバイスロスと復帰を試みる
 		if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
@@ -409,9 +409,9 @@ void GgafDx9God::makeWorldMaterialize() {
 			_TRACE_("デバイスロストから復帰処理！");
 			//モデル開放
 			GgafDx9ModelManager::onDeviceLostAll();
-			HRESULT hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
-				throw_GgafCriticalException("GgafDx9God::visualize() デバイスロスト後のリセットでダメでした。");
+				throw_GgafCriticalException("GgafDx9God::visualize() デバイスロスト後のリセットでダメでした。hr="<<hr);
 			}
 			//デバイス再設定
 			initDx9Device();
@@ -425,7 +425,7 @@ void GgafDx9God::makeWorldMaterialize() {
 
 	if (_deviceLostFlg != true) {
 		//バッファクリア
-		GgafDx9God::_pID3DDevice9 -> Clear(
+		hr = GgafDx9God::_pID3DDevice9 -> Clear(
 										 0, // クリアする矩形領域の数
 										 NULL, // 矩形領域
 										 D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
@@ -434,13 +434,21 @@ void GgafDx9God::makeWorldMaterialize() {
 										 1.0f, // Zバッファのクリア値
 										 0 // ステンシルバッファのクリア値
 									 );
+		if ( hr != D3D_OK ) {
+			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9 -> Clear() ダメでした。hr="<<hr);
+		}
 
 		//描画事前処理
-		GgafDx9God::_pID3DDevice9->BeginScene();
+		if (GgafDx9God::_pID3DDevice9->BeginScene() ) {
+			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9->BeginScene() ダメでした。hr="<<hr);
+		}
 		//全て具現化！（描画）
 		GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
 		//描画事後処理
-		GgafDx9God::_pID3DDevice9->EndScene();
+		if (GgafDx9God::_pID3DDevice9->EndScene() ) {
+			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9->EndScene() ダメでした。hr="<<hr);
+		}
+
 	}
 	TRACE("GgafDx9God::makeWorldMaterialize() end");
 }
@@ -449,10 +457,14 @@ void GgafDx9God::makeWorldVisualize() {
 	if (_deviceLostFlg != true) {
 		//バックバッファをプライマリバッファに転送
 		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
-		if (GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL) == D3DERR_DEVICELOST) {
+		HRESULT hr = GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL);
+
+		if (hr == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
 			_TRACE_("デバイスロスト！");
 			_deviceLostFlg = true;
+		} else if (hr != D3D_OK ) {
+			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9 -> Present() ダメでした。hr="<<hr);
 		}
 	}
 }

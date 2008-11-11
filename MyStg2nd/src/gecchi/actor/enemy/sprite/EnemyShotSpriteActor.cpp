@@ -25,7 +25,7 @@ void EnemyShotSpriteActor::processJudgement() {
 }
 
 void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
-	_TRACE_("EnemyShotSpriteActorヒットしました。("<<_X<<","<<_Y<<")");
+	//_TRACE_("EnemyShotSpriteActorヒットしました。("<<_X<<","<<_Y<<")");
 	declareStop();
 }
 

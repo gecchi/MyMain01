@@ -69,7 +69,7 @@ bool MyLaser001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Oppon
 
 void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("MyLaser001::processOnHit ショットがヒットしました");
-	_TRACE_("MyLaser001ヒットしました。("<<_X<<","<<_Y<<")");
+	//_TRACE_("MyLaser001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
 	declareStop();
 }

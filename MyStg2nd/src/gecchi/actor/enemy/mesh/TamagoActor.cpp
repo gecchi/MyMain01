@@ -128,7 +128,7 @@ void TamagoActor::processJudgement() {
 }
 
 void TamagoActor::processOnHit(GgafActor* prm_pActor_Opponent) {
-	_TRACE_("TamagoActorヒットしました。("<<_X<<","<<_Y<<")");
+	//_TRACE_("TamagoActorヒットしました。("<<_X<<","<<_Y<<")");
 	setBumpable(false);
 	declareFinishLife();
 }
