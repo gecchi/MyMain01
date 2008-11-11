@@ -8,7 +8,7 @@ class TamagoActor : public DefaultMeshActor {
 	int _rnd;
 
 public:
-	TamagoActor(string prm_name, string prm_xname);
+	TamagoActor(string prm_name, string prm_model);
 
 	void initialize();
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-DispFpsActor::DispFpsActor(string prm_name, string prm_xname) : FontPlateActor(prm_name, prm_xname) {
+DispFpsActor::DispFpsActor(string prm_name, string prm_model) : FontPlateActor(prm_name, prm_model) {
 }
 
 void DispFpsActor::initialize() {

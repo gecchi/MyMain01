@@ -16,7 +16,7 @@ public:
 
 	int _iMovePatternNo;
 
-	EnemyCeres(string prm_name, string prm_xname);
+	EnemyCeres(string prm_name, string prm_model);
 
 	void initialize();
 

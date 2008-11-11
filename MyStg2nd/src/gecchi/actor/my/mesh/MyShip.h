@@ -187,7 +187,7 @@ public:
 
 	State _state;
 
-	MyShip(string prm_name, string prm_xname);
+	MyShip(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

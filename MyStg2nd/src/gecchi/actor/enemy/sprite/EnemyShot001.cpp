@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-EnemyShot001::EnemyShot001(string prm_name, string prm_xname) : EnemyShotSpriteActor(prm_name, prm_xname) {
+EnemyShot001::EnemyShot001(string prm_name, string prm_model) : EnemyShotSpriteActor(prm_name, prm_model) {
 	declareStop();
 }
 

@@ -7,7 +7,7 @@ class EnemyJuno : public DefaultMeshEnemyActor {
 public:
 	int _iMovePatternNo;
 
-	EnemyJuno(string prm_name, string prm_xname);
+	EnemyJuno(string prm_name, string prm_model);
 
 	void initialize();
 

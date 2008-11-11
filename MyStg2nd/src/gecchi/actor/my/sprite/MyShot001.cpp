@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-MyShot001::MyShot001(string prm_name, string prm_xname) : DefaultSpriteMyActor(prm_name, prm_xname) {
+MyShot001::MyShot001(string prm_name, string prm_model) : DefaultSpriteMyActor(prm_name, prm_model) {
 
 }
 

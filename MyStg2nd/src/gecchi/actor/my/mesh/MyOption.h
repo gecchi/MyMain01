@@ -38,7 +38,7 @@ public:
 
 	GeometryChain* _pGeoChainRingActive;
 
-	MyOption(DWORD prm_dwBufferFrame, string prm_xname);
+	MyOption(DWORD prm_dwBufferFrame, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

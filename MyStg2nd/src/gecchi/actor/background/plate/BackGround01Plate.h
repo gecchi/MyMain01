@@ -7,7 +7,7 @@ class BackGround01Plate : public GgafDx9TransformedActor {
 	BackGroundChipPlate** _papChipPlate;
 
 public:
-	BackGround01Plate(string prm_name);
+	BackGround01Plate(string prm_name, string prm_dummy);
 
 
 	virtual void processJudgement() {};

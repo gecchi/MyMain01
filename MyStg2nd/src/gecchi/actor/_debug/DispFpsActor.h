@@ -6,7 +6,7 @@ class DispFpsActor : public FontPlateActor {
 	char _aBuf[80];
 	string _strFps;
 public:
-	DispFpsActor(string prm_name, string prm_xname);
+	DispFpsActor(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

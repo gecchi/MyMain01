@@ -5,7 +5,7 @@
 class DefaultSpriteEnemyActor : public DefaultSpriteActor {
 
 public:
-	DefaultSpriteEnemyActor(string prm_name, string prm_xname);
+	DefaultSpriteEnemyActor(string prm_name, string prm_model);
 
 	virtual ~DefaultSpriteEnemyActor();
 };

@@ -3,7 +3,7 @@
 
 Stage01Scene::Stage01Scene(string prm_name) : DefaultScene(prm_name) {
 	Stage01MainScene* pStage01MainScene = NEW Stage01MainScene("Stage01Main");
-	BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01");
+	BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01", "");
 	getLordActor()->accept(KIND_EFFECT, pBack);
 	addSubLast(pStage01MainScene);
 	_bgm_st1 = GgafDx9BgmManager::get("JM5");

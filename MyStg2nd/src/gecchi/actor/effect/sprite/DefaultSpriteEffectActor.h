@@ -5,7 +5,7 @@
 class DefaultSpriteEffectActor : public DefaultSpriteActor {
 
 public:
-	DefaultSpriteEffectActor(string prm_name, string prm_xname);
+	DefaultSpriteEffectActor(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

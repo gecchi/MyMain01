@@ -5,7 +5,7 @@
 class EnemyShot001 : public EnemyShotSpriteActor {
 
 public:
-	EnemyShot001(string prm_name, string prm_xname);
+	EnemyShot001(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

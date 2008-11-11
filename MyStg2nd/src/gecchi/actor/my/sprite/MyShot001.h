@@ -5,7 +5,7 @@
 class MyShot001 : public DefaultSpriteMyActor {
 
 public:
-	MyShot001(string prm_name, string prm_xname);
+	MyShot001(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

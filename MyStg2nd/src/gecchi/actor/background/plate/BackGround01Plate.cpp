@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-BackGround01Plate::BackGround01Plate(string prm_name) : GgafDx9TransformedActor(prm_name) {
+BackGround01Plate::BackGround01Plate(string prm_name, string prm_dummy) : GgafDx9TransformedActor(prm_name) {
 	_papChipPlate = NEW BackGroundChipPlate*[4];
 	_papChipPlate[0] = NEW BackGroundChipPlate("Bg01_Chip01", "background01");
 	_papChipPlate[1] = NEW BackGroundChipPlate("Bg01_Chip02", "background02");

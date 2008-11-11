@@ -11,7 +11,7 @@
 
 
 
-MyShip::MyShip(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
+MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */
 	_lv_MoveSpeed = 2;

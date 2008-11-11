@@ -10,7 +10,7 @@ class FormationCeres001 : public FormationActor {
 
 	EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION001];
 public:
-	FormationCeres001(string prm_name);
+	FormationCeres001(string prm_name, string prm_model);
 
 	virtual void initialize();
 

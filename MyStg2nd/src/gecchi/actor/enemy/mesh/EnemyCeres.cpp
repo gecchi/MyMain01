@@ -6,7 +6,7 @@
 //_X_turn,_Y_turn 折り返しXY座標
 //_iBeginVelocity 折り返し地点に行くまでの加速度
 //
-EnemyCeres::EnemyCeres(string prm_name, string prm_xname) : DefaultMeshEnemyActor(prm_name, prm_xname) {
+EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_iMovePatternNo = 0;
 //	_X = -100*1000;
 //	_Y = -100*1000;

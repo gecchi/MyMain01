@@ -5,7 +5,7 @@
 class DefaultMeshEnemyActor : public DefaultMeshActor {
 
 public:
-	DefaultMeshEnemyActor(string prm_name, string prm_xname);
+	DefaultMeshEnemyActor(string prm_name, string prm_model);
 
 	virtual ~DefaultMeshEnemyActor();
 };

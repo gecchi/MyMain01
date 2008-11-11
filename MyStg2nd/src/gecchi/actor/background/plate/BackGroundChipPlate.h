@@ -5,7 +5,7 @@
 class BackGroundChipPlate : public DefaultPlateActor {
 
 public:
-	BackGroundChipPlate(string prm_name, string prm_xname);
+	BackGroundChipPlate(string prm_name, string prm_model);
 
 	virtual ~BackGroundChipPlate();
 };

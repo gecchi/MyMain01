@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_xname) : DefaultSpriteEnemyActor(prm_name, prm_xname) {
+EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_model) : DefaultSpriteEnemyActor(prm_name, prm_model) {
 	_pEffectBegin = NULL;
 	_pEffectFinish = NULL;
 	_iProgress = 0;

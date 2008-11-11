@@ -5,7 +5,7 @@
 class EffectExplosion001 : public DefaultSpriteActor {
 
 public:
-	EffectExplosion001(string prm_name, string prm_xname);
+	EffectExplosion001(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

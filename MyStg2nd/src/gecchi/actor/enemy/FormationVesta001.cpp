@@ -1,9 +1,9 @@
 #include "stdafx.h"
 
-FormationVesta001::FormationVesta001(string prm_name) : FormationActor(prm_name) {
+FormationVesta001::FormationVesta001(string prm_name, string prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationVesta001";
 	for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
-		_pEnemyVesta[i] = NEW EnemyVesta("Vesta01", "ebi");
+		_pEnemyVesta[i] = NEW EnemyVesta("Vesta01", prm_model);
 		_pEnemyVesta[i] -> stopImmediately();
 		addSubLast(_pEnemyVesta[i] );
 	}

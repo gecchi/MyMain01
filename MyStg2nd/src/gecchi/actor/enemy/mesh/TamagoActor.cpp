@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-TamagoActor::TamagoActor(string prm_name, string prm_xname) : DefaultMeshActor(prm_name, prm_xname) {
+TamagoActor::TamagoActor(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 }
 
 void TamagoActor::initialize() {

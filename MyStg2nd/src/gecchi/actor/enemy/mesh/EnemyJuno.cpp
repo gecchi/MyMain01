@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-EnemyJuno::EnemyJuno(string prm_name, string prm_xname) : DefaultMeshEnemyActor(prm_name, prm_xname) {
+EnemyJuno::EnemyJuno(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_iMovePatternNo = 0;
 }
 

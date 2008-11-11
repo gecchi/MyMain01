@@ -5,7 +5,7 @@
 class DefaultSpriteMyActor : public DefaultSpriteActor {
 
 public:
-	DefaultSpriteMyActor(string prm_name, string prm_xname);
+	DefaultSpriteMyActor(string prm_name, string prm_model);
 
 	virtual ~DefaultSpriteMyActor();
 };
