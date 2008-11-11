@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-FontPlateActor::FontPlateActor(string prm_name, string prm_xname) : DefaultPlateActor(prm_name, prm_xname) {
+FontPlateActor::FontPlateActor(string prm_name, string prm_model) : DefaultPlateActor(prm_name, prm_model) {
 	_class_name = "FontPlateActor";
 	_draw_string = "empty";
 }

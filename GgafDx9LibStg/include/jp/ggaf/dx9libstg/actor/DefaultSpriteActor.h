@@ -9,7 +9,7 @@ public:
 
 	StgChecker* _pChecker;
 
-	DefaultSpriteActor(string prm_name, string prm_xname);
+	DefaultSpriteActor(string prm_name, string prm_model);
 
 	virtual void initialize() {};
 

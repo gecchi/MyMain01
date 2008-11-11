@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-DefaultMeshActor::DefaultMeshActor(string prm_name, string prm_xname)
-	: GgafDx9MeshActor(prm_name, prm_xname, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+DefaultMeshActor::DefaultMeshActor(string prm_name, string prm_model)
+	: GgafDx9MeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
 	_class_name = "DefaultMeshActor";
 	_dwFrameOffset = 0;

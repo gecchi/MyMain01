@@ -5,7 +5,7 @@
 class FontSpriteActor : public DefaultSpriteActor {
 
 public:
-	FontSpriteActor(string prm_name, string prm_xname);
+	FontSpriteActor(string prm_name, string prm_model);
 
 	virtual ~FontSpriteActor();
 

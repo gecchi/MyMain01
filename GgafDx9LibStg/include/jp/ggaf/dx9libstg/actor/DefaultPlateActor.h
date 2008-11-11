@@ -5,7 +5,7 @@
 class DefaultPlateActor : public GgafDx9PlateActor {
 
 public:
-	DefaultPlateActor(string prm_name, string prm_xname);
+	DefaultPlateActor(string prm_name, string prm_model);
 
 	virtual void initialize() {};
 

@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-DefaultSpriteActor::DefaultSpriteActor(string prm_name, string prm_xname)
-	: GgafDx9SpriteActor(prm_name, prm_xname, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+DefaultSpriteActor::DefaultSpriteActor(string prm_name, string prm_model)
+	: GgafDx9SpriteActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
 	_class_name = "DefaultSpriteActor";
 	_dwFrameOffset = 0;

@@ -9,7 +9,7 @@ public:
 
 	StgChecker* _pChecker;
 
-	DefaultMeshActor(string prm_name, string prm_xname);
+	DefaultMeshActor(string prm_name, string prm_model);
 
 
 	virtual void initialize() {};

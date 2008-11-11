@@ -6,7 +6,7 @@ class FontPlateActor : public DefaultPlateActor {
 	/** 文字数 */
 	string _draw_string;
 public:
-	FontPlateActor(string prm_name, string prm_xname);
+	FontPlateActor(string prm_name, string prm_model);
 
 	virtual void processDrawMain(); //オーバーライド
 

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-DefaultPlateActor::DefaultPlateActor(string prm_name, string prm_xname) : GgafDx9PlateActor(prm_name, prm_xname) {
+DefaultPlateActor::DefaultPlateActor(string prm_name, string prm_model) : GgafDx9PlateActor(prm_name, prm_model) {
 	_class_name = "DefaultPlateActor";
 }
 
