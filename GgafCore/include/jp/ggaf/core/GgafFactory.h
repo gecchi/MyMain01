@@ -67,6 +67,16 @@ public:
 	 */
 	static void orderScene(string prm_id, GgafMainScene* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
 
+	template <class X>
+	static void orderActor(string prm_id, X* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
+		order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+	}
+
+	template <class X>
+	static void orderScene(string prm_id, X* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
+		order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+	}
+
 	/**
 	 * 注文したアクターを取り出す。<BR>
 	 * 未製造だった場合、製造が完了するまで待つ。<BR>
