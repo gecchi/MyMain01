@@ -62,6 +62,16 @@ public:
 	static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 	static int sign(int x);
 	//static DWORD max3(DWORD a, DWORD b, DWORD c);
+
+	static void HrToStrByDxErr(HRESULT hr) {
+	    TCHAR szMsg[MAX_ERROR_TEXT_LEN+MAX_PATH+256];
+	    _snwprintf_s(szMsg, _countof(szMsg), _TRUNCATE,
+	        TEXT("HRESULT=%08X (%s) ErrStr=%s Desc=%s\n")
+	        , hr
+	        , (FAILED(hr)) ? TEXT("FAILED") : TEXT("SUCCEEDED")
+	        , DXGetErrorString9(hr), DXGetErrorDescription9(hr));
+	    OutputDebugString(szMsg);
+	}
 };
 
 #endif /*GGAFDX9UTIL_H_*/
