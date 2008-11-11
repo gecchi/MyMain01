@@ -57,7 +57,10 @@ public:
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
 	 */
-	static void orderActor(string prm_id, GgafMainActor* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
+	template <class X>
+	static void orderActor(string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
+	}
 
 	/**
 	 * 工場にシーン作成の注文を行う<BR>
@@ -65,13 +68,6 @@ public:
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
 	 */
-	static void orderScene(string prm_id, GgafMainScene* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
-
-	template <class X>
-	static void orderActor(string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
-	}
-
 	template <class X>
 	static void orderScene(string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
 		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);

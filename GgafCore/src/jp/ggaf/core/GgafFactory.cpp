@@ -7,13 +7,6 @@ GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool       GgafFactory::_isWorking = true;
 bool       GgafFactory::_isFinish  = false;
 
-void GgafFactory::orderActor(string prm_id, GgafMainActor* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-	order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
-}
-
-void GgafFactory::orderScene(string prm_id, GgafMainScene* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-	order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
-}
 
 GgafMainActor* GgafFactory::obtainActor(string prm_id) {
 	return (GgafMainActor*)obtain(prm_id);
