@@ -31,10 +31,10 @@ private:
 	/**
 	 * 工場に注文を行う<BR>
 	 * @param   prm_id	注文識別ID
-	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_argumentForBuild	その引数<BR>
+	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
+	 * 			prm_pArg	その引数<BR>
 	 */
-	static void order(string prm_id, GgafObject* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
+	static void order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
 
 	/**
 	 * 注文した商品を取り出す。<BR>
@@ -54,27 +54,27 @@ public:
 	/**
 	 * 工場にアクター作成の注文を行う<BR>
 	 * @param   prm_id	注文識別ID
-	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_argumentForBuild	その引数<BR>
+	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
+	 * 			prm_pArg	その引数<BR>
 	 */
-	static void orderActor(string prm_id, GgafMainActor* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
+	static void orderActor(string prm_id, GgafMainActor* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
 
 	/**
 	 * 工場にシーン作成の注文を行う<BR>
 	 * @param   prm_id	注文識別ID
-	 * 			prm_functionForBuild	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_argumentForBuild	その引数<BR>
+	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
+	 * 			prm_pArg	その引数<BR>
 	 */
-	static void orderScene(string prm_id, GgafMainScene* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2);
+	static void orderScene(string prm_id, GgafMainScene* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
 
 	template <class X>
-	static void orderActor(string prm_id, X* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
-		order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+	static void orderActor(string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 	}
 
 	template <class X>
-	static void orderScene(string prm_id, X* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
-		order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+	static void orderScene(string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 	}
 
 	/**

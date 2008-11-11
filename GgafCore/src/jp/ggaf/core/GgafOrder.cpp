@@ -7,9 +7,9 @@ GgafOrder::GgafOrder(string prm_id) {
 	_isFirstOrder = false;
 	_isLastOrder  = false;
 	_pObject_Creation = NULL;
-	_functionForBuild = NULL;
-	_argumentForBuild1 = NULL;
-	_argumentForBuild2 = NULL;
+	_pFunc = NULL;
+	_pArg1 = NULL;
+	_pArg2 = NULL;
 	_progress = 0;
 }
 

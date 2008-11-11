@@ -7,12 +7,12 @@ GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool       GgafFactory::_isWorking = true;
 bool       GgafFactory::_isFinish  = false;
 
-void GgafFactory::orderActor(string prm_id, GgafMainActor* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
-	order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+void GgafFactory::orderActor(string prm_id, GgafMainActor* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+	order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 }
 
-void GgafFactory::orderScene(string prm_id, GgafMainScene* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
-	order(prm_id, (GgafObject* (*)(void*, void*))prm_functionForBuild, prm_argumentForBuild1, prm_argumentForBuild2);
+void GgafFactory::orderScene(string prm_id, GgafMainScene* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+	order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 }
 
 GgafMainActor* GgafFactory::obtainActor(string prm_id) {
@@ -23,13 +23,13 @@ GgafMainScene* GgafFactory::obtainScene(string prm_id) {
 	return (GgafMainScene*)obtain(prm_id);
 }
 
-void GgafFactory::order(string prm_id, GgafObject* (*prm_functionForBuild)(void*, void*), void* prm_argumentForBuild1, void* prm_argumentForBuild2) {
+void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
 	TRACE("GgafFactory::order 別スレッドさん、" << prm_id << "を作っといて。");
 	GgafOrder* pOrder_New = NEW GgafOrder(prm_id);
 	pOrder_New->_pObject_Creation=NULL;
-	pOrder_New->_functionForBuild = prm_functionForBuild;
-	pOrder_New->_argumentForBuild1 = prm_argumentForBuild1;
-	pOrder_New->_argumentForBuild2 = prm_argumentForBuild2;
+	pOrder_New->_pFunc = prm_pFunc;
+	pOrder_New->_pArg1 = prm_pArg1;
+	pOrder_New->_pArg2 = prm_pArg2;
 	pOrder_New->_progress = 0;
 	//::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	if (ROOT_ORDER == NULL) {
@@ -164,10 +164,10 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 			if (CREATING_ORDER  -> _progress == 0) { //未着手ならまず作る
 				TRACE2("GgafFactory::work 注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER  -> _progress<<")ゆえに作ります。");
 				CREATING_ORDER  -> _progress = 1;    //ステータスを製造中へ
-				func = CREATING_ORDER ->_functionForBuild;
+				func = CREATING_ORDER ->_pFunc;
 				pOrder_InManufacturing_save = CREATING_ORDER; //ポインタ一時退避
-				void* arg1 = CREATING_ORDER ->_argumentForBuild1;
-				void* arg2 = CREATING_ORDER ->_argumentForBuild2;
+				void* arg1 = CREATING_ORDER ->_pArg1;
+				void* arg2 = CREATING_ORDER ->_pArg2;
 				TRACE2("GgafFactory::work 製造開始！["<<CREATING_ORDER->_id<<"]");
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 				Sleep(2);
