@@ -5,7 +5,9 @@ GgafDx9CriticalException::GgafDx9CriticalException(string prm_message, HRESULT p
 }
 string GgafDx9CriticalException::getMsg() {
     char buff[1000];
-    sprintf(buff, "\nHRESULT=%08X,%d (%s) ErrStr=%s Desc=%s", _hr,_hr, ( (FAILED(_hr)) ? "FAILED" : "SUCCEEDED") , DXGetErrorString9(_hr), DXGetErrorDescription9(_hr));
+    ZeroMemory(buff, sizeof(buff));
+
+    sprintf(buff, "\nHRESULT=0x%08X(%d) is %s. ErrStr=%s Desc=%s", _hr,_hr, ( (FAILED(_hr)) ? "FAILED" : "SUCCEEDED") , DXGetErrorString9(_hr), DXGetErrorDescription9(_hr));
     string hrstr = buff;
 	return _message + hrstr;
 }
