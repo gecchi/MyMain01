@@ -51,7 +51,7 @@ void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	setBumpableOnlySelf(false);
 	declareStop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-	if (pExplo001) {
+	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
 		pExplo001->declarePlay();
 	}

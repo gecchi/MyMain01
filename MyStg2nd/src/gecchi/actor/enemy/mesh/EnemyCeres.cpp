@@ -113,7 +113,7 @@ void EnemyCeres::processBehavior() {
 		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
 		for (int i = 0; i < 10; i++) {
 			pTama = (EnemyShot001*)pShots001->obtain();
-			if (pTama) {
+			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, 0);
 				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
 				pTama -> declarePlay();
@@ -207,7 +207,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 	setBumpableOnlySelf(false);
 	declareFinishLife();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-	if (pExplo001) {
+	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
 		pExplo001->declarePlay();
 	}

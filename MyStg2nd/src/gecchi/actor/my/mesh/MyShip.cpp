@@ -781,11 +781,11 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 	//ショットボタン
 	if (VB::isPushedDown(VB_SHOT1)) {
 		MyShot001* pShot = (MyShot001*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
-		if (pShot) {
+		if (pShot != NULL) {
 			pShot->declarePlay();
 
 			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-			if (pExplo001) {
+			if (pExplo001 != NULL) {
 				pExplo001->setGeometry(prm_pActor);
 				pExplo001->declarePlay();
 			}
@@ -796,7 +796,7 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
 		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
 		MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
-		if (pLaser) {
+		if (pLaser != NULL) {
 			pLaser->setRadicalActor(prm_pActor);
 			pLaser->declarePlay();
 		}
