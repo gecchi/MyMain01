@@ -1111,14 +1111,14 @@ void GgafElement<T>::cleane() {
 		if (_pElementTemp->_isFirst) { //––”ö‚©‚çŒ©‚Äs‚«ÅŒã‚Ìˆê‚Â
 
 			if (_pElementTemp->_isAlive == false) {
-				delete (_pElementTemp);
+				DELETE_IMPOSSIBLE_NULL(_pElementTemp);
 				GgafGod::_s_iNumClean_Node++;
 			}
 			break;
 		} else { //––”ö‚©‚ç‡‚ÉŒ©‚Ä‚¢‚­
 			_pElementTemp = _pElementTemp -> SUPER::_pPrev;
 			if (_pElementTemp->SUPER::_pNext->_isAlive == false) {
-				delete (_pElementTemp->SUPER::_pNext);
+				DELETE_IMPOSSIBLE_NULL(_pElementTemp->SUPER::_pNext);
 				GgafGod::_s_iNumClean_Node++;
 			}
 		}

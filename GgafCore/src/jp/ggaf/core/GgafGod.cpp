@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-
+GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_s_iNumClean_Node = 0;
@@ -51,6 +51,9 @@ void GgafGod::be(){
 			throw_GgafCriticalException("GgafGod::be() Error! ¢ŠE‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
 		}
 		_pWorld -> _pGod = this;
+	}
+	if (_pException_Factory != NULL) {
+		throw *_pException_Factory;
 	}
 
 
@@ -135,12 +138,13 @@ GgafGod::~GgafGod() {
 	//_pWorld->pronounceFinishLife();
 	Sleep(20);
 	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-    delete _pWorld;
+	DELETE_IMPOSSIBLE_NULL(_pWorld);
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
     CloseHandle(_handleFactory01);
     DeleteCriticalSection(&(GgafGod::CS2));
 	DeleteCriticalSection(&(GgafGod::CS1));
 	GgafFactory::_pGod = NULL;
 
+	DELETE_POSSIBLE_NULL(_pException_Factory);
 	TRACE("GgafGod::~GgafGod end");
 }

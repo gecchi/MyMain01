@@ -522,16 +522,16 @@ GgafNode<T>::~GgafNode() {
 		//‚Ü‚¸ƒTƒu‚ðdelete
 		if (_pSubFirst->_isLast) {
 			//Žqƒm[ƒh‚Í‚P‚Â‚Ìê‡
-			delete (_pSubFirst);
+			DELETE_IMPOSSIBLE_NULL(_pSubFirst);
 			_pSubFirst = NULL;
 		} else {
 			//Žqƒm[ƒh‚Í‚Q‚ÂˆÈã‚Ìê‡
 			T* pSubLast = _pSubFirst -> _pPrev;
 			T* pSubLastPrev = pSubLast -> _pPrev;
 			while(true) {
-				delete (pSubLast); //––”ö‚©‚çdelete
+				DELETE_IMPOSSIBLE_NULL(pSubLast); //––”ö‚©‚çdelete
 				if (pSubLastPrev -> _isFirst) {
-					delete (_pSubFirst); //pSubLastPrev == _pSubFirst ‚Å‚ ‚é
+					DELETE_IMPOSSIBLE_NULL(_pSubFirst); //pSubLastPrev == _pSubFirst ‚Å‚ ‚é
 					_pSubFirst = NULL;
 					break;
 				}

@@ -2,10 +2,11 @@
 #define GGAFEXCEPTION_H_
 
 class GgafException : public GgafObject {
-	string _message;
+
 public:
+	string _message;
 	GgafException(string prm_message);
-	string getMsg();
+	virtual string getMsg();
 	virtual ~GgafException();
 };
 

@@ -8,6 +8,8 @@ class GgafGod : public GgafObject {
 public:
 	static int _s_iNumClean_Node;
 
+	static GgafCriticalException* _pException_Factory;
+
 	static DWORD _dwNextTimeOffset[];
 	/** GgafFactory::work スレッドハンドル  */
 	HANDLE _handleFactory01;

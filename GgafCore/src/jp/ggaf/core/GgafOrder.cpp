@@ -14,33 +14,6 @@ GgafOrder::GgafOrder(string prm_id) {
 }
 
 GgafOrder::~GgafOrder() {
-	if (_pObject_Creation != NULL) {
-		delete _pObject_Creation;
-		_pObject_Creation = NULL;
-	}
+	DELETE_POSSIBLE_NULL(_pObject_Creation);
 }
-/*
-//以前
-GgafOrder::~GgafOrder() {
-	if (_pObject_Creation != NULL) {
-
-		GgafActor* pActor = dynamic_cast<GgafActor*>(_pObject_Creation);
-		if (pActor != 0) {
-			delete pActor;
-			pActor = NULL;
-			_pObject_Creation = NULL;
-		} else {
-			GgafScene* pScene = dynamic_cast<GgafScene*>(_pObject_Creation);
-			if (pScene != 0) {
-				delete pScene;
-				pScene = NULL;
-				_pObject_Creation = NULL;
-			} else {
-				throw_GgafCriticalException("GgafOrder::~GgafOrder Error! 未知の GgafOrder オブジェクトです。解放できません。");
-			}
-		}
-	}
-}
-
-*/
 

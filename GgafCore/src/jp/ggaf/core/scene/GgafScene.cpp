@@ -12,9 +12,7 @@ GgafScene::~GgafScene() {
 	TRACE("GgafScene::~GgafScene() "+getName() + " start-->");
 
 	//所属アクターを解放
-	if (_pLordActor != NULL) {
-		delete _pLordActor;
-	}
+	DELETE_POSSIBLE_NULL(_pLordActor);
 
 	TRACE("GgafScene::~GgafScene() "+getName() + " <---end");
 }

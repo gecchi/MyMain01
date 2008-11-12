@@ -81,8 +81,8 @@ void GgafProperties::parse(char* p) {
 }
 
 void GgafProperties::clean() {
-	delete MAX_SKIP_FRAME;
-	delete _s_pMapProperties;
+	DELETE_IMPOSSIBLE_NULL(MAX_SKIP_FRAME);
+	DELETE_IMPOSSIBLE_NULL(_s_pMapProperties);
 }
 
 string* GgafProperties::getStr(string prm_key) {
