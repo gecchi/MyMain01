@@ -73,9 +73,9 @@ void BackGround01Plate::processDrawMain() {
 }
 
 BackGround01Plate::~BackGround01Plate() {
-	delete _papChipPlate[0];
-	delete _papChipPlate[1];
-	delete _papChipPlate[2];
-	delete _papChipPlate[3];
-	delete [] _papChipPlate;
+	DELETE_IMPOSSIBLE_NULL(_papChipPlate[0]);
+	DELETE_IMPOSSIBLE_NULL(_papChipPlate[1]);
+	DELETE_IMPOSSIBLE_NULL(_papChipPlate[2]);
+	DELETE_IMPOSSIBLE_NULL(_papChipPlate[3]);
+	DELETEARR_IMPOSSIBLE_NULL(_papChipPlate);
 }

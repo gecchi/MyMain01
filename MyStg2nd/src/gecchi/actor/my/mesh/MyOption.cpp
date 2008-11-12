@@ -53,7 +53,7 @@ MyOption::~MyOption() {
 	GeometryChain* pWorkNext = NULL;
 	while (true) {
 		pWorkNext = pWork->_next;
-		delete pWork;
+		DELETE_IMPOSSIBLE_NULL(pWork);
 		pWork = NULL;
 		if (pWorkNext != NULL) {
 			pWork = pWorkNext;

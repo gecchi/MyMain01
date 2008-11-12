@@ -23,11 +23,11 @@ void Stage01MainScene::processBehavior() {
 	if (_dwFrame == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (_dwFrame) {
 			case 1:
-				orderActorFactory("1096300", FormationCeres002, "F_Ceres002_1", "pot");
+				orderActorFactory("1096300", FormationCeres002, "F_Ceres002_1", "myvic");
 				break;
 			case 300:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096300"));
-				orderActorFactory("1096600", FormationCeres002, "F_Ceres002_300", "ebi");
+				orderActorFactory("1096600", FormationCeres002, "F_Ceres002_300", "oke_small");
 				break;
 			case 600:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096600"));
@@ -35,7 +35,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 900:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096900"));
-				orderActorFactory("10961200", FormationCeres002, "F_Ceres002_900", "pot");
+				orderActorFactory("10961200", FormationCeres002, "F_Ceres002_900", "akami");
 				break;
 			case 1200:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10961200"));
@@ -51,7 +51,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 2100:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962100"));
-				orderActorFactory("10962400", FormationCeres002, "F_Ceres002_2100", "Ceres");
+				orderActorFactory("10962400", FormationCeres002, "F_Ceres002_2100", "pot");
 				break;
 			case 2400:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962400"));
