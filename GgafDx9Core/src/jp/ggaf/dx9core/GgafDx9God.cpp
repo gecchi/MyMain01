@@ -461,9 +461,11 @@ void GgafDx9God::makeWorldVisualize() {
 
 		if (hr == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
-			_TRACE_("デバイスロスト！");
+			_TRACE_("デバイスロスト！Present()");
 			_deviceLostFlg = true;
 		} else if (hr != D3D_OK ) {
+			//_TRACE_("おかしい！Present()");
+			//_deviceLostFlg = true;
 			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9 -> Present() に失敗しました。", hr);
 		}
 	}

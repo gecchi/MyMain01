@@ -86,9 +86,9 @@ void GgafGod::be(){
 				_dwFrame_Visualize++;
 				makeWorldMaterialize();
 				makeWorldVisualize();
-				if (getWorld() != NULL && _s_iNumClean_Node == 0) {
-					getWorld()->cleane(); //‘|œ
-				}
+//				if (getWorld() != NULL && _s_iNumClean_Node == 0) {
+//					getWorld()->cleane(); //‘|œ
+//				}
 			}
 		}
 		makeWorldFinalize();

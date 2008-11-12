@@ -83,58 +83,46 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 
 
 GgafDx9SpriteModel* GgafDx9ModelManager::getSpriteModel(string prm_model_name) {
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9SpriteModel* pSpriteModel_New = createSpriteModel(prm_model_name);
 		GgafDx9ModelManager::add((GgafDx9Model*)pSpriteModel_New);
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return pSpriteModel_New;
 	} else {
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return (GgafDx9SpriteModel*)pModel;
 	}
 }
 
 GgafDx9SquareModel* GgafDx9ModelManager::getSquareModel(string prm_model_name) {
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9SquareModel* pSquareModel_New = createSquareModel(prm_model_name);
 		GgafDx9ModelManager::add((GgafDx9Model*)pSquareModel_New);
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return pSquareModel_New;
 	} else {
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return (GgafDx9SquareModel*)pModel;
 	}
 }
 
 
 GgafDx9MeshModel* GgafDx9ModelManager::getMeshModel(string prm_model_name) {
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name);
 		GgafDx9ModelManager::add((GgafDx9Model*)pMeshModel_New);
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return pMeshModel_New;
 	} else {
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return (GgafDx9MeshModel*)pModel;
 	}
 }
 
 GgafDx9PlateModel* GgafDx9ModelManager::getPlateModel(string prm_model_name) {
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9PlateModel* pPlateModel_New = createPlateModel(prm_model_name);
 		GgafDx9ModelManager::add((GgafDx9Model*)pPlateModel_New);
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return pPlateModel_New;
 	} else {
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		return (GgafDx9PlateModel*)pModel;
 	}
 }

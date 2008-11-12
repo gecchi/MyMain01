@@ -5,6 +5,7 @@
 //次の"GgafDx9LibStgHeader.h"ヘッダをインクルードします。
 #include "GgafDx9LibStgHeader.h"
 
+
 #define KIND_EFFECT            0
 #define KIND_MY                1
 #define KIND_MY_SHOT_GU        2

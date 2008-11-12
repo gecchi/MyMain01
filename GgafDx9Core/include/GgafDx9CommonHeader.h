@@ -36,13 +36,13 @@
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
 
-
+#include <dxerr9.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
 #include <dsound.h>
 #include <dxfile.h>
-#include <dxerr9.h>
+
 
 class CmRandomNumberGenerator;
 

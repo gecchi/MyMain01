@@ -22,7 +22,7 @@ protected:
 	bool _wasInitialized;
 
 	/** ループ用 */
-	T* _pElementTemp;
+
 
 public:
 	/** ノードが誕生(addSubされた）時からのフレーム */
@@ -457,7 +457,6 @@ template<class T>
 GgafElement<T>::GgafElement(string prm_name) : SUPER (prm_name),
 _pGod(NULL),
 _wasInitialized(false),
-_pElementTemp(NULL),
 _dwFrame(0),
 _dwFrame_relative(0),
 _isPlaying(true),
@@ -532,14 +531,14 @@ void GgafElement<T>::nextFrame() {
 		_isAlive = _willBeAliveNextFrame;
 
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				if (_pElementTemp -> _isLast) {
-					_pElementTemp -> nextFrame();
+				if (pElementTemp -> _isLast) {
+					pElementTemp -> nextFrame();
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
-					_pElementTemp -> SUPER::_pPrev-> nextFrame();
+					pElementTemp = pElementTemp -> SUPER::_pNext;
+					pElementTemp -> SUPER::_pPrev-> nextFrame();
 				}
 			}
 		}
@@ -555,7 +554,6 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-_TRACE_("ここかな？behave---->"<<SUPER::getName());
 	if(_wasInitialized == false) {
 		initialize();
 		_wasInitialized = true;
@@ -571,18 +569,17 @@ _TRACE_("ここかな？behave---->"<<SUPER::getName());
 		_dwFrame_relative = 0;
 		processBehavior();
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> behave();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> behave();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
 	}
-	_TRACE_("ここかな？behave<-----"<<SUPER::getName());
 }
 
 template<class T>
@@ -596,13 +593,13 @@ void GgafElement<T>::judge() {
 		_dwFrame_relative = 0;
 		processJudgement();
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> judge();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> judge();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -621,13 +618,13 @@ void GgafElement<T>::drawPrior() {
 		_dwFrame_relative = 0;
 		processDrawPrior();
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> drawPrior();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> drawPrior();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -649,13 +646,13 @@ void GgafElement<T>::drawMain() {
 			_wasExecuted_processDrawMain = true;
 		}
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> drawMain();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> drawMain();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -674,13 +671,13 @@ void GgafElement<T>::drawTerminate() {
 		_dwFrame_relative = 0;
 		processDrawTerminate();
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> drawTerminate();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> drawTerminate();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -699,13 +696,13 @@ void GgafElement<T>::happen(int prm_no) {
 		_dwFrame_relative = 0;
 		processHappen(prm_no);
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> happen(prm_no);
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> happen(prm_no);
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -724,13 +721,13 @@ void GgafElement<T>::finally() {
 		_dwFrame_relative = 0;
 		processFinal();
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> finally();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> finally();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -745,13 +742,13 @@ void GgafElement<T>::declarePlay() {
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declarePlay();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declarePlay();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -773,13 +770,13 @@ void GgafElement<T>::playImmediately() {
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> playImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> playImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -798,13 +795,13 @@ void GgafElement<T>::declareStop() {
 	if (_isAlive) {
 		_willPlayNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declareStop();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declareStop();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -828,13 +825,13 @@ void GgafElement<T>::stopImmediately() {
 		_isPlaying = false;
 		_willPlayNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> stopImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> stopImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -848,13 +845,13 @@ void GgafElement<T>::declarePause() {
 		_willPauseNextFrame = true;
 		_isPlaying = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declarePause();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declarePause();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			 }
 		}
@@ -868,13 +865,13 @@ void GgafElement<T>::pauseImmediately() {
 		_willPauseNextFrame = true;
 		_isPlaying = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> pauseImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> pauseImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			 }
 		}
@@ -886,13 +883,13 @@ void GgafElement<T>::declareUnpause() {
 	if (_isAlive) {
 		_willPauseNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declareUnpause();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declareUnpause();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -905,13 +902,13 @@ void GgafElement<T>::unpauseImmediately() {
 		_wasPaused = false;
 		_willPauseNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> unpauseImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> unpauseImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -923,13 +920,13 @@ void GgafElement<T>::declareBlind() {
 	if (_isAlive) {
 		_willBlindNextFrame = true;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declareBlind();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declareBlind();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -942,13 +939,13 @@ void GgafElement<T>::blindImmediately() {
 		_wasBlinded = true;
 		_willBlindNextFrame = true;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> blindImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> blindImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -960,13 +957,13 @@ void GgafElement<T>::declareUnblind() {
 	if (_isAlive) {
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> declareUnblind();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> declareUnblind();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -979,13 +976,13 @@ void GgafElement<T>::unblindImmediately() {
 		_wasBlinded = false;
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
-			_pElementTemp = SUPER::_pSubFirst;
+			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				_pElementTemp -> unblindImmediately();
-				if (_pElementTemp -> _isLast) {
+				pElementTemp -> unblindImmediately();
+				if (pElementTemp -> _isLast) {
 					break;
 				} else {
-					_pElementTemp = _pElementTemp -> SUPER::_pNext;
+					pElementTemp = pElementTemp -> SUPER::_pNext;
 				}
 			}
 		}
@@ -999,13 +996,13 @@ void GgafElement<T>::declareFinishLife() {
 	_willBeAliveNextFrame = false;
 	SUPER::_name = "_x_"+SUPER::_name;
 	if (SUPER::_pSubFirst != NULL) {
-		_pElementTemp = SUPER::_pSubFirst;
+		T* pElementTemp = SUPER::_pSubFirst;
 		while(true) {
-			_pElementTemp -> declareFinishLife();
-			if (_pElementTemp -> _isLast) {
+			pElementTemp -> declareFinishLife();
+			if (pElementTemp -> _isLast) {
 				break;
 			} else {
-				_pElementTemp = _pElementTemp -> SUPER::_pNext;
+				pElementTemp = pElementTemp -> SUPER::_pNext;
 			}
 		}
 	}
@@ -1108,19 +1105,21 @@ void GgafElement<T>::cleane() {
 	}
 
 	//子を調べてdeleteする
-	_pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
+	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
+	T* pWk;
 	while(GgafGod::_s_iNumClean_Node == 0) {
-		if (_pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
+		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
 
-			if (_pElementTemp->_isAlive == false) {
-				DELETE_IMPOSSIBLE_NULL(_pElementTemp);
+			if (pElementTemp->_isAlive == false) {
+				DELETE_IMPOSSIBLE_NULL(pElementTemp);
 				GgafGod::_s_iNumClean_Node++;
 			}
 			break;
 		} else { //末尾から順に見ていく
-			_pElementTemp = _pElementTemp -> SUPER::_pPrev;
-			if (_pElementTemp->SUPER::_pNext->_isAlive == false) {
-				DELETE_IMPOSSIBLE_NULL(_pElementTemp->SUPER::_pNext);
+			pElementTemp = pElementTemp -> SUPER::_pPrev;
+			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
+				pWk = pElementTemp->SUPER::_pNext;
+				DELETE_IMPOSSIBLE_NULL(pWk);
 				GgafGod::_s_iNumClean_Node++;
 			}
 		}
@@ -1128,14 +1127,13 @@ void GgafElement<T>::cleane() {
 
 	//子がまだのっている場合さらにもぐる
 	if (SUPER::_pSubFirst != NULL) {
-		_pElementTemp = SUPER::_pSubFirst;
+		pElementTemp = SUPER::_pSubFirst;
 		while(true) {
-			_pElementTemp -> cleane();
-			if (_pElementTemp -> _isLast) {
+			pElementTemp -> cleane();
+			if (pElementTemp -> _isLast) {
 				break;
 			} else {
-				_pElementTemp = _pElementTemp -> SUPER::_pNext;
-
+				pElementTemp = pElementTemp -> SUPER::_pNext;
 			}
 		}
 	}
