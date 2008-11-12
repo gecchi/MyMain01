@@ -12,10 +12,3 @@ string GgafDx9CriticalException::getMsg() {
 GgafDx9CriticalException::~GgafDx9CriticalException() {
 }
 
-
-static string dispDxErrString(HRESULT hr) {
-    char buff[1000];
-    sprintf(buff, "HRESULT=%08X (%s) ErrStr=%s Desc=%s\n", hr, ( (hr != D3D_OK) ? "FAILED" : "SUCCEEDED") , DXGetErrorString9(hr), DXGetErrorDescription9(hr));
-    string message = buff;
-    return message;
-}
