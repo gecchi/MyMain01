@@ -25,10 +25,7 @@ OggDecoder::OggDecoder(OggVorbisResource* oggVorbisResource) {
 //! デストラクタ
 OggDecoder::~OggDecoder() {
 	clear();
-
-	if (oggVorbisResource_ != NULL) {
-		delete oggVorbisResource_;
-	}
+	DELETE_POSSIBLE_NULL(oggVorbisResource_);
 }
 
 //! クリア

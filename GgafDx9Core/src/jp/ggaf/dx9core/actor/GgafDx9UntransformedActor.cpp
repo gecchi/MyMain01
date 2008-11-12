@@ -33,16 +33,6 @@ void GgafDx9UntransformedActor::processDrawPrior() {
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
-	if (_pGeoMover == NULL) {
-		_TRACE_("GgafDx9UntransformedActor::~GgafDx9UntransformedActor() _pGeoMover‚ª‚ ‚è‚Ü‚¹‚ñ");
-	} else {
-		delete _pGeoMover;
-	}
-
-	if (_pGeoMover == NULL) {
-		_TRACE_("GgafDx9UntransformedActor::~GgafDx9UntransformedActor() _pGeoChecker‚ª‚ ‚è‚Ü‚¹‚ñ");
-	} else {
-		delete _pGeoChecker;
-	}
-
+	DELETE_POSSIBLE_NULL(_pGeoMover);
+	DELETE_POSSIBLE_NULL(_pGeoChecker);
 }

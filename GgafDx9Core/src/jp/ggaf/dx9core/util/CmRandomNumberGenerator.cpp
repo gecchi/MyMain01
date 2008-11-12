@@ -86,10 +86,7 @@ CmRandomNumberGenerator* CmRandomNumberGenerator::getInstance() {
  *
  ******************************************************************************/
 void CmRandomNumberGenerator::release() {
-	if (NULL != s_pInstance) {
-		delete s_pInstance;
-		s_pInstance = NULL;
-	}
+	DELETE_POSSIBLE_NULL(s_pInstance);
 }
 
 /******************************************************************************

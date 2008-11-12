@@ -33,11 +33,11 @@ void GgafDx9SeManager::clear() {
 	while (pSe_Current != NULL) {
 		GgafDx9Se* pSe_tmp = pSe_Current -> _pSe_Next;
 		if (pSe_tmp == NULL) {
-			delete pSe_Current;
+			DELETE_IMPOSSIBLE_NULL(pSe_Current);
 			pSe_Current = NULL;
 			break;
 		} else {
-			delete pSe_Current;
+			DELETE_IMPOSSIBLE_NULL(pSe_Current);
 			pSe_Current = pSe_tmp;
 		}
 	}

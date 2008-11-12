@@ -21,7 +21,7 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
 				&lpvPtr2, &dwBytes2, 0);
 	}
 
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		return false;
 	}
 	// ロック成功
@@ -79,7 +79,7 @@ GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() 
 	// バッファを作る
 //	hr = lpDS->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
 	hr = GgafDx9Sound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		_TRACE_("失敗3");
 		//return false;
 	}

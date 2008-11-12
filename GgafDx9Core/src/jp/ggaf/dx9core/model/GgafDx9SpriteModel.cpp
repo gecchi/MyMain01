@@ -43,8 +43,8 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 		//前回描画UV違う！、頂点バッファの tu, tv を直接変更
 		static VERTEX* paVertexBuffer;
 		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
-		if(FAILED(hr)) {
-			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗１ model="<<_model_name<<"/hr="<<hr);
+		if(hr != D3D_OK) {
+			throw_GgafDx9CriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗１ model="<<_model_name, hr);
 		}
 		paVertexBuffer[0].tu = pRectUV_Active->_aUV[0].tu;
 		paVertexBuffer[0].tv = pRectUV_Active->_aUV[0].tv;
@@ -75,7 +75,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 //		//前回描画UVが同じでもAlpha変更な場合
 //		static VERTEX* paVertexBuffer;
 //		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
-//		if(FAILED(hr)) {
+//		if(hr != D3D_OK) {
 //			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
 //		}
 //		paVertexBuffer[0].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
@@ -118,17 +118,10 @@ void GgafDx9SpriteModel::restore() {
 
 void GgafDx9SpriteModel::onDeviceLost() {
 	_TRACE_("GgafDx9SpriteModel::onDeviceLost() " <<  _model_name << " start");
-	_pIDirect3DVertexBuffer9->Release();
-	_pIDirect3DVertexBuffer9 = NULL;
-
-	delete _pD3DMaterial9;
-	_pD3DMaterial9 = NULL;
-
-	_pID3DTexture9 -> Release();
-	_pID3DTexture9 = NULL;
-
-	delete[] _paRectUV;
-	_paRectUV = NULL;
+	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
+	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
+	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9SpriteModel::onDeviceLost() " <<  _model_name << " end");
 }
 //
@@ -139,18 +132,10 @@ void GgafDx9SpriteModel::onDeviceLost() {
 
 GgafDx9SpriteModel::~GgafDx9SpriteModel() {
 	_TRACE_("GgafDx9SpriteModel::~GgafDx9SpriteModel() " <<  _model_name << " start");
-	_pIDirect3DVertexBuffer9->Release();
-	_pIDirect3DVertexBuffer9 = NULL;
-
-	delete _pD3DMaterial9;
-	_pD3DMaterial9 = NULL;
-
-	_pID3DTexture9 -> Release();
-	_pID3DTexture9 = NULL;
-
-	delete[] _paRectUV;
-	_paRectUV = NULL;
-
+	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
+	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
+	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9SpriteModel::~GgafDx9SpriteModel() " <<  _model_name << " end");
 }
 

@@ -93,5 +93,5 @@ void GgafDx9PlateActor::setPatternNo(int prm_iPatternNo) {
 
 
 GgafDx9PlateActor::~GgafDx9PlateActor() {
-	delete [] _paVertex;
+	DELETEARR_IMPOSSIBLE_NULL(_paVertex);
 }

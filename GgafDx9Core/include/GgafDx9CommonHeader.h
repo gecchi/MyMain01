@@ -36,12 +36,13 @@
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
 
+
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>
 #include <dsound.h>
 #include <dxfile.h>
-
+#include <dxerr9.h>
 
 class CmRandomNumberGenerator;
 
@@ -61,7 +62,7 @@ class CmRandomNumberGenerator;
 //#include "jp/ggaf/dx9core/sound/wavedecorder.h"
 //#include "jp/ggaf/dx9core/sound/c3dsound.h"
 
-
+class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
@@ -106,7 +107,7 @@ class OggVorbisFile;
 class OggVorbisMemory;
 
 
-
+#include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"

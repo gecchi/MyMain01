@@ -50,11 +50,8 @@ void GgafDx9SquareModel::restore() {
 void GgafDx9SquareModel::onDeviceLost() {
 	_TRACE_("GgafDx9SquareModel::onDeviceLost() " <<  _model_name << " start");
 
-	_pIDirect3DVertexBuffer9->Release();
-	_pIDirect3DVertexBuffer9 = NULL;
-
-	delete _pD3DMaterial9;
-	_pD3DMaterial9 = NULL;
+	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
 
 	_TRACE_("GgafDx9SquareModel::onDeviceLost() " <<  _model_name << " end");
 }
@@ -63,11 +60,8 @@ void GgafDx9SquareModel::onDeviceLost() {
 GgafDx9SquareModel::~GgafDx9SquareModel() {
 	TRACE("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " start");
 
-	_pIDirect3DVertexBuffer9->Release();
-	_pIDirect3DVertexBuffer9 = NULL;
-
-	delete _pD3DMaterial9;
-	_pD3DMaterial9 = NULL;
+	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
 
 	_TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " end");
 }

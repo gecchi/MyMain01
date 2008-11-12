@@ -7,17 +7,17 @@ DSCAPS GgafDx9Sound::_dsCaps;
 void GgafDx9Sound::init() {
 	HRESULT hr;
 	hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
 	}
 	hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		throw_GgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel失敗。");
 	}
 
 	_dsCaps.dwSize = sizeof(_dsCaps);
 	hr = GgafDx9Sound::_pIDirectSound8->GetCaps(&_dsCaps);
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		throw_GgafCriticalException("GgafDx9Sound::init() GetCaps失敗。");
 	}
 
@@ -33,7 +33,7 @@ void GgafDx9Sound::init() {
 void GgafDx9Sound::release() {
 	GgafDx9SeManager::clear();
 	GgafDx9BgmManager::clear();
-	_pIDirectSound8->Release();
+	RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
 //	_pC3DSound -> Release();
 //	delete _pC3DSound;
 //	_pC3DSound = NULL;

@@ -51,7 +51,7 @@ void GgafDx9Bgm::clear() {
 }
 
 GgafDx9Bgm::~GgafDx9Bgm() {
-	delete _pPcmPlayer;
-	delete _pOggDecoder;
-	delete _pOggResource;
+	DELETE_IMPOSSIBLE_NULL(_pPcmPlayer);
+	DELETE_IMPOSSIBLE_NULL(_pOggDecoder);
+	DELETE_IMPOSSIBLE_NULL(_pOggResource);
 }

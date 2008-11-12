@@ -54,10 +54,10 @@ void GgafDx9World::setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pAc
 GgafDx9World::~GgafDx9World() {
 	for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
 		if (_apActorDrawDepthLevel_first[i] != NULL) {
-			delete _apActorDrawDepthLevel_first[i];
+			DELETE_IMPOSSIBLE_NULL(_apActorDrawDepthLevel_first[i]);
 		}
 		if (_apActorDrawDepthLevel_last[i] != NULL) {
-			delete _apActorDrawDepthLevel_last[i];
+			DELETE_IMPOSSIBLE_NULL(_apActorDrawDepthLevel_last[i]);
 		}
 
 	}

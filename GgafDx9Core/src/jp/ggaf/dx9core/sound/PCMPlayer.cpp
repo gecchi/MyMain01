@@ -121,7 +121,7 @@ namespace {
 				clear();
 				return false;
 			}
-			ptmpBuf->Release();
+			RELEASE_IMPOSSIBLE_NULL(ptmpBuf);
 		}
 
 		// バッファを初期化

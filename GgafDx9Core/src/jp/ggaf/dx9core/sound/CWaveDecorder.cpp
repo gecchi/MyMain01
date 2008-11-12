@@ -65,7 +65,7 @@ m_pwfx		->cbSize = 0;
 		// Now, read those extra bytes into the structure, if cbExtraAlloc != 0.
 		if (mmioRead(m_hmmioIn, (CHAR*) (((BYTE*) &(m_pwfx->cbSize))
 								+ sizeof(WORD)), cbExtraBytes) != cbExtraBytes) {
-			delete m_pwfx;
+			DELETE_IMPOSSIBLE_NULL(m_pwfx);
 			m_pwfx = NULL;
 			return false;
 		}
@@ -73,7 +73,7 @@ m_pwfx		->cbSize = 0;
 
 	// Ascend the input file out of the 'fmt ' chunk.
 	if (0 != mmioAscend(m_hmmioIn, &ckIn, 0)) {
-		delete m_pwfx;
+		DELETE_IMPOSSIBLE_NULL(m_pwfx);
 		m_pwfx = NULL;
 		return false;
 	}
@@ -115,9 +115,7 @@ int CWaveDecorder::Open(LPSTR lpszFilename) {
  */
 void CWaveDecorder::Close(void) {
 	if (m_pwfx) {
-		delete m_pwfx;
-		m_pwfx = NULL;
-
+		DELETE_POSSIBLE_NULL(m_pwfx);
 		mmioClose(m_hmmioIn, 0);
 	}
 }

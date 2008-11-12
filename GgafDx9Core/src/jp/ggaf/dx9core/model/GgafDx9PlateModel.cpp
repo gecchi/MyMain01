@@ -67,22 +67,14 @@ void GgafDx9PlateModel::restore() {
 
 void GgafDx9PlateModel::onDeviceLost() {
 	_TRACE_("GgafDx9PlateModel::onDeviceLost() " <<  _model_name << " start");
-    _pID3DTexture9 -> Release();
-	_pID3DTexture9 = NULL;
-//	delete _pD3DMaterial9;
-//	_pD3DMaterial9 = NULL;
-	delete[] _paRectUV;
-	_paRectUV = NULL;
+	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
+	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9PlateModel::onDeviceLost() " <<  _model_name << " end");
 }
 
 GgafDx9PlateModel::~GgafDx9PlateModel() {
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " start");
-    _pID3DTexture9 -> Release();
-	_pID3DTexture9 = NULL;
-//	delete _pD3DMaterial9;
-//	_pD3DMaterial9 = NULL;
-	delete[] _paRectUV;
-	_paRectUV = NULL;
+    RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
+    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " end");
 }

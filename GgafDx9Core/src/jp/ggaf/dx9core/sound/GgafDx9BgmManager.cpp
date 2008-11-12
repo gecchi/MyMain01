@@ -33,11 +33,11 @@ void GgafDx9BgmManager::clear() {
 	while (pBgm_Current != NULL) {
 		GgafDx9Bgm* pBgm_tmp = pBgm_Current -> _pBgm_Next;
 		if (pBgm_tmp == NULL) {
-			delete pBgm_Current;
+			DELETE_IMPOSSIBLE_NULL(pBgm_Current);
 			pBgm_Current = NULL;
 			break;
 		} else {
-			delete pBgm_Current;
+			DELETE_IMPOSSIBLE_NULL(pBgm_Current);
 			pBgm_Current = pBgm_tmp;
 		}
 	}

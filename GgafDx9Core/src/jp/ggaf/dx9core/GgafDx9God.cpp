@@ -58,8 +58,8 @@ HRESULT GgafDx9God::init() {
 	//デスプレイモードの取得
 	D3DDISPLAYMODE structD3DDisplayMode;  //結果が格納される構造体
 	hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT,&structD3DDisplayMode);
-	if (FAILED(hr))	{
-		throw_GgafCriticalException("GetAdapterDisplayMode に失敗しました");
+	if (hr != D3D_OK)	{
+		throw_GgafDx9CriticalException("GetAdapterDisplayMode に失敗しました", hr);
 		return E_FAIL;
 	}
 
@@ -177,7 +177,7 @@ HRESULT GgafDx9God::init() {
 								D3DCREATE_HARDWARE_VERTEXPROCESSING,
 								&_structD3dPresent_Parameters,
 								&GgafDx9God::_pID3DDevice9);
-	if (FAILED(hr)) {
+	if (hr != D3D_OK) {
 		//ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
 		hr = GgafDx9God::_pID3D9->CreateDevice(
 									D3DADAPTER_DEFAULT,
@@ -186,7 +186,7 @@ HRESULT GgafDx9God::init() {
 									D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 									&_structD3dPresent_Parameters,
 									&GgafDx9God::_pID3DDevice9);
-		if (FAILED(hr)) {
+		if (hr != D3D_OK) {
 			//ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
 			hr = GgafDx9God::_pID3D9->CreateDevice(
 										D3DADAPTER_DEFAULT,
@@ -195,7 +195,7 @@ HRESULT GgafDx9God::init() {
 										D3DCREATE_SOFTWARE_VERTEXPROCESSING,
 										&_structD3dPresent_Parameters,
 										&GgafDx9God::_pID3DDevice9);
-			if (FAILED(hr)) {
+			if (hr != D3D_OK) {
 				//どのデバイスの作成も失敗した場合
 				MessageBox(GgafDx9God::_hWnd,TEXT("Direct3Dの初期化に失敗"),TEXT("ERROR"),MB_OK | MB_ICONSTOP);
 						return E_FAIL;
@@ -411,7 +411,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			GgafDx9ModelManager::onDeviceLostAll();
 			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
-				throw_GgafCriticalException("GgafDx9God::visualize() デバイスロスト後のリセットでダメでした。hr="<<hr);
+				throw_GgafDx9CriticalException("GgafDx9God::visualize() デバイスロスト後のリセットでに失敗しました。", hr);
 			}
 			//デバイス再設定
 			initDx9Device();
@@ -435,18 +435,18 @@ void GgafDx9God::makeWorldMaterialize() {
 										 0 // ステンシルバッファのクリア値
 									 );
 		if ( hr != D3D_OK ) {
-			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9 -> Clear() ダメでした。hr="<<hr);
+			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9 -> Clear() に失敗しました。", hr);
 		}
 
 		//描画事前処理
 		if (GgafDx9God::_pID3DDevice9->BeginScene() ) {
-			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9->BeginScene() ダメでした。hr="<<hr);
+			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。", hr);
 		}
 		//全て具現化！（描画）
 		GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
 		//描画事後処理
 		if (GgafDx9God::_pID3DDevice9->EndScene() ) {
-			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9->EndScene() ダメでした。hr="<<hr);
+			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。", hr);
 		}
 
 	}
@@ -464,7 +464,7 @@ void GgafDx9God::makeWorldVisualize() {
 			_TRACE_("デバイスロスト！");
 			_deviceLostFlg = true;
 		} else if (hr != D3D_OK ) {
-			throw_GgafCriticalException("GgafDx9God::_pID3DDevice9 -> Present() ダメでした。hr="<<hr);
+			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9 -> Present() に失敗しました。", hr);
 		}
 	}
 }
@@ -483,9 +483,9 @@ GgafDx9God::~GgafDx9God() {
 		Sleep(10);
 	}
 
-	delete _pVecCamFromPoint;
-	delete _pVecCamLookatPoint;
-	delete _pVecCamUp;
+	DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
+	DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
+	DELETE_IMPOSSIBLE_NULL(_pVecCamUp);
 
 
 	CmRandomNumberGenerator::getInstance()->release();
@@ -496,7 +496,7 @@ GgafDx9God::~GgafDx9God() {
 	//DirectSound解放
 	GgafDx9Sound::release();
 	//デバイス解放
-	_pID3DDevice9->Release();
-	_pID3D9->Release();
+	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+	RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 	TRACE("GgafDx9God::~GgafDx9God() end <--");
 }
