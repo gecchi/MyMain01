@@ -555,6 +555,7 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
+_TRACE_("Ç±Ç±Ç©Ç»ÅHbehave---->"<<SUPER::getName());
 	if(_wasInitialized == false) {
 		initialize();
 		_wasInitialized = true;
@@ -581,6 +582,7 @@ void GgafElement<T>::behave() {
 			}
 		}
 	}
+	_TRACE_("Ç±Ç±Ç©Ç»ÅHbehave<-----"<<SUPER::getName());
 }
 
 template<class T>
