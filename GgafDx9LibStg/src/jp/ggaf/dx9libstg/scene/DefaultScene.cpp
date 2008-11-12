@@ -8,7 +8,5 @@ DefaultScene::DefaultScene(string prm_name) : GgafDx9Scene(prm_name) {
 
 
 DefaultScene::~DefaultScene() {
-	if (_paFrame_NextEvent != NULL) {
-		delete [] _paFrame_NextEvent;
-	}
+	DELETEARR_POSSIBLE_NULL(_paFrame_NextEvent);
 }

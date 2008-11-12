@@ -10,9 +10,7 @@ DelineateActor* DelineateActor::get() {
 }
 
 void DelineateActor::release() {
-	if (_s_pObj != NULL) {
-		delete _s_pObj;
-	}
+	DELETE_POSSIBLE_NULL(_s_pObj);
 }
 
 DelineateActor::DelineateActor(string prm_name) : DefaultCubeActor(prm_name) {

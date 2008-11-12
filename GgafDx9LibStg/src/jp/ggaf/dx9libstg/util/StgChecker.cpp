@@ -114,8 +114,6 @@ bool StgChecker::isBump(GgafDx9GeometryChecker* prm_pOtherChecker) {
 
 StgChecker::~StgChecker() {
 	TRACE("StgChecker::~StgChecker() _pActor="<<_pActor->getName()<<" start--->");
-	if (_pHitAreaBoxs != NULL) {
-		delete _pHitAreaBoxs;
-	}
+	DELETE_POSSIBLE_NULL(_pHitAreaBoxs);
 	TRACE("StgChecker::~StgChecker() _pActor="<<_pActor->getName()<<" <---end");
 }

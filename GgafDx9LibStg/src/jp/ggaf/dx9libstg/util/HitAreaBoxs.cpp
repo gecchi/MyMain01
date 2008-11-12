@@ -59,9 +59,7 @@ void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, 
 
 HitAreaBoxs::~HitAreaBoxs() {
 	TRACE("HitAreaBoxs::~HitAreaBoxs() start--->");
-	if (_paBase != NULL) {
-		delete[] _paBase;
-		delete[] _paHitArea;
-	}
+	DELETEARR_POSSIBLE_NULL(_paBase);
+	DELETEARR_POSSIBLE_NULL(_paHitArea);
 	TRACE("HitAreaBoxs::~HitAreaBoxs() <---end");
 }

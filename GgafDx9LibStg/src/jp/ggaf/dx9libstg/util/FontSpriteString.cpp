@@ -41,8 +41,8 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 
 FontSpriteString::~FontSpriteString() {
 	for (int i = 0; i < _iStrLen; i ++) {
-		delete _papFontSpriteActor[i];
+		DELETE_IMPOSSIBLE_NULL(_papFontSpriteActor[i]);
 	}
-	delete[] _papFontSpriteActor;
+	DELETEARR_IMPOSSIBLE_NULL(_papFontSpriteActor);
 
 }
