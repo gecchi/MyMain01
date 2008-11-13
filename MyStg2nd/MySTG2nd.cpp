@@ -124,51 +124,55 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//メモリーリ－クチェックBEGIN
 	::detectMemoryLeaksStart(std::cout);
 #endif
-
+	God* god;
+	try {
 	//神の誕生！
-	God* god = NEW God(hInstance, hWnd);
-	if (SUCCEEDED(god->init())) {
-		adjustGameScreen(hWnd);
+		god = NEW God(hInstance, hWnd);
+		if (SUCCEEDED(god->init())) {
+			adjustGameScreen(hWnd);
 
-		// ループ・ザ・ループ
-		::timeBeginPeriod(1);
-		while (true) {
-			if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
-				if (msg.message == WM_QUIT) {
-					delete god; //神様さようなら
-					GgafDx9Properties::clean();
-					::timeEndPeriod(1);
-#ifdef OREDEBUG
-					//メモリーリ－クチェックEND
-					::detectMemoryLeaksEnd(std::cout);
-#endif
-					return EXIT_SUCCESS;
-				}
-				::TranslateMessage(&msg);
-				::DispatchMessage(&msg);
-			} else {
-				try {
-					god->be(); //神が存在したらしめる（世界が動く）
-				} catch (GgafCriticalException& e) {
-					//異常終了時
-					_TRACE_("＜例外＞"<<e.getMsg());
-					string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-					MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-					GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-					try { god->_pWorld->dump();	      } catch (...) { GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
-					try { delete god;                 } catch (...) { GgafLogger::write("delete god; 不可"); } //エラー無視
-					try { GgafDx9Properties::clean(); } catch (...) { GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
-					::timeEndPeriod(1);//タイマー精度終了処理
-#ifdef OREDEBUG
-					//メモリーリ－クチェックEND
-					::detectMemoryLeaksEnd(std::cout);
-#endif
-					PostQuitMessage(0);
-					return EXIT_SUCCESS;
+
+			// ループ・ザ・ループ
+			::timeBeginPeriod(1);
+			while (true) {
+				if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
+					if (msg.message == WM_QUIT) {
+						delete god; //神様さようなら
+						GgafDx9Properties::clean();
+						::timeEndPeriod(1);
+	#ifdef OREDEBUG
+						//メモリーリ－クチェックEND
+						::detectMemoryLeaksEnd(std::cout);
+	#endif
+						return EXIT_SUCCESS;
+					}
+					::TranslateMessage(&msg);
+					::DispatchMessage(&msg);
+				} else {
+
+						god->be(); //神が存在したらしめる（世界が動く）
+
 				}
 			}
 		}
+	} catch (GgafCriticalException& e) {
+		//異常終了時
+		_TRACE_("＜例外＞"<<e.getMsg());
+		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
+		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+		GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		try { god->_pWorld->dump();	      } catch (...) { GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+		try { delete god;                 } catch (...) { GgafLogger::write("delete god; 不可"); } //エラー無視
+		try { GgafDx9Properties::clean(); } catch (...) { GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+		::timeEndPeriod(1);//タイマー精度終了処理
+#ifdef OREDEBUG
+		//メモリーリ－クチェックEND
+		::detectMemoryLeaksEnd(std::cout);
+#endif
+		PostQuitMessage(0);
+		return EXIT_SUCCESS;
 	}
+
 
 	//_CrtDumpMemoryLeaks();	// この時点で開放されていないメモリの情報の表示
 	return (int) msg.wParam;
