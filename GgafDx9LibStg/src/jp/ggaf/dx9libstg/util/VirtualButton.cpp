@@ -240,10 +240,11 @@ bool VirtualButton::wasReleasedUp(int prm_VB, DWORD prm_dwFrameAgo) {
 
 
 void VirtualButton::clear() {
-	_TRACE_("VirtualButton::clear()!!");
 	VBMap* pLast = _s_pVBMap->_next;
+	VBMap* pWk;
 	for (VBMap* p = _s_pVBMap->_prev; p != _s_pVBMap; p = p->_prev) {
-		DELETE_IMPOSSIBLE_NULL(p->_next);
+		pWk = p->_next;
+		DELETE_IMPOSSIBLE_NULL(pWk);
 	}
 	DELETE_IMPOSSIBLE_NULL(pLast);
 }
