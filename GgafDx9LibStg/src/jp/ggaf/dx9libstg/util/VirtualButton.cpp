@@ -21,7 +21,8 @@ VirtualButton::KEYBOARDMAP VirtualButton::_s_tagKeymap = {
 	DIK_LEFT,    // UI_LEFT
 	DIK_RIGHT,   // UI_RIGHT
 	DIK_RETURN,  // UI_EXECUTE
-	DIK_ESCAPE   // UI_CANCEL
+	DIK_ESCAPE,   // UI_CANCEL
+	DIK_D        //UI_DEBUG
 };
 
 VirtualButton::JOYSTICKMAP VirtualButton::_s_tagJoymap = {
@@ -304,6 +305,9 @@ void VirtualButton::update() {
 
 	_s_pVBMap->_state[VB_UI_EXECUTE] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_EXECUTE) || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.UI_EXECUTE);
 	_s_pVBMap->_state[VB_UI_CANCEL]  = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_CANCEL)  || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.UI_CANCEL);
+
+	_s_pVBMap->_state[VB_UI_DEBUG]  = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_DEBUG);
+
 
 	if (_s_pVBMap->_state[VB_UP])	{
 		if (_s_pVBMap->_state[VB_RIGHT]) {

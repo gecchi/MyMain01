@@ -19,6 +19,7 @@
 #define VB_UI_RIGHT 15
 #define VB_UI_EXECUTE 16
 #define VB_UI_CANCEL 17
+#define VB_UI_DEBUG 18
 
 #define VB_UP_STC 20
 #define VB_UP_RIGHT_STC 21
@@ -61,6 +62,7 @@ public:
 		int UI_RIGHT;
 		int UI_EXECUTE;
 		int UI_CANCEL;
+		int UI_DEBUG;
 	};
 	struct JOYSTICKMAP {
 		int SHOT1;

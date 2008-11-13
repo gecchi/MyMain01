@@ -12,7 +12,9 @@ DefaultSpriteActor::DefaultSpriteActor(string prm_name, string prm_model)
 
 void DefaultSpriteActor::processDrawTerminate() {
 	//“–‚½‚è”»’è—Ìˆæ•\Ž¦
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
 	DelineateActor::get()->drawHitarea(_pChecker);
+	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 }
 
 #else
