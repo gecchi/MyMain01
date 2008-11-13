@@ -172,12 +172,17 @@ GgafScene* GgafActor::getPlatformScene() {
 void GgafActor::dump() {
 	_TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
 
-	_pActor_tmp = _pSubFirst;
+	GgafActor* pActor_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			_pActor_tmp -> dump("\t\t\t\t\t\t\t\tÅb");
-			_pActor_tmp = _pActor_tmp -> _pNext;
-			if (_pActor_tmp -> _isFirst) {
+			pActor_tmp -> dump("\t\t\t\t\t\t\t\tÅb");
+			if ( pActor_tmp -> _pNext != NULL) {
+				pActor_tmp = pActor_tmp -> _pNext;
+			} else {
+				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+				break;
+			}
+			if (pActor_tmp -> _isFirst) {
 				_TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
 				break;
 			}
@@ -187,12 +192,17 @@ void GgafActor::dump() {
 
 void GgafActor::dump(string prm_parent) {
 	_TRACE_(prm_parent + _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
-	_pActor_tmp = _pSubFirst;
+	GgafActor* pActor_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			_pActor_tmp -> dump(prm_parent+"Åb");
-			_pActor_tmp = _pActor_tmp -> _pNext;
-			if (_pActor_tmp -> _isFirst) {
+			pActor_tmp -> dump(prm_parent+"Åb");
+			if ( pActor_tmp -> _pNext != NULL) {
+				pActor_tmp = pActor_tmp -> _pNext;
+			} else {
+				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+				break;
+			}
+			if (pActor_tmp -> _isFirst) {
 				_TRACE_(prm_parent+"Ñ§Ñü");
 				break;
 			}

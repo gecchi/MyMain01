@@ -210,12 +210,17 @@ GgafGod* GgafScene::askGod() {
 void GgafScene::dump() {
 	_TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
 	_pLordActor->dump();
-	GgafScene* tmp = _pSubFirst;
+	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			tmp -> dump("\t");
-			tmp = tmp -> _pNext;
-			if (tmp -> _isFirst) {
+			pScene_tmp -> dump("\t");
+			if (pScene_tmp -> _pNext) {
+				pScene_tmp = pScene_tmp -> _pNext;
+			} else {
+				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+				break;
+			}
+			if (pScene_tmp -> _isFirst) {
 				break;
 			}
 		}
@@ -225,12 +230,17 @@ void GgafScene::dump() {
 void GgafScene::dump(string prm_parent) {
 	_TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
 	_pLordActor->dump(prm_parent+"\t\t\t\t\t\t\t\t");
-	GgafScene* tmp = _pSubFirst;
+	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			tmp -> dump(prm_parent+"\t");
-			tmp = tmp -> _pNext;
-			if (tmp -> _isFirst) {
+			pScene_tmp -> dump(prm_parent+"\t");
+			if (pScene_tmp -> _pNext) {
+				pScene_tmp = pScene_tmp -> _pNext;
+			} else {
+				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+				break;
+			}
+			if (pScene_tmp -> _isFirst) {
 				break;
 			}
 		}

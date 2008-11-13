@@ -4,12 +4,16 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_s_iNumClean_Node = 0;
-DWORD GgafGod::_dwNextTimeOffset[] = {17,17,17,17,16,17,17,17,17,16,
-		                              17,17,17,17,16,17,17,17,17,16,
-		                              17,17,17,17,16,17,17,17,17,17,
-		                              17,17,17,17,16,17,17,17,17,16,
-		                              17,17,17,17,16,17,17,17,17,16,
-		                              17,17,17,17,16,17,17,17,17,17};
+DWORD GgafGod::_dwNextTimeOffset[] = {17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16,
+                                      17,17,16,17,17,16 };
 GgafGod::GgafGod() : GgafObject(),
 _pWorld(NULL)
 {
