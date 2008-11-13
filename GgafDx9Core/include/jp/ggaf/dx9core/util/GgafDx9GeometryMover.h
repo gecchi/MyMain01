@@ -26,23 +26,16 @@ public:
 	/** 対象アクター */
 	GgafDx9UntransformedActor* _pActor;
 
-
 	/** キャラの軸回転方角の方角値(0～360,000) */
 	angle _angAxisRot[3];
-
 	/** 軸回転方角の角速度（軸回転方角値に毎フレーム加算する方角値） */
 	angle _angVelocity_AxisRotAngle[3];
-
 	/** 軸回転方角値の角速度上限(最高値は360,000) */
 	angle _angTopAngVelocity_AxisRotAngle[3];
-
 	/** 軸回転方角値の角速度下限(最高値は-360,000) */
 	angle _angBottomVelocity_AxisRotAngle[3];
-
 	/** 軸回転方角の角加速度（角速度に毎フレーム加算する値） */
 	angle _angAcceleration_AxisRotAngleVelocity[3];
-
-
 	/** 目標の軸回転方角自動停止機能有効フラグ */
 	bool _auto_rot_angle_target_Flg[3];
 	/** 目標とするキャラの軸回転方角の方角値(0～360,000) */
@@ -164,21 +157,15 @@ public:
 	/** 移動加速度 */
 	int _iAcceleration_MoveVelocity;
 
-
 ///////コピー元begin
-
 	/** Rz平面移動方角の角速度（Rz平面移動方角値に毎フレーム加算する方角値） */
 	angle _angVelocity_MoveAngleRz;
-
 	/** Rz平面移動方角値の角速度上限(最高値は360,000) */
 	angle _angTopAngVelocity_MoveAngleRz;
-
 	/** Rz平面移動方角値の角速度下限(最高値は-360,000) */
 	angle _angBottomVelocity_MoveAngleRz;
-
 	/** Rz平面移動方角の角加速度（角速度に毎フレーム加算する値） */
 	angle _angAcceleration_MoveAngleRzVelocity;
-
 	/** 目標のRz平面移動方角自動停止機能有効フラグ */
 	bool _auto_move_angle_rz_target_Flg;
 	/** 目標とするキャラのRz平面移動方角の方角値(0～360,000) */
@@ -187,28 +174,21 @@ public:
 	int _auto_move_angle_rz_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
 	/** 目標のRz平面移動方角自動停止機能が有効になる移動方角角速度 */
 	int _auto_move_angle_rz_target_allow_velocity;
-
 	/** 自動前方向き機能有効フラグ */
 	bool _synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg;
 	//true  : Rz平面移動方角を変更すると、それに伴い同じ方角値がZ軸軸回転方角にも設定される
 	//false : Rz平面移動方角とZ軸軸回転方角は独立
-
 ////////コピー元end
 
 ///////コピー元begin
-
 	/** Ry平面移動方角の角速度（Ry平面移動方角値に毎フレーム加算する方角値） */
 	angle _angVelocity_MoveAngleRy;
-
 	/** Ry平面移動方角値の角速度上限(最高値は360,000) */
 	angle _angTopAngVelocity_MoveAngleRy;
-
 	/** Ry平面移動方角値の角速度下限(最高値は-360,000) */
 	angle _angBottomVelocity_MoveAngleRy;
-
 	/** Ry平面移動方角の角加速度（角速度に毎フレーム加算する値） */
 	angle _angAcceleration_MoveAngleRyVelocity;
-
 	/** 目標のRy平面移動方角自動停止機能有効フラグ */
 	bool _auto_move_angle_ry_target_Flg;
 	/** 目標とするキャラのRy平面移動方角の方角値(0～360,000) */
@@ -217,12 +197,10 @@ public:
 	int _auto_move_angle_ry_target_allow_way; //TURN_CLOCKWISE or TURN_COUNTERCLOCKWISE or TURN_BOTH
 	/** 目標のRy平面移動方角自動停止機能が有効になる移動方角角速度 */
 	int _auto_move_angle_ry_target_allow_velocity;
-
 	/** 自動前方向き機能有効フラグ */
 	bool _synchronize_YAxisRotAngle_to_MoveAngleRy_Flg;
 	//true  : Ry平面移動方角を変更すると、それに伴い同じ方角値がZ軸軸回転方角にも設定される
 	//false : Ry平面移動方角とZ軸軸回転方角は独立
-
 ////////コピー元end
 
 	/** X軸方向移動速度 */
@@ -233,7 +211,6 @@ public:
 	int _iBottomVelocity_XMove;
 	/** Z軸方向移動加速度 */
 	int _iAcceleration_XMoveVelocity;
-
 	/** Y軸方向移動速度 */
 	int _iVelocity_YMove;
 	/** Y軸方向移動速度上限 */
@@ -242,7 +219,6 @@ public:
 	int _iBottomVelocity_YMove;
 	/** Y軸方向移動加速度 */
 	int _iAcceleration_YMoveVelocity;
-
 	/** Z軸方向移動速度 */
 	int _iVelocity_ZMove;
 	/** Z軸方向移動速度上限 */
@@ -251,8 +227,6 @@ public:
 	int _iBottomVelocity_ZMove;
 	/** Z軸方向移動加速度 */
 	int _iAcceleration_ZMoveVelocity;
-
-
 
 
 	/**
@@ -292,7 +266,7 @@ public:
 	/**
 	 * 現在の Actor のRz平面移動方角値へ加算（負で減算）。<BR>
 	 *
-	 * 引数に渡すのは、Rz平面移動方角値の増分です。ActorのRz平面移動方角値（_angXYMove）を相対指定でるメソッドです。<BR>
+	 * 引数に渡すのは、Rz平面移動方角値の増分です。ActorのRz平面移動方角値（_angRz_Move）を相対指定でるメソッドです。<BR>
 	 * 加算後のRz平面移動方角値が範囲外（0～360,000 以外）の値になっても、最終的には setMoveAngleRz(int) を呼び出しますので<BR>
 	 * 正しい 0～360,000 の範囲内の値に再設定されます。<BR>
 	 * 引数である加算（減算）するRz平面移動方角値は、Rz平面移動加速度の上限と下限の間の範囲に限ります。<BR>
@@ -381,7 +355,7 @@ public:
 	/**
 	 * 現在の Actor のRy平面移動方角値へ加算（負で減算）。<BR>
 	 *
-	 * 引数に渡すのは、Ry平面移動方角値の増分です。ActorのRy平面移動方角値（_angXYMove）を相対指定でるメソッドです。<BR>
+	 * 引数に渡すのは、Ry平面移動方角値の増分です。ActorのRy平面移動方角値（_angRy_Move）を相対指定でるメソッドです。<BR>
 	 * 加算後のRy平面移動方角値が範囲外（0～360,000 以外）の値になっても、最終的には setMoveAngleRy(int) を呼び出しますので<BR>
 	 * 正しい 0～360,000 の範囲内の値に再設定されます。<BR>
 	 * 引数である加算（減算）するRy平面移動方角値は、Ry平面移動加速度の上限と下限の間の範囲に限ります。<BR>

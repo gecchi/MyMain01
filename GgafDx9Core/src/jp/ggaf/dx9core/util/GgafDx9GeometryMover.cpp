@@ -7,19 +7,14 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 
 		//軸回転方角
 		_angAxisRot[i] = 0; //0 angle は ３時の方角を向いている
-
 		//軸回転方角の角速度（軸回転方角値の増分）= 0 angle/fream
 		_angVelocity_AxisRotAngle[i]  = 0; //1フレームに加算される軸回転方角の角増分。デフォルトは軸回転方角の角増分無し、つまり振り向き無し。
-
 		//軸回転方角の角速度上限 ＝ 360,000 angle/fream
 		_angTopAngVelocity_AxisRotAngle[i]  = ANGLE360; //_angVelocity_AxisRotAngle[n] の増分の上限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
-
 		//軸回転方角の角速度下限 ＝ -360,000 angle/fream
 		_angBottomVelocity_AxisRotAngle[i]  = ANGLE360*-1;  //_angVelocity_AxisRotAngle[n] の増分の下限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
-
 		//軸回転方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
 		_angAcceleration_AxisRotAngleVelocity[i]  = 0; //_angVelocity_AxisRotAngle[n] の増分。デフォルトは軸回転方角の角加速度無し
-
 		//目標軸回転方角への自動制御フラグ = 無効
 		_auto_rot_angle_target_Flg[i] = false;
 		//目標の軸回転方角
@@ -30,42 +25,31 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 		_auto_rot_angle_target_allow_velocity[i] = ANGLE180;
 	}
 
-
-	//////////////////////////////////////////////////////
+//////////////////////////////////////////////////////
 	//キャラの移動方角単位ベクトル
 	_vX = _vY = _vZ = 0.0;
-
 	//移動方角のZ軸回転
 	_angRz_Move = 0;
 	//移動方角のY軸回転
 	_angRy_Move = 0;
-
 	//移動速度
 	_iVelocity_Move = 0;
-
 	//移動速度上限 = 256 px/fream
 	_iTopAngVelocity_Move = 256*LEN_UNIT;  //_iVelocity_Move が 256000(=256px) を上回る移動量であっても、強制的に座標増分は 256px に抑えられる。
-
 	//移動速度下限 = 0   px/fream
 	_iBottomVelocity_Move = -256*LEN_UNIT; //_iVelocity_Move が -256000(-256px) を下回る移動量があっても、強制的に座標増分は -256000px に抑えられる。
-
 	//移動加速度（移動速度の増分） = 0 px/fream^2
 	_iAcceleration_MoveVelocity = 0; //_iVelocity_Move の増分。デフォルトは加速無し
 
 /////コピー元begin
-
 	//Rz平面移動方角の角速度 = 0 angle/fream
 	_angVelocity_MoveAngleRz = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
-
 	//Rz平面移動方角の角速度上限 = +360,000 angle/fream
 	_angTopAngVelocity_MoveAngleRz = ANGLE360;  //_angVelocity_MoveAngleRz の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-
 	//Rz平面移動方角の角速度下限 = -360,000 angle/fream
 	_angBottomVelocity_MoveAngleRz = ANGLE360*-1; //_angVelocity_MoveAngleRz の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-
 	//Rz平面移動方角の角加速度 = 0 angle/fream^2
 	_angAcceleration_MoveAngleRzVelocity = 0;     //_angVelocity_MoveAngleRz の増分。デフォルトは移動方角の角加速度無し
-
 	//目標Rz平面移動方角への自動制御フラグ = 無効
 	_auto_move_angle_rz_target_Flg = false;
 	//目標のRz平面移動方角
@@ -74,25 +58,19 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 	_auto_move_angle_rz_target_allow_way = TURN_BOTH;
 	//目標のRz平面移動方角自動停止機能が有効になる移動方角角速度(角速度正負共通)
 	_auto_move_angle_rz_target_allow_velocity = ANGLE180;
-
 	//Rz平面移動方角に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
 	_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 ////コピー元end
 
 /////コピー元begin
-
 	//Ry平面移動方角の角速度 = 0 angle/fream
 	_angVelocity_MoveAngleRy = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
-
 	//Ry平面移動方角の角速度上限 = +360,000 angle/fream
 	_angTopAngVelocity_MoveAngleRy = ANGLE360;  //_angVelocity_MoveAngleRy の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-
 	//Ry平面移動方角の角速度下限 = -360,000 angle/fream
 	_angBottomVelocity_MoveAngleRy = ANGLE360*-1; //_angVelocity_MoveAngleRy の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-
 	//Ry平面移動方角の角加速度 = 0 angle/fream^2
 	_angAcceleration_MoveAngleRyVelocity = 0;     //_angVelocity_MoveAngleRy の増分。デフォルトは移動方角の角加速度無し
-
 	//目標Ry平面移動方角への自動制御フラグ = 無効
 	_auto_move_angle_ry_target_Flg = false;
 	//目標のRy平面移動方角
@@ -101,26 +79,34 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 	_auto_move_angle_ry_target_allow_way = TURN_BOTH;
 	//目標のRy平面移動方角自動停止機能が有効になる移動方角角速度(角速度正負共通)
 	_auto_move_angle_ry_target_allow_velocity = ANGLE180;
-
 	//Ry平面移動方角に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
 	_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 ////コピー元end
 
-	_iVelocity_XMove = 0;         //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
-	_iTopAngVelocity_XMove = 256*LEN_UNIT;  //X軸方向移動速度上限 ＝ 256 px/fream
-	_iBottomVelocity_XMove = -256*LEN_UNIT; //X軸方向移動速度下限 ＝ 256 px/fream
-	_iAcceleration_XMoveVelocity = 0;     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-
-	_iVelocity_YMove = 0;         //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
-	_iTopAngVelocity_YMove = 256*LEN_UNIT;  //Y軸方向移動速度上限 ＝ 256 px/fream
-	_iBottomVelocity_YMove = -256*LEN_UNIT; //Y軸方向移動速度下限 ＝ 256 px/fream
-	_iAcceleration_YMoveVelocity = 0;     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-
-	_iVelocity_ZMove = 0;         //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
-	_iTopAngVelocity_ZMove = 256*LEN_UNIT;  //Z軸方向移動速度上限 ＝ 256 px/fream
-	_iBottomVelocity_ZMove = -256*LEN_UNIT; //Z軸方向移動速度下限 ＝ 256 px/fream
-	_iAcceleration_ZMoveVelocity = 0;     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
-
+	//X軸方向移動速度（X移動座標増分）＝ 0 px/fream
+	_iVelocity_XMove = 0;
+	//X軸方向移動速度上限 ＝ 256 px/fream
+	_iTopAngVelocity_XMove = 256*LEN_UNIT;
+	//X軸方向移動速度下限 ＝ 256 px/fream
+	_iBottomVelocity_XMove = -256*LEN_UNIT;
+	//X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+	_iAcceleration_XMoveVelocity = 0;
+	//Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
+	_iVelocity_YMove = 0;
+	//Y軸方向移動速度上限 ＝ 256 px/fream
+	_iTopAngVelocity_YMove = 256*LEN_UNIT;
+	//Y軸方向移動速度下限 ＝ 256 px/fream
+	_iBottomVelocity_YMove = -256*LEN_UNIT;
+	//Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+	_iAcceleration_YMoveVelocity = 0;
+	//Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
+	_iVelocity_ZMove = 0;
+	//Z軸方向移動速度上限 ＝ 256 px/fream
+	_iTopAngVelocity_ZMove = 256*LEN_UNIT;
+	//Z軸方向移動速度下限 ＝ 256 px/fream
+	_iBottomVelocity_ZMove = -256*LEN_UNIT;
+	//Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
+	_iAcceleration_ZMoveVelocity = 0;
 
 }
 
