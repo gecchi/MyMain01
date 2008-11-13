@@ -1,12 +1,7 @@
 #include "stdafx.h"
-OggVorbisResource::OggVorbisResource() :
-		isReady_(false) {
-	_TRACE_("OggVorbisResource::OggVorbisResource() !!!!!!!!");
+OggVorbisResource::OggVorbisResource() : isReady_(false) {
 		memset(&oggVorbisFile_, 0, sizeof(OggVorbis_File));
-		_TRACE_("OggVorbisResource::OggVorbisResource() !!!!!!!!");
-
 }
-
 
 void OggVorbisResource::clear() {
 	memset(&oggVorbisFile_, 0, sizeof(OggVorbis_File));
