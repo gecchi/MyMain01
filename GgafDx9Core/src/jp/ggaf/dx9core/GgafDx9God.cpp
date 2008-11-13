@@ -174,7 +174,7 @@ HRESULT GgafDx9God::init() {
 								D3DADAPTER_DEFAULT,
 								D3DDEVTYPE_HAL,
 								GgafDx9God::_hWnd,
-								D3DCREATE_HARDWARE_VERTEXPROCESSING,
+								D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 								&_structD3dPresent_Parameters,
 								&GgafDx9God::_pID3DDevice9);
 	if (hr != D3D_OK) {
@@ -183,7 +183,7 @@ HRESULT GgafDx9God::init() {
 									D3DADAPTER_DEFAULT,
 									D3DDEVTYPE_HAL,
 									GgafDx9God::_hWnd,
-									D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+									D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 									&_structD3dPresent_Parameters,
 									&GgafDx9God::_pID3DDevice9);
 		if (hr != D3D_OK) {
@@ -192,7 +192,7 @@ HRESULT GgafDx9God::init() {
 										D3DADAPTER_DEFAULT,
 										D3DDEVTYPE_REF,
 										GgafDx9God::_hWnd,
-										D3DCREATE_SOFTWARE_VERTEXPROCESSING,
+										D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
 										&_structD3dPresent_Parameters,
 										&GgafDx9God::_pID3DDevice9);
 			if (hr != D3D_OK) {
@@ -334,6 +334,9 @@ HRESULT GgafDx9God::initDx9Device() {
 	_TRACE_("カメラの位置(0,0,"<<_dCamZ<<")");
 	D3DXMATRIX _vMatrixView;   // ビュー変換行列
 
+	DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
+	DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
+	DELETE_POSSIBLE_NULL(_pVecCamUp);
 	_pVecCamFromPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_dCamZ); //位置
 	_pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
 	_pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -465,10 +468,19 @@ void GgafDx9God::makeWorldVisualize() {
 			//出刃異巣露酢斗！
 			_TRACE_("デバイスロスト！Present()");
 			_deviceLostFlg = true;
-		} else if (hr != D3D_OK ) {
-			//_TRACE_("おかしい！Present()");
-			//_deviceLostFlg = true;
-			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9 -> Present() に失敗しました。", hr);
+		} else if (hr == D3DERR_DRIVERINTERNALERROR ) {
+			_TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
+			GgafDx9ModelManager::onDeviceLostAll();
+			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
+			if ( hr != D3D_OK ) {
+				throw_GgafDx9CriticalException("GgafDx9God::makeWorldVisualize() D3DERR_DRIVERINTERNALERROR後、リセットによる復帰に失敗しました。", hr);
+			}
+			//デバイス再設定
+			initDx9Device();
+			//モデル再設定
+			GgafDx9ModelManager::restoreAll();
+			//前回描画モデル情報を無効にする
+			GgafDx9Model::_s_modelname_lastdraw = "";
 		}
 	}
 }

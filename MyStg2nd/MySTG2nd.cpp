@@ -4,6 +4,7 @@
 #include "stdafx.h"
 #include "MySTG2nd.h"
 
+
 #define MAX_LOADSTRING 100
 #define WINDOW_TITLE "MyStg2nd"
 #define WINDOW_CLASS "mogera"
