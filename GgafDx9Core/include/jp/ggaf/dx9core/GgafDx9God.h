@@ -8,6 +8,7 @@ public:
 	static HINSTANCE _hInstance;
 
 
+	static D3DFILLMODE _d3dfillmode;
 
 	/** DirectX9のオブジェクト */
 	static IDirect3D9* _pID3D9;

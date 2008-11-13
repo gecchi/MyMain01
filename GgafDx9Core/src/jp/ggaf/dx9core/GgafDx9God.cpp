@@ -19,7 +19,7 @@ D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
 D3DXMATRIX GgafDx9God::_vMatrixView;
 int GgafDx9God::_iPxDep = 0;
-
+D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
 
 
@@ -443,6 +443,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。", hr);
 		}
 		//全て具現化！（描画）
+		GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 		GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
 		//描画事後処理
 		if (GgafDx9God::_pID3DDevice9->EndScene() ) {
@@ -457,6 +458,7 @@ void GgafDx9God::makeWorldVisualize() {
 	if (_deviceLostFlg != true) {
 		//バックバッファをプライマリバッファに転送
 		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
+
 		HRESULT hr = GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL);
 
 		if (hr == D3DERR_DEVICELOST) {
