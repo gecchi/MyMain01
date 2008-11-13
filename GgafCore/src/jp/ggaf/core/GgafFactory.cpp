@@ -17,7 +17,7 @@ GgafMainScene* GgafFactory::obtainScene(string prm_id) {
 }
 
 void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-	TRACE("GgafFactory::order 別スレッドさん、" << prm_id << "を作っといて。");
+	TRACE("GgafFactory::order ＜客＞ 工場の別スレッドさん、[" << prm_id << "]を作っといて。");
 	GgafOrder* pOrder_New = NEW GgafOrder(prm_id);
 	pOrder_New->_pObject_Creation=NULL;
 	pOrder_New->_pFunc = prm_pFunc;
@@ -26,7 +26,7 @@ void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), v
 	pOrder_New->_progress = 0;
 	//::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	if (ROOT_ORDER == NULL) {
-		TRACE("GgafFactory::order ["<<prm_id<<"] を、空っきしの工場へ注文してやんよ");
+		TRACE("GgafFactory::order ＜客＞ 空っきしの工場へ注文してやんよ。すぐできるよね。");
         pOrder_New -> _isFirstOrder = true;
         pOrder_New -> _isLastOrder = true;
         pOrder_New->_pOrder_Next = pOrder_New;
@@ -35,7 +35,7 @@ void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), v
         CREATING_ORDER = pOrder_New;
         //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 	} else {
-		TRACE("GgafFactory::order ["<<prm_id<<"] をさらに追加注文");
+		TRACE("GgafFactory::order ＜客＞ 追加注文す。");
         pOrder_New -> _isFirstOrder = false;
 		pOrder_New -> _isLastOrder = true;
         GgafOrder* pOrder_Last = ROOT_ORDER->_pOrder_Prev;
@@ -64,16 +64,16 @@ void* GgafFactory::obtain(string prm_id) {
 	}
 	while(_isWorking) {
 		if (pOrder->_id == prm_id) {
-			TRACE("GgafFactory::obtain ["<<prm_id<<"]の注文取りに来ました。");
+			TRACE("GgafFactory::obtain ＜客＞ こんにちは、["<<prm_id<<"]を取りに来ましたよっと。");
 			while(_isWorking) {
 				if (pOrder->_progress != 2) {
-					_TRACE_("GgafFactory::obtain 別スレッドさん、["<<prm_id<<"]まだ～？、ちょこっと待ちます。pOrder->_progress "<<(pOrder->_progress)<<"だった");
+					_TRACE_("GgafFactory::obtain ＜客＞ 別スレッドさん、["<<prm_id<<"]まだ～？、10ミリ秒待ったげよう。pOrder->_progress="<<(pOrder->_progress));
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(10);
 					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 					continue;
 				} else {
-					TRACE("GgafFactory::obtain おぉ、製品["<<prm_id<<"]は製造完了ですね、あざーす！");
+					TRACE("GgafFactory::obtain ＜客＞ おぉ、["<<prm_id<<"]は製造済みですね、あざーす！");
 					if (pOrder->_isFirstOrder && pOrder->_isLastOrder) {
 						objectCreation = pOrder->_pObject_Creation;
 						pOrder->_pObject_Creation = NULL;
@@ -81,7 +81,7 @@ void* GgafFactory::obtain(string prm_id) {
 						pOrder = NULL;
 						ROOT_ORDER = NULL;
 						CREATING_ORDER = NULL;
-						TRACE("GgafFactory::obtain 製品["<<prm_id<<"]頂きました。工場は空ですね");
+						TRACE("GgafFactory::obtain ＜客＞ 製品["<<prm_id<<"]頂きました。あ、工場は空ですね。暇？");
 						//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 						return (void*)objectCreation;
 					} else {
@@ -111,7 +111,7 @@ void* GgafFactory::obtain(string prm_id) {
 		} else {
 			if (pOrder->_isLastOrder) {
 				//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-				throw_GgafCriticalException("GgafFactory::obtain Error! 全部探しましたけど、そんな注文(prm_id="<<prm_id<<")はありませんでした。orederとobtainの対応が取れていません");
+				throw_GgafCriticalException("GgafFactory::obtain Error! 全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありゃしまへん。orederとobtainの対応が取れていません");
 			} else {
 				pOrder = pOrder ->_pOrder_Next;
 			}
@@ -122,27 +122,27 @@ void* GgafFactory::obtain(string prm_id) {
 
 
 void GgafFactory::clean() {
-	TRACE("GgafFactory::clean 工場を掃除開始");
+	TRACE("GgafFactory::clean ＜神＞ 工場を掃除開始");
 	GgafOrder* pOrder = ROOT_ORDER;
 	if (pOrder == NULL) {
 		return;
 	}
 	while(true) {
 		if (pOrder->_isLastOrder) {
-			TRACE("GgafFactory::clean 製品削除["<<pOrder->_id<<"]、最後のストック");
+			TRACE("GgafFactory::clean ＜神＞ 製品削除["<<pOrder->_id<<"]、最後のストック");
 			DELETE_IMPOSSIBLE_NULL(pOrder);
 			pOrder = NULL;
 			ROOT_ORDER = NULL;
 			CREATING_ORDER = NULL;
 			break;
 		} else {
-			TRACE("GgafFactory::clean 製品削除["<<pOrder->_id<<"]");
+			TRACE("GgafFactory::clean ＜神＞ 製品削除["<<pOrder->_id<<"]");
 			GgafOrder* pOrder_MyNext = pOrder -> _pOrder_Next;
 			DELETE_IMPOSSIBLE_NULL(pOrder);
 			pOrder = pOrder_MyNext;
 		}
 	}
-	TRACE("GgafFactory::clean 工場を掃除完了");
+	TRACE("GgafFactory::clean ＜神＞ 工場を掃除完了");
 	return;
 }
 
@@ -157,21 +157,21 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 			if (CREATING_ORDER != NULL) {
 				if (CREATING_ORDER  -> _progress == 0) { //未着手ならまず作る
-					TRACE2("GgafFactory::work 注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER  -> _progress<<")ゆえに作ります。");
+					TRACE2("GgafFactory::work ＜工場＞ 注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER -> _progress<<")。ゆえに作ります。しばし待て！");
 					CREATING_ORDER  -> _progress = 1;    //ステータスを製造中へ
 					func = CREATING_ORDER ->_pFunc;
 					pOrder_InManufacturing_save = CREATING_ORDER; //ポインタ一時退避
 					void* arg1 = CREATING_ORDER ->_pArg1;
 					void* arg2 = CREATING_ORDER ->_pArg2;
-					TRACE2("GgafFactory::work 製造開始！["<<CREATING_ORDER->_id<<"]");
+					TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"]");
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(2);
 					pObject = (*func)(arg1, arg2); //製品の製造！
 					Sleep(2);
 					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-					TRACE2("GgafFactory::work 製造完了！["<<CREATING_ORDER->_id<<"]");
+					TRACE2("GgafFactory::work ＜工場＞ 製造終了！["<<CREATING_ORDER->_id<<"]");
 					if (CREATING_ORDER == NULL) {
-						TRACE2("GgafFactory::work せっかく作ったのに遅かったようだ(T_T)!無かった事にします。pObjectの削除");
+						TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか(T_T)。破棄します。pObjectをdelete!");
 						DELETE_IMPOSSIBLE_NULL(pObject);
 						::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 						Sleep(10);
@@ -180,40 +180,39 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 						CREATING_ORDER = pOrder_InManufacturing_save;  //ポインタ復帰
 						CREATING_ORDER -> _pObject_Creation = pObject; //製品登録
 						CREATING_ORDER -> _progress = 2;               //ステータスを製造済みへ
-						TRACE2("GgafFactory::work 注文の品["<<(CREATING_ORDER->_id)<<"]が、でけました！");
+						TRACE2("GgafFactory::work ＜工場＞ 棚に置いて注文の品["<<(CREATING_ORDER->_id)<<"]完了！(^_^)v");
 					}
 				} else {
-					TRACE2("GgafFactory::work 注文["<<CREATING_ORDER->_id<<"]は製造済みッス(_progress == "<<CREATING_ORDER  -> _progress<<")ゆえにとばす");
+					TRACE2("GgafFactory::work ＜工場＞ 注文["<<CREATING_ORDER->_id<<"]は製造済み(_progress == "<<CREATING_ORDER  -> _progress<<")。ゆえに飛ばす");
 				}
 			}
 			if (ROOT_ORDER == NULL) {
 				//無条件待機
-				TRACE2("GgafFactory::work 工場には何もありません。さぁなんでも注文来やがれ！（待機）");
+				TRACE2("GgafFactory::work ＜工場＞ 工場には何～んもありません。さぁなんでも注文来い来い！（待機）");
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			} else {
 				if (ROOT_ORDER != NULL && ROOT_ORDER -> _pOrder_Prev -> _progress == 0) {
-					TRACE2("GgafFactory::work ･･･む、次に未製造の注文["<<CREATING_ORDER->_pOrder_Next->_id<<"]がありんす");
+					TRACE2("GgafFactory::work ＜工場＞ ･･･む、次に未製造の注文["<<CREATING_ORDER->_pOrder_Next->_id<<"]がありんす");
 					CREATING_ORDER = CREATING_ORDER -> _pOrder_Next;
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(10);
 					continue;
 				} else {
-					TRACE2("GgafFactory::work 製造済の注文はあるが、未製造注文は無し。ってかよゆ～ｗ（待機）");
+					TRACE2("GgafFactory::work ＜工場＞ よし、未製造注文は無し。製造済のがたまってるな、早く取に来やがれ！（待機）");
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 				}
 			}
 			Sleep(10);
 		}
-		TRACE2("GgafFactory::work 工場はこれにて店じまいです。では、また会いましょう。");
+		TRACE2("GgafFactory::work ＜工場＞ 工場はこれにて店じまいです。さようなら、また会いましょう。");
 		_isFinish = true;
 		return 0;
 	} catch (GgafCriticalException& e) {
-		_TRACE_("＜工場例外＞"<<e.getMsg());
+		_TRACE_("＜工場例外＞ 私としたことがすみません；"<<e.getMsg());
+		_isWorking = false;
+		_isFinish = true;
 		GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());
-
-//		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-//		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-//		GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		return 0;
 	}
 }
 

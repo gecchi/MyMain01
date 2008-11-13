@@ -56,6 +56,8 @@ void GgafGod::be(){
 		}
 		_pWorld -> _pGod = this;
 	}
+
+	//工場（別スレッド）例外をチェック
 	if (_pException_Factory != NULL) {
 		throw *_pException_Factory;
 	}
@@ -80,7 +82,7 @@ void GgafGod::be(){
 		makeWorldJudge();
 		DWORD dwTime_Now = timeGetTime();
 		if (_dwTime_ScheduledNextFrame > dwTime_Now) {
-			++_dwFrame_Visualize;
+			_dwFrame_Visualize++;
 			makeWorldMaterialize();//描画を行う
 			makeWorldVisualize();  //視覚化を行う
 		} else {
