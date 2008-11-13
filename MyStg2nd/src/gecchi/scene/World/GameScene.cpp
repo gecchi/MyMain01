@@ -25,13 +25,11 @@ void GameScene::processBehavior() {
 #ifdef OREDEBUG
 	//ワイヤフレーム表示切替
 	if (VB::isPushedDown(VB_UI_DEBUG)) {
-		_TRACE_("前GgafDx9God::_d3dfillmode="<<GgafDx9God::_d3dfillmode);
 		if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
 			GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
 		} else {
 			GgafDx9God::_d3dfillmode = D3DFILL_WIREFRAME;
 		}
-		_TRACE_("後GgafDx9God::_d3dfillmode="<<GgafDx9God::_d3dfillmode);
 	}
 #endif
 }
