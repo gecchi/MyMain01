@@ -149,7 +149,7 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//Xファイルのファイルロード
 	hr = D3DXLoadMeshFromX(
 			xfile_name.c_str(),        //[in]  LPCTSTR pFilename
-			D3DXMESH_SYSTEMMEM,        //[in]  DWORD Options
+			D3DXMESH_SYSTEMMEM ,        //[in]  DWORD Options  D3DXMESH_VB_DYNAMIC
 			GgafDx9God::_pID3DDevice9, //[in]  LPDIRECT3DDEVICE9 pDevice
 			NULL,                      //[out] LPD3DXBUFFER* ppAdjacency
 			&pID3DXBuffer,             //[out] LPD3DXBUFFER* ppMaterials
