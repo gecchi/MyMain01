@@ -5,7 +5,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	GameGlobal::_pSceneCommon = this;
 
 	{ //MyShip
-		_pMyShip = NEW MyShip("MYSHIP", "ebi");
+		_pMyShip = NEW MyShip("MYSHIP", "laserchip2");
 		getLordActor()->accept(KIND_MY, _pMyShip);
 		_pMyShip->stopImmediately();
 	}

@@ -41,6 +41,14 @@ class MyShip : public DefaultMeshActor {
 
  	};
 
+
+	struct VERTEX{
+		float x, y, z;    // 頂点座標
+		float nx, ny, nz; // 法線
+		DWORD color;      // 頂点の色
+		float tu, tv;     // テクスチャ座標
+	};
+
 public:
 	int _tmpX;
 	int _tmpY;

@@ -102,9 +102,47 @@ void MyShip::initialize() {
 	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
 	_RZ = ANGLE90;
 	//setAlpha(0.2);
+
+
+	LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9_MyShip;
+	BYTE*              pVertexSrc;
+	DWORD  vtxFmt;
+	DWORD  FVFSize;
+
+	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
+	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
+	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
+
+	//頂点フォーマットのサイズを取得
+	vtxFmt = _pMeshModel->_pID3DXMesh->GetFVF();
+	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
+
+
+	for(int i = 0; i < numV; i++){
+		D3DVECTOR* pV;
+
+	  //D3DFVF_XYZは先頭にあるので、オフセットは０
+	  pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * i) + 0 );
+	  _TRACE_("頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
+
+//	  //次にUVがあるので、D3DFVF_XYZのサイズ分だけ進めた位置から取り出す
+//	  uv = *(D3DXVECTOR2*)( pVtx + (FVFSize * i) + sizeof(D3DXVECTOR3) );
+//
+//	  ～v0が頂点座標,uvがその頂点のテクスチャー座標～
+
+	}
+
+
+    pIDirect3DVertexBuffer9_MyShip->Unlock();
+    RELEASE_IMPOSSIBLE_NULL(pIDirect3DVertexBuffer9_MyShip);
+
+
+
 }
 
 void MyShip::processBehavior() {
+
+
 	_tmpX = _X;
 	_tmpY = _Y;
 	_tmpZ = _Z;
@@ -819,6 +857,7 @@ void MyShip::equipOption() {
 
 
 MyShip::~MyShip() {
+	RELEASE_POSSIBLE_NULL(MyLaserChip::_pIDirect3DVertexBuffer9_MyLaserChip);
 }
 
 
