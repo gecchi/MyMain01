@@ -105,10 +105,10 @@ GgafDx9SquareModel* GgafDx9ModelManager::getSquareModel(string prm_model_name) {
 }
 
 
-GgafDx9MeshModel* GgafDx9ModelManager::getMeshModel(string prm_model_name) {
+GgafDx9MeshModel* GgafDx9ModelManager::getMeshModel(string prm_model_name, DWORD prm_dwOptions) {
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
-		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name);
+		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name, prm_dwOptions);
 		GgafDx9ModelManager::add((GgafDx9Model*)pMeshModel_New);
 		return pMeshModel_New;
 	} else {
@@ -127,13 +127,13 @@ GgafDx9PlateModel* GgafDx9ModelManager::getPlateModel(string prm_model_name) {
 	}
 }
 
-GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(string prm_model_name) {
-	GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name);
+GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(string prm_model_name, DWORD prm_dwOptions) {
+	GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name, prm_dwOptions);
 	restoreMeshModel(pMeshModel_New);
 	return pMeshModel_New;
 }
 
-void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
+void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	_TRACE_("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
 
 	//Xファイルのロードして必要な内容をGgafDx9MeshModelメンバに設定しインスタンスとして完成させたい
@@ -149,7 +149,7 @@ void  GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//Xファイルのファイルロード
 	hr = D3DXLoadMeshFromX(
 			xfile_name.c_str(),        //[in]  LPCTSTR pFilename
-			D3DXMESH_SYSTEMMEM ,        //[in]  DWORD Options  D3DXMESH_VB_DYNAMIC
+			prm_pMeshModel->_dwOptions,        //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
 			GgafDx9God::_pID3DDevice9, //[in]  LPDIRECT3DDEVICE9 pDevice
 			NULL,                      //[out] LPD3DXBUFFER* ppAdjacency
 			&pID3DXBuffer,             //[out] LPD3DXBUFFER* ppMaterials

@@ -1,5 +1,5 @@
-#ifndef GGAFDX9XMESHMODEL_H_
-#define GGAFDX9XMESHMODEL_H_
+#ifndef GGAFDX9MESHMODEL_H_
+#define GGAFDX9MESHMODEL_H_
 
 class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -11,6 +11,9 @@ public:
 	D3DMATERIAL9* 		_paD3DMaterial9;
 	/** テクスチャ(IDirect3DTexture9インターフェイスへのポインタを要素とする配列の先頭アドレスを指すポインタ） */
 	LPDIRECT3DTEXTURE9* _papID3DTexture9;
+	/** D3DXLoadMeshFromXのオプション */
+	DWORD _dwOptions;
+
 	/** メッシュに含まれる各面の隣接面を格納するポインタ */
 //	LPD3DXBUFFER	_pAdjacency;
 	/** マテリアル数(=メッシュ数) */
@@ -19,9 +22,11 @@ public:
 public:
 	/**
 	 * コンストラクタ<BR>
-	 * @param	モデルの識別名。".x"を追加すると定義Xファイル名になる。
+	 * @param prm_meshmodel_name モデルの識別名。".x"を追加すると定義Xファイル名になる。
+	 * @param prm_dwOptions D3DXLoadMeshFromXのオプション
+	 * @return
 	 */
-	GgafDx9MeshModel(string prm_meshmodel_name);
+	GgafDx9MeshModel(string prm_meshmodel_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9MeshModelオブジェクトの描画<BR>
@@ -44,4 +49,4 @@ public:
 
 };
 
-#endif /*GGAFDX9XMESHMODEL_H_*/
+#endif /*GGAFDX9MESHMODEL_H_*/

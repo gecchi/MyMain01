@@ -1,13 +1,13 @@
 #include "stdafx.h"
 
-GgafDx9MeshActor::GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
-	_pMeshModel = GgafDx9ModelManager::getMeshModel(prm_meshmodel_name, D3DXMESH_SYSTEMMEM);
-	_class_name = "GgafDx9MeshActor";
+GgafDx9DynaMeshActor::GgafDx9DynaMeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+	_pMeshModel = GgafDx9ModelManager::getMeshModel(prm_meshmodel_name, D3DXMESH_DYNAMIC);
+	_class_name = "GgafDx9DynaMeshActor";
 	_fAlpha = 1.0f;
 }
 
 
-void GgafDx9MeshActor::processDrawMain() {
+void GgafDx9DynaMeshActor::processDrawMain() {
 
 	//WORLD•ÏŠ·
 	static D3DXMATRIX matrixTransWorld;  //WORLD•ÏŠ·s—ñ
@@ -123,5 +123,5 @@ void GgafDx9MeshActor::processDrawMain() {
 	_pMeshModel->draw(this);
 }
 
-GgafDx9MeshActor::~GgafDx9MeshActor() {
+GgafDx9DynaMeshActor::~GgafDx9DynaMeshActor() {
 }

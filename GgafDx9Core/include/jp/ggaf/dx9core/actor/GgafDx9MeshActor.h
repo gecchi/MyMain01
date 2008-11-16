@@ -1,5 +1,5 @@
-#ifndef GGAFDX9MESHACTORD_H_
-#define GGAFDX9MESHACTORD_H_
+#ifndef GGAFDX9MESHACTOR_H_
+#define GGAFDX9MESHACTOR_H_
 
 
 class GgafDx9MeshActor : public GgafDx9UntransformedActor {
@@ -30,4 +30,4 @@ public:
 	virtual ~GgafDx9MeshActor();		//デストラクタ
 };
 
-#endif /*GGAFDX9MESHACTORD_H_*/
+#endif /*GGAFDX9MESHACTOR_H_*/

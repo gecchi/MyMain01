@@ -37,7 +37,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
-	static GgafDx9MeshModel* getMeshModel(string prm_model_name);
+	static GgafDx9MeshModel* getMeshModel(string prm_model_name, DWORD prm_dwOptions);
 
 
 	/**
@@ -77,7 +77,7 @@ public:
 	 * GgafDx9MeshModel オブジェクトを生成。<BR>
 	 * @param モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
 	 */
-	static GgafDx9MeshModel* createMeshModel(string prm_model_name);
+	static GgafDx9MeshModel* createMeshModel(string prm_model_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9MeshModel オブジェクトを再構築する。<BR>

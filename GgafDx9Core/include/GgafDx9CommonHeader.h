@@ -70,6 +70,7 @@ class GgafDx9ModelManager;
 class GgafDx9MainActor;
 class GgafDx9UntransformedActor;
 class GgafDx9MeshActor;
+class GgafDx9DynaMeshActor;
 class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
@@ -115,6 +116,7 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/actor/GgafDx9MainActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9DynaMeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9CubeActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SquareActor.h"

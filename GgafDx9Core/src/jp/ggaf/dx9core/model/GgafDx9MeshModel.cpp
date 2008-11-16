@@ -1,16 +1,15 @@
 #include "stdafx.h"
 
-GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name) : GgafDx9Model(prm_model_name) {
+GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9MeshModel::GgafDx9MeshModel(" <<  prm_model_name << ")");
 	_pID3DXMesh      = NULL;
 	_paD3DMaterial9  = NULL;
 	_papID3DTexture9 = NULL;
 	_dwNumMaterials  = 0L;
 	_pModel_Next     = NULL;
+	//上記のプロパティは、GgafDx9ModelManager::restoreMeshModel() から設定されることになる。
+	_dwOptions = prm_dwOptions;
 }
-
-
-
 
 HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9MeshActor* pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
@@ -36,7 +35,6 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 			}
 		}
 		//描画
-
 		if (pMeshActor_Target->_SX == LEN_UNIT &&
 		    pMeshActor_Target->_SY == LEN_UNIT &&
 		    pMeshActor_Target->_SZ == LEN_UNIT)
@@ -70,8 +68,19 @@ void GgafDx9MeshModel::onDeviceLost() {
 	if (_pID3DXMesh == NULL) {
 		throw_GgafCriticalException("[GgafDx9MeshModel::onDeviceLost] Error! オブジェクトになっていないため remove できません！");
 	}
+	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		RELEASE_POSSIBLE_NULL(_papID3DTexture9[i]); //テクスチャが無い場合もあるため
+		pTex = _papID3DTexture9[i];
+		_TRACE_("pTex="<<pTex);
+		if(pTex) { 
+			_TRACE_("r pTex="<<pTex);
+			(pTex)->Release(); 
+			(pTex)=NULL; 
+		} else { 
+			_TRACE_("n pTex="<<pTex);
+			(pTex)=NULL; 
+		}
+		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
 	}
 	DELETEARR_IMPOSSIBLE_NULL(_papID3DTexture9);
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
@@ -84,9 +93,22 @@ GgafDx9MeshModel::~GgafDx9MeshModel() {
 	if (_pID3DXMesh == NULL) {
 		throw_GgafCriticalException("[GgafDx9MeshModel::remove] Error! オブジェクトになっていないため remove できません！");
 	}
+	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		RELEASE_POSSIBLE_NULL(_papID3DTexture9[i]); //テクスチャが無い場合もあるため
+		pTex = _papID3DTexture9[i];
+		_TRACE_("pTex="<<pTex);
+		if(pTex) { 
+			_TRACE_("r pTex="<<pTex);
+			(pTex)->Release(); 
+			(pTex)=NULL; 
+		} else { 
+			_TRACE_("n pTex="<<pTex);
+			(pTex)=NULL; 
+		}
+		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
 	}
+
+
 	DELETEARR_IMPOSSIBLE_NULL(_papID3DTexture9);
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 	RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
