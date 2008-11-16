@@ -1,30 +1,31 @@
 #include "stdafx.h"
 
-DefaultSpriteActor::DefaultSpriteActor(string prm_name, string prm_model)
-	: GgafDx9SpriteActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+DefaultDynaMeshActor::DefaultDynaMeshActor(string prm_name, string prm_model)
+	: GgafDx9DynaMeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
-	_class_name = "DefaultSpriteActor";
+	_class_name = "DefaultDynaMeshActor";
 	_dwFrameOffset = 0;
 	_pChecker = (StgChecker*)_pGeoChecker;
+
 }
 
 #ifdef OREDEBUG
 
-void DefaultSpriteActor::processDrawTerminate() {
+void DefaultDynaMeshActor::processDrawTerminate() {
 	//“–‚½‚è”»’è—Ìˆæ•\Ž¦
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-	DelineateActor::get()->drawHitarea(_pChecker);
+	DelineateActor::get()-> drawHitarea(_pChecker);
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 }
 
 #else
 
-void DefaultSpriteActor::processDrawTerminate() {}
+void DefaultDynaMeshActor::processDrawTerminate() {}
 
 #endif
 
 
-bool DefaultSpriteActor::isOffScreen() {
+bool DefaultDynaMeshActor::isOffScreen() {
 	if (_X < _X_OffScreenLeft) {
 		return true;
 	} else {
@@ -51,7 +52,7 @@ bool DefaultSpriteActor::isOffScreen() {
 		}
 	}
 }
-DefaultSpriteActor::~DefaultSpriteActor() {
-	TRACE("DefaultSpriteActor::~DefaultSpriteActor() "<<getName()<<" start--->");
-	TRACE("DefaultSpriteActor::~DefaultSpriteActor() "<<getName()<<" <---end");
+DefaultDynaMeshActor::~DefaultDynaMeshActor() {
+	TRACE("DefaultDynaMeshActor::~DefaultDynaMeshActor() "<<getName()<<" start--->");
+	TRACE("DefaultDynaMeshActor::~DefaultDynaMeshActor() "<<getName()<<" <---end");
 }
