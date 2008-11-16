@@ -40,7 +40,7 @@ public:
  	void onStop();
 
 
- 	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
+	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
  		_pActor_Radical = prm_pActor;
  	}
 	virtual ~MyLaser001();

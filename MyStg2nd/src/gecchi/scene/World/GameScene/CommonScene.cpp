@@ -5,7 +5,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	GameGlobal::_pSceneCommon = this;
 
 	{ //MyShip
-		_pMyShip = NEW MyShip("MYSHIP", "laserchip2");
+		_pMyShip = NEW MyShip("MYSHIP", "ebi");
 		getLordActor()->accept(KIND_MY, _pMyShip);
 		_pMyShip->stopImmediately();
 	}
@@ -24,9 +24,9 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	{ //MyLaser001
 		_pMyLaser001Rotation = NEW RotationActor("RotLaser001");
 		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaser001Rotation);
-		MyLaser001* pLaser;
+		MyLaserChip* pLaser;
 		for (int i = 0; i < 50; i++) { //レーザーストック３０個
-			pLaser = NEW MyLaser001("MY_L"+GgafUtil::itos(i), "MyLaser001");
+			pLaser = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip7");
 			pLaser->stopImmediately();
 			_pMyLaser001Rotation->addSubLast(pLaser);
 		}

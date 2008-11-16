@@ -11,7 +11,7 @@
 
 
 
-MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyShip::MyShip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */
 	_lv_MoveSpeed = 2;
@@ -99,8 +99,8 @@ void MyShip::initialize() {
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
-	_RZ = ANGLE90;
+	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,200);
+	//_RZ = ANGLE90;
 	//setAlpha(0.2);
 
 
@@ -430,6 +430,98 @@ void MyShip::processBehavior() {
 
 	//座標に反映
 	_pGeoMover -> behave();
+
+//////////////////////////////////////////
+
+
+	LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9_MyShip;
+	BYTE*              pVertexSrc;
+	DWORD  vtxFmt;
+	DWORD  FVFSize;
+
+	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
+	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
+	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
+
+	//頂点フォーマットのサイズを取得
+	vtxFmt = _pMeshModel->_pID3DXMesh->GetFVF();
+	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
+
+
+	D3DVECTOR* pV;
+
+//	//D3DFVF_XYZは先頭にあるので、オフセットは０
+//	//A
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 7) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 13) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 15) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	//B
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 10) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 19) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 22) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 26) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 27) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	//C
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 6) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 16) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 25) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	//D
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 4) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 14) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 20) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 28) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//	pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * 29) + 0 );
+//	pV->x = pV->x + (_X/(1.0*LEN_UNIT)/10.0);
+//	pV->y = pV->y + (_Y/(1.0*LEN_UNIT)/10.0);
+//	pV->z = pV->z + (_Z/(1.0*LEN_UNIT)/10.0);
+//    pIDirect3DVertexBuffer9_MyShip->Unlock();
+//    RELEASE_IMPOSSIBLE_NULL(pIDirect3DVertexBuffer9_MyShip);
+
 }
 
 //画面奥手前移動初め処理
@@ -833,7 +925,7 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 	if (VB::isBeingPressed(VB_SHOT2)) {
 		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
 		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
-		MyLaser001* pLaser = (MyLaser001*)pLasersStock->obtain();
+		MyLaserChip* pLaser = (MyLaserChip*)pLasersStock->obtain();
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(prm_pActor);
 			pLaser->declarePlay();
@@ -858,6 +950,7 @@ void MyShip::equipOption() {
 
 MyShip::~MyShip() {
 	RELEASE_POSSIBLE_NULL(MyLaserChip::_pIDirect3DVertexBuffer9_MyLaserChip);
+	DELETE_POSSIBLE_NULL(MyLaserChip::_pTetra_tail);
 }
 
 

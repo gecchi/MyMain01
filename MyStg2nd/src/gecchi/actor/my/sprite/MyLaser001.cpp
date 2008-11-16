@@ -44,7 +44,7 @@ void MyLaser001::processBehavior() {
 
 	_X += (_pActor_Radical->_X - _X_prevFrame);
 	_Y += (_pActor_Radical->_Y - _Y_prevFrame);
-	_Z = _pActor_Radical->_Z;
+	_Z += (_pActor_Radical->_Z - _Z_prevFrame);
 	_X_prevFrame = _pActor_Radical->_X;
 	_Y_prevFrame = _pActor_Radical->_Y;
 	_Z_prevFrame = _pActor_Radical->_Z;
