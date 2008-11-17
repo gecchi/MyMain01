@@ -107,19 +107,19 @@ void MyLaserChip::initialize() {
 
 
 
-	_pGeoMover -> setMoveVelocity(50*1000);
+	_pGeoMover -> setMoveVelocity(20*1000);
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
 	_pActor_Radical = NULL;
 
-	setBumpableOnlySelf(true);
+	setBumpableOnlySelf(false);
 	//_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
 }
 
 void MyLaserChip::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žžˆ—
-		setBumpableOnlySelf(true);
+		setBumpableOnlySelf(false);
 		setGeometry(_pActor_Radical);
 //		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
 //		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
@@ -173,9 +173,9 @@ void MyLaserChip::processDrawMain() {
 		int index;
 		D3DVECTOR* pV;
 
-		float fOffsetX = ((float)(pPrevChip->_X - _X )) / (LEN_UNIT/PX_UNIT);
-		float fOffsetY = ((float)(pPrevChip->_Y - _Y )) / (LEN_UNIT/PX_UNIT);
-		float fOffsetZ = ((float)(pPrevChip->_Z - _Z )) / (LEN_UNIT/PX_UNIT);
+		float fOffsetX = (pPrevChip->_X - _X ) / (float)(LEN_UNIT);
+		float fOffsetY = (pPrevChip->_Y - _Y ) / (float)(LEN_UNIT);
+		float fOffsetZ = (pPrevChip->_Z - _Z ) / (float)(LEN_UNIT);
 
 
 //		_TRACE_("XYZ ["<<getName()<<"] ("<<_X<<","<<_Y <<","<<_Z<<")");

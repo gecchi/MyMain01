@@ -99,7 +99,7 @@ void MyShip::initialize() {
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,200);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
 	//_RZ = ANGLE90;
 	//setAlpha(0.2);
 
