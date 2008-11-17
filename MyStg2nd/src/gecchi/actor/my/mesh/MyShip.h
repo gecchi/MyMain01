@@ -28,7 +28,7 @@ enum MoveWay {
 	ZRIGHT_BEHIND
 };
 
-class MyShip : public DefaultDynaMeshActor {
+class MyShip : public DefaultMeshActor {
 
 	class State {
  	public:
@@ -37,7 +37,7 @@ class MyShip : public DefaultDynaMeshActor {
  		State() {
  			eq_option = 0;
  			eq_speed = 1;
- 		}
+ 		};
 
  	};
 

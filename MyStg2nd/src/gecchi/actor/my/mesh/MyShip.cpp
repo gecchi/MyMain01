@@ -11,7 +11,7 @@
 
 
 
-MyShip::MyShip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
+MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */
 	_lv_MoveSpeed = 2;
@@ -104,37 +104,37 @@ void MyShip::initialize() {
 	//setAlpha(0.2);
 
 
-	LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9_MyShip;
-	BYTE*              pVertexSrc;
-	DWORD  vtxFmt;
-	DWORD  FVFSize;
-
-	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
-	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
-	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
-
-	//頂点フォーマットのサイズを取得
-	vtxFmt = _pMeshModel->_pID3DXMesh->GetFVF();
-	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
-
-
-	for(int i = 0; i < numV; i++){
-		D3DVECTOR* pV;
-
-	  //D3DFVF_XYZは先頭にあるので、オフセットは０
-	  pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * i) + 0 );
-	  _TRACE_("頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
-
-//	  //次にUVがあるので、D3DFVF_XYZのサイズ分だけ進めた位置から取り出す
-//	  uv = *(D3DXVECTOR2*)( pVtx + (FVFSize * i) + sizeof(D3DXVECTOR3) );
+//	LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9_MyShip;
+//	BYTE*              pVertexSrc;
+//	DWORD  vtxFmt;
+//	DWORD  FVFSize;
 //
-//	  ～v0が頂点座標,uvがその頂点のテクスチャー座標～
-
-	}
-
-
-    pIDirect3DVertexBuffer9_MyShip->Unlock();
-    RELEASE_IMPOSSIBLE_NULL(pIDirect3DVertexBuffer9_MyShip);
+//	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
+//	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
+//	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
+//
+//	//頂点フォーマットのサイズを取得
+//	vtxFmt = _pMeshModel->_pID3DXMesh->GetFVF();
+//	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
+//
+//
+//	for(int i = 0; i < numV; i++){
+//		D3DVECTOR* pV;
+//
+//	  //D3DFVF_XYZは先頭にあるので、オフセットは０
+//	  pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * i) + 0 );
+//	  _TRACE_("頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
+//
+////	  //次にUVがあるので、D3DFVF_XYZのサイズ分だけ進めた位置から取り出す
+////	  uv = *(D3DXVECTOR2*)( pVtx + (FVFSize * i) + sizeof(D3DXVECTOR3) );
+////
+////	  ～v0が頂点座標,uvがその頂点のテクスチャー座標～
+//
+//	}
+//
+//
+//    pIDirect3DVertexBuffer9_MyShip->Unlock();
+//    RELEASE_IMPOSSIBLE_NULL(pIDirect3DVertexBuffer9_MyShip);
 
 
 

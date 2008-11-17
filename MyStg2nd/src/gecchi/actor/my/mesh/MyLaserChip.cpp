@@ -16,7 +16,7 @@ MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_tail = NULL;
 
 
 MyLaserChip::MyLaserChip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
-
+	_name = "MyLaserChip";
 //	if (_pTetra_tail == NULL) {
 //		//資料「レーザーチップ」参照
 //		//A
@@ -50,7 +50,7 @@ MyLaserChip::MyLaserChip(string prm_name, string prm_model) : DefaultDynaMeshAct
 
 
 void MyLaserChip::initialize() {
-
+	D3DVECTOR* pV;
 	if (_pIDirect3DVertexBuffer9_MyLaserChip == NULL) {
 		BYTE* pByteVertexSrc;
 		_dwVertexNum = _pMeshModel->_pID3DXMesh->GetNumVertices();
@@ -61,7 +61,7 @@ void MyLaserChip::initialize() {
 		_dwFVFSize = D3DXGetFVFVertexSize( _dwVertexFormat );
 
 		_pTetra_tail = NEW Tetrahedron();
-		D3DVECTOR* pV;
+
 		//頂点Eの内の一つ
 		pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * 1) + 0 );
 		_pTetra_tail->x1 = pV->x;
@@ -93,8 +93,18 @@ void MyLaserChip::initialize() {
 		_pTetra_tail->z4 = pV->z;
 		_TRACE_("_pTetra_tail H ("<<_pTetra_tail->x4<<","<<_pTetra_tail->y4<<","<<_pTetra_tail->z4<<")");
 
+		for(int i = 0; i < _dwVertexNum; i++){
+			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * i) + 0 );
+			_TRACE_("頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
+		}
+
+		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
+
 	}
-    _pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
+
+
+
+
 
 
 	_pGeoMover -> setMoveVelocity(50*1000);
@@ -103,7 +113,7 @@ void MyLaserChip::initialize() {
 	_pActor_Radical = NULL;
 
 	setBumpableOnlySelf(true);
-
+	//_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
 }
 
 void MyLaserChip::processBehavior() {
@@ -111,8 +121,8 @@ void MyLaserChip::processBehavior() {
 		//出現時処理
 		setBumpableOnlySelf(true);
 		setGeometry(_pActor_Radical);
-		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
-		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+//		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
+//		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
 		_pGeoMover -> setMoveAngleRzRy(
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]
@@ -154,28 +164,32 @@ void MyLaserChip::processJudgement() {
  */
 void MyLaserChip::processDrawMain() {
 	//通常時
-	if (getNext()->isPlaying()) {
+	if (getPrev()->isPlaying()) {
 		BYTE* pByteVertexSrc;
-		MyLaserChip* pNextChip = (MyLaserChip*)getNext();
+		MyLaserChip* pPrevChip = (MyLaserChip*)getPrev();
 
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc,0);
 
 		int index;
 		D3DVECTOR* pV;
 
-		float fOffsetX = ((float)(pNextChip->_X - _X )) / LEN_UNIT / PX_UNIT;
-		float fOffsetY = ((float)(pNextChip->_Y - _Y )) / LEN_UNIT / PX_UNIT;
-		float fOffsetZ = ((float)(pNextChip->_Z - _Z )) / LEN_UNIT / PX_UNIT;
-/*
-		_TRACE_("XYZ ["<<getName()<<"] ("<<_X<<","<<_Y <<","<<_Z<<")");
-		_TRACE_("nextXYZ ["<<pNextChip->getName()<<"] ("<<pNextChip->_X<<","<<pNextChip->_Y <<","<<pNextChip->_Z<<")");
-		_TRACE_("fOffset ("<<fOffsetX<<","<<fOffsetY<<","<<fOffsetZ<<")");
-*/
+		float fOffsetX = ((float)(pPrevChip->_X - _X )) / (LEN_UNIT/PX_UNIT);
+		float fOffsetY = ((float)(pPrevChip->_Y - _Y )) / (LEN_UNIT/PX_UNIT);
+		float fOffsetZ = ((float)(pPrevChip->_Z - _Z )) / (LEN_UNIT/PX_UNIT);
+
+
+//		_TRACE_("XYZ ["<<getName()<<"] ("<<_X<<","<<_Y <<","<<_Z<<")");
+//		_TRACE_("prevXYZ ["<<pPrevChip->getName()<<"] ("<<pPrevChip->_X<<","<<pPrevChip->_Y <<","<<pPrevChip->_Z<<")");
+//		_TRACE_("fOffset ("<<fOffsetX<<","<<fOffsetY<<","<<fOffsetZ<<")");
+
 
 
 
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron01_head; i++) {
 			index = _aVertexIndexTetrahedron01_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = fOffsetX + _pTetra_tail->x1;
 			pV -> y = fOffsetY + _pTetra_tail->y1;
@@ -184,6 +198,9 @@ void MyLaserChip::processDrawMain() {
 
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron02_head; i++) {
 			index = _aVertexIndexTetrahedron02_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = fOffsetX + _pTetra_tail->x2;
 			pV -> y = fOffsetY + _pTetra_tail->y2;
@@ -192,6 +209,9 @@ void MyLaserChip::processDrawMain() {
 
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron03_head; i++) {
 			index = _aVertexIndexTetrahedron03_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = fOffsetX + _pTetra_tail->x3;
 			pV -> y = fOffsetY + _pTetra_tail->y3;
@@ -200,19 +220,27 @@ void MyLaserChip::processDrawMain() {
 
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron04_head; i++) {
 			index = _aVertexIndexTetrahedron04_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = fOffsetX + _pTetra_tail->x4;
 			pV -> y = fOffsetY + _pTetra_tail->y4;
 			pV -> z = fOffsetZ + _pTetra_tail->z4;
 		}
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
+
 	} else {
+
 		BYTE* pByteVertexSrc;
 		int index;
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc,0);
 		D3DVECTOR* pV;
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron01_head; i++) {
 			index = _aVertexIndexTetrahedron01_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = _pTetra_tail->x1;
 			pV -> y = _pTetra_tail->y1;
@@ -220,6 +248,9 @@ void MyLaserChip::processDrawMain() {
 		}
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron02_head; i++) {
 			index = _aVertexIndexTetrahedron02_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = _pTetra_tail->x2;
 			pV -> y = _pTetra_tail->y2;
@@ -227,6 +258,9 @@ void MyLaserChip::processDrawMain() {
 		}
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron03_head; i++) {
 			index = _aVertexIndexTetrahedron03_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = _pTetra_tail->x3;
 			pV -> y = _pTetra_tail->y3;
@@ -234,6 +268,9 @@ void MyLaserChip::processDrawMain() {
 		}
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron04_head; i++) {
 			index = _aVertexIndexTetrahedron04_head[i];
+			if (_dwVertexNum < index) {
+				continue;
+			}
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * index) + 0 );
 			pV -> x = _pTetra_tail->x4;
 			pV -> y = _pTetra_tail->y4;
@@ -249,7 +286,7 @@ void MyLaserChip::processDrawMain() {
 
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareFinishLife();
+	declareStop();
 }
 
 
