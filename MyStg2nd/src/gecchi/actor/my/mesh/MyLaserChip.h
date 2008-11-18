@@ -7,10 +7,10 @@ public:
 
 	class Tetrahedron {
 	  public :
-		float x1, y1, z1;    // 頂点座標1
-		float x2, y2, z2;    // 頂点座標2
-		float x3, y3, z3;    // 頂点座標3
-		float x4, y4, z4;    // 頂点座標4
+		float Ex, Ey, Ez;    // 頂点座標1
+		float Fx, Fy, Fz;    // 頂点座標2
+		float Gx, Gy, Gz;    // 頂点座標3
+		float Hx, Hy, Hz;    // 頂点座標4
 		Tetrahedron() {};
 		~Tetrahedron() {};
 	};
@@ -19,15 +19,15 @@ public:
 	static DWORD _dwVertexFormat;
 	static DWORD _dwFVFSize;
 	static DWORD _dwVertexNum;
-	static int _aVertexIndexTetrahedron01_head[];
-	static int _aVertexIndexTetrahedron02_head[];
-	static int _aVertexIndexTetrahedron03_head[];
-	static int _aVertexIndexTetrahedron04_head[];
-	static int _iNum_VertexIndexTetrahedron01_head;
-	static int _iNum_VertexIndexTetrahedron02_head;
-	static int _iNum_VertexIndexTetrahedron03_head;
-	static int _iNum_VertexIndexTetrahedron04_head;
-	static Tetrahedron* _pTetra_tail;
+	static int _aVertexIndexTetrahedron_A[];
+	static int _aVertexIndexTetrahedron_B[];
+	static int _aVertexIndexTetrahedron_C[];
+	static int _aVertexIndexTetrahedron_D[];
+	static int _iNum_VertexIndexTetrahedron_A;
+	static int _iNum_VertexIndexTetrahedron_B;
+	static int _iNum_VertexIndexTetrahedron_C;
+	static int _iNum_VertexIndexTetrahedron_D;
+	static Tetrahedron* _pTetra_EFGH;
 
 
 	int _X_prevFrame;
