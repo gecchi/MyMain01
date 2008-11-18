@@ -52,6 +52,27 @@ public:
  		return pActor;
  	};
 
+ 	void release(GgafActor* prm_pActorSub) {
+ 		if (_pSubFirst == NULL) {
+			throw_GgafCriticalException("RotationActor::release() éqÇ™Ç†ÇËÇ‹ÇπÇÒ");
+ 		}
+ 		GgafActor* pActor = getSubFirst();
+ 		do { //åüçı
+ 			if (pActor == prm_pActorSub) {
+ 				pActor->declareStop();
+ 				pActor->declareMoveFirst();
+ 				break;
+ 			} else {
+				if (pActor->isLast()) {
+					pActor = NULL;
+					throw_GgafCriticalException("RotationActor::release() à¯êîÇÃ "<<prm_pActorSub->getClassName()<<"["<<prm_pActorSub->getName()<<"]ÇÕãèÇ‹ÇπÇÒ");
+		 		} else {
+					pActor = pActor->getNext();
+				}
+ 			}
+ 		} while(true);
+ 	};
+
 
  	virtual ~RotationActor() {
  	};
