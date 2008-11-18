@@ -114,6 +114,13 @@ public:
 	virtual string getName();
 
 	/**
+	 * クラス名取得 .
+	 * @return クラス名称
+	 */
+	virtual string getClassName();
+
+
+	/**
 	 * ノード名問い合わせ
 	 */
 //	virtual bool isNamed(string prm_name);
@@ -483,6 +490,11 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
 template<class T>
 string GgafNode<T>::getName() {
 	return _name;
+}
+
+template<class T>
+string GgafNode<T>::getClassName() {
+	return _class_name;
 }
 /*
 template<class T>
