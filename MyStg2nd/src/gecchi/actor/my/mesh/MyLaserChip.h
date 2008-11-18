@@ -4,7 +4,9 @@
 
 class MyLaserChip : public DefaultDynaMeshActor {
 public:
-
+	/**
+	 * 正四面体クラス
+	 */
 	class Tetrahedron {
 	  public :
 		float Ex, Ey, Ez;    // 頂点座標1
