@@ -52,7 +52,7 @@ class TamagoActor;
 class MyUtil;
 class GameGlobal;
 
-class RangeActor;
+class RangeMyLaser;
 class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;
@@ -80,7 +80,7 @@ class MyFactory;
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage04Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage05Scene.h"
 
-#include "gecchi/actor/my/sprite/RangeActor.h"
+#include "gecchi/actor/my/mesh/RangeMyLaser.h"
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
