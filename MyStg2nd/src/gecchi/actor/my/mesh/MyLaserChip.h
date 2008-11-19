@@ -32,6 +32,8 @@ public:
 	static Tetrahedron* _pTetra_EFGH;
 
 
+	RangeActor _superActor;
+
 	int _X_prevFrame;
 	int _Y_prevFrame;
 	int _Z_prevFrame;
@@ -40,7 +42,7 @@ public:
 	GgafDx9UntransformedActor* _pActor_Radical;
 
 
-	MyLaserChip(string prm_name, string prm_model);
+	MyLaserChip(string prm_name, string prm_model, RangeActor* prm_pSuper);
 
 	/**
 	 * ƒOverRide ‚Å‚·„
@@ -70,6 +72,14 @@ public:
 	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
  		_pActor_Radical = prm_pActor;
  	}
+
+	bool isHeadChip() {
+		if (_pSuper->_pActor_RangeHeader == this) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
  	virtual ~MyLaserChip();
 

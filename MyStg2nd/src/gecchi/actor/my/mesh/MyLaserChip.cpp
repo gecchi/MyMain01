@@ -15,8 +15,9 @@ int MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
 
-MyLaserChip::MyLaserChip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
+MyLaserChip::MyLaserChip(string prm_name, string prm_model, RangeActor* prm_pSuper) : DefaultDynaMeshActor(prm_name, prm_model) {
 	_class_name = "MyLaserChip";
+	_pSuper = prm_pSuper;
 //	if (_pTetra_EFGH == NULL) {
 //		//資料「レーザーチップ」参照
 //		//A
@@ -144,7 +145,7 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		declareStop();
+		_pSuper->release(this);
 	}
 }
 
@@ -155,7 +156,7 @@ void MyLaserChip::processJudgement() {
  */
 void MyLaserChip::processDrawMain() {
 	//通常時
-	if (getPrev()->isPlaying()) {
+	if (_superActor getPrev()->isPlaying()) {
 		BYTE* pByteVertexSrc;
 		MyLaserChip* pPrevChip = (MyLaserChip*)getPrev();
 
@@ -277,7 +278,7 @@ void MyLaserChip::processDrawMain() {
 
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareStop();
+	_pSuper->release(this);
 }
 
 
