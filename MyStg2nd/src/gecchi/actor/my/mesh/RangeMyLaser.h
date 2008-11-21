@@ -8,10 +8,11 @@ class RangeMyLaser : public GgafDx9UntransformedActor {
 
 public:
 	StgChecker* _pChecker;
+	MyLaserChip* _pHeadChip;
+	DWORD _dwFrame_LastObtain;
 
-	GgafActor* _pActor_MyLaserChipHead;
-	GgafActor* _pActor_MyLaserChipTail;
-	bool canObtain;
+	/** 0:Head取得可能/ 1:Head以外取得可能 / 2:取得不可能(HeadStopのため綺麗にしている) */
+	int _state;
 
  	RangeMyLaser(string prm_name);
 
@@ -36,30 +37,37 @@ public:
 
  	GgafActor* obtain() {
  		if (_pSubFirst == NULL) {
- 			throw_GgafCriticalException("RangeMyLaser::getFreeOne() 子がありません");
+ 			throw_GgafCriticalException("RangeMyLaser::obtain() 子がありません");
  		}
  		GgafActor* pActor = getSubFirst();
- 		do {
- 			if (pActor == _pActor_MyLaserChipHead) {
-
- 			}???
-
-			if(pActor->isPlaying() || pActor->_willPlayNextFrame) {
-				if (pActor->isLast()) {
-					pActor = NULL;
-					break;
-				} else {
-					pActor = pActor->getNext();
-				}
-			} else {
+		if(pActor->isPlaying() || pActor->_willPlayNextFrame) {
+			pActor = NULL;
+		} else {
+			if (_state == 0) {
+				((MyLaserChip*)pActor)->_isHead = true;
+				_pHeadChip = pActor;
 				pActor->declareMoveLast();
-				break;
+				_dwFrame_LastObtain = _dwFrame;
+				_state = 1;
+			} else if (_state == 1) {
+				if (_dwFrame_LastObtain+1 == _dwFrame) {
+					//連続取得
+					pActor->declareMoveLast();
+					((MyLaserChip*)pActor)->_isHead = false;
+				} else {
+					//間隔ありのため空を一つかます
+					pActor->declareMoveLast();
+					pActor = pActor -> getNext();
+					if(pActor->isPlaying() || pActor->_willPlayNextFrame) {
+						pActor = NULL;
+					} else {
+						pActor->declareMoveLast();
+						((MyLaserChip*)pActor)->_isHead = false;
+					}
+				}
 			}
- 		} while(true);
-
- 		if (_pActor_MyLaserChipHead == NULL) {
- 			_pActor_MyLaserChipHead = pActor;
- 		}
+			break;
+		}
  		return pActor;
  	};
 
@@ -71,28 +79,10 @@ public:
  		do { //検索
  			if (pActor == prm_pActorSub) {
  				pActor->declareStop();
-
-
- 				if (prm_pActorSub == _pActor_MyLaserChipHead && prm_pActorSub == _pActor_MyLaserChipTail) {
- 					//ヘッドでありテイルならば最後の一つである。
- 					_pActor_MyLaserChipHead = NULL;
- 					_pActor_MyLaserChipTail = NULL;
- 					canObtain = true;
- 					break;
- 				} else {
- 					//そうじゃない場合ヘッドなら
- 					if (_pActor_MyLaserChipHead == prm_pActorSub) {
-						_pActor_MyLaserChipHead = NULL;
-						if (_pActor_MyLaserChipTail == NULL) {//初めてのヘッドのリリースならばテイル発生し
-							_pActor_MyLaserChipTail = prm_pActorSub;
-						}
-						//ヘッドは次のチップに引き継ぐ（ないとは言わせない）
-
-					} else if (_pActor_MyLaserChipTail == prm_pActorSub) {
-
-					}
-					break;
+ 				if (pActor == _pHeadChip) {
+ 					_state == 2;
  				}
+ 				break;
  			} else {
 				if (pActor->isLast()) {
 					pActor = NULL;

@@ -5,8 +5,7 @@
 class MyLaserChip : public DefaultDynaMeshActor {
 public:
 
-	MyLaserChip* _pNextPlayingChip;
-	MyLaserChip* _pPrevPlayingChip;
+	bool _isHead;
 
 	/**
 	 * ³Žl–Ê‘ÌƒNƒ‰ƒX
@@ -78,11 +77,7 @@ public:
  	}
 
 	bool isHeadChip() {
-		if (_pSuper->_pActor_MyLaserHeader == this) {
-			return true;
-		} else {
-			return false;
-		}
+		return _isHead;
 	}
 
  	virtual ~MyLaserChip();

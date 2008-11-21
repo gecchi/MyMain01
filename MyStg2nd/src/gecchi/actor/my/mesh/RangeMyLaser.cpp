@@ -4,7 +4,7 @@ RangeMyLaser::RangeMyLaser(string prm_name) : GgafDx9UntransformedActor(prm_name
  	_class_name = "RangeMyLaser";
  	setBumpableOnlySelf(false);
  	_pChecker = (StgChecker*)_pGeoChecker;
- 	_pActor_MyLaserChipHead = NULL;
- 	_pActor_MyLaserChipTail = NULL;
- 	canObtain = true;
+ 	_state = 0;
+ 	_isHead = false;
+ 	_dwFrame_LastObtain = 0;
 }

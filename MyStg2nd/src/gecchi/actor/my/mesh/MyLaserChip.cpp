@@ -18,36 +18,8 @@ MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 MyLaserChip::MyLaserChip(string prm_name, string prm_model, RangeMyLaser* prm_pSuper) : DefaultDynaMeshActor(prm_name, prm_model) {
 	_class_name = "MyLaserChip";
 	_pSuper = prm_pSuper;
-//	if (_pTetra_EFGH == NULL) {
-//		//資料「レーザーチップ」参照
-//		//A
-//		_pTetra_EFGH->Ex = 0.612293;
-//		_pTetra_EFGH->Ey = 0.000029;
-//		_pTetra_EFGH->Ez = 0.0000286102;
-//		//B
-//		_pTetra_EFGH->Fx = -0.162006;
-//		_pTetra_EFGH->Fy = 0.000011;
-//		_pTetra_EFGH->Fz = 0.577404;
-//		//C
-//		_pTetra_EFGH->Gx = -0.16188;
-//		_pTetra_EFGH->Gy = 0.500019;
-//		_pTetra_EFGH->Gz = -0.288506;
-//		//D
-//		_pTetra_EFGH->Hx = -0.161881;
-//		_pTetra_EFGH->Hy = -0.49998;
-//		_pTetra_EFGH->Hz = -0.288506;
-//	}
-
+	_isHead = false;
 }
-
-//A	-35	-10	0
-//B	22	-10	0
-//C	22	5	8
-//D	-35	5	8
-//E	36	0	0
-//F	-22	0	0
-//G	-35	5	-9
-//H	22	5	-9
 
 
 void MyLaserChip::initialize() {
