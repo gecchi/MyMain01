@@ -40,8 +40,6 @@ class Stage04Scene;
 class Stage05Scene;
 
 class MyLaserChip;
-class RangeMyLaser;
-
 
 class Stage01MainScene;
 class Tetrahedron;
@@ -53,7 +51,6 @@ class EffectExplosion001;
 class TamagoActor;
 class MyUtil;
 class GameGlobal;
-
 
 class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
@@ -82,7 +79,6 @@ class MyFactory;
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage04Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage05Scene.h"
 
-#include "gecchi/actor/my/mesh/RangeMyLaser.h"
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"

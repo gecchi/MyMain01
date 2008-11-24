@@ -74,7 +74,6 @@ public:
  		_pActor_Radical = prm_pActor;
  	}
 
-
 	MyLaserChip* getNext() {
 		return (MyLaserChip*)_pNext;
 	};
@@ -82,7 +81,6 @@ public:
 	MyLaserChip* getPrev() {
 		return (MyLaserChip*)_pPrev;
 	};
-
 
  	virtual ~MyLaserChip();
 
