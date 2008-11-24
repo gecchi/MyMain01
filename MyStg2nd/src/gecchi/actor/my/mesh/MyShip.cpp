@@ -924,10 +924,10 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 
 	if (VB::isBeingPressed(VB_SHOT2)) {
 		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-		RotationActor* pLasersStock = GameGlobal::_pSceneCommon->_pMyLaser001Rotation;
-		MyLaserChip* pLaser = (MyLaserChip*)pLasersStock->obtain();
+		MyLaserChip* pLaser = (MyLaserChip*)GameGlobal::_pSceneCommon->_pMyLaserChipRotation->obtain();
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(prm_pActor);
+			pLaser->_dwFrame_switchedToPlay = prm_pActor->_dwFrame;
 			pLaser->declarePlay();
 		}
 	}

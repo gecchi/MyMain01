@@ -39,9 +39,11 @@ class Stage03Scene;
 class Stage04Scene;
 class Stage05Scene;
 
+class MyLaserChip;
+class RangeMyLaser;
+
 
 class Stage01MainScene;
-class MyLaserChip;
 class Tetrahedron;
 class MyShip;
 class MyOption;
@@ -52,7 +54,7 @@ class TamagoActor;
 class MyUtil;
 class GameGlobal;
 
-class RangeMyLaser;
+
 class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;

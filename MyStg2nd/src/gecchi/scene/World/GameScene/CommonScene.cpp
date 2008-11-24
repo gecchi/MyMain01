@@ -22,13 +22,13 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	}
 
 	{ //MyLaser001
-		_pMyLaser001Rotation = NEW RotationActor("RotLaser001");
-		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaser001Rotation);
-		MyLaserChip* pLaser;
-		for (int i = 0; i < 50; i++) { //レーザーストック３０個
-			pLaser = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
-			pLaser->stopImmediately();
-			_pMyLaser001Rotation->addSubLast(pLaser);
+		_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
+		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
+		MyLaserChip* pChip;
+		for (int i = 0; i < 100; i++) { //レーザーストック３０個
+			pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
+			pChip->stopImmediately();
+			_pMyLaserChipRotation->addSubLast(pChip);
 		}
 	}
 

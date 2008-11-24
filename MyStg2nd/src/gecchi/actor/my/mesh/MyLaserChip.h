@@ -5,7 +5,7 @@
 class MyLaserChip : public DefaultDynaMeshActor {
 public:
 
-	bool _isHead;
+	DWORD _dwFrame_switchedToPlay;
 
 	/**
 	 * ê≥élñ ëÃÉNÉâÉX
@@ -35,8 +35,6 @@ public:
 	static Tetrahedron* _pTetra_EFGH;
 
 
-	RangeMyLaser _superActor;
-
 	int _X_prevFrame;
 	int _Y_prevFrame;
 	int _Z_prevFrame;
@@ -45,7 +43,7 @@ public:
 	GgafDx9UntransformedActor* _pActor_Radical;
 
 
-	MyLaserChip(string prm_name, string prm_model, RangeMyLaser* prm_pSuper);
+	MyLaserChip(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -76,9 +74,15 @@ public:
  		_pActor_Radical = prm_pActor;
  	}
 
-	bool isHeadChip() {
-		return _isHead;
-	}
+
+	MyLaserChip* getNext() {
+		return (MyLaserChip*)_pNext;
+	};
+
+	MyLaserChip* getPrev() {
+		return (MyLaserChip*)_pPrev;
+	};
+
 
  	virtual ~MyLaserChip();
 

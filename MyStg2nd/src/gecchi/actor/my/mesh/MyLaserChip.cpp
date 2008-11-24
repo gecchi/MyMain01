@@ -15,10 +15,9 @@ int MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
 
-MyLaserChip::MyLaserChip(string prm_name, string prm_model, RangeMyLaser* prm_pSuper) : DefaultDynaMeshActor(prm_name, prm_model) {
+MyLaserChip::MyLaserChip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
 	_class_name = "MyLaserChip";
-	_pSuper = prm_pSuper;
-	_isHead = false;
+	_dwFrame_switchedToPlay = 0;
 }
 
 
@@ -83,7 +82,7 @@ void MyLaserChip::initialize() {
 void MyLaserChip::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žžˆ—
-		setBumpableOnlySelf(false);
+		setBumpableOnlySelf(true);
 		setGeometry(_pActor_Radical);
 //		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
 //		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
@@ -117,7 +116,7 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		_pSuper->release(this);
+		GameGlobal::_pSceneCommon->_pMyLaserChipRotation->release(this);
 	}
 }
 
@@ -128,7 +127,7 @@ void MyLaserChip::processJudgement() {
  */
 void MyLaserChip::processDrawMain() {
 	//’ÊíŽž
-	if ( getPrev()->isPlaying()) {
+	if ( getPrev()->isPlaying() && _dwFrame_switchedToPlay-1 == getPrev()->_dwFrame_switchedToPlay) {
 		BYTE* pByteVertexSrc;
 		MyLaserChip* pPrevChip = (MyLaserChip*)getPrev();
 
@@ -250,7 +249,7 @@ void MyLaserChip::processDrawMain() {
 
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	_pSuper->release(this);
+	GameGlobal::_pSceneCommon->_pMyLaserChipRotation->release(this);
 }
 
 
