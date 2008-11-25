@@ -67,9 +67,9 @@ void* GgafFactory::obtain(string prm_id) {
 			TRACE("GgafFactory::obtain ＜客＞ こんにちは、["<<prm_id<<"]を取りに来ましたよっと。");
 			while(_isWorking) {
 				if (pOrder->_progress != 2) {
-					_TRACE_("GgafFactory::obtain ＜客＞ 別スレッドさん、["<<prm_id<<"]まだ～？、10ミリ秒待ったげよう。pOrder->_progress="<<(pOrder->_progress));
+					_TRACE_("GgafFactory::obtain ＜客＞ 別スレッドさん、["<<prm_id<<"]まだ～？、2ミリ秒待ったげよう。pOrder->_progress="<<(pOrder->_progress));
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-					Sleep(10);
+					Sleep(2);
 					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 					continue;
 				} else {
