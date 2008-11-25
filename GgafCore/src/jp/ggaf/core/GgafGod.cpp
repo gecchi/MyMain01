@@ -63,9 +63,7 @@ void GgafGod::be(){
 		throw *_pException_Factory;
 	}
 
-//_TRACE_("CHK1:"<<_dwFrame_God);
 	if (_isBehaved == false) {
-//_TRACE_("CHK2:"<<_dwFrame_God);
 		_isBehaved = true;
 		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 		_dwFrame_God++;
@@ -77,65 +75,57 @@ void GgafGod::be(){
 		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _dwNextTimeOffset[_dwFrame_God % 60]; //予定は変わらない
 
 	}
-//_TRACE_("CHK3:"<<_dwFrame_God);
-	if (_isBehaved) {
-//_TRACE_("CHK4:"<<_dwFrame_God);
-		_dwTime_FrameBegin = timeGetTime();	//		//fps計算
-		if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
-			_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
-			_TRACEORE(_fFps);
-			_dwTime_Prev = _dwTime_FrameBegin;
-			_dwFrame_PrevVisualize = _dwFrame_Visualize;
-		}
 
-		if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている
-//_TRACE_("CHK5:"<<_dwFrame_God);
+	_dwTime_FrameBegin = timeGetTime();	//		//fps計算
+	if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
+		_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
+		_TRACEORE(_fFps);
+		_dwTime_Prev = _dwTime_FrameBegin;
+		_dwFrame_PrevVisualize = _dwFrame_Visualize;
+	}
+
+	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
+
+		if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _dwNextTimeOffset[_dwFrame_God % 60]) {
 			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
-			if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _dwNextTimeOffset[_dwFrame_God % 60]) {
-//_TRACE_("CHK6:"<<_dwFrame_God);
-				//スキップ処理
-				_dwFrame_SkipCount++;
-				if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {//スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
-//_TRACE_("CHK7:"<<_dwFrame_God);
-					_dwFrame_SkipCount = 0;
-					_dwFrame_Visualize++;
-					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-					makeWorldMaterialize();
-					makeWorldVisualize();
-					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-				}
-			} else {
-//_TRACE_("CHK8:"<<_dwFrame_God);
+			_dwFrame_SkipCount++;
+			if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
+				//スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
+				_dwFrame_SkipCount = 0;
 				_dwFrame_Visualize++;
 				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-				makeWorldMaterialize();//描画を行う
-				makeWorldVisualize();  //視覚化を行う
+				makeWorldMaterialize();
+				makeWorldVisualize();
+				makeWorldFinalize();
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+			} else {
+				//スキップ時はmakeWorldFinalize()だけ
+				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+				makeWorldFinalize();
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			}
-		} else {//描画タイミングフレームになってない(余裕がある)
-//_TRACE_("CHK9:"<<_dwFrame_God);
-			Sleep(1); //工場が動くでしょう。
-			if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合は掃除
-//_TRACE_("CHK10:"<<_dwFrame_God);
-				if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) {
-					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-					getWorld()->cleane();
-					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-				}
+		} else {
+			//通常時描画（スキップなし）
+			_dwFrame_Visualize++;
+			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+			makeWorldMaterialize();//描画を行う
+			makeWorldVisualize();  //視覚化を行う
+			makeWorldFinalize();
+			::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+		}
+		_isBehaved = false;
+
+	} else {//描画タイミングフレームになってない(余裕がある)
+		Sleep(1); //工場（別スレッド）に回す
+		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合
+			if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) { //掃除でもやっとく
+				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+				getWorld()->cleane();
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			}
-			return;
 		}
 	}
-//_TRACE_("CHK11:"<<_dwFrame_God);
-	if (_isBehaved) {
-//_TRACE_("CHK12:"<<_dwFrame_God);
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-		makeWorldFinalize();
-		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-		_isBehaved = false;
-	} else {
 
-	}
 	return;
 }
 

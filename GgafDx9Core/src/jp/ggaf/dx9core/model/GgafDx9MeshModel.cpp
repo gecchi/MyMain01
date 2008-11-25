@@ -71,14 +71,11 @@ void GgafDx9MeshModel::onDeviceLost() {
 	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
 		pTex = _papID3DTexture9[i];
-		_TRACE_("pTex="<<pTex);
-		if(pTex) { 
-			_TRACE_("r pTex="<<pTex);
-			(pTex)->Release(); 
-			(pTex)=NULL; 
-		} else { 
-			_TRACE_("n pTex="<<pTex);
-			(pTex)=NULL; 
+		if(pTex) {
+			pTex->Release();
+			pTex = NULL;
+		} else {
+			pTex = NULL;
 		}
 		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
 	}
@@ -96,14 +93,11 @@ GgafDx9MeshModel::~GgafDx9MeshModel() {
 	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
 		pTex = _papID3DTexture9[i];
-		_TRACE_("pTex="<<pTex);
-		if(pTex) { 
-			_TRACE_("r pTex="<<pTex);
-			(pTex)->Release(); 
-			(pTex)=NULL; 
-		} else { 
-			_TRACE_("n pTex="<<pTex);
-			(pTex)=NULL; 
+		if(pTex) {
+			pTex->Release();
+			pTex = NULL;
+		} else {
+			pTex = NULL;
 		}
 		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
 	}
