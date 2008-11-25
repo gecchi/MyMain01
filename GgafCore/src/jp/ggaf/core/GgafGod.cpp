@@ -3,7 +3,7 @@
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-int GgafGod::_s_iNumClean_Node = 0;
+int GgafGod::_s_iNumCleanNodePerFrame = 0;
 DWORD GgafGod::_dwNextTimeOffset[] = {17,17,16,17,17,16,
                                       17,17,16,17,17,16,
                                       17,17,16,17,17,16,
@@ -45,6 +45,7 @@ _pWorld(NULL)
 	_dwFrame_PrevVisualize = 0;
 	_fFps = 0;
 	//_pWorld = NULL;
+	_isBehaved = false;
 }
 
 
@@ -62,51 +63,78 @@ void GgafGod::be(){
 		throw *_pException_Factory;
 	}
 
-
-	TRACE("GgafGod::being()");
-	_dwTime_FrameBegin = timeGetTime();
-	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) {
+//_TRACE_("CHK1:"<<_dwFrame_God);
+	if (_isBehaved == false) {
+//_TRACE_("CHK2:"<<_dwFrame_God);
+		_isBehaved = true;
 		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _dwNextTimeOffset[_dwFrame_God % 60]; //予定は変わらない
 		_dwFrame_God++;
-
-		//fps計算
-		if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
-			_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
-			_TRACEORE(_fFps);
-			_dwTime_Prev = _dwTime_FrameBegin;
-			_dwFrame_PrevVisualize = _dwFrame_Visualize;
-		}
-		_s_iNumClean_Node = 0;
+	//		//fps計算
+	//		if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
+	//			_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
+	//			_TRACEORE(_fFps);
+	//			_dwTime_Prev = _dwTime_FrameBegin;
+	//			_dwFrame_PrevVisualize = _dwFrame_Visualize;
+	//		}
+		_s_iNumCleanNodePerFrame = 0;
 		makeWorldBe();
 		makeWorldJudge();
-		DWORD dwTime_Now = timeGetTime();
-		if (_dwTime_ScheduledNextFrame > dwTime_Now) {
-			_dwFrame_Visualize++;
-			makeWorldMaterialize();//描画を行う
-			makeWorldVisualize();  //視覚化を行う
-		} else {
-			_dwFrame_SkipCount++;
-			if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
-				_dwFrame_SkipCount = 0;
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+		//描画タイミングフレーム加算
+		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _dwNextTimeOffset[_dwFrame_God % 60]; //予定は変わらない
+
+	}
+//_TRACE_("CHK3:"<<_dwFrame_God);
+	if (_isBehaved) {
+//_TRACE_("CHK4:"<<_dwFrame_God);
+		_dwTime_FrameBegin = timeGetTime();
+		if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている
+//_TRACE_("CHK5:"<<_dwFrame_God);
+			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
+			if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _dwNextTimeOffset[_dwFrame_God % 60]) {
+//_TRACE_("CHK6:"<<_dwFrame_God);
+				//スキップ処理
+				_dwFrame_SkipCount++;
+				if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {//スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
+//_TRACE_("CHK7:"<<_dwFrame_God);
+					_dwFrame_SkipCount = 0;
+					_dwFrame_Visualize++;
+					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+					makeWorldMaterialize();
+					makeWorldVisualize();
+					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+				}
+			} else {
+//_TRACE_("CHK8:"<<_dwFrame_God);
 				_dwFrame_Visualize++;
-				makeWorldMaterialize();
-				makeWorldVisualize();
-//				if (getWorld() != NULL && _s_iNumClean_Node == 0) {
-//					getWorld()->cleane(); //掃除
-//				}
+				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+				makeWorldMaterialize();//描画を行う
+				makeWorldVisualize();  //視覚化を行う
+				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			}
+		} else {//描画タイミングフレームになってない(余裕がある)
+//_TRACE_("CHK9:"<<_dwFrame_God);
+			Sleep(1); //工場が動くでしょう。
+			if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合は掃除
+//_TRACE_("CHK10:"<<_dwFrame_God);
+				if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) {
+					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+					getWorld()->cleane();
+					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+				}
+			}
+			return;
 		}
+	}
+//_TRACE_("CHK11:"<<_dwFrame_God);
+	if (_isBehaved) {
+//_TRACE_("CHK12:"<<_dwFrame_God);
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 		makeWorldFinalize();
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-
+		_isBehaved = false;
 	} else {
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-		if (getWorld() != NULL && _s_iNumClean_Node == 0) {
-			getWorld()->cleane(); //掃除
-		}
-		::LeaveCriticalSection(&(GgafGod::CS1));
-		Sleep(1); //工場が動くでしょう。
+
 	}
 	return;
 }

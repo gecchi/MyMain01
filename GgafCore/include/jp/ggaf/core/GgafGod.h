@@ -6,7 +6,7 @@
 class GgafGod : public GgafObject {
 
 public:
-	static int _s_iNumClean_Node;
+	static int _s_iNumCleanNodePerFrame;
 
 	static GgafCriticalException* _pException_Factory;
 
@@ -39,6 +39,8 @@ public:
 	/** 直下のワールドシーン */
 	GgafWorld* _pWorld;
 
+
+	bool _isBehaved;
 	GgafGod();
 
 	/**

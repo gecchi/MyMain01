@@ -1096,7 +1096,7 @@ T* GgafElement<T>::becomeIndependent() {
 
 template<class T>
 void GgafElement<T>::cleane() {
-	if (SUPER::_pSubFirst == NULL || GgafGod::_s_iNumClean_Node != 0) {
+	if (SUPER::_pSubFirst == NULL || GgafGod::_s_iNumCleanNodePerFrame != 0) {
 		return;
 	}
 
@@ -1107,12 +1107,12 @@ void GgafElement<T>::cleane() {
 	//éqÇí≤Ç◊ÇƒdeleteÇ∑ÇÈ
 	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
 	T* pWk;
-	while(GgafGod::_s_iNumClean_Node == 0) {
+	while(GgafGod::_s_iNumCleanNodePerFrame == 0) {
 		if (pElementTemp->_isFirst) { //ññîˆÇ©ÇÁå©ÇƒçsÇ´ç≈å„ÇÃàÍÇ¬
 
 			if (pElementTemp->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pElementTemp);
-				GgafGod::_s_iNumClean_Node++;
+				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 			break;
 		} else { //ññîˆÇ©ÇÁèáÇ…å©ÇƒÇ¢Ç≠
@@ -1120,7 +1120,7 @@ void GgafElement<T>::cleane() {
 			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
 				pWk = pElementTemp->SUPER::_pNext;
 				DELETE_IMPOSSIBLE_NULL(pWk);
-				GgafGod::_s_iNumClean_Node++;
+				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 		}
 	}
