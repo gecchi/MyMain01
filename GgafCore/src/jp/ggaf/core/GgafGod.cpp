@@ -5,15 +5,15 @@ CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_s_iNumCleanNodePerFrame = 0;
 DWORD GgafGod::_dwNextTimeOffset[] = {17,17,16,17,17,16,
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17,
                                       17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,16 };
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17,
+                                      17,17,16,17,17,17 };
 GgafGod::GgafGod() : GgafObject(),
 _pWorld(NULL)
 {
@@ -69,13 +69,6 @@ void GgafGod::be(){
 		_isBehaved = true;
 		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 		_dwFrame_God++;
-	//		//fps計算
-	//		if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
-	//			_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
-	//			_TRACEORE(_fFps);
-	//			_dwTime_Prev = _dwTime_FrameBegin;
-	//			_dwFrame_PrevVisualize = _dwFrame_Visualize;
-	//		}
 		_s_iNumCleanNodePerFrame = 0;
 		makeWorldBe();
 		makeWorldJudge();
@@ -87,7 +80,14 @@ void GgafGod::be(){
 //_TRACE_("CHK3:"<<_dwFrame_God);
 	if (_isBehaved) {
 //_TRACE_("CHK4:"<<_dwFrame_God);
-		_dwTime_FrameBegin = timeGetTime();
+		_dwTime_FrameBegin = timeGetTime();	//		//fps計算
+		if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
+			_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
+			_TRACEORE(_fFps);
+			_dwTime_Prev = _dwTime_FrameBegin;
+			_dwFrame_PrevVisualize = _dwFrame_Visualize;
+		}
+
 		if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている
 //_TRACE_("CHK5:"<<_dwFrame_God);
 			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
