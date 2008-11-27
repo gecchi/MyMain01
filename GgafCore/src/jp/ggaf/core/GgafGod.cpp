@@ -4,7 +4,7 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_s_iNumCleanNodePerFrame = 0;
-DWORD GgafGod::_dwNextTimeOffset[] = {17,17,16,17,17,16,
+DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17,17,16,17,17,16,
                                       17,17,16,17,17,17,
                                       17,17,16,17,17,17,
                                       17,17,16,17,17,17,
@@ -72,21 +72,24 @@ void GgafGod::be(){
 		makeWorldJudge();
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 		//描画タイミングフレーム加算
-		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _dwNextTimeOffset[_dwFrame_God % 60]; //予定は変わらない
-
+		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //予定は変わらない
 	}
 
-	_dwTime_FrameBegin = timeGetTime();	//		//fps計算
+	_dwTime_FrameBegin = timeGetTime();	//
+
+#ifdef OREDEBUG
+	//fps計算
 	if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
 		_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
 		_TRACEORE(_fFps);
 		_dwTime_Prev = _dwTime_FrameBegin;
 		_dwFrame_PrevVisualize = _dwFrame_Visualize;
 	}
+#endif
 
 	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
 
-		if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _dwNextTimeOffset[_dwFrame_God % 60]) {
+		if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]) {
 			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
 			_dwFrame_SkipCount++;
 			if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
@@ -129,33 +132,6 @@ void GgafGod::be(){
 	return;
 }
 
-void GgafGod::makeWorldBe() {
-	_pWorld -> nextFrame();
-	_pWorld -> behave();
-}
-
-void GgafGod::makeWorldJudge() {
-	_pWorld -> judge();
-}
-
-void GgafGod::makeWorldMaterialize() {
-	_pWorld -> drawPrior();
-	_pWorld -> drawMain();
-	_pWorld -> drawTerminate();
-}
-
-void GgafGod::makeWorldVisualize() {
-	_pWorld -> dump();
-}
-
-void GgafGod::makeWorldFinalize() {
-	_pWorld -> finally();
-	//_pWorld -> cleane();//死んだのを抹消
-}
-
-GgafWorld* GgafGod::getWorld(){
-	return _pWorld;
-}
 
 GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");
