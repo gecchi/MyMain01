@@ -16,6 +16,7 @@ public:
 	/** 自機へのポインタ */
 	static MyShip* _pMyShip;
 
+
 	static CommonScene* _pSceneCommon;
 };
 #endif /*GAMEGLOBAL_H_*/

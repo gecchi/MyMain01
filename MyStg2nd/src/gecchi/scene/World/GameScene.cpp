@@ -6,9 +6,9 @@ GameScene::GameScene(string prm_name) : DefaultScene(prm_name) {
 	_pGameDemoScene -> stopImmediately();
 	addSubLast(_pGameDemoScene);
 
-
 	_pGameMainScene = NEW GameMainScene("GameMain");
 	addSubLast(_pGameMainScene);
+
 	_pCommonScene = NEW CommonScene("Common");
 	addSubLast(_pCommonScene);
 
@@ -32,6 +32,7 @@ void GameScene::processBehavior() {
 		}
 	}
 #endif
+
 }
 
 

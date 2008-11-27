@@ -1,6 +1,13 @@
 #ifndef WORLD_H_
 #define WORLD_H_
 
+//getParent getSub マクロ。
+//下記マクロ使用するには、シーンオブジェクトの名前が、
+//クラス名から末尾の"Scene"という文字列を取り去ったものであることが前提条件です
+#define getParentScene(X) ((X##Scene*)getParent(#X))
+#define getSubScene(X) ((X##Scene*)getSub(#X))
+
+
 class World : public DefaultWorld {
 
 

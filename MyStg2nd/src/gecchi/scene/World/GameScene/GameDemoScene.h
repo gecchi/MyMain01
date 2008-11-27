@@ -5,6 +5,9 @@ class GameDemoScene : public DefaultScene {
 
 public:
 
+	FontPlateActor* _pFontPlate01;
+	FontPlateActor* _pFontPlate02;
+
 	GameDemoScene(string prm_name);
 	/**
 	 * ‰Šúˆ—
