@@ -31,8 +31,8 @@ public:
 	static int getDistance(int x1, int y1, int x2, int y2);
 
 	/**
-	 * 原点からパラメータ座標を向く時の、Z軸回転アングル値とY軸回転アングル値を取得 .
-	 * ついでに単位ベクトルも貰える。
+	 * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
+	 * ついでに単位方向ベクトルも貰えちゃう。
 	 * @param x [in]X座標
 	 * @param y [in]Y座標
 	 * @param z [in]Z座標
@@ -45,7 +45,7 @@ public:
 	static void getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY);
 
 	/**
-	 * Z軸回転+Y軸回転から単位ベクトルを取得
+	 * Z軸回転+Y軸回転から単位方向ベクトルを取得
 	 * @param prm_angRotZ [in]Z軸回転アングル値
 	 * @param prm_angRotY [in]Y軸回転アングル値
 	 * @param out_nvx [out]単位ベクトルX要素

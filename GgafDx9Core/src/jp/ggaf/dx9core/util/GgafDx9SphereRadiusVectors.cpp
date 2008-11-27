@@ -1,8 +1,5 @@
 #include "stdafx.h"
 
-//GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
-//
-//}
 
 COMPARE_ABLE_SR_VECTOR GgafDx9SphereRadiusVectors::_sr[(S_ANG90+1)*(S_ANG90+1)];
 
@@ -22,21 +19,14 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
 			xXZ = xXY*cos(radRotAxisY);
 			zXZ = xXY*sin(radRotAxisY);
 			index = angRotAxisZ*(S_ANG90+1) + angRotAxisY;
-			_sr[index].vec.y = yXY;
-			_sr[index].vec.x = xXZ;
-			_sr[index].vec.z = zXZ;
-			_sr[index].num_yzx = (_sr[index].vec.y * 65536 * 65536 ) +
-			                     (_sr[index].vec.z * 65536 ) +
-			                     (_sr[index].vec.x );
+			_sr[index].set(xXZ, yXY, zXZ);
 		}
 	}
 }
 
-void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, int& out_angRotZ, int& out_angRotY) {
-	static COMPARE_ABLE_SR_VECTOR target;
-	target.vec.y = prm_y;
-	target.vec.x = 0;
-	target.vec.z = 0;
+void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY) {
+	class COMPARE_ABLE_SR_VECTOR target;
+	target.set(0, prm_y, 0);
 
 	//yのバイナリサーチ
 	static int top, bottom, center, center_prev;
@@ -60,9 +50,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	}
 
 	//xzのサーチ
-	target.vec.y = _sr[top].vec.y;
-	target.vec.x = prm_x;
-	target.vec.z = prm_z;
+	target.set(prm_x, _sr[top].vec.y, prm_z);
 
 	top = (top / (S_ANG90+1)) * (S_ANG90+1);
 	bottom = top + (S_ANG90+1)-1;

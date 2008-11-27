@@ -200,25 +200,24 @@ int GgafDx9Util::sign(int x) {
 }
 
 void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY) {
+	double vx = ((double)x) / LEN_UNIT;
+	double vy = ((double)y) / LEN_UNIT;
+	double vz = ((double)z) / LEN_UNIT;
 	//vx,vy,vz を正規化する。
 	//求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
 	//関係式   X=t*vx; Y=t*vy; Z=t*vz; ･･･ (1) を得る
 	//単位球は X^2 + Y^2 + Z^2 = 1 ･･･(2)
 	//(1)(2)を連立させて、t について解く。
 	//t = 1 / sqrt(vx^2 + vy^2 + vz^2)
-	//これにパラメータを代入し t が求まる。
-	//求めた t を (1) に代入し (X,Y,Z) を求める。
-	double vx = ((double)x) / LEN_UNIT;
-	double vy = ((double)y) / LEN_UNIT;
-	double vz = ((double)z) / LEN_UNIT;
 	double t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
+	//求めた t を (1) に代入し (X,Y,Z) を求める。
 	out_nvx = t*vx;
 	out_nvy = t*vy;
 	out_nvz = t*vz;
 
 	//GgafDx9SphereRadiusVectors を使って単位ベクトルから回転角をもとめる
 	//但し GgafDx9SphereRadiusVectors のベクトル精度は 10000を乗じた整数である。(LEN_UNIT*10)
-	//さらに、引数のベクトル要素は全て正の値（1/8 の球分）だけなのだー。
+	//さらに、引数のベクトル要素は全て正の値（1/8 の球分）だけなのです。よって、いろいろ場合わけする。
 
 	s_ang rZ, rY;
 	_srv.getRotAngleClosely(
