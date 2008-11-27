@@ -25,6 +25,9 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
 			_sr[index].vec.y = yXY;
 			_sr[index].vec.x = xXZ;
 			_sr[index].vec.z = zXZ;
+			_sr[index].num_yzx = (_sr[index].vec.y * 65536 * 65536 ) +
+			                     (_sr[index].vec.z * 65536 ) +
+			                     (_sr[index].vec.x );
 		}
 	}
 }
@@ -41,7 +44,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
 	center_prev = -1;
-	while (true) {
+	for(int i = 0; i < 20; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
@@ -64,7 +67,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	top = (top / (S_ANG90+1)) * (S_ANG90+1);
 	bottom = top + (S_ANG90+1)-1;
 	center_prev = -1;
-	while (true) {
+	for(int i = 0; i < 20; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
