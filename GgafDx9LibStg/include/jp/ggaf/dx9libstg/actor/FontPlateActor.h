@@ -5,12 +5,15 @@
 class FontPlateActor : public DefaultPlateActor {
 	/** 文字数 */
 	string _draw_string;
+	int _iStrLen;
 public:
 	FontPlateActor(string prm_name, string prm_model);
 
 	virtual void processDrawMain(); //オーバーライド
 
-	virtual void setStringPlate(float prm_x, float prm_y, string prm_draw_string);
+	virtual void setString(float prm_x, float prm_y, string prm_draw_string);
+	virtual void setString(float prm_x, float prm_y, float prm_z, string prm_draw_string);
+	virtual void setString(string prm_draw_string);
 
 	virtual ~FontPlateActor();
 

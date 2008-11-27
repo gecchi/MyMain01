@@ -2,27 +2,44 @@
 
 FontPlateActor::FontPlateActor(string prm_name, string prm_model) : DefaultPlateActor(prm_name, prm_model) {
 	_class_name = "FontPlateActor";
-	_draw_string = "empty";
+	_draw_string = "";
+	_iStrLen = (int)_draw_string.size();
 }
 
-void FontPlateActor::setStringPlate(float prm_x, float prm_y, string prm_draw_string) {
+void FontPlateActor::setString(float prm_x, float prm_y, string prm_draw_string) {
 	_draw_string = prm_draw_string;
+	_iStrLen = (int)_draw_string.size();
 	_x = prm_x;
 	_y = prm_y;
 }
+void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, string prm_draw_string) {
+	_draw_string = prm_draw_string;
+	_iStrLen = (int)_draw_string.size();
+	_x = prm_x;
+	_y = prm_y;
+	_z = prm_z;
+}
+
+
+void FontPlateActor::setString(string prm_draw_string) {
+	_draw_string = prm_draw_string;
+	_iStrLen = (int)_draw_string.size();
+}
 
 void FontPlateActor::processDrawMain() {
+	if (_iStrLen == 0) {
+		return;
+	}
 	_paVertex[0].z = _z;
 	_paVertex[1].z = _z;
 	_paVertex[2].z = _z;
 	_paVertex[3].z = _z;
 
-	int iStrLen = (int)_draw_string.size();
 	float x_beginning = _x;
 	float x = _x;
 	float y = _y;
 	const char* paChar = _draw_string.c_str();
-	for (int i = 0; i < iStrLen; i++) {
+	for (int i = 0; i < _iStrLen; i++) {
 		if (paChar[i] == '\n') {
 			x = x_beginning;
 			y += _pPlateModel->_fSize_PlateModelHeight;
