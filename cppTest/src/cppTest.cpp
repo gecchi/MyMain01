@@ -31,7 +31,6 @@ int main() {
 		}
 	}
 
-
 	delete srvMy;
 	::timeEndPeriod(1);//タイマー精度終了処理
 	return 0;
