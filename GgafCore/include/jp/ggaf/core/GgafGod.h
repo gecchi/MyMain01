@@ -6,11 +6,14 @@
 class GgafGod : public GgafObject {
 
 public:
+
+	/** 掃除オブジェクト数 */
 	static int _s_iNumCleanNodePerFrame;
-
+	/** 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
 	static GgafCriticalException* _pException_Factory;
+	/** 次に世界を活動させる時間のオフセット */
+	static DWORD _aDwTime_OffsetOfNextFrame[];
 
-	static DWORD _dwNextTimeOffset[];
 	/** GgafFactory::work スレッドハンドル  */
 	HANDLE _handleFactory01;
 	/** GgafFactory::work スレッドID  */
@@ -18,14 +21,18 @@ public:
 	/** クリティカルセクション（セマフォ） */
 	static CRITICAL_SECTION CS1;
 	static CRITICAL_SECTION CS2;
-	/** フレーム開始システム時間 */
+
+	/** 神のフレーム開始システム時間 */
 	DWORD _dwTime_FrameBegin;
-	/** 次にGgafWorldを活動させる時間 */
+	/** 次に世界を活動させるシステム時間 */
 	DWORD _dwTime_ScheduledNextFrame;
 	/** 神誕生からのフレーム数 */
 	DWORD _dwFrame_God;
-	/** スキップフレームカウンタ */
+	/** 世界を視覚化できなかった（スキップした）回数 */
 	DWORD _dwFrame_SkipCount;
+	/** 世界 */
+	GgafWorld* _pWorld;
+
 
 	/** fps値（約1000ms毎に計算される） */
 	float _fFps;
@@ -36,53 +43,66 @@ public:
 	/** 前回fps計算時の描画フレームカウント値 */
 	DWORD _dwFrame_PrevVisualize;
 
-	/** 直下のワールドシーン */
-	GgafWorld* _pWorld;
 
 
 	bool _isBehaved;
 	GgafGod();
 
 	/**
-	 * 存在する<BR>
+	 * 神の存在<BR>
 	 */
 	void be();
-
-//	/**
-//	 * フレームを進める<BR>
-//	 */
-//	virtual void nextFrame();
 
 	/**
 	 * 世界を存在させる<BR>
 	 */
-	virtual void makeWorldBe();
+	virtual void makeWorldBe() {
+		_pWorld -> nextFrame();
+		_pWorld -> behave();
+	};
 
 	/**
 	 * 世界を審判する<BR>
 	 */
-	virtual void makeWorldJudge();
+	virtual void makeWorldJudge() {
+		_pWorld -> judge();
+	};
 
 	/**
-	 * 具現化する<BR>
+	 * 世界を具現化する<BR>
 	 */
-	virtual void makeWorldMaterialize();
+	virtual void void makeWorldMaterialize() {
+		_pWorld -> drawPrior();
+		_pWorld -> drawMain();
+		_pWorld -> drawTerminate();
+	};
 
 	/**
-	 * 視覚化する<BR>
+	 * 世界を視覚化する<BR>
 	 */
-	virtual void makeWorldVisualize();
+	virtual void makeWorldVisualize() {
+		_pWorld -> dump();
+	};
 
 	/**
-	 * 最終<BR>
+	 * 世界の後始末<BR>
 	 */
-	virtual void makeWorldFinalize();
+	virtual void makeWorldFinalize() {
+		_pWorld -> finally();
+		//_pWorld -> cleane();//死んだのを抹消
+	};
 
+	/**
+	 * 世界を取得<BR>
+	 * @return 世界
+	 */
+	virtual GgafWorld* getWorld(){
+		return _pWorld;
+	}
 
-	virtual GgafWorld* getWorld();
-
-    /**
-     * Worldシーンを作成。
+	/**
+	 * 世界を創造<BR>
+	 * @return 世界
 	 */
 	virtual GgafWorld* createWorld() = 0;
 
