@@ -132,6 +132,41 @@ void GgafGod::be(){
 	return;
 }
 
+void GgafGod::makeWorldBe() {
+	_pWorld -> nextFrame();
+	_pWorld -> behave();
+}
+
+/**
+ * ¢ŠE‚ğR”»‚·‚é<BR>
+ */
+void GgafGod::makeWorldJudge() {
+	_pWorld -> judge();
+}
+
+/**
+ * ¢ŠE‚ğ‹ïŒ»‰»‚·‚é<BR>
+ */
+void  GgafGod::makeWorldMaterialize() {
+	_pWorld -> drawPrior();
+	_pWorld -> drawMain();
+	_pWorld -> drawTerminate();
+}
+
+/**
+ * ¢ŠE‚ğ‹Šo‰»‚·‚é<BR>
+ */
+void GgafGod::makeWorldVisualize() {
+	_pWorld -> dump();
+}
+
+/**
+ * ¢ŠE‚ÌŒãn––<BR>
+ */
+void GgafGod::makeWorldFinalize() {
+	_pWorld -> finally();
+	//_pWorld -> cleane();//€‚ñ‚¾‚Ì‚ğ–•Á
+}
 
 GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");

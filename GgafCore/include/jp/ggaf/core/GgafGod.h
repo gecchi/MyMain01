@@ -56,41 +56,27 @@ public:
 	/**
 	 * ¢ŠE‚ğ‘¶İ‚³‚¹‚é<BR>
 	 */
-	virtual void makeWorldBe() {
-		_pWorld -> nextFrame();
-		_pWorld -> behave();
-	};
+	virtual void makeWorldBe();
 
 	/**
 	 * ¢ŠE‚ğR”»‚·‚é<BR>
 	 */
-	virtual void makeWorldJudge() {
-		_pWorld -> judge();
-	};
+	virtual void makeWorldJudge();
 
 	/**
 	 * ¢ŠE‚ğ‹ïŒ»‰»‚·‚é<BR>
 	 */
-	virtual void void makeWorldMaterialize() {
-		_pWorld -> drawPrior();
-		_pWorld -> drawMain();
-		_pWorld -> drawTerminate();
-	};
+	virtual void  makeWorldMaterialize();
 
 	/**
 	 * ¢ŠE‚ğ‹Šo‰»‚·‚é<BR>
 	 */
-	virtual void makeWorldVisualize() {
-		_pWorld -> dump();
-	};
+	virtual void makeWorldVisualize();
 
 	/**
 	 * ¢ŠE‚ÌŒãn––<BR>
 	 */
-	virtual void makeWorldFinalize() {
-		_pWorld -> finally();
-		//_pWorld -> cleane();//€‚ñ‚¾‚Ì‚ğ–•Á
-	};
+	virtual void makeWorldFinalize();
 
 	/**
 	 * ¢ŠE‚ğæ“¾<BR>
