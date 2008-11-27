@@ -17,12 +17,8 @@ protected:
 
 	/** 神様への近道 */
 	GgafGod* _pGod;
-
 	/** initializeが行われたどうかのフラグ(true=行われた) */
 	bool _wasInitialized;
-
-	/** ループ用 */
-
 
 public:
 	/** ノードが誕生(addSubされた）時からのフレーム */
@@ -54,12 +50,12 @@ public:
 
 	/** あとで活動フラグ */
 	bool _willPlayAfterFrame;
-	/** あとで活動残フレーム */
+	/** あとで活動の残フレーム数（神フレームと一致したら活動） */
 	DWORD _dwGodFremeWhenPlay;
 
 	/** あとで停止フラグ */
 	bool _willStopAfterFrame;
-	/** あとで停止残フレーム */
+	/** あとで停止の残フレーム数（神フレームと一致したら停止） */
 	DWORD _dwGodFremeWhenStop;
 
 	/** ノードが活動に切り替わった(stop→play)瞬間に１フレームだけセットされるフラグ */
