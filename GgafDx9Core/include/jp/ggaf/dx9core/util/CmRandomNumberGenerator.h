@@ -1,11 +1,27 @@
 /******************************************************************************
- /**
  * @file	CmRandomNumberGenerator.h
  * @brief	Random Number Generator H file
  * @author  Takayuki HARUKI (University of Toyama, Japan)
  * @since	Nov. 2005
  *
  ******************************************************************************/
+
+// このプログラムは松本眞氏、西村拓士氏らによって開発された
+// Mersenne Twister法のCプログラムがオリジナルです。
+// CmRandomNumberGenerator クラスは、Takayuki HARUKI により
+// Singletonパターンに書き直されたコードです。
+// 本コード内容は、CmRandomNumberGenerator を、ほぼそのままに流用しております。
+//
+// 多大な努力と時間を費やし研究された、開発者の皆様に敬意を表しまして、利用させていただきます。
+// 良質の乱数をこのように手軽に利用できる事に感謝。
+//
+//                                         2008/09/09 Masatoshi Tsuge
+//
+// 【Mersenne Twister Home Page】
+// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html
+// 【CmRandomNumberGeneratorのダウンロード】
+// http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip
+
 
 #ifndef _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
 #define _CM_RANDOM_NUMBER_GENERATOR_H_INCLUDED_
