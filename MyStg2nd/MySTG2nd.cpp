@@ -125,7 +125,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	//メモリーリ－クチェックBEGIN
 	::detectMemoryLeaksStart(std::cout);
 #endif
-	God* god;
+	God* god = NULL;
 	try {
 	//神の誕生！
 		god = NEW God(hInstance, hWnd);

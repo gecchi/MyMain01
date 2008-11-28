@@ -439,7 +439,6 @@ void MyShip::processBehavior() {
 	DWORD  vtxFmt;
 	DWORD  FVFSize;
 
-	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
 	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
 	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
 
@@ -448,7 +447,6 @@ void MyShip::processBehavior() {
 	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
 
 
-	D3DVECTOR* pV;
 
 //	//D3DFVF_XYZは先頭にあるので、オフセットは０
 //	//A
