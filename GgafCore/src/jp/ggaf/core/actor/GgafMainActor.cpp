@@ -3,11 +3,11 @@
 GgafMainActor::GgafMainActor(string prm_name) : GgafActor(prm_name) {
     setBumpable(false);
 	_class_name = "GgafMainActor";
-    _pHeadAcor = NULL;
+    _pHeadActor = NULL;
 }
 
 void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
-    _pHeadAcor = prm_pHeadActor;
+    _pHeadActor = prm_pHeadActor;
     if (_pSubFirst != NULL) {
         GgafMainActor* pMainActor_tmp = (GgafMainActor*)getSubFirst();
         while(true) {
@@ -22,7 +22,7 @@ void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
 }
 
 GgafHeadActor* GgafMainActor::getHeadActor() {
-	return 	_pHeadAcor;
+	return 	_pHeadActor;
 
 }
 

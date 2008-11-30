@@ -82,7 +82,7 @@ public:
      * @param   prm_kind    種別名（＝GgafHeadActor名）
      * @param   prm_pMainActor   登録するアクター
 	 */
-    void accept(actorkind prm_kind, GgafMainActor* prm_pActor);
+    void accept(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
 
 

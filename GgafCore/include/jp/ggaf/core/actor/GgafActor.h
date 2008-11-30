@@ -147,7 +147,7 @@ public:
 	 * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
 	 * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
 	 */
-	virtual void executeBumpChkRoundRobin2(GgafActor* prm_pTreeNode_Opponent);
+	virtual void executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent);
 
     /**
 	 * 自アクターと他アクターと衝突したかどうか判定する。 .

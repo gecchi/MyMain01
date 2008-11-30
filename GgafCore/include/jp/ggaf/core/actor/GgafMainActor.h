@@ -12,7 +12,7 @@ class GgafMainActor : public GgafActor {
 
 protected:
 	/** 種別（グループ）を司るヘッドアクター */
-	GgafHeadActor* _pHeadAcor;
+	GgafHeadActor* _pHeadActor;
 
 public:
 
