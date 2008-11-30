@@ -44,7 +44,7 @@ public:
 
 	/**
 	 * コンストラクタ<BR>
-	 * @param	スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+	 * @param prm_spritemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
 	GgafDx9SpriteModel(string prm_spritemodel_name);
 

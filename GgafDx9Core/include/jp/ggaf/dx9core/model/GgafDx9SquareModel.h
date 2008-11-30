@@ -5,11 +5,11 @@ class GgafDx9SquareModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
-	struct VERTEX{  
-		float x, y, z;    // 頂点座標 
+	struct VERTEX{
+		float x, y, z;    // 頂点座標
 		float nx, ny, nz; // 法線
-		DWORD color;      // 頂点の色 
-//		float tu, tv;     // テクスチャ座標 
+		DWORD color;      // 頂点の色
+//		float tu, tv;     // テクスチャ座標
 	};
 	/** VERTEXのFVF */
 	static DWORD FVF;
@@ -23,11 +23,11 @@ protected:
 	UINT _iSize_Vertec_unit;
 //	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
 //	GgafDx9RectUV*  _paRectUV;
-	
-	
+
+
 	/** 頂点バッファへのポインタ */
 	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-	
+
 
 public:
 	/** 全アニメパターン数 */
@@ -39,7 +39,7 @@ public:
 
 	/**
 	 * コンストラクタ<BR>
-	 * @param	スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+	 * @param prm_squaremodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
 	GgafDx9SquareModel(string prm_squaremodel_name);
 

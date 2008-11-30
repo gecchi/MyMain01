@@ -56,7 +56,14 @@ public:
 
 	/**
 	 * ü•ª‚Ì“–‚½‚è”»’è<BR>
-	 * @param (x1,y1)-(x2,y2) ~ (x3,y3)-(x4,y4)
+	 * @param x11
+	 * @param y11
+	 * @param x12
+	 * @param y12
+	 * @param x21
+	 * @param y21
+	 * @param x22
+	 * @param y22
 	 * @return true:ƒqƒbƒg/false:ƒqƒbƒg‚µ‚Ä‚È‚¢
 	 */
 	static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);

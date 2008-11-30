@@ -8,13 +8,13 @@ public:
 	static GgafDx9Bgm* _pBgm_First;
 	/**
 	 * GgafDx9Bgmオブジェクトをリストに追加。<BR>
-	 * @param 追加するGgafDx9Bgmオブジェクトのポインタ
+	 * @param prm_pBgm_New 追加するGgafDx9Bgmオブジェクトのポインタ
 	 */
-	static void add(GgafDx9Bgm* prm_pSound_New);
+	static void add(GgafDx9Bgm* prm_pBgm_New);
 
 	/**
 	 * GgafDx9Bgmオブジェクトをリストから検索。<BR>
-	 * @param ogg定義の識別名。".ogg"を追加するとファイル名になる。
+	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
 	 * @return	所望のGgafDx9Bgmオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
 	static GgafDx9Bgm* find(string prm_ogg_name);
@@ -24,7 +24,7 @@ public:
 	 * GgafDx9Bgm オブジェクトリスト（先頭は_pBgm_First）<BR>
 	 * から検索し、ヒットした（生成済みGgafDx9Bgmがある）場合、 GgafDx9Bgm にキャストしてそれを返す。<BR>
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
-	 * @param ogg定義の識別名。".ogg"を追加するとファイル名になる。
+	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
 	 */
 	static GgafDx9Bgm* get(string prm_ogg_name);
 
