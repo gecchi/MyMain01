@@ -2,7 +2,7 @@
 #define MYSHOT001_H_
 
 
-class MyShot001 : public DefaultSpriteMyActor {
+class MyShot001 : public DefaultMeshActor {
 
 public:
 	MyShot001(string prm_name, string prm_model);

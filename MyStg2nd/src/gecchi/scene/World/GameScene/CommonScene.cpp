@@ -15,7 +15,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
 		MyShot001* pShot;
 		for (int i = 0; i < 50; i++) { //自弾ストック３０個
-			pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "moji2");
+			pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "wave");
 			pShot->stopImmediately();
 			_pMyShots001Rotation->addSubLast(pShot);
 		}
@@ -36,7 +36,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		_pEnemyShots001Rotation = NEW RotationActor("TAMAS001");
 		getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pEnemyShots001Rotation);
 		EnemyShot001* pEnemyShot;
-		for (int i = 0; i < 256; i++) { //ストック256個
+		for (int i = 0; i < 512; i++) { //ストック256個
 			pEnemyShot = NEW EnemyShot001("EneShot"+GgafUtil::itos(i), "hoge");
 			pEnemyShot->stopImmediately(); //最初非表示
 			_pEnemyShots001Rotation->addSubLast(pEnemyShot);

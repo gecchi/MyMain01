@@ -1,17 +1,17 @@
 #include "stdafx.h"
 
-MyShot001::MyShot001(string prm_name, string prm_model) : DefaultSpriteMyActor(prm_name, prm_model) {
+MyShot001::MyShot001(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 
 }
 
 void MyShot001::initialize() {
-	setAnimationMethod(OSCILLATE_LOOP, 2);
+	//setAnimationMethod(OSCILLATE_LOOP, 2);
 
 	_pGeoMover -> setMoveAngleRzVelocity(0);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
-	_pGeoMover -> setMoveAngleRz(0);
-	_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pGeoMover -> setMoveVelocity(1000);
+	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
+	//_pGeoMover -> setMoveAngleRz(0);
+	//_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
+	_pGeoMover -> setMoveVelocity(2000);
 
 	_pChecker -> useHitArea(7);
 	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
@@ -44,12 +44,19 @@ void MyShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»‹¤’Êˆ—
 		setBumpableOnlySelf(true);
-		_X = GameGlobal::_pMyShip->_X;
-		_Y = GameGlobal::_pMyShip->_Y;
-		_Z = GameGlobal::_pMyShip->_Z;
+		setGeometry(GameGlobal::_pMyShip);
+		_pGeoMover -> setAxisRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z]);
+		_pGeoMover -> setAxisRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]);
+		_pGeoMover -> setMoveAngleRzRy(
+				GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z],
+				GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]
+				   );
+//		_X = GameGlobal::_pMyShip->_X;
+//		_Y = GameGlobal::_pMyShip->_Y;
+//		_Z = GameGlobal::_pMyShip->_Z;
 	} else {
 		//’Êíˆ—
-		nextAnimationFrame();
+		//nextAnimationFrame();
 		//À•W‚É”½‰f
 		_pGeoMover -> behave();
 		_pChecker -> behave();
