@@ -6,6 +6,7 @@ class CommonScene : public DefaultScene {
 public:
 	MyShip* _pMyShip;
 
+	RotationActor* _pMyWaves001Rotation;
 	RotationActor* _pMyShots001Rotation;
 	RotationActor* _pMyLaserChipRotation;
 	RotationActor* _pEnemyShots001Rotation;

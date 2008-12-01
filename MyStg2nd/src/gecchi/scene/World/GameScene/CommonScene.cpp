@@ -15,11 +15,23 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
 		MyShot001* pShot;
 		for (int i = 0; i < 50; i++) { //Ž©’eƒXƒgƒbƒN‚R‚OŒÂ
-			pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "wave");
+			pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "moji");
 			pShot->stopImmediately();
 			_pMyShots001Rotation->addSubLast(pShot);
 		}
 	}
+
+	{ //MyWaves001
+		_pMyWaves001Rotation = NEW RotationActor("RotWave001");
+		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
+		MyWave001* pWave;
+		for (int i = 0; i < 50; i++) { //Ž©’eƒXƒgƒbƒN‚R‚OŒÂ
+			pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "wave");
+			pWave->stopImmediately();
+			_pMyWaves001Rotation->addSubLast(pWave);
+		}
+	}
+
 
 	{ //MyLaser001
 		_pMyLaserChipRotation = NEW RotationActor("RotLaser001");

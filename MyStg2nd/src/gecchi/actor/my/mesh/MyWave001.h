@@ -1,11 +1,11 @@
-#ifndef MYSHOT001_H_
-#define MYSHOT001_H_
+#ifndef MYWAVE001_H_
+#define MYWAVE001_H_
 
 
-class MyShot001 : public DefaultSpriteMyActor {
+class MyWave001 : public DefaultMeshActor {
 
 public:
-	MyShot001(string prm_name, string prm_model);
+	MyWave001(string prm_name, string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -32,9 +32,9 @@ public:
 	 */
 	void onStop();
 
-	virtual ~MyShot001();
+	virtual ~MyWave001();
 };
 
 
-#endif /*MYSHOT001_H_*/
+#endif /*MYWAVE001_H_*/
 

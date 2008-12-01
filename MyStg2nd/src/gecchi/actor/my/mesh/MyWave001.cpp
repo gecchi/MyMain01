@@ -1,17 +1,17 @@
 #include "stdafx.h"
 
-MyShot001::MyShot001(string prm_name, string prm_model) : DefaultSpriteMyActor(prm_name, prm_model) {
+MyWave001::MyWave001(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 
 }
 
-void MyShot001::initialize() {
-	setAnimationMethod(OSCILLATE_LOOP, 2);
+void MyWave001::initialize() {
+	//setAnimationMethod(OSCILLATE_LOOP, 2);
 
 	_pGeoMover -> setMoveAngleRzVelocity(0);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
-	_pGeoMover -> setMoveAngleRz(0);
-	_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pGeoMover -> setMoveVelocity(1000);
+	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
+	//_pGeoMover -> setMoveAngleRz(0);
+	//_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
+	_pGeoMover -> setMoveVelocity(2000);
 
 	_pChecker -> useHitArea(7);
 	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
@@ -32,7 +32,7 @@ void MyShot001::initialize() {
 //
 	_SX = 10000;
 	_SY = 10000;
-	setAlpha(0.2);
+	//setAlpha(0.2);
 
 	setBumpableOnlySelf(true);
 	declareStop();
@@ -40,23 +40,30 @@ void MyShot001::initialize() {
 }
 
 
-void MyShot001::processBehavior() {
+void MyWave001::processBehavior() {
 	if (switchedToPlay()) {
 		//出現時共通処理
 		setBumpableOnlySelf(true);
-		_X = GameGlobal::_pMyShip->_X;
-		_Y = GameGlobal::_pMyShip->_Y;
-		_Z = GameGlobal::_pMyShip->_Z;
+		setGeometry(GameGlobal::_pMyShip);
+		_pGeoMover -> setAxisRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z]);
+		_pGeoMover -> setAxisRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]);
+		_pGeoMover -> setMoveAngleRzRy(
+				GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z],
+				GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]
+				   );
+//		_X = GameGlobal::_pMyShip->_X;
+//		_Y = GameGlobal::_pMyShip->_Y;
+//		_Z = GameGlobal::_pMyShip->_Z;
 	} else {
 		//通常処理
-		nextAnimationFrame();
+		//nextAnimationFrame();
 		//座標に反映
 		_pGeoMover -> behave();
 		_pChecker -> behave();
 	}
 }
 
-void MyShot001::processJudgement() {
+void MyWave001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
 		declareStop();
@@ -65,26 +72,26 @@ void MyShot001::processJudgement() {
 }
 
 /*
-bool MyShot001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
-	//TRACE("MyShot001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
+bool MyWave001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
+	//TRACE("MyWave001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
 	return false;
 }
 */
 
-void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-//_TRACE_("MyShot001::processOnHit ショットがヒットしました");
-	//_TRACE_("MyShot001ヒットしました。("<<_X<<","<<_Y<<")");
+void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
+//_TRACE_("MyWave001::processOnHit ショットがヒットしました");
+	//_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
 	declareStop();
 }
 
-void MyShot001::onStop() {
+void MyWave001::onStop() {
 	//消失時処理
 	setBumpableOnlySelf(false);
 	declareMoveFirst();
 }
 
 
-MyShot001::~MyShot001() {
+MyWave001::~MyWave001() {
 
 }

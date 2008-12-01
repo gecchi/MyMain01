@@ -46,6 +46,7 @@ class Tetrahedron;
 class MyShip;
 class MyOption;
 class MyShot001;
+class MyWave001;
 class MyLaser001;
 class EffectExplosion001;
 class TamagoActor;
@@ -88,6 +89,7 @@ class MyFactory;
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOption.h"
 #include "gecchi/actor/my/sprite/MyShot001.h"
+#include "gecchi/actor/my/mesh/MyWave001.h"
 #include "gecchi/actor/my/sprite/MyLaser001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
