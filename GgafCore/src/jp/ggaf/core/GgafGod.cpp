@@ -4,6 +4,7 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_s_iNumCleanNodePerFrame = 0;
+int GgafGod::_iNumPlayingActor = 0;
 DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17,17,16,17,17,16,
                                       17,17,16,17,17,17,
                                       17,17,16,17,17,17,
@@ -72,7 +73,15 @@ void GgafGod::be(){
 		makeWorldJudge();
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 		//描画タイミングフレーム加算
-		_dwTime_ScheduledNextFrame = _dwTime_ScheduledNextFrame + _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //予定は変わらない
+		//_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //予定は変わらない
+		if (_iNumPlayingActor > 600) {
+			_dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]*3);
+		} else if (_iNumPlayingActor > 300) {
+			_dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]*2);
+		} else {
+			_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60];
+		}
+
 	}
 
 	_dwTime_FrameBegin = timeGetTime();	//
@@ -88,7 +97,7 @@ void GgafGod::be(){
 #endif
 
 	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
-
+		_iNumPlayingActor = 0;
 		if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]) {
 			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
 			_dwFrame_SkipCount++;

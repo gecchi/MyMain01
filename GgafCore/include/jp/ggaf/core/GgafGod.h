@@ -43,6 +43,8 @@ public:
 	/** 前回fps計算時の描画フレームカウント値 */
 	DWORD _dwFrame_PrevVisualize;
 
+	/**  */
+	static int _iNumPlayingActor;
 
 
 	bool _isBehaved;
