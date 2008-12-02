@@ -32,7 +32,7 @@
 #define VB_NEUTRAL_STC 28
 
 
-#define VB_MAP_BUFFER 60
+#define VB_MAP_BUFFER 20
 #define VB_NUM 29
 
 
