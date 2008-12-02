@@ -37,7 +37,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 
 	//‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
 	GgafDx9Model::_s_modelname_lastdraw = _model_name;
-
+	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
 

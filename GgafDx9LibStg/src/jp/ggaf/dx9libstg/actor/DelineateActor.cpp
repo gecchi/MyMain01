@@ -26,6 +26,7 @@ void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int
 	_Y = prm_y1 + (prm_y2 - prm_y1)/2;
 	_Z = prm_z1 + (prm_z2 - prm_z1)/2;
 	processDrawMain();
+	GgafGod::_iNumPlayingActor--; //当たり判定表示は表示オブジェクト数にカウントしない
 }
 
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
