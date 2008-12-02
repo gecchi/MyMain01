@@ -54,6 +54,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	//TODO:‚í‚©‚è‚Ü‚¹‚ñB
 
 	GgafDx9Model::_s_modelname_lastdraw = _model_name; //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
+	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
 

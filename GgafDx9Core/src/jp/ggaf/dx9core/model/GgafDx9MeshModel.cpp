@@ -50,6 +50,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 		if(hr != D3D_OK) {
 			throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw] ["<<prm_pActor_Target->getName()<<"]ÇÃpID3DXMesh -> DrawSubseté∏îs model="<<_model_name, hr);
 		}
+		GgafGod::_iNumPlayingActor++;
 	}
 
 	//ëOâÒï`âÊÉÇÉfÉãñºîΩâf

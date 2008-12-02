@@ -45,6 +45,8 @@ public:
 	/** VIEW•ÏŠ·s—ñ */
 	static D3DXMATRIX _vMatrixView;
 
+
+
 	static int _iPxDep;
 
 

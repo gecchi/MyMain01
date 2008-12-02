@@ -106,7 +106,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9Model::_s_modelname_lastdraw = _model_name;
 	//前回描画UV座標（へのポインタ）を保存
 	_pRectUV_drawlast = pRectUV_Active;
-
+	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
 
