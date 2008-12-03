@@ -37,13 +37,14 @@ void GameMainScene::readyStage01() {
 void GameMainScene::enableStage01() {
 	_TRACE_("GameMainScene::enableStage01 おっしゃSTAGE1起動じゃ");
 	if (_pStage01Scene == NULL) {
-		_TRACE_("GameMainScene::enableStage01() : _pStage01Sceneがまだ出来てません！、ちょっと待ちます。");
-		for(int i = 0; _pStage01Scene == NULL; i++) {
-			Sleep(10);
-			if (i == 1000) {
-				throw_GgafCriticalException("GameMainScene::enableStage01() : 待ちきれませんでした！");
-			}
-		}
+//		_TRACE_("GameMainScene::enableStage01() : _pStage01Sceneがまだ出来てません！、ちょっと待ちます。");
+//		for(int i = 0; _pStage01Scene == NULL; i++) {
+//			Sleep(10);
+//			if (i == 1000) {
+//				throw_GgafCriticalException("GameMainScene::enableStage01() : 待ちきれませんでした！");
+//			}
+//		}
+		return;
 	}
 
 	_pStage01Scene->declarePlay();

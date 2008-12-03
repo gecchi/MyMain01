@@ -14,7 +14,7 @@ FormationCeres002::FormationCeres002(string prm_name, string prm_model) : Format
 
 void FormationCeres002::initialize() {
 	for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
-		_pEnemyCeres[i] -> playAfter(i*20+1);
+		_pEnemyCeres[i] -> playAfter(i*10+1);
 	}
 }
 
