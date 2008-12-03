@@ -55,7 +55,7 @@ void GgafDx9Util::init() {
 	}
 }
 
-angle GgafDx9Util::getAngle(int prm_vx, int prm_vy) {
+angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
 	if (prm_vy == 0) {
 		if (prm_vx > 0) {
 			return 0;
@@ -116,19 +116,19 @@ angle GgafDx9Util::getAngle(int prm_vx, int prm_vy) {
 	}
 }
 
-void GgafDx9Util::getWayAngle(int prm_vx_Center, int prm_vy_Center, int prm_iWay, angle prm_angClearance, angle* out_paAngle) {
-	return getWayAngle(getAngle(prm_vx_Center, prm_vy_Center), prm_iWay, prm_angClearance, out_paAngle);
+void GgafDx9Util::getWayAngle2D(int prm_vx_Center, int prm_vy_Center, int prm_iWay, angle prm_angClearance, angle* out_paAngle) {
+	return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_iWay, prm_angClearance, out_paAngle);
 }
 
 
-void GgafDx9Util::getWayAngle(angle prm_angCenter, int prm_iWay, angle prm_angClearance, angle* out_paAngle) {
+void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_iWay, angle prm_angClearance, angle* out_paAngle) {
 	int angstart = addAngle(prm_angCenter, ((prm_iWay-1)*prm_angClearance)/-2);
 
     for (int i = 0; i < prm_iWay; i++) {
 		out_paAngle[i] = addAngle(angstart, prm_angClearance*i);
 	}
 }
-void GgafDx9Util::getRadiationAngle(angle prm_angStart, int prm_iWay, angle* out_paAngle) {
+void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_iWay, angle* out_paAngle) {
     for (int i = 0; i < prm_iWay; i++) {
 		out_paAngle[i] = addAngle(prm_angStart, (ANGLE360*i)/prm_iWay);
 	}

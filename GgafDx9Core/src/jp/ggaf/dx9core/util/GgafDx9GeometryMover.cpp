@@ -337,7 +337,7 @@ void GgafDx9GeometryMover::setAxisRotAngleAcceleration(int prm_iAxis, angle prm_
 }
 
 void GgafDx9GeometryMover::setTargetAxisRotAngleV(int prm_iAxis, int prm_tX, int prm_tY, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
-	setTargetAxisRotAngle(prm_iAxis, _angTarget_AxisRot[prm_iAxis] = GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay, prm_angAllowVelocity);
+	setTargetAxisRotAngle(prm_iAxis, _angTarget_AxisRot[prm_iAxis] = GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay, prm_angAllowVelocity);
 }
 
 
@@ -352,7 +352,7 @@ void GgafDx9GeometryMover::setTargetAxisRotAngle(int prm_iAxis, angle prm_angTar
 angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, int prm_tX, int prm_tY, int prm_iWay) {
 	return getDistanceFromAxisRotAngleTo(
 			   prm_iAxis,
-	           GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
+	           GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
 	           prm_iWay
 	       );
 }
@@ -465,7 +465,7 @@ void GgafDx9GeometryMover::setMoveAcceleration(int prm_iAcceleration_MoveVelocit
 ////コピー元begin
 
 void GgafDx9GeometryMover::setMoveAngleRz(int prm_tX, int prm_tY) {
-	setMoveAngleRz(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
+	setMoveAngleRz(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
 void GgafDx9GeometryMover::setMoveAngleRz(angle prm_angle) {
@@ -520,12 +520,12 @@ void GgafDx9GeometryMover::setTargetMoveAngleRz(angle prm_angRzTarget_Move, int 
 }
 
 void GgafDx9GeometryMover::setTargetMoveAngleRzV(int prm_tX, int prm_tY, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
-	setTargetMoveAngleRz(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay);
+	setTargetMoveAngleRz(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay);
 }
 
 angle GgafDx9GeometryMover::getDistanceFromMoveAngleRzTo(int prm_tX, int prm_tY, int prm_iWay) {
 	return getDistanceFromMoveAngleRzTo(
-	           GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
+	           GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
 	           prm_iWay
 	       );
 }
@@ -610,7 +610,7 @@ angle GgafDx9GeometryMover::getDistanceFromMoveAngleRzTo(angle prm_angRzTarget_M
 ////コピー元begin
 
 void GgafDx9GeometryMover::setMoveAngleRy(int prm_tX, int prm_tY) {
-	setMoveAngleRy(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
+	setMoveAngleRy(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
 }
 
 void GgafDx9GeometryMover::setMoveAngleRy(angle prm_angle) {
@@ -665,12 +665,12 @@ void GgafDx9GeometryMover::setTargetMoveAngleRy(angle prm_angRyTarget_Move, int 
 }
 
 void GgafDx9GeometryMover::setTargetMoveAngleRyV(int prm_tX, int prm_tY, int prm_iAllowRotWay, angle prm_angAllowVelocity) {
-	setTargetMoveAngleRy(GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay);
+	setTargetMoveAngleRy(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_iAllowRotWay);
 }
 
 angle GgafDx9GeometryMover::getDistanceFromMoveAngleRyTo(int prm_tX, int prm_tY, int prm_iWay) {
 	return getDistanceFromMoveAngleRyTo(
-	           GgafDx9Util::getAngle(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
+	           GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
 	           prm_iWay
 	       );
 }
