@@ -8,7 +8,9 @@ void GgafDx9Sound::init() {
 	HRESULT hr;
 	hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
 	if (hr != D3D_OK) {
-		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
+		return;
+
+		//throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
 	}
 	hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
 	if (hr != D3D_OK) {

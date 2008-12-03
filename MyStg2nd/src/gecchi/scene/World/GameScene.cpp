@@ -38,7 +38,7 @@ void GameScene::processBehavior() {
 
 void GameScene::processFinal() {
 	if (_dwFrame == 120) {
-		GgafDx9SeManager::get("logon")->play();
+		//GgafDx9SeManager::get("logon")->play();
 		_TRACE_("GameScene ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
 		_pGameDemoScene->declarePlay();
 	}

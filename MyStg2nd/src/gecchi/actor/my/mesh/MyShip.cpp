@@ -24,7 +24,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_iShotKind03 = 0;
 
 	//キャッシュロード
-	GgafDx9SeManager::get("laser001");
+	//GgafDx9SeManager::get("laser001");
 
 //	_angRXVelo_BeginMZ = 100;
 //	_angRXAcce_MZ = 100;
