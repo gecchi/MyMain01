@@ -99,33 +99,41 @@ void EnemyCeres::processBehavior() {
 
 	//•ûŒü“]Š·
 	if (_iMovePatternNo == 0 && _X > _X_turn) {
-		_pGeoMover -> setMoveAngleRyVelocity(-4000);
-		_pGeoMover -> setMoveAngleRzVelocity(-4000);
+		if (_pGeoMover->getDistanceFromMoveAngleRzTo(0, TURN_CLOSE_TO) > 0) {
+			_pGeoMover -> setMoveAngleRzVelocity(4000);
+		} else {
+			_pGeoMover -> setMoveAngleRzVelocity(-4000);
+		}
+		if (_pGeoMover->getDistanceFromMoveAngleRyTo(ANGLE180, TURN_CLOSE_TO) > 0) {
+			_pGeoMover -> setMoveAngleRyVelocity(4000);
+		} else {
+			_pGeoMover -> setMoveAngleRyVelocity(-4000);
+		}
 		_pGeoMover -> setTargetMoveAngleRz(0);
 		_pGeoMover -> setTargetMoveAngleRy(ANGLE180);
 
-//		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
-//
-//		angle way[10] ;
-//		GgafDx9Util::getWayAngle2D(180000, 10, 10000, way);
-//		EnemyShot001* pTama;
-//		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
-//		for (int i = 0; i < 10; i++) {
-//			pTama = (EnemyShot001*)pShots001->obtain();
-//			if (pTama != NULL) {
-//				pTama -> setGeometry (_X, _Y, 0);
-//				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
-//				pTama -> declarePlay();
-//			}
-//		}
+		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
+
+		angle way[10] ;
+		GgafDx9Util::getWayAngle2D(180000, 10, 10000, way);
+		EnemyShot001* pTama;
+		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
+		for (int i = 0; i < 10; i++) {
+			pTama = (EnemyShot001*)pShots001->obtain();
+			if (pTama != NULL) {
+				pTama -> setGeometry (_X, _Y, 0);
+				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
+				pTama -> declarePlay();
+			}
+		}
 
 		_iMovePatternNo++;
 	}
 
-	if(0<_iMovePatternNo && _iMovePatternNo<20) {
-		_iMovePatternNo++;
-		_TRACE_(_iMovePatternNo<<"TURN ("<<_X<<","<<_Y<<","<<_Z<<") ª("<<_pGeoMover ->_vX<<","<<_pGeoMover ->_vY<<","<<_pGeoMover ->_vZ<<") Rz,Ry="<<_pGeoMover->_angRz_Move<<","<<_pGeoMover->_angRy_Move);
-	}
+//	if(0<_iMovePatternNo && _iMovePatternNo<20) {
+//		_iMovePatternNo++;
+//		_TRACE_(_iMovePatternNo<<"TURN ("<<_X<<","<<_Y<<","<<_Z<<") ª("<<_pGeoMover ->_vX<<","<<_pGeoMover ->_vY<<","<<_pGeoMover ->_vZ<<") Rz,Ry="<<_pGeoMover->_angRz_Move<<","<<_pGeoMover->_angRy_Move);
+//	}
 
 	_pGeoMover -> behave();
 }
