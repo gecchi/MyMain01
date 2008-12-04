@@ -21,16 +21,27 @@ int main() {
 //	}
 //	cout << "end:" << timeGetTime() << endl;
 //	cout << "rZ=" << rZ << " rY=" << rY << endl;
-	unsigned short x,y,z;
-	int index;
-	for (int rZ = 0; rZ <= 900; rZ++) {
-		for (int rY = 0; rY <= 900; rY++) {
-			srvMy->getVectorClosely(rY,rZ,x,y,z);
-			index = (rZ*(900+1)+rY);
-			cout << "rZ=" << rZ << "/rY=" << rY << " srv[" << index << "]=" << GgafDx9SphereRadiusVectors::_sr[index].num_yzx << "(" << x << "," << y << "," << z << ")" << endl;
-		}
-	}
+	double uvX, uvY, uvZ;
+	angle angRotZ, angRotY;
+	GgafDx9Util::getRotAngleZY(
+			-110, 100000, -110,
+			uvX, uvY, uvZ,
+			angRotZ, angRotY
+			);
 
+	cout << "(" << uvX << "," << uvY << "," << uvZ << ")  RzRy = " << angRotZ << "/" << angRotY << endl;
+
+
+//	unsigned short x,y,z;
+//	int index;
+//	for (int rZ = 0; rZ <= 900; rZ++) {
+//		for (int rY = 0; rY <= 900; rY++) {
+//			srvMy->getVectorClosely(rY,rZ,x,y,z);
+//			index = (rZ*(900+1)+rY);
+//			cout << "rZ=" << rZ << "/rY=" << rY << " srv[" << index << "]=" << GgafDx9SphereRadiusVectors::_sr[index].num_yzx << "(" << x << "," << y << "," << z << ")" << endl;
+//		}
+//	}
+//
 	delete srvMy;
 	::timeEndPeriod(1);//タイマー精度終了処理
 	return 0;

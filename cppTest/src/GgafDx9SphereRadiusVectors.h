@@ -1,19 +1,36 @@
 #ifndef GGAFDX9SPHERERADIUSVECTORS_H_
 #define GGAFDX9SPHERERADIUSVECTORS_H_
 
-
+/**
+ * 方向ベクトル構造体.
+ * 各要素の単位は、10000倍の整数で保持されます。<BR>
+ * ＜例＞<BR>
+ * 単位ベクトル(0.6583, 0.1132, 0.744) は<BR>
+ * SR_VECTORでは、(6583, 1132, 7440) です<BR>
+ */
 struct SR_VECTOR {
 	unsigned __int16 x;
 	unsigned __int16 z;
 	unsigned __int16 y;
 };
 
+/**
+ * ソート可能方向ベクトルクラス.
+ * SR_VECTORに大小の値をつけ、比較可能にしたメンバをもつクラス。<BR>
+ * 大小の値の強さは、y要素 ＞ z要素 ＞ x要素 の順です。<BR>
+ */
 class COMPARE_ABLE_SR_VECTOR {
 public:
 	unsigned __int64 num_yzx;
 	SR_VECTOR vec;
 	COMPARE_ABLE_SR_VECTOR() {
 	}
+	/**
+	 * 単位ベクトルを設定する。<BR>
+	 * @param prm_x 方向ベクトルX要素
+	 * @param prm_y 方向ベクトルY要素
+	 * @param prm_z 方向ベクトルZ要素
+	 */
 	void set(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z) {
 		vec.x = prm_x;
 		vec.y = prm_y;
@@ -23,34 +40,41 @@ public:
                   (prm_x );
 	}
 };
-//class GgafDx9SphereRadiusVectors;
 
 
-
+/**
+ * 単位球と、単位ベクトルの関係を保持するクラスです。 .
+ * 但し保持されている範囲は、x≧0 y≧0 z≧0 の範囲だけです。（1/8球分のみ）<BR>
+ * 【補足】<BR>
+ * 保持しているベクトルの各要(X,Y,Z)の単位(unsigned __int16)は、長さ1 が 10000 に相当する整数になっています。<BR>
+ * 角度の単位（s_ang）は、1度 が 10 に相当します。直角は 900 になります。angle値(1度が1000)と混在しないように注意<BR>
+ */
 class GgafDx9SphereRadiusVectors {
 public:
+	/** 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
 	static COMPARE_ABLE_SR_VECTOR _sr[];
 
 	GgafDx9SphereRadiusVectors();
 
 	/**
-	 * X,Y,Z方向ベクトルから、だいたいのZ軸回転とY軸回転の値を求める。
+	 * 引数のX,Y,Z方向ベクトルから、相当するZ軸回転とY軸回転の値をだいたいで求める。
 	 * 但し、X,Y,Z は全て正でなくてはならない
 	 * @param prm_x 方向ベクトルX要素
 	 * @param prm_y 方向ベクトルY要素
 	 * @param prm_z 方向ベクトルZ要素
-	 * @param out_angRotZ Z軸回転値（単位注意）
-	 * @param out_angRotY Y軸回転値（単位注意）
+	 * @param out_angRotZ Z軸回転値（単位s_ang）
+	 * @param out_angRotY Y軸回転値（単位s_ang）
 	 */
-	void getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, int& out_angRotZ, int& out_angRotY);
+	void getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY);
 
 	/**
-	 *
-	 * @param prm_angRotY
-	 * @param prm_angRotZ
-	 * @param out_x
-	 * @param out_y
-	 * @param out_z
+	 * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルをだいたいで求める。
+	 * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。
+	 * @param prm_angRotY Z軸回転値（単位s_ang）
+	 * @param prm_angRotZ Y軸回転値（単位s_ang）
+	 * @param out_x 方向ベクトルX要素
+	 * @param out_y 方向ベクトルY要素
+	 * @param out_z 方向ベクトルZ要素
 	 */
 	void getVectorClosely(s_ang prm_angRotY, s_ang prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z);
 

@@ -10,7 +10,7 @@ EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultM
 	/** 出現時の初速 */
 	_iMoveVelocity_1st = 5000;
 	/** 出現時の加速度（負で遅くなる） */
-	_iMoveAcceleration_1st = -70;
+	_iMoveAcceleration_1st = 0;
 	/** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
 	_dwFrame_TurnBegin = 60;
 	/** 移動速度上限 */
@@ -18,11 +18,11 @@ EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultM
 	/** 最低保証移動速度 */
 	_iMoveVelocity_Bottom = 500;
 	/** 方向転換に費やすことができるフレーム数 */
-	_dwFrameInterval_Turn = 90;
+	_dwFrameInterval_Turn = 890;
 	/** 方向転換中の角速度アングル値 */
-	_angVelocity_Turn = 2000;
+	_angVelocity_Turn = ANGLE180;
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
-	_iMoveAcceleration_2nd = 300;
+	_iMoveAcceleration_2nd = 0;
 
 	_dwFrame_switchedToPlay = 0;
 }
@@ -55,7 +55,7 @@ void EnemyMeshShot001::processBehavior() {
 		_dwFrame_switchedToPlay++;
 
 		//方向転換開始
-		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
+		//if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
 			angle angRz_Target;
 			angle angRy_Target;
 			double dummy;
@@ -80,16 +80,16 @@ void EnemyMeshShot001::processBehavior() {
 			_pGeoMover -> setTargetMoveAngleRz(angRz_Target);
 			_pGeoMover -> setTargetMoveAngleRy(angRy_Target);
 			_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_2nd);
-		}
+		//}
 
 
 		//方向転換終了
-		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
-			_pGeoMover -> setMoveAngleRzVelocity(0);
-			_pGeoMover -> setMoveAngleRyVelocity(0);
-			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
-			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
-		}
+//		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
+//			_pGeoMover -> setMoveAngleRzVelocity(0);
+//			_pGeoMover -> setMoveAngleRyVelocity(0);
+//			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
+//			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
+//		}
 
 
 	}

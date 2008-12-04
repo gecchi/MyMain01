@@ -7,9 +7,9 @@
 
 //俺ライブラリヘッダ
 #include "GgafCommonHeader.h"
-#include "GgafDx9Util.h"
+#include "GgafLogger.h"
 #include "GgafDx9SphereRadiusVectors.h"
-
+#include "GgafDx9Util.h"
 //ふふふhohohoho
 //MAINdesu
 

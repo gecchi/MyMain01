@@ -1,8 +1,5 @@
 #include "stdafx.h"
 
-//GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
-//
-//}
 
 COMPARE_ABLE_SR_VECTOR GgafDx9SphereRadiusVectors::_sr[(S_ANG90+1)*(S_ANG90+1)];
 
@@ -27,7 +24,7 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
 	}
 }
 
-void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, int& out_angRotZ, int& out_angRotY) {
+void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY) {
 	class COMPARE_ABLE_SR_VECTOR target;
 	target.set(0, prm_y, 0);
 
@@ -37,7 +34,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
 	center_prev = -1;
-	for(int i = 0; i < 20; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
+	for(int i = 0; i < 120; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
@@ -58,7 +55,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	top = (top / (S_ANG90+1)) * (S_ANG90+1);
 	bottom = top + (S_ANG90+1)-1;
 	center_prev = -1;
-	for(int i = 0; i < 20; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
+	for(int i = 0; i < 120; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
