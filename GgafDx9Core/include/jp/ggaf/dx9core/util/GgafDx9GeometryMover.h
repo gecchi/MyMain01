@@ -423,6 +423,7 @@ public:
 
 	void setMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
+	void setTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
 	/**
 	 * –ˆƒtƒŒ[ƒ€‚ÌActor‚ÌU‚é•‘‚¢B<BR>

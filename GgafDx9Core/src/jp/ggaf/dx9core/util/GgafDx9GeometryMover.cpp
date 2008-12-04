@@ -780,6 +780,24 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
 		);
 }
 
+void GgafDx9GeometryMover::setTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
+	angle angRz_Target;
+	angle angRy_Target;
+	double d;
+	GgafDx9Util::getRotAngleZY(
+			prm_tX - _pActor->_X,
+			prm_tY - _pActor->_Y,
+			prm_tZ - _pActor->_Z,
+			d,
+			d,
+			d,
+			angRy_Target,
+			angRy_Target
+		);
+	setTargetMoveAngleRz(angRz_Target);
+	setTargetMoveAngleRy(angRy_Target);
+}
+
 
 void GgafDx9GeometryMover::setXMoveVelocityRenge(int prm_iVelocity01_XMove, int prm_iVelocity02_XMove) {
 	if (prm_iVelocity01_XMove < prm_iVelocity02_XMove) {
