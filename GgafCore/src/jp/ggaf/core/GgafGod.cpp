@@ -109,6 +109,7 @@ void GgafGod::be(){
 				makeWorldMaterialize();
 				makeWorldVisualize();
 				makeWorldFinalize();
+				getWorld()->cleane(10);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 			} else {
 				//ƒXƒLƒbƒvŽž‚ÍmakeWorldFinalize()‚¾‚¯
@@ -132,7 +133,7 @@ void GgafGod::be(){
 		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //‚Ü‚¾—]—T‚ª‚ ‚éê‡
 			if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
 				::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-				getWorld()->cleane();
+				getWorld()->cleane(1);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 			}
 		}

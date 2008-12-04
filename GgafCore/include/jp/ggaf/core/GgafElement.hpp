@@ -80,10 +80,11 @@ public:
 
 	/**
 	 * 掃除 .
-	 * 神が処理時間に余裕がでたときに呼ばれます。<BR>
-	 * 配下ノードの中にノード生存フラグ(_isAlive)が false になっているノードがあれば１つだけ解放します。<BR>
+	 * 神が処理時間に余裕がでたとき等に呼ばれます。<BR>
+	 * 配下ノードの中にノード生存フラグ(_isAlive)が false になっているノードがあれば prm_iNumCleanNode 個だけ delete します。<BR>
+	 * @param prm_iNumCleanNode 解放するオブジェクト数
 	 */
-	virtual void cleane();
+	virtual void cleane(int prm_iNumCleanNode);
 
 	/**
 	 * ノード初期処理 .
@@ -1091,7 +1092,7 @@ T* GgafElement<T>::becomeIndependent() {
 
 
 template<class T>
-void GgafElement<T>::cleane() {
+void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 	if (SUPER::_pSubFirst == NULL || GgafGod::_s_iNumCleanNodePerFrame != 0) {
 		return;
 	}
@@ -1103,7 +1104,7 @@ void GgafElement<T>::cleane() {
 	//子を調べてdeleteする
 	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
 	T* pWk;
-	while(GgafGod::_s_iNumCleanNodePerFrame == 0) {
+	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
 		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
 
 			if (pElementTemp->_isAlive == false) {
@@ -1125,7 +1126,7 @@ void GgafElement<T>::cleane() {
 	if (SUPER::_pSubFirst != NULL) {
 		pElementTemp = SUPER::_pSubFirst;
 		while(true) {
-			pElementTemp -> cleane();
+			pElementTemp -> cleane(prm_iNumCleanNode);
 			if (pElementTemp -> _isLast) {
 				break;
 			} else {

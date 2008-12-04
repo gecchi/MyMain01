@@ -128,9 +128,9 @@ void GgafScene::declareFinishLife() {
 	_pLordActor->declareFinishLife();
 }
 
-void GgafScene::cleane() {
-	GgafElement<GgafScene>::cleane();
-	_pLordActor->cleane();
+void GgafScene::cleane(int prm_iNumCleanNode) {
+	GgafElement<GgafScene>::cleane(prm_iNumCleanNode);
+	_pLordActor->cleane(prm_iNumCleanNode);
 }
 
 GgafLordActor* GgafScene::getLordActor() {

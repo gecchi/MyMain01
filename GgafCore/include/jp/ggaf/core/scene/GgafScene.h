@@ -213,7 +213,7 @@ public:
 	 * 自ツリーシーンを絶命させる。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void cleane();
+	virtual void cleane(int prm_iNumCleanNode);
 
 	/**
 	 * 神様に接見 .
