@@ -114,17 +114,27 @@ void EnemyCeres::processBehavior() {
 
 		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
 
-		angle way[10] ;
-		GgafDx9Util::getWayAngle2D(180000, 10, 10000, way);
-		EnemyShot001* pTama;
-		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
-		for (int i = 0; i < 10; i++) {
-			pTama = (EnemyShot001*)pShots001->obtain();
-			if (pTama != NULL) {
-				pTama -> setGeometry (_X, _Y, 0);
-				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
-				pTama -> declarePlay();
-			}
+//		angle way[5] ;
+//		GgafDx9Util::getWayAngle2D(180000, 5, 10000, way);
+//		EnemyShot001* pTama;
+//		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
+//		for (int i = 0; i < 5; i++) {
+//			pTama = (EnemyShot001*)pShots001->obtain();
+//			if (pTama != NULL) {
+//				pTama -> setGeometry (_X, _Y, 0);
+//				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
+//				pTama -> declarePlay();
+//			}
+//		}
+
+		RotationActor* pRotEnemyMeshShots001 = GameGlobal::_pSceneCommon->_pEnemyMeshShots001Rotation;
+		EnemyMeshShot001* pTama;
+		pTama = (EnemyMeshShot001*)pRotEnemyMeshShots001->obtain();
+		if (pTama != NULL) {
+			pTama -> setGeometry (_X, _Y, _Z);
+			pTama -> _pGeoMover -> setMoveAngleRz(0);
+			pTama -> _pGeoMover -> setMoveAngleRy(ANGLE180);
+			pTama -> declarePlay();
 		}
 
 		_iMovePatternNo++;

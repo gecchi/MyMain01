@@ -5,9 +5,9 @@ Stage01MainScene::Stage01MainScene(string prm_name) : DefaultScene(prm_name) {
 
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start
-	DWORD dw[] = {1,300,600,900,1200,1500,1800,2100,2400,2700,3000};
-	_paFrame_NextEvent = new DWORD[11];
-	for (int i = 0; i < 11; i++) {
+	DWORD dw[] = {1,100,700,900,1500,1700,2300,2500,3100,3300,3900,4100,4900};
+	_paFrame_NextEvent = new DWORD[13];
+	for (int i = 0; i < 13; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
 	// gen01 end
@@ -23,46 +23,44 @@ void Stage01MainScene::processBehavior() {
 	if (_dwFrame == _paFrame_NextEvent[_iCnt_Event]) {
 		switch (_dwFrame) {
 			case 1:
-				orderActorFactory("1096300", FormationCeres002, "F_Ceres002_1", "myvic");
+				orderActorFactory("1096100", FormationCeres002, "F_Ceres002_1", "Ceres");
+				orderActorFactory("1096900", FormationCeres002, "F_Ceres002_1", "Ceres");
 				break;
-			case 300:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096300"));
-				orderActorFactory("1096600", FormationCeres002, "F_Ceres002_300", "oke_small");
+			case 100:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096100"));
 				break;
-			case 600:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096600"));
-				orderActorFactory("1096900", FormationCeres002, "F_Ceres002_600", "vic2");
+			case 700:
+				orderActorFactory("10961700", FormationCeres002, "F_Ceres002_700", "Ceres");
 				break;
 			case 900:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("1096900"));
-				orderActorFactory("10961200", FormationCeres002, "F_Ceres002_900", "akami");
-				break;
-			case 1200:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10961200"));
-				orderActorFactory("10961500", FormationCeres002, "F_Ceres002_1200", "tamago");
 				break;
 			case 1500:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10961500"));
-				orderActorFactory("10961800", FormationCeres002, "F_Ceres002_1500", "cakeBerry");
+				orderActorFactory("10962500", FormationCeres002, "F_Ceres002_1500", "Ceres");
 				break;
-			case 1800:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10961800"));
-				orderActorFactory("10962100", FormationCeres002, "F_Ceres002_1800", "Ceres");
+			case 1700:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10961700"));
 				break;
-			case 2100:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962100"));
-				orderActorFactory("10962400", FormationCeres002, "F_Ceres002_2100", "pot");
+			case 2300:
+				orderActorFactory("10963300", FormationCeres002, "F_Ceres002_2300", "Ceres");
 				break;
-			case 2400:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962400"));
-				orderActorFactory("10962700", FormationCeres002, "F_Ceres002_2400", "Ceres");
+			case 2500:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962500"));
 				break;
-			case 2700:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10962700"));
-				orderActorFactory("10963000", FormationCeres002, "F_Ceres002_2700", "Ceres");
+			case 3100:
+				orderActorFactory("10964100", FormationCeres002, "F_Ceres002_3100", "Ceres");
 				break;
-			case 3000:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10963000"));
+			case 3300:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10963300"));
+				break;
+			case 3900:
+				orderActorFactory("10964900", FormationCeres002, "F_Ceres002_3900", "Ceres");
+				break;
+			case 4100:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10964100"));
+				break;
+			case 4900:
+				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("10964900"));
 				break;
 			default :
 				break;

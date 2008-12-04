@@ -11,6 +11,7 @@ public:
 	RotationActor* _pMyLaserChipRotation;
 	RotationActor* _pEnemyShots001Rotation;
 	RotationActor* _pEffectExplosion001Rotation;
+	RotationActor* _pEnemyMeshShots001Rotation;
 
 
 	CommonScene(string prm_name);

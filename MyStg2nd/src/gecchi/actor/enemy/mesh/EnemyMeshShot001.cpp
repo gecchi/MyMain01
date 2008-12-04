@@ -2,13 +2,41 @@
 
 EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	declareStop();
+	/** 出現時の方向Rx */
+	_Rx_begin = 0;
+	/** 出現時の方向Ry */
+	_Ry_begin = 0;
+
+	/** 出現時の初速 */
+	_iMoveVelocity_1st = 5000;
+	/** 出現時の加速度（負で遅くなる） */
+	_iMoveAcceleration_1st = -70;
+	/** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
+	_dwFrame_TurnBegin = 60;
+	/** 移動速度上限 */
+	_iMoveVelocity_Top = 30000;
+	/** 最低保証移動速度 */
+	_iMoveVelocity_Bottom = 500;
+	/** 方向転換に費やすことができるフレーム数 */
+	_dwFrameInterval_Turn = 90;
+	/** 方向転換中の角速度アングル値 */
+	_angVelocity_Turn = 2000;
+	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
+	_iMoveAcceleration_2nd = 300;
+
+	_dwFrame_switchedToPlay = 0;
 }
 
 void EnemyMeshShot001::initialize() {
-	_pGeoMover -> setMoveVelocity(3000);
-	_pGeoMover -> setMoveAcceleration(3000);
+	_pGeoMover -> setXMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
+	_pGeoMover -> _synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
+	_pGeoMover -> _synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
+
+
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+	_Rx_begin = 0;
+	_Ry_begin = 0;
 	setBumpableOnlySelf(true);
 }
 
@@ -17,8 +45,57 @@ void EnemyMeshShot001::initialize() {
 void EnemyMeshShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//出現時
+		_pGeoMover -> setMoveVelocity(_iMoveVelocity_1st);
+		_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_1st);
+		_pGeoMover -> setMoveAngleRzRy(_Rx_begin, _Ry_begin);
+
+		_dwFrame_switchedToPlay = 0;
 		setBumpableOnlySelf(true);
+	} else {
+		_dwFrame_switchedToPlay++;
+
+		//方向転換開始
+		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
+			angle angRz_Target;
+			angle angRy_Target;
+			double dummy;
+			GgafDx9Util::getRotAngleZY(
+					GameGlobal::_pMyShip->_X - _X,
+					GameGlobal::_pMyShip->_Y - _Y,
+					GameGlobal::_pMyShip->_Z - _Z,
+					dummy,dummy,dummy,
+					angRz_Target,
+					angRy_Target
+				);
+			if (_pGeoMover->getDistanceFromMoveAngleRzTo(angRz_Target, TURN_CLOSE_TO) > 0) {
+				_pGeoMover -> setMoveAngleRzVelocity(_angVelocity_Turn);
+			} else {
+				_pGeoMover -> setMoveAngleRzVelocity(-1 * _angVelocity_Turn);
+			}
+			if (_pGeoMover->getDistanceFromMoveAngleRyTo(angRy_Target, TURN_CLOSE_TO) > 0) {
+				_pGeoMover -> setMoveAngleRyVelocity(_angVelocity_Turn);
+			} else {
+				_pGeoMover -> setMoveAngleRyVelocity(-1 * _angVelocity_Turn);
+			}
+			_pGeoMover -> setTargetMoveAngleRz(angRz_Target);
+			_pGeoMover -> setTargetMoveAngleRy(angRy_Target);
+			_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_2nd);
+		}
+
+
+		//方向転換終了
+		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
+			_pGeoMover -> setMoveAngleRzVelocity(0);
+			_pGeoMover -> setMoveAngleRyVelocity(0);
+			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
+			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
+		}
+
+
 	}
+
+
+
 	//nextAnimationFrame();
 	//座標に反映
 	_pGeoMover -> behave();
