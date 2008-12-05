@@ -130,7 +130,7 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_iWay, angle prm_ang
 }
 void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_iWay, angle* out_paAngle) {
     for (int i = 0; i < prm_iWay; i++) {
-		out_paAngle[i] = addAngle(prm_angStart, (ANGLE360*i)/prm_iWay);
+		out_paAngle[i] = addAngle(prm_angStart, (1.0*ANGLE360/prm_iWay*i));
 	}
 }
 

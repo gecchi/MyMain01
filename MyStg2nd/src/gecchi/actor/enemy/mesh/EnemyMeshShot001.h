@@ -42,22 +42,27 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void initialize();
+	virtual void initialize();
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void processBehavior();
+	virtual void processBehavior();
 
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	bool isOffScreen();
+	virtual void processJudgement();
+
+ 	/**
+	 * ÅÉOverRide Ç≈Ç∑ÅÑ
+	 */
+	virtual bool isOffScreen();
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+	virtual void processOnHit(GgafActor* prm_pActor_Opponent);
 
 	virtual ~EnemyMeshShot001();
 };

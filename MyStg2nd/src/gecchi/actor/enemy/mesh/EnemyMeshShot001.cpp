@@ -120,6 +120,12 @@ void EnemyMeshShot001::processBehavior() {
 
 }
 
+void EnemyMeshShot001::processJudgement() {
+	if (isOffScreen()) {
+		declareStop();
+	}
+}
+
 bool EnemyMeshShot001::isOffScreen() {
 	if (_X < _X_OffScreenLeft) {
 		return true;
@@ -133,7 +139,15 @@ bool EnemyMeshShot001::isOffScreen() {
 				if (_Y < _Y_OffScreenBottom) {
 					return true;
 				} else {
-					return false;
+					if (_Z < GgafDx9God::_dCamZ*LEN_UNIT*10) {
+						return true;
+					} else {
+						if (_Z > -1* GgafDx9God::_dCamZ*LEN_UNIT*10) {
+							return true;
+						} else {
+							return false;
+						}
+					}
 				}
 			}
 		}

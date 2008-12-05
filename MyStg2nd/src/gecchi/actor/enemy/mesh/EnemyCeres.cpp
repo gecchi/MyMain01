@@ -129,15 +129,16 @@ void EnemyCeres::processBehavior() {
 
 
 		angle way[16] ;
-		GgafDx9Util::getRadiationAngle2D(0, 16, way);
+		GgafDx9Util::getWayAngle2D(180000, 16, 10000, way);
+		//GgafDx9Util::getRadiationAngle2D(0, 16, way);
 		RotationActor* pRotEnemyMeshShots001 = GameGlobal::_pSceneCommon->_pEnemyMeshShots001Rotation;
 		EnemyMeshShot001* pTama;
 		for (int i = 0; i < 16; i++) {
 			pTama = (EnemyMeshShot001*)pRotEnemyMeshShots001->obtain();
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);
-				pTama -> _pGeoMover -> setMoveAngleRz(ANGLE90);
-				pTama -> _pGeoMover -> setMoveAngleRy(way[i]);
+				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
+				pTama -> _pGeoMover -> setMoveAngleRy(ANGLE90);
 				pTama -> declarePlay();
 			}
 		}
