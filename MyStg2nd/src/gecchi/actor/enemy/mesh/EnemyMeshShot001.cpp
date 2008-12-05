@@ -10,7 +10,7 @@ EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultM
 	/** 出現時の初速 */
 	_iMoveVelocity_1st = 5000;
 	/** 出現時の加速度（負で遅くなる） */
-	_iMoveAcceleration_1st = 0;
+	_iMoveAcceleration_1st = -70;
 	/** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
 	_dwFrame_TurnBegin = 60;
 	/** 移動速度上限 */
@@ -18,11 +18,11 @@ EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultM
 	/** 最低保証移動速度 */
 	_iMoveVelocity_Bottom = 500;
 	/** 方向転換に費やすことができるフレーム数 */
-	_dwFrameInterval_Turn = 890;
+	_dwFrameInterval_Turn = 90;
 	/** 方向転換中の角速度アングル値 */
-	_angVelocity_Turn = ANGLE180;
+	_angVelocity_Turn = 5000;
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
-	_iMoveAcceleration_2nd = 0;
+	_iMoveAcceleration_2nd = 300;
 
 	_dwFrame_switchedToPlay = 0;
 }
@@ -52,18 +52,35 @@ void EnemyMeshShot001::processBehavior() {
 		_dwFrame_switchedToPlay = 0;
 		setBumpableOnlySelf(true);
 	} else {
-		_dwFrame_switchedToPlay++;
 
+//		_pGeoMover->setMoveAngle(
+//				GameGlobal::_pMyShip->_X,
+//				GameGlobal::_pMyShip->_Y,
+//				GameGlobal::_pMyShip->_Z
+//				);
+
+//		angle angRz_Target;
+//		angle angRy_Target;
+//		double dummy1,dummy2,dummy3;
+//		GgafDx9Util::getRotAngleZY(
+//				GameGlobal::_pMyShip->_X - _X,
+//				GameGlobal::_pMyShip->_Y - _Y,
+//				GameGlobal::_pMyShip->_Z - _Z,
+//				angRz_Target,
+//				angRy_Target
+//				);
+//		_pGeoMover -> setMoveAngleRz(angRz_Target);
+//		_pGeoMover -> setMoveAngleRy(angRy_Target);
+
+		_dwFrame_switchedToPlay++;
 		//方向転換開始
-		//if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
+		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
 			angle angRz_Target;
 			angle angRy_Target;
-			double dummy;
 			GgafDx9Util::getRotAngleZY(
 					GameGlobal::_pMyShip->_X - _X,
 					GameGlobal::_pMyShip->_Y - _Y,
 					GameGlobal::_pMyShip->_Z - _Z,
-					dummy,dummy,dummy,
 					angRz_Target,
 					angRy_Target
 				);
@@ -77,19 +94,20 @@ void EnemyMeshShot001::processBehavior() {
 			} else {
 				_pGeoMover -> setMoveAngleRyVelocity(-1 * _angVelocity_Turn);
 			}
-			_pGeoMover -> setTargetMoveAngleRz(angRz_Target);
 			_pGeoMover -> setTargetMoveAngleRy(angRy_Target);
+			_pGeoMover -> setTargetMoveAngleRz(angRz_Target);
+
 			_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_2nd);
-		//}
+		}
 
 
 		//方向転換終了
-//		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
-//			_pGeoMover -> setMoveAngleRzVelocity(0);
-//			_pGeoMover -> setMoveAngleRyVelocity(0);
-//			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
-//			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
-//		}
+		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
+			_pGeoMover -> setMoveAngleRzVelocity(0);
+			_pGeoMover -> setMoveAngleRyVelocity(0);
+			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
+			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
+		}
 
 
 	}

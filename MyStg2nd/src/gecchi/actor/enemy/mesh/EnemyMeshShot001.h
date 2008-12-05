@@ -11,11 +11,11 @@
  */
 class EnemyMeshShot001 : public DefaultMeshEnemyActor {
 
+	//本Actorのカスタムプロパティ --->
 	/** 出現時の方向Rx */
 	int _Rx_begin;
-	/** 出現時の方向Rx */
+	/** 出現時の方向Ry */
 	int _Ry_begin;
-
 	/** 出現時の初速 */
 	int _iMoveVelocity_1st;
 	/** 出現時の加速度（負で遅くなる */
@@ -33,9 +33,8 @@ class EnemyMeshShot001 : public DefaultMeshEnemyActor {
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
 	int _iMoveAcceleration_2nd;
 	/** 出現してからのフレーム数 */
-	int _dwFrame_switchedToPlay;
-
-	//angle
+	DWORD _dwFrame_switchedToPlay;
+	//<--- 本Actorのカスタムプロパティ
 
 public:
 	EnemyMeshShot001(string prm_name, string prm_model);
