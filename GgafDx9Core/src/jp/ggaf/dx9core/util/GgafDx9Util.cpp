@@ -199,6 +199,7 @@ int GgafDx9Util::sign(int x) {
     }
 }
 
+
 void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY) {
 	double vx = ((double)x) / LEN_UNIT;
 	double vy = ((double)y) / LEN_UNIT;
@@ -267,6 +268,51 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& ou
 
 	//_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
 }
+
+
+void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY) {
+	double vx = ((double)x) / LEN_UNIT;
+	double vy = ((double)y) / LEN_UNIT;
+	double vz = ((double)z) / LEN_UNIT;
+	double t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
+	s_ang rZ, rY;
+
+	_srv.getRotAngleClosely(
+			(unsigned __int16) abs(t*vx*10000),
+			(unsigned __int16) abs(t*vy*10000),
+			(unsigned __int16) abs(t*vz*10000),
+			rZ,
+			rY
+		);
+	if (vx >= 0 && vy >= 0 && vz >= 0) {			//ëÊàÍè€å¿
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy >= 0 && vz >= 0) {		//ëÊìÒè€å¿
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy <= 0 && vz >= 0) {		//ëÊéOè€å¿
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy <= 0 && vz >= 0) {		//ëÊélè€å¿
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy >= 0 && vz <= 0) {		//ëÊå‹è€å¿
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
+	} else if (vx <= 0 && vy >= 0 && vz <= 0) {		//ëÊòZè€å¿
+		out_angRotZ = rZ * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx <= 0 && vy <= 0 && vz <= 0) {		//ëÊéµè€å¿
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+	} else if (vx >= 0 && vy <= 0 && vz <= 0) {		//ëÊî™è€å¿
+		out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+		out_angRotY = rY * ANGLE_RATE;
+	} else {
+		_TRACE_("Ç®Ç©ÇµÇ¢Ç≈Ç∑Ç∫");
+	}
+}
+
 
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, double& out_nvx, double& out_nvy, double& out_nvz) {
 	//void GgafDx9SphereRadiusVectors::getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {

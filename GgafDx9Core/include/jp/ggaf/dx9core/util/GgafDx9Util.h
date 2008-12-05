@@ -101,6 +101,17 @@ public:
 	static void getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY);
 
 	/**
+	 * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
+	 * ついでに単位方向ベクトルも貰えちゃう。
+	 * @param x [in]X座標
+	 * @param y [in]Y座標
+	 * @param z [in]Z座標
+	 * @param out_angRotZ [out]Z軸回転アングル値
+	 * @param out_angRotY [out]Y軸回転アングル値
+	 */
+	static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY);
+
+	/**
 	 * Z軸回転+Y軸回転値から単位方向ベクトルを取得
 	 * @param prm_angRotZ [in]Z軸回転アングル値
 	 * @param prm_angRotY [in]Y軸回転アングル値

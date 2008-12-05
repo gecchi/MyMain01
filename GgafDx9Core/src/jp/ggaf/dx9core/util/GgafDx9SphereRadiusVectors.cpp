@@ -28,13 +28,13 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	class COMPARE_ABLE_SR_VECTOR target;
 	target.set(0, prm_y, 0);
 
-	//yのバイナリサーチ
+	//rZ(y要素)のバイナリサーチ
 	static int top, bottom, center, center_prev;
 	top = 0;
 	bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
 	center_prev = -1;
-	for(int i = 0; i < 120; i++) { //最高２０回まで検索
+	for(int i = 0; i < 24; i++) { //最高２０回まで検索
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
@@ -55,7 +55,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 	top = (top / (S_ANG90+1)) * (S_ANG90+1);
 	bottom = top + (S_ANG90+1)-1;
 	center_prev = -1;
-	for(int i = 0; i < 120; i++) { //最高２０回まで検索
+	for(int i = 0; i < 24; i++) { //最高２０回まで検索
 		center = (top + bottom) / 2;
 		if (_sr[center].num_yzx < target.num_yzx) {
 			top = center;
