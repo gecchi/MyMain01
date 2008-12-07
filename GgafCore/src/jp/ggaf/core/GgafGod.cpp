@@ -81,7 +81,7 @@ void GgafGod::be(){
 		} else {
 			_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60];
 		}
-
+		_iNumPlayingActor = 0;
 	}
 
 	_dwTime_FrameBegin = timeGetTime();	//
@@ -97,7 +97,7 @@ void GgafGod::be(){
 #endif
 
 	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
-		_iNumPlayingActor = 0;
+
 		if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame+ _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]) {
 			//大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
 			_dwFrame_SkipCount++;

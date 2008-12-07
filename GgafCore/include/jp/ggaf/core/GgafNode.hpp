@@ -576,7 +576,7 @@ GgafNode<T>::~GgafNode() {
 			_isLast = true;
 		}
 	}
-	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
+	//_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
 }
 
 #endif /*GGAFNODE_H_*/
