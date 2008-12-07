@@ -2,6 +2,10 @@
 
 DelineateActor* DelineateActor::_s_pObj = NULL;
 
+DelineateActor::DelineateActor(string prm_name) : DefaultCubeActor(prm_name) {
+	_class_name = "DelineateActor";
+}
+
 DelineateActor* DelineateActor::get() {
 	if (_s_pObj == NULL) {
 		_s_pObj = NEW DelineateActor("HITAREA");
@@ -13,9 +17,7 @@ void DelineateActor::release() {
 	DELETE_POSSIBLE_NULL(_s_pObj);
 }
 
-DelineateActor::DelineateActor(string prm_name) : DefaultCubeActor(prm_name) {
-	_class_name = "DelineateActor";
-}
+
 
 void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2,  int prm_z2) {
 	_SX = (prm_x2 - prm_x1);

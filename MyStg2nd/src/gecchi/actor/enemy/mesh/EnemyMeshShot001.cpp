@@ -1,24 +1,22 @@
 #include "stdafx.h"
 
 EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+	_class_name = "EnemyMeshShot001";
+
 	declareStop();
-	/** 出現時の方向Rx */
-	_Rx_begin = 0;
-	/** 出現時の方向Ry */
-	_Ry_begin = 0;
 
 	/** 出現時の初速 */
-	_iMoveVelocity_1st = 5000;
+	_iMoveVelocity_1st = 10000;
 	/** 出現時の加速度（負で遅くなる） */
-	_iMoveAcceleration_1st = -70;
+	_iMoveAcceleration_1st = -150;
 	/** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
-	_dwFrame_TurnBegin = 60;
+	_dwFrame_TurnBegin = 50;
 	/** 移動速度上限 */
 	_iMoveVelocity_Top = 30000;
 	/** 最低保証移動速度 */
-	_iMoveVelocity_Bottom = 500;
+	_iMoveVelocity_Bottom = 0;
 	/** 方向転換に費やすことができるフレーム数 */
-	_dwFrameInterval_Turn = 90;
+	_dwFrameInterval_Turn = 100;
 	/** 方向転換中の角速度アングル値 */
 	_angVelocity_Turn = 5000;
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
@@ -35,8 +33,6 @@ void EnemyMeshShot001::initialize() {
 
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
-	_Rx_begin = 0;
-	_Ry_begin = 0;
 	setBumpableOnlySelf(true);
 }
 
@@ -47,7 +43,6 @@ void EnemyMeshShot001::processBehavior() {
 		//出現時
 		_pGeoMover -> setMoveVelocity(_iMoveVelocity_1st);
 		_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_1st);
-		_pGeoMover -> setMoveAngleRzRy(_Rx_begin, _Ry_begin);
 
 		_dwFrame_switchedToPlay = 0;
 		setBumpableOnlySelf(true);
@@ -122,7 +117,7 @@ void EnemyMeshShot001::processBehavior() {
 
 void EnemyMeshShot001::processJudgement() {
 	if (isOffScreen()) {
-		declareStop();
+		declareFinishLife();
 	}
 }
 
@@ -156,7 +151,7 @@ bool EnemyMeshShot001::isOffScreen() {
 
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("EnemyMeshShot001ヒットしました。("<<_X<<","<<_Y<<")");
-	//declareFinishLife();
+	declareFinishLife();
 	setBumpableOnlySelf(false);
 	declareStop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();

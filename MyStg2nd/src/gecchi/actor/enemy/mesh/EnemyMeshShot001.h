@@ -10,12 +10,8 @@
  *
  */
 class EnemyMeshShot001 : public DefaultMeshEnemyActor {
-
+public:
 	//本Actorのカスタムプロパティ --->
-	/** 出現時の方向Rx */
-	int _Rx_begin;
-	/** 出現時の方向Ry */
-	int _Ry_begin;
 	/** 出現時の初速 */
 	int _iMoveVelocity_1st;
 	/** 出現時の加速度（負で遅くなる */

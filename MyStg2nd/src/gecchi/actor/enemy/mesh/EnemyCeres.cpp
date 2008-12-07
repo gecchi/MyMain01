@@ -7,6 +7,8 @@
 //_iBeginVelocity 折り返し地点に行くまでの加速度
 //
 EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+	_class_name = "EnemyCeres";
+
 	_iMovePatternNo = 0;
 //	_X = -100*1000;
 //	_Y = -100*1000;
@@ -15,29 +17,29 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_X = -356000; //開始座標
 	_Y = 0;
 	_Z = -680000;
-	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 400000;
+	_X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2 - 200000;
 	_Y_turn = -10000;
 	_Z_turn = 0;
 	_iBeginVelocity = 5000;
 
+	_pRotEnemyMeshShots001 = NEW RotationActor("Rot_EnemyMeshS001");
+
+	EnemyMeshShot001* pEnemyMeshShot;
+	for (int i = 0; i < 8; i++) { //ストック256個
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
+		pEnemyMeshShot->stopImmediately(); //最初非表示
+		_pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
+	}
 }
 
 void EnemyCeres::initialize() {
 	setBumpableOnlySelf(true);
-
 //	_pGeoMover->setMoveVelocity(1000);
 //	_pGeoMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
 //
 //	//_pGeoMover->setMoveAngleRzVelocityRenge(-2000, 2000);
 ////	//_pGeoMover -> setMoveAngleRz(0,-100*1000,-100*1000);
 ////	_pGeoMover -> setMoveAngle(100*1000,0,-100);
-
-
-
-
-
-
-
 
 
 //	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZがおかしい?
@@ -127,18 +129,24 @@ void EnemyCeres::processBehavior() {
 //			}
 //		}
 
-
-		angle way[16] ;
-		GgafDx9Util::getWayAngle2D(180000, 16, 10000, way);
-		//GgafDx9Util::getRadiationAngle2D(0, 16, way);
-		RotationActor* pRotEnemyMeshShots001 = GameGlobal::_pSceneCommon->_pEnemyMeshShots001Rotation;
+		getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pRotEnemyMeshShots001);
+		angle way[8] ;
+		//GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
+		GgafDx9Util::getRadiationAngle2D(0, 8, way);
 		EnemyMeshShot001* pTama;
-		for (int i = 0; i < 16; i++) {
-			pTama = (EnemyMeshShot001*)pRotEnemyMeshShots001->obtain();
+		for (int i = 0; i < 4; i++) {
+			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);
-				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
-				pTama -> _pGeoMover -> setMoveAngleRy(ANGLE90);
+				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90+way[i], ANGLE90);
+				pTama -> declarePlay();
+			}
+		}
+		for (int i = 4; i < 8; i++) {
+			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
+			if (pTama != NULL) {
+				pTama -> setGeometry (_X, _Y, _Z);
+				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90-way[i], -ANGLE90);
 				pTama -> declarePlay();
 			}
 		}
@@ -250,4 +258,7 @@ bool EnemyCeres::isOffScreen() {
 }
 
 EnemyCeres::~EnemyCeres() {
+	if (_iMovePatternNo == 0) {
+		DELETEARR_IMPOSSIBLE_NULL(_pRotEnemyMeshShots001);
+	}
 }

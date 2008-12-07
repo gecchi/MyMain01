@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 MyShot001::MyShot001(string prm_name, string prm_model) : DefaultSpriteMyActor(prm_name, prm_model) {
-
+	_class_name = "MyShot001";
 }
 
 void MyShot001::initialize() {

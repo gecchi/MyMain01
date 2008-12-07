@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 DefaultSpriteEffectActor::DefaultSpriteEffectActor(string prm_name, string prm_model) : DefaultSpriteActor(prm_name, prm_model) {
+	_class_name = "DefaultSpriteEffectActor";
 	setBumpable(false);
 }
 //オーバーライド

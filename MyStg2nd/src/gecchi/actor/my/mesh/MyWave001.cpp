@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 MyWave001::MyWave001(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
-
+	_class_name = "MyWave001";
 }
 
 void MyWave001::initialize() {

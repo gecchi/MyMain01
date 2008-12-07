@@ -2,7 +2,7 @@
 #define FORMATIONCERES002_H_
 
 
-#define NUM_CERES_FORMATION002 20
+#define NUM_CERES_FORMATION002 30
 /**
  * フォーメーションアクタークラス .
  */

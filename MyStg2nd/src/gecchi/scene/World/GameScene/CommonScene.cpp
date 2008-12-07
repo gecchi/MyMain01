@@ -55,22 +55,11 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		}
 	}
 
-	{ //EnemyMeshShot001
-		_pEnemyMeshShots001Rotation = NEW RotationActor("Rot_EnemyMeshS001");
-		getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pEnemyMeshShots001Rotation);
-		EnemyMeshShot001* pEnemyMeshShot;
-		for (int i = 0; i < 100; i++) { //ストック256個
-			pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
-			pEnemyMeshShot->stopImmediately(); //最初非表示
-			_pEnemyMeshShots001Rotation->addSubLast(pEnemyMeshShot);
-		}
-	}
-
 	{ //Effect EffectExplosion001
 		_pEffectExplosion001Rotation = NEW RotationActor("RotExplo001");
 		getLordActor()->accept(KIND_EFFECT, _pEffectExplosion001Rotation);
 		EffectExplosion001* pEffectExplosion;
-		for (int i = 0; i < 100; i++) { //ストック100個
+		for (int i = 0; i < 512; i++) { //ストック100個
 			pEffectExplosion = NEW EffectExplosion001("Explo"+GgafUtil::itos(i), "EffectExplosion001");
 			pEffectExplosion->stopImmediately(); //最初非表示
 			_pEffectExplosion001Rotation->addSubLast(pEffectExplosion);

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 EnemyShot001::EnemyShot001(string prm_name, string prm_model) : EnemyShotSpriteActor(prm_name, prm_model) {
+	_class_name = "EnemyShot001";
 	declareStop();
 }
 

@@ -11,12 +11,19 @@
 class GgafMainActor : public GgafActor {
 
 protected:
+	/** 管理者 */
+    GgafLordActor* _pLordActor;
 	/** 種別（グループ）を司るヘッドアクター */
 	GgafHeadActor* _pHeadActor;
 
 public:
 
 	GgafMainActor(string prm_name);
+
+	/**
+	 * 管理者を設定する。 .
+	 */
+	virtual void setLordActor(GgafLordActor* prm_pLordActor);
 
 
 	/**
@@ -25,7 +32,14 @@ public:
 	virtual void setHeadActor(GgafHeadActor* prm_pHeadActor);
 
 	/**
-	 * 所属ヘッドアクターを取得する。<BR>
+	 * 管理アクター取得。 .
+	 * @return 管理アクター
+	 */
+	virtual GgafLordActor* getLordActor();
+
+	/**
+	 * 所属ヘッドアクターを取得する。 .
+	 * @return 所属ヘッドアクター
 	 */
 	virtual GgafHeadActor* getHeadActor();
 

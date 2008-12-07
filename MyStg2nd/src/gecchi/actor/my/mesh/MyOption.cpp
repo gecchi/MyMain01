@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 MyOption::MyOption(DWORD prm_dwBufferFrame,  string prm_model) : DefaultMeshActor("OPTION", prm_model) {
+	_class_name = "MyOption";
 	GeometryChain* pFirst = NEW GeometryChain(this);
 	GeometryChain* pWork = pFirst;
 	GeometryChain* pTemp = pFirst;

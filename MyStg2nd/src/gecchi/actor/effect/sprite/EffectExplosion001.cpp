@@ -1,6 +1,7 @@
 #include "stdafx.h"
 
 EffectExplosion001::EffectExplosion001(string prm_name, string prm_model) : DefaultSpriteActor(prm_name, prm_model) {
+	_class_name = "EffectExplosion001";
 }
 
 void EffectExplosion001::initialize() {

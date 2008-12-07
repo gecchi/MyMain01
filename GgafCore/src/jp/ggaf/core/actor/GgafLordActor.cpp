@@ -19,6 +19,7 @@ void GgafLordActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
         addSubLast(pHeadActor);
     }
 	pHeadActor -> addSubLast(prm_pMainActor);
+	prm_pMainActor -> setLordActor(this);
     prm_pMainActor -> setHeadActor(pHeadActor);
     prm_pMainActor -> setScenePlatform(_pScene_Platform);
 }

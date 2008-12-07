@@ -26,7 +26,8 @@ private:
 	/** 現在の所属シーン */
     GgafScene* _pScene_Platform;
 
-    /** ループ用 */
+
+	/** ループ用 */
     GgafActor* _pActor_tmp;
     GgafActor* _pActor_tmp1;
     GgafActor* _pActor_tmp2;
@@ -35,12 +36,12 @@ private:
 
 
 
-    /**
-	 * 所属シーンを設定する。<BR>
+	/**
+	 * 所属シーンを設定する。 .
 	 */
 	void setScenePlatform(GgafScene* prm_pScene_Platform);
 
-    /**
+	/**
 	 * 【自アクター 対 自ツリーアクターのどれか1つのアクター】の衝突判定処理を実行する .
 	 * 本メソッドは executeBumpChk2_WeAnd(GgafActor*)から呼び出される専用メソッド。汎用性はない。<BR>
 	 * 実行すると自アクターのprocessHitLogic()を呼び出し、その結果がtrueの場合(衝突した場合)は自身のprocessOnHit()と、
@@ -52,7 +53,7 @@ private:
 	 */
 	bool executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent);
 
-    /**
+	/**
 	 * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
 	 * executeBumpChkRoundRobin2() から呼び出される。<BR>
 	 * executeBumpChk_WeAnd(GgafActor*)と基本的に同じアルゴリズムであるが、必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で<BR>
@@ -89,14 +90,14 @@ public:
 	 */
 	GgafActor(string prm_name);
 
-    /**
+	/**
 	 * デストラクタ .
 	 * 自ツリーアクターの解放を行います。
 	 */
 	virtual ~GgafActor();
 
 
-    /**
+	/**
 	 * 自アクターの衝突判定有無を設定する。 .
 	 * @param	prm_canBump  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
@@ -114,27 +115,28 @@ public:
 	 */
 	virtual bool canBump();
 
-    /**
+	/**
 	 * 所属しているシーンを取得。 .
 	 * @return	GgafScene*	所属しているシーン
 	 */
 	virtual GgafScene* getPlatformScene();
 
-    /**
+
+	/**
 	 * 【自アクター 対 他アクター】の衝突判定処理を実行する .
 	 * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のprocessOnHit()と、相手アクターのprocessOnHit()が実行される .
 	 * @param	prm_pActor_Opponent	相手の他アクター
 	 */
 	virtual void executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent);
 
-    /**
+	/**
 	 * 【自ツリーアクター 対 他アクター】の衝突判定処理を実行する .
 	 * 内部的には、自ツリーアクター 全てについて、executeBumpChk_MeAnd(GgafActor*) を順次実行。<BR>
 	 * @param	prm_pActor_Opponent	相手の他アクター
 	 */
 	virtual void executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent);
 
-    /**
+	/**
      * 【自ツリーアクター 対 他ツリーアクター】の総当たりで衝突判定を実行する .
 	 * 内部的には、引数である 他ツリーアクター の全てについて、executeBumpChk_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
 	 * @param	prm_pActor_Opponent	相手の他ツリーアクター
@@ -142,14 +144,14 @@ public:
 	virtual void executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent);
 
 
-    /**
+	/**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
 	 * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
 	 * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
 	 */
 	virtual void executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent);
 
-    /**
+	/**
 	 * 自アクターと他アクターと衝突したかどうか判定する。 .
 	 * executeBumpChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになります。<BR>
 	 * 下位クラスで衝突判定ロジックを実装してください。<BR>
@@ -160,7 +162,7 @@ public:
 	virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) = 0;
 
 
-    /**
+	/**
 	 * 他アクターと衝突した時の処理 .
 	 * processBumpChkLogic(GgafActor*) の場合に呼び出されることになります。<BR>
 	 * 或いは、相手のアクターの processBumpChkLogic(GgafActor*) の場合も呼び出されます。<BR>

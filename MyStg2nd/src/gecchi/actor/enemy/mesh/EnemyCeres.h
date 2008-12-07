@@ -6,6 +6,8 @@
 
 class EnemyCeres : public DefaultMeshEnemyActor {
 
+private:
+	RotationActor* _pRotEnemyMeshShots001;
 
 public:
 	int _X_turn; // Ü‚è•Ô‚·XÀ•W

@@ -1,6 +1,8 @@
 #include "stdafx.h"
 
 EnemyVesta::EnemyVesta(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+	_class_name = "EnemyVesta";
+
 	_iMovePatternNo = 0;
 }
 
