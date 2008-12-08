@@ -123,11 +123,11 @@ void EnemyCeres::processBehavior() {
 //		}
 
 
-		angle way[8] ;
+		angle way[16] ;
 		//GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-		GgafDx9Util::getRadiationAngle2D(0, 8, way);
+		GgafDx9Util::getRadiationAngle2D(0, 16, way);
 		EnemyMeshShot001* pTama;
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 8; i++) {
 			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);
@@ -135,7 +135,7 @@ void EnemyCeres::processBehavior() {
 				pTama -> declarePlay();
 			}
 		}
-		for (int i = 4; i < 8; i++) {
+		for (int i = 8; i < 16; i++) {
 			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);

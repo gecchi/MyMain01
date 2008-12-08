@@ -22,7 +22,7 @@ protected:
 
 public:
 	/** 余命 */
-	DWORD _dwFrame_ofDeath;
+	DWORD _dwGodFrame_ofDeath;
 	/** ノードが誕生(addSubされた）時からのフレーム */
 	DWORD _dwFrame;
     /** 相対フレーム計算用 */
@@ -456,7 +456,7 @@ template<class T>
 GgafElement<T>::GgafElement(string prm_name) : SUPER (prm_name),
 _pGod(NULL),
 _wasInitialized(false),
-_dwFrame_ofDeath(MAXDWORD),
+_dwGodFrame_ofDeath(MAXDWORD),
 _dwFrame(0),
 _dwFrame_relative(0),
 _isPlaying(true),
@@ -485,7 +485,9 @@ void GgafElement<T>::nextFrame() {
 	TRACE("GgafElement::nextFrame BEGIN _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 
 	//死の時????????????????????????????????????????ここか？
-	if (_dwFrame_ofDeath == _dwFrame) {
+	if (_dwGodFrame_ofDeath == (askGod()->_dwFrame_God)) {
+		//_TRACE_("_dwGodFrame_ofDeath == _dwFrame<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
+
 		_willPlayNextFrame = false;
 		_willBeAliveNextFrame = false;
 		SUPER::_name = "_x_"+SUPER::_name;
@@ -1002,8 +1004,9 @@ void GgafElement<T>::unblindImmediately() {
 
 template<class T>
 void GgafElement<T>::declareFinishLife(DWORD prm_dwFrameOffset) {
-	//_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName());
-	_dwFrame_ofDeath = _dwFrame + prm_dwFrameOffset;
+
+	_dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
+//	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame<<"/prm_dwFrameOffset="<<prm_dwFrameOffset);
 //	_willPlayNextFrame = false;
 //	_willBeAliveNextFrame = false;
 //	SUPER::_name = "_x_"+SUPER::_name;
@@ -1196,6 +1199,8 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
+	//_TRACE_("~GgafElement() <"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
+
 }
 
 #endif /*GGAFELEMENT_H_*/
