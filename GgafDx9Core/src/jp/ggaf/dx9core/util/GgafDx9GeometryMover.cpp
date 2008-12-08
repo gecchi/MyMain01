@@ -791,7 +791,7 @@ void GgafDx9GeometryMover::setTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ
 			d,
 			d,
 			d,
-			angRy_Target,
+			angRz_Target,
 			angRy_Target
 		);
 	setTargetMoveAngleRz(angRz_Target);
