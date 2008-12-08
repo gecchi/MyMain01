@@ -483,6 +483,14 @@ _wasExecuted_processDrawMain(false)
 template<class T>
 void GgafElement<T>::nextFrame() {
 	TRACE("GgafElement::nextFrame BEGIN _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
+
+	//死の時????????????????????????????????????????ここか？
+	if (_dwFrame_ofDeath == _dwFrame) {
+		_willPlayNextFrame = false;
+		_willBeAliveNextFrame = false;
+		SUPER::_name = "_x_"+SUPER::_name;
+	}
+
 	if (_willMoveLastNextFrame) {
 		_willMoveLastNextFrame = false;
 		SUPER::moveLast();
@@ -734,12 +742,6 @@ void GgafElement<T>::finally() {
 		}
 	}
 
-	//死の時
-	if (_dwFrame_ofDeath == _dwFrame) {
-		_willPlayNextFrame = false;
-		_willBeAliveNextFrame = false;
-		SUPER::_name = "_x_"+SUPER::_name;
-	}
 
 }
 
@@ -1001,7 +1003,7 @@ void GgafElement<T>::unblindImmediately() {
 template<class T>
 void GgafElement<T>::declareFinishLife(DWORD prm_dwFrameOffset) {
 	//_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName());
-	_dwFrame_ofDeath = _dwFrame + prm_dwFrameOffset + 1;
+	_dwFrame_ofDeath = _dwFrame + prm_dwFrameOffset;
 //	_willPlayNextFrame = false;
 //	_willBeAliveNextFrame = false;
 //	SUPER::_name = "_x_"+SUPER::_name;
@@ -1106,45 +1108,88 @@ T* GgafElement<T>::becomeIndependent() {
 
 template<class T>
 void GgafElement<T>::cleane(int prm_iNumCleanNode) {
-	if (SUPER::_pSubFirst == NULL || GgafGod::_s_iNumCleanNodePerFrame != 0) {
+	if (SUPER::_pSubFirst == NULL) {
 		return;
 	}
 
-	if (_isAlive == false) {
-		throw_GgafCriticalException("[GgafElement<"<<SUPER::_class_name<<">::cleane()] Error! 自殺しなければいけない状況。ココの処理に来る前に親に delete されなければ、おかしいです。(name="<<SUPER::getName()+")");
-	}
+	//_TRACE_("[GgafElement<"<<SUPER::_class_name<<">"<<SUPER::_name<<"::cleane()");
+//	if (_isAlive == false) {
+//		throw_GgafCriticalException("[GgafElement<"<<SUPER::_class_name<<">::cleane()] Error! 自殺しなければいけない状況。ココの処理に来る前に親に delete されなければ、おかしいです。(name="<<SUPER::getName()+")");
+//	}
 
-	//子を調べてdeleteする
-	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
+	T* pElementTemp = SUPER::_pSubFirst-> _pPrev;
 	T* pWk;
-	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
-		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
 
+	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
+		if (pElementTemp->_pSubFirst) {
+			//子の子がまだのっている場合さらにもぐる
+			pElementTemp -> cleane(prm_iNumCleanNode);
+			if (GgafGod::_s_iNumCleanNodePerFrame >= prm_iNumCleanNode) {
+				break;
+			}
+		}
+
+		if (pElementTemp->_isFirst) { //最後の一つ
 			if (pElementTemp->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pElementTemp);
+				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 			break;
-		} else { //末尾から順に見ていく
-			pElementTemp = pElementTemp -> SUPER::_pPrev;
-			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
-				pWk = pElementTemp->SUPER::_pNext;
+		} else {
+			pWk = pElementTemp;
+			pElementTemp = pElementTemp -> _pPrev;
+			if (pWk->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pWk);
+				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 		}
 	}
 
-	//子がまだのっている場合さらにもぐる
-	if (SUPER::_pSubFirst != NULL) {
-		pElementTemp = SUPER::_pSubFirst;
-		while(true) {
-			pElementTemp -> cleane(prm_iNumCleanNode);
-			if (pElementTemp -> _isLast) {
-				break;
-			} else {
-				pElementTemp = pElementTemp -> SUPER::_pNext;
-			}
-		}
-	}
+//
+//
+////				if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
+////				if (pElementTemp->_isAlive == false) {
+////					DELETE_IMPOSSIBLE_NULL(pElementTemp);
+////				}
+////				break;
+//			}
+//			if (pElementTemp->_isFirst) { //一周した
+//				break;
+//			}
+//		}
+//	}
+//
+//	//子を調べてdeleteする
+//	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
+//	T* pWk;
+//	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
+//		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
+//
+//			if (pElementTemp->_isAlive == false) {
+//				DELETE_IMPOSSIBLE_NULL(pElementTemp);
+//			}
+//			break;
+//		} else { //末尾から順に見ていく
+//			pElementTemp = pElementTemp -> SUPER::_pPrev;
+//			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
+//				pWk = pElementTemp->SUPER::_pNext;
+//				DELETE_IMPOSSIBLE_NULL(pWk);
+//			}
+//		}
+//	}
+//
+//	//子がまだのっている場合さらにもぐる
+//	if (SUPER::_pSubFirst != NULL) {
+//		pElementTemp = SUPER::_pSubFirst;
+//		while(true) {
+//			pElementTemp -> cleane(prm_iNumCleanNode);
+//			if (pElementTemp -> _isLast) {
+//				break;
+//			} else {
+//				pElementTemp = pElementTemp -> SUPER::_pNext;
+//			}
+//		}
+//	}
 }
 
 

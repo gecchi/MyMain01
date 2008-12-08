@@ -110,11 +110,13 @@ void GgafGod::be(){
 				makeWorldVisualize();
 				makeWorldFinalize();
 				//getWorld()->cleane(10);
+				//getWorld()->cleane(10);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			} else {
 				//スキップ時はmakeWorldFinalize()だけ
 				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 				makeWorldFinalize();
+				//getWorld()->cleane(2);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			}
 		} else {
@@ -124,6 +126,8 @@ void GgafGod::be(){
 			makeWorldMaterialize();//描画を行う
 			makeWorldVisualize();  //視覚化を行う
 			makeWorldFinalize();
+			_TRACE_("cleane(2)");
+			getWorld()->cleane(2);
 			::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 		}
 		_isBehaved = false;
@@ -175,7 +179,6 @@ void GgafGod::makeWorldVisualize() {
  */
 void GgafGod::makeWorldFinalize() {
 	_pWorld -> finally();
-	_pWorld -> cleane(10);//死んだのを抹消
 }
 
 GgafGod::~GgafGod() {

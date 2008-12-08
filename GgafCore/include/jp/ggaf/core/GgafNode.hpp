@@ -523,7 +523,7 @@ bool GgafNode<T>::isFirst() {
 template<class T>
 GgafNode<T>::~GgafNode() {
 	//自分に子がある場合
-	if (_pSubFirst != NULL) {
+	if (_pSubFirst) {
 		//まず子をdelete
 		if (_pSubFirst->_isLast) {
 			//子ノードは１つの場合
@@ -547,7 +547,7 @@ GgafNode<T>::~GgafNode() {
 	}
 
 	//子がない状態の場合
-	if (_pParent != NULL) {
+	if (_pParent) {
 		//連結から外す
 		T* pMyNext = _pNext;
 		T* pMyPrev = _pPrev;
@@ -579,7 +579,7 @@ GgafNode<T>::~GgafNode() {
 			_isLast = true;
 		}
 	}
-	GgafGod::_s_iNumCleanNodePerFrame++;
+
 //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<") ID="<<_id);
 	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
 

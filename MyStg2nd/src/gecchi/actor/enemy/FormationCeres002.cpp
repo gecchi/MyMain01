@@ -32,5 +32,7 @@ void FormationCeres002::initialize() {
 }
 
 FormationCeres002::~FormationCeres002() {
-	_pRotEnemyMeshShots001 -> declareFinishLife(60*5); //5ïbå„Ç…Ç≥ÇÊÇ§Ç»ÇÁ
+	if (_pRotEnemyMeshShots001) {
+		_pRotEnemyMeshShots001 -> declareFinishLife(60*5); //5ïbå„Ç…Ç≥ÇÊÇ§Ç»ÇÁ
+	}
 }
