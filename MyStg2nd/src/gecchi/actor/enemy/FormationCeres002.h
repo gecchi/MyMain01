@@ -9,6 +9,7 @@
 class FormationCeres002 : public FormationActor {
 
 	EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION002];
+	RotationActor* _pRotEnemyMeshShots001;
 public:
 	FormationCeres002(string prm_name, string prm_model);
 

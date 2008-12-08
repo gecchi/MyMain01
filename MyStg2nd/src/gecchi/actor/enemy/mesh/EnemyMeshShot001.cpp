@@ -117,7 +117,8 @@ void EnemyMeshShot001::processBehavior() {
 
 void EnemyMeshShot001::processJudgement() {
 	if (isOffScreen()) {
-		declareFinishLife();
+		declareStop();
+		//declareFinishLife();
 	}
 }
 
@@ -151,7 +152,7 @@ bool EnemyMeshShot001::isOffScreen() {
 
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-	declareFinishLife();
+	//declareFinishLife();
 	setBumpableOnlySelf(false);
 	declareStop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();

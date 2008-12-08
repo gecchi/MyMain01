@@ -22,14 +22,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_Z_turn = 0;
 	_iBeginVelocity = 5000;
 
-	_pRotEnemyMeshShots001 = NEW RotationActor("Rot_EnemyMeshS001");
-
-	EnemyMeshShot001* pEnemyMeshShot;
-	for (int i = 0; i < 8; i++) { //ストック256個
-		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
-		pEnemyMeshShot->stopImmediately(); //最初非表示
-		_pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
-	}
+	_pRotEnemyMeshShots001 = NULL;
 }
 
 void EnemyCeres::initialize() {
@@ -129,7 +122,7 @@ void EnemyCeres::processBehavior() {
 //			}
 //		}
 
-		getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pRotEnemyMeshShots001);
+
 		angle way[8] ;
 		//GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
 		GgafDx9Util::getRadiationAngle2D(0, 8, way);
@@ -258,7 +251,4 @@ bool EnemyCeres::isOffScreen() {
 }
 
 EnemyCeres::~EnemyCeres() {
-	if (_iMovePatternNo == 0) {
-		DELETEARR_IMPOSSIBLE_NULL(_pRotEnemyMeshShots001);
-	}
 }

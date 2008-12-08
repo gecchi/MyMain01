@@ -7,9 +7,10 @@
 class EnemyCeres : public DefaultMeshEnemyActor {
 
 private:
-	RotationActor* _pRotEnemyMeshShots001;
 
 public:
+	RotationActor* _pRotEnemyMeshShots001;
+
 	int _X_turn; // Ü‚è•Ô‚·XÀ•W
 	int _Y_turn; // Ü‚è•Ô‚·YÀ•W
 	int _Z_turn; // Ü‚è•Ô‚·ZÀ•W
