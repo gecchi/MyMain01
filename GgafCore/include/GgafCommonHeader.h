@@ -74,6 +74,7 @@ using namespace std;
 
 typedef unsigned int actorkind;
 
+class GgafUtil;
 class GgafObject;
 class GgafException;
 class GgafCriticalException;
@@ -92,12 +93,12 @@ class GgafLordActor;
 class GgafHeadActor;
 class GgafOrder;
 class GgafFactory;
-class GgafUtil;
+
 class GgafProperties;
 class GgafRect;
 class GgafUserRootSceneCreater;
 
-
+#include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/exception/GgafException.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
@@ -117,7 +118,7 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/util/GgafUtil.h"
+
 
 
 #endif /*GGAFCOMMONHEADER_H_*/

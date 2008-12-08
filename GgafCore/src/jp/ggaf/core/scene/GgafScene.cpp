@@ -123,9 +123,9 @@ void GgafScene::unblindImmediately() {
 	_pLordActor->unblindImmediately();
 }
 
-void GgafScene::declareFinishLife() {
-	GgafElement<GgafScene>::declareFinishLife();
-	_pLordActor->declareFinishLife();
+void GgafScene::declareFinishLife(DWORD prm_dwFrameOffset) {
+	GgafElement<GgafScene>::declareFinishLife(prm_dwFrameOffset);
+	_pLordActor->declareFinishLife(prm_dwFrameOffset);
 }
 
 void GgafScene::cleane(int prm_iNumCleanNode) {

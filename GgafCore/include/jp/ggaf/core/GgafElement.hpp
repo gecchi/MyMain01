@@ -21,6 +21,8 @@ protected:
 	bool _wasInitialized;
 
 public:
+	/** 余命 */
+	DWORD _dwFrame_ofDeath;
 	/** ノードが誕生(addSubされた）時からのフレーム */
 	DWORD _dwFrame;
     /** 相対フレーム計算用 */
@@ -361,7 +363,7 @@ public:
 	 * これにより、神(GgafGod)が処理時間の余裕のあるフレームに実行する cleane()時に delete の対象となる。<BR>
 	 * したがって、本メンバ関数を実行しても、フラグはアンセットされるため表面にはでませんが、インスタンスがすぐに解放されるとは限りません。<BR>
 	 */
-	void declareFinishLife();
+	void declareFinishLife(DWORD prm_dwFrameOffset = 0);
 
 	/**
 	 * 自ツリーノードを最終ノードに順繰りする .
@@ -454,6 +456,7 @@ template<class T>
 GgafElement<T>::GgafElement(string prm_name) : SUPER (prm_name),
 _pGod(NULL),
 _wasInitialized(false),
+_dwFrame_ofDeath(MAXDWORD),
 _dwFrame(0),
 _dwFrame_relative(0),
 _isPlaying(true),
@@ -544,6 +547,7 @@ void GgafElement<T>::nextFrame() {
 			_willMoveFirstNextFrame = false;
 			SUPER::moveFirst();
 		}
+
 
 	}
 	TRACE("GgafElement::nextFrame END _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
@@ -729,6 +733,14 @@ void GgafElement<T>::finally() {
 			}
 		}
 	}
+
+	//死の時
+	if (_dwFrame_ofDeath == _dwFrame) {
+		_willPlayNextFrame = false;
+		_willBeAliveNextFrame = false;
+		SUPER::_name = "_x_"+SUPER::_name;
+	}
+
 }
 
 
@@ -987,15 +999,16 @@ void GgafElement<T>::unblindImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::declareFinishLife() {
+void GgafElement<T>::declareFinishLife(DWORD prm_dwFrameOffset) {
 	//_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName());
-	_willPlayNextFrame = false;
-	_willBeAliveNextFrame = false;
-	SUPER::_name = "_x_"+SUPER::_name;
+	_dwFrame_ofDeath = _dwFrame + prm_dwFrameOffset + 1;
+//	_willPlayNextFrame = false;
+//	_willBeAliveNextFrame = false;
+//	SUPER::_name = "_x_"+SUPER::_name;
 	if (SUPER::_pSubFirst != NULL) {
 		T* pElementTemp = SUPER::_pSubFirst;
 		while(true) {
-			pElementTemp -> declareFinishLife();
+			pElementTemp -> declareFinishLife(prm_dwFrameOffset);
 			if (pElementTemp -> _isLast) {
 				break;
 			} else {
@@ -1098,7 +1111,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 	}
 
 	if (_isAlive == false) {
-		throw_GgafCriticalException("[GgafElement<"<<SUPER::_class_name<<">::cleane()] Error! 自殺しなければいけません。その前に親にcleanされるはずです。おかしいです。(name="<<SUPER::getName()+")");
+		throw_GgafCriticalException("[GgafElement<"<<SUPER::_class_name<<">::cleane()] Error! 自殺しなければいけない状況。ココの処理に来る前に親に delete されなければ、おかしいです。(name="<<SUPER::getName()+")");
 	}
 
 	//子を調べてdeleteする
@@ -1109,7 +1122,6 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 
 			if (pElementTemp->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pElementTemp);
-				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 			break;
 		} else { //末尾から順に見ていく
@@ -1117,7 +1129,6 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
 				pWk = pElementTemp->SUPER::_pNext;
 				DELETE_IMPOSSIBLE_NULL(pWk);
-				GgafGod::_s_iNumCleanNodePerFrame++;
 			}
 		}
 	}

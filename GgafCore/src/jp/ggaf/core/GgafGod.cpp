@@ -109,7 +109,7 @@ void GgafGod::be(){
 				makeWorldMaterialize();
 				makeWorldVisualize();
 				makeWorldFinalize();
-				getWorld()->cleane(10);
+				//getWorld()->cleane(10);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			} else {
 				//スキップ時はmakeWorldFinalize()だけ
@@ -130,13 +130,13 @@ void GgafGod::be(){
 
 	} else {//描画タイミングフレームになってない(余裕がある)
 		Sleep(1); //工場（別スレッド）に回す
-		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合
-			if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) { //掃除でもやっとく
-				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-				getWorld()->cleane(1);
-				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-			}
-		}
+//		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合
+//			if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) { //掃除でもやっとく
+//				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+//				getWorld()->cleane(1);
+//				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+//			}
+//		}
 	}
 
 	return;
@@ -175,7 +175,7 @@ void GgafGod::makeWorldVisualize() {
  */
 void GgafGod::makeWorldFinalize() {
 	_pWorld -> finally();
-	//_pWorld -> cleane();//死んだのを抹消
+	_pWorld -> cleane(10);//死んだのを抹消
 }
 
 GgafGod::~GgafGod() {

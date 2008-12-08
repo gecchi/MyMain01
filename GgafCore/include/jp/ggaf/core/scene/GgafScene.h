@@ -207,7 +207,7 @@ public:
 	 * 自ツリーシーンを次フレーム絶命させる。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareFinishLife();
+	virtual void declareFinishLife(DWORD prm_dwFrameOffset = 0);
 
 	/**
 	 * 自ツリーシーンを絶命させる。 .

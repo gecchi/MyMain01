@@ -68,6 +68,9 @@ class GgafNode : public GgafObject {
 
 protected:
 public:
+
+	/** ID */
+	string _id;
 	/** ノード名 */
 	string _name;
 	/** クラス名 */
@@ -270,7 +273,6 @@ public:
  * ここからは実装部
  */
 
-
 template<class T>
 GgafNode<T>::GgafNode(string prm_name) : GgafObject() ,
 _name("NOT_OBJECT_YET"),
@@ -282,6 +284,7 @@ _isLast(false)
 	_pNext = (T*)this;
 	_pPrev = (T*)this;
 	_name = prm_name;
+	//_id = GgafUtil::itos(GgafObject::_iObjectNo);
 	TRACE("template<class T> GgafNode<T>::GgafNode("+_name+")");
 	_class_name = "GgafNode<T>";
 
@@ -576,7 +579,10 @@ GgafNode<T>::~GgafNode() {
 			_isLast = true;
 		}
 	}
-	//_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
+	GgafGod::_s_iNumCleanNodePerFrame++;
+//	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<") ID="<<_id);
+	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
+
 }
 
 #endif /*GGAFNODE_H_*/
