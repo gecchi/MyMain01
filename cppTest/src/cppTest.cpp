@@ -7,32 +7,37 @@
 //============================================================================
 
 #include "stdafx.h"
-
+#define ABCDEF ABC+DEF
+#define ABC 1
+#define DEF 2
 
 int main() {
-	::timeBeginPeriod(1);
-
-	GgafDx9SphereRadiusVectors* srvMy = new GgafDx9SphereRadiusVectors();
-	GgafDx9Util::init();
-
-	int rZ, rY;
-	cout << "start:" << timeGetTime() << endl;
-	for (int i = 0; i < 10000; i++) {
-		srvMy->getRotAngleClosely(9890,801,1231, rZ,rY);
-	}
-	cout << "end:" << timeGetTime() << endl;
-	cout << "rZ=" << rZ << " rY=" << rY << endl;
-	double uvX, uvY, uvZ;
-	angle angRotZ, angRotY;
-	GgafDx9Util::getRotAngleZY(
-			0, 100000, 100,
-			uvX, uvY, uvZ,
-			angRotZ, angRotY
-			);
-
-	cout << "(" << uvX << "," << uvY << "," << uvZ << ")  RzRy = " << angRotZ << "/" << angRotY << endl;
 
 
+	cout << ABCDEF << endl;
+//	::timeBeginPeriod(1);
+//
+//	GgafDx9SphereRadiusVectors* srvMy = new GgafDx9SphereRadiusVectors();
+//	GgafDx9Util::init();
+//
+//	int rZ, rY;
+//	cout << "start:" << timeGetTime() << endl;
+//	for (int i = 0; i < 10000; i++) {
+//		srvMy->getRotAngleClosely(9890,801,1231, rZ,rY);
+//	}
+//	cout << "end:" << timeGetTime() << endl;
+//	cout << "rZ=" << rZ << " rY=" << rY << endl;
+//	double uvX, uvY, uvZ;
+//	angle angRotZ, angRotY;
+//	GgafDx9Util::getRotAngleZY(
+//			0, 100000, 100,
+//			uvX, uvY, uvZ,
+//			angRotZ, angRotY
+//			);
+//
+//	cout << "(" << uvX << "," << uvY << "," << uvZ << ")  RzRy = " << angRotZ << "/" << angRotY << endl;
+//
+//
 
 
 //	unsigned short x,y,z;
@@ -57,8 +62,8 @@ int main() {
 //		}
 //	}
 
-	delete srvMy;
-	::timeEndPeriod(1);//タイマー精度終了処理
+//	delete srvMy;
+//	::timeEndPeriod(1);//タイマー精度終了処理
 	return 0;
 }
 
