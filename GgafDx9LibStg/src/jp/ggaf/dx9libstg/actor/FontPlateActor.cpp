@@ -12,6 +12,14 @@ void FontPlateActor::setString(float prm_x, float prm_y, string prm_draw_string)
 	_x = prm_x;
 	_y = prm_y;
 }
+
+void FontPlateActor::setString(float prm_x, float prm_y, char* prm_paCString) {
+	_draw_string = string(prm_paCString);
+	_iStrLen = (int)_draw_string.size();
+	_x = prm_x;
+	_y = prm_y;
+}
+
 void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, string prm_draw_string) {
 	_draw_string = prm_draw_string;
 	_iStrLen = (int)_draw_string.size();
@@ -19,10 +27,21 @@ void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, string prm
 	_y = prm_y;
 	_z = prm_z;
 }
-
+void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, char* prm_paCString) {
+	_draw_string = string(prm_paCString);
+	_iStrLen = (int)_draw_string.size();
+	_x = prm_x;
+	_y = prm_y;
+	_z = prm_z;
+}
 
 void FontPlateActor::setString(string prm_draw_string) {
 	_draw_string = prm_draw_string;
+	_iStrLen = (int)_draw_string.size();
+}
+
+void FontPlateActor::setString(char* prm_paCString) {
+	_draw_string = string(prm_paCString);
 	_iStrLen = (int)_draw_string.size();
 }
 

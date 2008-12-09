@@ -12,8 +12,11 @@ public:
 	virtual void processDrawMain(); //オーバーライド
 
 	virtual void setString(float prm_x, float prm_y, string prm_draw_string);
+	virtual void setString(float prm_x, float prm_y, char* prm_paCString);
 	virtual void setString(float prm_x, float prm_y, float prm_z, string prm_draw_string);
+	virtual void setString(float prm_x, float prm_y, float prm_z, char* prm_paCString);
 	virtual void setString(string prm_draw_string);
+	virtual void setString(char* prm_paCString);
 
 	virtual ~FontPlateActor();
 
