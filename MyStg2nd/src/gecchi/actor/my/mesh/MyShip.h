@@ -200,38 +200,38 @@ public:
 	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void initialize();
+	virtual void initialize();
 
 	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void processBehavior();
+	virtual void processBehavior();
 
  	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void processJudgement();
+	virtual void processJudgement();
 
 	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+	virtual void processOnHit(GgafActor* prm_pActor_Opponent);
 
 
- 	void setMoveSpeedLv(int lv) {
+	virtual void setMoveSpeedLv(int lv) {
  		_lv_MoveSpeed = lv;
  		_iMoveSpeed = _lv_MoveSpeed*1000;
  	}
  	//‰æ–Ê‰œ‚ÖˆÚ“®‰‚ßX²‰ñ“]ˆ—
- 	void beginTurboZX(int prm_VB);
+	virtual void beginTurboZX(int prm_VB);
 
  	//‰æ–Êè‘O‚ÖˆÚ“®‰‚ßX²‰ñ“]ˆ—
- 	void beginTurboXY(int prm_VB);
+	virtual void beginTurboXY(int prm_VB);
 
 
- 	void beginMoveZX(int prm_VB);
+	virtual void beginMoveZX(int prm_VB);
 
- 	void beginMoveXY(int prm_VB);
+	virtual void beginMoveXY(int prm_VB);
 
  	static void transactShot(GgafDx9UntransformedActor* prm_pActor);
 
