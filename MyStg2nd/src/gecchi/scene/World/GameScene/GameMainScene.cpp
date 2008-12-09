@@ -2,6 +2,12 @@
 
 
 GameMainScene::GameMainScene(string prm_name) : DefaultScene(prm_name) {
+	_pFontPlate_SCORE = NEW FontPlateActor("STR01", "moji");
+	getLordActor()->accept(KIND_EFFECT, _pFontPlate_SCORE);
+
+
+
+
 	_pStage01Scene = NULL;
 	_pStage02Scene = NULL;
 	_pStage03Scene = NULL;
@@ -136,6 +142,10 @@ void GameMainScene::processBehavior() {
 			_readyStage05Flg = false;
 		}
 	}
+
+	//SCORE•\Ž¦
+	sprintf(_buf, "SCORE:%07u", GameGlobal::_dwScore);
+	_pFontPlate_SCORE->setString(500,0,_buf);
 }
 
 void GameMainScene::processFinal() {

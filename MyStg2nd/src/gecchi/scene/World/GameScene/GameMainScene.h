@@ -4,6 +4,16 @@
 class GameMainScene : public DefaultScene {
 
 public:
+	char _buf[20];
+	FontPlateActor* _pFontPlate_SCORE;
+
+
+
+
+
+
+
+
 	GgafMainScene* _pStage01Scene;
 	GgafMainScene* _pStage02Scene;
 	GgafMainScene* _pStage03Scene;

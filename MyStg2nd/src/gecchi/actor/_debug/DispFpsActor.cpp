@@ -13,7 +13,7 @@ void DispFpsActor::initialize() {
 void DispFpsActor::processBehavior() {
 	//sprintf_s(_aBuf, 17, "%06d %.1f fps", prm_dwFrame, askGod()->_fFps);
 	sprintf(_aBuf, "%05u %07u %.1f fps", GgafGod::_iNumPlayingActor, (unsigned int)askGod()->_dwFrame_God, askGod()->_fFps);
-	setString(0,0,string(_aBuf));
+	setString(0,0,_aBuf);
 }
 
 DispFpsActor::~DispFpsActor() {

@@ -10,6 +10,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_class_name = "EnemyCeres";
 
 	_iMovePatternNo = 0;
+	_pChecker->_iScorePoint = 100;
 //	_X = -100*1000;
 //	_Y = -100*1000;
 //	_Z = 0;
@@ -235,7 +236,14 @@ void EnemyCeres::processJudgement() {
 }
 
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
+	GgafDx9UntransformedActor* pActor_Opponent = (GgafDx9UntransformedActor*)prm_pActor_Opponent;
 	setBumpableOnlySelf(false);
+
+	if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
+		GameGlobal::_dwScore += _pChecker->_iScorePoint;
+	}
+
+
 	declareFinishLife();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {

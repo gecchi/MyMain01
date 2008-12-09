@@ -7,18 +7,22 @@
 
 
 #define KIND_EFFECT            0
-#define KIND_MY                1
+#define KIND_MY_BODY           1
 #define KIND_MY_SHOT_GU        2
 #define KIND_MY_SHOT_CHOKI     4
 #define KIND_MY_SHOT_PA        8
 #define KIND_MY_SHOT_NOMAL     16
-#define KIND_ENEMY             32
+#define KIND_ENEMY_BODY        32
 #define KIND_ENEMY_SHOT_GU     64
 #define KIND_ENEMY_SHOT_CHOKI  128
 #define KIND_ENEMY_SHOT_PA     256
 #define KIND_ENEMY_SHOT_NOMAL  512
 #define KIND_OTHER             1024
 #define KIND_CHIKEI            2048
+#define KIND_MY                (KIND_MY_BODY|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_SHOT_NOMAL)
+#define KIND_ENEMY             (KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL)
+
+
 
 //その他のヘッダファイルはここに記述
 class God;

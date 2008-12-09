@@ -10,7 +10,7 @@ public:
 
 	/** ステージ */
 	static int _iScene;
-	/** ステージ */
+	/** ランク */
 	static int _iRank;
 
 	/** 自機へのポインタ */
