@@ -39,6 +39,14 @@ void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
 
 
 GgafHeadActor* GgafMainActor::getHeadActor() {
+	if (_pHeadActor == NULL) {
+		if (_pParent == NULL) {
+			throw_GgafCriticalException("GgafMainActor::getHeadActor 所属していないため、HeadActorがとれません！("<<getName()<<")");
+		} else {
+			_pHeadActor = ((GgafMainActor*)_pParent)->getHeadActor();
+		}
+	}
+
 	return _pHeadActor;
 }
 
@@ -48,7 +56,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
 
 GgafGod* GgafMainActor::askGod() {
 	if (_pGod == NULL) {
-		if (getParent() == NULL) {
+		if (_pParent == NULL) {
 			throw_GgafCriticalException("GgafMainActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
 		} else {
 			_pGod = getParent()->askGod();
