@@ -7,35 +7,34 @@
 class FormationActor : public GgafDx9UntransformedActor {
 
 public:
-	StgChecker* _pChecker;
 
 	FormationActor(string prm_name);
 
-	void initialize() {};
+	virtual void initialize() {};
 
-	void processBehavior() {};
+	virtual void processBehavior() {};
 
  	/**
  	 * ÉTÉuÇ™ñ≥ÇØÇÍÇŒéÄ
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
 	 */
-	void processJudgement() {
+	virtual void processJudgement() {
 		if (getSubFirst() == NULL) {
 			declareFinishLife();
 		}
 	};
 
-	void processDrawPrior() {};
+	virtual void processDrawPrior() {};
 
-	void processDrawMain() {};
+	virtual void processDrawMain() {};
 
-	void processDrawTerminate() {};
+	virtual void processDrawTerminate() {};
 
-	void processHappen(int prm_no) {};
+	virtual void processHappen(int prm_no) {};
 
-	void processFinal() {};
+	virtual void processFinal() {};
 
-	void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~FormationActor();
 };
