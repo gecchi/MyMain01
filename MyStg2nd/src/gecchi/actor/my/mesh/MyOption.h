@@ -31,14 +31,18 @@ class MyOption : public DefaultMeshActor {
 			_Y = prm_pActor->_Y;
 			_Z = prm_pActor->_Z;
 		};
-
+		virtual ~GeometryChain() {
+			_next = NULL;
+		}
 	};
 
 public:
 
 	GeometryChain* _pGeoChainRingActive;
+	/** 対象アクター */
+	GgafDx9UntransformedActor* _pActor_Radical;
 
-	MyOption(DWORD prm_dwBufferFrame, string prm_model);
+	MyOption(string prm_name, string prm_model);
 
 	/**
 	 * ＜OverRide です＞
@@ -59,6 +63,11 @@ public:
 	 * ＜OverRide です＞
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
+
+
+	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
+ 		_pActor_Radical = prm_pActor;
+ 	}
 
  	virtual ~MyOption();
 };

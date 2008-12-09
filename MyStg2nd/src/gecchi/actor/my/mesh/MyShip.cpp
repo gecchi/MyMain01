@@ -374,6 +374,10 @@ void MyShip::processBehavior() {
 	MyShip::transactShot(this);
 
 
+	if (VB::isPushedDown(VB_SHOT3)) {
+		equipOption();
+	}
+
 
 	if (VB::isBeingPressed(VB_POWERUP)) {
 		_SX -= 100;
@@ -949,6 +953,16 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 
 
 void MyShip::equipOption() {
+	orderActorFactory("AAA", MyOption, "Option", "ebi");
+	_state.eq_option++;
+	MyOption* pOption = (MyOption*)obtainActorFactory("AAA");
+	if (_pSubFirst != NULL) {
+		pOption->setRadicalActor((GgafDx9UntransformedActor*)getSubFirst()->getPrev());
+	} else {
+		pOption->setRadicalActor(this);
+	}
+	pOption->setGeometry(_X, _Y, _Z);
+	addSubLast(pOption);
 	//MyFactory::orderActor("OPOP", MyFactory::createFormationJuno001, NULL);
 	//_state.eq_option++;
 	//MyOption* pOption = createOption<MyOption>(0);
