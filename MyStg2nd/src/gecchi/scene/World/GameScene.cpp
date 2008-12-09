@@ -20,6 +20,7 @@ void GameScene::initialize() {
 
 
 void GameScene::processBehavior() {
+	cleane(1);
 	VB::update(); //“ü—Íî•ñXV
 
 #ifdef OREDEBUG

@@ -9,6 +9,7 @@ FormationCeres001::FormationCeres001(string prm_name, string prm_model) : Format
 	}
 }
 
+
 void FormationCeres001::initialize() {
 	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
 		_pEnemyCeres[i] -> playAfter(i*30+1);

@@ -21,7 +21,6 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_Y_turn = -10000;
 	_Z_turn = 0;
 	_iBeginVelocity = 5000;
-
 	_pRotEnemyMeshShots001 = NULL;
 }
 
@@ -122,25 +121,28 @@ void EnemyCeres::processBehavior() {
 //			}
 //		}
 
-
-		angle way[16] ;
-		//GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-		GgafDx9Util::getRadiationAngle2D(0, 16, way);
-		EnemyMeshShot001* pTama;
-		for (int i = 0; i < 8; i++) {
-			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
-			if (pTama != NULL) {
-				pTama -> setGeometry (_X, _Y, _Z);
-				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90+way[i], ANGLE90);
-				pTama -> declarePlay();
+		if (_pRotEnemyMeshShots001 == NULL) {
+			_TRACE_("ローテーション_pRotEnemyMeshShots001がNULL。どーすんのよ");
+		} else {
+			angle way[16] ;
+			//GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
+			GgafDx9Util::getRadiationAngle2D(0, 16, way);
+			EnemyMeshShot001* pTama;
+			for (int i = 0; i < 8; i++) {
+				pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
+				if (pTama != NULL) {
+					pTama -> setGeometry (_X, _Y, _Z);
+					pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90+way[i], ANGLE90);
+					pTama -> declarePlay();
+				}
 			}
-		}
-		for (int i = 8; i < 16; i++) {
-			pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
-			if (pTama != NULL) {
-				pTama -> setGeometry (_X, _Y, _Z);
-				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90-way[i], -ANGLE90);
-				pTama -> declarePlay();
+			for (int i = 8; i < 16; i++) {
+				pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
+				if (pTama != NULL) {
+					pTama -> setGeometry (_X, _Y, _Z);
+					pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90-way[i], -ANGLE90);
+					pTama -> declarePlay();
+				}
 			}
 		}
 
