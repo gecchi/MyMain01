@@ -93,9 +93,49 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_dRate_TurboControl = 0.8; //ターボ中移動制御できる割合
 	_iTurboControl = 0;
 
+	_pMyShots001Rotation = NEW RotationActor("RotShot001");
+	addSubLast(_pMyShots001Rotation); //仮所属
+	MyShot001* pShot;
+	for (int i = 0; i < 50; i++) { //自弾ストック
+		pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "moji2");
+		pShot->stopImmediately();
+		_pMyShots001Rotation->addSubLast(pShot);
+	}
+
+	_pMyWaves001Rotation = NEW RotationActor("RotWave001");
+	addSubLast(_pMyWaves001Rotation);//仮所属
+	MyWave001* pWave;
+	for (int i = 0; i < 50; i++) { //自弾ストック
+		pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "wave");
+		pWave->stopImmediately();
+		_pMyWaves001Rotation->addSubLast(pWave);
+	}
+
+
+	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
+	addSubLast(_pMyLaserChipRotation);//仮所属
+	MyLaserChip* pChip;
+	for (int i = 0; i < 100; i++) { //レーザーストック
+		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
+		pChip->stopImmediately();
+		_pMyLaserChipRotation->addSubLast(pChip);
+	}
+
+	for (int i = 0; i < 10; i++) { //レーザーストック
+		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "tamago");
+		pOption->stopImmediately();
+		addSubLast(pOption);
+	}
+
+
 }
 
 void MyShip::initialize() {
+	_TRACE_("MyShip::initialize!!!!!!!!!!!!!!!!!!!!!!");
+	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation->tear());
+	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->tear());
+	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
+
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
@@ -371,7 +411,43 @@ void MyShip::processBehavior() {
 	}
 
 	//ショット関連処理
-	MyShip::transactShot(this);
+	//MyShip::transactShot(this);
+	if (VB::isPushedDown(VB_SHOT1)) {
+		MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->obtain();
+		if (pShot != NULL) {
+			pShot->declarePlay();
+
+			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+			if (pExplo001 != NULL) {
+				pExplo001->setGeometry(this);
+				pExplo001->declarePlay();
+			}
+		}
+	}
+
+	if (VB::isBeingPressed(VB_SHOT2)) {
+		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+		MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
+		if (pLaser != NULL) {
+			pLaser->setRadicalActor(this);
+			pLaser->_dwFrame_switchedToPlay = _dwFrame;
+			pLaser->declarePlay();
+		}
+	}
+
+	//ショットボタン
+	if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+		MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->obtain();
+		if (pWave != NULL) {
+			pWave->declarePlay();
+
+			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+			if (pExplo001 != NULL) {
+				pExplo001->setGeometry(this);
+				pExplo001->declarePlay();
+			}
+		}
+	}
 
 
 	if (VB::isPushedDown(VB_SHOT3)) {
@@ -911,64 +987,25 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
-	if (VB::isPushedDown(VB_SHOT1)) {
-		MyShot001* pShot = (MyShot001*)GameGlobal::_pSceneCommon->_pMyShots001Rotation->obtain();
-		if (pShot != NULL) {
-			pShot->declarePlay();
-
-			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-			if (pExplo001 != NULL) {
-				pExplo001->setGeometry(prm_pActor);
-				pExplo001->declarePlay();
-			}
-		}
-	}
-
-	if (VB::isBeingPressed(VB_SHOT2)) {
-		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-		MyLaserChip* pLaser = (MyLaserChip*)GameGlobal::_pSceneCommon->_pMyLaserChipRotation->obtain();
-		if (pLaser != NULL) {
-			pLaser->setRadicalActor(prm_pActor);
-			pLaser->_dwFrame_switchedToPlay = prm_pActor->_dwFrame;
-			pLaser->declarePlay();
-		}
-	}
-
-	//ショットボタン
-	if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
-		MyWave001* pWave = (MyWave001*)GameGlobal::_pSceneCommon->_pMyWaves001Rotation->obtain();
-		if (pWave != NULL) {
-			pWave->declarePlay();
-
-			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
-			if (pExplo001 != NULL) {
-				pExplo001->setGeometry(prm_pActor);
-				pExplo001->declarePlay();
-			}
-		}
-	}
 
 
 }
 
 
 void MyShip::equipOption() {
-	orderActorFactory("AAA", MyOption, "Option", "ebi");
-	_state.eq_option++;
-	MyOption* pOption = (MyOption*)obtainActorFactory("AAA");
-	if (_pSubFirst != NULL) {
-		pOption->setRadicalActor((GgafDx9UntransformedActor*)getSubFirst()->getPrev());
-	} else {
-		pOption->setRadicalActor(this);
+
+	MyOption* pOption = (MyOption*)_pSubFirst;
+	for (int i = 0; i < _state.eq_option; i++) {
+		pOption = (MyOption*)(pOption -> getNext());
 	}
-	pOption->setGeometry(_X, _Y, _Z);
-	addSubLast(pOption);
-	//MyFactory::orderActor("OPOP", MyFactory::createFormationJuno001, NULL);
-	//_state.eq_option++;
-	//MyOption* pOption = createOption<MyOption>(0);
-	//MyOption* pOption = NEW MyOption(_state.eq_option*50, "cakeBerry");
-	//pOption->setGeometry(_X, _Y, _Z);
-	//addSubLast(pOption);
+	if (_state.eq_option == 0) {
+		pOption->setRadicalActor(this);
+	} else {
+		pOption->setRadicalActor((GgafDx9UntransformedActor*)pOption->getPrev());
+	}
+	_state.eq_option++;
+	pOption->declarePlay();
+
 }
 
 

@@ -5,6 +5,7 @@
 class MyLaserChip : public DefaultDynaMeshActor {
 public:
 
+	/** playó‘Ô‚É‚È‚Á‚½ƒtƒŒ[ƒ€(‚±‚ê‚Ì·‚ª1‚©‚Ç‚¤‚©‚Å˜A‘±‚©‚ğŒ©‚é) */
 	DWORD _dwFrame_switchedToPlay;
 
 	/**

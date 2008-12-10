@@ -10,39 +10,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 		_pMyShip->stopImmediately();
 	}
 
-	{ //MyShots001
-		_pMyShots001Rotation = NEW RotationActor("RotShot001");
-		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
-		MyShot001* pShot;
-		for (int i = 0; i < 50; i++) { //Ž©’eƒXƒgƒbƒN‚R‚OŒÂ
-			pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "moji2");
-			pShot->stopImmediately();
-			_pMyShots001Rotation->addSubLast(pShot);
-		}
-	}
 
-	{ //MyWaves001
-		_pMyWaves001Rotation = NEW RotationActor("RotWave001");
-		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
-		MyWave001* pWave;
-		for (int i = 0; i < 50; i++) { //Ž©’eƒXƒgƒbƒN‚R‚OŒÂ
-			pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "wave");
-			pWave->stopImmediately();
-			_pMyWaves001Rotation->addSubLast(pWave);
-		}
-	}
-
-
-	{ //MyLaser001
-		_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
-		getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
-		MyLaserChip* pChip;
-		for (int i = 0; i < 100; i++) { //ƒŒ[ƒU[ƒXƒgƒbƒN‚R‚OŒÂ
-			pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
-			pChip->stopImmediately();
-			_pMyLaserChipRotation->addSubLast(pChip);
-		}
-	}
 
 	{ //EnemyShot001
 		_pEnemyShots001Rotation = NEW RotationActor("TAMAS001");

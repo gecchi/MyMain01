@@ -1,7 +1,7 @@
 #ifndef MYOPTION_H_
 #define MYOPTION_H_
 
-class MyOption : public MyShip {
+class MyOption : public DefaultMeshActor {
 
 	class GeometryChain {
 	public:

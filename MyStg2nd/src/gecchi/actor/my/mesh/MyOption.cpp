@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-MyOption::MyOption(string prm_name,  string prm_model) : MyShip(prm_name, prm_model) {
+MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyOption";
 	GeometryChain* pFirst = NEW GeometryChain(GameGlobal::_pMyShip);
 	GeometryChain* pWork = pFirst;

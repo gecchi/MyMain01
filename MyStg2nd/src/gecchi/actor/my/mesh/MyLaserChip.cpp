@@ -97,7 +97,7 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		GameGlobal::_pSceneCommon->_pMyLaserChipRotation->release(this);
+		declareStop();
 	}
 }
 
@@ -209,7 +209,7 @@ void MyLaserChip::processDrawMain() {
 }
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	GameGlobal::_pSceneCommon->_pMyLaserChipRotation->release(this);
+	declareStop();
 }
 
 MyLaserChip::~MyLaserChip() {

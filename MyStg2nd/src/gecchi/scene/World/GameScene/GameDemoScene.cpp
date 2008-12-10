@@ -18,7 +18,7 @@ void GameDemoScene::processBehavior() {
 		_pFontPlate01->setString(100,100,"MYSTG2nd");
 		_TRACE_("GameDemoScene:STAGE1準備開始！");
 		getParentScene(Game)->_pGameMainScene->readyStage01();
-		GameGlobal::_pSceneCommon->_pMyShip->declarePlay();
+		GameGlobal::_pSceneCommon->_pMyShip->declarePlayAlone(); //下位にオプション等があるし
 		_TRACE_("GameDemoScene:OK稼動しますった！");
 	}
 

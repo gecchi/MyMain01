@@ -195,6 +195,15 @@ public:
 
 	State _state;
 
+
+
+	RotationActor* _pMyWaves001Rotation;
+	RotationActor* _pMyShots001Rotation;
+	RotationActor* _pMyLaserChipRotation;
+	RotationActor* _pEnemyShots001Rotation;
+	RotationActor* _pEffectExplosion001Rotation;
+
+
 	MyShip(string prm_name, string prm_model);
 
 	/**
