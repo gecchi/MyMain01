@@ -43,14 +43,30 @@ GgafHeadActor* GgafMainActor::getHeadActor() {
 		if (_pParent == NULL) {
 			throw_GgafCriticalException("GgafMainActor::getHeadActor 所属していないため、HeadActorがとれません！("<<getName()<<")");
 		} else {
-			_pHeadActor = ((GgafMainActor*)_pParent)->getHeadActor();
+			GgafMainActor* p = dynamic_cast<GgafMainActor*>(_pParent);
+			if (p) {
+				_pHeadActor = p->getHeadActor();
+			} else {
+				throw_GgafCriticalException("GgafMainActor::getHeadActor このツリーにはHeadActorがいません！("<<getName()<<")");
+			}
 		}
 	}
-
 	return _pHeadActor;
 }
 
 GgafLordActor* GgafMainActor::getLordActor() {
+	if (_pLordActor == NULL) {
+		if (_pParent == NULL) {
+			throw_GgafCriticalException("GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")");
+		} else {
+			GgafMainActor* p = dynamic_cast<GgafMainActor*>(_pParent);
+			if (p) {
+				_pLordActor = p->getLordActor();
+			} else {
+				throw_GgafCriticalException("GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")");
+			}
+		}
+	}
 	return _pLordActor;
 }
 

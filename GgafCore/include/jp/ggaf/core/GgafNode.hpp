@@ -131,16 +131,15 @@ public:
 	 * １つ上の親ノードを設定する。
 	 * @param	prm_pParent	親ノード
 	 */
-	void setParent(T* prm_pParent);
+	virtual void setParent(T* prm_pParent);
 
 	/**
 	 * 自ツリーノードを連結リストから切り離し、独立する。 .
 	 * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
 	 * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
 	 * @return	T* 自ノードのポインタ
-	 *
 	 */
-	T* tear();
+	virtual T* tear();
 
 	/**
 	 * 自ノードを、最終ノードへ移動する .
@@ -159,7 +158,7 @@ public:
 	 * -----------------------
 	 * </PRE>
 	 */
-	void moveLast();
+	virtual void moveLast();
 
 	/**
 	 * 自ノードを、先頭ノードへ移動する .
@@ -178,26 +177,26 @@ public:
 	 * -----------------------
 	 * </PRE>
 	 */
-	 void moveFirst();
+	virtual void moveFirst();
 
 
 	/**
 	 * 次のノード取得する。
 	 * @return	T*	次ノード
 	 */
-	T* getNext();
+	virtual T* getNext();
 
 	/**
 	 * 前のノード取得する。
 	 * @return	T*	前ノード
 	 */
-	T* getPrev();
+	virtual T* getPrev();
 
 	/**
 	 * １つ上の親ノード取得する。
 	 * @return	T*	親ノード
 	 */
-	T* getParent();
+	virtual T* getParent();
 
 	/**
 	 * 親ノードを全て検索し取得する。
@@ -205,7 +204,7 @@ public:
 	 * @param	prm_parent_name	親ノード名
 	 * @return	T*	親ノード
 	 */
-	T* getParent(string prm_parent_name);
+	virtual T* getParent(string prm_parent_name);
 
 	/**
 	 * 引数ノードを子ノードとして追加する .
@@ -227,7 +226,7 @@ public:
 	 *
 	 * @param	prm_pSub	インスタンス生成済みノードのポインタ
 	 */
-	void addSubLast(T* prm_pSub);
+	virtual void addSubLast(T* prm_pSub);
 
 	/**
 	 * 子ノードをノード名称を指定して取得する .
@@ -235,33 +234,33 @@ public:
 	 * @param	prm_sub_actor_name	子ノード名
 	 * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
 	 */
-	T* getSub(string prm_sub_actor_name);
+	virtual T* getSub(string prm_sub_actor_name);
 
 	/**
 	 * 子ノードのグループの先頭ノードを取得する .
 	 * 子ノードが存在しない場合はエラー。
 	 * @return	T*	子ノードの先頭ノード
 	 */
-	T* getSubFirst();
+	virtual T* getSubFirst();
 
 	/**
 	 * 子ノード存在チェック .
 	 * @param	prm_sub_actor_name	存在チェックする子ノード名
 	 * @return	bool true:存在する／false:存在しない
 	 */
-	bool hasSub(string prm_sub_actor_name);
+	virtual bool hasSub(string prm_sub_actor_name);
 
 	/**
 	 * 自ノードが先頭ノードか調べる .
 	 * @return	bool true:先頭ノード／false:先頭ノードではない
 	 */
-	bool isFirst();
+	virtual bool isFirst();
 
 	/**
 	 * 自ノードが末尾ノードか調べる .
 	 * @return	bool true:末尾ノード／false:末尾ノードではない
 	 */
-	bool isLast();
+	virtual bool isLast();
 
 };
 
@@ -466,7 +465,7 @@ bool GgafNode<T>::hasSub(string prm_sub_actor_name) {
 template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
 	if (prm_pSub->_pParent != NULL) {
-		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属("<<prm_pSub->_pParent->_name<<"に所属)しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
 	}
 	prm_pSub -> _pParent = (T*)this;
 	prm_pSub -> _isLast = true;

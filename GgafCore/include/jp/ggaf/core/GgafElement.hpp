@@ -255,11 +255,24 @@ public:
 	virtual GgafGod* askGod() = 0;
 
 	/**
+	 * 自ノードだけを次フレームから再生状態にする .
+	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
+	 */
+	void declarePlayAlone();
+
+	/**
 	 * 自ツリーノードを次フレームから再生状態にする .
 	 * 自身と自分より下位のノード全てに再生(declarePlay())が実行される。<BR>
 	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
 	 */
 	void declarePlay();
+
+	/**
+	 * 自ノードだけをを即座に再生状態にする .
+	 * <B>[補足]</B><BR>
+	 * processFinal()以外に実装や、this 以外に実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 */
+	void playAloneImmediately();
 
 	/**
 	 * 自ツリーノードを即座に再生状態にする .
@@ -276,10 +289,22 @@ public:
 	void playAfter(DWORD prm_dwFrameOffset);
 
 	/**
+	 * 自ノードだけを次フレームから停止状態にする .
+	 */
+	void declareStopAlone();
+
+	/**
 	 * 自ツリーノードを次フレームから停止状態にする .
 	 * 自身と自分より下位のノード全てに停止(declarePlay())が実行される。<BR>
 	 */
 	void declareStop();
+
+	/**
+	 * 自ノードだけを即座に停止状態にする .
+	 * <B>[補足]</B><BR>
+	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 */
+	void stopAloneImmediately();
 
 	/**
 	 * 自ツリーノードを即座に停止状態にする .
@@ -747,6 +772,14 @@ void GgafElement<T>::finally() {
 
 }
 
+template<class T>
+void GgafElement<T>::declarePlayAlone() {
+	if (_isAlive) {
+		_willPlayNextFrame = true;
+		_willPauseNextFrame = false;
+		_willBlindNextFrame = false;
+	}
+}
 
 template<class T>
 void GgafElement<T>::declarePlay() {
@@ -765,6 +798,24 @@ void GgafElement<T>::declarePlay() {
 				}
 			}
 		}
+	}
+}
+
+
+template<class T>
+void GgafElement<T>::playAloneImmediately() {
+	if (_isAlive) {
+		if (_isPlaying == false) {
+			_switchedToPlay = true;
+		} else {
+			_switchedToPlay = false;
+		}
+		_isPlaying = true;
+		_wasPaused = false;
+		_wasBlinded = false;
+		_willPlayNextFrame = true;
+		_willPauseNextFrame = false;
+		_willBlindNextFrame = false;
 	}
 }
 
@@ -796,12 +847,19 @@ void GgafElement<T>::playImmediately() {
 	}
 }
 
+
 template<class T>
 void GgafElement<T>::playAfter(DWORD prm_dwFrameOffset) {
 	_willPlayAfterFrame = true;
 	_dwGodFremeWhenPlay = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
+template<class T>
+void GgafElement<T>::declareStopAlone() {
+	if (_isAlive) {
+		_willPlayNextFrame = false;
+	}
+}
 
 template<class T>
 void GgafElement<T>::declareStop() {
@@ -828,6 +886,19 @@ void GgafElement<T>::stopAfter(DWORD prm_dwFrameOffset) {
 }
 
 template<class T>
+void GgafElement<T>::stopAloneImmediately() {
+	if (_isAlive) {
+		if (_isPlaying) {
+			_switchedToStop = true;
+		} else {
+			_switchedToStop = false;
+		}
+		_isPlaying = false;
+		_willPlayNextFrame = false;
+	}
+}
+
+template<class T>
 void GgafElement<T>::stopImmediately() {
 	if (_isAlive) {
 		if (_isPlaying) {
@@ -850,7 +921,6 @@ void GgafElement<T>::stopImmediately() {
 		}
 	}
 }
-
 
 template<class T>
 void GgafElement<T>::declarePause() {
