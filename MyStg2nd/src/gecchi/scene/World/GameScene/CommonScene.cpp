@@ -7,7 +7,7 @@ CommonScene::CommonScene(string prm_name) : DefaultScene(prm_name) {
 	{ //MyShip
 		_pMyShip = NEW MyShip("MYSHIP", "ebi");
 		getLordActor()->accept(KIND_MY, _pMyShip);
-		_pMyShip->stopImmediately();
+		_pMyShip->stopAloneImmediately(); //配下に仮登録のローテーションとかあるしAlone
 	}
 
 

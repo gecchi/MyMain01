@@ -122,7 +122,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	}
 
 	for (int i = 0; i < 10; i++) { //レーザーストック
-		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "tamago");
+		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "ebi");
 		pOption->stopImmediately();
 		addSubLast(pOption);
 	}
