@@ -3,7 +3,10 @@
 
 /**
  * ローテーションアクタークラス .
- * 自機のショットなど、画面上にキャラクタ数MAX制限付で表示したい場合等に有効。
+ * 子に予めアクターを登録しておき（ローテーションメンバーと呼ぶ）、空いているメンバーを取得する。<BR>
+ * 取得したアクターを、ローテーション戻す（再度使いまわしをしたい）たい時は declareStop() して下さい。本クラスが自動的に拾います。<BR>
+ * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
+ * また連続obtain()の場合、次のobtain()のアクターは必ず隣同士となっています。<BR>
  */
 class RotationActor : public GgafDummyActor {
 
@@ -12,11 +15,36 @@ public:
 
  	RotationActor(string prm_name);
 
- 	GgafActor* obtain() {
+	/**
+	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
+	 * ローテーションの一番先頭に移動させます。<BR>
+	 * ＜OverRide です＞<BR>
+	 */
+	virtual void processBehavior() {
+		GgafMainActor* pActor = getSubFirst();
+		while(true) {
+			if (pActor->switchedToStop()) {
+				pActor->declareMoveFirst();
+			}
+			if (pActor->isLast()) {
+				break;
+			} else {
+				pActor = pActor -> getNext();
+			}
+		}
+	};
+
+	/**
+	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）を取得する。<BR>
+	 * 暇なローテーションメンバーが居ない場合 NULL が返ります。<BR>
+	 * 取得できる場合、ポインタを返すと共に、そのアクターはローテーションの一番後ろに移動されます。<BR>
+	 * @return 暇そうなローテーションメンバーアクター
+	 */
+	virtual GgafMainActor* obtain() {
  		if (_pSubFirst == NULL) {
  			throw_GgafCriticalException("RotationActor::getFreeOne() 子がありません");
  		}
- 		GgafActor* pActor = getSubFirst();
+ 		GgafMainActor* pActor = getSubFirst();
  		do {
  			if(pActor->isPlaying()) {
  				pActor = NULL;
@@ -35,28 +63,6 @@ public:
  		} while(true);
  		return pActor;
  	};
-
- 	void release(GgafActor* prm_pActorSub) {
- 		if (_pSubFirst == NULL) {
-			throw_GgafCriticalException("RotationActor::release() 子がありません");
- 		}
- 		GgafActor* pActor = getSubFirst();
- 		do { //検索
- 			if (pActor == prm_pActorSub) {
- 				pActor->declareStop();
- 				pActor->declareMoveFirst();
- 				break;
- 			} else {
-				if (pActor->isLast()) {
-					pActor = NULL;
-					throw_GgafCriticalException("RotationActor::release() 引数の "<<prm_pActorSub->getClassName()<<"["<<prm_pActorSub->getName()<<"]は居ません");
-		 		} else {
-					pActor = pActor->getNext();
-				}
- 			}
- 		} while(true);
- 	};
-
 
  	virtual ~RotationActor() {
  	};
