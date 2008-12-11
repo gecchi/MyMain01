@@ -78,14 +78,19 @@ public:
 	 * 種別とは、内部で生成される GgafHeadActor名 になる。<BR>
 	 * GgafHeadActor は初回種別登録時だけ生成される。２回目以降の同一種別登録は、<BR>
 	 * 既存の GgafHeadActor が使用される。<BR>
-	 * 本関数は内部的には prm_pActor を GgafHeadActor の子アクターとしているだけである。<BR>
+	 * 本関数はの部的処理は prm_pActor を GgafHeadActor の子アクターとしているだけである。<BR>
      * @param   prm_kind    種別名（＝GgafHeadActor名）
      * @param   prm_pMainActor   登録するアクター
 	 */
     void accept(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
-
-
+	/**
+	 * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
+     * 種別は0(無し)で登録される
+	 * 本関数はの部的処理は prm_pActor を GgafHeadActor の子アクターとしているだけである。<BR>
+     * @param   prm_pMainActor   登録するアクター
+	 */
+    void accept(GgafMainActor* prm_pMainActor);
 
 
 	bool hasSubHeadActor(actorkind prm_kind);

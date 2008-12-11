@@ -24,6 +24,9 @@ void GgafLordActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     prm_pMainActor -> setScenePlatform(_pScene_Platform);
 }
 
+void GgafLordActor::accept(GgafMainActor* prm_pMainActor) {
+	accept(0, prm_pMainActor);
+}
 
 bool GgafLordActor::hasSubHeadActor(actorkind prm_kind) {
 	if (_pSubFirst == NULL) {
