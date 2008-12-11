@@ -32,7 +32,9 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
+//3D空間の座標単位１に対してのPG内での座標単位の比率（(LEN_UNIT*PX_UNIT)で割ると3D空間の座標単位１になる）
 #define LEN_UNIT (1000)
+//3D空間の座標単位１に対しての画面px数（画面高さなどを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
 
@@ -75,6 +77,8 @@ class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
 class GgafDx9TransformedActor;
+
+class GgafDx9CameraActor;
 class GgafDx9PlateActor;
 class GgafDx9Model;
 class GgafDx9MeshModel;
@@ -121,6 +125,7 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SquareActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9TransformedActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9CameraActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PlateActor.h"
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9MeshModel.h"

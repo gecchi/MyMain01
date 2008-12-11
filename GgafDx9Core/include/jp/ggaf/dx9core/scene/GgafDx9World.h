@@ -9,6 +9,9 @@ class GgafDx9World : public GgafWorld
 
 public:
 
+	/** カメラ */
+	static GgafDx9CameraActor* _pCamera;
+
 	/** アクター順序レンダリングのための遠さのレベルグループ */
     static GgafActor* _apActorDrawDepthLevel_first[];
 	/** アクター順序レンダリングのための遠さのレベルグループ別最終アクター */

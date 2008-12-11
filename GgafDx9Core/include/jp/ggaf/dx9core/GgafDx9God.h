@@ -87,7 +87,7 @@ public:
 //	 */
 //	virtual GgafDx9World* createDx9World() = 0;
 
-	void setCam(D3DXVECTOR3* prm_pEye, D3DXVECTOR3* prm_pAt, D3DXVECTOR3* prm_pUp);
+	static void updateCam();
 
 	/**
 	 * デストラクタ<BR>

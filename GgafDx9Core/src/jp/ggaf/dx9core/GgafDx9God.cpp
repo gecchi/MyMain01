@@ -327,7 +327,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
 	// VIEW変換（カメラ位置）設定
-	_dCamZ = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2)/tan(PI/9);
+	_dCamZ = -1.0*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/PX_UNIT/2.0)/tan(PI/9);
 	_dCamZ_ini = _dCamZ;
 	_iPxDep = abs(_dCamZ_ini * PX_UNIT*2);
 
@@ -340,7 +340,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	_pVecCamFromPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_dCamZ); //位置
 	_pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
 	_pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
-	setCam(_pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+	updateCam();
 
 	// 射影変換（３Ｄ→平面）
 	D3DXMATRIX matrixProjrction;   // 射影変換行列
@@ -375,10 +375,7 @@ HRESULT GgafDx9God::initDx9Device() {
 	return S_OK;
 }
 
-void GgafDx9God::setCam(D3DXVECTOR3* prm_pEye, D3DXVECTOR3* prm_pAt, D3DXVECTOR3* prm_pUp) {
-	_pVecCamFromPoint = prm_pEye; //位置
-	_pVecCamLookatPoint = prm_pAt; //注視する方向
-	_pVecCamUp = prm_pUp; //上方向
+void GgafDx9God::updateCam() {
 	D3DXMatrixLookAtLH(
 				&_vMatrixView,
 				_pVecCamFromPoint,
@@ -403,7 +400,7 @@ void GgafDx9God::makeWorldMaterialize() {
 	TRACE("GgafDx9God::materialize() start");
 
 	//カメラ設定
-	setCam(_pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+	updateCam();
 	HRESULT hr;
 	if (_deviceLostFlg) {
 		//デバイスロスと復帰を試みる

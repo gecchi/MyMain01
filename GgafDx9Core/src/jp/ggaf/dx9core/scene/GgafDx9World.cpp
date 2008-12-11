@@ -1,6 +1,8 @@
 #include "stdafx.h"
 GgafActor*  GgafDx9World::_apActorDrawDepthLevel_first[MAX_DRAW_DEPTH_LEVEL];
 GgafActor*  GgafDx9World::_apActorDrawDepthLevel_last[MAX_DRAW_DEPTH_LEVEL];
+GgafDx9CameraActor* GgafDx9World::_pCamera = NULL;
+
 
 GgafDx9World::GgafDx9World(string prm_name) : GgafWorld(prm_name) {
 	_class_name = "GgafDx9World";
@@ -8,6 +10,9 @@ GgafDx9World::GgafDx9World(string prm_name) : GgafWorld(prm_name) {
 		_apActorDrawDepthLevel_first[i] = NULL;
 		_apActorDrawDepthLevel_last[i] = NULL;
 	}
+
+	_pCamera = NEW GgafDx9CameraActor("CAMERA");
+	getLordActor()->accept(_pCamera);
 
 }
 void GgafDx9World::drawMain() {
