@@ -13,8 +13,9 @@
 
 int main() {
 
-
-	cout << ABCDEF << endl;
+	double _dCamZ = -1.0*((768)/(10)/2.0)/tan(PI/9);
+	cout << (tan(PI/9)) << endl;
+	cout << _dCamZ << endl;
 //	::timeBeginPeriod(1);
 //
 //	GgafDx9SphereRadiusVectors* srvMy = new GgafDx9SphereRadiusVectors();
