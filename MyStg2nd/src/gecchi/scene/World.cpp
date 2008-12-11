@@ -10,5 +10,12 @@ World::World(string prm_name) : DefaultWorld(prm_name) {
 #endif
 }
 
+void World::processDrawPrior() {
+	GgafDx9World::_pCamera->setGaze(GameGlobal::_pMyShip);
+}
+
+
+
+
 World::~World() {
 }

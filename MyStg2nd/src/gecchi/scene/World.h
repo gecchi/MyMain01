@@ -29,7 +29,11 @@ public:
 	 */
 	void processJudgement() {};
 
-	void processDrawPrior() {};
+	/**
+	 * ƒJƒƒ‰‚ğ‘€ì
+	 * ƒOverRide ‚Å‚·„
+	 */
+	void processDrawPrior();
 
 	virtual ~World();
 };
