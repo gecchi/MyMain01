@@ -26,7 +26,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 }
 
 void EnemyCeres::initialize() {
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 //	_pGeoMover->setMoveVelocity(1000);
 //	_pGeoMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
 //
@@ -237,7 +237,7 @@ void EnemyCeres::processJudgement() {
 
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 	GgafDx9UntransformedActor* pActor_Opponent = (GgafDx9UntransformedActor*)prm_pActor_Opponent;
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 
 	if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
 		GameGlobal::_dwScore += _pChecker->_iScorePoint;

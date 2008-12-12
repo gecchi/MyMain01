@@ -14,7 +14,7 @@ void MyLaser001::initialize() {
 
 	_pActor_Radical = NULL;
 
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 }
 
 
@@ -22,7 +22,7 @@ void MyLaser001::initialize() {
 void MyLaser001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»Žžˆ—
-		setBumpableOnlySelf(true);
+		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
 		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
 		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
@@ -75,7 +75,7 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 void MyLaser001::onStop() {
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 }
 
 MyLaser001::~MyLaser001() {

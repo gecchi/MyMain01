@@ -7,7 +7,7 @@ EnemyVesta::EnemyVesta(string prm_name, string prm_model) : DefaultMeshEnemyActo
 }
 
 void EnemyVesta::initialize() {
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 	_X = _X_OffScreenRight+100;
 	_Y = 0;
 	_Z = 0;
@@ -46,7 +46,7 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 	declareFinishLife();
 }
 

@@ -34,7 +34,7 @@ void MyWave001::initialize() {
 	_SY = 10000;
 	//setAlpha(0.2);
 
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 	declareStop();
 
 }
@@ -43,7 +43,7 @@ void MyWave001::initialize() {
 void MyWave001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»‹¤’Êˆ—
-		setBumpableOnlySelf(true);
+		setBumpableAlone(true);
 		setGeometry(GameGlobal::_pMyShip);
 		_pGeoMover -> setAxisRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z]);
 		_pGeoMover -> setAxisRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]);
@@ -87,7 +87,7 @@ void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 void MyWave001::onStop() {
 	//Á¸ˆ—
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 	declareMoveFirst();
 }
 

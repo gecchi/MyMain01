@@ -131,7 +131,6 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 }
 
 void MyShip::initialize() {
-	_TRACE_("MyShip::initialize!!!!!!!!!!!!!!!!!!!!!!");
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation->tear());
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->tear());
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());

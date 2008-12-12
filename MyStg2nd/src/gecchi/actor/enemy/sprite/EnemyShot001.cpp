@@ -10,7 +10,7 @@ void EnemyShot001::initialize() {
 	_pGeoMover -> setMoveVelocity(3000);
 	_pChecker -> useHitArea(1);
 	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 }
 
 
@@ -18,7 +18,7 @@ void EnemyShot001::initialize() {
 void EnemyShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//出現時
-		setBumpableOnlySelf(true);
+		setBumpableAlone(true);
 	}
 	nextAnimationFrame();
 	//座標に反映
@@ -49,7 +49,7 @@ bool EnemyShot001::isOffScreen() {
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//declareFinishLife();
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 	declareStop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {

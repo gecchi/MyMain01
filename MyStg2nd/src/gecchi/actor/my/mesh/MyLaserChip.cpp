@@ -64,14 +64,14 @@ void MyLaserChip::initialize() {
 	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
 	_pActor_Radical = NULL;
 
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 	//_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
 }
 
 void MyLaserChip::processBehavior() {
 	if (switchedToPlay()) {
 		//出現時処理
-		setBumpableOnlySelf(true);
+		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
 		_pGeoMover -> setMoveAngleRzRy(
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
@@ -101,22 +101,20 @@ void MyLaserChip::processJudgement() {
 	}
 }
 
-/**
- * ＜OverRide です＞
- */
 void MyLaserChip::processDrawMain() {
 	//通常時
-	int index;
-	D3DVECTOR* pV;
-	BYTE* pByteVertexSrc;
+	static int index;
+	static D3DVECTOR* pV;
+	static BYTE* pByteVertexSrc;
+	static float fOffsetX, fOffsetY, fOffsetZ;
 
 	if (getPrev()->isPlaying() && _dwFrame_switchedToPlay-1 == getPrev()->_dwFrame_switchedToPlay) {
-		//自分の正四面体頂点ABCDを、一つ前（一つ先）直近のChipの正四面体頂点EFGHに重ねる。
+		//一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
 		MyLaserChip* pPrevChip = getPrev();
-		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0);
-		float fOffsetX = (pPrevChip->_X - _X ) / (float)(LEN_UNIT);
-		float fOffsetY = (pPrevChip->_Y - _Y ) / (float)(LEN_UNIT);
-		float fOffsetZ = (pPrevChip->_Z - _Z ) / (float)(LEN_UNIT);
+		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
+		fOffsetX = (pPrevChip->_X - _X ) / (float)(LEN_UNIT);
+		fOffsetY = (pPrevChip->_Y - _Y ) / (float)(LEN_UNIT);
+		fOffsetZ = (pPrevChip->_Z - _Z ) / (float)(LEN_UNIT);
 
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
 			index = _aVertexIndexTetrahedron_A[i];
@@ -162,7 +160,7 @@ void MyLaserChip::processDrawMain() {
 
 	} else {
 
-		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc,0);
+		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
 			index = _aVertexIndexTetrahedron_A[i];
 			if (_dwVertexNum < index) {

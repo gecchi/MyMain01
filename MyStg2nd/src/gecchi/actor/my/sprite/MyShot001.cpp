@@ -34,7 +34,7 @@ void MyShot001::initialize() {
 	_SY = 10000;
 	setAlpha(0.2);
 
-	setBumpableOnlySelf(true);
+	setBumpableAlone(true);
 	declareStop();
 
 }
@@ -43,7 +43,7 @@ void MyShot001::initialize() {
 void MyShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»‹¤’Êˆ—
-		setBumpableOnlySelf(true);
+		setBumpableAlone(true);
 		_X = GameGlobal::_pMyShip->_X;
 		_Y = GameGlobal::_pMyShip->_Y;
 		_Z = GameGlobal::_pMyShip->_Z;
@@ -80,7 +80,7 @@ void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 void MyShot001::onStop() {
 	//Á¸ˆ—
-	setBumpableOnlySelf(false);
+	setBumpableAlone(false);
 	declareMoveFirst();
 }
 
