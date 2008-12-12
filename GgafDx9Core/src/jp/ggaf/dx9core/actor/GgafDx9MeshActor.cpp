@@ -6,9 +6,6 @@ GgafDx9MeshActor::GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, G
 	_fAlpha = 1.0f;
 }
 
-
-
-
 void GgafDx9MeshActor::processDrawMain() {
 	GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
 	_pMeshModel->draw(this);

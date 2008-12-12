@@ -68,7 +68,7 @@ void GgafDx9MeshModel::restore() {
 void GgafDx9MeshModel::onDeviceLost() {
 	_TRACE_("GgafDx9MeshModel::onDeviceLost() " <<  _model_name << " start");
 	if (_pID3DXMesh == NULL) {
-		throw_GgafCriticalException("[GgafDx9MeshModel::onDeviceLost] Error! オブジェクトになっていないため remove できません！");
+		throw_GgafCriticalException("[GgafDx9MeshModel::onDeviceLost] Error! オブジェクトになっていないため Release できません！");
 	}
 	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
@@ -90,7 +90,7 @@ void GgafDx9MeshModel::onDeviceLost() {
 GgafDx9MeshModel::~GgafDx9MeshModel() {
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " start");
 	if (_pID3DXMesh == NULL) {
-		throw_GgafCriticalException("[GgafDx9MeshModel::remove] Error! オブジェクトになっていないため remove できません！");
+		throw_GgafCriticalException("[GgafDx9MeshModel::remove] Error! オブジェクトになっていないため Release できません！");
 	}
 	LPDIRECT3DTEXTURE9 pTex;
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {

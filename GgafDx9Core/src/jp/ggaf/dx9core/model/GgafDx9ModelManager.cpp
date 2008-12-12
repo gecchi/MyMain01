@@ -149,7 +149,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//Xファイルのファイルロード
 	hr = D3DXLoadMeshFromX(
 			xfile_name.c_str(),        //[in]  LPCTSTR pFilename
-			prm_pMeshModel->_dwOptions,        //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
+			prm_pMeshModel->_dwOptions,//[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
 			GgafDx9God::_pID3DDevice9, //[in]  LPDIRECT3DDEVICE9 pDevice
 			NULL,                      //[out] LPD3DXBUFFER* ppAdjacency
 			&pID3DXBuffer,             //[out] LPD3DXBUFFER* ppMaterials
@@ -169,7 +169,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	// やっていることメモ
 	// GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
 	//（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
-	// だが解放すると D3DXMATERIAL構造体配列もどうやら消えるらしい（すぐには消えない、だいぶここでハマる；）。
+	// だが解放すると D3DXMATERIAL構造体配列もどうやら消えるらしい（すぐには消えない？、ここでハマる；）。
 	// そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保持することにしましょ～、あ～そ～しましょう。
 	paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
@@ -178,7 +178,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 	//Diffuse反射をAmbient反射にコピーする
 	//理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-	//xファイル（MatD3D）にはDiffuse反射値しか設定されていないみたいである、そこでDiffuse反射の値で
+	//xファイル（MatD3D）にはDiffuse反射値しか設定されてい、そこでDiffuse反射の値で
 	//Ambient反射値を代用することにする。
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
@@ -193,7 +193,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 			hr = D3DXCreateTextureFromFileEx(
 					GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
 					texture_filename.c_str(),    // [in] LPCTSTR pSrcFile,
-					D3DX_DEFAULT,                // [in]  UINT Width,
+					D3DX_DEFAULT,                // [in] UINT Width,
 					D3DX_DEFAULT,                // [in] UINT Height,
 					D3DX_DEFAULT,                // [in] UINT MipLevels,
 					0,                           // [in] DWORD Usage,
@@ -324,7 +324,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	LPDIRECT3DTEXTURE9 pID3DTexture9;
 	hr = D3DXCreateTextureFromFileEx(
 			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
-			texture_filename.c_str(),       // [in] LPCTSTR pSrcFile,
+			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
 			D3DX_DEFAULT,              // [in] UINT Width,
 			D3DX_DEFAULT,              // [in] UINT Height,
 			D3DX_DEFAULT,              // [in] UINT MipLevels,
@@ -618,8 +618,8 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	LPDIRECT3DTEXTURE9 pID3DTexture9;
 	hr = D3DXCreateTextureFromFileEx(
 			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
-			texture_filename.c_str(),       // [in] LPCTSTR pSrcFile,
-			D3DX_DEFAULT,              // [in]  UINT Width,
+			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
+			D3DX_DEFAULT,              // [in] UINT Width,
 			D3DX_DEFAULT,              // [in] UINT Height,
 			D3DX_DEFAULT,              // [in] UINT MipLevels,
 			0,                         // [in] DWORD Usage,

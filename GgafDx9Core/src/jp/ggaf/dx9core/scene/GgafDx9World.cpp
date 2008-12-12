@@ -17,8 +17,8 @@ GgafDx9World::GgafDx9World(string prm_name) : GgafWorld(prm_name) {
 }
 void GgafDx9World::drawMain() {
 	//‡”Ô‚ÉƒŒƒ“ƒ_‚ª‚ ‚ê‚Î‚»‚ê‚ðæ‚És‚¤
-	GgafActor* pActor;
-	GgafActor* ptmp;
+	static GgafActor* pActor;
+	static GgafActor* ptmp;
 	for (int i = MAX_DRAW_DEPTH_LEVEL-1; i >= 0; i--) {
 		pActor = _apActorDrawDepthLevel_first[i];
 		while(true) {
@@ -26,6 +26,7 @@ void GgafDx9World::drawMain() {
 				break;
 			}
 			pActor -> processDrawMain();
+			pActor -> _wasExecuted_processDrawMain = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
 			ptmp = pActor;
 			pActor = pActor -> _pNext_TheSameDrawDepthLevel;
 			ptmp -> _pNext_TheSameDrawDepthLevel = NULL;

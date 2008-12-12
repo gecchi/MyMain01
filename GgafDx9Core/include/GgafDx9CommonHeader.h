@@ -32,7 +32,7 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
-//3D空間の座標単位１に対してのPG内での座標単位の比率（(LEN_UNIT*PX_UNIT)で割ると3D空間の座標単位１になる）
+//3D空間の座標単位１に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間の座標単位１になる）
 #define LEN_UNIT (1000)
 //3D空間の座標単位１に対しての画面px数（画面高さなどを、PX_UNITで割ると3D空間の座標単位１になる）
 #define PX_UNIT (10)
