@@ -35,6 +35,7 @@
 #ifdef OREDEBUG
 	#include "DetectMemoryLeaks.h"
 	#define NEW new(__FILE__, __LINE__ )
+	//#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
 	//#define TRACE(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
 	#define TRACE(X)
@@ -61,9 +62,9 @@
 #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
 #define DELETEARR_POSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
 #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-#define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< #POINTER << "の解放を無視しましたが、本来NULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
-#define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< #POINTER << "の解放を無視しましたが、本来NULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
-#define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< #POINTER << "の解放を無視しましたが、本来NULLであるべきでは無い。要調査"; GgafLogger::write(ss.str());  (POINTER)=NULL; }  }
+#define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << " の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
+#define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
+#define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str());  (POINTER)=NULL; }  }
 
 
 
