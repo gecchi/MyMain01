@@ -301,6 +301,16 @@ void GgafDx9GeometryMover::setAxisRotAngle(int prm_iAxis, angle prm_angAxisRot) 
 	_angAxisRot[prm_iAxis] = simplifyAngle(prm_angAxisRot);
 }
 
+void GgafDx9GeometryMover::setAxisRotAngle(int prm_tX, int prm_tY, int prm_tZ) {
+	GgafDx9Util::getRotAngleZY(
+			prm_tX - _pActor->_X,
+			prm_tY - _pActor->_Y,
+			prm_tZ - _pActor->_Z,
+			_angAxisRot[AXIS_Z],
+			_angAxisRot[AXIS_Y]
+		);
+}
+
 void GgafDx9GeometryMover::addAxisRotAngle(int prm_iAxis, angle prm_angDistance_AxisRotAngle) {
 	angle angOffsetrot_AxisRotAngle = prm_angDistance_AxisRotAngle;
 	if (_angBottomVelocity_AxisRotAngle[prm_iAxis] > prm_angDistance_AxisRotAngle) {
@@ -310,6 +320,10 @@ void GgafDx9GeometryMover::addAxisRotAngle(int prm_iAxis, angle prm_angDistance_
 	}
 	setAxisRotAngle(prm_iAxis, _angAxisRot[prm_iAxis] + angOffsetrot_AxisRotAngle);
 }
+
+
+
+
 
 void GgafDx9GeometryMover::setAxisRotAngleVelocity(int prm_iAxis, angle prm_angVelocity_AxisRotAngle) {
 	if (prm_angVelocity_AxisRotAngle > _angTopAngVelocity_AxisRotAngle[prm_iAxis]) {
@@ -783,14 +797,14 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
 void GgafDx9GeometryMover::setTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
 	angle angRz_Target;
 	angle angRy_Target;
-	double d;
+
 	GgafDx9Util::getRotAngleZY(
 			prm_tX - _pActor->_X,
 			prm_tY - _pActor->_Y,
 			prm_tZ - _pActor->_Z,
-			d,
-			d,
-			d,
+			_dummy1,
+			_dummy2,
+			_dummy3,
 			angRz_Target,
 			angRy_Target
 		);

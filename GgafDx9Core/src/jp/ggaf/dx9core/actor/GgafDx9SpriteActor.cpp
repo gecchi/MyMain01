@@ -13,41 +13,22 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_n
 	_iCounter_AnimationFrame     = 0;
 	_oscillateAnimationOrderFlg = true;
 	_fAlpha = 1.0f;
+	_isBillboarding = false;
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
-	//WORLD変換
-	//単位行列→Z軸回転→平行移動　の変換行列を作成
-	// |cosZ  , sinZ , 0  , 0  |
-	// |-sinZ , cosZ , 0  , 0  |
-	// |0     , 0    , 1  , 0  |
-	// |dx    , dy	 , dz , 1  |
-	static D3DXMATRIX matrixTransWorld;  //WORLD変換行列
-	D3DXMatrixIdentity(&matrixTransWorld); //単位行列へ
-	s_ang s_RZ = _RZ / ANGLE_RATE;
-
-	//float fRateScale = (LEN_UNIT*PX_UNIT);
-	matrixTransWorld._11 = GgafDx9Util::COS[s_RZ];
-	matrixTransWorld._12 = GgafDx9Util::SIN[s_RZ];
-	matrixTransWorld._13 = 0.0;
-	matrixTransWorld._14 = 0.0;
-
-	matrixTransWorld._21 = (float)(-1.0*GgafDx9Util::SIN[s_RZ]);
-	matrixTransWorld._22 = GgafDx9Util::COS[s_RZ];
-	matrixTransWorld._23 = 0.0;
-	matrixTransWorld._24 = 0.0;
-
-	matrixTransWorld._31 = 0.0;
-	matrixTransWorld._32 = 0.0;
-	matrixTransWorld._33 = 1.0;
-	matrixTransWorld._34 = 0.0;
-
-	matrixTransWorld._41 = (float)(1.0*_X/LEN_UNIT/PX_UNIT);
-	matrixTransWorld._42 = (float)(1.0*_Y/LEN_UNIT/PX_UNIT);
-	matrixTransWorld._43 = (float)(1.0*_Z/LEN_UNIT/PX_UNIT);
-	matrixTransWorld._44 = 1;
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matrixTransWorld);
-
+//	if (_isBillboarding) {
+//		_pGeoMover->setAxisRotAngle(
+//			GgafDx9World::_pCamera->_X,
+//			GgafDx9World::_pCamera->_Y,
+//			GgafDx9World::_pCamera->_Z
+//		);
+//	} else {
+//
+//
+//	}
+//
+	GgafDx9UntransformedActor::setWorldTransformRzMv(this);
 	_pSpriteModel->draw(this);
 }
 

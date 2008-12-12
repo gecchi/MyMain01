@@ -39,6 +39,8 @@ public:
 	/** OSCILLATE_LOOP用の現在のアニメ方向 */
 	bool _oscillateAnimationOrderFlg;
 
+	/** ビルボード要否 */
+	bool _isBillboarding;
 
 	GgafDx9SpriteActor(string prm_name, string prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
@@ -50,7 +52,8 @@ public:
 	virtual ~GgafDx9SpriteActor();		//デストラクタ
 
 	/**
-	 * アニメーションを次のコマへ進める
+	 * アニメーションを次のコマへ進める .
+	 * アニメーションを行いたい場合メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
 	 */
 	void nextAnimationFrame();
 
@@ -75,15 +78,37 @@ public:
 	 */
 	void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval);
 
-
+	/**
+	 * 半透明度合いを設定 .
+	 * @param prm_fAlpha<BR>
+	 */
 	void setAlpha(float prm_fAlpha) {
 		_fAlpha = prm_fAlpha;
 	}
 
+	/**
+	 * 現在の半透明度合いを取得 .
+	 * @return マテリアルα反射値<BR>
+	 */
 	float getAlpha() {
 		return _fAlpha;
 	}
 
+	/**
+	 * ビルボード有効 .
+	 * （デフォルトは無効です）<BR>
+	 */
+	void enableBillboarding() {
+		_isBillboarding = true;
+	}
+
+	/**
+	 * ビルボード無効 .
+	 * （デフォルトは無効です）<BR>
+	 */
+	void disableBillboarding() {
+		_isBillboarding = false;
+	}
 };
 
 

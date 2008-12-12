@@ -21,6 +21,7 @@
 
 
 class GgafDx9GeometryMover {
+	double _dummy1, _dummy2, _dummy3;
 
 public:
 	/** 対象アクター */
@@ -66,15 +67,15 @@ public:
 	 */
 	void setAxisRotAngle(int prm_iAxis, angle prm_angAxisRot);
 
+
 	/**
-	 * Actorの軸の回転方角値をを現在XY座標からの対象XY座標で設定。<BR>
-	 * 今の所Z軸指定ぐらいしか用途が思い浮かびません。<BR>
-	 *
-	 * @param	prm_iAxis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-	 * @param	prm_tX	x XY座標
-	 * @param	prm_tY	y XY座標
+	 * Actorの軸の回転方角値を対象座標に向ける。<BR>
+	 * 引数の座標をに向くようにZ軸Y軸（Rz と Ry）の回転値を設定します。
+	 * @param prm_tX 対象X座標
+	 * @param prm_tY 対象Y座標
+	 * @param prm_tZ 対象Z座標
 	 */
-	void setAxisRotAngle(int prm_iAxis, int prm_tX, int prm_tY);
+	void setAxisRotAngle(int prm_tX, int prm_tY, int prm_tZ);
 
 
 	/**
