@@ -60,8 +60,9 @@ void MyLaserChip::initialize() {
 	}
 
 	_pGeoMover -> setMoveVelocity(20*1000);
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
+	_pChecker -> useHitArea(2);
+	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000, 10000);
+	_pChecker -> setHitArea(1, -10000, -10000, -10000, 10000, 10000, 10000);
 	_pActor_Radical = NULL;
 
 	setBumpableAlone(false);
@@ -107,9 +108,9 @@ void MyLaserChip::processDrawMain() {
 	static D3DVECTOR* pV;
 	static BYTE* pByteVertexSrc;
 	static float fOffsetX, fOffsetY, fOffsetZ;
-
+	static int centerX, centerY, centerZ;
 	if (getPrev()->isPlaying() && _dwFrame_switchedToPlay-1 == getPrev()->_dwFrame_switchedToPlay) {
-		//一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
+		//連続しているので、一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
 		MyLaserChip* pPrevChip = getPrev();
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
 		fOffsetX = (pPrevChip->_X - _X ) / (float)(LEN_UNIT);
@@ -158,8 +159,29 @@ void MyLaserChip::processDrawMain() {
 		}
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
 
-	} else {
+		centerX = (pPrevChip->_X - _X) / 2;
+		centerY = (pPrevChip->_Y - _Y) / 2;
+		centerZ = (pPrevChip->_Z - _Z) / 2;
 
+
+		pPrevChip -> _pChecker -> setHitArea(
+									1,
+									centerX - 10000,
+									centerY - 10000,
+									centerZ - 10000,
+									centerX + 10000,
+									centerY + 10000,
+									centerZ + 10000
+								); //中間用
+
+
+
+
+
+
+
+	} else {
+		//連続してないので、こじんまりしとく。
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
 		for (int i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
 			index = _aVertexIndexTetrahedron_A[i];
@@ -202,6 +224,8 @@ void MyLaserChip::processDrawMain() {
 			pV->z = _pTetra_EFGH->Hz;
 		}
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
+		_pChecker -> setHitArea(1, -10000, -10000, -10000, 10000, 10000, 10000);
+
 	}
 	GgafDx9DynaMeshActor::processDrawMain();
 }

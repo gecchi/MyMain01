@@ -9,7 +9,10 @@ class EnemyCeres : public DefaultMeshEnemyActor {
 private:
 
 public:
+	/** 弾ストック */
 	RotationActor* _pRotEnemyMeshShots001;
+	/** RotationActorをコンストラクタで生成したか否か */
+	bool _createRotationActor;
 
 	int _X_turn; // 折り返すX座標
 	int _Y_turn; // 折り返すY座標
@@ -19,7 +22,21 @@ public:
 
 	int _iMovePatternNo;
 
+	/**
+	 * コンストラクタ
+	 * @param prm_name オブジェクト名
+	 * @param prm_model モデル名
+	 */
 	EnemyCeres(string prm_name, string prm_model);
+
+	/**
+	 * コンストラクタ
+	 * @param prm_name オブジェクト
+	 * @param prm_model モデル
+	 * @param prm_pRotEnemyMeshShots001 発射弾ストックのローテーションアクター
+	 * @return
+	 */
+	EnemyCeres(string prm_name, string prm_model, RotationActor* prm_pRotEnemyMeshShots001);
 
 	void initialize();
 

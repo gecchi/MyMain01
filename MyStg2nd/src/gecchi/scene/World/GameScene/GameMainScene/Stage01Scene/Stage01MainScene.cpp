@@ -10,13 +10,14 @@ Stage01MainScene::Stage01MainScene(string prm_name) : DefaultScene(prm_name) {
 	for (int i = 0; i < 18; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
+	orderActorFactory("ID1116102", FormationVesta001, "F_Ceres001_7", "ebi");
 	orderActorFactory("ID1096100", FormationCeres002, "F_Ceres002_1", "Ceres");
 	orderActorFactory("ID10961000", FormationCeres002, "F_Ceres002_2", "Ceres");
 	orderActorFactory("ID10961900", FormationCeres002, "F_Ceres002_3", "Ceres");
 	orderActorFactory("ID10962800", FormationCeres002, "F_Ceres002_4", "Ceres");
 	orderActorFactory("ID10963700", FormationCeres002, "F_Ceres002_5", "Ceres");
 	orderActorFactory("ID10964600", FormationCeres002, "F_Ceres002_6", "Ceres");
-	orderActorFactory("ID1116102", FormationVesta001, "F_Ceres001_7", "ebi");
+
 	orderActorFactory("ID11162102", FormationVesta001, "F_Ceres001_8", "ebi");
 	orderActorFactory("ID11164102", FormationVesta001, "F_Ceres001_9", "ebi");
 	// gen01 end
