@@ -7,7 +7,7 @@ GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool       GgafFactory::_isWorking = true;
 bool       GgafFactory::_isFinish  = false;
 int GgafFactory::_s_iCountCleanedNode = 0;
-GgafTrashBox* GgafFactory::_pTrashBox = NEW GgafTrashBox();
+GgafTrashBox* GgafFactory::_pTrashBox = NULL;
 
 GgafMainActor* GgafFactory::obtainActor(string prm_id) {
 	return (GgafMainActor*)obtain(prm_id);
@@ -195,7 +195,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 				//無条件待機
 				TRACE2("GgafFactory::work ＜工場＞ 工場には何～んもありません。さぁなんでも注文来い来い！（待機）");
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-				_pGod->_pTrashBox->cleane(10); //暇なので、ゴミ箱掃除
+				_pTrashBox->cleane(1); //暇なので、ゴミ箱掃除
 				_s_iCountCleanedNode = 0;
 			} else {
 				if (ROOT_ORDER != NULL && ROOT_ORDER -> _pOrder_Prev -> _progress == 0) {
@@ -207,7 +207,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 				} else {
 					TRACE2("GgafFactory::work ＜工場＞ よし、未製造注文は無し。製造済のがたまってるな、早く取に来やがれ！（待機）");
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-					_pGod->_pTrashBox->cleane(10); //暇なので、ゴミ箱掃除
+					_pTrashBox->cleane(1); //暇なので、ゴミ箱掃除
 					_s_iCountCleanedNode = 0;
 				}
 			}

@@ -1200,6 +1200,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 	T* pWk;
 
 	while(GgafFactory::_s_iCountCleanedNode < prm_iNumCleanNode) {
+
 		if (pElementTemp->_pSubFirst) {
 			//子の子がまだのっている場合さらにもぐる
 			pElementTemp -> cleane(prm_iNumCleanNode);
@@ -1209,17 +1210,33 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 		}
 
 		if (pElementTemp->_isFirst) { //最後の一つ
+			if (pElementTemp->_pSubFirst) {
+				//子の子がまだのっている場合さらにもぐる
+				pElementTemp -> cleane(prm_iNumCleanNode);
+				if (GgafFactory::_s_iCountCleanedNode >= prm_iNumCleanNode) {
+					break;
+				}
+			}
 			if (pElementTemp->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pElementTemp);
 				GgafFactory::_s_iCountCleanedNode++;
+				Sleep(1);
 			}
 			break;
 		} else {
 			pWk = pElementTemp;
+			if (pWk->_pSubFirst) {
+				//子の子がまだのっている場合さらにもぐる
+				pWk -> cleane(prm_iNumCleanNode);
+				if (GgafFactory::_s_iCountCleanedNode >= prm_iNumCleanNode) {
+					break;
+				}
+			}
 			pElementTemp = pElementTemp -> _pPrev;
 			if (pWk->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pWk);
 				GgafFactory::_s_iCountCleanedNode++;
+				Sleep(1);
 			}
 		}
 	}

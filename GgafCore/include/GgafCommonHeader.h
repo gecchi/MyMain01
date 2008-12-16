@@ -82,22 +82,26 @@ class GgafCriticalException;
 class GgafLogger;
 class GgafGod;
 
-class GgafEvent;
-class GgafEventmanager;
 //class GgafElement;
+
+class GgafFactory;
+class GgafTrashBox;
+
 class GgafScene;
+class GgafTrashRootScene;
+
 class GgafActor;
+class GgafTrashRootActor;
 class GgafMainActor;
 class GgafDummyActor;
+
 class GgafWorld;
 class GgafMainScene;
 class GgafLordActor;
 class GgafHeadActor;
 class GgafOrder;
-class GgafTrashBox;
-class GgafTrashRootActor;
-class GgafTrashRootScene;
-class GgafFactory;
+
+
 
 class GgafProperties;
 class GgafRect;
@@ -111,20 +115,25 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
 
+#include "jp/ggaf/core/GgafFactory.h"
+#include "jp/ggaf/core/GgafTrashBox.h"
+
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/util/basic_symbol.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
+#include "jp/ggaf/core/scene/GgafTrashRootScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
+#include "jp/ggaf/core/actor/GgafTrashRootActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafWorld.h"
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
-#include "jp/ggaf/core/GgafTrashBox.h"
-#include "jp/ggaf/core/GgafFactory.h"
+
+
 
 
 

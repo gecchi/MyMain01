@@ -47,6 +47,8 @@ _pWorld(NULL)
 	//_pWorld = NULL;
 	_isBehaved = false;
 
+	GgafFactory::_pTrashBox = NEW GgafTrashBox();
+
 }
 
 
