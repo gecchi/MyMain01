@@ -7,8 +7,6 @@ class GgafGod : public GgafObject {
 
 public:
 
-	/** 掃除オブジェクト数 */
-	static int _s_iNumCleanNodePerFrame;
 	/** 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
 	static GgafCriticalException* _pException_Factory;
 	/** 次に世界を活動させる時間のオフセット */
@@ -48,6 +46,7 @@ public:
 
 
 	bool _isBehaved;
+
 	GgafGod();
 
 	/**

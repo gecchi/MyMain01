@@ -7,4 +7,5 @@ GgafWorld::GgafWorld(string prm_name) : GgafMainScene(prm_name) {
 
 
 GgafWorld::~GgafWorld() {
+
 }

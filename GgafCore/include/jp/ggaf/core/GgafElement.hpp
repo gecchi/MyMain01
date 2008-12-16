@@ -570,10 +570,16 @@ void GgafElement<T>::nextFrame() {
 			while(true) {
 				if (pElementTemp -> _isLast) {
 					pElementTemp -> nextFrame();
+					if (pElementTemp->_isAlive == false) {
+						GgafFactory::_pTrashBox->add(pElementTemp);
+					}
 					break;
 				} else {
 					pElementTemp = pElementTemp -> SUPER::_pNext;
 					pElementTemp -> SUPER::_pPrev-> nextFrame();
+					if (pElementTemp -> SUPER::_pPrev->_isAlive == false) {
+						GgafFactory::_pTrashBox->add(pElementTemp->SUPER::_pPrev);
+					}
 				}
 			}
 		}
@@ -1193,11 +1199,11 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 	T* pElementTemp = SUPER::_pSubFirst-> _pPrev;
 	T* pWk;
 
-	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
+	while(GgafFactory::_s_iCountCleanedNode < prm_iNumCleanNode) {
 		if (pElementTemp->_pSubFirst) {
 			//子の子がまだのっている場合さらにもぐる
 			pElementTemp -> cleane(prm_iNumCleanNode);
-			if (GgafGod::_s_iNumCleanNodePerFrame >= prm_iNumCleanNode) {
+			if (GgafFactory::_s_iCountCleanedNode >= prm_iNumCleanNode) {
 				break;
 			}
 		}
@@ -1205,7 +1211,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 		if (pElementTemp->_isFirst) { //最後の一つ
 			if (pElementTemp->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pElementTemp);
-				GgafGod::_s_iNumCleanNodePerFrame++;
+				GgafFactory::_s_iCountCleanedNode++;
 			}
 			break;
 		} else {
@@ -1213,7 +1219,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 			pElementTemp = pElementTemp -> _pPrev;
 			if (pWk->_isAlive == false) {
 				DELETE_IMPOSSIBLE_NULL(pWk);
-				GgafGod::_s_iNumCleanNodePerFrame++;
+				GgafFactory::_s_iCountCleanedNode++;
 			}
 		}
 	}
@@ -1235,7 +1241,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 //	//子を調べてdeleteする
 //	T* pElementTemp = SUPER::_pSubFirst -> SUPER::_pPrev;
 //	T* pWk;
-//	while(GgafGod::_s_iNumCleanNodePerFrame < prm_iNumCleanNode) {
+//	while(GgafFactory::_s_iCountCleanedNode < prm_iNumCleanNode) {
 //		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
 //
 //			if (pElementTemp->_isAlive == false) {

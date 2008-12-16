@@ -9,12 +9,11 @@
  * @since 2008/06/20
  * @auther Masatoshi Tsuge
  */
- class GgafWorld : public GgafMainScene {
+class GgafWorld : public GgafMainScene {
     friend class GgafGod;
     friend class GgafScene;
 
 public:
-
 
 	GgafWorld(string prm_name);
 

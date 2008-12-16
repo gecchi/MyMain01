@@ -3,7 +3,6 @@
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-int GgafGod::_s_iNumCleanNodePerFrame = 0;
 int GgafGod::_iNumPlayingActor = 0;
 DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17,17,16,17,17,16,
                                       17,17,16,17,17,17,
@@ -47,6 +46,7 @@ _pWorld(NULL)
 	_fFps = 0;
 	//_pWorld = NULL;
 	_isBehaved = false;
+
 }
 
 
@@ -68,7 +68,6 @@ void GgafGod::be(){
 		_isBehaved = true;
 		::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 		_dwFrame_God++;
-		_s_iNumCleanNodePerFrame = 0;
 		makeWorldBe();
 		makeWorldJudge();
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
@@ -109,7 +108,7 @@ void GgafGod::be(){
 				makeWorldMaterialize();
 				makeWorldVisualize();
 				makeWorldFinalize();
-				getWorld()->cleane(10);
+				//getWorld()->cleane(10);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 			} else {
 				//ƒXƒLƒbƒvŽž‚ÍmakeWorldFinalize()‚¾‚¯
@@ -133,7 +132,7 @@ void GgafGod::be(){
 	} else {//•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚Ä‚È‚¢(—]—T‚ª‚ ‚é)
 		Sleep(1); //Hêi•ÊƒXƒŒƒbƒhj‚É‰ñ‚·
 //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //‚Ü‚¾—]—T‚ª‚ ‚éê‡
-//			if (getWorld() != NULL && _s_iNumCleanNodePerFrame == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
+//			if (getWorld() != NULL && _s_iCountCleanedNode == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
 //				::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 //				getWorld()->cleane(1);
 //				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹

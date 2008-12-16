@@ -18,6 +18,7 @@ class GgafFactory {
 private:
 	static GgafGod* _pGod;
 
+
 	/** 先頭の注文 */
 	static GgafOrder* ROOT_ORDER;
 	/** 現在製造中の注文 */
@@ -45,6 +46,13 @@ private:
 	static void* obtain(string prm_id);
 
 public:
+	/** ゴミ箱(不要なアクター置き場) */
+	static GgafTrashBox* _pTrashBox;
+
+	/** 掃除オブジェクト数 */
+	static int _s_iCountCleanedNode;
+
+
 	/** 活動フラグ(神が操作する) */
 	static bool _isWorking;
 

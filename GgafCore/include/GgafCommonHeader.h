@@ -81,6 +81,7 @@ class GgafException;
 class GgafCriticalException;
 class GgafLogger;
 class GgafGod;
+
 class GgafEvent;
 class GgafEventmanager;
 //class GgafElement;
@@ -93,6 +94,9 @@ class GgafMainScene;
 class GgafLordActor;
 class GgafHeadActor;
 class GgafOrder;
+class GgafTrashBox;
+class GgafTrashRootActor;
+class GgafTrashRootScene;
 class GgafFactory;
 
 class GgafProperties;
@@ -106,6 +110,7 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/util/GgafLogger.h"
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
+
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/util/basic_symbol.hpp"
@@ -118,7 +123,9 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
+#include "jp/ggaf/core/GgafTrashBox.h"
 #include "jp/ggaf/core/GgafFactory.h"
+
 
 
 
