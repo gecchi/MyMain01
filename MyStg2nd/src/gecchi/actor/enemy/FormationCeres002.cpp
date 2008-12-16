@@ -13,7 +13,7 @@ FormationCeres002::FormationCeres002(string prm_name, string prm_model) : Format
 
 	for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
 		_pEnemyCeres[i] = NEW EnemyCeres("Ceres01", prm_model); //, _pRotEnemyMeshShots001);
-		_pEnemyCeres[i] -> stopImmediately();
+		_pEnemyCeres[i] -> stopAloneImmediately();
 		_pEnemyCeres[i] -> _Y_turn = -1*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2) + (i * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002)) ;
 		_pEnemyCeres[i] -> _iBeginVelocity = 5000;
 		_pEnemyCeres[i] -> _Z = -1500000;

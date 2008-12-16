@@ -268,6 +268,9 @@ void EnemyCeres::processBehavior() {
 void EnemyCeres::processJudgement() {
 	if (isOffScreen()) {
 		declareFinishLife();
+		if (_createRotationActor) { //’e‰ð•ú—\–ñ
+			_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
+		}
 	}
 }
 
@@ -281,6 +284,11 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 	declareFinishLife();
+	if (_createRotationActor) { //’e‰ð•ú—\–ñ
+		_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
+	}
+
+
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
@@ -297,7 +305,4 @@ bool EnemyCeres::isOffScreen() {
 }
 
 EnemyCeres::~EnemyCeres() {
-	if (_createRotationActor) {
-		_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
-	}
 }
