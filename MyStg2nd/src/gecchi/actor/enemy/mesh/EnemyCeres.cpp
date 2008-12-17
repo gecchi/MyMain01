@@ -27,6 +27,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_pRotEnemyMeshShots001 = NEW RotationActor("RotEnemyMeshS001");
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 16; i++) {
+		Sleep(1);
 		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
 		pEnemyMeshShot->stopImmediately(); //Å‰”ñ•\Ž¦
 		_pRotEnemyMeshShots001 -> addSubLast(pEnemyMeshShot);

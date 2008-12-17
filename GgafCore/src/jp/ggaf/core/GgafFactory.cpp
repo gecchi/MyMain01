@@ -209,7 +209,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 					_s_iCountCleanedNode = 0;
 				}
 			}
-			Sleep(10);
+			Sleep(20);
 		}
 		TRACE2("GgafFactory::work ƒHê„ Hê‚Í‚±‚ê‚É‚Ä“X‚¶‚Ü‚¢‚Å‚·B‚³‚æ‚¤‚È‚çA‚Ü‚½‰ï‚¢‚Ü‚µ‚å‚¤B");
 		_isFinish = true;

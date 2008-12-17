@@ -6,12 +6,14 @@ FormationCeres002::FormationCeres002(string prm_name, string prm_model) : Format
 	_pRotEnemyMeshShots001 = NEW RotationActor("FmtCeres002_RotEnemyMeshS001");
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 30; i++) { //ストック
+		Sleep(1);
 		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
 		pEnemyMeshShot->stopImmediately(); //最初非表示
 		_pRotEnemyMeshShots001 -> addSubLast(pEnemyMeshShot);
 	}
 
 	for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
+		Sleep(1);
 		_pEnemyCeres[i] = NEW EnemyCeres("Ceres01", prm_model, _pRotEnemyMeshShots001);
 		_pEnemyCeres[i] -> stopAloneImmediately();
 		_pEnemyCeres[i] -> _Y_turn = -1*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2) + (i * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002)) ;

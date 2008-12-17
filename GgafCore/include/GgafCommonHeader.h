@@ -39,8 +39,8 @@
 
 	//#define TRACE(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
 	#define TRACE(X)
-	#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafLogger::write(ss.str()); }
-	//#define TRACE2(X)
+	//#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafLogger::write(ss.str()); }
+	#define TRACE2(X)
 	//ダンプ出力用
 	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
 	//デバッグ用
