@@ -52,7 +52,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model, RotationActor* prm_pRo
 	_Z_turn = 0;
 	_iBeginVelocity = 5000;
 
-	if (_pRotEnemyMeshShots001 == NULL) {
+	if (prm_pRotEnemyMeshShots001 == NULL) {
 		_TRACE_("ローテーション_pRotEnemyMeshShots001がNULL。よいのですか？");
 	}
 	_pRotEnemyMeshShots001 = prm_pRotEnemyMeshShots001;
