@@ -496,6 +496,13 @@ GgafDx9God::~GgafDx9God() {
 		Sleep(10);
 	}
 
+	_TRACE_("--------------");
+	GgafFactory::_pTrashBox->_pTrashRootScene->dump();
+	_TRACE_("--------------");
+	GgafFactory::_pTrashBox->_pTrashRootActor->dump();
+	DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
+
+
 	DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamUp);
