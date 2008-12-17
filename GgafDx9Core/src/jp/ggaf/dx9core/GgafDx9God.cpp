@@ -483,23 +483,36 @@ void GgafDx9God::makeWorldVisualize() {
 }
 
 GgafDx9God::~GgafDx9God() {
-	TRACE("GgafDx9God::~GgafDx9God() start -->");
-
+	_TRACE_("GgafDx9God::~GgafDx9God() start -->");
+_TRACE_("1:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
 	//Hê‘|œ
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+
+_TRACE_("2:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
+
 	Sleep(20);
 	GgafFactory::_isWorking = false;
+_TRACE_("3:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
+
 	while (GgafFactory::_isFinish == false) {
+_TRACE_("4:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
+
 		Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
 	}
+_TRACE_("5:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
+
+	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 	GgafFactory::clean();
+_TRACE_("6:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
+
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+_TRACE_("7:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
 
 	//ƒSƒ~” 
 	GgafFactory::_pTrashBox->_pTrashRootScene->dump();
 	GgafFactory::_pTrashBox->_pTrashRootActor->dump();
 	DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
 
+_TRACE_("8:GgafFactory::_isWorking ="<<GgafFactory::_isWorking<<"/GgafFactory::_isFinish="<<GgafFactory::_isFinish);
 
 	DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);

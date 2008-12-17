@@ -34,7 +34,7 @@ void FormationCeres002::initialize() {
 void FormationCeres002::processJudgement() {
 	if (getSubFirst() == NULL) {
 		declareFinishLife();
-//		_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
+		_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
 	}
 }
 
