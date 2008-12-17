@@ -485,20 +485,18 @@ void GgafDx9God::makeWorldVisualize() {
 GgafDx9God::~GgafDx9God() {
 	TRACE("GgafDx9God::~GgafDx9God() start -->");
 
+	//Hê‘|œ
 	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJn
 	Sleep(20);
-	//Hê‘|œ
 	GgafFactory::_isWorking = false;
+	while (GgafFactory::_isFinish == false) {
+		Sleep(10); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
+	}
 	GgafFactory::clean();
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
-	//Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
-	while (GgafFactory::_isFinish == false) {
-		Sleep(10);
-	}
 
-	_TRACE_("--------------");
+	//ƒSƒ~” 
 	GgafFactory::_pTrashBox->_pTrashRootScene->dump();
-	_TRACE_("--------------");
 	GgafFactory::_pTrashBox->_pTrashRootActor->dump();
 	DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
 
