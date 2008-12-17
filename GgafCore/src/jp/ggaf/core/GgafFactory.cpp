@@ -125,8 +125,6 @@ void* GgafFactory::obtain(string prm_id) {
 void GgafFactory::clean() {
 	TRACE("GgafFactory::clean ＜神＞ 工場を掃除開始");
 	//ゴミ箱
-	DELETE_IMPOSSIBLE_NULL(_pTrashBox);
-
 
 	GgafOrder* pOrder = ROOT_ORDER;
 	if (pOrder == NULL) {
@@ -170,9 +168,9 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 					void* arg2 = CREATING_ORDER ->_pArg2;
 					TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"]");
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
-					Sleep(2);
+					Sleep(1);
 					pObject = (*func)(arg1, arg2); //製品の製造！
-					Sleep(2);
+					Sleep(1);
 					::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 					TRACE2("GgafFactory::work ＜工場＞ 製造終了！["<<CREATING_ORDER->_id<<"]");
 					if (CREATING_ORDER == NULL) {
