@@ -44,16 +44,16 @@ public:
 	virtual void behave();
 
 
-	void useHitArea(int n);
+	void useHitAreaBoxNum(int n);
 
-	void setHitArea(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
+	void setHitAreaBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 
-	void setHitArea(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
-		setHitArea(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
+	void setHitAreaBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2) {
+		setHitAreaBox(prm_index, x1, y1, z1, x2, y2, z2, false, false, false);
 	};
 
-	void setHitArea(int prm_index, int x1, int y1, int x2, int y2) {
-		setHitArea(prm_index, x1, y1, -1*(LEN_UNIT*PX_UNIT)/2, x2, y2, (LEN_UNIT*PX_UNIT)/2, false, false, false);
+	void setHitAreaBox(int prm_index, int x1, int y1, int x2, int y2) {
+		setHitAreaBox(prm_index, x1, y1, -1*(LEN_UNIT*PX_UNIT)/2, x2, y2, (LEN_UNIT*PX_UNIT)/2, false, false, false);
 	};
 
 	HitAreaBoxs* getHitAreaBoxs() {

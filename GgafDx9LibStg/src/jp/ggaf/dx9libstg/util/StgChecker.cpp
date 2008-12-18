@@ -10,17 +10,17 @@ StgChecker::StgChecker(GgafDx9UntransformedActor* prm_pActor) : GgafDx9GeometryC
 	_iDefensePoint = 0; //防御力
 }
 
-void StgChecker::useHitArea(int n) {
+void StgChecker::useHitAreaBoxNum(int n) {
 	if (_pHitAreaBoxs == NULL) {
 		_pHitAreaBoxs = NEW HitAreaBoxs(n);
 	} else {
-		throw_GgafCriticalException("StgChecker::useHitArea HitAreaBoxsは既に new されています。");
+		throw_GgafCriticalException("StgChecker::useHitAreaBoxNum HitAreaBoxsは既に new されています。");
 	}
 }
 
-void StgChecker::setHitArea(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
+void StgChecker::setHitAreaBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
 	if (_pHitAreaBoxs == NULL) {
-		throw_GgafCriticalException("StgChecker::setHitArea まず useHitArea を実行して、要素数を宣言してください。");
+		throw_GgafCriticalException("StgChecker::setHitAreaBox まず useHitAreaBoxNum を実行して、要素数を宣言してください。");
 	} else {
 		_pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
 	}
@@ -86,8 +86,9 @@ bool StgChecker::isBump(GgafDx9GeometryChecker* prm_pOtherChecker) {
 	}
 
 	//自分の箱と相手の箱
-	if (_pHitAreaBoxs->_paHitArea != NULL && pOtherHitAreaBoxs->_paHitArea != NULL) {
-
+	if (_pHitAreaBoxs->_paHitArea != NULL && pOtherHitAreaBoxs->_paHitArea != NULL &&
+	    _pHitAreaBoxs->_paHitArea->active && pOtherHitAreaBoxs->_paHitArea->active	)
+	{
 		for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
 			for (int j = 0; j < pOtherHitAreaBoxs->_iBoxNum; j++) {
 

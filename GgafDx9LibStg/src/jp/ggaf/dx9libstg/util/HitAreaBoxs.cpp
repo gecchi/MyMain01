@@ -53,9 +53,23 @@ void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, 
 	_paBase[prm_index].rotY = rotY;
 	_paBase[prm_index].rotZ = rotZ;
 
+	_paBase[prm_index].active = true;
 	_paHitArea[prm_index] = _paBase[prm_index];
 }
 
+void HitAreaBoxs::enable(int prm_index) {
+	_paBase[prm_index].active = true;
+	_paHitArea[prm_index].active = true;
+}
+
+void HitAreaBoxs::disable(int prm_index) {
+	_paBase[prm_index].active = false;
+	_paHitArea[prm_index].active = false;
+}
+
+bool HitAreaBoxs::isEnable(int prm_index) {
+	return _paHitArea[prm_index].active;
+}
 
 HitAreaBoxs::~HitAreaBoxs() {
 	TRACE("HitAreaBoxs::~HitAreaBoxs() start--->");

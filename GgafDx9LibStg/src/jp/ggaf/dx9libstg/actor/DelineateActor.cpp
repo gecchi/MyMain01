@@ -42,14 +42,16 @@ void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
 		int iBoxNum = pHitAreaBoxs->_iBoxNum;
 		if (iBoxNum > 0) {
 			for (int i = 0; i < iBoxNum; i++) {
-				drawBox(
-					pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
-					pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
-					pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1,
-					pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
-					pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2,
-					pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2
-				);
+				if (pHitAreaBoxs->isEnable(i)) {
+					drawBox(
+						pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
+						pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
+						pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1,
+						pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
+						pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2,
+						pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2
+					);
+				}
 			}
 		}
 		//Œ³‚É–ß‚·

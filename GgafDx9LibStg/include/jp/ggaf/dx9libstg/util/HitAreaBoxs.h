@@ -19,6 +19,7 @@ class HitAreaBoxs : public GgafObject {
 		bool rotX;  //中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（箱が回転するのではない）
 		bool rotY;	//中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（箱が回転するのではない）
 		bool rotZ;	//中心点を、オブジェクトの(0,0)を中心にZ軸回転の移動をさせるかどうか（箱が回転するのではない）
+		bool active; //有効フラグ
 	};
 
 public:
@@ -31,6 +32,9 @@ public:
 	HitAreaBoxs(int prm_iBoxNum);
 
 	void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
+	void enable(int prm_index);
+	void disable(int prm_index);
+	bool isEnable(int prm_index);
 
 	virtual ~HitAreaBoxs();
 };
