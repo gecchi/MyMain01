@@ -515,7 +515,7 @@ void GgafElement<T>::nextFrame() {
 
 		_willPlayNextFrame = false;
 		_willBeAliveNextFrame = false;
-		SUPER::_name = "_x_"+SUPER::_name;
+		SUPER::_name = "[Death]"+SUPER::_name;
 	}
 
 	if (_willMoveLastNextFrame) {

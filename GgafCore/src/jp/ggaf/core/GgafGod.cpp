@@ -87,15 +87,13 @@ void GgafGod::be(){
 
 	_dwTime_FrameBegin = timeGetTime();	//
 
-#ifdef OREDEBUG
 	//fps計算
 	if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
 		_fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin-_dwTime_Prev)/1000.0 );
-		_TRACEORE(_fFps);
+		_TRACE_(_fFps);
 		_dwTime_Prev = _dwTime_FrameBegin;
 		_dwFrame_PrevVisualize = _dwFrame_Visualize;
 	}
-#endif
 
 	if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
 
