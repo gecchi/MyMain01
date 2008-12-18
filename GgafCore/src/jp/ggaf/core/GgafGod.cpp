@@ -75,9 +75,9 @@ void GgafGod::be(){
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 		//•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
 		//_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
-		if (_iNumPlayingActor > 1000) {
+		if (_iNumPlayingActor > 500) {
 			_dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]*3);
-		} else if (_iNumPlayingActor > 500) {
+		} else if (_iNumPlayingActor > 300) {
 			_dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]*2);
 		} else {
 			_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60];

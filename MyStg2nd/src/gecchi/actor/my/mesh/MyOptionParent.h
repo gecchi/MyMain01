@@ -1,5 +1,5 @@
-#ifndef MYOPTION_H_
-#define MYOPTION_H_
+#ifndef MYOPTIONPARENT
+#define MYOPTIONPARENT
 
 class MyOptionParent : public DefaultMeshActor {
 
@@ -34,5 +34,5 @@ public:
 };
 
 
-#endif /*MYOPTION_H_*/
+#endif /*MYOPTIONPARENT*/
 
