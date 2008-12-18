@@ -9,8 +9,8 @@ void MyLaser001::initialize() {
 
 	_pGeoMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -5000, -5000, 5000, 5000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -5000, -5000, 5000, 5000);
 
 	_pActor_Radical = NULL;
 

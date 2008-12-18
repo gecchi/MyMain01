@@ -31,8 +31,8 @@ void EnemyMeshShot001::initialize() {
 	_pGeoMover -> _synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
 
 
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	setBumpableAlone(true);
 }
 

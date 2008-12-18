@@ -59,10 +59,10 @@ void MyLaserChip::initialize() {
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
 	}
 
-	_pGeoMover -> setMoveVelocity(20*1000);
-	_pChecker -> useHitArea(2);
-	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000, 10000);
-	_pChecker -> setHitArea(1, -10000, -10000, -10000, 10000, 10000, 10000);
+	_pGeoMover -> setMoveVelocity(30*1000);
+	_pChecker -> useHitAreaBoxNum(2);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+	_pChecker -> setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
 	_pActor_Radical = NULL;
 
 	setBumpableAlone(false);
@@ -108,10 +108,14 @@ void MyLaserChip::processDrawMain() {
 	static D3DVECTOR* pV;
 	static BYTE* pByteVertexSrc;
 	static float fOffsetX, fOffsetY, fOffsetZ;
-	static int centerX, centerY, centerZ;
-	if (getPrev()->isPlaying() && _dwFrame_switchedToPlay-1 == getPrev()->_dwFrame_switchedToPlay) {
+	static MyLaserChip* pNextChip;
+	static MyLaserChip* pPrevChip;
+	pNextChip = getNext();
+	pPrevChip = getPrev();
+
+	if (pPrevChip->isPlaying() && _dwFrame_switchedToPlay-1 == pPrevChip->_dwFrame_switchedToPlay) {
 		//連続しているので、一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
-		MyLaserChip* pPrevChip = getPrev();
+
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
 		fOffsetX = (pPrevChip->_X - _X ) / (float)(LEN_UNIT);
 		fOffsetY = (pPrevChip->_Y - _Y ) / (float)(LEN_UNIT);
@@ -159,27 +163,6 @@ void MyLaserChip::processDrawMain() {
 		}
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
 
-		centerX = (pPrevChip->_X - _X) / 2;
-		centerY = (pPrevChip->_Y - _Y) / 2;
-		centerZ = (pPrevChip->_Z - _Z) / 2;
-
-
-		pPrevChip -> _pChecker -> setHitArea(
-									1,
-									centerX - 10000,
-									centerY - 10000,
-									centerZ - 10000,
-									centerX + 10000,
-									centerY + 10000,
-									centerZ + 10000
-								); //中間用
-
-
-
-
-
-
-
 	} else {
 		//連続してないので、こじんまりしとく。
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
@@ -224,9 +207,27 @@ void MyLaserChip::processDrawMain() {
 			pV->z = _pTetra_EFGH->Hz;
 		}
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
-		_pChecker -> setHitArea(1, -10000, -10000, -10000, 10000, 10000, 10000);
-
 	}
+
+	static int centerX, centerY, centerZ;
+	if (pNextChip->isPlaying() && _dwFrame_switchedToPlay+1 == pNextChip->_dwFrame_switchedToPlay) {
+		centerX = (_X - pNextChip->_X) / 2;
+		centerY = (_Y - pNextChip->_Y) / 2;
+		centerZ = (_Z - pNextChip->_Z) / 2;
+		_pChecker->setHitAreaBox(
+						1,
+						centerX - 10000,
+						centerY - 10000,
+						centerZ - 10000,
+						centerX + 10000,
+						centerY + 10000,
+						centerZ + 10000
+				   ); //中間の当たり判定
+		_pChecker->getHitAreaBoxs()->enable(1);
+	} else {
+		_pChecker->getHitAreaBoxs()->disable(1);
+	}
+
 	GgafDx9DynaMeshActor::processDrawMain();
 }
 

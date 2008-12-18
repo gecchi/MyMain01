@@ -13,29 +13,62 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 	}
 	pTemp->_next = pFirst;
 	_pGeoChainRingActive = pFirst;
+
+
+	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
+	addSubLast(_pMyLaserChipRotation);//仮所属
+	MyLaserChip* pChip;
+	for (int i = 0; i < 30; i++) { //レーザーストック
+		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
+		pChip->stopImmediately();
+		_pMyLaserChipRotation->addSubLast(pChip);
+	}
+
+	_iMyNo = 0;
+
 }
 
 void MyOption::initialize() {
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
-	_pGeoMover -> setMoveVelocity(0);
+	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
+
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
+	if (_iMyNo == 0) {
+		setGeometry(50000,0,0);
+		_pGeoMover -> setMoveVelocity(3000);
+		_pGeoMover -> setMoveAngleRz(5000);
+
+	} else {
+		_pGeoMover -> setMoveVelocity(0);
+	}
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
 	//setAlpha(0.2);
 }
 
 void MyOption::processBehavior() {
-	_X = _pGeoChainRingActive->_X;
-	_Y = _pGeoChainRingActive->_Y;
-	_Z = _pGeoChainRingActive->_Z;
-	_pGeoChainRingActive->set(_pActor_Radical);
-	_pGeoChainRingActive = _pGeoChainRingActive ->_next;
+	if (_iMyNo == 0) {
+		//最初の
+		_pGeoMover -> behave();
+		_X += _pActor_Radical -> _X;
+		_Y += _pActor_Radical -> _Y;
+		_Z += _pActor_Radical -> _Z;
 
-	//ショット関連処理
-	MyShip::transactShot(this);
 
+	} else {
+
+		_X = _pGeoChainRingActive->_X;
+		_Y = _pGeoChainRingActive->_Y;
+		_Z = _pGeoChainRingActive->_Z;
+		_pGeoChainRingActive->set(_pActor_Radical);
+		_pGeoChainRingActive = _pGeoChainRingActive ->_next;
+
+		//ショット関連処理
+		//MyShip::transactShot(this);
+		_pGeoMover -> behave();
+	}
 	//座標に反映
-	_pGeoMover -> behave();
+
 }
 
 

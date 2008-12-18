@@ -8,8 +8,8 @@ EnemyShot001::EnemyShot001(string prm_name, string prm_model) : EnemyShotSpriteA
 void EnemyShot001::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
 	_pGeoMover -> setMoveVelocity(3000);
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	setBumpableAlone(true);
 }
 

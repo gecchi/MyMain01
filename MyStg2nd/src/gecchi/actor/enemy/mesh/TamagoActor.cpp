@@ -22,10 +22,10 @@ void TamagoActor::initialize() {
 //	_pGeoMover -> _synchronize_ZaxisAxisRotAngle_to_MoveAngleRz_Flg = true;
 //	_pGeoMover -> _iType_AutoXYMoveAngleTarget = TURN_COUNTERCLOCKWISE;
 
-//	_pChecker -> useHitArea(1, 0);
-//	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+//	_pChecker -> useHitAreaBoxNum(1, 0);
+//	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 
-//	_pChecker -> useHitArea(0, 4);
+//	_pChecker -> useHitAreaBoxNum(0, 4);
 //	_pChecker -> _pHitAreaBoxs -> setLine(0, -10000, -10000, 10000, -10000, true);
 //	_pChecker -> _pHitAreaBoxs -> setLine(1, 10000, -10000, 10000, 10000, true);
 //	_pChecker -> _pHitAreaBoxs -> setLine(2, 10000, 10000, -10000, 10000, true);

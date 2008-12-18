@@ -15,8 +15,8 @@ void EnemyJuno::initialize() {
 	_pGeoMover -> setAxisRotAngle(AXIS_Y, 90000);
 
 
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	_pChecker -> setStatus(100, 1, 1, 1);
 }
 

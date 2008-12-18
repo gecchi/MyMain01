@@ -13,14 +13,14 @@ void MyShot001::initialize() {
 	_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
 	_pGeoMover -> setMoveVelocity(1000);
 
-	_pChecker -> useHitArea(7);
-	_pChecker -> setHitArea(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
-	_pChecker -> setHitArea(1, -10000,-140000,-10000, 10000,-120000,10000, true,true,true);
-	_pChecker -> setHitArea(2, -10000, 120000,-10000, 10000, 140000,10000, true,true,true);
-	_pChecker -> setHitArea(3, -140000,-10000,-10000, -120000, 10000,10000, true,true,true);
-	_pChecker -> setHitArea(4, 120000, -10000,-10000,  140000, 10000,10000, true,true,true);
-	_pChecker -> setHitArea(5, -10000,-10000,-140000, 10000, 10000,-120000, true,true,true);
-	_pChecker -> setHitArea(6, -10000,-10000, 120000,  10000, 10000, 140000, true,true,true);
+	_pChecker -> useHitAreaBoxNum(7);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
+	_pChecker -> setHitAreaBox(1, -10000,-140000,-10000, 10000,-120000,10000, true,true,true);
+	_pChecker -> setHitAreaBox(2, -10000, 120000,-10000, 10000, 140000,10000, true,true,true);
+	_pChecker -> setHitAreaBox(3, -140000,-10000,-10000, -120000, 10000,10000, true,true,true);
+	_pChecker -> setHitAreaBox(4, 120000, -10000,-10000,  140000, 10000,10000, true,true,true);
+	_pChecker -> setHitAreaBox(5, -10000,-10000,-140000, 10000, 10000,-120000, true,true,true);
+	_pChecker -> setHitAreaBox(6, -10000,-10000, 120000,  10000, 10000, 140000, true,true,true);
 
 
 //	_pChecker -> _pHitAreaBoxs -> setLine(0, -20000, 20000, 20000, 20000, true);

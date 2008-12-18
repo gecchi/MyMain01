@@ -115,14 +115,15 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip* pChip;
-	for (int i = 0; i < 100; i++) { //レーザーストック
+	for (int i = 0; i < 30; i++) { //レーザーストック
 		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 	}
 
-	for (int i = 0; i < 10; i++) { //レーザーストック
+	for (int i = 0; i < EQ_MAX_OPTION; i++) {
 		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "ebi");
+		pOption->_iMyNo = i;  //おぷ番
 		pOption->stopImmediately();
 		addSubLast(pOption);
 	}
@@ -135,8 +136,8 @@ void MyShip::initialize() {
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->tear());
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
 
-	_pChecker -> useHitArea(1);
-	_pChecker -> setHitArea(0, -10000, -10000, 10000, 10000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
@@ -903,6 +904,9 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 
 void MyShip::equipOption() {
 
+	if (_state.eq_option >= EQ_MAX_OPTION) {
+		return;
+	}
 	MyOption* pOption = (MyOption*)_pSubFirst;
 	for (int i = 0; i < _state.eq_option; i++) {
 		pOption = (MyOption*)(pOption -> getNext());
@@ -912,6 +916,11 @@ void MyShip::equipOption() {
 	} else {
 		pOption->setRadicalActor((GgafDx9UntransformedActor*)pOption->getPrev());
 	}
+
+
+
+
+
 	_state.eq_option++;
 	pOption->declarePlay();
 

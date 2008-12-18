@@ -37,6 +37,9 @@ class MyOption : public DefaultMeshActor {
 	};
 
 public:
+	int _iMyNo;
+
+	RotationActor* _pMyLaserChipRotation;
 
 	GeometryChain* _pGeoChainRingActive;
 	/** 対象アクター */
