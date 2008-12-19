@@ -2,17 +2,23 @@
 
 MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyOption";
-	GeometryChain* pFirst = NEW GeometryChain(GameGlobal::_pMyShip);
-	GeometryChain* pWork = pFirst;
-	GeometryChain* pTemp = NULL;
-	//for (DWORD i = 0; i < prm_dwBufferFrame-1; i++) {
-	for (DWORD i = 0; i < 50-1; i++) {
-		pTemp = NEW GeometryChain(GameGlobal::_pMyShip);
-		pWork->_next = pTemp;
-		pWork = pTemp;
+
+	_pRing = NEW GgafLinkedListRing<GeoElement>();
+	for (DWORD i = 0; i < 50; i++) {
+		_pRing->addLast(NEW GeoElement(GameGlobal::_pMyShip));
 	}
-	pTemp->_next = pFirst;
-	_pGeoChainRingActive = pFirst;
+//	GeometryChain* pFirst = NEW GeometryChain(GameGlobal::_pMyShip);
+//	_pGeoElmActive
+//	GeometryChain* pWork = pFirst;
+//	GeometryChain* pTemp = NULL;
+//	//for (DWORD i = 0; i < prm_dwBufferFrame-1; i++) {
+//	for (DWORD i = 0; i < 50-1; i++) {
+//		pTemp = NEW GeometryChain(GameGlobal::_pMyShip);
+//		pWork->_next = pTemp;
+//		pWork = pTemp;
+//	}
+//	pTemp->_next = pFirst;
+//	_pGeoChainRingActive = pFirst;
 
 
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
@@ -22,6 +28,7 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
+		Sleep(1);
 	}
 
 	_iMyNo = 0;
@@ -36,7 +43,7 @@ void MyOption::initialize() {
 	if (_iMyNo == 0) {
 		setGeometry(50000,0,0);
 		_pGeoMover -> setMoveVelocity(3000);
-		_pGeoMover -> setMoveAngleRz(5000);
+		_pGeoMover -> setMoveAngleRzVelocity(2000);
 
 	} else {
 		_pGeoMover -> setMoveVelocity(0);
@@ -49,19 +56,27 @@ void MyOption::initialize() {
 void MyOption::processBehavior() {
 	if (_iMyNo == 0) {
 		//最初の
+		static int tmpX,tmpY,tmpZ;
+		_X = tmpX;
+		_Y = tmpY;
+		_Z = tmpZ;
 		_pGeoMover -> behave();
+		tmpX = _X;
+		tmpY = _Y;
+		tmpZ = _Z;
+
 		_X += _pActor_Radical -> _X;
-		_Y += _pActor_Radical -> _Y;
+		_Y += _pActor_Radical -> _Y - 50000;
 		_Z += _pActor_Radical -> _Z;
 
 
 	} else {
 
-		_X = _pGeoChainRingActive->_X;
-		_Y = _pGeoChainRingActive->_Y;
-		_Z = _pGeoChainRingActive->_Z;
-		_pGeoChainRingActive->set(_pActor_Radical);
-		_pGeoChainRingActive = _pGeoChainRingActive ->_next;
+		_X = _pRing->get()->_X;
+		_Y = _pRing->get()->_Y;
+		_Z = _pRing->get()->_Z;
+		_pRing->get()->set(_pActor_Radical);
+		_pRing->next();
 
 		//ショット関連処理
 		//MyShip::transactShot(this);
@@ -84,12 +99,5 @@ void MyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 MyOption::~MyOption() {
-	GeometryChain* pWork = _pGeoChainRingActive;
-	GeometryChain* pWorkNext = NULL;
-	for (DWORD i = 0; i < 50-1 + 1; i++) {
-		pWorkNext = pWork->_next;
-		DELETE_IMPOSSIBLE_NULL(pWork);
-		pWork = pWorkNext;
-	}
-
+	DELETE_IMPOSSIBLE_NULL(_pRing);
 }

@@ -3,47 +3,16 @@
 
 class MyOption : public DefaultMeshActor {
 
-	class GeometryChain {
-	public:
-		int _X;
-		int _Y;
-		int _Z;
-		GeometryChain* _next;
-		GeometryChain(int prm_X, int prm_Y, int prm_Z) {
-			_X = prm_X; _Y = prm_Y; _Z = prm_Z;
-			_next = NULL;
-		};
-
-		GeometryChain(GgafDx9UntransformedActor* prm_pActor) {
-			_X = prm_pActor->_X;
-			_Y = prm_pActor->_Y;
-			_Z = prm_pActor->_Z;
-			_next = NULL;
-		};
-
-		void set(int prm_X, int prm_Y, int prm_Z) {
-			_X = prm_X;
-			_Y = prm_Y;
-			_Z = prm_Z;
-		};
-		void set(GgafDx9UntransformedActor* prm_pActor) {
-			_X = prm_pActor->_X;
-			_Y = prm_pActor->_Y;
-			_Z = prm_pActor->_Z;
-		};
-		virtual ~GeometryChain() {
-			_next = NULL;
-		}
-	};
-
 public:
 	int _iMyNo;
 
 	RotationActor* _pMyLaserChipRotation;
 
-	GeometryChain* _pGeoChainRingActive;
+	GgafLinkedListRing<GeoElement>* _pRing;
 	/** 対象アクター */
 	GgafDx9UntransformedActor* _pActor_Radical;
+	/** 対象アクター前フレームからの増分 */
+	int _incX_Radical, _incY_Radical, _incZ_Radical;
 
 	MyOption(string prm_name, string prm_model);
 
