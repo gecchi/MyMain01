@@ -7,6 +7,8 @@ class DefaultGod;
 class DefaultWorld;
 class StgUtil;
 class VirtualButton;
+class GeoElement;
+class GeometryChain;
 class DefaultScene;
 class DefaultMeshActor;
 class DefaultDynaMeshActor;
@@ -25,9 +27,12 @@ class StgChecker;
 class HitAreaBoxs;
 
 
+
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
+#include "jp/ggaf/dx9libstg/util/GeoElement.h"
+#include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultWorld.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
