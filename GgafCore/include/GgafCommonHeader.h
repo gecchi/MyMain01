@@ -126,6 +126,7 @@ class GgafUserRootSceneCreater;
 
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
+#include "jp/ggaf/core/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/basic_symbol.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/scene/GgafTrashRootScene.h"
