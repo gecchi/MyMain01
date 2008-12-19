@@ -90,7 +90,7 @@ protected:
 
 		T* getVal() {
 			return _pValue;
-		}
+		};
 
 		Elem* getNext() {
 			return _pNext;
@@ -116,7 +116,7 @@ protected:
 			return _isLast;
 		};
 
-		~Elem(){
+		~Elem() {
 			DELETE_IMPOSSIBLE_NULL(_pValue);
 		};
 
@@ -307,6 +307,7 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
 		pElem->_pNext = pElem;
 		pElem->_pPrev = pElem;
 		_pActive = pElem;
+		_pFirst = pElem;
 	} else {
 		//‚Q‚Â–ÚˆÈ~
 		pElem -> _isFirst = false;
@@ -363,8 +364,7 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
 	}
 
 
-//	_TRACE_("...deleted GgafLinkedListRing("<<_name<<") ID="<<_id);
-	_TRACE_("...deleted GgafLinkedListRing()");
+	//_TRACE_("...deleted GgafLinkedListRing()");
 }
 
 #endif /*GGAFLINKEDLISTRING_H_*/
