@@ -129,6 +129,12 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	}
 
 
+	//トレース用履歴
+	_pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
+	for (DWORD i = 0; i < 200; i++) {
+		_pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
+	}
+
 }
 
 void MyShip::initialize() {
@@ -931,6 +937,7 @@ void MyShip::equipOption() {
 MyShip::~MyShip() {
 	RELEASE_POSSIBLE_NULL(MyLaserChip::_pIDirect3DVertexBuffer9_MyLaserChip);
 	DELETE_POSSIBLE_NULL(MyLaserChip::_pTetra_EFGH);
+	DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }
 
 

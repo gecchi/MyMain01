@@ -195,7 +195,7 @@ public:
 
 	State _state;
 
-
+	GgafLinkedListRing<GeoElement>* _pRing_GeoHistory;
 
 	RotationActor* _pMyWaves001Rotation;
 	RotationActor* _pMyShots001Rotation;
