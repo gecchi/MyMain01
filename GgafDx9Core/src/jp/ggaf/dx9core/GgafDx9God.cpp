@@ -484,22 +484,12 @@ void GgafDx9God::makeWorldVisualize() {
 
 GgafDx9God::~GgafDx9God() {
 	_TRACE_("GgafDx9God::~GgafDx9God() start -->");
-	//Hê‘|œ
-
+	//Hê‚ðŽ~‚ß‚é
 	Sleep(20);
 	GgafFactory::_isWorking = false;
 	while (GgafFactory::_isFinish == false) {
 		Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
 	}
-
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-	GgafFactory::clean();
-	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
-
-	//ƒSƒ~” 
-	GgafFactory::_pTrashBox->_pTrashRootScene->dump();
-	GgafFactory::_pTrashBox->_pTrashRootActor->dump();
-	DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
 
 	DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
