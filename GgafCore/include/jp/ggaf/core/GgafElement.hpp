@@ -358,12 +358,25 @@ public:
 	void declareBlind();
 
 	/**
+	 * 自ノードだけ次フレームから非表示状態にする .
+	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
+	 */
+	void declareBlindAlone();
+
+	/**
 	 * 自ツリーノードを即座に非表示状態にする .
 	 * 自身と自分より下位のノード全てに非表示状態(blindImmediately())が実行される。<BR>
 	 * <B>[補足]</B><BR>
 	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
 	 */
 	void blindImmediately();
+
+	/**
+	 * 自ノードだけ即座に非表示状態にする .
+	 * <B>[補足]</B><BR>
+	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 */
+	void blindAloneImmediately();
 
 	/**
 	 * 自ツリーノードを次フレームから非表示解除にする .
@@ -1023,6 +1036,13 @@ void GgafElement<T>::declareBlind() {
 }
 
 template<class T>
+void GgafElement<T>::declareBlindAlone() {
+	if (_isAlive) {
+		_willBlindNextFrame = true;
+	}
+}
+
+template<class T>
 void GgafElement<T>::blindImmediately() {
 	if (_isAlive) {
 		_wasBlinded = true;
@@ -1040,6 +1060,15 @@ void GgafElement<T>::blindImmediately() {
 		}
 	}
 }
+
+template<class T>
+void GgafElement<T>::blindAloneImmediately() {
+	if (_isAlive) {
+		_wasBlinded = true;
+		_willBlindNextFrame = true;
+	}
+}
+
 
 template<class T>
 void GgafElement<T>::declareUnblind() {

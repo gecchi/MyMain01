@@ -180,10 +180,19 @@ void GgafGod::makeWorldFinalize() {
 
 GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");
-	//_pWorld->pronounceFinishLife();
+	//Hê‘|œ
+	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+		GgafFactory::clean();
+		//ƒSƒ~” 
+		GgafFactory::_pTrashBox->_pTrashRootScene->dump();
+		GgafFactory::_pTrashBox->_pTrashRootActor->dump();
+		DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
+	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+
+	//¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
 	Sleep(20);
 	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-	DELETE_IMPOSSIBLE_NULL(_pWorld);
+		DELETE_IMPOSSIBLE_NULL(_pWorld);
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
     CloseHandle(_handleFactory01);
     DeleteCriticalSection(&(GgafGod::CS2));
