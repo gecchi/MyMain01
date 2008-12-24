@@ -17,7 +17,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	/** 移動スピードレベル */
 	_lv_MoveSpeed = 2;
 	/** 移動スピードレベルに相応する移動スピード */
-	_iMoveSpeed = 2000;
+	_iMoveSpeed = 4000;
 
 	//CommonSceneがnewの場合設定
 	_iShotKind01 = 0;
@@ -146,275 +146,59 @@ void MyShip::initialize() {
 	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
-	//_RZ = ANGLE90;
-	//setAlpha(0.2);
-
-
-//	LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9_MyShip;
-//	BYTE*              pVertexSrc;
-//	DWORD  vtxFmt;
-//	DWORD  FVFSize;
-//
-//	DWORD numV = _pMeshModel->_pID3DXMesh->GetNumVertices();
-//	_pMeshModel->_pID3DXMesh->GetVertexBuffer(&pIDirect3DVertexBuffer9_MyShip);
-//	pIDirect3DVertexBuffer9_MyShip->Lock(0, 0, (void**)&pVertexSrc,0);
-//
-//	//頂点フォーマットのサイズを取得
-//	vtxFmt = _pMeshModel->_pID3DXMesh->GetFVF();
-//	FVFSize = D3DXGetFVFVertexSize( vtxFmt );
-//
-//
-//	for(int i = 0; i < numV; i++){
-//		D3DVECTOR* pV;
-//
-//	  //D3DFVF_XYZは先頭にあるので、オフセットは０
-//	  pV = (D3DVECTOR*)( pVertexSrc + (FVFSize * i) + 0 );
-//	  _TRACE_("頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
-//
-////	  //次にUVがあるので、D3DFVF_XYZのサイズ分だけ進めた位置から取り出す
-////	  uv = *(D3DXVECTOR2*)( pVtx + (FVFSize * i) + sizeof(D3DXVECTOR3) );
-////
-////	  ～v0が頂点座標,uvがその頂点のテクスチャー座標～
-//
-//	}
-//
-//
-//    pIDirect3DVertexBuffer9_MyShip->Unlock();
-//    RELEASE_IMPOSSIBLE_NULL(pIDirect3DVertexBuffer9_MyShip);
-
+	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
 
 
 }
 
 void MyShip::processBehavior() {
 
+	_pGeoMover -> setMoveVelocity(_iMoveSpeed);
+	if (VB::isBeingPressed(VB_TURBO)) {
 
-	_tmpX = _X;
-	_tmpY = _Y;
-	_tmpZ = _Z;
-	_dwFrameTurboMove++; // ターボ経過フレーム
-	_dwFrameNomalMove++; // 通常移動経過フレーム
-	//奥手前移動初めのTURBOか否か
-	if (_dwFrameTurboMove > 1 && _dwFrameNomalMove > 1 && VB::isBeingPressed(VB_TURBO)) {
-		if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_STC))  {               //奥、始動
-			_wayTurbo = ZLEFT;
-			beginTurboZX(VB_UP_STC);
-		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_STC))  {      //手前、始動
-			_wayTurbo = ZRIGHT;
-			beginTurboZX(VB_DOWN_STC);
-		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_LEFT_STC)) {    //左斜め奥、始動
-			_wayTurbo = ZLEFT_BEHIND;
-			beginTurboZX(VB_UP_LEFT_STC);
-		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_UP_RIGHT_STC)) {   //右斜め奥、始動
-			_wayTurbo = ZLEFT_FRONT;
-			beginTurboZX(VB_UP_RIGHT_STC);
-		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_LEFT_STC)) {  //左斜め手前、始動
-			_wayTurbo = ZRIGHT_BEHIND;
-			beginTurboZX(VB_DOWN_LEFT_STC);
-		} else if (VB::areNotBeingPressedAfterPushedDownAtOnce(VB_TURBO, VB_DOWN_RIGHT_STC)) { //右斜め手前、始動
-			_wayTurbo = ZRIGHT_FRONT;
-			beginTurboZX(VB_DOWN_RIGHT_STC);
-		} else {
-			//上下左右移動初めのTURBOか否か
-			if (VB::isPushedDown(VB_TURBO)) {
-				if (VB::isBeingPressed(VB_UP_STC)) {                 //上、始動
-					_wayTurbo = UP;
-					beginTurboXY(VB_UP_STC);
-				} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {    //右上、始動
-					_wayTurbo = UP_FRONT;
-					beginTurboXY(VB_UP_RIGHT_STC);
-				} else if (VB::isBeingPressed(VB_RIGHT_STC)) {       //右、始動
-					_wayTurbo = FRONT;
-					beginTurboXY(VB_RIGHT_STC);
-				} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {  //右下、始動
-					_wayTurbo = DOWN_FRONT;
-					beginTurboXY(VB_DOWN_RIGHT_STC);
-				} else if (VB::isBeingPressed(VB_DOWN_STC)) {        //下、始動
-					_wayTurbo = DOWN;
-					beginTurboXY(VB_DOWN_STC);
-				} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {   //左下、始動
-					_wayTurbo = DOWN_BEHIND;
-					beginTurboXY(VB_DOWN_LEFT_STC);
-				} else if (VB::isBeingPressed(VB_LEFT_STC)) {        //左、始動
-					_wayTurbo = BEHIND;
-					beginTurboXY(VB_LEFT_STC);
-				} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {     //左上、始動
-					_wayTurbo = UP_BEHIND;
-					beginTurboXY(VB_UP_LEFT_STC);
-				} else {
-					_isMoveZX = true;
-				}
-			}
-		}
-	}
-
-	//ターボ終了判定
-	if (_dwFrameNextXYTurboOut == _dwFrame) {
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = true;
-		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
-		_wayTurbo = NONE;
-	}
-	if (_dwFrameNextZXTurboOut == _dwFrame) {
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = true;
-		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
-		_wayTurbo = NONE;
-	}
-
-	if (_wayTurbo == NONE) {
-		_iTurboControl = 0;
-	} else {
-		_iTurboControl = _pGeoMover->_iVelocity_Move*_dRate_TurboControl;
-	}
-
-	if (VB::isBeingPressed(VB_TURBO) && _isMoveZX) {
 		//ZX通常移動
 		if (VB::isBeingPressed(VB_UP_STC)) {
-			if (VB::isPushedDown(VB_UP_STC)) {
-				beginMoveZX(VB_UP_STC);
-			} else if (_wayTurbo == ZRIGHT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_Z += _iMoveSpeed + _iTurboControl;
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE270);
 		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
-				beginMoveZX(VB_UP_RIGHT_STC);
-			} else if (_wayTurbo == ZRIGHT_BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += NANAME * (_iMoveSpeed + _iTurboControl);
-				_Z += NANAME * (_iMoveSpeed + _iTurboControl);
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE315);
 		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_RIGHT_STC)) {
-				beginMoveZX(VB_RIGHT_STC);
-			} else if (_wayTurbo == BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += _iMoveSpeed;
-			}
+			_pGeoMover -> setMoveAngleRy(0);
 		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
-				beginMoveZX(VB_DOWN_RIGHT_STC);
-			} else if (_wayTurbo == ZLEFT_BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += NANAME * (_iMoveSpeed + _iTurboControl);
-				_Z -= NANAME * (_iMoveSpeed + _iTurboControl);
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE45);
 		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
-			if (VB::isPushedDown(VB_DOWN_STC)) {
-				beginMoveZX(VB_DOWN_STC);
-			} else if (_wayTurbo == ZLEFT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_Z -= _iMoveSpeed + _iTurboControl;
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE90);
 		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
-			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
-				beginMoveZX(VB_DOWN_LEFT_STC);
-			} else if (_wayTurbo == ZLEFT_FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= NANAME * (_iMoveSpeed + _iTurboControl);
-				_Z -= NANAME * (_iMoveSpeed + _iTurboControl);
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE135);
 		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
-			if (VB::isPushedDown(VB_LEFT_STC)) {
-				beginMoveZX(VB_LEFT_STC);
-			} else if (_wayTurbo == FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= _iMoveSpeed + _iTurboControl;
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE180);
 		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
-			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
-				beginMoveZX(VB_UP_LEFT_STC);
-			} else if (_wayTurbo == ZRIGHT_FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= NANAME * (_iMoveSpeed + _iTurboControl);
-				_Z += NANAME * (_iMoveSpeed + _iTurboControl);
-			}
+			_pGeoMover -> setMoveAngleRy(ANGLE225);
 		} else {
-
 		}
 	} else {
-		_isMoveZX = false;
-		//XY通常移動
-		if (VB::isBeingPressed(VB_UP_STC)) {
-			if (VB::isPushedDown(VB_UP_STC)) {
-				beginMoveXY(VB_UP_STC);
-			} else if (_wayTurbo == DOWN) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_Y += _iMoveSpeed + _iTurboControl;
-			}
-		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_UP_RIGHT_STC)) {
-				beginMoveXY(VB_UP_RIGHT_STC);
-			} else if (_wayTurbo == DOWN_BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += NANAME * (_iMoveSpeed + _iTurboControl);
-				_Y += NANAME * (_iMoveSpeed + _iTurboControl);
-			}
-		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_RIGHT_STC)) {
-				beginMoveXY(VB_RIGHT_STC);
-			} else if (_wayTurbo == BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += _iMoveSpeed + _iTurboControl;
-			}
-		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
-			if (VB::isPushedDown(VB_DOWN_RIGHT_STC)) {
-				beginMoveXY(VB_DOWN_RIGHT_STC);
-			} else if (_wayTurbo == UP_BEHIND) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X += NANAME * (_iMoveSpeed + _iTurboControl);
-				_Y -= NANAME * (_iMoveSpeed + _iTurboControl);
-			}
-		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
-			if (VB::isPushedDown(VB_DOWN_STC)) {
-				beginMoveXY(VB_DOWN_STC);
-			} else if (_wayTurbo == UP) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_Y -= _iMoveSpeed + _iTurboControl;
-			}
-		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
-			if (VB::isPushedDown(VB_DOWN_LEFT_STC)) {
-				beginMoveXY(VB_DOWN_LEFT_STC);
-			} else if (_wayTurbo == UP_FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= NANAME * (_iMoveSpeed + _iTurboControl);
-				_Y -= NANAME * (_iMoveSpeed + _iTurboControl);
-			}
-		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
-			if (VB::isPushedDown(VB_LEFT_STC)) {
-				beginMoveXY(VB_LEFT_STC);
-			} else if (_wayTurbo == FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= _iMoveSpeed + _iTurboControl;
-			}
-		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
-			if (VB::isPushedDown(VB_UP_LEFT_STC)) {
-				beginMoveXY(VB_UP_LEFT_STC);
-			} else if (_wayTurbo == DOWN_FRONT) {
-				_pGeoMover->setMoveVelocity(_pGeoMover->_iVelocity_Move - _iMvAcce_EOD_MT);
-			} else {
-				_X -= NANAME * (_iMoveSpeed + _iTurboControl);
-				_Y += NANAME * (_iMoveSpeed + _iTurboControl);
-			}
-		} else {
-
-		}
+//		//XY通常移動
+//		if (VB::isBeingPressed(VB_UP_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE90);
+//		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE45);
+//		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(0);
+//		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE315);
+//		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE270);
+//		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE225);
+//		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE180);
+//		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
+//			_pGeoMover -> setMoveAngleRz(ANGLE135);
+//		} else {
+//		}
 	}
+
+
+////////////////////////////////////////////////////
 
 	//ショット関連処理
 	//MyShip::transactShot(this);
@@ -470,48 +254,6 @@ void MyShip::processBehavior() {
 		_SX+= 100;
 		_SY+= 100;
 		_SZ+= 100;
-	}
-
-
-
-	//ロール（仰角、俯角）を元に戻すフラグ発生
-	if (_wayTurbo != UP &&
-		_wayTurbo != UP_FRONT &&
-		_wayTurbo != UP_BEHIND &&
-		_wayTurbo != DOWN &&
-		_wayTurbo != DOWN_FRONT &&
-		_wayTurbo != DOWN_BEHIND &&
-		_pGeoMover->_angAxisRot[AXIS_Z] != 0 &&
-		!VB::isBeingPressed(VB_UP_STC) &&
-		!VB::isBeingPressed(VB_UP_RIGHT_STC) &&
-		!VB::isBeingPressed(VB_UP_LEFT_STC) &&
-		!VB::isBeingPressed(VB_DOWN_STC) &&
-		!VB::isBeingPressed(VB_DOWN_RIGHT_STC) &&
-		!VB::isBeingPressed(VB_DOWN_LEFT_STC) )
-	{
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
-	}
-
-	//ピッチ（左右の傾き）を元に戻すフラグ発生
-	if (_wayTurbo != ZLEFT &&
-		_wayTurbo != ZLEFT_FRONT &&
-		_wayTurbo != ZLEFT_BEHIND &&
-		_wayTurbo != ZRIGHT &&
-		_wayTurbo != ZRIGHT_FRONT &&
-		_wayTurbo != ZRIGHT_BEHIND &&
-		_pGeoMover->_angAxisRot[AXIS_X] != 0 &&
-		!VB::isBeingPressed(VB_UP_STC) &&
-		!VB::isBeingPressed(VB_UP_RIGHT_STC) &&
-		!VB::isBeingPressed(VB_UP_LEFT_STC) &&
-		!VB::isBeingPressed(VB_DOWN_STC) &&
-		!VB::isBeingPressed(VB_DOWN_RIGHT_STC) &&
-		!VB::isBeingPressed(VB_DOWN_LEFT_STC) )
-	{
-		int rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, 0, TURN_CLOSE_TO);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MNZ);
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, 0, TURN_BOTH);
 	}
 
 

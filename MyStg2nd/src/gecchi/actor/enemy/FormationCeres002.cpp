@@ -5,7 +5,7 @@ FormationCeres002::FormationCeres002(string prm_name, string prm_model) : Format
 
 	_pRotEnemyMeshShots001 = NEW RotationActor("FmtCeres002_RotEnemyMeshS001");
 	EnemyMeshShot001* pEnemyMeshShot;
-	for (int i = 0; i < 30; i++) { //ストック
+	for (int i = 0; i < 30; i++) { //弾ストック
 		Sleep(1);
 		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
 		pEnemyMeshShot->stopImmediately(); //最初非表示

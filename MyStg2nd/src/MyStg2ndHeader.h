@@ -47,6 +47,7 @@ class MyLaserChip;
 
 class Stage01MainScene;
 class Tetrahedron;
+class MyShipMoverAssistant;
 class MyShip;
 class MyOptionParent;
 class MyOption;
@@ -92,6 +93,7 @@ class MyFactory;
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 
 #include "gecchi/actor/my/mesh/MyLaserChip.h"
+#include "gecchi/actor/my/mesh/MyShipMoverAssistant.h"
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyOption.h"
