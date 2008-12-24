@@ -1,7 +1,6 @@
 #ifndef MYWAVE001_H_
 #define MYWAVE001_H_
 
-
 class MyWave001 : public DefaultMeshActor {
 
 public:
