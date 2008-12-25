@@ -471,6 +471,10 @@ void GgafDx9GeometryMover::setMoveVelocity(int prm_iVelocity_Move) {
 	}
 }
 
+void GgafDx9GeometryMover::addMoveVelocity(int prm_iVelocity_Move_Offset) {
+	setMoveVelocity(_iVelocity_Move + prm_iVelocity_Move_Offset);
+}
+
 void GgafDx9GeometryMover::setMoveAcceleration(int prm_iAcceleration_MoveVelocity) {
 	_iAcceleration_MoveVelocity = prm_iAcceleration_MoveVelocity;
 }

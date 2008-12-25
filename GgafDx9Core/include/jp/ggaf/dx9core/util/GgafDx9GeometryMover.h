@@ -236,6 +236,7 @@ public:
 	 */
 	void setMoveVelocity(int prm_iVelocity_Move);
 
+	void addMoveVelocity(int prm_iVelocity_Move_Offset);
 
 	void setMoveVelocityRenge(int prm_iVelocity01_Move, int prm_iVelocity02_Move);
 
