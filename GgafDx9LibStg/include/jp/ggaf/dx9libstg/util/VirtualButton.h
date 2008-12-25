@@ -37,7 +37,7 @@
 
 
 
-#define VB_MAP_BUFFER 20
+#define VB_MAP_BUFFER 200
 #define VB_NUM 29
 
 

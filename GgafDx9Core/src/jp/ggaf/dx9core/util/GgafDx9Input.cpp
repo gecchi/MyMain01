@@ -220,14 +220,24 @@ void GgafDx9Input::updateKeyboardState() {
 	again:
 
 	hr = _s_pIDirectInputDevice8_Keyboard->GetDeviceState(sizeof(_s_caKeyboardState), (void*)&_s_caKeyboardState);
-	if(hr != DI_OK){
+	if(FAILED(hr)){
+		_TRACE_("GetDeviceState is FAILED");
 		//ÇPâÒÇæÇØAcquire()ÇééÇ›ÇÈÅB
 		hr = _s_pIDirectInputDevice8_Keyboard->Acquire();
         if(hr == DI_OK) {
+    		_TRACE_("Acquire is DI_OK");
 			goto again;
         } else {
+        	_TRACE_("Acquire is not DI_OK");
 			//É_ÉÅÇ»ÇÁÇ‹ÇΩéüâÒÇ÷
         }
+	}
+
+	if (_s_caKeyboardState[DIK_Q] & 0x80) {
+		
+	} else {
+		_TRACE_("not! DIK_Q");
+		//_TRACE_("Acquire is not DI_OK");
 	}
 	return;
 }

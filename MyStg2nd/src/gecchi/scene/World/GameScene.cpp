@@ -20,9 +20,7 @@ void GameScene::initialize() {
 
 
 void GameScene::processBehavior() {
-	cleane(1);
 	VB::update(); //入力情報更新
-
 #ifdef OREDEBUG
 	//ワイヤフレーム表示切替
 	if (VB::isPushedDown(VB_UI_DEBUG)) {

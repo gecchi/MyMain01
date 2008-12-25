@@ -170,68 +170,83 @@ void MyShip::initialize() {
 void MyShip::processBehavior() {
 
 	//_pGeoMover -> setMoveVelocity(_iMoveSpeed);
+//	static int stc;
+//	if (VB::isBeingPressed(VB_TURBO)) {
+//		stc = VB::getPushedDownStickWith(VB_TURBO);
+//		if (stc != 0 && _dwFrameTurboMove > 5) {
+//			//beginTurboZX
+//			_dwFrameTurboMove = 0;
+//			_dwFrameZXTurboMove = 0;
+//			beginTurboZX(stc);
+//			turnFaceNeutralXY();
+//		} else {
+//			stc = VB::getBeingPressedStick();
+//			if (stc != 0) {
+//				if (VB::isPushedDown(VB_TURBO) && _dwFrameTurboMove > 5) {
+//					//beginTurboXY
+//					_dwFrameTurboMove = 0;
+//					_dwFrameXYTurboMove = 0;
+//					beginTurboXY(stc);
+//					turnFaceNeutralZX();
+//				} else {
+//					if (_wayTurbo == WAY_NONE) {
+//						//ZXMOVE
+//						moveZX(stc);
+//						turnFaceZXMove(stc);
+//						turnFaceNeutralXY();
+//					} else {
+//						//ターボ中ZX制御
+//						controlTurboZX(stc);
+//						turnFaceZXMove(stc);
+//						turnFaceNeutralXY();
+//					}
+//				}
+//			} else {
+//				//ただTURBO押してるだけ
+//				doNotingMoveInput();
+//				turnFaceNeutralXY();
+//				turnFaceNeutralZX();
+//			}
+//		}
+//	} else {
+//		stc = VB::getBeingPressedStick();
+//		if (stc != 0) {
+//			if (_wayTurbo == WAY_NONE) {
+//				//XYMOVE
+//				moveXY(stc);
+//				turnFaceXYMove(stc);
+//				turnFaceNeutralZX();
+//			} else {
+//				//ターボ中XY制御
+//				controlTurboXY(stc);
+//				turnFaceXYMove(stc);
+//				turnFaceNeutralZX();
+//			}
+//		} else {
+//			//なにもしてない
+//			doNotingMoveInput();
+//			turnFaceNeutralXY();
+//			turnFaceNeutralZX();
+//		}
+//	}
+//	_dwFrameTurboMove++;
+//	_dwFrameXYTurboMove++;
+//	_dwFrameZXTurboMove++;
+
 	static int stc;
 	if (VB::isBeingPressed(VB_TURBO)) {
-		stc = VB::getPushedDownStickWith(VB_TURBO);
-		if (stc != 0 && _dwFrameTurboMove > 5) {
-			//beginTurboZX
-			_dwFrameTurboMove = 0;
-			_dwFrameZXTurboMove = 0;
-			beginTurboZX(stc);
-			turnFaceNeutralXY();
-		} else {
-			stc = VB::getBeingPressedStick();
-			if (stc != 0) {
-				if (VB::isPushedDown(VB_TURBO) && _dwFrameTurboMove > 5) {
-					//beginTurboXY
-					_dwFrameTurboMove = 0;
-					_dwFrameXYTurboMove = 0;
-					beginTurboXY(stc);
-					turnFaceNeutralZX();
-				} else {
-					if (_wayTurbo == WAY_NONE) {
-						//ZXMOVE
-						moveZX(stc);
-						turnFaceZXMove(stc);
-						turnFaceNeutralXY();
-					} else {
-						//ターボ中ZX制御
-						controlTurboZX(stc);
-						turnFaceZXMove(stc);
-						turnFaceNeutralXY();
-					}
-				}
-			} else {
-				//ただTURBO押してるだけ
-				doNotingMoveInput();
-				turnFaceNeutralXY();
-				turnFaceNeutralZX();
-			}
-		}
-	} else {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
-			if (_wayTurbo == WAY_NONE) {
-				//XYMOVE
-				moveXY(stc);
-				turnFaceXYMove(stc);
-				turnFaceNeutralZX();
-			} else {
-				//ターボ中XY制御
-				controlTurboXY(stc);
-				turnFaceXYMove(stc);
-				turnFaceNeutralZX();
-			}
-		} else {
-			//なにもしてない
-			doNotingMoveInput();
-			turnFaceNeutralXY();
-			turnFaceNeutralZX();
+			moveZX(stc);
+		}
+
+	} else {
+_TRACE_("NOTTURBO");
+		stc = VB::getBeingPressedStick();
+		if (stc != 0) {
+			moveXY(stc);
 		}
 	}
-	_dwFrameTurboMove++;
-	_dwFrameXYTurboMove++;
-	_dwFrameZXTurboMove++;
 
 ////////////////////////////////////////////////////
 
