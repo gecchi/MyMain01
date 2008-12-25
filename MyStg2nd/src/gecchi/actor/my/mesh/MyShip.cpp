@@ -55,11 +55,11 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_angRZAcce_MY = 200;		//ã–”‚Í‰º‚Ö’ÊíˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
 	_angRZStop_MY = 30000;		//ã–”‚Í‰º‚Ö’ÊíZˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‚Ì’âŽ~Šp“x
 
-	_iMvBtmVelo_MT = -1*_iMoveSpeed;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
+	_iMvBtmVelo_MT = 1000;		//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
 	_iMvVelo_BeginMT = _iMoveSpeed*3;	//TURBOˆÚ“®ŠJŽnŽž‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
-	_iMvAcce_MT = -100;					//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
+	_iMvAcce_MT = -200;					//TURBOˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
-	_iMvAcce_EOD_MT = 100;			//TURBO’†‚É‹t•ûŒü‚É“ü—Í‚³‚ê‚éŽ–‚É‚æ‚èŒ¸‘¬‚·‚é‘¬“x
+	_iMvAcce_EOD_MT = -300;			//TURBO’†‚É‹t•ûŒü‚É“ü—Í‚³‚ê‚éŽ–‚É‚æ‚è‰ÁŽZ‚³‚ê‚éiŒ¸‘¬‚·‚éj‘¬“x
 
 	_angRZVelo_BeginMYT = 13000;	//ã–”‚Í‰º‚ÖTURBOˆÚ“®ŠJŽnŽž‚ÌZŽ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
 	_angRZAcce_MYT = -200;			//ã–”‚Í‰º‚ÖTURBOˆÚ“®’†‚ÌZŽ²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x
@@ -87,9 +87,23 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_dwIntervalZXTurbo = 60;		//Zƒ^[ƒ{I—¹ƒtƒŒ[ƒ€ŠÔŠu
 
 	_dwFrameTurboMove = 0;			//ƒ^[ƒ{Œo‰ßƒtƒŒ[ƒ€
+	_dwFrameXYTurboMove = 0;			//ƒ^[ƒ{Œo‰ßƒtƒŒ[ƒ€
+	_dwFrameZXTurboMove = 0;			//ƒ^[ƒ{Œo‰ßƒtƒŒ[ƒ€
+
+	_dwIntervalFinshTurbo = 60;
+
+	_angFaceTurnRange = 30000;//U‚èŒü‚«‹–—eƒAƒ“ƒO‚é
+	_angRotVelo_FaceTurn = 2000;
+
+	_needTurnFaceNeutralXY = true;
+	_needTurnFaceNeutralZX = true;
+	_needturnFaceXYMove = false;
+	_needturnFaceZXMove = false;
+
+
 	_dwFrameNomalMove = 0;			//’ÊíˆÚ“®Œo‰ßƒtƒŒ[ƒ€
 	_isMoveZX = false;
-	_wayTurbo = NONE;
+	_wayTurbo = WAY_NONE;
 	_dRate_TurboControl = 0.8; //ƒ^[ƒ{’†ˆÚ“®§Œä‚Å‚«‚éŠ„‡
 	_iTurboControl = 0;
 
@@ -145,6 +159,8 @@ void MyShip::initialize() {
 	_pChecker -> useHitAreaBoxNum(1);
 	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	_pGeoMover -> setMoveVelocity(0);
+
+
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
 
@@ -153,50 +169,69 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
 
-	_pGeoMover -> setMoveVelocity(_iMoveSpeed);
+	//_pGeoMover -> setMoveVelocity(_iMoveSpeed);
+	static int stc;
 	if (VB::isBeingPressed(VB_TURBO)) {
-
-		//ZX’ÊíˆÚ“®
-		if (VB::isBeingPressed(VB_UP_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE270);
-		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE315);
-		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
-			_pGeoMover -> setMoveAngleRy(0);
-		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE45);
-		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE90);
-		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE135);
-		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE180);
-		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
-			_pGeoMover -> setMoveAngleRy(ANGLE225);
+		stc = VB::getPushedDownStickWith(VB_TURBO);
+		if (stc != 0 && _dwFrameTurboMove > 5) {
+			//beginTurboZX
+			_dwFrameTurboMove = 0;
+			_dwFrameZXTurboMove = 0;
+			beginTurboZX(stc);
+			turnFaceNeutralXY();
 		} else {
+			stc = VB::getBeingPressedStick();
+			if (stc != 0) {
+				if (VB::isPushedDown(VB_TURBO) && _dwFrameTurboMove > 5) {
+					//beginTurboXY
+					_dwFrameTurboMove = 0;
+					_dwFrameXYTurboMove = 0;
+					beginTurboXY(stc);
+					turnFaceNeutralZX();
+				} else {
+					if (_wayTurbo == WAY_NONE) {
+						//ZXMOVE
+						moveZX(stc);
+						turnFaceZXMove(stc);
+						turnFaceNeutralXY();
+					} else {
+						//ƒ^[ƒ{’†ZX§Œä
+						controlTurboZX(stc);
+						turnFaceZXMove(stc);
+						turnFaceNeutralXY();
+					}
+				}
+			} else {
+				//‚½‚¾TURBO‰Ÿ‚µ‚Ä‚é‚¾‚¯
+				doNotingMoveInput();
+				turnFaceNeutralXY();
+				turnFaceNeutralZX();
+			}
 		}
 	} else {
-//		//XY’ÊíˆÚ“®
-//		if (VB::isBeingPressed(VB_UP_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE90);
-//		} else if (VB::isBeingPressed(VB_UP_RIGHT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE45);
-//		} else if (VB::isBeingPressed(VB_RIGHT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(0);
-//		} else if (VB::isBeingPressed(VB_DOWN_RIGHT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE315);
-//		} else if (VB::isBeingPressed(VB_DOWN_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE270);
-//		} else if (VB::isBeingPressed(VB_DOWN_LEFT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE225);
-//		} else if (VB::isBeingPressed(VB_LEFT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE180);
-//		} else if (VB::isBeingPressed(VB_UP_LEFT_STC)) {
-//			_pGeoMover -> setMoveAngleRz(ANGLE135);
-//		} else {
-//		}
+		stc = VB::getBeingPressedStick();
+		if (stc != 0) {
+			if (_wayTurbo == WAY_NONE) {
+				//XYMOVE
+				moveXY(stc);
+				turnFaceXYMove(stc);
+				turnFaceNeutralZX();
+			} else {
+				//ƒ^[ƒ{’†XY§Œä
+				controlTurboXY(stc);
+				turnFaceXYMove(stc);
+				turnFaceNeutralZX();
+			}
+		} else {
+			//‚È‚É‚à‚µ‚Ä‚È‚¢
+			doNotingMoveInput();
+			turnFaceNeutralXY();
+			turnFaceNeutralZX();
+		}
 	}
-
+	_dwFrameTurboMove++;
+	_dwFrameXYTurboMove++;
+	_dwFrameZXTurboMove++;
 
 ////////////////////////////////////////////////////
 
@@ -261,378 +296,6 @@ void MyShip::processBehavior() {
 	_pGeoMover -> behave();
 }
 
-//‰æ–Ê‰œŽè‘OˆÚ“®‰‚ßˆ—
-void MyShip::beginTurboZX(int prm_VB) {
-	beginMoveZX(prm_VB);
-
-	_isMoveZX = true;
-	_dwFrameNextZXTurboOut = _dwFrame + _dwIntervalZXTurbo; //ƒ^[ƒ{ŠúŠÔ
-	_dwFrameTurboMove = 0; //ƒŠƒZƒbƒg
-	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
-	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
-
-	switch(prm_VB) {
-
-	case VB_UP_STC: //‰œ
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE270);
-
-	break;
-
-	case VB_UP_RIGHT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE315);
-		break;
-
-	case VB_UP_LEFT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE225);
-		break;
-
-	case VB_RIGHT_STC:
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE0);
-		break;
-
-	case VB_LEFT_STC:
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE180);
-		break;
-
-	case VB_DOWN_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -3000000, -1*_angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE90);
-		break;
-
-	case VB_DOWN_RIGHT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE45);
-		break;
-
-	case VB_DOWN_LEFT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_X] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, 3000000, _angRXBtmVelo_MZT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZT);
-
-		_pGeoMover -> setMoveAngleRzRy(0, ANGLE135);
-		break;
-
-
-
-	default:
-		throw_GgafCriticalException("MyShip::beginTurboZX prm_VB="<<prm_VB<<"‚Í‚ ‚è‚¦‚Ü‚¹‚ñ");
-		break;
-	}
-
-}
-
-//XYÀ•Wƒ^[ƒ{Žn“®Žž
-void MyShip::beginTurboXY(int prm_VB) {
-	beginMoveXY(prm_VB);
-
-	_isMoveZX = false;
-	_dwFrameNextXYTurboOut = _dwFrame + _dwIntervalXYTurbo; //ƒ^[ƒ{ŠúŠÔ
-	_dwFrameTurboMove = 0; //ƒŠƒZƒbƒg
-
-
-	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
-	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
-
-	switch(prm_VB) {
-
-	case VB_UP_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(ANGLE90, 0);
-		break;
-
-	case VB_UP_RIGHT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—ÍŒ¸
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(ANGLE45, 0);
-		break;
-
-	case VB_UP_LEFT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, 3000000, _angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, _angRZVelo_BeginMYT*NANAME); //ŽÎ‚ß‚È‚Ì‚Å‰ñ“]—ÍŒ¸
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(ANGLE135, 0);
-		break;
-
-	case VB_LEFT_STC:
-		_pGeoMover -> setMoveAngleRzRy(ANGLE180, 0);
-		break;
-
-	case VB_RIGHT_STC:
-		_pGeoMover -> setMoveAngleRzRy(ANGLE0, 0);
-		break;
-
-	case VB_DOWN_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(-1*ANGLE90, 0);
-		break;
-
-	case VB_DOWN_RIGHT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(-1*ANGLE45, 0);
-		break;
-
-	case VB_DOWN_LEFT_STC:
-		_pGeoMover -> _auto_rot_angle_target_Flg[AXIS_Z] = false;
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -300000, -1*_angRZBtmVelo_MYT);
-		_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, -1*_angRZVelo_BeginMYT*NANAME);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MYT);
-		_pGeoMover -> setMoveAngleRzRy(-1*ANGLE135, 0);
-		break;
-
-	default:
-		throw_GgafCriticalException("MyShip::beginTurboXY prm_VB="<<prm_VB<<"‚Í‚ ‚è‚¦‚Ü‚¹‚ñ");
-		break;
-	}
-
-}
-
-
-//‰æ–Ê‰œŽè‘OˆÚ“®‰‚ßˆ—
-void MyShip::beginMoveZX(int prm_VB) {
-	_dwFrameNomalMove = 0;
-	int rd;
-	switch(prm_VB) {
-
-	case VB_UP_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] > _angRXTopVelo_MZ) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, _angRXTopVelo_MZ, ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] < -1*_angRXTopVelo_MZ) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*ANGLE180, _angRXTopVelo_MZ);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZ*2); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*_angRXTopVelo_MZ, _angRXTopVelo_MZ);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, sgn(rd)*_angRXVelo_BeginMZ); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MZ); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, _angRXStop_MZ, TURN_BOTH, _angRXBtmVelo_MZT);
-		break;
-
-	case VB_UP_LEFT_STC:
-	case VB_UP_RIGHT_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] > _angRXTopVelo_MZ) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, _angRXTopVelo_MZ, ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2*NANAME); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] < -1*_angRXTopVelo_MZ) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*ANGLE180, _angRXTopVelo_MZ);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXTopVelo_MZ*2*NANAME); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*_angRXTopVelo_MZ, _angRXTopVelo_MZ);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, _angRXStop_MZ*NANAME, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, sgn(rd)*_angRXVelo_BeginMZ); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXTopVelo_MZ*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, _angRXStop_MZ*NANAME, TURN_BOTH, _angRXBtmVelo_MZT);
-		break;
-
-	case VB_RIGHT_STC:
-		beginMoveXY(VB_RIGHT_STC);
-		break;
-
-
-	case VB_DOWN_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] > _angRXTopVelo_MZ) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, ANGLE180, -1*_angRXTopVelo_MZ);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] < -1*_angRXTopVelo_MZ) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                           //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*_angRXTopVelo_MZ, -1*ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZ*2); //Šp‰Á‘¬‚Í³‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*_angRXTopVelo_MZ, _angRXTopVelo_MZ);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, sgn(rd)*_angRXVelo_BeginMZ); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MZ); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_BOTH, _angRXBtmVelo_MZT);
-		break;
-
-	case VB_DOWN_LEFT_STC:
-	case VB_DOWN_RIGHT_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] > _angRXTopVelo_MZ) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, _angRXTopVelo_MZ, ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2*NANAME); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] < -1*_angRXTopVelo_MZ) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*ANGLE180, _angRXTopVelo_MZ);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, _angRXAcce_MZ*2*NANAME); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_X, -1*_angRXTopVelo_MZ, _angRXTopVelo_MZ);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, _angRXStop_MZ*NANAME, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_X] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_X, sgn(rd)*_angRXVelo_BeginMZ); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(rd)*_angRXAcce_MZ*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, _angRZStop_MY*NANAME, TURN_BOTH, _angRXBtmVelo_MZT);
-		break;
-
-	case VB_LEFT_STC:
-		beginMoveXY(VB_LEFT_STC);
-		break;
-
-	default:
-		throw_GgafCriticalException("MyShip::beginMoveZX prm_VB="<<prm_VB<<"‚Í‚ ‚è‚¦‚Ü‚¹‚ñ");
-		break;
-	}
-
-}
-
-
-//XY‘OˆÚ“®‰‚ßˆ—
-void MyShip::beginMoveXY(int prm_VB) {
-	_dwFrameNomalMove = 0;
-
-	int rd;
-	switch(prm_VB) {
-
-	case VB_UP_STC: //‹ÂŠp”­¶i³•ûŒüŽü‚è”­¶j
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY, TURN_BOTH, _angRZBtmVelo_MYT);
-		break;
-
-	case VB_UP_LEFT_STC:
-	case VB_UP_RIGHT_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) {  //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, _angRZTopVelo_MY, ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*NANAME); //Šp‰Á‘¬‚Í•‰‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                          //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*ANGLE180, _angRZTopVelo_MY);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*NANAME); //”½”­‚·‚é³•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, _angRZStop_MY*NANAME, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, _angRZStop_MY*NANAME, TURN_BOTH, _angRZBtmVelo_MYT);
-		break;
-
-	case VB_RIGHT_STC:
-		break;
-
-	case VB_DOWN_STC: //˜ëŠp”­¶i•‰•ûŒüŽü‚è”­¶j
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                           //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2); //Šp‰Á‘¬‚Í³‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY, TURN_BOTH, _angRZBtmVelo_MYT);
-		break;
-
-	case VB_DOWN_LEFT_STC:
-	case VB_DOWN_RIGHT_STC:
-		if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] > _angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å³•ûŒü(‹t)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡
-			//”½”­‚µ‚Ä‹tŽü‚è
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, ANGLE180, -1*_angRZTopVelo_MY);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, -1*_angRZAcce_MY*2*NANAME); //”½”­‚·‚é•‰•ûŒü‚ÉŠp‰Á‘¬A’Êí‚Ì‚Q”{Šp‰Á‘¬‚Å‚¢‚­
-		} else if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] < -1*_angRZTopVelo_MY) { //‚¯‚Á‚±‚¤‚È¨‚¢‚Å•‰•ûŒü(‡)Žü‚è‚É‰ñ‚Á‚Ä‚½ê‡                                           //•‰•ûŒü‚É‰ñ‚Á‚Ä‚éê‡
-			//™X‚É‚ä‚é‚â‚©‚É
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, -1*ANGLE180);
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, _angRZAcce_MY*2*NANAME); //Šp‰Á‘¬‚Í³‚Å™X‚É‚ä‚é‚â‚©‚É
-		} else {
-			_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MY, _angRZTopVelo_MY);
-			rd = _pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, -1*_angRZStop_MY*NANAME, TURN_CLOSE_TO);
-			if (_pGeoMover ->_angVelocity_AxisRotAngle[AXIS_Z] == 0) { //’âŽ~‚µ‚Ä‚¢‚éê‡
-				_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, sgn(rd)*_angRZVelo_BeginMY); //‰‘¬
-			}
-			_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(rd)*_angRZAcce_MY*NANAME); //‹ß‚¢‚Ù‚¤‚ÉŠp‰Á‘¬
-		}
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, -1*_angRZStop_MY*NANAME, TURN_BOTH, _angRZBtmVelo_MYT);
-		break;
-
-	case VB_LEFT_STC:
-		break;
-
-	default:
-		throw_GgafCriticalException("MyShip::beginMoveXY prm_VB="<<prm_VB<<"‚Í‚ ‚è‚¦‚Ü‚¹‚ñ");
-		break;
-	}
-
-}
-
-
 
 void MyShip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
@@ -641,6 +304,500 @@ void MyShip::processJudgement() {
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 	declareFinishLife();
+}
+
+
+void MyShip::beginTurboXY(int prm_VB) {
+	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
+	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
+
+	switch(prm_VB) {
+
+	case VB_UP_STC:
+		_wayTurbo = WAY_UP;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE90, 0);
+		break;
+
+	case VB_UP_RIGHT_STC:
+		_wayTurbo = WAY_UP_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE45, 0);
+		break;
+
+	case VB_UP_LEFT_STC:
+		_wayTurbo = WAY_UP_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE135, 0);
+		break;
+
+	case VB_LEFT_STC:
+		_wayTurbo = WAY_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE180, 0);
+		break;
+
+	case VB_RIGHT_STC:
+		_wayTurbo = WAY_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE0, 0);
+		break;
+
+	case VB_DOWN_STC:
+		_wayTurbo = WAY_DOWN;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE270, 0);
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		_wayTurbo = WAY_DOWN_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE315, 0);
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		_wayTurbo = WAY_DOWN_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(ANGLE225, 0);
+		break;
+
+	default:
+
+		break;
+	}
+
+}
+
+void MyShip::beginTurboZX(int prm_VB) {
+	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
+	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
+
+	switch(prm_VB) {
+
+	case VB_UP_STC: //‰œ
+		_wayTurbo = WAY_ZLEFT;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE270);
+		break;
+
+	case VB_UP_RIGHT_STC:
+		_wayTurbo = WAY_ZLEFT_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE315);
+		break;
+
+	case VB_UP_LEFT_STC:
+		_wayTurbo = WAY_ZLEFT_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE225);
+		break;
+
+	case VB_RIGHT_STC:
+		_wayTurbo = WAY_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE0);
+		break;
+
+	case VB_LEFT_STC:
+		_wayTurbo = WAY_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE180);
+		break;
+
+	case VB_DOWN_STC:
+		_wayTurbo = WAY_ZRIGHT;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE90);
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		_wayTurbo = WAY_ZRIGHT_FRONT;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE45);
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		_wayTurbo = WAY_ZRIGHT_BEHIND;
+		_pGeoMover -> setMoveAngleRzRy(0, ANGLE135);
+		break;
+
+	default:
+
+		break;
+	}
+
+}
+
+void MyShip::moveXY(int prm_VB) {
+	switch(prm_VB) {
+
+	case VB_UP_STC:
+		_Y += _iMoveSpeed;
+		break;
+
+	case VB_UP_RIGHT_STC:
+		_Y += _iMoveSpeed * NANAME;
+		_X += _iMoveSpeed * NANAME;
+		break;
+
+	case VB_UP_LEFT_STC:
+		_Y += _iMoveSpeed * NANAME;
+		_X -= _iMoveSpeed * NANAME;
+		break;
+
+	case VB_LEFT_STC:
+		_X -= _iMoveSpeed;
+		break;
+
+	case VB_RIGHT_STC:
+		_X += _iMoveSpeed;
+		break;
+
+	case VB_DOWN_STC:
+		_Y -= _iMoveSpeed;
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		_Y -= _iMoveSpeed * NANAME;
+		_X += _iMoveSpeed * NANAME;
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		_Y -= _iMoveSpeed * NANAME;
+		_X -= _iMoveSpeed * NANAME;
+		break;
+
+	default:
+		break;
+	}
+}
+
+void MyShip::moveZX(int prm_VB) {
+	switch(prm_VB) {
+
+	case VB_UP_STC:
+		_Z += _iMoveSpeed;
+		break;
+
+	case VB_UP_RIGHT_STC:
+		_Z += _iMoveSpeed * NANAME;
+		_X += _iMoveSpeed * NANAME;
+		break;
+
+	case VB_UP_LEFT_STC:
+		_Z += _iMoveSpeed * NANAME;
+		_X -= _iMoveSpeed * NANAME;
+		break;
+
+	case VB_LEFT_STC:
+		_X -= _iMoveSpeed;
+		break;
+
+	case VB_RIGHT_STC:
+		_X += _iMoveSpeed;
+		break;
+
+	case VB_DOWN_STC:
+		_Z -= _iMoveSpeed;
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		_Z -= _iMoveSpeed * NANAME;
+		_X += _iMoveSpeed * NANAME;
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		_Z -= _iMoveSpeed * NANAME;
+		_X -= _iMoveSpeed * NANAME;
+		break;
+
+	default:
+		break;
+	}
+}
+
+void MyShip::controlTurboXY(int prm_VB) {
+	switch(prm_VB) {
+
+	case VB_UP_STC:
+		if (_wayTurbo == WAY_DOWN) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y += _iMoveSpeed;
+		}
+		break;
+
+	case VB_UP_RIGHT_STC:
+		if (_wayTurbo == WAY_DOWN_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y += _iMoveSpeed * NANAME;
+			_X += _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_UP_LEFT_STC:
+		if (_wayTurbo == WAY_DOWN_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y += _iMoveSpeed * NANAME;
+			_X -= _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_LEFT_STC:
+		if (_wayTurbo == WAY_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_X -= _iMoveSpeed;
+		}
+		break;
+
+	case VB_RIGHT_STC:
+		if (_wayTurbo == WAY_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_X += _iMoveSpeed;
+		}
+		break;
+
+	case VB_DOWN_STC:
+		if (_wayTurbo == WAY_UP) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y -= _iMoveSpeed;
+		}
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		if (_wayTurbo == WAY_UP_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y -= _iMoveSpeed * NANAME;
+			_X += _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		if (_wayTurbo == WAY_UP_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Y -= _iMoveSpeed * NANAME;
+			_X -= _iMoveSpeed * NANAME;
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+
+void MyShip::controlTurboZX(int prm_VB) {
+	switch(prm_VB) {
+
+	case VB_UP_STC:
+		if (_wayTurbo == WAY_ZRIGHT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z += _iMoveSpeed;
+		}
+		break;
+
+	case VB_UP_RIGHT_STC:
+		if (_wayTurbo == WAY_ZRIGHT_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z += _iMoveSpeed * NANAME;
+			_X += _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_UP_LEFT_STC:
+		if (_wayTurbo == WAY_ZRIGHT_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z += _iMoveSpeed * NANAME;
+			_X -= _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_LEFT_STC:
+		if (_wayTurbo == WAY_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_X -= _iMoveSpeed;
+		}
+		break;
+
+	case VB_RIGHT_STC:
+		if (_wayTurbo == WAY_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_X += _iMoveSpeed;
+		}
+		break;
+
+	case VB_DOWN_STC:
+		if (_wayTurbo == WAY_ZLEFT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z -= _iMoveSpeed;
+		}
+		break;
+
+	case VB_DOWN_RIGHT_STC:
+		if (_wayTurbo == WAY_ZLEFT_BEHIND) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z -= _iMoveSpeed * NANAME;
+			_X += _iMoveSpeed * NANAME;
+		}
+		break;
+
+	case VB_DOWN_LEFT_STC:
+		if (_wayTurbo == WAY_ZLEFT_FRONT) {
+			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+		} else {
+			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_Z -= _iMoveSpeed * NANAME;
+			_X -= _iMoveSpeed * NANAME;
+		}
+		break;
+
+	default:
+		break;
+	}
+}
+void MyShip::turnFaceXYMove(int prm_VB) {
+
+	if (_needTurnFaceXYMove) {
+		_needTurnFaceNeutralXY = true;
+		switch(prm_VB) {
+
+		case VB_UP_STC:
+			break;
+
+		case VB_UP_RIGHT_STC:
+			break;
+
+		case VB_UP_LEFT_STC:
+			break;
+
+		case VB_LEFT_STC:
+			break;
+
+		case VB_RIGHT_STC:
+			break;
+
+		case VB_DOWN_STC:
+			break;
+
+		case VB_DOWN_RIGHT_STC:
+			break;
+
+		case VB_DOWN_LEFT_STC:
+			break;
+
+		default:
+			break;
+		}
+
+		_needTurnFaceXYMove = false;
+	}
+}
+
+
+void MyShip::turnFaceZXMove(int prm_VB) {
+	if (_needTurnFaceZXMove) {
+		_needTurnFaceNeutralZX = true;
+		switch(prm_VB) {
+
+		case VB_UP_STC:
+			break;
+
+		case VB_UP_RIGHT_STC:
+			break;
+
+		case VB_UP_LEFT_STC:
+			break;
+
+		case VB_LEFT_STC:
+			break;
+
+		case VB_RIGHT_STC:
+			break;
+
+		case VB_DOWN_STC:
+			break;
+
+		case VB_DOWN_RIGHT_STC:
+			break;
+
+		case VB_DOWN_LEFT_STC:
+			break;
+
+		default:
+			break;
+		}
+		_needTurnFaceZXMove = false;
+	}
+}
+
+
+void MyShip::turnFaceNeutralXY() {
+	//ƒ[ƒ‹i‹ÂŠpA˜ëŠpj‚ðŒ³‚É–ß‚·
+	if (_needTurnFaceNeutralXY) {
+		_needTurnFaceXYMove = true;
+		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
+		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
+		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
+		_needTurnFaceNeutralXY = false;
+	}
+
+}
+
+void MyShip::turnFaceNeutralZX() {
+	//ƒˆ[iù‰ô‚ÌŒX‚«j‚ðŒ³‚É–ß‚·
+	//TODO:
+	//ƒsƒbƒ`i¶‰E‚ÌŒX‚«j‚ðŒ³‚É–ß‚·
+	if (_needTurnFaceNeutralZX) {
+		_needTurnFaceZXMove = true;
+		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRXTopVelo_MNZ, _angRXTopVelo_MNZ);
+		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, 0, TURN_CLOSE_TO))*_angRXAcce_MNZ);
+		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, 0, TURN_BOTH);
+		_needTurnFaceNeutralZX = false;
+	}
+
+}
+
+
+void MyShip::doNotingMoveInput() {
+
+	if (_dwFrameTurboMove > _dwIntervalFinshTurbo) {
+		_wayTurbo = WAY_NONE;
+		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+		_pGeoMover -> setMoveVelocity(0);
+	}
+
+
 }
 
 

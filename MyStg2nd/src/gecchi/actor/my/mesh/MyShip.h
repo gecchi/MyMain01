@@ -11,21 +11,21 @@
 #define EQ_MAX_OPTION 8
 
 enum MoveWay {
-	NONE,
-	UP,
-	UP_FRONT,
-	UP_BEHIND,
-	DOWN,
-	DOWN_FRONT,
-	DOWN_BEHIND,
-	FRONT,
-	BEHIND,
-	ZLEFT,
-	ZLEFT_FRONT,
-	ZLEFT_BEHIND,
-	ZRIGHT,
-	ZRIGHT_FRONT,
-	ZRIGHT_BEHIND
+	WAY_NONE,
+	WAY_UP,
+	WAY_UP_FRONT,
+	WAY_UP_BEHIND,
+	WAY_DOWN,
+	WAY_DOWN_FRONT,
+	WAY_DOWN_BEHIND,
+	WAY_FRONT,
+	WAY_BEHIND,
+	WAY_ZLEFT,
+	WAY_ZLEFT_FRONT,
+	WAY_ZLEFT_BEHIND,
+	WAY_ZRIGHT,
+	WAY_ZRIGHT_FRONT,
+	WAY_ZRIGHT_BEHIND
 };
 
 class MyShip : public DefaultMeshActor {
@@ -184,6 +184,29 @@ public:
 
 	/** ターボ経過フレーム */
 	DWORD _dwFrameTurboMove;
+	DWORD _dwFrameXYTurboMove;
+	DWORD _dwFrameZXTurboMove;
+
+
+	angle _angFaceTurnRange;
+	angle _angRotVelo_FaceTurn;
+
+	/** ターボ完了期間(Frame) */
+	DWORD _dwIntervalFinshTurbo;
+
+
+	bool _needTurnFaceNeutralXY;
+	bool _needTurnFaceNeutralZX;
+	bool _needturnFaceXYMove;
+	bool _needturnFaceZXMove;
+
+
+
+
+
+
+
+
 	/** 通常移動経過フレーム */
 	DWORD _dwFrameNomalMove;
 
@@ -231,16 +254,33 @@ public:
  		_lv_MoveSpeed = lv;
  		_iMoveSpeed = _lv_MoveSpeed*1000;
  	}
- 	//画面奥へ移動初めX軸回転処理
+	//画面奥へ移動初めX軸回転処理
 	virtual void beginTurboZX(int prm_VB);
 
- 	//画面手前へ移動初めX軸回転処理
+	//画面手前へ移動初めX軸回転処理
 	virtual void beginTurboXY(int prm_VB);
 
+	virtual void moveXY(int prm_VB);
 
-	virtual void beginMoveZX(int prm_VB);
+	virtual void moveZX(int prm_VB);
 
-	virtual void beginMoveXY(int prm_VB);
+	virtual void controlTurboXY(int prm_VB);
+
+	virtual void controlTurboZX(int prm_VB);
+
+	virtual void turnFaceXYMove(int prm_VB);
+
+	virtual void turnFaceZXMove(int prm_VB);
+
+	virtual void doNotingMoveInput();
+
+	virtual void turnFaceNeutralXY();
+
+	virtual void turnFaceNeutralZX();
+
+	//virtual void beginMoveZX(int prm_VB);
+
+	//virtual void beginMoveXY(int prm_VB);
 
  	static void transactShot(GgafDx9UntransformedActor* prm_pActor);
 
