@@ -689,7 +689,6 @@ void MyShip::controlTurboZX(int prm_VB) {
 void MyShip::turnFaceXYMove(int prm_VB) {
 
 	if (_needTurnFaceXYMove) {
-		_needTurnFaceNeutralXY = true;
 		switch(prm_VB) {
 
 		case VB_UP_STC:
@@ -721,13 +720,13 @@ void MyShip::turnFaceXYMove(int prm_VB) {
 		}
 
 		_needTurnFaceXYMove = false;
+		_needTurnFaceNeutralXY = true;
 	}
 }
 
 
 void MyShip::turnFaceZXMove(int prm_VB) {
 	if (_needTurnFaceZXMove) {
-		_needTurnFaceNeutralZX = true;
 		switch(prm_VB) {
 
 		case VB_UP_STC:
@@ -758,6 +757,7 @@ void MyShip::turnFaceZXMove(int prm_VB) {
 			break;
 		}
 		_needTurnFaceZXMove = false;
+		_needTurnFaceNeutralZX = true;
 	}
 }
 
@@ -765,13 +765,12 @@ void MyShip::turnFaceZXMove(int prm_VB) {
 void MyShip::turnFaceNeutralXY() {
 	//ロール（仰角、俯角）を元に戻す
 	if (_needTurnFaceNeutralXY) {
-		_needTurnFaceXYMove = true;
 		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
 		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
 		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
 		_needTurnFaceNeutralXY = false;
+		_needTurnFaceXYMove = true;
 	}
-
 }
 
 void MyShip::turnFaceNeutralZX() {
@@ -779,11 +778,11 @@ void MyShip::turnFaceNeutralZX() {
 	//TODO:
 	//ピッチ（左右の傾き）を元に戻す
 	if (_needTurnFaceNeutralZX) {
-		_needTurnFaceZXMove = true;
 		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRXTopVelo_MNZ, _angRXTopVelo_MNZ);
 		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, 0, TURN_CLOSE_TO))*_angRXAcce_MNZ);
 		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, 0, TURN_BOTH);
 		_needTurnFaceNeutralZX = false;
+		_needTurnFaceXYMove = true;
 	}
 
 }
