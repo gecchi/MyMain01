@@ -21,15 +21,20 @@
 #define VB_UI_CANCEL 17
 #define VB_UI_DEBUG 18
 
-#define VB_UP_STC 20
+//以下のVB_UP_RIGHT_STC～VB_NEUTRAL_STCは、
+//ループのINDEXで使用してるため連番でなければだめ。
+//この順番(斜め入力→上下左右)で判定している。
+//斜め入力が優先でヒットするようにした。
+#define VB_NEUTRAL_STC 20
 #define VB_UP_RIGHT_STC 21
-#define VB_RIGHT_STC 22
-#define VB_DOWN_RIGHT_STC 23
-#define VB_DOWN_STC 24
-#define VB_DOWN_LEFT_STC 25
-#define VB_LEFT_STC 26
-#define VB_UP_LEFT_STC 27
-#define VB_NEUTRAL_STC 28
+#define VB_DOWN_RIGHT_STC 22
+#define VB_DOWN_LEFT_STC 23
+#define VB_UP_LEFT_STC 24
+#define VB_UP_STC 25
+#define VB_RIGHT_STC 26
+#define VB_DOWN_STC 27
+#define VB_LEFT_STC 28
+
 
 
 #define VB_MAP_BUFFER 20
@@ -134,6 +139,51 @@ public:
 	};
 
 	static bool areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB2);
+
+	/**
+	 * 現在押しっぱなしのスティックの番号を返す。
+	 * @return 次の何れか
+	 * VB_UP_STC
+	 * VB_UP_RIGHT_STC
+	 * VB_RIGHT_STC
+	 * VB_DOWN_RIGHT_STC
+	 * VB_DOWN_STC
+	 * VB_DOWN_LEFT_STC
+	 * VB_LEFT_STC
+	 * VB_UP_LEFT_STC
+	 * VB_NEUTRAL_STC
+	 */
+	static int getBeingPressedStick();
+
+	/**
+	 * 今PushedDownスティックの番号を返す。
+	 * @return 次の何れか
+	 * VB_UP_STC
+	 * VB_UP_RIGHT_STC
+	 * VB_RIGHT_STC
+	 * VB_DOWN_RIGHT_STC
+	 * VB_DOWN_STC
+	 * VB_DOWN_LEFT_STC
+	 * VB_LEFT_STC
+	 * VB_UP_LEFT_STC
+	 * VB_NEUTRAL_STC
+	 */
+	static int getPushedDownStick();
+
+	/**
+	 * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。
+	 * @return 次の何れか
+	 * VB_UP_STC
+	 * VB_UP_RIGHT_STC
+	 * VB_RIGHT_STC
+	 * VB_DOWN_RIGHT_STC
+	 * VB_DOWN_STC
+	 * VB_DOWN_LEFT_STC
+	 * VB_LEFT_STC
+	 * VB_UP_LEFT_STC
+	 * VB_NEUTRAL_STC
+	 */
+	static int getPushedDownStickWith(int prm_VB);
 
 
 	static void update();

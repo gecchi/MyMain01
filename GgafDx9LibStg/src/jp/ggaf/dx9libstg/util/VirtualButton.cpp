@@ -39,9 +39,6 @@ VirtualButton::JOYSTICKMAP VirtualButton::_s_tagJoymap = {
 
 
 
-
-
-
 VirtualButton::VBMap* VirtualButton::getVirtualButtonMapHistory(DWORD prm_dwFrameAgo) {
 	VBMap* pVBMTemp = _s_pVBMap;
 	for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
@@ -239,6 +236,93 @@ bool VirtualButton::wasReleasedUp(int prm_VB, DWORD prm_dwFrameAgo) {
 
 
 
+int VirtualButton::getBeingPressedStick() {
+	for (int i = VB_NEUTRAL_STC; i <= VB_LEFT_STC; i++) {
+		if (_s_pVBMap->_state[i]) {
+			return i;
+		}
+	}
+	return VB_NEUTRAL_STC;
+}
+
+int VirtualButton::getPushedDownStick() {
+	for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
+		if (_s_pVBMap->_state[i] && _s_pVBMap->_prev->_state[i] == false) {
+			return i;
+		}
+	}
+	return 0;
+}
+
+int VirtualButton::getPushedDownStickWith(int prm_VB) {
+	if (_s_pVBMap->_state[prm_VB]) {
+		static VBMap* pVBMap___Prev1;
+		static VBMap* pVBMap___Prev2;
+		static VBMap* pVBMap___Prev3;
+		static VBMap* pVBMap___Prev4;
+		pVBMap___Prev1 = _s_pVBMap -> _prev;
+		pVBMap___Prev2 = pVBMap___Prev1 -> _prev;
+		pVBMap___Prev3 = pVBMap___Prev2 -> _prev;
+		pVBMap___Prev4 = pVBMap___Prev3 -> _prev;
+		static bool prev1__Flg, prev2__Flg, prev3__Flg, prev4__Flg;
+
+		//ボタンに押されていない期間が直前にあったか
+		prev1__Flg = pVBMap___Prev1 -> _state[prm_VB];
+		prev2__Flg = pVBMap___Prev2 -> _state[prm_VB];
+		prev3__Flg = pVBMap___Prev3 -> _state[prm_VB];
+		prev4__Flg = pVBMap___Prev4 -> _state[prm_VB];
+		if (                                     !prev2__Flg && !prev1__Flg) { //＊ > ＊ > ↑ > ↑ >
+			//OK
+		} else if (               !prev3__Flg && !prev2__Flg              ) { //＊ > ↑ > ↑ > ＊ >
+			//OK
+		} else if (!prev4__Flg && !prev3__Flg                             ) { //↑ > ↑ > ＊ > ＊ >
+			//OK
+		} else {
+			//NG
+			return 0;
+		}
+
+		//スティックに押されていない期間が直前にあったか
+		static bool prev1N_Flg, prev2N_Flg, prev3N_Flg, prev4N_Flg;
+		prev1N_Flg = pVBMap___Prev1 -> _state[VB_NEUTRAL_STC];
+		prev2N_Flg = pVBMap___Prev2 -> _state[VB_NEUTRAL_STC];
+		prev3N_Flg = pVBMap___Prev3 -> _state[VB_NEUTRAL_STC];
+		prev4N_Flg = pVBMap___Prev4 -> _state[VB_NEUTRAL_STC];
+		if (                                   prev2N_Flg && prev1N_Flg) { //＊ > ＊ > Ｎ > Ｎ >
+			//OK
+		} else if (              prev3N_Flg && prev2N_Flg              ) { //＊ > Ｎ > Ｎ > ＊ >
+			//OK
+		} else if (prev4N_Flg && prev3N_Flg                            ) { //Ｎ > Ｎ > ＊ > ＊ >
+			//OK
+		} else {
+			//NG
+			return 0;
+		}
+
+		for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
+			//今は押している
+			if (_s_pVBMap->_state[i]) {
+
+				//但し1つ前のフレームで、両方押されていては成立しない。
+				//（この条件入れないと、「同時押し→押しっぱなし」の場合、連続で成立してしまう）
+				if (pVBMap___Prev1->_state[prm_VB] && pVBMap___Prev1->_state[i]) {
+					//NG
+					continue;
+				} else {
+					//OK
+					return i;
+				}
+
+			}
+		}
+		return 0;
+	} else {
+		return false;
+	}
+
+}
+
+
 void VirtualButton::clear() {
 	VBMap* pLast = _s_pVBMap->_next;
 	VBMap* pWk;
@@ -282,10 +366,6 @@ void VirtualButton::update() {
 
     _s_pVBMap = _s_pVBMap -> _next;
 
-	for (int i = 0; i < VB_NUM; i++) { //ボタンクリア
-		_s_pVBMap->_state[i] = false;
-	}
-
 	_s_pVBMap->_state[VB_SHOT1]   = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT1)   || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT1);
 	_s_pVBMap->_state[VB_SHOT2]   = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT2)   || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT2);
 	_s_pVBMap->_state[VB_SHOT3]   = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT3)   || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT3);
@@ -309,6 +389,16 @@ void VirtualButton::update() {
 
 	_s_pVBMap->_state[VB_UI_DEBUG]  = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_DEBUG);
 
+
+	_s_pVBMap->_state[VB_UP_RIGHT_STC] = false;
+	_s_pVBMap->_state[VB_UP_LEFT_STC] = false;
+	_s_pVBMap->_state[VB_DOWN_RIGHT_STC] = false;
+	_s_pVBMap->_state[VB_DOWN_LEFT_STC] = false;
+	_s_pVBMap->_state[VB_UP_STC] = false;
+	_s_pVBMap->_state[VB_DOWN_STC] = false;
+	_s_pVBMap->_state[VB_RIGHT_STC] = false;
+	_s_pVBMap->_state[VB_LEFT_STC] = false;
+	_s_pVBMap->_state[VB_NEUTRAL_STC] = false;
 
 	if (_s_pVBMap->_state[VB_UP])	{
 		if (_s_pVBMap->_state[VB_RIGHT]) {
