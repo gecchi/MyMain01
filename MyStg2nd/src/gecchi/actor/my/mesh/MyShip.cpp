@@ -97,8 +97,8 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 
 	_needTurnFaceNeutralXY = true;
 	_needTurnFaceNeutralZX = true;
-	_needturnFaceXYMove = false;
-	_needturnFaceZXMove = false;
+	_needTurnFaceXYMove = false;
+	_needTurnFaceZXMove = false;
 
 
 	_dwFrameNomalMove = 0;			//’ÊíˆÚ“®Œo‰ßƒtƒŒ[ƒ€
@@ -782,7 +782,7 @@ void MyShip::turnFaceNeutralZX() {
 		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_X, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_X, 0, TURN_CLOSE_TO))*_angRXAcce_MNZ);
 		_pGeoMover -> setTargetAxisRotAngle(AXIS_X, 0, TURN_BOTH);
 		_needTurnFaceNeutralZX = false;
-		_needTurnFaceXYMove = true;
+		_needTurnFaceZXMove = true;
 	}
 
 }

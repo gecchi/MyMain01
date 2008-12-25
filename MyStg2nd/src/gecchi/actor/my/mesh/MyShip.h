@@ -197,8 +197,8 @@ public:
 
 	bool _needTurnFaceNeutralXY;
 	bool _needTurnFaceNeutralZX;
-	bool _needturnFaceXYMove;
-	bool _needturnFaceZXMove;
+	bool _needTurnFaceXYMove;
+	bool _needTurnFaceZXMove;
 
 
 
