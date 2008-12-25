@@ -1,11 +1,11 @@
-#ifndef GGAFTRASHROOTACTOR_H_
-#define GGAFTRASHROOTACTOR_H_
+#ifndef GGAFGARBAGEROOTACTOR_H_
+#define GGAFGARBAGEROOTACTOR_H_
 /**
  * ゴミルートアクター
  */
-class GgafTrashRootActor : public GgafActor {
+class GgafGarbageRootActor : public GgafActor {
 public:
-	GgafTrashRootActor() : GgafActor("TrashRootActor") {};
+	GgafGarbageRootActor() : GgafActor("GarbageRootActor") {};
 	void initialize() {};
 	void processBehavior() {};
 	void processJudgement() {};
@@ -17,7 +17,7 @@ public:
 	bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) { return false; };
 	void processOnHit(GgafActor* prm_pActor_Opponent) {};
 	GgafGod* askGod() { return NULL; };
-	virtual ~GgafTrashRootActor() {};
+	virtual ~GgafGarbageRootActor() {};
 };
 
-#endif /*GGAFTRASHROOTACTOR_H_*/
+#endif /*GGAFGARBAGEROOTACTOR_H_*/

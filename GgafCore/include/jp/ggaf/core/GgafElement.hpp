@@ -584,14 +584,14 @@ void GgafElement<T>::nextFrame() {
 				if (pElementTemp -> _isLast) {
 					pElementTemp -> nextFrame();
 					if (pElementTemp->_isAlive == false) {
-						GgafFactory::_pTrashBox->add(pElementTemp);
+						GgafFactory::_pGarbageBox->add(pElementTemp);
 					}
 					break;
 				} else {
 					pElementTemp = pElementTemp -> SUPER::_pNext;
 					pElementTemp -> SUPER::_pPrev-> nextFrame();
 					if (pElementTemp -> SUPER::_pPrev->_isAlive == false) {
-						GgafFactory::_pTrashBox->add(pElementTemp->SUPER::_pPrev);
+						GgafFactory::_pGarbageBox->add(pElementTemp->SUPER::_pPrev);
 					}
 				}
 			}

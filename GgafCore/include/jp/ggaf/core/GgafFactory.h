@@ -47,7 +47,7 @@ private:
 
 public:
 	/** ゴミ箱(不要なアクター置き場) */
-	static GgafTrashBox* _pTrashBox;
+	static GgafGarbageBox* _pGarbageBox;
 
 	/** 掃除オブジェクト数 */
 	static int _s_iCountCleanedNode;

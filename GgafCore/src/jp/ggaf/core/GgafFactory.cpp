@@ -7,7 +7,7 @@ GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool       GgafFactory::_isWorking = true;
 bool       GgafFactory::_isFinish  = false;
 int GgafFactory::_s_iCountCleanedNode = 0;
-GgafTrashBox* GgafFactory::_pTrashBox = NULL;
+GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
 GgafMainActor* GgafFactory::obtainActor(string prm_id) {
 	return (GgafMainActor*)obtain(prm_id);
@@ -194,7 +194,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 				if (_pGod->_fFps > 52) {
 					Sleep(5);
 					TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB");
-					_pTrashBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+					_pGarbageBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
 					_s_iCountCleanedNode = 0;
 				}
 			} else {
@@ -210,7 +210,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 					if (_pGod->_fFps > 52) {
 						TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB");
 						Sleep(5);
-						_pTrashBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+						_pGarbageBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
 						_s_iCountCleanedNode = 0;
 					}
 				}

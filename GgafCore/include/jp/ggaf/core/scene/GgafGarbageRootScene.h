@@ -1,12 +1,12 @@
-#ifndef GGAFTRASHROOTSCENE_H_
-#define GGAFTRASHROOTSCENE_H_
+#ifndef GGAFGARBAGEROOTSCENE_H_
+#define GGAFGARBAGEROOTSCENE_H_
 
 /**
  * ゴミルートシーン
  */
-class GgafTrashRootScene : public GgafScene {
+class GgafGarbageRootScene : public GgafScene {
 public:
-	GgafTrashRootScene(): GgafScene("TrashRootScene") {};
+	GgafGarbageRootScene(): GgafScene("GarbageRootScene") {};
 	void initialize() {};
 	void processBehavior() {};
 	void processJudgement() {};
@@ -15,8 +15,8 @@ public:
 	void processDrawTerminate() {};
 	void processHappen(int prm_no) {};
 	void processFinal() {};
-	virtual ~GgafTrashRootScene() {};
+	virtual ~GgafGarbageRootScene() {};
 };
 
 
-#endif /*GGAFTRASHROOTSCENE_H_*/
+#endif /*GGAFGARBAGEROOTSCENE_H_*/

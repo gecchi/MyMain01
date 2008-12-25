@@ -91,13 +91,13 @@ class GgafGod;
 //class GgafElement;
 
 class GgafFactory;
-class GgafTrashBox;
+class GgafGarbageBox;
 
 class GgafScene;
-class GgafTrashRootScene;
+class GgafGarbageRootScene;
 
 class GgafActor;
-class GgafTrashRootActor;
+class GgafGarbageRootActor;
 class GgafMainActor;
 class GgafDummyActor;
 
@@ -122,17 +122,17 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/GgafGod.h"
 
 #include "jp/ggaf/core/GgafFactory.h"
-#include "jp/ggaf/core/GgafTrashBox.h"
+#include "jp/ggaf/core/GgafGarbageBox.h"
 
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/util/basic_symbol.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/scene/GgafTrashRootScene.h"
+#include "jp/ggaf/core/scene/GgafGarbageRootScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
-#include "jp/ggaf/core/actor/GgafTrashRootActor.h"
+#include "jp/ggaf/core/actor/GgafGarbageRootActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafWorld.h"

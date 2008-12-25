@@ -47,7 +47,7 @@ _pWorld(NULL)
 	//_pWorld = NULL;
 	_isBehaved = false;
 
-	GgafFactory::_pTrashBox = NEW GgafTrashBox();
+	GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
 
 }
 
@@ -184,9 +184,9 @@ GgafGod::~GgafGod() {
 	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
 		GgafFactory::clean();
 		//ƒSƒ~” 
-		GgafFactory::_pTrashBox->_pTrashRootScene->dump();
-		GgafFactory::_pTrashBox->_pTrashRootActor->dump();
-		DELETE_IMPOSSIBLE_NULL(GgafFactory::_pTrashBox);
+		GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
+		GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+		DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
 	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
 
 	//¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
