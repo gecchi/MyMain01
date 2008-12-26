@@ -101,7 +101,7 @@ public:
 
 	static VBMap* _s_pVBMap; //Œ»İƒtƒŒ[ƒ€‚Ì“ü—Íó‘Ô
 
-	static VBMap* getVirtualButtonMapHistory(DWORD prm_dwFrameAgo);
+	static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
 	static bool isBeingPressed(int prm_VB);
 	static bool wasBeingPressed(int prm_VB, DWORD prm_dwFrameAgo);
