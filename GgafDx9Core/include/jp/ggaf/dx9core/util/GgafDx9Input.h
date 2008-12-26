@@ -14,21 +14,11 @@ public:
 	static DIDEVCAPS _s_didevcap;
 
 	static const int BUFFER_SIZE;
-	
-	/** キーボードの状態 */	
+
+	/** キーボードの状態 */
 	static char _s_caKeyboardState[256];
 	/** ジョイスティックの状態 */
 	static DIJOYSTATE _s_dijoystate;
-
-
-	static bool _s_isReleasedKey[256];
-	static bool _s_isReleasedJoyRgbButton[32];
-	static bool _s_isReleasedJoyUp;
-	static bool _s_isReleasedJoyDown;
-	static bool _s_isReleasedJoyLeft;
-	static bool _s_isReleasedJoyRight;
-
-	static bool _s_isReleasedJoyDirection[10];
 
  	/**
 	 * コンストラクタ<BR>
@@ -42,7 +32,6 @@ public:
 
 	static void updateKeyboardState();
 	static bool isBeingPressedKey(int prm_DIK);
-	static bool isPressedKey(int prm_DIK);
 
 	static void updateJoystickState();
 	static bool isBeingPressedJoyRgbButton(int prm_iRgbButtonNo);
@@ -51,12 +40,6 @@ public:
 	static bool isBeingPressedJoyLeft();
 	static bool isBeingPressedJoyRight();
 	static bool isBeingPressedJoyDirection(int prm_iDirectionNo);
-	static bool isPressedJoyRgbButton(int prm_iButtonNo);
-	static bool isPressedJoyUp();
-	static bool isPressedJoyDown();
-	static bool isPressedJoyLeft();
-	static bool isPressedJoyRight();
-	static bool isPressedJoyDirection(int prm_iDirectionNo); //テンキーの方向ナンバー（１～９。但し５を除く）
 
 	static void release();
 

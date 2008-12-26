@@ -8,13 +8,6 @@ char GgafDx9Input::_s_caKeyboardState[256];
 DIDEVCAPS GgafDx9Input::_s_didevcap;
 DIJOYSTATE GgafDx9Input::_s_dijoystate;
 
-bool GgafDx9Input::_s_isReleasedKey[256];
-bool GgafDx9Input::_s_isReleasedJoyRgbButton[32];
-bool GgafDx9Input::_s_isReleasedJoyDirection[10];
-bool GgafDx9Input::_s_isReleasedJoyUp = true;
-bool GgafDx9Input::_s_isReleasedJoyDown = true;
-bool GgafDx9Input::_s_isReleasedJoyLeft = true;
-bool GgafDx9Input::_s_isReleasedJoyRight = true;
 
 
 
@@ -89,9 +82,6 @@ HRESULT GgafDx9Input::init() {
 		return hr;
 	}
 
-	//==============================
-	//	キーボード
-	//==============================
 	// キーボードデバイスの作成
 	hr = _s_pIDirectInput8->CreateDevice(
 							  GUID_SysKeyboard,
@@ -141,11 +131,7 @@ HRESULT GgafDx9Input::init() {
 		_s_pIDirectInputDevice8_Keyboard->Acquire();
 	}
 
-	//=================================
-	//ジョイスティック
-	//=================================
-// デバイスを列挙する
-	// ゲームスティックを列挙する してデバイスを得る
+	// ゲームスティックを列挙してデバイスを得る
 	hr = _s_pIDirectInput8->EnumDevices(
 							  DI8DEVCLASS_GAMECTRL,
 							  EnumGameCtrlCallback,
@@ -218,11 +204,11 @@ void GgafDx9Input::updateKeyboardState() {
 	HRESULT hr;
 
 	again:
-
-	hr = _s_pIDirectInputDevice8_Keyboard->GetDeviceState(sizeof(_s_caKeyboardState), (void*)&_s_caKeyboardState);
+	hr = _s_pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
+	hr = _s_pIDirectInputDevice8_Keyboard->GetDeviceState(256 , (void*)&_s_caKeyboardState);
 	if(FAILED(hr)){
 		_TRACE_("GetDeviceState is FAILED");
-		//１回だけAcquire()を試みる。
+		//Acquire()を試みる。
 		hr = _s_pIDirectInputDevice8_Keyboard->Acquire();
         if(hr == DI_OK) {
     		_TRACE_("Acquire is DI_OK");
@@ -234,11 +220,14 @@ void GgafDx9Input::updateKeyboardState() {
 	}
 
 	if (_s_caKeyboardState[DIK_Q] & 0x80) {
-		
+
 	} else {
 		_TRACE_("not! DIK_Q");
 		//_TRACE_("Acquire is not DI_OK");
 	}
+
+
+	//http://toruweb.web.fc2.com/di/index.html
 	return;
 }
 
@@ -249,21 +238,8 @@ bool GgafDx9Input::isBeingPressedKey(int prm_DIK) {
 		if (_s_caKeyboardState[prm_DIK] & 0x80) {
 			return true;
 		} else {
-			_s_isReleasedKey[prm_DIK] = true;
 			return false;
 		}
-	}
-}
-
-bool GgafDx9Input::isPressedKey(int prm_iKeyNo) {
-	bool ret = isBeingPressedKey(prm_iKeyNo);
-	if (_s_isReleasedKey[prm_iKeyNo]) {
-		if (ret) {
-			_s_isReleasedKey[prm_iKeyNo] = false;
-		}
-		return ret;
-	} else {
-		return false;
 	}
 }
 
@@ -307,7 +283,6 @@ bool GgafDx9Input::isBeingPressedJoyRgbButton(int prm_iRgbButtonNo) {
 		if (_s_dijoystate.rgbButtons[prm_iRgbButtonNo] & 0x80 ) {
 			return true;
 		} else {
-			_s_isReleasedJoyRgbButton[prm_iRgbButtonNo] = true;
 			return false;
 		}
 	}
@@ -317,7 +292,6 @@ bool GgafDx9Input::isBeingPressedJoyUp() {
 	if (_s_dijoystate.lY < -127) {
 		return true;
 	} else {
-		_s_isReleasedJoyUp = true;
 		return false;
 	}
 }
@@ -326,7 +300,6 @@ bool GgafDx9Input::isBeingPressedJoyDown() {
 	if (_s_dijoystate.lY > 127) {
 		return true;
 	} else {
-		_s_isReleasedJoyDown = true;
 		return false;
 	}
 }
@@ -335,7 +308,6 @@ bool GgafDx9Input::isBeingPressedJoyLeft() {
 	if (_s_dijoystate.lX < -127) {
 		return true;
 	} else {
-		_s_isReleasedJoyLeft = true;
 		return false;
 	}
 }
@@ -344,7 +316,6 @@ bool GgafDx9Input::isBeingPressedJoyRight() {
 	if (_s_dijoystate.lX > 127) {
 		return true;
 	} else {
-		_s_isReleasedJoyRight = true;
 		return false;
 	}
 }
@@ -361,7 +332,6 @@ bool GgafDx9Input::isBeingPressedJoyDirection(int prm_iDirectionNo) {
 			} else if (prm_iDirectionNo == 8) {
 				return true;
 			} else {
-				_s_isReleasedJoyDirection[prm_iDirectionNo] = true;
 				return false;
 			}
 		} else if (_s_dijoystate.lY > 127) {
@@ -372,7 +342,6 @@ bool GgafDx9Input::isBeingPressedJoyDirection(int prm_iDirectionNo) {
 			} else if (prm_iDirectionNo == 2) {
 				return true;
 			} else {
-				_s_isReleasedJoyDirection[prm_iDirectionNo] = true;
 				return false;
 			}
 		} else if (_s_dijoystate.lX > 127 && prm_iDirectionNo == 6) {
@@ -380,84 +349,8 @@ bool GgafDx9Input::isBeingPressedJoyDirection(int prm_iDirectionNo) {
 		} else if (_s_dijoystate.lX < -127 && prm_iDirectionNo == 4) {
 			return true;
 		} else {
-			_s_isReleasedJoyDirection[prm_iDirectionNo] = true;
 			return false;
 		}
-	}
-}
-
-bool GgafDx9Input::isPressedJoyRgbButton(int prm_iRgbButtonNo) {
-	bool ret = isBeingPressedJoyRgbButton(prm_iRgbButtonNo);
-	if (_s_isReleasedJoyRgbButton[prm_iRgbButtonNo]) {
-		if (ret) {
-			_s_isReleasedJoyRgbButton[prm_iRgbButtonNo] = false;
-		}
-		return ret;
-	} else {
-		return false;
-	}
-}
-
-bool GgafDx9Input::isPressedJoyUp() {
-	bool ret = isBeingPressedJoyUp();
-	if (_s_isReleasedJoyUp) {
-		if (ret) {
-			_s_isReleasedJoyUp = false;
-		}
-		return ret;
-	} else {
-		return false;
-	}
-}
-
-
-bool GgafDx9Input::isPressedJoyDown() {
-	bool ret = isBeingPressedJoyDown();
-	if (_s_isReleasedJoyDown) {
-		if (ret) {
-			_s_isReleasedJoyDown = false;
-		}
-		return ret;
-	} else {
-		return false;
-	}
-}
-
-bool GgafDx9Input::isPressedJoyLeft() {
-	bool ret = isBeingPressedJoyLeft();
-	if (_s_isReleasedJoyLeft) {
-		if (ret) {
-			_s_isReleasedJoyLeft = false;
-		}
-		return ret;
-	} else {
-		return false;
-	}
-}
-
-bool GgafDx9Input::isPressedJoyRight() {
-	bool ret = isBeingPressedJoyRight();
-	if (_s_isReleasedJoyRight) {
-		if (ret) {
-			_s_isReleasedJoyRight = false;
-		}
-		return ret;
-	} else {
-		return false;
-	}
-}
-
-
-
-bool GgafDx9Input::isPressedJoyDirection(int prm_iDirectionNo) { //テンキーの方向ナンバー（１～９。但し５を除く）
-	bool ret = isBeingPressedJoyDirection(prm_iDirectionNo);
-	if (_s_isReleasedJoyDirection[prm_iDirectionNo]) {
-		if (ret) {
-			_s_isReleasedJoyDirection[prm_iDirectionNo] = false;
-		}
-		return ret;
-	} else {
-		return false;
 	}
 }
 
