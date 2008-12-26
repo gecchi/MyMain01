@@ -234,19 +234,89 @@ void MyShip::processBehavior() {
 //	_dwFrameZXTurboMove++;
 
 	static int stc;
-	if (VB::isBeingPressed(VB_TURBO)) {
+	stc = VB::getPushedDownStickWith(VB_TURBO);
+	if (stc != 0 && _dwFrameTurboMove > 5) {
+		//ZXターボ始動
+		beginTurboZX(stc);
+		turnFaceNeutralXY();
+	} else if (VB::isPushedDown(VB_TURBO) != 0) {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
-			moveZX(stc);
+			//XYターボ始動
+			beginTurboXY(stc);
+			turnFaceNeutralZX();
+		} else {
+			//ただターボPushDownしただけ
+			doNotingMoveInput();
+			turnFaceNeutralXY();
+			turnFaceNeutralZX();
 		}
-
-	} else {
-_TRACE_("NOTTURBO");
+	} else if (VB::isBeingPressed(VB_TURBO)) {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
-			moveXY(stc);
+			if (_wayTurbo == WAY_NONE) {
+				//ZX移動制御
+				moveZX(stc);
+				turnFaceZXMove(stc);
+				turnFaceNeutralXY();
+			} else {
+				//ターボ中ZX制御
+				controlTurboZX(stc);
+				//turnFaceZXMove(stc);
+				turnFaceNeutralXY();
+			}
+		} else {
+			//ただターボおしっぱなししてるだけ
+			doNotingMoveInput();
+			turnFaceNeutralXY();
+			turnFaceNeutralZX();
+
+		}
+	} else {
+		stc = VB::getBeingPressedStick();
+		if (stc != 0) {
+			if (_wayTurbo == WAY_NONE) {
+				//XY移動制御
+				moveXY(stc);
+				turnFaceXYMove(stc);
+				turnFaceNeutralZX();
+			} else {
+				//ターボ中XY制御
+				controlTurboXY(stc);
+				//turnFaceXYMove(stc);
+				turnFaceNeutralZX();
+			}
+		} else {
+			//な～んにもしてない
+			doNotingMoveInput();
+			turnFaceNeutralXY();
+			turnFaceNeutralZX();
 		}
 	}
+	_dwFrameTurboMove++;
+	_dwFrameXYTurboMove++;
+	_dwFrameZXTurboMove++;
+	if (_dwFrameTurboMove > _dwIntervalFinshTurbo) {
+		_wayTurbo = WAY_NONE;
+		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+		_pGeoMover -> setMoveVelocity(0);
+	}
+
+
+
+//	if (VB::isBeingPressed(VB_TURBO)) {
+//		stc = VB::getBeingPressedStick();
+//		if (stc != 0) {
+//			moveZX(stc);
+//		}
+//
+//	} else {
+//_TRACE_("NOTTURBO");
+//		stc = VB::getBeingPressedStick();
+//		if (stc != 0) {
+//			moveXY(stc);
+//		}
+//	}
 
 ////////////////////////////////////////////////////
 
@@ -323,6 +393,8 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 void MyShip::beginTurboXY(int prm_VB) {
+	_dwFrameTurboMove = 0;
+	_dwFrameXYTurboMove = 0;
 	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
 	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
@@ -377,6 +449,9 @@ void MyShip::beginTurboXY(int prm_VB) {
 }
 
 void MyShip::beginTurboZX(int prm_VB) {
+	_dwFrameTurboMove = 0;
+	_dwFrameZXTurboMove = 0;
+
 	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
 	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
 	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
@@ -805,11 +880,6 @@ void MyShip::turnFaceNeutralZX() {
 
 void MyShip::doNotingMoveInput() {
 
-	if (_dwFrameTurboMove > _dwIntervalFinshTurbo) {
-		_wayTurbo = WAY_NONE;
-		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
-		_pGeoMover -> setMoveVelocity(0);
-	}
 
 
 }
