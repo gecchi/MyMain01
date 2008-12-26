@@ -50,14 +50,14 @@ VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
 
 
 bool VirtualButton::isBeingPressed(int prm_VB) {
-	//取りこぼし考慮で、前回か今回か何れかが真であればOKとする
-	return _s_pVBMap->_state[prm_VB] || _s_pVBMap->_prev->_state[prm_VB];
+	//取りこぼし考慮で、今回、前回、前々回の何れかが真であればOKとする
+	return _s_pVBMap->_state[prm_VB] || _s_pVBMap->_prev->_state[prm_VB] || _s_pVBMap->_prev->_prev->_state[prm_VB];
 }
 
 bool VirtualButton::wasBeingPressed(int prm_VB, DWORD prm_dwFrameAgo) {
 	static VBMap* pVBMTemp2;
 	pVBMTemp2 = getPastVBMap(prm_dwFrameAgo);
-	return p1->_state[prm_VB] || p1->_prev->_state[prm_VB];
+	return pVBMTemp2->_state[prm_VB] || pVBMTemp2->_prev->_state[prm_VB] || pVBMTemp2->_prev->_prev->_state[prm_VB];
 }
 
 
@@ -121,11 +121,11 @@ bool VirtualButton::arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum) {
 		prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
 		prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
 		prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
-		if        (                          !prev1Flg) { //＊ > ＊ > ↑ >
+		if        (                          prev1Flg) { //＊ > ＊ > ↑ >
 			continue;
-		} else if (             !prev2Flg             ) { //＊ > ↑ > ＊ >
+		} else if (             prev2Flg             ) { //＊ > ↑ > ＊ >
 			continue;
-		} else if (!prev3Flg                          ) { //↑ > ＊ > ＊ >
+		} else if (prev3Flg                          ) { //↑ > ＊ > ＊ >
 			continue;
 		} else {
 			return false;
@@ -170,12 +170,12 @@ bool VirtualButton::wasReleasedUp(int prm_VB, DWORD prm_dwFrameAgo) {
 }
 
 int VirtualButton::getBeingPressedStick() {
-	for (int i = VB_NEUTRAL_STC; i <= VB_LEFT_STC; i++) {
+	for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
 		if (isBeingPressed(i)) {
 			return i;
 		}
 	}
-	return VB_NEUTRAL_STC;
+	return 0;
 }
 
 int VirtualButton::getPushedDownStick() {
@@ -195,11 +195,11 @@ int VirtualButton::getPushedDownStickWith(int prm_VB) {
 		prev2__Flg = wasNotBeingPressed(prm_VB, 2);
 		prev3__Flg = wasNotBeingPressed(prm_VB, 3);
 		prev4__Flg = wasNotBeingPressed(prm_VB, 4);
-		if (                                     !prev2__Flg && !prev1__Flg) { //＊ > ＊ > ↑ > ↑ >
+		if (                                     prev2__Flg && prev1__Flg) { //＊ > ＊ > ↑ > ↑ >
 			//OK
-		} else if (               !prev3__Flg && !prev2__Flg              ) { //＊ > ↑ > ↑ > ＊ >
+		} else if (               prev3__Flg && prev2__Flg              ) { //＊ > ↑ > ↑ > ＊ >
 			//OK
-		} else if (!prev4__Flg && !prev3__Flg                             ) { //↑ > ↑ > ＊ > ＊ >
+		} else if (prev4__Flg && prev3__Flg                             ) { //↑ > ↑ > ＊ > ＊ >
 			//OK
 		} else {
 			//NG
@@ -241,7 +241,7 @@ int VirtualButton::getPushedDownStickWith(int prm_VB) {
 		}
 		return 0;
 	} else {
-		return false;
+		return 0;
 	}
 
 }

@@ -56,10 +56,10 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_angRZStop_MY = 30000;		//上又は下へ通常Z移動中のZ軸回転角の停止角度
 
 	_iMvBtmVelo_MT = 1000;		//TURBO移動中の移動速度の最低速度
-	_iMvVelo_BeginMT = _iMoveSpeed*3;	//TURBO移動開始時の移動速度の初速度
+	_iMvVelo_BeginMT = _iMoveSpeed*5;	//TURBO移動開始時の移動速度の初速度
 	_iMvAcce_MT = -200;					//TURBO移動中の移動速度の加速度
 
-	_iMvAcce_EOD_MT = -300;			//TURBO中に逆方向に入力される事により加算される（減速する）速度
+	_iMvAcce_EOD_MT = -500;			//TURBO中に逆方向に入力される事により加算される（減速する）速度
 
 	_angRZVelo_BeginMYT = 13000;	//上又は下へTURBO移動開始時のZ軸回転角速度の初速度
 	_angRZAcce_MYT = -200;			//上又は下へTURBO移動中のZ軸回転角速度の角加速度
@@ -235,18 +235,21 @@ void MyShip::processBehavior() {
 
 	static int stc;
 	stc = VB::getPushedDownStickWith(VB_TURBO);
-	if (stc != 0 && _dwFrameTurboMove > 5) {
+	if (stc != 0 && _dwFrameTurboMove > 2) {
 		//ZXターボ始動
+		_TRACE_("ZXターボ始動");
 		beginTurboZX(stc);
 		turnFaceNeutralXY();
-	} else if (VB::isPushedDown(VB_TURBO) != 0) {
+	} else if (VB::isPushedDown(VB_TURBO) != 0 && _dwFrameTurboMove > 2) {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
 			//XYターボ始動
+			_TRACE_("XYターボ始動");
 			beginTurboXY(stc);
 			turnFaceNeutralZX();
 		} else {
 			//ただターボPushDownしただけ
+			_TRACE_("ただターボPushDownしただけ");
 			doNotingMoveInput();
 			turnFaceNeutralXY();
 			turnFaceNeutralZX();
@@ -256,17 +259,20 @@ void MyShip::processBehavior() {
 		if (stc != 0) {
 			if (_wayTurbo == WAY_NONE) {
 				//ZX移動制御
+				_TRACE_("ZX移動");
 				moveZX(stc);
 				turnFaceZXMove(stc);
 				turnFaceNeutralXY();
 			} else {
 				//ターボ中ZX制御
+				_TRACE_("ターボ中ZX制御");
 				controlTurboZX(stc);
 				//turnFaceZXMove(stc);
 				turnFaceNeutralXY();
 			}
 		} else {
 			//ただターボおしっぱなししてるだけ
+			_TRACE_("ただターボおしっぱなししてるだけ");
 			doNotingMoveInput();
 			turnFaceNeutralXY();
 			turnFaceNeutralZX();
@@ -277,11 +283,13 @@ void MyShip::processBehavior() {
 		if (stc != 0) {
 			if (_wayTurbo == WAY_NONE) {
 				//XY移動制御
+				_TRACE_("XY移動制御");
 				moveXY(stc);
 				turnFaceXYMove(stc);
 				turnFaceNeutralZX();
 			} else {
 				//ターボ中XY制御
+				_TRACE_("ターボ中XY制御");
 				controlTurboXY(stc);
 				//turnFaceXYMove(stc);
 				turnFaceNeutralZX();

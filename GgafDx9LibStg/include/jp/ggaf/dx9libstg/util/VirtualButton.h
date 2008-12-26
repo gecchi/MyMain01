@@ -21,11 +21,12 @@
 #define VB_UI_CANCEL 17
 #define VB_UI_DEBUG 18
 
-//以下のVB_UP_RIGHT_STC～VB_NEUTRAL_STCは、
+//以下のVB_UP_RIGHT_STC～VB_LEFT_STCは、
 //ループのINDEXで使用してるため連番でなければだめ。
 //この順番(斜め入力→上下左右)で判定している。
 //斜め入力が優先でヒットするようにした。
 #define VB_NEUTRAL_STC 20
+
 #define VB_UP_RIGHT_STC 21
 #define VB_DOWN_RIGHT_STC 22
 #define VB_DOWN_LEFT_STC 23

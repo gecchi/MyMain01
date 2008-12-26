@@ -197,7 +197,6 @@ HRESULT GgafDx9Input::init() {
 void GgafDx9Input::updateKeyboardState() {
 	if (_s_pIDirectInputDevice8_Keyboard == NULL) {
 		_TRACE_("GgafDx9Input::updateKeyboardState() NULLÇ¡Ç∑");
-
 		return;
 	}
 
@@ -218,16 +217,6 @@ void GgafDx9Input::updateKeyboardState() {
 			//É_ÉÅÇ»ÇÁÇ‹ÇΩéüâÒÇ÷
         }
 	}
-
-	if (_s_caKeyboardState[DIK_Q] & 0x80) {
-
-	} else {
-		_TRACE_("not! DIK_Q");
-		//_TRACE_("Acquire is not DI_OK");
-	}
-
-
-	//http://toruweb.web.fc2.com/di/index.html
 	return;
 }
 
