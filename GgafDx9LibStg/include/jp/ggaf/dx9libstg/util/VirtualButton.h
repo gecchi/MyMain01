@@ -36,20 +36,16 @@
 #define VB_DOWN_STC 27
 #define VB_LEFT_STC 28
 
-
-
 #define VB_MAP_BUFFER 200
 #define VB_NUM 29
-
 
 #define VB VirtualButton
 
 
-
-
-
 class VirtualButton {
+
 public:
+
 	struct KEYBOARDMAP {
 		int SHOT1;
 		int SHOT2;
@@ -70,6 +66,7 @@ public:
 		int UI_CANCEL;
 		int UI_DEBUG;
 	};
+
 	struct JOYSTICKMAP {
 		int SHOT1;
 		int SHOT2;
@@ -105,24 +102,30 @@ public:
 	static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
 	static bool isBeingPressed(int prm_VB);
+
 	static bool wasBeingPressed(int prm_VB, DWORD prm_dwFrameAgo);
 
 	static bool isNotBeingPressed(int prm_VB);
+
 	static bool wasNotBeingPressed(int prm_VB, DWORD prm_dwFrameAgo);
 
 	static bool isPushedDown(int prm_VB);
+
 	static bool wasPushedDown(int prm_VB, DWORD prm_dwFrameAgo);
 
  	static bool isReleasedUp(int prm_VB);
-	static bool wasReleasedUp(int prm_VB, DWORD prm_dwFrameAgo);
+
+ 	static bool wasReleasedUp(int prm_VB, DWORD prm_dwFrameAgo);
 
 	static bool arePushedDownAtOnce(int prm_aVB[], int prm_iButtonNum);
+
 	static bool arePushedDownAtOnce(int prm_VB1, int prm_VB2) {
 		static int vb[2];
 		vb[0] = prm_VB1;
 		vb[1] = prm_VB2;
 		return arePushedDownAtOnce(vb, 2);
 	};
+
 	static bool arePushedDownAtOnce(int prm_VB1, int prm_VB2, int prm_VB3) {
 		static int vb[3];
 		vb[0] = prm_VB1;
@@ -130,6 +133,7 @@ public:
 		vb[2] = prm_VB3;
 		return arePushedDownAtOnce(vb, 3);
 	};
+
 	static bool arePushedDownAtOnce(int prm_VB1, int prm_VB2, int prm_VB3, int prm_VB4) {
 		static int vb[4];
 		vb[0] = prm_VB1;
@@ -139,7 +143,6 @@ public:
 		return arePushedDownAtOnce(vb, 4);
 	};
 
-	static bool areNotBeingPressedAfterPushedDownAtOnce(int prm_VB1, int prm_VB2);
 
 	/**
 	 * 現在押しっぱなしのスティックの番号を返す。

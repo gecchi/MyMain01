@@ -200,8 +200,7 @@ void GgafDx9Input::updateKeyboardState() {
 		return;
 	}
 
-	HRESULT hr;
-
+	static HRESULT hr;
 	again:
 	hr = _s_pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
 	hr = _s_pIDirectInputDevice8_Keyboard->GetDeviceState(256 , (void*)&_s_caKeyboardState);
@@ -240,7 +239,7 @@ void GgafDx9Input::updateJoystickState() {
 	}
 
 	// ジョイスティックの状態を取得
-	HRESULT hr;
+	static HRESULT hr;
 
 	again1:
 

@@ -169,87 +169,20 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
 
-	//_pGeoMover -> setMoveVelocity(_iMoveSpeed);
-//	static int stc;
-//	if (VB::isBeingPressed(VB_TURBO)) {
-//		stc = VB::getPushedDownStickWith(VB_TURBO);
-//		if (stc != 0 && _dwFrameTurboMove > 5) {
-//			//beginTurboZX
-//			_dwFrameTurboMove = 0;
-//			_dwFrameZXTurboMove = 0;
-//			beginTurboZX(stc);
-//			turnFaceNeutralXY();
-//		} else {
-//			stc = VB::getBeingPressedStick();
-//			if (stc != 0) {
-//				if (VB::isPushedDown(VB_TURBO) && _dwFrameTurboMove > 5) {
-//					//beginTurboXY
-//					_dwFrameTurboMove = 0;
-//					_dwFrameXYTurboMove = 0;
-//					beginTurboXY(stc);
-//					turnFaceNeutralZX();
-//				} else {
-//					if (_wayTurbo == WAY_NONE) {
-//						//ZXMOVE
-//						moveZX(stc);
-//						turnFaceZXMove(stc);
-//						turnFaceNeutralXY();
-//					} else {
-//						//ターボ中ZX制御
-//						controlTurboZX(stc);
-//						turnFaceZXMove(stc);
-//						turnFaceNeutralXY();
-//					}
-//				}
-//			} else {
-//				//ただTURBO押してるだけ
-//				doNotingMoveInput();
-//				turnFaceNeutralXY();
-//				turnFaceNeutralZX();
-//			}
-//		}
-//	} else {
-//		stc = VB::getBeingPressedStick();
-//		if (stc != 0) {
-//			if (_wayTurbo == WAY_NONE) {
-//				//XYMOVE
-//				moveXY(stc);
-//				turnFaceXYMove(stc);
-//				turnFaceNeutralZX();
-//			} else {
-//				//ターボ中XY制御
-//				controlTurboXY(stc);
-//				turnFaceXYMove(stc);
-//				turnFaceNeutralZX();
-//			}
-//		} else {
-//			//なにもしてない
-//			doNotingMoveInput();
-//			turnFaceNeutralXY();
-//			turnFaceNeutralZX();
-//		}
-//	}
-//	_dwFrameTurboMove++;
-//	_dwFrameXYTurboMove++;
-//	_dwFrameZXTurboMove++;
-
 	static int stc;
 	stc = VB::getPushedDownStickWith(VB_TURBO);
 	if (stc != 0 && _dwFrameTurboMove > 2) {
-		//ZXターボ始動
-		_TRACE_("ZXターボ始動");
+//		_TRACE_("ZXターボ始動");
 		beginTurboZX(stc);
 		turnFaceNeutralXY();
 	} else if (VB::isPushedDown(VB_TURBO) != 0 && _dwFrameTurboMove > 2) {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
-			//XYターボ始動
-			_TRACE_("XYターボ始動");
+//			_TRACE_("XYターボ始動");
 			beginTurboXY(stc);
 			turnFaceNeutralZX();
 		} else {
-			//ただターボPushDownしただけ
-			_TRACE_("ただターボPushDownしただけ");
+//			_TRACE_("ただターボPushDownしただけ");
 			doNotingMoveInput();
 			turnFaceNeutralXY();
 			turnFaceNeutralZX();
@@ -258,21 +191,17 @@ void MyShip::processBehavior() {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
 			if (_wayTurbo == WAY_NONE) {
-				//ZX移動制御
-				_TRACE_("ZX移動");
+//				_TRACE_("ZX移動");
 				moveZX(stc);
 				turnFaceZXMove(stc);
 				turnFaceNeutralXY();
 			} else {
-				//ターボ中ZX制御
-				_TRACE_("ターボ中ZX制御");
+//				_TRACE_("ターボ中ZX制御");
 				controlTurboZX(stc);
-				//turnFaceZXMove(stc);
 				turnFaceNeutralXY();
 			}
 		} else {
-			//ただターボおしっぱなししてるだけ
-			_TRACE_("ただターボおしっぱなししてるだけ");
+//			_TRACE_("ただターボおしっぱなししてるだけ");
 			doNotingMoveInput();
 			turnFaceNeutralXY();
 			turnFaceNeutralZX();
@@ -282,16 +211,13 @@ void MyShip::processBehavior() {
 		stc = VB::getBeingPressedStick();
 		if (stc != 0) {
 			if (_wayTurbo == WAY_NONE) {
-				//XY移動制御
-				_TRACE_("XY移動制御");
+//				_TRACE_("XY移動制御");
 				moveXY(stc);
 				turnFaceXYMove(stc);
 				turnFaceNeutralZX();
 			} else {
-				//ターボ中XY制御
-				_TRACE_("ターボ中XY制御");
+//				_TRACE_("ターボ中XY制御");
 				controlTurboXY(stc);
-				//turnFaceXYMove(stc);
 				turnFaceNeutralZX();
 			}
 		} else {
@@ -301,6 +227,7 @@ void MyShip::processBehavior() {
 			turnFaceNeutralZX();
 		}
 	}
+
 	_dwFrameTurboMove++;
 	_dwFrameXYTurboMove++;
 	_dwFrameZXTurboMove++;
@@ -310,21 +237,6 @@ void MyShip::processBehavior() {
 		_pGeoMover -> setMoveVelocity(0);
 	}
 
-
-
-//	if (VB::isBeingPressed(VB_TURBO)) {
-//		stc = VB::getBeingPressedStick();
-//		if (stc != 0) {
-//			moveZX(stc);
-//		}
-//
-//	} else {
-//_TRACE_("NOTTURBO");
-//		stc = VB::getBeingPressedStick();
-//		if (stc != 0) {
-//			moveXY(stc);
-//		}
-//	}
 
 ////////////////////////////////////////////////////
 
