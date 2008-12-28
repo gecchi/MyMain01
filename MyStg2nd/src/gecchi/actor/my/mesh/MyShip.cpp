@@ -838,8 +838,6 @@ void MyShip::equipOption() {
 
 
 MyShip::~MyShip() {
-	RELEASE_POSSIBLE_NULL(MyLaserChip::_pIDirect3DVertexBuffer9_MyLaserChip);
-	DELETE_POSSIBLE_NULL(MyLaserChip::_pTetra_EFGH);
 	DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }
 
