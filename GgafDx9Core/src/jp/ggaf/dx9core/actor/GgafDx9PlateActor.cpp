@@ -23,7 +23,8 @@ GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_nam
 	_paVertex[3].x = 0.0f + _pPlateModel->_fSize_PlateModelWidth;
 	_paVertex[3].y = 0.0f + _pPlateModel->_fSize_PlateModelHeight;
 	_paVertex[3].z = 0.0f;
-	GgafDx9RectUV* pRectUV_Active = (_pPlateModel->_paRectUV) + 0;
+	statuc GgafDx9RectUV* pRectUV_Active;
+	pRectUV_Active = (_pPlateModel->_paRectUV) + 0;
 	_paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
 	_paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
 	_paVertex[1].tu = pRectUV_Active->_aUV[1].tu;
@@ -79,7 +80,8 @@ void GgafDx9PlateActor::setPatternNo(int prm_iPatternNo) {
 		return;
 	} else {
 		_iPatternNo_Active = prm_iPatternNo;
-		GgafDx9RectUV* pRectUV_Active = (_pPlateModel->_paRectUV) + prm_iPatternNo;
+		static GgafDx9RectUV* pRectUV_Active;
+		pRectUV_Active = (_pPlateModel->_paRectUV) + prm_iPatternNo;
 		_paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
 		_paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
 		_paVertex[1].tu = pRectUV_Active->_aUV[1].tu;

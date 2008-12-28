@@ -43,7 +43,7 @@ void GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(GgafDx9Untransformed
 
 	static D3DXMATRIX matrixTransWorld;  //WORLD•ÏŠ·s—ñ
 	static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
-	static float fRateScale = LEN_UNIT*PX_UNIT;
+	static float fRateScale = 1.0*LEN_UNIT*PX_UNIT;
 	static float sx, sy, sz;
 	sinRX = GgafDx9Util::SIN[prm_pActor->_RX/ANGLE_RATE];
 	cosRX = GgafDx9Util::COS[prm_pActor->_RX/ANGLE_RATE];
@@ -131,7 +131,7 @@ void GgafDx9UntransformedActor::setWorldTransformScRzMxyz(GgafDx9UntransformedAc
 	// |0       , 0       , sz   , 0  |
 	// |dx      , dy	  , dz   , 1  |
 	static D3DXMATRIX matrixTransWorld;
-	static float fRateScale = LEN_UNIT*PX_UNIT;
+	static float fRateScale = 1.0*LEN_UNIT*PX_UNIT;
 	static s_ang s_RZ;
 	static float sx, sy, sz;
 

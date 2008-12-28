@@ -29,7 +29,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	//¡‰ñ•`‰æ‚ÌUV
 	GgafDx9RectUV* pRectUV_Active = _paRectUV + (pSpriteActor_Target->_iAnimationPatternNo_Active);
 
-	HRESULT	hr;
+	static HRESULT	hr;
 
 
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {

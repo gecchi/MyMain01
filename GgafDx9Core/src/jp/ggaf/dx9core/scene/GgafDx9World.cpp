@@ -39,7 +39,7 @@ void GgafDx9World::drawMain() {
 }
 
 void GgafDx9World::setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pActor) {
-	int iDrawDepthLevel;
+	static int iDrawDepthLevel;
 	if (prm_iDrawDepthLevel > MAX_DRAW_DEPTH_LEVEL-1) {
 		iDrawDepthLevel = MAX_DRAW_DEPTH_LEVEL-1;
 	} else if (prm_iDrawDepthLevel < 0) {

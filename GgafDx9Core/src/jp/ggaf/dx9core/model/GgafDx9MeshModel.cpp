@@ -14,7 +14,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
 HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
 	GgafDx9MeshActor* pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
 
-	HRESULT hr;
+	static HRESULT hr;
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
 
 		_paD3DMaterial9[i].Ambient.a = pMeshActor_Target->_fAlpha;
