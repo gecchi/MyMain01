@@ -236,7 +236,7 @@ void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 MyLaserChip::~MyLaserChip() {
-	RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip);
+	//RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip);//ƒ‚ƒfƒ‹‘¤‚ÅRELEASE‚³‚ê‚é‚Ì‚Å•s—v
 	DELETE_POSSIBLE_NULL(_pTetra_EFGH);
 
 }
