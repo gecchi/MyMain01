@@ -128,9 +128,9 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
 	addSubLast(_pMyLaserChipRotation);//仮所属
-	MyLaserChip* pChip;
+	MyLaserChip2* pChip;
 	for (int i = 0; i < 30; i++) { //レーザーストック
-		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
+		pChip = NEW MyLaserChip2("MYS_L"+GgafUtil::itos(i), "laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 	}
@@ -138,7 +138,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	for (int i = 0; i < EQ_MAX_OPTION; i++) {
 		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "ebi");
 		pOption->_iMyNo = i;  //おぷ番
-		pOption->stopImmediately();
+		pOption->stopAloneImmediately();
 		addSubLast(pOption);
 	}
 
@@ -162,7 +162,8 @@ void MyShip::initialize() {
 
 
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z,1300);
 
 
 }
@@ -257,7 +258,7 @@ void MyShip::processBehavior() {
 
 	if (VB::isBeingPressed(VB_SHOT2)) {
 		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-		MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
+		MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(this);
 			pLaser->_dwFrame_switchedToPlay = _dwFrame;
@@ -829,9 +830,9 @@ void MyShip::equipOption() {
 
 
 
-
 	_state.eq_option++;
-	pOption->declarePlay();
+	pOption->declarePlayAlone();
+
 
 }
 

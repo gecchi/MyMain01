@@ -113,6 +113,7 @@ void MyLaserChip::processDrawMain() {
 	pNextChip = getNext();
 	pPrevChip = getPrev();
 
+	//連続しているか
 	if (pPrevChip->isPlaying() && _dwFrame_switchedToPlay-1 == pPrevChip->_dwFrame_switchedToPlay) {
 		//連続しているので、一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
 

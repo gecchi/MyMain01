@@ -36,7 +36,6 @@ public:
 	 */
  	void processOnHit(GgafActor* prm_pActor_Opponent);
 
-
 	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
  		_pActor_Radical = prm_pActor;
  	}

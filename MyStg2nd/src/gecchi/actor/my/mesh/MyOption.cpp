@@ -23,10 +23,10 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
 	addSubLast(_pMyLaserChipRotation);//仮所属
-	MyLaserChip* pChip;
+	MyLaserChip2* pChip;
 	for (int i = 0; i < 30; i++) { //レーザーストック
-		pChip = NEW MyLaserChip("MY_L"+GgafUtil::itos(i), "laserchip9");
-		pChip->stopImmediately();
+		pChip = NEW MyLaserChip2("MY_L"+GgafUtil::itos(i), "laserchip9");
+		pChip->stopAloneImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 		Sleep(1);
 	}
@@ -37,7 +37,6 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 
 void MyOption::initialize() {
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
-
 	_pChecker -> useHitAreaBoxNum(1);
 	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	if (_iMyNo == 0) {
@@ -83,6 +82,15 @@ void MyOption::processBehavior() {
 		_pGeoMover -> behave();
 	}
 	//座標に反映
+	if (VB::isBeingPressed(VB_SHOT2)) {
+		//RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+		MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
+		if (pLaser != NULL) {
+			pLaser->setRadicalActor(this);
+			pLaser->_dwFrame_switchedToPlay = _dwFrame;
+			pLaser->declarePlay();
+		}
+	}
 
 }
 
