@@ -59,10 +59,10 @@ void MyLaserChip::initialize() {
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
 	}
 
-	_pGeoMover -> setMoveVelocity(30*1000);
-	_pChecker -> useHitAreaBoxNum(2);
-	_pChecker -> setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
-	_pChecker -> setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
+	_pGeoMover -> setMoveVelocity(20*1000);
+	//_pChecker -> useHitAreaBoxNum(2);
+	//_pChecker -> setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+	//_pChecker -> setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
 	_pActor_Radical = NULL;
 
 	setBumpableAlone(false);
@@ -211,6 +211,7 @@ void MyLaserChip::processDrawMain() {
 	}
 
 	static int centerX, centerY, centerZ;
+/*
 	if (pNextChip->isPlaying() && _dwFrame_switchedToPlay+1 == pNextChip->_dwFrame_switchedToPlay) {
 		centerX = (_X - pNextChip->_X) / 2;
 		centerY = (_Y - pNextChip->_Y) / 2;
@@ -228,7 +229,7 @@ void MyLaserChip::processDrawMain() {
 	} else {
 		_pChecker->getHitAreaBoxs()->disable(1);
 	}
-
+*/
 	GgafDx9DynaMeshActor::processDrawMain();
 }
 

@@ -8,7 +8,7 @@
 #define MIN_LEVEL_MOVE_SPEED 0
 
 #define EQ_OPTION 1
-#define EQ_MAX_OPTION 8
+#define EQ_MAX_OPTION 50
 
 enum MoveWay {
 	WAY_NONE,

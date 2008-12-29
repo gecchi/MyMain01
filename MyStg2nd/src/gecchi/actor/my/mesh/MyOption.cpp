@@ -24,7 +24,7 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip2* pChip;
-	for (int i = 0; i < 30; i++) { //レーザーストック
+	for (int i = 0; i < 40; i++) { //レーザーストック
 		pChip = NEW MyLaserChip2("MY_L"+GgafUtil::itos(i), "laserchip9");
 		pChip->stopAloneImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
@@ -48,7 +48,7 @@ void MyOption::initialize() {
 		_pGeoMover -> setMoveVelocity(0);
 	}
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	//_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
+	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
 	//setAlpha(0.2);
 }
 

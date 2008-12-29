@@ -91,7 +91,7 @@ void MyLaserChip2::initialize() {
 		//_pIDirect3DVertexBuffer9_MyLaserChip2 = NULL;
 	}
 
-	_pGeoMover -> setMoveVelocity(30*1000);
+	_pGeoMover -> setMoveVelocity(20*1000);
 //	_pChecker -> useHitAreaBoxNum(1);
 //	_pChecker -> setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
 //	_pChecker -> setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
