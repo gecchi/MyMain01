@@ -32,7 +32,6 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 	}
 
 	_iMyNo = 0;
-
 }
 
 void MyOption::initialize() {
