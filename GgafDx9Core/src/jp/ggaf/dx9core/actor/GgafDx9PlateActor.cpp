@@ -65,10 +65,12 @@ void GgafDx9PlateActor::processDrawMain() {
 	_paVertex[3].y = _y + _pPlateModel->_fSize_PlateModelHeight;
 	_paVertex[3].z = _z;
 
-	_paVertex[0].color = D3DCOLOR_ARGB((int)(_fAlpha*255.0) ,255,255,255);
-	_paVertex[1].color = D3DCOLOR_ARGB((int)(_fAlpha*255.0) ,255,255,255);
-	_paVertex[2].color = D3DCOLOR_ARGB((int)(_fAlpha*255.0) ,255,255,255);
-	_paVertex[3].color = D3DCOLOR_ARGB((int)(_fAlpha*255.0) ,255,255,255);
+	static D3DCOLOR c;
+	c = D3DCOLOR_ARGB((int)(_fAlpha*255.0) ,255,255,255);
+	_paVertex[0].color = c;
+	_paVertex[1].color = c;
+	_paVertex[2].color = c;
+	_paVertex[3].color = c;
 
 
 	_pPlateModel->draw(this);

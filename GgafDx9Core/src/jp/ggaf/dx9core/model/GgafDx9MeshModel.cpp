@@ -12,25 +12,26 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
 }
 
 HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
-	GgafDx9MeshActor* pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
+	static GgafDx9MeshActor* pMeshActor_Target;
+	pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
 
 	static HRESULT hr;
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
 
 		_paD3DMaterial9[i].Ambient.a = pMeshActor_Target->_fAlpha;
 		_paD3DMaterial9[i].Diffuse.a = pMeshActor_Target->_fAlpha;
-        hr = GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i]));	//マテリアルのセット
-        if(hr != D3D_OK) {
+        //マテリアルのセット
+        if(GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i])) != D3D_OK) {
         	throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw]["<<prm_pActor_Target->getName()<<"]のSetMaterial(&(paD3DMaterial9[i].MatD3D)失敗 model="<<_model_name, hr);
 		}
 		if (_papID3DTexture9[i] != NULL) {
-			hr = GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papID3DTexture9[i] );	//テクスチャのセット
- 			if(hr != D3D_OK) {
+			//テクスチャのセット
+ 			if(GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papID3DTexture9[i] ) != D3D_OK) {
  				throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw] ["<<prm_pActor_Target->getName()<<"]のSetTexture( 0, papID3DTexture9[i])  失敗 model="<<_model_name, hr);
 			}
 		} else {
-			hr = GgafDx9God::_pID3DDevice9 -> SetTexture(0, NULL); //無ければテクスチャ無し
- 			if(hr != D3D_OK) {
+			//無ければテクスチャ無し
+ 			if(GgafDx9God::_pID3DDevice9 -> SetTexture(0, NULL) != D3D_OK) {
  				throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw] ["<<prm_pActor_Target->getName()<<"]のSetTexture( 0, NULL) 失敗 model="<<_model_name, hr);
 			}
 		}

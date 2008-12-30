@@ -60,14 +60,14 @@ void GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(GgafDx9Untransformed
 	matrixTransWorld._13 = cosRZ * -sinRY * sz;
 	matrixTransWorld._14 = 0.0f;
 
-	matrixTransWorld._21 = ((cosRX * -sinRZ * cosRY) + (sinRX * sinRY)) * sx;
+	matrixTransWorld._21 = ((cosRX * -sinRZ *  cosRY) + (sinRX * sinRY)) * sx;
 	matrixTransWorld._22 = cosRX * cosRZ * sy;
 	matrixTransWorld._23 = ((cosRX * -sinRZ * -sinRY) + (sinRX * cosRY)) * sz;
 	matrixTransWorld._24 = 0.0f;
 
-	matrixTransWorld._31 = ((-sinRX * -sinRZ * cosRY) + (cosRX * sinRY)) * sx;
+	matrixTransWorld._31 = ((-sinRX * -sinRZ *  cosRY) + (cosRX * sinRY)) * sx;
 	matrixTransWorld._32 = -sinRX * cosRZ * sy;
-	matrixTransWorld._33 = ((-sinRX * -sinRZ * -sinRY) + (cosRX *cosRY)) * sz;
+	matrixTransWorld._33 = ((-sinRX * -sinRZ * -sinRY) + (cosRX * cosRY)) * sz;
 	matrixTransWorld._34 = 0.0f;
 
 	matrixTransWorld._41 = (float)(1.0*prm_pActor->_X/LEN_UNIT/PX_UNIT);
