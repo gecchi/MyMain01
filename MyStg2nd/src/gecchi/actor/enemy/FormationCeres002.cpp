@@ -7,7 +7,7 @@ FormationCeres002::FormationCeres002(string prm_name, string prm_model) : Format
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 30; i++) { //弾ストック
 		Sleep(1);
-		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "BDAMA");
 		pEnemyMeshShot->stopImmediately(); //最初非表示
 		_pRotEnemyMeshShots001 -> addSubLast(pEnemyMeshShot);
 	}

@@ -92,8 +92,8 @@ void MyLaserChip2::initialize() {
 	}
 
 	_pGeoMover -> setMoveVelocity(20*1000);
-//	_pChecker -> useHitAreaBoxNum(1);
-//	_pChecker -> setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
+	_pChecker -> useHitAreaBoxNum(1);
+	_pChecker -> setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
 //	_pChecker -> setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
 	_pActor_Radical = NULL;
 

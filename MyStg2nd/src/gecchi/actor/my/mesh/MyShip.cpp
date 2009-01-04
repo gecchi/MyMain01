@@ -162,8 +162,8 @@ void MyShip::initialize() {
 
 
 	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z,1300);
+//	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
+//	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z,1300);
 
 
 }
