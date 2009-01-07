@@ -18,6 +18,7 @@ public:
 	/**
 	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
 	 * ローテーションの一番先頭に移動させます。<BR>
+	 * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
 	 * ＜OverRide です＞<BR>
 	 */
 	virtual void processBehavior() {
