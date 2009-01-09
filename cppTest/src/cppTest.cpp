@@ -52,8 +52,11 @@ public:
 
 	virtual ~YYY() {};
 };
-
+double _y0(double a) {
+	return 1;
+}
 int main() {
+
 
 	YYY* yyy1 = new YYY();
 	YYY* yyy2 = new YYY();
