@@ -1,6 +1,10 @@
 #ifndef GGAFDX9SEMANAGER_H_
 #define GGAFDX9SEMANAGER_H_
 
+/**
+ * GgafDx9Se 管理クラス .
+ * 生成済み GgafDx9Se オブジェクトを登録しておき、使いまわします。
+ */
 class GgafDx9SeManager {
 
 public:

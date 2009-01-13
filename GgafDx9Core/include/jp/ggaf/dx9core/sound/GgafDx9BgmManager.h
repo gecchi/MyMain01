@@ -1,6 +1,10 @@
 #ifndef GGAFDX9BGMMANAGER_H_
 #define GGAFDX9BGMMANAGER_H_
 
+/**
+ * GgafDx9Bgm 管理クラス .
+ * 生成済み GgafDx9Bgm オブジェクトを登録しておき、使いまわします。
+ */
 class GgafDx9BgmManager {
 
 public:
