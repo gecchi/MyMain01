@@ -1,5 +1,6 @@
 #ifndef GGAFDX9BGM_H_
 #define GGAFDX9BGM_H_
+
 #include <dsound.h>
 #include <tchar.h>
 #include "OggDecoder.h"
@@ -9,24 +10,30 @@
 #include "DixSmartPtr.h"
 #include "DixComPtr.h"
 
+// 本プログラムは、<BR>
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
+// サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
+// のサンプルプログラムを流用（一部変更）させていただいて、実装しています。<BR>
+// 製作者IKD氏の惜しみない技術共有の心に、感謝申し上げます。<BR>
+//
+//                                            2009/01/13 Masatoshi Tsuge<BR>
+
+/**
+ * Ogg ストリーム再生クラス .
+ */
 class GgafDx9Bgm : public GgafObject {
 public:
-	//CC3DSoundBGM* _pSoundBgm;
 	string _ogg_name;
 	GgafDx9Bgm* _pBgm_Next;
 
-//	Dix::OggDecoder* _pOggDecoder;
-//	Dix::OggVorbisFile* _pOggResource;
 	Dix::PCMPlayer* pPcmPlayer;
-
 	Dix::sp< Dix::OggVorbisFile > spOggResource;
 	Dix::sp< Dix::OggDecoder > spOggDecoder;
 
-//	Dix::PCMPlayer* _pPcmPlayer;
-
 	GgafDx9Bgm(string prm_wave_name);
 
-	//virtual void behave();フェードインフェードアウトを実装するぞ！
+	//TODO:
+	//virtual void behave();でフェードインフェードアウトを実装するぞ！
 
 	//! 再生
 	void play( bool isLoop );

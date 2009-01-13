@@ -1,10 +1,3 @@
-/**
- * @file	CmRandomNumberGenerator.cpp
- * @brief	Random Number Generator CPP file
- * @author  Takayuki HARUKI (University of Toyama, Japan)
- * @since	Nov. 2005
- *
- */
 
 // このプログラムは松本眞氏、西村拓士氏らによって開発された
 // Mersenne Twister法のCプログラムがオリジナルです。
@@ -13,7 +6,6 @@
 // 本コード内容は、CmRandomNumberGenerator を、ほぼそのままに流用しております。
 //
 // 多大な努力と時間を費やし研究された、開発者の皆様に敬意を表しまして、利用させていただきます。
-// 良質の乱数をこのように手軽に利用できる事に感謝。
 //
 //                                         2008/09/09 Masatoshi Tsuge
 //
@@ -21,6 +13,7 @@
 // http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html
 // 【CmRandomNumberGeneratorのダウンロード】
 // http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip
+
 
 
 
@@ -32,7 +25,13 @@
 #define	UPPER_MASK	(0x80000000UL)	//!< most significant w-r bits
 #define	LOWER_MASK	(0x7fffffffUL)	//!< least significant r bits
 
-
+/**
+ * @file	CmRandomNumberGenerator.cpp
+ * @brief	Random Number Generator CPP file
+ * @author  Takayuki HARUKI (University of Toyama, Japan)
+ * @since	Nov. 2005
+ *
+ */
 CmRandomNumberGenerator* CmRandomNumberGenerator::s_pInstance = NULL;
 
 unsigned long CmRandomNumberGenerator::mt[N];
