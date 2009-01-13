@@ -1,9 +1,9 @@
 // OggDecoder.cpp
 //
 
-#pragma comment ( lib, "ogg_static.lib" )
-#pragma comment ( lib, "vorbis_static.lib" )
-#pragma comment ( lib, "vorbisfile_static.lib" )
+//#pragma comment ( lib, "ogg_static.lib" )
+//#pragma comment ( lib, "vorbis_static.lib" )
+//#pragma comment ( lib, "vorbisfile_static.lib" )
 
 #include "OggDecoder.h"
 #include <memory.h>

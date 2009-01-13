@@ -47,7 +47,7 @@ bool GgafDx9Bgm::isPlaying() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
 	_TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
-	pPcmPlayer->clear();
+	//pPcmPlayer->clear();
 	delete pPcmPlayer;
 	_TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
 }
