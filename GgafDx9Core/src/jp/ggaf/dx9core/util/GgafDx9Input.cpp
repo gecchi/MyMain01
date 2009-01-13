@@ -205,14 +205,14 @@ void GgafDx9Input::updateKeyboardState() {
 	hr = _s_pIDirectInputDevice8_Keyboard->Poll(); //キーボードは通常Poll不用と思うが、必要なキーボードもあるかもしれない。
 	hr = _s_pIDirectInputDevice8_Keyboard->GetDeviceState(256 , (void*)&_s_caKeyboardState);
 	if(FAILED(hr)){
-		_TRACE_("GetDeviceState is FAILED");
+		//_TRACE_("GetDeviceState is FAILED");
 		//Acquire()を試みる。
 		hr = _s_pIDirectInputDevice8_Keyboard->Acquire();
         if(hr == DI_OK) {
-    		_TRACE_("Acquire is DI_OK");
+    		//_TRACE_("Acquire is DI_OK");
 			goto again;
         } else {
-        	_TRACE_("Acquire is not DI_OK");
+        	//_TRACE_("Acquire is not DI_OK");
 			//ダメならまた次回へ
         }
 	}

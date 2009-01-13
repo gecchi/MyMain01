@@ -102,14 +102,14 @@ class GgafDx9Bgm;
 class GgafDx9SeManager;
 class GgafDx9BgmManager;
 
-class DixComPtr;
-class DixSmartPtr;
-class PCMDecoder;
-class PCMPlayer;
-class OggDecoder;
-class OggVorbisResource;
-class OggVorbisFile;
-class OggVorbisMemory;
+//class DixComPtr;
+//class DixSmartPtr;
+//class PCMDecoder;
+//class PCMPlayer;
+//class OggDecoder;
+//class OggVorbisResource;
+//class OggVorbisFile;
+//class OggVorbisMemory;
 
 
 #include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
@@ -147,7 +147,7 @@ class OggVorbisMemory;
 //
 
 
-
+/*
 
 #include "jp/ggaf/dx9core/sound/PCMDecoder.h"
 #include "jp/ggaf/dx9core/sound/PCMPlayer.h"
@@ -155,9 +155,9 @@ class OggVorbisMemory;
 #include "jp/ggaf/dx9core/sound/OggVorbisResource.h"
 #include "jp/ggaf/dx9core/sound/OggVorbisFile.h"
 #include "jp/ggaf/dx9core/sound/OggVorbisMemory.h"
+
+*/
 #include "jp/ggaf/dx9core/sound/CWaveDecorder.h"
-
-
 
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
