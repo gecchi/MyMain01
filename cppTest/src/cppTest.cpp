@@ -11,98 +11,119 @@
 #define ABC 1
 #define DEF 2
 
-class XXX {
+class MeshActor;
+class SpriteActor;
+class MainActor;
+
+class BaseActor {
 public:
-	XXX() {};
-
-	virtual void funcA() {
-		static int idx = 0;
-		cout << "XXX::funcA=" << idx << endl;
-		idx = 4;
+	int _type;
+	int _ko;
+	BaseActor(int type);
+	virtual void processDrawMain() {
+		cout << "BaseActor::processDrawMain()" << _type << endl;
 	};
+	virtual void processBehavior()=0;
 
-	void funcB() {
-		static int idx = 0;
-		cout << "XXX::funcB=" << idx << endl;
-		idx = 5;
+	virtual ~BaseActor() {
+		cout << "BaseActor::~BaseActor()" << _type << endl;
 	};
+};
 
+class MeshActor : virtual public BaseActor {
 
-	virtual ~XXX() {};
+public:
+	int ano;
+	MeshActor(int type) : BaseActor(type) {
+		if (_type == 1) {
+			ano = 2;
+			_ko = 100;
+			cout << "MeshActor::MeshActor()" << _type << endl;
+		}
+	};
+	virtual void processBehavior() {
+		cout << "MeshActor::processBehavior()" << _type << endl;
+	};
+	virtual void processDrawMain() {
+		cout << "MeshActor::processDrawMain()" << _type << endl;
+	};
+	virtual ~MeshActor() {
+		cout << "MeshActor::~MeshActor()"  << _type << endl;
+	};
+};
+
+class SpriteActor : virtual public BaseActor {
+public:
+	int ano;
+
+	SpriteActor(int type) : BaseActor(type) {
+		if (_type == 2) {
+			ano = 1;
+			_ko = 200;
+			cout << "SpriteActor::SpriteActor()" << _type << endl;
+		}
+	};
+	virtual void processDrawMain() {
+		cout << "SpriteActor::processDrawMain()" << _type << endl;
+	};
+	virtual void processBehavior() {
+		cout << "SpriteActor::processBehavior()" << _type << endl;
+	};
+	virtual ~SpriteActor() {
+		cout << "SpriteActor::~MeshActor()"  << _type << endl;
+	};
 };
 
 
-class YYY : public XXX {
+class MainActor : public SpriteActor, public MeshActor {
 public:
-	YYY() : XXX() {};
 
-	void funcA() {
-		XXX::funcA();
-		static int idx = 0;
-		cout << "YYY::funcA=" << idx << endl;
-		idx = 8;
+
+	MainActor(int type) :  MeshActor(type), SpriteActor(type) ,BaseActor(type) {
+		cout << "MainActor::MainActor()" << _type << endl;
 	};
+	virtual void processDrawMain() {
+		cout << "‚³‚Ä‚³‚ÄMainActor::processDrawMain()" << _type << endl;
+		if (_type == 1) {
+			MeshActor::processDrawMain();
+		} else if (_type == 2) {
+			SpriteActor::processDrawMain();
+		} else {
+			cout << "??;" <<_type << endl;
+		}
 
-	void funcB() {
-		static int idx = 0;
-		cout << "YYY::funcB=" << idx << endl;
-		idx = 9;
+
 	};
-
-
-	virtual ~YYY() {};
+	virtual void processBehavior() {
+		cout << "MainActor::processBehavior()" << _type << endl;
+	};
+	virtual ~MainActor() {
+		cout << "SpriteActor::~MeshActor()"  << _type << endl;
+	};
 };
-double _y0(double a) {
-	return 1;
+
+BaseActor::BaseActor(int type) {
+	cout << "BaseActor::BaseActor()" << _type << endl;
+	_type = type;
+
 }
+
 int main() {
 
+	MainActor* pActor  = new MainActor(2);
+	BaseActor* pBase = (BaseActor*)pActor;
+	MainActor* pXX = pActor;
 
-	YYY* yyy1 = new YYY();
-	YYY* yyy2 = new YYY();
-	cout << "---------------------------" << endl;
-	yyy1->funcA();
-	yyy1->funcB();
-	yyy1->funcA();
-	yyy1->funcB();
-	yyy1->funcA();
-	yyy1->funcB();
-	cout << "---" << endl;
-	yyy2->funcA();
-	yyy2->funcB();
-	yyy2->funcA();
-	yyy2->funcB();
-	yyy2->funcA();
-	yyy2->funcB();
-	cout << "---------------------------" << endl;
+	pActor->processBehavior();
+	pActor->processDrawMain();
+	delete pActor;
 
-	delete yyy1;
-	delete yyy2;
-
-
-	XXX* xxx1 = new XXX();
-	XXX* xxx2 = new XXX();
-	cout << "---------------------------" << endl;
-	xxx1->funcA();
-	xxx1->funcB();
-	xxx1->funcA();
-	xxx1->funcB();
-	xxx1->funcA();
-	xxx1->funcB();
-	cout << "---" << endl;
-	xxx2->funcA();
-	xxx2->funcB();
-	xxx2->funcA();
-	xxx2->funcB();
-	xxx2->funcA();
-	xxx2->funcB();
-	cout << "---------------------------" << endl;
-
-	delete xxx1;
-	delete xxx2;
-	return 0;
 
 }
+
+
+
+
 
 //int main() {
 //
