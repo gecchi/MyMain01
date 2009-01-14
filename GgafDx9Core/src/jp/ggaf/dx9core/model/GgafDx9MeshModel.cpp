@@ -11,7 +11,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
 	_dwOptions = prm_dwOptions;
 }
 
-HRESULT GgafDx9MeshModel::draw(GgafDx9MainActor* prm_pActor_Target) {
+HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	static GgafDx9MeshActor* pMeshActor_Target;
 	pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
 

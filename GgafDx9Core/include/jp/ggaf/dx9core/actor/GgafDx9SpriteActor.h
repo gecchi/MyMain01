@@ -12,7 +12,7 @@ enum GgafDx9AnimationMethod {
 };
 
 
-class GgafDx9SpriteActor : public GgafDx9UntransformedActor {
+class GgafDx9SpriteActor : virtual public GgafDx9UntransformedActor {
 
 private:
 
@@ -23,8 +23,6 @@ private:
 public:
 	/** モデルオブジェクトへのポインタ */
 	GgafDx9SpriteModel* _pSpriteModel;
-	/** キャラ全体のα */
-	float _fAlpha;
 
 	/** アニメパターン番号の上限番号 */
 	unsigned int _iAnimationPatternNo_Top;
@@ -42,7 +40,7 @@ public:
 	/** ビルボード要否 */
 	bool _isBillboarding;
 
-	GgafDx9SpriteActor(string prm_name, string prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9SpriteActor(int prm_type, string prm_name, string prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
  	/**
 	 * ＜OverRide です＞<BR>

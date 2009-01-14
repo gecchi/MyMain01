@@ -1,12 +1,26 @@
 #ifndef GGAFDX9UNTRANSFORMEDACTOR_H_
 #define GGAFDX9UNTRANSFORMEDACTOR_H_
 
-class GgafDx9UntransformedActor : public GgafDx9MainActor {
+
+#define ACTORTYPE_MESH 1
+#define ACTORTYPE_DYNAMESH 2
+#define ACTORTYPE_SPRITE 3
+#define ACTORTYPE_SQUARE 4
+#define ACTORTYPE_CUBE 5
+
+
+
+
+
+class GgafDx9UntransformedActor : public GgafDx9BaseActor {
 
 private:
 
 
 public:
+
+	/** オブジェクトタイプ */
+	int _type; // ACTORTYPE_MESH/ACTORTYPE_DYNAMESH/ACTORTYPE_SPRITE/ACTORTYPE_SQUARE/ACTORTYPE_CUBE
 
 	/** ワールドX座標 */
 	int _X;
@@ -58,18 +72,22 @@ public:
 
 	GgafDx9GeometryChecker* _pGeoChecker;
 
+	GgafDx9Model* _pModel;
 
 	const int _X_OffScreenLeft;
 	const int _X_OffScreenRight;
 	const int _Y_OffScreenTop;
 	const int _Y_OffScreenBottom;
 
+	/** キャラ全体のα */
+	float _fAlpha;
+
 
 	/**
 	 * コンストラクタ<BR>
 	 * @param	prm_name 識別名
 	 */
-	GgafDx9UntransformedActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9UntransformedActor(int prm_type, string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	virtual GgafDx9UntransformedActor* getPrev() {
 		return (GgafDx9UntransformedActor*)GgafActor::getPrev();

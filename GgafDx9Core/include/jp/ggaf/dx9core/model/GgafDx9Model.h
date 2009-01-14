@@ -21,7 +21,7 @@ public:
 	 */
 	GgafDx9Model(string prm_model_name);
 
-	virtual HRESULT draw(GgafDx9MainActor* prm_pActor_Target) = 0;
+	virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target) = 0;
 
 	virtual void restore() = 0;
 

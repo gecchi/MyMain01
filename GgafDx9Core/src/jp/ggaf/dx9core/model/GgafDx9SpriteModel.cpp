@@ -21,7 +21,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(string prm_platemodel_name) : GgafDx9Mode
 }
 
 //•`‰æ
-HRESULT GgafDx9SpriteModel::draw(GgafDx9MainActor* prm_pActor_Target) {
+HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9SpriteModel::draw("<<prm_pActor_Target->getName()<<")");
 
 	//‘ÎÛSpriteActor

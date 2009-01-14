@@ -1,9 +1,13 @@
 #include "stdafx.h"
 
 
-GgafDx9SquareActor::GgafDx9SquareActor(string prm_name, string prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
-	_class_name = "GgafDx9SquareActor";
-	_pSquareModel = GgafDx9ModelManager::getSquareModel(prm_squaremodel_name);
+GgafDx9SquareActor::GgafDx9SquareActor(int prm_type, string prm_name, string prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker)
+: GgafDx9UntransformedActor(prm_type, prm_name, prm_pGeoMover, prm_pGeoChecker) {
+	if (prm_type == ACTORTYPE_SQUARE) {
+		_class_name = "GgafDx9SquareActor";
+		_pModel = (GgafDx9Model*)GgafDx9ModelManager::getSquareModel(prm_squaremodel_name);
+		_pSquareModel = (GgafDx9SquareModel*)_pModel;
+	}
 }
 
 void GgafDx9SquareActor::processDrawMain() {

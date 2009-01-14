@@ -17,7 +17,7 @@ GgafDx9SquareModel::GgafDx9SquareModel(string prm_platemodel_name) : GgafDx9Mode
 
 
 //•`‰æ
-HRESULT GgafDx9SquareModel::draw(GgafDx9MainActor* prm_pActor_Target) {
+HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9SquareActor* pSquareActor_Target = (GgafDx9SquareActor*)prm_pActor_Target;
 	//HRESULT	hr;

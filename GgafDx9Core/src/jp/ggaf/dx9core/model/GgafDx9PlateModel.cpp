@@ -20,7 +20,7 @@ GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(
 
 //•`‰æ
 
-HRESULT GgafDx9PlateModel::draw(GgafDx9MainActor* prm_pActor_Target) {
+HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9God::_pID3DDevice9 ->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
 	GgafDx9PlateActor* pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;

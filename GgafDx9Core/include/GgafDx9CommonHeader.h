@@ -3,8 +3,6 @@
 
 #include "GgafCommonHeader.h"
 
-
-
 #define DIRECTINPUT_VERSION 0x0800
 #define ANGLE0 (0)
 #define ANGLE360 (360000)
@@ -69,7 +67,8 @@ class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
 class GgafDx9ModelManager;
-class GgafDx9MainActor;
+class GgafDx9BaseActor;
+
 class GgafDx9UntransformedActor;
 class GgafDx9MeshActor;
 class GgafDx9DynaMeshActor;
@@ -77,6 +76,7 @@ class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
 class GgafDx9TransformedActor;
+class GgafDx9MainActor;
 
 class GgafDx9CameraActor;
 class GgafDx9PlateActor;
@@ -117,7 +117,7 @@ class GgafDx9BgmManager;
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
 #include "jp/ggaf/dx9core/model/GgafDx9ModelManager.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9MainActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9DynaMeshActor.h"
@@ -127,6 +127,7 @@ class GgafDx9BgmManager;
 #include "jp/ggaf/dx9core/actor/GgafDx9TransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9CameraActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PlateActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9MainActor.h"
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9MeshModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9SpriteModel.h"
