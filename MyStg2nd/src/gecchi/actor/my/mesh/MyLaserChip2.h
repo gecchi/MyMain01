@@ -2,7 +2,7 @@
 #define MYLASERCHIP2_H_
 
 
-class MyLaserChip2 : public DefaultDynaMeshActor {
+class MyLaserChip2 : public GgafDx9LibStg::DefaultDynaMeshActor {
 public:
 
 	/** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
@@ -50,7 +50,7 @@ public:
 	int _Z_prevFrame;
 
 	/** 対象アクター */
-	GgafDx9UntransformedActor* _pActor_Radical;
+	GgafDx9::GgafDx9UntransformedActor* _pActor_Radical;
 
 
 	MyLaserChip2(string prm_name, string prm_model);

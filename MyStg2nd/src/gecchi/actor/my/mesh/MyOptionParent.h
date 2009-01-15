@@ -1,7 +1,7 @@
 #ifndef MYOPTIONPARENT
 #define MYOPTIONPARENT
 
-class MyOptionParent : public DefaultMeshActor {
+class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
@@ -27,7 +27,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+ 	void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
 
 
  	virtual ~MyOptionParent();

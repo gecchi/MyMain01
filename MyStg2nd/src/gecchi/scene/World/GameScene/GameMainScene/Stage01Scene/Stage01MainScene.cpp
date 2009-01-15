@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
 
-Stage01MainScene::Stage01MainScene(string prm_name) : DefaultScene(prm_name) {
+Stage01MainScene::Stage01MainScene(string prm_name) : GgafDx9LibStg::DefaultScene(prm_name) {
 
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start

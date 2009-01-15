@@ -2,7 +2,7 @@
 #define DEFAULTSPRITEMYACTOR_H_
 
 
-class DefaultSpriteMyActor : public DefaultSpriteActor {
+class DefaultSpriteMyActor : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
 	DefaultSpriteMyActor(string prm_name, string prm_model);

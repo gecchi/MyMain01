@@ -1,7 +1,7 @@
 #ifndef MYSHIPMOVERASSISTANT_H_
 #define MYSHIPMOVERASSISTANT_H_
 
-class MyShipMoverAssistant : public DefaultMeshActor {
+class MyShipMoverAssistant : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
@@ -25,7 +25,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 
 

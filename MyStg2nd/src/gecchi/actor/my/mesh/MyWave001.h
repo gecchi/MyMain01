@@ -1,7 +1,7 @@
 #ifndef MYWAVE001_H_
 #define MYWAVE001_H_
 
-class MyWave001 : public DefaultMeshActor {
+class MyWave001 : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 	MyWave001(string prm_name, string prm_model);
@@ -24,7 +24,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+ 	void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
