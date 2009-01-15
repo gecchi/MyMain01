@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 #define newState(H,X) do { H->e = new State*[X]; for (int i = 0; i < X; i++) {H->e[i] = new State(); } } while(0)
 #define S_OPTION 0

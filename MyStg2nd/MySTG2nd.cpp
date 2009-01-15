@@ -89,8 +89,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		GgafDx9::GgafDx9Properties::load(".\\config.properties");
 	} catch (Ggaf::GgafCriticalException& e) {
 		MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
-		GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		GgafDx9Properties::clean();
+		Ggaf::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		GgafDx9::GgafDx9Properties::clean();
 		return EXIT_FAILURE;
 	}
 
@@ -128,7 +128,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	MyStg2nd::God* god = NULL;
 	try {
 	//神の誕生！
-		god = NEW God(hInstance, hWnd);
+		god = NEW MyStg2nd::God(hInstance, hWnd);
 		if (SUCCEEDED(god->init())) {
 			adjustGameScreen(hWnd);
 
@@ -161,10 +161,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		_TRACE_("＜例外＞"<<e.getMsg());
 		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
 		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-		GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		try { god->_pWorld->dump();	      } catch (...) { GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
-		try { delete god;                 } catch (...) { GgafLogger::write("delete god; 不可"); } //エラー無視
-		try { GgafDx9Properties::clean(); } catch (...) { GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+		Ggaf::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		try { god->_pWorld->dump();	      } catch (...) { Ggaf::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+		try { delete god;                 } catch (...) { Ggaf::GgafLogger::write("delete god; 不可"); } //エラー無視
+		try { GgafDx9::GgafDx9Properties::clean(); } catch (...) { Ggaf::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
 		::timeEndPeriod(1);//タイマー精度終了処理
 #ifdef OREDEBUG
 		//メモリーリ－クチェックEND

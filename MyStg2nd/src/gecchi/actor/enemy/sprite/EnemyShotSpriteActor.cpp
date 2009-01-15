@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_model) : DefaultSpriteEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyShotSpriteActor";

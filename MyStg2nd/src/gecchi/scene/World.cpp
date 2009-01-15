@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 
 World::World(string prm_name) : DefaultWorld(prm_name) {

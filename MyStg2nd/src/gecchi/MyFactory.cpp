@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 //GgafMainScene* MyFactory::createGameScene(void* pArg1, void* pArg2) {
 //	GameScene* pGameScene = NEW GameScene("Game");

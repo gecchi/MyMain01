@@ -1,7 +1,7 @@
 #ifndef GGAFDX9PROPERTIES
 #define GGAFDX9PROPERTIES
 
-#define GGAFDX9_PROPERTY(X) (*GgafDx9Properties::X)
+#define GGAFDX9_PROPERTY(X) (*GgafDx9::GgafDx9Properties::X)
 
 class GgafDx9Properties : Ggaf::GgafProperties {
 public:

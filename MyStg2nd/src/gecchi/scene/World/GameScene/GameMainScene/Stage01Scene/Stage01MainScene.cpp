@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 
 Stage01MainScene::Stage01MainScene(string prm_name) : GgafDx9LibStg::DefaultScene(prm_name) {

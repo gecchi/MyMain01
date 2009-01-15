@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 FormationCeres002::FormationCeres002(string prm_name, string prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationCeres002";

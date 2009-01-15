@@ -1,4 +1,8 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 LPDIRECT3DVERTEXBUFFER9 MyLaserChip2::_pIDirect3DVertexBuffer9_MyLaserChip2 = NULL;
 DWORD MyLaserChip2::_dwVertexFormat = 0;

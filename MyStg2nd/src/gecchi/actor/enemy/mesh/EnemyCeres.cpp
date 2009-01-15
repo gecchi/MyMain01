@@ -1,5 +1,8 @@
 #include "stdafx.h"
-
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
 
 //initialize()までに上書き可能な設定可能なパラメータ
 //_X,_Y,_Z 初期位置、但し _Z<0 であること。（折り返しが逆になって変だから）

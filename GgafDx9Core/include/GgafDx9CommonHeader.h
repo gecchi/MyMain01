@@ -55,6 +55,13 @@
 #include "vorbis/vorbisenc.h"
 #include "vorbis/vorbisfile.h"
 
+#include "OggDecoder.h"
+#include "OggVorbisMemory.h"
+#include "OggVorbisFile.h"
+#include "PCMPlayer.h"
+#include "DixSmartPtr.h"
+#include "DixComPtr.h"
+
 //class CWaveDecorder;
 //class CC3DSound;
 //class CC3DSoundBufferSE;

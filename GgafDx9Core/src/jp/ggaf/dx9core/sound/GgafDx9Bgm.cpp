@@ -1,15 +1,15 @@
 #include "stdafx.h"
 using namespace Ggaf;
 using namespace GgafDx9;
-
+using namespace Dix;
 
 GgafDx9Bgm::GgafDx9Bgm(string prm_ogg_name) : GgafObject() {
 	_TRACE_("GgafDx9Bgm::GgafDx9Bgm "+prm_ogg_name);
 	_ogg_name = prm_ogg_name;
 	string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + prm_ogg_name+".ogg";
-	spOggResource.SetPtr( NEW Dix::OggVorbisFile( ogg_filename.c_str() ) );
-	spOggDecoder.SetPtr( NEW Dix::OggDecoder( spOggResource ) );
-	pPcmPlayer = NEW Dix::PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
+	spOggResource.SetPtr( NEW OggVorbisFile( ogg_filename.c_str() ) );
+	spOggDecoder.SetPtr( NEW OggDecoder( spOggResource ) );
+	pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
 
 	_pBgm_Next = NULL;
 }
@@ -39,7 +39,7 @@ void GgafDx9Bgm::clear() {
 }
 
 bool GgafDx9Bgm::isPlaying() {
-	if (pPcmPlayer->getState() == Dix::PCMPlayer::STATE_PLAY) {
+	if (pPcmPlayer->getState() == PCMPlayer::STATE_PLAY) {
 		return true;
 	} else {
 		return false;
