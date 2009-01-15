@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9MeshModel::GgafDx9MeshModel(" <<  prm_model_name << ")");

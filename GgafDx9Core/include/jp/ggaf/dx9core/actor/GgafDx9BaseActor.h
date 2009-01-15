@@ -1,7 +1,7 @@
 #ifndef GGAFDX9BASEACTOR_H_
 #define GGAFDX9BASEACTOR_H_
 
-class GgafDx9BaseActor : public GgafMainActor {
+class GgafDx9BaseActor : public Ggaf::GgafMainActor {
 
 public:
 

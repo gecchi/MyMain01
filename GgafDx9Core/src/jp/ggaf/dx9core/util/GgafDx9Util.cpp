@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 
 bool GgafDx9Util::_isInit = false;

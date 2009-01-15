@@ -4,8 +4,7 @@
 #define MAX_DRAW_DEPTH_LEVEL 1000
 
 
-class GgafDx9World : public GgafWorld
-{
+class GgafDx9World : public Ggaf::GgafWorld {
 
 public:
 
@@ -13,9 +12,9 @@ public:
 	static GgafDx9CameraActor* _pCamera;
 
 	/** アクター順序レンダリングのための遠さのレベルグループ */
-    static GgafActor* _apActorDrawDepthLevel_first[];
+    static Ggaf::GgafActor* _apActorDrawDepthLevel_first[];
 	/** アクター順序レンダリングのための遠さのレベルグループ別最終アクター */
-    static GgafActor* _apActorDrawDepthLevel_last[];
+    static Ggaf::GgafActor* _apActorDrawDepthLevel_last[];
 
 
 	GgafDx9World(string prm_name);
@@ -31,7 +30,7 @@ public:
 	 * @param prm_iDrawDepthLevel レベル
 	 * @param prm_pActor アクター
 	 */
-	static void setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pActor);
+	static void setDrawDepthLevel(int prm_iDrawDepthLevel, Ggaf::GgafActor* prm_pActor);
 
 	virtual ~GgafDx9World();
 };

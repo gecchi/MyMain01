@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 
 DWORD GgafDx9PlateModel::FVF =  (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1);

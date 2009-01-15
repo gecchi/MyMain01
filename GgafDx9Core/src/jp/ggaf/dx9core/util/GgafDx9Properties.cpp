@@ -1,4 +1,7 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+
 
 bool*   GgafDx9Properties::FULL_SCREEN     = NULL;
 int*    GgafDx9Properties::GAME_SCREEN_WIDTH     = NULL;

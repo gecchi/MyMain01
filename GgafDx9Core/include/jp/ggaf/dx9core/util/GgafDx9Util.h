@@ -6,7 +6,7 @@
 typedef int angle;
 typedef int s_ang;
 
-class GgafDx9Util : GgafUtil {
+class GgafDx9Util : Ggaf::GgafUtil {
 
 public:
 	static int COS_UNITLEN[];

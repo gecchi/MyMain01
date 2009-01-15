@@ -1,8 +1,11 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+
+
 GgafActor*  GgafDx9World::_apActorDrawDepthLevel_first[MAX_DRAW_DEPTH_LEVEL];
 GgafActor*  GgafDx9World::_apActorDrawDepthLevel_last[MAX_DRAW_DEPTH_LEVEL];
 GgafDx9CameraActor* GgafDx9World::_pCamera = NULL;
-
 
 GgafDx9World::GgafDx9World(string prm_name) : GgafWorld(prm_name) {
 	_class_name = "GgafDx9World";

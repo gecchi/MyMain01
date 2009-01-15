@@ -1,8 +1,9 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 GgafDx9Model* GgafDx9ModelManager::_s_pModel_First = NULL;
 IDirectXFile* GgafDx9ModelManager::_s_pIDirectXFile = NULL;
-
 
 GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
 	static GgafDx9Model* pModel_Current;

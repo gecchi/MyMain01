@@ -1,4 +1,7 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+
 
 const int GgafDx9Input::BUFFER_SIZE = 256;
 LPDIRECTINPUT8 GgafDx9Input::_s_pIDirectInput8 = NULL;
@@ -7,9 +10,6 @@ LPDIRECTINPUTDEVICE8 GgafDx9Input::_s_pIDirectInputDevice8_Joystick = NULL;
 char GgafDx9Input::_s_caKeyboardState[256];
 DIDEVCAPS GgafDx9Input::_s_didevcap;
 DIJOYSTATE GgafDx9Input::_s_dijoystate;
-
-
-
 
 BOOL CALLBACK EnumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
 	_TRACE_("EnumGameCtrlCallback Ç±Å[ÇÈÇŒÇ¡Ç≠ÅI");

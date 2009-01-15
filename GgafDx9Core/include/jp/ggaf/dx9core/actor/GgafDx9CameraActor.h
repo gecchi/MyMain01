@@ -31,7 +31,7 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 	void setGaze(int prm_tX, int prm_tY, int prm_tZ) {
 		_gazeX = prm_tX;

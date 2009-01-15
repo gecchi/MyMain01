@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 
 DWORD GgafDx9SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
@@ -85,7 +87,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //	}
 
 
-
 	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0xffffffff);//陰影を無くすため環境光を最高にする
 	GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
@@ -99,6 +100,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	//しかし、スペキュラ反射のアニメーションとかもやりたいかもしれない。頂点カラーでスペキュラできる？のかわからないので、
 	//マテリアルαでいけるようにしておく。ここはいろいろ実験すべき。
 	//TODO
+	//2009/1/15 プログラマブルシェーダーに目覚めた。つくりなおすっす
 
 	//前回描画モデル名保存
 	GgafDx9Model::_s_modelname_lastdraw = _model_name;

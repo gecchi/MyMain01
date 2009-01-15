@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 GgafDx9Bgm* GgafDx9BgmManager::_pBgm_First = NULL;
 

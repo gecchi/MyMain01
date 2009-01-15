@@ -1,5 +1,6 @@
 #include "stdafx.h"
-
+using namespace Ggaf;
+using namespace GgafDx9;
 
 GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
 	_class_name = "GgafDx9PlateActor";

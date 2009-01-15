@@ -19,6 +19,8 @@
 
 //#include "CmRandomNumberGenerator.h"
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 //!< Period Parameter for Mersenne Twister
 #define	MATRIX_A	(0x9908b0dfUL)	//!< constant vector a

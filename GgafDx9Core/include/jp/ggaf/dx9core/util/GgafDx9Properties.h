@@ -3,7 +3,7 @@
 
 #define GGAFDX9_PROPERTY(X) (*GgafDx9Properties::X)
 
-class GgafDx9Properties : GgafProperties {
+class GgafDx9Properties : Ggaf::GgafProperties {
 public:
 	static bool*   FULL_SCREEN;
 	static int*    GAME_SCREEN_WIDTH;

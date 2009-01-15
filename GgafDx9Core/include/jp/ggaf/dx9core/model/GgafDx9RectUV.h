@@ -1,7 +1,7 @@
 #ifndef GGAFDX9UV_H_
 #define GGAFDX9UV_H_
 
-class GgafDx9RectUV : public GgafObject {
+class GgafDx9RectUV : public Ggaf::GgafObject {
 
 	struct UV {
 		float tu;

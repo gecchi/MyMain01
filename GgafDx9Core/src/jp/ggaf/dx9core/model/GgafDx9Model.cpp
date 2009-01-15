@@ -1,4 +1,6 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
 
 string GgafDx9Model::_s_modelname_lastdraw = "";
 

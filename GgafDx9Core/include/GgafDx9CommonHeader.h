@@ -46,7 +46,7 @@
 #include <dxfile.h>
 
 
-class CmRandomNumberGenerator;
+
 
 
 #include "ogg/os_types.h"
@@ -63,6 +63,10 @@ class CmRandomNumberGenerator;
 //
 //#include "jp/ggaf/dx9core/sound/wavedecorder.h"
 //#include "jp/ggaf/dx9core/sound/c3dsound.h"
+
+namespace GgafDx9 {
+
+class CmRandomNumberGenerator;
 
 class GgafDx9CriticalException;
 class GgafDx9God;
@@ -164,4 +168,7 @@ class GgafDx9BgmManager;
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9SeManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9BgmManager.h"
+
+}
+
 #endif /*GGAFDX9COMMONHEADER_H_*/

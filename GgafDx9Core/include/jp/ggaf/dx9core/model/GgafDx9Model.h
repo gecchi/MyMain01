@@ -1,7 +1,7 @@
 #ifndef GGAFDX9MODEL_H_
 #define GGAFDX9MODEL_H_
 
-class GgafDx9Model : public GgafObject {
+class GgafDx9Model : public Ggaf::GgafObject {
     friend class GgafDx9ModelManager;
 
 protected:

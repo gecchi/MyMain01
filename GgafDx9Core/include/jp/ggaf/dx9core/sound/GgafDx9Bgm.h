@@ -21,7 +21,7 @@
 /**
  * Ogg ストリーム再生クラス .
  */
-class GgafDx9Bgm : public GgafObject {
+class GgafDx9Bgm : public Ggaf::GgafObject {
 public:
 	string _ogg_name;
 	GgafDx9Bgm* _pBgm_Next;
