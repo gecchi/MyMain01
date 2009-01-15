@@ -1,7 +1,7 @@
 #ifndef GOD_H_
 #define GOD_H_
 
-class God : public DefaultGod {
+class God : public GgafDx9LibStg::DefaultGod {
 
 public:
 	God(HINSTANCE prm_hInstance, HWND prm_hWnd);
@@ -10,7 +10,7 @@ public:
      * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
 	 * ƒOverRide ‚Å‚·„
 	 */
-	GgafWorld* createWorld();
+	Ggaf::GgafWorld* createWorld();
 
 	virtual ~God();
 };

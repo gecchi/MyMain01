@@ -1,7 +1,7 @@
 #ifndef GAMESCENE_H_
 #define GAMESCENE_H_
 
-class GameScene : public DefaultScene {
+class GameScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 	GameDemoScene* _pGameDemoScene;

@@ -1,11 +1,11 @@
 #ifndef GAMEMAINSCENE_H_
 #define GAMEMAINSCENE_H_
 
-class GameMainScene : public DefaultScene {
+class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 	char _buf[20];
-	FontPlateActor* _pFontPlate_SCORE;
+	GgafDx9LibStg::FontPlateActor* _pFontPlate_SCORE;
 
 
 
@@ -14,11 +14,11 @@ public:
 
 
 
-	GgafMainScene* _pStage01Scene;
-	GgafMainScene* _pStage02Scene;
-	GgafMainScene* _pStage03Scene;
-	GgafMainScene* _pStage04Scene;
-	GgafMainScene* _pStage05Scene;
+	Ggaf::GgafMainScene* _pStage01Scene;
+	Ggaf::GgafMainScene* _pStage02Scene;
+	Ggaf::GgafMainScene* _pStage03Scene;
+	Ggaf::GgafMainScene* _pStage04Scene;
+	Ggaf::GgafMainScene* _pStage05Scene;
 
 	DWORD _dwFrame_ReadyStage01;
 	DWORD _dwFrame_ReadyStage02;

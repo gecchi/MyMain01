@@ -2,7 +2,7 @@
 #define TAMAGOACTOR_H_
 
 
-class TamagoActor : public DefaultMeshActor {
+class TamagoActor : public GgafDx9LibStg::DefaultMeshActor {
 
 
 	int _rnd;
@@ -16,7 +16,7 @@ public:
 
 	void processJudgement();
 
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+ 	void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
 
 
 	virtual ~TamagoActor();

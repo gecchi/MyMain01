@@ -10,7 +10,7 @@ private:
 
 public:
 	/** 弾ストック */
-	RotationActor* _pRotEnemyMeshShots001;
+	GgafDx9LibStg::RotationActor* _pRotEnemyMeshShots001;
 	/** RotationActorをコンストラクタで生成したか否か */
 	bool _createRotationActor;
 
@@ -36,7 +36,7 @@ public:
 	 * @param prm_pRotEnemyMeshShots001 発射弾ストックのローテーションアクター
 	 * @return
 	 */
-	EnemyCeres(string prm_name, string prm_model, RotationActor* prm_pRotEnemyMeshShots001);
+	EnemyCeres(string prm_name, string prm_model, GgafDx9LibStg::RotationActor* prm_pRotEnemyMeshShots001);
 
 	void initialize();
 
@@ -44,7 +44,7 @@ public:
 
 	void processJudgement();
 
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+ 	void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
 
 	bool isOffScreen();
 

@@ -2,7 +2,7 @@
 #define MYLASERCHIP_H_
 
 
-class MyLaserChip : public DefaultDynaMeshActor {
+class MyLaserChip : public GgafDx9LibStg::DefaultDynaMeshActor {
 public:
 
 	/** playèÛë‘Ç…Ç»Ç¡ÇΩÉtÉåÅ[ÉÄ(Ç±ÇÍÇÃç∑Ç™1Ç©Ç«Ç§Ç©Ç≈òAë±Ç©Çå©ÇÈ) */
@@ -69,9 +69,9 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent);
+ 	void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
 
-	void setRadicalActor(GgafDx9UntransformedActor* prm_pActor) {
+	void setRadicalActor(GgafDx9::GgafDx9UntransformedActor* prm_pActor) {
  		_pActor_Radical = prm_pActor;
  	}
 

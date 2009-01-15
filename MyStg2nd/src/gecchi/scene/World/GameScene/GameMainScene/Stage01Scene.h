@@ -1,10 +1,10 @@
 #ifndef STAGE01SCENE_H_
 #define STAGE01SCENE_H_
 
-class Stage01Scene : public DefaultScene {
+class Stage01Scene : public GgafDx9LibStg::DefaultScene {
 
 public:
-	GgafDx9Bgm* _bgm_st1;
+	GgafDx9::GgafDx9Bgm* _bgm_st1;
 
 	Stage01Scene(string prm_name);
 	/**

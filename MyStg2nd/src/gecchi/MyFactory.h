@@ -1,7 +1,7 @@
 #ifndef MYFACTORY_H_
 #define MYFACTORY_H_
 
-class MyFactory : public GgafFactory {
+class MyFactory : public Ggaf::GgafFactory {
 
 public:
 
@@ -35,13 +35,13 @@ public:
 //	static GgafMainActor* createDebugDelineateActor(void* pArg1, void* pArg2);
 //	static GgafMainActor* createMyShip(void* pArg1, void* pArg2);
 //	static GgafMainActor* createMyShipShot(void* pArg1, void* pArg2);
-	static GgafMainActor* createTamagoSet01(void* pArg1, void* pArg2);
+	static Ggaf::GgafMainActor* createTamagoSet01(void* pArg1, void* pArg2);
 
 //
 //	static GgafMainActor* createEnemyCeres(void* pArg1, void* pArg2);
 //	static GgafMainActor* createFormationCeres001(void* pArg1, void* pArg2);
 //	static GgafMainActor* createFormationCeres002(void* pArg1, void* pArg2);
-	static GgafMainActor* createFormationJuno001First(void* pArg1, void* pArg2);
+	static Ggaf::GgafMainActor* createFormationJuno001First(void* pArg1, void* pArg2);
 //	static GgafMainActor* createFormationJuno001(void* pArg1, void* pArg2);
 
 

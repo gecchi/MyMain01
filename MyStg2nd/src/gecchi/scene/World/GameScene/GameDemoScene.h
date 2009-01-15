@@ -1,12 +1,12 @@
 #ifndef GAMEDEMOSCENE_H_
 #define GAMEDEMOSCENE_H_
 
-class GameDemoScene : public DefaultScene {
+class GameDemoScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 
-	FontPlateActor* _pFontPlate01;
-	FontPlateActor* _pFontPlate02;
+	GgafDx9LibStg::FontPlateActor* _pFontPlate01;
+	GgafDx9LibStg::FontPlateActor* _pFontPlate02;
 
 	GameDemoScene(string prm_name);
 	/**

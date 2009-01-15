@@ -8,7 +8,7 @@
 #define getSubScene(X) ((X##Scene*)getSub(#X))
 
 
-class World : public DefaultWorld {
+class World : public GgafDx9LibStg::DefaultWorld {
 
 
 public:

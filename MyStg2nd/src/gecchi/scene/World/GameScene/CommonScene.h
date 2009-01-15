@@ -1,14 +1,14 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
 
-class CommonScene : public DefaultScene {
+class CommonScene : public GgafDx9LibStg::DefaultScene {
 
 public:
 	MyShip* _pMyShip;
 
 
-	RotationActor* _pEnemyShots001Rotation;
-	RotationActor* _pEffectExplosion001Rotation;
+	GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
+	GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
 
 	CommonScene(string prm_name);
 	/**

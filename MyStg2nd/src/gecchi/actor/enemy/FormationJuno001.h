@@ -6,7 +6,7 @@
 /**
  * フォーメーションアクタークラス .
  */
-class FormationJuno001 : public FormationActor {
+class FormationJuno001 : public GgafDx9LibStg::FormationActor {
 
 	EnemyJuno* _pEnemyJuno[NUM_JUNO_FORMATION001];
 public:

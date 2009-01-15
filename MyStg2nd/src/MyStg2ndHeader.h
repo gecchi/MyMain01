@@ -23,6 +23,7 @@
 #define KIND_ENEMY             (KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL)
 
 
+namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
 class God;
@@ -122,5 +123,6 @@ class MyFactory;
 #include "gecchi/actor/enemy/FormationVesta001.h"
 #include "gecchi/MyFactory.h"
 
+}
 
 #endif /*MYSTG2NDHEADER_H_*/

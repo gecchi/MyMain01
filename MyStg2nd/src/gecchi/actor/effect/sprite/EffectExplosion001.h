@@ -2,7 +2,7 @@
 #define EFFECTEXPLOSION001_H_
 
 
-class EffectExplosion001 : public DefaultSpriteActor {
+class EffectExplosion001 : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
 	EffectExplosion001(string prm_name, string prm_model);

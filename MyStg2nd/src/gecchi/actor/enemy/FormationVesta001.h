@@ -6,7 +6,7 @@
 /**
  * フォーメーションアクタークラス .
  */
-class FormationVesta001 : public FormationActor {
+class FormationVesta001 : public GgafDx9LibStg::FormationActor {
 
 	EnemyVesta* _pEnemyVesta[NUM_VESTA_FORMATION001];
 public:

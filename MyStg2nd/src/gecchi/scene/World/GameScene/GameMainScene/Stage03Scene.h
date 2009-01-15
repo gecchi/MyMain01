@@ -1,7 +1,7 @@
 #ifndef STAGE03SCENE_H_
 #define STAGE03SCENE_H_
 
-class Stage03Scene : public DefaultScene {
+class Stage03Scene : public GgafDx9LibStg::DefaultScene {
 
 public:
 

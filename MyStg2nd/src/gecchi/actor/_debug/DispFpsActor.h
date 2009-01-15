@@ -2,7 +2,7 @@
 #define DISPFPSACTOR
 
 
-class DispFpsActor : public FontPlateActor {
+class DispFpsActor : public GgafDx9LibStg::FontPlateActor {
 	char _aBuf[80];
 	string _strFps;
 public:

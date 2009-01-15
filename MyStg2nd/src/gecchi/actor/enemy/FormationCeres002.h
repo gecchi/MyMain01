@@ -6,11 +6,11 @@
 /**
  * フォーメーションアクタークラス .
  */
-class FormationCeres002 : public FormationActor {
+class FormationCeres002 : public GgafDx9LibStg::FormationActor {
 
 	EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION002];
 public:
-	RotationActor* _pRotEnemyMeshShots001;
+	GgafDx9LibStg::RotationActor* _pRotEnemyMeshShots001;
 
 	FormationCeres002(string prm_name, string prm_model);
 
