@@ -2,15 +2,17 @@
 #define GGAFDX9MESHACTOR_H_
 
 
-class GgafDx9MeshActor : virtual public GgafDx9UntransformedActor {
+class GgafDx9MeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
 	/** モデルオブジェクトへのポインタ */
 	GgafDx9MeshModel* _pMeshModel;
+	/** キャラ全体のα */
+	float _fAlpha;
 
 
-	GgafDx9MeshActor(int prm_type, string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	/**
 	 * ＜OverRide です＞<BR>

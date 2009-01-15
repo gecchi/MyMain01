@@ -1,8 +1,6 @@
 #ifndef GGAFDX9TRANSFORMEDACTOR_H_
 #define GGAFDX9TRANSFORMEDACTOR_H_
 
-
-
 class GgafDx9TransformedActor : public GgafDx9BaseActor {
 
 private:
