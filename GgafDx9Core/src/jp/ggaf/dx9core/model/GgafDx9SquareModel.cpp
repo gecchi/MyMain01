@@ -3,7 +3,6 @@
 
 DWORD GgafDx9SquareModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE);
 
-
 GgafDx9SquareModel::GgafDx9SquareModel(string prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
 	TRACE("GgafDx9SquareModel::GgafDx9SquareModel(" <<  _model_name << ")");
 	_pD3DMaterial9 = NULL;
