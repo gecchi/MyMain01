@@ -1,7 +1,7 @@
 #include "stdafx.h"
 
-DWORD GgafDx9PlateModel::FVF =  (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1);
 
+DWORD GgafDx9PlateModel::FVF =  (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1);
 
 GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9PlateModel::GgafDx9PlateModel(" <<  _model_name << ")");
