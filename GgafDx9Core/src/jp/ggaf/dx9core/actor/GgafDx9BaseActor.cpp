@@ -6,4 +6,3 @@ GgafDx9BaseActor::GgafDx9BaseActor(string prm_name) : GgafMainActor(prm_name) {
 
 GgafDx9BaseActor::~GgafDx9BaseActor() {
 }
-

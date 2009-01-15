@@ -1,13 +1,7 @@
 #include "stdafx.h"
 
-GgafDx9CubeActor::GgafDx9CubeActor(int prm_type, string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker)
-: GgafDx9UntransformedActor(prm_type, prm_name, prm_pGeoMover, prm_pGeoChecker) {
-	if (_type == ACTORTYPE_CUBE) {
-		_pModel = (GgafDx9Model*)GgafDx9ModelManager::getMeshModel(prm_meshmodel_name, D3DXMESH_SYSTEMMEM);
-		_pMeshModel = (GgafDx9MeshModel*)_pModel;
-		_class_name = "GgafDx9CubeActor";
-		_fAlpha = 1.0f;
-	}
+GgafDx9CubeActor::GgafDx9CubeActor(string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9MeshActor(prm_name, "cube", prm_pGeoMover, prm_pGeoChecker) {
+	_class_name = "GgafDx9CubeActor";
 }
 
 void GgafDx9CubeActor::processDrawMain() {
