@@ -1,4 +1,7 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
 
 FontSpriteString::FontSpriteString(string prm_font_modelname, int prm_iStrLen) : GgafObject() {
 	_font_modelname = prm_font_modelname;

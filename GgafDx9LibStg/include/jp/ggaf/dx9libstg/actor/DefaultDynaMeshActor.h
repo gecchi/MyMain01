@@ -2,7 +2,7 @@
 #define DEFAULTDYNAMESHACTOR_H_
 
 
-class DefaultDynaMeshActor : public GgafDx9DynaMeshActor {
+class DefaultDynaMeshActor : public GgafDx9::GgafDx9DynaMeshActor {
 
 public:
 	DWORD _dwFrameOffset;
@@ -19,11 +19,11 @@ public:
 	virtual void processJudgement() {};
 
 	virtual void processDrawPrior() {
-		GgafDx9DynaMeshActor::processDrawPrior();
+		GgafDx9::GgafDx9DynaMeshActor::processDrawPrior();
 	};
 
 	virtual void processDrawMain() {
-		GgafDx9DynaMeshActor::processDrawMain();
+		GgafDx9::GgafDx9DynaMeshActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate();
@@ -32,7 +32,7 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 	virtual bool isOffScreen();
 

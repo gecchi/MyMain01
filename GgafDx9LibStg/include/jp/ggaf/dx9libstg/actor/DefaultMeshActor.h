@@ -2,7 +2,7 @@
 #define DEFAULTMESHACTOR_H_
 
 
-class DefaultMeshActor : public GgafDx9MeshActor {
+class DefaultMeshActor : public GgafDx9::GgafDx9MeshActor {
 
 public:
 	DWORD _dwFrameOffset;
@@ -19,11 +19,11 @@ public:
 	virtual void processJudgement() {};
 
 	virtual void processDrawPrior() {
-		GgafDx9MeshActor::processDrawPrior();
+		GgafDx9::GgafDx9MeshActor::processDrawPrior();
 	};
 
 	virtual void processDrawMain() {
-		GgafDx9MeshActor::processDrawMain();
+		GgafDx9::GgafDx9MeshActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate();
@@ -32,7 +32,7 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~DefaultMeshActor();
 };

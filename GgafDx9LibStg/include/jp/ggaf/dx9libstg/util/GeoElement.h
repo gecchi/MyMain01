@@ -12,7 +12,7 @@ public:
 		_next = NULL;
 	};
 
-	GeoElement(GgafDx9UntransformedActor* prm_pActor) {
+	GeoElement(GgafDx9::GgafDx9UntransformedActor* prm_pActor) {
 		_X = prm_pActor->_X;
 		_Y = prm_pActor->_Y;
 		_Z = prm_pActor->_Z;
@@ -24,7 +24,7 @@ public:
 		_Y = prm_Y;
 		_Z = prm_Z;
 	};
-	void set(GgafDx9UntransformedActor* prm_pActor) {
+	void set(GgafDx9::GgafDx9UntransformedActor* prm_pActor) {
 		_X = prm_pActor->_X;
 		_Y = prm_pActor->_Y;
 		_Z = prm_pActor->_Z;

@@ -1,5 +1,9 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
+
 
 VirtualButton::VBMap* VirtualButton::_s_pVBMap = NULL;
 

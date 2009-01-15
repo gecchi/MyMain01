@@ -2,7 +2,7 @@
 #define DEFAULTSQUAREACTOR_H_
 
 
-class DefaultSquareActor : public GgafDx9SquareActor {
+class DefaultSquareActor : public GgafDx9::GgafDx9SquareActor {
 
 public:
 	StgChecker* _pChecker;
@@ -17,10 +17,10 @@ public:
 	virtual void processJudgement() {};
 
 	virtual void processDrawPrior() {
-		GgafDx9SquareActor::processDrawPrior();
+		GgafDx9::GgafDx9SquareActor::processDrawPrior();
 	};
 	virtual void processDrawMain() {
-		GgafDx9SquareActor::processDrawMain();
+		GgafDx9::GgafDx9SquareActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate() {};
@@ -34,11 +34,11 @@ public:
 	 * @param prm_pActor_Opponent
 	 * @return
 	 */
-	virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+	virtual bool processBumpChkLogic(Ggaf::GgafActor* prm_pActor_Opponent) {
 		return false;
 	};
 
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~DefaultSquareActor();
 

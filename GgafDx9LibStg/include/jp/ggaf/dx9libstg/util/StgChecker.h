@@ -4,7 +4,7 @@
 
 
 
-class StgChecker : public GgafDx9GeometryChecker {
+class StgChecker : public GgafDx9::GgafDx9GeometryChecker {
 
 protected:
 	/** 当たり判定領域 */
@@ -30,7 +30,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param	prm_pActor	適用Actor
 	 */
-	StgChecker(GgafDx9UntransformedActor* prm_pActor);
+	StgChecker(GgafDx9::GgafDx9UntransformedActor* prm_pActor);
 
 
 	virtual void setStatus(int prm_iScorePoint, int prm_iStaminaPoint, int prm_iAttackPoint, int prm_iDefensePoint) {
@@ -67,7 +67,7 @@ public:
 	 * @param prm_pOtherChecker
 	 * @return
 	 */
-	bool isBump(GgafDx9GeometryChecker* prm_pOtherChecker);
+	bool isBump(GgafDx9::GgafDx9GeometryChecker* prm_pOtherChecker);
 
 	virtual ~StgChecker();
 };

@@ -8,7 +8,7 @@
  * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
  * また連続obtain()の場合、次のobtain()のアクターは必ず隣同士となっています。<BR>
  */
-class RotationActor : public GgafDummyActor {
+class RotationActor : public Ggaf::GgafDummyActor {
 
 public:
 	StgChecker* _pChecker;
@@ -22,7 +22,7 @@ public:
 	 * ＜OverRide です＞<BR>
 	 */
 	virtual void processBehavior() {
-		GgafMainActor* pActor = getSubFirst();
+		Ggaf::GgafMainActor* pActor = getSubFirst();
 		while(true) {
 			if (pActor->switchedToStop()) {
 				pActor->declareMoveFirst();
@@ -41,7 +41,7 @@ public:
 	 * 取得できる場合、ポインタを返すと共に、そのアクターはローテーションの一番後ろに移動されます。<BR>
 	 * @return 暇そうなローテーションメンバーアクター
 	 */
-	virtual GgafMainActor* obtain() {
+	virtual Ggaf::GgafMainActor* obtain() {
  		if (_pSubFirst == NULL) {
  			throw_GgafCriticalException("RotationActor::getFreeOne() 子がありません");
  		}

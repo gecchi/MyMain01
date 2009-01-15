@@ -1,4 +1,7 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
 
 DefaultCubeActor::DefaultCubeActor(string prm_name)
 	: GgafDx9CubeActor(prm_name, NEW GgafDx9GeometryMover(this), NEW StgChecker(this)) {

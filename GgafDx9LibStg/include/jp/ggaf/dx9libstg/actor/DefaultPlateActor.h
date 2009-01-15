@@ -2,7 +2,7 @@
 #define DEFAULTPLATEACTOR_H_
 
 
-class DefaultPlateActor : public GgafDx9PlateActor {
+class DefaultPlateActor : public GgafDx9::GgafDx9PlateActor {
 
 public:
 	DefaultPlateActor(string prm_name, string prm_model);
@@ -16,7 +16,7 @@ public:
 	virtual void processDrawPrior() {};
 
 	virtual void processDrawMain() {
-		GgafDx9PlateActor::processDrawMain();
+		GgafDx9::GgafDx9PlateActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate() {};
@@ -25,11 +25,11 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+	virtual bool processBumpChkLogic(Ggaf::GgafActor* prm_pActor_Opponent) {
 		return false;
 	};
 
-	virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~DefaultPlateActor();
 

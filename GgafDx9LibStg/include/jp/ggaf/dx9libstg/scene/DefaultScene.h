@@ -1,7 +1,7 @@
 #ifndef DEFAULTSCENE_H_
 #define DEFAULTSCENE_H_
 
-class DefaultScene : public GgafDx9Scene
+class DefaultScene : public GgafDx9::GgafDx9Scene
 {
 public:
 

@@ -1,4 +1,7 @@
 #include "stdafx.h"
+using namespace Ggaf;
+using namespace GgafDx9;
+using namespace GgafDx9LibStg;
 
 DefaultDynaMeshActor::DefaultDynaMeshActor(string prm_name, string prm_model)
 	: GgafDx9DynaMeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
