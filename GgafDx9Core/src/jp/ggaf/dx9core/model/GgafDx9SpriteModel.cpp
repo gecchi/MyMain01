@@ -23,14 +23,12 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(string prm_platemodel_name) : GgafDx9Mode
 //•`‰æ
 HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9SpriteModel::draw("<<prm_pActor_Target->getName()<<")");
-
 	//‘ÎÛSpriteActor
 	GgafDx9SpriteActor* pSpriteActor_Target = (GgafDx9SpriteActor*)prm_pActor_Target;
 	//¡‰ñ•`‰æ‚ÌUV
 	GgafDx9RectUV* pRectUV_Active = _paRectUV + (pSpriteActor_Target->_iAnimationPatternNo_Active);
 
 	static HRESULT	hr;
-
 
 	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
 		//‘O‰ñ•`‰æ‚Æƒ‚ƒfƒ‹‚ªˆá‚¤I
