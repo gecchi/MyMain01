@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;

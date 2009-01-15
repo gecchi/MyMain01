@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 GgafGarbageBox::GgafGarbageBox() : GgafObject() {
 	_pGarbageRootActor = NEW GgafGarbageRootActor();
 	_pGarbageRootScene = NEW GgafGarbageRootScene();

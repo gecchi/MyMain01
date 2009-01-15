@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 DWORD GgafUtil::_timex = 0;
 
 DWORD GgafUtil::getSystemTime() {

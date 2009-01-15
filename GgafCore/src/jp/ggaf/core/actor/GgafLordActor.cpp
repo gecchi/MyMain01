@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor((prm_pScene_Platform->getName())+"'s Lord") {
     _pScene_Platform = prm_pScene_Platform;
 	_class_name = "GgafLordActor";

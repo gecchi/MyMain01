@@ -37,14 +37,14 @@
 	#define NEW new(__FILE__, __LINE__ )
 	//#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
-	//#define TRACE(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
+	//#define TRACE(X) {std::stringstream ss; ss << X; Ggaf::GgafLogger::write(ss.str()); }
 	#define TRACE(X)
-	//#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafLogger::write(ss.str()); }
+	//#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; Ggaf::GgafLogger::write(ss.str()); }
 	#define TRACE2(X)
 	//ダンプ出力用
-	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
+	#define _TRACE_(X) {std::stringstream ss; ss << X; Ggaf::GgafLogger::write(ss.str()); }
 	//デバッグ用
-	#define _TRACEORE(X) {std::stringstream ss; ss << X; GgafLogger::write(ss.str()); }
+	#define _TRACEORE(X) {std::stringstream ss; ss << X; Ggaf::GgafLogger::write(ss.str()); }
 
 #else
 	#define NEW new
@@ -66,11 +66,11 @@
 //NULLかもしれない Release()
 #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
 //NULLはありえない delete
-#define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << " の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
+#define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << " の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; Ggaf::GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
 //NULLはありえない delete[]
-#define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
+#define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; Ggaf::GgafLogger::write(ss.str()); (POINTER)=NULL; }  }
 //NULLはありえない Release()
-#define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafLogger::write(ss.str());  (POINTER)=NULL; }  }
+#define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; Ggaf::GgafLogger::write(ss.str());  (POINTER)=NULL; }  }
 
 
 
@@ -78,6 +78,7 @@ using namespace std;
 
 #define MAX_HEADACTOR_PER_SCENE 16
 
+namespace Ggaf {
 
 typedef unsigned int actorkind;
 
@@ -140,6 +141,7 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 
+}
 
 
 

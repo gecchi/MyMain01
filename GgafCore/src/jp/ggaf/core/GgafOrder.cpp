@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 GgafOrder::GgafOrder(string prm_id) {
 	_id = prm_id;
 	_pOrder_Next = NULL;

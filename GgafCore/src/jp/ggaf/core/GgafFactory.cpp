@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 //‰Šú‰»
 GgafGod* GgafFactory::_pGod = NULL;
 GgafOrder* GgafFactory::ROOT_ORDER = NULL;

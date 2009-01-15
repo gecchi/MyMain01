@@ -1,4 +1,7 @@
 #include "stdafx.h"
+
+using namespace Ggaf;
+
 GgafHeadActor* GgafScene::_s_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
 GgafHeadActor* GgafScene::_s_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
 

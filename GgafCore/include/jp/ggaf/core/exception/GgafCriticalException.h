@@ -8,10 +8,10 @@
  * @since 2008/06/20
  * @auther Masatoshi Tsuge
  */
-#define throw_GgafCriticalException(X) {std::stringstream ss; ss << X; throw GgafCriticalException(ss.str()); }
+#define throw_GgafCriticalException(X) {std::stringstream ss; ss << X; throw Ggaf::GgafCriticalException(ss.str()); }
 
 
-class GgafCriticalException : public GgafException {
+class GgafCriticalException : public Ggaf::GgafException {
 public:
 	GgafCriticalException(string prm_message);
 	virtual ~GgafCriticalException();

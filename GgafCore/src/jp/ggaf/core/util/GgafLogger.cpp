@@ -1,5 +1,6 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
 
 // o—ÍŠÖ”
 void GgafLogger::write(string prm_msg) {

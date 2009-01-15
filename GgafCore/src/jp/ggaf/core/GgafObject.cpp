@@ -1,5 +1,7 @@
 #include "stdafx.h"
 
+using namespace Ggaf;
+
 //int GgafObject::_iSeq = 0;
 
 GgafObject::GgafObject() {
