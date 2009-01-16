@@ -1,7 +1,7 @@
 #ifndef FONTSPRITESTRING_H_
 #define FONTSPRITESTRING_H_
 
-class FontSpriteString : public Ggaf::GgafObject {
+class FontSpriteString : public GgafCore::GgafObject {
 	string _font_modelname;
 	int _iStrLen;
 	FontSpriteActor** _papFontSpriteActor;

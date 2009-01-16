@@ -2,7 +2,7 @@
 #define DEFAULTCUBEACTOR_H_
 
 
-class DefaultCubeActor : public GgafDx9::GgafDx9CubeActor {
+class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
 
 public:
 	StgChecker* _pChecker;
@@ -17,11 +17,11 @@ public:
 	virtual void processJudgement() {};
 
 	virtual void processDrawPrior() {
-		GgafDx9::GgafDx9CubeActor::processDrawPrior();
+		GgafDx9Core::GgafDx9CubeActor::processDrawPrior();
 	};
 
 	virtual void processDrawMain() {
-		GgafDx9::GgafDx9CubeActor::processDrawMain();
+		GgafDx9Core::GgafDx9CubeActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate() {};
@@ -35,11 +35,11 @@ public:
 	 * @param prm_pActor_Opponent
 	 * @return
 	 */
-	virtual bool processBumpChkLogic(Ggaf::GgafActor* prm_pActor_Opponent) {
+	virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
 		return false;
 	};
 
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~DefaultCubeActor();
 

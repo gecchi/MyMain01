@@ -1,7 +1,7 @@
 #ifndef HITAREABOXS_H_
 #define HITAREABOXS_H_
 
-class HitAreaBoxs : public Ggaf::GgafObject {
+class HitAreaBoxs : public GgafCore::GgafObject {
 
 	struct Box {
 		int x1;		//xÀ•W‚Ì¬‚³‚¢•û

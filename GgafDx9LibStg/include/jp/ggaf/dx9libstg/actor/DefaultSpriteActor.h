@@ -2,7 +2,7 @@
 #define DEFAULTSPRITEACTOR_H_
 
 
-class DefaultSpriteActor : public GgafDx9::GgafDx9SpriteActor {
+class DefaultSpriteActor : public GgafDx9Core::GgafDx9SpriteActor {
 
 public:
 	DWORD _dwFrameOffset;
@@ -18,11 +18,11 @@ public:
 	virtual void processJudgement() {};
 
 	virtual void processDrawPrior() {
-		GgafDx9::GgafDx9SpriteActor::processDrawPrior();
+		GgafDx9Core::GgafDx9SpriteActor::processDrawPrior();
 	};
 
 	virtual void processDrawMain() {
-		GgafDx9::GgafDx9SpriteActor::processDrawMain();
+		GgafDx9Core::GgafDx9SpriteActor::processDrawMain();
 	};
 
 	virtual void processDrawTerminate();
@@ -31,7 +31,7 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~DefaultSpriteActor();
 

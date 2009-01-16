@@ -1,7 +1,7 @@
 #ifndef DEFAULTWORLD_H_
 #define DEFAULTWORLD_H_
 
-class DefaultWorld : public GgafDx9::GgafDx9World {
+class DefaultWorld : public GgafDx9Core::GgafDx9World {
 
 
 public:

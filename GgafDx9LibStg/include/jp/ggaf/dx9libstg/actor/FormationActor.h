@@ -4,7 +4,7 @@
 /**
  * フォーメーションアクタークラス .
  */
-class FormationActor : public GgafDx9::GgafDx9UntransformedActor {
+class FormationActor : public GgafDx9Core::GgafDx9UntransformedActor {
 
 public:
 
@@ -34,7 +34,7 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
 
 	virtual ~FormationActor();
 };
