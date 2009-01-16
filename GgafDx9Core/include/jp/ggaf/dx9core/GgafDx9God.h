@@ -1,7 +1,7 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
 
-class GgafDx9God : public Ggaf::GgafGod {
+class GgafDx9God : public GgafCore::GgafGod {
 
 public:
 	static HWND _hWnd;

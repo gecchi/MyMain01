@@ -1,6 +1,6 @@
 #include "stdafx.h"
-using namespace Ggaf;
-using namespace GgafDx9;
+using namespace GgafCore;
+using namespace GgafDx9Core;
 
 GgafDx9GeometryChecker::GgafDx9GeometryChecker(GgafDx9UntransformedActor* prm_pActor) {
 	_pActor = prm_pActor;

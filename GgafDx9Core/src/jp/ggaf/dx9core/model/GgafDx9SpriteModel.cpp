@@ -1,6 +1,6 @@
 #include "stdafx.h"
-using namespace Ggaf;
-using namespace GgafDx9;
+using namespace GgafCore;
+using namespace GgafDx9Core;
 
 
 DWORD GgafDx9SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
-using namespace Ggaf;
-using namespace GgafDx9;
+using namespace GgafCore;
+using namespace GgafDx9Core;
 
 IDirectSound8* GgafDx9Sound::_pIDirectSound8 = NULL;
 DSCAPS GgafDx9Sound::_dsCaps;

@@ -12,10 +12,10 @@
 /**
  * Ogg ストリーム再生クラス .
  */
-class GgafDx9Bgm : public Ggaf::GgafObject {
+class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
 	string _ogg_name;
-	GgafDx9::GgafDx9Bgm* _pBgm_Next;
+	GgafDx9Core::GgafDx9Bgm* _pBgm_Next;
 	Dix::PCMPlayer* pPcmPlayer;
 	Dix::sp< Dix::OggVorbisFile > spOggResource;
 	Dix::sp< Dix::OggDecoder > spOggDecoder;

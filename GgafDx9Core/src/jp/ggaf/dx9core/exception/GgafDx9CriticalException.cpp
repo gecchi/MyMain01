@@ -1,6 +1,6 @@
 #include "stdafx.h"
-using namespace Ggaf;
-using namespace GgafDx9;
+using namespace GgafCore;
+using namespace GgafDx9Core;
 
 
 GgafDx9CriticalException::GgafDx9CriticalException(string prm_message, HRESULT prm_hr) : GgafCriticalException(prm_message) {

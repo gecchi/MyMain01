@@ -1,9 +1,9 @@
 #ifndef GGAFDX9PROPERTIES
 #define GGAFDX9PROPERTIES
 
-#define GGAFDX9_PROPERTY(X) (*GgafDx9::GgafDx9Properties::X)
+#define GGAFDX9_PROPERTY(X) (*GgafDx9Core::GgafDx9Properties::X)
 
-class GgafDx9Properties : Ggaf::GgafProperties {
+class GgafDx9Properties : GgafCore::GgafProperties {
 public:
 	static bool*   FULL_SCREEN;
 	static int*    GAME_SCREEN_WIDTH;

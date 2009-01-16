@@ -12,7 +12,7 @@
 /**
  * Wave(Sound Effect) Ä¶ƒNƒ‰ƒX .
  */
-class GgafDx9Se : public Ggaf::GgafObject {
+class GgafDx9Se : public GgafCore::GgafObject {
 
 	static const int _DS_MINVOLUME_ = -9600;
 	static const int _DS_PAN_LEFT_ = -10000;

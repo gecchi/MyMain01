@@ -1,6 +1,6 @@
 #include "stdafx.h"
-using namespace Ggaf;
-using namespace GgafDx9;
+using namespace GgafCore;
+using namespace GgafDx9Core;
 
 GgafDx9TransformedActor::GgafDx9TransformedActor(string prm_name) : GgafDx9BaseActor(prm_name) {
 	_class_name = "GgafDx9TransformedActor";

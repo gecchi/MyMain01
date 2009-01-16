@@ -71,7 +71,7 @@
 //#include "jp/ggaf/dx9core/sound/wavedecorder.h"
 //#include "jp/ggaf/dx9core/sound/c3dsound.h"
 
-namespace GgafDx9 {
+namespace GgafDx9Core {
 
 class CmRandomNumberGenerator;
 
