@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 map<string, string>* GgafProperties::_s_pMapProperties = NULL;
 

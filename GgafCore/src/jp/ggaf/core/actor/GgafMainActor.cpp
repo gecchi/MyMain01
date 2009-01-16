@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafMainActor::GgafMainActor(string prm_name) : GgafActor(prm_name) {
     setBumpable(false);

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 //‰Šú‰»
 GgafGod* GgafFactory::_pGod = NULL;

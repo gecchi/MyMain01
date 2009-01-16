@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 DWORD GgafUtil::_timex = 0;
 

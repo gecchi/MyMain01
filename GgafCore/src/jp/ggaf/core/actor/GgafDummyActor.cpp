@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafDummyActor::GgafDummyActor(string prm_name) : GgafMainActor(prm_name) {
 	_class_name = "GgafDummyActor";

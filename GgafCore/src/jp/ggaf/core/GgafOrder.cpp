@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafOrder::GgafOrder(string prm_id) {
 	_id = prm_id;

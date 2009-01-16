@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafActor::GgafActor(string prm_name) : GgafElement<GgafActor>(prm_name) {
 	TRACE("GgafActor::GgafActor("+prm_name+")");

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafGarbageBox::GgafGarbageBox() : GgafObject() {
 	_pGarbageRootActor = NEW GgafGarbageRootActor();

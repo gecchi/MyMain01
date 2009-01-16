@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 bool detectMemoryLeaksFlag = false;

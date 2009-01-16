@@ -1,6 +1,6 @@
 #include "stdafx.h"
 
-using namespace Ggaf;
+using namespace GgafCore;
 
 GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("_kind="+GgafUtil::itos(prm_kind)) {
 	_class_name = "GgafHeadActor";
