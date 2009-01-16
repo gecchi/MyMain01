@@ -50,7 +50,7 @@ public:
 	int _Z_prevFrame;
 
 	/** 対象アクター */
-	GgafDx9::GgafDx9UntransformedActor* _pActor_Radical;
+	GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
 
 	MyLaserChip2(string prm_name, string prm_model);

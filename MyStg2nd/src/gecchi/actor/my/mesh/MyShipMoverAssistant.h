@@ -25,7 +25,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
 
 
 

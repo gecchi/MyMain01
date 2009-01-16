@@ -10,7 +10,7 @@ public:
      * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
 	 * ƒOverRide ‚Å‚·„
 	 */
-	Ggaf::GgafWorld* createWorld();
+	GgafCore::GgafWorld* createWorld();
 
 	virtual ~God();
 };

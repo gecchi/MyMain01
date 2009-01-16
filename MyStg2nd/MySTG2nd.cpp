@@ -86,11 +86,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
 	//プロパティファイル読込み
 	try {
-		GgafDx9::GgafDx9Properties::load(".\\config.properties");
-	} catch (Ggaf::GgafCriticalException& e) {
+		GgafDx9Core::GgafDx9Properties::load(".\\config.properties");
+	} catch (GgafCore::GgafCriticalException& e) {
 		MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
-		Ggaf::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		GgafDx9::GgafDx9Properties::clean();
+		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		GgafDx9Core::GgafDx9Properties::clean();
 		return EXIT_FAILURE;
 	}
 
@@ -139,7 +139,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
 					if (msg.message == WM_QUIT) {
 						delete god; //神様さようなら
-						GgafDx9::GgafDx9Properties::clean();
+						GgafDx9Core::GgafDx9Properties::clean();
 						::timeEndPeriod(1);
 	#ifdef OREDEBUG
 						//メモリーリ－クチェックEND
@@ -156,15 +156,15 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 				}
 			}
 		}
-	} catch (Ggaf::GgafCriticalException& e) {
+	} catch (GgafCore::GgafCriticalException& e) {
 		//異常終了時
 		_TRACE_("＜例外＞"<<e.getMsg());
 		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
 		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-		Ggaf::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		try { god->_pWorld->dump();	      } catch (...) { Ggaf::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
-		try { delete god;                 } catch (...) { Ggaf::GgafLogger::write("delete god; 不可"); } //エラー無視
-		try { GgafDx9::GgafDx9Properties::clean(); } catch (...) { Ggaf::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
 		::timeEndPeriod(1);//タイマー精度終了処理
 #ifdef OREDEBUG
 		//メモリーリ－クチェックEND
@@ -336,19 +336,19 @@ void adjustGameScreen(HWND hWnd) {
 		if (1.0 *rect.right / rect.bottom > 1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
 			//より横長になってしまっている
 			double rate = 1.0 * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //縮小率=縦幅の比率
-			GgafDx9::GgafDx9God::_rectPresentDest.left   = (rect.right/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
-			GgafDx9::GgafDx9God::_rectPresentDest.top    = 0;
-			GgafDx9::GgafDx9God::_rectPresentDest.right  = (rect.right/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
-			GgafDx9::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate;
+			GgafDx9Core::GgafDx9God::_rectPresentDest.left   = (rect.right/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
+			GgafDx9Core::GgafDx9God::_rectPresentDest.top    = 0;
+			GgafDx9Core::GgafDx9God::_rectPresentDest.right  = (rect.right/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
+			GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate;
 		} else {
 			//より縦長になってしまっている
 			double rate = 1.0 * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);  //縮小率=横幅の比率
-			GgafDx9::GgafDx9God::_rectPresentDest.left   = 0;
-			GgafDx9::GgafDx9God::_rectPresentDest.top    = (rect.bottom/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
-			GgafDx9::GgafDx9God::_rectPresentDest.right  = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate;
-			GgafDx9::GgafDx9God::_rectPresentDest.bottom = (rect.bottom/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
+			GgafDx9Core::GgafDx9God::_rectPresentDest.left   = 0;
+			GgafDx9Core::GgafDx9God::_rectPresentDest.top    = (rect.bottom/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
+			GgafDx9Core::GgafDx9God::_rectPresentDest.right  = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate;
+			GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
 		}
 	} else {
-		GetClientRect(hWnd , &(GgafDx9::GgafDx9God::_rectPresentDest));
+		GetClientRect(hWnd , &(GgafDx9Core::GgafDx9God::_rectPresentDest));
 	}
 }

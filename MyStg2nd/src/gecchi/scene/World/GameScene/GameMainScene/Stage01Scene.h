@@ -4,7 +4,7 @@
 class Stage01Scene : public GgafDx9LibStg::DefaultScene {
 
 public:
-	GgafDx9::GgafDx9Bgm* _bgm_st1;
+	GgafDx9Core::GgafDx9Bgm* _bgm_st1;
 
 	Stage01Scene(string prm_name);
 	/**

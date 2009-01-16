@@ -14,11 +14,11 @@ public:
 
 
 
-	Ggaf::GgafMainScene* _pStage01Scene;
-	Ggaf::GgafMainScene* _pStage02Scene;
-	Ggaf::GgafMainScene* _pStage03Scene;
-	Ggaf::GgafMainScene* _pStage04Scene;
-	Ggaf::GgafMainScene* _pStage05Scene;
+	GgafCore::GgafMainScene* _pStage01Scene;
+	GgafCore::GgafMainScene* _pStage02Scene;
+	GgafCore::GgafMainScene* _pStage03Scene;
+	GgafCore::GgafMainScene* _pStage04Scene;
+	GgafCore::GgafMainScene* _pStage05Scene;
 
 	DWORD _dwFrame_ReadyStage01;
 	DWORD _dwFrame_ReadyStage02;

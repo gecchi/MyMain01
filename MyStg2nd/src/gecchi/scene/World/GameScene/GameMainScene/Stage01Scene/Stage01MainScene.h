@@ -3,7 +3,7 @@
 
 class Stage01MainScene : public GgafDx9LibStg::DefaultScene {
 
-	GgafDx9::GgafDx9Bgm* _bgm_st1;
+	GgafDx9Core::GgafDx9Bgm* _bgm_st1;
 
 public:
 

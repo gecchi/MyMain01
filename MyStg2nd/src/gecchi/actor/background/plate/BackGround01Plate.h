@@ -2,7 +2,7 @@
 #define BACKGROUND01PLATE
 
 
-class BackGround01Plate : public GgafDx9::GgafDx9TransformedActor {
+class BackGround01Plate : public GgafDx9Core::GgafDx9TransformedActor {
 
 	BackGroundChipPlate** _papChipPlate;
 
@@ -14,7 +14,7 @@ public:
 
 	virtual void processDrawPrior() {
 		//ç≈îwñ ÅÅÇ¢ÇøÇŒÇÒç≈èâÇ…ï`âÊ
-		GgafDx9::GgafDx9World::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1, this);
+		GgafDx9Core::GgafDx9World::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL-1, this);
 	};
 
 	virtual void processDrawTerminate() {};
@@ -23,11 +23,11 @@ public:
 
 	virtual void processFinal() {};
 
-	virtual bool processBumpChkLogic(Ggaf::GgafActor* prm_pActor_Opponent) {
+	virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
 		return false;
 	};
 
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent) {};
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

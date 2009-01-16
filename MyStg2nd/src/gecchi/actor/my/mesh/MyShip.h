@@ -100,82 +100,82 @@ public:
 	int _iMvAcce_EOD_MT;		//Move Acceleration when I enter opposite direction while I Move with Turbo
 
 	/** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
-	GgafDx9::angle _angRXVelo_BeginMZ;	//Rotation axisX angle Velocity when I Begin To Move Z
+	GgafDx9Core::angle _angRXVelo_BeginMZ;	//Rotation axisX angle Velocity when I Begin To Move Z
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
 
 	/** 奥又は手前へ通常移動中のX軸回転角速度の角加速度 */
-	GgafDx9::angle _angRXAcce_MZ;		//Rotation axisX angle Acceleration while I Move Z
+	GgafDx9Core::angle _angRXAcce_MZ;		//Rotation axisX angle Acceleration while I Move Z
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
 
 	/** 奥又は手前へ移動中のX軸回転角速度の上限角速度 */
-	GgafDx9::angle _angRXTopVelo_MZ;		//Rotation axisX Top angle Velocity while I Move Z
+	GgafDx9Core::angle _angRXTopVelo_MZ;		//Rotation axisX Top angle Velocity while I Move Z
 								//下限角速度はこれに -1 を乗ずる
 
 	/** 奥又は手前へ通常Z移動中のX軸回転角の停止角度 */
-	GgafDx9::angle _angRXStop_MZ;		//Rotation axisX Stop angle while I Move Z
+	GgafDx9Core::angle _angRXStop_MZ;		//Rotation axisX Stop angle while I Move Z
 
 
 	/** 奥又は手前へTURBO移動開始時のX軸回転角速度の初速度 */
-	GgafDx9::angle _angRXVelo_BeginMZT;	//Rotation axisX angle Velocity when I Begin To Move Z with Turbo
+	GgafDx9Core::angle _angRXVelo_BeginMZT;	//Rotation axisX angle Velocity when I Begin To Move Z with Turbo
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
 
 	/** 奥又は手前へTURBO移動中のX軸回転角速度の角加速度 */
-	GgafDx9::angle _angRXAcce_MZT;		//Rotation axisX angle Acceleration while I Move Z with Turbo
+	GgafDx9Core::angle _angRXAcce_MZT;		//Rotation axisX angle Acceleration while I Move Z with Turbo
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる。但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
 
 	/** 奥又は手前へTURBO移動中のX軸回転角速度の最低速度 */
-	GgafDx9::angle _angRXBtmVelo_MZT;	//Rotation axisX Bottom angle Velocity while I Move Z with Turbo
+	GgafDx9Core::angle _angRXBtmVelo_MZT;	//Rotation axisX Bottom angle Velocity while I Move Z with Turbo
 								//奥の場合は範囲を _angRXBtmVelo_MZT < X軸回転角速度正 < 360,000
 								//手前の場合は     -360,000 < X軸回転角速度正 < -1*_angRXBtmVelo_MZT
 								//として、TURBO移動中最低限の回転力を保証する。
 
 
 	/** 奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとするX軸回転角速度の上限角速度 */
-	GgafDx9::angle _angRXTopVelo_MNZ;	//Rotation X Top angle Velocity while I Move Not Z
+	GgafDx9Core::angle _angRXTopVelo_MNZ;	//Rotation X Top angle Velocity while I Move Not Z
 								//下限角速度はこれに -1 を乗ずる
 
 	/** 奥又は手前以外の通常移動時、自動的にAngle0に戻ろうとする時のX軸回転角加速度(正負共通) */
-	GgafDx9::angle _angRXAcce_MNZ;		//Rotation X angle Acceleration while I Not Move Not Z
+	GgafDx9Core::angle _angRXAcce_MNZ;		//Rotation X angle Acceleration while I Not Move Not Z
 
 
 	/** 上又は下へ通常移動開始時のX軸回転角速度の初速度 */
-	GgafDx9::angle _angRZVelo_BeginMY;	//Rotation axisX angle Velocity when I Begin To Move Y
+	GgafDx9Core::angle _angRZVelo_BeginMY;	//Rotation axisX angle Velocity when I Begin To Move Y
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
 
 	/** 上又は下へ通常移動中のZ軸回転角速度の角加速度 */
-	GgafDx9::angle _angRZAcce_MY;		//Rotation axisX angle Acceleration while I Move Y
+	GgafDx9Core::angle _angRZAcce_MY;		//Rotation axisX angle Acceleration while I Move Y
 								//奥の場合は正、手前の場合はこれに -1 を乗ずる
 
 	/** 上又は下へ移動中のZ軸回転角速度の上限角速度 */
-	GgafDx9::angle _angRZTopVelo_MY;		//Rotation axisX Top angle Velocity while I Move Y
+	GgafDx9Core::angle _angRZTopVelo_MY;		//Rotation axisX Top angle Velocity while I Move Y
 								//下限角速度はこれに -1 を乗ずる
 
 	/** 上又は下へ通常Z移動中のZ軸回転角の停止角度 */
-	GgafDx9::angle _angRZStop_MY;		//Rotation axisX Stop angle while I Move Z
+	GgafDx9Core::angle _angRZStop_MY;		//Rotation axisX Stop angle while I Move Z
 
 
 	/** 上又は下へTURBO移動開始時のZ軸回転角速度の初速度 */
-	GgafDx9::angle _angRZVelo_BeginMYT;	//Rotation axisZ angle Velocity when I Begin To Move Y with Turbo
+	GgafDx9Core::angle _angRZVelo_BeginMYT;	//Rotation axisZ angle Velocity when I Begin To Move Y with Turbo
 								//上の場合は正、下の場合はこれに -1 を乗ずる
 
 	/** 上又は下へTURBO移動中のZ軸回転角速度の角加速度 */
-	GgafDx9::angle _angRZAcce_MYT;		//Rotation axisZ angle Acceleration while I Move Y with Turbo
+	GgafDx9Core::angle _angRZAcce_MYT;		//Rotation axisZ angle Acceleration while I Move Y with Turbo
 								//上の場合は正、下の場合はこれに -1 を乗ずる。但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
 
 	/** 上又は下へTURBO移動中のZ軸回転角速度の最低速度 */
-	GgafDx9::angle _angRZBtmVelo_MYT;	//Rotation axisZ Bottom angle Velocity while I Move Y with Turbo
+	GgafDx9Core::angle _angRZBtmVelo_MYT;	//Rotation axisZ Bottom angle Velocity while I Move Y with Turbo
 								//上の場合は範囲を _angRZBtmVelo_MYT < Z軸回転角速度正 < 360,000
 								//上の場合は       -360,000 < X軸回転角速度正 < -1*_angRZBtmVelo_MYT
 								//として、TURBO移動中最低限の回転力を保証する。
 
 
 	/** 上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度 */
-	GgafDx9::angle _angRZTopVelo_MNY;	//Rotation Z Top angle Velocity while I Move Not Y
+	GgafDx9Core::angle _angRZTopVelo_MNY;	//Rotation Z Top angle Velocity while I Move Not Y
 								//下限角速度はこれに -1 を乗ずる
 
 
 	/** 上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通) */
-	GgafDx9::angle _angRZAcce_MNY;		//Rotation X angle Acceleration while I Not Move Not Y
+	GgafDx9Core::angle _angRZAcce_MNY;		//Rotation X angle Acceleration while I Not Move Not Y
 
 	/** TURBO移動中移動制御できる割合 */
 	double _dRate_TurboControl;
@@ -188,8 +188,8 @@ public:
 	DWORD _dwFrameZXTurboMove;
 
 
-	GgafDx9::angle _angFaceTurnRange;
-	GgafDx9::angle _angRotVelo_FaceTurn;
+	GgafDx9Core::angle _angFaceTurnRange;
+	GgafDx9Core::angle _angRotVelo_FaceTurn;
 
 	/** ターボ完了期間(Frame) */
 	DWORD _dwIntervalFinshTurbo;
@@ -218,7 +218,7 @@ public:
 
 	State _state;
 
-	Ggaf::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
+	GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
 	GgafDx9LibStg::RotationActor* _pMyWaves001Rotation;
 	GgafDx9LibStg::RotationActor* _pMyShots001Rotation;
@@ -247,7 +247,7 @@ public:
 	/**
 	 * ＜OverRide です＞
 	 */
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
 	virtual void setMoveSpeedLv(int lv) {
@@ -282,7 +282,7 @@ public:
 
 	//virtual void beginMoveXY(int prm_VB);
 
- 	static void transactShot(GgafDx9::GgafDx9UntransformedActor* prm_pActor);
+ 	static void transactShot(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor);
 
 
  	/**オプション追加*/

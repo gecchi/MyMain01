@@ -25,7 +25,7 @@ public:
 	/** 方向転換に費やすことができるフレーム数 */
 	DWORD _dwFrameInterval_Turn;
 	/** 方向転換中の角速度アングル値 */
-	GgafDx9::angle _angVelocity_Turn;
+	GgafDx9Core::angle _angVelocity_Turn;
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
 	int _iMoveAcceleration_2nd;
 	/** 出現してからのフレーム数 */
@@ -58,7 +58,7 @@ public:
 	/**
 	 * ＜OverRide です＞
 	 */
-	virtual void processOnHit(Ggaf::GgafActor* prm_pActor_Opponent);
+	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 	virtual ~EnemyMeshShot001();
 };
