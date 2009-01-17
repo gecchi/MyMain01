@@ -19,7 +19,10 @@ class BaseActor {
 public:
 	int _type;
 	int _ko;
-	BaseActor(int type);
+	BaseActor(int type) {
+		cout << "BaseActor::BaseActor()" << _type << endl;
+		_type = type;
+	};
 	virtual void processDrawMain() {
 		cout << "BaseActor::processDrawMain()" << _type << endl;
 	};
@@ -102,20 +105,12 @@ public:
 	};
 };
 
-BaseActor::BaseActor(int type) {
-	cout << "BaseActor::BaseActor()" << _type << endl;
-	_type = type;
-
-}
 
 int main() {
 
 	MainActor* pActor  = new MainActor(2);
 	BaseActor* pBase = (BaseActor*)pActor;
-	MainActor* pXX = pActor;
-
-	pActor->processBehavior();
-	pActor->processDrawMain();
+	MainActor* pXX = dynamic_cast<BaseActor*>pBase;
 	delete pActor;
 
 
