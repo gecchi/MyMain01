@@ -78,10 +78,11 @@ using namespace std;
 
 #define MAX_HEADACTOR_PER_SCENE 16
 
-namespace GgafCore {
+
 
 typedef unsigned int actorkind;
 
+namespace GgafCore {
 class GgafUtil;
 class GgafObject;
 class GgafException;
@@ -93,26 +94,22 @@ class GgafGod;
 
 class GgafFactory;
 class GgafGarbageBox;
-
 class GgafScene;
 class GgafGarbageRootScene;
-
 class GgafActor;
 class GgafGarbageRootActor;
 class GgafMainActor;
 class GgafDummyActor;
-
 class GgafWorld;
 class GgafMainScene;
 class GgafLordActor;
 class GgafHeadActor;
 class GgafOrder;
 
-
-
 class GgafProperties;
 class GgafRect;
 class GgafUserRootSceneCreater;
+}
 
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/GgafObject.h"
@@ -140,11 +137,5 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
-
-}
-
-
-
-
 
 #endif /*GGAFCOMMONHEADER_H_*/

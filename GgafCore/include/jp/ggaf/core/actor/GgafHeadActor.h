@@ -1,6 +1,6 @@
 #ifndef GGAFHEADACTOR_H_
 #define GGAFHEADACTOR_H_
-
+namespace GgafCore {
 
 
 /**
@@ -99,4 +99,5 @@ public:
 };
 
 
+}
 #endif /*GGAFHEADACTOR_H_*/

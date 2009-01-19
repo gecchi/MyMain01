@@ -1,5 +1,7 @@
 #ifndef GGAFGARBAGEBOX_H_
 #define GGAFGARBAGEBOX_H_
+namespace GgafCore {
+
 
 /**
  * ÉSÉ~î† .
@@ -29,4 +31,6 @@ public:
 	virtual ~GgafGarbageBox();
 };
 
+
+}
 #endif /*GGAFGARBAGEBOX_H_*/

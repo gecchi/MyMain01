@@ -1,5 +1,7 @@
 #ifndef GGAFLORDACTOR_H_
 #define GGAFLORDACTOR_H_
+namespace GgafCore {
+
 
 /**
  * 管理者アクタークラス .
@@ -115,4 +117,7 @@ public:
 
 	virtual ~GgafLordActor();
 };
+
+
+}
 #endif /**GGAFLORDACTOR_H_*/

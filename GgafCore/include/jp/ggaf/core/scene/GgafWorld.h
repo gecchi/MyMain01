@@ -1,5 +1,7 @@
 #ifndef GGAFWORLD_H_
 #define GGAFWORLD_H_
+namespace GgafCore {
+
 
 /**
  * ¢ŠE‚ÌŠî’êƒNƒ‰ƒX .
@@ -68,4 +70,5 @@ public:
 };
 
 
+}
 #endif /*GGAFWORLD_H_*/

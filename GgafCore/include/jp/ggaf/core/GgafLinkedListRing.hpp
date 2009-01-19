@@ -1,5 +1,8 @@
 #ifndef GGAFLINKEDLISTRING_H_
 #define GGAFLINKEDLISTRING_H_
+namespace GgafCore {
+
+
 /**
  * 同一クラス要素の環状双方向連結リストを構築するテンプレートです。.
  *
@@ -338,4 +341,6 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
 	//_TRACE_("...deleted GgafLinkedListRing()");
 }
 
+
+}
 #endif /*GGAFLINKEDLISTRING_H_*/

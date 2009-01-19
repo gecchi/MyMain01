@@ -1,5 +1,8 @@
 #ifndef GGAFGARBAGEROOTACTOR_H_
 #define GGAFGARBAGEROOTACTOR_H_
+namespace GgafCore {
+
+
 /**
  * ゴミルートアクター
  */
@@ -20,4 +23,6 @@ public:
 	virtual ~GgafGarbageRootActor() {};
 };
 
+
+}
 #endif /*GGAFGARBAGEROOTACTOR_H_*/

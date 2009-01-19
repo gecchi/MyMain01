@@ -1,5 +1,7 @@
 #ifndef GGAFGARBAGEROOTSCENE_H_
 #define GGAFGARBAGEROOTSCENE_H_
+namespace GgafCore {
+
 
 /**
  * ゴミルートシーン
@@ -19,4 +21,5 @@ public:
 };
 
 
+}
 #endif /*GGAFGARBAGEROOTSCENE_H_*/

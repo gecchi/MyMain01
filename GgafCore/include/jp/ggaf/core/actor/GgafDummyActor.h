@@ -1,5 +1,6 @@
 #ifndef GGAFDUMMYACTOR_H_
 #define GGAFDUMMYACTOR_H_
+namespace GgafCore {
 
 /**
  * ダミーアクタークラス .
@@ -75,4 +76,5 @@ public:
 };
 
 
+}
 #endif /*GGAFDUMMYACTOR_H_*/

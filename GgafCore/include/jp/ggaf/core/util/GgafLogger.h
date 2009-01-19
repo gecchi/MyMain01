@@ -1,5 +1,7 @@
 #ifndef GGAFLOGGER_H_
 #define GGAFLOGGER_H_
+namespace GgafCore {
+
 
 class GgafLogger {
 
@@ -8,4 +10,5 @@ public:
 };
 
 
+}
 #endif /*GGAFLOGGER_H_*/

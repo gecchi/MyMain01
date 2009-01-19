@@ -1,5 +1,3 @@
-// Detect Memory Leaks.
-
 #ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
 
@@ -18,5 +16,6 @@ void operator delete[](void * address);
 void detectMemoryLeaksStart(std::ostream& ros);
 
 void detectMemoryLeaksEnd(std::ostream& ros);
+
 
 #endif // DETECT_MEMORY_LEAKS_H

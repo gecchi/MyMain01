@@ -1,5 +1,7 @@
 #ifndef GGAFMAINACTOR_H_
 #define GGAFMAINACTOR_H_
+namespace GgafCore {
+
 
 /**
  * 下位アクタークラスへのインターフェイス .
@@ -93,4 +95,5 @@ public:
 };
 
 
+}
 #endif /*GGAFMAINACTOR_H_*/

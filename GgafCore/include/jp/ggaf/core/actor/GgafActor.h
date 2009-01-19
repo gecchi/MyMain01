@@ -1,5 +1,7 @@
 #ifndef GGAFACTOR_H_
 #define GGAFACTOR_H_
+namespace GgafCore {
+
 
 /**
  * アクターの基底クラス .
@@ -184,4 +186,6 @@ public:
 
 };
 
+
+}
 #endif /**GGAFACTOR_H_*/

@@ -1,5 +1,7 @@
 #ifndef GGAFEXCEPTION_H_
 #define GGAFEXCEPTION_H_
+namespace GgafCore {
+
 
 class GgafException : public GgafObject {
 
@@ -10,4 +12,6 @@ public:
 	virtual ~GgafException();
 };
 
+
+}
 #endif /*GGAFEXCEPTION_H_*/

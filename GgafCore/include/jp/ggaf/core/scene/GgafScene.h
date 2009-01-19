@@ -1,5 +1,7 @@
 #ifndef GGAFSCENE_H_
 #define GGAFSCENE_H_
+namespace GgafCore {
+
 
 /**
  * シーンの基底クラス .
@@ -266,4 +268,6 @@ public:
 	virtual void dump(string prm_parent);
 };
 
+
+}
 #endif /**GGAFSCENE_H_*/

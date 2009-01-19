@@ -1,5 +1,7 @@
 #ifndef GGAFOBJECT_H_
 #define GGAFOBJECT_H_
+namespace GgafCore {
+
 
 class GgafObject
 {
@@ -16,4 +18,6 @@ public:
 	virtual ~GgafObject();
 };
 
+
+}
 #endif /*GGAFOBJECT_H_*/

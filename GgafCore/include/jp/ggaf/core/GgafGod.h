@@ -1,6 +1,6 @@
 #ifndef GGAFGOD_H_
 #define GGAFGOD_H_
-
+namespace GgafCore {
 
 
 class GgafGod : public GgafObject {
@@ -98,5 +98,5 @@ public:
 };
 
 
-
+}
 #endif /*GGAFGOD_H_*/

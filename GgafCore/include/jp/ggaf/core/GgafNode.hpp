@@ -1,5 +1,8 @@
 #ifndef GGAFNODE_H_
 #define GGAFNODE_H_
+namespace GgafCore {
+
+
 /**
  * 要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。.
  *
@@ -583,4 +586,6 @@ GgafNode<T>::~GgafNode() {
 //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
 }
 
+
+}
 #endif /*GGAFNODE_H_*/

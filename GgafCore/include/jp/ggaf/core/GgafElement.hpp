@@ -1,8 +1,9 @@
 #ifndef GGAFELEMENT_H_
 #define GGAFELEMENT_H_
+namespace GgafCore {
 
 
-#define SUPER GgafNode<T>
+#define SUPER GgafCore::GgafNode<T>
 
 /**
  * GgafNodeに、様々な状態管理（フラグ管理）を追加するクラス。
@@ -11,7 +12,7 @@
  * @auther Masatoshi Tsuge
  */
 template<class T>
-class GgafElement : public SUPER {
+class GgafElement : public GgafNode<T> {
 
 protected:
 
@@ -1325,4 +1326,6 @@ GgafElement<T>::~GgafElement() {
 
 }
 
+
+}
 #endif /*GGAFELEMENT_H_*/

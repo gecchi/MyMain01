@@ -1,5 +1,7 @@
 #ifndef GGAFGACTORY_H_
 #define GGAFGACTORY_H_
+namespace GgafCore {
+
 
 /**
  * インスタンス生成工場クラス .
@@ -117,5 +119,5 @@ public:
 };
 
 
-
+}
 #endif /*GGAFGACTORY_H_*/

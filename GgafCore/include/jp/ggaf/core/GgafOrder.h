@@ -1,5 +1,7 @@
 #ifndef GGAFORDER_H_
 #define GGAFORDER_H_
+namespace GgafCore {
+
 
 /**
  * 商品（何かのインスタンス）の注文クラス .
@@ -39,4 +41,6 @@ public:
 	virtual ~GgafOrder();
 };
 
+
+}
 #endif /*GGAFORDER_H_*/

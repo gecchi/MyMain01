@@ -1,6 +1,9 @@
 #ifndef GGAFPROPERTIES
 #define GGAFPROPERTIES
-#define GGAF_PROPERTY(X) (*GgafProperties::X)
+namespace GgafCore {
+
+
+#define GGAF_PROPERTY(X) (*GgafCore::GgafProperties::X)
 
 class GgafProperties {
 
@@ -24,5 +27,7 @@ protected:
 	static double* getDouble(string prm_key);
 };
 
+
+}
 #endif /*GGAFPROPERTIES*/
 

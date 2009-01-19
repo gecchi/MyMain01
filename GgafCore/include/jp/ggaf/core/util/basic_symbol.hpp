@@ -1,5 +1,8 @@
 #ifndef BASIC_SYMBOL_H_
 #define BASIC_SYMBOL_H_
+namespace GgafCore {
+
+
 template<class Key, class Comp =less<Key> >
 class basic_symbol {
 
@@ -64,4 +67,6 @@ inline bool operator>=(const basic_symbol<K,C>& x, const basic_symbol<K,C>& y)
 typedef basic_symbol<string>  string_symbol;
 typedef basic_symbol<wstring> wstring_symbol;
 
+
+}
 #endif /*BASIC_SYMBOL_H_*/

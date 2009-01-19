@@ -1,5 +1,7 @@
 #ifndef GGAFMAINSCENE_H_
 #define GGAFMAINSCENE_H_
+namespace GgafCore {
+
 
 /**
  * 下位シーンクラスへのインターフェイス .
@@ -23,4 +25,5 @@ public:
 };
 
 
+}
 #endif /*GGAFMAINSCENE_H_*/

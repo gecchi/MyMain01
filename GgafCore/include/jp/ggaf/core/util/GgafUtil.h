@@ -1,5 +1,7 @@
 #ifndef GGAFUTIL_H_
 #define GGAFUTIL_H_
+namespace GgafCore {
+
 
 class GgafUtil {
 public:
@@ -14,7 +16,8 @@ public:
     	oss << prm_n;
 	    return oss.str();
     }
-
 };
 
+
+}
 #endif /*GGAFUTIL_H_*/
