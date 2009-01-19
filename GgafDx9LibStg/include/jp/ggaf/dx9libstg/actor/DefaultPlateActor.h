@@ -1,5 +1,6 @@
 #ifndef DEFAULTPLATEACTOR_H_
 #define DEFAULTPLATEACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultPlateActor : public GgafDx9Core::GgafDx9PlateActor {
@@ -36,4 +37,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTPLATEACTOR_H_*/

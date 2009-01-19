@@ -1,5 +1,6 @@
 #ifndef FONTSPRITESTRING_H_
 #define FONTSPRITESTRING_H_
+namespace GgafDx9LibStg {
 
 class FontSpriteString : public GgafCore::GgafObject {
 	string _font_modelname;
@@ -14,4 +15,5 @@ public:
 	virtual ~FontSpriteString();
 };
 
+}
 #endif /*FONTSPRITESTRING_H_*/

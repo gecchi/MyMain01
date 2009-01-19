@@ -1,5 +1,6 @@
 #ifndef FORMATIONACTOR_H_
 #define FORMATIONACTOR_H_
+namespace GgafDx9LibStg {
 
 /**
  * フォーメーションアクタークラス .
@@ -39,4 +40,5 @@ public:
 	virtual ~FormationActor();
 };
 
+}
 #endif /*FORMATIONACTOR_H_*/

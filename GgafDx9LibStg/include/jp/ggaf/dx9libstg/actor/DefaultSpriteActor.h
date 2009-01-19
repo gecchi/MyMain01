@@ -1,5 +1,6 @@
 #ifndef DEFAULTSPRITEACTOR_H_
 #define DEFAULTSPRITEACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultSpriteActor : public GgafDx9Core::GgafDx9SpriteActor {
@@ -39,4 +40,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTSPRITEACTOR_H_*/

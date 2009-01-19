@@ -1,5 +1,6 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
+namespace GgafDx9LibStg {
 
 #define VB_SHOT1 1
 #define VB_SHOT2 2
@@ -197,4 +198,5 @@ public:
 	static void clear();
 };
 
+}
 #endif /*VBRTUALBUTTON_H_*/

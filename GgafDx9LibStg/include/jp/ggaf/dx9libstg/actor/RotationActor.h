@@ -1,5 +1,6 @@
 #ifndef ROTATIONACTOR_H_
 #define ROTATIONACTOR_H_
+namespace GgafDx9LibStg {
 
 /**
  * ローテーションアクタークラス .
@@ -70,4 +71,5 @@ public:
 };
 
 
+}
 #endif /*ROTATIONACTOR_H_*/

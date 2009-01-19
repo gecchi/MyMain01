@@ -1,5 +1,6 @@
 #ifndef GEOMETRYCHAIN_H_
 #define GEOMETRYCHAIN_H_
+namespace GgafDx9LibStg {
 
 
 
@@ -47,4 +48,5 @@ public:
 	}
 
 };
+}
 #endif /*GEOMETRYCHAIN_H_*/

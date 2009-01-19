@@ -1,5 +1,6 @@
 #ifndef GEOELEMENT_H_
 #define GEOELEMENT_H_
+namespace GgafDx9LibStg {
 
 class GeoElement {
 public:
@@ -35,4 +36,5 @@ public:
 };
 
 
+}
 #endif /*GEOELEMENT_H_*/

@@ -1,5 +1,6 @@
 #ifndef STGUTIL_H_
 #define STGUTIL_H_
+namespace GgafDx9LibStg {
 
 class StgUtil : GgafDx9Core::GgafDx9Util {
 public:
@@ -8,4 +9,5 @@ public:
 
 };
 
+}
 #endif /*STGUTIL_H_*/

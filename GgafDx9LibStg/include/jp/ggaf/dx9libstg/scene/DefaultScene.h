@@ -1,5 +1,6 @@
 #ifndef DEFAULTSCENE_H_
 #define DEFAULTSCENE_H_
+namespace GgafDx9LibStg {
 
 class DefaultScene : public GgafDx9Core::GgafDx9Scene
 {
@@ -46,4 +47,5 @@ public:
 	virtual ~DefaultScene();
 };
 
+}
 #endif /*DEFAULTSCENE_H_*/

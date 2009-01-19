@@ -1,5 +1,6 @@
 #ifndef DEFAULTMESHACTOR_H_
 #define DEFAULTMESHACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
@@ -38,4 +39,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTMESHACTOR_H_*/

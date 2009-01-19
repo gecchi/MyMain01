@@ -1,5 +1,6 @@
 #ifndef FONTPLATEACTOR_H_
 #define FONTPLATEACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class FontPlateActor : public DefaultPlateActor {
@@ -23,4 +24,5 @@ public:
 };
 
 
+}
 #endif /*FONTPLATEACTOR_H_*/

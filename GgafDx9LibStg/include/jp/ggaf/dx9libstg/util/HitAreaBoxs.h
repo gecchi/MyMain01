@@ -1,5 +1,6 @@
 #ifndef HITAREABOXS_H_
 #define HITAREABOXS_H_
+namespace GgafDx9LibStg {
 
 class HitAreaBoxs : public GgafCore::GgafObject {
 
@@ -39,4 +40,5 @@ public:
 	virtual ~HitAreaBoxs();
 };
 
+}
 #endif /*HITAREABOXS_H_*/

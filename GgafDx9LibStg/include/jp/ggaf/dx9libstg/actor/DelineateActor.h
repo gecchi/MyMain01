@@ -1,5 +1,6 @@
 #ifndef DELINEATEACTOR_H_
 #define DELINEATEACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DelineateActor : public DefaultCubeActor {
@@ -22,4 +23,5 @@ public:
 };
 
 
+}
 #endif /*DELINEATEACTOR_H_*/

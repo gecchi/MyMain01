@@ -1,5 +1,6 @@
 #ifndef DEFAULTSQUAREACTOR_H_
 #define DEFAULTSQUAREACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultSquareActor : public GgafDx9Core::GgafDx9SquareActor {
@@ -45,4 +46,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTSQUAREACTOR_H_*/

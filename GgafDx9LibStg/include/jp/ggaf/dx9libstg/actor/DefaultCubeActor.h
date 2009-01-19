@@ -1,5 +1,6 @@
 #ifndef DEFAULTCUBEACTOR_H_
 #define DEFAULTCUBEACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
@@ -46,4 +47,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTCUBEACTOR_H_*/

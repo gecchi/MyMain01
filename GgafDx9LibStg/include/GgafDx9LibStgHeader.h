@@ -27,7 +27,7 @@ class DelineateActor;
 class StgChecker;
 class HitAreaBoxs;
 
-
+}
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
@@ -52,7 +52,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 
-}
+
 
 #define DISP_HITAREA 1
 

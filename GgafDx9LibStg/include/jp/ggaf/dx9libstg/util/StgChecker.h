@@ -1,5 +1,6 @@
 #ifndef STGCHECKER_H_
 #define STGCHECKER_H_
+namespace GgafDx9LibStg {
 
 
 
@@ -73,5 +74,6 @@ public:
 };
 
 
+}
 #endif /*STGCHECKER_H_*/
 

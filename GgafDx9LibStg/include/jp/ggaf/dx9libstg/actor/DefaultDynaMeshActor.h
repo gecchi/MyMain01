@@ -1,5 +1,6 @@
 #ifndef DEFAULTDYNAMESHACTOR_H_
 #define DEFAULTDYNAMESHACTOR_H_
+namespace GgafDx9LibStg {
 
 
 class DefaultDynaMeshActor : public GgafDx9Core::GgafDx9DynaMeshActor {
@@ -40,4 +41,5 @@ public:
 };
 
 
+}
 #endif /*DEFAULTDYNAMESHACTOR_H_*/
