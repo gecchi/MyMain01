@@ -1,5 +1,6 @@
 #ifndef MYLASERCHIPROTATIONACTOR_H_
 #define MYLASERCHIPROTATIONACTOR_H_
+namespace MyStg2nd {
 
 class MyLaserChipRotationActor : public RotationActor {
 
@@ -56,4 +57,5 @@ public:
 };
 
 
+}
 #endif /*MYLASERCHIPROTATIONACTOR_H_*/

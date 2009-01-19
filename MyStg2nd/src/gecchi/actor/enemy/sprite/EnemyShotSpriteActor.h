@@ -1,5 +1,6 @@
 #ifndef ENEMYSHOTSPRITEACTOR_H_
 #define ENEMYSHOTSPRITEACTOR_H_
+namespace MyStg2nd {
 
 
 class EnemyShotSpriteActor : public DefaultSpriteEnemyActor {
@@ -35,5 +36,6 @@ public:
 };
 
 
+}
 #endif /*ENEMYSHOTSPRITEACTOR_H_*/
 

@@ -1,5 +1,6 @@
 #ifndef MYSHIPMOVERASSISTANT_H_
 #define MYSHIPMOVERASSISTANT_H_
+namespace MyStg2nd {
 
 class MyShipMoverAssistant : public GgafDx9LibStg::DefaultMeshActor {
 
@@ -38,5 +39,6 @@ public:
 };
 
 
+}
 #endif /*MYSHIPMOVERASSISTANT_H_*/
 

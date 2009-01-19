@@ -1,5 +1,6 @@
 #ifndef LASER001PACTOR_H_
 #define LASER001PACTOR_H_
+namespace MyStg2nd {
 
 
 class MyLaser001 : public DefaultSpriteMyActor {
@@ -47,5 +48,6 @@ public:
 };
 
 
+}
 #endif /*LASER001PACTOR_H_*/
 

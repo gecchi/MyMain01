@@ -1,5 +1,6 @@
 #ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
+namespace MyStg2nd {
 #define RANK (GameGlobal::_iRank)
 
 class GameGlobal {
@@ -19,5 +20,6 @@ public:
 
 	static CommonScene* _pSceneCommon;
 };
+}
 #endif /*GAMEGLOBAL_H_*/
 

@@ -1,5 +1,6 @@
-#ifndef BACKGROUND01PLATE
-#define BACKGROUND01PLATE
+#ifndef BACKGROUND01PLATE_H_
+#define BACKGROUND01PLATE_H_
+namespace MyStg2nd {
 
 
 class BackGround01Plate : public GgafDx9Core::GgafDx9TransformedActor {
@@ -49,5 +50,6 @@ public:
 };
 
 
-#endif /*BACKGROUND01PLATE*/
+}
+#endif /*BACKGROUND01PLATE_H_*/
 

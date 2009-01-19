@@ -1,5 +1,6 @@
 #ifndef MYFACTORY_H_
 #define MYFACTORY_H_
+namespace MyStg2nd {
 
 class MyFactory : public GgafCore::GgafFactory {
 
@@ -55,5 +56,6 @@ public:
 #define obtainSceneFactory(ID) MyFactory::obtainScene(ID)
 
 
+}
 #endif /*MYFACTORY_H_*/
 

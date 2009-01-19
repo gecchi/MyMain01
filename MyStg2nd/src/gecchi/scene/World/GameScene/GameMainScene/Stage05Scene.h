@@ -1,5 +1,6 @@
 #ifndef STAGE05SCENE_H_
 #define STAGE05SCENE_H_
+namespace MyStg2nd {
 
 class Stage05Scene : public GgafDx9LibStg::DefaultScene {
 
@@ -18,4 +19,5 @@ public:
 	virtual ~Stage05Scene();
 };
 
+}
 #endif /*STAGE05SCENE_H_*/

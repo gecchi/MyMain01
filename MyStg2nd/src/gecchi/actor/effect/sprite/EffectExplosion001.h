@@ -1,5 +1,6 @@
 #ifndef EFFECTEXPLOSION001_H_
 #define EFFECTEXPLOSION001_H_
+namespace MyStg2nd {
 
 
 class EffectExplosion001 : public GgafDx9LibStg::DefaultSpriteActor {
@@ -28,5 +29,6 @@ public:
 };
 
 
+}
 #endif /*EFFECTEXPLOSION001_H_*/
 

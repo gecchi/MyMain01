@@ -1,5 +1,6 @@
 #ifndef ENEMYCERES_H_
 #define ENEMYCERES_H_
+namespace MyStg2nd {
 
 //ケレス
 //画面右端で折り返して左に直進します。
@@ -51,5 +52,6 @@ public:
 	virtual ~EnemyCeres();
 };
 
+}
 #endif /*ENEMYCERES_H_*/
 

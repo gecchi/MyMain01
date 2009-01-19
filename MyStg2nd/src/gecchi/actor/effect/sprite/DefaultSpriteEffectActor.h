@@ -1,5 +1,6 @@
 #ifndef DEFAULTSPRITEEFFECTACTOR_H_
 #define DEFAULTSPRITEEFFECTACTOR_H_
+namespace MyStg2nd {
 
 
 class DefaultSpriteEffectActor : public GgafDx9LibStg::DefaultSpriteActor {
@@ -15,5 +16,6 @@ public:
 	virtual ~DefaultSpriteEffectActor();
 };
 
+}
 #endif /*DEFAULTSPRITEEFFECTACTOR_H_*/
 

@@ -1,5 +1,6 @@
 #ifndef FORMATIONCERES001_H_
 #define FORMATIONCERES001_H_
+namespace MyStg2nd {
 
 
 #define NUM_CERES_FORMATION001 1
@@ -18,4 +19,5 @@ public:
 };
 
 
+}
 #endif /*FORMATIONCERES001_H_*/

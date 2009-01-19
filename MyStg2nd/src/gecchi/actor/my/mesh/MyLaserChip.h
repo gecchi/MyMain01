@@ -1,5 +1,6 @@
 #ifndef MYLASERCHIP_H_
 #define MYLASERCHIP_H_
+namespace MyStg2nd {
 
 
 class MyLaserChip : public GgafDx9LibStg::DefaultDynaMeshActor {
@@ -88,5 +89,6 @@ public:
 };
 
 
+}
 #endif /*MYLASERCHIP_H_*/
 

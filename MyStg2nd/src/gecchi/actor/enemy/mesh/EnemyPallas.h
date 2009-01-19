@@ -1,5 +1,6 @@
 #ifndef ENEMYPALLAS_H_
 #define ENEMYPALLAS_H_
+namespace MyStg2nd {
 
 //ƒpƒ‰ƒX
 class EnemyPallas : public DefaultMeshEnemyActor {
@@ -22,5 +23,6 @@ public:
 	virtual ~EnemyPallas();
 };
 
+}
 #endif /*ENEMYPALLAS_H_*/
 

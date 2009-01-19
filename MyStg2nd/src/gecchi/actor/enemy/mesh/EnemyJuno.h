@@ -1,5 +1,6 @@
 #ifndef ENEMYJUNO_H_
 #define ENEMYJUNO_H_
+namespace MyStg2nd {
 
 //ÉWÉÖÉmÅ[
 class EnemyJuno : public DefaultMeshEnemyActor {
@@ -22,5 +23,6 @@ public:
 	virtual ~EnemyJuno();
 };
 
+}
 #endif /*ENEMYJUNO_H_*/
 

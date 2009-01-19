@@ -1,5 +1,6 @@
 #ifndef MYSHOT001_H_
 #define MYSHOT001_H_
+namespace MyStg2nd {
 
 
 class MyShot001 : public DefaultSpriteMyActor {
@@ -48,5 +49,6 @@ public:
 };
 
 
+}
 #endif /*MYSHOT001_H_*/
 

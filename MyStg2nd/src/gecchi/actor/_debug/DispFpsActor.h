@@ -1,5 +1,6 @@
-#ifndef DISPFPSACTOR
-#define DISPFPSACTOR
+#ifndef DISPFPSACTOR_H_
+#define DISPFPSACTOR_H_
+namespace MyStg2nd {
 
 
 class DispFpsActor : public GgafDx9LibStg::FontPlateActor {
@@ -23,5 +24,6 @@ public:
 };
 
 
-#endif /*DISPFPSACTOR*/
+}
+#endif /*DISPFPSACTOR_H_*/
 

@@ -1,5 +1,6 @@
 #ifndef TAMAGOACTOR_H_
 #define TAMAGOACTOR_H_
+namespace MyStg2nd {
 
 
 class TamagoActor : public GgafDx9LibStg::DefaultMeshActor {
@@ -23,5 +24,6 @@ public:
 };
 
 
+}
 #endif /*TAMAGOACTOR_H_*/
 

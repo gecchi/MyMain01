@@ -1,5 +1,6 @@
 #ifndef FORMATIONJUNO001_H_
 #define FORMATIONJUNO001_H_
+namespace MyStg2nd {
 
 
 #define NUM_JUNO_FORMATION001 20
@@ -26,4 +27,5 @@ public:
 };
 
 
+}
 #endif /*FORMATIONJUNO001_H_*/

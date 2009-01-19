@@ -1,5 +1,6 @@
 #ifndef MYOPTION_H_
 #define MYOPTION_H_
+namespace MyStg2nd {
 
 class MyOption : public GgafDx9LibStg::DefaultMeshActor {
 
@@ -44,5 +45,6 @@ public:
 };
 
 
+}
 #endif /*MYOPTION_H_*/
 

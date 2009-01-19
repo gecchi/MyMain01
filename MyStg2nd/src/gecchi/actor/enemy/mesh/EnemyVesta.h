@@ -1,5 +1,6 @@
 #ifndef ENEMYVESTA_H_
 #define ENEMYVESTA_H_
+namespace MyStg2nd {
 
 //ƒ”ƒFƒXƒ^
 class EnemyVesta : public DefaultMeshEnemyActor {
@@ -22,5 +23,6 @@ public:
 	virtual ~EnemyVesta();
 };
 
+}
 #endif /*ENEMYVESTA_H_*/
 

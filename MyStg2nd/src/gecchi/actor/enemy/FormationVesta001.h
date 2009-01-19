@@ -1,5 +1,6 @@
 #ifndef FORMATIONVESTA001_H_
 #define FORMATIONVESTA001_H_
+namespace MyStg2nd {
 
 
 #define NUM_VESTA_FORMATION001 5
@@ -18,4 +19,5 @@ public:
 };
 
 
+}
 #endif /*FORMATIONVESTA001_H_*/

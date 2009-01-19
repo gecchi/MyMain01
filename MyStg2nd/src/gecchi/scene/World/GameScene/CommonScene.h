@@ -1,5 +1,6 @@
 #ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
+namespace MyStg2nd {
 
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
@@ -21,4 +22,5 @@ public:
 	virtual ~CommonScene();
 };
 
+}
 #endif /*MYSHIPSCENE_H_*/

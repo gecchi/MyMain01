@@ -1,5 +1,6 @@
 #ifndef WORLD_H_
 #define WORLD_H_
+namespace MyStg2nd {
 
 //getParent getSub マクロ。
 //下記マクロ使用するには、シーンオブジェクトの名前が、
@@ -38,4 +39,5 @@ public:
 	virtual ~World();
 };
 
+}
 #endif /*WORLD_H_*/

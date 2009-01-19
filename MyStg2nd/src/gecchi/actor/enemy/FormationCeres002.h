@@ -1,5 +1,6 @@
 #ifndef FORMATIONCERES002_H_
 #define FORMATIONCERES002_H_
+namespace MyStg2nd {
 
 
 #define NUM_CERES_FORMATION002 30
@@ -19,4 +20,5 @@ public:
 	virtual ~FormationCeres002();
 };
 
+}
 #endif /*FORMATIONCERES002_H_*/

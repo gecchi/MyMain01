@@ -1,5 +1,6 @@
 #ifndef MYSHIP_H_
 #define MYSHIP_H_
+namespace MyStg2nd {
 
 #define SH_NOMAL 0;
 #define SH_LASER 1;
@@ -298,5 +299,6 @@ public:
 };
 
 
+}
 #endif /*MYSHIP_H_*/
 

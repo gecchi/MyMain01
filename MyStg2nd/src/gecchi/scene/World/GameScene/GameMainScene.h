@@ -1,5 +1,6 @@
 #ifndef GAMEMAINSCENE_H_
 #define GAMEMAINSCENE_H_
+namespace MyStg2nd {
 
 class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
@@ -55,4 +56,5 @@ public:
 	virtual ~GameMainScene();
 };
 
+}
 #endif /*GAMEMAINSCENE_H_*/

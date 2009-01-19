@@ -1,5 +1,6 @@
 #ifndef ENEMYSHOT001_H_
 #define ENEMYSHOT001_H_
+namespace MyStg2nd {
 
 
 class EnemyShot001 : public EnemyShotSpriteActor {
@@ -31,5 +32,6 @@ public:
 };
 
 
+}
 #endif /*ENEMYSHOT001_H_*/
 

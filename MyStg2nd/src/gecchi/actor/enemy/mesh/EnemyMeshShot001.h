@@ -1,5 +1,6 @@
 #ifndef ENEMYMESHSHOT001_H_
 #define ENEMYMESHSHOT001_H_
+namespace MyStg2nd {
 
 /**
  * 3D“G’e001 .
@@ -64,5 +65,6 @@ public:
 };
 
 
+}
 #endif /*ENEMYMESHSHOT001_H_*/
 

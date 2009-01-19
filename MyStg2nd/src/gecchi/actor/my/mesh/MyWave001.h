@@ -1,5 +1,6 @@
 #ifndef MYWAVE001_H_
 #define MYWAVE001_H_
+namespace MyStg2nd {
 
 class MyWave001 : public GgafDx9LibStg::DefaultMeshActor {
 
@@ -35,5 +36,6 @@ public:
 };
 
 
+}
 #endif /*MYWAVE001_H_*/
 

@@ -74,6 +74,8 @@ class FormationJuno001;
 class FormationVesta001;
 
 class MyFactory;
+}
+
 
 #include "gecchi/God.h"
 #include "gecchi/scene/World.h"
@@ -123,6 +125,5 @@ class MyFactory;
 #include "gecchi/actor/enemy/FormationVesta001.h"
 #include "gecchi/MyFactory.h"
 
-}
 
 #endif /*MYSTG2NDHEADER_H_*/
