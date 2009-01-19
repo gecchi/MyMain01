@@ -1,5 +1,7 @@
 #ifndef GGAFDX9BGMMANAGER_H_
 #define GGAFDX9BGMMANAGER_H_
+namespace GgafDx9Core {
+
 
 /**
  * GgafDx9Bgm ä«óùÉNÉâÉX .
@@ -40,4 +42,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9BGMMANAGER_H_*/

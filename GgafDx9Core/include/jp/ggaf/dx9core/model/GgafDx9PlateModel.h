@@ -1,5 +1,7 @@
 #ifndef GGAFDX9PLATEMODEL_H_
 #define GGAFDX9PLATEMODEL_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9PlateModel : public GgafDx9Model {
     friend class GgafDx9PlateModelManager;
@@ -55,4 +57,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9PLATEMODEL_H_*/

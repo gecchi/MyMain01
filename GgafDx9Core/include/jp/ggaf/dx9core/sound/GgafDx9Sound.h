@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SOUND_H_
 #define GGAFDX9SOUND_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9Sound  {
 public:
@@ -13,4 +15,6 @@ public:
 	static GgafDx9Bgm* createBgm(string prm_ogg_name);
 };
 
+
+}
 #endif /*GGAFDX9SOUND_H_*/

@@ -8,7 +8,7 @@
 
 #include <mmreg.h>
 #include <mmsystem.h>
-
+namespace GgafDx9Core {
 /**
  @brief		Waveファイルデコーダ
  */
@@ -61,6 +61,8 @@ public:
 
 };
 
+
+}
 #endif	//	_INCLUDE_WAVEDECORDER_HPP
 
 

@@ -1,5 +1,7 @@
 #ifndef GGAFDX9MODEL_H_
 #define GGAFDX9MODEL_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9Model : public GgafCore::GgafObject {
     friend class GgafDx9ModelManager;
@@ -33,4 +35,6 @@ public:
 	virtual ~GgafDx9Model();		//デストラクタ
 };
 
+
+}
 #endif /*GGAFDX9MODEL_H_*/

@@ -1,5 +1,7 @@
 #ifndef GGAFDX9CRITICALEXCEPTION_H_
 #define GGAFDX9CRITICALEXCEPTION_H_
+namespace GgafDx9Core {
+
 
 /**
  * GgafCoreライブラリ専用、ライブラリ業務例外 .
@@ -21,4 +23,5 @@ public:
 };
 
 
+}
 #endif /*GGAFDX9CRITICALEXCEPTION_H_*/

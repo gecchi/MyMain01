@@ -1,5 +1,6 @@
 #ifndef GGAFDX9CAMERAACTOR_H_
 #define GGAFDX9CAMERAACTOR_H_
+namespace GgafDx9Core {
 
 
 class GgafDx9CameraActor : public GgafDx9UntransformedActor {
@@ -49,4 +50,6 @@ public:
 	virtual ~GgafDx9CameraActor();		//デストラクタ
 };
 
+
+}
 #endif /*GGAFDX9CAMERAACTOR_H_*/

@@ -1,5 +1,7 @@
 #ifndef GGAFDX9INPUT_H_
 #define GGAFDX9INPUT_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9Input {
 
@@ -46,5 +48,5 @@ public:
 };
 
 
-
+}
 #endif /*GGAFDX9INPUT_H_*/

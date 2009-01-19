@@ -1,5 +1,7 @@
 #ifndef GGAFDX9WORLD_H_
 #define GGAFDX9WORLD_H_
+namespace GgafDx9Core {
+
 
 #define MAX_DRAW_DEPTH_LEVEL 1000
 
@@ -35,4 +37,6 @@ public:
 	virtual ~GgafDx9World();
 };
 
+
+}
 #endif /*GGAFDX9WORLD_H_*/

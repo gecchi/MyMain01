@@ -1,5 +1,7 @@
-#ifndef GGAFDX9PROPERTIES
-#define GGAFDX9PROPERTIES
+#ifndef GGAFDX9PROPERTIES_H_
+#define GGAFDX9PROPERTIES_H_
+namespace GgafDx9Core {
+
 
 #define GGAFDX9_PROPERTY(X) (*GgafDx9Core::GgafDx9Properties::X)
 
@@ -19,5 +21,8 @@ public:
 	static void load(string prm_ini_filename);
 	static void clean();
 };
-#endif /*GGAFDX9PROPERTIES*/
+
+
+}
+#endif /*GGAFDX9PROPERTIES_H_*/
 

@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SQUAREMODEL_H_
 #define GGAFDX9SQUAREMODEL_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9SquareModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -61,4 +63,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9SQUAREMODEL_H_*/

@@ -1,5 +1,7 @@
 #ifndef GGAFDX9GEOMETRYMOVER_H_
 #define GGAFDX9GEOMETRYMOVER_H_
+namespace GgafDx9Core {
+
 
 //‹ß‚¢•ûŒü‚É‰ñ“]
 #define TURN_CLOSE_TO 0
@@ -490,5 +492,6 @@ public:
 };
 
 
+}
 #endif /*GGAFDX9GEOMETRYMOVER_H_*/
 

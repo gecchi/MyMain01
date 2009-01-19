@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SPRITEMODEL_H_
 #define GGAFDX9SPRITEMODEL_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9SpriteModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -69,4 +71,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9SPRITEMODEL_H_*/

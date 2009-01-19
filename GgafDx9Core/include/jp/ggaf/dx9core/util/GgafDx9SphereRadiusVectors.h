@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SPHERERADIUSVECTORS_H_
 #define GGAFDX9SPHERERADIUSVECTORS_H_
+namespace GgafDx9Core {
+
 
 /**
  * 方向ベクトル構造体.
@@ -83,5 +85,6 @@ public:
 };
 
 
+}
 #endif /*GGAFDX9SPHERERADIUSVECTORS_H_*/
 

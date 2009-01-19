@@ -1,5 +1,7 @@
 #ifndef GGAFDX9UNTRANSFORMEDACTOR_H_
 #define GGAFDX9UNTRANSFORMEDACTOR_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9UntransformedActor : public GgafDx9BaseActor {
 
@@ -126,9 +128,8 @@ public:
 	static void setWorldTransformScRzMxyz(GgafDx9UntransformedActor* prm_pActor);
 
 	virtual ~GgafDx9UntransformedActor();		//デストラクタ
-
-
 };
 
 
+}
 #endif /*GGAFDX9UNTRANSFORMEDACTOR_H_*/

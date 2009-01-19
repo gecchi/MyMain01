@@ -1,5 +1,8 @@
 #ifndef GGAFDX9UTIL_H_
 #define GGAFDX9UTIL_H_
+namespace GgafDx9Core {
+
+
 #define sgn(X) (GgafDx9Util::sign(X))
 #define max3(A,B,C) (GgafDx9Util::max3(A,B,C))
 
@@ -136,9 +139,9 @@ public:
 	static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 	static int sign(int x);
 	//static DWORD max3(DWORD a, DWORD b, DWORD c);
-
-
 };
 
+
+}
 #endif /*GGAFDX9UTIL_H_*/
 

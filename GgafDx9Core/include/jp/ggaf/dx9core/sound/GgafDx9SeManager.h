@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SEMANAGER_H_
 #define GGAFDX9SEMANAGER_H_
+namespace GgafDx9Core {
+
 
 /**
  * GgafDx9Se ä«óùÉNÉâÉX .
@@ -41,4 +43,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9SEMANAGER_H_*/

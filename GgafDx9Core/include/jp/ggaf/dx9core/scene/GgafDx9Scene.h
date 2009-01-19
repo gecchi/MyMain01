@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SCENE_H_
 #define GGAFDX9SCENE_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9Scene : public GgafCore::GgafMainScene {
 
@@ -9,4 +11,6 @@ public:
 	virtual ~GgafDx9Scene();
 };
 
+
+}
 #endif /*GGAFDX9SCENE_H_*/

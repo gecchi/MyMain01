@@ -1,5 +1,7 @@
 #ifndef GGAFDX9SE_H_
 #define GGAFDX9SE_H_
+namespace GgafDx9Core {
+
 
 // 本プログラムは、<BR>
 // 「越後屋Cyber」 http://www.e-cyber.org/ <BR>
@@ -33,4 +35,6 @@ public:
 	virtual ~GgafDx9Se();
 };
 
+
+}
 #endif /*GGAFDX9SE_H_*/

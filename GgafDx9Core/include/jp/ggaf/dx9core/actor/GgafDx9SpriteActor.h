@@ -1,5 +1,6 @@
 #ifndef GGAFDX9SPRITEACTORD_H_
 #define GGAFDX9SPRITEACTORD_H_
+namespace GgafDx9Core {
 
 #define GGAF_EVENT_NOLOOP_ANIMATION_FINISHED 201
 enum GgafDx9AnimationMethod {
@@ -112,4 +113,5 @@ public:
 };
 
 
+}
 #endif /*GGAFDX9SPRITEACTORD_H_*/

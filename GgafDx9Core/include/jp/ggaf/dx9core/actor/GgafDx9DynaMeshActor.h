@@ -1,5 +1,6 @@
 #ifndef GGAFDX9DYNAMESHACTOR_H_
 #define GGAFDX9DYNAMESHACTOR_H_
+namespace GgafDx9Core {
 
 
 class GgafDx9DynaMeshActor : public GgafDx9UntransformedActor {
@@ -30,4 +31,6 @@ public:
 	virtual ~GgafDx9DynaMeshActor();		//デストラクタ
 };
 
+
+}
 #endif /*GGAFDX9DYNAMESHACTOR_H_*/

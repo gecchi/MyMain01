@@ -1,5 +1,7 @@
 #ifndef GGAFDX9MESHMODEL_H_
 #define GGAFDX9MESHMODEL_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -49,4 +51,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9MESHMODEL_H_*/

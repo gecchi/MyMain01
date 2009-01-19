@@ -1,5 +1,7 @@
 #ifndef GGAFDX9MODELMANAGER_H_
 #define GGAFDX9MODELMANAGER_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9ModelManager {
 
@@ -128,4 +130,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9MODELMANAGER_H_*/

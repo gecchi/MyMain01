@@ -1,8 +1,6 @@
 #ifndef GGAFDX9COMMONHEADER_H_
 #define GGAFDX9COMMONHEADER_H_
-
 #include "GgafCommonHeader.h"
-
 
 
 #define DIRECTINPUT_VERSION 0x0800
@@ -71,10 +69,11 @@
 //#include "jp/ggaf/dx9core/sound/wavedecorder.h"
 //#include "jp/ggaf/dx9core/sound/c3dsound.h"
 
-namespace GgafDx9Core {
 
 class CmRandomNumberGenerator;
 
+
+namespace GgafDx9Core {
 class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;
@@ -88,7 +87,6 @@ class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
 class GgafDx9TransformedActor;
-
 class GgafDx9CameraActor;
 class GgafDx9PlateActor;
 class GgafDx9Model;
@@ -104,14 +102,13 @@ class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
 class GgafDx9RectUV;
-
-
-class CWaveDecorder;
 class GgafDx9Sound;
 class GgafDx9Se;
 class GgafDx9Bgm;
 class GgafDx9SeManager;
 class GgafDx9BgmManager;
+class CWaveDecorder;
+}
 
 //class DixComPtr;
 //class DixSmartPtr;
@@ -176,6 +173,5 @@ class GgafDx9BgmManager;
 #include "jp/ggaf/dx9core/sound/GgafDx9SeManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9BgmManager.h"
 
-}
 
 #endif /*GGAFDX9COMMONHEADER_H_*/

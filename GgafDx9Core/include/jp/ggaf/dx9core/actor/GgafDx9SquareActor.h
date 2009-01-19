@@ -1,5 +1,6 @@
 #ifndef GGAFDX9SQUAREACTORD_H_
 #define GGAFDX9SQUAREACTORD_H_
+namespace GgafDx9Core {
 
 
 class GgafDx9SquareActor : public GgafDx9UntransformedActor {
@@ -19,10 +20,8 @@ public:
 
 	virtual ~GgafDx9SquareActor();		//デストラクタ
 
-
-
-
 };
 
 
+}
 #endif /*GGAFDX9SQUAREACTORD_H_*/

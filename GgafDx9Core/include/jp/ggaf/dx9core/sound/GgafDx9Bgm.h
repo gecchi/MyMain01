@@ -1,5 +1,7 @@
 #ifndef GGAFDX9BGM_H_
 #define GGAFDX9BGM_H_
+namespace GgafDx9Core {
+
 
 // 本プログラムは、<BR>
 // 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
@@ -47,4 +49,6 @@ public:
 	virtual ~GgafDx9Bgm();
 };
 
+
+}
 #endif /*GGAFDX9BGM_H_*/

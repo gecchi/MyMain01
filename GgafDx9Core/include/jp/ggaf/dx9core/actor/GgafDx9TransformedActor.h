@@ -1,5 +1,7 @@
 #ifndef GGAFDX9TRANSFORMEDACTOR_H_
 #define GGAFDX9TRANSFORMEDACTOR_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9TransformedActor : public GgafDx9BaseActor {
 
@@ -32,8 +34,8 @@ public:
 
 	virtual ~GgafDx9TransformedActor();		//デストラクタ
 
-
 };
 
 
+}
 #endif /*GGAFDX9TRANSFORMEDACTOR_H_*/

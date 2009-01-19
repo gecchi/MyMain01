@@ -1,5 +1,6 @@
 #ifndef GGAFDX9CUBEACTORD_H_
 #define GGAFDX9CUBEACTORD_H_
+namespace GgafDx9Core {
 
 
 class GgafDx9CubeActor : public GgafDx9MeshActor {
@@ -16,4 +17,6 @@ public:
 	virtual ~GgafDx9CubeActor();		//デストラクタ
 };
 
+
+}
 #endif /*GGAFDX9CUBEACTORD_H_*/

@@ -1,5 +1,6 @@
 #ifndef GGAFDX9PLATEACTORD_H_
 #define GGAFDX9PLATEACTORD_H_
+namespace GgafDx9Core {
 
 
 class GgafDx9PlateActor : public GgafDx9TransformedActor {
@@ -62,4 +63,6 @@ public:
 
 };
 
+
+}
 #endif /*GGAFDX9PLATEACTORD_H_*/

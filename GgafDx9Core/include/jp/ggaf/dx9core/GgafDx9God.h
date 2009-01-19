@@ -1,5 +1,7 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
+namespace GgafDx9Core {
+
 
 class GgafDx9God : public GgafCore::GgafGod {
 
@@ -96,5 +98,5 @@ public:
 };
 
 
-
+}
 #endif /*GGAFDX9GOD_H_*/
