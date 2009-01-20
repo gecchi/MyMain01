@@ -90,7 +90,7 @@ public:
 	 * コンストラクタ .
 	 * @param prm_name アクターの名前
 	 */
-	GgafActor(string prm_name);
+	GgafActor(std::string prm_name);
 
 	/**
 	 * デストラクタ .
@@ -182,7 +182,7 @@ public:
 	/**
 	 * デバッグ用：dump()から使用される<BR>
 	 */
-	virtual void dump(string prm_parent);
+	virtual void dump(std::string prm_parent);
 
 };
 

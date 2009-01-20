@@ -17,7 +17,7 @@ class GgafMainScene : public GgafScene {
 
 public:
 
-	GgafMainScene(string prm_name);
+	GgafMainScene(std::string prm_name);
 
 	virtual ~GgafMainScene();
 

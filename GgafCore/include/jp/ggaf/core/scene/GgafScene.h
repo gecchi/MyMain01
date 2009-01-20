@@ -76,7 +76,7 @@ public:
 	 * コンストラクタ .
 	 * 引数： prm_name シーン名<BR>
 	 */
-	GgafScene(string prm_name);
+	GgafScene(std::string prm_name);
 
 	/**
 	 * デストラクタ .
@@ -230,13 +230,13 @@ public:
 	virtual GgafLordActor* getLordActor();
 
 	/**
-	 * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstring比較なのでやや遅い。次のメソッドを使う方が良いだー).
+	 * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
 	 * 自ツリーシーン全てに対して、各シーンに所属する管理者アクターのサブアクターである GgafHeadActor 全てに対して<BR>
 	 * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
 	 * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
 	 * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
 	 */
-	//virtual void executeBumpChkHeadActors(string prm_actor_kind_name01, string prm_actor_kind_name02);
+	//virtual void executeBumpChkHeadActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
 
 
 	/**
@@ -265,7 +265,7 @@ public:
 	/**
 	 * デバッグ用：dump()から使用される .
 	 */
-	virtual void dump(string prm_parent);
+	virtual void dump(std::string prm_parent);
 };
 
 

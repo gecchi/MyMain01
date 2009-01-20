@@ -73,11 +73,11 @@ protected:
 public:
 
 	/** ID */
-	string _id;
+	std::string _id;
 	/** ノード名 */
-	string _name;
+	std::string _name;
 	/** クラス名 */
-	string _class_name;
+	std::string _class_name;
 
 	/** 親ノード */
 	T* _pParent;
@@ -99,7 +99,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafNode(string prm_name);
+	GgafNode(std::string prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -115,19 +115,19 @@ public:
 	 * ノード名取得 .
 	 * @return ノード名称
 	 */
-	virtual string getName();
+	virtual std::string getName();
 
 	/**
 	 * クラス名取得 .
 	 * @return クラス名称
 	 */
-	virtual string getClassName();
+	virtual std::string getClassName();
 
 
 	/**
 	 * ノード名問い合わせ
 	 */
-//	virtual bool isNamed(string prm_name);
+//	virtual bool isNamed(std::string prm_name);
 
 
 	/**
@@ -207,7 +207,7 @@ public:
 	 * @param	prm_parent_name	親ノード名
 	 * @return	T*	親ノード
 	 */
-	virtual T* getParent(string prm_parent_name);
+	virtual T* getParent(std::string prm_parent_name);
 
 	/**
 	 * 引数ノードを子ノードとして追加する .
@@ -237,7 +237,7 @@ public:
 	 * @param	prm_sub_actor_name	子ノード名
 	 * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
 	 */
-	virtual T* getSub(string prm_sub_actor_name);
+	virtual T* getSub(std::string prm_sub_actor_name);
 
 	/**
 	 * 子ノードのグループの先頭ノードを取得する .
@@ -251,7 +251,7 @@ public:
 	 * @param	prm_sub_actor_name	存在チェックする子ノード名
 	 * @return	bool true:存在する／false:存在しない
 	 */
-	virtual bool hasSub(string prm_sub_actor_name);
+	virtual bool hasSub(std::string prm_sub_actor_name);
 
 	/**
 	 * 自ノードが先頭ノードか調べる .
@@ -276,7 +276,7 @@ public:
  */
 
 template<class T>
-GgafNode<T>::GgafNode(string prm_name) : GgafObject() ,
+GgafNode<T>::GgafNode(std::string prm_name) : GgafObject() ,
 _name("NOT_OBJECT_YET"),
 _pParent(NULL),
 _pSubFirst(NULL),
@@ -407,7 +407,7 @@ T* GgafNode<T>::getParent() {
 
 
 template<class T>
-T* GgafNode<T>::getParent(string prm_parent_name) {
+T* GgafNode<T>::getParent(std::string prm_parent_name) {
 	_pNodeTemp = (T*)this;
 	while(true) {
 		_pNodeTemp = _pNodeTemp->_pParent;
@@ -421,7 +421,7 @@ T* GgafNode<T>::getParent(string prm_parent_name) {
 }
 
 template<class T>
-T* GgafNode<T>::getSub(string prm_sub_actor_name) {
+T* GgafNode<T>::getSub(std::string prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
 		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! _pSubFirstがNULLです。");
 	}
@@ -446,7 +446,7 @@ T* GgafNode<T>::getSubFirst() {
 
 
 template<class T>
-bool GgafNode<T>::hasSub(string prm_sub_actor_name) {
+bool GgafNode<T>::hasSub(std::string prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
 		return false;
 	} else {
@@ -493,18 +493,18 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
 
 
 template<class T>
-string GgafNode<T>::getName() {
+std::string GgafNode<T>::getName() {
 	return _name;
 }
 
 template<class T>
-string GgafNode<T>::getClassName() {
+std::string GgafNode<T>::getClassName() {
 	return _class_name;
 }
 /*
 template<class T>
-bool GgafNode<T>::isNamed(string prm_name) {
-	string::size_type iLen = prm_name.length();
+bool GgafNode<T>::isNamed(std::string prm_name) {
+	std::string::size_type iLen = prm_name.length();
 	if (prm_name.rfind('*') == iLen-1) {}
 
 

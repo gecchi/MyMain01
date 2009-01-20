@@ -106,7 +106,7 @@ public:
      * @param   prm_kind    種別("*"による省略可能)
      * @param   prm_pActor   登録するアクター
 	 */
-//    virtual GgafHeadActor* getHeadActor(string prm_kind);
+//    virtual GgafHeadActor* getHeadActor(std::string prm_kind);
 
 
     /**

@@ -9,10 +9,10 @@ public:
 
 	static DWORD getSystemTime();
 
-	static char* getFileText(string prm_filename);
+	static char* getFileText(std::string prm_filename);
 
-	static string itos(int prm_n) {
-		ostringstream oss;
+	static std::string itos(int prm_n) {
+		std::ostringstream oss;
     	oss << prm_n;
 	    return oss.str();
     }

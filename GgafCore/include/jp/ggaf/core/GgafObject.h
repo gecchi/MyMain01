@@ -14,7 +14,7 @@ public:
 	//int _iObjectNo;
 
 	GgafObject();
-	virtual string toString();
+	virtual std::string toString();
 	virtual ~GgafObject();
 };
 

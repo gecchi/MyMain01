@@ -6,9 +6,9 @@ namespace GgafCore {
 class GgafException : public GgafObject {
 
 public:
-	string _message;
-	GgafException(string prm_message);
-	virtual string getMsg();
+	std::string _message;
+	GgafException(std::string prm_message);
+	virtual std::string getMsg();
 	virtual ~GgafException();
 };
 

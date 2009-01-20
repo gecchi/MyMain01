@@ -1,5 +1,8 @@
 #ifndef GGAFCOMMONHEADER_H_
 #define GGAFCOMMONHEADER_H_
+#ifndef _MSC_VER
+#define _WIN32_IE 0x0300
+#endif
 
 #define _HAS_ITERATOR_DEBUGGING 0
 
@@ -73,12 +76,7 @@
 #define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafCore::GgafLogger::write(ss.str());  (POINTER)=NULL; }  }
 
 
-
-using namespace std;
-
 #define MAX_HEADACTOR_PER_SCENE 16
-
-
 
 typedef unsigned int actorkind;
 
@@ -125,7 +123,6 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/GgafNode.hpp"
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/GgafLinkedListRing.hpp"
-#include "jp/ggaf/core/util/basic_symbol.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
 #include "jp/ggaf/core/scene/GgafGarbageRootScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"

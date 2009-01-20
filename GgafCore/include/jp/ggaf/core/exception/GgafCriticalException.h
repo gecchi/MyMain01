@@ -15,7 +15,7 @@ namespace GgafCore {
 
 class GgafCriticalException : public GgafCore::GgafException {
 public:
-	GgafCriticalException(string prm_message);
+	GgafCriticalException(std::string prm_message);
 	virtual ~GgafCriticalException();
 };
 
