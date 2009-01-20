@@ -9,7 +9,7 @@ namespace GgafCore {
  * GgafNodeに、様々な状態管理（フラグ管理）を追加するクラス。
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 template<class T>
 class GgafElement : public GgafNode<T> {

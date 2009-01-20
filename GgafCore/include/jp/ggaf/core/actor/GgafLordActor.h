@@ -12,7 +12,7 @@ namespace GgafCore {
  * ヘッドアクター(GgafHeadActor)の解説もあわせて参照して下さい。
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafLordActor : public GgafActor {
 public:

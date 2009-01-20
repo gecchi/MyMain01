@@ -9,7 +9,7 @@ namespace GgafCore {
  * ƒRƒR‚É“o˜^‚·‚é‚ÆAˆ—‚Ì—]—T‚Ì‚ ‚é‚Æ‚«‚ÉHê‚ª‚¿‚Ñ‚¿‚Ñ DELETE ‚µ‚Ä‚ä‚«‚Ü‚·<BR>
  * @version 1.00
  * @since 2008/12/16
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafGarbageBox : public GgafObject {
 

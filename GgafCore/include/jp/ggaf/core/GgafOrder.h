@@ -9,7 +9,7 @@ namespace GgafCore {
  * また注文オブジェクト同士で連結リストを作成でき、そのリストは工場(GgafFactory)が操作することになります。<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafOrder : public GgafObject {
 	friend class GgafGod;

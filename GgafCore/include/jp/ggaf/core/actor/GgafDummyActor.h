@@ -8,7 +8,7 @@ namespace GgafCore {
  * 団体行動を採るときに、親アクターにすると便利かもしれません。<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafDummyActor : public GgafMainActor {
 

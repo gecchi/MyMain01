@@ -11,7 +11,7 @@ namespace GgafCore {
  * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafActor : public GgafElement<GgafActor> {
 

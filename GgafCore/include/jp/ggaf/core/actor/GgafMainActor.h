@@ -8,7 +8,7 @@ namespace GgafCore {
  * GgafCoreライブラリの利用者は、新たにアクタークラスを作る場合本クラスを継承してアクタークラスを作ることにする。<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafMainActor : public GgafActor {
 

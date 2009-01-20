@@ -9,7 +9,7 @@ namespace GgafCore {
  * ­‚È‚­‚Æ‚à‚P‚Â‚Í¢ŠE‚ğnew‚µ‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñB<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafWorld : public GgafMainScene {
     friend class GgafGod;

@@ -27,7 +27,7 @@ namespace GgafCore {
  * </PRE>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafHeadActor : public GgafActor {
 

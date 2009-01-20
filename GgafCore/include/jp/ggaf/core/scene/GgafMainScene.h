@@ -8,7 +8,7 @@ namespace GgafCore {
  * GgafCoreライブラリの利用者は本クラスを継承し（てシーン）クラスを作る。<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 
 class GgafMainScene : public GgafScene {

@@ -17,7 +17,7 @@ namespace GgafCore {
  * <BR>
  * @version 1.00
  * @since 2008/12/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 
 template<class T>

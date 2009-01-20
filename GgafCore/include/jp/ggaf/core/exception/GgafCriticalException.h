@@ -8,7 +8,7 @@ namespace GgafCore {
  * GgafCoreライブラリの利用者（私だけ）は本クラスをキャッチしてプログラムをストップして下さい。
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 #define throw_GgafCriticalException(X) {std::stringstream ss; ss << X; throw GgafCore::GgafCriticalException(ss.str()); }
 

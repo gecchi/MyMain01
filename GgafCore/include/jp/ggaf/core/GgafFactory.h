@@ -12,7 +12,7 @@ namespace GgafCore {
  * つまり、昔よくあった「ウッ」と止まるのを無くしたかったため生まれた(ﾅﾝﾉｺｯﾁｬ)<BR>
  * @version 1.00
  * @since 2008/06/20
- * @auther Masatoshi Tsuge
+ * @author Masatoshi Tsuge
  */
 class GgafFactory {
 	friend class GgafGod;
