@@ -5,9 +5,9 @@ namespace MyStg2nd {
 
 class DispFpsActor : public GgafDx9LibStg::FontPlateActor {
 	char _aBuf[80];
-	string _strFps;
+	std::string _strFps;
 public:
-	DispFpsActor(string prm_name, string prm_model);
+	DispFpsActor(std::string prm_name, std::string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

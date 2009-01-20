@@ -10,7 +10,7 @@ public:
 	GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
 
-	MyShot001(string prm_name, string prm_model);
+	MyShot001(std::string prm_name, std::string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

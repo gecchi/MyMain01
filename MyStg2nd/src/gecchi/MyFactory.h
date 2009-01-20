@@ -8,15 +8,15 @@ public:
 
 	template <class X>
 	static X* createActor(void* pArg1, void* pArg2) {
-		string name = (char*)pArg1;
-		string model = (char*)pArg2;
+		std::string name = (char*)pArg1;
+		std::string model = (char*)pArg2;
 		X* p = NEW X(name, model);
 		return p;
 	}
 
 	template <class X>
 	static X* createScene(void* pArg1, void* pArg2) {
-		string name = (char*)pArg1;
+		std::string name = (char*)pArg1;
 		X* p = NEW X(name);
 		return p;
 	}
@@ -50,10 +50,10 @@ public:
 
 };
 
-#define orderActorFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(MODEL))
-#define obtainActorFactory(ID) MyFactory::obtainActor(ID)
-#define orderSceneFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL))
-#define obtainSceneFactory(ID) MyFactory::obtainScene(ID)
+#define orderActorToFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(MODEL))
+#define obtainActorFromFactory(ID) MyFactory::obtainActor(ID)
+#define orderSceneToFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL))
+#define obtainSceneFromFactory(ID) MyFactory::obtainScene(ID)
 
 
 }

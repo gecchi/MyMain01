@@ -8,7 +8,7 @@ class EnemyVesta : public DefaultMeshEnemyActor {
 public:
 	int _iMovePatternNo;
 
-	EnemyVesta(string prm_name, string prm_model);
+	EnemyVesta(std::string prm_name, std::string prm_model);
 
 	void initialize();
 

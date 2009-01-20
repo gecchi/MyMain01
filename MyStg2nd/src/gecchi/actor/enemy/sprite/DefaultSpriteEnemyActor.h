@@ -6,7 +6,7 @@ namespace MyStg2nd {
 class DefaultSpriteEnemyActor : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
-	DefaultSpriteEnemyActor(string prm_name, string prm_model);
+	DefaultSpriteEnemyActor(std::string prm_name, std::string prm_model);
 
 	virtual ~DefaultSpriteEnemyActor();
 };

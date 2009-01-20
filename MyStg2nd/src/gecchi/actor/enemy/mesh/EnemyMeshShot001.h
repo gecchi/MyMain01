@@ -34,7 +34,7 @@ public:
 	//<--- 本Actorのカスタムプロパティ
 
 public:
-	EnemyMeshShot001(string prm_name, string prm_model);
+	EnemyMeshShot001(std::string prm_name, std::string prm_model);
 
 	/**
 	 * ＜OverRide です＞

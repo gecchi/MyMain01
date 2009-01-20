@@ -11,4 +11,4 @@ extern "C" {
 #ifdef  __cplusplus
 };
 #endif
-#include "resource.h"
+

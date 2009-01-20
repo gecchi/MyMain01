@@ -11,7 +11,7 @@ class FormationVesta001 : public GgafDx9LibStg::FormationActor {
 
 	EnemyVesta* _pEnemyVesta[NUM_VESTA_FORMATION001];
 public:
-	FormationVesta001(string prm_name, string prm_model);
+	FormationVesta001(std::string prm_name, std::string prm_model);
 
 	virtual void initialize();
 

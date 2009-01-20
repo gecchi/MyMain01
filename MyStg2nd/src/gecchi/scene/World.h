@@ -13,7 +13,7 @@ class World : public GgafDx9LibStg::DefaultWorld {
 
 
 public:
-	World(string prm_name);
+	World(std::string prm_name);
 
 	/**
 	 * ‰Šúˆ—

@@ -54,7 +54,7 @@ public:
 	GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
 
-	MyLaserChip2(string prm_name, string prm_model);
+	MyLaserChip2(std::string prm_name, std::string prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

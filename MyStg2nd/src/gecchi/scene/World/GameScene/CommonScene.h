@@ -11,7 +11,7 @@ public:
 	GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
 	GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
 
-	CommonScene(string prm_name);
+	CommonScene(std::string prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

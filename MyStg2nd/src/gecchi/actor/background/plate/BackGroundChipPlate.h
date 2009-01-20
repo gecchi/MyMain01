@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class BackGroundChipPlate : public GgafDx9LibStg::DefaultPlateActor {
 
 public:
-	BackGroundChipPlate(string prm_name, string prm_model);
+	BackGroundChipPlate(std::string prm_name, std::string prm_model);
 
 	virtual ~BackGroundChipPlate();
 };

@@ -6,7 +6,7 @@ class Stage04Scene : public GgafDx9LibStg::DefaultScene {
 
 public:
 
-	Stage04Scene(string prm_name);
+	Stage04Scene(std::string prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

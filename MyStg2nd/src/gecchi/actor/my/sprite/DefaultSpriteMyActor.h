@@ -6,7 +6,7 @@ namespace MyStg2nd {
 class DefaultSpriteMyActor : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
-	DefaultSpriteMyActor(string prm_name, string prm_model);
+	DefaultSpriteMyActor(std::string prm_name, std::string prm_model);
 
 	virtual ~DefaultSpriteMyActor();
 };

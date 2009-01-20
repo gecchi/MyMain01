@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class MyLaserChipRotationActor : public RotationActor {
 
 public:
-	MyLaserChipRotationActor(string prm_name);
+	MyLaserChipRotationActor(std::string prm_name);
 
 	virtual void processBehavior() {
 		static GgafMainActor* pActor;

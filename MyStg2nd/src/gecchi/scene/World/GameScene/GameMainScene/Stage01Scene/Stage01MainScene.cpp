@@ -1,4 +1,5 @@
 #include "stdafx.h"
+using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
@@ -14,16 +15,16 @@ Stage01MainScene::Stage01MainScene(string prm_name) : GgafDx9LibStg::DefaultScen
 	for (int i = 0; i < 11; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
-	orderActorFactory("ID1096101", FormationCeres002, "F_Ceres002_1", "Ceres");
-	orderActorFactory("ID1096601", FormationCeres002, "F_Ceres002_2", "Ceres");
-	orderActorFactory("ID10961101", FormationCeres002, "F_Ceres002_3", "Ceres");
-	orderActorFactory("ID10961601", FormationCeres002, "F_Ceres002_4", "Ceres");
-	orderActorFactory("ID10962101", FormationCeres002, "F_Ceres002_5", "Ceres");
-	orderActorFactory("ID10962601", FormationCeres002, "F_Ceres002_6", "Ceres");
-	orderActorFactory("ID10963101", FormationCeres002, "F_Ceres002_7", "Ceres");
-	orderActorFactory("ID10963601", FormationCeres002, "F_Ceres002_8", "Ceres");
-	orderActorFactory("ID10964101", FormationCeres002, "F_Ceres002_9", "Ceres");
-	orderActorFactory("ID10964601", FormationCeres002, "F_Ceres002_10", "Ceres");
+	orderActorToFactory("ID1096101", FormationCeres002, "F_Ceres002_1", "Ceres");
+	orderActorToFactory("ID1096601", FormationCeres002, "F_Ceres002_2", "Ceres");
+	orderActorToFactory("ID10961101", FormationCeres002, "F_Ceres002_3", "Ceres");
+	orderActorToFactory("ID10961601", FormationCeres002, "F_Ceres002_4", "Ceres");
+	orderActorToFactory("ID10962101", FormationCeres002, "F_Ceres002_5", "Ceres");
+	orderActorToFactory("ID10962601", FormationCeres002, "F_Ceres002_6", "Ceres");
+	orderActorToFactory("ID10963101", FormationCeres002, "F_Ceres002_7", "Ceres");
+	orderActorToFactory("ID10963601", FormationCeres002, "F_Ceres002_8", "Ceres");
+	orderActorToFactory("ID10964101", FormationCeres002, "F_Ceres002_9", "Ceres");
+	orderActorToFactory("ID10964601", FormationCeres002, "F_Ceres002_10", "Ceres");
 	// gen01 end
 
 	stopImmediately(); //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
@@ -40,34 +41,34 @@ void Stage01MainScene::processBehavior() {
 			case 1:
 				break;
 			case 101:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID1096101"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID1096101"));
 				break;
 			case 601:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID1096601"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID1096601"));
 				break;
 			case 1101:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10961101"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10961101"));
 				break;
 			case 1601:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10961601"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10961601"));
 				break;
 			case 2101:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10962101"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10962101"));
 				break;
 			case 2601:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10962601"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10962601"));
 				break;
 			case 3101:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10963101"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10963101"));
 				break;
 			case 3601:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10963601"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10963601"));
 				break;
 			case 4101:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10964101"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10964101"));
 				break;
 			case 4601:
-				getLordActor()->accept(KIND_ENEMY, obtainActorFactory("ID10964601"));
+				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory("ID10964601"));
 				break;
 			default :
 				break;

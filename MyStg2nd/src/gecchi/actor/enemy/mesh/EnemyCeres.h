@@ -28,7 +28,7 @@ public:
 	 * @param prm_name オブジェクト名
 	 * @param prm_model モデル名
 	 */
-	EnemyCeres(string prm_name, string prm_model);
+	EnemyCeres(std::string prm_name, std::string prm_model);
 
 	/**
 	 * コンストラクタ
@@ -37,7 +37,7 @@ public:
 	 * @param prm_pRotEnemyMeshShots001 発射弾ストックのローテーションアクター
 	 * @return
 	 */
-	EnemyCeres(string prm_name, string prm_model, GgafDx9LibStg::RotationActor* prm_pRotEnemyMeshShots001);
+	EnemyCeres(std::string prm_name, std::string prm_model, GgafDx9LibStg::RotationActor* prm_pRotEnemyMeshShots001);
 
 	void initialize();
 

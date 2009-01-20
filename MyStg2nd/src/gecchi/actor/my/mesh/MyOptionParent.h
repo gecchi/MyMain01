@@ -8,7 +8,7 @@ public:
 
 	/** 対象アクター */
 
-	MyOptionParent(string prm_name, string prm_model);
+	MyOptionParent(std::string prm_name, std::string prm_model);
 
 	/**
 	 * ＜OverRide です＞

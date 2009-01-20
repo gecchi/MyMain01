@@ -1,19 +1,21 @@
 // MySTG2nd.cpp : アプリケーションのエントリ ポイントを定義します。
 //
 
+
 #include "stdafx.h"
 #include "MySTG2nd.h"
+#include "resource.h"
 
-
+using namespace std;
 #define MAX_LOADSTRING 100
-#define WINDOW_TITLE "MyStg2nd"
-#define WINDOW_CLASS "mogera"
+//#define WINDOW_TITLE "MyStg2nd"
+//#define WINDOW_CLASS "mogera"
 
 
 // グローバル変数:
 HINSTANCE hInst;								// 現在のインターフェイス
-//TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
-//TCHAR szWindowClass[MAX_LOADSTRING];			// メイン ウィンドウ クラス名
+TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
+TCHAR szWindowClass[MAX_LOADSTRING];			// メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
 ATOM				MyRegisterClass(HINSTANCE hInstance);
@@ -49,13 +51,13 @@ int main(int argc,char *argv[]) {
 	/* ここからが、本来の処理 */
 	//wc.lpszClassName = "MySTG2nd";
 	/* 二重起動防止 (バグあり...)*/
-	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
-		if (IsIconic(hWnd)) {
-			ShowWindow(hWnd, SW_RESTORE);
-		}
-		SetForegroundWindow(hWnd);
-		return 0;
-	}
+//	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
+//		if (IsIconic(hWnd)) {
+//			ShowWindow(hWnd, SW_RESTORE);
+//		}
+//		SetForegroundWindow(hWnd);
+//		return 0;
+//	}
 
 	//本来のWinMainへ
 	WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
@@ -77,11 +79,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //	HACCEL hAccelTable;
 
 	// グローバル文字列を初期化しています。
-	//LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-	//LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
-
-//	strcpy(szTitle,"MyStg2nd");        //無理やり
-//	strcpy(szWindowClass,"MYSTG2ND");  //ですよ！
+//	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+//	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
+	//LoadStringができん！
+	strcpy(szTitle,"MyStg2nd");        //無理やり
+	strcpy(szWindowClass,"MYSTG2ND");  //ですよ！
 
 
 	//プロパティファイル読込み
@@ -99,21 +101,23 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 	HWND hWnd;
 	hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 	hWnd = CreateWindow(
-		WINDOW_CLASS,			// ウインドウクラス名
-		WINDOW_TITLE,				// ウインドウのタイトル名
-		WS_OVERLAPPEDWINDOW,	// ウインドウスタイル
-		CW_USEDEFAULT,			// ウィンドウの表示Ｘ座標
-		CW_USEDEFAULT,			// ウィンドウの表示Ｙ座標
-		GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH),		// ウィンドウの幅
-		GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT),	// ウィンドウの高さ
-		NULL,					// 親ウインドウ
-		NULL,					// ウインドウメニュー
-		hInstance,				// インスタンスハンドル
-		NULL					// WM_CREATE情報
-	);
+				szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
+				szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
+				WS_OVERLAPPEDWINDOW,	// ウインドウスタイル
+				CW_USEDEFAULT,			// ウィンドウの表示Ｘ座標
+				CW_USEDEFAULT,			// ウィンドウの表示Ｙ座標
+				GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH),		// ウィンドウの幅
+				GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT),	// ウィンドウの高さ
+				NULL,					// 親ウインドウ
+				NULL,					// ウインドウメニュー
+				hInstance,				// インスタンスハンドル
+				NULL					// WM_CREATE情報
+			);
 
 	if (!hWnd) {
-		cout << "CreateWindow" << endl;
+		cout << "can't CreateWindow " << endl;
+		cout << "szWindowClass=" << szWindowClass << endl;
+		cout << "szTitle=" << szTitle << endl;
 		return FALSE;
 	}
 
@@ -162,15 +166,17 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
 		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
 		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
-		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
-		::timeEndPeriod(1);//タイマー精度終了処理
-#ifdef OREDEBUG
-		//メモリーリ－クチェックEND
-		::detectMemoryLeaksEnd(std::cout);
-#endif
 		PostQuitMessage(0);
+
+//		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+//		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+//		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+//		::timeEndPeriod(1);//タイマー精度終了処理
+//#ifdef OREDEBUG
+//		//メモリーリ－クチェックEND
+//		::detectMemoryLeaksEnd(std::cout);
+//#endif
+//		PostQuitMessage(0);
 		return EXIT_SUCCESS;
 	}
 
@@ -209,7 +215,7 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
 	wcex.hbrBackground	= CreateSolidBrush(RGB(30, 30, 30) ); //0~255
 	wcex.lpszMenuName	= NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
-	wcex.lpszClassName	= WINDOW_CLASS;
+	wcex.lpszClassName	= szWindowClass;
 	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
 	return RegisterClassEx(&wcex);
