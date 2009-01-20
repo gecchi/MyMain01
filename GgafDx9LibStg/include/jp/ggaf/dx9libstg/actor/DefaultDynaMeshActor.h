@@ -2,7 +2,10 @@
 #define DEFAULTDYNAMESHACTOR_H_
 namespace GgafDx9LibStg {
 
-
+/**
+ * メッシュアクターの具象クラス.
+ * GgafDx9Core::GgafDx9DynaMeshActor を空実装した具象アクターです。
+ */
 class DefaultDynaMeshActor : public GgafDx9Core::GgafDx9DynaMeshActor {
 
 public:

@@ -2,6 +2,9 @@
 #define FONTSPRITESTRING_H_
 namespace GgafDx9LibStg {
 
+/**
+ * FontSpriteActor•\Ž¦ƒNƒ‰ƒX
+ */
 class FontSpriteString : public GgafCore::GgafObject {
 	std::string _font_modelname;
 	int _iStrLen;

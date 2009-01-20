@@ -2,6 +2,10 @@
 #define DEFAULTSCENE_H_
 namespace GgafDx9LibStg {
 
+/**
+ * シーンの具象クラス
+ * GgafDx9Core::GgafDx9Scene を継承し、空実装した具象シーンです。
+ */
 class DefaultScene : public GgafDx9Core::GgafDx9Scene
 {
 public:

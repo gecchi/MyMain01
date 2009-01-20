@@ -2,7 +2,10 @@
 #define FONTSPRITEACTOR_H_
 namespace GgafDx9LibStg {
 
-
+/**
+ * FontSpriteString 用スプライトクラス.
+ * FontSpriteString が内部で利用するクラスです。<BR>
+ */
 class FontSpriteActor : public DefaultSpriteActor {
 
 public:

@@ -3,7 +3,9 @@
 namespace GgafDx9LibStg {
 
 
-
+/**
+ * 座標コンテナ連結リストクラス
+ */
 class GeometryChain {
 public:
 

@@ -2,7 +2,10 @@
 #define DEFAULTPLATEACTOR_H_
 namespace GgafDx9LibStg {
 
-
+/**
+ * 座標変換済みスプライトアクターの具象クラス.
+ * GgafDx9Core::GgafDx9PlateActor を空実装した具象アクターです。
+ */
 class DefaultPlateActor : public GgafDx9Core::GgafDx9PlateActor {
 
 public:

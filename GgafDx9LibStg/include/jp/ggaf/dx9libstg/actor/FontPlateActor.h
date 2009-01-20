@@ -2,7 +2,10 @@
 #define FONTPLATEACTOR_H_
 namespace GgafDx9LibStg {
 
-
+/**
+ * 文字表示クラス(座標変換済み).
+ * DefaultPlateActor を継承し、文字セットテクスチャーから文字表示機能を追加したアクターです。
+ */
 class FontPlateActor : public DefaultPlateActor {
 	/** 文字数 */
 	std::string _draw_string;

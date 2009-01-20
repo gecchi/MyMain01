@@ -2,7 +2,10 @@
 #define DEFAULTSPRITEACTOR_H_
 namespace GgafDx9LibStg {
 
-
+/**
+ * スプライトアクターの具象クラス.
+ * GgafDx9Core::GgafDx9SpriteActor を空実装した具象アクターです。
+ */
 class DefaultSpriteActor : public GgafDx9Core::GgafDx9SpriteActor {
 
 public:

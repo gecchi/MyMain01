@@ -2,9 +2,9 @@
 #define STGCHECKER_H_
 namespace GgafDx9LibStg {
 
-
-
-
+/**
+ * チェッククラス.
+ */
 class StgChecker : public GgafDx9Core::GgafDx9GeometryChecker {
 
 protected:

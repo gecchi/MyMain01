@@ -2,6 +2,9 @@
 #define GEOELEMENT_H_
 namespace GgafDx9LibStg {
 
+/**
+ * 座標コンテナ
+ */
 class GeoElement {
 public:
 	int _X;

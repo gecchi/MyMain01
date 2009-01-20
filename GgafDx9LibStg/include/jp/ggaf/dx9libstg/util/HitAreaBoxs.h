@@ -2,6 +2,9 @@
 #define HITAREABOXS_H_
 namespace GgafDx9LibStg {
 
+/**
+ * “–‚½‚è”»’è—ÌˆæƒNƒ‰ƒX
+ */
 class HitAreaBoxs : public GgafCore::GgafObject {
 
 	struct Box {

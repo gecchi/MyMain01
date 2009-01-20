@@ -23,20 +23,9 @@ void DelineateActor::release() {
 
 
 
-void DelineateActor::drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2,  int prm_z2) {
-	_SX = (prm_x2 - prm_x1);
-	_SY = (prm_y2 - prm_y1);
-	_SZ = (prm_z2 - prm_z1);
-	_RZ = 0;
-	_X = prm_x1 + (prm_x2 - prm_x1)/2;
-	_Y = prm_y1 + (prm_y2 - prm_y1)/2;
-	_Z = prm_z1 + (prm_z2 - prm_z1)/2;
-	processDrawMain();
-	GgafGod::_iNumPlayingActor--; //当たり判定表示は表示オブジェクト数にカウントしない
-}
 
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
-	if (prm_pChecker != NULL && prm_pChecker->getHitAreaBoxs() != NULL && prm_pChecker->getTargetActor()->canBump()) {
+	if (prm_pChecker != NULL && prm_pChecker->getHitAreaBoxs() != NULL && prm_pChecker->getTargetActor()->canBump() && prm_pChecker->getTargetActor()->isPlaying()) {
 		GgafDx9UntransformedActor* pActor     = prm_pChecker->getTargetActor();
 		HitAreaBoxs*                 pHitAreaBoxs = prm_pChecker->getHitAreaBoxs();
 
@@ -47,6 +36,7 @@ void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
 		if (iBoxNum > 0) {
 			for (int i = 0; i < iBoxNum; i++) {
 				if (pHitAreaBoxs->isEnable(i)) {
+
 					drawBox(
 						pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
 						pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
@@ -55,6 +45,7 @@ void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
 						pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2,
 						pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2
 					);
+					GgafGod::_iNumPlayingActor--; //当たり判定表示は表示オブジェクト数にカウントしない
 				}
 			}
 		}
