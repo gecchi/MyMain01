@@ -2,7 +2,11 @@
 #define GGAFDX9MESHACTOR_H_
 namespace GgafDx9Core {
 
-
+/**
+ * メッシュアクター.
+ * GgafDx9UntransformedActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * 追加したアクターです<BR>
+ */
 class GgafDx9MeshActor : public GgafDx9UntransformedActor {
 private:
 

@@ -2,7 +2,12 @@
 #define GGAFDX9CAMERAACTOR_H_
 namespace GgafDx9Core {
 
-
+/**
+ * メッシュアクター.
+ * GgafDx9UntransformedActor を継承し、カメラを表したアクターです。<BR>
+ * 本クラスは神(GgafDx9God)と連動ています。<BR>
+ * processDrawPrior メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
+ */
 class GgafDx9CameraActor : public GgafDx9UntransformedActor {
 private:
 

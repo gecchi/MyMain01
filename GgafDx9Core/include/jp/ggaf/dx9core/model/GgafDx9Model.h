@@ -2,7 +2,10 @@
 #define GGAFDX9MODEL_H_
 namespace GgafDx9Core {
 
-
+/**
+ * モデル基底クラス.
+ * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ */
 class GgafDx9Model : public GgafCore::GgafObject {
     friend class GgafDx9ModelManager;
 
@@ -23,11 +26,23 @@ public:
 	 */
 	GgafDx9Model(std::string prm_model_name);
 
+	/**
+	 * モデルを描画します.
+	 * @param prm_pActor_Target 描画するモデルのアクター
+	 * @return HRESULT
+	 */
 	virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target) = 0;
 
+	/**
+	 * モデルを再構築します.
+	 */
 	virtual void restore() = 0;
 
+	/**
+	 * デバイスロスト時コールバック
+	 */
 	virtual void onDeviceLost() = 0;
+
 	/**
 	 * デストラクタ<BR>
 	 * deleteするのはGgafDx9ModelManagerである<BR>

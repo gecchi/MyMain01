@@ -2,7 +2,11 @@
 #define GGAFDX9SQUAREACTORD_H_
 namespace GgafDx9Core {
 
-
+/**
+ * スクエアアクター.
+ * GgafDx9UntransformedActor を継承し、スクエア（四角形）を表示するためのアクターです。<BR>
+ * デバッグ用の当たり判定領域表示などで利用されます。<BR>
+ */
 class GgafDx9SquareActor : public GgafDx9UntransformedActor {
 
 private:

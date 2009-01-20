@@ -2,7 +2,9 @@
 #define GGAFDX9PLATEMODEL_H_
 namespace GgafDx9Core {
 
-
+/**
+ * GgafDx9PlateActor用モデルクラス.
+ */
 class GgafDx9PlateModel : public GgafDx9Model {
     friend class GgafDx9PlateModelManager;
     friend class GgafDx9PlateActor;

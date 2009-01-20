@@ -2,7 +2,9 @@
 #define GGAFDX9MESHMODEL_H_
 namespace GgafDx9Core {
 
-
+/**
+ * GgafDx9Mesh用モデルクラス.
+ */
 class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 

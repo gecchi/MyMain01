@@ -2,7 +2,11 @@
 #define GGAFDX9TRANSFORMEDACTOR_H_
 namespace GgafDx9Core {
 
-
+/**
+ * 変換済み座標のアクター.
+ * 変換済み座標（x座標、y座標、深度）を持った<BR>
+ * アクターです<BR>
+ */
 class GgafDx9TransformedActor : public GgafDx9BaseActor {
 
 private:

@@ -2,7 +2,14 @@
 #define GGAFDX9DYNAMESHACTOR_H_
 namespace GgafDx9Core {
 
-
+/**
+ * メッシュアクター.
+ * GgafDx9UntransformedActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * 追加したアクターです。<BR>
+ * GgafDx9MeshActor との違いは、頂点バッファに直接アクセスをことに考慮して、<BR>
+ * D3DXMESH_DYNAMIC オプションを使用しているところだけです。<BR>
+ * 頂点をロックする場合はGgafDx9MeshActorではなく、こちらを継承してください。<BR>
+ */
 class GgafDx9DynaMeshActor : public GgafDx9UntransformedActor {
 private:
 

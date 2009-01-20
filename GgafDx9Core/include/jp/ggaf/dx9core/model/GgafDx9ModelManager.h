@@ -2,7 +2,11 @@
 #define GGAFDX9MODELMANAGER_H_
 namespace GgafDx9Core {
 
-
+/**
+ * モデルインスタンス管理.
+ * 主に、モデルをリストにより保持し、モデルを要求された時に<BR>
+ * 生成するか、あるいは生成済を返すかを判断します。<BR>
+ */
 class GgafDx9ModelManager {
 
 protected:

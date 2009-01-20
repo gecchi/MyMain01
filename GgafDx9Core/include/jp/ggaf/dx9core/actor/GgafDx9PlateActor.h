@@ -2,7 +2,11 @@
 #define GGAFDX9PLATEACTORD_H_
 namespace GgafDx9Core {
 
-
+/**
+ * 座標変換済みスプライトアクター.
+ * GgafDx9TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 擬似スプライト機能を追加したアクターです<BR>
+ */
 class GgafDx9PlateActor : public GgafDx9TransformedActor {
 private:
 

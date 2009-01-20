@@ -12,7 +12,11 @@ enum GgafDx9AnimationMethod {
 	NOT_ANIMATED
 };
 
-
+/**
+ * スプライトアクター.
+ * GgafDx9UntransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 擬似スプライト機能を追加したアクターです。<BR>
+ */
 class GgafDx9SpriteActor : public GgafDx9UntransformedActor {
 
 private:

@@ -2,7 +2,9 @@
 #define GGAFDX9SPRITEMODEL_H_
 namespace GgafDx9Core {
 
-
+/**
+ * GgafDx9SpriteActor用モデルクラス.
+ */
 class GgafDx9SpriteModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 

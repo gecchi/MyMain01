@@ -5,7 +5,10 @@ namespace GgafDx9Core {
 
 #define MAX_DRAW_DEPTH_LEVEL 1000
 
-
+/**
+ * GgafDx9Core名前空間、世界クラス.
+ * GgafDx9Core名前空間内では、このクラスを世界クラスとします。<BR>
+ */
 class GgafDx9World : public GgafCore::GgafWorld {
 
 public:
