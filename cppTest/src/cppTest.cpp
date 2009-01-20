@@ -110,7 +110,7 @@ int main() {
 
 	MainActor* pActor  = new MainActor(2);
 	BaseActor* pBase = (BaseActor*)pActor;
-	MainActor* pXX = dynamic_cast<BaseActor*>pBase;
+//	MainActor* pXX = dynamic_cast<BaseActor*>pBase;
 	delete pActor;
 
 
