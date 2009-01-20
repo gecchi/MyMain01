@@ -9,7 +9,7 @@ class FormationActor : public GgafDx9Core::GgafDx9UntransformedActor {
 
 public:
 
-	FormationActor(string prm_name);
+	FormationActor(std::string prm_name);
 
 	virtual void initialize() {};
 

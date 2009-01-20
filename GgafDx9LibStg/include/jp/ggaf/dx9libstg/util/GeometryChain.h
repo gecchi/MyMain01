@@ -19,7 +19,7 @@ public:
 		_pFirst = NEW GeoElement(prm_pActor);
 		pWork = _pFirst;
 		pTemp = NULL;
-		for (DWORD i = 0; i < prm_iChainNum-1; i++) {
+		for (int i = 0; i < prm_iChainNum-1; i++) {
 			pTemp = NEW GeoElement(prm_pActor);
 			pWork->_next = pTemp;
 			pWork = pTemp;

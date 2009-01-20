@@ -10,7 +10,7 @@ public:
 	int _iCnt_Event;
 
 
-	DefaultScene(string prm_name);
+	DefaultScene(std::string prm_name);
 
 	virtual void initialize() {
 	};

@@ -6,7 +6,7 @@ class DefaultWorld : public GgafDx9Core::GgafDx9World {
 
 
 public:
-	DefaultWorld(string prm_name);
+	DefaultWorld(std::string prm_name);
 
 	virtual ~DefaultWorld();
 };

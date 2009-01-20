@@ -10,7 +10,7 @@ public:
 
 	StgChecker* _pChecker;
 
-	DefaultSpriteActor(string prm_name, string prm_model);
+	DefaultSpriteActor(std::string prm_name, std::string prm_model);
 
 	virtual void initialize() {};
 

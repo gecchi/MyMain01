@@ -14,7 +14,7 @@ class RotationActor : public GgafCore::GgafDummyActor {
 public:
 	StgChecker* _pChecker;
 
- 	RotationActor(string prm_name);
+ 	RotationActor(std::string prm_name);
 
 	/**
 	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、

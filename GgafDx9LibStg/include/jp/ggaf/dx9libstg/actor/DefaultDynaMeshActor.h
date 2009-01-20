@@ -10,7 +10,7 @@ public:
 
 	StgChecker* _pChecker;
 
-	DefaultDynaMeshActor(string prm_name, string prm_model);
+	DefaultDynaMeshActor(std::string prm_name, std::string prm_model);
 
 
 	virtual void initialize() {};
