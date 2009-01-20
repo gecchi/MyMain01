@@ -22,7 +22,7 @@ public:
 	/** âÊñ Zç¿ïW */
 	float _z;
 
-	GgafDx9TransformedActor(string prm_name);
+	GgafDx9TransformedActor(std::string prm_name);
 
 	virtual GgafDx9TransformedActor* getPrev() {
 		return (GgafDx9TransformedActor*)GgafActor::getPrev();

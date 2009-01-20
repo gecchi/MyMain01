@@ -23,7 +23,7 @@ public:
 	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
 	 * @return	所望のGgafDx9Bgmオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	static GgafDx9Bgm* find(string prm_ogg_name);
+	static GgafDx9Bgm* find(std::string prm_ogg_name);
 
 	/**
 	 * GgafDx9Bgmオブジェクトを取得。<BR>
@@ -32,7 +32,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
 	 */
-	static GgafDx9Bgm* get(string prm_ogg_name);
+	static GgafDx9Bgm* get(std::string prm_ogg_name);
 
 
 	/**

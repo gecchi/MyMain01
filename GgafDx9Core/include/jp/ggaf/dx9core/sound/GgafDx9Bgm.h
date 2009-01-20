@@ -16,13 +16,13 @@ namespace GgafDx9Core {
  */
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
-	string _ogg_name;
+	std::string _ogg_name;
 	GgafDx9Core::GgafDx9Bgm* _pBgm_Next;
 	Dix::PCMPlayer* pPcmPlayer;
 	Dix::sp< Dix::OggVorbisFile > spOggResource;
 	Dix::sp< Dix::OggDecoder > spOggDecoder;
 
-	GgafDx9Bgm(string prm_wave_name);
+	GgafDx9Bgm(std::string prm_wave_name);
 
 	//TODO:
 	//virtual void behave();でフェードインフェードアウトを実装するぞ！

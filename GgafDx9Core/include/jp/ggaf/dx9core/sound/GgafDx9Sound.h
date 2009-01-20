@@ -11,8 +11,8 @@ public:
 	//static CC3DSound* _pC3DSound;
 	static void init();
 	static void release();
-	static GgafDx9Se*  createSe(string prm_wave_name);
-	static GgafDx9Bgm* createBgm(string prm_ogg_name);
+	static GgafDx9Se*  createSe(std::string prm_wave_name);
+	static GgafDx9Bgm* createBgm(std::string prm_ogg_name);
 };
 
 

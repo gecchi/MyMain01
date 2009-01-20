@@ -13,12 +13,12 @@ public:
 	static int*    VIEW_SCREEN_WIDTH;
 	static int*    VIEW_SCREEN_HEIGHT;
 	static bool*   FIXED_VIEW_ASPECT;
-	static string* DIR_MESH_MODEL;
-	static string* DIR_SPRITE_MODEL;
-	static string* DIR_OGG;
-	static string* DIR_WAVE;
+	static std::string* DIR_MESH_MODEL;
+	static std::string* DIR_SPRITE_MODEL;
+	static std::string* DIR_OGG;
+	static std::string* DIR_WAVE;
 
-	static void load(string prm_ini_filename);
+	static void load(std::string prm_ini_filename);
 	static void clean();
 };
 

@@ -39,7 +39,7 @@ public:
 	int _iPatternNo_Active;
 
 
-	GgafDx9PlateActor(string prm_name, string prm_spritemodel_name);
+	GgafDx9PlateActor(std::string prm_name, std::string prm_spritemodel_name);
 
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

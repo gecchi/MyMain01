@@ -16,9 +16,9 @@ namespace GgafDx9Core {
 class GgafDx9CriticalException : public GgafCore::GgafCriticalException {
 public:
 	HRESULT _hr;
-	GgafDx9CriticalException(string prm_message, HRESULT prm_hr);
+	GgafDx9CriticalException(std::string prm_message, HRESULT prm_hr);
 	//オーバーライド
-	virtual string getMsg();
+	virtual std::string getMsg();
 	virtual ~GgafDx9CriticalException();
 };
 

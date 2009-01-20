@@ -24,9 +24,9 @@ class GgafDx9Se : public GgafCore::GgafObject {
 	//CC3DSoundSE* _pSoundSE;
 public:
 	LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
-	string _wave_name;
+	std::string _wave_name;
 	GgafDx9Se* _pSe_Next;
-	GgafDx9Se(string prm_wave_name, int prm_iBufferCount);
+	GgafDx9Se(std::string prm_wave_name, int prm_iBufferCount);
 	int writeBuffer(CWaveDecorder& WaveFile);
 	int restore(void);
 	virtual void play();

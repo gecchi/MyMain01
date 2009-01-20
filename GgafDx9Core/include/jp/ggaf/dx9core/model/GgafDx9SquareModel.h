@@ -43,7 +43,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param prm_squaremodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
-	GgafDx9SquareModel(string prm_squaremodel_name);
+	GgafDx9SquareModel(std::string prm_squaremodel_name);
 
 	/**
 	 * GgafDx9SquareModelオブジェクトの描画<BR>

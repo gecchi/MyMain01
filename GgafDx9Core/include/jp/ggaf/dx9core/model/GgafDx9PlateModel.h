@@ -36,7 +36,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
-	GgafDx9PlateModel(string prm_platemodel_name);
+	GgafDx9PlateModel(std::string prm_platemodel_name);
 
 	/**
 	 * GgafDx9PlateModelオブジェクトの描画<BR>

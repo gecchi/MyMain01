@@ -6,7 +6,7 @@ class GgafDx9BaseActor : public GgafCore::GgafMainActor {
 
 public:
 
-	GgafDx9BaseActor(string prm_name);
+	GgafDx9BaseActor(std::string prm_name);
 
 	virtual ~GgafDx9BaseActor();		//デストラクタ
 

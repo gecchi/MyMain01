@@ -24,7 +24,7 @@ public:
 	 * @param prm_wave_name wav定義の識別名。".wav"を追加するとファイル名になる。
 	 * @return	所望のGgafDx9Seオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	static GgafDx9Se* find(string prm_wave_name);
+	static GgafDx9Se* find(std::string prm_wave_name);
 
 	/**
 	 * GgafDx9Seオブジェクトを取得。<BR>
@@ -33,7 +33,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param  prm_wave_name wave定義の識別名。".wav"を追加するとファイル名になる。
 	 */
-	static GgafDx9Se* get(string prm_wave_name);
+	static GgafDx9Se* get(std::string prm_wave_name);
 
 
 	/**

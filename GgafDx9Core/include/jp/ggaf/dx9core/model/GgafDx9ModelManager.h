@@ -23,7 +23,7 @@ public:
 	 * @param	prm_model_name 検索するスプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 * @return	所望のGgafDx9Modelオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	static GgafDx9Model* find(string prm_model_name);
+	static GgafDx9Model* find(std::string prm_model_name);
 
 	/**
 	 * GgafDx9Modelオブジェクトをリストの各インスタンスの内容を再構築。 .
@@ -40,7 +40,7 @@ public:
 	 * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	static GgafDx9MeshModel* getMeshModel(string prm_model_name, DWORD prm_dwOptions);
+	static GgafDx9MeshModel* getMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
 
 
 	/**
@@ -50,7 +50,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9SpriteModel* getSpriteModel(string prm_model_name);
+	static GgafDx9SpriteModel* getSpriteModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9SquareModelオブジェクトを取得。 .
@@ -59,7 +59,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9SquareModel* getSquareModel(string prm_model_name);
+	static GgafDx9SquareModel* getSquareModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9PlateModelオブジェクトを取得。<BR>
@@ -68,7 +68,7 @@ public:
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9PlateModel* getPlateModel(string prm_model_name);
+	static GgafDx9PlateModel* getPlateModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9Modelオブジェクトのリストをすべて delete を行う。<BR>
@@ -81,7 +81,7 @@ public:
 	 * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	static GgafDx9MeshModel* createMeshModel(string prm_model_name, DWORD prm_dwOptions);
+	static GgafDx9MeshModel* createMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9MeshModel オブジェクトを再構築する。 .
@@ -94,7 +94,7 @@ public:
 	 * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
 	 * @param prm_model_name モデル定義の識別名。".x"を追加するとスプライト定義のXファイル名になる。
 	 */
-	static GgafDx9SpriteModel* createSpriteModel(string prm_model_name);
+	static GgafDx9SpriteModel* createSpriteModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9SpriteModel オブジェクトを再構築する。 .
@@ -107,7 +107,7 @@ public:
 	 * 1*1*1 立方体のモデル<BR>
 	 * @param prm_model_name モデル定義の識別名。
 	 */
-	static GgafDx9SquareModel* createSquareModel(string prm_model_name);
+	static GgafDx9SquareModel* createSquareModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9SquareModel オブジェクトを再構築する。 .
@@ -120,7 +120,7 @@ public:
 	 * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
 	 * @param prm_model_name モデル定義の識別名。".x"を追加すると定義のXファイル名になる。
 	 */
-	static GgafDx9PlateModel* createPlateModel(string prm_model_name);
+	static GgafDx9PlateModel* createPlateModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9PlateModel オブジェクトを再構築する。 .
