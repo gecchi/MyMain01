@@ -47,6 +47,10 @@ public:
 
 	bool _isBehaved;
 
+	/**
+	 * コンストラクタ.
+	 * 別スレッドで工場を稼動させます。
+	 */
 	GgafGod();
 
 	/**
