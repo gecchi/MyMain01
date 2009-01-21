@@ -22,7 +22,7 @@ namespace GgafDx9Core {
 #define AXIS_Z 2
 
 
-class GgafDx9GeometryMover {
+class GgafDx9GeometryMover : public GgafCore::GgafObject {
 	double _dummy1, _dummy2, _dummy3;
 
 public:

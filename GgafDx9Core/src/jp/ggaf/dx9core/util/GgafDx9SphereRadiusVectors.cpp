@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 
 COMPARE_ABLE_SR_VECTOR GgafDx9SphereRadiusVectors::_sr[(S_ANG90+1)*(S_ANG90+1)];
 
-GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() {
+GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
 	int index;
 	static double s_angRad = ((PI*2.0) / (S_ANG90*4));
 	static unsigned __int16 xXY, yXY, xXZ, zXZ;
@@ -79,7 +79,8 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 }
 
 void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY, s_ang prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
-	int index = prm_angRotZ*(S_ANG90+1)+prm_angRotY;
+	static int index;
+	index = prm_angRotZ*(S_ANG90+1)+prm_angRotY;
 	out_x = _sr[index].vec.x;
 	out_y = _sr[index].vec.y;
 	out_z = _sr[index].vec.z;

@@ -138,7 +138,8 @@ void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_iWay, angle* o
 }
 
 angle GgafDx9Util::addAngle(angle prm_angNow, angle prm_angOffset) {
-	angle angAdd = prm_angNow + prm_angOffset;
+	static angle angAdd;
+	angAdd = prm_angNow + prm_angOffset;
 	while(angAdd >= ANGLE360) {
 		angAdd -= ANGLE360;
 	}
@@ -204,16 +205,17 @@ int GgafDx9Util::sign(int x) {
 
 
 void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& out_nvy, double& out_nvz, angle& out_angRotZ, angle& out_angRotY) {
-	double vx = ((double)x) / LEN_UNIT;
-	double vy = ((double)y) / LEN_UNIT;
-	double vz = ((double)z) / LEN_UNIT;
+	static double vx, vy, vz, t;
+	vx = ((double)x) / LEN_UNIT;
+	vy = ((double)y) / LEN_UNIT;
+	vz = ((double)z) / LEN_UNIT;
 	//vx,vy,vz を正規化する。
 	//求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
 	//関係式   X=t*vx; Y=t*vy; Z=t*vz; ･･･ (1) を得る
 	//単位球は X^2 + Y^2 + Z^2 = 1 ･･･(2)
 	//(1)(2)を連立させて、t について解く。
 	//t = 1 / sqrt(vx^2 + vy^2 + vz^2)
-	double t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
+	t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
 	//求めた t を (1) に代入し (X,Y,Z) を求める。
 	out_nvx = t*vx;
 	out_nvy = t*vy;
@@ -223,7 +225,7 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& ou
 	//但し GgafDx9SphereRadiusVectors のベクトル精度は 10000を乗じた整数である。(LEN_UNIT*10)
 	//さらに、引数のベクトル要素は全て正の値（1/8 の球分）だけなのです。よって、いろいろ場合わけする。
 
-	s_ang rZ, rY;
+	static s_ang rZ, rY;
 	_srv.getRotAngleClosely(
 			(unsigned __int16) abs(out_nvx*10000),
 			(unsigned __int16) abs(out_nvy*10000),
@@ -274,11 +276,12 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, double& out_nvx, double& ou
 
 
 void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY) {
-	double vx = ((double)x) / LEN_UNIT;
-	double vy = ((double)y) / LEN_UNIT;
-	double vz = ((double)z) / LEN_UNIT;
-	double t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
-	s_ang rZ, rY;
+	static double vx, vy, vz, t;
+	vx = ((double)x) / LEN_UNIT;
+	vy = ((double)y) / LEN_UNIT;
+	vz = ((double)z) / LEN_UNIT;
+	t =  1 / sqrt(vx*vx + vy*vy + vz*vz);
+	static s_ang rZ, rY;
 
 	_srv.getRotAngleClosely(
 			(unsigned __int16) abs(t*vx*10000),
@@ -320,11 +323,8 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, double& out_nvx, double& out_nvy, double& out_nvz) {
 	//void GgafDx9SphereRadiusVectors::getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
 	//回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
-	s_ang rZ = 0;
-	s_ang rY = 0;
-	int Xsign = 0;
-	int Ysign = 0;
-	int Zsign = 0;
+	static int Xsign, Ysign, Zsign;
+	static s_ang rZ, rY;
 
 	if (0 <= prm_angRotZ  && prm_angRotZ < ANGLE90) {
 		rZ = (prm_angRotZ - ANGLE0) / ANGLE_RATE;
@@ -391,9 +391,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ, angle prm_angRotY, dou
 	} else {
 		_TRACE_("getNormalizeVectorZY: なんかおかしいですぜ");
 	}
-	unsigned __int16 vx;
-	unsigned __int16 vy;
-	unsigned __int16 vz;
+	static unsigned __int16 vx, vy, vz;
 //	_TRACE_("prm_angRotZ="<<prm_angRotZ<<"/prm_angRotY="<<prm_angRotY<<" rY="<<rY<<"/rZ="<<rZ<<")");
 //	_TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
 	_srv.getVectorClosely(rY, rZ, vx, vy, vz);

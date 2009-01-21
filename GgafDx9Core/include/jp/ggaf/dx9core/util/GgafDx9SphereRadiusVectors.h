@@ -21,11 +21,11 @@ struct SR_VECTOR {
  * SR_VECTORに大小の値をつけ、比較可能にしたメンバをもつクラス。<BR>
  * 大小の値の強さは、y要素 ＞ z要素 ＞ x要素 の順です。<BR>
  */
-class COMPARE_ABLE_SR_VECTOR {
+class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
 public:
 	unsigned __int64 num_yzx;
 	SR_VECTOR vec;
-	COMPARE_ABLE_SR_VECTOR() {
+	COMPARE_ABLE_SR_VECTOR() : GgafObject() {
 	}
 	/**
 	 * 単位ベクトルを設定する。<BR>
@@ -51,7 +51,7 @@ public:
  * 保持しているベクトルの各要(X,Y,Z)の単位(unsigned __int16)は、長さ1 が 10000 に相当する整数になっています。<BR>
  * 角度の単位（s_ang）は、1度 が 10 に相当します。直角は 900 になります。angle値(1度が1000)と混在しないように注意<BR>
  */
-class GgafDx9SphereRadiusVectors {
+class GgafDx9SphereRadiusVectors : public GgafCore::GgafObject {
 public:
 	/** 1/8球分のソート可能方向ベクトル配列(要素数は900*900) */
 	static COMPARE_ABLE_SR_VECTOR _sr[];

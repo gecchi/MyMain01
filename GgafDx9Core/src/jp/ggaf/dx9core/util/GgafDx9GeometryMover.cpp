@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor) {
+GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor) : GgafObject() {
 	_pActor = prm_pActor;
 
 	for (int i = 0; i < 3; i++) { // i=0:XŽ²A1:YŽ²A2:ZŽ² ‚ð•\‚·
@@ -289,7 +289,8 @@ void GgafDx9GeometryMover::behave() {
 
 
 angle GgafDx9GeometryMover::simplifyAngle(angle prm_ang) {
-	angle angSimple = prm_ang;
+	angle angSimple;
+	angSimple = prm_ang;
 	while(angSimple >= ANGLE360) {
 		angSimple -= ANGLE360;
 	}
@@ -315,7 +316,8 @@ void GgafDx9GeometryMover::setAxisRotAngle(int prm_tX, int prm_tY, int prm_tZ) {
 }
 
 void GgafDx9GeometryMover::addAxisRotAngle(int prm_iAxis, angle prm_angDistance_AxisRotAngle) {
-	angle angOffsetrot_AxisRotAngle = prm_angDistance_AxisRotAngle;
+	static angle angOffsetrot_AxisRotAngle;
+	angOffsetrot_AxisRotAngle = prm_angDistance_AxisRotAngle;
 	if (_angBottomVelocity_AxisRotAngle[prm_iAxis] > prm_angDistance_AxisRotAngle) {
 		angOffsetrot_AxisRotAngle = _angBottomVelocity_AxisRotAngle[prm_iAxis];
 	} else if (prm_angDistance_AxisRotAngle > _angTopAngVelocity_AxisRotAngle[prm_iAxis]) {
@@ -375,7 +377,8 @@ angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, int prm
 }
 
 angle GgafDx9GeometryMover::getDistanceFromAxisRotAngleTo(int prm_iAxis, angle prm_angTarget_AxisRot, int prm_iWay) {
-	angle angTarget_AxisRot = simplifyAngle(prm_angTarget_AxisRot);
+	static angle angTarget_AxisRot;
+	angTarget_AxisRot = simplifyAngle(prm_angTarget_AxisRot);
 	if (prm_iWay == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
 		if (0 <= _angAxisRot[prm_iAxis] && _angAxisRot[prm_iAxis] < ANGLE180) {
 			if (0 <= angTarget_AxisRot && angTarget_AxisRot < _angAxisRot[prm_iAxis]) {
@@ -894,30 +897,6 @@ void GgafDx9GeometryMover::setZMoveVelocity(int prm_iVelocity_ZMove) {
 void GgafDx9GeometryMover::setZMoveAcceleration(int prm_iAcceleration_ZMoveVelocity) {
 	_iAcceleration_ZMoveVelocity = prm_iAcceleration_ZMoveVelocity;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {

@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 
-class GgafDx9GeometryChecker {
+class GgafDx9GeometryChecker : public GgafCore::GgafObject {
 
 protected:
 	/** 対象アクター */
