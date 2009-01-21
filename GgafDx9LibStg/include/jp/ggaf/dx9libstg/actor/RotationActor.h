@@ -23,7 +23,8 @@ public:
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
 	 */
 	virtual void processBehavior() {
-		GgafCore::GgafMainActor* pActor = getSubFirst();
+		static GgafMainActor* pActor;
+		pActor = getSubFirst();
 		while(true) {
 			if (pActor->switchedToStop()) {
 				pActor->declareMoveFirst();
@@ -46,7 +47,8 @@ public:
  		if (_pSubFirst == NULL) {
  			throw_GgafCriticalException("RotationActor::getFreeOne() éqÇ™Ç†ÇËÇ‹ÇπÇÒ");
  		}
- 		GgafMainActor* pActor = getSubFirst();
+ 		static GgafMainActor* pActor;
+ 		pActor= getSubFirst();
  		do {
  			if(pActor->isPlaying()) {
  				pActor = NULL;
