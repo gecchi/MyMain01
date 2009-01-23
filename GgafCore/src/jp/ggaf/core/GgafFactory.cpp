@@ -12,17 +12,18 @@ bool       GgafFactory::_isFinish  = false;
 int GgafFactory::_s_iCountCleanedNode = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
-GgafMainActor* GgafFactory::obtainActor(string prm_id) {
+GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id) {
 	return (GgafMainActor*)obtain(prm_id);
 }
 
-GgafMainScene* GgafFactory::obtainScene(string prm_id) {
+GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id) {
 	return (GgafMainScene*)obtain(prm_id);
 }
 
-void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+void GgafFactory::order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
 	TRACE2("GgafFactory::order ＜客＞ 別スレッド工場さん、[" << prm_id << "]を作っといて～。");
-	GgafOrder* pOrder_New = NEW GgafOrder(prm_id);
+	static GgafOrder* pOrder_New;
+	pOrder_New = NEW GgafOrder(prm_id);
 	pOrder_New->_pObject_Creation=NULL;
 	pOrder_New->_pFunc = prm_pFunc;
 	pOrder_New->_pArg1 = prm_pArg1;
@@ -42,7 +43,8 @@ void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), v
 		TRACE2("GgafFactory::order ＜客＞ 次々にすまんのぉ");
         pOrder_New -> _isFirstOrder = false;
 		pOrder_New -> _isLastOrder = true;
-        GgafOrder* pOrder_Last = ROOT_ORDER->_pOrder_Prev;
+        static GgafOrder* pOrder_Last;
+        pOrder_Last = ROOT_ORDER->_pOrder_Prev;
         pOrder_Last -> _isLastOrder = false;
         pOrder_Last->_pOrder_Next = pOrder_New;
         pOrder_New->_pOrder_Prev = pOrder_Last;
@@ -54,13 +56,13 @@ void GgafFactory::order(string prm_id, GgafObject* (*prm_pFunc)(void*, void*), v
 
 
 
-void* GgafFactory::obtain(string prm_id) {
+void* GgafFactory::obtain(unsigned long prm_id) {
 	//::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 	TRACE("GgafFactory::obtain "<<prm_id<<"/");
-	GgafOrder* pOrder = ROOT_ORDER;
-	GgafOrder* pOrder_MyNext;
-	GgafOrder* pOrder_MyPrev;
-
+	static GgafOrder* pOrder;
+	static GgafOrder* pOrder_MyNext;
+	static GgafOrder* pOrder_MyPrev;
+	pOrder = ROOT_ORDER;
 	void* objectCreation;
 	if (pOrder == NULL) {
 		//::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
@@ -153,9 +155,9 @@ void GgafFactory::clean() {
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
 	try {
-		GgafObject* (*func)(void*, void*);
-		GgafObject* pObject;
-		GgafOrder* pOrder_InManufacturing_save;
+		static GgafObject* (*func)(void*, void*);
+		static GgafObject* pObject;
+		static GgafOrder* pOrder_InManufacturing_save;
 		while(_isWorking) {
 
 			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始

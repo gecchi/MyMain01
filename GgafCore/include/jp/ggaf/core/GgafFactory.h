@@ -37,7 +37,7 @@ private:
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
 	 */
-	static void order(std::string prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
+	static void order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
 
 	/**
 	 * 注文した商品を取り出す。<BR>
@@ -45,7 +45,7 @@ private:
 	 * @param   prm_id	注文識別ID
 	 * @return	製品のポインタ
 	 */
-	static void* obtain(std::string prm_id);
+	static void* obtain(unsigned long prm_id);
 
 public:
 	/** ゴミ箱(不要なアクター置き場) */
@@ -68,7 +68,7 @@ public:
 	 * 			prm_pArg	その引数<BR>
 	 */
 	template <class X>
-	static void orderActor(std::string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+	static void orderActor(unsigned long prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
 		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 	}
 
@@ -79,7 +79,7 @@ public:
 	 * 			prm_pArg	その引数<BR>
 	 */
 	template <class X>
-	static void orderScene(std::string prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+	static void orderScene(unsigned long prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
 		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
 	}
 
@@ -89,7 +89,7 @@ public:
 	 * @param   prm_id	注文識別ID
 	 * @return	生成されたアクターのポインタ
 	 */
-	static GgafMainActor* obtainActor(std::string prm_id);
+	static GgafMainActor* obtainActor(unsigned long prm_id);
 
 	/**
 	 * 注文したシーンを取り出す。<BR>
@@ -97,7 +97,7 @@ public:
 	 * @param   prm_id	注文識別ID
 	 * @return	生成されたシーンのポインタ
 	 */
-	static GgafMainScene* obtainScene(std::string prm_id);
+	static GgafMainScene* obtainScene(unsigned long prm_id);
 
 	/**
 	 * 工場を掃除する<BR>

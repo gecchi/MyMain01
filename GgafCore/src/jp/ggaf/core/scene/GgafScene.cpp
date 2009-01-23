@@ -143,10 +143,13 @@ GgafLordActor* GgafScene::getLordActor() {
 
 
 void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
-	GgafScene* pScene = this;
-	GgafHeadActor* pHeadActor = NULL;
-	int iIndex01 = 0;
-	int iIndex02 = 0;
+	static GgafScene* pScene;
+	pScene = this;
+	static GgafHeadActor* pHeadActor;
+	pHeadActor = NULL;
+	static int iIndex01,iIndex02;
+	iIndex01 = 0;
+	iIndex02 = 0;
 
 	do {
 		pHeadActor = (GgafHeadActor*)(pScene->getLordActor()->_pSubFirst);

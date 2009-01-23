@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafOrder::GgafOrder(string prm_id) {
+GgafOrder::GgafOrder(unsigned long prm_id) {
 	_id = prm_id;
 	_pOrder_Next = NULL;
 	_pOrder_Prev = NULL;

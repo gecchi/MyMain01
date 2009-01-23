@@ -17,7 +17,7 @@ class GgafOrder : public GgafObject {
 
 private:
 	/** ’•¶¯•ÊID */
-	std::string _id;
+	unsigned long _id;
 	/** ˆê‚ÂŸ‚Ì’•¶ */
 	GgafOrder* _pOrder_Next;
 	/** ˆê‚Â‘O‚Ì’•¶ */
@@ -37,7 +37,7 @@ private:
 	int _progress;
 
 public:
-	GgafOrder(std::string prm_id);
+	GgafOrder(unsigned long prm_id);
 	virtual ~GgafOrder();
 };
 
