@@ -6,6 +6,12 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
+#define ORDER_ID_CREATESTAGE01SCENE 11
+#define ORDER_ID_CREATESTAGE02SCENE 12
+#define ORDER_ID_CREATESTAGE03SCENE 13
+#define ORDER_ID_CREATESTAGE04SCENE 14
+#define ORDER_ID_CREATESTAGE05SCENE 15
+
 GameMainScene::GameMainScene(string prm_name) : DefaultScene(prm_name) {
 	_pFontPlate_SCORE = NEW FontPlateActor("STR01", "moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate_SCORE);
@@ -40,7 +46,7 @@ void GameMainScene::initialize() {
 
 void GameMainScene::readyStage01() {
 	_TRACE_("GameMainScene::readyStage01() : よし工場にcreateStage01Scene注文しました");
-	orderSceneToFactory("createStage01Scene", Stage01Scene, "Stage01");
+	orderSceneToFactory(ORDER_ID_CREATESTAGE01SCENE, Stage01Scene, "Stage01");
 	_readyStage01Flg = true;
 	_dwFrame_ReadyStage01 = _dwFrame;
 }
@@ -65,7 +71,7 @@ void GameMainScene::enableStage01() {
 
 void GameMainScene::readyStage02() {
 	getSub("Demo")->declareFinishLife();
-	orderSceneToFactory("createStage02Scene", Stage02Scene, "Stage02");
+	orderSceneToFactory(ORDER_ID_CREATESTAGE02SCENE, Stage02Scene, "Stage02");
 	_readyStage02Flg = true;
 	_dwFrame_ReadyStage02 = _dwFrame;
 }
@@ -109,7 +115,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage01Flg) {
 		if (frame == (_dwFrame_ReadyStage01 + 180)) {  //180フレーム余裕をみてから自シーンに追加
-			_pStage01Scene = obtainSceneFromFactory("createStage01Scene");
+			_pStage01Scene = obtainSceneFromFactory(ORDER_ID_CREATESTAGE01SCENE);
 			addSubLast(_pStage01Scene);
 			_readyStage01Flg = false;
 			_TRACE_("GameMainScene::processBehavior : やったよ、Stage01追加したよ");
@@ -118,7 +124,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage02Flg) {
 		if (frame == _dwFrame_ReadyStage02+180) {
-			_pStage02Scene  = obtainSceneFromFactory("createStage02Scene");
+			_pStage02Scene  = obtainSceneFromFactory(ORDER_ID_CREATESTAGE02SCENE);
 			addSubLast(_pStage02Scene);
 			_readyStage02Flg = false;
 		}
@@ -126,7 +132,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage03Flg) {
 		if (frame == _dwFrame_ReadyStage03+180) {
-			_pStage03Scene  = MyFactory::obtainScene("createStage03Scene");
+			_pStage03Scene  = MyFactory::obtainScene(ORDER_ID_CREATESTAGE03SCENE);
 			addSubLast(_pStage03Scene);
 			_readyStage03Flg = false;
 		}
@@ -134,7 +140,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage04Flg) {
 		if (frame == _dwFrame_ReadyStage04+300) {
-			_pStage04Scene  = MyFactory::obtainScene("createStage04Scene");
+			_pStage04Scene  = MyFactory::obtainScene(ORDER_ID_CREATESTAGE04SCENE);
 			addSubLast(_pStage04Scene);
 			_readyStage04Flg = false;
 		}
@@ -142,7 +148,7 @@ void GameMainScene::processBehavior() {
 
 	if (_readyStage05Flg) {
 		if (frame == _dwFrame_ReadyStage05+300) {
-			_pStage05Scene  = MyFactory::obtainScene("createStage05Scene");
+			_pStage05Scene  = MyFactory::obtainScene(ORDER_ID_CREATESTAGE05SCENE);
 			addSubLast(_pStage05Scene);
 			_readyStage05Flg = false;
 		}
