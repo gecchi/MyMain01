@@ -8,8 +8,7 @@ namespace GgafDx9Core {
  * 生成済み GgafDx9Bgm オブジェクトを登録しておき、使いまわします。
  */
 class GgafDx9BgmManager {
-
-public:
+protected:
 	/** GgafDx9Bgmオブジェクトのリストの先頭のポインタ。終端はNULL */
 	static GgafDx9Bgm* _pBgm_First;
 	/**
@@ -25,11 +24,16 @@ public:
 	 */
 	static GgafDx9Bgm* find(std::string prm_ogg_name);
 
+public:
+
 	/**
 	 * GgafDx9Bgmオブジェクトを取得。<BR>
 	 * GgafDx9Bgm オブジェクトリスト（先頭は_pBgm_First）<BR>
 	 * から検索し、ヒットした（生成済みGgafDx9Bgmがある）場合、 GgafDx9Bgm にキャストしてそれを返す。<BR>
 	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
+	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
+	 * 毎フレーム実行されるような使用は避けるべきです。<BR>
+	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
 	 */
 	static GgafDx9Bgm* get(std::string prm_ogg_name);

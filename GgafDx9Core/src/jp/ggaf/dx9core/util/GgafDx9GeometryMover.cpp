@@ -289,7 +289,7 @@ void GgafDx9GeometryMover::behave() {
 
 
 angle GgafDx9GeometryMover::simplifyAngle(angle prm_ang) {
-	angle angSimple;
+	static angle angSimple;
 	angSimple = prm_ang;
 	while(angSimple >= ANGLE360) {
 		angSimple -= ANGLE360;
@@ -700,7 +700,8 @@ angle GgafDx9GeometryMover::getDistanceFromMoveAngleRyTo(int prm_tX, int prm_tY,
 }
 
 angle GgafDx9GeometryMover::getDistanceFromMoveAngleRyTo(angle prm_angRyTarget_Move, int prm_iWay) {
-	angle angTarget_Move = simplifyAngle(prm_angRyTarget_Move);
+	static angle angTarget_Move;
+	angTarget_Move = simplifyAngle(prm_angRyTarget_Move);
 	if (prm_iWay ==  TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
 		if (0 <= _angRy_Move && _angRy_Move < ANGLE180) {
 			if (0 <= angTarget_Move && angTarget_Move < _angRy_Move) {

@@ -222,6 +222,7 @@ void GgafDx9Input::updateKeyboardState() {
 
 bool GgafDx9Input::isBeingPressedKey(int prm_DIK) {
 	if (prm_DIK < 0 || 255 < prm_DIK) {
+		_TRACE_("isBeingPressedKey:�͈͊O");
 		return false;
 	} else {
 		if (_s_caKeyboardState[prm_DIK] & 0x80) {
@@ -267,6 +268,7 @@ void GgafDx9Input::updateJoystickState() {
 
 bool GgafDx9Input::isBeingPressedJoyRgbButton(int prm_iRgbButtonNo) {
 	if (prm_iRgbButtonNo < 0 || 31 < prm_iRgbButtonNo) {
+		_TRACE_("isBeingPressedJoyRgbButton:�͈͊O");
 		return false;
 	} else {
 		if (_s_dijoystate.rgbButtons[prm_iRgbButtonNo] & 0x80 ) {
