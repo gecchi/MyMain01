@@ -36,9 +36,10 @@ void StgChecker::behave() {
 	}
 
 	static int cx, cy, cz;
-	s_ang s_RX = _pActor->_RX / ANGLE_RATE;
-	s_ang s_RY = _pActor->_RY / ANGLE_RATE;
-	s_ang s_RZ = _pActor->_RZ / ANGLE_RATE;
+	static s_ang s_RX, s_RY, s_RZ;
+	s_RX = _pActor->_RX / ANGLE_RATE;
+	s_RY = _pActor->_RY / ANGLE_RATE;
+	s_RZ = _pActor->_RZ / ANGLE_RATE;
 
 	for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
 		if (!_pHitAreaBoxs->_paBase[i].rotX && !_pHitAreaBoxs->_paBase[i].rotY && !_pHitAreaBoxs->_paBase[i].rotZ) {
@@ -83,8 +84,11 @@ void StgChecker::behave() {
 
 
 bool StgChecker::isBump(GgafDx9GeometryChecker* prm_pOtherChecker) {
-	GgafDx9UntransformedActor* pOtherActor     = prm_pOtherChecker->getTargetActor();
-	HitAreaBoxs*               pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
+	static GgafDx9UntransformedActor* pOtherActor;
+	static HitAreaBoxs*               pOtherHitAreaBoxs;
+
+	pOtherActor = prm_pOtherChecker->getTargetActor();
+	pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
 	if (_pActor == NULL || pOtherActor == NULL || _pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL) {
 		return false;
 	}
