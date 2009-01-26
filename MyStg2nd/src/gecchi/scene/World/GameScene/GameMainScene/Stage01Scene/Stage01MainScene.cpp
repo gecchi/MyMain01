@@ -15,28 +15,28 @@ Stage01MainScene::Stage01MainScene(string prm_name) : GgafDx9LibStg::DefaultScen
 	for (int i = 0; i < 39; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
-	orderActorToFactory(1096100, EnemyCeres, "Ceres_1", "Ceres");
-	orderActorToFactory(1096140, EnemyCeres, "Ceres_2", "Ceres");
-	orderActorToFactory(1096180, EnemyCeres, "Ceres_3", "Ceres");
-	orderActorToFactory(1096220, EnemyCeres, "Ceres_4", "Ceres");
-	orderActorToFactory(1096260, EnemyCeres, "Ceres_5", "Ceres");
-	orderActorToFactory(1096300, EnemyCeres, "Ceres_6", "Ceres");
-	orderActorToFactory(1156200, EnemyCeres, "Ceres_7", "Ceres");
-	orderActorToFactory(1156240, EnemyCeres, "Ceres_8", "Ceres");
-	orderActorToFactory(1156280, EnemyCeres, "Ceres_9", "Ceres");
-	orderActorToFactory(1156320, EnemyCeres, "Ceres_10", "Ceres");
-	orderActorToFactory(1156360, EnemyCeres, "Ceres_11", "Ceres");
-	orderActorToFactory(1156400, EnemyCeres, "Ceres_12", "Ceres");
-	orderActorToFactory(1216300, EnemyCeres, "Ceres_13", "Ceres");
-	orderActorToFactory(1216340, EnemyCeres, "Ceres_14", "Ceres");
-	orderActorToFactory(1216380, EnemyCeres, "Ceres_15", "Ceres");
-	orderActorToFactory(1216420, EnemyCeres, "Ceres_16", "Ceres");
-	orderActorToFactory(1216460, EnemyCeres, "Ceres_17", "Ceres");
-	orderActorToFactory(1216500, EnemyCeres, "Ceres_18", "Ceres");
-	orderActorToFactory(1276400, EnemyCeres, "Ceres_19", "Ceres");
-	orderActorToFactory(1276440, EnemyCeres, "Ceres_20", "Ceres");
-	orderActorToFactory(1276480, EnemyCeres, "Ceres_21", "Ceres");
-	orderActorToFactory(1336500, EnemyCeres, "Ceres_22", "Ceres");
+	orderActorToFactory(1087100, EnemyCeres, "Ceres_1", "Ceres");
+	orderActorToFactory(1087140, EnemyCeres, "Ceres_2", "Ceres");
+	orderActorToFactory(1087180, EnemyCeres, "Ceres_3", "Ceres");
+	orderActorToFactory(1087220, EnemyCeres, "Ceres_4", "Ceres");
+	orderActorToFactory(1087260, EnemyCeres, "Ceres_5", "Ceres");
+	orderActorToFactory(1087300, EnemyCeres, "Ceres_6", "Ceres");
+	orderActorToFactory(1157200, EnemyCeres, "Ceres_7", "Ceres");
+	orderActorToFactory(1157240, EnemyCeres, "Ceres_8", "Ceres");
+	orderActorToFactory(1157280, EnemyCeres, "Ceres_9", "Ceres");
+	orderActorToFactory(1157320, EnemyCeres, "Ceres_10", "Ceres");
+	orderActorToFactory(1157360, EnemyCeres, "Ceres_11", "Ceres");
+	orderActorToFactory(1157400, EnemyCeres, "Ceres_12", "Ceres");
+	orderActorToFactory(1217300, EnemyCeres, "Ceres_13", "Ceres");
+	orderActorToFactory(1217340, EnemyCeres, "Ceres_14", "Ceres");
+	orderActorToFactory(1217380, EnemyCeres, "Ceres_15", "Ceres");
+	orderActorToFactory(1217420, EnemyCeres, "Ceres_16", "Ceres");
+	orderActorToFactory(1217460, EnemyCeres, "Ceres_17", "Ceres");
+	orderActorToFactory(1217500, EnemyCeres, "Ceres_18", "Ceres");
+	orderActorToFactory(1277400, EnemyCeres, "Ceres_19", "Ceres");
+	orderActorToFactory(1277440, EnemyCeres, "Ceres_20", "Ceres");
+	orderActorToFactory(1277480, EnemyCeres, "Ceres_21", "Ceres");
+	orderActorToFactory(1337500, EnemyCeres, "Ceres_22", "Ceres");
 	// gen01 end
 
 	stopImmediately(); //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
@@ -53,271 +53,271 @@ void Stage01MainScene::processBehavior() {
 			case 1:
 				break;
 			case 20:
-				orderActorToFactory(1276520, EnemyCeres, "Ceres_23", "Ceres");
+				orderActorToFactory(1277520, EnemyCeres, "Ceres_23", "Ceres");
 				break;
 			case 40:
-				orderActorToFactory(1336540, EnemyCeres, "Ceres_24", "Ceres");
+				orderActorToFactory(1337540, EnemyCeres, "Ceres_24", "Ceres");
 				break;
 			case 60:
-				orderActorToFactory(1276560, EnemyCeres, "Ceres_25", "Ceres");
+				orderActorToFactory(1277560, EnemyCeres, "Ceres_25", "Ceres");
 				break;
 			case 80:
-				orderActorToFactory(1336580, EnemyCeres, "Ceres_26", "Ceres");
+				orderActorToFactory(1337580, EnemyCeres, "Ceres_26", "Ceres");
 				break;
 			case 100:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096100);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087100);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1276600, EnemyCeres, "Ceres_27", "Ceres");
-				orderActorToFactory(1396600, EnemyCeres, "Ceres_28", "Ceres");
+				orderActorToFactory(1277600, EnemyCeres, "Ceres_27", "Ceres");
+				orderSceneToFactory(1397600, EnemyCeres, "Ceres_28");
 				break;
 			case 120:
-				orderActorToFactory(1336620, EnemyCeres, "Ceres_29", "Ceres");
+				orderActorToFactory(1337620, EnemyCeres, "Ceres_29", "Ceres");
 				break;
 			case 140:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096140);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087140);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1396640, EnemyCeres, "Ceres_30", "Ceres");
+				orderSceneToFactory(1397640, EnemyCeres, "Ceres_30");
 				break;
 			case 160:
-				orderActorToFactory(1336660, EnemyCeres, "Ceres_31", "Ceres");
+				orderActorToFactory(1337660, EnemyCeres, "Ceres_31", "Ceres");
 				break;
 			case 180:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096180);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087180);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1396680, EnemyCeres, "Ceres_32", "Ceres");
+				orderSceneToFactory(1397680, EnemyCeres, "Ceres_32");
 				break;
 			case 200:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156200);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157200);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1336700, EnemyCeres, "Ceres_33", "Ceres");
+				orderActorToFactory(1337700, EnemyCeres, "Ceres_33", "Ceres");
 				break;
 			case 220:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096220);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087220);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1396720, EnemyCeres, "Ceres_34", "Ceres");
+				orderSceneToFactory(1397720, EnemyCeres, "Ceres_34");
 				break;
 			case 240:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156240);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157240);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 260:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096260);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087260);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1396760, EnemyCeres, "Ceres_35", "Ceres");
+				orderSceneToFactory(1397760, EnemyCeres, "Ceres_35");
 				break;
 			case 280:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156280);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157280);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 300:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1096300);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1087300);
 				pActor->_Y_turn = -100000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216300);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217300);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(1396800, EnemyCeres, "Ceres_36", "Ceres");
+				orderSceneToFactory(1397800, EnemyCeres, "Ceres_36");
 				break;
 			case 320:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156320);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157320);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 340:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216340);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217340);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 360:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156360);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157360);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 380:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216380);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217380);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 400:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1156400);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1157400);
 				pActor->_Y_turn = -80000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276400);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277400);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 420:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216420);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217420);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 440:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276440);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277440);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 460:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216460);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217460);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 480:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276480);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277480);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 500:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1216500);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1217500);
 				pActor->_Y_turn = -60000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336500);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337500);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 520:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276520);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277520);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 540:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336540);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337540);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 560:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276560);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277560);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 580:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336580);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337580);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 600:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1276600);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1277600);
 				pActor->_Y_turn = -40000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396600);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397600);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 620:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336620);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337620);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 640:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396640);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397640);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 660:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336660);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337660);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 680:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396680);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397680);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 700:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1336700);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1337700);
 				pActor->_Y_turn = -20000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 720:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396720);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397720);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 760:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396760);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397760);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
 			case 800:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(1396800);
+				EnemyCeres* pScene = (EnemyCeres*)obtainSceneFromFactory(1397800);
 				pActor->_Y_turn = 0;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
