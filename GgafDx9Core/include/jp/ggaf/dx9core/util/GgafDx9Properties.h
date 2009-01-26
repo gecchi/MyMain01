@@ -15,6 +15,7 @@ public:
 	static bool*   FIXED_VIEW_ASPECT;
 	static std::string* DIR_MESH_MODEL;
 	static std::string* DIR_SPRITE_MODEL;
+	static std::string* DIR_TEXTURE;
 	static std::string* DIR_OGG;
 	static std::string* DIR_WAVE;
 
