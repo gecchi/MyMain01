@@ -28,7 +28,7 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
 }
 
 void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY) {
-	class COMPARE_ABLE_SR_VECTOR target;
+	static class COMPARE_ABLE_SR_VECTOR target;
 	target.set(0, prm_y, 0);
 
 	//rZ(y要素)のバイナリサーチ
