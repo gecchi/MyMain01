@@ -2,9 +2,15 @@
 #define ENEMYCERES_H_
 namespace MyStg2nd {
 
-//ケレス
-//画面右端で折り返して左に直進します。
-
+/**
+ * ケレス .
+ * 画面右端で折り返して左に直進します。<BR>
+ * initialize()までに上書き可能な設定可能なパラメータ<BR>
+ * ・_X,_Y,_Z 初期位置、但し _Z<0 であること。（折り返しが逆になって変だから）<BR>
+ * ・_X_turn, _Y_turn 折り返し目標XY座標。初期位置からこのこの地点を目指すッス。<BR>
+ * ・_iBeginVelocity 折り返し地点に行くまでの加速度<BR>
+ *
+ */
 class EnemyCeres : public DefaultMeshEnemyActor {
 
 private:

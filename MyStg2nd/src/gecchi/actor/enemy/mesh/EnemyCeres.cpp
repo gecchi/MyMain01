@@ -5,11 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-//initialize()までに上書き可能な設定可能なパラメータ
-//_X,_Y,_Z 初期位置、但し _Z<0 であること。（折り返しが逆になって変だから）
-//_X_turn,_Y_turn 折り返しXY座標
-//_iBeginVelocity 折り返し地点に行くまでの加速度
-//
 EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyCeres";
 

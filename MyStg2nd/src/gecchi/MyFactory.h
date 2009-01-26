@@ -8,16 +8,13 @@ public:
 
 	template <class X>
 	static X* createActor(void* pArg1, void* pArg2) {
-		std::string name = (char*)pArg1;
-		std::string model = (char*)pArg2;
-		X* p = NEW X(name, model);
+		X* p = NEW X((const char*)pArg1, (const char*)pArg2);
 		return p;
 	}
 
 	template <class X>
 	static X* createScene(void* pArg1, void* pArg2) {
-		std::string name = (char*)pArg1;
-		X* p = NEW X(name);
+		X* p = NEW X((const char*)pArg1);
 		return p;
 	}
 
