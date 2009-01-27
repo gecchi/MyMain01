@@ -19,7 +19,7 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 	int X = prm_X;
 	int Y = prm_Y;
 	const char* paChar = prm_string.c_str();
-	GgafDx9SpriteModel* pSpriteModel = GgafDx9ModelManager::getSpriteModel(_font_modelname);
+	GgafDx9SpriteModel* pSpriteModel = GgafDx9ModelManager::obtainSpriteModel(_font_modelname);
 	for (int i = 0; i < _iStrLen; i++) {
 		if (i < iLen_ParamStr) {
 			if (paChar[i] == '\n') {
