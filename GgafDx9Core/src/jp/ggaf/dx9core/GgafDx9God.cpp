@@ -414,7 +414,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			GgafDx9ModelManager::onDeviceLostAll();
 			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
-				throw_GgafDx9CriticalException("GgafDx9God::visualize() デバイスロスト後のリセットでに失敗しました。", hr);
+				throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
 			}
 			//デバイス再設定
 			initDx9Device();

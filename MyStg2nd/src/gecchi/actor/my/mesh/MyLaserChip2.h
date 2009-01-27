@@ -32,6 +32,8 @@ public:
 	};
 
 	static LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_MyLaserChip2;
+	↑デバイスロストに対応しなはれ
+
 	static DWORD _dwVertexFormat;
 	static DWORD _dwFVFSize;
 	static DWORD _dwVertexNum;

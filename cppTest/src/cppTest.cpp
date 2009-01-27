@@ -13,12 +13,47 @@
 
 using namespace std;
 
-TCHAR gName[100] = _T("固定アニメーションテストサンプルプログラム");
-TCHAR Filename[128] = _T("CubeAndSphere1.x");
+TCHAR gName[100] = "固定アニメーションテストサンプルプログラム";
+TCHAR Filename[128] = "CubeAndSphere1.x";
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam){
    if(mes == WM_DESTROY) {PostQuitMessage(0); return 0;}
    return DefWindowProc(hWnd, mes, wParam, lParam);
+}
+
+int main(int argc,char *argv[]) {
+	STARTUPINFO	StatUpInfo;
+	HINSTANCE		hInstance;
+	HANDLE		hPrevInstance;
+	LPSTR		lpCmdLine;
+	int			nCmdShow;
+	//WNDCLASS	wc;
+	HWND		hWnd;
+//	MSG			msg;
+
+	GetStartupInfo(&StatUpInfo);
+	hInstance = GetModuleHandle(0);
+	hPrevInstance = 0;
+	lpCmdLine = GetCommandLine();
+	nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW)?
+				StatUpInfo.wShowWindow:SW_SHOWNORMAL;
+	/* GetCommandLineからプログラム名を抜きます。 */
+	while(*lpCmdLine != ' ' && *lpCmdLine != '\0') lpCmdLine++;
+	while(*lpCmdLine == ' ') lpCmdLine++;
+
+	/* ここからが、本来の処理 */
+	//wc.lpszClassName = "MySTG2nd";
+	/* 二重起動防止 (バグあり...)*/
+//	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
+//		if (IsIconic(hWnd)) {
+//			ShowWindow(hWnd, SW_RESTORE);
+//		}
+//		SetForegroundWindow(hWnd);
+//		return 0;
+//	}
+
+	//本来のWinMainへ
+	WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
 int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow)
@@ -27,12 +62,14 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
    MSG msg; HWND hWnd;
    WNDCLASSEX wcex ={sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW, WndProc, 0, 0, hInstance, NULL, NULL,
                                     (HBRUSH)(COLOR_WINDOW+1), NULL, (TCHAR*)gName, NULL};
-   if(!RegisterClassEx(&wcex))
-      return 0;
+   if(!RegisterClassEx(&wcex)) {
+      //return 0;
+   }
 
-   if(!(hWnd = CreateWindow(gName, gName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, 0, CW_USEDEFAULT, 0,
-                                    NULL, NULL, hInstance, NULL)))
-      return 0;
+   if(!(hWnd = CreateWindow(gName, gName, WS_OVERLAPPEDWINDOW, CW_USEDEFAULT, CW_USEDEFAULT, 800,600,
+                                    NULL, NULL, hInstance, NULL))) {
+      //return 0;
+   }
 
    // Direct3Dの初期化
    LPDIRECT3D9 g_pD3D;

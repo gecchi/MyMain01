@@ -64,8 +64,8 @@ LPSTR CAllocHierarchyBase::CopyStr(LPCSTR name)
 {
 	if(!name) return NULL;   // NULL‚Í•¶š”‚ğƒJƒEƒ“ƒg‚Å‚«‚È‚¢
 	LPSTR Str = new char[strlen(name)+1];
-	strcpy_s(Str, strlen(name)+1, name);
-	//strcpy(Str, name);
+	//strcpy_s(Str, strlen(name)+1, name);
+	strcpy(Str, name);
 	AddDelList( Str );
 	return Str;
 }

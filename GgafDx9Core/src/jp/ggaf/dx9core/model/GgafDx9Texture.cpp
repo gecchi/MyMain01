@@ -14,7 +14,9 @@ GgafDx9Texture::GgafDx9Texture(string prm_texture_file_name, LPDIRECT3DTEXTURE9 
 }
 
 void GgafDx9Texture::release() {
+	_TRACE_("GgafDx9Texture::release() " <<  _texture_file_name << " start-->");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DTexture9);
+	_TRACE_("GgafDx9Texture::release() " <<  _texture_file_name << " <--end");
 }
 
 GgafDx9Texture::~GgafDx9Texture() {
