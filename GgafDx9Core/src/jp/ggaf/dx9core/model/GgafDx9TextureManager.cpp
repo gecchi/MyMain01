@@ -30,6 +30,10 @@ void GgafDx9TextureManager::add(GgafDx9Texture* prm_pTexture_New) {
 	}
 }
 void GgafDx9TextureManager::remove(GgafDx9Texture* prm_pTexture) {
+	if (prm_pTexture == NULL) {
+		_TRACE_("GgafDx9TextureManager::remove 引数 prm_pTexture は NULLです");
+		return;
+	}
 	static GgafDx9Texture* pTexture_Current;
 	static GgafDx9Texture* pTexture_Prev;
 	pTexture_Current = _pTexture_First;
@@ -64,7 +68,7 @@ void GgafDx9TextureManager::remove(GgafDx9Texture* prm_pTexture) {
 		pTexture_Prev = pTexture_Current;
 		pTexture_Current = pTexture_Current -> _pTexture_Next;
 	}
-	throw_GgafCriticalException("[GgafDx9TextureManager::remove] リークしてます。prm_pTextureは既にありません。");
+	_TRACE_("GgafDx9TextureManager::remove prm_pTexture["<<pTexture_Current->_texture_file_name<<"]は既にありません。意図しとっと？");
 }
 void GgafDx9TextureManager::release() {
 	//保持しているGgafDx9Textureインスタンスを解放

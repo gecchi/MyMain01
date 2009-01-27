@@ -45,9 +45,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 		//前回描画UV違う！、頂点バッファの tu, tv を直接変更
 		static VERTEX* paVertexBuffer;
 		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
-		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗１ model="<<_model_name, hr);
-		}
 		paVertexBuffer[0].tu = pRectUV_Active->_aUV[0].tu;
 		paVertexBuffer[0].tv = pRectUV_Active->_aUV[0].tv;
 		paVertexBuffer[1].tu = pRectUV_Active->_aUV[1].tu;
