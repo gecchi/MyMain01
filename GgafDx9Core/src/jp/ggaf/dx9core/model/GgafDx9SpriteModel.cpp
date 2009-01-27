@@ -18,6 +18,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(string prm_platemodel_name) : GgafDx9Mode
 	_pModel_Next = NULL;
 	//_isChangedAlpha = false;
 	_pIDirect3DVertexBuffer9 = NULL;
+	_pTexture = NULL;
 	//_iChangeVertexAlpha = 255;
 	//デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
 	//GgafDx9ModelManager::restoreSpriteModel で行っている。
@@ -33,11 +34,11 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	static HRESULT	hr;
 
-	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
+	if (GgafDx9Model::_id_lastdraw != _id) {
 		//前回描画とモデルが違う！
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SpriteModel::FVF);
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pID3DTexture9));
+		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pTexture->_pIDirect3DTexture9));
 	}
 
 	if (_pRectUV_drawlast != pRectUV_Active) {
@@ -104,7 +105,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	//2009/1/15 プログラマブルシェーダーに目覚めた。つくりなおすっす
 
 	//前回描画モデル名保存
-	GgafDx9Model::_s_modelname_lastdraw = _model_name;
+	GgafDx9Model::_id_lastdraw = _id;
 	//前回描画UV座標（へのポインタ）を保存
 	_pRectUV_drawlast = pRectUV_Active;
 	GgafGod::_iNumPlayingActor++;
@@ -119,10 +120,7 @@ void GgafDx9SpriteModel::restore() {
 
 void GgafDx9SpriteModel::onDeviceLost() {
 	_TRACE_("GgafDx9SpriteModel::onDeviceLost() " <<  _model_name << " start");
-	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
-	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
-	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+	release();
 	_TRACE_("GgafDx9SpriteModel::onDeviceLost() " <<  _model_name << " end");
 }
 //
@@ -131,12 +129,21 @@ void GgafDx9SpriteModel::onDeviceLost() {
 //	_iChangeVertexAlpha = prm_iVertexAlpha;
 //}
 
-GgafDx9SpriteModel::~GgafDx9SpriteModel() {
-	_TRACE_("GgafDx9SpriteModel::~GgafDx9SpriteModel() " <<  _model_name << " start");
+void GgafDx9SpriteModel::release() {
+	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " start");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
 	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
-	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
+	_pTexture->_iRefModelNum--; //参照カウンタを -1
+	if (_pTexture->_iRefModelNum == 0) {
+		//指しているモデルが無いのでテクスチャを解放
+		GgafDx9TextureManager::remove(_pTexture);
+	}
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " end");
+
+}
+GgafDx9SpriteModel::~GgafDx9SpriteModel() {
+	_TRACE_("GgafDx9SpriteModel::~GgafDx9SpriteModel() " <<  _model_name << " start");
 	_TRACE_("GgafDx9SpriteModel::~GgafDx9SpriteModel() " <<  _model_name << " end");
 }
 

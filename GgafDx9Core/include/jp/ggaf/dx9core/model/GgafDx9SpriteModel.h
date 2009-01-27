@@ -17,10 +17,12 @@ protected:
 	};
 	/** VERTEXのFVF */
 	static DWORD FVF;
+	/** 頂点バッファへのポインタ */
+	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
 	/** マテリアル */
 	D3DMATERIAL9* 		_pD3DMaterial9;
 	/** テクスチャ(アニメーションパターン） */
-	LPDIRECT3DTEXTURE9 _pID3DTexture9;
+	GgafDx9Texture* _pTexture;
 	/** 矩形の頂点合計のサイズ */
 	UINT _iSize_Vertecs;
 	/** 1頂点のサイズ */
@@ -29,13 +31,17 @@ protected:
 	GgafDx9RectUV*  _paRectUV;
 
 
-	/** 頂点バッファへのポインタ */
-	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
 
 	/** 前回表示のUV */
 	GgafDx9RectUV*  _pRectUV_drawlast;
 
 	//bool _isChangedAlpha;
+
+	/**
+	 * コンストラクタ<BR>
+	 * @param prm_spritemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+	 */
+	GgafDx9SpriteModel(std::string prm_spritemodel_name);
 
 public:
 	/** 全アニメパターン数(0～) */
@@ -46,11 +52,6 @@ public:
 	int    _iColNum_TextureSplit;
 	//int	   _iChangeVertexAlpha;
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_spritemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-	 */
-	GgafDx9SpriteModel(std::string prm_spritemodel_name);
 
 	/**
 	 * GgafDx9SpriteModelオブジェクトの描画<BR>
@@ -62,6 +63,8 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	virtual void release();
 
 	void changeVertexAlpha(int prm_iVertexAlpha);
 

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9SquareActor::GgafDx9SquareActor(string prm_name, string prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
 	_class_name = "GgafDx9SquareActor";
-	_pSquareModel = GgafDx9ModelManager::getSquareModel(prm_squaremodel_name);
+	_pSquareModel = GgafDx9ModelManager::obtainSquareModel(prm_squaremodel_name);
 }
 
 void GgafDx9SquareActor::processDrawMain() {

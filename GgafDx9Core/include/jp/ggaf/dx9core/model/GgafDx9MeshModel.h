@@ -11,10 +11,10 @@ class GgafDx9MeshModel : public GgafDx9Model {
 public:
 	/** メッシュ(ID3DXMeshインターフェイスへのポインタ） */
 	LPD3DXMESH			_pID3DXMesh;
-	/** マテリアル(D3DMATERIAL9構造体を要素とする配列の先頭アドレスを指すポインタ） */
+	/** マテリアル配列(D3DMATERIAL9構造体を要素とする配列の先頭アドレスを指すポインタ） */
 	D3DMATERIAL9* 		_paD3DMaterial9;
-	/** テクスチャ(IDirect3DTexture9インターフェイスへのポインタを要素とする配列の先頭アドレスを指すポインタ） */
-	LPDIRECT3DTEXTURE9* _papID3DTexture9;
+	/** テクスチャ配列(GgafDx9Textureのポインタを要素とする配列の先頭アドレスを指すポインタ） */
+	GgafDx9Texture**	_papTexture;
 	/** D3DXLoadMeshFromXのオプション */
 	DWORD _dwOptions;
 
@@ -42,6 +42,8 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	virtual void release();
 
 	void setAlpha(float prm_fAlpha);
 

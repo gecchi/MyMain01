@@ -5,6 +5,8 @@ using namespace GgafDx9Core;
 
 GgafDx9Model* GgafDx9ModelManager::_s_pModel_First = NULL;
 IDirectXFile* GgafDx9ModelManager::_s_pIDirectXFile = NULL;
+int GgafDx9ModelManager::_id_max = 0;
+
 
 GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
 	static GgafDx9Model* pModel_Current;
@@ -33,27 +35,71 @@ void GgafDx9ModelManager::add(GgafDx9Model* prm_pModel_New) {
 	}
 }
 
-void GgafDx9ModelManager::clear() {
-	TRACE("GgafDx9ModelManager::clear() start-->");
-
-	//保持しているModelインスタンスを解放
+void GgafDx9ModelManager::remove(GgafDx9Model* prm_pModel) {
 	static GgafDx9Model* pModel_Current;
+	static GgafDx9Model* pModel_Prev;
 	pModel_Current = _s_pModel_First;
-	static GgafDx9Model* pModel_tmp;
+	pModel_Prev    = NULL;
 	while (pModel_Current != NULL) {
-		pModel_tmp = pModel_Current -> _pModel_Next;
-		if (pModel_tmp == NULL) {
+		if (pModel_Current == prm_pModel) { //発見
+			_TRACE_("GgafDx9ModelManager::remove["<<pModel_Current->_model_name<<"]");
+			if (prm_pModel->_pModel_Next == NULL) {
+				//末尾だった
+				if (pModel_Prev == NULL) {
+					//末尾で先頭だった（＝最後の一つ）
+					_s_pModel_First = NULL;
+				} else {
+					//末尾で先頭でなかった
+					pModel_Prev->_pModel_Next = NULL;
+				}
+			} else {
+				//末尾でない
+				if (pModel_Prev == NULL) {
+					//先頭だった
+					_s_pModel_First = pModel_Current->_pModel_Next; //先頭を次にずらす
+				} else {
+					//末尾でも先頭でもない（中間）
+					pModel_Prev->_pModel_Next = pModel_Current->_pModel_Next; //両隣を繋げる
+				}
+			}
+			//ハイそれではさようなら
+			pModel_Current->release();
 			DELETE_IMPOSSIBLE_NULL(pModel_Current);
-			break;
-		} else {
-			DELETE_IMPOSSIBLE_NULL(pModel_Current);
-			pModel_Current = pModel_tmp;
+			return;
 		}
+		pModel_Prev = pModel_Current;
+		pModel_Current = pModel_Current -> _pModel_Next;
 	}
-	_s_pModel_First = NULL;
+	throw_GgafCriticalException("[GgafDx9ModelManager::remove] リークしてます。prm_pModelは既にありません。");
+}
 
-	//テクスチャ解放
-	GgafDx9TextureManager::clear();
+void GgafDx9ModelManager::release() {
+	TRACE("GgafDx9ModelManager::clear() start-->");
+	if (_s_pModel_First == NULL) {
+		_TRACE_("GgafDx9ModelManager::clear() 解放するモデルがありませんでした。意図してますか？");
+	} else {
+		//保持しているModelインスタンスを解放
+		static GgafDx9Model* pModel_Current;
+		pModel_Current = _s_pModel_First;
+
+		static GgafDx9Model* pModel_tmp;
+		while (pModel_Current != NULL) {
+			pModel_tmp = pModel_Current -> _pModel_Next;
+			if (pModel_tmp == NULL) {
+				pModel_Current->release();
+				DELETE_IMPOSSIBLE_NULL(pModel_Current);
+				break;
+			} else {
+				pModel_Current->release();
+				DELETE_IMPOSSIBLE_NULL(pModel_Current);
+				pModel_Current = pModel_tmp;
+			}
+		}
+		_s_pModel_First = NULL;
+
+		//テクスチャ解放
+		GgafDx9TextureManager::release();
+	}
 
 	RELEASE_POSSIBLE_NULL(_s_pIDirectXFile);
 
@@ -88,7 +134,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 
 
 
-GgafDx9SpriteModel* GgafDx9ModelManager::getSpriteModel(string prm_model_name) {
+GgafDx9SpriteModel* GgafDx9ModelManager::obtainSpriteModel(string prm_model_name) {
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9SpriteModel* pSpriteModel_New = createSpriteModel(prm_model_name);
@@ -99,7 +145,7 @@ GgafDx9SpriteModel* GgafDx9ModelManager::getSpriteModel(string prm_model_name) {
 	}
 }
 
-GgafDx9SquareModel* GgafDx9ModelManager::getSquareModel(string prm_model_name) {
+GgafDx9SquareModel* GgafDx9ModelManager::obtainSquareModel(string prm_model_name) {
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9SquareModel* pSquareModel_New = createSquareModel(prm_model_name);
@@ -111,7 +157,7 @@ GgafDx9SquareModel* GgafDx9ModelManager::getSquareModel(string prm_model_name) {
 }
 
 
-GgafDx9MeshModel* GgafDx9ModelManager::getMeshModel(string prm_model_name, DWORD prm_dwOptions) {
+GgafDx9MeshModel* GgafDx9ModelManager::obtainMeshModel(string prm_model_name, DWORD prm_dwOptions) {
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name, prm_dwOptions);
@@ -122,7 +168,7 @@ GgafDx9MeshModel* GgafDx9ModelManager::getMeshModel(string prm_model_name, DWORD
 	}
 }
 
-GgafDx9PlateModel* GgafDx9ModelManager::getPlateModel(string prm_model_name) {
+GgafDx9PlateModel* GgafDx9ModelManager::obtainPlateModel(string prm_model_name) {
 	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
 	if (pModel == NULL) {
 		GgafDx9PlateModel* pPlateModel_New = createPlateModel(prm_model_name);
@@ -146,7 +192,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
 	LPD3DXMESH			pID3DXMesh;      //メッシュ(ID3DXMeshインターフェイスへのポインタ）
 	D3DMATERIAL9* 		paD3DMaterial9;  //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-	LPDIRECT3DTEXTURE9* papID3DTexture9; //テクスチャ(IDirect3DTexture9インターフェイスへのポインタを要素とする配列の先頭アドレスを指すポインタ）
+	GgafDx9Texture**	papTexture;          //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
 	DWORD               dwNumMaterials;
 	string				xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + prm_pMeshModel->_model_name + ".x";
 
@@ -164,7 +210,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 			&pID3DXMesh                //[out] LPD3DXMESH* pMesh
 		 );
 	if(hr != D3D_OK) {
-		throw_GgafDx9CriticalException("[GgafDx9MeshModelManager::load] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
+		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
 
 //		TRACE(DXGetErrorString9(HRESULT hr));
 	}
@@ -192,11 +238,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	}
 
 	//テクスチャを取り出す
-	papID3DTexture9 = NEW LPDIRECT3DTEXTURE9[dwNumMaterials];
+	papTexture = NEW GgafDx9Texture*[dwNumMaterials];
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
-		papID3DTexture9[i] = NULL;
 		if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename) > 0 ) {
-			papID3DTexture9[i] = GgafDx9TextureManager::get(paD3DMaterial9_tmp[i].pTextureFilename);
+			papTexture[i] = GgafDx9TextureManager::obtain(paD3DMaterial9_tmp[i].pTextureFilename);
 //			string texture_filename = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(paD3DMaterial9_tmp[i].pTextureFilename);
 //			hr = D3DXCreateTextureFromFileEx(
 //					GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -212,11 +257,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 //					0,                           // [in] D3DCOLOR ColorKey,
 //					NULL,                        // [in] D3DXIMAGE_INFO *pSrcInfo,
 //					NULL,                        // [in] PALETTEENTRY *pPalette,
-//					&papID3DTexture9[i]          // [out] LPDIRECT3DTEXTURE9 *ppTexture
+//					&papIDirect3DTexture9[i]          // [out] LPDIRECT3DTEXTURE9 *ppTexture
 //				 );
 //			if(hr != D3D_OK) {
 //				throw_GgafDx9CriticalException("[GgafDx9MeshModelManager::load] D3DXCreateTextureFromFile失敗。対象="<<xfile_name, hr);
 //			}
+		} else {
+			//テクスチャ無し
+			papTexture[i] = NULL;
 		}
 	}
 	RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -231,7 +279,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 							&pID3DXMesh_tmp                          // [out] LPD3DXMESH *ppCloneMesh
 						 );
 		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9MeshModelManager::load]  pID3DXMesh -> CloneMeshFVF()失敗。対象="<<xfile_name, hr);
+			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh -> CloneMeshFVF()失敗。対象="<<xfile_name, hr);
 		}
 		D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算
 		RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
@@ -241,7 +289,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	//メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
 	prm_pMeshModel -> _pID3DXMesh      = pID3DXMesh;
 	prm_pMeshModel -> _paD3DMaterial9  = paD3DMaterial9;
-	prm_pMeshModel -> _papID3DTexture9 = papID3DTexture9;
+	prm_pMeshModel -> _papTexture      = papTexture;
 	prm_pMeshModel -> _dwNumMaterials  = dwNumMaterials;
 }
 
@@ -256,7 +304,7 @@ GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(string prm_model_name
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
 	_TRACE_("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
 
-	prm_pSpriteModel->_pID3DTexture9 = NULL;
+	prm_pSpriteModel->_pTexture = NULL;
 	prm_pSpriteModel->_paRectUV = NULL;
 
 	prm_pSpriteModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
@@ -329,7 +377,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	//テクスチャ取得しモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-	LPDIRECT3DTEXTURE9 pID3DTexture9 = GgafDx9TextureManager::get(string(*ppaChar_TextureFile));
+	GgafDx9Texture* pTexture = GgafDx9TextureManager::obtain(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
@@ -344,13 +392,13 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 //			D3DCOLOR_ARGB(255, 0, 0, 0),  // [in] D3DCOLOR ColorKey,
 //			NULL,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
 //			NULL,                      // [in] PALETTEENTRY *pPalette,
-//			&pID3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
+//			&pIDirect3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
 //		 );
 //	if(hr != D3D_OK) {
 //		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] テクスチャファイル読込みに失敗しました。対象="<<texture_filename, hr);
 //	}
 	//テクスチャの参照を保持させる。
- 	prm_pSpriteModel->_pID3DTexture9 = pID3DTexture9;
+ 	prm_pSpriteModel->_pTexture = pTexture;
 
 
 	GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
@@ -624,7 +672,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	//頂点配列情報をモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-	LPDIRECT3DTEXTURE9 pID3DTexture9 = GgafDx9TextureManager::get(string(*ppaChar_TextureFile));
+	GgafDx9Texture* pTexture = GgafDx9TextureManager::obtain(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
@@ -639,17 +687,17 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 //			0,                         // [in] D3DCOLOR ColorKey,
 //			NULL,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
 //			NULL,                      // [in] PALETTEENTRY *pPalette,
-//			&pID3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
+//			&pIDirect3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
 //		 );
 //	if(hr != D3D_OK) {
 //		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restorePlateModel] テクスチャファイル読込みに失敗しました。対象="<<texture_filename, hr);
 //	}
-	prm_pPlateModel->_pID3DTexture9 = pID3DTexture9;
+	prm_pPlateModel->_pTexture = pTexture;
 
 	// テクスチャーのサイズを取得して
 	/*
 	D3DSURFACE_DESC d3dsurface_desc;
-	pID3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
+	pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
 	UINT ulTextureWidth  = d3dsurface_desc.Width;  //幅（テクセル）
 	UINT ulTextureHeight = d3dsurface_desc.Height; //テクスチャ高さ（ピクセル）
 	*/

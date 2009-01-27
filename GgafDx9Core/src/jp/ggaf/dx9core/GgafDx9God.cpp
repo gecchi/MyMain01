@@ -421,7 +421,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			//モデル再設定
 			GgafDx9ModelManager::restoreAll();
 			//前回描画モデル情報を無効にする
-			GgafDx9Model::_s_modelname_lastdraw = "";
+			GgafDx9Model::_id_lastdraw = -1;
 			_deviceLostFlg = false;
 		}
 	}
@@ -480,7 +480,7 @@ void GgafDx9God::makeWorldVisualize() {
 			//モデル再設定
 			GgafDx9ModelManager::restoreAll();
 			//前回描画モデル情報を無効にする
-			GgafDx9Model::_s_modelname_lastdraw = "";
+			GgafDx9Model::_id_lastdraw = -1;
 		}
 	}
 }
@@ -501,7 +501,7 @@ GgafDx9God::~GgafDx9God() {
 
 	CmRandomNumberGenerator::getInstance()->release();
 	//保持モデル解放
-	GgafDx9ModelManager::clear();
+	GgafDx9ModelManager::release();
 	//DirectInput解放
 	GgafDx9Input::release();
 	//DirectSound解放

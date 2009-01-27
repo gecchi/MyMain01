@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
 	_class_name = "GgafDx9PlateActor";
-	_pPlateModel = GgafDx9ModelManager::getPlateModel(prm_spritemodel_name);
+	_pPlateModel = GgafDx9ModelManager::obtainPlateModel(prm_spritemodel_name);
 	_iPatternNo_Top     = 0;
 	_iPatternNo_Bottom  = _pPlateModel->_iPatternNo_Max;
 	_iPatternNo_Active  = 0;

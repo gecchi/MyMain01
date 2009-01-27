@@ -7,7 +7,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
     TRACE("GgafDx9MeshModel::GgafDx9MeshModel(" <<  prm_model_name << ")");
 	_pID3DXMesh      = NULL;
 	_paD3DMaterial9  = NULL;
-	_papID3DTexture9 = NULL;
+	_papTexture      = NULL;
 	_dwNumMaterials  = 0L;
 	_pModel_Next     = NULL;
 	//上記のプロパティは、GgafDx9ModelManager::restoreMeshModel() から設定されることになる。
@@ -27,9 +27,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         if(GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i])) != D3D_OK) {
         	throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw]["<<prm_pActor_Target->getName()<<"]のSetMaterial(&(paD3DMaterial9[i].MatD3D)失敗 model="<<_model_name, hr);
 		}
-		if (_papID3DTexture9[i] != NULL) {
+		if (_papTexture[i] != NULL) {
 			//テクスチャのセット
- 			if(GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papID3DTexture9[i] ) != D3D_OK) {
+ 			if(GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papTexture[i]->_pIDirect3DTexture9 ) != D3D_OK) {
  				throw_GgafDx9CriticalException("[GgafDx9MeshModel::draw] ["<<prm_pActor_Target->getName()<<"]のSetTexture( 0, papID3DTexture9[i])  失敗 model="<<_model_name, hr);
 			}
 		} else {
@@ -58,7 +58,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	}
 
 	//前回描画モデル名反映
-	GgafDx9Model::_s_modelname_lastdraw = _model_name;
+	GgafDx9Model::_id_lastdraw = _id;
 	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
@@ -71,46 +71,36 @@ void GgafDx9MeshModel::restore() {
 
 void GgafDx9MeshModel::onDeviceLost() {
 	_TRACE_("GgafDx9MeshModel::onDeviceLost() " <<  _model_name << " start");
+	//デバイスロスト時は解放します。
+    release();
+    _TRACE_("GgafDx9MeshModel::onDeviceLost() " <<  _model_name << " end");
+}
+
+void GgafDx9MeshModel::release() {
+	_TRACE_("GgafDx9MeshModel::release() " <<  _model_name << " start");
 	if (_pID3DXMesh == NULL) {
-		throw_GgafCriticalException("[GgafDx9MeshModel::onDeviceLost] Error! オブジェクトになっていないため Release できません！");
+		throw_GgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
 	}
-	LPDIRECT3DTEXTURE9 pTex;
+	//テクスチャを解放するかどうか
 	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		pTex = _papID3DTexture9[i];
-		if(pTex) {
-			pTex->Release();
-			pTex = NULL;
+		if (_papTexture[i] == NULL) {
+			continue;
 		} else {
-			pTex = NULL;
+			_papTexture[i]->_iRefModelNum--; //参照カウンタを -1
+			if (_papTexture[i]->_iRefModelNum == 0) {
+				//指しているモデルが無いのでテクスチャを解放
+				GgafDx9TextureManager::remove(_papTexture[i]);
+			}
 		}
-		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
 	}
-	DELETEARR_IMPOSSIBLE_NULL(_papID3DTexture9);
+	DELETEARR_IMPOSSIBLE_NULL(_papTexture); //テクスチャの配列
+
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 	RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
-	_TRACE_("GgafDx9MeshModel::onDeviceLost() " <<  _model_name << " end");
+	_TRACE_("GgafDx9MeshModel::release() " <<  _model_name << " end");
 }
 
 GgafDx9MeshModel::~GgafDx9MeshModel() {
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " start");
-	if (_pID3DXMesh == NULL) {
-		throw_GgafCriticalException("[GgafDx9MeshModel::remove] Error! オブジェクトになっていないため Release できません！");
-	}
-	LPDIRECT3DTEXTURE9 pTex;
-	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		pTex = _papID3DTexture9[i];
-		if(pTex) {
-			pTex->Release();
-			pTex = NULL;
-		} else {
-			pTex = NULL;
-		}
-		//RELEASE_POSSIBLE_NULL(pTex); //テクスチャが無い場合もあるため
-	}
-
-
-	DELETEARR_IMPOSSIBLE_NULL(_papID3DTexture9);
-	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
-	RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " end");
 }

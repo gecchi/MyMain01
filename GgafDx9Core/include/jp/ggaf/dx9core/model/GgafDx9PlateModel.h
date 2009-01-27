@@ -6,8 +6,14 @@ namespace GgafDx9Core {
  * GgafDx9PlateActor用モデルクラス.
  */
 class GgafDx9PlateModel : public GgafDx9Model {
-    friend class GgafDx9PlateModelManager;
+    friend class GgafDx9ModelManager;
     friend class GgafDx9PlateActor;
+protected:
+    /**
+	 * コンストラクタ<BR>
+	 * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+	 */
+	GgafDx9PlateModel(std::string prm_platemodel_name);
 
 public:
 
@@ -17,7 +23,7 @@ public:
 	// D3DMATERIAL9* 		_pD3DMaterial9;
 	//
 	/** テクスチャ(アニメーションパターン） */
-	LPDIRECT3DTEXTURE9 _pID3DTexture9;
+	GgafDx9Texture* _pTexture;
 
 	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
 	GgafDx9RectUV*  _paRectUV;
@@ -34,11 +40,6 @@ public:
 	int    _iRowNum_TextureSplit;
 	int    _iColNum_TextureSplit;
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-	 */
-	GgafDx9PlateModel(std::string prm_platemodel_name);
 
 	/**
 	 * GgafDx9PlateModelオブジェクトの描画<BR>
@@ -50,6 +51,8 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	virtual void release();
 
 	/**
 	 * デストラクタ<BR>

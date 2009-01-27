@@ -24,7 +24,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9SquareActor* pSquareActor_Target = (GgafDx9SquareActor*)prm_pActor_Target;
 	//HRESULT	hr;
-	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) { //‘O‰ñ‚Æ•`‰æƒ‚ƒfƒ‹‚ªˆá‚¤
+	if (GgafDx9Model::_id_lastdraw != _id) { //‘O‰ñ‚Æ•`‰æƒ‚ƒfƒ‹‚ªˆá‚¤
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SquareModel::FVF);
@@ -39,7 +39,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶
-	GgafDx9Model::_s_modelname_lastdraw = _model_name;
+	GgafDx9Model::_id_lastdraw = _id;
 	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
@@ -52,19 +52,21 @@ void GgafDx9SquareModel::restore() {
 
 void GgafDx9SquareModel::onDeviceLost() {
 	_TRACE_("GgafDx9SquareModel::onDeviceLost() " <<  _model_name << " start");
+	release();
+	_TRACE_("GgafDx9SquareModel::onDeviceLost() " <<  _model_name << " end");
+}
+
+void GgafDx9SquareModel::release() {
+	_TRACE_("GgafDx9SquareModel::release() " <<  _model_name << " start");
 
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
 	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
 
-	_TRACE_("GgafDx9SquareModel::onDeviceLost() " <<  _model_name << " end");
+	_TRACE_("GgafDx9SquareModel::release() " <<  _model_name << " end");
 }
 
 
 GgafDx9SquareModel::~GgafDx9SquareModel() {
 	TRACE("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " start");
-
-	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
-
 	_TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " end");
 }

@@ -30,6 +30,11 @@ protected:
 	/** 頂点バッファへのポインタ */
 	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
 
+	/**
+	 * コンストラクタ<BR>
+	 * @param prm_squaremodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+	 */
+	GgafDx9SquareModel(std::string prm_squaremodel_name);
 
 public:
 	/** 全アニメパターン数 */
@@ -39,11 +44,6 @@ public:
 //	int    _iRowNum_TextureSplit;
 //	int    _iColNum_TextureSplit;
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_squaremodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-	 */
-	GgafDx9SquareModel(std::string prm_squaremodel_name);
 
 	/**
 	 * GgafDx9SquareModelオブジェクトの描画<BR>
@@ -55,6 +55,9 @@ public:
 	virtual void restore();
 
 	virtual void onDeviceLost();
+
+	virtual void release();
+
 	/**
 	 * デストラクタ<BR>
 	 * deleteするのはGgafDx9SquareModelManagerである<BR>

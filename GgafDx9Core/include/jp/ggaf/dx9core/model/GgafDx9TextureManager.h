@@ -10,39 +10,39 @@ namespace GgafDx9Core {
 class GgafDx9TextureManager {
 protected:
 	/** GgafDx9Textureオブジェクトのリストの先頭のポインタ。終端はNULL */
-	static LPDIRECT3DTEXTURE9 _pTexture_First;
+	static GgafDx9Texture* _pTexture_First;
 	/**
 	 * GgafDx9Textureオブジェクトをリストに追加。<BR>
 	 * @param prm_pTexture_New 追加するGgafDx9Textureオブジェクトのポインタ
 	 */
-	static void add(LPDIRECT3DTEXTURE9 prm_pTexture_New);
+	static void add(GgafDx9Texture* prm_pTexture_New);
 
 	/**
 	 * GgafDx9Textureオブジェクトをリストから検索。<BR>
-	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
+	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
 	 * @return	所望のGgafDx9Textureオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	static LPDIRECT3DTEXTURE9 find(std::string prm_ogg_name);
+	static GgafDx9Texture* find(std::string prm_texture_file_name);
 
 public:
 
 	/**
 	 * GgafDx9Textureオブジェクトを取得。<BR>
-	 * GgafDx9Texture オブジェクトリスト（先頭は_pTexture_First）<BR>
-	 * から検索し、ヒットした（生成済みGgafDx9Textureがある）場合、 GgafDx9Texture にキャストしてそれを返す。<BR>
-	 * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
-	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
-	 * 毎フレーム実行されるような使用は避けるべきです。<BR>
-	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
-	 * @param prm_ogg_name ogg定義の識別名。".ogg"を追加するとファイル名になる。
+	 * モデルオブジェクトは、初期化時、このメソッドを１回だけ呼び出してテクスチャを取得する。<BR>
+	 * テクスチャは、保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+	 * テクスチャを保持リストから取得した場合、参照カウンタが増えます。（モデル初期時１回に限定するのはこのため）<BR>
+	 * new した場合、参照カウンタは1です。<BR>
+	 * 参照カウンタはモデルの delete 時にテクスチャを解放するかどうかの判断に使用される。<BR>
+	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
 	 */
-	static LPDIRECT3DTEXTURE9 get(std::string prm_ogg_name);
+	static GgafDx9Texture* obtain(std::string prm_texture_file_name);
 
+	static void remove(GgafDx9Texture* prm_pTexture);
 
 	/**
 	 * GgafDx9Textureオブジェクトのリストをすべて delete を行う。<BR>
 	 */
-	static void clear();
+	static void release();
 
 };
 

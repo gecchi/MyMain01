@@ -15,11 +15,6 @@ protected:
 	/** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
 	static IDirectXFile* _s_pIDirectXFile;
 
-	/**
-	 * GgafDx9Modelオブジェクトをリストに追加。 .
-	 * @param prm_pSpriteModel_New 追加するGgafDx9Modelオブジェクトのポインタ
-	 */
-	static void add(GgafDx9Model* prm_pSpriteModel_New);
 
 	/**
 	 * GgafDx9Modelオブジェクトをリストから検索。 .
@@ -29,6 +24,18 @@ protected:
 	 * @return	所望のGgafDx9Modelオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
 	static GgafDx9Model* find(std::string prm_model_name);
+
+	/**
+	 * GgafDx9Modelオブジェクトをリストに追加。 .
+	 * @param prm_pModel 追加するGgafDx9Modelオブジェクトのポインタ
+	 */
+	static void add(GgafDx9Model* prm_pModel_New);
+
+	/**
+	 * GgafDx9Modelオブジェクトをリストから削除。
+	 * @param prm_pModel 削除するGgafDx9Modelオブジェクトのポインタ
+	 */
+	static void remove(GgafDx9Model* prm_pModel);
 
 	/**
 	 * GgafDx9MeshModel オブジェクトを生成。 .
@@ -60,6 +67,15 @@ protected:
 
 public:
 
+	/** 現在モデルID */
+	static int _id_max;
+
+	/** モデルID取得 */
+	static int getNextId() {
+		_id_max++;
+		return _id_max;
+	}
+
 	/**
 	 * GgafDx9Modelオブジェクトをリストの各インスタンスの内容を再構築。 .
 	 * デバイスロスト後の復帰時に呼び出される<BR>
@@ -79,7 +95,7 @@ public:
 	 * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	static GgafDx9MeshModel* getMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
+	static GgafDx9MeshModel* obtainMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9SpriteModelオブジェクトを取得。 .
@@ -91,7 +107,7 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9SpriteModel* getSpriteModel(std::string prm_model_name);
+	static GgafDx9SpriteModel* obtainSpriteModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9SquareModelオブジェクトを取得。 .
@@ -103,7 +119,7 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9SquareModel* getSquareModel(std::string prm_model_name);
+	static GgafDx9SquareModel* obtainSquareModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9PlateModelオブジェクトを取得。<BR>
@@ -115,12 +131,12 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	static GgafDx9PlateModel* getPlateModel(std::string prm_model_name);
+	static GgafDx9PlateModel* obtainPlateModel(std::string prm_model_name);
 
 	/**
 	 * GgafDx9Modelオブジェクトのリストをすべて delete を行う。<BR>
 	 */
-	static void clear();
+	static void release();
 
 	/**
 	 * GgafDx9MeshModel オブジェクトを再構築する。 .

@@ -13,7 +13,7 @@ GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(
 	_iRowNum_TextureSplit    = 1;
 	_iColNum_TextureSplit    = 1;
 	_iPatternNo_Max = 1;
-	_pID3DTexture9 = NULL;
+	_pTexture = NULL;
 	_pModel_Next = NULL;
 	_paRectUV = NULL;
 	_pRectUV_drawlast = NULL;
@@ -34,9 +34,9 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
 //	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
-	if (GgafDx9Model::_s_modelname_lastdraw != _model_name) {
+	if (GgafDx9Model::_id_lastdraw != _id) {
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pID3DTexture9));
+		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pTexture->_pIDirect3DTexture9));
 	} else {
 		//ちょっとだけ早いのよ！
 	}
@@ -56,7 +56,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	//とかあるので、マテリアルも頂点カラーも最後のレンダリング時に設定できるものと思ってた。違うのか、正しいのか、設定が足りないのか･･･。
 	//TODO:わかりません。
 
-	GgafDx9Model::_s_modelname_lastdraw = _model_name; //前回描画モデル名保存
+	GgafDx9Model::_id_lastdraw = _id; //前回描画モデル名保存
 	//GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
@@ -68,17 +68,26 @@ void GgafDx9PlateModel::restore() {
 	TRACE("GgafDx9PlateModel::restore() " <<  _model_name << " end");
 }
 
+void GgafDx9PlateModel::release() {
+	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " start");
+	_pTexture->_iRefModelNum--; //参照カウンタを -1
+	if (_pTexture->_iRefModelNum == 0) {
+		//指しているモデルが無いのでテクスチャを解放
+		GgafDx9TextureManager::remove(_pTexture);
+	}
+	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " end");
+
+
+}
 
 void GgafDx9PlateModel::onDeviceLost() {
 	_TRACE_("GgafDx9PlateModel::onDeviceLost() " <<  _model_name << " start");
-	RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
-	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+	release();
 	_TRACE_("GgafDx9PlateModel::onDeviceLost() " <<  _model_name << " end");
 }
 
 GgafDx9PlateModel::~GgafDx9PlateModel() {
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " start");
-    RELEASE_IMPOSSIBLE_NULL(_pID3DTexture9);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " end");
 }
