@@ -110,7 +110,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCm
 
         // アニメーションをフレーム分進める
         pAC->AdvanceTime( 6.0f, NULL );
-        pAC->SetTime(pAnimationSet->GetPeriod()+6.0f )SDKが古い
+        //pAC->SetTime(pAnimationSet->GetPeriod()+6.0f )SDKが古い
          // ワールド変換行列スタックによるワールド変換行列の計算
          Ang += 0.004f;
          D3DXMatrixIdentity( &WorldMat );
