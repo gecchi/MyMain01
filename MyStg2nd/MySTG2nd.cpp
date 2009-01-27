@@ -166,7 +166,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
 		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
 		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		PostQuitMessage(0);
+		::timeEndPeriod(1);
 
 //		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
 //		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
