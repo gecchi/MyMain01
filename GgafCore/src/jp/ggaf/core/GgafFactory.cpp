@@ -123,6 +123,9 @@ void* GgafFactory::obtain(unsigned long prm_id) {
 			}
 		}
 	}
+	if (GgafGod::_pException_Factory != NULL) {
+		throw *(GgafGod::_pException_Factory);
+	}
 	return NULL;
 }
 
