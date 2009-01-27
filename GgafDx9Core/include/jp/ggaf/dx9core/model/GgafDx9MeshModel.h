@@ -9,11 +9,11 @@ class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 public:
-	/** メッシュ(ID3DXMeshインターフェイスへのポインタ） */
+	/** メッシュ(インスタンスはモデル毎） */
 	LPD3DXMESH			_pID3DXMesh;
-	/** マテリアル配列(D3DMATERIAL9構造体を要素とする配列の先頭アドレスを指すポインタ） */
+	/** Xファイル読込み時マテリアル配列(各Actorにディープコピーされ、描画時はActorのマテリアルを使う） */
 	D3DMATERIAL9* 		_paD3DMaterial9;
-	/** テクスチャ配列(GgafDx9Textureのポインタを要素とする配列の先頭アドレスを指すポインタ） */
+	/** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
 	GgafDx9Texture**	_papTexture;
 	/** D3DXLoadMeshFromXのオプション */
 	DWORD _dwOptions;
@@ -21,7 +21,7 @@ public:
 	/** メッシュに含まれる各面の隣接面を格納するポインタ */
 //	LPD3DXBUFFER	_pAdjacency;
 	/** マテリアル数(=メッシュ数) */
-	DWORD               _dwNumMaterials;
+	DWORD _dwNumMaterials;
 
 public:
 	/**
@@ -45,7 +45,7 @@ public:
 
 	virtual void release();
 
-	void setAlpha(float prm_fAlpha);
+
 
 	/**
 	 * デストラクタ<BR>

@@ -16,15 +16,13 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
 
 HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	static GgafDx9MeshActor* pMeshActor_Target;
+	ここをどうやって振り分けるGgafDx9MeshActor と GgafDx9DynaMeshActor
 	pMeshActor_Target = (GgafDx9MeshActor*)prm_pActor_Target;
 
 	static HRESULT hr;
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
-		//α設定
-		_paD3DMaterial9[i].Ambient.a = pMeshActor_Target->_fAlpha;
-		_paD3DMaterial9[i].Diffuse.a = pMeshActor_Target->_fAlpha;
         //マテリアルのセット
-        GgafDx9God::_pID3DDevice9 -> SetMaterial(&(_paD3DMaterial9[i]));
+        GgafDx9God::_pID3DDevice9 -> SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
 		if (_papTexture[i] != NULL) {
 			//テクスチャのセット
  			GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papTexture[i]->_pIDirect3DTexture9 );

@@ -27,9 +27,7 @@ public:
 	 */
 	virtual void processDrawMain();
 
-	void setAlpha(float prm_fAlpha) {
-		_fAlpha = prm_fAlpha;
-	}
+	void setAlpha(float prm_fAlpha);
 
 	float getAlpha() {
 		return _fAlpha;

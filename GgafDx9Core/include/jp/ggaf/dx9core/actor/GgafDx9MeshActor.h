@@ -11,8 +11,10 @@ class GgafDx9MeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
-	/** モデルオブジェクトへのポインタ */
+	/** モデル */
 	GgafDx9MeshModel* _pMeshModel;
+	/** マテリアル */
+	D3DMATERIAL9* 	_paD3DMaterial9;
 	/** キャラ全体のα */
 	float _fAlpha;
 
@@ -24,9 +26,7 @@ public:
 	 */
 	virtual void processDrawMain();
 
-	void setAlpha(float prm_fAlpha) {
-		_fAlpha = prm_fAlpha;
-	}
+	void setAlpha(float prm_fAlpha);
 
 	float getAlpha() {
 		return _fAlpha;
