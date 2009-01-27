@@ -12,7 +12,7 @@ public:
 	/** メッシュ(インスタンスはモデル毎） */
 	LPD3DXMESH			_pID3DXMesh;
 	/** Xファイル読込み時マテリアル配列(各Actorにディープコピーされ、描画時はActorのマテリアルを使う） */
-	D3DMATERIAL9* 		_paD3DMaterial9;
+	D3DMATERIAL9* 		_paD3DMaterial9_default;
 	/** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
 	GgafDx9Texture**	_papTexture;
 	/** D3DXLoadMeshFromXのオプション */

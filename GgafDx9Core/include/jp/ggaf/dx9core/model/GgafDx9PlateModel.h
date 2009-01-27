@@ -19,9 +19,7 @@ public:
 
 	/** VERTEXのFVF */
 	static DWORD FVF;
-	// /** マテリアル */
-	// D3DMATERIAL9* 		_pD3DMaterial9;
-	//
+
 	/** テクスチャ(アニメーションパターン） */
 	GgafDx9Texture* _pTexture;
 

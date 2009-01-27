@@ -84,20 +84,11 @@ public:
 	void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval);
 
 	/**
-	 * 半透明度合いを設定 .
-	 * @param prm_fAlpha<BR>
+	 * α設定.
+	 * ＜オーバーライト＞
+	 * @param prm_fAlpha
 	 */
-	void setAlpha(float prm_fAlpha) {
-		_fAlpha = prm_fAlpha;
-	}
-
-	/**
-	 * 現在の半透明度合いを取得 .
-	 * @return マテリアルα反射値<BR>
-	 */
-	float getAlpha() {
-		return _fAlpha;
-	}
+	void setAlpha(float prm_fAlpha);
 
 	/**
 	 * ビルボード有効 .

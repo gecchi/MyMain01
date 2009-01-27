@@ -15,12 +15,14 @@ protected:
 		DWORD color;      // 頂点の色
 		float tu, tv;     // テクスチャ座標
 	};
+
+public:
 	/** VERTEXのFVF */
 	static DWORD FVF;
 	/** 頂点バッファへのポインタ */
 	LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
 	/** マテリアル */
-	D3DMATERIAL9* 		_pD3DMaterial9;
+	D3DMATERIAL9* 		_pD3DMaterial9_default;
 	/** テクスチャ(アニメーションパターン） */
 	GgafDx9Texture* _pTexture;
 	/** 矩形の頂点合計のサイズ */

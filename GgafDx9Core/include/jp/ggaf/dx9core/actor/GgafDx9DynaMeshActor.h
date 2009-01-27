@@ -27,11 +27,12 @@ public:
 	 */
 	virtual void processDrawMain();
 
+	/**
+	 * α設定.
+	 * ＜オーバーライト＞
+	 * @param prm_fAlpha
+	 */
 	void setAlpha(float prm_fAlpha);
-
-	float getAlpha() {
-		return _fAlpha;
-	}
 
 	virtual ~GgafDx9DynaMeshActor();		//デストラクタ
 };

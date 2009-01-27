@@ -29,7 +29,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	GgafDx9PlateActor* pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;
 
 
-	//α設定
+	//α設定（効かないのでコメント）
 //	_pD3DMaterial9->Diffuse.a = pPlateActor_Target->_fAlpha;
 //	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
 //	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
@@ -46,15 +46,15 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	//↑＜2008/10/24 の脳みそ＞
 	//GgafDx9God::_pID3DDevice9 -> SetMaterial で色をマテリアルで変更できると思っていた。
-	//しかしいろいろ実験するとどうやら トランスフォーム済み（FVF に D3DFVF_XYZRHW 付）はマテリアルが適用されない（αができない）
-	//ということは、マテリアル適用は固定パイプラインの工程内という意味なのか？
-	//しかし頂点カラーは適用される、これはどこで行われるのか。
+	//だがしかし、いろいろやってもできなかった。 トランスフォーム済み（FVF に D3DFVF_XYZRHW 付）はマテリアルが適用されない（αができない）・・・
+	//というか、マテリアル適用は固定パイプラインの工程内ということなのか、よくわからない。
+	//しかし頂点カラーは適用される、これはどこで行われるのか。レンダの最後らへんで頂点カラーは適用されるということなのか？
 	//
 	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_MATERIAL); //マテリアル情報元をマテリアルにする
 	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1); //マテリアル情報元を頂点カラーにする
 	//
 	//とかあるので、マテリアルも頂点カラーも最後のレンダリング時に設定できるものと思ってた。違うのか、正しいのか、設定が足りないのか･･･。
-	//TODO:わかりません。
+	//TODO:とりあえずα（マテリアル）は後回し。
 
 	GgafDx9Model::_id_lastdraw = _id; //前回描画モデル名保存
 	//GgafGod::_iNumPlayingActor++;

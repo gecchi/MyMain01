@@ -12,6 +12,12 @@ class GgafDx9UntransformedActor : public GgafDx9BaseActor {
 private:
 
 public:
+	/** マテリアル配列 */
+	D3DMATERIAL9* 	_paD3DMaterial9;
+	/** キャラ全体のα */
+	float _fAlpha;
+
+
 	/** ワールドX座標 */
 	int _X;
 	/** ワールドY座標 */
@@ -107,6 +113,14 @@ public:
 	 * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
 	 */
 	virtual void processDrawPrior();
+
+	virtual void setAlpha(float prm_fAlpha) {
+		_fAlpha = prm_fAlpha;
+	}
+
+	virtual float getAlpha() {
+		return _fAlpha;
+	}
 
 	/**
 	 * world変換 .

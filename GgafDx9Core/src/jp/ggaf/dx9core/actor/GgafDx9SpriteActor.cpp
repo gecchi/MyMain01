@@ -15,6 +15,11 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_n
 	_oscillateAnimationOrderFlg = true;
 	_fAlpha = 1.0f;
 	_isBillboarding = false;
+
+	//マテリアルをコピー
+	_paD3DMaterial9 = NEW D3DMATERIAL9[1];
+	_paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
+
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
@@ -107,5 +112,13 @@ void GgafDx9SpriteActor::nextAnimationFrame() {
 	}
 }
 
+void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
+	_fAlpha = prm_fAlpha;
+	//α設定
+	_paD3DMaterial9[0].Ambient.a = _fAlpha;
+	_paD3DMaterial9[0].Diffuse.a = _fAlpha;
+}
+
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
+	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

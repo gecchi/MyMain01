@@ -17,6 +17,8 @@ _Y_OffScreenBottom((int)(-1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2))
 //	_incRX = _incRY = _incRZ = 0;
 	_pGeoMover = prm_pGeoMover;
 	_pGeoChecker = prm_pGeoChecker;
+	_paD3DMaterial9 = NULL;
+	_fAlpha = 1.0f;
 }
 
 bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {

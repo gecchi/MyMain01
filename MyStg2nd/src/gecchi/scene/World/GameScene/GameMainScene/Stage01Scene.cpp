@@ -12,7 +12,7 @@ Stage01Scene::Stage01Scene(string prm_name) : DefaultScene(prm_name) {
 	getLordActor()->accept(KIND_EFFECT, pBack);
 	addSubLast(pStage01MainScene);
 	_bgm_st1 = GgafDx9BgmManager::get("JM5");
-	_bgm_st1->play(false);
+	//_bgm_st1->play(false);
 	stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 	_TRACE_("Stage01Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
 }

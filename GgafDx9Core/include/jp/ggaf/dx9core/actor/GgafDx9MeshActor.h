@@ -13,11 +13,6 @@ private:
 public:
 	/** モデル */
 	GgafDx9MeshModel* _pMeshModel;
-	/** マテリアル */
-	D3DMATERIAL9* 	_paD3DMaterial9;
-	/** キャラ全体のα */
-	float _fAlpha;
-
 
 	GgafDx9MeshActor(std::string prm_name, std::string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
@@ -26,11 +21,12 @@ public:
 	 */
 	virtual void processDrawMain();
 
+	/**
+	 * α設定.
+	 * ＜オーバーライト＞
+	 * @param prm_fAlpha
+	 */
 	void setAlpha(float prm_fAlpha);
-
-	float getAlpha() {
-		return _fAlpha;
-	}
 
 	virtual ~GgafDx9MeshActor();		//デストラクタ
 };

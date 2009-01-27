@@ -65,10 +65,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 		//前回描画モデルもUVも同じ
 		// → 何もせんでよい。こりゃはやいでっせ～！(たぶん)
 	}
-	//α設定
-	_pD3DMaterial9->Diffuse.a = pSpriteActor_Target->_fAlpha;
-	_pD3DMaterial9->Ambient.a = pSpriteActor_Target->_fAlpha;
-	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
+	GgafDx9God::_pID3DDevice9 -> SetMaterial(&(pSpriteActor_Target->_paD3DMaterial9[0]));
 
 //	if (_isChangedAlpha) {
 //		//前回描画UVが同じでもAlpha変更な場合
@@ -129,7 +126,7 @@ void GgafDx9SpriteModel::onDeviceLost() {
 void GgafDx9SpriteModel::release() {
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " start");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
+	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
 	_pTexture->_iRefModelNum--; //参照カウンタを -1
 	if (_pTexture->_iRefModelNum == 0) {
 		//指しているモデルが無いのでテクスチャを解放
