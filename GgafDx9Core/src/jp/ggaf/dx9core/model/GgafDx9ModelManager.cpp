@@ -242,7 +242,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	papTexture = NEW GgafDx9TexturePointer*[dwNumMaterials];
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename) > 0 ) {
-			papTexture[i] = (GgafDx9TexturePointer*)_pTextureManager->referResource(paD3DMaterial9_tmp[i].pTextureFilename);
+			papTexture[i] = (GgafDx9TexturePointer*)_pTextureManager->referResourcePointer(paD3DMaterial9_tmp[i].pTextureFilename);
 //			string texture_filename = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(paD3DMaterial9_tmp[i].pTextureFilename);
 //			hr = D3DXCreateTextureFromFileEx(
 //					GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -378,7 +378,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	//テクスチャ取得しモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResource(string(*ppaChar_TextureFile));
+	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResourcePointer(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
@@ -673,7 +673,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	//頂点配列情報をモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResource(string(*ppaChar_TextureFile));
+	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResourcePointer(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,

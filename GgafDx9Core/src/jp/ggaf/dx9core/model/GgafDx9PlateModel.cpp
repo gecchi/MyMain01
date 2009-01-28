@@ -37,7 +37,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	if (GgafDx9Model::_id_lastdraw != _id) {
 		LPDIRECT3DTEXTURE9 pTex = _pTexture->_pResource;
 		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, pTex);
-		‚±‚±‚ç‚Ö‚ñ‚Å@this ‚ª 0x0h ‚É‚È‚é
+		//‚±‚±‚ç‚Ö‚ñ‚Å@this ‚ª 0x0h ‚É‚È‚é
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
 
 	} else {

@@ -54,11 +54,11 @@ public:
 	 * 参照カウンタはモデルの delete 時にを解放するかどうかの判断に使用される。<BR>
 	 * @param prm_name 識別名
 	 */
-	virtual T* referResource(std::string prm_name);
+	virtual T* referResource(std::string prm_resource_idstr);
 
 	virtual void releaseResource(T* prm_pResource);
 
-
+	virtual GgafResourcePointer<T>* referResourcePointer(std::string prm_resource_idstr);
 	virtual void releaseResourcePointer(GgafResourcePointer<T>* prm_pResourcePointer);
 
 
@@ -78,11 +78,6 @@ public:
 	 * @param prm_name 識別名
 	 */
 	virtual GgafResourcePointer<T>* createResourcePointer(std::string prm_resource_idstr, T* prm_pResource);
-
-
-
-
-
 	virtual void processReleaseResource(T* prm_pResource)= 0;
 
 
@@ -106,7 +101,7 @@ GgafResourcePointerManager<T>::~GgafResourcePointerManager() {
 	} else {
 		GgafResourcePointer<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
-			releaseResourcePointer(pCurrent); //解放
+			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum != 0) {
 				_TRACE_("GgafResourcePointerManager::~GgafResourcePointerManager ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 参照0でないけどdeleteします。");
@@ -164,7 +159,7 @@ void GgafResourcePointerManager<T>::releaseResource(T* prm_pResource) {
 		if (pCurrent->getResource() == prm_pResource) {
 			//発見した場合
 			_TRACE_("GgafResourcePointerManager::releaseResource["<<pCurrent->_resource_idstr<<"]");
-			releaseResourcePointer(pCurrent); //解放
+			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum == 0) {
 				if (pCurrent->_pNext == NULL) {
@@ -217,7 +212,7 @@ void GgafResourcePointerManager<T>::releaseResourcePointer(GgafResourcePointer<T
 		if (pCurrent == prm_pResourcePointer) {
 			//発見した場合
 			_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"]");
-			releaseResourcePointer(pCurrent); //解放
+			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum == 0) {
 				if (pCurrent->_pNext == NULL) {
@@ -275,6 +270,22 @@ T* GgafResourcePointerManager<T>::referResource(std::string prm_resource_idstr) 
 }
 
 template<class T>
+GgafResourcePointer<T>* GgafResourcePointerManager<T>::referResourcePointer(std::string prm_resource_idstr) {
+	GgafResourcePointer<T>* pObj = find(prm_resource_idstr);
+	//未生成ならば生成
+	if (pObj == NULL) {
+		T* pResource = createResource(prm_resource_idstr);
+		pObj = createResourcePointer(prm_resource_idstr, pResource);
+		pObj->_iResourceReferenceNum = 1;
+		add(pObj);
+		return pObj;
+	} else {
+		pObj->_iResourceReferenceNum ++;
+		return pObj;
+	}
+}
+
+template<class T>
 T* GgafResourcePointerManager<T>::createResource(std::string prm_resource_idstr) {
 	_TRACE_("GgafResourcePointerManager<T>::createResource "<<prm_resource_idstr<<"を生成しましょう");
 	return processCreateResource(prm_resource_idstr);
@@ -306,8 +317,6 @@ void GgafResourcePointerManager<T>::dump() {
 		}
 	}
 }
-
-class ZZZ : public GgafResourcePointerManager<GgafObject> {};
 
 }
 #endif /*GGAFRESOURCEPOINTERMANAGER_H_*/
