@@ -197,11 +197,11 @@ GgafResource<T>* GgafResourceManager<T>::reference(std::string prm_name) {
 	//–¢¶¬‚È‚ç‚Î¶¬
 	if (pObj == NULL) {
 		pObj = createResource(prm_name);
-		pObj->_iReferenceNum = 1;
+		pObj->_iResourceReferenceNum = 1;
 		add(pObj);
 		return pObj;
 	} else {
-		pObj->_iReferenceNum ++;
+		pObj->_iResourceReferenceNum ++;
 		return pObj;
 	}
 }
