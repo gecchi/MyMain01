@@ -106,10 +106,10 @@ GgafResourcePointerManager<T>::~GgafResourcePointerManager() {
 	} else {
 		GgafResourcePointer<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
-			pCurrent->releaseResource(); //解放
+			releaseResourcePointer(pCurrent); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum != 0) {
-				_TRACE_("GgafResourcePointerManager::~GgafResourcePointerManager ["<<pCurrent->_name<<"←"<<rnum<<"Objects] 参照0でないけどdeleteします。");
+				_TRACE_("GgafResourcePointerManager::~GgafResourcePointerManager ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 参照0でないけどdeleteします。");
 			}
 			DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の解放
 			pCurrent_Next = pCurrent -> _pNext;
@@ -127,7 +127,7 @@ template<class T>
 GgafResourcePointer<T>* GgafResourcePointerManager<T>::find(std::string prm_name) {
 	GgafResourcePointer<T>* pCurrent = _pTop;
 	while (pCurrent != NULL) {
-		if (pCurrent->_name == prm_name) {
+		if (pCurrent->_resource_idstr == prm_name) {
 			return pCurrent;
 		}
 		pCurrent = pCurrent -> _pNext;
@@ -164,7 +164,7 @@ void GgafResourcePointerManager<T>::releaseResource(T* prm_pResource) {
 		if (pCurrent->getResource() == prm_pResource) {
 			//発見した場合
 			_TRACE_("GgafResourcePointerManager::releaseResource["<<pCurrent->_resource_idstr<<"]");
-			pCurrent->releaseResource(); //解放
+			releaseResourcePointer(pCurrent); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum == 0) {
 				if (pCurrent->_pNext == NULL) {
@@ -217,7 +217,7 @@ void GgafResourcePointerManager<T>::releaseResourcePointer(GgafResourcePointer<T
 		if (pCurrent == prm_pResourcePointer) {
 			//発見した場合
 			_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"]");
-			pCurrent->releaseResource(); //解放
+			releaseResourcePointer(pCurrent); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
 			if (rnum == 0) {
 				if (pCurrent->_pNext == NULL) {
@@ -281,7 +281,7 @@ T* GgafResourcePointerManager<T>::createResource(std::string prm_resource_idstr)
 }
 
 template<class T>
-GgafResourcePointer<T>* createResourcePointer(std::string prm_resource_idstr, T* prm_pResource) {
+GgafResourcePointer<T>* GgafResourcePointerManager<T>::createResourcePointer(std::string prm_resource_idstr, T* prm_pResource) {
 	GgafResourcePointer<T>* p = NEW GgafResourcePointer<T>(prm_resource_idstr, prm_pResource);
 	return p;
 }
@@ -295,7 +295,7 @@ void GgafResourcePointerManager<T>::dump() {
 		GgafResourcePointer<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iResourceReferenceNum;
-			_TRACE_("GgafResourcePointerManager::dump ["<<pCurrent->prm_resource_idstr<<"←"<<rnum<<"Objects]");
+			_TRACE_("GgafResourcePointerManager::dump ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]");
 			pCurrent_Next = pCurrent -> _pNext;
 			if (pCurrent_Next == NULL) {
 				pCurrent = NULL;

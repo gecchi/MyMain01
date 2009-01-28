@@ -35,8 +35,11 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
 	if (GgafDx9Model::_id_lastdraw != _id) {
+		LPDIRECT3DTEXTURE9 pTex = _pTexture->_pResource;
+		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, pTex);
+		Ç±Ç±ÇÁÇ÷ÇÒÇ≈Å@this Ç™ 0x0h Ç…Ç»ÇÈ
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pTexture->_pIDirect3DTexture9));
+
 	} else {
 		//ÇøÇÂÇ¡Ç∆ÇæÇØëÅÇ¢ÇÃÇÊÅI
 	}
@@ -70,7 +73,7 @@ void GgafDx9PlateModel::restore() {
 
 void GgafDx9PlateModel::release() {
 	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " start");
-	GgafDx9ModelManager::_pTextureManager->releaseResource(_pTexture);
+	GgafDx9ModelManager::_pTextureManager->releaseResourcePointer(_pTexture);
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " end");
 

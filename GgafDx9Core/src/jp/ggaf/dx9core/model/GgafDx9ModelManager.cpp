@@ -378,7 +378,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	//テクスチャ取得しモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TexturePointer* pTexture = GgafDx9TexturePointerManager::obtain(string(*ppaChar_TextureFile));
+	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResource(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
@@ -673,7 +673,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	//頂点配列情報をモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TexturePointer* pTexture = GgafDx9TexturePointerManager::obtain(string(*ppaChar_TextureFile));
+	GgafDx9TexturePointer* pTexture = (GgafDx9TexturePointer*)_pTextureManager->referResource(string(*ppaChar_TextureFile));
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,

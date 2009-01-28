@@ -38,7 +38,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 		//‘O‰ñ•`‰æ‚Æƒ‚ƒfƒ‹‚ªˆá‚¤I
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SpriteModel::FVF);
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, (_pTexture->_pIDirect3DTexture9));
+		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _pTexture->getResource());
 	}
 
 	if (_pRectUV_drawlast != pRectUV_Active) {
@@ -127,7 +127,7 @@ void GgafDx9SpriteModel::release() {
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " start");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
 	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-	GgafDx9ModelManager::_pTextureManager->releaseResource(_pTexture);
+	GgafDx9ModelManager::_pTextureManager->releaseResourcePointer(_pTexture);
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " end");
 

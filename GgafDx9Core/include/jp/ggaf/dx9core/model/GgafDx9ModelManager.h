@@ -15,7 +15,7 @@ protected:
 	/** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
 	static IDirectXFile* _s_pIDirectXFile;
 
-	static GgafDx9TexturePointerManager* _pTextureManager;
+
 	/**
 	 * GgafDx9Modelオブジェクトをリストから検索。 .
 	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
@@ -69,6 +69,8 @@ public:
 
 	/** 現在モデルID */
 	static int _id_max;
+
+	static GgafDx9TexturePointerManager* _pTextureManager;
 
 	/** モデルID取得 */
 	static int getNextId() {

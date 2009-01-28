@@ -69,7 +69,9 @@ void GgafDx9MeshModel::release() {
 		throw_GgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
 	}
 	//テクスチャを解放するかどうか
-	GgafDx9ModelManager::_pTextureManager->releaseResource(_papTexture[i]);
+	for(DWORD i = 0; i < _dwNumMaterials; i++) {
+		GgafDx9ModelManager::_pTextureManager->releaseResourcePointer(_papTexture[i]);
+	}
 
 	DELETEARR_IMPOSSIBLE_NULL(_papTexture); //テクスチャの配列
 	RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
