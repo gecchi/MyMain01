@@ -32,7 +32,6 @@ public:
 	};
 
 	static LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_MyLaserChip2;
-	↑デバイスロストに対応しなはれ
 
 	static DWORD _dwVertexFormat;
 	static DWORD _dwFVFSize;
@@ -77,6 +76,11 @@ public:
 	 * ＜OverRide です＞
 	 */
 	void processDrawMain();
+
+	/**
+	 * ＜OverRide です＞
+	 */
+	void processHappen(int prm_no);
 
 	/**
 	 * ＜OverRide です＞

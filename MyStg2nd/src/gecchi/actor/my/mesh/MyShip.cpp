@@ -116,7 +116,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	_pMyLaserChipRotation = NEW RotationActor("RotLaser001");
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip2* pChip;
-	for (int i = 0; i < 0; i++) { //レーザーストック
+	for (int i = 0; i < 100; i++) { //レーザーストック
 		pChip = NEW MyLaserChip2("MYS_L"+GgafUtil::itos(i), "laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
