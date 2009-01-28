@@ -36,6 +36,11 @@
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
 
+//ÉmÅ[ÉhÇÃ happen à¯êî
+#define GGAF_EVENT_ON_DEVICE_LOST 101
+#define GGAF_EVENT_DEVICE_LOST_RESTORE 102
+#define GGAF_EVENT_NOLOOP_ANIMATION_FINISHED 201
+
 #include <dxerr9.h>
 #include <d3d9.h>
 #include <d3dx9.h>

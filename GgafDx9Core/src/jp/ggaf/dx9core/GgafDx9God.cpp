@@ -406,23 +406,28 @@ void GgafDx9God::makeWorldMaterialize() {
 	updateCam();
 	HRESULT hr;
 	if (_deviceLostFlg) {
-		//デバイスロスと復帰を試みる
+		//正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
 		if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
-			//復帰
-			_TRACE_("デバイスロストから復帰処理！");
-			//モデル開放
+			_TRACE_("正常デバイスロスト処理。Begin");
+			//モデル解放
 			GgafDx9ModelManager::onDeviceLostAll();
+			//全ノードに解放しなさいイベント発令
+			getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+			//デバイスリセットを試みる
 			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
 				throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
 			}
 			//デバイス再設定
-			initDx9Device();
+			GgafDx9God::initDx9Device();
 			//モデル再設定
 			GgafDx9ModelManager::restoreAll();
+			//全ノードに再設定しなさいイベント発令
+			getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
 			//前回描画モデル情報を無効にする
 			GgafDx9Model::_id_lastdraw = -1;
 			_deviceLostFlg = false;
+			_TRACE_("正常デバイスロスト処理。End");
 		}
 	}
 
@@ -466,19 +471,26 @@ void GgafDx9God::makeWorldVisualize() {
 
 		if (hr == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
-			_TRACE_("デバイスロスト！Present()");
+			_TRACE_("通常デバイスロスト！Present()");
 			_deviceLostFlg = true;
 		} else if (hr == D3DERR_DRIVERINTERNALERROR ) {
+			//Present以上時、無駄かもしれないがデバイスロストと同じ処理を試みる。
 			_TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
+			//モデル解放
 			GgafDx9ModelManager::onDeviceLostAll();
+			//全ノードに解放しなさいイベント発令
+			getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+			//デバイスリセットを試みる
 			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
-				throw_GgafDx9CriticalException("GgafDx9God::makeWorldVisualize() D3DERR_DRIVERINTERNALERROR後、リセットによる復帰に失敗しました。", hr);
+				throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
 			}
 			//デバイス再設定
-			initDx9Device();
+			GgafDx9God::initDx9Device();
 			//モデル再設定
 			GgafDx9ModelManager::restoreAll();
+			//全ノードに再設定しなさいイベント発令
+			getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
 			//前回描画モデル情報を無効にする
 			GgafDx9Model::_id_lastdraw = -1;
 		}
