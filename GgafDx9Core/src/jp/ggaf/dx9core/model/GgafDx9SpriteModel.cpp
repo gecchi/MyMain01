@@ -127,11 +127,7 @@ void GgafDx9SpriteModel::release() {
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " start");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
 	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-	_pTexture->_iRefModelNum--; //参照カウンタを -1
-	if (_pTexture->_iRefModelNum == 0) {
-		//指しているモデルが無いのでテクスチャを解放
-		GgafDx9TextureManager::remove(_pTexture);
-	}
+	GgafDx9ModelManager::_pTextureManager->releaseResource(_pTexture);
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " end");
 

@@ -3,11 +3,11 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9TextureManager::GgafDx9TextureManager(string prm_name) : GgafResourceManager<IDirect3DTexture9>(prm_name) {
+GgafDx9TexturePointerManager::GgafDx9TexturePointerManager(string prm_name) : GgafResourcePointerManager<IDirect3DTexture9>(prm_name) {
 }
 
-GgafResource<IDirect3DTexture9>* GgafDx9TextureManager::createResource(std::string prm_texture_file_name) {
-	string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(prm_texture_file_name);
+IDirect3DTexture9* GgafDx9TexturePointerManager::createResource(std::string prm_resource_idstr) {
+	string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(prm_resource_idstr);
 	LPDIRECT3DTEXTURE9 pIDirect3DTexture9_New;
 	HRESULT hr = D3DXCreateTextureFromFileEx(
 			GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -23,13 +23,20 @@ GgafResource<IDirect3DTexture9>* GgafDx9TextureManager::createResource(std::stri
 			0,                           // [in] D3DCOLOR ColorKey,
 			NULL,                        // [in] D3DXIMAGE_INFO *pSrcInfo,
 			NULL,                        // [in] PALETTEENTRY *pPalette,
-			&pIDirect3DTexture9_New                // [out] GgafDx9Texture* *ppTexture
+			&pIDirect3DTexture9_New                // [out] GgafDx9TexturePointer* *ppTexture
 		 );
 	if(hr != D3D_OK) {
-		throw_GgafDx9CriticalException("[GgafDx9MeshModelManager::load] D3DXCreateTextureFromFileé∏îsÅBëŒè€="<<prm_texture_file_name, hr);
+		throw_GgafDx9CriticalException("[GgafDx9TexturePointerManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_texture_file_name, hr);
 	}
-	GgafDx9Texture* pTexture = NEW GgafDx9Texture(prm_texture_file_name, pIDirect3DTexture9_New);
-	return pTexture;
+	return pIDirect3DTexture9_New;
 }
 
-GgafDx9TextureManager::~GgafDx9TextureManager(){};
+void GgafDx9TexturePointerManager::processReleaseResource(IDirect3DTexture9* prm_pResource) {
+	_TRACE_("GgafDx9TexturePointer::release() " <<  _texture_file_name << " start-->");
+	RELEASE_IMPOSSIBLE_NULL(prm_pResource);
+	_TRACE_("GgafDx9TexturePointer::release() " <<  _texture_file_name << " <--end");
+}
+
+
+
+GgafDx9TexturePointerManager::~GgafDx9TexturePointerManager(){};

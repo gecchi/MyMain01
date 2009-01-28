@@ -83,8 +83,8 @@ class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
-class GgafDx9Texture;
-class GgafDx9TextureManager;
+class GgafDx9TexturePointer;
+class GgafDx9TexturePointerManager;
 class GgafDx9ModelManager;
 class GgafDx9BaseActor;
 class GgafDx9UntransformedActor;
@@ -131,8 +131,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
-#include "jp/ggaf/dx9core/model/GgafDx9Texture.h"
-#include "jp/ggaf/dx9core/model/GgafDx9TextureManager.h"
+#include "jp/ggaf/dx9core/model/GgafDx9TexturePointer.h"
+#include "jp/ggaf/dx9core/model/GgafDx9TexturePointerManager.h"
 #include "jp/ggaf/dx9core/model/GgafDx9ModelManager.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
