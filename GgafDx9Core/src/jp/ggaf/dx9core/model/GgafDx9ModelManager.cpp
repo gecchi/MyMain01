@@ -7,7 +7,7 @@ GgafDx9Model* GgafDx9ModelManager::_s_pModel_First = NULL;
 IDirectXFile* GgafDx9ModelManager::_s_pIDirectXFile = NULL;
 int GgafDx9ModelManager::_id_max = 0;
 
-
+GgafDx9TextureManager* GgafDx9ModelManager::_pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
 GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
 	static GgafDx9Model* pModel_Current;
 	pModel_Current = _s_pModel_First;
@@ -98,7 +98,7 @@ void GgafDx9ModelManager::release() {
 		_s_pModel_First = NULL;
 
 		//テクスチャ解放
-		GgafDx9TextureManager::release();
+		delete _pTextureManager;
 	}
 
 	RELEASE_POSSIBLE_NULL(_s_pIDirectXFile);
@@ -241,7 +241,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	papTexture = NEW GgafDx9Texture*[dwNumMaterials];
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename) > 0 ) {
-			papTexture[i] = GgafDx9TextureManager::obtain(paD3DMaterial9_tmp[i].pTextureFilename);
+			papTexture[i] = (GgafDx9Texture*)_pTextureManager->reference(paD3DMaterial9_tmp[i].pTextureFilename);
 //			string texture_filename = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(paD3DMaterial9_tmp[i].pTextureFilename);
 //			hr = D3DXCreateTextureFromFileEx(
 //					GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,

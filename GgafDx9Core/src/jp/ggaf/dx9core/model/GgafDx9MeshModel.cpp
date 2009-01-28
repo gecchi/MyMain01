@@ -25,7 +25,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9 -> SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
 		if (_papTexture[i] != NULL) {
 			//テクスチャのセット
- 			GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papTexture[i]->_pIDirect3DTexture9 );
+ 			GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papTexture[i]->_pResource );
 		} else {
 			//無ければテクスチャ無し
  			GgafDx9God::_pID3DDevice9 -> SetTexture(0, NULL);
@@ -69,17 +69,8 @@ void GgafDx9MeshModel::release() {
 		throw_GgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
 	}
 	//テクスチャを解放するかどうか
-	for( DWORD i = 0; i < _dwNumMaterials; i++) {
-		if (_papTexture[i] == NULL) {
-			continue;
-		} else {
-			_papTexture[i]->_iRefModelNum--; //参照カウンタを -1
-			if (_papTexture[i]->_iRefModelNum == 0) {
-				//指しているモデルが無いのでテクスチャを解放
-				GgafDx9TextureManager::remove(_papTexture[i]);
-			}
-		}
-	}
+	GgafDx9TextureManager::release(_papTexture[i]);
+
 	DELETEARR_IMPOSSIBLE_NULL(_papTexture); //テクスチャの配列
 	RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
