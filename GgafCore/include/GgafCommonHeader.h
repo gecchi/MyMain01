@@ -89,6 +89,8 @@ class GgafLogger;
 class GgafGod;
 
 //class GgafElement;
+//class GgafResource;
+//class GgafResourceManager;
 
 class GgafFactory;
 class GgafGarbageBox;
@@ -116,6 +118,8 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/util/GgafLogger.h"
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
+#include "jp/ggaf/core/GgafResource.hpp"
+#include "jp/ggaf/core/GgafResourceManager.hpp"
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
