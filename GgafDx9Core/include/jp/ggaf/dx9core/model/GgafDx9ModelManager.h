@@ -70,7 +70,7 @@ public:
 	/** Œ»İƒ‚ƒfƒ‹ID */
 	static int _id_max;
 
-	static GgafDx9TexturePointerManager* _pTextureManager;
+	static GgafDx9TextureManager* _pTextureManager;
 
 	/** ƒ‚ƒfƒ‹IDæ“¾ */
 	static int getNextId() {

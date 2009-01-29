@@ -1,12 +1,12 @@
-#ifndef GGAFDX9TEXTUREPOINTER_H_
-#define GGAFDX9TEXTUREPOINTER_H_
+#ifndef GGAFDX9TEXTURECONNECTION_H_
+#define GGAFDX9TEXTURECONNECTION_H_
 namespace GgafDx9Core {
 
 /**
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  */
-class GgafDx9TexturePointer : public GgafCore::GgafResourcePointer<IDirect3DTexture9> {
+class GgafDx9TextureConnection : public GgafCore::GgafResourceConnection<IDirect3DTexture9> {
 
 public:
 
@@ -15,7 +15,7 @@ public:
 	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
 	 * @param prm_pIDirect3DTexture9 テクスチャ
 	 */
-	GgafDx9TexturePointer(std::string prm_texture_file_name, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
+	GgafDx9TextureConnection(std::string prm_texture_file_name, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
 
 	/**
 	 * オーバーライド
@@ -24,11 +24,11 @@ public:
 
 	/**
 	 * デストラクタ<BR>
-	 * deleteするのはGgafDx9TexturePointerManagerである<BR>
+	 * deleteするのはGgafDx9TextureManagerである<BR>
 	 */
-	virtual ~GgafDx9TexturePointer();		//デストラクタ
+	virtual ~GgafDx9TextureConnection();		//デストラクタ
 };
 
 
 }
-#endif /*GGAFDX9TEXTUREPOINTER_H_*/
+#endif /*GGAFDX9TEXTURECONNECTION_H_*/
