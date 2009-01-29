@@ -3,7 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9TexturePointerManager::GgafDx9TexturePointerManager(string prm_name) : GgafResourcePointerManager<IDirect3DTexture9>(prm_name) {
+GgafDx9TexturePointerManager::GgafDx9TexturePointerManager(string prm_name)
+    : GgafResourcePointerManager<IDirect3DTexture9>(prm_name) {
 }
 
 IDirect3DTexture9* GgafDx9TexturePointerManager::processCreateResource(std::string prm_resource_idstr) {
@@ -31,13 +32,10 @@ IDirect3DTexture9* GgafDx9TexturePointerManager::processCreateResource(std::stri
 	return pIDirect3DTexture9_New;
 }
 
-GgafResourcePointer<IDirect3DTexture9>* GgafDx9TexturePointerManager::createResourcePointer(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource) {
+GgafResourcePointer<IDirect3DTexture9>* GgafDx9TexturePointerManager::processCreateResourcePointer(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource) {
+	_TRACE_(" GgafDx9TexturePointerManager::processCreateResourcePointer "<<prm_resource_idstr<<" ‚ð¶¬‚µ‚Ü‚µ‚½B");
 	GgafDx9TexturePointer* p = NEW GgafDx9TexturePointer(prm_resource_idstr, prm_pResource);
 	return p;
-}
-
-void GgafDx9TexturePointerManager::processReleaseResource(IDirect3DTexture9* prm_pResource) {
-	RELEASE_IMPOSSIBLE_NULL(prm_pResource);
 }
 
 

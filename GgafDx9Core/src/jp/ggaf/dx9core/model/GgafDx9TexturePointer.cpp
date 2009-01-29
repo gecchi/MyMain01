@@ -9,6 +9,10 @@ GgafDx9TexturePointer::GgafDx9TexturePointer(string prm_texture_file_name, LPDIR
     _TRACE_("GgafDx9TexturePointer::GgafDx9TexturePointer(" <<  _resource_idstr << ")");
 }
 
+void GgafDx9TexturePointer::processReleaseResource(IDirect3DTexture9* prm_pResource) {
+	RELEASE_IMPOSSIBLE_NULL(prm_pResource);
+}
+
 
 GgafDx9TexturePointer::~GgafDx9TexturePointer() {
 	_TRACE_("GgafDx9TexturePointer::~GgafDx9TexturePointer() " <<  _resource_idstr << " start-->");

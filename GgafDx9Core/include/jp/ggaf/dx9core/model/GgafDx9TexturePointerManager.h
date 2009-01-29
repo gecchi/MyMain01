@@ -20,12 +20,8 @@ public:
 	/**
 	 * オーバーライド
 	 */
-	GgafCore::GgafResourcePointer<IDirect3DTexture9>* createResourcePointer(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource);
+	GgafCore::GgafResourcePointer<IDirect3DTexture9>* processCreateResourcePointer(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource);
 
-	/**
-	 * オーバーライド
-	 */
-	void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
 	virtual ~GgafDx9TexturePointerManager();
 };

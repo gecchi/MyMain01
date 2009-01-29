@@ -99,6 +99,7 @@ void GgafDx9ModelManager::release() {
 		_s_pModel_First = NULL;
 
 		//テクスチャ解放
+		_pTextureManager->dump();
 		delete _pTextureManager;
 	}
 

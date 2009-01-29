@@ -17,6 +17,10 @@ public:
 	 */
 	GgafDx9TexturePointer(std::string prm_texture_file_name, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
 
+	/**
+	 * オーバーライド
+	 */
+	void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
 	/**
 	 * デストラクタ<BR>
