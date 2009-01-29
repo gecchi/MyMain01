@@ -35,6 +35,12 @@ public:
 	virtual T* getResource();
 
 	/**
+	 * 資源の実際のリリース処理を実装します。
+	 * @param prm_pResource
+	 */
+	virtual void processReleaseResource(T* prm_pResource)= 0;
+
+	/**
 	 * デストラクタ<BR>
 	 * deleteするのはGgafResourcePointerManagerである<BR>
 	 */

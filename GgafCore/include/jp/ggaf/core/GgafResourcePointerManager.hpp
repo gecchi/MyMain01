@@ -9,6 +9,19 @@ namespace GgafCore {
  */
 template<class T>
 class GgafResourcePointerManager : public GgafObject {
+private:
+	/**
+	 * 資源のを生成を下位で実装します。.
+	 * @param prm_name 識別名
+	 */
+	T* createResource(std::string prm_resource_idstr);
+
+	/**
+	 * 標準の資源参照オブジェクトを生成.
+	 * 下位でオーバーライドしてもいいですよ。.
+	 * @param prm_name 識別名
+	 */
+	GgafResourcePointer<T>* createResourcePointer(std::string prm_resource_idstr, T* prm_pResource);
 
 protected:
 
@@ -61,26 +74,9 @@ public:
 	virtual GgafResourcePointer<T>* referResourcePointer(std::string prm_resource_idstr);
 	virtual void releaseResourcePointer(GgafResourcePointer<T>* prm_pResourcePointer);
 
+	virtual T* processCreateResource(std::string prm_resource_idstr) = 0;
 
-
-	/**
-	 * 資源のを生成を下位で実装します。.
-	 * @param prm_name 識別名
-	 */
-	virtual T* createResource(std::string prm_resource_idstr);
-
-	virtual T* processCreateResource(std::string prm_resource_idstr)= 0;
-
-
-	/**
-	 * 標準の資源参照オブジェクトを生成.
-	 * 下位でオーバーライドしてもいいですよ。.
-	 * @param prm_name 識別名
-	 */
-	virtual GgafResourcePointer<T>* createResourcePointer(std::string prm_resource_idstr, T* prm_pResource);
-	virtual void processReleaseResource(T* prm_pResource)= 0;
-
-
+	virtual GgafResourcePointer<T>* processCreateResourcePointer(std::string prm_resource_idstr, T* prm_pResource) = 0;
 
 	virtual void dump();
 };
@@ -101,12 +97,13 @@ GgafResourcePointerManager<T>::~GgafResourcePointerManager() {
 	} else {
 		GgafResourcePointer<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
-			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
-			if (rnum != 0) {
-				_TRACE_("GgafResourcePointerManager::~GgafResourcePointerManager ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 参照0でないけどdeleteします。");
+			if (rnum != 1) {
+				_TRACE_("GgafResourcePointerManager::~GgafResourcePointerManager ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 参照1でないけどdeleteします。");
 			}
-			DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の解放
+			T* r = pCurrent->getResource();
+			pCurrent->processReleaseResource(r); //本当の解放
+			DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の削除
 			pCurrent_Next = pCurrent -> _pNext;
 			if (pCurrent_Next == NULL) {
 				//最後の一つ
@@ -159,9 +156,8 @@ void GgafResourcePointerManager<T>::releaseResource(T* prm_pResource) {
 		if (pCurrent->getResource() == prm_pResource) {
 			//発見した場合
 			_TRACE_("GgafResourcePointerManager::releaseResource["<<pCurrent->_resource_idstr<<"]");
-			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
-			if (rnum == 0) {
+			if (rnum == 1) {
 				if (pCurrent->_pNext == NULL) {
 					//末尾だった
 					if (pPrev == NULL) {
@@ -181,8 +177,11 @@ void GgafResourcePointerManager<T>::releaseResource(T* prm_pResource) {
 						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
 					}
 				}
-				DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の解放
+				T* r = pCurrent->getResource();
+				pCurrent->processReleaseResource(r); //本当の解放
+				DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の削除
 			} else if (rnum > 0) {
+				pCurrent->_iResourceReferenceNum--;
 				_TRACE_("GgafResourcePointerManager::releaseResource["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]");
 			}  else if (rnum < 0) {
 				_TRACE_("GgafResourcePointerManager::releaseResource["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。");
@@ -211,10 +210,10 @@ void GgafResourcePointerManager<T>::releaseResourcePointer(GgafResourcePointer<T
 	while (pCurrent != NULL) {
 		if (pCurrent == prm_pResourcePointer) {
 			//発見した場合
-			_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"]");
-			processReleaseResource(pCurrent->getResource()); //解放
 			int rnum = pCurrent->_iResourceReferenceNum;
-			if (rnum == 0) {
+			_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 発見したので開始");
+
+			if (rnum == 1) {
 				if (pCurrent->_pNext == NULL) {
 					//末尾だった
 					if (pPrev == NULL) {
@@ -234,11 +233,14 @@ void GgafResourcePointerManager<T>::releaseResourcePointer(GgafResourcePointer<T
 						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
 					}
 				}
-				DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の解放
+				T* r = pCurrent->getResource();
+				pCurrent->processReleaseResource(r); //本当の解放
+				DELETE_IMPOSSIBLE_NULL(pCurrent); //本当の削除
 			} else if (rnum > 0) {
-				_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]");
+				pCurrent->_iResourceReferenceNum--;
+				_TRACE_("→ ["<<pCurrent->_resource_idstr<<"←"<<(pCurrent->_iResourceReferenceNum)<<"Objects]");
 			}  else if (rnum < 0) {
-				_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。");
+				_TRACE_("GgafResourcePointerManager::releaseResourcePointer["<<(pCurrent->_iResourceReferenceNum)<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。どないするのん");
 			}
 			return;
 		} else {
@@ -278,9 +280,11 @@ GgafResourcePointer<T>* GgafResourcePointerManager<T>::referResourcePointer(std:
 		pObj = createResourcePointer(prm_resource_idstr, pResource);
 		pObj->_iResourceReferenceNum = 1;
 		add(pObj);
+		_TRACE_("GgafResourcePointerManager<T>::referResourcePointer "<<prm_resource_idstr<<"を新規作成して保持に決定");
 		return pObj;
 	} else {
 		pObj->_iResourceReferenceNum ++;
+		_TRACE_("GgafResourcePointerManager<T>::referResourcePointer "<<prm_resource_idstr<<"はあるので参照カウント."<<pObj->_iResourceReferenceNum);
 		return pObj;
 	}
 }
@@ -293,8 +297,9 @@ T* GgafResourcePointerManager<T>::createResource(std::string prm_resource_idstr)
 
 template<class T>
 GgafResourcePointer<T>* GgafResourcePointerManager<T>::createResourcePointer(std::string prm_resource_idstr, T* prm_pResource) {
-	GgafResourcePointer<T>* p = NEW GgafResourcePointer<T>(prm_resource_idstr, prm_pResource);
-	return p;
+	_TRACE_("GgafResourcePointerManager<T>::createResourcePointer "<<prm_resource_idstr<<"を生成しましょう");
+	//GgafResourcePointer<T>* p = NEW GgafResourcePointer<T>(prm_resource_idstr, prm_pResource);
+	return processCreateResourcePointer(prm_resource_idstr, prm_pResource);
 }
 
 template<class T>
