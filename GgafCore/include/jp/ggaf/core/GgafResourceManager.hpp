@@ -42,8 +42,6 @@ public:
 	 */
 	virtual GgafResourceConnection<T>* find(std::string prm_name);
 
-
-
 	/**
 	 * コンストラクタ
 	 * @return
@@ -58,21 +56,15 @@ public:
 	 */
 	virtual ~GgafResourceManager();
 
-//	/**
-//	 * GgafResourceConnectionオブジェクトを取得。<BR>
-//	 * モデルオブジェクトは、初期化時、このメソッドを１回だけ呼び出してを取得する。<BR>
-//	 * は、保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-//	 * を保持リストから取得した場合、参照カウンタが増えます。（モデル初期時１回に限定するのはこのため）<BR>
-//	 * new した場合、参照カウンタは1です。<BR>
-//	 * 参照カウンタはモデルの delete 時にを解放するかどうかの判断に使用される。<BR>
-//	 * @param prm_name 識別名
-//	 */
-//	virtual T* referResource(std::string prm_resource_idstr);
 
-//	virtual void releaseResource(T* prm_pResource);
-
+	/**
+	 * GgafResourceConnectionオブジェクトを取得。<BR>
+	 * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+	 * 保持リストから取得した場合、参照カウンタが増えます。<BR>
+	 * new した場合、参照カウンタは1です。<BR>
+	 * @param prm_name 識別名
+	 */
 	virtual GgafResourceConnection<T>* getConnection(std::string prm_resource_idstr);
-//	virtual void releaseResourceConnection(GgafResourceConnection<T>* prm_pResourceConnection);
 
 	virtual T* processCreateResource(std::string prm_resource_idstr) = 0;
 
@@ -115,140 +107,6 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 		return;
 	}
 }
-//
-//template<class T>
-//void GgafResourceManager<T>::releaseResource(T* prm_pResource) {
-//	if (prm_pResource == NULL) {
-//		_TRACE_("GgafResourceManager::releaseResource 引数 prm_pResource は NULLです");
-//		return;
-//	}
-//	GgafResourceConnection<T>* pCurrent;
-//	GgafResourceConnection<T>* pPrev;
-//	pCurrent = _pTop;
-//	pPrev    = NULL;
-//	while (pCurrent != NULL) {
-//		if (pCurrent->get() == prm_pResource) {
-//			//発見した場合
-//			_TRACE_("GgafResourceManager::releaseResource["<<pCurrent->_resource_idstr<<"]");
-//			int rnum = pCurrent->_iConnectionNum;
-//			if (rnum == 1) { //最後の参照だった場合
-//				//死に行く宿めであるので、保持リストから離脱
-//				if (pCurrent->_pNext == NULL) {
-//					//末尾だった
-//					if (pPrev == NULL) {
-//						//末尾で先頭だった（＝最後の一つ）
-//						_pTop = NULL;
-//					} else {
-//						//末尾で先頭でなかった
-//						pPrev->_pNext = NULL;
-//					}
-//				} else {
-//					//末尾でない
-//					if (pPrev == NULL) {
-//						//先頭だった
-//						_pTop = pCurrent->_pNext; //先頭を次にずらす
-//					} else {
-//						//末尾でも先頭でもない（中間）
-//						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
-//					}
-//				}
-//				T* r = pCurrent->get();
-//				if (r != NULL) {
-//					pCurrent->processReleaseResource(r); //本当の解放
-//				}
-//			} else if (rnum > 0) {
-//				_TRACE_("GgafResourceManager::releaseResource["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]");
-//			}  else if (rnum < 0) {
-//				_TRACE_("GgafResourceManager::releaseResource["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。");
-//			}
-//			RELEASE_IMPOSSIBLE_NULL(pCurrent);
-//			return;
-//		} else {
-//			//違った場合
-//			pPrev = pCurrent;
-//			pCurrent = pCurrent -> _pNext;
-//		}
-//	}
-//	_TRACE_("GgafResourceManager::releaseResource prm_pResourceはありません。意図してますか？");
-//}
-
-
-//template<class T>
-//void GgafResourceManager<T>::releaseResourceConnection(GgafResourceConnection<T>* prm_pResourceConnection) {
-//	if (prm_pResourceConnection == NULL) {
-//		_TRACE_("GgafResourceManager::releaseResourceConnection 引数 prm_pResourceConnection は NULLです");
-//		return;
-//	}
-//	GgafResourceConnection<T>* pCurrent;
-//	GgafResourceConnection<T>* pPrev;
-//	pCurrent = _pTop;
-//	pPrev    = NULL;
-//	while (pCurrent != NULL) {
-//		if (pCurrent == prm_pResourceConnection) {
-//			//発見した場合
-//			int rnum = pCurrent->_iConnectionNum;
-//			_TRACE_("GgafResourceManager::releaseResourceConnection["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects] 発見したので開始");
-//
-//			if (rnum == 1) {//最後の参照だった場合
-//				//死に行く宿めであるので、保持リストから離脱
-//				if (pCurrent->_pNext == NULL) {
-//					//末尾だった
-//					if (pPrev == NULL) {
-//						//末尾で先頭だった（＝最後の一つ）
-//						_pTop = NULL;
-//					} else {
-//						//末尾で先頭でなかった
-//						pPrev->_pNext = NULL;
-//					}
-//				} else {
-//					//末尾でない
-//					if (pPrev == NULL) {
-//						//先頭だった
-//						_pTop = pCurrent->_pNext; //先頭を次にずらす
-//					} else {
-//						//末尾でも先頭でもない（中間）
-//						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
-//					}
-//				}
-//				T* r = pCurrent->get();
-//				if (r != NULL) {
-//					pCurrent->processReleaseResource(r); //本当の解放
-//				}
-//				_TRACE_("GgafResourceManager::releaseResourceConnection["<<(pCurrent->_iConnectionNum)<<"←"<<rnum<<"Objects] 解放します。");
-//			} else if (rnum > 0) {
-//				_TRACE_("GgafResourceManager::releaseResourceConnection["<<(pCurrent->_iConnectionNum)<<"←"<<rnum<<"Objects] まだ残ってます");
-//			} else if (rnum < 0) {
-//				_TRACE_("GgafResourceManager::releaseResourceConnection["<<(pCurrent->_iConnectionNum)<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
-//			}
-//			RELEASE_IMPOSSIBLE_NULL(pCurrent);
-//			return;
-//		} else {
-//			//違った場合
-//			pPrev = pCurrent;
-//			pCurrent = pCurrent -> _pNext;
-//		}
-//	}
-//	_TRACE_("GgafResourceManager::releaseResourceConnection prm_pResourceConnection["<<prm_pResourceConnection->_resource_idstr<<"]は既にありません。意図してますか？");
-//}
-//
-
-
-
-//template<class T>
-//T* GgafResourceManager<T>::referResource(std::string prm_resource_idstr) {
-//	GgafResourceConnection<T>* pObj = find(prm_resource_idstr);
-//	//未生成ならば生成
-//	if (pObj == NULL) {
-//		T* pResource = createResource(prm_resource_idstr);
-//		pObj = createResourceConnection(prm_resource_idstr, pResource);
-//		pObj->_iConnectionNum = 1;
-//		add(pObj);
-//		return pResource;
-//	} else {
-//		pObj->_iConnectionNum ++;
-//		return pObj->get();
-//	}
-//}
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(std::string prm_resource_idstr) {
