@@ -7,8 +7,8 @@ GgafDx9TextureManager::GgafDx9TextureManager(string prm_name)
     : GgafResourceManager<IDirect3DTexture9>(prm_name) {
 }
 
-IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(std::string prm_resource_idstr) {
-	string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(prm_resource_idstr);
+IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(std::string prm_idstr) {
+	string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(prm_idstr);
 	LPDIRECT3DTEXTURE9 pIDirect3DTexture9_New;
 	HRESULT hr = D3DXCreateTextureFromFileEx(
 			GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -27,14 +27,14 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(std::string prm_
 			&pIDirect3DTexture9_New                // [out] GgafDx9TextureConnection* *ppTexture
 		 );
 	if(hr != D3D_OK) {
-		throw_GgafDx9CriticalException("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_resource_idstr, hr);
+		throw_GgafDx9CriticalException("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_idstr, hr);
 	}
 	return pIDirect3DTexture9_New;
 }
 
-GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource) {
-	_TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_resource_idstr<<" Çê∂ê¨ÇµÇ‹ÇµÇΩÅB");
-	GgafDx9TextureConnection* p = NEW GgafDx9TextureConnection(prm_resource_idstr, prm_pResource);
+GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(std::string prm_idstr, IDirect3DTexture9* prm_pResource) {
+	_TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" Çê∂ê¨ÇµÇ‹ÇµÇΩÅB");
+	GgafDx9TextureConnection* p = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);
 	return p;
 }
 

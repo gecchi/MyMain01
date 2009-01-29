@@ -19,7 +19,7 @@ public:
 	GgafResourceManager<T>* _pManager;
 
 	/** 識別名*/
-	std::string	_resource_idstr;
+	std::string	_idstr;
 	/** 使いまわす資源 */
 	T* _pResource;
 	/** 資源を参照しているポインタ数 */
@@ -29,11 +29,11 @@ public:
 
 	/**
 	 * コンストラクタ<BR>
-	 * @param prm_resource_idstr 識別名
+	 * @param prm_idstr 識別名
 	 * @param prm_pResource 使いまわす資源
 	 * @param prm_pIDirect3DTexture9
 	 */
-	GgafResourceConnection(std::string prm_resource_idstr, T* prm_pResource);
+	GgafResourceConnection(std::string prm_idstr, T* prm_pResource);
 
 	/**
 	 * 資源を取得。
@@ -58,9 +58,9 @@ public:
 };
 
 template<class T>
-GgafResourceConnection<T>::GgafResourceConnection(std::string prm_resource_idstr, T* prm_pResource) : GgafObject() {
-    _TRACE_("GgafResourceConnection::GgafResourceConnection(" <<  _resource_idstr << ")");
-    _resource_idstr = prm_resource_idstr;
+GgafResourceConnection<T>::GgafResourceConnection(std::string prm_idstr, T* prm_pResource) : GgafObject() {
+    _TRACE_("GgafResourceConnection::GgafResourceConnection(" <<  _idstr << ")");
+    _idstr = prm_idstr;
     _pResource = prm_pResource;
 	_pNext = NULL;
 	_pManager = NULL;
@@ -83,7 +83,7 @@ int GgafResourceConnection<T>::Release() {
 		if (pCurrent == this) {
 			//発見した場合
 			int rnum = _iConnectionNum;
-			_TRACE_("GgafResourceManager::releaseResourceConnection["<<_resource_idstr<<"←"<<rnum<<"Objects] 発見したので開始");
+			_TRACE_("GgafResourceManager::releaseResourceConnection["<<_idstr<<"←"<<rnum<<"Objects] 発見したので開始");
 
 			if (rnum == 1) {//最後の参照だった場合
 				//死に行く宿めであるので、保持リストから離脱を行なう
@@ -106,13 +106,13 @@ int GgafResourceConnection<T>::Release() {
 						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
 					}
 				}
-				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_resource_idstr<<"←"<<rnum<<"Objects] 最後の参照のため解放します。");
+				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_idstr<<"←"<<rnum<<"Objects] 最後の参照のため解放します。");
 				_iConnectionNum = 0;
 			} else if (rnum > 0) {
-				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_resource_idstr<<"←"<<rnum<<"Objects] まだ残ってます");
+				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_idstr<<"←"<<rnum<<"Objects] まだ残ってます");
 				_iConnectionNum--;
 			} else if (rnum < 0) {
-				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_resource_idstr<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
+				_TRACE_("GgafResourceManager::releaseResourceConnection["<<_idstr<<"←"<<rnum<<"Objects] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
 				_iConnectionNum = 0; //とりあえず解放
 			}
 			break;

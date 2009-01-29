@@ -15,12 +15,12 @@ public:
 	/**
 	 * オーバーライド
 	 */
-	IDirect3DTexture9* processCreateResource(std::string prm_resource_idstr);
+	IDirect3DTexture9* processCreateResource(std::string prm_idstr);
 
 	/**
 	 * オーバーライド
 	 */
-	GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(std::string prm_resource_idstr, IDirect3DTexture9* prm_pResource);
+	GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(std::string prm_idstr, IDirect3DTexture9* prm_pResource);
 
 
 	virtual ~GgafDx9TextureManager();

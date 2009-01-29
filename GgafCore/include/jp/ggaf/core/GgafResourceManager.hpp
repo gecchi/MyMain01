@@ -14,14 +14,14 @@ private:
 	 * 資源のを生成を下位で実装します。.
 	 * @param prm_name 識別名
 	 */
-	T* createResource(std::string prm_resource_idstr);
+	T* createResource(std::string prm_idstr);
 
 	/**
 	 * 標準の資源参照オブジェクトを生成.
 	 * 下位でオーバーライドしてもいいですよ。.
 	 * @param prm_name 識別名
 	 */
-	GgafResourceConnection<T>* createResourceConnection(std::string prm_resource_idstr, T* prm_pResource);
+	GgafResourceConnection<T>* createResourceConnection(std::string prm_idstr, T* prm_pResource);
 
 public:
 
@@ -64,11 +64,11 @@ public:
 	 * new した場合、参照カウンタは1です。<BR>
 	 * @param prm_name 識別名
 	 */
-	virtual GgafResourceConnection<T>* getConnection(std::string prm_resource_idstr);
+	virtual GgafResourceConnection<T>* getConnection(std::string prm_idstr);
 
-	virtual T* processCreateResource(std::string prm_resource_idstr) = 0;
+	virtual T* processCreateResource(std::string prm_idstr) = 0;
 
-	virtual GgafResourceConnection<T>* processCreateConnection(std::string prm_resource_idstr, T* prm_pResource) = 0;
+	virtual GgafResourceConnection<T>* processCreateConnection(std::string prm_idstr, T* prm_pResource) = 0;
 
 	virtual void dump();
 };
@@ -85,7 +85,7 @@ template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(std::string prm_name) {
 	GgafResourceConnection<T>* pCurrent = _pTop;
 	while (pCurrent != NULL) {
-		if (pCurrent->_resource_idstr == prm_name) {
+		if (pCurrent->_idstr == prm_name) {
 			return pCurrent;
 		}
 		pCurrent = pCurrent -> _pNext;
@@ -109,33 +109,33 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(std::string prm_resource_idstr) {
-	GgafResourceConnection<T>* pObj = find(prm_resource_idstr);
+GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(std::string prm_idstr) {
+	GgafResourceConnection<T>* pObj = find(prm_idstr);
 	//未生成ならば生成
 	if (pObj == NULL) {
-		T* pResource = createResource(prm_resource_idstr);
-		pObj = createResourceConnection(prm_resource_idstr, pResource);
+		T* pResource = createResource(prm_idstr);
+		pObj = createResourceConnection(prm_idstr, pResource);
 		pObj->_iConnectionNum = 1;
 		add(pObj);
-		_TRACE_("GgafResourceManager<T>::getConnection "<<prm_resource_idstr<<"を新規作成して保持に決定");
+		_TRACE_("GgafResourceManager<T>::getConnection "<<prm_idstr<<"を新規作成して保持に決定");
 		return pObj;
 	} else {
 		pObj->_iConnectionNum ++;
-		_TRACE_("GgafResourceManager<T>::getConnection "<<prm_resource_idstr<<"はあるので参照カウント."<<pObj->_iConnectionNum);
+		_TRACE_("GgafResourceManager<T>::getConnection "<<prm_idstr<<"はあるので参照カウント."<<pObj->_iConnectionNum);
 		return pObj;
 	}
 }
 
 template<class T>
-T* GgafResourceManager<T>::createResource(std::string prm_resource_idstr) {
-	_TRACE_("GgafResourceManager<T>::createResource "<<prm_resource_idstr<<"を生成しましょう");
-	return processCreateResource(prm_resource_idstr);
+T* GgafResourceManager<T>::createResource(std::string prm_idstr) {
+	_TRACE_("GgafResourceManager<T>::createResource "<<prm_idstr<<"を生成しましょう");
+	return processCreateResource(prm_idstr);
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(std::string prm_resource_idstr, T* prm_pResource) {
-	_TRACE_("GgafResourceManager<T>::createResourceConnection "<<prm_resource_idstr<<"を生成しましょう");
-	GgafResourceConnection<T>* p = processCreateConnection(prm_resource_idstr, prm_pResource);
+GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(std::string prm_idstr, T* prm_pResource) {
+	_TRACE_("GgafResourceManager<T>::createResourceConnection "<<prm_idstr<<"を生成しましょう");
+	GgafResourceConnection<T>* p = processCreateConnection(prm_idstr, prm_pResource);
 	p->_pManager = this; //マネージャ登録
 	return p;
 }
@@ -149,7 +149,7 @@ void GgafResourceManager<T>::dump() {
 		GgafResourceConnection<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iConnectionNum;
-			_TRACE_("GgafResourceManager::dump ["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]");
+			_TRACE_("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Objects]");
 			pCurrent_Next = pCurrent -> _pNext;
 			if (pCurrent_Next == NULL) {
 				pCurrent = NULL;
@@ -173,7 +173,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
 		GgafResourceConnection<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iConnectionNum;
-			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_resource_idstr<<"←"<<rnum<<"Objects]が残ってます。強制削除しますが、本来あってはいけません。");
+			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Objects]が残ってます。強制削除しますが、本来あってはいけません。");
 
 			T* r = pCurrent->get();
 			pCurrent_Next = pCurrent -> _pNext;

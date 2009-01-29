@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 
 GgafDx9TextureConnection::GgafDx9TextureConnection(string prm_texture_file_name, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9)
 	:GgafResourceConnection<IDirect3DTexture9>(prm_texture_file_name, prm_pIDirect3DTexture9) {
-    _TRACE_("GgafDx9TextureConnection::GgafDx9TextureConnection(" <<  _resource_idstr << ")");
+    _TRACE_("GgafDx9TextureConnection::GgafDx9TextureConnection(" <<  _idstr << ")");
 }
 
 void GgafDx9TextureConnection::processReleaseResource(IDirect3DTexture9* prm_pResource) {
@@ -15,7 +15,7 @@ void GgafDx9TextureConnection::processReleaseResource(IDirect3DTexture9* prm_pRe
 
 
 GgafDx9TextureConnection::~GgafDx9TextureConnection() {
-	_TRACE_("GgafDx9TextureConnection::~GgafDx9TextureConnection() " <<  _resource_idstr << " start-->");
-	_TRACE_("GgafDx9TextureConnection::~GgafDx9TextureConnection() " <<  _resource_idstr << " <--end");
+	_TRACE_("GgafDx9TextureConnection::~GgafDx9TextureConnection() " <<  _idstr << " start-->");
+	_TRACE_("GgafDx9TextureConnection::~GgafDx9TextureConnection() " <<  _idstr << " <--end");
 }
 
