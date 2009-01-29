@@ -88,12 +88,25 @@ class GgafCriticalException;
 class GgafLogger;
 class GgafGod;
 
-//class GgafElement;
-//class GgafResourcePointer;
-//class GgafResourcePointerManager;
+template<class T>
+class GgafResourceConnection;
+
+template<class T>
+class GgafResourceManager;
+
+template<class T>
+class Node;
+
+template<class T>
+class GgafElement;
+
+template<class T>
+class GgafLinkedListRing;
+
 
 class GgafFactory;
 class GgafGarbageBox;
+
 class GgafScene;
 class GgafGarbageRootScene;
 class GgafActor;
@@ -109,6 +122,7 @@ class GgafOrder;
 class GgafProperties;
 class GgafRect;
 class GgafUserRootSceneCreater;
+
 }
 
 #include "jp/ggaf/core/util/GgafUtil.h"
@@ -118,8 +132,9 @@ class GgafUserRootSceneCreater;
 #include "jp/ggaf/core/util/GgafLogger.h"
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
-#include "jp/ggaf/core/GgafResourcePointer.hpp"
-#include "jp/ggaf/core/GgafResourcePointerManager.hpp"
+
+#include "jp/ggaf/core/GgafResourceConnection.hpp"
+#include "jp/ggaf/core/GgafResourceManager.hpp"
 
 #include "jp/ggaf/core/GgafFactory.h"
 #include "jp/ggaf/core/GgafGarbageBox.h"
