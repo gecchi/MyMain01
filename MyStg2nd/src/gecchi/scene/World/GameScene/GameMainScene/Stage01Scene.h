@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class Stage01Scene : public GgafDx9LibStg::DefaultScene {
 
 public:
-	GgafDx9Core::GgafDx9Bgm* _bgm_st1;
+	GgafDx9Core::GgafDx9BgmConnection* _pBgmCon_st1;
 
 	Stage01Scene(std::string prm_name);
 	/**

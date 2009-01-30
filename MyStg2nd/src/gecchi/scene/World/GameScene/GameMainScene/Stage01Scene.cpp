@@ -11,8 +11,8 @@ Stage01Scene::Stage01Scene(string prm_name) : DefaultScene(prm_name) {
 	BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01", "");
 	getLordActor()->accept(KIND_EFFECT, pBack);
 	addSubLast(pStage01MainScene);
-	_bgm_st1 = GgafDx9BgmManager::get("JM5");
-	//_bgm_st1->play(false);
+	_pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
+	_pBgmCon_st1->getResource()->play(false);
 	stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 	_TRACE_("Stage01Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
 }
@@ -44,4 +44,5 @@ void Stage01Scene::processFinal() {
 }
 
 Stage01Scene::~Stage01Scene() {
+	RELEASE_IMPOSSIBLE_NULL(_pBgmCon_st1);
 }
