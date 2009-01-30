@@ -37,7 +37,7 @@
 
 #ifdef OREDEBUG
 	#include "DetectMemoryLeaks.h"
-	#define NEW new(__FILE__, __LINE__ )
+	#define NEW new(__FILE__, __LINE__)
 	//#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
 	//#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }

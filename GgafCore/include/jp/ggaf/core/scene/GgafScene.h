@@ -137,7 +137,7 @@ public:
      * 自ツリーシーンを次フレームから再生する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declarePlay();
+	virtual void play();
 
 	/**
      * 自ツリーシーンを直ちに再生する。 .
@@ -149,7 +149,7 @@ public:
 	 * 自ツリーシーンを次フレームから停止する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareStop();
+	virtual void stop();
 
 	/**
 	 * 自ツリーシーンを直ちに停止する。 .
@@ -161,7 +161,7 @@ public:
 	 * 自ツリーシーンを次フレームから一時停止する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declarePause();
+	virtual void pause();
 
 	/**
 	 * 自ツリーシーンを直ちに一時停止する。 .
@@ -173,7 +173,7 @@ public:
      * 自ツリーシーンの一時停止を次フレームから解除。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareUnpause();
+	virtual void unpause();
 
 	/**
      * 自ツリーシーンの一時停止を直ちに解除。 .
@@ -185,7 +185,7 @@ public:
 	 * 自ツリーシーンを次フレームから非表示する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareBlind();
+	virtual void blind();
 
 	/**
 	 * 自ツリーシーンを直ちに非表示する。 .
@@ -197,7 +197,7 @@ public:
 	 * 自ツリーシーンの非表示を次フレームから解除。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareUnblind();
+	virtual void unblind();
 
 	/**
 	 * 自ツリーシーンの非表示を直ちに解除。 .
@@ -209,7 +209,7 @@ public:
 	 * 自ツリーシーンを次フレーム絶命させる。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void declareFinishLife(DWORD prm_dwFrameOffset = 0);
+	virtual void farewell(DWORD prm_dwFrameOffset = 0);
 
 	/**
 	 * 自ツリーシーンを絶命させる。 .

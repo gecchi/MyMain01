@@ -259,14 +259,14 @@ public:
 	 * 自ノードだけを次フレームから再生状態にする .
 	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
 	 */
-	void declarePlayAlone();
+	void playAlone();
 
 	/**
 	 * 自ツリーノードを次フレームから再生状態にする .
-	 * 自身と自分より下位のノード全てに再生(declarePlay())が実行される。<BR>
+	 * 自身と自分より下位のノード全てに再生(play())が実行される。<BR>
 	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
 	 */
-	void declarePlay();
+	void play();
 
 	/**
 	 * 自ノードだけをを即座に再生状態にする .
@@ -292,13 +292,13 @@ public:
 	/**
 	 * 自ノードだけを次フレームから停止状態にする .
 	 */
-	void declareStopAlone();
+	void stopAlone();
 
 	/**
 	 * 自ツリーノードを次フレームから停止状態にする .
-	 * 自身と自分より下位のノード全てに停止(declarePlay())が実行される。<BR>
+	 * 自身と自分より下位のノード全てに停止(play())が実行される。<BR>
 	 */
-	void declareStop();
+	void stop();
 
 	/**
 	 * 自ノードだけを即座に停止状態にする .
@@ -323,10 +323,10 @@ public:
 
 	/**
 	 * 自ツリーノードを次フレームから一時停止状態にする .
-	 * 自身と自分より下位のノード全てに一時停止(declarePause())が実行される。<BR>
+	 * 自身と自分より下位のノード全てに一時停止(pause())が実行される。<BR>
 	 * <B>[補足]</B>再生中に本関数を実行すると静止画像表示状態となる。<BR>
 	 */
-	void declarePause();
+	void pause();
 
 	/**
 	 * 自ツリーノードを即座に一時停止状態にする .
@@ -338,10 +338,10 @@ public:
 
 	/**
 	 * 自ツリーノードを次フレームから一時停止解除にする .
-	 * 自身と自分より下位のノード全てに一時停止解除(declareUnpause())が実行される。<BR>
-	 * <B>[補足]</B>declarePause()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
+	 * 自身と自分より下位のノード全てに一時停止解除(unpause())が実行される。<BR>
+	 * <B>[補足]</B>pause()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
 	 */
-	void declareUnpause();
+	void unpause();
 
 	/**
 	 * 自ツリーノードを即座に一時停止解除にする .
@@ -353,16 +353,16 @@ public:
 
 	/**
 	 * 自ツリーノードを次フレームから非表示状態にする .
-	 * 自身と自分より下位のノード全てに非表示状態(declareBlind())が実行される。<BR>
+	 * 自身と自分より下位のノード全てに非表示状態(blind())が実行される。<BR>
 	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
 	 */
-	void declareBlind();
+	void blind();
 
 	/**
 	 * 自ノードだけ次フレームから非表示状態にする .
 	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
 	 */
-	void declareBlindAlone();
+	void blindAlone();
 
 	/**
 	 * 自ツリーノードを即座に非表示状態にする .
@@ -382,9 +382,9 @@ public:
 	/**
 	 * 自ツリーノードを次フレームから非表示解除にする .
 	 * 自身と自分より下位のノード全てに非表示解除(非表示())が実行される。<BR>
-	 * <B>[補足]</B>declareBlind()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
+	 * <B>[補足]</B>blind()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
 	 */
-	void declareUnblind();
+	void unblind();
 
 	/**
 	 * 自ツリーノードを即座に非表示解除にする .
@@ -396,27 +396,27 @@ public:
 
 	/**
 	 * 自ノードを次フレームから絶命させることを宣言します .
-	 * 自身と自分より下位のノード全てに人生終了(declareFinishLife())がお知らせが届く。<BR>
+	 * 自身と自分より下位のノード全てに人生終了(farewell())がお知らせが届く。<BR>
 	 * 絶命させるとは具体的には、表示フラグ(_wasBlinded)、振る舞いフラグ(_isPlaying)、生存フラグ(_isAlive) を <BR>
 	 * 次フレームからアンセットする事である。<BR>
 	 * これにより、神(GgafGod)が処理時間の余裕のあるフレームに実行する cleane()時に delete の対象となる。<BR>
 	 * したがって、本メンバ関数を実行しても、フラグはアンセットされるため表面にはでませんが、インスタンスがすぐに解放されるとは限りません。<BR>
 	 */
-	void declareFinishLife(DWORD prm_dwFrameOffset = 0);
+	void farewell(DWORD prm_dwFrameOffset = 0);
 
 	/**
 	 * 自ツリーノードを最終ノードに順繰りする .
 	 * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトします。<BR>
 	 * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
 	 */
-	void declareMoveLast();
+	void moveLast();
 
 	/**
 	 * 自ツリーノードを先頭ノードに順繰りする .
 	 * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトします。<BR>
 	 * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
 	 */
-	void declareMoveFirst();
+	void moveFirst();
 
 	/**
 	 * 所属ツリーから独立する
@@ -525,7 +525,7 @@ void GgafElement<T>::nextFrame() {
 
 	//死の時????????????????????????????????????????ここか？
 	if (_dwGodFrame_ofDeath == (askGod()->_dwFrame_God)) {
-		//_TRACE_("_dwGodFrame_ofDeath == _dwFrame<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
+		//_TRACE_("_dwGodFrame_ofDeath == _dwFrame<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
 
 		_willPlayNextFrame = false;
 		_willBeAliveNextFrame = false;
@@ -793,7 +793,7 @@ void GgafElement<T>::finally() {
 }
 
 template<class T>
-void GgafElement<T>::declarePlayAlone() {
+void GgafElement<T>::playAlone() {
 	if (_isAlive) {
 		_willPlayNextFrame = true;
 		_willPauseNextFrame = false;
@@ -802,7 +802,7 @@ void GgafElement<T>::declarePlayAlone() {
 }
 
 template<class T>
-void GgafElement<T>::declarePlay() {
+void GgafElement<T>::play() {
 	if (_isAlive) {
 		_willPlayNextFrame = true;
 		_willPauseNextFrame = false;
@@ -810,7 +810,7 @@ void GgafElement<T>::declarePlay() {
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declarePlay();
+				pElementTemp -> play();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -875,20 +875,20 @@ void GgafElement<T>::playAfter(DWORD prm_dwFrameOffset) {
 }
 
 template<class T>
-void GgafElement<T>::declareStopAlone() {
+void GgafElement<T>::stopAlone() {
 	if (_isAlive) {
 		_willPlayNextFrame = false;
 	}
 }
 
 template<class T>
-void GgafElement<T>::declareStop() {
+void GgafElement<T>::stop() {
 	if (_isAlive) {
 		_willPlayNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declareStop();
+				pElementTemp -> stop();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -943,14 +943,14 @@ void GgafElement<T>::stopImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::declarePause() {
+void GgafElement<T>::pause() {
 	if (_isAlive) {
 		_willPauseNextFrame = true;
 		_isPlaying = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declarePause();
+				pElementTemp -> pause();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -982,13 +982,13 @@ void GgafElement<T>::pauseImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::declareUnpause() {
+void GgafElement<T>::unpause() {
 	if (_isAlive) {
 		_willPauseNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declareUnpause();
+				pElementTemp -> unpause();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -1019,13 +1019,13 @@ void GgafElement<T>::unpauseImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::declareBlind() {
+void GgafElement<T>::blind() {
 	if (_isAlive) {
 		_willBlindNextFrame = true;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declareBlind();
+				pElementTemp -> blind();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -1037,7 +1037,7 @@ void GgafElement<T>::declareBlind() {
 }
 
 template<class T>
-void GgafElement<T>::declareBlindAlone() {
+void GgafElement<T>::blindAlone() {
 	if (_isAlive) {
 		_willBlindNextFrame = true;
 	}
@@ -1072,13 +1072,13 @@ void GgafElement<T>::blindAloneImmediately() {
 
 
 template<class T>
-void GgafElement<T>::declareUnblind() {
+void GgafElement<T>::unblind() {
 	if (_isAlive) {
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp -> declareUnblind();
+				pElementTemp -> unblind();
 				if (pElementTemp -> _isLast) {
 					break;
 				} else {
@@ -1109,17 +1109,17 @@ void GgafElement<T>::unblindImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::declareFinishLife(DWORD prm_dwFrameOffset) {
+void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
 
 	_dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
-//	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame<<"/prm_dwFrameOffset="<<prm_dwFrameOffset);
+//	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame<<"/prm_dwFrameOffset="<<prm_dwFrameOffset);
 //	_willPlayNextFrame = false;
 //	_willBeAliveNextFrame = false;
 //	SUPER::_name = "_x_"+SUPER::_name;
 	if (SUPER::_pSubFirst != NULL) {
 		T* pElementTemp = SUPER::_pSubFirst;
 		while(true) {
-			pElementTemp -> declareFinishLife(prm_dwFrameOffset);
+			pElementTemp -> farewell(prm_dwFrameOffset);
 			if (pElementTemp -> _isLast) {
 				break;
 			} else {
@@ -1195,12 +1195,12 @@ bool GgafElement<T>::relativeFrame(DWORD prm_dwFrame_relative) {
 }
 
 template<class T>
-void GgafElement<T>::declareMoveLast() {
+void GgafElement<T>::moveLast() {
 	_willMoveLastNextFrame = true;
 }
 
 template<class T>
-void GgafElement<T>::declareMoveFirst() {
+void GgafElement<T>::moveFirst() {
 	_willMoveFirstNextFrame = true;
 }
 
@@ -1322,7 +1322,7 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
-	//_TRACE_("~GgafElement() <"<<SUPER::_class_name << ">::declareFinishLife() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
+	//_TRACE_("~GgafElement() <"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
 
 }
 

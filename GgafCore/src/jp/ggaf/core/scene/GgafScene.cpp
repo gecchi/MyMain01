@@ -67,9 +67,9 @@ void GgafScene::finally() {
 	_pLordActor->finally();
 }
 
-void GgafScene::declarePlay() {
-	GgafElement<GgafScene>::declarePlay();
-	_pLordActor->declarePlay();
+void GgafScene::play() {
+	GgafElement<GgafScene>::play();
+	_pLordActor->play();
 }
 
 void GgafScene::playImmediately() {
@@ -77,9 +77,9 @@ void GgafScene::playImmediately() {
 	_pLordActor->playImmediately();
 }
 
-void GgafScene::declareStop() {
-	GgafElement<GgafScene>::declareStop();
-	_pLordActor->declareStop();
+void GgafScene::stop() {
+	GgafElement<GgafScene>::stop();
+	_pLordActor->stop();
 }
 
 void GgafScene::stopImmediately() {
@@ -87,9 +87,9 @@ void GgafScene::stopImmediately() {
 	_pLordActor->stopImmediately();
 }
 
-void GgafScene::declarePause() {
-	GgafElement<GgafScene>::declarePause();
-	_pLordActor->declarePause();
+void GgafScene::pause() {
+	GgafElement<GgafScene>::pause();
+	_pLordActor->pause();
 }
 
 void GgafScene::pauseImmediately() {
@@ -97,9 +97,9 @@ void GgafScene::pauseImmediately() {
 	_pLordActor->pauseImmediately();
 }
 
-void GgafScene::declareUnpause() {
-	GgafElement<GgafScene>::declareUnpause();
-	_pLordActor->declareUnpause();
+void GgafScene::unpause() {
+	GgafElement<GgafScene>::unpause();
+	_pLordActor->unpause();
 }
 
 void GgafScene::unpauseImmediately() {
@@ -107,9 +107,9 @@ void GgafScene::unpauseImmediately() {
 	_pLordActor->unpauseImmediately();
 }
 
-void GgafScene::declareBlind() {
-	GgafElement<GgafScene>::declareBlind();
-	_pLordActor->declareBlind();
+void GgafScene::blind() {
+	GgafElement<GgafScene>::blind();
+	_pLordActor->blind();
 }
 
 void GgafScene::blindImmediately() {
@@ -117,9 +117,9 @@ void GgafScene::blindImmediately() {
 	_pLordActor->blindImmediately();
 }
 
-void GgafScene::declareUnblind() {
-	GgafElement<GgafScene>::declareUnblind();
-	_pLordActor->declareUnblind();
+void GgafScene::unblind() {
+	GgafElement<GgafScene>::unblind();
+	_pLordActor->unblind();
 }
 
 void GgafScene::unblindImmediately() {
@@ -127,9 +127,9 @@ void GgafScene::unblindImmediately() {
 	_pLordActor->unblindImmediately();
 }
 
-void GgafScene::declareFinishLife(DWORD prm_dwFrameOffset) {
-	GgafElement<GgafScene>::declareFinishLife(prm_dwFrameOffset);
-	_pLordActor->declareFinishLife(prm_dwFrameOffset);
+void GgafScene::farewell(DWORD prm_dwFrameOffset) {
+	GgafElement<GgafScene>::farewell(prm_dwFrameOffset);
+	_pLordActor->farewell(prm_dwFrameOffset);
 }
 
 void GgafScene::cleane(int prm_iNumCleanNode) {

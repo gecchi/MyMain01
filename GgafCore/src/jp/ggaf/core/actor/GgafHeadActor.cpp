@@ -12,7 +12,7 @@ GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("_kind="+GgafUtil::
 void GgafHeadActor::processJudgement() {
 	//ƒTƒu‚ª–³‚¯‚ê‚ÎŽ©ŽE
 	if (getSubFirst() == NULL) {
-		declareFinishLife();
+		farewell();
 	}
 }
 

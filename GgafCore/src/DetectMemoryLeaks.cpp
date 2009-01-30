@@ -1,13 +1,12 @@
 #include "stdafx.h"
 using namespace std;
-
 using namespace GgafCore;
 
 std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 bool detectMemoryLeaksFlag = false;
 
 void *
-operator new(std::size_t size, char* strFileName, int nLineNum)
+operator new(std::size_t size, const char* strFileName, int nLineNum)
 //throw (std::bad_alloc)
 {
     void * address = malloc(size);
@@ -26,7 +25,7 @@ operator new(std::size_t size, char* strFileName, int nLineNum)
 }
 
 void *
-operator new[](std::size_t size, char* strFileName, int nLineNum)
+operator new[](std::size_t size, const char* strFileName, int nLineNum)
 //throw (std::bad_alloc)
 {
     void * address = malloc(size);

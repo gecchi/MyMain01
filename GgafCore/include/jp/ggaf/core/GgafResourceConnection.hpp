@@ -18,8 +18,8 @@ protected:
 public:
 	GgafResourceManager<T>* _pManager;
 
-	/** 識別名*/
-	std::string	_idstr;
+	/** 識別名(29文字まで) */
+	char* _idstr;
 	/** 使いまわす資源 */
 	T* _pResource;
 	/** 資源を参照しているポインタ数 */
@@ -29,11 +29,11 @@ public:
 
 	/**
 	 * コンストラクタ<BR>
-	 * @param prm_idstr 識別名
+	 * @param prm_idstr 識別名(29文字まで)
 	 * @param prm_pResource 使いまわす資源
 	 * @param prm_pIDirect3DTexture9
 	 */
-	GgafResourceConnection(std::string prm_idstr, T* prm_pResource);
+	GgafResourceConnection(char* prm_idstr, T* prm_pResource);
 
 	/**
 	 * 資源を取得。
@@ -58,13 +58,14 @@ public:
 };
 
 template<class T>
-GgafResourceConnection<T>::GgafResourceConnection(std::string prm_idstr, T* prm_pResource) : GgafObject() {
-    _TRACE_("GgafResourceConnection::GgafResourceConnection(" <<  _idstr << ")");
-    _idstr = prm_idstr;
+GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
+	_TRACE_("GgafResourceConnection::GgafResourceConnection(" <<  prm_idstr << ")");
     _pResource = prm_pResource;
 	_pNext = NULL;
 	_pManager = NULL;
 	_iConnectionNum = 0;
+	_idstr = new char[30];
+	strcpy(_idstr, prm_idstr);
 }
 
 template<class T>
@@ -83,7 +84,7 @@ int GgafResourceConnection<T>::Release() {
 		if (pCurrent == this) {
 			//発見した場合
 			int rnum = _iConnectionNum;
-			_TRACE_("GgafResourceManager::releaseResourceConnection["<<_idstr<<"←"<<rnum<<"Objects] 発見したので開始");
+			_TRACE_("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Objects] 発見したので開始");
 
 			if (rnum == 1) {//最後の参照だった場合
 				//死に行く宿めであるので、保持リストから離脱を行なう
@@ -128,6 +129,7 @@ int GgafResourceConnection<T>::Release() {
 		if (r != NULL) {
 			pCurrent->processReleaseResource(r); //本当の解放
 		}
+		delete _idstr;
 		delete this;
 		return 0;
 	} else {

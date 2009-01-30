@@ -31,7 +31,7 @@ public:
 	 */
 	virtual void processJudgement() {
 		if (getSubFirst() == NULL) {
-			declareFinishLife();
+			farewell();
 		}
 	}
 

@@ -14,18 +14,18 @@ private:
 	 * 資源のを生成を下位で実装します。.
 	 * @param prm_name 識別名
 	 */
-	T* createResource(std::string prm_idstr);
+	T* createResource(char* prm_idstr);
 
 	/**
 	 * 標準の資源参照オブジェクトを生成.
 	 * 下位でオーバーライドしてもいいですよ。.
 	 * @param prm_name 識別名
 	 */
-	GgafResourceConnection<T>* createResourceConnection(std::string prm_idstr, T* prm_pResource);
+	GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
 public:
-
-	std::string _pManager_name;
+	/** マネージャ名称 */
+	const char* _manager_name;
 
 	/** GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
 	GgafResourceConnection<T>* _pTop;
@@ -40,13 +40,13 @@ public:
 	 * @param prm_name 識別名(＝ファイル名)
 	 * @return	所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	virtual GgafResourceConnection<T>* find(std::string prm_name);
+	virtual GgafResourceConnection<T>* find(char* prm_name);
 
 	/**
 	 * コンストラクタ
 	 * @return
 	 */
-	GgafResourceManager(std::string prm_pManager_name);
+	GgafResourceManager(const char* prm_manager_name);
 
 	/**
 	 * デストラクタ。保持リストを強制解放します。 .
@@ -64,28 +64,29 @@ public:
 	 * new した場合、参照カウンタは1です。<BR>
 	 * @param prm_name 識別名
 	 */
-	virtual GgafResourceConnection<T>* getConnection(std::string prm_idstr);
+	virtual GgafResourceConnection<T>* getConnection(char* prm_idstr);
 
-	virtual T* processCreateResource(std::string prm_idstr) = 0;
+	virtual T* processCreateResource(char* prm_idstr) = 0;
 
-	virtual GgafResourceConnection<T>* processCreateConnection(std::string prm_idstr, T* prm_pResource) = 0;
+	virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
 
 	virtual void dump();
 };
 
 template<class T>
-GgafResourceManager<T>::GgafResourceManager(std::string prm_pManager_name) : GgafObject() {
-	_TRACE_("GgafResourceManager<T>::GgafResourceManager("<<prm_pManager_name<<")");
-	_pManager_name =  prm_pManager_name;
+GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
+_manager_name(prm_manager_name)
+{
+	_TRACE_("GgafResourceManager<T>::GgafResourceManager("<<prm_manager_name<<")");
 	_pTop = NULL;
 }
 
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::find(std::string prm_name) {
+GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_name) {
 	GgafResourceConnection<T>* pCurrent = _pTop;
 	while (pCurrent != NULL) {
-		if (pCurrent->_idstr == prm_name) {
+		if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_name) == 0) {
 			return pCurrent;
 		}
 		pCurrent = pCurrent -> _pNext;
@@ -109,7 +110,7 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(std::string prm_idstr) {
+GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr) {
 	GgafResourceConnection<T>* pObj = find(prm_idstr);
 	//未生成ならば生成
 	if (pObj == NULL) {
@@ -127,13 +128,13 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(std::string prm
 }
 
 template<class T>
-T* GgafResourceManager<T>::createResource(std::string prm_idstr) {
+T* GgafResourceManager<T>::createResource(char* prm_idstr) {
 	_TRACE_("GgafResourceManager<T>::createResource "<<prm_idstr<<"を生成しましょう");
 	return processCreateResource(prm_idstr);
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(std::string prm_idstr, T* prm_pResource) {
+GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char* prm_idstr, T* prm_pResource) {
 	_TRACE_("GgafResourceManager<T>::createResourceConnection "<<prm_idstr<<"を生成しましょう");
 	GgafResourceConnection<T>* p = processCreateConnection(prm_idstr, prm_pResource);
 	p->_pManager = this; //マネージャ登録
@@ -165,7 +166,7 @@ void GgafResourceManager<T>::dump() {
 
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
-	_TRACE_("GgafResourceManager<T>::~GgafResourceManager "<<_pManager_name<<" ");
+	_TRACE_("GgafResourceManager<T>::~GgafResourceManager "<<_manager_name<<" ");
 	GgafResourceConnection<T>* pCurrent = _pTop;
 	if (_pTop == NULL) {
 		_TRACE_("GgafResourceManager::GgafResourceManager 保持リストにはなにもありません。");
