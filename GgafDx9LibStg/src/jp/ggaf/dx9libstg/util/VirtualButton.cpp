@@ -194,7 +194,7 @@ int VirtualButton::getPushedDownStick() {
 
 int VirtualButton::getPushedDownStickWith(int prm_VB) {
 	if (isBeingPressed(prm_VB)) {
-		static bool prev1Flg, prev2Flg, prev3Flg, prev4Flg;
+		static bool prev1Flg, prev2Flg, prev3Flg;
 		//ボタンに押されていない期間が直前にあったか
 		prev1Flg = wasNotBeingPressed(prm_VB, 1);
 		prev2Flg = wasNotBeingPressed(prm_VB, 2);
@@ -211,7 +211,7 @@ int VirtualButton::getPushedDownStickWith(int prm_VB) {
 		}
 
 		//スティックに押されていない期間が直前にあったか
-		static bool prev1N_Flg, prev2N_Flg, prev3N_Flg, prev4N_Flg;
+		static bool prev1N_Flg, prev2N_Flg, prev3N_Flg;
 		prev1N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 1);
 		prev2N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 2);
 		prev3N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 3);
