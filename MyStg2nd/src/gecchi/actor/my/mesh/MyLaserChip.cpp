@@ -9,14 +9,14 @@ LPDIRECT3DVERTEXBUFFER9 MyLaserChip::_pIDirect3DVertexBuffer9_MyLaserChip = NULL
 DWORD MyLaserChip::_dwVertexFormat = 0;
 DWORD MyLaserChip::_dwFVFSize = 0;
 DWORD MyLaserChip::_dwVertexNum = 0;
-int MyLaserChip::_aVertexIndexTetrahedron_A[] = {7,13,15}; //A
-int MyLaserChip::_iNum_VertexIndexTetrahedron_A = 3;
-int MyLaserChip::_aVertexIndexTetrahedron_B[] = {10,19,22,26,27}; //B
-int MyLaserChip::_iNum_VertexIndexTetrahedron_B = 5;
-int MyLaserChip::_aVertexIndexTetrahedron_C[] = {6,16,25}; //C
-int MyLaserChip::_iNum_VertexIndexTetrahedron_C = 3;
-int MyLaserChip::_aVertexIndexTetrahedron_D[] = {4,14,20,28,29};
-int MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
+UINT MyLaserChip::_aVertexIndexTetrahedron_A[] = {7,13,15}; //A
+UINT MyLaserChip::_iNum_VertexIndexTetrahedron_A = 3;
+UINT MyLaserChip::_aVertexIndexTetrahedron_B[] = {10,19,22,26,27}; //B
+UINT MyLaserChip::_iNum_VertexIndexTetrahedron_B = 5;
+UINT MyLaserChip::_aVertexIndexTetrahedron_C[] = {6,16,25}; //C
+UINT MyLaserChip::_iNum_VertexIndexTetrahedron_C = 3;
+UINT MyLaserChip::_aVertexIndexTetrahedron_D[] = {4,14,20,28,29};
+UINT MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
 
@@ -57,7 +57,7 @@ void MyLaserChip::initialize() {
 		_pTetra_EFGH->Hx = pV->x;
 		_pTetra_EFGH->Hy = pV->y;
 		_pTetra_EFGH->Hz = pV->z;
-		for(int i = 0; i < _dwVertexNum; i++){
+		for(DWORD i = 0; i < _dwVertexNum; i++){
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * i) + 0 );
 			_TRACE_("MyLaserChip 頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
 		}
@@ -103,13 +103,13 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		declareStop();
+		stop();
 	}
 }
 
 void MyLaserChip::processDrawMain() {
 	//通常時
-	static int index;
+	static DWORD index;
 	static D3DVECTOR* pV;
 	static BYTE* pByteVertexSrc;
 	static float fOffsetX, fOffsetY, fOffsetZ;
@@ -127,7 +127,7 @@ void MyLaserChip::processDrawMain() {
 		fOffsetY = (pPrevChip->_Y - _Y ) / (float)(LEN_UNIT);
 		fOffsetZ = (pPrevChip->_Z - _Z ) / (float)(LEN_UNIT);
 
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
 			index = _aVertexIndexTetrahedron_A[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -137,7 +137,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = fOffsetY + _pTetra_EFGH->Ey;
 			pV->z = fOffsetZ + _pTetra_EFGH->Ez;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_B; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_B; i++) {
 			index = _aVertexIndexTetrahedron_B[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -147,7 +147,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = fOffsetY + _pTetra_EFGH->Fy;
 			pV->z = fOffsetZ + _pTetra_EFGH->Fz;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_C; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_C; i++) {
 			index = _aVertexIndexTetrahedron_C[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -157,7 +157,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = fOffsetY + _pTetra_EFGH->Gy;
 			pV->z = fOffsetZ + _pTetra_EFGH->Gz;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_D; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_D; i++) {
 			index = _aVertexIndexTetrahedron_D[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -172,7 +172,7 @@ void MyLaserChip::processDrawMain() {
 	} else {
 		//連続してないので、こじんまりしとく。
 		_pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_A; i++) {
 			index = _aVertexIndexTetrahedron_A[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -182,7 +182,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = _pTetra_EFGH->Ey;
 			pV->z = _pTetra_EFGH->Ez;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_B; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_B; i++) {
 			index = _aVertexIndexTetrahedron_B[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -192,7 +192,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = _pTetra_EFGH->Fy;
 			pV->z = _pTetra_EFGH->Fz;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_C; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_C; i++) {
 			index = _aVertexIndexTetrahedron_C[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -202,7 +202,7 @@ void MyLaserChip::processDrawMain() {
 			pV->y = _pTetra_EFGH->Gy;
 			pV->z = _pTetra_EFGH->Gz;
 		}
-		for (int i = 0; i < _iNum_VertexIndexTetrahedron_D; i++) {
+		for (DWORD i = 0; i < _iNum_VertexIndexTetrahedron_D; i++) {
 			index = _aVertexIndexTetrahedron_D[i];
 			if (_dwVertexNum < index) {
 				continue;
@@ -215,7 +215,7 @@ void MyLaserChip::processDrawMain() {
 		_pIDirect3DVertexBuffer9_MyLaserChip->Unlock();
 	}
 
-	static int centerX, centerY, centerZ;
+//	static int centerX, centerY, centerZ;
 /*
 	if (pNextChip->isPlaying() && _dwFrame_switchedToPlay+1 == pNextChip->_dwFrame_switchedToPlay) {
 		centerX = (_X - pNextChip->_X) / 2;
@@ -239,7 +239,7 @@ void MyLaserChip::processDrawMain() {
 }
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareStop();
+	stop();
 }
 
 MyLaserChip::~MyLaserChip() {

@@ -40,7 +40,7 @@ void MyShot001::initialize() {
 	setAlpha(0.2);
 
 	setBumpableAlone(true);
-	declareStop();
+	stop();
 
 }
 
@@ -64,7 +64,7 @@ void MyShot001::processBehavior() {
 void MyShot001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		declareStop();
+		stop();
 	}
 
 }
@@ -79,14 +79,14 @@ bool MyShot001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Oppone
 void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("MyShot001::processOnHit ショットがヒットしました");
 	//_TRACE_("MyShot001ヒットしました。("<<_X<<","<<_Y<<")");
-	//declareFinishLife();
-	declareStop();
+	//farewell();
+	stop();
 }
 
 void MyShot001::onStop() {
 	//消失時処理
 	setBumpableAlone(false);
-	declareMoveFirst();
+	moveFirst();
 }
 
 

@@ -12,7 +12,7 @@ public:
 		pActor = getSubFirst();
 		while(true) {
 			if (pActor->switchedToStop()) {
-				pActor->declareMoveFirst();
+				pActor->moveFirst();
 			}
 			if (pActor->isLast()) {
 				break;
@@ -45,7 +45,7 @@ public:
  					pActor = pActor->getNext();
  				}
  			} else {
- 				pActor->declareMoveLast();
+ 				pActor->moveLast();
  				break;
  			}
  		} while(true);

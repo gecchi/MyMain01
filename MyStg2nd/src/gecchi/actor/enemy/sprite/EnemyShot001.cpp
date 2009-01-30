@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyShot001::EnemyShot001(string prm_name, string prm_model) : EnemyShotSpriteActor(prm_name, prm_model) {
 	_class_name = "EnemyShot001";
-	declareStop();
+	stop();
 }
 
 void EnemyShot001::initialize() {
@@ -53,13 +53,13 @@ bool EnemyShot001::isOffScreen() {
 
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-	//declareFinishLife();
+	//farewell();
 	setBumpableAlone(false);
-	declareStop();
+	stop();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
-		pExplo001->declarePlay();
+		pExplo001->play();
 	}
 }
 

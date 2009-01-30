@@ -85,7 +85,7 @@ void MyLaserChip2::initialize() {
 		_pTetra_EFGH->Hz = pV->z;
 
 		_paLaserChipVertex = NEW Vertex[20];
-		for(int i = 0; i < _dwVertexNum; i++){
+		for(DWORD i = 0; i < _dwVertexNum; i++){
 			pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * i) + 0 );
 			_paLaserChipVertex[i].x = pV->x;
 			_paLaserChipVertex[i].y = pV->y;
@@ -135,7 +135,7 @@ void MyLaserChip2::processBehavior() {
 void MyLaserChip2::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		declareStop();
+		stop();
 	}
 }
 
@@ -320,7 +320,7 @@ void MyLaserChip2::processDrawMain() {
 		}
 	}
 
-	static int centerX, centerY, centerZ;
+//	static int centerX, centerY, centerZ;
 //	if (pNextChip->isPlaying() && _dwFrame_switchedToPlay+1 == pNextChip->_dwFrame_switchedToPlay) {
 //		centerX = (_X - pNextChip->_X) / 2;
 //		centerY = (_Y - pNextChip->_Y) / 2;
@@ -363,7 +363,7 @@ void MyLaserChip2::processHappen(int prm_no) {
 
 
 void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareStop();
+	stop();
 }
 
 MyLaserChip2::~MyLaserChip2() {

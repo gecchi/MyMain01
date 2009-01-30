@@ -64,13 +64,13 @@ void GameMainScene::enableStage01() {
 		return;
 	}
 
-	_pStage01Scene->declarePlay();
+	_pStage01Scene->play();
 }
 
 
 
 void GameMainScene::readyStage02() {
-	getSub("Demo")->declareFinishLife();
+	getSub("Demo")->farewell();
 	orderSceneToFactory(ORDER_ID_CREATESTAGE02SCENE, Stage02Scene, "Stage02");
 	_readyStage02Flg = true;
 	_dwFrame_ReadyStage02 = _dwFrame;
@@ -87,7 +87,7 @@ void GameMainScene::enableStage02() {
 //		}
 		return;
  	}
-	_pStage02Scene->declarePlay();
+	_pStage02Scene->play();
 }
 
 

@@ -15,8 +15,8 @@ void DefaultSpriteEffectActor::processHappen(int prm_event) {
 
 	case GGAF_EVENT_NOLOOP_ANIMATION_FINISHED:
 		//繰り返さないアニメーション終了時、共通処理
-		declareStop();
-		declareMoveFirst();
+		stop();
+		moveFirst();
 		break;
 
 	default:

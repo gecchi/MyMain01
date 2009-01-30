@@ -61,7 +61,7 @@ void MyLaser001::processBehavior() {
 void MyLaser001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		declareStop();
+		stop();
 	}
 }
 
@@ -75,8 +75,8 @@ bool MyLaser001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Oppon
 void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("MyLaser001::processOnHit ショットがヒットしました");
 	//_TRACE_("MyLaser001ヒットしました。("<<_X<<","<<_Y<<")");
-	//declareFinishLife();
-	declareStop();
+	//farewell();
+	stop();
 }
 
 void MyLaser001::onStop() {

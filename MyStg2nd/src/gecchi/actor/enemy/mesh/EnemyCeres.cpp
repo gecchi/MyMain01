@@ -157,7 +157,7 @@ void EnemyCeres::processBehavior() {
 //			if (pTama != NULL) {
 //				pTama -> setGeometry (_X, _Y, 0);
 //				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
-//				pTama -> declarePlay();
+//				pTama -> play();
 //			}
 //		}
 
@@ -171,7 +171,7 @@ void EnemyCeres::processBehavior() {
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);
 				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90+way[i], ANGLE90);
-				pTama -> declarePlay();
+				pTama -> play();
 			}
 		}
 		for (int i = 8; i < 16; i++) {
@@ -179,7 +179,7 @@ void EnemyCeres::processBehavior() {
 			if (pTama != NULL) {
 				pTama -> setGeometry (_X, _Y, _Z);
 				pTama -> _pGeoMover -> setMoveAngleRzRy(-ANGLE90-way[i], -ANGLE90);
-				pTama -> declarePlay();
+				pTama -> play();
 			}
 		}
 
@@ -217,7 +217,7 @@ void EnemyCeres::processBehavior() {
 //			if (pTama) {
 //				pTama -> setGeometry (_X, _Y, 0);
 //				pTama -> _pGeoMover -> setMoveAngleRz(way[i]);
-//				pTama -> declarePlay();
+//				pTama -> play();
 //			}
 //		}
 //
@@ -267,9 +267,9 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
 	if (isOffScreen()) {
-		declareFinishLife();
+		farewell();
 		if (_createRotationActor) { //’e‰ð•ú—\–ñ
-			_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
+			_pRotEnemyMeshShots001 -> farewell(60*5);
 		}
 	}
 }
@@ -283,16 +283,16 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 	}
 
 
-	declareFinishLife();
+	farewell();
 	if (_createRotationActor) { //’e‰ð•ú—\–ñ
-		_pRotEnemyMeshShots001 -> declareFinishLife(60*5);
+		_pRotEnemyMeshShots001 -> farewell(60*5);
 	}
 
 
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
-		pExplo001->declarePlayAlone();
+		pExplo001->playAlone();
 	}
 }
 

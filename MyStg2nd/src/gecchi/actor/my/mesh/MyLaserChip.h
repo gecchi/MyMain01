@@ -26,14 +26,14 @@ public:
 	static DWORD _dwVertexFormat;
 	static DWORD _dwFVFSize;
 	static DWORD _dwVertexNum;
-	static int _aVertexIndexTetrahedron_A[];
-	static int _aVertexIndexTetrahedron_B[];
-	static int _aVertexIndexTetrahedron_C[];
-	static int _aVertexIndexTetrahedron_D[];
-	static int _iNum_VertexIndexTetrahedron_A;
-	static int _iNum_VertexIndexTetrahedron_B;
-	static int _iNum_VertexIndexTetrahedron_C;
-	static int _iNum_VertexIndexTetrahedron_D;
+	static UINT _aVertexIndexTetrahedron_A[];
+	static UINT _aVertexIndexTetrahedron_B[];
+	static UINT _aVertexIndexTetrahedron_C[];
+	static UINT _aVertexIndexTetrahedron_D[];
+	static UINT _iNum_VertexIndexTetrahedron_A;
+	static UINT _iNum_VertexIndexTetrahedron_B;
+	static UINT _iNum_VertexIndexTetrahedron_C;
+	static UINT _iNum_VertexIndexTetrahedron_D;
 	static Tetrahedron* _pTetra_EFGH;
 
 

@@ -23,7 +23,7 @@ void GameDemoScene::processBehavior() {
 		_pFontPlate01->setString(100,100,"MYSTG2nd");
 		_TRACE_("GameDemoScene:STAGE1準備開始！");
 		getParentScene(Game)->_pGameMainScene->readyStage01();
-		GameGlobal::_pSceneCommon->_pMyShip->declarePlayAlone(); //下位にオプション等があるし
+		GameGlobal::_pSceneCommon->_pMyShip->playAlone(); //下位にオプション等があるし
 		_TRACE_("GameDemoScene:OK稼動しますった！");
 	}
 
@@ -36,7 +36,7 @@ void GameDemoScene::processBehavior() {
 			_TRACE_("GameDemoScene::processFinally STAGE1スタート！！私はSTOP");
 			getParentScene(Game)->_pGameMainScene->enableStage01();
 			//自分は停止
-			declareStop();
+			stop();
 		}
 	}
 

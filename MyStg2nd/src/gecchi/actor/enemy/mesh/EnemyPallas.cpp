@@ -46,13 +46,13 @@ void EnemyPallas::processBehavior() {
 
 void EnemyPallas::processJudgement() {
 	if (isOffScreen()) {
-		declareFinishLife();
+		farewell();
 	}
 }
 
 void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
 	setBumpableAlone(false);
-	declareFinishLife();
+	farewell();
 }
 
 bool EnemyPallas::isOffScreen() {

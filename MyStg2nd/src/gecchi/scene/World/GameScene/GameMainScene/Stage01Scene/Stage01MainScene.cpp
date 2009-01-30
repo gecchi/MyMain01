@@ -974,7 +974,7 @@ void Stage01MainScene::processBehavior() {
 void Stage01MainScene::processFinal() {
 //	if (_dwFrame == 1) {
 //		_TRACE_("Stage01MainScene::processFinally „‚Í‚¢‚«‚È‚è’â~‚µ‚Ü‚·BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Í‚¸[");
-//		this->declareStop(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+//		this->stop(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 //	}
 }
 

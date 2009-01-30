@@ -92,7 +92,7 @@ void MyOption::processBehavior() {
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(this);
 			pLaser->_dwFrame_switchedToPlay = _dwFrame;
-			pLaser->declarePlay();
+			pLaser->play();
 		}
 	}
 
@@ -106,7 +106,7 @@ void MyOption::processJudgement() {
 
 
 void MyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareFinishLife();
+	farewell();
 }
 
 

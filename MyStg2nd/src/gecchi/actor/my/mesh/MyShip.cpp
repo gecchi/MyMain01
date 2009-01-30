@@ -206,12 +206,12 @@ void MyShip::processBehavior() {
 	if (VB::isPushedDown(VB_SHOT1)) {
 		MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->obtain();
 		if (pShot != NULL) {
-			pShot->declarePlay();
+			pShot->play();
 
 			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 			if (pExplo001 != NULL) {
 				pExplo001->setGeometry(this);
-				pExplo001->declarePlay();
+				pExplo001->play();
 			}
 		}
 	}
@@ -222,7 +222,7 @@ void MyShip::processBehavior() {
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(this);
 			pLaser->_dwFrame_switchedToPlay = _dwFrame;
-			pLaser->declarePlay();
+			pLaser->play();
 		}
 	}
 
@@ -230,12 +230,12 @@ void MyShip::processBehavior() {
 	if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
 		MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->obtain();
 		if (pWave != NULL) {
-			pWave->declarePlay();
+			pWave->play();
 
 			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 			if (pExplo001 != NULL) {
 				pExplo001->setGeometry(this);
-				pExplo001->declarePlay();
+				pExplo001->play();
 			}
 		}
 	}
@@ -269,7 +269,7 @@ void MyShip::processJudgement() {
 
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-	declareFinishLife();
+	farewell();
 }
 
 
@@ -548,7 +548,7 @@ void MyShip::equipOption() {
 
 
 	_state.eq_option++;
-	pOption->declarePlayAlone();
+	pOption->playAlone();
 
 
 }

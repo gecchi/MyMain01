@@ -20,7 +20,7 @@ void Stage04Scene::processFinal() {
 
 	if (_dwFrame == 1) {
 		_TRACE_("Stage04Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-		this->declareStop(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+		this->stop(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 	}
 }
 

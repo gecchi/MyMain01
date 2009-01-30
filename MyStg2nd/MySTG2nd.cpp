@@ -35,7 +35,7 @@ int main(int argc,char *argv[]) {
 	LPSTR		lpCmdLine;
 	int			nCmdShow;
 	//WNDCLASS	wc;
-	HWND		hWnd;
+//	HWND		hWnd;
 //	MSG			msg;
 
 	GetStartupInfo(&StatUpInfo);

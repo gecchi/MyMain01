@@ -46,13 +46,13 @@ void EnemyVesta::processBehavior() {
 
 void EnemyVesta::processJudgement() {
 	if (isOffScreen()) {
-		declareFinishLife();
+		farewell();
 	}
 }
 
 void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
 	setBumpableAlone(false);
-	declareFinishLife();
+	farewell();
 }
 
 bool EnemyVesta::isOffScreen() {

@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(string prm_name, string prm_model) : DefaultMeshActor(p
 }
 
 void TamagoActor::initialize() {
-	//declareStop();
+	//stop();
 	setBumpable(true);
 //
 	_pGeoMover -> setMoveAngleRz(ANGLE180);
@@ -136,7 +136,7 @@ void TamagoActor::processJudgement() {
 void TamagoActor::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
 	setBumpable(false);
-	declareFinishLife();
+	farewell();
 }
 
 
