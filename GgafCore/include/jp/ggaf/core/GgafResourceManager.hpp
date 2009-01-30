@@ -176,7 +176,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
 			int rnum = pCurrent->_iConnectionNum;
 			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Objects]が残ってます。強制削除しますが、本来あってはいけません。");
 
-			T* r = pCurrent->get();
+			T* r = pCurrent->getResource();
 			pCurrent_Next = pCurrent -> _pNext;
 			if (r != NULL) {
 				pCurrent->processReleaseResource(r); //リソースの解放

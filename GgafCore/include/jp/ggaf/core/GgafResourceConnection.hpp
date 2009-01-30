@@ -39,7 +39,7 @@ public:
 	 * 資源を取得。
 	 * 参照カウンタは増えません
 	 */
-	virtual T* get();
+	virtual T* getResource();
 
 
 
@@ -69,7 +69,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
 }
 
 template<class T>
-T* GgafResourceConnection<T>::get() {
+T* GgafResourceConnection<T>::getResource() {
 	return _pResource;
 }
 
@@ -125,7 +125,7 @@ int GgafResourceConnection<T>::Release() {
 	}
 
 	if (_iConnectionNum == 0) {
-		T* r = pCurrent->get();
+		T* r = pCurrent->getResource();
 		if (r != NULL) {
 			pCurrent->processReleaseResource(r); //本当の解放
 		}

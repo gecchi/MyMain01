@@ -183,20 +183,31 @@ void GgafGod::makeWorldFinalize() {
 
 GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");
-	//Hê‘|œ
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-		GgafFactory::clean();
-		//ƒSƒ~” 
-		GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
-		GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
-		DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+    if (_pWorld != NULL) {
+		//Hê‚ðŽ~‚ß‚é
+		Sleep(20);
+		GgafFactory::_isWorking = false;
+		while (GgafFactory::_isFinish == false) {
+			Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
+		}
 
-	//¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
-	Sleep(20);
-	::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
-		DELETE_IMPOSSIBLE_NULL(_pWorld);
-	::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+		//Hê‘|œ
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+			GgafFactory::clean();
+			//ƒSƒ~” 
+			GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
+			GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+			DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+
+		//¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
+		Sleep(20);
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+			DELETE_IMPOSSIBLE_NULL(_pWorld);
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+    }
+
+    //”r‘¼‚Ì‰ðœ
     CloseHandle(_handleFactory01);
     DeleteCriticalSection(&(GgafGod::CS2));
 	DeleteCriticalSection(&(GgafGod::CS1));
