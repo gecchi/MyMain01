@@ -499,13 +499,30 @@ void GgafDx9God::makeWorldVisualize() {
 
 GgafDx9God::~GgafDx9God() {
 	_TRACE_("GgafDx9God::~GgafDx9God() start -->");
-	//Hê‚ðŽ~‚ß‚é
-	Sleep(20);
-	GgafFactory::_isWorking = false;
-	while (GgafFactory::_isFinish == false) {
-		Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
-	}
+    if (_pWorld != NULL) {
+		//Hê‚ðŽ~‚ß‚é
+		Sleep(20);
+		GgafFactory::_isWorking = false;
+		while (GgafFactory::_isFinish == false) {
+			Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
+		}
 
+		//Hê‘|œ
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+			GgafFactory::clean();
+			//ƒSƒ~” 
+			GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
+			GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+			DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+
+		//¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
+		Sleep(20);
+		::EnterCriticalSection(&(GgafGod::CS1)); // -----> ”r‘¼ŠJŽn
+			DELETE_IMPOSSIBLE_NULL(_pWorld);
+		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+    }
+	//‚¢‚ë‚¢‚ë‰ð•ú
 	DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
 	DELETE_IMPOSSIBLE_NULL(_pVecCamUp);

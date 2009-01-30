@@ -109,11 +109,14 @@ class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
 class GgafDx9RectUV;
-class GgafDx9Sound;
+
 class GgafDx9Se;
 class GgafDx9Bgm;
+class GgafDx9SeConnection;
 class GgafDx9SeManager;
+class GgafDx9BgmConnection;
 class GgafDx9BgmManager;
+class GgafDx9Sound;
 class CWaveDecorder;
 }
 
@@ -131,8 +134,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
-#include "jp/ggaf/dx9core/model/GgafDx9TextureConnection.h"
-#include "jp/ggaf/dx9core/model/GgafDx9TextureManager.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureConnection.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureManager.h"
 #include "jp/ggaf/dx9core/model/GgafDx9ModelManager.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
@@ -177,11 +180,13 @@ class CWaveDecorder;
 */
 #include "jp/ggaf/dx9core/sound/CWaveDecorder.h"
 
-#include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
+
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"
-#include "jp/ggaf/dx9core/sound/GgafDx9SeManager.h"
-#include "jp/ggaf/dx9core/sound/GgafDx9BgmManager.h"
-
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeConnection.h"
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeManager.h"
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmConnection.h"
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmManager.h"
+#include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
 
 #endif /*GGAFDX9COMMONHEADER_H_*/

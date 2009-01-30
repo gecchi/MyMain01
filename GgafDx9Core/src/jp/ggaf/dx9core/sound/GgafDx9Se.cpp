@@ -45,9 +45,9 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
 
 	return true;
 }
-GgafDx9Se::GgafDx9Se(string prm_wave_name, int prm_iBufferCount) : GgafObject() {
+GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) : GgafObject() {
 	_wave_name = prm_wave_name;
-	string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
+	string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
 	_pSe_Next = NULL;
 
 	HRESULT hr;

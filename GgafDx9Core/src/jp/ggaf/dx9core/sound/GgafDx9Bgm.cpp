@@ -4,10 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace Dix;
 
-GgafDx9Bgm::GgafDx9Bgm(string prm_ogg_name) : GgafObject() {
-	_TRACE_("GgafDx9Bgm::GgafDx9Bgm "+prm_ogg_name);
+GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
+	_TRACE_("GgafDx9Bgm::GgafDx9Bgm "<<prm_ogg_name);
 	_ogg_name = prm_ogg_name;
-	string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + prm_ogg_name+".ogg";
+	string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + string(prm_ogg_name) + ".ogg";
 	spOggResource.SetPtr( NEW OggVorbisFile( ogg_filename.c_str() ) );
 	spOggDecoder.SetPtr( NEW OggDecoder( spOggResource ) );
 	pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
