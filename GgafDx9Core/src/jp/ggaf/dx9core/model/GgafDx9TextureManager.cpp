@@ -3,11 +3,11 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9TextureManager::GgafDx9TextureManager(string prm_name)
-    : GgafResourceManager<IDirect3DTexture9>(prm_name) {
+GgafDx9TextureManager::GgafDx9TextureManager(const char* prm_manager_name)
+    : GgafResourceManager<IDirect3DTexture9>(prm_manager_name) {
 }
 
-IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(std::string prm_idstr) {
+IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr) {
 	string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(prm_idstr);
 	LPDIRECT3DTEXTURE9 pIDirect3DTexture9_New;
 	HRESULT hr = D3DXCreateTextureFromFileEx(
@@ -29,15 +29,15 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(std::string prm_
 	if(hr != D3D_OK) {
 		throw_GgafDx9CriticalException("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_idstr, hr);
 	}
+	_TRACE_(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
+
 	return pIDirect3DTexture9_New;
 }
 
-GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(std::string prm_idstr, IDirect3DTexture9* prm_pResource) {
-	_TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成しました。");
+GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(char* prm_idstr, IDirect3DTexture9* prm_pResource) {
+	_TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
 	GgafDx9TextureConnection* p = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);
+	_TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
 	return p;
 }
 
-
-
-GgafDx9TextureManager::~GgafDx9TextureManager(){};

@@ -11,19 +11,24 @@ class GgafDx9TextureManager : public GgafCore::GgafResourceManager<IDirect3DText
 
 public:
 
-	GgafDx9TextureManager(std::string prm_name);
+	/**
+	 * コンストラクタ
+	 * @param prm_manager_name マネージャ名称(リテラル必須)
+	 */
+	GgafDx9TextureManager(const char* prm_manager_name);
+
 	/**
 	 * オーバーライド
 	 */
-	IDirect3DTexture9* processCreateResource(std::string prm_idstr);
+	IDirect3DTexture9* processCreateResource(char* prm_idstr);
 
 	/**
 	 * オーバーライド
 	 */
-	GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(std::string prm_idstr, IDirect3DTexture9* prm_pResource);
+	GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(char* prm_idstr, IDirect3DTexture9* prm_pResource);
 
 
-	virtual ~GgafDx9TextureManager();
+	virtual ~GgafDx9TextureManager() {};
 };
 
 

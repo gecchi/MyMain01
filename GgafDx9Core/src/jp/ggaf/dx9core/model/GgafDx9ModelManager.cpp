@@ -379,7 +379,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	//テクスチャ取得しモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(string(*ppaChar_TextureFile));
+	GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
@@ -664,6 +664,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 		pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_PlateModelHeight);
 		pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
 		pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
+		//データはコピーしなければいけません。
 		prm_pPlateModel->_fSize_PlateModelWidth  = *pFloat_Size_PlateModelWidth;
 		prm_pPlateModel->_fSize_PlateModelHeight = *pFloat_Size_PlateModelHeight;
 		prm_pPlateModel->_iRowNum_TextureSplit    = *pInt_RowNum_TextureSplit;
@@ -674,7 +675,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	//頂点配列情報をモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-	GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(string(*ppaChar_TextureFile));
+	GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
 //	hr = D3DXCreateTextureFromFileEx(
 //			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
 //			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,

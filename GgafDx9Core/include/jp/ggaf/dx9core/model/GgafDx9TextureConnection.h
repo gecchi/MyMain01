@@ -15,7 +15,7 @@ public:
 	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
 	 * @param prm_pIDirect3DTexture9 テクスチャ
 	 */
-	GgafDx9TextureConnection(std::string prm_texture_file_name, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
+	GgafDx9TextureConnection(char* prm_idstr, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
 
 	/**
 	 * オーバーライド
@@ -24,9 +24,9 @@ public:
 
 	/**
 	 * デストラクタ<BR>
-	 * deleteするのはGgafDx9TextureManagerである<BR>
 	 */
-	virtual ~GgafDx9TextureConnection();		//デストラクタ
+	virtual ~GgafDx9TextureConnection() {
+	};
 };
 
 

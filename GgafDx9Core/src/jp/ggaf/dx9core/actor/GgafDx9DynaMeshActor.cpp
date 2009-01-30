@@ -8,7 +8,7 @@ GgafDx9DynaMeshActor::GgafDx9DynaMeshActor(string prm_name, string prm_meshmodel
 	_class_name = "GgafDx9DynaMeshActor";
 	//マテリアルをコピー
 	_paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
-	for (int i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
+	for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
 		_paD3DMaterial9[i] = _pMeshModel->_paD3DMaterial9_default[i];
 	}
 	_fAlpha = 1.0f;
@@ -22,7 +22,7 @@ void GgafDx9DynaMeshActor::processDrawMain() {
 void GgafDx9DynaMeshActor::setAlpha(float prm_fAlpha) {
 	_fAlpha = prm_fAlpha;
 	//α設定
-	for (int i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
+	for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
 		_paD3DMaterial9[i].Ambient.a = _fAlpha;
 		_paD3DMaterial9[i].Diffuse.a = _fAlpha;
 	}
