@@ -24,7 +24,7 @@ public:
 	/** マテリアル */
 	D3DMATERIAL9* 		_pD3DMaterial9_default;
 	/** テクスチャ(アニメーションパターン） */
-	GgafDx9TextureConnection* _pTexture;
+	GgafDx9TextureLead* _pTexture;
 	/** 矩形の頂点合計のサイズ */
 	UINT _iSize_Vertecs;
 	/** 1頂点のサイズ */

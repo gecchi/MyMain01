@@ -127,7 +127,7 @@ void GgafDx9SpriteModel::release() {
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " start");
 	RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
 	DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-	//GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_pTexture);
+	//GgafDx9ModelManager::_pTextureManager->releaseResourceLead(_pTexture);
 	RELEASE_IMPOSSIBLE_NULL(_pTexture);
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9SpriteModel::release() " <<  _model_name << " end");

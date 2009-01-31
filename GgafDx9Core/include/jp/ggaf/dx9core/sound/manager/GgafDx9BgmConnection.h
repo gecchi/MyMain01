@@ -6,7 +6,7 @@ namespace GgafDx9Core {
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  */
-class GgafDx9BgmConnection : public GgafCore::GgafResourceConnection<GgafDx9Bgm> {
+class GgafDx9BgmLead : public GgafCore::GgafResourceLead<GgafDx9Bgm> {
 
 public:
 
@@ -15,7 +15,7 @@ public:
 	 * @param prm_texture_file_name OGG識別名(＝ファイル名)
 	 * @param prm_pGgafDx9Bgm OGG
 	 */
-	GgafDx9BgmConnection(char* prm_idstr, GgafDx9Bgm* prm_pGgafDx9Bgm);
+	GgafDx9BgmLead(char* prm_idstr, GgafDx9Bgm* prm_pGgafDx9Bgm);
 
 	/**
 	 * オーバーライド
@@ -25,7 +25,7 @@ public:
 	/**
 	 * デストラクタ<BR>
 	 */
-	virtual ~GgafDx9BgmConnection() {
+	virtual ~GgafDx9BgmLead() {
 	};
 };
 

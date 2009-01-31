@@ -25,7 +25,7 @@ public:
 	/**
 	 * オーバーライド
 	 */
-	GgafCore::GgafResourceConnection<GgafDx9Bgm>* processCreateConnection(char* prm_idstr, GgafDx9Bgm* prm_pResource);
+	GgafCore::GgafResourceLead<GgafDx9Bgm>* processCreateLead(char* prm_idstr, GgafDx9Bgm* prm_pResource);
 
 
 	virtual ~GgafDx9BgmManager() {};

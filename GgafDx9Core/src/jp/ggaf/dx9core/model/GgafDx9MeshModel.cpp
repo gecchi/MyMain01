@@ -70,7 +70,7 @@ void GgafDx9MeshModel::release() {
 	}
 	//テクスチャを解放するかどうか
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
-		//GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_papTexture[i]);
+		//GgafDx9ModelManager::_pTextureManager->releaseResourceLead(_papTexture[i]);
 		RELEASE_IMPOSSIBLE_NULL(_papTexture[i]);
 	}
 

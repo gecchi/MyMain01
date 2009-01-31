@@ -21,7 +21,7 @@ public:
 	static DWORD FVF;
 
 	/** テクスチャ(アニメーションパターン） */
-	GgafDx9TextureConnection* _pTexture;
+	GgafDx9TextureLead* _pTexture;
 
 	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
 	GgafDx9RectUV*  _paRectUV;
