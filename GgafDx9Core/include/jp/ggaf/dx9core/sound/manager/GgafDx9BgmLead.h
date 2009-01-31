@@ -1,5 +1,5 @@
-#ifndef GGAFDX9BGMCONNECTION_H_
-#define GGAFDX9BGMCONNECTION_H_
+#ifndef GGAFDX9BGMLEAD_H_
+#define GGAFDX9BGMLEAD_H_
 namespace GgafDx9Core {
 
 /**
@@ -31,4 +31,4 @@ public:
 
 
 }
-#endif /*GGAFDX9BGMCONNECTION_H_*/
+#endif /*GGAFDX9BGMLEAD_H_*/

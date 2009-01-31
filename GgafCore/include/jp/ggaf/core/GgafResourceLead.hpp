@@ -1,5 +1,5 @@
-#ifndef GGAFRESOURCECONNECTION_H_
-#define GGAFRESOURCECONNECTION_H_
+#ifndef GGAFRESOURCELEAD_H_
+#define GGAFRESOURCELEAD_H_
 namespace GgafCore {
 
 /**
@@ -140,4 +140,4 @@ int GgafResourceLead<T>::Release() {
 
 }
 
-#endif /*GGAFRESOURCECONNECTION_H_*/
+#endif /*GGAFRESOURCELEAD_H_*/

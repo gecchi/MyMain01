@@ -1,5 +1,5 @@
-#ifndef GGAFDX9SECONNECTION_H_
-#define GGAFDX9SECONNECTION_H_
+#ifndef GGAFDX9SELEAD_H_
+#define GGAFDX9SELEAD_H_
 namespace GgafDx9Core {
 
 /**
@@ -31,4 +31,4 @@ public:
 
 
 }
-#endif /*GGAFDX9SECONNECTION_H_*/
+#endif /*GGAFDX9SELEAD_H_*/
