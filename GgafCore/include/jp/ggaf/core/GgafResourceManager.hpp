@@ -37,10 +37,10 @@ public:
 
 	/**
 	 * GgafResourceLeadオブジェクトをリストから検索。<BR>
-	 * @param prm_name 識別名(＝ファイル名)
+	 * @param prm_idstr 識別名
 	 * @return	所望のGgafResourceLeadオブジェクトのポインタ。リストに存在しなかった場合 NULL
 	 */
-	virtual GgafResourceLead<T>* find(char* prm_name);
+	virtual GgafResourceLead<T>* find(char* prm_idstr);
 
 	/**
 	 * コンストラクタ
@@ -83,10 +83,10 @@ _manager_name(prm_manager_name)
 
 
 template<class T>
-GgafResourceLead<T>* GgafResourceManager<T>::find(char* prm_name) {
+GgafResourceLead<T>* GgafResourceManager<T>::find(char* prm_idstr) {
 	GgafResourceLead<T>* pCurrent = _pTop;
 	while (pCurrent != NULL) {
-		if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_name) == 0) {
+		if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
 			return pCurrent;
 		}
 		pCurrent = pCurrent -> _pNext;
@@ -150,7 +150,7 @@ void GgafResourceManager<T>::dump() {
 		GgafResourceLead<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iLeadNum;
-			_TRACE_("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Objects]");
+			_TRACE_("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]");
 			pCurrent_Next = pCurrent -> _pNext;
 			if (pCurrent_Next == NULL) {
 				pCurrent = NULL;
@@ -174,7 +174,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
 		GgafResourceLead<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iLeadNum;
-			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Objects]が残ってます。強制削除しますが、本来あってはいけません。");
+			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]が残ってます。強制削除しますが、本来あってはいけません。");
 
 			T* r = pCurrent->getResource();
 			pCurrent_Next = pCurrent -> _pNext;
