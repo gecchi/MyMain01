@@ -16,7 +16,7 @@ class GgafElement : public GgafNode<T> {
 
 protected:
 
-	/** 神様への近道 */
+	/** 神への近道 */
 	GgafGod* _pGod;
 	/** initializeが行われたどうかのフラグ(true=行われた) */
 	bool _wasInitialized;
@@ -250,8 +250,8 @@ public:
 	virtual void processHappen(int prm_no) = 0;
 
     /**
-	 * 神様に接見 .
-	 * @return	呼ばれて出てきた神様
+	 * 神に謁見 .
+	 * @return	呼ばれて出てきた神
 	 */
 	virtual GgafGod* askGod() = 0;
 

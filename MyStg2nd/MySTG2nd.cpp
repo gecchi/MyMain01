@@ -142,7 +142,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 			while (true) {
 				if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
 					if (msg.message == WM_QUIT) {
-						delete god; //ê_ólÇ≥ÇÊÇ§Ç»ÇÁ
+						delete god; //ê_Ç≥ÇÊÇ§Ç»ÇÁ
 						GgafDx9Core::GgafDx9Properties::clean();
 						::timeEndPeriod(1);
 	#ifdef OREDEBUG

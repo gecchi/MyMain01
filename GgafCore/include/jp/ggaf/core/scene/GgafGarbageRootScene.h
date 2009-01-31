@@ -4,7 +4,9 @@ namespace GgafCore {
 
 
 /**
- * ゴミルートシーン
+ * お疲れルートシーン
+ * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
+ * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  */
 class GgafGarbageRootScene : public GgafScene {
 public:

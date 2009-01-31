@@ -4,9 +4,9 @@ namespace GgafCore {
 
 
 /**
- * シーンの基底クラス .
- * 本プログラムで言う『シーン（場面）』とは、主にアクター(GgafActor)に指示するオブジェクトで<BR>
- * 各シーンは、必ず１つのアクターツリーをメンバとして保持しています。<BR>
+ * シーンクラス .
+ * 本プログラムでの『シーン（場面）』とは、管理者(GgafLoadActor)を管理するオブジェクトです。<BR>
+ * 各シーンは、必ず１つの管理者をメンバとして保持しています。<BR>
  * 全てのシーンクラスは、本クラスを直接・間接継承しなければなりません。<BR>
  * また、シーン同士のポインタで、ツリー階層構造を採る事ができます。（このツリー構造はクラスの継承とは関係ありません）<BR>
  * シーンに実装されているメソッド郡のほとんどは、自分自身と自分配下のシーン（自ツリーシーン）全てに影響する仕様になっています。<BR>
@@ -66,7 +66,7 @@ class GgafScene : public GgafElement<GgafScene> {
 
 protected:
 
-	/** このシーンの管理アクター */
+	/** このシーンの管理者 */
 	GgafLordActor* _pLordActor;
 
 	static GgafHeadActor* _s_apHeadActor01[];
@@ -80,7 +80,7 @@ public:
 
 	/**
 	 * デストラクタ .
-	 * 自シーンの管理アクターのツリーアクターの解放を行ってから。<BR>
+	 * 自シーンの管理者のツリーアクターの解放を行ってから。<BR>
 	 * 自ツリーシーンの解放を行います<BR>
 	 */
 	virtual ~GgafScene();
@@ -218,20 +218,20 @@ public:
 	virtual void cleane(int prm_iNumCleanNode);
 
 	/**
-	 * 神様に接見 .
-	 * @return	呼ばれて出てきた神様
+	 * 神に謁見 .
+	 * @return	呼ばれて出てきた神
 	 */
 	virtual GgafGod* askGod();
 
 	/**
-	 * 自シーンの管理者アクターを取得 .
-	 * @return	管理者アクター
+	 * 自シーンの管理者を取得 .
+	 * @return	管理者
 	 */
 	virtual GgafLordActor* getLordActor();
 
 	/**
 	 * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
-	 * 自ツリーシーン全てに対して、各シーンに所属する管理者アクターのサブアクターである GgafHeadActor 全てに対して<BR>
+	 * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
 	 * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
 	 * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
 	 * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
@@ -241,7 +241,7 @@ public:
 
 	/**
 	 * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
-	 * 自ツリーシーン全てに対して、各シーンに所属する管理者アクターのサブアクターである GgafHeadActor 全てに対して<BR>
+	 * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
 	 * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
 	 * @param	prm_actorkind01	判定する対象のGgafHeadActorに登録されているActor種別
 	 * 		    prm_actorkind01	判定される対象のGgafHeadActorに登録されているActor種別<BR>

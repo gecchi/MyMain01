@@ -2,7 +2,10 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
-
+/**
+ * 神クラス.
+ * 世界(GgafWorld)を管理します。
+ */
 class GgafGod : public GgafObject {
 
 public:
