@@ -94,7 +94,7 @@ GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 
 //
 //GgafMainActor* MyFactory::createEnemyCeres(void* pArg1, void* pArg2) {
-//	EnemyCeres* pEnemyCeres = NEW EnemyCeres("Ceres01", "Ceres");
+//	EnemyCeres* pEnemyCeres = NEW EnemyCeres("Ceres01", "M/Ceres");
 //	return pEnemyCeres;
 //}
 //

@@ -9,10 +9,10 @@ BackGround01Plate::BackGround01Plate(string prm_name, string prm_dummy) : GgafDx
 	_class_name = "BackGround01Plate";
 
 	_papChipPlate = NEW BackGroundChipPlate*[4];
-	_papChipPlate[0] = NEW BackGroundChipPlate("Bg01_Chip01", "background01");
-	_papChipPlate[1] = NEW BackGroundChipPlate("Bg01_Chip02", "background02");
-	_papChipPlate[2] = NEW BackGroundChipPlate("Bg01_Chip03", "background03");
-	_papChipPlate[3] = NEW BackGroundChipPlate("Bg01_Chip04", "background04");
+	_papChipPlate[0] = NEW BackGroundChipPlate("Bg01_Chip01", "P/background01");
+	_papChipPlate[1] = NEW BackGroundChipPlate("Bg01_Chip02", "P/background02");
+	_papChipPlate[2] = NEW BackGroundChipPlate("Bg01_Chip03", "P/background03");
+	_papChipPlate[3] = NEW BackGroundChipPlate("Bg01_Chip04", "P/background04");
 	stopImmediately();
 }
 

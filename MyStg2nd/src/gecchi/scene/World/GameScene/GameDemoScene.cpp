@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 
 GameDemoScene::GameDemoScene(string prm_name) : DefaultScene(prm_name) {
-	_pFontPlate01 = NEW FontPlateActor("STR01", "moji");
+	_pFontPlate01 = NEW FontPlateActor("STR01", "P/moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate01);
-	_pFontPlate02 = NEW FontPlateActor("STR02", "moji");
+	_pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate02);
 }
 void GameDemoScene::initialize() {

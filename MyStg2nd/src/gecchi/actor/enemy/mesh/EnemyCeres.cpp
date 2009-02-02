@@ -27,11 +27,11 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 16; i++) {
 		Sleep(1);
-		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "myvic");
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "M/myvic");
 		pEnemyMeshShot->stopImmediately(); //Å‰”ñ•\¦
 		_pRotEnemyMeshShots001 -> addSubLast(pEnemyMeshShot);
 	}
-	addSubLast(_pRotEnemyMeshShots001); //‰ğ•ú‘ÎÛ‚É‚·‚é‚½‚ßˆêŠ‘®
+	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰ğ•ú‘ÎÛ‚É‚·‚é‚½‚ßˆêŠ‘®
 	_createRotationActor = true;
 }
 

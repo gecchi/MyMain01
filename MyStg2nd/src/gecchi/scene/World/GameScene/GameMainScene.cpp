@@ -13,7 +13,7 @@ using namespace MyStg2nd;
 #define ORDER_ID_CREATESTAGE05SCENE 15
 
 GameMainScene::GameMainScene(string prm_name) : DefaultScene(prm_name) {
-	_pFontPlate_SCORE = NEW FontPlateActor("STR01", "moji");
+	_pFontPlate_SCORE = NEW FontPlateActor("STR01", "P/moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate_SCORE);
 
 

@@ -98,7 +98,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyShots001Rotation); //仮所属
 	MyShot001* pShot;
 	for (int i = 0; i < 50; i++) { //自弾ストック
-		pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "moji2");
+		pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "S/moji2");
 		pShot->stopImmediately();
 		_pMyShots001Rotation->addSubLast(pShot);
 	}
@@ -107,7 +107,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyWaves001Rotation);//仮所属
 	MyWave001* pWave;
 	for (int i = 0; i < 50; i++) { //自弾ストック
-		pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "wave");
+		pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "M/wave");
 		pWave->stopImmediately();
 		_pMyWaves001Rotation->addSubLast(pWave);
 	}
@@ -117,13 +117,13 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip2* pChip;
 	for (int i = 0; i < 100; i++) { //レーザーストック
-		pChip = NEW MyLaserChip2("MYS_L"+GgafUtil::itos(i), "laserchip9");
+		pChip = NEW MyLaserChip2("MYS_L"+GgafUtil::itos(i), "m/laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 	}
 
 	for (int i = 0; i < EQ_MAX_OPTION; i++) {
-		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "ebi");
+		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "M/ebi");
 		pOption->_iMyNo = i;  //おぷ番
 		pOption->stopAloneImmediately();
 		addSubLast(pOption);
