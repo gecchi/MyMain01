@@ -15,32 +15,32 @@ FontSpriteString::FontSpriteString(string prm_font_modelname, int prm_iStrLen) :
 }
 
 void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) {
-	int iLen_ParamStr = (int)prm_string.size();
-	int X = prm_X;
-	int Y = prm_Y;
-	const char* paChar = prm_string.c_str();
-	GgafDx9SpriteModel* pSpriteModel = GgafDx9ModelManager::obtainSpriteModel(_font_modelname);
-	for (int i = 0; i < _iStrLen; i++) {
-		if (i < iLen_ParamStr) {
-			if (paChar[i] == '\n') {
-				X = prm_X;
-				Y -= (int)((pSpriteModel->_fSize_SpriteModelHeightPx)*LEN_UNIT);
-				continue;
-			} else {
-				if (paChar[i] - ' ' < 0) {
-					_papFontSpriteActor[i]->_iAnimationPatternNo_Active = (' ' - ' '); //”ÍˆÍŠO‚Í‹ó”’
-				}
-				_papFontSpriteActor[i]->_iAnimationPatternNo_Active = (paChar[i] - ' '); //’Êí•¶Žš—ñ
-			}
-		} else {
-			break;
-		}
-		_papFontSpriteActor[i]->_X = X;
-		_papFontSpriteActor[i]->_Y = Y;
-		_papFontSpriteActor[i]->_Z = prm_Z;
-		_papFontSpriteActor[i]->drawMain();
-		X += (int)((pSpriteModel->_fSize_SpriteModelWidthPx) * LEN_UNIT);
-	}
+//	int iLen_ParamStr = (int)prm_string.size();
+//	int X = prm_X;
+//	int Y = prm_Y;
+//	const char* paChar = prm_string.c_str();
+//	GgafDx9SpriteModel* pSpriteModel = GgafDx9ModelManager::obtainSpriteModel(_font_modelname);
+//	for (int i = 0; i < _iStrLen; i++) {
+//		if (i < iLen_ParamStr) {
+//			if (paChar[i] == '\n') {
+//				X = prm_X;
+//				Y -= (int)((pSpriteModel->_fSize_SpriteModelHeightPx)*LEN_UNIT);
+//				continue;
+//			} else {
+//				if (paChar[i] - ' ' < 0) {
+//					_papFontSpriteActor[i]->_iAnimationPatternNo_Active = (' ' - ' '); //”ÍˆÍŠO‚Í‹ó”’
+//				}
+//				_papFontSpriteActor[i]->_iAnimationPatternNo_Active = (paChar[i] - ' '); //’Êí•¶Žš—ñ
+//			}
+//		} else {
+//			break;
+//		}
+//		_papFontSpriteActor[i]->_X = X;
+//		_papFontSpriteActor[i]->_Y = Y;
+//		_papFontSpriteActor[i]->_Z = prm_Z;
+//		_papFontSpriteActor[i]->drawMain();
+//		X += (int)((pSpriteModel->_fSize_SpriteModelWidthPx) * LEN_UNIT);
+//	}
 }
 
 FontSpriteString::~FontSpriteString() {

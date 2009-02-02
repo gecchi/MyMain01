@@ -10,6 +10,7 @@ class FontSpriteString : public GgafCore::GgafObject {
 	int _iStrLen;
 	FontSpriteActor** _papFontSpriteActor;
 
+
 public:
 	FontSpriteString(std::string prm_font_modelname, int prm_iStrLen);
 
