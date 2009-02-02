@@ -31,7 +31,9 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 		pEnemyMeshShot->stopImmediately(); //Å‰”ñ•\¦
 		_pRotEnemyMeshShots001 -> addSubLast(pEnemyMeshShot);
 	}
-	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰ğ•ú‘ÎÛ‚É‚·‚é‚½‚ßˆêŠ‘®
+//‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®
+	addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®
+
 	_createRotationActor = true;
 }
 
