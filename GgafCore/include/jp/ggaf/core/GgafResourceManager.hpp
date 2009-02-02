@@ -65,6 +65,7 @@ public:
 	 * @param prm_name Ž¯•Ê–¼
 	 */
 	virtual GgafResourceLead<T>* lead(char* prm_idstr);
+	virtual GgafResourceLead<T>* lead(const char* prm_idstr);
 
 	virtual T* processCreateResource(char* prm_idstr) = 0;
 
@@ -126,6 +127,12 @@ GgafResourceLead<T>* GgafResourceManager<T>::lead(char* prm_idstr) {
 		return pObj;
 	}
 }
+
+template<class T>
+GgafResourceLead<T>* GgafResourceManager<T>::lead(const char* prm_idstr) {
+	return this->lead((char*)prm_idstr);
+}
+
 
 template<class T>
 T* GgafResourceManager<T>::createResource(char* prm_idstr) {
