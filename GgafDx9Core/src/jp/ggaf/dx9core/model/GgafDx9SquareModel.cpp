@@ -45,9 +45,9 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 }
 
 void GgafDx9SquareModel::restore() {
-	TRACE("GgafDx9SquareModel::restore() " <<  _model_name << " start");
+	_TRACE_("GgafDx9SquareModel::restore() " <<  _model_name << " start");
 	GgafDx9God::_pModelManager->restoreSquareModel(this);
-	TRACE("GgafDx9SquareModel::restore() " <<  _model_name << " end");
+	_TRACE_("GgafDx9SquareModel::restore() " <<  _model_name << " end");
 }
 
 void GgafDx9SquareModel::onDeviceLost() {

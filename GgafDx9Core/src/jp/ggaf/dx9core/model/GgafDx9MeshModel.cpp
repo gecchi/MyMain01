@@ -51,9 +51,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 }
 
 void GgafDx9MeshModel::restore() {
-	TRACE("GgafDx9MeshModel::restore() " <<  _model_name << " start");
+	_TRACE_("GgafDx9MeshModel::restore() " <<  _model_name << " start");
 	GgafDx9God::_pModelManager->restoreMeshModel(this);
-	TRACE("GgafDx9MeshModel::restore() " <<  _model_name << " end");
+	_TRACE_("GgafDx9MeshModel::restore() " <<  _model_name << " end");
 }
 
 void GgafDx9MeshModel::onDeviceLost() {

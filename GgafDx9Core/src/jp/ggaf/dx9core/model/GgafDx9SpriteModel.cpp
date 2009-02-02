@@ -107,9 +107,9 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 }
 
 void GgafDx9SpriteModel::restore() {
-	TRACE("GgafDx9SpriteModel::restore() " <<  _model_name << " start");
+	_TRACE_("GgafDx9SpriteModel::restore() " <<  _model_name << " start");
 	GgafDx9God::_pModelManager->restoreSpriteModel(this);
-	TRACE("GgafDx9SpriteModel::restore() " <<  _model_name << " end");
+	_TRACE_("GgafDx9SpriteModel::restore() " <<  _model_name << " end");
 }
 
 void GgafDx9SpriteModel::onDeviceLost() {

@@ -607,7 +607,7 @@ GgafResourceLead<GgafDx9Model>* GgafDx9ModelManager::processCreateLead(char* prm
 
 GgafDx9ModelManager::~GgafDx9ModelManager() {
 	_TRACE_("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
-	DELETE_IMPOSSIBLE_NULL(_s_pIDirectXFile);
+	RELEASE_IMPOSSIBLE_NULL(_s_pIDirectXFile);
 	_pTextureManager->dump();
 	DELETE_IMPOSSIBLE_NULL(_pTextureManager);
 	_TRACE_("GgafDx9ModelManager::releaseAll() ‚·‚é‚¯‚Ç‚àA‚±‚±‚Å‚ÍŠù‚É‰½‚àŠJ•ú‚·‚é‚à‚Ì‚ª‚È‚¢‚Í‚¸‚Å‚·");
@@ -619,6 +619,7 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
 void GgafDx9ModelManager::restoreAll() {
 	_TRACE_("GgafDx9ModelManager::restoreAll() start-->");
 	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+	_TRACE_("pCurrent="<<pCurrent);
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->restore();
 		pCurrent = pCurrent -> _pNext;

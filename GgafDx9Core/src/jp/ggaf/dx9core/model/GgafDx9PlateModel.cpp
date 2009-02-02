@@ -65,9 +65,9 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 
 void GgafDx9PlateModel::restore() {
-	TRACE("GgafDx9PlateModel::restore() " <<  _model_name << " start");
+	_TRACE_("GgafDx9PlateModel::restore() " <<  _model_name << " start");
 	GgafDx9God::_pModelManager->restorePlateModel(this);
-	TRACE("GgafDx9PlateModel::restore() " <<  _model_name << " end");
+	_TRACE_("GgafDx9PlateModel::restore() " <<  _model_name << " end");
 }
 
 void GgafDx9PlateModel::release() {
