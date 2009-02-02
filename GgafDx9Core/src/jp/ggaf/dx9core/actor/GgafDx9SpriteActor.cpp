@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 
 GgafDx9SpriteActor::GgafDx9SpriteActor(string prm_name, string prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
 	_class_name = "GgafDx9SpriteActor";
-	_pSpriteModel = GgafDx9ModelManager::obtainSpriteModel(prm_spritemodel_name);
+	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name.c_str());
+	_pSpriteModel = (GgafDx9SpriteModel*)_pModelLead->getResource();
 	_iAnimationPatternNo_Top     = 0;
 	_iAnimationPatternNo_Bottom  = _pSpriteModel->_iAnimationPatternNo_Max;
 	_iAnimationPatternNo_Active  = 0;
@@ -120,5 +121,6 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
+	RELEASE_IMPOSSIBLE_NULL(_pModelLead);
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

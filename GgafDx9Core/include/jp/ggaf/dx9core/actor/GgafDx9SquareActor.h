@@ -13,6 +13,7 @@ private:
 
 
 public:
+	GgafDx9ModelLead* _pModelLead;
 	GgafDx9SquareModel* _pSquareModel;
 
 	GgafDx9SquareActor(std::string prm_name, std::string prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);

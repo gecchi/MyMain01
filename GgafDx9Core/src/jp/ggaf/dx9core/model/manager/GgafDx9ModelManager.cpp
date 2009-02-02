@@ -3,188 +3,97 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Model* GgafDx9ModelManager::_s_pModel_First = NULL;
-IDirectXFile* GgafDx9ModelManager::_s_pIDirectXFile = NULL;
-int GgafDx9ModelManager::_id_max = 0;
 
-GgafDx9TextureManager* GgafDx9ModelManager::_pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
 
-GgafDx9Model* GgafDx9ModelManager::find(string prm_model_name) {
-	static GgafDx9Model* pModel_Current;
-	pModel_Current = _s_pModel_First;
-	while (pModel_Current != NULL) {
-		if (pModel_Current->_model_name == prm_model_name) {
-			return pModel_Current;
-		}
-		pModel_Current = pModel_Current -> _pModel_Next;
+
+
+GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name)
+    : GgafResourceManager<GgafDx9Model>(prm_manager_name) {
+
+	//テクスチャマネジャー
+	_pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
+	//板ポリゴン定義ファイル読込み
+	DirectXFileCreate( &_s_pIDirectXFile );
+	char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
+	if (paChar_SpriteModelineTemplate == NULL) {
+		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
 	}
-	return NULL;
-}
-
-void GgafDx9ModelManager::add(GgafDx9Model* prm_pModel_New) {
-	if (_s_pModel_First == NULL) {
-		_s_pModel_First = prm_pModel_New;
-		return;
-	} else {
-		static GgafDx9Model* pModel_Current;
-		pModel_Current = _s_pModel_First;
-		while (pModel_Current -> _pModel_Next != NULL) {
-			pModel_Current = pModel_Current -> _pModel_Next;
-		}
-		pModel_Current -> _pModel_Next = prm_pModel_New;
-		return;
+	HRESULT hr = _s_pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+	if(hr != DXFILE_OK) {
+		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
 	}
-}
+	DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
+	_id_lastdraw = -1;
+	_id_max = 0;
 
-void GgafDx9ModelManager::remove(GgafDx9Model* prm_pModel) {
-	static GgafDx9Model* pModel_Current;
-	static GgafDx9Model* pModel_Prev;
-	pModel_Current = _s_pModel_First;
-	pModel_Prev    = NULL;
-	while (pModel_Current != NULL) {
-		if (pModel_Current == prm_pModel) { //発見
-			_TRACE_("GgafDx9ModelManager::remove["<<pModel_Current->_model_name<<"]");
-			if (prm_pModel->_pModel_Next == NULL) {
-				//末尾だった
-				if (pModel_Prev == NULL) {
-					//末尾で先頭だった（＝最後の一つ）
-					_s_pModel_First = NULL;
-				} else {
-					//末尾で先頭でなかった
-					pModel_Prev->_pModel_Next = NULL;
-				}
-			} else {
-				//末尾でない
-				if (pModel_Prev == NULL) {
-					//先頭だった
-					_s_pModel_First = pModel_Current->_pModel_Next; //先頭を次にずらす
-				} else {
-					//末尾でも先頭でもない（中間）
-					pModel_Prev->_pModel_Next = pModel_Current->_pModel_Next; //両隣を繋げる
-				}
-			}
-			//ハイそれではさようなら
-			pModel_Current->release();
-			DELETE_IMPOSSIBLE_NULL(pModel_Current);
-			return;
-		}
-		pModel_Prev = pModel_Current;
-		pModel_Current = pModel_Current -> _pModel_Next;
-	}
-	throw_GgafCriticalException("[GgafDx9ModelManager::remove] リークしてます。prm_pModelは既にありません。");
-}
-
-void GgafDx9ModelManager::release() {
-	TRACE("GgafDx9ModelManager::clear() start-->");
-	if (_s_pModel_First == NULL) {
-		_TRACE_("GgafDx9ModelManager::clear() 解放するモデルがありませんでした。意図してますか？");
-	} else {
-		//保持しているModelインスタンスを解放
-		static GgafDx9Model* pModel_Current;
-		pModel_Current = _s_pModel_First;
-
-		static GgafDx9Model* pModel_tmp;
-		while (pModel_Current != NULL) {
-			pModel_tmp = pModel_Current -> _pModel_Next;
-			if (pModel_tmp == NULL) {
-				pModel_Current->release();
-				DELETE_IMPOSSIBLE_NULL(pModel_Current);
-				break;
-			} else {
-				pModel_Current->release();
-				DELETE_IMPOSSIBLE_NULL(pModel_Current);
-				pModel_Current = pModel_tmp;
-			}
-		}
-		_s_pModel_First = NULL;
-
-		//テクスチャ解放
-		_pTextureManager->dump();
-		delete _pTextureManager;
-	}
-
-	RELEASE_POSSIBLE_NULL(_s_pIDirectXFile);
-
-	TRACE("GgafDx9ModelManager::clear() end<--");
-}
-
-void GgafDx9ModelManager::restoreAll() {
-	TRACE("GgafDx9ModelManager::restoreAll() start-->");
-	//保持しているModelインスタンスの再構築
-	static GgafDx9Model* pModel_Current;
-	pModel_Current = _s_pModel_First;
-	while (pModel_Current != NULL) {
-		pModel_Current -> restore();
-		pModel_Current = pModel_Current -> _pModel_Next;
-	}
-	TRACE("GgafDx9ModelManager::restoreAll() end<--");
 }
 
 
-
-void GgafDx9ModelManager::onDeviceLostAll() {
-	TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
-	//保持しているModelインスタンスを解放
-	static GgafDx9Model* pModel_Current;
-	pModel_Current = _s_pModel_First;
-	while (pModel_Current != NULL) {
-		pModel_Current -> onDeviceLost();
-		pModel_Current = pModel_Current -> _pModel_Next;
+GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
+	//振り分け
+	char model_type = *prm_idstr; //頭一文字
+	char* model_name = prm_idstr+2; //３文字目以降
+	GgafDx9Model* model;
+	switch (model_type) {
+		case 'M':
+			//MeshModel
+			model = createMeshModel(model_name, D3DXMESH_SYSTEMMEM);
+			break;
+		case 'm':
+			//DynaMeshModel
+			model = createMeshModel(model_name, D3DXMESH_DYNAMIC);
+			break;
+		case 'S':
+			//SpriteModel
+			model = createSpriteModel(model_name);
+			break;
+		case 'P':
+			//SpriteModel
+			model = createPlateModel(model_name);
+			break;
+		case 'C':
+			//cubeModel
+			model = createMeshModel("cube", D3DXMESH_SYSTEMMEM);
+			break;
+		case 'Q':
+			//SquareModel
+			model = createSquareModel(model_name);
+			break;
+		default :
+			_TRACE_("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
+			throw_GgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんなモデル種別は知りません");
+			model = NULL;
+			break;
 	}
-		TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
-}
-
-
-
-GgafDx9SpriteModel* GgafDx9ModelManager::obtainSpriteModel(string prm_model_name) {
-	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
-	if (pModel == NULL) {
-		GgafDx9SpriteModel* pSpriteModel_New = createSpriteModel(prm_model_name);
-		GgafDx9ModelManager::add((GgafDx9Model*)pSpriteModel_New);
-		return pSpriteModel_New;
-	} else {
-		return (GgafDx9SpriteModel*)pModel;
-	}
-}
-
-GgafDx9SquareModel* GgafDx9ModelManager::obtainSquareModel(string prm_model_name) {
-	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
-	if (pModel == NULL) {
-		GgafDx9SquareModel* pSquareModel_New = createSquareModel(prm_model_name);
-		GgafDx9ModelManager::add((GgafDx9Model*)pSquareModel_New);
-		return pSquareModel_New;
-	} else {
-		return (GgafDx9SquareModel*)pModel;
-	}
-}
-
-
-GgafDx9MeshModel* GgafDx9ModelManager::obtainMeshModel(string prm_model_name, DWORD prm_dwOptions) {
-	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
-	if (pModel == NULL) {
-		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name, prm_dwOptions);
-		GgafDx9ModelManager::add((GgafDx9Model*)pMeshModel_New);
-		return pMeshModel_New;
-	} else {
-		return (GgafDx9MeshModel*)pModel;
-	}
-}
-
-GgafDx9PlateModel* GgafDx9ModelManager::obtainPlateModel(string prm_model_name) {
-	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
-	if (pModel == NULL) {
-		GgafDx9PlateModel* pPlateModel_New = createPlateModel(prm_model_name);
-		GgafDx9ModelManager::add((GgafDx9Model*)pPlateModel_New);
-		return pPlateModel_New;
-	} else {
-		return (GgafDx9PlateModel*)pModel;
-	}
+	return model;
 }
 
 GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(string prm_model_name, DWORD prm_dwOptions) {
 	GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name, prm_dwOptions);
 	restoreMeshModel(pMeshModel_New);
 	return pMeshModel_New;
+}
+
+
+GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(string prm_model_name) {
+
+	GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
+	restoreSpriteModel(pSpriteModel_New);
+	return pSpriteModel_New;
+}
+
+
+GgafDx9PlateModel* GgafDx9ModelManager::createPlateModel(string prm_model_name) {
+	GgafDx9PlateModel* pPlateModel_New = NEW GgafDx9PlateModel(prm_model_name);
+	restorePlateModel(pPlateModel_New);
+	return pPlateModel_New;
+}
+
+
+GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(string prm_model_name) {
+	GgafDx9SquareModel* pSquareModel_New = NEW GgafDx9SquareModel(prm_model_name);
+	restoreSquareModel(pSquareModel_New);
+	return pSquareModel_New;
 }
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
@@ -295,13 +204,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	prm_pMeshModel -> _dwNumMaterials  = dwNumMaterials;
 }
 
-GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(string prm_model_name) {
-
-	GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
-	restoreSpriteModel(pSpriteModel_New);
-	return pSpriteModel_New;
-}
-
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
 	_TRACE_("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
@@ -324,18 +226,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pSpriteModel->_model_name + ".x";
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
-	if (_s_pIDirectXFile == NULL) {
-		DirectXFileCreate( &_s_pIDirectXFile );
-		char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
-		if (paChar_SpriteModelineTemplate == NULL) {
-			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
-		}
-		hr = _s_pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
-		if(hr != DXFILE_OK) {
-			throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
-		}
-		DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
-	}
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
@@ -502,105 +392,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
 
-GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(string prm_model_name) {
-	GgafDx9SquareModel* pSquareModel_New = NEW GgafDx9SquareModel(prm_model_name);
-	restoreSquareModel(pSquareModel_New);
-	return pSquareModel_New;
-}
-
-
-void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareModel) {
-	_TRACE_("GgafDx9ModelManager::restoreSquareModel(" << prm_pSquareModel->_model_name << ")");
-
-		//頂点情報も設定し直し。
-
-
-	prm_pSquareModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
-	ZeroMemory(prm_pSquareModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-	prm_pSquareModel->_pD3DMaterial9->Diffuse.r = prm_pSquareModel->_pD3DMaterial9->Ambient.r = 1.0f;
-	prm_pSquareModel->_pD3DMaterial9->Diffuse.g = prm_pSquareModel->_pD3DMaterial9->Ambient.g = 0.0f;
-	prm_pSquareModel->_pD3DMaterial9->Diffuse.b = prm_pSquareModel->_pD3DMaterial9->Ambient.b = 0.0f;
-	prm_pSquareModel->_pD3DMaterial9->Diffuse.a = prm_pSquareModel->_pD3DMaterial9->Ambient.a = 1.0f;
-
-
-
-	GgafDx9SquareModel::VERTEX* paVertex = NEW GgafDx9SquareModel::VERTEX[12];
-	prm_pSquareModel->_iSize_Vertecs = sizeof(GgafDx9SquareModel::VERTEX)*4;
-	prm_pSquareModel->_iSize_Vertec_unit = sizeof(GgafDx9SquareModel::VERTEX);
-	paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
-	paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
-	paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
-	paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
-
-
-	//頂点配列情報をモデルに保持させる
-	paVertex[0].x     = -0.5/PX_UNIT;
-	paVertex[0].y     = 0.5/PX_UNIT;
-	paVertex[0].z     = 0.0f;
-	paVertex[0].nx    = 0.0f;
-	paVertex[0].ny    = 0.0f;
-	paVertex[0].nz    = -1.0f;
-	paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
-
-	paVertex[1].x     = 0.5/PX_UNIT;
-	paVertex[1].y     = 0.5/PX_UNIT;
-	paVertex[1].z     = 0.0f;
-	paVertex[1].nx    = 0.0f;
-	paVertex[1].ny    = 0.0f;
-	paVertex[1].nz    = -1.0f;
-	paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
-
-	paVertex[2].x     = -0.5/PX_UNIT;
-	paVertex[2].y     = -0.5/PX_UNIT;
-	paVertex[2].z     = 0.0f;
-	paVertex[2].nx    = 0.0f;
-	paVertex[2].ny    = 0.0f;
-	paVertex[2].nz    = -1.0f;
-	paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
-
-	paVertex[3].x     = 0.5/PX_UNIT;
-	paVertex[3].y     = -0.5/PX_UNIT;
-	paVertex[3].z     = 0.0f;
-	paVertex[3].nx    = 0.0f;
-	paVertex[3].ny    = 0.0f;
-	paVertex[3].nz    = -1.0f;
-	paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
-
-	HRESULT	hr;
-	//頂点バッファ作成
-	if (prm_pSquareModel->_pIDirect3DVertexBuffer9 == NULL) {
-		hr = GgafDx9God::_pID3DDevice9 -> CreateVertexBuffer(
-											 prm_pSquareModel->_iSize_Vertecs,
-											 D3DUSAGE_WRITEONLY,
-											 GgafDx9SquareModel::FVF,
-											 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-											 &(prm_pSquareModel->_pIDirect3DVertexBuffer9),
-											 NULL);
-		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9 -> CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name, hr);
-		}
-	}
-
-	//頂点情報をビデオカード頂点バッファへロード
-	void *pVertexBuffer;
-	hr = prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Lock(0, prm_pSquareModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
-	if(hr != D3D_OK) {
-		throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name, hr);
-	}
-	memcpy(pVertexBuffer, paVertex, prm_pSquareModel->_iSize_Vertecs);
-	prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Unlock();
-
-	//後始末
-	DELETEARR_IMPOSSIBLE_NULL(paVertex);
-}
-
-
-GgafDx9PlateModel* GgafDx9ModelManager::createPlateModel(string prm_model_name) {
-	GgafDx9PlateModel* pPlateModel_New = NEW GgafDx9PlateModel(prm_model_name);
-	restorePlateModel(pPlateModel_New);
-	return pPlateModel_New;
-}
-
 void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) {
 	_TRACE_("GgafDx9ModelManager::restorePlateModel(" << prm_pPlateModel->_model_name << ")");
 
@@ -616,19 +407,6 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 //	prm_pPlateModel->_pD3DMaterial9->Ambient = prm_pPlateModel->_pD3DMaterial9->Diffuse;
 
 
-	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
-	if (_s_pIDirectXFile == NULL) {
-		DirectXFileCreate( &_s_pIDirectXFile );
-		char* paChar_PlateModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
-		if (paChar_PlateModelineTemplate == NULL) {
-			throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] スプライト情報読込みテンプレート\"ggaf_spritemodel_define.x\" が開けません。");
-		}
-		hr = _s_pIDirectXFile -> RegisterTemplates(paChar_PlateModelineTemplate, (DWORD)(strlen(paChar_PlateModelineTemplate)));
-		if(hr != DXFILE_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restorePlateModel] RegisterTemplatesに失敗しました。\"ggaf_spritemodel_define.x\"を確認して下さい。", hr);
-		}
-		DELETE_IMPOSSIBLE_NULL(paChar_PlateModelineTemplate);
-	}
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
@@ -732,3 +510,218 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
 	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
+
+
+void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareModel) {
+	_TRACE_("GgafDx9ModelManager::restoreSquareModel(" << prm_pSquareModel->_model_name << ")");
+
+		//頂点情報も設定し直し。
+
+
+	prm_pSquareModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
+	ZeroMemory(prm_pSquareModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
+	prm_pSquareModel->_pD3DMaterial9->Diffuse.r = prm_pSquareModel->_pD3DMaterial9->Ambient.r = 1.0f;
+	prm_pSquareModel->_pD3DMaterial9->Diffuse.g = prm_pSquareModel->_pD3DMaterial9->Ambient.g = 0.0f;
+	prm_pSquareModel->_pD3DMaterial9->Diffuse.b = prm_pSquareModel->_pD3DMaterial9->Ambient.b = 0.0f;
+	prm_pSquareModel->_pD3DMaterial9->Diffuse.a = prm_pSquareModel->_pD3DMaterial9->Ambient.a = 1.0f;
+
+
+
+	GgafDx9SquareModel::VERTEX* paVertex = NEW GgafDx9SquareModel::VERTEX[12];
+	prm_pSquareModel->_iSize_Vertecs = sizeof(GgafDx9SquareModel::VERTEX)*4;
+	prm_pSquareModel->_iSize_Vertec_unit = sizeof(GgafDx9SquareModel::VERTEX);
+	paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
+	paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
+	paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
+	paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
+
+
+	//頂点配列情報をモデルに保持させる
+	paVertex[0].x     = -0.5/PX_UNIT;
+	paVertex[0].y     = 0.5/PX_UNIT;
+	paVertex[0].z     = 0.0f;
+	paVertex[0].nx    = 0.0f;
+	paVertex[0].ny    = 0.0f;
+	paVertex[0].nz    = -1.0f;
+	paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
+
+	paVertex[1].x     = 0.5/PX_UNIT;
+	paVertex[1].y     = 0.5/PX_UNIT;
+	paVertex[1].z     = 0.0f;
+	paVertex[1].nx    = 0.0f;
+	paVertex[1].ny    = 0.0f;
+	paVertex[1].nz    = -1.0f;
+	paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
+
+	paVertex[2].x     = -0.5/PX_UNIT;
+	paVertex[2].y     = -0.5/PX_UNIT;
+	paVertex[2].z     = 0.0f;
+	paVertex[2].nx    = 0.0f;
+	paVertex[2].ny    = 0.0f;
+	paVertex[2].nz    = -1.0f;
+	paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
+
+	paVertex[3].x     = 0.5/PX_UNIT;
+	paVertex[3].y     = -0.5/PX_UNIT;
+	paVertex[3].z     = 0.0f;
+	paVertex[3].nx    = 0.0f;
+	paVertex[3].ny    = 0.0f;
+	paVertex[3].nz    = -1.0f;
+	paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
+
+	HRESULT	hr;
+	//頂点バッファ作成
+	if (prm_pSquareModel->_pIDirect3DVertexBuffer9 == NULL) {
+		hr = GgafDx9God::_pID3DDevice9 -> CreateVertexBuffer(
+											 prm_pSquareModel->_iSize_Vertecs,
+											 D3DUSAGE_WRITEONLY,
+											 GgafDx9SquareModel::FVF,
+											 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+											 &(prm_pSquareModel->_pIDirect3DVertexBuffer9),
+											 NULL);
+		if(hr != D3D_OK) {
+			throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9 -> CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name, hr);
+		}
+	}
+
+	//頂点情報をビデオカード頂点バッファへロード
+	void *pVertexBuffer;
+	hr = prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Lock(0, prm_pSquareModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
+	if(hr != D3D_OK) {
+		throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name, hr);
+	}
+	memcpy(pVertexBuffer, paVertex, prm_pSquareModel->_iSize_Vertecs);
+	prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Unlock();
+
+	//後始末
+	DELETEARR_IMPOSSIBLE_NULL(paVertex);
+}
+
+GgafResourceLead<GgafDx9Model>* GgafDx9ModelManager::processCreateLead(char* prm_idstr, GgafDx9Model* prm_pResource) {
+	_TRACE_(" GgafDx9ModelManager::processCreateLead "<<prm_idstr<<" を生成開始。");
+	GgafDx9ModelLead* p = NEW GgafDx9ModelLead(prm_idstr, prm_pResource);
+	_TRACE_(" GgafDx9ModelManager::processCreateLead "<<prm_idstr<<" を生成終了。");
+	return p;
+}
+
+
+GgafDx9ModelManager::~GgafDx9ModelManager() {
+	_TRACE_("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
+	DELETE_IMPOSSIBLE_NULL(_s_pIDirectXFile);
+	_pTextureManager->dump();
+	DELETE_IMPOSSIBLE_NULL(_pTextureManager);
+	_TRACE_("GgafDx9ModelManager::releaseAll() するけども、ここでは既に何も開放するものがないはずです");
+	releaseAll();
+	_TRACE_("GgafDx9ModelManager::~GgafDx9ModelManager() end<--");
+
+}
+
+void GgafDx9ModelManager::restoreAll() {
+	_TRACE_("GgafDx9ModelManager::restoreAll() start-->");
+	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+	while (pCurrent != NULL) {
+		pCurrent->getResource()->restore();
+		pCurrent = pCurrent -> _pNext;
+	}
+	_TRACE_("GgafDx9ModelManager::restoreAll() end<--");
+}
+
+void GgafDx9ModelManager::onDeviceLostAll() {
+	TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
+	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+	while (pCurrent != NULL) {
+		pCurrent->getResource()->onDeviceLost();
+		pCurrent = pCurrent -> _pNext;
+	}
+	TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
+}
+
+void GgafDx9ModelManager::releaseAll() {
+	_TRACE_("GgafDx9ModelManager::releaseAll() start-->");
+	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+	while (pCurrent != NULL) {
+		pCurrent->getResource()->release();
+		pCurrent = pCurrent -> _pNext;
+	}
+	_TRACE_("GgafDx9ModelManager::releaseAll() end<--");
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//GgafDx9SpriteModel* GgafDx9ModelManager::obtainSpriteModel(string prm_model_name) {
+//	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
+//	if (pModel == NULL) {
+//		GgafDx9SpriteModel* pSpriteModel_New = createSpriteModel(prm_model_name);
+//		GgafDx9ModelManager::add((GgafDx9Model*)pSpriteModel_New);
+//		return pSpriteModel_New;
+//	} else {
+//		return (GgafDx9SpriteModel*)pModel;
+//	}
+//}
+//
+//GgafDx9SquareModel* GgafDx9ModelManager::obtainSquareModel(string prm_model_name) {
+//	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
+//	if (pModel == NULL) {
+//		GgafDx9SquareModel* pSquareModel_New = createSquareModel(prm_model_name);
+//		GgafDx9ModelManager::add((GgafDx9Model*)pSquareModel_New);
+//		return pSquareModel_New;
+//	} else {
+//		return (GgafDx9SquareModel*)pModel;
+//	}
+//}
+//
+//
+//GgafDx9MeshModel* GgafDx9ModelManager::obtainMeshModel(string prm_model_name, DWORD prm_dwOptions) {
+//	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
+//	if (pModel == NULL) {
+//		GgafDx9MeshModel* pMeshModel_New = createMeshModel(prm_model_name, prm_dwOptions);
+//		GgafDx9ModelManager::add((GgafDx9Model*)pMeshModel_New);
+//		return pMeshModel_New;
+//	} else {
+//		return (GgafDx9MeshModel*)pModel;
+//	}
+//}
+//
+//GgafDx9PlateModel* GgafDx9ModelManager::obtainPlateModel(string prm_model_name) {
+//	GgafDx9Model* pModel = GgafDx9ModelManager::find(prm_model_name);
+//	if (pModel == NULL) {
+//		GgafDx9PlateModel* pPlateModel_New = createPlateModel(prm_model_name);
+//		GgafDx9ModelManager::add((GgafDx9Model*)pPlateModel_New);
+//		return pPlateModel_New;
+//	} else {
+//		return (GgafDx9PlateModel*)pModel;
+//	}
+//}
+
+

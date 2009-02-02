@@ -4,7 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9DynaMeshActor::GgafDx9DynaMeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
-	_pMeshModel = GgafDx9ModelManager::obtainMeshModel(prm_meshmodel_name, D3DXMESH_DYNAMIC);
+	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_meshmodel_name.c_str());
+	_pMeshModel = (GgafDx9MeshModel*)_pModelLead->getResource();
 	_class_name = "GgafDx9DynaMeshActor";
 	//マテリアルをコピー
 	_paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
@@ -28,5 +29,9 @@ void GgafDx9DynaMeshActor::setAlpha(float prm_fAlpha) {
 	}
 }
 GgafDx9DynaMeshActor::~GgafDx9DynaMeshActor() {
+	//↓ここをコメントにしたらナゼ落ちるのか理由をかんがえろ！
+	RELEASE_IMPOSSIBLE_NULL(_pModelLead);
+
+
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

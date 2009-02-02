@@ -15,6 +15,7 @@ private:
 
 public:
 	/** モデルオブジェクトへのポインタ */
+	GgafDx9ModelLead* _pModelLead;
 	GgafDx9MeshModel* _pMeshModel;
 	/** キャラ全体のα */
 	float _fAlpha;

@@ -7,6 +7,7 @@ class GgafDx9SquareModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
+public:
 	struct VERTEX{
 		float x, y, z;    // 頂点座標
 		float nx, ny, nz; // 法線
@@ -36,7 +37,7 @@ protected:
 	 */
 	GgafDx9SquareModel(std::string prm_squaremodel_name);
 
-public:
+
 	/** 全アニメパターン数 */
 //	int _iAnimationPatternNo_Max;
 //	float  _fSize_SquareModelWidth;

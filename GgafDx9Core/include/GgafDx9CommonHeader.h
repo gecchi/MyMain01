@@ -85,6 +85,7 @@ class GgafDx9Input;
 class GgafDx9Sound;
 class GgafDx9TextureLead;
 class GgafDx9TextureManager;
+class GgafDx9ModelLead;
 class GgafDx9ModelManager;
 class GgafDx9BaseActor;
 class GgafDx9UntransformedActor;
@@ -136,7 +137,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
 #include "jp/ggaf/dx9core/model/manager/GgafDx9TextureLead.h"
 #include "jp/ggaf/dx9core/model/manager/GgafDx9TextureManager.h"
-#include "jp/ggaf/dx9core/model/GgafDx9ModelManager.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelLead.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelManager.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"

@@ -28,6 +28,7 @@ private:
 
 public:
 	/** モデルオブジェクトへのポインタ */
+	GgafDx9ModelLead* _pModelLead;
 	GgafDx9SpriteModel* _pSpriteModel;
 	/** キャラ全体のα */
 	float _fAlpha;

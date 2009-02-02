@@ -14,7 +14,7 @@ GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(
 	_iColNum_TextureSplit    = 1;
 	_iPatternNo_Max = 1;
 	_pTexture = NULL;
-	_pModel_Next = NULL;
+	//_pModel_Next = NULL;
 	_paRectUV = NULL;
 	_pRectUV_drawlast = NULL;
 }
@@ -34,7 +34,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
 //	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 
-	if (GgafDx9Model::_id_lastdraw != _id) {
+	if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
 		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _pTexture->getResource() );
 		//ここらへんで　this が 0x0h になる
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
@@ -58,7 +58,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	//とかあるので、マテリアルも頂点カラーも最後のレンダリング時に設定できるものと思ってた。違うのか、正しいのか、設定が足りないのか･･･。
 	//TODO:とりあえずα（マテリアル）は後回し。
 
-	GgafDx9Model::_id_lastdraw = _id; //前回描画モデル名保存
+	GgafDx9God::_pModelManager->_id_lastdraw = _id; //前回描画モデル名保存
 	//GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
@@ -66,7 +66,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 void GgafDx9PlateModel::restore() {
 	TRACE("GgafDx9PlateModel::restore() " <<  _model_name << " start");
-	GgafDx9ModelManager::restorePlateModel(this);
+	GgafDx9God::_pModelManager->restorePlateModel(this);
 	TRACE("GgafDx9PlateModel::restore() " <<  _model_name << " end");
 }
 
@@ -88,5 +88,6 @@ void GgafDx9PlateModel::onDeviceLost() {
 
 GgafDx9PlateModel::~GgafDx9PlateModel() {
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " start");
+    release();
     _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " <<  _model_name << " end");
 }

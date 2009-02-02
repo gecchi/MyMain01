@@ -24,7 +24,7 @@ D3DXMATRIX GgafDx9God::_vMatrixView;
 int GgafDx9God::_iPxDep = 0;
 D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
-
+GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
 
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
@@ -37,6 +37,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) : GgafGod() {
 	GgafDx9God::_hInstance = prm_hInstance;
 	_deviceLostFlg = false;
 	CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は乱数のSeed
+	_pModelManager = NULL;
 
 }
 
@@ -372,6 +373,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
 	//その他必要な初期化
+	_pModelManager = NEW GgafDx9ModelManager("ModelManager");
 	GgafDx9Util::init(); //ユーティリティ準備
 	GgafDx9Input::init(); //DirectInput準備
 	GgafDx9Sound::init(); //DirectSound準備
@@ -410,7 +412,7 @@ void GgafDx9God::makeWorldMaterialize() {
 		if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
 			_TRACE_("正常デバイスロスト処理。Begin");
 			//モデル解放
-			GgafDx9ModelManager::onDeviceLostAll();
+			GgafDx9God::_pModelManager->onDeviceLostAll();
 			//全ノードに解放しなさいイベント発令
 			getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
 			//デバイスリセットを試みる
@@ -421,11 +423,11 @@ void GgafDx9God::makeWorldMaterialize() {
 			//デバイス再設定
 			GgafDx9God::initDx9Device();
 			//モデル再設定
-			GgafDx9ModelManager::restoreAll();
+			GgafDx9God::_pModelManager->restoreAll();
 			//全ノードに再設定しなさいイベント発令
 			getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
 			//前回描画モデル情報を無効にする
-			GgafDx9Model::_id_lastdraw = -1;
+			GgafDx9God::_pModelManager->_id_lastdraw = -1;
 			_deviceLostFlg = false;
 			_TRACE_("正常デバイスロスト処理。End");
 		}
@@ -477,7 +479,7 @@ void GgafDx9God::makeWorldVisualize() {
 			//Present以上時、無駄かもしれないがデバイスロストと同じ処理を試みる。
 			_TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
 			//モデル解放
-			GgafDx9ModelManager::onDeviceLostAll();
+			GgafDx9God::_pModelManager->onDeviceLostAll();
 			//全ノードに解放しなさいイベント発令
 			getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
 			//デバイスリセットを試みる
@@ -488,11 +490,11 @@ void GgafDx9God::makeWorldVisualize() {
 			//デバイス再設定
 			GgafDx9God::initDx9Device();
 			//モデル再設定
-			GgafDx9ModelManager::restoreAll();
+			GgafDx9God::_pModelManager->restoreAll();
 			//全ノードに再設定しなさいイベント発令
 			getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
 			//前回描画モデル情報を無効にする
-			GgafDx9Model::_id_lastdraw = -1;
+			GgafDx9God::_pModelManager->_id_lastdraw = -1;
 		}
 	}
 }
@@ -530,7 +532,7 @@ GgafDx9God::~GgafDx9God() {
 
 	CmRandomNumberGenerator::getInstance()->release();
 	//保持モデル解放
-	GgafDx9ModelManager::release();
+	DELETE_IMPOSSIBLE_NULL(_pModelManager);
 	//DirectInput解放
 	GgafDx9Input::release();
 	//DirectSound解放
@@ -538,5 +540,5 @@ GgafDx9God::~GgafDx9God() {
 	//デバイス解放
 	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
 	RELEASE_IMPOSSIBLE_NULL(_pID3D9);
-	TRACE("GgafDx9God::~GgafDx9God() end <--");
+	_TRACE_("GgafDx9God::~GgafDx9God() end <--");
 }

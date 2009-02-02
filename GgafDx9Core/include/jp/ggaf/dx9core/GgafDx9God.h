@@ -47,6 +47,7 @@ public:
 	/** VIEW•ÏŠ·s—ñ */
 	static D3DXMATRIX _vMatrixView;
 
+	static GgafDx9ModelManager* _pModelManager;
 
 
 	static int _iPxDep;

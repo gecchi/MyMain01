@@ -11,11 +11,11 @@ GgafDx9SquareModel::GgafDx9SquareModel(string prm_platemodel_name) : GgafDx9Mode
 	TRACE("GgafDx9SquareModel::GgafDx9SquareModel(" <<  _model_name << ")");
 	_pD3DMaterial9 = NULL;
 	_pIDirect3DVertexBuffer9 = NULL;
-	_pModel_Next = NULL;
+	//_pModel_Next = NULL;
 	_iSize_Vertecs = 0;
 	_iSize_Vertec_unit = 0;
 	//デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
-	//GgafDx9ModelManager::restoreSquareModel で行っている。
+	//GgafDx9God::_pModelManager->restoreSquareModel で行っている。
 }
 
 
@@ -24,7 +24,7 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
 	//GgafDx9SquareActor* pSquareActor_Target = (GgafDx9SquareActor*)prm_pActor_Target;
 	//HRESULT	hr;
-	if (GgafDx9Model::_id_lastdraw != _id) { //前回と描画モデルが違う
+	if (GgafDx9God::_pModelManager->_id_lastdraw != _id) { //前回と描画モデルが違う
 		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
 		GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
 		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SquareModel::FVF);
@@ -39,14 +39,14 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//前回描画モデル名保存
-	GgafDx9Model::_id_lastdraw = _id;
+	GgafDx9God::_pModelManager->_id_lastdraw = _id;
 	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
 
 void GgafDx9SquareModel::restore() {
 	TRACE("GgafDx9SquareModel::restore() " <<  _model_name << " start");
-	GgafDx9ModelManager::restoreSquareModel(this);
+	GgafDx9God::_pModelManager->restoreSquareModel(this);
 	TRACE("GgafDx9SquareModel::restore() " <<  _model_name << " end");
 }
 
@@ -67,6 +67,7 @@ void GgafDx9SquareModel::release() {
 
 
 GgafDx9SquareModel::~GgafDx9SquareModel() {
-	TRACE("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " start");
+	_TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " start");
+	release();
 	_TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " <<  _model_name << " end");
 }

@@ -11,13 +11,14 @@ class GgafDx9Model : public GgafCore::GgafObject {
 
 
 protected:
+public:
 	/** ID */
 	int _id;
 
 	/** モデル定義の識別名。 */
 	std::string			_model_name;
 	/** 次のGgafDx9Modelへのポインタ。終端はNULL */
-	GgafDx9Model*	_pModel_Next;
+	//GgafDx9Model*	_pModel_Next;
 
     /**
 	 * コンストラクタ<BR>
@@ -25,10 +26,7 @@ protected:
 	 */
 	GgafDx9Model(std::string prm_model_name);
 
-public:
 
-	/** 前回描画ModelのId */
-	static int _id_lastdraw;
 
 
 	/**

@@ -9,8 +9,8 @@ GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) :
 	_paD3DMaterial9_default  = NULL;
 	_papTexture      = NULL;
 	_dwNumMaterials  = 0L;
-	_pModel_Next     = NULL;
-	//上記のプロパティは、GgafDx9ModelManager::restoreMeshModel() から設定されることになる。
+	//_pModel_Next     = NULL;
+	//上記のプロパティは、GgafDx9God::_pModelManager->restoreMeshModel() から設定されることになる。
 	_dwOptions = prm_dwOptions;
 }
 
@@ -45,14 +45,14 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	}
 
 	//前回描画モデル名反映
-	GgafDx9Model::_id_lastdraw = _id;
+	GgafDx9God::_pModelManager->_id_lastdraw = _id;
 	GgafGod::_iNumPlayingActor++;
 	return D3D_OK;
 }
 
 void GgafDx9MeshModel::restore() {
 	TRACE("GgafDx9MeshModel::restore() " <<  _model_name << " start");
-	GgafDx9ModelManager::restoreMeshModel(this);
+	GgafDx9God::_pModelManager->restoreMeshModel(this);
 	TRACE("GgafDx9MeshModel::restore() " <<  _model_name << " end");
 }
 
@@ -82,7 +82,6 @@ void GgafDx9MeshModel::release() {
 
 GgafDx9MeshModel::~GgafDx9MeshModel() {
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " start");
-
-
+    release();
     _TRACE_("GgafDx9MeshModel::~GgafDx9MeshModel() " <<  _model_name << " end");
 }

@@ -9,6 +9,7 @@ class GgafDx9SpriteModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
+public:
 	struct VERTEX{
 		float x, y, z;    // 頂点座標
 		float nx, ny, nz; // 法線
@@ -16,7 +17,7 @@ protected:
 		float tu, tv;     // テクスチャ座標
 	};
 
-public:
+
 	/** VERTEXのFVF */
 	static DWORD FVF;
 	/** 頂点バッファへのポインタ */
