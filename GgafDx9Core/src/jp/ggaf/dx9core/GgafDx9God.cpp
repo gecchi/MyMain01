@@ -214,6 +214,14 @@ HRESULT GgafDx9God::init() {
 	} else {
 		_TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
 	}
+
+
+	//その他必要な初期化
+	_pModelManager = NEW GgafDx9ModelManager("ModelManager");
+	GgafDx9Util::init(); //ユーティリティ準備
+	GgafDx9Input::init(); //DirectInput準備
+	GgafDx9Sound::init(); //DirectSound準備
+
 	return initDx9Device();
 
 }
@@ -370,13 +378,6 @@ HRESULT GgafDx9God::initDx9Device() {
 */
 	GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
 
-
-
-	//その他必要な初期化
-	_pModelManager = NEW GgafDx9ModelManager("ModelManager");
-	GgafDx9Util::init(); //ユーティリティ準備
-	GgafDx9Input::init(); //DirectInput準備
-	GgafDx9Sound::init(); //DirectSound準備
 	return S_OK;
 }
 

@@ -619,7 +619,7 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
 void GgafDx9ModelManager::restoreAll() {
 	_TRACE_("GgafDx9ModelManager::restoreAll() start-->");
 	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
-	_TRACE_("pCurrent="<<pCurrent);
+	_TRACE_("restoreAll pCurrent="<<pCurrent);
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->restore();
 		pCurrent = pCurrent -> _pNext;
@@ -628,8 +628,9 @@ void GgafDx9ModelManager::restoreAll() {
 }
 
 void GgafDx9ModelManager::onDeviceLostAll() {
-	TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
+	_TRACE_("GgafDx9ModelManager::onDeviceLostAll() start-->");
 	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+	_TRACE_("onDeviceLostAll pCurrent="<<pCurrent);
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->onDeviceLost();
 		pCurrent = pCurrent -> _pNext;
