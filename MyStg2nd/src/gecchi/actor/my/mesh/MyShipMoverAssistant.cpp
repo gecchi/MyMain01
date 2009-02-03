@@ -19,7 +19,7 @@ void MyShipMoverAssistant::processBehavior() {
 
 
 	//À•W‚É”½‰f
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 }
 
 

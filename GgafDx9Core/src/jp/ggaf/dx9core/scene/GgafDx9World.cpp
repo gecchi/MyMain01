@@ -29,11 +29,11 @@ void GgafDx9World::drawMain() {
 			if (pActor == NULL) {
 				break;
 			}
-			pActor -> processDrawMain();
-			pActor -> _wasExecuted_processDrawMain = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
+			pActor->processDrawMain();
+			pActor->_wasExecuted_processDrawMain = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
 			ptmp = pActor;
-			pActor = pActor -> _pNext_TheSameDrawDepthLevel;
-			ptmp -> _pNext_TheSameDrawDepthLevel = NULL;
+			pActor = pActor->_pNext_TheSameDrawDepthLevel;
+			ptmp->_pNext_TheSameDrawDepthLevel = NULL;
 		}
 		_apActorDrawDepthLevel_first[i] = NULL;
 		_apActorDrawDepthLevel_last[i] = NULL;

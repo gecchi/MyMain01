@@ -90,7 +90,7 @@ GgafResourceLead<T>* GgafResourceManager<T>::find(char* prm_idstr) {
 		if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
 			return pCurrent;
 		}
-		pCurrent = pCurrent -> _pNext;
+		pCurrent = pCurrent->_pNext;
 	}
 	return NULL;
 }
@@ -102,10 +102,10 @@ void GgafResourceManager<T>::add(GgafResourceLead<T>* prm_pResource_New) {
 		return;
 	} else {
 		GgafResourceLead<T>* pCurrent = _pTop;
-		while (pCurrent -> _pNext != NULL) {
-			pCurrent = pCurrent -> _pNext;
+		while (pCurrent->_pNext != NULL) {
+			pCurrent = pCurrent->_pNext;
 		}
-		pCurrent -> _pNext = prm_pResource_New;
+		pCurrent->_pNext = prm_pResource_New;
 		return;
 	}
 }
@@ -158,7 +158,7 @@ void GgafResourceManager<T>::dump() {
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iLeadNum;
 			TRACE("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]");
-			pCurrent_Next = pCurrent -> _pNext;
+			pCurrent_Next = pCurrent->_pNext;
 			if (pCurrent_Next == NULL) {
 				pCurrent = NULL;
 				break;
@@ -184,7 +184,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
 			TRACE("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]が残ってます。強制削除しますが、本来あってはいけません。");
 
 			T* r = pCurrent->getResource();
-			pCurrent_Next = pCurrent -> _pNext;
+			pCurrent_Next = pCurrent->_pNext;
 			if (r != NULL) {
 				pCurrent->processReleaseResource(r); //リソースの解放
 			}

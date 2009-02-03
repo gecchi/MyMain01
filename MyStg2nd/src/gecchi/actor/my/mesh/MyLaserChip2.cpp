@@ -96,10 +96,10 @@ void MyLaserChip2::initialize() {
 		//_pIDirect3DVertexBuffer9_MyLaserChip2 = NULL;
 	}
 
-	_pGeoMover -> setMoveVelocity(20*1000);
-	_pChecker -> useHitAreaBoxNum(1);
-	_pChecker -> setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
-//	_pChecker -> setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
+	_pGeoMover->setMoveVelocity(20*1000);
+	_pChecker->useHitAreaBoxNum(1);
+	_pChecker->setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
+//	_pChecker->setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
 	_pActor_Radical = NULL;
 
 	setBumpableAlone(false);
@@ -111,7 +111,7 @@ void MyLaserChip2::processBehavior() {
 		//oŒ»Žžˆ—
 		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
-		_pGeoMover -> setMoveAngleRzRy(
+		_pGeoMover->setMoveAngleRzRy(
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]
 				   );
@@ -121,7 +121,7 @@ void MyLaserChip2::processBehavior() {
 	}
 
 	//À•W‚É”½‰f
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 
 	_X += (_pActor_Radical->_X - _X_prevFrame);
 	_Y += (_pActor_Radical->_Y - _Y_prevFrame);

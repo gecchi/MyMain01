@@ -41,18 +41,18 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 
 void MyOption::initialize() {
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
-	_pChecker -> useHitAreaBoxNum(1);
-	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
+	_pChecker->useHitAreaBoxNum(1);
+	_pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	if (_iMyNo == 0) {
 		setGeometry(50000,0,0);
-		_pGeoMover -> setMoveVelocity(3000);
-		_pGeoMover -> setMoveAngleRzVelocity(2000);
+		_pGeoMover->setMoveVelocity(3000);
+		_pGeoMover->setMoveAngleRzVelocity(2000);
 
 	} else {
-		_pGeoMover -> setMoveVelocity(0);
+		_pGeoMover->setMoveVelocity(0);
 	}
-	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,2000);
+	//_pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
+	_pGeoMover->setAxisRotAngleVelocity(AXIS_Y,2000);
 	//setAlpha(0.2);
 }
 
@@ -63,14 +63,14 @@ void MyOption::processBehavior() {
 		_X = tmpX;
 		_Y = tmpY;
 		_Z = tmpZ;
-		_pGeoMover -> behave();
+		_pGeoMover->behave();
 		tmpX = _X;
 		tmpY = _Y;
 		tmpZ = _Z;
 
-		_X += _pActor_Radical -> _X;
-		_Y += _pActor_Radical -> _Y - 50000;
-		_Z += _pActor_Radical -> _Z;
+		_X += _pActor_Radical->_X;
+		_Y += _pActor_Radical->_Y - 50000;
+		_Z += _pActor_Radical->_Z;
 
 
 	} else {
@@ -83,7 +83,7 @@ void MyOption::processBehavior() {
 
 		//ショット関連処理
 		//MyShip::transactShot(this);
-		_pGeoMover -> behave();
+		_pGeoMover->behave();
 	}
 	//座標に反映
 	if (VB::isBeingPressed(VB_SHOT2)) {

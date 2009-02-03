@@ -185,12 +185,12 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
 				if (pScene->_pParent == this) {
 					break;
 				} else {
-					pScene = pScene ->_pParent;
+					pScene = pScene->_pParent;
 					goto loop;
 				}
 			}
 		} else {
-			pScene = pScene -> _pNext;
+			pScene = pScene->_pNext;
 			continue;
 		}
 	} while(true);
@@ -220,14 +220,14 @@ void GgafScene::dump() {
 	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			pScene_tmp -> dump("\t");
-			if (pScene_tmp -> _pNext) {
-				pScene_tmp = pScene_tmp -> _pNext;
+			pScene_tmp->dump("\t");
+			if (pScene_tmp->_pNext) {
+				pScene_tmp = pScene_tmp->_pNext;
 			} else {
 				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
 				break;
 			}
-			if (pScene_tmp -> _isFirst) {
+			if (pScene_tmp->_isFirst) {
 				break;
 			}
 		}
@@ -240,14 +240,14 @@ void GgafScene::dump(string prm_parent) {
 	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {
-			pScene_tmp -> dump(prm_parent+"\t");
-			if (pScene_tmp -> _pNext) {
-				pScene_tmp = pScene_tmp -> _pNext;
+			pScene_tmp->dump(prm_parent+"\t");
+			if (pScene_tmp->_pNext) {
+				pScene_tmp = pScene_tmp->_pNext;
 			} else {
 				_TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
 				break;
 			}
-			if (pScene_tmp -> _isFirst) {
+			if (pScene_tmp->_isFirst) {
 				break;
 			}
 		}

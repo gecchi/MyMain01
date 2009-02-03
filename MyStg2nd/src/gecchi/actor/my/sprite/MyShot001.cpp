@@ -12,28 +12,28 @@ MyShot001::MyShot001(string prm_name, string prm_model) : DefaultSpriteMyActor(p
 void MyShot001::initialize() {
 	setAnimationMethod(OSCILLATE_LOOP, 2);
 
-	_pGeoMover -> setMoveAngleRzVelocity(0);
-	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z, 2*1000);
-	_pGeoMover -> setMoveAngleRz(0);
-	_pGeoMover -> setAxisRotAngle(AXIS_Z, 0);
-	_pGeoMover -> setMoveVelocity(1000);
+	_pGeoMover->setMoveAngleRzVelocity(0);
+	_pGeoMover->setAxisRotAngleVelocity(AXIS_Z, 2*1000);
+	_pGeoMover->setMoveAngleRz(0);
+	_pGeoMover->setAxisRotAngle(AXIS_Z, 0);
+	_pGeoMover->setMoveVelocity(1000);
 
-	_pChecker -> useHitAreaBoxNum(7);
-	_pChecker -> setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
-	_pChecker -> setHitAreaBox(1, -10000,-140000,-10000, 10000,-120000,10000, true,true,true);
-	_pChecker -> setHitAreaBox(2, -10000, 120000,-10000, 10000, 140000,10000, true,true,true);
-	_pChecker -> setHitAreaBox(3, -140000,-10000,-10000, -120000, 10000,10000, true,true,true);
-	_pChecker -> setHitAreaBox(4, 120000, -10000,-10000,  140000, 10000,10000, true,true,true);
-	_pChecker -> setHitAreaBox(5, -10000,-10000,-140000, 10000, 10000,-120000, true,true,true);
-	_pChecker -> setHitAreaBox(6, -10000,-10000, 120000,  10000, 10000, 140000, true,true,true);
+	_pChecker->useHitAreaBoxNum(7);
+	_pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000,10000, true,true,true);
+	_pChecker->setHitAreaBox(1, -10000,-140000,-10000, 10000,-120000,10000, true,true,true);
+	_pChecker->setHitAreaBox(2, -10000, 120000,-10000, 10000, 140000,10000, true,true,true);
+	_pChecker->setHitAreaBox(3, -140000,-10000,-10000, -120000, 10000,10000, true,true,true);
+	_pChecker->setHitAreaBox(4, 120000, -10000,-10000,  140000, 10000,10000, true,true,true);
+	_pChecker->setHitAreaBox(5, -10000,-10000,-140000, 10000, 10000,-120000, true,true,true);
+	_pChecker->setHitAreaBox(6, -10000,-10000, 120000,  10000, 10000, 140000, true,true,true);
 
 
-//	_pChecker -> _pHitAreaBoxs -> setLine(0, -20000, 20000, 20000, 20000, true);
-//	_pChecker -> _pHitAreaBoxs -> setLine(1, 20000, 20000, 20000, -20000, true);
-//	_pChecker -> _pHitAreaBoxs -> setLine(2, 20000, -20000, -20000, -20000, true);
-//	_pChecker -> _pHitAreaBoxs -> setLine(3, -20000, -20000, -20000, 20000, true);
-//	_pChecker -> _pHitAreaBoxs -> setLine(4, 30000, 30000, -30000, -30000, true);
-//	_pChecker -> _pHitAreaBoxs -> setLine(5, -30000, 30000, 30000, -30000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(0, -20000, 20000, 20000, 20000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(1, 20000, 20000, 20000, -20000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(2, 20000, -20000, -20000, -20000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(3, -20000, -20000, -20000, 20000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
+//	_pChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
 //
 	_SX = 10000;
 	_SY = 10000;
@@ -56,8 +56,8 @@ void MyShot001::processBehavior() {
 		//’Êíˆ—
 		nextAnimationFrame();
 		//À•W‚É”½‰f
-		_pGeoMover -> behave();
-		_pChecker -> behave();
+		_pGeoMover->behave();
+		_pChecker->behave();
 	}
 }
 

@@ -106,7 +106,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) : GgafObject() {
 
 //	_pSoundSE = NEW CC3DSoundSE();
 //
-//	int ret = _pSoundSE -> CreateSE( /* *(GgafDx9Sound::_pC3DSound),*/ wave_filename.c_str(), prm_iBufferCount, 0);
+//	int ret = _pSoundSE->CreateSE( /* *(GgafDx9Sound::_pC3DSound),*/ wave_filename.c_str(), prm_iBufferCount, 0);
 //	if (!ret) {
 //		throw_GgafCriticalException("GgafDx9Se::GgafDx9Se() Error! " << wave_filename << " ‚Ì‰Šú‰»‚ÉŽ¸”s");
 //	}
@@ -146,7 +146,7 @@ void GgafDx9Se::play() {
 	_pIDirectSoundBuffer->SetCurrentPosition(0);
 	_pIDirectSoundBuffer->Play(0, 0, 0);
 
-	//_pSoundSE -> Play(0,0);
+	//_pSoundSE->Play(0,0);
 }
 
 int GgafDx9Se::restore(void) {
@@ -165,12 +165,12 @@ int GgafDx9Se::restore(void) {
 
 
 void GgafDx9Se::play(int prm_iVolume, int prm_iPan) {
-	//_pSoundSE -> Play(prm_iVolume, prm_iPan);
+	//_pSoundSE->Play(prm_iVolume, prm_iPan);
 }
 
 GgafDx9Se::~GgafDx9Se() {
 //	if (_pSoundSE != NULL) {
-//		_pSoundSE -> Release();
+//		_pSoundSE->Release();
 //		delete _pSoundSE;
 //		_pSoundSE = NULL;
 //	}

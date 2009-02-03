@@ -13,7 +13,7 @@ class GgafDx9ModelManager : public GgafCore::GgafResourceManager<GgafDx9Model> {
 
 private:
 	/** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
-	IDirectXFile* _s_pIDirectXFile;
+	IDirectXFile* _pIDirectXFile;
 	GgafDx9TextureManager* _pTextureManager;
 
 	/**

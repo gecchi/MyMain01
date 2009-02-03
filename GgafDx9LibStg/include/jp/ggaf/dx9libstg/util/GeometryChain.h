@@ -35,7 +35,7 @@ public:
 	}
 
 	GeoElement* nextElem() {
-		_pGeoChainRingActive = _pGeoChainRingActive ->_next;
+		_pGeoChainRingActive = _pGeoChainRingActive->_next;
 		return _pGeoChainRingActive;
 	}
 

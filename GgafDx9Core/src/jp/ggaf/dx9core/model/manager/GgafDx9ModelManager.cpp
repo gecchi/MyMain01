@@ -13,12 +13,12 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name)
 	//テクスチャマネジャー
 	_pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
 	//板ポリゴン定義ファイル読込み
-	DirectXFileCreate( &_s_pIDirectXFile );
+	DirectXFileCreate( &_pIDirectXFile );
 	char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
 	if (paChar_SpriteModelineTemplate == NULL) {
 		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] スプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
 	}
-	HRESULT hr = _s_pIDirectXFile -> RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
+	HRESULT hr = _pIDirectXFile->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
 	if(hr != DXFILE_OK) {
 		throw_GgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
 	}
@@ -159,16 +159,16 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
 
 	//Xファイルに法線がない場合もある。その場合法線をかくようにする。
-	if(pID3DXMesh -> GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
+	if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
 		LPD3DXMESH pID3DXMesh_tmp = NULL;
-		hr = pID3DXMesh -> CloneMeshFVF(
+		hr = pID3DXMesh->CloneMeshFVF(
 							pID3DXMesh->GetOptions(),                // [in]  DWORD Options,
 							D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1,    // [in]  DWORD FVF,
 							GgafDx9God::_pID3DDevice9,               // [in]  LPDIRECT3DDEVICE9 pDevice,
 							&pID3DXMesh_tmp                          // [out] LPD3DXMESH *ppCloneMesh
 						 );
 		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh -> CloneMeshFVF()失敗。対象="<<xfile_name, hr);
+			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name, hr);
 		}
 		D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算
 		RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
@@ -176,10 +176,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	}
 
 	//メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
-	prm_pMeshModel -> _pID3DXMesh      = pID3DXMesh;
-	prm_pMeshModel -> _paD3DMaterial9_default  = paD3DMaterial9;
-	prm_pMeshModel -> _papTexture      = papTexture;
-	prm_pMeshModel -> _dwNumMaterials  = dwNumMaterials;
+	prm_pMeshModel->_pID3DXMesh      = pID3DXMesh;
+	prm_pMeshModel->_paD3DMaterial9_default  = paD3DMaterial9;
+	prm_pMeshModel->_papTexture      = papTexture;
+	prm_pMeshModel->_dwNumMaterials  = dwNumMaterials;
 }
 
 
@@ -207,7 +207,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
-	hr = _s_pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+	hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
 	if(hr != DXFILE_OK) {
 		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。", hr);
 	}
@@ -320,7 +320,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	//バッファ作成
 	if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
-		hr = GgafDx9God::_pID3DDevice9 -> CreateVertexBuffer(
+		hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
 											 prm_pSpriteModel->_iSize_Vertecs,
 											 D3DUSAGE_WRITEONLY,
 											 GgafDx9SpriteModel::FVF,
@@ -328,18 +328,18 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 											 &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
 											 NULL);
 		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9 -> CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name), hr);
+			throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name), hr);
 		}
 	}
 	//頂点バッファ作成
 	//頂点情報をビデオカード頂点バッファへロード
 	void *pVertexBuffer;
-	hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9 -> Lock(0, prm_pSpriteModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
+	hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
 	if(hr != D3D_OK) {
 		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteModel->_model_name, hr);
 	}
 	memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_iSize_Vertecs); //pVertexBuffer ← paVertex
-	prm_pSpriteModel->_pIDirect3DVertexBuffer9 -> Unlock();
+	prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
 	//全パターンのUV情報の配列作成しモデルに保持させる
 	int iAnimationPatternNum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
@@ -388,7 +388,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
 	IDirectXFileEnumObject* pIDirectXFileEnumObject;
 	IDirectXFileData* pIDirectXFileData;
-	hr = _s_pIDirectXFile -> CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+	hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
 	if(hr != DXFILE_OK) {
 		throw_GgafCriticalException("[GgafDx9ModelManager::restorePlateModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 	}
@@ -532,7 +532,7 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
 	HRESULT	hr;
 	//頂点バッファ作成
 	if (prm_pSquareModel->_pIDirect3DVertexBuffer9 == NULL) {
-		hr = GgafDx9God::_pID3DDevice9 -> CreateVertexBuffer(
+		hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
 											 prm_pSquareModel->_iSize_Vertecs,
 											 D3DUSAGE_WRITEONLY,
 											 GgafDx9SquareModel::FVF,
@@ -540,18 +540,18 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
 											 &(prm_pSquareModel->_pIDirect3DVertexBuffer9),
 											 NULL);
 		if(hr != D3D_OK) {
-			throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9 -> CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name, hr);
+			throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name, hr);
 		}
 	}
 
 	//頂点情報をビデオカード頂点バッファへロード
 	void *pVertexBuffer;
-	hr = prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Lock(0, prm_pSquareModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
+	hr = prm_pSquareModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSquareModel->_iSize_Vertecs, (void**)&pVertexBuffer, 0);
 	if(hr != D3D_OK) {
 		throw_GgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name, hr);
 	}
 	memcpy(pVertexBuffer, paVertex, prm_pSquareModel->_iSize_Vertecs);
-	prm_pSquareModel->_pIDirect3DVertexBuffer9 -> Unlock();
+	prm_pSquareModel->_pIDirect3DVertexBuffer9->Unlock();
 
 	//後始末
 	DELETEARR_IMPOSSIBLE_NULL(paVertex);
@@ -567,7 +567,7 @@ GgafResourceLead<GgafDx9Model>* GgafDx9ModelManager::processCreateLead(char* prm
 
 GgafDx9ModelManager::~GgafDx9ModelManager() {
 	TRACE("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
-	RELEASE_IMPOSSIBLE_NULL(_s_pIDirectXFile);
+	RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile);
 	_pTextureManager->dump();
 	DELETE_IMPOSSIBLE_NULL(_pTextureManager);
 	TRACE("GgafDx9ModelManager::releaseAll() するけども、ここでは既に何も開放するものがないはずです");
@@ -582,7 +582,7 @@ void GgafDx9ModelManager::restoreAll() {
 	TRACE("restoreAll pCurrent="<<pCurrent);
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->restore();
-		pCurrent = pCurrent -> _pNext;
+		pCurrent = pCurrent->_pNext;
 	}
 	TRACE("GgafDx9ModelManager::restoreAll() end<--");
 }
@@ -593,7 +593,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 	TRACE("onDeviceLostAll pCurrent="<<pCurrent);
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->onDeviceLost();
-		pCurrent = pCurrent -> _pNext;
+		pCurrent = pCurrent->_pNext;
 	}
 	TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
 }
@@ -603,7 +603,7 @@ void GgafDx9ModelManager::releaseAll() {
 	GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
 	while (pCurrent != NULL) {
 		pCurrent->getResource()->release();
-		pCurrent = pCurrent -> _pNext;
+		pCurrent = pCurrent->_pNext;
 	}
 	TRACE("GgafDx9ModelManager::releaseAll() end<--");
 }

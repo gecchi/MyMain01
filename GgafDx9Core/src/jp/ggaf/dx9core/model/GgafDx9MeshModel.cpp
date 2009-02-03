@@ -22,24 +22,24 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	static HRESULT hr;
 	for(DWORD i = 0; i < _dwNumMaterials; i++) {
         //マテリアルのセット
-        GgafDx9God::_pID3DDevice9 -> SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
+        GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
 		if (_papTexture[i] != NULL) {
 			//テクスチャのセット
- 			GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _papTexture[i]->getResource() );
+ 			GgafDx9God::_pID3DDevice9->SetTexture( 0, _papTexture[i]->getResource() );
 		} else {
 			//無ければテクスチャ無し
- 			GgafDx9God::_pID3DDevice9 -> SetTexture(0, NULL);
+ 			GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
 		}
 		//描画
 		if (pMeshActor_Target->_SX == LEN_UNIT &&
 		    pMeshActor_Target->_SY == LEN_UNIT &&
 		    pMeshActor_Target->_SZ == LEN_UNIT)
 		{
-			hr = _pID3DXMesh -> DrawSubset( i ); //なんて便利なメソッド！
+			hr = _pID3DXMesh->DrawSubset( i ); //なんて便利なメソッド！
 		} else {
 			//拡大縮小がなされているため、カメラ空間にトランスフォームされた後で頂点法線の正規化するように設定（負荷高）
 			GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-			hr = _pID3DXMesh -> DrawSubset( i ); //なんて便利なメソッド！
+			hr = _pID3DXMesh->DrawSubset( i ); //なんて便利なメソッド！
 			GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 		}
 	}

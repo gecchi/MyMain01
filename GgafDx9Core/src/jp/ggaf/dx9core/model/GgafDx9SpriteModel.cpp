@@ -33,15 +33,15 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
 		//前回描画とモデルが違う！
-		GgafDx9God::_pID3DDevice9 -> SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
-		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9SpriteModel::FVF);
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _pTexture->getResource() );
+		GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
+		GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
+		GgafDx9God::_pID3DDevice9->SetTexture( 0, _pTexture->getResource() );
 	}
 
 	if (_pRectUV_drawlast != pRectUV_Active) {
 		//前回描画UV違う！、頂点バッファの tu, tv を直接変更
 		static VERTEX* paVertexBuffer;
-		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
+		hr = _pIDirect3DVertexBuffer9->Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
 		paVertexBuffer[0].tu = pRectUV_Active->_aUV[0].tu;
 		paVertexBuffer[0].tv = pRectUV_Active->_aUV[0].tv;
 		paVertexBuffer[1].tu = pRectUV_Active->_aUV[1].tu;
@@ -62,12 +62,12 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 		//前回描画モデルもUVも同じ
 		// → 何もせんでよい。こりゃはやいでっせ～！(たぶん)
 	}
-	GgafDx9God::_pID3DDevice9 -> SetMaterial(&(pSpriteActor_Target->_paD3DMaterial9[0]));
+	GgafDx9God::_pID3DDevice9->SetMaterial(&(pSpriteActor_Target->_paD3DMaterial9[0]));
 
 //	if (_isChangedAlpha) {
 //		//前回描画UVが同じでもAlpha変更な場合
 //		static VERTEX* paVertexBuffer;
-//		hr = _pIDirect3DVertexBuffer9 -> Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
+//		hr = _pIDirect3DVertexBuffer9->Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
 //		if(hr != D3D_OK) {
 //			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
 //		}
@@ -80,11 +80,11 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //	}
 
 
-	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, 0xffffffff);//陰影を無くすため環境光を最高にする
 	GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 	GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, GgafDx9God::_dwAmbientBrightness_default);//環境光を元通り
-	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//↑＜2008/10/24 の脳みそ＞
 	//ライトを切らずにアンビエントを強めてスプライトらしく平面的な表示をすることにした（角度によって影がでない）。

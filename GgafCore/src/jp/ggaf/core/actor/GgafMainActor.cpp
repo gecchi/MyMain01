@@ -15,11 +15,11 @@ void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     if (_pSubFirst != NULL) {
         GgafMainActor* pMainActor_tmp = (GgafMainActor*)getSubFirst();
         while(true) {
-            pMainActor_tmp -> setLordActor(prm_pLordActor);
-            if (pMainActor_tmp -> _isLast) {
+            pMainActor_tmp->setLordActor(prm_pLordActor);
+            if (pMainActor_tmp->_isLast) {
                 break;
             } else {
-			    pMainActor_tmp = (GgafMainActor*)pMainActor_tmp -> getNext();
+			    pMainActor_tmp = (GgafMainActor*)pMainActor_tmp->getNext();
             }
         }
     }
@@ -30,11 +30,11 @@ void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
     if (_pSubFirst != NULL) {
         GgafMainActor* pMainActor_tmp = (GgafMainActor*)getSubFirst();
         while(true) {
-            pMainActor_tmp -> setHeadActor(prm_pHeadActor);
-            if (pMainActor_tmp -> _isLast) {
+            pMainActor_tmp->setHeadActor(prm_pHeadActor);
+            if (pMainActor_tmp->_isLast) {
                 break;
             } else {
-			    pMainActor_tmp = (GgafMainActor*)pMainActor_tmp -> getNext();
+			    pMainActor_tmp = (GgafMainActor*)pMainActor_tmp->getNext();
             }
         }
     }

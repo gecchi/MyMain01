@@ -12,10 +12,10 @@ MyLaser001::MyLaser001(string prm_name, string prm_model) : DefaultSpriteMyActor
 void MyLaser001::initialize() {
 	setAnimationMethod(ORDER_LOOP, 1);
 
-	_pGeoMover -> setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
+	_pGeoMover->setMoveVelocity(_pSpriteModel->_fSize_SpriteModelWidthPx * 1000);
 
-	_pChecker -> useHitAreaBoxNum(1);
-	_pChecker -> setHitAreaBox(0, -5000, -5000, 5000, 5000);
+	_pChecker->useHitAreaBoxNum(1);
+	_pChecker->setHitAreaBox(0, -5000, -5000, 5000, 5000);
 
 	_pActor_Radical = NULL;
 
@@ -29,9 +29,9 @@ void MyLaser001::processBehavior() {
 		//oŒ»Žžˆ—
 		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
-		_pGeoMover -> setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
-		_pGeoMover -> setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
-		_pGeoMover -> setMoveAngleRzRy(
+		_pGeoMover->setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
+		_pGeoMover->setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+		_pGeoMover->setMoveAngleRzRy(
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
 				     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]
 				   );
@@ -45,7 +45,7 @@ void MyLaser001::processBehavior() {
 
 	}
 	//À•W‚É”½‰f
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 
 	_X += (_pActor_Radical->_X - _X_prevFrame);
 	_Y += (_pActor_Radical->_Y - _Y_prevFrame);

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 GameScene::GameScene(string prm_name) : DefaultScene(prm_name) {
 	_pGameDemoScene = NEW GameDemoScene("GameDemo");
-	_pGameDemoScene -> stopImmediately();
+	_pGameDemoScene->stopImmediately();
 	addSubLast(_pGameDemoScene);
 
 	_pGameMainScene = NEW GameMainScene("GameMain");

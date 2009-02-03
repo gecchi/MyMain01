@@ -32,7 +32,7 @@ public:
 			if (pActor->isLast()) {
 				break;
 			} else {
-				pActor = pActor -> getNext();
+				pActor = pActor->getNext();
 			}
 		}
 	};

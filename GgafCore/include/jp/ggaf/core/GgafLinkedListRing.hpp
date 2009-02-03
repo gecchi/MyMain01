@@ -251,7 +251,7 @@ T* GgafLinkedListRing<T>::next() {
 	if (_pElemActive == NULL) {
 		throw_GgafCriticalException("[GgafLinkedListRing::next()] Error! アクティブ要素がNULLです");
 	}
-	_pElemActive = _pElemActive -> _pNext;
+	_pElemActive = _pElemActive->_pNext;
 	return _pElemActive->_pValue;
 }
 
@@ -260,7 +260,7 @@ T* GgafLinkedListRing<T>::prev() {
 	if (_pElemActive == NULL) {
 		throw_GgafCriticalException("[GgafLinkedListRing::prev()] Error! アクティブ要素がNULLです");
 	}
-	_pElemActive = _pElemActive -> prev;
+	_pElemActive = _pElemActive->prev;
 	return _pElemActive->_pValue;
 }
 
@@ -273,7 +273,7 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
 	static Elem* pLastElem;
 	pElem = NEW Elem(prm_pSub);
 
-	pElem -> _isLast = true;
+	pElem->_isLast = true;
 
 	if (_pElemFirst == NULL) {
 		//最初の１つ
@@ -284,7 +284,7 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
 		_pElemFirst = pElem;
 	} else {
 		//２つ目以降
-		pElem -> _isFirst = false;
+		pElem->_isFirst = false;
 		pLastElem = _pElemFirst->_pPrev;
 		pLastElem->_isLast = false;
 		pLastElem->_pNext = pElem;
@@ -320,11 +320,11 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
 
 		} else {
 			//子要素は２つ以上の場合
-			Elem* pLast = _pElemFirst -> _pPrev;
-			Elem* pLastPrev = pLast -> _pPrev;
+			Elem* pLast = _pElemFirst->_pPrev;
+			Elem* pLastPrev = pLast->_pPrev;
 			while(true) {
 				DELETE_IMPOSSIBLE_NULL(pLast); //末尾からdelete
-				if (pLastPrev -> _isFirst) {
+				if (pLastPrev->_isFirst) {
 					DELETE_IMPOSSIBLE_NULL(_pElemFirst); //pSubLastPrev == _pSubFirst である
 					_pElemFirst = NULL;
 					_pElemActive = NULL;
@@ -332,7 +332,7 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
 					break;
 				}
 				pLast = pLastPrev;
-				pLastPrev = pLastPrev -> _pPrev;
+				pLastPrev = pLastPrev->_pPrev;
 			}
 		}
 	}

@@ -7,16 +7,18 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_iNumPlayingActor = 0;
-DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17,17,16,17,17,16,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,16,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17,
-                                      17,17,16,17,17,17 };
+DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {
+          17,17,16,17,17,16,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17,
+          17,17,16,17,17,16,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17,
+          17,17,16,17,17,17
+};
 GgafGod::GgafGod() : GgafObject(),
 _pWorld(NULL)
 {
@@ -61,7 +63,7 @@ void GgafGod::be(){
 		if (_pWorld == NULL) {
 			throw_GgafCriticalException("GgafGod::be() Error! 世界を実装して下さい！");
 		}
-		_pWorld -> _pGod = this;
+		_pWorld->_pGod = this;
 	}
 
 	//工場（別スレッド）例外をチェック
@@ -71,7 +73,7 @@ void GgafGod::be(){
 
 	if (_isBehaved == false) {
 		_isBehaved = true;
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 		_dwFrame_God++;
 		makeWorldBe();
 		makeWorldJudge();
@@ -107,7 +109,7 @@ void GgafGod::be(){
 				//スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
 				_dwFrame_SkipCount = 0;
 				_dwFrame_Visualize++;
-				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+				::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 				makeWorldMaterialize();
 				makeWorldVisualize();
 				makeWorldFinalize();
@@ -115,7 +117,7 @@ void GgafGod::be(){
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			} else {
 				//スキップ時はmakeWorldFinalize()だけ
-				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+				::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 				makeWorldFinalize();
 				//getWorld()->cleane(1);
 				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
@@ -123,7 +125,7 @@ void GgafGod::be(){
 		} else {
 			//通常時描画（スキップなし）
 			_dwFrame_Visualize++;
-			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+			::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			makeWorldMaterialize();//描画を行う
 			makeWorldVisualize();  //視覚化を行う
 			makeWorldFinalize();
@@ -136,7 +138,7 @@ void GgafGod::be(){
 		Sleep(1); //工場（別スレッド）に回す
 //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合
 //			if (getWorld() != NULL && _s_iCountCleanedNode == 0) { //掃除でもやっとく
-//				::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+//				::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 //				getWorld()->cleane(1);
 //				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 //			}
@@ -147,38 +149,38 @@ void GgafGod::be(){
 }
 
 void GgafGod::makeWorldBe() {
-	_pWorld -> nextFrame();
-	_pWorld -> behave();
+	_pWorld->nextFrame();
+	_pWorld->behave();
 }
 
 /**
  * 世界を審判する<BR>
  */
 void GgafGod::makeWorldJudge() {
-	_pWorld -> judge();
+	_pWorld->judge();
 }
 
 /**
  * 世界を具現化する<BR>
  */
 void  GgafGod::makeWorldMaterialize() {
-	_pWorld -> drawPrior();
-	_pWorld -> drawMain();
-	_pWorld -> drawTerminate();
+	_pWorld->drawPrior();
+	_pWorld->drawMain();
+	_pWorld->drawTerminate();
 }
 
 /**
  * 世界を視覚化する<BR>
  */
 void GgafGod::makeWorldVisualize() {
-	_pWorld -> dump();
+	_pWorld->dump();
 }
 
 /**
  * 世界の後始末<BR>
  */
 void GgafGod::makeWorldFinalize() {
-	_pWorld -> finally();
+	_pWorld->finally();
 }
 
 GgafGod::~GgafGod() {
@@ -192,7 +194,7 @@ GgafGod::~GgafGod() {
 		}
 
 		//工場掃除
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			GgafFactory::clean();
 			//ゴミ箱
 			GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
@@ -202,7 +204,7 @@ GgafGod::~GgafGod() {
 
 		//世界で生きている物も掃除
 		Sleep(20);
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			DELETE_IMPOSSIBLE_NULL(_pWorld);
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
     }

@@ -20,7 +20,7 @@ void EnemyShotSpriteActor::initialize() {
 void EnemyShotSpriteActor::processBehavior() {
 	//標準処理（たぶんオーバーライドされるだろうけども)
 	nextAnimationFrame();
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 }
 
 void EnemyShotSpriteActor::processJudgement() {

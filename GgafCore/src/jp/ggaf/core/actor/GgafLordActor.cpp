@@ -21,10 +21,10 @@ void GgafLordActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
         pHeadActor = NEW GgafHeadActor(prm_kind);
         addSubLast(pHeadActor);
     }
-	pHeadActor -> addSubLast(prm_pMainActor);
-	prm_pMainActor -> setLordActor(this);
-    prm_pMainActor -> setHeadActor(pHeadActor);
-    prm_pMainActor -> setScenePlatform(_pScene_Platform);
+	pHeadActor->addSubLast(prm_pMainActor);
+	prm_pMainActor->setLordActor(this);
+    prm_pMainActor->setHeadActor(pHeadActor);
+    prm_pMainActor->setScenePlatform(_pScene_Platform);
 }
 
 void GgafLordActor::accept(GgafMainActor* prm_pMainActor) {
@@ -37,13 +37,13 @@ bool GgafLordActor::hasSubHeadActor(actorkind prm_kind) {
 	} else {
 		GgafHeadActor* pHeadActor = (GgafHeadActor*)_pSubFirst;
 		do {
-			if(pHeadActor -> _kind == prm_kind) {
+			if(pHeadActor->_kind == prm_kind) {
 				return true;
 			}
-			if (pHeadActor -> _isLast) {
+			if (pHeadActor->_isLast) {
 				return false;
 			} else {
-				pHeadActor = (GgafHeadActor*)(pHeadActor -> _pNext);
+				pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
 			}
 		} while(true);
 	}
@@ -57,13 +57,13 @@ GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
 	}
 	GgafHeadActor* pHeadActor = (GgafHeadActor*)_pSubFirst;
 	do {
-		if(pHeadActor -> _kind == prm_kind) {
+		if(pHeadActor->_kind == prm_kind) {
 			break;
 		}
-		if (pHeadActor -> _isLast) {
+		if (pHeadActor->_isLast) {
 			throw_GgafCriticalException("[GgafLordActor::getSubHeadActor] Error! 子ノードは存在しません。(actorkind="<<prm_kind<<")");
 		} else {
-			pHeadActor = (GgafHeadActor*)(pHeadActor -> _pNext);
+			pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
 		}
 	} while(true);
 	return pHeadActor;

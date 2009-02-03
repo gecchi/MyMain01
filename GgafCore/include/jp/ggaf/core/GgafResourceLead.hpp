@@ -120,7 +120,7 @@ int GgafResourceLead<T>::Release() {
 		} else {
 			//ˆá‚Á‚½ê‡
 			pPrev = pCurrent;
-			pCurrent = pCurrent -> _pNext;
+			pCurrent = pCurrent->_pNext;
 		}
 	}
 

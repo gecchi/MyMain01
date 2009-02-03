@@ -292,7 +292,7 @@ void VirtualButton::update() {
 	GgafDx9Input::updateJoystickState();
 
 
-    _s_pVBMap = _s_pVBMap -> _next;
+    _s_pVBMap = _s_pVBMap->_next;
 
 	_s_pVBMap->_state[VB_SHOT1]    = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT1)   || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT1);
 	_s_pVBMap->_state[VB_SHOT2]    = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT2)   || GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT2);

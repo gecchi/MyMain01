@@ -307,18 +307,18 @@ T* GgafNode<T>::tear() {
 		T* pMyPrev = _pPrev;
 		if (_isFirst && _isLast) {
 			//連結が自分のみ場合
-			_pParent -> _pSubFirst = NULL;
+			_pParent->_pSubFirst = NULL;
 		} else {
 			//連結がから抜け出す場合
 			//両隣のノード同士を繋ぎ、自分を指さなくする。
-			pMyPrev -> _pNext = pMyNext;
-			pMyNext -> _pPrev = pMyPrev;
+			pMyPrev->_pNext = pMyNext;
+			pMyNext->_pPrev = pMyPrev;
 			if (_isLast) {
-				pMyPrev -> _isLast = true;
+				pMyPrev->_isLast = true;
 			}
 			if (_isFirst) {
-				pMyNext -> _isFirst = true;
-				_pParent -> _pSubFirst = pMyNext;
+				pMyNext->_isFirst = true;
+				_pParent->_pSubFirst = pMyNext;
 			}
 		}
 		_pParent = NULL;
@@ -339,22 +339,22 @@ void GgafNode<T>::moveLast() {
 	if (_isLast) { //既に最終ノードならば何もしない
 		return;
 	} else if (_isFirst) {  //先頭ノードならば、親の指している先頭ノードを次へずらす
-		_pParent -> _pSubFirst = _pNext;
+		_pParent->_pSubFirst = _pNext;
 		_pPrev->_isLast = false;
 		_isFirst = false;
 		_isLast = true;
 		_pNext->_isFirst = true;
 	} else { //中間ノード時
 		//両隣のノード同士を繋ぐ
-		_pPrev -> _pNext = _pNext;
-		_pNext -> _pPrev = _pPrev;
+		_pPrev->_pNext = _pNext;
+		_pNext->_pPrev = _pPrev;
 		//末尾ノードと先頭ノードの間にもぐりこませる
-		_pParent -> _pSubFirst -> _pPrev -> _isLast = false;
+		_pParent->_pSubFirst->_pPrev->_isLast = false;
 		_isLast = true;
-		_pPrev = _pParent -> _pSubFirst -> _pPrev;
-		_pNext = _pParent -> _pSubFirst;
-		_pParent -> _pSubFirst -> _pPrev -> _pNext = (T*)this;
-		_pParent -> _pSubFirst -> _pPrev = (T*)this;
+		_pPrev = _pParent->_pSubFirst->_pPrev;
+		_pNext = _pParent->_pSubFirst;
+		_pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
+		_pParent->_pSubFirst->_pPrev = (T*)this;
 	}
 }
 
@@ -366,23 +366,23 @@ void GgafNode<T>::moveFirst() {
 	if (_isFirst) { //既に先頭ノードならば何もしない
 		return;
 	} else if (_isLast) {  //末尾ノードならば、親の指している先頭ノードを前にずらす
-		_pParent -> _pSubFirst = (T*)this;
+		_pParent->_pSubFirst = (T*)this;
 		_pPrev->_isLast = true;
 		_isFirst = true;
 		_isLast= false;
-		_pNext -> _isFirst = false;
+		_pNext->_isFirst = false;
 	} else { //中間ノード時
 		//両隣のノード同士を繋ぐ
-		_pPrev -> _pNext = _pNext;
-		_pNext -> _pPrev = _pPrev;
+		_pPrev->_pNext = _pNext;
+		_pNext->_pPrev = _pPrev;
 		//末尾ノードと先頭ノードの間にもぐりこませる
-		_pParent -> _pSubFirst -> _isFirst = false;
+		_pParent->_pSubFirst->_isFirst = false;
 		_isFirst = true;
-		_pPrev = _pParent -> _pSubFirst -> _pPrev;
-		_pNext = _pParent -> _pSubFirst;
-		_pParent -> _pSubFirst -> _pPrev -> _pNext = (T*)this;
-		_pParent -> _pSubFirst -> _pPrev = (T*)this;
-		_pParent -> _pSubFirst = (T*)this;
+		_pPrev = _pParent->_pSubFirst->_pPrev;
+		_pNext = _pParent->_pSubFirst;
+		_pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
+		_pParent->_pSubFirst->_pPrev = (T*)this;
+		_pParent->_pSubFirst = (T*)this;
 	}
 }
 
@@ -433,13 +433,13 @@ T* GgafNode<T>::getSub(std::string prm_sub_actor_name) {
 	}
 	_pNodeTemp = _pSubFirst;
 	do {
-		if(_pNodeTemp -> getName() == prm_sub_actor_name) {
+		if(_pNodeTemp->getName() == prm_sub_actor_name) {
 			break;
 		}
-		if (_pNodeTemp -> _isLast) {
+		if (_pNodeTemp->_isLast) {
 			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name="+prm_sub_actor_name+")");
 		} else {
-			_pNodeTemp = _pNodeTemp -> _pNext;
+			_pNodeTemp = _pNodeTemp->_pNext;
 		}
 	} while(true);
 	return _pNodeTemp;
@@ -458,13 +458,13 @@ bool GgafNode<T>::hasSub(std::string prm_sub_actor_name) {
 	} else {
 		_pNodeTemp = _pSubFirst;
 		do {
-			if(_pNodeTemp -> getName() == prm_sub_actor_name) {
+			if(_pNodeTemp->getName() == prm_sub_actor_name) {
 				return true;
 			}
-			if (_pNodeTemp -> _isLast) {
+			if (_pNodeTemp->_isLast) {
 				return false;
 			} else {
-				_pNodeTemp = _pNodeTemp -> _pNext;
+				_pNodeTemp = _pNodeTemp->_pNext;
 			}
 		} while(true);
 	}
@@ -476,19 +476,19 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
 	if (prm_pSub->_pParent != NULL) {
 		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属("<<prm_pSub->_pParent->_name<<"に所属)しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
 	}
-	prm_pSub -> _pParent = (T*)this;
-	prm_pSub -> _isLast = true;
-	//prm_pSub -> _pScene_Platform = _pScene_Platform;
+	prm_pSub->_pParent = (T*)this;
+	prm_pSub->_isLast = true;
+	//prm_pSub->_pScene_Platform = _pScene_Platform;
 
 	if (_pSubFirst == NULL) {
-		prm_pSub -> _isFirst = true;
+		prm_pSub->_isFirst = true;
 		_pSubFirst = prm_pSub;
 		_pSubFirst->_pNext = prm_pSub;
 		_pSubFirst->_pPrev = prm_pSub;
 	} else {
-		prm_pSub -> _isFirst = false;
+		prm_pSub->_isFirst = false;
 		T* pSubLast = _pSubFirst->_pPrev;
-		pSubLast -> _isLast = false;
+		pSubLast->_isLast = false;
 		pSubLast->_pNext = prm_pSub;
 		prm_pSub->_pPrev = pSubLast;
 		prm_pSub->_pNext = _pSubFirst;
@@ -539,17 +539,17 @@ GgafNode<T>::~GgafNode() {
 			_pSubFirst = NULL;
 		} else {
 			//子ノードは２つ以上の場合
-			T* pSubLast = _pSubFirst -> _pPrev;
-			T* pSubLastPrev = pSubLast -> _pPrev;
+			T* pSubLast = _pSubFirst->_pPrev;
+			T* pSubLastPrev = pSubLast->_pPrev;
 			while(true) {
 				DELETE_IMPOSSIBLE_NULL(pSubLast); //末尾からdelete
-				if (pSubLastPrev -> _isFirst) {
+				if (pSubLastPrev->_isFirst) {
 					DELETE_IMPOSSIBLE_NULL(_pSubFirst); //pSubLastPrev == _pSubFirst である
 					_pSubFirst = NULL;
 					break;
 				}
 				pSubLast = pSubLastPrev;
-				pSubLastPrev = pSubLastPrev -> _pPrev;
+				pSubLastPrev = pSubLastPrev->_pPrev;
 			}
 		}
 	}
@@ -561,7 +561,7 @@ GgafNode<T>::~GgafNode() {
 		T* pMyPrev = _pPrev;
 		if (_isFirst && _isLast) {
 			//連結しているノードが無く、自分のみ場合
-			_pParent -> _pSubFirst = NULL;
+			_pParent->_pSubFirst = NULL;
 			_pParent = NULL;
 			_pNext = (T*)this;
 			_pPrev = (T*)this;
@@ -569,14 +569,14 @@ GgafNode<T>::~GgafNode() {
 		} else {
 			//連結がから抜け出す場合
 			//両隣のノード同士を繋ぎ、自分を指さなくする。
-			pMyPrev -> _pNext = pMyNext;
-			pMyNext -> _pPrev = pMyPrev;
+			pMyPrev->_pNext = pMyNext;
+			pMyNext->_pPrev = pMyPrev;
 			if (_isLast) {
-				pMyPrev -> _isLast = true;
+				pMyPrev->_isLast = true;
 			}
 			if (_isFirst) {
-				pMyNext -> _isFirst = true;
-				_pParent -> _pSubFirst = pMyNext;
+				pMyNext->_isFirst = true;
+				_pParent->_pSubFirst = pMyNext;
 
 			}
 			_pParent = NULL;

@@ -24,29 +24,29 @@ GgafDx9PlateModel::GgafDx9PlateModel(char* prm_platemodel_name) : GgafDx9Model(p
 
 HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	TRACE("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
-	//GgafDx9God::_pID3DDevice9 ->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
+	//GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
 	GgafDx9PlateActor* pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;
 
 
 	//α設定（効かないのでコメント）
 //	_pD3DMaterial9->Diffuse.a = pPlateActor_Target->_fAlpha;
 //	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
-//	GgafDx9God::_pID3DDevice9 -> SetMaterial(_pD3DMaterial9);
+//	GgafDx9God::_pID3DDevice9->SetMaterial(_pD3DMaterial9);
 
 	if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
-		GgafDx9God::_pID3DDevice9 -> SetTexture( 0, _pTexture->getResource() );
+		GgafDx9God::_pID3DDevice9->SetTexture( 0, _pTexture->getResource() );
 		//ここらへんで　this が 0x0h になる
-		GgafDx9God::_pID3DDevice9 -> SetFVF(GgafDx9PlateModel::FVF);
+		GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PlateModel::FVF);
 
 	} else {
 		//ちょっとだけ早いのよ！
 	}
-	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
-	GgafDx9God::_pID3DDevice9 -> DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Vertec_unit);
-	//GgafDx9God::_pID3DDevice9 -> SetRenderState(D3DRS_LIGHTING, TRUE);
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
+	GgafDx9God::_pID3DDevice9->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex, pPlateActor_Target->_iSize_Vertec_unit);
+	//GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
 
 	//↑＜2008/10/24 の脳みそ＞
-	//GgafDx9God::_pID3DDevice9 -> SetMaterial で色をマテリアルで変更できると思っていた。
+	//GgafDx9God::_pID3DDevice9->SetMaterial で色をマテリアルで変更できると思っていた。
 	//だがしかし、いろいろやってもできなかった。 トランスフォーム済み（FVF に D3DFVF_XYZRHW 付）はマテリアルが適用されない（αができない）・・・
 	//というか、マテリアル適用は固定パイプラインの工程内ということなのか、よくわからない。
 	//しかし頂点カラーは適用される、これはどこで行われるのか。レンダの最後らへんで頂点カラーは適用されるということなのか？

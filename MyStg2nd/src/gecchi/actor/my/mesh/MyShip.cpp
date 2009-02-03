@@ -143,14 +143,14 @@ void MyShip::initialize() {
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->tear());
 	getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
 
-	_pChecker -> useHitAreaBoxNum(1);
-	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
-	_pGeoMover -> setMoveVelocity(0);
+	_pChecker->useHitAreaBoxNum(1);
+	_pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+	_pGeoMover->setMoveVelocity(0);
 
 
-	//_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-//	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Y,1000);
-//	_pGeoMover -> setAxisRotAngleVelocity(AXIS_Z,1300);
+	//_pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
+//	_pGeoMover->setAxisRotAngleVelocity(AXIS_Y,1000);
+//	_pGeoMover->setAxisRotAngleVelocity(AXIS_Z,1300);
 
 
 }
@@ -194,8 +194,8 @@ void MyShip::processBehavior() {
 	_dwFrameXYTurboMove++;
 	if (_dwFrameTurboMove > _dwIntervalFinshTurbo) {
 		_wayTurbo = WAY_NONE;
-		_pGeoMover -> setMoveVelocityRenge(0, 10000000);
-		_pGeoMover -> setMoveVelocity(0);
+		_pGeoMover->setMoveVelocityRenge(0, 10000000);
+		_pGeoMover->setMoveVelocity(0);
 	}
 
 
@@ -259,7 +259,7 @@ void MyShip::processBehavior() {
 
 
 	//À•W‚É”½‰f
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 }
 
 
@@ -276,50 +276,50 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 void MyShip::beginTurboXY(int prm_VB) {
 	_dwFrameTurboMove = 0;
 	_dwFrameXYTurboMove = 0;
-	_pGeoMover -> setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
-	_pGeoMover -> setMoveVelocity(_iMvVelo_BeginMT);
-	_pGeoMover -> setMoveAcceleration(_iMvAcce_MT);
+	_pGeoMover->setMoveVelocityRenge(_iMvBtmVelo_MT, 10000000);
+	_pGeoMover->setMoveVelocity(_iMvVelo_BeginMT);
+	_pGeoMover->setMoveAcceleration(_iMvAcce_MT);
 
 	switch(prm_VB) {
 
 	case VB_UP_STC:
 		_wayTurbo = WAY_UP;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE90, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE90, 0);
 		break;
 
 	case VB_UP_RIGHT_STC:
 		_wayTurbo = WAY_UP_FRONT;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE45, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE45, 0);
 		break;
 
 	case VB_UP_LEFT_STC:
 		_wayTurbo = WAY_UP_BEHIND;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE135, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE135, 0);
 		break;
 
 	case VB_LEFT_STC:
 		_wayTurbo = WAY_BEHIND;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE180, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE180, 0);
 		break;
 
 	case VB_RIGHT_STC:
 		_wayTurbo = WAY_FRONT;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE0, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE0, 0);
 		break;
 
 	case VB_DOWN_STC:
 		_wayTurbo = WAY_DOWN;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE270, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE270, 0);
 		break;
 
 	case VB_DOWN_RIGHT_STC:
 		_wayTurbo = WAY_DOWN_FRONT;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE315, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE315, 0);
 		break;
 
 	case VB_DOWN_LEFT_STC:
 		_wayTurbo = WAY_DOWN_BEHIND;
-		_pGeoMover -> setMoveAngleRzRy(ANGLE225, 0);
+		_pGeoMover->setMoveAngleRzRy(ANGLE225, 0);
 		break;
 
 	default:
@@ -379,20 +379,20 @@ void MyShip::controlTurboXY(int prm_VB) {
 
 	case VB_UP_STC:
 		if (_wayTurbo == WAY_DOWN) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y += _iMoveSpeed;
 		}
 		break;
 
 	case VB_UP_RIGHT_STC:
 		if (_wayTurbo == WAY_DOWN_BEHIND) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y += _iMoveSpeed * NANAME;
 			_X += _iMoveSpeed * NANAME;
 		}
@@ -400,10 +400,10 @@ void MyShip::controlTurboXY(int prm_VB) {
 
 	case VB_UP_LEFT_STC:
 		if (_wayTurbo == WAY_DOWN_FRONT) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y += _iMoveSpeed * NANAME;
 			_X -= _iMoveSpeed * NANAME;
 		}
@@ -411,40 +411,40 @@ void MyShip::controlTurboXY(int prm_VB) {
 
 	case VB_LEFT_STC:
 		if (_wayTurbo == WAY_FRONT) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_X -= _iMoveSpeed;
 		}
 		break;
 
 	case VB_RIGHT_STC:
 		if (_wayTurbo == WAY_BEHIND) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_X += _iMoveSpeed;
 		}
 		break;
 
 	case VB_DOWN_STC:
 		if (_wayTurbo == WAY_UP) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y -= _iMoveSpeed;
 		}
 		break;
 
 	case VB_DOWN_RIGHT_STC:
 		if (_wayTurbo == WAY_UP_BEHIND) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y -= _iMoveSpeed * NANAME;
 			_X += _iMoveSpeed * NANAME;
 		}
@@ -452,10 +452,10 @@ void MyShip::controlTurboXY(int prm_VB) {
 
 	case VB_DOWN_LEFT_STC:
 		if (_wayTurbo == WAY_UP_FRONT) {
-			_pGeoMover -> setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
-			_pGeoMover -> addMoveVelocity(_iMvAcce_EOD_MT);
+			_pGeoMover->setMoveVelocityRenge(-1*_iMoveSpeed, 10000000);
+			_pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
 		} else {
-			_pGeoMover -> setMoveVelocityRenge(0, 10000000);
+			_pGeoMover->setMoveVelocityRenge(0, 10000000);
 			_Y -= _iMoveSpeed * NANAME;
 			_X -= _iMoveSpeed * NANAME;
 		}
@@ -507,9 +507,9 @@ void MyShip::turnFaceXYMove(int prm_VB) {
 void MyShip::turnFaceNeutralXY() {
 	//ƒ[ƒ‹i‹ÂŠpA˜ëŠpj‚ðŒ³‚É–ß‚·
 	if (_needTurnFaceNeutralXY) {
-		_pGeoMover -> setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
-		_pGeoMover -> setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
-		_pGeoMover -> setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
+		_pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Z, -1*_angRZTopVelo_MNY, _angRZTopVelo_MNY);
+		_pGeoMover->setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO))*_angRZAcce_MNY);
+		_pGeoMover->setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
 		_needTurnFaceNeutralXY = false;
 		_needTurnFaceXYMove = true;
 	}
@@ -536,7 +536,7 @@ void MyShip::equipOption() {
 	}
 	MyOption* pOption = (MyOption*)_pSubFirst;
 	for (int i = 0; i < _state.eq_option; i++) {
-		pOption = (MyOption*)(pOption -> getNext());
+		pOption = (MyOption*)(pOption->getNext());
 	}
 	if (_state.eq_option == 0) {
 		pOption->setRadicalActor(this);

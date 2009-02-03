@@ -48,7 +48,7 @@ void GgafDx9Sound::release() {
 	DELETE_IMPOSSIBLE_NULL(_pBgmManager);
 	DELETE_IMPOSSIBLE_NULL(_pSeManager);
 
-//	_pC3DSound -> Release();
+//	_pC3DSound->Release();
 //	delete _pC3DSound;
 //	_pC3DSound = NULL;
 }

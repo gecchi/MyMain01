@@ -417,7 +417,7 @@ void GgafDx9God::makeWorldMaterialize() {
 			while(GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
 				Sleep(10);
 			}
-			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+			::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			_TRACE_("正常デバイスロスト処理。Begin");
 			//モデル解放
 			GgafDx9God::_pModelManager->onDeviceLostAll();
@@ -446,7 +446,7 @@ void GgafDx9God::makeWorldMaterialize() {
 
 	if (_deviceLostFlg != true) {
 		//バッファクリア
-		hr = GgafDx9God::_pID3DDevice9 -> Clear(
+		hr = GgafDx9God::_pID3DDevice9->Clear(
 										 0, // クリアする矩形領域の数
 										 NULL, // 矩形領域
 										 D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, // レンダリングターゲットと深度バッファをクリア
@@ -456,7 +456,7 @@ void GgafDx9God::makeWorldMaterialize() {
 										 0 // ステンシルバッファのクリア値
 									 );
 		if ( hr != D3D_OK ) {
-			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9 -> Clear() に失敗しました。", hr);
+			throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->Clear() に失敗しました。", hr);
 		}
 
 		//描画事前処理
@@ -478,9 +478,9 @@ void GgafDx9God::makeWorldMaterialize() {
 void GgafDx9God::makeWorldVisualize() {
 	if (_deviceLostFlg != true) {
 		//バックバッファをプライマリバッファに転送
-		//if (GgafDx9God::_pID3DDevice9 -> Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
+		//if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
 
-		HRESULT hr = GgafDx9God::_pID3DDevice9 -> Present(NULL,NULL,NULL,NULL);
+		HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL,NULL,NULL,NULL);
 
 		if (hr == D3DERR_DEVICELOST) {
 			//出刃異巣露酢斗！
@@ -495,7 +495,7 @@ void GgafDx9God::makeWorldVisualize() {
 			while(GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
 				Sleep(10);
 			}
-			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+			::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			_TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
 			//モデル解放
 			GgafDx9God::_pModelManager->onDeviceLostAll();
@@ -533,7 +533,7 @@ GgafDx9God::~GgafDx9God() {
 		}
 
 		//工場掃除
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			GgafFactory::clean();
 			//ゴミ箱
 			GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
@@ -543,7 +543,7 @@ GgafDx9God::~GgafDx9God() {
 
 		//世界で生きている物も掃除
 		Sleep(20);
-		::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+		::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 			DELETE_IMPOSSIBLE_NULL(_pWorld);
 		::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
     }

@@ -31,13 +31,13 @@ EnemyMeshShot001::EnemyMeshShot001(string prm_name, string prm_model) : DefaultM
 }
 
 void EnemyMeshShot001::initialize() {
-	_pGeoMover -> setXMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
-	_pGeoMover -> _synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
-	_pGeoMover -> _synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
+	_pGeoMover->setXMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
+	_pGeoMover->_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
+	_pGeoMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
 
 
-	_pChecker -> useHitAreaBoxNum(1);
-	_pChecker -> setHitAreaBox(0, -10000, -10000, 10000, 10000);
+	_pChecker->useHitAreaBoxNum(1);
+	_pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
 	setBumpableAlone(true);
 }
 
@@ -46,8 +46,8 @@ void EnemyMeshShot001::initialize() {
 void EnemyMeshShot001::processBehavior() {
 	if (switchedToPlay()) {
 		//oŒ»
-		_pGeoMover -> setMoveVelocity(_iMoveVelocity_1st);
-		_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_1st);
+		_pGeoMover->setMoveVelocity(_iMoveVelocity_1st);
+		_pGeoMover->setMoveAcceleration(_iMoveAcceleration_1st);
 
 		_dwFrame_switchedToPlay = 0;
 		setBumpableAlone(true);
@@ -69,8 +69,8 @@ void EnemyMeshShot001::processBehavior() {
 //				angRz_Target,
 //				angRy_Target
 //				);
-//		_pGeoMover -> setMoveAngleRz(angRz_Target);
-//		_pGeoMover -> setMoveAngleRy(angRy_Target);
+//		_pGeoMover->setMoveAngleRz(angRz_Target);
+//		_pGeoMover->setMoveAngleRy(angRy_Target);
 
 		_dwFrame_switchedToPlay++;
 		//•ûŒü“]Š·ŠJn
@@ -85,28 +85,28 @@ void EnemyMeshShot001::processBehavior() {
 					angRy_Target
 				);
 			if (_pGeoMover->getDistanceFromMoveAngleRzTo(angRz_Target, TURN_CLOSE_TO) > 0) {
-				_pGeoMover -> setMoveAngleRzVelocity(_angVelocity_Turn);
+				_pGeoMover->setMoveAngleRzVelocity(_angVelocity_Turn);
 			} else {
-				_pGeoMover -> setMoveAngleRzVelocity(-1 * _angVelocity_Turn);
+				_pGeoMover->setMoveAngleRzVelocity(-1 * _angVelocity_Turn);
 			}
 			if (_pGeoMover->getDistanceFromMoveAngleRyTo(angRy_Target, TURN_CLOSE_TO) > 0) {
-				_pGeoMover -> setMoveAngleRyVelocity(_angVelocity_Turn);
+				_pGeoMover->setMoveAngleRyVelocity(_angVelocity_Turn);
 			} else {
-				_pGeoMover -> setMoveAngleRyVelocity(-1 * _angVelocity_Turn);
+				_pGeoMover->setMoveAngleRyVelocity(-1 * _angVelocity_Turn);
 			}
-			_pGeoMover -> setTargetMoveAngleRy(angRy_Target);
-			_pGeoMover -> setTargetMoveAngleRz(angRz_Target);
+			_pGeoMover->setTargetMoveAngleRy(angRy_Target);
+			_pGeoMover->setTargetMoveAngleRz(angRz_Target);
 
-			_pGeoMover -> setMoveAcceleration(_iMoveAcceleration_2nd);
+			_pGeoMover->setMoveAcceleration(_iMoveAcceleration_2nd);
 		}
 
 
 		//•ûŒü“]Š·I—¹
 		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
-			_pGeoMover -> setMoveAngleRzVelocity(0);
-			_pGeoMover -> setMoveAngleRyVelocity(0);
-			_pGeoMover -> _auto_move_angle_ry_target_Flg = false;
-			_pGeoMover -> _auto_move_angle_rz_target_Flg = false;
+			_pGeoMover->setMoveAngleRzVelocity(0);
+			_pGeoMover->setMoveAngleRyVelocity(0);
+			_pGeoMover->_auto_move_angle_ry_target_Flg = false;
+			_pGeoMover->_auto_move_angle_rz_target_Flg = false;
 		}
 
 
@@ -116,7 +116,7 @@ void EnemyMeshShot001::processBehavior() {
 
 	//nextAnimationFrame();
 	//À•W‚É”½‰f
-	_pGeoMover -> behave();
+	_pGeoMover->behave();
 
 }
 
