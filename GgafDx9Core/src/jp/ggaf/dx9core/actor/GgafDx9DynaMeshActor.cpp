@@ -29,9 +29,6 @@ void GgafDx9DynaMeshActor::setAlpha(float prm_fAlpha) {
 	}
 }
 GgafDx9DynaMeshActor::~GgafDx9DynaMeshActor() {
-	//↓ここをコメントにしたらナゼ落ちるのか理由をかんがえろ！
 	RELEASE_IMPOSSIBLE_NULL(_pModelLead);
-
-
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }
