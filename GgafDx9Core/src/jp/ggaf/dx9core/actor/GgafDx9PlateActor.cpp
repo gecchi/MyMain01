@@ -100,6 +100,6 @@ void GgafDx9PlateActor::setPatternNo(int prm_iPatternNo) {
 
 
 GgafDx9PlateActor::~GgafDx9PlateActor() {
-	RELEASE_SAFE(_pModelLead);
+	RELEASE_SAFETY(_pModelLead);
 	DELETEARR_IMPOSSIBLE_NULL(_paVertex);
 }

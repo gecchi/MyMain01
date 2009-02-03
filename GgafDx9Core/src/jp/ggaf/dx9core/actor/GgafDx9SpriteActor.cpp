@@ -121,6 +121,6 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
-	RELEASE_SAFE(_pModelLead);
+	RELEASE_SAFETY(_pModelLead);
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

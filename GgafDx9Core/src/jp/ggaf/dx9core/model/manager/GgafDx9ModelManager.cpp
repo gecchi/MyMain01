@@ -388,7 +388,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	//å„énññ
 
 	DELETEARR_IMPOSSIBLE_NULL(paVertex);
-	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
+	RELEASE_SAFETY(pIDirectXFileData);
 	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
 
@@ -507,7 +507,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	prm_pPlateModel->_iPatternNo_Max=iPatternNum-1;
 
 	//å„énññ
-	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileData);
+	RELEASE_SAFETY(pIDirectXFileData);
 	RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
 
