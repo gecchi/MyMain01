@@ -496,7 +496,7 @@ void GgafDx9God::makeWorldVisualize() {
 				Sleep(10);
 			}
 			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
-
+			_TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
 			//モデル解放
 			GgafDx9God::_pModelManager->onDeviceLostAll();
 			//全ノードに解放しなさいイベント発令
@@ -504,7 +504,7 @@ void GgafDx9God::makeWorldVisualize() {
 			//デバイスリセットを試みる
 			hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
 			if ( hr != D3D_OK ) {
-				throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
+				throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。", hr);
 			}
 			//デバイス再設定
 			GgafDx9God::initDx9Device();
@@ -517,7 +517,7 @@ void GgafDx9God::makeWorldVisualize() {
 
 			//工場再開
 			GgafFactory::finishRest();
-
+			_TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理End");
 		}
 	}
 }
