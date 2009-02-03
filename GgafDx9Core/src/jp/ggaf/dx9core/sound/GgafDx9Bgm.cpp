@@ -11,8 +11,6 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
 	spOggResource.SetPtr( NEW OggVorbisFile( ogg_filename.c_str() ) );
 	spOggDecoder.SetPtr( NEW OggDecoder( spOggResource ) );
 	pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
-
-	_pBgm_Next = NULL;
 }
 
 void GgafDx9Bgm::play(bool prm_isLoop) {

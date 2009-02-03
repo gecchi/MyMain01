@@ -21,35 +21,35 @@ private:
 	 * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	GgafDx9MeshModel* createMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
+	GgafDx9MeshModel* createMeshModel(char* prm_model_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9MeshModel オブジェクトを生成。 .
 	 * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	GgafDx9MeshModel* createDynaMeshModel(std::string prm_model_name);
+	GgafDx9MeshModel* createDynaMeshModel(char* prm_model_name);
 
 	/**
 	 * GgafDx9SpriteModel オブジェクトを生成。 .
 	 * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
 	 * @param prm_model_name モデル定義の識別名。".x"を追加するとスプライト定義のXファイル名になる。
 	 */
-	GgafDx9SpriteModel* createSpriteModel(std::string prm_model_name);
+	GgafDx9SpriteModel* createSpriteModel(char* prm_model_name);
 
 	/**
 	 * GgafDx9SquareModel オブジェクトを生成。 .
 	 * 1*1*1 立方体のモデル<BR>
 	 * @param prm_model_name モデル定義の識別名。
 	 */
-	GgafDx9SquareModel* createSquareModel(std::string prm_model_name);
+	GgafDx9SquareModel* createSquareModel(char* prm_model_name);
 
 	/**
 	 * GgafDx9PlateModel オブジェクトを生成。 .
 	 * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
 	 * @param prm_model_name モデル定義の識別名。".x"を追加すると定義のXファイル名になる。
 	 */
-	GgafDx9PlateModel* createPlateModel(std::string prm_model_name);
+	GgafDx9PlateModel* createPlateModel(char* prm_model_name);
 
 public:
 	/**
@@ -115,7 +115,7 @@ public:
 	 * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
 	 */
-	GgafDx9MeshModel* restoreMeshModel(std::string prm_model_name, DWORD prm_dwOptions);
+	GgafDx9MeshModel* restoreMeshModel(char* prm_model_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9SpriteModelオブジェクトを取得。 .
@@ -127,7 +127,7 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	GgafDx9SpriteModel* restoreSpriteModel(std::string prm_model_name);
+	GgafDx9SpriteModel* restoreSpriteModel(char* prm_model_name);
 
 	/**
 	 * GgafDx9SquareModelオブジェクトを取得。 .
@@ -139,7 +139,7 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	GgafDx9SquareModel* restoreSquareModel(std::string prm_model_name);
+	GgafDx9SquareModel* restoreSquareModel(char* prm_model_name);
 
 	/**
 	 * GgafDx9PlateModelオブジェクトを取得。<BR>
@@ -151,7 +151,7 @@ public:
 	 * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
 	 * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
 	 */
-	GgafDx9PlateModel* restorePlateModel(std::string prm_model_name);
+	GgafDx9PlateModel* restorePlateModel(char* prm_model_name);
 
 	/** 現在モデルID */
 	int _id_max;

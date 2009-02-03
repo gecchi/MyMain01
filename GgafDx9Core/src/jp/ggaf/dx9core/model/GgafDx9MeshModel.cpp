@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9MeshModel::GgafDx9MeshModel(string prm_model_name, DWORD prm_dwOptions) : GgafDx9Model(prm_model_name) {
+GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name, DWORD prm_dwOptions) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9MeshModel::GgafDx9MeshModel(" <<  prm_model_name << ")");
 	_pID3DXMesh      = NULL;
 	_paD3DMaterial9_default  = NULL;

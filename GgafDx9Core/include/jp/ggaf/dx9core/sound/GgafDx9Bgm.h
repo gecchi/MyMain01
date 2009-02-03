@@ -17,7 +17,6 @@ namespace GgafDx9Core {
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
 	char* _ogg_name;
-	GgafDx9Core::GgafDx9Bgm* _pBgm_Next;
 	Dix::PCMPlayer* pPcmPlayer;
 	Dix::sp< Dix::OggVorbisFile > spOggResource;
 	Dix::sp< Dix::OggDecoder > spOggDecoder;

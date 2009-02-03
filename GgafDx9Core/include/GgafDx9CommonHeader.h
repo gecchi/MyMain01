@@ -52,11 +52,11 @@
 
 
 
-#include "ogg/os_types.h"
-#include "ogg/ogg.h"
-#include "vorbis/codec.h"
-#include "vorbis/vorbisenc.h"
-#include "vorbis/vorbisfile.h"
+//#include "ogg/os_types.h"
+//#include "ogg/ogg.h"
+//#include "vorbis/codec.h"
+//#include "vorbis/vorbisenc.h"
+//#include "vorbis/vorbisfile.h"
 
 #include "OggDecoder.h"
 #include "OggVorbisMemory.h"

@@ -15,8 +15,8 @@ public:
 	/** ID */
 	int _id;
 
-	/** モデル定義の識別名。 */
-	std::string			_model_name;
+	/** モデル定義の識別名。(50文字まで) */
+	char* _model_name;
 	/** 次のGgafDx9Modelへのポインタ。終端はNULL */
 	//GgafDx9Model*	_pModel_Next;
 
@@ -24,7 +24,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
-	GgafDx9Model(std::string prm_model_name);
+	GgafDx9Model(char* prm_model_name);
 
 
 

@@ -5,15 +5,16 @@ using namespace GgafDx9Core;
 
 
 
-GgafDx9Model::GgafDx9Model(string prm_model_name) : GgafObject() {
+GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     TRACE("GgafDx9Model::GgafDx9Model(" <<  prm_model_name << ")");
     _id = GgafDx9God::_pModelManager->getNextId();
-	_model_name = prm_model_name;
-	//_pModel_Next = NULL;
+    _model_name = new char[51];
+	strcpy(_model_name, prm_model_name);
 }
 
 GgafDx9Model::~GgafDx9Model() {
     TRACE("GgafDx9Model::~GgafDx9Model() " <<  _model_name << " start-->");
+    delete[] _model_name;
     TRACE("GgafDx9Model::~GgafDx9Model() " <<  _model_name << " <--end");
 }
 

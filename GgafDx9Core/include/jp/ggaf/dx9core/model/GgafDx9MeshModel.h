@@ -30,7 +30,7 @@ public:
 	 * @param prm_dwOptions D3DXLoadMeshFromXのオプション
 	 * @return
 	 */
-	GgafDx9MeshModel(std::string prm_meshmodel_name, DWORD prm_dwOptions);
+	GgafDx9MeshModel(char* prm_meshmodel_name, DWORD prm_dwOptions);
 
 	/**
 	 * GgafDx9MeshModelオブジェクトの描画<BR>

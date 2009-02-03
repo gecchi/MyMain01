@@ -68,14 +68,14 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
 	return model;
 }
 
-GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(string prm_model_name, DWORD prm_dwOptions) {
+GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name, DWORD prm_dwOptions) {
 	GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name, prm_dwOptions);
 	restoreMeshModel(pMeshModel_New);
 	return pMeshModel_New;
 }
 
 
-GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(string prm_model_name) {
+GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name) {
 
 	GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
 	restoreSpriteModel(pSpriteModel_New);
@@ -83,14 +83,14 @@ GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(string prm_model_name
 }
 
 
-GgafDx9PlateModel* GgafDx9ModelManager::createPlateModel(string prm_model_name) {
+GgafDx9PlateModel* GgafDx9ModelManager::createPlateModel(char* prm_model_name) {
 	GgafDx9PlateModel* pPlateModel_New = NEW GgafDx9PlateModel(prm_model_name);
 	restorePlateModel(pPlateModel_New);
 	return pPlateModel_New;
 }
 
 
-GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(string prm_model_name) {
+GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name) {
 	GgafDx9SquareModel* pSquareModel_New = NEW GgafDx9SquareModel(prm_model_name);
 	restoreSquareModel(pSquareModel_New);
 	return pSquareModel_New;
@@ -105,7 +105,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	D3DMATERIAL9* 		paD3DMaterial9;  //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
 	GgafDx9TextureLead**	papTexture;          //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
 	DWORD               dwNumMaterials;
-	string				xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + prm_pMeshModel->_model_name + ".x";
+	string				xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x";
 
 	LPD3DXBUFFER pID3DXBuffer;	//受け取り用バッファ（マテリアル用）
 	HRESULT hr;
@@ -223,7 +223,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 	prm_pSpriteModel->_pD3DMaterial9_default->Ambient.a = 1.0f;
 
 	HRESULT	hr;
-	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pSpriteModel->_model_name + ".x";
+	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".x";
 
 	//スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -396,7 +396,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	_TRACE_("GgafDx9ModelManager::restorePlateModel(" << prm_pPlateModel->_model_name << ")");
 
 	HRESULT	hr;
-	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + prm_pPlateModel->_model_name + ".x";
+	string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPlateModel->_model_name) + ".x";
 
 //	prm_pPlateModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
 //	ZeroMemory( prm_pPlateModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );

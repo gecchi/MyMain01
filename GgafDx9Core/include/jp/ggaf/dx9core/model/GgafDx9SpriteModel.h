@@ -44,7 +44,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param prm_spritemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
 	 */
-	GgafDx9SpriteModel(std::string prm_spritemodel_name);
+	GgafDx9SpriteModel(char* prm_spritemodel_name);
 
 public:
 	/** 全アニメパターン数(0～) */

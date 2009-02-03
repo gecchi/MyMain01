@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 
 DWORD GgafDx9PlateModel::FVF =  (D3DFVF_XYZRHW|D3DFVF_DIFFUSE|D3DFVF_TEX1);
 
-GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
+GgafDx9PlateModel::GgafDx9PlateModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9PlateModel::GgafDx9PlateModel(" <<  _model_name << ")");
 	_fSize_PlateModelWidth  = 32.0f;
 	_fSize_PlateModelHeight = 32.0f;
@@ -14,7 +14,6 @@ GgafDx9PlateModel::GgafDx9PlateModel(string prm_platemodel_name) : GgafDx9Model(
 	_iColNum_TextureSplit    = 1;
 	_iPatternNo_Max = 1;
 	_pTexture = NULL;
-	//_pModel_Next = NULL;
 	_paRectUV = NULL;
 	_pRectUV_drawlast = NULL;
 }
