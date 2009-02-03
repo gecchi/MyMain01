@@ -57,6 +57,10 @@ public:
 
 	/** Šˆ“®ƒtƒ‰ƒO(_‚ª‘€ì‚·‚é) */
 	static bool _isWorking;
+	/** ‹x‚Şƒtƒ‰ƒO */
+	static bool _isRest;
+	/** ‹x‚Å‚¢‚éƒtƒ‰ƒO */
+	static bool _isResting;
 
 	/** Š®‘S“XI‚¢ */
 	static bool _isFinish;
@@ -116,6 +120,25 @@ public:
 	 */
 	static unsigned __stdcall work(void* prm_arg);
 
+
+	static void beginRest() {
+		_TRACE_("Hê‹xŒe‚µ‚È‚³‚¢");
+		_isRest = true;
+	}
+
+	static bool isResting() {
+		if (_isResting) {
+			_TRACE_("isResting Hê‹x~ó‘Ô");
+		} else {
+			_TRACE_("isResting Hê‰Ò“­ó‘Ô");
+		}
+		return _isResting;
+	}
+
+	static void finishRest() {
+		_TRACE_("Hê‹xŒe‚¨I‚¢I");
+		_isRest = false;
+	}
 };
 
 

@@ -18,7 +18,7 @@ protected:
 public:
 	GgafResourceManager<T>* _pManager;
 
-	/** Ž¯•Ê–¼(29•¶Žš‚Ü‚Å) */
+	/** Ž¯•Ê–¼(50•¶Žš‚Ü‚Å) */
 	char* _idstr;
 	/** Žg‚¢‚Ü‚í‚·Ž‘Œ¹ */
 	T* _pResource;
@@ -64,7 +64,7 @@ GgafResourceLead<T>::GgafResourceLead(char* prm_idstr, T* prm_pResource) : GgafO
 	_pNext = NULL;
 	_pManager = NULL;
 	_iLeadNum = 0;
-	_idstr = new char[30];
+	_idstr = new char[51];
 	strcpy(_idstr, prm_idstr);
 }
 
@@ -129,7 +129,7 @@ int GgafResourceLead<T>::Release() {
 		if (r != NULL) {
 			pCurrent->processReleaseResource(r); //–{“–‚Ì‰ð•ú
 		}
-		delete _idstr;
+		delete[] _idstr;
 		delete this;
 		return 0;
 	} else {

@@ -8,6 +8,9 @@ GgafGod* GgafFactory::_pGod = NULL;
 GgafOrder* GgafFactory::ROOT_ORDER = NULL;
 GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool       GgafFactory::_isWorking = true;
+bool       GgafFactory::_isRest = false;
+bool       GgafFactory::_isResting = false;
+
 bool       GgafFactory::_isFinish  = false;
 int GgafFactory::_s_iCountCleanedNode = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
@@ -69,6 +72,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
 		throw_GgafCriticalException("GgafFactory::obtain Error! 注文はNULLです。orederとobtainの対応が取れていません)");
 	}
 	while(_isWorking) {
+
 		if (pOrder->_id == prm_id) {
 			TRACE2("GgafFactory::obtain ＜客＞ こんにちは、["<<prm_id<<"]を取りに来ましたよっと。");
 			while(_isWorking) {
@@ -162,6 +166,14 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 		static GgafObject* pObject;
 		static GgafOrder* pOrder_InManufacturing_save;
 		while(_isWorking) {
+
+			if (_isRest) {
+				_isResting = true;
+				Sleep(20);
+				continue;
+			} else {
+				_isResting = false;
+			}
 
 			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 			if (CREATING_ORDER != NULL) {

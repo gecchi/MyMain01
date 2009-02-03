@@ -115,7 +115,7 @@ GgafResourceLead<T>* GgafResourceManager<T>::lead(char* prm_idstr) {
 	GgafResourceLead<T>* pObj = find(prm_idstr);
 	//–¢¶¬‚È‚ç‚Î¶¬
 	if (pObj == NULL) {
-		T* pResource = createResource(prm_idstr);
+		T* pResource = createResource(prm_idstr);  //pObj->_idstr ‚ð prm_idstr ‚Æ‚µ‚Ä‚Í‘Ê–ÚB
 		pObj = createResourceLead(prm_idstr, pResource);
 		pObj->_iLeadNum = 1;
 		add(pObj);
