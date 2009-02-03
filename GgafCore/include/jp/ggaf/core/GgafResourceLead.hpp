@@ -59,7 +59,7 @@ public:
 
 template<class T>
 GgafResourceLead<T>::GgafResourceLead(char* prm_idstr, T* prm_pResource) : GgafObject() {
-	_TRACE_("GgafResourceLead::GgafResourceLead(" <<  prm_idstr << ")");
+	TRACE("GgafResourceLead::GgafResourceLead(" <<  prm_idstr << ")");
     _pResource = prm_pResource;
 	_pNext = NULL;
 	_pManager = NULL;
@@ -84,7 +84,7 @@ int GgafResourceLead<T>::Release() {
 		if (pCurrent == this) {
 			//発見した場合
 			int rnum = _iLeadNum;
-			_TRACE_("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum << "Lead] 発見したので開始");
+			TRACE("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum << "Lead] 発見したので開始");
 
 			if (rnum == 1) {//最後の参照だった場合
 				//死に行く宿めであるので、保持リストから離脱を行なう
@@ -107,13 +107,13 @@ int GgafResourceLead<T>::Release() {
 						pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
 					}
 				}
-				_TRACE_("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] 最後の参照のため解放します。");
+				TRACE("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] 最後の参照のため解放します。");
 				_iLeadNum = 0;
 			} else if (rnum > 0) {
-				_TRACE_("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] まだ残ってます");
+				TRACE("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] まだ残ってます");
 				_iLeadNum--;
 			} else if (rnum < 0) {
-				_TRACE_("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
+				TRACE("GgafResourceManager::releaseResourceLead["<<_idstr<<"←"<<rnum<<"Lead] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
 				_iLeadNum = 0; //とりあえず解放
 			}
 			break;

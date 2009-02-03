@@ -78,7 +78,7 @@ template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
 _manager_name(prm_manager_name)
 {
-	_TRACE_("GgafResourceManager<T>::GgafResourceManager("<<prm_manager_name<<")");
+	TRACE("GgafResourceManager<T>::GgafResourceManager("<<prm_manager_name<<")");
 	_pTop = NULL;
 }
 
@@ -119,11 +119,11 @@ GgafResourceLead<T>* GgafResourceManager<T>::lead(char* prm_idstr) {
 		pObj = createResourceLead(prm_idstr, pResource);
 		pObj->_iLeadNum = 1;
 		add(pObj);
-		_TRACE_("GgafResourceManager<T>::lead "<<prm_idstr<<"を新規作成して保持に決定");
+		TRACE("GgafResourceManager<T>::lead "<<prm_idstr<<"を新規作成して保持に決定");
 		return pObj;
 	} else {
 		pObj->_iLeadNum ++;
-		_TRACE_("GgafResourceManager<T>::lead "<<prm_idstr<<"はあるので参照カウント."<<pObj->_iLeadNum);
+		TRACE("GgafResourceManager<T>::lead "<<prm_idstr<<"はあるので参照カウント."<<pObj->_iLeadNum);
 		return pObj;
 	}
 }
@@ -136,13 +136,13 @@ GgafResourceLead<T>* GgafResourceManager<T>::lead(const char* prm_idstr) {
 
 template<class T>
 T* GgafResourceManager<T>::createResource(char* prm_idstr) {
-	_TRACE_("GgafResourceManager<T>::createResource "<<prm_idstr<<"を生成しましょう");
+	TRACE("GgafResourceManager<T>::createResource "<<prm_idstr<<"を生成しましょう");
 	return processCreateResource(prm_idstr);
 }
 
 template<class T>
 GgafResourceLead<T>* GgafResourceManager<T>::createResourceLead(char* prm_idstr, T* prm_pResource) {
-	_TRACE_("GgafResourceManager<T>::createResourceLead "<<prm_idstr<<"を生成しましょう");
+	TRACE("GgafResourceManager<T>::createResourceLead "<<prm_idstr<<"を生成しましょう");
 	GgafResourceLead<T>* p = processCreateLead(prm_idstr, prm_pResource);
 	p->_pManager = this; //マネージャ登録
 	return p;
@@ -152,12 +152,12 @@ template<class T>
 void GgafResourceManager<T>::dump() {
 	GgafResourceLead<T>* pCurrent = _pTop;
 	if (_pTop == NULL) {
-		_TRACE_("GgafResourceManager::dump 保持リストにはなにもありません。");
+		TRACE("GgafResourceManager::dump 保持リストにはなにもありません。");
 	} else {
 		GgafResourceLead<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iLeadNum;
-			_TRACE_("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]");
+			TRACE("GgafResourceManager::dump ["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]");
 			pCurrent_Next = pCurrent -> _pNext;
 			if (pCurrent_Next == NULL) {
 				pCurrent = NULL;
@@ -173,15 +173,15 @@ void GgafResourceManager<T>::dump() {
 
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
-	_TRACE_("GgafResourceManager<T>::~GgafResourceManager "<<_manager_name<<" ");
+	TRACE("GgafResourceManager<T>::~GgafResourceManager "<<_manager_name<<" ");
 	GgafResourceLead<T>* pCurrent = _pTop;
 	if (_pTop == NULL) {
-		_TRACE_("GgafResourceManager::GgafResourceManager 保持リストにはなにもありません。");
+		TRACE("GgafResourceManager::GgafResourceManager 保持リストにはなにもありません。");
 	} else {
 		GgafResourceLead<T>* pCurrent_Next;
 		while (pCurrent != NULL) {
 			int rnum = pCurrent->_iLeadNum;
-			_TRACE_("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]が残ってます。強制削除しますが、本来あってはいけません。");
+			TRACE("GgafResourceManager::GgafResourceManager 保持リストに["<<pCurrent->_idstr<<"←"<<rnum<<"Lead]が残ってます。強制削除しますが、本来あってはいけません。");
 
 			T* r = pCurrent->getResource();
 			pCurrent_Next = pCurrent -> _pNext;
