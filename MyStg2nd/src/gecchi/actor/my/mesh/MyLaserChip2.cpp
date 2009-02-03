@@ -346,11 +346,9 @@ void MyLaserChip2::processHappen(int prm_no) {
 	switch (prm_no) {
 
 	case GGAF_EVENT_ON_DEVICE_LOST:
-		_TRACE_("MyLaserChip2::processHappen デバイスロスト発生の解放処理実行");
 		RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip2);
 		break;
 	case GGAF_EVENT_DEVICE_LOST_RESTORE:
-		_TRACE_("MyLaserChip2::processHappen デバイスロスト発生後の復帰処理実行");
 		if (_pIDirect3DVertexBuffer9_MyLaserChip2 == NULL) {
 			_pMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
 		}
