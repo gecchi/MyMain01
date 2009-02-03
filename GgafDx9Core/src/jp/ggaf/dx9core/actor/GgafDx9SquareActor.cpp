@@ -46,5 +46,5 @@ void GgafDx9SquareActor::processDrawMain() {
 }
 
 GgafDx9SquareActor::~GgafDx9SquareActor() {
-	RELEASE_IMPOSSIBLE_NULL(_pModelLead);
+	RELEASE_SAFE(_pModelLead);
 }

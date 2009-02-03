@@ -72,7 +72,7 @@ void GgafDx9PlateModel::restore() {
 void GgafDx9PlateModel::release() {
 	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " start");
 	//GgafDx9ModelManager::_pTextureManager->releaseResourceLead(_pTexture);
-	RELEASE_IMPOSSIBLE_NULL(_pTexture);
+	RELEASE_SAFE(_pTexture);
 	DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
 	_TRACE_("GgafDx9PlateModel::release() " <<  _model_name << " end");
 

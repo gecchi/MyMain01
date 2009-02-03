@@ -14,7 +14,7 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
 
 GgafDx9Model::~GgafDx9Model() {
     TRACE("GgafDx9Model::~GgafDx9Model() " <<  _model_name << " start-->");
-    delete[] _model_name;
+    DELETEARR_IMPOSSIBLE_NULL(_model_name);
     TRACE("GgafDx9Model::~GgafDx9Model() " <<  _model_name << " <--end");
 }
 

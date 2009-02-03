@@ -31,6 +31,6 @@ void GgafDx9MeshActor::processDrawMain() {
 }
 
 GgafDx9MeshActor::~GgafDx9MeshActor() {
-	RELEASE_IMPOSSIBLE_NULL(_pModelLead);
+	RELEASE_SAFE(_pModelLead);
 	DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }
