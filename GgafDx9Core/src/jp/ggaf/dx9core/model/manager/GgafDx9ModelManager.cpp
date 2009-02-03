@@ -122,8 +122,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 		 );
 	if(hr != D3D_OK) {
 		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
-
-//		TRACE(DXGetErrorString9(HRESULT hr));
 	}
 
 	//マテリアルを取り出す
@@ -153,26 +151,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 	for( DWORD i = 0; i < dwNumMaterials; i++) {
 		if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename) > 0 ) {
 			papTexture[i] = (GgafDx9TextureLead*)_pTextureManager->lead(paD3DMaterial9_tmp[i].pTextureFilename);
-//			string texture_filename = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(paD3DMaterial9_tmp[i].pTextureFilename);
-//			hr = D3DXCreateTextureFromFileEx(
-//					GgafDx9God::_pID3DDevice9,   // [in] LPDIRECT3DDEVICE9 pDevice,
-//					texture_filename.c_str(),    // [in] LPCTSTR pSrcFile,
-//					D3DX_DEFAULT,                // [in] UINT Width,
-//					D3DX_DEFAULT,                // [in] UINT Height,
-//					D3DX_DEFAULT,                // [in] UINT MipLevels,
-//					0,                           // [in] DWORD Usage,
-//					D3DFMT_UNKNOWN,              // [in] D3DFORMAT Format,
-//					D3DPOOL_MANAGED,             // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-//					D3DX_DEFAULT,                // [in] DWORD Filter,
-//					D3DX_DEFAULT,                // [in] DWORD MipFilter,
-//					0,                           // [in] D3DCOLOR ColorKey,
-//					NULL,                        // [in] D3DXIMAGE_INFO *pSrcInfo,
-//					NULL,                        // [in] PALETTEENTRY *pPalette,
-//					&papIDirect3DTexture9[i]          // [out] LPDIRECT3DTEXTURE9 *ppTexture
-//				 );
-//			if(hr != D3D_OK) {
-//				throw_GgafDx9CriticalException("[GgafDx9MeshModelManager::load] D3DXCreateTextureFromFile失敗。対象="<<xfile_name, hr);
-//			}
 		} else {
 			//テクスチャ無し
 			papTexture[i] = NULL;
@@ -454,28 +432,10 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 	//頂点配列情報をモデルに保持させる
 	//string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
 	GgafDx9TextureLead* pTexture = (GgafDx9TextureLead*)_pTextureManager->lead(*ppaChar_TextureFile);
-//	hr = D3DXCreateTextureFromFileEx(
-//			GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
-//			texture_filename.c_str(),  // [in] LPCTSTR pSrcFile,
-//			D3DX_DEFAULT,              // [in] UINT Width,
-//			D3DX_DEFAULT,              // [in] UINT Height,
-//			D3DX_DEFAULT,              // [in] UINT MipLevels,
-//			0,                         // [in] DWORD Usage,
-//			D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
-//			D3DPOOL_MANAGED,           // [in] D3DPOOL Pool,
-//			D3DX_DEFAULT,              // [in] DWORD Filter,
-//			D3DX_DEFAULT,              // [in] DWORD MipFilter,
-//			0,                         // [in] D3DCOLOR ColorKey,
-//			NULL,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
-//			NULL,                      // [in] PALETTEENTRY *pPalette,
-//			&pIDirect3DTexture9             // [out] LPDIRECT3DTEXTURE9 *ppTexture
-//		 );
-//	if(hr != D3D_OK) {
-//		throw_GgafDx9CriticalException("[GgafDx9ModelManager::restorePlateModel] テクスチャファイル読込みに失敗しました。対象="<<texture_filename, hr);
-//	}
+
 	prm_pPlateModel->_pTexture = pTexture;
 
-	// テクスチャーのサイズを取得して
+	// テクスチャーのサイズを取得
 	/*
 	D3DSURFACE_DESC d3dsurface_desc;
 	pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
