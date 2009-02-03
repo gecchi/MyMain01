@@ -413,11 +413,11 @@ void GgafDx9God::makeWorldMaterialize() {
 		if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
 			//工場休止
 			GgafFactory::beginRest();
+			::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			while(GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
 				Sleep(10);
 			}
-
-
+			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
 			_TRACE_("正常デバイスロスト処理。Begin");
 			//モデル解放
 			GgafDx9God::_pModelManager->onDeviceLostAll();
@@ -491,9 +491,12 @@ void GgafDx9God::makeWorldVisualize() {
 			_TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
 			//工場休止
 			GgafFactory::beginRest();
+			::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 			while(GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
 				Sleep(10);
 			}
+			::EnterCriticalSection(&(GgafGod::CS1)); // -----> 排他開始
+
 			//モデル解放
 			GgafDx9God::_pModelManager->onDeviceLostAll();
 			//全ノードに解放しなさいイベント発令
