@@ -8,31 +8,42 @@ using namespace MyStg2nd;
 
 Stage01MainScene::Stage01MainScene(char* prm_name) : DefaultScene(prm_name) {
 
+	_pRot = NEW RotationActor("RotEnemyMeshS001");
+	EnemyMeshShot001* pEnemyMeshShot;
+	for (int i = 0; i < 100; i++) {
+		Sleep(1);
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/myvic");
+		pEnemyMeshShot->stopImmediately(); //最初非表示
+		_pRot->addSubLast(pEnemyMeshShot);
+	}
+	getLordActor()->accept(KIND_ENEMY, _pRot);
+
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start
-	DWORD dw[] = {1,20,70,100,140,200,210,280,300,350,360,400,420,480,490,500,540,580,600,650,660,670,700,750,760,780,800,850,860,900,940,950,980,1000,1020,1060,1070,1100,1140,1180,1200,1210,1220,1230,1260,1280,1290,1300,1320,1350,1360,1380,1410,1420,1440,1470,1480,1500,1520,1530,1540,1560,1580,1590,1600,1620,1640,1650,1660,1680,1700,1720,1740,1750,1760,1780,1800,1820,1840,1850,1860,1880,1900,1940,1950,1980,2000,2020,2060,2100,2140,2180,2200,2220,2230,2260,2290,2300,2320,2350,2380,2410,2440,2470,2500,2520,2530,2540,2560,2580,2590,2600,2620,2640,2660,2680,2700,2720,2740,2760,2780,2800,2820,2840,2860,2880,2900};
-	_paFrame_NextEvent = new DWORD[127];
-	for (int i = 0; i < 127; i++) {
+	DWORD dw[] = {1,40,100,120,170,200,240,300,310,380,400,450,460,490,500,520,580,640,670,700,750,760,780,800,850,860,900,940,950,1000,1020,1040,1050,1070,1080,1100,1120,1140,1160,1200,1210,1240,1280,1300,1320,1330,1350,1360,1390,1400,1420,1450,1480,1510,1540,1570,1600,1620,1630,1640,1650,1660,1680,1690,1700,1720,1740,1750,1760,1780,1800,1820,1840,1850,1860,1880,1900,1920,1940,1950,1960,1980,2000,2020,2060,2100,2140,2180,2200,2220,2230,2260,2290,2300,2320,2350,2380,2410,2440,2470,2500,2520,2530,2540,2560,2580,2590,2600,2620,2640,2660,2680,2700,2720,2740,2760,2780,2800,2820,2840,2860,2880,2900};
+	_paFrame_NextEvent = new DWORD[123];
+	for (int i = 0; i < 123; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
-	orderActorToFactory(11077100, EnemyCeres, "Ceres_1", "M/Ceres");
-	orderActorToFactory(11077200, EnemyCeres, "Ceres_2", "M/Ceres");
-	orderActorToFactory(11077300, EnemyCeres, "Ceres_3", "M/Ceres");
-	orderActorToFactory(11077400, EnemyCeres, "Ceres_4", "M/Ceres");
-	orderActorToFactory(11077500, EnemyCeres, "Ceres_5", "M/Ceres");
-	orderActorToFactory(11087400, EnemyCeres, "Ceres_6", "M/Ceres");
-	orderActorToFactory(11087490, EnemyCeres, "Ceres_7", "M/Ceres");
-	orderActorToFactory(11087580, EnemyCeres, "Ceres_8", "M/Ceres");
-	orderActorToFactory(11087670, EnemyCeres, "Ceres_9", "M/Ceres");
-	orderActorToFactory(11087760, EnemyCeres, "Ceres_10", "M/Ceres");
-	orderActorToFactory(11097700, EnemyCeres, "Ceres_11", "M/Ceres");
-	orderActorToFactory(11097780, EnemyCeres, "Ceres_12", "M/Ceres");
-	orderActorToFactory(11097860, EnemyCeres, "Ceres_13", "M/Ceres");
-	orderActorToFactory(11097940, EnemyCeres, "Ceres_14", "M/Ceres");
-	orderActorToFactory(111071000, EnemyCeres, "Ceres_15", "M/Ceres");
+	orderActorWithRotToFactory(11077100, EnemyCeres, "Ceres_1", "Ceres", _pRot);
+	orderActorWithRotToFactory(11077200, EnemyCeres, "Ceres_2", "Ceres", _pRot);
+	orderActorWithRotToFactory(11077300, EnemyCeres, "Ceres_3", "Ceres", _pRot);
+	orderActorWithRotToFactory(11077400, EnemyCeres, "Ceres_4", "Ceres", _pRot);
+	orderActorWithRotToFactory(11077500, EnemyCeres, "Ceres_5", "Ceres", _pRot);
+	orderActorWithRotToFactory(11087400, EnemyCeres, "Ceres_6", "Ceres", _pRot);
+	orderActorWithRotToFactory(11087490, EnemyCeres, "Ceres_7", "Ceres", _pRot);
+	orderActorWithRotToFactory(11087580, EnemyCeres, "Ceres_8", "Ceres", _pRot);
+	orderActorWithRotToFactory(11087670, EnemyCeres, "Ceres_9", "Ceres", _pRot);
+	orderActorWithRotToFactory(11087760, EnemyCeres, "Ceres_10", "Ceres", _pRot);
+	orderActorWithRotToFactory(11097700, EnemyCeres, "Ceres_11", "Ceres", _pRot);
+	orderActorWithRotToFactory(11097780, EnemyCeres, "Ceres_12", "Ceres", _pRot);
+	orderActorWithRotToFactory(11097860, EnemyCeres, "Ceres_13", "Ceres", _pRot);
 	// gen01 end
 
 	stopImmediately(); //GameMainSceneが解除してくれる
+
+
+
 }
 
 void Stage01MainScene::initialize() {
@@ -45,11 +56,8 @@ void Stage01MainScene::processBehavior() {
 		switch (_dwFrame) {
 			case 1:
 				break;
-			case 20:
-				orderActorToFactory(110971020, EnemyCeres, "Ceres_16", "M/Ceres");
-				break;
-			case 70:
-				orderActorToFactory(111071070, EnemyCeres, "Ceres_17", "M/Ceres");
+			case 40:
+				orderActorWithRotToFactory(11097940, EnemyCeres, "Ceres_14", "Ceres", _pRot);
 				break;
 			case 100:
 				{
@@ -59,10 +67,13 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(110971100, EnemyCeres, "Ceres_18", "M/Ceres");
+				orderActorWithRotToFactory(111071000, EnemyCeres, "Ceres_15", "Ceres", _pRot);
 				break;
-			case 140:
-				orderActorToFactory(111071140, EnemyCeres, "Ceres_19", "M/Ceres");
+			case 120:
+				orderActorWithRotToFactory(110971020, EnemyCeres, "Ceres_16", "Ceres", _pRot);
+				break;
+			case 170:
+				orderActorWithRotToFactory(111071070, EnemyCeres, "Ceres_17", "Ceres", _pRot);
 				break;
 			case 200:
 				{
@@ -72,12 +83,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(110971100, EnemyCeres, "Ceres_18", "Ceres", _pRot);
 				break;
-			case 210:
-				orderActorToFactory(111071210, EnemyCeres, "Ceres_20", "M/Ceres");
-				break;
-			case 280:
-				orderActorToFactory(111071280, EnemyCeres, "Ceres_21", "M/Ceres");
+			case 240:
+				orderActorWithRotToFactory(111071140, EnemyCeres, "Ceres_19", "Ceres", _pRot);
 				break;
 			case 300:
 				{
@@ -87,13 +96,12 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111171300, EnemyCeres, "Ceres_22", "M/Ceres");
 				break;
-			case 350:
-				orderActorToFactory(111071350, EnemyCeres, "Ceres_23", "M/Ceres");
+			case 310:
+				orderActorWithRotToFactory(111071210, EnemyCeres, "Ceres_20", "Ceres", _pRot);
 				break;
-			case 360:
-				orderActorToFactory(111171360, EnemyCeres, "Ceres_24", "M/Ceres");
+			case 380:
+				orderActorWithRotToFactory(111071280, EnemyCeres, "Ceres_21", "Ceres", _pRot);
 				break;
 			case 400:
 				{
@@ -110,12 +118,13 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111171300, EnemyCeres, "Ceres_22", "Ceres", _pRot);
 				break;
-			case 420:
-				orderActorToFactory(111171420, EnemyCeres, "Ceres_25", "M/Ceres");
+			case 450:
+				orderActorWithRotToFactory(111071350, EnemyCeres, "Ceres_23", "Ceres", _pRot);
 				break;
-			case 480:
-				orderActorToFactory(111171480, EnemyCeres, "Ceres_26", "M/Ceres");
+			case 460:
+				orderActorWithRotToFactory(111171360, EnemyCeres, "Ceres_24", "Ceres", _pRot);
 				break;
 			case 490:
 				{
@@ -135,8 +144,8 @@ void Stage01MainScene::processBehavior() {
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
-			case 540:
-				orderActorToFactory(111171540, EnemyCeres, "Ceres_27", "M/Ceres");
+			case 520:
+				orderActorWithRotToFactory(111171420, EnemyCeres, "Ceres_25", "Ceres", _pRot);
 				break;
 			case 580:
 				{
@@ -146,16 +155,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111171480, EnemyCeres, "Ceres_26", "Ceres", _pRot);
 				break;
-			case 600:
-				orderActorToFactory(111171600, EnemyCeres, "Ceres_28", "M/Ceres");
-				orderActorToFactory(111271600, EnemyCeres, "Ceres_29", "M/Ceres");
-				break;
-			case 650:
-				orderActorToFactory(111271650, EnemyCeres, "Ceres_30", "M/Ceres");
-				break;
-			case 660:
-				orderActorToFactory(111171660, EnemyCeres, "Ceres_31", "M/Ceres");
+			case 640:
+				orderActorWithRotToFactory(111171540, EnemyCeres, "Ceres_27", "Ceres", _pRot);
 				break;
 			case 670:
 				{
@@ -174,10 +177,11 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111271700, EnemyCeres, "Ceres_32", "M/Ceres");
+				orderActorWithRotToFactory(111171600, EnemyCeres, "Ceres_28", "Ceres", _pRot);
+				orderActorWithRotToFactory(111271600, EnemyCeres, "Ceres_29", "Ceres", _pRot);
 				break;
 			case 750:
-				orderActorToFactory(111271750, EnemyCeres, "Ceres_33", "M/Ceres");
+				orderActorWithRotToFactory(111271650, EnemyCeres, "Ceres_30", "Ceres", _pRot);
 				break;
 			case 760:
 				{
@@ -187,6 +191,7 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111171660, EnemyCeres, "Ceres_31", "Ceres", _pRot);
 				break;
 			case 780:
 				{
@@ -198,10 +203,10 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 800:
-				orderActorToFactory(111271800, EnemyCeres, "Ceres_34", "M/Ceres");
+				orderActorWithRotToFactory(111271700, EnemyCeres, "Ceres_32", "Ceres", _pRot);
 				break;
 			case 850:
-				orderActorToFactory(111271850, EnemyCeres, "Ceres_35", "M/Ceres");
+				orderActorWithRotToFactory(111271750, EnemyCeres, "Ceres_33", "Ceres", _pRot);
 				break;
 			case 860:
 				{
@@ -213,8 +218,7 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 900:
-				orderActorToFactory(111271900, EnemyCeres, "Ceres_36", "M/Ceres");
-				orderActorToFactory(111371900, EnemyCeres, "Ceres_37", "M/Ceres");
+				orderActorWithRotToFactory(111271800, EnemyCeres, "Ceres_34", "Ceres", _pRot);
 				break;
 			case 940:
 				{
@@ -224,13 +228,9 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111371940, EnemyCeres, "Ceres_38", "M/Ceres");
 				break;
 			case 950:
-				orderActorToFactory(111271950, EnemyCeres, "Ceres_39", "M/Ceres");
-				break;
-			case 980:
-				orderActorToFactory(111371980, EnemyCeres, "Ceres_40", "M/Ceres");
+				orderActorWithRotToFactory(111271850, EnemyCeres, "Ceres_35", "Ceres", _pRot);
 				break;
 			case 1000:
 				{
@@ -240,7 +240,8 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111272000, EnemyCeres, "Ceres_41", "M/Ceres");
+				orderActorWithRotToFactory(111271900, EnemyCeres, "Ceres_36", "Ceres", _pRot);
+				orderActorWithRotToFactory(111371900, EnemyCeres, "Ceres_37", "Ceres", _pRot);
 				break;
 			case 1020:
 				{
@@ -250,10 +251,12 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111372020, EnemyCeres, "Ceres_42", "M/Ceres");
 				break;
-			case 1060:
-				orderActorToFactory(111372060, EnemyCeres, "Ceres_43", "M/Ceres");
+			case 1040:
+				orderActorWithRotToFactory(111371940, EnemyCeres, "Ceres_38", "Ceres", _pRot);
+				break;
+			case 1050:
+				orderActorWithRotToFactory(111271950, EnemyCeres, "Ceres_39", "Ceres", _pRot);
 				break;
 			case 1070:
 				{
@@ -264,6 +267,9 @@ void Stage01MainScene::processBehavior() {
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
+			case 1080:
+				orderActorWithRotToFactory(111371980, EnemyCeres, "Ceres_40", "Ceres", _pRot);
+				break;
 			case 1100:
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(110971100);
@@ -272,7 +278,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111372100, EnemyCeres, "Ceres_44", "M/Ceres");
+				orderActorWithRotToFactory(111272000, EnemyCeres, "Ceres_41", "Ceres", _pRot);
+				break;
+			case 1120:
+				orderActorWithRotToFactory(111372020, EnemyCeres, "Ceres_42", "Ceres", _pRot);
 				break;
 			case 1140:
 				{
@@ -282,13 +291,12 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111372140, EnemyCeres, "Ceres_45", "M/Ceres");
 				break;
-			case 1180:
-				orderActorToFactory(111372180, EnemyCeres, "Ceres_46", "M/Ceres");
+			case 1160:
+				orderActorWithRotToFactory(111372060, EnemyCeres, "Ceres_43", "Ceres", _pRot);
 				break;
 			case 1200:
-				orderActorToFactory(111472200, EnemyCeres, "Ceres_47", "M/Ceres");
+				orderActorWithRotToFactory(111372100, EnemyCeres, "Ceres_44", "Ceres", _pRot);
 				break;
 			case 1210:
 				{
@@ -299,15 +307,8 @@ void Stage01MainScene::processBehavior() {
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
-			case 1220:
-				orderActorToFactory(111372220, EnemyCeres, "Ceres_48", "M/Ceres");
-				break;
-			case 1230:
-				orderActorToFactory(111472230, EnemyCeres, "Ceres_49", "M/Ceres");
-				break;
-			case 1260:
-				orderActorToFactory(111372260, EnemyCeres, "Ceres_50", "M/Ceres");
-				orderActorToFactory(111472260, EnemyCeres, "Ceres_51", "M/Ceres");
+			case 1240:
+				orderActorWithRotToFactory(111372140, EnemyCeres, "Ceres_45", "Ceres", _pRot);
 				break;
 			case 1280:
 				{
@@ -317,9 +318,7 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				break;
-			case 1290:
-				orderActorToFactory(111472290, EnemyCeres, "Ceres_52", "M/Ceres");
+				orderActorWithRotToFactory(111372180, EnemyCeres, "Ceres_46", "Ceres", _pRot);
 				break;
 			case 1300:
 				{
@@ -329,10 +328,13 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111372300, EnemyCeres, "Ceres_53", "M/Ceres");
+				orderActorWithRotToFactory(111472200, EnemyCeres, "Ceres_47", "Ceres", _pRot);
 				break;
 			case 1320:
-				orderActorToFactory(111472320, EnemyCeres, "Ceres_54", "M/Ceres");
+				orderActorWithRotToFactory(111372220, EnemyCeres, "Ceres_48", "Ceres", _pRot);
+				break;
+			case 1330:
+				orderActorWithRotToFactory(111472230, EnemyCeres, "Ceres_49", "Ceres", _pRot);
 				break;
 			case 1350:
 				{
@@ -342,7 +344,6 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111472350, EnemyCeres, "Ceres_55", "M/Ceres");
 				break;
 			case 1360:
 				{
@@ -352,12 +353,14 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111372260, EnemyCeres, "Ceres_50", "Ceres", _pRot);
+				orderActorWithRotToFactory(111472260, EnemyCeres, "Ceres_51", "Ceres", _pRot);
 				break;
-			case 1380:
-				orderActorToFactory(111472380, EnemyCeres, "Ceres_56", "M/Ceres");
+			case 1390:
+				orderActorWithRotToFactory(111472290, EnemyCeres, "Ceres_52", "Ceres", _pRot);
 				break;
-			case 1410:
-				orderActorToFactory(111472410, EnemyCeres, "Ceres_57", "M/Ceres");
+			case 1400:
+				orderActorWithRotToFactory(111372300, EnemyCeres, "Ceres_53", "Ceres", _pRot);
 				break;
 			case 1420:
 				{
@@ -367,12 +370,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111472320, EnemyCeres, "Ceres_54", "Ceres", _pRot);
 				break;
-			case 1440:
-				orderActorToFactory(111472440, EnemyCeres, "Ceres_58", "M/Ceres");
-				break;
-			case 1470:
-				orderActorToFactory(111472470, EnemyCeres, "Ceres_59", "M/Ceres");
+			case 1450:
+				orderActorWithRotToFactory(111472350, EnemyCeres, "Ceres_55", "Ceres", _pRot);
 				break;
 			case 1480:
 				{
@@ -382,16 +383,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111472380, EnemyCeres, "Ceres_56", "Ceres", _pRot);
 				break;
-			case 1500:
-				orderActorToFactory(111472500, EnemyCeres, "Ceres_60", "M/Ceres");
-				orderActorToFactory(111572500, EnemyCeres, "Ceres_61", "M/Ceres");
-				break;
-			case 1520:
-				orderActorToFactory(111572520, EnemyCeres, "Ceres_62", "M/Ceres");
-				break;
-			case 1530:
-				orderActorToFactory(111472530, EnemyCeres, "Ceres_63", "M/Ceres");
+			case 1510:
+				orderActorWithRotToFactory(111472410, EnemyCeres, "Ceres_57", "Ceres", _pRot);
 				break;
 			case 1540:
 				{
@@ -401,17 +396,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572540, EnemyCeres, "Ceres_64", "M/Ceres");
+				orderActorWithRotToFactory(111472440, EnemyCeres, "Ceres_58", "Ceres", _pRot);
 				break;
-			case 1560:
-				orderActorToFactory(111472560, EnemyCeres, "Ceres_65", "M/Ceres");
-				orderActorToFactory(111572560, EnemyCeres, "Ceres_66", "M/Ceres");
-				break;
-			case 1580:
-				orderActorToFactory(111572580, EnemyCeres, "Ceres_67", "M/Ceres");
-				break;
-			case 1590:
-				orderActorToFactory(111472590, EnemyCeres, "Ceres_68", "M/Ceres");
+			case 1570:
+				orderActorWithRotToFactory(111472470, EnemyCeres, "Ceres_59", "Ceres", _pRot);
 				break;
 			case 1600:
 				{
@@ -428,13 +416,17 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572600, EnemyCeres, "Ceres_69", "M/Ceres");
+				orderActorWithRotToFactory(111472500, EnemyCeres, "Ceres_60", "Ceres", _pRot);
+				orderActorWithRotToFactory(111572500, EnemyCeres, "Ceres_61", "Ceres", _pRot);
 				break;
 			case 1620:
-				orderActorToFactory(111572620, EnemyCeres, "Ceres_70", "M/Ceres");
+				orderActorWithRotToFactory(111572520, EnemyCeres, "Ceres_62", "Ceres", _pRot);
+				break;
+			case 1630:
+				orderActorWithRotToFactory(111472530, EnemyCeres, "Ceres_63", "Ceres", _pRot);
 				break;
 			case 1640:
-				orderActorToFactory(111572640, EnemyCeres, "Ceres_71", "M/Ceres");
+				orderActorWithRotToFactory(111572540, EnemyCeres, "Ceres_64", "Ceres", _pRot);
 				break;
 			case 1650:
 				{
@@ -453,10 +445,14 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572660, EnemyCeres, "Ceres_72", "M/Ceres");
+				orderActorWithRotToFactory(111472560, EnemyCeres, "Ceres_65", "Ceres", _pRot);
+				orderActorWithRotToFactory(111572560, EnemyCeres, "Ceres_66", "Ceres", _pRot);
 				break;
 			case 1680:
-				orderActorToFactory(111572680, EnemyCeres, "Ceres_73", "M/Ceres");
+				orderActorWithRotToFactory(111572580, EnemyCeres, "Ceres_67", "Ceres", _pRot);
+				break;
+			case 1690:
+				orderActorWithRotToFactory(111472590, EnemyCeres, "Ceres_68", "Ceres", _pRot);
 				break;
 			case 1700:
 				{
@@ -466,13 +462,13 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572700, EnemyCeres, "Ceres_74", "M/Ceres");
+				orderActorWithRotToFactory(111572600, EnemyCeres, "Ceres_69", "Ceres", _pRot);
 				break;
 			case 1720:
-				orderActorToFactory(111572720, EnemyCeres, "Ceres_75", "M/Ceres");
+				orderActorWithRotToFactory(111572620, EnemyCeres, "Ceres_70", "Ceres", _pRot);
 				break;
 			case 1740:
-				orderActorToFactory(111572740, EnemyCeres, "Ceres_76", "M/Ceres");
+				orderActorWithRotToFactory(111572640, EnemyCeres, "Ceres_71", "Ceres", _pRot);
 				break;
 			case 1750:
 				{
@@ -484,10 +480,10 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 1760:
-				orderActorToFactory(111572760, EnemyCeres, "Ceres_77", "M/Ceres");
+				orderActorWithRotToFactory(111572660, EnemyCeres, "Ceres_72", "Ceres", _pRot);
 				break;
 			case 1780:
-				orderActorToFactory(111572780, EnemyCeres, "Ceres_78", "M/Ceres");
+				orderActorWithRotToFactory(111572680, EnemyCeres, "Ceres_73", "Ceres", _pRot);
 				break;
 			case 1800:
 				{
@@ -497,13 +493,13 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572800, EnemyCeres, "Ceres_79", "M/Ceres");
+				orderActorWithRotToFactory(111572700, EnemyCeres, "Ceres_74", "Ceres", _pRot);
 				break;
 			case 1820:
-				orderActorToFactory(111572820, EnemyCeres, "Ceres_80", "M/Ceres");
+				orderActorWithRotToFactory(111572720, EnemyCeres, "Ceres_75", "Ceres", _pRot);
 				break;
 			case 1840:
-				orderActorToFactory(111572840, EnemyCeres, "Ceres_81", "M/Ceres");
+				orderActorWithRotToFactory(111572740, EnemyCeres, "Ceres_76", "Ceres", _pRot);
 				break;
 			case 1850:
 				{
@@ -515,10 +511,10 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 1860:
-				orderActorToFactory(111572860, EnemyCeres, "Ceres_82", "M/Ceres");
+				orderActorWithRotToFactory(111572760, EnemyCeres, "Ceres_77", "Ceres", _pRot);
 				break;
 			case 1880:
-				orderActorToFactory(111572880, EnemyCeres, "Ceres_83", "M/Ceres");
+				orderActorWithRotToFactory(111572780, EnemyCeres, "Ceres_78", "Ceres", _pRot);
 				break;
 			case 1900:
 				{
@@ -535,7 +531,10 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(111572900, EnemyCeres, "Ceres_84", "M/Ceres");
+				orderActorWithRotToFactory(111572800, EnemyCeres, "Ceres_79", "Ceres", _pRot);
+				break;
+			case 1920:
+				orderActorWithRotToFactory(111572820, EnemyCeres, "Ceres_80", "Ceres", _pRot);
 				break;
 			case 1940:
 				{
@@ -545,6 +544,7 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111572840, EnemyCeres, "Ceres_81", "Ceres", _pRot);
 				break;
 			case 1950:
 				{
@@ -555,6 +555,9 @@ void Stage01MainScene::processBehavior() {
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
+			case 1960:
+				orderActorWithRotToFactory(111572860, EnemyCeres, "Ceres_82", "Ceres", _pRot);
+				break;
 			case 1980:
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111371980);
@@ -563,6 +566,7 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111572880, EnemyCeres, "Ceres_83", "Ceres", _pRot);
 				break;
 			case 2000:
 				{
@@ -572,6 +576,7 @@ void Stage01MainScene::processBehavior() {
 				pActor->_iBeginVelocity = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
+				orderActorWithRotToFactory(111572900, EnemyCeres, "Ceres_84", "Ceres", _pRot);
 				break;
 			case 2020:
 				{
