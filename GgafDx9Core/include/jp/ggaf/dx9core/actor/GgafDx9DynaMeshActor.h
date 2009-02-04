@@ -21,7 +21,7 @@ public:
 	float _fAlpha;
 
 
-	GgafDx9DynaMeshActor(std::string prm_name, std::string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9DynaMeshActor(char* prm_name, char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

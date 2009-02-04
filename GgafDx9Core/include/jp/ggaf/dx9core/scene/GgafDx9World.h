@@ -22,7 +22,7 @@ public:
     static GgafCore::GgafActor* _apActorDrawDepthLevel_last[];
 
 
-	GgafDx9World(std::string prm_name);
+	GgafDx9World(char* prm_name);
 
 
 	/**

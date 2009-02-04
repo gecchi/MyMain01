@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9MeshActor::GgafDx9MeshActor(string prm_name, string prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
-	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_meshmodel_name.c_str());
+GgafDx9MeshActor::GgafDx9MeshActor(char* prm_name, char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_meshmodel_name);
 	_pMeshModel = (GgafDx9MeshModel*)_pModelLead->getResource();
 	_class_name = "GgafDx9MeshActor";
 	//マテリアルをコピー

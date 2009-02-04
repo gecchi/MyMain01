@@ -3,9 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9SquareActor::GgafDx9SquareActor(string prm_name, string prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+GgafDx9SquareActor::GgafDx9SquareActor(char* prm_name, char* prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
 	_class_name = "GgafDx9SquareActor";
-	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_squaremodel_name.c_str());
+	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_squaremodel_name);
 	_pSquareModel = (GgafDx9SquareModel*)_pModelLead->getResource();
 }
 

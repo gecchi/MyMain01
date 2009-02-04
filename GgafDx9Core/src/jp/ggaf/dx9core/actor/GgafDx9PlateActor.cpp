@@ -3,9 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9PlateActor::GgafDx9PlateActor(string prm_name, string prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
+GgafDx9PlateActor::GgafDx9PlateActor(char* prm_name, char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
 	_class_name = "GgafDx9PlateActor";
-	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name.c_str());
+	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name);
 	_pPlateModel = (GgafDx9PlateModel*)_pModelLead->getResource();
 	_iPatternNo_Top     = 0;
 	_iPatternNo_Bottom  = _pPlateModel->_iPatternNo_Max;

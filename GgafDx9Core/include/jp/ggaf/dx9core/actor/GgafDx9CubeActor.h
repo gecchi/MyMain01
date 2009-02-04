@@ -11,7 +11,7 @@ class GgafDx9CubeActor : public GgafDx9MeshActor {
 private:
 
 public:
-	GgafDx9CubeActor(std::string prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9CubeActor(char* prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
