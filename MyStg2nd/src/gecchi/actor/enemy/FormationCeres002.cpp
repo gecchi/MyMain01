@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationCeres002::FormationCeres002(char* prm_name, char* prm_model) : FormationActor(prm_name) {
+FormationCeres002::FormationCeres002(const char* prm_name, const char* prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationCeres002";
 
 	_pRotEnemyMeshShots001 = NEW RotationActor("FmtCeres002_RotEnemyMeshS001");

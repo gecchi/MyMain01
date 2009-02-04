@@ -10,7 +10,7 @@ class EnemyShotSpriteActor : public DefaultSpriteEnemyActor {
 	int _iProgress; //êiÇ›ãÔçá
 
 public:
-	EnemyShotSpriteActor(char* prm_name, char* prm_model);
+	EnemyShotSpriteActor(const char* prm_name, const char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

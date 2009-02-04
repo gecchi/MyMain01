@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-DispFpsActor::DispFpsActor(char* prm_name, char* prm_model) : FontPlateActor(prm_name, prm_model) {
+DispFpsActor::DispFpsActor(const char* prm_name, const char* prm_model) : FontPlateActor(prm_name, prm_model) {
 	_class_name = "DispFpsActor";
 }
 

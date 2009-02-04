@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-World::World(char* prm_name) : DefaultWorld(prm_name) {
+World::World(const char* prm_name) : DefaultWorld(prm_name) {
 	GameScene* pGameScene = NEW GameScene("Game");
 	addSubLast(pGameScene);
 #ifdef OREDEBUG

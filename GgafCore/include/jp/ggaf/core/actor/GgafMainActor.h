@@ -21,7 +21,7 @@ protected:
 
 public:
 
-	GgafMainActor(char*prm_name);
+	GgafMainActor(const char* prm_name);
 
 	/**
 	 * Ÿ‚Ìƒm[ƒhæ“¾‚·‚éB .

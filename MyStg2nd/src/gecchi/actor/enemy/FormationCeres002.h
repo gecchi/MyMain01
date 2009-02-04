@@ -13,7 +13,7 @@ class FormationCeres002 : public GgafDx9LibStg::FormationActor {
 public:
 	GgafDx9LibStg::RotationActor* _pRotEnemyMeshShots001;
 
-	FormationCeres002(char* prm_name, char* prm_model);
+	FormationCeres002(const char* prm_name, const char* prm_model);
 
 	virtual void initialize();
 	virtual void processJudgement();

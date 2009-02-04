@@ -45,7 +45,7 @@ public:
 	GgafDx9UntransformedActor* _pActor_Radical;
 
 
-	MyLaserChip(char* prm_name, char* prm_model);
+	MyLaserChip(const char* prm_name, const char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

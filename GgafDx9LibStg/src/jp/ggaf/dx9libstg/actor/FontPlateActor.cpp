@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-FontPlateActor::FontPlateActor(char* prm_name, char* prm_model) : DefaultPlateActor(prm_name, prm_model) {
+FontPlateActor::FontPlateActor(const char* prm_name, const char* prm_model) : DefaultPlateActor(prm_name, prm_model) {
 	_class_name = "FontPlateActor";
 	_draw_string = "";
 	_iStrLen = (int)_draw_string.size();

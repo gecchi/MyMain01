@@ -9,7 +9,7 @@ class Stage01MainScene : public GgafDx9LibStg::DefaultScene {
 public:
 	GgafDx9LibStg::RotationActor* _pRot;
 
-	Stage01MainScene(char* prm_name);
+	Stage01MainScene(const char* prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

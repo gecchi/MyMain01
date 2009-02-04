@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Stage04Scene::Stage04Scene(char* prm_name) : DefaultScene(prm_name) {
+Stage04Scene::Stage04Scene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void Stage04Scene::initialize() {

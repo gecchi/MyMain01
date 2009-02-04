@@ -80,7 +80,7 @@ public:
 	 * コンストラクタ<BR>
 	 * @param	prm_name 識別名
 	 */
-	GgafDx9UntransformedActor(char* prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9UntransformedActor(const char* prm_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	virtual GgafDx9UntransformedActor* getPrev() {
 		return (GgafDx9UntransformedActor*)GgafActor::getPrev();

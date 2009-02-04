@@ -49,7 +49,7 @@ public:
 	/** ビルボード要否 */
 	bool _isBillboarding;
 
-	GgafDx9SpriteActor(char* prm_name, char* prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9SpriteActor(const char* prm_name, const char* prm_spritemodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
  	/**
 	 * ＜OverRide です＞<BR>

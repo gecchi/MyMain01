@@ -8,7 +8,7 @@ class EnemyPallas : public DefaultMeshEnemyActor {
 public:
 	int _iMovePatternNo;
 
-	EnemyPallas(char* prm_name, char* prm_model);
+	EnemyPallas(const char* prm_name, const char* prm_model);
 
 	void initialize();
 

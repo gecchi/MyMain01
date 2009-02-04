@@ -13,7 +13,7 @@ public:
 
 	StgChecker* _pChecker;
 
-	DefaultMeshActor(char* prm_name, char* prm_model);
+	DefaultMeshActor(const char* prm_name, const char* prm_model);
 
 
 	virtual void initialize() {};

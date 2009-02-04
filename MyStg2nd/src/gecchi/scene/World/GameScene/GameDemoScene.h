@@ -9,7 +9,7 @@ public:
 	GgafDx9LibStg::FontPlateActor* _pFontPlate01;
 	GgafDx9LibStg::FontPlateActor* _pFontPlate02;
 
-	GameDemoScene(char* prm_name);
+	GameDemoScene(const char* prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

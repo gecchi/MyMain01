@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9CameraActor::GgafDx9CameraActor(char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
+GgafDx9CameraActor::GgafDx9CameraActor(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
 	_class_name = "GgafDx9CameraActor";
 	_gazeX = GgafDx9God::_pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
 	_gazeY = GgafDx9God::_pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;

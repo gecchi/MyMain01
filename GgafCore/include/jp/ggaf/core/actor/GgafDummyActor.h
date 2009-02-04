@@ -13,7 +13,7 @@ namespace GgafCore {
 class GgafDummyActor : public GgafMainActor {
 
 public:
-	GgafDummyActor(char* prm_name);
+	GgafDummyActor(const char* prm_name);
 
 	/**
 	 * ‰Šúˆ—<BR>

@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Stage01MainScene::Stage01MainScene(char* prm_name) : DefaultScene(prm_name) {
+Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name) {
 
 	_pRot = NEW RotationActor("RotEnemyMeshS001");
 	EnemyMeshShot001* pEnemyMeshShot;

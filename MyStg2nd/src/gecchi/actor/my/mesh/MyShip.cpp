@@ -15,7 +15,7 @@ using namespace MyStg2nd;
 
 
 
-MyShip::MyShip(char* prm_name, char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyShip";
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */

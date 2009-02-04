@@ -90,7 +90,7 @@ public:
 	 * コンストラクタ .
 	 * @param prm_name アクターの名前
 	 */
-	GgafActor(char* prm_name);
+	GgafActor(const char* prm_name);
 
 	/**
 	 * デストラクタ .

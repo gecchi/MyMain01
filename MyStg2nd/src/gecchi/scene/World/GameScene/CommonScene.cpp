@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-CommonScene::CommonScene(char* prm_name) : DefaultScene(prm_name) {
+CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 	GameGlobal::_pSceneCommon = this;
 
 	{ //MyShip

@@ -16,7 +16,7 @@ public:
 	int _gazeX, _gazeY, _gazeZ;
 
 
-	GgafDx9CameraActor(char* prm_name);
+	GgafDx9CameraActor(const char* prm_name);
 
 	virtual void initialize();
 

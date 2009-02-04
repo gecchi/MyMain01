@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyMeshShot001::EnemyMeshShot001(char* prm_name, char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+EnemyMeshShot001::EnemyMeshShot001(const char* prm_name, const char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyMeshShot001";
 
 	stop();

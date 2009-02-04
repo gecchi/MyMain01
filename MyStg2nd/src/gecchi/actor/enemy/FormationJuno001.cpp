@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 int FormationJuno001::_s_X_FormationWhole = 0;
 int FormationJuno001::_s_incX = -2000;
 
-FormationJuno001::FormationJuno001(char* prm_name, char* prm_model) : FormationActor(prm_name) {
+FormationJuno001::FormationJuno001(const char* prm_name, const char* prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationJuno001";
 	CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
 	pRndGen->changeSeed(GameGlobal::_pMyShip->_X);

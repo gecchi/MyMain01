@@ -17,7 +17,7 @@ class GgafMainScene : public GgafScene {
 
 public:
 
-	GgafMainScene(char* prm_name);
+	GgafMainScene(const char* prm_name);
 
 	virtual ~GgafMainScene();
 

@@ -7,7 +7,7 @@ class Stage01Scene : public GgafDx9LibStg::DefaultScene {
 public:
 	GgafDx9Core::GgafDx9BgmLead* _pBgmLead_st1;
 
-	Stage01Scene(char* prm_name);
+	Stage01Scene(const char* prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

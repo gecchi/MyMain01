@@ -32,7 +32,7 @@ public:
 	bool _readyStage04Flg;
 	bool _readyStage05Flg;
 
-	GameMainScene(char* prm_name);
+	GameMainScene(const char* prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

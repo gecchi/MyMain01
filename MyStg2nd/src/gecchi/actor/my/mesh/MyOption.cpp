@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOption::MyOption(char* prm_name,  char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyOption::MyOption(const char* prm_name, const char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyOption";
 
 	_pRing = NEW GgafLinkedListRing<GeoElement>();

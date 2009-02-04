@@ -7,7 +7,7 @@ class DispFpsActor : public GgafDx9LibStg::FontPlateActor {
 	char _aBuf[80];
 	std::string _strFps;
 public:
-	DispFpsActor(char* prm_name, char* prm_model);
+	DispFpsActor(const char* prm_name, const char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

@@ -9,7 +9,7 @@ public:
 	StgChecker* _pChecker;
 
 
-	DefaultCubeActor(char* prm_name);
+	DefaultCubeActor(const char* prm_name);
 
 	virtual void initialize() {};
 

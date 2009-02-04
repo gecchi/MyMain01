@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9PlateActor::GgafDx9PlateActor(char* prm_name, char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
+GgafDx9PlateActor::GgafDx9PlateActor(const char* prm_name, const char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
 	_class_name = "GgafDx9PlateActor";
 	_pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name);
 	_pPlateModel = (GgafDx9PlateModel*)_pModelLead->getResource();

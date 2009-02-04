@@ -11,7 +11,7 @@ class FormationCeres001 : public GgafDx9LibStg::FormationActor {
 
 	EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION001];
 public:
-	FormationCeres001(char* prm_name, char* prm_model);
+	FormationCeres001(const char* prm_name, const char* prm_model);
 
 	virtual void initialize();
 

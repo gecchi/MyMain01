@@ -74,7 +74,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafElement(char* prm_name);
+	GgafElement(const char* prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -492,7 +492,7 @@ public:
 
 
 template<class T>
-GgafElement<T>::GgafElement(char* prm_name) : SUPER (prm_name),
+GgafElement<T>::GgafElement(const char* prm_name) : SUPER (prm_name),
 _pGod(NULL),
 _wasInitialized(false),
 _dwGodFrame_ofDeath(MAXDWORD),

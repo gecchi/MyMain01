@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-BackGround01Plate::BackGround01Plate(char* prm_name, char* prm_dummy) : GgafDx9TransformedActor(prm_name) {
+BackGround01Plate::BackGround01Plate(const char* prm_name, const char* prm_dummy) : GgafDx9TransformedActor(prm_name) {
 	_class_name = "BackGround01Plate";
 
 	_papChipPlate = NEW BackGroundChipPlate*[4];

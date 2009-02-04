@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultPlateActor::DefaultPlateActor(char* prm_name, char* prm_model) : GgafDx9PlateActor(prm_name, prm_model) {
+DefaultPlateActor::DefaultPlateActor(const char* prm_name, const char* prm_model) : GgafDx9PlateActor(prm_name, prm_model) {
 	_class_name = "DefaultPlateActor";
 }
 

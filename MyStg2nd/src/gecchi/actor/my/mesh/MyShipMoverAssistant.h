@@ -6,7 +6,7 @@ class MyShipMoverAssistant : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
-	MyShipMoverAssistant(char* prm_name, char* prm_model);
+	MyShipMoverAssistant(const char* prm_name, const char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

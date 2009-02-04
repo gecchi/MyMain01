@@ -14,7 +14,7 @@ public:
 	int _iCnt_Event;
 
 
-	DefaultScene(char* prm_name);
+	DefaultScene(const char* prm_name);
 
 	virtual void initialize() {
 	};

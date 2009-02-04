@@ -15,7 +15,7 @@ public:
 	GgafDx9ModelLead* _pModelLead;
 	GgafDx9MeshModel* _pMeshModel;
 
-	GgafDx9MeshActor(char* prm_name, char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+	GgafDx9MeshActor(const char* prm_name, const char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

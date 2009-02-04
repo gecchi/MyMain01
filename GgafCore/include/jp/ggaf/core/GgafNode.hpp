@@ -99,7 +99,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafNode(char* prm_name);
+	GgafNode(const char* prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -127,7 +127,7 @@ public:
 	/**
 	 * ノード名問い合わせ
 	 */
-//	virtual bool isNamed(char* prm_name);
+//	virtual bool isNamed(const char* prm_name);
 
 
 	/**
@@ -282,7 +282,7 @@ public:
  */
 
 template<class T>
-GgafNode<T>::GgafNode(char* prm_name) : GgafObject() ,
+GgafNode<T>::GgafNode(const char* prm_name) : GgafObject() ,
 _name("NOT_OBJECT_YET"),
 _pParent(NULL),
 _pSubFirst(NULL),
@@ -511,7 +511,7 @@ const char* GgafNode<T>::getClassName() {
 }
 /*
 template<class T>
-bool GgafNode<T>::isNamed(char* prm_name) {
+bool GgafNode<T>::isNamed(const char* prm_name) {
 	char*::size_type iLen = prm_name.length();
 	if (prm_name.rfind('*') == iLen-1) {}
 

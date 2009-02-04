@@ -76,7 +76,7 @@ public:
 	 * コンストラクタ .
 	 * 引数： prm_name シーン名<BR>
 	 */
-	GgafScene(char*prm_name);
+	GgafScene(const char* prm_name);
 
 	/**
 	 * デストラクタ .

@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultMeshActor::DefaultMeshActor(char* prm_name, char* prm_model)
+DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model)
 	: GgafDx9MeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
 	_class_name = "DefaultMeshActor";
