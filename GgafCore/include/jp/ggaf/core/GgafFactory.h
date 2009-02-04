@@ -8,8 +8,8 @@ namespace GgafCore {
  * メイン処理から、注文(GgafOrder)を渡されると、別スレッドにそのインスタンスを生成(new)させます。<BR>
  * 出来上がったインスタンス(商品と呼ぶ)のポインタ達は工場でストックされ、メイン処理から必要に応じて商品を取り出すことが出来ます<BR>
  * 【補足】<BR>
- * ステージとステージの間や、ボス前等、大量インスタンスを生成しなければいけない個所で、滑らかに処理したかった。<BR>
- * つまり、昔よくあった「ウッ」と止まるのを無くしたかったため生まれた(ﾅﾝﾉｺｯﾁｬ)<BR>
+ * なぜこんなややこしい事をするのか。それは、大量インスタンスをある時点で生成しなければいけないような個所で、滑らかに処理をしたいため。<BR>
+ * つまり、昔よくあったステージとステージの間や、ボス前等で、「ウッ」と一瞬止まる(ﾅﾝﾉｺｯﾁｬ)のを無くしたかったたため、このクラスを作成。<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge
@@ -54,19 +54,18 @@ public:
 	/** 掃除オブジェクト数 */
 	static int _s_iCountCleanedNode;
 
-
 	/** 活動フラグ(神が操作する) */
 	static bool _isWorking;
 	/** 休むフラグ */
 	static bool _isRest;
 	/** 休でいるフラグ */
 	static bool _isResting;
-
 	/** 完全店終い */
 	static bool _isFinish;
 
 	/**
-	 * 工場にアクター作成の注文を行う<BR>
+	 * 工場にアクター作成の注文を行う .
+	 * メイン処理が呼び出します。<BR>
 	 * @param   prm_id	注文識別ID
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
@@ -77,7 +76,8 @@ public:
 	}
 
 	/**
-	 * 工場にシーン作成の注文を行う<BR>
+	 * 工場にシーン作成の注文を行う .
+	 * メイン処理が呼び出します。<BR>
 	 * @param   prm_id	注文識別ID
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
@@ -88,7 +88,8 @@ public:
 	}
 
 	/**
-	 * 注文したアクターを取り出す。<BR>
+	 * 注文したアクターを取り出す。 .
+	 * メイン処理が呼び出します。<BR>
 	 * 未製造だった場合、製造が完了するまで待つ。<BR>
 	 * @param   prm_id	注文識別ID
 	 * @return	生成されたアクターのポインタ
@@ -96,7 +97,8 @@ public:
 	static GgafMainActor* obtainActor(unsigned long prm_id);
 
 	/**
-	 * 注文したシーンを取り出す。<BR>
+	 * 注文したシーンを取り出す。 .
+	 * メイン処理が呼び出します。<BR>
 	 * 未製造だった場合、製造が完了するまで待つ。<BR>
 	 * @param   prm_id	注文識別ID
 	 * @return	生成されたシーンのポインタ
@@ -105,6 +107,7 @@ public:
 
 	/**
 	 * 工場を掃除する<BR>
+	 * メイン処理の神が呼び出します。<BR>
 	 * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>
 	 * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
 	 * ＜コード例＞ <BR>
@@ -116,27 +119,40 @@ public:
 
 	/**
 	 * 稼動する。<BR>
+	 * 別スレッドで無限ループしてます。<BR>
+	 * メイン処理で、フラグ操作して止めたり再開したりします。<BR>
 	 * 神が初期設定時に別スレッドで一度実行する。神が死ぬまで（アプリ終了まで）永遠に稼動しっ放しである。<BR>
 	 */
 	static unsigned __stdcall work(void* prm_arg);
 
-
+	/**
+	 * 一時休止を指示 .
+	 * しかし呼び出しても直ぐに休止状態になるとは限りません。<BR>
+	 * isResting() で調べる必要があります。<BR>
+	 */
 	static void beginRest() {
-		_TRACE_("工場休憩しなさい");
+		_TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩しなさい");
 		_isRest = true;
 	}
 
+	/**
+	 * 工場の状態を取得<BR>
+	 * @return true=休止状態/false=稼動状態
+	 */
 	static bool isResting() {
 		if (_isResting) {
-			_TRACE_("isResting 工場休止状態");
+			_TRACE_("GgafFactory::isResting() 工場休止状態");
 		} else {
-			_TRACE_("isResting 工場稼働状態");
+			_TRACE_("GgafFactory::isResting() 工場稼働状態");
 		}
 		return _isResting;
 	}
 
+	/**
+	 * 休止の解除を指示 .
+	 */
 	static void finishRest() {
-		_TRACE_("工場休憩お終い！");
+		_TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！");
 		_isRest = false;
 	}
 };
