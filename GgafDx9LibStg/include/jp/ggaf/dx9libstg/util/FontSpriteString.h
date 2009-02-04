@@ -12,7 +12,7 @@ class FontSpriteString : public GgafCore::GgafObject {
 
 
 public:
-	FontSpriteString(std::string prm_font_modelname, int prm_iStrLen);
+	FontSpriteString(char* prm_font_modelname, int prm_iStrLen);
 
 	virtual void draw(int prm_X, int prm_Y, int prm_Z, std::string prm_string);
 

@@ -4,14 +4,14 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-FontSpriteString::FontSpriteString(string prm_font_modelname, int prm_iStrLen) : GgafObject() {
-	_font_modelname = prm_font_modelname;
-	_iStrLen = prm_iStrLen;
-	_papFontSpriteActor = NEW FontSpriteActor*[prm_iStrLen];
-	for (int i = 0; i < prm_iStrLen; i++) {
-		FontSpriteActor* pFontSpriteActor = NEW FontSpriteActor("FONTSPRITEACTOR", prm_font_modelname);
-		_papFontSpriteActor[i] = pFontSpriteActor;
-	}
+FontSpriteString::FontSpriteString(char* prm_font_modelname, int prm_iStrLen) : GgafObject() {
+//	_font_modelname = prm_font_modelname;
+//	_iStrLen = prm_iStrLen;
+//	_papFontSpriteActor = NEW FontSpriteActor*[prm_iStrLen];
+//	for (int i = 0; i < prm_iStrLen; i++) {
+//		FontSpriteActor* pFontSpriteActor = NEW FontSpriteActor("FONTSPRITEACTOR", prm_font_modelname);
+//		_papFontSpriteActor[i] = pFontSpriteActor;
+//	}
 }
 
 void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) {
@@ -44,9 +44,9 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 }
 
 FontSpriteString::~FontSpriteString() {
-	for (int i = 0; i < _iStrLen; i ++) {
-		DELETE_IMPOSSIBLE_NULL(_papFontSpriteActor[i]);
-	}
-	DELETEARR_IMPOSSIBLE_NULL(_papFontSpriteActor);
+//	for (int i = 0; i < _iStrLen; i ++) {
+//		DELETE_IMPOSSIBLE_NULL(_papFontSpriteActor[i]);
+//	}
+//	DELETEARR_IMPOSSIBLE_NULL(_papFontSpriteActor);
 
 }

@@ -11,7 +11,7 @@ class FontPlateActor : public DefaultPlateActor {
 	std::string _draw_string;
 	int _iStrLen;
 public:
-	FontPlateActor(std::string prm_name, std::string prm_model);
+	FontPlateActor(char* prm_name, char* prm_model);
 
 	virtual void processDrawMain(); //オーバーライド
 

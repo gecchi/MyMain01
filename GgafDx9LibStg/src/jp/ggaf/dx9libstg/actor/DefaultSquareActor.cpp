@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultSquareActor::DefaultSquareActor(string prm_name, string prm_model)
+DefaultSquareActor::DefaultSquareActor(char* prm_name, char* prm_model)
 	: GgafDx9SquareActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this)) {
 	_class_name = "DefaultSquareActor";
 	_pChecker = (StgChecker*)_pGeoChecker;

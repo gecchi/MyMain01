@@ -12,7 +12,7 @@ public:
 	static DelineateActor* get();
 	static void release();
 
-	DelineateActor(std::string prm_name);
+	DelineateActor(char* prm_name);
 
 	//void processDrawMain() {}; //オーバーライド未実装にする。
 

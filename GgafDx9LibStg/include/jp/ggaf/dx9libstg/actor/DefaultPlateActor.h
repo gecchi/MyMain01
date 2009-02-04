@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
 class DefaultPlateActor : public GgafDx9Core::GgafDx9PlateActor {
 
 public:
-	DefaultPlateActor(std::string prm_name, std::string prm_model);
+	DefaultPlateActor(char* prm_name, char* prm_model);
 
 	virtual void initialize() {};
 

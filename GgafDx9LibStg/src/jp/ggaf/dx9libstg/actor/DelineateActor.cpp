@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 DelineateActor* DelineateActor::_s_pObj = NULL;
 
-DelineateActor::DelineateActor(string prm_name) : DefaultCubeActor(prm_name) {
+DelineateActor::DelineateActor(char* prm_name) : DefaultCubeActor(prm_name) {
 	_class_name = "DelineateActor";
 }
 

@@ -9,7 +9,7 @@ public:
 	StgChecker* _pChecker;
 
 
-	DefaultSquareActor(std::string prm_name, std::string prm_model);
+	DefaultSquareActor(char* prm_name, char* prm_model);
 
 	virtual void initialize() {};
 
