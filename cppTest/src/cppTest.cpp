@@ -3,6 +3,9 @@
 
 #include <windows.h>
 
+
+
+
 class Hoge {};
 
 
@@ -55,6 +58,5 @@ int main(int argc,char *argv[]) {
 	HogeAccesser* hacc = new HogeAccesser();
 	HogeManager* manager = new HogeManager(hacc);
 	Hoge* x = manager->setAccessValue(h);
-
 	return 0;
 }
