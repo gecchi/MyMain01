@@ -2,18 +2,20 @@
 #define WORLD_H_
 namespace MyStg2nd {
 
-//getParent getSub マクロ。
-//下記マクロ使用するには、シーンオブジェクトの名前が、
-//クラス名から末尾の"Scene"という文字列を取り去ったものであることが前提条件です
+//getParent getSub そして キャストマクロ。
+//下記マクロ使用するには、オブジェクトの識別名が、
+//クラス名の末尾の"...Scene"という文字列を取り去ったものであることが前提条件です
 #define getParentScene(X) ((X##Scene*)getParent(#X))
 #define getSubScene(X) ((X##Scene*)getSub(#X))
+#define getParentActor(X) ((X##Actor*)getParent(#X))
+#define getSubActor(X) ((X##Actor*)getSub(#X))
 
 
 class World : public GgafDx9LibStg::DefaultWorld {
 
 
 public:
-	World(std::string prm_name);
+	World(char* prm_name);
 
 	/**
 	 * 初期処理

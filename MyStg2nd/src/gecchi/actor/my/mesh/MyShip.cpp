@@ -5,7 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-#define newState(H,X) do { H->e = new State*[X]; for (int i = 0; i < X; i++) {H->e[i] = new State(); } } while(0)
 #define S_OPTION 0
 
 //1/√2
@@ -16,7 +15,7 @@ using namespace MyStg2nd;
 
 
 
-MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyShip::MyShip(char* prm_name, char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyShip";
 	GameGlobal::_pMyShip = this;
 	/** 移動スピードレベル */
@@ -98,7 +97,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyShots001Rotation); //仮所属
 	MyShot001* pShot;
 	for (int i = 0; i < 50; i++) { //自弾ストック
-		pShot = NEW MyShot001("MY_S"+GgafUtil::itos(i), "S/moji2");
+		pShot = NEW MyShot001("MY_MyShot001", "S/moji2");
 		pShot->stopImmediately();
 		_pMyShots001Rotation->addSubLast(pShot);
 	}
@@ -107,7 +106,7 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyWaves001Rotation);//仮所属
 	MyWave001* pWave;
 	for (int i = 0; i < 50; i++) { //自弾ストック
-		pWave = NEW MyWave001("MY_W"+GgafUtil::itos(i), "M/wave");
+		pWave = NEW MyWave001("MY_Wave001", "M/wave");
 		pWave->stopImmediately();
 		_pMyWaves001Rotation->addSubLast(pWave);
 	}
@@ -117,13 +116,13 @@ MyShip::MyShip(string prm_name, string prm_model) : DefaultMeshActor(prm_name, p
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip2* pChip;
 	for (int i = 0; i < 100; i++) { //レーザーストック
-		pChip = NEW MyLaserChip2("MYS_L"+GgafUtil::itos(i), "m/laserchip9");
+		pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
 		pChip->stopImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 	}
 
 	for (int i = 0; i < EQ_MAX_OPTION; i++) {
-		MyOption* pOption = NEW MyOption("MY_OPTION"+GgafUtil::itos(i), "M/ebi");
+		MyOption* pOption = NEW MyOption("MY_OPTION", "M/ebi");
 		pOption->_iMyNo = i;  //おぷ番
 		pOption->stopAloneImmediately();
 		addSubLast(pOption);

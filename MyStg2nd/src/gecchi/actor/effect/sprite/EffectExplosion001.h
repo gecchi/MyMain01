@@ -6,7 +6,7 @@ namespace MyStg2nd {
 class EffectExplosion001 : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
-	EffectExplosion001(std::string prm_name, std::string prm_model);
+	EffectExplosion001(char* prm_name, char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

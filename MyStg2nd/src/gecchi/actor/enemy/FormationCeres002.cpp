@@ -5,14 +5,14 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationCeres002::FormationCeres002(string prm_name, string prm_model) : FormationActor(prm_name) {
+FormationCeres002::FormationCeres002(char* prm_name, char* prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationCeres002";
 
 	_pRotEnemyMeshShots001 = NEW RotationActor("FmtCeres002_RotEnemyMeshS001");
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 30; i++) { //弾ストック
 		Sleep(1);
-		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "M/BDAMA");
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/BDAMA");
 		pEnemyMeshShot->stopImmediately(); //最初非表示
 		_pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
 	}

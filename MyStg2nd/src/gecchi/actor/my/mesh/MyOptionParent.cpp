@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParent::MyOptionParent(string prm_name,  string prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyOptionParent::MyOptionParent(char* prm_name,  char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	blindImmediately(); //”ñ•\Ž¦
 }
 

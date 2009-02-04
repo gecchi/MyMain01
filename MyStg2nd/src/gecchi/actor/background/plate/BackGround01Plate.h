@@ -8,7 +8,7 @@ class BackGround01Plate : public GgafDx9Core::GgafDx9TransformedActor {
 	BackGroundChipPlate** _papChipPlate;
 
 public:
-	BackGround01Plate(std::string prm_name, std::string prm_dummy);
+	BackGround01Plate(char* prm_name, char* prm_dummy);
 
 
 	virtual void processJudgement() {};

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyJuno::EnemyJuno(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+EnemyJuno::EnemyJuno(char* prm_name, char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyJuno";
 
 	_iMovePatternNo = 0;

@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class MyWave001 : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-	MyWave001(std::string prm_name, std::string prm_model);
+	MyWave001(char* prm_name, char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

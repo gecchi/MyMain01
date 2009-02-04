@@ -8,13 +8,13 @@ public:
 
 	template <class X>
 	static X* createActor(void* pArg1, void* pArg2) {
-		X* p = NEW X((const char*)pArg1, (const char*)pArg2);
+		X* p = NEW X((char*)pArg1, (char*)pArg2);
 		return p;
 	}
 
 	template <class X>
 	static X* createScene(void* pArg1, void* pArg2) {
-		X* p = NEW X((const char*)pArg1);
+		X* p = NEW X((char*)pArg1);
 		return p;
 	}
 

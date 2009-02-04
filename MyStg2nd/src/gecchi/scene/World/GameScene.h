@@ -8,7 +8,7 @@ public:
 	GameDemoScene* _pGameDemoScene;
 	GameMainScene* _pGameMainScene;
 	CommonScene* _pCommonScene;
-	GameScene(std::string prm_name);
+	GameScene(char* prm_name);
 	/**
 	 * ‰Šúˆ—
 	 */

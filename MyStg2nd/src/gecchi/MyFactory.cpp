@@ -55,40 +55,40 @@ using namespace MyStg2nd;
 GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 
 	GgafDummyActor* pDummyActor = NEW GgafDummyActor("DUMMY");
-	for (int i = 1; i < 5; i++) {
-		stringstream str_stream;
-		str_stream << "TAMAGO" << i;
-		TamagoActor* tamago = NEW TamagoActor(str_stream.str(), "tamago");
-		tamago->_X = i*50000;
-		tamago->_Y = i*50000;
-		pDummyActor->addSubLast(tamago);
-	}
-	for (int i = 1; i < 5; i++) {
-		stringstream str_stream;
-		str_stream << "vic2" << i;
-		TamagoActor* vic2 = NEW TamagoActor(str_stream.str(), "vic2");
-		vic2->_X = i*50000;
-		vic2->_Y = i*-50000;
-		pDummyActor->addSubLast(vic2);
-	}
-	for (int i = 1; i < 5; i++) {
-		stringstream str_stream;
-		str_stream << "kappa" << i;
-		TamagoActor* vic2 = NEW TamagoActor(str_stream.str(), "kappa");
-		vic2->_X = i*-50000;
-		vic2->_Y = i*-50000;
-		pDummyActor->addSubLast(vic2);
-	}
-	for (int i = 1; i < 5; i++) {
-		stringstream str_stream;
-		str_stream << "cakeBerry" << i;
-		TamagoActor* vic2 = NEW TamagoActor(str_stream.str(), "yunomi_blue");
-		vic2->_X = i*-50000;
-		vic2->_Y = i*50000;
-		pDummyActor->addSubLast(vic2);
-	}
-	//TamagoActor* pot = NEW TamagoActor("POT", "pot");
-	//pDummyActor->addSubLast(pot);
+//	for (int i = 1; i < 5; i++) {
+//		stringstream str_stream;
+//		str_stream << "TAMAGO" << i;
+//		TamagoActor* tamago = NEW TamagoActor(str_stream.str().c_str(), "tamago");
+//		tamago->_X = i*50000;
+//		tamago->_Y = i*50000;
+//		pDummyActor->addSubLast(tamago);
+//	}
+//	for (int i = 1; i < 5; i++) {
+//		stringstream str_stream;
+//		str_stream << "vic2" << i;
+//		TamagoActor* vic2 = NEW TamagoActor(str_stream.str().c_str(), "vic2");
+//		vic2->_X = i*50000;
+//		vic2->_Y = i*-50000;
+//		pDummyActor->addSubLast(vic2);
+//	}
+//	for (int i = 1; i < 5; i++) {
+//		stringstream str_stream;
+//		str_stream << "kappa" << i;
+//		TamagoActor* vic2 = NEW TamagoActor(str_stream.str().c_str(), "kappa");
+//		vic2->_X = i*-50000;
+//		vic2->_Y = i*-50000;
+//		pDummyActor->addSubLast(vic2);
+//	}
+//	for (int i = 1; i < 5; i++) {
+//		stringstream str_stream;
+//		str_stream << "cakeBerry" << i;
+//		TamagoActor* vic2 = NEW TamagoActor(str_stream.str().c_str(), "yunomi_blue");
+//		vic2->_X = i*-50000;
+//		vic2->_Y = i*50000;
+//		pDummyActor->addSubLast(vic2);
+//	}
+//	//TamagoActor* pot = NEW TamagoActor("POT", "pot");
+//	//pDummyActor->addSubLast(pot);
 	return pDummyActor;
 }
 

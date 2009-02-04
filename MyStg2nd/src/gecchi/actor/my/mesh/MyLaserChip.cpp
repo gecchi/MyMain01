@@ -20,7 +20,7 @@ UINT MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
 
-MyLaserChip::MyLaserChip(string prm_name, string prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
+MyLaserChip::MyLaserChip(char* prm_name, char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
 	_class_name = "MyLaserChip";
 	_dwFrame_switchedToPlay = 0;
 }

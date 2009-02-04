@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-FormationVesta001::FormationVesta001(string prm_name, string prm_model) : FormationActor(prm_name) {
+FormationVesta001::FormationVesta001(char* prm_name, char* prm_model) : FormationActor(prm_name) {
 	_class_name = "FormationVesta001";
 	for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
 		_pEnemyVesta[i] = NEW EnemyVesta("Vesta01", prm_model);

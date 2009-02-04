@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-GameDemoScene::GameDemoScene(string prm_name) : DefaultScene(prm_name) {
+GameDemoScene::GameDemoScene(char* prm_name) : DefaultScene(prm_name) {
 	_pFontPlate01 = NEW FontPlateActor("STR01", "P/moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate01);
 	_pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");

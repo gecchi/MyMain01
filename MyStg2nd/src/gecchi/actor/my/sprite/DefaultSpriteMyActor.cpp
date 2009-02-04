@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-DefaultSpriteMyActor::DefaultSpriteMyActor(string prm_name, string prm_model) : DefaultSpriteActor(prm_name, prm_model) {
+DefaultSpriteMyActor::DefaultSpriteMyActor(char* prm_name, char* prm_model) : DefaultSpriteActor(prm_name, prm_model) {
 	_class_name = "DefaultSpriteMyActor";
 }
 

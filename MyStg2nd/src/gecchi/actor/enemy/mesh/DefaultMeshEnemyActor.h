@@ -6,7 +6,7 @@ namespace MyStg2nd {
 class DefaultMeshEnemyActor : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-	DefaultMeshEnemyActor(std::string prm_name, std::string prm_model);
+	DefaultMeshEnemyActor(char* prm_name, char* prm_model);
 
 	virtual ~DefaultMeshEnemyActor();
 };

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyShotSpriteActor::EnemyShotSpriteActor(string prm_name, string prm_model) : DefaultSpriteEnemyActor(prm_name, prm_model) {
+EnemyShotSpriteActor::EnemyShotSpriteActor(char* prm_name, char* prm_model) : DefaultSpriteEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyShotSpriteActor";
 	_pEffectBegin = NULL;
 	_pEffectFinish = NULL;

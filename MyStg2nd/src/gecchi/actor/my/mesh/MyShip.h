@@ -175,7 +175,7 @@ public:
 	GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
 
 
-	MyShip(std::string prm_name, std::string prm_model);
+	MyShip(char* prm_name, char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

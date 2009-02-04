@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-GameScene::GameScene(string prm_name) : DefaultScene(prm_name) {
+GameScene::GameScene(char* prm_name) : DefaultScene(prm_name) {
 	_pGameDemoScene = NEW GameDemoScene("GameDemo");
 	_pGameDemoScene->stopImmediately();
 	addSubLast(_pGameDemoScene);

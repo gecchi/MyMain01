@@ -9,7 +9,7 @@ class TamagoActor : public GgafDx9LibStg::DefaultMeshActor {
 	int _rnd;
 
 public:
-	TamagoActor(std::string prm_name, std::string prm_model);
+	TamagoActor(char* prm_name, char* prm_model);
 
 	void initialize();
 

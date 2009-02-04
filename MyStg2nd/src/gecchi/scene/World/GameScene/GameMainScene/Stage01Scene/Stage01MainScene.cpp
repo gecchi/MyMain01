@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Stage01MainScene::Stage01MainScene(string prm_name) : GgafDx9LibStg::DefaultScene(prm_name) {
+Stage01MainScene::Stage01MainScene(char* prm_name) : DefaultScene(prm_name) {
 
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start

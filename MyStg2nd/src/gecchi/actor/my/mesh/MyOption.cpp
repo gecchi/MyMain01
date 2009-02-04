@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_name, prm_model) {
+MyOption::MyOption(char* prm_name,  char* prm_model) : DefaultMeshActor(prm_name, prm_model) {
 	_class_name = "MyOption";
 
 	_pRing = NEW GgafLinkedListRing<GeoElement>();
@@ -30,7 +30,7 @@ MyOption::MyOption(string prm_name,  string prm_model) : DefaultMeshActor(prm_na
 	addSubLast(_pMyLaserChipRotation);//仮所属
 	MyLaserChip2* pChip;
 	for (int i = 0; i < 40; i++) { //レーザーストック
-		pChip = NEW MyLaserChip2("MY_L"+GgafUtil::itos(i), "laserchip9");
+		pChip = NEW MyLaserChip2("MY_Laser", "laserchip9");
 		pChip->stopAloneImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 		Sleep(1);

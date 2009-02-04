@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+EnemyCeres::EnemyCeres(char* prm_name, char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyCeres";
 
 	_iMovePatternNo = 0;
@@ -27,7 +27,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	EnemyMeshShot001* pEnemyMeshShot;
 	for (int i = 0; i < 16; i++) {
 		Sleep(1);
-		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshS"+GgafUtil::itos(i), "M/myvic");
+		pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/myvic");
 		pEnemyMeshShot->stopImmediately(); //Å‰”ñ•\Ž¦
 		_pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
 	}
@@ -37,7 +37,7 @@ EnemyCeres::EnemyCeres(string prm_name, string prm_model) : DefaultMeshEnemyActo
 	_createRotationActor = true;
 }
 
-EnemyCeres::EnemyCeres(string prm_name, string prm_model, RotationActor* prm_pRotEnemyMeshShots001) : DefaultMeshEnemyActor(prm_name, prm_model) {
+EnemyCeres::EnemyCeres(char* prm_name, char* prm_model, RotationActor* prm_pRotEnemyMeshShots001) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyCeres";
 
 	_iMovePatternNo = 0;

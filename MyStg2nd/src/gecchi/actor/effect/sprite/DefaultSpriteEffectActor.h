@@ -6,7 +6,7 @@ namespace MyStg2nd {
 class DefaultSpriteEffectActor : public GgafDx9LibStg::DefaultSpriteActor {
 
 public:
-	DefaultSpriteEffectActor(std::string prm_name, std::string prm_model);
+	DefaultSpriteEffectActor(char* prm_name, char* prm_model);
 
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
