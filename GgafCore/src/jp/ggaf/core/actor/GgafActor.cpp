@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafActor::GgafActor(string prm_name) : GgafElement<GgafActor>(prm_name) {
+GgafActor::GgafActor(char* prm_name) : GgafElement<GgafActor>(prm_name) {
 	TRACE("GgafActor::GgafActor("+prm_name+")");
 	_class_name = "GgafActor";
 	_pNext_TheSameDrawDepthLevel = NULL;
@@ -195,7 +195,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-	_TRACE_(prm_parent + _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
+	_TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
 	GgafActor* pActor_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {

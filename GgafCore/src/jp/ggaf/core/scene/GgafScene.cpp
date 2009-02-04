@@ -6,7 +6,7 @@ using namespace GgafCore;
 GgafHeadActor* GgafScene::_s_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
 GgafHeadActor* GgafScene::_s_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
 
-GgafScene::GgafScene(string prm_name) : GgafElement<GgafScene>(prm_name)  {
+GgafScene::GgafScene(char* prm_name) : GgafElement<GgafScene>(prm_name)  {
 	TRACE("GgafScene::GgafScene() "+prm_name);
 	_class_name = "GgafScene";
 	_pLordActor = NEW GgafLordActor(this);

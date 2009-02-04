@@ -64,7 +64,7 @@ GgafResourceLead<T>::GgafResourceLead(char* prm_idstr, T* prm_pResource) : GgafO
 	_pNext = NULL;
 	_pManager = NULL;
 	_iLeadNum = 0;
-	_idstr = new char[51];
+	_idstr = NEW char[51];
 	strcpy(_idstr, prm_idstr);
 }
 

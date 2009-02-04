@@ -17,7 +17,7 @@ class GgafWorld : public GgafMainScene {
 
 public:
 
-	GgafWorld(std::string prm_name);
+	GgafWorld(char* prm_name);
 
 	/**
 	 * ‰Šúˆ—<BR>

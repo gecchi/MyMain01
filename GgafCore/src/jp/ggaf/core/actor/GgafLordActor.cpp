@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor((prm_pScene_Platform->getName())+"'s Lord") {
+GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName()) {
     _pScene_Platform = prm_pScene_Platform;
 	_class_name = "GgafLordActor";
     setBumpable(false);

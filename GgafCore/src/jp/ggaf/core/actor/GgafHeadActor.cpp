@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("_kind="+GgafUtil::itos(prm_kind)) {
+GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("HEAD") {
 	_class_name = "GgafHeadActor";
 	_kind = prm_kind;
     setBumpable(false);

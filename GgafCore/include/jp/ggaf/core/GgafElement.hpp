@@ -74,7 +74,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafElement(std::string prm_name);
+	GgafElement(char* prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -492,7 +492,7 @@ public:
 
 
 template<class T>
-GgafElement<T>::GgafElement(std::string prm_name) : SUPER (prm_name),
+GgafElement<T>::GgafElement(char* prm_name) : SUPER (prm_name),
 _pGod(NULL),
 _wasInitialized(false),
 _dwGodFrame_ofDeath(MAXDWORD),
@@ -529,7 +529,6 @@ void GgafElement<T>::nextFrame() {
 
 		_willPlayNextFrame = false;
 		_willBeAliveNextFrame = false;
-		SUPER::_name = "[Death]"+SUPER::_name;
 	}
 
 	if (_willMoveLastNextFrame) {

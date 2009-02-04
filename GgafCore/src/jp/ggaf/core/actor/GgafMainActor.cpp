@@ -3,7 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafMainActor::GgafMainActor(string prm_name) : GgafActor(prm_name) {
+GgafMainActor::GgafMainActor(char* prm_name) : GgafActor(prm_name) {
     setBumpable(false);
 	_class_name = "GgafMainActor";
     _pHeadActor = NULL;

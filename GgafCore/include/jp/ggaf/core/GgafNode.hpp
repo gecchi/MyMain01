@@ -73,11 +73,11 @@ protected:
 public:
 
 	/** ID */
-	std::string _id;
-	/** ノード名 */
-	std::string _name;
+	char* _id;
+	/** ノード識別名(50文字まで) */
+	char* _name;
 	/** クラス名 */
-	std::string _class_name;
+	const char* _class_name;
 
 	/** 親ノード */
 	T* _pParent;
@@ -99,7 +99,7 @@ public:
 	 * コンストラクタ
 	 * @param prm_name ノード名称（ユニークにして下さい）
 	 */
-	GgafNode(std::string prm_name);
+	GgafNode(char* prm_name);
 
 	/**
 	 * デストラクタ。自ツリーノードを解放します。 .
@@ -115,19 +115,19 @@ public:
 	 * ノード名取得 .
 	 * @return ノード名称
 	 */
-	virtual std::string getName();
+	virtual char* getName();
 
 	/**
 	 * クラス名取得 .
 	 * @return クラス名称
 	 */
-	virtual std::string getClassName();
+	virtual const char* getClassName();
 
 
 	/**
 	 * ノード名問い合わせ
 	 */
-//	virtual bool isNamed(std::string prm_name);
+//	virtual bool isNamed(char* prm_name);
 
 
 	/**
@@ -204,12 +204,12 @@ public:
 	/**
 	 * 親ノードを全て検索し取得する。
 	 * 存在しない場合はエラー <BR>
-	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
+	 * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
 	 * 毎フレーム実行されるような使用は避けるべきです。<BR>
 	 * @param	prm_parent_name	親ノード名
 	 * @return	T*	親ノード
 	 */
-	virtual T* getParent(std::string prm_parent_name);
+	virtual T* getParent(char* prm_parent_name);
 
 	/**
 	 * 引数ノードを子ノードとして追加する .
@@ -236,12 +236,12 @@ public:
 	/**
 	 * 子ノードをノード名称を指定して取得する .
 	 * 存在しない場合はエラー<BR>
-	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
+	 * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
 	 * 毎フレーム実行されるような使用は避けるべきです。<BR>
 	 * @param	prm_sub_actor_name	子ノード名
 	 * @return	T*	最初にヒットした子ノード名に対応する子ノードのポインタ
 	 */
-	virtual T* getSub(std::string prm_sub_actor_name);
+	virtual T* getSub(char* prm_sub_actor_name);
 
 	/**
 	 * 子ノードのグループの先頭ノードを取得する .
@@ -252,12 +252,12 @@ public:
 
 	/**
 	 * 子ノード存在チェック .
-	 * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
+	 * 内部で char* の比較を見つかるまで行うため、重いです。<BR>
 	 * 毎フレーム実行されるような使用は避けるべきです。<BR>
 	 * @param	prm_sub_actor_name	存在チェックする子ノード名
 	 * @return	bool true:存在する／false:存在しない
 	 */
-	virtual bool hasSub(std::string prm_sub_actor_name);
+	virtual bool hasSub(char* prm_sub_actor_name);
 
 	/**
 	 * 自ノードが先頭ノードか調べる .
@@ -282,7 +282,7 @@ public:
  */
 
 template<class T>
-GgafNode<T>::GgafNode(std::string prm_name) : GgafObject() ,
+GgafNode<T>::GgafNode(char* prm_name) : GgafObject() ,
 _name("NOT_OBJECT_YET"),
 _pParent(NULL),
 _pSubFirst(NULL),
@@ -291,9 +291,11 @@ _isLast(false)
 {
 	_pNext = (T*)this;
 	_pPrev = (T*)this;
-	_name = prm_name;
+
+	_name = NEW char[51];
+	strcpy(_name, prm_name);
 	//_id = GgafUtil::itos(GgafObject::_iObjectNo);
-	TRACE("template<class T> GgafNode<T>::GgafNode("+_name+")");
+	TRACE("template<class T> GgafNode<T>::GgafNode("<<_name<<")");
 	_class_name = "GgafNode<T>";
 
 }
@@ -413,13 +415,13 @@ T* GgafNode<T>::getParent() {
 
 
 template<class T>
-T* GgafNode<T>::getParent(std::string prm_parent_name) {
+T* GgafNode<T>::getParent(char* prm_parent_name) {
 	_pNodeTemp = (T*)this;
 	while(true) {
 		_pNodeTemp = _pNodeTemp->_pParent;
 		if (_pNodeTemp == NULL) {
-			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getParent()] Error! 親ノードがありません。(prm_parent_name="+prm_parent_name+")");
-		} else if (_pNodeTemp->_name == prm_parent_name) {
+			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getParent()] Error! 親ノードがありません。(prm_parent_name="<<prm_parent_name<<")");
+		} else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
 			break;
 		}
 	}
@@ -427,17 +429,17 @@ T* GgafNode<T>::getParent(std::string prm_parent_name) {
 }
 
 template<class T>
-T* GgafNode<T>::getSub(std::string prm_sub_actor_name) {
+T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
 		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! _pSubFirstがNULLです。");
 	}
 	_pNodeTemp = _pSubFirst;
 	do {
-		if(_pNodeTemp->getName() == prm_sub_actor_name) {
+		if(GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
 			break;
 		}
 		if (_pNodeTemp->_isLast) {
-			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name="+prm_sub_actor_name+")");
+			throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name="<<prm_sub_actor_name<<")");
 		} else {
 			_pNodeTemp = _pNodeTemp->_pNext;
 		}
@@ -452,13 +454,13 @@ T* GgafNode<T>::getSubFirst() {
 
 
 template<class T>
-bool GgafNode<T>::hasSub(std::string prm_sub_actor_name) {
+bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
 	if (_pSubFirst == NULL) {
 		return false;
 	} else {
 		_pNodeTemp = _pSubFirst;
 		do {
-			if(_pNodeTemp->getName() == prm_sub_actor_name) {
+			if(GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name)) {
 				return true;
 			}
 			if (_pNodeTemp->_isLast) {
@@ -474,7 +476,7 @@ bool GgafNode<T>::hasSub(std::string prm_sub_actor_name) {
 template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
 	if (prm_pSub->_pParent != NULL) {
-		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属("<<prm_pSub->_pParent->_name<<"に所属)しています(this="<<_name<<"/prm_pSub="+prm_pSub->getName()+")");
+		throw_GgafCriticalException("[GgafNode<"<<_class_name<<">::addSubLast()] Error! ノードは既に所属("<<prm_pSub->_pParent->_name<<"に所属)しています(this="<<_name<<"/prm_pSub="<<prm_pSub->getName()<<")");
 	}
 	prm_pSub->_pParent = (T*)this;
 	prm_pSub->_isLast = true;
@@ -499,18 +501,18 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
 
 
 template<class T>
-std::string GgafNode<T>::getName() {
+char* GgafNode<T>::getName() {
 	return _name;
 }
 
 template<class T>
-std::string GgafNode<T>::getClassName() {
+const char* GgafNode<T>::getClassName() {
 	return _class_name;
 }
 /*
 template<class T>
-bool GgafNode<T>::isNamed(std::string prm_name) {
-	std::string::size_type iLen = prm_name.length();
+bool GgafNode<T>::isNamed(char* prm_name) {
+	char*::size_type iLen = prm_name.length();
 	if (prm_name.rfind('*') == iLen-1) {}
 
 
@@ -587,6 +589,7 @@ GgafNode<T>::~GgafNode() {
 			_isLast = true;
 		}
 	}
+	DELETEARR_IMPOSSIBLE_NULL(_name);
 
 //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<") ID="<<_id);
 //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
