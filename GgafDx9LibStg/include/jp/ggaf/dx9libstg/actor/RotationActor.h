@@ -38,6 +38,22 @@ public:
 	};
 
 	/**
+	 * 子アクターへは影響させない
+	 */
+	virtual void play() {
+		playAlone();
+	}
+
+	virtual void stop() {
+		stopAlone();
+	}
+
+	virtual void pause() {
+		pauseAlone();
+	}
+
+
+	/**
 	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）を取得する。<BR>
 	 * 暇なローテーションメンバーが居ない場合 NULL が返ります。<BR>
 	 * 取得できる場合、ポインタを返すと共に、そのアクターはローテーションの一番後ろに移動されます。<BR>
