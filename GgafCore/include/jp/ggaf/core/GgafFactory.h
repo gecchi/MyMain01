@@ -33,16 +33,18 @@ private:
 
 	/**
 	 * 工場に注文を行う<BR>
-	 * @param   prm_id	注文識別ID
-	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_pArg	その引数<BR>
+	 * @param prm_id	注文識別ID番号
+	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+	 * @param prm_pArg1	その引数1
+	 * @param prm_pArg2	その引数2
+	 * @param prm_pArg3	その引数3
 	 */
 	static void order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3);
 
 	/**
 	 * 注文した商品を取り出す。<BR>
 	 * 未製造だった場合、製造が完了するまで待つ。<BR>
-	 * @param   prm_id	注文識別ID
+	 * @param   prm_id	注文識別ID番号
 	 * @return	製品のポインタ
 	 */
 	static void* obtain(unsigned long prm_id);
@@ -66,9 +68,11 @@ public:
 	/**
 	 * 工場にアクター作成の注文を行う .
 	 * メイン処理が呼び出します。<BR>
-	 * @param   prm_id	注文識別ID
-	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_pArg	その引数<BR>
+	 * @param prm_id	注文識別ID番号
+	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+	 * @param prm_pArg1	その引数1
+	 * @param prm_pArg2	その引数2
+	 * @param prm_pArg3	その引数3
 	 */
 	template <class X>
 	static void orderActor(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
@@ -78,9 +82,11 @@ public:
 	/**
 	 * 工場にシーン作成の注文を行う .
 	 * メイン処理が呼び出します。<BR>
-	 * @param   prm_id	注文識別ID
-	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
-	 * 			prm_pArg	その引数<BR>
+	 * @param prm_id	注文識別ID番号
+	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+	 * @param prm_pArg1	その引数1
+	 * @param prm_pArg2	その引数2
+	 * @param prm_pArg3	その引数3
 	 */
 	template <class X>
 	static void orderScene(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
@@ -119,8 +125,7 @@ public:
 
 	/**
 	 * 稼動する。<BR>
-	 * 別スレッドで無限ループしてます。<BR>
-	 * メイン処理で、フラグ操作して止めたり再開したりします。<BR>
+	 * 別スレッドで無限ループしてます。注文があれば作成し、ストックします。<BR>
 	 * 神が初期設定時に別スレッドで一度実行する。神が死ぬまで（アプリ終了まで）永遠に稼動しっ放しである。<BR>
 	 */
 	static unsigned __stdcall work(void* prm_arg);
