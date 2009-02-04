@@ -13,6 +13,7 @@ GgafOrder::GgafOrder(unsigned long prm_id) {
 	_pFunc = NULL;
 	_pArg1 = NULL;
 	_pArg2 = NULL;
+	_pArg3 = NULL;
 	_progress = 0;
 }
 

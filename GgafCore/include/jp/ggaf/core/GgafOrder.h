@@ -29,10 +29,13 @@ private:
 	/** 商品へのポインタ */
 	GgafObject* _pObject_Creation;
 	/** 商品製造メソッド */
-	GgafObject* (*_pFunc)(void*, void*);
-	/** 商品製造メソッドのパラメータ */
+	GgafObject* (*_pFunc)(void*, void*, void*);
+	/** 商品製造メソッドのパラメータ1 */
 	void* _pArg1;
+	/** 商品製造メソッドのパラメータ2 */
 	void* _pArg2;
+	/** 商品製造メソッドのパラメータ3 */
+	void* _pArg3;
 	/** 進捗具合（0:未着手/1:製造中/2:製造済み） */
 	int _progress;
 

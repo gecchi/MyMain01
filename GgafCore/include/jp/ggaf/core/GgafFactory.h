@@ -37,7 +37,7 @@ private:
 	 * 			prm_pFunc	実際に製造処理を行う関数のポインタ<BR>
 	 * 			prm_pArg	その引数<BR>
 	 */
-	static void order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2);
+	static void order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3);
 
 	/**
 	 * 注文した商品を取り出す。<BR>
@@ -72,8 +72,8 @@ public:
 	 * 			prm_pArg	その引数<BR>
 	 */
 	template <class X>
-	static void orderActor(unsigned long prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
+	static void orderActor(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
+		order(prm_id, (GgafObject* (*)(void*,void*,void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
 	}
 
 	/**
@@ -83,8 +83,8 @@ public:
 	 * 			prm_pArg	その引数<BR>
 	 */
 	template <class X>
-	static void orderScene(unsigned long prm_id, X* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
-		order(prm_id, (GgafObject* (*)(void*, void*))prm_pFunc, prm_pArg1, prm_pArg2);
+	static void orderScene(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
+		order(prm_id, (GgafObject* (*)(void*,void*,void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
 	}
 
 	/**

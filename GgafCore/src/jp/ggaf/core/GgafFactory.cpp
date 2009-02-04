@@ -23,7 +23,7 @@ GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id) {
 	return (GgafMainScene*)obtain(prm_id);
 }
 
-void GgafFactory::order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*, void*), void* prm_pArg1, void* prm_pArg2) {
+void GgafFactory::order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
 	TRACE2("GgafFactory::order ＜客＞ 別スレッド工場さん、[" << prm_id << "]を作っといて～。");
 	static GgafOrder* pOrder_New;
 	pOrder_New = NEW GgafOrder(prm_id);
@@ -31,6 +31,7 @@ void GgafFactory::order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*, vo
 	pOrder_New->_pFunc = prm_pFunc;
 	pOrder_New->_pArg1 = prm_pArg1;
 	pOrder_New->_pArg2 = prm_pArg2;
+	pOrder_New->_pArg3 = prm_pArg3;
 	pOrder_New->_progress = 0;
 	//::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 	if (ROOT_ORDER == NULL) {
@@ -162,7 +163,7 @@ void GgafFactory::clean() {
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
 	try {
-		static GgafObject* (*func)(void*, void*);
+		static GgafObject* (*func)(void*,void*,void*);
 		static GgafObject* pObject;
 		static GgafOrder* pOrder_InManufacturing_save;
 		while(_isWorking) {
@@ -184,10 +185,11 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 					pOrder_InManufacturing_save = CREATING_ORDER; //ポインタ一時退避
 					void* arg1 = CREATING_ORDER->_pArg1;
 					void* arg2 = CREATING_ORDER->_pArg2;
+					void* arg3 = CREATING_ORDER->_pArg3;
 					TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"]");
 					::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
 					Sleep(2);
-					pObject = (*func)(arg1, arg2); //製品の製造！！！！
+					pObject = (*func)(arg1, arg2, arg3); //製品の製造！！！！
 					Sleep(2);
 					::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
 					TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] (^_^)v");
