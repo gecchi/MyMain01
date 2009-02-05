@@ -118,7 +118,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) : GgafObject() {
  @return		true:OK/false:NG
  */
 
-void GgafDx9Se::play() {
+void GgafDx9Se::act() {
 	if (_pIDirectSoundBuffer == NULL) {
 		_TRACE_("_pIDirectSoundBuffer==NULL;!");
 	}

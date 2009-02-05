@@ -32,7 +32,7 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 
 void GgafDx9UntransformedActor::processDrawPrior() {
 	//TODO:óvåüèÿ
-	if (_isPlaying && !_wasBlinded && _isAlive) {
+	if (_isActive && !_wasBlinded && _isAlive) {
 		GgafDx9World::setDrawDepthLevel(((_Z/LEN_UNIT)+(GgafDx9God::_iPxDep / 2)) / (GgafDx9God::_iPxDep / MAX_DRAW_DEPTH_LEVEL), this);
 	}
 }

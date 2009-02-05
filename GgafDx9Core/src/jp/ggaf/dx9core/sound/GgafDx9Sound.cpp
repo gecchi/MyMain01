@@ -57,7 +57,7 @@ void GgafDx9Sound::release() {
 //	if (_pIDirectSound8 == NULL) {
 //		throw_GgafCriticalException("[GgafDx9Sound::createSe] Error! GgafDx9Sound‚Í‰Šú‰»‚µ‚Ä‚Ü‚¹‚ñBinit()‚ğÀs‚µ‚Ä‚­‚¾‚³‚¢B");
 //	}
-//	GgafDx9Se* pSe_New = NEW GgafDx9Se(prm_wave_name, 1); //1‚ÍÅ‘å“¯Ä¶”
+//	GgafDx9Se* pSe_New = NEW GgafDx9Se(prm_wave_name, 1); //1‚ÍÅ‘å“¯Šˆ“®”
 //	return pSe_New;
 //}
 //

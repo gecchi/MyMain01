@@ -12,7 +12,7 @@ namespace GgafDx9Core {
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
 /**
- * Ogg ストリーム再生クラス .
+ * Ogg ストリーム活動クラス .
  */
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
@@ -26,7 +26,7 @@ public:
 	//TODO:
 	//virtual void behave();でフェードインフェードアウトを実装するぞ！
 
-	//! 再生
+	//! 活動
 	void play( bool isLoop );
 
 	//! 一時停止
