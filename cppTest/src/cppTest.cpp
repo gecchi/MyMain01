@@ -4,7 +4,8 @@
 #include <windows.h>
 
 
-
+//enum class day_of_week {SUNDAY, MONDAY, TUESDAY, WEDNESDAY, THURSDAY, FRYDAY, SATURDAY};
+enum day_of_week2 {day_of_week, SUNDAY2, MONDAY2, TUESDAY2, WEDNESDAY2, THURSDAY2, FRYDAY2, SATURDAY2};
 
 class Hoge {};
 
@@ -58,5 +59,6 @@ int main(int argc,char *argv[]) {
 	HogeAccesser* hacc = new HogeAccesser();
 	HogeManager* manager = new HogeManager(hacc);
 	Hoge* x = manager->setAccessValue(h);
+	//day_of_week2 today = 1;today->
 	return 0;
 }
