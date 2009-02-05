@@ -15,14 +15,6 @@ void StageScene::initialize() {
 }
 
 void StageScene::processBehavior() {
-	//ˆêŽž’âŽ~
-	if (VB::isPushedDown(VB_UI_CANCEL)) {
-		if (_pause) {
-			_pStage01Scene->pause();
-		} else {
-			_pStage01Scene->unpause();
-		}
-	}
 
 }
 
@@ -31,7 +23,14 @@ void StageScene::processJudgement() {
 
 
 void StageScene::processFinal() {
-
+	//ˆêŽž’âŽ~
+	if (VB::isPushedDown(VB_UI_CANCEL)) {
+		if (_pause) {
+			pause();
+		} else {
+			unpause();
+		}
+	}
 }
 
 StageScene::~StageScene() {

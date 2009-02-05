@@ -5,7 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
 	_pGameDemo = NEW GameDemoScene("GameDemo");
 	_pGameDemo->refrainImmediatelyAlone(); //”ñŠˆ“®
@@ -25,13 +24,13 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 void GameScene::cannelGameDemo() {
-	_pGameDemo->reflain();
+	_pGameDemo->refrain();
 	_pSceneCannel = _pGameDemo;
 	_pGameMain->act();
-};
+}
 
 void GameScene::cannelGameMain() {
-	_pGameDemo->reflain();
+	_pGameDemo->refrain();
 	_pSceneCannel = _pGameMain;
 	_pGameMain->act();
 }
@@ -55,11 +54,11 @@ void GameScene::processBehavior() {
 	}
 #endif
 	if (_pSceneCannel == _pGameDemo) {
-		if (_pGameDemo->chkProgressOnChange(GAMEDEMO_PROG_GAMESTART_BEGIN)) {
+		if (_pGameDemo->chkProgressOnChange() == GAMEDEMO_PROG_GAMESTART_BEGIN) {
 			orderSceneToFactory(1, GameMainScene, "GameMain");
 			setProgress(GAME_PROG_DEMO_BEGIN);
 		} else if (_dwFrame == getFrameAtProgress(GAME_PROG_DEMO_BEGIN)+120) {
-			_pGameMain = obtainSceneFromFactory(1);
+			_pGameMain = (GameMainScene*)obtainSceneFromFactory(1);
 			_pGameMain->setStage(1);
 			setProgress(GAME_PROG_DEMO_DISP);
 			cannelGameMain();

@@ -46,8 +46,8 @@ void GameDemoScene::processBehavior() {
 	} else if (getProgress() == GAMEDEMO_PROG_RANKING_BEGIN) {
 		//ランキング表示
 		_pFontPlate01->setString(100,100,"RANKING!!!：MYSTG2nd");
-		setProgress(GAMEDEMO_PROG_RANKING_BEGIN_DISP);
-	} else if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_RANKING_BEGIN_DISP)+300) {
+		setProgress(GAMEDEMO_PROG_RANKING_BEGIN);
+	} else if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_RANKING_DISP)+300) {
 		setProgress(GAMEDEMO_PROG_TITLE_BEGIN);
 	}
 //<-----ループ

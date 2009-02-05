@@ -18,7 +18,7 @@ public:
 	GameDemoScene* _pGameDemo;
 	GameMainScene* _pGameMain;
 
-	GgafDx9LibStg::DefaultScene _pSceneCannel;
+	GgafDx9LibStg::DefaultScene* _pSceneCannel;
 
 
 	CommonScene* _pCommonScene;
