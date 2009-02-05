@@ -97,7 +97,7 @@ public:
 	 * @param prm_progress 進捗(1～99)
 	 * @return 引数の直近の進捗が起こったときのフレーム
 	 */
-	virtual int getFrameAtProgress(int prm_progress) {
+	virtual DWORD getFrameAtProgress(int prm_progress) {
 		return _dwFrame_ProgressChange[prm_progress];
 	};
 
