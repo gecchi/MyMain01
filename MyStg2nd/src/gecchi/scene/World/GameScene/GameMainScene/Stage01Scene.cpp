@@ -6,14 +6,14 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Stage01Scene::Stage01Scene(const char* prm_name) : DefaultScene(prm_name) {
+Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	Stage01MainScene* pStage01MainScene = NEW Stage01MainScene("Stage01Main");
 	BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01", "");
 	getLordActor()->accept(KIND_EFFECT, pBack);
 	addSubLast(pStage01MainScene);
 	_pBgmLead_st1 = (GgafDx9BgmLead*)GgafDx9Sound::_pBgmManager->lead("JM5");
 	_pBgmLead_st1->getResource()->play(false);
-	stopImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+	refrainImmediately(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 	_TRACE_("Stage01Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
 }
 

@@ -31,6 +31,7 @@ void World::processDrawPrior() {
 		GgafDx9World::_pCamera->_Z = GgafDx9World::_pCamera->_Z - 2000;
 	}
 
+
 }
 
 World::~World() {

@@ -9,7 +9,7 @@ FormationCeres001::FormationCeres001(const char* prm_name, const char* prm_model
 	_class_name = "FormationCeres001";
 	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
 		_pEnemyCeres[i] = NEW EnemyCeres("Ceres01", "M/Ceres");
-		_pEnemyCeres[i]->stopImmediately();
+		_pEnemyCeres[i]->refrainImmediately();
 		addSubLast(_pEnemyCeres[i] );
 	}
 }
@@ -17,7 +17,7 @@ FormationCeres001::FormationCeres001(const char* prm_name, const char* prm_model
 
 void FormationCeres001::initialize() {
 	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-		_pEnemyCeres[i]->playAfter(i*30+1);
+		_pEnemyCeres[i]->actAfter(i*30+1);
 	}
 }
 

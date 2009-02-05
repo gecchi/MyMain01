@@ -2,7 +2,7 @@
 #define STAGE03SCENE_H_
 namespace MyStg2nd {
 
-class Stage03Scene : public GgafDx9LibStg::DefaultScene {
+class Stage03Scene : public StageScene {
 
 public:
 

@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 MyShipMoverAssistant::MyShipMoverAssistant(const char* prm_name, const char* prm_model) : DefaultMeshActor(prm_name, prm_model)  {
 	_class_name = "MyShipMoverAssistant";
-	blindAloneImmediately();
+	blindImmediatelyAlone();
 	setBumpableAlone(false);
 }
 

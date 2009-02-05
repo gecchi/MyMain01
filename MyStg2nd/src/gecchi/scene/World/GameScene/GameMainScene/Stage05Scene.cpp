@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-Stage05Scene::Stage05Scene(const char* prm_name) : DefaultScene(prm_name) {
+Stage05Scene::Stage05Scene(const char* prm_name) : StageScene(prm_name) {
 }
 
 void Stage05Scene::initialize() {
@@ -20,7 +20,7 @@ void Stage05Scene::processFinal() {
 
 	if (_dwFrame == 1) {
 		_TRACE_("Stage05Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-		this->stop(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+		this->refrain(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
 	}
 }
 

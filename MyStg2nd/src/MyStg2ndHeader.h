@@ -38,6 +38,7 @@ class BackGroundChipPlate;
 
 class GameScene;
 class GameMainScene;
+class StageScene;
 class Stage01Scene;
 class Stage02Scene;
 class Stage03Scene;
@@ -83,6 +84,7 @@ class MyFactory;
 #include "gecchi/scene/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/World/GameScene/CommonScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene.h"
+#include "gecchi/scene/World/GameScene/GameMainScene/StageScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene/Stage01MainScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage02Scene.h"

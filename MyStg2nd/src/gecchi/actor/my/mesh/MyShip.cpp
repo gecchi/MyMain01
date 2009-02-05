@@ -98,7 +98,7 @@ MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(p
 	MyShot001* pShot;
 	for (int i = 0; i < 50; i++) { //自弾ストック
 		pShot = NEW MyShot001("MY_MyShot001", "S/moji2");
-		pShot->stopImmediately();
+		pShot->refrainImmediately();
 		_pMyShots001Rotation->addSubLast(pShot);
 	}
 
@@ -107,7 +107,7 @@ MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(p
 	MyWave001* pWave;
 	for (int i = 0; i < 50; i++) { //自弾ストック
 		pWave = NEW MyWave001("MY_Wave001", "M/wave");
-		pWave->stopImmediately();
+		pWave->refrainImmediately();
 		_pMyWaves001Rotation->addSubLast(pWave);
 	}
 
@@ -117,14 +117,14 @@ MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(p
 	MyLaserChip2* pChip;
 	for (int i = 0; i < 100; i++) { //レーザーストック
 		pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
-		pChip->stopImmediately();
+		pChip->refrainImmediately();
 		_pMyLaserChipRotation->addSubLast(pChip);
 	}
 
 	for (int i = 0; i < EQ_MAX_OPTION; i++) {
 		MyOption* pOption = NEW MyOption("MY_OPTION", "M/ebi");
 		pOption->_iMyNo = i;  //おぷ番
-		pOption->stopAloneImmediately();
+		pOption->refrainImmediatelyAlone();
 		addSubLast(pOption);
 	}
 
@@ -205,12 +205,12 @@ void MyShip::processBehavior() {
 	if (VB::isPushedDown(VB_SHOT1)) {
 		MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->obtain();
 		if (pShot != NULL) {
-			pShot->play();
+			pShot->act();
 
 			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 			if (pExplo001 != NULL) {
 				pExplo001->setGeometry(this);
-				pExplo001->play();
+				pExplo001->act();
 			}
 		}
 	}
@@ -220,8 +220,8 @@ void MyShip::processBehavior() {
 		MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
 		if (pLaser != NULL) {
 			pLaser->setRadicalActor(this);
-			pLaser->_dwFrame_switchedToPlay = _dwFrame;
-			pLaser->play();
+			pLaser->_dwFrame_switchedToAct = _dwFrame;
+			pLaser->act();
 		}
 	}
 
@@ -229,12 +229,12 @@ void MyShip::processBehavior() {
 	if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
 		MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->obtain();
 		if (pWave != NULL) {
-			pWave->play();
+			pWave->act();
 
 			EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 			if (pExplo001 != NULL) {
 				pExplo001->setGeometry(this);
-				pExplo001->play();
+				pExplo001->act();
 			}
 		}
 	}
@@ -547,7 +547,7 @@ void MyShip::equipOption() {
 
 
 	_state.eq_option++;
-	pOption->playAlone();
+	pOption->actAlone();
 
 
 }

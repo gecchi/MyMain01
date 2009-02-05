@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EnemyMeshShot001::EnemyMeshShot001(const char* prm_name, const char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
 	_class_name = "EnemyMeshShot001";
 
-	stop();
+	refrain();
 
 	/** 出現時の初速 */
 	_iMoveVelocity_1st = 10000;
@@ -27,7 +27,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name, const char* prm_model) 
 	/** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
 	_iMoveAcceleration_2nd = 300;
 
-	_dwFrame_switchedToPlay = 0;
+	_dwFrame_switchedToAct = 0;
 }
 
 void EnemyMeshShot001::initialize() {
@@ -44,12 +44,12 @@ void EnemyMeshShot001::initialize() {
 
 
 void EnemyMeshShot001::processBehavior() {
-	if (switchedToPlay()) {
+	if (switchedToAct()) {
 		//出現時
 		_pGeoMover->setMoveVelocity(_iMoveVelocity_1st);
 		_pGeoMover->setMoveAcceleration(_iMoveAcceleration_1st);
 
-		_dwFrame_switchedToPlay = 0;
+		_dwFrame_switchedToAct = 0;
 		setBumpableAlone(true);
 	} else {
 
@@ -72,9 +72,9 @@ void EnemyMeshShot001::processBehavior() {
 //		_pGeoMover->setMoveAngleRz(angRz_Target);
 //		_pGeoMover->setMoveAngleRy(angRy_Target);
 
-		_dwFrame_switchedToPlay++;
+		_dwFrame_switchedToAct++;
 		//方向転換開始
-		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin) {
+		if (_dwFrame_switchedToAct == _dwFrame_TurnBegin) {
 			angle angRz_Target;
 			angle angRy_Target;
 			GgafDx9Util::getRotAngleZY(
@@ -102,7 +102,7 @@ void EnemyMeshShot001::processBehavior() {
 
 
 		//方向転換終了
-		if (_dwFrame_switchedToPlay == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
+		if (_dwFrame_switchedToAct == _dwFrame_TurnBegin+_dwFrameInterval_Turn) {
 			_pGeoMover->setMoveAngleRzVelocity(0);
 			_pGeoMover->setMoveAngleRyVelocity(0);
 			_pGeoMover->_auto_move_angle_ry_target_Flg = false;
@@ -122,7 +122,7 @@ void EnemyMeshShot001::processBehavior() {
 
 void EnemyMeshShot001::processJudgement() {
 	if (isOffScreen()) {
-		stop();
+		refrain();
 		//farewell();
 	}
 }
@@ -159,11 +159,11 @@ void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 	//_TRACE_("EnemyMeshShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//farewell();
 	setBumpableAlone(false);
-	stop();
+	refrain();
 	EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
 	if (pExplo001 != NULL) {
 		pExplo001->setGeometry(this);
-		pExplo001->play();
+		pExplo001->act();
 	}
 }
 

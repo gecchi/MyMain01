@@ -7,20 +7,38 @@ using namespace MyStg2nd;
 
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
-	_pGameDemoScene = NEW GameDemoScene("GameDemo");
-	_pGameDemoScene->stopImmediately();
-	addSubLast(_pGameDemoScene);
+	_pGameDemo = NEW GameDemoScene("GameDemo");
+	_pGameDemo->refrainImmediatelyAlone(); //”ñŠˆ“®
+	addSubLast(_pGameDemo);
 
-	_pGameMainScene = NEW GameMainScene("GameMain");
-	addSubLast(_pGameMainScene);
+	_pGameMain = NEW GameMainScene("GameMain");
+	_pGameDemo->refrainImmediatelyAlone(); //”ñŠˆ“®
+	addSubLast(_pGameMain);
+
+	_pSceneCannel = _pGameDemo;
+
 
 	_pCommonScene = NEW CommonScene("Common");
 	addSubLast(_pCommonScene);
 
 }
 
-void GameScene::initialize() {
 
+void GameScene::cannelGameDemo() {
+	_pGameDemo->reflain();
+	_pSceneCannel = _pGameDemo;
+	_pGameMain->act();
+};
+
+void GameScene::cannelGameMain() {
+	_pGameDemo->reflain();
+	_pSceneCannel = _pGameMain;
+	_pGameMain->act();
+}
+
+void GameScene::initialize() {
+	_TRACE_("GameScene::initialize() ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
+	cannelGameDemo();
 }
 
 
@@ -36,18 +54,23 @@ void GameScene::processBehavior() {
 		}
 	}
 #endif
+	if (_pSceneCannel == _pGameDemo) {
+		if (_pGameDemo->chkProgressOnChange(GAMEDEMO_PROG_GAMESTART_BEGIN)) {
+			orderSceneToFactory(1, GameMainScene, "GameMain");
+			setProgress(GAME_PROG_DEMO_BEGIN);
+		} else if (_dwFrame == getFrameAtProgress(GAME_PROG_DEMO_BEGIN)+120) {
+			_pGameMain = obtainSceneFromFactory(1);
+			_pGameMain->setStage(1);
+			setProgress(GAME_PROG_DEMO_DISP);
+			cannelGameMain();
+		}
+	} else if (_pSceneCannel == _pGameMain) {
 
-}
-
-
-void GameScene::processFinal() {
-	if (_dwFrame == 120) {
-		//GgafDx9SeManager::get("logon")->play();
-		_TRACE_("GameScene ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
-		_pGameDemoScene->play();
 	}
 }
 
+void GameScene::processFinal() {
+}
 
 GameScene::~GameScene() {
 }

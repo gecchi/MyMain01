@@ -35,7 +35,7 @@ public:
 	/**
 	 * ＜OverRide です＞
 	 */
-	void onStop();
+	void onRefrain();
 
 	/**
 	 * 親元対象アクター

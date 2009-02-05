@@ -13,7 +13,7 @@ BackGround01Plate::BackGround01Plate(const char* prm_name, const char* prm_dummy
 	_papChipPlate[1] = NEW BackGroundChipPlate("Bg01_Chip02", "P/background02");
 	_papChipPlate[2] = NEW BackGroundChipPlate("Bg01_Chip03", "P/background03");
 	_papChipPlate[3] = NEW BackGroundChipPlate("Bg01_Chip04", "P/background04");
-	stopImmediately();
+	refrainImmediately();
 }
 
 void BackGround01Plate::initialize() {

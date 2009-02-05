@@ -22,7 +22,7 @@ MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
 MyLaserChip2::MyLaserChip2(const char* prm_name, const char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
 	_class_name = "MyLaserChip2";
-	_dwFrame_switchedToPlay = 0;
+	_dwFrame_switchedToAct = 0;
 }
 
 /*
@@ -107,7 +107,7 @@ void MyLaserChip2::initialize() {
 }
 
 void MyLaserChip2::processBehavior() {
-	if (switchedToPlay()) {
+	if (switchedToAct()) {
 		//出現時処理
 		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
@@ -135,7 +135,7 @@ void MyLaserChip2::processBehavior() {
 void MyLaserChip2::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		stop();
+		refrain();
 	}
 }
 
@@ -156,7 +156,7 @@ void MyLaserChip2::processDrawMain() {
 
 	if (_pIDirect3DVertexBuffer9_MyLaserChip2 != NULL) {
 		//連続しているか
-		if (pPrevChip->isPlaying() && _dwFrame_switchedToPlay-1 == pPrevChip->_dwFrame_switchedToPlay) {
+		if (pPrevChip->isPlaying() && _dwFrame_switchedToAct-1 == pPrevChip->_dwFrame_switchedToAct) {
 			//連続しているので、Prev（一つ前方）自分の正四面体頂点ABCDを、Prev（一つ前方）のChipの正四面体頂点EFGHに重ねる。
 
 
@@ -321,7 +321,7 @@ void MyLaserChip2::processDrawMain() {
 	}
 
 //	static int centerX, centerY, centerZ;
-//	if (pNextChip->isPlaying() && _dwFrame_switchedToPlay+1 == pNextChip->_dwFrame_switchedToPlay) {
+//	if (pNextChip->isPlaying() && _dwFrame_switchedToAct+1 == pNextChip->_dwFrame_switchedToAct) {
 //		centerX = (_X - pNextChip->_X) / 2;
 //		centerY = (_Y - pNextChip->_Y) / 2;
 //		centerZ = (_Z - pNextChip->_Z) / 2;
@@ -361,7 +361,7 @@ void MyLaserChip2::processHappen(int prm_no) {
 
 
 void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
-	stop();
+	refrain();
 }
 
 MyLaserChip2::~MyLaserChip2() {

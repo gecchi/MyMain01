@@ -17,7 +17,7 @@ FormationJuno001::FormationJuno001(const char* prm_name, const char* prm_model) 
 	int iScreenHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT;
 	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
 		_pEnemyJuno[i] = NEW EnemyJuno("Juno01", prm_model);
-		_pEnemyJuno[i]->stopImmediately();
+		_pEnemyJuno[i]->refrainImmediately();
 		_pEnemyJuno[i]->_X = (pRndGen->genrand_int32() % (iScreenWidth)) - (iScreenHeight/2);
 		_pEnemyJuno[i]->_Y = (pRndGen->genrand_int32() % (iScreenHeight)) - (iScreenHeight/2);
 		addSubLast(_pEnemyJuno[i] );
@@ -30,7 +30,7 @@ FormationJuno001::FormationJuno001(const char* prm_name, const char* prm_model) 
 
 void FormationJuno001::initialize() {
 	for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-		_pEnemyJuno[i]->playAfter(i*3+1);
+		_pEnemyJuno[i]->actAfter(i*3+1);
 	}
 }
 

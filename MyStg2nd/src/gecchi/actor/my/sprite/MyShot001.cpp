@@ -40,13 +40,13 @@ void MyShot001::initialize() {
 	setAlpha(0.2);
 
 	setBumpableAlone(true);
-	stop();
+	refrain();
 
 }
 
 
 void MyShot001::processBehavior() {
-	if (switchedToPlay()) {
+	if (switchedToAct()) {
 		//出現時共通処理
 		setBumpableAlone(true);
 		_X = GameGlobal::_pMyShip->_X;
@@ -64,7 +64,7 @@ void MyShot001::processBehavior() {
 void MyShot001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		stop();
+		refrain();
 	}
 
 }
@@ -80,10 +80,10 @@ void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("MyShot001::processOnHit ショットがヒットしました");
 	//_TRACE_("MyShot001ヒットしました。("<<_X<<","<<_Y<<")");
 	//farewell();
-	stop();
+	refrain();
 }
 
-void MyShot001::onStop() {
+void MyShot001::onRefrain() {
 	//消失時処理
 	setBumpableAlone(false);
 	moveFirst();

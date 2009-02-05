@@ -25,7 +25,7 @@ void MyLaser001::initialize() {
 
 
 void MyLaser001::processBehavior() {
-	if (switchedToPlay()) {
+	if (switchedToAct()) {
 		//出現時処理
 		setBumpableAlone(true);
 		setGeometry(_pActor_Radical);
@@ -61,7 +61,7 @@ void MyLaser001::processBehavior() {
 void MyLaser001::processJudgement() {
 	//TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 	if (isOffScreen()) {
-		stop();
+		refrain();
 	}
 }
 
@@ -76,10 +76,10 @@ void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
 //_TRACE_("MyLaser001::processOnHit ショットがヒットしました");
 	//_TRACE_("MyLaser001ヒットしました。("<<_X<<","<<_Y<<")");
 	//farewell();
-	stop();
+	refrain();
 }
 
-void MyLaser001::onStop() {
+void MyLaser001::onRefrain() {
 	setBumpableAlone(false);
 }
 
