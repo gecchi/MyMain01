@@ -16,6 +16,7 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
 	_pFontPlate_SCORE = NEW FontPlateActor("STR01", "P/moji");
 	getLordActor()->accept(KIND_EFFECT, _pFontPlate_SCORE);
 	_stage = 1;
+	_pSceneCannel = NULL;
 }
 
 void GameMainScene::cannelStage(int prm_cannel) {

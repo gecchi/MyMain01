@@ -11,7 +11,7 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
 	addSubLast(_pGameDemo);
 
 	_pGameMain = NEW GameMainScene("GameMain");
-	_pGameDemo->refrainImmediatelyAlone(); //”ñŠˆ“®
+	_pGameMain->refrainImmediatelyAlone(); //”ñŠˆ“®
 	addSubLast(_pGameMain);
 
 	_pSceneCannel = _pGameDemo;
