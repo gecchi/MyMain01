@@ -10,6 +10,12 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene>(prm_name)  {
 	TRACE("GgafScene::GgafScene() "+prm_name);
 	_class_name = "GgafScene";
 	_pLordActor = NEW GgafLordActor(this);
+	_progress = -1;
+	_progress_prev = -2;
+	DWORD x = UINT_MAX/2;
+	for (int i = 0; i < 100; i++) {
+		_dwFrame_ProgressChange[i] = x; //óLÇËÇ¶Ç»Ç¢ÉtÉåÅ[ÉÄÇ»ÇÁó«Ç¢
+	}
 }
 
 GgafScene::~GgafScene() {
@@ -67,24 +73,24 @@ void GgafScene::finally() {
 	_pLordActor->finally();
 }
 
-void GgafScene::play() {
-	GgafElement<GgafScene>::play();
-	_pLordActor->play();
+void GgafScene::act() {
+	GgafElement<GgafScene>::act();
+	_pLordActor->act();
 }
 
-void GgafScene::playImmediately() {
-	GgafElement<GgafScene>::playImmediately();
-	_pLordActor->playImmediately();
+void GgafScene::actImmediately() {
+	GgafElement<GgafScene>::actImmediately();
+	_pLordActor->actImmediately();
 }
 
-void GgafScene::stop() {
-	GgafElement<GgafScene>::stop();
-	_pLordActor->stop();
+void GgafScene::refrain() {
+	GgafElement<GgafScene>::refrain();
+	_pLordActor->refrain();
 }
 
-void GgafScene::stopImmediately() {
-	GgafElement<GgafScene>::stopImmediately();
-	_pLordActor->stopImmediately();
+void GgafScene::refrainImmediately() {
+	GgafElement<GgafScene>::refrainImmediately();
+	_pLordActor->refrainImmediately();
 }
 
 void GgafScene::pause() {
@@ -215,7 +221,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-	_TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
+	_TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
 	_pLordActor->dump();
 	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
@@ -235,7 +241,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-	_TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
+	_TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
 	_pLordActor->dump(prm_parent+"\t\t\t\t\t\t\t\t");
 	GgafScene* pScene_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {

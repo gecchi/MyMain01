@@ -68,7 +68,7 @@ void GgafActor::executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent) {
 	} else {
 		if (_canBump  && prm_pActor_Opponent->_canBump  &&
 		    _isAlive  && prm_pActor_Opponent->_isAlive &&
-			_isPlaying && prm_pActor_Opponent->_isPlaying)
+			_isActive && prm_pActor_Opponent->_isActive)
 		 {
 			if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
 				processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
@@ -114,7 +114,7 @@ bool GgafActor::executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent) {
 	} else {
 		if (_canBump  && prm_pActor_Opponent->_canBump  &&
 		    _isAlive  && prm_pActor_Opponent->_isAlive &&
-			_isPlaying && prm_pActor_Opponent->_isPlaying)
+			_isActive && prm_pActor_Opponent->_isActive)
 		 {
 			if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
 				processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
@@ -174,7 +174,7 @@ GgafScene* GgafActor::getPlatformScene() {
 
 
 void GgafActor::dump() {
-	_TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
+	_TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
 
 	GgafActor* pActor_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
@@ -195,7 +195,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-	_TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isPlaying<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willPlayNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willPlayAfterFrame<<"("<<_dwGodFremeWhenPlay<<")");
+	_TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
 	GgafActor* pActor_tmp = _pSubFirst;
 	if (_pSubFirst != NULL) {
 		while(true) {

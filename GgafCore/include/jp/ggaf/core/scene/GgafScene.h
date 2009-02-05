@@ -1,5 +1,9 @@
 #ifndef GGAFSCENE_H_
 #define GGAFSCENE_H_
+
+#define SCENE_PROG_NEW -1
+#define SCENE_NOTHING_EVENT 0
+
 namespace GgafCore {
 
 
@@ -71,7 +75,55 @@ protected:
 
 	static GgafHeadActor* _s_apHeadActor01[];
 	static GgafHeadActor* _s_apHeadActor02[];
+
 public:
+	/** 進捗具合 */
+	int _progress;
+	/** １フレーム前進捗 */
+	int _progress_prev;
+	/** 進捗イベント時フレームストック */
+	DWORD _dwFrame_ProgressChange[100];
+
+	/**
+	 * 現在の進捗取得 .
+	 * @return 進捗(1～99)
+	 */
+	virtual int getProgress() {
+		return _progress;
+	};
+
+	/**
+	 * 進捗が起こった時のフレーム取得 .
+	 * @param prm_progress 進捗(1～99)
+	 * @return 引数の直近の進捗が起こったときのフレーム
+	 */
+	virtual int getFrameAtProgress(int prm_progress) {
+		return _dwFrame_ProgressChange[prm_progress];
+	};
+
+	/**
+	 * 現在の進捗を設定 .
+	 * @param prm_progress 進捗(1～99)
+	 */
+	virtual void setProgress(int prm_progress) {
+		_dwFrame_ProgressChange[prm_progress] = _dwFrame;
+		_progress_prev = _progress;
+		_progress = prm_progress;
+	};
+
+	/**
+	 * 進捗が変化したか調べる .
+	 * @return 0 又は 進捗(0=変化していない/0以外=変化があった新しい進捗)
+	 */
+	int chkProgressOnChange() {
+		if (_progress != _progress_prev) {
+			return _progress;
+		} else {
+			return 0; // = false
+		}
+	}
+
+
 	/**
 	 * コンストラクタ .
 	 * 引数： prm_name シーン名<BR>
@@ -84,6 +136,7 @@ public:
 	 * 自ツリーシーンの解放を行います<BR>
 	 */
 	virtual ~GgafScene();
+
 
 	/**
 	 * 自ツリーシーンの次のフレームへ移る処理 .
@@ -134,28 +187,28 @@ public:
 	virtual void finally();
 
 	/**
-     * 自ツリーシーンを次フレームから再生する。 .
+     * 自ツリーシーンを次フレームから活動する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void play();
+	virtual void act();
 
 	/**
-     * 自ツリーシーンを直ちに再生する。 .
+     * 自ツリーシーンを直ちに活動する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void playImmediately();
+	virtual void actImmediately();
 
 	/**
 	 * 自ツリーシーンを次フレームから停止する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void stop();
+	virtual void refrain();
 
 	/**
 	 * 自ツリーシーンを直ちに停止する。 .
 	 * ＜OverRide です＞<BR>
 	 */
-	virtual void stopImmediately();
+	virtual void refrainImmediately();
 
 	/**
 	 * 自ツリーシーンを次フレームから一時停止する。 .

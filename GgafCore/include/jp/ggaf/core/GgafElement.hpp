@@ -29,7 +29,7 @@ public:
     /** 相対フレーム計算用 */
     DWORD _dwFrame_relative;
 	/** ノード活動フラグ */
-	bool _isPlaying;
+	bool _isActive;
 	/** 一時停止フラグ */
 	bool _wasPaused;
 	/** 一時非表示フラグ */
@@ -38,7 +38,7 @@ public:
 	bool _isAlive;
 
 	/** 次フレームのフレーム加算時に設定されるノード活動フラグ */
-	bool _willPlayNextFrame;
+	bool _willActNextFrame;
 	/** 次フレームのフレーム加算時に設定される一時停止フラグ */
 	bool _willPauseNextFrame;
 	/** 次フレームのフレーム加算時に設定される表示フラグ  */
@@ -52,19 +52,19 @@ public:
 	bool _willMoveLastNextFrame;
 
 	/** あとで活動フラグ */
-	bool _willPlayAfterFrame;
+	bool _willActAfterFrame;
 	/** あとで活動の残フレーム数（神フレームと一致したら活動） */
-	DWORD _dwGodFremeWhenPlay;
+	DWORD _dwGodFremeWhenAct;
 
 	/** あとで停止フラグ */
-	bool _willStopAfterFrame;
+	bool _willRefrainAfterFrame;
 	/** あとで停止の残フレーム数（神フレームと一致したら停止） */
-	DWORD _dwGodFremeWhenStop;
+	DWORD _dwGodFremeWhenRefrain;
 
 	/** ノードが活動に切り替わった(stop→play)瞬間に１フレームだけセットされるフラグ */
-	bool _switchedToPlay;
+	bool _switchedToAct;
 	/** ノードが停止に切り替わった(play→stop)瞬間に１フレームだけセットされるフラグ */
-	bool _switchedToStop;
+	bool _switchedToRefrain;
 
 	/** 描画されましたフラグ */
 	bool _wasExecuted_processDrawMain;
@@ -99,8 +99,8 @@ public:
 	/**
 	 * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理 .
 	 * 活動フラグ、生存フラグがセットされている場合ノードのフレームを加算します。その直後に<BR>
-	 * _willPlayNextFrame, _willPauseNextFrame, _willBlindNextFrame, _willBeAliveNextFrame を<BR>
-	 * _isPlaying, _wasPaused, _wasBlinded, _isAlive に反映（コピー）します。<BR>
+	 * _willActNextFrame, _willPauseNextFrame, _willBlindNextFrame, _willBeAliveNextFrame を<BR>
+	 * _isActive, _wasPaused, _wasBlinded, _isAlive に反映（コピー）します。<BR>
 	 * また、_willMoveFirstNextFrame, _willMoveLastNextFrame が true の場合は、<BR>
 	 * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動も実行されます。<BR>
 	 * その後、配下ノード全てに nextFrame() を実行します。<BR>
@@ -111,30 +111,30 @@ public:
 	/**
 	 * ノードのフレーム毎の振る舞い処理 .
 	 * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-	 * （_isPlaying && !_wasPaused && _isAlive）の場合 <BR>
+	 * （_isActive && !_wasPaused && _isAlive）の場合 <BR>
 	 * processBehavior() をコールした後、配下のノード全てについて behave() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、judge()を実行します。<BR>
 	 */
 	virtual void behave();
 
 	/**
-	 * 再生時処理 .
-	 * 停止状態から再生状態に変化したときに１度だけ呼ばれる。
+	 * 活動時処理 .
+	 * 停止状態から活動状態に変化したときに１度だけ呼ばれる。
 	 * 必要に応じてオーバーライドします。
 	 */
-	virtual void onPlay() {};
+	virtual void onAct() {};
 
 	/**
 	 * 停止時処理 .
-	 * 再生状態から停止状態に変化したときに１度だけ呼ばれる。
+	 * 活動状態から停止状態に変化したときに１度だけ呼ばれる。
 	 * 必要に応じてオーバーライドします。
 	 */
-	virtual void onStop() {};
+	virtual void onRefrain() {};
 
 	/**
 	 * ノードのフレーム毎の判定処理 .
 	 * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-	 * (つまり _isPlaying && !_wasPaused && _isAlive)の場合 <BR>
+	 * (つまり _isActive && !_wasPaused && _isAlive)の場合 <BR>
 	 * processJudgement() をコールした後、配下のノード全てについて judge() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、フレーム時間に余裕があれば drawPrior()、無ければ finally()を実行します。<BR>
 	 */
@@ -143,7 +143,7 @@ public:
 	/**
 	 * ノードのフレーム毎の描画事前処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されないい場合もあります。） .
 	 * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-	 * (つまり _isPlaying && !_wasBlinded && _isAlive)の場合 <BR>
+	 * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
 	 * processDrawPrior() をコールした後、配下のノード全てについて drawPrior() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawMain() を実行します。<BR>
 	 */
@@ -152,7 +152,7 @@ public:
 	/**
 	 * ノードのフレーム毎の描画本処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されない場合もあります。） .
 	 * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-	 * (つまり _isPlaying && !_wasBlinded && _isAlive)の場合 <BR>
+	 * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
 	 * processDrawMain() をコールした後、配下のノード全てについて drawMain() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawTerminate() を実行します。<BR>
 	 */
@@ -161,7 +161,7 @@ public:
 	/**
 	 * ノードのフレーム毎の描画事後処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されない場合もあります。） .
 	 * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-	 * (つまり _isPlaying && !_wasBlinded && _isAlive)の場合 <BR>
+	 * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
 	 * processTerminate() をコールした後、配下のノード全てについて drawTerminate() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、finally() を実行します。<BR>
 	 */
@@ -170,7 +170,7 @@ public:
 	/**
 	 * ノードのフレーム毎の最終処理 .
 	 * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-	 * （_isPlaying && !_wasPaused && _isAlive）の場合 <BR>
+	 * （_isActive && !_wasPaused && _isAlive）の場合 <BR>
 	 * processFinally() をコールした後、配下のノード全てについて finally() を実行します。<BR>
 	 * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、フレーム時間に余裕があれば cleane() を実行します。<BR>
 	 */
@@ -178,7 +178,7 @@ public:
 
 	/**
 	 * ノードの何かの処理(フレーム毎ではない) .
-	 * 活動フラグがセット、(つまり _isPlaying)の場合 <BR>
+	 * 活動フラグがセット、(つまり _isActive)の場合 <BR>
 	 * processHappen(int) をコールした後、配下のノード全てについて happen() を実行します。<BR>
 	 * @param	prm_no 何かの番号
 	 */
@@ -255,191 +255,233 @@ public:
 	 */
 	virtual GgafGod* askGod() = 0;
 
-
+//==================状態変移メソッド郡==================>
 	/**
-	 * 自ツリーノードを次フレームから再生状態にする .
-	 * 自身と自分より下位のノード全てに再生(play())が実行される。<BR>
-	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
+	 * 活動状態にする(自ツリー) .
+	 * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で活動状態になる事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に act() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
+	 * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
 	 */
-	void play();
-
+	void act();
 	/**
-	 * 自ツリーノードをNフレーム後に再生状態にする .
-	 * play() は、playAfter(1) と同じ意味になります。<BR>
-	 * @param prm_dwFrameOffset 遅延フレーム数
+	 * 活動予約する(自ツリー) .
+	 * Nフレーム後に act() が実行されることを予約します。<BR>
+	 * 自身と配下ノード全てについて再起的に actAfter(DWORD) が実行されます。<BR>
+	 * actAfter(1) は、act() と同じ意味になります。<BR>
+	 * @param prm_dwFrameOffset 遅延フレーム数(1～)
 	 */
-	void playAfter(DWORD prm_dwFrameOffset);
-
+	void actAfter(DWORD prm_dwFrameOffset);
 	/**
-	 * 自ノードだけを次フレームから再生状態にする .
-	 * <B>[補足]</B>ノード生成直後は、再生状態となっている。<BR>
+	 * 活動状態にする(単体) .
+	 * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
 	 */
-	void playAlone();
-
+	void actAlone();
 	/**
-	 * 自ツリーノードを即座に再生状態にする .
-	 * 自身と自分より下位のノード全てに再生(playImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外に実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 活動状態にする(自ツリー・即時) .
+	 * 正確には、活動フラグを即座に立てる。<BR>
+	 * 自身と配下ノード全てについて再起的に actImmediately() が実行されます。<BR>
+	 * 他のノードからの、「活動状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、actImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void playImmediately();
-
+	void actImmediately();
 	/**
-	 * 自ノードだけをを即座に再生状態にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外に実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 活動状態にする(単体・即時) .
+	 * 自ノードのみについて、活動フラグを即座に立てる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void playAloneImmediately();
-
-
+	void actImmediatelyAlone();
+//===================
 	/**
-	 * 自ノードだけを次フレームから停止状態にする .
+	 * 非活動状態にする(自ツリー) .
+	 * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で非活動状態になる事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に refrain() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
 	 */
-	void stopAlone();
-
+	void refrain();
 	/**
-	 * 自ツリーノードを次フレームから停止状態にする .
-	 * 自身と自分より下位のノード全てに停止(play())が実行される。<BR>
+	 * 非活動予約する(自ツリー) .
+	 * Nフレーム後に refrain() が実行されることを予約します。<BR>
+	 * 自身と配下ノード全てについて再起的に refrainAfter(DWORD) が実行されます。<BR>
+	 * refrainAfter(1) は、refrain() と同じ意味になります。<BR>
+	 * @param prm_dwFrameOffset 遅延フレーム数(1～)
 	 */
-	void stop();
-
+	void refrainAfter(DWORD prm_dwFrameOffset);
 	/**
-	 * 自ノードだけを即座に停止状態にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非活動状態にする(単体) .
+	 * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
 	 */
-	void stopAloneImmediately();
-
+	void refrainAlone();
 	/**
-	 * 自ツリーノードを即座に停止状態にする .
-	 * 自身と自分より下位のノード全てに停止(playImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非活動状態にする(自ツリー・即時) .
+	 * 正確には、活動フラグを即座に下げる。<BR>
+	 * 自身と配下ノード全てについて再起的に refrainImmediately() が実行されます。<BR>
+	 * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、refrainImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void stopImmediately();
-
+	void refrainImmediately();
 	/**
-	 * 自ツリーノードをNフレーム後に停止状態にする .
-	 * @param prm_dwFrameOffset 遅延フレーム数
+	 * 非活動状態にする(単体・即時) .
+	 * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void stopAfter(DWORD prm_dwFrameOffset);
-
+	void refrainImmediatelyAlone();
+//===================
 	/**
-	 * 自ノードだけを次フレームから一時停止状態にする .
-	 * <B>[補足]</B>再生中に本関数を実行すると静止画像表示状態となる。<BR>
-	 */
-	void pauseAlone();
-
-	/**
-	 * 自ツリーノードを次フレームから一時停止状態にする .
-	 * 自身と自分より下位のノード全てに一時停止(pause())が実行される。<BR>
-	 * <B>[補足]</B>再生中に本関数を実行すると静止画像表示状態となる。<BR>
+	 * 一時停止にする(自ツリー) .
+	 * 正確には、次フレームから一時停止にする予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で一時停止になる事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に pause() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
 	 */
 	void pause();
-
 	/**
-	 * 自ノードだけを即座に一時停止状態にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 一時停止にする(単体) .
+	 * 自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
 	 */
-	void pauseAloneImmediately();
-
+	void pauseAlone();
 	/**
-	 * 自ツリーノードを即座に一時停止状態にする .
-	 * 自身と自分より下位のノード全てに一時停止状態(pauseImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 一時停止にする(自ツリー・即時) .
+	 * 正確には、一時停止フラグを即座に立てる。<BR>
+	 * 自身と配下ノード全てについて再起的に pauseImmediately() が実行されます。<BR>
+	 * 他のノードからの、「一時停止ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、pauseImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
 	void pauseImmediately();
-
 	/**
-	 * 自ノードだけを次フレームから一時停止解除にする .
-	 * <B>[補足]</B>pause()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
+	 * 一時停止にする(単体・即時) .
+	 * 自ノードのみについて、一時停止フラグを即座に立てる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void unpauseAlone();
-
+	void pauseImmediatelyAlone();
+//===================
 	/**
-	 * 自ツリーノードを次フレームから一時停止解除にする .
-	 * 自身と自分より下位のノード全てに一時停止解除(unpause())が実行される。<BR>
-	 * <B>[補足]</B>pause()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
+	 * 一時停止状態を解除にする(自ツリー) .
+	 * 正確には、次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で一時停止状態が解除される事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に unpause() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
 	 */
 	void unpause();
-
 	/**
-	 * 自ノードだけを即座に一時停止解除にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 一時停止状態を解除にする(単体) .
+	 * 自ノードだけ次フレームから一時停止状態を解除にする予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
 	 */
-	void unpauseAloneImmediately();
-
+	void unpauseAlone();
 	/**
-	 * 自ツリーノードを即座に一時停止解除にする .
-	 * 自身と自分より下位のノード全てに一時停止状態(unpauseImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 一時停止状態を解除する(自ツリー・即時) .
+	 * 正確には、一時停止状態フラグを即座に下げる。<BR>
+	 * 自身と配下ノード全てについて再起的に unpauseImmediately() が実行されます。<BR>
+	 * 他のノードからの、「一時停止状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、unpauseImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
 	void unpauseImmediately();
-
 	/**
-	 * 自ノードだけ次フレームから非表示状態にする .
-	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
+	 * 一時停止状態を解除にする(単体・即時) .
+	 * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void blindAlone();
-
+	void unpauseImmediatelyAlone();
+//===================
 	/**
-	 * 自ツリーノードを次フレームから非表示状態にする .
-	 * 自身と自分より下位のノード全てに非表示状態(blind())が実行される。<BR>
-	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
+	 * 非表示状態にする(自ツリー) .
+	 * 正確には、次フレームから非表示状態にする予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で非表示状態になる事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に blind() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
+	 * <B>[補足]</B>ノード生成直後は、非表示状態となっている。<BR>
 	 */
 	void blind();
-
 	/**
-	 * 自ツリーノードを即座に非表示状態にする .
-	 * 自身と自分より下位のノード全てに非表示状態(blindImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非表示状態にする(単体) .
+	 * 自ノードだけ次フレームから非表示状態にする予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
+	 */
+	void blindAlone();
+	/**
+	 * 非表示状態にする(自ツリー・即時) .
+	 * 正確には、非活動フラグを即座に立てる。<BR>
+	 * 自身と配下ノード全てについて再起的に blindImmediately() が実行されます。<BR>
+	 * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、blindImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
 	void blindImmediately();
-
 	/**
-	 * 自ノードだけ即座に非表示状態にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非表示状態にする(単体・即時) .
+	 * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void blindAloneImmediately();
-
+	void blindImmediatelyAlone();
+//===================
 	/**
-	 * 自ノードだけ次フレームから非表示状態にする .
-	 * <B>[補足]</B>再生中に本関数を実行すると、オブジェクトは表示されないものの、内部的に座標移動、当たり判定などの活動は継続される。<BR>
-	 */
-	void unblindAlone();
-
-	/**
-	 * 自ツリーノードを次フレームから非表示解除にする .
-	 * 自身と自分より下位のノード全てに非表示解除(非表示())が実行される。<BR>
-	 * <B>[補足]</B>blind()を行なわずに本メソッドを呼び出しても何も行いません。<BR>
+	 * 非表示状態を解除にする(自ツリー) .
+	 * 正確には、次フレームから非表示状態を解除する予約フラグを立てる。<BR>
+	 * そして、次フレーム先頭処理で非表示状態が解除される事になります。<BR>
+	 * 自身と配下ノード全てについて再起的に unblind() が実行されます。<BR>
+	 * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
+	 * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
 	 */
 	void unblind();
-
 	/**
-	 * 自ツリーノードを即座に非表示解除にする .
-	 * 自身と自分より下位のノード全てに非表示状態(unblindImmediately())が実行される。<BR>
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非表示状態を解除にする(単体) .
+	 * 自ノードだけ次フレームから非表示状態を解除する予約フラグを立てる。<BR>
+	 * 配下ノードには何も影響がありません。
+	 */
+	void unblindAlone();
+	/**
+	 * 非表示状態を解除する(自ツリー・即時) .
+	 * 正確には、非表示フラグを即座に下げる。<BR>
+	 * 自身と配下ノード全てについて再起的に unblindImmediately() が実行されます。<BR>
+	 * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+	 * 使用には注意が必要。なぜならば、unblindImmediately() を実行する前と実行した後で<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+	 * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
+	 * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
 	void unblindImmediately();
-
 	/**
-	 * 自ノードだけ即座に非表示解除にする .
-	 * <B>[補足]</B><BR>
-	 * processFinal()以外に実装や、this 以外で実行する場合、そのノードの影響を良く考えて注意して使用すること。<BR>
+	 * 非表示状態を解除する(単体・即時) .
+	 * 自ノードのみについて、非表示状フラグを即座に下げる。<BR>
+	 * 『同一フレーム内』で、状態が変化するためです。<BR>
+	 * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
 	 */
-	void blindAloneImmediately();
-
+	void unblindImmediatelyAlone();
+//===================
 	/**
 	 * 自ノードを次フレームから絶命させることを宣言します .
-	 * 自身と自分より下位のノード全てに人生終了(farewell())がお知らせが届く。<BR>
-	 * 絶命させるとは具体的には、表示フラグ(_wasBlinded)、振る舞いフラグ(_isPlaying)、生存フラグ(_isAlive) を <BR>
+	 * 配下ノード全てに人生終了(farewell())がお知らせが届く。<BR>
+	 * 絶命させるとは具体的には、表示フラグ(_wasBlinded)、振る舞いフラグ(_isActive)、生存フラグ(_isAlive) を <BR>
 	 * 次フレームからアンセットする事である。<BR>
 	 * これにより、神(GgafGod)が処理時間の余裕のあるフレームに実行する cleane()時に delete の対象となる。<BR>
 	 * したがって、本メンバ関数を実行しても、フラグはアンセットされるため表面にはでませんが、インスタンスがすぐに解放されるとは限りません。<BR>
@@ -474,25 +516,25 @@ public:
 	bool isAlive();
 
 	/**
-	 * 再生中か
-	 * @return	bool true:再生中／false:停止中
+	 * 活動中か
+	 * @return	bool true:活動中／false:停止中
 	 */
 	bool isPlaying();
 
 
 	/**
-	 * 停止から再生に切り替わったかどうか .
-	 * ただし、onPlay() で代用できる場合は、そちらをオーバーライドしたほうがすっきり記述できるはず。
+	 * 停止から活動に切り替わったかどうか .
+	 * ただし、onAct() で代用できる場合は、そちらをオーバーライドしたほうがすっきり記述できるはず。
 	 * @return	bool true:切り替わった／false:切り替わっていない
 	 */
-	bool switchedToPlay();
+	bool switchedToAct();
 
 	/**
-	 * 再生から停止に切り替わったかどうか .
+	 * 活動から停止に切り替わったかどうか .
 	 * このメソッドは今のところ使いどころは無いかもしれません。
 	 * @return	bool true:切り替わった／false:切り替わっていない
 	 */
-	bool switchedToStop();
+	bool switchedToRefrain();
 
 
 	/**
@@ -540,22 +582,22 @@ _wasInitialized(false),
 _dwGodFrame_ofDeath(MAXDWORD),
 _dwFrame(0),
 _dwFrame_relative(0),
-_isPlaying(true),
+_isActive(true),
 _wasPaused(false),
 _wasBlinded(false),
 _isAlive(true),
-_willPlayNextFrame(true),
+_willActNextFrame(true),
 _willPauseNextFrame(false),
 _willBlindNextFrame(false),
 _willBeAliveNextFrame(true),
 _willMoveFirstNextFrame(false),
 _willMoveLastNextFrame(false),
-_willPlayAfterFrame(false),
-_dwGodFremeWhenPlay(0),
-_willStopAfterFrame(false),
-_dwGodFremeWhenStop(0),
-_switchedToPlay(false),
-_switchedToStop(false),
+_willActAfterFrame(false),
+_dwGodFremeWhenAct(0),
+_willRefrainAfterFrame(false),
+_dwGodFremeWhenRefrain(0),
+_switchedToAct(false),
+_switchedToRefrain(false),
 _wasExecuted_processDrawMain(false)
 {
 }
@@ -569,7 +611,7 @@ void GgafElement<T>::nextFrame() {
 	if (_dwGodFrame_ofDeath == (askGod()->_dwFrame_God)) {
 		//_TRACE_("_dwGodFrame_ofDeath == _dwFrame<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
 
-		_willPlayNextFrame = false;
+		_willActNextFrame = false;
 		_willBeAliveNextFrame = false;
 	}
 
@@ -586,36 +628,38 @@ void GgafElement<T>::nextFrame() {
 		_wasExecuted_processDrawMain = false; //未描画に
 
 		if (_isAlive) {
-			if (_willPlayAfterFrame) {
+			if (_willActAfterFrame) {
 				//遅延play処理
-				if (askGod()->_dwFrame_God == _dwGodFremeWhenPlay) {
-					playImmediately();
-					_willPlayAfterFrame = false;
+				if (askGod()->_dwFrame_God >= _dwGodFremeWhenAct) {
+					actImmediately();
+					_dwGodFremeWhenAct = 0;
+					_willActAfterFrame = false;
 				}
-			} else if (_willStopAfterFrame) {
+			} else if (_willRefrainAfterFrame) {
 				//遅延stop処理
-				if (askGod()->_dwFrame_God == _dwGodFremeWhenPlay) {
-					stopImmediately();
-					_willStopAfterFrame = false;
+				if (askGod()->_dwFrame_God == _dwGodFremeWhenRefrain) {
+					refrainImmediately();
+					_dwGodFremeWhenRefrain = 0;
+					_willRefrainAfterFrame = false;
 				}
 			}
-			if (_isPlaying) {
+			if (_isActive) {
 				_dwFrame++;
 			}
 		}
 
 		//フラグたちを反映
-		if (_isPlaying == false && _willPlayNextFrame) {
+		if (_isActive == false && _willActNextFrame) {
 			// not Play → Play 状態の場合
-			_switchedToPlay = true;
-		} else if (_isPlaying && _willPlayNextFrame == false) {
+			_switchedToAct = true;
+		} else if (_isActive && _willActNextFrame == false) {
 			// Play → not Play 状態の場合
-			_switchedToStop = true;
+			_switchedToRefrain = true;
 		} else {
-			_switchedToPlay = false;
-			_switchedToStop = false;
+			_switchedToAct = false;
+			_switchedToRefrain = false;
 		}
-		_isPlaying = _willPlayNextFrame;
+		_isActive = _willActNextFrame;
 		_wasPaused = _willPauseNextFrame;
 		_wasBlinded = _willBlindNextFrame;
 		_isAlive = _willBeAliveNextFrame;
@@ -656,13 +700,13 @@ void GgafElement<T>::behave() {
 		_wasInitialized = true;
 	}
 
-	if (_switchedToPlay) {
-		onPlay();
-	} else if (_switchedToStop) {
-		onStop();
+	if (_switchedToAct) {
+		onAct();
+	} else if (_switchedToRefrain) {
+		onRefrain();
 	}
 
-	if (_isPlaying && !_wasPaused && _isAlive) {
+	if (_isActive && !_wasPaused && _isAlive) {
 		_dwFrame_relative = 0;
 		processBehavior();
 		if (SUPER::_pSubFirst != NULL) {
@@ -686,7 +730,7 @@ void GgafElement<T>::judge() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasPaused && _isAlive) {
+	if (_isActive && !_wasPaused && _isAlive) {
 		_dwFrame_relative = 0;
 		processJudgement();
 		if (SUPER::_pSubFirst != NULL) {
@@ -711,7 +755,7 @@ void GgafElement<T>::drawPrior() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive) {
+	if (_isActive && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
 		processDrawPrior();
 		if (SUPER::_pSubFirst != NULL) {
@@ -736,7 +780,7 @@ void GgafElement<T>::drawMain() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive) {
+	if (_isActive && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
 		if (!_wasExecuted_processDrawMain) {
 			processDrawMain();
@@ -764,7 +808,7 @@ void GgafElement<T>::drawTerminate() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasBlinded && _isAlive) {
+	if (_isActive && !_wasBlinded && _isAlive) {
 		_dwFrame_relative = 0;
 		processDrawTerminate();
 		if (SUPER::_pSubFirst != NULL) {
@@ -814,7 +858,7 @@ void GgafElement<T>::finally() {
 		_wasInitialized = true;
 	}
 
-	if (_isPlaying && !_wasPaused && _isAlive) {
+	if (_isActive && !_wasPaused && _isAlive) {
 		_dwFrame_relative = 0;
 		processFinal();
 		if (SUPER::_pSubFirst != NULL) {
@@ -834,24 +878,24 @@ void GgafElement<T>::finally() {
 }
 
 template<class T>
-void GgafElement<T>::playAlone() {
+void GgafElement<T>::actAlone() {
 	if (_isAlive) {
-		_willPlayNextFrame = true;
+		_willActNextFrame = true;
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 	}
 }
 
 template<class T>
-void GgafElement<T>::play() {
+void GgafElement<T>::act() {
 	if (_isAlive) {
-		_willPlayNextFrame = true;
+		_willActNextFrame = true;
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp->play();
+				pElementTemp->act();
 				if (pElementTemp->_isLast) {
 					break;
 				} else {
@@ -864,40 +908,40 @@ void GgafElement<T>::play() {
 
 
 template<class T>
-void GgafElement<T>::playAloneImmediately() {
+void GgafElement<T>::actImmediatelyAlone() {
 	if (_isAlive) {
-		if (_isPlaying == false) {
-			_switchedToPlay = true;
+		if (_isActive == false) {
+			_switchedToAct = true;
 		} else {
-			_switchedToPlay = false;
+			_switchedToAct = false;
 		}
-		_isPlaying = true;
+		_isActive = true;
 		_wasPaused = false;
 		_wasBlinded = false;
-		_willPlayNextFrame = true;
+		_willActNextFrame = true;
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 	}
 }
 
 template<class T>
-void GgafElement<T>::playImmediately() {
+void GgafElement<T>::actImmediately() {
 	if (_isAlive) {
-		if (_isPlaying == false) {
-			_switchedToPlay = true;
+		if (_isActive == false) {
+			_switchedToAct = true;
 		} else {
-			_switchedToPlay = false;
+			_switchedToAct = false;
 		}
-		_isPlaying = true;
+		_isActive = true;
 		_wasPaused = false;
 		_wasBlinded = false;
-		_willPlayNextFrame = true;
+		_willActNextFrame = true;
 		_willPauseNextFrame = false;
 		_willBlindNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp->playImmediately();
+				pElementTemp->actImmediately();
 				if (pElementTemp->_isLast) {
 					break;
 				} else {
@@ -910,26 +954,26 @@ void GgafElement<T>::playImmediately() {
 
 
 template<class T>
-void GgafElement<T>::playAfter(DWORD prm_dwFrameOffset) {
-	_willPlayAfterFrame = true;
-	_dwGodFremeWhenPlay = askGod()->_dwFrame_God + prm_dwFrameOffset;
+void GgafElement<T>::actAfter(DWORD prm_dwFrameOffset) {
+	_willActAfterFrame = true;
+	_dwGodFremeWhenAct = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
 template<class T>
-void GgafElement<T>::stopAlone() {
+void GgafElement<T>::refrainAlone() {
 	if (_isAlive) {
-		_willPlayNextFrame = false;
+		_willActNextFrame = false;
 	}
 }
 
 template<class T>
-void GgafElement<T>::stop() {
+void GgafElement<T>::refrain() {
 	if (_isAlive) {
-		_willPlayNextFrame = false;
+		_willActNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp->stop();
+				pElementTemp->refrain();
 				if (pElementTemp->_isLast) {
 					break;
 				} else {
@@ -941,38 +985,38 @@ void GgafElement<T>::stop() {
 }
 
 template<class T>
-void GgafElement<T>::stopAfter(DWORD prm_dwFrameOffset) {
-	_willStopAfterFrame = true;
-	_dwGodFremeWhenStop = askGod()->_dwFrame_God + prm_dwFrameOffset;
+void GgafElement<T>::refrainAfter(DWORD prm_dwFrameOffset) {
+	_willRefrainAfterFrame = true;
+	_dwGodFremeWhenRefrain = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
 template<class T>
-void GgafElement<T>::stopAloneImmediately() {
+void GgafElement<T>::refrainImmediatelyAlone() {
 	if (_isAlive) {
-		if (_isPlaying) {
-			_switchedToStop = true;
+		if (_isActive) {
+			_switchedToRefrain = true;
 		} else {
-			_switchedToStop = false;
+			_switchedToRefrain = false;
 		}
-		_isPlaying = false;
-		_willPlayNextFrame = false;
+		_isActive = false;
+		_willActNextFrame = false;
 	}
 }
 
 template<class T>
-void GgafElement<T>::stopImmediately() {
+void GgafElement<T>::refrainImmediately() {
 	if (_isAlive) {
-		if (_isPlaying) {
-			_switchedToStop = true;
+		if (_isActive) {
+			_switchedToRefrain = true;
 		} else {
-			_switchedToStop = false;
+			_switchedToRefrain = false;
 		}
-		_isPlaying = false;
-		_willPlayNextFrame = false;
+		_isActive = false;
+		_willActNextFrame = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
-				pElementTemp->stopImmediately();
+				pElementTemp->refrainImmediately();
 				if (pElementTemp->_isLast) {
 					break;
 				} else {
@@ -987,7 +1031,7 @@ template<class T>
 void GgafElement<T>::pause() {
 	if (_isAlive) {
 		_willPauseNextFrame = true;
-		_isPlaying = false;
+		//_isActive = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
@@ -1003,11 +1047,19 @@ void GgafElement<T>::pause() {
 }
 
 template<class T>
+void GgafElement<T>::pauseAlone() {
+	if (_isAlive) {
+		_willPauseNextFrame = true;
+		//_isActive = false;
+	}
+}
+
+template<class T>
 void GgafElement<T>::pauseImmediately() {
 	if (_isAlive) {
 		_wasPaused = true;
 		_willPauseNextFrame = true;
-		_isPlaying = false;
+		//_isActive = false;
 		if (SUPER::_pSubFirst != NULL) {
 			T* pElementTemp = SUPER::_pSubFirst;
 			while(true) {
@@ -1019,6 +1071,15 @@ void GgafElement<T>::pauseImmediately() {
 				}
 			 }
 		}
+	}
+}
+
+template<class T>
+void GgafElement<T>::pauseImmediatelyAlone() {
+	if (_isAlive) {
+		_wasPaused = true;
+		_willPauseNextFrame = true;
+		//_isActive = false;
 	}
 }
 
@@ -1041,6 +1102,13 @@ void GgafElement<T>::unpause() {
 }
 
 template<class T>
+void GgafElement<T>::unpauseAlone() {
+	if (_isAlive) {
+		_willPauseNextFrame = false;
+	}
+}
+
+template<class T>
 void GgafElement<T>::unpauseImmediately() {
 	if (_isAlive) {
 		_wasPaused = false;
@@ -1058,6 +1126,15 @@ void GgafElement<T>::unpauseImmediately() {
 		}
 	}
 }
+
+template<class T>
+void GgafElement<T>::unpauseImmediatelyAlone() {
+	if (_isAlive) {
+		_wasPaused = false;
+		_willPauseNextFrame = false;
+	}
+}
+
 
 template<class T>
 void GgafElement<T>::blind() {
@@ -1104,7 +1181,7 @@ void GgafElement<T>::blindImmediately() {
 }
 
 template<class T>
-void GgafElement<T>::blindAloneImmediately() {
+void GgafElement<T>::blindImmediatelyAlone() {
 	if (_isAlive) {
 		_wasBlinded = true;
 		_willBlindNextFrame = true;
@@ -1131,6 +1208,13 @@ void GgafElement<T>::unblind() {
 }
 
 template<class T>
+void GgafElement<T>::unblindAlone() {
+	if (_isAlive) {
+		_willBlindNextFrame = false;
+	}
+}
+
+template<class T>
 void GgafElement<T>::unblindImmediately() {
 	if (_isAlive) {
 		_wasBlinded = false;
@@ -1150,11 +1234,18 @@ void GgafElement<T>::unblindImmediately() {
 }
 
 template<class T>
+void GgafElement<T>::unblindImmediatelyAlone() {
+	if (_isAlive) {
+		_wasBlinded = false;
+		_willBlindNextFrame = false;
+	}
+}
+template<class T>
 void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
 
 	_dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
 //	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame<<"/prm_dwFrameOffset="<<prm_dwFrameOffset);
-//	_willPlayNextFrame = false;
+//	_willActNextFrame = false;
 //	_willBeAliveNextFrame = false;
 //	SUPER::_name = "_x_"+SUPER::_name;
 	if (SUPER::_pSubFirst != NULL) {
@@ -1182,7 +1273,7 @@ bool GgafElement<T>::isAlive() {
 
 template<class T>
 bool GgafElement<T>::isPlaying() {
-	if (_isAlive && _isPlaying) {
+	if (_isAlive && _isActive) {
 		return true;
 	} else {
 		return false;
@@ -1190,8 +1281,8 @@ bool GgafElement<T>::isPlaying() {
 }
 
 template<class T>
-bool GgafElement<T>::switchedToPlay() {
-	if (_isAlive && _switchedToPlay) {
+bool GgafElement<T>::switchedToAct() {
+	if (_isAlive && _switchedToAct) {
 		return true;
 	} else {
 		return false;
@@ -1199,8 +1290,8 @@ bool GgafElement<T>::switchedToPlay() {
 }
 
 template<class T>
-bool GgafElement<T>::switchedToStop() {
-	if (_isAlive && _switchedToStop) {
+bool GgafElement<T>::switchedToRefrain() {
+	if (_isAlive && _switchedToRefrain) {
 		return true;
 	} else {
 		return false;
@@ -1209,7 +1300,7 @@ bool GgafElement<T>::switchedToStop() {
 
 template<class T>
 bool GgafElement<T>::canDraw() {
-	if (_isAlive && _isPlaying && !_wasBlinded) {
+	if (_isAlive && _isActive && !_wasBlinded) {
 		return true;
 	} else {
 		return false;
@@ -1218,7 +1309,7 @@ bool GgafElement<T>::canDraw() {
 
 template<class T>
 bool GgafElement<T>::isBehaving() {
-	if (_isAlive && _isPlaying && !_wasPaused) {
+	if (_isAlive && _isActive && !_wasPaused) {
 		return true;
 	} else {
 		return false;
