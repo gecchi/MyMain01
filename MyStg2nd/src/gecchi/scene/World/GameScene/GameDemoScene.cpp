@@ -45,8 +45,9 @@ void GameDemoScene::processBehavior() {
 
 
     //ループ----->
-    //タイトル
+
     if (isChangeProgress(GAMEDEMO_PROG_TITLE)) {
+    	 //タイトル開始
         _pFontPlate01->setString(100, 100, "GameDemoScene TITLE");
         _pFontPlate02->setString(100, 150, "PUSH A UI_EXECUTE BUTTON");
         _dwFrame_Title = 0;
@@ -64,8 +65,8 @@ void GameDemoScene::processBehavior() {
         }
     }
 
-    //デモプレイ
     if (isChangeProgress(GAMEDEMO_PROG_DEMOPLAY)) {
+    	//デモプレイ開始
         _pFontPlate01->setString(100, 100, "GameDemoScene DEMOPLAY");
         _pFontPlate02->setString(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
@@ -75,8 +76,6 @@ void GameDemoScene::processBehavior() {
         _dwFrame_Demoplay++;
 
         //ここに処理
-
-
         if (_dwFrame_Demoplay == 300) {
             setProgress(GAMEDEMO_PROG_RANKING); //ランキングへ
         }
@@ -103,7 +102,7 @@ void GameDemoScene::processBehavior() {
 
     //<-----ループ
     //デモプレイかランキング時
-    if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() || getProgress() <= GAMEDEMO_PROG_RANKING) {
+    if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() && getProgress() <= GAMEDEMO_PROG_RANKING) {
         if (VB::isPushedDown(VB_UI_EXECUTE)) {
             setProgress(GAMEDEMO_PROG_TITLE);
         }
@@ -119,7 +118,7 @@ void GameDemoScene::processBehavior() {
         //活動ループ
         _dwFrame_Decide++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_dwFrame_Decide == 120) {
             setProgress(GAMEDEMO_PROG_END); //お終い
         }
     }

@@ -33,6 +33,7 @@ void GameMainScene::reset() {
     setProgress(GAMEMAIN_PROG_INIT);
 }
 void GameMainScene::ready(int prm_stage) {
+	 _TRACE_("GameMainScene::ready("<<prm_stage<<")");
     _stage = prm_stage;
     switch (prm_stage) {
         case 1:

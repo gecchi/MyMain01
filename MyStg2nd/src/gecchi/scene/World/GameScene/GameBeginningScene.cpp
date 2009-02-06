@@ -26,7 +26,7 @@ void GameBeginningScene::initialize() {
 }
 
 void GameBeginningScene::processBehavior() {
-    if (isChangeProgress(GAMEBEGINNING_PROG_INIT)) {
+    if (getProgress() == GAMEBEGINNING_PROG_INIT) {
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 
