@@ -5,78 +5,131 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
-	setProgress(GAMEDEMO_PROG_INIT);
-	_pFontPlate01 = NEW FontPlateActor("STR01", "P/moji");
-	getLordActor()->accept(KIND_EFFECT, _pFontPlate01);
-	_pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");
-	getLordActor()->accept(KIND_EFFECT, _pFontPlate02);
+    setProgress(GAMEDEMO_PROG_INIT);
+    _pFontPlate01 = NEW FontPlateActor("STR01", "P/moji");
+    getLordActor()->accept(KIND_EFFECT, _pFontPlate01);
+    _pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");
+    getLordActor()->accept(KIND_EFFECT, _pFontPlate02);
 }
-void GameDemoScene::initialize() {
+void GameDemoScene::reset() {
+    _TRACE_("GameDemoScene::reset()");
+    setProgress(GAMEDEMO_PROG_INIT);
+}
+void GameDemoScene::ready() {
+    _TRACE_("GameDemoScene::ready()");
+}
 
+void GameDemoScene::initialize() {
 }
 
 void GameDemoScene::processBehavior() {
-	if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_INIT)+2) {
-		//自機表示
-		GameGlobal::_pSceneCommon->_pMyShip->actAlone(); //下位にオプション等があるし
-		setProgress(GAMEDEMO_PROG_BEGIN);
-		_TRACE_("GameDemoScene:OK稼動しますった！");
-	}
+    if (isChangeProgress(GAMEDEMO_PROG_INIT)) {
+        //自機表示
+        GameGlobal::_pSceneCommon->_pMyShip->actAlone(); //下位にオプション等があるし
+        setProgress(GAMEDEMO_PROG_BEGIN);
+    }
 
-	if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_BEGIN)+50) {
-		setProgress(GAMEDEMO_PROG_TITLE_BEGIN);
-	}
-//ループ----->
+    if (isChangeProgress(GAMEDEMO_PROG_BEGIN)) {
+        _pFontPlate01->setString(100, 100, "GameDemoScene BEGIN");
+        _pFontPlate02->setString(100, 150, "HAJIMARI HAJIMARI!");
+        _dwFrame_Begin = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
+        //タイトル活動ループ
+        _dwFrame_Begin++;
 
-	if (getProgress() == GAMEDEMO_PROG_TITLE_BEGIN) {
-		//タイトル表示
-		_pFontPlate01->setString(100,100,"TITLE：MYSTG2nd");
-		_pFontPlate02->setString(100,150,"PUSH HIT UI_EXECUTE KEY!");
-		setProgress(GAMEDEMO_PROG_TITLE_DISP);
-	} else if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_TITLE_DISP)+100) {
-		setProgress(GAMEDEMO_PROG_DEMOPLAY_BEGIN);
-	} else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY_BEGIN) {
-		//デモプレイ表示
-		_pFontPlate01->setString(100,100,"DEMOPLAY!：MYSTG2nd");
-		setProgress(GAMEDEMO_PROG_DEMOPLAY_DISP);
-	} else if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_DEMOPLAY_DISP)+300) {
-		setProgress(GAMEDEMO_PROG_RANKING_BEGIN);
-	} else if (getProgress() == GAMEDEMO_PROG_RANKING_BEGIN) {
-		//ランキング表示
-		_pFontPlate01->setString(100,100,"RANKING!!!：MYSTG2nd");
-		setProgress(GAMEDEMO_PROG_RANKING_BEGIN);
-	} else if (_dwFrame == getFrameAtProgress(GAMEDEMO_PROG_RANKING_DISP)+300) {
-		setProgress(GAMEDEMO_PROG_TITLE_BEGIN);
-	}
-//<-----ループ
-	//デモプレイかランキング時
-	if (GAMEDEMO_PROG_DEMOPLAY_BEGIN <= getProgress() || getProgress() <= GAMEDEMO_PROG_RANKING_DISP) {
-		if (VB::isPushedDown(VB_UI_EXECUTE)) {
-			_TRACE_("GameDemoScene タイトルへ");
-			setProgress(GAMEDEMO_PROG_TITLE_BEGIN);
-		}
-	}
+        if (_dwFrame_Begin == 120) {
+            setProgress(GAMEDEMO_PROG_TITLE); //タイトルへ
+        }
+    }
 
-	//タイトル画面時
-	if (getProgress() == GAMEDEMO_PROG_TITLE_DISP) {
-		if (VB::isPushedDown(VB_UI_EXECUTE)) {
-			_TRACE_("GameDemoScene スタート押しました！！");
-			setProgress(GAMEDEMO_PROG_GAMESTART_BEGIN);
-		}
-	}
 
-	//ゲームスタート
-	if (getProgress() == GAMEDEMO_PROG_GAMESTART_BEGIN) {
-		_pFontPlate01->setString(100,100,"GAME START!");
-		setProgress(GAMEDEMO_PROG_GAMESTART_AFTER);
-	}
+    //ループ----->
+    //タイトル
+    if (isChangeProgress(GAMEDEMO_PROG_TITLE)) {
+        _pFontPlate01->setString(100, 100, "GameDemoScene TITLE");
+        _pFontPlate02->setString(100, 150, "PUSH A UI_EXECUTE BUTTON");
+        _dwFrame_Title = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
+        //タイトル活動ループ
+        _dwFrame_Title++;
 
-	//ゲームスタート後
-	if (getProgress() == GAMEDEMO_PROG_GAMESTART_AFTER) {
-		//
-	}
+        //ここに処理
+        if (VB::isPushedDown(VB_UI_EXECUTE)) {
+            setProgress(GAMEDEMO_PROG_DECIDE);
+        }
+
+        if (_dwFrame_Title == 300) {
+            setProgress(GAMEDEMO_PROG_DEMOPLAY); //デモへ
+        }
+    }
+
+    //デモプレイ
+    if (isChangeProgress(GAMEDEMO_PROG_DEMOPLAY)) {
+        _pFontPlate01->setString(100, 100, "GameDemoScene DEMOPLAY");
+        _pFontPlate02->setString(100, 150, "GAME OVER");
+       setProgress(GAMEDEMO_PROG_DEMOPLAY);
+        _dwFrame_Demoplay = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
+        //デモプレイ活動ループ
+        _dwFrame_Demoplay++;
+
+        //ここに処理
+
+
+        if (_dwFrame_Demoplay == 300) {
+            setProgress(GAMEDEMO_PROG_RANKING); //ランキングへ
+        }
+    }
+
+
+
+    if (isChangeProgress(GAMEDEMO_PROG_RANKING)) {
+        //ランキング表示
+        _pFontPlate01->setString(100, 100, "GameDemoScene RANKING");
+        _pFontPlate02->setString(100, 150, "1st GecchiraQ");
+        _dwFrame_Ranking = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
+        //ランキング活動ループ
+        _dwFrame_Ranking++;
+
+        //ここに処理
+
+
+        if (_dwFrame_Ranking == 300) {
+            setProgress(GAMEDEMO_PROG_TITLE); //タイトルへ
+        }
+    }
+
+    //<-----ループ
+    //デモプレイかランキング時
+    if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() || getProgress() <= GAMEDEMO_PROG_RANKING) {
+        if (VB::isPushedDown(VB_UI_EXECUTE)) {
+            setProgress(GAMEDEMO_PROG_TITLE);
+        }
+    }
+
+
+    //ゲームスタート
+    if (isChangeProgress(GAMEDEMO_PROG_DECIDE)) {
+        _pFontPlate01->setString(200, 200, "GameDemoScene DECIDE");
+        _pFontPlate02->setString(200, 250, "OK HJIMARIMASU!");
+        _dwFrame_Decide = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
+        //活動ループ
+        _dwFrame_Decide++;
+
+        if (_dwFrame_Begin == 120) {
+            setProgress(GAMEDEMO_PROG_END); //お終い
+        }
+    }
+
+    if (isChangeProgress(GAMEDEMO_PROG_END)) {
+        _pFontPlate01->setString(100, 100, "");
+        _pFontPlate02->setString(100, 150, "");
+        refrainAfter(200);
+    }
+
 
 
 }
@@ -84,7 +137,6 @@ void GameDemoScene::processBehavior() {
 void GameDemoScene::processFinal() {
 
 }
-
 
 GameDemoScene::~GameDemoScene() {
 }

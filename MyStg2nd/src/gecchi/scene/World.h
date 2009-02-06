@@ -11,7 +11,7 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 
-class World : public GgafDx9LibStg::DefaultWorld {
+class World  : public GgafDx9LibStg::DefaultWorld {
 
 
 public:
@@ -20,17 +20,17 @@ public:
 	/**
 	 * ‰Šúˆ—
 	 */
-	void initialize() {};
+	void initialize() {}
 
  	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void processBehavior() {};
+	void processBehavior() {}
 
  	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void processJudgement() {};
+	void processJudgement() {}
 
 	/**
 	 * ƒJƒƒ‰‚ğ‘€ì

@@ -6,36 +6,34 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm_model) : DefaultSpriteEnemyActor(prm_name, prm_model) {
-	_class_name = "EnemyShotSpriteActor";
-	_pEffectBegin = NULL;
-	_pEffectFinish = NULL;
-	_iProgress = 0;
+    _class_name = "EnemyShotSpriteActor";
+    _pEffectBegin = NULL;
+    _pEffectFinish = NULL;
+    _iProgress = 0;
 }
 
 void EnemyShotSpriteActor::initialize() {
-	setAnimationMethod(ORDER_LOOP, 1);
-	setBumpableAlone(true);
+    setAnimationMethod(ORDER_LOOP, 1);
+    setBumpableAlone(true);
 }
 
 void EnemyShotSpriteActor::processBehavior() {
-	//標準処理（たぶんオーバーライドされるだろうけども)
-	nextAnimationFrame();
-	_pGeoMover->behave();
+    //標準処理（たぶんオーバーライドされるだろうけども)
+    nextAnimationFrame();
+    _pGeoMover->behave();
 }
 
 void EnemyShotSpriteActor::processJudgement() {
-	if (isOffScreen()) {
-		refrain();
-	}
+    if (isOffScreen()) {
+        refrain();
+    }
 
 }
 
 void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
-	//_TRACE_("EnemyShotSpriteActorヒットしました。("<<_X<<","<<_Y<<")");
-	refrain();
+    //_TRACE_("EnemyShotSpriteActorヒットしました。("<<_X<<","<<_Y<<")");
+    refrain();
 }
-
-
 
 EnemyShotSpriteActor::~EnemyShotSpriteActor() {
 }

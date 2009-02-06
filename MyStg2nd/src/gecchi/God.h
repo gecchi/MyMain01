@@ -5,15 +5,15 @@ namespace MyStg2nd {
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
-	God(HINSTANCE prm_hInstance, HWND prm_hWnd);
+    God(HINSTANCE prm_hInstance, HWND prm_hWnd);
 
     /**
      * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
-	 * ƒOverRide ‚Å‚·„
-	 */
-	GgafCore::GgafWorld* createWorld();
+     * ƒOverRide ‚Å‚·„
+     */
+    GgafCore::GgafWorld* createWorld();
 
-	virtual ~God();
+    virtual ~God();
 };
 
 }

@@ -6,34 +6,32 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
-	/** 対象アクター */
+    /** 対象アクター */
 
-	MyOptionParent(const char* prm_name, const char* prm_model);
+    MyOptionParent(const char* prm_name, const char* prm_model);
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void initialize();
+    /**
+     * ＜OverRide です＞
+     */
+    void initialize();
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void processBehavior();
+    /**
+     * ＜OverRide です＞
+     */
+    void processBehavior();
 
- 	/**
-	 * ＜OverRide です＞
-	 */
-	void processJudgement();
+    /**
+     * ＜OverRide です＞
+     */
+    void processJudgement();
 
-	/**
-	 * ＜OverRide です＞
-	 */
- 	void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    /**
+     * ＜OverRide です＞
+     */
+    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-
- 	virtual ~MyOptionParent();
+    virtual ~MyOptionParent();
 };
-
 
 }
 #endif /*MYOPTIONPARENT_H_*/

@@ -2,13 +2,12 @@
 #define DEFAULTMESHENEMYACTOR_H_
 namespace MyStg2nd {
 
-
 class DefaultMeshEnemyActor : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-	DefaultMeshEnemyActor(const char* prm_name, const char* prm_model);
+    DefaultMeshEnemyActor(const char* prm_name, const char* prm_model);
 
-	virtual ~DefaultMeshEnemyActor();
+    virtual ~DefaultMeshEnemyActor();
 };
 
 }

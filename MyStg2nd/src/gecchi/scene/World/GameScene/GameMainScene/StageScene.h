@@ -1,7 +1,6 @@
 #ifndef STAGESCENE_H_
 #define STAGESCENE_H_
 
-
 #define STAGE_PROG_INIT       1
 #define STAGE_PROG_BEGIN      2
 #define STAGE_PROG_PLAY_BEGIN 3
@@ -9,25 +8,20 @@
 #define STAGE_PROG_CHKPOINT01_PASS 5
 #define STAGE_PROG_CHKPOINT02_PASS 6
 
-
 namespace MyStg2nd {
 
 class StageScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-
-	static bool _pause;
+    static bool _pause;
 public:
+    StageScene(const char* prm_name);
+    /**
+     * ‰Šúˆ—
+     */
+    //virtual void orderStageMain() = 0;
 
-	StageScene(const char* prm_name);
-	/**
-	 * ‰Šúˆ—
-	 */
-	void initialize();
-	virtual void processBehavior();
-	virtual void processJudgement();
-	virtual void processFinal();
-	virtual ~StageScene();
+    virtual ~StageScene();
 };
 
 }

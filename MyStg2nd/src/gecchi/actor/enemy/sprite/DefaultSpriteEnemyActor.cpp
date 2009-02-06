@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 DefaultSpriteEnemyActor::DefaultSpriteEnemyActor(const char* prm_name, const char* prm_model) : DefaultSpriteActor(prm_name, prm_model) {
-	_class_name = "DefaultSpriteEnemyActor";
+    _class_name = "DefaultSpriteEnemyActor";
 }
 
 DefaultSpriteEnemyActor::~DefaultSpriteEnemyActor() {

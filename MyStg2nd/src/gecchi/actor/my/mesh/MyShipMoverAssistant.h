@@ -6,38 +6,33 @@ class MyShipMoverAssistant : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
-	MyShipMoverAssistant(const char* prm_name, const char* prm_model);
+    MyShipMoverAssistant(const char* prm_name, const char* prm_model);
 
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	virtual void initialize();
+    /**
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     */
+    virtual void initialize();
 
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	virtual void processBehavior();
+    /**
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     */
+    virtual void processBehavior();
 
- 	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	virtual void processJudgement() {};
+    /**
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     */
+    virtual void processJudgement() {
+    }
 
-	/**
-	 * ÅÉOverRide Ç≈Ç∑ÅÑ
-	 */
-	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
+    /**
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     */
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
 
-
-
- 	virtual ~MyShipMoverAssistant();
-
-
-
-
+    virtual ~MyShipMoverAssistant();
 
 };
-
 
 }
 #endif /*MYSHIPMOVERASSISTANT_H_*/

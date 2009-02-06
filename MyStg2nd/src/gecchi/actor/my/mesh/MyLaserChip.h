@@ -2,92 +2,90 @@
 #define MYLASERCHIP_H_
 namespace MyStg2nd {
 
-
 class MyLaserChip : public GgafDx9LibStg::DefaultDynaMeshActor {
 public:
 
-	/** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
-	DWORD _dwFrame_switchedToAct;
+    /** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
+    DWORD _dwFrame_switchedToAct;
 
-	/**
-	 * 正四面体クラス
-	 */
-	class Tetrahedron {
-	  public :
-		float Ex, Ey, Ez;    // 頂点座標1
-		float Fx, Fy, Fz;    // 頂点座標2
-		float Gx, Gy, Gz;    // 頂点座標3
-		float Hx, Hy, Hz;    // 頂点座標4
-		Tetrahedron() {};
-		~Tetrahedron() {};
-	};
+    /**
+     * 正四面体クラス
+     */
+    class Tetrahedron {
+    public:
+        float Ex, Ey, Ez; // 頂点座標1
+        float Fx, Fy, Fz; // 頂点座標2
+        float Gx, Gy, Gz; // 頂点座標3
+        float Hx, Hy, Hz; // 頂点座標4
+        Tetrahedron() {
+        }
+        ~Tetrahedron() {
+        }
+    };
 
-	static LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_MyLaserChip;
-	static DWORD _dwVertexFormat;
-	static DWORD _dwFVFSize;
-	static DWORD _dwVertexNum;
-	static UINT _aVertexIndexTetrahedron_A[];
-	static UINT _aVertexIndexTetrahedron_B[];
-	static UINT _aVertexIndexTetrahedron_C[];
-	static UINT _aVertexIndexTetrahedron_D[];
-	static UINT _iNum_VertexIndexTetrahedron_A;
-	static UINT _iNum_VertexIndexTetrahedron_B;
-	static UINT _iNum_VertexIndexTetrahedron_C;
-	static UINT _iNum_VertexIndexTetrahedron_D;
-	static Tetrahedron* _pTetra_EFGH;
+    static LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_MyLaserChip;
+    static DWORD _dwVertexFormat;
+    static DWORD _dwFVFSize;
+    static DWORD _dwVertexNum;
+    static UINT _aVertexIndexTetrahedron_A[];
+    static UINT _aVertexIndexTetrahedron_B[];
+    static UINT _aVertexIndexTetrahedron_C[];
+    static UINT _aVertexIndexTetrahedron_D[];
+    static UINT _iNum_VertexIndexTetrahedron_A;
+    static UINT _iNum_VertexIndexTetrahedron_B;
+    static UINT _iNum_VertexIndexTetrahedron_C;
+    static UINT _iNum_VertexIndexTetrahedron_D;
+    static Tetrahedron* _pTetra_EFGH;
 
+    int _X_prevFrame;
+    int _Y_prevFrame;
+    int _Z_prevFrame;
 
-	int _X_prevFrame;
-	int _Y_prevFrame;
-	int _Z_prevFrame;
+    /** 対象アクター */
+    GgafDx9UntransformedActor* _pActor_Radical;
 
-	/** 対象アクター */
-	GgafDx9UntransformedActor* _pActor_Radical;
+    MyLaserChip(const char* prm_name, const char* prm_model);
 
+    /**
+     * ＜OverRide です＞
+     */
+    void initialize();
 
-	MyLaserChip(const char* prm_name, const char* prm_model);
+    /**
+     * ＜OverRide です＞
+     */
+    void processBehavior();
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void initialize();
+    /**
+     * ＜OverRide です＞
+     */
+    void processJudgement();
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void processBehavior();
+    /**
+     * ＜OverRide です＞
+     */
+    void processDrawMain();
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void processJudgement();
+    /**
+     * ＜OverRide です＞
+     */
+    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-	/**
-	 * ＜OverRide です＞
-	 */
-	void processDrawMain();
+    void setRadicalActor(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
+        _pActor_Radical = prm_pActor;
+    }
 
-	/**
-	 * ＜OverRide です＞
-	 */
- 	void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    MyLaserChip* getNext() {
+        return (MyLaserChip*)_pNext;
+    }
 
-	void setRadicalActor(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
- 		_pActor_Radical = prm_pActor;
- 	}
+    MyLaserChip* getPrev() {
+        return (MyLaserChip*)_pPrev;
+    }
 
-	MyLaserChip* getNext() {
-		return (MyLaserChip*)_pNext;
-	};
-
-	MyLaserChip* getPrev() {
-		return (MyLaserChip*)_pPrev;
-	};
-
- 	virtual ~MyLaserChip();
+    virtual ~MyLaserChip();
 
 };
-
 
 }
 #endif /*MYLASERCHIP_H_*/

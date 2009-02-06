@@ -6,19 +6,18 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 FormationCeres001::FormationCeres001(const char* prm_name, const char* prm_model) : FormationActor(prm_name) {
-	_class_name = "FormationCeres001";
-	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-		_pEnemyCeres[i] = NEW EnemyCeres("Ceres01", "M/Ceres");
-		_pEnemyCeres[i]->refrainImmediately();
-		addSubLast(_pEnemyCeres[i] );
-	}
+    _class_name = "FormationCeres001";
+    for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
+        _pEnemyCeres[i] = NEW EnemyCeres("Ceres01", "M/Ceres");
+        _pEnemyCeres[i]->refrainImmediately();
+        addSubLast(_pEnemyCeres[i] );
+    }
 }
 
-
 void FormationCeres001::initialize() {
-	for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-		_pEnemyCeres[i]->actAfter(i*30+1);
-	}
+    for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
+        _pEnemyCeres[i]->actAfter(i * 30 + 1);
+    }
 }
 
 FormationCeres001::~FormationCeres001() {

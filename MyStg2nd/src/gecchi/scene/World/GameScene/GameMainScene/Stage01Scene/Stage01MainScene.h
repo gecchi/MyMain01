@@ -4,23 +4,22 @@ namespace MyStg2nd {
 
 class Stage01MainScene : public GgafDx9LibStg::DefaultScene {
 
-	GgafDx9Core::GgafDx9Bgm* _bgm_st1;
+    GgafDx9Core::GgafDx9Bgm* _bgm_st1;
 
 public:
-	GgafDx9LibStg::RotationActor* _pRot;
+    GgafDx9LibStg::RotationActor* _pRot;
 
-	Stage01MainScene(const char* prm_name);
-	/**
-	 * ‰Šúˆ—
-	 */
-	void initialize();
+    Stage01MainScene(const char* prm_name);
+    /**
+     * ‰Šúˆ—
+     */
+    void initialize();
 
-	virtual void processBehavior();
+    virtual void processBehavior();
 
-	virtual void processFinal();
+    virtual void processFinal();
 
-
-	virtual ~Stage01MainScene();
+    virtual ~Stage01MainScene();
 };
 
 }

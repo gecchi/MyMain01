@@ -1,0 +1,28 @@
+#ifndef GAMEENDINGSCENE_H_
+#define GAMEENDINGSCENE_H_
+
+#define GAMEENDING_PROG_INIT   1
+#define GAMEENDING_PROG_BEGIN  2
+#define GAMEENDING_PROG_OPE    3
+#define GAMEENDING_PROG_DECIDE 4
+#define GAMEENDING_PROG_END    5
+
+
+
+namespace MyStg2nd {
+
+class GameEndingScene : public GgafDx9LibStg::DefaultScene {
+
+public:
+
+    GameEndingScene(const char* prm_name);
+    void reset();
+    void ready();
+   virtual void initialize();
+    virtual void processBehavior();
+    virtual void processFinal();
+    virtual ~GameEndingScene();
+};
+
+}
+#endif /*GAMEENDINGSCENE_H_*/

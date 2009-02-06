@@ -13,179 +13,175 @@ using namespace std;
 
 
 // グローバル変数:
-HINSTANCE hInst;								// 現在のインターフェイス
-TCHAR szTitle[MAX_LOADSTRING];					// タイトル バーのテキスト
-TCHAR szWindowClass[MAX_LOADSTRING];			// メイン ウィンドウ クラス名
+HINSTANCE hInst; // 現在のインターフェイス
+TCHAR szTitle[MAX_LOADSTRING]; // タイトル バーのテキスト
+TCHAR szWindowClass[MAX_LOADSTRING]; // メイン ウィンドウ クラス名
 
 // このコード モジュールに含まれる関数の宣言を転送します:
-ATOM				MyRegisterClass(HINSTANCE hInstance);
+ATOM MyRegisterClass(HINSTANCE hInstance);
 //BOOL				InitInstance(HINSTANCE, int);
-LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
-INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 
 void adjustGameScreen(HWND);
 
 /**
  * GNU GCC ならばエントリポイント
  */
-int main(int argc,char *argv[]) {
-	STARTUPINFO	StatUpInfo;
-	HINSTANCE		hInstance;
-	HANDLE		hPrevInstance;
-	LPSTR		lpCmdLine;
-	int			nCmdShow;
-	//WNDCLASS	wc;
-//	HWND		hWnd;
-//	MSG			msg;
+int main(int argc, char *argv[]) {
+    STARTUPINFO StatUpInfo;
+    HINSTANCE hInstance;
+    HANDLE hPrevInstance;
+    LPSTR lpCmdLine;
+    int nCmdShow;
+    //WNDCLASS	wc;
+    //	HWND		hWnd;
+    //	MSG			msg;
 
-	GetStartupInfo(&StatUpInfo);
-	hInstance = GetModuleHandle(0);
-	hPrevInstance = 0;
-	lpCmdLine = GetCommandLine();
-	nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW)?
-				StatUpInfo.wShowWindow:SW_SHOWNORMAL;
-	/* GetCommandLineからプログラム名を抜きます。 */
-	while(*lpCmdLine != ' ' && *lpCmdLine != '\0') lpCmdLine++;
-	while(*lpCmdLine == ' ') lpCmdLine++;
-	cout << lpCmdLine << endl;
-	/* ここからが、本来の処理 */
-	//wc.lpszClassName = "MySTG2nd";
-	/* 二重起動防止 (バグあり...)*/
-//	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
-//		if (IsIconic(hWnd)) {
-//			ShowWindow(hWnd, SW_RESTORE);
-//		}
-//		SetForegroundWindow(hWnd);
-//		return 0;
-//	}
+    GetStartupInfo(&StatUpInfo);
+    hInstance = GetModuleHandle(0);
+    hPrevInstance = 0;
+    lpCmdLine = GetCommandLine();
+    nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
+    /* GetCommandLineからプログラム名を抜きます。 */
+    while (*lpCmdLine != ' ' && *lpCmdLine != '\0')
+        lpCmdLine++;
+    while (*lpCmdLine == ' ')
+        lpCmdLine++;
+    cout << lpCmdLine << endl;
+    /* ここからが、本来の処理 */
+    //wc.lpszClassName = "MySTG2nd";
+    /* 二重起動防止 (バグあり...)*/
+    //	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
+    //		if (IsIconic(hWnd)) {
+    //			ShowWindow(hWnd, SW_RESTORE);
+    //		}
+    //		SetForegroundWindow(hWnd);
+    //		return 0;
+    //	}
 
-	//本来のWinMainへ
-	WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+    //本来のWinMainへ
+    WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
 /**
  * VCならばエントリポイント
  */
 int APIENTRY _tWinMain(HINSTANCE hInstance,
-										 HINSTANCE hPrevInstance,
-										 LPTSTR    lpCmdLine,
-										 int       nCmdShow)
+        HINSTANCE hPrevInstance,
+        LPTSTR lpCmdLine,
+        int nCmdShow)
 {
 
-	UNREFERENCED_PARAMETER(hPrevInstance);
-	UNREFERENCED_PARAMETER(lpCmdLine);
+    UNREFERENCED_PARAMETER(hPrevInstance);
+    UNREFERENCED_PARAMETER(lpCmdLine);
 
-	MSG msg;
-//	HACCEL hAccelTable;
+    MSG msg;
+    //	HACCEL hAccelTable;
 
-	// グローバル文字列を初期化しています。
-//	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-//	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
-	//LoadStringができん！
-	strcpy(szTitle,"MyStg2nd");        //無理やり
-	strcpy(szWindowClass,"MYSTG2ND");  //ですよ！
-
-
-	//プロパティファイル読込み
-	try {
-		GgafDx9Core::GgafDx9Properties::load(".\\config.properties");
-	} catch (GgafCore::GgafCriticalException& e) {
-		MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
-		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		GgafDx9Core::GgafDx9Properties::clean();
-		return EXIT_FAILURE;
-	}
+    // グローバル文字列を初期化しています。
+    //	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    //	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
+    //LoadStringができん！
+    strcpy(szTitle,"MyStg2nd"); //無理やり
+    strcpy(szWindowClass,"MYSTG2ND"); //ですよ！
 
 
-	MyRegisterClass(hInstance);
-	HWND hWnd;
-	hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
-	hWnd = CreateWindow(
-				szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
-				szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
-				WS_OVERLAPPEDWINDOW,	// ウインドウスタイル
-				CW_USEDEFAULT,			// ウィンドウの表示Ｘ座標
-				CW_USEDEFAULT,			// ウィンドウの表示Ｙ座標
-				GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH),		// ウィンドウの幅
-				GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT),	// ウィンドウの高さ
-				NULL,					// 親ウインドウ
-				NULL,					// ウインドウメニュー
-				hInstance,				// インスタンスハンドル
-				NULL					// WM_CREATE情報
-			);
+    //プロパティファイル読込み
+    try {
+        GgafDx9Core::GgafDx9Properties::load(".\\config.properties");
+    } catch (GgafCore::GgafCriticalException& e) {
+        MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
+        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+        GgafDx9Core::GgafDx9Properties::clean();
+        return EXIT_FAILURE;
+    }
 
-	if (!hWnd) {
-		cout << "can't CreateWindow " << endl;
-		cout << "szWindowClass=" << szWindowClass << endl;
-		cout << "szTitle=" << szTitle << endl;
-		return FALSE;
-	}
+    MyRegisterClass(hInstance);
+    HWND hWnd;
+    hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
+    hWnd = CreateWindow(
+            szWindowClass, //WINDOW_CLASS,			// ウインドウクラス名
+            szTitle,//WINDOW_TITLE,				// ウインドウのタイトル名
+            WS_OVERLAPPEDWINDOW, // ウインドウスタイル
+            CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
+            CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
+            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
+            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの高さ
+            NULL, // 親ウインドウ
+            NULL, // ウインドウメニュー
+            hInstance, // インスタンスハンドル
+            NULL // WM_CREATE情報
+    );
 
-	ShowWindow(hWnd, nCmdShow);
-	UpdateWindow(hWnd);
-	//hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
+    if (!hWnd) {
+        cout << "can't CreateWindow " << endl;
+        cout << "szWindowClass=" << szWindowClass << endl;
+        cout << "szTitle=" << szTitle << endl;
+        return FALSE;
+    }
+
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
+    //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
 
 #ifdef OREDEBUG
-	//メモリーリ－クチェックBEGIN
-	::detectMemoryLeaksStart(std::cout);
+    //メモリーリ－クチェックBEGIN
+    ::detectMemoryLeaksStart(std::cout);
 #endif
-	MyStg2nd::God* god = NULL;
-	try {
-	//神の誕生！
-		god = NEW MyStg2nd::God(hInstance, hWnd);
-		if (SUCCEEDED(god->init())) {
-			adjustGameScreen(hWnd);
+    MyStg2nd::God* god = NULL;
+    try {
+        //神の誕生！
+        god = NEW MyStg2nd::God(hInstance, hWnd);
+        if (SUCCEEDED(god->init())) {
+            adjustGameScreen(hWnd);
 
+            // ループ・ザ・ループ
+            ::timeBeginPeriod(1);
+            while (true) {
+                if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+                    if (msg.message == WM_QUIT) {
+                        delete god; //神さようなら
+                        GgafDx9Core::GgafDx9Properties::clean();
+                        ::timeEndPeriod(1);
+#ifdef OREDEBUG
+                        //メモリーリ－クチェックEND
+                        ::detectMemoryLeaksEnd(std::cout);
+#endif
+                        return EXIT_SUCCESS;
+                    }
+                    ::TranslateMessage(&msg);
+                    ::DispatchMessage(&msg);
+                } else {
 
-			// ループ・ザ・ループ
-			::timeBeginPeriod(1);
-			while (true) {
-				if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)){
-					if (msg.message == WM_QUIT) {
-						delete god; //神さようなら
-						GgafDx9Core::GgafDx9Properties::clean();
-						::timeEndPeriod(1);
-	#ifdef OREDEBUG
-						//メモリーリ－クチェックEND
-						::detectMemoryLeaksEnd(std::cout);
-	#endif
-						return EXIT_SUCCESS;
-					}
-					::TranslateMessage(&msg);
-					::DispatchMessage(&msg);
-				} else {
+                    god->be(); //神が存在したらしめる（世界が動く）
 
-						god->be(); //神が存在したらしめる（世界が動く）
+                }
+            }
+        }
+    } catch (GgafCore::GgafCriticalException& e) {
+        //異常終了時
+        _TRACE_("＜例外＞"<<e.getMsg());
+        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
+        MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
+        ::timeEndPeriod(1);
 
-				}
-			}
-		}
-	} catch (GgafCore::GgafCriticalException& e) {
-		//異常終了時
-		_TRACE_("＜例外＞"<<e.getMsg());
-		string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-		MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-		GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-		::timeEndPeriod(1);
+        //		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+        //		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+        //		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+        //		::timeEndPeriod(1);//タイマー精度終了処理
+        //#ifdef OREDEBUG
+        //		//メモリーリ－クチェックEND
+        //		::detectMemoryLeaksEnd(std::cout);
+        //#endif
+        //		PostQuitMessage(0);
+        return EXIT_SUCCESS;
+    }
 
-//		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
-//		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-//		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
-//		::timeEndPeriod(1);//タイマー精度終了処理
-//#ifdef OREDEBUG
-//		//メモリーリ－クチェックEND
-//		::detectMemoryLeaksEnd(std::cout);
-//#endif
-//		PostQuitMessage(0);
-		return EXIT_SUCCESS;
-	}
-
-
-	//_CrtDumpMemoryLeaks();	// この時点で開放されていないメモリの情報の表示
-	return (int) msg.wParam;
+    //_CrtDumpMemoryLeaks();	// この時点で開放されていないメモリの情報の表示
+    return (int) msg.wParam;
 }
-
-
 
 //
 //  関数: MyRegisterClass()
@@ -200,25 +196,24 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 //    正しい形式の小さいアイコンを取得できるようにするには、
 //    この関数を呼び出してください。
 //
-ATOM MyRegisterClass(HINSTANCE hInstance)
-{
-	WNDCLASSEX wcex;
+ATOM MyRegisterClass(HINSTANCE hInstance) {
+    WNDCLASSEX wcex;
 
-	wcex.cbSize = sizeof(WNDCLASSEX);
+    wcex.cbSize = sizeof(WNDCLASSEX);
 
-	wcex.style			= CS_HREDRAW | CS_VREDRAW; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
-	wcex.lpfnWndProc	= WndProc;                 //ウィンドウプロシージャのアドレスを指定する。
-	wcex.cbClsExtra		= 0;
-	wcex.cbWndExtra		= 0;
-	wcex.hInstance		= hInstance;
-	wcex.hIcon			= LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
-	wcex.hCursor		= LoadCursor(NULL, IDC_ARROW);
-	wcex.hbrBackground	= CreateSolidBrush(RGB(30, 30, 30) ); //0~255
-	wcex.lpszMenuName	= NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
-	wcex.lpszClassName	= szWindowClass;
-	wcex.hIconSm		= LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.style = CS_HREDRAW | CS_VREDRAW; //水平・垂直方向にウインドウサイズが変更されたときウインドウを再作画する。
+    wcex.lpfnWndProc = WndProc; //ウィンドウプロシージャのアドレスを指定する。
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = hInstance;
+    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
+    wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
+    wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
+    wcex.lpszMenuName = NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//メニューバーはなし
+    wcex.lpszClassName = szWindowClass;
+    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
-	return RegisterClassEx(&wcex);
+    return RegisterClassEx(&wcex);
 }
 
 //
@@ -232,26 +227,26 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //        メイン プログラム ウィンドウを作成および表示します。
 //
 /*
-BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
-{
-	 HWND hWnd;
+ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
+ {
+ HWND hWnd;
 
-	 hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
+ hInst = hInstance; // グローバル変数にインスタンス処理を格納します。
 
-	 hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-			CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
+ hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+ CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
 
-	 if (!hWnd)
-	 {
-			return FALSE;
-	 }
+ if (!hWnd)
+ {
+ return FALSE;
+ }
 
-	 ShowWindow(hWnd, nCmdShow);
-	 UpdateWindow(hWnd);
+ ShowWindow(hWnd, nCmdShow);
+ UpdateWindow(hWnd);
 
-	 return TRUE;
-}
-*/
+ return TRUE;
+ }
+ */
 
 //
 //  関数: WndProc(HWND, UINT, WPARAM, LPARAM)
@@ -265,96 +260,94 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
-//	int wmId, wmEvent;
-	PAINTSTRUCT ps;
-	HDC hdc;
+    //	int wmId, wmEvent;
+    PAINTSTRUCT ps;
+    HDC hdc;
 
-	switch (message)
-	{
-/*
-	case WM_COMMAND:
-		wmId    = LOWORD(wParam);
-		wmEvent = HIWORD(wParam);
-		// 選択されたメニューの解析:
-		switch (wmId)
-		{
-		case IDM_ABOUT:
-			DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-			break;
-		case IDM_EXIT:
-			DestroyWindow(hWnd);
-			break;
-		default:
-			return DefWindowProc(hWnd, message, wParam, lParam);
-		}
-		break;
-*/
-	case WM_SIZE:
-		adjustGameScreen(hWnd);
-		break;
-//    case WM_KEYDOWN:
-//        //エスケープキーを押したら終了させる
-//        case VK_ESCAPE:
-//            PostMessage(hWnd,WM_CLOSE,0,0);
-//            return 0;
-//
-	case WM_PAINT:
-		hdc = BeginPaint(hWnd, &ps);
-		EndPaint(hWnd, &ps);
-		break;
-	case WM_DESTROY:
-		PostQuitMessage(0);
-		break;
-	default:
-		return DefWindowProc(hWnd, message, wParam, lParam);
-	}
-	return 0;
+    switch (message)
+    {
+        /*
+         case WM_COMMAND:
+         wmId    = LOWORD(wParam);
+         wmEvent = HIWORD(wParam);
+         // 選択されたメニューの解析:
+         switch (wmId)
+         {
+         case IDM_ABOUT:
+         DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
+         break;
+         case IDM_EXIT:
+         DestroyWindow(hWnd);
+         break;
+         default:
+         return DefWindowProc(hWnd, message, wParam, lParam);
+         }
+         break;
+         */
+        case WM_SIZE:
+        adjustGameScreen(hWnd);
+        break;
+        //    case WM_KEYDOWN:
+        //        //エスケープキーを押したら終了させる
+        //        case VK_ESCAPE:
+        //            PostMessage(hWnd,WM_CLOSE,0,0);
+        //            return 0;
+        //
+        case WM_PAINT:
+        hdc = BeginPaint(hWnd, &ps);
+        EndPaint(hWnd, &ps);
+        break;
+        case WM_DESTROY:
+        PostQuitMessage(0);
+        break;
+        default:
+        return DefWindowProc(hWnd, message, wParam, lParam);
+    }
+    return 0;
 }
 
 // バージョン情報ボックスのメッセージ ハンドラです。
 /*
-INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
-{
-	UNREFERENCED_PARAMETER(lParam);
-	switch (message)
-	{
-	case WM_INITDIALOG:
-		return (INT_PTR)TRUE;
+ INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
+ {
+ UNREFERENCED_PARAMETER(lParam);
+ switch (message)
+ {
+ case WM_INITDIALOG:
+ return (INT_PTR)TRUE;
 
-	case WM_COMMAND:
-		if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
-		{
-			EndDialog(hDlg, LOWORD(wParam));
-			return (INT_PTR)TRUE;
-		}
-		break;
-	}
-	return (INT_PTR)FALSE;
-}
-*/
-
-
+ case WM_COMMAND:
+ if (LOWORD(wParam) == IDOK || LOWORD(wParam) == IDCANCEL)
+ {
+ EndDialog(hDlg, LOWORD(wParam));
+ return (INT_PTR)TRUE;
+ }
+ break;
+ }
+ return (INT_PTR)FALSE;
+ }
+ */
 
 void adjustGameScreen(HWND hWnd) {
-	if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
-		RECT rect;
-		GetClientRect(hWnd , &rect); //あるいは？
-		if (1.0 *rect.right / rect.bottom > 1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
-			//より横長になってしまっている
-			double rate = 1.0 * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //縮小率=縦幅の比率
-			GgafDx9Core::GgafDx9God::_rectPresentDest.left   = (rect.right/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
-			GgafDx9Core::GgafDx9God::_rectPresentDest.top    = 0;
-			GgafDx9Core::GgafDx9God::_rectPresentDest.right  = (rect.right/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate/2.0);
-			GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate;
-		} else {
-			//より縦長になってしまっている
-			double rate = 1.0 * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH);  //縮小率=横幅の比率
-			GgafDx9Core::GgafDx9God::_rectPresentDest.left   = 0;
-			GgafDx9Core::GgafDx9God::_rectPresentDest.top    = (rect.bottom/2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
-			GgafDx9Core::GgafDx9God::_rectPresentDest.right  = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*rate;
-			GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom/2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*rate/2.0);
-		}
-	} else {
-		GetClientRect(hWnd , &(GgafDx9Core::GgafDx9God::_rectPresentDest));
-	}
+    if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
+        RECT rect;
+        GetClientRect(hWnd, &rect); //あるいは？
+        if (1.0 * rect.right / rect.bottom > 1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
+            //より横長になってしまっている
+            double rate = 1.0 * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //縮小率=縦幅の比率
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate;
+        } else {
+            //より縦長になってしまっている
+            double rate = 1.0 * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //縮小率=横幅の比率
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate;
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0);
+        }
+    } else {
+        GetClientRect(hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));
+    }
 }

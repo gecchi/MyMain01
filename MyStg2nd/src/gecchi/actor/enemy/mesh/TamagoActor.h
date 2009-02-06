@@ -2,27 +2,23 @@
 #define TAMAGOACTOR_H_
 namespace MyStg2nd {
 
-
 class TamagoActor : public GgafDx9LibStg::DefaultMeshActor {
 
-
-	int _rnd;
+    int _rnd;
 
 public:
-	TamagoActor(const char* prm_name, const char* prm_model);
+    TamagoActor(const char* prm_name, const char* prm_model);
 
-	void initialize();
+    void initialize();
 
-	void processBehavior();
+    void processBehavior();
 
-	void processJudgement();
+    void processJudgement();
 
- 	void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-
-	virtual ~TamagoActor();
+    virtual ~TamagoActor();
 };
-
 
 }
 #endif /*TAMAGOACTOR_H_*/

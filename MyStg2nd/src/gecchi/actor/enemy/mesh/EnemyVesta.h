@@ -6,21 +6,21 @@ namespace MyStg2nd {
 class EnemyVesta : public DefaultMeshEnemyActor {
 
 public:
-	int _iMovePatternNo;
+    int _iMovePatternNo;
 
-	EnemyVesta(const char* prm_name, const char* prm_model);
+    EnemyVesta(const char* prm_name, const char* prm_model);
 
-	void initialize();
+    void initialize();
 
-	void processBehavior();
+    void processBehavior();
 
-	void processJudgement();
+    void processJudgement();
 
- 	void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-	bool isOffScreen();
+    bool isOffScreen();
 
-	virtual ~EnemyVesta();
+    virtual ~EnemyVesta();
 };
 
 }

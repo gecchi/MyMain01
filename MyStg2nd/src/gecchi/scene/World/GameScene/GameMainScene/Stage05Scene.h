@@ -6,17 +6,17 @@ class Stage05Scene : public StageScene {
 
 public:
 
-	Stage05Scene(const char* prm_name);
-	/**
-	 * ‰Šúˆ—
-	 */
-	void initialize();
+    Stage05Scene(const char* prm_name);
+    /**
+     * ‰Šúˆ—
+     */
+    void initialize();
 
-	virtual void processBehavior();
+    virtual void processBehavior();
 
-	virtual void processFinal();
+    virtual void processFinal();
 
-	virtual ~Stage05Scene();
+    virtual ~Stage05Scene();
 };
 
 }

@@ -29,7 +29,7 @@ namespace MyStg2nd {
 class God;
 class InterfaceGameActor;
 class World;
-class GameDemoScene;
+
 class CommonScene;
 
 class DispFpsActor;
@@ -37,7 +37,10 @@ class BackGround01Plate;
 class BackGroundChipPlate;
 
 class GameScene;
+class GameDemoScene;
+class GameBeginningScene;
 class GameMainScene;
+class GameEndingScene;
 class StageScene;
 class Stage01Scene;
 class Stage02Scene;
@@ -82,8 +85,10 @@ class MyFactory;
 #include "gecchi/scene/World.h"
 #include "gecchi/scene/World/GameScene.h"
 #include "gecchi/scene/World/GameScene/GameDemoScene.h"
+#include "gecchi/scene/World/GameScene/GameBeginningScene.h"
 #include "gecchi/scene/World/GameScene/CommonScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene.h"
+#include "gecchi/scene/World/GameScene/GameEndingScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/StageScene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene.h"
 #include "gecchi/scene/World/GameScene/GameMainScene/Stage01Scene/Stage01MainScene.h"

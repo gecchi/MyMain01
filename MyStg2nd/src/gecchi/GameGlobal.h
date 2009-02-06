@@ -6,20 +6,20 @@ namespace MyStg2nd {
 class GameGlobal {
 public:
 
-	/** スコア */
-	static DWORD _dwScore;
+    /** スコア */
+    static DWORD _dwScore;
 
-	/** ステージ */
-	static int _iScene;
-	/** ランク */
-	static int _iRank;
+    /** ステージ */
+    static int _iScene;
+    /** ランク */
+    static int _iRank;
 
-	/** 自機へのポインタ */
-	static MyShip* _pMyShip;
+    /** 自機へのポインタ */
+    static MyShip* _pMyShip;
 
-
-	static CommonScene* _pSceneCommon;
+    static CommonScene* _pSceneCommon;
 };
+
 }
 #endif /*GAMEGLOBAL_H_*/
 
