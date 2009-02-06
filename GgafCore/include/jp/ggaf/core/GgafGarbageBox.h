@@ -2,7 +2,6 @@
 #define GGAFGARBAGEBOX_H_
 namespace GgafCore {
 
-
 /**
  * ゴミ箱 .
  * 不要になったオブジェクトは、とりあえずココに登録。<BR>
@@ -15,22 +14,19 @@ class GgafGarbageBox : public GgafObject {
 
 public:
 
-	GgafGarbageRootActor* _pGarbageRootActor;
-	GgafGarbageRootScene* _pGarbageRootScene;
+    GgafGarbageRootActor* _pGarbageRootActor;
+    GgafGarbageRootScene* _pGarbageRootScene;
 
-	GgafGarbageBox();
+    GgafGarbageBox();
 
-	void add(GgafActor* prm_pActor);
+    void add(GgafActor* prm_pActor);
 
-	void add(GgafScene* prm_pScene);
+    void add(GgafScene* prm_pScene);
 
+    void cleane(int prm_iNumCleanNode);
 
-	void cleane(int prm_iNumCleanNode);
-
-
-	virtual ~GgafGarbageBox();
+    virtual ~GgafGarbageBox();
 };
-
 
 }
 #endif /*GGAFGARBAGEBOX_H_*/

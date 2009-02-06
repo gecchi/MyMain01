@@ -2,7 +2,6 @@
 #define GGAFHEADACTOR_H_
 namespace GgafCore {
 
-
 /**
  * 団長クラス .
  * とある纏ったアクター(GgafMainActor)達の、階層ツリー頂点のアクターです。<BR>
@@ -35,71 +34,79 @@ class GgafHeadActor : public GgafActor {
 
 public:
 
-	actorkind _kind;
+    actorkind _kind;
 
-	GgafHeadActor(actorkind prm_kind);
-
-	/**
-	 * 初期処理<BR>
-	 */
-	void initialize() {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	void processBehavior() {};
-
- 	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	void processJudgement();
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	void processDrawPrior() {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	void processDrawMain() {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	void processDrawTerminate() {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	void processHappen(int prm_no) {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void processFinal() {};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
- 		return false;
- 	};
-
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
- 	void processOnHit(GgafActor* prm_pActor_Opponent) {};
+    GgafHeadActor(actorkind prm_kind);
 
     /**
-	 * 神に謁見 .
-	 * @return	呼ばれて出てきた神
-	 */
-	virtual GgafGod* askGod();
+     * 初期処理<BR>
+     */
+    void initialize() {
+    }
 
-	virtual ~GgafHeadActor();
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processBehavior() {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processJudgement();
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processDrawPrior() {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processDrawMain() {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processDrawTerminate() {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processHappen(int prm_no) {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processFinal() {
+    }
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+        return false;
+    }
+    ;
+
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    void processOnHit(GgafActor* prm_pActor_Opponent) {
+    }
+
+    /**
+     * 神に謁見 .
+     * @return	呼ばれて出てきた神
+     */
+    virtual GgafGod* askGod();
+
+    virtual ~GgafHeadActor();
 };
-
 
 }
 #endif /*GGAFHEADACTOR_H_*/

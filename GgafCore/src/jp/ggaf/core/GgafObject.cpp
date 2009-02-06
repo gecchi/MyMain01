@@ -5,14 +5,13 @@ using namespace GgafCore;
 //int GgafObject::_iSeq = 0;
 
 GgafObject::GgafObject() {
-	//_iObjectNo = (_iSeq++);
+    //_iObjectNo = (_iSeq++);
 }
 
 string GgafObject::toString() {
-	//:TODO
-	return "‚¿‚å‚Á‚Æ‚Ü‚Á‚Ä‚æ";
+    //:TODO
+    return "‚¿‚å‚Á‚Æ‚Ü‚Á‚Ä‚æ";
 }
-
 
 GgafObject::~GgafObject() {
 }

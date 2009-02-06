@@ -2,7 +2,6 @@
 #define GGAFWORLD_H_
 namespace GgafCore {
 
-
 /**
  * 世界クラス .
  * 本プログラムで言う『世界』とは、全てのシーン(GgafSceneオブジェクト)の頂点に位置する特別なシーンです。<BR>
@@ -17,58 +16,65 @@ class GgafWorld : public GgafMainScene {
 
 public:
 
-	GgafWorld(const char* prm_name);
+    GgafWorld(const char* prm_name);
 
-	/**
-	 * 初期処理<BR>
-	 */
-	void initialize() {};
+    /**
+     * 初期処理<BR>
+     */
+    void initialize() {
+    }
 
-	/**
-	 * フレーム毎の振る舞い<BR>
-	 */
-	virtual void processBehavior() {};
+    /**
+     * フレーム毎の振る舞い<BR>
+     */
+    virtual void processBehavior() {
+    }
 
-	/**
-	 * フレーム毎の判定処理<BR>
-	 */
-	virtual void processJudgement() {};
+    /**
+     * フレーム毎の判定処理<BR>
+     */
+    virtual void processJudgement() {
+    }
 
-	/**
-	 * フレーム毎の描画事前処理<BR>
-	 */
-	virtual void processDrawPrior() {};
+    /**
+     * フレーム毎の描画事前処理<BR>
+     */
+    virtual void processDrawPrior() {
+    }
 
-	/**
-	 * フレーム毎の描画処理<BR>
-	 */
-	virtual void drawMain() {};
+    /**
+     * フレーム毎の描画処理<BR>
+     */
+    virtual void drawMain() {
+    }
 
-	/**
-	 * フレーム毎の描画処理<BR>
-	 */
-	virtual void processDrawMain() {};
+    /**
+     * フレーム毎の描画処理<BR>
+     */
+    virtual void processDrawMain() {
+    }
 
-	/**
-	 * フレーム毎の描画事後処理<BR>
-	 */
-	virtual void processDrawTerminate() {};
+    /**
+     * フレーム毎の描画事後処理<BR>
+     */
+    virtual void processDrawTerminate() {
+    }
 
-	/**
-	 * 何かの処理<BR>
-	 * @param prm_no 何かを表す数値
-	 */
-	virtual void processHappen(int prm_no) {};
+    /**
+     * 何かの処理<BR>
+     * @param prm_no 何かを表す数値
+     */
+    virtual void processHappen(int prm_no) {
+    }
 
-	/**
-	 * 最終処理<BR>
-	 */
-	virtual void processFinal() {};
+    /**
+     * 最終処理<BR>
+     */
+    virtual void processFinal() {
+    }
 
-
-	virtual ~GgafWorld();
+    virtual ~GgafWorld();
 };
-
 
 }
 #endif /*GGAFWORLD_H_*/

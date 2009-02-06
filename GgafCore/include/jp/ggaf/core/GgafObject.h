@@ -2,22 +2,13 @@
 #define GGAFOBJECT_H_
 namespace GgafCore {
 
-
-class GgafObject
-{
+class GgafObject {
 
 public:
-	/** 通し番号 */
-	//static int _iSeq;
-
-	/** オブジェクト番号 */
-	//int _iObjectNo;
-
-	GgafObject();
-	virtual std::string toString();
-	virtual ~GgafObject();
+    GgafObject();
+    virtual std::string toString();
+    virtual ~GgafObject();
 };
-
 
 }
 #endif /*GGAFOBJECT_H_*/

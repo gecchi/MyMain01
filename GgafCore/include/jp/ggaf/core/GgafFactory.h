@@ -2,7 +2,6 @@
 #define GGAFGACTORY_H_
 namespace GgafCore {
 
-
 /**
  * インスタンス生成工場クラス .
  * メイン処理から、注文(GgafOrder)を渡されると、別スレッドにそのインスタンスを生成(new)させます。<BR>
@@ -15,153 +14,163 @@ namespace GgafCore {
  * @author Masatoshi Tsuge
  */
 class GgafFactory {
-	friend class GgafGod;
+    friend class GgafGod;
 
 private:
-	static GgafGod* _pGod;
+    static GgafGod* _pGod;
+
+    /** 先頭の注文 */
+    static GgafOrder* ROOT_ORDER;
+    /** 現在製造中の注文 */
+    static GgafOrder* CREATING_ORDER;
+    //全て製造済みの場合、最終注文を指しつづける
+    //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
+    //_isLastOrder == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
+    //製造を行って次に進める。 _isLastOrder == false になるまで製造しつづける
 
 
-	/** 先頭の注文 */
-	static GgafOrder* ROOT_ORDER;
-	/** 現在製造中の注文 */
-	static GgafOrder* CREATING_ORDER;
-	//全て製造済みの場合、最終注文を指しつづける
-	//全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
-	//_isLastOrder == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
-	//製造を行って次に進める。 _isLastOrder == false になるまで製造しつづける
+    /**
+     * 工場に注文を行う<BR>
+     * @param prm_id	注文識別ID番号
+     * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+     * @param prm_pArg1	その引数1
+     * @param prm_pArg2	その引数2
+     * @param prm_pArg3	その引数3
+     */
+    static void order(unsigned long prm_id,
+            GgafObject* (*prm_pFunc)(void*, void*, void*),
+            void* prm_pArg1,
+            void* prm_pArg2,
+            void* prm_pArg3);
 
-
-	/**
-	 * 工場に注文を行う<BR>
-	 * @param prm_id	注文識別ID番号
-	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-	 * @param prm_pArg1	その引数1
-	 * @param prm_pArg2	その引数2
-	 * @param prm_pArg3	その引数3
-	 */
-	static void order(unsigned long prm_id, GgafObject* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3);
-
-	/**
-	 * 注文した商品を取り出す。<BR>
-	 * 未製造だった場合、製造が完了するまで待つ。<BR>
-	 * @param   prm_id	注文識別ID番号
-	 * @return	製品のポインタ
-	 */
-	static void* obtain(unsigned long prm_id);
+    /**
+     * 注文した商品を取り出す。<BR>
+     * 未製造だった場合、製造が完了するまで待つ。<BR>
+     * @param   prm_id	注文識別ID番号
+     * @return	製品のポインタ
+     */
+    static void* obtain(unsigned long prm_id);
 
 public:
-	/** ゴミ箱(不要なアクター置き場) */
-	static GgafGarbageBox* _pGarbageBox;
+    /** ゴミ箱(不要なアクター置き場) */
+    static GgafGarbageBox* _pGarbageBox;
 
-	/** 掃除オブジェクト数 */
-	static int _s_iCountCleanedNode;
+    /** 掃除オブジェクト数 */
+    static int _s_iCountCleanedNode;
 
-	/** 活動フラグ(神が操作する) */
-	static bool _isWorking;
-	/** 休むフラグ */
-	static bool _isRest;
-	/** 休でいるフラグ */
-	static bool _isResting;
-	/** 完全店終い */
-	static bool _isFinish;
+    /** 活動フラグ(神が操作する) */
+    static bool _isWorking;
+    /** 休むフラグ */
+    static bool _isRest;
+    /** 休でいるフラグ */
+    static bool _isResting;
+    /** 完全店終い */
+    static bool _isFinish;
 
-	/**
-	 * 工場にアクター作成の注文を行う .
-	 * メイン処理が呼び出します。<BR>
-	 * @param prm_id	注文識別ID番号
-	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-	 * @param prm_pArg1	その引数1
-	 * @param prm_pArg2	その引数2
-	 * @param prm_pArg3	その引数3
-	 */
-	template <class X>
-	static void orderActor(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
-		order(prm_id, (GgafObject* (*)(void*,void*,void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
-	}
+    /**
+     * 工場にアクター作成の注文を行う .
+     * メイン処理が呼び出します。<BR>
+     * @param prm_id	注文識別ID番号
+     * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+     * @param prm_pArg1	その引数1
+     * @param prm_pArg2	その引数2
+     * @param prm_pArg3	その引数3
+     */
+    template<class X>
+    static void orderActor(unsigned long prm_id,
+            X* (*prm_pFunc)(void*, void*, void*),
+            void* prm_pArg1,
+            void* prm_pArg2,
+            void* prm_pArg3) {
+        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+    }
 
-	/**
-	 * 工場にシーン作成の注文を行う .
-	 * メイン処理が呼び出します。<BR>
-	 * @param prm_id	注文識別ID番号
-	 * @param prm_pFunc	実際に製造処理を行う関数のポインタ
-	 * @param prm_pArg1	その引数1
-	 * @param prm_pArg2	その引数2
-	 * @param prm_pArg3	その引数3
-	 */
-	template <class X>
-	static void orderScene(unsigned long prm_id, X* (*prm_pFunc)(void*,void*,void*), void* prm_pArg1, void* prm_pArg2, void* prm_pArg3) {
-		order(prm_id, (GgafObject* (*)(void*,void*,void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
-	}
+    /**
+     * 工場にシーン作成の注文を行う .
+     * メイン処理が呼び出します。<BR>
+     * @param prm_id	注文識別ID番号
+     * @param prm_pFunc	実際に製造処理を行う関数のポインタ
+     * @param prm_pArg1	その引数1
+     * @param prm_pArg2	その引数2
+     * @param prm_pArg3	その引数3
+     */
+    template<class X>
+    static void orderScene(unsigned long prm_id,
+            X* (*prm_pFunc)(void*, void*, void*),
+            void* prm_pArg1,
+            void* prm_pArg2,
+            void* prm_pArg3) {
+        order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
+    }
 
-	/**
-	 * 注文したアクターを取り出す。 .
-	 * メイン処理が呼び出します。<BR>
-	 * 未製造だった場合、製造が完了するまで待つ。<BR>
-	 * @param   prm_id	注文識別ID
-	 * @return	生成されたアクターのポインタ
-	 */
-	static GgafMainActor* obtainActor(unsigned long prm_id);
+    /**
+     * 注文したアクターを取り出す。 .
+     * メイン処理が呼び出します。<BR>
+     * 未製造だった場合、製造が完了するまで待つ。<BR>
+     * @param   prm_id	注文識別ID
+     * @return	生成されたアクターのポインタ
+     */
+    static GgafMainActor* obtainActor(unsigned long prm_id);
 
-	/**
-	 * 注文したシーンを取り出す。 .
-	 * メイン処理が呼び出します。<BR>
-	 * 未製造だった場合、製造が完了するまで待つ。<BR>
-	 * @param   prm_id	注文識別ID
-	 * @return	生成されたシーンのポインタ
-	 */
-	static GgafMainScene* obtainScene(unsigned long prm_id);
+    /**
+     * 注文したシーンを取り出す。 .
+     * メイン処理が呼び出します。<BR>
+     * 未製造だった場合、製造が完了するまで待つ。<BR>
+     * @param   prm_id	注文識別ID
+     * @return	生成されたシーンのポインタ
+     */
+    static GgafMainScene* obtainScene(unsigned long prm_id);
 
-	/**
-	 * 工場を掃除する<BR>
-	 * メイン処理の神が呼び出します。<BR>
-	 * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>
-	 * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
-	 * ＜コード例＞ <BR>
-	 * ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始<BR>
-	 * GgafFactory::clean();<BR>
-	 * ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了<BR>
-	 */
-	static void clean();
+    /**
+     * 工場を掃除する<BR>
+     * メイン処理の神が呼び出します。<BR>
+     * ROOT_ORDER が指している製品の連結リストを全て解放する<BR>
+     * 注意：必ず以下のようにクリティカルセクションで囲んで呼び出してください！。<BR>
+     * ＜コード例＞ <BR>
+     * ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始<BR>
+     * GgafFactory::clean();<BR>
+     * ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了<BR>
+     */
+    static void clean();
 
-	/**
-	 * 稼動する。<BR>
-	 * 別スレッドで無限ループしてます。注文があれば作成し、ストックします。<BR>
-	 * 神が初期設定時に別スレッドで一度実行する。神が死ぬまで（アプリ終了まで）永遠に稼動しっ放しである。<BR>
-	 */
-	static unsigned __stdcall work(void* prm_arg);
+    /**
+     * 稼動する。<BR>
+     * 別スレッドで無限ループしてます。注文があれば作成し、ストックします。<BR>
+     * 神が初期設定時に別スレッドで一度実行する。神が死ぬまで（アプリ終了まで）永遠に稼動しっ放しである。<BR>
+     */
+    static unsigned __stdcall work(void* prm_arg);
 
-	/**
-	 * 一時休止を指示 .
-	 * しかし呼び出しても直ぐに休止状態になるとは限りません。<BR>
-	 * isResting() で調べる必要があります。<BR>
-	 */
-	static void beginRest() {
-		_TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩しなさい");
-		_isRest = true;
-	}
+    /**
+     * 一時休止を指示 .
+     * しかし呼び出しても直ぐに休止状態になるとは限りません。<BR>
+     * isResting() で調べる必要があります。<BR>
+     */
+    static void beginRest() {
+        _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩しなさい");
+        _isRest = true;
+    }
 
-	/**
-	 * 工場の状態を取得<BR>
-	 * @return true=休止状態/false=稼動状態
-	 */
-	static bool isResting() {
-		if (_isResting) {
-			_TRACE_("GgafFactory::isResting() 工場休止状態");
-		} else {
-			_TRACE_("GgafFactory::isResting() 工場稼働状態");
-		}
-		return _isResting;
-	}
+    /**
+     * 工場の状態を取得<BR>
+     * @return true=休止状態/false=稼動状態
+     */
+    static bool isResting() {
+        if (_isResting) {
+            _TRACE_("GgafFactory::isResting() 工場休止状態");
+        } else {
+            _TRACE_("GgafFactory::isResting() 工場稼働状態");
+        }
+        return _isResting;
+    }
 
-	/**
-	 * 休止の解除を指示 .
-	 */
-	static void finishRest() {
-		_TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！");
-		_isRest = false;
-	}
+    /**
+     * 休止の解除を指示 .
+     */
+    static void finishRest() {
+        _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！");
+        _isRest = false;
+    }
 };
-
 
 }
 #endif /*GGAFGACTORY_H_*/

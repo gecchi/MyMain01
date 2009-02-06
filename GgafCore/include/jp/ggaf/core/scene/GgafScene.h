@@ -6,7 +6,6 @@
 
 namespace GgafCore {
 
-
 /**
  * シーンクラス .
  * 本プログラムでの『シーン（場面）』とは、管理者(GgafLoadActor)を管理するオブジェクトです。<BR>
@@ -70,257 +69,191 @@ class GgafScene : public GgafElement<GgafScene> {
 
 protected:
 
-	/** このシーンの管理者 */
-	GgafLordActor* _pLordActor;
+    /** このシーンの管理者 */
+    GgafLordActor* _pLordActor;
 
-	static GgafHeadActor* _s_apHeadActor01[];
-	static GgafHeadActor* _s_apHeadActor02[];
+    static GgafHeadActor* _s_apHeadActor01[];
+    static GgafHeadActor* _s_apHeadActor02[];
 
 public:
-	/** 進捗具合 */
-	int _progress;
-	/** １フレーム前進捗 */
-	int _progress_prev;
-	/** 進捗イベント時フレームストック */
-	DWORD _dwFrame_ProgressChange[100];
+    /** 進捗具合 */
+    int _progress;
+    /** １フレーム前進捗 */
+    int _progress_prev;
+    /** 次フレーム設定する進捗具合 */
+    int _progress_nextframe;
 
-	/**
-	 * 現在の進捗取得 .
-	 * @return 進捗(1～99)
-	 */
-	virtual int getProgress() {
-		return _progress;
-	};
+    /** 進捗イベント時フレームストック */
+    DWORD _dwFrame_ProgressChange[100];
 
-	/**
-	 * 進捗が起こった時のフレーム取得 .
-	 * @param prm_progress 進捗(1～99)
-	 * @return 引数の直近の進捗が起こったときのフレーム
-	 */
-	virtual DWORD getFrameAtProgress(int prm_progress) {
-		return _dwFrame_ProgressChange[prm_progress];
-	};
+    /**
+     * 現在の進捗取得 .
+     * @return 進捗(1～99)
+     */
+    virtual int getProgress() {
+        return _progress;
+    }
 
-	/**
-	 * 現在の進捗を設定 .
-	 * @param prm_progress 進捗(1～99)
-	 */
-	virtual void setProgress(int prm_progress) {
-		_dwFrame_ProgressChange[prm_progress] = _dwFrame;
-		_progress_prev = _progress;
-		_progress = prm_progress;
-	};
+    /**
+     * 進捗が起こった時のフレーム取得 .
+     * @param prm_progress 進捗(1～99)
+     * @return 引数の直近の進捗が起こったときのフレーム
+     */
+    virtual DWORD getFrameAtProgress(int prm_progress) {
+        return _dwFrame_ProgressChange[prm_progress];
+    }
 
-	/**
-	 * 進捗が変化したか調べる .
-	 * @return 0 又は 進捗(0=変化していない/0以外=変化があった新しい進捗)
-	 */
-	int chkProgressOnChange() {
-		if (_progress != _progress_prev) {
-			return _progress;
-		} else {
-			return 0; // = false
-		}
-	}
+    /**
+     * 進捗を設定 .
+     * @param prm_progress 進捗(1～99)
+     */
+    virtual void setProgress(int prm_progress) {
+        _progress_nextframe = prm_progress;
+        _dwFrame_ProgressChange[prm_progress] = _dwFrame+1;
+    }
 
+    bool isChangeProgress(int prm_progress) {
+        if (_progress != _progress_prev) {
+            if (prm_progress == _progress) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+    }
 
-	/**
-	 * コンストラクタ .
-	 * 引数： prm_name シーン名<BR>
-	 */
-	GgafScene(const char* prm_name);
+    /**
+     * 進捗が変化したか調べる .
+     * @return 0 又は 進捗(0=変化していない/0以外=変化があった新しい進捗)
+     */
+    int getProgressOnChange() {
+        if (_progress != _progress_prev) {
+            return _progress;
+        } else {
+            return 0; // = false
+        }
+    }
 
-	/**
-	 * デストラクタ .
-	 * 自シーンの管理者のツリーアクターの解放を行ってから。<BR>
-	 * 自ツリーシーンの解放を行います<BR>
-	 */
-	virtual ~GgafScene();
+    /**
+     * コンストラクタ .
+     * 引数： prm_name シーン名<BR>
+     */
+    GgafScene(const char* prm_name);
 
+    /**
+     * デストラクタ .
+     * 自シーンの管理者のツリーアクターの解放を行ってから。<BR>
+     * 自ツリーシーンの解放を行います<BR>
+     */
+    virtual ~GgafScene();
 
-	/**
-	 * 自ツリーシーンの次のフレームへ移る処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void nextFrame();
+    virtual void nextFrame();
+    virtual void behave();
+    virtual void judge();
+    virtual void drawPrior();
+    virtual void drawMain();
+    virtual void drawTerminate();
+    virtual void finally();
 
-	/**
-	 * 自ツリーシーンのフレーム毎の振る舞い処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void behave();
+    virtual void happen(int prm_no);
 
-	/**
-	 * 自ツリーシーンのフレーム毎の判断処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void judge();
+    virtual void act();
+    virtual void actAfter(DWORD prm_dwFrameOffset);
+    virtual void actAlone();
+    virtual void actImmediately();
+    virtual void actImmediatelyAlone();
 
-	/**
-	 * 自ツリーシーンのフレーム毎の描画事前処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void drawPrior();
+    virtual void refrain();
+    virtual void refrainAfter(DWORD prm_dwFrameOffset);
+    virtual void refrainAlone();
+    virtual void refrainImmediately();
+    virtual void refrainImmediatelyAlone();
 
-	/**
-	 * 自ツリーシーンのフレーム毎の描画処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void drawMain();
+    virtual void pause();
+    virtual void pauseAlone();
+    virtual void pauseImmediately();
+    virtual void pauseImmediatelyAlone();
 
-	/**
-	 * 自ツリーシーンのフレーム毎の描画事後処理 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void drawTerminate();
+    virtual void unpause();
+    virtual void unpauseAlone();
+    virtual void unpauseImmediately();
+    virtual void unpauseImmediatelyAlone();
 
-	/**
-	 * 自ツリーシーンに何かする .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void happen(int prm_no);
+    virtual void blind();
+    virtual void blindAlone();
+    virtual void blindImmediately();
+    virtual void blindImmediatelyAlone();
 
-	/**
-	 * 自ツリーシーンに何かする .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void finally();
-
-	/**
-     * 自ツリーシーンを次フレームから活動する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void act();
-
-	/**
-     * 自ツリーシーンを直ちに活動する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void actImmediately();
-
-	/**
-	 * 自ツリーシーンを次フレームから停止する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void refrain();
-
-	/**
-	 * 自ツリーシーンを直ちに停止する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void refrainImmediately();
-
-	/**
-	 * 自ツリーシーンを次フレームから一時停止する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void pause();
-
-	/**
-	 * 自ツリーシーンを直ちに一時停止する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void pauseImmediately();
-
-	/**
-     * 自ツリーシーンの一時停止を次フレームから解除。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void unpause();
-
-	/**
-     * 自ツリーシーンの一時停止を直ちに解除。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void unpauseImmediately();
-
-	/**
-	 * 自ツリーシーンを次フレームから非表示する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void blind();
-
-	/**
-	 * 自ツリーシーンを直ちに非表示する。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void blindImmediately();
-
-	/**
-	 * 自ツリーシーンの非表示を次フレームから解除。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void unblind();
-
-	/**
-	 * 自ツリーシーンの非表示を直ちに解除。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void unblindImmediately();
-
-	/**
-	 * 自ツリーシーンを次フレーム絶命させる。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void farewell(DWORD prm_dwFrameOffset = 0);
-
-	/**
-	 * 自ツリーシーンを絶命させる。 .
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void cleane(int prm_iNumCleanNode);
-
-	/**
-	 * 神に謁見 .
-	 * @return	呼ばれて出てきた神
-	 */
-	virtual GgafGod* askGod();
-
-	/**
-	 * 自シーンの管理者を取得 .
-	 * @return	管理者
-	 */
-	virtual GgafLordActor* getLordActor();
-
-	/**
-	 * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
-	 * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
-	 * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
-	 * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
-	 * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
-	 */
-	//virtual void executeBumpChkHeadActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
+    virtual void unblind();
+    virtual void unblindAlone();
+    virtual void unblindImmediately();
+    virtual void unblindImmediatelyAlone();
 
 
-	/**
-	 * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
-	 * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
-	 * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
-	 * @param	prm_actorkind01	判定する対象のGgafHeadActorに登録されているActor種別
-	 * 		    prm_actorkind01	判定される対象のGgafHeadActorに登録されているActor種別<BR>
-	 */
-	virtual void executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
+    /**
+     * 自ツリーシーンを次フレーム絶命させる。 .
+     * ＜OverRide です＞<BR>
+     */
+    virtual void farewell(DWORD prm_dwFrameOffset = 0);
 
-	/**
-	 * 経過フレーム判定。 .
-	 * 直前の delay(n) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。<BR>
-	 * 注意：入れ子で使用した場合はうまく動きません。<BR>
-	 * @param	prm_dwFrame_delay	経過フレーム数
-	 * @return	bool	true:経過フレーム数に達した/false:達していない
-	 */
-//	virtual bool delayed(_delay);
+    /**
+     * 自ツリーシーンを絶命させる。 .
+     * ＜OverRide です＞<BR>
+     */
+    virtual void cleane(int prm_iNumCleanNode);
 
-	/**
-	 * デバッグ用：ツリー構造を表示 .
-	 */
-	virtual void dump();
+    /**
+     * 神に謁見 .
+     * @return	呼ばれて出てきた神
+     */
+    virtual GgafGod* askGod();
 
-	/**
-	 * デバッグ用：dump()から使用される .
-	 */
-	virtual void dump(std::string prm_parent);
+    /**
+     * 自シーンの管理者を取得 .
+     * @return	管理者
+     */
+    virtual GgafLordActor* getLordActor();
+
+    /**
+     * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
+     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
+     * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
+     * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
+     * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
+     */
+    //virtual void executeBumpChkHeadActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
+
+
+    /**
+     * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
+     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
+     * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
+     * @param	prm_actorkind01	判定する対象のGgafHeadActorに登録されているActor種別
+     * 		    prm_actorkind01	判定される対象のGgafHeadActorに登録されているActor種別<BR>
+     */
+    virtual void executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
+
+    /**
+     * 経過フレーム判定。 .
+     * 直前の delay(n) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。<BR>
+     * 注意：入れ子で使用した場合はうまく動きません。<BR>
+     * @param	prm_dwFrame_delay	経過フレーム数
+     * @return	bool	true:経過フレーム数に達した/false:達していない
+     */
+    //	virtual bool delayed(_delay);
+
+    /**
+     * デバッグ用：ツリー構造を表示 .
+     */
+    virtual void dump();
+
+    /**
+     * デバッグ用：dump()から使用される .
+     */
+    virtual void dump(std::string prm_parent);
 };
-
 
 }
 #endif /**GGAFSCENE_H_*/

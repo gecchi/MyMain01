@@ -17,5 +17,4 @@ void detectMemoryLeaksStart(std::ostream& ros);
 
 void detectMemoryLeaksEnd(std::ostream& ros);
 
-
 #endif // DETECT_MEMORY_LEAKS_H
