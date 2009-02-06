@@ -11,46 +11,46 @@ DSCAPS GgafDx9Sound::_dsCaps;
 //CC3DSound* GgafDx9Sound::_pC3DSound = NULL;
 
 void GgafDx9Sound::init() {
-	HRESULT hr;
-	hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
-	if (hr != D3D_OK) {
-		return;
+    HRESULT hr;
+    hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
+    if (hr != D3D_OK) {
+        return;
 
-		//throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
-	}
-	hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
-	if (hr != D3D_OK) {
-		throw_GgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel失敗。");
-	}
+        //throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
+    }
+    hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
+    if (hr != D3D_OK) {
+        throw_GgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel失敗。");
+    }
 
-	_dsCaps.dwSize = sizeof(_dsCaps);
-	hr = GgafDx9Sound::_pIDirectSound8->GetCaps(&_dsCaps);
-	if (hr != D3D_OK) {
-		throw_GgafCriticalException("GgafDx9Sound::init() GetCaps失敗。");
-	}
+    _dsCaps.dwSize = sizeof(_dsCaps);
+    hr = GgafDx9Sound::_pIDirectSound8->GetCaps(&_dsCaps);
+    if (hr != D3D_OK) {
+        throw_GgafCriticalException("GgafDx9Sound::init() GetCaps失敗。");
+    }
 
-	_pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
-	_pSeManager = NEW GgafDx9SeManager("SoundEffectManager");
+    _pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
+    _pSeManager = NEW GgafDx9SeManager("SoundEffectManager");
 
-//	if (_pC3DSound == NULL) {
-//		_pC3DSound = NEW CC3DSound();
-//	}
-//
-//	if (!_pC3DSound->CreateSound(GgafDx9God::_hWnd)) {
-//		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
-//	}
-}
+    //	if (_pC3DSound == NULL) {
+            //		_pC3DSound = NEW CC3DSound();
+            //	}
+            //
+            //	if (!_pC3DSound->CreateSound(GgafDx9God::_hWnd)) {
+            //		throw_GgafCriticalException("GgafDx9Sound::init() GgafDx9Soundが初期化できません。サウンドカードデバイスに問題ないか確認してください。");
+            //	}
+        }
 
 void GgafDx9Sound::release() {
-//	GgafDx9SeManager::clear();
-//	GgafDx9BgmManager::clear();
-	RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
-	DELETE_IMPOSSIBLE_NULL(_pBgmManager);
-	DELETE_IMPOSSIBLE_NULL(_pSeManager);
+    //	GgafDx9SeManager::clear();
+    //	GgafDx9BgmManager::clear();
+    RELEASE_IMPOSSIBLE_NULL(_pIDirectSound8);
+    DELETE_IMPOSSIBLE_NULL(_pBgmManager);
+    DELETE_IMPOSSIBLE_NULL(_pSeManager);
 
-//	_pC3DSound->Release();
-//	delete _pC3DSound;
-//	_pC3DSound = NULL;
+    //	_pC3DSound->Release();
+    //	delete _pC3DSound;
+    //	_pC3DSound = NULL;
 }
 //
 //GgafDx9Se* GgafDx9Sound::createSe(string prm_wave_name) {

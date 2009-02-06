@@ -10,25 +10,24 @@ class GgafDx9SeLead : public GgafCore::GgafResourceLead<GgafDx9Se> {
 
 public:
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_texture_file_name OGG識別名(＝ファイル名)
-	 * @param prm_pGgafDx9Se OGG
-	 */
-	GgafDx9SeLead(char* prm_idstr, GgafDx9Se* prm_pGgafDx9Se);
+    /**
+     * コンストラクタ<BR>
+     * @param prm_texture_file_name OGG識別名(＝ファイル名)
+     * @param prm_pGgafDx9Se OGG
+     */
+    GgafDx9SeLead(char* prm_idstr, GgafDx9Se* prm_pGgafDx9Se);
 
-	/**
-	 * オーバーライド
-	 */
-	void processReleaseResource(GgafDx9Se* prm_pResource);
+    /**
+     * オーバーライド
+     */
+    void processReleaseResource(GgafDx9Se* prm_pResource);
 
-	/**
-	 * デストラクタ<BR>
-	 */
-	virtual ~GgafDx9SeLead() {
-	};
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~GgafDx9SeLead() {
+    }
 };
-
 
 }
 #endif /*GGAFDX9SELEAD_H_*/

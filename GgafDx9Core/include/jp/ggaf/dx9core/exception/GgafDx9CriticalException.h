@@ -13,7 +13,7 @@ namespace GgafDx9Core {
 #define throw_GgafDx9CriticalException(X, HR) {std::stringstream ss; ss << X; throw GgafDx9CriticalException(ss.str(),HR); }
 
 
-class GgafDx9CriticalException : public GgafCore::GgafCriticalException {
+class GgafDx9CriticalException  : public GgafCore::GgafCriticalException {
 public:
 	HRESULT _hr;
 	GgafDx9CriticalException(std::string prm_message, HRESULT prm_hr);

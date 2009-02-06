@@ -11,22 +11,23 @@ class GgafDx9SquareActor : public GgafDx9UntransformedActor {
 
 private:
 
-
 public:
-	GgafDx9ModelLead* _pModelLead;
-	GgafDx9SquareModel* _pSquareModel;
+    GgafDx9ModelLead* _pModelLead;
+    GgafDx9SquareModel* _pSquareModel;
 
-	GgafDx9SquareActor(const char* prm_name, const char* prm_squaremodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+    GgafDx9SquareActor(const char* prm_name,
+                       const char* prm_squaremodel_name,
+                       GgafDx9GeometryMover* prm_pGeoMover,
+                       GgafDx9GeometryChecker* prm_pGeoChecker);
 
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void processDrawMain();
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processDrawMain();
 
-	virtual ~GgafDx9SquareActor();		//デストラクタ
+    virtual ~GgafDx9SquareActor(); //デストラクタ
 
 };
-
 
 }
 #endif /*GGAFDX9SQUAREACTORD_H_*/

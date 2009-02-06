@@ -11,35 +11,34 @@ class GgafDx9TransformedActor : public GgafDx9BaseActor {
 
 private:
 
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual bool isOffscreen() {
-		return false;
-	};
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    virtual bool isOffscreen() {
+        return false;
+    }
 
 public:
-	/** 画面X座標 */
-	float _x;
-	/** 画面X座標 */
-	float _y;
-	/** 画面Z座標 */
-	float _z;
+    /** 画面X座標 */
+    float _x;
+    /** 画面X座標 */
+    float _y;
+    /** 画面Z座標 */
+    float _z;
 
-	GgafDx9TransformedActor(const char* prm_name);
+    GgafDx9TransformedActor(const char* prm_name);
 
-	virtual GgafDx9TransformedActor* getPrev() {
-		return (GgafDx9TransformedActor*)GgafActor::getPrev();
-	}
+    virtual GgafDx9TransformedActor* getPrev() {
+        return (GgafDx9TransformedActor*)GgafActor::getPrev();
+    }
 
-	virtual GgafDx9TransformedActor* getNext() {
-		return (GgafDx9TransformedActor*)GgafActor::getNext();
-	}
+    virtual GgafDx9TransformedActor* getNext() {
+        return (GgafDx9TransformedActor*)GgafActor::getNext();
+    }
 
-	virtual ~GgafDx9TransformedActor();		//デストラクタ
+    virtual ~GgafDx9TransformedActor(); //デストラクタ
 
 };
-
 
 }
 #endif /*GGAFDX9TRANSFORMEDACTOR_H_*/

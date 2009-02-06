@@ -10,25 +10,18 @@ class GgafDx9ModelLead : public GgafCore::GgafResourceLead<GgafDx9Model> {
 
 public:
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
-	 * @param prm_pIDirect3DModel9 テクスチャ
-	 */
-	GgafDx9ModelLead(char* prm_idstr, GgafDx9Model* prm_pIDirect3DModel9);
+    /**
+     * コンストラクタ<BR>
+     * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
+     * @param prm_pModel リソースとなるモデル
+     */
+    GgafDx9ModelLead(char* prm_idstr, GgafDx9Model* prm_pModel);
 
-	/**
-	 * オーバーライド
-	 */
-	void processReleaseResource(GgafDx9Model* prm_pResource);
+    void processReleaseResource(GgafDx9Model* prm_pResource);
 
-	/**
-	 * デストラクタ<BR>
-	 */
-	virtual ~GgafDx9ModelLead() {
-	};
+    virtual ~GgafDx9ModelLead() {
+    }
 };
-
 
 }
 #endif /*GGAFDX9MODELLEAD_H_*/

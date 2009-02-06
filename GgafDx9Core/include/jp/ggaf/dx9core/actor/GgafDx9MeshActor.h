@@ -11,27 +11,29 @@ class GgafDx9MeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
-	/** モデル */
-	GgafDx9ModelLead* _pModelLead;
-	GgafDx9MeshModel* _pMeshModel;
+    /** モデル */
+    GgafDx9ModelLead* _pModelLead;
+    GgafDx9MeshModel* _pMeshModel;
 
-	GgafDx9MeshActor(const char* prm_name, const char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+    GgafDx9MeshActor(const char* prm_name,
+                     const char* prm_meshmodel_name,
+                     GgafDx9GeometryMover* prm_pGeoMover,
+                     GgafDx9GeometryChecker* prm_pGeoChecker);
 
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void processDrawMain();
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processDrawMain();
 
-	/**
-	 * α設定.
-	 * ＜オーバーライト＞
-	 * @param prm_fAlpha
-	 */
-	void setAlpha(float prm_fAlpha);
+    /**
+     * α設定.
+     * ＜オーバーライト＞
+     * @param prm_fAlpha
+     */
+    void setAlpha(float prm_fAlpha);
 
-	virtual ~GgafDx9MeshActor();		//デストラクタ
+    virtual ~GgafDx9MeshActor(); //デストラクタ
 };
-
 
 }
 #endif /*GGAFDX9MESHACTOR_H_*/

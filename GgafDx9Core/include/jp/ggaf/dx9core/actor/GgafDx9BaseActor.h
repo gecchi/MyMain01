@@ -11,12 +11,11 @@ class GgafDx9BaseActor : public GgafCore::GgafMainActor {
 
 public:
 
-	GgafDx9BaseActor(const char* prm_name);
+    GgafDx9BaseActor(const char* prm_name);
 
-	virtual ~GgafDx9BaseActor();		//デストラクタ
+    virtual ~GgafDx9BaseActor(); //デストラクタ
 
 };
-
 
 }
 #endif /*GGAFDX9BASEACTOR_H_*/

@@ -14,30 +14,31 @@ class GgafDx9DynaMeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
-	/** モデルオブジェクトへのポインタ */
-	GgafDx9ModelLead* _pModelLead;
-	GgafDx9MeshModel* _pMeshModel;
-	/** キャラ全体のα */
-	float _fAlpha;
+    /** モデルオブジェクトへのポインタ */
+    GgafDx9ModelLead* _pModelLead;
+    GgafDx9MeshModel* _pMeshModel;
+    /** キャラ全体のα */
+    float _fAlpha;
 
+    GgafDx9DynaMeshActor(const char* prm_name,
+                         const char* prm_meshmodel_name,
+                         GgafDx9GeometryMover* prm_pGeoMover,
+                         GgafDx9GeometryChecker* prm_pGeoChecker);
 
-	GgafDx9DynaMeshActor(const char* prm_name, const char* prm_meshmodel_name, GgafDx9GeometryMover* prm_pGeoMover, GgafDx9GeometryChecker* prm_pGeoChecker);
+    /**
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processDrawMain();
 
-	/**
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void processDrawMain();
+    /**
+     * α設定.
+     * ＜オーバーライト＞
+     * @param prm_fAlpha
+     */
+    void setAlpha(float prm_fAlpha);
 
-	/**
-	 * α設定.
-	 * ＜オーバーライト＞
-	 * @param prm_fAlpha
-	 */
-	void setAlpha(float prm_fAlpha);
-
-	virtual ~GgafDx9DynaMeshActor();		//デストラクタ
+    virtual ~GgafDx9DynaMeshActor(); //デストラクタ
 };
-
 
 }
 #endif /*GGAFDX9DYNAMESHACTOR_H_*/

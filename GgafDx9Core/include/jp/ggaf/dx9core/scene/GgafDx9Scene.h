@@ -10,11 +10,10 @@ namespace GgafDx9Core {
 class GgafDx9Scene : public GgafCore::GgafMainScene {
 
 public:
-	GgafDx9Scene(const char* prm_name);
+    GgafDx9Scene(const char* prm_name);
 
-	virtual ~GgafDx9Scene();
+    virtual ~GgafDx9Scene();
 };
-
 
 }
 #endif /*GGAFDX9SCENE_H_*/

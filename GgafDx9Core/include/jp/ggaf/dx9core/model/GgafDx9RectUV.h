@@ -7,20 +7,19 @@ namespace GgafDx9Core {
  */
 class GgafDx9RectUV : public GgafCore::GgafObject {
 
-	struct UV {
-		float tu;
-		float tv;
-	};
+    struct UV {
+        float tu;
+        float tv;
+    };
 
 public:
-	/** テクスチャー座標１セットの配列 */
-	UV _aUV[4];
+    /** テクスチャー座標１セットの配列 */
+    UV _aUV[4];
 
-	GgafDx9RectUV();
+    GgafDx9RectUV();
 
-	virtual ~GgafDx9RectUV();
+    virtual ~GgafDx9RectUV();
 };
-
 
 }
 #endif /*GGAFDX9UV_H_*/

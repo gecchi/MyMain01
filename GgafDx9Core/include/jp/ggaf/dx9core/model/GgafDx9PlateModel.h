@@ -10,56 +10,52 @@ class GgafDx9PlateModel : public GgafDx9Model {
     friend class GgafDx9PlateActor;
 protected:
     /**
-	 * コンストラクタ<BR>
-	 * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-	 */
-	GgafDx9PlateModel(char* prm_platemodel_name);
+     * コンストラクタ<BR>
+     * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     */
+    GgafDx9PlateModel(char* prm_platemodel_name);
 
 public:
 
-	/** VERTEXのFVF */
-	static DWORD FVF;
+    /** VERTEXのFVF */
+    static DWORD FVF;
 
-	/** テクスチャ(アニメーションパターン） */
-	GgafDx9TextureLead* _pTexture;
+    /** テクスチャ(アニメーションパターン） */
+    GgafDx9TextureLead* _pTexture;
 
-	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-	GgafDx9RectUV*  _paRectUV;
+    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
+    GgafDx9RectUV* _paRectUV;
 
+    /** 前回表示のUV */
+    GgafDx9RectUV* _pRectUV_drawlast;
 
-	/** 前回表示のUV */
-	GgafDx9RectUV*  _pRectUV_drawlast;
+    /** 全アニメパターン数 */
+    int _iPatternNo_Max;
+    float _fSize_PlateModelWidth;
+    float _fSize_PlateModelHeight;
+    int _iRowNum_TextureSplit;
+    int _iColNum_TextureSplit;
 
+    /**
+     * GgafDx9PlateModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDx9PlateActor
+     * @return	HRESULT
+     */
+    virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target);
 
-	/** 全アニメパターン数 */
-	int _iPatternNo_Max;
-	float  _fSize_PlateModelWidth;
-	float  _fSize_PlateModelHeight;
-	int    _iRowNum_TextureSplit;
-	int    _iColNum_TextureSplit;
+    virtual void restore();
 
+    virtual void onDeviceLost();
 
-	/**
-	 * GgafDx9PlateModelオブジェクトの描画<BR>
-	 * @param	prm_pActor_Target 描画するGgafDx9PlateActor
-	 * @return	HRESULT
-	 */
-	virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target);
+    virtual void release();
 
-	virtual void restore();
-
-	virtual void onDeviceLost();
-
-	virtual void release();
-
-	/**
-	 * デストラクタ<BR>
-	 * deleteするのはGgafDx9PlateModelManagerである<BR>
-	 */
-	virtual ~GgafDx9PlateModel();		//デストラクタ
+    /**
+     * デストラクタ<BR>
+     * deleteするのはGgafDx9PlateModelManagerである<BR>
+     */
+    virtual ~GgafDx9PlateModel(); //デストラクタ
 
 };
-
 
 }
 #endif /*GGAFDX9PLATEMODEL_H_*/

@@ -10,25 +10,24 @@ class GgafDx9TextureLead : public GgafCore::GgafResourceLead<IDirect3DTexture9> 
 
 public:
 
-	/**
-	 * コンストラクタ<BR>
-	 * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
-	 * @param prm_pIDirect3DTexture9 テクスチャ
-	 */
-	GgafDx9TextureLead(char* prm_idstr, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
+    /**
+     * コンストラクタ<BR>
+     * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
+     * @param prm_pIDirect3DTexture9 テクスチャ
+     */
+    GgafDx9TextureLead(char* prm_idstr, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
 
-	/**
-	 * オーバーライド
-	 */
-	void processReleaseResource(IDirect3DTexture9* prm_pResource);
+    /**
+     * オーバーライド
+     */
+    void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
-	/**
-	 * デストラクタ<BR>
-	 */
-	virtual ~GgafDx9TextureLead() {
-	};
+    /**
+     * デストラクタ<BR>
+     */
+    virtual ~GgafDx9TextureLead() {
+    }
 };
-
 
 }
 #endif /*GGAFDX9TEXTURELEAD_H_*/
