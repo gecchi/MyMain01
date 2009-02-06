@@ -66,15 +66,15 @@ void GameBeginningScene::processBehavior() {
         //Šˆ“®ƒ‹[ƒv
         _dwFrame_Decide++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_dwFrame_Decide == 120) {
             setProgress(GAMEBEGINNING_PROG_END); //‚¨I‚¢
         }
     }
 
     if (isChangeProgress(GAMEBEGINNING_PROG_END)) {
-        _pFontPlate01->setString(100, 100, "");
-        _pFontPlate02->setString(100, 150, "");
-        refrainAfter(200);
+        _pFontPlate01->setString(200, 200, "GameBeginningScene END");
+        _pFontPlate02->setString(200, 250, "KENTO WO INORU");
+        refrainAfter(140);
     }
 }
 

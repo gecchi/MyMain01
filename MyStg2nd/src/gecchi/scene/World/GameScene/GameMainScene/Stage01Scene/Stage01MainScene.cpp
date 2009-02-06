@@ -13,36 +13,32 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/myvic");
         pEnemyMeshShot->refrainImmediately(); //最初非表示
-            _pRot->addSubLast(pEnemyMeshShot);
-        }
-        getLordActor()->accept(KIND_ENEMY, _pRot);
-
-        // 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
-        // gen01 start
-        DWORD dw[] = {1,40,100,120,170,200,240,300,310,380,400,450,460,490,500,520,580,640,670,700,750,760,780,800,850,860,900,940,950,1000,1020,1040,1050,1070,1080,1100,1120,1140,1160,1200,1210,1240,1280,1300,1320,1330,1350,1360,1390,1400,1420,1450,1480,1510,1540,1570,1600,1620,1630,1640,1650,1660,1680,1690,1700,1720,1740,1750,1760,1780,1800,1820,1840,1850,1860,1880,1900,1920,1940,1950,1960,1980,2000,2020,2060,2100,2140,2180,2200,2220,2230,2260,2290,2300,2320,2350,2380,2410,2440,2470,2500,2520,2530,2540,2560,2580,2590,2600,2620,2640,2660,2680,2700,2720,2740,2760,2780,2800,2820,2840,2860,2880,2900};
-        _paFrame_NextEvent = new DWORD[123];
-        for (int i = 0; i < 123; i++) {
-            _paFrame_NextEvent[i] = dw[i];
-        }
-        orderActorWithRotToFactory(11077100, EnemyCeres, "Ceres_1", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11077200, EnemyCeres, "Ceres_2", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11077300, EnemyCeres, "Ceres_3", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11077400, EnemyCeres, "Ceres_4", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11077500, EnemyCeres, "Ceres_5", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11087400, EnemyCeres, "Ceres_6", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11087490, EnemyCeres, "Ceres_7", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11087580, EnemyCeres, "Ceres_8", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11087670, EnemyCeres, "Ceres_9", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11087760, EnemyCeres, "Ceres_10", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11097700, EnemyCeres, "Ceres_11", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11097780, EnemyCeres, "Ceres_12", "M/Ceres", _pRot);
-        orderActorWithRotToFactory(11097860, EnemyCeres, "Ceres_13", "M/Ceres", _pRot);
-        // gen01 end
-
-        refrainImmediately(); //GameMainSceneが解除してくれる
-
-
+        _pRot->addSubLast(pEnemyMeshShot);
     }
+	getLordActor()->accept(KIND_ENEMY, _pRot);
+
+	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
+	// gen01 start
+	DWORD dw[] = {1,40,100,120,170,200,240,300,310,380,400,450,460,490,500,520,580,640,670,700,750,760,780,800,850,860,900,940,950,1000,1020,1040,1050,1070,1080,1100,1120,1140,1160,1200,1210,1240,1280,1300,1320,1330,1350,1360,1390,1400,1420,1450,1480,1510,1540,1570,1600,1620,1630,1640,1650,1660,1680,1690,1700,1720,1740,1750,1760,1780,1800,1820,1840,1850,1860,1880,1900,1920,1940,1950,1960,1980,2000,2020,2060,2100,2140,2180,2200,2220,2230,2260,2290,2300,2320,2350,2380,2410,2440,2470,2500,2520,2530,2540,2560,2580,2590,2600,2620,2640,2660,2680,2700,2720,2740,2760,2780,2800,2820,2840,2860,2880,2900};
+	_paFrame_NextEvent = new DWORD[123];
+	for (int i = 0; i < 123; i++) {
+		_paFrame_NextEvent[i] = dw[i];
+	}
+	orderActorWithRotToFactory(11077100, EnemyCeres, "Ceres_1", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11077200, EnemyCeres, "Ceres_2", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11077300, EnemyCeres, "Ceres_3", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11077400, EnemyCeres, "Ceres_4", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11077500, EnemyCeres, "Ceres_5", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11087400, EnemyCeres, "Ceres_6", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11087490, EnemyCeres, "Ceres_7", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11087580, EnemyCeres, "Ceres_8", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11087670, EnemyCeres, "Ceres_9", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11087760, EnemyCeres, "Ceres_10", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11097700, EnemyCeres, "Ceres_11", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11097780, EnemyCeres, "Ceres_12", "M/Ceres", _pRot);
+	orderActorWithRotToFactory(11097860, EnemyCeres, "Ceres_13", "M/Ceres", _pRot);
+	// gen01 end
+}
 
 void Stage01MainScene::initialize() {
 }

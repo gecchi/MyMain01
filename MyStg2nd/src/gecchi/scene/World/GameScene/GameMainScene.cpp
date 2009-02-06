@@ -66,23 +66,30 @@ void GameMainScene::initialize() {
 
 
 void GameMainScene::processBehavior() {
-    if (isChangeProgress(GAMEMAIN_PROG_INIT)) {
+    if (getProgress() == GAMEMAIN_PROG_INIT) {
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
 
     if (isChangeProgress(GAMEMAIN_PROG_BEGIN)) {
         _pFontPlate01->setString(300, 300, "GameMainScene BEGIN");
-        _pFontPlate02->setString(200, 250, "DESTOROY ALL!");
+        _pFontPlate02->setString(300, 350, "DESTOROY ALL!");
         addSubLast(obtainSceneFromFactory(11));
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
         //Šˆ“®ƒ‹[ƒv
         _dwFrame_Begin++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_dwFrame_Begin == 180) {
             setProgress(GAMEMAIN_PROG_PLAY); //
         }
     }
+
+    if (isChangeProgress(GAMEMAIN_PROG_PLAY)) {
+        _pFontPlate01->setString(300, 300, "");
+        _pFontPlate02->setString(300, 350, "");
+
+    }
+
 
 
     //SCORE•\Ž¦

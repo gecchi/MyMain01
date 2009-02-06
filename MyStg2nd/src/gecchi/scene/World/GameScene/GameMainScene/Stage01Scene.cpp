@@ -6,20 +6,41 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
-    Stage01MainScene* pStage01MainScene = NEW Stage01MainScene("Stage01Main");
-    BackGround01Plate* pBack = NEW BackGround01Plate("BACKGOROUND01", "");
-    getLordActor()->accept(KIND_EFFECT, pBack);
-    addSubLast(pStage01MainScene);
+	_pStage01Main = NEW Stage01MainScene("Stage01Main");
+	_pStage01Main->refrainAlone();
+    addSubLast(_pStage01Main);
+
+	_pBackGround01 = NEW BackGround01Plate("BACKGOROUND01", "");
+	_pBackGround01->refrain();
+    getLordActor()->accept(KIND_EFFECT, _pBackGround01);
+
     _pBgmLead_st1 = (GgafDx9BgmLead*)GgafDx9Sound::_pBgmManager->lead("JM5");
-    _pBgmLead_st1->getResource()->play(false);
-    refrainImmediately(); //GameMainSceneが解除してくれる
-            _TRACE_("Stage01Scene::Finally 私はいきなり自分停止。GameMainSceneが解除してくれるまで待つす");
-        }
+    //GameMainSceneが解除してくれる
+    setProgress(STAGE01_PROG_INIT);
+}
 
 void Stage01Scene::initialize() {
+    setProgress(STAGE01_PROG_INIT);
 }
 
 void Stage01Scene::processBehavior() {
+    if (getProgress() == STAGE01_PROG_INIT) {
+    	setProgress(STAGE01_PROG_BEGIN);
+    }
+    if (isChangeProgress(STAGE01_PROG_BEGIN)) {
+    	_pBackGround01->act();
+    	_pBgmLead_st1->getResource()->play(false);
+        _dwFrame_Begin = 0;
+    } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
+        //タイトル活動ループ
+        _dwFrame_Begin++;
+
+        if (_dwFrame_Begin == 120) {
+        	_pStage01Main->actAlone();
+            setProgress(STAGE01_PROG_PLAY);
+        }
+    }
+
 }
 
 void Stage01Scene::processJudgement() {

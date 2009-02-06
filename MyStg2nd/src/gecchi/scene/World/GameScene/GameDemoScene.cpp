@@ -21,10 +21,11 @@ void GameDemoScene::ready() {
 }
 
 void GameDemoScene::initialize() {
+	setProgress(GAMEDEMO_PROG_INIT);
 }
 
 void GameDemoScene::processBehavior() {
-    if (isChangeProgress(GAMEDEMO_PROG_INIT)) {
+    if (getProgress() == GAMEDEMO_PROG_INIT) {
         //自機表示
         GameGlobal::_pSceneCommon->_pMyShip->actAlone(); //下位にオプション等があるし
         setProgress(GAMEDEMO_PROG_BEGIN);
@@ -111,8 +112,8 @@ void GameDemoScene::processBehavior() {
 
     //ゲームスタート
     if (isChangeProgress(GAMEDEMO_PROG_DECIDE)) {
-        _pFontPlate01->setString(200, 200, "GameDemoScene DECIDE");
-        _pFontPlate02->setString(200, 250, "OK HJIMARIMASU!");
+        _pFontPlate01->setString(100, 100, "GameDemoScene DECIDE");
+        _pFontPlate02->setString(100, 150, "OK HJIMARIMASU!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
         //活動ループ
@@ -124,8 +125,8 @@ void GameDemoScene::processBehavior() {
     }
 
     if (isChangeProgress(GAMEDEMO_PROG_END)) {
-        _pFontPlate01->setString(100, 100, "");
-        _pFontPlate02->setString(100, 150, "");
+        _pFontPlate01->setString(100, 100, "GameDemoScene END");
+        _pFontPlate02->setString(100, 150, "SRABA");
         refrainAfter(200);
     }
 
