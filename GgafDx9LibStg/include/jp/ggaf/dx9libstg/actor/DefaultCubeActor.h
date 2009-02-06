@@ -2,50 +2,54 @@
 #define DEFAULTCUBEACTOR_H_
 namespace GgafDx9LibStg {
 
-
 class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
 
 public:
-	StgChecker* _pChecker;
+    StgChecker* _pChecker;
 
+    DefaultCubeActor(const char* prm_name);
 
-	DefaultCubeActor(const char* prm_name);
+    virtual void initialize() {
+    }
 
-	virtual void initialize() {};
+    virtual void processBehavior() {
+    }
 
-	virtual void processBehavior() {};
+    virtual void processJudgement() {
+    }
 
-	virtual void processJudgement() {};
+    virtual void processDrawPrior() {
+        GgafDx9Core::GgafDx9CubeActor::processDrawPrior();
+    }
 
-	virtual void processDrawPrior() {
-		GgafDx9Core::GgafDx9CubeActor::processDrawPrior();
-	};
+    virtual void processDrawMain() {
+        GgafDx9Core::GgafDx9CubeActor::processDrawMain();
+    }
 
-	virtual void processDrawMain() {
-		GgafDx9Core::GgafDx9CubeActor::processDrawMain();
-	};
+    virtual void processDrawTerminate() {
+    }
 
-	virtual void processDrawTerminate() {};
+    virtual void processHappen(int prm_no) {
+    }
 
-	virtual void processHappen(int prm_no) {};
+    virtual void processFinal() {
+    }
 
-	virtual void processFinal() {};
+    /**
+     * オーバーライド
+     * @param prm_pActor_Opponent
+     * @return
+     */
+    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
+        return false;
+    }
 
-	/**
-	 * オーバーライド
-	 * @param prm_pActor_Opponent
-	 * @return
-	 */
-	virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
-		return false;
-	};
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
 
-	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
-
-	virtual ~DefaultCubeActor();
+    virtual ~DefaultCubeActor();
 
 };
-
 
 }
 #endif /*DEFAULTCUBEACTOR_H_*/

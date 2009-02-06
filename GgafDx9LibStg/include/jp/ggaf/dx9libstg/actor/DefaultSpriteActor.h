@@ -9,39 +9,44 @@ namespace GgafDx9LibStg {
 class DefaultSpriteActor : public GgafDx9Core::GgafDx9SpriteActor {
 
 public:
-	DWORD _dwFrameOffset;
+    DWORD _dwFrameOffset;
 
-	StgChecker* _pChecker;
+    StgChecker* _pChecker;
 
-	DefaultSpriteActor(const char* prm_name, const char* prm_model);
+    DefaultSpriteActor(const char* prm_name, const char* prm_model);
 
-	virtual void initialize() {};
+    virtual void initialize() {
+    }
 
-	virtual void processBehavior() {};
+    virtual void processBehavior() {
+    }
 
-	virtual void processJudgement() {};
+    virtual void processJudgement() {
+    }
 
-	virtual void processDrawPrior() {
-		GgafDx9Core::GgafDx9SpriteActor::processDrawPrior();
-	};
+    virtual void processDrawPrior() {
+        GgafDx9Core::GgafDx9SpriteActor::processDrawPrior();
+    }
 
-	virtual void processDrawMain() {
-		GgafDx9Core::GgafDx9SpriteActor::processDrawMain();
-	};
+    virtual void processDrawMain() {
+        GgafDx9Core::GgafDx9SpriteActor::processDrawMain();
+    }
 
-	virtual void processDrawTerminate();
+    virtual void processDrawTerminate();
 
-	virtual void processHappen(int prm_no) {};
+    virtual void processHappen(int prm_no) {
+    }
 
-	virtual void processFinal() {};
+    virtual void processFinal() {
+    }
 
-	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
 
-	virtual ~DefaultSpriteActor();
+    virtual ~DefaultSpriteActor();
 
-	virtual bool isOffScreen();
+    virtual bool isOffScreen();
 };
-
 
 }
 #endif /*DEFAULTSPRITEACTOR_H_*/

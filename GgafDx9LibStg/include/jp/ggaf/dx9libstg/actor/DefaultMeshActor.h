@@ -9,38 +9,42 @@ namespace GgafDx9LibStg {
 class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 
 public:
-	DWORD _dwFrameOffset;
+    DWORD _dwFrameOffset;
 
-	StgChecker* _pChecker;
+    StgChecker* _pChecker;
 
-	DefaultMeshActor(const char* prm_name, const char* prm_model);
+    DefaultMeshActor(const char* prm_name, const char* prm_model);
 
+    virtual void initialize() {
+    }
 
-	virtual void initialize() {};
+    virtual void processBehavior() {
+    }
 
-	virtual void processBehavior() {};
+    virtual void processJudgement() {
+    }
 
-	virtual void processJudgement() {};
+    virtual void processDrawPrior() {
+        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+    }
 
-	virtual void processDrawPrior() {
-		GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
-	};
+    virtual void processDrawMain() {
+        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+    }
 
-	virtual void processDrawMain() {
-		GgafDx9Core::GgafDx9MeshActor::processDrawMain();
-	};
+    virtual void processDrawTerminate();
 
-	virtual void processDrawTerminate();
+    virtual void processHappen(int prm_no) {
+    }
 
-	virtual void processHappen(int prm_no) {};
+    virtual void processFinal() {
+    }
 
-	virtual void processFinal() {};
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
 
-	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
-
-	virtual ~DefaultMeshActor();
+    virtual ~DefaultMeshActor();
 };
-
 
 }
 #endif /*DEFAULTMESHACTOR_H_*/

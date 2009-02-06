@@ -7,23 +7,22 @@ namespace GgafDx9LibStg {
  * DefaultCubeActor を継承し、当たり判定領域表示機能を追加したアクターです。
  */
 class DelineateActor : public DefaultCubeActor {
-	static DelineateActor* _s_pObj;
+    static DelineateActor* _s_pObj;
+
 public:
-	static DelineateActor* get();
-	static void release();
+    static DelineateActor* get();
+    static void release();
 
-	DelineateActor(const char* prm_name);
+    DelineateActor(const char* prm_name);
 
-	//void processDrawMain() {}; //オーバーライド未実装にする。
+    //void processDrawMain() {} //オーバーライド未実装にする。
 
 
+    void drawHitarea(StgChecker* prm_pChecker);
 
-	void drawHitarea(StgChecker* prm_pChecker);
-
-	virtual ~DelineateActor();
+    virtual ~DelineateActor();
 
 };
-
 
 }
 #endif /*DELINEATEACTOR_H_*/

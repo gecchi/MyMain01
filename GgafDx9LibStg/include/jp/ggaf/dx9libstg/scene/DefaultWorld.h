@@ -9,11 +9,10 @@ namespace GgafDx9LibStg {
  */
 class DefaultWorld : public GgafDx9Core::GgafDx9World {
 
-
 public:
-	DefaultWorld(const char* prm_name);
+    DefaultWorld(const char* prm_name);
 
-	virtual ~DefaultWorld();
+    virtual ~DefaultWorld();
 };
 
 }

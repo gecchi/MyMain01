@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 DefaultWorld::DefaultWorld(const char* prm_name) : GgafDx9World(prm_name) {
-	_class_name = "DefaultWorld";
+    _class_name = "DefaultWorld";
 }
 
 DefaultWorld::~DefaultWorld() {

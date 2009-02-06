@@ -12,82 +12,82 @@ namespace GgafDx9LibStg {
 class RotationActor : public GgafCore::GgafDummyActor {
 
 public:
-	StgChecker* _pChecker;
+    StgChecker* _pChecker;
 
- 	RotationActor(const char* prm_name);
+    RotationActor(const char* prm_name);
 
-	/**
-	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
-	 * ローテーションの一番先頭に移動させます。<BR>
-	 * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
-	 * ＜OverRide です＞<BR>
-	 */
-	virtual void processBehavior() {
-		static GgafMainActor* pActor;
-		pActor = getSubFirst();
-		while(true) {
-			if (pActor->switchedToRefrain()) {
-				pActor->moveFirst();
-			}
-			if (pActor->isLast()) {
-				break;
-			} else {
-				pActor = pActor->getNext();
-			}
-		}
-	};
+    /**
+     * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
+     * ローテーションの一番先頭に移動させます。<BR>
+     * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processBehavior() {
+        static GgafMainActor* pActor;
+        pActor = getSubFirst();
+        while (true) {
+            if (pActor->switchedToRefrain()) {
+                pActor->moveFirst();
+            }
+            if (pActor->isLast()) {
+                break;
+            } else {
+                pActor = pActor->getNext();
+            }
+        }
+    }
 
-	/**
-	 * 子アクターへは影響させない
-	 */
-	virtual void act() {
-		actAlone();
-	}
+    /**
+     * 子アクターへは影響させない
+     */
+    virtual void act() {
+        actAlone();
+    }
 
-	virtual void refrain() {
-		refrainAlone();
-	}
+    virtual void refrain() {
+        refrainAlone();
+    }
 
-	virtual void pause() {
-		pauseAlone();
-	}
+    virtual void pause() {
+        pauseAlone();
+    }
 
+    /**
+     * 暇そうなローテーションメンバー（play中、またはplay予約されていない）を取得する。<BR>
+     * 暇なローテーションメンバーが居ない場合 NULL が返ります。<BR>
+     * 取得できる場合、ポインタを返すと共に、そのアクターはローテーションの一番後ろに移動されます。<BR>
+     * @return 暇そうなローテーションメンバーアクター
+     */
+    virtual GgafCore::GgafMainActor* obtain() {
+        if (_pSubFirst == NULL) {
+            throw_GgafCriticalException("RotationActor::getFreeOne() 子がありません");
+        }
+        static GgafMainActor* pActor;
+        pActor = getSubFirst();
+        do {
+            if (pActor->isPlaying()) {
+                pActor = NULL;
+                break;
+            } else if (pActor->_willActNextFrame) {
+                if (pActor->isLast()) {
+                    pActor = NULL;
+                    break;
+                } else {
+                    pActor = pActor->getNext();
+                }
+            } else {
+                pActor->moveLast();
+                break;
+            }
+        } while (true);
+        return pActor;
+    }
+    ;
 
-	/**
-	 * 暇そうなローテーションメンバー（play中、またはplay予約されていない）を取得する。<BR>
-	 * 暇なローテーションメンバーが居ない場合 NULL が返ります。<BR>
-	 * 取得できる場合、ポインタを返すと共に、そのアクターはローテーションの一番後ろに移動されます。<BR>
-	 * @return 暇そうなローテーションメンバーアクター
-	 */
-	virtual GgafCore::GgafMainActor* obtain() {
- 		if (_pSubFirst == NULL) {
- 			throw_GgafCriticalException("RotationActor::getFreeOne() 子がありません");
- 		}
- 		static GgafMainActor* pActor;
- 		pActor= getSubFirst();
- 		do {
- 			if(pActor->isPlaying()) {
- 				pActor = NULL;
- 				break;
- 			} else if (pActor->_willActNextFrame) {
- 				if (pActor->isLast()) {
- 					pActor = NULL;
- 					break;
- 				} else {
- 					pActor = pActor->getNext();
- 				}
- 			} else {
- 				pActor->moveLast();
- 				break;
- 			}
- 		} while(true);
- 		return pActor;
- 	};
-
- 	virtual ~RotationActor() {
- 	};
+    virtual ~RotationActor() {
+    }
+    ;
 };
-
 
 }
 #endif /*ROTATIONACTOR_H_*/

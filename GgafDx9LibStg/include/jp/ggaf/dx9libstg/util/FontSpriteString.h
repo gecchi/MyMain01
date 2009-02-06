@@ -6,17 +6,16 @@ namespace GgafDx9LibStg {
  * FontSpriteActor•\Ž¦ƒNƒ‰ƒX
  */
 class FontSpriteString : public GgafCore::GgafObject {
-	std::string _font_modelname;
-	int _iStrLen;
-	FontSpriteActor** _papFontSpriteActor;
-
+    std::string _font_modelname;
+    int _iStrLen;
+    FontSpriteActor** _papFontSpriteActor;
 
 public:
-	FontSpriteString(char* prm_font_modelname, int prm_iStrLen);
+    FontSpriteString(char* prm_font_modelname, int prm_iStrLen);
 
-	virtual void draw(int prm_X, int prm_Y, int prm_Z, std::string prm_string);
+    virtual void draw(int prm_X, int prm_Y, int prm_Z, std::string prm_string);
 
-	virtual ~FontSpriteString();
+    virtual ~FontSpriteString();
 };
 
 }

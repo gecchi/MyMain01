@@ -9,36 +9,43 @@ namespace GgafDx9LibStg {
 class DefaultPlateActor : public GgafDx9Core::GgafDx9PlateActor {
 
 public:
-	DefaultPlateActor(const char* prm_name, const char* prm_model);
+    DefaultPlateActor(const char* prm_name, const char* prm_model);
 
-	virtual void initialize() {};
+    virtual void initialize() {
+    }
 
-	virtual void processBehavior() {};
+    virtual void processBehavior() {
+    }
 
-	virtual void processJudgement() {};
+    virtual void processJudgement() {
+    }
 
-	virtual void processDrawPrior() {};
+    virtual void processDrawPrior() {
+    }
 
-	virtual void processDrawMain() {
-		GgafDx9Core::GgafDx9PlateActor::processDrawMain();
-	};
+    virtual void processDrawMain() {
+        GgafDx9Core::GgafDx9PlateActor::processDrawMain();
+    }
 
-	virtual void processDrawTerminate() {};
+    virtual void processDrawTerminate() {
+    }
 
-	virtual void processHappen(int prm_no) {};
+    virtual void processHappen(int prm_no) {
+    }
 
-	virtual void processFinal() {};
+    virtual void processFinal() {
+    }
 
-	virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
-		return false;
-	};
+    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
+        return false;
+    }
 
-	virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {};
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
 
-	virtual ~DefaultPlateActor();
+    virtual ~DefaultPlateActor();
 
 };
-
 
 }
 #endif /*DEFAULTPLATEACTOR_H_*/
