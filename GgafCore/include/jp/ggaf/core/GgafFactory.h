@@ -38,10 +38,10 @@ private:
      * @param prm_pArg3	ÇªÇÃà¯êî3
      */
     static void order(unsigned long prm_id,
-            GgafObject* (*prm_pFunc)(void*, void*, void*),
-            void* prm_pArg1,
-            void* prm_pArg2,
-            void* prm_pArg3);
+                      GgafObject* (*prm_pFunc)(void*, void*, void*),
+                      void* prm_pArg1,
+                      void* prm_pArg2,
+                      void* prm_pArg3);
 
     /**
      * íçï∂ÇµÇΩè§ïiÇéÊÇËèoÇ∑ÅB<BR>
@@ -78,10 +78,10 @@ public:
      */
     template<class X>
     static void orderActor(unsigned long prm_id,
-            X* (*prm_pFunc)(void*, void*, void*),
-            void* prm_pArg1,
-            void* prm_pArg2,
-            void* prm_pArg3) {
+                           X* (*prm_pFunc)(void*, void*, void*),
+                           void* prm_pArg1,
+                           void* prm_pArg2,
+                           void* prm_pArg3) {
         order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 
@@ -96,10 +96,10 @@ public:
      */
     template<class X>
     static void orderScene(unsigned long prm_id,
-            X* (*prm_pFunc)(void*, void*, void*),
-            void* prm_pArg1,
-            void* prm_pArg2,
-            void* prm_pArg3) {
+                           X* (*prm_pFunc)(void*, void*, void*),
+                           void* prm_pArg1,
+                           void* prm_pArg2,
+                           void* prm_pArg3) {
         order(prm_id, (GgafObject* (*)(void*, void*, void*))prm_pFunc, prm_pArg1, prm_pArg2, prm_pArg3);
     }
 

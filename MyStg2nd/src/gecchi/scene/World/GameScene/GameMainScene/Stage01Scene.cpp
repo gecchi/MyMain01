@@ -28,7 +28,7 @@ void Stage01Scene::processBehavior() {
     	setProgress(STAGE01_PROG_BEGIN);
     }
     if (isChangeProgress(STAGE01_PROG_BEGIN)) {
-    	_pBackGround01->act();
+
     	_pBgmLead_st1->getResource()->play(false);
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
@@ -36,6 +36,7 @@ void Stage01Scene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
+        	_pBackGround01->act();
         	_pStage01Main->actAlone();
             setProgress(STAGE01_PROG_PLAY);
         }

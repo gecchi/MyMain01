@@ -14,6 +14,9 @@ void MyShot001::initialize() {
 
     _pGeoMover->setMoveAngleRzVelocity(0);
     _pGeoMover->setAxisRotAngleVelocity(AXIS_Z, 2 * 1000);
+    _pGeoMover->setAxisRotAngleVelocity(AXIS_X, 2 * 1400);
+    _pGeoMover->setAxisRotAngleVelocity(AXIS_Y, 2 * 1800);
+
     _pGeoMover->setMoveAngleRz(0);
     _pGeoMover->setAxisRotAngle(AXIS_Z, 0);
     _pGeoMover->setMoveVelocity(1000);
@@ -60,24 +63,14 @@ void MyShot001::processBehavior() {
 }
 
 void MyShot001::processJudgement() {
-    //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
         refrain();
     }
 
 }
 
-/*
- bool MyShot001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
- //TRACE("MyShot001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
- return false;
- }
- */
 
 void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-    //_TRACE_("MyShot001::processOnHit ショットがヒットしました");
-    //_TRACE_("MyShot001ヒットしました。("<<_X<<","<<_Y<<")");
-    //farewell();
     refrain();
 }
 

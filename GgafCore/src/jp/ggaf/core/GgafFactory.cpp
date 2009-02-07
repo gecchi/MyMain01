@@ -38,29 +38,29 @@ void GgafFactory::order(unsigned long prm_id,
     pOrder_New->_pArg3 = prm_pArg3;
     pOrder_New->_progress = 0;
     //::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
-            if (ROOT_ORDER == NULL) {
-                TRACE2("GgafFactory::order ƒ‹q„ ‹ó‚Á‚«‚µ‚ÌHê‚Ö’•¶‚µ‚Ä‚â‚ñ‚æB‚·‚®‚Å‚«‚é‚æ‚ËHB");
-                pOrder_New->_isFirstOrder = true;
-                pOrder_New->_isLastOrder = true;
-                pOrder_New->_pOrder_Next = pOrder_New;
-                pOrder_New->_pOrder_Prev = pOrder_New;
-                ROOT_ORDER = pOrder_New;
-                CREATING_ORDER = pOrder_New;
-                //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
-            } else {
-                TRACE2("GgafFactory::order ƒ‹q„ ŽŸX‚É‚·‚Ü‚ñ‚Ì‚§");
-                pOrder_New->_isFirstOrder = false;
-                pOrder_New->_isLastOrder = true;
-                static GgafOrder* pOrder_Last;
-                pOrder_Last = ROOT_ORDER->_pOrder_Prev;
-                pOrder_Last->_isLastOrder = false;
-                pOrder_Last->_pOrder_Next = pOrder_New;
-                pOrder_New->_pOrder_Prev = pOrder_Last;
-                pOrder_New->_pOrder_Next = ROOT_ORDER;
-                ROOT_ORDER->_pOrder_Prev = pOrder_New;
-                //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
-            }
-        }
+    if (ROOT_ORDER == NULL) {
+        TRACE2("GgafFactory::order ƒ‹q„ ‹ó‚Á‚«‚µ‚ÌHê‚Ö’•¶‚µ‚Ä‚â‚ñ‚æB‚·‚®‚Å‚«‚é‚æ‚ËHB");
+        pOrder_New->_isFirstOrder = true;
+        pOrder_New->_isLastOrder = true;
+        pOrder_New->_pOrder_Next = pOrder_New;
+        pOrder_New->_pOrder_Prev = pOrder_New;
+        ROOT_ORDER = pOrder_New;
+        CREATING_ORDER = pOrder_New;
+        //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+    } else {
+        TRACE2("GgafFactory::order ƒ‹q„ ŽŸX‚É‚·‚Ü‚ñ‚Ì‚§");
+        pOrder_New->_isFirstOrder = false;
+        pOrder_New->_isLastOrder = true;
+        static GgafOrder* pOrder_Last;
+        pOrder_Last = ROOT_ORDER->_pOrder_Prev;
+        pOrder_Last->_isLastOrder = false;
+        pOrder_Last->_pOrder_Next = pOrder_New;
+        pOrder_New->_pOrder_Prev = pOrder_Last;
+        pOrder_New->_pOrder_Next = ROOT_ORDER;
+        ROOT_ORDER->_pOrder_Prev = pOrder_New;
+        //::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+    }
+}
 
 void* GgafFactory::obtain(unsigned long prm_id) {
     //::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
@@ -160,7 +160,7 @@ void GgafFactory::clean() {
     return;
 }
 
-unsigned __stdcall  GgafFactory::work(void* prm_arg) {
+unsigned __stdcall GgafFactory::work(void* prm_arg) {
     try {
         static GgafObject* (*func)(void*, void*, void*);
         static GgafObject* pObject;
