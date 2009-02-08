@@ -151,8 +151,7 @@ void GgafResourceManager<T>::dump() {
     } else {
         GgafResourceLead<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            int rnum = pCurrent->_iLeadNum;
-            TRACE("GgafResourceManager::dump [" << pCurrent->_idstr << "©" << rnum << "Lead]");
+            TRACE("GgafResourceManager::dump [" << pCurrent->_idstr << "©" << pCurrent->_iLeadNum << "Lead]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
                 pCurrent = NULL;

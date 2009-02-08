@@ -213,7 +213,7 @@ void GgafDx9Util::getRotAngleZY(int x,
                                 double& out_nvy,
                                 double& out_nvz,
                                 angle& out_angRotZ,
-                                angle& out_angRotY) {
+                                angle& out_angRotY ) {
     static double vx, vy, vz, t;
     vx = ((double)x) / LEN_UNIT;
     vy = ((double)y) / LEN_UNIT;

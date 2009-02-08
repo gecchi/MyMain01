@@ -10,13 +10,13 @@ HitAreaBoxs::HitAreaBoxs(int prm_iBoxNum) : GgafObject() {
         _paHitArea = NEW Box[prm_iBoxNum];
         _iBoxNum = prm_iBoxNum;
     } else {
-        throw_GgafCriticalException("HitAreaBoxs::HitAreaBoxs Box数が不正。prm_iBoxNum="<<prm_iBoxNum);
+        throwGgafCriticalException("HitAreaBoxs::HitAreaBoxs Box数が不正。prm_iBoxNum="<<prm_iBoxNum);
     }
 }
 
 void HitAreaBoxs::setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
     if (_iBoxNum < prm_index) {
-        throw_GgafCriticalException("HitAreaBoxs::setBox() 要素オーバー。_iBoxNum="<<_iBoxNum<<"/prm_index="<<prm_index);
+        throwGgafCriticalException("HitAreaBoxs::setBox() 要素オーバー。_iBoxNum="<<_iBoxNum<<"/prm_index="<<prm_index);
     }
     if (x1 < x2) {
         _paBase[prm_index].x1 = x1;

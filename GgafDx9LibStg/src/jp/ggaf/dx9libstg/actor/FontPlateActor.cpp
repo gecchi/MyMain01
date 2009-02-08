@@ -6,27 +6,36 @@ using namespace GgafDx9LibStg;
 
 FontPlateActor::FontPlateActor(const char* prm_name, const char* prm_model) : DefaultPlateActor(prm_name, prm_model) {
     _class_name = "FontPlateActor";
-    _draw_string = "";
-    _iStrLen = (int)_draw_string.size();
+    _draw_string = NULL;
+    _len = 0;
+    _buf = NEW char[50];
 }
 
-void FontPlateActor::setString(float prm_x, float prm_y, string prm_draw_string) {
-    _draw_string = prm_draw_string;
-    _iStrLen = (int)_draw_string.size();
+void FontPlateActor::setString(float prm_x, float prm_y, const char* prm_str) {
+    setString(prm_str);
     _x = prm_x;
     _y = prm_y;
 }
 
-void FontPlateActor::setString(float prm_x, float prm_y, char* prm_paCString) {
-    _draw_string = string(prm_paCString);
-    _iStrLen = (int)_draw_string.size();
+void FontPlateActor::setString(float prm_x, float prm_y, char* prm_str) {
+    setString(prm_str);
     _x = prm_x;
     _y = prm_y;
 }
 
-void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, string prm_draw_string) {
-    _draw_string = prm_draw_string;
-    _iStrLen = (int)_draw_string.size();
+void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, const char* prm_str) {
+    setString(prm_str);
+    _x = prm_x;
+    _y = prm_y;
+    _z = prm_z;
+    _paVertex[0].z = _z;
+    _paVertex[1].z = _z;
+    _paVertex[2].z = _z;
+    _paVertex[3].z = _z;
+}
+
+void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, char* prm_str) {
+    setString(prm_str);
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
@@ -36,31 +45,20 @@ void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, string prm
     _paVertex[3].z = _z;
 
 }
-void FontPlateActor::setString(float prm_x, float prm_y, float prm_z, char* prm_paCString) {
-    _draw_string = string(prm_paCString);
-    _iStrLen = (int)_draw_string.size();
-    _x = prm_x;
-    _y = prm_y;
-    _z = prm_z;
-    _paVertex[0].z = _z;
-    _paVertex[1].z = _z;
-    _paVertex[2].z = _z;
-    _paVertex[3].z = _z;
 
+void FontPlateActor::setString(const char* prm_str) {
+    _draw_string = (char*)prm_str;
+    _len = strlen(prm_str);
 }
 
-void FontPlateActor::setString(string prm_draw_string) {
-    _draw_string = prm_draw_string;
-    _iStrLen = (int)_draw_string.size();
-}
-
-void FontPlateActor::setString(char* prm_paCString) {
-    _draw_string = string(prm_paCString);
-    _iStrLen = (int)_draw_string.size();
+void FontPlateActor::setString(char* prm_str) {
+    _draw_string = _buf;
+    strcpy(_draw_string, prm_str);
+    _len = strlen(prm_str);
 }
 
 void FontPlateActor::processDrawMain() {
-    if (_iStrLen == 0) {
+    if (_len == 0) {
         return;
     }
 
@@ -68,18 +66,16 @@ void FontPlateActor::processDrawMain() {
     x_beginning = _x;
     x = _x;
     y = _y;
-    static const char* paChar;
-    paChar = _draw_string.c_str();
-    for (int i = 0; i < _iStrLen; i++) {
-        if (paChar[i] == '\n') {
+    for (int i = 0; i < _len; i++) {
+        if (_draw_string[i] == '\n') {
             x = x_beginning;
             y += _pPlateModel->_fSize_PlateModelHeight;
             continue;
         } else {
-            if (paChar[i] - ' ' < 0) {
+            if (_draw_string[i] - ' ' < 0) {
                 setPatternNo('?' - ' '); //”ÍˆÍŠO‚Í"?"
             } else {
-                setPatternNo(paChar[i] - ' '); //’Êí•¶Žš—ñ
+                setPatternNo(_draw_string[i] - ' '); //’Êí•¶Žš—ñ
             }
         }
         _paVertex[0].x = x;
@@ -98,5 +94,6 @@ void FontPlateActor::processDrawMain() {
 }
 
 FontPlateActor::~FontPlateActor() {
+    DELETE_IMPOSSIBLE_NULL(_buf);
 }
 

@@ -5,7 +5,16 @@ namespace GgafCore {
 #define SUPER GgafCore::GgafNode<T>
 
 /**
- * GgafNodeに、様々な状態管理（フラグ管理）を追加するクラス。
+ * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
+ * 毎フレーム、を神(GgafGod)は世界(GgafWorld)に、次のメソッド順で呼び出す仕組みになっている。世界(GgafWorld)も本templateを実装している。<BR>
+ * nextFrame() > behave() > judge() > [drawPrior() > drawMain() > drawTerminate()] > finally() <BR>
+ * 上記の内、nextFrame()、finally() は毎フレーム実行される。<BR>
+ * behave()、judge() は活動状態フラグ(_isActive)が true、かつ、一時停止フラグ(_wasPaused)が false の場合実行される。<BR>
+ * drawPrior()、drawMain()、drawTerminate() は、次フレームまでの残時間に余裕があり、かつ一時非表示フラグ(_wasBlinded) が false の場合<BR>
+ * 実行される。次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
+ * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
+ * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
+ * 但し、生存フラグ(_isAlive)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge
@@ -36,33 +45,33 @@ public:
     /** ノード生存フラグ */
     bool _isAlive;
 
-    /** 次フレームのフレーム加算時に設定されるノード活動フラグ */
+    /** 次フレームノード活動予約フラグ、次フレームのフレーム加算時 _isActive に反映される */
     bool _willActNextFrame;
-    /** 次フレームのフレーム加算時に設定される一時停止フラグ */
+    /** 次フレーム一時停止予約フラグ、次フレームのフレーム加算時 _wasPaused に反映される */
     bool _willPauseNextFrame;
-    /** 次フレームのフレーム加算時に設定される表示フラグ  */
+    /** 次フレーム一時非表示予約フラグ、次フレームのフレーム加算時 _wasBlinded に反映される  */
     bool _willBlindNextFrame;
-    /** 次フレームのフレーム加算時に設定される一時非表示フラグ */
+    /** 次フレーム生存予約フラグ、次フレームのフレーム加算時 _isAlive に設定される */
     bool _willBeAliveNextFrame;
 
-    /** 次フレームのフレーム加算時に、自ノードが先頭ノードに移動することを示したフラグ */
+    /** 先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
     bool _willMoveFirstNextFrame;
-    /** 次フレームのフレーム加算時に、自ノードが末尾ノードに移動することを示したフラグ */
+    /** 末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
     bool _willMoveLastNextFrame;
 
-    /** あとで活動フラグ */
+    /** あとで活動予約フラグ */
     bool _willActAfterFrame;
-    /** あとで活動の残フレーム数（神フレームと一致したら活動） */
+    /** あとで活動までの残フレーム数（神フレームと一致したら活動） */
     DWORD _dwGodFremeWhenAct;
 
-    /** あとで停止フラグ */
+    /** あとで非活動予約フラグ */
     bool _willRefrainAfterFrame;
     /** あとで停止の残フレーム数（神フレームと一致したら停止） */
     DWORD _dwGodFremeWhenRefrain;
 
-    /** ノードが活動に切り替わった(stop→play)瞬間に１フレームだけセットされるフラグ */
+    /** ノードが活動に切り替わった(_isActive が false → true)瞬間に１フレームだけセットされるフラグ */
     bool _switchedToAct;
-    /** ノードが停止に切り替わった(play→stop)瞬間に１フレームだけセットされるフラグ */
+    /** ノードが停止に切り替わった(_isActive が true → false)瞬間に１フレームだけセットされるフラグ */
     bool _switchedToRefrain;
 
     /** 描画されましたフラグ */
@@ -75,14 +84,14 @@ public:
     GgafElement(const char* prm_name);
 
     /**
-     * デストラクタ。自ツリーノードを解放します。 .
+     * デストラクタ。自ツリーノードを解放する。 .
      */
     virtual ~GgafElement();
 
     /**
      * 掃除 .
-     * 神が処理時間に余裕がでたとき等に呼ばれます。<BR>
-     * 配下ノードの中にノード生存フラグ(_isAlive)が false になっているノードがあれば prm_iNumCleanNode 個だけ delete します。<BR>
+     * 神が処理時間に余裕がでたとき等に呼ばれる。<BR>
+     * 配下ノードの中にノード生存フラグ(_isAlive)が false になっているノードがあれば prm_iNumCleanNode 個だけ delete する。<BR>
      * @param prm_iNumCleanNode 解放するオブジェクト数
      */
     virtual void cleane(int prm_iNumCleanNode);
@@ -90,19 +99,18 @@ public:
     /**
      * ノード初期処理 .
      * インスタンス生成後、nextFrame(),behave(),judge(),drawPrior(),drawMain(),drawTerminate(),happen(int),finally() の
-     * 何れかが呼び出された時、最初に必ず１回だけ呼び出されます。<BR>
+     * 何れかが呼び出された時、最初に必ず１回だけ呼び出される。<BR>
      */
     virtual void initialize() = 0;
 
     /**
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理 .
-     * 活動フラグ、生存フラグがセットされている場合ノードのフレームを加算します。その直後に<BR>
      * _willActNextFrame, _willPauseNextFrame, _willBlindNextFrame, _willBeAliveNextFrame を<BR>
-     * _isActive, _wasPaused, _wasBlinded, _isAlive に反映（コピー）します。<BR>
+     * _isActive, _wasPaused, _wasBlinded, _isAlive に反映（コピー）する。<BR>
      * また、_willMoveFirstNextFrame, _willMoveLastNextFrame が true の場合は、<BR>
-     * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動も実行されます。<BR>
-     * その後、配下ノード全てに nextFrame() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、behave()を実行します。<BR>
+     * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
+     * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、behave()を実行する。<BR>
      */
     virtual void nextFrame();
 
@@ -110,23 +118,23 @@ public:
      * ノードのフレーム毎の振る舞い処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （_isActive && !_wasPaused && _isAlive）の場合 <BR>
-     * processBehavior() をコールした後、配下のノード全てについて behave() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、judge()を実行します。<BR>
+     * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、judge()を実行する。<BR>
      */
     virtual void behave();
 
     /**
-     * 活動時処理 .
-     * 停止状態から活動状態に変化したときに１度だけ呼ばれる。
-     * 必要に応じてオーバーライドします。
+     * 非活動→活動時に切り替わった時の処理 .
+     * 非活動状態から活動状態に変化したときに１回コールバックされる。<BR>
+     * 必要に応じてオーバーライドする。<BR>
      */
     virtual void onAct() {
     }
 
     /**
-     * 停止時処理 .
-     * 活動状態から停止状態に変化したときに１度だけ呼ばれる。
-     * 必要に応じてオーバーライドします。
+     * 活動→非活動時に切り替わった時の処理 .時処理 .
+     * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
+     * 必要に応じてオーバーライドする。<BR>
      */
     virtual void onRefrain() {
     }
@@ -135,35 +143,36 @@ public:
      * ノードのフレーム毎の判定処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * (つまり _isActive && !_wasPaused && _isAlive)の場合 <BR>
-     * processJudgement() をコールした後、配下のノード全てについて judge() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、フレーム時間に余裕があれば drawPrior()、無ければ finally()を実行します。<BR>
+     * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば drawPrior()、
+     * 無ければ finally()を実行する。<BR>
      */
     virtual void judge();
 
     /**
-     * ノードのフレーム毎の描画事前処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されないい場合もあります。） .
+     * ノードのフレーム毎の描画事前処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
      * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
-     * processDrawPrior() をコールした後、配下のノード全てについて drawPrior() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawMain() を実行します。<BR>
+     * processDrawPrior() をコールした後、配下のノード全てについて drawPrior() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawMain() を実行する。<BR>
      */
     virtual void drawPrior();
 
     /**
-     * ノードのフレーム毎の描画本処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されない場合もあります。） .
+     * ノードのフレーム毎の描画本処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
      * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
-     * processDrawMain() をコールした後、配下のノード全てについて drawMain() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawTerminate() を実行します。<BR>
+     * processDrawMain() をコールした後、配下のノード全てについて drawMain() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawTerminate() を実行する。<BR>
      */
     virtual void drawMain();
 
     /**
-     * ノードのフレーム毎の描画事後処理（但し高負荷時は、神の判断でフレームスキップされて呼び出されない場合もあります。） .
+     * ノードのフレーム毎の描画事後処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
      * (つまり _isActive && !_wasBlinded && _isAlive)の場合 <BR>
-     * processTerminate() をコールした後、配下のノード全てについて drawTerminate() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、finally() を実行します。<BR>
+     * processTerminate() をコールした後、配下のノード全てについて drawTerminate() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、finally() を実行する。<BR>
      */
     virtual void drawTerminate();
 
@@ -171,78 +180,79 @@ public:
      * ノードのフレーム毎の最終処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * （_isActive && !_wasPaused && _isAlive）の場合 <BR>
-     * processFinally() をコールした後、配下のノード全てについて finally() を実行します。<BR>
-     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、フレーム時間に余裕があれば cleane() を実行します。<BR>
+     * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
+     * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば cleane() を実行する。<BR>
      */
     virtual void finally();
 
     /**
      * ノードの何かの処理(フレーム毎ではない) .
      * 活動フラグがセット、(つまり _isActive)の場合 <BR>
-     * processHappen(int) をコールした後、配下のノード全てについて happen() を実行します。<BR>
+     * processHappen(int) をコールした後、配下のノード全てについて happen() を再帰的に実行する。<BR>
      * @param	prm_no 何かの番号
      */
     virtual void happen(int prm_no);
 
     /**
      * フレーム毎の個別振る舞い処理を実装。 .
-     * behave() 時の処理先頭でコールバックされます。<BR>
-     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の振る舞いを処理を実装します。<BR>
-     * 想定している振る舞い処理とは、主に座標計算と移動処理等です。<BR>
-     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、nextFrame() が実行済みであることを保証します<BR>
+     * behave() 時の処理先頭でコールバックされる。<BR>
+     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の振る舞いを処理を実装する。<BR>
+     * 想定している振る舞い処理とは、主に座標計算と移動処理等である。<BR>
+     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、nextFrame() が実行済みであることを保証する。<BR>
      */
     virtual void processBehavior() = 0;
 
     /**
      * フレーム毎の個別判断処理を実装。 .
-     * judge() 時の処理先頭でコールバックされます。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別判断処理を記述します。<BR>
-     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、behave() が実行済みであることを保証します。<BR>
-     * 本メンバ関数の存在意図として、processBehavior() で座標移動処理が全て完了した後､本メンバ関数で当たり判定処理を実装するといった使い方を想定しています。<BR>
+     * judge() 時の処理先頭でコールバックされる。<BR>
+     * このメンバ関数をオーバーライドして、ノード個別判断処理を記述する。<BR>
+     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、behave() が実行済みであることを保証する。<BR>
+     * 本メンバ関数の存在意図として、processBehavior() で座標移動処理が全て完了した後､
+     * 本メンバ関数で当たり判定処理を実装するといった使い方を想定している。<BR>
      */
     virtual void processJudgement() = 0;
 
     /**
      * ノードのフレーム毎の個別描画事前処理を実装。 .
-     * drawPrior() 時の処理先頭でコールバックされます。 但し、神(GgafGod)が描画スキップした場合、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装します。<BR>
-     * 個別描画事前処理とは、主に当たり背景描画などです。<BR>
-     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、judge() が実行済みであることも保証します<BR>
-     * さらに、本メンバ関数実行後、processDrawMain()、processDrawTerminate() が呼び出されることも保証されます。
+     * drawPrior() 時の処理先頭でコールバックされる。 但し、神(GgafGod)が描画スキップした場合、フレーム内で呼び出されません。<BR>
+     * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装する。<BR>
+     * 個別描画事前処理とは、主に当たり背景描画などである。<BR>
+     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、judge() が実行済みであることも保証する。<BR>
+     * さらに、本メンバ関数実行後、processDrawMain()、processDrawTerminate() が呼び出されることも保証される。
      */
     virtual void processDrawPrior() = 0;
 
     /**
      * ノードのフレーム毎の個別描画本処理を実装。 .
-     * drawMain() 時の処理先頭でコールバックされます。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装します。<BR>
-     * 個別描画本処理とは主にキャラクタや、背景の描画を想定しています。
-     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、drawPrior() が実行済みであることを保証します<BR>
+     * drawMain() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
+     * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
+     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、drawPrior() が実行済みであることを保証する。<BR>
      */
     virtual void processDrawMain() = 0;
 
     /**
      * ノードのフレーム毎の個別表示事後処理を記述
-     * drawTerminate() 時の処理先頭でコールバックされます。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装します。<BR>
-     * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などです。<BR>
-     * 本メンバがコールバックされると言う事は、自ツリーノード全てに対して、drawMain() が実行済みであることを保証します<BR>
+     * drawTerminate() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装する。<BR>
+     * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などである。<BR>
+     * 本メンバがコールバックされると言う事は、自ツリーノード全てに対して、drawMain() が実行済みであることを保証する。<BR>
      */
     virtual void processDrawTerminate() = 0;
 
     /**
      * ノードのフレーム毎の個別終端処理を実装。 .
-     * finally() 時の処理先頭でコールバックされます。<BR>
-     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装します。<BR>
-     * 終端処理とは、フラグ管理の実行などです。<BR>
-     * 想定している振る舞い処理とは、主に座標計算と移動処理です。その他なんでも良いです。<BR>
-     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、judge() が実行済みであることを保証します<BR>
+     * finally() 時の処理先頭でコールバックされる。<BR>
+     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装する。<BR>
+     * 終端処理とは、フラグ管理の実行などである。<BR>
+     * 想定している振る舞い処理とは、主に座標計算と移動処理である。その他なんでも良いである。<BR>
+     * 本メンバ関数がコールバックされると言う事は、自ツリーノード全てに対して、judge() が実行済みであることを保証する。<BR>
      */
     virtual void processFinal() = 0;
 
     /**
      * ノードの個別何かの処理を記述
-     * happen() 時の処理先頭でコールバックされます。
+     * happen() 時の処理先頭でコールバックされる。
      * 利用目的不定の汎用イベント用メソッド
      * @param	int prm_no 何かの番号
      */
@@ -259,16 +269,17 @@ public:
      * 活動状態にする(自ツリー) .
      * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で活動状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再起的に act() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に act() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
+     * 自ノードの processBehavior() で本メソッドを呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
+     * 実行されることは無いので、他ノードから実行したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
      */
     void act();
     /**
      * 活動予約する(自ツリー) .
-     * Nフレーム後に act() が実行されることを予約します。<BR>
-     * 自身と配下ノード全てについて再起的に actAfter(DWORD) が実行されます。<BR>
+     * Nフレーム後に act() が実行されることを予約する。<BR>
+     * 自身と配下ノード全てについて再帰的に actAfter(DWORD) が実行される。<BR>
      * actAfter(1) は、act() と同じ意味になります。<BR>
      * @param prm_dwFrameOffset 遅延フレーム数(1～)
      */
@@ -282,19 +293,19 @@ public:
     /**
      * 活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再起的に actImmediately() が実行されます。<BR>
-     * 他のノードからの、「活動状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に actImmediately() が実行される。<BR>
+     * 他のノードからの、「活動状態ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、actImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void actImmediately();
     /**
      * 活動状態にする(単体・即時) .
      * 自ノードのみについて、活動フラグを即座に立てる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void actImmediatelyAlone();
     //===================
@@ -302,15 +313,15 @@ public:
      * 非活動状態にする(自ツリー) .
      * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非活動状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再起的に refrain() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に refrain() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
     void refrain();
     /**
      * 非活動予約する(自ツリー) .
-     * Nフレーム後に refrain() が実行されることを予約します。<BR>
-     * 自身と配下ノード全てについて再起的に refrainAfter(DWORD) が実行されます。<BR>
+     * Nフレーム後に refrain() が実行されることを予約する。<BR>
+     * 自身と配下ノード全てについて再帰的に refrainAfter(DWORD) が実行される。<BR>
      * refrainAfter(1) は、refrain() と同じ意味になります。<BR>
      * @param prm_dwFrameOffset 遅延フレーム数(1～)
      */
@@ -324,19 +335,19 @@ public:
     /**
      * 非活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再起的に refrainImmediately() が実行されます。<BR>
-     * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に refrainImmediately() が実行される。<BR>
+     * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、refrainImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void refrainImmediately();
     /**
      * 非活動状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void refrainImmediatelyAlone();
     //===================
@@ -344,7 +355,7 @@ public:
      * 一時停止にする(自ツリー) .
      * 正確には、次フレームから一時停止にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で一時停止になる事になります。<BR>
-     * 自身と配下ノード全てについて再起的に pause() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
@@ -358,19 +369,19 @@ public:
     /**
      * 一時停止にする(自ツリー・即時) .
      * 正確には、一時停止フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再起的に pauseImmediately() が実行されます。<BR>
-     * 他のノードからの、「一時停止ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に pauseImmediately() が実行される。<BR>
+     * 他のノードからの、「一時停止ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、pauseImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void pauseImmediately();
     /**
      * 一時停止にする(単体・即時) .
      * 自ノードのみについて、一時停止フラグを即座に立てる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void pauseImmediatelyAlone();
     //===================
@@ -378,7 +389,7 @@ public:
      * 一時停止状態を解除にする(自ツリー) .
      * 正確には、次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で一時停止状態が解除される事になります。<BR>
-     * 自身と配下ノード全てについて再起的に unpause() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
@@ -392,19 +403,19 @@ public:
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
      * 正確には、一時停止状態フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再起的に unpauseImmediately() が実行されます。<BR>
-     * 他のノードからの、「一時停止状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に unpauseImmediately() が実行される。<BR>
+     * 他のノードからの、「一時停止状態ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、unpauseImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void unpauseImmediately();
     /**
      * 一時停止状態を解除にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void unpauseImmediatelyAlone();
     //===================
@@ -412,7 +423,7 @@ public:
      * 非表示状態にする(自ツリー) .
      * 正確には、次フレームから非表示状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非表示状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再起的に blind() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に blind() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、非表示状態となっている。<BR>
@@ -427,19 +438,19 @@ public:
     /**
      * 非表示状態にする(自ツリー・即時) .
      * 正確には、非活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再起的に blindImmediately() が実行されます。<BR>
-     * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に blindImmediately() が実行される。<BR>
+     * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、blindImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void blindImmediately();
     /**
      * 非表示状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void blindImmediatelyAlone();
     //===================
@@ -447,7 +458,7 @@ public:
      * 非表示状態を解除にする(自ツリー) .
      * 正確には、次フレームから非表示状態を解除する予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非表示状態が解除される事になります。<BR>
-     * 自身と配下ノード全てについて再起的に unblind() が実行されます。<BR>
+     * 自身と配下ノード全てについて再帰的に unblind() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
@@ -461,42 +472,42 @@ public:
     /**
      * 非表示状態を解除する(自ツリー・即時) .
      * 正確には、非表示フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再起的に unblindImmediately() が実行されます。<BR>
-     * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている対象となるノード場合、<BR>
+     * 自身と配下ノード全てについて再帰的に unblindImmediately() が実行される。<BR>
+     * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
      * 使用には注意が必要。なぜならば、unblindImmediately() を実行する前と実行した後で<BR>
-     * 『同一フレーム内』で、状態が変化するためです。他のノードからの参照するタイミングによっては<BR>
+     * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
-     * 他で使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void unblindImmediately();
     /**
      * 非表示状態を解除する(単体・即時) .
      * 自ノードのみについて、非表示状フラグを即座に下げる。<BR>
-     * 『同一フレーム内』で、状態が変化するためです。<BR>
-     * 使用するときは、ノードの影響を良く考えて注意して使用すること。<BR>
+     * 『同一フレーム内』で、状態が変化するためである。<BR>
+     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
     void unblindImmediatelyAlone();
     //===================
     /**
-     * 自ノードを次フレームから絶命させることを宣言します .
-     * 配下ノード全てに人生終了(farewell())がお知らせが届く。<BR>
+     * 自ノードを次フレームから絶命させることを宣言する .
+     * 配下ノード全てに生存終了(farewell())がお知らせが届く。<BR>
      * 絶命させるとは具体的には、表示フラグ(_wasBlinded)、振る舞いフラグ(_isActive)、生存フラグ(_isAlive) を <BR>
      * 次フレームからアンセットする事である。<BR>
-     * これにより、神(GgafGod)が処理時間の余裕のあるフレームに実行する cleane()時に delete の対象となる。<BR>
-     * したがって、本メンバ関数を実行しても、フラグはアンセットされるため表面にはでませんが、インスタンスがすぐに解放されるとは限りません。<BR>
+     * これにより、神(GgafGod)が処理時間の余裕のある時に実行される cleane() メソッドにより delete の対象となる。<BR>
+     * したがって、本メンバ関数を実行しても、『同一フレーム内』ではインスタンスがすぐに解放されません。<BR>
      */
     void farewell(DWORD prm_dwFrameOffset = 0);
 
     /**
-     * 自ツリーノードを最終ノードに順繰りする .
-     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトします。<BR>
+     * 自ツリーノードを最終ノードに移動する .
+     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
      */
     void moveLast();
 
     /**
-     * 自ツリーノードを先頭ノードに順繰りする .
-     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトします。<BR>
+     * 自ツリーノードを先頭ノードに移動する .
+     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
      */
     void moveFirst();
@@ -515,13 +526,13 @@ public:
     bool isAlive();
 
     /**
-     * 活動中か
-     * @return	bool true:活動中／false:停止中
+     * 活動中か調べる
+     * @return	bool true:活動中／false:非活動中
      */
     bool isPlaying();
 
     /**
-     * 停止から活動に切り替わったかどうか .
+     * 非活動から活動に切り替わったかどうか .
      * ただし、onAct() で代用できる場合は、そちらをオーバーライドしたほうがすっきり記述できるはず。
      * @return	bool true:切り替わった／false:切り替わっていない
      */
@@ -541,7 +552,7 @@ public:
     bool isBehaving();
 
     /**
-     * 描画できるか（非表示でないかどうか）
+     * 描画するかどうか調べる（非表示でないかどうか）
      * @return	bool true:描画できる／false:描画はしない
      */
     bool canDraw();
@@ -554,7 +565,7 @@ public:
     /**
      * 相対経過フレームの判定。
      * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
-     * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化します。
+     * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
      * @param	prm_dwFrame_relative	経過フレーム数
      * @return	bool	true:経過フレーム数に達した/false:達していない
      */
@@ -562,11 +573,7 @@ public:
 
 };
 
-//////////////////////////////////////////////////////////////////
-
-/**
- * ここからは実装部
- */
+///////////////////////////////////////////////////////////////// ここからは実装部
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) :
@@ -583,12 +590,12 @@ void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _dwFrame=" << _dwFrame << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
 
-    //死の時????????????????????????????????????????ここか？
+    //死の時か
     if (_dwGodFrame_ofDeath == (askGod()->_dwFrame_God)) {
-        //_TRACE_("_dwGodFrame_ofDeath == _dwFrame<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
         _willActNextFrame = false;
         _willBeAliveNextFrame = false;
     }
+
 
     if (_willMoveLastNextFrame) {
         _willMoveLastNextFrame = false;
@@ -623,17 +630,16 @@ void GgafElement<T>::nextFrame() {
             }
         }
 
-        //フラグたちを反映
+        //活動、非活動の状態変化時
         if (_isActive == false && _willActNextFrame) {
-            // not Play → Play 状態の場合
             _switchedToAct = true;
         } else if (_isActive && _willActNextFrame == false) {
-            // Play → not Play 状態の場合
             _switchedToRefrain = true;
         } else {
             _switchedToAct = false;
             _switchedToRefrain = false;
         }
+        //フラグたちを反映
         _isActive = _willActNextFrame;
         _wasPaused = _willPauseNextFrame;
         _wasBlinded = _willBlindNextFrame;
@@ -674,6 +680,7 @@ void GgafElement<T>::behave() {
         _wasInitialized = true;
     }
 
+    //活動、非活動の状態変化時コールバック
     if (_switchedToAct) {
         onAct();
     } else if (_switchedToRefrain) {
@@ -842,7 +849,6 @@ void GgafElement<T>::finally() {
             }
         }
     }
-
 }
 
 template<class T>
@@ -1208,10 +1214,6 @@ template<class T>
 void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
 
     _dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
-    //	_TRACE_("GgafElement<"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame<<"/prm_dwFrameOffset="<<prm_dwFrameOffset);
-    //	_willActNextFrame = false;
-    //	_willBeAliveNextFrame = false;
-    //	SUPER::_name = "_x_"+SUPER::_name;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {
@@ -1305,7 +1307,7 @@ T* GgafElement<T>::becomeIndependent() {
     if (_isAlive) {
         return SUPER::tear();
     } else {
-        throw_GgafCriticalException("[GgafTreeNode<"<<SUPER::_class_name<<">::becomeIndependent()] ＜警告＞ "<<SUPER::getName()<<"は、いずれ死に行く運命です。");
+        throwGgafCriticalException("[GgafTreeNode<"<<SUPER::_class_name<<">::becomeIndependent()] ＜警告＞ "<<SUPER::getName()<<"は、いずれ死に行く運命である。");
     }
 }
 
@@ -1314,11 +1316,6 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
     if (SUPER::_pSubFirst == NULL) {
         return;
     }
-
-    //_TRACE_("[GgafElement<"<<SUPER::_class_name<<">"<<SUPER::_name<<"::cleane()");
-    //	if (_isAlive == false) {
-    //		throw_GgafCriticalException("[GgafElement<"<<SUPER::_class_name<<">::cleane()] Error! 自殺しなければいけない状況。ココの処理に来る前に親に delete されなければ、おかしいです。(name="<<SUPER::getName()+")");
-    //	}
 
     T* pElementTemp = SUPER::_pSubFirst->_pPrev;
     T* pWk;
@@ -1364,58 +1361,11 @@ void GgafElement<T>::cleane(int prm_iNumCleanNode) {
             }
         }
     }
-
-    //
-    //
-    ////				if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
-    ////				if (pElementTemp->_isAlive == false) {
-    ////					DELETE_IMPOSSIBLE_NULL(pElementTemp);
-    ////				}
-    ////				break;
-    //			}
-    //			if (pElementTemp->_isFirst) { //一周した
-    //				break;
-    //			}
-    //		}
-    //	}
-    //
-    //	//子を調べてdeleteする
-    //	T* pElementTemp = SUPER::_pSubFirst->SUPER::_pPrev;
-    //	T* pWk;
-    //	while(GgafFactory::_s_iCountCleanedNode < prm_iNumCleanNode) {
-    //		if (pElementTemp->_isFirst) { //末尾から見て行き最後の一つ
-    //
-    //			if (pElementTemp->_isAlive == false) {
-    //				DELETE_IMPOSSIBLE_NULL(pElementTemp);
-    //			}
-    //			break;
-    //		} else { //末尾から順に見ていく
-    //			pElementTemp = pElementTemp->SUPER::_pPrev;
-    //			if (pElementTemp->SUPER::_pNext->_isAlive == false) {
-    //				pWk = pElementTemp->SUPER::_pNext;
-    //				DELETE_IMPOSSIBLE_NULL(pWk);
-    //			}
-    //		}
-    //	}
-    //
-    //	//子がまだのっている場合さらにもぐる
-    //	if (SUPER::_pSubFirst != NULL) {
-    //		pElementTemp = SUPER::_pSubFirst;
-    //		while(true) {
-    //			pElementTemp->cleane(prm_iNumCleanNode);
-    //			if (pElementTemp->_isLast) {
-    //				break;
-    //			} else {
-    //				pElementTemp = pElementTemp->SUPER::_pNext;
-    //			}
-    //		}
-    //	}
 }
 
 template<class T>
 GgafElement<T>::~GgafElement() {
     //_TRACE_("~GgafElement() <"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
-
 }
 
 }

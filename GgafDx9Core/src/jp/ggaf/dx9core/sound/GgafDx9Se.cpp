@@ -105,7 +105,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) :
     //
     //	int ret = _pSoundSE->CreateSE( /* *(GgafDx9Sound::_pC3DSound),*/ wave_filename.c_str(), prm_iBufferCount, 0);
     //	if (!ret) {
-    //		throw_GgafCriticalException("GgafDx9Se::GgafDx9Se() Error! " << wave_filename << " ‚Ì‰Šú‰»‚ÉŽ¸”s");
+    //		throwGgafCriticalException("GgafDx9Se::GgafDx9Se() Error! " << wave_filename << " ‚Ì‰Šú‰»‚ÉŽ¸”s");
     //	}
 }
 /**

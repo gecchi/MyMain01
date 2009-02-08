@@ -19,7 +19,7 @@ GgafGod::GgafGod() : GgafObject(),
     _handleFactory01 = (HANDLE)::_beginthreadex(NULL, 0, GgafFactory::work, NULL, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
-        throw_GgafCriticalException("GgafGod::GgafGod() Error! ƒXƒŒƒbƒhì¬Ž¸”sI");
+        throwGgafCriticalException("GgafGod::GgafGod() Error! ƒXƒŒƒbƒhì¬Ž¸”sI");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
     ::InitializeCriticalSection(&(GgafGod::CS2));
@@ -44,7 +44,7 @@ void GgafGod::be() {
     if (_pWorld == NULL) {
         _pWorld = createWorld();
         if (_pWorld == NULL) {
-            throw_GgafCriticalException("GgafGod::be() Error! ¢ŠE‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
+            throwGgafCriticalException("GgafGod::be() Error! ¢ŠE‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
         }
         _pWorld->_pGod = this;
     }
@@ -56,11 +56,11 @@ void GgafGod::be() {
 
     if (_isBehaved == false) {
         _isBehaved = true;
-        ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         _dwFrame_God++;
         makeWorldBe();
         makeWorldJudge();
-        ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+     ___EndSynchronized; // <----- ”r‘¼I—¹
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
         if (_iNumPlayingActor > 1000) {
@@ -93,28 +93,28 @@ void GgafGod::be() {
                 //ƒXƒLƒbƒv‚·‚é‚Æ‚¢‚Á‚Ä‚àMAX_SKIP_FRAMEƒtƒŒ[ƒ€‚É‚P‰ñ‚Í•`‰æ‚Í‚·‚éB
                 _dwFrame_SkipCount = 0;
                 _dwFrame_Visualize++;
-                ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+             ___BeginSynchronized; // ----->”r‘¼ŠJŽn
                 makeWorldMaterialize();
                 makeWorldVisualize();
                 makeWorldFinalize();
                 //getWorld()->cleane(10);
-                ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+             ___EndSynchronized; // <----- ”r‘¼I—¹
             } else {
                 //ƒXƒLƒbƒvŽž‚ÍmakeWorldFinalize()‚¾‚¯
-                ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+             ___BeginSynchronized; // ----->”r‘¼ŠJŽn
                 makeWorldFinalize();
                 //getWorld()->cleane(1);
-                ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+             ___EndSynchronized; // <----- ”r‘¼I—¹
             }
         } else {
             //’ÊíŽž•`‰æiƒXƒLƒbƒv‚È‚µj
             _dwFrame_Visualize++;
-            ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+         ___BeginSynchronized; // ----->”r‘¼ŠJŽn
             makeWorldMaterialize();//•`‰æ‚ðs‚¤
             makeWorldVisualize(); //Ž‹Šo‰»‚ðs‚¤
             makeWorldFinalize();
             //getWorld()->cleane(1);
-            ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+         ___EndSynchronized; // <----- ”r‘¼I—¹
         }
         _isBehaved = false;
 
@@ -122,9 +122,9 @@ void GgafGod::be() {
         Sleep(1); //Hêi•ÊƒXƒŒƒbƒhj‚É‰ñ‚·
         //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //‚Ü‚¾—]—T‚ª‚ ‚éê‡
         //			if (getWorld() != NULL && _s_iCountCleanedNode == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
-        //				::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+        //				 ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         //				getWorld()->cleane(1);
-        //				::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+        //				 ___EndSynchronized; // <----- ”r‘¼I—¹
         //			}
         //		}
     }
@@ -178,19 +178,19 @@ GgafGod::~GgafGod() {
         }
 
         //Hê‘|œ
-        ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();
         //ƒSƒ~” 
         GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
         GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-        ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+     ___EndSynchronized; // <----- ”r‘¼I—¹
 
         //¢ŠE‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
         Sleep(20);
-        ::EnterCriticalSection(&(GgafGod::CS1)); // ----->”r‘¼ŠJŽn
+     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         DELETE_IMPOSSIBLE_NULL(_pWorld);
-        ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- ”r‘¼I—¹
+     ___EndSynchronized; // <----- ”r‘¼I—¹
     }
 
     //”r‘¼‚Ì‰ðœ

@@ -26,7 +26,11 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     }
 }
 
-void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY) {
+void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x,
+                                                    unsigned __int16 prm_y,
+                                                    unsigned __int16 prm_z,
+                                                    s_ang& out_angRotZ,
+                                                    s_ang& out_angRotY) {
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
 
@@ -36,7 +40,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
     bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
     center_prev = -1;
-    for(int i = 0; i < 24; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
+    for(int i = 0; i < 24; i++) { //Å‚24‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;
@@ -53,11 +57,10 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 
     //xz‚ÌƒT[ƒ`
     target.set(prm_x, _sr[top].vec.y, prm_z);
-
     top = (top / (S_ANG90+1)) * (S_ANG90+1);
     bottom = top + (S_ANG90+1)-1;
     center_prev = -1;
-    for(int i = 0; i < 24; i++) { //Å‚‚Q‚O‰ñ‚Ü‚ÅŒŸõ
+    for(int i = 0; i < 24; i++) { //Å‚24‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;
@@ -77,7 +80,11 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x, unsi
 
 }
 
-void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY, s_ang prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
+void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY,
+                                                  s_ang prm_angRotZ,
+                                                  unsigned __int16& out_x,
+                                                  unsigned __int16& out_y,
+                                                  unsigned __int16& out_z) {
     static int index;
     index = prm_angRotZ*(S_ANG90+1)+prm_angRotY;
     out_x = _sr[index].vec.x;

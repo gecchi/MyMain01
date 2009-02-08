@@ -13,11 +13,10 @@ GgafDx9World::GgafDx9World(const char* prm_name) : GgafWorld(prm_name) {
         _apActorDrawDepthLevel_first[i] = NULL;
         _apActorDrawDepthLevel_last[i] = NULL;
     }
-
     _pCamera = NEW GgafDx9CameraActor("CAMERA");
     getLordActor()->accept(_pCamera);
-
 }
+
 void GgafDx9World::drawMain() {
     //‡”Ô‚ÉƒŒƒ“ƒ_‚ª‚ ‚ê‚Î‚»‚ê‚ğæ‚És‚¤
     static GgafActor* pActor;

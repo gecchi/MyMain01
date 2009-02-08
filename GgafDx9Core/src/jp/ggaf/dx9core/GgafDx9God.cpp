@@ -52,7 +52,7 @@ HRESULT GgafDx9God::init() {
 
     //IDirect3D9コンポーネントの取得
     if (!(GgafDx9God::_pID3D9 = Direct3DCreate9(D3D_SDK_VERSION))) {
-        throw_GgafCriticalException("Direct3DCreate9 に失敗しました");
+        throwGgafCriticalException("Direct3DCreate9 に失敗しました");
         return E_FAIL; //失敗
     }
 
@@ -60,7 +60,7 @@ HRESULT GgafDx9God::init() {
     D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
     hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
     if (hr != D3D_OK) {
-        throw_GgafDx9CriticalException("GetAdapterDisplayMode に失敗しました", hr);
+        throwGgafDx9CriticalException("GetAdapterDisplayMode に失敗しました", hr);
         return E_FAIL;
     }
 
@@ -156,12 +156,12 @@ HRESULT GgafDx9God::init() {
                 }
                 if (cc == i) {
                     //要求した使える解像度が見つからない
-                    throw_GgafCriticalException(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) <<"x"<<GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) << "のフルスクリーンモードにする事ができません。");
+                    throwGgafCriticalException(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) <<"x"<<GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) << "のフルスクリーンモードにする事ができません。");
                     return E_FAIL;
                 }
             }
         } else {
-            throw_GgafCriticalException("GetAdapterModeCount に失敗しました");
+            throwGgafCriticalException("GetAdapterModeCount に失敗しました");
             return E_FAIL;
         }
     }
@@ -200,12 +200,12 @@ HRESULT GgafDx9God::init() {
     //その他必要な初期化
     _pModelManager = NEW GgafDx9ModelManager("ModelManager");
     GgafDx9Util::init(); //ユーティリティ準備
-            GgafDx9Input::init(); //DirectInput準備
-            GgafDx9Sound::init(); //DirectSound準備
+    GgafDx9Input::init(); //DirectInput準備
+    GgafDx9Sound::init(); //DirectSound準備
 
-            return initDx9Device();
+    return initDx9Device();
 
-        }
+}
 
 HRESULT GgafDx9God::initDx9Device() {
     // デフォルトのライト
@@ -323,36 +323,36 @@ HRESULT GgafDx9God::initDx9Device() {
     DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_POSSIBLE_NULL(_pVecCamUp);
     _pVecCamFromPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_dCamZ); //位置
-            _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
-            _pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
-            updateCam();
+    _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
+    _pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
+    updateCam();
 
-            // 射影変換（３Ｄ→平面）
-            D3DXMATRIX matrixProjrction; // 射影変換行列
-            D3DXMatrixPerspectiveFovLH(
-                    &matrixProjrction,
-                    2.0*(PI/9), //y方向視野角ラディアン(0～π)
-                    (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
-                    1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-                    2000.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
-                    //(FLOAT)(-1.0*dCam*4)
-                    //(-1.0*fCam)-30,
-                    //(-1.0*fCam)+30
-            );
-            /*
-             //左手座標系正射影
-             D3DXMatrixOrthoLH(
-             &matrixProjrction,
-             GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
-             GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT),
-             1.0f,
-             GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
-             );
-             */
-            GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
+    // 射影変換（３Ｄ→平面）
+    D3DXMATRIX matrixProjrction; // 射影変換行列
+    D3DXMatrixPerspectiveFovLH(
+            &matrixProjrction,
+            2.0*(PI/9), //y方向視野角ラディアン(0～π)
+            (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
+            1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
+            2000.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+            //(FLOAT)(-1.0*dCam*4)
+            //(-1.0*fCam)-30,
+            //(-1.0*fCam)+30
+    );
+    /*
+     //左手座標系正射影
+     D3DXMatrixOrthoLH(
+     &matrixProjrction,
+     GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
+     GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT),
+     1.0f,
+     GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
+     );
+     */
+    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
 
-            return S_OK;
-        }
+    return S_OK;
+}
 
 void GgafDx9God::updateCam() {
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
@@ -381,11 +381,11 @@ void GgafDx9God::makeWorldMaterialize() {
         if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
             //工場休止
             GgafFactory::beginRest();
-            ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+         ___EndSynchronized; // <----- 排他終了
             while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
                 Sleep(10);
             }
-            ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
+         ___BeginSynchronized; // ----->排他開始
             _TRACE_("正常デバイスロスト処理。Begin");
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
@@ -394,7 +394,7 @@ void GgafDx9God::makeWorldMaterialize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
             if (hr != D3D_OK) {
-                throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
+                throwGgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。", hr);
             }
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -423,22 +423,23 @@ void GgafDx9God::makeWorldMaterialize() {
                                               0 // ステンシルバッファのクリア値
                 );
         if (hr != D3D_OK) {
-            throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->Clear() に失敗しました。", hr);
+            throwGgafDx9CriticalException("GgafDx9God::_pID3DDevice9->Clear() に失敗しました。", hr);
         }
 
         //描画事前処理
         if (GgafDx9God::_pID3DDevice9->BeginScene()) {
-            throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。", hr);
+            throwGgafDx9CriticalException("GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。", hr);
         }
         //全て具現化！（描画）
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
         GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
         //描画事後処理
         if (GgafDx9God::_pID3DDevice9->EndScene()) {
-            throw_GgafDx9CriticalException("GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。", hr);
+            throwGgafDx9CriticalException("GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。", hr);
         }
 
-    }TRACE("GgafDx9God::makeWorldMaterialize() end");
+    }
+    TRACE("GgafDx9God::makeWorldMaterialize() end");
 }
 
 void GgafDx9God::makeWorldVisualize() {
@@ -457,11 +458,11 @@ void GgafDx9God::makeWorldVisualize() {
             _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
             //工場休止
             GgafFactory::beginRest();
-            ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+         ___EndSynchronized; // <----- 排他終了
             while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
                 Sleep(10);
             }
-            ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
+         ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
@@ -470,7 +471,7 @@ void GgafDx9God::makeWorldVisualize() {
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
             if (hr != D3D_OK) {
-                throw_GgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。", hr);
+                throwGgafDx9CriticalException("GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。", hr);
             }
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -499,19 +500,19 @@ GgafDx9God::~GgafDx9God() {
         }
 
         //工場掃除
-        ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
+     ___BeginSynchronized; // ----->排他開始
         GgafFactory::clean();
         //ゴミ箱
         GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
         GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-        ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+     ___EndSynchronized; // <----- 排他終了
 
         //世界で生きている物も掃除
         Sleep(20);
-        ::EnterCriticalSection(&(GgafGod::CS1)); // ----->排他開始
+     ___BeginSynchronized; // ----->排他開始
         DELETE_IMPOSSIBLE_NULL(_pWorld);
-        ::LeaveCriticalSection(&(GgafGod::CS1)); // <----- 排他終了
+     ___EndSynchronized; // <----- 排他終了
     }
     //いろいろ解放
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);

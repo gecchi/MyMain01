@@ -2,6 +2,11 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
+
+
+#define  ___BeginSynchronized ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
+#define  ___EndSynchronized ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
+
 /**
  * 神クラス.
  * 世界(GgafWorld)を管理します。

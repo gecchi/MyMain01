@@ -237,7 +237,7 @@ GgafLinkedListRing<T>::GgafLinkedListRing() :
 template<class T>
 T* GgafLinkedListRing<T>::get() {
     if (_pElemActive == NULL) {
-        throw_GgafCriticalException("[GgafLinkedListRing::get()] Error! アクティブ要素がNULLです");
+        throwGgafCriticalException("[GgafLinkedListRing::get()] Error! アクティブ要素がNULLです");
     }
     return _pElemActive->_pValue;
 }
@@ -245,7 +245,7 @@ T* GgafLinkedListRing<T>::get() {
 template<class T>
 T* GgafLinkedListRing<T>::next() {
     if (_pElemActive == NULL) {
-        throw_GgafCriticalException("[GgafLinkedListRing::next()] Error! アクティブ要素がNULLです");
+        throwGgafCriticalException("[GgafLinkedListRing::next()] Error! アクティブ要素がNULLです");
     }
     _pElemActive = _pElemActive->_pNext;
     return _pElemActive->_pValue;
@@ -254,7 +254,7 @@ T* GgafLinkedListRing<T>::next() {
 template<class T>
 T* GgafLinkedListRing<T>::prev() {
     if (_pElemActive == NULL) {
-        throw_GgafCriticalException("[GgafLinkedListRing::prev()] Error! アクティブ要素がNULLです");
+        throwGgafCriticalException("[GgafLinkedListRing::prev()] Error! アクティブ要素がNULLです");
     }
     _pElemActive = _pElemActive->prev;
     return _pElemActive->_pValue;
@@ -263,7 +263,7 @@ T* GgafLinkedListRing<T>::prev() {
 template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
     if (prm_pSub == NULL) {
-        throw_GgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
     }
     static Elem* pElem;
     static Elem* pLastElem;

@@ -43,13 +43,13 @@ void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
 GgafHeadActor* GgafMainActor::getHeadActor() {
     if (_pHeadActor == NULL) {
         if (_pParent == NULL) {
-            throw_GgafCriticalException("GgafMainActor::getHeadActor 所属していないため、HeadActorがとれません！("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::getHeadActor 所属していないため、HeadActorがとれません！("<<getName()<<")");
         } else {
             GgafMainActor* p = dynamic_cast<GgafMainActor*> (_pParent);
             if (p) {
                 _pHeadActor = p->getHeadActor();
             } else {
-                throw_GgafCriticalException("GgafMainActor::getHeadActor このツリーにはHeadActorがいません！("<<getName()<<")");
+                throwGgafCriticalException("GgafMainActor::getHeadActor このツリーにはHeadActorがいません！("<<getName()<<")");
             }
         }
     }
@@ -59,13 +59,13 @@ GgafHeadActor* GgafMainActor::getHeadActor() {
 GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
-            throw_GgafCriticalException("GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")");
         } else {
             GgafMainActor* p = dynamic_cast<GgafMainActor*> (_pParent);
             if (p) {
                 _pLordActor = p->getLordActor();
             } else {
-                throw_GgafCriticalException("GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")");
+                throwGgafCriticalException("GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")");
             }
         }
     }
@@ -75,7 +75,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {
         if (_pParent == NULL) {
-            throw_GgafCriticalException("GgafMainActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
         } else {
             _pGod = getParent()->askGod();
         }

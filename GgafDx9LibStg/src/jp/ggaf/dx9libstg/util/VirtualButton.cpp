@@ -271,7 +271,7 @@ void VirtualButton::init() {
 
 void VirtualButton::update() {
     if (_s_pVBMap == NULL) {
-        throw_GgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
+        throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
 
     GgafDx9Input::updateKeyboardState();

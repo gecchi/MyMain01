@@ -18,7 +18,7 @@ void StgChecker::useHitAreaBoxNum(int n) {
     if (_pHitAreaBoxs == NULL) {
         _pHitAreaBoxs = NEW HitAreaBoxs(n);
     } else {
-        throw_GgafCriticalException("StgChecker::useHitAreaBoxNum HitAreaBoxsは既に new されています。");
+        throwGgafCriticalException("StgChecker::useHitAreaBoxNum HitAreaBoxsは既に new されています。");
     }
 }
 
@@ -33,7 +33,7 @@ void StgChecker::setHitAreaBox(int prm_index,
                                bool rotY,
                                bool rotZ) {
     if (_pHitAreaBoxs == NULL) {
-        throw_GgafCriticalException("StgChecker::setHitAreaBox まず useHitAreaBoxNum を実行して、要素数を宣言してください。");
+        throwGgafCriticalException("StgChecker::setHitAreaBox まず useHitAreaBoxNum を実行して、要素数を宣言してください。");
     } else {
         _pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
     }
@@ -106,18 +106,12 @@ bool StgChecker::isBump(GgafDx9GeometryChecker* prm_pOtherChecker) {
         for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
             for (int j = 0; j < pOtherHitAreaBoxs->_iBoxNum; j++) {
 
-                if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z
-                        + pOtherHitAreaBoxs->_paHitArea[i].z1) {
-                    if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z
-                            + pOtherHitAreaBoxs->_paHitArea[i].z2) {
-                        if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X
-                                + pOtherHitAreaBoxs->_paHitArea[i].x1) {
-                            if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x1 <= pOtherActor->_X
-                                    + pOtherHitAreaBoxs->_paHitArea[i].x2) {
-                                if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y2 >= pOtherActor->_Y
-                                        + pOtherHitAreaBoxs->_paHitArea[i].y1) {
-                                    if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y1 <= pOtherActor->_Y
-                                            + pOtherHitAreaBoxs->_paHitArea[i].y2) {
+                if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
+                    if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
+                        if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
+                            if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
+                                if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
+                                    if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
                                         return true;
                                     }
                                 }

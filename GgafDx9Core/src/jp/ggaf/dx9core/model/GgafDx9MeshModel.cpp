@@ -31,8 +31,10 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         //描画
-        if (pMeshActor_Target->_SX == LEN_UNIT && pMeshActor_Target->_SY == LEN_UNIT && pMeshActor_Target->_SZ
-                == LEN_UNIT) {
+        if (pMeshActor_Target->_SX == LEN_UNIT &&
+            pMeshActor_Target->_SY == LEN_UNIT &&
+            pMeshActor_Target->_SZ == LEN_UNIT)
+        {
             hr = _pID3DXMesh->DrawSubset(i); //なんて便利なメソッド！
         } else {
             //拡大縮小がなされているため、カメラ空間にトランスフォームされた後で頂点法線の正規化するように設定（負荷高）
@@ -64,7 +66,7 @@ void GgafDx9MeshModel::onDeviceLost() {
 void GgafDx9MeshModel::release() {
     _TRACE_("GgafDx9MeshModel::release() " << _model_name << " start");
     if (_pID3DXMesh == NULL) {
-        throw_GgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
+        throwGgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放するかどうか
     for (DWORD i = 0; i < _dwNumMaterials; i++) {

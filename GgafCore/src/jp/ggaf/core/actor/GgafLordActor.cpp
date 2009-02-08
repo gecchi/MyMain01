@@ -10,7 +10,7 @@ GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor(prm_pSc
 }
 
 void GgafLordActor::remove() {
-    throw_GgafCriticalException("[GgafLordActor::remove] Error! GgafLordActorはremove()によって削除は行えません！");
+    throwGgafCriticalException("[GgafLordActor::remove] Error! GgafLordActorはremove()によって削除は行えません！");
 }
 
 void GgafLordActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
@@ -52,7 +52,7 @@ bool GgafLordActor::hasSubHeadActor(actorkind prm_kind) {
 
 GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
     if (_pSubFirst == NULL) {
-        throw_GgafCriticalException("[GgafLordActor::getSubHeadActor] Error! _pSubFirstがNULLです。");
+        throwGgafCriticalException("[GgafLordActor::getSubHeadActor] Error! _pSubFirstがNULLです。");
     }
     GgafHeadActor* pHeadActor = (GgafHeadActor*)_pSubFirst;
     do {
@@ -60,7 +60,7 @@ GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
             break;
         }
         if (pHeadActor->_isLast) {
-            throw_GgafCriticalException("[GgafLordActor::getSubHeadActor] Error! 子ノードは存在しません。(actorkind="<<prm_kind<<")");
+            throwGgafCriticalException("[GgafLordActor::getSubHeadActor] Error! 子ノードは存在しません。(actorkind="<<prm_kind<<")");
         } else {
             pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
         }
@@ -77,7 +77,7 @@ GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
 GgafGod* GgafLordActor::askGod() {
     if (_pGod == NULL) {
         if (getPlatformScene() == NULL) {
-            throw_GgafCriticalException("GgafLordActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafLordActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
         } else {
             _pGod = getPlatformScene()->askGod();
         }

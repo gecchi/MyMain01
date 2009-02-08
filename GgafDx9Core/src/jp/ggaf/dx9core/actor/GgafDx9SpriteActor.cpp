@@ -45,7 +45,7 @@ void GgafDx9SpriteActor::processDrawMain() {
 
 void GgafDx9SpriteActor::setActivAnimationPattern(int prm_iAnimationPatternNo) {
     if (0 > prm_iAnimationPatternNo || prm_iAnimationPatternNo > (_pSpriteModel->_iAnimationPatternNo_Max)) {
-        throw_GgafCriticalException("GgafDx9SpriteActor::setActivAnimationPattern アニメーションパターン番号が範囲外です。引数="<<prm_iAnimationPatternNo);
+        throwGgafCriticalException("GgafDx9SpriteActor::setActivAnimationPattern アニメーションパターン番号が範囲外です。引数="<<prm_iAnimationPatternNo);
     } else {
         _iAnimationPatternNo_Active = prm_iAnimationPatternNo;
     }
@@ -53,7 +53,7 @@ void GgafDx9SpriteActor::setActivAnimationPattern(int prm_iAnimationPatternNo) {
 
 void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_iTop, int prm_bottom = 1) {
     if (prm_iTop < 0 || prm_bottom > (_pSpriteModel->_iAnimationPatternNo_Max)) {
-        throw_GgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
+        throwGgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
     } else {
         _iAnimationPatternNo_Top = prm_iTop;
         _iAnimationPatternNo_Bottom = prm_bottom;

@@ -68,7 +68,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //		static VERTEX* paVertexBuffer;
     //		hr = _pIDirect3DVertexBuffer9->Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
     //		if(hr != D3D_OK) {
-    //			throw_GgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
+    //			throwGgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
     //		}
     //		paVertexBuffer[0].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
     //		paVertexBuffer[1].color = D3DCOLOR_ARGB(_iChangeVertexAlpha,255,255,255);
@@ -113,17 +113,11 @@ void GgafDx9SpriteModel::onDeviceLost() {
     release();
     _TRACE_("GgafDx9SpriteModel::onDeviceLost() " << _model_name << " end");
 }
-//
-//void GgafDx9SpriteModel::changeVertexAlpha(int prm_iVertexAlpha) {
-//	_isChangedAlpha = true;
-//	_iChangeVertexAlpha = prm_iVertexAlpha;
-//}
 
 void GgafDx9SpriteModel::release() {
     _TRACE_("GgafDx9SpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-    //GgafDx9ModelManager::_pTextureManager->releaseResourceLead(_pTexture);
     RELEASE_SAFETY(_pTexture);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     _TRACE_("GgafDx9SpriteModel::release() " << _model_name << " end");

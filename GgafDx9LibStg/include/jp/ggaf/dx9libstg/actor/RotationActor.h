@@ -60,7 +60,7 @@ public:
      */
     virtual GgafCore::GgafMainActor* obtain() {
         if (_pSubFirst == NULL) {
-            throw_GgafCriticalException("RotationActor::getFreeOne() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
+            throwGgafCriticalException("RotationActor::getFreeOne() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
         }
         static GgafMainActor* pActor;
         pActor = getSubFirst();

@@ -319,7 +319,7 @@ T* GgafNode<T>::tear() {
         _isLast = true;
         return (T*)this;
     } else {
-        throw_GgafCriticalException("[GgafNode<" << _class_name << ">::tear()] ＜警告＞ " << getName() << "は、何所にも所属していません");
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::tear()] ＜警告＞ " << getName() << "は、何所にも所属していません");
     }
 
 }
@@ -391,7 +391,7 @@ T* GgafNode<T>::getPrev() {
 template<class T>
 T* GgafNode<T>::getParent() {
     if (_pParent == NULL) {
-        throw_GgafCriticalException("[GgafNode<" << _class_name << ">::getParent()] Error! 親ノードがありません。");
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::getParent()] Error! 親ノードがありません。");
     }
     return (T*)_pParent;
 }
@@ -402,7 +402,7 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
     while (true) {
         _pNodeTemp = _pNodeTemp->_pParent;
         if (_pNodeTemp == NULL) {
-            throw_GgafCriticalException("[GgafNode<" << _class_name
+            throwGgafCriticalException("[GgafNode<" << _class_name
                     << ">::getParent()] Error! 親ノードがありません。(prm_parent_name=" << prm_parent_name << ")");
         } else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
             break;
@@ -414,7 +414,7 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
 template<class T>
 T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
     if (_pSubFirst == NULL) {
-        throw_GgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! _pSubFirstがNULLです。");
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! _pSubFirstがNULLです。");
     }
     _pNodeTemp = _pSubFirst;
     do {
@@ -422,7 +422,7 @@ T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
             break;
         }
         if (_pNodeTemp->_isLast) {
-            throw_GgafCriticalException("[GgafNode<" << _class_name
+            throwGgafCriticalException("[GgafNode<" << _class_name
                     << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
         } else {
             _pNodeTemp = _pNodeTemp->_pNext;
@@ -458,7 +458,7 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
 template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
     if (prm_pSub->_pParent != NULL) {
-        throw_GgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! ノードは既に所属("
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! ノードは既に所属("
                 << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName()
                 << ")");
     }

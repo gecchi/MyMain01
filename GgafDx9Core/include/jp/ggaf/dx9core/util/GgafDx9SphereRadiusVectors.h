@@ -65,7 +65,11 @@ public:
      * @param out_angRotZ Z軸回転値（単位s_ang）
      * @param out_angRotY Y軸回転値（単位s_ang）
      */
-    void getRotAngleClosely(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z, s_ang& out_angRotZ, s_ang& out_angRotY);
+    void getRotAngleClosely(unsigned __int16 prm_x,
+                            unsigned __int16 prm_y,
+                            unsigned __int16 prm_z,
+                            s_ang& out_angRotZ,
+                            s_ang& out_angRotY);
 
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルをだいたいで求める。
@@ -76,7 +80,11 @@ public:
      * @param out_y 方向ベクトルY要素
      * @param out_z 方向ベクトルZ要素
      */
-    void getVectorClosely(s_ang prm_angRotY, s_ang prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z);
+    void getVectorClosely(s_ang prm_angRotY,
+                          s_ang prm_angRotZ,
+                          unsigned __int16& out_x,
+                          unsigned __int16& out_y,
+                          unsigned __int16& out_z);
 
     virtual ~GgafDx9SphereRadiusVectors();
 };

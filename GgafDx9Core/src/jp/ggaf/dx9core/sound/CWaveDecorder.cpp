@@ -46,14 +46,13 @@ int CWaveDecorder::readMMIO(void) {
     if (pcmWaveFormat.wf.wFormatTag == WAVE_FORMAT_PCM) {
         m_pwfx = NEW WAVEFORMATEX;
 
-			// Copy the bytes from the pcm structure to the waveformatex structure
-			memcpy(m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat));
-m_pwfx        ->cbSize = 0;
+        // Copy the bytes from the pcm structure to the waveformatex structure
+        memcpy(m_pwfx, &pcmWaveFormat, sizeof(pcmWaveFormat));
+        m_pwfx->cbSize = 0;
     } else {
         // Read in length of extra bytes.
         WORD cbExtraBytes = 0L;
-        if (mmioRead(m_hmmioIn, (CHAR*) &cbExtraBytes, sizeof(WORD))
-                != sizeof(WORD)) {
+        if (mmioRead(m_hmmioIn, (CHAR*) &cbExtraBytes, sizeof(WORD)) != sizeof(WORD)) {
             return false;
         }
 
@@ -64,8 +63,10 @@ m_pwfx        ->cbSize = 0;
         m_pwfx->cbSize = cbExtraBytes;
 
         // Now, read those extra bytes into the structure, if cbExtraAlloc != 0.
-        if (mmioRead(m_hmmioIn, (CHAR*) (((BYTE*) &(m_pwfx->cbSize))
-                                + sizeof(WORD)), cbExtraBytes) != cbExtraBytes) {
+        if (mmioRead(m_hmmioIn,
+                     (CHAR*) ( ((BYTE*) &(m_pwfx->cbSize)) + sizeof(WORD) ),
+                     cbExtraBytes
+                    ) != cbExtraBytes) {
             DELETE_IMPOSSIBLE_NULL(m_pwfx);
             m_pwfx = NULL;
             return false;
