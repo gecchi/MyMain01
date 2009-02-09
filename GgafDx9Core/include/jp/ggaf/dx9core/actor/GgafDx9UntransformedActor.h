@@ -14,6 +14,12 @@ private:
 public:
     /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9;
+
+    /** エフェクト */
+    GgafDx9EffectLead* _pEffectLead;
+    ID3DXEffect* _pID3DXEffect;
+
+
     /** キャラ全体のα */
     float _fAlpha;
 

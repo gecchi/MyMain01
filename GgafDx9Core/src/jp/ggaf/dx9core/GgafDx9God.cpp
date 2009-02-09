@@ -20,11 +20,12 @@ D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
 D3DXMATRIX GgafDx9God::_vMatrixView;
+D3DXMATRIX GgafDx9God::_vMatrixProjrction;
 int GgafDx9God::_iPxDep = 0;
 D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
 GgafDx9ModelManager* GgafDx9God::_pModelManager = NULL;
-
+GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
@@ -37,8 +38,6 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafDx9God::_hInstance = prm_hInstance;
     _deviceLostFlg = false;
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は乱数のSeed
-    _pModelManager = NULL;
-
 }
 
 HRESULT GgafDx9God::init() {
@@ -199,6 +198,7 @@ HRESULT GgafDx9God::init() {
 
     //その他必要な初期化
     _pModelManager = NEW GgafDx9ModelManager("ModelManager");
+    _pEffectManager = NEW GgafDx9EffectManager("EffectManager");
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
@@ -317,7 +317,7 @@ HRESULT GgafDx9God::initDx9Device() {
     _iPxDep = abs(_dCamZ_ini * PX_UNIT * 2);
 
     _TRACE_("カメラの位置(0,0,"<<_dCamZ<<")");
-    D3DXMATRIX _vMatrixView; // ビュー変換行列
+    //D3DXMATRIX _vMatrixView; // ビュー変換行列
 
     DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
@@ -328,9 +328,9 @@ HRESULT GgafDx9God::initDx9Device() {
     updateCam();
 
     // 射影変換（３Ｄ→平面）
-    D3DXMATRIX matrixProjrction; // 射影変換行列
+    //D3DXMATRIX _vMatrixProjrction; // 射影変換行列
     D3DXMatrixPerspectiveFovLH(
-            &matrixProjrction,
+            &_vMatrixProjrction,
             2.0*(PI/9), //y方向視野角ラディアン(0～π)
             (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
             1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
@@ -342,14 +342,14 @@ HRESULT GgafDx9God::initDx9Device() {
     /*
      //左手座標系正射影
      D3DXMatrixOrthoLH(
-     &matrixProjrction,
+     &_vMatrixProjrction,
      GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
      GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT),
      1.0f,
      GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
      );
      */
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &matrixProjrction);
+    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProjrction);
 
     return S_OK;
 }
@@ -522,6 +522,7 @@ GgafDx9God::~GgafDx9God() {
     CmRandomNumberGenerator::getInstance()->release();
     //保持モデル解放
     DELETE_IMPOSSIBLE_NULL(_pModelManager);
+    DELETE_IMPOSSIBLE_NULL(_pEffectManager);
     //DirectInput解放
     GgafDx9Input::release();
     //DirectSound解放

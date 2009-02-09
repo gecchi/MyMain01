@@ -28,7 +28,9 @@ void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
 }
 
 void GgafDx9MeshActor::processDrawMain() {
-    GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
+    if (_pID3DXEffect == NULL) {
+        GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
+    }
     _pMeshModel->draw(this);
 }
 

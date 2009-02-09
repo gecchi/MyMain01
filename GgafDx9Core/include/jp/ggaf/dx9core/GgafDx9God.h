@@ -44,8 +44,11 @@ public:
     static D3DXVECTOR3* _pVecCamUp;
     /** VIEW•ÏŠ·s—ñ */
     static D3DXMATRIX _vMatrixView;
+    /** Ë‰e•ÏŠ·‹›”„‚ê‚é */
+    static D3DXMATRIX _vMatrixProjrction;
 
     static GgafDx9ModelManager* _pModelManager;
+    static GgafDx9EffectManager* _pEffectManager;
 
     static int _iPxDep;
 

@@ -15,6 +15,7 @@ public:
     static std::string* DIR_MESH_MODEL;
     static std::string* DIR_SPRITE_MODEL;
     static std::string* DIR_TEXTURE;
+    static std::string* DIR_EFFECT;
     static std::string* DIR_OGG;
     static std::string* DIR_WAVE;
 
