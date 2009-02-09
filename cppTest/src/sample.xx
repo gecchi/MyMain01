@@ -1,0 +1,143 @@
+// 極小プログラマブルシェーダープログラム
+
+#pragma comment(lib, "dxguid.lib")
+#pragma comment(lib, "d3d9.lib")
+#pragma comment(lib, "d3dx9.lib")
+
+#include <windows.h>
+#include <tchar.h>
+#include <d3d9.h>
+#include <d3dx9.h>
+#include "Comptr.h"
+//#include <crtdbg.h>
+
+using namespace IKD;
+
+_TCHAR gName[100] = _T("極小プログラマブルシェーダープログラム");
+
+// ウィンドウプロシージャ
+LRESULT CALLBACK  WndProc(HWND hWnd, UINT mes, WPARAM wParam, LPARAM lParam) {
+    switch (mes) {
+        case WM_DESTROY:
+            PostQuitMessage(0);
+            break;
+    }
+    return DefWindowProc(hWnd, mes, wParam, lParam);
+}
+
+int APIENTRY _tWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow) {
+    //_CrtSetDbgFlag(_CRTDBG_ALLOC_MEM_DF | _CRTDBG_LEAK_CHECK_DF);
+
+    // アプリケーションの初期化
+    MSG msg;
+    HWND hWnd;
+    WNDCLASSEX wcex = {sizeof(WNDCLASSEX), CS_HREDRAW | CS_VREDRAW, WndProc, 0, 0, hInstance, NULL, NULL,
+                       (HBRUSH)(COLOR_WINDOW + 1), NULL, (_TCHAR*)gName, NULL};
+    if (!RegisterClassEx(&wcex)) return 0;
+
+    DWORD WndStyle = WS_OVERLAPPEDWINDOW & ~(WS_MAXIMIZEBOX | WS_SIZEBOX);
+    RECT WndRect = {0, 0, 800, 600};
+    AdjustWindowRect(&WndRect, WndStyle, false);
+
+    if (!(hWnd = CreateWindow( gName, gName, WndStyle, CW_USEDEFAULT, 0,
+            WndRect.right-WndRect.left, WndRect.bottom-WndRect.top, NULL, NULL, hInstance, NULL))) return 0;
+
+    // Direct3Dの初期化
+    LPDIRECT3D9 g_pD3D;
+    LPDIRECT3DDEVICE9 g_pD3DDev;
+    if (!(g_pD3D = Direct3DCreate9(D3D_SDK_VERSION))) return 0;
+    //Com_ptr<IDirect3D9> spD3D(g_pD3D);
+
+    D3DPRESENT_PARAMETERS d3dpp = {0, 0, D3DFMT_UNKNOWN, 0, D3DMULTISAMPLE_NONE, 0, D3DSWAPEFFECT_DISCARD, NULL, TRUE,
+                                   TRUE, D3DFMT_D24S8, D3DPRESENTFLAG_DISCARD_DEPTHSTENCIL, D3DPRESENT_RATE_DEFAULT,
+                                   D3DPRESENT_INTERVAL_DEFAULT};
+
+    if (FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_HARDWARE_VERTEXPROCESSING, &d3dpp, &g_pD3DDev ) )) if (FAILED( g_pD3D->CreateDevice( D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, hWnd, D3DCREATE_SOFTWARE_VERTEXPROCESSING, &d3dpp, &g_pD3DDev ) )) return 0;
+    //Com_ptr<IDirect3DDevice9> cpDev(g_pD3DDev);
+
+    // Xファイルオブジェクト読み込み
+    //Com_ptr<ID3DXBuffer> cpMatBuf;
+    //Com_ptr<ID3DXMesh> cpMesh;
+    ID3DXBuffer* cpMatBuf;
+    ID3DXMesh* cpMesh;
+
+
+
+    DWORD dwMatNum;
+    D3DXMATERIAL *pMatAry;
+//    D3DXLoadMeshFromX(_T("Cube2.x"), D3DXMESH_MANAGED, cpDev.GetPtr(), NULL, cpMatBuf.ToCreator(), NULL, &dwMatNum,
+//                      cpMesh.ToCreator());
+    D3DXLoadMeshFromX(_T("Cube2.x"),
+                      D3DXMESH_MANAGED,
+                      g_pD3DDev,
+                      NULL,
+                      &cpMatBuf,
+                      NULL,
+                      &dwMatNum,
+                      &cpMesh);
+    pMatAry = (D3DXMATERIAL*)cpMatBuf->GetBufferPointer();
+
+    // エフェクトの読み込み
+    //Com_ptr<ID3DXEffect> cpEffect;
+    ID3DXEffect* cpEffect;
+    D3DXCreateEffectFromFile(g_pD3DDev,
+                             _T("Effect00.fx"),
+                             NULL,
+                             NULL,
+                             D3DXSHADER_DEBUG,
+                             NULL,
+                             &cpEffect,
+                             NULL);
+
+    // ビュー変換・射影変換
+    D3DXMATRIX View, Proj;
+    D3DXMatrixPerspectiveFovLH(&Proj, D3DXToRadian(45), 640.0f / 480.0f, 1.0f, 10000.0f);
+
+    // ウィンドウ表示
+    ShowWindow(hWnd, SW_SHOW );
+
+    float f = 0.0f;
+    DWORD i;
+    do {
+        if (PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
+            TranslateMessage(&msg);
+            DispatchMessage(&msg);
+        } else {
+            f += 0.025f;
+            g_pD3DDev->Clear(0, NULL, D3DCLEAR_TARGET | D3DCLEAR_ZBUFFER, D3DCOLOR_XRGB(10,150,190), 1.0f, 0);
+            g_pD3DDev->BeginScene();
+
+            // エフェクト内のワールドビュー射影変換行列を設定
+            D3DXMATRIX mat;
+            D3DXMatrixLookAtLH(&View,
+                               &D3DXVECTOR3(30 * sin(f), 20, -30 * cos(f)),
+                               &D3DXVECTOR3(0, 0, 0),
+                               &D3DXVECTOR3(0, 1, 0));
+            D3DXMatrixIdentity(&mat);
+            mat = mat * View * Proj;
+            cpEffect->SetMatrix("matWorldViewProj", &mat); //ユーザ定義セマンティクス
+            // 描画開始
+            cpEffect->SetTechnique("BasicTec");
+            UINT numPass;
+
+            cpEffect->Begin(&numPass, 0);
+            cpEffect->BeginPass(0);
+
+            for (i = 0; i < dwMatNum; i++) {
+                g_pD3DDev->SetMaterial(&(pMatAry[i].MatD3D));
+                cpMesh->DrawSubset(i);
+            }
+            cpEffect->EndPass();
+            cpEffect->End();
+
+            g_pD3DDev->EndScene();
+            g_pD3DDev->Present(NULL, NULL, NULL, NULL );
+        }
+    } while (msg.message != WM_QUIT);
+    cpEffect->Release();
+    cpMesh->Release();
+    cpMatBuf->Release();
+    g_pD3DDev->Release();
+    g_pD3D->Release();
+    return 0;
+}
