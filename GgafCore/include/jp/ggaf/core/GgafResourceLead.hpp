@@ -3,8 +3,14 @@
 namespace GgafCore {
 
 /**
- * モデル基底クラス.
- * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * 資源(Resource)アクセッサ.
+ * 無駄な資源(Resource)の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
+ * GgafResourceLead実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
+ * から取得することとします。<BR>
+ * 内部で参照カウンタにより開放か否かを判断したいためです。<BR>
+ * マネージャーから取得で参照カウントが+1、本クラスのReleaseで参照カウントが-1されます。<BR>
+ * 参照カウントが0になった場合、資源(Resource)は開放されます。
+ * T には資源を指定してください。<BR>
  */
 template<class T>
 class GgafResourceLead : public GgafObject {
@@ -37,13 +43,14 @@ public:
     GgafResourceLead(char* prm_idstr, T* prm_pResource);
 
     /**
-     * 資源を取得。
-     * 参照カウンタは増えません
+     * 資源のポインタを取得。
+     * 参照カウンタは増えません<BR>
      */
     virtual T* getResource();
 
     /**
      * 資源を解放
+     * 参照カウンタを1減らし、0になれば本当に開放します。
      */
     int Release();
 
