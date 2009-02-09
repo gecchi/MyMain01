@@ -576,8 +576,8 @@ public:
 ///////////////////////////////////////////////////////////////// ‚±‚±‚©‚ç‚ÍŽÀ‘••”
 
 template<class T>
-GgafElement<T>::GgafElement(const char* prm_name) :
-    SUPER(prm_name), _pGod(NULL), _wasInitialized(false), _dwGodFrame_ofDeath(MAXDWORD), _dwFrame(0),
+GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
+            _pGod(NULL), _wasInitialized(false), _dwGodFrame_ofDeath(MAXDWORD), _dwFrame(0),
             _dwFrame_relative(0), _isActive(true), _wasPaused(false), _wasBlinded(false), _isAlive(true),
             _willActNextFrame(true), _willPauseNextFrame(false), _willBlindNextFrame(false),
             _willBeAliveNextFrame(true), _willMoveFirstNextFrame(false), _willMoveLastNextFrame(false),
@@ -1022,7 +1022,6 @@ template<class T>
 void GgafElement<T>::pauseAlone() {
     if (_isAlive) {
         _willPauseNextFrame = true;
-        //_isActive = false;
     }
 }
 
@@ -1031,7 +1030,6 @@ void GgafElement<T>::pauseImmediately() {
     if (_isAlive) {
         _wasPaused = true;
         _willPauseNextFrame = true;
-        //_isActive = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -1051,7 +1049,6 @@ void GgafElement<T>::pauseImmediatelyAlone() {
     if (_isAlive) {
         _wasPaused = true;
         _willPauseNextFrame = true;
-        //_isActive = false;
     }
 }
 
