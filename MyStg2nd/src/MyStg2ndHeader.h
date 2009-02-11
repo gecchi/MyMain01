@@ -27,7 +27,6 @@ namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
 class God;
-class InterfaceGameActor;
 class World;
 
 class CommonScene;
@@ -51,7 +50,6 @@ class Stage05Scene;
 class MyLaserChip;
 class MyLaserChip2;
 class Stage01MainScene;
-class Tetrahedron;
 class MyShipMoverAssistant;
 class MyShip;
 class MyOptionParent;

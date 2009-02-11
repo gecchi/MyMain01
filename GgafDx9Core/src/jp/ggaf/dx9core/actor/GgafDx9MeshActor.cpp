@@ -31,6 +31,7 @@ void GgafDx9MeshActor::processDrawMain() {
 //    if (_pID3DXEffect == NULL) {
 //        GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
 //    }
+    GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
     _pMeshModel->draw(this);
 }
 

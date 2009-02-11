@@ -113,7 +113,7 @@ template<class T>
 class GgafResourceManager;
 
 template<class T>
-class Node;
+class GgafNode;
 
 template<class T>
 class GgafElement;
@@ -138,8 +138,6 @@ class GgafHeadActor;
 class GgafOrder;
 
 class GgafProperties;
-class GgafRect;
-class GgafUserRootSceneCreater;
 
 }
 
