@@ -6,20 +6,20 @@ class GgafDx9Input {
 
 public:
     /** IDirectInput8インターフェイス */
-    static LPDIRECTINPUT8 _s_pIDirectInput8;
+    static LPDIRECTINPUT8 _pIDirectInput8;
     /** キーボードインプットデバイス */
-    static LPDIRECTINPUTDEVICE8 _s_pIDirectInputDevice8_Keyboard;
+    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Keyboard;
     /** ジョイスティックインプットデバイス */
-    static LPDIRECTINPUTDEVICE8 _s_pIDirectInputDevice8_Joystick;
+    static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Joystick;
     /** ジョイスティックの性能 */
-    static DIDEVCAPS _s_didevcap;
+    static DIDEVCAPS _didevcap;
 
     static const int BUFFER_SIZE;
 
     /** キーボードの状態 */
-    static char _s_caKeyboardState[256];
+    static char _caKeyboardState[256];
     /** ジョイスティックの状態 */
-    static DIJOYSTATE _s_dijoystate;
+    static DIJOYSTATE _dijoystate;
 
     /**
      * コンストラクタ<BR>

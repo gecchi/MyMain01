@@ -56,7 +56,7 @@ public:
     static GgafGarbageBox* _pGarbageBox;
 
     /** 掃除オブジェクト数 */
-    static int _s_iCountCleanedNode;
+    static int _iCountCleanedNode;
 
     /** 活動フラグ(神が操作する) */
     static bool _isWorking;

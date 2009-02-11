@@ -4,21 +4,21 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DelineateActor* DelineateActor::_s_pObj = NULL;
+DelineateActor* DelineateActor::_pObj = NULL;
 
 DelineateActor::DelineateActor(const char* prm_name) : DefaultCubeActor(prm_name) {
     _class_name = "DelineateActor";
 }
 
 DelineateActor* DelineateActor::get() {
-    if (_s_pObj == NULL) {
-        _s_pObj = NEW DelineateActor("HITAREA");
+    if (_pObj == NULL) {
+        _pObj = NEW DelineateActor("HITAREA");
     }
-    return _s_pObj;
+    return _pObj;
 }
 
 void DelineateActor::release() {
-    DELETE_POSSIBLE_NULL(_s_pObj);
+    DELETE_POSSIBLE_NULL(_pObj);
 }
 
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {

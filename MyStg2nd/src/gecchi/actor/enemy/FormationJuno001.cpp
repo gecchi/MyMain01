@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-int FormationJuno001::_s_X_FormationWhole = 0;
-int FormationJuno001::_s_incX = -2000;
+int FormationJuno001::_X_FormationWhole = 0;
+int FormationJuno001::_incX = -2000;
 
 FormationJuno001::FormationJuno001(const char* prm_name, const char* prm_model) : FormationActor(prm_name) {
     _class_name = "FormationJuno001";
@@ -34,7 +34,7 @@ void FormationJuno001::initialize() {
 
 void FormationJuno001::processBehavior() {
     if (isFirst()) {
-        _s_X_FormationWhole += _s_incX; //‘S‘Ì‚ÌX
+        _X_FormationWhole += _incX; //‘S‘Ì‚ÌX
     }
 }
 

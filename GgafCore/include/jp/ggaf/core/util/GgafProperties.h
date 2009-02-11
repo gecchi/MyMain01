@@ -13,7 +13,7 @@ public:
     static void clean();
 
 protected:
-    static std::map<std::string, std::string>* _s_pMapProperties;
+    static std::map<std::string, std::string>* _pMapProperties;
 
     static int read(std::string prm_properties_filename);
     static void parse(char* p);

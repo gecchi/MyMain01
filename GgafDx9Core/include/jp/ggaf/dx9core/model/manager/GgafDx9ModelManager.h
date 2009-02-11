@@ -102,7 +102,7 @@ public:
 
     /**
      * GgafDx9MeshModelオブジェクトを取得。 .
-     * GgafDx9Model オブジェクトリスト（先頭は_s_pModel_First）<BR>
+     * GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
      * から検索し、ヒットした（生成済みGgafDx9MeshModelがある）場合、 GgafDx9MeshModel にキャストしてそれを返す。<BR>
      * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
      * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
@@ -115,7 +115,7 @@ public:
 
     /**
      * GgafDx9SpriteModelオブジェクトを取得。 .
-     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_s_pModel_First）<BR>
+     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
      * から検索し、ヒットした（生成済みGgafDx9SpriteModelがある）場合、 GgafDx9SpriteModel にキャストしてそれを返す。<BR>
      * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
      * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
@@ -127,7 +127,7 @@ public:
 
     /**
      * GgafDx9SquareModelオブジェクトを取得。 .
-     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_s_pModel_First）<BR>
+     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
      * から検索し、ヒットした（生成済みGgafDx9SquareModelがある）場合、 GgafDx9SquareModel にキャストしてそれを返す。<BR>
      * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
      * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
@@ -139,7 +139,7 @@ public:
 
     /**
      * GgafDx9PlateModelオブジェクトを取得。<BR>
-     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_s_pModel_First）<BR>
+     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
      * から検索し、ヒットした（生成済みGgafDx9PlateModelがある）場合、 GgafDx9PlateModel にキャストしてそれを返す。<BR>
      * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
      * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>

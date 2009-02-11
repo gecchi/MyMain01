@@ -28,10 +28,10 @@ void EnemyJuno::processBehavior() {
     if (switchedToAct()) {
         //oŒ»ˆ—
         setBumpableAlone(true);
-        _X += FormationJuno001::_s_X_FormationWhole;
+        _X += FormationJuno001::_X_FormationWhole;
     }
 
-    _X += FormationJuno001::_s_incX;
+    _X += FormationJuno001::_incX;
     //À•W‚É”½‰f
     _pGeoMover->behave();
 }

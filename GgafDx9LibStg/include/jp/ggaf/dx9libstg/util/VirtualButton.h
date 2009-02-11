@@ -79,8 +79,8 @@ public:
         int UI_CANCEL;
     };
 
-    static KEYBOARDMAP _s_tagKeymap;
-    static JOYSTICKMAP _s_tagJoymap;
+    static KEYBOARDMAP _tagKeymap;
+    static JOYSTICKMAP _tagJoymap;
 
     class VBMap {
     public :
@@ -96,7 +96,7 @@ public:
         }
     };
 
-    static VBMap* _s_pVBMap; //現在フレームの入力状態
+    static VBMap* _pVBMap; //現在フレームの入力状態
 
     static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 

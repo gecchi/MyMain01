@@ -121,7 +121,7 @@ void GgafGod::be() {
     } else {//•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚Ä‚È‚¢(—]—T‚ª‚ ‚é)
         Sleep(1); //Hêi•ÊƒXƒŒƒbƒhj‚É‰ñ‚·
         //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //‚Ü‚¾—]—T‚ª‚ ‚éê‡
-        //			if (getWorld() != NULL && _s_iCountCleanedNode == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
+        //			if (getWorld() != NULL && _iCountCleanedNode == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
         //				 ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         //				getWorld()->cleane(1);
         //				 ___EndSynchronized; // <----- ”r‘¼I—¹

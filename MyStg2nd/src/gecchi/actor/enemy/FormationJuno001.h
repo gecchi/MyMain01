@@ -12,9 +12,9 @@ class FormationJuno001 : public GgafDx9LibStg::FormationActor {
 public:
 
     /** ‘S‘Ì‚ÌX */
-    static int _s_X_FormationWhole;
+    static int _X_FormationWhole;
     /** ‘S‘Ì‚ÌX‘•ª */
-    static int _s_incX;
+    static int _incX;
 
     FormationJuno001(const char* prm_name, const char* prm_model);
 

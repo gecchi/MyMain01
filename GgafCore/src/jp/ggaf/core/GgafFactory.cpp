@@ -12,7 +12,7 @@ bool GgafFactory::_isRest = false;
 bool GgafFactory::_isResting = false;
 
 bool GgafFactory::_isFinish = false;
-int GgafFactory::_s_iCountCleanedNode = 0;
+int GgafFactory::_iCountCleanedNode = 0;
 GgafGarbageBox* GgafFactory::_pGarbageBox = NULL;
 
 GgafMainActor* GgafFactory::obtainActor(unsigned long prm_id) {
@@ -208,7 +208,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     Sleep(5);
                     TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB");
                     _pGarbageBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
-                    _s_iCountCleanedNode = 0;
+                    _iCountCleanedNode = 0;
                 }
             } else {
                 if (ROOT_ORDER != NULL && ROOT_ORDER->_pOrder_Prev->_progress == 0) {
@@ -224,7 +224,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                         TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB");
                         Sleep(5);
                         _pGarbageBox->cleane(1); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
-                        _s_iCountCleanedNode = 0;
+                        _iCountCleanedNode = 0;
                     }
                 }
             }

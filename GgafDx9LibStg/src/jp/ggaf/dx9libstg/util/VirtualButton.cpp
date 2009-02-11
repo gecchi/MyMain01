@@ -5,9 +5,9 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-VirtualButton::VBMap* VirtualButton::_s_pVBMap = NULL;
+VirtualButton::VBMap* VirtualButton::_pVBMap = NULL;
 
-VirtualButton::KEYBOARDMAP VirtualButton::_s_tagKeymap = {
+VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z, // SHOT1
                               DIK_X, // SHOT2
                               DIK_A, // SHOT3
@@ -28,7 +28,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_s_tagKeymap = {
                               DIK_D //UI_DEBUG
                            };
 
-VirtualButton::JOYSTICKMAP VirtualButton::_s_tagJoymap = {
+VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               0, // SHOT1
                               7, // SHOT2
                               8, // SHOT3
@@ -42,7 +42,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_s_tagJoymap = {
 
 VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
     static VBMap* pVBMTemp;
-    pVBMTemp = _s_pVBMap;
+    pVBMTemp = _pVBMap;
     for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
         pVBMTemp = pVBMTemp->_prev;
     }
@@ -51,7 +51,7 @@ VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
 
 bool VirtualButton::isBeingPressed(int prm_VB) {
     //取りこぼし考慮で、今回、前回、前々回の何れかが真であればOKとする
-    return _s_pVBMap->_state[prm_VB] || _s_pVBMap->_prev->_state[prm_VB] || _s_pVBMap->_prev->_prev->_state[prm_VB];
+    return _pVBMap->_state[prm_VB] || _pVBMap->_prev->_state[prm_VB] || _pVBMap->_prev->_prev->_state[prm_VB];
 }
 
 bool VirtualButton::wasBeingPressed(int prm_VB, DWORD prm_dwFrameAgo) {
@@ -86,9 +86,9 @@ bool VirtualButton::isPushedDown(int prm_VB) {
 
 ////何所も押されていない→押した
 //bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
-//	if (_s_pVBMap->_state[prm_VB]) {
+//	if (_pVBMap->_state[prm_VB]) {
 //		for (int i = 0; i < VB_NUM; i++) {
-//			if (_s_pVBMap->_prev->_state[i]) {
+//			if (_pVBMap->_prev->_state[i]) {
 //				return false;
 //			}
 //		}
@@ -241,9 +241,9 @@ int VirtualButton::getPushedDownStickWith(int prm_VB) {
 }
 
 void VirtualButton::clear() {
-    VBMap* pLast = _s_pVBMap->_next;
+    VBMap* pLast = _pVBMap->_next;
     VBMap* pWk;
-    for (VBMap* p = _s_pVBMap->_prev; p != _s_pVBMap; p = p->_prev) {
+    for (VBMap* p = _pVBMap->_prev; p != _pVBMap; p = p->_prev) {
         pWk = p->_next;
         DELETE_IMPOSSIBLE_NULL(pWk);
     }
@@ -253,8 +253,8 @@ void VirtualButton::clear() {
 void VirtualButton::init() {
 
     //環状双方向連結リスト構築
-    _s_pVBMap = NEW VBMap();
-    VBMap* pVBMTemp = _s_pVBMap;
+    _pVBMap = NEW VBMap();
+    VBMap* pVBMTemp = _pVBMap;
     for (int i = 1; i < VB_MAP_BUFFER - 1; i++) {
         VBMap* pVBMapWork = NEW VBMap();
         pVBMapWork->_next = pVBMTemp;
@@ -264,107 +264,107 @@ void VirtualButton::init() {
     VBMap* pVBMapOldest = NEW VBMap();
     pVBMTemp->_prev = pVBMapOldest;
     pVBMapOldest->_next = pVBMTemp;
-    pVBMapOldest->_prev = _s_pVBMap;
-    _s_pVBMap->_next = pVBMapOldest;
+    pVBMapOldest->_prev = _pVBMap;
+    _pVBMap->_next = pVBMapOldest;
 
 }
 
 void VirtualButton::update() {
-    if (_s_pVBMap == NULL) {
+    if (_pVBMap == NULL) {
         throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
 
     GgafDx9Input::updateKeyboardState();
     GgafDx9Input::updateJoystickState();
 
-    _s_pVBMap = _s_pVBMap->_next;
+    _pVBMap = _pVBMap->_next;
 
-    _s_pVBMap->_state[VB_SHOT1] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT1) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT1);
+    _pVBMap->_state[VB_SHOT1] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT1) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT1);
 
-    _s_pVBMap->_state[VB_SHOT2] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT2) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT2);
+    _pVBMap->_state[VB_SHOT2] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT2) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT2);
 
-    _s_pVBMap->_state[VB_SHOT3] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.SHOT3) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.SHOT3);
+    _pVBMap->_state[VB_SHOT3] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT3) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT3);
 
-    _s_pVBMap->_state[VB_TURBO] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.TURBO) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.TURBO);
+    _pVBMap->_state[VB_TURBO] = GgafDx9Input::isBeingPressedKey(_tagKeymap.TURBO) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.TURBO);
 
-    _s_pVBMap->_state[VB_GUARD] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.GUARD) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.GUARD);
+    _pVBMap->_state[VB_GUARD] = GgafDx9Input::isBeingPressedKey(_tagKeymap.GUARD) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.GUARD);
 
-    _s_pVBMap->_state[VB_POWERUP] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.POWERUP) ||
-                                    GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.PAUSE);
+    _pVBMap->_state[VB_POWERUP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.POWERUP) ||
+                                    GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.PAUSE);
 
-    _s_pVBMap->_state[VB_PAUSE] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.PAUSE) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.POWERUP);
+    _pVBMap->_state[VB_PAUSE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.PAUSE) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.POWERUP);
 
-    _s_pVBMap->_state[VB_UP] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UP) ||
+    _pVBMap->_state[VB_UP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UP) ||
                                GgafDx9Input::isBeingPressedJoyUp();
 
-    _s_pVBMap->_state[VB_DOWN] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.DOWN) ||
+    _pVBMap->_state[VB_DOWN] = GgafDx9Input::isBeingPressedKey(_tagKeymap.DOWN) ||
                                  GgafDx9Input::isBeingPressedJoyDown();
 
-    _s_pVBMap->_state[VB_LEFT] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.LEFT) ||
+    _pVBMap->_state[VB_LEFT] = GgafDx9Input::isBeingPressedKey(_tagKeymap.LEFT) ||
                                  GgafDx9Input::isBeingPressedJoyLeft();
 
-    _s_pVBMap->_state[VB_RIGHT] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.RIGHT) ||
+    _pVBMap->_state[VB_RIGHT] = GgafDx9Input::isBeingPressedKey(_tagKeymap.RIGHT) ||
                                   GgafDx9Input::isBeingPressedJoyRight();
 
-    _s_pVBMap->_state[VB_UI_UP] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_UP) ||
+    _pVBMap->_state[VB_UI_UP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_UP) ||
                                   GgafDx9Input::isBeingPressedJoyUp();
 
-    _s_pVBMap->_state[VB_UI_DOWN] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_DOWN) ||
+    _pVBMap->_state[VB_UI_DOWN] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_DOWN) ||
                                     GgafDx9Input::isBeingPressedJoyDown();
 
-    _s_pVBMap->_state[VB_UI_LEFT] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_LEFT) ||
+    _pVBMap->_state[VB_UI_LEFT] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_LEFT) ||
                                     GgafDx9Input::isBeingPressedJoyLeft();
 
-    _s_pVBMap->_state[VB_UI_RIGHT] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_RIGHT) ||
+    _pVBMap->_state[VB_UI_RIGHT] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_RIGHT) ||
                                      GgafDx9Input::isBeingPressedJoyRight();
 
 
-    _s_pVBMap->_state[VB_UI_EXECUTE] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_EXECUTE) ||
-                                       GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.UI_EXECUTE);
+    _pVBMap->_state[VB_UI_EXECUTE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_EXECUTE) ||
+                                       GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.UI_EXECUTE);
 
-    _s_pVBMap->_state[VB_UI_CANCEL] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_CANCEL) ||
-                                      GgafDx9Input::isBeingPressedJoyRgbButton(_s_tagJoymap.UI_CANCEL);
+    _pVBMap->_state[VB_UI_CANCEL] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_CANCEL) ||
+                                      GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.UI_CANCEL);
 
-    _s_pVBMap->_state[VB_UI_DEBUG] = GgafDx9Input::isBeingPressedKey(_s_tagKeymap.UI_DEBUG);
+    _pVBMap->_state[VB_UI_DEBUG] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_DEBUG);
 
-    _s_pVBMap->_state[VB_UP_RIGHT_STC] = false;
-    _s_pVBMap->_state[VB_UP_LEFT_STC] = false;
-    _s_pVBMap->_state[VB_DOWN_RIGHT_STC] = false;
-    _s_pVBMap->_state[VB_DOWN_LEFT_STC] = false;
-    _s_pVBMap->_state[VB_UP_STC] = false;
-    _s_pVBMap->_state[VB_DOWN_STC] = false;
-    _s_pVBMap->_state[VB_RIGHT_STC] = false;
-    _s_pVBMap->_state[VB_LEFT_STC] = false;
-    _s_pVBMap->_state[VB_NEUTRAL_STC] = false;
+    _pVBMap->_state[VB_UP_RIGHT_STC] = false;
+    _pVBMap->_state[VB_UP_LEFT_STC] = false;
+    _pVBMap->_state[VB_DOWN_RIGHT_STC] = false;
+    _pVBMap->_state[VB_DOWN_LEFT_STC] = false;
+    _pVBMap->_state[VB_UP_STC] = false;
+    _pVBMap->_state[VB_DOWN_STC] = false;
+    _pVBMap->_state[VB_RIGHT_STC] = false;
+    _pVBMap->_state[VB_LEFT_STC] = false;
+    _pVBMap->_state[VB_NEUTRAL_STC] = false;
 
-    if (_s_pVBMap->_state[VB_UP]) {
-        if (_s_pVBMap->_state[VB_RIGHT]) {
-            _s_pVBMap->_state[VB_UP_RIGHT_STC] = true;
-        } else if (_s_pVBMap->_state[VB_LEFT]) {
-            _s_pVBMap->_state[VB_UP_LEFT_STC] = true;
+    if (_pVBMap->_state[VB_UP]) {
+        if (_pVBMap->_state[VB_RIGHT]) {
+            _pVBMap->_state[VB_UP_RIGHT_STC] = true;
+        } else if (_pVBMap->_state[VB_LEFT]) {
+            _pVBMap->_state[VB_UP_LEFT_STC] = true;
         } else {
-            _s_pVBMap->_state[VB_UP_STC] = true;
+            _pVBMap->_state[VB_UP_STC] = true;
         }
-    } else if (_s_pVBMap->_state[VB_DOWN]) {
-        if (_s_pVBMap->_state[VB_UI_RIGHT]) {
-            _s_pVBMap->_state[VB_DOWN_RIGHT_STC] = true;
-        } else if (_s_pVBMap->_state[VB_UI_LEFT]) {
-            _s_pVBMap->_state[VB_DOWN_LEFT_STC] = true;
+    } else if (_pVBMap->_state[VB_DOWN]) {
+        if (_pVBMap->_state[VB_UI_RIGHT]) {
+            _pVBMap->_state[VB_DOWN_RIGHT_STC] = true;
+        } else if (_pVBMap->_state[VB_UI_LEFT]) {
+            _pVBMap->_state[VB_DOWN_LEFT_STC] = true;
         } else {
-            _s_pVBMap->_state[VB_DOWN_STC] = true;
+            _pVBMap->_state[VB_DOWN_STC] = true;
         }
-    } else if (_s_pVBMap->_state[VB_UI_RIGHT]) {
-        _s_pVBMap->_state[VB_RIGHT_STC] = true;
-    } else if (_s_pVBMap->_state[VB_UI_LEFT]) {
-        _s_pVBMap->_state[VB_LEFT_STC] = true;
+    } else if (_pVBMap->_state[VB_UI_RIGHT]) {
+        _pVBMap->_state[VB_RIGHT_STC] = true;
+    } else if (_pVBMap->_state[VB_UI_LEFT]) {
+        _pVBMap->_state[VB_LEFT_STC] = true;
     } else {
-        _s_pVBMap->_state[VB_NEUTRAL_STC] = true;
+        _pVBMap->_state[VB_NEUTRAL_STC] = true;
     }
 }
 
