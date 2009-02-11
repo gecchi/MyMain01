@@ -14,9 +14,9 @@ GgafDx9DynaMeshActor::GgafDx9DynaMeshActor(const char* prm_name,
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
 	for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++){
-    _paD3DMaterial9[i] = _pMeshModel->_paD3DMaterial9_default[i];
-}
-_fAlpha = 1.0f;
+        _paD3DMaterial9[i] = _pMeshModel->_paD3DMaterial9_default[i];
+    }
+    _fAlpha = 1.0f;
 }
 
 void GgafDx9DynaMeshActor::processDrawMain() {

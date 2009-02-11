@@ -46,9 +46,9 @@ GgafDx9PlateActor::GgafDx9PlateActor(const char* prm_name, const char* prm_sprit
     _paVertex[2].color = 0xFFFFFFFF;
     _paVertex[3].color = 0xFFFFFFFF; //‚¢‚é‚Ì‚©??
 
-            _fAlpha = 1.0f;
+    _fAlpha = 1.0f;
 
-        }
+}
 
 void GgafDx9PlateActor::processDrawMain() {
     _paVertex[0].x = _x;

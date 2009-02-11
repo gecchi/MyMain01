@@ -114,7 +114,6 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) :
  @param		lPan		ƒpƒ“(left:-10000 right:10000)
  @return		true:OK/false:NG
  */
-
 void GgafDx9Se::act() {
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");

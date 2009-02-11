@@ -233,8 +233,10 @@ void GgafDx9GeometryMover::behave() {
 
         if (_angVelocity_MoveAngleRy > 0) { //反時計回りの場合
             angle angDistance = getDistanceFromMoveAngleRyTo(_angRyTarget_Move, TURN_COUNTERCLOCKWISE);
-            if (_angVelocity_MoveAngleRy > angDistance && _auto_move_angle_ry_target_allow_way != TURN_CLOCKWISE
-                    && _auto_move_angle_ry_target_allow_velocity >= _angVelocity_MoveAngleRy) { //目標を行き過ぎてしまいそう･･･な日
+            if (_angVelocity_MoveAngleRy > angDistance &&
+                _auto_move_angle_ry_target_allow_way != TURN_CLOCKWISE &&
+                _auto_move_angle_ry_target_allow_velocity >= _angVelocity_MoveAngleRy)
+            { //目標を行き過ぎてしまいそう･･･な日
                 addMoveAngleRy(angDistance);
                 _auto_move_angle_ry_target_Flg = false; //フラグを戻して終了
             } else {
@@ -243,8 +245,10 @@ void GgafDx9GeometryMover::behave() {
         } else if (_angVelocity_MoveAngleRy < 0) { //時計回りの場合
 
             angle angDistance = getDistanceFromMoveAngleRyTo(_angRyTarget_Move, TURN_CLOCKWISE);
-            if (_angVelocity_MoveAngleRy < angDistance && _auto_move_angle_ry_target_allow_way != TURN_COUNTERCLOCKWISE
-                    && -1*_auto_move_angle_ry_target_allow_velocity <= _angVelocity_MoveAngleRy) {
+            if (_angVelocity_MoveAngleRy < angDistance &&
+                _auto_move_angle_ry_target_allow_way != TURN_COUNTERCLOCKWISE &&
+                -1*_auto_move_angle_ry_target_allow_velocity <= _angVelocity_MoveAngleRy)
+            {
                 addMoveAngleRy(angDistance);
                 _auto_move_angle_ry_target_Flg = false; //フラグを戻して終了
             } else {
@@ -260,7 +264,6 @@ void GgafDx9GeometryMover::behave() {
             _angAcceleration_MoveAngleRyVelocity = 0; //Ry平面移動方向角、角加速度を０へ
             setMoveAngleRyVelocity(0); //Ry平面移動方向角、角速度を０へ
         }
-
     } else {
         //if (_angAcceleration_MoveAngleRyVelocity != 0) {
         //フレーム毎のRy平面移動方角旋廻の処理
