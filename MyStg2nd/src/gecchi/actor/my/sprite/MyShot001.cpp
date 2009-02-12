@@ -42,7 +42,7 @@ void MyShot001::initialize() {
     setAlpha(0.2);
 
     setBumpableAlone(true);
-    refrain();
+    inact();
 
 }
 
@@ -64,17 +64,17 @@ void MyShot001::processBehavior() {
 
 void MyShot001::processJudgement() {
     if (isOffScreen()) {
-        refrain();
+        inact();
     }
 
 }
 
 
 void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-    refrain();
+    inact();
 }
 
-void MyShot001::onRefrain() {
+void MyShot001::onInact() {
     //è¡é∏éûèàóù
     setBumpableAlone(false);
     moveFirst();

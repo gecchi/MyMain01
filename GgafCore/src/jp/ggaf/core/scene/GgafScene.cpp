@@ -103,29 +103,29 @@ void GgafScene::actImmediatelyAlone() {
     _pLordActor->actImmediatelyAlone();
 }
 
-void GgafScene::refrain() {
-    GgafElement<GgafScene>::refrain();
-    _pLordActor->refrain();
+void GgafScene::inact() {
+    GgafElement<GgafScene>::inact();
+    _pLordActor->inact();
 }
 
-void GgafScene::refrainAfter(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::refrainAfter(prm_dwFrameOffset);
-    _pLordActor->refrainAfter(prm_dwFrameOffset);
+void GgafScene::inactAfter(DWORD prm_dwFrameOffset) {
+    GgafElement<GgafScene>::inactAfter(prm_dwFrameOffset);
+    _pLordActor->inactAfter(prm_dwFrameOffset);
 }
 
-void GgafScene::refrainAlone() {
-    GgafElement<GgafScene>::refrainAlone();
-    _pLordActor->refrainAlone();
+void GgafScene::inactAlone() {
+    GgafElement<GgafScene>::inactAlone();
+    _pLordActor->inactAlone();
 }
 
-void GgafScene::refrainImmediately() {
-    GgafElement<GgafScene>::refrainImmediately();
-    _pLordActor->refrainImmediately();
+void GgafScene::inactImmediately() {
+    GgafElement<GgafScene>::inactImmediately();
+    _pLordActor->inactImmediately();
 }
 
-void GgafScene::refrainImmediatelyAlone() {
-    GgafElement<GgafScene>::refrainImmediatelyAlone();
-    _pLordActor->refrainImmediatelyAlone();
+void GgafScene::inactImmediatelyAlone() {
+    GgafElement<GgafScene>::inactImmediatelyAlone();
+    _pLordActor->inactImmediatelyAlone();
 }
 
 void GgafScene::pause() {

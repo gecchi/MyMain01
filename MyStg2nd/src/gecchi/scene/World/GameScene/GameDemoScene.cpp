@@ -127,7 +127,7 @@ void GameDemoScene::processBehavior() {
     if (isChangeProgress(GAMEDEMO_PROG_END)) {
         _pFontPlate01->setString(100, 100, "GameDemoScene END");
         _pFontPlate02->setString(100, 150, "SRABA");
-        refrainAfter(200);
+        inactAfter(200);
     }
 
 

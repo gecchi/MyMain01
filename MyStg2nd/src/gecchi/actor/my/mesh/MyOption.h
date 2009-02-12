@@ -7,7 +7,7 @@ class MyOption : public GgafDx9LibStg::DefaultMeshActor {
 public:
     int _iMyNo;
 
-    GgafDx9LibStg::RotationActor* _pMyLaserChipRotation;
+    MyLaserChipRotationActor* _pMyLaserChipRotation;
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing;
     /** 対象アクター */

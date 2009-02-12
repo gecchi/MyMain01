@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(const char* prm_name, const char* prm_model) : DefaultM
 }
 
 void TamagoActor::initialize() {
-    //refrain();
+    //inact();
     setBumpable(true);
     //
     _pGeoMover->setMoveAngleRz(ANGLE180);

@@ -165,11 +165,11 @@ public:
     virtual void actImmediately();
     virtual void actImmediatelyAlone();
 
-    virtual void refrain();
-    virtual void refrainAfter(DWORD prm_dwFrameOffset);
-    virtual void refrainAlone();
-    virtual void refrainImmediately();
-    virtual void refrainImmediatelyAlone();
+    virtual void inact();
+    virtual void inactAfter(DWORD prm_dwFrameOffset);
+    virtual void inactAlone();
+    virtual void inactImmediately();
+    virtual void inactImmediatelyAlone();
 
     virtual void pause();
     virtual void pauseAlone();

@@ -70,10 +70,8 @@ public:
 
     /**
      * デストラクタ<BR>
-     * deleteするのはGgafDx9SpriteModelManagerである<BR>
      */
     virtual ~GgafDx9SpriteModel(); //デストラクタ
-
 };
 
 }

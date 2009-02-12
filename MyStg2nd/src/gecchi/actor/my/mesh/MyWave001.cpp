@@ -39,7 +39,7 @@ void MyWave001::initialize() {
     //setAlpha(0.2);
 
     setBumpableAlone(true);
-    refrain();
+    inact();
 
 }
 
@@ -67,7 +67,7 @@ void MyWave001::processBehavior() {
 void MyWave001::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        refrain();
+        inact();
     }
 
 }
@@ -83,10 +83,10 @@ void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("MyWave001::processOnHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
     //farewell();
-    refrain();
+    inact();
 }
 
-void MyWave001::onRefrain() {
+void MyWave001::onInact() {
     //消失時処理
     setBumpableAlone(false);
     moveFirst();

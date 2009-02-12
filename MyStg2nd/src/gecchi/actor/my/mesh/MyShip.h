@@ -35,9 +35,11 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     public:
         int eq_option;
         int eq_speed;
+        int mp;
         State() {
             eq_option = 0;
             eq_speed = 1;
+            mp = 10000;
         }
 
     };
@@ -161,10 +163,10 @@ public:
 
     GgafDx9LibStg::RotationActor* _pMyWaves001Rotation;
     GgafDx9LibStg::RotationActor* _pMyShots001Rotation;
-    GgafDx9LibStg::RotationActor* _pMyLaserChipRotation;
+//    GgafDx9LibStg::RotationActor* _pMyLaserChipRotation;
     GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
     GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
-
+    MyLaserChipRotationActor* _pMyLaserChipRotation;
     MyShip(const char* prm_name, const char* prm_model);
 
     /**

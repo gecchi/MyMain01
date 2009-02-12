@@ -65,14 +65,14 @@ public:
     DWORD _dwGodFremeWhenAct;
 
     /** あとで非活動予約フラグ */
-    bool _willRefrainAfterFrame;
+    bool _willInactAfterFrame;
     /** あとで停止の残フレーム数（神フレームと一致したら停止） */
-    DWORD _dwGodFremeWhenRefrain;
+    DWORD _dwGodFremeWhenInact;
 
     /** ノードが活動に切り替わった(_isActive が false → true)瞬間に１フレームだけセットされるフラグ */
     bool _switchedToAct;
     /** ノードが停止に切り替わった(_isActive が true → false)瞬間に１フレームだけセットされるフラグ */
-    bool _switchedToRefrain;
+    bool _switchedToInact;
 
     /** 描画されましたフラグ */
     bool _wasExecuted_processDrawMain;
@@ -136,7 +136,7 @@ public:
      * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
      * 必要に応じてオーバーライドする。<BR>
      */
-    virtual void onRefrain() {
+    virtual void onInact() {
     }
 
     /**
@@ -313,43 +313,43 @@ public:
      * 非活動状態にする(自ツリー) .
      * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非活動状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に refrain() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inact() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
-    void refrain();
+    void inact();
     /**
      * 非活動予約する(自ツリー) .
-     * Nフレーム後に refrain() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に refrainAfter(DWORD) が実行される。<BR>
-     * refrainAfter(1) は、refrain() と同じ意味になります。<BR>
+     * Nフレーム後に inact() が実行されることを予約する。<BR>
+     * 自身と配下ノード全てについて再帰的に inactAfter(DWORD) が実行される。<BR>
+     * inactAfter(1) は、inact() と同じ意味になります。<BR>
      * @param prm_dwFrameOffset 遅延フレーム数(1～)
      */
-    void refrainAfter(DWORD prm_dwFrameOffset);
+    void inactAfter(DWORD prm_dwFrameOffset);
     /**
      * 非活動状態にする(単体) .
      * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void refrainAlone();
+    void inactAlone();
     /**
      * 非活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に refrainImmediately() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inactImmediately() が実行される。<BR>
      * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、refrainImmediately() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、inactImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void refrainImmediately();
+    void inactImmediately();
     /**
      * 非活動状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void refrainImmediatelyAlone();
+    void inactImmediatelyAlone();
     //===================
     /**
      * 一時停止にする(自ツリー) .
@@ -543,7 +543,7 @@ public:
      * このメソッドは今のところ使いどころは無いかもしれません。
      * @return	bool true:切り替わった／false:切り替わっていない
      */
-    bool switchedToRefrain();
+    bool switchedToInact();
 
     /**
      * 活動しているか
@@ -581,8 +581,8 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
             _dwFrame_relative(0), _isActive(true), _wasPaused(false), _wasBlinded(false), _isAlive(true),
             _willActNextFrame(true), _willPauseNextFrame(false), _willBlindNextFrame(false),
             _willBeAliveNextFrame(true), _willMoveFirstNextFrame(false), _willMoveLastNextFrame(false),
-            _willActAfterFrame(false), _dwGodFremeWhenAct(0), _willRefrainAfterFrame(false), _dwGodFremeWhenRefrain(0),
-            _switchedToAct(false), _switchedToRefrain(false), _wasExecuted_processDrawMain(false) {
+            _willActAfterFrame(false), _dwGodFremeWhenAct(0), _willInactAfterFrame(false), _dwGodFremeWhenInact(0),
+            _switchedToAct(false), _switchedToInact(false), _wasExecuted_processDrawMain(false) {
 }
 
 template<class T>
@@ -617,12 +617,12 @@ void GgafElement<T>::nextFrame() {
                     _dwGodFremeWhenAct = 0;
                     _willActAfterFrame = false;
                 }
-            } else if (_willRefrainAfterFrame) {
+            } else if (_willInactAfterFrame) {
                 //遅延stop処理
-                if (askGod()->_dwFrame_God == _dwGodFremeWhenRefrain) {
-                    refrainImmediately();
-                    _dwGodFremeWhenRefrain = 0;
-                    _willRefrainAfterFrame = false;
+                if (askGod()->_dwFrame_God == _dwGodFremeWhenInact) {
+                    inactImmediately();
+                    _dwGodFremeWhenInact = 0;
+                    _willInactAfterFrame = false;
                 }
             }
             if (_isActive) {
@@ -634,16 +634,16 @@ void GgafElement<T>::nextFrame() {
         if (_isActive == false && _willActNextFrame) {
             _switchedToAct = true;
         } else if (_isActive && _willActNextFrame == false) {
-            _switchedToRefrain = true;
+            _switchedToInact = true;
         } else {
             _switchedToAct = false;
-            _switchedToRefrain = false;
+            _switchedToInact = false;
         }
         //フラグたちを反映
-        _isActive = _willActNextFrame;
-        _wasPaused = _willPauseNextFrame;
+        _isActive   = _willActNextFrame;
+        _wasPaused  = _willPauseNextFrame;
         _wasBlinded = _willBlindNextFrame;
-        _isAlive = _willBeAliveNextFrame;
+        _isAlive    = _willBeAliveNextFrame;
 
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
@@ -683,8 +683,8 @@ void GgafElement<T>::behave() {
     //活動、非活動の状態変化時コールバック
     if (_switchedToAct) {
         onAct();
-    } else if (_switchedToRefrain) {
-        onRefrain();
+    } else if (_switchedToInact) {
+        onInact();
     }
 
     if (_isActive && !_wasPaused && _isAlive) {
@@ -932,20 +932,20 @@ void GgafElement<T>::actAfter(DWORD prm_dwFrameOffset) {
 }
 
 template<class T>
-void GgafElement<T>::refrainAlone() {
+void GgafElement<T>::inactAlone() {
     if (_isAlive) {
         _willActNextFrame = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::refrain() {
+void GgafElement<T>::inact() {
     if (_isAlive) {
         _willActNextFrame = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->refrain();
+                pElementTemp->inact();
                 if (pElementTemp->_isLast) {
                     break;
                 } else {
@@ -957,18 +957,18 @@ void GgafElement<T>::refrain() {
 }
 
 template<class T>
-void GgafElement<T>::refrainAfter(DWORD prm_dwFrameOffset) {
-    _willRefrainAfterFrame = true;
-    _dwGodFremeWhenRefrain = askGod()->_dwFrame_God + prm_dwFrameOffset;
+void GgafElement<T>::inactAfter(DWORD prm_dwFrameOffset) {
+    _willInactAfterFrame = true;
+    _dwGodFremeWhenInact = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
 template<class T>
-void GgafElement<T>::refrainImmediatelyAlone() {
+void GgafElement<T>::inactImmediatelyAlone() {
     if (_isAlive) {
         if (_isActive) {
-            _switchedToRefrain = true;
+            _switchedToInact = true;
         } else {
-            _switchedToRefrain = false;
+            _switchedToInact = false;
         }
         _isActive = false;
         _willActNextFrame = false;
@@ -976,19 +976,19 @@ void GgafElement<T>::refrainImmediatelyAlone() {
 }
 
 template<class T>
-void GgafElement<T>::refrainImmediately() {
+void GgafElement<T>::inactImmediately() {
     if (_isAlive) {
         if (_isActive) {
-            _switchedToRefrain = true;
+            _switchedToInact = true;
         } else {
-            _switchedToRefrain = false;
+            _switchedToInact = false;
         }
         _isActive = false;
         _willActNextFrame = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->refrainImmediately();
+                pElementTemp->inactImmediately();
                 if (pElementTemp->_isLast) {
                     break;
                 } else {
@@ -1253,8 +1253,8 @@ bool GgafElement<T>::switchedToAct() {
 }
 
 template<class T>
-bool GgafElement<T>::switchedToRefrain() {
-    if (_isAlive && _switchedToRefrain) {
+bool GgafElement<T>::switchedToInact() {
+    if (_isAlive && _switchedToInact) {
         return true;
     } else {
         return false;

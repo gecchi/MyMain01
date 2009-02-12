@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * ローテーションアクタークラス .
  * 子に予めアクターを登録しておき（ローテーションメンバーと呼ぶ）、空いているメンバーを取得する。<BR>
- * 取得したアクターを、ローテーション戻す（再度使いまわしをしたい）たい時は refrain() して下さい。本クラスが自動的に拾います。<BR>
+ * 取得したアクターを、ローテーション戻す（再度使いまわしをしたい）たい時は inact() して下さい。本クラスが自動的に拾います。<BR>
  * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
  * また連続obtain()の場合、次のobtain()のアクターは必ず隣同士となっています。<BR>
  */
@@ -16,26 +16,26 @@ public:
 
     RotationActor(const char* prm_name);
 
-    /**
-     * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
-     * ローテーションの一番先頭に移動させます。<BR>
-     * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
-     * ＜OverRide です＞<BR>
-     */
-    virtual void processBehavior() {
-        static GgafMainActor* pActor;
-        pActor = getSubFirst();
-        while (true) {
-            if (pActor->switchedToRefrain()) {
-                pActor->moveFirst();
-            }
-            if (pActor->isLast()) {
-                break;
-            } else {
-                pActor = pActor->getNext();
-            }
-        }
-    }
+//    /**
+//     * 暇そうなローテーションメンバー（play中、またはplay予約されていない）が居れば、
+//     * ローテーションの一番先頭に移動させます。<BR>
+//     * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
+//     * ＜OverRide です＞<BR>
+//     */
+//    virtual void processBehavior() {
+//        static GgafMainActor* pActor;
+//        pActor = getSubFirst();
+//        while (true) {
+//            if (pActor->switchedToInact()) {
+//                pActor->moveFirst();
+//            }
+//            if (pActor->isLast()) {
+//                break;
+//            } else {
+//                pActor = pActor->getNext();
+//            }
+//        }
+//    }
 
     /**
      * 子アクターへは影響させない
@@ -44,12 +44,8 @@ public:
         actAlone();
     }
 
-    virtual void refrain() {
-        refrainAlone();
-    }
-
-    virtual void pause() {
-        pauseAlone();
+    virtual void inact() {
+        inactAlone();
     }
 
     /**
@@ -64,29 +60,27 @@ public:
         }
         static GgafMainActor* pActor;
         pActor = getSubFirst();
-        do {
-            if (pActor->isPlaying()) {
-                pActor = NULL;
-                break;
-            } else if (pActor->_willActNextFrame) {
+
+        while(true) {
+            if (pActor->isPlaying() || pActor->_willActNextFrame) {
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
                 } else {
                     pActor = pActor->getNext();
+                    continue;
                 }
             } else {
-                pActor->moveLast();
+                pActor->actAlone();
+                pActor->moveLast(); //取得！
                 break;
             }
-        } while (true);
+        }
         return pActor;
     }
-    ;
 
     virtual ~RotationActor() {
     }
-    ;
 };
 
 }

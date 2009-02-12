@@ -46,7 +46,7 @@ public:
      * 資源のポインタを取得。
      * 参照カウンタは増えません<BR>
      */
-    virtual T* getResource();
+    virtual T* touch();
 
     /**
      * 資源を解放
@@ -74,7 +74,7 @@ GgafResourceLead<T>::GgafResourceLead(char* prm_idstr, T* prm_pResource) : GgafO
 }
 
 template<class T>
-T* GgafResourceLead<T>::getResource() {
+T* GgafResourceLead<T>::touch() {
     return _pResource;
 }
 
@@ -131,7 +131,7 @@ int GgafResourceLead<T>::Release() {
     }
 
     if (_iLeadNum == 0) {
-        T* r = pCurrent->getResource();
+        T* r = pCurrent->touch();
         if (r != NULL) {
             pCurrent->processReleaseResource(r); //本当の解放
         }

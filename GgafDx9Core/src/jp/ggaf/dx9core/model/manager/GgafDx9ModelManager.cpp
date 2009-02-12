@@ -542,7 +542,7 @@ void GgafDx9ModelManager::restoreAll() {
     GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
     TRACE("restoreAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
-        pCurrent->getResource()->restore();
+        pCurrent->touch()->restore();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::restoreAll() end<--");
@@ -553,7 +553,7 @@ void GgafDx9ModelManager::onDeviceLostAll() {
     GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
     TRACE("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
-        pCurrent->getResource()->onDeviceLost();
+        pCurrent->touch()->onDeviceLost();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
@@ -563,7 +563,7 @@ void GgafDx9ModelManager::releaseAll() {
     TRACE("GgafDx9ModelManager::releaseAll() start-->");
     GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
     while (pCurrent != NULL) {
-        pCurrent->getResource()->release();
+        pCurrent->touch()->release();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::releaseAll() end<--");

@@ -6,7 +6,7 @@ class MyLaserChip2: public GgafDx9LibStg::DefaultDynaMeshActor {
 public:
 
     /** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
-    DWORD _dwFrame_switchedToAct;
+  //  DWORD _dwFrame_switchedToAct;
 
     /**
      * 頂点クラス
@@ -54,7 +54,7 @@ public:
     int _Y_prevFrame;
     int _Z_prevFrame;
 
-    /** 対象アクター */
+    /** 発射元アクター */
     GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
     MyLaserChip2(const char* prm_name, const char* prm_model);
@@ -100,6 +100,10 @@ public:
     MyLaserChip2* getPrev() {
         return (MyLaserChip2*)_pPrev;
     }
+
+//    void onAct();
+
+    void onInact();
 
     virtual ~MyLaserChip2();
 

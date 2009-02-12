@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Core名前空間、基底アクタークラス.
+ * GgafDx9Core名前空間の基底アクタークラス.
  * GgafMainActorを継承しただけです。<BR>
  * GgafDx9Core名前空間内では、このクラスを基底アクターとします。<BR>
  */

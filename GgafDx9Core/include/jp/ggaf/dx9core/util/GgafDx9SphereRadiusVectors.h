@@ -17,7 +17,7 @@ struct SR_VECTOR {
 
 /**
  * ソート可能方向ベクトルクラス.
- * SR_VECTORに大小の値をつけ、比較可能にしたメンバをもつクラス。<BR>
+ * SR_VECTOR(方向ベクトル)に大小の値をつけ、比較を可能にしたメンバをもつクラス。<BR>
  * 大小の値の強さは、y要素 ＞ z要素 ＞ x要素 の順です。<BR>
  */
 class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {

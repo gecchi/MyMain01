@@ -74,7 +74,7 @@ void GameBeginningScene::processBehavior() {
     if (isChangeProgress(GAMEBEGINNING_PROG_END)) {
         _pFontPlate01->setString(200, 200, "GameBeginningScene END");
         _pFontPlate02->setString(200, 250, "KENTO WO INORU");
-        refrainAfter(140);
+        inactAfter(140);
     }
 }
 

@@ -97,7 +97,7 @@ class GgafDx9CubeActor;
 class GgafDx9SpriteActor;
 class GgafDx9SquareActor;
 class GgafDx9TransformedActor;
-class GgafDx9CameraActor;
+class GgafDx9Camera;
 class GgafDx9PlateActor;
 class GgafDx9Model;
 class GgafDx9MeshModel;
@@ -152,7 +152,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SquareActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9TransformedActor.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9CameraActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9PlateActor.h"
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9MeshModel.h"

@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9CameraActor::GgafDx9CameraActor(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
-    _class_name = "GgafDx9CameraActor";
+GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
+    _class_name = "GgafDx9Camera";
     _gazeX = GgafDx9God::_pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
     _gazeY = GgafDx9God::_pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
     _gazeZ = GgafDx9God::_pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
@@ -14,11 +14,11 @@ GgafDx9CameraActor::GgafDx9CameraActor(const char* prm_name) : GgafDx9Untransfor
     setBumpable(false);
 }
 
-void GgafDx9CameraActor::initialize() {
+void GgafDx9Camera::initialize() {
     _pGeoMover->setMoveVelocity(0);
 }
 
-void GgafDx9CameraActor::processDrawPrior() {
+void GgafDx9Camera::processDrawPrior() {
     _pGeoMover->behave();
     GgafDx9God::_pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
     GgafDx9God::_pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
@@ -28,5 +28,5 @@ void GgafDx9CameraActor::processDrawPrior() {
     GgafDx9God::_pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
 }
 
-GgafDx9CameraActor::~GgafDx9CameraActor() {
+GgafDx9Camera::~GgafDx9Camera() {
 }

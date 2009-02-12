@@ -22,7 +22,7 @@ MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
 MyLaserChip2::MyLaserChip2(const char* prm_name, const char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
     _class_name = "MyLaserChip2";
-    _dwFrame_switchedToAct = 0;
+    //_dwFrame_switchedToAct = 0;
 }
 
 /*
@@ -86,25 +86,25 @@ void MyLaserChip2::initialize() {
 
         _paLaserChipVertex = NEW Vertex[20];
 		for(DWORD i = 0; i < _dwVertexNum; i++){
-        pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * i) + 0 );
-        _paLaserChipVertex[i].x = pV->x;
-        _paLaserChipVertex[i].y = pV->y;
-        _paLaserChipVertex[i].z = pV->z;
-        _TRACE_("MyLaserChip2 頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
-    }
-    _pIDirect3DVertexBuffer9_MyLaserChip2->Unlock();
-    //_pIDirect3DVertexBuffer9_MyLaserChip2 = NULL;
-            }
-
-            _pGeoMover->setMoveVelocity(20*1000);
-            _pChecker->useHitAreaBoxNum(1);
-            _pChecker->setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
-            //	_pChecker->setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
-            _pActor_Radical = NULL;
-
-            setBumpableAlone(false);
-            //_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
+            pV = (D3DVECTOR*)( pByteVertexSrc + (_dwFVFSize * i) + 0 );
+            _paLaserChipVertex[i].x = pV->x;
+            _paLaserChipVertex[i].y = pV->y;
+            _paLaserChipVertex[i].z = pV->z;
+            _TRACE_("MyLaserChip2 頂点"<<(i+1)<<":("<<(pV->x)<<","<<(pV->y)<<","<<(pV->z)<<")");
         }
+        _pIDirect3DVertexBuffer9_MyLaserChip2->Unlock();
+    //_pIDirect3DVertexBuffer9_MyLaserChip2 = NULL;
+    }
+
+    _pGeoMover->setMoveVelocity(64*1000);
+    _pChecker->useHitAreaBoxNum(1);
+    _pChecker->setHitAreaBox(0, -1000, -1000, -1000, 1000, 1000, 1000);
+    //	_pChecker->setHitAreaBox(1, -1000, -1000, -1000, 1000, 1000, 1000);
+    _pActor_Radical = NULL;
+
+    setBumpableAlone(false);
+    //_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
+}
 
 void MyLaserChip2::processBehavior() {
     if (switchedToAct()) {
@@ -116,6 +116,7 @@ void MyLaserChip2::processBehavior() {
         _X_prevFrame = _pActor_Radical->_X;
         _Y_prevFrame = _pActor_Radical->_Y;
         _Z_prevFrame = _pActor_Radical->_Z;
+        return;
     }
 
     //座標に反映
@@ -133,7 +134,7 @@ void MyLaserChip2::processBehavior() {
 void MyLaserChip2::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        refrain();
+        inact();
     }
 }
 
@@ -154,7 +155,7 @@ void MyLaserChip2::processDrawMain() {
 
     if (_pIDirect3DVertexBuffer9_MyLaserChip2 != NULL) {
         //連続しているか
-        if (pPrevChip->isPlaying() && _dwFrame_switchedToAct - 1 == pPrevChip->_dwFrame_switchedToAct) {
+        if (pPrevChip->isPlaying()) {
             //連続しているので、Prev（一つ前方）自分の正四面体頂点ABCDを、Prev（一つ前方）のChipの正四面体頂点EFGHに重ねる。
 
 
@@ -358,8 +359,18 @@ void MyLaserChip2::processHappen(int prm_no) {
 }
 
 void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
-    refrain();
+    inact();
 }
+
+//void MyLaserChip2::onAct() {
+//    //出現時
+//    ((MyLaserChipRotationActor*)getParent())->_iNumActiveChip++;
+//}
+void MyLaserChip2::onInact() {
+    //消失時
+    ((MyLaserChipRotationActor*)getParent())->_iNumActiveChip--;
+}
+
 
 MyLaserChip2::~MyLaserChip2() {
     //RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip2);//モデル側でRELEASEされるので不要

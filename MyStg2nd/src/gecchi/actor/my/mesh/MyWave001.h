@@ -30,7 +30,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void onRefrain();
+    void onInact();
 
     virtual ~MyWave001();
 };

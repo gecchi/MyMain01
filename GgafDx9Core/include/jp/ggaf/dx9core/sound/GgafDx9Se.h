@@ -11,7 +11,7 @@ namespace GgafDx9Core {
 
 
 /**
- * Wave(Sound Effect) 活動クラス .
+ * Sound Effect(Wave) クラス .
  */
 class GgafDx9Se : public GgafCore::GgafObject {
 
@@ -26,7 +26,7 @@ public:
     GgafDx9Se(char* prm_wave_name, int prm_iBufferCount);
     int writeBuffer(CWaveDecorder& WaveFile);
     int restore(void);
-    virtual void act();
+    virtual void play();
     virtual void play(int prm_iVolume, int prm_iPan);
 
     virtual ~GgafDx9Se();

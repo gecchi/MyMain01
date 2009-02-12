@@ -90,7 +90,7 @@ MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(p
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001", "S/moji2");
-        pShot->refrainImmediately();
+        pShot->inactImmediately();
         _pMyShots001Rotation->addSubLast(pShot);
     }
 
@@ -99,23 +99,25 @@ MyShip::MyShip(const char* prm_name, const char* prm_model) : DefaultMeshActor(p
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001", "M/wave");
-        pWave->refrainImmediately();
+        pWave->inactImmediately();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
 
-    _pMyLaserChipRotation = NEW RotationActor("RotLaser001");
-    addSubLast(_pMyLaserChipRotation);//仮所属
-    MyLaserChip2* pChip;
-    for (int i = 0; i < 100; i++) { //レーザーストック
-        pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
-        pChip->refrainImmediately();
-        _pMyLaserChipRotation->addSubLast(pChip);
-    }
+    _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
+    addSubLast(_pMyLaserChipRotation);
+//    _pMyLaserChipRotation = NEW RotationActor("RotLaser001");
+//    addSubLast(_pMyLaserChipRotation);//仮所属
+//    MyLaserChip2* pChip;
+//    for (int i = 0; i < 100; i++) { //レーザーストック
+//        pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
+//        pChip->inactImmediately();
+//        _pMyLaserChipRotation->addSubLast(pChip);
+//    }
 
     for (int i = 0; i < EQ_MAX_OPTION; i++) {
         MyOption* pOption = NEW MyOption("MY_OPTION", "M/ebi");
         pOption->_iMyNo = i; //おぷ番
-        pOption->refrainImmediatelyAlone();
+        pOption->inactImmediatelyAlone();
         addSubLast(pOption);
     }
 
@@ -199,7 +201,6 @@ void MyShip::processBehavior() {
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
-                pExplo001->act();
             }
         }
     }
@@ -209,8 +210,7 @@ void MyShip::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            pLaser->_dwFrame_switchedToAct = _dwFrame;
-            pLaser->act();
+            //pLaser->_dwFrame_switchedToAct = _dwFrame;
         }
     }
 
@@ -224,7 +224,6 @@ void MyShip::processBehavior() {
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
-                pExplo001->act();
             }
         }
     }

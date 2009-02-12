@@ -18,6 +18,9 @@ namespace GgafDx9Core {
 //軸Z
 #define AXIS_Z 2
 
+/**
+ * 移動のための座標計算機能をもつクラス.
+ */
 class GgafDx9GeometryMover : public GgafCore::GgafObject {
     double _dummy1, _dummy2, _dummy3;
 

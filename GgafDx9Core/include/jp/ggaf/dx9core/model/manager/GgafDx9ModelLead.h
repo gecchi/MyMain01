@@ -3,8 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * モデル基底クラス.
- * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * モデルのコネクション.
  */
 class GgafDx9ModelLead : public GgafCore::GgafResourceLead<GgafDx9Model> {
 

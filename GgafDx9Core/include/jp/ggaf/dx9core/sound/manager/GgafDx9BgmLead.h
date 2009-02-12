@@ -3,8 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * モデル基底クラス.
- * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * GgafDx9Bgmコネクション.
  */
 class GgafDx9BgmLead : public GgafCore::GgafResourceLead<GgafDx9Bgm> {
 
@@ -17,17 +16,10 @@ public:
      */
     GgafDx9BgmLead(char* prm_idstr, GgafDx9Bgm* prm_pGgafDx9Bgm);
 
-    /**
-     * オーバーライド
-     */
     void processReleaseResource(GgafDx9Bgm* prm_pResource);
 
-    /**
-     * デストラクタ<BR>
-     */
     virtual ~GgafDx9BgmLead() {
     }
-    ;
 };
 
 }

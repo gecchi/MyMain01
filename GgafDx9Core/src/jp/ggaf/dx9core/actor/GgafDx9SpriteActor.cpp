@@ -10,7 +10,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _class_name = "GgafDx9SpriteActor";
     _pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name);
-    _pSpriteModel = (GgafDx9SpriteModel*)_pModelLead->getResource();
+    _pSpriteModel = (GgafDx9SpriteModel*)_pModelLead->touch();
     _iAnimationPatternNo_Top = 0;
     _iAnimationPatternNo_Bottom = _pSpriteModel->_iAnimationPatternNo_Max;
     _iAnimationPatternNo_Active = 0;

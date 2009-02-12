@@ -16,14 +16,8 @@ public:
      */
     GgafDx9BgmManager(const char* prm_manager_name);
 
-    /**
-     * オーバーライド
-     */
     GgafDx9Bgm* processCreateResource(char* prm_idstr);
 
-    /**
-     * オーバーライド
-     */
     GgafCore::GgafResourceLead<GgafDx9Bgm>* processCreateLead(char* prm_idstr, GgafDx9Bgm* prm_pResource);
 
     virtual ~GgafDx9BgmManager() {

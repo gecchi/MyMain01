@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EnemyMeshShot001::EnemyMeshShot001(const char* prm_name, const char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
     _class_name = "EnemyMeshShot001";
 
-    refrain();
+    inact();
 
     /** 出現時の初速 */
     _iMoveVelocity_1st = 10000;
@@ -110,7 +110,7 @@ void EnemyMeshShot001::processBehavior() {
 
 void EnemyMeshShot001::processJudgement() {
     if (isOffScreen()) {
-        refrain();
+        inact();
         //farewell();
     }
 }
@@ -147,7 +147,7 @@ void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ヒットしました。("<<_X<<","<<_Y<<")");
     //farewell();
     setBumpableAlone(false);
-    refrain();
+    inact();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {

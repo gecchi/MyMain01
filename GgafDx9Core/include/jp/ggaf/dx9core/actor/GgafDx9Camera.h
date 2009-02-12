@@ -2,20 +2,31 @@
 #define GGAFDX9CAMERAACTOR_H_
 namespace GgafDx9Core {
 
+// (2009/2/12 の脳みそ)
+// ２～３個 new して、１カメ、２カメみたいな切り替え操作ができたら良いかもな
+
+
 /**
- * メッシュアクター.
+ * カメラアクター.
  * GgafDx9UntransformedActor を継承し、カメラを表したアクターです。<BR>
- * 本クラスは神(GgafDx9God)と連動ています。<BR>
+ * 本クラスは神(GgafDx9God)と連動ています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
  * processDrawPrior メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
+ * <BR>
+ * _X,_Y,_Z             ・・・ カメラの位置 <BR>
+ * _gazeX,_gazeY,_gazeZ ・・・ カメラが注視する座標 <BR>
+ * <BR>
+ * ＜使い方＞<BR>
+ * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
+ * <BR>
  */
-class GgafDx9CameraActor : public GgafDx9UntransformedActor {
+class GgafDx9Camera : public GgafDx9UntransformedActor {
 private:
 
 public:
-
+    /** 注視点 */
     int _gazeX, _gazeY, _gazeZ;
 
-    GgafDx9CameraActor(const char* prm_name);
+    GgafDx9Camera(const char* prm_name);
 
     virtual void initialize();
 
@@ -57,7 +68,7 @@ public:
         _gazeZ = prm_pActor->_Z;
     }
 
-    virtual ~GgafDx9CameraActor(); //デストラクタ
+    virtual ~GgafDx9Camera(); //デストラクタ
 };
 
 }

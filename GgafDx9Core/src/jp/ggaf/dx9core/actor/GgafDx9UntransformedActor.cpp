@@ -22,7 +22,7 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     _paD3DMaterial9 = NULL;
 
 //    _pEffectLead = (GgafDx9EffectLead*)GgafDx9God::_pEffectManager->lead("Default");
-//    _pID3DXEffect = _pEffectLead->getResource();
+//    _pID3DXEffect = _pEffectLead->touch();
 
     _fAlpha = 1.0f;
 }

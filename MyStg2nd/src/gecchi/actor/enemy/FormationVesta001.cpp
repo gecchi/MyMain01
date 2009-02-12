@@ -9,7 +9,7 @@ FormationVesta001::FormationVesta001(const char* prm_name, const char* prm_model
     _class_name = "FormationVesta001";
     for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
         _pEnemyVesta[i] = NEW EnemyVesta("Vesta01", prm_model);
-        _pEnemyVesta[i]->refrainImmediatelyAlone();
+        _pEnemyVesta[i]->inactImmediatelyAlone();
         addSubLast(_pEnemyVesta[i] );
     }
 }

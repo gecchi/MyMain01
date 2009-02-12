@@ -11,7 +11,7 @@ namespace GgafDx9Core {
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
 /**
- * Ogg ストリーム活動クラス .
+ * Bgm(Ogg ストリーム)クラス .
  */
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:

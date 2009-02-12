@@ -80,7 +80,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //            GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
 //            if (_papTexture[i] != NULL) {
 //                //テクスチャのセット
-//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->getResource());
+//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->touch());
 //            } else {
 //                //無ければテクスチャ無し
 //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
@@ -108,7 +108,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
             if (_papTexture[i] != NULL) {
                 //テクスチャのセット
-                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->getResource());
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->touch());
             } else {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);

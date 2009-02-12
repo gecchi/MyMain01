@@ -7,11 +7,11 @@ using namespace MyStg2nd;
 
 Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pStage01Main = NEW Stage01MainScene("Stage01Main");
-	_pStage01Main->refrainAlone();
+	_pStage01Main->inactAlone();
     addSubLast(_pStage01Main);
 
 	_pBackGround01 = NEW BackGround01Plate("BACKGOROUND01", "");
-	_pBackGround01->refrain();
+	_pBackGround01->inact();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
 
     _pBgmLead_st1 = (GgafDx9BgmLead*)GgafDx9Sound::_pBgmManager->lead("JM5");
@@ -29,7 +29,7 @@ void Stage01Scene::processBehavior() {
     }
     if (isChangeProgress(STAGE01_PROG_BEGIN)) {
 
-    	_pBgmLead_st1->getResource()->play(false);
+    	_pBgmLead_st1->touch()->play(false);
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
         //タイトル活動ループ

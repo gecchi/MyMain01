@@ -23,9 +23,9 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     addSubLast(_pGameEnding);
 
     _pGameDemo->act();
-    _pGameBeginning->refrain();
-    _pGameMain->refrain();
-    _pGameEnding->refrain();
+    _pGameBeginning->inact();
+    _pGameMain->inact();
+    _pGameEnding->inact();
 
 }
 

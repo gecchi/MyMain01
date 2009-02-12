@@ -8,6 +8,10 @@ namespace GgafDx9Core {
 typedef int angle;
 typedef int s_ang;
 
+/**
+ * ユーティリティ.
+ * 独立した静的関数はココに集約しています。
+ */
 class GgafDx9Util: GgafCore::GgafUtil {
 
 public:

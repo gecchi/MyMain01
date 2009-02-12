@@ -100,7 +100,7 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        refrain();
+        inact();
     }
 }
 
@@ -236,7 +236,7 @@ void MyLaserChip::processDrawMain() {
 }
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    refrain();
+    inact();
 }
 
 MyLaserChip::~MyLaserChip() {

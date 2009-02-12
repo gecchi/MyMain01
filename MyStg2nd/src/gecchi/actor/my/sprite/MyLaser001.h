@@ -37,7 +37,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void onRefrain();
+    void onInact();
 
     void setRadicalActor(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
         _pActor_Radical = prm_pActor;

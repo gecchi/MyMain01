@@ -28,7 +28,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, const char* prm_model) : DefaultMes
     for (int i = 0; i < 16; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/myvic");
-        pEnemyMeshShot->refrainImmediately(); //Å‰”ñ•\Ž¦
+        pEnemyMeshShot->inactImmediately(); //Å‰”ñ•\Ž¦
             _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
         //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®
@@ -173,7 +173,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setMoveAngleRzRy(-ANGLE90 + way[i], ANGLE90);
-                pTama->act();
+                pTama->actAlone();
             }
         }
         for (int i = 8; i < 16; i++) {
@@ -181,7 +181,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setMoveAngleRzRy(-ANGLE90 - way[i], -ANGLE90);
-                pTama->act();
+                pTama->actAlone();
             }
         }
 

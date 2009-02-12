@@ -34,7 +34,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         //‘O‰ñ•`‰æ‚Æƒ‚ƒfƒ‹‚ªˆá‚¤I
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTexture->getResource());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTexture->touch());
     }
 
     if (_pRectUV_drawlast != pRectUV_Active) {

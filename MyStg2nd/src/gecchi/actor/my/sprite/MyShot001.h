@@ -33,7 +33,7 @@ public:
     /**
      * ＜OverRide です＞
      */
-    void onRefrain();
+    void onInact();
 
     /**
      * 親元対象アクター

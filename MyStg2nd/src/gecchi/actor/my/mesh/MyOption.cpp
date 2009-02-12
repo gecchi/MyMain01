@@ -25,15 +25,21 @@ MyOption::MyOption(const char* prm_name, const char* prm_model) : DefaultMeshAct
 //	pTemp->_next = pFirst;
 //	_pGeoChainRingActive = pFirst;
 
-    _pMyLaserChipRotation = NEW RotationActor("RotLaser001");
-    addSubLast(_pMyLaserChipRotation);//仮所属
-    MyLaserChip2* pChip;
-    for (int i = 0; i < 40; i++) { //レーザーストック
-        pChip = NEW MyLaserChip2("MY_Laser", "laserchip9");
-        pChip->refrainImmediatelyAlone();
-        _pMyLaserChipRotation->addSubLast(pChip);
-        Sleep(1);
-    }
+
+    _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
+    addSubLast(_pMyLaserChipRotation);
+
+//
+//    _pMyLaserChipRotation = NEW RotationActor("RotLaser001");
+//    addSubLast(_pMyLaserChipRotation);//仮所属
+//
+//    MyLaserChip2* pChip;
+//    for (int i = 0; i < 40; i++) { //レーザーストック
+//        pChip = NEW MyLaserChip2("MY_Laser", "laserchip9");
+//        pChip->inactImmediatelyAlone();
+//        _pMyLaserChipRotation->addSubLast(pChip);
+//        Sleep(1);
+//    }
 
     _iMyNo = 0;
 }
@@ -89,8 +95,8 @@ void MyOption::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            pLaser->_dwFrame_switchedToAct = _dwFrame;
-            pLaser->act();
+            //pLaser->_dwFrame_switchedToAct = _dwFrame;
+            //pLaser->actAlone();
         }
     }
 }

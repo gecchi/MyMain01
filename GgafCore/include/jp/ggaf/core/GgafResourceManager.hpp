@@ -176,7 +176,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             TRACE("GgafResourceManager::GgafResourceManager 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Lead]が残ってます。強制削除しますが、本来あってはいけません。");
 
-            T* r = pCurrent->getResource();
+            T* r = pCurrent->touch();
             pCurrent_Next = pCurrent->_pNext;
             if (r != NULL) {
                 pCurrent->processReleaseResource(r); //リソースの解放

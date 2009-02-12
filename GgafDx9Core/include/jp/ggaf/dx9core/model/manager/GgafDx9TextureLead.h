@@ -3,8 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * モデル基底クラス.
- * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * テクスチャのコネクション.
  */
 class GgafDx9TextureLead : public GgafCore::GgafResourceLead<IDirect3DTexture9> {
 
@@ -17,14 +16,8 @@ public:
      */
     GgafDx9TextureLead(char* prm_idstr, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
 
-    /**
-     * オーバーライド
-     */
     void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
-    /**
-     * デストラクタ<BR>
-     */
     virtual ~GgafDx9TextureLead() {
     }
 };

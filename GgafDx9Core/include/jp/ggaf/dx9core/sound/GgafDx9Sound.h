@@ -1,19 +1,19 @@
 #ifndef GGAFDX9SOUND_H_
 #define GGAFDX9SOUND_H_
 namespace GgafDx9Core {
-
+/**
+ * サウンドクラス.
+ * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったクラスです
+ */
 class GgafDx9Sound {
 public:
     /** IDirectSound8インターフェイス */
     static IDirectSound8* _pIDirectSound8;
     static DSCAPS _dsCaps;
-    //static CC3DSound* _pC3DSound;
     static void init();
     static void release();
     static GgafDx9SeManager* _pSeManager;
     static GgafDx9BgmManager* _pBgmManager;
-    //	static GgafDx9Se*  createSe(std::string prm_wave_name);
-    //	static GgafDx9Bgm* createBgm(std::string prm_ogg_name);
 };
 
 }
