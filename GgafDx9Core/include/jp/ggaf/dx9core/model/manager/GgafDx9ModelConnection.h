@@ -1,11 +1,11 @@
-#ifndef GGAFDX9MODELLEAD_H_
-#define GGAFDX9MODELLEAD_H_
+#ifndef GGAFDX9MODELCONNECTION_H_
+#define GGAFDX9MODELCONNECTION_H_
 namespace GgafDx9Core {
 
 /**
  * モデルのコネクション.
  */
-class GgafDx9ModelLead : public GgafCore::GgafResourceLead<GgafDx9Model> {
+class GgafDx9ModelConnection : public GgafCore::GgafResourceConnection<GgafDx9Model> {
 
 public:
 
@@ -14,13 +14,13 @@ public:
      * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
      * @param prm_pModel リソースとなるモデル
      */
-    GgafDx9ModelLead(char* prm_idstr, GgafDx9Model* prm_pModel);
+    GgafDx9ModelConnection(char* prm_idstr, GgafDx9Model* prm_pModel);
 
     void processReleaseResource(GgafDx9Model* prm_pResource);
 
-    virtual ~GgafDx9ModelLead() {
+    virtual ~GgafDx9ModelConnection() {
     }
 };
 
 }
-#endif /*GGAFDX9MODELLEAD_H_*/
+#endif /*GGAFDX9MODELCONNECTION_H_*/

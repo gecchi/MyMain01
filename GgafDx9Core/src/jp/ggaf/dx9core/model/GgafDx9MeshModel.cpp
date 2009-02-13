@@ -80,7 +80,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //            GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
 //            if (_papTexture[i] != NULL) {
 //                //テクスチャのセット
-//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->touch());
+//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->take());
 //            } else {
 //                //無ければテクスチャ無し
 //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
@@ -108,7 +108,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
             if (_papTexture[i] != NULL) {
                 //テクスチャのセット
-                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->touch());
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->take());
             } else {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
@@ -154,8 +154,8 @@ void GgafDx9MeshModel::release() {
     }
     //テクスチャを解放するかどうか
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        //GgafDx9ModelManager::_pTextureManager->releaseResourceLead(_papTexture[i]);
-        RELEASE_SAFETY(_papTexture[i]);
+        //GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_papTexture[i]);
+        _papTexture[i]->close();
     }
 
     DELETEARR_IMPOSSIBLE_NULL(_papTexture); //テクスチャの配列

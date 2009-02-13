@@ -24,7 +24,7 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr)
                      0,                         // [in] D3DCOLOR ColorKey,
                      NULL,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
                      NULL,                      // [in] PALETTEENTRY *pPalette,
-                     &pIDirect3DTexture9_New    // [out] GgafDx9TextureLead* *ppTexture
+                     &pIDirect3DTexture9_New    // [out] GgafDx9TextureConnection* *ppTexture
                 );
     if (hr != D3D_OK) {
         throwGgafDx9CriticalException("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_idstr, hr);
@@ -34,11 +34,11 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr)
     return pIDirect3DTexture9_New;
 }
 
-GgafResourceLead<IDirect3DTexture9>* GgafDx9TextureManager::processCreateLead(char* prm_idstr,
+GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(char* prm_idstr,
                                                                               IDirect3DTexture9* prm_pResource) {
-    _TRACE_(" GgafDx9TextureManager::processCreateLead "<<prm_idstr<<" を生成開始。");
-    GgafDx9TextureLead* p = NEW GgafDx9TextureLead(prm_idstr, prm_pResource);
-    _TRACE_(" GgafDx9TextureManager::processCreateLead "<<prm_idstr<<" を生成終了。");
+    _TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    GgafDx9TextureConnection* p = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);
+    _TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }
 

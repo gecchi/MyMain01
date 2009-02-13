@@ -24,7 +24,7 @@ private:
 
 public:
     /** モデルオブジェクトへのポインタ */
-    GgafDx9ModelLead* _pModelLead;
+    GgafDx9ModelConnection* _pModelConnection;
     GgafDx9PlateModel* _pPlateModel;
     /** キャラ全体のα */
     float _fAlpha;

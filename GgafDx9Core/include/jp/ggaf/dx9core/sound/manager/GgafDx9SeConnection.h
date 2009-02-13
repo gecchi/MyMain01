@@ -1,11 +1,11 @@
-#ifndef GGAFDX9SELEAD_H_
-#define GGAFDX9SELEAD_H_
+#ifndef GGAFDX9SECONNECTION_H_
+#define GGAFDX9SECONNECTION_H_
 namespace GgafDx9Core {
 
 /**
  * GgafDx9Seコネクション.
  */
-class GgafDx9SeLead : public GgafCore::GgafResourceLead<GgafDx9Se> {
+class GgafDx9SeConnection : public GgafCore::GgafResourceConnection<GgafDx9Se> {
 
 public:
 
@@ -14,13 +14,13 @@ public:
      * @param prm_texture_file_name OGG識別名(＝ファイル名)
      * @param prm_pGgafDx9Se OGG
      */
-    GgafDx9SeLead(char* prm_idstr, GgafDx9Se* prm_pGgafDx9Se);
+    GgafDx9SeConnection(char* prm_idstr, GgafDx9Se* prm_pGgafDx9Se);
 
     void processReleaseResource(GgafDx9Se* prm_pResource);
 
-    virtual ~GgafDx9SeLead() {
+    virtual ~GgafDx9SeConnection() {
     }
 };
 
 }
-#endif /*GGAFDX9SELEAD_H_*/
+#endif /*GGAFDX9SECONNECTION_H_*/

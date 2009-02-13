@@ -18,7 +18,7 @@ public:
 
     GgafDx9Se* processCreateResource(char* prm_idstr);
 
-    GgafCore::GgafResourceLead<GgafDx9Se>* processCreateLead(char* prm_idstr, GgafDx9Se* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Se>* processCreateConnection(char* prm_idstr, GgafDx9Se* prm_pResource);
 
     virtual ~GgafDx9SeManager() {
     }

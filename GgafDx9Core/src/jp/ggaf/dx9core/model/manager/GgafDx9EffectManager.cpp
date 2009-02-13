@@ -40,11 +40,11 @@ ID3DXEffect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
     return pID3DXEffect_New;
 }
 
-GgafResourceLead<ID3DXEffect>* GgafDx9EffectManager::processCreateLead(char* prm_idstr,
+GgafResourceConnection<ID3DXEffect>* GgafDx9EffectManager::processCreateConnection(char* prm_idstr,
                                                                        ID3DXEffect* prm_pResource) {
-    _TRACE_(" GgafDx9EffectManager::processCreateLead "<<prm_idstr<<" を生成開始。");
-    GgafDx9EffectLead* p = NEW GgafDx9EffectLead(prm_idstr, prm_pResource);
-    _TRACE_(" GgafDx9EffectManager::processCreateLead "<<prm_idstr<<" を生成終了。");
+    _TRACE_(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    GgafDx9EffectConnection* p = NEW GgafDx9EffectConnection(prm_idstr, prm_pResource);
+    _TRACE_(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }
 

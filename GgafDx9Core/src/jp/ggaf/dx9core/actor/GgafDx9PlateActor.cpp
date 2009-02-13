@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 
 GgafDx9PlateActor::GgafDx9PlateActor(const char* prm_name, const char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
     _class_name = "GgafDx9PlateActor";
-    _pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name);
-    _pPlateModel = (GgafDx9PlateModel*)_pModelLead->touch();
+    _pModelConnection = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
+    _pPlateModel = (GgafDx9PlateModel*)_pModelConnection->take();
     _iPatternNo_Top = 0;
     _iPatternNo_Bottom = _pPlateModel->_iPatternNo_Max;
     _iPatternNo_Active = 0;
@@ -96,6 +96,6 @@ void GgafDx9PlateActor::setPatternNo(int prm_iPatternNo) {
 }
 
 GgafDx9PlateActor::~GgafDx9PlateActor() {
-    RELEASE_SAFETY(_pModelLead);
+    _pModelConnection->close();
     DELETEARR_IMPOSSIBLE_NULL(_paVertex);
 }

@@ -16,7 +16,7 @@ public:
     D3DMATERIAL9* _paD3DMaterial9;
 
     /** エフェクト */
-    GgafDx9EffectLead* _pEffectLead;
+    GgafDx9EffectConnection* _pEffectConnection;
     ID3DXEffect* _pID3DXEffect;
 
 

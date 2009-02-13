@@ -9,8 +9,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                        GgafDx9GeometryChecker* prm_pGeoChecker) :
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _class_name = "GgafDx9SpriteActor";
-    _pModelLead = (GgafDx9ModelLead*)GgafDx9God::_pModelManager->lead(prm_spritemodel_name);
-    _pSpriteModel = (GgafDx9SpriteModel*)_pModelLead->touch();
+    _pModelConnection = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
+    _pSpriteModel = (GgafDx9SpriteModel*)_pModelConnection->take();
     _iAnimationPatternNo_Top = 0;
     _iAnimationPatternNo_Bottom = _pSpriteModel->_iAnimationPatternNo_Max;
     _iAnimationPatternNo_Active = 0;
@@ -125,6 +125,6 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
-    RELEASE_SAFETY(_pModelLead);
+    _pModelConnection->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

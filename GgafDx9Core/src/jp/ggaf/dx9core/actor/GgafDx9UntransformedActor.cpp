@@ -21,8 +21,8 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     _pGeoChecker = prm_pGeoChecker;
     _paD3DMaterial9 = NULL;
 
-//    _pEffectLead = (GgafDx9EffectLead*)GgafDx9God::_pEffectManager->lead("Default");
-//    _pID3DXEffect = _pEffectLead->touch();
+//    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("Default");
+//    _pID3DXEffect = _pEffectConnection->take();
 
     _fAlpha = 1.0f;
 }
@@ -178,7 +178,7 @@ void GgafDx9UntransformedActor::setWorldTransformScRzMxyz(GgafDx9UntransformedAc
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
-//    RELEASE_SAFETY(_pEffectLead);
+//    _pEffectConnection->close();
     DELETE_POSSIBLE_NULL(_pGeoMover);
     DELETE_POSSIBLE_NULL(_pGeoChecker);
 }

@@ -88,7 +88,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceLead<GgafDx9Model>* processCreateLead(char* prm_idstr, GgafDx9Model* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Model>* processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource);
 
     /**
      * GgafDx9Modelオブジェクトをリストの各インスタンスの内容を再構築。 .

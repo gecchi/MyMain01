@@ -83,11 +83,11 @@ class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
-class GgafDx9TextureLead;
+class GgafDx9TextureConnection;
 class GgafDx9TextureManager;
-class GgafDx9ModelLead;
+class GgafDx9ModelConnection;
 class GgafDx9ModelManager;
-class GgafDx9EffectLead;
+class GgafDx9EffectConnection;
 class GgafDx9EffectManager;
 class GgafDx9BaseActor;
 class GgafDx9UntransformedActor;
@@ -115,9 +115,9 @@ class GgafDx9RectUV;
 
 class GgafDx9Se;
 class GgafDx9Bgm;
-class GgafDx9SeLead;
+class GgafDx9SeConnection;
 class GgafDx9SeManager;
-class GgafDx9BgmLead;
+class GgafDx9BgmConnection;
 class GgafDx9BgmManager;
 class GgafDx9Sound;
 class CWaveDecorder;
@@ -137,11 +137,11 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureLead.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureConnection.h"
 #include "jp/ggaf/dx9core/model/manager/GgafDx9TextureManager.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelLead.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelConnection.h"
 #include "jp/ggaf/dx9core/model/manager/GgafDx9ModelManager.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9EffectLead.h"
+#include "jp/ggaf/dx9core/model/manager/GgafDx9EffectConnection.h"
 #include "jp/ggaf/dx9core/model/manager/GgafDx9EffectManager.h"
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
@@ -190,9 +190,9 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeLead.h"
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeConnection.h"
 #include "jp/ggaf/dx9core/sound/manager/GgafDx9SeManager.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmLead.h"
+#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmConnection.h"
 #include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
 

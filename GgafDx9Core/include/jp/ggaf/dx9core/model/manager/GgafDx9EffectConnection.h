@@ -1,12 +1,12 @@
-#ifndef GGAFDX9EFFECTLEAD_H_
-#define GGAFDX9EFFECTLEAD_H_
+#ifndef GGAFDX9EFFECTCONNECTION_H_
+#define GGAFDX9EFFECTCONNECTION_H_
 namespace GgafDx9Core {
 
 /**
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  */
-class GgafDx9EffectLead : public GgafCore::GgafResourceLead<ID3DXEffect> {
+class GgafDx9EffectConnection : public GgafCore::GgafResourceConnection<ID3DXEffect> {
 
 public:
 
@@ -15,7 +15,7 @@ public:
      * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
      * @param prm_pID3DXEffect テクスチャ
      */
-    GgafDx9EffectLead(char* prm_idstr, ID3DXEffect* prm_pID3DXEffect);
+    GgafDx9EffectConnection(char* prm_idstr, ID3DXEffect* prm_pID3DXEffect);
 
     /**
      * オーバーライド
@@ -25,9 +25,9 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~GgafDx9EffectLead() {
+    virtual ~GgafDx9EffectConnection() {
     }
 };
 
 }
-#endif /*GGAFDX9EFFECTLEAD_H_*/
+#endif /*GGAFDX9EFFECTCONNECTION_H_*/

@@ -3,8 +3,8 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9TextureLead 管理クラス .
- * 生成済み GgafDx9TextureLead オブジェクトを登録しておき、使いまわします。
+ * GgafDx9TextureConnection 管理クラス .
+ * 生成済み GgafDx9TextureConnection オブジェクトを登録しておき、使いまわします。
  */
 class GgafDx9TextureManager : public GgafCore::GgafResourceManager<IDirect3DTexture9> {
 
@@ -24,7 +24,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceLead<IDirect3DTexture9>* processCreateLead(char* prm_idstr, IDirect3DTexture9* prm_pResource);
+    GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(char* prm_idstr, IDirect3DTexture9* prm_pResource);
 
     virtual ~GgafDx9TextureManager() {
     }

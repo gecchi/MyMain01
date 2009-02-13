@@ -96,7 +96,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     //以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDx9TextureLead** papTexture; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    GgafDx9TextureConnection** papTexture; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x";
 
@@ -140,10 +140,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     }
 
     //テクスチャを取り出す
-    papTexture = NEW GgafDx9TextureLead*[dwNumMaterials];
+    papTexture = NEW GgafDx9TextureConnection*[dwNumMaterials];
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename)> 0 ) {
-            papTexture[i] = (GgafDx9TextureLead*)_pTextureManager->lead(paD3DMaterial9_tmp[i].pTextureFilename);
+            papTexture[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(paD3DMaterial9_tmp[i].pTextureFilename);
         } else {
             //テクスチャ無し
             papTexture[i] = NULL;
@@ -239,7 +239,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
     //テクスチャ取得しモデルに保持させる
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureLead* pTexture = (GgafDx9TextureLead*)_pTextureManager->lead(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
     prm_pSpriteModel->_pTexture = pTexture;
 
@@ -398,7 +398,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
     //頂点配列情報をモデルに保持させる
     //string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureLead* pTexture = (GgafDx9TextureLead*)_pTextureManager->lead(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
 
     prm_pPlateModel->_pTexture = pTexture;
 
@@ -519,10 +519,10 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
 }
 
-GgafResourceLead<GgafDx9Model>* GgafDx9ModelManager::processCreateLead(char* prm_idstr, GgafDx9Model* prm_pResource) {
-    TRACE(" GgafDx9ModelManager::processCreateLead "<<prm_idstr<<" を生成開始。");
-    GgafDx9ModelLead* p = NEW GgafDx9ModelLead(prm_idstr, prm_pResource);
-    TRACE(" GgafDx9ModelManager::processCreateLead "<<prm_idstr<<" を生成終了。");
+GgafResourceConnection<GgafDx9Model>* GgafDx9ModelManager::processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource) {
+    TRACE(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    GgafDx9ModelConnection* p = NEW GgafDx9ModelConnection(prm_idstr, prm_pResource);
+    TRACE(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }
 
@@ -539,10 +539,10 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
 
 void GgafDx9ModelManager::restoreAll() {
     TRACE("GgafDx9ModelManager::restoreAll() start-->");
-    GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
     TRACE("restoreAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
-        pCurrent->touch()->restore();
+        pCurrent->take()->restore();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::restoreAll() end<--");
@@ -550,10 +550,10 @@ void GgafDx9ModelManager::restoreAll() {
 
 void GgafDx9ModelManager::onDeviceLostAll() {
     TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
-    GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
     TRACE("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
-        pCurrent->touch()->onDeviceLost();
+        pCurrent->take()->onDeviceLost();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
@@ -561,9 +561,9 @@ void GgafDx9ModelManager::onDeviceLostAll() {
 
 void GgafDx9ModelManager::releaseAll() {
     TRACE("GgafDx9ModelManager::releaseAll() start-->");
-    GgafResourceLead<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
     while (pCurrent != NULL) {
-        pCurrent->touch()->release();
+        pCurrent->take()->release();
         pCurrent = pCurrent->_pNext;
     }
     TRACE("GgafDx9ModelManager::releaseAll() end<--");

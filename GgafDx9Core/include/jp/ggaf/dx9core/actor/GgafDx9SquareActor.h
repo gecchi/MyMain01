@@ -12,7 +12,7 @@ class GgafDx9SquareActor : public GgafDx9UntransformedActor {
 private:
 
 public:
-    GgafDx9ModelLead* _pModelLead;
+    GgafDx9ModelConnection* _pModelConnection;
     GgafDx9SquareModel* _pSquareModel;
 
     GgafDx9SquareActor(const char* prm_name,

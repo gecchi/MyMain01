@@ -12,7 +12,7 @@ private:
 
 public:
     /** ƒ‚ƒfƒ‹ */
-    GgafDx9ModelLead* _pModelLead;
+    GgafDx9ModelConnection* _pModelConnection;
     GgafDx9MeshModel* _pMeshModel;
 
     GgafDx9MeshActor(const char* prm_name,

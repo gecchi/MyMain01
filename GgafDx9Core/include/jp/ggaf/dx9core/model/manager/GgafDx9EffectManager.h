@@ -3,8 +3,8 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9EffectLead 管理クラス .
- * 生成済み GgafDx9EffectLead オブジェクトを登録しておき、使いまわします。
+ * GgafDx9EffectConnection 管理クラス .
+ * 生成済み GgafDx9EffectConnection オブジェクトを登録しておき、使いまわします。
  */
 class GgafDx9EffectManager : public GgafCore::GgafResourceManager<ID3DXEffect> {
 
@@ -24,7 +24,7 @@ public:
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceLead<ID3DXEffect>* processCreateLead(char* prm_idstr, ID3DXEffect* prm_pResource);
+    GgafCore::GgafResourceConnection<ID3DXEffect>* processCreateConnection(char* prm_idstr, ID3DXEffect* prm_pResource);
 
     virtual ~GgafDx9EffectManager() {
     }
