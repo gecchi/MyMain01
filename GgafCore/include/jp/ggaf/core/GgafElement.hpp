@@ -189,7 +189,7 @@ public:
      * ノードの何かの処理(フレーム毎ではない) .
      * 活動フラグがセット、(つまり _isActive)の場合 <BR>
      * processHappen(int) をコールした後、配下のノード全てについて happen() を再帰的に実行する。<BR>
-     * @param	prm_no 何かの番号
+     * @param   prm_no 何かの番号
      */
     virtual void happen(int prm_no);
 
@@ -254,13 +254,13 @@ public:
      * ノードの個別何かの処理を記述
      * happen() 時の処理先頭でコールバックされる。
      * 利用目的不定の汎用イベント用メソッド
-     * @param	int prm_no 何かの番号
+     * @param   int prm_no 何かの番号
      */
     virtual void processHappen(int prm_no) = 0;
 
     /**
      * 神に謁見 .
-     * @return	呼ばれて出てきた神
+     * @return  呼ばれて出てきた神
      */
     virtual GgafGod* askGod() = 0;
 
@@ -504,7 +504,6 @@ public:
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
      */
     void moveLast();
-
     /**
      * 自ツリーノードを先頭ノードに移動する .
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
@@ -514,46 +513,46 @@ public:
 
     /**
      * 所属ツリーから独立する
-     * @return	T* 脱退し独立した自ノードのポインタ
+     * @return  T* 脱退し独立した自ノードのポインタ
      *
      */
     T* becomeIndependent();
 
     /**
      * 生存可能か調べる
-     * @return	bool true:生存可能／false:生存不可
+     * @return  bool true:生存可能／false:生存不可
      */
     bool isAlive();
 
     /**
      * 活動中か調べる
-     * @return	bool true:活動中／false:非活動中
+     * @return  bool true:活動中／false:非活動中
      */
     bool isPlaying();
 
     /**
      * 非活動から活動に切り替わったかどうか .
      * ただし、onAct() で代用できる場合は、そちらをオーバーライドしたほうがすっきり記述できるはず。
-     * @return	bool true:切り替わった／false:切り替わっていない
+     * @return  bool true:切り替わった／false:切り替わっていない
      */
     bool switchedToAct();
 
     /**
      * 活動から停止に切り替わったかどうか .
      * このメソッドは今のところ使いどころは無いかもしれません。
-     * @return	bool true:切り替わった／false:切り替わっていない
+     * @return  bool true:切り替わった／false:切り替わっていない
      */
     bool switchedToInact();
 
     /**
      * 活動しているか
-     * @return	bool true:活動可能／false:活動不可
+     * @return  bool true:活動可能／false:活動不可
      */
     bool isBehaving();
 
     /**
      * 描画するかどうか調べる（非表示でないかどうか）
-     * @return	bool true:描画できる／false:描画はしない
+     * @return  bool true:描画できる／false:描画はしない
      */
     bool canDraw();
 
@@ -566,8 +565,8 @@ public:
      * 相対経過フレームの判定。
      * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
      * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
-     * @param	prm_dwFrame_relative	経過フレーム数
-     * @return	bool	true:経過フレーム数に達した/false:達していない
+     * @param   prm_dwFrame_relative    経過フレーム数
+     * @return  bool    true:経過フレーム数に達した/false:達していない
      */
     bool relativeFrame(DWORD prm_dwFrame_relative);
 

@@ -107,7 +107,7 @@ class GgafLogger;
 class GgafGod;
 
 template<class T>
-class GgafResourceLead;
+class GgafResourceConnection;
 
 template<class T>
 class GgafResourceManager;
@@ -149,7 +149,7 @@ class GgafProperties;
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
 
-#include "jp/ggaf/core/GgafResourceLead.hpp"
+#include "jp/ggaf/core/GgafResourceConnection.hpp"
 #include "jp/ggaf/core/GgafResourceManager.hpp"
 
 #include "jp/ggaf/core/GgafFactory.h"

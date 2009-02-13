@@ -1,11 +1,11 @@
-#ifndef GGAFRESOURCELEAD_H_
-#define GGAFRESOURCELEAD_H_
+#ifndef GGAFRESOURCECONNECTION_H_
+#define GGAFRESOURCECONNECTION_H_
 namespace GgafCore {
 
 /**
  * 資源(Resource)アクセッサ.
  * 無駄な資源(Resource)の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
- * GgafResourceLead実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
+ * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
  * から取得することとします。<BR>
  * 内部で参照カウンタにより開放か否かを判断したいためです。<BR>
  * マネージャーから取得で参照カウントが+1、本クラスのReleaseで参照カウントが-1されます。<BR>
@@ -13,13 +13,13 @@ namespace GgafCore {
  * T には資源を指定してください。<BR>
  */
 template<class T>
-class GgafResourceLead : public GgafObject {
+class GgafResourceConnection : public GgafObject {
 protected:
     /**
      * デストラクタ<BR>
      * protected である理由は、delete を this->Release() のみでに限定したため<BR>
      */
-    virtual ~GgafResourceLead() {
+    virtual ~GgafResourceConnection() {
     } //デストラクタ
 
 public:
@@ -30,9 +30,9 @@ public:
     /** 使いまわす資源 */
     T* _pResource;
     /** 資源を参照しているポインタ数 */
-    int _iLeadNum;
-    /** 次のGgafResourceLeadへのポインタ。終端はNULL */
-    GgafResourceLead* _pNext;
+    int _iConnectionNum;
+    /** 次のGgafResourceConnectionへのポインタ。終端はNULL */
+    GgafResourceConnection* _pNext;
 
     /**
      * コンストラクタ<BR>
@@ -40,19 +40,19 @@ public:
      * @param prm_pResource 使いまわす資源
      * @param prm_pIDirect3DTexture9
      */
-    GgafResourceLead(char* prm_idstr, T* prm_pResource);
+    GgafResourceConnection(char* prm_idstr, T* prm_pResource);
 
     /**
      * 資源のポインタを取得。
      * 参照カウンタは増えません<BR>
      */
-    virtual T* touch();
+    virtual T* take();
 
     /**
      * 資源を解放
      * 参照カウンタを1減らし、0になれば本当に開放します。
      */
-    int Release();
+    int close();
 
     /**
      * 資源の実際のリリース処理を実装します。
@@ -63,33 +63,33 @@ public:
 };
 
 template<class T>
-GgafResourceLead<T>::GgafResourceLead(char* prm_idstr, T* prm_pResource) : GgafObject() {
-    TRACE("GgafResourceLead::GgafResourceLead(" << prm_idstr << ")");
+GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
+    TRACE("GgafResourceConnection::GgafResourceConnection(" << prm_idstr << ")");
     _pResource = prm_pResource;
     _pNext = NULL;
     _pManager = NULL;
-    _iLeadNum = 0;
+    _iConnectionNum = 0;
     _idstr = NEW char[51];
     strcpy(_idstr, prm_idstr);
 }
 
 template<class T>
-T* GgafResourceLead<T>::touch() {
+T* GgafResourceConnection<T>::take() {
     return _pResource;
 }
 
 template<class T>
-int GgafResourceLead<T>::Release() {
+int GgafResourceConnection<T>::close() {
 
-    GgafResourceLead<T>* pCurrent;
-    GgafResourceLead<T>* pPrev;
+    GgafResourceConnection<T>* pCurrent;
+    GgafResourceConnection<T>* pPrev;
     pCurrent = _pManager->_pTop;
     pPrev = NULL;
     while (pCurrent != NULL) {
         if (pCurrent == this) {
             //発見した場合
-            int rnum = _iLeadNum;
-            TRACE("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum << "Lead] 発見したので開始");
+            int rnum = _iConnectionNum;
+            TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 発見したので開始");
 
             if (rnum == 1) {//最後の参照だった場合
                 //死に行く宿めであるので、保持リストから離脱を行なう
@@ -112,15 +112,15 @@ int GgafResourceLead<T>::Release() {
                         pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
                     }
                 }
-                TRACE("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum << "Lead] 最後の参照のため解放します。");
-                _iLeadNum = 0;
+                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
+                _iConnectionNum = 0;
             } else if (rnum > 0) {
-                TRACE("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum << "Lead] まだ残ってます");
-                _iLeadNum--;
+                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] まだ残ってます");
+                _iConnectionNum--;
             } else if (rnum < 0) {
-                TRACE("GgafResourceManager::releaseResourceLead[" << _idstr << "←" << rnum
-                        << "Lead] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
-                _iLeadNum = 0; //とりあえず解放
+                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum
+                        << "Connection] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
+                _iConnectionNum = 0; //とりあえず解放
             }
             break;
         } else {
@@ -130,8 +130,8 @@ int GgafResourceLead<T>::Release() {
         }
     }
 
-    if (_iLeadNum == 0) {
-        T* r = pCurrent->touch();
+    if (_iConnectionNum == 0) {
+        T* r = pCurrent->take();
         if (r != NULL) {
             pCurrent->processReleaseResource(r); //本当の解放
         }
@@ -139,10 +139,10 @@ int GgafResourceLead<T>::Release() {
         delete this;
         return 0;
     } else {
-        return _iLeadNum;
+        return _iConnectionNum;
     }
 }
 
 }
 
-#endif /*GGAFRESOURCELEAD_H_*/
+#endif /*GGAFRESOURCECONNECTION_H_*/
