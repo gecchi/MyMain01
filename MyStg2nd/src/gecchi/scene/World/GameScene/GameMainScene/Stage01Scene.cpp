@@ -14,7 +14,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pBackGround01->inact();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
 
-    _pBgmLead_st1 = (GgafDx9BgmLead*)GgafDx9Sound::_pBgmManager->lead("JM5");
+    _pBgmConnection_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
     //GameMainSceneが解除してくれる
     setProgress(STAGE01_PROG_INIT);
 }
@@ -27,9 +27,9 @@ void Stage01Scene::processBehavior() {
     if (getProgress() == STAGE01_PROG_INIT) {
     	setProgress(STAGE01_PROG_BEGIN);
     }
-    if (isChangeProgress(STAGE01_PROG_BEGIN)) {
+    if (onChangeProgress(STAGE01_PROG_BEGIN)) {
 
-    	_pBgmLead_st1->touch()->play(false);
+    	_pBgmConnection_st1->take()->play(false);
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
         //タイトル活動ループ
@@ -65,5 +65,5 @@ void Stage01Scene::processFinal() {
 }
 
 Stage01Scene::~Stage01Scene() {
-    RELEASE_IMPOSSIBLE_NULL(_pBgmLead_st1);
+    _pBgmConnection_st1->close();
 }

@@ -18,7 +18,7 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
         addSubLast(pChip);
     }
     Sleep(1);
-    _pLaserLead = (GgafDx9SeLead*)GgafDx9Sound::_pSeManager->lead("laser001");
+    _pLaserConnection = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }
 void MyLaserChipRotationActor::processBehavior() {
     if (_pHeadChip == NULL) {
@@ -51,7 +51,7 @@ GgafMainActor* MyLaserChipRotationActor::obtain() {
             }
             if (_iNumActiveChip == 1) {
                 //æ“ª‚Ìƒ`ƒbƒv
-                _pLaserLead->touch()->play();
+                _pLaserConnection->take()->play();
                 _pHeadChip = pChip;
             }
             return pChip;
@@ -61,5 +61,5 @@ GgafMainActor* MyLaserChipRotationActor::obtain() {
 
 
 MyLaserChipRotationActor::~MyLaserChipRotationActor() {
-    RELEASE_SAFETY(_pLaserLead);
+    _pLaserConnection->close();
 }

@@ -8,7 +8,7 @@ public:
     int _iNumActiveChip;
     MyLaserChip2* _pHeadChip;
     int _mode;// = 0 OK /=1 ‹ó‚É‚È‚é‚Ü‚Å‘Ò‚Â
-    GgafDx9Core::GgafDx9SeLead* _pLaserLead;
+    GgafDx9Core::GgafDx9SeConnection* _pLaserConnection;
 
 
 	MyLaserChipRotationActor(const char* prm_name);

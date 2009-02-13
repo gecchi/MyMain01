@@ -30,7 +30,7 @@ void GameBeginningScene::processBehavior() {
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 
-    if (isChangeProgress(GAMEBEGINNING_PROG_BEGIN)) {
+    if (onChangeProgress(GAMEBEGINNING_PROG_BEGIN)) {
         _pFontPlate01->setString(200, 200, "GameBeginningScene BEGIN");
         _pFontPlate02->setString(200, 250, "YOKUKITANA!");
         _dwFrame_Begin = 0;
@@ -44,7 +44,7 @@ void GameBeginningScene::processBehavior() {
     }
 
 
-    if (isChangeProgress(GAMEBEGINNING_PROG_OPE)) {
+    if (onChangeProgress(GAMEBEGINNING_PROG_OPE)) {
         _pFontPlate01->setString(200, 200, "GameBeginningScene OPE");
         _pFontPlate02->setString(200, 250, "SELECT YOUR HOGEHOGE!");
         _dwFrame_Ope = 0;
@@ -58,7 +58,7 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
-    if (isChangeProgress(GAMEBEGINNING_PROG_DECIDE)) {
+    if (onChangeProgress(GAMEBEGINNING_PROG_DECIDE)) {
         _pFontPlate01->setString(200, 200, "GameBeginningScene DECIDE");
         _pFontPlate02->setString(200, 250, "OK . ARE YOU READY!");
         _dwFrame_Decide = 0;
@@ -71,7 +71,7 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
-    if (isChangeProgress(GAMEBEGINNING_PROG_END)) {
+    if (onChangeProgress(GAMEBEGINNING_PROG_END)) {
         _pFontPlate01->setString(200, 200, "GameBeginningScene END");
         _pFontPlate02->setString(200, 250, "KENTO WO INORU");
         inactAfter(140);

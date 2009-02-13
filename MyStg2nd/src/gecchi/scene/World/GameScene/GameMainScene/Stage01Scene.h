@@ -13,7 +13,7 @@ namespace MyStg2nd {
 class Stage01Scene : public StageScene {
 
 public:
-    GgafDx9Core::GgafDx9BgmLead* _pBgmLead_st1;
+    GgafDx9Core::GgafDx9BgmConnection* _pBgmConnection_st1;
     Stage01MainScene* _pStage01Main;
     BackGround01Plate* _pBackGround01;
     DWORD _dwFrame_Begin;

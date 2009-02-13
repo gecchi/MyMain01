@@ -31,7 +31,7 @@ void GameDemoScene::processBehavior() {
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
 
-    if (isChangeProgress(GAMEDEMO_PROG_BEGIN)) {
+    if (onChangeProgress(GAMEDEMO_PROG_BEGIN)) {
         _pFontPlate01->setString(100, 100, "GameDemoScene BEGIN");
         _pFontPlate02->setString(100, 150, "HAJIMARI HAJIMARI!");
         _dwFrame_Begin = 0;
@@ -47,7 +47,7 @@ void GameDemoScene::processBehavior() {
 
     //ループ----->
 
-    if (isChangeProgress(GAMEDEMO_PROG_TITLE)) {
+    if (onChangeProgress(GAMEDEMO_PROG_TITLE)) {
     	 //タイトル開始
         _pFontPlate01->setString(100, 100, "GameDemoScene TITLE");
         _pFontPlate02->setString(100, 150, "PUSH A UI_EXECUTE BUTTON");
@@ -66,7 +66,7 @@ void GameDemoScene::processBehavior() {
         }
     }
 
-    if (isChangeProgress(GAMEDEMO_PROG_DEMOPLAY)) {
+    if (onChangeProgress(GAMEDEMO_PROG_DEMOPLAY)) {
     	//デモプレイ開始
         _pFontPlate01->setString(100, 100, "GameDemoScene DEMOPLAY");
         _pFontPlate02->setString(100, 150, "GAME OVER");
@@ -84,7 +84,7 @@ void GameDemoScene::processBehavior() {
 
 
 
-    if (isChangeProgress(GAMEDEMO_PROG_RANKING)) {
+    if (onChangeProgress(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
         _pFontPlate01->setString(100, 100, "GameDemoScene RANKING");
         _pFontPlate02->setString(100, 150, "1st GecchiraQ");
@@ -111,7 +111,7 @@ void GameDemoScene::processBehavior() {
 
 
     //ゲームスタート
-    if (isChangeProgress(GAMEDEMO_PROG_DECIDE)) {
+    if (onChangeProgress(GAMEDEMO_PROG_DECIDE)) {
         _pFontPlate01->setString(100, 100, "GameDemoScene DECIDE");
         _pFontPlate02->setString(100, 150, "OK HJIMARIMASU!");
         _dwFrame_Decide = 0;
@@ -124,7 +124,7 @@ void GameDemoScene::processBehavior() {
         }
     }
 
-    if (isChangeProgress(GAMEDEMO_PROG_END)) {
+    if (onChangeProgress(GAMEDEMO_PROG_END)) {
         _pFontPlate01->setString(100, 100, "GameDemoScene END");
         _pFontPlate02->setString(100, 150, "SRABA");
         inactAfter(200);
