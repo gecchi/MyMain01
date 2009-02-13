@@ -88,8 +88,25 @@ GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name)
     return pSquareModel_New;
 }
 
+GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model_name) {
+    GgafDx9PrimitiveModel* pPrimitiveModel_New = NEW GgafDx9PrimitiveModel(prm_model_name);
+    restorePrimitiveModel(pPrimitiveModel_New);
+    return pPrimitiveModel_New;
+}
+
+
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
+
+    //Xファイルから、独自に次の情報を読み込む
+    //頂点バッファ FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    //インデックスバッファ
+    //マテリアル
+    //テクスチャ
+
+
+
+
 
     //Xファイルのロードして必要な内容をGgafDx9MeshModelメンバに設定しインスタンスとして完成させたい
     //以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
