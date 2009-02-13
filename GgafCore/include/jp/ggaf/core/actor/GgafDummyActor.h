@@ -20,14 +20,12 @@ public:
      */
     virtual void initialize() {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processBehavior() {
     }
-    ;
 
     /**
      * ÉTÉuÇ™ñ≥ÇØÇÍÇŒéÄñSÇµÇ‹Ç∑ÅB
@@ -44,35 +42,30 @@ public:
      */
     virtual void processDrawPrior() {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processDrawMain() {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processDrawTerminate() {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processHappen(int prm_no) {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processFinal() {
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
@@ -80,14 +73,12 @@ public:
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
         return false;
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
     virtual void processOnHit(GgafActor* prm_pActor_Opponent) {
     }
-    ;
 
     virtual ~GgafDummyActor();
 };

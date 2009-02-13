@@ -91,7 +91,6 @@ public:
     bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
         return false;
     }
-    ;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
