@@ -344,8 +344,7 @@ void MyLaserChip2::processHappen(int prm_no) {
     switch (prm_no) {
 
         case GGAF_EVENT_ON_DEVICE_LOST:
-            RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip2)
-            ;
+            RELEASE_POSSIBLE_NULL(_pIDirect3DVertexBuffer9_MyLaserChip2);
             break;
         case GGAF_EVENT_DEVICE_LOST_RESTORE:
             if (_pIDirect3DVertexBuffer9_MyLaserChip2 == NULL) {

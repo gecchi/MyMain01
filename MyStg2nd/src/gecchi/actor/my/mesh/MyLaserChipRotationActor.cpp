@@ -21,6 +21,9 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }
 void MyLaserChipRotationActor::processBehavior() {
+}
+
+void MyLaserChipRotationActor::processFinal() {
     if (_pHeadChip == NULL) {
         if (_mode == 1 && _iNumActiveChip == 0) {
             _mode = 0;

@@ -15,6 +15,7 @@ public:
 
 	virtual void processBehavior();
 
+	virtual void processFinal();
 	virtual GgafCore::GgafMainActor* obtain();
 
  	virtual ~MyLaserChipRotationActor();
