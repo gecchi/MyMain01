@@ -108,6 +108,9 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr) {
+    if (prm_idstr == NULL) {
+        _TRACE_("åxçê GgafResourceManager<T>::getConnection(NULL)");
+    }
     GgafResourceConnection<T>* pObj = find(prm_idstr);
     //ñ¢ê∂ê¨Ç»ÇÁÇŒê∂ê¨
     if (pObj == NULL) {
