@@ -14,7 +14,7 @@ public:
     /** Xファイル読込み時マテリアル配列(各Actorにディープコピーされ、描画時はActorのマテリアルを使う） */
     D3DMATERIAL9* _paD3DMaterial9_default;
     /** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
-    GgafDx9TextureConnection** _papTexture;
+    GgafDx9TextureConnection** _papTextureCon;
     /** D3DXLoadMeshFromXのオプション */
     DWORD _dwOptions;
 

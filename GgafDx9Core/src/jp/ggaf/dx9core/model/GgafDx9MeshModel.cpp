@@ -7,7 +7,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name, DWORD prm_dwOptions) : 
     TRACE("GgafDx9MeshModel::GgafDx9MeshModel(" << prm_model_name << ")");
     _pID3DXMesh = NULL;
     _paD3DMaterial9_default = NULL;
-    _papTexture = NULL;
+    _papTextureCon = NULL;
     _dwNumMaterials = 0L;
     //_pModel_Next     = NULL;
     //上記のプロパティは、GgafDx9God::_pModelManager->restoreMeshModel() から設定されることになる。
@@ -78,9 +78,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //        for (DWORD i = 0; i < _dwNumMaterials; i++) {
 //            //マテリアルのセット
 //            GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
-//            if (_papTexture[i] != NULL) {
+//            if (_papTextureCon[i] != NULL) {
 //                //テクスチャのセット
-//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->take());
+//                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->take());
 //            } else {
 //                //無ければテクスチャ無し
 //                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
@@ -106,9 +106,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         for (DWORD i = 0; i < _dwNumMaterials; i++) {
             //マテリアルのセット
             GgafDx9God::_pID3DDevice9->SetMaterial(&(pMeshActor_Target->_paD3DMaterial9[i]));
-            if (_papTexture[i] != NULL) {
+            if (_papTextureCon[i] != NULL) {
                 //テクスチャのセット
-                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTexture[i]->take());
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->take());
             } else {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
@@ -152,13 +152,14 @@ void GgafDx9MeshModel::release() {
     if (_pID3DXMesh == NULL) {
         throwGgafCriticalException("[GgafDx9MeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
-    //テクスチャを解放するかどうか
+    //テクスチャを解放
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        //GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_papTexture[i]);
-        _papTexture[i]->close();
+        if (_papTextureCon[i] != NULL) {
+            _papTextureCon[i]->close();
+        }
     }
 
-    DELETEARR_IMPOSSIBLE_NULL(_papTexture); //テクスチャの配列
+    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     _TRACE_("GgafDx9MeshModel::release() " << _model_name << " end");

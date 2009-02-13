@@ -8,8 +8,8 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
                                    GgafDx9GeometryMover* prm_pGeoMover,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) :
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
-    _pModelConnection = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_meshmodel_name);
-    _pMeshModel = (GgafDx9MeshModel*)_pModelConnection->take();
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_meshmodel_name);
+    _pMeshModel = (GgafDx9MeshModel*)_pModelCon->take();
     _class_name = "GgafDx9MeshActor";
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
@@ -36,6 +36,6 @@ void GgafDx9MeshActor::processDrawMain() {
 }
 
 GgafDx9MeshActor::~GgafDx9MeshActor() {
-    _pModelConnection->close();
+    _pModelCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

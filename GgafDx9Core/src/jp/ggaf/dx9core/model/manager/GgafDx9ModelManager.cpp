@@ -96,7 +96,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     //以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-    GgafDx9TextureConnection** papTexture; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    GgafDx9TextureConnection** papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x";
 
@@ -140,13 +140,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     }
 
     //テクスチャを取り出す
-    papTexture = NEW GgafDx9TextureConnection*[dwNumMaterials];
+    papTextureCon = NEW GgafDx9TextureConnection*[dwNumMaterials];
+    char* texture_filename;
     for( DWORD i = 0; i < dwNumMaterials; i++) {
-        if (paD3DMaterial9_tmp[i].pTextureFilename != NULL && lstrlen(paD3DMaterial9_tmp[i].pTextureFilename)> 0 ) {
-            papTexture[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(paD3DMaterial9_tmp[i].pTextureFilename);
+        texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
+        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+            papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し
-            papTexture[i] = NULL;
+            papTextureCon[i] = NULL;
         }
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
@@ -171,14 +173,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
     prm_pMeshModel->_pID3DXMesh = pID3DXMesh;
     prm_pMeshModel->_paD3DMaterial9_default = paD3DMaterial9;
-    prm_pMeshModel->_papTexture = papTexture;
+    prm_pMeshModel->_papTextureCon = papTextureCon;
     prm_pMeshModel->_dwNumMaterials = dwNumMaterials;
 }
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
     TRACE("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
 
-    prm_pSpriteModel->_pTexture = NULL;
+    prm_pSpriteModel->_pTextureCon = NULL;
     prm_pSpriteModel->_paRectUV = NULL;
 
     prm_pSpriteModel->_pD3DMaterial9_default = NEW D3DMATERIAL9;
@@ -239,9 +241,9 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
     //テクスチャ取得しモデルに保持させる
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
-    prm_pSpriteModel->_pTexture = pTexture;
+    prm_pSpriteModel->_pTextureCon = pTextureCon;
 
     GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
     prm_pSpriteModel->_iSize_Vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
@@ -398,9 +400,9 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 
     //頂点配列情報をモデルに保持させる
     //string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* pTexture = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
 
-    prm_pPlateModel->_pTexture = pTexture;
+    prm_pPlateModel->_pTextureCon = pTextureCon;
 
     // テクスチャーのサイズを取得
     /*

@@ -15,7 +15,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
     _iColNum_TextureSplit = 1;
     _iAnimationPatternNo_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
-    _pTexture = NULL;
+    _pTextureCon = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
     //GgafDx9God::_pModelManager->restoreSpriteModel で行っている。
 }
@@ -34,7 +34,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         //前回描画とモデルが違う！
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTexture->take());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->take());
     }
 
     if (_pRectUV_drawlast != pRectUV_Active) {
@@ -118,7 +118,9 @@ void GgafDx9SpriteModel::release() {
     _TRACE_("GgafDx9SpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-    _pTexture->close();
+    if (_pTextureCon != NULL) {
+        _pTextureCon->close();
+    }
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     _TRACE_("GgafDx9SpriteModel::release() " << _model_name << " end");
 
