@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 GgafDx9PlateActor::GgafDx9PlateActor(const char* prm_name, const char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
     _class_name = "GgafDx9PlateActor";
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
-    _pPlateModel = (GgafDx9PlateModel*)_pModelCon->take();
+    _pPlateModel = (GgafDx9PlateModel*)_pModelCon->view();
     _pattno_top = 0;
     _pattno_bottom = _pPlateModel->_pattno_max;
     _patteno_now = 0;

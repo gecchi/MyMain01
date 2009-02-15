@@ -31,7 +31,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //	GgafDx9God::_pID3DDevice9->SetMaterial(_pD3DMaterial9);
 
     if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->take());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
         //‚±‚±‚ç‚Ö‚ñ‚Å@this ‚ª 0x0h ‚É‚È‚é
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PlateModel::FVF);
 

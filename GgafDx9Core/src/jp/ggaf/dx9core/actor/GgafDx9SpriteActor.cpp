@@ -10,7 +10,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _class_name = "GgafDx9SpriteActor";
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
-    _pSpriteModel = (GgafDx9SpriteModel*)_pModelCon->take();
+    _pSpriteModel = (GgafDx9SpriteModel*)_pModelCon->view();
     _pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
     _pattno_ani_now = 0;

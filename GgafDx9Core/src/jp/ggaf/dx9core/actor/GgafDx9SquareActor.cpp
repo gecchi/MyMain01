@@ -10,7 +10,7 @@ GgafDx9SquareActor::GgafDx9SquareActor(const char* prm_name,
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _class_name = "GgafDx9SquareActor";
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_squaremodel_name);
-    _pSquareModel = (GgafDx9SquareModel*)_pModelCon->take();
+    _pSquareModel = (GgafDx9SquareModel*)_pModelCon->view();
 }
 
 void GgafDx9SquareActor::processDrawMain() {

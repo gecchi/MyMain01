@@ -29,7 +29,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //        //‘O‰ñ•`‰æ‚Æƒ‚ƒfƒ‹‚ªˆá‚¤I
 //        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
 //        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
-//        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->take());
+//        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
 //    }
 //
 //    GgafDx9God::_pID3DDevice9->SetMaterial(&(pPrimitiveActor_Target->_paD3DMaterial9[0]));

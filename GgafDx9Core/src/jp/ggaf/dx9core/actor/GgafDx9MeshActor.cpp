@@ -9,7 +9,7 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) :
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_meshmodel_name);
-    _pMeshModel = (GgafDx9MeshModel*)_pModelCon->take();
+    _pMeshModel = (GgafDx9MeshModel*)_pModelCon->view();
     _class_name = "GgafDx9MeshActor";
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];

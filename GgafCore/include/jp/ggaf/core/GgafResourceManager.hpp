@@ -16,8 +16,7 @@ private:
     T* createResource(char* prm_idstr);
 
     /**
-     * 標準の資源参照オブジェクトを生成.
-     * 下位でオーバーライドしてもいいですよ。.
+     * 資源参照オブジェクトを生成.
      * @param prm_name 識別名
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
@@ -178,7 +177,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
             int rnum = pCurrent->_num_connection;
             TRACE("GgafResourceManager::GgafResourceManager 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。");
-            T* r = pCurrent->take();
+            T* r = pCurrent->view();
             pCurrent_Next = pCurrent->_pNext;
             if (r != NULL) {
                 pCurrent->processReleaseResource(r); //リソースの解放

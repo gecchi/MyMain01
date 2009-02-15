@@ -29,7 +29,7 @@ void Stage01Scene::processBehavior() {
     }
     if (onChangeProgress(STAGE01_PROG_BEGIN)) {
 
-    	_pBgmCon_st1->take()->play(false);
+    	_pBgmCon_st1->view()->play(false);
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
         //タイトル活動ループ

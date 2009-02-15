@@ -54,7 +54,7 @@ GgafMainActor* MyLaserChipRotationActor::obtain() {
             }
             if (_iNumActiveChip == 1) {
                 //æ“ª‚Ìƒ`ƒbƒv
-                _pSeCon_Laser->take()->play();
+                _pSeCon_Laser->view()->play();
                 _pHeadChip = pChip;
             }
             return pChip;
