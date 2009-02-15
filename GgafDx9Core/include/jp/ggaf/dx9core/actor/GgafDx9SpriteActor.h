@@ -16,7 +16,7 @@ class GgafDx9SpriteActor : public GgafDx9UntransformedActor {
 private:
 
     /** 内部アニメフレーム用カウンタ */
-    unsigned int _iCounter_AnimationFrame;
+    unsigned int _aniframe_counter;
 
 public:
     /** モデルオブジェクトへのポインタ */
@@ -26,20 +26,20 @@ public:
     float _fAlpha;
 
     /** アニメパターン番号の上限番号 */
-    unsigned int _iAnimationPatternNo_Top;
+    unsigned int _pattno_ani_top;
     /** 現在表示中のアニメパターン番号 */
-    unsigned int _iAnimationPatternNo_Bottom;
+    unsigned int _pattno_ani_bottom;
     /** 現在表示中のアニメパターン番号(0～) */
-    unsigned int _iAnimationPatternNo_Active;
+    unsigned int _pattno_ani_now;
     /** パターンとパターンの間隔フレーム数 */
-    unsigned int _iAnimationFrame_Interval;
+    unsigned int _frame_ani_interval;
     /** アニメ方式 */
     GgafDx9AnimationMethod _animation_method;
     /** OSCILLATE_LOOP用の現在のアニメ方向 */
-    bool _oscillateAnimationOrderFlg;
+    bool _isOscillateAnimationOrderFlg;
 
     /** ビルボード要否 */
-    bool _isBillboarding;
+    bool _isBillboardingFlg;
 
     GgafDx9SpriteActor(const char* prm_name,
                        const char* prm_spritemodel_name,
@@ -61,23 +61,23 @@ public:
 
     /**
      * アニメーションパターンを設定する .
-     * @param prm_iAnimationPatternNo アニメーションパターン番号
+     * @param prm_pattno_ani アニメーションパターン番号
      */
-    void setActivAnimationPattern(int prm_iAnimationPatternNo);
+    void setActivAnimationPattern(int prm_pattno_ani);
 
     /**
      * アニメーションパターンの範囲を制限する .
-     * @param prm_iTop上限のアニメーションパターン番号
+     * @param prm_top上限のアニメーションパターン番号
      * @param prm_bottom 下限のアニメーションパターン番号
      */
-    void setAnimationPatternRenge(int prm_iTop, int prm_bottom);
+    void setAnimationPatternRenge(int prm_top, int prm_bottom);
 
     /**
      * アニメーション方法を設定する.
      * @param prm_method アニメーション方法定数
-     * @param prm_iInterval アニメーション間隔フレーム（default=1)
+     * @param prm_interval アニメーション間隔フレーム（default=1)
      */
-    void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval);
+    void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_interval);
 
     /**
      * α設定.
@@ -91,7 +91,7 @@ public:
      * （デフォルトは無効です）<BR>
      */
     void enableBillboarding() {
-        _isBillboarding = true;
+        _isBillboardingFlg = true;
     }
 
     /**
@@ -99,7 +99,7 @@ public:
      * （デフォルトは無効です）<BR>
      */
     void disableBillboarding() {
-        _isBillboarding = false;
+        _isBillboardingFlg = false;
     }
 };
 

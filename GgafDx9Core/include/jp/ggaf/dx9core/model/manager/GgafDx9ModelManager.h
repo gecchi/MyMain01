@@ -49,6 +49,10 @@ private:
      */
     GgafDx9PlateModel* createPlateModel(char* prm_model_name);
 
+
+    GgafDx9PrimitiveModel* createPrimitiveModel(char* prm_model_name);
+
+
 public:
     /**
      * コンストラクタ
@@ -84,6 +88,9 @@ public:
      * @param prm_pPlateModel 再構築するGgafDx9PlateModel
      */
     void restorePlateModel(GgafDx9PlateModel* prm_pPlateModel);
+
+    void restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pMeshModel);
+
 
     /**
      * オーバーライド

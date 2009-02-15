@@ -42,7 +42,7 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
 
     return true;
 }
-GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) :
+GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_cnt_buffer) :
     GgafObject() {
     _wave_name = prm_wave_name;
     string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
@@ -103,7 +103,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_iBufferCount) :
 
     //	_pSoundSE = NEW CC3DSoundSE();
     //
-    //	int ret = _pSoundSE->CreateSE( /* *(GgafDx9Sound::_pC3DSound),*/ wave_filename.c_str(), prm_iBufferCount, 0);
+    //	int ret = _pSoundSE->CreateSE( /* *(GgafDx9Sound::_pC3DSound),*/ wave_filename.c_str(), prm_cnt_buffer, 0);
     //	if (!ret) {
     //		throwGgafCriticalException("GgafDx9Se::GgafDx9Se() Error! " << wave_filename << " ‚Ì‰Šú‰»‚ÉŽ¸”s");
     //	}

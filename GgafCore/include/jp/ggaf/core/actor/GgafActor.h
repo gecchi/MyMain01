@@ -74,7 +74,7 @@ public:
     DWORD _start_system_time;
 
     /** アクター衝突判定有無フラグ */
-    bool _canBump;
+    bool _canBumpFlg;
 
     /** 同一描画レベルの次のアクター */
     GgafActor* _pNext_TheSameDrawDepthLevel;
@@ -93,15 +93,15 @@ public:
 
     /**
      * 自アクターの衝突判定有無を設定する。 .
-     * @param	prm_canBump  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_canBumpFlg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpableAlone(bool prm_canBump);
+    virtual void setBumpableAlone(bool prm_canBumpFlg);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
-     * @param	prm_canBump  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_canBumpFlg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpable(bool prm_canBump);
+    virtual void setBumpable(bool prm_canBumpFlg);
 
     /**
      * 衝突できるかどうか

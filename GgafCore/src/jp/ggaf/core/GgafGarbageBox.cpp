@@ -17,9 +17,9 @@ void GgafGarbageBox::add(GgafScene* prm_pScene) {
     _pGarbageRootScene->addSubLast(prm_pScene->tear());
 }
 
-void GgafGarbageBox::cleane(int prm_iNumCleanNode) {
-    _pGarbageRootScene->cleane(prm_iNumCleanNode);
-    _pGarbageRootActor->cleane(prm_iNumCleanNode);
+void GgafGarbageBox::cleane(int prm_num_cleaning) {
+    _pGarbageRootScene->cleane(prm_num_cleaning);
+    _pGarbageRootActor->cleane(prm_num_cleaning);
 }
 
 GgafGarbageBox::~GgafGarbageBox() {

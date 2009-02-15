@@ -22,7 +22,7 @@ MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
 MyLaserChip2::MyLaserChip2(const char* prm_name, const char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
     _class_name = "MyLaserChip2";
-    //_dwFrame_switchedToAct = 0;
+    //_dwFrame_switchedToActFlg = 0;
 }
 
 /*
@@ -111,8 +111,8 @@ void MyLaserChip2::processBehavior() {
         //oŒ»Žžˆ—
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
-        _pGeoMover->setMoveAngleRzRy(_pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
-                                     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+        _pGeoMover->setRzRyMoveAngle(_pActor_Radical->_pGeoMover->_angRot[AXIS_Z],
+                                     _pActor_Radical->_pGeoMover->_angRot[AXIS_Y]);
         _X_prevFrame = _pActor_Radical->_X;
         _Y_prevFrame = _pActor_Radical->_Y;
         _Z_prevFrame = _pActor_Radical->_Z;
@@ -319,7 +319,7 @@ void MyLaserChip2::processDrawMain() {
     }
 
     //	static int centerX, centerY, centerZ;
-    //	if (pNextChip->isPlaying() && _dwFrame_switchedToAct+1 == pNextChip->_dwFrame_switchedToAct) {
+    //	if (pNextChip->isPlaying() && _dwFrame_switchedToActFlg+1 == pNextChip->_dwFrame_switchedToActFlg) {
     //		centerX = (_X - pNextChip->_X) / 2;
     //		centerY = (_Y - pNextChip->_Y) / 2;
     //		centerZ = (_Z - pNextChip->_Z) / 2;

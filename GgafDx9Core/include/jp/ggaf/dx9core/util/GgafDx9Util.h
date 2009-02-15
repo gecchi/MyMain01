@@ -23,7 +23,7 @@ public:
     static float SIN[];
     static GgafDx9SphereRadiusVectors _srv;
 
-    static bool _isInit;
+    static bool _isInitFlg;
 
     static void init();
     /**
@@ -40,33 +40,33 @@ public:
      * XY座標系（Z軸無視）において、'N'way弾(N=整数)のアングル値を取得 .
      * @param prm_vx_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
-     * @param prm_iWay	[in] 'N'way弾の N
+     * @param prm_way	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
-                              int prm_iWay,
+                              int prm_way,
                               angle prm_angClearance,
                               int* out_paAngle);
 
     /**
      * XY座標系（Z軸無視）において、'N'way弾(N=整数)のアングル値の配列を取得 .
      * @param prm_angCenter	[in]'N'way弾の全体として向いている方向のアングル値
-     * @param prm_iWay	[in] 'N'way弾の N
+     * @param prm_way	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
      */
-    static void getWayAngle2D(angle prm_angCenter, int prm_iWay, angle prm_angClearance, angle* out_paAngle);
+    static void getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle);
 
     /**
      * XY座標系（Z軸無視）において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
      * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。
      * @param prm_angStart	放射状の全方向'N'way弾の１つ目の弾のアングル値
-     * @param prm_iWay	[in] 'N'way弾の N。
+     * @param prm_way	[in] 'N'way弾の N。
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
      */
-    static void getRadiationAngle2D(angle prm_angStart, int prm_iWay, angle* out_paAngle);
+    static void getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle);
 
     /**
      *

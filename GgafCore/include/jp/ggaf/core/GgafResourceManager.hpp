@@ -116,13 +116,13 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
     if (pObj == NULL) {
         T* pResource = createResource(prm_idstr); //pObj->_idstr を prm_idstr としては駄目。
         pObj = createResourceConnection(prm_idstr, pResource);
-        pObj->_iConnectionNum = 1;
+        pObj->_num_connection = 1;
         add(pObj);
         TRACE("GgafResourceManager<T>::lead " << prm_idstr << "を新規作成して保持に決定");
         return pObj;
     } else {
-        pObj->_iConnectionNum++;
-        TRACE("GgafResourceManager<T>::lead " << prm_idstr << "はあるので参照カウント." << pObj->_iConnectionNum);
+        pObj->_num_connection++;
+        TRACE("GgafResourceManager<T>::lead " << prm_idstr << "はあるので参照カウント." << pObj->_num_connection);
         return pObj;
     }
 }
@@ -154,7 +154,7 @@ void GgafResourceManager<T>::dump() {
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            TRACE("GgafResourceManager::dump [" << pCurrent->_idstr << "←" << pCurrent->_iConnectionNum << "Connection]");
+            TRACE("GgafResourceManager::dump [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
                 pCurrent = NULL;
@@ -175,7 +175,7 @@ GgafResourceManager<T>::~GgafResourceManager() {
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            int rnum = pCurrent->_iConnectionNum;
+            int rnum = pCurrent->_num_connection;
             TRACE("GgafResourceManager::GgafResourceManager 保持リストに[" << pCurrent->_idstr << "←" << rnum
                     << "Connection]が残ってます。強制削除しますが、本来あってはいけません。");
             T* r = pCurrent->take();

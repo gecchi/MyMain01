@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-bool GgafDx9Util::_isInit = false;
+bool GgafDx9Util::_isInitFlg = false;
 int GgafDx9Util::COS_UNITLEN[S_ANG360];
 int GgafDx9Util::SIN_UNITLEN[S_ANG360];
 int GgafDx9Util::TAN_UNITLEN[S_ANG360];
@@ -13,7 +13,7 @@ float GgafDx9Util::SIN[S_ANG360];
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
-    if (_isInit) {
+    if (_isInitFlg) {
         return;
     } else {
         for (s_ang ang = 0; ang < S_ANG360; ang++) {
@@ -120,22 +120,22 @@ angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
 
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,
-                                int prm_iWay,
+                                int prm_way,
                                 angle prm_angClearance,
                                 angle* out_paAngle) {
-    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_iWay, prm_angClearance, out_paAngle);
+    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_way, prm_angClearance, out_paAngle);
 }
 
-void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_iWay, angle prm_angClearance, angle* out_paAngle) {
-    int angstart = addAngle(prm_angCenter, ((prm_iWay - 1) * prm_angClearance) / -2);
+void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle) {
+    int angstart = addAngle(prm_angCenter, ((prm_way - 1) * prm_angClearance) / -2);
 
-    for (int i = 0; i < prm_iWay; i++) {
+    for (int i = 0; i < prm_way; i++) {
         out_paAngle[i] = addAngle(angstart, prm_angClearance * i);
     }
 }
-void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_iWay, angle* out_paAngle) {
-    for (int i = 0; i < prm_iWay; i++) {
-        out_paAngle[i] = addAngle(prm_angStart, (1.0 * ANGLE360 / prm_iWay * i));
+void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle) {
+    for (int i = 0; i < prm_way; i++) {
+        out_paAngle[i] = addAngle(prm_angStart, (1.0 * ANGLE360 / prm_way * i));
     }
 }
 

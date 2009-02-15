@@ -40,7 +40,7 @@ bool GgafLordActor::hasSubHeadActor(actorkind prm_kind) {
             if (pHeadActor->_kind == prm_kind) {
                 return true;
             }
-            if (pHeadActor->_isLast) {
+            if (pHeadActor->_isLastFlg) {
                 return false;
             } else {
                 pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
@@ -59,7 +59,7 @@ GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
         if (pHeadActor->_kind == prm_kind) {
             break;
         }
-        if (pHeadActor->_isLast) {
+        if (pHeadActor->_isLastFlg) {
             throwGgafCriticalException("[GgafLordActor::getSubHeadActor] Error! 子ノードは存在しません。(actorkind="<<prm_kind<<")");
         } else {
             pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);

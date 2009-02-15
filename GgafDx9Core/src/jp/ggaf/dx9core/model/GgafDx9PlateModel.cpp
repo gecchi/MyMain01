@@ -10,9 +10,9 @@ GgafDx9PlateModel::GgafDx9PlateModel(char* prm_platemodel_name) :
     TRACE("GgafDx9PlateModel::GgafDx9PlateModel(" << _model_name << ")");
     _fSize_PlateModelWidth = 32.0f;
     _fSize_PlateModelHeight = 32.0f;
-    _iRowNum_TextureSplit = 1;
-    _iColNum_TextureSplit = 1;
-    _iPatternNo_Max = 1;
+    _row_texture_split = 1;
+    _col_texture_split = 1;
+    _pattno_max = 1;
     _pTextureCon = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
@@ -40,7 +40,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
     GgafDx9God::_pID3DDevice9->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex,
-                                               pPlateActor_Target->_iSize_Vertec_unit);
+                                               pPlateActor_Target->_size_vertec_unit);
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
 
     //↑＜2008/10/24 の脳みそ＞
@@ -56,7 +56,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //TODO:とりあえずα（マテリアル）は後回し。
 
     GgafDx9God::_pModelManager->_id_lastdraw = _id; //前回描画モデル名保存
-    //GgafGod::_iNumPlayingActor++;
+    //GgafGod::_num_actor_playing++;
     return D3D_OK;
 }
 

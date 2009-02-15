@@ -15,9 +15,9 @@ void EnemyJuno::initialize() {
 
     _Z = 5000000;
     _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->setZMoveVelocity(-40000);
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_X, 5000);
-    _pGeoMover->setAxisRotAngle(AXIS_Y, 90000);
+    _pGeoMover->setVzMoveVelocity(-40000);
+    _pGeoMover->setRotAngleVelocity(AXIS_X, 5000);
+    _pGeoMover->setRotAngle(AXIS_Y, 90000);
 
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);

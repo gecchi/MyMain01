@@ -38,7 +38,7 @@ void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
                     drawBox(pActor->_X + pHitAreaBoxs->_paHitArea[i].x1, pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
                             pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1, pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
                             pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2, pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2);
-                    GgafGod::_iNumPlayingActor--; //当たり判定表示は表示オブジェクト数にカウントしない
+                    GgafGod::_num_actor_playing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }
         }

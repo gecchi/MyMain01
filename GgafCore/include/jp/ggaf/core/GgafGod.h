@@ -49,7 +49,7 @@ public:
     DWORD _dwFrame_PrevVisualize;
 
     /**  */
-    static int _iNumPlayingActor;
+    static int _num_actor_playing;
 
     bool _isBehaved;
 

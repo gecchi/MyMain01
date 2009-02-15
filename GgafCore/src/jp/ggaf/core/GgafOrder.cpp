@@ -7,8 +7,8 @@ GgafOrder::GgafOrder(unsigned long prm_id) {
     _id = prm_id;
     _pOrder_Next = NULL;
     _pOrder_Prev = NULL;
-    _isFirstOrder = false;
-    _isLastOrder = false;
+    _isFirstOrderFlg = false;
+    _isLastOrderFlg = false;
     _pObject_Creation = NULL;
     _pFunc = NULL;
     _pArg1 = NULL;

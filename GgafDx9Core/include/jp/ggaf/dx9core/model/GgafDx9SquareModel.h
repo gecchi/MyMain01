@@ -20,9 +20,9 @@ public:
     //	/** テクスチャ(アニメーションパターン） */
     //	LPDIRECT3DTEXTURE9 _pID3DTexture9;
     /** 矩形の頂点合計のサイズ */
-    UINT _iSize_Vertecs;
+    UINT _size_vertecs;
     /** 1頂点のサイズ */
-    UINT _iSize_Vertec_unit;
+    UINT _size_vertec_unit;
     //	/** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
     //	GgafDx9RectUV*  _paRectUV;
 
@@ -37,11 +37,11 @@ public:
     GgafDx9SquareModel(char* prm_squaremodel_name);
 
     /** 全アニメパターン数 */
-    //	int _iAnimationPatternNo_Max;
+    //	int _pattno_ani_Max;
     //	float  _fSize_SquareModelWidth;
     //	float  _fSize_SquareModelHeight;
-    //	int    _iRowNum_TextureSplit;
-    //	int    _iColNum_TextureSplit;
+    //	int    _row_texture_split;
+    //	int    _col_texture_split;
 
 
     /**

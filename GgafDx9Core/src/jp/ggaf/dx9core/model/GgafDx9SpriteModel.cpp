@@ -4,16 +4,16 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 DWORD GgafDx9SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
+//LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
 GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9SpriteModel::GgafDx9SpriteModel(" << _model_name << ")");
 
     _fSize_SpriteModelWidthPx = 32.0f;
     _fSize_SpriteModelHeightPx = 32.0f;
-    _iRowNum_TextureSplit = 1;
-    _iColNum_TextureSplit = 1;
-    _iAnimationPatternNo_Max = 0;
+    _row_texture_split = 1;
+    _col_texture_split = 1;
+    _pattno_ani_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _pTextureCon = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
@@ -26,13 +26,13 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //対象SpriteActor
     GgafDx9SpriteActor* pSpriteActor_Target = (GgafDx9SpriteActor*)prm_pActor_Target;
     //今回描画のUV
-    GgafDx9RectUV* pRectUV_Active = _paRectUV + (pSpriteActor_Target->_iAnimationPatternNo_Active);
+    GgafDx9RectUV* pRectUV_Active = _paRectUV + (pSpriteActor_Target->_pattno_ani_now);
 
     static HRESULT hr;
 
     if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
         //前回描画とモデルが違う！
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _iSize_Vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->take());
     }
@@ -40,7 +40,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     if (_pRectUV_drawlast != pRectUV_Active) {
         //前回描画UV違う！、頂点バッファの tu, tv を直接変更
         static VERTEX* paVertexBuffer;
-        hr = _pIDirect3DVertexBuffer9->Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
+        hr = _pIDirect3DVertexBuffer9->Lock(0, _size_vertecs, (void**)&paVertexBuffer, 0);
         paVertexBuffer[0].tu = pRectUV_Active->_aUV[0].tu;
         paVertexBuffer[0].tv = pRectUV_Active->_aUV[0].tv;
         paVertexBuffer[1].tu = pRectUV_Active->_aUV[1].tu;
@@ -66,7 +66,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //	if (_isChangedAlpha) {
     //		//前回描画UVが同じでもAlpha変更な場合
     //		static VERTEX* paVertexBuffer;
-    //		hr = _pIDirect3DVertexBuffer9->Lock(0, _iSize_Vertecs, (void**)&paVertexBuffer, 0);
+    //		hr = _pIDirect3DVertexBuffer9->Lock(0, _size_vertecs, (void**)&paVertexBuffer, 0);
     //		if(hr != D3D_OK) {
     //			throwGgafCriticalException("[GgafDx9SpriteModelManager::draw] 頂点バッファのロック取得に失敗２ model="<<_model_name<<"/hr="<<hr);
     //		}
@@ -98,7 +98,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9God::_pModelManager->_id_lastdraw = _id;
     //前回描画UV座標（へのポインタ）を保存
     _pRectUV_drawlast = pRectUV_Active;
-    GgafGod::_iNumPlayingActor++;
+    GgafGod::_num_actor_playing++;
     return D3D_OK;
 }
 

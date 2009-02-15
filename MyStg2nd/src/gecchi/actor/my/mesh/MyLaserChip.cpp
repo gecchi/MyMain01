@@ -21,7 +21,7 @@ MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
 MyLaserChip::MyLaserChip(const char* prm_name, const char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
     _class_name = "MyLaserChip";
-    _dwFrame_switchedToAct = 0;
+    _dwFrame_switchedToActFlg = 0;
 }
 
 void MyLaserChip::initialize() {
@@ -78,8 +78,8 @@ void MyLaserChip::processBehavior() {
         //出現時処理
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
-        _pGeoMover->setMoveAngleRzRy(_pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
-                                     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+        _pGeoMover->setRzRyMoveAngle(_pActor_Radical->_pGeoMover->_angRot[AXIS_Z],
+                                     _pActor_Radical->_pGeoMover->_angRot[AXIS_Y]);
         _X_prevFrame = _pActor_Radical->_X;
         _Y_prevFrame = _pActor_Radical->_Y;
         _Z_prevFrame = _pActor_Radical->_Z;
@@ -116,7 +116,7 @@ void MyLaserChip::processDrawMain() {
     pPrevChip = getPrev();
 
     //連続しているか
-    if (pPrevChip->isPlaying() && _dwFrame_switchedToAct - 1 == pPrevChip->_dwFrame_switchedToAct) {
+    if (pPrevChip->isPlaying() && _dwFrame_switchedToActFlg - 1 == pPrevChip->_dwFrame_switchedToActFlg) {
         //連続しているので、一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
 
         _pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
@@ -214,7 +214,7 @@ void MyLaserChip::processDrawMain() {
 
     //	static int centerX, centerY, centerZ;
     /*
-     if (pNextChip->isPlaying() && _dwFrame_switchedToAct+1 == pNextChip->_dwFrame_switchedToAct) {
+     if (pNextChip->isPlaying() && _dwFrame_switchedToActFlg+1 == pNextChip->_dwFrame_switchedToActFlg) {
      centerX = (_X - pNextChip->_X) / 2;
      centerY = (_Y - pNextChip->_Y) / 2;
      centerZ = (_Z - pNextChip->_Z) / 2;

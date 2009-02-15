@@ -12,13 +12,13 @@ MyShot001::MyShot001(const char* prm_name, const char* prm_model) : DefaultSprit
 void MyShot001::initialize() {
     setAnimationMethod(OSCILLATE_LOOP, 2);
 
-    _pGeoMover->setMoveAngleRzVelocity(0);
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_Z, 2 * 1000);
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_X, 2 * 1400);
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_Y, 2 * 1800);
+    _pGeoMover->setRzMoveAngleVelocity(0);
+    _pGeoMover->setRotAngleVelocity(AXIS_Z, 2 * 1000);
+    _pGeoMover->setRotAngleVelocity(AXIS_X, 2 * 1400);
+    _pGeoMover->setRotAngleVelocity(AXIS_Y, 2 * 1800);
 
-    _pGeoMover->setMoveAngleRz(0);
-    _pGeoMover->setAxisRotAngle(AXIS_Z, 0);
+    _pGeoMover->setRzMoveAngle(0);
+    _pGeoMover->setRotAngle(AXIS_Z, 0);
     _pGeoMover->setMoveVelocity(1000);
 
     _pChecker->useHitAreaBoxNum(7);

@@ -11,12 +11,12 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     static unsigned __int16 xXY, yXY, xXZ, zXZ;
     static double radRotAxisZ, radRotAxisY;
     for (s_ang angRotAxisZ = 0; angRotAxisZ <= S_ANG90; angRotAxisZ++) {
-        //Rz平面状の球表面の点を求める。
+        //XY平面上の球表面の点を求める。
         radRotAxisZ = s_angRad * angRotAxisZ;
         xXY = cos(radRotAxisZ) * 10000.0;
         yXY = sin(radRotAxisZ) * 10000.0;
         for (s_ang angRotAxisY = 0; angRotAxisY <= S_ANG90; angRotAxisY++) {
-            //Rz平面状の球表面の点を、Y軸回転する。
+            //XY平面上の球表面の点を、Y軸回転する。
             radRotAxisY = s_angRad * angRotAxisY;
             xXZ = xXY * cos(radRotAxisY);
             zXZ = xXY * sin(radRotAxisY);

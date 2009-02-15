@@ -20,7 +20,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, const char* prm_model) : DefaultMes
     _X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2 - 200000;
     _Y_turn = -10000;
     _Z_turn = 0;
-    _iBeginVelocity = 5000;
+    _veloBegin = 5000;
 
     //’eƒXƒgƒbƒNì¬
     _pRotEnemyMeshShots001 = NEW RotationActor("RotEnemyMeshS001");
@@ -53,7 +53,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, const char* prm_model, RotationActo
     _X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2 - 200000;
     _Y_turn = -10000;
     _Z_turn = 0;
-    _iBeginVelocity = 5000;
+    _veloBegin = 5000;
 
     if (prm_pRotEnemyMeshShots001 == NULL) {
         _TRACE_("ƒ[ƒe[ƒVƒ‡ƒ“_pRotEnemyMeshShots001‚ªNULLB‚æ‚¢‚Ì‚Å‚·‚©H");
@@ -69,20 +69,20 @@ void EnemyCeres::initialize() {
     setBumpableAlone(true);
 
     //	_pGeoMover->setMoveVelocity(1000);
-    //	_pGeoMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
+    //	_pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
     //
-    //	//_pGeoMover->setMoveAngleRzVelocityRenge(-2000, 2000);
-    ////	//_pGeoMover->setMoveAngleRz(0,-100*1000,-100*1000);
+    //	//_pGeoMover->setRzMoveAngleVelocityRenge(-2000, 2000);
+    ////	//_pGeoMover->setRzMoveAngle(0,-100*1000,-100*1000);
     ////	_pGeoMover->setMoveAngle(100*1000,0,-100);
 
 
-    //	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_iBeginVelocity * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
+    //	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_veloBegin * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
 
     _pGeoMover->setMoveAngle(_X_turn, _Y_turn, _Z_turn);
-    _pGeoMover->setMoveVelocity(_iBeginVelocity);
-    _pGeoMover->_synchronize_ZAxisRotAngle_to_MoveAngleRz_Flg = true;
-    _pGeoMover->_synchronize_YAxisRotAngle_to_MoveAngleRy_Flg = true;
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_X, 6000);
+    _pGeoMover->setMoveVelocity(_veloBegin);
+    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
+    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
+    _pGeoMover->setRotAngleVelocity(AXIS_X, 6000);
 
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
@@ -96,57 +96,57 @@ void EnemyCeres::processBehavior() {
     //	}
     //
     //	if (_dwFrame == 100) {
-    //		_pGeoMover->setMoveAngleRy(0);
+    //		_pGeoMover->setRyMoveAngle(0);
     //	} else if (_dwFrame == 200) {
     //		_TRACE_("_dwFrame="<<_dwFrame);
-    //		//_pGeoMover->setMoveAngleRy(ANGLE45);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE45);
+    //		//_pGeoMover->setRyMoveAngle(ANGLE45);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE45);
     //	} else if (_dwFrame == 300) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE90);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE90);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE90);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE90);
     //	} else if (_dwFrame == 400) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE135);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE135);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE135);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE135);
     //	} else if (_dwFrame == 500) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE180);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE180);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE180);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
     //	} else if (_dwFrame == 600) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE225);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE225);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE225);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE225);
     //	} else if (_dwFrame == 700) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE270);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE270);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE270);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE270);
     //	} else if (_dwFrame == 800) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE315);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE315);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE315);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE315);
     //	} else if (_dwFrame == 900) {
-    ////		_pGeoMover->setMoveAngleRy(ANGLE360);
-    //		_pGeoMover->setMoveAngleRyVelocity(2000);
-    //		_pGeoMover->setTargetMoveAngleRy(ANGLE360);
+    ////		_pGeoMover->setRyMoveAngle(ANGLE360);
+    //		_pGeoMover->setRyMoveAngleVelocity(2000);
+    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE360);
     //	}
 
 
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > _X_turn) {
-        if (_pGeoMover->getDistanceFromMoveAngleRzTo(0, TURN_CLOSE_TO) > 0) {
-            _pGeoMover->setMoveAngleRzVelocity(4000);
+        if (_pGeoMover->getDistanceFromRzMoveAngleTo(0, TURN_CLOSE_TO) > 0) {
+            _pGeoMover->setRzMoveAngleVelocity(4000);
         } else {
-            _pGeoMover->setMoveAngleRzVelocity(-4000);
+            _pGeoMover->setRzMoveAngleVelocity(-4000);
         }
-        if (_pGeoMover->getDistanceFromMoveAngleRyTo(ANGLE180, TURN_CLOSE_TO) > 0) {
-            _pGeoMover->setMoveAngleRyVelocity(4000);
+        if (_pGeoMover->getDistanceFromRyMoveAngleTo(ANGLE180, TURN_CLOSE_TO) > 0) {
+            _pGeoMover->setRyMoveAngleVelocity(4000);
         } else {
-            _pGeoMover->setMoveAngleRyVelocity(-4000);
+            _pGeoMover->setRyMoveAngleVelocity(-4000);
         }
-        _pGeoMover->setTargetMoveAngleRz(0);
-        _pGeoMover->setTargetMoveAngleRy(ANGLE180);
+        _pGeoMover->setAutoTargetRzMoveAngle(0);
+        _pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
 
         //’e‚ðŒ‚‚Á‚Ä‚Ý‚é
         //		‚TWAY’e
@@ -158,7 +158,7 @@ void EnemyCeres::processBehavior() {
         //			pTama = (EnemyShot001*)pShots001->obtain();
         //			if (pTama != NULL) {
         //				pTama->setGeometry (_X, _Y, 0);
-        //				pTama->_pGeoMover->setMoveAngleRz(way[i]);
+        //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
         //				pTama->act();
         //			}
         //		}
@@ -172,7 +172,7 @@ void EnemyCeres::processBehavior() {
             pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
-                pTama->_pGeoMover->setMoveAngleRzRy(-ANGLE90 + way[i], ANGLE90);
+                pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
                 pTama->actAlone();
             }
         }
@@ -180,7 +180,7 @@ void EnemyCeres::processBehavior() {
             pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
-                pTama->_pGeoMover->setMoveAngleRzRy(-ANGLE90 - way[i], -ANGLE90);
+                pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
                 pTama->actAlone();
             }
         }
@@ -190,7 +190,7 @@ void EnemyCeres::processBehavior() {
 
     //	if(0<_iMovePatternNo && _iMovePatternNo<20) {
     //		_iMovePatternNo++;
-    //		_TRACE_(_iMovePatternNo<<"TURN ("<<_X<<","<<_Y<<","<<_Z<<") ª("<<_pGeoMover->_vX<<","<<_pGeoMover->_vY<<","<<_pGeoMover->_vZ<<") Rz,Ry="<<_pGeoMover->_angRz_Move<<","<<_pGeoMover->_angRy_Move);
+    //		_TRACE_(_iMovePatternNo<<"TURN ("<<_X<<","<<_Y<<","<<_Z<<") ª("<<_pGeoMover->_vX<<","<<_pGeoMover->_vY<<","<<_pGeoMover->_vZ<<") Rz,Ry="<<_pGeoMover->_angRzMove<<","<<_pGeoMover->_angRyMove);
     //	}
 
     _pGeoMover->behave();
@@ -200,13 +200,13 @@ void EnemyCeres::processBehavior() {
 //
 //	//•ûŒü“]Š·
 //	if (_iMovePatternNo == 0 && _X > _X_turn) {
-//		_pGeoMover->setMoveAngleRz(sgn(_incZ)*-1*90000);
-//		_pGeoMover->setMoveAngleRzVelocity(sgn(_incZ)*-1*3000);
-//		_pGeoMover->setTargetMoveAngleRz(ANGLE180);
+//		_pGeoMover->setRzMoveAngle(sgn(_incZ)*-1*90000);
+//		_pGeoMover->setRzMoveAngleVelocity(sgn(_incZ)*-1*3000);
+//		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE180);
 //		_pGeoMover->setMoveVelocity(1000);
 //
-//		_pGeoMover->setAxisRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
-//		_pGeoMover->setTargetAxisRotAngle(AXIS_Y, ANGLE180);
+//		_pGeoMover->setRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
+//		_pGeoMover->setAutoTargetRotAngle(AXIS_Y, ANGLE180);
 //
 //		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
 //
@@ -218,7 +218,7 @@ void EnemyCeres::processBehavior() {
 //			pTama = (EnemyShot001*)pShots001->obtain();
 //			if (pTama) {
 //				pTama->setGeometry (_X, _Y, 0);
-//				pTama->_pGeoMover->setMoveAngleRz(way[i]);
+//				pTama->_pGeoMover->setRzMoveAngle(way[i]);
 //				pTama->act();
 //			}
 //		}
@@ -236,9 +236,9 @@ void EnemyCeres::processBehavior() {
 //		//_TRACE_("Ceres:"<<getName()<<" (_X,_Y,_Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
 //
 //		_pGeoMover->setMoveVelocity(0);
-//		_pGeoMover->setZMoveVelocity(0);
+//		_pGeoMover->setVzMoveVelocity(0);
 //		_pGeoMover->setMoveAcceleration(0);
-//		_pGeoMover->setZMoveAcceleration(0);
+//		_pGeoMover->setVzMoveAcceleration(0);
 //		_pGeoMover->setXYZMove(
 //				5000,
 //				GameGlobal::_pMyShip->_X,
@@ -255,16 +255,16 @@ void EnemyCeres::processBehavior() {
 //	if (_incZ > 0) {
 //		if (_Z > 0) {
 //			_Z = 0;
-//			_pGeoMover->setZMoveVelocity(0);
+//			_pGeoMover->setVzMoveVelocity(0);
 //		}
 //	} else if (_incZ < 0) {
 //		if (_Z < 0) {
 //			_Z = 0;
-//			_pGeoMover->setZMoveVelocity(0);
+//			_pGeoMover->setVzMoveVelocity(0);
 //		}
 //	}
 //
-//	//_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pGeoMover->_iVelocity_ZMove));
+//	//_TRACE_("Ceres("<<_X<<","<<_Y<<","<<_Z<<")"<<_incZ <<"/"<<(_pGeoMover->_veloVzMove));
 //}
 
 void EnemyCeres::processJudgement() {

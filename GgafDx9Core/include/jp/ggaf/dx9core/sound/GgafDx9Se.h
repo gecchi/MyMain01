@@ -23,7 +23,7 @@ class GgafDx9Se : public GgafCore::GgafObject {
 public:
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
     char* _wave_name;
-    GgafDx9Se(char* prm_wave_name, int prm_iBufferCount);
+    GgafDx9Se(char* prm_wave_name, int prm_cnt_buffer);
     int writeBuffer(CWaveDecorder& WaveFile);
     int restore(void);
     virtual void play();

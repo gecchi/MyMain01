@@ -29,10 +29,10 @@ public:
 
     /**
      * 描画レベル（順序）を登録
-     * @param prm_iDrawDepthLevel レベル
+     * @param prm_draw_depth_level レベル
      * @param prm_pActor アクター
      */
-    static void setDrawDepthLevel(int prm_iDrawDepthLevel, GgafCore::GgafActor* prm_pActor);
+    static void setDrawDepthLevel(int prm_draw_depth_level, GgafCore::GgafActor* prm_pActor);
 
     virtual ~GgafDx9World();
 };

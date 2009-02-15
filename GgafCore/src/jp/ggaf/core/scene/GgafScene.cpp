@@ -214,9 +214,9 @@ void GgafScene::farewell(DWORD prm_dwFrameOffset) {
     _pLordActor->farewell(prm_dwFrameOffset);
 }
 
-void GgafScene::cleane(int prm_iNumCleanNode) {
-    GgafElement<GgafScene>::cleane(prm_iNumCleanNode);
-    _pLordActor->cleane(prm_iNumCleanNode);
+void GgafScene::cleane(int prm_num_cleaning) {
+    GgafElement<GgafScene>::cleane(prm_num_cleaning);
+    _pLordActor->cleane(prm_num_cleaning);
 }
 
 GgafLordActor* GgafScene::getLordActor() {
@@ -228,23 +228,23 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
     pScene = this;
     static GgafHeadActor* pHeadActor;
     pHeadActor = NULL;
-    static int iIndex01, iIndex02;
-    iIndex01 = 0;
-    iIndex02 = 0;
+    static int index01, index02;
+    index01 = 0;
+    index02 = 0;
 
     do {
         pHeadActor = (GgafHeadActor*)(pScene->getLordActor()->_pSubFirst);
         if (pHeadActor != NULL) {
             do {
                 if ((pHeadActor->_kind & prm_actorkindmask01) > 0) {
-                    _apHeadActor01[iIndex01] = pHeadActor;
-                    iIndex01++;
+                    _apHeadActor01[index01] = pHeadActor;
+                    index01++;
                 }
                 if ((pHeadActor->_kind & prm_actorkindmask02) > 0) {
-                    _apHeadActor02[iIndex02] = pHeadActor;
-                    iIndex02++;
+                    _apHeadActor02[index02] = pHeadActor;
+                    index02++;
                 }
-                if (pHeadActor->_isLast) {
+                if (pHeadActor->_isLastFlg) {
                     break;
                 } else {
                     pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
@@ -258,7 +258,7 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
             continue;
         }
 
-        loop: if (pScene->_isLast) {
+        loop: if (pScene->_isLastFlg) {
             if (pScene == this) {
                 break;
             } else {
@@ -275,8 +275,8 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
         }
     } while (true);
 
-    for (int i = 0; i < iIndex01; i++) {
-        for (int j = 0; j < iIndex02; j++) {
+    for (int i = 0; i < index01; i++) {
+        for (int j = 0; j < index02; j++) {
             if (_apHeadActor01[i] == _apHeadActor02[j]) {
                 _apHeadActor01[i]->executeBumpChkRoundRobin2(_apHeadActor02[j]);
             } else {
@@ -294,7 +294,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
     _pLordActor->dump();
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -306,7 +306,7 @@ void GgafScene::dump() {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_isFirst) {
+            if (pScene_tmp->_isFirstFlg) {
                 break;
             }
         }
@@ -314,7 +314,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
     _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -326,7 +326,7 @@ void GgafScene::dump(string prm_parent) {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_isFirst) {
+            if (pScene_tmp->_isFirstFlg) {
                 break;
             }
         }

@@ -494,8 +494,8 @@ GgafDx9God::~GgafDx9God() {
     if (_pWorld != NULL) {
         //Hê‚ğ~‚ß‚é
         Sleep(20);
-        GgafFactory::_isWorking = false;
-        while (GgafFactory::_isFinish == false) {
+        GgafFactory::_isWorkingFlg = false;
+        while (GgafFactory::_isFinishFlg == false) {
             Sleep(10); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
         }
 

@@ -14,13 +14,13 @@ public:
     /**
      * コンストラクタ
      */
-    GeometryChain(int prm_iChainNum, GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
+    GeometryChain(int prm_num, GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
         static GeoElement* pWork;
         static GeoElement* pTemp;
         _pFirst = NEW GeoElement(prm_pActor);
         pWork = _pFirst;
         pTemp = NULL;
-        for (int i = 0; i < prm_iChainNum - 1; i++) {
+        for (int i = 0; i < prm_num - 1; i++) {
             pTemp = NEW GeoElement(prm_pActor);
             pWork->_next = pTemp;
             pWork = pTemp;

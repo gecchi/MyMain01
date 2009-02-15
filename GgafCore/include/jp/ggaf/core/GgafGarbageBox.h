@@ -23,7 +23,7 @@ public:
 
     void add(GgafScene* prm_pScene);
 
-    void cleane(int prm_iNumCleanNode);
+    void cleane(int prm_num_cleaning);
 
     virtual ~GgafGarbageBox();
 };

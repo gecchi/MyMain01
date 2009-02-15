@@ -8,7 +8,7 @@ GgafActor::GgafActor(const char* prm_name) :
     TRACE("GgafActor::GgafActor("+prm_name+")");
     _class_name = "GgafActor";
     _pNext_TheSameDrawDepthLevel = NULL;
-    _canBump = true;
+    _canBumpFlg = true;
     _pScene_Platform = NULL;
     _pGod = NULL;
 }
@@ -22,7 +22,7 @@ void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
         _pActor_tmp = _pSubFirst;
         while (true) {
             _pActor_tmp->setScenePlatform(prm_pScene_Platform);
-            if (_pActor_tmp->_isLast) {
+            if (_pActor_tmp->_isLastFlg) {
                 break;
             } else {
                 _pActor_tmp = _pActor_tmp->_pNext;
@@ -31,19 +31,19 @@ void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
     }
 }
 
-void GgafActor::setBumpableAlone(bool prm_canBump) {
+void GgafActor::setBumpableAlone(bool prm_canBumpFlg) {
     TRACE("GgafActor::setBumpableAlone() "+getName());
-    _canBump = prm_canBump;
+    _canBumpFlg = prm_canBumpFlg;
 }
 
-void GgafActor::setBumpable(bool prm_canBump) {
+void GgafActor::setBumpable(bool prm_canBumpFlg) {
     TRACE("GgafActor::setBumpable() "+getName());
-    _canBump = prm_canBump;
+    _canBumpFlg = prm_canBumpFlg;
     if (_pSubFirst != NULL) {
         _pActor_tmp = _pSubFirst;
         while (true) {
-            _pActor_tmp->setBumpable(prm_canBump);
-            if (_pActor_tmp->_isLast) {
+            _pActor_tmp->setBumpable(prm_canBumpFlg);
+            if (_pActor_tmp->_isLastFlg) {
                 break;
             } else {
                 _pActor_tmp = _pActor_tmp->_pNext;
@@ -53,7 +53,7 @@ void GgafActor::setBumpable(bool prm_canBump) {
 }
 
 bool GgafActor::canBump() {
-    if (isPlaying() && _canBump) {
+    if (isPlaying() && _canBumpFlg) {
         return true;
     } else {
         return false;
@@ -64,8 +64,8 @@ void GgafActor::executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent) {
     if (prm_pActor_Opponent == this) {
         return;
     } else {
-        if (_canBump && prm_pActor_Opponent->_canBump && _isAlive && prm_pActor_Opponent->_isAlive && _isActive
-                && prm_pActor_Opponent->_isActive) {
+        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _isAliveFlg && prm_pActor_Opponent->_isAliveFlg && _isActiveFlg
+                && prm_pActor_Opponent->_isActiveFlg) {
             if (processBumpChkLogic(prm_pActor_Opponent)) { //Ž©g‚Ìƒqƒbƒgƒ`ƒFƒbƒN
                 processOnHit(prm_pActor_Opponent); //Ž©•ª‚ÌƒqƒbƒgŽž‚ÌU‚é•‘‚¢
                 prm_pActor_Opponent->processOnHit(this); //‘ŠŽè‚ÌƒqƒbƒgŽž‚ÌU‚é•‘‚¢
@@ -80,7 +80,7 @@ void GgafActor::executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent) {
         _pActor_tmp3 = _pSubFirst;
         while (true) {
             _pActor_tmp3->executeBumpChk_WeAnd(prm_pActor_Opponent);
-            if (_pActor_tmp3->_isLast) {
+            if (_pActor_tmp3->_isLastFlg) {
                 break;
             } else {
                 _pActor_tmp3 = _pActor_tmp3->_pNext;
@@ -95,7 +95,7 @@ void GgafActor::executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent) {
         GgafActor* _pActor_tmpZ = prm_pActor_Opponent->_pSubFirst;
         while (true) {
             executeBumpChkRoundRobin(_pActor_tmpZ);
-            if (_pActor_tmpZ->_isLast) {
+            if (_pActor_tmpZ->_isLastFlg) {
                 break;
             } else {
                 _pActor_tmpZ = _pActor_tmpZ->_pNext;
@@ -108,8 +108,8 @@ bool GgafActor::executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent) {
     if (prm_pActor_Opponent == this) {
         return true;
     } else {
-        if (_canBump && prm_pActor_Opponent->_canBump && _isAlive && prm_pActor_Opponent->_isAlive && _isActive
-                && prm_pActor_Opponent->_isActive) {
+        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _isAliveFlg && prm_pActor_Opponent->_isAliveFlg && _isActiveFlg
+                && prm_pActor_Opponent->_isActiveFlg) {
             if (processBumpChkLogic(prm_pActor_Opponent)) { //Ž©g‚Ìƒqƒbƒgƒ`ƒFƒbƒN
                 processOnHit(prm_pActor_Opponent); //Ž©•ª‚ÌƒqƒbƒgŽž‚ÌU‚é•‘‚¢
                 prm_pActor_Opponent->processOnHit(this); //‘ŠŽè‚ÌƒqƒbƒgŽž‚ÌU‚é•‘‚¢
@@ -132,7 +132,7 @@ bool GgafActor::executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
                 if (ret2) {
                     return true;
                 } else {
-                    if (_pActor_tmp4->_isLast) {
+                    if (_pActor_tmp4->_isLastFlg) {
                         break;
                     } else {
                         _pActor_tmp4 = _pActor_tmp4->_pNext;
@@ -150,7 +150,7 @@ void GgafActor::executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent) {
         GgafActor* _pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
         while (true) {
             executeBumpChkRoundRobin2(_pActor_tmpZ2);
-            if (_pActor_tmpZ2->_isLast) {
+            if (_pActor_tmpZ2->_isLastFlg) {
                 break;
             } else {
                 _pActor_tmpZ2 = _pActor_tmpZ2->_pNext;
@@ -167,7 +167,7 @@ GgafScene* GgafActor::getPlatformScene() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -179,7 +179,7 @@ void GgafActor::dump() {
                 _TRACE_("yŒxz"<<_class_name<<"["<<getName()<<"]‚Ìnext‚ªNULL‚É‚Á‚Ä‚¢‚Ü‚·");
                 break;
             }
-            if (pActor_tmp->_isFirst) {
+            if (pActor_tmp->_isFirstFlg) {
                 _TRACE_("\t\t\t\t\t\t\t\t„¤„Ÿ");
                 break;
             }
@@ -188,7 +188,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBump<<","<<_isActive<<_wasPaused<<_wasBlinded<<_isAlive<<","<<_willActNextFrame<<_willPauseNextFrame<<_willBlindNextFrame<<_willBeAliveNextFrame<<","<<_willActAfterFrame<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
@@ -199,7 +199,7 @@ void GgafActor::dump(string prm_parent) {
                 _TRACE_("yŒxz"<<_class_name<<"["<<getName()<<"]‚Ìnext‚ªNULL‚É‚Á‚Ä‚¢‚Ü‚·");
                 break;
             }
-            if (pActor_tmp->_isFirst) {
+            if (pActor_tmp->_isFirstFlg) {
                 _TRACE_(prm_parent+"„¤„Ÿ");
                 break;
             }

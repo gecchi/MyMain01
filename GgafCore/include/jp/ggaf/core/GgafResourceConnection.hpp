@@ -30,7 +30,7 @@ public:
     /** 使いまわす資源 */
     T* _pResource;
     /** 資源を参照しているポインタ数 */
-    int _iConnectionNum;
+    int _num_connection;
     /** 次のGgafResourceConnectionへのポインタ。終端はNULL */
     GgafResourceConnection* _pNext;
 
@@ -68,7 +68,7 @@ GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResou
     _pResource = prm_pResource;
     _pNext = NULL;
     _pManager = NULL;
-    _iConnectionNum = 0;
+    _num_connection = 0;
     _idstr = NEW char[51];
     strcpy(_idstr, prm_idstr);
 }
@@ -88,7 +88,7 @@ int GgafResourceConnection<T>::close() {
     while (pCurrent != NULL) {
         if (pCurrent == this) {
             //発見した場合
-            int rnum = _iConnectionNum;
+            int rnum = _num_connection;
             TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 発見したので開始");
 
             if (rnum == 1) {//最後の参照だった場合
@@ -113,14 +113,14 @@ int GgafResourceConnection<T>::close() {
                     }
                 }
                 TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
-                _iConnectionNum = 0;
+                _num_connection = 0;
             } else if (rnum > 0) {
                 TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] まだ残ってます");
-                _iConnectionNum--;
+                _num_connection--;
             } else if (rnum < 0) {
                 TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum
                         << "Connection] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
-                _iConnectionNum = 0; //とりあえず解放
+                _num_connection = 0; //とりあえず解放
             }
             break;
         } else {
@@ -130,7 +130,7 @@ int GgafResourceConnection<T>::close() {
         }
     }
 
-    if (_iConnectionNum == 0) {
+    if (_num_connection == 0) {
         T* r = pCurrent->take();
         if (r != NULL) {
             pCurrent->processReleaseResource(r); //本当の解放
@@ -139,7 +139,7 @@ int GgafResourceConnection<T>::close() {
         delete this;
         return 0;
     } else {
-        return _iConnectionNum;
+        return _num_connection;
     }
 }
 

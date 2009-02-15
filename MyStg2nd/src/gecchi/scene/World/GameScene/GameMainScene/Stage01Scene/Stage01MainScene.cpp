@@ -50,7 +50,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11077300);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -300000;
-				pActor->_iBeginVelocity = 5000;
+				pActor->_veloBegin = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(11077600, EnemyCeres, "Ceres_4", "M/Ceres", _pRot);
@@ -64,7 +64,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11077400);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -300000;
-				pActor->_iBeginVelocity = 5000;
+				pActor->_veloBegin = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(11077700, EnemyCeres, "Ceres_7", "M/Ceres", _pRot);
@@ -77,7 +77,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11077500);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -300000;
-				pActor->_iBeginVelocity = 5000;
+				pActor->_veloBegin = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -89,14 +89,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11077600);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -300000;
-				pActor->_iBeginVelocity = 5000;
+				pActor->_veloBegin = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11087600);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -250000;
-				pActor->_iBeginVelocity = 6000;
+				pActor->_veloBegin = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(11097900, EnemyCeres, "Ceres_10", "M/Ceres", _pRot);
@@ -112,7 +112,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11087690);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -250000;
-				pActor->_iBeginVelocity = 6000;
+				pActor->_veloBegin = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -121,7 +121,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11077700);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -300000;
-				pActor->_iBeginVelocity = 5000;
+				pActor->_veloBegin = 5000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -133,7 +133,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11087780);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -250000;
-				pActor->_iBeginVelocity = 6000;
+				pActor->_veloBegin = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -145,7 +145,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11087870);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -250000;
-				pActor->_iBeginVelocity = 6000;
+				pActor->_veloBegin = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -154,7 +154,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11097900);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111071200, EnemyCeres, "Ceres_15", "M/Ceres", _pRot);
@@ -167,7 +167,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11087960);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -250000;
-				pActor->_iBeginVelocity = 6000;
+				pActor->_veloBegin = 6000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -179,7 +179,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11097980);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -194,7 +194,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(110971060);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -206,7 +206,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(110971140);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -218,7 +218,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071200);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111171500, EnemyCeres, "Ceres_22", "M/Ceres", _pRot);
@@ -228,7 +228,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(110971220);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -243,7 +243,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071270);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -252,7 +252,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(110971300);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -200000;
-				pActor->_iBeginVelocity = 7000;
+				pActor->_veloBegin = 7000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -264,7 +264,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071340);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -276,7 +276,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071410);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -288,7 +288,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071480);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -297,7 +297,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171500);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111171800, EnemyCeres, "Ceres_28", "M/Ceres", _pRot);
@@ -308,7 +308,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111071550);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
-				pActor->_iBeginVelocity = 8000;
+				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111271850, EnemyCeres, "Ceres_30", "M/Ceres", _pRot);
@@ -318,7 +318,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171560);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111171860, EnemyCeres, "Ceres_31", "M/Ceres", _pRot);
@@ -331,7 +331,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171620);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -343,7 +343,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171680);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -355,7 +355,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171740);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -367,14 +367,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171800);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111271800);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111272100, EnemyCeres, "Ceres_36", "M/Ceres", _pRot);
@@ -388,7 +388,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111271850);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111272150, EnemyCeres, "Ceres_39", "M/Ceres", _pRot);
@@ -398,7 +398,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111171860);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
-				pActor->_iBeginVelocity = 9000;
+				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -410,7 +410,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111271900);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111272200, EnemyCeres, "Ceres_41", "M/Ceres", _pRot);
@@ -423,7 +423,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111271950);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -435,7 +435,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111272000);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111372300, EnemyCeres, "Ceres_44", "M/Ceres", _pRot);
@@ -448,7 +448,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111272050);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -460,14 +460,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111272100);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372100);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472400, EnemyCeres, "Ceres_47", "M/Ceres", _pRot);
@@ -483,7 +483,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372140);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -492,7 +492,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111272150);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -505,7 +505,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372180);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -517,7 +517,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111272200);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
-				pActor->_iBeginVelocity = 10000;
+				pActor->_veloBegin = 10000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111372500, EnemyCeres, "Ceres_53", "M/Ceres", _pRot);
@@ -527,7 +527,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372220);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472520, EnemyCeres, "Ceres_54", "M/Ceres", _pRot);
@@ -540,7 +540,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372260);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -552,7 +552,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372300);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -564,7 +564,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372340);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472640, EnemyCeres, "Ceres_58", "M/Ceres", _pRot);
@@ -577,7 +577,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372380);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -586,7 +586,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472400);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472700, EnemyCeres, "Ceres_60", "M/Ceres", _pRot);
@@ -597,7 +597,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372420);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111572720, EnemyCeres, "Ceres_62", "M/Ceres", _pRot);
@@ -607,7 +607,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472430);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472730, EnemyCeres, "Ceres_63", "M/Ceres", _pRot);
@@ -620,14 +620,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372460);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472460);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472760, EnemyCeres, "Ceres_65", "M/Ceres", _pRot);
@@ -641,7 +641,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472490);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111472790, EnemyCeres, "Ceres_68", "M/Ceres", _pRot);
@@ -651,7 +651,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111372500);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 200000;
-				pActor->_iBeginVelocity = 11000;
+				pActor->_veloBegin = 11000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111572800, EnemyCeres, "Ceres_69", "M/Ceres", _pRot);
@@ -661,7 +661,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472520);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111572820, EnemyCeres, "Ceres_70", "M/Ceres", _pRot);
@@ -674,7 +674,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472550);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -686,7 +686,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472580);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111572880, EnemyCeres, "Ceres_73", "M/Ceres", _pRot);
@@ -699,7 +699,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472610);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -711,7 +711,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472640);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111572940, EnemyCeres, "Ceres_76", "M/Ceres", _pRot);
@@ -724,7 +724,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472670);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -736,14 +736,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472700);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572700);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573000, EnemyCeres, "Ceres_79", "M/Ceres", _pRot);
@@ -753,7 +753,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572720);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573020, EnemyCeres, "Ceres_80", "M/Ceres", _pRot);
@@ -763,7 +763,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472730);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -772,7 +772,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572740);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573040, EnemyCeres, "Ceres_81", "M/Ceres", _pRot);
@@ -782,14 +782,14 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472760);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572760);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573060, EnemyCeres, "Ceres_82", "M/Ceres", _pRot);
@@ -799,7 +799,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572780);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573080, EnemyCeres, "Ceres_83", "M/Ceres", _pRot);
@@ -809,7 +809,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111472790);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 250000;
-				pActor->_iBeginVelocity = 12000;
+				pActor->_veloBegin = 12000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -818,7 +818,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572800);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				orderActorWithRotToFactory(111573100, EnemyCeres, "Ceres_84", "M/Ceres", _pRot);
@@ -828,7 +828,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572820);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -837,7 +837,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572840);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -846,7 +846,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572860);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -855,7 +855,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572880);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -864,7 +864,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572900);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -873,7 +873,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572920);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -882,7 +882,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572940);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -891,7 +891,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572960);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -900,7 +900,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111572980);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -909,7 +909,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573000);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -918,7 +918,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573020);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -927,7 +927,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573040);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -936,7 +936,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573060);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -945,7 +945,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573080);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
@@ -954,7 +954,7 @@ void Stage01MainScene::processBehavior() {
 				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(111573100);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 300000;
-				pActor->_iBeginVelocity = 13000;
+				pActor->_veloBegin = 13000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;

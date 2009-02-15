@@ -7,12 +7,12 @@ GgafDx9PlateActor::GgafDx9PlateActor(const char* prm_name, const char* prm_sprit
     _class_name = "GgafDx9PlateActor";
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
     _pPlateModel = (GgafDx9PlateModel*)_pModelCon->take();
-    _iPatternNo_Top = 0;
-    _iPatternNo_Bottom = _pPlateModel->_iPatternNo_Max;
-    _iPatternNo_Active = 0;
+    _pattno_top = 0;
+    _pattno_bottom = _pPlateModel->_pattno_max;
+    _patteno_now = 0;
     _paVertex = NEW VERTEX[4];
-	_iSize_Vertecs = sizeof(VERTEX)* 4;
-    _iSize_Vertec_unit = sizeof(VERTEX);
+	_size_vertecs = sizeof(VERTEX)* 4;
+    _size_vertec_unit = sizeof(VERTEX);
 
     _paVertex[0].x = 0.0f;
     _paVertex[0].y = 0.0f;
@@ -77,13 +77,13 @@ void GgafDx9PlateActor::processDrawMain() {
     _pPlateModel->draw(this);
 }
 
-void GgafDx9PlateActor::setPatternNo(int prm_iPatternNo) {
-    if (_iPatternNo_Active == prm_iPatternNo) {
+void GgafDx9PlateActor::setPatternNo(int prm_pattno) {
+    if (_patteno_now == prm_pattno) {
         return;
     } else {
-        _iPatternNo_Active = prm_iPatternNo;
+        _patteno_now = prm_pattno;
         static GgafDx9RectUV* pRectUV_Active;
-        pRectUV_Active = (_pPlateModel->_paRectUV) + prm_iPatternNo;
+        pRectUV_Active = (_pPlateModel->_paRectUV) + prm_pattno;
         _paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
         _paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
         _paVertex[1].tu = pRectUV_Active->_aUV[1].tu;

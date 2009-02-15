@@ -30,11 +30,11 @@ public:
     GgafDx9RectUV* _pRectUV_drawlast;
 
     /** 全アニメパターン数 */
-    int _iPatternNo_Max;
+    int _pattno_max;
     float _fSize_PlateModelWidth;
     float _fSize_PlateModelHeight;
-    int _iRowNum_TextureSplit;
-    int _iColNum_TextureSplit;
+    int _row_texture_split;
+    int _col_texture_split;
 
     /**
      * GgafDx9PlateModelオブジェクトの描画<BR>

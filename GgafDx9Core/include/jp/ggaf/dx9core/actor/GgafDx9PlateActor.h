@@ -18,9 +18,9 @@ private:
     };
 
     /** 内部アニメパターン用カウンター */
-    int _iCounter_PatternNo;
+    int _pattno_counter;
     /** 内部アニメフレーム用カウンタ */
-    int _iCounter_AnimationFrame;
+    int _aniframe_counter;
 
 public:
     /** モデルオブジェクトへのポインタ */
@@ -32,16 +32,16 @@ public:
     /** 矩形の頂点情報 */
     VERTEX* _paVertex;
     /** 矩形の頂点合計のサイズ */
-    UINT _iSize_Vertecs;
+    UINT _size_vertecs;
     /** 1頂点のサイズ */
-    UINT _iSize_Vertec_unit;
+    UINT _size_vertec_unit;
 
     /** アニメパターン番号の上限番号 */
-    int _iPatternNo_Top;
+    int _pattno_top;
     /** 現在表示中のアニメパターン番号 */
-    int _iPatternNo_Bottom;
+    int _pattno_bottom;
     /** 現在表示中のアニメパターン番号 */
-    int _iPatternNo_Active;
+    int _patteno_now;
 
     GgafDx9PlateActor(const char* prm_name, const char* prm_spritemodel_name);
 
@@ -50,7 +50,7 @@ public:
      */
     virtual void processDrawMain();
 
-    virtual void setPatternNo(int prm_iPlateNo);
+    virtual void setPatternNo(int prm_patteno);
 
     void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;

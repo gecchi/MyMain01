@@ -6,7 +6,7 @@ using namespace GgafCore;
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-int GgafGod::_iNumPlayingActor = 0;
+int GgafGod::_num_actor_playing = 0;
 DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
@@ -63,14 +63,14 @@ void GgafGod::be() {
      ___EndSynchronized; // <----- ”r‘¼I—¹
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
-        if (_iNumPlayingActor > 1000) {
+        if (_num_actor_playing > 1000) {
             _dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60] * 3);
-        } else if (_iNumPlayingActor > 900) {
+        } else if (_num_actor_playing > 900) {
             _dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60] * 2);
         } else {
             _dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60];
         }
-        _iNumPlayingActor = 0;
+        _num_actor_playing = 0;
     }
 
     _dwTime_FrameBegin = timeGetTime(); //
@@ -121,7 +121,7 @@ void GgafGod::be() {
     } else {//•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚Ä‚È‚¢(—]—T‚ª‚ ‚é)
         Sleep(1); //Hêi•ÊƒXƒŒƒbƒhj‚É‰ñ‚·
         //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //‚Ü‚¾—]—T‚ª‚ ‚éê‡
-        //			if (getWorld() != NULL && _iCountCleanedNode == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
+        //			if (getWorld() != NULL && _cnt_cleaned == 0) { //‘|œ‚Å‚à‚â‚Á‚Æ‚­
         //				 ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         //				getWorld()->cleane(1);
         //				 ___EndSynchronized; // <----- ”r‘¼I—¹
@@ -172,8 +172,8 @@ GgafGod::~GgafGod() {
     if (_pWorld != NULL) {
         //Hê‚ðŽ~‚ß‚é
         Sleep(20);
-        GgafFactory::_isWorking = false;
-        while (GgafFactory::_isFinish == false) {
+        GgafFactory::_isWorkingFlg = false;
+        while (GgafFactory::_isFinishFlg == false) {
             Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
         }
 

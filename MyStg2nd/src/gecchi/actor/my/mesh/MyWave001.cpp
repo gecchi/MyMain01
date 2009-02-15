@@ -12,10 +12,10 @@ MyWave001::MyWave001(const char* prm_name, const char* prm_model) : DefaultMeshA
 void MyWave001::initialize() {
     //setAnimationMethod(OSCILLATE_LOOP, 2);
 
-    _pGeoMover->setMoveAngleRzVelocity(0);
-    //_pGeoMover->setAxisRotAngleVelocity(AXIS_Z, 2*1000);
-    //_pGeoMover->setMoveAngleRz(0);
-    //_pGeoMover->setAxisRotAngle(AXIS_Z, 0);
+    _pGeoMover->setRzMoveAngleVelocity(0);
+    //_pGeoMover->setRotAngleVelocity(AXIS_Z, 2*1000);
+    //_pGeoMover->setRzMoveAngle(0);
+    //_pGeoMover->setRotAngle(AXIS_Z, 0);
     _pGeoMover->setMoveVelocity(2000);
 
     _pChecker->useHitAreaBoxNum(7);
@@ -48,10 +48,10 @@ void MyWave001::processBehavior() {
         //oŒ»Žž‹¤’Êˆ—
         setBumpableAlone(true);
         setGeometry(GameGlobal::_pMyShip);
-        _pGeoMover->setAxisRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z]);
-        _pGeoMover->setAxisRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]);
-        _pGeoMover->setMoveAngleRzRy(GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Z],
-                                     GameGlobal::_pMyShip->_pGeoMover->_angAxisRot[AXIS_Y]);
+        _pGeoMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Z]);
+        _pGeoMover->setRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Y]);
+        _pGeoMover->setRzRyMoveAngle(GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Z],
+                                     GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Y]);
         //		_X = GameGlobal::_pMyShip->_X;
         //		_Y = GameGlobal::_pMyShip->_Y;
         //		_Z = GameGlobal::_pMyShip->_Z;

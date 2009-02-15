@@ -138,9 +138,9 @@ void MyShip::initialize() {
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
     _pGeoMover->setMoveVelocity(0);
 
-    //_pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-    //	_pGeoMover->setAxisRotAngleVelocity(AXIS_Y,1000);
-    //	_pGeoMover->setAxisRotAngleVelocity(AXIS_Z,1300);
+    //_pGeoMover->setRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
+    //	_pGeoMover->setRotAngleVelocity(AXIS_Y,1000);
+    //	_pGeoMover->setRotAngleVelocity(AXIS_Z,1300);
 
 
 }
@@ -210,7 +210,7 @@ void MyShip::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            //pLaser->_dwFrame_switchedToAct = _dwFrame;
+            //pLaser->_dwFrame_switchedToActFlg = _dwFrame;
         }
     }
 
@@ -266,42 +266,42 @@ void MyShip::beginTurboXY(int prm_VB) {
 
         case VB_UP_STC:
             _wayTurbo = WAY_UP;
-            _pGeoMover->setMoveAngleRzRy(ANGLE90, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE90, 0);
             break;
 
         case VB_UP_RIGHT_STC:
             _wayTurbo = WAY_UP_FRONT;
-            _pGeoMover->setMoveAngleRzRy(ANGLE45, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE45, 0);
             break;
 
         case VB_UP_LEFT_STC:
             _wayTurbo = WAY_UP_BEHIND;
-            _pGeoMover->setMoveAngleRzRy(ANGLE135, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE135, 0);
             break;
 
         case VB_LEFT_STC:
             _wayTurbo = WAY_BEHIND;
-            _pGeoMover->setMoveAngleRzRy(ANGLE180, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE180, 0);
             break;
 
         case VB_RIGHT_STC:
             _wayTurbo = WAY_FRONT;
-            _pGeoMover->setMoveAngleRzRy(ANGLE0, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE0, 0);
             break;
 
         case VB_DOWN_STC:
             _wayTurbo = WAY_DOWN;
-            _pGeoMover->setMoveAngleRzRy(ANGLE270, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE270, 0);
             break;
 
         case VB_DOWN_RIGHT_STC:
             _wayTurbo = WAY_DOWN_FRONT;
-            _pGeoMover->setMoveAngleRzRy(ANGLE315, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE315, 0);
             break;
 
         case VB_DOWN_LEFT_STC:
             _wayTurbo = WAY_DOWN_BEHIND;
-            _pGeoMover->setMoveAngleRzRy(ANGLE225, 0);
+            _pGeoMover->setRzRyMoveAngle(ANGLE225, 0);
             break;
 
         default:
@@ -487,9 +487,9 @@ void MyShip::turnFaceXYMove(int prm_VB) {
 void MyShip::turnFaceNeutralXY() {
     //ƒ[ƒ‹i‹ÂŠpA˜ëŠpj‚ðŒ³‚É–ß‚·
     if (_needTurnFaceNeutralXY) {
-        _pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Z, -1 * _angRZTopVelo_MNY, _angRZTopVelo_MNY);
-        _pGeoMover->setAxisRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromAxisRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO)) * _angRZAcce_MNY);
-        _pGeoMover->setTargetAxisRotAngle(AXIS_Z, 0, TURN_BOTH);
+        _pGeoMover->setRotAngleVelocityRenge(AXIS_Z, -1 * _angRZTopVelo_MNY, _angRZTopVelo_MNY);
+        _pGeoMover->setRotAngleAcceleration(AXIS_Z, sgn(_pGeoMover->getDistanceFromRotAngleTo(AXIS_Z, 0, TURN_CLOSE_TO)) * _angRZAcce_MNY);
+        _pGeoMover->setAutoTargetRotAngle(AXIS_Z, 0, TURN_BOTH);
         _needTurnFaceNeutralXY = false;
         _needTurnFaceXYMove = true;
     }

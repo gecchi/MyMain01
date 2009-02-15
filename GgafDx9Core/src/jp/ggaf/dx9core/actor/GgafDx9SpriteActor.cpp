@@ -11,15 +11,15 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _class_name = "GgafDx9SpriteActor";
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
     _pSpriteModel = (GgafDx9SpriteModel*)_pModelCon->take();
-    _iAnimationPatternNo_Top = 0;
-    _iAnimationPatternNo_Bottom = _pSpriteModel->_iAnimationPatternNo_Max;
-    _iAnimationPatternNo_Active = 0;
-    _iAnimationFrame_Interval = 0;
+    _pattno_ani_top = 0;
+    _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
+    _pattno_ani_now = 0;
+    _frame_ani_interval = 0;
     _animation_method = ORDER_LOOP;
-    _iCounter_AnimationFrame = 0;
-    _oscillateAnimationOrderFlg = true;
+    _aniframe_counter = 0;
+    _isOscillateAnimationOrderFlg = true;
     _fAlpha = 1.0f;
-    _isBillboarding = false;
+    _isBillboardingFlg = false;
 
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
@@ -28,8 +28,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
-    //	if (_isBillboarding) {
-    //		_pGeoMover->setAxisRotAngle(
+    //	if (_isBillboardingFlg) {
+    //		_pGeoMover->setRotAngle(
     //			GgafDx9World::_pCamera->_X,
     //			GgafDx9World::_pCamera->_Y,
     //			GgafDx9World::_pCamera->_Z
@@ -43,77 +43,77 @@ void GgafDx9SpriteActor::processDrawMain() {
     _pSpriteModel->draw(this);
 }
 
-void GgafDx9SpriteActor::setActivAnimationPattern(int prm_iAnimationPatternNo) {
-    if (0 > prm_iAnimationPatternNo || prm_iAnimationPatternNo > (_pSpriteModel->_iAnimationPatternNo_Max)) {
-        throwGgafCriticalException("GgafDx9SpriteActor::setActivAnimationPattern アニメーションパターン番号が範囲外です。引数="<<prm_iAnimationPatternNo);
+void GgafDx9SpriteActor::setActivAnimationPattern(int prm_pattno_ani) {
+    if (0 > prm_pattno_ani || prm_pattno_ani > (_pSpriteModel->_pattno_ani_Max)) {
+        throwGgafCriticalException("GgafDx9SpriteActor::setActivAnimationPattern アニメーションパターン番号が範囲外です。引数="<<prm_pattno_ani);
     } else {
-        _iAnimationPatternNo_Active = prm_iAnimationPatternNo;
+        _pattno_ani_now = prm_pattno_ani;
     }
 }
 
-void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_iTop, int prm_bottom = 1) {
-    if (prm_iTop < 0 || prm_bottom > (_pSpriteModel->_iAnimationPatternNo_Max)) {
-        throwGgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_iTop<<","<<prm_bottom<<")");
+void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_top, int prm_bottom = 1) {
+    if (prm_top < 0 || prm_bottom > (_pSpriteModel->_pattno_ani_Max)) {
+        throwGgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
     } else {
-        _iAnimationPatternNo_Top = prm_iTop;
-        _iAnimationPatternNo_Bottom = prm_bottom;
+        _pattno_ani_top = prm_top;
+        _pattno_ani_bottom = prm_bottom;
     }
 }
 
-void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_iInterval) {
+void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_interval) {
     _animation_method = prm_method;
-    _iAnimationFrame_Interval = prm_iInterval;
+    _frame_ani_interval = prm_interval;
 }
 
 void GgafDx9SpriteActor::nextAnimationFrame() {
-    _iCounter_AnimationFrame++;
-    if (_iAnimationFrame_Interval < _iCounter_AnimationFrame) {
+    _aniframe_counter++;
+    if (_frame_ani_interval < _aniframe_counter) {
         if (_animation_method == ORDER_LOOP) { //0,1,2,3,4,5,0,1,2,3,4,5,...
-            if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
-                _iAnimationPatternNo_Active++;
+            if (_pattno_ani_bottom > _pattno_ani_now) {
+                _pattno_ani_now++;
             } else {
-                _iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
+                _pattno_ani_now = _pattno_ani_top;
             }
         } else if (_animation_method == REVERSE_LOOP) { //0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
-            if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
-                _iAnimationPatternNo_Active--;
+            if (_pattno_ani_top < _pattno_ani_now) {
+                _pattno_ani_now--;
             } else {
-                _iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
+                _pattno_ani_now = _pattno_ani_bottom;
             }
         } else if (_animation_method == ORDER_NOLOOP) { //0,1,2,3,4,5,5,5,5,5,5,5...
-            if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
-                _iAnimationPatternNo_Active++;
+            if (_pattno_ani_bottom > _pattno_ani_now) {
+                _pattno_ani_now++;
             } else {
                 happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
-                _iAnimationPatternNo_Active = _iAnimationPatternNo_Bottom;
+                _pattno_ani_now = _pattno_ani_bottom;
             }
         } else if (_animation_method == REVERSE_NOLOOP) { //5,4,3,2,1,0,0,0,0,0,0...
-            if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
-                _iAnimationPatternNo_Active--;
+            if (_pattno_ani_top < _pattno_ani_now) {
+                _pattno_ani_now--;
             } else {
                 happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
-                _iAnimationPatternNo_Active = _iAnimationPatternNo_Top;
+                _pattno_ani_now = _pattno_ani_top;
             }
         } else if (_animation_method == OSCILLATE_LOOP) { //0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            if (_oscillateAnimationOrderFlg) {
-                if (_iAnimationPatternNo_Bottom > _iAnimationPatternNo_Active) {
-                    _iAnimationPatternNo_Active++;
+            if (_isOscillateAnimationOrderFlg) {
+                if (_pattno_ani_bottom > _pattno_ani_now) {
+                    _pattno_ani_now++;
                 } else {
-                    _iAnimationPatternNo_Active--;
-                    _oscillateAnimationOrderFlg = false;
+                    _pattno_ani_now--;
+                    _isOscillateAnimationOrderFlg = false;
                 }
             } else {
-                if (_iAnimationPatternNo_Top < _iAnimationPatternNo_Active) {
-                    _iAnimationPatternNo_Active--;
+                if (_pattno_ani_top < _pattno_ani_now) {
+                    _pattno_ani_now--;
                 } else {
-                    _iAnimationPatternNo_Active++;
-                    _oscillateAnimationOrderFlg = true;
+                    _pattno_ani_now++;
+                    _isOscillateAnimationOrderFlg = true;
                 }
             }
         } else if (_animation_method == NOT_ANIMATED) {
             //何もしない
         }
-        _iCounter_AnimationFrame = 0;
+        _aniframe_counter = 0;
     }
 }
 

@@ -51,13 +51,13 @@ void MyOption::initialize() {
     if (_iMyNo == 0) {
         setGeometry(50000, 0, 0);
         _pGeoMover->setMoveVelocity(3000);
-        _pGeoMover->setMoveAngleRzVelocity(2000);
+        _pGeoMover->setRzMoveAngleVelocity(2000);
 
     } else {
         _pGeoMover->setMoveVelocity(0);
     }
-    //_pGeoMover->setAxisRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-    _pGeoMover->setAxisRotAngleVelocity(AXIS_Y, 2000);
+    //_pGeoMover->setRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
+    _pGeoMover->setRotAngleVelocity(AXIS_Y, 2000);
     //setAlpha(0.2);
 }
 
@@ -95,7 +95,7 @@ void MyOption::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            //pLaser->_dwFrame_switchedToAct = _dwFrame;
+            //pLaser->_dwFrame_switchedToActFlg = _dwFrame;
             //pLaser->actAlone();
         }
     }

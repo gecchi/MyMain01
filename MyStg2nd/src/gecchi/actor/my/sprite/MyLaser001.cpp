@@ -27,10 +27,10 @@ void MyLaser001::processBehavior() {
         //oŒ»Žžˆ—
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
-        _pGeoMover->setAxisRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z]);
-        _pGeoMover->setAxisRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
-        _pGeoMover->setMoveAngleRzRy(_pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Z],
-                                     _pActor_Radical->_pGeoMover->_angAxisRot[AXIS_Y]);
+        _pGeoMover->setRotAngle(AXIS_Z, _pActor_Radical->_pGeoMover->_angRot[AXIS_Z]);
+        _pGeoMover->setRotAngle(AXIS_Y, _pActor_Radical->_pGeoMover->_angRot[AXIS_Y]);
+        _pGeoMover->setRzRyMoveAngle(_pActor_Radical->_pGeoMover->_angRot[AXIS_Z],
+                                     _pActor_Radical->_pGeoMover->_angRot[AXIS_Y]);
         _X_prevFrame = _pActor_Radical->_X;
         _Y_prevFrame = _pActor_Radical->_Y;
         _Z_prevFrame = _pActor_Radical->_Z;

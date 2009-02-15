@@ -49,7 +49,7 @@ public:
 
     virtual void release();
 
-    void changeVertexAlpha(int prm_iVertexAlpha);
+    void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
      * デストラクタ<BR>

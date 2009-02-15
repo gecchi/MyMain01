@@ -28,7 +28,7 @@ void GgafDx9World::drawMain() {
                 break;
             }
             pActor->processDrawMain();
-            pActor->_wasExecuted_processDrawMain = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
+            pActor->_wasExecutedProcessDrawMainFlg = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
             ptmp = pActor;
             pActor = pActor->_pNext_TheSameDrawDepthLevel;
             ptmp->_pNext_TheSameDrawDepthLevel = NULL;
@@ -40,21 +40,21 @@ void GgafDx9World::drawMain() {
     GgafMainScene::drawMain();
 }
 
-void GgafDx9World::setDrawDepthLevel(int prm_iDrawDepthLevel, GgafActor* prm_pActor) {
-    static int iDrawDepthLevel;
-    if (prm_iDrawDepthLevel > MAX_DRAW_DEPTH_LEVEL - 1) {
-        iDrawDepthLevel = MAX_DRAW_DEPTH_LEVEL - 1;
-    } else if (prm_iDrawDepthLevel < 0) {
-        iDrawDepthLevel = 0;
+void GgafDx9World::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pActor) {
+    static int draw_depth_level;
+    if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
+        draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 1;
+    } else if (prm_draw_depth_level < 0) {
+        draw_depth_level = 0;
     } else {
-        iDrawDepthLevel = prm_iDrawDepthLevel;
+        draw_depth_level = prm_draw_depth_level;
     }
-    if (_apActorDrawDepthLevel_first[iDrawDepthLevel] == NULL) {
-        _apActorDrawDepthLevel_first[iDrawDepthLevel] = prm_pActor;
-        _apActorDrawDepthLevel_last[iDrawDepthLevel] = prm_pActor;
+    if (_apActorDrawDepthLevel_first[draw_depth_level] == NULL) {
+        _apActorDrawDepthLevel_first[draw_depth_level] = prm_pActor;
+        _apActorDrawDepthLevel_last[draw_depth_level] = prm_pActor;
     } else {
-        _apActorDrawDepthLevel_last[iDrawDepthLevel]->_pNext_TheSameDrawDepthLevel = prm_pActor;
-        _apActorDrawDepthLevel_last[iDrawDepthLevel] = prm_pActor;
+        _apActorDrawDepthLevel_last[draw_depth_level]->_pNext_TheSameDrawDepthLevel = prm_pActor;
+        _apActorDrawDepthLevel_last[draw_depth_level] = prm_pActor;
     }
 }
 
