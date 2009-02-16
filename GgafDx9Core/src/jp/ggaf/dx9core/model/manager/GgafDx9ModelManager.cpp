@@ -97,14 +97,13 @@ GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model
 
 void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pMeshModel) {
     TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
-
     //Xファイルから、独自に次の情報を読み込む
-    //頂点バッファ FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+    //頂点バッファ FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE );
     //インデックスバッファ
     //マテリアル
     //テクスチャ
 
-
+    Frm::Model3D MyModel;
 //
 //
 //
@@ -220,24 +219,28 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
     }
 
+    //TODO メッシュのOptimizeを試せ！
+    //    !   メッシュの面及び頂点の順番を変更し，最適化したメッシュオブジェクトを取得する。
+    //        call XOptimize(lpMesh,D3DXMESHOPT_ATTRSORT,NULL,NULL,NULL,NULL,LOC(lpMeshOpt),iRes)
+
     //マテリアルを取り出す
     D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
     //＜2008/02/02 の脳みそ＞
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
-    // だが解放すると D3DXMATERIAL構造体配列もどうやら消えるらしい（すぐには消えない？、ここでハマる；）。
-    // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保持することにしましょ～、あ～そ～しましょう。
+    // だが解放すると D3DXMATERIAL構造体配列もどうやら消えるようだ、すぐには消えないかもしれんが…（ここでハマる；）。
+    // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保存することにしましょ～、あ～そ～しましょう。
     paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
-  for( DWORD i = 0; i < dwNumMaterials; i++){
+    for( DWORD i = 0; i < dwNumMaterials; i++){
         paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
     }
 
-  //Diffuse反射をAmbient反射にコピーする
+    //マテリアルのDiffuse反射をAmbient反射にコピーする
     //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-    //xファイル（MatD3D）にはDiffuse反射値しか設定されてい、そこでDiffuse反射の値で
-    //Ambient反射値を代用することにする。
-    //TODO:本当にこれはいるのか？？？？
+    //xファイル（MatD3D）にはDiffuse反射値しか設定されていない、そこでDiffuse反射の値で
+    //Ambient反射値を代用することにする。とりあえず。
+    //TODO:本当にこれでいいのか？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
     }
@@ -256,7 +259,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
 
-    //Xファイルに法線がない場合もある。その場合法線をかくようにする。
+    //Xファイルに法線がない場合、法線を設定。
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
         LPD3DXMESH pID3DXMesh_tmp = NULL;
         hr = pID3DXMesh->CloneMeshFVF(
