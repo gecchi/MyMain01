@@ -9,7 +9,7 @@
 
 #define DEBUG
 
-#include <windows.h>
+
 #include "Toolbox\MyTrace.h"
 
 #include "framework\frm_IO.h"

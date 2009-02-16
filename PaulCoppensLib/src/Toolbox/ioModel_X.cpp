@@ -44,7 +44,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT)
 {
 	XFileHeader XHeader;
 
-   MYTRACE("Processing file:", pFilename);
+   _TRACE_("Processing file:" << pFilename);
 
 	fin.open(pFilename.c_str(), ios::in);
 
@@ -54,25 +54,25 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT)
    fin.read((char*)&XHeader,16);
    if (XHeader.Magic != XOFFILE_FORMAT_MAGIC)
    	{
-      MYTRACE("Not a .X model file. Aborted...");
+      _TRACE_("Not a .X model file. Aborted...");
    	return false;
       }
 
 	if (XHeader.Major_Version != XOFFILE_FORMAT_VERSION03)
    	{
-      MYTRACE("Major version greater than 03. Aborted...");
+      _TRACE_("Major version greater than 03. Aborted...");
    	return false;
       }
 
    if ((XHeader.Minor_Version != XOFFILE_FORMAT_VERSION03) || (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02))
    	{
-      MYTRACE("Minor version greater than 03. Aborted...");
+      _TRACE_("Minor version greater than 03. Aborted...");
 		return false;
       }
 
 	if (XHeader.Format != XOFFILE_FORMAT_TEXT)
    	{
-      MYTRACE("Not a text format. Aborted...");
+      _TRACE_("Not a text format. Aborted...");
    	return false;
       }
 
@@ -81,7 +81,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT)
    while(!fin.eof())
    	{
       switch (ProcessBlock()) {
-      	case X_ERROR: MYTRACE("Stopped processing the file ..."); return false;
+      	case X_ERROR: _TRACE_("Stopped processing the file ..."); return false;
          case X_COMMENT: break; //nothing to do
          case X_EBRACE: break; //end of a block ?!
          case X_FRAME: ProcessBone((Frm::Bone*)0); break;
@@ -95,8 +95,8 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT)
    if (_LoadSkeletton != 0)
    	MapMeshToBones(_LoadSkeletton);
 
-   MYTRACE("Processed file:", pFilename, "OK");
-   
+   _TRACE_("Processed file:" << pFilename << " OK");
+
    fin.close();
    return true;
 }
@@ -139,7 +139,7 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText)
 
    if (pText.empty())
    	{
-      MYTRACE("Error, no block read !");
+      _TRACE_("Error, no block read !");
    	return X_ERROR;
       }
 
@@ -152,7 +152,7 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText)
    		return Templates[i].TemplateID;
          }
 		}
-   MYTRACE("Unknown Block:", pText);
+   _TRACE_("Unknown Block:" << pText);
    return X_UNKNOWN;
 }
 
@@ -241,13 +241,13 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone)
 
    if (pBone == 0)
    	{
-      MYTRACE("Skeletton 1st bone:",cBone->_Name);
+      _TRACE_("Skeletton 1st bone:" << cBone->_Name);
       _LoadSkeletton = cBone;
       _Object->_Skeletton = _LoadSkeletton;
       }
    else
    	{
-   	MYTRACE("\t",pBone->_Name,"->",cBone->_Name);
+   	_TRACE_("\t" << pBone->_Name << "->" << cBone->_Name);
    	pBone->_Bones.push_back(cBone);
       }
    Find('{');
@@ -293,11 +293,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void)
       _LoadMesh->_FirstNormal = LastMesh->_FirstNormal + LastMesh->_nNormals;
       if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
       	_LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
-      MYTRACE("Starting Vertex index:", _LoadMesh->_FirstVertex);
-      MYTRACE("Starting Face index:", _LoadMesh->_FirstFace);
-      MYTRACE("Starting TextureCoord index:", _LoadMesh->_FirstTextureCoord);
-      MYTRACE("Starting Normal index:", _LoadMesh->_FirstNormal);
-      MYTRACE("Starting Material index:", _LoadMesh->_FirstMaterial);
+      _TRACE_("Starting Vertex index:" << _LoadMesh->_FirstVertex);
+      _TRACE_("Starting Face index:" << _LoadMesh->_FirstFace);
+      _TRACE_("Starting TextureCoord index:" << _LoadMesh->_FirstTextureCoord);
+      _TRACE_("Starting Normal index:" << _LoadMesh->_FirstNormal);
+      _TRACE_("Starting Material index:" << _LoadMesh->_FirstMaterial);
       }
 
    Token = fin.peek();
@@ -307,11 +307,11 @@ void ToolBox::IO_Model_X::ProcessMesh(void)
    	_LoadMesh->_Name = SetUID('M');
 
   	Find('{');
-   MYTRACE("Mesh:", _LoadMesh->_Name);
+   _TRACE_("Mesh:" << _LoadMesh->_Name);
 
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_nVertices = (uint16)TextToNum(Data);
-   MYTRACE("Number of vertices:", _LoadMesh->_nVertices);
+   _TRACE_("Number of vertices:" << _LoadMesh->_nVertices);
    _LoadMesh->_Vertices = new Frm::Vertex[_LoadMesh->_nVertices];
 //   _LoadMesh->_SkinnedVertices = new Frm::Vertex[_LoadMesh->_nVertices];
    for(int i=0; i< _LoadMesh->_nVertices; i++)
@@ -327,7 +327,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void)
 
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_nFaces = (uint16)TextToNum(Data);
-   MYTRACE("Number of Faces:", _LoadMesh->_nFaces);
+   _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
    _LoadMesh->_Faces = new Frm::Face[_LoadMesh->_nFaces];
    for(int i=0; i< _LoadMesh->_nFaces; i++)
    	{
@@ -339,7 +339,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void)
       fin.getline(Data, TEXT_BUFFER, ';');
    	_LoadMesh->_Faces[i].data[2] = (uint16)TextToNum(Data);
       fin.get(); //eats either the comma or the semicolon at the end of each face description
-//      MYTRACE("Face:", i, ":", _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
+//      _TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
       }
 
    Token = X_COMMENT;
@@ -375,7 +375,7 @@ void ToolBox::IO_Model_X::ProcessMeshTextureCoords(void)
 
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_nTextureCoords = (uint16)TextToNum(Data);
-   MYTRACE("Number of Texture Coords:", _LoadMesh->_nTextureCoords);
+   _TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
    _LoadMesh->_TextureCoords = new Frm::TCoord[_LoadMesh->_nTextureCoords];
    for(int i=0; i< _LoadMesh->_nTextureCoords; i++)
    	{
@@ -401,7 +401,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void)
   	Find('{');
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_nNormals = (uint16)TextToNum(Data);
-   MYTRACE("Number of normals :", _LoadMesh->_nNormals);
+   _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
    _LoadMesh->_Normals = new Frm::vector<float>[_LoadMesh->_nNormals];
    for(int i=0; i< _LoadMesh->_nNormals; i++)
    	{
@@ -425,7 +425,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void)
       fin.getline(Data, TEXT_BUFFER, ';');
    	_LoadMesh->_FaceNormals[i].data[2] = (uint16)TextToNum(Data);
       fin.get(); //eats either the comma or the semicolon at the end of each face description
-//      MYTRACE("Face Normal indexes:", i, ":", _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
+//      _TRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
       }
 
    Find('}');
@@ -448,7 +448,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void)
 
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_nMaterials = (uint16)TextToNum(Data);
-   MYTRACE("Number of Materials:", (uint16)TextToNum(Data));
+   _TRACE_("Number of Materials:" << (uint16)TextToNum(Data));
 
    fin.getline(Data, TEXT_BUFFER, ';');
    _LoadMesh->_FaceMaterials = new uint16[(uint16)TextToNum(Data)];
@@ -551,7 +551,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void)
 	temp = Data;
    cBone = _LoadSkeletton->IsName(temp);
 //   cBone->_Mesh = _LoadMesh;
-   MYTRACE("Skinning bone:", cBone->_Name);
+   _TRACE_("Skinning bone:" << cBone->_Name);
    Find(';');
 
    fin.getline(Data, TEXT_BUFFER, ';');
@@ -561,22 +561,22 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void)
    	{
 	   fin.getline(Data, TEXT_BUFFER, ',');
    	cBone->_Vertices[i] = (uint16)TextToNum(Data);
-//      MYTRACE("Vertex:", atoi(Data));/**/
+//      _TRACE_("Vertex:" << atoi(Data));/**/
       }
    fin.getline(Data, TEXT_BUFFER, ';');
  	cBone->_Vertices[cBone->_nVertices-1] = (uint16)TextToNum(Data);
-//   MYTRACE("Vertex:", atoi(Data));/**/
+//   _TRACE_("Vertex:" << atoi(Data));/**/
 
    cBone->_Weights = new float[cBone->_nVertices];
    for(int i=0; i< cBone->_nVertices-1; i++)
    	{
 	   fin.getline(Data, TEXT_BUFFER, ',');
    	cBone->_Weights[i] = TextToNum(Data);
-//      MYTRACE("Weight:", atof(Data));/**/
+//      _TRACE_("Weight:" << atof(Data));/**/
       }
    fin.getline(Data, TEXT_BUFFER, ';');
  	cBone->_Weights[cBone->_nVertices-1] = TextToNum(Data);
-//   MYTRACE("Weight:", atof(Data));/**/
+//   _TRACE_("Weight:" << atof(Data));/**/
 
    for(int i=0; i< 15; i++)
    	{
@@ -612,7 +612,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void)
    	_LoadAnimationSet->_Name = SetUID('A');
 
   	Find('{');
-   MYTRACE("Animation Set:", _LoadAnimationSet->_Name);
+   _TRACE_("Animation Set:" << _LoadAnimationSet->_Name);
 
    Token = X_COMMENT;
    while(Token != X_EBRACE)
@@ -620,14 +620,14 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void)
 		Token = ProcessBlock();
   		switch (Token) {
       	case X_COMMENT: break; //used for spaces and other kind of comments
-         case X_EBRACE: _LoadAnimationSet->_MaxKey = _MaxKey; MYTRACE("MaxKey:", _MaxKey); _Object->_AnimationSets.push_back(_LoadAnimationSet); return; //this is the end, my only friend ...
+         case X_EBRACE: _LoadAnimationSet->_MaxKey = _MaxKey; _TRACE_("MaxKey:" << _MaxKey); _Object->_AnimationSets.push_back(_LoadAnimationSet); return; //this is the end, my only friend ...
          case X_ANIMATION: ProcessAnimations(_LoadAnimationSet); break;
          default:
          	AvoidTemplate(); break;
       	}
 		}
 	_LoadAnimationSet->_MaxKey = _MaxKey;
-   MYTRACE("MaxKey:", _MaxKey);
+   _TRACE_("MaxKey:" << _MaxKey);
 	_Object->_AnimationSets.push_back(_LoadAnimationSet);
 }
 
@@ -656,7 +656,7 @@ void ToolBox::IO_Model_X::ProcessAnimations(Frm::AnimationSet* &pAS)
          	fin.getline(Data, TEXT_BUFFER, '}');
             Remove(' ', Data);
             TempAnimation->_BoneName = Data;
-            MYTRACE("Animated Bone:",TempAnimation->_BoneName);
+            _TRACE_("Animated Bone:" << TempAnimation->_BoneName);
          	break;
          case X_ANIMATIONKEY: ProcessAnimationKeys(TempAnimation); break;
          default:
@@ -778,7 +778,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA)
             pA->_Matrices.push_back(TempMatrix);
             }
          break;
-      default: MYTRACE("Unknown Type", Type, " ..."); break;
+      default: _TRACE_("Unknown Type" << Type <<  " ..."); break;
    	}
 
    Find('}');
@@ -796,7 +796,7 @@ void ToolBox::IO_Model_X::MapMeshToBones(Frm::Bone* &pBone)
 	if (pBone->_MeshName.empty())
    	pBone->_MeshName = _LoadMesh->_Name;
 
-   MYTRACE("Bone", pBone->_Name, "is linked to mesh", pBone->_MeshName);
+   _TRACE_("Bone" << pBone->_Name << "is linked to mesh" << pBone->_MeshName);
 
 	if (!pBone->_Bones.empty())
    	for(std::list<Frm::Bone*>::iterator i = pBone->_Bones.begin(); i != pBone->_Bones.end(); i++)

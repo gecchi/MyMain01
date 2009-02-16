@@ -165,7 +165,7 @@ void Model3D::ConcatenateMeshes(void) {
     if (_Meshes.size() < 2)
         return;
 
-    MYTRACE("Concatenating Meshes ...");
+    _TRACE_("Concatenating Meshes ...");
 
     Mesh* ConcatMesh = new Mesh;
     Mesh* LastMesh = _Meshes.back();
@@ -190,11 +190,11 @@ void Model3D::ConcatenateMeshes(void) {
             && (ConcatMesh->_nNormals != 0))
         ConcatMesh->_nNormals = ConcatMesh->_nVertices;
 
-    MYTRACE("Final number of Vertices:", ConcatMesh->_nVertices);
-    MYTRACE("Final number of Faces:", ConcatMesh->_nFaces);
-    MYTRACE("Final number of TextureCoords:", ConcatMesh->_nTextureCoords);
-    MYTRACE("Final number of Normals:", ConcatMesh->_nNormals);
-    MYTRACE("Final number of Materials:", ConcatMesh->_nMaterials);
+    _TRACE_("Final number of Vertices:"<< ConcatMesh->_nVertices);
+    _TRACE_("Final number of Faces:"<< ConcatMesh->_nFaces);
+    _TRACE_("Final number of TextureCoords:"<< ConcatMesh->_nTextureCoords);
+    _TRACE_("Final number of Normals:"<< ConcatMesh->_nNormals);
+    _TRACE_("Final number of Materials:"<< ConcatMesh->_nMaterials);
 
     //We create all the arrays:
     // - Vertices and Faces
@@ -252,11 +252,11 @@ void Model3D::ConcatenateMeshes(void) {
     //OK. We now process the bone hierarchy to update the
     //skinning indices
 
-    MYTRACE("Adapting the Bone hierarchy ...");
+    _TRACE_("Adapting the Bone hierarchy ...");
     if (_Skeletton != 0)
         UpdateBoneIndices(_Skeletton);
 
-    MYTRACE("Bone hierarchy adapted.");
+    _TRACE_("Bone hierarchy adapted.");
 
     //We eventually delete all the previous meshes
     while (!_Meshes.empty()) {
@@ -270,7 +270,7 @@ void Model3D::ConcatenateMeshes(void) {
     //We create the subsets
     ConcatMesh->CreateSubsets();
 
-    MYTRACE("All meshes are concatenated.");
+    _TRACE_("All meshes are concatenated.");
 }
 
 void Model3D::UpdateBoneIndices(Bone* &pBone) {

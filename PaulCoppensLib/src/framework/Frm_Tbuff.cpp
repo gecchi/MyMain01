@@ -1,6 +1,6 @@
 #include "framework\Frm_Tbuff.h"
 
-//TBuff* TBuff::_Instance = 0;
+TBuff* TBuff::_Instance = 0;
 
 TBuff* TBuff::GetInstance(void) {
     if (TBuff::_Instance == 0)
