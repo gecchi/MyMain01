@@ -1,0 +1,288 @@
+///////////////////////////////////////////////////////////////////////////////
+// Sample 3
+// Base Sample
+//
+///////////////////////////////////////////////////////////////////////////////
+
+#include "sample3.h"
+#include "ToolBox\IOModel_X.h"
+DECLARE_TRACE;
+
+//#include "Toolbox\iomodel_x.h"
+//This class is a specialized loader for DirectX X files
+ToolBox::IO_Model_X IOX;
+
+//#include "gl\object3d_gl.h"
+//This class holds the base Model information (meshes, bone hierarchy, animation keys, materials)
+Frm::Model3D MyModel;
+Frm::Model3D* CurrentModel;
+//This class holds the transformed matrices and the transformed meshes
+Object3D MyObject;
+
+//used to move around the camera
+float movex, movey, movez;
+
+//Center Vertex of the transformed Object3D
+Frm::Vertex ObjectCenter;
+
+//holds the current animation played
+uint16 index;
+
+///INIT//////////////////////////////////////////////////////////
+void init ( void )
+{
+	std::string temp = "Gfx\\OpenGL.bmp";
+
+   START_TRACE; //readies the debug file
+
+   //Initiating the screen
+	SampleScreen.Init();
+   SampleScreen.SetFont(GLUT_BITMAP_TIMES_ROMAN_24);
+   MYTRACE("Screen is initiated.\n");
+
+   //Loading the OpenGL logo
+   LogoID = SampleScreen.GetRessSize(LOAD_TXT);
+   SampleScreen.SetTargetType(TXT_RGB); //Target texture type
+  	SampleScreen.SetTranspColor(0,0,0); //transparent color in the texture
+   Running = SampleScreen.Load(LOAD_TXT, temp); //"Gfx\\OpenGL.bmp");
+   if (Running == false)
+   	{
+   	MYTRACE("Error in loading the OpenGL logo.");
+      return;
+      }
+   MYTRACE("OpenGL logo loaded.\n");
+
+   //Setting up texture coords for the OpenGL logo
+   GLLogoTexCoords[0] = Frm::Set2(0.0f, 0.0f);
+   GLLogoTexCoords[1] = Frm::Set2(1.0f, 0.0f);
+   GLLogoTexCoords[2] = Frm::Set2(0.0f, 1.0f);
+   GLLogoTexCoords[3] = Frm::Set2(1.0f, 1.0f);
+
+   //Initiating the windows timer
+   SampleTimer->InitTimer(0);
+   Elapsed = 0;
+   MYTRACE("Timer instance opened.\n");
+
+   //Loading the model
+   MYTRACE("Loading the X File.\n");
+   temp = "Gfx\\tiny_4anim.x";
+   CurrentModel = &MyModel;
+   Running = IOX.Load(temp, CurrentModel);
+
+   if (Running == false)
+   	{
+   	MYTRACE("Error in loading the file tiny_4anim.x.");
+      return;
+      }
+   MYTRACE("X File tiny_4anim.x loaded.\n");
+
+   MyModel.ConcatenateMeshes();
+
+   //Loading the Textures
+   MYTRACE("Loading X File referenced Textures.\n");
+   SampleScreen.SetTargetType(TXT_RGB); //Target texture type
+  	SampleScreen.SetTranspColor(0,0,0); //transparent color in the texture
+   //retrieves the texture name in the mesh material list
+   //then loads up the texture and returns the texture ID
+   //in the texture manager list
+   for(std::list<Frm::Mesh*>::iterator i = MyModel._Meshes.begin(); i != MyModel._Meshes.end(); i++)
+   	for (std::list<Frm::Material*>::iterator j = (*i)->_Materials.begin(); j != (*i)->_Materials.end(); j++)
+      	{
+         temp = "Gfx\\" + (*j)->_TextureName;
+         (*j)->_TextID = SampleScreen.SetTextureID(temp);
+         }
+   MYTRACE("Loaded the associated textures.\n");
+
+   //The loaded model is used to initialize the Object3D class
+   MyObject.SetupModel(CurrentModel);
+   //We map the animation set to the bone hierarchy
+   /************************************************************
+   NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW-*/
+   index = 0;
+   MyObject.MapAnimationSet(index);
+   //We set the interval of animation in steps
+   MyObject.SetAnimationStep(80);
+   /***END******************************************************/
+
+
+   MyObject.Update();
+
+   //these variables are used to deduce the eye
+   //position from the At Vertex
+   movex = 0.0f;
+   movez = 200.0f;
+   movey = -450.0f;
+
+   //This is the At Vertex for the camera
+   ObjectCenter = MyObject._Center;
+
+   printf("Ready.");
+}
+
+///DRAWLOGO///////////////////////////////////////////////////////
+void drawlogo(void)
+{
+	glDisable(GL_DEPTH_TEST);
+	SampleScreen.SetColor(255, 255, 255);
+   SampleScreen.SelectTexture(LogoID);
+   glBegin(GL_QUADS);
+   	glTexCoord2fv(GLLogoTexCoords[0].data); glVertex3fv(GLLogoQuad[0].data);
+      glTexCoord2fv(GLLogoTexCoords[1].data); glVertex3fv(GLLogoQuad[1].data);
+      glTexCoord2fv(GLLogoTexCoords[3].data); glVertex3fv(GLLogoQuad[3].data);
+      glTexCoord2fv(GLLogoTexCoords[2].data); glVertex3fv(GLLogoQuad[2].data);
+   glEnd();
+   glEnable(GL_DEPTH_TEST);
+}
+
+///DISPLAY////////////////////////////////////////////////////////
+void display ( void )
+{
+	if(Running == false)
+   	return;
+	SampleTimer->GetTime(0);//Reset the main timer
+	SampleScreen.Start_Draw();//Clear the screen
+
+   SampleScreen.SetColor(255, 255, 255);
+
+   SampleScreen.TwoD();//Setup 2D coordinate System
+   SampleScreen.PrintFPS(Elapsed); //calculate and display the FPS
+   drawlogo();
+
+   SampleScreen.ThreeD(); //Setup 3D coordinate System
+
+   //Orient the camera
+	gluLookAt(movex + ObjectCenter[0], movey + ObjectCenter[1], movez + ObjectCenter[2], ObjectCenter[0], ObjectCenter[1], movez + ObjectCenter[2], 0.0f, 0.0f, 1.0f);
+	MyObject.Draw(&SampleScreen);
+
+   SampleScreen.End_Draw();//Swap buffers
+   Elapsed = SampleTimer->GetTime(0); //calculate the elapsed time
+}
+
+///CENTERLOGO//////////////////////////////////////////////////////
+void centerlogo(void)
+{
+   //Calculating the OpenGL logo vertices to center on screen
+   float sx = (float)((glutGet(GLUT_WINDOW_WIDTH)-512)>>1);
+   float sy = (float)((glutGet(GLUT_WINDOW_HEIGHT)-256)>>1);
+   GLLogoQuad[0] = Frm::Set3(sx, sy, 0.0f);
+   GLLogoQuad[1] = Frm::Set3(sx + 512.0f, sy, 0.0f);
+   GLLogoQuad[2] = Frm::Set3(sx, sy + 256.0f, 0.0f);
+   GLLogoQuad[3] = Frm::Set3(sx + 512.0f, sy + 256.0f, 0.0f);
+}
+
+///RESHAPE/////////////////////////////////////////////////////////
+void reshape(int pw, int ph)
+{
+	SampleScreen.Shape(pw, ph);
+	centerlogo();
+}
+
+///IDLE//////////////////////////////////////////////////////////
+void idle ( void )
+{
+	if (Running == false)
+		return;
+
+	//This will always center the camera on the center of the transformed mesh
+//	ObjectCenter = MyObject._Center;
+
+   MyObject.ClearSkinnedVertices(); //reset the transformed mesh
+   MyObject.Update(); //calculate the new transformed mesh
+
+	glutPostRedisplay ( ); //Tell Glut to show the result
+}
+
+///KEYBOARD////////////////////////////////////////////////////////
+#pragma argsused
+void keyboard ( unsigned char pkey, int px, int py )
+{
+   switch ( pkey ) {
+      case 27:  /*  Escape key  */
+         Running = false;
+	      //this is the end, my only friend ...
+   	   exit(0);
+         break;
+      case 'f':
+         glutFullScreen ( );
+         centerlogo();
+         break;
+      case 'w':
+      	//switch back from full screen
+         glutReshapeWindow ( SCREENWIDTH,SCREENHEIGHT );
+         break;
+      case 'b':
+      	//show the model in bind space
+      	MyObject.CalcBindSpace();
+         break;
+   /************************************************************
+   NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW- NEW-*/
+      case '+':
+      	//advance the animation step
+      	MyObject.CalcAnimation(); break;
+      case ' ':
+      	//get the next animation set
+      	index++;
+			MyObject.MapAnimationSet(index);
+         //Calculate the new transformed matrices
+   	   MyObject.CalcAnimation();
+         break;
+   /***END******************************************************/
+      default:
+         break;
+   }
+}
+
+#pragma argsused
+void keyboard2 ( int pkey, int px, int py )
+{
+
+	//Moves the camera around
+   switch ( pkey ) {
+      case GLUT_KEY_LEFT:
+      	movex -= 1.0f; break;
+      case GLUT_KEY_RIGHT:
+      	movex += 1.0f; break;
+      case GLUT_KEY_UP:
+      	movey -= 1.0f; break;
+      case GLUT_KEY_DOWN:
+      	movey += 1.0f; break;
+      case GLUT_KEY_PAGE_UP:
+      	movez += 1.0f; break;
+		case GLUT_KEY_PAGE_DOWN:
+      	movez -= 1.0f; break;/**/
+      }
+
+}
+
+///EXITFUNC////////////////////////////////////////////////////////
+void exitfunc(void)
+{
+	MYTRACE("Closing ...");
+   //we unload all textures from OpenGL
+   SampleScreen.Unload(LOAD_TXT, 0);
+   //we delete the timer instance
+   delete SampleTimer;
+   END_TRACE;
+}
+
+/*  Main Loop
+ *  Open window with initial window size, title bar,
+ *  RGBA display mode, and handle input events.
+ */
+int main2 ( int argc, char** argv )
+{
+   glutInit ( &argc, argv );
+   glutInitDisplayMode ( GLUT_RGB | GLUT_DOUBLE );
+   glutInitWindowPosition( SCREENPOSX, SCREENPOSY );
+   glutInitWindowSize  ( SCREENWIDTH, SCREENHEIGHT );
+   glutCreateWindow    ( argv[0]  );
+   atexit(exitfunc);
+   init ();
+   glutReshapeFunc     ( reshape  );
+   glutKeyboardFunc    ( keyboard );
+   glutSpecialFunc	  ( keyboard2);
+   glutDisplayFunc     ( display  );
+   glutIdleFunc 		  ( idle  );
+   glutMainLoop        ( );
+   return 0;
+}
