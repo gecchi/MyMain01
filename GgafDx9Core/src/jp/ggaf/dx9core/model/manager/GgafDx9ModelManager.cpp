@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -95,15 +96,165 @@ GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model
 }
 
 
-void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pMeshModel) {
+void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrimModel) {
     TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
     //Xファイルから、独自に次の情報を読み込む
     //頂点バッファ FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE );
     //インデックスバッファ
     //マテリアル
     //テクスチャ
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPrimModel->_model_name) + ".x";
+    HRESULT hr;
+//    LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9;
+//    LPDIRECT3DINDEXBUFFER9 pIDirect3DIndexBuffer9;
+//    D3DMATERIAL9* paD3DMaterial9;
 
-    Frm::Model3D MyModel;
+    //流し込む頂点バッファデータ作成
+    if (prm_pPrimModel->_pModel3D == NULL) {
+        prm_pPrimModel->_pModel3D = NEW Frm::Model3D();
+        ToolBox::IO_Model_X iox;
+        bool r = iox.Load(xfile_name, prm_pPrimModel->_pModel3D);
+        if (r == false) {
+            throwGgafCriticalException("[GgafDx9ModelManager::restorePrimitiveModel] Xファイルの読込み失敗。対象="<<xfile_name);
+        }
+        prm_pPrimModel->_pModel3D->ConcatenateMeshes();
+        prm_pPrimModel->_pMeshesFront = prm_pPrimModel->_pModel3D->_Meshes.front();
+
+        int nVertices = prm_pPrimModel->_pMeshesFront->_nVertices;
+    //    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    //    //テクスチャの参照を保持させる。
+    //    prm_pSpriteModel->_pTextureCon = pTextureCon;
+
+
+        prm_pPrimModel->_paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
+        prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX)*nVertices;
+        prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9PrimitiveModel::VERTEX);
+
+        //設定
+        for (int i = 0; i < nVertices; i++) {
+            prm_pPrimModel->_paVtxBuffer_org[i].x = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[0];
+            prm_pPrimModel->_paVtxBuffer_org[i].y = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[1];
+            prm_pPrimModel->_paVtxBuffer_org[i].z = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[2];
+            prm_pPrimModel->_paVtxBuffer_org[i].nx = 0.0f;
+            prm_pPrimModel->_paVtxBuffer_org[i].ny = 0.0f;
+            prm_pPrimModel->_paVtxBuffer_org[i].nz = 0.0f;
+            prm_pPrimModel->_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
+            prm_pPrimModel->_paVtxBuffer_org[i].tu = 0.0f;
+            prm_pPrimModel->_paVtxBuffer_org[i].tv = 0.0f;
+        }
+
+        //出来る限りUV座標設定
+        int nTextureCoords = prm_pPrimModel->_pMeshesFront->_nTextureCoords;
+        for (int i = 0; i < nTextureCoords; i++) {
+            if (nVertices < i) {
+                _TRACE_("UV座標数が、頂点バッファ数を越えてます。対象="<<xfile_name);
+                break;
+            } else {
+                prm_pPrimModel->_paVtxBuffer_org[i].tu = prm_pPrimModel->_pMeshesFront->_TextureCoords[i].data[0];
+                prm_pPrimModel->_paVtxBuffer_org[i].tv = prm_pPrimModel->_pMeshesFront->_TextureCoords[i].data[1];
+            }
+        }
+
+//TODO        //出来る限り法線設定
+//        for (int i = 0; i < nFaces; i++) {
+//            for (int j = 0; j < 3;
+//
+//
+//
+//        }
+        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+        prm_pPrimModel->_paIdxBuffer_org = NEW WORD[nFaces*3];
+        for (int i = 0; i < _nFaces; i++) {
+            prm_pPrimModel->_paIdxBuffer_org[i*3 + 0] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[0];
+            prm_pPrimModel->_paIdxBuffer_org[i*3 + 1] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[1];
+            prm_pPrimModel->_paIdxBuffer_org[i*3 + 2] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[2];
+        }
+
+    }
+
+
+    if (prm_pPrimModel->_pIDirect3DVertexBuffer9 == NULL) {
+        //頂点バッファ作成
+        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+                prm_pPrimModel->_size_vertecs,
+                D3DUSAGE_WRITEONLY,
+                GgafDx9PrimitiveModel::FVF,
+                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                &(prm_pPrimModel->_pIDirect3DVertexBuffer9),
+                NULL);
+        if(hr != D3D_OK) {
+            throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name), hr);
+        }
+        //バッファへ作成済み頂点データを流し込む
+        void *pVertexBuffer;
+        hr = prm_pPrimModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pPrimModel->_size_vertecs, (void**)&pVertexBuffer, 0);
+        if(hr != D3D_OK) {
+            throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name, hr);
+        }
+        memcpy(pVertexBuffer, prm_pPrimModel->_paVtxBuffer_org, prm_pPrimModel->_size_vertecs); //pVertexBuffer ← paVertex
+        prm_pPrimModel->_pIDirect3DVertexBuffer9->Unlock();
+    }
+
+
+    //流し込むインデックスバッファデータ作成
+    if (prm_pPrimModel->_pIDirect3DIndexBuffer9 == NULL) {
+        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+        hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
+                               sizeof(WORD) * nFaces * 3,
+                                D3DUSAGE_WRITEONLY,
+                                D3DFMT_INDEX16,
+                                D3DPOOL_MANAGED,
+                                &(prm_pPrimModel->_pIDirect3DIndexBuffer9),
+                                NULL);
+        if (hr != D3D_OK) {
+             throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pPrimModel->_model_name), hr);
+        }
+        void* pIndexBuffer;
+        prm_pPrimModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
+        memcpy(pIndexBuffer , prm_pPrimModel->_paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
+        prm_pPrimModel->_pIDirect3DIndexBuffer9->Unlock();
+    }
+
+
+    int nMaterials = prm_pPrimModel->_pMeshesFront->_nMaterials;
+    prm_pPrimModel->_paD3DMaterial9_default = NEW D3DMATERIAL9[nMaterials];
+    for (int i = 0; i < nMaterials; i++) {
+        for (list<Frm::Material*>::iterator material = prm_pPrimModel->_pMeshesFront->_Materials.begin(); material != prm_pPrimModel->_pMeshesFront->_Materials.end(); material++) {
+
+
+
+
+            cout << "    --- マテリアル番号["<<materialno<<"]の定義 --->" << endl;
+            cout << "    定義名 = "<< (*material)->_Name << endl;
+            cout << "    FaceColor(R,G,B,A) = (" << (*material)->_FaceColor.data[0] << ", " <<
+                                                    (*material)->_FaceColor.data[1] << ", " <<
+                                                    (*material)->_FaceColor.data[2] << ", " <<
+                                                    (*material)->_FaceColor.data[3] << ")" << endl;
+            cout << "    power = " << (*material)->_power << endl;
+            cout << "    SpecularColor(R,G,B) = (" << (*material)->_SpecularColor.data[0] << ", " <<
+                                                      (*material)->_SpecularColor.data[1] << ", " <<
+                                                      (*material)->_SpecularColor.data[2] << ")" << endl;
+            cout << "    EmissiveColor(R,G,B) = (" << (*material)->_EmissiveColor.data[0] << ", " <<
+                                                      (*material)->_EmissiveColor.data[1] << ", " <<
+                                                      (*material)->_EmissiveColor.data[2] << ")" << endl;
+            cout << "    TextID = " << (*material)->_TextID << endl;
+            cout << "    テクスチャファイル = " << (*material)->_TextureName << endl;
+
+        }
+        prm_pPrimModel->_paD3DMaterial9_default.Ambient[
+
+
+
+    //
+//
+//    hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+//            prm_pSpriteModel->_size_vertecs,
+//            D3DUSAGE_WRITEONLY,
+//            GgafDx9SpriteModel::FVF,
+//            D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+//            &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
+//            NULL);
+
 //
 //
 //

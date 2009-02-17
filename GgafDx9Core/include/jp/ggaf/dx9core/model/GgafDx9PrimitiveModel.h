@@ -24,9 +24,23 @@ public:
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
     /** マテリアル */
-    D3DMATERIAL9* _pD3DMaterial9_default;
+    D3DMATERIAL9* _paD3DMaterial9_default;
     /** テクスチャ(アニメーションパターン） */
     GgafDx9TextureConnection* _pTextureCon;
+
+
+    UINT _size_vertecs;
+    /** 1頂点のサイズ */
+    UINT _size_vertec_unit;
+
+    VERTEX* _paVtxBuffer_org;
+    WORD _paIdxBuffer_org;
+
+    Frm::Model3D* _pModel3D;
+    Frm::Mesh* _pMeshesFront;
+
+
+
 
     /**
      * コンストラクタ<BR>

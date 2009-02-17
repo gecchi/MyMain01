@@ -1,4 +1,5 @@
 #include "stdafx.h"
+
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,8 +9,10 @@ DWORD GgafDx9PrimitiveModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE 
 
 GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(" << _model_name << ")");
-
     _pIDirect3DVertexBuffer9 = NULL;
+    _pIDirect3DIndexBuffer9 = NULL;
+    _paVtxBuffer_org = NULL;
+    _paIdxBuffer_org = NULL;
     _pTextureCon = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
     //GgafDx9God::_pModelManager->restorePrimitiveModel で行っている。

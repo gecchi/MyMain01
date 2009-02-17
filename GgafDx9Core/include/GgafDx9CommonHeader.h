@@ -133,7 +133,7 @@ class CWaveDecorder;
 //class OggVorbisFile;
 //class OggVorbisMemory;
 
-
+#include "ToolBox\IOModel_X.h"
 #include "jp/ggaf/dx9core/exception/GgafDx9CriticalException.h"
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
