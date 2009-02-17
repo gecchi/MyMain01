@@ -24,8 +24,8 @@ int main(int argc, char *argv[]) {
 
 
 
-    std::string temp = "MYCUBE001_no.X";
-    //std::string temp = "ebi.X";
+    //std::string temp = "MYCUBE001_no.X";
+    std::string temp = "XCUBE_ARI.X";
     cout << "temp=" << temp << endl;
     bool Running = false;
     CurrentModel = &MyModel;
@@ -44,7 +44,7 @@ int main(int argc, char *argv[]) {
                                                (*mesh)->_Vertices[i].data[1] << ", " <<
                                                (*mesh)->_Vertices[i].data[2] << ")" << endl;
         }
-        //頂点バッファ
+        //頂点インデックスバッファ
         int  nFaces = (*mesh)->_nFaces;
         cout <<  "頂点インデックス数(面の数) ：" << nFaces << endl;
         for (int i = 0; i < nFaces; i++) {
