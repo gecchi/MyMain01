@@ -13,7 +13,7 @@ GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx
     _pIDirect3DIndexBuffer9 = NULL;
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
-    _pTextureCon = NULL;
+    _papTextureCon = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
     //GgafDx9God::_pModelManager->restorePrimitiveModel で行っている。
 }
@@ -21,6 +21,39 @@ GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx
 //描画
 HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
+    GgafDx9PrimitiveActor* pTargetActor = (GgafDx9PrimitiveActor*)prm_pActor_Target;
+
+    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
+
+    for (int i = 0; i < _dwNumMaterials; i++) {
+        int mno;
+        for (int i = 0; i < nFaces; i++) {
+            mno = (*mesh)->_FaceMaterials[i]
+        }
+
+
+
+
+
+        GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
+        if (_papTextureCon[i] != NULL) {
+            //テクスチャのセット
+            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->view());
+        } else {
+            //無ければテクスチャ無し
+            GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+        }
+        GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                        _paIndexParam[i].BaseVertexIndex,
+                                                        _paIndexParam[i].MinIndex,
+                                                        _paIndexParam[i].NumVertices,
+                                                        _paIndexParam[i].StartIndex,
+                                                        _paIndexParam[i].PrimitiveCount);
+    }
+
+    GgafDx9God::_pModelManager->_id_lastdraw = _id;
+    GgafGod::_num_actor_playing++;
 //    //対象PrimitiveActor
 //    GgafDx9PrimitiveActor* pPrimitiveActor_Target = (GgafDx9PrimitiveActor*)prm_pActor_Target;
 //    //今回描画のUV
@@ -62,12 +95,24 @@ void GgafDx9PrimitiveModel::onDeviceLost() {
 
 void GgafDx9PrimitiveModel::release() {
     _TRACE_("GgafDx9PrimitiveModel::release() " << _model_name << " start");
-//    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-//    DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
-//    if (_pTextureCon != NULL) {
-//        _pTextureCon->close();
-//    }
-//    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+
+    //テクスチャを解放
+    for (DWORD i = 0; i < _dwNumMaterials; i++) {
+        if (_papTextureCon[i] != NULL) {
+            _papTextureCon[i]->close();
+        }
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
+
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
+
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
+    DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
+    DELETE_IMPOSSIBLE_NULL(_pModel3D);
+    DELETE_POSSIBLE_NULL(_pMeshesFront);
+    DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     _TRACE_("GgafDx9PrimitiveModel::release() " << _model_name << " end");
 
 }

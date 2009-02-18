@@ -98,11 +98,16 @@ GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model
 
 void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrimModel) {
     TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
-    //Xファイルから、独自に次の情報を読み込む
-    //頂点バッファ FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE );
-    //インデックスバッファ
-    //マテリアル
-    //テクスチャ
+    //１）頂点バッファ、インデックス頂点バッファ を作成
+    //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
+    //３）２）を行なう過程で、同時に GgafDx9PrimitiveModel に次のメンバを作成。
+    //　　　　・頂点バッファの写し
+    //　　　　・インデックス頂点バッファの写し
+    //　　　　・マテリアル配列(要素数＝マテリアル数)
+    //　　　　・テクスチャ配列(要素数＝マテリアル数)
+    //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
+    //＜留意＞
+    //
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPrimModel->_model_name) + ".x";
     HRESULT hr;
 //    LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9;
@@ -121,6 +126,8 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         prm_pPrimModel->_pMeshesFront = prm_pPrimModel->_pModel3D->_Meshes.front();
 
         int nVertices = prm_pPrimModel->_pMeshesFront->_nVertices;
+        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+
     //    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //    //テクスチャの参照を保持させる。
     //    prm_pSpriteModel->_pTextureCon = pTextureCon;
@@ -154,26 +161,101 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 prm_pPrimModel->_paVtxBuffer_org[i].tv = prm_pPrimModel->_pMeshesFront->_TextureCoords[i].data[1];
             }
         }
+        //法線設定
+        unsigned short indexVertices[3];
+        unsigned short indexNormals[3];
+        float nx, ny, nz;
+        for (int i = 0; i < nFaces; i++) {
+            indexVertices[0] = prm_pPrimModel->_Faces[i].data[0];
+            indexVertices[1] = prm_pPrimModel->_Faces[i].data[1];
+            indexVertices[2] = prm_pPrimModel->_Faces[i].data[2];
+            indexNormals[0] = prm_pPrimModel->_FaceNormals[i].data[0];
+            indexNormals[1] = prm_pPrimModel->_FaceNormals[i].data[1];
+            indexNormals[2] = prm_pPrimModel->_FaceNormals[i].data[2];
+            for (int j = 0; j < 3; j++) {
+                nx = prm_pPrimModel->_Normals[indexNormals[j]].x;
+                ny = prm_pPrimModel->_Normals[indexNormals[j]].y;
+                nz = prm_pPrimModel->_Normals[indexNormals[j]].z;
+                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nx = nx;
+                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].ny = ny;
+                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nz = nz;
+            }
+        }
 
-//TODO        //出来る限り法線設定
-//        for (int i = 0; i < nFaces; i++) {
-//            for (int j = 0; j < 3;
+        //マテリアルリスト
+        prm_pPrimModel->_pFaceMaterials = NEW UINT[nFaces];
+        for (int i = 0; i < nFaces; i++) {
+            prm_pPrimModel->_pFaceMaterials[i] =  prm_pPrimModel->_pMeshesFront->_pFaceMaterials[i];
+        }
+
+        //パラメータリスト作成
+        GgafDx9PrimitiveModel::INDEXPARAM param  = GgafDx9PrimitiveModel::INDEXPARAM[nFaces];
+
+        int prev_materialno = -1;
+        int materialno = 0;
+        int prev_paramno = 0;
+        int paramno = 0;
+        for (int i = 0; i < nFaces; i++) {
+            materialno = prm_pPrimModel->_pMeshesFront->_pFaceMaterials[i];
+            if (prev_mno != materialno) {
+                param[next_paramno].MaterialNo = prev_mno;
+                param[next_paramno].BaseVertexIndex = 0;
+                param[next_paramno].MinIndex = nFaces;
+                param[next_paramno].NumVertices = 0; //次回へ
+                param[next_paramno].StartIndex =
+                param[next_paramno].PrimitiveCount =
+            }
+        }
+
+//        UINT MaterialNo;
+//        INT BaseVertexIndex;
+//        UINT MinIndex;
+//        UINT NumVertices;
+//        UINT StartIndex;
+//        UINT PrimitiveCount;
+//        DrawIndexedPrimitiveを使って描画する。
+//        第一引数には プリミティブタイプ、
+//        第二引数には 頂点バッファの何番目から使用するかを指定する
+//        第三引数には インデックス番号の最小値を指定する
+//        第四引数には 頂点バッファ内の使用する頂点数を指定する
+//        第五引数には インデックスバッファの何番目から使用するかを指定する
+//        第六引数には プリミティブタイプで指定した形の描画する総数である
 //
 //
 //
-//        }
-        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+//
+//            // サンプル　下の図参照
+//                lpD3DDEV->DrawIndexedPrimitive(
+//                            D3DPT_TRIANGLELIST,
+//                            2,        // オフセット値
+//                            0,        // 最小インデックス値
+//                            4,        // 頂点数
+//                            0,        // インデックスバッファ
+//                            2 );
+//
+//
+
+
+
+
+
+
+        //インデックスバッファ登録
         prm_pPrimModel->_paIdxBuffer_org = NEW WORD[nFaces*3];
-        for (int i = 0; i < _nFaces; i++) {
+        for (int i = 0; i < nFaces; i++) {
             prm_pPrimModel->_paIdxBuffer_org[i*3 + 0] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[0];
             prm_pPrimModel->_paIdxBuffer_org[i*3 + 1] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[1];
             prm_pPrimModel->_paIdxBuffer_org[i*3 + 2] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[2];
         }
 
+
+
+
     }
 
 
     if (prm_pPrimModel->_pIDirect3DVertexBuffer9 == NULL) {
+
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pPrimModel->_size_vertecs,
@@ -199,6 +281,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     //流し込むインデックスバッファデータ作成
     if (prm_pPrimModel->_pIDirect3DIndexBuffer9 == NULL) {
         int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+
         hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3,
                                 D3DUSAGE_WRITEONLY,
@@ -217,130 +300,47 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
 
     int nMaterials = prm_pPrimModel->_pMeshesFront->_nMaterials;
+    prm_pPrimModel->_dwNumMaterials = nMaterials;
     prm_pPrimModel->_paD3DMaterial9_default = NEW D3DMATERIAL9[nMaterials];
-    for (int i = 0; i < nMaterials; i++) {
-        for (list<Frm::Material*>::iterator material = prm_pPrimModel->_pMeshesFront->_Materials.begin(); material != prm_pPrimModel->_pMeshesFront->_Materials.end(); material++) {
+    prm_pPrimModel->_paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nMaterials];
+    prm_pPrimModel->_papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
 
+    char* texture_filename;
+    int n = 0;
+    for (list<Frm::Material*>::iterator material = prm_pPrimModel->_pMeshesFront->_Materials.begin(); material != prm_pPrimModel->_pMeshesFront->_Materials.end(); material++) {
+        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.r = (*material)->_FaceColor.data[0];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.g = (*material)->_FaceColor.data[1];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.b = (*material)->_FaceColor.data[2];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.a = (*material)->_FaceColor.data[3];
 
+        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.r = (*material)->_FaceColor.data[0];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.g = (*material)->_FaceColor.data[1];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.b = (*material)->_FaceColor.data[2];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.a = (*material)->_FaceColor.data[3];
 
+        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.r = (*material)->_SpecularColor.data[0];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.g = (*material)->_SpecularColor.data[1];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.b = (*material)->_SpecularColor.data[2];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.a = 1.000000;
+        prm_pPrimModel->_paD3DMaterial9_default[n].Power =  (*material)->_power;
 
-            cout << "    --- マテリアル番号["<<materialno<<"]の定義 --->" << endl;
-            cout << "    定義名 = "<< (*material)->_Name << endl;
-            cout << "    FaceColor(R,G,B,A) = (" << (*material)->_FaceColor.data[0] << ", " <<
-                                                    (*material)->_FaceColor.data[1] << ", " <<
-                                                    (*material)->_FaceColor.data[2] << ", " <<
-                                                    (*material)->_FaceColor.data[3] << ")" << endl;
-            cout << "    power = " << (*material)->_power << endl;
-            cout << "    SpecularColor(R,G,B) = (" << (*material)->_SpecularColor.data[0] << ", " <<
-                                                      (*material)->_SpecularColor.data[1] << ", " <<
-                                                      (*material)->_SpecularColor.data[2] << ")" << endl;
-            cout << "    EmissiveColor(R,G,B) = (" << (*material)->_EmissiveColor.data[0] << ", " <<
-                                                      (*material)->_EmissiveColor.data[1] << ", " <<
-                                                      (*material)->_EmissiveColor.data[2] << ")" << endl;
-            cout << "    TextID = " << (*material)->_TextID << endl;
-            cout << "    テクスチャファイル = " << (*material)->_TextureName << endl;
+        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.a = 1.000000;
 
+        texture_filename = (char*)((*material)->_TextureName.c_str());
+        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+            prm_pPrimModel->_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+        } else {
+            //テクスチャ無し
+            prm_pPrimModel->_papTextureCon[n] = NULL;
         }
-        prm_pPrimModel->_paD3DMaterial9_default.Ambient[
 
 
+    }
 
-    //
-//
-//    hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-//            prm_pSpriteModel->_size_vertecs,
-//            D3DUSAGE_WRITEONLY,
-//            GgafDx9SpriteModel::FVF,
-//            D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-//            &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
-//            NULL);
 
-//
-//
-//
-//    //Xファイルのロードして必要な内容をGgafDx9MeshModelメンバに設定しインスタンスとして完成させたい
-//    //以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
-//    LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
-//    D3DMATERIAL9* paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
-//    GgafDx9TextureConnection** papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
-//    DWORD dwNumMaterials;
-//    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x";
-//
-//    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
-//    HRESULT hr;
-//    //Xファイルのファイルロード
-//    hr = D3DXLoadMeshFromX(
-//           xfile_name.c_str(),         //[in]  LPCTSTR pFilename
-//           prm_pMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
-//           GgafDx9God::_pID3DDevice9,  //[in]  LPDIRECT3DDEVICE9 pDevice
-//           NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
-//           &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
-//           NULL,                       //[out] LPD3DXBUFFER* ppEffectInstances
-//           &dwNumMaterials,            //[out] DWORD* pNumMaterials
-//           &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
-//         );
-//    if (hr != D3D_OK) {
-//        throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
-//    }
-//
-//    //マテリアルを取り出す
-//    D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
-//    //＜2008/02/02 の脳みそ＞
-//    // やっていることメモ
-//    // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
-//    //（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
-//    // だが解放すると D3DXMATERIAL構造体配列もどうやら消えるらしい（すぐには消えない？、ここでハマる；）。
-//    // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保持することにしましょ～、あ～そ～しましょう。
-//    paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
-//	for( DWORD i = 0; i < dwNumMaterials; i++){
-//        paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
-//    }
-//
-//	//Diffuse反射をAmbient反射にコピーする
-//    //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-//    //xファイル（MatD3D）にはDiffuse反射値しか設定されてい、そこでDiffuse反射の値で
-//    //Ambient反射値を代用することにする。
-//    //TODO:本当にこれはいるのか？？？？
-//    for( DWORD i = 0; i < dwNumMaterials; i++) {
-//        paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
-//    }
-//
-//    //テクスチャを取り出す
-//    papTextureCon = NEW GgafDx9TextureConnection*[dwNumMaterials];
-//    char* texture_filename;
-//    for( DWORD i = 0; i < dwNumMaterials; i++) {
-//        texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
-//        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-//            papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
-//        } else {
-//            //テクスチャ無し
-//            papTextureCon[i] = NULL;
-//        }
-//    }
-//    RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
-//
-//    //Xファイルに法線がない場合もある。その場合法線をかくようにする。
-//    if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
-//        LPD3DXMESH pID3DXMesh_tmp = NULL;
-//        hr = pID3DXMesh->CloneMeshFVF(
-//                           pID3DXMesh->GetOptions(),             // [in]  DWORD Options,
-//                           D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
-//                           GgafDx9God::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
-//                           &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
-//                         );
-//        if(hr != D3D_OK) {
-//            throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name, hr);
-//        }
-//        D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算
-//        RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
-//        pID3DXMesh = pID3DXMesh_tmp;
-//    }
-//
-//    //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
-//    prm_pMeshModel->_pID3DXMesh = pID3DXMesh;
-//    prm_pMeshModel->_paD3DMaterial9_default = paD3DMaterial9;
-//    prm_pMeshModel->_papTextureCon = papTextureCon;
-//    prm_pMeshModel->_dwNumMaterials = dwNumMaterials;
 }
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {

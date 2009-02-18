@@ -3,13 +3,38 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9PrimitiveActor用モデルクラス.
+ * GgafDx9PrimitiveActor用のモデルクラス.
+ * GgafDx9PrimitiveModel は D3DXLoadMeshFromX を使用せず、独自にXファイルからモデルデータを読み込み設定する。<BR>
+ * ＜注意＞<BR>
+ * ・Faceは、3角形しか駄目。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
+ * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
+ * ・法線について、Faceの3頂点に同じ値を設定。共有頂点の場合、後に設定された法線で上書きれる。<BR>
+ *   TODO:法線の向きは平均化は、したいのですがまだしてない。いつかする！<BR>
+ * ・GgafDx9PrimitiveModelは頂点インデックスの最適化しないを行なわない、行なわないのが売りでもある。<BR>
+ *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
+ *   これは、DrawIndexedPrimitive は、マテリアルリストのマテリアル番号が切り替わるたびに発生することを意味し、<BR>
+ *   マテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちる。<BR>
+ *   例えば、Xファイルのマテリアルリストが {0,0,1,1,0,1} な場合、マテリアル数が2つでも、描画は4回実行することになる。<BR>
+ * ＜使い所＞<BR>
+ * ・不完全と解っているXファイルを、あえて読みたい場合。（データローダーで使う場合）<BR>
+ * ・Xファイル頂点情報等が、D3DXLoadMeshFromXの最適化によって、増えたり減ったり移動されたりして欲しくない場合。<BR>
+ * ・シェーダーにパラメータを渡したい、あとから頂点をいじりたい場合等、ID3DXMesh からいちいち探すのが面倒だ。<BR>
  */
 class GgafDx9PrimitiveModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
 public:
+
+    struct INDEXPARAM {
+        UINT MaterialNo;
+        INT BaseVertexIndex;
+        UINT MinIndex;
+        UINT NumVertices;
+        UINT StartIndex;
+        UINT PrimitiveCount;
+    };
+
     struct VERTEX {
         float x, y, z; // 頂点座標
         float nx, ny, nz; // 法線
@@ -23,14 +48,18 @@ public:
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
-    /** マテリアル */
+    /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9_default;
-    /** テクスチャ(アニメーションパターン） */
-    GgafDx9TextureConnection* _pTextureCon;
+    INDEXPARAM* _paIndexParam;
+    /** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
+    GgafDx9TextureConnection** _papTextureCon;
 
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
+    /** 1頂点のサイズ */
+    DWORD _dwNumMaterials;
+    UINT _pFaceMaterials;
 
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
