@@ -28,13 +28,12 @@ public:
     /** テクスチャ(アニメーションパターン） */
     GgafDx9TextureConnection* _pTextureCon;
 
-
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
 
     VERTEX* _paVtxBuffer_org;
-    WORD _paIdxBuffer_org;
+    WORD* _paIdxBuffer_org;
 
     Frm::Model3D* _pModel3D;
     Frm::Mesh* _pMeshesFront;
