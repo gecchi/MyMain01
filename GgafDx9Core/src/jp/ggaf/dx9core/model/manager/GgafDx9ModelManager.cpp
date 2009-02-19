@@ -39,12 +39,16 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             //DynaMeshModel
             model = createMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
+        case 'X':
+            //PrimitiveModel
+            model = createPrimitiveModel(model_name);
+            break;
         case 'S':
             //SpriteModel
             model = createSpriteModel(model_name);
             break;
         case 'P':
-            //SpriteModel
+            //PlateModel
             model = createPlateModel(model_name);
             break;
         case 'C':
@@ -97,7 +101,7 @@ GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model
 
 
 void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrimModel) {
-    TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
+    TRACE("GgafDx9ModelManager::restorePrimitiveModel(" << prm_pPrimModel->_model_name << ")");
     //１）頂点バッファ、インデックス頂点バッファ を作成
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9PrimitiveModel に次のメンバを作成。
@@ -107,7 +111,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     //　　　　・テクスチャ配列(要素数＝マテリアル数)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
     //＜留意＞
-    //
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPrimModel->_model_name) + ".x";
     HRESULT hr;
 //    LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9;
@@ -116,6 +119,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
     //流し込む頂点バッファデータ作成
     if (prm_pPrimModel->_pModel3D == NULL) {
+        _TRACE_("CreateModel");
         prm_pPrimModel->_pModel3D = NEW Frm::Model3D();
         ToolBox::IO_Model_X iox;
         bool r = iox.Load(xfile_name, prm_pPrimModel->_pModel3D);
@@ -134,7 +138,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
 
         prm_pPrimModel->_paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
-        prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX)*nVertices;
+        prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX) * nVertices;
         prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9PrimitiveModel::VERTEX);
 
         //設定
@@ -162,20 +166,22 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             }
         }
         //法線設定
+        //面法線を、３頂点に設定。共有頂点の法線は、後に設定された法線で上書きする。
+        //TODO 共有頂点の法線の平均化！
         unsigned short indexVertices[3];
         unsigned short indexNormals[3];
         float nx, ny, nz;
         for (int i = 0; i < nFaces; i++) {
-            indexVertices[0] = prm_pPrimModel->_Faces[i].data[0];
-            indexVertices[1] = prm_pPrimModel->_Faces[i].data[1];
-            indexVertices[2] = prm_pPrimModel->_Faces[i].data[2];
-            indexNormals[0] = prm_pPrimModel->_FaceNormals[i].data[0];
-            indexNormals[1] = prm_pPrimModel->_FaceNormals[i].data[1];
-            indexNormals[2] = prm_pPrimModel->_FaceNormals[i].data[2];
+            indexVertices[0] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[0];
+            indexVertices[1] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[1];
+            indexVertices[2] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[2];
+            indexNormals[0] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[0];
+            indexNormals[1] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[1];
+            indexNormals[2] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[2];
             for (int j = 0; j < 3; j++) {
-                nx = prm_pPrimModel->_Normals[indexNormals[j]].x;
-                ny = prm_pPrimModel->_Normals[indexNormals[j]].y;
-                nz = prm_pPrimModel->_Normals[indexNormals[j]].z;
+                nx = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].x;
+                ny = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].y;
+                nz = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].z;
                 prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nx = nx;
                 prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].ny = ny;
                 prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nz = nz;
@@ -183,30 +189,53 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         }
 
         //マテリアルリスト
-        prm_pPrimModel->_pFaceMaterials = NEW UINT[nFaces];
-        for (int i = 0; i < nFaces; i++) {
-            prm_pPrimModel->_pFaceMaterials[i] =  prm_pPrimModel->_pMeshesFront->_pFaceMaterials[i];
-        }
+//        UINT aMaterialsGrp = UINT[nFaces];
+//        for (int i = 0; i < nFaces; i++) {
+//            aMaterialsGrp[i] =  prm_pPrimModel->_pMeshesFront->_FaceMaterials[i];
+//        }
 
         //パラメータリスト作成
-        GgafDx9PrimitiveModel::INDEXPARAM param  = GgafDx9PrimitiveModel::INDEXPARAM[nFaces];
+        GgafDx9PrimitiveModel::INDEXPARAM param[nFaces];
 
         int prev_materialno = -1;
         int materialno = 0;
-        int prev_paramno = 0;
         int paramno = 0;
-        for (int i = 0; i < nFaces; i++) {
-            materialno = prm_pPrimModel->_pMeshesFront->_pFaceMaterials[i];
-            if (prev_mno != materialno) {
-                param[next_paramno].MaterialNo = prev_mno;
-                param[next_paramno].BaseVertexIndex = 0;
-                param[next_paramno].MinIndex = nFaces;
-                param[next_paramno].NumVertices = 0; //次回へ
-                param[next_paramno].StartIndex =
-                param[next_paramno].PrimitiveCount =
+        int faceNo_break = 0;
+        int prev_faceNo_break = -1;
+        for (int faceNo = 0; faceNo < nFaces; faceNo++) {
+            materialno = prm_pPrimModel->_pMeshesFront->_FaceMaterials[faceNo];
+            if (prev_materialno != materialno) {
+                _TRACE_("BREAK!");
+                prev_faceNo_break = faceNo_break;
+                faceNo_break = faceNo;
+
+                param[paramno].MaterialNo = materialno;
+                param[paramno].BaseVertexIndex = 0;
+                param[paramno].MinIndex = 0;
+                param[paramno].NumVertices = 0; //次回ブレイク時に設定
+                param[paramno].StartIndex = faceNo*3;
+                param[paramno].PrimitiveCount =0; //次回ブレイク時に設定
+
+                if (faceNo > 0) {
+                    _TRACE_("BREAKで前設定１");
+                    param[paramno-1].NumVertices = (faceNo_break - prev_faceNo_break)*3;
+                    param[paramno-1].PrimitiveCount = faceNo_break - prev_faceNo_break;
+                }
+                paramno++;
             }
+            prev_materialno = materialno;
+        }
+        if (nFaces > 0) {
+            _TRACE_("BREAKで前設定最後");
+            param[paramno-1].NumVertices = (nFaces - prev_faceNo_break)*3;
+            param[paramno-1].PrimitiveCount = nFaces - prev_faceNo_break;
         }
 
+        prm_pPrimModel->_paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[paramno];
+        for (int i = 0; i < paramno; i++) {
+            prm_pPrimModel->_paIndexParam[paramno] = param[paramno];
+        }
+        prm_pPrimModel->_nMaterialListGrp = paramno;
 //        UINT MaterialNo;
 //        INT BaseVertexIndex;
 //        UINT MinIndex;
@@ -252,6 +281,30 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
 
     }
+    int nVertices = prm_pPrimModel->_pMeshesFront->_nVertices;
+    _TRACE_("nVertices="<<nVertices);
+    _TRACE_("prm_pPrimModel->_size_vertecs="<<prm_pPrimModel->_size_vertecs);
+    _TRACE_("prm_pPrimModel->_size_vertec_unit="<<prm_pPrimModel->_size_vertec_unit);
+    for (int i = 0; i < nVertices; i++) {
+        _TRACE_("["<<i<<"]=" << prm_pPrimModel->_paVtxBuffer_org[i].x << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].y << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].z << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].nx << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].ny << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].nz << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].tu << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].tv);
+    }
+    int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+    _TRACE_("<INDEXBUFFER>nFaces="<<nFaces);
+    for (int i = 0; i < nFaces*3; i++) {
+        _TRACE_(prm_pPrimModel->_paIdxBuffer_org[i]);
+    }
+
+    _TRACE_("パラメータ prm_pPrimModel->_nMaterialListGrp="<<prm_pPrimModel->_nMaterialListGrp);
+    for (int i = 0; i < prm_pPrimModel->_nMaterialListGrp; i++) {
+        _TRACE_("["<<i<<"]MaterialNo="<<prm_pPrimModel->_paIndexParam[i].MaterialNo);
+        _TRACE_("["<<i<<"]BaseVertexIndex="<<prm_pPrimModel->_paIndexParam[i].BaseVertexIndex);
+        _TRACE_("["<<i<<"]MinIndex="<<prm_pPrimModel->_paIndexParam[i].MinIndex);
+        _TRACE_("["<<i<<"]NumVertices="<<prm_pPrimModel->_paIndexParam[i].NumVertices);
+        _TRACE_("["<<i<<"]StartIndex="<<prm_pPrimModel->_paIndexParam[i].StartIndex);
+        _TRACE_("["<<i<<"]PrimitiveCount="<<prm_pPrimModel->_paIndexParam[i].PrimitiveCount);
+        _TRACE_("------------------------------------------------------------");
+    }
+
 
 
     if (prm_pPrimModel->_pIDirect3DVertexBuffer9 == NULL) {

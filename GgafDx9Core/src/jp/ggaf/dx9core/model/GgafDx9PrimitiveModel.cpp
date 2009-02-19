@@ -9,47 +9,56 @@ DWORD GgafDx9PrimitiveModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE 
 
 GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(" << _model_name << ")");
+    _pModel3D = NULL;
+    _pMeshesFront = NULL;
+
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
     _papTextureCon = NULL;
+    _paIndexParam = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
     //GgafDx9God::_pModelManager->restorePrimitiveModel で行っている。
 }
 
 //描画
 HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
-    TRACE("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
+    _TRACE_("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
     GgafDx9PrimitiveActor* pTargetActor = (GgafDx9PrimitiveActor*)prm_pActor_Target;
 
+    _TRACE_("chk1");
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+    _TRACE_("chk2");
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
-
-    for (int i = 0; i < _dwNumMaterials; i++) {
-        int mno;
-        for (int i = 0; i < nFaces; i++) {
-            mno = (*mesh)->_FaceMaterials[i]
-        }
-
-
-
-
-
-        GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
-        if (_papTextureCon[i] != NULL) {
+    _TRACE_("chk3");
+    GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+    _TRACE_("chk4");
+    for (int i = 0; i < _nMaterialListGrp; i++) {
+        _TRACE_("chk5");
+        int mno = _paIndexParam[i].MaterialNo;
+        _TRACE_("chk6");
+        GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[mno]));
+        _TRACE_("chk7");
+        if (_papTextureCon[mno] != NULL) {
             //テクスチャのセット
-            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->view());
+            _TRACE_("chk8");
+            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[mno]->view());
+            _TRACE_("chk9");
         } else {
             //無ければテクスチャ無し
+            _TRACE_("chk10");
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+            _TRACE_("chk11");
         }
+        _TRACE_("chk12");
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
+        _TRACE_("chk13");
     }
 
     GgafDx9God::_pModelManager->_id_lastdraw = _id;
