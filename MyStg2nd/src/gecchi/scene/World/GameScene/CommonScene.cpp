@@ -9,7 +9,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     GameGlobal::_pSceneCommon = this;
 
     { //MyShip
-        _pMyShip = NEW MyShip("MYSHIP", "M/ebi");
+        _pMyShip = NEW MyShip("MYSHIP");
         getLordActor()->accept(KIND_MY, _pMyShip);
         _pMyShip->inactImmediatelyAlone(); //配下に仮登録のローテーションとかあるしAlone
     }

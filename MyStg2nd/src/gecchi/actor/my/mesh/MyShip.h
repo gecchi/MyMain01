@@ -29,7 +29,7 @@ enum MoveWay {
     WAY_ZRIGHT_BEHIND
 };
 
-class MyShip : public GgafDx9LibStg::DefaultMeshActor {
+class MyShip : public GgafDx9LibStg::DefaultPrimitiveActor {
 
     class State {
     public:
@@ -167,7 +167,7 @@ public:
     GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
     GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
     MyLaserChipRotationActor* _pMyLaserChipRotation;
-    MyShip(const char* prm_name, const char* prm_model);
+    MyShip(const char* prm_name);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
