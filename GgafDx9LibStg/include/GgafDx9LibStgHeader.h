@@ -12,6 +12,7 @@ class GeoElement;
 class GeometryChain;
 class DefaultScene;
 class DefaultMeshActor;
+class DefaultPrimitiveActor;
 class DefaultDynaMeshActor;
 class DefaultCubeActor;
 class DefaultSpriteActor;
@@ -37,6 +38,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultWorld.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultPrimitiveActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultDynaMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
