@@ -7,7 +7,7 @@ GgafHeadActor* GgafScene::_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
 GgafHeadActor* GgafScene::_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
-    TRACE("GgafScene::GgafScene() "+prm_name);
+    TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
     _pLordActor = NEW GgafLordActor(this);
     _progress = -1;
@@ -19,16 +19,16 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     }
 
 GgafScene::~GgafScene() {
-    TRACE("GgafScene::~GgafScene() "+getName() + " start-->");
+    TRACE("GgafScene::~GgafScene() " << getName() << " start-->");
 
     //所属アクターを解放
     DELETE_POSSIBLE_NULL(_pLordActor);
 
-    TRACE("GgafScene::~GgafScene() "+getName() + " <---end");
+    TRACE("GgafScene::~GgafScene() " << getName() <<  " <---end");
 }
 
 void GgafScene::nextFrame() {
-    TRACE("GgafScene::nextFrame() "+getName());
+    TRACE("GgafScene::nextFrame() " << getName());
     GgafElement<GgafScene>::nextFrame();
     _pLordActor->nextFrame();
 
@@ -39,31 +39,31 @@ void GgafScene::nextFrame() {
 }
 
 void GgafScene::behave() {
-    TRACE("GgafScene::behave() "+getName());
+    TRACE("GgafScene::behave() " << getName());
     GgafElement<GgafScene>::behave();
     _pLordActor->behave();
 }
 
 void GgafScene::judge() {
-    TRACE("GgafScene::judge() "+getName());
+    TRACE("GgafScene::judge() " << getName());
     GgafElement<GgafScene>::judge();
     _pLordActor->judge();
 }
 
 void GgafScene::drawPrior() {
-    TRACE("GgafScene::drawPrior() "+getName());
+    TRACE("GgafScene::drawPrior() " << getName());
     GgafElement<GgafScene>::drawPrior();
     _pLordActor->drawPrior();
 }
 
 void GgafScene::drawMain() {
-    TRACE("GgafScene::drawMain() "+getName());
+    TRACE("GgafScene::drawMain() " << getName());
     GgafElement<GgafScene>::drawMain();
     _pLordActor->drawMain();
 }
 
 void GgafScene::drawTerminate() {
-    TRACE("GgafScene::drawTerminate() "+getName());
+    TRACE("GgafScene::drawTerminate() " << getName());
     GgafElement<GgafScene>::drawTerminate();
     _pLordActor->drawTerminate();
 }

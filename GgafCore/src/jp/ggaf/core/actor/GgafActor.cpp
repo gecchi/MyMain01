@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
-    TRACE("GgafActor::GgafActor("+prm_name+")");
+    TRACE("GgafActor::GgafActor("<<prm_name<<")");
     _class_name = "GgafActor";
     _pNext_TheSameDrawDepthLevel = NULL;
     _canBumpFlg = true;
@@ -32,12 +32,12 @@ void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
 }
 
 void GgafActor::setBumpableAlone(bool prm_canBumpFlg) {
-    TRACE("GgafActor::setBumpableAlone() "+getName());
+    TRACE("GgafActor::setBumpableAlone() " << getName());
     _canBumpFlg = prm_canBumpFlg;
 }
 
 void GgafActor::setBumpable(bool prm_canBumpFlg) {
-    TRACE("GgafActor::setBumpable() "+getName());
+    TRACE("GgafActor::setBumpable() " << getName());
     _canBumpFlg = prm_canBumpFlg;
     if (_pSubFirst != NULL) {
         _pActor_tmp = _pSubFirst;
