@@ -101,7 +101,7 @@ GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model
 
 
 void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrimModel) {
-    TRACE("GgafDx9ModelManager::restorePrimitiveModel(" << prm_pPrimModel->_model_name << ")");
+    _TRACE_("GgafDx9ModelManager::restorePrimitiveModel(" << prm_pPrimModel->_model_name << ")");
     //１）頂点バッファ、インデックス頂点バッファ を作成
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9PrimitiveModel に次のメンバを作成。
@@ -118,51 +118,62 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 //    D3DMATERIAL9* paD3DMaterial9;
 
     //流し込む頂点バッファデータ作成
+    ToolBox::IO_Model_X iox;
+
+    Frm::Model3D* pModel3D = NULL;
+    Frm::Mesh* pMeshesFront = NULL;
+
+    GgafDx9PrimitiveModel::INDEXPARAM* paIndexParam = NULL;
+    GgafDx9PrimitiveModel::VERTEX* paVtxBuffer_org = NULL;
+    WORD* paIdxBuffer_org = NULL;
+    D3DMATERIAL9* paD3DMaterial9 = NULL;
+    GgafDx9TextureConnection** papTextureCon = NULL;
+
     if (prm_pPrimModel->_pModel3D == NULL) {
         _TRACE_("CreateModel");
-        prm_pPrimModel->_pModel3D = NEW Frm::Model3D();
-        ToolBox::IO_Model_X iox;
-        bool r = iox.Load(xfile_name, prm_pPrimModel->_pModel3D);
+        pModel3D = NEW Frm::Model3D();
+
+        bool r = iox.Load(xfile_name, pModel3D);
         if (r == false) {
             throwGgafCriticalException("[GgafDx9ModelManager::restorePrimitiveModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
-        prm_pPrimModel->_pModel3D->ConcatenateMeshes();
-        prm_pPrimModel->_pMeshesFront = prm_pPrimModel->_pModel3D->_Meshes.front();
+        pModel3D->ConcatenateMeshes();
+        pMeshesFront = pModel3D->_Meshes.front();
 
-        int nVertices = prm_pPrimModel->_pMeshesFront->_nVertices;
-        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+        int nVertices = pMeshesFront->_nVertices;
+        int nFaces = pMeshesFront->_nFaces;
 
     //    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //    //テクスチャの参照を保持させる。
     //    prm_pSpriteModel->_pTextureCon = pTextureCon;
 
-
-        prm_pPrimModel->_paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
+        paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
+        //paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
         prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX) * nVertices;
         prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9PrimitiveModel::VERTEX);
 
         //設定
         for (int i = 0; i < nVertices; i++) {
-            prm_pPrimModel->_paVtxBuffer_org[i].x = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[0];
-            prm_pPrimModel->_paVtxBuffer_org[i].y = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[1];
-            prm_pPrimModel->_paVtxBuffer_org[i].z = prm_pPrimModel->_pMeshesFront->_Vertices[i].data[2];
-            prm_pPrimModel->_paVtxBuffer_org[i].nx = 0.0f;
-            prm_pPrimModel->_paVtxBuffer_org[i].ny = 0.0f;
-            prm_pPrimModel->_paVtxBuffer_org[i].nz = 0.0f;
-            prm_pPrimModel->_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
-            prm_pPrimModel->_paVtxBuffer_org[i].tu = 0.0f;
-            prm_pPrimModel->_paVtxBuffer_org[i].tv = 0.0f;
+            paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
+            paVtxBuffer_org[i].y = pMeshesFront->_Vertices[i].data[1];
+            paVtxBuffer_org[i].z = pMeshesFront->_Vertices[i].data[2];
+            paVtxBuffer_org[i].nx = 0.0f;
+            paVtxBuffer_org[i].ny = 0.0f;
+            paVtxBuffer_org[i].nz = 0.0f;
+            paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
+            paVtxBuffer_org[i].tu = 0.0f;
+            paVtxBuffer_org[i].tv = 0.0f;
         }
 
         //出来る限りUV座標設定
-        int nTextureCoords = prm_pPrimModel->_pMeshesFront->_nTextureCoords;
+        int nTextureCoords = pMeshesFront->_nTextureCoords;
         for (int i = 0; i < nTextureCoords; i++) {
             if (nVertices < i) {
                 _TRACE_("UV座標数が、頂点バッファ数を越えてます。対象="<<xfile_name);
                 break;
             } else {
-                prm_pPrimModel->_paVtxBuffer_org[i].tu = prm_pPrimModel->_pMeshesFront->_TextureCoords[i].data[0];
-                prm_pPrimModel->_paVtxBuffer_org[i].tv = prm_pPrimModel->_pMeshesFront->_TextureCoords[i].data[1];
+                paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
+                paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
             }
         }
         //法線設定
@@ -172,26 +183,52 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         unsigned short indexNormals[3];
         float nx, ny, nz;
         for (int i = 0; i < nFaces; i++) {
-            indexVertices[0] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[0];
-            indexVertices[1] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[1];
-            indexVertices[2] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[2];
-            indexNormals[0] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[0];
-            indexNormals[1] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[1];
-            indexNormals[2] = prm_pPrimModel->_pMeshesFront->_FaceNormals[i].data[2];
+            indexVertices[0] = pMeshesFront->_Faces[i].data[0];
+            indexVertices[1] = pMeshesFront->_Faces[i].data[1];
+            indexVertices[2] = pMeshesFront->_Faces[i].data[2];
+            indexNormals[0] = pMeshesFront->_FaceNormals[i].data[0];
+            indexNormals[1] = pMeshesFront->_FaceNormals[i].data[1];
+            indexNormals[2] = pMeshesFront->_FaceNormals[i].data[2];
             for (int j = 0; j < 3; j++) {
-                nx = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].x;
-                ny = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].y;
-                nz = prm_pPrimModel->_pMeshesFront->_Normals[indexNormals[j]].z;
-                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nx = nx;
-                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].ny = ny;
-                prm_pPrimModel->_paVtxBuffer_org[indexVertices[j]].nz = nz;
+                nx = pMeshesFront->_Normals[indexNormals[j]].x;
+                ny = pMeshesFront->_Normals[indexNormals[j]].y;
+                nz = pMeshesFront->_Normals[indexNormals[j]].z;
+                //加算し平均化する（単位ベクトルではなくなってしまう
+                paVtxBuffer_org[indexVertices[j]].nx += nx;
+                paVtxBuffer_org[indexVertices[j]].ny += ny;
+                paVtxBuffer_org[indexVertices[j]].nz += nz;
             }
+        }
+        //法線を正規化
+        D3DXVECTOR3 vec;
+        for (int i = 0; i < nVertices; i++) {
+            vec.x = paVtxBuffer_org[i].nx;
+            vec.y = paVtxBuffer_org[i].ny;
+            vec.z = paVtxBuffer_org[i].nz;
+            if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+                continue;
+            } else {
+                D3DXVec3Normalize( &vec, &vec);
+                paVtxBuffer_org[i].nx = vec.x;
+                paVtxBuffer_org[i].ny = vec.y;
+                paVtxBuffer_org[i].nz = vec.z;
+            }
+        }
+
+
+        //インデックスバッファ登録
+        //paIdxBuffer_org = NEW WORD[nFaces*3];
+        paIdxBuffer_org = NEW WORD[nFaces*3];
+        for (int i = 0; i < nFaces; i++) {
+            paIdxBuffer_org[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
+            paIdxBuffer_org[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
+            paIdxBuffer_org[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
         }
 
         //マテリアルリスト
 //        UINT aMaterialsGrp = UINT[nFaces];
 //        for (int i = 0; i < nFaces; i++) {
-//            aMaterialsGrp[i] =  prm_pPrimModel->_pMeshesFront->_FaceMaterials[i];
+//            aMaterialsGrp[i] =  pMeshesFront->_FaceMaterials[i];
 //        }
 
         //パラメータリスト作成
@@ -200,42 +237,97 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         int prev_materialno = -1;
         int materialno = 0;
         int paramno = 0;
-        int faceNo_break = 0;
-        int prev_faceNo_break = -1;
-        for (int faceNo = 0; faceNo < nFaces; faceNo++) {
-            materialno = prm_pPrimModel->_pMeshesFront->_FaceMaterials[faceNo];
+        int faceNoCnt_break = 0;
+        int prev_faceNoCnt_break = -1;
+        UINT max_num_vertices = 0;
+        UINT min_num_vertices = INT_MAX;
+
+        int faceNoCnt;
+        for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
+            materialno = pMeshesFront->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
-                _TRACE_("BREAK!");
-                prev_faceNo_break = faceNo_break;
-                faceNo_break = faceNo;
+                _TRACE_("BREAK! paramno="<<paramno);
+                prev_faceNoCnt_break = faceNoCnt_break;
+                faceNoCnt_break = faceNoCnt;
 
                 param[paramno].MaterialNo = materialno;
                 param[paramno].BaseVertexIndex = 0;
-                param[paramno].MinIndex = 0;
-                param[paramno].NumVertices = 0; //次回ブレイク時に設定
-                param[paramno].StartIndex = faceNo*3;
-                param[paramno].PrimitiveCount =0; //次回ブレイク時に設定
+                param[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、変な値にしとく
+                param[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                param[paramno].StartIndex = faceNoCnt*3;
+                param[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
 
-                if (faceNo > 0) {
-                    _TRACE_("BREAKで前設定１");
-                    param[paramno-1].NumVertices = (faceNo_break - prev_faceNo_break)*3;
-                    param[paramno-1].PrimitiveCount = faceNo_break - prev_faceNo_break;
+                if (faceNoCnt > 0) {
+                    _TRACE_("BREAKで前設定１ paramno="<<paramno);
+                    param[paramno-1].MinIndex = min_num_vertices;
+                    param[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+                    param[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
+                    //リセット
+                    max_num_vertices = 0;
+                    min_num_vertices = INT_MAX;
                 }
                 paramno++;
             }
+
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                _TRACE_("YES!1");
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
+            }
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
+
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                _TRACE_("YES!2");
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
+            }
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
+
+            if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                _TRACE_("YES!3");
+                max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
+            }
+
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                _TRACE_("YES!4");
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
+            }
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
+
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                _TRACE_("YES!5");
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
+            }
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
+
+            if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                _TRACE_("YES!6");
+                min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
+            }
+
             prev_materialno = materialno;
         }
         if (nFaces > 0) {
-            _TRACE_("BREAKで前設定最後");
-            param[paramno-1].NumVertices = (nFaces - prev_faceNo_break)*3;
-            param[paramno-1].PrimitiveCount = nFaces - prev_faceNo_break;
+            _TRACE_("BREAKで前設定最後 paramno="<<paramno);
+            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/max_num_vertices="<<max_num_vertices);
+
+            param[paramno-1].MinIndex = min_num_vertices;
+            param[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+            param[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
         }
 
-        prm_pPrimModel->_paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[paramno];
+        paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[paramno];
         for (int i = 0; i < paramno; i++) {
-            prm_pPrimModel->_paIndexParam[paramno] = param[paramno];
+            paIndexParam[i].MaterialNo = param[i].MaterialNo;
+            paIndexParam[i].BaseVertexIndex = param[i].BaseVertexIndex;
+            paIndexParam[i].MinIndex = param[i].MinIndex;
+            paIndexParam[i].NumVertices = param[i].NumVertices;
+            paIndexParam[i].StartIndex = param[i].StartIndex;
+            paIndexParam[i].PrimitiveCount = param[i].PrimitiveCount;
         }
         prm_pPrimModel->_nMaterialListGrp = paramno;
+
+
 //        UINT MaterialNo;
 //        INT BaseVertexIndex;
 //        UINT MinIndex;
@@ -269,39 +361,32 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
 
 
-        //インデックスバッファ登録
-        prm_pPrimModel->_paIdxBuffer_org = NEW WORD[nFaces*3];
-        for (int i = 0; i < nFaces; i++) {
-            prm_pPrimModel->_paIdxBuffer_org[i*3 + 0] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[0];
-            prm_pPrimModel->_paIdxBuffer_org[i*3 + 1] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[1];
-            prm_pPrimModel->_paIdxBuffer_org[i*3 + 2] = prm_pPrimModel->_pMeshesFront->_Faces[i].data[2];
-        }
 
 
 
 
     }
-    int nVertices = prm_pPrimModel->_pMeshesFront->_nVertices;
+    int nVertices = pMeshesFront->_nVertices;
     _TRACE_("nVertices="<<nVertices);
     _TRACE_("prm_pPrimModel->_size_vertecs="<<prm_pPrimModel->_size_vertecs);
     _TRACE_("prm_pPrimModel->_size_vertec_unit="<<prm_pPrimModel->_size_vertec_unit);
     for (int i = 0; i < nVertices; i++) {
-        _TRACE_("["<<i<<"]=" << prm_pPrimModel->_paVtxBuffer_org[i].x << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].y << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].z << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].nx << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].ny << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].nz << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].tu << "\t, " << prm_pPrimModel->_paVtxBuffer_org[i].tv);
+        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
     }
-    int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+    int nFaces = pMeshesFront->_nFaces;
     _TRACE_("<INDEXBUFFER>nFaces="<<nFaces);
     for (int i = 0; i < nFaces*3; i++) {
-        _TRACE_(prm_pPrimModel->_paIdxBuffer_org[i]);
+        _TRACE_(paIdxBuffer_org[i]);
     }
 
     _TRACE_("パラメータ prm_pPrimModel->_nMaterialListGrp="<<prm_pPrimModel->_nMaterialListGrp);
     for (int i = 0; i < prm_pPrimModel->_nMaterialListGrp; i++) {
-        _TRACE_("["<<i<<"]MaterialNo="<<prm_pPrimModel->_paIndexParam[i].MaterialNo);
-        _TRACE_("["<<i<<"]BaseVertexIndex="<<prm_pPrimModel->_paIndexParam[i].BaseVertexIndex);
-        _TRACE_("["<<i<<"]MinIndex="<<prm_pPrimModel->_paIndexParam[i].MinIndex);
-        _TRACE_("["<<i<<"]NumVertices="<<prm_pPrimModel->_paIndexParam[i].NumVertices);
-        _TRACE_("["<<i<<"]StartIndex="<<prm_pPrimModel->_paIndexParam[i].StartIndex);
-        _TRACE_("["<<i<<"]PrimitiveCount="<<prm_pPrimModel->_paIndexParam[i].PrimitiveCount);
+        _TRACE_("["<<i<<"]MaterialNo="<<paIndexParam[i].MaterialNo);
+        _TRACE_("["<<i<<"]BaseVertexIndex="<<paIndexParam[i].BaseVertexIndex);
+        _TRACE_("["<<i<<"]MinIndex="<<paIndexParam[i].MinIndex);
+        _TRACE_("["<<i<<"]NumVertices="<<paIndexParam[i].NumVertices);
+        _TRACE_("["<<i<<"]StartIndex="<<paIndexParam[i].StartIndex);
+        _TRACE_("["<<i<<"]PrimitiveCount="<<paIndexParam[i].PrimitiveCount);
         _TRACE_("------------------------------------------------------------");
     }
 
@@ -326,14 +411,14 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         if(hr != D3D_OK) {
             throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name, hr);
         }
-        memcpy(pVertexBuffer, prm_pPrimModel->_paVtxBuffer_org, prm_pPrimModel->_size_vertecs); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, paVtxBuffer_org, prm_pPrimModel->_size_vertecs); //pVertexBuffer ← paVertex
         prm_pPrimModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
 
     //流し込むインデックスバッファデータ作成
     if (prm_pPrimModel->_pIDirect3DIndexBuffer9 == NULL) {
-        int nFaces = prm_pPrimModel->_pMeshesFront->_nFaces;
+        int nFaces = pMeshesFront->_nFaces;
 
         hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
                                sizeof(WORD) * nFaces * 3,
@@ -347,51 +432,62 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         }
         void* pIndexBuffer;
         prm_pPrimModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
-        memcpy(pIndexBuffer , prm_pPrimModel->_paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
+        memcpy(pIndexBuffer , paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
         prm_pPrimModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
 
-    int nMaterials = prm_pPrimModel->_pMeshesFront->_nMaterials;
+    int nMaterials = pMeshesFront->_nMaterials;
     prm_pPrimModel->_dwNumMaterials = nMaterials;
-    prm_pPrimModel->_paD3DMaterial9_default = NEW D3DMATERIAL9[nMaterials];
-    prm_pPrimModel->_paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nMaterials];
-    prm_pPrimModel->_papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
+
+    //paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
+    paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
+    //paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nMaterials];
+    papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
 
     char* texture_filename;
     int n = 0;
-    for (list<Frm::Material*>::iterator material = prm_pPrimModel->_pMeshesFront->_Materials.begin(); material != prm_pPrimModel->_pMeshesFront->_Materials.end(); material++) {
-        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.r = (*material)->_FaceColor.data[0];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.g = (*material)->_FaceColor.data[1];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.b = (*material)->_FaceColor.data[2];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Diffuse.a = (*material)->_FaceColor.data[3];
+    for (list<Frm::Material*>::iterator material = pMeshesFront->_Materials.begin(); material != pMeshesFront->_Materials.end(); material++) {
+        paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
+        paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
+        paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
+        paD3DMaterial9[n].Diffuse.a = (*material)->_FaceColor.data[3];
 
-        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.r = (*material)->_FaceColor.data[0];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.g = (*material)->_FaceColor.data[1];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.b = (*material)->_FaceColor.data[2];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Ambient.a = (*material)->_FaceColor.data[3];
+        paD3DMaterial9[n].Ambient.r = (*material)->_FaceColor.data[0];
+        paD3DMaterial9[n].Ambient.g = (*material)->_FaceColor.data[1];
+        paD3DMaterial9[n].Ambient.b = (*material)->_FaceColor.data[2];
+        paD3DMaterial9[n].Ambient.a = (*material)->_FaceColor.data[3];
 
-        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.r = (*material)->_SpecularColor.data[0];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.g = (*material)->_SpecularColor.data[1];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.b = (*material)->_SpecularColor.data[2];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Specular.a = 1.000000;
-        prm_pPrimModel->_paD3DMaterial9_default[n].Power =  (*material)->_power;
+        paD3DMaterial9[n].Specular.r = (*material)->_SpecularColor.data[0];
+        paD3DMaterial9[n].Specular.g = (*material)->_SpecularColor.data[1];
+        paD3DMaterial9[n].Specular.b = (*material)->_SpecularColor.data[2];
+        paD3DMaterial9[n].Specular.a = 1.000000;
+        paD3DMaterial9[n].Power =  (*material)->_power;
 
-        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        prm_pPrimModel->_paD3DMaterial9_default[n].Emissive.a = 1.000000;
+        paD3DMaterial9[n].Emissive.r = (*material)->_EmissiveColor.data[0];
+        paD3DMaterial9[n].Emissive.g = (*material)->_EmissiveColor.data[1];
+        paD3DMaterial9[n].Emissive.b = (*material)->_EmissiveColor.data[2];
+        paD3DMaterial9[n].Emissive.a = 1.000000;
 
         texture_filename = (char*)((*material)->_TextureName.c_str());
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            prm_pPrimModel->_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
+            papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し
-            prm_pPrimModel->_papTextureCon[n] = NULL;
+            papTextureCon[n] = NULL;
         }
-
-
+        n++;
     }
+    prm_pPrimModel->_pModel3D = pModel3D;
+    prm_pPrimModel->_pMeshesFront = pMeshesFront;
+
+    prm_pPrimModel->_paIdxBuffer_org = paIdxBuffer_org;
+    prm_pPrimModel->_paVtxBuffer_org = paVtxBuffer_org;
+    prm_pPrimModel->_paIndexParam = paIndexParam;
+    prm_pPrimModel->_paD3DMaterial9_default = paD3DMaterial9;
+    prm_pPrimModel->_papTextureCon = papTextureCon;
+
+
 
 
 }
