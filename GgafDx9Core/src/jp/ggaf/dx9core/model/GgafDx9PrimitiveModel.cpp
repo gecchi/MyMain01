@@ -24,7 +24,7 @@ GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx
 
 //•`‰æ
 HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
-    _TRACE_("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
+    TRACE("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
     GgafDx9PrimitiveActor* pTargetActor = (GgafDx9PrimitiveActor*)prm_pActor_Target;
 
 //    for (int i = 0; i < 3; i++) {
@@ -110,7 +110,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 void GgafDx9PrimitiveModel::restore() {
     _TRACE_("GgafDx9PrimitiveModel::restore() " << _model_name << " start");
-//    GgafDx9God::_pModelManager->restorePrimitiveModel(this);
+    GgafDx9God::_pModelManager->restorePrimitiveModel(this);
     _TRACE_("GgafDx9PrimitiveModel::restore() " << _model_name << " end");
 }
 
@@ -138,7 +138,8 @@ void GgafDx9PrimitiveModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
-    DELETE_POSSIBLE_NULL(_pMeshesFront);
+	//_pMeshesFront ‚Í _pModel3D ‚ðDELETE‚µ‚Ä‚é‚Ì‚Å‚·‚é•K—v‚Í–³‚¢
+    _pMeshesFront = NULL;
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     _TRACE_("GgafDx9PrimitiveModel::release() " << _model_name << " end");
 

@@ -232,7 +232,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 //        }
 
         //パラメータリスト作成
-        GgafDx9PrimitiveModel::INDEXPARAM param[nFaces];
+        GgafDx9PrimitiveModel::INDEXPARAM* paParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nFaces];
 
         int prev_materialno = -1;
         int materialno = 0;
@@ -250,18 +250,18 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
-                param[paramno].MaterialNo = materialno;
-                param[paramno].BaseVertexIndex = 0;
-                param[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、変な値にしとく
-                param[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
-                param[paramno].StartIndex = faceNoCnt*3;
-                param[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].MaterialNo = materialno;
+                paParam[paramno].BaseVertexIndex = 0;
+                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、変な値にしとく
+                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                paParam[paramno].StartIndex = faceNoCnt*3;
+                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
 
                 if (faceNoCnt > 0) {
                     _TRACE_("BREAKで前設定１ paramno="<<paramno);
-                    param[paramno-1].MinIndex = min_num_vertices;
-                    param[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-                    param[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
+                    paParam[paramno-1].MinIndex = min_num_vertices;
+                    paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+                    paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
                     //リセット
                     max_num_vertices = 0;
                     min_num_vertices = INT_MAX;
@@ -311,22 +311,22 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             _TRACE_("BREAKで前設定最後 paramno="<<paramno);
             _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/max_num_vertices="<<max_num_vertices);
 
-            param[paramno-1].MinIndex = min_num_vertices;
-            param[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-            param[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
+            paParam[paramno-1].MinIndex = min_num_vertices;
+            paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+            paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
         }
 
         paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[paramno];
         for (int i = 0; i < paramno; i++) {
-            paIndexParam[i].MaterialNo = param[i].MaterialNo;
-            paIndexParam[i].BaseVertexIndex = param[i].BaseVertexIndex;
-            paIndexParam[i].MinIndex = param[i].MinIndex;
-            paIndexParam[i].NumVertices = param[i].NumVertices;
-            paIndexParam[i].StartIndex = param[i].StartIndex;
-            paIndexParam[i].PrimitiveCount = param[i].PrimitiveCount;
+            paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
+            paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
+            paIndexParam[i].MinIndex = paParam[i].MinIndex;
+            paIndexParam[i].NumVertices = paParam[i].NumVertices;
+            paIndexParam[i].StartIndex = paParam[i].StartIndex;
+            paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         prm_pPrimModel->_nMaterialListGrp = paramno;
-
+		delete[] paParam;
 
 //        UINT MaterialNo;
 //        INT BaseVertexIndex;

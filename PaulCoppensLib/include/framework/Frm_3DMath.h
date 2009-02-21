@@ -7,7 +7,7 @@
 #ifndef FRM_MATH_H
 #define FRM_MATH_H
 
-#include <mem.h>
+//#include <mem.h>
 #include <math.h>
 
 #define MINFLOAT 1.17549435E-38F

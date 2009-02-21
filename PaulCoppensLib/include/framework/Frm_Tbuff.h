@@ -7,7 +7,7 @@
 #ifndef FRM_TBUFF_H
 #define FRM_TBUFF_H
 #include "GgafCommonHeader.h"
-#include <mem.h>
+//#include <mem.h>
 #include <string.h>
 
 class TBuff {

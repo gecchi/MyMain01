@@ -177,7 +177,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         //#endif
         //		PostQuitMessage(0);
         return EXIT_SUCCESS;
-    } catch (...) {
+	}
+/*
+	} catch (...) {
         _TRACE_("＜原因不明例外＞たぶんアクセス違反");
         string message = "原因不明例外が発生しました。心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
         MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
@@ -188,7 +190,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
         return EXIT_SUCCESS;
     }
-
+*/
     //_CrtDumpMemoryLeaks();	// この時点で開放されていないメモリの情報の表示
     return (int) msg.wParam;
 }
