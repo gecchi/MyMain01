@@ -134,7 +134,8 @@ int main(int argc, char *argv[]) {
 //    //まてりある
 //    int  nMaterials = pMesh->_nMaterials;
 //    cout <<  "マテリアル種類数 ：" << nFaces << endl;
-//    for (int i = 0; i <nFacess; i++) {//        cout <<  "面["<<i<<"]のマテリアル番号 = " << pMesh->_FaceMaterials[i] << endl;
+//    for (int i = 0; i <nFacess; i++) {
+//        cout <<  "面["<<i<<"]のマテリアル番号 = " << pMesh->_FaceMaterials[i] << endl;
 //    }
 //
 //    for (std::list<Frm::Mesh*>::iterator i = _Meshes.begin(); i != _Meshes.end(); i++) {
