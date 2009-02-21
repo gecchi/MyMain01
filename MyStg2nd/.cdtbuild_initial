@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?fileVersion 3.1.0?>
+
+<ManagedProjectBuildInfo>
+<project id="17_008_02.cdt.managedbuild.target.gnu.cygwin.exe.262198400" name="実行可能ファイル (Gnu Windows 版)" projectType="cdt.managedbuild.target.gnu.cygwin.exe">
+<configuration artifactExtension="exe" artifactName="MyStg2nd" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341" name="DebugCdt" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postbuildStep="touch stdafx.o" prebuildStep="touch stdafx.o">
+<toolChain id="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug.1407293773" name="GCC ツール・チェーン" superClass="cdt.managedbuild.toolchain.gnu.cygwin.exe.debug">
+<builder arguments="-k" id="cdt.managedbuild.target.gnu.builder.cygwin.exe.debug.1716304920" name="Gnu Make.デバッグ" superClass="cdt.managedbuild.target.gnu.builder.cygwin.exe.debug"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.exe.debug.1800774098" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.exe.debug">
+<option id="gnu.cpp.compiler.option.include.paths.1753250292" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;D:\Program Files\Microsoft DirectX SDK (November 2007)\Include&quot;"/>
+</option>
+<option id="gnu.cpp.compiler.option.other.other.289698242" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.cpp.compiler.cygwin.exe.debug.option.debugging.level.607739026" superClass="gnu.cpp.compiler.cygwin.exe.debug.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.debugging.prof.1373377265" superClass="gnu.cpp.compiler.option.debugging.prof" value="false" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.debugging.gprof.1688422450" superClass="gnu.cpp.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
+<option id="gnu.cpp.compiler.cygwin.exe.debug.option.optimization.level.1023054524" superClass="gnu.cpp.compiler.cygwin.exe.debug.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.option.other.verbose.561248218" superClass="gnu.cpp.compiler.option.other.verbose" value="false" valueType="boolean"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.compiler.cygwin.exe.debug.1170797546" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.cygwin.exe.debug">
+<option id="gnu.c.compiler.option.include.paths.1843036200" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;D:\Program Files\Microsoft DirectX SDK (November 2007)\Include&quot;"/>
+</option>
+<option id="gnu.c.compiler.option.misc.other.284139918" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.c.compiler.option.misc.ansi.97474201" superClass="gnu.c.compiler.option.misc.ansi" value="false" valueType="boolean"/>
+<option id="gnu.c.compiler.cygwin.exe.debug.option.debugging.level.1016348334" superClass="gnu.c.compiler.cygwin.exe.debug.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.debugging.gprof.884785070" superClass="gnu.c.compiler.option.debugging.gprof" value="false" valueType="boolean"/>
+<option id="gnu.c.compiler.option.debugging.prof.2055045989" superClass="gnu.c.compiler.option.debugging.prof" value="false" valueType="boolean"/>
+<option id="gnu.c.compiler.cygwin.exe.debug.option.optimization.level.350607613" superClass="gnu.c.compiler.cygwin.exe.debug.option.optimization.level" value="gnu.c.optimization.level.most" valueType="enumerated"/>
+<option id="gnu.c.compiler.option.misc.verbose.794673181" superClass="gnu.c.compiler.option.misc.verbose" value="false" valueType="boolean"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug.2044578178" name="GCC C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.debug"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.debug.400433976" name="GCC C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.debug">
+<option id="gnu.cpp.link.option.libs.1950959835" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<listOptionValue builtIn="false" value="GgafDx9Core"/>
+<listOptionValue builtIn="false" value="GgafCore"/>
+<listOptionValue builtIn="false" value="dxguid"/>
+<listOptionValue builtIn="false" value="dinput"/>
+<listOptionValue builtIn="false" value="dinput8"/>
+<listOptionValue builtIn="false" value="d3dxof"/>
+<listOptionValue builtIn="false" value="d3dx9d"/>
+<listOptionValue builtIn="false" value="d3d9"/>
+<listOptionValue builtIn="false" value="uuid"/>
+<listOptionValue builtIn="false" value="ogg"/>
+<listOptionValue builtIn="false" value="vorbis"/>
+<listOptionValue builtIn="false" value="vorbisenc"/>
+<listOptionValue builtIn="false" value="vorbisfile"/>
+<listOptionValue builtIn="false" value="ogg_static"/>
+<listOptionValue builtIn="false" value="vorbis_static"/>
+<listOptionValue builtIn="false" value="vorbisenc_static"/>
+<listOptionValue builtIn="false" value="vorbisfile_static"/>
+<listOptionValue builtIn="false" value="dsound"/>
+<listOptionValue builtIn="false" value="winmm"/>
+</option>
+<option id="gnu.cpp.link.option.paths.634433038" superClass="gnu.cpp.link.option.paths" valueType="stringList">
+<listOptionValue builtIn="false" value="&quot;C:\cygwin\lib\w32api&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd/lib}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;D:\Program Files\Microsoft DirectX SDK (November 2007)\Lib\x86&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/DebugCdt}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
+</option>
+<option id="gnu.cpp.link.option.flags.903397905" superClass="gnu.cpp.link.option.flags" value="-mno-cygwin -mwindows" valueType="string"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug.1411196212" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.debug"/>
+<macros/>
+</toolChain>
+</configuration>
+<configuration artifactExtension="exe" artifactName="17_008_02" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.release.988299729" name="保留解除" parent="cdt.managedbuild.config.gnu.cygwin.exe.release">
+<toolChain id="cdt.managedbuild.toolchain.gnu.cygwin.exe.release.154380446" name="GCC ツール・チェーン" superClass="cdt.managedbuild.toolchain.gnu.cygwin.exe.release">
+<tool id="cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.exe.release.1808102873" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.cygwin.exe.release">
+<option id="gnu.cpp.compiler.option.include.paths.1121802011" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02/lib/include}&quot;"/>
+</option>
+<option id="gnu.cpp.compiler.option.other.other.1483866776" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.compiler.cygwin.exe.release.1543038156" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.cygwin.exe.release">
+<option id="gnu.c.compiler.option.include.paths.2014450668" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02/lib/include}&quot;"/>
+</option>
+<option id="gnu.c.compiler.option.misc.other.2146285154" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.release.2093358550" name="GCC C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.cygwin.exe.release"/>
+<tool id="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.release.1774917980" name="GCC C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.cygwin.exe.release">
+<option id="gnu.cpp.link.option.flags.1789718960" superClass="gnu.cpp.link.option.flags" value="-mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.cpp.link.option.libs.1287146425" superClass="gnu.cpp.link.option.libs" valueType="libs">
+<listOptionValue builtIn="false" value="dxguid"/>
+<listOptionValue builtIn="false" value="dsound"/>
+<listOptionValue builtIn="false" value="dinput"/>
+<listOptionValue builtIn="false" value="dinput8"/>
+<listOptionValue builtIn="false" value="d3dxof"/>
+<listOptionValue builtIn="false" value="d3dx9d"/>
+<listOptionValue builtIn="false" value="d3d9"/>
+<listOptionValue builtIn="false" value="uuid"/>
+<listOptionValue builtIn="false" value="winmm"/>
+</option>
+<option id="gnu.cpp.link.option.paths.230623758" superClass="gnu.cpp.link.option.paths" valueType="stringList">
+<listOptionValue builtIn="false" value="&quot;C:\cygwin\lib\w32api&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/17_008_02/lib/lib}&quot;"/>
+</option>
+</tool>
+<tool id="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.release.1320921140" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.cygwin.exe.release"/>
+<macros/>
+</toolChain>
+</configuration>
+<macros/>
+</project>
+</ManagedProjectBuildInfo>
