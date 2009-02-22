@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/EBI2") {
+MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/XCUBE_NASI") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -139,8 +139,9 @@ void MyShip::initialize() {
     _pGeoMover->setMoveVelocity(0);
 
     //_pGeoMover->setRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-    //	_pGeoMover->setRotAngleVelocity(AXIS_Y,1000);
-    //	_pGeoMover->setRotAngleVelocity(AXIS_Z,1300);
+	_pGeoMover->setRotAngleVelocity(AXIS_X,700);
+    _pGeoMover->setRotAngleVelocity(AXIS_Y,1000);
+    _pGeoMover->setRotAngleVelocity(AXIS_Z,1300);
 
 
 }
