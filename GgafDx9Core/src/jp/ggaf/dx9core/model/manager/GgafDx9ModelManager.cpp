@@ -169,6 +169,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         int nTextureCoords = pMeshesFront->_nTextureCoords;
         for (int i = 0; i < nTextureCoords; i++) {
             if (nVertices < i) {
+				_TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices); 
                 _TRACE_("UV座標数が、頂点バッファ数を越えてます。対象="<<xfile_name);
                 break;
             } else {
