@@ -18,7 +18,7 @@ static const char* GetLastError()
 	TBuff* _Buff = TBuff::GetInstance();
 	temp = _Buff->Get();
 /*   memcpy(temp, _Buff->Get(), 512);
-   temp[strlen(_Buff->Get())] = '\0';/**/
+   temp[strlen(_Buff->Get())] = '\0';*/
    _Buff->Reset();
    return temp.c_str();
 };/**/
