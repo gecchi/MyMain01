@@ -38,6 +38,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.569566964" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.281939107" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.2034267441" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.967017856" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.1337874409" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
@@ -51,6 +53,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.misc.other.1161398072" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.1067789781" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.698250731" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.910367823" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1956023147" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -309,6 +313,8 @@
 </scannerConfigBuildInfo>
 </storageModule>
 <storageModule moduleId="org.eclipse.cdt.core.externalSettings"/>
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping"/>
+<storageModule moduleId="org.eclipse.cdt.internal.ui.text.commentOwnerProjectMappings"/>
 </cconfiguration>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">

@@ -36,6 +36,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.235613678" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.700485701" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.1050330387" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.756146719" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release.849220036" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release">
@@ -47,6 +49,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.misc.other.1278092317" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.1850258951" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.2100424606" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1481961671" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.72107593" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>

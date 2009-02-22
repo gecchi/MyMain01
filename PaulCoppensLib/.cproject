@@ -34,6 +34,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
 </option>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.629469671" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.1358352091" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1954408380" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.547602331" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
@@ -43,6 +45,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 </option>
+<option id="gnu.c.compiler.option.warnings.nowarn.1948337406" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.988805975" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.276539922" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1577296690" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>

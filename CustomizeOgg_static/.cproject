@@ -34,6 +34,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.191858156" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.1007847589" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.1840968777" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.911477189" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release.1454092649" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release">
@@ -43,6 +45,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.misc.other.609457051" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.310185493" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.1059282436" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1325474302" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.25835756" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
