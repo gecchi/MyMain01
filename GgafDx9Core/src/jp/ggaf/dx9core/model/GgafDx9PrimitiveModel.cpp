@@ -52,31 +52,55 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 
 
-
-
-
-    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
-    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
-    GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
-    for (int i = 0; i < _nMaterialListGrp; i++) {
-        UINT mno = _paIndexParam[i].MaterialNo;
-//        if (pTargetActor->_paD3DMaterial9[mno] == NULL) {
-//            _TRACE_("pTargetActor->_paD3DMaterial9["<<mno<<"] == NULL  !!!!");
-//        }
-        GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[mno]));
-        if (_papTextureCon[mno] != NULL) {
-            //テクスチャのセット
-            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[mno]->view());
-        } else {
-            //無ければテクスチャ無し
-            GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+    UINT mno;
+    if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
+        //前回描画とモデルが違う！
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
+        GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+        for (int i = 0; i < _nMaterialListGrp; i++) {
+            mno = _paIndexParam[i].MaterialNo;
+    //        if (pTargetActor->_paD3DMaterial9[mno] == NULL) {
+    //            _TRACE_("pTargetActor->_paD3DMaterial9["<<mno<<"] == NULL  !!!!");
+    //        }
+            GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[mno]));
+            if (_papTextureCon[mno] != NULL) {
+                //テクスチャのセット
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[mno]->view());
+            } else {
+                //無ければテクスチャ無し
+                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+            }
+            GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                            _paIndexParam[i].BaseVertexIndex,
+                                                            _paIndexParam[i].MinIndex,
+                                                            _paIndexParam[i].NumVertices,
+                                                            _paIndexParam[i].StartIndex,
+                                                            _paIndexParam[i].PrimitiveCount);
         }
-        GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _paIndexParam[i].BaseVertexIndex,
-                                                        _paIndexParam[i].MinIndex,
-                                                        _paIndexParam[i].NumVertices,
-                                                        _paIndexParam[i].StartIndex,
-                                                        _paIndexParam[i].PrimitiveCount);
+    } else {
+        for (int i = 0; i < _nMaterialListGrp; i++) {
+            mno = _paIndexParam[i].MaterialNo;
+    //        if (pTargetActor->_paD3DMaterial9[mno] == NULL) {
+    //            _TRACE_("pTargetActor->_paD3DMaterial9["<<mno<<"] == NULL  !!!!");
+    //        }
+            GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[mno]));
+            if (_papTextureCon[mno] != NULL) {
+                //テクスチャのセット
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[mno]->view());
+            } else {
+                //無ければテクスチャ無し
+                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+            }
+            GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                            _paIndexParam[i].BaseVertexIndex,
+                                                            _paIndexParam[i].MinIndex,
+                                                            _paIndexParam[i].NumVertices,
+                                                            _paIndexParam[i].StartIndex,
+                                                            _paIndexParam[i].PrimitiveCount);
+        }
+
+
     }
 
     GgafDx9God::_pModelManager->_id_lastdraw = _id;

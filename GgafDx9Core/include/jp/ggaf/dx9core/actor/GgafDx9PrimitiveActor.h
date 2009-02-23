@@ -17,6 +17,7 @@ public:
 
     GgafDx9PrimitiveActor(const char* prm_name,
                      const char* prm_meshmodel_name,
+                     const char* prm_effect_name,
                      GgafDx9GeometryMover* prm_pGeoMover,
                      GgafDx9GeometryChecker* prm_pGeoChecker);
 
