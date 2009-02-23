@@ -27,7 +27,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, const char* prm_model) : DefaultMes
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 16; i++) {
         Sleep(1);
-        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/myvic");
+        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "X/ebi2", "default");
         pEnemyMeshShot->inactImmediately(); //Å‰”ñ•\Ž¦
             _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
