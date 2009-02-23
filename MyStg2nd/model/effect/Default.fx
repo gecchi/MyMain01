@@ -57,8 +57,8 @@ technique TShader
 {
     pass P0
     {
-        VertexShader = compile vs_1_1 VS();
-        PixelShader  = compile ps_1_1 PS();
+        VertexShader = compile vs_2_0 VS();
+        PixelShader  = compile ps_2_0 PS();
     }
 }
 
