@@ -16,7 +16,8 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
 
     _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pID3DXEffect = _pEffectConnection->view();
-
+    //g_matPro(射影変換行列)は全シェーダー共通のグローバル変数とすることとする。
+    _pID3DXEffect->SetMatrix( "g_matPro", &GgafDx9God::_vMatrixProjrction );
 
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pPrimitiveModel->_dwNumMaterials];
@@ -44,7 +45,7 @@ void GgafDx9PrimitiveActor::processDrawMain() {
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
     _pID3DXEffect->SetMatrix( "g_matWorld", &matWorld );
     _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-    _pID3DXEffect->SetMatrix( "g_matPro", &GgafDx9God::_vMatrixProjrction );
+
 
     _pID3DXEffect->SetTechnique("default");
     UINT numPass;
