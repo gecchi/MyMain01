@@ -136,6 +136,14 @@ public:
      * @param prm_pActor 対象アクター
      */
     static void setWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor);
+    /**
+     * world変換行列取得 .
+     * 単位行列 × X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定<BR>
+     * ※XYZの順でないことに注意<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換 .

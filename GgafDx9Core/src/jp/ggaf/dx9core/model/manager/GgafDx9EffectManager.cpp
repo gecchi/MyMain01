@@ -35,8 +35,6 @@ ID3DXEffect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
         }
     }
     _TRACE_(" GgafDx9EffectManager::processCreateResource "<<prm_idstr<<" のエフェクトを生成しました。");
-    pID3DXEffect_New->SetMatrix( "g_viewMat", &GgafDx9God::_vMatrixView );
-    pID3DXEffect_New->SetMatrix( "g_projMat", &GgafDx9God::_vMatrixProjrction );
     return pID3DXEffect_New;
 }
 

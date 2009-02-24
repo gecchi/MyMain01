@@ -26,11 +26,11 @@ public:
 public:
     /**
      * コンストラクタ<BR>
-     * @param prm_meshmodel_name モデルの識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model モデルの識別名。".x"を追加すると定義Xファイル名になる。
      * @param prm_dwOptions D3DXLoadMeshFromXのオプション
      * @return
      */
-    GgafDx9MeshModel(char* prm_meshmodel_name, DWORD prm_dwOptions);
+    GgafDx9MeshModel(char* prm_model, DWORD prm_dwOptions);
 
     /**
      * GgafDx9MeshModelオブジェクトの描画<BR>
