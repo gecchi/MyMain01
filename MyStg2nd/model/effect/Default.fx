@@ -1,124 +1,55 @@
-//今回は、ライトの向きと法線の内積と0を比べて数値の大きな方をテクスチャの色に乗算して影をつけているという処理をしています。
+float4x4 g_matWorld;  //ワールド変換行列
+float4x4 g_matView;   //VIEW変換行列
+float4x4 g_matPro;    //射影変換行列
+
+// バーテックスシェーダ
+struct OUT_VS
+{
+    float4 pos    : POSITION;
+    float2 uv     : TEXCOORD0;
+};
 
 
-// 
-//			Xファイル+テクスチャ
-//			Created by TAKAHASHI Masafumi
-// 
-// グローバル変数
-float4x4 mWVP;		// ローカルから射影空間への座標変換
-float4	Dir;		// ライトの向き
-float4	Diffuse;	//ディフューズ色
-float4	Ambient;	//アンビエント
-texture	Tex1;		//テクスチャ
-sampler TextureSampler = sampler_state
-{
-    Texture = <Tex1>;
-	//フィルタ設定
-    MinFilter = LINEAR;
-    MagFilter = LINEAR;
-    MipFilter = LINEAR;    
-    //テクスチャラッピング
-    AddressU = Wrap;
-    AddressV = Wrap;
-};
-// バーテックスシェーダ出力
-struct VS_OUTPUT
-{
-    float4 Pos  : POSITION;
-    float4 Col  : COLOR0;
-    float2 TexUV	: TEXCOORD0;
-};
-// バーテックスシェーダプログラム
-VS_OUTPUT VS(
-      float4 Pos    : POSITION,          // モデルの頂点
-      float3 Normal : NORMAL,	         // モデルの法線
-      float2 TexUV	: TEXCOORD0
-){
-	float3	dir={Dir.x,Dir.y,Dir.z};	//ライトの向きセット
-	VS_OUTPUT Out = (VS_OUTPUT)0;        // 出力データ  
-	Out.Pos = mul(Pos, mWVP);			// 座標変換 
-	Out.TexUV = TexUV;					//UV取得
-	Out.Col = max( dot(dir, Normal), 0);//光源計算  
-	return Out;
+
+OUT_VS Default_VS(
+      float4 prm_pos    : POSITION,          // モデルの頂点
+      float2 prm_uv     : TEXCOORD0          // モデルのUV
+) {
+
+	//頂点計算
+	float4 pos;   // 出力頂点座標
+	pos = mul( prm_pos, g_matWorld );   // ワールド変換
+	pos = mul( pos, g_matView );    // ビュー変換
+	pos = mul( pos, g_matPro );    // 射影変換
+
+    //法線計算
+
+
+	//UV計算
+
+
+	//出力へ代入
+	OUT_VS out_vs = (OUT_VS)0;
+	out_vs.pos = pos;
+	out_vs.uv = prm_uv;
+
+	return out_vs;
 }
 
 // ピクセルシェーダプログラム
-float4 PS(
-	float2 TexUV	: TEXCOORD0,
-    	float4 Col  : COLOR0 ) : COLOR
-{
+float4 Default_PS(
+	float2 prm_uv	 : TEXCOORD0,
+    float4 prm_color : COLOR0 
+) : COLOR  {
 	//テクスチャ処理
-	Col = tex2D( TextureSampler, TexUV ) * Col;
-    return Col;
+//	prm_color = tex2D( TextureSampler, prm_uv ) * prm_color;
+    return prm_color;
 }
-// テクニック
-technique TShader
+
+technique DefaultTec
 {
-    pass P0
-    {
-        VertexShader = compile vs_2_0 VS();
-        PixelShader  = compile ps_2_0 PS();
-    }
+	pass P0 {
+		VertexShader = compile vs_2_0 Default_VS();
+		PixelShader  = compile ps_2_0 Default_PS();
+	}
 }
-
-
-
-
-//
-//
-//// ワールドビュー射影変換行列宣言
-//float4x4 g_worldMat;
-//float4x4 g_viewMat;
-//float4x4 g_projMat;
-////float4 pos : POSITION;
-//
-//
-//struct VS_OUT {
-//	float4 pos    : POSITION;
-//	float4 uv     : TEXCOORD0;
-//	float3 normal : TEXCOORD1;
-//};
-//
-//VS_OUT Specular_VS( float4 inLocalPos : POSITION, float3 inLocalNormal : NORMAL, float4 inUV : TEXCOORD0 )
-//{
-//	VS_OUT Out = (VS_OUT)0;
-//	Out.pos = mul( inLocalPos, g_worldMat );
-//	Out.pos = mul( Out.pos, g_viewMat );
-//	Out.pos = mul( Out.pos, g_projMat );
-//
-//	// 法線ベクトルをワールドへ？
-//	Out.normal = inLocalNormal;
-////mul( inLocalNormal, g_worldView );
-//	
-//	Out.uv     = inUV;
-//	return Out;
-//}
-//
-////
-////// 頂点シェーダ
-////float4 BasicTransform( float4 inLocalPos : POSITION ) : POSITION
-////{
-////
-////	pos = mul( inLocalPos, g_worldMat );
-////	pos = mul( pos, g_viewMat );
-////	pos = mul( pos, g_projMat );
-////	return pos;
-////}
-////
-//// ピクセルシェーダ
-//float4 NoWorkingPixelShader( float4 ScreenColor : COLOR ) : COLOR
-//{
-//   // 入力されたスクリーンピクセルの色をそのままスルー
-//   return ScreenColor;
-//}
-//
-//
-//technique BasicTec
-//{
-//   pass P0
-//   {
-//      VertexShader = compile vs_2_0 Specular_VS();
-//      PixelShader = compile ps_2_0 NoWorkingPixelShader();
-//   }
-//}
