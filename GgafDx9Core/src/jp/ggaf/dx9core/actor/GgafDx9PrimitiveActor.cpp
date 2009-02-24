@@ -16,14 +16,13 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
 
     _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pID3DXEffect = _pEffectConnection->view();
-    //g_matPro(射影変換行列)は全シェーダー共通のグローバル変数とすることとする。
-    _pID3DXEffect->SetMatrix( "g_matPro", &GgafDx9God::_vMatrixProjrction );
-
     //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pPrimitiveModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pPrimitiveModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pPrimitiveModel->_paD3DMaterial9_default[i];
     }
+    //g_matProj(射影変換行列)は全シェーダー共通のグローバル変数とすることとする。
+    _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProjrction );
 
 }
 
