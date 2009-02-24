@@ -16,8 +16,8 @@ public:
     D3DMATERIAL9* _paD3DMaterial9;
 
     /** エフェクト */
-    GgafDx9EffectConnection* _pEffectConnection;
-    ID3DXEffect* _pID3DXEffect;
+    //##GgafDx9EffectConnection* _pEffectConnection;
+    //##ID3DXEffect* _pID3DXEffect;
 
 
     /** キャラ全体のα */

@@ -28,37 +28,39 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9PrimitiveActor* pTargetActor = (GgafDx9PrimitiveActor*)prm_pActor_Target;
 
     UINT material_no;
-    if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
+    //if (GgafDx9ModelManager::_id_lastdraw != _id) {
         //前回描画とモデルが違う！
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
-    }
+    //}
 
     UINT numPass;
     for (int i = 0; i < _nMaterialListGrp; i++) {
+		//##pTargetActor->_pID3DXEffect->BeginPass( 0 );
         material_no = _paIndexParam[i].MaterialNo;
         GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[material_no]));
         if (_papTextureCon[material_no] != NULL) {
             //テクスチャのセット
             GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
-            pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
+            //##pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
         } else {
             //無ければテクスチャ無し
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
-        pTargetActor->_pID3DXEffect->SetValue("g_MaterialAmbient", &(pTargetActor->_paD3DMaterial9[material_no].Ambient), sizeof(D3DCOLORVALUE) );
-        pTargetActor->_pID3DXEffect->SetValue("g_MaterialDiffuse", &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        //##pTargetActor->_pID3DXEffect->SetValue("g_MaterialAmbient", &(pTargetActor->_paD3DMaterial9[material_no].Ambient), sizeof(D3DCOLORVALUE) );
+        //##pTargetActor->_pID3DXEffect->SetValue("g_MaterialDiffuse", &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
 
-        pTargetActor->_pID3DXEffect->CommitChanges();
+        //##pTargetActor->_pID3DXEffect->CommitChanges();
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
+		//##pTargetActor->_pID3DXEffect->EndPass();
     }
-    GgafDx9God::_pModelManager->_id_lastdraw = _id;
+    GgafDx9ModelManager::_id_lastdraw = _id;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

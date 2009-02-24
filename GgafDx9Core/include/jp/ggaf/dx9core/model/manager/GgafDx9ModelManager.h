@@ -157,15 +157,15 @@ public:
     GgafDx9PlateModel* restorePlateModel(char* prm_model_name);
 
     /** Œ»İƒ‚ƒfƒ‹ID */
-    int _id_max;
+    static int _id_max;
 
     /** ƒ‚ƒfƒ‹IDæ“¾ */
-    int getNextId() {
+    static int getNextId() {
         _id_max++;
         return _id_max;
     }
     /** ‘O‰ñ•`‰æModel‚ÌId */
-    int _id_lastdraw;
+    static int _id_lastdraw;
 
     virtual ~GgafDx9ModelManager();
 

@@ -30,7 +30,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //	_pD3DMaterial9->Ambient.a = pPlateActor_Target->_fAlpha;
     //	GgafDx9God::_pID3DDevice9->SetMaterial(_pD3DMaterial9);
 
-    if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
+    if (GgafDx9ModelManager::_id_lastdraw != _id) {
         GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
         //ここらへんで　this が 0x0h になる
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PlateModel::FVF);
@@ -55,7 +55,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //とかあるので、マテリアルも頂点カラーも最後のレンダリング時に設定できるものと思ってた。違うのか、正しいのか、設定が足りないのか･･･。
     //TODO:とりあえずα（マテリアル）は後回し。
 
-    GgafDx9God::_pModelManager->_id_lastdraw = _id; //前回描画モデル名保存
+    GgafDx9ModelManager::_id_lastdraw = _id; //前回描画モデル名保存
     //GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

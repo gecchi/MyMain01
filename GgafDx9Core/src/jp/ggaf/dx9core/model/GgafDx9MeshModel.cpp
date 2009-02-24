@@ -129,7 +129,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 //    }
 
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f
-    GgafDx9God::_pModelManager->_id_lastdraw = _id;
+    GgafDx9ModelManager::_id_lastdraw = _id;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

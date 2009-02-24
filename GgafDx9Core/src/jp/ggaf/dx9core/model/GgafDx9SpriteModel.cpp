@@ -30,7 +30,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     static HRESULT hr;
 
-    if (GgafDx9God::_pModelManager->_id_lastdraw != _id) {
+    if (GgafDx9ModelManager::_id_lastdraw != _id) {
         //前回描画とモデルが違う！
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
@@ -95,7 +95,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //2009/1/15 プログラマブルシェーダーに目覚めた。つくりなおすっす
 
     //前回描画モデル名保存
-    GgafDx9God::_pModelManager->_id_lastdraw = _id;
+    GgafDx9ModelManager::_id_lastdraw = _id;
     //前回描画UV座標（へのポインタ）を保存
     _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;

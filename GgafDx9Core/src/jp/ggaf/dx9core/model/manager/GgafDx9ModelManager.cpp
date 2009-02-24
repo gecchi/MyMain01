@@ -4,6 +4,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+
+int GgafDx9ModelManager::_id_max = 0;
+int GgafDx9ModelManager::_id_lastdraw = -1;
 GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Model> (prm_manager_name) {
 
@@ -20,9 +23,6 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
         throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
     }
     DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
-    _id_lastdraw = -1;
-    _id_max = 0;
-
 }
 
 GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {

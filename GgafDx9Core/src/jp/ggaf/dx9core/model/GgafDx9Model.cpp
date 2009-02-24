@@ -3,11 +3,13 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+
 GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     TRACE("GgafDx9Model::GgafDx9Model(" << prm_model_name << ")");
-    _id = GgafDx9God::_pModelManager->getNextId();
+	_id = GgafDx9ModelManager::getNextId();
     _model_name = NEW char[51];
 	strcpy(_model_name, prm_model_name);
+	_TRACE_("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
 }
 
 GgafDx9Model::~GgafDx9Model() {
