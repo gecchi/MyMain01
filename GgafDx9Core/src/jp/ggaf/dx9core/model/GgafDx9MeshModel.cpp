@@ -126,6 +126,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
             }
         }
+
 //    }
 
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f

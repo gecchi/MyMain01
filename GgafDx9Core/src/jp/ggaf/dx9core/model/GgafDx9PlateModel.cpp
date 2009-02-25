@@ -36,7 +36,7 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PlateModel::FVF);
 
     } else {
-        //ちょっとだけ早いのよ！
+        //ちょっとだけ早いのかどうか
     }
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
     GgafDx9God::_pID3DDevice9->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pPlateActor_Target->_paVertex,
