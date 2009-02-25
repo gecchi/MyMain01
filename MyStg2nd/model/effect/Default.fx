@@ -55,14 +55,14 @@ OUT_VS Default_VS(
 	float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+	out_vs.pos = posWorld;//posWorldViewProj;                              // 出力に設定
 
     //法線計算
     float3 normal = normalize(mul(prm_normal, posWorldView)); //法線を World 変換
 
-	//カラー計算(光源計算)し、出力に設定
-	out_vs.color = (g_LightDiffuse * g_MaterialDiffuse * max( dot(g_LightDirection, normal), 0)) +
-                   (g_LightAmbient * g_MaterialAmbient);
+//	//カラー計算(光源計算)し、出力に設定
+//	out_vs.color = (g_LightDiffuse * g_MaterialDiffuse * max( dot(g_LightDirection, normal), 0)) +
+//                   (g_LightAmbient * g_MaterialAmbient);
 
 	//αは別でせっていするのがいいのではないのか
 
@@ -72,13 +72,16 @@ OUT_VS Default_VS(
 	return out_vs;
 }
 
+
 // ピクセルシェーダ
 float4 Default_PS(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_color  : COLOR0 
 ) : COLOR  {
+	return prm_color;
+
 	//テクスチャ処理
-	return tex2D( MyTextureSampler, prm_uv );// * prm_color;
+	//return tex2D( MyTextureSampler, prm_uv );// * prm_color;
 }
 
 technique DefaultTec

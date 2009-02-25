@@ -22,8 +22,16 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
         _paD3DMaterial9[i] = _pPrimitiveModel->_paD3DMaterial9_default[i];
     }
     //g_matProj(射影変換行列)は全シェーダー共通のグローバル変数とすることとする。
-	_pID3DXEffect->SetTechnique("DefaultTec");
-    _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProjrction );
+	HRESULT hr;
+	hr = _pID3DXEffect->SetTechnique("DefaultTec");
+    if (hr != S_OK ) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetTechnique() に失敗しました。", hr);
+    }
+
+    hr = _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProjrction );
+    if (hr != D3D_OK) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetMatrix() に失敗しました。", hr);
+    }
 
 }
 
@@ -40,20 +48,34 @@ void GgafDx9PrimitiveActor::processDrawMain() {
 //    if (_pID3DXEffect == NULL) {
 //        GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
 //    }
-    static D3DXMATRIX matWorld; //WORLD変換行列
+	HRESULT hr;
+    D3DXMATRIX matWorld; //WORLD変換行列
 
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
-    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
+    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
 
-    _pID3DXEffect->SetMatrix( "g_matWorld", &matWorld );
-    _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
+    hr = _pID3DXEffect->SetMatrix( "g_matWorld", &matWorld );
+    if (hr != D3D_OK) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) に失敗しました。", hr);
+    }
+    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
+    if (hr != D3D_OK) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matView) に失敗しました。", hr);
+    }
 
     UINT numPass;
-    _pID3DXEffect->Begin( &numPass, 0 );
-    _pID3DXEffect->BeginPass( 0 );
+    hr = _pID3DXEffect->Begin( &numPass, 0 );
+    if (hr != D3D_OK) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain Begin() に失敗しました。", hr);
+    }
+    
     _pPrimitiveModel->draw(this);
-    _pID3DXEffect->EndPass();
-    _pID3DXEffect->End();
+    
+    hr = _pID3DXEffect->End();
+    if (hr != D3D_OK) {
+        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain End() に失敗しました。", hr);
+    }
+
 }
 
 GgafDx9PrimitiveActor::~GgafDx9PrimitiveActor() {
