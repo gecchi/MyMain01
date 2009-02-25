@@ -58,7 +58,7 @@ OUT_VS Default_VS(
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
 
     //法線計算
-    float3 normal = normalize(mul(prm_normal, posWorld)); //法線を World 変換
+    float3 normal = normalize(mul(prm_normal, posWorldView)); //法線を World 変換
 
 	//カラー計算(光源計算)し、出力に設定
 	out_vs.color = (g_LightDiffuse * g_MaterialDiffuse * max( dot(g_LightDirection, normal), 0)) +
@@ -78,7 +78,7 @@ float4 Default_PS(
     float4 prm_color  : COLOR0 
 ) : COLOR  {
 	//テクスチャ処理
-	return tex2D( MyTextureSampler, prm_uv ) * prm_color;
+	return tex2D( MyTextureSampler, prm_uv );// * prm_color;
 }
 
 technique DefaultTec
