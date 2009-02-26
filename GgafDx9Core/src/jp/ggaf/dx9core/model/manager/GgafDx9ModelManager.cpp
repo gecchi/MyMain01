@@ -169,7 +169,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         int nTextureCoords = pMeshesFront->_nTextureCoords;
         for (int i = 0; i < nTextureCoords; i++) {
             if (nVertices < i) {
-				_TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices); 
+				_TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
                 _TRACE_("UV座標数が、頂点バッファ数を越えてます。対象="<<xfile_name);
                 break;
             } else {
@@ -403,15 +403,11 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pPrimModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        if(hr != D3D_OK) {
-            throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name), hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = prm_pPrimModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pPrimModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-        if(hr != D3D_OK) {
-            throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name, hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name);
         memcpy(pVertexBuffer, paVtxBuffer_org, prm_pPrimModel->_size_vertecs); //pVertexBuffer ← paVertex
         prm_pPrimModel->_pIDirect3DVertexBuffer9->Unlock();
     }
@@ -428,9 +424,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                                 D3DPOOL_MANAGED,
                                 &(prm_pPrimModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        if (hr != D3D_OK) {
-             throwGgafDx9CriticalException("[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pPrimModel->_model_name), hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
         void* pIndexBuffer;
         prm_pPrimModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
@@ -516,9 +510,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
            &dwNumMaterials,            //[out] DWORD* pNumMaterials
            &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
          );
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name, hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 
     //TODO メッシュのOptimizeを試せ！
     //    !   メッシュの面及び頂点の順番を変更し，最適化したメッシュオブジェクトを取得する。
@@ -569,9 +561,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                            GgafDx9God::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
-        if(hr != D3D_OK) {
-            throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name, hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
         D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算
         RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
@@ -609,9 +599,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    if(hr != DXFILE_OK) {
-        throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。", hr);
-    }
+    whetherGgafDx9CriticalException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 
     //TODO
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
@@ -707,17 +695,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        if(hr != D3D_OK) {
-            throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name), hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteModel->_model_name));
     }
     //頂点バッファ作成
     //頂点情報をビデオカード頂点バッファへロード
     void *pVertexBuffer;
     hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-    if(hr != D3D_OK) {
-        throwGgafDx9CriticalException("[GgafDx9ModelManager::restoreSpriteModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteModel->_model_name, hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteModel->_model_name);
+
     memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertecs); //pVertexBuffer ← paVertex
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
@@ -910,17 +895,13 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
                                           &(prm_pSquareModel->_pIDirect3DVertexBuffer9),
                                           NULL
                                         );
-        if(hr != D3D_OK) {
-            throwGgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name, hr);
-        }
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name);
     }
 
     //頂点情報をビデオカード頂点バッファへロード
     void *pVertexBuffer;
     hr = prm_pSquareModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSquareModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-    if(hr != D3D_OK) {
-        throwGgafDx9CriticalException("[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name, hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name);
     memcpy(pVertexBuffer, paVertex, prm_pSquareModel->_size_vertecs);
     prm_pSquareModel->_pIDirect3DVertexBuffer9->Unlock();
 

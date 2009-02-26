@@ -27,13 +27,7 @@ ID3DXEffect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
                      &pID3DXEffect_New,         // [out] LPD3DXEFFECT* ppEffect
                      &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
                 );
-    if (hr != D3D_OK) {
-        if ( pError ) {
-            throwGgafDx9CriticalException("GgafDx9EffectManager::processCreateResource ["<<prm_idstr<<"]\n"<<(const char*)(pError->GetBufferPointer()), hr);
-        } else {
-            throwGgafDx9CriticalException("GgafDx9EffectManager::processCreateResource ["<<prm_idstr<<"]\n何かのエラー", hr);
-        }
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9EffectManager::processCreateResource ["<<prm_idstr<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDx9EffectManager::processCreateResource "<<prm_idstr<<" のエフェクトを生成しました。");
     return pID3DXEffect_New;
 }

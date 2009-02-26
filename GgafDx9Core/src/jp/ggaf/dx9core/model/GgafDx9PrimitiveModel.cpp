@@ -26,7 +26,7 @@ GgafDx9PrimitiveModel::GgafDx9PrimitiveModel(char* prm_platemodel_name) : GgafDx
 HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9PrimitiveModel::draw("<<prm_pActor_Target->getName()<<")");
     GgafDx9PrimitiveActor* pTargetActor = (GgafDx9PrimitiveActor*)prm_pActor_Target;
-	
+
 	HRESULT hr;
 
     UINT material_no;
@@ -40,9 +40,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     for (int i = 0; i < _nMaterialListGrp; i++) {
 		hr = pTargetActor->_pID3DXEffect->BeginPass( 0 );
-		if (hr != D3D_OK) {
-			throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-		}
+		whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         material_no = _paIndexParam[i].MaterialNo;
         GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[material_no]));
@@ -50,32 +48,19 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             //ÉeÉNÉXÉ`ÉÉÇÃÉZÉbÉg
             GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
             hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
-			if (hr != D3D_OK) {
-				throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-			}
-
+            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         } else {
             //ñ≥ÇØÇÍÇŒÉeÉNÉXÉ`ÉÉñ≥Çµ
             hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", NULL );
-			if (hr != D3D_OK) {
-				throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-			}
-
+            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         hr = pTargetActor->_pID3DXEffect->SetValue("g_MaterialAmbient", &(pTargetActor->_paD3DMaterial9[material_no].Ambient), sizeof(D3DCOLORVALUE) );
-		if (hr != D3D_OK) {
-			throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw SetValue(g_MaterialAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-		}
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pTargetActor->_pID3DXEffect->SetValue("g_MaterialDiffuse", &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-		if (hr != D3D_OK) {
-			throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-		}
-
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pTargetActor->_pID3DXEffect->CommitChanges();
-		if (hr != D3D_OK) {
-			throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-		}
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -86,7 +71,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _paIndexParam[i].PrimitiveCount);
 		hr = pTargetActor->_pID3DXEffect->EndPass();
 		if (hr != D3D_OK) {
-			throwGgafDx9CriticalException("GgafDx9PrimitiveModel::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
+			whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 		}
 
     }

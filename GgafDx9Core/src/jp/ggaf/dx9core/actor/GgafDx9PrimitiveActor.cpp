@@ -24,14 +24,10 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
     //g_matProj(éÀâeïœä∑çsóÒ)ÇÕëSÉVÉFÅ[É_Å[ã§í ÇÃÉOÉçÅ[ÉoÉãïœêîÇ∆Ç∑ÇÈÇ±Ç∆Ç∆Ç∑ÇÈÅB
 	HRESULT hr;
 	hr = _pID3DXEffect->SetTechnique("DefaultTec");
-    if (hr != S_OK ) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProjrction );
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 
@@ -55,26 +51,18 @@ void GgafDx9PrimitiveActor::processDrawMain() {
     GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
 
     hr = _pID3DXEffect->SetMatrix( "g_matWorld", &matWorld );
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     UINT numPass;
     hr = _pID3DXEffect->Begin( &numPass, 0 );
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
-    
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     _pPrimitiveModel->draw(this);
-    
+
     hr = _pID3DXEffect->End();
-    if (hr != D3D_OK) {
-        throwGgafDx9CriticalException("GgafDx9PrimitiveActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB", hr);
-    }
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 
