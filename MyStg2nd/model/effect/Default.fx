@@ -87,7 +87,7 @@ float4 Default_PS(
 	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; //ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色の完成！。              
 
 	//Ambient色を加算
-	out_color = out_color + (g_LightAmbient * g_MaterialDiffuse);  //マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
+	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  //マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 
 	//α計算
 	out_color.a = g_LightDiffuse.a * g_LightAmbient.a * g_MaterialDiffuse.a * tex_color.a ; //但しαは法線、ライト方向が関係ないので別計算、全部掛ける。
