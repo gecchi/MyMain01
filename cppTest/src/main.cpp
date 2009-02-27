@@ -25,7 +25,7 @@ int main(int argc, char *argv[]) {
 
 
     //std::string temp = "MYCUBE001_no.X";
-    std::string temp = "Ceres.X";
+    std::string temp = "ebi2.X";
     cout << "temp=" << temp << endl;
     bool Running = false;
     CurrentModel = &MyModel;
