@@ -134,7 +134,6 @@ public:
             return this;
         return 0;
     }
-    ;
     Animation* FindAnimation(std::string &pText);
     std::string _Name;
     std::list<Animation*> _Animations;
@@ -146,7 +145,6 @@ public:
     Model3D(void) :
         _Skeletton(0) {
     }
-    ;
     ~Model3D(void);
     Mesh* IsMeshName(std::string &pText);
     void ConcatenateMeshes(void);
