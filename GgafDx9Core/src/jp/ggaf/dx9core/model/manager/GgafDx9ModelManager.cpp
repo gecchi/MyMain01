@@ -194,12 +194,25 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 nx = pMeshesFront->_Normals[indexNormals[j]].x;
                 ny = pMeshesFront->_Normals[indexNormals[j]].y;
                 nz = pMeshesFront->_Normals[indexNormals[j]].z;
+				_TRACE_("i="<<i<<"/j="<<j<<"/indexNormals[j]="<<indexNormals[j]);
                 //加算し平均化する（単位ベクトルではなくなってしまう
                 paVtxBuffer_org[indexVertices[j]].nx += nx;
                 paVtxBuffer_org[indexVertices[j]].ny += ny;
                 paVtxBuffer_org[indexVertices[j]].nz += nz;
+				_TRACE_("i="<<i<<"/j="<<j<<"/indexVertices[j]="<<indexVertices[j]);
+				_TRACE_("nx="<<nx<<" paVtxBuffer_org["<<indexVertices[j]<<"].nx="<<paVtxBuffer_org[indexVertices[j]].nx);
+				_TRACE_("ny="<<ny<<" paVtxBuffer_org["<<indexVertices[j]<<"].ny="<<paVtxBuffer_org[indexVertices[j]].ny);
+				_TRACE_("nz="<<nz<<" paVtxBuffer_org["<<indexVertices[j]<<"].nz="<<paVtxBuffer_org[indexVertices[j]].nz);
+
+
+
             }
         }
+_TRACE_("法線設定後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+    for (int i = 0; i < nVertices; i++) {
+        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+    }
+
         //法線を正規化
         D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
@@ -215,8 +228,12 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 paVtxBuffer_org[i].nz = vec.z;
             }
         }
+_TRACE_("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+    for (int i = 0; i < nVertices; i++) {
+        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+    }
 
-
+_TRACE_("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         //インデックスバッファ登録
         //paIdxBuffer_org = NEW WORD[nFaces*3];
         paIdxBuffer_org = NEW WORD[nFaces*3];

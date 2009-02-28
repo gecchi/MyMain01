@@ -234,14 +234,14 @@ void MyShip::processBehavior() {
     }
 
     if (VB::isBeingPressed(VB_POWERUP)) {
-        _SX -= 100;
-        _SY -= 100;
-        _SZ -= 100;
+        _SX -= 1000;
+        _SY -= 1000;
+        _SZ -= 1000;
     }
     if (VB::isBeingPressed(VB_GUARD)) {
-        _SX += 100;
-        _SY += 100;
-        _SZ += 100;
+        _SX += 1000;
+        _SY += 1000;
+        _SZ += 1000;
     }
 
     //ç¿ïWÇ…îΩâf

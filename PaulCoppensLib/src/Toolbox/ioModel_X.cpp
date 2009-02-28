@@ -414,6 +414,8 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void)
       fin.get();//eats the comma or the semicolon at the end
       }
 
+   Find(';'); //add gecchi 2009/03/01 face数を読み飛ばすために追加。恐らく作者のバグ。
+
    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
    for(int i=0; i< _LoadMesh->_nFaces; i++)
    	{
