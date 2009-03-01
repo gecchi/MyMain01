@@ -30,6 +30,7 @@ enum MoveWay {
 };
 
 class MyShip : public GgafDx9LibStg::DefaultPrimitiveActor {
+//class MyShip : public GgafDx9LibStg::DefaultMeshActor {
 
     class State {
     public:
