@@ -8,6 +8,8 @@
 		<project>GgafCore</project>
 		<project>GgafDx9Core</project>
 		<project>GgafDx9LibStg</project>
+		<project>IkdLib</project>
+		<project>PaulCoppensLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>

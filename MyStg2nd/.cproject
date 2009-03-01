@@ -34,6 +34,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
@@ -42,15 +44,18 @@
 <option id="gnu.cpp.compiler.option.optimization.level.59160748" name="最適化レベル" superClass="gnu.cpp.compiler.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.debugging.level.73751336" name="デバッグ・レベル" superClass="gnu.cpp.compiler.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.warnings.nowarn.844208225" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="false" valueType="boolean"/>
-<option id="gnu.cpp.compiler.option.preprocessor.def.96166471" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
+<option id="gnu.cpp.compiler.option.preprocessor.def.96166471" name="定義済みシンボル (-D)" superClass="gnu.cpp.compiler.option.preprocessor.def" valueType="definedSymbols">
 <listOptionValue builtIn="false" value="BUILD_MINGW"/>
 </option>
+<option id="gnu.cpp.compiler.option.warnings.syntax.1402762609" name="構文のみ検査 (-fsyntax-only)" superClass="gnu.cpp.compiler.option.warnings.syntax" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1980947081" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.base.1821852975" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.base">
 <option id="gnu.c.compiler.option.include.paths.769069567" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
@@ -66,6 +71,8 @@
 <listOptionValue builtIn="false" value="GgafDx9LibStg"/>
 <listOptionValue builtIn="false" value="GgafDx9Core"/>
 <listOptionValue builtIn="false" value="dxerr9"/>
+<listOptionValue builtIn="false" value="IkdLib"/>
+<listOptionValue builtIn="false" value="PaulCoppensLib"/>
 <listOptionValue builtIn="false" value="GgafCore"/>
 <listOptionValue builtIn="false" value="dxguid"/>
 <listOptionValue builtIn="false" value="dinput"/>
@@ -81,12 +88,14 @@
 </option>
 <option id="gnu.cpp.link.option.paths.674200419" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd/VClib}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Lib\x86&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/DebugCdt}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/CdtDebug}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/DebugCdt}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 </option>
 <option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value=" -Wl,--enable-auto-import -mno-cygwin -mwindows " valueType="string"/>
 <option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs">
