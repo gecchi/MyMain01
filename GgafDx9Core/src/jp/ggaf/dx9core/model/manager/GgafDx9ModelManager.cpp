@@ -167,15 +167,14 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
         //o—ˆ‚éŒÀ‚èUVÀ•Wİ’è
         int nTextureCoords = pMeshesFront->_nTextureCoords;
-        for (int i = 0; i < nTextureCoords; i++) {
-            if (nVertices < i) {
-				_TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-                _TRACE_("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B‘ÎÛ="<<xfile_name);
-                break;
-            } else {
-                paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
-                paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
-            }
+        if (nVertices < nTextureCoords) {
+            _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
+            _TRACE_("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B’¸“_”‚Ü‚Å‚µ‚©İ’è‚³‚ê‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
+        }
+
+        for (int i = 0; i < nVertices; i++) {
+            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
+            paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
         }
         //–@üİ’è
         //–Ê–@ü‚ğA‚R’¸“_‚Éİ’èB‹¤—L’¸“_‚Ì–@ü‚ÍAŒã‚Éİ’è‚³‚ê‚½–@ü‚Åã‘‚«‚·‚éB
@@ -213,12 +212,30 @@ _TRACE_("–@üİ’èŒã[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
         _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
     }
 
-        //–@ü‚ğ³‹K‰»
+        //–@ü‚ğ•½‹Ï‰»‚µ³‹K‰»
         D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
             vec.x = paVtxBuffer_org[i].nx;
             vec.y = paVtxBuffer_org[i].ny;
             vec.z = paVtxBuffer_org[i].nz;
+            if (vec.x > 0) {
+                vec.x = 1;
+            } else if (vec.x < 0) {
+                vec.x = -1;
+            }
+
+            if (vec.y > 0) {
+                vec.y = 1;
+            } else if (vec.y < 0) {
+                vec.y = -1;
+            }
+
+            if (vec.z > 0) {
+                vec.z = 1;
+            } else if (vec.z < 0) {
+                vec.z = -1;
+            }
+
             if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
                 continue;
             } else {
