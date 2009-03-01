@@ -37,8 +37,6 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg}&quot;"/>
 </option>
@@ -54,8 +52,6 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
