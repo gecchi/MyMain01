@@ -158,6 +158,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
         static GgafObject* (*func)(void*, void*, void*);
         static GgafObject* pObject;
         static GgafOrder* pOrder_InManufacturing_save;
+        Sleep(1000); //god のインスタンスが完成するまでほんのちょっと待つ必要があるかもしれない
         while (_isWorkingFlg) {
             if (_isRestFlg) {
                 _isRestingFlg = true;

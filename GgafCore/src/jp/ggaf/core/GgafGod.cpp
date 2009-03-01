@@ -12,7 +12,8 @@ DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 1
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17};
 GgafGod::GgafGod() : GgafObject(),
-    _pWorld(NULL) {
+  _pWorld(NULL),
+  _fFps(0) {
     TRACE("GgafGod::GgafGod");
     _dwFrame_God = 0;
 
@@ -32,7 +33,6 @@ GgafGod::GgafGod() : GgafObject(),
     _dwTime_Prev = _dwTime_FrameBegin;
     _dwFrame_Visualize = 0;
     _dwFrame_PrevVisualize = 0;
-    _fFps = 0;
     //_pWorld = NULL;
     _isBehaved = false;
 
