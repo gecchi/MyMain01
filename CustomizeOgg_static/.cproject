@@ -29,20 +29,24 @@
 <tool id="cdt.managedbuild.tool.gnu.archiver.mingw.lib.release.1675528544" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.lib.release"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.release.1800854128" name="GCC C++ コンパイラー" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.mingw.lib.release">
 <option id="gnu.cpp.compiler.mingw.lib.release.option.optimization.level.1669839501" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.lib.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
-<option id="gnu.cpp.compiler.mingw.lib.release.option.debugging.level.134935916" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.cpp.compiler.mingw.lib.release.option.debugging.level.134935916" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.lib.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.default" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.1431861181" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.191858156" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.nowarn.1007847589" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.cpp.compiler.option.warnings.allwarn.1840968777" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.911477189" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release.1454092649" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.release">
 <option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.mingw.lib.release.option.optimization.level.1802852806" name="最適化レベル" superClass="gnu.c.compiler.mingw.lib.release.option.optimization.level" valueType="enumerated"/>
-<option id="gnu.c.compiler.mingw.lib.release.option.debugging.level.903142447" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
+<option id="gnu.c.compiler.mingw.lib.release.option.debugging.level.903142447" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.lib.release.option.debugging.level" value="gnu.c.debugging.level.default" valueType="enumerated"/>
 <option id="gnu.c.compiler.option.include.paths.1608026697" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.misc.other.609457051" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows " valueType="string"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.310185493" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.1059282436" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1325474302" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.25835756" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
