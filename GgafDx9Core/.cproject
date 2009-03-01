@@ -41,9 +41,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.warnings.nowarn.1411400393" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="false" valueType="boolean"/>
@@ -55,13 +53,10 @@
 <option id="gnu.c.compiler.option.misc.other.1267934077" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
 <option id="gnu.c.compiler.option.include.paths.549590728" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.541125254" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
