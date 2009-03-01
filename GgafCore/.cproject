@@ -39,6 +39,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.other.other.390840211" name="その他のフラグ" superClass="gnu.cpp.compiler.option.other.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.cpp.compiler.option.warnings.pedantic.1477397133" name="ペダンティック (-pedantic)" superClass="gnu.cpp.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.452194199" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
 <tool errorParsers="org.eclipse.cdt.core.GCCErrorParser" id="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug.466012546" name="GCC C コンパイラー" superClass="cdt.managedbuild.tool.gnu.c.compiler.mingw.lib.debug">
@@ -48,6 +49,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.misc.other.1591338129" name="その他のフラグ" superClass="gnu.c.compiler.option.misc.other" value="-c -fmessage-length=0 -s -mno-cygwin -mwindows" valueType="string"/>
+<option id="gnu.c.compiler.option.warnings.pedantic.1923472672" name="ペダンティック (-pedantic)" superClass="gnu.c.compiler.option.warnings.pedantic" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.1900115219" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1005005156" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>
@@ -67,6 +69,8 @@
 <path value=""/>
 </doc-comment-owner>
 </storageModule>
+
+
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
@@ -368,6 +372,8 @@
 <path value=""/>
 </doc-comment-owner>
 </storageModule>
+
+
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
