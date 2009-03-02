@@ -179,6 +179,9 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         //法線設定
         //面法線を、３頂点に設定。共有頂点の法線は、後に設定された法線で上書きする。
         //TODO 共有頂点の法線の平均化！
+        //アイディア：法線になす角の割合を考慮するようにすると、綺麗に平均化されるのではないか。
+        vector<map<flote, D3DXVECTOR3> > xx;
+
         unsigned short indexVertices[3];
         unsigned short indexNormals[3];
         float nx, ny, nz;

@@ -1,3 +1,5 @@
+#include <d3d9.h>
+#include <d3dx9.h>
 #include <iostream>
 using namespace std;
 //#include "GgafCommonHeader.h"
@@ -5,6 +7,14 @@ using namespace std;
 #define DEBUG
 //DECLARE_TRACE;
 //TBuff* TBuff::_Instance = 0;
+
+
+struct VERTEX {
+    float x, y, z; // 頂点座標
+    float nx, ny, nz; // 法線
+    DWORD color; // 頂点の色
+    float tu, tv; // テクスチャ座標
+};
 
 int main(int argc, char *argv[]) {
 //    TBuff* _Buff;
@@ -102,10 +112,80 @@ int main(int argc, char *argv[]) {
             cout << "    <-------------------------------------------" << endl;
             materialno++;
         }
+
+        VERTEX* paVtxBuffer_org = NEW VERTEX[nVertices];
+        vector<map<float, D3DXVECTOR3> > ccc;
+
+        unsigned short indexVertices[3];
+        unsigned short indexNormals[3];
+        float nx, ny, nz;
+        for (int i = 0; i < nFaces; i++) {
+            indexVertices[0] = (*mesh)->_Faces[i].data[0];
+            indexVertices[1] = (*mesh)->_Faces[i].data[1];
+            indexVertices[2] = (*mesh)->_Faces[i].data[2];
+            indexNormals[0] = (*mesh)->_FaceNormals[i].data[0];
+            indexNormals[1] = (*mesh)->_FaceNormals[i].data[1];
+            indexNormals[2] = (*mesh)->_FaceNormals[i].data[2];
+            for (int j = 0; j < 3; j++) {
+                nx = (*mesh)->_Normals[indexNormals[j]].x;
+                ny = (*mesh)->_Normals[indexNormals[j]].y;
+                nz = (*mesh)->_Normals[indexNormals[j]].z;
+                _TRACE_("i="<<i<<"/j="<<j<<"/indexNormals[j]="<<indexNormals[j]);
+                //加算し平均化する（単位ベクトルではなくなってしまう
+                paVtxBuffer_org[indexVertices[j]].nx += nx;
+                paVtxBuffer_org[indexVertices[j]].ny += ny;
+                paVtxBuffer_org[indexVertices[j]].nz += nz;
+                _TRACE_("i="<<i<<"/j="<<j<<"/indexVertices[j]="<<indexVertices[j]);
+                _TRACE_("nx="<<nx<<" paVtxBuffer_org["<<indexVertices[j]<<"].nx="<<paVtxBuffer_org[indexVertices[j]].nx);
+                _TRACE_("ny="<<ny<<" paVtxBuffer_org["<<indexVertices[j]<<"].ny="<<paVtxBuffer_org[indexVertices[j]].ny);
+                _TRACE_("nz="<<nz<<" paVtxBuffer_org["<<indexVertices[j]<<"].nz="<<paVtxBuffer_org[indexVertices[j]].nz);
+            }
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        delete[] paVtxBuffer_org;
         meshno++;
     }
 
-    Frm::Mesh* pMesh = CurrentModel->_Meshes.front();
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//    Frm::Mesh* pMesh = CurrentModel->_Meshes.front();
 
     //頂点
 //    int  nVertices = pMesh->_nVertices;
