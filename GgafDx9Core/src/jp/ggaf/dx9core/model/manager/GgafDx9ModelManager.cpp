@@ -183,6 +183,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         //face の 法線を３頂点設定する。但し、共有頂点を設定する場合、その法線の影響度割合（共有頂点にfaceが作る成す角/その頂点にぶら下がる全faceの成す角）
         //を考慮して合算。最後に正規化する。
         GgafDx9ModelManager::VTXINFO* v_vtxInfo = NEW GgafDx9ModelManager::VTXINFO[nFaces*3];
+        float* paRadSum_Vtx = NEW float[nVertices];
         //static GgafDx9ModelManager::VTXINFO vtxinfo_wk;
         //GgafDx9ModelManager::VTXINFO vtxinfo1;
         //GgafDx9ModelManager::VTXINFO vtxinfo2;
@@ -225,6 +226,26 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             v_vtxInfo[i*3+2].vn.x = pMeshesFront->_Normals[indexNormals[1]].x;
             v_vtxInfo[i*3+2].vn.y = pMeshesFront->_Normals[indexNormals[1]].y;
             v_vtxInfo[i*3+2].vn.z = pMeshesFront->_Normals[indexNormals[1]].z;
+
+
+
+            paRadSum_Vtx[indexVertices[0]] += getRadv1_v0v1v2(
+                                                    pMeshesFront->_Vertices[indexVertices[2]],
+                                                    pMeshesFront->_Vertices[indexVertices[0]],
+                                                    pMeshesFront->_Vertices[indexVertices[1]]
+                                              );
+            paRadSum_Vtx[indexVertices[1]] += getRadv1_v0v1v2(
+                                                    pMeshesFront->_Vertices[indexVertices[0]],
+                                                    pMeshesFront->_Vertices[indexVertices[1]],
+                                                    pMeshesFront->_Vertices[indexVertices[2]]
+                                              );
+            paRadSum_Vtx[indexVertices[2]] += getRadv1_v0v1v2(
+                                                    pMeshesFront->_Vertices[indexVertices[1]],
+                                                    pMeshesFront->_Vertices[indexVertices[2]],
+                                                    pMeshesFront->_Vertices[indexVertices[0]]
+                                              );
+
+
             //v_vtxInfo.push_back(vtxinfo2);
 
 //            _TRACE_("iv0_iv1_iv2="<<vtxinfo0.indexVertice<<"→"<<vtxinfo1.indexVertice<<"→"<<vtxinfo2.indexVertice);
