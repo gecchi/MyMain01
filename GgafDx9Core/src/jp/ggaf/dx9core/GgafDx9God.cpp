@@ -196,6 +196,23 @@ HRESULT GgafDx9God::init() {
         _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
     }
 
+    //ピクセルシェーダー、頂点シェーダーバージョンチェック
+    D3DCAPS9 caps;
+    GgafDx9God::_pID3D9->GetDeviceCaps( D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                                            //      D3DADAPTER_DEFAULT は常に
+                                                            //      プライマリ ディスプレイ アダプタ
+                                        D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                        &caps );            // [out] デバイスの能力が格納される
+
+    DWORD vs_v = caps.VertexShaderVersion;
+    DWORD ps_v = caps.PixelShaderVersion;
+    _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(vs_v));
+    _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(ps_v));
+    if( vs_v < D3DVS_VERSION(2, 0) || ps_v < D3DPS_VERSION(2, 0)) {
+        _TRACE_("頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上でなければいけません。");
+        _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
+    }
+
     //その他必要な初期化
     _pModelManager = NEW GgafDx9ModelManager("ModelManager");
     _pEffectManager = NEW GgafDx9EffectManager("EffectManager");

@@ -54,6 +54,13 @@ private:
 
 
 public:
+
+    struct VTXINFO {
+        UINT indexVertice;
+        float r;
+        Frm::Vector vn;
+    };
+
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)
@@ -166,6 +173,9 @@ public:
     }
     /** 前回描画ModelのId */
     static int _id_lastdraw;
+
+
+    float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 
     virtual ~GgafDx9ModelManager();
 

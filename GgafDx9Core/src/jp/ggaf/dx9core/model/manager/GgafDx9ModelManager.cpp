@@ -130,7 +130,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     GgafDx9TextureConnection** papTextureCon = NULL;
 
     if (prm_pPrimModel->_pModel3D == NULL) {
-        _TRACE_("CreateModel");
+        //_TRACE_("CreateModel");
         pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, pModel3D);
@@ -154,6 +154,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
         //İ’è
         for (int i = 0; i < nVertices; i++) {
+            Sleep(1);
             paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
             paVtxBuffer_org[i].y = pMeshesFront->_Vertices[i].data[1];
             paVtxBuffer_org[i].z = pMeshesFront->_Vertices[i].data[2];
@@ -161,8 +162,8 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             paVtxBuffer_org[i].ny = 0.0f;
             paVtxBuffer_org[i].nz = 0.0f;
             paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVtxBuffer_org[i].tu = 0.0f;
-            paVtxBuffer_org[i].tv = 0.0f;
+            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
+            paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
         }
 
         //o—ˆ‚éŒÀ‚èUVÀ•Wİ’è
@@ -172,75 +173,99 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             _TRACE_("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B’¸“_”‚Ü‚Å‚µ‚©İ’è‚³‚ê‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
         }
 
-        for (int i = 0; i < nVertices; i++) {
-            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
-            paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
-        }
+//        for (int i = 0; i < nVertices; i++) {
+//            Sleep(1);
+//            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
+//            paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
+//        }
         //–@üİ’è
-        //–Ê–@ü‚ğA‚R’¸“_‚Éİ’èB‹¤—L’¸“_‚Ì–@ü‚ÍAŒã‚Éİ’è‚³‚ê‚½–@ü‚Åã‘‚«‚·‚éB
-        //TODO ‹¤—L’¸“_‚Ì–@ü‚Ì•½‹Ï‰»I
-        //ƒAƒCƒfƒBƒAF–@ü‚É‚È‚·Šp‚ÌŠ„‡‚ğl—¶‚·‚é‚æ‚¤‚É‚·‚é‚ÆAãY—í‚É•½‹Ï‰»‚³‚ê‚é‚Ì‚Å‚Í‚È‚¢‚©B
-        vector<map<flote, D3DXVECTOR3> > xx;
-
+        //‹¤—L’¸“_‚Ì–@ü‚Ì•½‹Ï‰»I
+        //face ‚Ì –@ü‚ğ‚R’¸“_İ’è‚·‚éB’A‚µA‹¤—L’¸“_‚ğİ’è‚·‚éê‡A‚»‚Ì–@ü‚Ì‰e‹¿“xŠ„‡i‹¤—L’¸“_‚Éface‚ªì‚é¬‚·Šp/‚»‚Ì’¸“_‚É‚Ô‚ç‰º‚ª‚é‘Sface‚Ì¬‚·Špj
+        //‚ğl—¶‚µ‚Ä‡ZBÅŒã‚É³‹K‰»‚·‚éB
+        GgafDx9ModelManager::VTXINFO* v_vtxInfo = NEW GgafDx9ModelManager::VTXINFO[nFaces*3];
+        //static GgafDx9ModelManager::VTXINFO vtxinfo_wk;
+        //GgafDx9ModelManager::VTXINFO vtxinfo1;
+        //GgafDx9ModelManager::VTXINFO vtxinfo2;
         unsigned short indexVertices[3];
         unsigned short indexNormals[3];
-        float nx, ny, nz;
         for (int i = 0; i < nFaces; i++) {
-            indexVertices[0] = pMeshesFront->_Faces[i].data[0];
-            indexVertices[1] = pMeshesFront->_Faces[i].data[1];
-            indexVertices[2] = pMeshesFront->_Faces[i].data[2];
-            indexNormals[0] = pMeshesFront->_FaceNormals[i].data[0];
-            indexNormals[1] = pMeshesFront->_FaceNormals[i].data[1];
-            indexNormals[2] = pMeshesFront->_FaceNormals[i].data[2];
+            Sleep(1);
             for (int j = 0; j < 3; j++) {
-                nx = pMeshesFront->_Normals[indexNormals[j]].x;
-                ny = pMeshesFront->_Normals[indexNormals[j]].y;
-                nz = pMeshesFront->_Normals[indexNormals[j]].z;
-				_TRACE_("i="<<i<<"/j="<<j<<"/indexNormals[j]="<<indexNormals[j]);
-                //‰ÁZ‚µ•½‹Ï‰»‚·‚éi’PˆÊƒxƒNƒgƒ‹‚Å‚Í‚È‚­‚È‚Á‚Ä‚µ‚Ü‚¤
-                paVtxBuffer_org[indexVertices[j]].nx += nx;
-                paVtxBuffer_org[indexVertices[j]].ny += ny;
-                paVtxBuffer_org[indexVertices[j]].nz += nz;
-				_TRACE_("i="<<i<<"/j="<<j<<"/indexVertices[j]="<<indexVertices[j]);
-				_TRACE_("nx="<<nx<<" paVtxBuffer_org["<<indexVertices[j]<<"].nx="<<paVtxBuffer_org[indexVertices[j]].nx);
-				_TRACE_("ny="<<ny<<" paVtxBuffer_org["<<indexVertices[j]<<"].ny="<<paVtxBuffer_org[indexVertices[j]].ny);
-				_TRACE_("nz="<<nz<<" paVtxBuffer_org["<<indexVertices[j]<<"].nz="<<paVtxBuffer_org[indexVertices[j]].nz);
+                indexVertices[j] = pMeshesFront->_Faces[i].data[j];       //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â(A,B,C‚Æ‚·‚é)
+                indexNormals[j] = pMeshesFront->_FaceNormals[i].data[j];  //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
+            }
 
+            //’¸“_A ‚Ì¬‚·Šp‚ğ‹‚ßA–@ü‚Æ•R‚Â‚¯‚Ä•Û
+            v_vtxInfo[i*3+0].indexVertice = indexVertices[0];
+            v_vtxInfo[i*3+0].r = getRadv1_v0v1v2(
+                           pMeshesFront->_Vertices[indexVertices[2]],
+                           pMeshesFront->_Vertices[indexVertices[0]],
+                           pMeshesFront->_Vertices[indexVertices[1]]
+                        );
+            v_vtxInfo[i*3+0].vn.x = pMeshesFront->_Normals[indexNormals[0]].x;
+            v_vtxInfo[i*3+0].vn.y = pMeshesFront->_Normals[indexNormals[0]].y;
+            v_vtxInfo[i*3+0].vn.z = pMeshesFront->_Normals[indexNormals[0]].z;
+            //’¸“_B ‚Ì¬‚·Šp‚ğ‹‚ßA–@ü‚Æ•R‚Â‚¯‚Ä•Û
+            v_vtxInfo[i*3+1].indexVertice = indexVertices[1];
+            v_vtxInfo[i*3+1].r = getRadv1_v0v1v2(
+                           pMeshesFront->_Vertices[indexVertices[0]],
+                           pMeshesFront->_Vertices[indexVertices[1]],
+                           pMeshesFront->_Vertices[indexVertices[2]]
+                        );
+            v_vtxInfo[i*3+1].vn.x = pMeshesFront->_Normals[indexNormals[1]].x;
+            v_vtxInfo[i*3+1].vn.y = pMeshesFront->_Normals[indexNormals[1]].y;
+            v_vtxInfo[i*3+1].vn.z = pMeshesFront->_Normals[indexNormals[1]].z;
+            //’¸“_C ‚Ì¬‚·Šp‚ğ‹‚ßA–@ü‚Æ•R‚Â‚¯‚Ä•Û
+            v_vtxInfo[i*3+2].indexVertice = indexVertices[2];
+            v_vtxInfo[i*3+2].r = getRadv1_v0v1v2(
+                           pMeshesFront->_Vertices[indexVertices[1]],
+                           pMeshesFront->_Vertices[indexVertices[2]],
+                           pMeshesFront->_Vertices[indexVertices[0]]
+                        );
+            v_vtxInfo[i*3+2].vn.x = pMeshesFront->_Normals[indexNormals[1]].x;
+            v_vtxInfo[i*3+2].vn.y = pMeshesFront->_Normals[indexNormals[1]].y;
+            v_vtxInfo[i*3+2].vn.z = pMeshesFront->_Normals[indexNormals[1]].z;
+            //v_vtxInfo.push_back(vtxinfo2);
 
+//            _TRACE_("iv0_iv1_iv2="<<vtxinfo0.indexVertice<<"¨"<<vtxinfo1.indexVertice<<"¨"<<vtxinfo2.indexVertice);
+//            _TRACE_("v0v1v2=("<<vtxinfo0.vn.x<<","<<vtxinfo0.vn.y<<","<<vtxinfo0.vn.z<<") ("<<vtxinfo1.vn.x<<","<<vtxinfo1.vn.y<<","<<vtxinfo1.vn.z<<") ("<<vtxinfo2.vn.x<<","<<vtxinfo2.vn.y<<","<<vtxinfo2.vn.z<<")");
+//            _TRACE_("R201="<<vtxinfo0.r);
+//            _TRACE_("R012="<<vtxinfo1.r);
+//            _TRACE_("R120="<<vtxinfo2.r);
+        }
 
+        float radSum_Vtx;
+        float rate;
+        for (UINT i = 0; i < nVertices; i++) {
+            Sleep(1);
+            radSum_Vtx = 0;
+            //’¸“_‚É‚Ô‚ç‰º‚ª‚é‘Sface‚Ì‡ŒvŠp‚ğ‹‚ß‚é
+            for (UINT j = 0; j < nFaces*3; j++) {
+                if (v_vtxInfo[j].indexVertice == i) {
+                    radSum_Vtx += v_vtxInfo[j].r;
+                }
+            }
+            //’¸“_‚É‚Ô‚ç‰º‚ª‚éŠp’¸“_‚Ì–@üƒxƒNƒgƒ‹‚ğA¬‚·Šp•ª‚ÌŠ„‡‚ÅŠ|‚¯Z‚µ‚Ä‡Z
+            for (UINT j = 0; j < nFaces*3; j++) {
+                if (v_vtxInfo[j].indexVertice == i) {
+                    rate = v_vtxInfo[j].r / radSum_Vtx;
+                    paVtxBuffer_org[i].nx += v_vtxInfo[j].vn.x * rate;
+                    paVtxBuffer_org[i].ny += v_vtxInfo[j].vn.y * rate;
+                    paVtxBuffer_org[i].nz += v_vtxInfo[j].vn.z * rate;
+                }
             }
         }
-_TRACE_("–@üİ’èŒã[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
-    for (int i = 0; i < nVertices; i++) {
-        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
-    }
-
-        //–@ü‚ğ•½‹Ï‰»‚µ³‹K‰»
-        D3DXVECTOR3 vec;
+        //ÅŒã‚É–@ü³‹K‰»‚µ‚Äİ’è
+        static D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
+            Sleep(1);
             vec.x = paVtxBuffer_org[i].nx;
             vec.y = paVtxBuffer_org[i].ny;
             vec.z = paVtxBuffer_org[i].nz;
-            if (vec.x > 0) {
-                vec.x = 1;
-            } else if (vec.x < 0) {
-                vec.x = -1;
-            }
-
-            if (vec.y > 0) {
-                vec.y = 1;
-            } else if (vec.y < 0) {
-                vec.y = -1;
-            }
-
-            if (vec.z > 0) {
-                vec.z = 1;
-            } else if (vec.z < 0) {
-                vec.z = -1;
-            }
-
             if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
-                continue;
+                paVtxBuffer_org[i].nx = 0;
+                paVtxBuffer_org[i].ny = 0;
+                paVtxBuffer_org[i].nz = 0;
             } else {
                 D3DXVec3Normalize( &vec, &vec);
                 paVtxBuffer_org[i].nx = vec.x;
@@ -248,16 +273,16 @@ _TRACE_("–@üİ’èŒã[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
                 paVtxBuffer_org[i].nz = vec.z;
             }
         }
-_TRACE_("–@ü³‹K‰»Œã[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
-    for (int i = 0; i < nVertices; i++) {
-        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
-    }
-
-_TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
+//        _TRACE_("–@ü³‹K‰»Œã[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
+//        for (int i = 0; i < nVertices; i++) {
+//            _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+//        }
+//        _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[");
         //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@“o˜^
         //paIdxBuffer_org = NEW WORD[nFaces*3];
         paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
+            Sleep(1);
             paIdxBuffer_org[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
             paIdxBuffer_org[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
             paIdxBuffer_org[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
@@ -269,7 +294,7 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 //            aMaterialsGrp[i] =  pMeshesFront->_FaceMaterials[i];
 //        }
 
-        //ƒpƒ‰ƒ[ƒ^ƒŠƒXƒgì¬
+        //•`‰æiDrawIndexedPrimitivej‚Ìƒpƒ‰ƒ[ƒ^ƒŠƒXƒgì¬
         GgafDx9PrimitiveModel::INDEXPARAM* paParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nFaces];
 
         int prev_materialno = -1;
@@ -282,9 +307,10 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
+            Sleep(1);
             materialno = pMeshesFront->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
-                _TRACE_("BREAK! paramno="<<paramno);
+                //_TRACE_("BREAK! paramno="<<paramno);
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
@@ -307,36 +333,36 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
                 paramno++;
             }
 
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                _TRACE_("YES!1");
+               // _TRACE_("YES!1");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
 
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                _TRACE_("YES!2");
+               // _TRACE_("YES!2");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
 
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                _TRACE_("YES!3");
+                //_TRACE_("YES!3");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
             }
 
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                _TRACE_("YES!4");
+                //_TRACE_("YES!4");
                 min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
 
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                _TRACE_("YES!5");
+                //_TRACE_("YES!5");
                 min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
 
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 2]) {
                 _TRACE_("YES!6");
@@ -346,8 +372,8 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
             prev_materialno = materialno;
         }
         if (nFaces > 0) {
-            _TRACE_("BREAK‚Å‘Oİ’èÅŒã paramno="<<paramno);
-            _TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/max_num_vertices="<<max_num_vertices);
+            //_TRACE_("BREAK‚Å‘Oİ’èÅŒã paramno="<<paramno);
+            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/max_num_vertices="<<max_num_vertices);
 
             paParam[paramno-1].MinIndex = min_num_vertices;
             paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
@@ -364,70 +390,33 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
             paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         prm_pPrimModel->_nMaterialListGrp = paramno;
+        delete[] v_vtxInfo;
 		delete[] paParam;
-
-//        UINT MaterialNo;
-//        INT BaseVertexIndex;
-//        UINT MinIndex;
-//        UINT NumVertices;
-//        UINT StartIndex;
-//        UINT PrimitiveCount;
-//        DrawIndexedPrimitive‚ğg‚Á‚Ä•`‰æ‚·‚éB
-//        ‘æˆêˆø”‚É‚Í ƒvƒŠƒ~ƒeƒBƒuƒ^ƒCƒvA
-//        ‘æ“ñˆø”‚É‚Í ’¸“_ƒoƒbƒtƒ@‚Ì‰½”Ô–Ú‚©‚çg—p‚·‚é‚©‚ğw’è‚·‚é
-//        ‘æOˆø”‚É‚Í ƒCƒ“ƒfƒbƒNƒX”Ô†‚ÌÅ¬’l‚ğw’è‚·‚é
-//        ‘ælˆø”‚É‚Í ’¸“_ƒoƒbƒtƒ@“à‚Ìg—p‚·‚é’¸“_”‚ğw’è‚·‚é
-//        ‘æŒÜˆø”‚É‚Í ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚Ì‰½”Ô–Ú‚©‚çg—p‚·‚é‚©‚ğw’è‚·‚é
-//        ‘æ˜Zˆø”‚É‚Í ƒvƒŠƒ~ƒeƒBƒuƒ^ƒCƒv‚Åw’è‚µ‚½Œ`‚Ì•`‰æ‚·‚é‘”‚Å‚ ‚é
-//
-//
-//
-//
-//            // ƒTƒ“ƒvƒ‹@‰º‚Ì}QÆ
-//                lpD3DDEV->DrawIndexedPrimitive(
-//                            D3DPT_TRIANGLELIST,
-//                            2,        // ƒIƒtƒZƒbƒg’l
-//                            0,        // Å¬ƒCƒ“ƒfƒbƒNƒX’l
-//                            4,        // ’¸“_”
-//                            0,        // ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@
-//                            2 );
-//
-//
-
-
-
-
-
-
-
-
-
-
     }
-    int nVertices = pMeshesFront->_nVertices;
-    _TRACE_("nVertices="<<nVertices);
-    _TRACE_("prm_pPrimModel->_size_vertecs="<<prm_pPrimModel->_size_vertecs);
-    _TRACE_("prm_pPrimModel->_size_vertec_unit="<<prm_pPrimModel->_size_vertec_unit);
-    for (int i = 0; i < nVertices; i++) {
-        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
-    }
-    int nFaces = pMeshesFront->_nFaces;
-    _TRACE_("<INDEXBUFFER>nFaces="<<nFaces);
-    for (int i = 0; i < nFaces*3; i++) {
-        _TRACE_(paIdxBuffer_org[i]);
-    }
-
-    _TRACE_("ƒpƒ‰ƒ[ƒ^ prm_pPrimModel->_nMaterialListGrp="<<prm_pPrimModel->_nMaterialListGrp);
-    for (int i = 0; i < prm_pPrimModel->_nMaterialListGrp; i++) {
-        _TRACE_("["<<i<<"]MaterialNo="<<paIndexParam[i].MaterialNo);
-        _TRACE_("["<<i<<"]BaseVertexIndex="<<paIndexParam[i].BaseVertexIndex);
-        _TRACE_("["<<i<<"]MinIndex="<<paIndexParam[i].MinIndex);
-        _TRACE_("["<<i<<"]NumVertices="<<paIndexParam[i].NumVertices);
-        _TRACE_("["<<i<<"]StartIndex="<<paIndexParam[i].StartIndex);
-        _TRACE_("["<<i<<"]PrimitiveCount="<<paIndexParam[i].PrimitiveCount);
-        _TRACE_("------------------------------------------------------------");
-    }
-
+//    int nVertices = pMeshesFront->_nVertices;
+//    _TRACE_("nVertices="<<nVertices);
+//    _TRACE_("prm_pPrimModel->_size_vertecs="<<prm_pPrimModel->_size_vertecs);
+//    _TRACE_("prm_pPrimModel->_size_vertec_unit="<<prm_pPrimModel->_size_vertec_unit);
+//    for (int i = 0; i < nVertices; i++) {
+//        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+//    }
+//    int nFaces = pMeshesFront->_nFaces;
+//    _TRACE_("<INDEXBUFFER>nFaces="<<nFaces);
+//    for (int i = 0; i < nFaces*3; i++) {
+//        _TRACE_(paIdxBuffer_org[i]);
+//    }
+//
+//    _TRACE_("ƒpƒ‰ƒ[ƒ^ prm_pPrimModel->_nMaterialListGrp="<<prm_pPrimModel->_nMaterialListGrp);
+//    for (int i = 0; i < prm_pPrimModel->_nMaterialListGrp; i++) {
+//        _TRACE_("["<<i<<"]MaterialNo="<<paIndexParam[i].MaterialNo);
+//        _TRACE_("["<<i<<"]BaseVertexIndex="<<paIndexParam[i].BaseVertexIndex);
+//        _TRACE_("["<<i<<"]MinIndex="<<paIndexParam[i].MinIndex);
+//        _TRACE_("["<<i<<"]NumVertices="<<paIndexParam[i].NumVertices);
+//        _TRACE_("["<<i<<"]StartIndex="<<paIndexParam[i].StartIndex);
+//        _TRACE_("["<<i<<"]PrimitiveCount="<<paIndexParam[i].PrimitiveCount);
+//        _TRACE_("------------------------------------------------------------");
+//    }
+//
 
 
     if (prm_pPrimModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -480,6 +469,7 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = pMeshesFront->_Materials.begin(); material != pMeshesFront->_Materials.end(); material++) {
+        Sleep(1);
         paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
         paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
         paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
@@ -510,6 +500,8 @@ _TRACE_("[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[[
         }
         n++;
     }
+
+    //ƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     prm_pPrimModel->_pModel3D = pModel3D;
     prm_pPrimModel->_pMeshesFront = pMeshesFront;
 
@@ -995,4 +987,47 @@ void GgafDx9ModelManager::releaseAll() {
     }
     TRACE("GgafDx9ModelManager::releaseAll() end<--");
 }
+
+float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
+    //_TRACE_("v0=("<<v0.data[0]<<"."<<v0.data[1]<<","<<v0.data[2]<<")");
+    //_TRACE_("v1=("<<v1.data[0]<<"."<<v1.data[1]<<","<<v1.data[2]<<")");
+    //_TRACE_("v2=("<<v2.data[0]<<"."<<v2.data[1]<<","<<v2.data[2]<<")");
+    static Frm::Vector V0;
+    static Frm::Vector V1;
+    static Frm::Vector V2;
+    V0.x = v0.data[0]; V0.y = v0.data[1]; V0.z = v0.data[2];
+    V1.x = v1.data[0]; V1.y = v1.data[1]; V1.z = v1.data[2];
+    V2.x = v2.data[0]; V2.y = v2.data[1]; V2.z = v2.data[2];
+    static Frm::Vector V;
+    V = V2 - V1;
+    static Frm::Vector W;
+    W = V0 - V1;
+    //ƒxƒNƒgƒ‹ V W ‚Ì¬‚·Šp‚ğ‹‚ß‚é
+    //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
+    //    W=(wx,wy,wz)=(cx-ax,cy-ay,cz-az)
+    //    ‚Æ‚È‚è‚Ü‚·B
+    //
+    //    ‚·‚é‚ÆVAWƒxƒNƒgƒ‹‚ª‚È‚·Špƒ¿‚Í
+    //    cosƒ¿=(VAWƒxƒNƒgƒ‹‚Ì“àÏj€iV‚Ì‘å‚«‚³j€iW‚Ì‘å‚«‚³j
+    //        =(vx*wx+vy*wy+vz*wz)
+    //         €ƒ‹[ƒg(vx^2+vy^2+vz^2)€ƒ‹[ƒg(wx^2+wy^2+wz^2)
+    static float DOT, LV, LW, cosV1;
+    //_TRACE_("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
+    //_TRACE_("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
+    DOT = V.Dot(W);
+    //_TRACE_("DOT="<<DOT);
+    LV = V.Abs();
+    //_TRACE_("LV="<<LV);
+    LW = W.Abs();
+    //_TRACE_("LW="<<LW);
+
+    cosV1 = DOT / LV / LW;
+    if (cosV1 == 0) {
+        return (float)PI/2;
+    } else {
+        return cosV1;
+    }
+
+}
+
 
