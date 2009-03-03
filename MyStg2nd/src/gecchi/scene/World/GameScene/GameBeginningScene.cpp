@@ -66,7 +66,7 @@ void GameBeginningScene::processBehavior() {
         //活動ループ
         _dwFrame_Decide++;
 
-        if (_dwFrame_Decide == 120) {
+        if (_dwFrame_Decide == 600*10) { //5秒（ここでステージを作ってるはず
             setProgress(GAMEBEGINNING_PROG_END); //お終い
         }
     }

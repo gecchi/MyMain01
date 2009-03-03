@@ -9,7 +9,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pStage01Main = NEW Stage01MainScene("Stage01Main");
 	_pStage01Main->inactAlone();
     addSubLast(_pStage01Main);
-
+    Sleep(2);
 	_pBackGround01 = NEW BackGround01Plate("BACKGOROUND01", "");
 	_pBackGround01->inact();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);

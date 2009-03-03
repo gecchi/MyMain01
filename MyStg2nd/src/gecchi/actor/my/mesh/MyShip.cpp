@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/Å„2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2", "default") {
+MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/cube22", "default") {
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "M/ebi2") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
