@@ -85,7 +85,6 @@ public:
     T Dot(vector<T> pV) const {
         return (T) (x * pV.x + y * pV.y + z * pV.z);
     }
-    ;
     vector<T> Cross(vector<T> pV) const {
         return vector<T> ((T) (y * pV.z - z * pV.y), (T) (z * pV.x - x * pV.z),
                 (T) (x * pV.y - y * pV.x));
@@ -95,6 +94,10 @@ public:
                 (T) (x * pV.y - y * pV.x));
         pR.Normalize();
         return pR;
+    }
+    //addtsuge
+    T Abs() {
+        return (T) sqrt(x * x + y * y + z * z);
     }
 };
 
