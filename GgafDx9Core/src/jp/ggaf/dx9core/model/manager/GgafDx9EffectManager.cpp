@@ -32,6 +32,33 @@ ID3DXEffect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
     return pID3DXEffect_New;
 }
 
+void GgafDx9EffectManager::onDeviceLostAll() {
+    _TRACE_("GgafDx9EffectManager::onDeviceLostAll() start-->");
+    GgafResourceConnection<ID3DXEffect>* pCurrent = _pTop;
+    HRESULT hr;
+    while (pCurrent != NULL) {
+        hr = pCurrent->view()->OnLostDevice();
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll エフェクト["<<pCurrent->_idstr<<"]の OnLostDevice() に失敗しました。");
+        _TRACE_("onDeviceLostAll pCurrent="<<pCurrent->_idstr << " OnLostDevice() execute");
+        pCurrent = pCurrent->_pNext;
+    }
+    _TRACE_("GgafDx9EffectManager::onDeviceLostAll() end<--");
+}
+
+void GgafDx9EffectManager::restoreAll() {
+    _TRACE_("GgafDx9EffectManager::restoreAll() start-->");
+    GgafResourceConnection<ID3DXEffect>* pCurrent = _pTop;
+    HRESULT hr;
+    while (pCurrent != NULL) {
+        hr = pCurrent->view()->OnResetDevice();
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() エフェクト["<<pCurrent->_idstr<<"]の OnResetDevice() に失敗しました。");
+        _TRACE_("restoreAll pCurrent="<<pCurrent->_idstr << " restoreAll() execute");
+        pCurrent = pCurrent->_pNext;
+    }
+    _TRACE_("GgafDx9EffectManager::restoreAll() end<--");
+}
+
+
 GgafResourceConnection<ID3DXEffect>* GgafDx9EffectManager::processCreateConnection(char* prm_idstr,
                                                                        ID3DXEffect* prm_pResource) {
     _TRACE_(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" を生成開始。");

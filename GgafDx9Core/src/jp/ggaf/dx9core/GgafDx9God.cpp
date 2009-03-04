@@ -284,16 +284,6 @@ HRESULT GgafDx9God::initDx9Device() {
     //ピクセル単位のアルファテストを有効
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
-    //1段階目ポリゴンとテクスチャの合成方法設定
-//    //テクスチャーの色と、頂点カラーのDIFFUSE色を乗算するように設定
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
-////    //テクスチャーのαと、頂点カラーのαを乗算するように設定
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
-//    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
-
     //2段階目、半透明テクスチャを貼り付けたポリゴンとバックバッファ（レンダーターゲット）との合成
     //色の算出方法の設定
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOPALPHA, D3DBLENDOP_ADD); //D3DBLENDOP_ADD=転送元に転送先が加算
@@ -320,11 +310,11 @@ HRESULT GgafDx9God::initDx9Device() {
     //頂点αを使用するとき
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
 
-
+   //
+    //
     // アンチエイリアスの指定
     //GgafDx9God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
     //GgafDx9God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MINFILTER, D3DTEXF_LINEAR);
-
     //	TypeにD3DSAMP_MINFILTER/D3DSAMP_MAGFILTER（拡大/縮小時） ??D3DTSS_MAGFILTER
     //	ValueにD3DTEXTUREFILTERTYPE列挙型を指定する
     //	D3DTEXF_POINT　　　　：フィルタをかけない。高速描画できる
@@ -334,9 +324,28 @@ HRESULT GgafDx9God::initDx9Device() {
     //	D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
     //	を指定する。
 
+    //2009/3/4 SetSamplerStateの意味が今ごろわかった。
+    //SetSamplerStateはテクスチャからどうサンプリング（読み取るか）するかの設定。
+    //だからアンチエイリアスつっても、テクスチャしかアンチエイリアスがかかりません。
+    //多分s0レジスタをなんやら設定するのだろう。
+    //今後ピクセルシェーダーで全部設定するので、このあたりの設定は、将来全部いらなくなるはずだ。
+
+
     //アンチエイリアスにかかわるレンダリングステート
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEANTIALIAS,TRUE);
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_MULTISAMPLEMASK,0x7fffffff);
+
+    //SetTextureStageStateは廃止？
+    //  1段階目ポリゴンとテクスチャの合成方法設定
+    //    //テクスチャーの色と、頂点カラーのDIFFUSE色を乗算するように設定
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLOROP, D3DTOP_MODULATE);
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG1, D3DTA_TEXTURE);
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_COLORARG2, D3DTA_DIFFUSE);
+    //    //テクスチャーのαと、頂点カラーのαを乗算するように設定
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAOP, D3DTOP_MODULATE);
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG1, D3DTA_TEXTURE);
+    //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
+
 
 
     // VIEW変換（カメラ位置）設定
@@ -415,15 +424,21 @@ void GgafDx9God::makeWorldMaterialize() {
             }
          ___BeginSynchronized; // ----->排他開始
             _TRACE_("正常デバイスロスト処理。Begin");
+            //エフェクト、デバイスロスト処理
+            GgafDx9God::_pEffectManager->onDeviceLostAll();
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
             getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。");
+
             //デバイス再設定
             GgafDx9God::initDx9Device();
+            //エフェクトリセット
+            GgafDx9God::_pEffectManager->restoreAll();
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
@@ -486,6 +501,8 @@ void GgafDx9God::makeWorldVisualize() {
             }
          ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
+            //エフェクト、デバイスロスト処理
+            GgafDx9God::_pEffectManager->onDeviceLostAll();
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
@@ -495,6 +512,8 @@ void GgafDx9God::makeWorldVisualize() {
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
             //デバイス再設定
             GgafDx9God::initDx9Device();
+            //エフェクトリセット
+            GgafDx9God::_pEffectManager->restoreAll();
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令

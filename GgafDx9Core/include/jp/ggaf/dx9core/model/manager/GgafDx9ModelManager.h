@@ -55,12 +55,6 @@ private:
 
 public:
 
-    struct VTXINFO {
-        UINT indexVertice;
-        float r;
-        Frm::Vector vn;
-    };
-
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

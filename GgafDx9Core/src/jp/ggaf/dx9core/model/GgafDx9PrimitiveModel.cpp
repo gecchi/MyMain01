@@ -39,20 +39,20 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 
     for (int i = 0; i < _nMaterialListGrp; i++) {
-		hr = pTargetActor->_pID3DXEffect->BeginPass( 0 );
-		whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) に失敗しました。");
+		//hr = pTargetActor->_pID3DXEffect->BeginPass( 0 );
+		//whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) に失敗しました。");
 
         material_no = _paIndexParam[i].MaterialNo;
-        GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[material_no]));
+       // GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[material_no]));
         if (_papTextureCon[material_no] != NULL) {
             //テクスチャのセット
             GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
-            hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
-            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
+            //hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
+            //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
         } else {
             //無ければテクスチャ無し
-            hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", NULL );
-            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
+            //hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", NULL );
+            //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         hr = pTargetActor->_pID3DXEffect->SetValue("g_MaterialAmbient", &(pTargetActor->_paD3DMaterial9[material_no].Ambient), sizeof(D3DCOLORVALUE) );
@@ -69,10 +69,8 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _paIndexParam[i].NumVertices,
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
-		hr = pTargetActor->_pID3DXEffect->EndPass();
-		if (hr != D3D_OK) {
-			whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() に失敗しました。");
-		}
+		//hr = pTargetActor->_pID3DXEffect->EndPass();
+		//whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() に失敗しました。");
 
     }
     GgafDx9ModelManager::_id_lastdraw = _id;

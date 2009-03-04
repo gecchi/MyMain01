@@ -48,7 +48,7 @@ void GgafDx9PrimitiveActor::processDrawMain() {
     D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
 
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
+    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
 
     hr = _pID3DXEffect->SetMatrix( "g_matWorld", &matWorld );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -59,7 +59,13 @@ void GgafDx9PrimitiveActor::processDrawMain() {
     hr = _pID3DXEffect->Begin( &numPass, 0 );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
+    hr = _pID3DXEffect->BeginPass( 0 );
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     _pPrimitiveModel->draw(this);
+
+    hr = _pID3DXEffect->EndPass();
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = _pID3DXEffect->End();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

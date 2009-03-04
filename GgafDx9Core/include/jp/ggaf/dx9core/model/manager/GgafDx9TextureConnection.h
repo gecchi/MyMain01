@@ -14,12 +14,21 @@ public:
      * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
      * @param prm_pIDirect3DTexture9 テクスチャ
      */
-    GgafDx9TextureConnection(char* prm_idstr, LPDIRECT3DTEXTURE9 prm_pIDirect3DTexture9);
+    GgafDx9TextureConnection(char* prm_idstr, IDirect3DTexture9* prm_pIDirect3DTexture9);
 
     void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
-    virtual ~GgafDx9TextureConnection() {
+
+    IDirect3DTexture9* view() {
+
+        _pResource->AddRef();
+        ULONG refcnt = _pResource->Release();
+        _TRACE_("GgafDx9TextureConnection::view "<<_idstr<<" _pResourceの参照カウンタ＝" << refcnt);
+        return _pResource;
     }
+
+
+    virtual ~GgafDx9TextureConnection();
 };
 
 }

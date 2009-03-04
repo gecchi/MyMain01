@@ -143,16 +143,11 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         int nVertices = pMeshesFront->_nVertices;
         int nFaces = pMeshesFront->_nFaces;
 
-    //    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
-    //    //テクスチャの参照を保持させる。
-    //    prm_pSpriteModel->_pTextureCon = pTextureCon;
-
         paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
-        //paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
         prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX) * nVertices;
         prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9PrimitiveModel::VERTEX);
 
-        //設定
+        //法線以外設定
         for (int i = 0; i < nVertices; i++) {
             Sleep(1);
             paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
@@ -162,120 +157,86 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             paVtxBuffer_org[i].ny = 0.0f;
             paVtxBuffer_org[i].nz = 0.0f;
             paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
-            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
+            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
             paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
         }
 
-        //出来る限りUV座標設定
         int nTextureCoords = pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
             _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
             _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
 
-//        for (int i = 0; i < nVertices; i++) {
-//            Sleep(1);
-//            paVtxBuffer_org[i].tu = pMeshesFront->_TextureCoords[i].data[0];
-//            paVtxBuffer_org[i].tv = pMeshesFront->_TextureCoords[i].data[1];
-//        }
         //法線設定
-        //共有頂点の法線の平均化！
-        //face の 法線を３頂点設定する。但し、共有頂点を設定する場合、その法線の影響度割合（共有頂点にfaceが作る成す角/その頂点にぶら下がる全faceの成す角）
-        //を考慮して合算。最後に正規化する。
-        GgafDx9ModelManager::VTXINFO* v_vtxInfo = NEW GgafDx9ModelManager::VTXINFO[nFaces*3];
-        float* paRadSum_Vtx = NEW float[nVertices];
-        //static GgafDx9ModelManager::VTXINFO vtxinfo_wk;
-        //GgafDx9ModelManager::VTXINFO vtxinfo1;
-        //GgafDx9ModelManager::VTXINFO vtxinfo2;
-        unsigned short indexVertices[3];
-        unsigned short indexNormals[3];
+        //共有頂点の法線の平均化を試みる！
+        //【2009/03/04の脳みそによるアイディア】
+        //共有頂点に、面が同方向方面に集中した場合、単純に平均化（加算して割る）すると法線は偏ってしまう。
+        //そこで、法線の影響度割合（率）を、その法線が所属する頂点の成す角の大きさで決めるようにした。
+        //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
+        //とした。最後に正規化する。
+
+        static float* paRad = NEW float[nFaces*3]; //初期化子で初期化
+        std::fill_n(paRad, nFaces*3, 0);
+        static float* paRadSum_Vtx = NEW float[nVertices];
+        std::fill_n(paRadSum_Vtx, nVertices, 0);
+        static unsigned short indexVertices_per_Face[3];
+        static unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
             Sleep(1);
             for (int j = 0; j < 3; j++) {
-                indexVertices[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ(A,B,Cとする)
-                indexNormals[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ(A,B,Cとする)
+                indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
             }
 
-            //頂点A の成す角を求め、法線と紐つけて保持
-            v_vtxInfo[i*3+0].indexVertice = indexVertices[0];
-            v_vtxInfo[i*3+0].r = getRadv1_v0v1v2(
-                           pMeshesFront->_Vertices[indexVertices[2]],
-                           pMeshesFront->_Vertices[indexVertices[0]],
-                           pMeshesFront->_Vertices[indexVertices[1]]
-                        );
-            v_vtxInfo[i*3+0].vn.x = pMeshesFront->_Normals[indexNormals[0]].x;
-            v_vtxInfo[i*3+0].vn.y = pMeshesFront->_Normals[indexNormals[0]].y;
-            v_vtxInfo[i*3+0].vn.z = pMeshesFront->_Normals[indexNormals[0]].z;
-            //頂点B の成す角を求め、法線と紐つけて保持
-            v_vtxInfo[i*3+1].indexVertice = indexVertices[1];
-            v_vtxInfo[i*3+1].r = getRadv1_v0v1v2(
-                           pMeshesFront->_Vertices[indexVertices[0]],
-                           pMeshesFront->_Vertices[indexVertices[1]],
-                           pMeshesFront->_Vertices[indexVertices[2]]
-                        );
-            v_vtxInfo[i*3+1].vn.x = pMeshesFront->_Normals[indexNormals[1]].x;
-            v_vtxInfo[i*3+1].vn.y = pMeshesFront->_Normals[indexNormals[1]].y;
-            v_vtxInfo[i*3+1].vn.z = pMeshesFront->_Normals[indexNormals[1]].z;
-            //頂点C の成す角を求め、法線と紐つけて保持
-            v_vtxInfo[i*3+2].indexVertice = indexVertices[2];
-            v_vtxInfo[i*3+2].r = getRadv1_v0v1v2(
-                           pMeshesFront->_Vertices[indexVertices[1]],
-                           pMeshesFront->_Vertices[indexVertices[2]],
-                           pMeshesFront->_Vertices[indexVertices[0]]
-                        );
-            v_vtxInfo[i*3+2].vn.x = pMeshesFront->_Normals[indexNormals[1]].x;
-            v_vtxInfo[i*3+2].vn.y = pMeshesFront->_Normals[indexNormals[1]].y;
-            v_vtxInfo[i*3+2].vn.z = pMeshesFront->_Normals[indexNormals[1]].z;
+            //頂点インデックス A の角(∠CAB)を求めて、配列に保持
+            paRad[i*3+0] = getRadv1_v0v1v2(
+                             pMeshesFront->_Vertices[indexVertices_per_Face[2]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[1]]
+                           );
+            //A の頂点インデックス番号に紐つけて、角を加算
+            paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
 
+            //頂点インデックス B の角(∠ABC)を求めて、配列に保持
+            paRad[i*3+1] = getRadv1_v0v1v2(
+                             pMeshesFront->_Vertices[indexVertices_per_Face[0]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[1]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[2]]
+                           );
+            //B の頂点インデックス番号に紐つけて、角を加算
+            paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
-
-            paRadSum_Vtx[indexVertices[0]] += getRadv1_v0v1v2(
-                                                    pMeshesFront->_Vertices[indexVertices[2]],
-                                                    pMeshesFront->_Vertices[indexVertices[0]],
-                                                    pMeshesFront->_Vertices[indexVertices[1]]
-                                              );
-            paRadSum_Vtx[indexVertices[1]] += getRadv1_v0v1v2(
-                                                    pMeshesFront->_Vertices[indexVertices[0]],
-                                                    pMeshesFront->_Vertices[indexVertices[1]],
-                                                    pMeshesFront->_Vertices[indexVertices[2]]
-                                              );
-            paRadSum_Vtx[indexVertices[2]] += getRadv1_v0v1v2(
-                                                    pMeshesFront->_Vertices[indexVertices[1]],
-                                                    pMeshesFront->_Vertices[indexVertices[2]],
-                                                    pMeshesFront->_Vertices[indexVertices[0]]
-                                              );
-
-
-            //v_vtxInfo.push_back(vtxinfo2);
-
-//            _TRACE_("iv0_iv1_iv2="<<vtxinfo0.indexVertice<<"→"<<vtxinfo1.indexVertice<<"→"<<vtxinfo2.indexVertice);
-//            _TRACE_("v0v1v2=("<<vtxinfo0.vn.x<<","<<vtxinfo0.vn.y<<","<<vtxinfo0.vn.z<<") ("<<vtxinfo1.vn.x<<","<<vtxinfo1.vn.y<<","<<vtxinfo1.vn.z<<") ("<<vtxinfo2.vn.x<<","<<vtxinfo2.vn.y<<","<<vtxinfo2.vn.z<<")");
-//            _TRACE_("R201="<<vtxinfo0.r);
-//            _TRACE_("R012="<<vtxinfo1.r);
-//            _TRACE_("R120="<<vtxinfo2.r);
+            //頂点インデックス C の角(∠ACB)を求めて、配列に保持
+            paRad[i*3+2] = getRadv1_v0v1v2(
+                             pMeshesFront->_Vertices[indexVertices_per_Face[1]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[2]],
+                             pMeshesFront->_Vertices[indexVertices_per_Face[0]]
+                           );
+            //C の頂点インデックス番号に紐つけて、角を加算
+            paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
-        float radSum_Vtx;
-        float rate;
-        for (UINT i = 0; i < nVertices; i++) {
+        static float rate; //法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。その法線の出ている頂点の成す角の率。
+        for (int i = 0; i < nFaces; i++) {
             Sleep(1);
-            radSum_Vtx = 0;
-            //頂点にぶら下がる全faceの合計角を求める
-            for (UINT j = 0; j < nFaces*3; j++) {
-                if (v_vtxInfo[j].indexVertice == i) {
-                    radSum_Vtx += v_vtxInfo[j].r;
-                }
+            for (int j = 0; j < 3; j++) {
+                indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
+                indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
             }
-            //頂点にぶら下がる角頂点の法線ベクトルを、成す角分の割合で掛け算して合算
-            for (UINT j = 0; j < nFaces*3; j++) {
-                if (v_vtxInfo[j].indexVertice == i) {
-                    rate = v_vtxInfo[j].r / radSum_Vtx;
-                    paVtxBuffer_org[i].nx += v_vtxInfo[j].vn.x * rate;
-                    paVtxBuffer_org[i].ny += v_vtxInfo[j].vn.y * rate;
-                    paVtxBuffer_org[i].nz += v_vtxInfo[j].vn.z * rate;
-                }
-            }
+            rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+            paVtxBuffer_org[indexVertices_per_Face[0]].nx += (pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
+            paVtxBuffer_org[indexVertices_per_Face[0]].ny += (pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
+            paVtxBuffer_org[indexVertices_per_Face[0]].nz += (pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
+            rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+            paVtxBuffer_org[indexVertices_per_Face[1]].nx += (pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
+            paVtxBuffer_org[indexVertices_per_Face[1]].ny += (pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
+            paVtxBuffer_org[indexVertices_per_Face[1]].nz += (pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
+            rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+            paVtxBuffer_org[indexVertices_per_Face[2]].nx += (pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
+            paVtxBuffer_org[indexVertices_per_Face[2]].ny += (pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
+            paVtxBuffer_org[indexVertices_per_Face[2]].nz += (pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
         }
+
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
@@ -294,11 +255,11 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 paVtxBuffer_org[i].nz = vec.z;
             }
         }
-//        _TRACE_("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
-//        for (int i = 0; i < nVertices; i++) {
-//            _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
-//        }
-//        _TRACE_("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        _TRACE_("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        for (int i = 0; i < nVertices; i++) {
+            _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+        }
+        _TRACE_("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         //インデックスバッファ登録
         //paIdxBuffer_org = NEW WORD[nFaces*3];
         paIdxBuffer_org = NEW WORD[nFaces*3];
@@ -411,7 +372,8 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
         }
         prm_pPrimModel->_nMaterialListGrp = paramno;
-        delete[] v_vtxInfo;
+        delete[] paRad;
+        delete[] paRadSum_Vtx;
 		delete[] paParam;
     }
 //    int nVertices = pMeshesFront->_nVertices;
@@ -520,6 +482,10 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             papTextureCon[n] = NULL;
         }
         n++;
+    }
+
+    if (nMaterials != n) {
+        _TRACE_("マテリアル数がおかしいです。nMaterials="<<nMaterials<<"/n="<<n);
     }
 
     //モデルに保持させる

@@ -26,6 +26,11 @@ public:
      */
     GgafCore::GgafResourceConnection<ID3DXEffect>* processCreateConnection(char* prm_idstr, ID3DXEffect* prm_pResource);
 
+
+    void restoreAll();
+
+    void onDeviceLostAll();
+
     virtual ~GgafDx9EffectManager() {
     }
 };
