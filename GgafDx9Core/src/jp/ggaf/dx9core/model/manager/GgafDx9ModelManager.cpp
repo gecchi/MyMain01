@@ -167,16 +167,15 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
 
-        //法線設定
-        //共有頂点の法線の平均化を試みる！
+        //法線設定。
+        //共有頂点の法線は平均化を試みる！
         //【2009/03/04の脳みそによるアイディア】
-        //共有頂点に、面が同方向方面に集中した場合、単純に平均化（加算して割る）すると法線は偏ってしまう。
-        //そこで、法線の影響度割合（率）を、その法線が所属する頂点の成す角の大きさで決めるようにした。
+        //共有頂点に、面が同方面に集中した場合、単純に平均化（加算して割る）すると法線は偏ってしまう。
+        //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
         //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
         //とした。最後に正規化する。
 
-        float* paRad = NEW float[nFaces*3]; //初期化子で初期化
-
+        float* paRad = NEW float[nFaces*3];
         float* paRadSum_Vtx = NEW float[nVertices];
         for (int i = 0; i < nVertices; i++) {
             paRadSum_Vtx[i] = 0;
@@ -264,7 +263,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         }
         _TRACE_("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         //インデックスバッファ登録
-        //paIdxBuffer_org = NEW WORD[nFaces*3];
         paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
             Sleep(1);
@@ -318,42 +316,24 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 paramno++;
             }
 
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-               // _TRACE_("YES!1");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
-
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-               // _TRACE_("YES!2");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/max_num_vertices="<<max_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
-
             if (max_num_vertices <  paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                //_TRACE_("YES!3");
                 max_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
             }
-
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 0]="<<paIdxBuffer_org[faceNoCnt*3 + 0]);
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                //_TRACE_("YES!4");
                 min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 0];
             }
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 1]="<<paIdxBuffer_org[faceNoCnt*3 + 1]);
-
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                //_TRACE_("YES!5");
                 min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 1];
             }
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/_paIdxBuffer_org[faceNoCnt*3 + 2]="<<paIdxBuffer_org[faceNoCnt*3 + 2]);
-
             if (min_num_vertices >  paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                _TRACE_("YES!6");
                 min_num_vertices = paIdxBuffer_org[faceNoCnt*3 + 2];
             }
-
             prev_materialno = materialno;
         }
         if (nFaces > 0) {
@@ -379,31 +359,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         delete[] paRadSum_Vtx;
 		delete[] paParam;
     }
-//    int nVertices = pMeshesFront->_nVertices;
-//    _TRACE_("nVertices="<<nVertices);
-//    _TRACE_("prm_pPrimModel->_size_vertecs="<<prm_pPrimModel->_size_vertecs);
-//    _TRACE_("prm_pPrimModel->_size_vertec_unit="<<prm_pPrimModel->_size_vertec_unit);
-//    for (int i = 0; i < nVertices; i++) {
-//        _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
-//    }
-//    int nFaces = pMeshesFront->_nFaces;
-//    _TRACE_("<INDEXBUFFER>nFaces="<<nFaces);
-//    for (int i = 0; i < nFaces*3; i++) {
-//        _TRACE_(paIdxBuffer_org[i]);
-//    }
-//
-//    _TRACE_("パラメータ prm_pPrimModel->_nMaterialListGrp="<<prm_pPrimModel->_nMaterialListGrp);
-//    for (int i = 0; i < prm_pPrimModel->_nMaterialListGrp; i++) {
-//        _TRACE_("["<<i<<"]MaterialNo="<<paIndexParam[i].MaterialNo);
-//        _TRACE_("["<<i<<"]BaseVertexIndex="<<paIndexParam[i].BaseVertexIndex);
-//        _TRACE_("["<<i<<"]MinIndex="<<paIndexParam[i].MinIndex);
-//        _TRACE_("["<<i<<"]NumVertices="<<paIndexParam[i].NumVertices);
-//        _TRACE_("["<<i<<"]StartIndex="<<paIndexParam[i].StartIndex);
-//        _TRACE_("["<<i<<"]PrimitiveCount="<<paIndexParam[i].PrimitiveCount);
-//        _TRACE_("------------------------------------------------------------");
-//    }
-//
-
 
     if (prm_pPrimModel->_pIDirect3DVertexBuffer9 == NULL) {
 
@@ -447,9 +402,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     int nMaterials = pMeshesFront->_nMaterials;
     prm_pPrimModel->_dwNumMaterials = nMaterials;
 
-    //paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
     paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
-    //paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nMaterials];
     papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
 
     char* texture_filename;
@@ -500,10 +453,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     prm_pPrimModel->_paIndexParam = paIndexParam;
     prm_pPrimModel->_paD3DMaterial9_default = paD3DMaterial9;
     prm_pPrimModel->_papTextureCon = papTextureCon;
-
-
-
-
 }
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
