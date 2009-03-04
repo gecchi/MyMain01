@@ -175,9 +175,12 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
         //とした。最後に正規化する。
 
-        static float* paRad = NEW float[nFaces*3]; //初期化子で初期化
-        std::fill_n(paRad, nFaces*3, 0);
-        static float* paRadSum_Vtx = NEW float[nVertices];
+        float* paRad = NEW float[nFaces*3]; //初期化子で初期化
+
+        float* paRadSum_Vtx = NEW float[nVertices];
+        for (int i = 0; i < nVertices; i++) {
+            paRadSum_Vtx[i] = 0;
+        }
         std::fill_n(paRadSum_Vtx, nVertices, 0);
         static unsigned short indexVertices_per_Face[3];
         static unsigned short indexNormals_per_Face[3];

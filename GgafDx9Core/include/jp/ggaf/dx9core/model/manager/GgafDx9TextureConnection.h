@@ -18,16 +18,6 @@ public:
 
     void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
-
-    IDirect3DTexture9* view() {
-
-        _pResource->AddRef();
-        ULONG refcnt = _pResource->Release();
-        _TRACE_("GgafDx9TextureConnection::view "<<_idstr<<" _pResourceの参照カウンタ＝" << refcnt);
-        return _pResource;
-    }
-
-
     virtual ~GgafDx9TextureConnection();
 };
 
