@@ -4,7 +4,7 @@ namespace GgafCore {
 
 /**
  * 資源(Resource)アクセッサ.
- * 無駄な資源(Resource)の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
+ * 無駄な資源の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
  * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
  * から取得することとします。<BR>
  * 内部で参照カウンタにより開放か否かを判断したいためです。<BR>
@@ -89,7 +89,7 @@ int GgafResourceConnection<T>::close() {
         if (pCurrent == this) {
             //発見した場合
             int rnum = _num_connection;
-            TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 発見したので開始");
+            _TRACE_("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 発見したので開始");
 
             if (rnum == 1) {//最後の参照だった場合
                 //死に行く宿めであるので、保持リストから離脱を行なう
@@ -112,13 +112,13 @@ int GgafResourceConnection<T>::close() {
                         pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
                     }
                 }
-                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
+                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
                 _num_connection = 0;
             } else if (rnum > 0) {
-                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] まだ残ってます");
+                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum << "Connection] まだ残ってます");
                 _num_connection--;
             } else if (rnum < 0) {
-                TRACE("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum
+                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _idstr << "←" << rnum
                         << "Connection] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
                 _num_connection = 0; //とりあえず解放
             }
