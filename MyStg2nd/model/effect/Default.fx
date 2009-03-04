@@ -26,11 +26,13 @@ float4 g_LightDiffuse = float4( 1.0f, 1.0f, 1.0f, 1.0f );           // Diffuseラ
 float4 g_MaterialAmbient;  //マテリアルのAmbien反射色
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色
 
+//soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
+sampler MyTextureSampler : register(s0);
 
-texture g_diffuseMap;
-sampler MyTextureSampler = sampler_state {
-	texture = <g_diffuseMap>;
-};
+//texture g_diffuseMap;
+//sampler MyTextureSampler = sampler_state {
+//	texture = <g_diffuseMap>;
+//};
 
 //頂点シェーダー、出力構造体
 struct OUT_VS
@@ -86,13 +88,13 @@ float4 Default_PS(
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          //法線と、Diffuseライト方向の内積を計算し、face に対するライト方向の入射角による減衰具合を求める。
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                //テクスチャ原色を取得
 //	out_color = tex_color;
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; //ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色の完成！。              
+	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; //ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色の完成。              
 
 	//Ambient色を加算
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  //マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 
 	//α計算
-	out_color.a = g_LightDiffuse.a * g_LightAmbient.a * g_MaterialDiffuse.a * tex_color.a ; //但しαは法線、ライト方向が関係ないので別計算、全部掛ける。
+	out_color.a = g_LightDiffuse.a * g_LightAmbient.a * g_MaterialDiffuse.a * tex_color.a ; //但しαは法線、ライト方向が関係なしにするので別計算。全部掛けてしいまっしょうぅぇ…！
 
 	return out_color;   // 反射色
 
