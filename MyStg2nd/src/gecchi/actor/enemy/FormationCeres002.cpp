@@ -12,7 +12,8 @@ FormationCeres002::FormationCeres002(const char* prm_name, const char* prm_model
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 30; i++) { //弾ストック
                 Sleep(1);
-                pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/BDAMA", "default");
+                pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "X/Ceres", "default");
+                //pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/BDAMA");
                 pEnemyMeshShot->inactImmediately(); //最初非表示
                 _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
             }

@@ -11,6 +11,7 @@ namespace MyStg2nd {
  *
  */
 class EnemyMeshShot001 : public DefaultPrimitiveEnemyActor {
+//class EnemyMeshShot001 : public DefaultMeshEnemyActor {
 public:
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
@@ -35,6 +36,7 @@ public:
 
 public:
     EnemyMeshShot001(const char* prm_name, const char* prm_model, const char* prm_effect);
+    //EnemyMeshShot001(const char* prm_name, const char* prm_model);
 
     /**
      * ＜OverRide です＞

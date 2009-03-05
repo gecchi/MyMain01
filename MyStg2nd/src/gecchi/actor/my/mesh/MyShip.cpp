@@ -10,8 +10,8 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/Ceres", "default") {
-//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "M/ebi2") {
+MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2", "default") {
+//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "M/Ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -141,8 +141,8 @@ void MyShip::initialize() {
 
     //_pGeoMover->setRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
 	_pGeoMover->setRotAngleVelocity(AXIS_X,700);
-    _pGeoMover->setRotAngleVelocity(AXIS_Y,1000);
-    _pGeoMover->setRotAngleVelocity(AXIS_Z,1300);
+    _pGeoMover->setRotAngleVelocity(AXIS_Y,500);
+    _pGeoMover->setRotAngleVelocity(AXIS_Z,300);
 
 
 }
@@ -230,8 +230,9 @@ void MyShip::processBehavior() {
         }
     }
 
-    if (VB::isPushedDown(VB_SHOT3)) {
-        equipOption();
+    if (VB::isBeingPressed(VB_SHOT3)) {
+        setAlpha(getAlpha()-0.01);
+        //equipOption();
     }
 
     if (VB::isBeingPressed(VB_POWERUP)) {
