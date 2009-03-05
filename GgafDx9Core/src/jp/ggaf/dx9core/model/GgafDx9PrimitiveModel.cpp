@@ -31,48 +31,50 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     UINT material_no;
     if (GgafDx9ModelManager::_id_lastdraw != _id) {
-        //前回描画とモデルが違う！
+        //前回描画とモデルが違う場合。頂点バッファとインデックスバッファを設定
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PrimitiveModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+    } else {
+        //前回描画とモデルが同じ場合、頂点バッファとインデックスバッファを設定は省略できる。
     }
 
-
-    for (int i = 0; i < _nMaterialListGrp; i++) {
-		//hr = pTargetActor->_pID3DXEffect->BeginPass( 0 );
-		//whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) に失敗しました。");
-
-        material_no = _paIndexParam[i].MaterialNo;
-       // GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[material_no]));
-        if (_papTextureCon[material_no] != NULL) {
-            //テクスチャのセット
-            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
-            //hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", _papTextureCon[material_no]->view() );
-            //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
-        } else {
-            //無ければテクスチャ無し
-            //hr = pTargetActor->_pID3DXEffect->SetTexture( "g_diffuseMap", NULL );
-            //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetTexture(g_diffuseMap) に失敗しました。");
-            GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+    if (GgafDx9ModelManager::_id_lastdraw != _id || _nMaterialListGrp != 1) {
+        //前回描画とモデルが違うか、或いはマテリアルが複数の場合はテクスチャとマテリアルをちゃんとセットしてループで描画
+        for (int i = 0; i < _nMaterialListGrp; i++) {
+            material_no = _paIndexParam[i].MaterialNo;
+            if (_papTextureCon[material_no] != NULL) {
+                //テクスチャをs0レジスタにセット
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
+            } else {
+                //無ければテクスチャ無し
+                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+            }
+            hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
+            hr = pTargetActor->_pID3DXEffect->CommitChanges();
+            whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() に失敗しました。");
+            GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                            _paIndexParam[i].BaseVertexIndex,
+                                                            _paIndexParam[i].MinIndex,
+                                                            _paIndexParam[i].NumVertices,
+                                                            _paIndexParam[i].StartIndex,
+                                                            _paIndexParam[i].PrimitiveCount);
         }
-        hr = pTargetActor->_pID3DXEffect->SetValue("g_MaterialAmbient", &(pTargetActor->_paD3DMaterial9[material_no].Ambient), sizeof(D3DCOLORVALUE) );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialAmbient) に失敗しました。");
-        hr = pTargetActor->_pID3DXEffect->SetValue("g_MaterialDiffuse", &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+    } else {
+        //前回描画とモデルが同じかつ、モデルのマテリアルが一つの場合。SetTexture は省ける。
+        hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pTargetActor->_pID3DXEffect->CommitChanges();
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() に失敗しました。");
-
-
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _paIndexParam[i].BaseVertexIndex,
-                                                        _paIndexParam[i].MinIndex,
-                                                        _paIndexParam[i].NumVertices,
-                                                        _paIndexParam[i].StartIndex,
-                                                        _paIndexParam[i].PrimitiveCount);
-		//hr = pTargetActor->_pID3DXEffect->EndPass();
-		//whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() に失敗しました。");
-
+                                                        _paIndexParam[0].BaseVertexIndex,
+                                                        _paIndexParam[0].MinIndex,
+                                                        _paIndexParam[0].NumVertices,
+                                                        _paIndexParam[0].StartIndex,
+                                                        _paIndexParam[0].PrimitiveCount);
     }
+
     GgafDx9ModelManager::_id_lastdraw = _id;
     GgafGod::_num_actor_playing++;
     return D3D_OK;

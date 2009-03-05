@@ -18,6 +18,8 @@ public:
     /** エフェクト */
     GgafDx9EffectConnection* _pEffectConnection;
     ID3DXEffect* _pID3DXEffect;
+    D3DXHANDLE _hMatWorld;
+    D3DXHANDLE _hMaterialDiffuse;
 
 
     /** キャラ全体のα */

@@ -149,7 +149,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
         //法線以外設定
         for (int i = 0; i < nVertices; i++) {
-            Sleep(1);
             paVtxBuffer_org[i].x = pMeshesFront->_Vertices[i].data[0];
             paVtxBuffer_org[i].y = pMeshesFront->_Vertices[i].data[1];
             paVtxBuffer_org[i].z = pMeshesFront->_Vertices[i].data[2];
@@ -184,7 +183,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         static unsigned short indexVertices_per_Face[3];
         static unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
-            Sleep(1);
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ(A,B,Cとする)
                 indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
@@ -209,18 +207,13 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
             //頂点インデックス C の角(∠ACB)を求めて、配列に保持
-            paRad[i*3+2] = getRadv1_v0v1v2(
-                             pMeshesFront->_Vertices[indexVertices_per_Face[1]],
-                             pMeshesFront->_Vertices[indexVertices_per_Face[2]],
-                             pMeshesFront->_Vertices[indexVertices_per_Face[0]]
-                           );
+            paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
             //C の頂点インデックス番号に紐つけて、角を加算
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
         static float rate; //法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。その法線の出ている頂点の成す角の率。
         for (int i = 0; i < nFaces; i++) {
-            Sleep(1);
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
                 indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
@@ -242,7 +235,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
-            Sleep(1);
             vec.x = paVtxBuffer_org[i].nx;
             vec.y = paVtxBuffer_org[i].ny;
             vec.z = paVtxBuffer_org[i].nz;
@@ -265,7 +257,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         //インデックスバッファ登録
         paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
-            Sleep(1);
             paIdxBuffer_org[i*3 + 0] = pMeshesFront->_Faces[i].data[0];
             paIdxBuffer_org[i*3 + 1] = pMeshesFront->_Faces[i].data[1];
             paIdxBuffer_org[i*3 + 2] = pMeshesFront->_Faces[i].data[2];
@@ -290,7 +281,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
-            Sleep(1);
             materialno = pMeshesFront->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
                 //_TRACE_("BREAK! paramno="<<paramno);
@@ -435,6 +425,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し
+            //TODO:透明なテクスチャを設定してあげよう。
             papTextureCon[n] = NULL;
         }
         n++;
@@ -480,9 +471,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
          );
     whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 
-    //TODO メッシュのOptimizeを試せ！
-    //    !   メッシュの面及び頂点の順番を変更し，最適化したメッシュオブジェクトを取得する。
-    //        call XOptimize(lpMesh,D3DXMESHOPT_ATTRSORT,NULL,NULL,NULL,NULL,LOC(lpMeshOpt),iRes)
+    //最適化
+    DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
+    hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
+    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, NULL, NULL, NULL );
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
+    hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, NULL, NULL, NULL );
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
+    DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
 
     //マテリアルを取り出す
     D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
@@ -490,7 +487,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
-    // だが解放すると D3DXMATERIAL構造体配列もどうやら消えるようだ、すぐには消えないかもしれんが…（ここでハマる；）。
+    // だが解放すると D3DXMATERIAL構造体配列も消えるようだ、すぐには消えないかもしれんが…（ここでハマる；）。
     // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保存することにしましょ～、あ～そ～しましょう。
     paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
     for( DWORD i = 0; i < dwNumMaterials; i++){
@@ -499,7 +496,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
     //マテリアルのDiffuse反射をAmbient反射にコピーする
     //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-    //xファイル（MatD3D）にはDiffuse反射値しか設定されていない、そこでDiffuse反射の値で
+    //xファイルのマテリアルにはAmbient反射値は設定できない（みたい）、そこでDiffuse反射値で
     //Ambient反射値を代用することにする。とりあえず。
     //TODO:本当にこれでいいのか？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
@@ -520,7 +517,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
 
-    //Xファイルに法線がない場合、法線を設定。
+    //Xファイルに法線がない場合、FVFに法線を追加し、法線を計算してを設定。
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
         LPD3DXMESH pID3DXMesh_tmp = NULL;
         hr = pID3DXMesh->CloneMeshFVF(
@@ -928,9 +925,6 @@ void GgafDx9ModelManager::releaseAll() {
 }
 
 float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
-    //_TRACE_("v0=("<<v0.data[0]<<"."<<v0.data[1]<<","<<v0.data[2]<<")");
-    //_TRACE_("v1=("<<v1.data[0]<<"."<<v1.data[1]<<","<<v1.data[2]<<")");
-    //_TRACE_("v2=("<<v2.data[0]<<"."<<v2.data[1]<<","<<v2.data[2]<<")");
     static Frm::Vector V0;
     static Frm::Vector V1;
     static Frm::Vector V2;
@@ -944,9 +938,7 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
     //ベクトル V W の成す角を求める
     //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
     //    W=(wx,wy,wz)=(cx-ax,cy-ay,cz-az)
-    //    となります。
-    //
-    //    するとV、Wベクトルがなす角αは
+    //    とするとV、Wベクトルがなす角は
     //    cosα=(V、Wベクトルの内積）÷（Vの大きさ）÷（Wの大きさ）
     //        =(vx*wx+vy*wy+vz*wz)
     //         ÷ルート(vx^2+vy^2+vz^2)÷ルート(wx^2+wy^2+wz^2)
@@ -954,12 +946,8 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
     //_TRACE_("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
     //_TRACE_("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
     DOT = V.Dot(W);
-    //_TRACE_("DOT="<<DOT);
     LV = V.Abs();
-    //_TRACE_("LV="<<LV);
     LW = W.Abs();
-    //_TRACE_("LW="<<LW);
-
     cosV1 = DOT / LV / LW;
     if (cosV1 == 0) {
         return (float)PI/2;

@@ -163,17 +163,17 @@ HRESULT GgafDx9God::init() {
     }
 
 
-//    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
-//    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-//    hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-//                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
-//    if (hr != D3D_OK) {
-//        //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
-//        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-//                                               D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-//                                               &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
-//        if (hr != D3D_OK) {
+    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
+    hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+    if (hr != D3D_OK) {
+        //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+                                               D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+                                               &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+        if (hr != D3D_OK) {
 
 			//ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
             hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
@@ -188,13 +188,13 @@ HRESULT GgafDx9God::init() {
                 _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
             }
 
-//        } else {
-//            _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
-//        }
-//
-//    } else {
-//        _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
-//    }
+        } else {
+            _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
+        }
+
+    } else {
+        _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
+    }
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
@@ -236,8 +236,10 @@ HRESULT GgafDx9God::initDx9Device() {
      //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
      //GgafDx9God::_d3dlight9_default.Range = 1000;
      */
+    D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
+    D3DXVec3Normalize( &vecDirection, &vecDirection);
     ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
-    GgafDx9God::_d3dlight9_default.Direction = D3DXVECTOR3(-1.0f, -1.0f, 1.0f);
+    GgafDx9God::_d3dlight9_default.Direction = vecDirection;
     GgafDx9God::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL;
     GgafDx9God::_d3dlight9_default.Diffuse.a = 1.0f;
     GgafDx9God::_d3dlight9_default.Diffuse.r = 1.0f;
@@ -245,9 +247,9 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_d3dlight9_default.Diffuse.b = 1.0f;
 
     GgafDx9God::_d3dlight9_default.Ambient.a = 1.0f;
-    GgafDx9God::_d3dlight9_default.Ambient.r = 0.0f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
-    GgafDx9God::_d3dlight9_default.Ambient.g = 0.0f;
-    GgafDx9God::_d3dlight9_default.Ambient.b = 0.0f;
+    GgafDx9God::_d3dlight9_default.Ambient.r = 0.3f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
+    GgafDx9God::_d3dlight9_default.Ambient.g = 0.3f;
+    GgafDx9God::_d3dlight9_default.Ambient.b = 0.3f;
     //GgafDx9God::_d3dlight9_default.Range = 1000.0f;
 
 
