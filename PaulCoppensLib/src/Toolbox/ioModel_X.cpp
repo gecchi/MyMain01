@@ -237,7 +237,8 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
     cBone = new Frm::Bone();
 
     Token = fin.peek();
-    if (Token != '{')
+    //if (Token != '{')
+    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
         fin >> cBone->_Name;
     else
         cBone->_Name = SetUID('B');
@@ -313,7 +314,8 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     }
 
     Token = fin.peek();
-    if (Token != '{')
+    //if (Token != '{')
+    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
         fin >> _LoadMesh->_Name;
     else
         _LoadMesh->_Name = SetUID('M');
@@ -580,21 +582,21 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16) TextToNum(Data);
-        //      _TRACE_("Vertex:" << atoi(Data));/**/
+        //      _TRACE_("Vertex:" << atoi(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Vertices[cBone->_nVertices - 1] = (uint16) TextToNum(Data);
-    //   _TRACE_("Vertex:" << atoi(Data));/**/
+    //   _TRACE_("Vertex:" << atoi(Data));
 
     cBone->_Weights = new float[cBone->_nVertices];
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
-        //      _TRACE_("Weight:" << atof(Data));/**/
+        //      _TRACE_("Weight:" << atof(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Weights[cBone->_nVertices - 1] = TextToNum(Data);
-    //   _TRACE_("Weight:" << atof(Data));/**/
+    //   _TRACE_("Weight:" << atof(Data));
 
     for (int i = 0; i < 15; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
@@ -622,7 +624,8 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
     _LoadAnimationSet = new Frm::AnimationSet;
 
     Token = fin.peek();
-    if (Token != '{')
+    //if (Token != '{')
+    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
         fin >> _LoadAnimationSet->_Name;
     else
         _LoadAnimationSet->_Name = SetUID('A');
@@ -832,5 +835,4 @@ void ToolBox::IO_Model_X::MapMeshToBones(Frm::Bone* &pBone) {
             MapMeshToBones(*i);
         }
 }
-;
 
