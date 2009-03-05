@@ -163,17 +163,17 @@ HRESULT GgafDx9God::init() {
     }
 
 
-    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
-    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-    hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
-    if (hr != D3D_OK) {
-        //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
-        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-                                               D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-                                               &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
-        if (hr != D3D_OK) {
+//    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+//    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
+//    hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+//                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+//    if (hr != D3D_OK) {
+//        //ソフトウェアによる頂点処理、ハードウェアによるラスタライズを行うデバイス作成を試みる。HAL(soft vp)
+//        hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
+//                                               D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
+//                                               &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+//        if (hr != D3D_OK) {
 
 			//ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
             hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
@@ -188,13 +188,13 @@ HRESULT GgafDx9God::init() {
                 _TRACE_("GgafDx9God::init デバイスは REF で初期化できました。");
             }
 
-        } else {
-            _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
-        }
-
-    } else {
-        _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
-    }
+//        } else {
+//            _TRACE_("GgafDx9God::init デバイスは HAL(soft vp) で初期化できました。");
+//        }
+//
+//    } else {
+//        _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
+//    }
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;

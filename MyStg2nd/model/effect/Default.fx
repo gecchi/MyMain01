@@ -49,7 +49,7 @@ OUT_VS GgafDx9VS_DefaultMesh(
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線計算
-    out_vs.normal = mul(prm_normal, g_matWorld); //法線を World 変換
+    out_vs.normal = normalize(mul(prm_normal, g_matWorld)); //法線を World 変換
 	//UV
 	out_vs.uv = prm_uv;
 	return out_vs;
@@ -111,7 +111,6 @@ technique DefaultMeshTec
 	//・オブジェクトのテクスチャ
 	//・半透明α（Diffuse反射αとテクスチャαの乗算）
 	//【使用条件】
-	//・法線は正規化されていること
 	//・テクスチャが存在しs0レジスタにバインドされていること。
 	//【設定パラメータ】
 	// float4x4 g_matWorld		:	World変換行列
@@ -141,7 +140,6 @@ technique DefaultMeshTec2 {
 	//・オブジェクトのマテリアルのDiffuse反射（Ambient反射と共通）
 	//・半透明α（マテリアルDiffuse反射αのみ）
 	//【使用条件】
-	//・法線は正規化されていること
 	//【設定パラメータ】
 	// float4x4 g_matWorld		:	World変換行列
 	// float4x4 g_matView		:	View変換行列
