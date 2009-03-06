@@ -295,7 +295,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                 paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
 
                 if (faceNoCnt > 0) {
-                    _TRACE_("BREAKで前設定１ paramno="<<paramno);
                     paParam[paramno-1].MinIndex = min_num_vertices;
                     paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
                     paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
@@ -327,9 +326,6 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             prev_materialno = materialno;
         }
         if (nFaces > 0) {
-            //_TRACE_("BREAKで前設定最後 paramno="<<paramno);
-            //_TRACE_("faceNoCnt="<<faceNoCnt<<"/min_num_vertices="<<min_num_vertices<<"/max_num_vertices="<<max_num_vertices);
-
             paParam[paramno-1].MinIndex = min_num_vertices;
             paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
             paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
@@ -610,6 +606,11 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_size_vertec_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 
     //頂点配列情報をモデルに保持させる
+    //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
+    //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
+    //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+
+    //左上
     paVertex[0].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
     paVertex[0].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
     paVertex[0].z = 0.0f;
@@ -619,7 +620,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[0].tu = 0.0f;
     paVertex[0].tv = 0.0f;
-
+    //右上
     paVertex[1].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[1].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
     paVertex[1].z = 0.0f;
@@ -627,9 +628,9 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0f;
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
     paVertex[1].tv = 0.0f;
-
+    //左下
     paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
     paVertex[2].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
     paVertex[2].z = 0.0f;
@@ -638,8 +639,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0f;
-
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
+    //右下
     paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
     paVertex[3].z = 0.0f;
@@ -647,8 +648,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0f;
-    paVertex[3].tv = 1.0f;
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
 
     //バッファ作成
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {

@@ -14,12 +14,19 @@ public:
     /** モデル */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9PrimitiveModel* _pPrimitiveModel;
-
+    /**
+     * コンストラクタ
+     * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
+     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
+     * @param prm_technique エフェクトのテクニック。
+     * @param prm_pGeoMover 座標を操作するMoverクラスのインスタンスを渡す
+     * @param prm_pGeoChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
+     */
     GgafDx9PrimitiveActor(const char* prm_name,
-                     const char* prm_model,
-                     const char* prm_effect,
-                     GgafDx9GeometryMover* prm_pGeoMover,
-                     GgafDx9GeometryChecker* prm_pGeoChecker);
+                         const char* prm_model,
+                         const char* prm_technique,
+                         GgafDx9GeometryMover* prm_pGeoMover,
+                         GgafDx9GeometryChecker* prm_pGeoChecker);
 
     /**
      * ＜OverRide です＞<BR>

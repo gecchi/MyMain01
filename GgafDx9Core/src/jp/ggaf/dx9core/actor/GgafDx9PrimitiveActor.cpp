@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
                                    const char* prm_model,
-                                   const char* prm_effect,
+                                   const char* prm_technique,
                                    GgafDx9GeometryMover* prm_pGeoMover,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
 
@@ -13,17 +13,17 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
     _pPrimitiveModel = (GgafDx9PrimitiveModel*)_pModelCon->view();
     _class_name = "GgafDx9PrimitiveActor";
 
-
-    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
+    //エフェクト取得
+    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("GgafDx9MashEffect");
     _pID3DXEffect = _pEffectConnection->view();
-    //マテリアルをコピー
+    //モデルのオリジナルマテリアルをコピーして保存
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pPrimitiveModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pPrimitiveModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pPrimitiveModel->_paD3DMaterial9_default[i];
     }
-    //g_matProj(射影変換行列)は全シェーダー共通のグローバル変数とすることとする。
+    //シェーダー共通のグローバル変数設定
 	HRESULT hr;
-	hr = _pID3DXEffect->SetTechnique("DefaultMeshTec");
+	hr = _pID3DXEffect->SetTechnique(prm_technique);
     whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9PrimitiveActor::GgafDx9PrimitiveActor SetTechnique() に失敗しました。");
     //VIEW変換行列
     hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
@@ -40,8 +40,7 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
     //Ambient反射
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_LightAmbient) に失敗しました。");
-
-    //ハンドル
+    //シェーダーハンドル
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _hMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse" );
 }
@@ -57,7 +56,7 @@ void GgafDx9PrimitiveActor::setAlpha(float prm_fAlpha) {
 
 void GgafDx9PrimitiveActor::processDrawMain() {
 	HRESULT hr;
-    D3DXMATRIX matWorld; //WORLD変換行列
+    static D3DXMATRIX matWorld; //WORLD変換行列
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
     hr = _pID3DXEffect->SetMatrix(_hMatWorld, &matWorld );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) に失敗しました。");

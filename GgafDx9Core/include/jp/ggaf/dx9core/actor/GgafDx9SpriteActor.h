@@ -41,8 +41,13 @@ public:
     /** ビルボード要否 */
     bool _isBillboardingFlg;
 
+    D3DXHANDLE _hOffsetU;
+    D3DXHANDLE _hOffsetV;
+    D3DXHANDLE _hAlpha;
+
     GgafDx9SpriteActor(const char* prm_name,
                        const char* prm_spritemodel_name,
+                       const char* prm_technique,
                        GgafDx9GeometryMover* prm_pGeoMover,
                        GgafDx9GeometryChecker* prm_pGeoChecker);
 
