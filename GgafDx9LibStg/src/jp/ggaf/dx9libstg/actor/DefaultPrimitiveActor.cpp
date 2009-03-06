@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultPrimitiveActor::DefaultPrimitiveActor(const char* prm_name, const char* prm_model, const char* prm_effect) :
-    GgafDx9PrimitiveActor(prm_name, prm_model, prm_effect, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+DefaultPrimitiveActor::DefaultPrimitiveActor(const char* prm_name, const char* prm_model, const char* prm_technique) :
+    GgafDx9PrimitiveActor(prm_name, prm_model, prm_technique, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
     _class_name = "DefaultPrimitiveActor";
     _dwFrameOffset = 0;

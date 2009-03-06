@@ -13,7 +13,7 @@ public:
 
     StgChecker* _pChecker;
 
-    DefaultSpriteActor(const char* prm_name, const char* prm_model);
+    DefaultSpriteActor(const char* prm_name, const char* prm_model, const char* prm_technique);
 
     virtual void initialize() {
     }
