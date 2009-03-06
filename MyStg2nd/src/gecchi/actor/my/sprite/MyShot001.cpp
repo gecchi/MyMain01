@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyShot001::MyShot001(const char* prm_name, const char* prm_model) : DefaultSpriteMyActor(prm_name, prm_model) {
+MyShot001::MyShot001(const char* prm_name, const char* prm_model, const char* prm_technique) : DefaultSpriteMyActor(prm_name, prm_model, prm_technique) {
     _class_name = "MyShot001";
 }
 
@@ -37,9 +37,9 @@ void MyShot001::initialize() {
     //	_pChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
     //	_pChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    _SX = 10000;
-    _SY = 10000;
-    setAlpha(0.2);
+    _SX = 100000;
+    _SY = 100000;
+    setAlpha(0.3);
 
     setBumpableAlone(true);
     inact();

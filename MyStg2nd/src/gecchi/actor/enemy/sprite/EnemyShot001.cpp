@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyShot001::EnemyShot001(const char* prm_name, const char* prm_model) : EnemyShotSpriteActor(prm_name, prm_model) {
+EnemyShot001::EnemyShot001(const char* prm_name, const char* prm_model, const char* prm_technique) : EnemyShotSpriteActor(prm_name, prm_model, prm_technique) {
     _class_name = "EnemyShot001";
     inact();
 }

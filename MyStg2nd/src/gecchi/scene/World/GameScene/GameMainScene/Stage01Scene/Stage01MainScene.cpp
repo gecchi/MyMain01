@@ -12,7 +12,7 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
     for (int i = 0; i < 100; i++) {
         Sleep(1);
         //pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "M/Ceres");
-        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "X/Ceres", "default");
+        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot", "X/Ceres", "DefaultMeshTechnique");
         pEnemyMeshShot->inactImmediately(); //Å‰”ñ•\Ž¦
         _pRot->addSubLast(pEnemyMeshShot);
     }

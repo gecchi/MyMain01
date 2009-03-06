@@ -35,7 +35,7 @@ public:
     //<--- 本Actorのカスタムプロパティ
 
 public:
-    EnemyMeshShot001(const char* prm_name, const char* prm_model, const char* prm_effect);
+    EnemyMeshShot001(const char* prm_name, const char* prm_model, const char* prm_technique);
     //EnemyMeshShot001(const char* prm_name, const char* prm_model);
 
     /**

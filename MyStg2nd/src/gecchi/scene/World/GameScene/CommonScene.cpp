@@ -19,7 +19,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pEnemyShots001Rotation);
         EnemyShot001* pEnemyShot;
         for (int i = 0; i < 1; i++) { //ストック256個
-            pEnemyShot = NEW EnemyShot001("EnemyShot001", "S/hoge");
+            pEnemyShot = NEW EnemyShot001("EnemyShot001", "S/hoge", "DefaultSpriteTechnique");
             pEnemyShot->inactImmediately(); //最初非表示
             _pEnemyShots001Rotation->addSubLast(pEnemyShot);
         }
@@ -30,7 +30,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         getLordActor()->accept(KIND_EFFECT, _pEffectExplosion001Rotation);
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 30; i++) { //ストック100個
-            pEffectExplosion = NEW EffectExplosion001("EffectExplosion001", "S/EffectExplosion001");
+            pEffectExplosion = NEW EffectExplosion001("EffectExplosion001", "S/EffectExplosion001", "DefaultSpriteTechnique");
             pEffectExplosion->inactImmediately(); //最初非表示
             _pEffectExplosion001Rotation->addSubLast(pEffectExplosion);
         }

@@ -8,7 +8,7 @@ public:
 
     GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
-    MyShot001(const char* prm_name, const char* prm_model);
+    MyShot001(const char* prm_name, const char* prm_model, const char* prm_technique);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2", "default") {
+MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2", "DefaultMeshTechnique") {
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "M/Ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
@@ -90,7 +90,7 @@ MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2",
     addSubLast(_pMyShots001Rotation); //仮所属
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
-        pShot = NEW MyShot001("MY_MyShot001", "S/moji2");
+        pShot = NEW MyShot001("MY_MyShot001", "S/moji2", "DefaultSpriteTechnique");
         pShot->inactImmediately();
         _pMyShots001Rotation->addSubLast(pShot);
     }

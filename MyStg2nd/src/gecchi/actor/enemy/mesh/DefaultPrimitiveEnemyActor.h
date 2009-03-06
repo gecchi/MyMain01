@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class DefaultPrimitiveEnemyActor : public GgafDx9LibStg::DefaultPrimitiveActor {
 
 public:
-    DefaultPrimitiveEnemyActor(const char* prm_name, const char* prm_model, const char* prm_effect);
+    DefaultPrimitiveEnemyActor(const char* prm_name, const char* prm_model, const char* prm_technique);
 
     virtual ~DefaultPrimitiveEnemyActor();
 };
