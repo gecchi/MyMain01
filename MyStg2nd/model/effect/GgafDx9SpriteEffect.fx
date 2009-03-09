@@ -27,7 +27,7 @@ struct OUT_VS
 
 //スプライト標準頂点シェーダー
 OUT_VS GgafDx9VS_DefaultSprite(
-      float4 prm_pos    : POSITION,      // モデルの頂点
+      float4 prm_pos    : POSITION,     // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
 ) {
@@ -43,6 +43,26 @@ OUT_VS GgafDx9VS_DefaultSprite(
 	out_vs.uv.y = prm_uv.y + g_offsetV;
 	return out_vs;
 }
+
+//ビルボード頂点シェーダー
+OUT_VS GgafDx9VS_BillBoardSprite(
+      float4 prm_pos    : POSITION,     // モデルの頂点
+      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
+
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+
+	//頂点計算
+	float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
+	//UVのオフセットを加算
+	out_vs.uv.x = prm_uv.x + g_offsetU;
+	out_vs.uv.y = prm_uv.y + g_offsetV;
+	return out_vs;
+}
+
 
 //スプライト標準ピクセルシェーダー
 float4 GgafDx9PS_DefaultSprite(
