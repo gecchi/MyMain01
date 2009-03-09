@@ -33,7 +33,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
 	_paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
 
-    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("GgafDx9SpriteEffect");
+    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("S/GgafDx9SpriteEffect");
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pEffectConnection->view();
     _pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
 }
@@ -156,6 +156,7 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
+    DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
     _pEffectConnection->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);

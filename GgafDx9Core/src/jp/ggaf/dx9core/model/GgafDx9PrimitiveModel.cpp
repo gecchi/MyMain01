@@ -50,7 +50,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+            hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
             hr = pTargetActor->_pID3DXEffect->CommitChanges();
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() に失敗しました。");
@@ -63,7 +63,7 @@ HRESULT GgafDx9PrimitiveModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
     } else {
         //前回描画とモデルが同じかつ、モデルのマテリアルが一つの場合。SetTexture は省ける。
-        hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pTargetActor->_pID3DXEffect->CommitChanges();
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() に失敗しました。");

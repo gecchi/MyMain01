@@ -16,7 +16,7 @@ GgafDx9PrimitiveActor::GgafDx9PrimitiveActor(const char* prm_name,
     _class_name = "GgafDx9PrimitiveActor";
 
     //エフェクト取得
-    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("GgafDx9MashEffect");
+    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("X/GgafDx9MashEffect");
     _pMeshEffect = (GgafDx9MeshEffect*)_pEffectConnection->view();
     _pID3DXEffect = _pMeshEffect->_pID3DXEffect;
 
@@ -61,6 +61,7 @@ void GgafDx9PrimitiveActor::processDrawMain() {
 }
 
 GgafDx9PrimitiveActor::~GgafDx9PrimitiveActor() {
+    DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
     _pEffectConnection->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
