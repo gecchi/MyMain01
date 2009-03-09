@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model) :
-    GgafDx9MeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+    GgafDx9D3DXMeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
     _class_name = "DefaultMeshActor";
     _dwFrameOffset = 0;

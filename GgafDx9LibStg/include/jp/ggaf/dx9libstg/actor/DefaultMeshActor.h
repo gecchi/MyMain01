@@ -4,9 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
+ * GgafDx9Core::GgafDx9D3DXMeshActor を空実装した具象アクターです。
  */
-class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
+class DefaultMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 
 public:
     DWORD _dwFrameOffset;
@@ -25,11 +25,11 @@ public:
     }
 
     virtual void processDrawPrior() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+        GgafDx9Core::GgafDx9D3DXMeshActor::processDrawPrior();
     }
 
     virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+        GgafDx9Core::GgafDx9D3DXMeshActor::processDrawMain();
     }
 
     virtual void processDrawTerminate();

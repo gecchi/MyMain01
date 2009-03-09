@@ -15,18 +15,18 @@ private:
     GgafDx9TextureManager* _pTextureManager;
 
     /**
-     * GgafDx9MeshModel オブジェクトを生成。 .
+     * GgafDx9D3DXMeshModel オブジェクトを生成。 .
      * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
      * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
      */
-    GgafDx9MeshModel* createMeshModel(char* prm_model_name, DWORD prm_dwOptions);
+    GgafDx9D3DXMeshModel* createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
 
     /**
-     * GgafDx9MeshModel オブジェクトを生成。 .
+     * GgafDx9D3DXMeshModel オブジェクトを生成。 .
      * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
      * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
      */
-    GgafDx9MeshModel* createDynaMeshModel(char* prm_model_name);
+    GgafDx9D3DXMeshModel* createDynaMeshModel(char* prm_model_name);
 
     /**
      * GgafDx9SpriteModel オブジェクトを生成。 .
@@ -67,10 +67,10 @@ public:
     GgafDx9Model* processCreateResource(char* prm_idstr);
 
     /**
-     * GgafDx9MeshModel オブジェクトを再構築する。 .
-     * @param prm_pMeshModel 再構築するGgafDx9MeshModel
+     * GgafDx9D3DXMeshModel オブジェクトを再構築する。 .
+     * @param prm_pD3DXMeshModel 再構築するGgafDx9D3DXMeshModel
      */
-    void restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel);
+    void restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel);
 
     /**
      * GgafDx9SpriteModel オブジェクトを再構築する。 .
@@ -90,7 +90,7 @@ public:
      */
     void restorePlateModel(GgafDx9PlateModel* prm_pPlateModel);
 
-    void restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pMeshModel);
+    void restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pD3DXMeshModel);
 
 
     /**
@@ -109,9 +109,9 @@ public:
     void releaseAll();
 
     /**
-     * GgafDx9MeshModelオブジェクトを取得。 .
+     * GgafDx9D3DXMeshModelオブジェクトを取得。 .
      * GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
-     * から検索し、ヒットした（生成済みGgafDx9MeshModelがある）場合、 GgafDx9MeshModel にキャストしてそれを返す。<BR>
+     * から検索し、ヒットした（生成済みGgafDx9D3DXMeshModelがある）場合、 GgafDx9D3DXMeshModel にキャストしてそれを返す。<BR>
      * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
      * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
      * 毎フレーム実行されるような使用は避けるべきです。<BR>
@@ -119,7 +119,7 @@ public:
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
      */
-    GgafDx9MeshModel* restoreMeshModel(char* prm_model_name, DWORD prm_dwOptions);
+    GgafDx9D3DXMeshModel* restoreD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
 
     /**
      * GgafDx9SpriteModelオブジェクトを取得。 .

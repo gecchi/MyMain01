@@ -1,11 +1,11 @@
-#ifndef GGAFDX9MESHMODEL_H_
-#define GGAFDX9MESHMODEL_H_
+#ifndef GGAFDX9D3DXMESHMODEL_H_
+#define GGAFDX9D3DXMESHMODEL_H_
 namespace GgafDx9Core {
 
 /**
  * GgafDx9Mesh用モデルクラス.
  */
-class GgafDx9MeshModel : public GgafDx9Model {
+class GgafDx9D3DXMeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 public:
@@ -30,11 +30,11 @@ public:
      * @param prm_dwOptions D3DXLoadMeshFromXのオプション
      * @return
      */
-    GgafDx9MeshModel(char* prm_model, DWORD prm_dwOptions);
+    GgafDx9D3DXMeshModel(char* prm_model, DWORD prm_dwOptions);
 
     /**
-     * GgafDx9MeshModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDx9MeshActor
+     * GgafDx9D3DXMeshModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDx9D3DXMeshActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target);
@@ -47,11 +47,11 @@ public:
 
     /**
      * デストラクタ<BR>
-     * deleteするのはGgafDx9MeshModelManagerである<BR>
+     * deleteするのはGgafDx9D3DXMeshModelManagerである<BR>
      */
-    virtual ~GgafDx9MeshModel(); //デストラクタ
+    virtual ~GgafDx9D3DXMeshModel(); //デストラクタ
 
 };
 
 }
-#endif /*GGAFDX9MESHMODEL_H_*/
+#endif /*GGAFDX9D3DXMESHMODEL_H_*/

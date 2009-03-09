@@ -33,11 +33,11 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
     switch (model_type) {
         case 'M':
             //MeshModel
-            model = createMeshModel(model_name, D3DXMESH_SYSTEMMEM);
+            model = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
         case 'm':
             //DynaMeshModel
-            model = createMeshModel(model_name, D3DXMESH_DYNAMIC);
+            model = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'X':
             //PrimitiveModel
@@ -53,7 +53,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             break;
         case 'C':
             //cubeModel
-            model = createMeshModel("cube", D3DXMESH_SYSTEMMEM);
+            model = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
             break;
         case 'Q':
             //SquareModel
@@ -68,10 +68,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
     return model;
 }
 
-GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name, DWORD prm_dwOptions) {
-    GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name, prm_dwOptions);
-    restoreMeshModel(pMeshModel_New);
-    return pMeshModel_New;
+GgafDx9D3DXMeshModel* GgafDx9ModelManager::createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) {
+    GgafDx9D3DXMeshModel* pD3DXMeshModel_New = NEW GgafDx9D3DXMeshModel(prm_model_name, prm_dwOptions);
+    restoreD3DXMeshModel(pD3DXMeshModel_New);
+    return pD3DXMeshModel_New;
 }
 
 GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name) {
@@ -442,22 +442,22 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     prm_pPrimModel->_papTextureCon = papTextureCon;
 }
 
-void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
-    TRACE("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
-    //Xファイルのロードして必要な内容をGgafDx9MeshModelメンバに設定しインスタンスとして完成させたい
-    //以下の string xfile_name まではGgafDx9MeshModelメンバ設定のための受け取り変数。
+void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel) {
+    TRACE("GgafDx9ModelManager::restoreD3DXMeshModel(" << prm_pD3DXMeshModel->_model_name << ")");
+    //Xファイルのロードして必要な内容をGgafDx9D3DXMeshModelメンバに設定しインスタンスとして完成させたい
+    //以下の string xfile_name まではGgafDx9D3DXMeshModelメンバ設定のための受け取り変数。
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x";
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x";
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
     //Xファイルのファイルロード
     hr = D3DXLoadMeshFromX(
            xfile_name.c_str(),         //[in]  LPCTSTR pFilename
-           prm_pMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
+           prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
            GgafDx9God::_pID3DDevice9,  //[in]  LPDIRECT3DDEVICE9 pDevice
            NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
            &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
@@ -465,16 +465,16 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
            &dwNumMaterials,            //[out] DWORD* pNumMaterials
            &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
          );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
 
     //最適化
     DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
     hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, NULL, NULL, NULL );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, NULL, NULL, NULL );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
     DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
 
     //マテリアルを取り出す
@@ -482,7 +482,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     //＜2008/02/02 の脳みそ＞
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
-    //（∵GgafDx9MeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
+    //（∵GgafDx9D3DXMeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
     // だが解放すると D3DXMATERIAL構造体配列も消えるようだ、すぐには消えないかもしれんが…（ここでハマる；）。
     // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保存することにしましょ～、あ～そ～しましょう。
     paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
@@ -522,17 +522,17 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                            GgafDx9God::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
         D3DXComputeNormals(pID3DXMesh_tmp, NULL); //法線計算
         RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
     }
 
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
-    prm_pMeshModel->_pID3DXMesh = pID3DXMesh;
-    prm_pMeshModel->_paD3DMaterial9_default = paD3DMaterial9;
-    prm_pMeshModel->_papTextureCon = papTextureCon;
-    prm_pMeshModel->_dwNumMaterials = dwNumMaterials;
+    prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
+    prm_pD3DXMeshModel->_paD3DMaterial9_default = paD3DMaterial9;
+    prm_pD3DXMeshModel->_papTextureCon = papTextureCon;
+    prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
 }
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {

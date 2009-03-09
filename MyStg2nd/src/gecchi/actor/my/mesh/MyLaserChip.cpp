@@ -28,11 +28,11 @@ void MyLaserChip::initialize() {
     if (_pIDirect3DVertexBuffer9_MyLaserChip == NULL) {
         D3DVECTOR* pV;
         BYTE* pByteVertexSrc;
-        _dwVertexNum = _pMeshModel->_pID3DXMesh->GetNumVertices();
-        _pMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip);
+        _dwVertexNum = _pD3DXMeshModel->_pID3DXMesh->GetNumVertices();
+        _pD3DXMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip);
         _pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0);
         //頂点フォーマットとサイズを取得
-        _dwVertexFormat = _pMeshModel->_pID3DXMesh->GetFVF();
+        _dwVertexFormat = _pD3DXMeshModel->_pID3DXMesh->GetFVF();
         _dwFVFSize = D3DXGetFVFVertexSize(_dwVertexFormat);
         _pTetra_EFGH = NEW Tetrahedron();
 
@@ -232,7 +232,7 @@ void MyLaserChip::processDrawMain() {
      _pChecker->getHitAreaBoxs()->disable(1);
      }
      */
-    GgafDx9DynaMeshActor::processDrawMain();
+    GgafDx9DynaD3DXMeshActor::processDrawMain();
 }
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {

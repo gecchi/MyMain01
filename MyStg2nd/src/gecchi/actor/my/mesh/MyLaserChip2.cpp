@@ -52,14 +52,14 @@ void MyLaserChip2::initialize() {
     if (MyLaserChip2::_paLaserChipVertex == NULL) {
         D3DVECTOR* pV;
         BYTE* pByteVertexSrc;
-        _dwVertexNum = _pMeshModel->_pID3DXMesh->GetNumVertices();
+        _dwVertexNum = _pD3DXMeshModel->_pID3DXMesh->GetNumVertices();
         if (_dwVertexNum != 20) {
             _TRACE_("MyLaserChip2::initialize 想定外のレーザーチップ");
         }
-        _pMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
+        _pD3DXMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
         _pIDirect3DVertexBuffer9_MyLaserChip2->Lock(0, 0, (void**)&pByteVertexSrc, 0);
         //頂点フォーマットとサイズを取得
-        _dwVertexFormat = _pMeshModel->_pID3DXMesh->GetFVF();
+        _dwVertexFormat = _pD3DXMeshModel->_pID3DXMesh->GetFVF();
         _dwFVFSize = D3DXGetFVFVertexSize(_dwVertexFormat);
         _pTetra_EFGH = NEW Tetrahedron();
 
@@ -159,7 +159,7 @@ void MyLaserChip2::processDrawMain() {
             //連続しているので、Prev（一つ前方）自分の正四面体頂点ABCDを、Prev（一つ前方）のChipの正四面体頂点EFGHに重ねる。
 
 
-            //		_pMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
+            //		_pD3DXMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
             _pIDirect3DVertexBuffer9_MyLaserChip2->Lock(0, 0, (void**)&pByteVertexSrc, D3DLOCK_DISCARD); //D3DLOCK_DISCARD にしたいのぉ
 
             //頂点F
@@ -337,7 +337,7 @@ void MyLaserChip2::processDrawMain() {
     //		_pChecker->getHitAreaBoxs()->disable(1);
     //	}
 
-    GgafDx9DynaMeshActor::processDrawMain();
+    GgafDx9DynaD3DXMeshActor::processDrawMain();
 }
 
 void MyLaserChip2::processHappen(int prm_no) {
@@ -348,7 +348,7 @@ void MyLaserChip2::processHappen(int prm_no) {
             break;
         case GGAF_EVENT_DEVICE_LOST_RESTORE:
             if (_pIDirect3DVertexBuffer9_MyLaserChip2 == NULL) {
-                _pMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
+                _pD3DXMeshModel->_pID3DXMesh->GetVertexBuffer(&_pIDirect3DVertexBuffer9_MyLaserChip2);
             }
             break;
         default:
