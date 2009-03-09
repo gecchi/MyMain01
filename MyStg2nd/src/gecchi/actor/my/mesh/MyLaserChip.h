@@ -2,7 +2,7 @@
 #define MYLASERCHIP_H_
 namespace MyStg2nd {
 
-class MyLaserChip : public GgafDx9LibStg::DefaultDynaMeshActor {
+class MyLaserChip : public GgafDx9LibStg::DefaultDynaD3DXMeshActor {
 public:
 
     /** playó‘Ô‚É‚È‚Á‚½ƒtƒŒ[ƒ€(‚±‚ê‚Ì·‚ª1‚©‚Ç‚¤‚©‚Å˜A‘±‚©‚ğŒ©‚é) */

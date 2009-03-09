@@ -29,8 +29,8 @@ enum MoveWay {
     WAY_ZRIGHT_BEHIND
 };
 
-class MyShip : public GgafDx9LibStg::DefaultPrimitiveActor {
-//class MyShip : public GgafDx9LibStg::DefaultMeshActor {
+class MyShip : public GgafDx9LibStg::DefaultMeshActor {
+//class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
     class State {
     public:

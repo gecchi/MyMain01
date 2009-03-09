@@ -10,8 +10,8 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultPrimitiveActor(prm_name, "X/ebi2", "DefaultMeshTechnique") {
-//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "M/Ceres") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2", "DefaultMeshTechnique") {
+//MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "M/Ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */

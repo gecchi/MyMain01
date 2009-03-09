@@ -2,7 +2,7 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
-class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionParent : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
 public:
 

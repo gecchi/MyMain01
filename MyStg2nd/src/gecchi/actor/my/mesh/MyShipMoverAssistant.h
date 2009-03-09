@@ -2,7 +2,7 @@
 #define MYSHIPMOVERASSISTANT_H_
 namespace MyStg2nd {
 
-class MyShipMoverAssistant : public GgafDx9LibStg::DefaultMeshActor {
+class MyShipMoverAssistant : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
 public:
 

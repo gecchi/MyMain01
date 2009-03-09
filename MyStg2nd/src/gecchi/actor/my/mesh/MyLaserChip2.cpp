@@ -20,7 +20,7 @@ int MyLaserChip2::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip2::Vertex* MyLaserChip2::_paLaserChipVertex = NULL;
 MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
-MyLaserChip2::MyLaserChip2(const char* prm_name, const char* prm_model) : DefaultDynaMeshActor(prm_name, prm_model) {
+MyLaserChip2::MyLaserChip2(const char* prm_name, const char* prm_model) : DefaultDynaD3DXMeshActor(prm_name, prm_model) {
     _class_name = "MyLaserChip2";
     //_dwFrame_switchedToActFlg = 0;
 }
