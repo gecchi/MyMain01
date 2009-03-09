@@ -49,13 +49,13 @@ void GgafDx9SpriteActor::processDrawMain() {
     //
     //
     //	}
-
+    HRESULT hr;
     hr = _pID3DXEffect->SetTechnique(_technique);
     whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9PrimitiveActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
-    HRESULT hr = _pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
+    hr = _pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     UINT numPass;
     hr = _pID3DXEffect->Begin( &numPass, 0 );
@@ -145,25 +145,6 @@ void GgafDx9SpriteActor::nextAnimationFrame() {
         }
         _aniframe_counter = 0;
     }
-
-
-    HRESULT hr;
-    static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
-    hr = _pID3DXEffect->SetMatrix(_hMatWorld, &matWorld );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    UINT numPass;
-    hr = _pID3DXEffect->Begin( &numPass, 0 );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    for (UINT pass = 0; pass < numPass; pass++) {
-        hr = _pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        _pSpriteModel->draw(this);
-        hr = _pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    }
-    hr = _pID3DXEffect->End();
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 

@@ -15,6 +15,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
 #endif
+    string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
     HRESULT hr = D3DXCreateEffectFromFile(
                      GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
                      effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
@@ -25,9 +26,8 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
                      &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
                      &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
                 );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<prm_idstr<<"]\n"<<(const char*)(pError->GetBufferPointer()));
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     _TRACE_(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
-	_TRACE_("GgafDx9Effect::GgafDx9Effect(" << prm_effect_name << ") _id="<<_id);
 }
 
 GgafDx9Effect::~GgafDx9Effect() {
