@@ -26,7 +26,7 @@ public:
     GgafDx9SpriteModel* _pSpriteModel;
 
     /** エフェクト */
-    GgafDx9EffectConnection* _pEffectConnection;
+    GgafDx9EffectConnection* _pEffectCon;
     GgafDx9SpriteEffect* _pSpriteEffect;
     ID3DXEffect* _pID3DXEffect;
 

@@ -18,7 +18,7 @@ public:
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9MeshModel* _pMeshModel;
     /** エフェクト */
-    GgafDx9EffectConnection* _pEffectConnection;
+    GgafDx9EffectConnection* _pEffectCon;
     GgafDx9MeshEffect* _pMeshEffect;
     ID3DXEffect* _pID3DXEffect;
 

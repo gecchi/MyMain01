@@ -16,8 +16,8 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
     _class_name = "GgafDx9MeshActor";
 
     //エフェクト取得
-    _pEffectConnection = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("X/GgafDx9MashEffect");
-    _pMeshEffect = (GgafDx9MeshEffect*)_pEffectConnection->view();
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("X/GgafDx9MashEffect");
+    _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
     _pID3DXEffect = _pMeshEffect->_pID3DXEffect;
 
     //モデルのオリジナルマテリアルをコピーして保存
@@ -39,30 +39,30 @@ void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
 void GgafDx9MeshActor::processDrawMain() {
 	HRESULT hr;
 	hr = _pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9MeshActor::GgafDx9MeshActor SetTechnique() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique() に失敗しました。");
 
     static D3DXMATRIX matWorld; //WORLD変換行列
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
     hr = _pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain SetMatrix(g_matWorld) に失敗しました。");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
     UINT numPass;
     hr = _pID3DXEffect->Begin( &numPass, 0 );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain Begin() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = _pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw BeginPass(0) に失敗しました。");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") に失敗しました。");
         _pMeshModel->draw(this);
         hr = _pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw EndPass() に失敗しました。");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
     }
     hr = _pID3DXEffect->End();
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain End() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
 
 }
 
 GgafDx9MeshActor::~GgafDx9MeshActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
-    _pEffectConnection->close();
+    _pEffectCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }
