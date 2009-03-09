@@ -11,9 +11,9 @@ class VirtualButton;
 class GeoElement;
 class GeometryChain;
 class DefaultScene;
+class DefaultD3DXMeshActor;
 class DefaultMeshActor;
-class DefaultPrimitiveActor;
-class DefaultDynaMeshActor;
+class DefaultDynaD3DXMeshActor;
 class DefaultCubeActor;
 class DefaultSpriteActor;
 class DefaultPlateActor;
@@ -37,9 +37,9 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultWorld.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
-#include "jp/ggaf/dx9libstg/actor/DefaultPrimitiveActor.h"
-#include "jp/ggaf/dx9libstg/actor/DefaultDynaMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultDynaD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultPlateActor.h"

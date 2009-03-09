@@ -1,19 +1,19 @@
-#ifndef DEFAULTPRIMITIVEACTOR_H_
-#define DEFAULTPRIMITIVEACTOR_H_
+#ifndef DEFAULTD3DXMESHACTOR_H_
+#define DEFAULTD3DXMESHACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDx9Core::GgafDx9PrimitiveActor を空実装した具象アクターです。
+ * GgafDx9Core::GgafDx9D3DXMeshActor を空実装した具象アクターです。
  */
-class DefaultPrimitiveActor : public GgafDx9Core::GgafDx9PrimitiveActor {
+class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 
 public:
     DWORD _dwFrameOffset;
 
     StgChecker* _pChecker;
 
-    DefaultPrimitiveActor(const char* prm_name, const char* prm_model, const char* prm_technique);
+    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void initialize() {
     }
@@ -25,11 +25,11 @@ public:
     }
 
     virtual void processDrawPrior() {
-        GgafDx9Core::GgafDx9PrimitiveActor::processDrawPrior();
+        GgafDx9Core::GgafDx9D3DXMeshActor::processDrawPrior();
     }
 
     virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9PrimitiveActor::processDrawMain();
+        GgafDx9Core::GgafDx9D3DXMeshActor::processDrawMain();
     }
 
     virtual void processDrawTerminate();
@@ -43,8 +43,8 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual ~DefaultPrimitiveActor();
+    virtual ~DefaultD3DXMeshActor();
 };
 
 }
-#endif /*DEFAULTPRIMITIVEACTOR_H_*/
+#endif /*DEFAULTD3DXMESHACTOR_H_*/

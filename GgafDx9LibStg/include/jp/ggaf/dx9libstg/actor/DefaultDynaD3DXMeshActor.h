@@ -1,19 +1,19 @@
-#ifndef DEFAULTDYNAMESHACTOR_H_
-#define DEFAULTDYNAMESHACTOR_H_
+#ifndef DEFAULTDYNAD3DXMESHACTOR_H_
+#define DEFAULTDYNAD3DXMESHACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9DynaD3DXMeshActor を空実装した具象アクターです。
  */
-class DefaultDynaMeshActor : public GgafDx9Core::GgafDx9DynaD3DXMeshActor {
+class DefaultDynaD3DXMeshActor : public GgafDx9Core::GgafDx9DynaD3DXMeshActor {
 
 public:
     DWORD _dwFrameOffset;
 
     StgChecker* _pChecker;
 
-    DefaultDynaMeshActor(const char* prm_name, const char* prm_model);
+    DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void initialize() {
     }
@@ -45,8 +45,8 @@ public:
 
     virtual bool isOffScreen();
 
-    virtual ~DefaultDynaMeshActor();
+    virtual ~DefaultDynaD3DXMeshActor();
 };
 
 }
-#endif /*DEFAULTDYNAMESHACTOR_H_*/
+#endif /*DEFAULTDYNAD3DXMESHACTOR_H_*/
