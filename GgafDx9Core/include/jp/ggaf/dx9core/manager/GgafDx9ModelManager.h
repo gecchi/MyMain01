@@ -50,7 +50,7 @@ private:
     GgafDx9PlateModel* createPlateModel(char* prm_model_name);
 
 
-    GgafDx9PrimitiveModel* createPrimitiveModel(char* prm_model_name);
+    GgafDx9MeshModel* createMeshModel(char* prm_model_name);
 
 
 public:
@@ -90,7 +90,7 @@ public:
      */
     void restorePlateModel(GgafDx9PlateModel* prm_pPlateModel);
 
-    void restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pD3DXMeshModel);
+    void restoreMeshModel(GgafDx9MeshModel* prm_pD3DXMeshModel);
 
 
     /**

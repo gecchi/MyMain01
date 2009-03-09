@@ -40,8 +40,8 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             model = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'X':
-            //PrimitiveModel
-            model = createPrimitiveModel(model_name);
+            //MeshModel
+            model = createMeshModel(model_name);
             break;
         case 'S':
             //SpriteModel
@@ -93,18 +93,18 @@ GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name)
     return pSquareModel_New;
 }
 
-GgafDx9PrimitiveModel* GgafDx9ModelManager::createPrimitiveModel(char* prm_model_name) {
-    GgafDx9PrimitiveModel* pPrimitiveModel_New = NEW GgafDx9PrimitiveModel(prm_model_name);
-    restorePrimitiveModel(pPrimitiveModel_New);
-    return pPrimitiveModel_New;
+GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
+    GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name);
+    restoreMeshModel(pMeshModel_New);
+    return pMeshModel_New;
 }
 
 
-void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrimModel) {
-    _TRACE_("GgafDx9ModelManager::restorePrimitiveModel(" << prm_pPrimModel->_model_name << ")");
+void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
+    _TRACE_("GgafDx9ModelManager::restoreMeshModel(" << prm_pPrimModel->_model_name << ")");
     //１）頂点バッファ、インデックス頂点バッファ を作成
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
-    //３）２）を行なう過程で、同時に GgafDx9PrimitiveModel に次のメンバを作成。
+    //３）２）を行なう過程で、同時に GgafDx9MeshModel に次のメンバを作成。
     //　　　　・頂点バッファの写し
     //　　　　・インデックス頂点バッファの写し
     //　　　　・マテリアル配列(要素数＝マテリアル数)
@@ -123,8 +123,8 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
     Frm::Model3D* pModel3D = NULL;
     Frm::Mesh* pMeshesFront = NULL;
 
-    GgafDx9PrimitiveModel::INDEXPARAM* paIndexParam = NULL;
-    GgafDx9PrimitiveModel::VERTEX* paVtxBuffer_org = NULL;
+    GgafDx9MeshModel::INDEXPARAM* paIndexParam = NULL;
+    GgafDx9MeshModel::VERTEX* paVtxBuffer_org = NULL;
     WORD* paIdxBuffer_org = NULL;
     D3DMATERIAL9* paD3DMaterial9 = NULL;
     GgafDx9TextureConnection** papTextureCon = NULL;
@@ -135,7 +135,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 
         bool r = iox.Load(xfile_name, pModel3D);
         if (r == false) {
-            throwGgafCriticalException("[GgafDx9ModelManager::restorePrimitiveModel] Xファイルの読込み失敗。対象="<<xfile_name);
+            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
         pModel3D->ConcatenateMeshes();
         pMeshesFront = pModel3D->_Meshes.front();
@@ -143,9 +143,9 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         int nVertices = pMeshesFront->_nVertices;
         int nFaces = pMeshesFront->_nFaces;
 
-        paVtxBuffer_org = NEW GgafDx9PrimitiveModel::VERTEX[nVertices];
-        prm_pPrimModel->_size_vertecs = sizeof(GgafDx9PrimitiveModel::VERTEX) * nVertices;
-        prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9PrimitiveModel::VERTEX);
+        paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
+        prm_pPrimModel->_size_vertecs = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
+        prm_pPrimModel->_size_vertec_unit = sizeof(GgafDx9MeshModel::VERTEX);
 
         //法線以外設定
         for (int i = 0; i < nVertices; i++) {
@@ -269,7 +269,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
 //        }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-        GgafDx9PrimitiveModel::INDEXPARAM* paParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[nFaces];
+        GgafDx9MeshModel::INDEXPARAM* paParam = NEW GgafDx9MeshModel::INDEXPARAM[nFaces];
 
         int prev_materialno = -1;
         int materialno = 0;
@@ -331,7 +331,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
             paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
         }
 
-        paIndexParam = NEW GgafDx9PrimitiveModel::INDEXPARAM[paramno];
+        paIndexParam = NEW GgafDx9MeshModel::INDEXPARAM[paramno];
         for (int i = 0; i < paramno; i++) {
             paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
             paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
@@ -352,15 +352,15 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pPrimModel->_size_vertecs,
                 D3DUSAGE_WRITEONLY,
-                GgafDx9PrimitiveModel::FVF,
+                GgafDx9MeshModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pPrimModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = prm_pPrimModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pPrimModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name);
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] 頂点バッファのロック取得に失敗 model="<<prm_pPrimModel->_model_name);
         memcpy(pVertexBuffer, paVtxBuffer_org, prm_pPrimModel->_size_vertecs); //pVertexBuffer ← paVertex
         prm_pPrimModel->_pIDirect3DVertexBuffer9->Unlock();
     }
@@ -377,7 +377,7 @@ void GgafDx9ModelManager::restorePrimitiveModel(GgafDx9PrimitiveModel* prm_pPrim
                                 D3DPOOL_MANAGED,
                                 &(prm_pPrimModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restorePrimitiveModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
+        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
         void* pIndexBuffer;
         prm_pPrimModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , paIdxBuffer_org , sizeof(WORD) * nFaces * 3);

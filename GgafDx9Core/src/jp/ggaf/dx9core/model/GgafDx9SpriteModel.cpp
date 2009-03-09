@@ -47,9 +47,9 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     //α設定
     hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hAlpha, pTargetActor->_fAlpha);
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialAmbient) に失敗しました。");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialAmbient) に失敗しました。");
     hr = pTargetActor->_pID3DXEffect->CommitChanges();
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 //
 //        //前回描画UV違う！

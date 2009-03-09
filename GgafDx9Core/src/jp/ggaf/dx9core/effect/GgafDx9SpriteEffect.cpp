@@ -19,7 +19,7 @@ GgafDx9SpriteEffect::GgafDx9SpriteEffect(char* prm_effect_name) : GgafDx9Effect(
     //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetValue(g_LightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Diffuse”½ŽË. ƒXƒvƒ‰ƒCƒg‚É‰A‰e‚Í‚ ‚è‚Ü‚¹‚ñ
     //hr = _pID3DXEffect->SetValue("g_LightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::GgafDx9SpriteEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    //whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::GgafDx9SpriteEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 //    //Ambient”½ŽË
 //    hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));

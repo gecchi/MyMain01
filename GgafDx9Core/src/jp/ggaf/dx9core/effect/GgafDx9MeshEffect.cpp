@@ -10,10 +10,10 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     HRESULT hr;
     //VIEWïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProjrction );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveActor::GgafDx9MeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉâÉCÉgï˚å¸
     hr = _pID3DXEffect->SetValue("g_LightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshEffect::GgafDx9MeshEffect SetValue(g_LightDirection) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

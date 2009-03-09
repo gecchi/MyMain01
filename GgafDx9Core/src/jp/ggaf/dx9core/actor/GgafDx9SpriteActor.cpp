@@ -51,7 +51,7 @@ void GgafDx9SpriteActor::processDrawMain() {
     //	}
     HRESULT hr;
     hr = _pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9PrimitiveActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);

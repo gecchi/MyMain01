@@ -1,16 +1,16 @@
-#ifndef GGAFDX9PRIMITIVEMODEL_H_
-#define GGAFDX9PRIMITIVEMODEL_H_
+#ifndef GGAFDX9MESHMODEL_H_
+#define GGAFDX9MESHMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9PrimitiveActor用のモデルクラス.
- * GgafDx9PrimitiveModel は D3DXLoadMeshFromX を使用せず、独自にXファイルからモデルデータを読み込み設定する。<BR>
+ * GgafDx9MeshActor用のモデルクラス.
+ * GgafDx9MeshModel は D3DXLoadMeshFromX を使用せず、独自にXファイルからモデルデータを読み込み設定する。<BR>
  * ＜注意＞<BR>
  * ・Faceは、3角形しか駄目。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
  * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
  * ・法線について、Faceの3頂点に同じ値を設定。共有頂点の場合、後に設定された法線で上書きれる。<BR>
  *   TODO:法線の向きは平均化は、したいのですがまだしてない。いつかする！<BR>
- * ・GgafDx9PrimitiveModelは頂点インデックスの最適化しないを行なわない、行なわないのが売りでもある。<BR>
+ * ・GgafDx9MeshModelは頂点インデックスの最適化しないを行なわない、行なわないのが売りでもある。<BR>
  *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
  *   これは、DrawIndexedPrimitive は、マテリアルリストのマテリアル番号が切り替わるたびに発生することを意味し、<BR>
  *   マテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちる。<BR>
@@ -20,7 +20,7 @@ namespace GgafDx9Core {
  * ・Xファイル頂点情報等が、D3DXLoadMeshFromXの最適化によって、増えたり減ったり移動されたりして欲しくない場合。<BR>
  * ・シェーダーにパラメータを渡したい、あとから頂点をいじりたい場合等、ID3DXMesh からいちいち探すのが面倒だ。<BR>
  */
-class GgafDx9PrimitiveModel : public GgafDx9Model {
+class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
@@ -75,13 +75,13 @@ public:
      * コンストラクタ<BR>
      * @param prm_spritemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDx9PrimitiveModel(char* prm_spritemodel_name);
+    GgafDx9MeshModel(char* prm_spritemodel_name);
 
 public:
 
     /**
-     * GgafDx9PrimitiveModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDx9PrimitiveActor
+     * GgafDx9MeshModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDx9MeshActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target);
@@ -97,8 +97,8 @@ public:
     /**
      * デストラクタ<BR>
      */
-    virtual ~GgafDx9PrimitiveModel(); //デストラクタ
+    virtual ~GgafDx9MeshModel(); //デストラクタ
 };
 
 }
-#endif /*GGAFDX9PRIMITIVEMODEL_H_*/
+#endif /*GGAFDX9MESHMODEL_H_*/
