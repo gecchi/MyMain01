@@ -6,7 +6,7 @@ namespace GgafDx9Core {
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  */
-class GgafDx9EffectConnection : public GgafCore::GgafResourceConnection<ID3DXEffect> {
+class GgafDx9EffectConnection : public GgafCore::GgafResourceConnection<GgafDx9Effect> {
 
 public:
 
@@ -15,12 +15,12 @@ public:
      * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
      * @param prm_pID3DXEffect テクスチャ
      */
-    GgafDx9EffectConnection(char* prm_idstr, ID3DXEffect* prm_pID3DXEffect);
+    GgafDx9EffectConnection(char* prm_idstr, GgafDx9Effect* prm_pEffect);
 
     /**
      * オーバーライド
      */
-    void processReleaseResource(ID3DXEffect* prm_pResource);
+    void processReleaseResource(GgafDx9Effect* prm_pResource);
 
     /**
      * デストラクタ<BR>

@@ -6,7 +6,7 @@ namespace GgafDx9Core {
  * GgafDx9EffectConnection 管理クラス .
  * 生成済み GgafDx9EffectConnection オブジェクトを登録しておき、使いまわします。
  */
-class GgafDx9EffectManager : public GgafCore::GgafResourceManager<ID3DXEffect> {
+class GgafDx9EffectManager : public GgafCore::GgafResourceManager<GgafDx9Effect> {
 
 public:
 
@@ -19,12 +19,12 @@ public:
     /**
      * オーバーライド
      */
-    ID3DXEffect* processCreateResource(char* prm_idstr);
+    GgafDx9Effect* processCreateResource(char* prm_idstr);
 
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceConnection<ID3DXEffect>* processCreateConnection(char* prm_idstr, ID3DXEffect* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Effect>* processCreateConnection(char* prm_idstr, GgafDx9Effect* prm_pResource);
 
 
     void restoreAll();

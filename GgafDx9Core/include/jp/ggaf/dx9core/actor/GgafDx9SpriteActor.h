@@ -19,9 +19,17 @@ private:
     unsigned int _aniframe_counter;
 
 public:
+    char* _technique;
+
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9SpriteModel* _pSpriteModel;
+
+    /** エフェクト */
+    GgafDx9EffectConnection* _pEffectConnection;
+    GgafDx9SpriteEffect* _pSpriteEffect;
+    ID3DXEffect* _pID3DXEffect;
+
     /** キャラ全体のα */
     float _fAlpha;
 
@@ -40,10 +48,6 @@ public:
 
     /** ビルボード要否 */
     bool _isBillboardingFlg;
-
-    D3DXHANDLE _hOffsetU;
-    D3DXHANDLE _hOffsetV;
-    D3DXHANDLE _hAlpha;
 
     GgafDx9SpriteActor(const char* prm_name,
                        const char* prm_spritemodel_name,

@@ -106,6 +106,12 @@ class GgafDx9SpriteModel;
 class GgafDx9PrimitiveModel;
 class GgafDx9SquareModel;
 class GgafDx9PlateModel;
+class GgafDx9Effect;
+class GgafDx9MeshEffect;
+class GgafDx9SpriteEffect;
+
+
+
 class GgafDx9Scene;
 class GgafDx9World;
 class GgafDx9Util;
@@ -139,12 +145,12 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/CmRandomNumberGenerator.h"
 #include "jp/ggaf/dx9core/GgafDx9God.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Input.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureConnection.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9TextureManager.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelConnection.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9ModelManager.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9EffectConnection.h"
-#include "jp/ggaf/dx9core/model/manager/GgafDx9EffectManager.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9TextureConnection.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9TextureManager.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9ModelConnection.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9ModelManager.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9EffectConnection.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9EffectManager.h"
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
@@ -163,6 +169,10 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/model/GgafDx9PrimitiveModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9SquareModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9PlateModel.h"
+
+#include "jp/ggaf/dx9core/effect/GgafDx9Effect.h"
+#include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
+#include "jp/ggaf/dx9core/effect/GgafDx9SpriteEffect.h"
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9World.h"
@@ -194,10 +204,10 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/sound/GgafDx9Se.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Bgm.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeConnection.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9SeManager.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmConnection.h"
-#include "jp/ggaf/dx9core/sound/manager/GgafDx9BgmManager.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9SeConnection.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9SeManager.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9BgmConnection.h"
+#include "jp/ggaf/dx9core/manager/GgafDx9BgmManager.h"
 #include "jp/ggaf/dx9core/sound/GgafDx9Sound.h"
 
 #endif /*GGAFDX9COMMONHEADER_H_*/

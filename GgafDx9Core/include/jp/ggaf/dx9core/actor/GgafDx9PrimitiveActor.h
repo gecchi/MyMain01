@@ -11,9 +11,17 @@ class GgafDx9PrimitiveActor : public GgafDx9UntransformedActor {
 private:
 
 public:
+
+    char* _technique;
+
     /** モデル */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9PrimitiveModel* _pPrimitiveModel;
+    /** エフェクト */
+    GgafDx9EffectConnection* _pEffectConnection;
+    GgafDx9MeshEffect* _pMeshEffect;
+    ID3DXEffect* _pID3DXEffect;
+
     /**
      * コンストラクタ
      * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）

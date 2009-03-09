@@ -40,13 +40,13 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //}
     if (_pRectUV_drawlast != pRectUV_Active) {
         //ëOâÒï`âÊUVà·Ç§ÅI
-        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetV) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     //Éøê›íË
-    hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_hAlpha, pTargetActor->_fAlpha);
+    hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hAlpha, pTargetActor->_fAlpha);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw SetValue(g_MaterialAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pTargetActor->_pID3DXEffect->CommitChanges();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9PrimitiveModel::draw CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
