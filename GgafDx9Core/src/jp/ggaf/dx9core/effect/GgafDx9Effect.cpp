@@ -32,6 +32,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 
 GgafDx9Effect::~GgafDx9Effect() {
     TRACE("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " start-->");
+    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
     TRACE("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " <--end");
 }
