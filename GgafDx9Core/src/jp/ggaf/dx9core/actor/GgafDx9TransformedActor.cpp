@@ -6,6 +6,7 @@ using namespace GgafDx9Core;
 GgafDx9TransformedActor::GgafDx9TransformedActor(const char* prm_name) : GgafDx9BaseActor(prm_name) {
     _class_name = "GgafDx9TransformedActor";
     _x = _y = _z = 0.0f;
+    _paD3DMaterial9 = NULL;
 }
 
 GgafDx9TransformedActor::~GgafDx9TransformedActor() {

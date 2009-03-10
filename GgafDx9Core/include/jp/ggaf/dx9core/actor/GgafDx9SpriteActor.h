@@ -28,7 +28,6 @@ public:
     /** エフェクト */
     GgafDx9EffectConnection* _pEffectCon;
     GgafDx9SpriteEffect* _pSpriteEffect;
-    ID3DXEffect* _pID3DXEffect;
 
     /** キャラ全体のα */
     float _fAlpha;

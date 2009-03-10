@@ -25,10 +25,17 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_platemodel_name) : GgafDx9Model(prm
 //描画
 HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9MeshModel::draw("<<prm_pActor_Target->getName()<<")");
-    GgafDx9MeshActor* pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
+    //対象アクター
+    static GgafDx9MeshActor* pTargetActor;
+    pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
+    //対象SpriteActorのエフェクトラッパ
+    static GgafDx9MeshEffect* pMeshEffect;
+    pMeshEffect = pTargetActor->_pMeshEffect;
+    //対象エフェクト
+    static ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
 	HRESULT hr;
-
     UINT material_no;
     //if (GgafDx9ModelManager::_id_lastdraw != _id) {
         //前回描画とモデルが違う場合。頂点バッファとインデックスバッファを設定
@@ -50,9 +57,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+            hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
-            hr = pTargetActor->_pID3DXEffect->CommitChanges();
+            hr = pID3DXEffect->CommitChanges();
             whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
             GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                             _paIndexParam[i].BaseVertexIndex,
@@ -63,9 +70,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
     } else {
         //前回描画とモデルが同じかつ、モデルのマテリアルが一つの場合。SetTexture は省ける。
-        hr = pTargetActor->_pID3DXEffect->SetValue(pTargetActor->_pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
-        hr = pTargetActor->_pID3DXEffect->CommitChanges();
+        hr = pID3DXEffect->CommitChanges();
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[0].BaseVertexIndex,

@@ -23,9 +23,16 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
 //描画
 HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9SpriteModel::draw("<<prm_pActor_Target->getName()<<")");
-    //対象SpriteActor
+    //対象Actor
     static GgafDx9SpriteActor* pTargetActor;
     pTargetActor = (GgafDx9SpriteActor*)prm_pActor_Target;
+    //対象SpriteActorのエフェクトラッパ
+    static GgafDx9SpriteEffect* pSpriteEffect;
+    pSpriteEffect = pTargetActor->_pSpriteEffect;
+    //対象エフェクト
+    static ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = pSpriteEffect->_pID3DXEffect;
+
     //今回描画のUV
     static GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_pattno_ani_now);
@@ -40,15 +47,15 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //}
     if (_pRectUV_drawlast != pRectUV_Active) {
         //前回描画UV違う！
-        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetU) に失敗しました。");
-        hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetV) に失敗しました。");
     }
     //α設定
-    hr = pTargetActor->_pID3DXEffect->SetFloat(pTargetActor->_pSpriteEffect->_hAlpha, pTargetActor->_fAlpha);
+    hr = pID3DXEffect->SetFloat(pSpriteEffect->_hAlpha, pTargetActor->_fAlpha);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialAmbient) に失敗しました。");
-    hr = pTargetActor->_pID3DXEffect->CommitChanges();
+    hr = pID3DXEffect->CommitChanges();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 //

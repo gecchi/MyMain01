@@ -45,7 +45,10 @@ public:
     /** VIEW•ÏŠ·s—ñ */
     static D3DXMATRIX _vMatrixView;
     /** Ë‰e•ÏŠ·‹›”„‚ê‚é */
-    static D3DXMATRIX _vMatrixProjrction;
+    static D3DXMATRIX _vMatrixProj;
+    /** ³Ë‰e•ÏŠ·‹›”„‚ê‚é */
+    static D3DXMATRIX _vMatrixOrthoProj;
+
 
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;

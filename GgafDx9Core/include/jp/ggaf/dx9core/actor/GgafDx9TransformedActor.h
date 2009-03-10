@@ -19,6 +19,10 @@ private:
     }
 
 public:
+
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
+
     /** 画面X座標 */
     float _x;
     /** 画面X座標 */

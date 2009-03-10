@@ -20,7 +20,9 @@ D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
 D3DXMATRIX GgafDx9God::_vMatrixView;
-D3DXMATRIX GgafDx9God::_vMatrixProjrction;
+D3DXMATRIX GgafDx9God::_vMatrixProj;
+D3DXMATRIX GgafDx9God::_vMatrixOrthoProj;
+
 int GgafDx9God::_iPxDep = 0;
 D3DFILLMODE GgafDx9God::_d3dfillmode = D3DFILL_SOLID;//D3DFILL_WIREFRAME;//D3DFILL_SOLID;
 
@@ -367,9 +369,9 @@ HRESULT GgafDx9God::initDx9Device() {
     updateCam();
 
     // 射影変換（３Ｄ→平面）
-    //D3DXMATRIX _vMatrixProjrction; // 射影変換行列
+    //D3DXMATRIX _vMatrixProj; // 射影変換行列
     D3DXMatrixPerspectiveFovLH(
-            &_vMatrixProjrction,
+            &_vMatrixProj,
             2.0*(PI/9), //y方向視野角ラディアン(0～π)
             (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
             1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
@@ -381,14 +383,24 @@ HRESULT GgafDx9God::initDx9Device() {
     /*
      //左手座標系正射影
      D3DXMatrixOrthoLH(
-     &_vMatrixProjrction,
+     &_vMatrixProj,
      GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
      GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT),
      1.0f,
      GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
      );
      */
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProjrction);
+    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
+
+    D3DXMatrixOrthoLH(
+        &_vMatrixOrthoProj
+        (FLOAT)GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) ,    //w ビュー ボリュームの幅
+        (FLOAT)GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) ,   //h ビュー ボリュームの高さ
+        1.0,    //zn ビュー ボリュームの最小 z 値 (z 近ともいう)
+        2000.0  //zf ビュー ボリュームの最大 z 値 (z 遠ともいう)
+    );
+
+
 
     return S_OK;
 }

@@ -20,7 +20,7 @@ public:
     /** エフェクト */
     GgafDx9EffectConnection* _pEffectCon;
     GgafDx9MeshEffect* _pMeshEffect;
-    ID3DXEffect* _pID3DXEffect;
+
 
     /**
      * コンストラクタ

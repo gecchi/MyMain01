@@ -49,6 +49,7 @@ private:
      */
     GgafDx9PlateModel* createPlateModel(char* prm_model_name);
 
+    GgafDx9PlateModel* createBoardModel(char* prm_model_name);
 
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);
 
@@ -89,6 +90,8 @@ public:
      * @param prm_pPlateModel çƒç\ízÇ∑ÇÈGgafDx9PlateModel
      */
     void restorePlateModel(GgafDx9PlateModel* prm_pPlateModel);
+
+    void restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel);
 
     void restoreMeshModel(GgafDx9MeshModel* prm_pD3DXMeshModel);
 
