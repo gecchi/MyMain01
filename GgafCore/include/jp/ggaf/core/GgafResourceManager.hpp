@@ -8,15 +8,16 @@ namespace GgafCore {
  */
 template<class T>
 class GgafResourceManager : public GgafObject {
+
 private:
     /**
-     * 資源のを生成を下位で実装します。.
+     * 資源のを生成。.
      * @param prm_name 識別名
      */
     T* createResource(char* prm_idstr);
 
     /**
-     * 資源参照オブジェクトを生成.
+     * 資源接続オブジェクトを生成.
      * @param prm_name 識別名
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
@@ -24,9 +25,14 @@ private:
 public:
     /** マネージャ名称 */
     const char* _manager_name;
-
     /** GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
     GgafResourceConnection<T>* _pTop;
+
+    /**
+     * コンストラクタ
+     */
+    GgafResourceManager(const char* prm_manager_name);
+
     /**
      * GgafResourceConnectionオブジェクトをリストに追加。<BR>
      * @param prm_pNew 追加するGgafResourceConnectionオブジェクトのポインタ
@@ -41,39 +47,63 @@ public:
     virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
     /**
-     * コンストラクタ
-     * @return
-     */
-    GgafResourceManager(const char* prm_manager_name);
-
-    /**
      * デストラクタ。保持リストを強制解放します。 .
      * 全ての保持リストの GgafResourceConnectionに対し、GgafResourceConnectionのrelease()を１度実行し、<BR>
-     * GgafResourceConnectionの参照カウンタ0ならば、delete します。<BR>
-     * GgafResourceConnectionの参照カウンタ0でなければ、一言喋って delete します。<BR>
+     * GgafResourceConnectionの接続カウンタ0ならば、delete します。<BR>
+     * GgafResourceConnectionの接続カウンタ0でなければ、使用者のロジックで解放漏れの恐れがあるので
+     * 一言喋って delete します。<BR>
      */
     virtual ~GgafResourceManager();
 
     /**
      * GgafResourceConnectionオブジェクトを取得。<BR>
      * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
-     * 保持リストから取得した場合、参照カウンタが増えます。<BR>
-     * new した場合、参照カウンタは1です。<BR>
-     * @param prm_name 識別名
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
      */
     virtual GgafResourceConnection<T>* getConnection(char* prm_idstr);
+
+    /**
+     * GgafResourceConnectionオブジェクトを取得。<BR>
+     * 保持リストに存在すればそれを返し、存在しなければ new します。<BR>
+     * 保持リストから取得した場合、接続カウンタが増えます。<BR>
+     * new した場合、接続カウンタは1です。<BR>
+     * @param prm_idstr 識別名
+     */
     virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr);
 
+    /**
+     * 実際の資源のを生成を下位で実装します。.
+     * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
+     * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
+     * @param prm_idstr この識別名が渡された時、どういう資源を生成するか？ という識別名
+     * @return 資源インスタンスのポインタ
+     */
     virtual T* processCreateResource(char* prm_idstr) = 0;
 
+    /**
+     * 資源接続オブジェクトの生成を下位で実装します。.
+     * このメソッドは createResourceConnection から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
+     * prm_idstr から 資源接続オブジェクトを生成するロジックを実装してく下さい。<BR>
+     * ほとんどは、GgafResourceConnection 実装クラスを new して、それを返すだけでOK。BR>
+     * @param prm_idstr  この識別名が渡された時、どういう資源接続オブジェクトを生成するか？ という識別名
+     * @param prm_pResource 資源ポインタ
+     * @return GgafResourceConnection 資源接続オブジェクトのインスタンス（＝GgafResourceConnection 実装クラスのインスタンス）
+     */
     virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
 
+    /**
+     * マネジャーが保持するリストを出力します。（デバッグ用） .
+     */
     virtual void dump();
 };
 
+// ---------------------------------------------------------------------//
+
 template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
-        _manager_name(prm_manager_name) {
+      _manager_name(prm_manager_name) {
     TRACE("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
     _pTop = NULL;
 }
@@ -111,15 +141,16 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
         _TRACE_("警告 GgafResourceManager<T>::getConnection(NULL)");
     }
     GgafResourceConnection<T>* pObj = find(prm_idstr);
-    //未生成ならば生成
     if (pObj == NULL) {
-        T* pResource = createResource(prm_idstr); //pObj->_idstr を prm_idstr としては駄目。
+        //未生成ならば生成。接続カウンタを１
+        T* pResource = createResource(prm_idstr);
         pObj = createResourceConnection(prm_idstr, pResource);
         pObj->_num_connection = 1;
         add(pObj);
         TRACE("GgafResourceManager<T>::lead " << prm_idstr << "を新規作成して保持に決定");
         return pObj;
     } else {
+        //生成済みならそれを返す。接続カウンタを＋１
         pObj->_num_connection++;
         TRACE("GgafResourceManager<T>::lead " << prm_idstr << "はあるので参照カウント." << pObj->_num_connection);
         return pObj;

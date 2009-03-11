@@ -7,59 +7,64 @@ namespace GgafCore {
  * 無駄な資源の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
  * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
  * から取得することとします。<BR>
- * 内部で参照カウンタにより開放か否かを判断したいためです。<BR>
- * マネージャーから取得で参照カウントが+1、本クラスのReleaseで参照カウントが-1されます。<BR>
- * 参照カウントが0になった場合、資源(Resource)は開放されます。
+ * 内部で接続カウンタにより開放か否かを判断したいためです。<BR>
+ * マネージャーから取得で接続カウントが+1、本クラスのReleaseで接続カウントが-1されます。<BR>
+ * 接続カウントが0になった場合、資源(Resource)は開放されます。
  * T には資源を指定してください。<BR>
  */
 template<class T>
 class GgafResourceConnection : public GgafObject {
+    friend class GgafResourceManager<T>;
+
 protected:
+    /**
+     * コンストラクタ<BR>
+     * protected である理由は、マネジャー(GgafResourceManager<T>) が生成するため。<BR>
+     * @param prm_idstr 識別名(29文字まで)
+     * @param prm_pResource 使いまわす資源
+     */
+    GgafResourceConnection(char* prm_idstr, T* prm_pResource);
+
     /**
      * デストラクタ<BR>
      * protected である理由は、delete を this->Release() のみでに限定したため<BR>
      */
     virtual ~GgafResourceConnection() {
-    } //デストラクタ
+    }
 
 public:
-    GgafResourceManager<T>* _pManager;
 
     /** 識別名(50文字まで) */
     char* _idstr;
     /** 使いまわす資源 */
     T* _pResource;
-    /** 資源を参照しているポインタ数 */
+    /** 資源に接続しているポインタ数 */
     int _num_connection;
+    /** 資源マネジャー */
+    GgafResourceManager<T>* _pManager;
     /** 次のGgafResourceConnectionへのポインタ。終端はNULL */
     GgafResourceConnection* _pNext;
 
-    /**
-     * コンストラクタ<BR>
-     * @param prm_idstr 識別名(29文字まで)
-     * @param prm_pResource 使いまわす資源
-     * @param prm_pIDirect3DTexture9
-     */
-    GgafResourceConnection(char* prm_idstr, T* prm_pResource);
 
     /**
-     * 資源のポインタを取得。
-     * 参照カウンタは増えません<BR>
+     * 資源のポインタを参照。
+     * 接続カウンタは増えません<BR>
      */
     virtual T* view();
 
     /**
-     * 資源を解放
-     * 参照カウンタを1減らし、0になれば本当に開放します。
+     * 資源を解放 .
+     * 解放といってもマネージャの接続カウンタを1減らすだけです。
+     * 但し、接続カウンタが 0 になれば、processReleaseResourceを呼び出し、本当に解放します。
      */
     int close();
 
     /**
-     * 資源の実際のリリース処理を実装します。
+     * 資源の実際の解放処理。
+     * delete や Release など、その資源に応じた実際の解放を実装して下さい。
      * @param prm_pResource
      */
     virtual void processReleaseResource(T* prm_pResource)= 0;
-
 };
 
 template<class T>
