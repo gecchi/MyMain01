@@ -12,6 +12,8 @@ public:
     D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hOffsetU;
     D3DXHANDLE _hOffsetV;
+    D3DXHANDLE _hTransformedX;
+    D3DXHANDLE _hTransformedY;
     D3DXHANDLE _hAlpha;
 
 public:

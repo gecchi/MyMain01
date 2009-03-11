@@ -180,11 +180,11 @@ template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pTop;
     if (_pTop == NULL) {
-        TRACE("GgafResourceManager::dump 保持リストにはなにもありません。");
+        _TRACE_("GgafResourceManager::dump 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            TRACE("GgafResourceManager::dump [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
+            _TRACE_("GgafResourceManager::dump [" << pCurrent->_idstr << "←" << pCurrent->_num_connection << "Connection]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
                 pCurrent = NULL;
