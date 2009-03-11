@@ -16,6 +16,8 @@ public:
     GgafDx9LibStg::FontPlateActor* _pFontPlate01;
     GgafDx9LibStg::FontPlateActor* _pFontPlate02;
 
+
+
     Stage01Scene* _pStage01;
     Stage02Scene* _pStage02;
     Stage03Scene* _pStage03;

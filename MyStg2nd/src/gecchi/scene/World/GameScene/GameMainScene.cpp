@@ -19,6 +19,8 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontPlate02);
 
+
+
     _pStage01 = NULL;
     _pStage02 = NULL;
     _pStage03 = NULL;
@@ -66,6 +68,8 @@ void GameMainScene::initialize() {
 
 
 void GameMainScene::processBehavior() {
+
+
     if (getProgress() == GAMEMAIN_PROG_INIT) {
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
