@@ -10,27 +10,28 @@ class GgafDx9SpriteModel : public GgafDx9Model {
 
 protected:
 public:
+    /** 頂点構造体 */
     struct VERTEX {
-        float x, y, z; // 頂点座標
-        float nx, ny, nz; // 法線
-        DWORD color; // 頂点の色
-        float tu, tv; // テクスチャ座標
+        float x, y, z;    // 頂点座標
+        float nx, ny, nz; // 頂点の法線
+        DWORD color;      // 頂点色
+        float tu, tv;     // 頂点のテクスチャ座標
     };
 
+    /** 頂点バッファ */
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** VERTEXのFVF */
     static DWORD FVF;
-    /** 頂点バッファへのポインタ */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** マテリアル */
     D3DMATERIAL9* _pD3DMaterial9_default;
-    /** テクスチャ(アニメーションパターン） */
+    /** テクスチャ資源接続 */
     GgafDx9TextureConnection* _pTextureCon;
+    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
+    GgafDx9RectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-    GgafDx9RectUV* _paRectUV;
 
     /** 前回表示のUV */
     GgafDx9RectUV* _pRectUV_drawlast;

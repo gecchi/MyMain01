@@ -3,9 +3,13 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name, const char* prm_spritemodel_name) : GgafDx9TransformedActor(prm_name) {
+GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name, const char* prm_model_name, const char* prm_technique) : GgafDx9TransformedActor(prm_name) {
+_TRACE_("GgafDx9BoardActor::GgafDx9BoardActor("<<prm_name<<","<<prm_model_name<<","<<prm_technique<<")");
     _class_name = "GgafDx9BoardActor";
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
+    _technique = NEW char[51];
+    strcpy(_technique, prm_technique);
+
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model_name);
     _pBoardModel = (GgafDx9BoardModel*)_pModelCon->view();
     //ÉÇÉfÉãÇÃÉ}ÉeÉäÉAÉãÇÉRÉsÅ[ÇµÇƒï€éù
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
@@ -17,9 +21,6 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name, const char* prm_sprit
     _pattno_top = 0;
     _pattno_bottom = _pBoardModel->_pattno_max;
     _patteno_now = 0;
-    _paVertex = NEW VERTEX[4];
-	_size_vertecs = sizeof(VERTEX)* 4;
-    _size_vertec_unit = sizeof(VERTEX);
 
 
     _fAlpha = 1.0f;
@@ -29,50 +30,47 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name, const char* prm_sprit
 void GgafDx9BoardActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pBoardEffect->_pID3DXEffect;
-Ç±Ç±Ç±Ç±Ç±Ç±Ç±Ç±Ç±Ç±ÇQ
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9BoardActor::GgafDx9MeshActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
-    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, 0 );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        _pSpriteModel->draw(this);
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        _pBoardModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->End();
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
 }
 
 void GgafDx9BoardActor::setPatternNo(int prm_pattno) {
-    if (_patteno_now == prm_pattno) {
-        return;
-    } else {
-        _patteno_now = prm_pattno;
-        static GgafDx9RectUV* pRectUV_Active;
-        pRectUV_Active = (_pBoardModel->_paRectUV) + prm_pattno;
-        _paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
-        _paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
-        _paVertex[1].tu = pRectUV_Active->_aUV[1].tu;
-        _paVertex[1].tv = pRectUV_Active->_aUV[1].tv;
-        _paVertex[2].tu = pRectUV_Active->_aUV[2].tu;
-        _paVertex[2].tv = pRectUV_Active->_aUV[2].tv;
-        _paVertex[3].tu = pRectUV_Active->_aUV[3].tu;
-        _paVertex[3].tv = pRectUV_Active->_aUV[3].tv;
-    }
+//    if (_patteno_now == prm_pattno) {
+//        return;
+//    } else {
+//        _patteno_now = prm_pattno;
+//        static GgafDx9RectUV* pRectUV_Active;
+//        pRectUV_Active = (_pBoardModel->_paRectUV) + prm_pattno;
+//        _paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
+//        _paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
+//        _paVertex[1].tu = pRectUV_Active->_aUV[1].tu;
+//        _paVertex[1].tv = pRectUV_Active->_aUV[1].tv;
+//        _paVertex[2].tu = pRectUV_Active->_aUV[2].tu;
+//        _paVertex[2].tv = pRectUV_Active->_aUV[2].tv;
+//        _paVertex[3].tu = pRectUV_Active->_aUV[3].tu;
+//        _paVertex[3].tv = pRectUV_Active->_aUV[3].tv;
+//    }
 }
 
 GgafDx9BoardActor::~GgafDx9BoardActor() {
+    DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paVertex);
+    _pEffectCon->close();
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

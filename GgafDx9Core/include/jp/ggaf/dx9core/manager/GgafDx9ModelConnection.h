@@ -7,6 +7,7 @@ namespace GgafDx9Core {
  */
 class GgafDx9ModelConnection : public GgafCore::GgafResourceConnection<GgafDx9Model> {
 
+
 public:
 
     /**

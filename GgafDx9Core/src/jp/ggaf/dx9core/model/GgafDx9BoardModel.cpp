@@ -8,8 +8,8 @@ DWORD GgafDx9BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
     GgafDx9Model(prm_platemodel_name) {
     TRACE("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
-    _fSize_BoardModelWidth = 32.0f;
-    _fSize_BoardModelHeight = 32.0f;
+    _fSize_BoardModelWidthPx = 32.0f;
+    _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pattno_max = 1;
@@ -22,43 +22,47 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
 
 HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9BoardModel::draw("<<prm_pActor_Target->getName()<<")");
+    //TODO クリアするかどうか
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
-    static GgafDx9BoardActor* pBoardActor_Target;
-    pBoardActor_Target = (GgafDx9BoardActor*)prm_pActor_Target;
 
-    //α設定（効かないのでコメント）
-    //	_pD3DMaterial9->Diffuse.a = pBoardActor_Target->_fAlpha;
-    //	_pD3DMaterial9->Ambient.a = pBoardActor_Target->_fAlpha;
-    //	GgafDx9God::_pID3DDevice9->SetMaterial(_pD3DMaterial9);
+    //対象Actor
+    static GgafDx9BoardActor* pTargetActor;
+    pTargetActor = (GgafDx9BoardActor*)prm_pActor_Target;
+    //対象BoardActorのエフェクトラッパ
+    static GgafDx9BoardEffect* pBoardEffect;
+    pBoardEffect = pTargetActor->_pBoardEffect;
+    //対象エフェクト
+    static ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = pBoardEffect->_pID3DXEffect;
+    //今回描画のUV
+    static GgafDx9RectUV* pRectUV_Active;
+    pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
 
-    if (GgafDx9ModelManager::_id_lastdraw != _id) {
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
-        //ここらへんで　this が 0x0h になる
-        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
+    static HRESULT hr;
 
-    } else {
-        //ちょっとだけ早いのかどうか
-    }
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE); //ライトオフ
-    GgafDx9God::_pID3DDevice9->DrawPrimitiveUP(D3DPT_TRIANGLESTRIP, 2, pBoardActor_Target->_paVertex,
-                                               pBoardActor_Target->_size_vertec_unit);
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
-
-    //↑＜2008/10/24 の脳みそ＞
-    //GgafDx9God::_pID3DDevice9->SetMaterial で色をマテリアルで変更できると思っていた。
-    //だがしかし、いろいろやってもできなかった。 トランスフォーム済み（FVF に D3DFVF_XYZRHW 付）はマテリアルが適用されない（αができない）・・・
-    //というか、マテリアル適用は固定パイプラインの工程内ということなのか、よくわからない。
-    //しかし頂点カラーは適用される、これはどこで行われるのか。レンダの最後らへんで頂点カラーは適用されるということなのか？
-    //
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_MATERIAL); //マテリアル情報元をマテリアルにする
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1); //マテリアル情報元を頂点カラーにする
-    //
-    //とかあるので、マテリアルも頂点カラーも最後のレンダリング時に設定できるものと思ってた。違うのか、正しいのか、設定が足りないのか･･･。
-    //TODO:とりあえずα（マテリアル）は後回し。
-
-    GgafDx9ModelManager::_id_lastdraw = _id; //前回描画モデル名保存
-    //GgafGod::_num_actor_playing++;
+    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
+    GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+    //if (_pRectUV_drawlast != pRectUV_Active) {
+        //前回描画UV違う！
+        hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetV) に失敗しました。");
+    //}
+    //α設定
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hAlpha, pTargetActor->_fAlpha);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetValue(g_MaterialAmbient) に失敗しました。");
+    hr = pID3DXEffect->CommitChanges();
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw CommitChanges() に失敗しました。");
+    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    //前回描画モデル名保存
+    GgafDx9ModelManager::_id_lastdraw = _id;
+    //前回描画UV座標（へのポインタ）を保存
+    _pRectUV_drawlast = pRectUV_Active;
+    GgafGod::_num_actor_playing++;
     return D3D_OK;
+
 }
 
 void GgafDx9BoardModel::restore() {
@@ -69,7 +73,8 @@ void GgafDx9BoardModel::restore() {
 
 void GgafDx9BoardModel::release() {
     _TRACE_("GgafDx9BoardModel::release() " << _model_name << " start");
-    //GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_pTextureCon);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
     if (_pTextureCon != NULL) {
         _pTextureCon->close();
     }

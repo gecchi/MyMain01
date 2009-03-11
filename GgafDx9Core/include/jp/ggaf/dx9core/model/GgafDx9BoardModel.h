@@ -16,13 +16,24 @@ protected:
     GgafDx9BoardModel(char* prm_platemodel_name);
 
 public:
+    struct VERTEX {
+        float x, y, z; // 頂点座標
+        float tu, tv; // テクスチャ座標
+    };
 
     /** VERTEXのFVF */
     static DWORD FVF;
+    /** 頂点バッファ */
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** マテリアル */
+    D3DMATERIAL9* _pD3DMaterial9_default;
+    /** 矩形の頂点合計のサイズ */
+    UINT _size_vertecs;
+    /** 1頂点のサイズ */
+    UINT _size_vertec_unit;
 
-    /** テクスチャ(アニメーションパターン） */
+    /** テクスチャ(資源接続) */
     GgafDx9TextureConnection* _pTextureCon;
-
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
     GgafDx9RectUV* _paRectUV;
 
@@ -31,8 +42,8 @@ public:
 
     /** 全アニメパターン数 */
     int _pattno_max;
-    float _fSize_BoardModelWidth;
-    float _fSize_BoardModelHeight;
+    float _fSize_BoardModelWidthPx;
+    float _fSize_BoardModelHeightPx;
     int _row_texture_split;
     int _col_texture_split;
 

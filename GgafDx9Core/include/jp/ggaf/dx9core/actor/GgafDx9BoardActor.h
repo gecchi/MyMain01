@@ -21,6 +21,8 @@ private:
     int _aniframe_counter;
 
 public:
+    char* _technique;
+
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9BoardModel* _pBoardModel;
@@ -45,7 +47,7 @@ public:
     /** 現在表示中のアニメパターン番号 */
     int _patteno_now;
 
-    GgafDx9BoardActor(const char* prm_name, const char* prm_spritemodel_name);
+    GgafDx9BoardActor(const char* prm_name, const char* prm_spritemodel_name, const char* prm_technique);
 
     /**
      * ＜OverRide です＞<BR>

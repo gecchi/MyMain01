@@ -393,9 +393,9 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
 
     D3DXMatrixOrthoLH(
-        &_vMatrixOrthoProj
-        (FLOAT)GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) ,    //w ビュー ボリュームの幅
-        (FLOAT)GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) ,   //h ビュー ボリュームの高さ
+        &_vMatrixOrthoProj,
+        (FLOAT)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)) ,    //w ビュー ボリュームの幅
+        (FLOAT)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) ,   //h ビュー ボリュームの高さ
         1.0,    //zn ビュー ボリュームの最小 z 値 (z 近ともいう)
         2000.0  //zf ビュー ボリュームの最大 z 値 (z 遠ともいう)
     );

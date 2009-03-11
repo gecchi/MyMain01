@@ -14,11 +14,13 @@ public:
 
     char* _technique;
 
-    /** モデル */
+    /** モデル資源接続 */
     GgafDx9ModelConnection* _pModelCon;
+    /** モデル資源 */
     GgafDx9MeshModel* _pMeshModel;
-    /** エフェクト */
+    /** エフェクト資源接続 */
     GgafDx9EffectConnection* _pEffectCon;
+    /** エフェクト資源 */
     GgafDx9MeshEffect* _pMeshEffect;
 
 
@@ -26,7 +28,7 @@ public:
      * コンストラクタ
      * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
      * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
-     * @param prm_technique エフェクトのテクニック。
+     * @param prm_technique エフェクト(GgafDx9MeshEffect.fx) のテクニック。
      * @param prm_pGeoMover 座標を操作するMoverクラスのインスタンスを渡す
      * @param prm_pGeoChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
      */

@@ -16,6 +16,8 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
     _pattno_ani_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _pTextureCon = NULL;
+    _paRectUV = NULL;
+    _pRectUV_drawlast = NULL;
     //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
     //GgafDx9God::_pModelManager->restoreSpriteModel で行っている。
 }

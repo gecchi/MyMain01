@@ -97,8 +97,8 @@ GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name)
     return pSquareModel_New;
 }
 
-GgafDx9PlateModel* GgafDx9ModelManager::createBoardModel(char* prm_model_name) {
-    GgafDx9PlateModel* pBoardModel_New = NEW GgafDx9BoardModel(prm_model_name);
+GgafDx9BoardModel* GgafDx9ModelManager::createBoardModel(char* prm_model_name) {
+    GgafDx9BoardModel* pBoardModel_New = NEW GgafDx9BoardModel(prm_model_name);
     restoreBoardModel(pBoardModel_New);
     return pBoardModel_New;
 }
@@ -860,10 +860,18 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
         pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_BoardModelHeight);
         pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
         pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
+
+
         prm_pBoardModel->_fSize_BoardModelWidthPx = *pFloat_Size_BoardModelWidth;
         prm_pBoardModel->_fSize_BoardModelHeightPx = *pFloat_Size_BoardModelHeight;
         prm_pBoardModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pBoardModel->_col_texture_split = *pInt_ColNum_TextureSplit;
+
+        _TRACE_("_fSize_BoardModelWidthPx="<<prm_pBoardModel->_fSize_BoardModelWidthPx);
+        _TRACE_("_fSize_BoardModelHeightPx="<<prm_pBoardModel->_fSize_BoardModelHeightPx);
+        _TRACE_("_row_texture_split="<<prm_pBoardModel->_row_texture_split);
+        _TRACE_("_col_texture_split="<<prm_pBoardModel->_col_texture_split);
+
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" ÇÃGUIDÇ™àÍívÇµÇ‹ÇπÇÒÅB");
     }
@@ -949,7 +957,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
         }
     }
     prm_pBoardModel->_paRectUV = paRectUV;
-    prm_pBoardModel->_pattno_ani_Max=pattnum-1;
+    prm_pBoardModel->_pattno_max = pattnum-1;
 
     //å„énññ
     DELETEARR_IMPOSSIBLE_NULL(paVertex);

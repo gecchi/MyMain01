@@ -49,7 +49,7 @@ private:
      */
     GgafDx9PlateModel* createPlateModel(char* prm_model_name);
 
-    GgafDx9PlateModel* createBoardModel(char* prm_model_name);
+    GgafDx9BoardModel* createBoardModel(char* prm_model_name);
 
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);
 
