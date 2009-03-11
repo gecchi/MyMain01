@@ -7,12 +7,13 @@ DWORD GgafDx9BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
 GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
     GgafDx9Model(prm_platemodel_name) {
-    TRACE("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
+    _TRACE_("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
     _fSize_BoardModelWidthPx = 32.0f;
     _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pattno_max = 1;
+    _pIDirect3DVertexBuffer9 = NULL;
     _pTextureCon = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
