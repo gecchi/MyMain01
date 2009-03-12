@@ -5,7 +5,9 @@ namespace GgafDx9Core {
 /**
  * 座標変換済みスプライトアクター.
  * GgafDx9TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
- * 擬似スプライト機能を追加したアクターです<BR>
+ * 擬似スプライト機能を追加したアクター。<BR>
+ * 単純表示（回転拡大無し）のため高速。スコア表示や、背景等に使用しよう。<BR>
+ * ２Ｄゲームだけなら、オブジェクトはこのクラス一本でいける。<BR>
  */
 class GgafDx9BoardActor : public GgafDx9TransformedActor {
 private:
@@ -40,9 +42,9 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
 
-    /** アニメパターン番号の上限番号 */
+    /** パターン番号の上限 */
     int _pattno_top;
-    /** 現在表示中のアニメパターン番号 */
+    /** パターン番号の下限 */
     int _pattno_bottom;
     /** 現在表示中のアニメパターン番号 */
     int _patteno_now;

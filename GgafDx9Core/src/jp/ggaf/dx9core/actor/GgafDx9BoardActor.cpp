@@ -11,18 +11,15 @@ _TRACE_("GgafDx9BoardActor::GgafDx9BoardActor("<<prm_name<<","<<prm_model_name<<
 
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model_name);
     _pBoardModel = (GgafDx9BoardModel*)_pModelCon->view();
-    //モデルのマテリアルをコピーして保持
+    //モデルのマテリアルをコピーして保持(2009/3/10 現在マテリアル未使用。将来使うかも。)
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
     _paD3DMaterial9[0] = *(_pBoardModel->_pD3DMaterial9_default);
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("B/GgafDx9BoardEffect");
     _pBoardEffect = (GgafDx9BoardEffect*)_pEffectCon->view();
-
     _pattno_top = 0;
     _pattno_bottom = _pBoardModel->_pattno_max;
     _patteno_now = 0;
-
-
     _fAlpha = 1.0f;
 
 }
@@ -46,26 +43,16 @@ void GgafDx9BoardActor::processDrawMain() {
     }
     hr = pID3DXEffect->End();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain End() に失敗しました。");
-
-
 }
 
 void GgafDx9BoardActor::setPatternNo(int prm_pattno) {
-//    if (_patteno_now == prm_pattno) {
-//        return;
-//    } else {
-//        _patteno_now = prm_pattno;
-//        static GgafDx9RectUV* pRectUV_Active;
-//        pRectUV_Active = (_pBoardModel->_paRectUV) + prm_pattno;
-//        _paVertex[0].tu = pRectUV_Active->_aUV[0].tu;
-//        _paVertex[0].tv = pRectUV_Active->_aUV[0].tv;
-//        _paVertex[1].tu = pRectUV_Active->_aUV[1].tu;
-//        _paVertex[1].tv = pRectUV_Active->_aUV[1].tv;
-//        _paVertex[2].tu = pRectUV_Active->_aUV[2].tu;
-//        _paVertex[2].tv = pRectUV_Active->_aUV[2].tv;
-//        _paVertex[3].tu = pRectUV_Active->_aUV[3].tu;
-//        _paVertex[3].tv = pRectUV_Active->_aUV[3].tv;
-//    }
+    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
+        _patteno_now = prm_pattno;
+    } else if (prm_pattno < _pattno_top) {
+        _patteno_now = _pattno_top;
+    } else if (prm_pattno > _pattno_bottom) {
+        _patteno_now = _pattno_bottom;
+    }
 }
 
 GgafDx9BoardActor::~GgafDx9BoardActor() {

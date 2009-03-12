@@ -396,7 +396,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
 
 
     int nMaterials = pMeshesFront->_nMaterials;
-    prm_pPrimModel->_dwNumMaterials = nMaterials;
+
 
     paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
     papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
@@ -450,6 +450,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     prm_pPrimModel->_paIndexParam = paIndexParam;
     prm_pPrimModel->_paD3DMaterial9_default = paD3DMaterial9;
     prm_pPrimModel->_papTextureCon = papTextureCon;
+    prm_pPrimModel->_dwNumMaterials = nMaterials;
 }
 
 void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel) {

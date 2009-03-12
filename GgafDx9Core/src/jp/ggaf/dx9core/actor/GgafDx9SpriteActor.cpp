@@ -36,10 +36,6 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _isOscillateAnimationOrderFlg = true;
     _fAlpha = 1.0f;
     _isBillboardingFlg = false;
-
-
-
-
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
