@@ -36,8 +36,8 @@ OUT_VS GgafDx9VS_DefaultBoard(
     //World変換は行なわない。
 	//View変換は単位行列（＝無し）
 	//そして正射影変換
-    out_vs.pos.x = (2 * prm_pos.x  / g_view_width ) - 1 + (g_transformedX / g_view_width);
-	out_vs.pos.y = (2 * -prm_pos.y / g_view_height) + 1 - (g_transformedY / g_view_height);
+    out_vs.pos.x = (2 * prm_pos.x  / g_view_width ) - 1 + (2 * g_transformedX / g_view_width);
+	out_vs.pos.y = (2 * -prm_pos.y / g_view_height) + 1 - (2 * g_transformedY / g_view_height);
 	out_vs.pos.w = 1.0;
 	//UVのオフセットを加算
 	out_vs.uv.x = prm_uv.x + g_offsetU;

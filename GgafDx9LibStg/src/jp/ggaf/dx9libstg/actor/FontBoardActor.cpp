@@ -29,10 +29,10 @@ void FontBoardActor::setString(float prm_x, float prm_y, float prm_z, const char
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    _paVertex[0].z = _z;
-    _paVertex[1].z = _z;
-    _paVertex[2].z = _z;
-    _paVertex[3].z = _z;
+    //_paVertex[0].z = _z;
+    //_paVertex[1].z = _z;
+    //_paVertex[2].z = _z;
+    //_paVertex[3].z = _z;
 }
 
 void FontBoardActor::setString(float prm_x, float prm_y, float prm_z, char* prm_str) {
@@ -40,10 +40,10 @@ void FontBoardActor::setString(float prm_x, float prm_y, float prm_z, char* prm_
     _x = prm_x;
     _y = prm_y;
     _z = prm_z;
-    _paVertex[0].z = _z;
-    _paVertex[1].z = _z;
-    _paVertex[2].z = _z;
-    _paVertex[3].z = _z;
+    //_paVertex[0].z = _z;
+    //_paVertex[1].z = _z;
+    //_paVertex[2].z = _z;
+    //_paVertex[3].z = _z;
 
 }
 
@@ -62,15 +62,15 @@ void FontBoardActor::processDrawMain() {
     if (_len == 0) {
         return;
     }
-
-    static float x_beginning, x, y;
+    _TRACE_("_fSize_BoardModelWidthPx=">>_pBoardModel->_fSize_BoardModelWidthPx);
+    _TRACE_("_fSize_BoardModelHeightPx=">>_pBoardModel->_fSize_BoardModelHeightPx);
+    static float x_beginning, y_beginning;
     x_beginning = _x;
-    x = _x;
-    y = _y;
+    y_beginning = _y;
     for (int i = 0; i < _len; i++) {
         if (_draw_string[i] == '\n') {
-            x = x_beginning;
-            y += _pBoardModel->_fSize_BoardModelHeightPx;
+            _x = x_beginning;
+            _y += _pBoardModel->_fSize_BoardModelHeightPx;
             continue;
         } else {
             if (_draw_string[i] - ' ' < 0) {
@@ -79,19 +79,13 @@ void FontBoardActor::processDrawMain() {
                 setPatternNo(_draw_string[i] - ' '); //’Êí•¶Žš—ñ
             }
         }
-//        _paVertex[0].x = x;
-//        _paVertex[1].x = x + _pBoardModel->_fSize_BoardModelWidth;
-//        _paVertex[2].x = x;
-//        _paVertex[3].x = x + _pBoardModel->_fSize_BoardModelWidth;
-//        _paVertex[0].y = y;
-//        _paVertex[1].y = y;
-//        _paVertex[2].y = y + _pBoardModel->_fSize_BoardModelHeight;
-//        _paVertex[3].y = y + _pBoardModel->_fSize_BoardModelHeight;
-
+        DefaultBoardActor::processDrawMain();
         _pBoardModel->draw(this);
 
-        x += _pBoardModel->_fSize_BoardModelWidthPx;
+        _x += _pBoardModel->_fSize_BoardModelWidthPx;
     }
+    _x = x_beginning;
+    _y = y_beginning;
 }
 
 FontBoardActor::~FontBoardActor() {

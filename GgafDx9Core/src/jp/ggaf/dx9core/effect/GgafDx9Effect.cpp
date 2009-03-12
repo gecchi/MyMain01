@@ -34,6 +34,7 @@ GgafDx9Effect::~GgafDx9Effect() {
     _TRACE_("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " start-->");
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
-    _TRACE_("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " <--end");
+    //↓このトレースは有効にすると ostream のオーバーフローになるのでだめです。
+    //_TRACE_("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " <--end");
 }
 
