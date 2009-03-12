@@ -20,6 +20,7 @@ class DefaultPlateActor;
 class DefaultBoardActor;
 class DefaultSquareActor;
 class FontPlateActor;
+class FontBoardActor;
 class FontSpriteActor;
 class FormationActor;
 class RotationActor;
@@ -47,6 +48,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/DefaultPlateActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSquareActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontPlateActor.h"
+#include "jp/ggaf/dx9libstg/actor/FontBoardActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
 #include "jp/ggaf/dx9libstg/actor/RotationActor.h"
