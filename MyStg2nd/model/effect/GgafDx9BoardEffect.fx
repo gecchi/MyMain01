@@ -8,10 +8,10 @@
 float g_alpha; //α
 float g_offsetU; //テクスチャU座標増分
 float g_offsetV; //テクスチャV座標増分
-float g_view_width; //画面幅の半分
-float g_view_height; //画面高さの半分
 float g_transformedX; //X座標
 float g_transformedY; //Y座標
+float g_view_width; //画面幅の半分
+float g_view_height; //画面高さの半分
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -40,8 +40,8 @@ OUT_VS GgafDx9VS_DefaultBoard(
 	out_vs.pos.y = (2 * -prm_pos.y / g_view_height) + 1 - (g_transformedY / g_view_height);
 	out_vs.pos.w = 1.0;
 	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + 0.2;//g_offsetU;
-	out_vs.uv.y = prm_uv.y + 0;//g_offsetV;
+	out_vs.uv.x = prm_uv.x + g_offsetU;
+	out_vs.uv.y = prm_uv.y + g_offsetV;
 
 	return out_vs;
 }

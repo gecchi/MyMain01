@@ -144,10 +144,20 @@ void MyShip::initialize() {
     _pGeoMover->setRotAngleVelocity(AXIS_Y,500);
     _pGeoMover->setRotAngleVelocity(AXIS_Z,300);
 
+    _pTestBoard = NEW DefaultBoardActor("BOARD", "B/hoge", "DefaultBoardTechnique");
+    _pTestBoard->setPatternNo(6);
+    _pTestBoard->_x = 50;
+    _pTestBoard->_y = 50;
+    _pTestBoard->_z = +0.99;
+    getLordActor()->accept(KIND_EFFECT, _pTestBoard);
+
+
 
 }
 
 void MyShip::processBehavior() {
+    _pTestBoard->_x = _pTestBoard->_x + 1.0;
+    _pTestBoard->_y = _pTestBoard->_y + 1.0;
 
     static int stc;
     if (VB::isPushedDown(VB_TURBO) != 0 && _dwFrameTurboMove > 2) {

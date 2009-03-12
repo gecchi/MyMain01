@@ -53,6 +53,11 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     };
 
 public:
+    GgafDx9LibStg::DefaultBoardActor* _pTestBoard;
+
+
+
+
     int _tmpX;
     int _tmpY;
     int _tmpZ;

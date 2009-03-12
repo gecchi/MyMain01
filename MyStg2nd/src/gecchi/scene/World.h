@@ -16,8 +16,6 @@ class World  : public GgafDx9LibStg::DefaultWorld {
 
 public:
 
-    GgafDx9LibStg::DefaultBoardActor* _pTestBoard;
-
 	World(const char* prm_name);
 
 	/**

@@ -12,17 +12,11 @@ World::World(const char* prm_name) : DefaultWorld(prm_name) {
 //    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "P/moji");
 //    getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
-    _pTestBoard = NEW DefaultBoardActor("BOARD", "B/hoge", "DefaultBoardTechnique");
-    _pTestBoard->_x = 50;
-    _pTestBoard->_y = 50;
-    getLordActor()->accept(KIND_EFFECT, _pTestBoard);
 
 
 }
 
 void World::processDrawPrior() {
-    _pTestBoard->_x = _pTestBoard->_x + 1.0;
-    _pTestBoard->_x = _pTestBoard->_y + 1.0;
 
     //	GgafDx9World::_pCamera->setGaze(GameGlobal::_pMyShip);
     //
