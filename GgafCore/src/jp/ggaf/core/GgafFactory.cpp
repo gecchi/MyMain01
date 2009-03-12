@@ -129,9 +129,10 @@ void* GgafFactory::obtain(unsigned long prm_id) {
 }
 
 void GgafFactory::clean() {
-    TRACE("GgafFactory::clean ＜神＞ 工場を掃除開始");
+    TRACE2("GgafFactory::clean ＜神＞ 工場を掃除開始");
     GgafOrder* pOrder = ROOT_ORDER;
     if (pOrder == NULL) {
+        TRACE2("GgafFactory::clean ＜神＞ しかし工場に何も無い！！");
         return;
     }
     while (true) {
