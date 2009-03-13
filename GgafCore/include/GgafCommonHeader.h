@@ -42,9 +42,16 @@
 
 	//#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 	#define TRACE(X)
+
+    //工場関連
 	//#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafCore::GgafLogger::write(ss.str()); }
 	#define TRACE2(X)
-	//ダンプ出力用
+
+    //資源、マネージャ、コネクション関連
+    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    #define TRACE3(X)
+
+    //ダンプ出力用
 	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 	//デバッグ用
 	#define _TRACEORE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
@@ -70,6 +77,7 @@
 
 	#define TRACE(X)
 	#define TRACE2(X)
+    #define TRACE3(X)
 	//ダンプ出力用
 	#define _TRACE_(X)
 	//デバッグ用

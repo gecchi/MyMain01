@@ -86,8 +86,8 @@ T* GgafResourceConnection<T>::view() {
 template<class T>
 int GgafResourceConnection<T>::close() {
     if (_num_connection <= 0) {
-        _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
-        _TRACE_("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能\性が大。調査すべし！");
+        TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
+        TRACE3("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能\性が大。調査すべし！");
         return _num_connection;
     }
 
@@ -99,7 +99,7 @@ int GgafResourceConnection<T>::close() {
         if (pCurrent == this) {
             //発見した場合
             int rnum = _num_connection;
-            _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] 発見したので開始");
+            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] 発見したので開始");
 
             if (rnum == 1) {//最後の参照だった場合
                 //死に行く宿めであるので、保持リストから離脱を行なう
@@ -122,13 +122,13 @@ int GgafResourceConnection<T>::close() {
                         pPrev->_pNext = pCurrent->_pNext; //両隣を繋げる
                     }
                 }
-                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
+                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] 最後の参照のため解放します。");
                 _num_connection = 0;
             } else if (rnum > 0) {
-                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] まだ残ってます");
+                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] まだ残ってます");
                 _num_connection--;
             } else if (rnum < 0) {
-                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
+                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
                         << "Connection] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
                 _num_connection = 0; //とりあえず解放
             }
@@ -143,7 +143,7 @@ int GgafResourceConnection<T>::close() {
     if (_num_connection == 0) {
         T* r = pCurrent->view();
         if (r != NULL) {
-            _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //本当の解放 processReleaseResource[" << _idstr << "←" << _num_connection <<"]");
+            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //本当の解放 processReleaseResource[" << _idstr << "←" << _num_connection <<"]");
             pCurrent->processReleaseResource(r); //本当の解放
         }
         delete[] _idstr;
