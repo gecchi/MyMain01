@@ -13,8 +13,8 @@ namespace MyStg2nd {
 class GameBeginningScene : public GgafDx9LibStg::DefaultScene {
 
 public:
-    GgafDx9LibStg::FontPlateActor* _pFontPlate01;
-    GgafDx9LibStg::FontPlateActor* _pFontPlate02;
+    GgafDx9LibStg::FontBoardActor* _pFontBoard01;
+    GgafDx9LibStg::FontBoardActor* _pFontBoard02;
 
     DWORD _dwFrame_Begin;
     DWORD _dwFrame_Ope;

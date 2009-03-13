@@ -6,10 +6,10 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
-    _pFontPlate01 = NEW FontPlateActor("STR01", "P/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontPlate01);
-    _pFontPlate02 = NEW FontPlateActor("STR02", "P/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontPlate02);
+    _pFontBoard01 = NEW FontBoardActor("STR01", "P/moji");
+    getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
+    _pFontBoard02 = NEW FontBoardActor("STR02", "P/moji");
+    getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
 }
 
 
@@ -31,8 +31,8 @@ void GameBeginningScene::processBehavior() {
     }
 
     if (onChangeProgress(GAMEBEGINNING_PROG_BEGIN)) {
-        _pFontPlate01->setString(200, 200, "GameBeginningScene BEGIN");
-        _pFontPlate02->setString(200, 250, "YOKUKITANA!");
+        _pFontBoard01->setString(200, 200, "GameBeginningScene BEGIN");
+        _pFontBoard02->setString(200, 250, "YOKUKITANA!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_BEGIN) {
         //活動ループ
@@ -45,8 +45,8 @@ void GameBeginningScene::processBehavior() {
 
 
     if (onChangeProgress(GAMEBEGINNING_PROG_OPE)) {
-        _pFontPlate01->setString(200, 200, "GameBeginningScene OPE");
-        _pFontPlate02->setString(200, 250, "SELECT YOUR HOGEHOGE!");
+        _pFontBoard01->setString(200, 200, "GameBeginningScene OPE");
+        _pFontBoard02->setString(200, 250, "SELECT YOUR HOGEHOGE!");
         _dwFrame_Ope = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_OPE) {
         //活動ループ
@@ -59,8 +59,8 @@ void GameBeginningScene::processBehavior() {
     }
 
     if (onChangeProgress(GAMEBEGINNING_PROG_DECIDE)) {
-        _pFontPlate01->setString(200, 200, "GameBeginningScene DECIDE");
-        _pFontPlate02->setString(200, 250, "OK . ARE YOU READY!");
+        _pFontBoard01->setString(200, 200, "GameBeginningScene DECIDE");
+        _pFontBoard02->setString(200, 250, "OK . ARE YOU READY!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_DECIDE) {
         //活動ループ
@@ -72,8 +72,8 @@ void GameBeginningScene::processBehavior() {
     }
 
     if (onChangeProgress(GAMEBEGINNING_PROG_END)) {
-        _pFontPlate01->setString(200, 200, "GameBeginningScene END");
-        _pFontPlate02->setString(200, 250, "KENTO WO INORU");
+        _pFontBoard01->setString(200, 200, "GameBeginningScene END");
+        _pFontBoard02->setString(200, 250, "KENTO WO INORU");
         inactAfter(140);
     }
 }

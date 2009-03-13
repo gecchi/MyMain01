@@ -15,7 +15,7 @@ class Stage01Scene : public StageScene {
 public:
     GgafDx9Core::GgafDx9BgmConnection* _pBgmCon_st1;
     Stage01MainScene* _pStage01Main;
-    BackGround01Plate* _pBackGround01;
+    BackGround01Board* _pBackGround01;
     DWORD _dwFrame_Begin;
     DWORD _dwFrame_End;
 

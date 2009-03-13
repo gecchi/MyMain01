@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ用、スプライト標準シェーダー
+// Ggafライブラリ、GgafDx9SpriteModel用シェーダー
 //
 // Auther:Masatoshi Tsuge
 // date:2009/03/06 
@@ -38,7 +38,7 @@ OUT_VS GgafDx9VS_DefaultSprite(
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
-	//UVのオフセットを加算
+	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + g_offsetU;
 	out_vs.uv.y = prm_uv.y + g_offsetV;
 	return out_vs;
@@ -75,27 +75,30 @@ float4 GgafDx9PS_DefaultSprite(
 	return out_color;
 }
 
-
+//＜テクニック：DefaultSpriteTechnique＞
+//【機能】
+//GgafDx9SpriteModel用標準シェーダー
+//【概要】
+//板ポリ（擬似スプライト）を描画する。ライトなどの陰影は無し。
+//【考慮される要素】
+//--- VS ---
+//・頂点を World、View、射影 変換
+//・UVをパターン番号の位置へ
+//--- PS ---
+//・オブジェクトのテクスチャ
+//・半透明α（αパラメータとテクスチャαの乗算）
+//【使用条件】
+//・テクスチャが存在しs0レジスタにバインドされていること。
+//【設定パラメータ】
+// float4x4 g_matWorld		:	World変換行列
+// float4x4 g_matView		:	View変換行列
+// float4x4 g_matProj		:	射影変換行列   
+// float g_hAlpha			:	α値
+// float g_offsetU			:	テクスチャU座標増分
+// float g_offsetV			:	テクスチャV座標増分
+// s0レジスタ				:	2Dテクスチャ
 technique DefaultSpriteTechnique
 {
-	//pass P0「スプライト標準シェーダー」
-	//スプライトを描画する
-	//【考慮される要素】
-	//--- VS ---
-	//・頂点を World、View、射影 変換
-	//--- PS ---
-	//・オブジェクトのテクスチャ
-	//・半透明α（αパラメータとテクスチャαの乗算）
-	//【使用条件】
-	//・テクスチャが存在しs0レジスタにバインドされていること。
-	//【設定パラメータ】
-	// float4x4 g_matWorld		:	World変換行列
-	// float4x4 g_matView		:	View変換行列
-	// float4x4 g_matProj		:	射影変換行列   
-	// float g_hAlpha			:	α値
-	// float g_offsetU			:	テクスチャU座標増分
-	// float g_offsetV			:	テクスチャV座標増分
-	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultSprite();

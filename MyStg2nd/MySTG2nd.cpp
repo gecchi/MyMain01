@@ -106,8 +106,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             WS_OVERLAPPEDWINDOW, // ウインドウスタイル
             CW_USEDEFAULT, // ウィンドウの表示Ｘ座標
             CW_USEDEFAULT, // ウィンドウの表示Ｙ座標
-            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ウィンドウの幅
-            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ウィンドウの高さ
+            CW_USEDEFAULT, // ウィンドウの幅
+            CW_USEDEFAULT, // ウィンドウの幅
             NULL, // 親ウインドウ
             NULL, // ウインドウメニュー
             hInstance, // インスタンスハンドル
@@ -121,6 +121,26 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return FALSE;
     }
 
+    RECT wRect, cRect;  // ウィンドウ全体の矩形、クライアント領域の矩形
+    int ww, wh;         // ウィンドウ全体の幅、高さ
+    int cw, ch;         // クライアント領域の幅、高さ
+    // ウィンドウ全体の幅・高さを計算
+    GetWindowRect(hWnd, &wRect);
+    ww = wRect.right - wRect.left;
+    wh = wRect.bottom - wRect.top;
+    // クライアント領域の幅・高さを計算
+    GetClientRect(hWnd, &cRect);
+    cw = cRect.right - cRect.left;
+    ch = cRect.bottom - cRect.top;
+    // クライアント領域以外に必要なサイズを計算
+    ww = ww - cw;
+    wh = wh - ch;
+    // ウィンドウ全体に必要なサイズを計算
+    ww = GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + ww;
+    wh = GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + wh;
+
+    // 計算した幅と高さをウィンドウに設定
+    SetWindowPos(hWnd, HWND_TOP, wRect.left, wRect.top, ww, wh, SWP_NOMOVE);
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
     //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
