@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEDEMO_PROG_INIT);
-    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji");
+    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji2");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
-    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
+    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji2");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
 }
 void GameDemoScene::reset() {

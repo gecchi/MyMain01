@@ -37,8 +37,8 @@ void MyShot001::initialize() {
     //	_pChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
     //	_pChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    _SX = 100000;
-    _SY = 100000;
+    _SX = 50000;
+    _SY = 50000;
     setAlpha(0.3);
 
     setBumpableAlone(true);

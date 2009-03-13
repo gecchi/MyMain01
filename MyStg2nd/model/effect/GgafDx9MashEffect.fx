@@ -1,8 +1,8 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ用、メッシュ標準シェーダー
+// Ggafライブラリ、GgafDx9MeshModel用シェーダー
 //
 // Auther:Masatoshi Tsuge
-// date:2009/02/04 
+// date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
 
 float4x4 g_matWorld;  //World変換行列
@@ -55,7 +55,7 @@ OUT_VS GgafDx9VS_DefaultMesh(
 	return out_vs;
 }
 
-//メッシュ標準ピクセルシェーダー
+//メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMesh(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1
@@ -73,6 +73,7 @@ float4 GgafDx9PS_DefaultMesh(
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
 	//α計算、αは法線、ライト方向が関係なしにするので別計算。本来ライトα色も掛けるが、ライトは省略。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+
 	return out_color;
 }
 
@@ -127,7 +128,7 @@ technique DefaultMeshTechnique
 	}
 }
 
-technique NoTexMeshTechnique {
+technique DefaulNoTexMeshTechnique {
 	//pass P1「メッシュ標準シェーダー（テクスチャ無し）」
 	//【考慮される要素】
 	//--- VS ---

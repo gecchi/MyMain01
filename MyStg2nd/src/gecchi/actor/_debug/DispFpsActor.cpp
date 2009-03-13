@@ -11,7 +11,7 @@ DispFpsActor::DispFpsActor(const char* prm_name, const char* prm_model) : FontBo
 
 void DispFpsActor::initialize() {
     FontBoardActor::initialize();
-    _z = 0.0f; //ç≈ëOñ 
+    _z = 0.01f; //ç≈ëOñ 
     //0.999;
 }
 
