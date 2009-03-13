@@ -70,6 +70,8 @@ void FontBoardActor::processDrawMain() {
             _x = x_beginning;
             _y += _pBoardModel->_fSize_BoardModelHeightPx;
             continue;
+        } else if (_draw_string[i] == '\0') {
+            break;
         } else {
             if (_draw_string[i] - ' ' < 0) {
                 setPatternNo('?' - ' '); //”ÍˆÍŠO‚Í"?"
