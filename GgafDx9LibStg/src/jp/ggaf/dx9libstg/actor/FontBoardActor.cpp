@@ -62,8 +62,6 @@ void FontBoardActor::processDrawMain() {
     if (_len == 0) {
         return;
     }
-    _TRACE_("_fSize_BoardModelWidthPx=">>_pBoardModel->_fSize_BoardModelWidthPx);
-    _TRACE_("_fSize_BoardModelHeightPx=">>_pBoardModel->_fSize_BoardModelHeightPx);
     static float x_beginning, y_beginning;
     x_beginning = _x;
     y_beginning = _y;
