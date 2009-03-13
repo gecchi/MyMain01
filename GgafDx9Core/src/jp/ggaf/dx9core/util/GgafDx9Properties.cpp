@@ -20,8 +20,8 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     GgafProperties::load(prm_ini_filename);
 
     FULL_SCREEN = getBool("FULL_SCREEN");
-    GAME_SCREEN_WIDTH = NEW int(1024);
-    GAME_SCREEN_HEIGHT = NEW int(768);
+    GAME_SCREEN_WIDTH = NEW int(800);
+    GAME_SCREEN_HEIGHT = NEW int(600);
     VIEW_SCREEN_WIDTH = getInt("VIEW_SCREEN_WIDTH");
     VIEW_SCREEN_HEIGHT = getInt("VIEW_SCREEN_HEIGHT");
     FIXED_VIEW_ASPECT = getBool("FIXED_VIEW_ASPECT");

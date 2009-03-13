@@ -56,7 +56,8 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedY, pTargetActor->_y);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hDepthZ, pTargetActor->_z);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //Éøê›íË
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hAlpha, pTargetActor->_fAlpha);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetValue(g_MaterialAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
