@@ -6,14 +6,14 @@ using namespace GgafDx9Core;
 GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
                                    GgafDx9GeometryMover* prm_pGeoMover,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) :
-    GgafDx9D3DXMeshActor(prm_name, "M/cube", prm_pGeoMover, prm_pGeoChecker) {
+    GgafDx9MeshActor(prm_name, "X/cube4", "DefaulNoTexMeshTechnique", prm_pGeoMover, prm_pGeoChecker) {
     _class_name = "GgafDx9CubeActor";
 }
 
-void GgafDx9CubeActor::processDrawMain() {
-    GgafDx9UntransformedActor::setWorldTransformScRzMxyz(this);
-    _pD3DXMeshModel->draw(this);
-}
+//void GgafDx9CubeActor::processDrawMain() {
+//    GgafDx9UntransformedActor::setWorldTransformScRzMxyz(this);
+//    _pD3DXMeshModel->draw(this);
+//}
 
 void GgafDx9CubeActor::drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2) {
     _SX = (prm_x2 - prm_x1);

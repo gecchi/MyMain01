@@ -30,7 +30,7 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
 
 
 GgafDx9MeshEffect::~GgafDx9MeshEffect() {
-    _TRACE_("GgafDx9MeshEffect::~GgafDx9MeshEffect() " << _effect_name << " start");
-    _TRACE_("GgafDx9MeshEffect::~GgafDx9MeshEffect() " << _effect_name << " end");
+    TRACE3("GgafDx9MeshEffect::~GgafDx9MeshEffect() " << _effect_name << " start");
+    TRACE3("GgafDx9MeshEffect::~GgafDx9MeshEffect() " << _effect_name << " end");
 }
 

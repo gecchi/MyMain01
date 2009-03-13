@@ -7,7 +7,7 @@ DWORD GgafDx9PlateModel::FVF = (D3DFVF_XYZRHW | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 GgafDx9PlateModel::GgafDx9PlateModel(char* prm_platemodel_name) :
     GgafDx9Model(prm_platemodel_name) {
-    TRACE("GgafDx9PlateModel::GgafDx9PlateModel(" << _model_name << ")");
+    TRACE3("GgafDx9PlateModel::GgafDx9PlateModel(" << _model_name << ")");
     _fSize_PlateModelWidth = 32.0f;
     _fSize_PlateModelHeight = 32.0f;
     _row_texture_split = 1;
@@ -21,7 +21,7 @@ GgafDx9PlateModel::GgafDx9PlateModel(char* prm_platemodel_name) :
 //描画
 
 HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
-    TRACE("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
+    TRACE3("GgafDx9PlateModel::draw("<<prm_pActor_Target->getName()<<")");
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
     static GgafDx9PlateActor* pPlateActor_Target;
     pPlateActor_Target = (GgafDx9PlateActor*)prm_pActor_Target;
@@ -57,35 +57,36 @@ HRESULT GgafDx9PlateModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //TODO:とりあえずα（マテリアル）は後回し。
 
     GgafDx9ModelManager::_id_lastdraw = _id; //前回描画モデル名保存
+    pPlateActor_Target->_wasExecutedProcessDrawMainFlg = true;
     //GgafGod::_num_actor_playing++;
     return D3D_OK;
 }
 
 void GgafDx9PlateModel::restore() {
-    _TRACE_("GgafDx9PlateModel::restore() " << _model_name << " start");
+    TRACE3("GgafDx9PlateModel::restore() " << _model_name << " start");
     GgafDx9God::_pModelManager->restorePlateModel(this);
-    _TRACE_("GgafDx9PlateModel::restore() " << _model_name << " end");
+    TRACE3("GgafDx9PlateModel::restore() " << _model_name << " end");
 }
 
 void GgafDx9PlateModel::release() {
-    _TRACE_("GgafDx9PlateModel::release() " << _model_name << " start");
+    TRACE3("GgafDx9PlateModel::release() " << _model_name << " start");
     //GgafDx9ModelManager::_pTextureManager->releaseResourceConnection(_pTextureCon);
     if (_pTextureCon != NULL) {
         _pTextureCon->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
-    _TRACE_("GgafDx9PlateModel::release() " << _model_name << " end");
+    TRACE3("GgafDx9PlateModel::release() " << _model_name << " end");
 
 }
 
 void GgafDx9PlateModel::onDeviceLost() {
-    _TRACE_("GgafDx9PlateModel::onDeviceLost() " << _model_name << " start");
+    TRACE3("GgafDx9PlateModel::onDeviceLost() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9PlateModel::onDeviceLost() " << _model_name << " end");
+    TRACE3("GgafDx9PlateModel::onDeviceLost() " << _model_name << " end");
 }
 
 GgafDx9PlateModel::~GgafDx9PlateModel() {
-    _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " << _model_name << " start");
+    TRACE3("GgafDx9PlateModel::~GgafDx9PlateModel() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9PlateModel::~GgafDx9PlateModel() " << _model_name << " end");
+    TRACE3("GgafDx9PlateModel::~GgafDx9PlateModel() " << _model_name << " end");
 }

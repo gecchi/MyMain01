@@ -7,7 +7,7 @@ DWORD GgafDx9SquareModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE);
 
 GgafDx9SquareModel::GgafDx9SquareModel(char* prm_platemodel_name) :
     GgafDx9Model(prm_platemodel_name) {
-    TRACE("GgafDx9SquareModel::GgafDx9SquareModel(" << _model_name << ")");
+    TRACE3("GgafDx9SquareModel::GgafDx9SquareModel(" << _model_name << ")");
     _pD3DMaterial9 = NULL;
     _pIDirect3DVertexBuffer9 = NULL;
     //_pModel_Next = NULL;
@@ -19,7 +19,7 @@ GgafDx9SquareModel::GgafDx9SquareModel(char* prm_platemodel_name) :
 
 //•`‰æ
 HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
-    TRACE("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
+    TRACE3("GgafDx9SquareModel::draw("<<prm_pActor_Target->getName()<<")");
     //GgafDx9SquareActor* pSquareActor_Target = (GgafDx9SquareActor*)prm_pActor_Target;
     //HRESULT	hr;
     if (GgafDx9ModelManager::_id_lastdraw != _id) { //‘O‰ñ‚Æ•`‰æƒ‚ƒfƒ‹‚ªˆá‚¤
@@ -43,28 +43,28 @@ HRESULT GgafDx9SquareModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 }
 
 void GgafDx9SquareModel::restore() {
-    _TRACE_("GgafDx9SquareModel::restore() " << _model_name << " start");
+    TRACE3("GgafDx9SquareModel::restore() " << _model_name << " start");
     GgafDx9God::_pModelManager->restoreSquareModel(this);
-    _TRACE_("GgafDx9SquareModel::restore() " << _model_name << " end");
+    TRACE3("GgafDx9SquareModel::restore() " << _model_name << " end");
 }
 
 void GgafDx9SquareModel::onDeviceLost() {
-    _TRACE_("GgafDx9SquareModel::onDeviceLost() " << _model_name << " start");
+    TRACE3("GgafDx9SquareModel::onDeviceLost() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9SquareModel::onDeviceLost() " << _model_name << " end");
+    TRACE3("GgafDx9SquareModel::onDeviceLost() " << _model_name << " end");
 }
 
 void GgafDx9SquareModel::release() {
-    _TRACE_("GgafDx9SquareModel::release() " << _model_name << " start");
+    TRACE3("GgafDx9SquareModel::release() " << _model_name << " start");
 
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9);
 
-    _TRACE_("GgafDx9SquareModel::release() " << _model_name << " end");
+    TRACE3("GgafDx9SquareModel::release() " << _model_name << " end");
 }
 
 GgafDx9SquareModel::~GgafDx9SquareModel() {
-    _TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " << _model_name << " start");
+    TRACE3("GgafDx9SquareModel::~GgafDx9SquareModel() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9SquareModel::~GgafDx9SquareModel() " << _model_name << " end");
+    TRACE3("GgafDx9SquareModel::~GgafDx9SquareModel() " << _model_name << " end");
 }

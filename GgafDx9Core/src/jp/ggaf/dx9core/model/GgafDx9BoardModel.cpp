@@ -7,7 +7,7 @@ DWORD GgafDx9BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
 GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
     GgafDx9Model(prm_platemodel_name) {
-    _TRACE_("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
+    TRACE3("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
     _fSize_BoardModelWidthPx = 32.0f;
     _fSize_BoardModelHeightPx = 32.0f;
     _row_texture_split = 1;
@@ -38,19 +38,25 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //¡‰ñ•`‰æ‚ÌUV
     static GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
+//    _TRACE_("pTargetActor="<<pTargetActor->getClassName()<<" "<<pTargetActor->getName());
+//    _TRACE_("pTargetActor->_patteno_now = "<<pTargetActor->_patteno_now);
+//    _TRACE_("pRectUV_Active->_aUV[0].tu="<<pRectUV_Active->_aUV[0].tu);
+//    _TRACE_("pRectUV_Active->_aUV[0].tv="<<pRectUV_Active->_aUV[0].tv);
+//    _TRACE_("pTargetActor->_x="<<pTargetActor->_x);
+//    _TRACE_("pTargetActor->_y="<<pTargetActor->_y);
+//    _TRACE_("pTargetActor->_z="<<pTargetActor->_z);
+//    _TRACE_("-----------------------------------------------");
+//
 
     static HRESULT hr;
 
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
     GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
-    //if (_pRectUV_drawlast != pRectUV_Active) {
-        //‘O‰ñ•`‰æUVˆá‚¤I
-        hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetV) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //}
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetV) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedX, pTargetActor->_x);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -69,36 +75,37 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //‘O‰ñ•`‰æUVÀ•Wi‚Ö‚Ìƒ|ƒCƒ“ƒ^j‚ð•Û‘¶
     _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;
+    pTargetActor->_wasExecutedProcessDrawMainFlg = true;
     return D3D_OK;
 
 }
 
 void GgafDx9BoardModel::restore() {
-    _TRACE_("GgafDx9BoardModel::restore() " << _model_name << " start");
+    TRACE3("GgafDx9BoardModel::restore() " << _model_name << " start");
     GgafDx9God::_pModelManager->restoreBoardModel(this);
-    _TRACE_("GgafDx9BoardModel::restore() " << _model_name << " end");
+    TRACE3("GgafDx9BoardModel::restore() " << _model_name << " end");
 }
 
 void GgafDx9BoardModel::release() {
-    _TRACE_("GgafDx9BoardModel::release() " << _model_name << " start");
+    TRACE3("GgafDx9BoardModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
     if (_pTextureCon != NULL) {
         _pTextureCon->close();
     }
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
-    _TRACE_("GgafDx9BoardModel::release() " << _model_name << " end");
+    TRACE3("GgafDx9BoardModel::release() " << _model_name << " end");
 
 }
 
 void GgafDx9BoardModel::onDeviceLost() {
-    _TRACE_("GgafDx9BoardModel::onDeviceLost() " << _model_name << " start");
+    TRACE3("GgafDx9BoardModel::onDeviceLost() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9BoardModel::onDeviceLost() " << _model_name << " end");
+    TRACE3("GgafDx9BoardModel::onDeviceLost() " << _model_name << " end");
 }
 
 GgafDx9BoardModel::~GgafDx9BoardModel() {
-    _TRACE_("GgafDx9BoardModel::~GgafDx9BoardModel() " << _model_name << " start");
+    TRACE3("GgafDx9BoardModel::~GgafDx9BoardModel() " << _model_name << " start");
     release();
-    _TRACE_("GgafDx9BoardModel::~GgafDx9BoardModel() " << _model_name << " end");
+    TRACE3("GgafDx9BoardModel::~GgafDx9BoardModel() " << _model_name << " end");
 }

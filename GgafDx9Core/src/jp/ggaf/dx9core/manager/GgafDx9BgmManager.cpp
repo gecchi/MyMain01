@@ -13,8 +13,8 @@ GgafDx9Bgm* GgafDx9BgmManager::processCreateResource(char* prm_idstr) {
 }
 
 GgafResourceConnection<GgafDx9Bgm>* GgafDx9BgmManager::processCreateConnection(char* prm_idstr, GgafDx9Bgm* prm_pResource) {
-    _TRACE_(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDx9BgmConnection* p = NEW GgafDx9BgmConnection(prm_idstr, prm_pResource);
-    _TRACE_(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }

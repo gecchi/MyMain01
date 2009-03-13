@@ -29,14 +29,14 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr)
                 );
     whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_idstr);
     Sleep(2); //工場に気を使う。
-    _TRACE_(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
+    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
     return pIDirect3DTexture9_New;
 }
 
 GgafResourceConnection<IDirect3DTexture9>* GgafDx9TextureManager::processCreateConnection(char* prm_idstr, IDirect3DTexture9* prm_pResource) {
-    _TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDx9TextureConnection* p = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);
-    _TRACE_(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }
 

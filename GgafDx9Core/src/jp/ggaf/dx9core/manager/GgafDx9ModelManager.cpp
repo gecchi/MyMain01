@@ -64,7 +64,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             model = createSquareModel(model_name);
             break;
         default:
-            TRACE("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
+            TRACE3("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんなモデル種別は知りません");
             model = NULL;
             break;
@@ -111,7 +111,7 @@ GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
 
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
-    _TRACE_("GgafDx9ModelManager::restoreMeshModel(" << prm_pPrimModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pPrimModel->_model_name << ")");
     //１）頂点バッファ、インデックス頂点バッファ を作成
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9MeshModel に次のメンバを作成。
@@ -140,7 +140,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     GgafDx9TextureConnection** papTextureCon = NULL;
 
     if (prm_pPrimModel->_pModel3D == NULL) {
-        //_TRACE_("CreateModel");
+        //TRACE3("CreateModel");
         pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, pModel3D);
@@ -172,8 +172,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
 
         int nTextureCoords = pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
-            _TRACE_("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            _TRACE_("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+            TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
+            TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
         }
 
         //法線設定。
@@ -259,11 +259,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
                 paVtxBuffer_org[i].nz = vec.z;
             }
         }
-        _TRACE_("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         for (int i = 0; i < nVertices; i++) {
-            _TRACE_("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
+            TRACE3("["<<i<<"]=" << paVtxBuffer_org[i].x << "\t, " << paVtxBuffer_org[i].y << "\t, " << paVtxBuffer_org[i].z << "\t, " << paVtxBuffer_org[i].nx << "\t, " << paVtxBuffer_org[i].ny << "\t, " << paVtxBuffer_org[i].nz << "\t, " << paVtxBuffer_org[i].tu << "\t, " << paVtxBuffer_org[i].tv);
         }
-        _TRACE_("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         //インデックスバッファ登録
         paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
@@ -293,7 +293,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
             materialno = pMeshesFront->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
-                //_TRACE_("BREAK! paramno="<<paramno);
+                //TRACE3("BREAK! paramno="<<paramno);
                 prev_faceNoCnt_break = faceNoCnt_break;
                 faceNoCnt_break = faceNoCnt;
 
@@ -438,7 +438,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     }
 
     if (nMaterials != n) {
-        _TRACE_("マテリアル数がおかしいです。nMaterials="<<nMaterials<<"/n="<<n);
+        TRACE3("マテリアル数がおかしいです。nMaterials="<<nMaterials<<"/n="<<n);
     }
 
     //モデルに保持させる
@@ -454,7 +454,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
 }
 
 void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel) {
-    TRACE("GgafDx9ModelManager::restoreD3DXMeshModel(" << prm_pD3DXMeshModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restoreD3DXMeshModel(" << prm_pD3DXMeshModel->_model_name << ")");
     //Xファイルのロードして必要な内容をGgafDx9D3DXMeshModelメンバに設定しインスタンスとして完成させたい
     //以下の string xfile_name まではGgafDx9D3DXMeshModelメンバ設定のための受け取り変数。
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
@@ -547,7 +547,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 }
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
-    TRACE("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
 
     prm_pSpriteModel->_pTextureCon = NULL;
     prm_pSpriteModel->_paRectUV = NULL;
@@ -712,7 +712,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 }
 
 void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) {
-    TRACE("GgafDx9ModelManager::restorePlateModel(" << prm_pPlateModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restorePlateModel(" << prm_pPlateModel->_model_name << ")");
 
     HRESULT hr;
     string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPlateModel->_model_name) + ".x";
@@ -810,7 +810,7 @@ void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) 
 }
 
 void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) {
-    TRACE("GgafDx9ModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
     prm_pBoardModel->_pTextureCon = NULL;
     prm_pBoardModel->_paRectUV = NULL;
@@ -868,10 +868,10 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
         prm_pBoardModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pBoardModel->_col_texture_split = *pInt_ColNum_TextureSplit;
 
-        _TRACE_("_fSize_BoardModelWidthPx="<<prm_pBoardModel->_fSize_BoardModelWidthPx);
-        _TRACE_("_fSize_BoardModelHeightPx="<<prm_pBoardModel->_fSize_BoardModelHeightPx);
-        _TRACE_("_row_texture_split="<<prm_pBoardModel->_row_texture_split);
-        _TRACE_("_col_texture_split="<<prm_pBoardModel->_col_texture_split);
+        TRACE3("_fSize_BoardModelWidthPx="<<prm_pBoardModel->_fSize_BoardModelWidthPx);
+        TRACE3("_fSize_BoardModelHeightPx="<<prm_pBoardModel->_fSize_BoardModelHeightPx);
+        TRACE3("_row_texture_split="<<prm_pBoardModel->_row_texture_split);
+        TRACE3("_col_texture_split="<<prm_pBoardModel->_col_texture_split);
 
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" のGUIDが一致しません。");
@@ -969,7 +969,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 
 
 void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareModel) {
-    TRACE("GgafDx9ModelManager::restoreSquareModel(" << prm_pSquareModel->_model_name << ")");
+    TRACE3("GgafDx9ModelManager::restoreSquareModel(" << prm_pSquareModel->_model_name << ")");
 
     //頂点情報も設定し直し。
     prm_pSquareModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
@@ -1046,53 +1046,53 @@ void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareMode
 }
 
 GgafResourceConnection<GgafDx9Model>* GgafDx9ModelManager::processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource) {
-    TRACE(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
+    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     GgafDx9ModelConnection* p = NEW GgafDx9ModelConnection(prm_idstr, prm_pResource);
-    TRACE(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
+    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成終了。");
     return p;
 }
 
 GgafDx9ModelManager::~GgafDx9ModelManager() {
-    TRACE("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
+    TRACE3("GgafDx9ModelManager::~GgafDx9ModelManager() start-->");
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile);
     _pTextureManager->dump();
     DELETE_IMPOSSIBLE_NULL(_pTextureManager);
-    TRACE("GgafDx9ModelManager::releaseAll() するけども、ここでは既に何も開放するものがないはずです");
+    TRACE3("GgafDx9ModelManager::releaseAll() するけども、ここでは既に何も開放するものがないはずです");
     releaseAll();
-    TRACE("GgafDx9ModelManager::~GgafDx9ModelManager() end<--");
+    TRACE3("GgafDx9ModelManager::~GgafDx9ModelManager() end<--");
 
 }
 
 void GgafDx9ModelManager::restoreAll() {
-    TRACE("GgafDx9ModelManager::restoreAll() start-->");
+    TRACE3("GgafDx9ModelManager::restoreAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
-    TRACE("restoreAll pCurrent="<<pCurrent);
+    TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
         pCurrent->view()->restore();
         pCurrent = pCurrent->_pNext;
     }
-    TRACE("GgafDx9ModelManager::restoreAll() end<--");
+    TRACE3("GgafDx9ModelManager::restoreAll() end<--");
 }
 
 void GgafDx9ModelManager::onDeviceLostAll() {
-    TRACE("GgafDx9ModelManager::onDeviceLostAll() start-->");
+    TRACE3("GgafDx9ModelManager::onDeviceLostAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
-    TRACE("onDeviceLostAll pCurrent="<<pCurrent);
+    TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
         pCurrent->view()->onDeviceLost();
         pCurrent = pCurrent->_pNext;
     }
-    TRACE("GgafDx9ModelManager::onDeviceLostAll() end<--");
+    TRACE3("GgafDx9ModelManager::onDeviceLostAll() end<--");
 }
 
 void GgafDx9ModelManager::releaseAll() {
-    TRACE("GgafDx9ModelManager::releaseAll() start-->");
+    TRACE3("GgafDx9ModelManager::releaseAll() start-->");
     GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
     while (pCurrent != NULL) {
         pCurrent->view()->release();
         pCurrent = pCurrent->_pNext;
     }
-    TRACE("GgafDx9ModelManager::releaseAll() end<--");
+    TRACE3("GgafDx9ModelManager::releaseAll() end<--");
 }
 
 float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
@@ -1114,8 +1114,8 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
     //        =(vx*wx+vy*wy+vz*wz)
     //         ÷ルート(vx^2+vy^2+vz^2)÷ルート(wx^2+wy^2+wz^2)
     static float DOT, LV, LW, cosV1;
-    //_TRACE_("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
-    //_TRACE_("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
+    //TRACE3("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
+    //TRACE3("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");
     DOT = V.Dot(W);
     LV = V.Abs();
     LW = W.Abs();
