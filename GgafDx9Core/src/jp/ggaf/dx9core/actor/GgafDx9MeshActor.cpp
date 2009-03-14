@@ -7,7 +7,9 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
                                    const char* prm_model,
                                    const char* prm_technique,
                                    GgafDx9GeometryMover* prm_pGeoMover,
-                                   GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+                                   GgafDx9GeometryChecker* prm_pGeoChecker) :
+    GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker)
+{
     _class_name = "GgafDx9MeshActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
@@ -15,11 +17,9 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
     //モデル取得
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
     _pMeshModel = (GgafDx9MeshModel*)_pModelCon->view();
-
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("X/GgafDx9MashEffect");
     _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
-
     //モデルのオリジナルマテリアルをコピーして保存
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++){

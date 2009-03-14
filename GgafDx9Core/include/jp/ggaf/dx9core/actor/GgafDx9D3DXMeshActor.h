@@ -11,12 +11,21 @@ class GgafDx9D3DXMeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
+
+    char* _technique;
+    static DWORD FVF;
+
     /** モデル */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
+    /** エフェクト資源接続 */
+    GgafDx9EffectConnection* _pEffectCon;
+    /** エフェクト資源 */
+    GgafDx9MeshEffect* _pMeshEffect;
 
     GgafDx9D3DXMeshActor(const char* prm_name,
                      const char* prm_model,
+                     const char* prm_technique,
                      GgafDx9GeometryMover* prm_pGeoMover,
                      GgafDx9GeometryChecker* prm_pGeoChecker);
 

@@ -19,7 +19,7 @@ UINT MyLaserChip::_aVertexIndexTetrahedron_D[] = {4, 14, 20, 28, 29};
 UINT MyLaserChip::_iNum_VertexIndexTetrahedron_D = 5;
 MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 
-MyLaserChip::MyLaserChip(const char* prm_name, const char* prm_model) : DefaultDynaD3DXMeshActor(prm_name, prm_model) {
+MyLaserChip::MyLaserChip(const char* prm_name, const char* prm_model) : DefaultDynaD3DXMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
     _class_name = "MyLaserChip";
     _dwFrame_switchedToActFlg = 0;
 }

@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model) :
-    GgafDx9DynaD3DXMeshActor(prm_name, prm_model, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
+DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model, const char* prm_technique) :
+    GgafDx9DynaD3DXMeshActor(prm_name, prm_model, prm_technique, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
 {
     _class_name = "DefaultDynaD3DXMeshActor";
     _dwFrameOffset = 0;

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyShipMoverAssistant::MyShipMoverAssistant(const char* prm_name, const char* prm_model) : DefaultD3DXMeshActor(prm_name, prm_model) {
+MyShipMoverAssistant::MyShipMoverAssistant(const char* prm_name, const char* prm_model) : DefaultD3DXMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
     _class_name = "MyShipMoverAssistant";
     blindImmediatelyAlone();
     setBumpableAlone(false);

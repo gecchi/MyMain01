@@ -29,7 +29,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //対象アクター
     static GgafDx9MeshActor* pTargetActor;
     pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
-    //対象SpriteActorのエフェクトラッパ
+    //対象MeshActorのエフェクトラッパ
     static GgafDx9MeshEffect* pMeshEffect;
     pMeshEffect = pTargetActor->_pMeshEffect;
     //対象エフェクト
