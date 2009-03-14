@@ -22,6 +22,7 @@ public:
 
     GgafDx9DynaD3DXMeshActor(const char* prm_name,
                          const char* prm_model,
+                         const char* prm_technique,
                          GgafDx9GeometryMover* prm_pGeoMover,
                          GgafDx9GeometryChecker* prm_pGeoChecker);
 

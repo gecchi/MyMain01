@@ -5,6 +5,7 @@ using namespace GgafDx9Core;
 
 GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                            const char* prm_model,
+                                           const char* prm_technique,
                                            GgafDx9GeometryMover* prm_pGeoMover,
                                            GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);

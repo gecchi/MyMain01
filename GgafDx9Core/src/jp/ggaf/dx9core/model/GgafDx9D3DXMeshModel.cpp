@@ -24,8 +24,7 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMeshEffect->_pID3DXEffect;
-
-    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXMeshModel::FVF);
+    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXMeshActor::FVF);
     static HRESULT hr;
 
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
@@ -43,7 +42,7 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
 
 
-        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pID3DXEffect->CommitChanges();
         whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
