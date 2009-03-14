@@ -12,11 +12,11 @@ using namespace MyStg2nd;
 #define ORDER_ID_CREATESTAGE05SCENE 15
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
-    _pFontBoard_SCORE = NEW FontBoardActor("SCORE", "B/moji2");
+    _pFontBoard_SCORE = NEW FontBoardActor("SCORE", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard_SCORE);
-    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji2");
+    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
-    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji2");
+    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
 
 

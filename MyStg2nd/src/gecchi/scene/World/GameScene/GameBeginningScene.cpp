@@ -6,9 +6,9 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameBeginningScene::GameBeginningScene(const char* prm_name) : DefaultScene(prm_name) {
-    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji2");
+    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
-    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji2");
+    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
 }
 

@@ -35,8 +35,10 @@ OUT_VS GgafDx9VS_DefaultBoard(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//X座標Y座標をを -1 ～ +1 に押し込める。
-    out_vs.pos.x = (2 * prm_pos.x  / g_view_width ) - 1 + (2 * g_transformedX / g_view_width);
-	out_vs.pos.y = (2 * -prm_pos.y / g_view_height) + 1 - (2 * g_transformedY / g_view_height);
+	out_vs.pos.x = - 1 + 2 * ((prm_pos.x + g_transformedX) / g_view_width);                                                
+    out_vs.pos.y =   1 - 2 * ((prm_pos.y + g_transformedY) / g_view_height); 
+//	out_vs.pos.x = (2 * prm_pos.x  / g_view_width ) - 1 + (2 * g_transformedX / g_view_width);
+//	out_vs.pos.y = (2 * -prm_pos.y / g_view_height) + 1 - (2 * g_transformedY / g_view_height);
 	out_vs.pos.z = g_depthZ;
 	out_vs.pos.w = 1.0;
 	//UVのオフセットを加算
