@@ -37,7 +37,7 @@ void GgafDx9World::drawMain() {
         _apActorDrawDepthLevel_last[i] = NULL;
     }
     //残りも全部レンダリング
-    GgafMainScene::drawMain();
+    //GgafMainScene::drawMain();
 }
 
 void GgafDx9World::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pActor) {
