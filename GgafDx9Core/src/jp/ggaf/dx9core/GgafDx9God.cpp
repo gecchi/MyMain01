@@ -390,7 +390,9 @@ HRESULT GgafDx9God::initDx9Device() {
      GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)
      );
      */
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
+
+
+    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_PROJECTION, &_vMatrixProj);
 
     D3DXMatrixOrthoLH(
         &_vMatrixOrthoProj,
@@ -407,7 +409,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
 void GgafDx9God::updateCam() {
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &_vMatrixView);
+    //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_VIEW, &_vMatrixView);
 }
 
 // ƒJƒƒ‰‚Æ‘Î›³‚·‚é‰ñ“]s—ñ‚ğæ“¾
