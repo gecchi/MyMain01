@@ -108,6 +108,7 @@ void GgafDx9MeshModel::release() {
 GgafDx9MeshModel::~GgafDx9MeshModel() {
     TRACE3("GgafDx9MeshModel::~GgafDx9MeshModel() " << _model_name << " start");
     release();
-    TRACE3("GgafDx9MeshModel::~GgafDx9MeshModel() " << _model_name << " end");
+	//«ƒRƒƒ“ƒg‚É‚µ‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñ
+    //TRACE3("GgafDx9MeshModel::~GgafDx9MeshModel() " << _model_name << " end");
 }
 

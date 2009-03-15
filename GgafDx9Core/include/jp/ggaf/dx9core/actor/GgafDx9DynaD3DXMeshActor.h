@@ -14,10 +14,20 @@ class GgafDx9DynaD3DXMeshActor : public GgafDx9UntransformedActor {
 private:
 
 public:
+
+	char* _technique;
+    static DWORD FVF;
+
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
-    /** キャラ全体のα */
+    /** エフェクト資源接続 */
+    GgafDx9EffectConnection* _pEffectCon;
+    /** エフェクト資源 */
+    GgafDx9MeshEffect* _pMeshEffect;
+
+
+	/** キャラ全体のα */
     float _fAlpha;
 
     GgafDx9DynaD3DXMeshActor(const char* prm_name,

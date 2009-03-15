@@ -43,9 +43,9 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw SetValue(g_MaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->CommitChanges();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
         //•`‰æ
         hr = _pID3DXMesh->DrawSubset(i);
