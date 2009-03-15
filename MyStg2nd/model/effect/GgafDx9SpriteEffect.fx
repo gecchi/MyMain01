@@ -69,7 +69,7 @@ float4 GgafDx9PS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	float4 out_color = tex2D( MyTextureSampler, prm_uv);
 	//α計算、テクスチャαと引数αの合算
 	out_color.a = g_hAlpha * out_color.a ; 
 	return out_color;
