@@ -596,6 +596,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_size_vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
     prm_pSpriteModel->_size_vertec_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 
+
+    //1pxあたりのuvの大きさを求める
+     D3DSURFACE_DESC d3dsurface_desc;
+     pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+
+
     //頂点配列情報をモデルに保持させる
     //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
     //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
@@ -619,7 +627,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
@@ -630,7 +638,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
     //右下
     paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
@@ -639,8 +647,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
 
     //バッファ作成
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -769,10 +777,11 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_size_vertecs = sizeof(GgafDx9BoardModel::VERTEX)*4;
     prm_pBoardModel->_size_vertec_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
-    //頂点配列情報をモデルに保持させる
-    //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
-    //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
-    //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+    //1pxあたりのuvの大きさを求める
+     D3DSURFACE_DESC d3dsurface_desc;
+     pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
     //左上
     paVertex[0].x = 0.0f;
@@ -784,20 +793,20 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
     //右下
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
