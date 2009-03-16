@@ -12,10 +12,6 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior() {
-        //ç≈îwñ ÅÅÇ¢ÇøÇŒÇÒç≈èâÇ…ï`âÊ
-        GgafDx9Core::GgafDx9World::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - 1, this);
-    }
 
     virtual void processDrawTerminate() {
     }
