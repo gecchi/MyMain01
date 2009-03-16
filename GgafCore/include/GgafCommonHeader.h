@@ -48,8 +48,8 @@
 	#define TRACE2(X)
 
     //資源、マネージャ、コネクション関連
-    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
-    #define TRACE3(X)
+    #define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    //#define TRACE3(X)
 
     //ダンプ出力用
 	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
