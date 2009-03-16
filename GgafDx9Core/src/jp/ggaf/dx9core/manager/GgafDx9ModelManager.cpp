@@ -432,7 +432,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         } else {
             //テクスチャ無し
             //TODO:透明なテクスチャを設定してあげよう。
-            papTextureCon[n] = NULL;
+            papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
         }
         n++;
     }
@@ -519,7 +519,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
             papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
             //テクスチャ無し
-            papTextureCon[i] = NULL;
+            papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
         }
     }
     RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放

@@ -32,6 +32,10 @@ public:
 
     GgafDx9TransformedActor(const char* prm_name);
 
+
+    virtual void processDrawPrior();
+
+
     virtual GgafDx9TransformedActor* getPrev() {
         return (GgafDx9TransformedActor*)GgafActor::getPrev();
     }
