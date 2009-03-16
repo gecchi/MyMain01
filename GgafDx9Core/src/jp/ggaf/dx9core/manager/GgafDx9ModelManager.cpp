@@ -47,10 +47,6 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             //SpriteModel
             model = createSpriteModel(model_name);
             break;
-        case 'P':
-            //PlateModel
-            model = createPlateModel(model_name);
-            break;
         case 'B':
             //BoardModel
             model = createBoardModel(model_name);
@@ -83,12 +79,6 @@ GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name)
     GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
     restoreSpriteModel(pSpriteModel_New);
     return pSpriteModel_New;
-}
-
-GgafDx9PlateModel* GgafDx9ModelManager::createPlateModel(char* prm_model_name) {
-    GgafDx9PlateModel* pPlateModel_New = NEW GgafDx9PlateModel(prm_model_name);
-    restorePlateModel(pPlateModel_New);
-    return pPlateModel_New;
 }
 
 GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name) {
@@ -707,104 +697,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
     //後始末
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
-    RELEASE_SAFETY(pIDirectXFileData);
-    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
-}
-
-void GgafDx9ModelManager::restorePlateModel(GgafDx9PlateModel* prm_pPlateModel) {
-    TRACE3("GgafDx9ModelManager::restorePlateModel(" << prm_pPlateModel->_model_name << ")");
-
-    HRESULT hr;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPlateModel->_model_name) + ".x";
-
-    //	prm_pPlateModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
-    //	ZeroMemory( prm_pPlateModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-    //	prm_pPlateModel->_pD3DMaterial9->Diffuse.r = 1.0f;
-    //	prm_pPlateModel->_pD3DMaterial9->Diffuse.g = 1.0f;
-    //	prm_pPlateModel->_pD3DMaterial9->Diffuse.b = 1.0f;
-    //	prm_pPlateModel->_pD3DMaterial9->Diffuse.a = 0.2f;
-    //	prm_pPlateModel->_pD3DMaterial9->Ambient = prm_pPlateModel->_pD3DMaterial9->Diffuse;
-    IDirectXFileEnumObject* pIDirectXFileEnumObject;
-    IDirectXFileData* pIDirectXFileData;
-    hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    if (hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restorePlateModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
-    }
-
-    //TODO
-    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
-
-    char** ppaChar_TextureFile;
-    float* pFloat_Size_PlateModelWidth;
-    float* pFloat_Size_PlateModelHeight;
-    int* pInt_RowNum_TextureSplit;
-    int* pInt_ColNum_TextureSplit;
-
-    // 1セットだけ読込み
-    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
-    if (hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restorePlateModel] "<<xfile_name<<"の読込みに失敗しました。項目名を見直して");
-    }
-
-    const GUID *pGuid;
-    pIDirectXFileData->GetType(&pGuid);
-    //if( *pGuid == PersonID_GUID ) {
-
-    if (true) {
-        DWORD Size;
-        // PersonIDテンプレートデータを取得
-        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
-        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_PlateModelWidth);
-        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_PlateModelHeight);
-        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
-        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
-        //データはコピーしなければいけません。
-        prm_pPlateModel->_fSize_PlateModelWidth  = *pFloat_Size_PlateModelWidth;
-        prm_pPlateModel->_fSize_PlateModelHeight = *pFloat_Size_PlateModelHeight;
-        prm_pPlateModel->_row_texture_split = *pInt_RowNum_TextureSplit;
-        prm_pPlateModel->_col_texture_split = *pInt_ColNum_TextureSplit;
-    } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restorePlateModel] "<<xfile_name<<"のGUIDが一致しません。");
-    }
-
-    //頂点配列情報をモデルに保持させる
-    //string texture_filename = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
-
-    prm_pPlateModel->_pTextureCon = pTextureCon;
-
-    // テクスチャーのサイズを取得
-    /*
-     D3DSURFACE_DESC d3dsurface_desc;
-     pIDirect3DTexture9->GetLevelDesc(0, &d3dsurface_desc);
-     UINT ulTextureWidth  = d3dsurface_desc.Width;  //幅（テクセル）
-     UINT ulTextureHeight = d3dsurface_desc.Height; //テクスチャ高さ（ピクセル）
-     */
-
-    //全パターンのUV分割座標を求めて保持
-    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
-    GgafDx9RectUV* paRectUV = NEW GgafDx9RectUV[pattnum];
-	for (int row = 0; row < *pInt_RowNum_TextureSplit; row++){
-        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno = row*(*pInt_ColNum_TextureSplit)+col;
-
-            paRectUV[pattno]._aUV[0].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
-            paRectUV[pattno]._aUV[0].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
-
-            paRectUV[pattno]._aUV[1].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
-            paRectUV[pattno]._aUV[1].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
-
-            paRectUV[pattno]._aUV[2].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
-            paRectUV[pattno]._aUV[2].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
-
-            paRectUV[pattno]._aUV[3].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
-            paRectUV[pattno]._aUV[3].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
-        }
-    }
-    prm_pPlateModel->_paRectUV = paRectUV;
-    prm_pPlateModel->_pattno_max=pattnum-1;
-
-    //後始末
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }

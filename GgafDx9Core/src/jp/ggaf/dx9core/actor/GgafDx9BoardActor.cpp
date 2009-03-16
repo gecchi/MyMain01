@@ -32,7 +32,7 @@ void GgafDx9BoardActor::processDrawMain() {
     whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9BoardActor::GgafDx9MeshActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     UINT numPass;
-    hr = pID3DXEffect->Begin( &numPass, 0 );
+    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
