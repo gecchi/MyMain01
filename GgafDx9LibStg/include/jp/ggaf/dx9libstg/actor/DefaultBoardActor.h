@@ -20,8 +20,6 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior() {
-    }
 
     virtual void processDrawMain() {
         GgafDx9Core::GgafDx9BoardActor::processDrawMain();

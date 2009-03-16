@@ -80,7 +80,7 @@ void FontBoardActor::processDrawMain() {
             }
         }
         DefaultBoardActor::processDrawMain();
-        _pBoardModel->draw(this);
+        //_pBoardModel->draw(this);
 
         _x += _pBoardModel->_fSize_BoardModelWidthPx;
     }
