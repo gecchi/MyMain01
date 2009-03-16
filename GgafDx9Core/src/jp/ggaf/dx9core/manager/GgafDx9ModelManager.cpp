@@ -410,8 +410,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
-            //テクスチャ無し
-            //TODO:透明なテクスチャを設定してあげよう。
+            //テクスチャ無し時は真っ白なテクスチャ
             papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
         }
         n++;
@@ -485,7 +484,8 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
     //xファイルのマテリアルにはAmbient反射値は設定できない（みたい）、そこでDiffuse反射値で
     //Ambient反射値を代用することにする。とりあえず。
-    //TODO:本当にこれでいいのか？
+    //＜2009/3/13＞
+    //固定機能はもう使わない。マテリアルDiffuseはシェーダーの派ラメータに利用している。Ambientは使われていない。今後もそうでしょう。
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
     }

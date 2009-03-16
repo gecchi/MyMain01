@@ -97,47 +97,39 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9Untransformed
      */
 }
 
-void GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor) {
-    static D3DXMATRIX matWorld; //WORLD変換行列
-    getWorldTransformRxRzRyScMv(prm_pActor, matWorld);
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matWorld);
-}
 
-void GgafDx9UntransformedActor::setWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor) {
+void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //WORLD変換
     //単位行列 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定
     // |cosZ  , sinZ , 0  , 0  |
     // |-sinZ , cosZ , 0  , 0  |
     // |0     , 0    , 1  , 0  |
     // |dx    , dy	 , dz , 1  |
-    static D3DXMATRIX matrixTransWorld; //WORLD変換行列
     static s_ang s_RZ;
     s_RZ = prm_pActor->_RZ / ANGLE_RATE;
 
-    matrixTransWorld._11 = GgafDx9Util::COS[s_RZ];
-    matrixTransWorld._12 = GgafDx9Util::SIN[s_RZ];
-    matrixTransWorld._13 = 0.0;
-    matrixTransWorld._14 = 0.0;
+    out_matWorld._11 = GgafDx9Util::COS[s_RZ];
+    out_matWorld._12 = GgafDx9Util::SIN[s_RZ];
+    out_matWorld._13 = 0.0;
+    out_matWorld._14 = 0.0;
 
-    matrixTransWorld._21 = (float)(-1.0 * GgafDx9Util::SIN[s_RZ]);
-    matrixTransWorld._22 = GgafDx9Util::COS[s_RZ];
-    matrixTransWorld._23 = 0.0;
-    matrixTransWorld._24 = 0.0;
+    out_matWorld._21 = (float)(-1.0 * GgafDx9Util::SIN[s_RZ]);
+    out_matWorld._22 = GgafDx9Util::COS[s_RZ];
+    out_matWorld._23 = 0.0;
+    out_matWorld._24 = 0.0;
 
-    matrixTransWorld._31 = 0.0;
-    matrixTransWorld._32 = 0.0;
-    matrixTransWorld._33 = 1.0;
-    matrixTransWorld._34 = 0.0;
+    out_matWorld._31 = 0.0;
+    out_matWorld._32 = 0.0;
+    out_matWorld._33 = 1.0;
+    out_matWorld._34 = 0.0;
 
-    matrixTransWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._44 = 1;
-
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matrixTransWorld);
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1;
 }
 
-void GgafDx9UntransformedActor::setWorldTransformScRzMxyz(GgafDx9UntransformedActor* prm_pActor) {
+void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
     //WORLD変換
     //単位行列 × 拡大縮小 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定
@@ -145,7 +137,6 @@ void GgafDx9UntransformedActor::setWorldTransformScRzMxyz(GgafDx9UntransformedAc
     // |sy*-sinZ, sy*cosZ , 0    , 0  |
     // |0       , 0       , sz   , 0  |
     // |dx      , dy	  , dz   , 1  |
-    static D3DXMATRIX matrixTransWorld;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static s_ang s_RZ;
     static float sx, sy, sz;
@@ -155,27 +146,25 @@ void GgafDx9UntransformedActor::setWorldTransformScRzMxyz(GgafDx9UntransformedAc
     sy = prm_pActor->_SY / fRateScale;
     sz = prm_pActor->_SZ / fRateScale;
 
-    matrixTransWorld._11 = sx * GgafDx9Util::COS[s_RZ];
-    matrixTransWorld._12 = sx * GgafDx9Util::SIN[s_RZ];
-    matrixTransWorld._13 = 0.0;
-    matrixTransWorld._14 = 0.0;
+    out_matWorld._11 = sx * GgafDx9Util::COS[s_RZ];
+    out_matWorld._12 = sx * GgafDx9Util::SIN[s_RZ];
+    out_matWorld._13 = 0.0;
+    out_matWorld._14 = 0.0;
 
-    matrixTransWorld._21 = sy * -1.0 * GgafDx9Util::SIN[s_RZ];
-    matrixTransWorld._22 = sy * GgafDx9Util::COS[s_RZ];
-    matrixTransWorld._23 = 0.0;
-    matrixTransWorld._24 = 0.0;
+    out_matWorld._21 = sy * -1.0 * GgafDx9Util::SIN[s_RZ];
+    out_matWorld._22 = sy * GgafDx9Util::COS[s_RZ];
+    out_matWorld._23 = 0.0;
+    out_matWorld._24 = 0.0;
 
-    matrixTransWorld._31 = 0.0;
-    matrixTransWorld._32 = 0.0;
-    matrixTransWorld._33 = sz;
-    matrixTransWorld._34 = 0.0;
+    out_matWorld._31 = 0.0;
+    out_matWorld._32 = 0.0;
+    out_matWorld._33 = sz;
+    out_matWorld._34 = 0.0;
 
-    matrixTransWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
-    matrixTransWorld._44 = 1.0;
-
-    GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &matrixTransWorld);
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0;
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {

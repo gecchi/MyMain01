@@ -6,7 +6,7 @@ namespace GgafDx9Core {
 // 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html <BR>
 // サイト内コンテンツの 「Ogg Vorbis入門編」 http://marupeke296.com/OGG_main.html <BR>
 // のサンプルプログラムを流用（一部変更）させていただいて、実装しています。<BR>
-// 製作者IKD氏の惜しみない技術共有の心に、感謝申し上げます。<BR>
+// 製作者IKD氏の惜しみない技術共有の心に感謝。<BR>
 //
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 

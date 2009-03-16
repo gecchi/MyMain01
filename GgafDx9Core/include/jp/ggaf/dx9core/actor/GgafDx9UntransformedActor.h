@@ -126,13 +126,6 @@ public:
     }
 
     /**
-     * world変換 .
-     * 単位行列 × X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定<BR>
-     * ※XYZの順でないことに注意<BR>
-     * @param prm_pActor 対象アクター
-     */
-    static void setWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor);
-    /**
      * world変換行列取得 .
      * 単位行列 × X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定<BR>
      * ※XYZの順でないことに注意<BR>
@@ -146,14 +139,14 @@ public:
      * 単位行列 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 .<BR>
      * @param prm_pActor 対象アクター
      */
-    static void setWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor);
+    static void getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換 .
      * 単位行列 × 拡大縮小 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
      * @param prm_pActor 対象アクター
      */
-    static void setWorldTransformScRzMxyz(GgafDx9UntransformedActor* prm_pActor);
+    static void getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     virtual ~GgafDx9UntransformedActor(); //デストラクタ
 };

@@ -38,18 +38,8 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //¡‰ñ•`‰æ‚ÌUV
     static GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
-//    _TRACE_("pTargetActor="<<pTargetActor->getClassName()<<" "<<pTargetActor->getName());
-//    _TRACE_("pTargetActor->_patteno_now = "<<pTargetActor->_patteno_now);
-//    _TRACE_("pRectUV_Active->_aUV[0].tu="<<pRectUV_Active->_aUV[0].tu);
-//    _TRACE_("pRectUV_Active->_aUV[0].tv="<<pRectUV_Active->_aUV[0].tv);
-//    _TRACE_("pTargetActor->_x="<<pTargetActor->_x);
-//    _TRACE_("pTargetActor->_y="<<pTargetActor->_y);
-//    _TRACE_("pTargetActor->_z="<<pTargetActor->_z);
-//    _TRACE_("-----------------------------------------------");
-//
 
     static HRESULT hr;
-
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
     GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
@@ -63,10 +53,10 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedY, pTargetActor->_y);
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hDepthZ, pTargetActor->_z);
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ¿Ý’è
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hAlpha, pTargetActor->_fAlpha);
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetValue(g_MaterialAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->CommitChanges();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardModel::draw CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
