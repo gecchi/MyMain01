@@ -88,14 +88,6 @@ template MeshTextureCoords {
  array Coords2d textureCoords[nTextureCoords];
 }
 
-
-Material PDX01_-_Default {
- 0.260784;0.860784;0.260784;0.570000;;
- 0.000000;
- 0.061686;0.061686;0.061686;;
- 0.000000;0.490196;0.047059;;
-}
-
 Frame Sphere01 {
  
 
@@ -5004,7 +4996,13 @@ Frame Sphere01 {
    0,
    0,
    0;
-   { PDX01_-_Default }
+
+   Material PDX01_-_Default {
+    0.260784;0.860784;0.260784;0.570000;;
+    0.000000;
+    0.061686;0.061686;0.061686;;
+    0.000000;0.490196;0.047059;;
+   }
   }
 
   MeshTextureCoords  {
