@@ -627,7 +627,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/2);
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
@@ -638,7 +638,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/2);
     //右下
     paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
@@ -647,8 +647,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/2);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/2);
 
     //バッファ作成
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -793,20 +793,20 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/2);
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/2);
     //右下
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) - (pxU/2);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) - (pxV/2);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/2);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/2);
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
