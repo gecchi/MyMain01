@@ -8,7 +8,7 @@ class EnemyJuno : public DefaultMeshEnemyActor {
 public:
     int _iMovePatternNo;
 
-    EnemyJuno(const char* prm_name, const char* prm_model);
+    EnemyJuno(const char* prm_name);
 
     void initialize();
 

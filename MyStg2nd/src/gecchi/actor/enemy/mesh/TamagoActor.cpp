@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name, const char* prm_model) : DefaultD3DXMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
+TamagoActor::TamagoActor(const char* prm_name) : DefaultMeshActor(prm_name, "X/tamago", "DefaultMeshTechnique") {
     _class_name = "TamagoActor";
 }
 

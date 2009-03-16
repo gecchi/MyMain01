@@ -111,7 +111,7 @@ GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 //
 
 GgafMainActor* MyFactory::createFormationJuno001First(void* pArg1, void* pArg2) {
-	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F", "pot");
+	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F");
 	FormationJuno001::_X_FormationWhole = *((int*)(pArg1));
 	int* n = (int*)(pArg1);
 	DELETE_IMPOSSIBLE_NULL(n);

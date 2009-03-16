@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-DefaultMeshEnemyActor::DefaultMeshEnemyActor(const char* prm_name, const char* prm_model) : DefaultD3DXMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
+DefaultMeshEnemyActor::DefaultMeshEnemyActor(const char* prm_name, const char* prm_model, const char* prm_technique) : DefaultMeshActor(prm_name, prm_model, prm_technique) {
     _class_name = "DefaultMeshEnemyActor";
 }
 

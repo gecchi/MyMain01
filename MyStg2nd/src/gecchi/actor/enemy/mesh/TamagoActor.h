@@ -2,12 +2,12 @@
 #define TAMAGOACTOR_H_
 namespace MyStg2nd {
 
-class TamagoActor : public GgafDx9LibStg::DefaultD3DXMeshActor {
+class TamagoActor : public GgafDx9LibStg::DefaultMeshActor {
 
     int _rnd;
 
 public:
-    TamagoActor(const char* prm_name, const char* prm_model);
+    TamagoActor(const char* prm_name);
 
     void initialize();
 

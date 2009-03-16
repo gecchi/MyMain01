@@ -66,7 +66,6 @@ class GameGlobal;
 
 class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
-class DefaultPrimitiveEnemyActor;
 class DefaultSpriteEnemyActor;
 class DefaultSpriteEffectActor;
 class EnemyCeres;
@@ -100,7 +99,6 @@ class MyFactory;
 
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
-#include "gecchi/actor/enemy/mesh/DefaultPrimitiveEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 

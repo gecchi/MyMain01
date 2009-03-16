@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyPallas::EnemyPallas(const char* prm_name, const char* prm_model) : DefaultMeshEnemyActor(prm_name, prm_model) {
+EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/Pallas", "DefaultMeshTechnique") {
     _class_name = "EnemyPallas";
 
     _iMovePatternNo = 0;

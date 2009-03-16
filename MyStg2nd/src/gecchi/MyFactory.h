@@ -8,7 +8,13 @@ public:
 
     template<class X>
     static X* createActor(void* p1, void* p2, void* p3) {
-        //Actor生成で一番多い形の引数。
+        //p1 : 名称
+        X* p = NEW X((char*)p1);
+        return p;
+    }
+
+    template<class X>
+    static X* createActorWithModel(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : モデル識別文字列
         X* p = NEW X((char*)p1, (char*)p2);
@@ -17,7 +23,14 @@ public:
 
     template<class X>
     static X* createActorWithRot(void* p1, void* p2, void* p3) {
-        //Actor生成で二番目多い形の引数。
+        //p1 : 識別名称
+        //p2 : ローテーションアクター
+        X* p = NEW X((char*)p1, (GgafDx9LibStg::RotationActor*)p2);
+        return p;
+    }
+
+    template<class X>
+    static X* createActorWithModelRot(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : モデル識別文字列
         //p3 : ローテーションアクター
@@ -60,8 +73,10 @@ public:
 
 };
 
-#define orderActorToFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
-#define orderActorWithRotToFactory(ID, CLASS, NAME, MODEL, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithRot,(void*)(NAME),(void*)(MODEL),(void*)(ROT))
+#define orderActorToFactory(ID, CLASS, NAME) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL))
+#define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
+#define orderActorWithModelRotToFactory(ID, CLASS, NAME, MODEL, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModelRot,(void*)(NAME),(void*)(MODEL),(void*)(ROT))
+#define orderActorWithRotToFactory(ID, CLASS, NAME, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithRot,(void*)(NAME),(void*)(ROT), (void*)(NULL))
 
 #define obtainActorFromFactory(ID) MyFactory::obtainActor(ID)
 #define orderSceneToFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL))

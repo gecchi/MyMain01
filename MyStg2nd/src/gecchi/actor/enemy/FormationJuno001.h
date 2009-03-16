@@ -16,7 +16,7 @@ public:
     /** ‘S‘Ì‚ÌX‘•ª */
     static int _incX;
 
-    FormationJuno001(const char* prm_name, const char* prm_model);
+    FormationJuno001(const char* prm_name);
 
     virtual void initialize();
 

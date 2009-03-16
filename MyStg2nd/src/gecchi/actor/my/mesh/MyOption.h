@@ -2,7 +2,7 @@
 #define MYOPTION_H_
 namespace MyStg2nd {
 
-class MyOption : public GgafDx9LibStg::DefaultD3DXMeshActor {
+class MyOption : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     int _iMyNo;

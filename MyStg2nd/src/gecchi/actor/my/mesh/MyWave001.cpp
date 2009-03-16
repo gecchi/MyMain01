@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyWave001::MyWave001(const char* prm_name, const char* prm_model) : DefaultD3DXMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
+MyWave001::MyWave001(const char* prm_name, const char* prm_model) : DefaultMeshActor(prm_name, prm_model, "DefaultMeshTechnique") {
     _class_name = "MyWave001";
 }
 

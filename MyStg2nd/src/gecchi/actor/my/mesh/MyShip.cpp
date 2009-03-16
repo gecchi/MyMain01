@@ -11,7 +11,6 @@ using namespace MyStg2nd;
 #define NANAME 0.7
 
 MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2", "DefaultMeshTechnique") {
-//MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "M/Ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -99,7 +98,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2", "Def
     addSubLast(_pMyWaves001Rotation);//仮所属
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
-        pWave = NEW MyWave001("MY_Wave001", "M/wave");
+        pWave = NEW MyWave001("MY_Wave001", "X/wave");
         pWave->inactImmediately();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
@@ -116,7 +115,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2", "Def
 //    }
 
     for (int i = 0; i < EQ_MAX_OPTION; i++) {
-        MyOption* pOption = NEW MyOption("MY_OPTION", "M/ebi");
+        MyOption* pOption = NEW MyOption("MY_OPTION", "X/ebi");
         pOption->_iMyNo = i; //おぷ番
         pOption->inactImmediatelyAlone();
         addSubLast(pOption);

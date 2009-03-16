@@ -8,7 +8,7 @@ class EnemyVesta : public DefaultMeshEnemyActor {
 public:
     int _iMovePatternNo;
 
-    EnemyVesta(const char* prm_name, const char* prm_model);
+    EnemyVesta(const char* prm_name);
 
     void initialize();
 
