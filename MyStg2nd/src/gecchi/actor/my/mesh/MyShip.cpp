@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2", "DefaultMeshTechnique") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres", "DefaultMeshTechnique") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -139,9 +139,9 @@ void MyShip::initialize() {
     _pGeoMover->setMoveVelocity(0);
 
     //_pGeoMover->setRotAngleVelocityRenge(AXIS_Y, -300000, -300000);
-	_pGeoMover->setRotAngleVelocity(AXIS_X,700);
-    _pGeoMover->setRotAngleVelocity(AXIS_Y,500);
-    _pGeoMover->setRotAngleVelocity(AXIS_Z,300);
+	//_pGeoMover->setRotAngleVelocity(AXIS_X,700);
+    //_pGeoMover->setRotAngleVelocity(AXIS_Y,500);
+    //_pGeoMover->setRotAngleVelocity(AXIS_Z,300);
 
     _pTestBoard = NEW DefaultBoardActor("BOARD", "B/hoge", "DefaultBoardTechnique");
     _pTestBoard->setPatternNo(6);
