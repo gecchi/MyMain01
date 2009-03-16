@@ -33,6 +33,7 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
 }
 
 void Stage01MainScene::initialize() {
+    getLordActor()->accept(KIND_ENEMY, _pRot);
 }
 
 void Stage01MainScene::processBehavior() {
