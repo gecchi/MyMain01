@@ -9,7 +9,7 @@ namespace GgafCore {
  * @since 2008/06/20
  * @author Masatoshi Tsuge
  */
-#define throwGgafCriticalException(X) {std::stringstream ss; ss << X; throw GgafCore::GgafCriticalException(ss.str()); }
+#define throwGgafCriticalException(X) {std::stringstream ss; ss <<__FILE__<<"("<<__LINE__<<") : "<< X; throw GgafCore::GgafCriticalException(ss.str()); }
 
 class GgafCriticalException : public GgafCore::GgafException {
 public:
