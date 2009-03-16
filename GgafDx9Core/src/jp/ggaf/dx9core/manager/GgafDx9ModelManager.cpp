@@ -55,10 +55,6 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             //cubeModel
             model = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
             break;
-        case 'Q':
-            //SquareModel
-            model = createSquareModel(model_name);
-            break;
         default:
             TRACE3("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") そんなモデル種別は知りません");
@@ -79,12 +75,6 @@ GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name)
     GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
     restoreSpriteModel(pSpriteModel_New);
     return pSpriteModel_New;
-}
-
-GgafDx9SquareModel* GgafDx9ModelManager::createSquareModel(char* prm_model_name) {
-    GgafDx9SquareModel* pSquareModel_New = NEW GgafDx9SquareModel(prm_model_name);
-    restoreSquareModel(pSquareModel_New);
-    return pSquareModel_New;
 }
 
 GgafDx9BoardModel* GgafDx9ModelManager::createBoardModel(char* prm_model_name) {
@@ -859,83 +849,6 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 }
 
 
-
-void GgafDx9ModelManager::restoreSquareModel(GgafDx9SquareModel* prm_pSquareModel) {
-    TRACE3("GgafDx9ModelManager::restoreSquareModel(" << prm_pSquareModel->_model_name << ")");
-
-    //頂点情報も設定し直し。
-    prm_pSquareModel->_pD3DMaterial9 = NEW D3DMATERIAL9;
-    ZeroMemory(prm_pSquareModel->_pD3DMaterial9, sizeof(D3DMATERIAL9) );
-    prm_pSquareModel    ->_pD3DMaterial9->Diffuse.r = prm_pSquareModel->_pD3DMaterial9->Ambient.r = 1.0f;
-    prm_pSquareModel->_pD3DMaterial9->Diffuse.g = prm_pSquareModel->_pD3DMaterial9->Ambient.g = 0.0f;
-    prm_pSquareModel->_pD3DMaterial9->Diffuse.b = prm_pSquareModel->_pD3DMaterial9->Ambient.b = 0.0f;
-    prm_pSquareModel->_pD3DMaterial9->Diffuse.a = prm_pSquareModel->_pD3DMaterial9->Ambient.a = 1.0f;
-
-    GgafDx9SquareModel::VERTEX* paVertex = NEW GgafDx9SquareModel::VERTEX[12];
-    prm_pSquareModel->_size_vertecs = sizeof(GgafDx9SquareModel::VERTEX)*4;
-    prm_pSquareModel->_size_vertec_unit = sizeof(GgafDx9SquareModel::VERTEX);
-    paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
-    paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
-    paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
-    paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
-
-    //頂点配列情報をモデルに保持させる
-    paVertex[0].x = -0.5/PX_UNIT;
-    paVertex[0].y = 0.5/PX_UNIT;
-    paVertex[0].z = 0.0f;
-    paVertex[0].nx = 0.0f;
-    paVertex[0].ny = 0.0f;
-    paVertex[0].nz = -1.0f;
-    paVertex[0].color = D3DCOLOR_ARGB(255,255,0,0);
-
-    paVertex[1].x = 0.5/PX_UNIT;
-    paVertex[1].y = 0.5/PX_UNIT;
-    paVertex[1].z = 0.0f;
-    paVertex[1].nx = 0.0f;
-    paVertex[1].ny = 0.0f;
-    paVertex[1].nz = -1.0f;
-    paVertex[1].color = D3DCOLOR_ARGB(255,255,0,0);
-
-    paVertex[2].x = -0.5/PX_UNIT;
-    paVertex[2].y = -0.5/PX_UNIT;
-    paVertex[2].z = 0.0f;
-    paVertex[2].nx = 0.0f;
-    paVertex[2].ny = 0.0f;
-    paVertex[2].nz = -1.0f;
-    paVertex[2].color = D3DCOLOR_ARGB(255,255,0,0);
-
-    paVertex[3].x = 0.5/PX_UNIT;
-    paVertex[3].y = -0.5/PX_UNIT;
-    paVertex[3].z = 0.0f;
-    paVertex[3].nx = 0.0f;
-    paVertex[3].ny = 0.0f;
-    paVertex[3].nz = -1.0f;
-    paVertex[3].color = D3DCOLOR_ARGB(255,255,0,0);
-
-    HRESULT hr;
-    //頂点バッファ作成
-    if (prm_pSquareModel->_pIDirect3DVertexBuffer9 == NULL) {
-        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                                          prm_pSquareModel->_size_vertecs,
-                                          D3DUSAGE_WRITEONLY,
-                                          GgafDx9SquareModel::FVF,
-                                          D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-                                          &(prm_pSquareModel->_pIDirect3DVertexBuffer9),
-                                          NULL
-                                        );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9SquareModelManager::restoreSquareModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<prm_pSquareModel->_model_name);
-    }
-
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = prm_pSquareModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSquareModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-    whetherGgafDx9CriticalException(hr, D3D_OK, "[GgafDx9SquareModelManager::restoreSquareModel] 頂点バッファのロック取得に失敗 model="<<prm_pSquareModel->_model_name);
-    memcpy(pVertexBuffer, paVertex, prm_pSquareModel->_size_vertecs);
-    prm_pSquareModel->_pIDirect3DVertexBuffer9->Unlock();
-
-    //後始末
-    DELETEARR_IMPOSSIBLE_NULL(paVertex);
-}
 
 GgafResourceConnection<GgafDx9Model>* GgafDx9ModelManager::processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource) {
     TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" を生成開始。");

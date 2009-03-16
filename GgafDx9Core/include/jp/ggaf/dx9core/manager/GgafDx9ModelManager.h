@@ -35,12 +35,7 @@ private:
      */
     GgafDx9SpriteModel* createSpriteModel(char* prm_model_name);
 
-    /**
-     * GgafDx9SquareModel オブジェクトを生成。 .
-     * 1*1*1 立方体のモデル<BR>
-     * @param prm_model_name モデル定義の識別名。
-     */
-    GgafDx9SquareModel* createSquareModel(char* prm_model_name);
+
 
     /**
      * GgafDx9PlateModel オブジェクトを生成。 .
@@ -77,11 +72,6 @@ public:
      */
     void restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel);
 
-    /**
-     * GgafDx9SquareModel オブジェクトを再構築する。 .
-     * @param prm_pSquareModel 再構築するGgafDx9SquareModel
-     */
-    void restoreSquareModel(GgafDx9SquareModel* prm_pSquareModel);
 
     /**
      * GgafDx9PlateModel オブジェクトを再構築する。 .
@@ -107,43 +97,6 @@ public:
     void onDeviceLostAll();
 
     void releaseAll();
-
-//    /**
-//     * GgafDx9D3DXMeshModelオブジェクトを取得。 .
-//     * GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
-//     * から検索し、ヒットした（生成済みGgafDx9D3DXMeshModelがある）場合、 GgafDx9D3DXMeshModel にキャストしてそれを返す。<BR>
-//     * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
-//     * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
-//     * 毎フレーム実行されるような使用は避けるべきです。<BR>
-//     * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
-//     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
-//     * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
-//     */
-//    GgafDx9D3DXMeshModel* restoreD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
-//
-//    /**
-//     * GgafDx9SpriteModelオブジェクトを取得。 .
-//     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
-//     * から検索し、ヒットした（生成済みGgafDx9SpriteModelがある）場合、 GgafDx9SpriteModel にキャストしてそれを返す。<BR>
-//     * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
-//     * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
-//     * 毎フレーム実行されるような使用は避けるべきです。<BR>
-//     * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
-//     * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
-//     */
-//    GgafDx9SpriteModel* restoreSpriteModel(char* prm_model_name);
-//
-//    /**
-//     * GgafDx9SquareModelオブジェクトを取得。 .
-//     * 生成済み GgafDx9Model オブジェクトリスト（先頭は_pModel_First）<BR>
-//     * から検索し、ヒットした（生成済みGgafDx9SquareModelがある）場合、 GgafDx9SquareModel にキャストしてそれを返す。<BR>
-//     * ヒットしない場合は create を行いインスタンス生成後リストに追加しそれを返す。<BR>
-//     * 内部で std::string の比較を見つかるまで行うため、重いです。<BR>
-//     * 毎フレーム実行されるような使用は避けるべきです。<BR>
-//     * 初期化関数等で１回使用し、ポインタを保持するという使用方法を想定。<BR>
-//     * @param prm_model_name モデル定義の識別名。（".x"を追加すると定義Xファイル名になる）
-//     */
-//    GgafDx9SquareModel* restoreSquareModel(char* prm_model_name);
 
 
     /** 現在モデルID */
