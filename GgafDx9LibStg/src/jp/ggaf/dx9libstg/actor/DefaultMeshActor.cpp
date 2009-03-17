@@ -4,9 +4,14 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model, const char* prm_technique) :
-    GgafDx9MeshActor(prm_name, prm_model, prm_technique, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
-{
+DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model) :
+    GgafDx9MeshActor(prm_name,
+                     prm_model,
+                     "X/DefaultMashEffect",
+                     "DefaultMeshTechnique",
+                     NEW GgafDx9GeometryMover(this),
+                     NEW StgChecker(this) ) {
+
     _class_name = "DefaultMeshActor";
     _dwFrameOffset = 0;
     _pChecker = (StgChecker*)_pGeoChecker;

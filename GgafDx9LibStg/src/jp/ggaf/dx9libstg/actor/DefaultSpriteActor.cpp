@@ -4,9 +4,13 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model, const char* prm_technique) :
-    GgafDx9SpriteActor(prm_name, prm_model, prm_technique, NEW GgafDx9GeometryMover(this), NEW StgChecker(this))
-{
+DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model) :
+    GgafDx9SpriteActor(prm_name,
+                       prm_model,
+                       "S/DefaultSpriteEffect",
+                       "DefaultSpriteTechnique",
+                       NEW GgafDx9GeometryMover(this),
+                       NEW StgChecker(this) ) {
     _class_name = "DefaultSpriteActor";
     _dwFrameOffset = 0;
     _pChecker = (StgChecker*)_pGeoChecker;

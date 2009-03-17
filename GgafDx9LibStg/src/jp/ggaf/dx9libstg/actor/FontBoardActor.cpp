@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 FontBoardActor::FontBoardActor(const char* prm_name, const char* prm_model)
-  : DefaultBoardActor(prm_name, prm_model, "DefaultBoardTechnique") {
+  : DefaultBoardActor(prm_name, prm_model) {
     _class_name = "FontBoardActor";
     _draw_string = NULL;
     _len = 0;

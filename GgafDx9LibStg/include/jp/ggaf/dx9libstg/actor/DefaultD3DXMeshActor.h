@@ -13,7 +13,7 @@ public:
 
     StgChecker* _pChecker;
 
-    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model, const char* prm_technique);
+    DefaultD3DXMeshActor(const char* prm_name, const char* prm_model);
 
     virtual void initialize() {
     }

@@ -4,8 +4,8 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model, const char* prm_technique) :
-    GgafDx9BoardActor(prm_name, prm_model, prm_technique)
+DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model) :
+    GgafDx9BoardActor(prm_name, prm_model, "B/DefaultBoardEffect", "DefaultBoardTechnique")
 {
     _class_name = "DefaultBoardActor";
 }
