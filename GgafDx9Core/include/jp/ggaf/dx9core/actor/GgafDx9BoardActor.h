@@ -24,7 +24,8 @@ private:
 
 public:
     char* _technique;
-
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9BoardModel* _pBoardModel;
@@ -49,7 +50,10 @@ public:
     /** 現在表示中のアニメパターン番号 */
     int _patteno_now;
 
-    GgafDx9BoardActor(const char* prm_name, const char* prm_spritemodel_name, const char* prm_technique);
+    GgafDx9BoardActor(const char* prm_name,
+                      const char* prm_model_name,
+                      const char* prm_effect,
+                      const char* prm_technique );
 
     /**
      * ＜OverRide です＞<BR>

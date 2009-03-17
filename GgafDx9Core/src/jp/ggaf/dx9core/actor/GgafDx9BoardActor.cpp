@@ -3,8 +3,10 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name, const char* prm_model_name, const char* prm_technique) : GgafDx9TransformedActor(prm_name) {
-_TRACE_("GgafDx9BoardActor::GgafDx9BoardActor("<<prm_name<<","<<prm_model_name<<","<<prm_technique<<")");
+GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
+                                     const char* prm_model_name,
+                                     const char* prm_effect,
+                                     const char* prm_technique) : GgafDx9TransformedActor(prm_name) {
     _class_name = "GgafDx9BoardActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
@@ -15,7 +17,7 @@ _TRACE_("GgafDx9BoardActor::GgafDx9BoardActor("<<prm_name<<","<<prm_model_name<<
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
     _paD3DMaterial9[0] = *(_pBoardModel->_pD3DMaterial9_default);
     //ÉGÉtÉFÉNÉgéÊìæ
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("B/GgafDx9BoardEffect");
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pBoardEffect = (GgafDx9BoardEffect*)_pEffectCon->view();
     _pattno_top = 0;
     _pattno_bottom = _pBoardModel->_pattno_max;
@@ -29,17 +31,17 @@ void GgafDx9BoardActor::processDrawMain() {
     pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9BoardActor::GgafDx9MeshActor SetTechnique() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9BoardActor::processDrawMain SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::draw BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _pBoardModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::draw EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->End();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -12,9 +12,6 @@ class GgafDx9UntransformedActor : public GgafDx9BaseActor {
 private:
 
 public:
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
-
 
     /** キャラ全体のα */
     float _fAlpha;

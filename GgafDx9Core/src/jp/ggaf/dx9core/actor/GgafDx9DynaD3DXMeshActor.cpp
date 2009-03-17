@@ -6,10 +6,15 @@ using namespace GgafDx9Core;
 DWORD GgafDx9DynaD3DXMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
 GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
-                                           const char* prm_model,
-                                           const char* prm_technique,
-                                           GgafDx9GeometryMover* prm_pGeoMover,
-                                           GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+                                                   const char* prm_model,
+                                                   const char* prm_effect,
+                                                   const char* prm_technique,
+                                                   GgafDx9GeometryMover* prm_pGeoMover,
+                                                   GgafDx9GeometryChecker* prm_pGeoChecker) :
+
+                                                   GgafDx9UntransformedActor(prm_name,
+                                                                             prm_pGeoMover,
+                                                                             prm_pGeoChecker) {
     _class_name = "GgafDx9DynaD3DXMeshActor";
 
 	_technique = NEW char[51];
@@ -18,7 +23,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 	_pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
     _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pModelCon->view();
     //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("X/GgafDx9MashEffect");
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
 
 	//マテリアルをコピー
@@ -37,7 +42,7 @@ void GgafDx9DynaD3DXMeshActor::processDrawMain() {
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");

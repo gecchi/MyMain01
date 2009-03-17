@@ -6,7 +6,13 @@ using namespace GgafDx9Core;
 GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
                                    GgafDx9GeometryMover* prm_pGeoMover,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) :
-    GgafDx9MeshActor(prm_name, "X/cube4", "DefaulNoTexMeshTechnique", prm_pGeoMover, prm_pGeoChecker) {
+
+                                   GgafDx9MeshActor(prm_name,
+                                                    "X/cube4",
+                                                    "X/DefaultMashEffect",
+                                                    "DefaultMeshTechnique",
+                                                    prm_pGeoMover,
+                                                    prm_pGeoChecker) {
     _class_name = "GgafDx9CubeActor";
 }
 

@@ -14,7 +14,8 @@ public:
 
     char* _technique;
     static DWORD FVF;
-
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
     /** モデル */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
@@ -24,10 +25,11 @@ public:
     GgafDx9MeshEffect* _pMeshEffect;
 
     GgafDx9D3DXMeshActor(const char* prm_name,
-                     const char* prm_model,
-                     const char* prm_technique,
-                     GgafDx9GeometryMover* prm_pGeoMover,
-                     GgafDx9GeometryChecker* prm_pGeoChecker);
+                         const char* prm_model,
+                         const char* prm_effect,
+                         const char* prm_technique,
+                         GgafDx9GeometryMover* prm_pGeoMover,
+                         GgafDx9GeometryChecker* prm_pGeoChecker);
 
     /**
      * ＜OverRide です＞<BR>

@@ -13,7 +13,8 @@ private:
 public:
 
     char* _technique;
-
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
     /** モデル資源接続 */
     GgafDx9ModelConnection* _pModelCon;
     /** モデル資源 */
@@ -33,10 +34,11 @@ public:
      * @param prm_pGeoChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
      */
     GgafDx9MeshActor(const char* prm_name,
-                         const char* prm_model,
-                         const char* prm_technique,
-                         GgafDx9GeometryMover* prm_pGeoMover,
-                         GgafDx9GeometryChecker* prm_pGeoChecker);
+                     const char* prm_model,
+                     const char* prm_effect,
+                     const char* prm_technique,
+                     GgafDx9GeometryMover* prm_pGeoMover,
+                     GgafDx9GeometryChecker* prm_pGeoChecker );
 
     /**
      * ＜OverRide です＞<BR>

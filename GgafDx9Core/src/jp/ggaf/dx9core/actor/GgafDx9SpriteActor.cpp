@@ -4,25 +4,29 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
-                                       const char* prm_spritemodel_name,
+                                       const char* prm_model,
+                                       const char* prm_effect,
                                        const char* prm_technique,
                                        GgafDx9GeometryMover* prm_pGeoMover,
                                        GgafDx9GeometryChecker* prm_pGeoChecker) :
-    GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker) {
+
+                                       GgafDx9UntransformedActor(prm_name,
+                                                                 prm_pGeoMover,
+                                                                 prm_pGeoChecker) {
     _class_name = "GgafDx9SpriteActor";
 
-    TRACE("GgafDx9SpriteActor::GgafDx9SpriteActor ("<<prm_name<<","<<prm_spritemodel_name<<","<<prm_technique<<")");
+    TRACE("GgafDx9SpriteActor::GgafDx9SpriteActor ("<<prm_name<<","<<prm_model<<","<<prm_technique<<")");
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
 
     //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_spritemodel_name);
+    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
     _pSpriteModel = (GgafDx9SpriteModel*)_pModelCon->view();
     //モデルのマテリアルをコピーして保持
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
     _paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
     //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("S/GgafDx9SpriteEffect");
+    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pEffectCon->view();
     // _pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
 
@@ -54,7 +58,7 @@ void GgafDx9SpriteActor::processDrawMain() {
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique() に失敗しました。");
+    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") に失敗しました。");
 
     static D3DXMATRIX matWorld; //WORLD変換行列
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
@@ -65,10 +69,10 @@ void GgafDx9SpriteActor::processDrawMain() {
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() に失敗しました。");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::draw BeginPass(0) に失敗しました。");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) に失敗しました。");
         _pSpriteModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::draw EndPass() に失敗しました。");
+        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() に失敗しました。");
     }
     hr = pID3DXEffect->End();
     whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() に失敗しました。");

@@ -19,7 +19,6 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     //	_incRX = _incRY = _incRZ = 0;
     _pGeoMover = prm_pGeoMover;
     _pGeoChecker = prm_pGeoChecker;
-    _paD3DMaterial9 = NULL;
 //    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection("Default");
 //    _pID3DXEffect = _pEffectCon->view();
 

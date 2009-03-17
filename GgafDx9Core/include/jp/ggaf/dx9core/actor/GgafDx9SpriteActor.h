@@ -20,6 +20,9 @@ private:
 
 public:
     char* _technique;
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
+
 
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
@@ -49,10 +52,11 @@ public:
     bool _isBillboardingFlg;
 
     GgafDx9SpriteActor(const char* prm_name,
-                       const char* prm_spritemodel_name,
+                       const char* prm_model,
+                       const char* prm_effect,
                        const char* prm_technique,
                        GgafDx9GeometryMover* prm_pGeoMover,
-                       GgafDx9GeometryChecker* prm_pGeoChecker);
+                       GgafDx9GeometryChecker* prm_pGeoChecker );
 
     /**
      * ＜OverRide です＞<BR>
