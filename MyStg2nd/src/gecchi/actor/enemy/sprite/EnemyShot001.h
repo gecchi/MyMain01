@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class EnemyShot001 : public EnemyShotSpriteActor {
 
 public:
-    EnemyShot001(const char* prm_name, const char* prm_model, const char* prm_technique);
+    EnemyShot001(const char* prm_name);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

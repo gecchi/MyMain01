@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/Ceres", "DefaultMeshTechnique") {
+EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/Ceres") {
     _class_name = "EnemyCeres";
 
     _iMovePatternNo = 0;
@@ -38,7 +38,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     }
 
 EnemyCeres::EnemyCeres(const char* prm_name, RotationActor* prm_pRotEnemyMeshShots001) :
-    DefaultMeshEnemyActor(prm_name, "X/Ceres", "DefaultMeshTechnique") {
+    DefaultMeshEnemyActor(prm_name, "X/Ceres") {
     _class_name = "EnemyCeres";
 
     _iMovePatternNo = 0;

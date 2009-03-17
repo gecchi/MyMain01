@@ -52,7 +52,6 @@ class MyLaserChip2;
 class MyLaserChipRotationActor;
 
 class Stage01MainScene;
-class MyShipMoverAssistant;
 class MyShip;
 class MyOptionParent;
 class MyOption;
@@ -105,7 +104,6 @@ class MyFactory;
 #include "gecchi/actor/my/mesh/MyLaserChip.h"
 #include "gecchi/actor/my/mesh/MyLaserChip2.h"
 #include "gecchi/actor/my/mesh/MyLaserChipRotationActor.h"
-#include "gecchi/actor/my/mesh/MyShipMoverAssistant.h"
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyOption.h"

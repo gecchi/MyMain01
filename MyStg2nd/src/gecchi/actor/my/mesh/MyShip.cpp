@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres", "DefaultMeshTechnique") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -89,7 +89,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres", "De
     addSubLast(_pMyShots001Rotation); //仮所属
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
-        pShot = NEW MyShot001("MY_MyShot001", "S/moji2", "DefaultSpriteTechnique");
+        pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactImmediately();
         _pMyShots001Rotation->addSubLast(pShot);
     }
@@ -98,7 +98,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres", "De
     addSubLast(_pMyWaves001Rotation);//仮所属
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
-        pWave = NEW MyWave001("MY_Wave001", "X/wave");
+        pWave = NEW MyWave001("MY_Wave001");
         pWave->inactImmediately();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
@@ -115,7 +115,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres", "De
 //    }
 
     for (int i = 0; i < EQ_MAX_OPTION; i++) {
-        MyOption* pOption = NEW MyOption("MY_OPTION", "X/ebi");
+        MyOption* pOption = NEW MyOption("MY_OPTION");
         pOption->_iMyNo = i; //おぷ番
         pOption->inactImmediatelyAlone();
         addSubLast(pOption);
@@ -143,7 +143,7 @@ void MyShip::initialize() {
     //_pGeoMover->setRotAngleVelocity(AXIS_Y,500);
     //_pGeoMover->setRotAngleVelocity(AXIS_Z,300);
 
-    _pTestBoard = NEW DefaultBoardActor("BOARD", "B/hoge", "DefaultBoardTechnique");
+    _pTestBoard = NEW DefaultBoardActor("BOARD", "B/hoge");
     _pTestBoard->setPatternNo(6);
     _pTestBoard->_x = 50;
     _pTestBoard->_y = 50;

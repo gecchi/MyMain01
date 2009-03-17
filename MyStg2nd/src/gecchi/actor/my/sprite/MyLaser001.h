@@ -12,7 +12,7 @@ class MyLaser001 : public DefaultSpriteMyActor {
     GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
 
 public:
-    MyLaser001(const char* prm_name, const char* prm_model, const char* prm_technique);
+    MyLaser001(const char* prm_name);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

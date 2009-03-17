@@ -44,7 +44,7 @@ public:
     /** 対象アクター */
     GgafDx9UntransformedActor* _pActor_Radical;
 
-    MyLaserChip(const char* prm_name, const char* prm_model);
+    MyLaserChip(const char* prm_name);
 
     /**
      * ＜OverRide です＞

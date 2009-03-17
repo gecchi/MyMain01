@@ -13,7 +13,7 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
     MyLaserChip2* pChip;
     for (int i = 0; i < 32; i++) { //レーザーストック
         Sleep(1);
-        pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
+        pChip = NEW MyLaserChip2("MYS_MyLaserChip2");
         pChip->inactImmediately();
         addSubLast(pChip);
     }

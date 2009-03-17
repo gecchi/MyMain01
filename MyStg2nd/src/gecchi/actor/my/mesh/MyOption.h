@@ -15,7 +15,7 @@ public:
     /** 対象アクター前フレームからの増分 */
     int _incX_Radical, _incY_Radical, _incZ_Radical;
 
-    MyOption(const char* prm_name, const char* prm_model);
+    MyOption(const char* prm_name);
 
     /**
      * ＜OverRide です＞
