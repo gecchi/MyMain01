@@ -62,7 +62,7 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isPlaying() || pActor->_willActNextFrameFlg) {
+            if (pActor->isPlaying() || pActor->willActNextFrame()) {
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
