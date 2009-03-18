@@ -65,7 +65,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //前回描画UV座標（へのポインタ）を保存
     _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;
-    pTargetActor->_wasExecutedProcessDrawMainFlg = true;
+    pTargetActor->setExecutedProcessDrawMainFlg(true);
     return D3D_OK;
 
 }

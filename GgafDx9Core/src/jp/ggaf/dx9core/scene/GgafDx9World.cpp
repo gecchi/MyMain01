@@ -28,7 +28,7 @@ void GgafDx9World::drawMain() {
                 break;
             }
             pActor->processDrawMain();
-            pActor->_wasExecutedProcessDrawMainFlg = true; //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
+            pActor->setExecutedProcessDrawMainFlg(true); //‚Qd•`‰æ–hŽ~ƒtƒ‰ƒO
             ptmp = pActor;
             pActor = pActor->_pNext_TheSameDrawDepthLevel;
             ptmp->_pNext_TheSameDrawDepthLevel = NULL;
@@ -66,6 +66,5 @@ GgafDx9World::~GgafDx9World() {
         if (_apActorDrawDepthLevel_last[i] != NULL) {
             DELETE_IMPOSSIBLE_NULL(_apActorDrawDepthLevel_last[i]);
         }
-
     }
 }

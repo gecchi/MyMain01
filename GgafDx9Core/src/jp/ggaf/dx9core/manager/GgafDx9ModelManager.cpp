@@ -29,39 +29,39 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
     //êUÇËï™ÇØ
     char model_type = *prm_idstr; //ì™àÍï∂éö
     char* model_name = prm_idstr + 2; //ÇRï∂éöñ⁄à»ç~
-    GgafDx9Model* model;
+    GgafDx9Model* pResourceModel;
     switch (model_type) {
         case 'M':
             //MeshModel
-            model = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
+            pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
         case 'm':
             //DynaMeshModel
-            model = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
+            pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'X':
             //MeshModel
-            model = createMeshModel(model_name);
+            pResourceModel = createMeshModel(model_name);
             break;
         case 'S':
             //SpriteModel
-            model = createSpriteModel(model_name);
+            pResourceModel = createSpriteModel(model_name);
             break;
         case 'B':
             //BoardModel
-            model = createBoardModel(model_name);
+            pResourceModel = createBoardModel(model_name);
             break;
         case 'C':
             //cubeModel
-            model = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
+            pResourceModel = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
             break;
         default:
             TRACE3("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ÇªÇÒÇ»éÌï ÇÕÇ†ÇËÇ‹ÇπÇÒ");
             throwGgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ÇªÇÒÇ»ÉÇÉfÉãéÌï ÇÕímÇËÇ‹ÇπÇÒ");
-            model = NULL;
+            pResourceModel = NULL;
             break;
     }
-    return model;
+    return pResourceModel;
 }
 
 GgafDx9D3DXMeshModel* GgafDx9ModelManager::createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) {
@@ -879,32 +879,32 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
 
 void GgafDx9ModelManager::restoreAll() {
     TRACE3("GgafDx9ModelManager::restoreAll() start-->");
-    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("restoreAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
         pCurrent->view()->restore();
-        pCurrent = pCurrent->_pNext;
+        pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::restoreAll() end<--");
 }
 
 void GgafDx9ModelManager::onDeviceLostAll() {
     TRACE3("GgafDx9ModelManager::onDeviceLostAll() start-->");
-    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     TRACE3("onDeviceLostAll pCurrent="<<pCurrent);
     while (pCurrent != NULL) {
         pCurrent->view()->onDeviceLost();
-        pCurrent = pCurrent->_pNext;
+        pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::onDeviceLostAll() end<--");
 }
 
 void GgafDx9ModelManager::releaseAll() {
     TRACE3("GgafDx9ModelManager::releaseAll() start-->");
-    GgafResourceConnection<GgafDx9Model>* pCurrent = _pTop;
+    GgafResourceConnection<GgafDx9Model>* pCurrent = _pFirstConnection;
     while (pCurrent != NULL) {
         pCurrent->view()->release();
-        pCurrent = pCurrent->_pNext;
+        pCurrent = pCurrent->getNext();
     }
     TRACE3("GgafDx9ModelManager::releaseAll() end<--");
 }
