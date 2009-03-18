@@ -3,13 +3,30 @@
 namespace GgafCore {
 
 /**
- * GgafResourceConnection 管理クラス .
- * 生成済み GgafResourceConnection オブジェクトを登録しておき、使いまわします。
+ * 資源管理クラス。 .
+ * 厳密には、資源をラッピングする『資源接続クラス(GgafResourceConnection)』の管理クラス。<BR>
+ * 間に一枚かんでいるというわけです。<BR>
+ * 資源管理クラスは主な機能は、資源接続クラスのインスタンスをを内部にリストで保持し、取得要求があった場合、
+ * 内部保持していればそれを返し、保持していなければ生成して、リストに追加した後それを返します。
  */
 template<class T>
 class GgafResourceManager : public GgafObject {
+    friend class GgafResourceConnection<T>;
 
 private:
+    /**
+     * GgafResourceConnectionオブジェクトをリストに追加。<BR>
+     * @param prm_pNew 追加するGgafResourceConnectionオブジェクトのポインタ
+     */
+    virtual void add(GgafResourceConnection<T>* prm_pNew);
+
+    /**
+     * GgafResourceConnectionオブジェクトをリストから検索。<BR>
+     * @param prm_idstr 識別名
+     * @return  所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 NULL
+     */
+    virtual GgafResourceConnection<T>* find(char* prm_idstr);
+
     /**
      * 資源のを生成。.
      * @param prm_name 識別名
@@ -22,29 +39,37 @@ private:
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
-public:
+protected:
     /** マネージャ名称 */
     const char* _manager_name;
     /** GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
-    GgafResourceConnection<T>* _pTop;
+    GgafResourceConnection<T>* _pFirstConnection;
 
+    /**
+     * 実際の資源のを生成を下位で実装します。.
+     * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
+     * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
+     * @param prm_idstr この識別名が渡された時、どういう資源を生成するか？ という識別名
+     * @return 資源インスタンスのポインタ
+     */
+    virtual T* processCreateResource(char* prm_idstr) = 0;
+
+    /**
+     * 資源接続オブジェクトの生成を下位で実装します。.
+     * このメソッドは createResourceConnection から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
+     * prm_idstr から 資源接続オブジェクトを生成するロジックを実装してく下さい。<BR>
+     * ほとんどは、GgafResourceConnection 実装クラスを new して、それを返すだけでOK。BR>
+     * @param prm_idstr  この識別名が渡された時、どういう資源接続オブジェクトを生成するか？ という識別名
+     * @param prm_pResource 資源ポインタ
+     * @return GgafResourceConnection 資源接続オブジェクトのインスタンス（＝GgafResourceConnection 実装クラスのインスタンス）
+     */
+    virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
+
+public:
     /**
      * コンストラクタ
      */
     GgafResourceManager(const char* prm_manager_name);
-
-    /**
-     * GgafResourceConnectionオブジェクトをリストに追加。<BR>
-     * @param prm_pNew 追加するGgafResourceConnectionオブジェクトのポインタ
-     */
-    virtual void add(GgafResourceConnection<T>* prm_pNew);
-
-    /**
-     * GgafResourceConnectionオブジェクトをリストから検索。<BR>
-     * @param prm_idstr 識別名
-     * @return	所望のGgafResourceConnectionオブジェクトのポインタ。リストに存在しなかった場合 NULL
-     */
-    virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
     /**
      * デストラクタ。保持リストを強制解放します。 .
@@ -73,25 +98,6 @@ public:
      */
     virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr);
 
-    /**
-     * 実際の資源のを生成を下位で実装します。.
-     * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
-     * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
-     * @param prm_idstr この識別名が渡された時、どういう資源を生成するか？ という識別名
-     * @return 資源インスタンスのポインタ
-     */
-    virtual T* processCreateResource(char* prm_idstr) = 0;
-
-    /**
-     * 資源接続オブジェクトの生成を下位で実装します。.
-     * このメソッドは createResourceConnection から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
-     * prm_idstr から 資源接続オブジェクトを生成するロジックを実装してく下さい。<BR>
-     * ほとんどは、GgafResourceConnection 実装クラスを new して、それを返すだけでOK。BR>
-     * @param prm_idstr  この識別名が渡された時、どういう資源接続オブジェクトを生成するか？ という識別名
-     * @param prm_pResource 資源ポインタ
-     * @return GgafResourceConnection 資源接続オブジェクトのインスタンス（＝GgafResourceConnection 実装クラスのインスタンス）
-     */
-    virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
 
     /**
      * マネジャーが保持するリストを出力します。（デバッグ用） .
@@ -105,12 +111,12 @@ template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
     TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
-    _pTop = NULL;
+    _pFirstConnection = NULL;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
-    GgafResourceConnection<T>* pCurrent = _pTop;
+    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     while (pCurrent != NULL) {
         if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
             return pCurrent;
@@ -122,11 +128,11 @@ GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
 
 template<class T>
 void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
-    if (_pTop == NULL) {
-        _pTop = prm_pResource_New;
+    if (_pFirstConnection == NULL) {
+        _pFirstConnection = prm_pResource_New;
         return;
     } else {
-        GgafResourceConnection<T>* pCurrent = _pTop;
+        GgafResourceConnection<T>* pCurrent = _pFirstConnection;
         while (pCurrent->_pNext != NULL) {
             pCurrent = pCurrent->_pNext;
         }
@@ -178,8 +184,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char
 
 template<class T>
 void GgafResourceManager<T>::dump() {
-    GgafResourceConnection<T>* pCurrent = _pTop;
-    if (_pTop == NULL) {
+    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+    if (_pFirstConnection == NULL) {
         TRACE3("GgafResourceManager::dump[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
@@ -199,8 +205,8 @@ void GgafResourceManager<T>::dump() {
 template<class T>
 GgafResourceManager<T>::~GgafResourceManager() {
     TRACE3("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
-    GgafResourceConnection<T>* pCurrent = _pTop;
-    if (_pTop == NULL) {
+    GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+    if (_pFirstConnection == NULL) {
         TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] 保持リストにはなにもありません。");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;

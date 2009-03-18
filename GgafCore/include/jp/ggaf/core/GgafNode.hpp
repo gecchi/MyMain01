@@ -68,9 +68,11 @@ namespace GgafCore {
 template<class T>
 class GgafNode : public GgafObject {
 
-protected:
-public:
+private:
+    /** ループ用 */
+    T* _pNodeTemp;
 
+protected:
     /** ID */
     char* _id;
     /** ノード識別名(50文字まで) */
@@ -91,9 +93,8 @@ public:
     bool _isFirstFlg;
     /** 末尾ノードフラグ (自ノードが末尾ノードの場合 true)*/
     bool _isLastFlg;
-    /** ループ用 */
-    T* _pNodeTemp;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name ノード名称（ユニークにして下さい）
@@ -114,25 +115,30 @@ public:
      * ノード名取得 .
      * @return ノード名称
      */
-    virtual char* getName();
+    virtual char* getName(){
+        return _name;
+    }
 
     /**
      * クラス名取得 .
      * @return クラス名称
      */
-    virtual const char* getClassName();
+    virtual const char* getClassName() {
+        return _class_name;
+    }
 
     /**
      * ノード名問い合わせ
      */
     //	virtual bool isNamed(const char* prm_name);
 
-
     /**
      * １つ上の親ノードを設定する。
      * @param	prm_pParent	親ノード
      */
-    virtual void setParent(T* prm_pParent);
+    virtual void setParent(T* prm_pParent){
+        _pParent = prm_pParent;
+    }
 
     /**
      * 自ツリーノードを連結リストから切り離し、独立する。 .
@@ -184,13 +190,17 @@ public:
      * 次のノード取得する。
      * @return	T*	次ノード
      */
-    virtual T* getNext();
+    virtual T* getNext() {
+        return _pNext;
+    }
 
     /**
      * 前のノード取得する。
      * @return	T*	前ノード
      */
-    virtual T* getPrev();
+    virtual T* getPrev() {
+        return _pPrev;
+    }
 
     /**
      * １つ上の親ノード取得する。
@@ -245,7 +255,9 @@ public:
      * 子ノードが存在しない場合はエラー。
      * @return	T*	子ノードの先頭ノード
      */
-    virtual T* getSubFirst();
+    virtual T* getSubFirst() {
+        return _pSubFirst;
+    }
 
     /**
      * 子ノード存在チェック .
@@ -260,13 +272,17 @@ public:
      * 自ノードが先頭ノードか調べる .
      * @return	bool true:先頭ノード／false:先頭ノードではない
      */
-    virtual bool isFirst();
+    virtual bool isFirst() {
+        return _isFirstFlg;
+    }
 
     /**
      * 自ノードが末尾ノードか調べる .
      * @return	bool true:末尾ノード／false:末尾ノードではない
      */
-    virtual bool isLast();
+    virtual bool isLast(){
+        return _isLastFlg;
+    }
 
 };
 
@@ -277,17 +293,20 @@ public:
  */
 
 template<class T>
-GgafNode<T>::GgafNode(const char* prm_name) :
-    GgafObject(), _name("NOT_OBJECT_YET"), _pParent(NULL), _pSubFirst(NULL), _isFirstFlg(false), _isLastFlg(false) {
+GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
+_name("NOT_OBJECT_YET"),
+_pParent(NULL),
+_pSubFirst(NULL),
+_isFirstFlg(false),
+_isLastFlg(false)
+{
     _pNext = (T*)this;
     _pPrev = (T*)this;
-
     _name = NEW char[51];
     strcpy(_name, prm_name);
     //_id = GgafUtil::itos(GgafObject::_iObjectNo);
     TRACE("template<class T> GgafNode<T>::GgafNode(" << _name << ")");
     _class_name = "GgafNode<T>";
-
 }
 
 template<class T>
@@ -321,7 +340,6 @@ T* GgafNode<T>::tear() {
     } else {
         throwGgafCriticalException("[GgafNode<" << _class_name << ">::tear()] ＜警告＞ " << getName() << "は、何所にも所属していません");
     }
-
 }
 
 template<class T>
@@ -373,25 +391,11 @@ void GgafNode<T>::moveFirst() {
     }
 }
 
-template<class T>
-void GgafNode<T>::setParent(T* prm_pParent) {
-    _pParent = prm_pParent;
-}
-
-template<class T>
-T* GgafNode<T>::getNext() {
-    return (T*)_pNext;
-}
-
-template<class T>
-T* GgafNode<T>::getPrev() {
-    return (T*)_pPrev;
-}
 
 template<class T>
 T* GgafNode<T>::getParent() {
     if (_pParent == NULL) {
-        throwGgafCriticalException("[GgafNode<" << _class_name << ">::getParent()] Error! 親ノードがありません。");
+        _TRACE_("[GgafNode<" << _class_name << ">::getParent()] ＜警告＞ 親ノードがありません。NULLを返します。");
     }
     return (T*)_pParent;
 }
@@ -402,8 +406,9 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
     while (true) {
         _pNodeTemp = _pNodeTemp->_pParent;
         if (_pNodeTemp == NULL) {
-            throwGgafCriticalException("[GgafNode<" << _class_name
-                    << ">::getParent()] Error! 親ノードがありません。(prm_parent_name=" << prm_parent_name << ")");
+            _TRACE_("[GgafNode<" << _class_name
+                    << ">::getParent("<<prm_parent_name<<")] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。");
+            return NULL;
         } else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
             break;
         }
@@ -429,11 +434,6 @@ T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
         }
     } while (true);
     return _pNodeTemp;
-}
-
-template<class T>
-T* GgafNode<T>::getSubFirst() {
-    return (T*)_pSubFirst;
 }
 
 template<class T>
@@ -483,15 +483,6 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
 
 }
 
-template<class T>
-char* GgafNode<T>::getName() {
-    return _name;
-}
-
-template<class T>
-const char* GgafNode<T>::getClassName() {
-    return _class_name;
-}
 /*
  template<class T>
  bool GgafNode<T>::isNamed(const char* prm_name) {
@@ -503,15 +494,6 @@ const char* GgafNode<T>::getClassName() {
  }
  */
 
-template<class T>
-bool GgafNode<T>::isLast() {
-    return _isLastFlg;
-}
-
-template<class T>
-bool GgafNode<T>::isFirst() {
-    return _isFirstFlg;
-}
 
 template<class T>
 GgafNode<T>::~GgafNode() {
@@ -572,9 +554,6 @@ GgafNode<T>::~GgafNode() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_name);
-
-    //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<") ID="<<_id);
-    //	_TRACE_("...deleted GgafNode<"<<_class_name<<">("<<_name<<")");
 }
 
 }

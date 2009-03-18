@@ -22,14 +22,14 @@ namespace GgafCore {
 template<class T>
 class GgafElement : public GgafNode<T> {
 
-protected:
+private:
 
+protected:
     /** 神への近道 */
     GgafGod* _pGod;
     /** initializeが行われたどうかのフラグ(true=行われた) */
     bool _wasInitializedFlg;
 
-public:
     /** 余命 */
     DWORD _dwGodFrame_ofDeath;
     /** ノードが誕生(addSubされた）時からのフレーム */
@@ -77,6 +77,7 @@ public:
     /** 描画されましたフラグ */
     bool _wasExecutedProcessDrawMainFlg;
 
+public:
     /**
      * コンストラクタ
      * @param prm_name ノード名称（ユニークにして下さい）
@@ -503,13 +504,18 @@ public:
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
      */
-    void moveLast();
+    void moveLast() {
+        _willMoveLastNextFrameFlg = true;
+    }
+
     /**
      * 自ツリーノードを先頭ノードに移動する .
      * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではありません。<BR>
      */
-    void moveFirst();
+    void moveFirst() {
+        _willMoveFirstNextFrameFlg = true;
+    }
 
     /**
      * 所属ツリーから独立する
@@ -518,17 +524,6 @@ public:
      */
     T* becomeIndependent();
 
-    /**
-     * 生存可能か調べる
-     * @return  bool true:生存可能／false:生存不可
-     */
-    bool isAlive();
-
-    /**
-     * 活動中か調べる
-     * @return  bool true:活動中／false:非活動中
-     */
-    bool isPlaying();
 
     /**
      * 非活動から活動に切り替わったかどうか .
@@ -545,6 +540,20 @@ public:
     bool switchedToInact();
 
     /**
+     * 生存可能か調べる
+     * @return  bool true:生存可能／false:生存不可
+     */
+    bool isAlive() {
+        return _isAliveFlg;
+    }
+
+    /**
+     * 活動中か調べる
+     * @return  bool true:活動中／false:非活動中
+     */
+    bool isPlaying();
+
+    /**
      * 活動しているか
      * @return  bool true:活動可能／false:活動不可
      */
@@ -559,7 +568,42 @@ public:
     /**
      * ノードの現在の経過フレームを取得する
      */
-    DWORD getFrame();
+    DWORD getFrame() {
+        return _dwFrame;
+    }
+
+    bool willActNextFrame() {
+        return _willActNextFrameFlg;
+    }
+
+    bool willPauseNextFrame() {
+        return _willPauseNextFrameFlg;
+    }
+
+    bool willBlindNextFrame() {
+        return _willBlindNextFrameFlg;
+    }
+
+    bool willBeAliveNextFrame() {
+        return _willBeAliveNextFrameFlg;
+    }
+
+    bool willMoveFirstNextFrame() {
+        return _willMoveFirstNextFrameFlg;
+    }
+
+    bool willMoveLastNextFrame() {
+        return _willMoveLastNextFrameFlg;
+    }
+
+    bool getExecutedProcessDrawMainFlg() {
+        return _wasExecutedProcessDrawMainFlg;
+    }
+
+    void setExecutedProcessDrawMainFlg(bool prm_b) {
+        _wasExecutedProcessDrawMainFlg = prm_b;
+    }
+
 
     /**
      * 相対経過フレームの判定。
@@ -1223,15 +1267,6 @@ void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
     }
 }
 
-template<class T>
-DWORD GgafElement<T>::getFrame() {
-    return _dwFrame;
-}
-
-template<class T>
-bool GgafElement<T>::isAlive() {
-    return _isAliveFlg;
-}
 
 template<class T>
 bool GgafElement<T>::isPlaying() {
@@ -1288,15 +1323,6 @@ bool GgafElement<T>::relativeFrame(DWORD prm_dwFrame_relative) {
     }
 }
 
-template<class T>
-void GgafElement<T>::moveLast() {
-    _willMoveLastNextFrameFlg = true;
-}
-
-template<class T>
-void GgafElement<T>::moveFirst() {
-    _willMoveFirstNextFrameFlg = true;
-}
 
 template<class T>
 T* GgafElement<T>::becomeIndependent() {
