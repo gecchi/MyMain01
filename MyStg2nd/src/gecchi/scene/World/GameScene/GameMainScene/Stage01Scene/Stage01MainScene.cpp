@@ -1365,7 +1365,7 @@ void Stage01MainScene::processFinal() {
 Stage01MainScene::~Stage01MainScene() {
     //NEWからprocessBehaviorまでの間に強制終了された場合、
     //_pRotはどのツリーにも所属していない。
-    if (_pRot->_pParent == NULL) {
+    if (_pRot->getParent() == NULL) {
         _TRACE_("_pRotが未所属のため独自delete");
         DELETE_IMPOSSIBLE_NULL(_pRot);
     }
