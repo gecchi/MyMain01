@@ -27,10 +27,6 @@ public:
     /** エフェクト資源 */
     GgafDx9MeshEffect* _pMeshEffect;
 
-
-	/** キャラ全体のα */
-    float _fAlpha;
-
     GgafDx9DynaD3DXMeshActor(const char* prm_name,
                              const char* prm_model,
                              const char* prm_effect,

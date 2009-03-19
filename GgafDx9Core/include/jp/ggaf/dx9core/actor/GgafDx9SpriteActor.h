@@ -32,9 +32,6 @@ public:
     GgafDx9EffectConnection* _pEffectCon;
     GgafDx9SpriteEffect* _pSpriteEffect;
 
-    /** キャラ全体のα */
-    float _fAlpha;
-
     /** アニメパターン番号の上限番号 */
     unsigned int _pattno_ani_top;
     /** 現在表示中のアニメパターン番号 */

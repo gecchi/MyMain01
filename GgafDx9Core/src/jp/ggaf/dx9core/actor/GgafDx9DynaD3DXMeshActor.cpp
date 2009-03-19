@@ -31,7 +31,6 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 	for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pD3DXMeshModel->_paD3DMaterial9_default[i];
     }
-    _fAlpha = 1.0f;
 }
 
 void GgafDx9DynaD3DXMeshActor::processDrawMain() {
