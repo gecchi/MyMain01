@@ -14,7 +14,7 @@ void MyShot001::initialize() {
 
     _pGeoMover->setRzMoveAngleVelocity(0);
     _pGeoMover->setRotAngleVelocity(AXIS_Z, 2 * 1000);
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 2 * 1400);
+    //_pGeoMover->setRotAngleVelocity(AXIS_X, 2 * 1400);
     _pGeoMover->setRotAngleVelocity(AXIS_Y, 2 * 1800);
 
     _pGeoMover->setRzMoveAngle(0);
