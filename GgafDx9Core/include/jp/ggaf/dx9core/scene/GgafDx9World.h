@@ -16,9 +16,8 @@ public:
     static GgafDx9Camera* _pCamera;
 
     /** アクター順序レンダリングのための遠さのレベルグループ */
-    static GgafCore::GgafActor* _apActorDrawDepthLevel_first[];
-    /** アクター順序レンダリングのための遠さのレベルグループ別最終アクター */
-    static GgafCore::GgafActor* _apActorDrawDepthLevel_last[];
+    static GgafCore::GgafActor* _apAlphaActorList_DrawDepthLevel[];
+    static GgafCore::GgafActor* _pActors_DrawMaxDrawDepth;
 
     GgafDx9World(const char* prm_name);
 
@@ -33,7 +32,7 @@ public:
      * @param prm_pActor アクター
      */
     static void setDrawDepthLevel(int prm_draw_depth_level, GgafCore::GgafActor* prm_pActor);
-
+    static void setDrawDepthMaxLevel(GgafCore::GgafActor* prm_pActor);
     virtual ~GgafDx9World();
 };
 

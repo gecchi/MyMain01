@@ -28,7 +28,7 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
 }
 
 void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
-    _fAlpha = prm_fAlpha;
+    GgafDx9UntransformedActor::setAlpha(prm_fAlpha);
     //Éøê›íË
     for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;

@@ -24,17 +24,12 @@ private:
 
 public:
     char* _technique;
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
     /** モデルオブジェクトへのポインタ */
     GgafDx9ModelConnection* _pModelCon;
     GgafDx9BoardModel* _pBoardModel;
     /** エフェクト */
     GgafDx9EffectConnection* _pEffectCon;
     GgafDx9BoardEffect* _pBoardEffect;
-
-    /** キャラ全体のα */
-    float _fAlpha;
 
     /** 矩形の頂点情報 */
     VERTEX* _paVertex;

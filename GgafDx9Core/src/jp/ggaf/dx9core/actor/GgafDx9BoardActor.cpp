@@ -16,14 +16,13 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     //モデルのマテリアルをコピーして保持(2009/3/10 現在マテリアル未使用。将来使うかも。)
     _paD3DMaterial9 = NEW D3DMATERIAL9[1];
     _paD3DMaterial9[0] = *(_pBoardModel->_pD3DMaterial9_default);
+    _fAlpha = 1.0;
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pBoardEffect = (GgafDx9BoardEffect*)_pEffectCon->view();
     _pattno_top = 0;
     _pattno_bottom = _pBoardModel->_pattno_max;
     _patteno_now = 0;
-    _fAlpha = 1.0f;
-
 }
 
 void GgafDx9BoardActor::processDrawMain() {

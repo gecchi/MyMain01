@@ -13,7 +13,7 @@ private:
 
 public:
 
-    /** キャラ全体のα */
+    /** α (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;
 
     /** ワールドX座標 */
@@ -22,26 +22,12 @@ public:
     int _Y;
     /** ワールドZ座標 */
     int _Z;
-    //	/** フレーム毎ワールドX座標の増分 */
-    //	int _incX;
-    //	/** フレーム毎ワールドY座標の増分 */
-    //	int _incY;
-    //	/** フレーム毎ワールドZ座標の増分 */
-    //	int _incZ;
-
     /** ワールドX軸回転角 */
     int _RX;
     /** ワールドY軸回転角 */
     int _RY;
     /** ワールドZ軸回転角 */
     int _RZ;
-    //	/** フレーム毎ワールドX軸回転角の増分 */
-    //	int _incRX;
-    //	/** フレーム毎ワールドY軸回転角の増分 */
-    //	int _incRY;
-    //	/** フレーム毎ワールドZ軸回転角の増分 */
-    //	int _incRZ;
-
     /** ワールドX軸方向倍率 */
     int _SX;
     /** ワールドY軸方向倍率 */
@@ -109,7 +95,7 @@ public:
     /**
      * _Zの値により、大まかにレンダリング順序を設定する。
      * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
-     * GgafWorld::_apActorDrawDepthLevel_first[n] の好きな n に addSubLast(this) を行って下さい。
+     * GgafWorld::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
      * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
      */
     virtual void processDrawPrior();

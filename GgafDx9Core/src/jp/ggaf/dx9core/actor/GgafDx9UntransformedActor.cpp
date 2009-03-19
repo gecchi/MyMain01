@@ -37,10 +37,21 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:要検証
     if (_isActiveFlg && !_wasBlindedFlg && _isAliveFlg) {
-        GgafDx9World::setDrawDepthLevel(
-                        ((_Z/LEN_UNIT)+(GgafDx9God::_iPxDep/2)) / (GgafDx9God::_iPxDep/MAX_DRAW_DEPTH_LEVEL),
-                        this
-                      );
+        if (_fAlpha < 1.0) {
+            //透明の場合は、Z軸値で遠くから描画するように設定。
+            //_Z が カメラ ～ カメラ+2000,000 の間であれば段階レンダリングをすることとする。
+            //粗さは 2000,000/MAX_DRAW_DEPTH_LEVEL。←この範囲のZは同一深度となる。
+            //TODO: カメラがぐりぐり動くと波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
+            GgafDx9World::setDrawDepthLevel(
+              (_Z-(GgafDx9God::_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / (2000000/MAX_DRAW_DEPTH_LEVEL),
+              this
+            );
+        } else {
+            //不透明の場合は初めに描画するように設定。
+            //レンダリング時最遠から描画するので、深度レベルはMAX
+            GgafDx9World::setDrawDepthMaxLevel(this);
+        }
+
     }
 }
 void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {

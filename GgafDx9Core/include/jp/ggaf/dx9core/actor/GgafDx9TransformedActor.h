@@ -4,8 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * 変換済み座標のアクター.
- * 変換済み座標（x座標、y座標、深度）を持った<BR>
- * アクターです<BR>
+ * 変換済み座標（x座標、y座標、深度）を持ったアクターです<BR>
  */
 class GgafDx9TransformedActor : public GgafDx9BaseActor {
 
@@ -22,16 +21,25 @@ public:
 
     /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9;
+    /** α (0.0 <= _fAlpha <= 1.0) */
+    float _fAlpha;
 
-    /** 画面X座標 */
+    /** 変換済み画面X座標 */
     float _x;
-    /** 画面X座標 */
+    /** 変換済み画面X座標 */
     float _y;
-    /** 画面Z座標 */
+    /** 深度 (0.0 <= _z < 1.0) */
     float _z;
 
     GgafDx9TransformedActor(const char* prm_name);
 
+    virtual void setAlpha(float prm_fAlpha) {
+        _fAlpha = prm_fAlpha;
+    }
+
+    virtual float getAlpha() {
+        return _fAlpha;
+    }
 
     virtual void processDrawPrior();
 
