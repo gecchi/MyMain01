@@ -74,9 +74,6 @@ protected:
     /** ノードが停止に切り替わった(_isActiveFlg が true → false)瞬間に１フレームだけセットされるフラグ */
     bool _switchedToInactFlg;
 
-    /** 描画されましたフラグ */
-    bool _wasExecutedProcessDrawMainFlg;
-
 public:
     /**
      * コンストラクタ
@@ -596,15 +593,6 @@ public:
         return _willMoveLastNextFrameFlg;
     }
 
-    bool getExecutedProcessDrawMainFlg() {
-        return _wasExecutedProcessDrawMainFlg;
-    }
-
-    void setExecutedProcessDrawMainFlg(bool prm_b) {
-        _wasExecutedProcessDrawMainFlg = prm_b;
-    }
-
-
     /**
      * 相対経過フレームの判定。
      * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
@@ -625,7 +613,7 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
             _willActNextFrameFlg(true), _willPauseNextFrameFlg(false), _willBlindNextFrameFlg(false),
             _willBeAliveNextFrameFlg(true), _willMoveFirstNextFrameFlg(false), _willMoveLastNextFrameFlg(false),
             _willActAfterFrameFlg(false), _dwGodFremeWhenAct(0), _willInactAfterFrameFlg(false), _dwGodFremeWhenInact(0),
-            _switchedToActFlg(false), _switchedToInactFlg(false), _wasExecutedProcessDrawMainFlg(false) {
+            _switchedToActFlg(false), _switchedToInactFlg(false) {
 }
 
 template<class T>
@@ -649,8 +637,6 @@ void GgafElement<T>::nextFrame() {
             initialize();
             _wasInitializedFlg = true;
         }
-
-        _wasExecutedProcessDrawMainFlg = false; //未描画に
 
         if (_isAliveFlg) {
             if (_willActAfterFrameFlg) {
@@ -804,10 +790,6 @@ void GgafElement<T>::drawMain() {
 
     if (_isActiveFlg && !_wasBlindedFlg && _isAliveFlg) {
         _dwFrame_relative = 0;
-        if (!_wasExecutedProcessDrawMainFlg) {
-            processDrawMain();
-            _wasExecutedProcessDrawMainFlg = true;
-        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
