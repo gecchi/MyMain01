@@ -170,9 +170,16 @@ void MyShip::processBehavior() {
             turnFaceNeutralXY();
         }
     } else if (VB::isBeingPressed(VB_TURBO)) {
-        //		_TRACE_("ただターボおしっぱなししてるだけ");
-        doNotingMoveInput();
-        turnFaceNeutralXY();
+
+        stc = VB::getBeingPressedStick();
+        if (stc != 0) {
+            //      _TRACE_("ただターボおしっぱなしして上下左右");
+            moveXZ(stc);
+        } else {
+            //      _TRACE_("ただターボおしっぱなししてるだけ");
+            doNotingMoveInput();
+            turnFaceNeutralXY();
+        }
     } else {
         stc = VB::getBeingPressedStick();
         if (stc != 0) {
@@ -359,6 +366,50 @@ void MyShip::moveXY(int prm_VB) {
 
         case VB_DOWN_LEFT_STC:
             _Y -= _iMoveSpeed * NANAME;
+            _X -= _iMoveSpeed * NANAME;
+            break;
+
+        default:
+            break;
+    }
+}
+
+void MyShip::moveXZ(int prm_VB) {
+    switch (prm_VB) {
+
+        case VB_UP_STC:
+            _Z += _iMoveSpeed;
+            break;
+
+        case VB_UP_RIGHT_STC:
+            _Z += _iMoveSpeed * NANAME;
+            _X += _iMoveSpeed * NANAME;
+            break;
+
+        case VB_UP_LEFT_STC:
+            _Z += _iMoveSpeed * NANAME;
+            _X -= _iMoveSpeed * NANAME;
+            break;
+
+        case VB_LEFT_STC:
+            _X -= _iMoveSpeed;
+            break;
+
+        case VB_RIGHT_STC:
+            _X += _iMoveSpeed;
+            break;
+
+        case VB_DOWN_STC:
+            _Z -= _iMoveSpeed;
+            break;
+
+        case VB_DOWN_RIGHT_STC:
+            _Z -= _iMoveSpeed * NANAME;
+            _X += _iMoveSpeed * NANAME;
+            break;
+
+        case VB_DOWN_LEFT_STC:
+            _Z -= _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             break;
 

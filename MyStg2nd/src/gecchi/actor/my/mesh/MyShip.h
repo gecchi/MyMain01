@@ -203,6 +203,8 @@ public:
     //‰æ–Êè‘O‚ÖˆÚ“®‰‚ßX²‰ñ“]ˆ—
     virtual void beginTurboXY(int prm_VB);
 
+    virtual void moveXZ(int prm_VB);
+
     virtual void moveXY(int prm_VB);
 
     virtual void controlTurboXY(int prm_VB);
