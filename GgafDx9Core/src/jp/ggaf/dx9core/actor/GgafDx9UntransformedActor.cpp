@@ -47,7 +47,6 @@ void GgafDx9UntransformedActor::processDrawPrior() {
               this
             );
         } else {
-            _TRACE_("name="<<getName()<<" _fAlpha="<<_fAlpha<<" chk2");
             //不透明の場合は初めに描画するように設定。
             //レンダリング時最遠から描画するので、深度レベルはMAX
             GgafDx9World::setDrawDepthMaxLevel(this);
