@@ -28,10 +28,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pEffectCon->view();
-    // _pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
 
-
-    _pattno_ani_top = 0;
+	_pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
     _pattno_ani_now = 0;
     _frame_ani_interval = 0;
@@ -42,6 +40,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
+	//TODO:ビルボード
     //	if (_isBillboardingFlg) {
     //		_pGeoMover->setRotAngle(
     //			GgafDx9World::_pCamera->_X,
@@ -104,33 +103,33 @@ void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, i
 void GgafDx9SpriteActor::nextAnimationFrame() {
     _aniframe_counter++;
     if (_frame_ani_interval < _aniframe_counter) {
-        if (_animation_method == ORDER_LOOP) { //0,1,2,3,4,5,0,1,2,3,4,5,...
+        if (_animation_method == ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
             if (_pattno_ani_bottom > _pattno_ani_now) {
                 _pattno_ani_now++;
             } else {
                 _pattno_ani_now = _pattno_ani_top;
             }
-        } else if (_animation_method == REVERSE_LOOP) { //0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+        } else if (_animation_method == REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
             if (_pattno_ani_top < _pattno_ani_now) {
                 _pattno_ani_now--;
             } else {
                 _pattno_ani_now = _pattno_ani_bottom;
             }
-        } else if (_animation_method == ORDER_NOLOOP) { //0,1,2,3,4,5,5,5,5,5,5,5...
+        } else if (_animation_method == ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
             if (_pattno_ani_bottom > _pattno_ani_now) {
                 _pattno_ani_now++;
             } else {
                 happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_bottom;
             }
-        } else if (_animation_method == REVERSE_NOLOOP) { //5,4,3,2,1,0,0,0,0,0,0...
+        } else if (_animation_method == REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
             if (_pattno_ani_top < _pattno_ani_now) {
                 _pattno_ani_now--;
             } else {
                 happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_top;
             }
-        } else if (_animation_method == OSCILLATE_LOOP) { //0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+        } else if (_animation_method == OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
             if (_isOscillateAnimationOrderFlg) {
                 if (_pattno_ani_bottom > _pattno_ani_now) {
                     _pattno_ani_now++;
@@ -156,7 +155,7 @@ void GgafDx9SpriteActor::nextAnimationFrame() {
 
 void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
-    //α設定
+    //α設定、現在マテリアルはDiffuse以外関係ない
     _paD3DMaterial9[0].Ambient.a = _fAlpha;
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
