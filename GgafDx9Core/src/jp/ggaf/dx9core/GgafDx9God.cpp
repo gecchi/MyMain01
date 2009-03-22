@@ -165,8 +165,8 @@ HRESULT GgafDx9God::init() {
     }
 
 
-    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
-    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
+    ////デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+    ////ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
     hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
                                            D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                            &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
@@ -176,13 +176,11 @@ HRESULT GgafDx9God::init() {
                                                D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
         if (hr != D3D_OK) {
-
 			//ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
             hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
                                                    D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                    &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
-
-			if (hr != D3D_OK) {
+            if (hr != D3D_OK) {
                 //どのデバイスの作成も失敗した場合
                 MessageBox(GgafDx9God::_hWnd, TEXT("Direct3Dの初期化に失敗"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
                 return E_FAIL;
