@@ -1369,7 +1369,6 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
 
 template<class T>
 GgafElement<T>::~GgafElement() {
-    //_TRACE_("~GgafElement() <"<<SUPER::_class_name << ">::farewell() :"<< SUPER::getName() <<"_dwGodFrame_ofDeath="<<_dwGodFrame_ofDeath<<"/_dwFrame="<<_dwFrame);
 }
 
 }
