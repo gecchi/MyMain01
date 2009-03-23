@@ -26,7 +26,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
                      &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
                      &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
                 );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
+    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
 }
 
@@ -34,7 +34,5 @@ GgafDx9Effect::~GgafDx9Effect() {
     TRACE3("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " start-->");
     DELETEARR_IMPOSSIBLE_NULL(_effect_name);
     RELEASE_IMPOSSIBLE_NULL(_pID3DXEffect);
-    //↓このトレースは有効にすると ostream のオーバーフローになるのでだめです。
-    //TRACE3("GgafDx9Effect::~GgafDx9Effect() " << _effect_name << " <--end");
 }
 

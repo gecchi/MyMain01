@@ -9,14 +9,13 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
     _paD3DMaterial9_default = NULL;
     _papTextureCon = NULL;
     _dwNumMaterials = 0L;
-    //_pModel_Next     = NULL;
     //上記のプロパティは、GgafDx9God::_pModelManager->restoreD3DXMeshModel() から設定されることになる。
     _dwOptions = prm_dwOptions;
 }
 
 HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static GgafDx9D3DXMeshActor* pTargetActor;
-    //ここをどうやって振り分けるGgafDx9D3DXMeshActor と GgafDx9DynaD3DXMeshActor
+    //対象アクター
     pTargetActor = (GgafDx9D3DXMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
     static GgafDx9MeshEffect* pMeshEffect;
@@ -29,29 +28,24 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
 
-
-
         if (_papTextureCon[i] != NULL) {
             //テクスチャのセット
             GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->view());
         } else {
+            _TRACE_("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
             //無ければテクスチャ無し
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         //マテリアルのセット
         //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
-
-
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pID3DXEffect->CommitChanges();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw CommitChanges() に失敗しました。");
-
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw CommitChanges() に失敗しました。");
         //描画
         hr = _pID3DXMesh->DrawSubset(i);
 
-
-
+//シェーダー実装前
 //        if (pTargetActor->_SX == LEN_UNIT &&
 //            pTargetActor->_SY == LEN_UNIT &&
 //            pTargetActor->_SZ == LEN_UNIT)
@@ -105,5 +99,4 @@ void GgafDx9D3DXMeshModel::release() {
 GgafDx9D3DXMeshModel::~GgafDx9D3DXMeshModel() {
     TRACE3("GgafDx9D3DXMeshModel::~GgafDx9D3DXMeshModel() " << _model_name << " start");
     release();
-    TRACE3("GgafDx9D3DXMeshModel::~GgafDx9D3DXMeshModel() " << _model_name << " end");
 }

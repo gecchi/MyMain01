@@ -17,5 +17,4 @@ void GgafDx9TextureConnection::processReleaseResource(IDirect3DTexture9* prm_pRe
 }
 
 GgafDx9TextureConnection::~GgafDx9TextureConnection() {
-    TRACE3("GgafDx9TextureConnection：デストラクタ prm_idstr="<<_idstr);
 }

@@ -12,6 +12,4 @@ void GgafDx9GeometryChecker::behave() {
 }
 
 GgafDx9GeometryChecker::~GgafDx9GeometryChecker() {
-    TRACE("GgafDx9GeometryChecker::~GgafDx9GeometryChecker() _pActor="<<_pActor->getName()<<" start--->");
-    TRACE("GgafDx9GeometryChecker::~GgafDx9GeometryChecker() _pActor="<<_pActor->getName()<<" <---end");
 }

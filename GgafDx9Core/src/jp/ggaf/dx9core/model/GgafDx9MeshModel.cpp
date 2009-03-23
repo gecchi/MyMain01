@@ -50,13 +50,14 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             //テクスチャをs0レジスタにセット
             GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
         } else {
+            _TRACE_("GgafDx9MeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
             //無ければテクスチャ無し
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pID3DXEffect->CommitChanges();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,
@@ -99,7 +100,7 @@ void GgafDx9MeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
-	//_pMeshesFront は _pModel3D をDELETEしてるのでする必要は無い
+	//_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " end");
@@ -108,7 +109,5 @@ void GgafDx9MeshModel::release() {
 GgafDx9MeshModel::~GgafDx9MeshModel() {
     TRACE3("GgafDx9MeshModel::~GgafDx9MeshModel() " << _model_name << " start");
     release();
-	//↓コメントにしなければいけません
-    //TRACE3("GgafDx9MeshModel::~GgafDx9MeshModel() " << _model_name << " end");
 }
 

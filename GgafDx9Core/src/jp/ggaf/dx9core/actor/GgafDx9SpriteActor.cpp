@@ -56,24 +56,24 @@ void GgafDx9SpriteActor::processDrawMain() {
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    whetherGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _pSpriteModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->End();
-    whetherGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
 }
