@@ -11,6 +11,5 @@ DefaultBoardActor::DefaultBoardActor(const char* prm_name, const char* prm_model
 }
 
 DefaultBoardActor::~DefaultBoardActor() {
-    TRACE("DefaultBoardActor::~DefaultBoardActor() "<<getName()<<" start--->");TRACE("DefaultBoardActor::~DefaultBoardActor() "<<getName()<<" <---end");
 }
 

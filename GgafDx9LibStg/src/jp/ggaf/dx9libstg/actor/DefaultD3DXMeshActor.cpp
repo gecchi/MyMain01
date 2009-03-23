@@ -33,5 +33,4 @@ void DefaultD3DXMeshActor::processDrawTerminate() {}
 #endif
 
 DefaultD3DXMeshActor::~DefaultD3DXMeshActor() {
-    TRACE("DefaultD3DXMeshActor::~DefaultD3DXMeshActor() "<<getName()<<" start--->");TRACE("DefaultD3DXMeshActor::~DefaultD3DXMeshActor() "<<getName()<<" <---end");
 }

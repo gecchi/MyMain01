@@ -73,7 +73,7 @@ bool HitAreaBoxs::isEnable(int prm_index) {
 }
 
 HitAreaBoxs::~HitAreaBoxs() {
-    TRACE("HitAreaBoxs::~HitAreaBoxs() start--->");
+    TRACE("HitAreaBoxs::~HitAreaBoxs()");
     DELETEARR_POSSIBLE_NULL(_paBase);
-    DELETEARR_POSSIBLE_NULL(_paHitArea);TRACE("HitAreaBoxs::~HitAreaBoxs() <---end");
+    DELETEARR_POSSIBLE_NULL(_paHitArea)
 }

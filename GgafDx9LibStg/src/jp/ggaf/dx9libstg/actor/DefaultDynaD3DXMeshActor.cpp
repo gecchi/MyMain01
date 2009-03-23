@@ -60,5 +60,4 @@ bool DefaultDynaD3DXMeshActor::isOffScreen() {
     }
 }
 DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() {
-    TRACE("DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() "<<getName()<<" start--->");TRACE("DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() "<<getName()<<" <---end");
 }

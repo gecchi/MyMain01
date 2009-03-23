@@ -59,5 +59,4 @@ bool DefaultSpriteActor::isOffScreen() {
     }
 }
 DefaultSpriteActor::~DefaultSpriteActor() {
-    TRACE("DefaultSpriteActor::~DefaultSpriteActor() "<<getName()<<" start--->");TRACE("DefaultSpriteActor::~DefaultSpriteActor() "<<getName()<<" <---end");
 }

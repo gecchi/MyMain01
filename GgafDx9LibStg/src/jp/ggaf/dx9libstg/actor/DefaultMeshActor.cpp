@@ -34,5 +34,4 @@ void DefaultMeshActor::processDrawTerminate() {}
 #endif
 
 DefaultMeshActor::~DefaultMeshActor() {
-    TRACE("DefaultMeshActor::~DefaultMeshActor() "<<getName()<<" start--->");TRACE("DefaultMeshActor::~DefaultMeshActor() "<<getName()<<" <---end");
 }

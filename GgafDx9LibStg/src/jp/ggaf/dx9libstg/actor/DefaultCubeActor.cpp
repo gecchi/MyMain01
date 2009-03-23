@@ -12,5 +12,4 @@ DefaultCubeActor::DefaultCubeActor(const char* prm_name) :
 }
 
 DefaultCubeActor::~DefaultCubeActor() {
-    TRACE("DefaultCubeActor::~DefaultCubeActor() "<<getName()<<" start--->");TRACE("DefaultCubeActor::~DefaultCubeActor() "<<getName()<<" <---end");
 }
