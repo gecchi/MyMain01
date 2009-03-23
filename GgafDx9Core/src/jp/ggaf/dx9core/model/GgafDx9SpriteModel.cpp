@@ -45,14 +45,14 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
     GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetV) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetV) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ¿Ý’è
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hAlpha, pTargetActor->_fAlpha);
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->CommitChanges();
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼•Û‘¶

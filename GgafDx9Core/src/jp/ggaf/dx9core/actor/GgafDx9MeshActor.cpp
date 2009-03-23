@@ -44,22 +44,22 @@ void GgafDx9MeshActor::processDrawMain() {
 
 	HRESULT hr;
 	hr = pID3DXEffect->SetTechnique(_technique);
-    potentialGgafDx9CriticalException(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _pMeshModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->End();
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 

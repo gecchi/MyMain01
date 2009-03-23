@@ -56,24 +56,24 @@ void GgafDx9SpriteActor::processDrawMain() {
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
-    potentialGgafDx9CriticalException(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _pSpriteModel->draw(this);
         hr = pID3DXEffect->EndPass();
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->End();
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
 }

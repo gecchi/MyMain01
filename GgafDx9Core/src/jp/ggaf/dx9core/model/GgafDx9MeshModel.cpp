@@ -38,12 +38,12 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	HRESULT hr;
     UINT material_no;
-    //前回描画とモデルが違う場合。頂点バッファとインデックスバッファを設定
+    //頂点バッファとインデックスバッファを設定
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
     GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
-    //前回描画とモデルが違うか、或いはマテリアルが複数の場合はテクスチャとマテリアルをちゃんとセットしてループで描画
+    //描画
     for (int i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         if (_papTextureCon[material_no] != NULL) {
@@ -55,9 +55,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pID3DXEffect->CommitChanges();
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,

@@ -60,7 +60,7 @@ HRESULT GgafDx9God::init() {
     //デスプレイモードの取得
     D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
     hr = GgafDx9God::_pID3D9->GetAdapterDisplayMode(D3DADAPTER_DEFAULT, &structD3DDisplayMode);
-    potentialGgafDx9CriticalException(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
+    potentialDx9Exception(hr, D3D_OK, "GetAdapterDisplayMode に失敗しました");
 
     //デバイス作成
     ZeroMemory(&_structD3dPresent_Parameters, sizeof(D3DPRESENT_PARAMETERS));
@@ -449,7 +449,7 @@ void GgafDx9God::makeWorldMaterialize() {
 
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。");
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。");
 
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -479,17 +479,17 @@ void GgafDx9God::makeWorldMaterialize() {
                                               1.0f, // Zバッファのクリア値
                                               0 // ステンシルバッファのクリア値
                 );
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->Clear() に失敗しました。");
 
         //描画事前処理
         hr = GgafDx9God::_pID3DDevice9->BeginScene();
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。");
         //全て具現化！（描画）
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
         GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
         //描画事後処理
         hr = GgafDx9God::_pID3DDevice9->EndScene();
-        potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
 
     }
     TRACE("GgafDx9God::makeWorldMaterialize() end");
@@ -525,7 +525,7 @@ void GgafDx9God::makeWorldVisualize() {
             getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            potentialGgafDx9CriticalException(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
             //デバイス再設定
             GgafDx9God::initDx9Device();
             //エフェクトリセット
