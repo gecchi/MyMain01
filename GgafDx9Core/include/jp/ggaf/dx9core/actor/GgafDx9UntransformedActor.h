@@ -97,11 +97,16 @@ public:
      * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
      * GgafWorld::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
      * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
+     * TODO:private virtual にするべきか否か？
      */
     virtual void processDrawPrior();
 
     virtual void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;
+    }
+
+    virtual void addAlpha(float prm_fAlpha) {
+        _fAlpha += prm_fAlpha;
     }
 
     virtual float getAlpha() {
