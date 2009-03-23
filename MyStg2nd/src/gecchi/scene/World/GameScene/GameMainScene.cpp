@@ -18,9 +18,6 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
     _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
-
-
-
     _pStage01 = NULL;
     _pStage02 = NULL;
     _pStage03 = NULL;
@@ -31,11 +28,9 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEMAIN_PROG_INIT);
 }
 void GameMainScene::reset() {
-    _TRACE_("GameMainScene::reset()");
     setProgress(GAMEMAIN_PROG_INIT);
 }
 void GameMainScene::ready(int prm_stage) {
-	 _TRACE_("GameMainScene::ready("<<prm_stage<<")");
     _stage = prm_stage;
     switch (prm_stage) {
         case 1:
@@ -68,8 +63,6 @@ void GameMainScene::initialize() {
 
 
 void GameMainScene::processBehavior() {
-
-
     if (getProgress() == GAMEMAIN_PROG_INIT) {
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
@@ -93,8 +86,6 @@ void GameMainScene::processBehavior() {
         _pFontBoard02->setString(300, 350, "");
 
     }
-
-
 
     //SCORE•\Ž¦
     sprintf(_buf, "SCORE:%07u", GameGlobal::_dwScore);
