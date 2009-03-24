@@ -9,7 +9,6 @@ using namespace std;
 //DECLARE_TRACE;
 //TBuff* TBuff::_Instance = 0;
 
-
 struct VERTEXX {
     float x, y, z; // í∏ì_ç¿ïW
     float nx, ny, nz; // ñ@ê¸
