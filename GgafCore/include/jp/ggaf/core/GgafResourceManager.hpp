@@ -4,8 +4,11 @@ namespace GgafCore {
 
 /**
  * 資源管理クラス。 .
- * 厳密には、資源をラッピングする『資源接続クラス(GgafResourceConnection)』の管理クラス。<BR>
- * 間に一枚かんでいるというわけです。<BR>
+ * 資源管理クラスは、資源をラッピングする『資源接続クラス(GgafResourceConnection)』を管理します。<BR>
+ * 資源(Resource)を無駄に生成を行わず、参照して使いまわしたい。しかし new するのかどうかを意識したくない。<BR>
+ * そんなときに使うクラスです。<BR>
+ * GgafResourceManager : Resource : GgafResourceConnection  = 1 : N : N <BR>
+ * の関係で、これでワンセットです。<BR>
  * 資源管理クラスは主な機能は、資源接続クラスのインスタンスをを内部にリストで保持し、取得要求があった場合、
  * 内部保持していればそれを返し、保持していなければ生成して、リストに追加した後それを返します。
  */
@@ -45,14 +48,6 @@ protected:
     /** GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
     GgafResourceConnection<T>* _pFirstConnection;
 
-    /**
-     * 実際の資源のを生成を下位で実装します。.
-     * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
-     * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
-     * @param prm_idstr この識別名が渡された時、どういう資源を生成するか？ という識別名
-     * @return 資源インスタンスのポインタ
-     */
-    virtual T* processCreateResource(char* prm_idstr) = 0;
 
     /**
      * 資源接続オブジェクトの生成を下位で実装します。.
@@ -64,6 +59,16 @@ protected:
      * @return GgafResourceConnection 資源接続オブジェクトのインスタンス（＝GgafResourceConnection 実装クラスのインスタンス）
      */
     virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
+
+    /**
+     * 実際の資源のを生成を下位で実装します。.
+     * このメソッドは createResource から呼び出され、本テンプレート利用者が実装する必要があります。<BR>
+     * prm_idstr から 資源を生成するロジックを実装してく下さい。<BR>
+     * @param prm_idstr この識別名が渡された時、どういう資源を生成(new)するか？ という識別名
+     * @return 資源インスタンスのポインタ
+     */
+    virtual T* processCreateResource(char* prm_idstr) = 0;
+
 
 public:
     /**

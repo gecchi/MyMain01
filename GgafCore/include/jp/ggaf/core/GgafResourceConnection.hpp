@@ -4,11 +4,15 @@ namespace GgafCore {
 
 /**
  * 資源接続クラス .
- * 無駄な資源の生成を行わず、参照して使いまわしたいがゆえ、開放時期を簡単にするためのクラス。<BR>
+ * 資源(Resource)を無駄に生成を行わず、参照して使いまわしたい。しかし new するのかどうかを意識したくない。<BR>
+ * そんなときに使うクラス。<BR>
+ * GgafResourceManager : Resource : GgafResourceConnection  = 1 : N : N
+ * の関係で、これでワンセットです。GgafResourceConnection は言わば Resource のラッパークラスです。
  * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
  * から取得(getConnection メソッド)することとします。<BR>
- * 内部で接続カウンタにより開放か否かを判断したいためです。<BR>
- * マネージャーから取得で接続カウントが+1、本クラスのReleaseで接続カウントが-1されます。<BR>
+ * マネージャーへの接続 GgafResourceManager<T>::getConnection で「接続カウント」が+1、
+ * 本クラスのclose()で「接続カウント」が-1されます。<BR>
+ * close() を呼び出すと、内部で「接続カウント」により本当に開放か否かを判断します。<BR>
  * 接続カウントが0になった場合、資源(Resource)は開放されます。
  * T には資源の型を指定してください。<BR>
  */
