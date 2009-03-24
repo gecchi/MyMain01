@@ -2,22 +2,38 @@
 #define GGAFDX9MESHMODEL_H_
 namespace GgafDx9Core {
 
+
+// このクラスは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
+// を元に、独自に修正（やデバッグ）したクラスを使用しています。
+// ありがとう Paul。
+//
+// 【対象】
+// Frm 名前空間のクラス
+//
+// 【Loading and displaying .X files without DirectX 】
+// http://www.gamedev.net/reference/programming/features/xfilepc/
+//
+//                                         2009/03/06 Masatoshi Tsuge
+
 /**
  * GgafDx9MeshActor用のモデルクラス.
- * GgafDx9MeshModel は D3DXLoadMeshFromX を使用せず、独自にXファイルからモデルデータを読み込み設定する。<BR>
- * ＜注意＞<BR>
- * ・Faceは、3角形しか駄目。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
+ * GgafDx9MeshModel は D3DXLoadMeshFromX を使用せず、Xファイルからのモデルデータを保持、描画するクラスです。<BR>
+ * ＜留意＞<BR>
+ * ・アニメーションは読み込まれません。静的モデルです。(TODO:いつかスキンメッシュもする)
+ * ・Faceは、3角形しか駄目です。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
  * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
- * ・法線について、Faceの3頂点に同じ値を設定。共有頂点の場合、平均化される。<BR>
- * ・GgafDx9MeshModelは並べ替えによる頂点インデックスの最適化しないを行なわない、行なわないのが売りでもある。<BR>
+ * ・共有頂点法線は、独自計算で平均化される。
+ *   計算方法は、共有頂点から伸びる各Faceの「成す角」／「全Faceの成す角合計の」によって法線の掛ける割合が決まる。<BR>
+ * ・GgafDx9MeshModelは並べ替えによるインデックスの最適化しないを行なわない。行なわないのが売りでもある。<BR>
  *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
- *   これは、DrawIndexedPrimitive は、マテリアルリストのマテリアル番号が切り替わるたびに発生することを意味し、<BR>
- *   マテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちるやもしれない（が、たいていこちらが高速）。<BR>
- *   例えば、Xファイルのマテリアルリストが {0,0,1,1,0,1} な場合、マテリアル数が2つでも、描画は4回実行することになる。<BR>
+ *   Xファイルのマテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちるやもしれない。<BR>
+ *   例えば、Xファイルのマテリアルリストが {0,0,1,1,2,0,1} な場合、マテリアル数が3つでも、描画は5回実行することになる。<BR>
+ * ・void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) で実際の設定を行なっています。
  * ＜使い所＞<BR>
- * ・不完全と解っているXファイルを、あえて読みたい場合。（データローダーで使う場合）<BR>
- * ・Xファイル頂点情報等が、D3DXLoadMeshFromXの最適化によって、増えたり減ったり移動されたりして欲しくない場合。<BR>
- * ・シェーダーにパラメータを渡したい、あとから頂点をいじりたい場合等、ID3DXMesh からいちいち探すのが面倒だ。<BR>
+ * ・単純な分、基本的に D3DXLoadMeshFromX → drawSubset(n) より描画は高速。<BR>
+ * ・ロジックで頂点をいじりたい場合等、D3DXLoadMeshFromX により最適化されたかもしれない ID3DXMesh から、
+ *   所望の頂点を割り出すのがしんどい場合。<BR>
+ * ・不完全と解っているXファイルを、あえて読みたい場合。（データローダー的な意味で使う場合）<BR>
  */
 class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -64,7 +80,9 @@ public:
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
 
+    /** Paulさんモデル */
     Frm::Model3D* _pModel3D;
+    /** Paulさんメッシュ */
     Frm::Mesh* _pMeshesFront;
 
 

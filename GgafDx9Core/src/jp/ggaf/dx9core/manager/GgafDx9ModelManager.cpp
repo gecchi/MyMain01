@@ -92,11 +92,11 @@ GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pPrimModel->_model_name << ")");
-    //１）頂点バッファ、インデックス頂点バッファ を作成
-    //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、インデックス頂点バッファ に流し込む。
+    //１）頂点バッファ、頂点インデックスバッファ を作成
+    //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9MeshModel に次のメンバを作成。
     //　　　　・頂点バッファの写し
-    //　　　　・インデックス頂点バッファの写し
+    //　　　　・頂点インデックスバッファの写し
     //　　　　・マテリアル配列(要素数＝マテリアル数)
     //　　　　・テクスチャ配列(要素数＝マテリアル数)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
@@ -120,7 +120,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     GgafDx9TextureConnection** papTextureCon = NULL;
 
     if (prm_pPrimModel->_pModel3D == NULL) {
-        //TRACE3("CreateModel");
         pModel3D = NEW Frm::Model3D();
 
         bool r = iox.Load(xfile_name, pModel3D);
@@ -174,8 +173,10 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         static unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
-                indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ(A,B,Cとする)
-                indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                //面に対する頂点インデックス３つ(A,B,Cとする)
+                indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];
+                //面に対する法線インデックス３つ
+                indexNormals_per_Face[j] = pMeshesFront->_FaceNormals[i].data[j];
             }
 
             //頂点インデックス A の角(∠CAB)を求めて、配列に保持
@@ -202,7 +203,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
-        static float rate; //法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。その法線の出ている頂点の成す角の率。
+        static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
@@ -374,10 +375,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         prm_pPrimModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-
+    //マテリアル
     int nMaterials = pMeshesFront->_nMaterials;
-
-
     paD3DMaterial9 = NEW D3DMATERIAL9[nMaterials];
     papTextureCon = NEW GgafDx9TextureConnection*[nMaterials];
 
@@ -410,14 +409,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection(texture_filename);
         } else {
-            //テクスチャ無し時は真っ白なテクスチャ
+            //テクスチャ無し時は真っ白なテクスチャに置き換え
             papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->getConnection("white.png");
         }
         n++;
     }
 
     if (nMaterials != n) {
-        TRACE3("マテリアル数がおかしいです。nMaterials="<<nMaterials<<"/n="<<n);
+        TRACE3("ちなみにマテリアル数がおかしいです。nMaterials="<<nMaterials<<"/n="<<n);
     }
 
     //モデルに保持させる
@@ -473,7 +472,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     // やっていることメモ
     // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
     //（∵GgafDx9D3DXMeshModelのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
-    // だが解放すると D3DXMATERIAL構造体配列も消えるようだ、すぐには消えないかもしれんが…（ここでハマる；）。
+    // だが解放すると D3DXMATERIAL構造体配列も消えるようだ、すぐには消えないかもしれんが…（ハマる；）。
     // そこでしかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保存することにしましょ～、あ～そ～しましょう。
     paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
     for( DWORD i = 0; i < dwNumMaterials; i++){
@@ -485,7 +484,8 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //xファイルのマテリアルにはAmbient反射値は設定できない（みたい）、そこでDiffuse反射値で
     //Ambient反射値を代用することにする。とりあえず。
     //＜2009/3/13＞
-    //固定機能はもう使わない。マテリアルDiffuseはシェーダーの派ラメータに利用している。Ambientは使われていない。今後もそうでしょう。
+    //固定機能はもう使わない。マテリアルDiffuseはシェーダーの派ラメータに利用している。
+    //TODO:Ambientは使わない。今後もそうでしょうか？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
     }
@@ -672,6 +672,10 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
     //全パターンのUV情報の配列作成しモデルに保持させる
+    //＜2009/3/13＞
+    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(paRectUV[n]._aUV[0])以外は使用しなくなった。
+    //TODO:しばらくしたら見直すか消す。
+
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
@@ -830,6 +834,9 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_pIDirect3DVertexBuffer9->Unlock();
 
     //全パターンのUV情報の配列作成しモデルに保持させる
+    //＜2009/3/13＞
+    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(paRectUV[n]._aUV[0])以外は使用しなくなった。
+    //TODO:しばらくしたら見直すか消す。
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
