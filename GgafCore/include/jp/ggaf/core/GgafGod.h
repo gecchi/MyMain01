@@ -2,14 +2,16 @@
 #define GGAFGOD_H_
 namespace GgafCore {
 
-
-
 #define  ___BeginSynchronized ::EnterCriticalSection(&(GgafCore::GgafGod::CS1))
 #define  ___EndSynchronized ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
 
 /**
  * 神クラス.
- * 世界(GgafWorld)を管理します。
+ * この世がゲームアプリとするならば、このクラスが次にえらいのです。<BR>
+ * 主に世界(GgafWorld)を管理します。<BR>
+ * 基本的にインスタンスは１個です。<BR>
+ * その他アプリ内でグローバルな参照を集中させられたり、なにかと煩雑で便利屋クラスでもあります。<BR>
+ * TODO:２個 new して、交互に be() を実行すれば、平行動作するか実験
  */
 class GgafGod : public GgafObject {
 
@@ -60,7 +62,7 @@ public:
     GgafGod();
 
     /**
-     * 神の存在<BR>
+     * ここに居てます.<BR>
      */
     void be();
 

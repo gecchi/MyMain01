@@ -28,7 +28,7 @@ void GgafFactory::order(unsigned long prm_id,
                         void* prm_pArg1,
                         void* prm_pArg2,
                         void* prm_pArg3) {
-    TRACE2("GgafFactory::order ＜客＞ 別スレッド工場さん、[" << prm_id << "]を作っといて～。");
+    TRACE2("GgafFactory::order ＜客＞ 別スレッドの工場さん、[" << prm_id << "]を作っといて～。");
     static GgafOrder* pOrder_New;
     pOrder_New = NEW GgafOrder(prm_id);
     pOrder_New->_pObject_Creation=NULL;
@@ -38,7 +38,7 @@ void GgafFactory::order(unsigned long prm_id,
     pOrder_New->_pArg3 = prm_pArg3;
     pOrder_New->_progress = 0;
     if (ROOT_ORDER == NULL) {
-        TRACE2("GgafFactory::order ＜客＞ 空っきしの工場へ注文してやんよ。すぐできるよね？。");
+        TRACE2("GgafFactory::order ＜客＞ あぁ、工場は空っきしですね。注文、すぐできるよね？。");
         pOrder_New->_isFirstOrderFlg = true;
         pOrder_New->_isLastOrderFlg = true;
         pOrder_New->_pOrder_Next = pOrder_New;
@@ -46,7 +46,7 @@ void GgafFactory::order(unsigned long prm_id,
         ROOT_ORDER = pOrder_New;
         CREATING_ORDER = pOrder_New;
     } else {
-        TRACE2("GgafFactory::order ＜客＞ 次々にすまんのぉ");
+        TRACE2("GgafFactory::order ＜客＞ 注文たまってますね、次々注文恐れ入ります");
         pOrder_New->_isFirstOrderFlg = false;
         pOrder_New->_isLastOrderFlg = true;
         static GgafOrder* pOrder_Last;
@@ -67,7 +67,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     pOrder = ROOT_ORDER;
     void* objectCreation;
     if (pOrder == NULL) {
-        throwGgafCriticalException("GgafFactory::obtain Error! 注文はNULLです。orederとobtainの対応が取れていません)");
+        throwGgafCriticalException("GgafFactory::obtain Error! 注文はNULLです。orederとobtainの対応が取れていません。");
     }
     while (_isWorkingFlg) {
 
@@ -75,7 +75,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             TRACE2("GgafFactory::obtain ＜客＞ こんにちは、["<<prm_id<<"]を取りに来ましたよっと。");
             while (_isWorkingFlg) {
                 if (pOrder->_progress != 2) {
-                    TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]まだ～？、2ミリ秒待ったげよう。pOrder->_progress="<<(pOrder->_progress));
+                    TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]の製造まだ～？、2ミリ秒だけ待ったげよう。pOrder->_progress="<<(pOrder->_progress));
                  ___EndSynchronized; // <----- 排他終了
                     Sleep(2);
                  ___BeginSynchronized; // ----->排他開始
@@ -89,7 +89,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
                         pOrder = NULL;
                         ROOT_ORDER = NULL;
                         CREATING_ORDER = NULL;
-                        TRACE2("GgafFactory::obtain ＜客＞ 製品["<<prm_id<<"]頂きました。あ、工場は空ですね。暇なの？");
+                        TRACE2("GgafFactory::obtain ＜客＞ 製品["<<prm_id<<"]頂きました。あ、もう工場は空ですね。暇なの？");
                         return (void*)objectCreation;
                     } else {
                         pOrder_MyNext = pOrder->_pOrder_Next;
@@ -116,7 +116,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             }
         } else {
             if (pOrder->_isLastOrderFlg) {
-                throwGgafCriticalException("GgafFactory::obtain Error! 全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありゃしまへん。orederとobtainの対応が取れていません");
+                throwGgafCriticalException("GgafFactory::obtain Error! 全部探しましたけど、そんな注文(prm_id="<<prm_id<<")は、ありまへん。orederとobtainの対応が取れていません");
             } else {
                 pOrder = pOrder->_pOrder_Next;
             }
@@ -172,7 +172,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
          ___BeginSynchronized; // ----->排他開始
             if (CREATING_ORDER != NULL) {
                 if (CREATING_ORDER->_progress == 0) { //未着手ならまず作る
-                    TRACE2("GgafFactory::work ＜工場＞ 注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER->_progress<<")。ゆえに作ります！");
+                    TRACE2("GgafFactory::work ＜工場＞ 注文["<<CREATING_ORDER->_id<<"]は未着手(_progress == "<<CREATING_ORDER->_progress<<")。ゆえに今から作ります！");
                     CREATING_ORDER->_progress = 1; //ステータスを製造中へ
                     func = CREATING_ORDER->_pFunc;
                     pOrder_InManufacturing_save = CREATING_ORDER; //ポインタ一時退避
@@ -182,7 +182,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"]");
                  ___EndSynchronized; // <----- 排他終了
                     Sleep(2);
-                    pObject = (*func)(arg1, arg2, arg3); //製品の製造！！！！
+                    pObject = (*func)(arg1, arg2, arg3); //製品の製造！
                     Sleep(2);
                  ___BeginSynchronized; // ----->排他開始
                     TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] (^_^)v");
