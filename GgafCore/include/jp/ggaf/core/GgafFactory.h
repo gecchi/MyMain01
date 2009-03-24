@@ -24,7 +24,7 @@ private:
     static GgafOrder* ROOT_ORDER;
     /** 現在製造中の注文 */
     static GgafOrder* CREATING_ORDER;
-    //全て製造済みの場合、最終注文を指しつづける
+    //CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける
     //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
     //_isLastOrderFlg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
     //製造を行って次に進める。 _isLastOrderFlg == false になるまで製造しつづける
