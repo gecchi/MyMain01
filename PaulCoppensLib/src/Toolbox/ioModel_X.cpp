@@ -15,16 +15,13 @@ struct XOF_TEMPLATEID {
     uint16 TemplateID;
 };
 
-XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE }, {
-        "FrameTransformMatrix", X_FRAMETRANSFORMMATRIX }, { "Frame", X_FRAME },
-        { "XSkinMeshHeader", X_SKINMESHHEADER }, { "MeshTextureCoords",
-                X_MESHTEXTURECOORDS },
-        { "MeshMaterialList", X_MESHMATERIALLIST }, { "MeshNormals",
-                X_MESHNORMALS }, { "Mesh", X_MESH },
-        { "Material", X_MATERIAL }, { "SkinWeights", X_SKINWEIGHTS }, {
-                "TextureFilename", X_TEXTUREFILENAME }, { "AnimationSet",
-                X_ANIMATIONSET }, { "AnimationKey", X_ANIMATIONKEY }, {
-                "Animation", X_ANIMATION }, { "Header", X_HEADER } };
+XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE },
+        { "FrameTransformMatrix", X_FRAMETRANSFORMMATRIX }, { "Frame", X_FRAME },
+        { "XSkinMeshHeader", X_SKINMESHHEADER }, { "MeshTextureCoords", X_MESHTEXTURECOORDS },
+        { "MeshMaterialList", X_MESHMATERIALLIST }, { "MeshNormals", X_MESHNORMALS },
+        { "Mesh", X_MESH }, { "Material", X_MATERIAL }, { "SkinWeights", X_SKINWEIGHTS },
+        { "TextureFilename", X_TEXTUREFILENAME }, { "AnimationSet", X_ANIMATIONSET },
+        { "AnimationKey", X_ANIMATIONKEY }, { "Animation", X_ANIMATION }, { "Header", X_HEADER } };
 
 //////////////////////////////////////////////////////////
 //
@@ -69,8 +66,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     while (!fin.eof()) {
         switch (ProcessBlock()) {
         case X_ERROR:
-            _TRACE_("Stopped processing the file ...")
-            ;
+            _TRACE_("Stopped processing the file ...");
             return false;
         case X_COMMENT:
             break; //nothing to do
@@ -321,7 +317,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         _LoadMesh->_Name = SetUID('M');
 
     Find('{');
-    _TRACE_("Mesh:" << _LoadMesh->_Name);
+    _TRACE_("Mesh:Åu" << _LoadMesh->_Name<<"Åv");
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nVertices = (uint16) TextToNum(Data);
@@ -351,7 +347,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         fin.getline(Data, TEXT_BUFFER, ';');
         _LoadMesh->_Faces[i].data[2] = (uint16) TextToNum(Data);
         fin.get(); //eats either the comma or the semicolon at the end of each face description
-        //      _TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
+        //_TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
     }
 
     Token = X_COMMENT;
