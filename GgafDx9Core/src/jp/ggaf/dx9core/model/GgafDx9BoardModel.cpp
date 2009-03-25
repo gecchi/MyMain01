@@ -45,10 +45,9 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetV) に失敗しました。");
-
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedX, pTargetActor->_x);
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedX, pTargetActor->_x - 0.5f);//テクセルとピクセルの関係より
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedY, pTargetActor->_y);
+    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedY, pTargetActor->_y - 0.5f);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hDepthZ, pTargetActor->_z);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) に失敗しました。");
