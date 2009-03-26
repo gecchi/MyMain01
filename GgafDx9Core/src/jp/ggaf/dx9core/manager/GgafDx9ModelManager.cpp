@@ -762,10 +762,10 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
         prm_pBoardModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pBoardModel->_col_texture_split = *pInt_ColNum_TextureSplit;
 
-        TRACE3("_fSize_BoardModelWidthPx="<<prm_pBoardModel->_fSize_BoardModelWidthPx);
-        TRACE3("_fSize_BoardModelHeightPx="<<prm_pBoardModel->_fSize_BoardModelHeightPx);
-        TRACE3("_row_texture_split="<<prm_pBoardModel->_row_texture_split);
-        TRACE3("_col_texture_split="<<prm_pBoardModel->_col_texture_split);
+        _TRACE_("_fSize_BoardModelWidthPx="<<prm_pBoardModel->_fSize_BoardModelWidthPx);
+        _TRACE_("_fSize_BoardModelHeightPx="<<prm_pBoardModel->_fSize_BoardModelHeightPx);
+        _TRACE_("_row_texture_split="<<prm_pBoardModel->_row_texture_split);
+        _TRACE_("_col_texture_split="<<prm_pBoardModel->_col_texture_split);
 
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" のGUIDが一致しません。");
@@ -798,20 +798,25 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/10); //僅かに小さく(1/10px)取る
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/10); //僅かに小さく(1/10px)取る
     //右下
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/10);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/10);
+
+
+    for (int vn = 0; vn < 4; vn++) {
+        _TRACE_(vn<<" = ("<<paVertex[vn].x<<","<<paVertex[vn].y<<","<<paVertex[vn].z<<")("<<paVertex[vn].tu<<","<<paVertex[vn].tv<<")");
+    }
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -843,17 +848,19 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
         for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
             int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
-            paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
-            paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
+            paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0*col/(*pInt_ColNum_TextureSplit));
+            paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0*row/(*pInt_RowNum_TextureSplit));
 
-            paRectUV[pattno_ani]._aUV[1].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
-            paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
+            paRectUV[pattno_ani]._aUV[1].tu = (float)(1.0*(col+1)/(*pInt_ColNum_TextureSplit));
+            paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0*row/(*pInt_RowNum_TextureSplit));
 
-            paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
-            paRectUV[pattno_ani]._aUV[2].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
+            paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0*col/(*pInt_ColNum_TextureSplit));
+            paRectUV[pattno_ani]._aUV[2].tv = (float)(1.0*(row+1)/(*pInt_RowNum_TextureSplit));
 
-            paRectUV[pattno_ani]._aUV[3].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
-            paRectUV[pattno_ani]._aUV[3].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
+            paRectUV[pattno_ani]._aUV[3].tu = (float)(1.0*(col+1)/(*pInt_ColNum_TextureSplit));
+            paRectUV[pattno_ani]._aUV[3].tv = (float)(1.0*(row+1)/(*pInt_RowNum_TextureSplit));
+
+            _TRACE_("offset("<<paRectUV[pattno_ani]._aUV[0].tu<<","<<paRectUV[pattno_ani]._aUV[0].tv<<")");
         }
     }
     prm_pBoardModel->_paRectUV = paRectUV;
