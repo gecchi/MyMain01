@@ -7,11 +7,11 @@ using namespace MyStg2nd;
 
 Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pStage01Main = NEW Stage01MainScene("Stage01Main");
-	_pStage01Main->inactAlone();
+	_pStage01Main->inactivateAlone();
     addSubLast(_pStage01Main);
     Sleep(2);
 	_pBackGround01 = NEW BackGround01Board("BACKGOROUND01", "");
-	_pBackGround01->inact();
+	_pBackGround01->inactivate();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
 
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
@@ -36,8 +36,8 @@ void Stage01Scene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
-        	_pBackGround01->act();
-        	_pStage01Main->actAlone();
+        	_pBackGround01->activate();
+        	_pStage01Main->activateAlone();
             setProgress(STAGE01_PROG_PLAY);
         }
     }

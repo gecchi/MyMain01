@@ -12,7 +12,7 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
     for (int i = 0; i < 100; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactImmediately(); //最初非表示
+        pEnemyMeshShot->inactivateNow(); //最初非表示
         _pRot->addSubLast(pEnemyMeshShot);
     }
 
@@ -1358,7 +1358,7 @@ void Stage01MainScene::processBehavior() {
 void Stage01MainScene::processFinal() {
     //	if (_dwFrame == 1) {
     //		_TRACE_("Stage01MainScene::processFinally 私はいきなり停止します。GameMainSceneが解除してくれるはずー");
-    //		this->inact(); //GameMainSceneが解除してくれる
+    //		this->inactivate(); //GameMainSceneが解除してくれる
     //	}
 }
 

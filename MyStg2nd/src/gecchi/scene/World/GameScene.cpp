@@ -9,7 +9,6 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pCommonScene = NEW CommonScene("Common");
     addSubLast(_pCommonScene);
 
-
     _pGameDemo = NEW GameDemoScene("GameDemo");
     addSubLast(_pGameDemo);
 
@@ -22,10 +21,10 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pGameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pGameEnding);
 
-    _pGameDemo->act();
-    _pGameBeginning->inact();
-    _pGameMain->inact();
-    _pGameEnding->inact();
+    _pGameDemo->activate();
+    _pGameBeginning->inactivate();
+    _pGameMain->inactivate();
+    _pGameEnding->inactivate();
 
 }
 
@@ -54,7 +53,7 @@ void GameScene::processBehavior() {
             _pGameBeginning->ready();
         }
         if (_pGameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
-            _pGameBeginning->act();
+            _pGameBeginning->activate();
             _pSceneCannel = _pGameBeginning;
         }
 
@@ -69,7 +68,7 @@ void GameScene::processBehavior() {
         }
 
         if (_pGameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
-            _pGameMain->act();
+            _pGameMain->activate();
             _pSceneCannel = _pGameMain;
         }
 
@@ -79,7 +78,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
-            _pGameEnding->act();
+            _pGameEnding->activate();
             _pSceneCannel = _pGameEnding;
         }
 
@@ -89,7 +88,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
-            _pGameEnding->act();
+            _pGameEnding->activate();
             _pSceneCannel = _pGameEnding;
         }
 

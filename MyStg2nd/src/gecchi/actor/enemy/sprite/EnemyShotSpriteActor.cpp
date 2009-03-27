@@ -25,14 +25,14 @@ void EnemyShotSpriteActor::processBehavior() {
 
 void EnemyShotSpriteActor::processJudgement() {
     if (isOffScreen()) {
-        inact();
+        inactivate();
     }
 
 }
 
 void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyShotSpriteActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    inact();
+    inactivate();
 }
 
 EnemyShotSpriteActor::~EnemyShotSpriteActor() {

@@ -22,7 +22,7 @@ MyLaserChip::Tetrahedron* MyLaserChip::_pTetra_EFGH = NULL;
 MyLaserChip::MyLaserChip(const char* prm_name) :
     DefaultDynaD3DXMeshActor(prm_name, "m/laserchip9") {
     _class_name = "MyLaserChip";
-    _dwFrame_switchedToActFlg = 0;
+    _dwFrame_switchedToActiveFlg = 0;
 }
 
 void MyLaserChip::initialize() {
@@ -75,7 +75,7 @@ void MyLaserChip::initialize() {
 }
 
 void MyLaserChip::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //出現時処理
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
@@ -101,7 +101,7 @@ void MyLaserChip::processBehavior() {
 void MyLaserChip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        inact();
+        inactivate();
     }
 }
 
@@ -117,7 +117,7 @@ void MyLaserChip::processDrawMain() {
     pPrevChip = getPrev();
 
     //連続しているか
-    if (pPrevChip->isPlaying() && _dwFrame_switchedToActFlg - 1 == pPrevChip->_dwFrame_switchedToActFlg) {
+    if (pPrevChip->isPlaying() && _dwFrame_switchedToActiveFlg - 1 == pPrevChip->_dwFrame_switchedToActiveFlg) {
         //連続しているので、一つ後方（一つ前）のChipの正四面体頂点ABCDを、自分のChipの正四面体頂点EFGHに重ねる。
 
         _pIDirect3DVertexBuffer9_MyLaserChip->Lock(0, 0, (void**)&pByteVertexSrc, 0); //D3DLOCK_DISCARD にしたいのぉ
@@ -215,7 +215,7 @@ void MyLaserChip::processDrawMain() {
 
     //	static int centerX, centerY, centerZ;
     /*
-     if (pNextChip->isPlaying() && _dwFrame_switchedToActFlg+1 == pNextChip->_dwFrame_switchedToActFlg) {
+     if (pNextChip->isPlaying() && _dwFrame_switchedToActiveFlg+1 == pNextChip->_dwFrame_switchedToActiveFlg) {
      centerX = (_X - pNextChip->_X) / 2;
      centerY = (_Y - pNextChip->_Y) / 2;
      centerZ = (_Z - pNextChip->_Z) / 2;
@@ -237,7 +237,7 @@ void MyLaserChip::processDrawMain() {
 }
 
 void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    inact();
+    inactivate();
 }
 
 MyLaserChip::~MyLaserChip() {

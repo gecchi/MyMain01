@@ -11,7 +11,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
         getLordActor()->accept(KIND_MY, _pMyShip);
-        _pMyShip->inactImmediatelyAlone(); //配下に仮登録のローテーションとかあるしAlone
+        _pMyShip->inactivateAloneNow(); //配下に仮登録のローテーションとかあるしAlone
     }
 
     { //EnemyShot001
@@ -20,7 +20,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EnemyShot001* pEnemyShot;
         for (int i = 0; i < 1; i++) { //ストック256個
             pEnemyShot = NEW EnemyShot001("EnemyShot001");
-            pEnemyShot->inactImmediately(); //最初非表示
+            pEnemyShot->inactivateNow(); //最初非表示
             _pEnemyShots001Rotation->addSubLast(pEnemyShot);
         }
     }
@@ -31,7 +31,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 30; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
-            pEffectExplosion->inactImmediately(); //最初非表示
+            pEffectExplosion->inactivateNow(); //最初非表示
             _pEffectExplosion001Rotation->addSubLast(pEffectExplosion);
         }
     }

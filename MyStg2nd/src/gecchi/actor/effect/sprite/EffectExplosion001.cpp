@@ -16,7 +16,7 @@ void EffectExplosion001::initialize() {
 }
 
 void EffectExplosion001::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //oŒ»Žžˆ—
         setActivAnimationPattern(0);
         //		_X = GameGlobal::_pMyShip->_X;
@@ -33,7 +33,7 @@ void EffectExplosion001::processBehavior() {
 
 void EffectExplosion001::processJudgement() {
     if (_pattno_ani_now >= _pattno_ani_bottom) {
-        inact();
+        inactivate();
     }
 }
 

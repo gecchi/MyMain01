@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(const char* prm_name) : DefaultMeshActor(prm_name, "X/t
 }
 
 void TamagoActor::initialize() {
-    //inact();
+    //inactivate();
     setBumpable(true);
     //
     _pGeoMover->setRzMoveAngle(ANGLE180);

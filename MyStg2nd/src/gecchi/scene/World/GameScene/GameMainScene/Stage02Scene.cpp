@@ -17,7 +17,7 @@ void Stage02Scene::processBehavior() {
 void Stage02Scene::processFinal() {
     if (_dwFrame == 1) {
         _TRACE_("Stage02Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-        this->inact(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+        this->inactivate(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
     }
 }
 

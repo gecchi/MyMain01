@@ -30,7 +30,7 @@ public:
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     int _iMoveAcceleration_2nd;
     /** 出現してからのフレーム数 */
-    DWORD _dwFrame_switchedToActFlg;
+    DWORD _dwFrame_switchedToActiveFlg;
     //<--- 本Actorのカスタムプロパティ
 
 public:

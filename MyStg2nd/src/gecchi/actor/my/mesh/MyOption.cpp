@@ -36,7 +36,7 @@ MyOption::MyOption(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi") {
 //    MyLaserChip2* pChip;
 //    for (int i = 0; i < 40; i++) { //レーザーストック
 //        pChip = NEW MyLaserChip2("MY_Laser", "laserchip9");
-//        pChip->inactImmediatelyAlone();
+//        pChip->inactivateAloneNow();
 //        _pMyLaserChipRotation->addSubLast(pChip);
 //        Sleep(1);
 //    }
@@ -95,8 +95,8 @@ void MyOption::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            //pLaser->_dwFrame_switchedToActFlg = _dwFrame;
-            //pLaser->actAlone();
+            //pLaser->_dwFrame_switchedToActiveFlg = _dwFrame;
+            //pLaser->activateAlone();
         }
     }
 }

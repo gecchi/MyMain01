@@ -42,12 +42,12 @@ void MyShot001::initialize() {
     setAlpha(0.3);
 
     setBumpableAlone(true);
-    inact();
+    inactivate();
 
 }
 
 void MyShot001::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //èoåªéûã§í èàóù
         setBumpableAlone(true);
         _X = GameGlobal::_pMyShip->_X;
@@ -64,17 +64,17 @@ void MyShot001::processBehavior() {
 
 void MyShot001::processJudgement() {
     if (isOffScreen()) {
-        inact();
+        inactivate();
     }
 
 }
 
 
 void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-    inact();
+    inactivate();
 }
 
-void MyShot001::onInact() {
+void MyShot001::onInactive() {
     //è¡é∏éûèàóù
     setBumpableAlone(false);
     moveFirst();

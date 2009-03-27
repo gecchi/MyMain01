@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/vic2") {
     _class_name = "EnemyMeshShot001";
 
-    inact();
+    inactivate();
 
     /** 出現時の初速 */
     _iMoveVelocity_1st = 10000;
@@ -27,7 +27,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     _iMoveAcceleration_2nd = 300;
 
-    _dwFrame_switchedToActFlg = 0;
+    _dwFrame_switchedToActiveFlg = 0;
 }
 
 void EnemyMeshShot001::initialize() {
@@ -41,12 +41,12 @@ void EnemyMeshShot001::initialize() {
 }
 
 void EnemyMeshShot001::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //出現時
         _pGeoMover->setMoveVelocity(_iMoveVelocity_1st);
         _pGeoMover->setMoveAcceleration(_iMoveAcceleration_1st);
 
-        _dwFrame_switchedToActFlg = 0;
+        _dwFrame_switchedToActiveFlg = 0;
         setBumpableAlone(true);
     } else {
 
@@ -69,9 +69,9 @@ void EnemyMeshShot001::processBehavior() {
         //		_pGeoMover->setRzMoveAngle(angRz_Target);
         //		_pGeoMover->setRyMoveAngle(angRy_Target);
 
-        _dwFrame_switchedToActFlg++;
+        _dwFrame_switchedToActiveFlg++;
         //方向転換開始
-        if (_dwFrame_switchedToActFlg == _dwFrame_TurnBegin) {
+        if (_dwFrame_switchedToActiveFlg == _dwFrame_TurnBegin) {
             angle angRz_Target;
             angle angRy_Target;
             GgafDx9Util::getRotAngleZY(GameGlobal::_pMyShip->_X - _X, GameGlobal::_pMyShip->_Y - _Y,
@@ -93,7 +93,7 @@ void EnemyMeshShot001::processBehavior() {
         }
 
         //方向転換終了
-        if (_dwFrame_switchedToActFlg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
+        if (_dwFrame_switchedToActiveFlg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
             _pGeoMover->setRzMoveAngleVelocity(0);
             _pGeoMover->setRyMoveAngleVelocity(0);
             _pGeoMover->_auto_move_angle_ry_target_Flg = false;
@@ -110,7 +110,7 @@ void EnemyMeshShot001::processBehavior() {
 
 void EnemyMeshShot001::processJudgement() {
     if (isOffScreen()) {
-        inact();
+        inactivate();
         //farewell();
     }
 }
@@ -147,12 +147,12 @@ void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ヒットしました。("<<_X<<","<<_Y<<")");
     //farewell();
     setBumpableAlone(false);
-    inact();
+    inactivate();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
-        pExplo001->act();
+        pExplo001->activate();
     }
 }
 

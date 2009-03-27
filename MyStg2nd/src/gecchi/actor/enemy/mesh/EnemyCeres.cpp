@@ -28,7 +28,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     for (int i = 0; i < 16; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactImmediately(); //Å‰”ñ•\Ž¦
+        pEnemyMeshShot->inactivateNow(); //Å‰”ñ•\Ž¦
             _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
         //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®
@@ -159,7 +159,7 @@ void EnemyCeres::processBehavior() {
         //			if (pTama != NULL) {
         //				pTama->setGeometry (_X, _Y, 0);
         //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
-        //				pTama->act();
+        //				pTama->activate();
         //			}
         //		}
 
@@ -173,7 +173,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
-                pTama->actAlone();
+                pTama->activateAlone();
             }
         }
         for (int i = 8; i < 16; i++) {
@@ -181,7 +181,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
-                pTama->actAlone();
+                pTama->activateAlone();
             }
         }
 
@@ -219,7 +219,7 @@ void EnemyCeres::processBehavior() {
 //			if (pTama) {
 //				pTama->setGeometry (_X, _Y, 0);
 //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
-//				pTama->act();
+//				pTama->activate();
 //			}
 //		}
 //
@@ -293,7 +293,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
-        pExplo001->actAlone();
+        pExplo001->activateAlone();
     }
 }
 

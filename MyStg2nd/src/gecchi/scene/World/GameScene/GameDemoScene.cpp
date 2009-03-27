@@ -27,7 +27,7 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
         //自機表示
-        GameGlobal::_pSceneCommon->_pMyShip->actAlone(); //下位にオプション等があるし
+        GameGlobal::_pSceneCommon->_pMyShip->activateAlone(); //下位にオプション等があるし
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
 
@@ -127,7 +127,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgress(GAMEDEMO_PROG_END)) {
         _pFontBoard01->setString(100, 100, "GameDemoScene END");
         _pFontBoard02->setString(100, 150, "SRABA");
-        inactAfter(200);
+        inactivateAfter(200);
     }
 
 

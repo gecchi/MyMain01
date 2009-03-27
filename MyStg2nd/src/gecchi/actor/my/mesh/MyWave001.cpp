@@ -39,12 +39,12 @@ void MyWave001::initialize() {
     //setAlpha(0.2);
 
     setBumpableAlone(true);
-    inact();
+    inactivate();
 
 }
 
 void MyWave001::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //出現時共通処理
         setBumpableAlone(true);
         setGeometry(GameGlobal::_pMyShip);
@@ -67,7 +67,7 @@ void MyWave001::processBehavior() {
 void MyWave001::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        inact();
+        inactivate();
     }
 
 }
@@ -83,10 +83,10 @@ void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("MyWave001::processOnHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
     //farewell();
-    inact();
+    inactivate();
 }
 
-void MyWave001::onInact() {
+void MyWave001::onInactive() {
     //消失時処理
     setBumpableAlone(false);
     moveFirst();

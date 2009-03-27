@@ -22,7 +22,7 @@ MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
 MyLaserChip2::MyLaserChip2(const char* prm_name) : DefaultDynaD3DXMeshActor(prm_name, "m/laserchip9") {
     _class_name = "MyLaserChip2";
-    //_dwFrame_switchedToActFlg = 0;
+    //_dwFrame_switchedToActiveFlg = 0;
 }
 
 /*
@@ -107,7 +107,7 @@ void MyLaserChip2::initialize() {
 }
 
 void MyLaserChip2::processBehavior() {
-    if (switchedToAct()) {
+    if (switchedToActive()) {
         //èoåªéûèàóù
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
@@ -134,7 +134,7 @@ void MyLaserChip2::processBehavior() {
 void MyLaserChip2::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        inact();
+        inactivate();
     }
 }
 
@@ -319,7 +319,7 @@ void MyLaserChip2::processDrawMain() {
     }
 
     //	static int centerX, centerY, centerZ;
-    //	if (pNextChip->isPlaying() && _dwFrame_switchedToActFlg+1 == pNextChip->_dwFrame_switchedToActFlg) {
+    //	if (pNextChip->isPlaying() && _dwFrame_switchedToActiveFlg+1 == pNextChip->_dwFrame_switchedToActiveFlg) {
     //		centerX = (_X - pNextChip->_X) / 2;
     //		centerY = (_Y - pNextChip->_Y) / 2;
     //		centerZ = (_Z - pNextChip->_Z) / 2;
@@ -358,14 +358,14 @@ void MyLaserChip2::processHappen(int prm_no) {
 }
 
 void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
-    inact();
+    inactivate();
 }
 
-//void MyLaserChip2::onAct() {
+//void MyLaserChip2::onActive() {
 //    //èoåªéû
 //    ((MyLaserChipRotationActor*)getParent())->_iNumActiveChip++;
 //}
-void MyLaserChip2::onInact() {
+void MyLaserChip2::onInactive() {
     //è¡é∏éû
     ((MyLaserChipRotationActor*)getParent())->_iNumActiveChip--;
 }

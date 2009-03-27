@@ -9,14 +9,14 @@ FormationVesta001::FormationVesta001(const char* prm_name) : FormationActor(prm_
     _class_name = "FormationVesta001";
     for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
         _pEnemyVesta[i] = NEW EnemyVesta("Vesta01");
-        _pEnemyVesta[i]->inactImmediatelyAlone();
+        _pEnemyVesta[i]->inactivateAloneNow();
         addSubLast(_pEnemyVesta[i] );
     }
 }
 
 void FormationVesta001::initialize() {
     for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
-        _pEnemyVesta[i]->actAfter(i * 30 + 1);
+        _pEnemyVesta[i]->activateAfter(i * 30 + 1);
     }
 }
 
