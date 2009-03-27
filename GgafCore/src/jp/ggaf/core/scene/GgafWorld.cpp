@@ -8,5 +8,4 @@ GgafWorld::GgafWorld(const char* prm_name) : GgafMainScene(prm_name) {
 }
 
 GgafWorld::~GgafWorld() {
-
 }

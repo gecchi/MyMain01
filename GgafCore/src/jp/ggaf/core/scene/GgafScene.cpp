@@ -20,10 +20,8 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
 
 GgafScene::~GgafScene() {
     TRACE("GgafScene::~GgafScene() " << getName() << " start-->");
-
     //所属アクターを解放
     DELETE_POSSIBLE_NULL(_pLordActor);
-
     TRACE("GgafScene::~GgafScene() " << getName() <<  " <---end");
 }
 
@@ -31,11 +29,9 @@ void GgafScene::nextFrame() {
     TRACE("GgafScene::nextFrame() " << getName());
     GgafElement<GgafScene>::nextFrame();
     _pLordActor->nextFrame();
-
     //進捗を更新
     _progress_prev = _progress;
     _progress = _progress_nextframe;
-
 }
 
 void GgafScene::behave() {
@@ -207,7 +203,6 @@ void GgafScene::showAloneNow() {
     GgafElement<GgafScene>::showAloneNow();
     _pLordActor->showAloneNow();
 }
-
 
 void GgafScene::farewell(DWORD prm_dwFrameOffset) {
     GgafElement<GgafScene>::farewell(prm_dwFrameOffset);

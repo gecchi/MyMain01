@@ -33,7 +33,6 @@ GgafGod::GgafGod() : GgafObject(),
     _dwTime_Prev = _dwTime_FrameBegin;
     _dwFrame_Visualize = 0;
     _dwFrame_PrevVisualize = 0;
-    //_pWorld = NULL;
     _isBehaved = false;
 
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
@@ -103,7 +102,6 @@ void GgafGod::be() {
                 //スキップ時はmakeWorldFinalize()だけ
              ___BeginSynchronized; // ----->排他開始
                 makeWorldFinalize();
-                //getWorld()->cleane(1);
              ___EndSynchronized; // <----- 排他終了
             }
         } else {
@@ -113,20 +111,12 @@ void GgafGod::be() {
             makeWorldMaterialize();//描画を行う
             makeWorldVisualize(); //視覚化を行う
             makeWorldFinalize();
-            //getWorld()->cleane(1);
          ___EndSynchronized; // <----- 排他終了
         }
         _isBehaved = false;
 
     } else {//描画タイミングフレームになってない(余裕がある)
         Sleep(1); //工場（別スレッド）に回す
-        //		if (_dwTime_ScheduledNextFrame > timeGetTime()) { //まだ余裕がある場合
-        //			if (getWorld() != NULL && _cnt_cleaned == 0) { //掃除でもやっとく
-        //				 ___BeginSynchronized; // ----->排他開始
-        //				getWorld()->cleane(1);
-        //				 ___EndSynchronized; // <----- 排他終了
-        //			}
-        //		}
     }
 
     return;

@@ -3,8 +3,7 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafGarbageBox::GgafGarbageBox() :
-    GgafObject() {
+GgafGarbageBox::GgafGarbageBox() : GgafObject() {
     _pGarbageRootActor = NEW GgafGarbageRootActor();
     _pGarbageRootScene = NEW GgafGarbageRootScene();
 }
