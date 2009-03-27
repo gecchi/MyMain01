@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * ローテーションアクタークラス .
  * 子に予めアクターを登録しておき（ローテーションメンバーと呼ぶ）、空いているメンバーを取得する。<BR>
- * 取得したアクターを、ローテーション戻す（再度使いまわしをしたい）たい時は inact() して下さい。本クラスが自動的に拾います。<BR>
+ * 取得したアクターを、ローテーション戻す（再度使いまわしをしたい）たい時は inactivate() して下さい。本クラスが自動的に拾います。<BR>
  * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
  * また連続obtain()の場合、次のobtain()のアクターは必ず隣同士となっています。<BR>
  */
@@ -26,7 +26,7 @@ public:
 //        static GgafMainActor* pActor;
 //        pActor = getSubFirst();
 //        while (true) {
-//            if (pActor->switchedToInact()) {
+//            if (pActor->switchedToInactive()) {
 //                pActor->moveFirst();
 //            }
 //            if (pActor->isLast()) {
@@ -40,12 +40,12 @@ public:
     /**
      * 子アクターへは影響させない
      */
-    virtual void act() {
-        actAlone();
+    virtual void activate() {
+        activateAlone();
     }
 
-    virtual void inact() {
-        inactAlone();
+    virtual void inactivate() {
+        inactivateAlone();
     }
 
     /**
@@ -62,7 +62,7 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isPlaying() || pActor->willActNextFrame()) {
+            if (pActor->isPlaying() || pActor->willActivateNextFrame()) {
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
@@ -71,7 +71,7 @@ public:
                     continue;
                 }
             } else {
-                pActor->actAlone();
+                pActor->activateAlone();
                 pActor->moveLast(); //取得！
                 break;
             }
