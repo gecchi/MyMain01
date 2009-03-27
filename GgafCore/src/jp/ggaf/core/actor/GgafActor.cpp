@@ -167,7 +167,7 @@ GgafScene* GgafActor::getPlatformScene() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -188,7 +188,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {

@@ -161,37 +161,37 @@ public:
 
     virtual void happen(int prm_no);
 
-    virtual void act();
-    virtual void actAfter(DWORD prm_dwFrameOffset);
-    virtual void actAlone();
-    virtual void actImmediately();
-    virtual void actImmediatelyAlone();
+    virtual void activate();
+    virtual void activateAfter(DWORD prm_dwFrameOffset);
+    virtual void activateAlone();
+    virtual void activateNow();
+    virtual void activateAloneNow();
 
-    virtual void inact();
-    virtual void inactAfter(DWORD prm_dwFrameOffset);
-    virtual void inactAlone();
-    virtual void inactImmediately();
-    virtual void inactImmediatelyAlone();
+    virtual void inactivate();
+    virtual void inactivateAfter(DWORD prm_dwFrameOffset);
+    virtual void inactivateAlone();
+    virtual void inactivateNow();
+    virtual void inactivateAloneNow();
 
     virtual void pause();
     virtual void pauseAlone();
-    virtual void pauseImmediately();
-    virtual void pauseImmediatelyAlone();
+    virtual void pauseNow();
+    virtual void pauseAloneNow();
 
     virtual void unpause();
     virtual void unpauseAlone();
-    virtual void unpauseImmediately();
-    virtual void unpauseImmediatelyAlone();
+    virtual void unpauseNow();
+    virtual void unpauseAloneNow();
 
-    virtual void blind();
-    virtual void blindAlone();
-    virtual void blindImmediately();
-    virtual void blindImmediatelyAlone();
+    virtual void hide();
+    virtual void hideAlone();
+    virtual void hideNow();
+    virtual void hideAloneNow();
 
-    virtual void unblind();
-    virtual void unblindAlone();
-    virtual void unblindImmediately();
-    virtual void unblindImmediatelyAlone();
+    virtual void show();
+    virtual void showAlone();
+    virtual void showNow();
+    virtual void showAloneNow();
 
 
     /**

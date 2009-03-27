@@ -78,54 +78,54 @@ void GgafScene::finally() {
     _pLordActor->finally();
 }
 
-void GgafScene::act() {
-    GgafElement<GgafScene>::act();
-    _pLordActor->act();
+void GgafScene::activate() {
+    GgafElement<GgafScene>::activate();
+    _pLordActor->activate();
 }
 
-void GgafScene::actAfter(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::actAfter(prm_dwFrameOffset);
-    _pLordActor->actAfter(prm_dwFrameOffset);
+void GgafScene::activateAfter(DWORD prm_dwFrameOffset) {
+    GgafElement<GgafScene>::activateAfter(prm_dwFrameOffset);
+    _pLordActor->activateAfter(prm_dwFrameOffset);
 }
 
-void GgafScene::actAlone() {
-    GgafElement<GgafScene>::actAlone();
-    _pLordActor->actAlone();
+void GgafScene::activateAlone() {
+    GgafElement<GgafScene>::activateAlone();
+    _pLordActor->activateAlone();
 }
 
-void GgafScene::actImmediately() {
-    GgafElement<GgafScene>::actImmediately();
-    _pLordActor->actImmediately();
+void GgafScene::activateNow() {
+    GgafElement<GgafScene>::activateNow();
+    _pLordActor->activateNow();
 }
 
-void GgafScene::actImmediatelyAlone() {
-    GgafElement<GgafScene>::actImmediatelyAlone();
-    _pLordActor->actImmediatelyAlone();
+void GgafScene::activateAloneNow() {
+    GgafElement<GgafScene>::activateAloneNow();
+    _pLordActor->activateAloneNow();
 }
 
-void GgafScene::inact() {
-    GgafElement<GgafScene>::inact();
-    _pLordActor->inact();
+void GgafScene::inactivate() {
+    GgafElement<GgafScene>::inactivate();
+    _pLordActor->inactivate();
 }
 
-void GgafScene::inactAfter(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::inactAfter(prm_dwFrameOffset);
-    _pLordActor->inactAfter(prm_dwFrameOffset);
+void GgafScene::inactivateAfter(DWORD prm_dwFrameOffset) {
+    GgafElement<GgafScene>::inactivateAfter(prm_dwFrameOffset);
+    _pLordActor->inactivateAfter(prm_dwFrameOffset);
 }
 
-void GgafScene::inactAlone() {
-    GgafElement<GgafScene>::inactAlone();
-    _pLordActor->inactAlone();
+void GgafScene::inactivateAlone() {
+    GgafElement<GgafScene>::inactivateAlone();
+    _pLordActor->inactivateAlone();
 }
 
-void GgafScene::inactImmediately() {
-    GgafElement<GgafScene>::inactImmediately();
-    _pLordActor->inactImmediately();
+void GgafScene::inactivateNow() {
+    GgafElement<GgafScene>::inactivateNow();
+    _pLordActor->inactivateNow();
 }
 
-void GgafScene::inactImmediatelyAlone() {
-    GgafElement<GgafScene>::inactImmediatelyAlone();
-    _pLordActor->inactImmediatelyAlone();
+void GgafScene::inactivateAloneNow() {
+    GgafElement<GgafScene>::inactivateAloneNow();
+    _pLordActor->inactivateAloneNow();
 }
 
 void GgafScene::pause() {
@@ -138,14 +138,14 @@ void GgafScene::pauseAlone() {
     _pLordActor->pauseAlone();
 }
 
-void GgafScene::pauseImmediately() {
-    GgafElement<GgafScene>::pauseImmediately();
-    _pLordActor->pauseImmediately();
+void GgafScene::pauseNow() {
+    GgafElement<GgafScene>::pauseNow();
+    _pLordActor->pauseNow();
 }
 
-void GgafScene::pauseImmediatelyAlone() {
-    GgafElement<GgafScene>::pauseImmediatelyAlone();
-    _pLordActor->pauseImmediatelyAlone();
+void GgafScene::pauseAloneNow() {
+    GgafElement<GgafScene>::pauseAloneNow();
+    _pLordActor->pauseAloneNow();
 }
 
 void GgafScene::unpause() {
@@ -158,54 +158,54 @@ void GgafScene::unpauseAlone() {
     _pLordActor->unpauseAlone();
 }
 
-void GgafScene::unpauseImmediately() {
-    GgafElement<GgafScene>::unpauseImmediately();
-    _pLordActor->unpauseImmediately();
+void GgafScene::unpauseNow() {
+    GgafElement<GgafScene>::unpauseNow();
+    _pLordActor->unpauseNow();
 }
 
-void GgafScene::unpauseImmediatelyAlone() {
-    GgafElement<GgafScene>::unpauseImmediatelyAlone();
-    _pLordActor->unpauseImmediatelyAlone();
+void GgafScene::unpauseAloneNow() {
+    GgafElement<GgafScene>::unpauseAloneNow();
+    _pLordActor->unpauseAloneNow();
 }
 
-void GgafScene::blind() {
-    GgafElement<GgafScene>::blind();
-    _pLordActor->blind();
+void GgafScene::hide() {
+    GgafElement<GgafScene>::hide();
+    _pLordActor->hide();
 }
 
-void GgafScene::blindAlone() {
-    GgafElement<GgafScene>::blindAlone();
-    _pLordActor->blindAlone();
+void GgafScene::hideAlone() {
+    GgafElement<GgafScene>::hideAlone();
+    _pLordActor->hideAlone();
 }
 
-void GgafScene::blindImmediately() {
-    GgafElement<GgafScene>::blindImmediately();
-    _pLordActor->blindImmediately();
+void GgafScene::hideNow() {
+    GgafElement<GgafScene>::hideNow();
+    _pLordActor->hideNow();
 }
 
-void GgafScene::blindImmediatelyAlone() {
-    GgafElement<GgafScene>::blindImmediatelyAlone();
-    _pLordActor->blindImmediatelyAlone();
+void GgafScene::hideAloneNow() {
+    GgafElement<GgafScene>::hideAloneNow();
+    _pLordActor->hideAloneNow();
 }
 
-void GgafScene::unblind() {
-    GgafElement<GgafScene>::unblind();
-    _pLordActor->unblind();
+void GgafScene::show() {
+    GgafElement<GgafScene>::show();
+    _pLordActor->show();
 }
 
-void GgafScene::unblindAlone() {
-    GgafElement<GgafScene>::unblindAlone();
-    _pLordActor->unblindAlone();
+void GgafScene::showAlone() {
+    GgafElement<GgafScene>::showAlone();
+    _pLordActor->showAlone();
 }
 
-void GgafScene::unblindImmediately() {
-    GgafElement<GgafScene>::unblindImmediately();
-    _pLordActor->unblindImmediately();
+void GgafScene::showNow() {
+    GgafElement<GgafScene>::showNow();
+    _pLordActor->showNow();
 }
 
-void GgafScene::unblindImmediatelyAlone() {
-    GgafElement<GgafScene>::unblindImmediatelyAlone();
-    _pLordActor->unblindImmediatelyAlone();
+void GgafScene::showAloneNow() {
+    GgafElement<GgafScene>::showAloneNow();
+    _pLordActor->showAloneNow();
 }
 
 
@@ -294,7 +294,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
     _pLordActor->dump();
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -314,7 +314,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasBlindedFlg<<_isAliveFlg<<","<<_willActNextFrameFlg<<_willPauseNextFrameFlg<<_willBlindNextFrameFlg<<_willBeAliveNextFrameFlg<<","<<_willActAfterFrameFlg<<"("<<_dwGodFremeWhenAct<<")");
+    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
     _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
