@@ -57,7 +57,7 @@ public:
         float tu, tv; // テクスチャ座標
     };
 
-    /** VERTEXのFVF */
+    /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;

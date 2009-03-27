@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 DWORD GgafDx9SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-//LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
 GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE3("GgafDx9SpriteModel::GgafDx9SpriteModel(" << _model_name << ")");
@@ -84,8 +83,8 @@ void GgafDx9SpriteModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " end");
-
 }
+
 GgafDx9SpriteModel::~GgafDx9SpriteModel() {
     TRACE3("GgafDx9SpriteModel::~GgafDx9SpriteModel() " << _model_name << " start");
     release();

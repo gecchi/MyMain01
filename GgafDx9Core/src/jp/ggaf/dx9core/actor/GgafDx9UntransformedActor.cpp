@@ -46,7 +46,6 @@ void GgafDx9UntransformedActor::processDrawPrior() {
             //レンダリング時最遠から描画するので、深度レベルはMAX
             GgafDx9World::setDrawDepthMaxLevel(this);
         }
-
     }
 }
 void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {

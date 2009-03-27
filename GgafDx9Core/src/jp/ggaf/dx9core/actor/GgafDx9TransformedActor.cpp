@@ -10,7 +10,6 @@ GgafDx9TransformedActor::GgafDx9TransformedActor(const char* prm_name) : GgafDx9
     _fAlpha = 1.0;
 }
 
-
 void GgafDx9TransformedActor::processDrawPrior() {
     //TODO:—vŒŸ“¢
     if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
@@ -24,5 +23,6 @@ void GgafDx9TransformedActor::processDrawPrior() {
         }
     }
 }
+
 GgafDx9TransformedActor::~GgafDx9TransformedActor() {
 }

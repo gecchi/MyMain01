@@ -20,7 +20,7 @@ public:
 
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** VERTEXのFVF */
+    /** 頂点のFVF */
     static DWORD FVF;
     /** マテリアル */
     D3DMATERIAL9* _pD3DMaterial9_default;
@@ -32,11 +32,8 @@ public:
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
-
     /** 前回表示のUV */
     GgafDx9RectUV* _pRectUV_drawlast;
-
-    //bool _isChangedAlpha;
 
     /**
      * コンストラクタ<BR>
@@ -51,8 +48,6 @@ public:
     float _fSize_SpriteModelHeightPx;
     int _row_texture_split;
     int _col_texture_split;
-    //int	   _iChangeVertexAlpha;
-
 
     /**
      * GgafDx9SpriteModelオブジェクトの描画<BR>
