@@ -13,7 +13,7 @@ GgafDx9TransformedActor::GgafDx9TransformedActor(const char* prm_name) : GgafDx9
 
 void GgafDx9TransformedActor::processDrawPrior() {
     //TODO:—vŒŸ“¢
-    if (_isActiveFlg && !_wasBlindedFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
         if (getAlpha() < 1.0) {
             GgafDx9World::setDrawDepthLevel(
                             (int)(_z * MAX_DRAW_DEPTH_LEVEL),
