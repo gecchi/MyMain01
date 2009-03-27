@@ -44,7 +44,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
     //描画
-    for (int i = 0; i < _nMaterialListGrp; i++) {
+    for (UINT i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         if (_papTextureCon[material_no] != NULL) {
             //テクスチャをs0レジスタにセット

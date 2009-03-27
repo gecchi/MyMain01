@@ -813,11 +813,6 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/10);
     paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/10);
 
-
-    for (int vn = 0; vn < 4; vn++) {
-        _TRACE_(vn<<" = ("<<paVertex[vn].x<<","<<paVertex[vn].y<<","<<paVertex[vn].z<<")("<<paVertex[vn].tu<<","<<paVertex[vn].tv<<")");
-    }
-
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
 
@@ -859,8 +854,6 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 
             paRectUV[pattno_ani]._aUV[3].tu = (float)(1.0*(col+1)/(*pInt_ColNum_TextureSplit));
             paRectUV[pattno_ani]._aUV[3].tv = (float)(1.0*(row+1)/(*pInt_RowNum_TextureSplit));
-
-            _TRACE_("offset("<<paRectUV[pattno_ani]._aUV[0].tu<<","<<paRectUV[pattno_ani]._aUV[0].tv<<")");
         }
     }
     prm_pBoardModel->_paRectUV = paRectUV;
