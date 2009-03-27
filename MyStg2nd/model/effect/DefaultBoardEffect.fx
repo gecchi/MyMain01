@@ -36,7 +36,7 @@ OUT_VS GgafDx9VS_DefaultBoard(
 	OUT_VS out_vs = (OUT_VS)0;
 	//Xç¿ïWYç¿ïWÇÇ -1 Å` +1 Ç…âüÇµçûÇﬂÇÈÅB
 	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*g_transformedX - 1) / g_view_width);
-    out_vs.pos.y =   1 - ((2*prm_pos.y + 2*g_transformedY - 1) / g_view_height);
+	out_vs.pos.y =   1 - ((2*prm_pos.y + 2*g_transformedY - 1) / g_view_height);
 	//out_vs.pos.x = - 1 + 2 * ((prm_pos.x + g_transformedX- 0.5) / g_view_width);
 	//out_vs.pos.y =   1 - 2 * ((prm_pos.y + g_transformedY- 0.5) / g_view_height);
 //	out_vs.pos.x = (2 * prm_pos.x  / g_view_width ) - 1 + (2 * g_transformedX / g_view_width);
