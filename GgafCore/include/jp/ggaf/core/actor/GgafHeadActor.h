@@ -12,7 +12,7 @@ namespace GgafCore {
  * 管理者のサブアクターは、全て必ずこの団長になっています。<BR>
  * また、団長配下に団長が存在してはいけないことになっています。<BR>
  * ＜補足：団長クラス(GgafHeadActor)のオブジェクトイメージ図＞<BR>
- * <PRE STYLE="font-size:10px">
+ * <PRE STYLE="font-size:18px">
  * 　　　　･･･⇔ GgafScene ⇔ GgafScene ⇔･･･
  * 　　　　　　　　　｜
  * 　　　　　　　　　↓メンバー
