@@ -11,7 +11,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z, // SHOT1
                               DIK_X, // SHOT2
                               DIK_A, // SHOT3
-                              DIK_Q, // TURBO
+                              DIK_Q, // ZMOVE
                               DIK_C, // GUARD
                               DIK_V, // POWERUP
                               DIK_ESCAPE, // PAUSE
@@ -32,7 +32,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               0, // SHOT1
                               7, // SHOT2
                               8, // SHOT3
-                              1, // TURBO
+                              1, // ZMOVE
                               2, // GUARD
                               3, // POWERUP
                               6, // PAUSE
@@ -83,6 +83,7 @@ bool VirtualButton::isPushedDown(int prm_VB) {
         return false;
     }
 }
+
 
 ////‰½Š‚à‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢¨‰Ÿ‚µ‚½
 //bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
@@ -288,8 +289,8 @@ void VirtualButton::update() {
     _pVBMap->_state[VB_SHOT3] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT3) ||
                                   GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT3);
 
-    _pVBMap->_state[VB_TURBO] = GgafDx9Input::isBeingPressedKey(_tagKeymap.TURBO) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.TURBO);
+    _pVBMap->_state[VB_ZMOVE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.ZMOVE) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.ZMOVE);
 
     _pVBMap->_state[VB_GUARD] = GgafDx9Input::isBeingPressedKey(_tagKeymap.GUARD) ||
                                   GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.GUARD);

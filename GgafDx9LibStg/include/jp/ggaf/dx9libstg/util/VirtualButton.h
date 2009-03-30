@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 #define VB_SHOT1 1
 #define VB_SHOT2 2
 #define VB_SHOT3 3
-#define VB_TURBO 4
+#define VB_ZMOVE 4
 #define VB_GUARD 5
 #define VB_POWERUP 6
 #define VB_PAUSE 7
@@ -50,7 +50,7 @@ public:
         int SHOT1;
         int SHOT2;
         int SHOT3;
-        int TURBO;
+        int ZMOVE;
         int GUARD;
         int POWERUP;
         int PAUSE;
@@ -71,7 +71,7 @@ public:
         int SHOT1;
         int SHOT2;
         int SHOT3;
-        int TURBO;
+        int ZMOVE;
         int GUARD;
         int POWERUP;
         int PAUSE;
@@ -109,6 +109,7 @@ public:
     static bool wasNotBeingPressed(int prm_VB, DWORD prm_dwFrameAgo);
 
     static bool isPushedDown(int prm_VB);
+
 
     static bool wasPushedDown(int prm_VB, DWORD prm_dwFrameAgo);
 
