@@ -18,8 +18,8 @@ namespace GgafDx9Core {
 /**
  * GgafDx9MeshActor用のモデルクラス.
  * GgafDx9MeshModel は D3DXLoadMeshFromX を使用せず、Xファイルからのモデルデータを保持、描画するクラスです。<BR>
- * ＜留意＞<BR>
- * ・アニメーションは読み込まれません。静的モデルです。(TODO:いつかスキンメッシュもする)
+ * <B>＜留意＞</B><BR>
+ * ・アニメーションは読み込まれません。静的モデルです。(TODO:いつかスキンメッシュもする)<BR>
  * ・Faceは、3角形しか駄目です。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
  * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
  * ・共有頂点法線は、独自計算で平均化される。
@@ -28,8 +28,8 @@ namespace GgafDx9Core {
  *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
  *   Xファイルのマテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちるやもしれない。<BR>
  *   例えば、Xファイルのマテリアルリストが {0,0,1,1,2,0,1} な場合、マテリアル数が3つでも、描画は5回実行することになる。<BR>
- * ・void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) で実際の設定を行なっています。
- * ＜使い所＞<BR>
+ * ・void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) で実際の設定を行なっています。<BR>
+ * <B>＜使い所＞</B><BR>
  * ・単純な分、基本的に D3DXLoadMeshFromX → drawSubset(n) より描画は高速。<BR>
  * ・ロジックで頂点をいじりたい場合等、D3DXLoadMeshFromX により最適化されたかもしれない ID3DXMesh から、
  *   所望の頂点を割り出すのがしんどい場合。<BR>
