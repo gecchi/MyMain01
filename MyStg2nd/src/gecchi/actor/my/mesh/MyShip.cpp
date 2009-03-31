@@ -65,7 +65,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     _angRotVelo_FaceTurn = 2000;
 
     _dwFrameNomalMove = 0; //通常移動経過フレーム
-    _wayTurbo = WAY_NONE;
+    _way = WAY_FRONT;
     _dRate_TurboControl = 0.8; //ターボ中移動制御できる割合
     _iTurboControl = 0;
 
@@ -98,18 +98,22 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
 //        _pMyLaserChipRotation->addSubLast(pChip);
 //    }
 
-    for (int i = 0; i < EQ_MAX_OPTION; i++) {
-        MyOption* pOption = NEW MyOption("MY_OPTION");
-        pOption->_iMyNo = i; //おぷ番
-        pOption->inactivateAloneNow();
-        addSubLast(pOption);
-    }
+//    for (int i = 0; i < EQ_MAX_OPTION; i++) {
+//        MyOption* pOption = NEW MyOption("MY_OPTION");
+//        pOption->_iMyNo = i; //おぷ番
+//        pOption->inactivateAloneNow();
+//        addSubLast(pOption);
+//    }
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 200; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
+
+
+    MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
+    addSubLast(pMyOptionParent);
 
 }
 
@@ -127,34 +131,29 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
-    _pTestBoard->_x = _pTestBoard->_x + 1.0;
-    _pTestBoard->_y = _pTestBoard->_y + 1.0;
-
-    static int stc;
-
-    stc = VB::getBeingPressedStick();
-    if (stc != 0) {
-        if (VB::isPushedDown(stc)) { //方向シングルプッシュ
-            if (MyShip::isDoublePushedDown(stc)) { //方向ダブルプッシュ
+    _stc = VB::getBeingPressedStick();
+    if (_stc != 0) {
+        if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
+            if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
                 if (VB::isBeingPressed(VB_ZMOVE)) {
                     turnFaceNeutralXY();
-                    turnFaceXZMove(stc);
-                    beginTurboXZ(stc);
+                    turnFaceXZMove(_stc);
+                    beginTurboXZ(_stc);
                 } else {
                     turnFaceNeutralXZ();
-                    turnFaceXYMove(stc);
-                    beginTurboXY(stc);
+                    turnFaceXYMove(_stc);
+                    beginTurboXY(_stc);
                 }
             } else {
                 //方向ダブルプッシュでない＝方向シングルプッシュ
                 if (VB::isBeingPressed(VB_ZMOVE)) {
                     turnFaceNeutralXY();
-                    turnFaceXZMove(stc);
-                    moveXZ(stc);
+                    turnFaceXZMove(_stc);
+                    moveXZ(_stc);
                 } else {
                     turnFaceNeutralXZ();
-                    turnFaceXYMove(stc);
-                    moveXY(stc);
+                    turnFaceXYMove(_stc);
+                    moveXY(_stc);
                 }
             }
 
@@ -162,14 +161,14 @@ void MyShip::processBehavior() {
 
             //方向押しっぱ
             if (VB::isBeingPressed(VB_ZMOVE)) {
-                turnFaceXZMove(stc);
-                turnFaceXYMove(stc);
-                moveXZ(stc);
+                turnFaceXZMove(_stc);
+                turnFaceXYMove(_stc);
+                moveXZ(_stc);
 
             } else {
                 turnFaceNeutralXZ();
-                turnFaceXYMove(stc);
-                moveXY(stc);
+                turnFaceXYMove(_stc);
+                moveXY(_stc);
 
             }
         }
@@ -242,7 +241,7 @@ void MyShip::processBehavior() {
         _SY -= 300;
         _SZ -= 300;
     }
-    if (VB::isBeingPressed(VB_GUARD)) {
+    if (VB::isBeingPressed(VB_CONTROL)) {
         _SX += 300;
         _SY += 300;
         _SZ += 300;
@@ -270,47 +269,47 @@ void MyShip::beginTurboXZ(int prm_VB) {
     switch(prm_VB) {
 
         case VB_UP_STC: //奥
-            _wayTurbo = WAY_ZLEFT;
+            _way = WAY_ZLEFT;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE270);
             _pGeoMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_RIGHT_STC:
-            _wayTurbo = WAY_ZLEFT_FRONT;
+            _way = WAY_ZLEFT_FRONT;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE315);
             _pGeoMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_LEFT_STC:
-            _wayTurbo = WAY_ZLEFT_BEHIND;
+            _way = WAY_ZLEFT_BEHIND;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE225);
             _pGeoMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_RIGHT_STC:
-            _wayTurbo = WAY_FRONT;
+            _way = WAY_FRONT;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE0);
             break;
 
         case VB_LEFT_STC:
-            _wayTurbo = WAY_BEHIND;
+            _way = WAY_BEHIND;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE180);
             break;
 
         case VB_DOWN_STC:
-            _wayTurbo = WAY_ZRIGHT;
+            _way = WAY_ZRIGHT;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE90);
             _pGeoMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_RIGHT_STC:
-            _wayTurbo = WAY_ZRIGHT_FRONT;
+            _way = WAY_ZRIGHT_FRONT;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE45);
             _pGeoMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_LEFT_STC:
-            _wayTurbo = WAY_ZRIGHT_BEHIND;
+            _way = WAY_ZRIGHT_BEHIND;
             _pGeoMover->setRzRyMoveAngle(0, ANGLE135);
             _pGeoMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
@@ -329,35 +328,35 @@ void MyShip::beginTurboXY(int prm_VB) {
 
     switch (prm_VB) {
         case VB_UP_STC:
-            _wayTurbo = WAY_UP;
+            _way = WAY_UP;
             _pGeoMover->setRzRyMoveAngle(ANGLE90, 0);
             break;
         case VB_UP_RIGHT_STC:
-            _wayTurbo = WAY_UP_FRONT;
+            _way = WAY_UP_FRONT;
             _pGeoMover->setRzRyMoveAngle(ANGLE45, 0);
             break;
         case VB_UP_LEFT_STC:
-            _wayTurbo = WAY_UP_BEHIND;
+            _way = WAY_UP_BEHIND;
             _pGeoMover->setRzRyMoveAngle(ANGLE135, 0);
             break;
         case VB_LEFT_STC:
-            _wayTurbo = WAY_BEHIND;
+            _way = WAY_BEHIND;
             _pGeoMover->setRzRyMoveAngle(ANGLE180, 0);
             break;
         case VB_RIGHT_STC:
-            _wayTurbo = WAY_FRONT;
+            _way = WAY_FRONT;
             _pGeoMover->setRzRyMoveAngle(ANGLE0, 0);
             break;
         case VB_DOWN_STC:
-            _wayTurbo = WAY_DOWN;
+            _way = WAY_DOWN;
             _pGeoMover->setRzRyMoveAngle(ANGLE270, 0);
             break;
         case VB_DOWN_RIGHT_STC:
-            _wayTurbo = WAY_DOWN_FRONT;
+            _way = WAY_DOWN_FRONT;
             _pGeoMover->setRzRyMoveAngle(ANGLE315, 0);
             break;
         case VB_DOWN_LEFT_STC:
-            _wayTurbo = WAY_DOWN_BEHIND;
+            _way = WAY_DOWN_BEHIND;
             _pGeoMover->setRzRyMoveAngle(ANGLE225, 0);
             break;
         default:
@@ -368,30 +367,39 @@ void MyShip::beginTurboXY(int prm_VB) {
 void MyShip::moveXY(int prm_VB) {
     switch (prm_VB) {
         case VB_UP_STC:
+            _way = WAY_UP;
             _Y += _iMoveSpeed;
             break;
         case VB_UP_RIGHT_STC:
+            _way = WAY_UP_FRONT;
             _Y += _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
             break;
         case VB_UP_LEFT_STC:
+            _way = WAY_UP_BEHIND;
             _Y += _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             break;
         case VB_LEFT_STC:
+            _way = WAY_BEHIND;
             _X -= _iMoveSpeed;
             break;
         case VB_RIGHT_STC:
+            _way = WAY_DOWN_FRONT;
+            _way = WAY_FRONT;
             _X += _iMoveSpeed;
             break;
         case VB_DOWN_STC:
+            _way = WAY_DOWN;
             _Y -= _iMoveSpeed;
             break;
         case VB_DOWN_RIGHT_STC:
+            _way = WAY_DOWN_FRONT;
             _Y -= _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
             break;
         case VB_DOWN_LEFT_STC:
+            _way = WAY_DOWN_BEHIND;
             _Y -= _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             break;
@@ -404,6 +412,7 @@ void MyShip::moveXZ(int prm_VB) {
     static angle distwk;
     switch (prm_VB) {
         case VB_UP_STC:
+            _way = WAY_ZLEFT;
             _Z += _iMoveSpeed;
             distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
@@ -414,6 +423,7 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
+            _way = WAY_ZLEFT_FRONT;
             _Z += _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
 
@@ -426,6 +436,7 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
+            _way = WAY_ZLEFT_BEHIND;
             _Z += _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
 
@@ -438,14 +449,16 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_LEFT_STC:
+            _way = WAY_FRONT;
             _X -= _iMoveSpeed;
             break;
         case VB_RIGHT_STC:
+            _way = WAY_BEHIND;
             _X += _iMoveSpeed;
             break;
         case VB_DOWN_STC:
+            _way = WAY_ZRIGHT;
             _Z -= _iMoveSpeed;
-
             distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
@@ -455,6 +468,7 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
+            _way = WAY_ZRIGHT_FRONT;
             _Z -= _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
             distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
@@ -466,6 +480,7 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
+            _way = WAY_ZRIGHT_BEHIND;
             _Z -= _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
@@ -481,97 +496,7 @@ void MyShip::moveXZ(int prm_VB) {
     }
 }
 
-void MyShip::controlTurboXY(int prm_VB) {
-    switch (prm_VB) {
 
-        case VB_UP_STC:
-            if (_wayTurbo == WAY_DOWN) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y += _iMoveSpeed;
-            }
-            break;
-
-        case VB_UP_RIGHT_STC:
-            if (_wayTurbo == WAY_DOWN_BEHIND) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y += _iMoveSpeed * NANAME;
-                _X += _iMoveSpeed * NANAME;
-            }
-            break;
-
-        case VB_UP_LEFT_STC:
-            if (_wayTurbo == WAY_DOWN_FRONT) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y += _iMoveSpeed * NANAME;
-                _X -= _iMoveSpeed * NANAME;
-            }
-            break;
-
-        case VB_LEFT_STC:
-            if (_wayTurbo == WAY_FRONT) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _X -= _iMoveSpeed;
-            }
-            break;
-
-        case VB_RIGHT_STC:
-            if (_wayTurbo == WAY_BEHIND) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _X += _iMoveSpeed;
-            }
-            break;
-
-        case VB_DOWN_STC:
-            if (_wayTurbo == WAY_UP) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y -= _iMoveSpeed;
-            }
-            break;
-
-        case VB_DOWN_RIGHT_STC:
-            if (_wayTurbo == WAY_UP_BEHIND) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y -= _iMoveSpeed * NANAME;
-                _X += _iMoveSpeed * NANAME;
-            }
-            break;
-
-        case VB_DOWN_LEFT_STC:
-            if (_wayTurbo == WAY_UP_FRONT) {
-                _pGeoMover->setMoveVelocityRenge(-1 * _iMoveSpeed, 10000000);
-                _pGeoMover->addMoveVelocity(_iMvAcce_EOD_MT);
-            } else {
-                _pGeoMover->setMoveVelocityRenge(0, 10000000);
-                _Y -= _iMoveSpeed * NANAME;
-                _X -= _iMoveSpeed * NANAME;
-            }
-            break;
-
-        default:
-            break;
-    }
-}
 void MyShip::turnFaceXYMove(int prm_VB) {
 
         switch (prm_VB) {
@@ -631,22 +556,22 @@ void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
 }
 
 void MyShip::equipOption() {
-
-    if (_state.eq_option >= EQ_MAX_OPTION) {
-        return;
-    }
-    MyOption* pOption = (MyOption*)_pSubFirst;
-    for (int i = 0; i < _state.eq_option; i++) {
-        pOption = (MyOption*)(pOption->getNext());
-    }
-    if (_state.eq_option == 0) {
-        pOption->setRadicalActor(this);
-    } else {
-        pOption->setRadicalActor((GgafDx9UntransformedActor*)pOption->getPrev());
-    }
-
-    _state.eq_option++;
-    pOption->activateAlone();
+//
+//    if (_state.eq_option >= EQ_MAX_OPTION) {
+//        return;
+//    }
+//    MyOption* pOption = (MyOption*)_pSubFirst;
+//    for (int i = 0; i < _state.eq_option; i++) {
+//        pOption = (MyOption*)(pOption->getNext());
+//    }
+//    if (_state.eq_option == 0) {
+//        pOption->setRadicalActor(this);
+//    } else {
+//        pOption->setRadicalActor((GgafDx9UntransformedActor*)pOption->getPrev());
+//    }
+//
+//    _state.eq_option++;
+//    pOption->activateAlone();
 
 }
 

@@ -53,14 +53,12 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     };
 
 public:
-    GgafDx9LibStg::DefaultBoardActor* _pTestBoard;
-
-
-
-
     int _tmpX;
     int _tmpY;
     int _tmpZ;
+
+    /** 方向入力値 */
+    int _stc;
 
     /** XYターボ終了時期(Frame) */
     DWORD _dwFrameNextXYTurboOut;
@@ -69,7 +67,7 @@ public:
     DWORD _dwIntervalXYTurbo;
 
     /** ターボ中、移動方角 */
-    MoveWay _wayTurbo;
+    MoveWay _way;
 
     /** 移動スピードレベル */
     int _lv_MoveSpeed;
@@ -201,8 +199,6 @@ public:
     virtual void moveXZ(int prm_VB);
 
     virtual void moveXY(int prm_VB);
-
-    virtual void controlTurboXY(int prm_VB);
 
     virtual void turnFaceXYMove(int prm_VB);
     virtual void turnFaceXZMove(int prm_VB);

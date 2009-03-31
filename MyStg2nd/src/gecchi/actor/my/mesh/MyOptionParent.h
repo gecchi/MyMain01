@@ -6,7 +6,11 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
+    MoveWay _way_myship_prev;
+
     /** 対象アクター */
+    /** 方向転換角速度 */
+    GgafDx9Core::angle _angVelocity_Turn;
 
     MyOptionParent(const char* prm_name);
 
@@ -30,7 +34,12 @@ public:
      */
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
+    void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
+
+
     virtual ~MyOptionParent();
+
+
 };
 
 }
