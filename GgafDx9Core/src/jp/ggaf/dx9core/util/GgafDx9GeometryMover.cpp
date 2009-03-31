@@ -131,9 +131,8 @@ void GgafDx9GeometryMover::behave() {
                 }
             } else if (_angveloRot[i] < 0) { //ŽžŒv‰ñ‚è‚Ìê‡
                 angDistance = getDistanceFromRotAngleTo(i, _angAutoTargetRot[i], TURN_CLOCKWISE);
-                if (_angveloRot[i] < angDistance && _auto_rot_angle_target_allow_way[i]
-                        != TURN_COUNTERCLOCKWISE && -1 * _auto_rot_angle_target_allow_velocity[i]
-                        <= _angveloRot[i]) { //–Ú•W‚ðs‚«‰ß‚¬‚Ä‚µ‚Ü‚¢‚»‚¤¥¥¥‚È“ú
+                if (_angveloRot[i] < angDistance && _auto_rot_angle_target_allow_way[i] != TURN_COUNTERCLOCKWISE
+                        && -1 * _auto_rot_angle_target_allow_velocity[i] <= _angveloRot[i]) { //–Ú•W‚ðs‚«‰ß‚¬‚Ä‚µ‚Ü‚¢‚»‚¤¥¥¥‚È“ú
                     addRotAngle(i, angDistance);
                     _auto_rot_angle_target_Flg[i] = false; //ƒtƒ‰ƒO‚ð–ß‚µ‚ÄI—¹
                 } else {
@@ -146,8 +145,10 @@ void GgafDx9GeometryMover::behave() {
 
             if (_auto_rot_angle_target_Flg[i] == false) {
                 //–Ú•W•ûŒü‚É“ž’B‚µ‚½Žž‚Ìˆ—
-                _angveloTopRot[i] = ANGLE360; //Ž²‰ñ“]•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
-                _angveloBottomRot[i] = ANGLE360 * -1; //Ž²‰ñ“]•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+                //_angveloTopRot[i] = ANGLE360; //Ž²‰ñ“]•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
+                //_angveloBottomRot[i] = ANGLE360 * -1; //Ž²‰ñ“]•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+
+                //–Ú•W•ûŒü‚É“ž’B‚µ‚½ŽžA’âŽ~ˆ—‚ðs‚È‚¤
                 _angacceRot[i] = 0; //Ž²‰ñ“]•ûŒüŠpAŠp‘¬“x‚ð‚O‚Ö
                 setRotAngleVelocity(i, 0); //Ž²‰ñ“]•ûŒüŠpAŠp‰Á‘¬“x‚ð‚O‚Ö
             }
@@ -207,12 +208,13 @@ void GgafDx9GeometryMover::behave() {
                 addRzMoveAngle(_angveloRzMove);
             }
         } else {
-            //_angveloRzMove==0
             addRzMoveAngle(0);
         }
         if (_auto_move_angle_rz_target_Flg == false) {
-            _angveloRzTopMove = ANGLE360; //ZŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
-            _angveloRzBottomMove = ANGLE360 * -1; //ZŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+            //_angveloRzTopMove = ANGLE360; //ZŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
+            //_angveloRzBottomMove = ANGLE360 * -1; //ZŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+
+            //–Ú•W•ûŒü‚É“ž’B‚µ‚½ŽžA’âŽ~ˆ—‚ðs‚È‚¤
             _angacceRzMove = 0; //ZŽ²ˆÚ“®•ûŒüŠpAŠp‰Á‘¬“x‚ð‚O‚Ö
             setRzMoveAngleVelocity(0); //ZŽ²ˆÚ“®•ûŒüŠpAŠp‘¬“x‚ð‚O‚Ö
         }
@@ -259,8 +261,10 @@ void GgafDx9GeometryMover::behave() {
             addRyMoveAngle(0);
         }
         if (_auto_move_angle_ry_target_Flg == false) {
-            _angveloRyTopMove = ANGLE360; //YŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
-            _angveloRyBottomMove = ANGLE360*-1; //YŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+            //_angveloRyTopMove = ANGLE360; //YŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“xãŒÀ  360,000 angle/fream
+            //_angveloRyBottomMove = ANGLE360*-1; //YŽ²ˆÚ“®•ûŠp‚ÌŠp‘¬“x‰ºŒÀ  -360,000 angle/fream
+
+            //–Ú•W•ûŒü‚É“ž’B‚µ‚½ŽžA’âŽ~ˆ—‚ðs‚È‚¤
             _angacceRyMove = 0; //YŽ²ˆÚ“®•ûŒüŠpAŠp‰Á‘¬“x‚ð‚O‚Ö
             setRyMoveAngleVelocity(0); //YŽ²ˆÚ“®•ûŒüŠpAŠp‘¬“x‚ð‚O‚Ö
         }
