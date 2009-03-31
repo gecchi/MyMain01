@@ -116,26 +116,14 @@ public:
     GgafDx9Core::angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
 
 
-
-
-
-
-
-
-
     /** 上又は下へTurbo移動開始時のZ軸回転角速度の初速度 */
-    GgafDx9Core::angle _angRZVelo_BeginMYT; //Rotation axisZ angle Velocity when I Begin To Move Y with Turbo
+    GgafDx9Core::angle _angRXVelo_BeginMZT; //Rotation axisX angle Velocity when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
-    /** 上又は下へTurbo移動中のZ軸回転角速度の角加速度 */
-    GgafDx9Core::angle _angRZAcce_MYT; //Rotation axisZ angle Acceleration while I Move Y with Turbo
-    //上の場合は正、下の場合はこれに -1 を乗ずる。但し 値 < 0 であること。 ∵だんだん遅くなるようにしたいから
 
-    /** 上又は下へTurbo移動中のZ軸回転角速度の最低速度 */
-    GgafDx9Core::angle _angRZBtmVelo_MYT; //Rotation axisZ Bottom angle Velocity while I Move Y with Turbo
-    //上の場合は範囲を _angRZBtmVelo_MYT < Z軸回転角速度正 < 360,000
-    //上の場合は       -360,000 < X軸回転角速度正 < -1*_angRZBtmVelo_MYT
-    //として、ZMOVE移動中最低限の回転力を保証する。
+
+
+
 
 
     /** 上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度 */
