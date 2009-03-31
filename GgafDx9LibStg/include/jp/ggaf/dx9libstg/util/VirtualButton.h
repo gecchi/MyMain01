@@ -6,7 +6,7 @@ namespace GgafDx9LibStg {
 #define VB_SHOT2 2
 #define VB_SHOT3 3
 #define VB_ZMOVE 4
-#define VB_GUARD 5
+#define VB_CONTROL 5
 #define VB_POWERUP 6
 #define VB_PAUSE 7
 #define VB_UP 8
@@ -51,7 +51,7 @@ public:
         int SHOT2;
         int SHOT3;
         int ZMOVE;
-        int GUARD;
+        int CONTROL;
         int POWERUP;
         int PAUSE;
         int UP;
@@ -72,7 +72,7 @@ public:
         int SHOT2;
         int SHOT3;
         int ZMOVE;
-        int GUARD;
+        int CONTROL;
         int POWERUP;
         int PAUSE;
         int UI_EXECUTE;

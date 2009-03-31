@@ -12,7 +12,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_X, // SHOT2
                               DIK_A, // SHOT3
                               DIK_Q, // ZMOVE
-                              DIK_C, // GUARD
+                              DIK_C, // CONTROL
                               DIK_V, // POWERUP
                               DIK_ESCAPE, // PAUSE
                               DIK_UP, // UP
@@ -33,7 +33,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               7, // SHOT2
                               8, // SHOT3
                               1, // ZMOVE
-                              2, // GUARD
+                              2, // CONTROL
                               3, // POWERUP
                               6, // PAUSE
                               0, // UI_EXECUTE
@@ -292,8 +292,8 @@ void VirtualButton::update() {
     _pVBMap->_state[VB_ZMOVE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.ZMOVE) ||
                                   GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.ZMOVE);
 
-    _pVBMap->_state[VB_GUARD] = GgafDx9Input::isBeingPressedKey(_tagKeymap.GUARD) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.GUARD);
+    _pVBMap->_state[VB_CONTROL] = GgafDx9Input::isBeingPressedKey(_tagKeymap.CONTROL) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.CONTROL);
 
     _pVBMap->_state[VB_POWERUP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.POWERUP) ||
                                     GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.PAUSE);
