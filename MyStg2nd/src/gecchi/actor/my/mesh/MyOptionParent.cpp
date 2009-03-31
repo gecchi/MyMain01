@@ -13,15 +13,15 @@ MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name
     pMyOption01->_angPosRotX = 0;
     addSubLast(pMyOption01);
 
-    MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, this);
-    pMyOption01->_distR = 200000;
-    pMyOption01->_angPosRotX = ANGLE90;
-    addSubLast(pMyOption02);
-
-    MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, this);
-    pMyOption01->_distR = 200000;
-    pMyOption01->_angPosRotX = ANGLE180;
-    addSubLast(pMyOption03);
+//    MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, this);
+//    pMyOption01->_distR = 200000;
+//    pMyOption01->_angPosRotX = ANGLE90;
+//    addSubLast(pMyOption02);
+//
+//    MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, this);
+//    pMyOption01->_distR = 200000;
+//    pMyOption01->_angPosRotX = ANGLE180;
+//    addSubLast(pMyOption03);
 
 //    MyOption* pMyOption04 = NEW MyOptionParent("MY_OPTION04");
 //    pMyOption01->_distR = 100000;
