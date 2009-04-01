@@ -18,8 +18,18 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.exe.release.118370314." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.exe.release.105391264" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.exe.release">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.exe.release.1381297461" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.exe.release"/>
-<builder buildPath="${workspace_loc:/cppTest/保留解除}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1390251657" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/cppTest/保留解除}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1390251657" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base">
+<outputEntries>
+<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="outputPath" name="Build"/>
+</outputEntries>
+</builder>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release.1495601576" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release">
+<option id="gnu.both.asm.option.include.paths.1316828934" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+<listOptionValue builtIn="false" value="&quot;C:/Program Files/Microsoft DirectX 9.0 SDK (Summer 2004)/Include&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="../cppTest/src"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/PaulCoppensLib/include}&quot;"/>
+</option>
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1096201278" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.archiver.mingw.base.1227492155" name="GCC アーカイバー" superClass="cdt.managedbuild.tool.gnu.archiver.mingw.base"/>
@@ -27,10 +37,10 @@
 <option id="gnu.cpp.compiler.mingw.exe.release.option.optimization.level.1613115603" name="最適化レベル" superClass="gnu.cpp.compiler.mingw.exe.release.option.optimization.level" value="gnu.cpp.compiler.optimization.level.most" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.mingw.exe.release.option.debugging.level.210215291" name="デバッグ・レベル" superClass="gnu.cpp.compiler.mingw.exe.release.option.debugging.level" value="gnu.cpp.compiler.debugging.level.none" valueType="enumerated"/>
 <option id="gnu.cpp.compiler.option.include.paths.2041244221" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;C:\Program Files\Microsoft DirectX 9.0 SDK (Summer 2004)\Include&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/src}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:/Program Files/Microsoft DirectX 9.0 SDK (Summer 2004)/Include&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="../cppTest/src"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/PaulCoppensLib/include}&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.compiler.input.1772224798" superClass="cdt.managedbuild.tool.gnu.cpp.compiler.input"/>
 </tool>
@@ -38,10 +48,10 @@
 <option defaultValue="gnu.c.optimization.level.most" id="gnu.c.compiler.mingw.exe.release.option.optimization.level.489024084" name="最適化レベル" superClass="gnu.c.compiler.mingw.exe.release.option.optimization.level" valueType="enumerated"/>
 <option id="gnu.c.compiler.mingw.exe.release.option.debugging.level.1489924876" name="デバッグ・レベル" superClass="gnu.c.compiler.mingw.exe.release.option.debugging.level" value="gnu.c.debugging.level.none" valueType="enumerated"/>
 <option id="gnu.c.compiler.option.include.paths.1362369951" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
-<listOptionValue builtIn="false" value="&quot;C:\Program Files\Microsoft DirectX 9.0 SDK (Summer 2004)\Include&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/src}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;C:/Program Files/Microsoft DirectX 9.0 SDK (Summer 2004)/Include&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="../cppTest/src"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/PaulCoppensLib/include}&quot;"/>
 </option>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.297803242" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
@@ -56,11 +66,7 @@
 <listOptionValue builtIn="false" value="dinput"/>
 <listOptionValue builtIn="false" value="winmm"/>
 </option>
-<option id="gnu.cpp.link.option.paths.205133017" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths">
-<listOptionValue builtIn="false" value="&quot;C:\Program Files\Microsoft DirectX 9.0 SDK (Summer 2004)\Lib&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/DebugCdt}&quot;"/>
-<listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/DebugCdt}&quot;"/>
-</option>
+<option id="gnu.cpp.link.option.paths.205133017" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.476153733" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
@@ -68,9 +74,6 @@
 </tool>
 </toolChain>
 </folderInfo>
-<sourceEntries>
-<entry flags="VALUE_WORKSPACE_PATH|RESOLVED" kind="sourcePath" name="src"/>
-</sourceEntries>
 </configuration>
 </storageModule>
 <storageModule moduleId="scannerConfiguration">
