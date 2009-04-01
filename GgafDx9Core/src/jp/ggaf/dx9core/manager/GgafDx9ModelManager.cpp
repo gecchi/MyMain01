@@ -348,6 +348,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
                 &(prm_pPrimModel->_pIDirect3DVertexBuffer9),
                 NULL);
         potentialDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pPrimModel->_model_name));
+
+//        char str[256];
+//        sprintf (str, "VertexBuffer %s = %p \n",prm_pPrimModel->_model_name, prm_pPrimModel->_pIDirect3DVertexBuffer9);
+//        MessageBox(GgafDx9God::_hWnd, str, TEXT("情報"), MB_OK );
+
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
         hr = prm_pPrimModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pPrimModel->_size_vertecs, (void**)&pVertexBuffer, 0);
