@@ -450,11 +450,11 @@ void MyShip::moveXZ(int prm_VB) {
             _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_LEFT_STC:
-            _way = WAY_FRONT;
+            _way = WAY_BEHIND;
             _X -= _iMoveSpeed;
             break;
         case VB_RIGHT_STC:
-            _way = WAY_BEHIND;
+            _way = WAY_FRONT;
             _X += _iMoveSpeed;
             break;
         case VB_DOWN_STC:

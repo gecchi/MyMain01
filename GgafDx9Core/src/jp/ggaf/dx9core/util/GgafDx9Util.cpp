@@ -329,6 +329,44 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
     }
 }
 
+void GgafDx9Util::getRotAngleZY(double vx, double vy, double vz, angle& out_angRotZ, angle& out_angRotY) {
+    static s_ang rZ, rY;
+    _srv.getRotAngleClosely(
+            (unsigned __int16) abs(vx*10000),
+            (unsigned __int16) abs(vy*10000),
+            (unsigned __int16) abs(vz*10000),
+            rZ,
+            rY
+    );
+    if (vx >= 0 && vy >= 0 && vz >= 0) { //ëÊàÍè€å¿
+        out_angRotZ = rZ * ANGLE_RATE;
+        out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+    } else if (vx <= 0 && vy >= 0 && vz >= 0) { //ëÊìÒè€å¿
+        out_angRotZ = rZ * ANGLE_RATE;
+        out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+    } else if (vx <= 0 && vy <= 0 && vz >= 0) { //ëÊéOè€å¿
+        out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+        out_angRotY = (S_ANG180 + rY) * ANGLE_RATE;
+    } else if (vx >= 0 && vy <= 0 && vz >= 0) { //ëÊélè€å¿
+        out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+        out_angRotY = (S_ANG360 - rY) * ANGLE_RATE;
+    } else if (vx >= 0 && vy >= 0 && vz <= 0) { //ëÊå‹è€å¿
+        out_angRotZ = rZ * ANGLE_RATE;
+        out_angRotY = rY * ANGLE_RATE;
+    } else if (vx <= 0 && vy >= 0 && vz <= 0) { //ëÊòZè€å¿
+        out_angRotZ = rZ * ANGLE_RATE;
+        out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+    } else if (vx <= 0 && vy <= 0 && vz <= 0) { //ëÊéµè€å¿
+        out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+        out_angRotY = (S_ANG180 - rY) * ANGLE_RATE;
+    } else if (vx >= 0 && vy <= 0 && vz <= 0) { //ëÊî™è€å¿
+        out_angRotZ = (S_ANG360 - rZ) * ANGLE_RATE;
+        out_angRotY = rY * ANGLE_RATE;
+    } else {
+        _TRACE_("Ç®Ç©ÇµÇ¢Ç≈Ç∑Ç∫");
+    }
+}
+
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ,
                                        angle prm_angRotY,
                                        double& out_nvx,

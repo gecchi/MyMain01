@@ -13,7 +13,9 @@ public:
     int _X_ParentPrev;
     int _Y_ParentPrev;
     int _Z_ParentPrev;
-
+    double _vX_ParentPrev;
+    double _vY_ParentPrev;
+    double _vZ_ParentPrev;
 
     /** 自機へのポインタ */
     MyDummyOption* _pMyDummyOption;

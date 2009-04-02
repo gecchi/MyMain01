@@ -99,7 +99,9 @@ public:
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
-     * ついでに単位方向ベクトルも貰えちゃう。
+     * ついでに単位方向ベクトルもゲットできます。<BR>
+     * なぜならば、Z軸回転アングル値とY軸回転アングル値を取得する過程で、<BR>
+     * 方向ベクトルの正規化を行なわなければいけないためです。<BR>
      * @param x [in]X座標
      * @param y [in]Y座標
      * @param z [in]Z座標
@@ -120,7 +122,6 @@ public:
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
-     * ついでに単位方向ベクトルも貰えちゃう。
      * @param x [in]X座標
      * @param y [in]Y座標
      * @param z [in]Z座標
@@ -128,6 +129,18 @@ public:
      * @param out_angRotY [out]Y軸回転アングル値
      */
     static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY);
+
+    /**
+     * 原点からパラメータの正規化された方向ベクトル(単位ベクトル)の、Z軸回転アングル値とY軸回転アングル値を取得 .
+     * 方向ベクトルの正規化は行わないので高速です。<BR>
+     * @param vx [in]単位ベクトルX要素
+     * @param vy [in]単位ベクトルY要素
+     * @param vz [in]単位ベクトルZ要素
+     * @param out_angRotZ [out]Z軸回転アングル値
+     * @param out_angRotY [out]Y軸回転アングル値
+     */
+    static void getRotAngleZY(double vx, double vy, double vz, angle& out_angRotZ, angle& out_angRotY);
+
 
     /**
      * Z軸回転+Y軸回転値から単位方向ベクトルを取得

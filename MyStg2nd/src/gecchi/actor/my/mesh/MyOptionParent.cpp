@@ -44,9 +44,9 @@ void MyOptionParent::initialize() {
 }
 
 void MyOptionParent::processBehavior() {
-    _X = GameGlobal::_pMyShip->_X;
-    _Y = GameGlobal::_pMyShip->_Y;
-    _Z = GameGlobal::_pMyShip->_Z;
+//    _X = GameGlobal::_pMyShip->_X;
+//    _Y = GameGlobal::_pMyShip->_Y;
+//    _Z = GameGlobal::_pMyShip->_Z;
 
     if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
 

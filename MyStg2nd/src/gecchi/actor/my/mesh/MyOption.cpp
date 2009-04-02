@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOption::MyOption(const char* prm_name, int prm_no, MyDummyOption* prm_pMyDummyOption) : DefaultMeshActor(prm_name, "X/ceres") {
+MyOption::MyOption(const char* prm_name, int prm_no, MyDummyOption* prm_pMyDummyOption) : DefaultMeshActor(prm_name, "X/ebi2") {
 _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
     _pMyDummyOption = prm_pMyDummyOption;
@@ -14,7 +14,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 void MyOption::initialize() {
     _pGeoMover->setMoveVelocity(GgafDx9Util::RAD[_pMyDummyOption->_pMyOptionParent->_angVelocity_Turn/ANGLE_RATE] *200000);//‹——£
-//    _pGeoMover->setMoveVelocity(v);
+//    _pGeoMover->setMoveVelocity(4000);//‹——£
+
+    //    _pGeoMover->setMoveVelocity(v);
 //    _pGeoMover->setRzMoveAngleVelocity(v/_distR);
 //    _angvelo = ((1.0*v / _distR)*(double)ANGLE180)/PI;
 //    _pGeoMover->setMoveVelocity(v);
@@ -28,8 +30,8 @@ void MyOption::initialize() {
 ////    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
 //    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
 //    _pGeoMover->setRyMoveAngle(-ANGLE90);//Rz‰~‰^“®‚µ‚Ä‚¢‚éƒ‚ƒm‚ðXŽ²’†S‰ñ“]‚É•ÏŠ·
-//    _Z += GgafDx9Util::COS[_angPosRotX/ANGLE_RATE]*_distR; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
-//    _Y += GgafDx9Util::SIN[_angPosRotX/ANGLE_RATE]*_distR;
+    _X += GgafDx9Util::COS[_pMyDummyOption->_angPosRotX/ANGLE_RATE]*_pMyDummyOption->_distR; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
+    _Y += GgafDx9Util::SIN[_pMyDummyOption->_angPosRotX/ANGLE_RATE]*_pMyDummyOption->_distR;
 //
 //    _sangvelo = 0;
 //
@@ -37,12 +39,15 @@ void MyOption::initialize() {
 //
 //    _angRzMove_ParentPrev = _pMyDummyOption->_pGeoMover->_angRzMove;
 //    _angRyMove_ParentPrev = _pMyDummyOption->_pGeoMover->_angRzMove;
-//    _angveloRzMove_ParentPrev = _pMyDummyOption->_pGeoMover->_angveloRzMove;
-//    _angveloRyMove_ParentPrev = _pMyDummyOption->_pGeoMover->_angveloRyMove;
+//    _angveloRzMove_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRzMove;
+//    _angveloRyMove_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRyMove;
 //    _X_ParentPrev = _pMyDummyOption->_X;
 //    _Y_ParentPrev = _pMyDummyOption->_Y;
 //    _Z_ParentPrev = _pMyDummyOption->_Z;
 //
+    _vX_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vX;
+    _vY_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vY;
+    _vZ_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vZ;
 
 //
 //
@@ -54,18 +59,44 @@ void MyOption::initialize() {
 }
 
 void MyOption::processBehavior() {
+//
+//    _pGeoMover->setRotAngle(AXIS_X, _pMyDummyOption->_pGeoMover->_angRot[AXIS_X]);
+//    _pGeoMover->setRotAngle(AXIS_Y, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y]);
+//    _pGeoMover->setRotAngle(AXIS_Z, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z]);
 
-    _pGeoMover->setRotAngle(AXIS_X, _pMyDummyOption->_pGeoMover->_angRot[AXIS_X]);
-    _pGeoMover->setRotAngle(AXIS_Y, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y]);
-    _pGeoMover->setRotAngle(AXIS_Z, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z]);
+    //    angle angRzMovediff_Dummy = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRzMove - _angRzMove_ParentPrev;
+    //    angle angRyMovediff_Parent = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRyMove - _angRyMove_ParentPrev;
+//    bool flg = false;
+//    if (_angveloRzMove_ParentPrev != _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRzMove) {
+//        _pGeoMover->addRzMoveAngle(_angveloRzMove_ParentPrev - _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRzMove);
+//        flg = true;
+//    }
+//    if (_angveloRyMove_ParentPrev != _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRyMove) {
+//        _pGeoMover->addRyMoveAngle(_angveloRyMove_ParentPrev - _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRyMove - ANGLE90);
+//        flg = true;
+//    }
 
+
+    _pGeoMover->setRzMoveAngle(_pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRzMove);
+    _pGeoMover->setRyMoveAngle(_pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRyMove);
     if (GameGlobal::_pMyShip->_stc != 0) {
-        _pGeoMover->setRzMoveAngle(_pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRzMove);
-        _pGeoMover->setRyMoveAngle(_pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRyMove - ANGLE90);
-
         //“®‚©‚»‚¤‚Æ‚µ‚Ä‚¢‚½I
-        _pGeoMover->behave();
+        if ((_vX_ParentPrev != _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vX) ||
+            (_vY_ParentPrev != _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vY) ||
+            (_vZ_ParentPrev != _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vZ)) {
+
+            _pGeoMover->behave();
+
+        }
     }
+
+    _vX_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vX;
+    _vY_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vY;
+    _vZ_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_vZ;
+
+//    _angveloRzMove_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRzMove;
+//    _angveloRyMove_ParentPrev = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angveloRyMove;
+
 
     //e‚ÌˆÚ“®•ûŠp·•ª‚ð‰Á‚¦‚Äe‚Æ“¯•ûŠp‚É‰ñ“]ˆÚ“®
 //    angle angRzMovediff_Dummy = _pMyDummyOption->_pMyOptionParent->_pGeoMover->_angRzMove - _angRzMove_ParentPrev;
@@ -115,7 +146,7 @@ void MyOption::processBehavior() {
 //    }
 
 
-    _pGeoMover->behave();
+//    _pGeoMover->behave();
 
     //e‚ÌˆÚ“®À•W·•ª‚ð‰Á‚¦‚Äe‚ÉƒgƒŒ[ƒX
 //    _X += (_pMyDummyOption->_X - _X_ParentPrev);
