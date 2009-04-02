@@ -12,8 +12,8 @@ namespace GgafCore {
  * から取得(getConnection メソッド)することとします。<BR>
  * マネージャーへの接続 GgafResourceManager<T>::getConnection で「接続カウント」が+1、
  * 本クラスのclose()で「接続カウント」が-1されます。<BR>
- * close() を呼び出すと、内部で「接続カウント」により本当に開放か否かを判断します。<BR>
- * 接続カウントが0になった場合、資源(Resource)は開放されます。
+ * close() を呼び出すと、内部で「接続カウント」により本当に解放か否かを判断します。<BR>
+ * 接続カウントが0になった場合、資源(Resource)は解放されます。
  * T には資源の型を指定してください。<BR>
  */
 template<class T>

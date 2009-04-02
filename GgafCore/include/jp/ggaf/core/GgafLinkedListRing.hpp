@@ -100,7 +100,7 @@ private:
 
         /**
          * デストラクタ.
-         * 内部保持する要素の値も開放されます。<BR>
+         * 内部保持する要素の値もdeleteされます。<BR>
          */
         ~Elem() {
             DELETE_IMPOSSIBLE_NULL(_pValue);
@@ -126,27 +126,42 @@ public:
 
     /**
      * デストラクタ.
-     * 内部保持する要素の環状双方向連結リストも開放されます。<BR>
+     * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
+     * TODO:デストラクタ時 delete するかしないか指定できるように
+     * TODO:delete[] やその他の解放方法に対応
      */
     virtual ~GgafLinkedListRing();
 
+
     /**
      * アクティブ要素の値（保持している内容）を取得する .
-     * @return	アクティブ要素
+     * @return	アクティブ要素の値
      */
     T* get();
 
     /**
-     * アクティブ要素を一つ進めた後、その要素の値を取得する .
-     * @return 次の要素
+     * アクティブ要素を一つ進める。 .
+     * @return アクティブ要素を一つ進めた後の、その要素の値。
      */
     T* next();
 
     /**
-     * アクティブ要素を一つ戻した後、その要素の値を取得する .
-     * @return 前の要素
+     * アクティブ要素をの次の要素の値を取得する。アクティブ要素は変化しない .
+     * @return 次の要素の値
+     */
+    T* getNext();
+
+    /**
+     * アクティブ要素を一つ戻す。 .
+     * @return アクティブ要素を一つ戻した後の、その要素の値
      */
     T* prev();
+
+    /**
+     * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
+     * @return 前の要素の値
+     */
+    T* getPrev();
 
     /**
      * アクティブ要素がリストの末尾であるか判定する .
@@ -159,6 +174,13 @@ public:
      * @return true:末尾である／false:そうでは無い
      */
     bool isFirst();
+
+    /**
+     * アクティブ要素に値を上書き設定する。 .
+     * 元の要素の値の解放等は、戻り値を使用して呼び元で行って下さい。
+     * @return 上書きされる前の要素の値
+     */
+    virtual T* set(T* prm_pVal);
 
     /**
      * 引数要素を、末尾(_isLastFlg が true)として追加する .
@@ -199,28 +221,46 @@ GgafLinkedListRing<T>::GgafLinkedListRing() :
 
 template<class T>
 T* GgafLinkedListRing<T>::get() {
-    if (_pElemActive == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::get()] Error! アクティブ要素がNULLです");
-    }
     return _pElemActive->_pValue;
 }
 
 template<class T>
 T* GgafLinkedListRing<T>::next() {
-    if (_pElemActive == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::next()] Error! アクティブ要素がNULLです");
-    }
     _pElemActive = _pElemActive->_pNext;
     return _pElemActive->_pValue;
 }
 
 template<class T>
+T* GgafLinkedListRing<T>::getNext() {
+    return _pElemActive->_pNext->_pValue;
+}
+
+template<class T>
 T* GgafLinkedListRing<T>::prev() {
-    if (_pElemActive == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::prev()] Error! アクティブ要素がNULLです");
-    }
-    _pElemActive = _pElemActive->prev;
+    _pElemActive = _pElemActive->_pPrev;
     return _pElemActive->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::getPrev() {
+    return _pElemActive->_pPrev->_pValue;
+}
+
+template<class T>
+bool GgafLinkedListRing<T>::isLast() {
+    return _pElemActive->_isLastFlg;
+}
+
+template<class T>
+bool GgafLinkedListRing<T>::isFirst() {
+    return _pElemActive->_isFirstFlg;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::set(T* prm_pVal) {
+    T* ret = _pElemActive->_pValue;
+    _pElemActive->_pValue = prm_pVal;
+    return ret;
 }
 
 template<class T>
@@ -253,16 +293,6 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
     }
     _num_elem++;
 
-}
-
-template<class T>
-bool GgafLinkedListRing<T>::isLast() {
-    return _pElemActive->_isLastFlg;
-}
-
-template<class T>
-bool GgafLinkedListRing<T>::isFirst() {
-    return _pElemActive->_isFirstFlg;
 }
 
 template<class T>
