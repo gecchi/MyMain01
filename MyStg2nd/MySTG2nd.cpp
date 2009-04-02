@@ -217,7 +217,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return EXIT_SUCCESS;
     }
 */
-    //_CrtDumpMemoryLeaks();	// この時点で開放されていないメモリの情報の表示
+    //_CrtDumpMemoryLeaks();	// この時点で解放されていないメモリの情報の表示
     return (int) msg.wParam;
 }
 

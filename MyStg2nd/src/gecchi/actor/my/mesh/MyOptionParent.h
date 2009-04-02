@@ -6,6 +6,8 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
+    GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
+
     MoveWay _way_myship_prev;
 
     /** 対象アクター */

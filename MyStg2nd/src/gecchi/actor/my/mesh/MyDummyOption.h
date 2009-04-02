@@ -1,27 +1,31 @@
-#ifndef MYOPTION_H_
-#define MYOPTION_H_
+#ifndef MYDUMMYOPTION_H_
+#define MYDUMMYOPTION_H_
 namespace MyStg2nd {
 
-class MyOption : public GgafDx9LibStg::DefaultMeshActor {
+class MyDummyOption : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
-    GgafDx9Core::angle _angRzMove_ParentPrev;
-    GgafDx9Core::angle _angRyMove_ParentPrev;
-    GgafDx9Core::angvelo _angveloRzMove_ParentPrev;
-    GgafDx9Core::angvelo _angveloRyMove_ParentPrev;
     int _X_ParentPrev;
     int _Y_ParentPrev;
     int _Z_ParentPrev;
 
-
     /** 自機へのポインタ */
-    MyDummyOption* _pMyDummyOption;
+    MyShip* _pMyShip;
+    MyOptionParent* _pMyOptionParent;
     /** オプション番号 */
     int _no;
 
+    /** MyShipからの距離 */
+    int _distR;
     /** 位置（周囲角） */
-    MyOption(const char* prm_name, int prm_no, MyDummyOption* prm_pMyOptionParent);
+    GgafDx9Core::angle _angPosRotX;
+
+    GgafDx9Core::angle _sangvelo;
+
+
+    GgafDx9Core::angvelo _angvelo;
+    MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
     /**
      * ＜OverRide です＞
@@ -44,9 +48,9 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
-    virtual ~MyOption();
+    virtual ~MyDummyOption();
 };
 
 }
-#endif /*MYOPTION_H_*/
+#endif /*MYDUMMYOPTION_H_*/
 

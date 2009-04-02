@@ -8,27 +8,31 @@ using namespace MyStg2nd;
 MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     _angVelocity_Turn = 3000;
 
-    MyOption* pMyOption01 = NEW MyOption("MY_OPTION01", 0, this);
-    pMyOption01->_distR = 200000;
-    pMyOption01->_angPosRotX = 0;
-    addSubLast(pMyOption01);
+    MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
+    pMyDummyOption01->_distR = 200000;
+    pMyDummyOption01->_angPosRotX = 0;
+    addSubLast(pMyDummyOption01);
 
-//    MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, this);
-//    pMyOption01->_distR = 200000;
-//    pMyOption01->_angPosRotX = ANGLE90;
-//    addSubLast(pMyOption02);
-//
-//    MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, this);
-//    pMyOption01->_distR = 200000;
-//    pMyOption01->_angPosRotX = ANGLE180;
-//    addSubLast(pMyOption03);
+    MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
+    pMyDummyOption02->_distR = 200000;
+    pMyDummyOption02->_angPosRotX = ANGLE90;
+    addSubLast(pMyDummyOption02);
 
-//    MyOption* pMyOption04 = NEW MyOptionParent("MY_OPTION04");
-//    pMyOption01->_distR = 100000;
-//    pMyOption01->_angPosRotX = 0;
-//    addSubLast(pMyOption04);
+    MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
+    pMyDummyOption03->_distR = 200000;
+    pMyDummyOption03->_angPosRotX = ANGLE180;
+    addSubLast(pMyDummyOption03);
 
+    MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
+    pMyDummyOption04->_distR = 200000;
+    pMyDummyOption04->_angPosRotX = ANGLE270;
+    addSubLast(pMyDummyOption04);
 
+    //トレース用履歴
+    _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
+    for (DWORD i = 0; i < 100; i++) {
+        _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
+    }
 }
 
 void MyOptionParent::initialize() {
@@ -40,7 +44,7 @@ void MyOptionParent::initialize() {
 }
 
 void MyOptionParent::processBehavior() {
-    _X = GameGlobal::_pMyShip->_X + 150000;
+    _X = GameGlobal::_pMyShip->_X;
     _Y = GameGlobal::_pMyShip->_Y;
     _Z = GameGlobal::_pMyShip->_Z;
 
@@ -105,6 +109,7 @@ void MyOptionParent::processBehavior() {
         //動かそうとしていた！
         _pGeoMover->behave();
     }
+    _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 }
 
 
@@ -130,4 +135,5 @@ void MyOptionParent::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 MyOptionParent::~MyOptionParent() {
+    DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }

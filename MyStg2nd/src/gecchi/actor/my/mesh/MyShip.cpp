@@ -107,7 +107,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
-    for (DWORD i = 0; i < 200; i++) {
+    for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
 
@@ -249,6 +249,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     _pGeoMover->behave();
+    _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 }
 
 void MyShip::processJudgement() {
