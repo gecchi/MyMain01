@@ -884,7 +884,7 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile);
     _pTextureManager->dump();
     DELETE_IMPOSSIBLE_NULL(_pTextureManager);
-    TRACE3("GgafDx9ModelManager::releaseAll() ‚·‚é‚¯‚Ç‚àA‚±‚±‚Å‚ÍŠù‚É‰½‚àŠJ•ú‚·‚é‚à‚Ì‚ª‚È‚¢‚Í‚¸‚Å‚·");
+    TRACE3("GgafDx9ModelManager::releaseAll() ‚·‚é‚¯‚Ç‚àA‚±‚±‚Å‚ÍŠù‚É‰½‚à‰ğ•ú‚·‚é‚à‚Ì‚ª‚È‚¢‚Í‚¸‚Å‚·");
     releaseAll();
 }
 

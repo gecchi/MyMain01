@@ -10,6 +10,7 @@ int GgafDx9Util::TAN_UNITLEN[S_ANG360];
 int GgafDx9Util::RAD_UNITLEN[S_ANG360];
 float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
+float GgafDx9Util::RAD[S_ANG360];
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
@@ -25,6 +26,7 @@ void GgafDx9Util::init() {
 
             COS[ang] = (float)(cos(rad));
             SIN[ang] = (float)(sin(rad));
+            RAD[ang] = rad;
 
         }
 

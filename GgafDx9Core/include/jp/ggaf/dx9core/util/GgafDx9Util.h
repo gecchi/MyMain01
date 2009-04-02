@@ -21,6 +21,7 @@ public:
     static int RAD_UNITLEN[];
     static float COS[];
     static float SIN[];
+    static float RAD[];
     static GgafDx9SphereRadiusVectors _srv;
 
     static bool _isInitFlg;

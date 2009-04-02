@@ -11,7 +11,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 
         //軸回転方角
         _angRot[i] = 0; //0 angle は ３時の方角を向いている
-        //軸回転方角の角速度（軸回転方角値の増分）= 0 angle/fream
+        //軸回転方角の角速度（軸回転方角の増分）= 0 angle/fream
         _angveloRot[i] = 0; //1フレームに加算される軸回転方角の角増分。デフォルトは軸回転方角の角増分無し、つまり振り向き無し。
         //軸回転方角の角速度上限 ＝ 360,000 angle/fream
         _angveloTopRot[i] = ANGLE360; //_angveloRot[n] の増分の上限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
@@ -46,44 +46,44 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     _accMove = 0; //_veloMove の増分。デフォルトは加速無し
 
     /////コピー元begin
-    //Z軸移動方角の角速度 = 0 angle/fream
+    //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _angveloRzMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
-    //Z軸移動方角の角速度上限 = +360,000 angle/fream
+    //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
     _angveloRzTopMove = ANGLE360; //_angveloRzMove の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //Z軸移動方角の角速度下限 = -360,000 angle/fream
+    //移動方角（Z軸回転）の角速度下限 = -360,000 angle/fream
     _angveloRzBottomMove = ANGLE360 * -1; //_angveloRzMove の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //Z軸移動方角の角加速度 = 0 angle/fream^2
+    //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
     _angacceRzMove = 0; //_angveloRzMove の増分。デフォルトは移動方角の角加速度無し
-    //目標Z軸移動方角への自動制御フラグ = 無効
+    //目標移動方角（Z軸回転）への自動制御フラグ = 無効
     _auto_move_angle_rz_target_Flg = false;
-    //目標のZ軸移動方角
+    //目標の移動方角（Z軸回転）
     _angAutoTargetRzMove = 0;
-    //目標のZ軸移動方角自動停止機能が有効になる回転方向
+    //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
     _auto_move_angle_rz_target_allow_way = TURN_BOTH;
-    //目標のZ軸移動方角自動停止機能が有効になる移動方角角速度(角速度正負共通)
+    //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _auto_move_angle_rz_target_allow_velocity = ANGLE180;
-    //Z軸移動方角に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
+    //移動方角（Z軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
     _synchronize_ZRotAngle_to_RzMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
     ////コピー元end
 
     /////コピー元begin
-    //Y軸移動方角の角速度 = 0 angle/fream
+    //移動方角（Y軸回転）の角速度 = 0 angle/fream
     _angveloRyMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
-    //Y軸移動方角の角速度上限 = +360,000 angle/fream
+    //移動方角（Y軸回転）の角速度上限 = +360,000 angle/fream
     _angveloRyTopMove = ANGLE360; //_angveloRyMove の増分の上限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //Y軸移動方角の角速度下限 = -360,000 angle/fream
+    //移動方角（Y軸回転）の角速度下限 = -360,000 angle/fream
     _angveloRyBottomMove = ANGLE360 * -1; //_angveloRyMove の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
-    //Y軸移動方角の角加速度 = 0 angle/fream^2
+    //移動方角（Y軸回転）の角加速度 = 0 angle/fream^2
     _angacceRyMove = 0; //_angveloRyMove の増分。デフォルトは移動方角の角加速度無し
-    //目標Y軸移動方角への自動制御フラグ = 無効
+    //目標移動方角（Y軸回転）への自動制御フラグ = 無効
     _auto_move_angle_ry_target_Flg = false;
-    //目標のY軸移動方角
+    //目標の移動方角（Y軸回転）
     _angAutoTargetRyMove = 0;
-    //目標のY軸移動方角自動停止機能が有効になる回転方向
+    //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
     _auto_move_angle_ry_target_allow_way = TURN_BOTH;
-    //目標のY軸移動方角自動停止機能が有効になる移動方角角速度(角速度正負共通)
+    //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _auto_move_angle_ry_target_allow_velocity = ANGLE180;
-    //Y軸移動方角に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
+    //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
     _synchronize_YRotAngle_to_RyMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
     ////コピー元end
 
@@ -182,7 +182,7 @@ void GgafDx9GeometryMover::behave() {
     _veloMove += _accMove;
     setMoveVelocity(_veloMove);
     ///////////
-    //目標Z軸移動方角アングル自動停止機能使用時の場合
+    //目標移動方角（Z軸回転）アングル自動停止機能使用時の場合
     if (_auto_move_angle_rz_target_Flg) {
 
         _angveloRzMove += _angacceRzMove;
@@ -211,8 +211,8 @@ void GgafDx9GeometryMover::behave() {
             addRzMoveAngle(0);
         }
         if (_auto_move_angle_rz_target_Flg == false) {
-            //_angveloRzTopMove = ANGLE360; //Z軸移動方角の角速度上限 ＝ 360,000 angle/fream
-            //_angveloRzBottomMove = ANGLE360 * -1; //Z軸移動方角の角速度下限 ＝ -360,000 angle/fream
+            //_angveloRzTopMove = ANGLE360; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_angveloRzBottomMove = ANGLE360 * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
             _angacceRzMove = 0; //Z軸移動方向角、角加速度を０へ
@@ -221,13 +221,13 @@ void GgafDx9GeometryMover::behave() {
 
     } else {
         //if (_angacceRzMove != 0) {
-        //フレーム毎のZ軸移動方角旋廻の処理
+        //フレーム毎の移動方角（Z軸回転）旋廻の処理
         _angveloRzMove += _angacceRzMove;
         addRzMoveAngle(_angveloRzMove);
         //}
     }
     ////////////////
-    //目標Y軸移動方角アングル自動停止機能使用時の場合
+    //目標移動方角（Y軸回転）アングル自動停止機能使用時の場合
     if (_auto_move_angle_ry_target_Flg) {
 
         _angveloRyMove += _angacceRyMove;
@@ -261,8 +261,8 @@ void GgafDx9GeometryMover::behave() {
             addRyMoveAngle(0);
         }
         if (_auto_move_angle_ry_target_Flg == false) {
-            //_angveloRyTopMove = ANGLE360; //Y軸移動方角の角速度上限 ＝ 360,000 angle/fream
-            //_angveloRyBottomMove = ANGLE360*-1; //Y軸移動方角の角速度下限 ＝ -360,000 angle/fream
+            //_angveloRyTopMove = ANGLE360; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
+            //_angveloRyBottomMove = ANGLE360*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
 
             //目標方向に到達した時、停止処理を行なう
             _angacceRyMove = 0; //Y軸移動方向角、角加速度を０へ
@@ -270,7 +270,7 @@ void GgafDx9GeometryMover::behave() {
         }
     } else {
         //if (_angacceRyMove != 0) {
-        //フレーム毎のY軸移動方角旋廻の処理
+        //フレーム毎の移動方角（Y軸回転）旋廻の処理
         _angveloRyMove += _angacceRyMove;
         addRyMoveAngle(_angveloRyMove);
         //}
@@ -575,7 +575,7 @@ angle GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo(angle prm_angAutoTarget
             } else {
                 //おかしい
                 _TRACE_("_angRzMove=" << _angRzMove << "/angAutoTargetRzMove=" << angAutoTargetRzMove);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() Z軸移動方角アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
             }
         } else if (ANGLE180 <= _angRzMove && _angRzMove <= ANGLE360) {
             if (0 <= angAutoTargetRzMove && angAutoTargetRzMove < _angRzMove - ANGLE180) {
@@ -594,7 +594,7 @@ angle GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo(angle prm_angAutoTarget
             } else {
                 //おかしい
                 _TRACE_("_angRzMove=" << _angRzMove << "/angAutoTargetRzMove=" << angAutoTargetRzMove);
-                throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() Z軸移動方角アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -608,7 +608,7 @@ angle GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo(angle prm_angAutoTarget
         } else {
             //おかしい
             _TRACE_("_angRzMove=" << _angRzMove << "/angAutoTargetRzMove=" << angAutoTargetRzMove);
-            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() Z軸移動方角アングル値か、ターゲットアングル値が範囲外です(3)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。");
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRzMove && _angRzMove < angAutoTargetRzMove) {
@@ -621,7 +621,7 @@ angle GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo(angle prm_angAutoTarget
         } else {
             //おかしい
             _TRACE_("_angRzMove=" << _angRzMove << "/angAutoTargetRzMove=" << angAutoTargetRzMove);
-            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() Z軸移動方角アングル値か、ターゲットアングル値が範囲外です(4)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRzMoveAngleTo() 移動方角（Z軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。");
         }
     }
 
@@ -724,7 +724,7 @@ angle GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo(angle prm_angAutoTarget
             } else {
                 //おかしい
                 _TRACE_("_angRyMove=" << _angRyMove << "/angAutoTargetRyMove=" << angAutoTargetRyMove);
-                throwGgafCriticalException("GgafDx9GeometryMover::behave() Y軸移動方角アングル値か、ターゲットアングル値が範囲外です(1)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::behave() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(1)。");
             }
         } else if (ANGLE180 <= _angRyMove && _angRyMove <= ANGLE360) {
             if (0 <= angAutoTargetRyMove && angAutoTargetRyMove < _angRyMove - ANGLE180) {
@@ -743,7 +743,7 @@ angle GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo(angle prm_angAutoTarget
             } else {
                 //おかしい
                 _TRACE_("_angRyMove=" << _angRyMove << "/angAutoTargetRyMove=" << angAutoTargetRyMove);
-                throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() Y軸移動方角アングル値か、ターゲットアングル値が範囲外です(2)。");
+                throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(2)。");
             }
         }
     } else if (prm_way == TURN_COUNTERCLOCKWISE) { //反時計回りの場合
@@ -757,7 +757,7 @@ angle GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo(angle prm_angAutoTarget
         } else {
             //おかしい
             _TRACE_("_angRyMove=" << _angRyMove << "/angAutoTargetRyMove=" << angAutoTargetRyMove);
-            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() Y軸移動方角アングル値か、ターゲットアングル値が範囲外です(3)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(3)。");
         }
     } else if (prm_way == TURN_CLOCKWISE) { //時計回りの場合
         if (0 <= _angRyMove && _angRyMove < angAutoTargetRyMove) {
@@ -770,7 +770,7 @@ angle GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo(angle prm_angAutoTarget
         } else {
             //おかしい
             _TRACE_("_angRyMove=" << _angRyMove << "/angAutoTargetRyMove=" << angAutoTargetRyMove);
-            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() Y軸移動方角アングル値か、ターゲットアングル値が範囲外です(4)。");
+            throwGgafCriticalException("GgafDx9GeometryMover::getDistanceFromRyMoveAngleTo() 移動方角（Y軸回転）アングル値か、ターゲットアングル値が範囲外です(4)。");
         }
     }
 
