@@ -12,6 +12,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _distR = 100000;
     _angPosRotX = 0;
     _no = prm_no;
+    _angExpanse = 0;
 
     MyOption* pMyOption = NEW MyOption("MY_OPTION01", prm_no, this);
     _pMyOptionParent->addSubLast(pMyOption);//‰¡‚É‚Â‚¯‚é
@@ -24,12 +25,12 @@ void MyDummyOption::initialize() {
     _angvelo = ((1.0*v / _distR)*(double)ANGLE180)/PI;
     _pGeoMover->setMoveVelocity(v);
     _pGeoMover->setRzMoveAngle(_angPosRotX+ANGLE90);
-    //_pGeoMover->setRyMoveAngle(-ANGLE90);
+    _pGeoMover->setRyMoveAngle(-ANGLE90);
     _pGeoMover->setRzMoveAngleVelocity(_angvelo);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _pGeoMover->setRyMoveAngleVelocity(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
-//    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true; //RY‚ÍŽg‚Á‚Ä‚Í‘Ê–ÚB•ÏŠ·s—ñ‚ªRxRyRz‚¾‚©‚ç
-    _X = GgafDx9Util::COS[_angPosRotX/ANGLE_RATE]*_distR; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
+    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true; //RY‚ÍŽg‚Á‚Ä‚Í‘Ê–ÚB•ÏŠ·s—ñ‚ªRxRyRz‚¾‚©‚ç
+    _Z = GgafDx9Util::COS[_angPosRotX/ANGLE_RATE]*_distR; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosRotX/ANGLE_RATE]*_distR;
 
 
@@ -79,13 +80,13 @@ void MyDummyOption::processBehavior() {
 //    _pGeoMover->setRotAngle(AXIS_X,_pGeoMover->_angRxMove);
 
 
-    _pGeoMover->addRotAngle(AXIS_X, 10000);
+    //_pGeoMover->addRotAngle(AXIS_X, 10000);
     //_pGeoMover->addRotAngle(AXIS_Y, 1000);
     _pGeoMover->addRotAngle(AXIS_Z, -ANGLE90);
 
 
 
-
+//    _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse + 2000);
 
 
 
@@ -155,11 +156,31 @@ void MyDummyOption::processBehavior() {
     // |-sinRZ*cosRY, cosRZ, -sinRZ* -sinRY | |_Y| = |-sinRZ*cosRY*_X + cosRZ*_Y - sinRZ* -sinRY*_Z |
     // |       sinRY,     0,         cosRY | |_Z|   | sinRY*_X + cosRY*_Z                         |
 
-
-
-
-
-
+//        angle Rz, Ry;
+//        GgafDx9Util::getRotAngleZY(
+//                _pMyOptionParent->_pGeoMover->_vX,
+//                _pMyOptionParent->_pGeoMover->_vY,
+//                _pMyOptionParent->_pGeoMover->_vZ,
+//                Rz,
+//                Ry
+//                );
+//
+//    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+//    sinRY = GgafDx9Util::SIN[Ry / ANGLE_RATE];
+//    cosRY = GgafDx9Util::COS[Ry / ANGLE_RATE];
+//    sinRZ = GgafDx9Util::SIN[Rz / ANGLE_RATE];
+//    cosRZ = GgafDx9Util::COS[Rz / ANGLE_RATE];
+//    int tmpX, tmpY, tmpZ;
+//    tmpX = _X;
+//    tmpY = _Y;
+//    tmpZ = _Z;
+//    _X = cosRZ*cosRY*tmpX + sinRZ*tmpY + cosRZ*-sinRY*tmpZ;
+//    _Y = -sinRZ*cosRY*tmpX + cosRZ*tmpY + -sinRZ*-sinRY*tmpZ;
+//    _Z = sinRY*tmpX + cosRY*tmpZ;
+//
+//
+//
+//
 
 
 
@@ -196,17 +217,20 @@ void MyDummyOption::processDrawMain() {
 //            Rz2,
 //            Ry2
 //            );
-    getWorldTransformRxRyRzMvRyRzRy(
-               this,
-               //_pGeoMover->simplifyAngle(_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] + ANGLE90),//©ANGLE270‚Å‚È‚º‚¾‚ß‚È‚Ì‚©
-               0,
-               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Z],
-               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Y],
-               //_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y], //TODOTODOTODO:”–‚Á‚Ø‚ç‹ê‚È‚éA‚½‚Ô‚ñˆÚ“®Œã‚Ì‰ñ“]‚Í‚¾‚ß‚È‚Ì‚©HI
+
+
+    getWorldTransformRxRyRzRyScMv(this, _angExpanse, matWorld);
+//    getWorldTransformRxRyRzMvRyRzRy(
+//               this,
+//               //_pGeoMover->simplifyAngle(_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] + ANGLE90),//©ANGLE270‚Å‚È‚º‚¾‚ß‚È‚Ì‚©
+//               0,
 //               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Z],
 //               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Y],
-
-               matWorld);
+//               //_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y], //TODOTODOTODO:”–‚Á‚Ø‚ç‹ê‚È‚éA‚½‚Ô‚ñˆÚ“®Œã‚Ì‰ñ“]‚Í‚¾‚ß‚È‚Ì‚©HI
+////               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Z],
+////               _pMyOptionParent->_pGeoMover->_angRot[AXIS_Y],
+//
+//               matWorld);
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
@@ -267,24 +291,24 @@ void MyDummyOption::getWorldTransformRxRyRzMvRyRzRy(GgafDx9UntransformedActor* p
     dz = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
 
 
-    out_matWorld._11 = ((sx*cosRY*cosRZ*cosRY2 + sx* -sinRY*sinRY2)*cosRZ2 + sx*cosRY*sinRZ* -sinRZ2)*cosRY3 + ((sx*cosRY*cosRZ* -sinRY2 + sx* -sinRY*cosRY2))*sinRY2;
-    out_matWorld._12 = ((sx*cosRY*cosRZ*cosRY2 + sx* -sinRY*sinRY2)*sinRZ2 + sx*cosRY*sinRZ*cosRZ2);
-    out_matWorld._13 = ((sx*cosRY*cosRZ*cosRY2 + sx* -sinRY*sinRY2)*cosRZ2 + sx*cosRY*sinRZ* -sinRZ2)* -sinRY3 + ((sx*cosRY*cosRZ* -sinRY2 + sx* -sinRY*cosRY2))*cosRY3;
+    out_matWorld._11 = sx*cosRY3;
+    out_matWorld._12 = 0;
+    out_matWorld._13 = sx*-sinRY3;
     out_matWorld._14 = 0;
 
-    out_matWorld._21 = ((((sy*sinRX*sinRY*cosRZ + sy*cosRX* -sinRZ))*cosRY2 + sy*sinRX*cosRY*sinRY2)*cosRZ2 + (((sy*sinRX*sinRY*sinRZ + sy*cosRX*cosRZ)))* -sinRZ2)*cosRY3 + ((((sy*sinRX*sinRY*cosRZ + sy*cosRX* -sinRZ))* -sinRY2 + sy*sinRX*cosRY*cosRY2))*sinRY2;
-    out_matWorld._22 = ((((sy*sinRX*sinRY*cosRZ + sy*cosRX* -sinRZ))*cosRY2 + sy*sinRX*cosRY*sinRY2)*sinRZ2 + (((sy*sinRX*sinRY*sinRZ + sy*cosRX*cosRZ)))*cosRZ2);
-    out_matWorld._23 = ((((sy*sinRX*sinRY*cosRZ + sy*cosRX* -sinRZ))*cosRY2 + sy*sinRX*cosRY*sinRY2)*cosRZ2 + (((sy*sinRX*sinRY*sinRZ + sy*cosRX*cosRZ)))* -sinRZ2)* -sinRY3 + ((((sy*sinRX*sinRY*cosRZ + sy*cosRX* -sinRZ))* -sinRY2 + sy*sinRX*cosRY*cosRY2))*cosRY3;
+    out_matWorld._21 = 0;
+    out_matWorld._22 = sy;
+    out_matWorld._23 = 0;
     out_matWorld._24 = 0;
 
-    out_matWorld._31 = ((((sz*cosRX*sinRY*cosRZ + sz* -sinRX* -sinRZ))*cosRY2 + sz*cosRX*cosRY*sinRY2)*cosRZ2 + (((sz*cosRX*sinRY*sinRZ + sz* -sinRX*cosRZ)))* -sinRZ2)*cosRY3 + ((((sz*cosRX*sinRY*cosRZ + sz* -sinRX* -sinRZ))* -sinRY2 + sz*cosRX*cosRY*cosRY2))*sinRY2;
-    out_matWorld._32 = ((((sz*cosRX*sinRY*cosRZ + sz* -sinRX* -sinRZ))*cosRY2 + sz*cosRX*cosRY*sinRY2)*sinRZ2 + (((sz*cosRX*sinRY*sinRZ + sz* -sinRX*cosRZ)))*cosRZ2);
-    out_matWorld._33 = ((((sz*cosRX*sinRY*cosRZ + sz* -sinRX* -sinRZ))*cosRY2 + sz*cosRX*cosRY*sinRY2)*cosRZ2 + (((sz*cosRX*sinRY*sinRZ + sz* -sinRX*cosRZ)))* -sinRZ2)* -sinRY3 + ((((sz*cosRX*sinRY*cosRZ + sz* -sinRX* -sinRZ))* -sinRY2 + sz*cosRX*cosRY*cosRY2))*cosRY3;
+    out_matWorld._31 = sz*sinRY2;
+    out_matWorld._32 = 0;
+    out_matWorld._33 = sz*cosRY3;
     out_matWorld._34 = 0;
 
-    out_matWorld._41 = ((dx*cosRY2 + dz*sinRY2)*cosRZ2 + dy* -sinRZ2)*cosRY3 + ((dx* -sinRY2 + dz*cosRY2))*sinRY2;
-    out_matWorld._42 = ((dx*cosRY2 + dz*sinRY2)*sinRZ2 + dy*cosRZ2);
-    out_matWorld._43 = ((dx*cosRY2 + dz*sinRY2)*cosRZ2 + dy* -sinRZ2)* -sinRY3 + ((dx* -sinRY2 + dz*cosRY2))*cosRY3;
+    out_matWorld._41 = dx*cosRY3 + dz*sinRY2;
+    out_matWorld._42 = dy;
+    out_matWorld._43 = dx*-sinRY3 + dz*cosRY3;
     out_matWorld._44 = 1;
 }
 
@@ -342,5 +366,51 @@ void MyDummyOption::getWorldTransformRxRyRzScMvRzRy(GgafDx9UntransformedActor* p
     out_matWorld._44 = 1;
 }
 
+
+void MyDummyOption::getWorldTransformRxRyRzRyScMv(GgafDx9UntransformedActor* prm_pActor, angle prm_RYt, D3DXMATRIX& out_matWorld) {
+    //WORLD•ÏŠ·
+
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float sinRYt, cosRYt;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    static float dx, dy, dz;
+    sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+
+    sinRYt = GgafDx9Util::SIN[prm_RYt / ANGLE_RATE];
+    cosRYt = GgafDx9Util::COS[prm_RYt / ANGLE_RATE];
+
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+    dx = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    dy = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    dz = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+
+    out_matWorld._11 = ((cosRYt*cosRZ*cosRY + -sinRYt*sinRY)*sx);
+    out_matWorld._12 = cosRYt*sinRZ*sy;
+    out_matWorld._13 = ((cosRYt*cosRZ*-sinRY + -sinRYt*cosRY)*sz);
+    out_matWorld._14 = 0;
+
+    out_matWorld._21 = (((sinRX*sinRYt*cosRZ + cosRX*-sinRZ)*cosRY + sinRX*cosRYt*sinRY)*sx);
+    out_matWorld._22 = (((sinRX*sinRYt*sinRZ + cosRX*cosRZ))*sy);
+    out_matWorld._23 = (((sinRX*sinRYt*cosRZ + cosRX*-sinRZ)*-sinRY + sinRX*cosRYt*cosRY)*sz);
+    out_matWorld._24 = 0;
+
+    out_matWorld._31 = (((cosRX*sinRYt*cosRZ + -sinRX*-sinRZ)*cosRY + cosRX*cosRYt*sinRY)*sx);
+    out_matWorld._32 = (((cosRX*sinRYt*sinRZ + -sinRX*cosRZ))*sy);
+    out_matWorld._33 = (((cosRX*sinRYt*cosRZ + -sinRX*-sinRZ)*-sinRY + cosRX*cosRYt*cosRY)*sz);
+    out_matWorld._34 = 0;
+
+    out_matWorld._41 = dx;
+    out_matWorld._42 = dy;
+    out_matWorld._43 = dz;
+    out_matWorld._44 = 1;
+}
 
 

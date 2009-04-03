@@ -60,7 +60,7 @@ public:
      * @param prm_ang •ûŠp
      * @return ŠÈ’P‚É‚³‚ê‚½•ûŠp
      */
-    angle simplifyAngle(angle prm_ang);
+    static angle simplifyAngle(angle prm_ang);
 
     /**
      * Actor‚Ì²‚Ì‰ñ“]•ûŠp‚ğİ’èB<BR>

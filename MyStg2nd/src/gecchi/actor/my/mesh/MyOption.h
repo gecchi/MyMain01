@@ -17,6 +17,11 @@ public:
     double _vY_ParentPrev;
     double _vZ_ParentPrev;
 
+
+    /** オプションの広がり具合 */
+    GgafDx9Core::angle _angExpanse;
+
+    int _Xorg,_Yorg,_Zorg;
     /** 自機へのポインタ */
     MyDummyOption* _pMyDummyOption;
     /** オプション番号 */
@@ -39,7 +44,7 @@ public:
      * ＜OverRide です＞
      */
     void processJudgement();
-
+    void processDrawMain();
     /**
      * ＜OverRide です＞
      */
@@ -47,6 +52,14 @@ public:
 
 
     virtual ~MyOption();
+
+    static void getWorldTransformRxRyRzRyScMv(
+                    GgafDx9UntransformedActor* prm_pActor,
+                    GgafDx9Core::angle prm_RYt,
+                    D3DXMATRIX& out_matWorld
+                    );
+
+
 };
 
 }

@@ -16,6 +16,8 @@ public:
     /** オプション番号 */
     int _no;
 
+    /** オプションの広がり具合 */
+    GgafDx9Core::angle _angExpanse;
     /** MyShipからの距離 */
     int _distR;
     /** 位置（周囲角） */
@@ -66,6 +68,13 @@ public:
                      GgafDx9Core::angle prm_RY3,
                      D3DXMATRIX& out_matWorld
                 );
+
+    static void getWorldTransformRxRyRzRyScMv(
+                    GgafDx9UntransformedActor* prm_pActor,
+                    GgafDx9Core::angle prm_RYt,
+                    D3DXMATRIX& out_matWorld
+                    );
+
 
 };
 
