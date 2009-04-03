@@ -47,8 +47,26 @@ public:
      */
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
+    void processDrawMain();
 
     virtual ~MyDummyOption();
+
+
+    static void getWorldTransformRxRyRzScMvRzRy(
+                     GgafDx9Core::GgafDx9UntransformedActor* prm_pActor,
+                     GgafDx9Core::angle prm_RZ2,
+                     GgafDx9Core::angle prm_RY2,
+                     D3DXMATRIX& out_matWorld
+                );
+
+    static void getWorldTransformRxRyRzMvRyRzRy(
+                     GgafDx9Core::GgafDx9UntransformedActor* prm_pActor,
+                     GgafDx9Core::angle prm_RY2,
+                     GgafDx9Core::angle prm_RZ2,
+                     GgafDx9Core::angle prm_RY3,
+                     D3DXMATRIX& out_matWorld
+                );
+
 };
 
 }
