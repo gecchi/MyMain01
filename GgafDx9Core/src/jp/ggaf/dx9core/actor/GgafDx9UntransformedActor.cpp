@@ -102,6 +102,99 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9Untransformed
 }
 
 
+void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //WORLD•ÏŠ·
+    //’PˆÊs—ñ ~ X²‰ñ“] ~ Y²‰ñ“] ~ Z²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬
+    //    |                           cosRY*cosRZ*sx,                        cosRY*sinRZ*sy  ,      -sinRY*sz,  0 |
+    //    | ((sinRX*sinRY*cosRZ +  cosRX*-sinRZ)*sx), ((sinRX*sinRY*sinRZ +  cosRX*cosRZ)*sy), sinRX*cosRY*sz,  0 |
+    //    | ((cosRX*sinRY*cosRZ + -sinRX*-sinRZ)*sx), ((cosRX*sinRY*sinRZ + -sinRX*cosRZ)*sy), cosRX*cosRY*sz,  0 |
+    //    |                                       dx,                                      dy,             dz,  1 |
+
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = cosRY*cosRZ*sx;
+    out_matWorld._12 = cosRY*sinRZ*sy;
+    out_matWorld._13 = -sinRY*sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = ((sinRX*sinRY*cosRZ) + (cosRX*-sinRZ))*sx;
+    out_matWorld._22 = ((sinRX*sinRY*sinRZ) + (cosRX*cosRZ))*sy;
+    out_matWorld._23 = sinRX*cosRY*sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = ((cosRX*sinRY*cosRZ) + (-sinRX*-sinRZ))*sx;
+    out_matWorld._32 = ((cosRX*sinRY*sinRZ) + (-sinRX* cosRZ))*sy;
+    out_matWorld._33 = cosRX*cosRY*sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0f;
+}
+
+
+
+
+
+
+void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //WORLD•ÏŠ·
+    //’PˆÊs—ñ ~ X²‰ñ“] ~ Z²‰ñ“] ~ X²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬.
+    //¦Y²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚ª‚Q‰ñ–Ú‚ÌX²‰ñ“]‚Æ‚È‚é
+    //|         cosRZ*sx,                          sinRZ*cosRY*sy ,                          sinRZ*sinRY*sz, 0 |
+    //|  cosRX*-sinRZ*sx, (( cosRX*cosRZ*cosRY + sinRX*-sinRY)*sy), (( cosRX*cosRZ*sinRY + sinRX*cosRY)*sz), 0 |
+    //| -sinRX*-sinRZ*sx, ((-sinRX*cosRZ*cosRY + cosRX*-sinRY)*sy), ((-sinRX*cosRZ*sinRY + cosRX*cosRY)*sz), 0 |
+    //|               dx,                                       dy,                                      dz, 1 |
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = cosRZ * sx;
+    out_matWorld._12 = sinRZ * cosRY * sy;
+    out_matWorld._13 = sinRZ * sinRY * sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = cosRX * -sinRZ * sx;
+    out_matWorld._22 = (( cosRX * cosRZ * cosRY) + (sinRX * -sinRY)) * sy;
+    out_matWorld._23 = (( cosRX * cosRZ * sinRY) + (sinRX *  cosRY)) * sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = -sinRX * -sinRZ * sx;
+    out_matWorld._32 = ((-sinRX * cosRZ * cosRY) + (cosRX * -sinRY)) * sy;
+    out_matWorld._33 = ((-sinRX * cosRZ * sinRY) + (cosRX *  cosRY)) * sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0f;
+}
+
+
+
+
+
 void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //WORLD•ÏŠ·
     //’PˆÊs—ñ ~ Z²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬•ƒfƒoƒCƒX‚Éİ’è
