@@ -6,6 +6,9 @@ class MyOption : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
+
+    GgafDx9Core::angle _angRot_ParentPrev[3];
+
     GgafDx9Core::angle _angRzMove_ParentPrev;
     GgafDx9Core::angle _angRyMove_ParentPrev;
     GgafDx9Core::angvelo _angveloRzMove_ParentPrev;
@@ -20,7 +23,7 @@ public:
 
     /** オプションの広がり具合 */
     GgafDx9Core::angle _angExpanse;
-
+    GgafDx9Core::angvelo _angvelo;
     int _Xorg,_Yorg,_Zorg;
     /** 自機へのポインタ */
     MyDummyOption* _pMyDummyOption;

@@ -9,6 +9,7 @@ public:
     int _X_ParentPrev;
     int _Y_ParentPrev;
     int _Z_ParentPrev;
+    int _Xorg,_Yorg,_Zorg;
 
     /** 自機へのポインタ */
     MyShip* _pMyShip;

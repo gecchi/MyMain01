@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
+MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2") {
     _angVelocity_Turn = 3000;
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
@@ -13,20 +13,33 @@ MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name
     pMyDummyOption01->_angPosRotX = 0;
     addSubLast(pMyDummyOption01);
 
+    MyOption* pMyOption01 = NEW MyOption("MY_OPTION01", 0, pMyDummyOption01);
+    addSubLast(pMyOption01);//横につける
+
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
     pMyDummyOption02->_distR = 200000;
     pMyDummyOption02->_angPosRotX = ANGLE90;
     addSubLast(pMyDummyOption02);
+
+    MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, pMyDummyOption02);
+    addSubLast(pMyOption02);//横につける
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
     pMyDummyOption03->_distR = 200000;
     pMyDummyOption03->_angPosRotX = ANGLE180;
     addSubLast(pMyDummyOption03);
 
+    MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, pMyDummyOption03);
+    addSubLast(pMyOption03);//横につける
+
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
     pMyDummyOption04->_distR = 200000;
     pMyDummyOption04->_angPosRotX = ANGLE270;
     addSubLast(pMyDummyOption04);
+
+    MyOption* pMyOption04 = NEW MyOption("MY_OPTION04", 4, pMyDummyOption04);
+    addSubLast(pMyOption04);//横につける
+
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
