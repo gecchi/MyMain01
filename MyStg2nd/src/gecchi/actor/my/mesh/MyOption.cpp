@@ -80,9 +80,9 @@ void MyOption::initialize() {
 //
 //	//_pGeoMover->addRotAngle(AXIS_Z, -ANGLE90);
 //
-    _angRot_ParentPrev[AXIS_X] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_X];
-    _angRot_ParentPrev[AXIS_Y] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y];
-    _angRot_ParentPrev[AXIS_Z] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z];
+//    _angRot_ParentPrev[AXIS_X] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_X];
+//    _angRot_ParentPrev[AXIS_Y] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y];
+//    _angRot_ParentPrev[AXIS_Z] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z];
 }
 
 void MyOption::processBehavior() {
@@ -194,7 +194,7 @@ void MyOption::processBehavior() {
 //    }
 
     //_pGeoMover->addRotAngle(AXIS_X, _pMyDummyOption->_pGeoMover->_angRot[AXIS_X] - _angRot_ParentPrev[AXIS_X]);
-    _pGeoMover->addRotAngle(AXIS_Y, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y] - _angRot_ParentPrev[AXIS_Y]);
+    //_pGeoMover->addRotAngle(AXIS_Y, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y] - _angRot_ParentPrev[AXIS_Y]);
     //_pGeoMover->addRotAngle(AXIS_Z, _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z] - _angRot_ParentPrev[AXIS_Z]);
 
     _pGeoMover->behave();
@@ -216,9 +216,9 @@ void MyOption::processBehavior() {
 
 
 
-    _angRot_ParentPrev[AXIS_X] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_X];
-    _angRot_ParentPrev[AXIS_Y] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y];
-    _angRot_ParentPrev[AXIS_Z] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z];
+//    _angRot_ParentPrev[AXIS_X] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_X];
+//    _angRot_ParentPrev[AXIS_Y] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Y];
+//    _angRot_ParentPrev[AXIS_Z] = _pMyDummyOption->_pGeoMover->_angRot[AXIS_Z];
 
     //親の移動座標差分を加えて親にトレース
 //    _X += (_pMyDummyOption->_X - _X_ParentPrev);
