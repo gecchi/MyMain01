@@ -156,6 +156,12 @@ public:
                                      double& out_nvy,
                                      double& out_nvz);
 
+    static void getNormalizeVector(int x,
+                                   int y,
+                                   int z,
+                                   double& out_nvx,
+                                   double& out_nvy,
+                                   double& out_nvz);
     /**
      * ü•ª‚Ì“–‚½‚è”»’è<BR>
      * @param x11

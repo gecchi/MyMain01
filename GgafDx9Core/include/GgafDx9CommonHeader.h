@@ -114,6 +114,7 @@ class GgafDx9Scene;
 class GgafDx9World;
 class GgafDx9Util;
 class GgafDx9SphereRadiusVectors;
+class GgafDx9Quaternion;
 class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9GeometryChecker;
@@ -175,6 +176,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/scene/GgafDx9World.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
+#include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMover.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryChecker.h"

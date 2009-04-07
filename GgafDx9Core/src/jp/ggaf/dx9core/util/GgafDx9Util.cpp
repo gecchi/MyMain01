@@ -367,6 +367,38 @@ void GgafDx9Util::getRotAngleZY(double vx, double vy, double vz, angle& out_angR
     }
 }
 
+void GgafDx9Util::getNormalizeVector( int x,
+                                             int y,
+                                             int z,
+                                             double& out_nvx,
+                                             double& out_nvy,
+                                             double& out_nvz) {
+    static double vx, vy, vz, t;
+    vx = ((double)x) / LEN_UNIT;
+    vy = ((double)y) / LEN_UNIT;
+    vz = ((double)z) / LEN_UNIT;
+    t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
+    out_nvx = t * vx;
+    out_nvy = t * vy;
+    out_nvz = t * vz;
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ,
                                        angle prm_angRotY,
                                        double& out_nvx,
