@@ -5,9 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParent::MyOptionParent(const char* prm_name) : DefaultMeshActor(prm_name, "X/ebi2") {
+MyOptionParent::MyOptionParent(const char* prm_name) :
+  GgafDx9UntransformedActor(prm_name,
+                            NEW GgafDx9GeometryMover(this),
+                            NEW StgChecker(this) ) {
     _angVelocity_Turn = 3000;
-   // hideAlone();
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_distR = 200000;
@@ -127,12 +129,6 @@ void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
     }
     _pGeoMover->setAutoTargetRzMoveAngle(prm_angRz_Target);
     _pGeoMover->setAutoTargetRyMoveAngle(prm_angRy_Target);
-}
-
-void MyOptionParent::processJudgement() {
-}
-
-void MyOptionParent::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 MyOptionParent::~MyOptionParent() {

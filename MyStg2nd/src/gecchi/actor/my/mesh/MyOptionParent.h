@@ -2,7 +2,7 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
-class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionParent : public GgafDx9Core::GgafDx9UntransformedActor {
 
 public:
 
@@ -16,25 +16,33 @@ public:
 
     MyOptionParent(const char* prm_name);
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void initialize();
+    virtual void initialize();
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processBehavior();
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processJudgement();
+    virtual void processBehavior();
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+
+    virtual void processJudgement() {
+    }
+
+    virtual void processDrawPrior() {
+    }
+
+    virtual void processDrawMain() {
+   }
+
+    virtual void processDrawTerminate() {
+    }
+
+    virtual void processHappen(int prm_no) {
+    }
+
+    virtual void processFinal() {
+    }
+
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
+
 
     void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
 
