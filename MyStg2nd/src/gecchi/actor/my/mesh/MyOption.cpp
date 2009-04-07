@@ -13,7 +13,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 }
 
 void MyOption::initialize() {
-
+    hideAlone();
     int v = 4000;
     _angvelo = ((1.0*v / _pMyDummyOption->_distR)*(double)ANGLE180)/PI;
     _pGeoMover->setMoveVelocity(v);
@@ -86,7 +86,7 @@ void MyOption::initialize() {
 }
 
 void MyOption::processBehavior() {
-    _pGeoMover->addRotAngle(AXIS_Z, -ANGLE90);
+    //_pGeoMover->addRotAngle(AXIS_Z, -ANGLE90);
     //_pGeoMover->addRotAngle(AXIS_Z, 0);
     //_pGeoMover->addRotAngle(AXIS_Y, 2000);
 

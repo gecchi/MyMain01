@@ -4,13 +4,18 @@ namespace MyStg2nd {
 
 class MyDummyOption : public GgafDx9LibStg::DefaultMeshActor {
 
+
+
 public:
+    GgafDx9Core::angle _angRot_ParentPrev[3];
 
     int _X_ParentPrev;
     int _Y_ParentPrev;
     int _Z_ParentPrev;
     int _Xorg,_Yorg,_Zorg;
-
+    float _RXorg,_RYorg,_RZorg;
+    float _vXwk,_vYwk,_vZwk;
+    float _Xwk,_Ywk,_Zwk;
     /** 自機へのポインタ */
     MyShip* _pMyShip;
     MyOptionParent* _pMyOptionParent;
