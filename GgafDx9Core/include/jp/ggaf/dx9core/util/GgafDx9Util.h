@@ -176,6 +176,14 @@ public:
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
     static int sign(int x);
+
+    static double sqrt_fast(double a, int s = 10) {
+        double ret = 1;
+        for (int i = 1; i <= s; i++) {
+            ret = 0.5 * (ret + a / ret);
+        }
+        return ret;
+    }
     //static DWORD max3(DWORD a, DWORD b, DWORD c);
 };
 

@@ -290,7 +290,7 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
     vx = ((double)x) / LEN_UNIT;
     vy = ((double)y) / LEN_UNIT;
     vz = ((double)z) / LEN_UNIT;
-    t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
+    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     static s_ang rZ, rY;
 
     _srv.getRotAngleClosely(
@@ -377,7 +377,7 @@ void GgafDx9Util::getNormalizeVector( int x,
     vx = ((double)x) / LEN_UNIT;
     vy = ((double)y) / LEN_UNIT;
     vz = ((double)z) / LEN_UNIT;
-    t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
+    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     out_nvx = t * vx;
     out_nvy = t * vy;
     out_nvz = t * vz;
