@@ -24,7 +24,7 @@
 </outputEntries>
 </builder>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release.1495601576" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.exe.release">
-<option id="gnu.both.asm.option.include.paths.1316828934" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
+<option id="gnu.both.asm.option.include.paths.1316828934" name="インクルード・パス (-I)" superClass="gnu.both.asm.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;C:/Program Files/Microsoft DirectX 9.0 SDK (Summer 2004)/Include&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/cppTest/GgafCore/include}&quot;"/>
 <listOptionValue builtIn="false" value="../cppTest/src"/>
@@ -58,15 +58,13 @@
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release.590723353" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.release"/>
 <tool id="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release.108971983" name="MinGW C++ リンカー" superClass="cdt.managedbuild.tool.gnu.cpp.linker.mingw.exe.release">
 <option id="gnu.cpp.link.option.libs.2023804165" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
-<listOptionValue builtIn="false" value="PaulCoppensLib"/>
-<listOptionValue builtIn="false" value="GgafCore"/>
 <listOptionValue builtIn="false" value="d3d9"/>
 <listOptionValue builtIn="false" value="d3dx9d"/>
 <listOptionValue builtIn="false" value="dxguid"/>
 <listOptionValue builtIn="false" value="dinput"/>
 <listOptionValue builtIn="false" value="winmm"/>
 </option>
-<option id="gnu.cpp.link.option.paths.205133017" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths" valueType="libPaths"/>
+<option id="gnu.cpp.link.option.paths.205133017" name="ライブラリー検索パス (-L)" superClass="gnu.cpp.link.option.paths"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.476153733" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>
