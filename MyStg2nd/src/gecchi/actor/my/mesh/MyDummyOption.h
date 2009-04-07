@@ -16,6 +16,9 @@ public:
     float _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
     float _Xwk,_Ywk,_Zwk;
+
+
+    int _TX, _TY, _TZ;
     /** 自機へのポインタ */
     MyShip* _pMyShip;
     MyOptionParent* _pMyOptionParent;
@@ -55,32 +58,7 @@ public:
      */
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-    void processDrawMain();
-
     virtual ~MyDummyOption();
-
-
-    static void getWorldTransformRxRyRzScMvRzRy(
-                     GgafDx9Core::GgafDx9UntransformedActor* prm_pActor,
-                     GgafDx9Core::angle prm_RZ2,
-                     GgafDx9Core::angle prm_RY2,
-                     D3DXMATRIX& out_matWorld
-                );
-
-    static void getWorldTransformRxRyRzMvRyRzRy(
-                     GgafDx9Core::GgafDx9UntransformedActor* prm_pActor,
-                     GgafDx9Core::angle prm_RY2,
-                     GgafDx9Core::angle prm_RZ2,
-                     GgafDx9Core::angle prm_RY3,
-                     D3DXMATRIX& out_matWorld
-                );
-
-    static void getWorldTransformRxRyRzRyScMv(
-                    GgafDx9UntransformedActor* prm_pActor,
-                    GgafDx9Core::angle prm_RYt,
-                    D3DXMATRIX& out_matWorld
-                    );
-
 
 };
 
