@@ -20,19 +20,19 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 void MyDummyOption::initialize() {
     _fAlpha = 0.9;
 
-    int v = 4000;
+    int v = 1000;
     _angvelo = ((1.0*v / _distR)*(double)ANGLE180)/PI;
     _pGeoMover->setMoveVelocity(v);
     _pGeoMover->setRzMoveAngle(_angPosRotX+ANGLE90);
     _pGeoMover->setRyMoveAngle(-ANGLE90);
     _pGeoMover->setRzMoveAngleVelocity(_angvelo);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _pGeoMover->setRyMoveAngleVelocity(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
-    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true; //RY‚ÍŽg‚Á‚Ä‚Í‘Ê–ÚB•ÏŠ·s—ñ‚ªRxRyRz‚¾‚©‚ç
+    //_pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
+    //_pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true; //RY‚ÍŽg‚Á‚Ä‚Í‘Ê–ÚB•ÏŠ·s—ñ‚ªRxRyRz‚¾‚©‚ç
     _Z = GgafDx9Util::COS[_angPosRotX/ANGLE_RATE]*_distR; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosRotX/ANGLE_RATE]*_distR;
 
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 8000);
+    //_pGeoMover->setRotAngleVelocity(AXIS_X, 500);
     //ƒ‰ƒCƒuƒ‰ƒŠ‚ÌˆÚ“®‹@”\‚ðŽg—p‚µ‚ÄAˆÈ‰º‚Ì‚æ‚¤‚Èó‘Ô‚Ü‚Å‚ðŽÀŒ»‚·‚é
     //‚ ‚Æ‚Í—Í‹Z‚Å‰ñ“]‚³‚¹‚éB
     //
@@ -50,7 +50,7 @@ void MyDummyOption::initialize() {
     //ªyŽ²  ¨zŽ²  ExŽ²
 
 
-    _angExpanse = ANGLE90;
+    _angExpanse = 0;
 
     _Xorg = _X;
     _Yorg = _Y;
@@ -105,35 +105,50 @@ void MyDummyOption::processBehavior() {
     vX_axis = cosRZ*cosRY*_pGeoMover->_vX + -sinRZ*_pGeoMover->_vY + cosRZ*sinRY*_pGeoMover->_vZ;
     vY_axis = sinRZ*cosRY*_pGeoMover->_vX +  cosRZ*_pGeoMover->_vY + sinRZ*sinRY*_pGeoMover->_vZ;
     vZ_axis = -sinRY*_pGeoMover->_vX + cosRY*_pGeoMover->_vZ;
+        GgafDx9Util::getRotAngleZY(
+                vX_axis,
+                vY_axis,
+                vZ_axis,
+                _RZ,
+                _RY
+             );
+    
+     _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
+     _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
+	 _TRACE_("_RZ,_RY="<<_RZ<<","<<_RY);
 
-    static float sinHalf, cosHalf;
-    sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
-    cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
-    static double vx, vy, vz; //‰ñ“]‚³‚¹‚½‚¢•ûŒüƒxƒNƒgƒ‹iŒ³‚Ì“_À•WjB•úŽËó‚É‚È‚Á‚Ä‚Ü‚·B
-    static double k;   //³‹K‰»”{”
-    vx = ((double)_X) / LEN_UNIT;
-    vy = ((double)_Y) / LEN_UNIT;
-    vz = ((double)_Z) / LEN_UNIT;
-    k = 1 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
 
-    //ŒvŽZ
-    GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, k*vx, k*vy, k*vz); //R*P
-    Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-    //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
-    //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
-    GgafDx9Util::getRotAngleZY(
-        Q._x,
-        Q._y,
-        Q._z,
-        _RZ,
-        _RY
-     );
 
-    _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
-    _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
 
-    _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+500);
+
+//    static float sinHalf, cosHalf;
+//    sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
+//    cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
+//    static double vx, vy, vz; //‰ñ“]‚³‚¹‚½‚¢•ûŒüƒxƒNƒgƒ‹iŒ³‚Ì“_À•WjB•úŽËó‚É‚È‚Á‚Ä‚Ü‚·B
+//    static double k;   //³‹K‰»”{”
+//    vx = ((double)_X) / LEN_UNIT;
+//    vy = ((double)_Y) / LEN_UNIT;
+//    vz = ((double)_Z) / LEN_UNIT;
+//    k = 1 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
+//
+//    //ŒvŽZ
+//    GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+//    Q.mul(0, k*vx, k*vy, k*vz); //R*P
+//    Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+//    //Q._x, Q._y, Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
+//    //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
+//    GgafDx9Util::getRotAngleZY(
+//        Q._x,
+//        Q._y,
+//        Q._z,
+//        _RZ,
+//        _RY
+//     );
+//    _TRACE_("_RZ,_RY="<<_RZ<<","<<_RY);
+//    _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
+//    _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
+
+    //_angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+50);
 
 
     _X += GameGlobal::_pMyShip->_X;
