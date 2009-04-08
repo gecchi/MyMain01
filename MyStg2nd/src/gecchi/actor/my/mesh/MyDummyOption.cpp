@@ -33,7 +33,7 @@ void MyDummyOption::initialize() {
     _Z = GgafDx9Util::COS[_angPosRotX/ANGLE_RATE]*_distR; //X軸中心回転なのでXYではなくてZY
     _Y = GgafDx9Util::SIN[_angPosRotX/ANGLE_RATE]*_distR;
 
-    _X = 20000; //TODO:本当は0（時機の真横）にしたい。しかしシンバルロックが起き、見た目ひどい。解決できない。
+    _X = 50000; //TODO:本当は0（時機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
                 //やや中心からずらす事で、ある程度向きの遷移を滑らかにし、
                 //さらにAXIS_X 軸回転を速めに設定し、気付かれないようにごまかす･･･妥協。
 
@@ -84,7 +84,7 @@ void MyDummyOption::processBehavior() {
     //
     //                    ↑
     //○        自        ○
-    //↓     (0,0,0)      (-20000, 0, _distR)
+    //↓     (0,0,0)      (-50000, 0, _distR)
     //
     //
     //         ○→
