@@ -15,7 +15,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption01->_distR = 200000;
     pMyDummyOption01->_angPosRotX = 0;
     addSubLast(pMyDummyOption01);
-/*
+
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
     pMyDummyOption02->_distR = 200000;
     pMyDummyOption02->_angPosRotX = ANGLE90;
@@ -30,7 +30,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption04->_distR = 200000;
     pMyDummyOption04->_angPosRotX = ANGLE270;
     addSubLast(pMyDummyOption04);
-*/
+
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
