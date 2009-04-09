@@ -46,13 +46,13 @@ void EnemyPallas::processBehavior() {
 
 void EnemyPallas::processJudgement() {
     if (isOffScreen()) {
-        seeYa();
+        arigatou_sayounara();
     }
 }
 
 void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
     setBumpableAlone(false);
-    seeYa();
+    arigatou_sayounara();
 }
 
 bool EnemyPallas::isOffScreen() {

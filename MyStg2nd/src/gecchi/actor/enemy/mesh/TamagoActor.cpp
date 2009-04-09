@@ -136,7 +136,7 @@ void TamagoActor::processJudgement() {
 void TamagoActor::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     setBumpable(false);
-    seeYa();
+    arigatou_sayounara();
 }
 
 TamagoActor::~TamagoActor() {

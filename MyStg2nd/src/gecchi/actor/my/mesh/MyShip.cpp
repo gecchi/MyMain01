@@ -215,7 +215,7 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    seeYa();
+    arigatou_sayounara();
 }
 
 

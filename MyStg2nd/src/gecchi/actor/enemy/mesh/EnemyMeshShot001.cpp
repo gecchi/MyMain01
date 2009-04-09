@@ -111,7 +111,7 @@ void EnemyMeshShot001::processBehavior() {
 void EnemyMeshShot001::processJudgement() {
     if (isOffScreen()) {
         inactivateTree();
-        //seeYa();
+        //arigatou_sayounara();
     }
 }
 
@@ -145,7 +145,7 @@ bool EnemyMeshShot001::isOffScreen() {
 
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //seeYa();
+    //arigatou_sayounara();
     setBumpableAlone(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

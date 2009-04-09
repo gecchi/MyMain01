@@ -39,13 +39,13 @@ void EnemyJuno::processBehavior() {
 void EnemyJuno::processJudgement() {
     if (isOffScreen()) {
         setBumpableAlone(false);
-        seeYa();
+        arigatou_sayounara();
     }
 }
 
 void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
     setBumpableAlone(false);
-    seeYa();
+    arigatou_sayounara();
 }
 
 bool EnemyJuno::isOffScreen() {

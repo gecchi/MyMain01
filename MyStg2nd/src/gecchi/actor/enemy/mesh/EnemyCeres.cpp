@@ -269,9 +269,9 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (isOffScreen()) {
-        seeYa();
+        arigatou_sayounara();
         if (_createRotationActor) { //’e‰ð•ú—\–ñ
-            _pRotEnemyMeshShots001->seeYa(60 * 5);
+            _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
         }
     }
 }
@@ -284,9 +284,9 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         GameGlobal::_dwScore += _pChecker->_iScorePoint;
     }
 
-    seeYa();
+    arigatou_sayounara();
     if (_createRotationActor) { //’e‰ð•ú—\–ñ
-        _pRotEnemyMeshShots001->seeYa(60 * 5);
+        _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
     }
 
     EffectExplosion001* pExplo001 =

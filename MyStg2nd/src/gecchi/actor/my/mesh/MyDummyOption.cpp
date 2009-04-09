@@ -150,7 +150,7 @@ void MyDummyOption::processJudgement() {
 }
 
 void MyDummyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
-    seeYa();
+    arigatou_sayounara();
 }
 
 MyDummyOption::~MyDummyOption() {

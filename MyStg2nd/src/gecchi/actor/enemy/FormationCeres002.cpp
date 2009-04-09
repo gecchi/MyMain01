@@ -39,8 +39,8 @@ void FormationCeres002::initialize() {
 
 void FormationCeres002::processJudgement() {
     if (getSubFirst() == NULL) {
-        seeYa();
-        _pRotEnemyMeshShots001->seeYa(60 * 5);
+        arigatou_sayounara();
+        _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
     }
 }
 

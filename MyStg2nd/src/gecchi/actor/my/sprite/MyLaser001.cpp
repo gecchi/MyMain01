@@ -69,7 +69,7 @@ void MyLaser001::processJudgement() {
 void MyLaser001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("MyLaser001::processOnHit ショットがヒットしました");
     //_TRACE_("MyLaser001ヒットしました。("<<_X<<","<<_Y<<")");
-    //seeYa();
+    //arigatou_sayounara();
     inactivateTree();
 }
 

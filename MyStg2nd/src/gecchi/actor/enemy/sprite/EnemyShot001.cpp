@@ -51,7 +51,7 @@ bool EnemyShot001::isOffScreen() {
 
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //seeYa();
+    //arigatou_sayounara();
     setBumpableAlone(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

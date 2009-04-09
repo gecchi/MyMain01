@@ -82,7 +82,7 @@ void MyWave001::processJudgement() {
 void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("MyWave001::processOnHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
-    //seeYa();
+    //arigatou_sayounara();
     inactivateTree();
 }
 
