@@ -31,7 +31,7 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 
 void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:要検証
-    if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasHiddenFlg && _canLiveFlg) {
         if (getAlpha() < 1.0) {
             //透明の場合は、Z軸値で遠くから描画するように設定。
             //_Z が カメラ ～ カメラ+2000,000 の間であれば段階レンダリングをすることとする。

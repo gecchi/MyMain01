@@ -42,7 +42,7 @@ public:
     //! í‚é~
     void clear();
 
-    bool isPlaying();
+    bool isActive();
 
     virtual ~GgafDx9Bgm();
 };
