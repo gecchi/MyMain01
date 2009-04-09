@@ -37,7 +37,7 @@ void MyLaser001::processBehavior() {
 
     } else {
         //’Êíˆ—
-        nextAnimationFrame();
+        addNextAnimationFrame();
 
     }
     //À•W‚É”½‰f

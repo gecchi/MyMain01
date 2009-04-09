@@ -23,7 +23,7 @@ void EffectExplosion001::processBehavior() {
         //		_Y = GameGlobal::_pMyShip->_Y;
         //		_Z = GameGlobal::_pMyShip->_Z;
     } else {
-        nextAnimationFrame();
+        addNextAnimationFrame();
         //		_SX += 3000;
         //		_SY += 3000;
         //ç¿ïWÇ…îΩâf

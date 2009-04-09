@@ -102,7 +102,7 @@ void EnemyMeshShot001::processBehavior() {
 
     }
 
-    //nextAnimationFrame();
+    //addNextAnimationFrame();
     //À•W‚É”½‰f
     _pGeoMover->behave();
 

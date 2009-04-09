@@ -23,7 +23,7 @@ void EnemyShot001::processBehavior() {
         //oŒ»
         setBumpableAlone(true);
     }
-    nextAnimationFrame();
+    addNextAnimationFrame();
     //À•W‚É”½‰f
     _pGeoMover->behave();
 

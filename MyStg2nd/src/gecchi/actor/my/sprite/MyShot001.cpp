@@ -55,7 +55,7 @@ void MyShot001::processBehavior() {
         _Z = GameGlobal::_pMyShip->_Z;
     } else {
         //’Êíˆ—
-        nextAnimationFrame();
+        addNextAnimationFrame();
         //À•W‚É”½‰f
         _pGeoMover->behave();
         _pChecker->behave();

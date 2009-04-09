@@ -67,7 +67,7 @@ void GameMainScene::processBehavior() {
         setProgress(GAMEMAIN_PROG_BEGIN);
     }
 
-    if (onChangeProgress(GAMEMAIN_PROG_BEGIN)) {
+    if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pFontBoard01->setString(300, 300, "GameMainScene BEGIN");
         _pFontBoard02->setString(300, 350, "DESTOROY ALL!");
         addSubLast(obtainSceneFromFactory(11));
@@ -81,7 +81,7 @@ void GameMainScene::processBehavior() {
         }
     }
 
-    if (onChangeProgress(GAMEMAIN_PROG_PLAY)) {
+    if (onChangeProgressAt(GAMEMAIN_PROG_PLAY)) {
         _pFontBoard01->setString(300, 300, "");
         _pFontBoard02->setString(300, 350, "");
 

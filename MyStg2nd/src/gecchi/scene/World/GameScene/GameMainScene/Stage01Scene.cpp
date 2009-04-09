@@ -27,7 +27,7 @@ void Stage01Scene::processBehavior() {
     if (getProgress() == STAGE01_PROG_INIT) {
     	setProgress(STAGE01_PROG_BEGIN);
     }
-    if (onChangeProgress(STAGE01_PROG_BEGIN)) {
+    if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
 
     	_pBgmCon_st1->view()->play(false);
         _dwFrame_Begin = 0;
