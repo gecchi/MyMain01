@@ -23,7 +23,7 @@ public:
      */
     virtual void processJudgement() {
         if (getSubFirst() == NULL) {
-            seeYa();
+            arigatou_sayounara();
         }
     }
 
