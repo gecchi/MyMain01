@@ -114,7 +114,7 @@ public:
         _dwFrame_ProgressChange[prm_progress] = _dwFrame+1;
     }
 
-    bool onChangeProgress(int prm_progress) {
+    bool onChangeProgressAt(int prm_progress) {
         if (_progress != _progress_prev) {
             if (prm_progress == _progress) {
                 return true;
