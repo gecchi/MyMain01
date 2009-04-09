@@ -23,7 +23,7 @@ void DelineateActor::release() {
 
 void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
     if (prm_pChecker != NULL && prm_pChecker->getHitAreaBoxs() != NULL && prm_pChecker->getTargetActor()->canBump()
-            && prm_pChecker->getTargetActor()->isPlaying()) {
+            && prm_pChecker->getTargetActor()->isActive()) {
         GgafDx9UntransformedActor* pActor = prm_pChecker->getTargetActor();
         HitAreaBoxs* pHitAreaBoxs = prm_pChecker->getHitAreaBoxs();
 
