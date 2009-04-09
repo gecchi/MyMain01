@@ -33,7 +33,7 @@ protected:
     /** 余命 */
     DWORD _dwGodFrame_when_goodbye;
     /** ノードが誕生(addSubされた）時からのフレーム */
-    DWORD _dwFrame;
+    DWORD _lifeframe;
     /** 相対フレーム計算用 */
     DWORD _dwFrame_relative;
     /** ノード活動フラグ */
@@ -571,7 +571,7 @@ public:
      * ノードの現在の経過フレームを取得する
      */
     DWORD getFrame() {
-        return _dwFrame;
+        return _lifeframe;
     }
 
     bool willActivateNextFrame() {
@@ -613,7 +613,7 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
-            _pGod(NULL), _wasInitializedFlg(false), _dwGodFrame_when_goodbye(MAXDWORD), _dwFrame(0),
+            _pGod(NULL), _wasInitializedFlg(false), _dwGodFrame_when_goodbye(MAXDWORD), _lifeframe(0),
             _dwFrame_relative(0), _isActiveFlg(true), _wasPausedFlg(false), _wasHiddenFlg(false), _canLiveFlg(true),
             _willActivateAtNextFrameFlg(true), _willPauseAtNextFrameFlg(false), _willBlindAtNextFrameFlg(false),
             _willBeAliveAtNextFrameFlg(true), _willMoveFirstAtNextFrameFlg(false), _willMoveLastAtNextFrameFlg(false),
@@ -623,7 +623,7 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-    TRACE("GgafElement::nextFrame BEGIN _dwFrame=" << _dwFrame << " name=" << GgafNode<T>::_name << " class="
+    TRACE("GgafElement::nextFrame BEGIN _lifeframe=" << _lifeframe << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
 
     //死の時か
@@ -660,7 +660,7 @@ void GgafElement<T>::nextFrame() {
                 }
             }
             if (_isActiveFlg) {
-                _dwFrame++;
+                _lifeframe++;
             }
         }
 
@@ -704,7 +704,7 @@ void GgafElement<T>::nextFrame() {
         }
 
     }
-    TRACE("GgafElement::nextFrame END _dwFrame="<<_dwFrame<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
+    TRACE("GgafElement::nextFrame END _lifeframe="<<_lifeframe<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>
@@ -1303,7 +1303,7 @@ bool GgafElement<T>::isBehaving() {
 template<class T>
 bool GgafElement<T>::relativeFrame(DWORD prm_dwFrame_relative) {
     _dwFrame_relative += prm_dwFrame_relative;
-    if (_dwFrame == _dwFrame_relative) {
+    if (_lifeframe == _dwFrame_relative) {
         return true;
     } else {
         return false;

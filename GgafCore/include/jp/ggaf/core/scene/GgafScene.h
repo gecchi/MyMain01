@@ -111,7 +111,7 @@ public:
      */
     virtual void setProgress(int prm_progress) {
         _progress_nextframe = prm_progress;
-        _dwFrame_ProgressChange[prm_progress] = _dwFrame+1;
+        _dwFrame_ProgressChange[prm_progress] = _lifeframe+1;
     }
 
     bool onChangeProgressAt(int prm_progress) {
