@@ -204,9 +204,9 @@ void GgafScene::showAloneNow() {
     _pLordActor->showAloneNow();
 }
 
-void GgafScene::seeYa(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::seeYa(prm_dwFrameOffset);
-    _pLordActor->seeYa(prm_dwFrameOffset);
+void GgafScene::arigatou_sayounara(DWORD prm_dwFrameOffset) {
+    GgafElement<GgafScene>::arigatou_sayounara(prm_dwFrameOffset);
+    _pLordActor->arigatou_sayounara(prm_dwFrameOffset);
 }
 
 void GgafScene::cleane(int prm_num_cleaning) {

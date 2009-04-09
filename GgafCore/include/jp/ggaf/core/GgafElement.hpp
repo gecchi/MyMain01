@@ -31,7 +31,7 @@ protected:
     bool _wasInitializedFlg;
 
     /** 余命 */
-    DWORD _dwGodFrame_ofDeath;
+    DWORD _dwGodFrame_when_goodbye;
     /** ノードが誕生(addSubされた）時からのフレーム */
     DWORD _dwFrame;
     /** 相対フレーム計算用 */
@@ -487,16 +487,19 @@ public:
     void showAloneNow();
     //===================
     /**
-     * 自ノードを次フレームからおさらばさせることを宣言する .
-     * 配下ノード全てに生存終了(seeYa())がお知らせが届く。<BR>
-     * 絶命させるとは具体的には、表示フラグ(_wasHiddenFlg)、振る舞いフラグ(_isActiveFlg)、生存フラグ(_canLiveFlg) を、
+     * さよならします。 .
+     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。 <BR>
+     * 自ツリーノード全てに生存終了(arigatou_sayounara())がお知らせが届く。<BR>
+     * 生存終了とは具体的には、表示フラグ(_wasHiddenFlg)、振る舞いフラグ(_isActiveFlg)、生存フラグ(_canLiveFlg) を、
      * 次フレームからアンセットする事である。<BR>
-     * _canLiveFlg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に実行される cleane() メソッドにより
+     * _canLiveFlg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより
      * delete の対象となる。<BR>
      * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれない。
-     * インスタンスがすぐに解放されないことに注意。<BR>
+     * インスタンスがすぐに解放されないことに注意。今はさよならするだけ。<BR>
+     * 注意：さよならした後『同一フレーム内』に、 _canLiveFlg をセットし直しても駄目です。<BR>
+     * これは本メソッドで、GgafGarbageRootActorに所属するためです。<BR>
      */
-    void seeYa(DWORD prm_dwFrameOffset = 0);
+    void arigatou_sayounara(DWORD prm_dwFrameOffset = 0);
 
     /**
      * 自ツリーノードを最終ノードに移動する .
@@ -610,7 +613,7 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
-            _pGod(NULL), _wasInitializedFlg(false), _dwGodFrame_ofDeath(MAXDWORD), _dwFrame(0),
+            _pGod(NULL), _wasInitializedFlg(false), _dwGodFrame_when_goodbye(MAXDWORD), _dwFrame(0),
             _dwFrame_relative(0), _isActiveFlg(true), _wasPausedFlg(false), _wasHiddenFlg(false), _canLiveFlg(true),
             _willActivateAtNextFrameFlg(true), _willPauseAtNextFrameFlg(false), _willBlindAtNextFrameFlg(false),
             _willBeAliveAtNextFrameFlg(true), _willMoveFirstAtNextFrameFlg(false), _willMoveLastAtNextFrameFlg(false),
@@ -624,7 +627,7 @@ void GgafElement<T>::nextFrame() {
             << GgafNode<T>::_class_name);
 
     //死の時か
-    if (_dwGodFrame_ofDeath == (askGod()->_dwFrame_God)) {
+    if (_dwGodFrame_when_goodbye == (askGod()->_dwFrame_God)) {
         _willActivateAtNextFrameFlg = false;
         _willBeAliveAtNextFrameFlg = false;
     }
@@ -1235,13 +1238,13 @@ void GgafElement<T>::showAloneNow() {
     }
 }
 template<class T>
-void GgafElement<T>::seeYa(DWORD prm_dwFrameOffset) {
+void GgafElement<T>::arigatou_sayounara(DWORD prm_dwFrameOffset) {
 
-    _dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
+    _dwGodFrame_when_goodbye = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {
-            pElementTemp->seeYa(prm_dwFrameOffset);
+            pElementTemp->arigatou_sayounara(prm_dwFrameOffset);
             if (pElementTemp->_isLastFlg) {
                 break;
             } else {

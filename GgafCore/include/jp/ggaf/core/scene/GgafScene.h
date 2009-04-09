@@ -198,7 +198,7 @@ public:
      * 自ツリーシーンを次フレーム絶命させる。 .
      * ＜OverRide です＞<BR>
      */
-    virtual void seeYa(DWORD prm_dwFrameOffset = 0);
+    virtual void arigatou_sayounara(DWORD prm_dwFrameOffset = 0);
 
     /**
      * 自ツリーシーンを絶命させる。 .
