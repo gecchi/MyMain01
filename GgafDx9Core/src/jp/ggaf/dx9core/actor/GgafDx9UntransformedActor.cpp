@@ -34,7 +34,7 @@ void GgafDx9UntransformedActor::processDrawPrior() {
     if (_isActiveFlg && !_wasHiddenFlg && _canLiveFlg) {
         if (getAlpha() < 1.0) {
             //“§–¾‚Ìê‡‚ÍAZŽ²’l‚Å‰“‚­‚©‚ç•`‰æ‚·‚é‚æ‚¤‚ÉÝ’èB
-            //_Z ‚ª ƒJƒƒ‰ ` ƒJƒƒ‰+2000,000 ‚ÌŠÔ‚Å‚ ‚ê‚Î’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ð‚·‚é‚±‚Æ‚Æ‚·‚éB
+            //_Z ‚ª ƒJƒƒ‰ˆÊ’u ` ƒJƒƒ‰+2000,000 ‚ÌŠÔ‚Å‚ ‚ê‚Î’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ð‚·‚é‚±‚Æ‚Æ‚·‚éB
             //‘e‚³‚Í 2000,000/MAX_DRAW_DEPTH_LEVELB©‚±‚Ì”ÍˆÍ‚ÌZ‚Í“¯ˆê[“x‚Æ‚È‚éB
             //TODO: ƒJƒƒ‰‚ª‚®‚è‚®‚è“®‚­‚Æ”gó‚·‚éB³‚µ‚­‚ÍƒJƒƒ‰À•W‚©‚ç‚Ì‹——£‚Åƒ\[ƒg‚·‚×‚«BEEE‚»‚Ì“à‚â‚ë‚¤B
             GgafDx9World::setDrawDepthLevel(
@@ -50,7 +50,7 @@ void GgafDx9UntransformedActor::processDrawPrior() {
 }
 void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //WORLD•ÏŠ·
-    //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬•ƒfƒoƒCƒX‚ÉÝ’è .
+    //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
     // |                         cosRZ*cosRY*sx,          sinRZ*sy,                         cosRZ*-sinRY*sz,   0  |
     // | ( cosRX*-sinRZ*cosRY + sinRX*sinRY)*sx,    cosRX*cosRZ*sy, ( cosRX*-sinRZ*-sinRY + sinRX*cosRY)*sz,   0  |
@@ -197,7 +197,7 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9Untransformed
 
 void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //WORLD•ÏŠ·
-    //’PˆÊs—ñ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬•ƒfƒoƒCƒX‚ÉÝ’è
+    //’PˆÊs—ñ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     // |cosZ  , sinZ , 0  , 0  |
     // |-sinZ , cosZ , 0  , 0  |
     // |0     , 0    , 1  , 0  |
@@ -229,7 +229,7 @@ void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor*
 void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
     //WORLD•ÏŠ·
-    //’PˆÊs—ñ ~ Šg‘åk¬ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬•ƒfƒoƒCƒX‚ÉÝ’è
+    //’PˆÊs—ñ ~ Šg‘åk¬ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     // |sx*cosZ , sx*sinZ , 0    , 0  |
     // |sy*-sinZ, sy*cosZ , 0    , 0  |
     // |0       , 0       , sz   , 0  |

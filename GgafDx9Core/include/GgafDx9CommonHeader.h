@@ -108,7 +108,7 @@ class GgafDx9Effect;
 class GgafDx9MeshEffect;
 class GgafDx9SpriteEffect;
 class GgafDx9BoardEffect;
-
+class GgafDx9StringBoardActor;
 
 class GgafDx9Scene;
 class GgafDx9World;
@@ -171,6 +171,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9SpriteEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardEffect.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9World.h"
