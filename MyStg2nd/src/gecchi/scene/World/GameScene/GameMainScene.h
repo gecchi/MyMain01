@@ -12,9 +12,9 @@ class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
 public:
     char _buf[20];
-    GgafDx9LibStg::FontBoardActor* _pFontBoard_SCORE;
-    GgafDx9LibStg::FontBoardActor* _pFontBoard01;
-    GgafDx9LibStg::FontBoardActor* _pFontBoard02;
+    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_SCORE;
+    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard01;
+    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard02;
 
 
 

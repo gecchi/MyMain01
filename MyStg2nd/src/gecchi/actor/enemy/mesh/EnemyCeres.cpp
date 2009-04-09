@@ -91,42 +91,42 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::processBehavior() {
-    //	if (_dwFrame > 5) {
-    //		_TRACE_(_dwFrame << ":("<<_X<<","<<_Y<<","<<_Z<<")");
+    //	if (_lifeframe > 5) {
+    //		_TRACE_(_lifeframe << ":("<<_X<<","<<_Y<<","<<_Z<<")");
     //	}
     //
-    //	if (_dwFrame == 100) {
+    //	if (_lifeframe == 100) {
     //		_pGeoMover->setRyMoveAngle(0);
-    //	} else if (_dwFrame == 200) {
-    //		_TRACE_("_dwFrame="<<_dwFrame);
+    //	} else if (_lifeframe == 200) {
+    //		_TRACE_("_lifeframe="<<_lifeframe);
     //		//_pGeoMover->setRyMoveAngle(ANGLE45);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE45);
-    //	} else if (_dwFrame == 300) {
+    //	} else if (_lifeframe == 300) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE90);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE90);
-    //	} else if (_dwFrame == 400) {
+    //	} else if (_lifeframe == 400) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE135);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE135);
-    //	} else if (_dwFrame == 500) {
+    //	} else if (_lifeframe == 500) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE180);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
-    //	} else if (_dwFrame == 600) {
+    //	} else if (_lifeframe == 600) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE225);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE225);
-    //	} else if (_dwFrame == 700) {
+    //	} else if (_lifeframe == 700) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE270);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE270);
-    //	} else if (_dwFrame == 800) {
+    //	} else if (_lifeframe == 800) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE315);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE315);
-    //	} else if (_dwFrame == 900) {
+    //	} else if (_lifeframe == 900) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE360);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
     //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE360);

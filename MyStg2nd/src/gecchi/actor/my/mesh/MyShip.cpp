@@ -171,7 +171,7 @@ void MyShip::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            //pLaser->_dwFrame_switchedToActiveFlg = _dwFrame;
+            //pLaser->_dwFrame_switchedToActiveFlg = _lifeframe;
         }
     }
 

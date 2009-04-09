@@ -47,7 +47,7 @@ void Stage01Scene::processBehavior() {
 void Stage01Scene::processJudgement() {
     //当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
-    if (_dwFrame >= 2) {
+    if (_lifeframe >= 2) {
         executeBumpChkHeadActors(KIND_CHIKEI, KIND_MY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL
                 | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER);
         executeBumpChkHeadActors(KIND_ENEMY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA

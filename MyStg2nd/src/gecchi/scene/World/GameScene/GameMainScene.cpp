@@ -12,12 +12,12 @@ using namespace MyStg2nd;
 #define ORDER_ID_CREATESTAGE05SCENE 15
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
-    _pFontBoard_SCORE = NEW FontBoardActor("SCORE", "B/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontBoard_SCORE);
-    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
-    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
+    _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "B/moji");
+    getLordActor()->accept(KIND_EFFECT, _pStringBoard_SCORE);
+    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "B/moji");
+    getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
+    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "B/moji");
+    getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
     _pStage01 = NULL;
     _pStage02 = NULL;
     _pStage03 = NULL;
@@ -68,8 +68,8 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
-        _pFontBoard01->setString(300, 300, "GameMainScene BEGIN");
-        _pFontBoard02->setString(300, 350, "DESTOROY ALL!");
+        _pStringBoard01->update(300, 300, "GameMainScene BEGIN");
+        _pStringBoard02->update(300, 350, "DESTOROY ALL!");
         addSubLast(obtainSceneFromFactory(11));
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
@@ -82,14 +82,14 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_PLAY)) {
-        _pFontBoard01->setString(300, 300, "");
-        _pFontBoard02->setString(300, 350, "");
+        _pStringBoard01->update(300, 300, "");
+        _pStringBoard02->update(300, 350, "");
 
     }
 
     //SCORE•\Ž¦
     sprintf(_buf, "SCORE:%07u", GameGlobal::_dwScore);
-    _pFontBoard_SCORE->setString(500, 0, _buf);
+    _pStringBoard_SCORE->update(500, 0, _buf);
 }
 
 void GameMainScene::processFinal() {

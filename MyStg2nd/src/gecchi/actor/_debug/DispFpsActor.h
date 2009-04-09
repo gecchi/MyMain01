@@ -2,7 +2,7 @@
 #define DISPFPSACTOR_H_
 namespace MyStg2nd {
 
-class DispFpsActor : public GgafDx9LibStg::FontBoardActor {
+class DispFpsActor : public GgafDx9Core::GgafDx9StringBoardActor {
     char _aBuf[80];
     std::string _strFps;
 public:

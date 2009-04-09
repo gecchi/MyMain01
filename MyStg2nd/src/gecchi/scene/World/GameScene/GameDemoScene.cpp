@@ -7,10 +7,10 @@ using namespace MyStg2nd;
 
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEDEMO_PROG_INIT);
-    _pFontBoard01 = NEW FontBoardActor("STR01", "B/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontBoard01);
-    _pFontBoard02 = NEW FontBoardActor("STR02", "B/moji");
-    getLordActor()->accept(KIND_EFFECT, _pFontBoard02);
+    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "B/moji");
+    getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
+    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "B/moji");
+    getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
 }
 void GameDemoScene::reset() {
     _TRACE_("GameDemoScene::reset()");
@@ -32,8 +32,8 @@ void GameDemoScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_BEGIN)) {
-        _pFontBoard01->setString(100, 100, "GameDemoScene BEGIN");
-        _pFontBoard02->setString(100, 150, "HAJIMARI HAJIMARI!");
+        _pStringBoard01->update(100, 100, "GameDemoScene BEGIN");
+        _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
         //タイトル活動ループ
@@ -49,8 +49,8 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_TITLE)) {
     	 //タイトル開始
-        _pFontBoard01->setString(100, 100, "GameDemoScene TITLE");
-        _pFontBoard02->setString(100, 150, "PUSH A UI_EXECUTE BUTTON");
+        _pStringBoard01->update(100, 100, "GameDemoScene TITLE");
+        _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
         _dwFrame_Title = 0;
     } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
         //タイトル活動ループ
@@ -68,8 +68,8 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
     	//デモプレイ開始
-        _pFontBoard01->setString(100, 100, "GameDemoScene DEMOPLAY");
-        _pFontBoard02->setString(100, 150, "GAME OVER");
+        _pStringBoard01->update(100, 100, "GameDemoScene DEMOPLAY");
+        _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
         _dwFrame_Demoplay = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
@@ -86,8 +86,8 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
-        _pFontBoard01->setString(100, 100, "GameDemoScene RANKING");
-        _pFontBoard02->setString(100, 150, "1st GecchiraQ");
+        _pStringBoard01->update(100, 100, "GameDemoScene RANKING");
+        _pStringBoard02->update(100, 150, "1st GecchiraQ");
         _dwFrame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ
@@ -112,8 +112,8 @@ void GameDemoScene::processBehavior() {
 
     //ゲームスタート
     if (onChangeProgressAt(GAMEDEMO_PROG_DECIDE)) {
-        _pFontBoard01->setString(100, 100, "GameDemoScene DECIDE");
-        _pFontBoard02->setString(100, 150, "OK HJIMARIMASU!");
+        _pStringBoard01->update(100, 100, "GameDemoScene DECIDE");
+        _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
         //活動ループ
@@ -125,8 +125,8 @@ void GameDemoScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_END)) {
-        _pFontBoard01->setString(100, 100, "GameDemoScene END");
-        _pFontBoard02->setString(100, 150, "SRABA");
+        _pStringBoard01->update(100, 100, "GameDemoScene END");
+        _pStringBoard02->update(100, 150, "SRABA");
         inactivateTreeAfter(200);
     }
 
