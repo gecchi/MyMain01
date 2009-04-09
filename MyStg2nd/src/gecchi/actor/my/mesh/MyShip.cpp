@@ -19,17 +19,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     _iMoveSpeed = 4000;
 
     //CommonSceneがnewの場合設定
-    _iShotKind01 = 0;
-    _iShotKind02 = 0;
-    _iShotKind03 = 0;
-
     //キャッシュロード
     //GgafDx9SeManager::get("laser001");
 
 
-    _tmpX = _X;
-    _tmpY = _Y;
-    _tmpZ = _Z;
 
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
@@ -46,35 +39,14 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     _iMvVelo_BeginMT = _iMoveSpeed * 3; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
-    _iMvAcce_EOD_MT = -500; //Turbo中に逆方向に入力される事により加算される（減速する）速度
-
-
-    _angRZTopVelo_MNY = 2000; //上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度
-    _angRZAcce_MNY = 100; //上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のZ軸回転角加速度(正負共通)
-
-    _dwFrameNextXYTurboOut = 0; //XY次回ターボ終了フレーム
-    _dwIntervalXYTurbo = 60; //XYターボ終了フレーム間隔
-
-
-    _dwFrameTurboMove = 0; //ターボ経過フレーム
-    _dwFrameXYTurboMove = 0; //ターボ経過フレーム
-
-    _dwIntervalFinshTurbo = 60;
-
-    _angFaceTurnRange = 30000;//振り向き許容アングる
-    _angRotVelo_FaceTurn = 2000;
-
-    _dwFrameNomalMove = 0; //通常移動経過フレーム
     _way = WAY_FRONT;
-    _dRate_TurboControl = 0.8; //ターボ中移動制御できる割合
-    _iTurboControl = 0;
 
     _pMyShots001Rotation = NEW RotationActor("RotShot001");
     addSubLast(_pMyShots001Rotation); //仮所属
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
-        pShot->inactivateNow();
+        pShot->inactivateTreeNow();
         _pMyShots001Rotation->addSubLast(pShot);
     }
 
@@ -83,27 +55,13 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
-        pWave->inactivateNow();
+        pWave->inactivateTreeNow();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
 
     _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
     addSubLast(_pMyLaserChipRotation);
-//    _pMyLaserChipRotation = NEW RotationActor("RotLaser001");
-//    addSubLast(_pMyLaserChipRotation);//仮所属
-//    MyLaserChip2* pChip;
-//    for (int i = 0; i < 100; i++) { //レーザーストック
-//        pChip = NEW MyLaserChip2("MYS_MyLaserChip2", "m/laserchip9");
-//        pChip->inactivateNow();
-//        _pMyLaserChipRotation->addSubLast(pChip);
-//    }
 
-//    for (int i = 0; i < EQ_MAX_OPTION; i++) {
-//        MyOption* pOption = NEW MyOption("MY_OPTION");
-//        pOption->_iMyNo = i; //おぷ番
-//        pOption->inactivateAloneNow();
-//        addSubLast(pOption);
-//    }
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -198,7 +156,7 @@ void MyShip::processBehavior() {
     if (VB::isPushedDown(VB_SHOT1)) {
         MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->obtain();
         if (pShot != NULL) {
-            pShot->activate();
+            pShot->activateTree();
 
             EffectExplosion001* pExplo001 =
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
@@ -221,7 +179,7 @@ void MyShip::processBehavior() {
     if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
         MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->obtain();
         if (pWave != NULL) {
-            pWave->activate();
+            pWave->activateTree();
 
             EffectExplosion001* pExplo001 =
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
@@ -257,13 +215,11 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    farewell();
+    seeYa();
 }
 
 
 void MyShip::beginTurboXZ(int prm_VB) {
-    _dwFrameTurboMove = 0;
-    _dwFrameXYTurboMove = 0;
     _pGeoMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pGeoMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pGeoMover->setMoveAcceleration(_iMvAcce_MT);
@@ -321,8 +277,6 @@ void MyShip::beginTurboXZ(int prm_VB) {
 
 
 void MyShip::beginTurboXY(int prm_VB) {
-    _dwFrameTurboMove = 0;
-    _dwFrameXYTurboMove = 0;
     _pGeoMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pGeoMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pGeoMover->setMoveAcceleration(_iMvAcce_MT);

@@ -11,7 +11,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     addSubLast(_pStage01Main);
     Sleep(2);
 	_pBackGround01 = NEW BackGround01Board("BACKGOROUND01", "");
-	_pBackGround01->inactivate();
+	_pBackGround01->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
 
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
@@ -36,7 +36,7 @@ void Stage01Scene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
-        	_pBackGround01->activate();
+        	_pBackGround01->activateTree();
         	_pStage01Main->activateAlone();
             setProgress(STAGE01_PROG_PLAY);
         }

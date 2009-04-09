@@ -33,7 +33,7 @@ void EffectExplosion001::processBehavior() {
 
 void EffectExplosion001::processJudgement() {
     if (_pattno_ani_now >= _pattno_ani_bottom) {
-        inactivate();
+        inactivateTree();
     }
 }
 

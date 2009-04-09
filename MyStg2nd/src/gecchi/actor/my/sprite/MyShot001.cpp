@@ -42,7 +42,7 @@ void MyShot001::initialize() {
     setAlpha(0.3);
 
     setBumpableAlone(true);
-    inactivate();
+    inactivateTree();
 
 }
 
@@ -64,14 +64,14 @@ void MyShot001::processBehavior() {
 
 void MyShot001::processJudgement() {
     if (isOffScreen()) {
-        inactivate();
+        inactivateTree();
     }
 
 }
 
 
 void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
-    inactivate();
+    inactivateTree();
 }
 
 void MyShot001::onInactive() {

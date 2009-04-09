@@ -23,9 +23,9 @@ StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
 //    //ˆêŽž’âŽ~
 //    if (VB::isPushedDown(VB_UI_CANCEL)) {
 //        if (_pause) {
-//            pause();
+//            pauseTree();
 //        } else {
-//            unpause();
+//            unpauseTree();
 //        }
 //    }
 //}

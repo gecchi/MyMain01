@@ -28,7 +28,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     for (int i = 0; i < 16; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactivateNow(); //Å‰”ñ•\Ž¦
+        pEnemyMeshShot->inactivateTreeNow(); //Å‰”ñ•\Ž¦
             _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
         //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®
@@ -159,7 +159,7 @@ void EnemyCeres::processBehavior() {
         //			if (pTama != NULL) {
         //				pTama->setGeometry (_X, _Y, 0);
         //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
-        //				pTama->activate();
+        //				pTama->activateTree();
         //			}
         //		}
 
@@ -219,7 +219,7 @@ void EnemyCeres::processBehavior() {
 //			if (pTama) {
 //				pTama->setGeometry (_X, _Y, 0);
 //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
-//				pTama->activate();
+//				pTama->activateTree();
 //			}
 //		}
 //
@@ -269,9 +269,9 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (isOffScreen()) {
-        farewell();
+        seeYa();
         if (_createRotationActor) { //’e‰ð•ú—\–ñ
-            _pRotEnemyMeshShots001->farewell(60 * 5);
+            _pRotEnemyMeshShots001->seeYa(60 * 5);
         }
     }
 }
@@ -284,9 +284,9 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         GameGlobal::_dwScore += _pChecker->_iScorePoint;
     }
 
-    farewell();
+    seeYa();
     if (_createRotationActor) { //’e‰ð•ú—\–ñ
-        _pRotEnemyMeshShots001->farewell(60 * 5);
+        _pRotEnemyMeshShots001->seeYa(60 * 5);
     }
 
     EffectExplosion001* pExplo001 =

@@ -53,18 +53,8 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     };
 
 public:
-    int _tmpX;
-    int _tmpY;
-    int _tmpZ;
-
     /** 方向入力値 */
     int _stc;
-
-    /** XYターボ終了時期(Frame) */
-    DWORD _dwFrameNextXYTurboOut;
-
-    /** XYターボ期間(Frame) */
-    DWORD _dwIntervalXYTurbo;
 
     /** ターボ中、移動方角 */
     MoveWay _way;
@@ -93,11 +83,6 @@ public:
     //但し 値 < 0 であること。
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
-    /** Turbo中に逆方向に入力される事により減速する速度 */
-    int _iMvAcce_EOD_MT; //Move Acceleration when I enter opposite direction while I Move with Turbo
-
-
-
     /** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
     GgafDx9Core::angle _angRXVelo_BeginMZ; //Rotation axisX angle Velocity when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
@@ -119,41 +104,6 @@ public:
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
 
-
-
-
-
-
-    /** 上又は下へ通常移動時、自動的にAngle0に戻ろうとするZ軸回転角速度の上限角速度 */
-    GgafDx9Core::angle _angRZTopVelo_MNY; //Rotation Z Top angle Velocity while I Move Not Y
-    //下限角速度はこれに -1 を乗ずる
-
-
-    /** 上又は下へ通常移動時、自動的にAngle0に戻ろうとする時のY軸回転角加速度(正負共通) */
-    GgafDx9Core::angle _angRZAcce_MNY; //Rotation X angle Acceleration while I Not Move Not Y
-
-    /** ZMOVE移動中移動制御できる割合 */
-    double _dRate_TurboControl;
-    /** ZMOVE移動中移動制御増分 */
-    int _iTurboControl;
-
-    /** ターボ経過フレーム */
-    DWORD _dwFrameTurboMove;
-    DWORD _dwFrameXYTurboMove;
-
-    GgafDx9Core::angle _angFaceTurnRange;
-    GgafDx9Core::angle _angRotVelo_FaceTurn;
-
-    /** ターボ完了期間(Frame) */
-    DWORD _dwIntervalFinshTurbo;
-
-
-    /** 通常移動経過フレーム */
-    DWORD _dwFrameNomalMove;
-
-    int _iShotKind01;
-    int _iShotKind02;
-    int _iShotKind03;
 
     State _state;
 

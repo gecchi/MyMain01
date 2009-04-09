@@ -127,7 +127,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgress(GAMEDEMO_PROG_END)) {
         _pFontBoard01->setString(100, 100, "GameDemoScene END");
         _pFontBoard02->setString(100, 150, "SRABA");
-        inactivateAfter(200);
+        inactivateTreeAfter(200);
     }
 
 

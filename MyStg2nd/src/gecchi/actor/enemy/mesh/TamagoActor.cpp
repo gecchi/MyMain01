@@ -10,7 +10,7 @@ TamagoActor::TamagoActor(const char* prm_name) : DefaultMeshActor(prm_name, "X/t
 }
 
 void TamagoActor::initialize() {
-    //inactivate();
+    //inactivateTree();
     setBumpable(true);
     //
     _pGeoMover->setRzMoveAngle(ANGLE180);
@@ -136,7 +136,7 @@ void TamagoActor::processJudgement() {
 void TamagoActor::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     setBumpable(false);
-    farewell();
+    seeYa();
 }
 
 TamagoActor::~TamagoActor() {

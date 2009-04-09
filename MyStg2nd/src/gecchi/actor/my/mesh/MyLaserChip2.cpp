@@ -134,7 +134,7 @@ void MyLaserChip2::processBehavior() {
 void MyLaserChip2::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
-        inactivate();
+        inactivateTree();
     }
 }
 
@@ -155,7 +155,7 @@ void MyLaserChip2::processDrawMain() {
 
     if (_pIDirect3DVertexBuffer9_MyLaserChip2 != NULL) {
         //連続しているか
-        if (pPrevChip->isPlaying()) {
+        if (pPrevChip->isActive()) {
             //連続しているので、Prev（一つ前方）自分の正四面体頂点ABCDを、Prev（一つ前方）のChipの正四面体頂点EFGHに重ねる。
 
 
@@ -319,7 +319,7 @@ void MyLaserChip2::processDrawMain() {
     }
 
     //	static int centerX, centerY, centerZ;
-    //	if (pNextChip->isPlaying() && _dwFrame_switchedToActiveFlg+1 == pNextChip->_dwFrame_switchedToActiveFlg) {
+    //	if (pNextChip->isActive() && _dwFrame_switchedToActiveFlg+1 == pNextChip->_dwFrame_switchedToActiveFlg) {
     //		centerX = (_X - pNextChip->_X) / 2;
     //		centerY = (_Y - pNextChip->_Y) / 2;
     //		centerZ = (_Z - pNextChip->_Z) / 2;
@@ -358,7 +358,7 @@ void MyLaserChip2::processHappen(int prm_no) {
 }
 
 void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
-    inactivate();
+    inactivateTree();
 }
 
 //void MyLaserChip2::onActive() {

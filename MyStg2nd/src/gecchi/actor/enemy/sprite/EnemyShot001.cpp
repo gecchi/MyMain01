@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name, "S/hoge") {
     _class_name = "EnemyShot001";
-    inactivate();
+    inactivateTree();
 }
 
 void EnemyShot001::initialize() {
@@ -51,14 +51,14 @@ bool EnemyShot001::isOffScreen() {
 
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //farewell();
+    //seeYa();
     setBumpableAlone(false);
-    inactivate();
+    inactivateTree();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
-        pExplo001->activate();
+        pExplo001->activateTree();
     }
 }
 

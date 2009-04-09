@@ -13,7 +13,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
     for (int i = 0; i < 30; i++) { //弾ストック
                 Sleep(1);
                 pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-                pEnemyMeshShot->inactivateNow(); //最初非表示
+                pEnemyMeshShot->inactivateTreeNow(); //最初非表示
                 _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
             }
             for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
@@ -33,14 +33,14 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
 void FormationCeres002::initialize() {
     //出現予約
     for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
-        _pEnemyCeres[i]->activateAfter(i * 80 + 1);
+        _pEnemyCeres[i]->activateTreeAfter(i * 80 + 1);
     }
 }
 
 void FormationCeres002::processJudgement() {
     if (getSubFirst() == NULL) {
-        farewell();
-        _pRotEnemyMeshShots001->farewell(60 * 5);
+        seeYa();
+        _pRotEnemyMeshShots001->seeYa(60 * 5);
     }
 }
 

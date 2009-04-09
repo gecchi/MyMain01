@@ -13,7 +13,7 @@ BackGround01Board::BackGround01Board(const char* prm_name, const char* prm_dummy
     _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "B/background02");
     _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "B/background03");
     _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "B/background04");
-    inactivateNow();
+    inactivateTreeNow();
 }
 
 void BackGround01Board::initialize() {

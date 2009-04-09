@@ -20,7 +20,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EnemyShot001* pEnemyShot;
         for (int i = 0; i < 1; i++) { //ストック256個
             pEnemyShot = NEW EnemyShot001("EnemyShot001");
-            pEnemyShot->inactivateNow(); //最初非表示
+            pEnemyShot->inactivateTreeNow(); //最初非表示
             _pEnemyShots001Rotation->addSubLast(pEnemyShot);
         }
     }
@@ -31,7 +31,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 30; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
-            pEffectExplosion->inactivateNow(); //最初非表示
+            pEffectExplosion->inactivateTreeNow(); //最初非表示
             _pEffectExplosion001Rotation->addSubLast(pEffectExplosion);
         }
     }

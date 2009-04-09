@@ -21,10 +21,10 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pGameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pGameEnding);
 
-    _pGameDemo->activate();
-    _pGameBeginning->inactivate();
-    _pGameMain->inactivate();
-    _pGameEnding->inactivate();
+    _pGameDemo->activateTree();
+    _pGameBeginning->inactivateTree();
+    _pGameMain->inactivateTree();
+    _pGameEnding->inactivateTree();
 
 }
 
@@ -53,7 +53,7 @@ void GameScene::processBehavior() {
             _pGameBeginning->ready();
         }
         if (_pGameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
-            _pGameBeginning->activate();
+            _pGameBeginning->activateTree();
             _pSceneCannel = _pGameBeginning;
         }
 
@@ -68,7 +68,7 @@ void GameScene::processBehavior() {
         }
 
         if (_pGameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
-            _pGameMain->activate();
+            _pGameMain->activateTree();
             _pSceneCannel = _pGameMain;
         }
 
@@ -78,7 +78,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
-            _pGameEnding->activate();
+            _pGameEnding->activateTree();
             _pSceneCannel = _pGameEnding;
         }
 
@@ -88,7 +88,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
-            _pGameEnding->activate();
+            _pGameEnding->activateTree();
             _pSceneCannel = _pGameEnding;
         }
 

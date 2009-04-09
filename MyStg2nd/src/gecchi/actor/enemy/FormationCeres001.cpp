@@ -9,14 +9,14 @@ FormationCeres001::FormationCeres001(const char* prm_name) : FormationActor(prm_
     _class_name = "FormationCeres001";
     for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
         _pEnemyCeres[i] = NEW EnemyCeres("Ceres01");
-        _pEnemyCeres[i]->inactivateNow();
+        _pEnemyCeres[i]->inactivateTreeNow();
         addSubLast(_pEnemyCeres[i] );
     }
 }
 
 void FormationCeres001::initialize() {
     for (int i = 0; i < NUM_CERES_FORMATION001; i++) {
-        _pEnemyCeres[i]->activateAfter(i * 30 + 1);
+        _pEnemyCeres[i]->activateTreeAfter(i * 30 + 1);
     }
 }
 

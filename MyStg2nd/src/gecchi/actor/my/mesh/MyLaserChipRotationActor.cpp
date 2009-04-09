@@ -14,7 +14,7 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
     for (int i = 0; i < 32; i++) { //レーザーストック
         Sleep(1);
         pChip = NEW MyLaserChip2("MYS_MyLaserChip2");
-        pChip->inactivateNow();
+        pChip->inactivateTreeNow();
         addSubLast(pChip);
     }
     Sleep(1);

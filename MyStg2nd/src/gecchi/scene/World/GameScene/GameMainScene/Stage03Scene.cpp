@@ -19,7 +19,7 @@ void Stage03Scene::processFinal() {
 
     if (_dwFrame == 1) {
         _TRACE_("Stage03Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-        this->inactivate(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+        this->inactivateTree(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
     }
 }
 

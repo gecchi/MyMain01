@@ -74,7 +74,7 @@ void GameBeginningScene::processBehavior() {
     if (onChangeProgress(GAMEBEGINNING_PROG_END)) {
         _pFontBoard01->setString(200, 200, "GameBeginningScene END");
         _pFontBoard02->setString(200, 250, "KENTO WO INORU");
-        inactivateAfter(140);
+        inactivateTreeAfter(140);
     }
 }
 
