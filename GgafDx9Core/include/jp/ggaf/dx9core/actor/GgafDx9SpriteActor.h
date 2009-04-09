@@ -66,7 +66,7 @@ public:
      * アニメーションを次のコマへ進める .
      * アニメーションを行いたい場合メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
      */
-    void nextAnimationFrame();
+    void addNextAnimationFrame();
 
     /**
      * アニメーションパターンを設定する .

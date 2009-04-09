@@ -100,7 +100,7 @@ void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, i
     _frame_ani_interval = prm_interval;
 }
 
-void GgafDx9SpriteActor::nextAnimationFrame() {
+void GgafDx9SpriteActor::addNextAnimationFrame() {
     _aniframe_counter++;
     if (_frame_ani_interval < _aniframe_counter) {
         if (_animation_method == ORDER_LOOP) { //—áF0,1,2,3,4,5,0,1,2,3,4,5,...
