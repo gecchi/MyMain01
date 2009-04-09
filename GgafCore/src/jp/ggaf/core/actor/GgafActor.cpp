@@ -53,7 +53,7 @@ void GgafActor::setBumpable(bool prm_canBumpFlg) {
 }
 
 bool GgafActor::canBump() {
-    if (isPlaying() && _canBumpFlg) {
+    if (isActive() && _canBumpFlg) {
         return true;
     } else {
         return false;
@@ -64,7 +64,7 @@ void GgafActor::executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent) {
     if (prm_pActor_Opponent == this) {
         return;
     } else {
-        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _isAliveFlg && prm_pActor_Opponent->_isAliveFlg && _isActiveFlg
+        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _canLiveFlg && prm_pActor_Opponent->_canLiveFlg && _isActiveFlg
                 && prm_pActor_Opponent->_isActiveFlg) {
             if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
                 processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
@@ -108,7 +108,7 @@ bool GgafActor::executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent) {
     if (prm_pActor_Opponent == this) {
         return true;
     } else {
-        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _isAliveFlg && prm_pActor_Opponent->_isAliveFlg && _isActiveFlg
+        if (_canBumpFlg && prm_pActor_Opponent->_canBumpFlg && _canLiveFlg && prm_pActor_Opponent->_canLiveFlg && _isActiveFlg
                 && prm_pActor_Opponent->_isActiveFlg) {
             if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
                 processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
@@ -167,7 +167,7 @@ GgafScene* GgafActor::getPlatformScene() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_canLiveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -188,7 +188,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_isAliveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
+    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]@"<<_dwFrame<<","<<_canBumpFlg<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_canLiveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {

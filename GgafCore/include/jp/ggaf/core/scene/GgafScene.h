@@ -161,36 +161,36 @@ public:
 
     virtual void happen(int prm_no);
 
-    virtual void activate();
-    virtual void activateAfter(DWORD prm_dwFrameOffset);
+    virtual void activateTree();
+    virtual void activateTreeAfter(DWORD prm_dwFrameOffset);
     virtual void activateAlone();
-    virtual void activateNow();
+    virtual void activateTreeNow();
     virtual void activateAloneNow();
 
-    virtual void inactivate();
-    virtual void inactivateAfter(DWORD prm_dwFrameOffset);
+    virtual void inactivateTree();
+    virtual void inactivateTreeAfter(DWORD prm_dwFrameOffset);
     virtual void inactivateAlone();
-    virtual void inactivateNow();
+    virtual void inactivateTreeNow();
     virtual void inactivateAloneNow();
 
-    virtual void pause();
+    virtual void pauseTree();
     virtual void pauseAlone();
-    virtual void pauseNow();
+    virtual void pauseTreeNow();
     virtual void pauseAloneNow();
 
-    virtual void unpause();
+    virtual void unpauseTree();
     virtual void unpauseAlone();
-    virtual void unpauseNow();
+    virtual void unpauseTreeNow();
     virtual void unpauseAloneNow();
 
-    virtual void hide();
+    virtual void hideTree();
     virtual void hideAlone();
-    virtual void hideNow();
+    virtual void hideTreeNow();
     virtual void hideAloneNow();
 
-    virtual void show();
+    virtual void showTree();
     virtual void showAlone();
-    virtual void showNow();
+    virtual void showTreeNow();
     virtual void showAloneNow();
 
 
@@ -198,7 +198,7 @@ public:
      * 自ツリーシーンを次フレーム絶命させる。 .
      * ＜OverRide です＞<BR>
      */
-    virtual void farewell(DWORD prm_dwFrameOffset = 0);
+    virtual void seeYa(DWORD prm_dwFrameOffset = 0);
 
     /**
      * 自ツリーシーンを絶命させる。 .

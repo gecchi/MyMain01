@@ -14,7 +14,7 @@ namespace GgafCore {
  * 実行される。次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
  * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
- * 但し、生存フラグ(_isAliveFlg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
+ * 但し、生存フラグ(_canLiveFlg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge
@@ -43,7 +43,7 @@ protected:
     /** 一時非表示フラグ */
     bool _wasHiddenFlg;
     /** ノード生存フラグ */
-    bool _isAliveFlg;
+    bool _canLiveFlg;
 
     /** 次フレームノード活動予約フラグ、次フレームのフレーム加算時 _isActiveFlg に反映される */
     bool _willActivateAtNextFrameFlg;
@@ -51,7 +51,7 @@ protected:
     bool _willPauseAtNextFrameFlg;
     /** 次フレーム一時非表示予約フラグ、次フレームのフレーム加算時 _wasHiddenFlg に反映される  */
     bool _willBlindAtNextFrameFlg;
-    /** 次フレーム生存予約フラグ、次フレームのフレーム加算時 _isAliveFlg に設定される */
+    /** 次フレーム生存予約フラグ、次フレームのフレーム加算時 _canLiveFlg に設定される */
     bool _willBeAliveAtNextFrameFlg;
 
     /** 先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
@@ -88,8 +88,8 @@ public:
 
     /**
      * 掃除 .
-     * 神が処理時間に余裕がでたとき等に呼ばれる。<BR>
-     * 配下ノードの中にノード生存フラグ(_isAliveFlg)が false になっているノードがあれば prm_num_cleaning 個だけ delete する。<BR>
+     * 神が処理時間に余裕がでたとき等に、神が呼びだす。<BR>
+     * 配下ノードの中にノード生存フラグ(_canLiveFlg)が false になっているノードがあれば prm_num_cleaning 個だけ delete する。<BR>
      * @param prm_num_cleaning 解放するオブジェクト数
      */
     virtual void cleane(int prm_num_cleaning);
@@ -104,7 +104,7 @@ public:
     /**
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理 .
      * _willActivateAtNextFrameFlg, _willPauseAtNextFrameFlg, _willBlindAtNextFrameFlg, _willBeAliveAtNextFrameFlg を<BR>
-     * _isActiveFlg, _wasPausedFlg, _wasHiddenFlg, _isAliveFlg に反映（コピー）する。<BR>
+     * _isActiveFlg, _wasPausedFlg, _wasHiddenFlg, _canLiveFlg に反映（コピー）する。<BR>
      * また、_willMoveFirstAtNextFrameFlg, _willMoveLastAtNextFrameFlg が true の場合は、<BR>
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
@@ -115,7 +115,7 @@ public:
     /**
      * ノードのフレーム毎の振る舞い処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （_isActiveFlg && !_wasPausedFlg && _isAliveFlg）の場合 <BR>
+     * （_isActiveFlg && !_wasPausedFlg && _canLiveFlg）の場合 <BR>
      * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、judge()を実行する。<BR>
      */
@@ -130,7 +130,7 @@ public:
     }
 
     /**
-     * 活動→非活動時に切り替わった時の処理 .時処理 .
+     * 活動→非活動時に切り替わった時の処理 .
      * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
      * 必要に応じてオーバーライドする。<BR>
      */
@@ -140,7 +140,7 @@ public:
     /**
      * ノードのフレーム毎の判定処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * (つまり _isActiveFlg && !_wasPausedFlg && _isAliveFlg)の場合 <BR>
+     * (つまり _isActiveFlg && !_wasPausedFlg && _canLiveFlg)の場合 <BR>
      * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば drawPrior()、
      * 無ければ finally()を実行する。<BR>
@@ -150,7 +150,7 @@ public:
     /**
      * ノードのフレーム毎の描画事前処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-     * (つまり _isActiveFlg && !_wasHiddenFlg && _isAliveFlg)の場合 <BR>
+     * (つまり _isActiveFlg && !_wasHiddenFlg && _canLiveFlg)の場合 <BR>
      * processDrawPrior() をコールした後、配下のノード全てについて drawPrior() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawMain() を実行する。<BR>
      */
@@ -159,7 +159,7 @@ public:
     /**
      * ノードのフレーム毎の描画本処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-     * (つまり _isActiveFlg && !_wasHiddenFlg && _isAliveFlg)の場合 <BR>
+     * (つまり _isActiveFlg && !_wasHiddenFlg && _canLiveFlg)の場合 <BR>
      * processDrawMain() をコールした後、配下のノード全てについて drawMain() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、drawTerminate() を実行する。<BR>
      */
@@ -168,7 +168,7 @@ public:
     /**
      * ノードのフレーム毎の描画事後処理（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、かつ一時非表示フラグがアンセット<BR>
-     * (つまり _isActiveFlg && !_wasHiddenFlg && _isAliveFlg)の場合 <BR>
+     * (つまり _isActiveFlg && !_wasHiddenFlg && _canLiveFlg)の場合 <BR>
      * processTerminate() をコールした後、配下のノード全てについて drawTerminate() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、finally() を実行する。<BR>
      */
@@ -177,7 +177,7 @@ public:
     /**
      * ノードのフレーム毎の最終処理 .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （_isActiveFlg && !_wasPausedFlg && _isAliveFlg）の場合 <BR>
+     * （_isActiveFlg && !_wasPausedFlg && _canLiveFlg）の場合 <BR>
      * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
      * 神(GgafGod)は、世界(GgafWorld)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば cleane() を実行する。<BR>
      */
@@ -267,21 +267,21 @@ public:
      * 活動状態にする(自ツリー) .
      * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で活動状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に activate() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に activateTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * 自ノードの processBehavior() で本メソッドを呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
      * 実行されることは無いので、他ノードから実行したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
      */
-    void activate();
+    void activateTree();
     /**
      * 活動予約する(自ツリー) .
-     * Nフレーム後に activate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateAfter(DWORD) が実行される。<BR>
-     * activateAfter(1) は、activate() と同じ意味になります。<BR>
+     * Nフレーム後に activateTree() が実行されることを予約する。<BR>
+     * 自身と配下ノード全てについて再帰的に activateTreeAfter(DWORD) が実行される。<BR>
+     * activateTreeAfter(1) は、activateTree() と同じ意味になります。<BR>
      * @param prm_dwFrameOffset 遅延フレーム数(1～)
      */
-    void activateAfter(DWORD prm_dwFrameOffset);
+    void activateTreeAfter(DWORD prm_dwFrameOffset);
     /**
      * 活動状態にする(単体) .
      * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
@@ -291,14 +291,14 @@ public:
     /**
      * 活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に activateNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に activateTreeNow() が実行される。<BR>
      * 他のノードからの、「活動状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、activateNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、activateTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void activateNow();
+    void activateTreeNow();
     /**
      * 活動状態にする(単体・即時) .
      * 自ノードのみについて、活動フラグを即座に立てる。<BR>
@@ -311,19 +311,19 @@ public:
      * 非活動状態にする(自ツリー) .
      * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非活動状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivate() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
-    void inactivate();
+    void inactivateTree();
     /**
      * 非活動予約する(自ツリー) .
-     * Nフレーム後に inactivate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
-     * inactivateAfter(1) は、inactivate() と同じ意味になります。<BR>
+     * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateTreeAfter(DWORD) が実行される。<BR>
+     * inactivateTreeAfter(1) は、inactivateTree() と同じ意味になります。<BR>
      * @param prm_dwFrameOffset 遅延フレーム数(1～)
      */
-    void inactivateAfter(DWORD prm_dwFrameOffset);
+    void inactivateTreeAfter(DWORD prm_dwFrameOffset);
     /**
      * 非活動状態にする(単体) .
      * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
@@ -333,14 +333,14 @@ public:
     /**
      * 非活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateTreeNow() が実行される。<BR>
      * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、inactivateNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、inactivateTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void inactivateNow();
+    void inactivateTreeNow();
     /**
      * 非活動状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
@@ -353,11 +353,11 @@ public:
      * 一時停止にする(自ツリー) .
      * 正確には、次フレームから一時停止にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で一時停止になる事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に pauseTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
-    void pause();
+    void pauseTree();
     /**
      * 一時停止にする(単体) .
      * 自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
@@ -367,14 +367,14 @@ public:
     /**
      * 一時停止にする(自ツリー・即時) .
      * 正確には、一時停止フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に pauseNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に pauseTreeNow() が実行される。<BR>
      * 他のノードからの、「一時停止ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、pauseNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、pauseTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void pauseNow();
+    void pauseTreeNow();
     /**
      * 一時停止にする(単体・即時) .
      * 自ノードのみについて、一時停止フラグを即座に立てる。<BR>
@@ -387,11 +387,11 @@ public:
      * 一時停止状態を解除にする(自ツリー) .
      * 正確には、次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で一時停止状態が解除される事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に unpauseTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
-    void unpause();
+    void unpauseTree();
     /**
      * 一時停止状態を解除にする(単体) .
      * 自ノードだけ次フレームから一時停止状態を解除にする予約フラグを立てる。<BR>
@@ -401,14 +401,14 @@ public:
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
      * 正確には、一時停止状態フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に unpauseNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に unpauseTreeNow() が実行される。<BR>
      * 他のノードからの、「一時停止状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、unpauseNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、unpauseTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void unpauseNow();
+    void unpauseTreeNow();
     /**
      * 一時停止状態を解除にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
@@ -421,12 +421,12 @@ public:
      * 非表示状態にする(自ツリー) .
      * 正確には、次フレームから非表示状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非表示状態になる事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に hide() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に hideTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、非表示状態となっている。<BR>
      */
-    void hide();
+    void hideTree();
     /**
      * 非表示状態にする(単体) .
      * 自ノードだけ次フレームから非表示状態にする予約フラグを立てる。<BR>
@@ -436,14 +436,14 @@ public:
     /**
      * 非表示状態にする(自ツリー・即時) .
      * 正確には、非活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に hideNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に hideTreeNow() が実行される。<BR>
      * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、hideNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、hideTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void hideNow();
+    void hideTreeNow();
     /**
      * 非表示状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
@@ -456,11 +456,11 @@ public:
      * 非表示状態を解除にする(自ツリー) .
      * 正確には、次フレームから非表示状態を解除する予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非表示状態が解除される事になります。<BR>
-     * 自身と配下ノード全てについて再帰的に show() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に showTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は非表示状態の変化は無く一貫性は保たれる。<BR>
      * 他ノードに対して使用したり、processFinal() などでの使用を想定。<BR>
      */
-    void show();
+    void showTree();
     /**
      * 非表示状態を解除にする(単体) .
      * 自ノードだけ次フレームから非表示状態を解除する予約フラグを立てる。<BR>
@@ -470,14 +470,14 @@ public:
     /**
      * 非表示状態を解除する(自ツリー・即時) .
      * 正確には、非表示フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に showNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に showTreeNow() が実行される。<BR>
      * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、showNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、showTreeNow() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void showNow();
+    void showTreeNow();
     /**
      * 非表示状態を解除する(単体・即時) .
      * 自ノードのみについて、非表示状フラグを即座に下げる。<BR>
@@ -487,14 +487,16 @@ public:
     void showAloneNow();
     //===================
     /**
-     * 自ノードを次フレームから絶命させることを宣言する .
-     * 配下ノード全てに生存終了(farewell())がお知らせが届く。<BR>
-     * 絶命させるとは具体的には、表示フラグ(_wasHiddenFlg)、振る舞いフラグ(_isActiveFlg)、生存フラグ(_isAliveFlg) を <BR>
+     * 自ノードを次フレームからおさらばさせることを宣言する .
+     * 配下ノード全てに生存終了(seeYa())がお知らせが届く。<BR>
+     * 絶命させるとは具体的には、表示フラグ(_wasHiddenFlg)、振る舞いフラグ(_isActiveFlg)、生存フラグ(_canLiveFlg) を、
      * 次フレームからアンセットする事である。<BR>
-     * これにより、神(GgafGod)が処理時間の余裕のある時に実行される cleane() メソッドにより delete の対象となる。<BR>
-     * したがって、本メンバ関数を実行しても、『同一フレーム内』ではインスタンスがすぐに解放されません。<BR>
+     * _canLiveFlg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に実行される cleane() メソッドにより
+     * delete の対象となる。<BR>
+     * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれない。
+     * インスタンスがすぐに解放されないことに注意。<BR>
      */
-    void farewell(DWORD prm_dwFrameOffset = 0);
+    void seeYa(DWORD prm_dwFrameOffset = 0);
 
     /**
      * 自ツリーノードを最終ノードに移動する .
@@ -540,27 +542,27 @@ public:
      * 生存可能か調べる
      * @return  bool true:生存可能／false:生存不可
      */
-    bool isAlive() {
-        return _isAliveFlg;
+    bool canLive() {
+        return _canLiveFlg;
     }
 
     /**
      * 活動中か調べる
      * @return  bool true:活動中／false:非活動中
      */
-    bool isPlaying();
+    bool isActive();
 
     /**
-     * 活動しているか
-     * @return  bool true:活動可能／false:活動不可
+     * 振る舞いは行なわれているか（＝一時停止されていないか）
+     * @return  bool true:振る舞い可能（一時停止では無い）／false:振る舞い不可（一時停止中）
      */
     bool isBehaving();
 
     /**
      * 描画するかどうか調べる（非表示でないかどうか）
-     * @return  bool true:描画できる／false:描画はしない
+     * @return  bool true:描画できる(表示対象)／false:描画はしない(非表示対象)
      */
-    bool canDraw();
+    bool isVisible();
 
     /**
      * ノードの現在の経過フレームを取得する
@@ -609,7 +611,7 @@ public:
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
             _pGod(NULL), _wasInitializedFlg(false), _dwGodFrame_ofDeath(MAXDWORD), _dwFrame(0),
-            _dwFrame_relative(0), _isActiveFlg(true), _wasPausedFlg(false), _wasHiddenFlg(false), _isAliveFlg(true),
+            _dwFrame_relative(0), _isActiveFlg(true), _wasPausedFlg(false), _wasHiddenFlg(false), _canLiveFlg(true),
             _willActivateAtNextFrameFlg(true), _willPauseAtNextFrameFlg(false), _willBlindAtNextFrameFlg(false),
             _willBeAliveAtNextFrameFlg(true), _willMoveFirstAtNextFrameFlg(false), _willMoveLastAtNextFrameFlg(false),
             _willActivateAfterFrameFlg(false), _dwGodFremeWhenActive(0), _willInactivateAfterFrameFlg(false), _dwGodFremeWhenInactivate(0),
@@ -638,18 +640,18 @@ void GgafElement<T>::nextFrame() {
             _wasInitializedFlg = true;
         }
 
-        if (_isAliveFlg) {
+        if (_canLiveFlg) {
             if (_willActivateAfterFrameFlg) {
                 //遅延play処理
                 if (askGod()->_dwFrame_God >= _dwGodFremeWhenActive) {
-                    activateNow();
+                    activateTreeNow();
                     _dwGodFremeWhenActive = 0;
                     _willActivateAfterFrameFlg = false;
                 }
             } else if (_willInactivateAfterFrameFlg) {
                 //遅延stop処理
                 if (askGod()->_dwFrame_God == _dwGodFremeWhenInactivate) {
-                    inactivateNow();
+                    inactivateTreeNow();
                     _dwGodFremeWhenInactivate = 0;
                     _willInactivateAfterFrameFlg = false;
                 }
@@ -672,21 +674,21 @@ void GgafElement<T>::nextFrame() {
         _isActiveFlg   = _willActivateAtNextFrameFlg;
         _wasPausedFlg  = _willPauseAtNextFrameFlg;
         _wasHiddenFlg = _willBlindAtNextFrameFlg;
-        _isAliveFlg    = _willBeAliveAtNextFrameFlg;
+        _canLiveFlg    = _willBeAliveAtNextFrameFlg;
 
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
                 if (pElementTemp->_isLastFlg) {
                     pElementTemp->nextFrame();
-                    if (pElementTemp->_isAliveFlg == false) {
+                    if (pElementTemp->_canLiveFlg == false) {
                         GgafFactory::_pGarbageBox->add(pElementTemp);
                     }
                     break;
                 } else {
                     pElementTemp = pElementTemp->SUPER::_pNext;
                     pElementTemp->SUPER::_pPrev->nextFrame();
-                    if (pElementTemp->SUPER::_pPrev->_isAliveFlg == false) {
+                    if (pElementTemp->SUPER::_pPrev->_canLiveFlg == false) {
                         GgafFactory::_pGarbageBox->add(pElementTemp->SUPER::_pPrev);
                     }
                 }
@@ -716,7 +718,7 @@ void GgafElement<T>::behave() {
         onInactive();
     }
 
-    if (_isActiveFlg && !_wasPausedFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasPausedFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         processBehavior();
         if (SUPER::_pSubFirst != NULL) {
@@ -740,7 +742,7 @@ void GgafElement<T>::judge() {
         _wasInitializedFlg = true;
     }
 
-    if (_isActiveFlg && !_wasPausedFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasPausedFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         processJudgement();
         if (SUPER::_pSubFirst != NULL) {
@@ -764,7 +766,7 @@ void GgafElement<T>::drawPrior() {
         _wasInitializedFlg = true;
     }
 
-    if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasHiddenFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         processDrawPrior();
         if (SUPER::_pSubFirst != NULL) {
@@ -788,7 +790,7 @@ void GgafElement<T>::drawMain() {
         _wasInitializedFlg = true;
     }
 
-    if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasHiddenFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
@@ -811,7 +813,7 @@ void GgafElement<T>::drawTerminate() {
         _wasInitializedFlg = true;
     }
 
-    if (_isActiveFlg && !_wasHiddenFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasHiddenFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         processDrawTerminate();
         if (SUPER::_pSubFirst != NULL) {
@@ -835,7 +837,7 @@ void GgafElement<T>::happen(int prm_no) {
         _wasInitializedFlg = true;
     }
 
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _dwFrame_relative = 0;
         processHappen(prm_no);
         if (SUPER::_pSubFirst != NULL) {
@@ -859,7 +861,7 @@ void GgafElement<T>::finally() {
         _wasInitializedFlg = true;
     }
 
-    if (_isActiveFlg && !_wasPausedFlg && _isAliveFlg) {
+    if (_isActiveFlg && !_wasPausedFlg && _canLiveFlg) {
         _dwFrame_relative = 0;
         processFinal();
         if (SUPER::_pSubFirst != NULL) {
@@ -878,7 +880,7 @@ void GgafElement<T>::finally() {
 
 template<class T>
 void GgafElement<T>::activateAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willActivateAtNextFrameFlg = true;
         _willPauseAtNextFrameFlg = false;
         _willBlindAtNextFrameFlg = false;
@@ -886,15 +888,15 @@ void GgafElement<T>::activateAlone() {
 }
 
 template<class T>
-void GgafElement<T>::activate() {
-    if (_isAliveFlg) {
+void GgafElement<T>::activateTree() {
+    if (_canLiveFlg) {
         _willActivateAtNextFrameFlg = true;
         _willPauseAtNextFrameFlg = false;
         _willBlindAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->activate();
+                pElementTemp->activateTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -907,7 +909,7 @@ void GgafElement<T>::activate() {
 
 template<class T>
 void GgafElement<T>::activateAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         if (_isActiveFlg == false) {
             _switchedToActiveFlg = true;
         } else {
@@ -923,8 +925,8 @@ void GgafElement<T>::activateAloneNow() {
 }
 
 template<class T>
-void GgafElement<T>::activateNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::activateTreeNow() {
+    if (_canLiveFlg) {
         if (_isActiveFlg == false) {
             _switchedToActiveFlg = true;
         } else {
@@ -939,7 +941,7 @@ void GgafElement<T>::activateNow() {
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->activateNow();
+                pElementTemp->activateTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -951,26 +953,26 @@ void GgafElement<T>::activateNow() {
 }
 
 template<class T>
-void GgafElement<T>::activateAfter(DWORD prm_dwFrameOffset) {
+void GgafElement<T>::activateTreeAfter(DWORD prm_dwFrameOffset) {
     _willActivateAfterFrameFlg = true;
     _dwGodFremeWhenActive = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
 template<class T>
 void GgafElement<T>::inactivateAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willActivateAtNextFrameFlg = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::inactivate() {
-    if (_isAliveFlg) {
+void GgafElement<T>::inactivateTree() {
+    if (_canLiveFlg) {
         _willActivateAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->inactivate();
+                pElementTemp->inactivateTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -982,14 +984,14 @@ void GgafElement<T>::inactivate() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateAfter(DWORD prm_dwFrameOffset) {
+void GgafElement<T>::inactivateTreeAfter(DWORD prm_dwFrameOffset) {
     _willInactivateAfterFrameFlg = true;
     _dwGodFremeWhenInactivate = askGod()->_dwFrame_God + prm_dwFrameOffset;
 }
 
 template<class T>
 void GgafElement<T>::inactivateAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         if (_isActiveFlg) {
             _switchedToInactiveFlg = true;
         } else {
@@ -1001,8 +1003,8 @@ void GgafElement<T>::inactivateAloneNow() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::inactivateTreeNow() {
+    if (_canLiveFlg) {
         if (_isActiveFlg) {
             _switchedToInactiveFlg = true;
         } else {
@@ -1013,7 +1015,7 @@ void GgafElement<T>::inactivateNow() {
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->inactivateNow();
+                pElementTemp->inactivateTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1025,14 +1027,14 @@ void GgafElement<T>::inactivateNow() {
 }
 
 template<class T>
-void GgafElement<T>::pause() {
-    if (_isAliveFlg) {
+void GgafElement<T>::pauseTree() {
+    if (_canLiveFlg) {
         _willPauseAtNextFrameFlg = true;
         //_isActiveFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->pause();
+                pElementTemp->pauseTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1045,20 +1047,20 @@ void GgafElement<T>::pause() {
 
 template<class T>
 void GgafElement<T>::pauseAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willPauseAtNextFrameFlg = true;
     }
 }
 
 template<class T>
-void GgafElement<T>::pauseNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::pauseTreeNow() {
+    if (_canLiveFlg) {
         _wasPausedFlg = true;
         _willPauseAtNextFrameFlg = true;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->pauseNow();
+                pElementTemp->pauseTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1071,20 +1073,20 @@ void GgafElement<T>::pauseNow() {
 
 template<class T>
 void GgafElement<T>::pauseAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _wasPausedFlg = true;
         _willPauseAtNextFrameFlg = true;
     }
 }
 
 template<class T>
-void GgafElement<T>::unpause() {
-    if (_isAliveFlg) {
+void GgafElement<T>::unpauseTree() {
+    if (_canLiveFlg) {
         _willPauseAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->unpause();
+                pElementTemp->unpauseTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1097,20 +1099,20 @@ void GgafElement<T>::unpause() {
 
 template<class T>
 void GgafElement<T>::unpauseAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willPauseAtNextFrameFlg = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::unpauseNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::unpauseTreeNow() {
+    if (_canLiveFlg) {
         _wasPausedFlg = false;
         _willPauseAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->unpauseNow();
+                pElementTemp->unpauseTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1123,20 +1125,20 @@ void GgafElement<T>::unpauseNow() {
 
 template<class T>
 void GgafElement<T>::unpauseAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _wasPausedFlg = false;
         _willPauseAtNextFrameFlg = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::hide() {
-    if (_isAliveFlg) {
+void GgafElement<T>::hideTree() {
+    if (_canLiveFlg) {
         _willBlindAtNextFrameFlg = true;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->hide();
+                pElementTemp->hideTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1149,20 +1151,20 @@ void GgafElement<T>::hide() {
 
 template<class T>
 void GgafElement<T>::hideAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willBlindAtNextFrameFlg = true;
     }
 }
 
 template<class T>
-void GgafElement<T>::hideNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::hideTreeNow() {
+    if (_canLiveFlg) {
         _wasHiddenFlg = true;
         _willBlindAtNextFrameFlg = true;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->hideNow();
+                pElementTemp->hideTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1175,20 +1177,20 @@ void GgafElement<T>::hideNow() {
 
 template<class T>
 void GgafElement<T>::hideAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _wasHiddenFlg = true;
         _willBlindAtNextFrameFlg = true;
     }
 }
 
 template<class T>
-void GgafElement<T>::show() {
-    if (_isAliveFlg) {
+void GgafElement<T>::showTree() {
+    if (_canLiveFlg) {
         _willBlindAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->show();
+                pElementTemp->showTree();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1201,20 +1203,20 @@ void GgafElement<T>::show() {
 
 template<class T>
 void GgafElement<T>::showAlone() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _willBlindAtNextFrameFlg = false;
     }
 }
 
 template<class T>
-void GgafElement<T>::showNow() {
-    if (_isAliveFlg) {
+void GgafElement<T>::showTreeNow() {
+    if (_canLiveFlg) {
         _wasHiddenFlg = false;
         _willBlindAtNextFrameFlg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->showNow();
+                pElementTemp->showTreeNow();
                 if (pElementTemp->_isLastFlg) {
                     break;
                 } else {
@@ -1227,19 +1229,19 @@ void GgafElement<T>::showNow() {
 
 template<class T>
 void GgafElement<T>::showAloneNow() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         _wasHiddenFlg = false;
         _willBlindAtNextFrameFlg = false;
     }
 }
 template<class T>
-void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
+void GgafElement<T>::seeYa(DWORD prm_dwFrameOffset) {
 
     _dwGodFrame_ofDeath = (askGod()->_dwFrame_God) + prm_dwFrameOffset + 1;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {
-            pElementTemp->farewell(prm_dwFrameOffset);
+            pElementTemp->seeYa(prm_dwFrameOffset);
             if (pElementTemp->_isLastFlg) {
                 break;
             } else {
@@ -1251,8 +1253,8 @@ void GgafElement<T>::farewell(DWORD prm_dwFrameOffset) {
 
 
 template<class T>
-bool GgafElement<T>::isPlaying() {
-    if (_isAliveFlg && _isActiveFlg) {
+bool GgafElement<T>::isActive() {
+    if (_canLiveFlg && _isActiveFlg) {
         return true;
     } else {
         return false;
@@ -1261,7 +1263,7 @@ bool GgafElement<T>::isPlaying() {
 
 template<class T>
 bool GgafElement<T>::switchedToActive() {
-    if (_isAliveFlg && _switchedToActiveFlg) {
+    if (_canLiveFlg && _switchedToActiveFlg) {
         return true;
     } else {
         return false;
@@ -1270,7 +1272,7 @@ bool GgafElement<T>::switchedToActive() {
 
 template<class T>
 bool GgafElement<T>::switchedToInactive() {
-    if (_isAliveFlg && _switchedToInactiveFlg) {
+    if (_canLiveFlg && _switchedToInactiveFlg) {
         return true;
     } else {
         return false;
@@ -1278,8 +1280,8 @@ bool GgafElement<T>::switchedToInactive() {
 }
 
 template<class T>
-bool GgafElement<T>::canDraw() {
-    if (_isAliveFlg && _isActiveFlg && !_wasHiddenFlg) {
+bool GgafElement<T>::isVisible() {
+    if (_canLiveFlg && _isActiveFlg && !_wasHiddenFlg) {
         return true;
     } else {
         return false;
@@ -1288,7 +1290,7 @@ bool GgafElement<T>::canDraw() {
 
 template<class T>
 bool GgafElement<T>::isBehaving() {
-    if (_isAliveFlg && _isActiveFlg && !_wasPausedFlg) {
+    if (_canLiveFlg && _isActiveFlg && !_wasPausedFlg) {
         return true;
     } else {
         return false;
@@ -1308,7 +1310,7 @@ bool GgafElement<T>::relativeFrame(DWORD prm_dwFrame_relative) {
 
 template<class T>
 T* GgafElement<T>::becomeIndependent() {
-    if (_isAliveFlg) {
+    if (_canLiveFlg) {
         return SUPER::tear();
     } else {
         throwGgafCriticalException("[GgafTreeNode<"<<SUPER::_class_name<<">::becomeIndependent()] ＜警告＞ "<<SUPER::getName()<<"は、いずれ死に行く運命である。");
@@ -1342,7 +1344,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
                     break;
                 }
             }
-            if (pElementTemp->_isAliveFlg == false) {
+            if (pElementTemp->_canLiveFlg == false) {
                 DELETE_IMPOSSIBLE_NULL(pElementTemp);
                 GgafFactory::_cnt_cleaned++;
                 Sleep(1);
@@ -1358,7 +1360,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
                 }
             }
             pElementTemp = pElementTemp->_pPrev;
-            if (pWk->_isAliveFlg == false) {
+            if (pWk->_canLiveFlg == false) {
                 DELETE_IMPOSSIBLE_NULL(pWk);
                 GgafFactory::_cnt_cleaned++;
                 Sleep(1);
