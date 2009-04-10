@@ -20,7 +20,7 @@ public:
     /** 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
     /** 次に世界を活動させる時間のオフセット */
-    static DWORD _aDwTime_OffsetOfNextFrame[];
+    static DWORD _aTime_OffsetOfNextFrame[];
 
     /** GgafFactory::work スレッドハンドル  */
     HANDLE _handleFactory01;
@@ -31,24 +31,24 @@ public:
     static CRITICAL_SECTION CS2;
 
     /** 神のフレーム開始システム時間 */
-    DWORD _dwTime_FrameBegin;
+    DWORD _time_at_beginning_frame;
     /** 次に世界を活動させるシステム時間 */
-    DWORD _dwTime_ScheduledNextFrame;
+    DWORD _expected_time_of_next_frame;
     /** 神誕生からのフレーム数 */
-    DWORD _dwFrame_God;
+    DWORD _godframe;
     /** 世界を視覚化できなかった（スキップした）回数 */
-    DWORD _dwFrame_SkipCount;
+    DWORD _skip_count_of_frame;
     /** 世界 */
     GgafWorld* _pWorld;
 
     /** fps値（約1000ms毎に計算される） */
-    float _fFps;
+    float _fps;
     /** 前回fps計算時のシステム時間 */
-    DWORD _dwTime_Prev;
+    DWORD _time_prev;
     /** 描画フレームカウンタ */
-    DWORD _dwFrame_Visualize;
+    DWORD _frame_of_visualize;
     /** 前回fps計算時の描画フレームカウント値 */
-    DWORD _dwFrame_PrevVisualize;
+    DWORD _frame_of_prev_visualize;
 
     /**  */
     static int _num_actor_playing;

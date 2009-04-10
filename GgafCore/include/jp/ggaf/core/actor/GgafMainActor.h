@@ -57,8 +57,8 @@ public:
      * ＜OverRide です＞
      * @return	自ノードのポインタ
      */
-    virtual GgafMainActor* tear() {
-        return (GgafMainActor*)GgafActor::tear();
+    virtual GgafMainActor* breakAwayFromTree() {
+        return (GgafMainActor*)GgafActor::breakAwayFromTree();
     }
 
     /**

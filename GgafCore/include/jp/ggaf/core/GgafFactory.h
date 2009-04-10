@@ -26,8 +26,8 @@ private:
     static GgafOrder* CREATING_ORDER;
     //CREATING_ORDER は、全て製造済みの場合、最終注文を指しつづける
     //全て製造済みかつ、製品が全て取得されてしまった場合は NULL になる。
-    //_isLastOrderFlg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
-    //製造を行って次に進める。 _isLastOrderFlg == false になるまで製造しつづける
+    //_is_last_order_flg == false を常に判定し、最終注文でなくなったら（新規注文があれば）、
+    //製造を行って次に進める。 _is_last_order_flg == false になるまで製造しつづける
 
 
     /**
@@ -60,13 +60,13 @@ public:
     static int _cnt_cleaned;
 
     /** 活動フラグ(神が操作する) */
-    static bool _isWorkingFlg;
+    static bool _is_working_flg;
     /** 休むフラグ */
-    static bool _isRestFlg;
+    static bool _have_to_rest_flg;
     /** 休でいるフラグ */
-    static bool _isRestingFlg;
+    static bool _is_resting_flg;
     /** 完全店終い */
-    static bool _isFinishFlg;
+    static bool _was_finished_flg;
 
     /**
      * 工場にアクター作成の注文を行う .
@@ -148,7 +148,7 @@ public:
      */
     static void beginRest() {
         _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩しなさい");
-        _isRestFlg = true;
+        _have_to_rest_flg = true;
     }
 
     /**
@@ -156,12 +156,12 @@ public:
      * @return true=休止状態/false=稼動状態
      */
     static bool isResting() {
-        if (_isRestingFlg) {
+        if (_is_resting_flg) {
             _TRACE_("GgafFactory::isResting() 工場休止状態");
         } else {
             _TRACE_("GgafFactory::isResting() 工場稼働状態");
         }
-        return _isRestingFlg;
+        return _is_resting_flg;
     }
 
     /**
@@ -169,7 +169,7 @@ public:
      */
     static void finishRest() {
         _TRACE_("GgafFactory::beginRest() ＜神＞工場、休憩はおしまい。さあ動け！");
-        _isRestFlg = false;
+        _have_to_rest_flg = false;
     }
 };
 

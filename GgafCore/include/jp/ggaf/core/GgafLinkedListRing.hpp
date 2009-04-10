@@ -44,9 +44,9 @@ private:
         /** 前要素 */
         Elem* _pPrev;
         /** 先頭要素フラグ (自要素が先頭要素の場合 true)*/
-        bool _isFirstFlg;
+        bool _is_first_flg;
         /** 末尾要素フラグ (自要素が末尾要素の場合 true)*/
-        bool _isLastFlg;
+        bool _is_last_flg;
 
         /**
          * コンストラクタ
@@ -55,7 +55,7 @@ private:
         Elem(T* prm_pValue) {
             _pValue = prm_pValue;
             _pNext = _pPrev = NULL;
-            _isFirstFlg = _isLastFlg = false;
+            _is_first_flg = _is_last_flg = false;
         }
 
         /**
@@ -87,7 +87,7 @@ private:
          * @return	bool true:先頭要素／false:先頭要素ではない
          */
         bool isFirst() {
-            return _isFirstFlg;
+            return _is_first_flg;
         }
 
         /**
@@ -95,7 +95,7 @@ private:
          * @return	bool true:末尾要素／false:末尾要素ではない
          */
         bool isLast() {
-            return _isLastFlg;
+            return _is_last_flg;
         }
 
         /**
@@ -183,7 +183,7 @@ public:
     virtual T* set(T* prm_pVal);
 
     /**
-     * 引数要素を、末尾(_isLastFlg が true)として追加する .
+     * 引数要素を、末尾(_is_last_flg が true)として追加する .
      * 追加される場所は以下の図のようになります。<BR>
      *<PRE STYLE="font-size:18px">
      * ----------------「実行前」
@@ -248,12 +248,12 @@ T* GgafLinkedListRing<T>::getPrev() {
 
 template<class T>
 bool GgafLinkedListRing<T>::isLast() {
-    return _pElemActive->_isLastFlg;
+    return _pElemActive->_is_last_flg;
 }
 
 template<class T>
 bool GgafLinkedListRing<T>::isFirst() {
-    return _pElemActive->_isFirstFlg;
+    return _pElemActive->_is_first_flg;
 }
 
 template<class T>
@@ -272,20 +272,20 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
     static Elem* pLastElem;
     pElem = NEW Elem(prm_pSub);
 
-    pElem->_isLastFlg = true;
+    pElem->_is_last_flg = true;
 
     if (_pElemFirst == NULL) {
         //最初の１つ
-        pElem->_isFirstFlg = true;
+        pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
         _pElemFirst = pElem;
     } else {
         //２つ目以降
-        pElem->_isFirstFlg = false;
+        pElem->_is_first_flg = false;
         pLastElem = _pElemFirst->_pPrev;
-        pLastElem->_isLastFlg = false;
+        pLastElem->_is_last_flg = false;
         pLastElem->_pNext = pElem;
         pElem->_pPrev = pLastElem;
         pElem->_pNext = _pElemFirst;
@@ -313,7 +313,7 @@ GgafLinkedListRing<T>::~GgafLinkedListRing() {
             Elem* pLastPrev = pLast->_pPrev;
             while (true) {
                 DELETE_IMPOSSIBLE_NULL(pLast); //末尾からdelete
-                if (pLastPrev->_isFirstFlg) {
+                if (pLastPrev->_is_first_flg) {
                     DELETE_IMPOSSIBLE_NULL(_pElemFirst); //pSubLastPrev == _pSubFirst である
                     _pElemFirst = NULL;
                     _pElemActive = NULL;

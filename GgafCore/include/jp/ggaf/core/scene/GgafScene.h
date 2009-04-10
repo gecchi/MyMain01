@@ -86,7 +86,7 @@ public:
     int _progress_nextframe;
 
     /** 進捗イベント時フレームストック */
-    DWORD _dwFrame_ProgressChange[100];
+    DWORD _aFrame_ProgressChange[100];
 
     /**
      * 現在の進捗取得 .
@@ -102,7 +102,7 @@ public:
      * @return 引数の直近の進捗が起こったときのフレーム
      */
     virtual DWORD getFrameAtProgress(int prm_progress) {
-        return _dwFrame_ProgressChange[prm_progress];
+        return _aFrame_ProgressChange[prm_progress];
     }
 
     /**
@@ -111,7 +111,7 @@ public:
      */
     virtual void setProgress(int prm_progress) {
         _progress_nextframe = prm_progress;
-        _dwFrame_ProgressChange[prm_progress] = _lifeframe+1;
+        _aFrame_ProgressChange[prm_progress] = _lifeframe+1;
     }
 
     bool onChangeProgressAt(int prm_progress) {
@@ -162,13 +162,13 @@ public:
     virtual void happen(int prm_no);
 
     virtual void activateTree();
-    virtual void activateTreeAfter(DWORD prm_dwFrameOffset);
+    virtual void activateTreeAfter(DWORD prm_frame_offset);
     virtual void activateAlone();
     virtual void activateTreeNow();
     virtual void activateAloneNow();
 
     virtual void inactivateTree();
-    virtual void inactivateTreeAfter(DWORD prm_dwFrameOffset);
+    virtual void inactivateTreeAfter(DWORD prm_frame_offset);
     virtual void inactivateAlone();
     virtual void inactivateTreeNow();
     virtual void inactivateAloneNow();
@@ -198,7 +198,7 @@ public:
      * 自ツリーシーンを次フレーム絶命させる。 .
      * ＜OverRide です＞<BR>
      */
-    virtual void arigatou_sayounara(DWORD prm_dwFrameOffset = 0);
+    virtual void arigatou_sayounara(DWORD prm_frame_offset = 0);
 
     /**
      * 自ツリーシーンを絶命させる。 .

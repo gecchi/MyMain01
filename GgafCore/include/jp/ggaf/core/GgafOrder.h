@@ -22,9 +22,9 @@ private:
     /** 一つ前の注文 */
     GgafOrder* _pOrder_Prev;
     /** 先頭の注文フラグ */
-    bool _isFirstOrderFlg;
+    bool _is_first_order_flg;
     /** 最後の注文フラグ */
-    bool _isLastOrderFlg;
+    bool _is_last_order_flg;
     /** 商品へのポインタ */
     GgafObject* _pObject_Creation;
     /** 商品製造メソッド */

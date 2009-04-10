@@ -22,8 +22,8 @@ namespace GgafCore {
  * 上図で自身のインスタンスを「Ｃ」とした場合、「Ｃ」の視点から各要素を次のように呼称、及び定義することとします。<BR>
  * <TABLE BORDER="1">
  * <TR><TD>「Ｃ」</TD><TD>自ノード</TD></TR>
- * <TR><TD>「Ａ」</TD><TD>先頭(First)ノード。 自ノードが所属する連結リストの先頭という意味です。「Ａ」 は _isFirstFlg が true になっています。(他ノードは false)</TD></TR>
- * <TR><TD>「Ｅ」</TD><TD>末尾(Last)ノード。 自ノードが所属する連結リストの最後という意味です。「Ｅ」 は _isLastFlg が true になっています。(他のノードは false)</TD></TR>
+ * <TR><TD>「Ａ」</TD><TD>先頭(First)ノード。 自ノードが所属する連結リストの先頭という意味です。「Ａ」 は _is_first_flg が true になっています。(他ノードは false)</TD></TR>
+ * <TR><TD>「Ｅ」</TD><TD>末尾(Last)ノード。 自ノードが所属する連結リストの最後という意味です。「Ｅ」 は _is_last_flg が true になっています。(他のノードは false)</TD></TR>
  * <TR><TD>「Ｄ」</TD><TD>次(Next)ノード。上図では左から右が正順序としています。_pNextポインタが指している要素になります。</TD></TR>
  * <TR><TD>「Ｂ」</TD><TD>前(Prev)ノード。_pPrev が指しているポインタです。</TD></TR>
  * <TR><TD>「Ｐ」</TD><TD>親(Parent)ノード。自ノードが所属する連結リストの１つ上の階層のノードです。_pParent ポインタが指している要素です。全てのノードは直近の親ノードのポインタを持っています。</TD></TR>
@@ -90,9 +90,9 @@ protected:
     T* _pSubFirst;
 
     /** 先頭ノードフラグ (自ノードが先頭ノードの場合 true)*/
-    bool _isFirstFlg;
+    bool _is_first_flg;
     /** 末尾ノードフラグ (自ノードが末尾ノードの場合 true)*/
-    bool _isLastFlg;
+    bool _is_last_flg;
 
 public:
     /**
@@ -146,7 +146,7 @@ public:
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
      * @return	T* 自ノードのポインタ
      */
-    virtual T* tear();
+    virtual T* breakAwayFromTree();
 
     /**
      * 自ノードを、最終ノードへ移動する .
@@ -273,7 +273,7 @@ public:
      * @return	bool true:先頭ノード／false:先頭ノードではない
      */
     virtual bool isFirst() {
-        return _isFirstFlg;
+        return _is_first_flg;
     }
 
     /**
@@ -281,7 +281,7 @@ public:
      * @return	bool true:末尾ノード／false:末尾ノードではない
      */
     virtual bool isLast(){
-        return _isLastFlg;
+        return _is_last_flg;
     }
 
 };
@@ -297,8 +297,8 @@ GgafNode<T>::GgafNode(const char* prm_name) : GgafObject(),
 _name("NOT_OBJECT_YET"),
 _pParent(NULL),
 _pSubFirst(NULL),
-_isFirstFlg(false),
-_isLastFlg(false)
+_is_first_flg(false),
+_is_last_flg(false)
 {
     _pNext = (T*)this;
     _pPrev = (T*)this;
@@ -310,12 +310,12 @@ _isLastFlg(false)
 }
 
 template<class T>
-T* GgafNode<T>::tear() {
+T* GgafNode<T>::breakAwayFromTree() {
     if (_pParent != NULL) {
         //連結から外す
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
-        if (_isFirstFlg && _isLastFlg) {
+        if (_is_first_flg && _is_last_flg) {
             //連結が自分のみ場合
             _pParent->_pSubFirst = NULL;
         } else {
@@ -323,42 +323,42 @@ T* GgafNode<T>::tear() {
             //両隣のノード同士を繋ぎ、自分を指さなくする。
             pMyPrev->_pNext = pMyNext;
             pMyNext->_pPrev = pMyPrev;
-            if (_isLastFlg) {
-                pMyPrev->_isLastFlg = true;
+            if (_is_last_flg) {
+                pMyPrev->_is_last_flg = true;
             }
-            if (_isFirstFlg) {
-                pMyNext->_isFirstFlg = true;
+            if (_is_first_flg) {
+                pMyNext->_is_first_flg = true;
                 _pParent->_pSubFirst = pMyNext;
             }
         }
         _pParent = NULL;
         _pNext = (T*)this;
         _pPrev = (T*)this;
-        _isFirstFlg = true;
-        _isLastFlg = true;
+        _is_first_flg = true;
+        _is_last_flg = true;
         return (T*)this;
     } else {
-        throwGgafCriticalException("[GgafNode<" << _class_name << ">::tear()] ＜警告＞ " << getName() << "は、何所にも所属していません");
+        throwGgafCriticalException("[GgafNode<" << _class_name << ">::breakAwayFromTree()] ＜警告＞ " << getName() << "は、何所にも所属していません");
     }
 }
 
 template<class T>
 void GgafNode<T>::moveLast() {
-    if (_isLastFlg) { //既に最終ノードならば何もしない
+    if (_is_last_flg) { //既に最終ノードならば何もしない
         return;
-    } else if (_isFirstFlg) { //先頭ノードならば、親の指している先頭ノードを次へずらす
+    } else if (_is_first_flg) { //先頭ノードならば、親の指している先頭ノードを次へずらす
         _pParent->_pSubFirst = _pNext;
-        _pPrev->_isLastFlg = false;
-        _isFirstFlg = false;
-        _isLastFlg = true;
-        _pNext->_isFirstFlg = true;
+        _pPrev->_is_last_flg = false;
+        _is_first_flg = false;
+        _is_last_flg = true;
+        _pNext->_is_first_flg = true;
     } else { //中間ノード時
         //両隣のノード同士を繋ぐ
         _pPrev->_pNext = _pNext;
         _pNext->_pPrev = _pPrev;
         //末尾ノードと先頭ノードの間にもぐりこませる
-        _pParent->_pSubFirst->_pPrev->_isLastFlg = false;
-        _isLastFlg = true;
+        _pParent->_pSubFirst->_pPrev->_is_last_flg = false;
+        _is_last_flg = true;
         _pPrev = _pParent->_pSubFirst->_pPrev;
         _pNext = _pParent->_pSubFirst;
         _pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
@@ -368,21 +368,21 @@ void GgafNode<T>::moveLast() {
 
 template<class T>
 void GgafNode<T>::moveFirst() {
-    if (_isFirstFlg) { //既に先頭ノードならば何もしない
+    if (_is_first_flg) { //既に先頭ノードならば何もしない
         return;
-    } else if (_isLastFlg) { //末尾ノードならば、親の指している先頭ノードを前にずらす
+    } else if (_is_last_flg) { //末尾ノードならば、親の指している先頭ノードを前にずらす
         _pParent->_pSubFirst = (T*)this;
-        _pPrev->_isLastFlg = true;
-        _isFirstFlg = true;
-        _isLastFlg = false;
-        _pNext->_isFirstFlg = false;
+        _pPrev->_is_last_flg = true;
+        _is_first_flg = true;
+        _is_last_flg = false;
+        _pNext->_is_first_flg = false;
     } else { //中間ノード時
         //両隣のノード同士を繋ぐ
         _pPrev->_pNext = _pNext;
         _pNext->_pPrev = _pPrev;
         //末尾ノードと先頭ノードの間にもぐりこませる
-        _pParent->_pSubFirst->_isFirstFlg = false;
-        _isFirstFlg = true;
+        _pParent->_pSubFirst->_is_first_flg = false;
+        _is_first_flg = true;
         _pPrev = _pParent->_pSubFirst->_pPrev;
         _pNext = _pParent->_pSubFirst;
         _pParent->_pSubFirst->_pPrev->_pNext = (T*)this;
@@ -426,7 +426,7 @@ T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
         if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name) == 0) {
             break;
         }
-        if (_pNodeTemp->_isLastFlg) {
+        if (_pNodeTemp->_is_last_flg) {
             throwGgafCriticalException("[GgafNode<" << _class_name
                     << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
         } else {
@@ -446,7 +446,7 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
             if (GgafUtil::strcmp_ascii(_pNodeTemp->getName(), prm_sub_actor_name)) {
                 return true;
             }
-            if (_pNodeTemp->_isLastFlg) {
+            if (_pNodeTemp->_is_last_flg) {
                 return false;
             } else {
                 _pNodeTemp = _pNodeTemp->_pNext;
@@ -463,18 +463,18 @@ void GgafNode<T>::addSubLast(T* prm_pSub) {
                 << ")");
     }
     prm_pSub->_pParent = (T*)this;
-    prm_pSub->_isLastFlg = true;
+    prm_pSub->_is_last_flg = true;
     //prm_pSub->_pScene_Platform = _pScene_Platform;
 
     if (_pSubFirst == NULL) {
-        prm_pSub->_isFirstFlg = true;
+        prm_pSub->_is_first_flg = true;
         _pSubFirst = prm_pSub;
         _pSubFirst->_pNext = prm_pSub;
         _pSubFirst->_pPrev = prm_pSub;
     } else {
-        prm_pSub->_isFirstFlg = false;
+        prm_pSub->_is_first_flg = false;
         T* pSubLast = _pSubFirst->_pPrev;
-        pSubLast->_isLastFlg = false;
+        pSubLast->_is_last_flg = false;
         pSubLast->_pNext = prm_pSub;
         prm_pSub->_pPrev = pSubLast;
         prm_pSub->_pNext = _pSubFirst;
@@ -500,7 +500,7 @@ GgafNode<T>::~GgafNode() {
     //自分に子がある場合
     if (_pSubFirst) {
         //まず子をdelete
-        if (_pSubFirst->_isLastFlg) {
+        if (_pSubFirst->_is_last_flg) {
             //子ノードは１つの場合
             DELETE_IMPOSSIBLE_NULL(_pSubFirst);
             _pSubFirst = NULL;
@@ -510,7 +510,7 @@ GgafNode<T>::~GgafNode() {
             T* pSubLastPrev = pSubLast->_pPrev;
             while (true) {
                 DELETE_IMPOSSIBLE_NULL(pSubLast); //末尾からdelete
-                if (pSubLastPrev->_isFirstFlg) {
+                if (pSubLastPrev->_is_first_flg) {
                     DELETE_IMPOSSIBLE_NULL(_pSubFirst); //pSubLastPrev == _pSubFirst である
                     _pSubFirst = NULL;
                     break;
@@ -526,7 +526,7 @@ GgafNode<T>::~GgafNode() {
         //連結から外す
         T* pMyNext = _pNext;
         T* pMyPrev = _pPrev;
-        if (_isFirstFlg && _isLastFlg) {
+        if (_is_first_flg && _is_last_flg) {
             //連結しているノードが無く、自分のみ場合
             _pParent->_pSubFirst = NULL;
             _pParent = NULL;
@@ -538,19 +538,19 @@ GgafNode<T>::~GgafNode() {
             //両隣のノード同士を繋ぎ、自分を指さなくする。
             pMyPrev->_pNext = pMyNext;
             pMyNext->_pPrev = pMyPrev;
-            if (_isLastFlg) {
-                pMyPrev->_isLastFlg = true;
+            if (_is_last_flg) {
+                pMyPrev->_is_last_flg = true;
             }
-            if (_isFirstFlg) {
-                pMyNext->_isFirstFlg = true;
+            if (_is_first_flg) {
+                pMyNext->_is_first_flg = true;
                 _pParent->_pSubFirst = pMyNext;
             }
             _pParent = NULL;
             _pNext = (T*)this;
             _pPrev = (T*)this;
             _pSubFirst = NULL;
-            _isFirstFlg = true;
-            _isLastFlg = true;
+            _is_first_flg = true;
+            _is_last_flg = true;
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_name);

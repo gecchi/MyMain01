@@ -7,15 +7,15 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_num_actor_playing = 0;
-DWORD GgafGod::_aDwTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
+DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17};
 GgafGod::GgafGod() : GgafObject(),
   _pWorld(NULL),
-  _fFps(0) {
+  _fps(0) {
     TRACE("GgafGod::GgafGod");
-    _dwFrame_God = 0;
+    _godframe = 0;
 
     _handleFactory01 = (HANDLE)::_beginthreadex(NULL, 0, GgafFactory::work, NULL, CREATE_SUSPENDED, &_thID01);
 
@@ -28,11 +28,11 @@ GgafGod::GgafGod() : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafFactory::_pGod = this;
 
-    _dwTime_FrameBegin = timeGetTime();
-    _dwTime_ScheduledNextFrame = (DWORD)(_dwTime_FrameBegin + 1000);
-    _dwTime_Prev = _dwTime_FrameBegin;
-    _dwFrame_Visualize = 0;
-    _dwFrame_PrevVisualize = 0;
+    _time_at_beginning_frame = timeGetTime();
+    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 1000);
+    _time_prev = _time_at_beginning_frame;
+    _frame_of_visualize = 0;
+    _frame_of_prev_visualize = 0;
     _isBehaved = false;
 
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
@@ -56,42 +56,42 @@ void GgafGod::be() {
     if (_isBehaved == false) {
         _isBehaved = true;
      ___BeginSynchronized; // ----->排他開始
-        _dwFrame_God++;
+        _godframe++;
         makeWorldBe();
         makeWorldJudge();
      ___EndSynchronized; // <----- 排他終了
         //描画タイミングフレーム加算
-        //_dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]; //予定は変わらない
+        //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
         if (_num_actor_playing > 1000) {
-            _dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60] * 3);
+            _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 3);
         } else if (_num_actor_playing > 900) {
-            _dwTime_ScheduledNextFrame += (_aDwTime_OffsetOfNextFrame[_dwFrame_God % 60] * 2);
+            _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else {
-            _dwTime_ScheduledNextFrame += _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60];
+            _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
         }
         _num_actor_playing = 0;
     }
 
-    _dwTime_FrameBegin = timeGetTime(); //
+    _time_at_beginning_frame = timeGetTime(); //
 
     //fps計算
-    if (_dwTime_FrameBegin - _dwTime_Prev >= 1000) {
-        _fFps = (float)(_dwFrame_Visualize - _dwFrame_PrevVisualize) / (float)((_dwTime_FrameBegin - _dwTime_Prev)
+    if (_time_at_beginning_frame - _time_prev >= 1000) {
+        _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev)
                 / 1000.0);
-        _TRACE_(_fFps);
-        _dwTime_Prev = _dwTime_FrameBegin;
-        _dwFrame_PrevVisualize = _dwFrame_Visualize;
+        _TRACE_(_fps);
+        _time_prev = _time_at_beginning_frame;
+        _frame_of_prev_visualize = _frame_of_visualize;
     }
 
-    if (_dwTime_ScheduledNextFrame <= _dwTime_FrameBegin) { //描画タイミングフレームになった、或いは過ぎている場合
+    if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
 
-        if (_dwTime_FrameBegin > _dwTime_ScheduledNextFrame + _aDwTime_OffsetOfNextFrame[_dwFrame_God % 60]) {
+        if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_godframe % 60]) {
             //大幅に過ぎていたら(次のフレームまで食い込んでいたら)スキップ
-            _dwFrame_SkipCount++;
-            if (_dwFrame_SkipCount >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
+            _skip_count_of_frame++;
+            if (_skip_count_of_frame >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
                 //スキップするといってもMAX_SKIP_FRAMEフレームに１回は描画はする。
-                _dwFrame_SkipCount = 0;
-                _dwFrame_Visualize++;
+                _skip_count_of_frame = 0;
+                _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
                 makeWorldMaterialize();
                 makeWorldVisualize();
@@ -106,7 +106,7 @@ void GgafGod::be() {
             }
         } else {
             //通常時描画（スキップなし）
-            _dwFrame_Visualize++;
+            _frame_of_visualize++;
          ___BeginSynchronized; // ----->排他開始
             makeWorldMaterialize();//描画を行う
             makeWorldVisualize(); //視覚化を行う
@@ -150,8 +150,8 @@ GgafGod::~GgafGod() {
     if (_pWorld != NULL) {
         //工場を止める
         Sleep(20);
-        GgafFactory::_isWorkingFlg = false;
-        while (GgafFactory::_isFinishFlg == false) {
+        GgafFactory::_is_working_flg = false;
+        while (GgafFactory::_was_finished_flg == false) {
             Sleep(10); //工場が落ち着くまで待つ
         }
 

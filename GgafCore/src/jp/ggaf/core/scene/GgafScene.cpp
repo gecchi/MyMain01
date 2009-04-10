@@ -14,7 +14,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _progress_prev = -2;
     DWORD x = UINT_MAX/2;
     for (int i = 0; i < 100; i++) {
-        _dwFrame_ProgressChange[i] = x; //óLÇËÇ¶Ç»Ç¢ÉtÉåÅ[ÉÄÇ»ÇÁó«Ç¢
+        _aFrame_ProgressChange[i] = x; //óLÇËÇ¶Ç»Ç¢ÉtÉåÅ[ÉÄÇ»ÇÁó«Ç¢
         }
     }
 
@@ -79,9 +79,9 @@ void GgafScene::activateTree() {
     _pLordActor->activateTree();
 }
 
-void GgafScene::activateTreeAfter(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::activateTreeAfter(prm_dwFrameOffset);
-    _pLordActor->activateTreeAfter(prm_dwFrameOffset);
+void GgafScene::activateTreeAfter(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::activateTreeAfter(prm_frame_offset);
+    _pLordActor->activateTreeAfter(prm_frame_offset);
 }
 
 void GgafScene::activateAlone() {
@@ -104,9 +104,9 @@ void GgafScene::inactivateTree() {
     _pLordActor->inactivateTree();
 }
 
-void GgafScene::inactivateTreeAfter(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::inactivateTreeAfter(prm_dwFrameOffset);
-    _pLordActor->inactivateTreeAfter(prm_dwFrameOffset);
+void GgafScene::inactivateTreeAfter(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::inactivateTreeAfter(prm_frame_offset);
+    _pLordActor->inactivateTreeAfter(prm_frame_offset);
 }
 
 void GgafScene::inactivateAlone() {
@@ -204,9 +204,9 @@ void GgafScene::showAloneNow() {
     _pLordActor->showAloneNow();
 }
 
-void GgafScene::arigatou_sayounara(DWORD prm_dwFrameOffset) {
-    GgafElement<GgafScene>::arigatou_sayounara(prm_dwFrameOffset);
-    _pLordActor->arigatou_sayounara(prm_dwFrameOffset);
+void GgafScene::arigatou_sayounara(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::arigatou_sayounara(prm_frame_offset);
+    _pLordActor->arigatou_sayounara(prm_frame_offset);
 }
 
 void GgafScene::cleane(int prm_num_cleaning) {
@@ -239,7 +239,7 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
                     _apHeadActor02[index02] = pHeadActor;
                     index02++;
                 }
-                if (pHeadActor->_isLastFlg) {
+                if (pHeadActor->_is_last_flg) {
                     break;
                 } else {
                     pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
@@ -253,7 +253,7 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
             continue;
         }
 
-        loop: if (pScene->_isLastFlg) {
+        loop: if (pScene->_is_last_flg) {
             if (pScene == this) {
                 break;
             } else {
@@ -289,7 +289,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_lifeframe<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_canLiveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
+    _TRACE_("Åú"<<_class_name<<"["<<getName()<<"]@"<<_lifeframe<<","<<_is_active_flg<<_was_paused_flg<<_was_hidden_flg<<_can_live_flg<<","<<_will_activate_at_next_frame_flg<<_wil_pause_at_next_frame_flg<<_will_hidden_at_next_frame_flg<<_will_be_alive_at_next_frame_flg<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
     _pLordActor->dump();
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -301,7 +301,7 @@ void GgafScene::dump() {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_isFirstFlg) {
+            if (pScene_tmp->_is_first_flg) {
                 break;
             }
         }
@@ -309,7 +309,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_lifeframe<<","<<_isActiveFlg<<_wasPausedFlg<<_wasHiddenFlg<<_canLiveFlg<<","<<_willActivateAtNextFrameFlg<<_willPauseAtNextFrameFlg<<_willBlindAtNextFrameFlg<<_willBeAliveAtNextFrameFlg<<","<<_willActivateAfterFrameFlg<<"("<<_dwGodFremeWhenActive<<")");
+    _TRACE_(prm_parent+"Åú"<<_class_name<<"["<<getName()<<"]@"<<_lifeframe<<","<<_is_active_flg<<_was_paused_flg<<_was_hidden_flg<<_can_live_flg<<","<<_will_activate_at_next_frame_flg<<_wil_pause_at_next_frame_flg<<_will_hidden_at_next_frame_flg<<_will_be_alive_at_next_frame_flg<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
     _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -321,7 +321,7 @@ void GgafScene::dump(string prm_parent) {
                 _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
-            if (pScene_tmp->_isFirstFlg) {
+            if (pScene_tmp->_is_first_flg) {
                 break;
             }
         }
