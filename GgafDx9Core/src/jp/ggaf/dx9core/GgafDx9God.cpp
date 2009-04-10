@@ -3,6 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+//TODO:コメントとか多すぎる。整理する。
+
 HWND GgafDx9God::_hWnd = NULL;
 HINSTANCE GgafDx9God::_hInstance = NULL;
 
@@ -39,7 +41,7 @@ GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafDx9God::_hWnd = _hWnd;
     GgafDx9God::_hInstance = prm_hInstance;
     _is_device_lost_flg = false;
-    CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は乱数のSeed
+    CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 Seed
 }
 
 HRESULT GgafDx9God::init() {
@@ -107,7 +109,8 @@ HRESULT GgafDx9God::init() {
     if (FULLSCRREEN) {
         _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
-        _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座(Windowモードはこちらが良いらしい）
+        _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
+        //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONEは？
     }
 
     //アンチアイリアスにできるかチェック
@@ -165,10 +168,13 @@ HRESULT GgafDx9God::init() {
     }
 
 
+// NVIDIA PerfHUD 用 begin --------------------------------------------->
 
-    // Set default settings
+    //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
     D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
+#ifdef OREDEBUG
+
 #if SHIPPING_VERSION
     // When building a shipping version, disable PerfHUD (opt-out)
 #else
@@ -186,14 +192,13 @@ HRESULT GgafDx9God::init() {
     }
 #endif
 
+#endif
+// <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
 
-    ////デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
-    ////ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
-//    hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_HAL, GgafDx9God::_hWnd,
-//                                           D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
-//                                           &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
+    //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
+    //ハードウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。HAL(pure vp)
     hr = GgafDx9God::_pID3D9->CreateDevice(AdapterToUse, DeviceType, GgafDx9God::_hWnd,
                                            D3DCREATE_HARDWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                            &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
@@ -264,6 +269,8 @@ HRESULT GgafDx9God::initDx9Device() {
      //GgafDx9God::_d3dlight9_default.Position = D3DXVECTOR3(-1*GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2, -1*GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)/2);
      //GgafDx9God::_d3dlight9_default.Range = 1000;
      */
+
+    //ライト構造体は、シェーダーのパラメータになる時があるため必要。
     D3DXVECTOR3 vecDirection(-1.0f, -1.0f, 1.0f);
     D3DXVec3Normalize( &vecDirection, &vecDirection);
     ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
@@ -278,6 +285,8 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_d3dlight9_default.Ambient.r = 0.3f; //アンビエントライトはSetRenderState(D3DRS_AMBIENT, 0x00303030)で設定
     GgafDx9God::_d3dlight9_default.Ambient.g = 0.3f;
     GgafDx9God::_d3dlight9_default.Ambient.b = 0.3f;
+
+
     //GgafDx9God::_d3dlight9_default.Range = 1000.0f;
 
 
@@ -355,11 +364,10 @@ HRESULT GgafDx9God::initDx9Device() {
     //	D3DTEXF_GAUSSIANQUAD ：ガウシアンフィルタ。またの名をぼかしフィルタ
     //	を指定する。
 
-    //2009/3/4 SetSamplerStateの意味が今ごろわかった。
+    //2009/3/4 SetSamplerStateの意味を今ごろ理解する。
     //SetSamplerStateはテクスチャからどうサンプリング（読み取るか）するかの設定。
-    //だからアンチエイリアスつっても、テクスチャしかアンチエイリアスがかかりません。
-    //多分s0レジスタをなんやら設定するのだろう。
-    //今後ピクセルシェーダーで全部設定するので、このあたりの設定は、将来全部いらなくなるはずだ。
+    //だからアンチエイリアスっていっても、テクスチャしかアンチエイリアスがかかりません。
+    //今後ピクセルシェーダーで全部書くので、このあたりの設定は、全部いらなくなるはずだ。
 
 
     //アンチエイリアスにかかわるレンダリングステート
@@ -527,7 +535,14 @@ void GgafDx9God::makeWorldVisualize() {
     if (_is_device_lost_flg != true) {
         //バックバッファをプライマリバッファに転送
         //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
-
+//        static D3DRASTER_STATUS rs;
+//        while (SUCCEEDED(GgafDx9God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
+//            if(rs.InVBlank) {
+//                break; //垂直帰線期間ではない
+//            } else {
+//                Sleep(1);
+//            }
+//        }
         HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
         if (hr == D3DERR_DEVICELOST) {
@@ -535,7 +550,7 @@ void GgafDx9God::makeWorldVisualize() {
             _TRACE_("通常デバイスロスト！Present()");
             _is_device_lost_flg = true;
         } else if (hr == D3DERR_DRIVERINTERNALERROR) {
-            //Present以上時、無駄かもしれないがデバイスロストと同じ処理を試みる。
+            //Present異常時、無駄かもしれないがデバイスロストと同じ処理を試みる。
             _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
             //工場休止
             GgafFactory::beginRest();
