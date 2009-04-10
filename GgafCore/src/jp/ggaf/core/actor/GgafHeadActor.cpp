@@ -4,7 +4,9 @@ using namespace std;
 using namespace GgafCore;
 
 GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("HEAD") {
-    _class_name = "GgafHeadActor";
+    stringstream ss;
+    ss << "GgafHeadActor[_kind=" << prm_kind << "]";
+    _class_name = ss.str().c_str();
     _kind = prm_kind;
     setBumpable(false);
 }

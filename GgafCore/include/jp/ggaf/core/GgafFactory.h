@@ -18,7 +18,7 @@ class GgafFactory {
     friend class GgafGod;
 
 private:
-    static GgafGod* _pGod;
+
 
     /** æ“ª‚Ì’•¶ */
     static GgafOrder* ROOT_ORDER;

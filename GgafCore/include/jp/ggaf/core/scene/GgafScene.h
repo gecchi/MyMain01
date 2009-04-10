@@ -151,6 +151,17 @@ public:
      */
     virtual ~GgafScene();
 
+    /**
+     * オーバーライド
+     */
+    virtual void addSubLast(GgafScene* prm_pScene) {
+        GgafElement<GgafScene>::addSubLast(prm_pScene);
+        if(prm_pScene->_was_initialize_flg == false) {
+            prm_pScene->initialize();
+            prm_pScene->_was_initialize_flg = true;
+        }
+    }
+
     virtual void nextFrame();
     virtual void behave();
     virtual void judge();

@@ -16,6 +16,8 @@ namespace GgafCore {
 class GgafGod : public GgafObject {
 
 public:
+    /** 自身 */
+    static GgafGod* _pGod;
 
     /** 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
@@ -53,7 +55,8 @@ public:
     /**  */
     static int _num_actor_playing;
 
-    bool _isBehaved;
+    bool _is_behaved_flg;
+    bool _is_materialized_flg;
 
     /**
      * コンストラクタ.

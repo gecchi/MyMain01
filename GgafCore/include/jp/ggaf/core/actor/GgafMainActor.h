@@ -13,12 +13,12 @@ namespace GgafCore {
 class GgafMainActor : public GgafActor {
 
 protected:
+
+public:
     /** 管理者 */
     GgafLordActor* _pLordActor;
     /** 種別（グループ）を司る団長 */
     GgafHeadActor* _pHeadActor;
-
-public:
 
     GgafMainActor(const char* prm_name);
 

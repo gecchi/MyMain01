@@ -59,13 +59,15 @@ GgafHeadActor* GgafMainActor::getHeadActor() {
 GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")");
+            _pLordActor = GgafGod::_pGod->_pWorld->getLordActor();
+            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手に世界のLordActorを返しました");
         } else {
             GgafMainActor* p = dynamic_cast<GgafMainActor*> (_pParent);
             if (p) {
                 _pLordActor = p->getLordActor();
             } else {
-                throwGgafCriticalException("GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")");
+                _pLordActor = GgafGod::_pGod->_pWorld->getLordActor();
+                _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手に世界のLordActorを返しました");
             }
         }
     }

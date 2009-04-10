@@ -4,7 +4,6 @@ using namespace std;
 using namespace GgafCore;
 
 //初期化
-GgafGod* GgafFactory::_pGod = NULL;
 GgafOrder* GgafFactory::ROOT_ORDER = NULL;
 GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool GgafFactory::_is_working_flg = true;
@@ -206,7 +205,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 //無条件待機
                 TRACE2("GgafFactory::work ＜工場＞ 工場には何～んもありません。さぁなんでも注文来い来い！。暇なのでゴミ箱掃除でもやっときます。（待機）");
              ___EndSynchronized; // <----- 排他終了
-                if (_pGod->_fps > 52) {
+                if (GgafGod::_pGod->_fps > 52) {
                     Sleep(5);
                     TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。");
                     _pGarbageBox->cleane(1); //暇なので、ゴミ箱掃除
@@ -222,7 +221,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 } else {
                     TRACE2("GgafFactory::work ＜工場＞ よし、未製造注文は無し。あ～棚に製造済のがたまってるす、早く取に来やがれ！。（待機）");
                  ___EndSynchronized; // <----- 排他終了
-                    if (_pGod->_fps > 52) {
+                    if (GgafGod::_pGod->_fps > 52) {
                         TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。");
                         Sleep(5);
                         _pGarbageBox->cleane(1); //暇なので、ゴミ箱掃除

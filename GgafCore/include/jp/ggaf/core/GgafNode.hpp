@@ -338,7 +338,11 @@ T* GgafNode<T>::breakAwayFromTree() {
         _is_last_flg = true;
         return (T*)this;
     } else {
-        throwGgafCriticalException("[GgafNode<" << _class_name << ">::breakAwayFromTree()] ＜警告＞ " << getName() << "は、何所にも所属していません");
+        //要素を追加するためのメソッドが、現在 addSubLast() のみであるため、親がいないことはツリーの頂点であることと同値。
+        //TODO:将来、addNext() のような隣に要素を追加するメソッドを作らなければいけなくなった場合、
+        //     この場所に横連結から切り離す処理を追加するのを忘れずに。
+        TRACE("[GgafNode<" << _class_name << ">::breakAwayFromTree()] ＜警告＞ " << getName() << "は、何所にも所属していません。既に独立してました");
+        return (T*)this;
     }
 }
 
@@ -406,8 +410,7 @@ T* GgafNode<T>::getParent(char* prm_parent_name) {
     while (true) {
         _pNodeTemp = _pNodeTemp->_pParent;
         if (_pNodeTemp == NULL) {
-            _TRACE_("[GgafNode<" << _class_name
-                    << ">::getParent("<<prm_parent_name<<")] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。");
+            _TRACE_("[GgafNode<" << _class_name << ">::getParent("<<prm_parent_name<<")] ＜警告＞ 親ノードを遡って検索しましたがありません。NULLを返します。");
             return NULL;
         } else if (GgafUtil::strcmp_ascii(_pNodeTemp->_name, prm_parent_name) == 0) {
             break;
@@ -427,8 +430,7 @@ T* GgafNode<T>::getSub(char* prm_sub_actor_name) {
             break;
         }
         if (_pNodeTemp->_is_last_flg) {
-            throwGgafCriticalException("[GgafNode<" << _class_name
-                    << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
+            throwGgafCriticalException("[GgafNode<" << _class_name << ">::getSub()] Error! 子ノードは存在しません。(prm_sub_actor_name=" << prm_sub_actor_name << ")");
         } else {
             _pNodeTemp = _pNodeTemp->_pNext;
         }
@@ -459,8 +461,7 @@ template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
     if (prm_pSub->_pParent != NULL) {
         throwGgafCriticalException("[GgafNode<" << _class_name << ">::addSubLast()] Error! ノードは既に所属("
-                << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName()
-                << ")");
+                << prm_pSub->_pParent->_name << "に所属)しています(this=" << _name << "/prm_pSub=" << prm_pSub->getName() << ")");
     }
     prm_pSub->_pParent = (T*)this;
     prm_pSub->_is_last_flg = true;

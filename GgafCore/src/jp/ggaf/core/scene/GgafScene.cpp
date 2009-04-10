@@ -15,8 +15,8 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     DWORD x = UINT_MAX/2;
     for (int i = 0; i < 100; i++) {
         _aFrame_ProgressChange[i] = x; //—L‚è‚¦‚È‚¢ƒtƒŒ[ƒ€‚È‚ç—Ç‚¢
-        }
     }
+}
 
 GgafScene::~GgafScene() {
     TRACE("GgafScene::~GgafScene() " << getName() << " start-->");

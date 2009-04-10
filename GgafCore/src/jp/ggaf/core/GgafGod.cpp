@@ -7,6 +7,7 @@ GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_num_actor_playing = 0;
+GgafGod* GgafGod::_pGod = NULL;
 DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
@@ -26,15 +27,14 @@ GgafGod::GgafGod() : GgafObject(),
     ::InitializeCriticalSection(&(GgafGod::CS2));
     ::ResumeThread(_handleFactory01);
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
-    GgafFactory::_pGod = this;
-
+    GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
     _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 1000);
     _time_prev = _time_at_beginning_frame;
     _frame_of_visualize = 0;
     _frame_of_prev_visualize = 0;
-    _isBehaved = false;
-
+    _is_behaved_flg = false;
+    _is_materialized_flg = false;
     GgafFactory::_pGarbageBox = NEW GgafGarbageBox();
 
 }
@@ -53,8 +53,8 @@ void GgafGod::be() {
         throw *_pException_Factory;
     }
 
-    if (_isBehaved == false) {
-        _isBehaved = true;
+    if (_is_behaved_flg == false) {
+        _is_behaved_flg = true;
      ___BeginSynchronized; // ----->排他開始
         _godframe++;
         makeWorldBe();
@@ -62,14 +62,22 @@ void GgafGod::be() {
      ___EndSynchronized; // <----- 排他終了
         //描画タイミングフレーム加算
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
-        if (_num_actor_playing > 1000) {
+        if (_num_actor_playing > 800) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 3);
-        } else if (_num_actor_playing > 900) {
+        } else if (_num_actor_playing > 500) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
         }
         _num_actor_playing = 0;
+
+        if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+            //makeWorldMaterialize はパス
+        } else {
+            //余裕有り
+            _is_materialized_flg = true;
+            makeWorldMaterialize();
+        }
     }
 
     _time_at_beginning_frame = timeGetTime(); //
@@ -93,9 +101,14 @@ void GgafGod::be() {
                 _skip_count_of_frame = 0;
                 _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
-                makeWorldMaterialize();
-                makeWorldVisualize();
-                makeWorldFinalize();
+                if (_is_materialized_flg) {
+                    makeWorldVisualize();
+                    makeWorldFinalize();
+                } else {
+                    makeWorldMaterialize();
+                    makeWorldVisualize();
+                    makeWorldFinalize();
+                }
                 //getWorld()->cleane(10);
              ___EndSynchronized; // <----- 排他終了
             } else {
@@ -108,13 +121,18 @@ void GgafGod::be() {
             //通常時描画（スキップなし）
             _frame_of_visualize++;
          ___BeginSynchronized; // ----->排他開始
-            makeWorldMaterialize();//描画を行う
-            makeWorldVisualize(); //視覚化を行う
-            makeWorldFinalize();
+            if (_is_materialized_flg) {
+                makeWorldVisualize();
+                makeWorldFinalize();
+            } else {
+                makeWorldMaterialize();
+                makeWorldVisualize();
+                makeWorldFinalize();
+            }
          ___EndSynchronized; // <----- 排他終了
         }
-        _isBehaved = false;
-
+        _is_behaved_flg = false;
+        _is_materialized_flg = false;
     } else {//描画タイミングフレームになってない(余裕がある)
         Sleep(1); //工場（別スレッド）に回す
     }
@@ -175,7 +193,6 @@ GgafGod::~GgafGod() {
     CloseHandle(_handleFactory01);
     DeleteCriticalSection(&(GgafGod::CS2));
     DeleteCriticalSection(&(GgafGod::CS1));
-    GgafFactory::_pGod = NULL;
 
     DELETE_POSSIBLE_NULL(_pException_Factory);TRACE("GgafGod::~GgafGod end");
 }
