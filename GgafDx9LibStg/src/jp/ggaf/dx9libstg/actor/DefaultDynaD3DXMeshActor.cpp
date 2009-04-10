@@ -12,7 +12,7 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
                              NEW GgafDx9GeometryMover(this),
                              NEW StgChecker(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";
-    _dwFrameOffset = 0;
+    _frame_offset = 0;
     _pChecker = (StgChecker*)_pGeoChecker;
 
 }

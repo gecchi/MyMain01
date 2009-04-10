@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
 class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 
 public:
-    DWORD _dwFrameOffset;
+    DWORD _frame_offset;
 
     StgChecker* _pChecker;
 

@@ -26,7 +26,7 @@ public:
 //        static GgafMainActor* pActor;
 //        pActor = getSubFirst();
 //        while (true) {
-//            if (pActor->switchedToInactive()) {
+//            if (pActor->onChangeToInactive()) {
 //                pActor->moveFirst();
 //            }
 //            if (pActor->isLast()) {
@@ -62,7 +62,7 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isActive() || pActor->willActivateNextFrame()) {
+            if (pActor->isActive() || pActor->willActivateAtNextFrame()) {
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;

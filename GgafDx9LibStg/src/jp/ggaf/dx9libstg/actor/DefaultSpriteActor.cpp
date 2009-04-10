@@ -12,7 +12,7 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
                        NEW GgafDx9GeometryMover(this),
                        NEW StgChecker(this) ) {
     _class_name = "DefaultSpriteActor";
-    _dwFrameOffset = 0;
+    _frame_offset = 0;
     _pChecker = (StgChecker*)_pGeoChecker;
 }
 

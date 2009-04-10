@@ -9,7 +9,7 @@ namespace GgafDx9LibStg {
 class DefaultSpriteActor : public GgafDx9Core::GgafDx9SpriteActor {
 
 public:
-    DWORD _dwFrameOffset;
+    DWORD _frame_offset;
 
     StgChecker* _pChecker;
 
