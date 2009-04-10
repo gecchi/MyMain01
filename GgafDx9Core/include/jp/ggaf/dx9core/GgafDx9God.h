@@ -29,7 +29,7 @@ public:
     static D3DPRESENT_PARAMETERS _structD3dPresent_Parameters;
 
     /** デバイスロストフラグ (true=ロスト中) */
-    static bool _deviceLostFlg;
+    static bool _is_device_lost_flg;
 
     /** カメラのZ座標初期位置 */
     static double _dCamZ_ini;

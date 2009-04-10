@@ -35,7 +35,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _frame_ani_interval = 0;
     _animation_method = ORDER_LOOP;
     _aniframe_counter = 0;
-    _isOscillateAnimationOrderFlg = true;
+    _is_reverse_order_in_oscillate_animation_flg = false;
     _isBillboardingFlg = false;
 }
 
@@ -130,20 +130,21 @@ void GgafDx9SpriteActor::addNextAnimationFrame() {
                 _pattno_ani_now = _pattno_ani_top;
             }
         } else if (_animation_method == OSCILLATE_LOOP) { //ó·ÅF0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            if (_isOscillateAnimationOrderFlg) {
-                if (_pattno_ani_bottom > _pattno_ani_now) {
-                    _pattno_ani_now++;
-                } else {
-                    _pattno_ani_now--;
-                    _isOscillateAnimationOrderFlg = false;
-                }
-            } else {
+            if (_is_reverse_order_in_oscillate_animation_flg) { //ãtèáèòéû
                 if (_pattno_ani_top < _pattno_ani_now) {
                     _pattno_ani_now--;
                 } else {
                     _pattno_ani_now++;
-                    _isOscillateAnimationOrderFlg = true;
+                    _is_reverse_order_in_oscillate_animation_flg = true;
                 }
+            } else {                                            //ê≥èáèòéû
+                if (_pattno_ani_bottom > _pattno_ani_now) {
+                    _pattno_ani_now++;
+                } else {
+                    _pattno_ani_now--;
+                    _is_reverse_order_in_oscillate_animation_flg = false;
+                }
+
             }
         } else if (_animation_method == NOT_ANIMATED) {
             //âΩÇ‡ÇµÇ»Ç¢

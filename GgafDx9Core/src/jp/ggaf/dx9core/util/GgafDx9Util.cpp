@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-bool GgafDx9Util::_isInitFlg = false;
+bool GgafDx9Util::_was_inited_flg = false;
 int GgafDx9Util::COS_UNITLEN[S_ANG360];
 int GgafDx9Util::SIN_UNITLEN[S_ANG360];
 int GgafDx9Util::TAN_UNITLEN[S_ANG360];
@@ -14,7 +14,7 @@ float GgafDx9Util::RAD[S_ANG360];
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
-    if (_isInitFlg) {
+    if (_was_inited_flg) {
         return;
     } else {
         for (s_ang ang = 0; ang < S_ANG360; ang++) {

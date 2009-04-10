@@ -20,7 +20,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
         //軸回転方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
         _angacceRot[i] = 0; //_angveloRot[n] の増分。デフォルトは軸回転方角の角加速度無し
         //目標軸回転方角への自動制御フラグ = 無効
-        _auto_rot_angle_target_Flg[i] = false;
+        _auto_rot_angle_targeting_flg[i] = false;
         //目標の軸回転方角
         _angAutoTargetRot[i] = 0; //目標軸回転方角への自動制御フラグ = 無効、の場合は無意味
         //目標の軸回転方角自動停止機能が有効になる回転方向
@@ -55,7 +55,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
     _angacceRzMove = 0; //_angveloRzMove の増分。デフォルトは移動方角の角加速度無し
     //目標移動方角（Z軸回転）への自動制御フラグ = 無効
-    _auto_move_angle_rz_target_Flg = false;
+    _auto_move_angle_rz_target_flg = false;
     //目標の移動方角（Z軸回転）
     _angAutoTargetRzMove = 0;
     //目標の移動方角（Z軸回転）自動停止機能が有効になる回転方向
@@ -63,7 +63,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _auto_move_angle_rz_target_allow_velocity = ANGLE180;
     //移動方角（Z軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _synchronize_ZRotAngle_to_RzMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    _synchronize_ZRotAngle_to_RzMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
     ////コピー元end
 
     /////コピー元begin
@@ -76,7 +76,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     //移動方角（Y軸回転）の角加速度 = 0 angle/fream^2
     _angacceRyMove = 0; //_angveloRyMove の増分。デフォルトは移動方角の角加速度無し
     //目標移動方角（Y軸回転）への自動制御フラグ = 無効
-    _auto_move_angle_ry_target_Flg = false;
+    _auto_move_angle_ry_target_flg = false;
     //目標の移動方角（Y軸回転）
     _angAutoTargetRyMove = 0;
     //目標の移動方角（Y軸回転）自動停止機能が有効になる回転方向
@@ -84,7 +84,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _auto_move_angle_ry_target_allow_velocity = ANGLE180;
     //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _synchronize_YRotAngle_to_RyMoveAngle_Flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    _synchronize_YRotAngle_to_RyMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
     ////コピー元end
 
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
@@ -116,7 +116,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 void GgafDx9GeometryMover::behave() {
     static angle angDistance;
     for (int i = 0; i < 3; i++) {
-        if (_auto_rot_angle_target_Flg[i]) {
+        if (_auto_rot_angle_targeting_flg[i]) {
             _angveloRot[i] += _angacceRot[i];
             setRotAngleVelocity(i, _angveloRot[i]);
 
@@ -125,7 +125,7 @@ void GgafDx9GeometryMover::behave() {
                 if (_angveloRot[i] > angDistance && _auto_rot_angle_target_allow_way[i] != TURN_CLOCKWISE
                         && _auto_rot_angle_target_allow_velocity[i] >= _angveloRot[i]) {
                     addRotAngle(i, angDistance);
-                    _auto_rot_angle_target_Flg[i] = false; //フラグを戻して終了
+                    _auto_rot_angle_targeting_flg[i] = false; //フラグを戻して終了
                 } else {
                     addRotAngle(i, _angveloRot[i]);
                 }
@@ -134,7 +134,7 @@ void GgafDx9GeometryMover::behave() {
                 if (_angveloRot[i] < angDistance && _auto_rot_angle_target_allow_way[i] != TURN_COUNTERCLOCKWISE
                         && -1 * _auto_rot_angle_target_allow_velocity[i] <= _angveloRot[i]) { //目標を行き過ぎてしまいそう･･･な日
                     addRotAngle(i, angDistance);
-                    _auto_rot_angle_target_Flg[i] = false; //フラグを戻して終了
+                    _auto_rot_angle_targeting_flg[i] = false; //フラグを戻して終了
                 } else {
                     addRotAngle(i, _angveloRot[i]);
                 }
@@ -143,7 +143,7 @@ void GgafDx9GeometryMover::behave() {
                 addRotAngle(i, 0);
             }
 
-            if (_auto_rot_angle_target_Flg[i] == false) {
+            if (_auto_rot_angle_targeting_flg[i] == false) {
                 //目標方向に到達した時の処理
                 //_angveloTopRot[i] = ANGLE360; //軸回転方角の角速度上限 ＝ 360,000 angle/fream
                 //_angveloBottomRot[i] = ANGLE360 * -1; //軸回転方角の角速度下限 ＝ -360,000 angle/fream
@@ -183,7 +183,7 @@ void GgafDx9GeometryMover::behave() {
     setMoveVelocity(_veloMove);
     ///////////
     //目標移動方角（Z軸回転）アングル自動停止機能使用時の場合
-    if (_auto_move_angle_rz_target_Flg) {
+    if (_auto_move_angle_rz_target_flg) {
 
         _angveloRzMove += _angacceRzMove;
         setRzMoveAngleVelocity(_angveloRzMove);
@@ -193,7 +193,7 @@ void GgafDx9GeometryMover::behave() {
             if (_angveloRzMove > angDistance && _auto_move_angle_rz_target_allow_way != TURN_CLOCKWISE
                     && _auto_move_angle_rz_target_allow_velocity >= _angveloRzMove) { //目標を行き過ぎてしまいそう･･･な日
                 addRzMoveAngle(angDistance);
-                _auto_move_angle_rz_target_Flg = false; //フラグを戻して終了
+                _auto_move_angle_rz_target_flg = false; //フラグを戻して終了
             } else {
                 addRzMoveAngle(_angveloRzMove);
             }
@@ -203,14 +203,14 @@ void GgafDx9GeometryMover::behave() {
             if (_angveloRzMove < angDistance && _auto_move_angle_rz_target_allow_way != TURN_COUNTERCLOCKWISE
                     && -1*_auto_move_angle_rz_target_allow_velocity <= _angveloRzMove) {
                 addRzMoveAngle(angDistance);
-                _auto_move_angle_rz_target_Flg = false; //フラグを戻して終了
+                _auto_move_angle_rz_target_flg = false; //フラグを戻して終了
             } else {
                 addRzMoveAngle(_angveloRzMove);
             }
         } else {
             addRzMoveAngle(0);
         }
-        if (_auto_move_angle_rz_target_Flg == false) {
+        if (_auto_move_angle_rz_target_flg == false) {
             //_angveloRzTopMove = ANGLE360; //移動方角（Z軸回転）の角速度上限 ＝ 360,000 angle/fream
             //_angveloRzBottomMove = ANGLE360 * -1; //移動方角（Z軸回転）の角速度下限 ＝ -360,000 angle/fream
 
@@ -228,7 +228,7 @@ void GgafDx9GeometryMover::behave() {
     }
     ////////////////
     //目標移動方角（Y軸回転）アングル自動停止機能使用時の場合
-    if (_auto_move_angle_ry_target_Flg) {
+    if (_auto_move_angle_ry_target_flg) {
 
         _angveloRyMove += _angacceRyMove;
         setRyMoveAngleVelocity(_angveloRyMove);
@@ -240,7 +240,7 @@ void GgafDx9GeometryMover::behave() {
                 _auto_move_angle_ry_target_allow_velocity >= _angveloRyMove)
             { //目標を行き過ぎてしまいそう･･･な日
                 addRyMoveAngle(angDistance);
-                _auto_move_angle_ry_target_Flg = false; //フラグを戻して終了
+                _auto_move_angle_ry_target_flg = false; //フラグを戻して終了
             } else {
                 addRyMoveAngle(_angveloRyMove);
             }
@@ -252,7 +252,7 @@ void GgafDx9GeometryMover::behave() {
                 -1*_auto_move_angle_ry_target_allow_velocity <= _angveloRyMove)
             {
                 addRyMoveAngle(angDistance);
-                _auto_move_angle_ry_target_Flg = false; //フラグを戻して終了
+                _auto_move_angle_ry_target_flg = false; //フラグを戻して終了
             } else {
                 addRyMoveAngle(_angveloRyMove);
             }
@@ -260,7 +260,7 @@ void GgafDx9GeometryMover::behave() {
             //_angveloRyMove==0
             addRyMoveAngle(0);
         }
-        if (_auto_move_angle_ry_target_Flg == false) {
+        if (_auto_move_angle_ry_target_flg == false) {
             //_angveloRyTopMove = ANGLE360; //移動方角（Y軸回転）の角速度上限 ＝ 360,000 angle/fream
             //_angveloRyBottomMove = ANGLE360*-1; //移動方角（Y軸回転）の角速度下限 ＝ -360,000 angle/fream
 
@@ -365,7 +365,7 @@ void GgafDx9GeometryMover::setAutoTargetRotAngle(int prm_axis,
                                                  angle prm_angAutoTargetRot,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllow) {
-    _auto_rot_angle_target_Flg[prm_axis] = true;
+    _auto_rot_angle_targeting_flg[prm_axis] = true;
     _angAutoTargetRot[prm_axis] = simplifyAngle(prm_angAutoTargetRot);
     _auto_rot_angle_target_allow_way[prm_axis] = prm_way_allow;
     _auto_rot_angle_target_allow_velocity[prm_axis] = prm_angveloAllow;
@@ -493,7 +493,7 @@ void GgafDx9GeometryMover::setRzMoveAngle(int prm_tX, int prm_tY) {
 void GgafDx9GeometryMover::setRzMoveAngle(angle prm_angle) {
     _angRzMove = simplifyAngle(prm_angle);
     GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
-    if (_synchronize_ZRotAngle_to_RzMoveAngle_Flg) {
+    if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
         setRotAngle(AXIS_Z, _angRzMove);
     }
 }
@@ -537,7 +537,7 @@ void GgafDx9GeometryMover::setRzMoveAngleVelocityRenge(angvelo prm_angveloRzMove
 void GgafDx9GeometryMover::setAutoTargetRzMoveAngle(angle prm_angAutoTargetRzMove,
                                                 int prm_way_allow,
                                                 angvelo prm_angveloAllowRyMove) {
-    _auto_move_angle_rz_target_Flg = true;
+    _auto_move_angle_rz_target_flg = true;
     _angAutoTargetRzMove = simplifyAngle(prm_angAutoTargetRzMove);
     _auto_move_angle_rz_target_allow_way = prm_way_allow;
     _auto_move_angle_rz_target_allow_velocity = prm_angveloAllowRyMove;
@@ -641,7 +641,7 @@ void GgafDx9GeometryMover::setRyMoveAngle(int prm_tX, int prm_tY) {
 void GgafDx9GeometryMover::setRyMoveAngle(angle prm_angle) {
     _angRyMove = simplifyAngle(prm_angle);
     GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
-    if (_synchronize_YRotAngle_to_RyMoveAngle_Flg) {
+    if (_synchronize_YRotAngle_to_RyMoveAngle_flg) {
         setRotAngle(AXIS_Y, _angRyMove);
     }
 }
@@ -685,7 +685,7 @@ void GgafDx9GeometryMover::setRyMoveAngleVelocityRenge(angvelo prm_angveloRyMove
 void GgafDx9GeometryMover::setAutoTargetRyMoveAngle(angle prm_angAutoTargetRyMove,
                                                 int prm_way_allow,
                                                 angvelo prm_angveloAllowRyMove) {
-    _auto_move_angle_ry_target_Flg = true;
+    _auto_move_angle_ry_target_flg = true;
     _angAutoTargetRyMove = simplifyAngle(prm_angAutoTargetRyMove);
     _auto_move_angle_ry_target_allow_way = prm_way_allow;
     _auto_move_angle_ry_target_allow_velocity = prm_angveloAllowRyMove;
@@ -785,10 +785,10 @@ void GgafDx9GeometryMover::setRzRyMoveAngle(angle prm_angRz, angle prm_angRy) {
     _angRzMove = simplifyAngle(prm_angRz);
     _angRyMove = simplifyAngle(prm_angRy);
     GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
-    if (_synchronize_ZRotAngle_to_RzMoveAngle_Flg) {
+    if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
         setRotAngle(AXIS_Z, _angRzMove);
     }
-    if (_synchronize_YRotAngle_to_RyMoveAngle_Flg) {
+    if (_synchronize_YRotAngle_to_RyMoveAngle_flg) {
         setRotAngle(AXIS_Y, _angRyMove);
     }
 

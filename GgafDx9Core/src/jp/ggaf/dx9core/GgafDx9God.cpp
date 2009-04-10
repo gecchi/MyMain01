@@ -31,14 +31,14 @@ GgafDx9EffectManager* GgafDx9God::_pEffectManager = NULL;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)  = 1024;
 //int const GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) = 600;
 D3DPRESENT_PARAMETERS GgafDx9God::_structD3dPresent_Parameters;
-bool GgafDx9God::_deviceLostFlg = false;
+bool GgafDx9God::_is_device_lost_flg = false;
 
 GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND _hWnd) :
     GgafGod() {
     TRACE("GgafDx9God::GgafDx9God(HINSTANCE prm_hInstance, HWND prmGgafDx9God::_hWnd) ");
     GgafDx9God::_hWnd = _hWnd;
     GgafDx9God::_hInstance = prm_hInstance;
-    _deviceLostFlg = false;
+    _is_device_lost_flg = false;
     CmRandomNumberGenerator::getInstance()->changeSeed(19740722UL); //19740722 は乱数のSeed
 }
 
@@ -457,7 +457,7 @@ void GgafDx9God::makeWorldMaterialize() {
     //カメラ設定
     updateCam();
     HRESULT hr;
-    if (_deviceLostFlg) {
+    if (_is_device_lost_flg) {
         //正常デバイスロスト処理。デバイスリソースの解放→復帰処理を試みる。
         if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
             //工場休止
@@ -489,7 +489,7 @@ void GgafDx9God::makeWorldMaterialize() {
             getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_id_lastdraw = -1;
-            _deviceLostFlg = false;
+            _is_device_lost_flg = false;
 
             //工場再開
             GgafFactory::finishRest();
@@ -497,7 +497,7 @@ void GgafDx9God::makeWorldMaterialize() {
         }
     }
 
-    if (_deviceLostFlg != true) {
+    if (_is_device_lost_flg != true) {
         //バッファクリア
         hr = GgafDx9God::_pID3DDevice9->Clear(0, // クリアする矩形領域の数
                                               NULL, // 矩形領域
@@ -524,7 +524,7 @@ void GgafDx9God::makeWorldMaterialize() {
 }
 
 void GgafDx9God::makeWorldVisualize() {
-    if (_deviceLostFlg != true) {
+    if (_is_device_lost_flg != true) {
         //バックバッファをプライマリバッファに転送
         //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
 
@@ -533,7 +533,7 @@ void GgafDx9God::makeWorldVisualize() {
         if (hr == D3DERR_DEVICELOST) {
             //出刃異巣露酢斗！
             _TRACE_("通常デバイスロスト！Present()");
-            _deviceLostFlg = true;
+            _is_device_lost_flg = true;
         } else if (hr == D3DERR_DRIVERINTERNALERROR) {
             //Present以上時、無駄かもしれないがデバイスロストと同じ処理を試みる。
             _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
@@ -577,8 +577,8 @@ GgafDx9God::~GgafDx9God() {
     if (_pWorld != NULL) {
         //工場を止める
         Sleep(20);
-        GgafFactory::_isWorkingFlg = false;
-        while (GgafFactory::_isFinishFlg == false) {
+        GgafFactory::_is_working_flg = false;
+        while (GgafFactory::_was_finished_flg == false) {
             Sleep(10); //工場が落ち着くまで待つ
         }
 

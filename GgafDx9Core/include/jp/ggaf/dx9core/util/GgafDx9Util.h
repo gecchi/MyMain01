@@ -24,7 +24,7 @@ public:
     static float RAD[];
     static GgafDx9SphereRadiusVectors _srv;
 
-    static bool _isInitFlg;
+    static bool _was_inited_flg;
 
     static void init();
     /**
