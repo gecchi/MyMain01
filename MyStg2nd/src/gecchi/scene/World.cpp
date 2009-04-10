@@ -6,6 +6,12 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultWorld(prm_name) {
+    //y‚ß‚àz
+    //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
+    //‚Ü‚¸‚Í¢ŠE‚ðì‚é‚±‚Æ‚ð—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB
+}
+
+void World::initialize() {
     GameScene* pGameScene = NEW GameScene("Game");
     addSubLast(pGameScene);
 #ifdef OREDEBUG
@@ -18,7 +24,6 @@ World::World(const char* prm_name) : DefaultWorld(prm_name) {
 //    _pCamera->_pGeoMover->setRzRyMoveAngle(0,0);
 //    _pCamera->_pGeoMover->setRyMoveAngleVelocityRenge(-100, 100);
 }
-
 void World::processDrawPrior() {
 
 //    _pCamera->_pGeoMover->setAutoTargetMoveAngle(0,0,0);

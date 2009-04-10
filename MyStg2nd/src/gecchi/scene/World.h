@@ -21,7 +21,7 @@ public:
 	/**
 	 * ‰Šúˆ—
 	 */
-	void initialize() {}
+	void initialize();
 
  	/**
 	 * ƒOverRide ‚Å‚·„

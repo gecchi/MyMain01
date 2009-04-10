@@ -41,27 +41,32 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
 
     _way = WAY_FRONT;
 
+    MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
+    addSubLast(pMyOptionParent);
+
+}
+
+void MyShip::initialize() {
     _pMyShots001Rotation = NEW RotationActor("RotShot001");
-    addSubLast(_pMyShots001Rotation); //仮所属
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateTreeNow();
         _pMyShots001Rotation->addSubLast(pShot);
     }
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
 
     _pMyWaves001Rotation = NEW RotationActor("RotWave001");
-    addSubLast(_pMyWaves001Rotation);//仮所属
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
         pWave->inactivateTreeNow();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
 
     _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
-    addSubLast(_pMyLaserChipRotation);
-
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -69,23 +74,9 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
 
-
-    MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
-    addSubLast(pMyOptionParent);
-
-}
-
-void MyShip::initialize() {
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation->breakAwayFromTree());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->breakAwayFromTree());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->breakAwayFromTree());
-
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
     _pGeoMover->setMoveVelocity(0);
-
-
-
 }
 
 void MyShip::processBehavior() {

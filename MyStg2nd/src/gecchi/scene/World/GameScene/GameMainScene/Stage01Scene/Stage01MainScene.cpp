@@ -15,7 +15,7 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
         pEnemyMeshShot->inactivateTreeNow(); //最初非表示
         _pRot->addSubLast(pEnemyMeshShot);
     }
-
+    getLordActor()->accept(KIND_ENEMY, _pRot);
 
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start
@@ -33,7 +33,7 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
 }
 
 void Stage01MainScene::initialize() {
-    getLordActor()->accept(KIND_ENEMY, _pRot);
+
 }
 
 void Stage01MainScene::processBehavior() {
