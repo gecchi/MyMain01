@@ -29,7 +29,7 @@ void MyLaserChipRotationActor::processFinal() {
             _mode = 0;
         }
     } else {
-        if ( _pHeadChip->switchedToInactive()) {
+        if ( _pHeadChip->onChangeToInactive()) {
             _mode = 1;
             _pHeadChip = NULL;
         } else {

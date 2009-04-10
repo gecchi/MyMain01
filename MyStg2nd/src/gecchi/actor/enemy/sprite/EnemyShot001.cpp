@@ -19,7 +19,7 @@ void EnemyShot001::initialize() {
 }
 
 void EnemyShot001::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //èoåªéû
         setBumpableAlone(true);
     }

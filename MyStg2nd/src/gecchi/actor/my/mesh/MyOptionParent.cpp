@@ -54,8 +54,8 @@ void MyOptionParent::processBehavior() {
     if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
 
         //•ûŒü‚ª•Ï‚í‚Á‚½
-        _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
-        _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
+        _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+        _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
         switch(GameGlobal::_pMyShip->_way) {
             case WAY_UP:
                 setTerget(ANGLE90, 0);

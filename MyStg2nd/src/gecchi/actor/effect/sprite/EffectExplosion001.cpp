@@ -16,7 +16,7 @@ void EffectExplosion001::initialize() {
 }
 
 void EffectExplosion001::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»Žžˆ—
         setActivAnimationPattern(0);
         //		_X = GameGlobal::_pMyShip->_X;

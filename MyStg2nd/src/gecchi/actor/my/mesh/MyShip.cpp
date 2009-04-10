@@ -76,9 +76,9 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
 }
 
 void MyShip::initialize() {
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation->tear());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->tear());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->tear());
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation->breakAwayFromTree());
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation->breakAwayFromTree());
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation->breakAwayFromTree());
 
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
@@ -171,7 +171,7 @@ void MyShip::processBehavior() {
         MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
-            //pLaser->_dwFrame_switchedToActiveFlg = _lifeframe;
+            //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }
     }
 

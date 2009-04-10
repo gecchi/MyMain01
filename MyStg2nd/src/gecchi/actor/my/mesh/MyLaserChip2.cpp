@@ -22,7 +22,7 @@ MyLaserChip2::Tetrahedron* MyLaserChip2::_pTetra_EFGH = NULL;
 
 MyLaserChip2::MyLaserChip2(const char* prm_name) : DefaultDynaD3DXMeshActor(prm_name, "m/laserchip9") {
     _class_name = "MyLaserChip2";
-    //_dwFrame_switchedToActiveFlg = 0;
+    //_frame_on_change_to_active_flg = 0;
 }
 
 /*
@@ -107,7 +107,7 @@ void MyLaserChip2::initialize() {
 }
 
 void MyLaserChip2::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»Žžˆ—
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);
@@ -319,7 +319,7 @@ void MyLaserChip2::processDrawMain() {
     }
 
     //	static int centerX, centerY, centerZ;
-    //	if (pNextChip->isActive() && _dwFrame_switchedToActiveFlg+1 == pNextChip->_dwFrame_switchedToActiveFlg) {
+    //	if (pNextChip->isActive() && _frame_on_change_to_active_flg+1 == pNextChip->_frame_on_change_to_active_flg) {
     //		centerX = (_X - pNextChip->_X) / 2;
     //		centerY = (_Y - pNextChip->_Y) / 2;
     //		centerZ = (_Z - pNextChip->_Z) / 2;

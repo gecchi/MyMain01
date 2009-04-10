@@ -6,7 +6,7 @@ class MyLaserChip : public GgafDx9LibStg::DefaultDynaD3DXMeshActor {
 public:
 
     /** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
-    DWORD _dwFrame_switchedToActiveFlg;
+    DWORD _frame_on_change_to_active_flg;
 
     /**
      * 正四面体クラス

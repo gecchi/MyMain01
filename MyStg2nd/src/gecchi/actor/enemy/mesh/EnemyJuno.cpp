@@ -25,7 +25,7 @@ void EnemyJuno::initialize() {
 }
 
 void EnemyJuno::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»ˆ—
         setBumpableAlone(true);
         _X += FormationJuno001::_X_FormationWhole;

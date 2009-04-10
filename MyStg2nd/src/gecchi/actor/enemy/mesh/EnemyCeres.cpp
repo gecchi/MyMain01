@@ -64,12 +64,12 @@ EnemyCeres::EnemyCeres(const char* prm_name, RotationActor* prm_pRotEnemyMeshSho
 
 void EnemyCeres::initialize() {
     //–{—ˆ‚ÌêŠ‚Ö
-    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pRotEnemyMeshShots001->tear());
+    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pRotEnemyMeshShots001->breakAwayFromTree());
 
     setBumpableAlone(true);
 
     //	_pGeoMover->setMoveVelocity(1000);
-    //	_pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
+    //	_pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     //
     //	//_pGeoMover->setRzMoveAngleVelocityRenge(-2000, 2000);
     ////	//_pGeoMover->setRzMoveAngle(0,-100*1000,-100*1000);
@@ -80,8 +80,8 @@ void EnemyCeres::initialize() {
 
     _pGeoMover->setMoveAngle(_X_turn, _Y_turn, _Z_turn);
     _pGeoMover->setMoveVelocity(_veloBegin);
-    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_Flg = true;
-    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_Flg = true;
+    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pGeoMover->setRotAngleVelocity(AXIS_X, 6000);
 
     _pChecker->useHitAreaBoxNum(1);
@@ -226,7 +226,7 @@ void EnemyCeres::processBehavior() {
 //		_iMovePatternNo++;
 //	}
 //
-//	if (_iMovePatternNo == 1 && _pGeoMover->_auto_move_angle_rz_target_Flg == false) {
+//	if (_iMovePatternNo == 1 && _pGeoMover->_auto_move_angle_rz_target_flg == false) {
 //		_pGeoMover->setMoveVelocity(2000);
 //		_pGeoMover->setMoveAcceleration(100);
 //		_iMovePatternNo++;

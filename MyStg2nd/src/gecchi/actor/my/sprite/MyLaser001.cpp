@@ -23,7 +23,7 @@ void MyLaser001::initialize() {
 }
 
 void MyLaser001::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»ˆ—
         setBumpableAlone(true);
         setGeometry(_pActor_Radical);

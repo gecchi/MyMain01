@@ -44,7 +44,7 @@ void MyWave001::initialize() {
 }
 
 void MyWave001::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
         setBumpableAlone(true);
         setGeometry(GameGlobal::_pMyShip);

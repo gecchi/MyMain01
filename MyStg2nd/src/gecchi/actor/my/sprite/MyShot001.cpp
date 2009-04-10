@@ -47,7 +47,7 @@ void MyShot001::initialize() {
 }
 
 void MyShot001::processBehavior() {
-    if (switchedToActive()) {
+    if (onChangeToActive()) {
         //oŒ»Žž‹¤’Êˆ—
         setBumpableAlone(true);
         _X = GameGlobal::_pMyShip->_X;
