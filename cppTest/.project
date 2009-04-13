@@ -3,6 +3,8 @@
 	<name>cppTest</name>
 	<comment></comment>
 	<projects>
+		<project>GgafCore</project>
+		<project>PaulCoppensLib</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
