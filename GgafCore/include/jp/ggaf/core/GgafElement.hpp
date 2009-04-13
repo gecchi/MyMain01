@@ -32,8 +32,6 @@ protected:
 
     /** 余命 */
     DWORD _dwGodFrame_when_goodbye;
-    /** ノードが誕生(addSubされた）時からのフレーム */
-    DWORD _lifeframe;
     /** 相対フレーム計算用 */
     DWORD _frame_relative;
     /** ノード活動フラグ */
@@ -75,6 +73,10 @@ protected:
     bool _on_change_to_inactive_flg;
 
 public:
+
+    /** ノードが誕生(addSubされた）時からのフレーム */
+    DWORD _lifeframe;
+
     /**
      * コンストラクタ
      * @param prm_name ノード名称（ユニークにして下さい）
