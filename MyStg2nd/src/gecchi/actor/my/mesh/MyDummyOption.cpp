@@ -16,7 +16,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _radius = 200000;     //旋廻半径距離（上書き初期設定可）
     _veloMove = 1000;     //オプションの広がり回転角（上書き初期設定可）
     _angExpanse = 0;      //オプションの広がり角回転角（上書き初期設定可）
-    _angveloExpanse = 100;//オプションの広がり回転角速度 （上書き初期設定可）
+    _angveloExpanse = 2000;//オプションの広がり回転角速度 （上書き初期設定可）
 
 }
 
@@ -32,7 +32,7 @@ void MyDummyOption::initialize() {
     _X = 50000; //TODO:本当は0（時機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
                 //やや中心からずらす事で、ある程度向きの遷移を滑らかにし、
                 //さらにAXIS_X 軸回転を速めに設定し、気付かれないようにごまかす･･･妥協。
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 5000);
+    _pGeoMover->setRotAngleVelocity(AXIS_X, 8000);
 
     _RZ2 = _RZ;
     _RY2 = _RY;
@@ -46,6 +46,21 @@ void MyDummyOption::initialize() {
     _RXorg = _RX;
     _RYorg = _RY;
     _RZorg = _RZ;
+
+
+
+
+
+
+
+
+
+
+
+
+    _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
+
 }
 
 void MyDummyOption::processBehavior() {
@@ -143,6 +158,40 @@ void MyDummyOption::processBehavior() {
     _Z2 = _Z;
 
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
+
+
+
+
+
+
+
+
+
+
+    if (VB::isBeingPressed(VB_SHOT2)) {
+        MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
+        if (pLaser != NULL) {
+            pLaser->setRadicalActor(this);
+            pLaser->_X = _X2;
+            pLaser->_Y = _Y2;
+            pLaser->_Z = _Z2;
+
+            pLaser->_pGeoMover->_vX = Q._x;
+            pLaser->_pGeoMover->_vY = Q._y;
+            pLaser->_pGeoMover->_vZ = Q._z;
+            pLaser->_pGeoMover->_angRzMove = _RZ2;
+            pLaser->_pGeoMover->_angRyMove = _RY2;
+
+            pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
+            pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY2;
+
+            //pLaser->_frame_on_change_to_active_flg = _lifeframe;
+        }
+    }
+
+
+
+
 }
 
 void MyDummyOption::processJudgement() {

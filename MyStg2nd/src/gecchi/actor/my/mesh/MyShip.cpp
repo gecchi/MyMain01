@@ -159,9 +159,10 @@ void MyShip::processBehavior() {
 
     if (VB::isBeingPressed(VB_SHOT2)) {
         //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-        MyLaserChip2* pLaser = (MyLaserChip2*)_pMyLaserChipRotation->obtain();
+        MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
+            pLaser->setGeometry(this);
             //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }
     }

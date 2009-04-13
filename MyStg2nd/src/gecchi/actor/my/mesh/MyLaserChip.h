@@ -2,44 +2,14 @@
 #define MYLASERCHIP_H_
 namespace MyStg2nd {
 
-class MyLaserChip : public GgafDx9LibStg::DefaultDynaD3DXMeshActor {
+class MyLaserChip : public GgafDx9Core::GgafDx9MeshActor {
 public:
+    D3DXHANDLE _hX, _hY, _hZ;
+    int _prevX, _prevY, _prevZ;
+    MyLaserChip* _pChip_prev;
+    DWORD _lifeframe_prev;
 
-    /** play状態になったフレーム(これの差が1かどうかで連続かを見る) */
-    DWORD _frame_on_change_to_active_flg;
-
-    /**
-     * 正四面体クラス
-     */
-    class Tetrahedron {
-    public:
-        float Ex, Ey, Ez; // 頂点座標1
-        float Fx, Fy, Fz; // 頂点座標2
-        float Gx, Gy, Gz; // 頂点座標3
-        float Hx, Hy, Hz; // 頂点座標4
-        Tetrahedron() {
-        }
-        ~Tetrahedron() {
-        }
-    };
-
-    static LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_MyLaserChip;
-    static DWORD _dwVertexFormat;
-    static DWORD _dwFVFSize;
-    static DWORD _dwVertexNum;
-    static UINT _aVertexIndexTetrahedron_A[];
-    static UINT _aVertexIndexTetrahedron_B[];
-    static UINT _aVertexIndexTetrahedron_C[];
-    static UINT _aVertexIndexTetrahedron_D[];
-    static UINT _iNum_VertexIndexTetrahedron_A;
-    static UINT _iNum_VertexIndexTetrahedron_B;
-    static UINT _iNum_VertexIndexTetrahedron_C;
-    static UINT _iNum_VertexIndexTetrahedron_D;
-    static Tetrahedron* _pTetra_EFGH;
-
-    int _X_prevFrame;
-    int _Y_prevFrame;
-    int _Z_prevFrame;
+    GgafDx9LibStg::StgChecker* _pChecker;
 
     /** 対象アクター */
     GgafDx9UntransformedActor* _pActor_Radical;
@@ -61,10 +31,22 @@ public:
      */
     void processJudgement();
 
+    void processDrawPrior() {
+        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+    }
+
+    void processDrawTerminate();
+
     /**
      * ＜OverRide です＞
      */
     void processDrawMain();
+
+    void processHappen(int prm_no) {
+    }
+
+    void processFinal() {
+    }
 
     /**
      * ＜OverRide です＞
@@ -82,6 +64,8 @@ public:
     MyLaserChip* getPrev() {
         return (MyLaserChip*)_pPrev;
     }
+
+    bool isOffScreen();
 
     virtual ~MyLaserChip();
 

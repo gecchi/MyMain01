@@ -6,7 +6,11 @@ class MyLaserChipRotationActor : public GgafDx9LibStg::RotationActor {
 
 public:
     int _iNumActiveChip;
-    MyLaserChip2* _pHeadChip;
+    MyLaserChip* _pHeadChip;
+    MyLaserChip* _pChip_prev_obtain;
+    DWORD _lifeframe_prev_obtain;
+
+
     int _mode;// = 0 OK /=1 ‹ó‚É‚È‚é‚Ü‚Å‘Ò‚Â
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;
 
@@ -16,7 +20,7 @@ public:
 	virtual void processBehavior();
 
 	virtual void processFinal();
-	virtual GgafCore::GgafMainActor* obtain();
+	virtual MyLaserChip* obtain();
 
  	virtual ~MyLaserChipRotationActor();
 

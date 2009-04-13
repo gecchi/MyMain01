@@ -103,7 +103,7 @@ void MyLaserChip2::initialize() {
     _pActor_Radical = NULL;
 
     setBumpableAlone(false);
-    //_SX = 10*1000; _SY=10*1000; _SZ=10*1000;
+    _SX = 10*1000; _SY=10*1000; _SZ=10*1000;
 }
 
 void MyLaserChip2::processBehavior() {

@@ -16,6 +16,10 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMeshActor {
     float _Xwk,_Ywk,_Zwk;
 
 public:
+    MyLaserChipRotationActor* _pMyLaserChipRotation;
+
+
+
     /** 現在の最終的な座標（読み出し専用） */
     int _X2, _Y2, _Z2;
     /** 現在の最終的な軸回転角度（読み出し専用） */
