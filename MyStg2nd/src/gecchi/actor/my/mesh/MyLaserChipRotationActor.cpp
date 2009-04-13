@@ -68,13 +68,18 @@ MyLaserChip* MyLaserChipRotationActor::obtain() {
     MyLaserChip* pChip = (MyLaserChip*)RotationActor::obtain();
     if (pChip != NULL) {
         if (_pChip_prev_obtain != NULL) {
-            if (_lifeframe_prev_obtain == _pChip_prev_obtain->_lifeframe - 1) { //2フレーム連続でobtainの場合連結とみなす
-                pChip->_pChip_prev = _pChip_prev_obtain;
+			//_TRACE_("_lifeframe_prev_obtain="<<_lifeframe_prev_obtain<<" _pChip_prev_obtain->_lifeframe="<<_pChip_prev_obtain->_lifeframe);
+            if (_lifeframe_prev_obtain == _pChip_prev_obtain->_lifeframe) { //アクティブになってフレームが加算されるのは１フレーム次であるため
+                //2フレーム連続でobtainの場合連結とみなす
+                pChip->_pChip_front = _pChip_prev_obtain;
+                _pChip_prev_obtain->_pChip_behind = pChip;
             } else {
-                pChip->_pChip_prev = NULL;
+                //2フレーム連続でobtainの場合連結は切れてる
+                pChip->_pChip_front = NULL;
+                _pChip_prev_obtain->_pChip_behind = NULL;
             }
         } else {
-            pChip->_pChip_prev = NULL;
+            pChip->_pChip_front = NULL;
         }
         _pChip_prev_obtain = pChip;
         _lifeframe_prev_obtain = pChip->_lifeframe;

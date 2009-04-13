@@ -256,7 +256,7 @@ Frame Box01 {
     0.000000;0.000000;0.000000;;
 
     TextureFilename {
-     "background01.png";
+     "laser_chip.dds";
     }
    }
   }

@@ -6,7 +6,8 @@ class MyLaserChip : public GgafDx9Core::GgafDx9MeshActor {
 public:
     D3DXHANDLE _hX, _hY, _hZ;
     int _prevX, _prevY, _prevZ;
-    MyLaserChip* _pChip_prev;
+    MyLaserChip* _pChip_front;
+	MyLaserChip* _pChip_behind;
     DWORD _lifeframe_prev;
 
     GgafDx9LibStg::StgChecker* _pChecker;

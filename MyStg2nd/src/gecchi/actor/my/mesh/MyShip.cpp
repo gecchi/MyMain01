@@ -157,7 +157,7 @@ void MyShip::processBehavior() {
         }
     }
 
-    if (VB::isBeingPressed(VB_SHOT2)) {
+    if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
         //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
         MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
         if (pLaser != NULL) {

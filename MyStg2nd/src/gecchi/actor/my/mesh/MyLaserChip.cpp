@@ -15,7 +15,8 @@ MyLaserChip::MyLaserChip(const char* prm_name) :
                      NEW StgChecker(this) ) {
     _pChecker = (StgChecker*)_pGeoChecker;
     _class_name = "MyLaserChip";
-    _pChip_prev = NULL;
+    _pChip_front = NULL;
+    _pChip_behind = NULL;
 }
 
 void MyLaserChip::initialize() {
@@ -28,25 +29,22 @@ void MyLaserChip::initialize() {
     _prevY = _Y;
     _prevZ = _Z;
 
-    _pGeoMover->setMoveVelocity(20*1000);
+    _pGeoMover->setMoveVelocity(20000);
+    _pGeoMover->setRotAngleVelocity(AXIS_X, 100);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pActor_Radical = NULL;
-    _SX = 10*1000; _SY=10*1000; _SZ=10*1000;
+    _SX = 5*1000; _SY=5*1000; _SZ=5*1000;
     _fAlpha = 0.99;
 }
 
 void MyLaserChip::processBehavior() {
     if (onChangeToActive()) {
     }
-    if (_pChip_prev != NULL) {
-        _prevX = _pChip_prev->_X;
-        _prevY = _pChip_prev->_Y;
-        _prevZ = _pChip_prev->_Z;
-    } else {
-        _prevX = _X;
-        _prevY = _Y;
-        _prevZ = _Z;
+    if (_pChip_front != NULL) {
+        _prevX = _pChip_front->_X;
+        _prevY = _pChip_front->_Y;
+        _prevZ = _pChip_front->_Z;
     }
 
 
@@ -59,7 +57,11 @@ void MyLaserChip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
         inactivateTree();
-        _pChip_prev = NULL;
+        _pChip_front = NULL;
+		if (_pChip_behind != NULL) {
+			_pChip_behind->_pChip_front = NULL;
+		}
+        _pChip_behind = NULL;
     }
 }
 
@@ -74,14 +76,23 @@ void MyLaserChip::processDrawMain() {
     potentialDx9Exception(hr, S_OK, "MyLaserChip::processDrawMain() SetTechnique("<<_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 
+    if (_pChip_front != NULL) {
+		//_TRACE_("_pChip_front=("<<_prevX<<","<<_prevY<<","<<_prevZ<<")");
+        hr = pID3DXEffect->SetFloat(_hX, 1.0*_prevX/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B1");
+        hr = pID3DXEffect->SetFloat(_hY, 1.0*_prevY/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B1");
+        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_prevZ/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B1");
+    } else {
+        hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B2");
+        hr = pID3DXEffect->SetFloat(_hY, 1.0*_Y/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B2");
+        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_Z/LEN_UNIT/ PX_UNIT);
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B2");
 
-    hr = pID3DXEffect->SetFloat(_hX, 1.0*_prevX/LEN_UNIT/ PX_UNIT);
-    potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_hY, 1.0*_prevY/LEN_UNIT/ PX_UNIT);
-    potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_hZ, 1.0*_prevZ/LEN_UNIT/ PX_UNIT);
-    potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
+    }
 
 
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );

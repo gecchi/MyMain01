@@ -48,18 +48,20 @@ OUT_VS GgafDx9VS_LaserChip(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	if (prm_pos.x > 0) {
-		out_vs.pos.x = g_X;  // 出力に設定
-		out_vs.pos.y = g_Y;  // 出力に設定
-		out_vs.pos.z = g_Z;  // 出力に設定
+	float4 posWorld;
+	if (prm_pos.x > 0) {        
+		float4x4 g_matWorld2 = g_matWorld;
+		g_matWorld2._41 = g_X;  // 一つ前方の座標へ
+		g_matWorld2._42 = g_Y;  // 一つ前方の座標へ
+		g_matWorld2._43 = g_Z;  // 一つ前方の座標へ
+		posWorld = mul( prm_pos, g_matWorld2 );               // World変換
 	} else {
-
 		//頂点計算
-		float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
-		float4 posWorldView = mul(posWorld, g_matView );            // View変換
-		float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-		out_vs.pos = posWorldViewProj;                              // 出力に設定
+		posWorld = mul( prm_pos, g_matWorld );               // World変換
 	}
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
 	//法線計算
 	out_vs.normal = normalize(mul(prm_normal, g_matWorld)); 	//法線を World 変換して正規化
 	//UVはそのまま
@@ -67,47 +69,69 @@ OUT_VS GgafDx9VS_LaserChip(
 	return out_vs;
 }
 
-//メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_LaserChip(
-	float4 prm_in_color : COLOR0,
-	float2 prm_uv	    : TEXCOORD0,
-	float3 prm_normal   : TEXCOORD1
+	float2 prm_uv	  : TEXCOORD0,
+	float3 prm_normal : TEXCOORD1
 ) : COLOR  {
 	//求める色
 	float4 out_color; 
 
+    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
+	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
-
-	if (prm_in_color.a < tex_color.a) {
-		out_color.a = tex_color.a;               
-	} else {
-		out_color.a = prm_in_color.a;
-	}
-
-	if (prm_in_color.r < tex_color.r) {
-		out_color.r = tex_color.r;               
-	} else {
-		out_color.r = prm_in_color.r;               
-	}
-
-	if (prm_in_color.g < tex_color.g) {
-		out_color.g = tex_color.g;               
-	} else {
-		out_color.g = prm_in_color.g;               
-	}
-
-	if (prm_in_color.a < tex_color.b) {
-		out_color.b = tex_color.b;               
-	} else {
-		out_color.b = prm_in_color.b;               
-	}
-
-	//α計算、
-	out_color.a = g_MaterialDiffuse.a * out_color.a ; 
+	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
+	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
+	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	//α計算、αは法線、ライト方向が関係なしにするので別計算。本来ライトα色も掛けるが、ライトは省略。
+	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;
 }
+
+
+////メッシュ標準ピクセルシェーダー（テクスチャ有り）
+//float4 GgafDx9PS_LaserChip(
+//	float4 prm_in_color : COLOR0,
+//	float2 prm_uv	    : TEXCOORD0,
+//	float3 prm_normal   : TEXCOORD1
+//) : COLOR  {
+//	//求める色
+//	float4 out_color; 
+//
+//	//テクスチャをサンプリングして色取得（原色を取得）
+//	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+//
+//	if (prm_in_color.a < tex_color.a) {
+//		out_color.a = tex_color.a;               
+//	} else {
+//		out_color.a = prm_in_color.a;
+//	}
+//
+//	if (prm_in_color.r < tex_color.r) {
+//		out_color.r = tex_color.r;               
+//	} else {
+//		out_color.r = prm_in_color.r;               
+//	}
+//
+//	if (prm_in_color.g < tex_color.g) {
+//		out_color.g = tex_color.g;               
+//	} else {
+//		out_color.g = prm_in_color.g;               
+//	}
+//
+//	if (prm_in_color.a < tex_color.b) {
+//		out_color.b = tex_color.b;               
+//	} else {
+//		out_color.b = prm_in_color.b;               
+//	}
+//
+//	//α計算、
+//	out_color.a = g_MaterialDiffuse.a * out_color.a ; 
+//
+//	return out_color;
+//}
 
 technique LaserChipTechnique
 {
