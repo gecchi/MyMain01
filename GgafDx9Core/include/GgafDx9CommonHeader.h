@@ -156,7 +156,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9D3DXMeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9DynaD3DXMeshActor.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9CubeActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9TransformedActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"

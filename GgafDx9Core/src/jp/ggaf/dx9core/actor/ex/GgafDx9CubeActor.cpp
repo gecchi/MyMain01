@@ -8,7 +8,7 @@ GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
                                    GgafDx9GeometryChecker* prm_pGeoChecker) :
 
                                    GgafDx9MeshActor(prm_name,
-                                                    "X/cube4",
+                                                    "X/cube",
                                                     "X/DefaultMashEffect",
                                                     "DefaultMeshTechnique",
                                                     prm_pGeoMover,
