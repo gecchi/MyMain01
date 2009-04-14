@@ -31,12 +31,12 @@ void MyLaserChip::initialize() {
     _prevZ = _Z;
 
     _pGeoMover->setMoveVelocity(32000);
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 300);
+    //_pGeoMover->setRotAngleVelocity(AXIS_X, 300);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pActor_Radical = NULL;
     _SX = 3*1000; _SY=3*1000; _SZ=3*1000;
-    _fAlpha = 0.7;
+    _fAlpha = 1.0; //両面あるので
 }
 
 void MyLaserChip::processBehavior() {
@@ -101,11 +101,6 @@ void MyLaserChip::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
-//    //上に書く画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
-//    //下地の画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
-
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
@@ -118,10 +113,6 @@ void MyLaserChip::processDrawMain() {
     }
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
-//    //上に書く画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
-//    //下地の画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
 }
 

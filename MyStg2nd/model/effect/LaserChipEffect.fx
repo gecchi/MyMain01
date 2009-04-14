@@ -49,7 +49,7 @@ OUT_VS GgafDx9VS_LaserChip(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	float4 posWorld;
-	if (prm_pos.x > 1) {        
+	if (prm_pos.x > 0.5) {        
 		float4x4 matWorld2 = g_matWorld;
 		matWorld2._41 = g_X;  // 一つ前方のチップ座標へ
 		matWorld2._42 = g_Y;  
@@ -75,24 +75,26 @@ float4 GgafDx9PS_LaserChip(
 ) : COLOR  {
 	//求める色
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);    
-	return tex_color; 
-//	if (prm_color.r-0.1 < tex_color.r && tex_color.r < prm_color.r+0.1) {
-//		if (prm_color.g-0.1 < tex_color.g && tex_color.g < prm_color.g+0.1) {
-//			if (prm_color.b-0.1 < tex_color.b && tex_color.b < prm_color.b+0.1) {
-//				if (prm_color.a-0.1 < tex_color.a && tex_color.a < prm_color.a+0.1) {
-//					return prm_color;
-//	    		} else {
-//					return tex_color;
-//				}
-//			} else {
-//				return tex_color;
-//			}
-//		} else {
-//			return tex_color;
-//		}
-//	} else {
-//		return tex_color;
-//	}
+//	return tex_color; 
+
+	if (prm_color.r-0.1 < tex_color.r && tex_color.r < prm_color.r+0.1) {
+		if (prm_color.g-0.1 < tex_color.g && tex_color.g < prm_color.g+0.1) {
+			if (prm_color.b-0.1 < tex_color.b && tex_color.b < prm_color.b+0.1) {
+				if (prm_color.a-0.1 < tex_color.a && tex_color.a < prm_color.a+0.1) {
+					tex_color.a = 0.0;
+					return tex_color;
+	    		} else {
+					return tex_color;
+				}
+			} else {
+				return tex_color;
+			}
+		} else {
+			return tex_color;
+		}
+	} else {
+		return tex_color;
+	}
 
 //	if (prm_color.a < tex_color.a) {
 //    	return tex_color;                          
