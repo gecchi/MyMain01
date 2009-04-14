@@ -29,13 +29,13 @@ void MyLaserChip::initialize() {
     _prevY = _Y;
     _prevZ = _Z;
 
-    _pGeoMover->setMoveVelocity(20000);
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 100);
+    _pGeoMover->setMoveVelocity(32000);
+    //_pGeoMover->setRotAngleVelocity(AXIS_X, 100);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pActor_Radical = NULL;
-    _SX = 5*1000; _SY=5*1000; _SZ=5*1000;
-    _fAlpha = 0.99;
+    _SX = 3*1000; _SY=3*1000; _SZ=3*1000;
+    _fAlpha = 0.7;
 }
 
 void MyLaserChip::processBehavior() {

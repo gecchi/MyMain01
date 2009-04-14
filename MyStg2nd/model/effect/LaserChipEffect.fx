@@ -1,5 +1,5 @@
 ////////////////////////////////////////////////////////////////////////////////
-// Ggafライブラリ、GgafDx9MeshModel用シェーダー
+// Ggafライブラリ、用シェーダー
 //
 // Auther:Masatoshi Tsuge
 // date:2009/03/06 
@@ -50,14 +50,14 @@ OUT_VS GgafDx9VS_LaserChip(
 	OUT_VS out_vs = (OUT_VS)0;
 	float4 posWorld;
 	if (prm_pos.x > 0) {        
-		float4x4 g_matWorld2 = g_matWorld;
-		g_matWorld2._41 = g_X;  // 一つ前方の座標へ
-		g_matWorld2._42 = g_Y;  // 一つ前方の座標へ
-		g_matWorld2._43 = g_Z;  // 一つ前方の座標へ
-		posWorld = mul( prm_pos, g_matWorld2 );               // World変換
+		float4x4 matWorld2 = g_matWorld;
+		matWorld2._41 = g_X;  // 一つ前方のチップ座標へ
+		matWorld2._42 = g_Y;  
+		matWorld2._43 = g_Z;  
+		posWorld = mul( prm_pos, matWorld2 );  // World変換
 	} else {
 		//頂点計算
-		posWorld = mul( prm_pos, g_matWorld );               // World変換
+		posWorld = mul( prm_pos, g_matWorld );   // World変換
 	}
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
@@ -71,22 +71,25 @@ OUT_VS GgafDx9VS_LaserChip(
 
 float4 GgafDx9PS_LaserChip(
 	float2 prm_uv	  : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
+	float3 prm_normal : TEXCOORD1,
+	float4 prm_color  : COLOR0 
 ) : COLOR  {
 	//求める色
-	float4 out_color; 
-
-    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
-	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
-	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	//α計算、αは法線、ライト方向が関係なしにするので別計算。本来ライトα色も掛けるが、ライトは省略。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
-
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);      
+	float4 out_color = tex_color; 
+//	if (prm_color.a < tex_color.a) {
+//		out_color.a = tex_color.a;
+//
+//		if (prm_color.r > tex_color.r) {
+//			out_color.r = tex_color.r;               
+//		}
+//		if (prm_color.g > tex_color.g) {
+//			out_color.g = tex_color.g;               
+//		}
+//		if (prm_color.b > tex_color.b) {
+//			out_color.b = tex_color.b;               
+//		}
+//	}
 	return out_color;
 }
 
