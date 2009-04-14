@@ -367,7 +367,7 @@ void MyLaserChip2::processOnHit(GgafActor* prm_pActor_Opponent) {
 //}
 void MyLaserChip2::onInactive() {
     //ÁŽ¸Žž
-    ((MyLaserChipRotationActor*)getParent())->_iNumActiveChip--;
+    //((MyLaserChipRotationActor*)getParent())->_iNumActiveChip--;
 }
 
 

@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyLaserChip::MyLaserChip(const char* prm_name) :
+MyLaserChip::MyLaserChip(const char* prm_name, MyLaserChipRotationActor* prm_pRotation) :
     GgafDx9MeshActor(prm_name,
                      "X/laser_chip",
                      "X/LaserChipEffect",
@@ -17,6 +17,7 @@ MyLaserChip::MyLaserChip(const char* prm_name) :
     _class_name = "MyLaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
+    _pRotation = prm_pRotation;
 }
 
 void MyLaserChip::initialize() {
@@ -40,6 +41,7 @@ void MyLaserChip::initialize() {
 
 void MyLaserChip::processBehavior() {
     if (onChangeToActive()) {
+        _pRotation->_num_chip_active++;
     }
     if (_pChip_front != NULL) {
         _prevX = _pChip_front->_X;
@@ -57,6 +59,7 @@ void MyLaserChip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
         inactivateTree();
+        _pRotation->_num_chip_active--;
         _pChip_front = NULL;
 		if (_pChip_behind != NULL) {
 			_pChip_behind->_pChip_front = NULL;

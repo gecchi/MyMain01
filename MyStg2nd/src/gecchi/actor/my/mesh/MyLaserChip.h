@@ -10,12 +10,15 @@ public:
 	MyLaserChip* _pChip_behind;
     DWORD _lifeframe_prev;
 
+    MyLaserChipRotationActor* _pRotation;
+
+
     GgafDx9LibStg::StgChecker* _pChecker;
 
     /** 対象アクター */
     GgafDx9UntransformedActor* _pActor_Radical;
 
-    MyLaserChip(const char* prm_name);
+    MyLaserChip(const char* prm_name, MyLaserChipRotationActor* prm_pRotation);
 
     /**
      * ＜OverRide です＞
