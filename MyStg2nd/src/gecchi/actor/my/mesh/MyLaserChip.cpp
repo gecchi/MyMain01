@@ -35,8 +35,8 @@ void MyLaserChip::initialize() {
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pActor_Radical = NULL;
-    _SX = 3*1000; _SY=3*1000; _SZ=3*1000;
-    _fAlpha = 1.0; //両面あるので
+    _SX = 15*1000; _SY=15*1000; _SZ=15*1000;
+    _fAlpha = 0.7; //両面あるので
 }
 
 void MyLaserChip::processBehavior() {
@@ -101,7 +101,21 @@ void MyLaserChip::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
-    UINT numPass;
+	    // アルファブレンドＯFF
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    //ピクセル単位のアルファテストを無効
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+
+GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);  
+    //上に書く画像の合成法(シェーダーに影響)
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
+    //下地の画像の合成法(シェーダーに影響)
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
+
+	
+	
+	
+	UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
     for (UINT pass = 0; pass < numPass; pass++) {
@@ -113,6 +127,17 @@ void MyLaserChip::processDrawMain() {
     }
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
+
+	    // アルファブレンドＯＮ
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    //ピクセル単位のアルファテストを有効
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
+
+GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);  
+    //上に書く画像の合成法(シェーダーに影響)
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
+    //下地の画像の合成法(シェーダーに影響)
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
 }
 
@@ -136,22 +161,22 @@ void MyLaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 bool MyLaserChip::isOffScreen() {
-    if (_X < _X_OffScreenLeft) {
+    if (_X < _X_OffScreenLeft*2) {
         return true;
     } else {
-        if (_X > _X_OffScreenRight) {
+        if (_X > _X_OffScreenRight*2) {
             return true;
         } else {
-            if (_Y > _Y_OffScreenTop) {
+            if (_Y > _Y_OffScreenTop*2) {
                 return true;
             } else {
-                if (_Y < _Y_OffScreenBottom) {
+                if (_Y < _Y_OffScreenBottom*2) {
                     return true;
                 } else {
                     if (_Z < GgafDx9God::_dCamZ * LEN_UNIT * 10) {
                         return true;
                     } else {
-                        if (_Z > -1 * GgafDx9God::_dCamZ * LEN_UNIT * 10) {
+                        if (_Z > -1 * GgafDx9God::_dCamZ * LEN_UNIT * 30) {
                             return true;
                         } else {
                             return false;

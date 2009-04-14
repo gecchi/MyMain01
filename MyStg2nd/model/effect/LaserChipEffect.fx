@@ -49,7 +49,7 @@ OUT_VS GgafDx9VS_LaserChip(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	float4 posWorld;
-	if (prm_pos.x > 0.5) {        
+	if (prm_pos.x > 0) {        
 		float4x4 matWorld2 = g_matWorld;
 		matWorld2._41 = g_X;  // 一つ前方のチップ座標へ
 		matWorld2._42 = g_Y;  
@@ -70,32 +70,60 @@ OUT_VS GgafDx9VS_LaserChip(
 }
 
 float4 GgafDx9PS_LaserChip(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_color  : COLOR0 
+	float4 prm_color_dist  : COLOR0,
+	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	//求める色
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);    
-//	return tex_color; 
-
-	if (prm_color.r-0.1 < tex_color.r && tex_color.r < prm_color.r+0.1) {
-		if (prm_color.g-0.1 < tex_color.g && tex_color.g < prm_color.g+0.1) {
-			if (prm_color.b-0.1 < tex_color.b && tex_color.b < prm_color.b+0.1) {
-				if (prm_color.a-0.1 < tex_color.a && tex_color.a < prm_color.a+0.1) {
-					tex_color.a = 0.0;
-					return tex_color;
-	    		} else {
-					return tex_color;
-				}
-			} else {
-				return tex_color;
-			}
-		} else {
-			return tex_color;
-		}
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);  
+	if (0 < prm_uv.x && prm_uv.x < 0.5 && 30.0/64.0 < prm_uv.y && prm_uv.y < 34.0/64.0) {
+		tex_color.a = 0;
+		prm_color_dist.a = 0;
+	}
+	if (0 < prm_uv.x && prm_uv.x < 0.5 ) {
+		return prm_color_dist;
 	} else {
-		return tex_color;
+ 		return tex_color;
 	}
 
+//	tex_color.rgb = tex_color.rgb * tex_color.a;
+//	prm_color_dist.rgb = prm_color_dist.rgb * (1.0 - tex_color.a);
+
+//	float out_color = (tex_color.rgb * tex_color.a);
+//	out_color.rgb = out_color.rgb * (1 - tex_color.a);
+
+//
+//	if (tex_color.a > prm_color.a) {
+//
+//
+//
+// ||
+//		 (prm_color.r > 0.9 && prm_color.g > 0.9 &&  prm_color.b > 0.9)  )  {
+//		tex_color.r = 1.0;
+//		tex_color.g = 1.0;
+//		tex_color.b = 1.0;
+//		return tex_color;
+//	} else {
+//		return tex_color;
+//	} 
+
+//	if (prm_color.r-0.1 < tex_color.r && tex_color.r < prm_color.r+0.1) {
+//		if (prm_color.g-0.1 < tex_color.g && tex_color.g < prm_color.g+0.1) {
+//			if (prm_color.b-0.1 < tex_color.b && tex_color.b < prm_color.b+0.1) {
+//				if (prm_color.a-0.1 < tex_color.a && tex_color.a < prm_color.a+0.1) {
+//					tex_color.a = 0.0;
+//					return tex_color;
+//	    		} else {
+//					return tex_color;
+//				}
+//			} else {
+//				return tex_color;
+//			}
+//		} else {
+//			return tex_color;
+//		}
+//	} else {
+//		return tex_color;
+//	}
+//
 //	if (prm_color.a < tex_color.a) {
 //    	return tex_color;                          
 //	} else {

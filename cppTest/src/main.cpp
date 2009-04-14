@@ -60,7 +60,7 @@ float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2) {
 
 }
 
-int main(int argc, char *argv[]) {
+int x(int argc, char *argv[]) {
 
 //    TBuff* _Buff;
 
@@ -390,6 +390,10 @@ int main(int argc, char *argv[]) {
 }
 
 
-
+int main(){
+    UINT32 a = 0 - 1;
+    cout << a;
+    //int* a;while(a++){cout << a;}
+}
 
 
