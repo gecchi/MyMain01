@@ -12,22 +12,22 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _angVelocity_Turn = 3000;
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
-    pMyDummyOption01->_radius = 200000;
+    pMyDummyOption01->_radius = 150000;
     pMyDummyOption01->_angPosition = 0;
     addSubLast(pMyDummyOption01);
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
-    pMyDummyOption02->_radius = 200000;
+    pMyDummyOption02->_radius = 150000;
     pMyDummyOption02->_angPosition = ANGLE90;
     addSubLast(pMyDummyOption02);
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
-    pMyDummyOption03->_radius = 200000;
+    pMyDummyOption03->_radius = 150000;
     pMyDummyOption03->_angPosition = ANGLE180;
     addSubLast(pMyDummyOption03);
 
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
-    pMyDummyOption04->_radius = 200000;
+    pMyDummyOption04->_radius = 150000;
     pMyDummyOption04->_angPosition = ANGLE270;
     addSubLast(pMyDummyOption04);
 

@@ -13,7 +13,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angveloMove = 0;//ù‰ôˆÚ“®Šp‘¬“xi“Ç‚Ýo‚µê—pj
 
     _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
-    _radius = 200000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
+    _radius = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
     _veloMove = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
     _angExpanse = 0;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
     _angveloExpanse = 1000; //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚ÌŠp‰ñ“]‘¬“x iã‘‚«‰ŠúÝ’è‰Âj
