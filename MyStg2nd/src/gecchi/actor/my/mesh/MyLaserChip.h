@@ -3,20 +3,27 @@
 namespace MyStg2nd {
 
 class MyLaserChip : public GgafDx9Core::GgafDx9MeshActor {
-public:
-    D3DXHANDLE _hX, _hY, _hZ;
-    int _prevX, _prevY, _prevZ;
-    MyLaserChip* _pChip_front;
-	MyLaserChip* _pChip_behind;
-    DWORD _lifeframe_prev;
 
+private:
+    D3DXHANDLE _hX, _hY, _hZ, _hMatWorld_front;
+
+public:
+    /** 一つ前方のレーザーチップ */
+    MyLaserChip* _pChip_front;
+    /** 一つ後方のレーザーチップ */
+	MyLaserChip* _pChip_behind;
+    /** 自身のWORLD変換行列 */
+    D3DXMATRIX _matWorld;
+    /** 一つ前方のWORLD変換行列 */
+    D3DXMATRIX _matWorld_front;
+    /** 自身を管理してるローテーションアクター */
     MyLaserChipRotationActor* _pRotation;
+    /** 発射元アクター */
+    GgafDx9UntransformedActor* _pActor_Radical;
 
 
     GgafDx9LibStg::StgChecker* _pChecker;
 
-    /** 対象アクター */
-    GgafDx9UntransformedActor* _pActor_Radical;
 
     MyLaserChip(const char* prm_name, MyLaserChipRotationActor* prm_pRotation);
 
@@ -61,15 +68,17 @@ public:
         _pActor_Radical = prm_pActor;
     }
 
-    MyLaserChip* getNext() {
-        return (MyLaserChip*)_pNext;
-    }
-
-    MyLaserChip* getPrev() {
-        return (MyLaserChip*)_pPrev;
-    }
-
     bool isOffScreen();
+
+    /**
+     * 出現時コールバック実装
+     */
+    void onActive();
+
+    /**
+     * 消失時コールバック実装
+     */
+    void onInactive();
 
     virtual ~MyLaserChip();
 

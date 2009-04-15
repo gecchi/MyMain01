@@ -123,6 +123,10 @@ technique DefaultMeshTechnique
 	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
 	}
@@ -150,6 +154,10 @@ technique DefaulNoTexMeshTechnique {
 	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
 	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	pass P1 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
 		PixelShader  = compile ps_2_0 GgafDx9PS_NoTexMesh();
 	}

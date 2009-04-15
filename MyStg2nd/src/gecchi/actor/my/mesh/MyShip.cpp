@@ -16,14 +16,14 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 4000;
+    _iMoveSpeed = 5000;
 
     //CommonSceneがnewの場合設定
     //キャッシュロード
     //GgafDx9SeManager::get("laser001");
 
-
-
+_Z = -750000;
+_X = -200000;
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
     _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度

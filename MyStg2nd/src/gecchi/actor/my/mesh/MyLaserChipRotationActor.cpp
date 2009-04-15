@@ -15,7 +15,10 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
     MyLaserChip* pChip;
     for (int i = 0; i < _num_chip_max; i++) { //レーザーストック
         Sleep(1);
-        pChip = NEW MyLaserChip("MYS_MyLaserChip1", this);
+        stringstream name;
+        name <<  i << "MYS_MyLaserChip";
+        string name2 = name.str();
+        pChip = NEW MyLaserChip(name2.c_str(), this);
         pChip->inactivateTreeNow();
         addSubLast(pChip);
     }
@@ -28,51 +31,14 @@ void MyLaserChipRotationActor::processBehavior() {
 }
 
 void MyLaserChipRotationActor::processFinal() {
-//    if (_pHeadChip == NULL) {
-//        if (_mode == 1 && _iNumActiveChip == 0) {
-//            _mode = 0;
-//        }
-//    } else {
-//        if ( _pHeadChip->onChangeToInactive()) {
-//            _mode = 1;
-//            _pHeadChip = NULL;
-//        } else {
-//
-//        }
-//    }
 }
 
-//MyLaserChip* MyLaserChipRotationActor::obtain() {
-//    if (_mode == 1) {
-//        return NULL;
-//    } else {
-//        if (_iNumActiveChip >= 32) {
-//            return NULL;
-//        } else {
-//            MyLaserChip* pChip = (MyLaserChip*)RotationActor::obtain();
-//            if (pChip == NULL) {
-//                _TRACE_("おかしいですぜ兄貴MyLaserChipRotationActor::obtain() _iNumActiveChip="<<_iNumActiveChip<<"/_mode="<<_mode);
-//                return NULL;
-//            } else {
-//                _iNumActiveChip++;
-//            }
-//            if (_iNumActiveChip == 1) {
-//                //先頭のチップ
-//                _pSeCon_Laser->view()->play();
-//                _pHeadChip = pChip;
-//            }
-//            return pChip;
-//        }
-//    }
-//}
 MyLaserChip* MyLaserChipRotationActor::obtain() {
     if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/3) {
         _pChip_prev_obtain = NULL;
         _lifeframe_prev_obtain = 0;
         return NULL;
-
     } else {
-
         MyLaserChip* pChip = (MyLaserChip*)RotationActor::obtain();
         if (pChip != NULL) {
             if (_is_tear_laser) {
@@ -80,7 +46,6 @@ MyLaserChip* MyLaserChipRotationActor::obtain() {
             }
 
             if (_pChip_prev_obtain != NULL) {
-                //_TRACE_("_lifeframe_prev_obtain="<<_lifeframe_prev_obtain<<" _pChip_prev_obtain->_lifeframe="<<_pChip_prev_obtain->_lifeframe);
                 if (_lifeframe_prev_obtain == _pChip_prev_obtain->_lifeframe) { //アクティブになってフレームが加算されるのは１フレーム次であるため
                     //2フレーム連続でobtainの場合連結とみなす
                     pChip->_pChip_front = _pChip_prev_obtain;

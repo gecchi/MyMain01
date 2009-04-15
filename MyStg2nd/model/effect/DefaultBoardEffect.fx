@@ -90,6 +90,10 @@ float4 GgafDx9PS_DefaultBoard(
 technique DefaultBoardTechnique
 {
 	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultBoard();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultBoard();
 	}

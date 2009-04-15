@@ -24,34 +24,38 @@ void MyLaserChip::initialize() {
     _hX = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
     _hY = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
     _hZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
-
-
-    _prevX = _X;
-    _prevY = _Y;
-    _prevZ = _Z;
+    _hMatWorld_front = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 
     _pGeoMover->setMoveVelocity(32000);
-    //_pGeoMover->setRotAngleVelocity(AXIS_X, 300);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pActor_Radical = NULL;
-    _SX = 15*1000; _SY=15*1000; _SZ=15*1000;
-    _fAlpha = 0.7; //両面あるので
+    _SX = 30*1000; _SY=30*1000; _SZ=30*1000;
+    _fAlpha = 0.9;
 }
 
 void MyLaserChip::processBehavior() {
-    if (onChangeToActive()) {
-        _pRotation->_num_chip_active++;
-    }
-    if (_pChip_front != NULL) {
-        _prevX = _pChip_front->_X;
-        _prevY = _pChip_front->_Y;
-        _prevZ = _pChip_front->_Z;
-    }
-
-
     //座標に反映
     _pGeoMover->behave();
+}
+
+void MyLaserChip::onActive() {
+    //出現時
+    _pRotation->_num_chip_active++;
+    //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
+    //後でdx,dy,dzだけ更新する。
+    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, _matWorld);
+}
+
+void MyLaserChip::onInactive() {
+    //消失時
+    _pRotation->_num_chip_active--;
+    //前後の繋がりを切断
+    _pChip_front = NULL;
+    if (_pChip_behind != NULL) {
+        _pChip_behind->_pChip_front = NULL;
+    }
+    _pChip_behind = NULL;
 
 }
 
@@ -59,62 +63,45 @@ void MyLaserChip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
         inactivateTree();
-        _pRotation->_num_chip_active--;
-        _pChip_front = NULL;
-		if (_pChip_behind != NULL) {
-			_pChip_behind->_pChip_front = NULL;
-		}
-        _pChip_behind = NULL;
     }
 }
 
 void MyLaserChip::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    static D3DXMATRIX matWorld; //WORLD変換行列
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "MyLaserChip::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
-
-    if (_pChip_front != NULL) {
-		//_TRACE_("_pChip_front=("<<_prevX<<","<<_prevY<<","<<_prevZ<<")");
-        hr = pID3DXEffect->SetFloat(_hX, 1.0*_prevX/LEN_UNIT/ PX_UNIT);
+    //【注意】4/15 メモ
+    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
+    //processBehaviorは _pChip_front が必ず先に実行される。
+    GgafDx9UntransformedActor::updateWorldTransformMv(this, _matWorld);
+    if (_pChip_front != NULL && _pChip_front->isActive()) {
+        //前方に連続のチップがある場合
+        hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hX) に失敗しました。1");
-        hr = pID3DXEffect->SetFloat(_hY, 1.0*_prevY/LEN_UNIT/ PX_UNIT);
+        hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hY) に失敗しました。1");
-        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_prevZ/LEN_UNIT/ PX_UNIT);
+        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_pChip_front->_Z/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hZ) に失敗しました。1");
+        hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &(_pChip_front->_matWorld));
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
     } else {
+        //前方に連続のチップが無い場合。
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hX) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_Y/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hY) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hZ, 1.0*_Z/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hZ) に失敗しました。2");
-
+        hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &_matWorld );
+        potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。2");
     }
-
-
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     potentialDx9Exception(hr, D3D_OK, "MyLaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
-	    // アルファブレンドＯFF
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    //ピクセル単位のアルファテストを無効
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-
-GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);  
-    //上に書く画像の合成法(シェーダーに影響)
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
-    //下地の画像の合成法(シェーダーに影響)
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
-
-	
-	
-	
 	UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
@@ -127,17 +114,6 @@ GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);
     }
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
-
-	    // アルファブレンドＯＮ
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
-    //ピクセル単位のアルファテストを有効
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
-
-GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOP, D3DBLENDOP_ADD);  
-    //上に書く画像の合成法(シェーダーに影響)
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
-    //下地の画像の合成法(シェーダーに影響)
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
 }
 
