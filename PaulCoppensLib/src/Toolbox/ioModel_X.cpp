@@ -188,6 +188,16 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
     //If any of the first 4 bytes are under 32 we add 32
     //We want to avoid the occurrence of the char '\0' within
     //the first 4 bytes since this would truncate the text returned.
+
+//tsuge add begin •\Ž¦‰Â”\•¶Žš‚É
+    //TODO:‚Å‚«‚Ä‚È‚©‚Á‚½
+    _X_UID.Text[0] %= 92;
+    _X_UID.Text[1] %= 92;
+    _X_UID.Text[2] %= 92;
+    _X_UID.Text[3] %= 92;
+//tsuge add end
+
+
     if (_X_UID.Text[0] < 32)
         _X_UID.Text[0] += 32;
     if (_X_UID.Text[1] < 32)
