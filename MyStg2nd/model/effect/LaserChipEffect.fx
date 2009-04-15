@@ -69,12 +69,7 @@ float4 GgafDx9PS_LaserChip(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-	if (prm_uv.x < 0.5) {
-		tex_color.a = 0;
-		return tex_color;
-	} else {
-		return tex_color;
-	}
+	return tex_color;
 }
 
 
