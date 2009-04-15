@@ -669,12 +669,15 @@ void GgafElement<T>::nextFrame() {
         //活動、非活動の状態変化時
         if (_is_active_flg == false && _will_activate_at_next_frame_flg) {
             _on_change_to_active_flg = true;
+            onActive(); //コールバック
         } else if (_is_active_flg && _will_activate_at_next_frame_flg == false) {
             _on_change_to_inactive_flg = true;
+            onInactive(); //コールバック
         } else {
             _on_change_to_active_flg = false;
             _on_change_to_inactive_flg = false;
         }
+
         //フラグたちを反映
         _is_active_flg   = _will_activate_at_next_frame_flg;
         _was_paused_flg  = _wil_pause_at_next_frame_flg;
@@ -714,13 +717,6 @@ void GgafElement<T>::behave() {
     if(_was_initialize_flg == false) {
         initialize();
         _was_initialize_flg = true;
-    }
-
-    //活動、非活動の状態変化時コールバック
-    if (_on_change_to_active_flg) {
-        onActive();
-    } else if (_on_change_to_inactive_flg) {
-        onInactive();
     }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
