@@ -42,6 +42,24 @@ void MyLaserChip::processBehavior() {
 
 
     //’†ŠÔ’n“_‚É‚à“–‚½‚è”»’è
+    static int centerX, centerY, centerZ;
+    if (_pChip_front != NULL) {
+      centerX = (_X - _pChip_front->_X) / 2;
+      centerY = (_Y - _pChip_front->_Y) / 2;
+      centerZ = (_Z - _pChip_front->_Z) / 2;
+      _pChecker->setHitAreaBox(
+                      1,
+                      centerX - 10000,
+                      centerY - 10000,
+                      centerZ - 10000,
+                      centerX + 10000,
+                      centerY + 10000,
+                      centerZ + 10000
+                 ); //’†ŠÔ‚Ì“–‚½‚è”»’è
+      _pChecker->getHitAreaBoxs()->enable(1);
+    } else {
+      _pChecker->getHitAreaBoxs()->disable(1);
+    }
 
 }
 
@@ -126,9 +144,11 @@ void MyLaserChip::processDrawMain() {
 
 void MyLaserChip::processDrawTerminate() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-    DelineateActor::get()->drawHitarea(_pChecker);
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        DelineateActor::get()->drawHitarea(_pChecker);
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    }
 }
 
 #else
