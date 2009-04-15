@@ -129,6 +129,9 @@ public:
 
     static void getWorldTransformRxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
+
+    static void updateWorldTransformMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
     /**
      * world変換 .
      * 単位行列 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 .<BR>

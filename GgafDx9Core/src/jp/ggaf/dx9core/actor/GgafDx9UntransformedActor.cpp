@@ -264,6 +264,16 @@ void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActo
     out_matWorld._44 = 1.0;
 }
 
+
+void GgafDx9UntransformedActor::updateWorldTransformMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0;
+}
+
+
+
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
     DELETE_POSSIBLE_NULL(_pGeoMover);
     DELETE_POSSIBLE_NULL(_pGeoChecker);
