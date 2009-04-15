@@ -27,8 +27,10 @@ void MyLaserChip::initialize() {
     _hMatWorld_front = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 
     _pGeoMover->setMoveVelocity(32000);
-    _pChecker->useHitAreaBoxNum(1);
+    _pChecker->useHitAreaBoxNum(2);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pChecker->setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
+    setBumpable(true);
     _pActor_Radical = NULL;
     _SX = 30*1000; _SY=30*1000; _SZ=30*1000;
     _fAlpha = 0.9;
@@ -37,6 +39,10 @@ void MyLaserChip::initialize() {
 void MyLaserChip::processBehavior() {
     //À•W‚É”½‰f
     _pGeoMover->behave();
+
+
+    //’†ŠÔ’n“_‚É‚à“–‚½‚è”»’è
+
 }
 
 void MyLaserChip::onActive() {
@@ -60,7 +66,6 @@ void MyLaserChip::onInactive() {
 }
 
 void MyLaserChip::processJudgement() {
-    //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     if (isOffScreen()) {
         inactivateTree();
     }

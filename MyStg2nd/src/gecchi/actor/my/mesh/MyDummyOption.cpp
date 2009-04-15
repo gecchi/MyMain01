@@ -29,7 +29,7 @@ void MyDummyOption::initialize() {
     _pGeoMover->setRyMoveAngleVelocity(0);//∵半径Ｒ＝速度Ｖ／角速度ω
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radius; //X軸中心回転なのでXYではなくてZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radius;
-    _X = 50000; //TODO:本当は0（時機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
+    _X = 50000; //TODO:本当は0（自機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
                 //やや中心からずらす事で、ある程度向きの遷移を滑らかにし、
                 //さらにAXIS_X 軸回転を速めに設定し、気付かれないようにごまかす･･･妥協。
     _pGeoMover->setRotAngleVelocity(AXIS_X, 8000);
@@ -46,16 +46,6 @@ void MyDummyOption::initialize() {
     _RXorg = _RX;
     _RYorg = _RY;
     _RZorg = _RZ;
-
-
-
-
-
-
-
-
-
-
 
 
     _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
@@ -158,15 +148,6 @@ void MyDummyOption::processBehavior() {
     _Z2 = _Z;
 
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
-
-
-
-
-
-
-
-
-
 
     if (VB::isBeingPressed(VB_SHOT2)) {
         MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
