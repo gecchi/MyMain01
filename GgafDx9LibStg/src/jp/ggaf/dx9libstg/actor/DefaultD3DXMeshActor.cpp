@@ -21,9 +21,11 @@ DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm
 
 void DefaultD3DXMeshActor::processDrawTerminate() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-    DelineateActor::get()->drawHitarea(_pChecker);
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        DelineateActor::get()->drawHitarea(_pChecker);
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    }
 }
 
 #else
