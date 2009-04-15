@@ -65,6 +65,10 @@ void MyLaserChip::processBehavior() {
 
 void MyLaserChip::onActive() {
     //出現時
+    if (_pChip_front == NULL) {
+        _pRotation->_pSeCon_Laser->view()->play();
+    }
+
     _pRotation->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。

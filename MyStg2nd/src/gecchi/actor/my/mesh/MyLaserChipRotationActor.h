@@ -11,9 +11,8 @@ public:
     MyLaserChip* _pHeadChip;
     MyLaserChip* _pChip_prev_obtain;
     DWORD _lifeframe_prev_obtain;
+    int _num_continual_obtain_count;
 
-
-    int _mode;// = 0 OK /=1 ‹ó‚É‚È‚é‚Ü‚Å‘Ò‚Â
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;
 
 
