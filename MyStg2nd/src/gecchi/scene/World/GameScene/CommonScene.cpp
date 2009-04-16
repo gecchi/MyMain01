@@ -11,7 +11,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
         getLordActor()->accept(KIND_MY, _pMyShip);
-        _pMyShip->inactivateAloneNow(); //配下に仮登録のローテーションとかあるしAlone
+        _pMyShip->inactivateNow(); //配下に仮登録のローテーションとかあるし
     }
 
     { //EnemyShot001

@@ -66,7 +66,7 @@ void EnemyCeres::initialize() {
     //–{—ˆ‚ÌêŠ‚Ö
     getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pRotEnemyMeshShots001->breakAwayFromTree());
 
-    setBumpableAlone(true);
+    setBumpable(true);
 
     //	_pGeoMover->setMoveVelocity(1000);
     //	_pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
@@ -173,7 +173,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
-                pTama->activateAlone();
+                pTama->activate();
             }
         }
         for (int i = 8; i < 16; i++) {
@@ -181,7 +181,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
-                pTama->activateAlone();
+                pTama->activate();
             }
         }
 
@@ -278,7 +278,7 @@ void EnemyCeres::processJudgement() {
 
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     GgafDx9UntransformedActor* pActor_Opponent = (GgafDx9UntransformedActor*)prm_pActor_Opponent;
-    setBumpableAlone(false);
+    setBumpable(false);
 
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pChecker->_iScorePoint;
@@ -293,7 +293,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
-        pExplo001->activateAlone();
+        pExplo001->activate();
     }
 }
 

@@ -35,7 +35,7 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//メッシュ標準頂点シェーダー
+//レーザーチップ頂点シェーダー
 OUT_VS GgafDx9VS_LaserChip(
       float4 prm_pos    : POSITION,      // モデルの頂点
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV

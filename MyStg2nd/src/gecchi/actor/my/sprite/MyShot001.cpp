@@ -41,7 +41,7 @@ void MyShot001::initialize() {
     _SY = 50000;
     setAlpha(0.3);
 
-    setBumpableAlone(true);
+    setBumpable(true);
     inactivateTree();
 
 }
@@ -49,7 +49,7 @@ void MyShot001::initialize() {
 void MyShot001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
-        setBumpableAlone(true);
+        setBumpable(true);
         _X = GameGlobal::_pMyShip->_X;
         _Y = GameGlobal::_pMyShip->_Y;
         _Z = GameGlobal::_pMyShip->_Z;
@@ -76,7 +76,7 @@ void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 void MyShot001::onInactive() {
     //Á¸ˆ—
-    setBumpableAlone(false);
+    setBumpable(false);
     moveFirst();
 }
 

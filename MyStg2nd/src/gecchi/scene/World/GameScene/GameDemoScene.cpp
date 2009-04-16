@@ -27,7 +27,7 @@ void GameDemoScene::initialize() {
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
         //自機表示
-        GameGlobal::_pSceneCommon->_pMyShip->activateAlone(); //下位にオプション等があるし
+        GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
 

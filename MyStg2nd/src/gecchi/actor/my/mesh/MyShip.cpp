@@ -518,7 +518,7 @@ void MyShip::equipOption() {
 //    }
 //
 //    _state.eq_option++;
-//    pOption->activateAlone();
+//    pOption->activate();
 
 }
 

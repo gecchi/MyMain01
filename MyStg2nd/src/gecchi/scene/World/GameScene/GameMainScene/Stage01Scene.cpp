@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pStage01Main = NEW Stage01MainScene("Stage01Main");
-	_pStage01Main->inactivateAlone();
+	_pStage01Main->inactivate();
     addSubLast(_pStage01Main);
     Sleep(2);
 	_pBackGround01 = NEW BackGround01Board("BACKGOROUND01", "");
@@ -37,7 +37,7 @@ void Stage01Scene::processBehavior() {
 
         if (_dwFrame_Begin == 120) {
         	_pBackGround01->activateTree();
-        	_pStage01Main->activateAlone();
+        	_pStage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }
     }

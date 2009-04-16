@@ -38,7 +38,7 @@ void MyWave001::initialize() {
     _SY = 10000;
     //setAlpha(0.2);
 
-    setBumpableAlone(true);
+    setBumpable(true);
     inactivateTree();
 
 }
@@ -46,7 +46,7 @@ void MyWave001::initialize() {
 void MyWave001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
-        setBumpableAlone(true);
+        setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
         _pGeoMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Z]);
         _pGeoMover->setRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Y]);
@@ -88,7 +88,7 @@ void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 void MyWave001::onInactive() {
     //Á¸ˆ—
-    setBumpableAlone(false);
+    setBumpable(false);
     moveFirst();
 }
 

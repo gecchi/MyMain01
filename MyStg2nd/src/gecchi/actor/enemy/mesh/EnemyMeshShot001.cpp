@@ -37,7 +37,7 @@ void EnemyMeshShot001::initialize() {
 
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    setBumpableAlone(true);
+    setBumpable(true);
 }
 
 void EnemyMeshShot001::processBehavior() {
@@ -47,7 +47,7 @@ void EnemyMeshShot001::processBehavior() {
         _pGeoMover->setMoveAcceleration(_iMoveAcceleration_1st);
 
         _frame_on_change_to_active_flg = 0;
-        setBumpableAlone(true);
+        setBumpable(true);
     } else {
 
         //		_pGeoMover->setMoveAngle(
@@ -146,7 +146,7 @@ bool EnemyMeshShot001::isOffScreen() {
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //arigatou_sayounara();
-    setBumpableAlone(false);
+    setBumpable(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();

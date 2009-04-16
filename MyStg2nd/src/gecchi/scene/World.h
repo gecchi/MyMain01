@@ -26,7 +26,7 @@ public:
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void processBehavior() {}
+	void processBehavior();
 
  	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ

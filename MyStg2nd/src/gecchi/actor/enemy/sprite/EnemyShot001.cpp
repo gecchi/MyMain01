@@ -15,13 +15,13 @@ void EnemyShot001::initialize() {
     _pGeoMover->setMoveVelocity(3000);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    setBumpableAlone(true);
+    setBumpable(true);
 }
 
 void EnemyShot001::processBehavior() {
     if (onChangeToActive()) {
         //出現時
-        setBumpableAlone(true);
+        setBumpable(true);
     }
     addNextAnimationFrame();
     //座標に反映
@@ -52,7 +52,7 @@ bool EnemyShot001::isOffScreen() {
 void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
     //arigatou_sayounara();
-    setBumpableAlone(false);
+    setBumpable(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();

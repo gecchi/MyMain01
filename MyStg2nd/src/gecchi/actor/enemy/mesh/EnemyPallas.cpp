@@ -12,7 +12,7 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshEnemyActor(prm_name,
 }
 
 void EnemyPallas::initialize() {
-    setBumpableAlone(true);
+    setBumpable(true);
     _X = _X_OffScreenRight + 100;
     _Y = 0;
     _Z = 0;
@@ -51,7 +51,7 @@ void EnemyPallas::processJudgement() {
 }
 
 void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
-    setBumpableAlone(false);
+    setBumpable(false);
     arigatou_sayounara();
 }
 

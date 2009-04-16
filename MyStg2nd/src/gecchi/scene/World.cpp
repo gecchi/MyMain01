@@ -44,6 +44,19 @@ void World::processDrawPrior() {
 //    }
 
 }
+void World::processBehavior() {
+    VB::update(); //“ü—Íî•ñXV
+
+    //ˆê’â~
+    //TODO:~‚ß‚Ä‚àframe‚Íi‚ŞQH
+    if (VB::isPushedDown(VB_PAUSE)) {
+        if (getSubFirst()->isBehaving()) {
+            getSubFirst()->pause();
+        } else {
+            getSubFirst()->unpause();
+        }
+    }
+}
 
 World::~World() {
 }
