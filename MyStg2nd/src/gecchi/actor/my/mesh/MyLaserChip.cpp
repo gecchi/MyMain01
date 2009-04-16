@@ -32,7 +32,7 @@ void MyLaserChip::initialize() {
     _pChecker->setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
     _pActor_Radical = NULL;
-    _SX = 30*1000; _SY=30*1000; _SZ=30*1000;
+    _SX = 40*1000; _SY=40*1000; _SZ=40*1000;
     _fAlpha = 0.9;
 }
 
