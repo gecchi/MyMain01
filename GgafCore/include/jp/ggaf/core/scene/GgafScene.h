@@ -174,35 +174,35 @@ public:
 
     virtual void activateTree();
     virtual void activateTreeAfter(DWORD prm_frame_offset);
-    virtual void activateAlone();
+    virtual void activate();
     virtual void activateTreeNow();
-    virtual void activateAloneNow();
+    virtual void activateNow();
 
     virtual void inactivateTree();
     virtual void inactivateTreeAfter(DWORD prm_frame_offset);
-    virtual void inactivateAlone();
+    virtual void inactivate();
     virtual void inactivateTreeNow();
-    virtual void inactivateAloneNow();
+    virtual void inactivateNow();
 
     virtual void pauseTree();
-    virtual void pauseAlone();
+    virtual void pause();
     virtual void pauseTreeNow();
-    virtual void pauseAloneNow();
+    virtual void pauseNow();
 
     virtual void unpauseTree();
-    virtual void unpauseAlone();
+    virtual void unpause();
     virtual void unpauseTreeNow();
-    virtual void unpauseAloneNow();
+    virtual void unpauseNow();
 
     virtual void hideTree();
-    virtual void hideAlone();
+    virtual void hide();
     virtual void hideTreeNow();
-    virtual void hideAloneNow();
+    virtual void hideNow();
 
     virtual void showTree();
-    virtual void showAlone();
+    virtual void show();
     virtual void showTreeNow();
-    virtual void showAloneNow();
+    virtual void showNow();
 
 
     /**

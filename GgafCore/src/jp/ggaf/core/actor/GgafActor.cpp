@@ -31,12 +31,12 @@ void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
     }
 }
 
-void GgafActor::setBumpableAlone(bool prm_can_bump_flg) {
-    TRACE("GgafActor::setBumpableAlone() " << getName());
+void GgafActor::setBumpable(bool prm_can_bump_flg) {
+    TRACE("GgafActor::setBumpable() " << getName());
     _can_bump_flg = prm_can_bump_flg;
 }
 
-void GgafActor::setBumpable(bool prm_can_bump_flg) {
+void GgafActor::setBumpableTree(bool prm_can_bump_flg) {
     TRACE("GgafActor::setBumpable() " << getName());
     _can_bump_flg = prm_can_bump_flg;
     if (_pSubFirst != NULL) {

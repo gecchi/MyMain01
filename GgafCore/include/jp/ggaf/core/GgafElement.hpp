@@ -289,7 +289,7 @@ public:
      * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void activateAlone();
+    void activate();
     /**
      * 活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に立てる。<BR>
@@ -307,7 +307,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void activateAloneNow();
+    void activateNow();
     //===================
     /**
      * 非活動状態にする(自ツリー) .
@@ -331,7 +331,7 @@ public:
      * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void inactivateAlone();
+    void inactivate();
     /**
      * 非活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に下げる。<BR>
@@ -349,7 +349,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void inactivateAloneNow();
+    void inactivateNow();
     //===================
     /**
      * 一時停止にする(自ツリー) .
@@ -365,7 +365,7 @@ public:
      * 自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void pauseAlone();
+    void pause();
     /**
      * 一時停止にする(自ツリー・即時) .
      * 正確には、一時停止フラグを即座に立てる。<BR>
@@ -383,7 +383,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void pauseAloneNow();
+    void pauseNow();
     //===================
     /**
      * 一時停止状態を解除にする(自ツリー) .
@@ -399,7 +399,7 @@ public:
      * 自ノードだけ次フレームから一時停止状態を解除にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void unpauseAlone();
+    void unpause();
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
      * 正確には、一時停止状態フラグを即座に下げる。<BR>
@@ -417,7 +417,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void unpauseAloneNow();
+    void unpauseNow();
     //===================
     /**
      * 非表示状態にする(自ツリー) .
@@ -434,7 +434,7 @@ public:
      * 自ノードだけ次フレームから非表示状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void hideAlone();
+    void hide();
     /**
      * 非表示状態にする(自ツリー・即時) .
      * 正確には、非活動フラグを即座に立てる。<BR>
@@ -452,7 +452,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void hideAloneNow();
+    void hideNow();
     //===================
     /**
      * 非表示状態を解除にする(自ツリー) .
@@ -468,7 +468,7 @@ public:
      * 自ノードだけ次フレームから非表示状態を解除する予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      */
-    void showAlone();
+    void show();
     /**
      * 非表示状態を解除する(自ツリー・即時) .
      * 正確には、非表示フラグを即座に下げる。<BR>
@@ -486,7 +486,7 @@ public:
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void showAloneNow();
+    void showNow();
     //===================
     /**
      * さよならします。 .
@@ -661,8 +661,11 @@ void GgafElement<T>::nextFrame() {
                     _will_inactivate_after_a_few_frames_flg = false;
                 }
             }
-            if (_is_active_flg) {
+            if (_is_active_flg && !_was_paused_flg) {
+ここここここここ
+                //TODO:pause() unpause() で１フレーム飛ばないか検証
                 _lifeframe++;
+
             }
         }
 
@@ -880,7 +883,7 @@ void GgafElement<T>::finally() {
 }
 
 template<class T>
-void GgafElement<T>::activateAlone() {
+void GgafElement<T>::activate() {
     if (_can_live_flg) {
         _will_activate_at_next_frame_flg = true;
         _wil_pause_at_next_frame_flg = false;
@@ -909,7 +912,7 @@ void GgafElement<T>::activateTree() {
 }
 
 template<class T>
-void GgafElement<T>::activateAloneNow() {
+void GgafElement<T>::activateNow() {
     if (_can_live_flg) {
         if (_is_active_flg == false) {
             _on_change_to_active_flg = true;
@@ -960,7 +963,7 @@ void GgafElement<T>::activateTreeAfter(DWORD prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateAlone() {
+void GgafElement<T>::inactivate() {
     if (_can_live_flg) {
         _will_activate_at_next_frame_flg = false;
     }
@@ -991,7 +994,7 @@ void GgafElement<T>::inactivateTreeAfter(DWORD prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateAloneNow() {
+void GgafElement<T>::inactivateNow() {
     if (_can_live_flg) {
         if (_is_active_flg) {
             _on_change_to_inactive_flg = true;
@@ -1047,7 +1050,7 @@ void GgafElement<T>::pauseTree() {
 }
 
 template<class T>
-void GgafElement<T>::pauseAlone() {
+void GgafElement<T>::pause() {
     if (_can_live_flg) {
         _wil_pause_at_next_frame_flg = true;
     }
@@ -1073,7 +1076,7 @@ void GgafElement<T>::pauseTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::pauseAloneNow() {
+void GgafElement<T>::pauseNow() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _wil_pause_at_next_frame_flg = true;
@@ -1099,7 +1102,7 @@ void GgafElement<T>::unpauseTree() {
 }
 
 template<class T>
-void GgafElement<T>::unpauseAlone() {
+void GgafElement<T>::unpause() {
     if (_can_live_flg) {
         _wil_pause_at_next_frame_flg = false;
     }
@@ -1125,7 +1128,7 @@ void GgafElement<T>::unpauseTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::unpauseAloneNow() {
+void GgafElement<T>::unpauseNow() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _wil_pause_at_next_frame_flg = false;
@@ -1151,7 +1154,7 @@ void GgafElement<T>::hideTree() {
 }
 
 template<class T>
-void GgafElement<T>::hideAlone() {
+void GgafElement<T>::hide() {
     if (_can_live_flg) {
         _will_hidden_at_next_frame_flg = true;
     }
@@ -1177,7 +1180,7 @@ void GgafElement<T>::hideTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::hideAloneNow() {
+void GgafElement<T>::hideNow() {
     if (_can_live_flg) {
         _was_hidden_flg = true;
         _will_hidden_at_next_frame_flg = true;
@@ -1203,7 +1206,7 @@ void GgafElement<T>::showTree() {
 }
 
 template<class T>
-void GgafElement<T>::showAlone() {
+void GgafElement<T>::show() {
     if (_can_live_flg) {
         _will_hidden_at_next_frame_flg = false;
     }
@@ -1229,7 +1232,7 @@ void GgafElement<T>::showTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::showAloneNow() {
+void GgafElement<T>::showNow() {
     if (_can_live_flg) {
         _was_hidden_flg = false;
         _will_hidden_at_next_frame_flg = false;

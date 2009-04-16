@@ -84,9 +84,9 @@ void GgafScene::activateTreeAfter(DWORD prm_frame_offset) {
     _pLordActor->activateTreeAfter(prm_frame_offset);
 }
 
-void GgafScene::activateAlone() {
-    GgafElement<GgafScene>::activateAlone();
-    _pLordActor->activateAlone();
+void GgafScene::activate() {
+    GgafElement<GgafScene>::activate();
+    _pLordActor->activate();
 }
 
 void GgafScene::activateTreeNow() {
@@ -94,9 +94,9 @@ void GgafScene::activateTreeNow() {
     _pLordActor->activateTreeNow();
 }
 
-void GgafScene::activateAloneNow() {
-    GgafElement<GgafScene>::activateAloneNow();
-    _pLordActor->activateAloneNow();
+void GgafScene::activateNow() {
+    GgafElement<GgafScene>::activateNow();
+    _pLordActor->activateNow();
 }
 
 void GgafScene::inactivateTree() {
@@ -109,9 +109,9 @@ void GgafScene::inactivateTreeAfter(DWORD prm_frame_offset) {
     _pLordActor->inactivateTreeAfter(prm_frame_offset);
 }
 
-void GgafScene::inactivateAlone() {
-    GgafElement<GgafScene>::inactivateAlone();
-    _pLordActor->inactivateAlone();
+void GgafScene::inactivate() {
+    GgafElement<GgafScene>::inactivate();
+    _pLordActor->inactivate();
 }
 
 void GgafScene::inactivateTreeNow() {
@@ -119,9 +119,9 @@ void GgafScene::inactivateTreeNow() {
     _pLordActor->inactivateTreeNow();
 }
 
-void GgafScene::inactivateAloneNow() {
-    GgafElement<GgafScene>::inactivateAloneNow();
-    _pLordActor->inactivateAloneNow();
+void GgafScene::inactivateNow() {
+    GgafElement<GgafScene>::inactivateNow();
+    _pLordActor->inactivateNow();
 }
 
 void GgafScene::pauseTree() {
@@ -129,9 +129,9 @@ void GgafScene::pauseTree() {
     _pLordActor->pauseTree();
 }
 
-void GgafScene::pauseAlone() {
-    GgafElement<GgafScene>::pauseAlone();
-    _pLordActor->pauseAlone();
+void GgafScene::pause() {
+    GgafElement<GgafScene>::pause();
+    _pLordActor->pause();
 }
 
 void GgafScene::pauseTreeNow() {
@@ -139,9 +139,9 @@ void GgafScene::pauseTreeNow() {
     _pLordActor->pauseTreeNow();
 }
 
-void GgafScene::pauseAloneNow() {
-    GgafElement<GgafScene>::pauseAloneNow();
-    _pLordActor->pauseAloneNow();
+void GgafScene::pauseNow() {
+    GgafElement<GgafScene>::pauseNow();
+    _pLordActor->pauseNow();
 }
 
 void GgafScene::unpauseTree() {
@@ -149,9 +149,9 @@ void GgafScene::unpauseTree() {
     _pLordActor->unpauseTree();
 }
 
-void GgafScene::unpauseAlone() {
-    GgafElement<GgafScene>::unpauseAlone();
-    _pLordActor->unpauseAlone();
+void GgafScene::unpause() {
+    GgafElement<GgafScene>::unpause();
+    _pLordActor->unpause();
 }
 
 void GgafScene::unpauseTreeNow() {
@@ -159,9 +159,9 @@ void GgafScene::unpauseTreeNow() {
     _pLordActor->unpauseTreeNow();
 }
 
-void GgafScene::unpauseAloneNow() {
-    GgafElement<GgafScene>::unpauseAloneNow();
-    _pLordActor->unpauseAloneNow();
+void GgafScene::unpauseNow() {
+    GgafElement<GgafScene>::unpauseNow();
+    _pLordActor->unpauseNow();
 }
 
 void GgafScene::hideTree() {
@@ -169,9 +169,9 @@ void GgafScene::hideTree() {
     _pLordActor->hideTree();
 }
 
-void GgafScene::hideAlone() {
-    GgafElement<GgafScene>::hideAlone();
-    _pLordActor->hideAlone();
+void GgafScene::hide() {
+    GgafElement<GgafScene>::hide();
+    _pLordActor->hide();
 }
 
 void GgafScene::hideTreeNow() {
@@ -179,9 +179,9 @@ void GgafScene::hideTreeNow() {
     _pLordActor->hideTreeNow();
 }
 
-void GgafScene::hideAloneNow() {
-    GgafElement<GgafScene>::hideAloneNow();
-    _pLordActor->hideAloneNow();
+void GgafScene::hideNow() {
+    GgafElement<GgafScene>::hideNow();
+    _pLordActor->hideNow();
 }
 
 void GgafScene::showTree() {
@@ -189,9 +189,9 @@ void GgafScene::showTree() {
     _pLordActor->showTree();
 }
 
-void GgafScene::showAlone() {
-    GgafElement<GgafScene>::showAlone();
-    _pLordActor->showAlone();
+void GgafScene::show() {
+    GgafElement<GgafScene>::show();
+    _pLordActor->show();
 }
 
 void GgafScene::showTreeNow() {
@@ -199,9 +199,9 @@ void GgafScene::showTreeNow() {
     _pLordActor->showTreeNow();
 }
 
-void GgafScene::showAloneNow() {
-    GgafElement<GgafScene>::showAloneNow();
-    _pLordActor->showAloneNow();
+void GgafScene::showNow() {
+    GgafElement<GgafScene>::showNow();
+    _pLordActor->showNow();
 }
 
 void GgafScene::arigatou_sayounara(DWORD prm_frame_offset) {

@@ -106,13 +106,13 @@ public:
      * 自アクターの衝突判定有無を設定する。 .
      * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpableAlone(bool prm_can_bump_flg);
+    virtual void setBumpable(bool prm_can_bump_flg);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
      * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpable(bool prm_can_bump_flg);
+    virtual void setBumpableTree(bool prm_can_bump_flg);
 
     /**
      * 衝突できるかどうか
