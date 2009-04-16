@@ -662,7 +662,7 @@ void GgafElement<T>::nextFrame() {
                 }
             }
             if (_is_active_flg && !_was_paused_flg) {
-‚±‚±‚±‚±‚±‚±‚±‚±
+//‚±‚±‚±‚±‚±‚±‚±‚±
                 //TODO:pause() unpause() ‚Å‚PƒtƒŒ[ƒ€”ò‚Î‚È‚¢‚©ŒŸØ
                 _lifeframe++;
 
