@@ -41,11 +41,11 @@ public:
      * 子アクターへは影響させない
      */
     virtual void activateTree() {
-        activateAlone();
+        activate();
     }
 
     virtual void inactivateTree() {
-        inactivateAlone();
+        inactivate();
     }
 
     /**
@@ -71,7 +71,7 @@ public:
                     continue;
                 }
             } else {
-                pActor->activateAlone();
+                pActor->activate();
                 pActor->moveLast(); //取得！
                 break;
             }

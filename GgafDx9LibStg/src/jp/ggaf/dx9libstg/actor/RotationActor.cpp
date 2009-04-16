@@ -6,5 +6,5 @@ using namespace GgafDx9LibStg;
 
 RotationActor::RotationActor(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "RotationActor";
-    setBumpableAlone(false);
+    setBumpable(false);
 }
