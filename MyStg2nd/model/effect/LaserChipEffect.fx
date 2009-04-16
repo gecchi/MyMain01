@@ -44,6 +44,22 @@ OUT_VS GgafDx9VS_LaserChip(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
+
+	//ブレンドの影が出ないように（手前から描画されないように）、
+	//傾きによって頂点のy,zを反転
+	if (g_X != g_matWorld._41) {
+		if (g_Z - g_matWorld._43 < 0) {
+			if (g_Y > g_matWorld._42) {
+				prm_pos.y = -prm_pos.y;
+		 		prm_pos.z = -prm_pos.z;
+			}
+		} else {
+			if (g_Y < g_matWorld._42) {
+				prm_pos.y = -prm_pos.y;
+		 		prm_pos.z = -prm_pos.z;
+			}
+		}
+	}
 	float4 posWorld;
 	if (prm_pos.x > 0) {        
 		g_matWorld_front._41 = g_X;  // 一つ前方のチップ座標へ
