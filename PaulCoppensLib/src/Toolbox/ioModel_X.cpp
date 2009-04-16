@@ -190,22 +190,33 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
     //the first 4 bytes since this would truncate the text returned.
 
 //tsuge add begin •\¦‰Â”\•¶š‚É
-    //TODO:‚Å‚«‚Ä‚È‚©‚Á‚½
+    //TODO:‚±‚ê‚Á‚ÄŠÂ‹«ˆË‘¶‚¾I
     _X_UID.Text[0] %= 92;
     _X_UID.Text[1] %= 92;
     _X_UID.Text[2] %= 92;
     _X_UID.Text[3] %= 92;
+    while (_X_UID.Text[0] < 32)
+        _X_UID.Text[0] += 32;
+    while (_X_UID.Text[1] < 32)
+        _X_UID.Text[1] += 32;
+    while (_X_UID.Text[2] < 32)
+        _X_UID.Text[2] += 32;
+    while (_X_UID.Text[3] < 32)
+        _X_UID.Text[3] += 32;
+
 //tsuge add end
 
+//tsuge del begin
+//    if (_X_UID.Text[0] < 32)
+//        _X_UID.Text[0] += 32;
+//    if (_X_UID.Text[1] < 32)
+//        _X_UID.Text[1] += 32;
+//    if (_X_UID.Text[2] < 32)
+//        _X_UID.Text[2] += 32;
+//    if (_X_UID.Text[3] < 32)
+//        _X_UID.Text[3] += 32;
+//tsuge del end
 
-    if (_X_UID.Text[0] < 32)
-        _X_UID.Text[0] += 32;
-    if (_X_UID.Text[1] < 32)
-        _X_UID.Text[1] += 32;
-    if (_X_UID.Text[2] < 32)
-        _X_UID.Text[2] += 32;
-    if (_X_UID.Text[3] < 32)
-        _X_UID.Text[3] += 32;
     return _X_UID.Text;
 }
 
