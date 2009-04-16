@@ -30,7 +30,6 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
-	float3 normal : TEXCOORD1;   // ワールド変換した法線
 };
 
 
@@ -39,16 +38,15 @@ struct OUT_VS
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDx9VS_LaserChip(
       float4 prm_pos    : POSITION,      // モデルの頂点
-      float3 prm_normal : NORMAL,        // モデルの頂点の法線
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-	//ブレンドの影が出ないように（手前から描画されないように）、
+	//αブレンドの影が出ないように（手前から描画されないように）、
 	//傾きによって頂点のy,zを反転
 	if (g_X != g_matWorld._41) {
-		if (g_Z - g_matWorld._43 < 0) {
+		if (g_Z < g_matWorld._43) {
 			if (g_Y > g_matWorld._42) {
 				prm_pos.y = -prm_pos.y;
 		 		prm_pos.z = -prm_pos.z;
@@ -68,20 +66,17 @@ OUT_VS GgafDx9VS_LaserChip(
 		posWorld = mul( prm_pos, g_matWorld_front );  // World変換
 	} else {
 		//頂点計算
-		posWorld = mul( prm_pos, g_matWorld );   // World変換
+		posWorld = mul( prm_pos, g_matWorld );        // World変換
 	}
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
-	//法線計算
-	out_vs.normal = normalize(mul(prm_normal, g_matWorld)); 	//法線を World 変換して正規化
+	float4 posWorldView = mul(posWorld    , g_matView);  // View変換
+	out_vs.pos          = mul(posWorldView, g_matProj);  // 射影変換
+
 	//UVはそのまま
 	out_vs.uv = prm_uv;
 	return out_vs;
 }
 
 float4 GgafDx9PS_LaserChip(
-	float4 prm_color_dist  : COLOR0,
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
@@ -96,11 +91,9 @@ technique LaserChipTechnique
 		SrcBlend  = SrcAlpha;
 		DestBlend = One;
 
-
 		VertexShader = compile vs_2_0 GgafDx9VS_LaserChip();
 		PixelShader  = compile ps_2_0 GgafDx9PS_LaserChip();
 	}
-
 
 }
 
