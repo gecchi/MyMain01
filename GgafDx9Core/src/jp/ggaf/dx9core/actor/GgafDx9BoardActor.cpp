@@ -33,7 +33,7 @@ void GgafDx9BoardActor::processDrawMain() {
     potentialDx9Exception(hr, S_OK, "GgafDx9BoardActor::processDrawMain SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     UINT numPass;
-    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE | D3DXFX_DONOTSAVESHADERSTATE );
+    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (UINT pass = 0; pass < numPass; pass++) {
         hr = pID3DXEffect->BeginPass(pass);
