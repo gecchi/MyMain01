@@ -49,12 +49,12 @@ OUT_VS GgafDx9VS_LaserChip(
 		if (g_Z < g_matWorld._43) {
 			if (g_Y > g_matWorld._42) {
 				prm_pos.y = -prm_pos.y;
-		 		prm_pos.z = -prm_pos.z;
+		 		//prm_pos.z = -prm_pos.z;
 			}
 		} else {
 			if (g_Y < g_matWorld._42) {
 				prm_pos.y = -prm_pos.y;
-		 		prm_pos.z = -prm_pos.z;
+		 		//prm_pos.z = -prm_pos.z;
 			}
 		}
 	}
