@@ -26,7 +26,7 @@ void MyLaserChip::initialize() {
     _hZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
     _hMatWorld_front = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 
-    _pGeoMover->setMoveVelocity(32000);
+    _pGeoMover->setMoveVelocity(30000);
     _pChecker->useHitAreaBoxNum(2);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pChecker->setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);

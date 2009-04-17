@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : RotationActor(prm_name) {
     _class_name = "MyLaserChipRotationActor";
-    _num_chip_max = 26;
+    _num_chip_max = 35;
     _num_continual_obtain_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = false;
