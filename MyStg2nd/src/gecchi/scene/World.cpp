@@ -51,8 +51,10 @@ void World::processBehavior() {
     //TODO:~‚ß‚Ä‚àframe‚Íi‚ŞQH
     if (VB::isPushedDown(VB_PAUSE)) {
         if (getSubFirst()->isBehaving()) {
+            _TRACE_("PAUSE!");
             getSubFirst()->pause();
         } else {
+            _TRACE_("UNPAUSE!");
             getSubFirst()->unpause();
         }
     }

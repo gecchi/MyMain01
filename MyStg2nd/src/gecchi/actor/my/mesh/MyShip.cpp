@@ -21,19 +21,12 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
     //CommonSceneがnewの場合設定
     //キャッシュロード
     //GgafDx9SeManager::get("laser001");
-
-_Z = -750000;
-_X = -200000;
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
     _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
     _angRXStop_MZ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
 
     _angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
-
-
-
-
 
     _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
     _iMvVelo_BeginMT = _iMoveSpeed * 3; //Turbo移動開始時の移動速度の初速度
@@ -546,10 +539,8 @@ bool MyShip::isDoublePushedDown(int prm_VB) {
             }
         }
         if (dwFrameAgo >= dwFrameApply) {
-            //_TRACE_("不合格1:dwFrameAgo="<<dwFrameAgo<<"/dwFrameApply="<<dwFrameApply);
             return false; //不合格
         }
-        //_TRACE_("ぷれ合格2:dwFrameAgo="<<dwFrameAgo<<"/dwFrameApply="<<dwFrameApply);
 
         //さらにそこから以前5フレーム以内のどこかで押されていては駄目
         dwFrameApply = dwFrameAgo + 6;//許容フレーム
@@ -561,14 +552,11 @@ bool MyShip::isDoublePushedDown(int prm_VB) {
             }
         }
         if (dwFrameAgo >= dwFrameApply) {
-            //_TRACE_("不合格2:dwFrameAgo="<<dwFrameAgo<<"/dwFrameApply="<<dwFrameApply);
             return false; //不合格
         }
-        //_TRACE_("合格!!!!:dwFrameAgo="<<dwFrameAgo<<"/dwFrameApply="<<dwFrameApply);
         return true;
 
     } else {
-        //_TRACE_("不合格3:dwFrameAgo="<<dwFrameAgo);
         return false;
     }
 
