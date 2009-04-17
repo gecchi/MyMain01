@@ -85,7 +85,7 @@ void EnemyCeres::initialize() {
     _pGeoMover->setRotAngleVelocity(AXIS_X, 6000);
 
     _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+    _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pChecker->setStatus(100, 1, 1, 1);
 
 }

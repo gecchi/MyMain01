@@ -9,8 +9,6 @@ float g_X; //一つ前を行くチップX
 float g_Y; //一つ前を行くチップY
 float g_Z; //一つ前を行くチップZ
 
-
-
 float4x4 g_matWorld;  //自身のWorld変換行列
 float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
 float4x4 g_matView;   //View変換行列
@@ -33,6 +31,19 @@ struct OUT_VS
 };
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
 ///////////////////////////////////////////////////////////////////////////
 
 //レーザーチップ頂点シェーダー
@@ -49,21 +60,23 @@ OUT_VS GgafDx9VS_LaserChip(
 		if (g_Z < g_matWorld._43) {
 			if (g_Y > g_matWorld._42) {
 				prm_pos.y = -prm_pos.y;
-		 		//prm_pos.z = -prm_pos.z;
+		 		prm_pos.z = -prm_pos.z;
 			}
 		} else {
 			if (g_Y < g_matWorld._42) {
 				prm_pos.y = -prm_pos.y;
-		 		//prm_pos.z = -prm_pos.z;
+		 		prm_pos.z = -prm_pos.z;
 			}
 		}
 	}
 	float4 posWorld;
 	if (prm_pos.x > 0) {        
-		g_matWorld_front._41 = g_X;  // 一つ前方のチップ座標へ
-		g_matWorld_front._42 = g_Y;  
-		g_matWorld_front._43 = g_Z;  
-		posWorld = mul( prm_pos, g_matWorld_front );  // World変換
+		float4x4 matWorld = g_matWorld_front;
+
+		matWorld._41 = g_X;  // 一つ前方のチップ座標へ
+		matWorld._42 = g_Y;  
+		matWorld._43 = g_Z;  
+		posWorld = mul( prm_pos, matWorld );  // World変換
 	} else {
 		//頂点計算
 		posWorld = mul( prm_pos, g_matWorld );        // World変換

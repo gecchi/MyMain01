@@ -28,8 +28,8 @@ void MyLaserChip::initialize() {
 
     _pGeoMover->setMoveVelocity(30000);
     _pChecker->useHitAreaBoxNum(2);
-    _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    _pChecker->setHitAreaBox(1, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _pActor_Radical = NULL;
     _SX = 40*1000; _SY=40*1000; _SZ=40*1000;
