@@ -627,6 +627,10 @@ template<class T>
 void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _lifeframe=" << _lifeframe << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
+    _was_paused_flg  = _wil_pause_at_next_frame_flg;
+    if (_was_paused_flg) {
+        return;
+    }
 
     //死の時か
     if (_dwGodFrame_when_goodbye == (askGod()->_godframe)) {
@@ -661,8 +665,7 @@ void GgafElement<T>::nextFrame() {
                     _will_inactivate_after_a_few_frames_flg = false;
                 }
             }
-            if (_is_active_flg && !_was_paused_flg) {
-//ここここここここ
+            if (_is_active_flg) {
                 //TODO:pause() unpause() で１フレーム飛ばないか検証
                 _lifeframe++;
 
@@ -683,7 +686,7 @@ void GgafElement<T>::nextFrame() {
 
         //フラグたちを反映
         _is_active_flg   = _will_activate_at_next_frame_flg;
-        _was_paused_flg  = _wil_pause_at_next_frame_flg;
+
         _was_hidden_flg = _will_hidden_at_next_frame_flg;
         _can_live_flg    = _will_be_alive_at_next_frame_flg;
 
