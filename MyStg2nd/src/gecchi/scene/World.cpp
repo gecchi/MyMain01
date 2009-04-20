@@ -18,11 +18,11 @@ void World::initialize() {
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
-//    _pCamera->setGaze(0,0,0);
-//    _pCamera->_pGeoMover->setRyMoveAngleVelocity(1000);
-//    _pCamera->_pGeoMover->setMoveVelocity(3000);
-//    _pCamera->_pGeoMover->setRzRyMoveAngle(0,0);
-//    _pCamera->_pGeoMover->setRyMoveAngleVelocityRenge(-100, 100);
+    _pCamera->_pGeoMover->setRotAngle(0,0,0);
+    _pCamera->_pGeoMover->setMoveVelocity(0);
+    _pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
+    _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
+
 }
 void World::processDrawPrior() {
 
@@ -58,6 +58,32 @@ void World::processBehavior() {
             getSubFirst()->unpause();
         }
     }
+
+
+    if (VB::isBeingPressed(DIK_R)) {
+        _pCamera->_pGeoMover->setRyMoveAngleVelocity(-4000);
+    }
+    if (VB::isBeingPressed(DIK_F)) {
+        _pCamera->_pGeoMover->setRyMoveAngleVelocity(4000);
+    }
+    if (VB::isBeingPressed(DIK_D)) {
+        _pCamera->_pGeoMover->setRzMoveAngleVelocity(4000);
+    }
+    if (VB::isBeingPressed(DIK_F)) {
+        _pCamera->_pGeoMover->setRzMoveAngleVelocity(-4000);
+    }
+    if (VB::isBeingPressed(DIK_L)) {
+        _pCamera->_pGeoMover->setMoveVelocity(4000);
+    } else {
+        _pCamera->_pGeoMover->setMoveVelocity(0);
+    }
+    _pCamera->_pGeoMover->behave();
+    _pCamera->setGaze (
+               _X + (_pGeoMover->_vX * LEN_UNIT * PX_UNIT),
+               _Y + (_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
+               _Z + (_pGeoMover->_vZ * LEN_UNIT * PX_UNIT)
+              );
+
 }
 
 World::~World() {
