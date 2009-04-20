@@ -101,6 +101,11 @@ void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, i
 }
 
 void GgafDx9SpriteActor::addNextAnimationFrame() {
+//    _TRACE_(getName()<<":_pattno_ani_now="<<_pattno_ani_now<<"/_pattno_ani_bottom="<<_pattno_ani_bottom<<"/_pattno_ani_top="<<_pattno_ani_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
+
+
+
+
     _aniframe_counter++;
     if (_frame_ani_interval < _aniframe_counter) {
         if (_animation_method == ORDER_LOOP) { //—áF0,1,2,3,4,5,0,1,2,3,4,5,...
@@ -135,14 +140,14 @@ void GgafDx9SpriteActor::addNextAnimationFrame() {
                     _pattno_ani_now--;
                 } else {
                     _pattno_ani_now++;
-                    _is_reverse_order_in_oscillate_animation_flg = true;
+                    _is_reverse_order_in_oscillate_animation_flg = false;
                 }
             } else {                                            //³‡˜Žž
                 if (_pattno_ani_bottom > _pattno_ani_now) {
                     _pattno_ani_now++;
                 } else {
                     _pattno_ani_now--;
-                    _is_reverse_order_in_oscillate_animation_flg = false;
+                    _is_reverse_order_in_oscillate_animation_flg = true;
                 }
 
             }

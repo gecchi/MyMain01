@@ -15,11 +15,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
 }
 
 void GgafDx9Camera::initialize() {
-    _pGeoMover->setMoveVelocity(0);
 }
 
 void GgafDx9Camera::processDrawPrior() {
-    _pGeoMover->behave();
     GgafDx9God::_pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
     GgafDx9God::_pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
     GgafDx9God::_pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
