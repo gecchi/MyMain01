@@ -60,16 +60,16 @@ void World::processBehavior() {
     }
 
 
-    if (VB::isBeingPressed(DIK_R)) {
+    if (VB::isBeingPressed(DIK_T)) {
         _pCamera->_pGeoMover->setRyMoveAngleVelocity(-4000);
     }
-    if (VB::isBeingPressed(DIK_F)) {
+    if (VB::isBeingPressed(DIK_G)) {
         _pCamera->_pGeoMover->setRyMoveAngleVelocity(4000);
     }
-    if (VB::isBeingPressed(DIK_D)) {
+    if (VB::isBeingPressed(DIK_F)) {
         _pCamera->_pGeoMover->setRzMoveAngleVelocity(4000);
     }
-    if (VB::isBeingPressed(DIK_F)) {
+    if (VB::isBeingPressed(DIK_H)) {
         _pCamera->_pGeoMover->setRzMoveAngleVelocity(-4000);
     }
     if (VB::isBeingPressed(DIK_L)) {
@@ -79,9 +79,9 @@ void World::processBehavior() {
     }
     _pCamera->_pGeoMover->behave();
     _pCamera->setGaze (
-               _X + (_pGeoMover->_vX * LEN_UNIT * PX_UNIT),
-               _Y + (_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
-               _Z + (_pGeoMover->_vZ * LEN_UNIT * PX_UNIT)
+               _pCamera->_X + (_pCamera->_pGeoMover->_vX * LEN_UNIT * PX_UNIT),
+               _pCamera->_Y + (_pCamera->_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
+               _pCamera->_Z + (_pCamera->_pGeoMover->_vZ * LEN_UNIT * PX_UNIT)
               );
 
 }
