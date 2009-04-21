@@ -49,7 +49,7 @@ void MyDummyOption::initialize() {
 
 
     _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
+    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
 
 }
 

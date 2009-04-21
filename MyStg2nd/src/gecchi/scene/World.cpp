@@ -18,8 +18,10 @@ void World::initialize() {
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
-    _pCamera->_pGeoMover->setRotAngle(0,0,0);
+    _pCamera->_pGeoMover->setMoveAngle(0,0,0);
     _pCamera->_pGeoMover->setMoveVelocity(0);
+    _pCamera->_pGeoMover->setRzMoveAngleVelocity(0);
+    _pCamera->_pGeoMover->setRyMoveAngleVelocity(0);
     _pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
     _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
 
@@ -59,24 +61,32 @@ void World::processBehavior() {
         }
     }
 
+    _pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
+    _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
 
-    if (VB::isBeingPressed(DIK_T)) {
-        _pCamera->_pGeoMover->setRyMoveAngleVelocity(-4000);
+    if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
+        _pCamera->_pGeoMover->addRzMoveAngle(2000);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
+        _pCamera->_pGeoMover->addRzMoveAngle(-2000);
+    } else {
+        _pCamera->_pGeoMover->addRzMoveAngle(0);
     }
-    if (VB::isBeingPressed(DIK_G)) {
-        _pCamera->_pGeoMover->setRyMoveAngleVelocity(4000);
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
+        _pCamera->_pGeoMover->addRyMoveAngle(2000);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
+        _pCamera->_pGeoMover->addRyMoveAngle(-2000);
+    } else {
+        _pCamera->_pGeoMover->addRyMoveAngle(0);
     }
-    if (VB::isBeingPressed(DIK_F)) {
-        _pCamera->_pGeoMover->setRzMoveAngleVelocity(4000);
-    }
-    if (VB::isBeingPressed(DIK_H)) {
-        _pCamera->_pGeoMover->setRzMoveAngleVelocity(-4000);
-    }
-    if (VB::isBeingPressed(DIK_L)) {
-        _pCamera->_pGeoMover->setMoveVelocity(4000);
+    if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
+        _pCamera->_pGeoMover->setMoveVelocity(2000);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
+        _pCamera->_pGeoMover->setMoveVelocity(-2000);
     } else {
         _pCamera->_pGeoMover->setMoveVelocity(0);
     }
+
     _pCamera->_pGeoMover->behave();
     _pCamera->setGaze (
                _pCamera->_X + (_pCamera->_pGeoMover->_vX * LEN_UNIT * PX_UNIT),

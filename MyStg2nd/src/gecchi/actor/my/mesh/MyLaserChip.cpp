@@ -98,9 +98,13 @@ void MyLaserChip::processDrawMain() {
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
+
+    //VIEW変換行列
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9God::_vMatrixView);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
+
     hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "MyLaserChip::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
-
     //【注意】4/15 メモ
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
     //processBehaviorは _pChip_front が必ず先に実行される。
