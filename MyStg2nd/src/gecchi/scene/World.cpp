@@ -26,6 +26,10 @@ void World::initialize() {
     _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
 
 }
+
+void World::processJudgement() {
+}
+
 void World::processDrawPrior() {
 
 //    _pCamera->_pGeoMover->setAutoTargetMoveAngle(0,0,0);

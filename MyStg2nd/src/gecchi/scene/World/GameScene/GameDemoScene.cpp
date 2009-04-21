@@ -11,6 +11,8 @@ GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "B/moji");
     getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
+
+//    orderActorToFactory(111111, TamagoActor, "TAMAGO_X");
 }
 void GameDemoScene::reset() {
     _TRACE_("GameDemoScene::reset()");
@@ -26,6 +28,10 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
+
+//        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
+//        getLordActor()->accept(KIND_ENEMY_BODY, pActor);
+
         //自機表示
         GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
         setProgress(GAMEDEMO_PROG_BEGIN);
@@ -127,7 +133,7 @@ void GameDemoScene::processBehavior() {
     if (onChangeProgressAt(GAMEDEMO_PROG_END)) {
         _pStringBoard01->update(100, 100, "GameDemoScene END");
         _pStringBoard02->update(100, 150, "SRABA");
-        inactivateTreeAfter(200);
+        inactivateAfter(200);
     }
 
 

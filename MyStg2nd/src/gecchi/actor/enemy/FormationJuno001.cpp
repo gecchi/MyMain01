@@ -28,7 +28,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) : FormationActor(prm_na
 
 void FormationJuno001::initialize() {
     for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-        _pEnemyJuno[i]->activateTreeAfter(i * 3 + 1);
+        _pEnemyJuno[i]->activateAfter(i * 3 + 1);
     }
 }
 

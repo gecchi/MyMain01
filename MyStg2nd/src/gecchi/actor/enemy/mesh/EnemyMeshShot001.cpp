@@ -111,6 +111,7 @@ void EnemyMeshShot001::processBehavior() {
 void EnemyMeshShot001::processJudgement() {
     if (isOffScreen()) {
         inactivateTree();
+
         //arigatou_sayounara();
     }
 }

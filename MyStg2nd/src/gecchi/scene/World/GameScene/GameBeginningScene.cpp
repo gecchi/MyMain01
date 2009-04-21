@@ -74,7 +74,7 @@ void GameBeginningScene::processBehavior() {
     if (onChangeProgressAt(GAMEBEGINNING_PROG_END)) {
         _pStringBoard01->update(200, 200, "GameBeginningScene END");
         _pStringBoard02->update(200, 250, "KENTO WO INORU");
-        inactivateTreeAfter(140);
+        inactivateAfter(140);
     }
 }
 

@@ -289,8 +289,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
     }
 
-    EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
         pExplo001->activate();

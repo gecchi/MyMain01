@@ -33,7 +33,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
 void FormationCeres002::initialize() {
     //èoåªó\ñÒ
     for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
-        _pEnemyCeres[i]->activateTreeAfter(i * 80 + 1);
+        _pEnemyCeres[i]->activateAfter(i * 80 + 1);
     }
 }
 

@@ -31,7 +31,7 @@ public:
  	/**
 	 * ƒOverRide ‚Å‚·„
 	 */
-	void processJudgement() {}
+	void processJudgement();
 
 	/**
 	 * ƒJƒƒ‰‚ğ‘€ì

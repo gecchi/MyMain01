@@ -26,8 +26,9 @@ public:
     virtual ~GameScene();
 
     void initialize();
-    virtual void processBehavior();
-    virtual void processFinal();
+    void processBehavior();
+    void processJudgement();
+    void processFinal();
 
 //    void cannelGameDemo();
 //

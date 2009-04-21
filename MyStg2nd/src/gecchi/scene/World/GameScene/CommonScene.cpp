@@ -10,7 +10,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
-        getLordActor()->accept(KIND_MY, _pMyShip);
+        getLordActor()->accept(KIND_MY_BODY, _pMyShip);
         _pMyShip->inactivateNow(); //配下に仮登録のローテーションとかあるし
     }
 

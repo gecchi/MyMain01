@@ -67,8 +67,9 @@ void MyShip::initialize() {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
 
+    setBumpable(true);
     _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+    _pChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pGeoMover->setMoveVelocity(0);
 }
 
@@ -192,6 +193,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     _pGeoMover->behave();
+    _pChecker->behave();
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 }
 
@@ -200,7 +202,7 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    arigatou_sayounara();
+    _TRACE_("MyShipヒットしました。("<<_X<<","<<_Y<<","<<_Z<<")");
 }
 
 
