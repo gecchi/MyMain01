@@ -19,8 +19,9 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_platemodel_name) : GgafDx9Model(prm
     _paIdxBuffer_org = NULL;
     _papTextureCon = NULL;
     _paIndexParam = NULL;
-    //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
-    //GgafDx9God::_pModelManager->restoreMeshModel で行っている。
+    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
+    //void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel*)
+    //で行っている。
 }
 
 //描画

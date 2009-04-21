@@ -39,10 +39,16 @@ void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
 void GgafDx9MeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    HRESULT hr;
+    //VIEW•ÏŠ·s—ñ
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9God::_vMatrixView );
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+
+
     static D3DXMATRIX matWorld; //WORLD•ÏŠ·s—ñ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
 
-	HRESULT hr;
+
 	hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique("<<_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 

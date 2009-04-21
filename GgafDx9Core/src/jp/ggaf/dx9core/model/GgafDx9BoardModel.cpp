@@ -17,6 +17,10 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
     _pTextureCon = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
+
+    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
+    //void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel*)
+    //で行っている。
 }
 
 HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {

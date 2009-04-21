@@ -31,16 +31,14 @@ private:
     /**
      * GgafDx9SpriteModel オブジェクトを生成。 .
      * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
-     * @param prm_model_name モデル定義の識別名。".x"を追加するとスプライト定義のXファイル名になる。
+     * @param prm_model_name モデル定義の識別名。".sprx"を追加するとスプライト定義のXファイル名になる。
      */
     GgafDx9SpriteModel* createSpriteModel(char* prm_model_name);
 
-
-
     /**
-     * GgafDx9PlateModel オブジェクトを生成。 .
+     * GgafDx9BoardModel オブジェクトを生成。 .
      * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
-     * @param prm_model_name モデル定義の識別名。".x"を追加すると定義のXファイル名になる。
+     * @param prm_model_name モデル定義の識別名。".sprx"を追加するとスプライト定義のXファイル名になる。
      */
     GgafDx9BoardModel* createBoardModel(char* prm_model_name);
 

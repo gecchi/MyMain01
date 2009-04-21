@@ -92,6 +92,7 @@ GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pPrimModel->_model_name << ")");
+    //【GgafDx9MeshModel再構築（＝初期化）処理概要】
     //１）頂点バッファ、頂点インデックスバッファ を作成
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9MeshModel に次のメンバを作成。
@@ -100,8 +101,9 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
     //　　　　・マテリアル配列(要素数＝マテリアル数)
     //　　　　・テクスチャ配列(要素数＝マテリアル数)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-    //＜留意＞
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPrimModel->_model_name) + ".x";
+
+
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPrimModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     HRESULT hr;
 //    LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9;
 //    LPDIRECT3DINDEXBUFFER9 pIDirect3DIndexBuffer9;
@@ -438,13 +440,17 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pPrimModel) {
 
 void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreD3DXMeshModel(" << prm_pD3DXMeshModel->_model_name << ")");
+    //【restoreD3DXMeshModel再構築（＝初期化）処理概要】
+    //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
+    //2)GgafDx9D3DXMeshModelのメンバにセット
+    //TODO:GgafDx9D3DXMeshModelはもう要らないのかもしれない。
+
     //Xファイルのロードして必要な内容をGgafDx9D3DXMeshModelメンバに設定しインスタンスとして完成させたい
-    //以下の string xfile_name まではGgafDx9D3DXMeshModelメンバ設定のための受け取り変数。
     LPD3DXMESH pID3DXMesh; //メッシュ(ID3DXMeshインターフェイスへのポインタ）
     D3DMATERIAL9* paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
     GgafDx9TextureConnection** papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
     DWORD dwNumMaterials;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x";
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
 
     LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
     HRESULT hr;
@@ -489,7 +495,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //xファイルのマテリアルにはAmbient反射値は設定できない（みたい）、そこでDiffuse反射値で
     //Ambient反射値を代用することにする。とりあえず。
     //＜2009/3/13＞
-    //固定機能はもう使わない。マテリアルDiffuseはシェーダーの派ラメータに利用している。
+    //固定機能はもう使わない。マテリアルDiffuseはシェーダーのパラメータのみで利用している。
     //TODO:Ambientは使わない。今後もそうでしょうか？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
@@ -549,7 +555,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_pD3DMaterial9_default->Ambient.a = 1.0f;
 
     HRESULT hr;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".x";
+    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -726,7 +732,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_pD3DMaterial9_default->Ambient.a = 1.0f;
 
     HRESULT hr;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".x";
+    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
 
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
@@ -754,7 +760,6 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     //if( *pGuid == PersonID_GUID ) {
     if(true) {
         DWORD Size;
-        // PersonIDテンプレートデータを取得
         pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_BoardModelWidth);
         pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_BoardModelHeight);
@@ -784,7 +789,6 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
      pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
      float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
      float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
-//TODO:綺麗にでない；
 
     //左上
     paVertex[0].x = 0.0f;
@@ -835,7 +839,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     //全パターンのUV情報の配列作成しモデルに保持させる
     //＜2009/3/13＞
     //シェーダーでUV操作するようになってから、描画時にUV左上の情報(paRectUV[n]._aUV[0])以外は使用しなくなった。
-    //TODO:しばらくしたら見直すか消す。
+    //TODO:しばらくしたら余分な所を見直すか消す。
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {

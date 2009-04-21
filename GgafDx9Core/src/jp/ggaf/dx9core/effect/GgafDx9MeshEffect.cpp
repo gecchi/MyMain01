@@ -8,9 +8,6 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
 
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
-    //VIEW変換行列
-    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9God::_vMatrixProj );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix() に失敗しました。");
@@ -24,6 +21,7 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshEffect::GgafDx9MeshEffect SetValue(g_LightAmbient) に失敗しました。");
     //シェーダーハンドル
+    _hMatView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _hMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse" );
 }

@@ -9,8 +9,11 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
     _paD3DMaterial9_default = NULL;
     _papTextureCon = NULL;
     _dwNumMaterials = 0L;
-    //上記のプロパティは、GgafDx9God::_pModelManager->restoreD3DXMeshModel() から設定されることになる。
     _dwOptions = prm_dwOptions;
+
+    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
+    //void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel*)
+    //で行っている。
 }
 
 HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {

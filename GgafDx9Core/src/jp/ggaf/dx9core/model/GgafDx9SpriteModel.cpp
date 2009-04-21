@@ -17,8 +17,10 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
     _pTextureCon = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
-    //デバイイスロスト対応のため、テクスチャ、頂点、マテリアルの初期化は
-    //GgafDx9God::_pModelManager->restoreSpriteModel で行っている。
+
+    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
+    //void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel*)
+    //で行っている。
 }
 
 //描画
