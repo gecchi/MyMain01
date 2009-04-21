@@ -79,9 +79,9 @@ void GgafScene::activateTree() {
     _pLordActor->activateTree();
 }
 
-void GgafScene::activateTreeAfter(DWORD prm_frame_offset) {
-    GgafElement<GgafScene>::activateTreeAfter(prm_frame_offset);
-    _pLordActor->activateTreeAfter(prm_frame_offset);
+void GgafScene::activateAfter(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::activateAfter(prm_frame_offset);
+    _pLordActor->activateAfter(prm_frame_offset);
 }
 
 void GgafScene::activate() {
@@ -104,9 +104,9 @@ void GgafScene::inactivateTree() {
     _pLordActor->inactivateTree();
 }
 
-void GgafScene::inactivateTreeAfter(DWORD prm_frame_offset) {
-    GgafElement<GgafScene>::inactivateTreeAfter(prm_frame_offset);
-    _pLordActor->inactivateTreeAfter(prm_frame_offset);
+void GgafScene::inactivateAfter(DWORD prm_frame_offset) {
+    GgafElement<GgafScene>::inactivateAfter(prm_frame_offset);
+    _pLordActor->inactivateAfter(prm_frame_offset);
 }
 
 void GgafScene::inactivate() {

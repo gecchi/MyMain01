@@ -279,11 +279,11 @@ public:
     /**
      * 活動予約する(自ツリー) .
      * Nフレーム後に activateTree() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateTreeAfter(DWORD) が実行される。<BR>
-     * activateTreeAfter(1) は、activateTree() と同じ意味になります。<BR>
+     * 自身と配下ノード全てについて再帰的に activateAfter(DWORD) が実行される。<BR>
+     * activateAfter(1) は、activateTree() と同じ意味になります。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    void activateTreeAfter(DWORD prm_frame_offset);
+    void activateAfter(DWORD prm_frame_offset);
     /**
      * 活動状態にする(単体) .
      * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
@@ -321,11 +321,11 @@ public:
     /**
      * 非活動予約する(自ツリー) .
      * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateTreeAfter(DWORD) が実行される。<BR>
-     * inactivateTreeAfter(1) は、inactivateTree() と同じ意味になります。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
+     * inactivateAfter(1) は、inactivateTree() と同じ意味になります。<BR>
      * @param prm_frame_offset 遅延フレーム数(1～)
      */
-    void inactivateTreeAfter(DWORD prm_frame_offset);
+    void inactivateAfter(DWORD prm_frame_offset);
     /**
      * 非活動状態にする(単体) .
      * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
@@ -653,14 +653,14 @@ void GgafElement<T>::nextFrame() {
             if (_will_activate_after_a_few_frames_flg) {
                 //遅延play処理
                 if (_lifeframe >= _frame_of_activation) {
-                    activateTreeNow();
+                    activateNow();
                     _frame_of_activation = 0;
                     _will_activate_after_a_few_frames_flg = false;
                 }
             } else if (_will_inactivate_after_a_few_frames_flg) {
                 //遅延stop処理
                 if (_lifeframe == _frame_of_inactivation) {
-                    inactivateTreeNow();
+                    inactivateNow();
                     _frame_of_inactivation = 0;
                     _will_inactivate_after_a_few_frames_flg = false;
                 }
@@ -960,7 +960,7 @@ void GgafElement<T>::activateTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::activateTreeAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
     _will_activate_after_a_few_frames_flg = true;
     _frame_of_activation = _lifeframe + prm_frame_offset;
 }
@@ -991,7 +991,7 @@ void GgafElement<T>::inactivateTree() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeAfter(DWORD prm_frame_offset) {
+void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
     _will_inactivate_after_a_few_frames_flg = true;
     _frame_of_inactivation = _lifeframe + prm_frame_offset;
 }

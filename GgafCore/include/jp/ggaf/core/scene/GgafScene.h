@@ -173,13 +173,13 @@ public:
     virtual void happen(int prm_no);
 
     virtual void activateTree();
-    virtual void activateTreeAfter(DWORD prm_frame_offset);
+    virtual void activateAfter(DWORD prm_frame_offset);
     virtual void activate();
     virtual void activateTreeNow();
     virtual void activateNow();
 
     virtual void inactivateTree();
-    virtual void inactivateTreeAfter(DWORD prm_frame_offset);
+    virtual void inactivateAfter(DWORD prm_frame_offset);
     virtual void inactivate();
     virtual void inactivateTreeNow();
     virtual void inactivateNow();
