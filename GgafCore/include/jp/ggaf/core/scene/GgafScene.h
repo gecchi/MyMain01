@@ -57,6 +57,19 @@ namespace GgafCore {
  * クラス継承関係の表現は「スーパー」「サブ」又は「親」「子」と言わずに<B>「上位」「下位」</B>で統一することにします。</TD>
  * </TR>
  * </TABLE>
+ * <BR>
+ * 本クラスは抽象クラスでそのまま new できません。<BR>
+ * 全てのシーンクラスは、本クラスを直接・間接継承し少なくとも以下の仮想関数を実装しなければなりません。<BR>
+ * <BR>
+ * void initialize() ・・・初期処理 <BR>
+ * void processBehavior() ・・・フレーム毎の振る舞い処理 <BR>
+ * void processJudgement() ・・・フレーム毎の様々な判定処理（全シーン振る舞い処理完了後の処理） <BR>
+ * void processDrawPrior() ・・・フレーム毎の描画事前処理 <BR>
+ * void processDrawMain() ・・・フレーム毎の描画本処理 <BR>
+ * void processDrawTerminate() ・・・フレーム毎の描画事後処理 <BR>
+ * void processFinal() ・・・フレーム毎の終端処理 <BR>
+ * void processHappen(int prm_no) ・・・その他のイベント時処理 <BR>
+ * <BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge
@@ -175,34 +188,34 @@ public:
     virtual void activateTree();
     virtual void activateAfter(DWORD prm_frame_offset);
     virtual void activate();
-    virtual void activateTreeNow();
-    virtual void activateNow();
+    virtual void activateTreeImmediately();
+    virtual void activateImmediately();
 
     virtual void inactivateTree();
     virtual void inactivateAfter(DWORD prm_frame_offset);
     virtual void inactivate();
-    virtual void inactivateTreeNow();
-    virtual void inactivateNow();
+    virtual void inactivateTreeImmediately();
+    virtual void inactivateImmediately();
 
     virtual void pauseTree();
     virtual void pause();
-    virtual void pauseTreeNow();
-    virtual void pauseNow();
+    virtual void pauseTreeImmediately();
+    virtual void pauseImmediately();
 
     virtual void unpauseTree();
     virtual void unpause();
-    virtual void unpauseTreeNow();
-    virtual void unpauseNow();
+    virtual void unpauseTreeImmediately();
+    virtual void unpauseImmediately();
 
     virtual void hideTree();
     virtual void hide();
-    virtual void hideTreeNow();
-    virtual void hideNow();
+    virtual void hideTreeImmediately();
+    virtual void hideImmediately();
 
     virtual void showTree();
     virtual void show();
-    virtual void showTreeNow();
-    virtual void showNow();
+    virtual void showTreeImmediately();
+    virtual void showImmediately();
 
 
     /**

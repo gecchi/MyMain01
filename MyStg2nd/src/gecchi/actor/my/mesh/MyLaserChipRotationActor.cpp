@@ -19,7 +19,7 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
         name <<  "MYS_MyLaserChip" << i;
         string name2 = name.str();
         pChip = NEW MyLaserChip(name2.c_str(), this);
-        pChip->inactivateTreeNow();
+        pChip->inactivateImmediately();
         addSubLast(pChip);
     }
     Sleep(1);

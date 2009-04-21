@@ -28,7 +28,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     for (int i = 0; i < 16; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactivateTreeNow(); //Å‰”ñ•\¦
+        pEnemyMeshShot->inactivateTreeImmediately(); //Å‰”ñ•\¦
             _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
         //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //‰¼Š‘®

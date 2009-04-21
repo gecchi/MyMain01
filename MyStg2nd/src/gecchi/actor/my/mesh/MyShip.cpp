@@ -44,7 +44,7 @@ void MyShip::initialize() {
     MyShot001* pShot;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
-        pShot->inactivateTreeNow();
+        pShot->inactivateTreeImmediately();
         _pMyShots001Rotation->addSubLast(pShot);
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
@@ -53,7 +53,7 @@ void MyShip::initialize() {
     MyWave001* pWave;
     for (int i = 0; i < 50; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
-        pWave->inactivateTreeNow();
+        pWave->inactivateTreeImmediately();
         _pMyWaves001Rotation->addSubLast(pWave);
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);

@@ -13,13 +13,13 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
     for (int i = 0; i < 30; i++) { //弾ストック
                 Sleep(1);
                 pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-                pEnemyMeshShot->inactivateTreeNow(); //最初非表示
+                pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
                 _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
             }
             for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
                 Sleep(1);
                 _pEnemyCeres[i] = NEW EnemyCeres("Ceres01");
-                _pEnemyCeres[i]->inactivateNow();
+                _pEnemyCeres[i]->inactivateImmediately();
                 _pEnemyCeres[i]->_Y_turn = -1*(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2) + (i * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT)/NUM_CERES_FORMATION002));
                 _pEnemyCeres[i]->_veloBegin = 5000;
                 _pEnemyCeres[i]->_Z = -1500000;

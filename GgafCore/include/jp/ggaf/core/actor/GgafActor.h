@@ -4,10 +4,23 @@ namespace GgafCore {
 
 /**
  * アクターの基底クラス .
- * 本プログラムで言う『アクター』とは、主にゲームのキャラクター１つを表します。<BR>
- * 本クラスはそのまま new できません。全てのアクタークラスは、本クラスを直接・間接継承しなければなりません。<BR>
- * GgafElementに当たり判定を実現する仕組みを加えたクラスになっています。<BR>
- * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。
+ * 本プログラムで言う『アクター』とは、主にキャラクターを表現する。<BR>
+ * GgafElement に当たり判定を実現する仕組みを加えたクラスになっている。<BR>
+ * 本クラスは抽象クラスでそのまま new はできない。<BR>
+ * 全てのアクタークラスは、本クラスを継承し少なくとも以下の仮想関数を実装する必要がある。<BR>
+ * <BR>
+ * void initialize() ・・・初期処理 <BR>
+ * void processBehavior() ・・・フレーム毎の振る舞い処理（座標移動等） <BR>
+ * void processJudgement() ・・・フレーム毎の様々な判定処理（全アクター振る舞い処理後の処理） <BR>
+ * void processDrawPrior() ・・・フレーム毎の描画事前処理 <BR>
+ * void processDrawMain() ・・・フレーム毎の描画本処理 <BR>
+ * void processDrawTerminate() ・・・フレーム毎の描画事後処理 <BR>
+ * void processFinal() ・・・フレーム毎の終端処理 <BR>
+ * void processHappen(int prm_no) ・・・その他のイベント時処理 <BR>
+ * bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) ・・・衝突判定ロジック <BR>
+ * void processOnHit(GgafActor* prm_pActor_Opponent) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
+ * <BR>
+ * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge

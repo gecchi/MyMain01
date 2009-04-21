@@ -8,9 +8,9 @@ namespace GgafCore {
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
  * 毎フレーム、を神(GgafGod)は世界(GgafWorld)に、次のメソッド順で呼び出す仕組みになっている。世界(GgafWorld)も本templateを実装している。<BR>
  * nextFrame() > behave() > judge() > [drawPrior() > drawMain() > drawTerminate()] > finally() <BR>
- * 上記の内、nextFrame()、finally() は毎フレーム実行される。<BR>
- * behave()、judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
- * drawPrior()、drawMain()、drawTerminate() は、次フレームまでの残時間に余裕があり、かつ一時非表示フラグ(_was_hidden_flg) が false の場合<BR>
+ * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
+ * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
+ * drawPrior() drawMain() drawTerminate() は、次フレームまでの残時間に余裕があり、かつ一時非表示フラグ(_was_hidden_flg) が false の場合<BR>
  * 実行される。次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
  * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
@@ -293,21 +293,21 @@ public:
     /**
      * 活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に activateTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に activateTreeImmediately() が実行される。<BR>
      * 他のノードからの、「活動状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、activateTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、activateTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void activateTreeNow();
+    void activateTreeImmediately();
     /**
      * 活動状態にする(単体・即時) .
      * 自ノードのみについて、活動フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void activateNow();
+    void activateImmediately();
     //===================
     /**
      * 非活動状態にする(自ツリー) .
@@ -335,21 +335,21 @@ public:
     /**
      * 非活動状態にする(自ツリー・即時) .
      * 正確には、活動フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に inactivateTreeImmediately() が実行される。<BR>
      * 他のノードからの、「非活動状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、inactivateTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、inactivateTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void inactivateTreeNow();
+    void inactivateTreeImmediately();
     /**
      * 非活動状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void inactivateNow();
+    void inactivateImmediately();
     //===================
     /**
      * 一時停止にする(自ツリー) .
@@ -369,21 +369,21 @@ public:
     /**
      * 一時停止にする(自ツリー・即時) .
      * 正確には、一時停止フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に pauseTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に pauseTreeImmediately() が実行される。<BR>
      * 他のノードからの、「一時停止ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、pauseTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、pauseTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void pauseTreeNow();
+    void pauseTreeImmediately();
     /**
      * 一時停止にする(単体・即時) .
      * 自ノードのみについて、一時停止フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void pauseNow();
+    void pauseImmediately();
     //===================
     /**
      * 一時停止状態を解除にする(自ツリー) .
@@ -403,21 +403,21 @@ public:
     /**
      * 一時停止状態を解除する(自ツリー・即時) .
      * 正確には、一時停止状態フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に unpauseTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に unpauseTreeImmediately() が実行される。<BR>
      * 他のノードからの、「一時停止状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、unpauseTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、unpauseTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void unpauseTreeNow();
+    void unpauseTreeImmediately();
     /**
      * 一時停止状態を解除にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void unpauseNow();
+    void unpauseImmediately();
     //===================
     /**
      * 非表示状態にする(自ツリー) .
@@ -438,21 +438,21 @@ public:
     /**
      * 非表示状態にする(自ツリー・即時) .
      * 正確には、非活動フラグを即座に立てる。<BR>
-     * 自身と配下ノード全てについて再帰的に hideTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に hideTreeImmediately() が実行される。<BR>
      * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、hideTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、hideTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void hideTreeNow();
+    void hideTreeImmediately();
     /**
      * 非表示状態にする(単体・即時) .
      * 自ノードのみについて、非活動フラグを即座に立てる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void hideNow();
+    void hideImmediately();
     //===================
     /**
      * 非表示状態を解除にする(自ツリー) .
@@ -472,21 +472,21 @@ public:
     /**
      * 非表示状態を解除する(自ツリー・即時) .
      * 正確には、非表示フラグを即座に下げる。<BR>
-     * 自身と配下ノード全てについて再帰的に showTreeNow() が実行される。<BR>
+     * 自身と配下ノード全てについて再帰的に showTreeImmediately() が実行される。<BR>
      * 他のノードからの、「非表示状態ならば・・・処理」という判定を行なっている場合、<BR>
-     * 使用には注意が必要。なぜならば、showTreeNow() を実行する前と実行した後で<BR>
+     * 使用には注意が必要。なぜならば、showTreeImmediately() を実行する前と実行した後で<BR>
      * 『同一フレーム内』で、状態が変化するためである。他のノードからの参照するタイミングによっては<BR>
      * 同一フレームであるにもかかわらず、異なった状態判定になるかもしれない。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void showTreeNow();
+    void showTreeImmediately();
     /**
      * 非表示状態を解除する(単体・即時) .
      * 自ノードのみについて、非表示状フラグを即座に下げる。<BR>
      * 『同一フレーム内』で、状態が変化するためである。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
      */
-    void showNow();
+    void showImmediately();
     //===================
     /**
      * さよならします。 .
@@ -653,14 +653,14 @@ void GgafElement<T>::nextFrame() {
             if (_will_activate_after_a_few_frames_flg) {
                 //遅延play処理
                 if (_lifeframe >= _frame_of_activation) {
-                    activateNow();
+                    activateImmediately();
                     _frame_of_activation = 0;
                     _will_activate_after_a_few_frames_flg = false;
                 }
             } else if (_will_inactivate_after_a_few_frames_flg) {
                 //遅延stop処理
                 if (_lifeframe == _frame_of_inactivation) {
-                    inactivateNow();
+                    inactivateImmediately();
                     _frame_of_inactivation = 0;
                     _will_inactivate_after_a_few_frames_flg = false;
                 }
@@ -915,7 +915,7 @@ void GgafElement<T>::activateTree() {
 }
 
 template<class T>
-void GgafElement<T>::activateNow() {
+void GgafElement<T>::activateImmediately() {
     if (_can_live_flg) {
         if (_is_active_flg == false) {
             _on_change_to_active_flg = true;
@@ -932,7 +932,7 @@ void GgafElement<T>::activateNow() {
 }
 
 template<class T>
-void GgafElement<T>::activateTreeNow() {
+void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
         if (_is_active_flg == false) {
             _on_change_to_active_flg = true;
@@ -948,7 +948,7 @@ void GgafElement<T>::activateTreeNow() {
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->activateTreeNow();
+                pElementTemp->activateTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -997,7 +997,7 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
 }
 
 template<class T>
-void GgafElement<T>::inactivateNow() {
+void GgafElement<T>::inactivateImmediately() {
     if (_can_live_flg) {
         if (_is_active_flg) {
             _on_change_to_inactive_flg = true;
@@ -1010,7 +1010,7 @@ void GgafElement<T>::inactivateNow() {
 }
 
 template<class T>
-void GgafElement<T>::inactivateTreeNow() {
+void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
         if (_is_active_flg) {
             _on_change_to_inactive_flg = true;
@@ -1022,7 +1022,7 @@ void GgafElement<T>::inactivateTreeNow() {
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->inactivateTreeNow();
+                pElementTemp->inactivateTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1060,14 +1060,14 @@ void GgafElement<T>::pause() {
 }
 
 template<class T>
-void GgafElement<T>::pauseTreeNow() {
+void GgafElement<T>::pauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _wil_pause_at_next_frame_flg = true;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->pauseTreeNow();
+                pElementTemp->pauseTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1079,7 +1079,7 @@ void GgafElement<T>::pauseTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::pauseNow() {
+void GgafElement<T>::pauseImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _wil_pause_at_next_frame_flg = true;
@@ -1112,14 +1112,14 @@ void GgafElement<T>::unpause() {
 }
 
 template<class T>
-void GgafElement<T>::unpauseTreeNow() {
+void GgafElement<T>::unpauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _wil_pause_at_next_frame_flg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->unpauseTreeNow();
+                pElementTemp->unpauseTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1131,7 +1131,7 @@ void GgafElement<T>::unpauseTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::unpauseNow() {
+void GgafElement<T>::unpauseImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _wil_pause_at_next_frame_flg = false;
@@ -1164,14 +1164,14 @@ void GgafElement<T>::hide() {
 }
 
 template<class T>
-void GgafElement<T>::hideTreeNow() {
+void GgafElement<T>::hideTreeImmediately() {
     if (_can_live_flg) {
         _was_hidden_flg = true;
         _will_hidden_at_next_frame_flg = true;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->hideTreeNow();
+                pElementTemp->hideTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1183,7 +1183,7 @@ void GgafElement<T>::hideTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::hideNow() {
+void GgafElement<T>::hideImmediately() {
     if (_can_live_flg) {
         _was_hidden_flg = true;
         _will_hidden_at_next_frame_flg = true;
@@ -1216,14 +1216,14 @@ void GgafElement<T>::show() {
 }
 
 template<class T>
-void GgafElement<T>::showTreeNow() {
+void GgafElement<T>::showTreeImmediately() {
     if (_can_live_flg) {
         _was_hidden_flg = false;
         _will_hidden_at_next_frame_flg = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->showTreeNow();
+                pElementTemp->showTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -1235,7 +1235,7 @@ void GgafElement<T>::showTreeNow() {
 }
 
 template<class T>
-void GgafElement<T>::showNow() {
+void GgafElement<T>::showImmediately() {
     if (_can_live_flg) {
         _was_hidden_flg = false;
         _will_hidden_at_next_frame_flg = false;
