@@ -2,7 +2,7 @@
 // レーザーチップ用シェーダー
 //
 // Auther:Masatoshi Tsuge
-// date:2009/04/15 
+// date:2009/04/23
 ////////////////////////////////////////////////////////////////////////////////
 
 float g_X; //一つ前を行くチップX
@@ -29,19 +29,6 @@ struct OUT_VS
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 ///////////////////////////////////////////////////////////////////////////
@@ -266,7 +253,6 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4 posWorld;
 	if (prm_pos.x > 0) {        
 		float4x4 matWorld = g_matWorld_front;
-
 		matWorld._41 = g_X;  // 一つ前方のチップ座標へ
 		matWorld._42 = g_Y;  
 		matWorld._43 = g_Z;  
