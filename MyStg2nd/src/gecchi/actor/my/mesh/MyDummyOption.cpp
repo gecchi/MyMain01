@@ -162,7 +162,6 @@ void MyDummyOption::processBehavior() {
             pLaser->_pGeoMover->_vZ = Q._z;
             pLaser->_pGeoMover->_angRzMove = _RZ2;
             pLaser->_pGeoMover->_angRyMove = _RY2;
-
             pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
             pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY2;
 
