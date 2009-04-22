@@ -75,8 +75,13 @@ public:
     void setActivAnimationPattern(int prm_pattno_ani);
 
     /**
+     * アニメーションパターンを上限のアニメーションパターン番号に設定する .
+     */
+    void resetActivAnimationPattern();
+
+    /**
      * アニメーションパターンの範囲を制限する .
-     * @param prm_top上限のアニメーションパターン番号
+     * @param prm_top 上限のアニメーションパターン番号
      * @param prm_bottom 下限のアニメーションパターン番号
      */
     void setAnimationPatternRenge(int prm_top, int prm_bottom);

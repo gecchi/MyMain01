@@ -101,6 +101,33 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9Untransformed
      */
 }
 
+void GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = GgafDx9God::_vMatrixView._11 * sx;
+    out_matWorld._12 = GgafDx9God::_vMatrixView._21 * sy;
+    out_matWorld._13 = GgafDx9God::_vMatrixView._31 * sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = GgafDx9God::_vMatrixView._12 * sx;
+    out_matWorld._22 = GgafDx9God::_vMatrixView._22 * sy;
+    out_matWorld._23 = GgafDx9God::_vMatrixView._32 * sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = GgafDx9God::_vMatrixView._13 * sx;
+    out_matWorld._32 = GgafDx9God::_vMatrixView._23 * sy;
+    out_matWorld._33 = GgafDx9God::_vMatrixView._33 * sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0f;
+}
 
 void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //WORLD•ÏŠ·

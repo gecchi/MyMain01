@@ -63,7 +63,11 @@ void GgafDx9SpriteActor::processDrawMain() {
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
     static D3DXMATRIX matWorld; //WORLD変換行列
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
+    if (_isBillboardingFlg) {
+        GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(this, matWorld);
+    } else {
+        GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
+    }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) に失敗しました。");
     UINT numPass;
@@ -90,6 +94,10 @@ void GgafDx9SpriteActor::setActivAnimationPattern(int prm_pattno_ani) {
     }
 }
 
+void GgafDx9SpriteActor::resetActivAnimationPattern() {
+    _pattno_ani_now = _pattno_ani_top;
+}
+
 void GgafDx9SpriteActor::setAnimationPatternRenge(int prm_top, int prm_bottom = 1) {
     if (prm_top < 0 || prm_bottom > (_pSpriteModel->_pattno_ani_Max)) {
         throwGgafCriticalException("GgafDx9SpriteActor::setAnimationPatternRenge アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
@@ -106,9 +114,6 @@ void GgafDx9SpriteActor::setAnimationMethod(GgafDx9AnimationMethod prm_method, i
 
 void GgafDx9SpriteActor::addNextAnimationFrame() {
 //    _TRACE_(getName()<<":_pattno_ani_now="<<_pattno_ani_now<<"/_pattno_ani_bottom="<<_pattno_ani_bottom<<"/_pattno_ani_top="<<_pattno_ani_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
-
-
-
 
     _aniframe_counter++;
     if (_frame_ani_interval < _aniframe_counter) {
@@ -128,14 +133,14 @@ void GgafDx9SpriteActor::addNextAnimationFrame() {
             if (_pattno_ani_bottom > _pattno_ani_now) {
                 _pattno_ani_now++;
             } else {
-                happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
+                processHappen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_bottom;
             }
         } else if (_animation_method == REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
             if (_pattno_ani_top < _pattno_ani_now) {
                 _pattno_ani_now--;
             } else {
-                happen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
+                processHappen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_top;
             }
         } else if (_animation_method == OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
