@@ -62,7 +62,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	//            _ „«    _ ‚˜²i•ûŒüj
 	//               „«      „£
 	//
-	if (abs(g_Y - g_matWorld._42) < 1) {
+	if (abs(g_Y - g_matWorld._42) < 0.8) {
 		prm_pos.z = 0;
     } else {
 		if (g_Z < g_matWorld._43) {      //‰œ‚©‚çè‘O   
