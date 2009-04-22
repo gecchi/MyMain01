@@ -65,30 +65,59 @@ void World::processBehavior() {
         }
     }
 
-    _pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
-    _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
+    if ( getSubFirst()->isBehaving() ) {
+        //ƒXƒ‹[
+    } else {
+        _pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
+        _pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
-        _pCamera->_pGeoMover->addRzMoveAngle(2000);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
-        _pCamera->_pGeoMover->addRzMoveAngle(-2000);
-    } else {
-        _pCamera->_pGeoMover->addRzMoveAngle(0);
-    }
+        if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
+            if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
+                _pCamera->_Y += 2000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
+                _pCamera->_Y -= 2000;
+            } else {
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
-        _pCamera->_pGeoMover->addRyMoveAngle(2000);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
-        _pCamera->_pGeoMover->addRyMoveAngle(-2000);
-    } else {
-        _pCamera->_pGeoMover->addRyMoveAngle(0);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-        _pCamera->_pGeoMover->setMoveVelocity(2000);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
-        _pCamera->_pGeoMover->setMoveVelocity(-2000);
-    } else {
-        _pCamera->_pGeoMover->setMoveVelocity(0);
+            }
+
+            if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
+                _pCamera->_X += 2000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
+                _pCamera->_X -= 2000;
+            } else {
+            }
+
+            if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
+                _pCamera->_Z += 2000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
+                _pCamera->_Z -= 2000;
+            } else {
+            }
+
+        } else {
+            if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
+                _pCamera->_pGeoMover->addRzMoveAngle(2000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
+                _pCamera->_pGeoMover->addRzMoveAngle(-2000);
+            } else {
+                _pCamera->_pGeoMover->addRzMoveAngle(0);
+            }
+
+            if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
+                _pCamera->_pGeoMover->addRyMoveAngle(2000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
+                _pCamera->_pGeoMover->addRyMoveAngle(-2000);
+            } else {
+                _pCamera->_pGeoMover->addRyMoveAngle(0);
+            }
+            if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
+                _pCamera->_pGeoMover->setMoveVelocity(2000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
+                _pCamera->_pGeoMover->setMoveVelocity(-2000);
+            } else {
+                _pCamera->_pGeoMover->setMoveVelocity(0);
+            }
+        }
     }
 
     _pCamera->_pGeoMover->behave();
@@ -97,6 +126,7 @@ void World::processBehavior() {
                _pCamera->_Y + (_pCamera->_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
                _pCamera->_Z + (_pCamera->_pGeoMover->_vZ * LEN_UNIT * PX_UNIT)
               );
+
 
 }
 

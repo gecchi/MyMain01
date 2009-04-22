@@ -17,6 +17,9 @@ public:
      */
     void processBehavior();
 
+
+    void onActive();
+
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
