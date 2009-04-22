@@ -75,10 +75,9 @@ OUT_VS GgafDx9VS_LaserChip(
 	//            ＼ ┃    ＼ ｘ軸（方向）
 	//               ┃      ┘
 	//
-	if (g_Y == g_matWorld._42) {
+	if (abs(g_Y - g_matWorld._42) < 1) {
 		prm_pos.z = 0;
-	} else {
-
+    } else {
 		if (g_Z < g_matWorld._43) {      //奥から手前   
 			if (g_Y > g_matWorld._42) {      //下から上
 				if (g_X > g_matWorld._41) {      //左から右
