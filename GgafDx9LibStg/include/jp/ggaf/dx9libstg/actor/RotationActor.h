@@ -62,7 +62,7 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isActive() || pActor->willActivateAtNextFrame()) {
+            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame) {
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
