@@ -268,6 +268,14 @@ public:
      */
     virtual bool hasSub(char* prm_sub_actor_name);
 
+
+    /**
+     * 子ノード数を取得する .
+     * @return  T*  子ノード数
+     */
+    virtual int getNumSub();
+
+
     /**
      * 自ノードが先頭ノードか調べる .
      * @return	bool true:先頭ノード／false:先頭ノードではない
@@ -456,6 +464,24 @@ bool GgafNode<T>::hasSub(char* prm_sub_actor_name) {
         } while (true);
     }
 }
+
+template<class T>
+int GgafNode<T>::getNumSub() {
+    if (_pSubFirst == NULL) {
+        return 0;
+    }
+    int n = 1;
+    _pNodeTemp = _pSubFirst;
+    do {
+        if (_pNodeTemp->isLast()) {
+            break;
+        }
+        _pNodeTemp = _pNodeTemp->_pNext;
+        n++;
+    } while (true);
+    return n;
+}
+
 
 template<class T>
 void GgafNode<T>::addSubLast(T* prm_pSub) {
