@@ -58,8 +58,8 @@ void MyShip::initialize() {
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
 
-    _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
+    _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -153,7 +153,7 @@ void MyShip::processBehavior() {
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
         //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-        MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
+        LaserChip* pLaser = (LaserChip*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
             pLaser->setGeometry(this);

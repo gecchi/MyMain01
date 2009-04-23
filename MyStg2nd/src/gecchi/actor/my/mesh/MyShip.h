@@ -111,10 +111,10 @@ public:
 
     GgafDx9LibStg::RotationActor* _pMyWaves001Rotation;
     GgafDx9LibStg::RotationActor* _pMyShots001Rotation;
-//    GgafDx9LibStg::RotationActor* _pMyLaserChipRotation;
+//    GgafDx9LibStg::RotationActor* _pLaserChipRotation;
     GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
     GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
-    MyLaserChipRotationActor* _pMyLaserChipRotation;
+    LaserChipRotationActor* _pLaserChipRotation;
     MyShip(const char* prm_name);
 
     /**

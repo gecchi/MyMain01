@@ -1,28 +1,28 @@
-#ifndef MYLASERCHIP_H_
-#define MYLASERCHIP_H_
+#ifndef LASERCHIP_H_
+#define LASERCHIP_H_
 namespace MyStg2nd {
 
-class MyLaserChip : public GgafDx9Core::GgafDx9MeshActor {
+class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
 
 private:
     D3DXHANDLE _hKind, _hX, _hY, _hZ, _hMatWorld_front;
 
 public:
     /** 一つ前方のレーザーチップ */
-    MyLaserChip* _pChip_front;
+    LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
-	MyLaserChip* _pChip_behind;
+	LaserChip* _pChip_behind;
     /** 自身のWORLD変換行列 */
     D3DXMATRIX _matWorld;
     /** 一つ前方のWORLD変換行列 */
     D3DXMATRIX _matWorld_front;
     /** 自身を管理してるローテーションアクター */
-    MyLaserChipRotationActor* _pRotation;
+    LaserChipRotationActor* _pRotation;
 
     GgafDx9LibStg::StgChecker* _pChecker;
 
 
-    MyLaserChip(const char* prm_name, const char* prm_model, MyLaserChipRotationActor* prm_pRotation);
+    LaserChip(const char* prm_name, const char* prm_model, LaserChipRotationActor* prm_pRotation);
 
     /**
      * ＜OverRide です＞
@@ -77,10 +77,10 @@ public:
      */
     void onInactive();
 
-    virtual ~MyLaserChip();
+    virtual ~LaserChip();
 
 };
 
 }
-#endif /*MYLASERCHIP_H_*/
+#endif /*LASERCHIP_H_*/
 

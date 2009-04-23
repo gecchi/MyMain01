@@ -48,8 +48,8 @@ void MyDummyOption::initialize() {
     _RZorg = _RZ;
 
 
-    _pMyLaserChipRotation = NEW MyLaserChipRotationActor("ROTLaser");
-    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pMyLaserChipRotation);
+    _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
+    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
 
 }
 
@@ -150,7 +150,7 @@ void MyDummyOption::processBehavior() {
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
     if (VB::isBeingPressed(VB_SHOT2)) {
-        MyLaserChip* pLaser = (MyLaserChip*)_pMyLaserChipRotation->obtain();
+        LaserChip* pLaser = (LaserChip*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setRadicalActor(this);
             pLaser->_X = _X2;

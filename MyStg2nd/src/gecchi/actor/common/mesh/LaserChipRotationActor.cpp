@@ -5,34 +5,37 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : RotationActor(prm_name) {
-    _class_name = "MyLaserChipRotationActor";
-    _num_chip_max = 35;
+LaserChipRotationActor::LaserChipRotationActor(const char* prm_name, LaserChip* prm_pChip_subFirst) : RotationActor(prm_name) {
+    _class_name = "LaserChipRotationActor";
     _num_continual_obtain_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = false;
-    MyLaserChip* pChip;
-    for (int i = 0; i < _num_chip_max; i++) { //レーザーストック
-        Sleep(2); //工場に気を使う。
-        stringstream name;
-        name <<  "MYS_MyLaserChip" << i;
-        string name2 = name.str();
-        pChip = NEW MyLaserChip(name2.c_str(), this);
-        pChip->inactivateImmediately();
-        addSubLast(pChip);
-    }
-    Sleep(1);
+    _num_chip_max = prm_pChip_subFirst->getNumSub();
+    addSubLast(pChip);
+
+
+//    LaserChip* pChip;
+//    for (int i = 0; i < _num_chip_max; i++) { //レーザーストック
+//        Sleep(2); //工場に気を使う。
+//        stringstream name;
+//        name <<  "MYS_LaserChip" << i;
+//        string name2 = name.str();
+//        pChip = NEW LaserChip(name2.c_str(), this);
+//        pChip->inactivateImmediately();
+//        addSubLast(pChip);
+//    }
+//    Sleep(1);
     _pChip_prev_obtain = NULL;
     _lifeframe_prev_obtain = 0;
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }
-void MyLaserChipRotationActor::processBehavior() {
+void LaserChipRotationActor::processBehavior() {
 }
 
-void MyLaserChipRotationActor::processFinal() {
+void LaserChipRotationActor::processFinal() {
 }
 
-MyLaserChip* MyLaserChipRotationActor::obtain() {
+LaserChip* LaserChipRotationActor::obtain() {
     if ((_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) || _num_continual_obtain_count > _num_chip_max) {
         _is_tear_laser = true;
         _pChip_prev_obtain = NULL;
@@ -40,7 +43,7 @@ MyLaserChip* MyLaserChipRotationActor::obtain() {
         _num_continual_obtain_count = 0;
         return NULL;
     } else {
-        MyLaserChip* pChip = (MyLaserChip*)RotationActor::obtain();
+        LaserChip* pChip = (LaserChip*)RotationActor::obtain();
         if (pChip != NULL) {
 
             if (_pChip_prev_obtain != NULL) {
@@ -75,6 +78,6 @@ MyLaserChip* MyLaserChipRotationActor::obtain() {
 
 }
 
-MyLaserChipRotationActor::~MyLaserChipRotationActor() {
+LaserChipRotationActor::~LaserChipRotationActor() {
     _pSeCon_Laser->close();
 }

@@ -47,8 +47,8 @@ class Stage03Scene;
 class Stage04Scene;
 class Stage05Scene;
 
-class MyLaserChip;
-class MyLaserChipRotationActor;
+class LaserChip;
+class LaserChipRotationActor;
 
 class Stage01MainScene;
 class MyShip;
@@ -100,8 +100,8 @@ class MyFactory;
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 
-#include "gecchi/actor/my/mesh/MyLaserChip.h"
-#include "gecchi/actor/my/mesh/MyLaserChipRotationActor.h"
+#include "gecchi/actor/common/mesh/LaserChip.h"
+#include "gecchi/actor/common/mesh/LaserChipRotationActor.h"
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyDummyOption.h"
@@ -121,6 +121,7 @@ class MyFactory;
 #include "gecchi/actor/enemy/mesh/EnemyPallas.h"
 #include "gecchi/actor/enemy/mesh/EnemyJuno.h"
 #include "gecchi/actor/enemy/mesh/EnemyVesta.h"
+#include "gecchi/actor/enemy/mesh/EnemyAstraea.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 
 #include "gecchi/actor/enemy/FormationCeres001.h"
