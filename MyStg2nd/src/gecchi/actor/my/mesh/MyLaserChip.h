@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class MyLaserChip : public GgafDx9Core::GgafDx9MeshActor {
 
 private:
-    D3DXHANDLE _hX, _hY, _hZ, _hMatWorld_front;
+    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hMatWorld_front;
 
 public:
     /** 一つ前方のレーザーチップ */

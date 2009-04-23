@@ -32,7 +32,7 @@ class World;
 class CommonScene;
 
 class DispFpsActor;
-class BackGround01Board;
+class BackGround01;
 class BackGroundChipBoard;
 
 class GameScene;
@@ -113,8 +113,8 @@ class MyFactory;
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShot001.h"
 #include "gecchi/actor/_debug/DispFpsActor.h"
-#include "gecchi/actor/background/plate/BackGround01Board.h"
-#include "gecchi/actor/background/plate/BackGroundChipBoard.h"
+#include "gecchi/actor/background/BackGround01.h"
+#include "gecchi/actor/background/board/BackGroundChipBoard.h"
 #include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/mesh/EnemyCeres.h"

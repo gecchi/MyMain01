@@ -134,6 +134,7 @@ void MyOptionParent::processBehavior() {
     }
     //À•W‚É”½‰f
     if (GameGlobal::_pMyShip->_stc != 0) {
+        _angVelocity_Turn = 3500 + GameGlobal::_pMyShip->_pGeoMover->_veloMove;
         //“®‚©‚»‚¤‚Æ‚µ‚Ä‚¢‚½I
         _pGeoMover->behave();
     }

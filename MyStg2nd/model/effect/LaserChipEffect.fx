@@ -5,6 +5,8 @@
 // date:2009/04/23
 ////////////////////////////////////////////////////////////////////////////////
 
+int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
+
 float g_X; //一つ前を行くチップX
 float g_Y; //一つ前を行くチップY
 float g_Z; //一つ前を行くチップZ
@@ -62,7 +64,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	//            ＼ ┃    ＼ ｘ軸（方向）
 	//               ┃      ┘
 	//
-	if (abs(g_Y - g_matWorld._42) < 0.8) {
+	if (abs(g_Y - g_matWorld._42) < 0.9) {
 		prm_pos.z = 0;
     } else {
 		if (g_Z < g_matWorld._43) {      //奥から手前   
@@ -264,8 +266,13 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4 posWorldView = mul(posWorld    , g_matView);  // View変換
 	out_vs.pos          = mul(posWorldView, g_matProj);  // 射影変換
 
-	//UVはそのまま
-	out_vs.uv = prm_uv;
+	//UV
+	if (g_kind == 1) {
+		out_vs.uv.x = prm_uv.x - 0.5;
+		out_vs.uv.y = prm_uv.y;
+	} else {
+		out_vs.uv = prm_uv;
+	}
 	return out_vs;
 }
 

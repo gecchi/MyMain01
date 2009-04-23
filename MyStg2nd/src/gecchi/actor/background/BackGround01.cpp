@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-BackGround01Board::BackGround01Board(const char* prm_name, const char* prm_dummy) : GgafDx9TransformedActor(prm_name) {
-    _class_name = "BackGround01Board";
+BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx9TransformedActor(prm_name) {
+    _class_name = "BackGround01";
 
     _papChipBoard = NEW BackGroundChipBoard*[4];
 	_papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "B/background01");
@@ -16,7 +16,7 @@ BackGround01Board::BackGround01Board(const char* prm_name, const char* prm_dummy
     inactivateImmediately();
 }
 
-void BackGround01Board::initialize() {
+void BackGround01::initialize() {
 
     _x = 0;
     _y = -216;
@@ -28,7 +28,7 @@ void BackGround01Board::initialize() {
     }
 }
 
-void BackGround01Board::processBehavior() {
+void BackGround01::processBehavior() {
     //フェードイン
     //	if (0 < _lifeframe && _lifeframe <= 255) {
     //		for (int i = 0; i < 4; i++) {
@@ -52,7 +52,7 @@ void BackGround01Board::processBehavior() {
 
 }
 
-void BackGround01Board::processDrawMain() {
+void BackGround01::processDrawMain() {
     _papChipBoard[0]->_x = _x;
     _papChipBoard[0]->_y = _y;
     _papChipBoard[1]->_x = _x + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelWidthPx;
@@ -79,7 +79,7 @@ void BackGround01Board::processDrawMain() {
 
 }
 
-BackGround01Board::~BackGround01Board() {
+BackGround01::~BackGround01() {
     DELETE_IMPOSSIBLE_NULL(_papChipBoard[0]);
     DELETE_IMPOSSIBLE_NULL(_papChipBoard[1]);
     DELETE_IMPOSSIBLE_NULL(_papChipBoard[2]);

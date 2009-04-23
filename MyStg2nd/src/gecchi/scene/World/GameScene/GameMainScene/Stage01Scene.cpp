@@ -10,7 +10,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pStage01Main->inactivate();
     addSubLast(_pStage01Main);
     Sleep(2);
-	_pBackGround01 = NEW BackGround01Board("BACKGOROUND01", "");
+	_pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
 	_pBackGround01->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
 

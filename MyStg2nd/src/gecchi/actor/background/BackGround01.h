@@ -1,13 +1,13 @@
-#ifndef BACKGROUND01BOARD_H_
-#define BACKGROUND01BOARD_H_
+#ifndef BACKGROUND01_H_
+#define BACKGROUND01_H_
 namespace MyStg2nd {
 
-class BackGround01Board : public GgafDx9Core::GgafDx9TransformedActor {
+class BackGround01 : public GgafDx9Core::GgafDx9TransformedActor {
 
     BackGroundChipBoard** _papChipBoard;
 
 public:
-    BackGround01Board(const char* prm_name, const char* prm_dummy);
+    BackGround01(const char* prm_name, const char* prm_dummy);
 
     virtual void processJudgement() {
     }
@@ -44,7 +44,7 @@ public:
      */
     void processDrawMain();
 
-    virtual ~BackGround01Board();
+    virtual ~BackGround01();
 };
 
 }

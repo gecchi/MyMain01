@@ -8,7 +8,6 @@ public:
     int _num_chip_max;
     int _num_chip_active;
     bool _is_tear_laser;
-    MyLaserChip* _pHeadChip;
     MyLaserChip* _pChip_prev_obtain;
     DWORD _lifeframe_prev_obtain;
     int _num_continual_obtain_count;

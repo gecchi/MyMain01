@@ -11,10 +11,9 @@ MyLaserChipRotationActor::MyLaserChipRotationActor(const char* prm_name) : Rotat
     _num_continual_obtain_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = false;
-    _pHeadChip = NULL;
     MyLaserChip* pChip;
     for (int i = 0; i < _num_chip_max; i++) { //レーザーストック
-        Sleep(1);
+        Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MYS_MyLaserChip" << i;
         string name2 = name.str();
@@ -34,9 +33,11 @@ void MyLaserChipRotationActor::processFinal() {
 }
 
 MyLaserChip* MyLaserChipRotationActor::obtain() {
-    if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/2) {
+    if ((_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) || _num_continual_obtain_count > _num_chip_max) {
+        _is_tear_laser = true;
         _pChip_prev_obtain = NULL;
         _lifeframe_prev_obtain = 0;
+        _num_continual_obtain_count = 0;
         return NULL;
     } else {
         MyLaserChip* pChip = (MyLaserChip*)RotationActor::obtain();
