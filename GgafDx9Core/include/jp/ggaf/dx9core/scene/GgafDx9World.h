@@ -2,7 +2,7 @@
 #define GGAFDX9WORLD_H_
 namespace GgafDx9Core {
 
-#define MAX_DRAW_DEPTH_LEVEL 10000
+#define MAX_DRAW_DEPTH_LEVEL 2000
 
 /**
  * GgafDx9Core–¼‘O‹óŠÔ‚Ì¢ŠEƒNƒ‰ƒX.

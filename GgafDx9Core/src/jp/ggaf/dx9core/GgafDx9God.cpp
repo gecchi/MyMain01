@@ -388,7 +388,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
     // VIEW変換（カメラ位置）設定
-    _dCamZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / tan(PI / 9);
+    _dCamZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / tan(PI / 12);
     _dCamZ_ini = _dCamZ;
 
     _iPxDep = abs(_dCamZ_ini * PX_UNIT * 2);
@@ -408,7 +408,7 @@ HRESULT GgafDx9God::initDx9Device() {
     //D3DXMATRIX _vMatrixProj; // 射影変換行列
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
-            2.0*(PI/9), //y方向視野角ラディアン(0～π)
+            2.0*(PI/12), //y方向視野角ラディアン(0～π)
             (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
             1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
             2000.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
@@ -521,7 +521,9 @@ void GgafDx9God::makeWorldMaterialize() {
         hr = GgafDx9God::_pID3DDevice9->BeginScene();
         potentialDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。");
         //全て具現化！（描画）
+#ifdef OREDEBUG
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+#endif
         GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
         //描画事後処理
         hr = GgafDx9God::_pID3DDevice9->EndScene();
