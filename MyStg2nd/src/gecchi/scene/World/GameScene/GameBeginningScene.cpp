@@ -30,6 +30,7 @@ void GameBeginningScene::processBehavior() {
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 
+    //ゲーム開始直前の自機選択等、導入部
     if (onChangeProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
         _pStringBoard01->update(200, 200, "GameBeginningScene BEGIN");
         _pStringBoard02->update(200, 250, "YOKUKITANA!");
@@ -43,7 +44,7 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
-
+    //ゲーム開始直前の自機選択等
     if (onChangeProgressAt(GAMEBEGINNING_PROG_OPE)) {
         _pStringBoard01->update(200, 200, "GameBeginningScene OPE");
         _pStringBoard02->update(200, 250, "SELECT YOUR HOGEHOGE!");
@@ -58,6 +59,7 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
+    //ゲーム開始直前の自機選択等、決定後のフェードアウト部
     if (onChangeProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
         _pStringBoard01->update(200, 200, "GameBeginningScene DECIDE");
         _pStringBoard02->update(200, 250, "OK . ARE YOU READY!");
