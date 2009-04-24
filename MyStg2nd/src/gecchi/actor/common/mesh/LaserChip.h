@@ -7,37 +7,10 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
 private:
     D3DXHANDLE _hKind, _hX, _hY, _hZ, _hMatWorld_front;
 
-public:
-    /** 一つ前方のレーザーチップ */
-    LaserChip* _pChip_front;
-    /** 一つ後方のレーザーチップ */
-	LaserChip* _pChip_behind;
-    /** 自身のWORLD変換行列 */
-    D3DXMATRIX _matWorld;
-    /** 一つ前方のWORLD変換行列 */
-    D3DXMATRIX _matWorld_front;
-    /** 自身を管理してるローテーションアクター */
-    LaserChipRotationActor* _pRotation;
-
-    GgafDx9LibStg::StgChecker* _pChecker;
-
-
-    LaserChip(const char* prm_name, const char* prm_model, LaserChipRotationActor* prm_pRotation);
-
-    /**
-     * ＜OverRide です＞
-     */
-    void initialize();
-
     /**
      * ＜OverRide です＞
      */
     void processBehavior();
-
-    /**
-     * ＜OverRide です＞
-     */
-    void processJudgement();
 
     void processDrawPrior() {
         GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
@@ -50,23 +23,6 @@ public:
      */
     void processDrawMain();
 
-    void processHappen(int prm_no) {
-    }
-
-    void processFinal() {
-    }
-
-    /**
-     * ＜OverRide です＞
-     */
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
-
-    void setRadicalActor(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
-        _pActor_Radical = prm_pActor;
-    }
-
-    bool isOffScreen();
-
     /**
      * 出現時コールバック実装
      */
@@ -76,6 +32,59 @@ public:
      * 消失時コールバック実装
      */
     void onInactive();
+
+public:
+    /** 一つ前方のレーザーチップ */
+    LaserChip* _pChip_front;
+    /** 一つ後方のレーザーチップ */
+	LaserChip* _pChip_behind;
+    /** 自身のUNIVERSE変換行列 */
+    D3DXMATRIX _matWorld;
+    /** 一つ前方のUNIVERSE変換行列 */
+    D3DXMATRIX _matWorld_front;
+    /** 自身を管理してるローテーションアクター */
+    LaserChipRotationActor* _pRotation;
+
+    GgafDx9LibStg::StgChecker* _pChecker;
+
+
+    LaserChip(const char* prm_name, const char* prm_model);
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual void initialize();
+
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual void processJudgement();
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+
+    virtual void processHappen(int prm_no) {
+    }
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual void processFinal() {
+    }
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+
+
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual bool isOffScreen();
+
 
     virtual ~LaserChip();
 

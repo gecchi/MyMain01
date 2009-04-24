@@ -8,11 +8,11 @@ using namespace MyStg2nd;
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
 }
 
-GgafWorld* God::createWorld() {
-    World* sceneWorld = NEW World("MYWORLD");
-    return (GgafWorld*)sceneWorld;
+GgafUniverse* God::createUniverse() {
+    World* sceneWorld = NEW World("MYUNIVERSE");
+    return (GgafUniverse*)sceneWorld;
 }
 
 God::~God() {
-    _pWorld->dump();
+    _pUniverse->dump();
 }

@@ -5,14 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-LaserChipRotationActor::LaserChipRotationActor(const char* prm_name, LaserChip* prm_pChip_subFirst) : RotationActor(prm_name) {
+LaserChipRotationActor::LaserChipRotationActor(const char* prm_name) : RotationActor(prm_name) {
     _class_name = "LaserChipRotationActor";
     _num_continual_obtain_count = 0;
     _num_chip_active = 0;
     _is_tear_laser = false;
-    _num_chip_max = prm_pChip_subFirst->getNumSub();
-    addSubLast(pChip);
-
+    _num_chip_max = 0;
 
 //    LaserChip* pChip;
 //    for (int i = 0; i < _num_chip_max; i++) { //レーザーストック
@@ -76,6 +74,12 @@ LaserChip* LaserChipRotationActor::obtain() {
         }
     }
 
+}
+
+void LaserChipRotationActor::addLaserChip(LaserChip* prm_pLaserChip) {
+    _num_chip_max ++;
+    prm_pLaserChip->_pRotation = this;
+    addSubLast(prm_pLaserChip);
 }
 
 LaserChipRotationActor::~LaserChipRotationActor() {

@@ -21,6 +21,7 @@ public:
 
 	virtual void processFinal();
 	virtual LaserChip* obtain();
+	void addLaserChip(LaserChip* prm_pLaserChip);
 
  	virtual ~LaserChipRotationActor();
 

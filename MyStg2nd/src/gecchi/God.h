@@ -11,7 +11,7 @@ public:
      * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
      * ƒOverRide ‚Å‚·„
      */
-    GgafCore::GgafWorld* createWorld();
+    GgafCore::GgafUniverse* createUniverse();
 
     virtual ~God();
 };

@@ -58,7 +58,17 @@ void MyShip::initialize() {
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
 
-    _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
+    _pLaserChipRotation = NEW LaserChipRotationActor("MyRotLaser");
+    MyLaserChip001* pChip;
+    for (int i = 0; i < 32; i++) { //レーザーストック
+        Sleep(2); //工場に気を使う。
+        stringstream name;
+        name <<  "MyLaserChip001_" << i;
+        string name2 = name.str();
+        pChip = NEW MyLaserChip001(name2.c_str());
+        pChip->inactivateImmediately();
+        _pLaserChipRotation->addLaserChip(pChip);
+    }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
 
     //トレース用履歴
@@ -74,6 +84,11 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
+    if (isOffScreen()) {
+        _TRACE_("isOffScreen!! ("<<_X<<","<<_Y<<","<<_Z<<")");
+    }
+
+
     _stc = VB::getBeingPressedStick();
     if (_stc != 0) {
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
@@ -153,9 +168,8 @@ void MyShip::processBehavior() {
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
         //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-        LaserChip* pLaser = (LaserChip*)_pLaserChipRotation->obtain();
+        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
-            pLaser->setRadicalActor(this);
             pLaser->setGeometry(this);
             //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }

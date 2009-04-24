@@ -180,7 +180,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::DispatchMessage(&msg);
                 } else {
 
-                    god->be(); //神が存在したらしめる（世界が動く）
+                    god->be(); //神が存在したらしめる（この世が動く）
 
                 }
             }
@@ -193,7 +193,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
 
-        		try { god->_pWorld->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+        		try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
         		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
         		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
         //		::timeEndPeriod(1);//タイマー精度終了処理
@@ -211,7 +211,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("＜原因不明例外＞たぶんアクセス違反");
         ::timeEndPeriod(1);
-        try { god->_pWorld->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pWorld->dump() 不可"); } //エラー無視
+        try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
         try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
         try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
         return EXIT_SUCCESS;

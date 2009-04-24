@@ -1,5 +1,5 @@
-#ifndef WORLD_H_
-#define WORLD_H_
+#ifndef UNIVERSE_H_
+#define UNIVERSE_H_
 namespace MyStg2nd {
 
 //getParent getSub そして キャストマクロ。
@@ -11,12 +11,12 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 
-class World  : public GgafDx9LibStg::DefaultWorld {
+class Universe : public GgafDx9LibStg::DefaultUniverse {
 
 
 public:
 
-	World(const char* prm_name);
+	Universe(const char* prm_name);
 
 	/**
 	 * 初期処理
@@ -34,13 +34,12 @@ public:
 	void processJudgement();
 
 	/**
-	 * カメラを操作
 	 * ＜OverRide です＞
 	 */
 	void processDrawPrior();
 
-	virtual ~World();
+	virtual ~Universe();
 };
 
 }
-#endif /*WORLD_H_*/
+#endif /*UNIVERSE_H_*/

@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-LaserChip::LaserChip(const char* prm_name, const char* prm_model, LaserChipRotationActor* prm_pRotation) :
+LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     GgafDx9MeshActor(prm_name,
                      prm_model,
                      "X/LaserChipEffect",
@@ -17,7 +17,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model, LaserChipRotat
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
-    _pRotation = prm_pRotation;
+    _pRotation = NULL; //LaserChipRotationActor‚Ì new ‚Éİ’è‚³‚ê‚éB
 
     _hKind = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind" );
     _hX = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
@@ -38,6 +38,9 @@ void LaserChip::initialize() {
 }
 
 void LaserChip::processBehavior() {
+
+
+
     //À•W‚É”½‰f
     _pGeoMover->behave();
 
