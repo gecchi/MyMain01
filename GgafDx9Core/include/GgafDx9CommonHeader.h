@@ -111,7 +111,7 @@ class GgafDx9BoardEffect;
 class GgafDx9StringBoardActor;
 
 class GgafDx9Scene;
-class GgafDx9World;
+class GgafDx9Universe;
 class GgafDx9Util;
 class GgafDx9SphereRadiusVectors;
 class GgafDx9Quaternion;
@@ -174,7 +174,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
-#include "jp/ggaf/dx9core/scene/GgafDx9World.h"
+#include "jp/ggaf/dx9core/scene/GgafDx9Universe.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"

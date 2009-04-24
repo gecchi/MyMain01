@@ -37,19 +37,19 @@ void GgafDx9UntransformedActor::processDrawPrior() {
             //_Z ‚ª ƒJƒƒ‰ˆÊ’u ` ƒJƒƒ‰+2000,000 ‚ÌŠÔ‚Å‚ ‚ê‚Î’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ð‚·‚é‚±‚Æ‚Æ‚·‚éB
             //‘e‚³‚Í 2000,000/MAX_DRAW_DEPTH_LEVELB©‚±‚Ì”ÍˆÍ‚ÌZ‚Í“¯ˆê[“x‚Æ‚È‚éB
             //TODO: ƒJƒƒ‰‚ª‚®‚è‚®‚è“®‚­‚Æ”gó‚·‚éB³‚µ‚­‚ÍƒJƒƒ‰À•W‚©‚ç‚Ì‹——£‚Åƒ\[ƒg‚·‚×‚«BEEE‚»‚Ì“à‚â‚ë‚¤B
-            GgafDx9World::setDrawDepthLevel(
+            GgafDx9Universe::setDrawDepthLevel(
               (_Z-(GgafDx9God::_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / (2000000/MAX_DRAW_DEPTH_LEVEL),
               this
             );
         } else {
             //•s“§–¾‚Ìê‡‚Í‰‚ß‚É•`‰æ‚·‚é‚æ‚¤‚ÉÝ’èB
             //ƒŒƒ“ƒ_ƒŠƒ“ƒOŽžÅ‰“‚©‚ç•`‰æ‚·‚é‚Ì‚ÅA[“xƒŒƒxƒ‹‚ÍMAX
-            GgafDx9World::setDrawDepthMaxLevel(this);
+            GgafDx9Universe::setDrawDepthMaxLevel(this);
         }
     }
 }
 void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //WORLD•ÏŠ·
+    //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
     // |                         cosRZ*cosRY*sx,          sinRZ*sy,                         cosRZ*-sinRY*sz,   0  |
@@ -130,7 +130,7 @@ void GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(GgafDx9Untransfor
 }
 
 void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //WORLD•ÏŠ·
+    //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ YŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     //    |                           cosRY*cosRZ*sx,                        cosRY*sinRZ*sy  ,      -sinRY*sz,  0 |
     //    | ((sinRX*sinRY*cosRZ +  cosRX*-sinRZ)*sx), ((sinRX*sinRY*sinRZ +  cosRX*cosRZ)*sy), sinRX*cosRY*sz,  0 |
@@ -177,7 +177,7 @@ void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9Untransformed
 
 
 void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //WORLD•ÏŠ·
+    //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ XŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬.
     //¦YŽ²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚ª‚Q‰ñ–Ú‚ÌXŽ²‰ñ“]‚Æ‚È‚é
     //|         cosRZ*sx,                          sinRZ*cosRY*sy ,                          sinRZ*sinRY*sz, 0 |
@@ -223,7 +223,7 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9Untransformed
 
 
 void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //WORLD•ÏŠ·
+    //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     // |cosZ  , sinZ , 0  , 0  |
     // |-sinZ , cosZ , 0  , 0  |
@@ -255,7 +255,7 @@ void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor*
 
 void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
-    //WORLD•ÏŠ·
+    //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ Šg‘åk¬ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     // |sx*cosZ , sx*sinZ , 0    , 0  |
     // |sy*-sinZ, sy*cosZ , 0    , 0  |
@@ -300,6 +300,54 @@ void GgafDx9UntransformedActor::updateWorldTransformMv(GgafDx9UntransformedActor
 }
 
 
+bool GgafDx9UntransformedActor::isOffScreen() {
+    if (_Z > 0) {
+        if (_X < -1.0*(_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan) {
+            return true;
+        } else {
+            if (_X > (_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan) {
+                return true;
+            } else {
+                if (_Y > (_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan/GgafDx9God::_dScreenAspect) {
+                    return true;
+                } else {
+                    if (_Y < -1.0*(_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan/GgafDx9God::_dScreenAspect) {
+                        return true;
+                    } else {
+                        if (_Z > -1.0 * GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT*3) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+
+    } else {
+        if (_X < _X_OffScreenLeft) {
+            return true;
+        } else {
+            if (_X > _X_OffScreenRight) {
+                return true;
+            } else {
+                if (_Y > _Y_OffScreenTop) {
+                    return true;
+                } else {
+                    if (_Y < _Y_OffScreenBottom) {
+                        return true;
+                    } else {
+                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
     DELETE_POSSIBLE_NULL(_pGeoMover);

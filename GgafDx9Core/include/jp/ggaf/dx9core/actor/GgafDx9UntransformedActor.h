@@ -76,9 +76,7 @@ public:
 
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent);
 
-    virtual bool isOffScreen() {
-        return false;
-    }
+    virtual bool isOffScreen();
 
     virtual void setGeometry(int X, int Y, int Z) {
         _X = X;
@@ -95,7 +93,7 @@ public:
     /**
      * _Zの値により、大まかにレンダリング順序を設定する。
      * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
-     * GgafWorld::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
+     * GgafUniverse::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
      * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
      * TODO:private virtual にするべきか否か？
      */

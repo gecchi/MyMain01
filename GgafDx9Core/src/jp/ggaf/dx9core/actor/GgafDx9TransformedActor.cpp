@@ -14,12 +14,12 @@ void GgafDx9TransformedActor::processDrawPrior() {
     //TODO:—vŒŸ“¢
     if (_is_active_flg && !_was_hidden_flg && _can_live_flg) {
         if (getAlpha() < 1.0) {
-            GgafDx9World::setDrawDepthLevel(
+            GgafDx9Universe::setDrawDepthLevel(
                             (int)(_z * MAX_DRAW_DEPTH_LEVEL),
                             this
                           );
         } else {
-            GgafDx9World::setDrawDepthMaxLevel(this);
+            GgafDx9Universe::setDrawDepthMaxLevel(this);
         }
     }
 }

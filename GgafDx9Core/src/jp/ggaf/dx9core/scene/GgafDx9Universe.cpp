@@ -3,12 +3,12 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafActor* GgafDx9World::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
-GgafActor* GgafDx9World::_pActors_DrawMaxDrawDepth = NULL;
-GgafDx9Camera* GgafDx9World::_pCamera = NULL;
+GgafActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
+GgafActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
+GgafDx9Camera* GgafDx9Universe::_pCamera = NULL;
 
-GgafDx9World::GgafDx9World(const char* prm_name) : GgafWorld(prm_name) {
-    _class_name = "GgafDx9World";
+GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
+    _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
@@ -16,7 +16,7 @@ GgafDx9World::GgafDx9World(const char* prm_name) : GgafWorld(prm_name) {
     getLordActor()->accept(_pCamera);
 }
 
-void GgafDx9World::drawMain() {
+void GgafDx9Universe::drawMain() {
     static GgafActor* pActor;
 
     //不透明アクターなど、段階レンダリングが不要なオブジェクトを描画
@@ -42,7 +42,7 @@ void GgafDx9World::drawMain() {
     }
 }
 
-void GgafDx9World::setDrawDepthMaxLevel(GgafActor* prm_pActor) {
+void GgafDx9Universe::setDrawDepthMaxLevel(GgafActor* prm_pActor) {
     static GgafActor* pActorTmp;
     if (_pActors_DrawMaxDrawDepth == NULL) {
         //最初のアクターの場合
@@ -57,7 +57,7 @@ void GgafDx9World::setDrawDepthMaxLevel(GgafActor* prm_pActor) {
         return;
     }
 }
-void GgafDx9World::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pActor) {
+void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pActor) {
     static int draw_depth_level;
     static GgafActor* pActorTmp;
     //上限下限カット
@@ -81,5 +81,5 @@ void GgafDx9World::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pA
     }
 }
 
-GgafDx9World::~GgafDx9World() {
+GgafDx9Universe::~GgafDx9Universe() {
 }

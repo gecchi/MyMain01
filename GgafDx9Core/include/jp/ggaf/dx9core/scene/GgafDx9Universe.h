@@ -1,14 +1,14 @@
-#ifndef GGAFDX9WORLD_H_
-#define GGAFDX9WORLD_H_
+#ifndef GGAFDX9UNIVERSE_H_
+#define GGAFDX9UNIVERSE_H_
 namespace GgafDx9Core {
 
 #define MAX_DRAW_DEPTH_LEVEL 2000
 
 /**
- * GgafDx9Core名前空間の世界クラス.
- * GgafDx9Core名前空間内では、このクラスを基底の世界クラスとします。<BR>
+ * GgafDx9Core名前空間のこの世クラス.
+ * GgafDx9Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>
  */
-class GgafDx9World : public GgafCore::GgafWorld {
+class GgafDx9Universe : public GgafCore::GgafUniverse {
 
 public:
 
@@ -20,9 +20,9 @@ public:
     /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
     static GgafCore::GgafActor* _pActors_DrawMaxDrawDepth;
 
-    GgafDx9World(const char* prm_name);
+    GgafDx9Universe(const char* prm_name);
 
-    virtual ~GgafDx9World();
+    virtual ~GgafDx9Universe();
 
     /**
      * フレーム毎の描画処理<BR>
@@ -46,4 +46,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9WORLD_H_*/
+#endif /*GGAFDX9UNIVERSE_H_*/

@@ -45,7 +45,7 @@ void GgafDx9MeshActor::processDrawMain() {
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
-    static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
+    static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
 
 

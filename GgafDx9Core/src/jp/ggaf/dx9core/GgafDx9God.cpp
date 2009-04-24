@@ -18,6 +18,10 @@ RECT GgafDx9God::_rectPresentDest;
 
 double GgafDx9God::_dCamZ = 0;
 double GgafDx9God::_dCamZ_ini = 0;
+double GgafDx9God::_dCamHarfYfovTan = 0;
+double GgafDx9God::_dCamHarfXfovTan = 0;
+double GgafDx9God::_dScreenAspect = 0;
+
 D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
 D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
@@ -388,6 +392,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
     // VIEW変換（カメラ位置）設定
+    _dCamHarfYfovTan = tan(PI / 12);
     _dCamZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / tan(PI / 12);
     _dCamZ_ini = _dCamZ;
 
@@ -402,6 +407,8 @@ HRESULT GgafDx9God::initDx9Device() {
     _pVecCamFromPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_dCamZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
+
+    _dScreenAspect = (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
     updateCam();
 
     // 射影変換（３Ｄ→平面）
@@ -409,7 +416,7 @@ HRESULT GgafDx9God::initDx9Device() {
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
             2.0*(PI/12), //y方向視野角ラディアン(0～π)
-            (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)), //アスペクト比  640×480 の場合  640/480
+            _dScreenAspect, //アスペクト比  640×480 の場合  640/480
             1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
             2000.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
             //(FLOAT)(-1.0*dCam*4)
@@ -459,7 +466,7 @@ D3DXMATRIX GgafDx9God::getInvRotateMat() {
     return Inv;
 }
 
-void GgafDx9God::makeWorldMaterialize() {
+void GgafDx9God::makeUniversalMaterialize() {
     TRACE("GgafDx9God::materialize() start");
 
     //カメラ設定
@@ -481,11 +488,11 @@ void GgafDx9God::makeWorldMaterialize() {
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+            getUniverse()->happen(GGAF_EVENT_ON_DEVICE_LOST);
 
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() デバイスロスト後のリセットでに失敗しました。");
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() デバイスロスト後のリセットでに失敗しました。");
 
             //デバイス再設定
             GgafDx9God::initDx9Device();
@@ -494,7 +501,7 @@ void GgafDx9God::makeWorldMaterialize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
+            getUniverse()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_id_lastdraw = -1;
             _is_device_lost_flg = false;
@@ -524,16 +531,16 @@ void GgafDx9God::makeWorldMaterialize() {
 #ifdef OREDEBUG
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 #endif
-        GgafGod::makeWorldMaterialize(); //スーパーのmaterialize実行
+        GgafGod::makeUniversalMaterialize(); //スーパーのmaterialize実行
         //描画事後処理
         hr = GgafDx9God::_pID3DDevice9->EndScene();
         potentialDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
 
     }
-    TRACE("GgafDx9God::makeWorldMaterialize() end");
+    TRACE("GgafDx9God::makeUniversalMaterialize() end");
 }
 
-void GgafDx9God::makeWorldVisualize() {
+void GgafDx9God::makeUniversalVisualize() {
     if (_is_device_lost_flg != true) {
         //バックバッファをプライマリバッファに転送
         //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
@@ -567,10 +574,10 @@ void GgafDx9God::makeWorldVisualize() {
             //モデル解放
             GgafDx9God::_pModelManager->onDeviceLostAll();
             //全ノードに解放しなさいイベント発令
-            getWorld()->happen(GGAF_EVENT_ON_DEVICE_LOST);
+            getUniverse()->happen(GGAF_EVENT_ON_DEVICE_LOST);
             //デバイスリセットを試みる
             hr = GgafDx9God::_pID3DDevice9->Reset(&(GgafDx9God::_structD3dPresent_Parameters));
-            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeWorldMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9God::makeUniversalMaterialize() D3DERR_DRIVERINTERNALERROR のため Reset() を試しましが、駄目でした。");
             //デバイス再設定
             GgafDx9God::initDx9Device();
             //エフェクトリセット
@@ -578,7 +585,7 @@ void GgafDx9God::makeWorldVisualize() {
             //モデル再設定
             GgafDx9God::_pModelManager->restoreAll();
             //全ノードに再設定しなさいイベント発令
-            getWorld()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
+            getUniverse()->happen(GGAF_EVENT_DEVICE_LOST_RESTORE);
             //前回描画モデル情報を無効にする
             GgafDx9God::_pModelManager->_id_lastdraw = -1;
 
@@ -591,7 +598,7 @@ void GgafDx9God::makeWorldVisualize() {
 
 GgafDx9God::~GgafDx9God() {
     _TRACE_("GgafDx9God::~GgafDx9God()");
-    if (_pWorld != NULL) {
+    if (_pUniverse != NULL) {
         //工場を止める
         Sleep(20);
         GgafFactory::_is_working_flg = false;
@@ -608,10 +615,10 @@ GgafDx9God::~GgafDx9God() {
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
      ___EndSynchronized; // <----- 排他終了
 
-        //世界で生きている物も掃除
+        //この世で生きている物も掃除
         Sleep(20);
      ___BeginSynchronized; // ----->排他開始
-        DELETE_IMPOSSIBLE_NULL(_pWorld);
+        DELETE_IMPOSSIBLE_NULL(_pUniverse);
      ___EndSynchronized; // <----- 排他終了
     }
     //いろいろ解放

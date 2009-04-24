@@ -36,7 +36,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 void GgafDx9DynaD3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    static D3DXMATRIX matWorld; //WORLD•ÏŠ·s—ñ
+    static D3DXMATRIX matWorld; //UNIVERSE•ÏŠ·s—ñ
     GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
 
     HRESULT hr;

@@ -43,9 +43,9 @@ void GgafDx9SpriteActor::processDrawMain() {
 	//TODO:ビルボード
     //	if (_isBillboardingFlg) {
     //		_pGeoMover->setRotAngle(
-    //			GgafDx9World::_pCamera->_X,
-    //			GgafDx9World::_pCamera->_Y,
-    //			GgafDx9World::_pCamera->_Z
+    //			GgafDx9Universe::_pCamera->_X,
+    //			GgafDx9Universe::_pCamera->_Y,
+    //			GgafDx9Universe::_pCamera->_Z
     //		);
     //	} else {
     //
@@ -62,7 +62,7 @@ void GgafDx9SpriteActor::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &GgafDx9God::_vMatrixView );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
-    static D3DXMATRIX matWorld; //WORLD変換行列
+    static D3DXMATRIX matWorld; //UNIVERSE変換行列
     if (_isBillboardingFlg) {
         GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(this, matWorld);
     } else {

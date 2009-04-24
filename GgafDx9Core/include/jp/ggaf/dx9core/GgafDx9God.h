@@ -36,6 +36,11 @@ public:
 
     /** カメラのZ座標 */
     static double _dCamZ;
+
+    static double _dCamHarfYfovTan;
+    static double _dCamHarfXfovTan;
+    static double _dScreenAspect;
+
     /** カメラの位置 */
     static D3DXVECTOR3* _pVecCamFromPoint;
     /** カメラの注視点 */
@@ -69,20 +74,20 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void makeWorldMaterialize();
+    virtual void makeUniversalMaterialize();
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void makeWorldVisualize();
+    virtual void makeUniversalVisualize();
 
     D3DXMATRIX getInvRotateMat();
     //    /**
     //     * Worldシーンを作成。
     //	 * ＜OverRide です＞<BR>
     //	 */
-    //	virtual GgafWorld* createWorld() {
-    //		return (GgafWorld*)createDx9World();
+    //	virtual GgafUniverse* createUniverse() {
+    //		return (GgafUniverse*)createDx9World();
     //	};
     //
     //
@@ -90,7 +95,7 @@ public:
     //     * Worldシーンを作成。
     //	 * ＜OverRide です＞<BR>
     //	 */
-    //	virtual GgafDx9World* createDx9World() = 0;
+    //	virtual GgafDx9Universe* createDx9World() = 0;
 
     static void updateCam();
 
