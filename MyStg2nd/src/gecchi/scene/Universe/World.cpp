@@ -6,18 +6,22 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
+	_TRACE_("World::World");
+
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
     //‚Ü‚¸‚Í‚±‚Ì¢‚ðì‚é‚±‚Æ‚ð—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB
 }
 
 void World::initialize() {
+		_TRACE_("World::initialize()");
     GameScene* pGameScene = NEW GameScene("Game");
     addSubLast(pGameScene);
 #ifdef OREDEBUG
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
+_TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
     GgafDx9Universe::_pCamera->_pGeoMover->setMoveAngle(0,0,0);
     GgafDx9Universe::_pCamera->_pGeoMover->setMoveVelocity(0);
     GgafDx9Universe::_pCamera->_pGeoMover->setRzMoveAngleVelocity(0);

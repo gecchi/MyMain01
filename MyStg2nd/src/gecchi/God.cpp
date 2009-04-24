@@ -9,8 +9,8 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
 }
 
 GgafUniverse* God::createUniverse() {
-    World* sceneWorld = NEW World("MYUNIVERSE");
-    return (GgafUniverse*)sceneWorld;
+    Universe* pUniverse = NEW Universe("MYUNIVERSE");
+    return (GgafUniverse*)pUniverse;
 }
 
 God::~God() {
