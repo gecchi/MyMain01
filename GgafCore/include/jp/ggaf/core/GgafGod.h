@@ -7,8 +7,8 @@ namespace GgafCore {
 
 /**
  * 神クラス.
- * 主に世界(GgafWorld)を管理します。<BR>
- * この世がゲームアプリとするならば、このクラスが次にえらい。<BR>
+ * 主にこの世(GgafUniverse)を管理します。<BR>
+ * この世がゲームアプリとするならば、このクラスが一番えらい。<BR>
  * 基本的にインスタンスは１個です。<BR>
  * その他アプリ内でグローバルな参照を集中させたり、なにかと煩雑で便利屋クラスでもある。<BR>
  * TODO:２個 new して、交互に be() を実行すれば、平行動作するか実験
@@ -21,7 +21,7 @@ public:
 
     /** 生成工場(別スレッド)のエラー状態。NULL＝正常稼働中／not NULL＝異常発生 */
     static GgafCriticalException* _pException_Factory;
-    /** 次に世界を活動させる時間のオフセット */
+    /** 次にこの世を活動させる時間のオフセット */
     static DWORD _aTime_OffsetOfNextFrame[];
 
     /** GgafFactory::work スレッドハンドル  */
@@ -34,14 +34,14 @@ public:
 
     /** 神のフレーム開始システム時間 */
     DWORD _time_at_beginning_frame;
-    /** 次に世界を活動させるシステム時間 */
+    /** 次にこの世を活動させるシステム時間 */
     DWORD _expected_time_of_next_frame;
     /** 神誕生からのフレーム数 */
     DWORD _godframe;
-    /** 世界を視覚化できなかった（スキップした）回数 */
+    /** この世を視覚化できなかった（スキップした）回数 */
     DWORD _skip_count_of_frame;
-    /** 世界 */
-    GgafWorld* _pWorld;
+    /** この世 */
+    GgafUniverse* _pUniverse;
 
     /** fps値（約1000ms毎に計算される） */
     float _fps;
@@ -70,43 +70,43 @@ public:
     void be();
 
     /**
-     * 世界を存在させる<BR>
+     * この世をの瞬間を作成<BR>
      */
-    virtual void makeWorldBe();
+    virtual void makeUniversalMoment();
 
     /**
-     * 世界を審判する<BR>
+     * この世を審判する<BR>
      */
-    virtual void makeWorldJudge();
+    virtual void makeUniversalJudge();
 
     /**
-     * 世界を具現化する<BR>
+     * この世を具現化する<BR>
      */
-    virtual void makeWorldMaterialize();
+    virtual void makeUniversalMaterialize();
 
     /**
-     * 世界を視覚化する<BR>
+     * この世を視覚化する<BR>
      */
-    virtual void makeWorldVisualize();
+    virtual void makeUniversalVisualize();
 
     /**
-     * 世界の後始末<BR>
+     * この世の後始末<BR>
      */
-    virtual void makeWorldFinalize();
+    virtual void makeUniversalFinalize();
 
     /**
-     * 世界を取得<BR>
-     * @return 世界
+     * この世を取得<BR>
+     * @return この世
      */
-    virtual GgafWorld* getWorld() {
-        return _pWorld;
+    virtual GgafUniverse* getUniverse() {
+        return _pUniverse;
     }
 
     /**
-     * 世界を創造<BR>
-     * @return 世界
+     * この世を創造<BR>
+     * @return この世
      */
-    virtual GgafWorld* createWorld() = 0;
+    virtual GgafUniverse* createUniverse() = 0;
 
     virtual ~GgafGod();
 };

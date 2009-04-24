@@ -59,15 +59,15 @@ GgafHeadActor* GgafMainActor::getHeadActor() {
 GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
-            _pLordActor = GgafGod::_pGod->_pWorld->getLordActor();
-            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手に世界のLordActorを返しました");
+            _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
+            _TRACE_("【警告】GgafMainActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世のLordActorを返しました");
         } else {
             GgafMainActor* p = dynamic_cast<GgafMainActor*> (_pParent);
             if (p) {
                 _pLordActor = p->getLordActor();
             } else {
-                _pLordActor = GgafGod::_pGod->_pWorld->getLordActor();
-                _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手に世界のLordActorを返しました");
+                _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
+                _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世のLordActorを返しました");
             }
         }
     }
@@ -77,7 +77,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         } else {
             _pGod = getParent()->askGod();
         }

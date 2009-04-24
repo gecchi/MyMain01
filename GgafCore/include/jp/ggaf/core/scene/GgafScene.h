@@ -77,7 +77,7 @@ namespace GgafCore {
 class GgafScene : public GgafElement<GgafScene> {
 
     friend class GgafGod;
-    friend class GgafWorld;
+    friend class GgafUniverse;
     friend class GgafActor;
     friend class GgafHeadActor;
     friend class GgafLordActor;

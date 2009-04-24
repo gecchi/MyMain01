@@ -13,7 +13,7 @@ DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16,
                                                17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                                17, 17, 16, 17, 17, 17};
 GgafGod::GgafGod() : GgafObject(),
-  _pWorld(NULL),
+  _pUniverse(NULL),
   _fps(0) {
     TRACE("GgafGod::GgafGod");
     _godframe = 0;
@@ -40,12 +40,12 @@ GgafGod::GgafGod() : GgafObject(),
 }
 
 void GgafGod::be() {
-    if (_pWorld == NULL) {
-        _pWorld = createWorld();
-        if (_pWorld == NULL) {
-            throwGgafCriticalException("GgafGod::be() Error! 世界を実装して下さい！");
+    if (_pUniverse == NULL) {
+        _pUniverse = createUniverse();
+        if (_pUniverse == NULL) {
+            throwGgafCriticalException("GgafGod::be() Error! この世を実装して下さい！");
         }
-        _pWorld->_pGod = this;
+        _pUniverse->_pGod = this;
     }
 
     //工場（別スレッド）例外をチェック
@@ -57,8 +57,8 @@ void GgafGod::be() {
         _is_behaved_flg = true;
      ___BeginSynchronized; // ----->排他開始
         _godframe++;
-        makeWorldBe();
-        makeWorldJudge();
+        makeUniversalMoment();
+        makeUniversalJudge();
      ___EndSynchronized; // <----- 排他終了
         //描画タイミングフレーム加算
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
@@ -72,11 +72,11 @@ void GgafGod::be() {
         _num_actor_playing = 0;
 
         if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
-            //makeWorldMaterialize はパス
+            //makeUniversalMaterialize はパス
         } else {
             //余裕有り
             _is_materialized_flg = true;
-            makeWorldMaterialize();
+            makeUniversalMaterialize();
         }
     }
 
@@ -102,19 +102,19 @@ void GgafGod::be() {
                 _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
                 if (_is_materialized_flg) {
-                    makeWorldVisualize();
-                    makeWorldFinalize();
+                    makeUniversalVisualize();
+                    makeUniversalFinalize();
                 } else {
-                    makeWorldMaterialize();
-                    makeWorldVisualize();
-                    makeWorldFinalize();
+                    makeUniversalMaterialize();
+                    makeUniversalVisualize();
+                    makeUniversalFinalize();
                 }
-                //getWorld()->cleane(10);
+                //getUniverse()->cleane(10);
              ___EndSynchronized; // <----- 排他終了
             } else {
-                //スキップ時はmakeWorldFinalize()だけ
+                //スキップ時はmakeUniversalFinalize()だけ
              ___BeginSynchronized; // ----->排他開始
-                makeWorldFinalize();
+                makeUniversalFinalize();
              ___EndSynchronized; // <----- 排他終了
             }
         } else {
@@ -122,12 +122,12 @@ void GgafGod::be() {
             _frame_of_visualize++;
          ___BeginSynchronized; // ----->排他開始
             if (_is_materialized_flg) {
-                makeWorldVisualize();
-                makeWorldFinalize();
+                makeUniversalVisualize();
+                makeUniversalFinalize();
             } else {
-                makeWorldMaterialize();
-                makeWorldVisualize();
-                makeWorldFinalize();
+                makeUniversalMaterialize();
+                makeUniversalVisualize();
+                makeUniversalFinalize();
             }
          ___EndSynchronized; // <----- 排他終了
         }
@@ -140,32 +140,32 @@ void GgafGod::be() {
     return;
 }
 
-void GgafGod::makeWorldBe() {
-    _pWorld->nextFrame();
-    _pWorld->behave();
+void GgafGod::makeUniversalMoment() {
+    _pUniverse->nextFrame();
+    _pUniverse->behave();
 }
 
-void GgafGod::makeWorldJudge() {
-    _pWorld->judge();
+void GgafGod::makeUniversalJudge() {
+    _pUniverse->judge();
 }
 
-void GgafGod::makeWorldMaterialize() {
-    _pWorld->drawPrior();
-    _pWorld->drawMain();
-    _pWorld->drawTerminate();
+void GgafGod::makeUniversalMaterialize() {
+    _pUniverse->drawPrior();
+    _pUniverse->drawMain();
+    _pUniverse->drawTerminate();
 }
 
-void GgafGod::makeWorldVisualize() {
-    _pWorld->dump();
+void GgafGod::makeUniversalVisualize() {
+    _pUniverse->dump();
 }
 
-void GgafGod::makeWorldFinalize() {
-    _pWorld->finally();
+void GgafGod::makeUniversalFinalize() {
+    _pUniverse->finally();
 }
 
 GgafGod::~GgafGod() {
     TRACE("GgafGod::~GgafGod start");
-    if (_pWorld != NULL) {
+    if (_pUniverse != NULL) {
         //工場を止める
         Sleep(20);
         GgafFactory::_is_working_flg = false;
@@ -182,10 +182,10 @@ GgafGod::~GgafGod() {
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
      ___EndSynchronized; // <----- 排他終了
 
-        //世界で生きている物も掃除
+        //この世で生きている物も掃除
         Sleep(20);
      ___BeginSynchronized; // ----->排他開始
-        DELETE_IMPOSSIBLE_NULL(_pWorld);
+        DELETE_IMPOSSIBLE_NULL(_pUniverse);
      ___EndSynchronized; // <----- 排他終了
     }
 

@@ -22,7 +22,7 @@ void GgafHeadActor::processJudgement() {
 GgafGod* GgafHeadActor::askGod() {
     if (_pGod == NULL) {
         if (getParent() == NULL) {
-            throwGgafCriticalException("GgafHeadActor::askGod 神は世界からのみ謁見できます。まずは世界に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafHeadActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         } else {
             _pGod = getParent()->askGod();
         }

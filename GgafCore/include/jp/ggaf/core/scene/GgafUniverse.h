@@ -1,23 +1,23 @@
-#ifndef GGAFWORLD_H_
-#define GGAFWORLD_H_
+#ifndef GGAFUNIVERSE_H_
+#define GGAFUNIVERSE_H_
 namespace GgafCore {
 
 /**
- * 世界クラス .
- * 本プログラムで言う『世界』とは、全てのシーン(GgafSceneオブジェクト)の頂点に位置する特別なシーンです。<BR>
+ * この世クラス .
+ * 本プログラムで言う『この世』とは、全てのシーン(GgafSceneオブジェクト)の頂点に位置する特別なシーンです。<BR>
  * 神自らが new してくれます。本クラスが new されると、芋づる的にシーン(GgafScene)が new されます。<BR>
- * 少なくとも１つは世界をnewしなければいけません。<BR>
+ * 少なくとも１つはこの世をnewしなければいけません。<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge
  */
-class GgafWorld : public GgafMainScene {
+class GgafUniverse : public GgafMainScene {
     friend class GgafGod;
     friend class GgafScene;
 
 public:
 
-    GgafWorld(const char* prm_name);
+    GgafUniverse(const char* prm_name);
 
     /**
      * 初期処理<BR>
@@ -74,8 +74,8 @@ public:
     virtual void processFinal() {
     }
 
-    virtual ~GgafWorld();
+    virtual ~GgafUniverse();
 };
 
 }
-#endif /*GGAFWORLD_H_*/
+#endif /*GGAFUNIVERSE_H_*/

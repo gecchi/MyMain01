@@ -139,7 +139,7 @@ class GgafActor;
 class GgafGarbageRootActor;
 class GgafMainActor;
 class GgafDummyActor;
-class GgafWorld;
+class GgafUniverse;
 class GgafMainScene;
 class GgafLordActor;
 class GgafHeadActor;
@@ -173,7 +173,7 @@ class GgafProperties;
 #include "jp/ggaf/core/actor/GgafGarbageRootActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
-#include "jp/ggaf/core/scene/GgafWorld.h"
+#include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
