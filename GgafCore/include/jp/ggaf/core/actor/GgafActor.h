@@ -104,16 +104,16 @@ public:
      */
     virtual ~GgafActor();
 
-    /**
-     * オーバーライド
-     */
-    virtual void addSubLast(GgafActor* prm_pSub) {
-        GgafElement<GgafActor>::addSubLast(prm_pSub);
-        if(prm_pSub->_was_initialize_flg == false) {
-            prm_pSub->initialize();
-            prm_pSub->_was_initialize_flg = true;
-        }
-    }
+//    /**
+//     * オーバーライド
+//     */
+//    virtual void addSubLast(GgafActor* prm_pSub) {
+//        GgafElement<GgafActor>::addSubLast(prm_pSub);
+//        if(prm_pSub->_was_initialize_flg == false) {
+//            prm_pSub->initialize();
+//            prm_pSub->_was_initialize_flg = true;
+//        }
+//    }
 
     /**
      * 自アクターの衝突判定有無を設定する。 .
