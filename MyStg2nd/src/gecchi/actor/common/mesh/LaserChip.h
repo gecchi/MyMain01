@@ -80,12 +80,6 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
-    /**
-     * 下位クラスでオーバーライドして下さい。
-     */
-    virtual bool isOffScreen();
-
-
     virtual ~LaserChip();
 
 };

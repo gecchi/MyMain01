@@ -31,9 +31,6 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
-    bool isOffScreen();
-
-
     virtual ~MyLaserChip001();
 
 };

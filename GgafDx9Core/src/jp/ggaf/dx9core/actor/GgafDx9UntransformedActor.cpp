@@ -301,20 +301,20 @@ void GgafDx9UntransformedActor::updateWorldTransformMv(GgafDx9UntransformedActor
 
 
 bool GgafDx9UntransformedActor::isOffScreen() {
-    if (_Z > 0) {
-        if (_X < -1.0*(_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan) {
+//    if (_Z > 0) {
+        if (_Y < -1.0*(_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan) {
             return true;
         } else {
-            if (_X > (_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan) {
+            if (_Y > (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan) {
                 return true;
             } else {
-                if (_Y > (_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan/GgafDx9God::_dScreenAspect) {
+                if (_X > ((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan)*GgafDx9God::_dScreenAspect) {
                     return true;
                 } else {
-                    if (_Y < -1.0*(_Z +abs(GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT))*GgafDx9God::_dCamHarfYfovTan/GgafDx9God::_dScreenAspect) {
+                    if (_X < -1.0*((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan)*GgafDx9God::_dScreenAspect) {
                         return true;
                     } else {
-                        if (_Z > -1.0 * GgafDx9God::_dCamZ*LEN_UNIT*PX_UNIT*3) {
+                        if (_Z > -1 * GgafDx9Universe::_pCamera->_Z *2) {
                             return true;
                         } else {
                             return false;
@@ -324,29 +324,29 @@ bool GgafDx9UntransformedActor::isOffScreen() {
             }
         }
 
-    } else {
-        if (_X < _X_OffScreenLeft) {
-            return true;
-        } else {
-            if (_X > _X_OffScreenRight) {
-                return true;
-            } else {
-                if (_Y > _Y_OffScreenTop) {
-                    return true;
-                } else {
-                    if (_Y < _Y_OffScreenBottom) {
-                        return true;
-                    } else {
-                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    }
+//    } else {
+//        if (_X < _X_OffScreenLeft) {
+//            return true;
+//        } else {
+//            if (_X > _X_OffScreenRight) {
+//                return true;
+//            } else {
+//                if (_Y > _Y_OffScreenTop) {
+//                    return true;
+//                } else {
+//                    if (_Y < _Y_OffScreenBottom) {
+//                        return true;
+//                    } else {
+//                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
+//                            return true;
+//                        } else {
+//                            return false;
+//                        }
+//                    }
+//                }
+//            }
+//        }
+//    }
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {

@@ -189,35 +189,6 @@ void DefaultMeshActor::processDrawTerminate() {}
 void LaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
-
-bool LaserChip::isOffScreen() {
-    if (_X < _X_OffScreenLeft*2) {
-        return true;
-    } else {
-        if (_X > _X_OffScreenRight*2) {
-            return true;
-        } else {
-            if (_Y > _Y_OffScreenTop*2) {
-                return true;
-            } else {
-                if (_Y < _Y_OffScreenBottom*2) {
-                    return true;
-                } else {
-                    if (_Z < GgafDx9God::_dCamZ * LEN_UNIT * 10) {
-                        return true;
-                    } else {
-                        if (_Z > -1 * GgafDx9God::_dCamZ * LEN_UNIT * 30) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 LaserChip::~LaserChip() {
 
 }
