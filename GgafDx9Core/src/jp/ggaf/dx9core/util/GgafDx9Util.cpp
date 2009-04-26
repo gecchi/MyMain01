@@ -198,15 +198,6 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
     return sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
-int GgafDx9Util::sign(int x) {
-    if (x < 0) {
-        return -1;
-    } else if (x > 0) {
-        return 1;
-    } else {
-        return 0;
-    }
-}
 
 void GgafDx9Util::getRotAngleZY(int x,
                                 int y,

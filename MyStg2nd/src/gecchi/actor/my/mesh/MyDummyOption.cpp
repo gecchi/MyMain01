@@ -15,7 +15,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
     _radius = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
     _veloMove = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
-    _angExpanse = 290000;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
+    _angExpanse = 295000;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
     _angveloExpanse = 00; //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚ÌŠp‰ñ“]‘¬“x iã‘‚«‰ŠúÝ’è‰Âj
 
 }
@@ -113,12 +113,9 @@ void MyDummyOption::processBehavior() {
     cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Z] / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
-    _Xwk = _X;
-    _Ywk = _Y;
-    _Zwk = _Z;
-    _X = cosRZ*cosRY*_Xwk + -sinRZ*_Ywk + cosRZ*sinRY*_Zwk;
-    _Y = sinRZ*cosRY*_Xwk + cosRZ*_Ywk + sinRZ*sinRY*_Zwk;
-    _Z = -sinRY*_Xwk + cosRY*_Zwk;
+    _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
+    _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
+    _Z = -sinRY*_Xorg + cosRY*_Zorg;
 
     //Quaternion‚ÅŽ²‰ñ“]
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹

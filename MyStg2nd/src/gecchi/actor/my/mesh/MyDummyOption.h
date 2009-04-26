@@ -13,7 +13,7 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMeshActor {
     int _Xorg,_Yorg,_Zorg;
     float _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
-    float _Xwk,_Ywk,_Zwk;
+
 
 public:
     LaserChipRotationActor* _pLaserChipRotation;

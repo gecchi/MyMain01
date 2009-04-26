@@ -33,12 +33,12 @@ void LaserChip::initialize() {
     _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
-    _SY=50*1000; _SZ=50*1000;
     _fAlpha = 0.9;
 }
 
 void LaserChip::processBehavior() {
 
+    //_pGeoMover->setRotAngle(AXIS_X,_pGeoMover->_angRzMove);
 
 
     //座標に反映
@@ -112,15 +112,20 @@ void LaserChip::processDrawMain() {
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
     //processBehaviorは _pChip_front が必ず先に実行される。
     GgafDx9UntransformedActor::updateWorldTransformMv(this, _matWorld);
-    if (_pChip_front != NULL && _pChip_front->isActive()) {
+    if (_pChip_front != NULL) {
         //前方に連続のチップがある場合
-        if (_pChip_behind == NULL) {
-            hr = pID3DXEffect->SetInt(_hKind, 1);
+        if (_pChip_front -> _pChip_front == NULL) {
+            hr = pID3DXEffect->SetInt(_hKind, 3);
             potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
         } else {
-            hr = pID3DXEffect->SetInt(_hKind, 2);
-            potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
-       }
+            if (_pChip_behind == NULL) {
+                hr = pID3DXEffect->SetInt(_hKind, 1);
+                potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
+            } else {
+                hr = pID3DXEffect->SetInt(_hKind, 2);
+                potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
+            }
+        }
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。1");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
@@ -131,13 +136,8 @@ void LaserChip::processDrawMain() {
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
     } else {
         //前方に連続のチップが無い場合。
-        if (_pChip_behind == NULL) {
-            hr = pID3DXEffect->SetInt(_hKind, 1);
-            potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
-        } else {
-            hr = pID3DXEffect->SetInt(_hKind, 3);
-            potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
-        }
+        hr = pID3DXEffect->SetInt(_hKind, 4);
+        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_Y/LEN_UNIT/ PX_UNIT);

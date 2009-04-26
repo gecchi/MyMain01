@@ -175,9 +175,17 @@ public:
      * @return true:ƒqƒbƒg/false:ƒqƒbƒg‚µ‚Ä‚È‚¢
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
-    static int sign(int x);
+    static int sign(int x) {
+        if (x < 0) {
+            return -1;
+        } else if (x > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+    }
 
-    static double sqrt_fast(double a, int s = 10) {
+    static double sqrt_fast(double a, int s = 11) {
         double ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);

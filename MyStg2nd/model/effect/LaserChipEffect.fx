@@ -64,190 +64,193 @@ OUT_VS GgafDx9VS_LaserChip(
 	//            _ „«    _ ‚˜Ž²i•ûŒüj
 	//               „«      „£
 	//
-	if (abs(g_Y - g_matWorld._42) < 0.9 && abs(g_Z - g_matWorld._43) < 0.9) {
-		prm_pos.z = 0;
-    } else {
-		if (g_Z < g_matWorld._43) {      //‰œ‚©‚çŽè‘O   
-			if (g_Y > g_matWorld._42) {      //‰º‚©‚çã
-				if (g_X > g_matWorld._41) {      //¶‚©‚ç‰E
-					//‰œ‚©‚çŽè‘O‚ÅA‰º‚©‚çã‚ÅA¶‚©‚ç‰E
-					//
-					//                                „Ÿ„¢
-					//                           •ûŒü ^„  
-					//                              ^  
-					//                    „«
-					//                 ^ „«
-					//               ^ ‡@„«
-					//              „     „«
-					//            „ª„ª„ª„ª„´„ª„ª„ª„ª
-					//         ^   F  ^„«  ‡A ^
-					//       ^ ‡B  F^  „«   ^
-					//      „Ÿ„Ÿ„Ÿ„Ÿ„¢----„«„Ÿ
-					//              „     „«
-					//              „ ‡C ^
-					//    y         „  ^
-					//   ª          ^
-					// „Ÿ„©¨x
-					//   „ 
-					prm_pos.y = -prm_pos.y;
-					prm_pos.z = -prm_pos.z;
 
-				} else {
-					//‰œ‚©‚çŽè‘O‚ÅA‰º‚©‚çã‚ÅA‰E‚©‚ç¶
-					//
-					// „¡„Ÿ     
-					// „ _ •ûŒü
-					//     _   
-					//               „«
-					//               „« _
-					//               „«‡@ _
-					//               „«    „ 
-					//       „ª„ª„ª„ª„´„ª„ª„ª„ª
-					//        _ ‡A  „«_  F   _
-					//          _   „«  _F  ‡B _
-					//             „Ÿ„«----„¡„Ÿ„Ÿ„Ÿ„Ÿ
-					//               „«    „ 
-					//                _ ‡C„ 
-					//    y             _ „ 
-					//   ª               _
-					// „Ÿ„©¨x
-					//   „ 
-					prm_pos.y = -prm_pos.y;
+	if (abs(g_Z - g_matWorld._43) < 0.9) {
+		if (abs(g_Y - g_matWorld._42) < 0.5) {
+			prm_pos.z = 0;
+		}
+	}
 
-				}
-			} else {                          //ã‚©‚ç‰º
-				if (g_X > g_matWorld._41) {
-					//‰œ‚©‚çŽè‘O‚ÅAã‚©‚ç‰º‚ÅA¶‚©‚ç‰E
-					//
-					//          _
-					//         „  _   
-					//         „ ‡C _ 
-					//         „     „«   
-					// „Ÿ„Ÿ„Ÿ„Ÿ„£----„«„Ÿ
-					//  _ ‡B  F_  „«   _  
-					//    _   F  _„«  ‡A _ 
-					//       „ª„ª„ª„ª„´„ª„ª„ª„ª
-					//         „     „«
-					//          _ ‡@„«
-					//    y       _ „«     _ •ûŒü  
-					//   ª          „«       _„ 
-					// „Ÿ„©¨x                „Ÿ„£
-					//   „ 
-					prm_pos.z = -prm_pos.z;
+	if (g_Z < g_matWorld._43) {      //‰œ‚©‚çŽè‘O   
+		if (g_Y > g_matWorld._42) {      //‰º‚©‚çã
+			if (g_X > g_matWorld._41) {      //¶‚©‚ç‰E
+				//‰œ‚©‚çŽè‘O‚ÅA‰º‚©‚çã‚ÅA¶‚©‚ç‰E
+				//
+				//                                „Ÿ„¢
+				//                           •ûŒü ^„  
+				//                              ^  
+				//                    „«
+				//                 ^ „«
+				//               ^ ‡@„«
+				//              „     „«
+				//            „ª„ª„ª„ª„´„ª„ª„ª„ª
+				//         ^   F  ^„«  ‡A ^
+				//       ^ ‡B  F^  „«   ^
+				//      „Ÿ„Ÿ„Ÿ„Ÿ„¢----„«„Ÿ
+				//              „     „«
+				//              „ ‡C ^
+				//    y         „  ^
+				//   ª          ^
+				// „Ÿ„©¨x
+				//   „ 
+				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
 
-				} else {
-					//‰œ‚©‚çŽè‘O‚ÅAã‚©‚ç‰º‚ÅA‰E‚©‚ç¶
-					//
-					//                      ^
-					//                    ^ „ 
-					//                  ^ ‡C„ 
-					//                 „«    „ 
-					//               „Ÿ„«----„¤„Ÿ„Ÿ„Ÿ„Ÿ
-					//            ^   „«  ^F  ‡B ^
-					//          ^ ‡A  „«^  F   ^
-					//         „ª„ª„ª„ª„´„ª„ª„ª„ª
-					//                 „«    „ 
-					//            ^   „«‡@ ^
-					//     •ûŒü ^     „« ^
-					//      „ ^       „«
-					//    y „¤„Ÿ
-					//   ª 
-					// „Ÿ„©¨x
-					//   „  
-	                //‚»‚Ì‚Ü‚Ü‚Å•`‰æ‡•ÏX•s—p
-
-				}
-			}
-		} else {                        //Žè‘O‚©‚ç‰œ 
-			if (g_Y > g_matWorld._42) {      //‰º‚©‚çã
-				if (g_X > g_matWorld._41) {      //¶‚©‚ç‰E
-					//Žè‘O‚©‚ç‰œ‚ÅA‰º‚©‚çã‚ÅA¶‚©‚ç‰E
-					//
-					//                                „Ÿ„¢
-					//                           •ûŒü ^„ 
-					//                              ^  
-					//                  ^        ^
-					//       ‚™       ^ „  
-					//       È     ^ ‡C„ 
-					//       „«    „«    „ 
-					//       „«  „Ÿ„«----„¤„Ÿ„Ÿ„Ÿ„Ÿ
-					//       „«    „«  ^F  ‡B ^
-					//     ^„«‡A  „«^  F   ^
-					//     „ª„«„ª„ª„´„ª„ª„ª„ª
-					//       „«    „«    „ 
-					//       „«    „«‡@ ^
-					// „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„‚˜
-					//       „«    „« 
-					//       „«    
-					//       „«
-					//
-					prm_pos.z = -prm_pos.z;
-
-				} else {
-					//Žè‘O‚©‚ç‰œ‚ÅA‰º‚©‚çã‚ÅA‰E‚©‚ç¶
-	                //
-					//          ‚™
-					//          È
-					//  •ûŒü„¡„Ÿ„«
-					//      „ _„«    „ 
-					//          „«    „  _
-					//          „«_  „ ‡C _
-					//          „«    „     „«
-					//        „Ÿ„«„Ÿ„Ÿ„£----„«„Ÿ
-					//        _„« ‡B F_  „«   _
-					//          „«A  F  _„«  ‡A _
-					//          „«  „ª„ª„ª„ª„´„ª„ª„ª„ª
-					//          „«    „     „«
-					//          „«     _ ‡@„«
-					//  „ª„ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
-					//          „«          „«
-					//          „«
-					//          „«
-					//‚»‚Ì‚Ü‚Ü‚Å•`‰æ‡•ÏX•s—p
-
-				}
 			} else {
-				if (g_X > g_matWorld._41) {
-					//Žè‘O‚©‚ç‰œ‚ÅAã‚©‚ç‰º‚ÅA¶‚©‚ç‰E
-					//
-					//       ‚™    „«
-					//       È    „« _
-					//       „«    „«‡@ _
-					//       „«    „«    „ 
-					//     „ª„«„ª„ª„´„ª„ª„ª„ª
-					//     _„« ‡A „«_  F   _
-					//       „«A  „«  _F  ‡B _
-					//       „«  „Ÿ„«----„¡„Ÿ„Ÿ„Ÿ„Ÿ
-					//       „«    „«    „ 
-					//       „«     _ ‡C„  _
-					// „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
-					//       „«         _      _
-					//       „«                   _„ •ûŒü
-					//       „«                   „Ÿ„£
-					prm_pos.y = -prm_pos.y;
-					prm_pos.z = -prm_pos.z;
+				//‰œ‚©‚çŽè‘O‚ÅA‰º‚©‚çã‚ÅA‰E‚©‚ç¶
+				//
+				// „¡„Ÿ     
+				// „ _ •ûŒü
+				//     _   
+				//               „«
+				//               „« _
+				//               „«‡@ _
+				//               „«    „ 
+				//       „ª„ª„ª„ª„´„ª„ª„ª„ª
+				//        _ ‡A  „«_  F   _
+				//          _   „«  _F  ‡B _
+				//             „Ÿ„«----„¡„Ÿ„Ÿ„Ÿ„Ÿ
+				//               „«    „ 
+				//                _ ‡C„ 
+				//    y             _ „ 
+				//   ª               _
+				// „Ÿ„©¨x
+				//   „ 
+				prm_pos.y = -prm_pos.y;
 
-				} else {
-					//Žè‘O‚©‚ç‰œ‚ÅAã‚©‚ç‰º‚ÅA‰E‚©‚ç¶
-					//
-					//                      „«
-					//          ‚™       ^ „«
-					//          È     ^ ‡@„«
-					//          „«    „     „«
-					//          „«^„ª„ª„ª„ª„´„ª„ª„ª„ª
-					//          „«    F  ^„« ‡A  ^
-					//        ^„«‡B  F^  „«   ^
-					//        „Ÿ„«„Ÿ„Ÿ„¢----„«„Ÿ
-					//          „«    „     „«
-					//          „«^  „ ‡C ^
-					//    „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
-					//      „ ^„«     |^ 
-					//  •ûŒü„¤„Ÿ„«    
-					//          „«
-					//
-					prm_pos.y = -prm_pos.y;
+			}
+		} else {                          //ã‚©‚ç‰º
+			if (g_X > g_matWorld._41) {
+				//‰œ‚©‚çŽè‘O‚ÅAã‚©‚ç‰º‚ÅA¶‚©‚ç‰E
+				//
+				//          _
+				//         „  _   
+				//         „ ‡C _ 
+				//         „     „«   
+				// „Ÿ„Ÿ„Ÿ„Ÿ„£----„«„Ÿ
+				//  _ ‡B  F_  „«   _  
+				//    _   F  _„«  ‡A _ 
+				//       „ª„ª„ª„ª„´„ª„ª„ª„ª
+				//         „     „«
+				//          _ ‡@„«
+				//    y       _ „«     _ •ûŒü  
+				//   ª          „«       _„ 
+				// „Ÿ„©¨x                „Ÿ„£
+				//   „ 
+				prm_pos.z = -prm_pos.z;
 
-				}
+			} else {
+				//‰œ‚©‚çŽè‘O‚ÅAã‚©‚ç‰º‚ÅA‰E‚©‚ç¶
+				//
+				//                      ^
+				//                    ^ „ 
+				//                  ^ ‡C„ 
+				//                 „«    „ 
+				//               „Ÿ„«----„¤„Ÿ„Ÿ„Ÿ„Ÿ
+				//            ^   „«  ^F  ‡B ^
+				//          ^ ‡A  „«^  F   ^
+				//         „ª„ª„ª„ª„´„ª„ª„ª„ª
+				//                 „«    „ 
+				//            ^   „«‡@ ^
+				//     •ûŒü ^     „« ^
+				//      „ ^       „«
+				//    y „¤„Ÿ
+				//   ª 
+				// „Ÿ„©¨x
+				//   „  
+               //‚»‚Ì‚Ü‚Ü‚Å•`‰æ‡•ÏX•s—p ‚ÆŽv‚¢‚«‚â
+
+			}
+		}
+	} else {                        //Žè‘O‚©‚ç‰œ 
+		if (g_Y > g_matWorld._42) {      //‰º‚©‚çã
+			if (g_X > g_matWorld._41) {      //¶‚©‚ç‰E
+				//Žè‘O‚©‚ç‰œ‚ÅA‰º‚©‚çã‚ÅA¶‚©‚ç‰E
+				//
+				//                                „Ÿ„¢
+				//                           •ûŒü ^„ 
+				//                              ^  
+				//                  ^        ^
+				//       ‚™       ^ „  
+				//       È     ^ ‡C„ 
+				//       „«    „«    „ 
+				//       „«  „Ÿ„«----„¤„Ÿ„Ÿ„Ÿ„Ÿ
+				//       „«    „«  ^F  ‡B ^
+				//     ^„«‡A  „«^  F   ^
+				//     „ª„«„ª„ª„´„ª„ª„ª„ª
+				//       „«    „«    „ 
+				//       „«    „«‡@ ^
+				// „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„‚˜
+				//       „«    „« 
+				//       „«    
+				//       „«
+				//
+				prm_pos.z = -prm_pos.z;
+
+			} else {
+				//Žè‘O‚©‚ç‰œ‚ÅA‰º‚©‚çã‚ÅA‰E‚©‚ç¶
+               //
+				//          ‚™
+				//          È
+				//  •ûŒü„¡„Ÿ„«
+				//      „ _„«    „ 
+				//          „«    „  _
+				//          „«_  „ ‡C _
+				//          „«    „     „«
+				//        „Ÿ„«„Ÿ„Ÿ„£----„«„Ÿ
+				//        _„« ‡B F_  „«   _
+				//          „«A  F  _„«  ‡A _
+				//          „«  „ª„ª„ª„ª„´„ª„ª„ª„ª
+				//          „«    „     „«
+				//          „«     _ ‡@„«
+				//  „ª„ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
+				//          „«          „«
+				//          „«
+				//          „«
+				//‚»‚Ì‚Ü‚Ü‚Å•`‰æ‡•ÏX•s—p
+
+			}
+		} else {
+			if (g_X > g_matWorld._41) {
+				//Žè‘O‚©‚ç‰œ‚ÅAã‚©‚ç‰º‚ÅA¶‚©‚ç‰E
+				//
+				//       ‚™    „«
+				//       È    „« _
+				//       „«    „«‡@ _
+				//       „«    „«    „ 
+				//     „ª„«„ª„ª„´„ª„ª„ª„ª
+				//     _„« ‡A „«_  F   _
+				//       „«A  „«  _F  ‡B _
+				//       „«  „Ÿ„«----„¡„Ÿ„Ÿ„Ÿ„Ÿ
+				//       „«    „«    „ 
+				//       „«     _ ‡C„  _
+				// „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
+				//       „«         _      _
+				//       „«                   _„ •ûŒü
+				//       „«                   „Ÿ„£
+				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
+
+			} else {
+				//Žè‘O‚©‚ç‰œ‚ÅAã‚©‚ç‰º‚ÅA‰E‚©‚ç¶
+				//
+				//                      „«
+				//          ‚™       ^ „«
+				//          È     ^ ‡@„«
+				//          „«    „     „«
+				//          „«^„ª„ª„ª„ª„´„ª„ª„ª„ª
+				//          „«    F  ^„« ‡A  ^
+				//        ^„«‡B  F^  „«   ^
+				//        „Ÿ„«„Ÿ„Ÿ„¢----„«„Ÿ
+				//          „«    „     „«
+				//          „«^  „ ‡C ^
+				//    „ª„ª„ª„´„ª„ª„ª„ª„ª„ª„ª„ª„‚˜
+				//      „ ^„«     |^ 
+				//  •ûŒü„¤„Ÿ„«    
+				//          „«
+				//
+				prm_pos.y = -prm_pos.y;
+
 			}
 		}
 	}
@@ -270,6 +273,9 @@ OUT_VS GgafDx9VS_LaserChip(
 	if (g_kind == 1) {
 		out_vs.uv.x = prm_uv.x - 0.5;
 		out_vs.uv.y = prm_uv.y;
+	} else if (g_kind == 3) {
+		out_vs.uv.x = prm_uv.x;
+		out_vs.uv.y = prm_uv.y - 0.5;
 	} else {
 		out_vs.uv = prm_uv;
 	}
