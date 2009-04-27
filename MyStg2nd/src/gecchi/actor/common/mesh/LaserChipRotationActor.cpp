@@ -26,6 +26,7 @@ LaserChipRotationActor::LaserChipRotationActor(const char* prm_name) : RotationA
     _pChip_prev_obtain = NULL;
     _lifeframe_prev_obtain = 0;
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
+    _num_interval_frame_count = 0;
 }
 void LaserChipRotationActor::processBehavior() {
 }
@@ -34,11 +35,22 @@ void LaserChipRotationActor::processFinal() {
 }
 
 LaserChip* LaserChipRotationActor::obtain() {
-    if ((_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) || _num_continual_obtain_count > _num_chip_max) {
+if (_num_continual_obtain_count > _num_chip_max) { //_num_chip_max連続発射時、5フレーム弾切れにする。
         _is_tear_laser = true;
         _pChip_prev_obtain = NULL;
         _lifeframe_prev_obtain = 0;
         _num_continual_obtain_count = 0;
+        _num_interval_frame_count = 0;
+        return NULL;
+    } else if (_num_interval_frame_count < 3) { //5フレーム以内なので弾切れにする。
+        _num_interval_frame_count++;
+        return NULL;
+    } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //弾切れの時 _num_chip_max/4 溜まってから発射
+        _is_tear_laser = true;
+        _pChip_prev_obtain = NULL;
+        _lifeframe_prev_obtain = 0;
+        _num_continual_obtain_count = 0;
+        _num_interval_frame_count++;
         return NULL;
     } else {
         LaserChip* pChip = (LaserChip*)RotationActor::obtain();
@@ -70,6 +82,7 @@ LaserChip* LaserChipRotationActor::obtain() {
             _is_tear_laser = true;
             _pChip_prev_obtain = NULL;
             _lifeframe_prev_obtain = 0;
+            _num_interval_frame_count++;
             return NULL;
         }
     }

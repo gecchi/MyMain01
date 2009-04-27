@@ -29,12 +29,12 @@ void Universe::processDrawPrior() {
     //
     //
     //	GgafDx9Universe::_pCamera->_pGeoMover->
-    //	GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini;
+    //	GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org;
 
-//    if (GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini) {
+//    if (GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
 //        GgafDx9Universe::_pCamera->_Z = GgafDx9Universe::_pCamera->_Z + 2000;
 //    }
-//    if (GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini) {
+//    if (GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
 //        GgafDx9Universe::_pCamera->_Z = GgafDx9Universe::_pCamera->_Z - 2000;
 //    }
 

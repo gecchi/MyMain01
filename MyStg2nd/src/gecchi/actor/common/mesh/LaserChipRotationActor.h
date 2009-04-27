@@ -11,7 +11,7 @@ public:
     LaserChip* _pChip_prev_obtain;
     DWORD _lifeframe_prev_obtain;
     int _num_continual_obtain_count;
-
+    int _num_interval_frame_count;
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;
 
 

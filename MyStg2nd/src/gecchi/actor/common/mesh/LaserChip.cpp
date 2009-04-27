@@ -75,7 +75,7 @@ void LaserChip::onActive() {
     _pRotation->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, _matWorld);
+    GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 void LaserChip::onInactive() {
@@ -103,7 +103,7 @@ void LaserChip::processDrawMain() {
     HRESULT hr;
 
     //VIEW変換行列
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9God::_vMatrixView);
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
     hr = pID3DXEffect->SetTechnique(_technique);
@@ -111,7 +111,7 @@ void LaserChip::processDrawMain() {
     //【注意】4/15 メモ
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
     //processBehaviorは _pChip_front が必ず先に実行される。
-    GgafDx9UntransformedActor::updateWorldTransformMv(this, _matWorld);
+    GgafDx9UntransformedActor::updateWorldMatrix_Mv(this, _matWorld);
     if (_pChip_front != NULL) {
         //前方に連続のチップがある場合
         if (_pChip_front -> _pChip_front == NULL) {

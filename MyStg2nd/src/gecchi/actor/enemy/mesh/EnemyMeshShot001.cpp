@@ -116,34 +116,6 @@ void EnemyMeshShot001::processJudgement() {
     }
 }
 
-bool EnemyMeshShot001::isOffScreen() {
-    if (_X < _X_OffScreenLeft) {
-        return true;
-    } else {
-        if (_X > _X_OffScreenRight) {
-            return true;
-        } else {
-            if (_Y > _Y_OffScreenTop) {
-                return true;
-            } else {
-                if (_Y < _Y_OffScreenBottom) {
-                    return true;
-                } else {
-                    if (_Z < GgafDx9God::_dCamZ * LEN_UNIT * 10) {
-                        return true;
-                    } else {
-                        if (_Z > -1 * GgafDx9God::_dCamZ * LEN_UNIT * 10) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
-
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //arigatou_sayounara();

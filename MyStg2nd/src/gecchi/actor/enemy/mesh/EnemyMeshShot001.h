@@ -51,10 +51,6 @@ public:
      */
     virtual void processJudgement();
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    virtual bool isOffScreen();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

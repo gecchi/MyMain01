@@ -50,7 +50,7 @@ void MyDummyOption::initialize() {
     _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
 
     MyLaserChip001* pChip;
-    for (int i = 0; i < 32; i++) { //レーザーストック
+    for (int i = 0; i < 40; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MYS_LaserChip" << i;
@@ -173,6 +173,9 @@ void MyDummyOption::processBehavior() {
             pLaser->_pGeoMover->_angRyMove = _RY2;
             pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
             pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY2;
+            if (_RZ2 > ANGLE90) {
+                _TRACE_("_RZ2, _RY2 = "<<_RZ2<<","<<_RY2<<"");
+            }
 
             //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }

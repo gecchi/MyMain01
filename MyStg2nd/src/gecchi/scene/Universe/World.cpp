@@ -22,12 +22,6 @@ void World::initialize() {
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
 _TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
-    GgafDx9Universe::_pCamera->_pGeoMover->setMoveAngle(0,0,0);
-    GgafDx9Universe::_pCamera->_pGeoMover->setMoveVelocity(0);
-    GgafDx9Universe::_pCamera->_pGeoMover->setRzMoveAngleVelocity(0);
-    GgafDx9Universe::_pCamera->_pGeoMover->setRyMoveAngleVelocity(0);
-    GgafDx9Universe::_pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
-    GgafDx9Universe::_pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
 
 }
 
@@ -44,12 +38,12 @@ void World::processDrawPrior() {
     //
     //
     //	GgafDx9World::GgafDx9Universe::_pCamera->_pGeoMover->
-    //	GgafDx9World::GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini;
+    //	GgafDx9World::GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org;
 
-//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini) {
+//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
 //        GgafDx9World::GgafDx9Universe::_pCamera->_Z = GgafDx9World::GgafDx9Universe::_pCamera->_Z + 2000;
 //    }
-//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_dCamZ_ini) {
+//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
 //        GgafDx9World::GgafDx9Universe::_pCamera->_Z = GgafDx9World::GgafDx9Universe::_pCamera->_Z - 2000;
 //    }
 
@@ -124,7 +118,7 @@ void World::processBehavior() {
         }
     }
 
-    GgafDx9Universe::_pCamera->_pGeoMover->behave();
+
     GgafDx9Universe::_pCamera->setGaze (
                GgafDx9Universe::_pCamera->_X + (GgafDx9Universe::_pCamera->_pGeoMover->_vX * LEN_UNIT * PX_UNIT),
                GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
