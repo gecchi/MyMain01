@@ -56,8 +56,8 @@ OUT_VS GgafDx9VS_LaserChip(
 	//         │④ ＼ 
 	//  (0,0,0)│    ┃        ｚ軸
 	// ────┘----┃─   ─→
-	//  ＼ ②  ：＼  ┃   ＼  
-	//    ＼   ：  ＼┃  ③ ＼ 
+	//  ＼  ③ ：＼  ┃   ＼  
+	//    ＼   ：  ＼┃  ② ＼ 
 	//       ━━━━╋━━━━
 	//         │    ┃
 	//          ＼ ①┃  ＼   
@@ -94,7 +94,6 @@ OUT_VS GgafDx9VS_LaserChip(
 				// ─┼→x
 				//   │
 				prm_pos.y = -prm_pos.y;
-				prm_pos.z = -prm_pos.z;
 
 			} else {
 				//奥から手前で、下から上で、右から左
@@ -117,6 +116,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				// ─┼→x
 				//   │
 				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
 
 			}
 		} else {                          //上から下
@@ -137,7 +137,8 @@ OUT_VS GgafDx9VS_LaserChip(
 				//   ↑          ┃       ＼│
 				// ─┼→x                ─┘
 				//   │
-				prm_pos.z = -prm_pos.z;
+				//そのままで描画順変更不用 と思いきや
+
 
 			} else {
 				//奥から手前で、上から下で、右から左
@@ -158,7 +159,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//   ↑ 
 				// ─┼→x
 				//   │ 
-               //そのままで描画順変更不用 と思いきや
+				prm_pos.z = -prm_pos.z;               
 
 			}
 		}
@@ -185,7 +186,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//       ┃    
 				//       ┃
 				//
-				prm_pos.z = -prm_pos.z;
+				//そのままで描画順変更不用
 
 			} else {
 				//手前から奥で、下から上で、右から左
@@ -207,7 +208,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//          ┃          ┃
 				//          ┃
 				//          ┃
-				//そのままで描画順変更不用
+				prm_pos.z = -prm_pos.z;
 
 			}
 		} else {
@@ -229,7 +230,6 @@ OUT_VS GgafDx9VS_LaserChip(
 				//       ┃                   ＼│方向
 				//       ┃                   ─┘
 				prm_pos.y = -prm_pos.y;
-				prm_pos.z = -prm_pos.z;
 
 			} else {
 				//手前から奥で、上から下で、右から左
@@ -250,6 +250,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//          ┃
 				//
 				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
 
 			}
 		}

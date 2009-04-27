@@ -11,6 +11,10 @@ private:
 
 public:
 
+    int _shotlaser_interval;
+    int _shotlaser_length;
+
+
     /**
      * コンストラクタ
      * @param prm_name オブジェクト名

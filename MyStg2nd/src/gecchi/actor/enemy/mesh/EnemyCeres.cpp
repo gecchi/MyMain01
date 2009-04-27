@@ -50,7 +50,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, RotationActor* prm_pRotEnemyMeshSho
     _X = -356000; //ŠJnÀ•W
     _Y = 0;
     _Z = -680000;
-    _X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2 - 200000;
+    _X_turn = _X_OffScreenRight - 30000;
     _Y_turn = -10000;
     _Z_turn = 0;
     _veloBegin = 5000;
@@ -186,6 +186,14 @@ void EnemyCeres::processBehavior() {
         }
 
         _iMovePatternNo++;
+    }
+
+    if ( _iMovePatternNo == 1) {
+        if (_Z > _Z_turn) {
+            _Z -= 1000;
+        } else if (_Z < _Z_turn) {
+            _Z += 1000;
+        }
     }
 
     //	if(0<_iMovePatternNo && _iMovePatternNo<20) {
