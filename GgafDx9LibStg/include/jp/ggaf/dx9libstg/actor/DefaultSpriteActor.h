@@ -45,7 +45,6 @@ public:
 
     virtual ~DefaultSpriteActor();
 
-    virtual bool isOffScreen();
 };
 
 }

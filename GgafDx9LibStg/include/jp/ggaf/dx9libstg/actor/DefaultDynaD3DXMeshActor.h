@@ -43,8 +43,6 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual bool isOffScreen();
-
     virtual ~DefaultDynaD3DXMeshActor();
 };
 

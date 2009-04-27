@@ -34,32 +34,5 @@ void DefaultDynaD3DXMeshActor::processDrawTerminate() {}
 
 #endif
 
-bool DefaultDynaD3DXMeshActor::isOffScreen() {
-    if (_X < _X_OffScreenLeft) {
-        return true;
-    } else {
-        if (_X > _X_OffScreenRight) {
-            return true;
-        } else {
-            if (_Y > _Y_OffScreenTop) {
-                return true;
-            } else {
-                if (_Y < _Y_OffScreenBottom) {
-                    return true;
-                } else {
-                    if (_Z < GgafDx9God::_dCamZ * LEN_UNIT * 10) {
-                        return true;
-                    } else {
-                        if (_Z > -1 * GgafDx9God::_dCamZ * LEN_UNIT * 10) {
-                            return true;
-                        } else {
-                            return false;
-                        }
-                    }
-                }
-            }
-        }
-    }
-}
 DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() {
 }
