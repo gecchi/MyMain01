@@ -14,9 +14,8 @@ public:
      */
     void initialize();
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
+    void processBehavior();
+
     void processJudgement();
 
     void processHappen(int prm_no) {

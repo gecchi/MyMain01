@@ -56,8 +56,8 @@ OUT_VS GgafDx9VS_LaserChip(
 	//         │④ ＼ 
 	//  (0,0,0)│    ┃        ｚ軸
 	// ────┘----┃─   ─→
-	//  ＼  ③ ：＼  ┃   ＼  
-	//    ＼   ：  ＼┃  ② ＼ 
+	//  ＼  ② ：＼  ┃   ＼  
+	//    ＼   ：  ＼┃  ③ ＼ 
 	//       ━━━━╋━━━━
 	//         │    ┃
 	//          ＼ ①┃  ＼   
@@ -65,8 +65,8 @@ OUT_VS GgafDx9VS_LaserChip(
 	//               ┃      ┘
 	//
 
-	if (abs(g_Z - g_matWorld._43) < 0.9) {
-		if (abs(g_Y - g_matWorld._42) < 0.5) {
+	if (abs(g_Z - g_matWorld._43) < 2.7) {
+		if (abs(g_Y - g_matWorld._42) < 1.0) {
 			prm_pos.z = 0;
 		}
 	}
@@ -94,6 +94,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				// ─┼→x
 				//   │
 				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
 
 			} else {
 				//奥から手前で、下から上で、右から左
@@ -116,7 +117,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				// ─┼→x
 				//   │
 				prm_pos.y = -prm_pos.y;
-				prm_pos.z = -prm_pos.z;
+
 
 			}
 		} else {                          //上から下
@@ -137,8 +138,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//   ↑          ┃       ＼│
 				// ─┼→x                ─┘
 				//   │
-				//そのままで描画順変更不用 と思いきや
-
+				prm_pos.z = -prm_pos.z;   
 
 			} else {
 				//奥から手前で、上から下で、右から左
@@ -159,7 +159,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//   ↑ 
 				// ─┼→x
 				//   │ 
-				prm_pos.z = -prm_pos.z;               
+				//そのままで描画順変更不用 と思いきや
 
 			}
 		}
@@ -186,7 +186,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//       ┃    
 				//       ┃
 				//
-				//そのままで描画順変更不用
+				prm_pos.z = -prm_pos.z;
 
 			} else {
 				//手前から奥で、下から上で、右から左
@@ -208,7 +208,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//          ┃          ┃
 				//          ┃
 				//          ┃
-				prm_pos.z = -prm_pos.z;
+ 				//そのままで描画順変更不用
 
 			}
 		} else {
@@ -230,6 +230,7 @@ OUT_VS GgafDx9VS_LaserChip(
 				//       ┃                   ＼│方向
 				//       ┃                   ─┘
 				prm_pos.y = -prm_pos.y;
+				prm_pos.z = -prm_pos.z;
 
 			} else {
 				//手前から奥で、上から下で、右から左
@@ -250,7 +251,6 @@ OUT_VS GgafDx9VS_LaserChip(
 				//          ┃
 				//
 				prm_pos.y = -prm_pos.y;
-				prm_pos.z = -prm_pos.z;
 
 			}
 		}

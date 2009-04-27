@@ -7,10 +7,6 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
 private:
     D3DXHANDLE _hKind, _hX, _hY, _hZ, _hMatWorld_front;
 
-    /**
-     * ＜OverRide です＞
-     */
-    void processBehavior();
 
     void processDrawPrior() {
         GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
@@ -55,6 +51,10 @@ public:
      */
     virtual void initialize();
 
+    /**
+     * 下位クラスでオーバーライドして下さい。
+     */
+    virtual void processBehavior();
 
     /**
      * 下位クラスでオーバーライドして下さい。
