@@ -79,6 +79,10 @@ class CmRandomNumberGenerator;
 
 
 namespace GgafDx9Core {
+
+typedef int angle;
+typedef int s_ang;
+
 class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;

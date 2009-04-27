@@ -59,14 +59,14 @@ void GgafDx9SpriteActor::processDrawMain() {
     potentialDx9Exception(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     //VIEWïœä∑çsóÒ
-    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &GgafDx9God::_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
     if (_isBillboardingFlg) {
-        GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(this, matWorld);
+        GgafDx9UntransformedActor::getWorldMatrix_BillBoardScMv(this, matWorld);
     } else {
-        GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
+        GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

@@ -5,9 +5,6 @@ namespace GgafDx9Core {
 #define sgn(X) (GgafDx9Util::sign(X))
 #define max3(A,B,C) (GgafDx9Util::max3(A,B,C))
 
-typedef int angle;
-typedef int s_ang;
-
 /**
  * ユーティリティ.
  * 独立した静的関数はココに集約しています。

@@ -31,34 +31,16 @@ public:
     /** デバイスロストフラグ (true=ロスト中) */
     static bool _is_device_lost_flg;
 
-    /** カメラのZ座標初期位置 */
-    static double _dCamZ_ini;
 
-    /** カメラのZ座標 */
-    static double _dCamZ;
-
-    static double _dCamHarfYfovTan;
-    static double _dCamHarfXfovTan;
-    static double _dScreenAspect;
-
-    /** カメラの位置 */
-    static D3DXVECTOR3* _pVecCamFromPoint;
-    /** カメラの注視点 */
-    static D3DXVECTOR3* _pVecCamLookatPoint;
-    /** カメラの上ベクトル */
-    static D3DXVECTOR3* _pVecCamUp;
-    /** VIEW変換行列 */
-    static D3DXMATRIX _vMatrixView;
-    /** 射影変換魚売れる */
-    static D3DXMATRIX _vMatrixProj;
-    /** 正射影変換魚売れる */
-    static D3DXMATRIX _vMatrixOrthoProj;
-
+//    /** 射影変換魚売れる */
+//    static D3DXMATRIX _vMatrixProj;
+//    /** 正射影変換魚売れる */
+//    static D3DXMATRIX _vMatrixOrthoProj;
+//
 
     static GgafDx9ModelManager* _pModelManager;
     static GgafDx9EffectManager* _pEffectManager;
 
-    static int _iPxDep;
 
     /**
      * コンストラクタ<BR>
@@ -97,7 +79,6 @@ public:
     //	 */
     //	virtual GgafDx9Universe* createDx9World() = 0;
 
-    static void updateCam();
 
     /**
      * デストラクタ<BR>

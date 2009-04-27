@@ -37,14 +37,14 @@ void GgafDx9DynaD3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     static D3DXMATRIX matWorld; //UNIVERSE変換行列
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
+    GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "GgafDx9DynaD3DXMeshActor::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
     //VIEW変換行列
-    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &GgafDx9God::_vMatrixView );
+    hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
 

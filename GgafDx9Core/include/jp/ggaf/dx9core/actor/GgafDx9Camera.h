@@ -23,6 +23,40 @@ class GgafDx9Camera : public GgafDx9UntransformedActor {
 private:
 
 public:
+    /** 射影変換魚売れる */
+    D3DXMATRIX _vMatrixProj;
+    /** 正射影変換魚売れる */
+    D3DXMATRIX _vMatrixOrthoProj;
+
+    /** カメラの位置 */
+    D3DXVECTOR3* _pVecCamFromPoint;
+    /** カメラの注視点 */
+    D3DXVECTOR3* _pVecCamLookatPoint;
+    /** カメラの上ベクトル */
+    D3DXVECTOR3* _pVecCamUp;
+    /** VIEW変換行列 */
+    D3DXMATRIX _vMatrixView;
+
+
+
+
+    /** カメラのZ座標初期位置 */
+    double _cameraZ_org;
+
+    /** カメラのZ座標 */
+    double _cameraZ;
+
+
+    double _rad_fovY;
+
+    double _tan_half_fovY;
+    double _dCamHarfXfovTan;
+    double _screen_aspect;
+
+
+
+    //int _iPxDep = 0;
+
     /** 注視点 */
     int _gazeX, _gazeY, _gazeZ;
 
@@ -30,8 +64,7 @@ public:
 
     virtual void initialize();
 
-    virtual void processBehavior() {
-    }
+    virtual void processBehavior();
 
     virtual void processJudgement() {
     }

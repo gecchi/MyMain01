@@ -23,11 +23,11 @@ public:
     /** ワールドZ座標 */
     int _Z;
     /** ワールドX軸回転角 */
-    int _RX;
+    angle _RX;
     /** ワールドY軸回転角 */
-    int _RY;
+    angle _RY;
     /** ワールドZ軸回転角 */
-    int _RZ;
+    angle _RZ;
     /** ワールドX軸方向倍率 */
     int _SX;
     /** ワールドY軸方向倍率 */
@@ -118,34 +118,34 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void getWorldTransformRxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
 
-    static void getWorldTransformRxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void updateWorldTransformMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換 .
      * 単位行列 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 .<BR>
      * @param prm_pActor 対象アクター
      */
-    static void getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換 .
      * 単位行列 × 拡大縮小 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
      * @param prm_pActor 対象アクター
      */
-    static void getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void getWorldTransformBillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_BillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     virtual ~GgafDx9UntransformedActor(); //デストラクタ
 };

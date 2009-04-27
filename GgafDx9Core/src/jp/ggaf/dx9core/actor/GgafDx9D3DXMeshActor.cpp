@@ -45,7 +45,7 @@ void GgafDx9D3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     static D3DXMATRIX matWorld; //UNIVERSE•ÏŠ·s—ñ
-    GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(this, matWorld);
+    GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
 
     HRESULT hr;
     hr = pID3DXEffect->SetTechnique(_technique);

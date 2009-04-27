@@ -38,7 +38,7 @@ void GgafDx9UntransformedActor::processDrawPrior() {
             //‘e‚³‚Í 2000,000/MAX_DRAW_DEPTH_LEVELB©‚±‚Ì”ÍˆÍ‚ÌZ‚Í“¯ˆê[“x‚Æ‚È‚éB
             //TODO: ƒJƒƒ‰‚ª‚®‚è‚®‚è“®‚­‚Æ”gó‚·‚éB³‚µ‚­‚ÍƒJƒƒ‰À•W‚©‚ç‚Ì‹——£‚Åƒ\[ƒg‚·‚×‚«BEEE‚»‚Ì“à‚â‚ë‚¤B
             GgafDx9Universe::setDrawDepthLevel(
-              (_Z-(GgafDx9God::_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / (2000000/MAX_DRAW_DEPTH_LEVEL),
+              (_Z-(GgafDx9Universe::_pCamera->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / (2000000/MAX_DRAW_DEPTH_LEVEL),
               this
             );
         } else {
@@ -48,7 +48,7 @@ void GgafDx9UntransformedActor::processDrawPrior() {
         }
     }
 }
-void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     //¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ
@@ -101,26 +101,26 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRyScMv(GgafDx9Untransformed
      */
 }
 
-void GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_BillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
     sx = prm_pActor->_SX / fRateScale;
     sy = prm_pActor->_SY / fRateScale;
     sz = prm_pActor->_SZ / fRateScale;
 
-    out_matWorld._11 = GgafDx9God::_vMatrixView._11 * sx;
-    out_matWorld._12 = GgafDx9God::_vMatrixView._21 * sy;
-    out_matWorld._13 = GgafDx9God::_vMatrixView._31 * sz;
+    out_matWorld._11 = GgafDx9Universe::_pCamera->_vMatrixView._11 * sx;
+    out_matWorld._12 = GgafDx9Universe::_pCamera->_vMatrixView._21 * sy;
+    out_matWorld._13 = GgafDx9Universe::_pCamera->_vMatrixView._31 * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = GgafDx9God::_vMatrixView._12 * sx;
-    out_matWorld._22 = GgafDx9God::_vMatrixView._22 * sy;
-    out_matWorld._23 = GgafDx9God::_vMatrixView._32 * sz;
+    out_matWorld._21 = GgafDx9Universe::_pCamera->_vMatrixView._12 * sx;
+    out_matWorld._22 = GgafDx9Universe::_pCamera->_vMatrixView._22 * sy;
+    out_matWorld._23 = GgafDx9Universe::_pCamera->_vMatrixView._32 * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = GgafDx9God::_vMatrixView._13 * sx;
-    out_matWorld._32 = GgafDx9God::_vMatrixView._23 * sy;
-    out_matWorld._33 = GgafDx9God::_vMatrixView._33 * sz;
+    out_matWorld._31 = GgafDx9Universe::_pCamera->_vMatrixView._13 * sx;
+    out_matWorld._32 = GgafDx9Universe::_pCamera->_vMatrixView._23 * sy;
+    out_matWorld._33 = GgafDx9Universe::_pCamera->_vMatrixView._33 * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
@@ -129,7 +129,7 @@ void GgafDx9UntransformedActor::getWorldTransformBillBoardScMv(GgafDx9Untransfor
     out_matWorld._44 = 1.0f;
 }
 
-void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ YŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     //    |                           cosRY*cosRZ*sx,                        cosRY*sinRZ*sy  ,      -sinRY*sz,  0 |
@@ -176,7 +176,7 @@ void GgafDx9UntransformedActor::getWorldTransformRxRyRzScMv(GgafDx9Untransformed
 
 
 
-void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ XŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬.
     //¦YŽ²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚ª‚Q‰ñ–Ú‚ÌXŽ²‰ñ“]‚Æ‚È‚é
@@ -222,7 +222,7 @@ void GgafDx9UntransformedActor::getWorldTransformRxRzRxScMv(GgafDx9Untransformed
 
 
 
-void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
     // |cosZ  , sinZ , 0  , 0  |
@@ -253,7 +253,7 @@ void GgafDx9UntransformedActor::getWorldTransformRzMv(GgafDx9UntransformedActor*
     out_matWorld._44 = 1;
 }
 
-void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
     //UNIVERSE•ÏŠ·
     //’PˆÊs—ñ ~ Šg‘åk¬ ~ ZŽ²‰ñ“] ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
@@ -292,7 +292,7 @@ void GgafDx9UntransformedActor::getWorldTransformScRzMv(GgafDx9UntransformedActo
 }
 
 
-void GgafDx9UntransformedActor::updateWorldTransformMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
     out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
     out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
@@ -302,16 +302,16 @@ void GgafDx9UntransformedActor::updateWorldTransformMv(GgafDx9UntransformedActor
 
 bool GgafDx9UntransformedActor::isOffScreen() {
 //    if (_Z > 0) {
-        if (_Y < -1.0*(_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan) {
+        if (_Y < -1.0*(_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY) {
             return true;
         } else {
-            if (_Y > (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan) {
+            if (_Y > (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY) {
                 return true;
             } else {
-                if (_X > ((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan)*GgafDx9God::_dScreenAspect) {
+                if (_X > ((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY)*GgafDx9Universe::_pCamera->_screen_aspect) {
                     return true;
                 } else {
-                    if (_X < -1.0*((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9God::_dCamHarfYfovTan)*GgafDx9God::_dScreenAspect) {
+                    if (_X < -1.0*((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY)*GgafDx9Universe::_pCamera->_screen_aspect) {
                         return true;
                     } else {
                         if (_Z > -1 * GgafDx9Universe::_pCamera->_Z *2) {
