@@ -10,9 +10,12 @@ class EnemyAstraea : public DefaultMeshEnemyActor {
 private:
 
 public:
+    int _shot_interval;
+    int _laser_length;
+    int _cnt_laserchip;
 
-    int _shotlaser_interval;
-    int _shotlaser_length;
+    GgafDx9Core::angvelo _angveloTurn;
+    LaserChipRotationActor* _pLaserChipRotation;
 
 
     /**

@@ -54,7 +54,7 @@ void TamagoActor::processBehavior() {
 //        _rnd = (110 + (rand() % 90));
 //
 //        _pGeoMover->setAutoTargetRzMoveAngleV(GameGlobal::_pMyShip->_X, GameGlobal::_pMyShip->_Y);
-//        if (_pGeoMover->getDistanceFromRzMoveAngleTo(_pGeoMover->_angAutoTargetRzMove, TURN_CLOSE_TO) > 0) {
+//        if (_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angAutoTargetRzMove, TURN_CLOSE_TO) > 0) {
 //            _pGeoMover->setRzMoveAngleVelocity(2 * 1000);
 //        } else {
 //            _pGeoMover->setRzMoveAngleVelocity(-2 * 1000);

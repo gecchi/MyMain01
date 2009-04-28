@@ -84,11 +84,6 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
-    if (isOffScreen()) {
-        _TRACE_("isOffScreen!! ("<<_X<<","<<_Y<<","<<_Z<<")");
-    }
-
-
     _stc = VB::getBeingPressedStick();
     if (_stc != 0) {
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
@@ -370,7 +365,7 @@ void MyShip::moveXZ(int prm_VB) {
         case VB_UP_STC:
             _way = WAY_ZLEFT;
             _Z += _iMoveSpeed;
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
@@ -383,7 +378,7 @@ void MyShip::moveXZ(int prm_VB) {
             _Z += _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
 
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ/2);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
@@ -396,7 +391,7 @@ void MyShip::moveXZ(int prm_VB) {
             _Z += _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
 
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ/2);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
@@ -415,7 +410,7 @@ void MyShip::moveXZ(int prm_VB) {
         case VB_DOWN_STC:
             _way = WAY_ZRIGHT;
             _Z -= _iMoveSpeed;
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
@@ -427,7 +422,7 @@ void MyShip::moveXZ(int prm_VB) {
             _way = WAY_ZRIGHT_FRONT;
             _Z -= _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
@@ -439,7 +434,7 @@ void MyShip::moveXZ(int prm_VB) {
             _way = WAY_ZRIGHT_BEHIND;
             _Z -= _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
-            distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
@@ -494,7 +489,7 @@ void MyShip::turnFaceNeutralXY() {
 
 void MyShip::turnFaceNeutralXZ() {
 
-    angle distwk = _pGeoMover->getDistanceFromRotAngleTo(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+    angle distwk = _pGeoMover->getDifferenceFromRotAngleTo(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
     if (0 < distwk && distwk < ANGLE180) {
         _pGeoMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {

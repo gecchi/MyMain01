@@ -11,49 +11,49 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
                             NEW StgChecker(this) ) {
     _angVelocity_Turn = 3500;
 
-    MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
-    pMyDummyOption01->_radius = 100000;
-    pMyDummyOption01->_angPosition = 0;
-    addSubLast(pMyDummyOption01);
-
-    MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
-    pMyDummyOption02->_radius = 100000;
-    pMyDummyOption02->_angPosition = ANGLE90;
-    addSubLast(pMyDummyOption02);
-
-    MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
-    pMyDummyOption03->_radius = 100000;
-    pMyDummyOption03->_angPosition = ANGLE180;
-    addSubLast(pMyDummyOption03);
-
-    MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
-    pMyDummyOption04->_radius = 100000;
-    pMyDummyOption04->_angPosition = ANGLE270;
-    addSubLast(pMyDummyOption04);
-
-    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
-    pMyDummyOption05->_radius = 200000;
-    pMyDummyOption05->_angPosition = 0;
-    pMyDummyOption05->_veloMove = -5000;
-    addSubLast(pMyDummyOption05);
-
-    MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
-    pMyDummyOption06->_radius = 200000;
-    pMyDummyOption06->_angPosition = ANGLE90;
-    pMyDummyOption06->_veloMove = -5000;
-    addSubLast(pMyDummyOption06);
-
-    MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
-    pMyDummyOption07->_radius = 200000;
-    pMyDummyOption07->_angPosition = ANGLE180;
-    pMyDummyOption07->_veloMove = -5000;
-    addSubLast(pMyDummyOption07);
-
-    MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
-    pMyDummyOption08->_radius = 200000;
-    pMyDummyOption08->_angPosition = ANGLE270;
-    pMyDummyOption08->_veloMove = -5000;
-    addSubLast(pMyDummyOption08);
+//    MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
+//    pMyDummyOption01->_radius = 100000;
+//    pMyDummyOption01->_angPosition = 0;
+//    addSubLast(pMyDummyOption01);
+//
+//    MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
+//    pMyDummyOption02->_radius = 100000;
+//    pMyDummyOption02->_angPosition = ANGLE90;
+//    addSubLast(pMyDummyOption02);
+//
+//    MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
+//    pMyDummyOption03->_radius = 100000;
+//    pMyDummyOption03->_angPosition = ANGLE180;
+//    addSubLast(pMyDummyOption03);
+//
+//    MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
+//    pMyDummyOption04->_radius = 100000;
+//    pMyDummyOption04->_angPosition = ANGLE270;
+//    addSubLast(pMyDummyOption04);
+//
+//    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
+//    pMyDummyOption05->_radius = 200000;
+//    pMyDummyOption05->_angPosition = 0;
+//    pMyDummyOption05->_veloMove = -5000;
+//    addSubLast(pMyDummyOption05);
+//
+//    MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
+//    pMyDummyOption06->_radius = 200000;
+//    pMyDummyOption06->_angPosition = ANGLE90;
+//    pMyDummyOption06->_veloMove = -5000;
+//    addSubLast(pMyDummyOption06);
+//
+//    MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
+//    pMyDummyOption07->_radius = 200000;
+//    pMyDummyOption07->_angPosition = ANGLE180;
+//    pMyDummyOption07->_veloMove = -5000;
+//    addSubLast(pMyDummyOption07);
+//
+//    MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
+//    pMyDummyOption08->_radius = 200000;
+//    pMyDummyOption08->_angPosition = ANGLE270;
+//    pMyDummyOption08->_veloMove = -5000;
+//    addSubLast(pMyDummyOption08);
 
 
     //トレース用履歴
@@ -143,12 +143,12 @@ void MyOptionParent::processBehavior() {
 
 
 void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
-    if (_pGeoMover->getDistanceFromRzMoveAngleTo(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
+    if (_pGeoMover->getDifferenceFromRzMoveAngleTo(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
         _pGeoMover->setRzMoveAngleVelocity(_angVelocity_Turn);
     } else {
         _pGeoMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    if (_pGeoMover->getDistanceFromRyMoveAngleTo(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
+    if (_pGeoMover->getDifferenceFromRyMoveAngleTo(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
         _pGeoMover->setRyMoveAngleVelocity(_angVelocity_Turn);
     } else {
         _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);

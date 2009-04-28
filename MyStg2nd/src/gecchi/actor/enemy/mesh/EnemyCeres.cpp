@@ -135,12 +135,12 @@ void EnemyCeres::processBehavior() {
 
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > _X_turn) {
-        if (_pGeoMover->getDistanceFromRzMoveAngleTo(0, TURN_CLOSE_TO) > 0) {
+        if (_pGeoMover->getDifferenceFromRzMoveAngleTo(0, TURN_CLOSE_TO) > 0) {
             _pGeoMover->setRzMoveAngleVelocity(4000);
         } else {
             _pGeoMover->setRzMoveAngleVelocity(-4000);
         }
-        if (_pGeoMover->getDistanceFromRyMoveAngleTo(ANGLE180, TURN_CLOSE_TO) > 0) {
+        if (_pGeoMover->getDifferenceFromRyMoveAngleTo(ANGLE180, TURN_CLOSE_TO) > 0) {
             _pGeoMover->setRyMoveAngleVelocity(4000);
         } else {
             _pGeoMover->setRyMoveAngleVelocity(-4000);

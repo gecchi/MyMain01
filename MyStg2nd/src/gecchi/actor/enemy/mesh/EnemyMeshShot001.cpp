@@ -76,12 +76,12 @@ void EnemyMeshShot001::processBehavior() {
             angle angRy_Target;
             GgafDx9Util::getRotAngleZY(GameGlobal::_pMyShip->_X - _X, GameGlobal::_pMyShip->_Y - _Y,
                                        GameGlobal::_pMyShip->_Z - _Z, angRz_Target, angRy_Target);
-            if (_pGeoMover->getDistanceFromRzMoveAngleTo(angRz_Target, TURN_CLOSE_TO) > 0) {
+            if (_pGeoMover->getDifferenceFromRzMoveAngleTo(angRz_Target, TURN_CLOSE_TO) > 0) {
                 _pGeoMover->setRzMoveAngleVelocity(_angVelocity_Turn);
             } else {
                 _pGeoMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
             }
-            if (_pGeoMover->getDistanceFromRyMoveAngleTo(angRy_Target, TURN_CLOSE_TO) > 0) {
+            if (_pGeoMover->getDifferenceFromRyMoveAngleTo(angRy_Target, TURN_CLOSE_TO) > 0) {
                 _pGeoMover->setRyMoveAngleVelocity(_angVelocity_Turn);
             } else {
                 _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
