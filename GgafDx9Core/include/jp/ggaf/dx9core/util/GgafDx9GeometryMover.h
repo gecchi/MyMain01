@@ -147,9 +147,9 @@ public:
 
     void setRotAngleAcceleration(int prm_axis, angacce prm_angacceRot);
 
-    angle getDistanceFromRotAngleTo(int prm_axis, int prm_tX, int prm_tY, int prm_way);
+    angle getDifferenceFromRotAngleTo(int prm_axis, int prm_tX, int prm_tY, int prm_way);
 
-    angle getDistanceFromRotAngleTo(int prm_axis, angle prm_angAutoTargetRot, int prm_way);
+    angle getDifferenceFromRotAngleTo(int prm_axis, angle prm_angAutoTargetRot, int prm_way);
 
     ////////////////////////////////////////////////////MOVER
 public:
@@ -305,7 +305,7 @@ public:
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）設定)<BR>
      * 引数に設定された移動方角（Z軸回転）になるまで、移動方角（Z軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
      * 加算か減算かは、移動方角（Z軸回転）の角速度（_angveloRzMove）の正負で決定されます。<BR>
-     * 移動方角（Z軸回転）の角速度が 0 ならば、何も起こりません。<BR>
+     * <B>移動方角（Z軸回転）の角速度が 0 ならば、何も起こりません。</B>動作さえるには、角速度が必要です。<BR>
      * 内部的には、addRzMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Z軸回転）に到達したならば、この目標の移動方角（Z軸回転）自動停止機能は解除されます。<BR>
      *
@@ -337,9 +337,18 @@ public:
 
     void setRzMoveAngleAcceleration(angacce prm_angacceRzMove);
 
-    angle getDistanceFromRzMoveAngleTo(int prm_tX, int prm_tY, int prm_way);
+    angle getDifferenceFromRzMoveAngleTo(int prm_tX, int prm_tY, int prm_way);
 
-    angle getDistanceFromRzMoveAngleTo(angle prm_angAutoTargetRzMove, int prm_way);
+    /**
+     * 自身の移動方角のZ軸回転角( _angRzMove )と、ターゲットの回転角との差分を取得.
+     * TURN_COUNTERCLOCKWISE ･･･ 回転方向が左回りで差異角取得、正の値で返る。
+     * TURN_CLOCKWISE        ･･･ 回転方向が右回りで差異角取得、負の値に返る。
+     * TURN_CLOSE_TO         ･･･ ターゲットの回転角と距離が近いほうの回転方向で取得、正又は負の値になる。
+     * @param prm_angAutoTargetRzMove ターゲット角の値
+     * @param prm_way TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO
+     * @return
+     */
+    angle getDifferenceFromRzMoveAngleTo(angle prm_angAutoTargetRzMove, int prm_way);
     ///コピー元end
 
     ///////コピー元begin
@@ -396,7 +405,7 @@ public:
      * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）設定)<BR>
      * 引数に設定された移動方角（Y軸回転）になるまで、移動方角（Y軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
      * 加算か減算かは、移動方角（Y軸回転）の角速度（_angveloRyMove）の正負で決定されます。<BR>
-     * 移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。<BR>
+     * <B>移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。</B>動作さえるには、角速度が必要です。<BR>
      * 内部的には、addRyMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Y軸回転）に到達したならば、この目標の移動方角（Y軸回転）自動停止機能は解除されます。<BR>
      *
@@ -428,9 +437,9 @@ public:
 
     void setRyMoveAngleAcceleration(angacce prm_angacceRyMove);
 
-    angle getDistanceFromRyMoveAngleTo(int prm_tX, int prm_tY, int prm_way);
+    angle getDifferenceFromRyMoveAngleTo(int prm_tX, int prm_tY, int prm_way);
 
-    angle getDistanceFromRyMoveAngleTo(angle prm_angAutoTargetRyMove, int prm_way);
+    angle getDifferenceFromRyMoveAngleTo(angle prm_angAutoTargetRyMove, int prm_way);
     ///コピー元end
 
     void setRzRyMoveAngle(angle prm_angRz, angle prm_angRy);
