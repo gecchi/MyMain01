@@ -11,28 +11,16 @@ LaserChipRotationActor::LaserChipRotationActor(const char* prm_name) : RotationA
     _num_chip_active = 0;
     _is_tear_laser = false;
     _num_chip_max = 0;
-
-//    LaserChip* pChip;
-//    for (int i = 0; i < _num_chip_max; i++) { //ƒŒ[ƒU[ƒXƒgƒbƒN
-//        Sleep(2); //Hê‚É‹C‚ğg‚¤B
-//        stringstream name;
-//        name <<  "MYS_LaserChip" << i;
-//        string name2 = name.str();
-//        pChip = NEW LaserChip(name2.c_str(), this);
-//        pChip->inactivateImmediately();
-//        addSubLast(pChip);
-//    }
-//    Sleep(1);
+    _num_chip_interval = 3;
     _pChip_prev_obtain = NULL;
     _lifeframe_prev_obtain = 0;
-    _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
+    _pSeConnection = NULL;
     _num_interval_frame_count = 0;
 }
+
 void LaserChipRotationActor::processBehavior() {
 }
 
-void LaserChipRotationActor::processFinal() {
-}
 
 LaserChip* LaserChipRotationActor::obtain() {
 if (_num_continual_obtain_count > _num_chip_max) { //_num_chip_max˜A‘±”­ËA5ƒtƒŒ[ƒ€’eØ‚ê‚É‚·‚éB
@@ -42,7 +30,7 @@ if (_num_continual_obtain_count > _num_chip_max) { //_num_chip_max˜A‘±”­ËA5ƒ
         _num_continual_obtain_count = 0;
         _num_interval_frame_count = 0;
         return NULL;
-    } else if (_num_interval_frame_count < 3) { //5ƒtƒŒ[ƒ€ˆÈ“à‚È‚Ì‚Å’eØ‚ê‚É‚·‚éB
+    } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalƒtƒŒ[ƒ€ˆÈ“à‚È‚Ì‚Å’eØ‚ê‚É‚·‚éB
         _num_interval_frame_count++;
         return NULL;
     } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //’eØ‚ê‚Ì _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­Ë
@@ -96,5 +84,4 @@ void LaserChipRotationActor::addLaserChip(LaserChip* prm_pLaserChip) {
 }
 
 LaserChipRotationActor::~LaserChipRotationActor() {
-    _pSeCon_Laser->close();
 }

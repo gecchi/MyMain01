@@ -106,16 +106,19 @@ void Stage01MainScene::processBehavior() {
 			case 600:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11077600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -300000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11217600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -300000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11357600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -300000;
 				}
@@ -123,16 +126,19 @@ void Stage01MainScene::processBehavior() {
 			case 610:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11087610);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -250000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11227610);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -250000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11367610);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -250000;
 				}
@@ -140,16 +146,19 @@ void Stage01MainScene::processBehavior() {
 			case 620:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11097620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -200000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11237620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -200000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11377620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -200000;
 				}
@@ -157,16 +166,19 @@ void Stage01MainScene::processBehavior() {
 			case 630:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11107630);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -150000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11247630);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -150000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11387630);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -150000;
 				}
@@ -174,16 +186,19 @@ void Stage01MainScene::processBehavior() {
 			case 640:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11117640);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -100000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11257640);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -100000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11397640);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -100000;
 				}
@@ -191,16 +206,19 @@ void Stage01MainScene::processBehavior() {
 			case 650:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11127650);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -50000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11267650);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -50000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11407650);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -50000;
 				}
@@ -208,16 +226,19 @@ void Stage01MainScene::processBehavior() {
 			case 660:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11137660);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -0;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11277660);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -0;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11417660);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = -0;
 				}
@@ -225,16 +246,19 @@ void Stage01MainScene::processBehavior() {
 			case 670:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11147670);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 50000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11287670);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 50000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11427670);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 50000;
 				}
@@ -242,16 +266,19 @@ void Stage01MainScene::processBehavior() {
 			case 680:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11157680);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 100000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11297680);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 100000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11437680);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 100000;
 				}
@@ -259,16 +286,19 @@ void Stage01MainScene::processBehavior() {
 			case 690:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11167690);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 150000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11307690);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 150000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11447690);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 150000;
 				}
@@ -276,16 +306,19 @@ void Stage01MainScene::processBehavior() {
 			case 700:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11177700);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 200000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11317700);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 200000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11457700);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 200000;
 				}
@@ -293,16 +326,19 @@ void Stage01MainScene::processBehavior() {
 			case 710:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11187710);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 250000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11327710);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 250000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11467710);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 250000;
 				}
@@ -310,16 +346,19 @@ void Stage01MainScene::processBehavior() {
 			case 720:
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11197720);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 300000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11337720);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 300000;
 				}
 				{
 				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11477720);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				pActor->_X = 800000;
 				pActor->_Z = 0;
 				pActor->_Y = 300000;
 				}

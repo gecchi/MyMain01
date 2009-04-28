@@ -38,9 +38,6 @@ void LaserChip::initialize() {
 
 void LaserChip::processBehavior() {
 
-    //_pGeoMover->setRotAngle(AXIS_X,_pGeoMover->_angRzMove);
-
-
     //À•W‚É”½‰f
     _pGeoMover->behave();
 
@@ -63,13 +60,14 @@ void LaserChip::processBehavior() {
     } else {
       _pChecker->getHitAreaBoxs()->disable(1);
     }
-
 }
 
 void LaserChip::onActive() {
     //oŒ»Žž
     if (_pChip_front == NULL) {
-        _pRotation->_pSeCon_Laser->view()->play();
+        if (_pRotation->_pSeConnection) {
+            _pRotation->_pSeConnection->view()->play();
+        }
     }
 
     _pRotation->_num_chip_active++;

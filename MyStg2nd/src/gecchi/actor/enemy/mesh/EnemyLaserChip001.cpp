@@ -8,13 +8,10 @@ using namespace MyStg2nd;
 
 EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : LaserChip(prm_name, "X/laser_chip") {
     _class_name = "EnemyLaserChip001";
-    _TRACE_("EnemyLaserChip001::EnemyLaserChip001->");
 
 }
 
 void EnemyLaserChip001::initialize() {
-    _TRACE_("EnemyLaserChip001::initialize()->");
-
     _pGeoMover->setMoveVelocity(30000);
     _pChecker->useHitAreaBoxNum(2);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
@@ -22,13 +19,11 @@ void EnemyLaserChip001::initialize() {
     setBumpable(true);
     _SX=40*1000; _SY=40*1000; _SZ=40*1000;
     _fAlpha = 0.9;
-    _TRACE_("<-EnemyLaserChip001::initialize()");
 }
 
 void EnemyLaserChip001::processBehavior() {
 
     //_pGeoMover->setRotAngle(AXIS_X,_pGeoMover->_angRzMove);
-
 
     //À•W‚É”½‰f
     _pGeoMover->behave();

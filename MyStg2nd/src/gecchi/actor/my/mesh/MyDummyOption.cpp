@@ -17,7 +17,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _veloMove = 5000;     //旋廻移動速度（上書き初期設定可）
     _angExpanse = 295000;      //オプションの広がり角の回転角（上書き初期設定可）
     _angveloExpanse = 00; //オプションの広がり角の角回転速度 （上書き初期設定可）
-
+    _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }
 
 void MyDummyOption::initialize() {
@@ -48,7 +48,7 @@ void MyDummyOption::initialize() {
     _RZorg = _RZ;
 
     _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
-
+    _pLaserChipRotation->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
     for (int i = 0; i < 40; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
@@ -59,7 +59,6 @@ void MyDummyOption::initialize() {
         pChip->inactivateImmediately();
         _pLaserChipRotation->addLaserChip(pChip);
     }
-    Sleep(1);
 
 
     GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
@@ -131,7 +130,7 @@ void MyDummyOption::processBehavior() {
     vx = ((double)_X) / LEN_UNIT;
     vy = ((double)_Y) / LEN_UNIT;
     vz = ((double)_Z) / LEN_UNIT;
-    k = 1 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
+    k = 1.0 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
 
     //計算
     GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
@@ -146,8 +145,6 @@ void MyDummyOption::processBehavior() {
         _RZ,
         _RY
      );
-    _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
-    _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
     _RZ2 = _RZ;
     _RY2 = _RY;
     _X += GameGlobal::_pMyShip->_X;
@@ -187,6 +184,7 @@ void MyDummyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 MyDummyOption::~MyDummyOption() {
+    _pSeCon_Laser->close();
     //DELETE_IMPOSSIBLE_NULL(_pRing);
 }
 

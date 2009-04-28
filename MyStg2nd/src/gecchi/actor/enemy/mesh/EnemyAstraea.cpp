@@ -6,12 +6,10 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/ebi2") {
-    _class_name = "EnemyAstraea";
-    _TRACE_("EnemyAstraea::EnemyAstraea()->");
     //レーザーストック
     _pLaserChipRotation = NEW LaserChipRotationActor("RotLaser");
     EnemyLaserChip001* pChip;
-    for (int i = 0; i < 8; i++) {
+    for (int i = 0; i < 5; i++) {
         Sleep(2);
         pChip = NEW EnemyLaserChip001("L");
         pChip->inactivateImmediately();
@@ -19,17 +17,15 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
     }
     addSubLast(_pLaserChipRotation); //仮所属
 
-    _X = 900000;
+    _X = 0;
     _Y = 0;
-    _Z = 300000;
+    _Z = 0;
     _laser_length = 4;
-    _shot_interval = 180;
+    _shot_interval = 120;
     _angveloTurn = 3000;
-    _TRACE_("<-EnemyAstraea::EnemyAstraea()");
 }
 
 void EnemyAstraea::initialize() {
-    _TRACE_("EnemyAstraea::initialize()->");
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pChecker->setStatus(100, 1, 1, 1);
@@ -38,8 +34,6 @@ void EnemyAstraea::initialize() {
     _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
 
     getLordActor()->accept(KIND_MY_SHOT_PA, _pLaserChipRotation); //本所属
-    _TRACE_("<-EnemyAstraea::initialize()");
-
 }
 
 void EnemyAstraea::processBehavior() {
@@ -57,7 +51,6 @@ void EnemyAstraea::processBehavior() {
         _cnt_laserchip = 0;
     }
 
-
     if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
         EnemyLaserChip001* pLaser = (EnemyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
@@ -66,7 +59,6 @@ void EnemyAstraea::processBehavior() {
             _cnt_laserchip++;
         }
     }
-
 
     _pGeoMover->behave();
 }

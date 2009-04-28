@@ -115,6 +115,7 @@ public:
     GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
     GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
     LaserChipRotationActor* _pLaserChipRotation;
+
     MyShip(const char* prm_name);
 
     /**

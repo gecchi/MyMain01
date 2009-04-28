@@ -8,21 +8,19 @@ namespace MyStg2nd {
 class EnemyAstraea : public DefaultMeshEnemyActor {
 
 private:
-
-public:
-    int _shot_interval;
-    int _laser_length;
+    /** 発射済みレーザーチップ数 */
     int _cnt_laserchip;
 
+public:
+    /** 方向転換間隔(frame) */
+    int _shot_interval;
+    /** 発射レーザーチップの数 */
+    int _laser_length;
+    /** 方向転換角速度 */
     GgafDx9Core::angvelo _angveloTurn;
+
     LaserChipRotationActor* _pLaserChipRotation;
 
-
-    /**
-     * コンストラクタ
-     * @param prm_name オブジェクト名
-     * @param prm_model モデル名
-     */
     EnemyAstraea(const char* prm_name);
 
     void initialize();
