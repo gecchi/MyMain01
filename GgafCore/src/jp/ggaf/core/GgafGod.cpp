@@ -9,9 +9,9 @@ CRITICAL_SECTION GgafGod::CS2;
 int GgafGod::_num_actor_playing = 0;
 GgafGod* GgafGod::_pGod = NULL;
 DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
-                                               17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
-                                               17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
-                                               17, 17, 16, 17, 17, 17};
+                                             17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
+                                             17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
+                                             17, 17, 16, 17, 17, 17};
 GgafGod::GgafGod() : GgafObject(),
   _pUniverse(NULL),
   _fps(0) {
@@ -62,9 +62,9 @@ void GgafGod::be() {
      ___EndSynchronized; // <----- ”r‘¼I—¹
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
-        if (_num_actor_playing > 450) {
+        if (_num_actor_playing > 600) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 3);
-        } else if (_num_actor_playing > 300) {
+        } else if (_num_actor_playing > 400) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
