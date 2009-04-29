@@ -37,7 +37,7 @@ void EnemyAstraea::initialize() {
 }
 
 void EnemyAstraea::processBehavior() {
-    _X = _X - 1000;
+    _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
         _pGeoMover->setAutoTargetMoveAngle(GameGlobal::_pMyShip);
@@ -51,16 +51,18 @@ void EnemyAstraea::processBehavior() {
         _cnt_laserchip = 0;
     }
 
+
+    _pGeoMover->behave();
+
     if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
         EnemyLaserChip001* pLaser = (EnemyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
             pLaser->setGeometry(this);
-            pLaser->_pGeoMover->setMoveAngle(GameGlobal::_pMyShip);
+            pLaser->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
             _cnt_laserchip++;
         }
     }
 
-    _pGeoMover->behave();
 }
 
 void EnemyAstraea::processJudgement() {
