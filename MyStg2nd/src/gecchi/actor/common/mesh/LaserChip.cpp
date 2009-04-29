@@ -180,7 +180,7 @@ void LaserChip::processDrawTerminate() {
 
 #else
 
-void DefaultMeshActor::processDrawTerminate() {}
+void LaserChip::processDrawTerminate() {}
 
 #endif
 
