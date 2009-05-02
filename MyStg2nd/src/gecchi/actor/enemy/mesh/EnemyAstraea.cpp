@@ -57,8 +57,12 @@ void EnemyAstraea::processBehavior() {
     if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
         EnemyLaserChip001* pLaser = (EnemyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
-            pLaser->setGeometry(this);
+
             pLaser->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
+            pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ;
+            pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY;
+            pLaser->_pGeoMover->behave();
+            pLaser->setGeometry(this);
             _cnt_laserchip++;
         }
     }

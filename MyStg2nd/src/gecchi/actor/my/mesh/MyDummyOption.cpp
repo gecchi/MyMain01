@@ -50,7 +50,7 @@ void MyDummyOption::initialize() {
     _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
     _pLaserChipRotation->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
-    for (int i = 0; i < 40; i++) { //レーザーストック
+    for (int i = 0; i < 100; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MYS_LaserChip" << i;
@@ -145,6 +145,8 @@ void MyDummyOption::processBehavior() {
         _RZ,
         _RY
      );
+    _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
+    _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
     _RZ2 = _RZ;
     _RY2 = _RY;
     _X += GameGlobal::_pMyShip->_X;
@@ -159,17 +161,28 @@ void MyDummyOption::processBehavior() {
     if (VB::isBeingPressed(VB_SHOT2)) {
         MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
-            pLaser->_X = _X2;
-            pLaser->_Y = _Y2;
-            pLaser->_Z = _Z2;
 
             pLaser->_pGeoMover->_vX = Q._x;
             pLaser->_pGeoMover->_vY = Q._y;
             pLaser->_pGeoMover->_vZ = Q._z;
             pLaser->_pGeoMover->_angRzMove = _RZ2;
             pLaser->_pGeoMover->_angRyMove = _RY2;
+            static angle angWk;
+            if ((0 <= _RZ2 && _RZ2 < ANGLE90) ||
+                (ANGLE270 <= _RZ2 && _RZ2 < ANGLE360) ) {
+                angWk = 0;
+            } else {
+                angWk = ANGLE180;
+            }
+
+            pLaser->_pGeoMover->_angRot[AXIS_X] = angWk;
             pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
             pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY2;
+            pLaser->_pGeoMover->behave();
+            pLaser->_X = _X2;
+            pLaser->_Y = _Y2;
+            pLaser->_Z = _Z2;
+
         }
     }
 

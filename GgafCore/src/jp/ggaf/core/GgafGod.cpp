@@ -62,9 +62,9 @@ void GgafGod::be() {
      ___EndSynchronized; // <----- ”r‘¼I—¹
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
-        if (_num_actor_playing > 600) {
+        if (_num_actor_playing > 800) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 3);
-        } else if (_num_actor_playing > 400) {
+        } else if (_num_actor_playing > 700) {
             _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];

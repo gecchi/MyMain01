@@ -51,7 +51,7 @@ void MyShip::initialize() {
 
     _pMyWaves001Rotation = NEW RotationActor("RotWave001");
     MyWave001* pWave;
-    for (int i = 0; i < 50; i++) { //自弾ストック
+    for (int i = 0; i < 10; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
         pWave->inactivateTreeImmediately();
         _pMyWaves001Rotation->addSubLast(pWave);
@@ -60,7 +60,7 @@ void MyShip::initialize() {
 
     _pLaserChipRotation = NEW LaserChipRotationActor("MyRotLaser");
     MyLaserChip001* pChip;
-    for (int i = 0; i < 32; i++) { //レーザーストック
+    for (int i = 0; i < 40; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MyLaserChip001_" << i;
@@ -86,6 +86,48 @@ void MyShip::initialize() {
 void MyShip::processBehavior() {
     _stc = VB::getBeingPressedStick();
     if (_stc != 0) {
+//////////////////////////
+        if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
+            switch (_stc) {
+                case VB_UP_STC:
+                    _pGeoMover->addRzMoveAngle(1000);
+                    break;
+                case VB_UP_RIGHT_STC:
+                    _pGeoMover->addRzMoveAngle(1000);
+                    _pGeoMover->addRyMoveAngle(-1000);
+                    break;
+                case VB_UP_LEFT_STC:
+                    _pGeoMover->addRzMoveAngle(1000);
+                    _pGeoMover->addRyMoveAngle(1000);
+                    break;
+                case VB_LEFT_STC:
+                    _pGeoMover->addRyMoveAngle(1000);
+                    break;
+                case VB_RIGHT_STC:
+                    _pGeoMover->addRyMoveAngle(-1000);
+                    break;
+                case VB_DOWN_STC:
+                    _pGeoMover->addRzMoveAngle(-1000);
+                    break;
+                case VB_DOWN_RIGHT_STC:
+                    _pGeoMover->addRzMoveAngle(-1000);
+                    _pGeoMover->addRyMoveAngle(-1000);
+                    break;
+                case VB_DOWN_LEFT_STC:
+                    _pGeoMover->addRzMoveAngle(-1000);
+                    _pGeoMover->addRyMoveAngle(1000);
+                    break;
+                default:
+                    break;
+            }
+            _pGeoMover->setRotAngle(AXIS_Z, _pGeoMover->_angRzMove);
+            _pGeoMover->setRotAngle(AXIS_Y, _pGeoMover->_angRyMove);
+
+        } else {
+//////////////////////
+
+
+
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
             if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
                 if (VB::isBeingPressed(VB_ZMOVE)) {
@@ -125,6 +167,9 @@ void MyShip::processBehavior() {
 
             }
         }
+//////////////
+        }
+//////////////
     } else {
         if (VB::isBeingPressed(VB_ZMOVE)) {
             //ニュートラルターボ
@@ -137,6 +182,18 @@ void MyShip::processBehavior() {
             turnFaceNeutralXZ();
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
     //X軸転落ち着け
     if (_pGeoMover->_angveloRot[AXIS_X] > _angRXTopVelo_MZ) {
         _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
@@ -165,7 +222,24 @@ void MyShip::processBehavior() {
         //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
         MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipRotation->obtain();
         if (pLaser != NULL) {
+            pLaser->_pGeoMover->_vX = _pGeoMover->_vX;
+            pLaser->_pGeoMover->_vY = _pGeoMover->_vY;
+            pLaser->_pGeoMover->_vZ = _pGeoMover->_vZ;
+            pLaser->_pGeoMover->_angRzMove = _pGeoMover->_angRzMove;
+            pLaser->_pGeoMover->_angRyMove = _pGeoMover->_angRyMove;
+            static angle wk;
+            if ((0<=_pGeoMover->_angRzMove && _pGeoMover->_angRzMove < ANGLE90) ||
+                (ANGLE270<=_pGeoMover->_angRzMove && _pGeoMover->_angRzMove < ANGLE360) ) {
+                wk = 0;
+            } else {
+                wk = ANGLE180;
+            }
+            pLaser->_pGeoMover->_angRot[AXIS_X] = wk;
+            pLaser->_pGeoMover->_angRot[AXIS_Z] = _pGeoMover->_angRzMove;
+            pLaser->_pGeoMover->_angRot[AXIS_Y] = _pGeoMover->_angRyMove;
+            pLaser->_pGeoMover->behave();
             pLaser->setGeometry(this);
+
             //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }
     }
@@ -199,6 +273,14 @@ void MyShip::processBehavior() {
         _SY += 300;
         _SZ += 300;
     }
+
+
+
+
+
+    if (_stc != 0) {
+    }
+
 
     //座標に反映
     _pGeoMover->behave();

@@ -64,7 +64,7 @@ void GgafDx9SpriteActor::processDrawMain() {
 
     static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
     if (_isBillboardingFlg) {
-        GgafDx9UntransformedActor::getWorldMatrix_BillBoardScMv(this, matWorld);
+        GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
     } else {
         GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
     }

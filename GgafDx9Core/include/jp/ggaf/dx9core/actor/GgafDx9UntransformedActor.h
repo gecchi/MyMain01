@@ -145,7 +145,9 @@ public:
     static void getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void getWorldMatrix_BillBoardScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    static void getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     virtual ~GgafDx9UntransformedActor(); //デストラクタ
 };
