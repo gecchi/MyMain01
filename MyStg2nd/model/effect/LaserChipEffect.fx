@@ -72,14 +72,18 @@ OUT_VS GgafDx9VS_LaserChip(
 	out_vs.pos          = mul(posWorldView, g_matProj);  // ŽË‰e•ÏŠ·
 
 	//UV
-	if (g_kind == 1) {
+	if (g_kind == 2) {
+		out_vs.uv = prm_uv;
+	} else if (g_kind == 1) {
 		out_vs.uv.x = prm_uv.x - 0.5;
 		out_vs.uv.y = prm_uv.y;
 	} else if (g_kind == 3) {
 		out_vs.uv.x = prm_uv.x;
 		out_vs.uv.y = prm_uv.y - 0.5;
 	} else {
-		out_vs.uv = prm_uv;
+		//‰½‚à•`‰æ‚µ‚½‚­‚È‚¢
+		out_vs.uv.x = 0.1;
+		out_vs.uv.y = 0.1;
 	}
 	return out_vs;
 }

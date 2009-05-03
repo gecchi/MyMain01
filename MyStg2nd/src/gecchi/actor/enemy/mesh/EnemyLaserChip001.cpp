@@ -51,9 +51,7 @@ void EnemyLaserChip001::processBehavior() {
 }
 
 void EnemyLaserChip001::processJudgement() {
-    if (isOffScreen()) {
-        inactivateTree();
-    }
+    LaserChip::processJudgement();
 }
 
 

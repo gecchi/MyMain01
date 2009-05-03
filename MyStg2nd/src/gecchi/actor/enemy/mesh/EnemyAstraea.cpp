@@ -9,7 +9,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
     //レーザーストック
     _pLaserChipRotation = NEW LaserChipRotationActor("RotLaser");
     EnemyLaserChip001* pChip;
-    for (int i = 0; i < 5; i++) {
+    for (int i = 0; i < 50; i++) {
         Sleep(2);
         pChip = NEW EnemyLaserChip001("L");
         pChip->inactivateImmediately();
@@ -20,9 +20,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 4;
-    _shot_interval = 120;
-    _angveloTurn = 3000;
+    _laser_length = 30;
+    _shot_interval = 20;
+    _angveloTurn = 2000;
 }
 
 void EnemyAstraea::initialize() {

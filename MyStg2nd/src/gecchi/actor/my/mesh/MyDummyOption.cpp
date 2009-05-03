@@ -50,7 +50,7 @@ void MyDummyOption::initialize() {
     _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
     _pLaserChipRotation->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
-    for (int i = 0; i < 100; i++) { //レーザーストック
+    for (int i = 0; i < 40; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MYS_LaserChip" << i;

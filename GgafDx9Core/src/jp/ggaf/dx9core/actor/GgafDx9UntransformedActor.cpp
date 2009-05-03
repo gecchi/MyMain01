@@ -356,16 +356,19 @@ void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* 
 
 bool GgafDx9UntransformedActor::isOffScreen() {
 //    if (_Z > 0) {
-        if (_Y < -1.0*(_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY) {
+        static int hy;
+        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY + 256000;
+
+        if (_Y < -1.0 * hy) {
             return true;
         } else {
-            if (_Y > (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY) {
+            if (_Y > hy) {
                 return true;
             } else {
-                if (_X > ((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY)*GgafDx9Universe::_pCamera->_screen_aspect) {
+                if (_X > hy*GgafDx9Universe::_pCamera->_screen_aspect) {
                     return true;
                 } else {
-                    if (_X < -1.0*((_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY)*GgafDx9Universe::_pCamera->_screen_aspect) {
+                    if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
                         return true;
                     } else {
                         if (_Z > -1 * GgafDx9Universe::_pCamera->_Z *2) {

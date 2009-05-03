@@ -34,7 +34,10 @@ public:
     LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
 	LaserChip* _pChip_behind;
-    /** 自身のWorld変換行列 */
+	/** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先） */
+	int _chiptex_kind;
+
+	/** 自身のWorld変換行列 */
     D3DXMATRIX _matWorld;
     /** 一つ前方のWorld変換行列 */
     D3DXMATRIX _matWorld_front;

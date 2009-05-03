@@ -52,9 +52,7 @@ void MyLaserChip001::processBehavior() {
 }
 
 void MyLaserChip001::processJudgement() {
-    if (isOffScreen()) {
-        inactivateTree();
-    }
+    LaserChip::processJudgement();
 }
 
 
