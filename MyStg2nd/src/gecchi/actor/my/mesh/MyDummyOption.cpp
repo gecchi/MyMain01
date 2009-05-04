@@ -50,7 +50,7 @@ void MyDummyOption::initialize() {
     _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
     _pLaserChipRotation->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
-    for (int i = 0; i < 40; i++) { //レーザーストック
+    for (int i = 0; i < 30; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MYS_LaserChip" << i;
@@ -102,7 +102,7 @@ void MyDummyOption::processBehavior() {
     //         ○→
     //          (-50000, -1*_radius, 0)
     //
-    //しかしまだ色々回転が必要。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
+    //しかしまだ色々回転が必要。あとは普通に力技（普通に計算）で、座標回転、向き回転を行なう。
     //TODO:いつか汎用化最適化。
 
 
@@ -134,7 +134,7 @@ void MyDummyOption::processBehavior() {
 
     //計算
     GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, k*vx, k*vy, k*vz); //R*P
+    Q.mul(0, k*vx, k*vy, k*vz); //R*P 回転軸が方向ベクトル
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算

@@ -42,7 +42,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
 void MyShip::initialize() {
     _pMyShots001Rotation = NEW RotationActor("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 50; i++) { //自弾ストック
+    for (int i = 0; i < 10; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateTreeImmediately();
         _pMyShots001Rotation->addSubLast(pShot);
@@ -60,7 +60,7 @@ void MyShip::initialize() {
 
     _pLaserChipRotation = NEW LaserChipRotationActor("MyRotLaser");
     MyLaserChip001* pChip;
-    for (int i = 0; i < 40; i++) { //レーザーストック
+    for (int i = 0; i < 30; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MyLaserChip001_" << i;

@@ -30,9 +30,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 void LaserChip::initialize() {
 
     _pGeoMover->setMoveVelocity(30000);
-    _pChecker->useHitAreaBoxNum(2);
+    _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
+    //_pChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _fAlpha = 0.9;
 }
@@ -72,7 +72,7 @@ void LaserChip::processBehavior() {
 
     //座標に反映
     _pGeoMover->behave();
-
+/*
     //中間地点にも当たり判定
     static int centerX, centerY, centerZ;
     if (_pChip_front != NULL) {
@@ -93,6 +93,8 @@ void LaserChip::processBehavior() {
       _pChecker->getHitAreaBoxs()->disable(1);
 
     }
+*/
+
 }
 
 void LaserChip::processJudgement() {
@@ -110,7 +112,7 @@ void LaserChip::processJudgement() {
                     _chiptex_kind = 3; //先頭テクスチャ
                 }
             } else {
-                _chiptex_kind = 1; //末尾テクスチャ
+                _chiptex_kind = 1; //発射元の末尾テクスチャ
             }
         } else {
             _chiptex_kind = 1; //末尾テクスチャ
