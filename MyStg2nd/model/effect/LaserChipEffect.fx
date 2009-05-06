@@ -58,11 +58,12 @@ OUT_VS GgafDx9VS_LaserChip(
 	}
 
 	float4 posWorld;
-	if (prm_pos.x > 0) {        
-		g_matWorld_front._41 = g_X;  // 一つ前方のチップ座標へ
-		g_matWorld_front._42 = g_Y;  
-		g_matWorld_front._43 = g_Z;  
-		posWorld = mul( prm_pos, g_matWorld_front );  // World変換
+	if (prm_pos.x > 0) {
+		float4x4 matWorld_tmp = g_matWorld_front; 
+		matWorld_tmp._41 = g_X;  // 一つ前方のチップ座標へ
+		matWorld_tmp._42 = g_Y;  
+		matWorld_tmp._43 = g_Z;  
+		posWorld = mul( prm_pos, matWorld_tmp );  // World変換
 	} else {
 		//頂点計算
 		posWorld = mul( prm_pos, g_matWorld );        // World変換
