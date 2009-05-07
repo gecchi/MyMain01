@@ -19,12 +19,13 @@ GgafDx9MorphTwoMeshActor::GgafDx9MorphTwoMeshActor(const char* prm_name,
     _pMorphTwoMeshModel = (GgafDx9MorphTwoMeshModel*)_pModelCon->view();
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
+    _pMorphTwoMeshEffect = (GgafDx9MorphTwoMeshEffect*)_pEffectCon->view();
     //モデルのオリジナルマテリアルをコピーして保存
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pMorphTwoMeshModel->_dwNumMaterials];
     for (DWORD i = 0; i < _pMorphTwoMeshModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pMorphTwoMeshModel->_paD3DMaterial9_default[i];
     }
+    _weight = 0.0;
 }
 
 void GgafDx9MorphTwoMeshActor::setAlpha(float prm_fAlpha) {
@@ -38,10 +39,10 @@ void GgafDx9MorphTwoMeshActor::setAlpha(float prm_fAlpha) {
 
 void GgafDx9MorphTwoMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    pID3DXEffect = _pMorphTwoMeshEffect->_pID3DXEffect;
     HRESULT hr;
     //VIEW変換行列
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pMorphTwoMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphTwoMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
 
@@ -52,10 +53,10 @@ void GgafDx9MorphTwoMeshActor::processDrawMain() {
 	hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "GgafDx9MorphTwoMeshActor::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
-    hr = pID3DXEffect->SetFloat(_pMeshEffect->_hWeight, 0.5 );
+    hr = pID3DXEffect->SetFloat(_pMorphTwoMeshEffect->_hWeight, _weight );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphTwoMeshActor::processDrawMain() SetMatrix(_hWeight) に失敗しました。");
 
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMorphTwoMeshEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphTwoMeshActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );

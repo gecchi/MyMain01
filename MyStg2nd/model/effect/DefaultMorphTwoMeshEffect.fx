@@ -8,7 +8,7 @@
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
-float　g_weight; //重み
+float g_weight; //重み
 
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
@@ -39,10 +39,11 @@ struct OUT_VS
 OUT_VS GgafDx9VS_DefaultMorphTwoMesh(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv      : TEXCOORD0.      // モデルの頂点のUV
-
+      float2 prm_uv0      : TEXCOORD0,      // モデルの頂点のUV
       float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット頂点
-      float4 prm_normal1 : NORMAL1         // モデルのモーフターゲット頂点の法線
+      float3 prm_normal1 : NORMAL1,         // モデルのモーフターゲット頂点の法線
+      float2 prm_uv1      : TEXCOORD1      // モデルの頂点のUV
+
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
@@ -54,9 +55,9 @@ OUT_VS GgafDx9VS_DefaultMorphTwoMesh(
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線ブレンド＆変換
 	float3 normal = lerp(prm_normal0, prm_normal1, g_weight );  //ブレンド
-    out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
-	out_vs.uv = prm_uv;
+	out_vs.uv = prm_uv1;
 	return out_vs;
 }
 

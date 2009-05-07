@@ -9,7 +9,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9UntransformedActor(prm_name,
                             NEW GgafDx9GeometryMover(this),
                             NEW StgChecker(this) ) {
-    _angVelocity_Turn = 3600;
+    _angVelocity_Turn = 2000;
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radius = 120000;

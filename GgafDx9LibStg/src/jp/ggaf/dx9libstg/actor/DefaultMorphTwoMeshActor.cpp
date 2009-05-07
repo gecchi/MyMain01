@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 DefaultMorphTwoMeshActor::DefaultMorphTwoMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx9MorphTwoMeshActor(prm_name,
                      prm_model,
-                     "2/DefaultMorphTwoMeshActor",
+                     "2/DefaultMorphTwoMeshEffect",
                      "DefaultMorphTwoMeshTechnique",
                      NEW GgafDx9GeometryMover(this),
                      NEW StgChecker(this) ) {

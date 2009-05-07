@@ -86,6 +86,12 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
     _stc = VB::getBeingPressedStick();
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+        _weight += 0.01;
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+        _weight -= 0.01;
+    }
     if (_stc != 0) {
 //////////////////////////
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {

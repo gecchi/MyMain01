@@ -26,7 +26,10 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
                      &_pID3DXEffect,         // [out] LPD3DXEFFECT* ppEffect
                      &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
                 );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
+	if (hr != D3D_OK && pError == NULL) {
+		throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" が存在しないのではないだろうか・・・");
+	}
+	potentialDx9Exception(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
     TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" のエフェクトを生成しました。");
 }
 

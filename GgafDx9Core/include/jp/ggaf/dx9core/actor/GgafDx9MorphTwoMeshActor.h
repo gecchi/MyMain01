@@ -22,9 +22,9 @@ public:
     /** エフェクト資源接続 */
     GgafDx9EffectConnection* _pEffectCon;
     /** エフェクト資源 */
-    GgafDx9MeshEffect* _pMeshEffect;
-
-
+    GgafDx9MorphTwoMeshEffect* _pMorphTwoMeshEffect;
+    /** 重み */
+    float _weight;
     /**
      * コンストラクタ
      * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）

@@ -29,21 +29,21 @@ GgafDx9MorphTwoMeshModel::GgafDx9MorphTwoMeshModel(char* prm_platemodel_name) : 
 HRESULT GgafDx9MorphTwoMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MorphTwoMeshModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
-    static GgafDx9MeshActor* pTargetActor;
-    pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
+    static GgafDx9MorphTwoMeshActor* pTargetActor;
+    pTargetActor = (GgafDx9MorphTwoMeshActor*)prm_pActor_Target;
     //対象MeshActorのエフェクトラッパ
-    static GgafDx9MeshEffect* pMeshEffect;
-    pMeshEffect = pTargetActor->_pMeshEffect;
+    static GgafDx9MorphTwoMeshEffect* pMorphTwoMeshEffect;
+    pMorphTwoMeshEffect = pTargetActor->_pMorphTwoMeshEffect;
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    pID3DXEffect = pMorphTwoMeshEffect->_pID3DXEffect;
 
 	HRESULT hr;
     UINT material_no;
     //頂点バッファとインデックスバッファを設定
     GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9);
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[0],  0, _size_vertec_unit);
-    GgafDx9God::_pID3DDevice9->SetStreamSource(1, _paIDirect3DVertexBuffer9[1],  0, sizeof(float)*(3+3));
+    GgafDx9God::_pID3DDevice9->SetStreamSource(1, _paIDirect3DVertexBuffer9[1],  0, _size_vertec_unit);
     //GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MorphTwoMeshModel::FVF);
     GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
@@ -58,7 +58,7 @@ HRESULT GgafDx9MorphTwoMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             //無ければテクスチャ無し
             GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
         }
-        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        hr = pID3DXEffect->SetValue(pMorphTwoMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphTwoMeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
         hr = pID3DXEffect->CommitChanges();
         potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphTwoMeshModel::draw CommitChanges() に失敗しました。");

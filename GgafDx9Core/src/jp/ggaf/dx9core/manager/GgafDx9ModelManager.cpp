@@ -471,7 +471,7 @@ void GgafDx9ModelManager::restoreMorphTwoMeshModel(GgafDx9MorphTwoMeshModel* prm
 //    D3DMATERIAL9* paD3DMaterial9;
 
     //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X iox;
+    ToolBox::IO_Model_X iox[2];
 
     Frm::Model3D** paModel3D = NULL;
     Frm::Mesh** paMeshesFront = NULL;
@@ -492,7 +492,7 @@ void GgafDx9ModelManager::restoreMorphTwoMeshModel(GgafDx9MorphTwoMeshModel* prm
         for (int pattern = 0; pattern < 2; pattern++) {
             paModel3D[pattern] = NEW Frm::Model3D();
 
-            bool r = iox.Load(xfile_name[pattern], paModel3D[pattern]);
+            bool r = iox[pattern].Load(xfile_name[pattern], paModel3D[pattern]);
             if (r == false) {
                 throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphTwoMeshModel] Xファイルの読込み失敗。対象="<<xfile_name[pattern]);
             }
@@ -729,8 +729,13 @@ void GgafDx9ModelManager::restoreMorphTwoMeshModel(GgafDx9MorphTwoMeshModel* prm
            {0, sizeof(float)*6              , D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    0},
            {0, sizeof(float)*6+sizeof(DWORD), D3DDECLTYPE_FLOAT2,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 0},
 
-           {1,  0                           , D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
+           {1,               0              , D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
            {1, sizeof(float)*3              , D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   1},
+           {1, sizeof(float)*6              , D3DDECLTYPE_D3DCOLOR, D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_COLOR,    1},
+           {1, sizeof(float)*6+sizeof(DWORD), D3DDECLTYPE_FLOAT2,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_TEXCOORD, 1},
+//
+//           {1,  0                           , D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_POSITION, 1},
+//           {1, sizeof(float)*3              , D3DDECLTYPE_FLOAT3,   D3DDECLMETHOD_DEFAULT, D3DDECLUSAGE_NORMAL,   1},
 
            D3DDECL_END()
         };
