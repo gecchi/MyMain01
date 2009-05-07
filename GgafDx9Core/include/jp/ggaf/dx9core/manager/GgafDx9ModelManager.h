@@ -43,6 +43,7 @@ private:
     GgafDx9BoardModel* createBoardModel(char* prm_model_name);
 
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);
+    GgafDx9MorphTwoMeshModel* createMorphTwoMeshModel(char* prm_model_name);
 
 
 public:
@@ -80,6 +81,7 @@ public:
 
     void restoreMeshModel(GgafDx9MeshModel* prm_pD3DXMeshModel);
 
+    void restoreMorphTwoMeshModel(GgafDx9MorphTwoMeshModel* prm_pModel);
 
     /**
      * オーバーライド

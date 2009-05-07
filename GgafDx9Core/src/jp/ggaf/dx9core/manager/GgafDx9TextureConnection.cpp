@@ -10,10 +10,10 @@ GgafDx9TextureConnection::GgafDx9TextureConnection(char* prm_idstr, IDirect3DTex
 }
 
 void GgafDx9TextureConnection::processReleaseResource(IDirect3DTexture9* prm_pResource) {
-    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<_idstr<<" 開始");
+    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<getIdStr()<<" 開始");
     _pManager->dump();
 	RELEASE_IMPOSSIBLE_NULL(prm_pResource);
-    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<_idstr<<" 完了");
+    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<getIdStr()<<" 完了");
 }
 
 GgafDx9TextureConnection::~GgafDx9TextureConnection() {
