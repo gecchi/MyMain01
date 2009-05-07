@@ -10,13 +10,14 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/ceres") {
+MyShip::MyShip(const char* prm_name) : DefaultMorphTwoMeshActor(prm_name, "2/ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
+
 
     //CommonSceneがnewの場合設定
     //キャッシュロード

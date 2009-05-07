@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MeshModel用シェーダー
 //
-// Auther:Masatoshi Tsuge
+// author : Masatoshi Tsuge
 // date:2009/03/06 
 ////////////////////////////////////////////////////////////////////////////////
 
@@ -69,9 +69,9 @@ float4 GgafDx9PS_DefaultMesh(
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
-	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
+	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	//α計算、αは法線、ライト方向が関係なしにするので別計算。本来ライトα色も掛けるが、ライトは省略。
+	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;
@@ -108,7 +108,7 @@ technique DefaultMeshTechnique
 	//・Diffuseライト色
 	//・Ambientライト色
 	//・ライト方向
-	//・オブジェクトのマテリアルのDiffuse反射（Ambient反射と共通）
+	//・オブジェクトのマテリアルのDiffuse反射（色はAmbient反射と共通）
 	//・オブジェクトのテクスチャ
 	//・半透明α（Diffuse反射αとテクスチャαの乗算）
 	//【使用条件】
