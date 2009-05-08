@@ -13,13 +13,17 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
     char* effect_name = prm_idstr + 2; //ÇRï∂éöñ⁄à»ç~
     GgafDx9Effect* pResourceEffect;
     switch (effect_type) {
+        case 'D':
+        case 'd':
         case 'X':
             pResourceEffect = NEW GgafDx9MeshEffect(effect_name);
             break;
         case '2':
             pResourceEffect = NEW GgafDx9MorphTwoMeshEffect(effect_name);
             break;
-
+        case 'M':
+            pResourceEffect = NEW GgafDx9MorphMeshEffect(effect_name);
+            break;
         case 'S':
             pResourceEffect = NEW GgafDx9SpriteEffect(effect_name);
             break;
