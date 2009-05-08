@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMorphTwoMeshActor(prm_name, "2/ceres") {
+MyShip::MyShip(const char* prm_name) : DefaultMorphMeshActor(prm_name, "M/2/ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
