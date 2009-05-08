@@ -14,6 +14,7 @@ class DefaultScene;
 class DefaultD3DXMeshActor;
 class DefaultMeshActor;
 class DefaultMorphTwoMeshActor;
+class DefaultMorphMeshActor;
 class DefaultDynaD3DXMeshActor;
 class DefaultCubeActor;
 class DefaultSpriteActor;
@@ -38,6 +39,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMorphTwoMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultMorphMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultDynaD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
@@ -49,8 +51,6 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
-
-
 
 #define DISP_HITAREA 1
 
