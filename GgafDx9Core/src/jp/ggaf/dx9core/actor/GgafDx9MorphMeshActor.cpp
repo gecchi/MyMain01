@@ -4,11 +4,11 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
-                                   const char* prm_model,
-                                   const char* prm_effect,
-                                   const char* prm_technique,
-                                   GgafDx9GeometryMover* prm_pGeoMover,
-                                   GgafDx9GeometryChecker* prm_pGeoChecker) :
+                                             const char* prm_model,
+                                             const char* prm_effect,
+                                             const char* prm_technique,
+                                             GgafDx9GeometryMover*   prm_pGeoMover,
+                                             GgafDx9GeometryChecker* prm_pGeoChecker) :
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker)
 {
     _class_name = "GgafDx9MorphMeshActor";
@@ -25,7 +25,10 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pMorphMeshModel->_paD3DMaterial9_default[i];
     }
-    _weight = 0.0;
+    for (int i = 1; i < 10; i++) {
+        _weight[i] = 0.0;
+    }
+
 }
 
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
@@ -49,25 +52,33 @@ void GgafDx9MorphMeshActor::processDrawMain() {
     static D3DXMATRIX matWorld; //UNIVERSE変換行列
     GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
 
-
 	hr = pID3DXEffect->SetTechnique(_technique);
     potentialDx9Exception(hr, S_OK, "GgafDx9MorphMeshActor::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
-    hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight, _weight );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetMatrix(_hWeight) に失敗しました。");
+    hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetInt(_hMorphTargetnum) に失敗しました。");
+    for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
+        hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight[pattern], _weight[pattern]);
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetFloat(_hWeight["<<pattern<<"]) に失敗しました。");
+    }
 
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatWorld, &matWorld );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
     UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() Begin() に失敗しました。");
-    for (UINT pass = 0; pass < numPass; pass++) {
-        hr = pID3DXEffect->BeginPass(pass);
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() BeginPass("<<pass<<") に失敗しました。");
-        _pMorphMeshModel->draw(this);
-        hr = pID3DXEffect->EndPass();
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() に失敗しました。");
-    }
+
+    //モーフターゲットの数により pass を切り替えている
+    //プリマリメッシュのみ                             = 0
+    //プライマリメッシュ＋モーフターゲットメッシュ１つ = 1
+    //プライマリメッシュ＋モーフターゲットメッシュ２つ = 2
+    //以下９まで
+    hr = pID3DXEffect->BeginPass(_pMorphMeshModel->_morph_target_num);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() BeginPass("<<_pMorphMeshModel->_morph_target_num<<") に失敗しました。");
+    _pMorphMeshModel->draw(this);
+    hr = pID3DXEffect->EndPass();
+
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() に失敗しました。");
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() に失敗しました。");
 

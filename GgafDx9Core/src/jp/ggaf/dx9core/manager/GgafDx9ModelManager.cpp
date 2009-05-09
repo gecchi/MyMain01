@@ -870,10 +870,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     //　　　　・マテリアル配列(要素数＝マテリアル数)
     //　　　　・テクスチャ配列(要素数＝マテリアル数)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-    int mesh_pattern_num = prm_pMorphMeshModel->_mesh_pattern_num;
-    string* paXfileName = NEW string[mesh_pattern_num];
+    int morph_target_num = prm_pMorphMeshModel->_morph_target_num;
+    string* paXfileName = NEW string[morph_target_num+1];
 
-    for(int i = 0; i < mesh_pattern_num; i++) {
+    for(int i = 0; i < morph_target_num+1; i++) {
         char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //２文字目以降  "2/ceres" → "ceres"
         paXfileName[i] = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"となる
     }
@@ -895,14 +895,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     GgafDx9TextureConnection** papTextureCon = NULL;
 
     if (prm_pMorphMeshModel->_papModel3D == NULL) {
-        paIOX = NEW ToolBox::IO_Model_X[mesh_pattern_num];
-        papModel3D = NEW Frm::Model3D*[mesh_pattern_num];
-        papMeshesFront = NEW Frm::Mesh*[mesh_pattern_num];
-        papaVtxBuffer_org_morph = NEW GgafDx9MorphMeshModel::VERTEX_MORPH*[mesh_pattern_num-1];
+        paIOX = NEW ToolBox::IO_Model_X[morph_target_num+1];
+        papModel3D = NEW Frm::Model3D*[morph_target_num+1];
+        papMeshesFront = NEW Frm::Mesh*[morph_target_num+1];
+        papaVtxBuffer_org_morph = NEW GgafDx9MorphMeshModel::VERTEX_MORPH*[morph_target_num];
         int nVertices;
         int nFaces;
 
-        for (int pattern = 0; pattern < mesh_pattern_num; pattern++) {
+        for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], papModel3D[pattern]);
             if (r == false) {
@@ -1170,10 +1170,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
     if (prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9 == NULL) {
 
-        int elemnum = (4+(2*(mesh_pattern_num-1)))+1;
+        int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 構造体の配列要素数
         D3DVERTEXELEMENT9* paDecl = NEW D3DVERTEXELEMENT9[elemnum];
                                                          // 4 = プライマリメッシュ
-                                                         // (2*(mesh_pattern_num-1)) = モーフターゲットメッシュ
+                                                         // (2*morph_target_num) = モーフターゲットメッシュ
                                                          // 1 = D3DDECL_END()
         //プライマリメッシュ部頂点フォーマット
         //float x, y, z; // 頂点座標
@@ -1237,8 +1237,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     }
 
     if (prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary == NULL) {
-        prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[mesh_pattern_num-1];
-        for (int pattern = 0; pattern < mesh_pattern_num; pattern++) {
+        prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[morph_target_num];
+        for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             //頂点バッファ作成
             if (pattern == 0) {
                 hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(

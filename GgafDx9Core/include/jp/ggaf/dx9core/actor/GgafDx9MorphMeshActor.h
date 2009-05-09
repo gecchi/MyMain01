@@ -24,7 +24,7 @@ public:
     /** エフェクト資源 */
     GgafDx9MorphMeshEffect* _pMorphMeshEffect;
     /** 重み */
-    float _weight;
+    float _weight[10];
     /**
      * コンストラクタ
      * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
@@ -34,11 +34,11 @@ public:
      * @param prm_pGeoChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
      */
     GgafDx9MorphMeshActor (const char* prm_name,
-                     const char* prm_model,
-                     const char* prm_effect,
-                     const char* prm_technique,
-                     GgafDx9GeometryMover* prm_pGeoMover,
-                     GgafDx9GeometryChecker* prm_pGeoChecker );
+                           const char* prm_model,
+                           const char* prm_effect,
+                           const char* prm_technique,
+                           GgafDx9GeometryMover*   prm_pGeoMover,
+                           GgafDx9GeometryChecker* prm_pGeoChecker );
 
     /**
      * ＜OverRide です＞<BR>

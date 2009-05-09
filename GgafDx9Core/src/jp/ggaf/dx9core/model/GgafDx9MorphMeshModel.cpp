@@ -13,8 +13,8 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     // ここでprm_model_name は "4/xxxxx" という文字列になっている。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
 
-    // モデル名からメッシュ数(プライマリ＋モーフターゲット数）を取得
-    _mesh_pattern_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
+    // モデル名からフターゲット数を取得
+    _morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
 
     _papModel3D = NULL;
     _papMeshesFront = NULL;
@@ -51,12 +51,9 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     UINT material_no;
     //頂点バッファとインデックスバッファを設定
     GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9);
-    for (int pattern = 0; pattern < _mesh_pattern_num; pattern++) {
-        if (pattern == 0) {
-            GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertec_unit_primary);
-        } else {
-            GgafDx9God::_pID3DDevice9->SetStreamSource(pattern, _paIDirect3DVertexBuffer9_morph[pattern-1], 0, _size_vertec_unit_morph);
-        }
+    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertec_unit_primary);
+    for (int i = 1; i <= _morph_target_num; i++) {
+        GgafDx9God::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertec_unit_morph);
     }
     //GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MorphMeshModel::FVF);
     GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
@@ -111,7 +108,7 @@ void GgafDx9MorphMeshModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
-    for (int pattern = 0; pattern < _mesh_pattern_num; pattern++) {
+    for (int pattern = 0; pattern < _morph_target_num; pattern++) {
         if (pattern == 0) {
             RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9_primary);
             DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org_primary);

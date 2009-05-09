@@ -8,7 +8,16 @@
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
-float g_weight; //重み
+int g_morph_target_num;  //メッシュパターン数(モーフターゲット数）
+float g_weight1; //重み1
+float g_weight2; //重み2
+float g_weight3; //重み3
+float g_weight4; //重み4
+float g_weight5; //重み5
+float g_weight6; //重み6
+float g_weight7; //重み7
+float g_weight8; //重み8
+float g_weight9; //重み9
 
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
@@ -35,29 +44,109 @@ struct OUT_VS
 
 ///////////////////////////////////////////////////////////////////////////
 
-//メッシュ標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultMorphMesh(
+//モーフターゲットなし
+OUT_VS GgafDx9VS_DefaultMorphMesh0(
       float4 prm_pos0    : POSITION0,      // モデルの頂点
       float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
-      float2 prm_uv0      : TEXCOORD0,      // モデルの頂点のUV
-      float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット頂点
-      float3 prm_normal1 : NORMAL1,         // モデルのモーフターゲット頂点の法線
-      float2 prm_uv1      : TEXCOORD1      // モデルの頂点のUV
+      float2 prm_uv0     : TEXCOORD0       // モデルの頂点のUV
+
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+	//頂点計算
+	float4 posWorld = mul( prm_pos0, g_matWorld );               // World変換
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
+    //法線計算
+    out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
+	//UVはそのまま
+	out_vs.uv = prm_uv0;
+	return out_vs;
+}
+
+//モーフターゲット１つ
+OUT_VS GgafDx9VS_DefaultMorphMesh1(
+      float4 prm_pos0    : POSITION0,      // モデルの頂点
+      float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
+      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
+      float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット1頂点
+      float3 prm_normal1 : NORMAL1         // モデルのモーフターゲット1頂点の法線
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点ブレンド＆変換
-	float4 pos = lerp(prm_pos0, prm_pos1, g_weight );           // ブレンド
+	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );           // ブレンド
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線ブレンド＆変換
-	float3 normal = lerp(prm_normal0, prm_normal1, g_weight );  //ブレンド
+	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );  //ブレンド
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
-	out_vs.uv = prm_uv1;
+	out_vs.uv = prm_uv0;
+	return out_vs;
+}
+
+
+//モーフターゲット２つ
+OUT_VS GgafDx9VS_DefaultMorphMesh2(
+      float4 prm_pos0    : POSITION0,      // モデルの頂点
+      float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
+      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
+      float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット1頂点
+      float3 prm_normal1 : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+      float4 prm_pos2    : POSITION2,      // モデルのモーフターゲット2頂点
+      float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+
+	//頂点ブレンド＆変換
+	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );          // ブレンド
+	pos = lerp(pos, prm_pos2, g_weight2 );
+	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
+    //法線ブレンド＆変換
+	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );  //ブレンド
+	normal = lerp(normal, prm_normal2, g_weight2 );
+	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+	//UVはそのまま
+	out_vs.uv = prm_uv0;
+	return out_vs;
+}
+
+//モーフターゲット３つ
+OUT_VS GgafDx9VS_DefaultMorphMesh3(
+      float4 prm_pos0    : POSITION0,      // モデルの頂点
+      float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
+      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
+      float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット1頂点
+      float3 prm_normal1 : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+      float4 prm_pos2    : POSITION2,      // モデルのモーフターゲット2頂点
+      float3 prm_normal2 : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+      float4 prm_pos3    : POSITION3,      // モデルのモーフターゲット3頂点
+      float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+
+	//頂点ブレンド＆変換
+	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );
+	pos = lerp(pos, prm_pos2, g_weight2);
+	pos = lerp(pos, prm_pos3, g_weight3);
+	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
+    //法線ブレンド＆変換
+	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );
+	normal = lerp(normal, prm_normal2, g_weight2);
+	normal = lerp(normal, prm_normal3, g_weight3);
+	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+	//UVはそのまま
+	out_vs.uv = prm_uv0;
 	return out_vs;
 }
 
@@ -110,13 +199,41 @@ technique DefaultMorphMeshTechnique
 	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
 	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	// s0レジスタ				:	2Dテクスチャ
-	pass P0 {
+	pass P1 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
 
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh();
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
 	}
+
+	pass P1 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+	}
+
+	pass P2 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+	}
+
+	pass P3 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+	}
+
 }
 

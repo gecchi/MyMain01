@@ -62,8 +62,8 @@ public:
         float nx, ny, nz; // 法線
     };
 
-    /** メッシュパターン数(プライマリ＋モーフターゲット数） */
-    int _mesh_pattern_num;
+    /** モーフターゲット数 */
+    int _morph_target_num;
     /** シェーダー入力頂点フォーマット */
     LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
     /** 頂点バッファ（プライマリ） */

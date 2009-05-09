@@ -9,7 +9,8 @@ class GgafDx9MorphMeshEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hWeight;
+    D3DXHANDLE _hMorphTargetnum;
+    D3DXHANDLE _hWeight[10];
     D3DXHANDLE _hMatView;
     D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hMaterialDiffuse;
