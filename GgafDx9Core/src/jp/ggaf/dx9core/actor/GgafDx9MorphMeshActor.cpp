@@ -14,7 +14,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     _class_name = "GgafDx9MorphMeshActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-    //モデル取得
+   //モデル取得
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
     _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pModelCon->view();
     //エフェクト取得
@@ -25,11 +25,13 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pMorphMeshModel->_paD3DMaterial9_default[i];
     }
+    //重み初期化
     for (int i = 1; i < 10; i++) {
         _weight[i] = 0.0;
     }
-
 }
+
+
 
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9UntransformedActor::setAlpha(prm_fAlpha);
@@ -82,6 +84,10 @@ void GgafDx9MorphMeshActor::processDrawMain() {
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() に失敗しました。");
 
+}
+
+int GgafDx9MorphMeshActor::getMorphTergetNum() {
+    return _pMorphMeshModel->_morph_target_num;
 }
 
 GgafDx9MorphMeshActor::~GgafDx9MorphMeshActor() {

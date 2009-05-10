@@ -15,7 +15,9 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
 
     // モデル名からフターゲット数を取得
     _morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
-
+    if (0 > _morph_target_num || _morph_target_num > 9) {
+        throwGgafCriticalException("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数は9までです。_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+    }
     _papModel3D = NULL;
     _papMeshesFront = NULL;
 
@@ -30,17 +32,16 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     _papTextureCon = NULL;
     _paIndexParam = NULL;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDx9ModelManager::restoreMeshModel(GgafDx9MorphMeshModel*)
+    //void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel*)
     //で行っている。
 }
 
-//描画
 HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
     static GgafDx9MorphMeshActor* pTargetActor;
     pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;
-    //対象MeshActorのエフェクトラッパ
+    //対象アクターのエフェクトラッパ
     static GgafDx9MorphMeshEffect* pMorphMeshEffect;
     pMorphMeshEffect = pTargetActor->_pMorphMeshEffect;
     //対象エフェクト
@@ -49,13 +50,13 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	HRESULT hr;
     UINT material_no;
-    //頂点バッファとインデックスバッファを設定
-    GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9);
+    //頂点バッファ設定
+    GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
     GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertec_unit_primary);
     for (int i = 1; i <= _morph_target_num; i++) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertec_unit_morph);
     }
-    //GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MorphMeshModel::FVF);
+    //インデックスバッファ設定
     GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
     //描画

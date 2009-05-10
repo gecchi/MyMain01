@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMorphMeshActor(prm_name, "M/3/ceres") {
+MyShip::MyShip(const char* prm_name) : DefaultMorphMeshActor(prm_name, "M/4/donatu") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -89,18 +89,23 @@ void MyShip::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
         _weight[1] += 0.01;
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
         _weight[1] -= 0.01;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
         _weight[2] += 0.01;
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
         _weight[2] -= 0.01;
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _weight[3] += 0.01;
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
         _weight[3] -= 0.01;
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+        _weight[4] += 0.01;
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+        _weight[4] -= 0.01;
     }
 
     if (_stc != 0) {

@@ -47,7 +47,7 @@ void BackGround01::processBehavior() {
     if (_x < -1024) {
         _x += 1024;
     } else {
-        _x -= 1;
+        _x -= 0.05;
     }
 
 }

@@ -1,23 +1,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MorphMeshModel用シェーダー
-//
 // author : Masatoshi Tsuge
-// date:2009/05/07 
+// date:2009/05/010 
 ////////////////////////////////////////////////////////////////////////////////
 
 float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
-int g_morph_target_num;  //メッシュパターン数(モーフターゲット数）
-float g_weight1; //重み1
-float g_weight2; //重み2
-float g_weight3; //重み3
-float g_weight4; //重み4
-float g_weight5; //重み5
-float g_weight6; //重み6
-float g_weight7; //重み7
-float g_weight8; //重み8
-float g_weight9; //重み9
+int g_morph_target_num;  //メッシュパターン数(モーフターゲット数）、現在未使用
+float g_weight1; //モーフターゲット１の重み
+float g_weight2; //モーフターゲット２の重み
+float g_weight3; //モーフターゲット３の重み
+float g_weight4; //モーフターゲット４の重み
+float g_weight5; //モーフターゲット５の重み
+float g_weight6; //モーフターゲット６の重み
+float g_weight7; //モーフターゲット７の重み
+float g_weight8; //モーフターゲット８の重み
+float g_weight9; //モーフターゲット９の重み
 
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
@@ -74,15 +73,16 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-
 	//頂点ブレンド＆変換
-	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );           // ブレンド
+	float4 pos = prm_pos0;
+	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線ブレンド＆変換
-	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );  //ブレンド
+	float3 normal = prm_normal0;
+	normal = lerp(normal, prm_normal1, g_weight1);
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv0;
@@ -101,16 +101,17 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
       float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-
 	//頂点ブレンド＆変換
-	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );          // ブレンド
-	pos = lerp(pos, prm_pos2, g_weight2 );
+	float4 pos = prm_pos0;
+	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
+	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線ブレンド＆変換
-	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );  //ブレンド
+	float3 normal = prm_normal0;
+	normal = lerp(normal, prm_normal1, g_weight1);
 	normal = lerp(normal, prm_normal2, g_weight2 );
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
@@ -131,17 +132,18 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
       float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-
 	//頂点ブレンド＆変換
-	float4 pos = lerp(prm_pos0, prm_pos1, g_weight1 );
-	pos = lerp(pos, prm_pos2, g_weight2);
-	pos = lerp(pos, prm_pos3, g_weight3);
+	float4 pos = prm_pos0;
+	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
+	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
+	pos += ((prm_pos3 - prm_pos0) * g_weight3);    //モデルのモーフターゲット3頂点の差分距離 * 重み3 を加算
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
     //法線ブレンド＆変換
-	float3 normal = lerp(prm_normal0, prm_normal1, g_weight1 );
+	float3 normal = prm_normal0;
+	normal = lerp(normal, prm_normal1, g_weight1);
 	normal = lerp(normal, prm_normal2, g_weight2);
 	normal = lerp(normal, prm_normal3, g_weight3);
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
@@ -150,6 +152,44 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
 	return out_vs;
 }
 
+//モーフターゲット４つ
+OUT_VS GgafDx9VS_DefaultMorphMesh4(
+      float4 prm_pos0    : POSITION0,      // モデルの頂点
+      float3 prm_normal0 : NORMAL0,        // モデルの頂点の法線
+      float2 prm_uv0     : TEXCOORD0,      // モデルの頂点のUV
+      float4 prm_pos1    : POSITION1,      // モデルのモーフターゲット1頂点
+      float3 prm_normal1 : NORMAL1,        // モデルのモーフターゲット1頂点の法線
+      float4 prm_pos2    : POSITION2,      // モデルのモーフターゲット2頂点
+      float3 prm_normal2 : NORMAL2,        // モデルのモーフターゲット2頂点の法線
+      float4 prm_pos3    : POSITION3,      // モデルのモーフターゲット3頂点
+      float3 prm_normal3 : NORMAL3,        // モデルのモーフターゲット3頂点の法線
+      float4 prm_pos4    : POSITION4,      // モデルのモーフターゲット4頂点
+      float3 prm_normal4 : NORMAL4         // モデルのモーフターゲット4頂点の法線
+) {
+	OUT_VS out_vs = (OUT_VS)0;
+	//頂点ブレンド＆変換
+	float4 pos = prm_pos0;
+	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
+	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
+	pos += ((prm_pos3 - prm_pos0) * g_weight3);    //モデルのモーフターゲット3頂点の差分距離 * 重み3 を加算
+	pos += ((prm_pos4 - prm_pos0) * g_weight4);    //モデルのモーフターゲット4頂点の差分距離 * 重み4 を加算
+	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = posWorldViewProj;                              // 出力に設定
+    //法線ブレンド＆変換
+	float3 normal = prm_normal0;
+	normal = lerp(normal, prm_normal1, g_weight1);
+	normal = lerp(normal, prm_normal2, g_weight2);
+	normal = lerp(normal, prm_normal3, g_weight3);
+	normal = lerp(normal, prm_normal4, g_weight4);
+	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
+	//UVはそのまま
+	out_vs.uv = prm_uv0;
+	return out_vs;
+}
+
+
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMorphMesh(
 	float2 prm_uv	  : TEXCOORD0,
@@ -157,7 +197,6 @@ float4 GgafDx9PS_DefaultMorphMesh(
 ) : COLOR  {
 	//求める色
 	float4 out_color; 
-
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
 	//テクスチャをサンプリングして色取得（原色を取得）
@@ -166,7 +205,7 @@ float4 GgafDx9PS_DefaultMorphMesh(
 	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;
@@ -174,7 +213,7 @@ float4 GgafDx9PS_DefaultMorphMesh(
 
 technique DefaultMorphMeshTechnique
 {
-	//pass P0「メッシュ標準シェーダー」
+	//「メッシュ標準シェーダー」
 	//メッシュを描画する
 	//【考慮される要素】
 	//--- VS ---
@@ -191,6 +230,7 @@ technique DefaultMorphMeshTechnique
 	//【使用条件】
 	//・テクスチャが存在しs0レジスタにバインドされていること。
 	//【設定パラメータ】
+	// float g_weight1～9       :   重み1～9(必要なターゲット分だけ)
 	// float4x4 g_matWorld		:	World変換行列
 	// float4x4 g_matView		:	View変換行列
 	// float4x4 g_matProj		:	射影変換行列   
@@ -199,41 +239,54 @@ technique DefaultMorphMeshTechnique
 	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
 	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
 	// s0レジスタ				:	2Dテクスチャ
-	pass P1 {
+
+	//モーフターゲット無し
+	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
 	}
 
+	//モーフターゲット１つ
 	pass P1 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
 	}
 
+	//モーフターゲット２つ
 	pass P2 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
 	}
 
+	//モーフターゲット３つ
 	pass P3 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
 	}
+
+	//モーフターゲット４つ
+	pass P4 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+	}
+
+	//以下同様に P9 まで拡張可能。
+	//でも、そんなに必要ないので省略。
 
 }
 

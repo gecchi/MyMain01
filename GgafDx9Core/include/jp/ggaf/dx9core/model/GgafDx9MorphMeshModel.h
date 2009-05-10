@@ -17,30 +17,47 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9MorphMeshModel用のモデルクラス.
- * GgafDx9MorphMeshModel は D3DXLoadMeshFromX を使用せず、Xファイルからのモデルデータを保持、描画するクラスです。<BR>
- * <B>＜留意＞</B><BR>
- * ・アニメーションは読み込まれません。静的モデルです。(TODO:いつかスキンメッシュもする)<BR>
- * ・Faceは、3角形しか駄目です。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
- * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
- * ・共有頂点法線は、独自計算で平均化される。
- *   計算方法は、共有頂点から伸びる各Faceの「成す角」／「全Faceの成す角合計の」によって法線の掛ける割合が決まる。<BR>
- * ・GgafDx9MorphMeshModelは並べ替えによるインデックスの最適化しないを行なわない。行なわないのが売りでもある。<BR>
- *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
- *   Xファイルのマテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちるやもしれない。<BR>
- *   例えば、Xファイルのマテリアルリストが {0,0,1,1,2,0,1} な場合、マテリアル数が3つでも、描画は5回実行することになる。<BR>
- * ・void GgafDx9ModelManager::restoreMeshModel(GgafDx9MorphMeshModel* prm_pPrimModel) で実際の設定を行なっています。<BR>
- * <B>＜使い所＞</B><BR>
- * ・単純な分、基本的に D3DXLoadMeshFromX → drawSubset(n) より描画は高速。<BR>
- * ・ロジックで頂点をいじりたい場合等、D3DXLoadMeshFromX により最適化されたかもしれない ID3DXMesh から、
- *   所望の頂点を割り出すのがしんどい場合。<BR>
- * ・不完全と解っているXファイルを、あえて読みたい場合。（データローダー的な意味で使う場合）<BR>
+ * GgafDx9MorphMeshModel は GgafDx9MeshModel の描画する機能に加え、モーフアニメーション機能を有するモデルです。<BR>
+ * <u>引数のモデル名 ( prm_model_name ) の与えかたと読み込まれるXファイルについて</u><BR>
+ * ＜例＞<BR>
+ * <table border=1>
+ * <tr>
+ * <th>prm_model_name</th>
+ * <th>プライマリメッシュ Xファイル</th>
+ * <th>モーフターゲット Xファイル</th>
+ * </tr>
+ * <tr>
+ * <td>"M/0/ball"</td>
+ * <td>ball_0.x</td>
+ * <td>無し</td>
+ * </tr>
+ * <tr>
+ * <td>"M/1/ball"</td>
+ * <td>ball_0.x</td>
+ * <td>ball_1.x</td>
+ * </tr>
+ * <tr>
+ * <td>"M/2/ball"</td>
+ * <td>ball_0.x</td>
+ * <td>ball_1.x<BR>ball_2.x</td>
+ * </tr>
+ * <tr>
+ * <td>"M/3/ball"</td>
+ * <td>ball_0.x</td>
+ * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x</td>
+ * </tr>
+ * <tr>
+ * <td>"M/9/ball"</td>
+ * <td>ball_0.x</td>
+ * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>・・・<BR>ball_9.x</td>
+ * </tr>
+ * </table>
  */
 class GgafDx9MorphMeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 protected:
 public:
-
     struct INDEXPARAM {
         UINT MaterialNo;
         INT BaseVertexIndex;
@@ -50,15 +67,17 @@ public:
         UINT PrimitiveCount;
     };
 
+    /** プライマリメッシュの頂点フォーマット定義 */
     struct VERTEX_PRIMARY {
-        float x, y, z; // 頂点座標
+        float x, y, z;    // 頂点座標
         float nx, ny, nz; // 法線
-        DWORD color; // 頂点の色
-        float tu, tv; // テクスチャ座標
+        DWORD color;      // 頂点の色
+        float tu, tv;     // テクスチャ座標
     };
 
+    /** モーフターゲットメッシュの頂点フォーマット定義 */
     struct VERTEX_MORPH {
-        float x, y, z; // 頂点座標
+        float x, y, z;    // 頂点座標
         float nx, ny, nz; // 法線
     };
 
@@ -68,7 +87,7 @@ public:
     LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
     /** 頂点バッファ（プライマリ） */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_primary;
-    /** 頂点バッファの配列（モーフターゲット） */
+    /** 頂点バッファの配列（要素数＝モーフターゲット数） */
     LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9_morph;
 
     /** インデックスバッファ（プライマリのみ） */
@@ -90,29 +109,26 @@ public:
 
     /** マテリアル数（プライマリのみ） */
     DWORD _dwNumMaterials;
-    /** 描画時パラメーター（プライマリのみ） */
+    /** DrawIndexedPrimitive描画パラメーター（プライマリのみ） */
     INDEXPARAM* _paIndexParam;
     /** マテリアル種類数（プライマリのみ） */
     UINT _nMaterialListGrp;
 
     /** 頂点バッファの写しコピーの頂点配列（プライマリ） */
     VERTEX_PRIMARY* _paVtxBuffer_org_primary;
-    /** 頂点バッファの写しコピーの頂点配列の配列（モーフターゲット） */
+    /** 頂点バッファの写しコピーの頂点配列のモーフターゲット数配列 */
     VERTEX_MORPH**  _papaVtxBuffer_org_morph;
     /** インデックスバッファの写しコピー（プライマリのみ） */
     WORD* _paIdxBuffer_org;
 
-    /** Paulさんモデル（プライマリ＋モーフターゲット数） */
+    /** Paulさんモデル（要素数＝プライマリ＋モーフターゲット数） */
     Frm::Model3D** _papModel3D;
-    /** Paulさんメッシュ（プライマリ＋モーフターゲット数） */
+    /** Paulさんメッシュ（要素数＝プライマリ＋モーフターゲット数） */
     Frm::Mesh** _papMeshesFront;
-
-
-
 
     /**
      * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_name モデル定義の識別名
      */
     GgafDx9MorphMeshModel(char* prm_model_name);
 
