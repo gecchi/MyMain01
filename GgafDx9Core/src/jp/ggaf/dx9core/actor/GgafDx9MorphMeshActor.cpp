@@ -93,6 +93,7 @@ int GgafDx9MorphMeshActor::getMorphTergetNum() {
 }
 
 GgafDx9MorphMeshActor::~GgafDx9MorphMeshActor() {
+    DELETE_POSSIBLE_NULL(_pMorpher);
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
     _pEffectCon->close();

@@ -103,7 +103,7 @@ void MyShip::processBehavior() {
         _pMorpher->stopImmediately(3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _pMorpher->loopTriangleWave(4, 30, 4, 15, -1);
+        _pMorpher->loopTriangleWave(4, 120, 10, 60, -1);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
         _pMorpher->stopImmediately(4);
     }
@@ -209,17 +209,6 @@ void MyShip::processBehavior() {
         }
     }
 
-
-
-
-
-
-
-
-
-
-
-
     //X²“]—‚¿’…‚¯
     if (_pGeoMover->_angveloRot[AXIS_X] > _angRXTopVelo_MZ) {
         _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
@@ -299,14 +288,6 @@ void MyShip::processBehavior() {
         _SY += 300;
         _SZ += 300;
     }
-
-
-
-
-
-    if (_stc != 0) {
-    }
-
 
     //À•W‚É”½‰f
     _pGeoMover->behave();

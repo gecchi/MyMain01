@@ -109,7 +109,7 @@ void GgafDx9MorphMeshModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
-    for (int pattern = 0; pattern < _morph_target_num; pattern++) {
+    for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
             RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9_primary);
             DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org_primary);
