@@ -7,6 +7,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                              const char* prm_model,
                                              const char* prm_effect,
                                              const char* prm_technique,
+                                             GgafDx9Morpher* prm_pMorpher,
                                              GgafDx9GeometryMover*   prm_pGeoMover,
                                              GgafDx9GeometryChecker* prm_pGeoChecker) :
     GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker)
@@ -29,6 +30,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     for (int i = 1; i < 10; i++) {
         _weight[i] = 0.0;
     }
+    _pMorpher = prm_pMorpher;
 }
 
 
@@ -71,10 +73,10 @@ void GgafDx9MorphMeshActor::processDrawMain() {
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() Begin() に失敗しました。");
 
     //モーフターゲットの数により pass を切り替えている
-    //プリマリメッシュのみ                             = 0
-    //プライマリメッシュ＋モーフターゲットメッシュ１つ = 1
-    //プライマリメッシュ＋モーフターゲットメッシュ２つ = 2
-    //以下９まで
+    //プリマリメッシュのみ                             = pass0
+    //プライマリメッシュ＋モーフターゲットメッシュ１つ = pass1
+    //プライマリメッシュ＋モーフターゲットメッシュ２つ = pass2
+    //以下最大９まで
     hr = pID3DXEffect->BeginPass(_pMorphMeshModel->_morph_target_num);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() BeginPass("<<_pMorphMeshModel->_morph_target_num<<") に失敗しました。");
     _pMorphMeshModel->draw(this);

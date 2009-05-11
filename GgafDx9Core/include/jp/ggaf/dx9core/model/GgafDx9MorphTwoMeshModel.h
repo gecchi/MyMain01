@@ -87,9 +87,9 @@ public:
     WORD* _paIdxBuffer_org;
 
     /** Paulさんモデル（２個） */
-    Frm::Model3D** _paModel3D;
+    Frm::Model3D** _papModel3D;
     /** Paulさんメッシュ（２個） */
-    Frm::Mesh** _paMeshesFront;
+    Frm::Mesh** _papMeshesFront;
 
 
 

@@ -122,7 +122,7 @@ void GgafDx9MorphMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
-	//_paMeshesFront[0],_paMeshesFront[1] は _paModel3D をDELETEしているのでする必要は無い
+	//_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
     DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
     _papMeshesFront = NULL;
 

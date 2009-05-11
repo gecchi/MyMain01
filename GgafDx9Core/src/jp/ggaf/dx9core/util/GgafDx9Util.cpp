@@ -8,6 +8,7 @@ int GgafDx9Util::COS_UNITLEN[S_ANG360];
 int GgafDx9Util::SIN_UNITLEN[S_ANG360];
 int GgafDx9Util::TAN_UNITLEN[S_ANG360];
 int GgafDx9Util::RAD_UNITLEN[S_ANG360];
+float GgafDx9Util::PARABORA[S_ANG360];
 float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
@@ -27,7 +28,7 @@ void GgafDx9Util::init() {
             COS[ang] = (float)(cos(rad));
             SIN[ang] = (float)(sin(rad));
             RAD[ang] = rad;
-
+            PARABORA[ang] = (double)((ang-(S_ANG360/2))*(ang-(S_ANG360/2))) /  (double)(-1.0*(S_ANG360/2)*(S_ANG360/2)) + 1.0;
         }
 
         COS_UNITLEN[0] = 1 * LEN_UNIT;

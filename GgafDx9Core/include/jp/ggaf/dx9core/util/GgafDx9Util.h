@@ -16,6 +16,7 @@ public:
     static int SIN_UNITLEN[];
     static int TAN_UNITLEN[];
     static int RAD_UNITLEN[];
+    static float PARABORA[];
     static float COS[];
     static float SIN[];
     static float RAD[];
@@ -172,7 +173,9 @@ public:
      * @return true:ƒqƒbƒg/false:ƒqƒbƒg‚µ‚Ä‚È‚¢
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
-    static int sign(int x) {
+
+    template<typename T>
+    static T sign(T x) {
         if (x < 0) {
             return -1;
         } else if (x > 0) {

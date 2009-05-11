@@ -25,6 +25,9 @@ public:
     GgafDx9MorphMeshEffect* _pMorphMeshEffect;
     /** モーフターゲットの重み(0.0 ～ 1.0) */
     float _weight[10]; //[0]は未使用、[1]～[9]がモーフターゲット1～9の重み
+    /** モーフィング支援オブジェクト */
+    GgafDx9Morpher* _pMorpher;
+
 
     /**
      * コンストラクタ
@@ -38,6 +41,7 @@ public:
                           const char* prm_model,
                           const char* prm_effect,
                           const char* prm_technique,
+                          GgafDx9Morpher* prm_pMorpher,
                           GgafDx9GeometryMover*   prm_pGeoMover,
                           GgafDx9GeometryChecker* prm_pGeoChecker );
 

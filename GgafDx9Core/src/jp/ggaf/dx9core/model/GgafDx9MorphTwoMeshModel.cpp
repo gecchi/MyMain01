@@ -9,8 +9,8 @@ using namespace GgafDx9Core;
 
 GgafDx9MorphTwoMeshModel::GgafDx9MorphTwoMeshModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE3("GgafDx9MorphTwoMeshModel::GgafDx9MorphTwoMeshModel(" << _model_name << ")");
-    _paModel3D = NULL;
-    _paMeshesFront = NULL;
+    _papModel3D = NULL;
+    _papMeshesFront = NULL;
 
     _paIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DVertexDeclaration9 = NULL;
@@ -100,15 +100,15 @@ void GgafDx9MorphTwoMeshModel::release() {
     for (int i = 0; i < 2; i++) {
         RELEASE_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9[i]);
         DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org[i]);
-        DELETE_IMPOSSIBLE_NULL(_paModel3D[i]);
+        DELETE_IMPOSSIBLE_NULL(_papModel3D[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9);
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org);
-    DELETEARR_IMPOSSIBLE_NULL(_paModel3D);
+    DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
 
-	//_paMeshesFront[0],_paMeshesFront[1] は _paModel3D をDELETEしているのでする必要は無い
-    DELETEARR_IMPOSSIBLE_NULL(_paMeshesFront);
-    _paMeshesFront = NULL;
+	//_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
+    DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
+    _papMeshesFront = NULL;
 
 
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
