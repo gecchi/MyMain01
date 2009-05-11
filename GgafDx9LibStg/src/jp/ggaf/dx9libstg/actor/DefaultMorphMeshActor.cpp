@@ -9,6 +9,7 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
                      prm_model,
                      "M/DefaultMorphMeshEffect",
                      "DefaultMorphMeshTechnique",
+                     NEW GgafDx9Morpher(this),
                      NEW GgafDx9GeometryMover(this),
                      NEW StgChecker(this) ) {
 
