@@ -86,27 +86,30 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
     _stc = VB::getBeingPressedStick();
-
+///////////モーフテスト////////////////
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _weight[1] += 0.01;
+        _pMorpher->intoTargetLinerUntil(1, 1.0, 30);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-        _weight[1] -= 0.01;
+        _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _weight[2] += 0.01;
+        _pMorpher->intoTargetLinerStep(2, 1.0, 0.1);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-        _weight[2] -= 0.01;
+        _pMorpher->intoTargetLinerStep(2, 0.0, 0.3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _weight[3] += 0.01;
+        _pMorpher->loopLiner(3, 30, 10);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-        _weight[3] -= 0.01;
+        _pMorpher->stopImmediately(3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _weight[4] += 0.01;
+        _pMorpher->loopTriangleWave(4, 30, 4, 15, -1);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-        _weight[4] -= 0.01;
+        _pMorpher->stopImmediately(4);
     }
+
+    _pMorpher->behave();
+///////////モーフテスト////////////////
 
     if (_stc != 0) {
 //////////////////////////
