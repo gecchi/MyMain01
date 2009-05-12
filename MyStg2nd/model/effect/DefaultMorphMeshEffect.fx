@@ -1,7 +1,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 // Ggafライブラリ、GgafDx9MorphMeshModel用シェーダー
 // author : Masatoshi Tsuge
-// date:2009/05/010 
+// date:2009/05/12 
 ////////////////////////////////////////////////////////////////////////////////
 
 float4x4 g_matWorld;  //World変換行列
@@ -73,9 +73,20 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド＆変換
+	//頂点ブレンド
 	float4 pos = prm_pos0;
-	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
+	float3 diff_pos;
+	diff_pos = prm_pos1 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+	}
+	//頂点変換
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
@@ -101,10 +112,31 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
       float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド＆変換
+	//頂点ブレンド
 	float4 pos = prm_pos0;
-	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
-	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
+	float3 diff_pos;
+	diff_pos = prm_pos1 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+	}
+
+	diff_pos = prm_pos2 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
+	}
+	//頂点変換
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
@@ -132,11 +164,42 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
       float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド＆変換
+	//頂点ブレンド
 	float4 pos = prm_pos0;
-	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
-	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
-	pos += ((prm_pos3 - prm_pos0) * g_weight3);    //モデルのモーフターゲット3頂点の差分距離 * 重み3 を加算
+	float3 diff_pos;
+	diff_pos = prm_pos1 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+	}
+
+	diff_pos = prm_pos2 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
+	}
+
+	diff_pos = prm_pos3 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
+	}
+	//頂点変換
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
@@ -167,12 +230,54 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
       float3 prm_normal4 : NORMAL4         // モデルのモーフターゲット4頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド＆変換
+
+	//頂点ブレンド
 	float4 pos = prm_pos0;
-	pos += ((prm_pos1 - prm_pos0) * g_weight1);    //モデルのモーフターゲット1頂点の差分距離 * 重み1 を加算
-	pos += ((prm_pos2 - prm_pos0) * g_weight2);    //モデルのモーフターゲット2頂点の差分距離 * 重み2 を加算
-	pos += ((prm_pos3 - prm_pos0) * g_weight3);    //モデルのモーフターゲット3頂点の差分距離 * 重み3 を加算
-	pos += ((prm_pos4 - prm_pos0) * g_weight4);    //モデルのモーフターゲット4頂点の差分距離 * 重み4 を加算
+	float3 diff_pos;
+	diff_pos = prm_pos1 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+	}
+
+	diff_pos = prm_pos2 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
+	}
+
+	diff_pos = prm_pos3 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
+	}
+
+	diff_pos = prm_pos4 - prm_pos0;
+	if (diff_pos.x != 0.0 ) {
+		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight4; 
+	}
+	if (diff_pos.y != 0.0) {
+		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight4; 
+	}
+	if (diff_pos.z != 0.0) {
+		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight4; 
+	}
+	//頂点変換
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
