@@ -88,22 +88,22 @@ void MyShip::processBehavior() {
     _stc = VB::getBeingPressedStick();
 ///////////モーフテスト////////////////
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pMorpher->intoTargetLinerUntil(1, 1.0, 30);
+        _pMorpher->loopTriangleWave(1, 30, 3, 22);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-        _pMorpher->intoTargetLinerUntil(1, 0.0, 60);
+        _pMorpher->stopImmediately(4);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pMorpher->intoTargetLinerStep(2, 1.0, 0.1);
+        _pMorpher->loopLiner(2, 120);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-        _pMorpher->intoTargetLinerStep(2, 0.0, 0.3);
+        _pMorpher->stopImmediately(2);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _pMorpher->loopLiner(3, 30, 10);
+        _pMorpher->loopTriangleWave(3, 20, 13, 2);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
         _pMorpher->stopImmediately(3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _pMorpher->loopTriangleWave(4, 120, 10, 60, -1);
+        _pMorpher->loopTriangleWave(4, 60, 3, 20);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
         _pMorpher->stopImmediately(4);
     }
