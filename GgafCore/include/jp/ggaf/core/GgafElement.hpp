@@ -739,11 +739,6 @@ void GgafElement<T>::drawPrior() {
 
 template<class T>
 void GgafElement<T>::drawMain() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
-
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
         if (SUPER::_pSubFirst != NULL) {
@@ -762,11 +757,6 @@ void GgafElement<T>::drawMain() {
 
 template<class T>
 void GgafElement<T>::drawTerminate() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
-
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
         processDrawTerminate();

@@ -69,9 +69,9 @@ void GgafGod::be() {
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
         }
-        _num_actor_playing = 0;
 
-        if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //描画タイミングフレームになった、或いは過ぎている場合
+
+        if (_expected_time_of_next_frame <= timeGetTime()) { //描画タイミングフレームになった、或いは過ぎている場合
             //makeUniversalMaterialize はパス
         } else {
             //余裕有り
@@ -128,6 +128,7 @@ void GgafGod::be() {
                 makeUniversalMaterialize();
                 makeUniversalVisualize();
                 makeUniversalFinalize();
+
             }
          ___EndSynchronized; // <----- 排他終了
         }
@@ -150,6 +151,7 @@ void GgafGod::makeUniversalJudge() {
 }
 
 void GgafGod::makeUniversalMaterialize() {
+    _num_actor_playing = 0;
     _pUniverse->drawPrior();
     _pUniverse->drawMain();
     _pUniverse->drawTerminate();
