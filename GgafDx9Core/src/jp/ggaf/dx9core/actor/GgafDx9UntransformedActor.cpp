@@ -31,14 +31,15 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 
 void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:要検証
-    if (_is_active_flg && !_was_hidden_flg && _can_live_flg) {
+    if (_is_active_flg && _can_live_flg) {
         if (getAlpha() < 1.0) {
             //透明の場合は、Z軸値で遠くから描画するように設定。
-            //_Z が カメラ位置 ～ カメラ+2000,000 の間であれば段階レンダリングをすることとする。
-            //粗さは 2000,000/MAX_DRAW_DEPTH_LEVEL。←この範囲のZは同一深度となる。
+            //_Z が カメラ位置 ～ カメラ + 1000*MAX_DRAW_DEPTH_LEVEL の間であれば MAX_DRAW_DEPTH_LEVELで
+            //段階レンダリングをすることとする。
+            //粗さは 1000。←この範囲のZは同一深度となる。
             //TODO: カメラがぐりぐり動くと波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
             GgafDx9Universe::setDrawDepthLevel(
-              (_Z-(GgafDx9Universe::_pCamera->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / (2000000/MAX_DRAW_DEPTH_LEVEL),
+              (_Z-(GgafDx9Universe::_pCamera->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / 1000,
               this
             );
         } else {
@@ -357,7 +358,7 @@ void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* 
 bool GgafDx9UntransformedActor::isOffScreen() {
 //    if (_Z > 0) {
         static int hy;
-        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY + 256000;
+        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY + 128000;
 
         if (_Y < -1.0 * hy) {
             return true;
@@ -371,7 +372,7 @@ bool GgafDx9UntransformedActor::isOffScreen() {
                     if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
                         return true;
                     } else {
-                        if (_Z > -1 * GgafDx9Universe::_pCamera->_Z *2) {
+                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 1000000) {
                             return true;
                         } else {
                             return false;
