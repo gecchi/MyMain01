@@ -234,49 +234,43 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
 	//頂点ブレンド
 	float4 pos = prm_pos0;
 	float3 diff_pos;
-	diff_pos = prm_pos1 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+
+	if (g_weight1 != 0 ) {
+		diff_pos = prm_pos1 - prm_pos0;
+		pos.x += ((diff_pos.x * g_weight1) * (pos.x / prm_pos0.x)); 
+		pos.y += ((diff_pos.y * g_weight1) * (pos.y / prm_pos0.y)); 
+		pos.z += ((diff_pos.z * g_weight1) * (pos.z / prm_pos0.z)); 
 	}
 
-	diff_pos = prm_pos2 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
+	
+	if (g_weight2 != 0 ) {
+		diff_pos = prm_pos2 - prm_pos0;
+		pos.x += ((diff_pos.x * g_weight2) * (pos.x / prm_pos0.x)); 
+		pos.y += ((diff_pos.y * g_weight2) * (pos.y / prm_pos0.y)); 
+		pos.z += ((diff_pos.z * g_weight2) * (pos.z / prm_pos0.z)); 
 	}
 
-	diff_pos = prm_pos3 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
-	}
-
-	diff_pos = prm_pos4 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight4; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight4; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight4; 
-	}
+//	diff_pos = prm_pos3 - prm_pos0;
+//	if (diff_pos.x != 0.0 ) {
+//		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
+//	}
+//	if (diff_pos.y != 0.0) {
+//		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
+//	}
+//	if (diff_pos.z != 0.0) {
+//		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
+//	}
+//
+//	diff_pos = prm_pos4 - prm_pos0;
+//	if (diff_pos.x != 0.0 ) {
+//		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight4; 
+//	}
+//	if (diff_pos.y != 0.0) {
+//		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight4; 
+//	}
+//	if (diff_pos.z != 0.0) {
+//		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight4; 
+//	}
 	//頂点変換
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換

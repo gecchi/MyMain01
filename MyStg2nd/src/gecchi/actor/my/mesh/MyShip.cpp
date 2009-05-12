@@ -90,7 +90,7 @@ void MyShip::processBehavior() {
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
         _pMorpher->loopTriangleWave(1, 30, 3, 22);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-        _pMorpher->stopImmediately(4);
+        _pMorpher->stopImmediately(1);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
         _pMorpher->loopLiner(2, 120);
