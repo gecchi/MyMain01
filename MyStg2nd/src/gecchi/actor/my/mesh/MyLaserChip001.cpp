@@ -12,7 +12,7 @@ MyLaserChip001::MyLaserChip001(const char* prm_name) : LaserChip(prm_name, "X/la
 
 void MyLaserChip001::initialize() {
 
-    _pGeoMover->setMoveVelocity(30000);
+    _pGeoMover->setMoveVelocity(40000);
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
