@@ -207,17 +207,6 @@ public:
     virtual void unpauseTreeImmediately();
     virtual void unpauseImmediately();
 
-    virtual void hideTree();
-    virtual void hide();
-    virtual void hideTreeImmediately();
-    virtual void hideImmediately();
-
-    virtual void showTree();
-    virtual void show();
-    virtual void showTreeImmediately();
-    virtual void showImmediately();
-
-
     /**
      * 自ツリーシーンを次フレーム絶命させる。 .
      * ＜OverRide です＞<BR>
