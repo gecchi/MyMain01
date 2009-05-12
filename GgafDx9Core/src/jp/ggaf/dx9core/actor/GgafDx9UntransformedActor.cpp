@@ -372,7 +372,7 @@ bool GgafDx9UntransformedActor::isOffScreen() {
                     if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
                         return true;
                     } else {
-                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 1000000) {
+                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 3000000) {
                             return true;
                         } else {
                             return false;
