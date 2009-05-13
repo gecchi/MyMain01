@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/ebi2") {
+EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/ceres") {
     //レーザーストック
     _pLaserChipRotation = NEW LaserChipRotationActor("RotLaser");
     EnemyLaserChip001* pChip;

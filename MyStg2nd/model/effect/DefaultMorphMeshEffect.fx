@@ -73,30 +73,24 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド
+
+	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
-	float3 diff_pos;
-	diff_pos = prm_pos1 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	float3 normal = prm_normal0;
+	if (g_weight1 != 0 ) {
+		pos += ((prm_pos1 - prm_pos0) * g_weight1);
+		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
-	}
-	//頂点変換
+	//頂点出力設定
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
-    //法線ブレンド＆変換
-	float3 normal = prm_normal0;
-	normal = lerp(normal, prm_normal1, g_weight1);
+	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv0;
+
 	return out_vs;
 }
 
@@ -112,42 +106,28 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
       float3 prm_normal2 : NORMAL2         // モデルのモーフターゲット2頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド
-	float4 pos = prm_pos0;
-	float3 diff_pos;
-	diff_pos = prm_pos1 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
-	}
 
-	diff_pos = prm_pos2 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
+	//頂点＆法線ブレンド
+	float4 pos = prm_pos0;
+	float3 normal = prm_normal0;
+	if (g_weight1 != 0 ) {
+		pos += ((prm_pos1 - prm_pos0) * g_weight1);
+		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
+	if (g_weight2 != 0 ) {
+		pos += ((prm_pos2 - prm_pos0) * g_weight2);
+		normal = lerp(normal, prm_normal2, g_weight2);
 	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
-	}
-	//頂点変換
+	//頂点出力設定
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
-    //法線ブレンド＆変換
-	float3 normal = prm_normal0;
-	normal = lerp(normal, prm_normal1, g_weight1);
-	normal = lerp(normal, prm_normal2, g_weight2 );
+	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv0;
+
 	return out_vs;
 }
 
@@ -164,54 +144,32 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
       float3 prm_normal3 : NORMAL3         // モデルのモーフターゲット3頂点の法線
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
-	//頂点ブレンド
+
+	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
-	float3 diff_pos;
-	diff_pos = prm_pos1 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight1; 
+	float3 normal = prm_normal0;
+	if (g_weight1 != 0 ) {
+		pos += ((prm_pos1 - prm_pos0) * g_weight1);
+		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight1; 
+	if (g_weight2 != 0 ) {
+		pos += ((prm_pos2 - prm_pos0) * g_weight2);
+		normal = lerp(normal, prm_normal2, g_weight2);
 	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight1; 
+	if (g_weight3 != 0 ) {
+		pos += ((prm_pos3 - prm_pos0) * g_weight3);
+		normal = lerp(normal, prm_normal3, g_weight3);
 	}
-
-	diff_pos = prm_pos2 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight2; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight2; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight2; 
-	}
-
-	diff_pos = prm_pos3 - prm_pos0;
-	if (diff_pos.x != 0.0 ) {
-		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
-	}
-	if (diff_pos.y != 0.0) {
-		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
-	}
-	if (diff_pos.z != 0.0) {
-		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
-	}
-	//頂点変換
+	//頂点出力設定
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
-    //法線ブレンド＆変換
-	float3 normal = prm_normal0;
-	normal = lerp(normal, prm_normal1, g_weight1);
-	normal = lerp(normal, prm_normal2, g_weight2);
-	normal = lerp(normal, prm_normal3, g_weight3);
+	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv0;
+
 	return out_vs;
 }
 
@@ -231,60 +189,35 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
-	//頂点ブレンド
+	//頂点＆法線ブレンド
 	float4 pos = prm_pos0;
-	float3 diff_pos;
-
+	float3 normal = prm_normal0;
 	if (g_weight1 != 0 ) {
-		diff_pos = prm_pos1 - prm_pos0;
-		pos.x += ((diff_pos.x * g_weight1) * (pos.x / prm_pos0.x)); 
-		pos.y += ((diff_pos.y * g_weight1) * (pos.y / prm_pos0.y)); 
-		pos.z += ((diff_pos.z * g_weight1) * (pos.z / prm_pos0.z)); 
+		pos += ((prm_pos1 - prm_pos0) * g_weight1);
+		normal = lerp(normal, prm_normal1, g_weight1);
 	}
-
-	
 	if (g_weight2 != 0 ) {
-		diff_pos = prm_pos2 - prm_pos0;
-		pos.x += ((diff_pos.x * g_weight2) * (pos.x / prm_pos0.x)); 
-		pos.y += ((diff_pos.y * g_weight2) * (pos.y / prm_pos0.y)); 
-		pos.z += ((diff_pos.z * g_weight2) * (pos.z / prm_pos0.z)); 
+		pos += ((prm_pos2 - prm_pos0) * g_weight2);
+		normal = lerp(normal, prm_normal2, g_weight2);
 	}
-
-//	diff_pos = prm_pos3 - prm_pos0;
-//	if (diff_pos.x != 0.0 ) {
-//		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight3; 
-//	}
-//	if (diff_pos.y != 0.0) {
-//		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight3; 
-//	}
-//	if (diff_pos.z != 0.0) {
-//		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight3; 
-//	}
-//
-//	diff_pos = prm_pos4 - prm_pos0;
-//	if (diff_pos.x != 0.0 ) {
-//		pos.x += diff_pos.x * (pos.x / prm_pos0.x) * g_weight4; 
-//	}
-//	if (diff_pos.y != 0.0) {
-//		pos.y += diff_pos.y * (pos.y / prm_pos0.y) * g_weight4; 
-//	}
-//	if (diff_pos.z != 0.0) {
-//		pos.z += diff_pos.z * (pos.z / prm_pos0.z) * g_weight4; 
-//	}
-	//頂点変換
+	if (g_weight3 != 0 ) {
+		pos += ((prm_pos3 - prm_pos0) * g_weight3);
+		normal = lerp(normal, prm_normal3, g_weight3);
+	}
+	if (g_weight4 != 0 ) {
+		pos += ((prm_pos4 - prm_pos0) * g_weight4);
+		normal = lerp(normal, prm_normal4, g_weight4);
+	}
+	//頂点出力設定
 	float4 posWorld = mul( pos, g_matWorld );                   // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
 	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
 	out_vs.pos = posWorldViewProj;                              // 出力に設定
-    //法線ブレンド＆変換
-	float3 normal = prm_normal0;
-	normal = lerp(normal, prm_normal1, g_weight1);
-	normal = lerp(normal, prm_normal2, g_weight2);
-	normal = lerp(normal, prm_normal3, g_weight3);
-	normal = lerp(normal, prm_normal4, g_weight4);
+	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv0;
+
 	return out_vs;
 }
 
