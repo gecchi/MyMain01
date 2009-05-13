@@ -39,26 +39,30 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	HRESULT hr;
     UINT material_no;
-    //頂点バッファとインデックスバッファを設定
-    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
-    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
-    GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+    if (GgafDx9ModelManager::_id_lastdraw != _id) {
+        //頂点バッファとインデックスバッファを設定
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
+        GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+    }
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
-        material_no = _paIndexParam[i].MaterialNo;
-        if (_papTextureCon[material_no] != NULL) {
-            //テクスチャをs0レジスタにセット
-            GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
-        } else {
-            _TRACE_("GgafDx9MeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
-            //無ければテクスチャ無し
-            GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+        if (GgafDx9ModelManager::_id_lastdraw != _id || _nMaterialListGrp != 1) {
+            material_no = _paIndexParam[i].MaterialNo;
+            if (_papTextureCon[material_no] != NULL) {
+                //テクスチャをs0レジスタにセット
+                GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
+            } else {
+                _TRACE_("GgafDx9MeshModel::draw("<<prm_pActor_Target->getName()<<") テクスチャがありません。white.pngが設定されるべきです。おかしいです");
+                //無ければテクスチャ無し
+                GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
+            }
+            hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
+            hr = pID3DXEffect->CommitChanges();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
         }
-        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
-        hr = pID3DXEffect->CommitChanges();
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,

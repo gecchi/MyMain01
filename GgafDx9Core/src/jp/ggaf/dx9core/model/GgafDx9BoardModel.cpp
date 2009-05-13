@@ -42,9 +42,11 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
 
     static HRESULT hr;
-    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
-    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
-    GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+        if (GgafDx9ModelManager::_id_lastdraw != _id) {
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+    }
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);

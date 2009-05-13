@@ -41,10 +41,11 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     pRectUV_Active = _paRectUV + (pTargetActor->_pattno_ani_now);
 
     static HRESULT hr;
-
-    GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
-    GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
-    GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+    if (GgafDx9ModelManager::_id_lastdraw != _id) {
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+    }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);

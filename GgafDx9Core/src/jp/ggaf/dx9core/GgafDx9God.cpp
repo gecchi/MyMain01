@@ -291,8 +291,11 @@ HRESULT GgafDx9God::initDx9Device() {
 //    GgafDx9God::_pID3DDevice9->SetLight(0, &GgafDx9God::_d3dlight9_default);
     //ライトスイッチON
 //    GgafDx9God::_pID3DDevice9->LightEnable(0, TRUE);
+    //GgafDx9God::_pID3DDevice9->LightEnable(0, FALSE);
     //レンダ時にライトの影響（陰影）を有効
 //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
+    //レンダ時にライトの影響（陰影）を無効 (ピクセルシェーダーで行なうため）
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE);
     //レンダ時、世界に共通のアンビエントライトを有効にしたように描く
 //   GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
 
@@ -304,6 +307,15 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //Zバッファ書き込み不可
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+
+    //ステンシルテストの方法
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);    //常にテストをパス
+    //画に失敗した時にステンシルの値をどう変化させるか
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP); //変化なし
+    //Zテストで失敗した場合のステンシル値の変化
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);  //変化なし
+
+
     //左（反時計回り）回りにカリング ∵左手座標系
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     //カリングしない
