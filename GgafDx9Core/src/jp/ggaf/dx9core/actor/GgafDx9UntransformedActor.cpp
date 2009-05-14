@@ -31,7 +31,7 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 
 void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:要検証
-    if (_is_active_flg && _can_live_flg) {
+    if (_is_active_flg && _can_live_flg && isOffScreen() == false) {
         if (getAlpha() < 1.0) {
             //透明の場合は、Z軸値で遠くから描画するように設定。
             //_Z が カメラ位置 ～ カメラ + 1000*MAX_DRAW_DEPTH_LEVEL の間であれば MAX_DRAW_DEPTH_LEVELで

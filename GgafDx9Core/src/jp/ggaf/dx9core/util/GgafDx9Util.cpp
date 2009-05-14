@@ -29,6 +29,7 @@ void GgafDx9Util::init() {
             SIN[ang] = (float)(sin(rad));
             RAD[ang] = rad;
             PARABORA[ang] = (double)((ang-(S_ANG360/2))*(ang-(S_ANG360/2))) /  (double)(-1.0*(S_ANG360/2)*(S_ANG360/2)) + 1.0;
+            //PARABORA[0] = 0 , PARABORA[S_ANG180] = 1,  PARABORA[S_ANG360-1] = 0 Ç≈ y = -x^2  ï˙ï®ê¸ÇÃílÇÇ∆ÇÈ
         }
 
         COS_UNITLEN[0] = 1 * LEN_UNIT;

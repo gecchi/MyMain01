@@ -9,7 +9,7 @@ enum GgafDx9MorphMethod {
     LOOP_TRIANGLEWAVE,
     TARGET_SIN,
     LOOP_SIN,
-    TARGET_PARABOLA,
+    TARGET_ACCELERATION,
     LOOP_PARABOLA,
     TARGET_PARABOLA_REV,
     LOOP_PARABOLA_REV
@@ -21,10 +21,11 @@ public:
     /** 対象アクター */
     GgafDx9MorphMeshActor* _pActor;
 
-    float _inc_weight[10];
     float _target_weight[10];
     float _top_weight[10];
     float _bottom_weight[10];
+    float _velo_weight[10];
+    float _acce_weight[10];
     DWORD _loop_attack_frame[10];
     DWORD _loop_rest_frame[10];
     DWORD _loop_spend_frame[10];
@@ -40,6 +41,24 @@ public:
      */
     GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor);
 
+    void setWeightRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
+        if (prm_weight1 < prm_weight2) {
+            _bottom_weight[prm_target_mesh] = prm_weight1;
+            _top_weight[prm_target_mesh] = prm_weight2;
+        } else {
+            prm_target_mesh = prm_weight1;
+            _bottom_weight[prm_target_mesh] = prm_weight2;
+        }
+    }
+
+    void resetWeight(int prm_target_mesh) {
+        _pActor->_weight[prm_target_mesh] = _bottom_weight[prm_target_mesh];
+    }
+    void resetTopWeight(int prm_target_mesh) {
+        _pActor->_weight[prm_target_mesh] = _top_weight[prm_target_mesh];
+    }
+
+
     void stopImmediately(int prm_target_mesh);
 
     /**
@@ -54,9 +73,20 @@ public:
      * ターゲットへ一定速度でモーフする（重み差分指定） .
      * @param prm_target_mesh ターゲットメッシュNO
      * @param prm_target_weight ターゲットメッシュの目標重み
-     * @param prm_inc_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
+     * @param prm_velo_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetLinerStep(int prm_target_mesh, float prm_target_weight, float prm_inc_weight);
+    void intoTargetLinerStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight);
+
+    /**
+     * ターゲットへ加速指定でモーフする（重み速度、重み加速度差指定） .
+     * 重み加速度を0に指定すると intoTargetLinerStep とほぼ同じ意味になる。
+     * intoTargetLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * @param prm_target_mesh ターゲットメッシュNO
+     * @param prm_target_weight ターゲットメッシュの目標重み
+     * @param prm_velo_weight 初期重み速度
+     * @param prm_acce_weight 重み加速度
+     */
+    void intoTargetAccelerationStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
 
     /**
      * ターゲットへ一定速度でモーフし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
