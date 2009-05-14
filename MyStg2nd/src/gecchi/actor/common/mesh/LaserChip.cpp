@@ -189,13 +189,14 @@ void LaserChip::processDrawMain() {
 	UINT numPass;
     hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
-    for (UINT pass = 0; pass < numPass; pass++) {
-        hr = pID3DXEffect->BeginPass(pass);
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") に失敗しました。");
-        _pMeshModel->draw(this);
-        hr = pID3DXEffect->EndPass();
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
-    }
+
+    //TODO:2009/05/15 BeginPassの処理はやや重たいことに気がつく。無駄なBeginPassとEndPassを取り除くいい方法が無いものか・・・。
+    hr = pID3DXEffect->BeginPass(0);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") に失敗しました。");
+    _pMeshModel->draw(this);
+    hr = pID3DXEffect->EndPass();
+
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
     hr = pID3DXEffect->End();
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
 
