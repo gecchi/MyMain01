@@ -11,11 +11,11 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 /**
- * 世界クラス
- * この世にゲームが行なわれている世界がありました。
+ * 世界シーンクラス .
+ * この世に、とある世界がありました。<BR>
+ * 本クラスは、世界の振る舞い等を実装しています。<BR>
  */
 class World : public GgafDx9LibStg::DefaultScene {
-
 
 public:
 
@@ -35,12 +35,6 @@ public:
 	 * ＜OverRide です＞
 	 */
 	void processJudgement();
-
-	/**
-	 * カメラを操作
-	 * ＜OverRide です＞
-	 */
-	void processDrawPrior();
 
 	virtual ~World();
 };

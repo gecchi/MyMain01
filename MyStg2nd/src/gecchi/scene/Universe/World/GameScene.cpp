@@ -21,10 +21,10 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pGameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pGameEnding);
 
-    _pGameDemo->activateTree();
-    _pGameBeginning->inactivateTree();
-    _pGameMain->inactivateTree();
-    _pGameEnding->inactivateTree();
+    _pGameDemo->activate();        //最初のアクティブなサブシーンはデモシーン
+    _pGameBeginning->inactivate();
+    _pGameMain->inactivate();
+    _pGameEnding->inactivate();
 
 }
 
@@ -46,13 +46,14 @@ void GameScene::processBehavior() {
     }
 #endif
 
+    //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pGameDemo) {
         if (_pGameDemo->getProgressOnChange() == GAMEDEMO_PROG_BEGIN) {
             _pGameBeginning->reset();
             _pGameBeginning->ready();
         }
         if (_pGameDemo->getProgressOnChange() == GAMEDEMO_PROG_DECIDE) {
-            _pGameBeginning->activateTree();
+            _pGameBeginning->activate();
             _pSceneCannel = _pGameBeginning;
         }
 
@@ -67,7 +68,7 @@ void GameScene::processBehavior() {
         }
 
         if (_pGameBeginning->getProgressOnChange() == GAMEBEGINNING_PROG_END) {
-            _pGameMain->activateTree();
+            _pGameMain->activate();
             _pSceneCannel = _pGameMain;
         }
 
@@ -77,7 +78,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEMAIN_PROG_END) {
-            _pGameEnding->activateTree();
+            _pGameEnding->activate();
             _pSceneCannel = _pGameEnding;
         }
 
@@ -87,7 +88,7 @@ void GameScene::processBehavior() {
             _pGameEnding->ready();
         }
         if (_pGameMain->getProgressOnChange() == GAMEENDING_PROG_END) {
-            _pGameEnding->activateTree();
+            _pGameEnding->activate();
             _pSceneCannel = _pGameEnding;
         }
 
@@ -95,7 +96,7 @@ void GameScene::processBehavior() {
 }
 
 void GameScene::processJudgement() {
-    //当たり判定処理実行
+    //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
     if (_lifeframe >= 2) {
         executeBumpChkHeadActors(
@@ -110,18 +111,15 @@ void GameScene::processJudgement() {
           KIND_OTHER,
           KIND_ENEMY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
         );
-
         executeBumpChkHeadActors(
           KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
           KIND_ENEMY_SHOT_GU
         );
-
         executeBumpChkHeadActors(
           KIND_MY_SHOT_CHOKI,
           KIND_MY_SHOT_GU
         );
     }
-
 }
 
 void GameScene::processFinal() {

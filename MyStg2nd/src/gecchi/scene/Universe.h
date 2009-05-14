@@ -11,8 +11,12 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 
+/**
+ * この世シーン .
+ * まずこの世がありました。<BR>
+ * 本クラスは、この世の振る舞い等を実装しています。<BR>
+ */
 class Universe : public GgafDx9LibStg::DefaultUniverse {
-
 
 public:
 

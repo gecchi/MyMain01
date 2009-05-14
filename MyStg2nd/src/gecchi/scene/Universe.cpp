@@ -41,6 +41,7 @@ void Universe::processDrawPrior() {
 }
 void Universe::processBehavior() {
     if (_lifeframe == 2) {
+        //¢ŠE‚ğì¬
         World* pWorld = NEW World("WORLD");
         addSubLast(pWorld);
     }

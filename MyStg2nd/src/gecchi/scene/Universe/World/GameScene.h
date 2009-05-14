@@ -9,6 +9,12 @@
 
 namespace MyStg2nd {
 
+
+/**
+ * ゲームシーンクラス .
+ * この世にとある世界で、ゲームが行なわれている場面がありました。<BR>
+ * 本クラスは、ゲームの全体的な振る舞いを実装しています。<BR>
+ */
 class GameScene : public GgafDx9LibStg::DefaultScene {
 
 public:

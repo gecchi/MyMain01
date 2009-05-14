@@ -10,6 +10,10 @@
 
 namespace MyStg2nd {
 
+/**
+ * ゲーム開始シーンクラス .
+ * ゲームが行なわれている場面と言っても、ゲーム開始中の場面もありました。
+ */
 class GameBeginningScene : public GgafDx9LibStg::DefaultScene {
 
 public:

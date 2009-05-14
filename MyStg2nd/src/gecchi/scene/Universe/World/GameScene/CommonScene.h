@@ -2,6 +2,9 @@
 #define MYSHIPSCENE_H_
 namespace MyStg2nd {
 
+/**
+ * ゲームシーンの共通シーンクラス .
+ */
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
 public:

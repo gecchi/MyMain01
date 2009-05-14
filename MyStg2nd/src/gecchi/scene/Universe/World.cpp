@@ -25,44 +25,24 @@ _TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
 
 }
 
-void World::processJudgement() {
-}
-
-void World::processDrawPrior() {
-
-//    GgafDx9Universe::_pCamera->_pGeoMover->setAutoTargetMoveAngle(0,0,0);
 
 
-    //	GgafDx9World::GgafDx9Universe::_pCamera->setGaze(GameGlobal::_pMyShip);
-    //
-    //
-    //
-    //	GgafDx9World::GgafDx9Universe::_pCamera->_pGeoMover->
-    //	GgafDx9World::GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org;
-
-//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
-//        GgafDx9World::GgafDx9Universe::_pCamera->_Z = GgafDx9World::GgafDx9Universe::_pCamera->_Z + 2000;
-//    }
-//    if (GgafDx9World::GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {
-//        GgafDx9World::GgafDx9Universe::_pCamera->_Z = GgafDx9World::GgafDx9Universe::_pCamera->_Z - 2000;
-//    }
-
-}
 void World::processBehavior() {
     VB::update(); //入力情報更新
 
-    //一時停止
+
     //TODO:止めてもframeは進む＿？
     if (VB::isPushedDown(VB_PAUSE)) {
         if (getSubFirst()->isBehaving()) {
             _TRACE_("PAUSE!");
-            getSubFirst()->pause();
+            getSubFirst()->pause();     //一時停止
         } else {
             _TRACE_("UNPAUSE!");
-            getSubFirst()->unpause();
+            getSubFirst()->unpause();   //一時停止解除
         }
     }
 
+    //サブシーンが一時停止していれば、カメラ操作できる。
     if ( getSubFirst()->isBehaving() ) {
         //スルー
     } else {
@@ -118,7 +98,7 @@ void World::processBehavior() {
         }
     }
 
-
+    //カメラ注視方向設定
     GgafDx9Universe::_pCamera->setGaze (
                GgafDx9Universe::_pCamera->_X + (GgafDx9Universe::_pCamera->_pGeoMover->_vX * LEN_UNIT * PX_UNIT),
                GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pGeoMover->_vY * LEN_UNIT * PX_UNIT),
@@ -126,6 +106,9 @@ void World::processBehavior() {
               );
 
 
+}
+
+void World::processJudgement() {
 }
 
 World::~World() {

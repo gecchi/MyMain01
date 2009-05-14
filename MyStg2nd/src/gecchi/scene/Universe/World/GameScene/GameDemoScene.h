@@ -11,6 +11,11 @@
 
 namespace MyStg2nd {
 
+
+/**
+ * ゲームデモシーンクラス .
+ * ゲームが行なわれている場面と言っても、ゲームデモが行なわれている場合もありました。
+ */
 class GameDemoScene : public GgafDx9LibStg::DefaultScene {
 
 public:

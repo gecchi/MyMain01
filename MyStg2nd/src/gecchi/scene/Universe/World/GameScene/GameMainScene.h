@@ -8,6 +8,9 @@
 
 namespace MyStg2nd {
 
+/**
+ * ゲームメインシーンクラス .
+ */
 class GameMainScene : public GgafDx9LibStg::DefaultScene {
 
 public:
