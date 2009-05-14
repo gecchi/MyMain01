@@ -5,18 +5,22 @@ namespace GgafCore {
 /**
  * アクターの基底クラス .
  * 本プログラムで言う『アクター』とは、主にキャラクターを表現する。<BR>
+ * 各シーン(GgafScene)に所属し、活躍する。<BR>
  * GgafElement に当たり判定を実現する仕組みを加えたクラスになっている。<BR>
  * 本クラスは抽象クラスでそのまま new はできない。<BR>
- * 全てのアクタークラスは、本クラスを継承し少なくとも以下の仮想関数を実装する必要がある。<BR>
+ * 全てのアクタークラスは、本クラスを継承し少なくとも以下の純粋仮想関数を実装する必要がある。<BR>
  * <BR>
+ * ＜１度だけ呼び出される純粋仮想関数＞<BR>
  * void initialize() ・・・初期処理 <BR>
+ * ＜通常、毎フレーム呼び出される純粋仮想関数＞<BR>
  * void processBehavior() ・・・フレーム毎の振る舞い処理（座標移動等） <BR>
  * void processJudgement() ・・・フレーム毎の様々な判定処理（全アクター振る舞い処理後の処理） <BR>
  * void processDrawPrior() ・・・フレーム毎の描画事前処理 <BR>
  * void processDrawMain() ・・・フレーム毎の描画本処理 <BR>
  * void processDrawTerminate() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
- * void processHappen(int prm_no) ・・・その他のイベント時処理 <BR>
+ * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
+ * void processHappen(int prm_no) ・・・その他のイベント時の処理 <BR>
  * bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) ・・・衝突判定ロジック <BR>
  * void processOnHit(GgafActor* prm_pActor_Opponent) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>
@@ -67,9 +71,10 @@ private:
     /**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
      * executeBumpChkRoundRobin2() から呼び出される。<BR>
-     * executeBumpChk_WeAnd(GgafActor*)と基本的に同じアルゴリズムであるが、必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で<BR>
-     * 離脱し、それ以上再帰ループを行わないようしている。残りの組み合わせは後続のループで補われる。（ハズである）<BR>
-     * 離脱する理由は、自アクター配下同士の総当たりであるため、単純に襷の組み合わせで行うと<BR>
+     * executeBumpChk_WeAnd(GgafActor*)と基本的に同じ組み合わせアルゴリズムであるが、<BR>
+     * 必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で離脱し、<BR>
+     * それ以上再帰ループを行わないようしている。残りの組み合わせは後続のループで補われる。（ハズである）<BR>
+     * 離脱しても大丈夫な理由は、自アクター配下同士の総当たりであるため、単純に襷（タスキ）の組み合わせで行うと<BR>
      *  Actor① → Actor② 　　（矢印は衝突判定するという意味）<BR>
      *  Actor② → Actor①<BR>
      * のように、衝突判定処理が重複してしまうため、これを避けるため途中でループ離脱するのである。<BR>
@@ -141,7 +146,8 @@ public:
 
     /**
      * 【自アクター 対 他アクター】の衝突判定処理を実行する .
-     * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のprocessOnHit()と、相手アクターのprocessOnHit()が実行される .
+     * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のprocessOnHit()と、相手アクターのprocessOnHit()が実行される <BR>
+     * 但し、引数に、自身のポインタを渡してはいけない。<BR>
      * @param	prm_pActor_Opponent	相手の他アクター
      */
     virtual void executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent);
@@ -149,6 +155,7 @@ public:
     /**
      * 【自ツリーアクター 対 他アクター】の衝突判定処理を実行する .
      * 内部的には、自ツリーアクター 全てについて、executeBumpChk_MeAnd(GgafActor*) を順次実行。<BR>
+     * 但し、引数に、自ツリーアクター所属のアクターのポインタを渡してはいけない。<BR>
      * @param	prm_pActor_Opponent	相手の他アクター
      */
     virtual void executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent);
@@ -156,31 +163,36 @@ public:
     /**
      * 【自ツリーアクター 対 他ツリーアクター】の総当たりで衝突判定を実行する .
      * 内部的には、引数である 他ツリーアクター の全てについて、executeBumpChk_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
+     * 但し、自ツリーにも他ツリーにも同時に所属しているアクターがあってはいけない。<BR>
      * @param	prm_pActor_Opponent	相手の他ツリーアクター
      */
     virtual void executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent);
 
     /**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
-     * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
+     * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
+	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
      * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
      */
     virtual void executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent);
 
     /**
-     * 自アクターと他アクターと衝突したかどうか判定する。 .
-     * executeBumpChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになります。<BR>
-     * 下位クラスで衝突判定ロジックを実装してください。<BR>
-     * @param	prm_pActor_Opponent	相手の他アクター
-     * @retval	true	衝突している
-     * @retval	false	衝突していない
+     * 自アクターと何かのアクターと衝突したかどうか判定する。 .
+     * executeBumpChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになる。<BR>
+     * 下位クラスで衝突判定ロジックを実装する。<BR>
+     * このメソッドは何時呼び出されるかは決まっていない。呼び出しタイミングも下位クラスで実装する。<BR>
+     * 想定としては、processJudgement() メソッドを実装したクラスが、その中で本メソッドを呼び出すものとしている。<BR>
+     * もしそのように実装した場合、相手アクターも processJudgement() でこちらのアクターとの衝突判定を行うことになれば、<BR>
+     * 衝突判定処理重複することになる。この点を留意し、どーしたらよいか考えること。<BR>
+     * @param	prm_pActor_Opponent	相手アクター
+     * @retval	true	衝突しているを返す事
+     * @retval	false	衝突していないを返す事
      */
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) = 0;
 
     /**
-     * 他アクターと衝突した時の処理 .
-     * processBumpChkLogic(GgafActor*) の場合に呼び出されることになります。<BR>
-     * 或いは、相手のアクターの processBumpChkLogic(GgafActor*) の場合も呼び出されます。<BR>
+     * アクターと衝突した時の処理 .
+     * processBumpChkLogic(GgafActor*) が true の場合に呼び出されることになります。<BR>
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pActor_Opponent	衝突している相手のアクター（１つ）
      */
