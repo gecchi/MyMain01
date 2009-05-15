@@ -51,6 +51,10 @@
     //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
     #define TRACE3(X)
 
+    //エフェクト、パス、Draw関連
+    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    #define TRACE4(X)
+
     //ダンプ出力用
 	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 	//デバッグ用
