@@ -132,8 +132,8 @@ void LaserChip::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
     potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
 
-    hr = pID3DXEffect->SetTechnique(_technique);
-    potentialDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
+//    hr = pID3DXEffect->SetTechnique(_technique);
+//    potentialDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
     //【注意】4/15 メモ
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
     //processBehaviorは _pChip_front が必ず先に実行される。
@@ -186,19 +186,19 @@ void LaserChip::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
-	UINT numPass;
-    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
-
-    //TODO:2009/05/15 BeginPassの処理はやや重たいことに気がつく。無駄なBeginPassとEndPassを取り除くいい方法が無いものか・・・。
-    hr = pID3DXEffect->BeginPass(0);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") に失敗しました。");
+//	UINT numPass;
+//    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
+//
+//    //TODO:2009/05/15 BeginPassの処理はやや重たいことに気がつく。無駄なBeginPassとEndPassを取り除くいい方法が無いものか・・・。
+//    hr = pID3DXEffect->BeginPass(0);
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass(0) に失敗しました。");
     _pMeshModel->draw(this);
-    hr = pID3DXEffect->EndPass();
-
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
-    hr = pID3DXEffect->End();
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
+//    hr = pID3DXEffect->EndPass();
+//
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
+//    hr = pID3DXEffect->End();
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
 
 }
 
