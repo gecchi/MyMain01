@@ -3,6 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+
+GgafDx9Effect* GgafDx9EffectManager::_pEffect_Active = NULL;
+
 GgafDx9EffectManager::GgafDx9EffectManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Effect> (prm_manager_name) {
 }

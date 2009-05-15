@@ -29,21 +29,30 @@ void GgafDx9BoardActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetTechnique(_technique);
-    potentialDx9Exception(hr, S_OK, "GgafDx9BoardActor::processDrawMain SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    hr = pID3DXEffect->SetTechnique(_technique);
+//    potentialDx9Exception(hr, S_OK, "GgafDx9BoardActor::processDrawMain SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, _x);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, _y);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, _z);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    //Éøê›íË
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _fAlpha);
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-    UINT numPass;
-    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    for (UINT pass = 0; pass < numPass; pass++) {
-        hr = pID3DXEffect->BeginPass(pass);
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    UINT numPass;
+//    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    for (UINT pass = 0; pass < numPass; pass++) {
+//        hr = pID3DXEffect->BeginPass(pass);
+//        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         _pBoardModel->draw(this);
-        hr = pID3DXEffect->EndPass();
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    }
-    hr = pID3DXEffect->End();
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//        hr = pID3DXEffect->EndPass();
+//        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    }
+//    hr = pID3DXEffect->End();
+//    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 }
 
 void GgafDx9BoardActor::setPatternNo(int prm_pattno) {

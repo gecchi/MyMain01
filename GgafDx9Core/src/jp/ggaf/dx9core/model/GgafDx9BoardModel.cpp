@@ -42,29 +42,44 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
 
     static HRESULT hr;
-        if (GgafDx9ModelManager::_id_lastdraw != _id) {
+    if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
     }
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetU) に失敗しました。");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hOffsetV) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedX, pTargetActor->_x);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hTransformedY, pTargetActor->_y);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hDepthZ, pTargetActor->_z);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) に失敗しました。");
-    //α設定
-    hr = pID3DXEffect->SetFloat(pBoardEffect->_hAlpha, pTargetActor->_fAlpha);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) に失敗しました。");
-    hr = pID3DXEffect->CommitChanges();
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw CommitChanges() に失敗しました。");
+    potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) に失敗しました。");
+
+    if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect) {
+        if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+            TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+
+            hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() に失敗しました。");
+            hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() End() に失敗しました。");
+        }
+
+        TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
+        potentialDx9Exception(hr, S_OK, "GgafDx9BoardModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+        TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
+        UINT numPass;
+        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() Begin() に失敗しました。");
+        hr = pID3DXEffect->BeginPass(0);
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() BeginPass(0) に失敗しました。");
+    } else {
+        hr = pID3DXEffect->CommitChanges();
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() CommitChanges() に失敗しました。");
+    }
+    TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-    //前回描画モデル名保存
-    GgafDx9ModelManager::_id_lastdraw = _id;
+    //前回描画モデル保持
+    GgafDx9ModelManager::_pModelLastDraw = this;
+    GgafDx9EffectManager::_pEffect_Active = pBoardEffect;
     //前回描画UV座標（へのポインタ）を保存
     _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;

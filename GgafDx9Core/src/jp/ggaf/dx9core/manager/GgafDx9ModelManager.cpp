@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 
 
 int GgafDx9ModelManager::_id_max = 0;
-int GgafDx9ModelManager::_id_lastdraw = -1;
+GgafDx9Model* GgafDx9ModelManager::_pModelLastDraw = NULL;
 GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Model> (prm_manager_name) {
 

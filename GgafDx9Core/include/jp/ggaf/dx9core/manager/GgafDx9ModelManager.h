@@ -107,7 +107,7 @@ public:
         return _id_max;
     }
     /** ‘O‰ñ•`‰æModel‚ÌId */
-    static int _id_lastdraw;
+    static GgafDx9Model* _pModelLastDraw;
 
 
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);

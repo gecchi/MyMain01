@@ -40,6 +40,17 @@ void GgafDx9Universe::drawMain() {
         }
         _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
     }
+
+    HRESULT hr;
+    if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+        TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+        hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() に失敗しました。");
+        hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
+        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() に失敗しました。");
+        GgafDx9EffectManager::_pEffect_Active = NULL;
+        GgafDx9ModelManager::_pModelLastDraw = NULL;
+    }
 }
 
 void GgafDx9Universe::setDrawDepthMaxLevel(GgafActor* prm_pActor) {

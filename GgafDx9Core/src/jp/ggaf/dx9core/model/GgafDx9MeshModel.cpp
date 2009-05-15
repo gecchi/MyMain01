@@ -39,7 +39,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	HRESULT hr;
     UINT material_no;
-    if (GgafDx9ModelManager::_id_lastdraw != _id) {
+    if (GgafDx9ModelManager::_pModelLastDraw != this) {
         //頂点バッファとインデックスバッファを設定
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
@@ -48,7 +48,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
-        if (GgafDx9ModelManager::_id_lastdraw != _id || _nMaterialListGrp != 1) {
+        if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
             material_no = _paIndexParam[i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
@@ -59,10 +59,33 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
             hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
-            hr = pID3DXEffect->CommitChanges();
-            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw CommitChanges() に失敗しました。");
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
         }
+
+
+        if (GgafDx9EffectManager::_pEffect_Active != pMeshEffect) {
+            if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+                potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
+                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
+                potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() End() に失敗しました。");
+            }
+
+            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
+            potentialDx9Exception(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            UINT numPass;
+            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() Begin() に失敗しました。");
+            hr = pID3DXEffect->BeginPass(0);
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
+        } else {
+            hr = pID3DXEffect->CommitChanges();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
+        }
+        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,
@@ -70,7 +93,8 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
     }
-    GgafDx9ModelManager::_id_lastdraw = _id;
+    GgafDx9ModelManager::_pModelLastDraw = this;
+    GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

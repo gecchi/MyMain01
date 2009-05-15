@@ -10,6 +10,8 @@ class GgafDx9EffectManager : public GgafCore::GgafResourceManager<GgafDx9Effect>
 
 public:
 
+    static GgafDx9Effect* _pEffect_Active;
+
     /**
      * コンストラクタ
      * @param prm_manager_name マネージャ名称(リテラル必須)

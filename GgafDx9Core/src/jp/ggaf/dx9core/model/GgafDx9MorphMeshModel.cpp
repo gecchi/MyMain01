@@ -51,7 +51,7 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 	HRESULT hr;
     UINT material_no;
     //頂点バッファ設定
-    if (GgafDx9ModelManager::_id_lastdraw != _id) {
+    if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertec_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
@@ -63,7 +63,7 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
-        if (GgafDx9ModelManager::_id_lastdraw != _id || _nMaterialListGrp != 1) {
+        if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
             material_no = _paIndexParam[i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
@@ -74,10 +74,38 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
             hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-            potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw SetValue(g_MaterialDiffuse) に失敗しました。");
-            hr = pID3DXEffect->CommitChanges();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) に失敗しました。");
         }
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw CommitChanges() に失敗しました。");
+
+        if (GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect) {
+            if (GgafDx9EffectManager::_pEffect_Active != NULL) {
+                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
+                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
+                potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() EndPass() に失敗しました。");
+                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
+                potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() End() に失敗しました。");
+            }
+
+            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+            hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
+            potentialDx9Exception(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
+            UINT numPass;
+            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() Begin() に失敗しました。");
+            //モーフターゲットの数により pass を切り替えている
+            //プリマリメッシュのみ                             = pass0
+            //プライマリメッシュ＋モーフターゲットメッシュ１つ = pass1
+            //プライマリメッシュ＋モーフターゲットメッシュ２つ = pass2
+            //以下最大９まで
+            hr = pID3DXEffect->BeginPass(_morph_target_num);
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() BeginPass("<<_morph_target_num<<") に失敗しました。");
+        } else {
+            hr = pID3DXEffect->CommitChanges();
+            potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()CommitChanges() に失敗しました。");
+        }
+
+        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _paIndexParam[i].BaseVertexIndex,
                                                         _paIndexParam[i].MinIndex,
@@ -85,7 +113,8 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _paIndexParam[i].StartIndex,
                                                         _paIndexParam[i].PrimitiveCount);
     }
-    GgafDx9ModelManager::_id_lastdraw = _id;
+    GgafDx9ModelManager::_pModelLastDraw = this;
+    GgafDx9EffectManager::_pEffect_Active = pMorphMeshEffect;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }
