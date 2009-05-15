@@ -11,6 +11,9 @@ float g_X; //一つ前を行くチップX
 float g_Y; //一つ前を行くチップY
 float g_Z; //一つ前を行くチップZ
 
+bool g_RevPosZ; //Z座標を反転するかどうか
+
+
 float4x4 g_matWorld;  //自身のWorld変換行列
 float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
 float4x4 g_matView;   //View変換行列
@@ -43,7 +46,7 @@ OUT_VS GgafDx9VS_LaserChip(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 //
-	if (g_X - g_matWorld._41 < 0) {
+	if (g_RevPosZ == true) {
 		prm_pos.z = -prm_pos.z;
 	}
 //
@@ -51,6 +54,7 @@ OUT_VS GgafDx9VS_LaserChip(
 //		prm_pos.y = -prm_pos.y;
 //	}
 //
+	//ほぼ真横なら羽はいらない
 	if (abs(g_Z - g_matWorld._43) < 1.5) {
 		if (abs(g_Y - g_matWorld._42) < 1.0) {
 			prm_pos.z = 0;

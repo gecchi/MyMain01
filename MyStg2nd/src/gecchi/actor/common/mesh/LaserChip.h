@@ -5,7 +5,7 @@ namespace MyStg2nd {
 class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
     friend class LaserChipRotationActor;
 private:
-    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hMatWorld_front;
+    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ, _hMatWorld_front;
 
 
     void processDrawPrior() {

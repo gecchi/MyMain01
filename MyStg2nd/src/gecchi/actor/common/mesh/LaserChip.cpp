@@ -24,6 +24,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _hX = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
     _hY = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
     _hZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
+    _hRevPosZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ" );
     _hMatWorld_front = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 }
 
@@ -166,6 +167,23 @@ void LaserChip::processDrawMain() {
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) に失敗しました。1");
         hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &(_pChip_front->_matWorld));
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
+
+        //チップの十字の左右の羽の描画順序を考える。
+        //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
+        //２点(X1,Z1)(X2,Z2) を通る直線の方程式 Z = CamZ の時のX座標は
+        //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標を代入し
+        //この式のXが負ならカメラの左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
+        if (_pChip_front->_Z - _Z != 0) {
+            if (0 > (((GgafDx9Universe::_pCamera->_Z - _Z)*(_pChip_front->_X - _X)*1.0) / ((_pChip_front->_Z - _Z)*1.0)) + _X) {
+                hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+            } else {
+                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+            }
+            potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
+        }
+        //TODO:処理に余裕があれば上下もする
+
+
     } else {
         //前方に連続のチップが無い場合。
 //        hr = pID3DXEffect->SetInt(_hKind, 4);
@@ -178,6 +196,8 @@ void LaserChip::processDrawMain() {
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) に失敗しました。2");
         hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &_matWorld );
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。2");
+        hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。2");
     }
 
     if (_pChip_behind != NULL) {
