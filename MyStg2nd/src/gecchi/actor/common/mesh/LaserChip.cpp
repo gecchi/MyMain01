@@ -172,13 +172,60 @@ void LaserChip::processDrawMain() {
         //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
         //２点(X1,Z1)(X2,Z2) を通る直線の方程式 Z = CamZ の時のX座標は
         //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標を代入し
-        //この式のXが負ならカメラの左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
-        if (_pChip_front->_Z - _Z != 0) {
-            if (0 > (((GgafDx9Universe::_pCamera->_Z - _Z)*(_pChip_front->_X - _X)*1.0) / ((_pChip_front->_Z - _Z)*1.0)) + _X) {
-                hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+        //この式のXがカメラXより小さければの左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
+        if (_pChip_front->_X != _X) {
+//              double rrX = (((GgafDx9Universe::_pCamera->_Z - _Z)*(_pChip_front->_X - _X)*1.0) / ((_pChip_front->_Z - _Z)*1.0)) + _X;
+
+            //double rrX = (GgafDx9Universe::_pCamera->_Z*(_pChip_front->_X - _X) - (_pChip_front->_X*_Z - _X*_pChip_front->_Z) * 1.0 ) / ((_pChip_front->_Z - _Z)*1.0);
+            //            _TRACE_("GgafDx9Universe::_pCamera->_Z = "<<GgafDx9Universe::_pCamera->_Z);
+
+
+            double crossZ = (((_pChip_front->_Z - _Z)*(GgafDx9Universe::_pCamera->_X - _X)*1.0) / ((_pChip_front->_X - _X)*1.0)) + _Z;
+            //double rrX = ((_X*_pChip_front->_Z - _pChip_front->_X*_Z - ((_X - _pChip_front->_X)*GgafDx9Universe::_pCamera->_Z))*1.0) / ((_pChip_front->_Z - _Z)*1.0);
+//            _TRACE_("_pChip_front->_X , _pChip_front->_Z = "<<_pChip_front->_X<<","<<_pChip_front->_Z);
+//            _TRACE_("_X , _Z = "<<_X<<","<<_Z);
+//            _TRACE_("GgafDx9Universe::_pCamera->_Z="<<GgafDx9Universe::_pCamera->_Z);
+//            _TRACE_("rrX = "<<rrX);
+//
+//            if (GgafDx9Universe::_pCamera->_X > rr) {
+//                hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+//            } else {
+//                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+//            }
+
+            _TRACE_("_pChip_front->_X , _pChip_front->_Z = "<<_pChip_front->_X<<","<<_pChip_front->_Z);
+            _TRACE_("_X , _Z = "<<_X<<","<<_Z);
+            _TRACE_("GgafDx9Universe::_pCamera->_X="<<GgafDx9Universe::_pCamera->_X);
+            _TRACE_("GgafDx9Universe::_pCamera->_Z="<<GgafDx9Universe::_pCamera->_Z);
+            _TRACE_("crossZ = "<<crossZ);
+
+
+            if (_X < _pChip_front->_X) {
+                //左から右で
+                if (crossZ < GgafDx9Universe::_pCamera->_Z) {
+                    //カメラの前で横切る
+                    hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+                } else {
+                    //カメラの後ろで横切る
+                    hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                }
             } else {
-                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                //右から左で
+                if (crossZ < GgafDx9Universe::_pCamera->_Z) {
+                    //カメラの前で横切る
+                    hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                } else {
+                    //カメラの後ろで横切る
+                    hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+                }
             }
+//
+//            if (rrX < GgafDx9Universe::_pCamera->_X) {
+//                hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+//            } else {
+//                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+//            }
+
             potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
         }
         //TODO:処理に余裕があれば上下もする

@@ -26,7 +26,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
     _TRACE_("ƒJƒƒ‰‚ÌˆÊ’u(0,0,"<<_cameraZ<<")");
 
     _screen_aspect = (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
-
+    _rad_fovX = _rad_fovY * _screen_aspect;
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //ˆÊ’u
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //’‹‚·‚é•ûŒü
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //ã•ûŒü

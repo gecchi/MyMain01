@@ -15,7 +15,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
     _radius = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
     _veloMove = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
-    _angExpanse = 300000;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
+    _angExpanse = 295000;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
     _angveloExpanse = 00; //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚ÌŠp‰ñ“]‘¬“x iã‘‚«‰ŠúÝ’è‰Âj
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }

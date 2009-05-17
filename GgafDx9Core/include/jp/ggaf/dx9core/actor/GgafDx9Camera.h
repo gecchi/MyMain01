@@ -48,6 +48,7 @@ public:
 
 
     double _rad_fovY;
+    double _rad_fovX;
 
     double _tan_half_fovY;
     double _dCamHarfXfovTan;
