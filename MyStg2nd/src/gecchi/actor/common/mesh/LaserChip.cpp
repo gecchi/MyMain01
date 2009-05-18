@@ -145,20 +145,6 @@ void LaserChip::processDrawMain() {
     potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
 
     if (_pChip_front != NULL) {
-        //前方に連続のチップがある場合
-
-//        if (_pChip_front -> _pChip_front == NULL) {
-//            hr = pID3DXEffect->SetInt(_hKind, 3);
-//            potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
-//        } else {
-//            if (_pChip_behind == NULL) {
-//                hr = pID3DXEffect->SetInt(_hKind, 1);
-//                potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
-//            } else {
-//                hr = pID3DXEffect->SetInt(_hKind, 2);
-//                potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。1");
-//            }
-//        }
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。1");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
@@ -169,76 +155,36 @@ void LaserChip::processDrawMain() {
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
 
         //チップの十字の左右の羽の描画順序を考える。
-
-//        _TRACE_(getName()<<": ----------------------------");
         double slant = (_pChip_front->_Z - _Z)*1.0 / (_pChip_front->_X - _X)*1.0;
         if (_pChip_front->_X == _X) {
             hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-//            _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, false); _pChip_front->_X - _X");
         } else if (GgafDx9Universe::_pCamera->_border2_XZ < slant && slant < GgafDx9Universe::_pCamera->_border1_XZ) {
 
             if (_pChip_front->_X > _X ) {
                 hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-//                _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, false);");
             } else {
                 hr = pID3DXEffect->SetBool(_hRevPosZ, true);
-//                _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, true);");
             }
-//            _TRACE_(getName()<<": 簡易判定だ");
-//            _TRACE_(getName()<<": slant = " <<slant);
-//            _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_border1_XZ  = " <<GgafDx9Universe::_pCamera->_border1_XZ);
-//            _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_border2_XZ  = " <<GgafDx9Universe::_pCamera->_border2_XZ);
-//            _TRACE_(getName()<<": _pChip_front->_X , _pChip_front->_Z = "<<_pChip_front->_X<<","<<_pChip_front->_Z);
-//            _TRACE_(getName()<<": _X , _Z = "<<_X<<","<<_Z);
-//            _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_X="<<GgafDx9Universe::_pCamera->_X);
-//            _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_Z="<<GgafDx9Universe::_pCamera->_Z);
         } else {
             if (_pChip_front->_Z == _Z) {
                 hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-//                _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, false);  _pChip_front->_Z == _Z");
-
             } else {
                 //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
                 //２点(X1,Z1)(X2,Z2) を通る直線の方程式 Z = CamZ の時のX座標は
                 //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標を代入し
                 //この式のXがカメラXより小さければの左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
-                //double crossCamX = (((GgafDx9Universe::_pCamera->_Z - _Z)*(_pChip_front->_X - _X)*1.0) / ((_pChip_front->_Z - _Z)*1.0)) + _X;
-//                float wk1 = (float)(GgafDx9Universe::_pCamera->_Z - _Z);
-//                float wk2 = (float)(_pChip_front->_X - _X) / (float)(_pChip_front->_Z - _Z);
                 float crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - _Z)) * ((float)(_pChip_front->_X - _X) / (float)(_pChip_front->_Z - _Z)) + _X;
                 if (crossCamX < GgafDx9Universe::_pCamera->_X) {
                     hr = pID3DXEffect->SetBool(_hRevPosZ, true);
-//                    _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, true);");
                 } else {
                     hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-//                    _TRACE_(getName()<<": pID3DXEffect->SetBool(_hRevPosZ, false);");
                 }
-//                _TRACE_(getName()<<": 交線判定だ");
-//
-//                _TRACE_(getName()<<":(((GgafDx9Universe::_pCamera->_Z - _Z) = "<<(GgafDx9Universe::_pCamera->_Z - _Z));
-//                _TRACE_(getName()<<":(_pChip_front->_X - _X) = "<<(_pChip_front->_X - _X));
-//                _TRACE_(getName()<<":(_pChip_front->_Z - _Z) = "<<(_pChip_front->_Z - _Z));
-//                _TRACE_(getName()<<": wk1 = "<<wk1);
-//                _TRACE_(getName()<<": wk2 = "<<wk2);
-//                _TRACE_(getName()<<": wk1*wk2 = "<<ww);
-//                _TRACE_(getName()<<": slant = " <<slant);
-//                _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_border1_XZ  = " <<GgafDx9Universe::_pCamera->_border1_XZ);
-//                _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_border2_XZ  = " <<GgafDx9Universe::_pCamera->_border2_XZ);
-//                _TRACE_(getName()<<": _pChip_front->_X , _pChip_front->_Z = "<<_pChip_front->_X<<","<<_pChip_front->_Z);
-//                _TRACE_(getName()<<": _X , _Z = "<<_X<<","<<_Z);
-//                _TRACE_(getName()<<": X増分=" << _pChip_front->_X - _X);
-//                _TRACE_(getName()<<": Z増分=" << _pChip_front->_Z - _Z);
-//                _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_X="<<GgafDx9Universe::_pCamera->_X);
-//                _TRACE_(getName()<<": GgafDx9Universe::_pCamera->_Z="<<GgafDx9Universe::_pCamera->_Z);
-//                _TRACE_(getName()<<": crossCamX = "<<crossCamX);
             }
         }
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
 
     } else {
         //前方に連続のチップが無い場合。
-//        hr = pID3DXEffect->SetInt(_hKind, 4);
-//        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。2");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_Y/LEN_UNIT/ PX_UNIT);
