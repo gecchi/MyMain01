@@ -9,78 +9,102 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9UntransformedActor(prm_name,
                             NEW GgafDx9GeometryMover(this),
                             NEW StgChecker(this) ) {
-    _angVelocity_Turn = 2000;
+    _angVelocity_Turn = 3000;
 
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
-    pMyDummyOption01->_radius = 120000;
+    pMyDummyOption01->_radiusPosition = 120000;
     pMyDummyOption01->_veloMove = 6000;
+    pMyDummyOption01->_angExpanse = 290000;
+    pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
     addSubLast(pMyDummyOption01);
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
-    pMyDummyOption02->_radius = 120000;
+    pMyDummyOption02->_radiusPosition = 120000;
     pMyDummyOption02->_veloMove = 6000;
+    pMyDummyOption02->_angExpanse = 290000;
+    pMyDummyOption02->_angveloExpanse = 0;
     pMyDummyOption02->_angPosition = ANGLE90;
     addSubLast(pMyDummyOption02);
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
-    pMyDummyOption03->_radius = 120000;
+    pMyDummyOption03->_radiusPosition = 120000;
     pMyDummyOption03->_veloMove = 6000;
+    pMyDummyOption03->_angExpanse = 290000;
+    pMyDummyOption03->_angveloExpanse = 0;
     pMyDummyOption03->_angPosition = ANGLE180;
     addSubLast(pMyDummyOption03);
 
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
-    pMyDummyOption04->_radius = 120000;
+    pMyDummyOption04->_radiusPosition = 120000;
     pMyDummyOption04->_veloMove = 6000;
+    pMyDummyOption04->_angExpanse = 290000;
+    pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;
     addSubLast(pMyDummyOption04);
 
     MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
-    pMyDummyOption05->_radius = 200000;
+    pMyDummyOption05->_radiusPosition = 200000;
     pMyDummyOption05->_angPosition = 0;
+    pMyDummyOption05->_angExpanse = 290000;
+    pMyDummyOption05->_angveloExpanse = 0;
     pMyDummyOption05->_veloMove = -7000;
     addSubLast(pMyDummyOption05);
 
     MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
-    pMyDummyOption06->_radius = 200000;
+    pMyDummyOption06->_radiusPosition = 200000;
     pMyDummyOption06->_angPosition = ANGLE90;
+    pMyDummyOption06->_angExpanse = 290000;
+    pMyDummyOption06->_angveloExpanse = 0;
     pMyDummyOption06->_veloMove = -7000;
     addSubLast(pMyDummyOption06);
 
     MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
-    pMyDummyOption07->_radius = 200000;
+    pMyDummyOption07->_radiusPosition = 200000;
     pMyDummyOption07->_angPosition = ANGLE180;
+    pMyDummyOption07->_angExpanse = 290000;
+    pMyDummyOption07->_angveloExpanse = 0;
     pMyDummyOption07->_veloMove = -7000;
     addSubLast(pMyDummyOption07);
 
     MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
-    pMyDummyOption08->_radius = 200000;
+    pMyDummyOption08->_radiusPosition = 200000;
     pMyDummyOption08->_angPosition = ANGLE270;
+    pMyDummyOption08->_angExpanse = 290000;
+    pMyDummyOption08->_angveloExpanse = 0;
     pMyDummyOption08->_veloMove = -7000;
     addSubLast(pMyDummyOption08);
 
     MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
-    pMyDummyOption09->_radius = 280000;
+    pMyDummyOption09->_radiusPosition = 280000;
     pMyDummyOption09->_angPosition = 0;
+    pMyDummyOption09->_angExpanse = 290000;
+    pMyDummyOption09->_angveloExpanse = 0;
     pMyDummyOption09->_veloMove = 8000;
     addSubLast(pMyDummyOption09);
 
     MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
-    pMyDummyOption10->_radius = 280000;
+    pMyDummyOption10->_radiusPosition = 280000;
     pMyDummyOption10->_angPosition = ANGLE90;
+    pMyDummyOption10->_angExpanse = 290000;
+    pMyDummyOption10->_angveloExpanse = 0;
     pMyDummyOption10->_veloMove = 8000;
     addSubLast(pMyDummyOption10);
 
     MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
-    pMyDummyOption11->_radius = 280000;
+    pMyDummyOption11->_radiusPosition = 280000;
     pMyDummyOption11->_angPosition = ANGLE180;
+    pMyDummyOption11->_angExpanse = 290000;
+    pMyDummyOption11->_angveloExpanse = 0;
     pMyDummyOption11->_veloMove = 8000;
     addSubLast(pMyDummyOption11);
 
     MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
-    pMyDummyOption12->_radius = 280000;
+    pMyDummyOption12->_radiusPosition = 280000;
     pMyDummyOption12->_angPosition = ANGLE270;
+    pMyDummyOption12->_angExpanse = 290000;
+    pMyDummyOption12->_angveloExpanse = 0;
     pMyDummyOption12->_veloMove = 8000;
     addSubLast(pMyDummyOption12);
 

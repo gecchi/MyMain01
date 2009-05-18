@@ -11,6 +11,7 @@ public:
     MoveWay _way_myship_prev;
 
     /** 対象アクター */
+
     /** 方向転換角速度 */
     GgafDx9Core::angle _angVelocity_Turn;
 

@@ -13,22 +13,22 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angveloMove = 0;//旋廻移動角速度（読み出し専用）
 
     _angPosition = 0;     //円周上初期位置角度（周囲角）（上書き初期設定可）
-    _radius = 150000;     //旋廻半径距離（上書き初期設定可）
+    _radiusPosition = 150000;     //旋廻半径距離（上書き初期設定可）
     _veloMove = 5000;     //旋廻移動速度（上書き初期設定可）
-    _angExpanse = 295000;      //オプションの広がり角の回転角（上書き初期設定可）
-    _angveloExpanse = 00; //オプションの広がり角の角回転速度 （上書き初期設定可）
+    _angExpanse = 290000;      //オプションの広がり角の回転角（上書き初期設定可）
+    _angveloExpanse = 0; //オプションの広がり角の角回転速度 （上書き初期設定可）
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
 }
 
 void MyDummyOption::initialize() {
-    _angveloMove = ((1.0*_veloMove / _radius)*(double)ANGLE180)/PI;
+    _angveloMove = ((1.0*_veloMove / _radiusPosition)*(double)ANGLE180)/PI;
     _pGeoMover->setMoveVelocity(_veloMove);
     _pGeoMover->setRzMoveAngle(_angPosition+ANGLE90);
     _pGeoMover->setRyMoveAngle(-ANGLE90);
     _pGeoMover->setRzMoveAngleVelocity(_angveloMove);//∵半径Ｒ＝速度Ｖ／角速度ω
     _pGeoMover->setRyMoveAngleVelocity(0);//∵半径Ｒ＝速度Ｖ／角速度ω
-    _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radius; //X軸中心回転なのでXYではなくてZY
-    _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radius;
+    _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
+    _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
     _X = 50000; //TODO:本当は0（自機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
                 //やや中心からずらす事で、ある程度向きの遷移を滑らかにし、
                 //さらにAXIS_X 軸回転を速めに設定し、気付かれないようにごまかす･･･妥協。
@@ -96,11 +96,11 @@ void MyDummyOption::processBehavior() {
     //
     //                    ↑
     //○        自        ○
-    //↓     (0,0,0)      (-50000, 0, _radius)
+    //↓     (0,0,0)      (-50000, 0, _radiusPosition)
     //
     //
     //         ○→
-    //          (-50000, -1*_radius, 0)
+    //          (-50000, -1*_radiusPosition, 0)
     //
     //しかしまだ色々回転が必要。あとは普通に力技（普通に計算）で、座標回転、向き回転を行なう。
     //TODO:いつか汎用化最適化。

@@ -6,16 +6,9 @@ using namespace GgafDx9Core;
 GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
     _class_name = "GgafDx9Camera";
 
-//    D3DXVECTOR3* GgafDx9God::_pVecCamFromPoint = NULL;
-//    D3DXVECTOR3* GgafDx9God::_pVecCamLookatPoint = NULL;
-//    D3DXVECTOR3* GgafDx9God::_pVecCamUp = NULL;
-//    D3DXMATRIX GgafDx9God::_vMatrixView;
-//    D3DXMATRIX GgafDx9God::_vMatrixProj;
-//    D3DXMATRIX GgafDx9God::_vMatrixOrthoProj;
-
     //FOVXを基準に考える
-    //視野角６０度
-    _rad_fovX = PI / 3;
+    //視野角45度
+    _rad_fovX = PI / 4;
 
     //_iPxDep = abs(_cameraZ_org * PX_UNIT * 2);
     //アスペクト比(w/h)
@@ -30,8 +23,8 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
     _cameraZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
-    _border1_XZ = sin((PI - _rad_fovX) / 2) / cos((PI - _rad_fovX) / 2);
-    _border2_XZ = -_border1_XZ;
+    _view_border_slant1_XZ = sin((PI - _rad_fovX) / 2) / cos((PI - _rad_fovX) / 2);
+    _view_border_slant2_XZ = -_view_border_slant1_XZ;
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向

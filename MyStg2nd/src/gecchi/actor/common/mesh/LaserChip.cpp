@@ -135,9 +135,10 @@ void LaserChip::processDrawMain() {
 
 //    hr = pID3DXEffect->SetTechnique(_technique);
 //    potentialDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
     //Åyíçà”Åz4/15 ÉÅÉÇ
     //âúÇ©ÇÁï`âÊÇ∆Ç»ÇÈÇÃÇ≈ processDrawXxxx ÇÕÅAìØàÍÉtÉåÅ[ÉÄì‡Ç≈ _pChip_front Ç™ïKÇ∏ÇµÇ‡êÊÇ…é¿çsÇ≥ÇÍÇ∆ÇÕå¿ÇÁÇ»Ç¢ÅB
-    //processBehaviorÇÕ _pChip_front Ç™ïKÇ∏êÊÇ…é¿çsÇ≥ÇÍÇÈÅB
+    //processBehaviorÇÕ _pChip_front Ç™ïKÇ∏êÊÇ…é¿çsÇ≥ÇÍÇÈÅBóØà”ÇπÇÊÅB
     GgafDx9UntransformedActor::updateWorldMatrix_Mv(this, _matWorld);
 
     //ÉeÉNÉXÉ`ÉÉéÌóﬁ
@@ -155,32 +156,58 @@ void LaserChip::processDrawMain() {
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
 
         //É`ÉbÉvÇÃè\éöÇÃç∂âEÇÃâHÇÃï`âÊèáèòÇçlÇ¶ÇÈÅB
-        double slant = (_pChip_front->_Z - _Z)*1.0 / (_pChip_front->_X - _X)*1.0;
+        static bool rev_pos_Z; //true = í∏ì_ÇÃZÇ-1ÇèÊÇ∏ÇÈÅBfalse = âΩÇ‡ÇµÇ»Ç¢
+        static float slant;
+        slant = (_pChip_front->_Z - _Z)*1.0 / (_pChip_front->_X - _X)*1.0;
         if (_pChip_front->_X == _X) {
-            hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-        } else if (GgafDx9Universe::_pCamera->_border2_XZ < slant && slant < GgafDx9Universe::_pCamera->_border1_XZ) {
-
+            rev_pos_Z = false;
+        } else if (GgafDx9Universe::_pCamera->_view_border_slant2_XZ < slant && slant < GgafDx9Universe::_pCamera->_view_border_slant1_XZ) {
             if (_pChip_front->_X > _X ) {
-                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                rev_pos_Z = false;
             } else {
-                hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+                rev_pos_Z = true;
             }
         } else {
             if (_pChip_front->_Z == _Z) {
-                hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                rev_pos_Z = false;
             } else {
+                //ÅÉ2009/5/19 ÉÅÉÇÅFâΩÇîªíËÇµÇÊÇ§Ç∆ÇµÇƒÇ¢ÇÈÇÃÇ©ÅÑ
                 //XZïΩñ Ç…Ç®Ç¢ÇƒÅAÉåÅ[ÉUÅ[É`ÉbÉvÇ™ÉJÉÅÉâÇÃâEÇí âﬂÇ∑ÇÈÇÃÇ©ç∂Çí âﬂÇ∑ÇÈÇÃÇ©ÅA
                 //ÇQì_(X1,Z1)(X2,Z2) Çí ÇÈíºê¸ÇÃï˚íˆéÆ Z = CamZ ÇÃéûÇÃXç¿ïWÇÕ
                 //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 Ç∆Ç»ÇÈÅBÇQì_Ç…É`ÉbÉvÇÃç¿ïWÇë„ì¸Çµ
                 //Ç±ÇÃéÆÇÃXÇ™ÉJÉÅÉâXÇÊÇËè¨Ç≥ÇØÇÍÇŒÇÃç∂Çí âﬂÇ∑ÇÈÇ±Ç∆Ç…Ç»ÇÈÅBÇªÇÃèÍçáÉ`ÉbÉvÇÃZç¿ïWí∏ì_ÇîΩì]ÇµâHÇÃï`âÊèáèòÇïœçXÇ∑ÇÈÅB
-                float crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - _Z)) * ((float)(_pChip_front->_X - _X) / (float)(_pChip_front->_Z - _Z)) + _X;
+                //âHÇ∆ÇÕâ∫ê}ÇÃá@Ç∆áCÇÃÉ|ÉäÉSÉìÇÃÇ±Ç∆Ç≈Ç†ÇÈÅBá@Å`áCÇ™ÉfÉtÉHÉãÉgÇÃï`âÊèáèòÅB
+                //ì¡íËÇÃäpìxÇ≈ÇÕÇ±ÇÃá@Ç∆áCÇÃï`âÊèáî‘ÇïœÇ¶Ç»ÇØÇÍÇŒÅAîºìßñæÇÃÇΩÇﬂÉMÉUÉMÉUÇ…Ç»ÇÈèÍçáÇ™Ç†ÇÈÇ∆Ç¢Ç§Ç±Ç∆Ç≈Ç†ÇÈÇÃÇæÅB
+                //         Å™Çôé≤
+                //         Ñ†
+                //
+                //          Å_
+                //         Ñ† Å_
+                //         Ñ†áA Å_
+                //  (0,0,0)Ñ†    Ñ´        Çöé≤
+                // ÑüÑüÑüÑüÑ£----Ñ´Ñü   ÑüÅ®
+                //  Å_  áC ÅFÅ_  Ñ´   Å_
+                //    Å_   ÅF  Å_Ñ´  á@ Å_
+                //       Ñ™Ñ™Ñ™Ñ™Ñ¥Ñ™Ñ™Ñ™Ñ™
+                //         Ñ†    Ñ´
+                //          Å_ áBÑ´  Å_
+                //            Å_ Ñ´    Å_ Çòé≤Åiï˚å¸Åj
+                //               Ñ´      Ñ£
+
+                static float crossCamX;
+                crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - _Z)) * ((float)(_pChip_front->_X - _X) / (float)(_pChip_front->_Z - _Z)) + _X;
                 if (crossCamX < GgafDx9Universe::_pCamera->_X) {
-                    hr = pID3DXEffect->SetBool(_hRevPosZ, true);
+                    rev_pos_Z = true;
                 } else {
-                    hr = pID3DXEffect->SetBool(_hRevPosZ, false);
+                    rev_pos_Z = false;
                 }
             }
+            if (_pChip_front->_Z > _Z) {
+                //è„ãLÇÃîªíËÇÕÉåÅ[ÉUÅ[ÇÕâúÇ©ÇÁéËëOÇ÷óàÇƒÇÈèÍçáÇÃîªíËÅAéËëOÇ©ÇÁâúÇÃèÍçáÇÕîªíËÇÕîΩì]Ç∑ÇÈÇ±Ç∆Ç…Ç»ÇÈÅB
+                rev_pos_Z = !rev_pos_Z;
+            }
         }
+        hr = pID3DXEffect->SetBool(_hRevPosZ, rev_pos_Z);
         potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
 
     } else {

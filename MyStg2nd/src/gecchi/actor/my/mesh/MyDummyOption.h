@@ -30,7 +30,7 @@ public:
     /** 円周上初期位置角度（周囲角）（initialize()までに変更可／デフォルト=0） */
     GgafDx9Core::angle _angPosition;
     /** 旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
-    int _radius;
+    int _radiusPosition;
     /** 旋廻円周移動速度（随時変更可／デフォルト=1000） */
     GgafDx9Core::velo _veloMove;
     /** オプションの広がり回転角（随時変更可／デフォルト=0 中心を向いている） */
