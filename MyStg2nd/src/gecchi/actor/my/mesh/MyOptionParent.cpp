@@ -11,7 +11,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
                             NEW StgChecker(this) ) {
     _angVelocity_Turn = 2000;
 
-/*
+
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radius = 120000;
     pMyDummyOption01->_veloMove = 6000;
@@ -84,7 +84,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption12->_veloMove = 8000;
     addSubLast(pMyDummyOption12);
 
-*/
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
