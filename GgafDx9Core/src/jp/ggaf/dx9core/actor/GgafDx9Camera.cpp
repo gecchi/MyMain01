@@ -13,20 +13,25 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
 //    D3DXMATRIX GgafDx9God::_vMatrixProj;
 //    D3DXMATRIX GgafDx9God::_vMatrixOrthoProj;
 
-
-    _rad_fovY = PI / 6;
-
-
-    _tan_half_fovY = tan(_rad_fovY/2);
-    _cameraZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / _tan_half_fovY;
-    _cameraZ_org = _cameraZ;
+    //FOVXを基準に考える
+    //視野角６０度
+    _rad_fovX = PI / 3;
 
     //_iPxDep = abs(_cameraZ_org * PX_UNIT * 2);
-
-    _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
-
+    //アスペクト比(w/h)
     _screen_aspect = (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
-    _rad_fovX = _rad_fovY * _screen_aspect;
+    //FovXとアスペクト比からFovYを求める
+    double xzRatio = tan( _rad_fovX/2 );
+    double yRatio = xzRatio / _screen_aspect;
+    _rad_fovY = atan( yRatio )*2;
+    _tan_half_fovY = tan(_rad_fovY/2);
+    _tan_half_fovX = tan(_rad_fovX/2);
+    //初期カメラ位置はZ=0のXY平面で丁度ピクセル幅と一致するような所
+    _cameraZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / _tan_half_fovY;
+    _cameraZ_org = _cameraZ;
+    _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
+    _border1_XZ = sin((PI - _rad_fovX) / 2) / cos((PI - _rad_fovX) / 2);
+    _border2_XZ = -_border1_XZ;
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向

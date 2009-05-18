@@ -51,8 +51,11 @@ public:
     double _rad_fovX;
 
     double _tan_half_fovY;
+    double _tan_half_fovX;
     double _dCamHarfXfovTan;
     double _screen_aspect;
+    double _border1_XZ;
+    double _border2_XZ;
 
 
 
