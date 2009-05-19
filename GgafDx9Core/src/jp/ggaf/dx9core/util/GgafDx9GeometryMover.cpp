@@ -816,15 +816,15 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
                  );
 }
 
-void GgafDx9GeometryMover::setAutoTargetMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target) {
-    setAutoTargetMoveAngle(
+void GgafDx9GeometryMover::setAutoTargetRzRyMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target) {
+    setAutoTargetRzRyMoveAngle(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDx9GeometryMover::setAutoTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9GeometryMover::setAutoTargetRzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
 

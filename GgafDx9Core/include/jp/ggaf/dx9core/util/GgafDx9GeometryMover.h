@@ -448,9 +448,9 @@ public:
 
     void setMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target);
 
-    void setAutoTargetMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
+    void setAutoTargetRzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
-    void setAutoTargetMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target);
+    void setAutoTargetRzRyMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target);
 
     /**
      * –ˆƒtƒŒ[ƒ€‚ÌActor‚ÌU‚é•‘‚¢B<BR>
