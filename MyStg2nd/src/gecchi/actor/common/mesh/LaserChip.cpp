@@ -17,7 +17,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
-    _pRotation = NULL; //LaserChipRotationActorの new 時に設定される。
+    _pDispatcher = NULL; //LaserChipDispatcherの new 時に設定される。
     _chiptex_kind = 1;
 
     _hKind = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind" );
@@ -43,12 +43,12 @@ void LaserChip::onActive() {
     //出現時
     _chiptex_kind = 1;
     if (_pChip_front == NULL) {
-        if (_pRotation->_pSeConnection) {
-            _pRotation->_pSeConnection->view()->play();
+        if (_pDispatcher->_pSeConnection) {
+            _pDispatcher->_pSeConnection->view()->play();
         }
     }
 
-    _pRotation->_num_chip_active++;
+    _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
     GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
@@ -56,7 +56,7 @@ void LaserChip::onActive() {
 
 void LaserChip::onInactive() {
     //消失時
-    _pRotation->_num_chip_active--;
+    _pDispatcher->_num_chip_active--;
     //前後の繋がりを切断
     if (_pChip_front) {
         _pChip_front->_pChip_behind = NULL;
@@ -100,7 +100,7 @@ void LaserChip::processBehavior() {
 
 void LaserChip::processJudgement() {
     if (isOffScreen()) {
-        inactivateTree();
+        inactivate();
     }
 
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
@@ -174,8 +174,8 @@ void LaserChip::processDrawMain() {
                 //＜2009/5/19 メモ：何を判定しようとしているのか＞
                 //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
                 //２点(X1,Z1)(X2,Z2) を通る直線の方程式 Z = CamZ の時のX座標は
-                //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標を代入し
-                //この式のXがカメラXより小さければの左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
+                //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
+                //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
                 //羽とは下図の①と④のポリゴンのことである。①～④がデフォルトの描画順序。
                 //特定の角度ではこの①と④の描画順番を変えなければ、半透明のためギザギザになる場合があるということであるのだ。
                 //         ↑ｙ軸

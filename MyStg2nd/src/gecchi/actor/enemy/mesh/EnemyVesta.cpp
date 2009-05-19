@@ -46,13 +46,13 @@ void EnemyVesta::processBehavior() {
 
 void EnemyVesta::processJudgement() {
     if (isOffScreen()) {
-        arigatou_sayounara();
+        adios();
     }
 }
 
 void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
     setBumpable(false);
-    arigatou_sayounara();
+    adios();
 }
 
 bool EnemyVesta::isOffScreen() {

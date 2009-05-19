@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
-    friend class LaserChipRotationActor;
+    friend class LaserChipDispatcher;
 private:
     D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ, _hMatWorld_front;
 
@@ -41,8 +41,8 @@ public:
     D3DXMATRIX _matWorld;
     /** 一つ前方のWorld変換行列 */
     D3DXMATRIX _matWorld_front;
-    /** 自身を管理してるローテーションアクター */
-    LaserChipRotationActor* _pRotation;
+    /** 自身を管理してるアクター発送者 */
+    LaserChipDispatcher* _pDispatcher;
 
     GgafDx9LibStg::StgChecker* _pChecker;
 

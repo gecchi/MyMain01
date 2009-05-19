@@ -47,8 +47,8 @@ void MyDummyOption::initialize() {
     _RYorg = _RY;
     _RZorg = _RZ;
 
-    _pLaserChipRotation = NEW LaserChipRotationActor("ROTLaser");
-    _pLaserChipRotation->_pSeConnection = _pSeCon_Laser;
+    _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
+    _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
     for (int i = 0; i < 30; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
@@ -57,11 +57,11 @@ void MyDummyOption::initialize() {
         string name2 = name.str();
         pChip = NEW MyLaserChip001(name2.c_str());
         pChip->inactivateImmediately();
-        _pLaserChipRotation->addLaserChip(pChip);
+        _pLaserChipDispatcher->addLaserChip(pChip);
     }
 
 
-    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
+    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher);
 
 }
 
@@ -159,7 +159,7 @@ void MyDummyOption::processBehavior() {
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
     if (VB::isBeingPressed(VB_SHOT2)) {
-        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipRotation->obtain();
+        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
 
             pLaser->_pGeoMover->_vX = Q._x;
@@ -193,7 +193,7 @@ void MyDummyOption::processJudgement() {
 }
 
 void MyDummyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
-    arigatou_sayounara();
+    adios();
 }
 
 MyDummyOption::~MyDummyOption() {

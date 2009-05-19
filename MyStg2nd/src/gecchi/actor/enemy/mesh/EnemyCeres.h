@@ -17,9 +17,9 @@ private:
 
 public:
     /** 弾ストック */
-    GgafDx9LibStg::RotationActor* _pRotEnemyMeshShots001;
-    /** RotationActorをコンストラクタで生成したか否か */
-    bool _createRotationActor;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyMeshShots001;
+    /** ActorDispatcherをコンストラクタで生成したか否か */
+    bool _createActorDispatcher;
 
     int _X_turn; // 折り返すX座標
     int _Y_turn; // 折り返すY座標
@@ -40,10 +40,10 @@ public:
      * コンストラクタ
      * @param prm_name オブジェクト
      * @param prm_model モデル
-     * @param prm_pRotEnemyMeshShots001 発射弾ストックのローテーションアクター
+     * @param prm_pDispatcher_EnemyMeshShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyCeres(const char* prm_name, GgafDx9LibStg::RotationActor* prm_pRotEnemyMeshShots001);
+    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyMeshShots001);
 
     void initialize();
 

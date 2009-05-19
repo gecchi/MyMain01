@@ -48,7 +48,7 @@ class Stage04Scene;
 class Stage05Scene;
 
 class LaserChip;
-class LaserChipRotationActor;
+class LaserChipDispatcher;
 
 class Stage01MainScene;
 class MyShip;
@@ -103,7 +103,7 @@ class MyFactory;
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 
 #include "gecchi/actor/common/mesh/LaserChip.h"
-#include "gecchi/actor/common/mesh/LaserChipRotationActor.h"
+#include "gecchi/actor/common/mesh/LaserChipDispatcher.h"
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyDummyOption.h"

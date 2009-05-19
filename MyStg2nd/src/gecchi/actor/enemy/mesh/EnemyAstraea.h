@@ -19,7 +19,7 @@ public:
     /** •ûŒü“]Š·Šp‘¬“x */
     GgafDx9Core::angvelo _angveloTurn;
 
-    LaserChipRotationActor* _pLaserChipRotation;
+    LaserChipDispatcher* _pLaserChipDispatcher;
 
     EnemyAstraea(const char* prm_name);
 

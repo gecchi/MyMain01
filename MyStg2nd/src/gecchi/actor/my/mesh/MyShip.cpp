@@ -41,7 +41,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMorphMeshActor(prm_name, "M/4/dona
 }
 
 void MyShip::initialize() {
-    _pMyShots001Rotation = NEW RotationActor("RotShot001");
+    _pMyShots001Rotation = NEW ActorDispatcher("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
@@ -50,7 +50,7 @@ void MyShip::initialize() {
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
 
-    _pMyWaves001Rotation = NEW RotationActor("RotWave001");
+    _pMyWaves001Rotation = NEW ActorDispatcher("RotWave001");
     MyWave001* pWave;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
@@ -59,7 +59,7 @@ void MyShip::initialize() {
     }
     getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
 
-    _pLaserChipRotation = NEW LaserChipRotationActor("MyRotLaser");
+    _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyLaserChip001* pChip;
     for (int i = 0; i < 30; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
@@ -68,9 +68,9 @@ void MyShip::initialize() {
         string name2 = name.str();
         pChip = NEW MyLaserChip001(name2.c_str());
         pChip->inactivateImmediately();
-        _pLaserChipRotation->addLaserChip(pChip);
+        _pLaserChipDispatcher->addLaserChip(pChip);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipRotation);
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -221,12 +221,12 @@ void MyShip::processBehavior() {
     //ショット関連処理
     //MyShip::transactShot(this);
     if (VB::isPushedDown(VB_SHOT1)) {
-        MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->obtain();
+        MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->employ();
         if (pShot != NULL) {
             pShot->activateTree();
 
             EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
             }
@@ -234,8 +234,8 @@ void MyShip::processBehavior() {
     }
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
-        //RotationActorの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipRotation->obtain();
+        //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->_pGeoMover->_vX = _pGeoMover->_vX;
             pLaser->_pGeoMover->_vY = _pGeoMover->_vY;
@@ -261,12 +261,12 @@ void MyShip::processBehavior() {
 
     //ショットボタン
     if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
-        MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->obtain();
+        MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->employ();
         if (pWave != NULL) {
             pWave->activateTree();
 
             EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
             }

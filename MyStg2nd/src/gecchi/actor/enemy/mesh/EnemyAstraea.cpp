@@ -7,15 +7,15 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/ceres") {
     //ÉåÅ[ÉUÅ[ÉXÉgÉbÉN
-    _pLaserChipRotation = NEW LaserChipRotationActor("RotLaser");
+    _pLaserChipDispatcher = NEW LaserChipDispatcher("RotLaser");
     EnemyLaserChip001* pChip;
     for (int i = 0; i < 8; i++) {
         Sleep(2);
         pChip = NEW EnemyLaserChip001("L");
         pChip->inactivateImmediately();
-        _pLaserChipRotation->addLaserChip(pChip);
+        _pLaserChipDispatcher->addLaserChip(pChip);
     }
-    addSubLast(_pLaserChipRotation); //âºèäëÆ
+    addSubLast(_pLaserChipDispatcher); //âºèäëÆ
 
     _X = 0;
     _Y = 0;
@@ -26,6 +26,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
 }
 
 void EnemyAstraea::initialize() {
+    setBumpable(true);
+
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pChecker->setStatus(100, 1, 1, 1);
@@ -33,14 +35,14 @@ void EnemyAstraea::initialize() {
     _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
 
-    getLordActor()->accept(KIND_MY_SHOT_PA, _pLaserChipRotation); //ñ{èäëÆ
+    getLordActor()->accept(KIND_MY_SHOT_PA, _pLaserChipDispatcher); //ñ{èäëÆ
 }
 
 void EnemyAstraea::processBehavior() {
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
-        _pGeoMover->setAutoTargetMoveAngle(GameGlobal::_pMyShip);
+        _pGeoMover->setAutoTargetRzRyMoveAngle(GameGlobal::_pMyShip);
         _pGeoMover->setRzMoveAngleVelocity(
                         _angveloTurn*sgn(_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angAutoTargetRzMove,TURN_CLOSE_TO))
                     );
@@ -55,14 +57,14 @@ void EnemyAstraea::processBehavior() {
     _pGeoMover->behave();
 
     if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
-        EnemyLaserChip001* pLaser = (EnemyLaserChip001*)_pLaserChipRotation->obtain();
-        if (pLaser != NULL) {
+        EnemyLaserChip001* pLaserChip = (EnemyLaserChip001*)_pLaserChipDispatcher->employ();
+        if (pLaserChip != NULL) {
 
-            pLaser->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
-            pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ;
-            pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY;
-            pLaser->_pGeoMover->behave();
-            pLaser->setGeometry(this);
+            pLaserChip->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
+            pLaserChip->_pGeoMover->_angRot[AXIS_Z] = _RZ;
+            pLaserChip->_pGeoMover->_angRot[AXIS_Y] = _RY;
+            pLaserChip->_pGeoMover->behave();
+            pLaserChip->setGeometry(this);
             _cnt_laserchip++;
         }
     }
@@ -71,9 +73,9 @@ void EnemyAstraea::processBehavior() {
 
 void EnemyAstraea::processJudgement() {
     if (isOffScreen()) {
-        arigatou_sayounara();
-        if (_pLaserChipRotation) { //íeâï˙ó\ñÒ
-            _pLaserChipRotation->arigatou_sayounara(60 * 5);
+        adios();
+        if (_pLaserChipDispatcher) { //íeâï˙ó\ñÒ
+            _pLaserChipDispatcher->adios(60 * 5);
         }
     }
 }
@@ -86,12 +88,12 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
         GameGlobal::_dwScore += _pChecker->_iScorePoint;
     }
 
-    arigatou_sayounara();
-    if (_pLaserChipRotation) { //íeâï˙ó\ñÒ
-        _pLaserChipRotation->arigatou_sayounara(60 * 5);
+    adios();
+    if (_pLaserChipDispatcher) { //íeâï˙ó\ñÒ
+        _pLaserChipDispatcher->adios(60 * 5);
     }
 
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
         pExplo001->activate();

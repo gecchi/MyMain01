@@ -7,15 +7,15 @@ using namespace MyStg2nd;
 
 Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name) {
 
-    _pRot = NEW RotationActor("RotEnemyMeshS001");
+    _pDispatcher = NEW ActorDispatcher("RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 100; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
         pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
-        _pRot->addSubLast(pEnemyMeshShot);
+        _pDispatcher->addSubLast(pEnemyMeshShot);
     }
-    getLordActor()->accept(KIND_ENEMY_SHOT_CHOKI, _pRot);
+    getLordActor()->accept(KIND_ENEMY_SHOT_CHOKI, _pDispatcher);
 
 	// 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
 	// gen01 start
@@ -389,9 +389,9 @@ void Stage01MainScene::processFinal() {
 
 Stage01MainScene::~Stage01MainScene() {
     //NEWからprocessBehaviorまでの間に強制終了された場合、
-    //_pRotはどのツリーにも所属していない。
-    if (_pRot->getParent() == NULL) {
-        _TRACE_("_pRotが未所属のため独自delete");
-        DELETE_IMPOSSIBLE_NULL(_pRot);
+    //_pDispatcherはどのツリーにも所属していない。
+    if (_pDispatcher->getParent() == NULL) {
+        _TRACE_("_pDispatcherが未所属のため独自delete");
+        DELETE_IMPOSSIBLE_NULL(_pDispatcher);
     }
 }

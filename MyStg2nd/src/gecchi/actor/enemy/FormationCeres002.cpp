@@ -8,13 +8,13 @@ using namespace MyStg2nd;
 FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_name) {
     _class_name = "FormationCeres002";
 
-    _pRotEnemyMeshShots001 = NEW RotationActor("FmtCeres002_RotEnemyMeshS001");
+    _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("FmtCeres002_RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 30; i++) { //弾ストック
                 Sleep(1);
                 pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
                 pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
-                _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
+                _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
             }
             for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
                 Sleep(1);
@@ -27,7 +27,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
             }
 
             //一時退避
-            addSubLast(this->_pRotEnemyMeshShots001);
+            addSubLast(this->_pDispatcher_EnemyMeshShots001);
         }
 
 void FormationCeres002::initialize() {
@@ -39,8 +39,8 @@ void FormationCeres002::initialize() {
 
 void FormationCeres002::processJudgement() {
     if (getSubFirst() == NULL) {
-        arigatou_sayounara();
-        _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
+        adios();
+        _pDispatcher_EnemyMeshShots001->adios(60 * 5);
     }
 }
 

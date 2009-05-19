@@ -24,8 +24,8 @@ public:
     template<class X>
     static X* createActorWithRot(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
-        //p2 : ローテーションアクター
-        X* p = NEW X((char*)p1, (GgafDx9LibStg::RotationActor*)p2);
+        //p2 : アクター発送者
+        X* p = NEW X((char*)p1, (GgafDx9LibStg::ActorDispatcher*)p2);
         return p;
     }
 
@@ -33,8 +33,8 @@ public:
     static X* createActorWithModelRot(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : モデル識別文字列
-        //p3 : ローテーションアクター
-        X* p = NEW X((char*)p1, (char*)p2, (GgafDx9LibStg::RotationActor*)p3);
+        //p3 : アクター発送者
+        X* p = NEW X((char*)p1, (char*)p2, (GgafDx9LibStg::ActorDispatcher*)p3);
         return p;
     }
 

@@ -23,21 +23,21 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     _veloBegin = 5000;
 
     //弾ストック作成
-    _pRotEnemyMeshShots001 = NEW RotationActor("RotEnemyMeshS001");
+    _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 16; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
         pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
-            _pRotEnemyMeshShots001->addSubLast(pEnemyMeshShot);
+            _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
         }
-        //きけん	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pRotEnemyMeshShots001); //仮所属
-        addSubLast(_pRotEnemyMeshShots001); //仮所属
+        //きけん	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
+        addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
 
-        _createRotationActor = true;
+        _createActorDispatcher = true;
     }
 
-EnemyCeres::EnemyCeres(const char* prm_name, RotationActor* prm_pRotEnemyMeshShots001) :
+EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyMeshShots001) :
     DefaultMeshEnemyActor(prm_name, "X/Ceres") {
     _class_name = "EnemyCeres";
 
@@ -55,16 +55,16 @@ EnemyCeres::EnemyCeres(const char* prm_name, RotationActor* prm_pRotEnemyMeshSho
     _Z_turn = 0;
     _veloBegin = 5000;
 
-    if (prm_pRotEnemyMeshShots001 == NULL) {
-        _TRACE_("ローテーション_pRotEnemyMeshShots001がNULL。よいのですか？");
+    if (prm_pDispatcher_EnemyMeshShots001 == NULL) {
+        _TRACE_("アクター発送者_pDispatcher_EnemyMeshShots001がNULL。よいのですか？");
     }
-    _pRotEnemyMeshShots001 = prm_pRotEnemyMeshShots001;
-    _createRotationActor = false;
+    _pDispatcher_EnemyMeshShots001 = prm_pDispatcher_EnemyMeshShots001;
+    _createActorDispatcher = false;
 }
 
 void EnemyCeres::initialize() {
     //本来の場所へ
-    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pRotEnemyMeshShots001->breakAwayFromTree());
+    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyMeshShots001->breakAwayFromTree());
 
     setBumpable(true);
 
@@ -153,9 +153,9 @@ void EnemyCeres::processBehavior() {
         //		angle way[5] ;
         //		GgafDx9Util::getWayAngle2D(180000, 5, 10000, way);
         //		EnemyShot001* pTama;
-        //		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
+        //		ActorDispatcher* pShots001 = GameGlobal::_pSceneCommon->_pDispatcher_EnemyShots001;
         //		for (int i = 0; i < 5; i++) {
-        //			pTama = (EnemyShot001*)pShots001->obtain();
+        //			pTama = (EnemyShot001*)pShots001->employ();
         //			if (pTama != NULL) {
         //				pTama->setGeometry (_X, _Y, 0);
         //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
@@ -169,7 +169,7 @@ void EnemyCeres::processBehavior() {
         GgafDx9Util::getRadiationAngle2D(0, 16, way);
         EnemyMeshShot001* pTama;
         for (int i = 0; i < 8; i++) {
-            pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
+            pTama = (EnemyMeshShot001*)_pDispatcher_EnemyMeshShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
@@ -177,7 +177,7 @@ void EnemyCeres::processBehavior() {
             }
         }
         for (int i = 8; i < 16; i++) {
-            pTama = (EnemyMeshShot001*)_pRotEnemyMeshShots001->obtain();
+            pTama = (EnemyMeshShot001*)_pDispatcher_EnemyMeshShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pGeoMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
@@ -221,9 +221,9 @@ void EnemyCeres::processBehavior() {
 //		angle way[10] ;
 //		GgafDx9Util::getWayAngle(180000, 10, 10000, way);
 //		EnemyShot001* pTama;
-//		RotationActor* pShots001 = GameGlobal::_pSceneCommon->_pEnemyShots001Rotation;
+//		ActorDispatcher* pShots001 = GameGlobal::_pSceneCommon->_pDispatcher_EnemyShots001;
 //		for (int i = 0; i < 10; i++) {
-//			pTama = (EnemyShot001*)pShots001->obtain();
+//			pTama = (EnemyShot001*)pShots001->employ();
 //			if (pTama) {
 //				pTama->setGeometry (_X, _Y, 0);
 //				pTama->_pGeoMover->setRzMoveAngle(way[i]);
@@ -277,9 +277,9 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (isOffScreen()) {
-        arigatou_sayounara();
-        if (_createRotationActor) { //弾解放予約
-            _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
+        adios();
+        if (_createActorDispatcher) { //弾解放予約
+            _pDispatcher_EnemyMeshShots001->adios(60 * 5);
         }
     }
 }
@@ -292,12 +292,12 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         GameGlobal::_dwScore += _pChecker->_iScorePoint;
     }
 
-    arigatou_sayounara();
-    if (_createRotationActor) { //弾解放予約
-        _pRotEnemyMeshShots001->arigatou_sayounara(60 * 5);
+    adios();
+    if (_createActorDispatcher) { //弾解放予約
+        _pDispatcher_EnemyMeshShots001->adios(60 * 5);
     }
 
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
         pExplo001->activate();

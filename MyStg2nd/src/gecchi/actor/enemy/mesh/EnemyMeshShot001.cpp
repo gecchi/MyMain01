@@ -112,17 +112,17 @@ void EnemyMeshShot001::processJudgement() {
     if (isOffScreen()) {
         inactivateTree();
 
-        //arigatou_sayounara();
+        //adios();
     }
 }
 
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //arigatou_sayounara();
+    //adios();
     setBumpable(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)GameGlobal::_pSceneCommon->_pEffectExplosion001Rotation->obtain();
+            (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
         pExplo001->activateTree();

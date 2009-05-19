@@ -1,5 +1,5 @@
-#ifndef LASERCHIPROTATIONACTOR_H_
-#define LASERCHIPROTATIONACTOR_H_
+#ifndef LASERCHIPDISPATCHER_H_
+#define LASERCHIPDISPATCHER_H_
 namespace MyStg2nd {
 
 /**
@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * ・_num_chip_interval ･･･弾切れフレーム数（デフォルト:3）<BR>
  * ・_pSeCon_Laser ･･･ レーザーチップ発射時SE（デフォルト:NULL）<BR>
  */
-class LaserChipRotationActor : public GgafDx9LibStg::RotationActor {
+class LaserChipDispatcher : public GgafDx9LibStg::ActorDispatcher {
     friend class LaserChip;
 private:
     /** 保持するレーザーチップ数 */
@@ -18,11 +18,11 @@ private:
     /** レーザーチップ切断されたフラグ(true=連続発射状態は遮断されている/false=連続発射状態) */
     bool _is_tear_laser;
     /** 前回（前フレーム）取得されたレーザーチップ */
-    LaserChip* _pChip_prev_obtain;
+    LaserChip* _pChip_prev_employ;
     /** 前回（前フレーム）取得されたレーザーチップの取得された時点の活動フレーム */
-    DWORD _lifeframe_prev_obtain;
+    DWORD _lifeframe_prev_employ;
     /** レーザーチップ連続取得カウント */
-    int _num_continual_obtain_count;
+    int _num_continual_employ_count;
     /** レーザーチップ連続未取得カウント */
     int _num_interval_frame_count;
 
@@ -32,17 +32,17 @@ public:
     /** レーザーチップ発射時SE（随時変更可／デフォルト=NULL） */
     GgafDx9Core::GgafDx9SeConnection* _pSeConnection;
 
-    LaserChipRotationActor(const char* prm_name);
+    LaserChipDispatcher(const char* prm_name);
 
 	virtual void processBehavior();
 
-	virtual LaserChip* obtain();
+	virtual LaserChip* employ();
 
 	void addLaserChip(LaserChip* prm_pLaserChip);
 
- 	virtual ~LaserChipRotationActor();
+ 	virtual ~LaserChipDispatcher();
 
 };
 
 }
-#endif /*LASERCHIPROTATIONACTOR_H_*/
+#endif /*LASERCHIPDISPATCHER_H_*/

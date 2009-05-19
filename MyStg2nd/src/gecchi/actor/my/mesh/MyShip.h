@@ -109,12 +109,12 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
-    GgafDx9LibStg::RotationActor* _pMyWaves001Rotation;
-    GgafDx9LibStg::RotationActor* _pMyShots001Rotation;
-//    GgafDx9LibStg::RotationActor* _pLaserChipRotation;
-    GgafDx9LibStg::RotationActor* _pEnemyShots001Rotation;
-    GgafDx9LibStg::RotationActor* _pEffectExplosion001Rotation;
-    LaserChipRotationActor* _pLaserChipRotation;
+    GgafDx9LibStg::ActorDispatcher* _pMyWaves001Rotation;
+    GgafDx9LibStg::ActorDispatcher* _pMyShots001Rotation;
+//    GgafDx9LibStg::ActorDispatcher* _pLaserChipDispatcher;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyShots001;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EffectExplosion001;
+    LaserChipDispatcher* _pLaserChipDispatcher;
 
     MyShip(const char* prm_name);
 

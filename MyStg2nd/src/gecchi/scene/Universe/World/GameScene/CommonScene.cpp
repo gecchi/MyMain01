@@ -11,28 +11,28 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
         getLordActor()->accept(KIND_MY_BODY, _pMyShip);
-        _pMyShip->inactivateImmediately(); //配下に仮登録のローテーションとかあるし
+        _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     }
 
     { //EnemyShot001
-        _pEnemyShots001Rotation = NEW RotationActor("TAMAS001");
-        getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pEnemyShots001Rotation);
+        _pDispatcher_EnemyShots001 = NEW ActorDispatcher("TAMAS001");
+        getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pDispatcher_EnemyShots001);
         EnemyShot001* pEnemyShot;
         for (int i = 0; i < 1; i++) { //ストック256個
             pEnemyShot = NEW EnemyShot001("EnemyShot001");
             pEnemyShot->inactivateTreeImmediately(); //最初非表示
-            _pEnemyShots001Rotation->addSubLast(pEnemyShot);
+            _pDispatcher_EnemyShots001->addSubLast(pEnemyShot);
         }
     }
 
     { //Effect EffectExplosion001
-        _pEffectExplosion001Rotation = NEW RotationActor("RotExplo001");
-        getLordActor()->accept(KIND_EFFECT, _pEffectExplosion001Rotation);
+        _pDispatcher_EffectExplosion001 = NEW ActorDispatcher("RotExplo001");
+        getLordActor()->accept(KIND_EFFECT, _pDispatcher_EffectExplosion001);
         EffectExplosion001* pEffectExplosion;
         for (int i = 0; i < 30; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
             pEffectExplosion->inactivateTreeImmediately(); //最初非表示
-            _pEffectExplosion001Rotation->addSubLast(pEffectExplosion);
+            _pDispatcher_EffectExplosion001->addSubLast(pEffectExplosion);
         }
     }
 
