@@ -159,14 +159,14 @@ void MyDummyOption::processBehavior() {
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
     if (VB::isBeingPressed(VB_SHOT2)) {
-        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipDispatcher->employ();
-        if (pLaser != NULL) {
+        MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
+        if (pLaserChip != NULL) {
 
-            pLaser->_pGeoMover->_vX = Q._x;
-            pLaser->_pGeoMover->_vY = Q._y;
-            pLaser->_pGeoMover->_vZ = Q._z;
-            pLaser->_pGeoMover->_angRzMove = _RZ2;
-            pLaser->_pGeoMover->_angRyMove = _RY2;
+            pLaserChip->_pGeoMover->_vX = Q._x;
+            pLaserChip->_pGeoMover->_vY = Q._y;
+            pLaserChip->_pGeoMover->_vZ = Q._z;
+            pLaserChip->_pGeoMover->_angRzMove = _RZ2;
+            pLaserChip->_pGeoMover->_angRyMove = _RY2;
             static angle angWk;
             if ((0 <= _RZ2 && _RZ2 < ANGLE90) ||
                 (ANGLE270 <= _RZ2 && _RZ2 < ANGLE360) ) {
@@ -174,14 +174,13 @@ void MyDummyOption::processBehavior() {
             } else {
                 angWk = ANGLE180;
             }
-
-            pLaser->_pGeoMover->_angRot[AXIS_X] = angWk;
-            pLaser->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
-            pLaser->_pGeoMover->_angRot[AXIS_Y] = _RY2;
-            pLaser->_pGeoMover->behave();
-            pLaser->_X = _X2;
-            pLaser->_Y = _Y2;
-            pLaser->_Z = _Z2;
+            pLaserChip->_pGeoMover->_angRot[AXIS_X] = angWk;
+            pLaserChip->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
+            pLaserChip->_pGeoMover->_angRot[AXIS_Y] = _RY2;
+            pLaserChip->_pGeoMover->behave();
+            pLaserChip->_X = _X2;
+            pLaserChip->_Y = _Y2;
+            pLaserChip->_Z = _Z2;
 
         }
     }
