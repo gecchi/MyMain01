@@ -27,7 +27,6 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
 
 void EnemyAstraea::initialize() {
     setBumpable(true);
-
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pChecker->setStatus(100, 1, 1, 1);
@@ -49,7 +48,6 @@ void EnemyAstraea::processBehavior() {
         _pGeoMover->setRyMoveAngleVelocity(
                         _angveloTurn*sgn(_pGeoMover->getDifferenceFromRyMoveAngleTo(_pGeoMover->_angAutoTargetRyMove,TURN_CLOSE_TO))
                     );
-
         _cnt_laserchip = 0;
     }
 
@@ -57,9 +55,9 @@ void EnemyAstraea::processBehavior() {
     _pGeoMover->behave();
 
     if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
-        EnemyLaserChip001* pLaserChip = (EnemyLaserChip001*)_pLaserChipDispatcher->employ();
+        static EnemyLaserChip001* pLaserChip;
+        pLaserChip = (EnemyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
-
             pLaserChip->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
             pLaserChip->_pGeoMover->_angRot[AXIS_Z] = _RZ;
             pLaserChip->_pGeoMover->_angRot[AXIS_Y] = _RY;

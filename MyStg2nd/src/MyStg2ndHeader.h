@@ -76,6 +76,9 @@ class FormationCeres002;
 class FormationJuno001;
 class FormationVesta001;
 
+class Magic;
+class DefaultMagic;
+
 class MyFactory;
 }
 
@@ -132,6 +135,9 @@ class MyFactory;
 #include "gecchi/actor/enemy/FormationCeres002.h"
 #include "gecchi/actor/enemy/FormationJuno001.h"
 #include "gecchi/actor/enemy/FormationVesta001.h"
+
+#include "gecchi/magic/Magic.h"
+#include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/MyFactory.h"
 
 
