@@ -20,7 +20,7 @@ class DefaultSpriteActor;
 class DefaultBoardActor;
 class FontSpriteActor;
 class FormationActor;
-class RotationActor;
+class ActorDispatcher;
 //class FontSpriteString;
 class DelineateActor;
 class StgChecker;
@@ -44,7 +44,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
-#include "jp/ggaf/dx9libstg/actor/RotationActor.h"
+#include "jp/ggaf/dx9libstg/actor/ActorDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/DelineateActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
