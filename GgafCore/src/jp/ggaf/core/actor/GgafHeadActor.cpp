@@ -16,7 +16,7 @@ GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("HEAD") {
 void GgafHeadActor::processJudgement() {
     //ƒTƒu‚ª–³‚¯‚ê‚ÎŽ©ŽE
     if (getSubFirst() == NULL) {
-        arigatou_sayounara();
+        adios();
     }
 }
 

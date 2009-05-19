@@ -460,7 +460,7 @@ public:
     /**
      * さよならします。(自ツリー) .
      * 自ノードを次フレームから「生存終了」状態にすることを宣言する。 <BR>
-     * 自ツリーノード全てに生存終了(arigatou_sayounara())がお知らせが届く。<BR>
+     * 自ツリーノード全てに生存終了(adios())がお知らせが届く。<BR>
      * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする事である。<BR>
      * _can_live_flg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより
@@ -470,7 +470,7 @@ public:
      * 注意：さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
      * これは本メソッドで、GgafGarbageRootActorに所属するためです。<BR>
      */
-    void arigatou_sayounara(DWORD prm_frame_offset = 0);
+    void adios(DWORD prm_frame_offset = 0);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -1071,13 +1071,13 @@ void GgafElement<T>::unpauseImmediately() {
     }
 }
 template<class T>
-void GgafElement<T>::arigatou_sayounara(DWORD prm_frame_offset) {
+void GgafElement<T>::adios(DWORD prm_frame_offset) {
 
     _dwGodFrame_when_goodbye = (askGod()->_godframe) + prm_frame_offset + 1;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {
-            pElementTemp->arigatou_sayounara(prm_frame_offset);
+            pElementTemp->adios(prm_frame_offset);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
