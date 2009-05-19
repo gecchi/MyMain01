@@ -131,10 +131,10 @@ void LaserChip::processDrawMain() {
 
     //VIEWïœä∑çsóÒ
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 //    hr = pID3DXEffect->SetTechnique(_technique);
-//    potentialDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     //Åyíçà”Åz4/15 ÉÅÉÇ
     //âúÇ©ÇÁï`âÊÇ∆Ç»ÇÈÇÃÇ≈ processDrawXxxx ÇÕÅAìØàÍÉtÉåÅ[ÉÄì‡Ç≈ _pChip_front Ç™ïKÇ∏ÇµÇ‡êÊÇ…é¿çsÇ≥ÇÍÇ∆ÇÕå¿ÇÁÇ»Ç¢ÅB
@@ -143,17 +143,17 @@ void LaserChip::processDrawMain() {
 
     //ÉeÉNÉXÉ`ÉÉéÌóﬁ
     hr = pID3DXEffect->SetInt(_hKind, _chiptex_kind);
-    potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
 
     if (_pChip_front != NULL) {
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
         hr = pID3DXEffect->SetFloat(_hZ, 1.0*_pChip_front->_Z/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
         hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &(_pChip_front->_matWorld));
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
 
         //É`ÉbÉvÇÃè\éöÇÃç∂âEÇÃâHÇÃï`âÊèáèòÇçlÇ¶ÇÈÅB
         static bool rev_pos_Z; //true = í∏ì_ÇÃZÇ-1ÇèÊÇ∏ÇÈÅBfalse = âΩÇ‡ÇµÇ»Ç¢
@@ -208,38 +208,38 @@ void LaserChip::processDrawMain() {
             }
         }
         hr = pID3DXEffect->SetBool(_hRevPosZ, rev_pos_Z);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
 
     } else {
         //ëOï˚Ç…òAë±ÇÃÉ`ÉbÉvÇ™ñ≥Ç¢èÍçáÅB
         hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
         hr = pID3DXEffect->SetFloat(_hY, 1.0*_Y/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
         hr = pID3DXEffect->SetFloat(_hZ, 1.0*_Z/LEN_UNIT/ PX_UNIT);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
         hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &_matWorld );
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
         hr = pID3DXEffect->SetBool(_hRevPosZ, false);
-        potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
     }
 
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    potentialDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 //	UINT numPass;
 //    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //
 //    //TODO:2009/05/15 BeginPassÇÃèàóùÇÕÇ‚Ç‚èdÇΩÇ¢Ç±Ç∆Ç…ãCÇ™Ç¬Ç≠ÅBñ≥ë Ç»BeginPassÇ∆EndPassÇéÊÇËèúÇ≠Ç¢Ç¢ï˚ñ@Ç™ñ≥Ç¢Ç‡ÇÃÇ©ÅEÅEÅEÅB
 //    hr = pID3DXEffect->BeginPass(0);
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     _pMeshModel->draw(this);
 //    hr = pID3DXEffect->EndPass();
 //
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //    hr = pID3DXEffect->End();
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 

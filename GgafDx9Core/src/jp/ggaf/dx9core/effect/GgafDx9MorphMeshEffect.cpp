@@ -10,16 +10,16 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     HRESULT hr;
     //éÀâeïœä∑çsóÒ
     hr = _pID3DXEffect->SetMatrix("g_matProj", &GgafDx9Universe::_pCamera->_vMatrixProj );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉâÉCÉgï˚å¸
     hr = _pID3DXEffect->SetValue("g_LightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDirection) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDirection) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //DiffuseîΩéÀ
     hr = _pID3DXEffect->SetValue("g_LightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //AmbientîΩéÀ
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     //ÉVÉFÅ[É_Å[ÉnÉìÉhÉã
     _hMorphTargetnum = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
     //_hWeight[0] = _pID3DXEffect->GetParameterByName(NULL, "g_weight0");
@@ -34,10 +34,10 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     _hWeight[9] = _pID3DXEffect->GetParameterByName(NULL, "g_weight9");
 
 //    hr = _pID3DXEffect->SetFloat(_hWeight[0], 1.0);
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight[0]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight[0]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int i = 1; i < 10; i++) {
         hr = _pID3DXEffect->SetFloat(_hWeight[i], 0.0);
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     _hMatView = _pID3DXEffect->GetParameterByName(NULL, "g_matView");
     _hMatWorld = _pID3DXEffect->GetParameterByName(NULL, "g_matWorld");

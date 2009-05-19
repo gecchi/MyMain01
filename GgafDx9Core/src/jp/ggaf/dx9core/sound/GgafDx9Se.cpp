@@ -30,7 +30,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name, int prm_cnt_buffer) : GgafObject() {
 
     // バッファ作成
     hr = GgafDx9Sound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<","<<prm_cnt_buffer<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<","<<prm_cnt_buffer<<") CreateSoundBufferに失敗しました。サウンドカードは有効ですか？");
 
     if (!writeBuffer(WaveFile)) {
         _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<","<<prm_cnt_buffer<<") ＜警告＞GgafDx9Se::writeBuffer()が失敗しています。");

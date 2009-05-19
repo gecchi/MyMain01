@@ -27,7 +27,7 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr)
                      NULL,                      // [in] PALETTEENTRY *pPalette,
                      &pResourceTexture    // [out] GgafDx9TextureConnection* *ppTextureCon
                 );
-    potentialDx9Exception(hr, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_idstr);
+    mightDx9Exception(hr, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_idstr);
     Sleep(2); //工場に気を使う。
     TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
     return pResourceTexture;

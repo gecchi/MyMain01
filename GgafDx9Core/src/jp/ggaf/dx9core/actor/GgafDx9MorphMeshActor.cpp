@@ -50,27 +50,27 @@ void GgafDx9MorphMeshActor::processDrawMain() {
     HRESULT hr;
     //VIEWïœä∑çsóÒ
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
     static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
 
 //	hr = pID3DXEffect->SetTechnique(_technique);
-//    potentialDx9Exception(hr, S_OK, "GgafDx9MorphMeshActor::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, S_OK, "GgafDx9MorphMeshActor::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetInt(_hMorphTargetnum) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetInt(_hMorphTargetnum) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
         hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight[pattern], _weight[pattern]);
-        potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetFloat(_hWeight["<<pattern<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetFloat(_hWeight["<<pattern<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatWorld, &matWorld );
-    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //    UINT numPass;
 //    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //
 //    //ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÇÃêîÇ…ÇÊÇË pass ÇêÿÇËë÷Ç¶ÇƒÇ¢ÇÈ
 //    //ÉvÉäÉ}ÉäÉÅÉbÉVÉÖÇÃÇ›                             = pass0
@@ -78,12 +78,12 @@ void GgafDx9MorphMeshActor::processDrawMain() {
 //    //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇQÇ¬ = pass2
 //    //à»â∫ç≈ëÂÇXÇ‹Ç≈
 //    hr = pID3DXEffect->BeginPass(_pMorphMeshModel->_morph_target_num);
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() BeginPass("<<_pMorphMeshModel->_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() BeginPass("<<_pMorphMeshModel->_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     _pMorphMeshModel->draw(this);
 //    hr = pID3DXEffect->EndPass();
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //    hr = pID3DXEffect->End();
-//    potentialDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 }
 

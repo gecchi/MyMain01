@@ -11,9 +11,9 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 #ifdef OREDEBUG
-#define potentialDx9Exception(HR, OKVAL, X) {if (HR != OKVAL) {std::stringstream ss; ss <<__FILE__<<"("<<__LINE__<<") : " << X; throw GgafDx9CriticalException(ss.str(),HR); } }
+#define mightDx9Exception(HR, OKVAL, X) {if (HR != OKVAL) {std::stringstream ss; ss <<__FILE__<<"("<<__LINE__<<") : " << X; throw GgafDx9CriticalException(ss.str(),HR); } }
 #else
-#define potentialDx9Exception(HR, OKVAL, X)
+#define mightDx9Exception(HR, OKVAL, X)
 #endif
 
 class GgafDx9CriticalException  : public GgafCore::GgafCriticalException {
