@@ -16,7 +16,7 @@ void MyLaserChip001::initialize() {
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
-    _SX=40*1000; _SY=40*1000; _SZ=40*1000;
+    _pGeoMover->setScale(40*1000);
     _fAlpha = 0.9;
 }
 

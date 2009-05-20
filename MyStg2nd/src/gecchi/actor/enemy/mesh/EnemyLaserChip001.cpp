@@ -16,7 +16,7 @@ void EnemyLaserChip001::initialize() {
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
-    _SX=40*1000; _SY=40*1000; _SZ=40*1000;
+    _pGeoMover->setScale(40*1000);
     _fAlpha = 0.9;
 }
 
