@@ -82,34 +82,59 @@ void MyShip::initialize() {
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pGeoMover->setMoveVelocity(0);
+    _pGeoMover->setScalingRange(1000, 2000);
 }
 
 void MyShip::processBehavior() {
     _stc = VB::getBeingPressedStick();
-///////////モーフテスト////////////////
-    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pMorpher->loopTriangleWave(1, 30, 3, 22);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-        _pMorpher->stopImmediately(1);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pMorpher->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _pMorpher->loopTriangleWave(3, 20, 13, 2);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-        _pMorpher->stopImmediately(3);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _pMorpher->loopTriangleWave(4, 60, 3, 20);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-        _pMorpher->stopImmediately(4);
-    }
+/////////////モーフテスト////////////////
+//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//        _pMorpher->loopTriangleWave(1, 30, 3, 22);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//        _pMorpher->stopImmediately(1);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//        _pMorpher->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+//        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//        _pMorpher->loopTriangleWave(3, 20, 13, 2);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+//        _pMorpher->stopImmediately(3);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//        _pMorpher->loopTriangleWave(4, 60, 3, 20);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//        _pMorpher->stopImmediately(4);
+//    }
+//
+//    _pMorpher->behave();
+/////////////モーフテスト////////////////
 
-    _pMorpher->behave();
-///////////モーフテスト////////////////
+    ///////////スケーリングテスト////////////////
+        if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+            _pGeoMover->beatScalingAlongTriangleWave(30, 3, 20);
+        } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+            _pGeoMover->stopScalingImmediately(1);
+        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//            _pGeoMover->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
+//        } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+//            _pGeoMover->intoTargetAccelerationStep(2, 0, 0, -0.004);
+//        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//            _pGeoMover->loopTriangleWave(3, 20, 13, 2);
+//        } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+//            _pGeoMover->stopImmediately(3);
+//        }
+//        if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//            _pGeoMover->loopTriangleWave(4, 60, 3, 20);
+//        } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//            _pGeoMover->stopImmediately(4);
+//        }
+
+    ///////////モーフテスト////////////////
 
     if (_stc != 0) {
 //////////////////////////
@@ -279,20 +304,17 @@ void MyShip::processBehavior() {
     }
 
     if (VB::isBeingPressed(VB_POWERUP)) {
-        _SX -= 300;
-        _SY -= 300;
-        _SZ -= 300;
+        _pGeoMover->addScale(-200);
     }
     if (VB::isBeingPressed(VB_CONTROL)) {
-        _SX += 300;
-        _SY += 300;
-        _SZ += 300;
-    }
+        _pGeoMover->addScale(200);    }
 
     //座標に反映
     _pGeoMover->behave();
     _pChecker->behave();
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
+
+    _TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
 }
 
 void MyShip::processJudgement() {

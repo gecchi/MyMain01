@@ -29,9 +29,12 @@ void MyDummyOption::initialize() {
     _pGeoMover->setRyMoveAngleVelocity(0);//∵半径Ｒ＝速度Ｖ／角速度ω
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
-    _X = 50000; //TODO:本当は0（自機の真横）にしたい。しかしシンバルロックが起きやすくて、カクつきが目につく。解決できない。
-                //やや中心からずらす事で、ある程度向きの遷移を滑らかにし、
-                //さらにAXIS_X 軸回転を速めに設定し、気付かれないようにごまかす･･･妥協。
+    _X = 50000; //TODO:＜メモ＞オプションをX軸回転していると、 _angExpanse の値によってはシンバルロックが起きて、
+                //カクつきが目につく（目につきだすと止まらない）。解決を断念。オプションの回転を考え直す。
+                //解決するためには根本的に回転部分のライブラリ(GgafDx9GeometryMover)を作り直す必要アリ。時間があれば考えよ。後回し。
+                //TODO:2009/04/08
+                //本当は0（自機の真横）にしたい。が、やや自機の真横からずらす事で、シンバルロックによるワープのような回転する確率をやや緩和する。
+                //X軸回転角角速度を速めに設定し、くるくる速く回して気付かれないようにごまかす。↑と↓向き付近で急激な回転を起こす事は免れない。
     _pGeoMover->setRotAngleVelocity(AXIS_X, 8000);
 
     _RZ2 = _RZ;
@@ -83,9 +86,9 @@ void MyDummyOption::processBehavior() {
     _RYorg = _RY;
     _RZorg = _RZ;
 
-
-    //ここまでで、GgafDx9GeometryMoverの移動機能を使用し、
-    //以下のような状態まで実現。
+    //＜メモ＞
+    //ここまでで、GgafDx9GeometryMoverのメソッドのみで、
+    //以下のような状態までもっていく。
     //(100,0,0) から原点を見たイメージ、自は原点
     //↑y軸  →z軸  ・x軸
     //
@@ -102,9 +105,9 @@ void MyDummyOption::processBehavior() {
     //         ○→
     //          (-50000, -1*_radiusPosition, 0)
     //
-    //しかしまだ色々回転が必要。あとは普通に力技（計算）で、座標回転、向き回転を行なう。
-    //TODO:いつか汎用化最適化。
-
+    //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。
+    //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
+    //TODO:最適化すべし、処理が重たい。いつか汎用化
 
     static float sinRY, cosRY, sinRZ, cosRZ;
 
@@ -112,11 +115,12 @@ void MyDummyOption::processBehavior() {
     cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Z] / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
+    //自機を中心にVIEW変換のような旋廻
     _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
     _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
     _Z = -sinRY*_Xorg + cosRY*_Zorg;
 
-    //Quaternionで軸回転
+    //懐中電灯の照射角が広がるような回転（Quaternionで実現）
     static float vX_axis,vY_axis,vZ_axis; //回転させたい軸ベクトル
     vX_axis = cosRZ*cosRY*_pGeoMover->_vX + -sinRZ*_pGeoMover->_vY + cosRZ*sinRY*_pGeoMover->_vZ;
     vY_axis = sinRZ*cosRY*_pGeoMover->_vX +  cosRZ*_pGeoMover->_vY + sinRZ*sinRY*_pGeoMover->_vZ;
@@ -125,16 +129,16 @@ void MyDummyOption::processBehavior() {
     static float sinHalf, cosHalf;
     sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=回転させたい角度
     cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
-    static double vx, vy, vz; //回転させたい方向ベクトル（元の点座標）。放射状になってます。
-    static double k;   //正規化倍数
-    vx = ((double)_X) / LEN_UNIT;
-    vy = ((double)_Y) / LEN_UNIT;
-    vz = ((double)_Z) / LEN_UNIT;
+    static float vx, vy, vz; //回転させたい方向ベクトル（元の点座標）。放射状（但し平面状とは限らない）になってます。
+    static float k;   //正規化倍数
+    vx = ((float)_X) / LEN_UNIT;
+    vy = ((float)_Y) / LEN_UNIT;
+    vz = ((float)_Z) / LEN_UNIT;
     k = 1.0 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
 
     //計算
     GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, k*vx, k*vy, k*vz); //R*P 回転軸が方向ベクトル
+    Q.mul(0, k*vx, k*vy, k*vz); //R*P 回転軸が現在の進行方向ベクトルとなる
     Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //Q._x, Q._y, Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
