@@ -22,8 +22,7 @@ public:
 
     GgafDx9Bgm(char* _ogg_name);
 
-    //TODO:
-    //virtual void behave();でフェードインフェードアウトを実装するぞ！
+    //TODO: virtual void behave();実装でフェードインフェードアウトを実装するぞ！
 
     //! 活動
     void play(bool isLoop);

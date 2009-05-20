@@ -25,7 +25,10 @@ public:
     virtual ~GgafDx9Universe();
 
     /**
-     * フレーム毎の描画処理<BR>
+     * フレーム毎の描画処理 .
+     * 段階レンダリングを行なうため void GgafElement<T>::drawMain() をオーバーライド。<BR>
+     * 本クラス(GgafUniverse)は頂点のシーンであるため、その他のアクターやシーンの全ての、<BR>
+     * void GgafElement<T>::drawMain() が呼ばれることも無いでしょう。<BR>
      */
     virtual void drawMain();
 

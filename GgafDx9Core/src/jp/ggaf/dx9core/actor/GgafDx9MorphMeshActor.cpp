@@ -54,7 +54,7 @@ void GgafDx9MorphMeshActor::processDrawMain() {
 
 
     static D3DXMATRIX matWorld; //UNIVERSE•ÏŠ·s—ñ
-    GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
+    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
 
 //	hr = pID3DXEffect->SetTechnique(_technique);
 //    mightDx9Exception(hr, S_OK, "GgafDx9MorphMeshActor::processDrawMain() SetTechnique("<<_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");

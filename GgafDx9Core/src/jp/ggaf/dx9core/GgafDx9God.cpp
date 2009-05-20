@@ -107,7 +107,7 @@ HRESULT GgafDx9God::init() {
         _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_DEFAULT;
     } else {
         _structD3dPresent_Parameters.PresentationInterval = D3DPRESENT_INTERVAL_IMMEDIATE; //即座
-        //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONEは？
+        //TODO:Windowモードはこれ一択なのか？、D3DPRESENT_INTERVAL_ONE とかためす？
     }
 
     //アンチアイリアスにできるかチェック

@@ -33,11 +33,12 @@ void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:要検証
     if (_is_active_flg && _can_live_flg && isOffScreen() == false) {
         if (getAlpha() < 1.0) {
+            //＜メモ＞
             //透明の場合は、Z軸値で遠くから描画するように設定。
             //_Z が カメラ位置 ～ カメラ + 1000*MAX_DRAW_DEPTH_LEVEL の間であれば MAX_DRAW_DEPTH_LEVELで
             //段階レンダリングをすることとする。
             //粗さは 1000。←この範囲のZは同一深度となる。
-            //TODO: カメラがぐりぐり動くと波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
+            //TODO: カメラが動きZ座標で深度が決まらない場合波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
             GgafDx9Universe::setDrawDepthLevel(
               (_Z-(GgafDx9Universe::_pCamera->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / 1000,
               this
@@ -49,6 +50,58 @@ void GgafDx9UntransformedActor::processDrawPrior() {
         }
     }
 }
+void GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //UNIVERSE変換
+    //拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
+    //※XYZの順でないことに注意
+    // | sx*cosRZ*cosRY                           , sx*sinRZ       , sx*cosRZ*-sinRY                           , 0|
+    // | (sy* cosRX*-sinRZ*cosRY + sy*sinRX*sinRY), sy*cosRX*cosRZ , (sy* cosRX*-sinRZ*-sinRY + sy*sinRX*cosRY), 0|
+    // | (sz*-sinRX*-sinRZ*cosRY + sz*cosRX*sinRY), sz*-sinRX*cosRZ, (sz*-sinRX*-sinRZ*-sinRY + sz*cosRX*cosRY), 0|
+    // | dx                                       , dy             , dz                                        , 1|
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = sx * cosRZ *cosRY;
+    out_matWorld._12 = sx * sinRZ;
+    out_matWorld._13 = sx * cosRZ * -sinRY;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = (sy * cosRX * -sinRZ *  cosRY) + (sy * sinRX * sinRY);
+    out_matWorld._22 = sy * cosRX *  cosRZ;
+    out_matWorld._23 = (sy * cosRX * -sinRZ * -sinRY) + (sy * sinRX * cosRY);
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = (sz * -sinRX * -sinRZ *  cosRY) + (sz * cosRX * sinRY);
+    out_matWorld._32 = sz * -sinRX *  cosRZ;
+    out_matWorld._33 = (sz * -sinRX * -sinRZ * -sinRY) + (sz * cosRX * cosRY);
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
+    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
+    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._44 = 1.0f;
+    /*
+     //前のやり方
+     float fRateScale = LEN_UNIT;
+     D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
+     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/fRateScale);
+     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/fRateScale);
+     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/fRateScale);
+     D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
+     D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
+     */
+}
+
 
 void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //UNIVERSE変換

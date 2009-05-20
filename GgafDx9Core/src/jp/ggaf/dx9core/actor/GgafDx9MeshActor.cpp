@@ -46,7 +46,7 @@ void GgafDx9MeshActor::processDrawMain() {
 
 
     static D3DXMATRIX matWorld; //UNIVERSE•ÏŠ·s—ñ
-    GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
+    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
 
 
 //	hr = pID3DXEffect->SetTechnique(_technique);

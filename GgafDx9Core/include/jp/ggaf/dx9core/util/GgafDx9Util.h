@@ -7,7 +7,7 @@ namespace GgafDx9Core {
 
 /**
  * ユーティリティ.
- * 独立した静的関数はココに集約しています。
+ * 独立した静的な座標関連関数はココに集約。
  */
 class GgafDx9Util: GgafCore::GgafUtil {
 
@@ -26,12 +26,12 @@ public:
 
     static void init();
     /**
-     * XY座標系（Z軸無視）において、方向ベクトルの成す角をアングル値で取得
+     * XY座標系（Z軸無視）において、方向ベクトルの成す角をアングル値で取得 .
      * XY座標系（Z軸無視）において、原点(0,0)から(prm_vx,prm_vy)に線分を引いた時、
      * X軸との間に出来る角（３時の方向から反時計回りに）をアングル値で取得 .
      * @param prm_vx	X座標
      * @param prm_vy	Y座標
-     * @return
+     * @return 成す角
      */
     static angle getAngle2D(int prm_vx, int prm_vy);
 
@@ -41,7 +41,7 @@ public:
      * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
      * @param prm_way	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
+     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
@@ -54,7 +54,7 @@ public:
      * @param prm_angCenter	[in]'N'way弾の全体として向いている方向のアングル値
      * @param prm_way	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
+     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle);
 
@@ -63,7 +63,7 @@ public:
      * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。
      * @param prm_angStart	放射状の全方向'N'way弾の１つ目の弾のアングル値
      * @param prm_way	[in] 'N'way弾の N。
-     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列参照
+     * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle);
 
@@ -97,9 +97,9 @@ public:
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
-     * ついでに単位方向ベクトルもゲットできます。<BR>
-     * なぜならば、Z軸回転アングル値とY軸回転アングル値を取得する過程で、<BR>
-     * 方向ベクトルの正規化を行なわなければいけないためです。<BR>
+     * おまけで単位方向ベクトルもゲットできる。<BR>
+     * Z軸回転アングル値とY軸回転アングル値を取得する過程で、<BR>
+     * 方向ベクトルの正規化を行なわなければならないため、もったいないので戻り値に。<BR>
      * @param x [in]X座標
      * @param y [in]Y座標
      * @param z [in]Z座標
@@ -174,6 +174,11 @@ public:
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 
+    /**
+     * 符号判定.
+     * @param x
+     * @return
+     */
     template<typename T>
     static T sign(T x) {
         if (x < 0) {
@@ -185,6 +190,13 @@ public:
         }
     }
 
+    /**
+     * 平方根の近似を求める .
+     * 標準sqrtよりも計算がはやいでしょう。
+     * @param a 平方根を求めたい値
+     * @param s 精度（計算ループ回数）
+     * @return 引数aの平方根
+     */
     static double sqrt_fast(double a, int s = 11) {
         double ret = 1;
         for (int i = 1; i <= s; i++) {

@@ -20,21 +20,21 @@ void GgafDx9Universe::drawMain() {
     static GgafActor* pActor;
 
     //不透明アクターなど、段階レンダリングが不要なオブジェクトを描画
-    //※TODO：本来は手前から描画のほうが効率良いが、とりあえずこれで。
+    //※TODO:本来は手前から描画のほうが効率良いが、とりあえずこれで。
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //左（反時計回り）回りにカリング ∵左手座標系
     pActor = _pActors_DrawMaxDrawDepth;
-    while (pActor != NULL) {
+    while (pActor != NULL && pActor->_is_active_flg && pActor->_can_live_flg) {
         pActor->processDrawMain();
         pActor = pActor->_pNext_TheSameDrawDepthLevel;
     }
     _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
 
     //αがあるなど、段階レンダリングが必要なオブジェクトを描画
-    //※TODO：VIEWの注視方向がが正のZ軸に向いているっぽいことが前提。Z軸でしか深度を測ってません。
+    //＜メモ＞VIEWの注視方向がが正のZ軸に向いているっぽいことが前提。Z軸でしか深度を測ってません。
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングしない
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         pActor = _apAlphaActorList_DrawDepthLevel[i];
-        while (pActor != NULL) {
+        while (pActor != NULL && pActor->_is_active_flg && pActor->_can_live_flg) {
             pActor->processDrawMain();
             pActor = pActor->_pNext_TheSameDrawDepthLevel;
         }

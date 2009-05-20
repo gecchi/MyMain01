@@ -1006,7 +1006,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     //Ambient反射値を代用することにする。とりあえず。
     //＜2009/3/13＞
     //固定機能はもう使わない。マテリアルDiffuseはシェーダーのパラメータのみで利用している。
-    //TODO:Ambientは使わない。今後もそうでしょうか？
+    //TODO:マテリアルAmbientは使わない。今後もそうする？
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         paD3DMaterial9[i].Ambient = paD3DMaterial9[i].Diffuse;
     }
@@ -1074,7 +1074,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     mightDx9Exception(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 
-    //TODO
+    //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -1251,7 +1251,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     mightDx9Exception(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 
-    //TODO
+    //TODO:GUIDなんとかする。今は完全無視。
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;

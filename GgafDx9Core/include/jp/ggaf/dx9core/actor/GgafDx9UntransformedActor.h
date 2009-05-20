@@ -95,7 +95,7 @@ public:
      * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
      * GgafUniverse::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
      * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
-     * TODO:private virtual にするべきか否か？
+     * TODO:private virtual にするべきか否か？。fainal が欲しい
      */
     virtual void processDrawPrior();
 
@@ -112,39 +112,66 @@ public:
     }
 
     /**
-     * world変換行列取得 .
-     * 単位行列 × X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定<BR>
+     * world変換行列設定 .
+     * 拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
+     * ※XYZの順でないことに注意<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
      * ※XYZの順でないことに注意<BR>
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
     static void getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Y軸回転 × Z軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
     static void getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-
-
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Y軸回転 × X軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
+     * ※Y軸回転がありません。_RYが２回目のX軸回転となる<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
     static void getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
     static void updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * world変換 .
-     * 単位行列 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 .<BR>
-     * @param prm_pActor 対象アクター
+     * world変換行列設定 .
+     * 単位行列 × Z軸回転 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
      */
     static void getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * world変換 .
-     * 単位行列 × 拡大縮小 × Z軸回転 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
-     * @param prm_pActor 対象アクター
+     * world変換行列設定 .
+     * 単位行列 × 拡大縮小 × Z軸回転 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
      */
     static void getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-
+    /**
+     * world変換行列設定 .
+     * ビルボードX軸回転 × ビルボードY軸回転 × ビルボードZ軸回転  × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
     static void getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     static void getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);

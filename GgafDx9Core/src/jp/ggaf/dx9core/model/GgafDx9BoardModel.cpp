@@ -27,6 +27,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE("GgafDx9BoardModel::draw("<<prm_pActor_Target->getName()<<")");
     //TODO クリアするかどうか
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
+    //↑TODO なぜここでクリアしようと考えが湧いたのかわからなくなった。
 
     //対象Actor
     static GgafDx9BoardActor* pTargetActor;

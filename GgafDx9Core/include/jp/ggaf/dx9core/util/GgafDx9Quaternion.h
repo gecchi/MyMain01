@@ -1,19 +1,22 @@
 #ifndef GGAFDX9QUATERNION_H_
 #define GGAFDX9QUATERNION_H_
 namespace GgafDx9Core {
+
 /**
+ * クォータニオンクラス .
+ * TODO:ちゃんと作る
  */
 class GgafDx9Quaternion : public GgafCore::GgafObject {
 public:
-    double   _t; //虚部
-    double   _x;
-    double   _y;
-    double   _z;
+    float   _t; //虚部
+    float   _x;
+    float   _y;
+    float   _z;
 
-    GgafDx9Quaternion(double prm_t, double prm_x, double prm_y, double prm_z);
+    GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z);
 
-    void mul(double t2, double x2, double y2, double z2) {
-        static double t1, x1, y1, z1;
+    void mul(float t2, float x2, float y2, float z2) {
+        static float t1, x1, y1, z1;
         t1 = _t;
         x1 = _x;
         y1 = _y;

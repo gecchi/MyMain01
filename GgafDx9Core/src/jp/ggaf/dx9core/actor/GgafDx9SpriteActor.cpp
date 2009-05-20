@@ -66,7 +66,7 @@ void GgafDx9SpriteActor::processDrawMain() {
     if (_isBillboardingFlg) {
         GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
     } else {
-        GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(this, matWorld);
+        GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

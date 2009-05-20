@@ -7,6 +7,22 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
     GgafObject() {
     _pActor = prm_pActor;
 
+    for (int axis = 0; axis < 3; axis++) {
+        _scale[axis] = LEN_UNIT;
+        _velo_scale[axis] = 0;
+        _target_scale[axis] = LEN_UNIT;
+        _top_scale[axis] = LEN_UNIT*100;
+        _bottom_scale[axis] = 0;
+        _one_way_scaling_cnt[axis] = 0;
+        _beat_scaling_attack_frame[axis] = 0;
+        _beat_scaling_rest_frame[axis] = 0;
+        _beat_scaling_begin_frame[axis] = 0;
+        _beat_scaling_spend_frame[axis] = 0;
+        _stop_one_way_scaling_num[axis] = -1;
+        _scaling_method[axis] = NOSCALE;
+    }
+
+
     for (int i = 0; i < 3; i++) { // i=0:X軸、1:Y軸、2:Z軸 を表す
 
         //軸回転方角
@@ -114,6 +130,81 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor
 }
 
 void GgafDx9GeometryMover::behave() {
+    for (int axis = 0; axis < 3; axis++) {
+        if (_scaling_method[axis] == TARGET_ONE_WAY_LINER) {
+            _scale[axis] += _velo_scale[axis];
+            if (_velo_scale[axis] > 0 && _target_scale[axis] < _scale[axis]) {
+                _scale[axis] = _target_scale[axis];
+                _scaling_method[axis] = NOSCALE;
+            } else if (_velo_scale[axis] < 0 && _target_scale[axis] > _scale[axis]) {
+                _scale[axis] = _target_scale[axis];
+                _scaling_method[axis] = NOSCALE;
+            }
+        } if (_scaling_method[axis] == TARGET_ONE_WAY_ACCELERATION) {
+            _scale[axis] += _velo_scale[axis];
+            if (_velo_scale[axis] > 0 && _target_scale[axis] < _scale[axis]) {
+                _scale[axis] = _target_scale[axis];
+                _scaling_method[axis] = NOSCALE;
+            } else if (_velo_scale[axis] < 0 && _target_scale[axis] > _scale[axis]) {
+                _scale[axis] = _target_scale[axis];
+                _scaling_method[axis] = NOSCALE;
+            }
+            _velo_scale[axis] += _acce_scale[axis];
+        } else if (_scaling_method[axis] == RECIPROCATE_LINER) {
+            _scale[axis] += _velo_scale[axis];
+            if (_top_scale[axis] < _scale[axis]) {
+                _scale[axis] = _top_scale[axis];
+                _velo_scale[axis] = -1*_velo_scale[axis];
+                _one_way_scaling_cnt[axis]++;
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
+                    _scaling_method[axis] = NOSCALE;
+                }
+            } else if (_bottom_scale[axis] > _scale[axis]) {
+                _scale[axis] = _bottom_scale[axis];
+                _velo_scale[axis] = -1*_velo_scale[axis];
+                _one_way_scaling_cnt[axis]++;
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
+                    _scaling_method[axis] = NOSCALE;
+                }
+            }
+        } else if (_scaling_method[axis] == RECIPROCATE_TRIANGLEWAVE) {
+            _scale[axis] += _velo_scale[axis];
+            if (_beat_scaling_begin_frame[axis] + _beat_scaling_attack_frame[axis] == _pActor->_lifeframe) { //アタック頂点時
+                _scale[axis] = _top_scale[axis];
+            _velo_scale[axis] = ((int)(_bottom_scale[axis] - _top_scale[axis])) / ((int)(_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis]));
+                _one_way_scaling_cnt[axis]++;
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
+                    _scaling_method[axis] = NOSCALE;
+                }
+//                _TRACE_("_bottom_scale["<<axis<<"]="<<_bottom_scale[axis]);
+//                _TRACE_("_top_scale["<<axis<<"]="<<_top_scale[axis]);
+//                _TRACE_("_beat_scaling_spend_frame["<<axis<<"]="<<_beat_scaling_spend_frame[axis]);
+//                _TRACE_("_beat_scaling_attack_frame["<<axis<<"]="<<_beat_scaling_attack_frame[axis]);
+//                _TRACE_("_beat_scaling_rest_frame["<<axis<<"]="<<_beat_scaling_rest_frame[axis]);
+//                _TRACE_("_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"]) = " << (_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis]));
+//                _TRACE_("(_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]) / (_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"])="<<((int)(_bottom_scale[axis] - _top_scale[axis]) / (int)(_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis])));
+//                _TRACE_("_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]" << (_bottom_scale[axis] - _top_scale[axis]));
+//                _TRACE_("11_scale["<<axis<<"] _velo_scale["<<axis<<"]="<<_scale[axis]<<" "<<_velo_scale[axis]);
+
+            } else if (_bottom_scale[axis] > _scale[axis]) {
+                _scale[axis] = _bottom_scale[axis];
+                _velo_scale[axis] = 0;
+
+            } else if (_beat_scaling_begin_frame[axis] + _beat_scaling_spend_frame[axis] == _pActor->_lifeframe) { //ループ終了時
+                _beat_scaling_begin_frame[axis] = _pActor->_lifeframe;
+                _velo_scale[axis] = ((int)(_top_scale[axis] - _bottom_scale[axis])) / _beat_scaling_attack_frame[axis];
+                _one_way_scaling_cnt[axis]++;
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
+                    _scaling_method[axis] = NOSCALE;
+                }
+            }
+        }
+    }
+    //Actorに反映
+    _pActor->_SX = _scale[AXIS_X];
+    _pActor->_SY = _scale[AXIS_Y];
+    _pActor->_SZ = _scale[AXIS_Z];
+
     static angle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_auto_rot_angle_targeting_flg[i]) {
@@ -283,6 +374,88 @@ void GgafDx9GeometryMover::behave() {
     _pActor->_Z += (_vZ * _veloMove + _veloVzMove);
 
 }
+
+void GgafDx9GeometryMover::intoTargetScaleLinerUntil(int prm_target_scale, DWORD prm_spend_frame) {
+    for (int axis = 0; axis < 3; axis++) {
+        intoTargetScaleLinerUntil(axis, prm_target_scale, prm_spend_frame);
+    }
+}
+
+void GgafDx9GeometryMover::intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, DWORD prm_spend_frame) {
+    _scaling_method[prm_axis] = TARGET_ONE_WAY_LINER;
+    _target_scale[prm_axis] = prm_target_scale;
+    _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis])/prm_spend_frame;
+}
+
+void GgafDx9GeometryMover::intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+    for (int axis = 0; axis < 3; axis++) {
+        intoTargetScaleAccelerationStep(axis, prm_target_scale, prm_velo_scale, prm_acce_scale);
+    }
+}
+
+void GgafDx9GeometryMover::intoTargetScaleAccelerationStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+    _scaling_method[prm_axis] = TARGET_ONE_WAY_ACCELERATION;
+    _target_scale[prm_axis] = prm_target_scale;
+    _velo_scale[prm_axis] = prm_velo_scale;
+    _acce_scale[prm_axis] = prm_acce_scale;
+}
+
+void GgafDx9GeometryMover::intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale) {
+    for (int axis = 0; axis < 3; axis++) {
+        intoTargetScaleLinerStep(axis, prm_target_scale, prm_velo_scale);
+    }
+}
+
+void GgafDx9GeometryMover::intoTargetScaleLinerStep(int prm_axis, int prm_target_scale, int prm_velo_scale) {
+    _scaling_method[prm_axis] = TARGET_ONE_WAY_LINER;
+    _target_scale[prm_axis] = prm_target_scale;
+    _velo_scale[prm_axis] = sgn(prm_target_scale - _scale[prm_axis])*prm_velo_scale;
+}
+
+
+void GgafDx9GeometryMover::beatScalingLiner(DWORD prm_beat_scaling_spend_frame, float prm_beat_num) {
+    for (int axis = 0; axis < 3; axis++) {
+        beatScalingLiner(axis, prm_beat_scaling_spend_frame, prm_beat_num);
+    }
+}
+
+void GgafDx9GeometryMover::beatScalingLiner(int prm_axis, DWORD prm_beat_scaling_spend_frame, float prm_beat_num) {
+    _scaling_method[prm_axis] = RECIPROCATE_LINER;
+    _one_way_scaling_cnt[prm_axis] = 0;
+    _stop_one_way_scaling_num[prm_axis] = prm_beat_num*2;
+    _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / (prm_beat_scaling_spend_frame / 2);
+}
+
+void GgafDx9GeometryMover::beatScalingAlongTriangleWave(DWORD prm_beat_scaling_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_beat_num) {
+    for (int axis = 0; axis < 3; axis++) {
+        beatScalingAlongTriangleWave(axis, prm_beat_scaling_spend_frame, prm_attack_frame, prm_rest_frame, prm_beat_num);
+    }
+}
+
+
+void GgafDx9GeometryMover::beatScalingAlongTriangleWave(int prm_axis, DWORD prm_beat_scaling_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_beat_num) {
+    _scaling_method[prm_axis] = RECIPROCATE_TRIANGLEWAVE;
+    _one_way_scaling_cnt[prm_axis] = 0;
+    _stop_one_way_scaling_num[prm_axis] = prm_beat_num*2;
+
+    _beat_scaling_attack_frame[prm_axis] = prm_attack_frame;
+    _beat_scaling_rest_frame[prm_axis] = prm_rest_frame;
+    _beat_scaling_begin_frame[prm_axis] = _pActor->_lifeframe;
+    _beat_scaling_spend_frame[prm_axis] = prm_beat_scaling_spend_frame;
+
+    _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / prm_attack_frame;
+}
+
+void GgafDx9GeometryMover::stopScalingImmediately() {
+    for (int axis = 0; axis < 3; axis++) {
+        stopScalingImmediately(axis);
+    }
+}
+
+void GgafDx9GeometryMover::stopScalingImmediately(int prm_axis) {
+    _scaling_method[prm_axis] = NOSCALE;
+}
+
 
 angle GgafDx9GeometryMover::simplifyAngle(angle prm_ang) {
     static angle angSimple;
@@ -535,8 +708,8 @@ void GgafDx9GeometryMover::setRzMoveAngleVelocityRenge(angvelo prm_angveloRzMove
 }
 
 void GgafDx9GeometryMover::setAutoTargetRzMoveAngle(angle prm_angAutoTargetRzMove,
-                                                int prm_way_allow,
-                                                angvelo prm_angveloAllowRyMove) {
+                                                    int prm_way_allow,
+                                                    angvelo prm_angveloAllowRyMove) {
     _auto_move_angle_rz_target_flg = true;
     _angAutoTargetRzMove = simplifyAngle(prm_angAutoTargetRzMove);
     _auto_move_angle_rz_target_allow_way = prm_way_allow;
@@ -544,9 +717,9 @@ void GgafDx9GeometryMover::setAutoTargetRzMoveAngle(angle prm_angAutoTargetRzMov
 }
 
 void GgafDx9GeometryMover::setAutoTargetRzMoveAngleV(int prm_tX,
-                                                 int prm_tY,
-                                                 int prm_way_allow,
-                                                 angvelo prm_angveloAllowRyMove) {
+                                                     int prm_tY,
+                                                     int prm_way_allow,
+                                                     angvelo prm_angveloAllowRyMove) {
     setAutoTargetRzMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
