@@ -9,7 +9,7 @@ GgafObject::GgafObject() {
 }
 
 string GgafObject::toString() {
-    //:TODO
+    //TODO:java‚Ì‚æ‚¤‚É‚µ‚½‚¢‚Ì‚©
     return "‚¿‚å‚Á‚Æ‚Ü‚Á‚Ä‚æ";
 }
 

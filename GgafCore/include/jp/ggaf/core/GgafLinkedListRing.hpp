@@ -127,7 +127,7 @@ public:
     /**
      * デストラクタ.
      * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
-     * TODO:デストラクタ時 delete するかしないか指定できるように
+     * TODO:デストラクタ時、要素も delete するかしないか指定できるようにしたい。
      * TODO:delete[] やその他の解放方法に対応
      */
     virtual ~GgafLinkedListRing();
