@@ -175,13 +175,14 @@ HRESULT GgafDx9God::init() {
 #if SHIPPING_VERSION
     // When building a shipping version, disable PerfHUD (opt-out)
 #else
-    // Look for 'NVIDIA PerfHUD' adapter
+    _TRACE_("Look for 'NVIDIA PerfHUD' adapter...");
     // If it is present, override default settings
     for (UINT Adapter = 0; Adapter < GgafDx9God::_pID3D9->GetAdapterCount(); Adapter++) {
         D3DADAPTER_IDENTIFIER9 Identifier;
         HRESULT Res;
         Res = GgafDx9God::_pID3D9->GetAdapterIdentifier(Adapter, 0, &Identifier);
         if (strstr(Identifier.Description, "PerfHUD") != 0) {
+            _TRACE_("found NVIDIA PerfHUD!");
             AdapterToUse = Adapter;
             DeviceType = D3DDEVTYPE_REF;
             break;

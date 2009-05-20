@@ -314,7 +314,7 @@ void MyShip::processBehavior() {
     _pChecker->behave();
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 
-    _TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
+    //_TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
 }
 
 void MyShip::processJudgement() {
