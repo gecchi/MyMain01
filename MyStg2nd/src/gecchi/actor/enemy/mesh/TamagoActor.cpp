@@ -53,8 +53,8 @@ void TamagoActor::processBehavior() {
 //    if (_frame_offset % _rnd == 0) {
 //        _rnd = (110 + (rand() % 90));
 //
-//        _pGeoMover->setAutoTargetRzMoveAngleV(GameGlobal::_pMyShip->_X, GameGlobal::_pMyShip->_Y);
-//        if (_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angAutoTargetRzMove, TURN_CLOSE_TO) > 0) {
+//        _pGeoMover->setTargetRzMoveAngleV(GameGlobal::_pMyShip->_X, GameGlobal::_pMyShip->_Y);
+//        if (_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
 //            _pGeoMover->setRzMoveAngleVelocity(2 * 1000);
 //        } else {
 //            _pGeoMover->setRzMoveAngleVelocity(-2 * 1000);
@@ -63,63 +63,63 @@ void TamagoActor::processBehavior() {
 //        _pGeoMover->setMoveVelocityRenge(ANGLE360, 2 * 1000);
 //        _pGeoMover->setMoveVelocity(10 * 1000); //‰‘¬10px
 //        _pGeoMover->setMoveAcceleration(-80);
-//        //		_pGeoMover->setAutoTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+//        //		_pGeoMover->setTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //    }
 
     //	if (_frame_offset == 10) {
-    //		//_pGeoMover->setAutoTargetRzMoveAngle(c);
+    //		//_pGeoMover->setTargetRzMoveAngle(c);
     //		_pGeoMover->setMoveVelocity(2000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pGeoMover->setTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //	if (_frame_offset == 150) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE360*1000);
-    //		//_pGeoMover->setAutoTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pGeoMover->setTargetRzMoveAngle(ANGLE360*1000);
+    //		//_pGeoMover->setTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //
     //	if (_frame_offset == 200) {
     //
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE90*1000);
-    //		//_pGeoMover->setAutoTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pGeoMover->setTargetRzMoveAngle(ANGLE90*1000);
+    //		//_pGeoMover->setTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //	if (_frame_offset == 250) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(0);
+    //		_pGeoMover->setTargetRzMoveAngle(0);
     //	}
     //	if (_frame_offset == 300) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(2250*1000);
+    //		_pGeoMover->setTargetRzMoveAngle(2250*1000);
     //	}
     //	if (_frame_offset == 400) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE90*1000);
+    //		_pGeoMover->setTargetRzMoveAngle(ANGLE90*1000);
     //	}
     //
     //	if (_frame_offset == 500) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(3150*1000);
+    //		_pGeoMover->setTargetRzMoveAngle(3150*1000);
     //	}
     //
     //	if (_frame_offset == 550) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE90*1000);
+    //		_pGeoMover->setTargetRzMoveAngle(ANGLE90*1000);
     //	}
     //	if (_frame_offset == 570) {
     //		_pGeoMover->setMoveVelocity(6000);
-    //		_pGeoMover->setAutoTargetRzMoveAngle(2250*1000);
+    //		_pGeoMover->setTargetRzMoveAngle(2250*1000);
     //	}
     //
     //
     //	if (_frame_offset == 650) {
     //		_pGeoMover->setMoveVelocity(1000);
     //		_pGeoMover->_iIncrementXYMoveSpeed = 30;
-    //		_pGeoMover->_auto_move_angle_target_Flg = false;
-    //		_pGeoMover->_auto_rot_angle_targeting_flg = false;
-    //		_pGeoMover->_auto_rot_angle_Flg = true;
+    //		_pGeoMover->_move_angle_target_Flg = false;
+    //		_pGeoMover->_rot_angle_targeting_flg = false;
+    //		_pGeoMover->_rot_angle_Flg = true;
     //		_pGeoMover->_iIncrementXYMoveAngle =80*1000;
     //	}
 

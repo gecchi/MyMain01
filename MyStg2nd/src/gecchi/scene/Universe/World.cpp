@@ -46,8 +46,8 @@ void World::processBehavior() {
     if ( getSubFirst()->isBehaving() ) {
         //ƒXƒ‹[
     } else {
-        GgafDx9Universe::_pCamera->_pGeoMover->_auto_move_angle_rz_target_flg = true;
-        GgafDx9Universe::_pCamera->_pGeoMover->_auto_move_angle_ry_target_flg = true;
+        GgafDx9Universe::_pCamera->_pGeoMover->_move_angle_rz_target_flg = true;
+        GgafDx9Universe::_pCamera->_pGeoMover->_move_angle_ry_target_flg = true;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
             if (GgafDx9Input::isBeingPressedKey(DIK_T)) {

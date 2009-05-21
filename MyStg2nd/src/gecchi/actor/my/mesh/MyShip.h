@@ -109,8 +109,8 @@ public:
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
-    GgafDx9LibStg::ActorDispatcher* _pMyWaves001Rotation;
-    GgafDx9LibStg::ActorDispatcher* _pMyShots001Rotation;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_MyWaves001;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_MyShots001;
 //    GgafDx9LibStg::ActorDispatcher* _pLaserChipDispatcher;
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyShots001;
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EffectExplosion001;

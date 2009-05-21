@@ -157,8 +157,8 @@ void MyOptionParent::processBehavior() {
                 break;
             case WAY_BEHIND:
                 setTerget(0, ANGLE180);
-                //            _pGeoMover->setAutoTargetRzMoveAngle(0);
-                //            _pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
+                //            _pGeoMover->setTargetRzMoveAngle(0);
+                //            _pGeoMover->setTargetRyMoveAngle(ANGLE180);
 
                 break;
             case WAY_ZLEFT:
@@ -205,8 +205,8 @@ void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
     } else {
         _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    _pGeoMover->setAutoTargetRzMoveAngle(prm_angRz_Target);
-    _pGeoMover->setAutoTargetRyMoveAngle(prm_angRy_Target);
+    _pGeoMover->setTargetRzMoveAngle(prm_angRz_Target);
+    _pGeoMover->setTargetRyMoveAngle(prm_angRy_Target);
 }
 
 MyOptionParent::~MyOptionParent() {

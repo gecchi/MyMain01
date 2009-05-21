@@ -21,7 +21,7 @@ void Universe::processJudgement() {
 
 void Universe::processDrawPrior() {
 
-//    _pCamera->_pGeoMover->setAutoTargetRzRyMoveAngle(0,0,0);
+//    _pCamera->_pGeoMover->setTargetRzRyMoveAngle(0,0,0);
 
 
     //	GgafDx9Universe::_pCamera->setGaze(GameGlobal::_pMyShip);

@@ -86,8 +86,8 @@ void EnemyMeshShot001::processBehavior() {
             } else {
                 _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
             }
-            _pGeoMover->setAutoTargetRyMoveAngle(angRy_Target);
-            _pGeoMover->setAutoTargetRzMoveAngle(angRz_Target);
+            _pGeoMover->setTargetRyMoveAngle(angRy_Target);
+            _pGeoMover->setTargetRzMoveAngle(angRz_Target);
 
             _pGeoMover->setMoveAcceleration(_iMoveAcceleration_2nd);
         }
@@ -96,8 +96,8 @@ void EnemyMeshShot001::processBehavior() {
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
             _pGeoMover->setRzMoveAngleVelocity(0);
             _pGeoMover->setRyMoveAngleVelocity(0);
-            _pGeoMover->_auto_move_angle_ry_target_flg = false;
-            _pGeoMover->_auto_move_angle_rz_target_flg = false;
+            _pGeoMover->_move_angle_ry_target_flg = false;
+            _pGeoMover->_move_angle_rz_target_flg = false;
         }
 
     }

@@ -41,23 +41,23 @@ MyShip::MyShip(const char* prm_name) : DefaultMorphMeshActor(prm_name, "M/4/dona
 }
 
 void MyShip::initialize() {
-    _pMyShots001Rotation = NEW ActorDispatcher("RotShot001");
+    _pDispatcher_MyShots001 = NEW ActorDispatcher("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateTreeImmediately();
-        _pMyShots001Rotation->addSubLast(pShot);
+        _pDispatcher_MyShots001->addSubLast(pShot);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyShots001Rotation);
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyShots001);
 
-    _pMyWaves001Rotation = NEW ActorDispatcher("RotWave001");
+    _pDispatcher_MyWaves001 = NEW ActorDispatcher("RotWave001");
     MyWave001* pWave;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
         pWave->inactivateTreeImmediately();
-        _pMyWaves001Rotation->addSubLast(pWave);
+        _pDispatcher_MyWaves001->addSubLast(pWave);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pMyWaves001Rotation);
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyWaves001);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyLaserChip001* pChip;
@@ -82,7 +82,7 @@ void MyShip::initialize() {
     _pChecker->useHitAreaBoxNum(1);
     _pChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->setScalingRange(1000, 2000);
+    _pGeoMover->setScalingRange(1000, 3000);
 }
 
 void MyShip::processBehavior() {
@@ -114,25 +114,29 @@ void MyShip::processBehavior() {
 
     ///////////スケーリングテスト////////////////
         if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-            _pGeoMover->beatScalingAlongTriangleWave(30, 3, 20);
-        } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-            _pGeoMover->stopScalingImmediately(1);
+            _pGeoMover->intoTargetScaleLinerUntil(2000, 60);
         }
-//        if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//            _pGeoMover->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
-//        } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-//            _pGeoMover->intoTargetAccelerationStep(2, 0, 0, -0.004);
-//        }
-//        if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-//            _pGeoMover->loopTriangleWave(3, 20, 13, 2);
-//        } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-//            _pGeoMover->stopImmediately(3);
-//        }
-//        if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-//            _pGeoMover->loopTriangleWave(4, 60, 3, 20);
-//        } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-//            _pGeoMover->stopImmediately(4);
-//        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+            _pGeoMover->intoTargetScaleLinerStep(3000, 10);
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+            _pGeoMover->intoTargetScaleAccelerationStep(8000, 0, 3);
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+            _pGeoMover->beatScalingLiner(20, -1);
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
+            _pGeoMover->beatScalingLiner(10, 5);
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
+            _pGeoMover->beatScalingAlongTriangleWave(20, 2 ,5, -1);
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+            _pGeoMover->stopScalingImmediately();
+        }
+        if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+            _pGeoMover->resetScaling();
+        }
 
     ///////////モーフテスト////////////////
 
@@ -246,7 +250,7 @@ void MyShip::processBehavior() {
     //ショット関連処理
     //MyShip::transactShot(this);
     if (VB::isPushedDown(VB_SHOT1)) {
-        MyShot001* pShot = (MyShot001*)_pMyShots001Rotation->employ();
+        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             pShot->activateTree();
 
@@ -286,7 +290,7 @@ void MyShip::processBehavior() {
 
     //ショットボタン
     if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
-        MyWave001* pWave = (MyWave001*)_pMyWaves001Rotation->employ();
+        MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activateTree();
 
@@ -482,7 +486,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZLEFT_FRONT;
@@ -495,7 +499,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ/2);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_BEHIND;
@@ -508,7 +512,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ/2);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, _angRXStop_MZ/2, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_LEFT_STC:
             _way = WAY_BEHIND;
@@ -527,7 +531,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_FRONT;
@@ -539,7 +543,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZRIGHT_BEHIND;
@@ -551,7 +555,7 @@ void MyShip::moveXZ(int prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pGeoMover->setAutoTargetRotAngle(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pGeoMover->setTargetRotAngle(AXIS_X, -1*_angRXStop_MZ/2, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -606,7 +610,7 @@ void MyShip::turnFaceNeutralXZ() {
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
         _pGeoMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pGeoMover->setAutoTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pGeoMover->setTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::doNotingMoveInput() {

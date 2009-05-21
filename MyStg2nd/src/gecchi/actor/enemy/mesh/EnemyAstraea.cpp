@@ -41,12 +41,12 @@ void EnemyAstraea::processBehavior() {
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
-        _pGeoMover->setAutoTargetRzRyMoveAngle(GameGlobal::_pMyShip);
+        _pGeoMover->setTargetRzRyMoveAngle(GameGlobal::_pMyShip);
         _pGeoMover->setRzMoveAngleVelocity(
-                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angAutoTargetRzMove,TURN_CLOSE_TO))
+                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angTargetRzMove,TURN_CLOSE_TO))
                     );
         _pGeoMover->setRyMoveAngleVelocity(
-                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRyMoveAngleTo(_pGeoMover->_angAutoTargetRyMove,TURN_CLOSE_TO))
+                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRyMoveAngleTo(_pGeoMover->_angTargetRyMove,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
     }

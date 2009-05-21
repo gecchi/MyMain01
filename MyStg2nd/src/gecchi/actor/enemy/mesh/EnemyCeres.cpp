@@ -101,35 +101,35 @@ void EnemyCeres::processBehavior() {
     //		_TRACE_("_lifeframe="<<_lifeframe);
     //		//_pGeoMover->setRyMoveAngle(ANGLE45);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE45);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE45);
     //	} else if (_lifeframe == 300) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE90);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE90);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE90);
     //	} else if (_lifeframe == 400) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE135);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE135);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE135);
     //	} else if (_lifeframe == 500) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE180);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE180);
     //	} else if (_lifeframe == 600) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE225);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE225);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE225);
     //	} else if (_lifeframe == 700) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE270);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE270);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE270);
     //	} else if (_lifeframe == 800) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE315);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE315);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE315);
     //	} else if (_lifeframe == 900) {
     ////		_pGeoMover->setRyMoveAngle(ANGLE360);
     //		_pGeoMover->setRyMoveAngleVelocity(2000);
-    //		_pGeoMover->setAutoTargetRyMoveAngle(ANGLE360);
+    //		_pGeoMover->setTargetRyMoveAngle(ANGLE360);
     //	}
 
 
@@ -145,8 +145,8 @@ void EnemyCeres::processBehavior() {
         } else {
             _pGeoMover->setRyMoveAngleVelocity(-4000);
         }
-        _pGeoMover->setAutoTargetRzMoveAngle(0);
-        _pGeoMover->setAutoTargetRyMoveAngle(ANGLE180);
+        _pGeoMover->setTargetRzMoveAngle(0);
+        _pGeoMover->setTargetRyMoveAngle(ANGLE180);
 
         //’e‚ðŒ‚‚Á‚Ä‚Ý‚é
         //		‚TWAY’e
@@ -210,11 +210,11 @@ void EnemyCeres::processBehavior() {
 //	if (_iMovePatternNo == 0 && _X > _X_turn) {
 //		_pGeoMover->setRzMoveAngle(sgn(_incZ)*-1*90000);
 //		_pGeoMover->setRzMoveAngleVelocity(sgn(_incZ)*-1*3000);
-//		_pGeoMover->setAutoTargetRzMoveAngle(ANGLE180);
+//		_pGeoMover->setTargetRzMoveAngle(ANGLE180);
 //		_pGeoMover->setMoveVelocity(1000);
 //
 //		_pGeoMover->setRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
-//		_pGeoMover->setAutoTargetRotAngle(AXIS_Y, ANGLE180);
+//		_pGeoMover->setTargetRotAngle(AXIS_Y, ANGLE180);
 //
 //		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
 //
@@ -234,7 +234,7 @@ void EnemyCeres::processBehavior() {
 //		_iMovePatternNo++;
 //	}
 //
-//	if (_iMovePatternNo == 1 && _pGeoMover->_auto_move_angle_rz_target_flg == false) {
+//	if (_iMovePatternNo == 1 && _pGeoMover->_move_angle_rz_target_flg == false) {
 //		_pGeoMover->setMoveVelocity(2000);
 //		_pGeoMover->setMoveAcceleration(100);
 //		_iMovePatternNo++;
