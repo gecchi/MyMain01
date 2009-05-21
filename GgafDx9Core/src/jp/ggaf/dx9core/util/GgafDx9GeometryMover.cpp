@@ -158,35 +158,36 @@ void GgafDx9GeometryMover::behave() {
                 _scale[axis] = _top_scale[axis];
                 _velo_scale[axis] = -2 * (int)(_top_scale[axis] - _bottom_scale[axis]) / (int)(_beat_scaling_spend_frame[axis]);
                 _one_way_scaling_cnt[axis]++;
-                if (_one_way_scaling_cnt[axis] >= _stop_one_way_scaling_num[axis]) {
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
                     _scaling_method[axis] = NOSCALE;
                 }
             } else if (_bottom_scale[axis] >= _scale[axis]) {
                 _scale[axis] = _bottom_scale[axis];
                 _velo_scale[axis] = 2 * (int)(_top_scale[axis] - _bottom_scale[axis]) / (int)(_beat_scaling_spend_frame[axis]);
                 _one_way_scaling_cnt[axis]++;
-                if (_one_way_scaling_cnt[axis] >= _stop_one_way_scaling_num[axis]) {
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
                     _scaling_method[axis] = NOSCALE;
                 }
             }
+//_TRACE_("_bottom_scale["<<axis<<"]="<<_bottom_scale[axis]);
+//_TRACE_("_top_scale["<<axis<<"]="<<_top_scale[axis]);
+//_TRACE_("_beat_scaling_spend_frame["<<axis<<"]="<<_beat_scaling_spend_frame[axis]);
+//_TRACE_("_beat_scaling_attack_frame["<<axis<<"]="<<_beat_scaling_attack_frame[axis]);
+//_TRACE_("_beat_scaling_rest_frame["<<axis<<"]="<<_beat_scaling_rest_frame[axis]);
+//_TRACE_("_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"]) = " << (_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis]));
+//_TRACE_("(_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]) / (_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"])="<<((int)(_bottom_scale[axis] - _top_scale[axis]) / (int)(_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis])));
+//_TRACE_("_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]" << (_bottom_scale[axis] - _top_scale[axis]));
+//_TRACE_("11_scale["<<axis<<"] _velo_scale["<<axis<<"]="<<_scale[axis]<<" "<<_velo_scale[axis]);
+
         } else if (_scaling_method[axis] == BEAT_SCALE_TRIANGLEWAVE) {
             _scale[axis] += _velo_scale[axis];
             if (_beat_scaling_begin_frame[axis] + _beat_scaling_attack_frame[axis] <= _pActor->_lifeframe) { //アタック頂点時
                 _scale[axis] = _top_scale[axis];
 				_velo_scale[axis] = ((int)(_bottom_scale[axis] - _top_scale[axis])) / ((int)(_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis]));
                 _one_way_scaling_cnt[axis]++;
-                if (_one_way_scaling_cnt[axis] >= _stop_one_way_scaling_num[axis]) {
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
                     _scaling_method[axis] = NOSCALE;
                 }
-//                _TRACE_("_bottom_scale["<<axis<<"]="<<_bottom_scale[axis]);
-//                _TRACE_("_top_scale["<<axis<<"]="<<_top_scale[axis]);
-//                _TRACE_("_beat_scaling_spend_frame["<<axis<<"]="<<_beat_scaling_spend_frame[axis]);
-//                _TRACE_("_beat_scaling_attack_frame["<<axis<<"]="<<_beat_scaling_attack_frame[axis]);
-//                _TRACE_("_beat_scaling_rest_frame["<<axis<<"]="<<_beat_scaling_rest_frame[axis]);
-//                _TRACE_("_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"]) = " << (_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis]));
-//                _TRACE_("(_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]) / (_beat_scaling_spend_frame["<<axis<<"] - _beat_scaling_attack_frame["<<axis<<"] - _beat_scaling_rest_frame["<<axis<<"])="<<((int)(_bottom_scale[axis] - _top_scale[axis]) / (int)(_beat_scaling_spend_frame[axis] - _beat_scaling_attack_frame[axis] - _beat_scaling_rest_frame[axis])));
-//                _TRACE_("_bottom_scale["<<axis<<"] - _top_scale["<<axis<<"]" << (_bottom_scale[axis] - _top_scale[axis]));
-//                _TRACE_("11_scale["<<axis<<"] _velo_scale["<<axis<<"]="<<_scale[axis]<<" "<<_velo_scale[axis]);
 
             } else if (_bottom_scale[axis] >= _scale[axis]) {
                 _scale[axis] = _bottom_scale[axis];
@@ -196,7 +197,7 @@ void GgafDx9GeometryMover::behave() {
                 _beat_scaling_begin_frame[axis] = _pActor->_lifeframe;
                 _velo_scale[axis] = ((int)(_top_scale[axis] - _bottom_scale[axis])) / _beat_scaling_attack_frame[axis];
                 _one_way_scaling_cnt[axis]++;
-                if (_one_way_scaling_cnt[axis] >= _stop_one_way_scaling_num[axis]) {
+                if (_one_way_scaling_cnt[axis] == _stop_one_way_scaling_num[axis]) {
                     _scaling_method[axis] = NOSCALE;
                 }
             }
@@ -387,6 +388,9 @@ void GgafDx9GeometryMover::intoTargetScaleLinerUntil(int prm_axis, int prm_targe
     _scaling_method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis])/prm_spend_frame;
+	if (_velo_scale[prm_axis] == 0) {
+		_velo_scale[prm_axis] = prm_target_scale - _scale[prm_axis];
+	}
 }
 
 void GgafDx9GeometryMover::intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
@@ -427,6 +431,9 @@ void GgafDx9GeometryMover::beatScalingLiner(int prm_axis, DWORD prm_beat_scaling
     _stop_one_way_scaling_num[prm_axis] = prm_beat_num*2;
     _beat_scaling_spend_frame[prm_axis] = prm_beat_scaling_spend_frame;
     _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / (prm_beat_scaling_spend_frame / 2);
+	if (_velo_scale[prm_axis] == 0) {
+		_velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
+	}
 }
 
 void GgafDx9GeometryMover::beatScalingAlongTriangleWave(DWORD prm_beat_scaling_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_beat_num) {
@@ -447,6 +454,10 @@ void GgafDx9GeometryMover::beatScalingAlongTriangleWave(int prm_axis, DWORD prm_
     _beat_scaling_spend_frame[prm_axis] = prm_beat_scaling_spend_frame;
 
     _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / prm_attack_frame;
+	if (_velo_scale[prm_axis] == 0) {
+		_velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
+	}
+
 }
 
 void GgafDx9GeometryMover::stopScalingImmediately() {
