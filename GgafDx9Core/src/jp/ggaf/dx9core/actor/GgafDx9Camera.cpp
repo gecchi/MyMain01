@@ -71,8 +71,8 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
     _pGeoMover->setMoveVelocity(0);
     _pGeoMover->setRzMoveAngleVelocity(0);
     _pGeoMover->setRyMoveAngleVelocity(0);
-    _pGeoMover->_auto_move_angle_rz_target_flg = true;
-    _pGeoMover->_auto_move_angle_ry_target_flg = true;
+    _pGeoMover->_move_angle_rz_target_flg = true;
+    _pGeoMover->_move_angle_ry_target_flg = true;
 
     setBumpable(false);
 }
