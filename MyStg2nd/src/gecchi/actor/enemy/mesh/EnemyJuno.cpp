@@ -14,14 +14,14 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "X/
 void EnemyJuno::initialize() {
 
     _Z = 5000000;
-    _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->setVzMoveVelocity(-40000);
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 5000);
-    _pGeoMover->setRotAngle(AXIS_Y, 90000);
+    _pMover->setMoveVelocity(0);
+    _pMover->setVzMoveVelocity(-40000);
+    _pMover->setRotAngleVelocity(AXIS_X, 5000);
+    _pMover->setRotAngle(AXIS_Y, 90000);
 
-    _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    _pChecker->setStatus(100, 1, 1, 1);
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+    _pStgChecker->setStatus(100, 1, 1, 1);
 }
 
 void EnemyJuno::processBehavior() {
@@ -33,7 +33,7 @@ void EnemyJuno::processBehavior() {
 
     _X += FormationJuno001::_incX;
     //À•W‚É”½‰f
-    _pGeoMover->behave();
+    _pMover->behave();
 }
 
 void EnemyJuno::processJudgement() {

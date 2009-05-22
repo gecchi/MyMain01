@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9UntransformedActor(prm_name,
-                            NEW GgafDx9GeometryMover(this),
-                            NEW StgChecker(this) ) {
+                            NULL) {
     _angVelocity_Turn = 3000;
+    _pMover = NEW GgafDx9GeometryMover(this);
 
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
@@ -116,9 +116,9 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 }
 
 void MyOptionParent::initialize() {
-    _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->setRyMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
-    _pGeoMover->setRzMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
+    _pMover->setMoveVelocity(0);
+    _pMover->setRyMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
+    _pMover->setRzMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
 
     _way_myship_prev = GameGlobal::_pMyShip->_way;
 }
@@ -131,8 +131,8 @@ void MyOptionParent::processBehavior() {
     if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
 
         //•ûŒü‚ª•Ï‚í‚Á‚½
-        _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
-        _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+        _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+        _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
         switch(GameGlobal::_pMyShip->_way) {
             case WAY_UP:
                 setTerget(ANGLE90, 0);
@@ -157,8 +157,8 @@ void MyOptionParent::processBehavior() {
                 break;
             case WAY_BEHIND:
                 setTerget(0, ANGLE180);
-                //            _pGeoMover->setTargetRzMoveAngle(0);
-                //            _pGeoMover->setTargetRyMoveAngle(ANGLE180);
+                //            _pMover->setTargetRzMoveAngle(0);
+                //            _pMover->setTargetRyMoveAngle(ANGLE180);
 
                 break;
             case WAY_ZLEFT:
@@ -186,29 +186,30 @@ void MyOptionParent::processBehavior() {
     }
     //À•W‚É”½‰f
     if (GameGlobal::_pMyShip->_stc != 0) {
-        _angVelocity_Turn = 3500 + GameGlobal::_pMyShip->_pGeoMover->_veloMove;
+        _angVelocity_Turn = 3500 + GameGlobal::_pMyShip->_pMover->_veloMove;
         //“®‚©‚»‚¤‚Æ‚µ‚Ä‚¢‚½I
-        _pGeoMover->behave();
+        _pMover->behave();
     }
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 }
 
 
 void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
-    if (_pGeoMover->getDifferenceFromRzMoveAngleTo(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
-        _pGeoMover->setRzMoveAngleVelocity(_angVelocity_Turn);
+    if (_pMover->getDifferenceFromRzMoveAngleTo(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
+        _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
     } else {
-        _pGeoMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
+        _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    if (_pGeoMover->getDifferenceFromRyMoveAngleTo(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
-        _pGeoMover->setRyMoveAngleVelocity(_angVelocity_Turn);
+    if (_pMover->getDifferenceFromRyMoveAngleTo(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
+        _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
     } else {
-        _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
+        _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    _pGeoMover->setTargetRzMoveAngle(prm_angRz_Target);
-    _pGeoMover->setTargetRyMoveAngle(prm_angRy_Target);
+    _pMover->setTargetRzMoveAngle(prm_angRz_Target);
+    _pMover->setTargetRyMoveAngle(prm_angRy_Target);
 }
 
 MyOptionParent::~MyOptionParent() {
+    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }

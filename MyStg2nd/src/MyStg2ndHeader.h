@@ -56,7 +56,6 @@ class MyOptionParent;
 class MyDummyOption;
 class MyShot001;
 class MyWave001;
-class MyLaser001;
 class EffectExplosion001;
 class TamagoActor;
 class MyUtil;
@@ -114,7 +113,6 @@ class MyFactory;
 #include "gecchi/actor/my/sprite/MyShot001.h"
 #include "gecchi/actor/my/mesh/MyWave001.h"
 #include "gecchi/actor/my/mesh/MyLaserChip001.h"
-#include "gecchi/actor/my/sprite/MyLaser001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"

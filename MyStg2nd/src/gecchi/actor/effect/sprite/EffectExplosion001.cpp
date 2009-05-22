@@ -27,7 +27,7 @@ void EffectExplosion001::processBehavior() {
     _SX+= 100;
     _SY+= 100;
     addNextAnimationFrame();
-    _pGeoMover->behave();
+    _pMover->behave();
 }
 
 void EffectExplosion001::processJudgement() {

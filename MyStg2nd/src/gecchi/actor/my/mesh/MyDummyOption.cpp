@@ -22,11 +22,11 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 
 void MyDummyOption::initialize() {
     _angveloMove = ((1.0*_veloMove / _radiusPosition)*(double)ANGLE180)/PI;
-    _pGeoMover->setMoveVelocity(_veloMove);
-    _pGeoMover->setRzMoveAngle(_angPosition+ANGLE90);
-    _pGeoMover->setRyMoveAngle(-ANGLE90);
-    _pGeoMover->setRzMoveAngleVelocity(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _pGeoMover->setRyMoveAngleVelocity(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pMover->setMoveVelocity(_veloMove);
+    _pMover->setRzMoveAngle(_angPosition+ANGLE90);
+    _pMover->setRyMoveAngle(-ANGLE90);
+    _pMover->setRzMoveAngleVelocity(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pMover->setRyMoveAngleVelocity(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
     _X = 50000; //TODO:ƒƒƒ‚„ƒIƒvƒVƒ‡ƒ“‚ðXŽ²‰ñ“]‚µ‚Ä‚¢‚é‚ÆA _angExpanse ‚Ì’l‚É‚æ‚Á‚Ä‚ÍƒVƒ“ƒoƒ‹ƒƒbƒN‚ª‹N‚«‚ÄA
@@ -35,7 +35,7 @@ void MyDummyOption::initialize() {
                 //TODO:2009/04/08
                 //–{“–‚Í0iŽ©‹@‚Ì^‰¡j‚É‚µ‚½‚¢B‚ªA‚â‚âŽ©‹@‚Ì^‰¡‚©‚ç‚¸‚ç‚·Ž–‚ÅAƒVƒ“ƒoƒ‹ƒƒbƒN‚É‚æ‚éƒ[ƒv‚Ì‚æ‚¤‚È‰ñ“]‚·‚éŠm—¦‚ð‚â‚âŠÉ˜a‚·‚éB
                 //XŽ²‰ñ“]ŠpŠp‘¬“x‚ð‘¬‚ß‚ÉÝ’è‚µA‚­‚é‚­‚é‘¬‚­‰ñ‚µ‚Ä‹C•t‚©‚ê‚È‚¢‚æ‚¤‚É‚²‚Ü‚©‚·Bª‚Æ«Œü‚«•t‹ß‚Å‹}Œƒ‚È‰ñ“]‚ð‹N‚±‚·Ž–‚Í–Æ‚ê‚È‚¢B
-    _pGeoMover->setRotAngleVelocity(AXIS_X, 8000);
+    _pMover->setRotAngleVelocity(AXIS_X, 8000);
 
     _RZ2 = _RZ;
     _RY2 = _RY;
@@ -76,8 +76,8 @@ void MyDummyOption::processBehavior() {
     _RY = _RYorg;
     _RZ = _RZorg;
 
-    _pGeoMover->setMoveVelocity(_veloMove);
-    _pGeoMover->behave();
+    _pMover->setMoveVelocity(_veloMove);
+    _pMover->behave();
 
     _Xorg = _X;
     _Yorg = _Y;
@@ -111,10 +111,10 @@ void MyDummyOption::processBehavior() {
 
     static float sinRY, cosRY, sinRZ, cosRZ;
 
-    sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Z] / ANGLE_RATE];
-    cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Z] / ANGLE_RATE];
-    sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
-    cosRY = GgafDx9Util::COS[_pMyOptionParent->_pGeoMover->_angRot[AXIS_Y] / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
     //Ž©‹@‚ð’†S‚ÉVIEW•ÏŠ·‚Ì‚æ‚¤‚Èù‰ô
     _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
     _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
@@ -122,9 +122,9 @@ void MyDummyOption::processBehavior() {
 
     //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
-    vX_axis = cosRZ*cosRY*_pGeoMover->_vX + -sinRZ*_pGeoMover->_vY + cosRZ*sinRY*_pGeoMover->_vZ;
-    vY_axis = sinRZ*cosRY*_pGeoMover->_vX +  cosRZ*_pGeoMover->_vY + sinRZ*sinRY*_pGeoMover->_vZ;
-    vZ_axis = -sinRY*_pGeoMover->_vX + cosRY*_pGeoMover->_vZ;
+    vX_axis = cosRZ*cosRY*_pMover->_vX + -sinRZ*_pMover->_vY + cosRZ*sinRY*_pMover->_vZ;
+    vY_axis = sinRZ*cosRY*_pMover->_vX +  cosRZ*_pMover->_vY + sinRZ*sinRY*_pMover->_vZ;
+    vZ_axis = -sinRY*_pMover->_vX + cosRY*_pMover->_vZ;
 
     static float sinHalf, cosHalf;
     sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
@@ -166,11 +166,11 @@ void MyDummyOption::processBehavior() {
         MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
 
-            pLaserChip->_pGeoMover->_vX = Q._x;
-            pLaserChip->_pGeoMover->_vY = Q._y;
-            pLaserChip->_pGeoMover->_vZ = Q._z;
-            pLaserChip->_pGeoMover->_angRzMove = _RZ2;
-            pLaserChip->_pGeoMover->_angRyMove = _RY2;
+            pLaserChip->_pMover->_vX = Q._x;
+            pLaserChip->_pMover->_vY = Q._y;
+            pLaserChip->_pMover->_vZ = Q._z;
+            pLaserChip->_pMover->_angRzMove = _RZ2;
+            pLaserChip->_pMover->_angRyMove = _RY2;
             static angle angWk;
             if ((0 <= _RZ2 && _RZ2 < ANGLE90) ||
                 (ANGLE270 <= _RZ2 && _RZ2 < ANGLE360) ) {
@@ -178,10 +178,10 @@ void MyDummyOption::processBehavior() {
             } else {
                 angWk = ANGLE180;
             }
-            pLaserChip->_pGeoMover->_angRot[AXIS_X] = angWk;
-            pLaserChip->_pGeoMover->_angRot[AXIS_Z] = _RZ2;
-            pLaserChip->_pGeoMover->_angRot[AXIS_Y] = _RY2;
-            pLaserChip->_pGeoMover->behave();
+            pLaserChip->_pMover->_angRot[AXIS_X] = angWk;
+            pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ2;
+            pLaserChip->_pMover->_angRot[AXIS_Y] = _RY2;
+            pLaserChip->_pMover->behave();
             pLaserChip->_X = _X2;
             pLaserChip->_Y = _Y2;
             pLaserChip->_Z = _Z2;

@@ -6,7 +6,6 @@ class EnemyLaserChip001 : public LaserChip {
 
 
 public:
-
     EnemyLaserChip001(const char* prm_name);
 
     /**

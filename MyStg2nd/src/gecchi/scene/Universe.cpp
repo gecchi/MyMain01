@@ -21,14 +21,14 @@ void Universe::processJudgement() {
 
 void Universe::processDrawPrior() {
 
-//    _pCamera->_pGeoMover->setTargetRzRyMoveAngle(0,0,0);
+//    _pCamera->_pMover->setTargetRzRyMoveAngle(0,0,0);
 
 
     //	GgafDx9Universe::_pCamera->setGaze(GameGlobal::_pMyShip);
     //
     //
     //
-    //	GgafDx9Universe::_pCamera->_pGeoMover->
+    //	GgafDx9Universe::_pCamera->_pMover->
     //	GgafDx9Universe::_pCamera->Z = GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org;
 
 //    if (GgafDx9Universe::_pCamera->_Z < GameGlobal::_pMyShip->_Z - GgafDx9God::_cameraZ_org) {

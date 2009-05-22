@@ -12,9 +12,9 @@ EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name
 
 void EnemyShot001::initialize() {
     setAnimationMethod(ORDER_LOOP, 1);
-    _pGeoMover->setMoveVelocity(3000);
-    _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+    _pMover->setMoveVelocity(3000);
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
     setBumpable(true);
 }
 
@@ -25,7 +25,7 @@ void EnemyShot001::processBehavior() {
     }
     addNextAnimationFrame();
     //À•W‚É”½‰f
-    _pGeoMover->behave();
+    _pMover->behave();
 
 }
 

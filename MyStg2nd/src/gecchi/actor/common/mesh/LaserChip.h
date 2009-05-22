@@ -30,6 +30,11 @@ private:
     void onInactive();
 
 public:
+    GgafDx9LibStg::StgChecker* _pStgChecker;
+    /** 座標移動支援オブジェクト */
+    GgafDx9Core::GgafDx9GeometryMover* _pMover;
+
+
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
@@ -44,7 +49,6 @@ public:
     /** 自身を管理してるアクター発送者 */
     LaserChipDispatcher* _pDispatcher;
 
-    GgafDx9LibStg::StgChecker* _pChecker;
 
 
     LaserChip(const char* prm_name, const char* prm_model);

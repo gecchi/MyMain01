@@ -12,27 +12,27 @@ MyWave001::MyWave001(const char* prm_name) : DefaultMeshActor(prm_name, "X/wave"
 void MyWave001::initialize() {
     //setAnimationMethod(OSCILLATE_LOOP, 2);
 
-    _pGeoMover->setRzMoveAngleVelocity(0);
-    //_pGeoMover->setRotAngleVelocity(AXIS_Z, 2*1000);
-    //_pGeoMover->setRzMoveAngle(0);
-    //_pGeoMover->setRotAngle(AXIS_Z, 0);
-    _pGeoMover->setMoveVelocity(2000);
+    _pMover->setRzMoveAngleVelocity(0);
+    //_pMover->setRotAngleVelocity(AXIS_Z, 2*1000);
+    //_pMover->setRzMoveAngle(0);
+    //_pMover->setRotAngle(AXIS_Z, 0);
+    _pMover->setMoveVelocity(2000);
 
-    _pChecker->useHitAreaBoxNum(7);
-    _pChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
-    _pChecker->setHitAreaBox(1, -10000, -140000, -10000, 10000, -120000, 10000, true, true, true);
-    _pChecker->setHitAreaBox(2, -10000, 120000, -10000, 10000, 140000, 10000, true, true, true);
-    _pChecker->setHitAreaBox(3, -140000, -10000, -10000, -120000, 10000, 10000, true, true, true);
-    _pChecker->setHitAreaBox(4, 120000, -10000, -10000, 140000, 10000, 10000, true, true, true);
-    _pChecker->setHitAreaBox(5, -10000, -10000, -140000, 10000, 10000, -120000, true, true, true);
-    _pChecker->setHitAreaBox(6, -10000, -10000, 120000, 10000, 10000, 140000, true, true, true);
+    _pStgChecker->useHitAreaBoxNum(7);
+    _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
+    _pStgChecker->setHitAreaBox(1, -10000, -140000, -10000, 10000, -120000, 10000, true, true, true);
+    _pStgChecker->setHitAreaBox(2, -10000, 120000, -10000, 10000, 140000, 10000, true, true, true);
+    _pStgChecker->setHitAreaBox(3, -140000, -10000, -10000, -120000, 10000, 10000, true, true, true);
+    _pStgChecker->setHitAreaBox(4, 120000, -10000, -10000, 140000, 10000, 10000, true, true, true);
+    _pStgChecker->setHitAreaBox(5, -10000, -10000, -140000, 10000, 10000, -120000, true, true, true);
+    _pStgChecker->setHitAreaBox(6, -10000, -10000, 120000, 10000, 10000, 140000, true, true, true);
 
-    //	_pChecker->_pHitAreaBoxs->setLine(0, -20000, 20000, 20000, 20000, true);
-    //	_pChecker->_pHitAreaBoxs->setLine(1, 20000, 20000, 20000, -20000, true);
-    //	_pChecker->_pHitAreaBoxs->setLine(2, 20000, -20000, -20000, -20000, true);
-    //	_pChecker->_pHitAreaBoxs->setLine(3, -20000, -20000, -20000, 20000, true);
-    //	_pChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
-    //	_pChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(0, -20000, 20000, 20000, 20000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(1, 20000, 20000, 20000, -20000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(2, 20000, -20000, -20000, -20000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(3, -20000, -20000, -20000, 20000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
+    //	_pStgChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
     //
     _SX = 10000;
     _SY = 10000;
@@ -48,10 +48,10 @@ void MyWave001::processBehavior() {
         //oŒ»‹¤’Êˆ—
         setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
-        _pGeoMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Z]);
-        _pGeoMover->setRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Y]);
-        _pGeoMover->setRzRyMoveAngle(GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Z],
-                                     GameGlobal::_pMyShip->_pGeoMover->_angRot[AXIS_Y]);
+        _pMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z]);
+        _pMover->setRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Y]);
+        _pMover->setRzRyMoveAngle(GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z],
+                                     GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Y]);
         //		_X = GameGlobal::_pMyShip->_X;
         //		_Y = GameGlobal::_pMyShip->_Y;
         //		_Z = GameGlobal::_pMyShip->_Z;
@@ -59,8 +59,8 @@ void MyWave001::processBehavior() {
         //’Êíˆ—
         //addNextAnimationFrame();
         //À•W‚É”½‰f
-        _pGeoMover->behave();
-        _pChecker->behave();
+        _pMover->behave();
+        _pStgChecker->behave();
     }
 }
 

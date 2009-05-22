@@ -4,7 +4,6 @@ namespace MyStg2nd {
 
 class MyLaserChip001 : public LaserChip {
 
-
 public:
 
     MyLaserChip001(const char* prm_name);

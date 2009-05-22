@@ -27,41 +27,41 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
 
 void EnemyAstraea::initialize() {
     setBumpable(true);
-    _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
-    _pChecker->setStatus(100, 1, 1, 1);
-    _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
-    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pStgChecker->setStatus(100, 1, 1, 1);
+    _pMover->setMoveVelocity(0);
+    _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+    _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
 
-    getLordActor()->accept(KIND_MY_SHOT_PA, _pLaserChipDispatcher); //–{Š‘®
+    getLordActor()->accept(KIND_ENEMY_SHOT_PA, _pLaserChipDispatcher); //–{Š‘®
 }
 
 void EnemyAstraea::processBehavior() {
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
-        _pGeoMover->setTargetRzRyMoveAngle(GameGlobal::_pMyShip);
-        _pGeoMover->setRzMoveAngleVelocity(
-                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRzMoveAngleTo(_pGeoMover->_angTargetRzMove,TURN_CLOSE_TO))
+        _pMover->setTargetRzRyMoveAngle(GameGlobal::_pMyShip);
+        _pMover->setRzMoveAngleVelocity(
+                        _angveloTurn*sgn(_pMover->getDifferenceFromRzMoveAngleTo(_pMover->_angTargetRzMove,TURN_CLOSE_TO))
                     );
-        _pGeoMover->setRyMoveAngleVelocity(
-                        _angveloTurn*sgn(_pGeoMover->getDifferenceFromRyMoveAngleTo(_pGeoMover->_angTargetRyMove,TURN_CLOSE_TO))
+        _pMover->setRyMoveAngleVelocity(
+                        _angveloTurn*sgn(_pMover->getDifferenceFromRyMoveAngleTo(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
     }
 
 
-    _pGeoMover->behave();
+    _pMover->behave();
 
-    if (_pGeoMover->_angveloRzMove == 0 && _pGeoMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
+    if (_pMover->_angveloRzMove == 0 && _pMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
         static EnemyLaserChip001* pLaserChip;
         pLaserChip = (EnemyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
-            pLaserChip->_pGeoMover->setRzRyMoveAngle(_pGeoMover->_angRzMove, _pGeoMover->_angRyMove);
-            pLaserChip->_pGeoMover->_angRot[AXIS_Z] = _RZ;
-            pLaserChip->_pGeoMover->_angRot[AXIS_Y] = _RY;
-            pLaserChip->_pGeoMover->behave();
+            pLaserChip->_pMover->setRzRyMoveAngle(_pMover->_angRzMove, _pMover->_angRyMove);
+            pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ;
+            pLaserChip->_pMover->_angRot[AXIS_Y] = _RY;
+            pLaserChip->_pMover->behave();
             pLaserChip->setGeometry(this);
             _cnt_laserchip++;
         }
@@ -83,9 +83,9 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     setBumpable(false);
 
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
-        GameGlobal::_dwScore += _pChecker->_iScorePoint;
+        GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
-
+    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_lifeframe);
     adios();
     if (_pLaserChipDispatcher) { //’e‰ð•ú—\–ñ
         _pLaserChipDispatcher->adios(60 * 5);

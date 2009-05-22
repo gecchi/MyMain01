@@ -31,26 +31,26 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
 }
 
 void EnemyMeshShot001::initialize() {
-    _pGeoMover->setVxMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
-    _pGeoMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
-    _pGeoMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+    _pMover->setVxMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
+    _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+    _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
 
-    _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     setBumpable(true);
 }
 
 void EnemyMeshShot001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»
-        _pGeoMover->setMoveVelocity(_iMoveVelocity_1st);
-        _pGeoMover->setMoveAcceleration(_iMoveAcceleration_1st);
+        _pMover->setMoveVelocity(_iMoveVelocity_1st);
+        _pMover->setMoveAcceleration(_iMoveAcceleration_1st);
 
         _frame_on_change_to_active_flg = 0;
         setBumpable(true);
     } else {
 
-        //		_pGeoMover->setMoveAngle(
+        //		_pMover->setMoveAngle(
         //				GameGlobal::_pMyShip->_X,
         //				GameGlobal::_pMyShip->_Y,
         //				GameGlobal::_pMyShip->_Z
@@ -66,8 +66,8 @@ void EnemyMeshShot001::processBehavior() {
         //				angRz_Target,
         //				angRy_Target
         //				);
-        //		_pGeoMover->setRzMoveAngle(angRz_Target);
-        //		_pGeoMover->setRyMoveAngle(angRy_Target);
+        //		_pMover->setRzMoveAngle(angRz_Target);
+        //		_pMover->setRyMoveAngle(angRy_Target);
 
         _frame_on_change_to_active_flg++;
         //•ûŒü“]Š·ŠJn
@@ -76,35 +76,35 @@ void EnemyMeshShot001::processBehavior() {
             angle angRy_Target;
             GgafDx9Util::getRotAngleZY(GameGlobal::_pMyShip->_X - _X, GameGlobal::_pMyShip->_Y - _Y,
                                        GameGlobal::_pMyShip->_Z - _Z, angRz_Target, angRy_Target);
-            if (_pGeoMover->getDifferenceFromRzMoveAngleTo(angRz_Target, TURN_CLOSE_TO) > 0) {
-                _pGeoMover->setRzMoveAngleVelocity(_angVelocity_Turn);
+            if (_pMover->getDifferenceFromRzMoveAngleTo(angRz_Target, TURN_CLOSE_TO) > 0) {
+                _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
             } else {
-                _pGeoMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
+                _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
             }
-            if (_pGeoMover->getDifferenceFromRyMoveAngleTo(angRy_Target, TURN_CLOSE_TO) > 0) {
-                _pGeoMover->setRyMoveAngleVelocity(_angVelocity_Turn);
+            if (_pMover->getDifferenceFromRyMoveAngleTo(angRy_Target, TURN_CLOSE_TO) > 0) {
+                _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
             } else {
-                _pGeoMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
+                _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
             }
-            _pGeoMover->setTargetRyMoveAngle(angRy_Target);
-            _pGeoMover->setTargetRzMoveAngle(angRz_Target);
+            _pMover->setTargetRyMoveAngle(angRy_Target);
+            _pMover->setTargetRzMoveAngle(angRz_Target);
 
-            _pGeoMover->setMoveAcceleration(_iMoveAcceleration_2nd);
+            _pMover->setMoveAcceleration(_iMoveAcceleration_2nd);
         }
 
         //•ûŒü“]Š·I—¹
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
-            _pGeoMover->setRzMoveAngleVelocity(0);
-            _pGeoMover->setRyMoveAngleVelocity(0);
-            _pGeoMover->_move_angle_ry_target_flg = false;
-            _pGeoMover->_move_angle_rz_target_flg = false;
+            _pMover->setRzMoveAngleVelocity(0);
+            _pMover->setRyMoveAngleVelocity(0);
+            _pMover->_move_angle_ry_target_flg = false;
+            _pMover->_move_angle_rz_target_flg = false;
         }
 
     }
 
     //addNextAnimationFrame();
     //À•W‚É”½‰f
-    _pGeoMover->behave();
+    _pMover->behave();
 
 }
 

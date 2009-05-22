@@ -11,9 +11,11 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                      prm_model,
                      "X/LaserChipEffect",
                      "LaserChipTechnique",
-                     NEW GgafDx9GeometryMover(this),
                      NEW StgChecker(this) ) {
-    _pChecker = (StgChecker*)_pGeoChecker;
+    _pStgChecker = (StgChecker*)_pChecker;
+    _pMover = NEW GgafDx9GeometryMover(this);
+
+
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
@@ -30,10 +32,10 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 
 void LaserChip::initialize() {
 
-    _pGeoMover->setMoveVelocity(30000);
-    _pChecker->useHitAreaBoxNum(1);
-    _pChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    //_pChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pMover->setMoveVelocity(30000);
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _fAlpha = 0.9;
 }
@@ -72,7 +74,7 @@ void LaserChip::onInactive() {
 void LaserChip::processBehavior() {
 
     //座標に反映
-    _pGeoMover->behave();
+    _pMover->behave();
 /*
     //中間地点にも当たり判定
     static int centerX, centerY, centerZ;
@@ -80,7 +82,7 @@ void LaserChip::processBehavior() {
       centerX = (_X - _pChip_front->_X) / 2;
       centerY = (_Y - _pChip_front->_Y) / 2;
       centerZ = (_Z - _pChip_front->_Z) / 2;
-      _pChecker->setHitAreaBox(
+      _pStgChecker->setHitAreaBox(
                       1,
                       centerX - 30000,
                       centerY - 30000,
@@ -89,9 +91,9 @@ void LaserChip::processBehavior() {
                       centerY + 30000,
                       centerZ + 30000
                  ); //中間の当たり判定
-      _pChecker->getHitAreaBoxs()->enable(1);
+      _pStgChecker->getHitAreaBoxs()->enable(1);
     } else {
-      _pChecker->getHitAreaBoxs()->disable(1);
+      _pStgChecker->getHitAreaBoxs()->disable(1);
 
     }
 */
@@ -249,7 +251,7 @@ void LaserChip::processDrawTerminate() {
     //当たり判定領域表示
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        DelineateActor::get()->drawHitarea(_pChecker);
+        DelineateActor::get()->drawHitarea(_pStgChecker);
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
     }
 }
@@ -264,6 +266,8 @@ void LaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 LaserChip::~LaserChip() {
+    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pMover);
 
 }
 
