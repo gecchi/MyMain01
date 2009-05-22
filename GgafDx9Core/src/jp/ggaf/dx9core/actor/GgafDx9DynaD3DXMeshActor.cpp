@@ -9,12 +9,10 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                    const char* prm_model,
                                                    const char* prm_effect,
                                                    const char* prm_technique,
-                                                   GgafDx9GeometryMover* prm_pGeoMover,
-                                                   GgafDx9GeometryChecker* prm_pGeoChecker) :
+                                                   GgafDx9Checker* prm_pChecker) :
 
                                                    GgafDx9UntransformedActor(prm_name,
-                                                                             prm_pGeoMover,
-                                                                             prm_pGeoChecker) {
+                                                                             prm_pChecker) {
     _class_name = "GgafDx9DynaD3DXMeshActor";
 
 	_technique = NEW char[51];

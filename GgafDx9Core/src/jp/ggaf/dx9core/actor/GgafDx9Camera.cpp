@@ -3,9 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NEW GgafDx9GeometryMover(this), NULL) {
+GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
-
+    _pMover = NEW GgafDx9GeometryMover(this);
     //FOVXを基準に考える
     //視野角45度
     _rad_fovX = PI / 4;
@@ -67,12 +67,12 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(p
     _Y = _pVecCamFromPoint->y * LEN_UNIT * PX_UNIT;
     _Z = _pVecCamFromPoint->z * LEN_UNIT * PX_UNIT;
 
-    _pGeoMover->setMoveAngle(0,0,0);
-    _pGeoMover->setMoveVelocity(0);
-    _pGeoMover->setRzMoveAngleVelocity(0);
-    _pGeoMover->setRyMoveAngleVelocity(0);
-    _pGeoMover->_move_angle_rz_target_flg = true;
-    _pGeoMover->_move_angle_ry_target_flg = true;
+    _pMover->setMoveAngle(0,0,0);
+    _pMover->setMoveVelocity(0);
+    _pMover->setRzMoveAngleVelocity(0);
+    _pMover->setRyMoveAngleVelocity(0);
+    _pMover->_move_angle_rz_target_flg = true;
+    _pMover->_move_angle_ry_target_flg = true;
 
     setBumpable(false);
 }
@@ -86,7 +86,7 @@ void GgafDx9Camera::initialize() {
 
 void GgafDx9Camera::processBehavior() {
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
-    _pGeoMover->behave();
+    _pMover->behave();
 //    D3DXMatrixOrthoLH(
 //        &_vMatrixOrthoProj,
 //        (FLOAT)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)) ,    //w ビュー ボリュームの幅
@@ -108,6 +108,7 @@ void GgafDx9Camera::processDrawPrior() {
 
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
+    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamUp);

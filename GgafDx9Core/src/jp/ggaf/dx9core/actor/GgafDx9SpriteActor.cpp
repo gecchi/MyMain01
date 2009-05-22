@@ -7,12 +7,10 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                        const char* prm_model,
                                        const char* prm_effect,
                                        const char* prm_technique,
-                                       GgafDx9GeometryMover* prm_pGeoMover,
-                                       GgafDx9GeometryChecker* prm_pGeoChecker) :
+                                       GgafDx9Checker* prm_pChecker) :
 
                                        GgafDx9UntransformedActor(prm_name,
-                                                                 prm_pGeoMover,
-                                                                 prm_pGeoChecker) {
+                                                                 prm_pChecker) {
     _class_name = "GgafDx9SpriteActor";
 
     TRACE("GgafDx9SpriteActor::GgafDx9SpriteActor ("<<prm_name<<","<<prm_model<<","<<prm_technique<<")");
@@ -42,7 +40,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 void GgafDx9SpriteActor::processDrawMain() {
 	//TODO:ビルボード
     //	if (_isBillboardingFlg) {
-    //		_pGeoMover->setRotAngle(
+    //		_pMover->setRotAngle(
     //			GgafDx9Universe::_pCamera->_X,
     //			GgafDx9Universe::_pCamera->_Y,
     //			GgafDx9Universe::_pCamera->_Z

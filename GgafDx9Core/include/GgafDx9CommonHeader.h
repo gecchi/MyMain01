@@ -124,8 +124,9 @@ class GgafDx9SphereRadiusVectors;
 class GgafDx9Quaternion;
 class GgafDx9Properties;
 class GgafDx9GeometryMover;
-class GgafDx9GeometryChecker;
-class GgafDx9Morpher;
+class GgafDx9Checker;
+class GgafDx9GeometryScaler;
+class GgafDx9GeometryMorpher;
 class GgafDx9RectUV;
 
 class GgafDx9Se;
@@ -191,8 +192,9 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMover.h"
-#include "jp/ggaf/dx9core/util/GgafDx9GeometryChecker.h"
-#include "jp/ggaf/dx9core/util/GgafDx9Morpher.h"
+#include "jp/ggaf/dx9core/util/GgafDx9Checker.h"
+#include "jp/ggaf/dx9core/util/GgafDx9GeometryScaler.h"
+#include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"
 //#include "jp/ggaf/dx9core/sound/c3dsound.hpp"

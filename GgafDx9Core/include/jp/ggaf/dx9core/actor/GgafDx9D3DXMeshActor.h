@@ -28,8 +28,7 @@ public:
                          const char* prm_model,
                          const char* prm_effect,
                          const char* prm_technique,
-                         GgafDx9GeometryMover* prm_pGeoMover,
-                         GgafDx9GeometryChecker* prm_pGeoChecker);
+                         GgafDx9Checker* prm_pChecker);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

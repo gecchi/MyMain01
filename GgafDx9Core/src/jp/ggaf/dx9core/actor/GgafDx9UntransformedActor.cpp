@@ -4,8 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9UntransformedActor::GgafDx9UntransformedActor(const char* prm_name,
-                                                     GgafDx9GeometryMover* prm_pGeoMover,
-                                                     GgafDx9GeometryChecker* prm_pGeoChecker) : GgafDx9BaseActor(prm_name),
+                                                     GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name),
 _X_OffScreenLeft((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
 _X_OffScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
 _Y_OffScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
@@ -15,17 +14,20 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
-    _pGeoMover = prm_pGeoMover;
-    _pGeoChecker = prm_pGeoChecker;
+    _pChecker = prm_pChecker;
     _fAlpha = 1.0f;
 }
 
 bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
-    GgafDx9UntransformedActor* pActor_Opponent = dynamic_cast<GgafDx9UntransformedActor*> (prm_pActor_Opponent);
-    if (pActor_Opponent != NULL) {
-        return _pGeoChecker->isBump(pActor_Opponent->_pGeoChecker);
-    } else {
+    if (_pChecker == NULL) {
         return false;
+    } else {
+        GgafDx9UntransformedActor* pActor_Opponent = dynamic_cast<GgafDx9UntransformedActor*> (prm_pActor_Opponent);
+        if (pActor_Opponent != NULL && pActor_Opponent->_pChecker != NULL) {
+            return _pChecker->isBump(pActor_Opponent->_pChecker);
+        } else {
+            return false;
+        }
     }
 }
 
@@ -461,6 +463,4 @@ bool GgafDx9UntransformedActor::isOffScreen() {
 }
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
-    DELETE_POSSIBLE_NULL(_pGeoMover);
-    DELETE_POSSIBLE_NULL(_pGeoChecker);
 }

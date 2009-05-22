@@ -7,10 +7,8 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                              const char* prm_model,
                                              const char* prm_effect,
                                              const char* prm_technique,
-                                             GgafDx9Morpher* prm_pMorpher,
-                                             GgafDx9GeometryMover*   prm_pGeoMover,
-                                             GgafDx9GeometryChecker* prm_pGeoChecker) :
-    GgafDx9UntransformedActor(prm_name, prm_pGeoMover, prm_pGeoChecker)
+                                             GgafDx9Checker* prm_pChecker) :
+    GgafDx9UntransformedActor(prm_name, prm_pChecker)
 {
     _class_name = "GgafDx9MorphMeshActor";
     _technique = NEW char[51];
@@ -30,7 +28,6 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     for (int i = 1; i < 10; i++) {
         _weight[i] = 0.0;
     }
-    _pMorpher = prm_pMorpher;
 }
 
 
@@ -92,7 +89,6 @@ int GgafDx9MorphMeshActor::getMorphTergetNum() {
 }
 
 GgafDx9MorphMeshActor::~GgafDx9MorphMeshActor() {
-    DELETE_POSSIBLE_NULL(_pMorpher);
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
     _pEffectCon->close();

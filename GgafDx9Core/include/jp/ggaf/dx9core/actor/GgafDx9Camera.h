@@ -23,6 +23,10 @@ class GgafDx9Camera : public GgafDx9UntransformedActor {
 private:
 
 public:
+    /** 座標移動支援オブジェクト */
+    GgafDx9Core::GgafDx9GeometryMover* _pMover;
+
+
     /** 射影変換魚売れる */
     D3DXMATRIX _vMatrixProj;
     /** 正射影変換魚売れる */

@@ -49,9 +49,7 @@ public:
     //　1000が１倍のスケール意味する。したがってデフォルトは1000になっている。
 
 
-    GgafDx9GeometryMover* _pGeoMover;
-
-    GgafDx9GeometryChecker* _pGeoChecker;
+    GgafDx9Checker* _pChecker;
 
     const int _X_OffScreenLeft;
     const int _X_OffScreenRight;
@@ -63,8 +61,7 @@ public:
      * @param	prm_name 識別名
      */
     GgafDx9UntransformedActor(const char* prm_name,
-                              GgafDx9GeometryMover* prm_pGeoMover,
-                              GgafDx9GeometryChecker* prm_pGeoChecker);
+                              GgafDx9Checker* prm_pChecker);
 
     virtual GgafDx9UntransformedActor* getPrev() {
         return (GgafDx9UntransformedActor*)GgafActor::getPrev();

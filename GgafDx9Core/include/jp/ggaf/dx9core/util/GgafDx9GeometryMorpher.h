@@ -1,5 +1,5 @@
-#ifndef GGAFDX9MORPHER_H_
-#define GGAFDX9MORPHER_H_
+#ifndef GGAFDX9GEOMETRYMORPHER_H_
+#define GGAFDX9GEOMETRYMORPHER_H_
 namespace GgafDx9Core {
 
 enum GgafDx9MorphMethod {
@@ -15,7 +15,14 @@ enum GgafDx9MorphMethod {
     LOOP_PARABOLA_REV
 };
 
-class GgafDx9Morpher : public GgafCore::GgafObject {
+
+/**
+ * モーフ支援クラス.
+ * GgafDx9MorphMeshActor のメンバの<BR>
+ * _weight[] <BR>
+ * を簡単に操作するために設計した。<BR>
+ */
+class GgafDx9GeometryMorpher : public GgafCore::GgafObject {
 
 public:
     /** 対象アクター */
@@ -39,7 +46,7 @@ public:
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    GgafDx9Morpher(GgafDx9MorphMeshActor* prm_pActor);
+    GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor);
 
     void setWeightRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
         if (prm_weight1 < prm_weight2) {
@@ -134,9 +141,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDx9Morpher();
+    virtual ~GgafDx9GeometryMorpher();
 };
 
 }
-#endif /*GGAFDX9MORPHER_H_*/
+#endif /*GGAFDX9GEOMETRYMORPHER_H_*/
 
