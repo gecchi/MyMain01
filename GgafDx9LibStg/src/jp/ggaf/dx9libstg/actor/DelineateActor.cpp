@@ -21,11 +21,11 @@ void DelineateActor::release() {
     DELETE_POSSIBLE_NULL(_pObj);
 }
 
-void DelineateActor::drawHitarea(StgChecker* prm_pChecker) {
-    if (prm_pChecker != NULL && prm_pChecker->getHitAreaBoxs() != NULL && prm_pChecker->getTargetActor()->canBump()
-            && prm_pChecker->getTargetActor()->isActive()) {
-        GgafDx9UntransformedActor* pActor = prm_pChecker->getTargetActor();
-        HitAreaBoxs* pHitAreaBoxs = prm_pChecker->getHitAreaBoxs();
+void DelineateActor::drawHitarea(StgChecker* prm_pStgChecker) {
+    if (prm_pStgChecker != NULL && prm_pStgChecker->getHitAreaBoxs() != NULL && prm_pStgChecker->getTargetActor()->canBump()
+            && prm_pStgChecker->getTargetActor()->isActive()) {
+        GgafDx9UntransformedActor* pActor = prm_pStgChecker->getTargetActor();
+        HitAreaBoxs* pHitAreaBoxs = prm_pStgChecker->getHitAreaBoxs();
 
         //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
         //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);

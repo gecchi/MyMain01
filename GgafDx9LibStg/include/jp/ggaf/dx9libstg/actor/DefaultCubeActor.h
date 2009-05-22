@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
 
 public:
-    StgChecker* _pChecker;
+    StgChecker* _pStgChecker;
 
     DefaultCubeActor(const char* prm_name);
 

@@ -8,6 +8,8 @@ namespace GgafDx9LibStg {
 class FormationActor : public GgafDx9Core::GgafDx9UntransformedActor {
 
 public:
+    /** 座標移動支援オブジェクト */
+    GgafDx9Core::GgafDx9GeometryMover* _pMover;
 
     FormationActor(const char* prm_name);
 

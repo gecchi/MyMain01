@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class ActorDispatcher : public GgafCore::GgafDummyActor {
 
 public:
-    StgChecker* _pChecker;
+    StgChecker* _pStgChecker;
 
     ActorDispatcher(const char* prm_name);
 

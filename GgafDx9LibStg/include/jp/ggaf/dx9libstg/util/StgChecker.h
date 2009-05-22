@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * チェッククラス.
  */
-class StgChecker : public GgafDx9Core::GgafDx9GeometryChecker {
+class StgChecker : public GgafDx9Core::GgafDx9Checker {
 
 protected:
     /** 当たり判定領域 */
@@ -65,7 +65,7 @@ public:
      * @param prm_pOtherChecker
      * @return
      */
-    bool isBump(GgafDx9Core::GgafDx9GeometryChecker* prm_pOtherChecker);
+    bool isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
 
     virtual ~StgChecker();
 };

@@ -18,7 +18,7 @@ public:
     //void processDrawMain() {} //オーバーライド未実装にする。
 
 
-    void drawHitarea(StgChecker* prm_pChecker);
+    void drawHitarea(StgChecker* prm_pStgChecker);
 
     virtual ~DelineateActor();
 

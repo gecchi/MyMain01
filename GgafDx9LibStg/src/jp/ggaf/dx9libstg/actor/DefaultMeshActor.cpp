@@ -9,12 +9,13 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model) 
                      prm_model,
                      "X/DefaultMashEffect",
                      "DefaultMeshTechnique",
-                     NEW GgafDx9GeometryMover(this),
                      NEW StgChecker(this) ) {
 
     _class_name = "DefaultMeshActor";
     _frame_offset = 0;
-    _pChecker = (StgChecker*)_pGeoChecker;
+    _pStgChecker = (StgChecker*)_pChecker;
+    _pMover = NEW GgafDx9GeometryMover(this);
+    _pScaler = NEW GgafDx9GeometryScaler(this);
 
 }
 
@@ -24,7 +25,7 @@ void DefaultMeshActor::processDrawTerminate() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        DelineateActor::get()->drawHitarea(_pChecker);
+        DelineateActor::get()->drawHitarea(_pStgChecker);
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
     }
 }
@@ -36,4 +37,7 @@ void DefaultMeshActor::processDrawTerminate() {}
 #endif
 
 DefaultMeshActor::~DefaultMeshActor() {
+    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pMover);
+    DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

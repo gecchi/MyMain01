@@ -11,7 +11,12 @@ class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 public:
     DWORD _frame_offset;
 
-    StgChecker* _pChecker;
+    StgChecker* _pStgChecker;
+    /** 座標移動支援オブジェクト */
+    GgafDx9Core::GgafDx9GeometryMover* _pMover;
+    /** 拡大縮小支援オブジェクト */
+    GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
+
 
     DefaultD3DXMeshActor(const char* prm_name, const char* prm_model);
 
