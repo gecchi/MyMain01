@@ -11,7 +11,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : ActorDispatcher
     _num_chip_active = 0;
     _is_tear_laser = false;
     _num_chip_max = 0;
-    _num_chip_interval = 3;
+    _num_chip_interval = 10;
     _pChip_prev_employ = NULL;
     _lifeframe_prev_employ = 0;
     _pSeConnection = NULL;

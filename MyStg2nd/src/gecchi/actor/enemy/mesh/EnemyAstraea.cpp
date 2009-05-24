@@ -20,7 +20,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 3;
+    _laser_length = 5;
     _shot_interval = 120;
     _angveloTurn = 1000;
 }
