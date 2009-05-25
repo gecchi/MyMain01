@@ -86,7 +86,7 @@ void GgafGod::be() {
     if (_time_at_beginning_frame - _time_prev >= 1000) {
         _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev)
                 / 1000.0);
-        _TRACE_(_frame_of_visualize- _frame_of_prev_visualize<<" "<<_fps<<"fps");
+        _TRACE_(_godframe<<"Frame "<<_num_actor_playing<<"Actor "<<_fps<<"Fps");
         _time_prev = _time_at_beginning_frame;
         _frame_of_prev_visualize = _frame_of_visualize;
     }
