@@ -42,34 +42,14 @@ void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
 void GgafDx9D3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
+    static D3DXMATRIX matWorld; //Worldïœä∑çsóÒ
     GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
 
     HRESULT hr;
-//    hr = pID3DXEffect->SetTechnique(_technique);
-//    mightDx9Exception(hr, S_OK, "GgafDx9MeshActor::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    UINT numPass;
-//    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE  );
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    for (UINT pass = 0; pass < numPass; pass++) {
-//        hr = pID3DXEffect->BeginPass(pass);
-//        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass("<<pass<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        _pD3DXMeshModel->draw(this);
-//        hr = pID3DXEffect->EndPass();
-//        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    }
-//    hr = pID3DXEffect->End();
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-//    if (_pID3DXEffect == NULL) {
-//        GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
-//    }
-
-//    GgafDx9UntransformedActor::setWorldTransformRxRzRyScMv(this);
-//    _pD3DXMeshModel->draw(this);
+    _pD3DXMeshModel->draw(this);
 }
 
 GgafDx9D3DXMeshActor::~GgafDx9D3DXMeshActor() {

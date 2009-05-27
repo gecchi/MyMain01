@@ -38,29 +38,12 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 }
 
 void GgafDx9SpriteActor::processDrawMain() {
-	//TODO:ÉrÉãÉ{Å[Éh
-    //	if (_isBillboardingFlg) {
-    //		_pMover->setRotAngle(
-    //			GgafDx9Universe::_pCamera->_X,
-    //			GgafDx9Universe::_pCamera->_Y,
-    //			GgafDx9Universe::_pCamera->_Z
-    //		);
-    //	} else {
-    //
-    //
-    //	}
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
-
     HRESULT hr;
-//    hr = pID3DXEffect->SetTechnique(_technique);
-//    mightDx9Exception(hr, S_OK, "GgafDx9SpriteActor::GgafDx9MeshActor SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-    //VIEWïœä∑çsóÒ
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-    static D3DXMATRIX matWorld; //UNIVERSEïœä∑çsóÒ
+    static D3DXMATRIX matWorld; //Worldïœä∑çsóÒ
     if (_isBillboardingFlg) {
         GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
     } else {
@@ -68,25 +51,9 @@ void GgafDx9SpriteActor::processDrawMain() {
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    //Éøê›íË
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetFloat(_fAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-
-    //    UINT numPass;
-//    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    for (UINT pass = 0; pass < numPass; pass++) {
-//        hr = pID3DXEffect->BeginPass(pass);
-//        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        _pSpriteModel->draw(this);
-//        hr = pID3DXEffect->EndPass();
-//        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-//    }
-//    hr = pID3DXEffect->End();
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-
-
+    _pSpriteModel->draw(this);
 }
 
 void GgafDx9SpriteActor::setActivAnimationPattern(int prm_pattno_ani) {

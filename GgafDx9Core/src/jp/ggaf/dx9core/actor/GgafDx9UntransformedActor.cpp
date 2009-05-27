@@ -18,6 +18,8 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     _fAlpha = 1.0f;
 }
 
+
+
 bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
     if (_pChecker == NULL) {
         return false;
@@ -30,6 +32,8 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
         }
     }
 }
+
+
 
 void GgafDx9UntransformedActor::processDrawPrior() {
     //TODO:óvåüèÿ
@@ -52,8 +56,11 @@ void GgafDx9UntransformedActor::processDrawPrior() {
         }
     }
 }
+
+
+
 void GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //ägëÂèkè¨ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇê›íË<BR>
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
     // | sx*cosRZ*cosRY                           , sx*sinRZ       , sx*cosRZ*-sinRY                           , 0|
@@ -105,15 +112,15 @@ void GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedAc
 }
 
 
+
 void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
     // |                         cosRZ*cosRY*sx,          sinRZ*sy,                         cosRZ*-sinRY*sz,   0  |
     // | ( cosRX*-sinRZ*cosRY + sinRX*sinRY)*sx,    cosRX*cosRZ*sy, ( cosRX*-sinRZ*-sinRY + sinRX*cosRY)*sz,   0  |
     // | (-sinRX*-sinRZ*cosRY + cosRX*sinRY)*sx,   -sinRX*cosRZ*sy, (-sinRX*-sinRZ*-sinRY + cosRX*cosRY)*sz,   0  |
     // |                                     dx,                dy,                                      dz,   1  |
-
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
@@ -146,17 +153,9 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedAc
     out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
     out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
     out_matWorld._44 = 1.0f;
-    /*
-     //ëOÇÃÇ‚ÇËï˚
-     float fRateScale = LEN_UNIT;
-     D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/fRateScale);
-     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/fRateScale);
-     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/fRateScale);
-     D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
-     D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
-     */
 }
+
+
 
 void GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
@@ -186,8 +185,10 @@ void GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9Untransf
     out_matWorld._44 = 1.0f;
 }
 
+
+
 void GgafDx9UntransformedActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
     // |                         cosRZ*cosRY*sx,          sinRZ*sy,                         cosRZ*-sinRY*sz,   0  |
@@ -198,6 +199,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9Untran
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
+
     sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
     cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
@@ -227,20 +229,12 @@ void GgafDx9UntransformedActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9Untran
     out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
     out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
     out_matWorld._44 = 1.0f;
-    /*
-     //ëOÇÃÇ‚ÇËï˚
-     float fRateScale = LEN_UNIT;
-     D3DXMATRIX matrixRotX, matrixRotY, matrixRotZ, matrixTrans;
-     D3DXMatrixRotationY(&matrixRotX, GgafDx9Util::RAD_UNITLEN[s_RX]/fRateScale);
-     D3DXMatrixRotationX(&matrixRotY, GgafDx9Util::RAD_UNITLEN[s_RY]/fRateScale);
-     D3DXMatrixRotationZ(&matrixRotZ, GgafDx9Util::RAD_UNITLEN[s_RZ]/fRateScale);
-     D3DXMatrixTranslation(&matrixTrans, _X/fRateScale, _Y/fRateScale, _Z/fRateScale);
-     D3DXMATRIX matrixWorld = matrixRotX * matrixRotY * matrixRotZ * matrixTrans;
-     */
 }
 
+
+
 void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Yé≤âÒì] Å~ Zé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //    |                           cosRY*cosRZ*sx,                        cosRY*sinRZ*sy  ,      -sinRY*sz,  0 |
     //    | ((sinRX*sinRY*cosRZ +  cosRX*-sinRZ)*sx), ((sinRX*sinRY*sinRZ +  cosRX*cosRZ)*sy), sinRX*cosRY*sz,  0 |
@@ -250,6 +244,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedAc
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
+
     sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
     cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
@@ -283,11 +278,8 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedAc
 
 
 
-
-
-
 void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Xé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨.
     //Å¶Yé≤âÒì]Ç™Ç†ÇËÇ‹ÇπÇÒÅBRYÇ™ÇQâÒñ⁄ÇÃXé≤âÒì]Ç∆Ç»ÇÈ
     //|         cosRZ*sx,                          sinRZ*cosRY*sy ,                          sinRZ*sinRY*sz, 0 |
@@ -297,6 +289,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedAc
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
+
     sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
     cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
@@ -329,11 +322,8 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedAc
 }
 
 
-
-
-
 void GgafDx9UntransformedActor::getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //UNIVERSEïœä∑
+    //Worldïœä∑
     //íPà çsóÒ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     // |cosZ  , sinZ , 0  , 0  |
     // |-sinZ , cosZ , 0  , 0  |
@@ -363,9 +353,10 @@ void GgafDx9UntransformedActor::getWorldMatrix_RzMv(GgafDx9UntransformedActor* p
     out_matWorld._44 = 1;
 }
 
-void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
 
-    //UNIVERSEïœä∑
+
+void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //Worldïœä∑
     //íPà çsóÒ Å~ ägëÂèkè¨ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     // |sx*cosZ , sx*sinZ , 0    , 0  |
     // |sy*-sinZ, sy*cosZ , 0    , 0  |
@@ -402,12 +393,14 @@ void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor*
 }
 
 
+
 void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
     out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
     out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
     out_matWorld._44 = 1.0;
 }
+
 
 
 bool GgafDx9UntransformedActor::isOffScreen() {
@@ -461,6 +454,8 @@ bool GgafDx9UntransformedActor::isOffScreen() {
 //        }
 //    }
 }
+
+
 
 GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
 }

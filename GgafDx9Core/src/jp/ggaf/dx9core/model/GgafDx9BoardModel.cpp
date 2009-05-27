@@ -56,7 +56,6 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect) {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
-
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
             mightDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();

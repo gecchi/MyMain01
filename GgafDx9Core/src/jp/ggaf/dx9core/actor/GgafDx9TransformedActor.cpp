@@ -15,9 +15,9 @@ void GgafDx9TransformedActor::processDrawPrior() {
     if (_is_active_flg && _can_live_flg) {
         if (getAlpha() < 1.0) {
             GgafDx9Universe::setDrawDepthLevel(
-                            (int)(_z * MAX_DRAW_DEPTH_LEVEL),
-                            this
-                          );
+                                (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                this
+                             );
         } else {
             GgafDx9Universe::setDrawDepthMaxLevel(this);
         }

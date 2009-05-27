@@ -59,7 +59,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
             mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
-
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         mightDx9Exception(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
