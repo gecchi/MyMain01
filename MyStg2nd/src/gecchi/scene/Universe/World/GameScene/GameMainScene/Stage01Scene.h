@@ -16,6 +16,8 @@ public:
     GgafDx9Core::GgafDx9BgmConnection* _pBgmCon_st1;
     Stage01MainScene* _pStage01Main;
     BackGround01* _pBackGround01;
+    BackGroundStar* _pBackGroundStar;
+
     DWORD _dwFrame_Begin;
     DWORD _dwFrame_End;
 

@@ -34,6 +34,8 @@ class CommonScene;
 class DispFpsActor;
 class BackGround01;
 class BackGroundChipBoard;
+class BackGroundStar;
+class BackGroundStar001;
 
 class GameScene;
 class GameDemoScene;
@@ -46,6 +48,8 @@ class Stage02Scene;
 class Stage03Scene;
 class Stage04Scene;
 class Stage05Scene;
+
+
 
 class LaserChip;
 class LaserChipDispatcher;
@@ -70,6 +74,8 @@ class EnemyPallas;
 class EnemyMeshShot001;
 class EnemyLaserChip001;
 
+
+
 class FormationCeres001;
 class FormationCeres002;
 class FormationJuno001;
@@ -86,6 +92,7 @@ class MyFactory;
 #include "gecchi/God.h"
 #include "gecchi/scene/Universe.h"
 #include "gecchi/scene/Universe/World.h"
+
 #include "gecchi/scene/Universe/World/GameScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameBeginningScene.h"
@@ -120,6 +127,9 @@ class MyFactory;
 #include "gecchi/actor/_debug/DispFpsActor.h"
 #include "gecchi/actor/background/BackGround01.h"
 #include "gecchi/actor/background/board/BackGroundChipBoard.h"
+#include "gecchi/actor/background/BackGroundStar.h"
+#include "gecchi/actor/background/mesh/BackGroundStar001.h"
+
 #include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/mesh/EnemyCeres.h"
@@ -129,7 +139,6 @@ class MyFactory;
 #include "gecchi/actor/enemy/mesh/EnemyAstraea.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
-
 #include "gecchi/actor/enemy/FormationCeres001.h"
 #include "gecchi/actor/enemy/FormationCeres002.h"
 #include "gecchi/actor/enemy/FormationJuno001.h"

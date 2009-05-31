@@ -1,0 +1,57 @@
+#ifndef BACKGROUNDSTAR001_H_
+#define BACKGROUNDSTAR001_H_
+namespace MyStg2nd {
+
+/**
+ * 背景星
+ */
+class BackGroundStar001 : public GgafDx9Core::GgafDx9MeshActor {
+
+private:
+
+public:
+
+    /**
+     * コンストラクタ
+     * @param prm_name オブジェクト名
+     * @param prm_model モデル名
+     */
+    BackGroundStar001(const char* prm_name);
+
+    void initialize();
+
+    void processBehavior();
+
+    void processJudgement();
+
+    void processDrawPrior() {
+    }
+
+    void processDrawMain() {
+        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+    }
+
+    void processHappen(int prm_no) {
+    }
+
+    void processDrawTerminate(){
+    }
+
+    void processFinal() {
+    }
+
+    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    }
+
+    bool isOffScreen() {
+        return false;
+    }
+
+    virtual ~BackGroundStar001();
+
+};
+
+}
+
+#endif /*BACKGROUNDSTAR001_H_*/
+

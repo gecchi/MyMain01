@@ -13,6 +13,9 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 	_pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
 	_pBackGround01->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGround01);
+    _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
+    _pBackGroundStar->inactivateTree();
+    getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
 
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
     //GameMainSceneが解除してくれる
@@ -35,8 +38,9 @@ void Stage01Scene::processBehavior() {
         //タイトル活動ループ
         _dwFrame_Begin++;
 
-        if (_dwFrame_Begin == 120) {
+        if (_dwFrame_Begin == 120) { //ステージ１開始！
         	_pBackGround01->activateTree();
+        	_pBackGroundStar->activateTree();
         	_pStage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }

@@ -13,6 +13,13 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "B/background02");
     _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "B/background03");
     _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "B/background04");
+
+//    _papBackGroundStar001 = NEW BackGroundStar001*[4];
+//    _papBackGroundStar001[0] = NEW BackGroundStar001("star01");
+//    _papBackGroundStar001[1] = NEW BackGroundStar001("star02");
+//    _papBackGroundStar001[2] = NEW BackGroundStar001("star03");
+//    _papBackGroundStar001[3] = NEW BackGroundStar001("star04");
+
     inactivateImmediately();
 }
 
@@ -85,4 +92,10 @@ BackGround01::~BackGround01() {
     DELETE_IMPOSSIBLE_NULL(_papChipBoard[2]);
     DELETE_IMPOSSIBLE_NULL(_papChipBoard[3]);
     DELETEARR_IMPOSSIBLE_NULL(_papChipBoard);
+
+//    DELETE_IMPOSSIBLE_NULL(_papBackGroundStar001[0]);
+//    DELETE_IMPOSSIBLE_NULL(_papBackGroundStar001[1]);
+//    DELETE_IMPOSSIBLE_NULL(_papBackGroundStar001[2]);
+//    DELETE_IMPOSSIBLE_NULL(_papBackGroundStar001[3]);
+//    DELETEARR_IMPOSSIBLE_NULL(_papBackGroundStar001);
 }

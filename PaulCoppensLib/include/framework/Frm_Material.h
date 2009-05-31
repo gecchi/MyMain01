@@ -13,6 +13,11 @@ namespace Frm {
 
 class Material {
 public:
+    //tsuge add bigin --->
+    Material() {
+    }
+    //<--- tsuge add bigin
+
     bool IsName(std::string &pText) {
         if (strcmp(pText.c_str(), _Name.c_str()) == 0)
             return true;

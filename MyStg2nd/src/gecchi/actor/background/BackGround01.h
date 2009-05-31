@@ -5,6 +5,7 @@ namespace MyStg2nd {
 class BackGround01 : public GgafDx9Core::GgafDx9TransformedActor {
 
     BackGroundChipBoard** _papChipBoard;
+//    BackGroundStar001** _papBackGroundStar001;
 
 public:
     BackGround01(const char* prm_name, const char* prm_dummy);

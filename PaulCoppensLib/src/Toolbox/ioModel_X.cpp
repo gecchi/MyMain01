@@ -528,7 +528,8 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
     int16 Token;
     char Data[TEXT_BUFFER];
 
-    Frm::Material* NewMaterial = new Frm::Material;
+    //Frm::Material* NewMaterial = new Frm::Material;
+    Frm::Material* NewMaterial = new Frm::Material(); //alter tsuge
 
     Find('{');
     for (int i = 0; i < 4; i++) {
@@ -552,6 +553,9 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
     fin.get();//eats the last semicolon
 
     Token = X_COMMENT;
+
+    bool exist_tex = false;//add tsuge
+
     while (Token != '}') {
         Token = ProcessBlock();
         switch (Token) {
@@ -565,6 +569,8 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
             Find('"');
             fin.getline(Data, TEXT_BUFFER, '"');
             NewMaterial->_TextureName = Data;
+            _TRACE_("_TextureName="<<NewMaterial->_TextureName);
+            exist_tex = true; //add tsuge
             Find('}');
             break;
         default:
@@ -572,6 +578,11 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
             break;
         }
     }
+    //add tsuge begin
+    if (!exist_tex) {
+        NewMaterial->_TextureName = "";
+    }
+    //add tsuge end
     _LoadMesh->_Materials.push_back(NewMaterial);
 }
 
