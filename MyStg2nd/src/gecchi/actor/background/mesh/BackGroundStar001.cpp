@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 BackGroundStar001::BackGroundStar001(const char* prm_name) :
     GgafDx9MeshActor(prm_name,
-                     "X/hosiboshi2",
+                     "X/hoshiboshi2",
                      "X/BackGroundStarEffect",
                      "BackGroundStarTechnique",
                      NULL ) {

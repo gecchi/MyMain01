@@ -41,7 +41,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
 
     fin.read((char*) &XHeader, 16);
     if (XHeader.Magic != XOFFILE_FORMAT_MAGIC) {
-        _TRACE_("Not a .X model file. Aborted...");
+        _TRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
         return false;
     }
 
@@ -190,7 +190,7 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
     //the first 4 bytes since this would truncate the text returned.
 
 //tsuge add begin 表示可能文字に
-    //TODO:これって環境依存大ではないのか！
+    //TODO:にならない
     _X_UID.Text[0] %= 92;
     _X_UID.Text[1] %= 92;
     _X_UID.Text[2] %= 92;
@@ -207,7 +207,7 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
 //tsuge add end
 
 //tsuge del begin
-      //TODO:これって環境依存大ではないのか！
+      //TODO:
 //    if (_X_UID.Text[0] < 32)
 //        _X_UID.Text[0] += 32;
 //    if (_X_UID.Text[1] < 32)
