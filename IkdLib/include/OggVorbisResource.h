@@ -21,6 +21,7 @@ namespace Dix {
 
 		// ÉNÉäÉA
 		virtual void clear() {
+		    ov_clear( &oggVorbisFile_ );
 			memset( &oggVorbisFile_, 0, sizeof( OggVorbis_File ) );
 			isReady_ = false;
 		}
