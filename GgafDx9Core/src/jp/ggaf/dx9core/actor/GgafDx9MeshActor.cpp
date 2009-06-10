@@ -8,7 +8,7 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
                                    const char* prm_effect,
                                    const char* prm_technique,
                                    GgafDx9Checker* prm_pChecker) :
-    GgafDx9UntransformedActor(prm_name, prm_pChecker)
+  GgafDx9DrawableUntransformedActor(prm_name, prm_pChecker)
 {
     _class_name = "GgafDx9MeshActor";
     _technique = NEW char[51];
@@ -28,7 +28,7 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
 
 
 void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
-    GgafDx9UntransformedActor::setAlpha(prm_fAlpha);
+    GgafDx9DrawableUntransformedActor::setAlpha(prm_fAlpha);
     //Éøê›íË
     for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;

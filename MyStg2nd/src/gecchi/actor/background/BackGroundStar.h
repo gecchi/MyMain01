@@ -9,8 +9,28 @@ class BackGroundStar : public GgafDx9Core::GgafDx9UntransformedActor {
 public:
     BackGroundStar(const char* prm_name);
 
+    /**
+     * é¿ëïÇµÇƒÇ‹Ç∑
+     */
+    void initialize();
+
+    /**
+     * é¿ëïÇµÇƒÇ‹Ç∑
+     */
+    void processBehavior();
+
+
     void processJudgement() {
     }
+
+    void processDrawPrior() {
+    }
+
+    /**
+     * é¿ëïÇµÇƒÇ‹Ç∑
+     */
+    void processDrawMain();
+
 
     void processDrawTerminate() {
     }
@@ -28,20 +48,6 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void initialize();
-
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processBehavior();
-
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
-    void processDrawMain();
 
     virtual ~BackGroundStar();
 };

@@ -9,8 +9,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                        const char* prm_technique,
                                        GgafDx9Checker* prm_pChecker) :
 
-                                       GgafDx9UntransformedActor(prm_name,
-                                                                 prm_pChecker) {
+                                       GgafDx9DrawableUntransformedActor(prm_name,
+                                                                         prm_pChecker) {
     _class_name = "GgafDx9SpriteActor";
 
     TRACE("GgafDx9SpriteActor::GgafDx9SpriteActor ("<<prm_name<<","<<prm_model<<","<<prm_technique<<")");

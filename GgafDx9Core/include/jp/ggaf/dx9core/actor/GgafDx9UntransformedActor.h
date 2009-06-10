@@ -13,9 +13,6 @@ private:
 
 public:
 
-    /** α (0.0 <= _fAlpha <= 1.0) */
-    float _fAlpha;
-
     /** ワールドX座標 */
     int _X;
     /** ワールドY座標 */
@@ -85,27 +82,6 @@ public:
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
-    }
-
-    /**
-     * _Zの値により、大まかにレンダリング順序を設定する。
-     * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
-     * GgafUniverse::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
-     * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
-     * TODO:private virtual にするべきか否か？。fainal が欲しい
-     */
-    virtual void processDrawPrior();
-
-    virtual void setAlpha(float prm_fAlpha) {
-        _fAlpha = prm_fAlpha;
-    }
-
-    virtual void addAlpha(float prm_fAlpha) {
-        _fAlpha += prm_fAlpha;
-    }
-
-    virtual float getAlpha() {
-        return _fAlpha;
     }
 
     /**

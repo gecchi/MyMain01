@@ -8,7 +8,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                              const char* prm_effect,
                                              const char* prm_technique,
                                              GgafDx9Checker* prm_pChecker) :
-    GgafDx9UntransformedActor(prm_name, prm_pChecker)
+  GgafDx9DrawableUntransformedActor(prm_name, prm_pChecker)
 {
     _class_name = "GgafDx9MorphMeshActor";
     _technique = NEW char[51];
@@ -33,7 +33,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
 
 
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
-    GgafDx9UntransformedActor::setAlpha(prm_fAlpha);
+    GgafDx9DrawableUntransformedActor::setAlpha(prm_fAlpha);
     //Éøê›íË
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
