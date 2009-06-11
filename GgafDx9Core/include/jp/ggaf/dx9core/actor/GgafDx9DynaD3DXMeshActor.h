@@ -15,15 +15,8 @@ private:
 
 public:
 
-	char* _technique;
     static DWORD FVF;
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
-    /** モデルオブジェクトへのポインタ */
-    GgafDx9ModelConnection* _pModelCon;
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
-    /** エフェクト資源接続 */
-    GgafDx9EffectConnection* _pEffectCon;
     /** エフェクト資源 */
     GgafDx9MeshEffect* _pMeshEffect;
 

@@ -63,16 +63,12 @@ public:
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9_default;
     /** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
     GgafDx9TextureConnection** _papTextureCon;
 
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
-    /** 1頂点のサイズ */
-    DWORD _dwNumMaterials;
     INDEXPARAM* _paIndexParam;
 
     UINT _nMaterialListGrp;

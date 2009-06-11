@@ -12,22 +12,14 @@ GgafDx9D3DXMeshActor::GgafDx9D3DXMeshActor(const char* prm_name,
                                            GgafDx9Checker* prm_pChecker) :
 
                                            GgafDx9DrawableUntransformedActor(prm_name,
+                                                                             prm_model,
+                                                                             prm_effect,
+                                                                             prm_technique,
                                                                              prm_pChecker) {
     _class_name = "GgafDx9D3DXMeshActor";
-    _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
+    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pDx9Model;
+    _pMeshEffect = (GgafDx9MeshEffect*)_pDx9EffectCon;
 
-    //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pModelCon->view();
-    //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
-    //マテリアルをコピー
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pD3DXMeshModel->_dwNumMaterials];
-	for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++){
-	    _paD3DMaterial9[i] = _pD3DXMeshModel->_paD3DMaterial9_default[i];
-	}
 }
 
 void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
@@ -53,8 +45,4 @@ void GgafDx9D3DXMeshActor::processDrawMain() {
 }
 
 GgafDx9D3DXMeshActor::~GgafDx9D3DXMeshActor() {
-    DELETEARR_IMPOSSIBLE_NULL(_technique);
-    _pModelCon->close();
-    _pEffectCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

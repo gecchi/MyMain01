@@ -9,23 +9,21 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                        const char* prm_technique,
                                        GgafDx9Checker* prm_pChecker) :
 
-                                       GgafDx9DrawableUntransformedActor(prm_name,
-                                                                         prm_pChecker) {
+                                           GgafDx9DrawableUntransformedActor(prm_name,
+                                                                             prm_model,
+                                                                             prm_effect,
+                                                                             prm_technique,
+                                                                             prm_pChecker) {
     _class_name = "GgafDx9SpriteActor";
 
-    TRACE("GgafDx9SpriteActor::GgafDx9SpriteActor ("<<prm_name<<","<<prm_model<<","<<prm_technique<<")");
-    _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
-
     //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pSpriteModel = (GgafDx9SpriteModel*)_pModelCon->view();
+    _pSpriteModel = (GgafDx9SpriteModel*)_pDx9Model;
+    _pSpriteEffect = (GgafDx9SpriteEffect*)_pDx9Effect;
+
     //モデルのマテリアルをコピーして保持
-    _paD3DMaterial9 = NEW D3DMATERIAL9[1];
-    _paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
+//    _paD3DMaterial9 = NEW D3DMATERIAL9[1];
+//    _paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
     //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pSpriteEffect = (GgafDx9SpriteEffect*)_pEffectCon->view();
 
 	_pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
@@ -146,8 +144,4 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
-    DELETEARR_IMPOSSIBLE_NULL(_technique);
-    _pModelCon->close();
-    _pEffectCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

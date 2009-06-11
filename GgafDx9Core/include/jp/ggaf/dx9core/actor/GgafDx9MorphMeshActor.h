@@ -11,16 +11,8 @@ class GgafDx9MorphMeshActor : public GgafDx9DrawableUntransformedActor {
 private:
 
 public:
-    /** シェーダーテクニック名 */
-    char* _technique;
-    /** マテリアル配列（要素数＝マテリアル種類数） */
-    D3DMATERIAL9* _paD3DMaterial9;
-    /** モデル資源接続 */
-    GgafDx9ModelConnection* _pModelCon;
     /** モデル資源 */
     GgafDx9MorphMeshModel* _pMorphMeshModel;
-    /** エフェクト資源接続 */
-    GgafDx9EffectConnection* _pEffectCon;
     /** エフェクト資源 */
     GgafDx9MorphMeshEffect* _pMorphMeshEffect;
     /** モーフターゲットの重み(0.0 ～ 1.0) */

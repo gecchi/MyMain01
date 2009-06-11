@@ -12,15 +12,8 @@ private:
 
 public:
 
-    char* _technique;
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
-    /** モデル資源接続 */
-    GgafDx9ModelConnection* _pModelCon;
     /** モデル資源 */
     GgafDx9MeshModel* _pMeshModel;
-    /** エフェクト資源接続 */
-    GgafDx9EffectConnection* _pEffectCon;
     /** エフェクト資源 */
     GgafDx9MeshEffect* _pMeshEffect;
 

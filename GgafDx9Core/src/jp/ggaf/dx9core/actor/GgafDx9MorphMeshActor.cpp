@@ -8,22 +8,15 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                              const char* prm_effect,
                                              const char* prm_technique,
                                              GgafDx9Checker* prm_pChecker) :
-  GgafDx9DrawableUntransformedActor(prm_name, prm_pChecker)
-{
+
+                                                 GgafDx9DrawableUntransformedActor(prm_name,
+                                                                                   prm_model,
+                                                                                   prm_effect,
+                                                                                   prm_technique,
+                                                                                   prm_pChecker) {
     _class_name = "GgafDx9MorphMeshActor";
-    _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
-   //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pModelCon->view();
-    //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pEffectCon->view();
-    //モデルのオリジナルマテリアルをコピーして保存
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pMorphMeshModel->_dwNumMaterials];
-    for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++){
-        _paD3DMaterial9[i] = _pMorphMeshModel->_paD3DMaterial9_default[i];
-    }
+    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pDx9Model;
+    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pDx9Effect;
     //重み初期化
     for (int i = 1; i < 10; i++) {
         _weight[i] = 0.0;
@@ -67,8 +60,4 @@ int GgafDx9MorphMeshActor::getMorphTergetNum() {
 }
 
 GgafDx9MorphMeshActor::~GgafDx9MorphMeshActor() {
-    DELETEARR_IMPOSSIBLE_NULL(_technique);
-    _pModelCon->close();
-    _pEffectCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

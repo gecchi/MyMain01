@@ -15,13 +15,28 @@ public:
     /** α (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;
 
+    char* _technique;
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9;
+    /** モデル資源接続 */
+    GgafDx9ModelConnection* _pDx9ModelCon;
+    /** モデル資源 */
+    GgafDx9Model* _pDx9Model;
+    /** エフェクト資源接続 */
+    GgafDx9EffectConnection* _pDx9EffectCon;
+    /** エフェクト資源 */
+    GgafDx9Effect* _pDx9Effect;
+
 
     /**
      * コンストラクタ<BR>
      * @param	prm_name 識別名
      */
     GgafDx9DrawableUntransformedActor(const char* prm_name,
-                              GgafDx9Checker* prm_pChecker);
+                                      const char* prm_model,
+                                      const char* prm_effect,
+                                      const char* prm_technique,
+                                      GgafDx9Checker* prm_pChecker);
 
     virtual GgafDx9DrawableUntransformedActor* getPrev() {
         return (GgafDx9DrawableUntransformedActor*)GgafActor::getPrev();

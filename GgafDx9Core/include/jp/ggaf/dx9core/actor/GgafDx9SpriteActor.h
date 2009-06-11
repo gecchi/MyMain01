@@ -19,17 +19,10 @@ private:
     unsigned int _aniframe_counter;
 
 public:
-    char* _technique;
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
-
-
     /** モデルオブジェクトへのポインタ */
-    GgafDx9ModelConnection* _pModelCon;
     GgafDx9SpriteModel* _pSpriteModel;
 
     /** エフェクト */
-    GgafDx9EffectConnection* _pEffectCon;
     GgafDx9SpriteEffect* _pSpriteEffect;
 
     /** アニメパターン番号の上限番号 */

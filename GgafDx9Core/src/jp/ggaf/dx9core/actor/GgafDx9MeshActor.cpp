@@ -8,22 +8,14 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
                                    const char* prm_effect,
                                    const char* prm_technique,
                                    GgafDx9Checker* prm_pChecker) :
-  GgafDx9DrawableUntransformedActor(prm_name, prm_pChecker)
-{
+                                       GgafDx9DrawableUntransformedActor(prm_name,
+                                                                         prm_model,
+                                                                         prm_effect,
+                                                                         prm_technique,
+                                                                         prm_pChecker) {
     _class_name = "GgafDx9MeshActor";
-    _technique = NEW char[51];
-    strcpy(_technique, prm_technique);
-    //モデル取得
-    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pMeshModel = (GgafDx9MeshModel*)_pModelCon->view();
-    //エフェクト取得
-    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pMeshEffect = (GgafDx9MeshEffect*)_pEffectCon->view();
-    //モデルのオリジナルマテリアルをコピーして保存
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pMeshModel->_dwNumMaterials];
-    for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++){
-        _paD3DMaterial9[i] = _pMeshModel->_paD3DMaterial9_default[i];
-    }
+    _pMeshModel = (GgafDx9MeshModel*)_pDx9Model;
+    _pMeshEffect = (GgafDx9MeshEffect*)_pDx9Effect;
 }
 
 
@@ -52,8 +44,4 @@ void GgafDx9MeshActor::processDrawMain() {
 }
 
 GgafDx9MeshActor::~GgafDx9MeshActor() {
-    DELETEARR_IMPOSSIBLE_NULL(_technique);
-    _pModelCon->close();
-    _pEffectCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

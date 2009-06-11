@@ -19,6 +19,12 @@ public:
     /** 次のGgafDx9Modelへのポインタ。終端はNULL */
     //GgafDx9Model*	_pModel_Next;
 
+    /** マテリアル配列 */
+    D3DMATERIAL9* _paD3DMaterial9_default;
+    /** マテリアル数 */
+    DWORD _dwNumMaterials;
+
+
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
