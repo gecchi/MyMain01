@@ -12,8 +12,6 @@ class GgafDx9D3DXMeshModel : public GgafDx9Model {
 public:
     /** メッシュ(インスタンスはモデル毎） */
     LPD3DXMESH _pID3DXMesh;
-    /** Xファイル読込み時マテリアル配列(各Actorにディープコピーされ、描画時はActorのマテリアルを使う） */
-    D3DMATERIAL9* _paD3DMaterial9_default;
     /** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
     GgafDx9TextureConnection** _papTextureCon;
     /** D3DXLoadMeshFromXのオプション */
@@ -21,8 +19,6 @@ public:
 
     /** メッシュに含まれる各面の隣接面を格納するポインタ */
     //	LPD3DXBUFFER	_pAdjacency;
-    /** マテリアル数(=メッシュ数) */
-    DWORD _dwNumMaterials;
 
 public:
     /**

@@ -14,7 +14,6 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_platemodel_name) : GgafDx9Model(prm
 
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _paD3DMaterial9_default = NULL;
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
     _papTextureCon = NULL;
@@ -125,7 +124,6 @@ void GgafDx9MeshModel::release() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
 
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);

@@ -14,8 +14,6 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model_name);
     _pBoardModel = (GgafDx9BoardModel*)_pModelCon->view();
     //モデルのマテリアルをコピーして保持(2009/3/10 現在マテリアル未使用。将来使うかも。)
-    _paD3DMaterial9 = NEW D3DMATERIAL9[1];
-    _paD3DMaterial9[0] = *(_pBoardModel->_pD3DMaterial9_default);
     _fAlpha = 1.0;
     //エフェクト取得
     _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);

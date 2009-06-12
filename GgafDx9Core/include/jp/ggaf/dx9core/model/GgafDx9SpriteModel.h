@@ -22,8 +22,6 @@ public:
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
-    /** マテリアル */
-    D3DMATERIAL9* _pD3DMaterial9_default;
     /** テクスチャ資源接続 */
     GgafDx9TextureConnection* _pTextureCon;
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */

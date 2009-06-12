@@ -92,8 +92,6 @@ public:
 
     /** インデックスバッファ（プライマリのみ） */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
-    /** 初期マテリアル配列（プライマリのみ） */
-    D3DMATERIAL9* _paD3DMaterial9_default;
 
     /** テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
@@ -107,8 +105,6 @@ public:
     /** 1頂点のサイズ（モーフターゲット） */
     UINT _size_vertec_unit_morph;
 
-    /** マテリアル数（プライマリのみ） */
-    DWORD _dwNumMaterials;
     /** DrawIndexedPrimitive描画パラメーター（プライマリのみ） */
     INDEXPARAM* _paIndexParam;
     /** マテリアル種類数（プライマリのみ） */

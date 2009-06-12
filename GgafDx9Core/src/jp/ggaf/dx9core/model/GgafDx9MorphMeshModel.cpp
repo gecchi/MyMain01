@@ -25,7 +25,6 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     _pIDirect3DVertexBuffer9_primary = NULL;
     _paIDirect3DVertexBuffer9_morph = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _paD3DMaterial9_default = NULL;
     _paVtxBuffer_org_primary = NULL;
     _papaVtxBuffer_org_morph = NULL;
     _paIdxBuffer_org = NULL;
@@ -161,7 +160,6 @@ void GgafDx9MorphMeshModel::release() {
 
 
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " end");

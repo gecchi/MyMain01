@@ -6,7 +6,6 @@ using namespace GgafDx9Core;
 GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions) : GgafDx9Model(prm_model_name) {
     TRACE("GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(" << prm_model_name << ")");
     _pID3DXMesh = NULL;
-    _paD3DMaterial9_default = NULL;
     _papTextureCon = NULL;
     _dwNumMaterials = 0L;
     _dwOptions = prm_dwOptions;
@@ -119,7 +118,6 @@ void GgafDx9D3DXMeshModel::release() {
 
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9D3DXMeshModel::release() " << _model_name << " end");
 }
 

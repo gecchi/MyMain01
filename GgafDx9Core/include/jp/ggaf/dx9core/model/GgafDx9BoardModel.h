@@ -25,8 +25,6 @@ public:
     static DWORD FVF;
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** マテリアル */
-    D3DMATERIAL9* _pD3DMaterial9_default;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertecs;
     /** 1頂点のサイズ */

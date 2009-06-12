@@ -99,7 +99,6 @@ void GgafDx9SpriteModel::onDeviceLost() {
 void GgafDx9SpriteModel::release() {
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-    DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
     if (_pTextureCon != NULL) {
         _pTextureCon->close();
     }

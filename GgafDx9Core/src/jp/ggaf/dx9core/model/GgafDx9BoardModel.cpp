@@ -96,7 +96,6 @@ void GgafDx9BoardModel::restore() {
 void GgafDx9BoardModel::release() {
     TRACE3("GgafDx9BoardModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-    DELETE_IMPOSSIBLE_NULL(_pD3DMaterial9_default);
     if (_pTextureCon != NULL) {
         _pTextureCon->close();
     }

@@ -1208,18 +1208,20 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_paRectUV = paRectUV;
     prm_pSpriteModel->_pattno_ani_Max=pattnum-1;
     prm_pSpriteModel->_dwNumMaterials = 1;
-    prm_pSpriteModel->_pD3DMaterial9_default = NEW D3DMATERIAL9;
-    ZeroMemory(prm_pSpriteModel->_pD3DMaterial9_default, sizeof(D3DMATERIAL9) );
-    prm_pSpriteModel->_pD3DMaterial9_default->Diffuse.r = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Diffuse.g = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Diffuse.b = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Diffuse.a = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Ambient.r = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Ambient.g = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Ambient.b = 1.0f;
-    prm_pSpriteModel->_pD3DMaterial9_default->Ambient.a = 1.0f;
-
-
+    D3DMATERIAL9* paD3DMaterial9;
+    paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
+    for( DWORD i = 0; i < prm_pSpriteModel->_dwNumMaterials; i++){
+        //paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+        paD3DMaterial9[i].Diffuse.r = 1.0f;
+        paD3DMaterial9[i].Diffuse.g = 1.0f;
+        paD3DMaterial9[i].Diffuse.b = 1.0f;
+        paD3DMaterial9[i].Diffuse.a = 1.0f;
+        paD3DMaterial9[i].Ambient.r = 1.0f;
+        paD3DMaterial9[i].Ambient.g = 1.0f;
+        paD3DMaterial9[i].Ambient.b = 1.0f;
+        paD3DMaterial9[i].Ambient.a = 1.0f;
+    }
+    prm_pSpriteModel->_paD3DMaterial9_default = paD3DMaterial9;
     //å„énññ
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
     RELEASE_SAFETY(pIDirectXFileData);
@@ -1362,16 +1364,20 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_paRectUV = paRectUV;
     prm_pBoardModel->_pattno_max = pattnum-1;
     prm_pBoardModel->_dwNumMaterials = 1;
-    prm_pBoardModel->_pD3DMaterial9_default = NEW D3DMATERIAL9;
-    ZeroMemory(prm_pBoardModel->_pD3DMaterial9_default, sizeof(D3DMATERIAL9) );
-    prm_pBoardModel->_pD3DMaterial9_default->Diffuse.r = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Diffuse.g = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Diffuse.b = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Diffuse.a = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Ambient.r = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Ambient.g = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Ambient.b = 1.0f;
-    prm_pBoardModel->_pD3DMaterial9_default->Ambient.a = 1.0f;
+    D3DMATERIAL9* paD3DMaterial9;
+    paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardModel->_dwNumMaterials];
+    for( DWORD i = 0; i < prm_pBoardModel->_dwNumMaterials; i++){
+        //paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+        paD3DMaterial9[i].Diffuse.r = 1.0f;
+        paD3DMaterial9[i].Diffuse.g = 1.0f;
+        paD3DMaterial9[i].Diffuse.b = 1.0f;
+        paD3DMaterial9[i].Diffuse.a = 1.0f;
+        paD3DMaterial9[i].Ambient.r = 1.0f;
+        paD3DMaterial9[i].Ambient.g = 1.0f;
+        paD3DMaterial9[i].Ambient.b = 1.0f;
+        paD3DMaterial9[i].Ambient.a = 1.0f;
+    }
+    prm_pBoardModel->_paD3DMaterial9_default = paD3DMaterial9;
 
     //å„énññ
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
