@@ -103,7 +103,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
 
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
-    TRACE("GgafResourceConnection::GgafResourceConnection([" << _pManager->_manager_name << "." << prm_idstr << "])");
+    TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
     _pResource = prm_pResource;
     _pNext = NULL;
     _pManager = NULL;
