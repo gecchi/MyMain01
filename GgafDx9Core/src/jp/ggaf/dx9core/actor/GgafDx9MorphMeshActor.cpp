@@ -15,8 +15,8 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                                                                    prm_technique,
                                                                                    prm_pChecker) {
     _class_name = "GgafDx9MorphMeshActor";
-    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pDx9Model;
-    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pDx9Effect;
+    _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
+    _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
     //èdÇ›èâä˙âª
     for (int i = 1; i < 10; i++) {
         _weight[i] = 0.0;

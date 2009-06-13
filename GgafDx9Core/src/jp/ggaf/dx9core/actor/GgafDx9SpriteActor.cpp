@@ -17,8 +17,8 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _class_name = "GgafDx9SpriteActor";
 
     //モデル取得
-    _pSpriteModel = (GgafDx9SpriteModel*)_pDx9Model;
-    _pSpriteEffect = (GgafDx9SpriteEffect*)_pDx9Effect;
+    _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
+    _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
 
     //モデルのマテリアルをコピーして保持
 //    _paD3DMaterial9 = NEW D3DMATERIAL9[1];

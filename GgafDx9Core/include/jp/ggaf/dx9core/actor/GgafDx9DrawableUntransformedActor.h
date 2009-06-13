@@ -19,13 +19,13 @@ public:
     /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9;
     /** モデル資源接続 */
-    GgafDx9ModelConnection* _pDx9ModelCon;
+    GgafDx9ModelConnection* _pGgafDx9ModelCon;
     /** モデル資源 */
-    GgafDx9Model* _pDx9Model;
+    GgafDx9Model* _pGgafDx9Model;
     /** エフェクト資源接続 */
-    GgafDx9EffectConnection* _pDx9EffectCon;
+    GgafDx9EffectConnection* _pGgafDx9EffectCon;
     /** エフェクト資源 */
-    GgafDx9Effect* _pDx9Effect;
+    GgafDx9Effect* _pGgafDx9Effect;
 
 
     /**

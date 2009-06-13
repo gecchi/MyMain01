@@ -12,15 +12,15 @@ GgafDx9DrawableUntransformedActor::GgafDx9DrawableUntransformedActor(const char*
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     //モデル取得
-    _pDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
-    _pDx9Model = (GgafDx9Model*)_pDx9ModelCon->view();
+    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
+    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
     //エフェクト取得
-    _pDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-    _pDx9Effect = (GgafDx9Effect*)_pDx9EffectCon->view();
+    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
+    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
     //マテリアルをコピー
-    _paD3DMaterial9 = NEW D3DMATERIAL9[_pDx9Model->_dwNumMaterials];
-    for (DWORD i = 0; i < _pDx9Model->_dwNumMaterials; i++){
-        _paD3DMaterial9[i] = _pDx9Model->_paD3DMaterial9_default[i];
+    _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
+    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
+        _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
     }
     _fAlpha = 1.0f;
 }
@@ -53,7 +53,7 @@ void GgafDx9DrawableUntransformedActor::processDrawPrior() {
 
 GgafDx9DrawableUntransformedActor::~GgafDx9DrawableUntransformedActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
-    _pDx9ModelCon->close();
-    _pDx9EffectCon->close();
+    _pGgafDx9ModelCon->close();
+    _pGgafDx9EffectCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
 }

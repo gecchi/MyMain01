@@ -18,8 +18,8 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                                                          prm_pChecker) {
     _class_name = "GgafDx9DynaD3DXMeshActor";
 
-    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pDx9Model;
-    _pMeshEffect = (GgafDx9MeshEffect*)_pDx9EffectCon;
+    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pGgafDx9Model;
+    _pMeshEffect = (GgafDx9MeshEffect*)_pGgafDx9EffectCon;
 
 }
 
