@@ -21,7 +21,7 @@ GgafDx9MeshActor::GgafDx9MeshActor(const char* prm_name,
 
 void GgafDx9MeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableUntransformedActor::setAlpha(prm_fAlpha);
-    //α設定
+    //GgafDx9MeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
         _paD3DMaterial9[i].Diffuse.a = _fAlpha;

@@ -53,5 +53,7 @@ GgafDx9BoardActor::~GgafDx9BoardActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pModelCon->close();
     _pEffectCon->close();
-    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
+
+    DELETEARR_POSSIBLE_NULL(_paD3DMaterial9);
+    //GgafDx9BoardActorはマテリアルを使わないので_paD3DMaterial9はNULLのままである
 }

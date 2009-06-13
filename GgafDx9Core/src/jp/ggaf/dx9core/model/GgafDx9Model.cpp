@@ -11,7 +11,7 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
 	strcpy(_model_name, prm_model_name);
     _paD3DMaterial9_default = NULL;
     _dwNumMaterials = 0;
-    _pTextureCon = NULL;
+    _papTextureCon = NULL;
 	TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
 
 }

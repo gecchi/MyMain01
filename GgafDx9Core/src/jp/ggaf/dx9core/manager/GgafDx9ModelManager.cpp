@@ -1050,7 +1050,7 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
     TRACE3("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");
 
-    prm_pSpriteModel->_pTextureCon = NULL;
+    prm_pSpriteModel->_papTextureCon = NULL;
     prm_pSpriteModel->_paRectUV = NULL;
 
 
@@ -1101,7 +1101,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
-    prm_pSpriteModel->_pTextureCon = pTextureCon;
+    prm_pSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
+    prm_pSpriteModel->_papTextureCon[0] = pTextureCon;
 
     GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
     prm_pSpriteModel->_size_vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
@@ -1231,7 +1232,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) {
     TRACE3("GgafDx9ModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");
 
-    prm_pBoardModel->_pTextureCon = NULL;
+    prm_pBoardModel->_papTextureCon = NULL;
     prm_pBoardModel->_paRectUV = NULL;
 
     HRESULT hr;
@@ -1281,7 +1282,8 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDx9TextureConnection* pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
     //テクスチャの参照を保持させる。
-    prm_pBoardModel->_pTextureCon = pTextureCon;
+    prm_pBoardModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
+    prm_pBoardModel->_papTextureCon[0] = pTextureCon;
 
     GgafDx9BoardModel::VERTEX* paVertex = NEW GgafDx9BoardModel::VERTEX[4];
     prm_pBoardModel->_size_vertecs = sizeof(GgafDx9BoardModel::VERTEX)*4;

@@ -43,7 +43,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _pTextureCon->view());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -98,9 +98,8 @@ void GgafDx9SpriteModel::onDeviceLost() {
 void GgafDx9SpriteModel::release() {
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-    if (_pTextureCon != NULL) {
-        _pTextureCon->close();
-    }
+    _papTextureCon[0]->close();
+    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " end");
 }
