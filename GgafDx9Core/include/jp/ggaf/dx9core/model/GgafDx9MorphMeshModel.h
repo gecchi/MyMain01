@@ -93,8 +93,6 @@ public:
     /** インデックスバッファ（プライマリのみ） */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
-    /** テクスチャ資源コネクション配列 */
-    GgafDx9TextureConnection** _papTextureCon;
 
     /** 頂点のサイズ（プライマリ） */
     UINT _size_vertecs_primary;

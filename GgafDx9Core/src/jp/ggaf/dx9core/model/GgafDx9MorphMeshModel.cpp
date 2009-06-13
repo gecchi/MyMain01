@@ -28,7 +28,6 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     _paVtxBuffer_org_primary = NULL;
     _papaVtxBuffer_org_morph = NULL;
     _paIdxBuffer_org = NULL;
-    _papTextureCon = NULL;
     _paIndexParam = NULL;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel*)

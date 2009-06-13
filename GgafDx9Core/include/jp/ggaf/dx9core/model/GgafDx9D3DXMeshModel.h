@@ -12,8 +12,6 @@ class GgafDx9D3DXMeshModel : public GgafDx9Model {
 public:
     /** メッシュ(インスタンスはモデル毎） */
     LPD3DXMESH _pID3DXMesh;
-    /** テクスチャ配列(インスタンスはテクスチャ毎、モデルとは別管理） */
-    GgafDx9TextureConnection** _papTextureCon;
     /** D3DXLoadMeshFromXのオプション */
     DWORD _dwOptions;
 

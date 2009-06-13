@@ -24,6 +24,8 @@ public:
     /** マテリアル数 */
     DWORD _dwNumMaterials;
 
+    /** テクスチャ資源コネクション配列 */
+    GgafDx9TextureConnection** _papTextureCon;
 
     /**
      * コンストラクタ<BR>

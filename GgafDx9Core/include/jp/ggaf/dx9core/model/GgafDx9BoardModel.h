@@ -30,8 +30,6 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
 
-    /** テクスチャ(資源接続) */
-    GgafDx9TextureConnection* _pTextureCon;
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
     GgafDx9RectUV* _paRectUV;
 

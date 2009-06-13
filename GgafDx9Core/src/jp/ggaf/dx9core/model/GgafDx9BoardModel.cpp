@@ -14,7 +14,6 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
     _col_texture_split = 1;
     _pattno_max = 1;
     _pIDirect3DVertexBuffer9 = NULL;
-    _pTextureCon = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
 
