@@ -19,9 +19,7 @@ public:
      */
     void processBehavior();
 
-
-    void processJudgement() {
-    }
+    void processJudgement();
 
     void processDrawPrior() {
     }
