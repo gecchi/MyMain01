@@ -19,10 +19,10 @@ public:
      */
     void processBehavior();
 
-    void processJudgement();
-
-    void processDrawPrior() {
+    void processJudgement() {
     }
+
+    void processDrawPrior();
 
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·

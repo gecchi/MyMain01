@@ -40,21 +40,23 @@ void BackGroundStar::processBehavior() {
     } else {
         _X -= 1000;
     }
-
-}
-
-void BackGroundStar::processJudgement() {
-    //本アクターはGgafDx9DrawableUntransformedActorではないかつ、
-    //BackGroundStar001がツリーの子ではなくメンバーでないので、
-    //無理やり段階レンダリングに登録
-   // GgafDx9Universe::setDrawDepthMaxLevel(this);
-}
-
-void BackGroundStar::processDrawMain() {
     _papBackGroundStar001[0]->_X = _X - 800000;
     _papBackGroundStar001[1]->_X = _X ;
     _papBackGroundStar001[2]->_X = _X + 800000;
     _papBackGroundStar001[3]->_X = _X + 1600000;
+}
+
+void BackGroundStar::processDrawPrior() {
+    //本アクターはGgafDx9DrawableUntransformedActorではないかつ、
+    //BackGroundStar001がツリーの子ではなくメンバーでないので、
+    //無理やり段階レンダリングに登録
+    for (int i = 0; i < 4; i++) {
+        GgafDx9Universe::setDrawDepthMaxLevel(_papBackGroundStar001[i]);
+    }
+}
+
+void BackGroundStar::processDrawMain() {
+
     for (int i = 0; i < 4; i++) {
         _papBackGroundStar001[i]->processDrawMain();
     }
