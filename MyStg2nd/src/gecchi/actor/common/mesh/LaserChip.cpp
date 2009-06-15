@@ -229,19 +229,7 @@ void LaserChip::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
-//	UINT numPass;
-//    hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() Begin() に失敗しました。");
-//
-//    //TODO:2009/05/15 BeginPassの処理はやや重たいことに気がつく。無駄なBeginPassとEndPassを取り除くいい方法が無いものか・・・。
-//    hr = pID3DXEffect->BeginPass(0);
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() BeginPass(0) に失敗しました。");
     _pMeshModel->draw(this);
-//    hr = pID3DXEffect->EndPass();
-//
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() EndPass() に失敗しました。");
-//    hr = pID3DXEffect->End();
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() End() に失敗しました。");
 
 }
 
