@@ -1,12 +1,12 @@
-#ifndef DEFAULTMESHACTOR_H_
-#define DEFAULTMESHACTOR_H_
+#ifndef DEFAULTMESHSETACTORH_
+#define DEFAULTMESHSETACTORH_
 namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
  */
-class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
+class DefaultMeshSetActor : public GgafDx9Core::GgafDx9MeshSetActor {
 
 public:
     /** 座標移動支援オブジェクト */
@@ -18,7 +18,7 @@ public:
 
     StgChecker* _pStgChecker;
 
-    DefaultMeshActor(const char* prm_name, const char* prm_model);
+    DefaultMeshSetActor(const char* prm_name, const char* prm_model);
 
     virtual void initialize() {
     }
@@ -30,11 +30,11 @@ public:
     }
 
     virtual void processDrawPrior() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+        GgafDx9Core::GgafDx9MeshSetActor::processDrawPrior();
     }
 
     virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+        GgafDx9Core::GgafDx9MeshSetActor::processDrawMain();
     }
 
     virtual void processDrawTerminate();
@@ -48,8 +48,8 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual ~DefaultMeshActor();
+    virtual ~DefaultMeshSetActor();
 };
 
 }
-#endif /*DEFAULTMESHACTOR_H_*/
+#endif /*DEFAULTMESHSETACTORH_*/
