@@ -43,6 +43,7 @@ private:
     GgafDx9BoardModel* createBoardModel(char* prm_model_name);
 
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);
+    GgafDx9MeshSetModel* createMeshSetModel(char* prm_model_name);
 
     GgafDx9MorphMeshModel* createMorphMeshModel(char* prm_model_name);
 
@@ -81,6 +82,8 @@ public:
 
     void restoreMeshModel(GgafDx9MeshModel* prm_pD3DXMeshModel);
 
+    void restoreMeshSetModel(GgafDx9MeshSetModel* prm_pD3DXMeshSetModel);
+
     void restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pModel);
     /**
      * オーバーライド
@@ -111,6 +114,9 @@ public:
 
 
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
+
+    UINT pow2(UINT a);
+
 
     virtual ~GgafDx9ModelManager();
 
