@@ -15,7 +15,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _setnum = 6;
     _paIDirect3DVertexBuffer9 = NULL;
     _paIDirect3DIndexBuffer9 = NULL;
-
+    _pa_nMaterialListGrp = NULL;
     _papaVtxBuffer_org = NULL;
     _papaIdxBuffer_org = NULL;
     _papaIndexParam = NULL;
@@ -27,7 +27,6 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
-    _TRACE_("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;
     pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
@@ -48,8 +47,8 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
 
     //描画
-    for (UINT i = 0; i < _nMaterialListGrp; i++) {
-        if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
+    for (UINT i = 0; i < _pa_nMaterialListGrp[0]; i++) {
+        if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[0] != 1) {
             material_no = _papaIndexParam[0][i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
@@ -94,11 +93,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _papaIndexParam[0][i].StartIndex,
                                                         _papaIndexParam[0][i].PrimitiveCount);
     }
-    if (_nMaterialListGrp > 0) {
+//    if (_nMaterialListGrp > 0) {
         GgafDx9ModelManager::_pModelLastDraw = this;
         GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
         GgafGod::_num_actor_playing++;
-    }
+//    }
     return D3D_OK;
 }
 
@@ -132,15 +131,18 @@ void GgafDx9MeshSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DIndexBuffer9);
 
     for (int i = 0; i < _setnum; i++) {
-        DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org[_setnum]);
-        DELETEARR_IMPOSSIBLE_NULL(_papaIdxBuffer_org[_setnum]);
+        DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org[i]);
+        DELETEARR_IMPOSSIBLE_NULL(_papaIdxBuffer_org[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_papaIdxBuffer_org);
-
+    DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
 	//_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
+    for (int i = 0; i < _setnum; i++) {
+        DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam);
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " end");
 

@@ -1614,9 +1614,9 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 //        }
 
         //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-        GgafDx9MeshSetModel::INDEXPARAM** papaParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
+        //GgafDx9MeshSetModel::INDEXPARAM** papaParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
         papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
-
+        prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_setnum];
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
             GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * pow2(setcount)];
             int prev_materialno = -1;
@@ -1688,8 +1688,15 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 papaIndexParam[setcount][i].StartIndex = paParam[i].StartIndex;
                 papaIndexParam[setcount][i].PrimitiveCount = paParam[i].PrimitiveCount;
             }
+
+            prm_pMeshSetModel->_pa_nMaterialListGrp[setcount] = paramno;
             delete[] paParam;
         }
+
+        for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
+            DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials[setcount]);
+        }
+        DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials);
 
 
         //prm_pMeshSetModel->_nMaterialListGrp = paramno;

@@ -70,7 +70,7 @@ public:
     UINT _size_vertec_unit;
     INDEXPARAM** _papaIndexParam;
 
-    UINT _nMaterialListGrp;
+    UINT* _pa_nMaterialListGrp;
 
     VERTEX** _papaVtxBuffer_org;
     WORD** _papaIdxBuffer_org;
