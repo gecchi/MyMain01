@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
-    GgafDx9MeshActor(prm_name,
+    GgafDx9MeshSetActor(prm_name,
                      prm_model,
-                     "X/LaserChipEffect",
+                     "x/LaserChipEffect",
                      "LaserChipTechnique",
                      NEW StgChecker(this) ) {
     _pStgChecker = (StgChecker*)_pChecker;
@@ -22,12 +22,12 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pDispatcher = NULL; //LaserChipDispatcher‚Ì new Žž‚ÉÝ’è‚³‚ê‚éB
     _chiptex_kind = 1;
 
-    _hKind = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind" );
-    _hX = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
-    _hY = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
-    _hZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
-    _hRevPosZ = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ" );
-    _hMatWorld_front = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
+    _hKind = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind" );
+    _hX = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
+    _hY = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
+    _hZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
+    _hRevPosZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ" );
+    _hMatWorld_front = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 }
 
 void LaserChip::initialize() {
@@ -127,13 +127,13 @@ void LaserChip::processJudgement() {
 
 void LaserChip::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
 
     //VIEW•ÏŠ·s—ñ
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshSetEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
 //    hr = pID3DXEffect->SetTechnique(_technique);
 //    mightDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -226,10 +226,10 @@ void LaserChip::processDrawMain() {
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B2");
     }
 
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-    _pMeshModel->draw(this);
+    _pMeshSetModel->draw(this);
 
 }
 

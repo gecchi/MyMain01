@@ -2,14 +2,14 @@
 #define LASERCHIP_H_
 namespace MyStg2nd {
 
-class LaserChip : public GgafDx9Core::GgafDx9MeshActor {
+class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
 private:
     D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ, _hMatWorld_front;
 
 
     void processDrawPrior() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+        GgafDx9Core::GgafDx9MeshSetActor::processDrawPrior();
     }
 
     void processDrawTerminate();
