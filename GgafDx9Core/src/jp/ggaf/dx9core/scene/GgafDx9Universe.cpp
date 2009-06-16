@@ -45,9 +45,9 @@ void GgafDx9Universe::drawMain() {
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
         TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDrawMain() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDrawMain() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
     }

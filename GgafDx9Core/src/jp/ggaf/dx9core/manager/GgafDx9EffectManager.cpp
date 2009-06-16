@@ -21,6 +21,9 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
         case 'X':
             pResourceEffect = NEW GgafDx9MeshEffect(effect_name);
             break;
+        case 'x':
+            pResourceEffect = NEW GgafDx9MeshSetEffect(effect_name);
+            break;
         case 'M':
             pResourceEffect = NEW GgafDx9MorphMeshEffect(effect_name);
             break;

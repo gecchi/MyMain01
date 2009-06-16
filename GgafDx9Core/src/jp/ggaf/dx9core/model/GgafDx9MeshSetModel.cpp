@@ -27,15 +27,16 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
+    _TRACE_("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
-    static GgafDx9MeshActor* pTargetActor;
-    pTargetActor = (GgafDx9MeshActor*)prm_pActor_Target;
-    //対象MeshActorのエフェクトラッパ
-    static GgafDx9MeshEffect* pMeshEffect;
-    pMeshEffect = pTargetActor->_pMeshEffect;
+    static GgafDx9MeshSetActor* pTargetActor;
+    pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
+    //対象MeshSetActorのエフェクトラッパ
+    static GgafDx9MeshSetEffect* pMeshSetEffect;
+    pMeshSetEffect = pTargetActor->_pMeshSetEffect;
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshEffect->_pID3DXEffect;
+    pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
 	HRESULT hr;
     UINT material_no;
@@ -58,12 +59,12 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+            hr = pID3DXEffect->SetValue(pMeshSetEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
         }
 
 
-        if (GgafDx9EffectManager::_pEffect_Active != pMeshEffect) {
+        if (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -72,10 +73,10 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() End() に失敗しました。");
             }
 
-            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             mightDx9Exception(hr, S_OK, "GgafDx9MeshSetModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
-            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() Begin() に失敗しました。");
@@ -85,7 +86,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             hr = pID3DXEffect->CommitChanges();
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() CommitChanges() に失敗しました。");
         }
-        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
+        TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                         _papaIndexParam[0][i].BaseVertexIndex,
                                                         _papaIndexParam[0][i].MinIndex,
@@ -93,9 +94,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _papaIndexParam[0][i].StartIndex,
                                                         _papaIndexParam[0][i].PrimitiveCount);
     }
-    GgafDx9ModelManager::_pModelLastDraw = this;
-    GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
-    GgafGod::_num_actor_playing++;
+    if (_nMaterialListGrp > 0) {
+        GgafDx9ModelManager::_pModelLastDraw = this;
+        GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
+        GgafGod::_num_actor_playing++;
+    }
     return D3D_OK;
 }
 
