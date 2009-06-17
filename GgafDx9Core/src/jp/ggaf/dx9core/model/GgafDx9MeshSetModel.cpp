@@ -19,8 +19,8 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _papaVtxBuffer_org = NULL;
     _papaIdxBuffer_org = NULL;
     _papaIndexParam = NULL;
-    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
-    //void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshSetModel*)
+    //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
+    //void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel*)
     //で行っている。
 }
 

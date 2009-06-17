@@ -2,6 +2,9 @@
 #define GGAFDX9DYNAD3DXMESHACTOR_H_
 namespace GgafDx9Core {
 
+//注意：このクラスは現在未使用です。削除予定。
+//     固定機能パイプライン時に使用していたが、今はもう使わない。
+//     GgafDx9MeshActorを使って下さい。
 /**
  * メッシュアクター.
  * GgafDx9DrawableUntransformedActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
