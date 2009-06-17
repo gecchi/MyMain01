@@ -184,13 +184,13 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
 
     _X_UID.Integer = GetTickCount(); //This function return a 4 byte wide number
     _X_UID.Text[4] = pType; //We set the 5th byte with a significant character
+    _X_UID.Text[5] = '\0'; //add tsuge デバッグ表示用のため
 
     //If any of the first 4 bytes are under 32 we add 32
     //We want to avoid the occurrence of the char '\0' within
     //the first 4 bytes since this would truncate the text returned.
 
 //tsuge add begin 表示可能文字に
-    //TODO:にならない
     _X_UID.Text[0] %= 92;
     _X_UID.Text[1] %= 92;
     _X_UID.Text[2] %= 92;

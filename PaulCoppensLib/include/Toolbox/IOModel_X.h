@@ -53,7 +53,8 @@ private:
     //convert a 32 bit number to a non-significant text.
     union {
         uint32 Integer;
-        char Text[5];
+        //char Text[5];
+        char Text[6]; //mod tsuge
     } _X_UID;
 
     //X File struct processing
