@@ -10,7 +10,7 @@ class GgafDx9MeshSetEffect : public GgafDx9Effect {
 
 public:
     D3DXHANDLE _hMatView;
-    D3DXHANDLE _hMatWorld;
+    D3DXHANDLE _ahMatWorld[32];
     D3DXHANDLE _hMaterialDiffuse;
 
 public:
