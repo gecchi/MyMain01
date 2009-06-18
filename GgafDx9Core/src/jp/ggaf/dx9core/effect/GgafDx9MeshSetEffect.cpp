@@ -22,7 +22,7 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetEffect::GgafDx9MeshSetEffect SetValue(g_LightAmbient) に失敗しました。");
     //シェーダーハンドル
     _hMatView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-
+    //_hMatWorld  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _ahMatWorld[0]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
 
     _ahMatWorld[1]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );
@@ -43,25 +43,6 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMatWorld[13] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld014" );
     _ahMatWorld[14] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld015" );
     _ahMatWorld[15] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld016" );
-
-    _ahMatWorld[16] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld017" );
-    _ahMatWorld[17] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld018" );
-    _ahMatWorld[18] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld019" );
-    _ahMatWorld[19] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld020" );
-    _ahMatWorld[20] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld021" );
-    _ahMatWorld[21] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld022" );
-    _ahMatWorld[22] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld023" );
-    _ahMatWorld[23] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld024" );
-    _ahMatWorld[24] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld025" );
-    _ahMatWorld[25] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld026" );
-    _ahMatWorld[26] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld027" );
-    _ahMatWorld[27] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld028" );
-    _ahMatWorld[28] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld029" );
-    _ahMatWorld[29] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld030" );
-    _ahMatWorld[30] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld031" );
-    _ahMatWorld[31] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld032" );
-
-
 
     _hMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse" );
 }

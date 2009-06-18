@@ -41,15 +41,15 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     UINT material_no;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[0],  0, _size_vertec_unit * 1);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[3],  0, _size_vertec_unit * 1);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[0]);
+        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[3]);
     }
 
     //描画
-    for (UINT i = 0; i < _pa_nMaterialListGrp[0]; i++) {
-        if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[0] != 1) {
-            material_no = _papaIndexParam[0][i].MaterialNo;
+    for (UINT i = 0; i < _pa_nMaterialListGrp[3]; i++) {
+        if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[3] != 1) {
+            material_no = _papaIndexParam[3][i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -87,11 +87,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _papaIndexParam[0][i].BaseVertexIndex,
-                                                        _papaIndexParam[0][i].MinIndex,
-                                                        _papaIndexParam[0][i].NumVertices,
-                                                        _papaIndexParam[0][i].StartIndex,
-                                                        _papaIndexParam[0][i].PrimitiveCount);
+                                                        _papaIndexParam[3][i].BaseVertexIndex,
+                                                        _papaIndexParam[3][i].MinIndex,
+                                                        _papaIndexParam[3][i].NumVertices,
+                                                        _papaIndexParam[3][i].StartIndex,
+                                                        _papaIndexParam[3][i].PrimitiveCount);
     }
 //    if (_nMaterialListGrp > 0) {
         GgafDx9ModelManager::_pModelLastDraw = this;

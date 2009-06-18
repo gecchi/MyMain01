@@ -14,7 +14,25 @@ float g_Z; //一つ前を行くチップZ
 bool g_RevPosZ; //Z座標を反転するかどうか
 
 
-float4x4 g_matWorld;  //自身のWorld変換行列
+//float4x4 g_matWorld;  //自身のWorld変換行列
+float4x4 g_matWorld001;
+float4x4 g_matWorld002;
+float4x4 g_matWorld003;
+float4x4 g_matWorld004;
+float4x4 g_matWorld005;
+float4x4 g_matWorld006;
+float4x4 g_matWorld007;
+float4x4 g_matWorld008;
+float4x4 g_matWorld009;
+float4x4 g_matWorld010;
+float4x4 g_matWorld011;
+float4x4 g_matWorld012;
+float4x4 g_matWorld013;
+float4x4 g_matWorld014;
+float4x4 g_matWorld015;
+float4x4 g_matWorld016;
+
+
 float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -45,6 +63,81 @@ OUT_VS GgafDx9VS_LaserChip(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
+
+	//頂点計算
+	float4 matWorld;
+	if (g_unit_vertecnum*8 >= g_cnt_vertec) {
+		if (g_unit_vertecnum*4 >= g_cnt_vertec) {
+			if (g_unit_vertecnum*2 >= g_cnt_vertec) {
+				if (g_unit_vertecnum >= g_cnt_vertec) {
+					matWorld = g_matWorld001;
+				} else {
+					matWorld = g_matWorld002;
+				}
+			} else {
+				if (g_unit_vertecnum*3 >= g_cnt_vertec) {
+					matWorld = g_matWorld003;
+				} else {
+					matWorld = g_matWorld004;
+				}
+			}
+		} else {
+			if (g_unit_vertecnum*6 >= g_cnt_vertec) {
+				if (g_unit_vertecnum*5 >= g_cnt_vertec) {
+					matWorld = g_matWorld005;
+				} else {
+					matWorld = g_matWorld006;
+				}
+			} else {
+				if (g_unit_vertecnum*7 >= g_cnt_vertec) {
+					matWorld = g_matWorld007;
+				} else {
+					matWorld = g_matWorld008;
+				}
+			}
+		}
+	} else {
+		if (g_unit_vertecnum*12 >= g_cnt_vertec) {
+			if (g_unit_vertecnum*10 >= g_cnt_vertec) {
+				if (g_unit_vertecnum*9 >= g_cnt_vertec) {
+					matWorld = g_matWorld009;
+				} else {
+					matWorld = g_matWorld010;
+				}
+			} else {
+				if (g_unit_vertecnum*11 >= g_cnt_vertec) {
+					matWorld = g_matWorld011;
+				} else {
+					matWorld = g_matWorld012;
+				}
+			}
+		} else {
+			if (g_unit_vertecnum*14 >= g_cnt_vertec) {
+				if (g_unit_vertecnum*13 >= g_cnt_vertec) {
+					matWorld = g_matWorld013;
+				} else {
+					matWorld = g_matWorld014;
+				}
+			} else {
+				if (g_unit_vertecnum*15 >= g_cnt_vertec) {
+					matWorld = g_matWorld015;
+				} else {
+					matWorld = g_matWorld016;
+				}
+			}
+		}
+	}
+
+
+
+	float4 posWorld = mul( prm_pos, matWorld );               // World変換
+
+
+
+
+
+
+
 //
 	if (g_RevPosZ == true) {
 		prm_pos.z = -prm_pos.z;
@@ -70,7 +163,7 @@ OUT_VS GgafDx9VS_LaserChip(
 		posWorld = mul( prm_pos, matWorld_tmp );      // World変換
 	} else {
 		//頂点計算
-		posWorld = mul( prm_pos, g_matWorld );        // World変換
+		posWorld = mul( prm_pos, matWorld );        // World変換
 	}
 	float4 posWorldView = mul(posWorld    , g_matView);  // View変換
 	out_vs.pos          = mul(posWorldView, g_matProj);  // 射影変換
