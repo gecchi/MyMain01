@@ -30,12 +30,47 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
 
 
 void GgafDx9MeshSetActor::processDrawMain() {
+
+    int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
+    GgafDx9DrawableUntransformedActor* _pNextDrawActor;
+    _pNextDrawActor = dynamic_cast<GgafDx9DrawableUntransformedActor*>(_pNext_TheSameDrawDepthLevel);
+    while (true) {
+        if (_pNextDrawActor != NULL)  {
+            GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
+            if (pGgafDx9Model == _pMeshSetModel) {
+                cnt++;
+                if (cnt > 16) {
+                    break;
+                }
+                _pNextDrawActor = dynamic_cast<GgafDx9DrawableUntransformedActor*>(_pNextDrawActor->_pNext_TheSameDrawDepthLevel);
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+    int set_index = 0;
+    int draw_object_num = 1;
+    //index   0 1 2 3 4
+    //object  1 2 4 8 16
+    if (cnt >= 16) {
+        set_index = 4;
+        draw_object_num = 16;
+    } else if (8 <= cnt &&  cnt <= 15) {
+        set_index = 3;
+        draw_object_num = 8;
+    } else if (4 <= cnt &&  cnt <= 8) {
+
+
+
+
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::GgafDx9MeshSetEffect SetMatrix(g_matView) に失敗しました。");
-    static D3DXMATRIX matWorld; //UNIVERSE変換行列
+    static D3DXMATRIX matWorld; //WORLD変換行列
     GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");

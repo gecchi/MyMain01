@@ -23,6 +23,7 @@ GgafDx9DrawableUntransformedActor::GgafDx9DrawableUntransformedActor(const char*
         _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
     }
     _fAlpha = 1.0f;
+
 }
 
 

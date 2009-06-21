@@ -35,7 +35,7 @@ void GgafDx9MeshActor::processDrawMain() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
-    static D3DXMATRIX matWorld; //UNIVERSE変換行列
+    static D3DXMATRIX matWorld; //WORLD変換行列
     GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");

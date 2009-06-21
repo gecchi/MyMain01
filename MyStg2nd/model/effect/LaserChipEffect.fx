@@ -15,6 +15,8 @@ bool g_RevPosZ; //Z座標を反転するかどうか
 
 
 //float4x4 g_matWorld;  //自身のWorld変換行列
+//float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
+
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
 float4x4 g_matWorld003;
@@ -31,9 +33,23 @@ float4x4 g_matWorld013;
 float4x4 g_matWorld014;
 float4x4 g_matWorld015;
 float4x4 g_matWorld016;
+float4x4 g_matWorld_front001;
+float4x4 g_matWorld_front002;
+float4x4 g_matWorld_front003;
+float4x4 g_matWorld_front004;
+float4x4 g_matWorld_front005;
+float4x4 g_matWorld_front006;
+float4x4 g_matWorld_front007;
+float4x4 g_matWorld_front008;
+float4x4 g_matWorld_front009;
+float4x4 g_matWorld_front010;
+float4x4 g_matWorld_front011;
+float4x4 g_matWorld_front012;
+float4x4 g_matWorld_front013;
+float4x4 g_matWorld_front014;
+float4x4 g_matWorld_front015;
+float4x4 g_matWorld_front016;
 
-
-float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 

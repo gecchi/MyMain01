@@ -5,8 +5,9 @@ namespace MyStg2nd {
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
 private:
-    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ, _hMatWorld_front;
-
+//    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ;
+    D3DXHANDLE _hKind, _hRevPosZ;
+    D3DXHANDLE _ahMatWorld_front[16];
 
     void processDrawPrior() {
         GgafDx9Core::GgafDx9MeshSetActor::processDrawPrior();

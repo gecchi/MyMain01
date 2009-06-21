@@ -23,11 +23,33 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _chiptex_kind = 1;
 
     _hKind = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind" );
-    _hX = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
-    _hY = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
-    _hZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
+//    _hX = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
+//    _hY = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
+//    _hZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
     _hRevPosZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ" );
-    _hMatWorld_front = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
+    //_hMatWorld_front = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
+
+    _ahMatWorld_front[0]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
+
+    _ahMatWorld_front[1]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
+
+    _ahMatWorld_front[2]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front003" );
+    _ahMatWorld_front[3]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front004" );
+
+    _ahMatWorld_front[4]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front005" );
+    _ahMatWorld_front[5]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front006" );
+    _ahMatWorld_front[6]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front007" );
+    _ahMatWorld_front[7]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front008" );
+
+    _ahMatWorld_front[8]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
+    _ahMatWorld_front[9]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
+    _ahMatWorld_front[10] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
+    _ahMatWorld_front[11] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front012" );
+    _ahMatWorld_front[12] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front013" );
+    _ahMatWorld_front[13] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front014" );
+    _ahMatWorld_front[14] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
+    _ahMatWorld_front[15] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
+
 }
 
 void LaserChip::initialize() {
@@ -123,6 +145,11 @@ void LaserChip::processJudgement() {
     } else {
         _chiptex_kind = 4; //何も描画したくない
     }
+
+    //【注意】4/15 メモ
+    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
+    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。留意せよ。
+    GgafDx9UntransformedActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
 void LaserChip::processDrawMain() {
@@ -138,22 +165,19 @@ void LaserChip::processDrawMain() {
 //    hr = pID3DXEffect->SetTechnique(_technique);
 //    mightDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") に失敗しました。");
 
-    //【注意】4/15 メモ
-    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
-    //processBehaviorは _pChip_front が必ず先に実行される。留意せよ。
-    GgafDx9UntransformedActor::updateWorldMatrix_Mv(this, _matWorld);
+
 
     //テクスチャ種類
     hr = pID3DXEffect->SetInt(_hKind, _chiptex_kind);
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
 
     if (_pChip_front != NULL) {
-        hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。1");
-        hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) に失敗しました。1");
-        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_pChip_front->_Z/LEN_UNIT/ PX_UNIT);
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) に失敗しました。1");
+//        hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
+//        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。1");
+//        hr = pID3DXEffect->SetFloat(_hY, 1.0*_pChip_front->_Y/LEN_UNIT/ PX_UNIT);
+//        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) に失敗しました。1");
+//        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_pChip_front->_Z/LEN_UNIT/ PX_UNIT);
+//        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) に失敗しました。1");
         hr = pID3DXEffect->SetMatrix(_hMatWorld_front, &(_pChip_front->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
 
@@ -175,10 +199,10 @@ void LaserChip::processDrawMain() {
             } else {
                 //＜2009/5/19 メモ：何を判定しようとしているのか＞
                 //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
-                //２点(X1,Z1)(X2,Z2) を通る直線の方程式 Z = CamZ の時のX座標は
+                //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
                 //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
-                //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップのZ座標頂点を反転し羽の描画順序を変更する。
-                //羽とは下図の①と④のポリゴンのことである。①～④がデフォルトの描画順序。
+                //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し羽の描画順序を変更する。
+                //羽とは下図の①と④のポリゴンのことをさす。①～④がデフォルトの描画順序。
                 //特定の角度ではこの①と④の描画順番を変えなければ、半透明のためギザギザになる場合があるということであるのだ。
                 //         ↑ｙ軸
                 //         │
@@ -205,7 +229,7 @@ void LaserChip::processDrawMain() {
                 }
             }
             if (_pChip_front->_Z > _Z) {
-                //上記の判定はレーザーは奥から手前へ来てる場合の判定、手前から奥の場合は判定は反転することになる。
+                //上記の判定はレーザーは奥から手前へ来てる場合の判定、手前から奥へ飛ぶ場合は判定は反転することになる。
                 rev_pos_Z = !rev_pos_Z;
             }
         }
