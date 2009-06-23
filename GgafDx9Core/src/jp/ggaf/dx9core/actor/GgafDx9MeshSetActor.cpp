@@ -60,9 +60,16 @@ void GgafDx9MeshSetActor::processDrawMain() {
     } else if (8 <= cnt &&  cnt <= 15) {
         set_index = 3;
         draw_object_num = 8;
-    } else if (4 <= cnt &&  cnt <= 8) {
-
-
+    } else if (4 <= cnt &&  cnt <= 7) {
+        set_index = 2;
+        draw_object_num = 4;
+    } else if (2 <= cnt &&  cnt <= 3) {
+        set_index = 1;
+        draw_object_num = 2;
+    } else {
+        set_index = 0;
+        draw_object_num = 1;
+    }
 
 
     static ID3DXEffect* pID3DXEffect;

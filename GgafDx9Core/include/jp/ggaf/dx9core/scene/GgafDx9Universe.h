@@ -19,7 +19,7 @@ public:
     static GgafCore::GgafActor* _apAlphaActorList_DrawDepthLevel[];
     /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
     static GgafCore::GgafActor* _pActors_DrawMaxDrawDepth;
-    GgafActor* _pActor_DrawActive;
+    static GgafCore::GgafActor* _pActor_DrawActive;
     GgafDx9Universe(const char* prm_name);
 
     virtual ~GgafDx9Universe();
