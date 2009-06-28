@@ -6,7 +6,8 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
 private:
 //    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ;
-    D3DXHANDLE _hKind, _hRevPosZ;
+    D3DXHANDLE _ahKind[16];
+    D3DXHANDLE _ahRevPosZ[16];
     D3DXHANDLE _ahMatWorld_front[16];
 
     void processDrawPrior() {

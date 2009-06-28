@@ -39,17 +39,21 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 	HRESULT hr;
     UINT material_no;
-    if (GgafDx9ModelManager::_pModelLastDraw != this) {
+
+    int set_index = pTargetActor->_set_index;
+    //TODO 考える
+    //if (GgafDx9ModelManager::_pModelLastDraw != this && ) {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[3],  0, _size_vertec_unit * 1);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index],  0, _size_vertec_unit * pTargetActor->_draw_object_num);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[3]);
-    }
+        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[set_index]);
+    //}
 
     //描画
-    for (UINT i = 0; i < _pa_nMaterialListGrp[3]; i++) {
-        if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[3] != 1) {
-            material_no = _papaIndexParam[3][i].MaterialNo;
+    for (UINT i = 0; i < _pa_nMaterialListGrp[set_index]; i++) {
+        // TODO
+        //if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[set_index] != 1) {
+            material_no = _papaIndexParam[set_index][i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -60,7 +64,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             }
             hr = pID3DXEffect->SetValue(pMeshSetEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
-        }
+        //}
 
 
         if (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect) {
@@ -87,11 +91,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _papaIndexParam[3][i].BaseVertexIndex,
-                                                        _papaIndexParam[3][i].MinIndex,
-                                                        _papaIndexParam[3][i].NumVertices,
-                                                        _papaIndexParam[3][i].StartIndex,
-                                                        _papaIndexParam[3][i].PrimitiveCount);
+                                                        _papaIndexParam[set_index][i].BaseVertexIndex,
+                                                        _papaIndexParam[set_index][i].MinIndex,
+                                                        _papaIndexParam[set_index][i].NumVertices,
+                                                        _papaIndexParam[set_index][i].StartIndex,
+                                                        _papaIndexParam[set_index][i].PrimitiveCount);
     }
 //    if (_nMaterialListGrp > 0) {
         GgafDx9ModelManager::_pModelLastDraw = this;

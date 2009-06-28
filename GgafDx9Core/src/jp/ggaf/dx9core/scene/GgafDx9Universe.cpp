@@ -5,6 +5,7 @@ using namespace GgafDx9Core;
 
 GgafActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
 GgafActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
+GgafActor* GgafDx9Universe::_pActor_DrawActive = NULL;
 GgafDx9Camera* GgafDx9Universe::_pCamera = NULL;
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {

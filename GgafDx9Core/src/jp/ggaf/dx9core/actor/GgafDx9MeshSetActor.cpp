@@ -37,7 +37,7 @@ void GgafDx9MeshSetActor::processDrawMain() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
-            if (pGgafDx9Model == _pMeshSetModel) {
+            if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
                 cnt++;
                 if (cnt > 16) {
                     break;
@@ -50,25 +50,25 @@ void GgafDx9MeshSetActor::processDrawMain() {
             break;
         }
     }
-    int set_index = 0;
-    int draw_object_num = 1;
+    int _set_index = 0;
+    int _draw_object_num = 1;
     //index   0 1 2 3 4
     //object  1 2 4 8 16
     if (cnt >= 16) {
-        set_index = 4;
-        draw_object_num = 16;
+        _set_index = 4;
+        _draw_object_num = 16;
     } else if (8 <= cnt &&  cnt <= 15) {
-        set_index = 3;
-        draw_object_num = 8;
+        _set_index = 3;
+        _draw_object_num = 8;
     } else if (4 <= cnt &&  cnt <= 7) {
-        set_index = 2;
-        draw_object_num = 4;
+        _set_index = 2;
+        _draw_object_num = 4;
     } else if (2 <= cnt &&  cnt <= 3) {
-        set_index = 1;
-        draw_object_num = 2;
+        _set_index = 1;
+        _draw_object_num = 2;
     } else {
-        set_index = 0;
-        draw_object_num = 1;
+        _set_index = 0;
+        _draw_object_num = 1;
     }
 
 
@@ -77,10 +77,14 @@ void GgafDx9MeshSetActor::processDrawMain() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::GgafDx9MeshSetEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    static D3DXMATRIX matWorld; //WORLDïœä∑çsóÒ
-    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
-    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatWorld, &matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    GgafDx9UntransformedActor *pDrawActor;
+    pDrawActor = this;
+    for (int i = 0; i < _draw_object_num; i++) {
+        GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, _aMatWorld[i]);
+        pDrawActor = (GgafDx9UntransformedActor*)(pDrawActor -> _pNext_TheSameDrawDepthLevel);
+        hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &_aMatWorld[i]);
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    }
 
     _pMeshSetModel->draw(this);
 }
