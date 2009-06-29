@@ -78,6 +78,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
     _ahMatWorld_front[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
+
+    _h_unit_vertecnum =  _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_unit_vertecnum" );
+
 }
 
 void LaserChip::initialize() {
@@ -233,6 +236,10 @@ void LaserChip::processDrawMain() {
 
 //    hr = pID3DXEffect->SetTechnique(_technique);
 //    mightDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+
+    hr = pID3DXEffect->SetInt(_h_unit_vertecnum, _pMeshSetModel->_size_vertec_unit);
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
