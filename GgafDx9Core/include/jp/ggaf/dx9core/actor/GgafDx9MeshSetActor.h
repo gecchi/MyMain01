@@ -48,10 +48,10 @@ public:
     void setAlpha(float prm_fAlpha);
 
 
-    int chkSequenceOfTheSameDrawDepth() {
-
-
-    }
+//    int chkSequenceOfTheSameDrawDepth() {
+//
+//
+//    }
 
     virtual ~GgafDx9MeshSetActor(); //デストラクタ
 };
