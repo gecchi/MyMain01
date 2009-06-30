@@ -27,6 +27,8 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
+
+    TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;
     pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
@@ -41,6 +43,8 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     UINT material_no;
 
     int set_index = pTargetActor->_set_index;
+    TRACE4("GgafDx9MeshSetModel  set_index="<<set_index);
+
     //TODO 考える
     //if (GgafDx9ModelManager::_pModelLastDraw != this && ) {
         //頂点バッファとインデックスバッファを設定
@@ -48,6 +52,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[set_index]);
     //}
+
 
     //描画
     for (UINT i = 0; i < _pa_nMaterialListGrp[set_index]; i++) {
