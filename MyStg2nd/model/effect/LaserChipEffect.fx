@@ -14,7 +14,7 @@ float g_Z; //一つ前を行くチップZ
 bool g_RevPosZ; //Z座標を反転するかどうか
 
 int g_unit_vertecnum;
-int g_cnt_vertec;
+static int g_cnt_vertec;
 //float4x4 g_matWorld;  //自身のWorld変換行列
 //float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
 bool g_RevPosZ001;
