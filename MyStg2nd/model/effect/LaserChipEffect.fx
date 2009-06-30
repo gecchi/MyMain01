@@ -115,23 +115,28 @@ OUT_VS GgafDx9VS_LaserChip(
 	//’¸“_ŒvŽZ
 	float4x4 matWorld;
 	float4x4 matWorld_front;
+	int kind;
 	if (g_unit_vertecnum*8 >= g_cnt_vertec) {
 		if (g_unit_vertecnum*4 >= g_cnt_vertec) {
 			if (g_unit_vertecnum*2 >= g_cnt_vertec) {
 				if (g_unit_vertecnum >= g_cnt_vertec) {
 					matWorld = g_matWorld001;
 					matWorld_front = g_matWorld_front001;
+					kind = g_kind001;
 				} else {
 					matWorld = g_matWorld002;
 					matWorld_front = g_matWorld_front002;
+					kind = g_kind002;
 				}
 			} else {
 				if (g_unit_vertecnum*3 >= g_cnt_vertec) {
 					matWorld = g_matWorld003;
 					matWorld_front = g_matWorld_front003;
+					kind = g_kind003;
 				} else {
 					matWorld = g_matWorld004;
 					matWorld_front = g_matWorld_front004;
+					kind = g_kind004;
 				}
 			}
 		} else {
@@ -139,17 +144,21 @@ OUT_VS GgafDx9VS_LaserChip(
 				if (g_unit_vertecnum*5 >= g_cnt_vertec) {
 					matWorld = g_matWorld005;
 					matWorld_front = g_matWorld_front005;
+					kind = g_kind005;
 				} else {
 					matWorld = g_matWorld006;
 					matWorld_front = g_matWorld_front006;
+					kind = g_kind006;
 				}
 			} else {
 				if (g_unit_vertecnum*7 >= g_cnt_vertec) {
 					matWorld = g_matWorld007;
 					matWorld_front = g_matWorld_front007;
+					kind = g_kind007;
 				} else {
 					matWorld = g_matWorld008;
 					matWorld_front = g_matWorld_front008;
+					kind = g_kind008;
 				}
 			}
 		}
@@ -159,17 +168,21 @@ OUT_VS GgafDx9VS_LaserChip(
 				if (g_unit_vertecnum*9 >= g_cnt_vertec) {
 					matWorld = g_matWorld009;
 					matWorld_front = g_matWorld_front009;
+					kind = g_kind009;
 				} else {
 					matWorld = g_matWorld010;
 					matWorld_front = g_matWorld_front010;
+					kind = g_kind010;
 				}
 			} else {
 				if (g_unit_vertecnum*11 >= g_cnt_vertec) {
 					matWorld = g_matWorld011;
 					matWorld_front = g_matWorld_front011;
+					kind = g_kind011;
 				} else {
 					matWorld = g_matWorld012;
 					matWorld_front = g_matWorld_front012;
+					kind = g_kind012;
 				}
 			}
 		} else {
@@ -177,17 +190,21 @@ OUT_VS GgafDx9VS_LaserChip(
 				if (g_unit_vertecnum*13 >= g_cnt_vertec) {
 					matWorld = g_matWorld013;
 					matWorld_front = g_matWorld_front013;
+					kind = g_kind013;
 				} else {
 					matWorld = g_matWorld014;
 					matWorld_front = g_matWorld_front014;
+					kind = g_kind014;
 				}
 			} else {
 				if (g_unit_vertecnum*15 >= g_cnt_vertec) {
 					matWorld = g_matWorld015;
 					matWorld_front = g_matWorld_front015;
+					kind = g_kind015;
 				} else {
 					matWorld = g_matWorld016;
 					matWorld_front = g_matWorld_front016;
+					kind = g_kind016;
 				}
 			}
 		}
@@ -234,12 +251,12 @@ OUT_VS GgafDx9VS_LaserChip(
 	out_vs.pos          = mul(posWorldView, g_matProj);  // ŽË‰e•ÏŠ·
 
 	//UV
-	if (g_kind == 2) {
+	if (kind == 2) {
 		out_vs.uv = prm_uv;
-	} else if (g_kind == 1) {
+	} else if (kind == 1) {
 		out_vs.uv.x = prm_uv.x - 0.5;
 		out_vs.uv.y = prm_uv.y;
-	} else if (g_kind == 3) {
+	} else if (kind == 3) {
 		out_vs.uv.x = prm_uv.x;
 		out_vs.uv.y = prm_uv.y - 0.5;
 	} else {

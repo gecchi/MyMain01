@@ -186,11 +186,11 @@ void LaserChip::processJudgement() {
 }
 
 void LaserChip::processDrawMain() {
-_TRACE_("LaserChip::processDrawMain() 001 "<<getName());
+_TRACE_("--------begin------------------------------LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  001 "<<getName());
     int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     LaserChip* _pNextDrawActor;
     _pNextDrawActor = dynamic_cast<LaserChip*>(_pNext_TheSameDrawDepthLevel);
-_TRACE_("LaserChip::processDrawMain() 002");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  002");
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
@@ -207,7 +207,7 @@ _TRACE_("LaserChip::processDrawMain() 002");
             break;
         }
     }
-_TRACE_("LaserChip::processDrawMain() 003");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  003");
     _set_index = 0;
     _draw_object_num = 1;
     //index   0 1 2 3 4
@@ -228,9 +228,9 @@ _TRACE_("LaserChip::processDrawMain() 003");
         _set_index = 0;
         _draw_object_num = 1;
     }
-_TRACE_("LaserChip::processDrawMain() cnt="<<cnt<<"/_set_index="<<_set_index<<"/_draw_object_num="<<_draw_object_num);
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  cnt="<<cnt<<"/_set_index="<<_set_index<<"/_draw_object_num="<<_draw_object_num);
 
-_TRACE_("LaserChip::processDrawMain() 004");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  004");
 
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
@@ -247,7 +247,7 @@ _TRACE_("LaserChip::processDrawMain() 004");
 
     hr = pID3DXEffect->SetInt(_h_unit_vertecnum, _pMeshSetModel->_size_vertec_unit);
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
-_TRACE_("LaserChip::processDrawMain() 005");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  005");
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
@@ -255,17 +255,17 @@ _TRACE_("LaserChip::processDrawMain() 005");
         //GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(pDrawLaserChipActor, _aMatWorld[i]);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  006");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  006");
 
 
 
         //テクスチャ種類
         hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chiptex_kind);
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  007");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  007");
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  008");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  008");
 
     //        hr = pID3DXEffect->SetFloat(_hX, 1.0*_pChip_front->_X/LEN_UNIT/ PX_UNIT);
     //        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hX) に失敗しました。1");
@@ -275,32 +275,32 @@ _TRACE_("LaserChip::processDrawMain() i="<<i<<"  008");
     //        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) に失敗しました。1");
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  009");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  009");
 
             //チップの十字の左右の羽の描画順序を考える。
             static bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
             static float slant;
             slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
             if (pDrawLaserChipActor->_pChip_front->_X == pDrawLaserChipActor->_X) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  010");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  010");
 
                 rev_pos_Z = false;
             } else if (GgafDx9Universe::_pCamera->_view_border_slant2_XZ < slant && slant < GgafDx9Universe::_pCamera->_view_border_slant1_XZ) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  011");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  011");
                 if (pDrawLaserChipActor->_pChip_front->_X > pDrawLaserChipActor->_X ) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  012");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  012");
                     rev_pos_Z = false;
                 } else {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  013");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  013");
                     rev_pos_Z = true;
                 }
             } else {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  014");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  014");
                 if (pDrawLaserChipActor->_pChip_front->_Z == pDrawLaserChipActor->_Z) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  015");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  015");
                     rev_pos_Z = false;
                 } else {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  016");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  016");
                     //＜2009/5/19 メモ：何を判定しようとしているのか＞
                     //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
                     //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
@@ -330,29 +330,29 @@ _TRACE_("LaserChip::processDrawMain() i="<<i<<"  016");
                                   (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
                                  ) + pDrawLaserChipActor->_X;
                     if (crossCamX < GgafDx9Universe::_pCamera->_X) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  017");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  017");
                         rev_pos_Z = true;
                     } else {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  018");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  018");
                         rev_pos_Z = false;
                     }
                 }
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  019");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  019");
 
                 if (pDrawLaserChipActor->_pChip_front->_Z > pDrawLaserChipActor->_Z) {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  020");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  020");
 
                     //上記の判定はレーザーは奥から手前へ来てる場合の判定、手前から奥へ飛ぶ場合は判定は反転することになる。
                     rev_pos_Z = !rev_pos_Z;
                 }
             }
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  021");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  021");
 
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], rev_pos_Z);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
 
         } else {
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  022");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  022");
 
             //前方に連続のチップが無い場合。
 //            hr = pID3DXEffect->SetFloat(_hX, 1.0*_X/LEN_UNIT/ PX_UNIT);
@@ -364,26 +364,27 @@ _TRACE_("LaserChip::processDrawMain() i="<<i<<"  022");
 
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。2");
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  022-2");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  022-2");
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], false);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。2");
         }
-_TRACE_("LaserChip::processDrawMain() i="<<i<<"  023");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  023");
 
 
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
     }
-_TRACE_("LaserChip::processDrawMain() 024");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  024");
 
     _pMeshSetModel->draw(this);
 
     //アクティブを進めておく
-_TRACE_("LaserChip::processDrawMain() _pMeshSetModel->draw(this) Done");
-_TRACE_("LaserChip::processDrawMain() _draw_object_num - 1 = "<<(_draw_object_num - 1)<<"回  _pActor_DrawActiveを進めときます");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  _pMeshSetModel->draw(this) Done");
+_TRACE_("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  _draw_object_num - 1 = "<<(_draw_object_num - 1)<<"回  _pActor_DrawActiveを進めときます");
 
     for(int i = 0; i < _draw_object_num - 1; i++) {
         GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
     }
+_TRACE_("--------end------------------------------LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  999 "<<getName());
 
 }
 

@@ -11,7 +11,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshEnemyActor(prm_nam
     EnemyLaserChip001* pChip;
     for (int i = 0; i < 8; i++) {
         Sleep(2);
-        pChip = NEW EnemyLaserChip001("L");
+        pChip = NEW EnemyLaserChip001("ELC001");
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }

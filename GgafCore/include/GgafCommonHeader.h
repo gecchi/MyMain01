@@ -52,12 +52,14 @@
     #define TRACE3(X)
 
     //エフェクト、パス、Draw関連
-    #define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
-    //#define TRACE4(X)
+    //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    #define TRACE4(X)
 
     //ダンプ出力用
-	#define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
-	//デバッグ用
+	//#define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    #define _TRACE_(X)
+
+    //デバッグ用
 	#define _TRACEORE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 
 	//メモリ解放用マクロ

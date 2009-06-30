@@ -27,8 +27,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
-
-    TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<")");
+_TRACE_("GgafDx9MeshSetModel::draw() this="<<getName());
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;
     pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;

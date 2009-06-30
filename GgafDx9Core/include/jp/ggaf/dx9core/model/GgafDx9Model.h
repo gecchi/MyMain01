@@ -33,6 +33,10 @@ public:
      */
     GgafDx9Model(char* prm_model_name);
 
+    virtual char* getName(){
+        return _model_name;
+    }
+
     /**
      * モデルを描画します.
      * @param prm_pActor_Target 描画するモデルのアクター

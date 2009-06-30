@@ -9,6 +9,7 @@ using namespace GgafDx9Core;
 
 GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ")");
+    _TRACE_("GgafDx9MorphMeshModel::draw() this="<<getName());
     // "M/4/xxxxx" でモデルマネージャから取得した場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
     // ここでprm_model_name は "4/xxxxx" という文字列になっている。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
