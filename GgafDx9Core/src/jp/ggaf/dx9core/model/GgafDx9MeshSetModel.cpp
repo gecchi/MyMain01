@@ -12,7 +12,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _pModel3D = NULL;
     _pMeshesFront = NULL;
 
-    _setnum = 6;
+    _setnum = 5;
     _paIDirect3DVertexBuffer9 = NULL;
     _paIDirect3DIndexBuffer9 = NULL;
     _pa_nMaterialListGrp = NULL;
