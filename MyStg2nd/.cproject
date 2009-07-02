@@ -18,7 +18,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="exe" artifactName="MyStg2nd" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341" name="DebugCdt" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="touch stdafx.o">
+<configuration artifactExtension="exe" artifactName="MyStg2nd" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.exe" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.exe,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" errorParsers="org.eclipse.cdt.core.MakeErrorParser;org.eclipse.cdt.core.GCCErrorParser;org.eclipse.cdt.core.GLDErrorParser;org.eclipse.cdt.core.GASErrorParser;org.eclipse.cdt.core.VCErrorParser" id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341" name="DebugCdt" parent="cdt.managedbuild.config.gnu.cygwin.exe.debug" postannouncebuildStep="" postbuildStep="" preannouncebuildStep="" prebuildStep="touch stdafx.o">
 <folderInfo id="cdt.managedbuild.config.gnu.cygwin.exe.debug.2121379341.1486841325" name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.base.1666988058" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.base">
 <targetPlatform archList="all" binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.base.4539888" name="デバッグ・プラットフォーム" osList="win32" superClass="cdt.managedbuild.target.gnu.platform.mingw.base"/>
@@ -78,8 +78,8 @@
 <listOptionValue builtIn="false" value="dinput"/>
 <listOptionValue builtIn="false" value="dinput8"/>
 <listOptionValue builtIn="false" value="d3dxof"/>
-<listOptionValue builtIn="false" value="d3dx9d"/>
 <listOptionValue builtIn="false" value="d3d9"/>
+<listOptionValue builtIn="false" value="d3dx9"/>
 <listOptionValue builtIn="false" value="uuid"/>
 <listOptionValue builtIn="false" value="CustomizeVorbis_static"/>
 <listOptionValue builtIn="false" value="CustomizeOgg_static"/>
@@ -98,7 +98,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeOgg_static/DebugCdt}&quot;"/>
 </option>
 <option id="gnu.cpp.link.option.flags.184456478" name="リンカー・フラグ" superClass="gnu.cpp.link.option.flags" value="&quot;${workspace_loc:/MyStg2nd/VClib/chkstk.o}&quot; -Wl,--enable-auto-import -mno-cygwin -mwindows " valueType="string"/>
-<option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs" valueType="userObjs"/>
+<option id="gnu.cpp.link.option.userobjs.599840029" name="その他のオブジェクト" superClass="gnu.cpp.link.option.userobjs"/>
 <inputType id="cdt.managedbuild.tool.gnu.cpp.linker.input.265070194" superClass="cdt.managedbuild.tool.gnu.cpp.linker.input">
 <additionalInput kind="additionalinputdependency" paths="$(USER_OBJS)"/>
 <additionalInput kind="additionalinput" paths="$(LIBS)"/>

@@ -93,7 +93,7 @@ void LaserChip::initialize() {
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     //_fAlpha = 0.9;
-    _fAlpha = 2.0;
+    _fAlpha = 1.0;
 }
 
 

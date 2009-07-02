@@ -16,11 +16,11 @@ void MyLaserChip001::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _SX = _SY = _SZ = 40*1000;
-    _fAlpha = 0.9;
+    _fAlpha = 1.0;
 }
 
 void MyLaserChip001::processBehavior() {
-	LaserChip::processBehavior();
+  LaserChip::processBehavior();
 }
 
 void MyLaserChip001::processJudgement() {
