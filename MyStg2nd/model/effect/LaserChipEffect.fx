@@ -13,7 +13,7 @@ float g_Z; //一つ前を行くチップZ
 
 bool g_RevPosZ; //Z座標を反転するかどうか
 
-int g_unit_vertecnum;
+int g_nVertexs;
 static int g_cnt_vertec;
 //float4x4 g_matWorld;  //自身のWorld変換行列
 //float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
@@ -117,10 +117,10 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4x4 matWorld_front;
 	int kind;
 	bool revPosZ;
-	if (g_unit_vertecnum*8 >= g_cnt_vertec) {
-		if (g_unit_vertecnum*4 >= g_cnt_vertec) {
-			if (g_unit_vertecnum*2 >= g_cnt_vertec) {
-				if (g_unit_vertecnum >= g_cnt_vertec) {
+	if (g_nVertexs*8 >= g_cnt_vertec) {
+		if (g_nVertexs*4 >= g_cnt_vertec) {
+			if (g_nVertexs*2 >= g_cnt_vertec) {
+				if (g_nVertexs >= g_cnt_vertec) {
 					matWorld = g_matWorld001;
 					matWorld_front = g_matWorld_front001;
 					kind = g_kind001;
@@ -132,7 +132,7 @@ OUT_VS GgafDx9VS_LaserChip(
 					revPosZ = g_RevPosZ002;
 				}
 			} else {
-				if (g_unit_vertecnum*3 >= g_cnt_vertec) {
+				if (g_nVertexs*3 >= g_cnt_vertec) {
 					matWorld = g_matWorld003;
 					matWorld_front = g_matWorld_front003;
 					kind = g_kind003;
@@ -145,8 +145,8 @@ OUT_VS GgafDx9VS_LaserChip(
 				}
 			}
 		} else {
-			if (g_unit_vertecnum*6 >= g_cnt_vertec) {
-				if (g_unit_vertecnum*5 >= g_cnt_vertec) {
+			if (g_nVertexs*6 >= g_cnt_vertec) {
+				if (g_nVertexs*5 >= g_cnt_vertec) {
 					matWorld = g_matWorld005;
 					matWorld_front = g_matWorld_front005;
 					kind = g_kind005;
@@ -158,7 +158,7 @@ OUT_VS GgafDx9VS_LaserChip(
 					revPosZ = g_RevPosZ006;
 				}
 			} else {
-				if (g_unit_vertecnum*7 >= g_cnt_vertec) {
+				if (g_nVertexs*7 >= g_cnt_vertec) {
 					matWorld = g_matWorld007;
 					matWorld_front = g_matWorld_front007;
 					kind = g_kind007;
@@ -172,9 +172,9 @@ OUT_VS GgafDx9VS_LaserChip(
 			}
 		}
 	} else {
-		if (g_unit_vertecnum*12 >= g_cnt_vertec) {
-			if (g_unit_vertecnum*10 >= g_cnt_vertec) {
-				if (g_unit_vertecnum*9 >= g_cnt_vertec) {
+		if (g_nVertexs*12 >= g_cnt_vertec) {
+			if (g_nVertexs*10 >= g_cnt_vertec) {
+				if (g_nVertexs*9 >= g_cnt_vertec) {
 					matWorld = g_matWorld009;
 					matWorld_front = g_matWorld_front009;
 					kind = g_kind009;
@@ -186,7 +186,7 @@ OUT_VS GgafDx9VS_LaserChip(
 					revPosZ = g_RevPosZ010;
 				}
 			} else {
-				if (g_unit_vertecnum*11 >= g_cnt_vertec) {
+				if (g_nVertexs*11 >= g_cnt_vertec) {
 					matWorld = g_matWorld011;
 					matWorld_front = g_matWorld_front011;
 					kind = g_kind011;
@@ -199,8 +199,8 @@ OUT_VS GgafDx9VS_LaserChip(
 				}
 			}
 		} else {
-			if (g_unit_vertecnum*14 >= g_cnt_vertec) {
-				if (g_unit_vertecnum*13 >= g_cnt_vertec) {
+			if (g_nVertexs*14 >= g_cnt_vertec) {
+				if (g_nVertexs*13 >= g_cnt_vertec) {
 					matWorld = g_matWorld013;
 					matWorld_front = g_matWorld_front013;
 					kind = g_kind013;
@@ -212,7 +212,7 @@ OUT_VS GgafDx9VS_LaserChip(
 					revPosZ = g_RevPosZ014;
 				}
 			} else {
-				if (g_unit_vertecnum*15 >= g_cnt_vertec) {
+				if (g_nVertexs*15 >= g_cnt_vertec) {
 					matWorld = g_matWorld015;
 					matWorld_front = g_matWorld_front015;
 					kind = g_kind015;

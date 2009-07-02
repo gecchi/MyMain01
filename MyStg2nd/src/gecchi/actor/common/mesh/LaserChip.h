@@ -9,7 +9,7 @@ private:
     D3DXHANDLE _ahKind[16];
     D3DXHANDLE _ahRevPosZ[16];
     D3DXHANDLE _ahMatWorld_front[16];
-    D3DXHANDLE _h_unit_vertecnum;
+    D3DXHANDLE _h_nVertexs;
     void processDrawPrior() {
         GgafDx9Core::GgafDx9MeshSetActor::processDrawPrior();
     }

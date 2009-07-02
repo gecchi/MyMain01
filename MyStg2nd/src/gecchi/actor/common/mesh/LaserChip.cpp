@@ -79,7 +79,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
 
-    _h_unit_vertecnum =  _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_unit_vertecnum" );
+    _h_nVertexs =  _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
 
 
 
@@ -93,7 +93,7 @@ void LaserChip::initialize() {
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     //_fAlpha = 0.9;
-    _fAlpha = 1;
+    _fAlpha = 2.0;
 }
 
 
@@ -246,8 +246,8 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
 //    mightDx9Exception(hr, S_OK, "LaserChip::processDrawMain() SetTechnique("<<_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
-    hr = pID3DXEffect->SetInt(_h_unit_vertecnum, _pMeshSetModel->_size_vertec_unit);
-    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+    hr = pID3DXEffect->SetInt(_h_nVertexs, _pMeshSetModel->_nVertices);
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_h_nVertexs) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
 TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  005");
 
     LaserChip *pDrawLaserChipActor;
