@@ -509,7 +509,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         int nFaces;
 
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
-        	Sleep(1);
+          Sleep(1);
             model_papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], model_papModel3D[pattern]);
             if (r == false) {
@@ -571,7 +571,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             static unsigned short indexVertices_per_Face[3];
             static unsigned short indexNormals_per_Face[3];
             for (int i = 0; i < nFaces; i++) {
-        		Sleep(1);
+            Sleep(1);
                 for (int j = 0; j < 3; j++) {
                     //面に対する頂点インデックス３つ(A,B,Cとする)
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
@@ -605,7 +605,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
             static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
             for (int i = 0; i < nFaces; i++) {
-        		Sleep(1);
+            Sleep(1);
                 for (int j = 0; j < 3; j++) {
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
                     indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
@@ -707,7 +707,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
-        	Sleep(1);
+          Sleep(1);
             materialno = model_papMeshesFront[0]->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
                 //TRACE3("BREAK! paramno="<<paramno);
@@ -1592,7 +1592,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             model_papaIdxBuffer_org[setcount] = NEW WORD[(nFaces*3) * pow2(setcount)];
             for (int i = 0; i < pow2(setcount); i++) {
                 for (int j = 0; j < nFaces*3; j++) {
-                    model_papaIdxBuffer_org[setcount][(i*(nFaces*3)) + j] = model_paIdxBuffer_org[j] + (nVertices*3*i);
+                    model_papaIdxBuffer_org[setcount][(i*(nFaces*3)) + j] = model_paIdxBuffer_org[j] + (nVertices*i);
                 }
             }
         }
@@ -1624,7 +1624,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
         prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_setnum];
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-        	Sleep(1);
+          Sleep(1);
             GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * pow2(setcount)];
             int prev_materialno = -1;
             int materialno = 0;
@@ -1719,7 +1719,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
 
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-        	Sleep(1);
+          Sleep(1);
             //頂点バッファ作成
             hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                     prm_pMeshSetModel->_size_vertecs * pow2(setcount),
