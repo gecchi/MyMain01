@@ -72,6 +72,9 @@ public:
     UINT _size_vertecs;
     /** Šî–{ƒ‚ƒfƒ‹’¸“_” */
     UINT _nVertices;
+
+    UINT _nFaces;
+
     INDEXPARAM** _papaIndexParam;
 
     UINT* _pa_nMaterialListGrp;

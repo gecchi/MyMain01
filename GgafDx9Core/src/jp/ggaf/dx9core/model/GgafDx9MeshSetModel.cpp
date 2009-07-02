@@ -26,6 +26,50 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
+    static int ddd = 1;
+    if (ddd == 1) {
+        for (int i = 0; i < 5; i++) {
+            int pp = 1;
+            if (i == 0) {
+                pp = 1;
+            } else if (i == 1) {
+                pp = 2;
+            } else if (i == 2) {
+                pp = 4;
+            } else if (i == 3) {
+                pp = 8;
+            } else if (i == 4) {
+                pp = 16;
+            }
+            for (int j = 0; j < _nVertices*pp; j++) {
+                _TRACE_("_papaVtxBuffer_org["<<i<<"]["<<j<<"]=("<<_papaVtxBuffer_org[i][j].x<<","<<_papaVtxBuffer_org[i][j].y<<","<<_papaVtxBuffer_org[i][j].z<<")");
+            }
+        }
+
+        for (int i = 0; i < 5; i++) {
+            int pp = 1;
+            if (i == 0) {
+                pp = 1;
+            } else if (i == 1) {
+                pp = 2;
+            } else if (i == 2) {
+                pp = 4;
+            } else if (i == 3) {
+                pp = 8;
+            } else if (i == 4) {
+                pp = 16;
+            }
+            for (int j = 0; j < _nFaces*3*pp; j++) {
+                _TRACE_("_papaIdxBuffer_org["<<i<<"]["<<j<<"]="<<_papaIdxBuffer_org[i][j]<<")");
+            }
+        }
+
+        ddd=2;
+
+    }
+
+
+
     TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;

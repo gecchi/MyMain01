@@ -1452,6 +1452,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
         model_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
         prm_pMeshSetModel->_nVertices = nVertices;
+        prm_pMeshSetModel->_nFaces = nFaces;
         prm_pMeshSetModel->_size_vertecs = sizeof(GgafDx9MeshSetModel::VERTEX) * nVertices;
         prm_pMeshSetModel->_size_vertec_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
 
@@ -1591,8 +1592,10 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
             model_papaIdxBuffer_org[setcount] = NEW WORD[(nFaces*3) * pow2(setcount)];
             for (int i = 0; i < pow2(setcount); i++) {
-                for (int j = 0; j < nFaces*3; j++) {
-                    model_papaIdxBuffer_org[setcount][(i*(nFaces*3)) + j] = model_paIdxBuffer_org[j] + (nVertices*i);
+                for (int j = 0; j < nFaces; j++) {
+                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 0] = model_paIdxBuffer_org[j*3 + 0] + (nVertices*i);
+                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 1] = model_paIdxBuffer_org[j*3 + 1] + (nVertices*i);
+                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 2] = model_paIdxBuffer_org[j*3 + 2] + (nVertices*i);
                 }
             }
         }
