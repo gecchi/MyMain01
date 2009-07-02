@@ -93,4 +93,16 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm
 }
 
 GgafDx9Universe::~GgafDx9Universe() {
+//    GgafActor* pActor;
+//    for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
+//        pActor = _apAlphaActorList_DrawDepthLevel[i];
+//        while (pActor != NULL) {
+//            _TRACE_pActor->getName();
+//            _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+//        }
+//        _apAlphaActorList_DrawDepthLevel[i] = NULL; //ŽŸ‰ñ‚Ì‚½‚ß‚ÉƒŠƒZƒbƒg
+//    }
+
+
+
 }
