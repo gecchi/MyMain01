@@ -147,13 +147,13 @@ bool GgafActor::executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
 void GgafActor::executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent) {
     executeBumpChk2_WeAnd(prm_pActor_Opponent);
     if (prm_pActor_Opponent->_pSubFirst != NULL) {
-        GgafActor* _pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
+        GgafActor* pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
         while (true) {
-            executeBumpChkRoundRobin2(_pActor_tmpZ2);
-            if (_pActor_tmpZ2->_is_last_flg) {
+            executeBumpChkRoundRobin2(pActor_tmpZ2);
+            if (pActor_tmpZ2->_is_last_flg) {
                 break;
             } else {
-                _pActor_tmpZ2 = _pActor_tmpZ2->_pNext;
+                pActor_tmpZ2 = pActor_tmpZ2->_pNext;
             }
         }
     }
