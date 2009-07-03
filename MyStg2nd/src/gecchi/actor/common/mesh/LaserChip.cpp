@@ -196,6 +196,7 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
             if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
+                _TRACE_("Å´cnt="<<cnt<<" _pNextDrawActor="<<_pNextDrawActor->getName());
                 cnt++;
                 if (cnt > 16) {
                     break;
