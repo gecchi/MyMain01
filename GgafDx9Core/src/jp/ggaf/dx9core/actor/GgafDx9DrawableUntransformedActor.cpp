@@ -28,6 +28,7 @@ GgafDx9DrawableUntransformedActor::GgafDx9DrawableUntransformedActor(const char*
 
 
 void GgafDx9DrawableUntransformedActor::processDrawPrior() {
+    _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:óvåüèÿ
     if (_is_active_flg && _can_live_flg) {
         if (getAlpha() < 1.0) {

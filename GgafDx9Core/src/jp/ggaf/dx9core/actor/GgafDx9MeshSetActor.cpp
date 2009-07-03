@@ -34,6 +34,8 @@ void GgafDx9MeshSetActor::processDrawMain() {
     int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableUntransformedActor* _pNextDrawActor;
     _pNextDrawActor = dynamic_cast<GgafDx9DrawableUntransformedActor*>(_pNext_TheSameDrawDepthLevel);
+
+_TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ちぇーん");
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
