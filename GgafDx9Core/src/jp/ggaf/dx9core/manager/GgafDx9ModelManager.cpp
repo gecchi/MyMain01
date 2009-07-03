@@ -1585,17 +1585,24 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             }
         }
         DELETEARR_IMPOSSIBLE_NULL(model_paVtxBuffer_org);
-
+        _TRACE_("");
 
         //インデックスバッファセットをコピーで作成
         model_papaIdxBuffer_org = NEW WORD*[prm_pMeshSetModel->_setnum];
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
             model_papaIdxBuffer_org[setcount] = NEW WORD[(nFaces*3) * pow2(setcount)];
+            _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]= NEW WORD["<<(nFaces*3) * pow2(setcount)<<"];");
+            _TRACE_("pow2(setcount)="<<pow2(setcount));
             for (int i = 0; i < pow2(setcount); i++) {
                 for (int j = 0; j < nFaces; j++) {
-                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 0] = model_paIdxBuffer_org[j*3 + 0] + (nVertices*i);
-                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 1] = model_paIdxBuffer_org[j*3 + 1] + (nVertices*i);
-                    model_papaIdxBuffer_org[setcount][(i*(j*3)) + 2] = model_paIdxBuffer_org[j*3 + 2] + (nVertices*i);
+                    _TRACE_("setcount="<<setcount<<"/i="<<i<<"/j="<<j);
+                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 0) <<"]= model_paIdxBuffer_org["<<(j*3 + 0)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 0] + (nVertices*i)));
+                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 1) <<"]= model_paIdxBuffer_org["<<(j*3 + 1)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 1] + (nVertices*i)));
+                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 2) <<"]= model_paIdxBuffer_org["<<(j*3 + 2)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 2] + (nVertices*i)));
+
+                    model_papaIdxBuffer_org[setcount][((i*nFaces*3)+(j*3)) + 0] = model_paIdxBuffer_org[j*3 + 0] + (nVertices*i);
+                    model_papaIdxBuffer_org[setcount][((i*nFaces*3)+(j*3)) + 1] = model_paIdxBuffer_org[j*3 + 1] + (nVertices*i);
+                    model_papaIdxBuffer_org[setcount][((i*nFaces*3)+(j*3)) + 2] = model_paIdxBuffer_org[j*3 + 2] + (nVertices*i);
                 }
             }
         }
@@ -1691,6 +1698,15 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
             model_papaIndexParam[setcount] = NEW GgafDx9MeshSetModel::INDEXPARAM[paramno];
             for (int i = 0; i < paramno; i++) {
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].MaterialNo = paParam["<<i<<"].MaterialNo = "<<paParam[i].MaterialNo);
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].BaseVertexIndex = paParam["<<i<<"].BaseVertexIndex = "<<paParam[i].BaseVertexIndex);
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].MinIndex = paParam["<<i<<"].MinIndex = "<<paParam[i].MinIndex);
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].NumVertices = paParam["<<i<<"].NumVertices = "<<paParam[i].NumVertices);
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].StartIndex = paParam["<<i<<"].StartIndex = "<<paParam[i].StartIndex);
+                _TRACE_("model_papaIndexParam["<<setcount<<"]["<<i<<"].PrimitiveCount = paParam["<<i<<"].PrimitiveCount = "<<paParam[i].PrimitiveCount);
+
+
+
                 model_papaIndexParam[setcount][i].MaterialNo = paParam[i].MaterialNo;
                 model_papaIndexParam[setcount][i].BaseVertexIndex = paParam[i].BaseVertexIndex;
                 model_papaIndexParam[setcount][i].MinIndex = paParam[i].MinIndex;
@@ -1921,13 +1937,13 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
 }
 
 
-UINT GgafDx9ModelManager::pow2(UINT a) {
+int GgafDx9ModelManager::pow2(int a) {
     if (a == 0) {
-        return (UINT)1;
+        return 1;
     } else {
-        UINT ret = 2;
-        for (UINT i = 1; i < a; i++) {
-            ret *= ret;
+        int ret = 2;
+        for (int i = 1; i < a; i++) {
+            ret = 2*ret;
         }
         return ret;
     }

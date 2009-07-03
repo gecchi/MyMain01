@@ -81,7 +81,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
 
-	HRESULT hr;
+    HRESULT hr;
     UINT material_no;
 
     int set_index = pTargetActor->_set_index;
@@ -90,7 +90,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //TODO 考える
     //if (GgafDx9ModelManager::_pModelLastDraw != this && ) {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index],  0, _size_vertec_unit * pTargetActor->_draw_object_num);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index],  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[set_index]);
     //}
@@ -168,11 +168,11 @@ void GgafDx9MeshSetModel::release() {
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-	for (DWORD i = 0; i < _dwNumMaterials; i++) {
-		if (_papTextureCon[i] != NULL) {
-			_papTextureCon[i]->close();
-		}
-	}
+    for (DWORD i = 0; i < _dwNumMaterials; i++) {
+        if (_papTextureCon[i] != NULL) {
+            _papTextureCon[i]->close();
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     for (int i = 0; i < _setnum; i++) {
         RELEASE_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9[i]);
@@ -189,7 +189,7 @@ void GgafDx9MeshSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_papaIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
-	//_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
+    //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
     for (int i = 0; i < _setnum; i++) {
         DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
