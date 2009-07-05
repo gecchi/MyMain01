@@ -41,10 +41,12 @@ _TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ВњВ•Б[Вс");
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
             if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
                 cnt++;
-                if (cnt > 16) {
+                if (cnt > 8) {
                     break;
                 }
-                _pNextDrawActor = dynamic_cast<GgafDx9DrawableUntransformedActor*>(_pNextDrawActor->_pNext_TheSameDrawDepthLevel);
+                GgafActor* pA = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+
+                _pNextDrawActor = dynamic_cast<GgafDx9DrawableUntransformedActor*>(pA);
             } else {
                 break;
             }
@@ -56,10 +58,12 @@ _TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ВњВ•Б[Вс");
     int _draw_object_num = 1;
     //index   0 1 2 3 4
     //object  1 2 4 8 16
-    if (cnt >= 16) {
-        _set_index = 4;
-        _draw_object_num = 16;
-    } else if (8 <= cnt &&  cnt <= 15) {
+//    if (cnt >= 16) {
+//        _set_index = 4;
+//        _draw_object_num = 16;
+//    } else
+
+    if (cnt >= 8) {
         _set_index = 3;
         _draw_object_num = 8;
     } else if (4 <= cnt &&  cnt <= 7) {

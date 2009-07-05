@@ -17,7 +17,7 @@ public:
     /** エフェクト資源 */
     GgafDx9MeshSetEffect* _pMeshSetEffect;
 
-    D3DXMATRIX _aMatWorld[16];
+    D3DXMATRIX _aMatWorld[8];
     int _set_index;
     int _draw_object_num;
 

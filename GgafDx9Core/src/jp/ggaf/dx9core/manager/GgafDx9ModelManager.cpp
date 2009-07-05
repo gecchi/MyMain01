@@ -1467,6 +1467,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
             model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
             model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+            model_paVtxBuffer_org[i].index = i; //頂点番号（むりやり埋め込み）
         }
 
         int nTextureCoords = model_pMeshesFront->_nTextureCoords;
@@ -1581,6 +1582,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             for (int i = 0; i < pow2(setcount); i++) {
                 for (int j = 0; j < nVertices; j++) {
                     model_papaVtxBuffer_org[setcount][(i*nVertices) + j] = model_paVtxBuffer_org[j];
+                    model_papaVtxBuffer_org[setcount][(i*nVertices) + j].index += (nVertices*i);
                 }
             }
         }

@@ -56,7 +56,7 @@ void MyDummyOption::initialize() {
     for (int i = 0; i < 30; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
-        name <<  "MYS_LaserChip" << i;
+        name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
         pChip = NEW MyLaserChip001(name2.c_str());
         pChip->inactivateImmediately();

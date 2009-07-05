@@ -4,7 +4,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-DWORD GgafDx9MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+DWORD GgafDx9MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
 GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
@@ -12,7 +12,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _pModel3D = NULL;
     _pMeshesFront = NULL;
 
-    _setnum = 5;
+    _setnum = 4;
     _paIDirect3DVertexBuffer9 = NULL;
     _paIDirect3DIndexBuffer9 = NULL;
     _pa_nMaterialListGrp = NULL;
@@ -28,7 +28,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static int ddd = 1;
     if (ddd == 1) {
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             int pp = 1;
             if (i == 0) {
                 pp = 1;
@@ -38,15 +38,13 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 pp = 4;
             } else if (i == 3) {
                 pp = 8;
-            } else if (i == 4) {
-                pp = 16;
             }
             for (int j = 0; j < _nVertices*pp; j++) {
-                _TRACE_("_papaVtxBuffer_org["<<i<<"]["<<j<<"]=("<<_papaVtxBuffer_org[i][j].x<<","<<_papaVtxBuffer_org[i][j].y<<","<<_papaVtxBuffer_org[i][j].z<<")");
+                _TRACE_("_papaVtxBuffer_org["<<i<<"]["<<j<<"]=["<<_papaVtxBuffer_org[i][j].index<<"]"<<_papaVtxBuffer_org[i][j].x<<","<<_papaVtxBuffer_org[i][j].y<<","<<_papaVtxBuffer_org[i][j].z<<")");
             }
         }
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 0; i < 4; i++) {
             int pp = 1;
             if (i == 0) {
                 pp = 1;
@@ -56,8 +54,6 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 pp = 4;
             } else if (i == 3) {
                 pp = 8;
-            } else if (i == 4) {
-                pp = 16;
             }
             for (int j = 0; j < _nFaces*3*pp; j++) {
                 _TRACE_("_papaIdxBuffer_org["<<i<<"]["<<j<<"]="<<_papaIdxBuffer_org[i][j]<<")");

@@ -77,24 +77,6 @@ float4 GgafDx9PS_DefaultMesh(
 	return out_color;
 }
 
-//メッシュ標準ピクセルシェーダー（テクスチャ無し）
-float4 GgafDx9PS_NoTexMesh(
-	float2 prm_uv     : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
-) : COLOR  {
-	//求める色
-	float4 out_color; 
-
-    //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//ライト方向、ライト色、マテリアル色、を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * power; 
-	//Ambient色を加算。マテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse) + out_color;  
-	//マテリアルα。
-	out_color.a = g_MaterialDiffuse.a; 
-	return out_color;
-}
 
 technique DefaultMeshTechnique
 {
@@ -132,35 +114,3 @@ technique DefaultMeshTechnique
 	}
 }
 
-technique DefaulNoTexMeshTechnique {
-	//pass P1「メッシュ標準シェーダー（テクスチャ無し）」
-	//【考慮される要素】
-	//--- VS ---
-	//・頂点を World、View、射影 変換
-	//・法線を World変換
-	//--- PS ---
-	//・Diffuseライト色
-	//・Ambientライト色
-	//・ライト方向
-	//・オブジェクトのマテリアルのDiffuse反射（Ambient反射と共通）
-	//・半透明α（マテリアルDiffuse反射αのみ）
-	//【使用条件】
-	//【設定パラメータ】
-	// float4x4 g_matWorld		:	World変換行列
-	// float4x4 g_matView		:	View変換行列
-	// float4x4 g_matProj		:	射影変換行列
-	// float3 g_LightDirection	:	ライトの方向
-	// float4 g_LightAmbient	:	Ambienライト色（入射色）
-	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
-	pass P1 {
-		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
-
-		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
-		PixelShader  = compile ps_2_0 GgafDx9PS_NoTexMesh();
-	}
-
-
-}

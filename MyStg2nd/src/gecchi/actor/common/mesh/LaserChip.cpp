@@ -30,14 +30,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahKind[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind006" );
     _ahKind[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind007" );
     _ahKind[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind008" );
-    _ahKind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind009" );
-    _ahKind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
-    _ahKind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
-    _ahKind[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind012" );
-    _ahKind[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind013" );
-    _ahKind[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind014" );
-    _ahKind[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind015" );
-    _ahKind[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind016" );
+//    _ahKind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind009" );
+//    _ahKind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
+//    _ahKind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
+//    _ahKind[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind012" );
+//    _ahKind[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind013" );
+//    _ahKind[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind014" );
+//    _ahKind[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind015" );
+//    _ahKind[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind016" );
 
 //    _hX = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
 //    _hY = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
@@ -50,14 +50,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahRevPosZ[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ006" );
     _ahRevPosZ[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ007" );
     _ahRevPosZ[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ008" );
-    _ahRevPosZ[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ009" );
-    _ahRevPosZ[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ010" );
-    _ahRevPosZ[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ011" );
-    _ahRevPosZ[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ012" );
-    _ahRevPosZ[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ013" );
-    _ahRevPosZ[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ014" );
-    _ahRevPosZ[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ015" );
-    _ahRevPosZ[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ016" );
+//    _ahRevPosZ[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ009" );
+//    _ahRevPosZ[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ010" );
+//    _ahRevPosZ[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ011" );
+//    _ahRevPosZ[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ012" );
+//    _ahRevPosZ[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ013" );
+//    _ahRevPosZ[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ014" );
+//    _ahRevPosZ[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ015" );
+//    _ahRevPosZ[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ016" );
 
     //_hMatWorld_front = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 
@@ -69,19 +69,19 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front006" );
     _ahMatWorld_front[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front007" );
     _ahMatWorld_front[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front008" );
-    _ahMatWorld_front[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
-    _ahMatWorld_front[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
-    _ahMatWorld_front[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
-    _ahMatWorld_front[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front012" );
-    _ahMatWorld_front[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front013" );
-    _ahMatWorld_front[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front014" );
-    _ahMatWorld_front[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
-    _ahMatWorld_front[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
+//    _ahMatWorld_front[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
+//    _ahMatWorld_front[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
+//    _ahMatWorld_front[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
+//    _ahMatWorld_front[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front012" );
+//    _ahMatWorld_front[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front013" );
+//    _ahMatWorld_front[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front014" );
+//    _ahMatWorld_front[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
+//    _ahMatWorld_front[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
 
-    _h_nVertexs =  _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
+    _h_nVertexs = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
 
-
+   // _h_cnt_vertec = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_cnt_vertec" );
 
 }
 
@@ -92,8 +92,7 @@ void LaserChip::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
-    //_fAlpha = 0.9;
-    _fAlpha = 1.0;
+    _fAlpha = 0.9;
 }
 
 
@@ -196,12 +195,14 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
             if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
-                _TRACE_("Å´cnt="<<cnt<<" _pNextDrawActor="<<_pNextDrawActor->getName());
                 cnt++;
-                if (cnt > 16) {
+                if (cnt > 8) {
                     break;
                 }
-                _pNextDrawActor = dynamic_cast<LaserChip*>(_pNextDrawActor->_pNext_TheSameDrawDepthLevel);
+                //_TRACE_("Å´cnt="<<cnt<<" _pNextDrawActor="<<_pNextDrawActor->getName());
+
+                GgafActor* pA = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+                _pNextDrawActor = dynamic_cast<LaserChip*>(pA);
             } else {
                 break;
             }
@@ -214,10 +215,12 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
     _draw_object_num = 1;
     //index   0 1 2 3 4
     //object  1 2 4 8 16
-    if (cnt >= 16) {
-        _set_index = 4;
-        _draw_object_num = 16;
-    } else if (8 <= cnt &&  cnt <= 15) {
+//    if (cnt >= 16) {
+//        _set_index = 4;
+//        _draw_object_num = 16;
+//    } else
+
+    if (cnt >= 8) {
         _set_index = 3;
         _draw_object_num = 8;
     } else if (4 <= cnt &&  cnt <= 7) {
@@ -248,8 +251,14 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
 
 
     hr = pID3DXEffect->SetInt(_h_nVertexs, _pMeshSetModel->_nVertices);
+
+
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_h_nVertexs) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
 TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  005");
+    //hr = pID3DXEffect->SetInt(_h_cnt_vertec, 0);
+    //mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_h_cnt_vertec) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+
+
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
@@ -275,7 +284,7 @@ TRACE4("LaserChip::processDrawMain()  pDrawLaserChipActor="<<pDrawLaserChipActor
     //        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hY) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
     //        hr = pID3DXEffect->SetFloat(_hZ, 1.0*_pChip_front->_Z/LEN_UNIT/ PX_UNIT);
     //        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetFloat(_hZ) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
-            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
+            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld)); //TODO:ÇøÇ·ÇÒÇ∆çsÇÌÇÍÇƒÇÈÇ©âˆÇµÇ¢
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
 TRACE4("LaserChip::processDrawMain()  pDrawLaserChipActor="<<pDrawLaserChipActor->getName()<<" _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  009");
 

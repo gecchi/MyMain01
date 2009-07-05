@@ -52,7 +52,7 @@ public:
     struct VERTEX {
         float x, y, z; // 頂点座標
         float nx, ny, nz; // 法線
-        DWORD color; // 頂点の色
+        DWORD color; // 頂点の色（現在未使用）
         float tu, tv; // テクスチャ座標
     };
 
