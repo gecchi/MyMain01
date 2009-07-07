@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx9TransformedActor(prm_name) {
+BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx9UntransformedActor(prm_name, NULL) {
     _class_name = "BackGround01";
 
     _papChipBoard = NEW BackGroundChipBoard*[4];
@@ -58,6 +58,20 @@ void BackGround01::processBehavior() {
     }
 
 }
+
+void BackGround01::processDrawPrior() {
+    if (_is_active_flg && _can_live_flg) {
+        if (_papChipBoard[0]->getAlpha() < 1.0) { //TODO:—vŒŸ“¢
+            GgafDx9Universe::setDrawDepthLevel(
+                                (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                this
+                             );
+        } else {
+            GgafDx9Universe::setDrawDepthMaxLevel(this);
+        }
+    }
+}
+
 
 void BackGround01::processDrawMain() {
     _papChipBoard[0]->_x = _x;

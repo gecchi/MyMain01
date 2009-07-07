@@ -26,6 +26,8 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 
 //•`‰æ
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
+    TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+
     static int ddd = 1;
     if (ddd == 1) {
         for (int i = 0; i < 4; i++) {

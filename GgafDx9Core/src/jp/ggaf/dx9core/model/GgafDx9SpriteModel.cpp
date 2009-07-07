@@ -24,7 +24,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
 
 //•`‰æ
 HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
-    TRACE3("GgafDx9SpriteModel::draw("<<prm_pActor_Target->getName()<<")");
+    TRACE4("GgafDx9SpriteModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //‘ÎÛActor
     static GgafDx9SpriteActor* pTargetActor;
     pTargetActor = (GgafDx9SpriteActor*)prm_pActor_Target;

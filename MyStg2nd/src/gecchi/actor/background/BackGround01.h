@@ -2,7 +2,7 @@
 #define BACKGROUND01_H_
 namespace MyStg2nd {
 
-class BackGround01 : public GgafDx9Core::GgafDx9TransformedActor {
+class BackGround01 : public GgafDx9Core::GgafDx9UntransformedActor {
 
     BackGroundChipBoard** _papChipBoard;
 //    BackGroundStar001** _papBackGroundStar001;
@@ -12,6 +12,8 @@ public:
 
     virtual void processJudgement() {
     }
+
+    virtual void processDrawPrior();
 
 
     virtual void processDrawTerminate() {

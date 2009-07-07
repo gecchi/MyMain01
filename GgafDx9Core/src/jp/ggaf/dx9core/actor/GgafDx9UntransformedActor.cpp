@@ -11,10 +11,14 @@ _Y_OffScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
 _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
 {
     _class_name = "GgafDx9UntransformedActor";
+    _isTransformed = false;
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
     _SX = _SY = _SZ = LEN_UNIT;
+    _x = _y = _z = 0.0f;
+
     _pChecker = prm_pChecker;
+
 }
 
 
