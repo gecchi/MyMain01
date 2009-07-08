@@ -1,13 +1,13 @@
-#ifndef GGAFDX9UNTRANSFORMEDACTOR_H_
-#define GGAFDX9UNTRANSFORMEDACTOR_H_
+#ifndef GGAFDX9GEOMETRICACTOR_H_
+#define GGAFDX9GEOMETRICACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * 未変換座標のアクター.
- * 未変換3次元座標（ワールド/ビュー/射影変換をしていない座標）を持ち、<BR>
- * 座標変換メソッドを備えたアクターです。<BR>
+ * 座標を持ったのアクター.
+ * 未変換3次元座標（ワールド/ビュー/射影変換をしていない座標）、或いは変換済み座標の何れかを持ち、<BR>
+ * 座標関連メソッドを備えたアクターです。<BR>
  */
-class GgafDx9UntransformedActor : public GgafDx9BaseActor {
+class GgafDx9GeometricActor : public GgafDx9BaseActor {
 
 private:
 
@@ -68,15 +68,15 @@ public:
      * コンストラクタ<BR>
      * @param	prm_name 識別名
      */
-    GgafDx9UntransformedActor(const char* prm_name,
+    GgafDx9GeometricActor(const char* prm_name,
                               GgafDx9Checker* prm_pChecker);
 
-    virtual GgafDx9UntransformedActor* getPrev() {
-        return (GgafDx9UntransformedActor*)GgafActor::getPrev();
+    virtual GgafDx9GeometricActor* getPrev() {
+        return (GgafDx9GeometricActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDx9UntransformedActor* getNext() {
-        return (GgafDx9UntransformedActor*)GgafActor::getNext();
+    virtual GgafDx9GeometricActor* getNext() {
+        return (GgafDx9GeometricActor*)GgafActor::getNext();
     }
 
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent);
@@ -89,7 +89,7 @@ public:
         _Z = Z;
     }
 
-    virtual void setGeometry(GgafDx9UntransformedActor* prm_pActor) {
+    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
@@ -102,7 +102,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
     /**
@@ -112,7 +112,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -120,7 +120,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -129,10 +129,10 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -140,7 +140,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -148,7 +148,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -156,12 +156,12 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-    static void getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
-    virtual ~GgafDx9UntransformedActor(); //デストラクタ
+    virtual ~GgafDx9GeometricActor(); //デストラクタ
 };
 
 }
-#endif /*GGAFDX9UNTRANSFORMEDACTOR_H_*/
+#endif /*GGAFDX9GEOMETRICACTOR_H_*/

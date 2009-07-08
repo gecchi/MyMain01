@@ -15,7 +15,7 @@ GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
 }
 
 //void GgafDx9CubeActor::processDrawMain() {
-//    GgafDx9UntransformedActor::setWorldTransformScRzMxyz(this);
+//    GgafDx9GeometricActor::setWorldTransformScRzMxyz(this);
 //    _pD3DXMeshModel->draw(this);
 //}
 

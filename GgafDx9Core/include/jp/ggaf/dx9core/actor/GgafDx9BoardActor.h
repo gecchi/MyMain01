@@ -9,7 +9,7 @@ namespace GgafDx9Core {
  * 単純表示（回転拡大無し）のため高速。スコア表示や、背景等に使用しよう。<BR>
  * ２Ｄゲームだけなら、オブジェクトはこのクラス一本でいける。<BR>
  */
-class GgafDx9BoardActor : public GgafDx9DrawableUntransformedActor {
+class GgafDx9BoardActor : public GgafDx9DrawableActor {
 private:
 
 //    struct VERTEX {

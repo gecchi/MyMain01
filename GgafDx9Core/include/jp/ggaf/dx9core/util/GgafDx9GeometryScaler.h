@@ -17,7 +17,7 @@ enum Method {
 
 /**
  * 拡大縮小支援クラス.
- * GgafDx9UntransformedActor のメンバの<BR>
+ * GgafDx9GeometricActor のメンバの<BR>
  * _SX , _SY, _SZ  ･･･ アクターのスケール<BR>
  * を、簡単に操作するために設計した。<BR>
  */
@@ -25,7 +25,7 @@ class GgafDx9GeometryScaler : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 対象アクター */
-    GgafDx9UntransformedActor* _pActor;
+    GgafDx9GeometricActor* _pActor;
 
     /** スケール(1000 で 1倍) */
     int _scale[3]; //[0]:X軸スケール、[1]:Y軸スケール、[1]:Z軸スケール
@@ -59,7 +59,7 @@ public:
      * コンストラクタ<BR>
      * @param   prm_pActor  適用Actor
      */
-    GgafDx9GeometryScaler(GgafDx9UntransformedActor* prm_pActor);
+    GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor);
 
     void increaseScale(int prm_scale_diff) {
         for (int axis = 0; axis < 3; axis++) {

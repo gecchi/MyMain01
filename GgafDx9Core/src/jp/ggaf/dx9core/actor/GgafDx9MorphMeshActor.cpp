@@ -9,7 +9,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
                                              const char* prm_technique,
                                              GgafDx9Checker* prm_pChecker) :
 
-                                                 GgafDx9DrawableUntransformedActor(prm_name,
+                                                 GgafDx9DrawableActor(prm_name,
                                                                                    prm_model,
                                                                                    prm_effect,
                                                                                    prm_technique,
@@ -26,7 +26,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
 
 
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
-    GgafDx9DrawableUntransformedActor::setAlpha(prm_fAlpha);
+    GgafDx9DrawableActor::setAlpha(prm_fAlpha);
     //GgafDx9MorphMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
@@ -41,7 +41,7 @@ void GgafDx9MorphMeshActor::processDrawMain() {
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
     static D3DXMATRIX matWorld; //World変換行列
-    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
     mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDrawMain() SetInt(_hMorphTargetnum) に失敗しました。");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {

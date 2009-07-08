@@ -94,8 +94,8 @@ class GgafDx9ModelManager;
 class GgafDx9EffectConnection;
 class GgafDx9EffectManager;
 class GgafDx9BaseActor;
-class GgafDx9UntransformedActor;
-class GgafDx9DrawableUntransformedActor;
+class GgafDx9GeometricActor;
+class GgafDx9DrawableActor;
 class GgafDx9MeshActor;
 class GgafDx9MeshSetActor;
 class GgafDx9MorphMeshActor;
@@ -165,8 +165,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/manager/GgafDx9EffectManager.h"
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9UntransformedActor.h"
-#include "jp/ggaf/dx9core/actor/GgafDx9DrawableUntransformedActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9GeometricActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9DrawableActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9MeshSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9D3DXMeshActor.h"

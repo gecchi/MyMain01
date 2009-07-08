@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor) :
+GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
 
@@ -797,7 +797,7 @@ void GgafDx9GeometryMover::setRzRyMoveAngle(angle prm_angRz, angle prm_angRy) {
 }
 
 
-void GgafDx9GeometryMover::setMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target) {
+void GgafDx9GeometryMover::setMoveAngle(GgafDx9GeometricActor* prm_pActor_Target) {
     setMoveAngle(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
@@ -818,7 +818,7 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
                  );
 }
 
-void GgafDx9GeometryMover::setTargetRzRyMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target) {
+void GgafDx9GeometryMover::setTargetRzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target) {
     setTargetRzRyMoveAngle(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,

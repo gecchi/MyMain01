@@ -3,14 +3,14 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9UntransformedActor::GgafDx9UntransformedActor(const char* prm_name,
+GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                                      GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name),
 _X_OffScreenLeft((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
 _X_OffScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
 _Y_OffScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
 _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
 {
-    _class_name = "GgafDx9UntransformedActor";
+    _class_name = "GgafDx9GeometricActor";
     _isTransformed = false;
     _X = _Y = _Z = 0;
     _RX = _RY = _RZ = 0;
@@ -23,11 +23,11 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
 
 
 
-bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+bool GgafDx9GeometricActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
     if (_pChecker == NULL) {
         return false;
     } else {
-        GgafDx9UntransformedActor* pActor_Opponent = dynamic_cast<GgafDx9UntransformedActor*> (prm_pActor_Opponent);
+        GgafDx9GeometricActor* pActor_Opponent = dynamic_cast<GgafDx9GeometricActor*> (prm_pActor_Opponent);
         if (pActor_Opponent != NULL && pActor_Opponent->_pChecker != NULL) {
             return _pChecker->isBump(pActor_Opponent->_pChecker);
         } else {
@@ -37,7 +37,7 @@ bool GgafDx9UntransformedActor::processBumpChkLogic(GgafActor* prm_pActor_Oppone
 }
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //ägëÂèkè¨ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ïΩçsà⁄ìÆ ÇÃïœä∑çsóÒÇê›íË<BR>
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
@@ -91,7 +91,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(GgafDx9UntransformedAc
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
@@ -135,7 +135,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRzRyScMv(GgafDx9UntransformedAc
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
     sx = prm_pActor->_SX / fRateScale;
@@ -165,7 +165,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9Untransf
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Yé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //Å¶XYZÇÃèáÇ≈Ç»Ç¢Ç±Ç∆Ç…íçà”
@@ -211,7 +211,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9Untran
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Yé≤âÒì] Å~ Zé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     //    |                           cosRY*cosRZ*sx,                        cosRY*sinRZ*sy  ,      -sinRY*sz,  0 |
@@ -256,7 +256,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRyRzScMv(GgafDx9UntransformedAc
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Xé≤âÒì] Å~ Zé≤âÒì] Å~ Xé≤âÒì] Å~ ägëÂèkè¨ Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨.
     //Å¶Yé≤âÒì]Ç™Ç†ÇËÇ‹ÇπÇÒÅBRYÇ™ÇQâÒñ⁄ÇÃXé≤âÒì]Ç∆Ç»ÇÈ
@@ -300,7 +300,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RxRzRxScMv(GgafDx9UntransformedAc
 }
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_RzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     // |cosZ  , sinZ , 0  , 0  |
@@ -333,7 +333,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_RzMv(GgafDx9UntransformedActor* p
 
 
 
-void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::getWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //Worldïœä∑
     //íPà çsóÒ Å~ ägëÂèkè¨ Å~ Zé≤âÒì] Å~ ïΩçsà⁄ìÆÅ@ÇÃïœä∑çsóÒÇçÏê¨
     // |sx*cosZ , sx*sinZ , 0    , 0  |
@@ -372,7 +372,7 @@ void GgafDx9UntransformedActor::getWorldMatrix_ScRzMv(GgafDx9UntransformedActor*
 
 
 
-void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
     out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
     out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
@@ -381,7 +381,7 @@ void GgafDx9UntransformedActor::updateWorldMatrix_Mv(GgafDx9UntransformedActor* 
 
 
 
-bool GgafDx9UntransformedActor::isOffScreen() {
+bool GgafDx9GeometricActor::isOffScreen() {
 //    if (_Z > 0) {
         static int hy;
         hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY + 128000;
@@ -435,5 +435,5 @@ bool GgafDx9UntransformedActor::isOffScreen() {
 
 
 
-GgafDx9UntransformedActor::~GgafDx9UntransformedActor() {
+GgafDx9GeometricActor::~GgafDx9GeometricActor() {
 }

@@ -2,21 +2,21 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
-GgafDx9DrawableUntransformedActor::GgafDx9DrawableUntransformedActor(const char* prm_name,
+GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                                                      const char* prm_model,
                                                                      const char* prm_effect,
                                                                      const char* prm_technique,
                                                                      GgafDx9Checker* prm_pChecker) :
-  GgafDx9UntransformedActor(prm_name, prm_pChecker) {
+  GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
-TRACE4("GgafDx9DrawableUntransformedActor::GgafDx9DrawableUntransformedActor(");
+TRACE4("GgafDx9DrawableActor::GgafDx9DrawableActor(");
 TRACE4("    prm_name="<<prm_name);
 TRACE4("    prm_model="<<prm_model);
 TRACE4("    prm_effect="<<prm_effect);
 TRACE4("    prm_technique="<<prm_technique);
 TRACE4(")");
 
-    _class_name = "GgafDx9DrawableUntransformedActor";
+    _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
     //ƒ‚ƒfƒ‹Žæ“¾
@@ -35,7 +35,7 @@ TRACE4(")");
 }
 
 
-void GgafDx9DrawableUntransformedActor::processDrawPrior() {
+void GgafDx9DrawableActor::processDrawPrior() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:—vŒŸØ
     if (_is_active_flg && _can_live_flg) {
@@ -68,7 +68,7 @@ void GgafDx9DrawableUntransformedActor::processDrawPrior() {
 
 
 
-GgafDx9DrawableUntransformedActor::~GgafDx9DrawableUntransformedActor() {
+GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pGgafDx9ModelCon->close();
     _pGgafDx9EffectCon->close();

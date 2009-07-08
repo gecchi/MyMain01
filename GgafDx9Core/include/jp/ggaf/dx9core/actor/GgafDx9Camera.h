@@ -8,7 +8,7 @@ namespace GgafDx9Core {
 
 /**
  * カメラアクター.
- * GgafDx9UntransformedActor を継承し、カメラを表したアクターです。<BR>
+ * GgafDx9GeometricActor を継承し、カメラを表したアクターです。<BR>
  * 本クラスは神(GgafDx9God)と連動ています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
  * processDrawPrior メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
  * <BR>
@@ -19,7 +19,7 @@ namespace GgafDx9Core {
  * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
  * <BR>
  */
-class GgafDx9Camera : public GgafDx9UntransformedActor {
+class GgafDx9Camera : public GgafDx9GeometricActor {
 private:
 
 public:
@@ -106,7 +106,7 @@ public:
      * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetGazeされるだけです。
      * @param prm_pActor 注視するアクター
      */
-    void setGaze(GgafDx9UntransformedActor* prm_pActor) {
+    void setGaze(GgafDx9GeometricActor* prm_pActor) {
         _gazeX = prm_pActor->_X;
         _gazeY = prm_pActor->_Y;
         _gazeZ = prm_pActor->_Z;

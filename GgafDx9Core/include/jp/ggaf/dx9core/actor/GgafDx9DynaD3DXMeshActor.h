@@ -7,13 +7,13 @@ namespace GgafDx9Core {
 //     GgafDx9MeshActorを使って下さい。
 /**
  * メッシュアクター.
- * GgafDx9DrawableUntransformedActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * GgafDx9DrawableActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです。<BR>
  * GgafDx9D3DXMeshActor との違いは、頂点バッファに直接アクセスをことに考慮して、<BR>
  * D3DXMESH_DYNAMIC オプションを使用しているところだけです。<BR>
  * 頂点をロックする場合はGgafDx9D3DXMeshActorではなく、こちらを継承してください。<BR>
  */
-class GgafDx9DynaD3DXMeshActor : public GgafDx9DrawableUntransformedActor {
+class GgafDx9DynaD3DXMeshActor : public GgafDx9DrawableActor {
 private:
 
 public:

@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * キューブアクター.
- * GgafDx9UntransformedActor を継承し、キューブ（直方体）を表示するためのアクターです。<BR>
+ * GgafDx9GeometricActor を継承し、キューブ（直方体）を表示するためのアクターです。<BR>
  * Xファイルは、長さ１の立方体(中心は(0,0,0))のメッシュを読み込ませてください。
  */
 class GgafDx9CubeActor : public GgafDx9MeshActor {

@@ -1,12 +1,12 @@
-#ifndef GGAFDX9DRAWABLEUNTRANSFORMEDACTOR_H_
-#define GGAFDX9DRAWABLEUNTRANSFORMEDACTOR_H_
+#ifndef GGAFDX9DRAWABLEACTOR_H_
+#define GGAFDX9DRAWABLEACTOR_H_
 namespace GgafDx9Core {
 
 /**
  * 画面に描画を行う座標未変換アクターの抽象クラス
- * GgafDx9DrawableUntransformedActor に描画関連の モデル、エフェクト、マテリアルなどを保持<BR>
+ * GgafDx9DrawableActor に描画関連の モデル、エフェクト、マテリアルなどを保持<BR>
  */
-class GgafDx9DrawableUntransformedActor : public GgafDx9UntransformedActor {
+class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 
 private:
 
@@ -32,18 +32,18 @@ public:
      * コンストラクタ<BR>
      * @param	prm_name 識別名
      */
-    GgafDx9DrawableUntransformedActor(const char* prm_name,
+    GgafDx9DrawableActor(const char* prm_name,
                                       const char* prm_model,
                                       const char* prm_effect,
                                       const char* prm_technique,
                                       GgafDx9Checker* prm_pChecker);
 
-    virtual GgafDx9DrawableUntransformedActor* getPrev() {
-        return (GgafDx9DrawableUntransformedActor*)GgafActor::getPrev();
+    virtual GgafDx9DrawableActor* getPrev() {
+        return (GgafDx9DrawableActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDx9DrawableUntransformedActor* getNext() {
-        return (GgafDx9DrawableUntransformedActor*)GgafActor::getNext();
+    virtual GgafDx9DrawableActor* getNext() {
+        return (GgafDx9DrawableActor*)GgafActor::getNext();
     }
 
 
@@ -69,8 +69,8 @@ public:
     }
 
 
-    virtual ~GgafDx9DrawableUntransformedActor(); //デストラクタ
+    virtual ~GgafDx9DrawableActor(); //デストラクタ
 };
 
 }
-#endif /*GGAFDX9DRAWABLEUNTRANSFORMEDACTOR_H_*/
+#endif /*GGAFDX9DRAWABLEACTOR_H_*/

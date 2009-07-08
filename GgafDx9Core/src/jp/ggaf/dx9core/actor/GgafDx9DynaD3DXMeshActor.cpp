@@ -11,7 +11,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
                                                    const char* prm_technique,
                                                    GgafDx9Checker* prm_pChecker) :
 
-                                                       GgafDx9DrawableUntransformedActor(prm_name,
+                                                       GgafDx9DrawableActor(prm_name,
                                                                                          prm_model,
                                                                                          prm_effect,
                                                                                          prm_technique,
@@ -27,7 +27,7 @@ void GgafDx9DynaD3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     static D3DXMATRIX matWorld; //World変換行列
-    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
@@ -38,7 +38,7 @@ void GgafDx9DynaD3DXMeshActor::processDrawMain() {
 }
 
 void GgafDx9DynaD3DXMeshActor::setAlpha(float prm_fAlpha) {
-    GgafDx9DrawableUntransformedActor::setAlpha(prm_fAlpha);
+    GgafDx9DrawableActor::setAlpha(prm_fAlpha);
     //GgafDx9DynaD3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
     for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;

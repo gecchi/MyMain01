@@ -6,20 +6,20 @@ class GgafDx9Checker : public GgafCore::GgafObject {
 
 protected:
     /** 対象アクター */
-    GgafDx9UntransformedActor* _pActor;
+    GgafDx9GeometricActor* _pActor;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    GgafDx9Checker(GgafDx9UntransformedActor* prm_pActor);
+    GgafDx9Checker(GgafDx9GeometricActor* prm_pActor);
 
     virtual void behave();
 
     //virtual void draw();
 
-    GgafDx9UntransformedActor* getTargetActor() {
+    GgafDx9GeometricActor* getTargetActor() {
         if (_pActor == NULL) {
             _TRACE_("GgafDx9Checker::getTargetActor NULLであるがよいのか！");
         }

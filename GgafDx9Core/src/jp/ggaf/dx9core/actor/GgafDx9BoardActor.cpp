@@ -7,7 +7,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
                                      const char* prm_model,
                                      const char* prm_effect,
                                      const char* prm_technique) :
-                                         GgafDx9DrawableUntransformedActor(prm_name,
+                                         GgafDx9DrawableActor(prm_name,
                                                                           prm_model,
                                                                           prm_effect,
                                                                           prm_technique,

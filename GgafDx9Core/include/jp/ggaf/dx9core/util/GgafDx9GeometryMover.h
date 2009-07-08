@@ -26,7 +26,7 @@ typedef int angacce;
 
 /**
  * 座標計算支援クラス.
- * GgafDx9UntransformedActor のメンバの<BR>
+ * GgafDx9GeometricActor のメンバの<BR>
  *  _X ,  _Y,  _Z  ･･･ アクターの座標<BR>
  * _RX , _RY, _RZ  ･･･ アクターの軸回転角度<BR>
  * を、簡単に操作するために設計した。<BR>
@@ -36,7 +36,7 @@ class GgafDx9GeometryMover : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 対象アクター */
-    GgafDx9UntransformedActor* _pActor;
+    GgafDx9GeometricActor* _pActor;
 
 public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
@@ -63,7 +63,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    GgafDx9GeometryMover(GgafDx9UntransformedActor* prm_pActor);
+    GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * アングル値を単純化する。
@@ -486,11 +486,11 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void setMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
-    void setMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target);
+    void setMoveAngle(GgafDx9GeometricActor* prm_pActor_Target);
 
     void setTargetRzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
-    void setTargetRzRyMoveAngle(GgafDx9UntransformedActor* prm_pActor_Target);
+    void setTargetRzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target);
 
     //virtual void behave();
 

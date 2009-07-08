@@ -9,7 +9,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
                                        const char* prm_technique,
                                        GgafDx9Checker* prm_pChecker) :
 
-                                           GgafDx9DrawableUntransformedActor(prm_name,
+                                           GgafDx9DrawableActor(prm_name,
                                                                              prm_model,
                                                                              prm_effect,
                                                                              prm_technique,
@@ -43,9 +43,9 @@ void GgafDx9SpriteActor::processDrawMain() {
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     static D3DXMATRIX matWorld; //Worldïœä∑çsóÒ
     if (_isBillboardingFlg) {
-        GgafDx9UntransformedActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
+        GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
     } else {
-        GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+        GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

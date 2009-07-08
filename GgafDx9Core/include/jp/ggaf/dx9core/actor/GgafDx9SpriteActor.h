@@ -8,10 +8,10 @@ enum GgafDx9AnimationMethod {
 
 /**
  * スプライトアクター.
- * GgafDx9UntransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * GgafDx9GeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
  */
-class GgafDx9SpriteActor : public GgafDx9DrawableUntransformedActor {
+class GgafDx9SpriteActor : public GgafDx9DrawableActor {
 
 private:
 

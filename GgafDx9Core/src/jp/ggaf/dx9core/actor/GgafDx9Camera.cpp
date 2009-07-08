@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NULL) {
+GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
     _pMover = NEW GgafDx9GeometryMover(this);
     //FOVX‚ğŠî€‚Él‚¦‚é
