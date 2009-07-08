@@ -3,9 +3,9 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
-GgafActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
-GgafActor* GgafDx9Universe::_pActor_DrawActive = NULL;
+GgafDx9DrawableActor* GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[MAX_DRAW_DEPTH_LEVEL];
+GgafDx9DrawableActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
+GgafDx9DrawableActor* GgafDx9Universe::_pActor_DrawActive = NULL;
 GgafDx9Camera* GgafDx9Universe::_pCamera = NULL;
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
@@ -53,8 +53,8 @@ void GgafDx9Universe::drawMain() {
     }
 }
 
-void GgafDx9Universe::setDrawDepthMaxLevel(GgafActor* prm_pActor) {
-    static GgafActor* pActorTmp;
+void GgafDx9Universe::setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor) {
+    static GgafDx9DrawableActor* pActorTmp;
     if (_pActors_DrawMaxDrawDepth == NULL) {
         //最初のアクターの場合
         prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
@@ -68,9 +68,9 @@ void GgafDx9Universe::setDrawDepthMaxLevel(GgafActor* prm_pActor) {
         return;
     }
 }
-void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafActor* prm_pActor) {
+void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor) {
     static int draw_depth_level;
-    static GgafActor* pActorTmp;
+    static GgafDx9DrawableActor* pActorTmp;
     //上限下限カット
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
         draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 1;

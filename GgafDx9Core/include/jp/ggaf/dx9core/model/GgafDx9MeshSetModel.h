@@ -59,6 +59,7 @@ public:
 
     };
 
+    static int _setnum_LastDraw;
     int _setnum;
     /** ’¸“_‚ÌFVF */
     static DWORD FVF;

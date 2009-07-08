@@ -11,6 +11,9 @@ class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 private:
 
 public:
+    /** 同一描画レベルの次のアクター */
+    GgafDx9DrawableActor* _pNext_TheSameDrawDepthLevel;
+
 
     /** α (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;

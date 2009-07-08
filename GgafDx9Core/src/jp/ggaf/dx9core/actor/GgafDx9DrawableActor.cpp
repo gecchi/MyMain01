@@ -19,6 +19,8 @@ TRACE4(")");
     _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
+
+    _pNext_TheSameDrawDepthLevel = NULL;
     //ƒ‚ƒfƒ‹Žæ“¾
     _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model);
     _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();

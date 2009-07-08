@@ -16,10 +16,10 @@ public:
     static GgafDx9Camera* _pCamera;
 
     /** アクター順序レンダリングのための遠さ別のグループ */
-    static GgafCore::GgafActor* _apAlphaActorList_DrawDepthLevel[];
+    static GgafDx9DrawableActor* _apAlphaActorList_DrawDepthLevel[];
     /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
-    static GgafCore::GgafActor* _pActors_DrawMaxDrawDepth;
-    static GgafCore::GgafActor* _pActor_DrawActive;
+    static GgafDx9DrawableActor* _pActors_DrawMaxDrawDepth;
+    static GgafDx9DrawableActor* _pActor_DrawActive;
     GgafDx9Universe(const char* prm_name);
 
     virtual ~GgafDx9Universe();
@@ -38,14 +38,14 @@ public:
      * @param prm_draw_depth_level レベル
      * @param prm_pActor アクター
      */
-    static void setDrawDepthLevel(int prm_draw_depth_level, GgafCore::GgafActor* prm_pActor);
+    static void setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
 
     /**
      * 描画レベル（順序）を最遠で登録.
      * 不透明なオブジェクトは極力こちらで登録する
      * @param prm_pActor アクター
      */
-    static void setDrawDepthMaxLevel(GgafCore::GgafActor* prm_pActor);
+    static void setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor);
 };
 
 }

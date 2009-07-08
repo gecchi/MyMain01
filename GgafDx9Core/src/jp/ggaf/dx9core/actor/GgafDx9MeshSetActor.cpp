@@ -33,7 +33,7 @@ void GgafDx9MeshSetActor::processDrawMain() {
 
     int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
-    _pNextDrawActor = dynamic_cast<GgafDx9DrawableActor*>(_pNext_TheSameDrawDepthLevel);
+    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
 
 _TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ちぇーん");
     while (true) {
@@ -44,9 +44,7 @@ _TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ちぇーん");
                 if (cnt > 8) {
                     break;
                 }
-                GgafActor* pA = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
-
-                _pNextDrawActor = dynamic_cast<GgafDx9DrawableActor*>(pA);
+                _pNextDrawActor = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }
@@ -83,11 +81,11 @@ _TRACE_(" GgafDx9MeshSetActor::processDrawMain()  ちぇーん");
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::GgafDx9MeshSetEffect SetMatrix(g_matView) に失敗しました。");
-    GgafDx9GeometricActor *pDrawActor;
+    GgafDx9DrawableActor *pDrawActor;
     pDrawActor = this;
     for (int i = 0; i < _draw_object_num; i++) {
         GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, _aMatWorld[i]);
-        pDrawActor = (GgafDx9GeometricActor*)(pDrawActor -> _pNext_TheSameDrawDepthLevel);
+        pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &_aMatWorld[i]);
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
     }

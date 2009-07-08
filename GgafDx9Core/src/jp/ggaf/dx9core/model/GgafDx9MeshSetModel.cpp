@@ -5,6 +5,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 DWORD GgafDx9MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
+int GgafDx9MeshSetModel::_setnum_LastDraw = -1;
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
 GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
@@ -85,19 +86,25 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     int set_index = pTargetActor->_set_index;
     TRACE4("GgafDx9MeshSetModel  set_index="<<set_index);
 
-    //TODO 考える
-    //if (GgafDx9ModelManager::_pModelLastDraw != this && ) {
+    //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
+    if (GgafDx9ModelManager::_pModelLastDraw  != this ||
+        GgafDx9MeshSetModel::_setnum_LastDraw != set_index)
+    {
         //頂点バッファとインデックスバッファを設定
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index],  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[set_index]);
-    //}
+    }
 
 
     //描画
     for (UINT i = 0; i < _pa_nMaterialListGrp[set_index]; i++) {
         // TODO
-        //if (GgafDx9ModelManager::_pModelLastDraw != this || _pa_nMaterialListGrp[set_index] != 1) {
+        //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
+        if (GgafDx9ModelManager::_pModelLastDraw  != this      ||
+            GgafDx9MeshSetModel::_setnum_LastDraw != set_index ||
+            _pa_nMaterialListGrp[set_index]       != 1)
+        {
             material_no = _papaIndexParam[set_index][i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
@@ -109,7 +116,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             }
             hr = pID3DXEffect->SetValue(pMeshSetEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
-        //}
+        }
 
 
         if (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect) {
@@ -142,11 +149,10 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                         _papaIndexParam[set_index][i].StartIndex,
                                                         _papaIndexParam[set_index][i].PrimitiveCount);
     }
-//    if (_nMaterialListGrp > 0) {
-        GgafDx9ModelManager::_pModelLastDraw = this;
-        GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
-        GgafGod::_num_actor_playing++;
-//    }
+    GgafDx9ModelManager::_pModelLastDraw = this;
+    GgafDx9MeshSetModel::_setnum_LastDraw = set_index;
+    GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
+    GgafGod::_num_actor_playing++;
     return D3D_OK;
 }
 
