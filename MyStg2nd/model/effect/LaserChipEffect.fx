@@ -122,8 +122,6 @@ OUT_VS GgafDx9VS_LaserChip(
 	int kind;
 	bool revPosZ;
 
-
-
 	if (64 > g_cnt_vertec) {
 		if (32 > g_cnt_vertec) {
 			if (16 > g_cnt_vertec) {

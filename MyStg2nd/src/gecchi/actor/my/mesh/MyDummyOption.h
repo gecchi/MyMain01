@@ -2,7 +2,7 @@
 #define MYDUMMYOPTION_H_
 namespace MyStg2nd {
 
-class MyDummyOption : public GgafDx9LibStg::DefaultMeshActor {
+class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     /** 親アクター */
     MyOptionParent* _pMyOptionParent;
 
