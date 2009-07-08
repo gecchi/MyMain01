@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-BackGroundStar::BackGroundStar(const char* prm_name) : GgafDx9UntransformedActor(prm_name, NULL) {
+BackGroundStar::BackGroundStar(const char* prm_name) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "BackGroundStar";
 
     _papBackGroundStar001 = NEW BackGroundStar001*[4];
@@ -47,7 +47,7 @@ void BackGroundStar::processBehavior() {
 }
 
 void BackGroundStar::processDrawPrior() {
-    //本アクターはGgafDx9DrawableUntransformedActorではないかつ、
+    //本アクターはGgafDx9DrawableActorではないかつ、
     //BackGroundStar001がツリーの子ではなくメンバーでないので、
     //無理やり段階レンダリングに登録
     for (int i = 0; i < 4; i++) {

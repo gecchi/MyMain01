@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 MyOptionParent::MyOptionParent(const char* prm_name) :
-  GgafDx9UntransformedActor(prm_name,
+  GgafDx9GeometricActor(prm_name,
                             NULL) {
     _angVelocity_Turn = 3000;
     _pMover = NEW GgafDx9GeometryMover(this);

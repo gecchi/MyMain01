@@ -10,8 +10,8 @@ namespace MyStg2nd {
 
 class Magic : public GgafDx9LibStg::DefaultSpriteActor {
 public:
-    GgafDx9Core::GgafDx9UntransformedActor* _pCaster;
-    GgafDx9Core::GgafDx9UntransformedActor* _pReceiver;
+    GgafDx9Core::GgafDx9GeometricActor* _pCaster;
+    GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
 
     /** åªç›ÇÃÉRÉXÉg */
     int _cost;
@@ -26,8 +26,8 @@ public:
 
 public:
     Magic(const char* prm_name,
-          GgafDx9Core::GgafDx9UntransformedActor* prm_pCaster,
-          GgafDx9Core::GgafDx9UntransformedActor* prm_pReceiver);
+          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
+          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
     void processBehavior();
 

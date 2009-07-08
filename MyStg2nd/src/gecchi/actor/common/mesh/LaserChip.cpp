@@ -108,7 +108,7 @@ void LaserChip::onActive() {
     _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
-    GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
 }
 
 void LaserChip::onInactive() {
@@ -182,7 +182,7 @@ void LaserChip::processJudgement() {
     //【注意】4/15 メモ
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
     //processBehavior,processJudgementは _pChip_front が必ず先に実行される。留意せよ。
-    GgafDx9UntransformedActor::updateWorldMatrix_Mv(this, _matWorld);
+    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
 void LaserChip::processDrawMain() {
@@ -263,7 +263,7 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
     for (int i = 0; i < _draw_object_num; i++) {
-        //GgafDx9UntransformedActor::getWorldMatrix_ScRxRzRyMv(pDrawLaserChipActor, _aMatWorld[i]);
+        //GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawLaserChipActor, _aMatWorld[i]);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 TRACE4("roopstart LaserChip::processDrawMain() pDrawLaserChipActor="<<pDrawLaserChipActor->getName()<<" _pMeshSetModel="<<_pMeshSetModel->getName()<<"  i="<<i<<"  006");

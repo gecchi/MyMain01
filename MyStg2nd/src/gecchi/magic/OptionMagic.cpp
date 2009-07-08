@@ -6,8 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 OptionMagic::OptionMagic(const char* prm_name,
-             GgafDx9UntransformedActor* prm_pCaster,
-             GgafDx9UntransformedActor* prm_pReceiver) : DefaultMagic(prm_name, prm_pCaster, prm_pReceiver) {
+             GgafDx9GeometricActor* prm_pCaster,
+             GgafDx9GeometricActor* prm_pReceiver) : DefaultMagic(prm_name, prm_pCaster, prm_pReceiver) {
 
 }
 

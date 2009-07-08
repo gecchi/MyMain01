@@ -2,7 +2,7 @@
 #define BACKGROUNDSTAR_H_
 namespace MyStg2nd {
 
-class BackGroundStar : public GgafDx9Core::GgafDx9UntransformedActor {
+class BackGroundStar : public GgafDx9Core::GgafDx9GeometricActor {
 
     BackGroundStar001** _papBackGroundStar001;
 

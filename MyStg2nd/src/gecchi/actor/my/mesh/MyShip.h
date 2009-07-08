@@ -163,7 +163,7 @@ public:
 
     //virtual void beginMoveXY(int prm_VB);
 
-    static void transactShot(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor);
+    static void transactShot(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
     /**ƒIƒvƒVƒ‡ƒ“’Ç‰Á*/
     void equipOption();

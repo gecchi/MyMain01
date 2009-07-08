@@ -616,7 +616,7 @@ void MyShip::doNotingMoveInput() {
 
 }
 
-void MyShip::transactShot(GgafDx9UntransformedActor* prm_pActor) {
+void MyShip::transactShot(GgafDx9GeometricActor* prm_pActor) {
 
 }
 
@@ -632,7 +632,7 @@ void MyShip::equipOption() {
 //    if (_state.eq_option == 0) {
 //        pOption->setRadicalActor(this);
 //    } else {
-//        pOption->setRadicalActor((GgafDx9UntransformedActor*)pOption->getPrev());
+//        pOption->setRadicalActor((GgafDx9GeometricActor*)pOption->getPrev());
 //    }
 //
 //    _state.eq_option++;

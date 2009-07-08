@@ -73,7 +73,7 @@ void MyWave001::processJudgement() {
 }
 
 /*
- bool MyWave001::processBumpChkLogic(GgafDx9UntransformedActor* prm_pActor_Opponent) {
+ bool MyWave001::processBumpChkLogic(GgafDx9GeometricActor* prm_pActor_Opponent) {
  //TRACE("MyWave001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"‚˜"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
  return false;
  }

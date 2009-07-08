@@ -2,7 +2,7 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
-class MyOptionParent : public GgafDx9Core::GgafDx9UntransformedActor {
+class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
     /** 座標移動支援オブジェクト */

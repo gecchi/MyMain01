@@ -79,7 +79,7 @@ void EnemyAstraea::processJudgement() {
 }
 
 void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
-    GgafDx9UntransformedActor* pActor_Opponent = (GgafDx9UntransformedActor*)prm_pActor_Opponent;
+    GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
     setBumpable(false);
 
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {

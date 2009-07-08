@@ -6,8 +6,8 @@ class DefaultMagic : public Magic {
 
 public:
     DefaultMagic(const char* prm_name,
-          GgafDx9Core::GgafDx9UntransformedActor* prm_pCaster,
-          GgafDx9Core::GgafDx9UntransformedActor* prm_pReceiver);
+          GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
+          GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
     virtual void processCastBegin() {
     }

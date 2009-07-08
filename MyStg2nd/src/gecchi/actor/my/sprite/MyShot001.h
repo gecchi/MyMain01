@@ -6,7 +6,7 @@ class MyShot001 : public DefaultSpriteMyActor {
 
 public:
 
-    GgafDx9Core::GgafDx9UntransformedActor* _pActor_Radical;
+    GgafDx9Core::GgafDx9GeometricActor* _pActor_Radical;
 
     MyShot001(const char* prm_name);
 
@@ -39,7 +39,7 @@ public:
      * 親元対象アクター
      * @param prm_pActor
      */
-    void setRadicalActor(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
+    void setRadicalActor(GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
         _pActor_Radical = prm_pActor;
     }
 
