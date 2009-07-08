@@ -1593,14 +1593,14 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         model_papaIdxBuffer_org = NEW WORD*[prm_pMeshSetModel->_setnum];
         for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
             model_papaIdxBuffer_org[setcount] = NEW WORD[(nFaces*3) * pow2(setcount)];
-            _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]= NEW WORD["<<(nFaces*3) * pow2(setcount)<<"];");
-            _TRACE_("pow2(setcount)="<<pow2(setcount));
+//            _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]= NEW WORD["<<(nFaces*3) * pow2(setcount)<<"];");
+//            _TRACE_("pow2(setcount)="<<pow2(setcount));
             for (int i = 0; i < pow2(setcount); i++) {
                 for (int j = 0; j < nFaces; j++) {
-                    _TRACE_("setcount="<<setcount<<"/i="<<i<<"/j="<<j);
-                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 0) <<"]= model_paIdxBuffer_org["<<(j*3 + 0)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 0] + (nVertices*i)));
-                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 1) <<"]= model_paIdxBuffer_org["<<(j*3 + 1)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 1] + (nVertices*i)));
-                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 2) <<"]= model_paIdxBuffer_org["<<(j*3 + 2)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 2] + (nVertices*i)));
+//                    _TRACE_("setcount="<<setcount<<"/i="<<i<<"/j="<<j);
+//                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 0) <<"]= model_paIdxBuffer_org["<<(j*3 + 0)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 0] + (nVertices*i)));
+//                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 1) <<"]= model_paIdxBuffer_org["<<(j*3 + 1)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 1] + (nVertices*i)));
+//                    _TRACE_("model_papaIdxBuffer_org["<<setcount<<"]["<<(((i*nFaces*3)+(j*3)) + 2) <<"]= model_paIdxBuffer_org["<<(j*3 + 2)<<"] + ("<<(nVertices*i) << ") ="<<(model_paIdxBuffer_org[j*3 + 2] + (nVertices*i)));
 
                     model_papaIdxBuffer_org[setcount][((i*nFaces*3)+(j*3)) + 0] = model_paIdxBuffer_org[j*3 + 0] + (nVertices*i);
                     model_papaIdxBuffer_org[setcount][((i*nFaces*3)+(j*3)) + 1] = model_paIdxBuffer_org[j*3 + 1] + (nVertices*i);

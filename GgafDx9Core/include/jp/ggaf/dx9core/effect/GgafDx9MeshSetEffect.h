@@ -13,6 +13,7 @@ public:
     //D3DXHANDLE _hMatWorld;
     D3DXHANDLE _ahMatWorld[16];
     D3DXHANDLE _hMaterialDiffuse;
+    D3DXHANDLE _h_nVertexs;
 
 public:
     /**

@@ -35,9 +35,8 @@ void GgafDx9MeshActor::processDrawMain() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    static D3DXMATRIX matWorld; //WORLD•ÏŠ·s—ñ
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pMeshModel->draw(this);

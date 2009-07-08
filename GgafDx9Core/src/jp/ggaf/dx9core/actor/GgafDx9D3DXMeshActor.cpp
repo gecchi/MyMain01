@@ -34,11 +34,10 @@ void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
 void GgafDx9D3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    static D3DXMATRIX matWorld; //World•ÏŠ·s—ñ
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
 
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDrawMain() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pD3DXMeshModel->draw(this);

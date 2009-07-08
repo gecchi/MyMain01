@@ -25,7 +25,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 //    _paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
     //エフェクト取得
 
-	_pattno_ani_top = 0;
+    _pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
     _pattno_ani_now = 0;
     _frame_ani_interval = 0;
@@ -41,13 +41,12 @@ void GgafDx9SpriteActor::processDrawMain() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
-    static D3DXMATRIX matWorld; //World変換行列
     if (_isBillboardingFlg) {
-        GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, matWorld);
+        GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, _matWorld);
     } else {
-        GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+        GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     }
-    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &matWorld );
+    hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(_hMatWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetFloat(_fAlpha) に失敗しました。");

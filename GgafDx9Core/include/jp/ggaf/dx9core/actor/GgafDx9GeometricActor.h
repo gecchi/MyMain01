@@ -35,6 +35,7 @@ public:
     /** ワールドZ軸方向倍率 */
     int _SZ;
 
+    D3DXMATRIX _matWorld; //自身の現在のWorld変換行列
     //補足
     //【_X, _Y, _Z の単位について】
     //　採り得る値は DirectXワールド座標(float)の 1000倍の整数値である。

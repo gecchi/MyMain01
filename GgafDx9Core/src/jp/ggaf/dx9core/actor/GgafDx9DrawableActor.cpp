@@ -9,12 +9,12 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                                                      GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
-TRACE4("GgafDx9DrawableActor::GgafDx9DrawableActor(");
-TRACE4("    prm_name="<<prm_name);
-TRACE4("    prm_model="<<prm_model);
-TRACE4("    prm_effect="<<prm_effect);
-TRACE4("    prm_technique="<<prm_technique);
-TRACE4(")");
+_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
+_TRACE_("    prm_name="<<prm_name);
+_TRACE_("    prm_model="<<prm_model);
+_TRACE_("    prm_effect="<<prm_effect);
+_TRACE_("    prm_technique="<<prm_technique);
+_TRACE_(")");
 
     _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];

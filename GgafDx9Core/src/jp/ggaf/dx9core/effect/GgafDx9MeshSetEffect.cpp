@@ -45,6 +45,8 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMatWorld[15] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld016" );
 
     _hMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse" );
+    _h_nVertexs = _pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
+
 }
 
 

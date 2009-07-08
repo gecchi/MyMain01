@@ -26,12 +26,11 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 void GgafDx9DynaD3DXMeshActor::processDrawMain() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
-    static D3DXMATRIX matWorld; //World•ÏŠ·s—ñ
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &matWorld );
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::processDrawMain() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pD3DXMeshModel->draw(this);

@@ -13,7 +13,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _pModel3D = NULL;
     _pMeshesFront = NULL;
 
-    _setnum = 4;
+    _setnum = 2;  ////////////////////////////TODO:‚±‚±‚±‚±‚±‚±
     _paIDirect3DVertexBuffer9 = NULL;
     _paIDirect3DIndexBuffer9 = NULL;
     _pa_nMaterialListGrp = NULL;
@@ -59,7 +59,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 pp = 8;
             }
             for (int j = 0; j < _nFaces*3*pp; j++) {
-                _TRACE_("_papaIdxBuffer_org["<<i<<"]["<<j<<"]="<<_papaIdxBuffer_org[i][j]<<")");
+                _TRACE_("_papaIdxBuffer_org["<<i<<"]["<<j<<"]="<<_papaIdxBuffer_org[i][j]<<"");
             }
         }
 
