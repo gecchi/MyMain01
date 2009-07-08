@@ -13,7 +13,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _pModel3D = NULL;
     _pMeshesFront = NULL;
 
-    _setnum = 2;  ////////////////////////////TODO:ここここここ
+    _setnum = 3;  ////////////////////////////TODO:ここここここ
     _paIDirect3DVertexBuffer9 = NULL;
     _paIDirect3DIndexBuffer9 = NULL;
     _pa_nMaterialListGrp = NULL;
@@ -29,9 +29,28 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
 
+
+
+    TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+    //対象アクター
+    static GgafDx9MeshSetActor* pTargetActor;
+    pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
+    //対象MeshSetActorのエフェクトラッパ
+    static GgafDx9MeshSetEffect* pMeshSetEffect;
+    pMeshSetEffect = pTargetActor->_pMeshSetEffect;
+    //対象エフェクト
+    static ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
+
+
+    HRESULT hr;
+    UINT material_no;
+
+    int set_index = pTargetActor->_set_index;
+    TRACE4("GgafDx9MeshSetModel  set_index="<<set_index);
     static int ddd = 1;
     if (ddd == 1) {
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < _setnum; i++) {
             int pp = 1;
             if (i == 0) {
                 pp = 1;
@@ -47,7 +66,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             }
         }
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < _setnum; i++) {
             int pp = 1;
             if (i == 0) {
                 pp = 1;
@@ -66,25 +85,6 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         ddd=2;
 
     }
-
-
-
-    TRACE3("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    //対象アクター
-    static GgafDx9MeshSetActor* pTargetActor;
-    pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;
-    //対象MeshSetActorのエフェクトラッパ
-    static GgafDx9MeshSetEffect* pMeshSetEffect;
-    pMeshSetEffect = pTargetActor->_pMeshSetEffect;
-    //対象エフェクト
-    static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = pMeshSetEffect->_pID3DXEffect;
-
-    HRESULT hr;
-    UINT material_no;
-
-    int set_index = pTargetActor->_set_index;
-    TRACE4("GgafDx9MeshSetModel  set_index="<<set_index);
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this ||
@@ -119,7 +119,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
 
 
-        if (GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect) {
+        if (i == 0 && GgafDx9EffectManager::_pEffect_Active != pMeshSetEffect) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
