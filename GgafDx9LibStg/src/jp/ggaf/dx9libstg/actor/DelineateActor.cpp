@@ -24,7 +24,7 @@ void DelineateActor::release() {
 void DelineateActor::drawHitarea(StgChecker* prm_pStgChecker) {
     if (prm_pStgChecker != NULL && prm_pStgChecker->getHitAreaBoxs() != NULL && prm_pStgChecker->getTargetActor()->canBump()
             && prm_pStgChecker->getTargetActor()->isActive()) {
-        GgafDx9UntransformedActor* pActor = prm_pStgChecker->getTargetActor();
+        GgafDx9GeometricActor* pActor = prm_pStgChecker->getTargetActor();
         HitAreaBoxs* pHitAreaBoxs = prm_pStgChecker->getHitAreaBoxs();
 
         //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF

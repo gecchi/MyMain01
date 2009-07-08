@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-StgChecker::StgChecker(GgafDx9UntransformedActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
+StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
     _pHitAreaBoxs = NULL;
     _iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
     _iScorePointOriginally = 0; //Œ³—ˆ‚Ì“¾“_
@@ -91,7 +91,7 @@ void StgChecker::behave() {
 }
 
 bool StgChecker::isBump(GgafDx9Checker* prm_pOtherChecker) {
-    static GgafDx9UntransformedActor* pOtherActor;
+    static GgafDx9GeometricActor* pOtherActor;
     static HitAreaBoxs* pOtherHitAreaBoxs;
 
     pOtherActor = prm_pOtherChecker->getTargetActor();

@@ -14,7 +14,7 @@ public:
     /**
      * コンストラクタ
      */
-    GeometryChain(int prm_num, GgafDx9Core::GgafDx9UntransformedActor* prm_pActor) {
+    GeometryChain(int prm_num, GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
         static GeoElement* pWork;
         static GeoElement* pTemp;
         _pFirst = NEW GeoElement(prm_pActor);

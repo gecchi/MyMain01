@@ -30,7 +30,7 @@ public:
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
      */
-    StgChecker(GgafDx9Core::GgafDx9UntransformedActor* prm_pActor);
+    StgChecker(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
     virtual void setStatus(int prm_iScorePoint, int prm_iStaminaPoint, int prm_iAttackPoint, int prm_iDefensePoint) {
         _iScorePointOriginally = _iScorePoint = prm_iScorePoint;

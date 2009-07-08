@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * フォーメーションアクタークラス .
  */
-class FormationActor : public GgafDx9Core::GgafDx9UntransformedActor {
+class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
     /** 座標移動支援オブジェクト */
