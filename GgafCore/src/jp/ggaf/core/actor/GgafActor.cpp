@@ -7,7 +7,7 @@ GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
     TRACE("GgafActor::GgafActor("<<prm_name<<")");
     _class_name = "GgafActor";
-    _pNext_TheSameDrawDepthLevel = NULL;
+
     _can_bump_flg = true;
     _pScene_Platform = NULL;
     _pGod = NULL;

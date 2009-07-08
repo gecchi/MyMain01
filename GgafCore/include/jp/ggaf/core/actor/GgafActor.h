@@ -94,8 +94,8 @@ public:
     /** アクター衝突判定有無フラグ */
     bool _can_bump_flg;
 
-    /** 同一描画レベルの次のアクター */
-    GgafActor* _pNext_TheSameDrawDepthLevel;
+
+
 
     /**
      * コンストラクタ .
@@ -171,7 +171,7 @@ public:
     /**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
      * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
-	 * 但し自アクター同士の重複組み合わせを無視する。 <BR>
+     * 但し自アクター同士の重複組み合わせを無視する。 <BR>
      * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
      */
     virtual void executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent);
