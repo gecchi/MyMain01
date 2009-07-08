@@ -107,7 +107,7 @@ struct OUT_VS
 //レーザーチップ頂点シェーダー
 OUT_VS GgafDx9VS_LaserChip(
       float4 prm_pos    : POSITION,      // モデルの頂点
-      float  prm_index    : PSIZE ,    // モデルの頂点のUV
+      float  prm_index  : PSIZE ,    // モデルの頂点番号
       float3 prm_normal : NORMAL,        // 法線ではなくてなんと、x要素に頂点番号！
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
@@ -124,230 +124,59 @@ OUT_VS GgafDx9VS_LaserChip(
 
 
 
-		if (64 > g_cnt_vertec) {
-			if (32 > g_cnt_vertec) {
-				if (16 > g_cnt_vertec) {
-					matWorld = g_matWorld001;
-					matWorld_front = g_matWorld_front001;
-					kind = g_kind001;
-					revPosZ = g_RevPosZ001;
-				} else {
-					matWorld = g_matWorld002;
-					matWorld_front = g_matWorld_front002;
-					kind = g_kind002;
-					revPosZ = g_RevPosZ002;
-				}
+	if (64 > g_cnt_vertec) {
+		if (32 > g_cnt_vertec) {
+			if (16 > g_cnt_vertec) {
+				matWorld = g_matWorld001;
+				matWorld_front = g_matWorld_front001;
+				kind = g_kind001;
+				revPosZ = g_RevPosZ001;
 			} else {
-				if (48 > g_cnt_vertec) {
-					matWorld = g_matWorld003;
-					matWorld_front = g_matWorld_front003;
-					kind = g_kind003;
-					revPosZ = g_RevPosZ003;
-				} else {
-					matWorld = g_matWorld004;
-					matWorld_front = g_matWorld_front004;
-					kind = g_kind004;
-					revPosZ = g_RevPosZ004;
-				}
+				matWorld = g_matWorld002;
+				matWorld_front = g_matWorld_front002;
+				kind = g_kind002;
+				revPosZ = g_RevPosZ002;
 			}
 		} else {
-			if (96 > g_cnt_vertec) {
-				if (80 > g_cnt_vertec) {
-					matWorld = g_matWorld005;
-					matWorld_front = g_matWorld_front005;
-					kind = g_kind005;
-					revPosZ = g_RevPosZ005;
-				} else {
-					matWorld = g_matWorld006;
-					matWorld_front = g_matWorld_front006;
-					kind = g_kind006;
-					revPosZ = g_RevPosZ006;
-				}
+			if (48 > g_cnt_vertec) {
+				matWorld = g_matWorld003;
+				matWorld_front = g_matWorld_front003;
+				kind = g_kind003;
+				revPosZ = g_RevPosZ003;
 			} else {
-				if (112 > g_cnt_vertec) {
-					matWorld = g_matWorld007;
-					matWorld_front = g_matWorld_front007;
-					kind = g_kind007;
-					revPosZ = g_RevPosZ007;
-				} else {
-					matWorld = g_matWorld008;
-					matWorld_front = g_matWorld_front008;
-					kind = g_kind008;
-					revPosZ = g_RevPosZ008;
-				}
+				matWorld = g_matWorld004;
+				matWorld_front = g_matWorld_front004;
+				kind = g_kind004;
+				revPosZ = g_RevPosZ004;
 			}
 		}
-//
-//
-//
-//		if (64 > g_cnt_vertec) {
-//			if (32 > g_cnt_vertec) {
-//				if (g_nVertexs > g_cnt_vertec) {
-//					matWorld = g_matWorld001;
-//					matWorld_front = g_matWorld_front001;
-//					kind = g_kind001;
-//					revPosZ = g_RevPosZ001;
-//				} else {
-//					matWorld = g_matWorld002;
-//					matWorld_front = g_matWorld_front002;
-//					kind = g_kind002;
-//					revPosZ = g_RevPosZ002;
-//				}
-//			} else {
-//				if (48 > g_cnt_vertec) {
-//					matWorld = g_matWorld003;
-//					matWorld_front = g_matWorld_front003;
-//					kind = g_kind003;
-//					revPosZ = g_RevPosZ003;
-//				} else {
-//					matWorld = g_matWorld004;
-//					matWorld_front = g_matWorld_front004;
-//					kind = g_kind004;
-//					revPosZ = g_RevPosZ004;
-//				}
-//			}
-//		} else {
-//			if (96 > g_cnt_vertec) {
-//				if (80 > g_cnt_vertec) {
-//					matWorld = g_matWorld005;
-//					matWorld_front = g_matWorld_front005;
-//					kind = g_kind005;
-//					revPosZ = g_RevPosZ005;
-//				} else {
-//					matWorld = g_matWorld006;
-//					matWorld_front = g_matWorld_front006;
-//					kind = g_kind006;
-//					revPosZ = g_RevPosZ006;
-//				}
-//			} else {
-//				if (112 > g_cnt_vertec) {
-//					matWorld = g_matWorld007;
-//					matWorld_front = g_matWorld_front007;
-//					kind = g_kind007;
-//					revPosZ = g_RevPosZ007;
-//				} else {
-//					matWorld = g_matWorld008;
-//					matWorld_front = g_matWorld_front008;
-//					kind = g_kind008;
-//					revPosZ = g_RevPosZ008;
-//				}
-//			}
-//		}
-//
-
-
-
-//	if (g_nVertexs*8 > g_cnt_vertec) {
-//		if (g_nVertexs*4 > g_cnt_vertec) {
-//			if (g_nVertexs*2 > g_cnt_vertec) {
-//				if (g_nVertexs > g_cnt_vertec) {
-//					matWorld = g_matWorld001;
-//					matWorld_front = g_matWorld_front001;
-//					kind = g_kind001;
-//					revPosZ = g_RevPosZ001;
-//				} else {
-//					matWorld = g_matWorld002;
-//					matWorld_front = g_matWorld_front002;
-//					kind = g_kind002;
-//					revPosZ = g_RevPosZ002;
-//				}
-//			} else {
-//				if (g_nVertexs*3 > g_cnt_vertec) {
-//					matWorld = g_matWorld003;
-//					matWorld_front = g_matWorld_front003;
-//					kind = g_kind003;
-//					revPosZ = g_RevPosZ003;
-//				} else {
-//					matWorld = g_matWorld004;
-//					matWorld_front = g_matWorld_front004;
-//					kind = g_kind004;
-//					revPosZ = g_RevPosZ004;
-//				}
-//			}
-//		} else {
-//			if (g_nVertexs*6 > g_cnt_vertec) {
-//				if (g_nVertexs*5 > g_cnt_vertec) {
-//					matWorld = g_matWorld005;
-//					matWorld_front = g_matWorld_front005;
-//					kind = g_kind005;
-//					revPosZ = g_RevPosZ005;
-//				} else {
-//					matWorld = g_matWorld006;
-//					matWorld_front = g_matWorld_front006;
-//					kind = g_kind006;
-//					revPosZ = g_RevPosZ006;
-//				}
-//			} else {
-//				if (g_nVertexs*7 > g_cnt_vertec) {
-//					matWorld = g_matWorld007;
-//					matWorld_front = g_matWorld_front007;
-//					kind = g_kind007;
-//					revPosZ = g_RevPosZ007;
-//				} else {
-//					matWorld = g_matWorld008;
-//					matWorld_front = g_matWorld_front008;
-//					kind = g_kind008;
-//					revPosZ = g_RevPosZ008;
-//				}
-//			}
-//		}
-//	} 
-
-//	else {
-//		if (g_nVertexs*12 > g_cnt_vertec) {
-//			if (g_nVertexs*10 > g_cnt_vertec) {
-//				if (g_nVertexs*9 > g_cnt_vertec) {
-//					matWorld = g_matWorld009;
-//					matWorld_front = g_matWorld_front009;
-//					kind = g_kind009;
-//					revPosZ = g_RevPosZ009;
-//				} else {
-//					matWorld = g_matWorld010;
-//					matWorld_front = g_matWorld_front010;
-//					kind = g_kind010;
-//					revPosZ = g_RevPosZ010;
-//				}
-//			} else {
-//				if (g_nVertexs*11 > g_cnt_vertec) {
-//					matWorld = g_matWorld011;
-//					matWorld_front = g_matWorld_front011;
-//					kind = g_kind011;
-//					revPosZ = g_RevPosZ011;
-//				} else {
-//					matWorld = g_matWorld012;
-//					matWorld_front = g_matWorld_front012;
-//					kind = g_kind012;
-//					revPosZ = g_RevPosZ012;
-//				}
-//			}
-//		} else {
-//			if (g_nVertexs*14 > g_cnt_vertec) {
-//				if (g_nVertexs*13 > g_cnt_vertec) {
-//					matWorld = g_matWorld013;
-//					matWorld_front = g_matWorld_front013;
-//					kind = g_kind013;
-//					revPosZ = g_RevPosZ013;
-//				} else {
-//					matWorld = g_matWorld014;
-//					matWorld_front = g_matWorld_front014;
-//					kind = g_kind014;
-//					revPosZ = g_RevPosZ014;
-//				}
-//			} else {
-//				if (g_nVertexs*15 > g_cnt_vertec) {
-//					matWorld = g_matWorld015;
-//					matWorld_front = g_matWorld_front015;
-//					kind = g_kind015;
-//					revPosZ = g_RevPosZ015;
-//				} else {
-//					matWorld = g_matWorld016;
-//					matWorld_front = g_matWorld_front016;
-//					kind = g_kind016;
-//					revPosZ = g_RevPosZ016;
-//				}
-//			}
-//		}
-//	}
+	} else {
+		if (96 > g_cnt_vertec) {
+			if (80 > g_cnt_vertec) {
+				matWorld = g_matWorld005;
+				matWorld_front = g_matWorld_front005;
+				kind = g_kind005;
+				revPosZ = g_RevPosZ005;
+			} else {
+				matWorld = g_matWorld006;
+				matWorld_front = g_matWorld_front006;
+				kind = g_kind006;
+				revPosZ = g_RevPosZ006;
+			}
+		} else {
+			if (112 > g_cnt_vertec) {
+				matWorld = g_matWorld007;
+				matWorld_front = g_matWorld_front007;
+				kind = g_kind007;
+				revPosZ = g_RevPosZ007;
+			} else {
+				matWorld = g_matWorld008;
+				matWorld_front = g_matWorld_front008;
+				kind = g_kind008;
+				revPosZ = g_RevPosZ008;
+			}
+		}
+	}
 
 
 

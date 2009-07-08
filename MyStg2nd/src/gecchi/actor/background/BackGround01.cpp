@@ -9,7 +9,7 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
 
     _papChipBoard = NEW BackGroundChipBoard*[4];
-	_papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "B/background01");
+    _papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "B/background01");
     _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "B/background02");
     _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "B/background03");
     _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "B/background04");
@@ -61,13 +61,10 @@ void BackGround01::processBehavior() {
 
 void BackGround01::processDrawPrior() {
     if (_is_active_flg && _can_live_flg) {
-        if (_papChipBoard[0]->getAlpha() < 1.0) { //TODO:—vŒŸ“¢
-            GgafDx9Universe::setDrawDepthLevel(
-                                (int)(_z * MAX_DRAW_DEPTH_LEVEL),
-                                this
-                             );
-        } else {
-            GgafDx9Universe::setDrawDepthMaxLevel(this);
+        for (int i = 0; i < 4; i++) {
+           GgafDx9Universe::setDrawDepthMaxLevel(_papChipBoard[i]);
+
+           //Ž©•ªŽ©g‚ª this ‚ª’iŠKƒŒƒ“ƒ_‚É“o˜^‚³‚ê–³‚¢‚ÆprocessDrawMain‚ª‚æ‚Î‚ê‚ñI
         }
     }
 }

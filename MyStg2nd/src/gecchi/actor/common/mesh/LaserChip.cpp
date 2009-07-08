@@ -188,8 +188,8 @@ void LaserChip::processJudgement() {
 void LaserChip::processDrawMain() {
 TRACE4("--------begin------------------------------LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  001 "<<getName());
     int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
-    LaserChip* _pNextDrawActor;
-    _pNextDrawActor = dynamic_cast<LaserChip*>(_pNext_TheSameDrawDepthLevel);
+    GgafDx9DrawableActor* _pNextDrawActor;
+    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
 TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()<<"  002");
     while (true) {
         if (_pNextDrawActor != NULL)  {
@@ -201,8 +201,7 @@ TRACE4("LaserChip::processDrawMain() _pMeshSetModel="<<_pMeshSetModel->getName()
                 }
                 //_TRACE_("↓cnt="<<cnt<<" _pNextDrawActor="<<_pNextDrawActor->getName());
 
-                GgafActor* pA = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
-                _pNextDrawActor = dynamic_cast<LaserChip*>(pA);
+                _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }
