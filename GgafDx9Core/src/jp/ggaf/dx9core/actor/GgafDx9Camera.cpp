@@ -7,8 +7,8 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9GeometricActor(prm_n
     _class_name = "GgafDx9Camera";
     _pMover = NEW GgafDx9GeometryMover(this);
     //FOVXを基準に考える
-    //視野角45度
-    _rad_fovX = PI / 4;
+    //視野角90度
+    _rad_fovX = PI / 2;
 
     //_iPxDep = abs(_cameraZ_org * PX_UNIT * 2);
     //アスペクト比(w/h)
