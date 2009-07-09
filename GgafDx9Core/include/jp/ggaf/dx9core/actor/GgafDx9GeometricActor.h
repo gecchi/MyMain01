@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * 座標を持ったのアクター.
- * 未変換3次元座標（ワールド/ビュー/射影変換をしていない座標）、或いは変換済み座標の何れかを持ち、<BR>
+ * ワールド座標、或いは変換済み座標の何れかを持ち、<BR>
  * 座標関連メソッドを備えたアクターです。<BR>
  */
 class GgafDx9GeometricActor : public GgafDx9BaseActor {

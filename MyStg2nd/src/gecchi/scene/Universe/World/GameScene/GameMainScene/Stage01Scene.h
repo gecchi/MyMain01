@@ -2,9 +2,9 @@
 #define STAGE01SCENE_H_
 
 
-#define STAGE01_PROG_INIT              1
-#define STAGE01_PROG_BEGIN             2
-#define STAGE01_PROG_PLAY             3
+#define STAGE01_PROG_INIT    1
+#define STAGE01_PROG_BEGIN   2
+#define STAGE01_PROG_PLAY    3
 #define STAGE01_PROG_END     7
 
 

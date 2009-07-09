@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * クォータニオンクラス .
- * TODO:ちゃんと作る
+ * TODO:
  */
 class GgafDx9Quaternion : public GgafCore::GgafObject {
 public:

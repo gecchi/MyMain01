@@ -108,7 +108,7 @@ void World::processBehavior() {
         //ƒXƒ‹[
     } else {
         if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-            GgafDx9Universe::_pCamera->setGaze(0,0,0);
+            GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
         }
     }
 
