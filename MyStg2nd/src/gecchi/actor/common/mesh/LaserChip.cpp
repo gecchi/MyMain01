@@ -30,18 +30,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahKind[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind006" );
     _ahKind[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind007" );
     _ahKind[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind008" );
-//    _ahKind[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind009" );
-//    _ahKind[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind010" );
-//    _ahKind[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind011" );
-//    _ahKind[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind012" );
-//    _ahKind[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind013" );
-//    _ahKind[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind014" );
-//    _ahKind[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind015" );
-//    _ahKind[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind016" );
-
-//    _hX = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_X" );
-//    _hY = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Y" );
-//    _hZ = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_Z" );
     _ahRevPosZ[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ001" );
     _ahRevPosZ[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ002" );
     _ahRevPosZ[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ003" );
@@ -50,16 +38,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahRevPosZ[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ006" );
     _ahRevPosZ[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ007" );
     _ahRevPosZ[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ008" );
-//    _ahRevPosZ[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ009" );
-//    _ahRevPosZ[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ010" );
-//    _ahRevPosZ[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ011" );
-//    _ahRevPosZ[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ012" );
-//    _ahRevPosZ[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ013" );
-//    _ahRevPosZ[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ014" );
-//    _ahRevPosZ[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ015" );
-//    _ahRevPosZ[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ016" );
-
-    //_hMatWorld_front = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front" );
 
     _ahMatWorld_front[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
     _ahMatWorld_front[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
@@ -69,18 +47,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front006" );
     _ahMatWorld_front[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front007" );
     _ahMatWorld_front[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front008" );
-//    _ahMatWorld_front[8]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front009" );
-//    _ahMatWorld_front[9]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front010" );
-//    _ahMatWorld_front[10] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front011" );
-//    _ahMatWorld_front[11] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front012" );
-//    _ahMatWorld_front[12] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front013" );
-//    _ahMatWorld_front[13] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front014" );
-//    _ahMatWorld_front[14] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front015" );
-//    _ahMatWorld_front[15] = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front016" );
 
-
-
-   // _h_cnt_vertec = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_cnt_vertec" );
 
 }
 
@@ -180,14 +147,14 @@ void LaserChip::processJudgement() {
 
     //【注意】4/15 メモ
     //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
-    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。留意せよ。
+    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。
+    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
     GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
 void LaserChip::processDrawMain() {
     int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
-    GgafDx9DrawableActor* _pNextDrawActor;
-    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+    GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
@@ -204,21 +171,21 @@ void LaserChip::processDrawMain() {
             break;
         }
     }
-    _set_index = 0;
+    _draw_setnum = 0;
     _draw_object_num = 1;
     //index   0 1 2 3 4
     //object  1 2 4 8 16
     if (cnt >= 8 && _pMeshSetModel->_setnum == 4) {
-        _set_index = 3;
+        _draw_setnum = 3;
         _draw_object_num = 8;
     } else if (4 <= cnt && _pMeshSetModel->_setnum == 3) {
-        _set_index = 2;
+        _draw_setnum = 2;
         _draw_object_num = 4;
     } else if (2 <= cnt && _pMeshSetModel->_setnum == 2) {
-        _set_index = 1;
+        _draw_setnum = 1;
         _draw_object_num = 2;
     } else {
-        _set_index = 0;
+        _draw_setnum = 0;
         _draw_object_num = 1;
     }
     static ID3DXEffect* pID3DXEffect;
@@ -234,6 +201,10 @@ void LaserChip::processDrawMain() {
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
+
+    bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
+    float slant;
+    float crossCamX;
     for (int i = 0; i < _draw_object_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
@@ -247,8 +218,6 @@ void LaserChip::processDrawMain() {
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
 
             //チップの十字の左右の羽の描画順序を考える。
-            static bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
-            static float slant;
             slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
             if (pDrawLaserChipActor->_pChip_front->_X == pDrawLaserChipActor->_X) {
                 rev_pos_Z = false;
@@ -285,7 +254,7 @@ void LaserChip::processDrawMain() {
                     //            ＼ ┃    ＼ ｘ軸（方向）
                     //               ┃      ┘
 
-                    static float crossCamX;
+
                     crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - pDrawLaserChipActor->_Z)) *
                                  ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
                                   (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
@@ -312,14 +281,13 @@ void LaserChip::processDrawMain() {
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。2");
         }
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
+        if (i > 0) {
+            //アクティブを進める
+            GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
+        }
     }
 
     _pMeshSetModel->draw(this);
-
-    //アクティブを進めておく
-    for(int i = 0; i < _draw_object_num - 1; i++) {
-        GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
-    }
 }
 
 #ifdef OREDEBUG

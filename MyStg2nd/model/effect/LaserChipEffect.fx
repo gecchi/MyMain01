@@ -25,14 +25,6 @@ bool g_RevPosZ005;
 bool g_RevPosZ006;
 bool g_RevPosZ007;
 bool g_RevPosZ008;
-//bool g_RevPosZ009;
-//bool g_RevPosZ010;
-//bool g_RevPosZ011;
-//bool g_RevPosZ012;
-//bool g_RevPosZ013;
-//bool g_RevPosZ014;
-//bool g_RevPosZ015;
-//bool g_RevPosZ016;
 int g_kind001;
 int g_kind002;
 int g_kind003;
@@ -41,14 +33,6 @@ int g_kind005;
 int g_kind006;
 int g_kind007;
 int g_kind008;
-//int g_kind009;
-//int g_kind010;
-//int g_kind011;
-//int g_kind012;
-//int g_kind013;
-//int g_kind014;
-//int g_kind015;
-//int g_kind016;
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
 float4x4 g_matWorld003;
@@ -57,14 +41,6 @@ float4x4 g_matWorld005;
 float4x4 g_matWorld006;
 float4x4 g_matWorld007;
 float4x4 g_matWorld008;
-//float4x4 g_matWorld009;
-//float4x4 g_matWorld010;
-//float4x4 g_matWorld011;
-//float4x4 g_matWorld012;
-//float4x4 g_matWorld013;
-//float4x4 g_matWorld014;
-//float4x4 g_matWorld015;
-//float4x4 g_matWorld016;
 float4x4 g_matWorld_front001;
 float4x4 g_matWorld_front002;
 float4x4 g_matWorld_front003;
@@ -73,14 +49,6 @@ float4x4 g_matWorld_front005;
 float4x4 g_matWorld_front006;
 float4x4 g_matWorld_front007;
 float4x4 g_matWorld_front008;
-//float4x4 g_matWorld_front009;
-//float4x4 g_matWorld_front010;
-//float4x4 g_matWorld_front011;
-//float4x4 g_matWorld_front012;
-//float4x4 g_matWorld_front013;
-//float4x4 g_matWorld_front014;
-//float4x4 g_matWorld_front015;
-//float4x4 g_matWorld_front016;
 
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
@@ -176,16 +144,6 @@ OUT_VS GgafDx9VS_LaserChip(
 		}
 	}
 
-
-
-	//float4 posWorld = mul( prm_pos, matWorld );               // World変換
-
-
-
-
-
-
-
 //
 	if (revPosZ == true) {
 		prm_pos.z = -prm_pos.z;
@@ -204,10 +162,7 @@ OUT_VS GgafDx9VS_LaserChip(
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {
-//		float4x4 matWorld_tmp = g_matWorld_front; 
-//		matWorld_tmp._41 = matWorld_front._41;  // 一つ前方のチップ座標へくっつける
-//		matWorld_tmp._42 = matWorld_front._42; 
-//		matWorld_tmp._43 = matWorld_front._43; 
+		// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {
 		//頂点計算
@@ -230,7 +185,6 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.x = 0.1;
 		out_vs.uv.y = 0.1;
 	}
-	//g_cnt_vertec++;
 	return out_vs;
 }
 

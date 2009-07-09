@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
-	_TRACE_("World::World");
+    _TRACE_("World::World");
 
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
@@ -14,7 +14,7 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void World::initialize() {
-		_TRACE_("World::initialize()");
+        _TRACE_("World::initialize()");
     GameScene* pGameScene = NEW GameScene("Game");
     addSubLast(pGameScene);
 #ifdef OREDEBUG
@@ -104,7 +104,13 @@ void World::processBehavior() {
                GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pMover->_vY * LEN_UNIT * PX_UNIT),
                GgafDx9Universe::_pCamera->_Z + (GgafDx9Universe::_pCamera->_pMover->_vZ * LEN_UNIT * PX_UNIT)
               );
-
+    if ( getSubFirst()->isBehaving() ) {
+        //ƒXƒ‹[
+    } else {
+        if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+            GgafDx9Universe::_pCamera->setGaze(0,0,0);
+        }
+    }
 
 }
 
