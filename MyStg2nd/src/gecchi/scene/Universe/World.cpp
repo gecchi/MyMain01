@@ -21,6 +21,10 @@ void World::initialize() {
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
+    GgafDx9Universe::_pCamera->_X -= 300000;
+    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
+
+
 _TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
 
 }
@@ -109,6 +113,7 @@ void World::processBehavior() {
     } else {
         if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
             GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
+            _TRACE_("GgafDx9Universe Camera=("<<GgafDx9Universe::_pCamera->_X<<","<<GgafDx9Universe::_pCamera->_Y<<","<<GgafDx9Universe::_pCamera->_Z<<")");
         }
     }
 

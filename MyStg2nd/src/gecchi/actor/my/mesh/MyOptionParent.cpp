@@ -164,20 +164,20 @@ void MyOptionParent::processBehavior() {
             case WAY_ZLEFT:
                 setTerget(0, ANGLE270);
                 break;
-            case WAY_ZLEFT_FRONT:
-                setTerget(0, ANGLE315);
+            case WAY_ZLEFT_UP:
+                setTerget(ANGLE45, ANGLE270);
                 break;
-            case WAY_ZLEFT_BEHIND:
-                setTerget(0, ANGLE225);
+            case WAY_ZLEFT_DOWN:
+                setTerget(ANGLE315, ANGLE270);
                 break;
             case WAY_ZRIGHT:
                 setTerget(0, ANGLE90);
                 break;
-            case WAY_ZRIGHT_FRONT:
-                setTerget(0, ANGLE45);
+            case WAY_ZRIGHT_UP:
+                setTerget(ANGLE45, ANGLE90);
                 break;
-            case WAY_ZRIGHT_BEHIND:
-                setTerget(0, ANGLE135);
+            case WAY_ZRIGHT_DOWN:
+                setTerget(ANGLE315, ANGLE90);
                 break;
             default:
                 break;

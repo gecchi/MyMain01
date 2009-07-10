@@ -22,14 +22,14 @@ enum MoveWay {
     WAY_FRONT,
     WAY_BEHIND,
     WAY_ZLEFT,
-    WAY_ZLEFT_UPFRONT,
-    WAY_ZLEFT_BEHIND,
+    WAY_ZLEFT_UP,
+    WAY_ZLEFT_DOWN,
     WAY_ZRIGHT,
-    WAY_ZRIGHT_FRONT,
-    WAY_ZRIGHT_BEHIND
+    WAY_ZRIGHT_UP,
+    WAY_ZRIGHT_DOWN
 };
 
-class MyShip : public GgafDx9LibStg::DefaultMorphMeshActor {
+class MyShip : public GgafDx9LibStg::DefaultMeshActor {
 //class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
     class State {
@@ -145,19 +145,19 @@ public:
 
     //âÊñ éËëOÇ÷à⁄ìÆèâÇﬂXé≤âÒì]èàóù
     virtual void beginTurboXY(int prm_VB);
-    virtual void beginTurboXZ(int prm_VB);
+    virtual void beginTurboZY(int prm_VB);
 
-    virtual void moveXZ(int prm_VB);
+    virtual void moveZY(int prm_VB);
 
     virtual void moveXY(int prm_VB);
 
     virtual void turnFaceXYMove(int prm_VB);
-    virtual void turnFaceXZMove(int prm_VB);
+    virtual void turnFaceZYMove(int prm_VB);
 
     virtual void doNotingMoveInput();
 
     virtual void turnFaceNeutralXY();
-    virtual void turnFaceNeutralXZ();
+    virtual void turnFaceNeutralZY();
 
     //virtual void beginMoveZX(int prm_VB);
 

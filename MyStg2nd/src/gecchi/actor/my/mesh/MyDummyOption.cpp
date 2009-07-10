@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "x/ceres") {
+MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "M/4/donatu") {
 _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyDummyOption";
     _pMyOptionParent = prm_pMyOptionParent;
@@ -70,6 +70,32 @@ void MyDummyOption::initialize() {
 }
 
 void MyDummyOption::processBehavior() {
+    /////////////モーフテスト////////////////
+    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+        _pMorpher->loopTriangleWave(1, 30, 3, 22);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+        _pMorpher->stopImmediately(1);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+        _pMorpher->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+        _pMorpher->loopTriangleWave(3, 20, 13, 2);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+        _pMorpher->stopImmediately(3);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+        _pMorpher->loopTriangleWave(4, 60, 3, 20);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+        _pMorpher->stopImmediately(4);
+    }
+
+    _pMorpher->behave();
+    /////////////モーフテスト////////////////
+
+
     _X = _Xorg;
     _Y = _Yorg;
     _Z = _Zorg;
