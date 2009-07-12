@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "M/4/donatu") {
+MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "M/4/Ceres") {
 _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyDummyOption";
     _pMyOptionParent = prm_pMyOptionParent;
@@ -30,7 +30,7 @@ void MyDummyOption::initialize() {
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
     _X = 0;
-//    _X = 50000; //TODO:＜メモ＞オプションをX軸回転していると、 _angExpanse の値によってはシンバルロックが起きて、
+//_X = 50000; //TODO:＜メモ＞オプションをX軸回転していると、 _angExpanse の値によってはシンバルロックが起きて、
 //                //カクつきが目につく（目につきだすと止まらない）。解決を断念。オプションの回転を考え直す。
 //                //解決するためには根本的に回転部分のライブラリ(GgafDx9GeometryMover)を作り直す必要アリ。時間があれば考えよ。後回し。
 //                //TODO:2009/04/08
@@ -136,22 +136,36 @@ void MyDummyOption::processBehavior() {
     //ダミーのアクターを連結しようとしたがいろいろ難しい、Quaternion を使わざるを得ない（のではないか；）。
     //TODO:最適化すべし、処理が重たい。いつか汎用化
 
-    static float sinRY, cosRY, sinRZ, cosRZ;
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
 
+    sinRX = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_X] / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_X] / ANGLE_RATE];
     sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
     cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
     //自機を中心にVIEW変換のような旋廻
-    _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
-    _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
-    _Z = -sinRY*_Xorg + cosRY*_Zorg;
+    //_TRACE_(_pMyOptionParent->_pMover->_angRot[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angRot[AXIS_Y]);
+
+    //Y軸回転 ＞ Z軸回転
+    _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
+    _Y = sinRZ*_Xorg + cosRZ*_Yorg;
+    _Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
+
+//    Z軸回転 ＞ Y軸回転
+//    _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
+//    _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
+//    _Z = -sinRY*_Xorg + cosRY*_Zorg;
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
     static float vX_axis,vY_axis,vZ_axis; //回転させたい軸ベクトル
-    vX_axis = cosRZ*cosRY*_pMover->_vX + -sinRZ*_pMover->_vY + cosRZ*sinRY*_pMover->_vZ;
-    vY_axis = sinRZ*cosRY*_pMover->_vX +  cosRZ*_pMover->_vY + sinRZ*sinRY*_pMover->_vZ;
-    vZ_axis = -sinRY*_pMover->_vX + cosRY*_pMover->_vZ;
+    vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
+    vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
+    vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
+
+//    vX_axis = cosRZ*cosRY*_pMover->_vX + -sinRZ*_pMover->_vY + cosRZ*sinRY*_pMover->_vZ;
+//    vY_axis = sinRZ*cosRY*_pMover->_vX +  cosRZ*_pMover->_vY + sinRZ*sinRY*_pMover->_vZ;
+//    vZ_axis = -sinRY*_pMover->_vX + cosRY*_pMover->_vZ;
 
     static float sinHalf, cosHalf;
     sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=回転させたい角度
@@ -230,5 +244,6 @@ MyDummyOption::~MyDummyOption() {
     _pSeCon_Laser->close();
     //DELETE_IMPOSSIBLE_NULL(_pRing);
 }
+
 
 

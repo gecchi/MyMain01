@@ -21,7 +21,9 @@ void World::initialize() {
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
-    GgafDx9Universe::_pCamera->_X -= 300000;
+	//‰ŠúƒJƒƒ‰ˆÊ’u
+
+    GgafDx9Universe::_pCamera->_X -= 500000;
     GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
 
 

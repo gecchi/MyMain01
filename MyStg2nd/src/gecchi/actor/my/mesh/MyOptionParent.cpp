@@ -8,6 +8,10 @@ using namespace MyStg2nd;
 MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9GeometricActor(prm_name,
                             NULL) {
+
+//MyOptionParent::MyOptionParent(const char* prm_name) :
+//    DefaultMeshActor(prm_name, "X/vic2") {
+
     _angVelocity_Turn = 3000;
     _pMover = NEW GgafDx9GeometryMover(this);
 

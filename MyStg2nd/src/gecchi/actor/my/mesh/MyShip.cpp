@@ -34,7 +34,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "X/vic2") {
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
     _way = WAY_FRONT;
-
     MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
     addSubLast(pMyOptionParent);
 }
@@ -160,18 +159,19 @@ void MyShip::processBehavior() {
 
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
             if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
-                if (VB::isBeingPressed(VB_ZMOVE)) {
-                    turnFaceNeutralXY();
-                    turnFaceZYMove(_stc);
-                    beginTurboZY(_stc);
-                } else {
+                if (VB::isBeingPressed(VB_XMOVE)) {
                     turnFaceNeutralZY();
                     turnFaceXYMove(_stc);
                     beginTurboXY(_stc);
+                } else {
+                    turnFaceNeutralXY();
+                    turnFaceZYMove(_stc);
+                    beginTurboZY(_stc);
+
                 }
             } else {
                 //方向ダブルプッシュでない＝方向シングルプッシュ
-                if (VB::isBeingPressed(VB_ZMOVE)) {
+                if (VB::isBeingPressed(VB_XMOVE)) {
                     turnFaceNeutralXY();
                     turnFaceZYMove(_stc);
                     moveZY(_stc);
@@ -185,23 +185,21 @@ void MyShip::processBehavior() {
         } else {
 
             //方向押しっぱ
-            if (VB::isBeingPressed(VB_ZMOVE)) {
-                turnFaceZYMove(_stc);
-                turnFaceXYMove(_stc);
-                moveZY(_stc);
-
-            } else {
+            if (VB::isBeingPressed(VB_XMOVE)) {
                 turnFaceNeutralZY();
                 turnFaceXYMove(_stc);
                 moveXY(_stc);
-
+            } else {
+                turnFaceZYMove(_stc);
+                turnFaceXYMove(_stc);
+                moveZY(_stc);
             }
         }
 //////////////
         }
 //////////////
     } else {
-        if (VB::isBeingPressed(VB_ZMOVE)) {
+        if (VB::isBeingPressed(VB_XMOVE)) {
             //ニュートラルターボ
             doNotingMoveInput();
             turnFaceNeutralXY();

@@ -289,7 +289,7 @@ void VirtualButton::update() {
     _pVBMap->_state[VB_SHOT3] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT3) ||
                                   GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT3);
 
-    _pVBMap->_state[VB_ZMOVE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.ZMOVE) ||
+    _pVBMap->_state[VB_XMOVE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.ZMOVE) ||
                                   GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.ZMOVE);
 
     _pVBMap->_state[VB_CONTROL] = GgafDx9Input::isBeingPressedKey(_tagKeymap.CONTROL) ||

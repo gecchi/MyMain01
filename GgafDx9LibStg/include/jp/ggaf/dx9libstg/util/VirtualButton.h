@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 #define VB_SHOT1 1
 #define VB_SHOT2 2
 #define VB_SHOT3 3
-#define VB_ZMOVE 4
+#define VB_XMOVE 4
 #define VB_CONTROL 5
 #define VB_POWERUP 6
 #define VB_PAUSE 7

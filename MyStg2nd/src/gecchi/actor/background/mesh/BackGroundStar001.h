@@ -27,9 +27,7 @@ public:
     void processDrawPrior() {
     }
 
-    void processDrawMain() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
-    }
+    void processDrawMain();
 
     void processHappen(int prm_no) {
     }

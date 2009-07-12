@@ -28,6 +28,11 @@ void BackGroundStar001::processBehavior() {
 void BackGroundStar001::processJudgement() {
 }
 
+void BackGroundStar001::processDrawMain() {
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_POINT);
+    GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+}
 
 BackGroundStar001::~BackGroundStar001() {
 }

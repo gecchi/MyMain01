@@ -3,6 +3,7 @@
 namespace MyStg2nd {
 
 class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
+//class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     /** 座標移動支援オブジェクト */

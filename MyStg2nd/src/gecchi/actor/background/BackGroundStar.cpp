@@ -56,7 +56,6 @@ void BackGroundStar::processDrawPrior() {
 }
 
 void BackGroundStar::processDrawMain() {
-
     for (int i = 0; i < 4; i++) {
         _papBackGroundStar001[i]->processDrawMain();
     }

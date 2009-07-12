@@ -384,7 +384,7 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 bool GgafDx9GeometricActor::isOffScreen() {
 //    if (_Z > 0) {
         static int hy;
-        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY + 128000;
+        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY*2.0 + 128000;
 
         if (_Y < -1.0 * hy) {
             return true;
