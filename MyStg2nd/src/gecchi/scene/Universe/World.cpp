@@ -21,9 +21,9 @@ void World::initialize() {
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "B/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
-	//初期カメラ位置
+    //初期カメラ位置
 
-    GgafDx9Universe::_pCamera->_X -= 500000;
+    GgafDx9Universe::_pCamera->_X = GgafDx9Universe::_pCamera->_Z; //４５度斜めから見る
     GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
 
 
