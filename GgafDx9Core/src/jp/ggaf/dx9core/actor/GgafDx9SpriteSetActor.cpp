@@ -36,20 +36,63 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
 }
 
 void GgafDx9SpriteSetActor::processDrawMain() {
+    int cnt = 1; //ìØàÍï`âÊê[ìxÇ…ÅAGgafDx9SpriteSetActorÇÃìØÇ∂ÉÇÉfÉãÇ™òAë±ÇµÇƒÇ¢ÇÈÉJÉEÉìÉgêî
+    GgafDx9DrawableActor* _pNextDrawActor;
+    _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
+    while (true) {
+        if (_pNextDrawActor != NULL)  {
+            GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
+            if (pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
+                cnt++;
+                if (cnt > 8) {
+                    break;
+                }
+                _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+            } else {
+                break;
+            }
+        } else {
+            break;
+        }
+    }
+    _draw_setnum = 0;
+    _draw_object_num = 1;
+
+    //index   0 1 2 3 4
+    //object  1 2 4 8 16
+    if (cnt >= 8 && _pSpriteSetModel->_setnum == 4) {
+        _draw_setnum = 3;
+        _draw_object_num = 8;
+    } else if (4 <= cnt && _pSpriteSetModel->_setnum == 3) {
+        _draw_setnum = 2;
+        _draw_object_num = 4;
+    } else if (2 <= cnt && _pSpriteSetModel->_setnum == 2) {
+        _draw_setnum = 1;
+        _draw_object_num = 2;
+    } else {
+        _draw_setnum = 0;
+        _draw_object_num = 1;
+    }
+
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    if (_isBillboardingFlg) {
-        GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, _matWorld);
-    } else {
-        GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+
+    GgafDx9DrawableActor *pDrawActor;
+    pDrawActor = this;
+    for (int i = 0; i < _draw_object_num; i++) {
+        if (_isBillboardingFlg) {
+            GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(pDrawActor, pDrawActor->_matWorld);
+        } else {
+            GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
+        }
+        hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatWorld[i], &(pDrawActor->_matWorld) );
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_hAlpha[i], pDrawActor->_fAlpha[i]);
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetFloat(_fAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
-    hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_hAlpha, _fAlpha);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetFloat(_fAlpha) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     _pSpriteSetModel->draw(this);
 }
 

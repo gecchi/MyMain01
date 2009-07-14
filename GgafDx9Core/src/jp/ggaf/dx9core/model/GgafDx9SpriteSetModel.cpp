@@ -13,10 +13,12 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pattno_ani_Max = 0;
-    _pIDirect3DVertexBuffer9 = NULL;
+    _paIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
     _pRectUV_drawlast = NULL;
 
+
+    _setnum = 4;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel*)
     //で行っている。
@@ -39,9 +41,14 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_pattno_ani_now);
 
+    int setnum = pTargetActor->_draw_setnum;
+
     static HRESULT hr;
-    if (GgafDx9ModelManager::_pModelLastDraw != this) {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+    //モデルが同じでかつ、セット数も同じならば頂点バッファ、の設定はスキップできる
+    if (GgafDx9ModelManager::_pModelLastDraw  != this ||
+        GgafDx9SpriteSetModel::_setnum_LastDraw != setnum)
+    {
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _papIDirect3DVertexBuffer9[setnum], 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
@@ -49,6 +56,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() SetFloat(_hOffsetU) に失敗しました。");
     hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() SetFloat(_hOffsetV) に失敗しました。");
+
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
@@ -76,6 +84,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
+    GgafDx9SpriteSetModel::_setnum_LastDraw = setnum;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
     //前回描画UV座標（へのポインタ）を保存
     _pRectUV_drawlast = pRectUV_Active;
@@ -97,7 +106,10 @@ void GgafDx9SpriteSetModel::onDeviceLost() {
 
 void GgafDx9SpriteSetModel::release() {
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " start");
-    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    for (int i = 0; i < _setnum; i++) {
+        RELEASE_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9[i]);
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9);
     _papTextureCon[0]->close();
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);

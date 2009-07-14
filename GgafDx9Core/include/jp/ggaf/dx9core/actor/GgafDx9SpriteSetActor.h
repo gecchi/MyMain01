@@ -19,6 +19,11 @@ private:
     unsigned int _aniframe_counter;
 
 public:
+
+    int _draw_setnum;
+    int _draw_object_num;
+
+
     /** モデルオブジェクトへのポインタ */
     GgafDx9SpriteSetModel* _pSpriteSetModel;
 

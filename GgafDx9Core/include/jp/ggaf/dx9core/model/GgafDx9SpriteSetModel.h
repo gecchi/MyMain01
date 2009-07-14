@@ -10,6 +10,10 @@ class GgafDx9SpriteSetModel : public GgafDx9Model {
 
 protected:
 public:
+    static int _setnum_LastDraw;
+    int _setnum;
+
+
     /** 頂点構造体 */
     struct VERTEX {
         float x, y, z;    // 頂点座標
@@ -18,8 +22,8 @@ public:
         float tu, tv;     // 頂点のテクスチャ座標
     };
 
-    /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** 頂点バッファの各セット */
+    LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */

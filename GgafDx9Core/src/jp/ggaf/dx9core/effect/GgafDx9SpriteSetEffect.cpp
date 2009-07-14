@@ -15,10 +15,22 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() に失敗しました。");
     //シェーダーハンドル
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
-    _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
-    _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
+
+    _ahMatWorld[0]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
+    _ahMatWorld[1]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );
+    _ahMatWorld[2]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld003" );
+    _ahMatWorld[3]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld004" );
+    _ahMatWorld[4]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld005" );
+    _ahMatWorld[5]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld006" );
+    _ahMatWorld[6]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld007" );
+    _ahMatWorld[7]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld008" );
+
     _hOffsetU  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU" );
     _hOffsetV  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );
+
+
+    _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
+
 }
 
 GgafDx9SpriteSetEffect::~GgafDx9SpriteSetEffect() {

@@ -10,6 +10,7 @@ class GgafDx9SpriteModel : public GgafDx9Model {
 
 protected:
 public:
+
     /** 頂点構造体 */
     struct VERTEX {
         float x, y, z;    // 頂点座標

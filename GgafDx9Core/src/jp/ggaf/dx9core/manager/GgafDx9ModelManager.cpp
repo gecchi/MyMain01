@@ -1310,84 +1310,98 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
 
-    GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4];
-    prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
-    prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
 
 
-//    //1pxあたりのuvの大きさを求める
-//     D3DSURFACE_DESC d3dsurface_desc;
-//     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-//     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-//     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
 
-
-    //頂点配列情報をモデルに保持させる
-    //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
-    //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
-    //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
-
-    //左上
-    paVertex[0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-    paVertex[0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
-    paVertex[0].z = 0.0f;
-    paVertex[0].nx = 0.0f;
-    paVertex[0].ny = 0.0f;
-    paVertex[0].nz = -1.0f;
-    paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[0].tu = 0.0f;
-    paVertex[0].tv = 0.0f;
-    //右上
-    paVertex[1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-    paVertex[1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
-    paVertex[1].z = 0.0f;
-    paVertex[1].nx = 0.0f;
-    paVertex[1].ny = 0.0f;
-    paVertex[1].nz = -1.0f;
-    paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-    paVertex[1].tv = 0.0f;
-    //左下
-    paVertex[2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-    paVertex[2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
-    paVertex[2].z = 0.0f;
-    paVertex[2].nx = 0.0f;
-    paVertex[2].ny = 0.0f;
-    paVertex[2].nz = -1.0f;
-    paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
-    //右下
-    paVertex[3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-    paVertex[3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
-    paVertex[3].z = 0.0f;
-    paVertex[3].nx = 0.0f;
-    paVertex[3].ny = 0.0f;
-    paVertex[3].nz = -1.0f;
-    paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
-
+    //    //1pxあたりのuvの大きさを求める
+    //     D3DSURFACE_DESC d3dsurface_desc;
+    //     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+    //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+    //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
     //バッファ作成
-    if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+    if (prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 == NULL) {
+        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pMeshSetModel->_setnum];
+        GgafDx9SpriteSetModel::VERTEX** papaVertex = NEW GgafDx9SpriteSetModel::VERTEX*[prm_pSpriteSetModel->_setnum];
+        prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
+        prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
+        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
+            papaVertex[setcount] = NEW GgafDx9SpriteSetModel::VERTEX[4 * pow2(setcount)];
+    //    GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4];
 
-        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pSpriteSetModel->_size_vertecs,
-                D3DUSAGE_WRITEONLY,
-                GgafDx9SpriteSetModel::FVF,
-                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-                &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
-                NULL);
-        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
+        //頂点配列情報をモデルに保持させる
+        //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
+        //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
+        //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+            for (int i = 0; i < pow2(setcount); i++) {
+
+                papaVertex[setcount][i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 0].z = 0.0f;
+                papaVertex[setcount][i*4 + 0].nx = 0.0f;
+                papaVertex[setcount][i*4 + 0].ny = 0.0f;
+                papaVertex[setcount][i*4 + 0].nz = -1.0f;
+                papaVertex[setcount][i*4 + 0].color = D3DCOLOR_ARGB(255,255,255,255);
+                papaVertex[setcount][i*4 + 0].tu = 0.0f;
+                papaVertex[setcount][i*4 + 0].tv = 0.0f;
+                //右上
+                papaVertex[setcount][i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 1].z = 0.0f;
+                papaVertex[setcount][i*4 + 1].nx = 0.0f;
+                papaVertex[setcount][i*4 + 1].ny = 0.0f;
+                papaVertex[setcount][i*4 + 1].nz = -1.0f;
+                papaVertex[setcount][i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
+                papaVertex[setcount][i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+                papaVertex[setcount][i*4 + 1].tv = 0.0f;
+                //左下
+                papaVertex[setcount][i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 2].z = 0.0f;
+                papaVertex[setcount][i*4 + 2].nx = 0.0f;
+                papaVertex[setcount][i*4 + 2].ny = 0.0f;
+                papaVertex[setcount][i*4 + 2].nz = -1.0f;
+                papaVertex[setcount][i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
+                papaVertex[setcount][i*4 + 2].tu = 0.0f;
+                papaVertex[setcount][i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+                //右下
+                papaVertex[setcount][i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+                papaVertex[setcount][i*4 + 3].z = 0.0f;
+                papaVertex[setcount][i*4 + 3].nx = 0.0f;
+                papaVertex[setcount][i*4 + 3].ny = 0.0f;
+                papaVertex[setcount][i*4 + 3].nz = -1.0f;
+                papaVertex[setcount][i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
+                papaVertex[setcount][i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+                papaVertex[setcount][i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+            }
+
+            hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+                    prm_pSpriteSetModel->_size_vertecs * pow2(setcount),
+                    D3DUSAGE_WRITEONLY,
+                    GgafDx9SpriteSetModel::FVF,
+                    D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                    &(prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount])),
+                    NULL);
+            mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
+            //頂点バッファ作成
+            //頂点情報をビデオカード頂点バッファへロード
+            void *pVertexBuffer;
+            hr = prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]->Lock(
+                                           0,
+                                           prm_pSpriteSetModel->_size_vertecs * pow2(setcount),
+                                           (void**)&pVertexBuffer,
+                                           0
+                                       );
+            mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteSetModel->_model_name);
+
+            memcpy(
+                pVertexBuffer,
+                papaVertex[setcount],
+                prm_pSpriteSetModel->_size_vertecs* pow2(setcount)
+            ); //pVertexBuffer ← paVertex
+            prm_pSpriteSetModel->_papIDirect3DVertexBuffer9[setcount]->Unlock();
+        }
     }
-    //頂点バッファ作成
-    //頂点情報をビデオカード頂点バッファへロード
-    void *pVertexBuffer;
-    hr = prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteSetModel->_size_vertecs, (void**)&pVertexBuffer, 0);
-    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteSetModel->_model_name);
-
-    memcpy(pVertexBuffer, paVertex, prm_pSpriteSetModel->_size_vertecs); //pVertexBuffer ← paVertex
-    prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
 
     //全パターンのUV情報の配列作成しモデルに保持させる
     //＜2009/3/13＞
@@ -1430,11 +1444,13 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
     prm_pSpriteSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     //後始末
-    DELETEARR_IMPOSSIBLE_NULL(paVertex);
+    for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
+        DELETEARR_IMPOSSIBLE_NULL(papaVertex[setcount]);
+    }
+    DELETEARR_IMPOSSIBLE_NULL(papaVertex);
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
-
 
 
 
@@ -1608,7 +1624,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     //　　　　・マテリアル配列(要素数＝マテリアル数)
     //　　　　・テクスチャ配列(要素数＝マテリアル数)
     //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
-
 
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     HRESULT hr;

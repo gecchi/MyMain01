@@ -61,6 +61,7 @@ public:
 
     static int _setnum_LastDraw;
     int _setnum;
+
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */

@@ -10,10 +10,10 @@ class GgafDx9SpriteSetEffect : public GgafDx9Effect {
 
 public:
     D3DXHANDLE _hMatView;
-    D3DXHANDLE _hMatWorld;
-    D3DXHANDLE _hOffsetU;
-    D3DXHANDLE _hOffsetV;
-    D3DXHANDLE _hAlpha;
+    D3DXHANDLE _ahMatWorld[8];
+    D3DXHANDLE _ahOffsetU[8];
+    D3DXHANDLE _ahOffsetV[8];
+    D3DXHANDLE _ahAlpha[8];
 
 public:
     /**
