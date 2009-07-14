@@ -32,18 +32,18 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
     GgafDx9Model* pResourceModel;
     switch (model_type) {
         case 'D':
-            //MeshModel
+            //D3DXMeshModel
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
         case 'd':
-            //DynaMeshModel
+            //DynaD3DXMeshModel
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'X':
             //MeshModel
             pResourceModel = createMeshModel(model_name);
             break;
-        case 'x':  //"x/20/xxxxx"の場合、20,10,5,2,1 個分の頂点バッファ作成
+        case 'x':
             //MeshSetModel
             pResourceModel = createMeshSetModel(model_name);
             break;
@@ -54,6 +54,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
         case 'S':
             //SpriteModel
             pResourceModel = createSpriteModel(model_name);
+            break;
+        case 's':
+            //SpriteSetModel
+            pResourceModel = createSpriteSetModel(model_name);
             break;
         case 'B':
             //BoardModel
@@ -79,10 +83,15 @@ GgafDx9D3DXMeshModel* GgafDx9ModelManager::createD3DXMeshModel(char* prm_model_n
 }
 
 GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name) {
-
     GgafDx9SpriteModel* pSpriteModel_New = NEW GgafDx9SpriteModel(prm_model_name);
     restoreSpriteModel(pSpriteModel_New);
     return pSpriteModel_New;
+}
+
+GgafDx9SpriteSetModel* GgafDx9ModelManager::createSpriteSetModel(char* prm_model_name) {
+    GgafDx9SpriteSetModel* pSpriteSetModel_New = NEW GgafDx9SpriteSetModel(prm_model_name);
+    restoreSpriteSetModel(pSpriteSetModel_New);
+    return pSpriteSetModel_New;
 }
 
 GgafDx9BoardModel* GgafDx9ModelManager::createBoardModel(char* prm_model_name) {
@@ -1243,6 +1252,191 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
+
+void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpriteSetModel) {
+    TRACE3("GgafDx9ModelManager::restoreSpriteSetModel(" << prm_pSpriteSetModel->_model_name << ")");
+
+    prm_pSpriteSetModel->_papTextureCon = NULL;
+    prm_pSpriteSetModel->_paRectUV = NULL;
+
+
+    HRESULT hr;
+    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
+
+    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
+
+    IDirectXFileEnumObject* pIDirectXFileEnumObject;
+    IDirectXFileData* pIDirectXFileData;
+    hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+    mightDx9Exception(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+
+    //TODO:GUIDなんとかする。今は完全無視。
+    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
+
+    char** ppaChar_TextureFile;
+    float* pFloat_Size_SpriteSetModelWidth;
+    float* pFloat_Size_SpriteSetModelHeight;
+    int* pInt_RowNum_TextureSplit;
+    int* pInt_ColNum_TextureSplit;
+
+    // 1セットだけ読込み
+    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
+    if(hr != DXFILE_OK) {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    }
+    const GUID *pGuid;
+    pIDirectXFileData->GetType( &pGuid );
+    //if( *pGuid == PersonID_GUID ) {
+    if(true) {
+        DWORD Size;
+        // PersonIDテンプレートデータを取得
+        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
+        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_SpriteSetModelWidth);
+        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_SpriteSetModelHeight);
+        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
+        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
+        prm_pSpriteSetModel->_fSize_SpriteSetModelWidthPx = *pFloat_Size_SpriteSetModelWidth;
+        prm_pSpriteSetModel->_fSize_SpriteSetModelHeightPx = *pFloat_Size_SpriteSetModelHeight;
+        prm_pSpriteSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
+        prm_pSpriteSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
+    } else {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" のGUIDが一致しません。");
+    }
+
+    //テクスチャ取得しモデルに保持させる
+    //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    //テクスチャの参照を保持させる。
+    prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
+    prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
+
+    GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4];
+    prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
+    prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
+
+
+//    //1pxあたりのuvの大きさを求める
+//     D3DSURFACE_DESC d3dsurface_desc;
+//     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+//     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+//     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+
+
+    //頂点配列情報をモデルに保持させる
+    //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
+    //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
+    //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
+
+    //左上
+    paVertex[0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+    paVertex[0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+    paVertex[0].z = 0.0f;
+    paVertex[0].nx = 0.0f;
+    paVertex[0].ny = 0.0f;
+    paVertex[0].nz = -1.0f;
+    paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
+    paVertex[0].tu = 0.0f;
+    paVertex[0].tv = 0.0f;
+    //右上
+    paVertex[1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+    paVertex[1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+    paVertex[1].z = 0.0f;
+    paVertex[1].nx = 0.0f;
+    paVertex[1].ny = 0.0f;
+    paVertex[1].nz = -1.0f;
+    paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
+    paVertex[1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+    paVertex[1].tv = 0.0f;
+    //左下
+    paVertex[2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+    paVertex[2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+    paVertex[2].z = 0.0f;
+    paVertex[2].nx = 0.0f;
+    paVertex[2].ny = 0.0f;
+    paVertex[2].nz = -1.0f;
+    paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
+    paVertex[2].tu = 0.0f;
+    paVertex[2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+    //右下
+    paVertex[3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+    paVertex[3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+    paVertex[3].z = 0.0f;
+    paVertex[3].nx = 0.0f;
+    paVertex[3].ny = 0.0f;
+    paVertex[3].nz = -1.0f;
+    paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
+    paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+    paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+
+    //バッファ作成
+    if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+
+        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+                prm_pSpriteSetModel->_size_vertecs,
+                D3DUSAGE_WRITEONLY,
+                GgafDx9SpriteSetModel::FVF,
+                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
+                NULL);
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
+    }
+    //頂点バッファ作成
+    //頂点情報をビデオカード頂点バッファへロード
+    void *pVertexBuffer;
+    hr = prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteSetModel->_size_vertecs, (void**)&pVertexBuffer, 0);
+    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteSetModel->_model_name);
+
+    memcpy(pVertexBuffer, paVertex, prm_pSpriteSetModel->_size_vertecs); //pVertexBuffer ← paVertex
+    prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
+
+    //全パターンのUV情報の配列作成しモデルに保持させる
+    //＜2009/3/13＞
+    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
+    //TODO:しばらくしたら見直すか消す。
+
+    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
+    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
+    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
+        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
+            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
+
+            model_paRectUV[pattno_ani]._aUV[1].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0/(*pInt_RowNum_TextureSplit)*row);
+
+            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_ani]._aUV[2].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
+
+            model_paRectUV[pattno_ani]._aUV[3].tu = (float)((1.0/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_ani]._aUV[3].tv = (float)((1.0/(*pInt_RowNum_TextureSplit)*(row+1)));
+        }
+    }
+    prm_pSpriteSetModel->_paRectUV = model_paRectUV;
+    prm_pSpriteSetModel->_pattno_ani_Max=pattnum-1;
+    prm_pSpriteSetModel->_dwNumMaterials = 1;
+    D3DMATERIAL9* model_paD3DMaterial9;
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
+    for( DWORD i = 0; i < prm_pSpriteSetModel->_dwNumMaterials; i++){
+        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
+        model_paD3DMaterial9[i].Ambient.r = 1.0f;
+        model_paD3DMaterial9[i].Ambient.g = 1.0f;
+        model_paD3DMaterial9[i].Ambient.b = 1.0f;
+        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+    }
+    prm_pSpriteSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    //後始末
+    DELETEARR_IMPOSSIBLE_NULL(paVertex);
+    RELEASE_SAFETY(pIDirectXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+}
+
+
+
 
 void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) {
     TRACE3("GgafDx9ModelManager::restoreBoardModel(" << prm_pBoardModel->_model_name << ")");

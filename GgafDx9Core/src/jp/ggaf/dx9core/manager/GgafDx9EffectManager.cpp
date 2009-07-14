@@ -30,6 +30,9 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
         case 'S':
             pResourceEffect = NEW GgafDx9SpriteEffect(effect_name);
             break;
+        case 's':
+            pResourceEffect = NEW GgafDx9SpriteSetEffect(effect_name);
+            break;
         case 'B':
             pResourceEffect = NEW GgafDx9BoardEffect(effect_name);
             break;

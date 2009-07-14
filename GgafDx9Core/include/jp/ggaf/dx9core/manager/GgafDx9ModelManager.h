@@ -35,6 +35,9 @@ private:
      */
     GgafDx9SpriteModel* createSpriteModel(char* prm_model_name);
 
+    GgafDx9SpriteSetModel* createSpriteSetModel(char* prm_model_name);
+
+
     /**
      * GgafDx9BoardModel オブジェクトを生成。 .
      * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
@@ -71,6 +74,8 @@ public:
      * @param prm_pSpriteModel 再構築するGgafDx9SpriteModel
      */
     void restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel);
+
+    void restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpriteSetModel);
 
 
     /**

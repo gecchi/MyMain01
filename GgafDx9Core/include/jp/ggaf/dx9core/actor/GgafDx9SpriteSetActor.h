@@ -1,13 +1,17 @@
-#ifndef GGAFDX9SPRITEACTORD_H_
-#define GGAFDX9SPRITEACTORD_H_
+#ifndef GGAFDX9SPRITESETACTOR_H_
+#define GGAFDX9SPRITESETACTOR_H_
 namespace GgafDx9Core {
+
+//enum GgafDx9AnimationMethod {
+//    ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED
+//};
 
 /**
  * スプライトアクター.
  * GgafDx9GeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
  */
-class GgafDx9SpriteActor : public GgafDx9DrawableActor {
+class GgafDx9SpriteSetActor : public GgafDx9DrawableActor {
 
 private:
 
@@ -16,10 +20,10 @@ private:
 
 public:
     /** モデルオブジェクトへのポインタ */
-    GgafDx9SpriteModel* _pSpriteModel;
+    GgafDx9SpriteSetModel* _pSpriteSetModel;
 
     /** エフェクト */
-    GgafDx9SpriteEffect* _pSpriteEffect;
+    GgafDx9SpriteSetEffect* _pSpriteSetEffect;
 
     /** アニメパターン番号の上限番号 */
     unsigned int _pattno_ani_top;
@@ -37,7 +41,7 @@ public:
     /** ビルボード要否 */
     bool _isBillboardingFlg;
 
-    GgafDx9SpriteActor(const char* prm_name,
+    GgafDx9SpriteSetActor(const char* prm_name,
                        const char* prm_model,
                        const char* prm_effect,
                        const char* prm_technique,
@@ -48,7 +52,7 @@ public:
      */
     virtual void processDrawMain();
 
-    virtual ~GgafDx9SpriteActor(); //デストラクタ
+    virtual ~GgafDx9SpriteSetActor(); //デストラクタ
 
     /**
      * アニメーションを次のコマへ進める .
@@ -106,4 +110,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9SPRITEACTORD_H_*/
+#endif /*GGAFDX9SPRITESETACTOR_H_*/
