@@ -88,9 +88,9 @@ void GgafDx9SpriteSetActor::processDrawMain() {
         } else {
             GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         }
-        hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatWorld[i], &(pDrawActor->_matWorld) );
+        hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-        hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_hAlpha[i], pDrawActor->_fAlpha[i]);
+        hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[i], pDrawActor->_fAlpha[i]);
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }
     _pSpriteSetModel->draw(this);
