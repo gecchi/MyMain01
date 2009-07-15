@@ -18,6 +18,7 @@ class DefaultMorphMeshActor;
 class DefaultDynaD3DXMeshActor;
 class DefaultCubeActor;
 class DefaultSpriteActor;
+class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class FontSpriteActor;
 class FormationActor;
@@ -43,6 +44,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/DefaultDynaD3DXMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultCubeActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultSpriteSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
