@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-DWORD GgafDx9SpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-
+DWORD GgafDx9SpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+int GgafDx9SpriteSetModel::_setnum_LastDraw = -1;
 GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE3("GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(" << _model_name << ")");
 
@@ -15,7 +15,6 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx
     _pattno_ani_Max = 0;
     _paIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
-    _pRectUV_drawlast = NULL;
 
 
     _setnum = 4;
@@ -37,9 +36,6 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
 
-    //今回描画のUV
-    static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pattno_ani_now);
 
     int setnum = pTargetActor->_draw_setnum;
 
@@ -48,15 +44,10 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw  != this ||
         GgafDx9SpriteSetModel::_setnum_LastDraw != setnum)
     {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _papIDirect3DVertexBuffer9[setnum], 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[setnum], 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
-    hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() SetFloat(_hOffsetV) に失敗しました。");
-
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
@@ -86,8 +77,6 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9SpriteSetModel::_setnum_LastDraw = setnum;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
-    //前回描画UV座標（へのポインタ）を保存
-    _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

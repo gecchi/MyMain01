@@ -29,8 +29,6 @@ public:
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
-    /** 前回表示のUV */
-    GgafDx9RectUV* _pRectUV_drawlast;
 
     /**
      * コンストラクタ<BR>

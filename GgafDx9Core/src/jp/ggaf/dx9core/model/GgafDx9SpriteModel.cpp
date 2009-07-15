@@ -15,7 +15,6 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model
     _pattno_ani_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
-    _pRectUV_drawlast = NULL;
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel*)
@@ -78,7 +77,6 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pSpriteEffect;
     //前回描画UV座標（へのポインタ）を保存
-    _pRectUV_drawlast = pRectUV_Active;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
 }

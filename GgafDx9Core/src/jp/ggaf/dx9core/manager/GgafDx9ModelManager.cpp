@@ -1320,7 +1320,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
     //バッファ作成
     if (prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 == NULL) {
-        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pMeshSetModel->_setnum];
+        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pSpriteSetModel->_setnum];
         GgafDx9SpriteSetModel::VERTEX** papaVertex = NEW GgafDx9SpriteSetModel::VERTEX*[prm_pSpriteSetModel->_setnum];
         prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
         prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
@@ -1343,6 +1343,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 0].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 0].tu = 0.0f;
                 papaVertex[setcount][i*4 + 0].tv = 0.0f;
+                papaVertex[setcount][i*4 + 0].index = i*4 + 0;
                 //右上
                 papaVertex[setcount][i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
                 papaVertex[setcount][i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
@@ -1353,6 +1354,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
                 papaVertex[setcount][i*4 + 1].tv = 0.0f;
+                papaVertex[setcount][i*4 + 1].index = i*4 + 1;
                 //左下
                 papaVertex[setcount][i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
                 papaVertex[setcount][i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
@@ -1363,6 +1365,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 2].tu = 0.0f;
                 papaVertex[setcount][i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+                papaVertex[setcount][i*4 + 2].index = i*4 + 2;
                 //右下
                 papaVertex[setcount][i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
                 papaVertex[setcount][i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
@@ -1373,6 +1376,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
                 papaVertex[setcount][i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+                papaVertex[setcount][i*4 + 3].index = i*4 + 3;
             }
 
             hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -1380,7 +1384,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                     D3DUSAGE_WRITEONLY,
                     GgafDx9SpriteSetModel::FVF,
                     D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-                    &(prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount])),
+                    &(prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]),
                     NULL);
             mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
             //頂点バッファ作成
@@ -1399,8 +1403,13 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount],
                 prm_pSpriteSetModel->_size_vertecs* pow2(setcount)
             ); //pVertexBuffer ← paVertex
-            prm_pSpriteSetModel->_papIDirect3DVertexBuffer9[setcount]->Unlock();
+            prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]->Unlock();
         }
+
+        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
+            DELETEARR_IMPOSSIBLE_NULL(papaVertex[setcount]);
+        }
+        DELETEARR_IMPOSSIBLE_NULL(papaVertex);
     }
 
     //全パターンのUV情報の配列作成しモデルに保持させる
@@ -1444,10 +1453,6 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     }
     prm_pSpriteSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     //後始末
-    for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
-        DELETEARR_IMPOSSIBLE_NULL(papaVertex[setcount]);
-    }
-    DELETEARR_IMPOSSIBLE_NULL(papaVertex);
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }

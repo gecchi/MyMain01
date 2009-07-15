@@ -33,9 +33,6 @@ public:
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
     GgafDx9RectUV* _paRectUV;
 
-    /** 前回表示のUV */
-    GgafDx9RectUV* _pRectUV_drawlast;
-
     /** 全アニメパターン数 */
     int _pattno_max;
     float _fSize_BoardModelWidthPx;
