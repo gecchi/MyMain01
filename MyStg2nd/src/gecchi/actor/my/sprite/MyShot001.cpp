@@ -5,7 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyShot001::MyShot001(const char* prm_name) : DefaultSpriteMyActor(prm_name, "S/moji2") {
+MyShot001::MyShot001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "s/moji2") {
+//MyShot001::MyShot001(const char* prm_name) : DefaultSpriteMyActor(prm_name, "S/moji2") {
     _class_name = "MyShot001";
 }
 

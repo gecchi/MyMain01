@@ -2,7 +2,8 @@
 #define MYSHOT001_H_
 namespace MyStg2nd {
 
-class MyShot001 : public DefaultSpriteMyActor {
+class MyShot001 : public GgafDx9LibStg::DefaultSpriteSetActor {
+//class MyShot001 : public DefaultSpriteMyActor {
 
 public:
 
