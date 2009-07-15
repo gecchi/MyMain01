@@ -5,7 +5,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 DWORD GgafDx9MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1  );
-int GgafDx9MeshSetModel::_setnum_LastDraw = -1;
+int GgafDx9MeshSetModel::_set_index_LastDraw = -1;
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
 GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
@@ -46,8 +46,8 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     HRESULT hr;
     UINT material_no;
 
-    int setnum = pTargetActor->_draw_setnum;
-    TRACE4("GgafDx9MeshSetModel  setnum="<<setnum);
+    int set_index = pTargetActor->_draw_set_index;
+    TRACE4("GgafDx9MeshSetModel  set_index="<<set_index);
 //    static int ddd = 1;
 //    if (ddd == 1) {
 //        for (int i = 0; i < _setnum; i++) {
@@ -88,24 +88,24 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this ||
-        GgafDx9MeshSetModel::_setnum_LastDraw != setnum)
+        GgafDx9MeshSetModel::_set_index_LastDraw != set_index)
     {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[setnum],  0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index],  0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[setnum]);
+        GgafDx9God::_pID3DDevice9->SetIndices(_paIDirect3DIndexBuffer9[set_index]);
     }
 
 
     //描画
-    for (UINT i = 0; i < _pa_nMaterialListGrp[setnum]; i++) {
+    for (UINT i = 0; i < _pa_nMaterialListGrp[set_index]; i++) {
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDx9ModelManager::_pModelLastDraw  != this      ||
-            GgafDx9MeshSetModel::_setnum_LastDraw != setnum ||
-            _pa_nMaterialListGrp[setnum]       != 1)
+            GgafDx9MeshSetModel::_set_index_LastDraw != set_index ||
+            _pa_nMaterialListGrp[set_index]       != 1)
         {
-            material_no = _papaIndexParam[setnum][i].MaterialNo;
+            material_no = _papaIndexParam[set_index][i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -142,14 +142,14 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _papaIndexParam[setnum][i].BaseVertexIndex,
-                                                        _papaIndexParam[setnum][i].MinIndex,
-                                                        _papaIndexParam[setnum][i].NumVertices,
-                                                        _papaIndexParam[setnum][i].StartIndex,
-                                                        _papaIndexParam[setnum][i].PrimitiveCount);
+                                                        _papaIndexParam[set_index][i].BaseVertexIndex,
+                                                        _papaIndexParam[set_index][i].MinIndex,
+                                                        _papaIndexParam[set_index][i].NumVertices,
+                                                        _papaIndexParam[set_index][i].StartIndex,
+                                                        _papaIndexParam[set_index][i].PrimitiveCount);
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
-    GgafDx9MeshSetModel::_setnum_LastDraw = setnum;
+    GgafDx9MeshSetModel::_set_index_LastDraw = set_index;
     GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
     GgafGod::_num_actor_playing++;
     return D3D_OK;

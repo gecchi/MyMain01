@@ -17,7 +17,7 @@ public:
     /** エフェクト資源 */
     GgafDx9MeshSetEffect* _pMeshSetEffect;
 
-    int _draw_setnum;
+    int _draw_set_index;
     int _draw_object_num;
 
 

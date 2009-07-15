@@ -41,7 +41,9 @@ void GgafDx9SpriteSetActor::processDrawMain() {
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
+            GgafDx9Model* pGgafDx9Model = _pNextDrawActor->_pGgafDx9Model;
+            _TRACE_("cnt="<<cnt<<" pGgafDx9Model = "<<pGgafDx9Model->getName() << " =?= _pSpriteSetModel="<<_pSpriteSetModel->getName());
+
             if (pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
                 cnt++;
                 if (cnt > 8) {
@@ -55,24 +57,27 @@ void GgafDx9SpriteSetActor::processDrawMain() {
             break;
         }
     }
-    _draw_setnum = 0;
+    _draw_set_index = 0;
     _draw_object_num = 1;
-
+_TRACE_("_pSpriteSetModel->_setnum = "<<_pSpriteSetModel->_setnum);
     //index   0 1 2 3 4
     //object  1 2 4 8 16
-    if (cnt >= 8 && _pSpriteSetModel->_setnum == 4) {
-        _draw_setnum = 3;
+    if (cnt >= 8 && _pSpriteSetModel->_setnum >= 4) {
+        _draw_set_index = 3;
         _draw_object_num = 8;
-    } else if (4 <= cnt && _pSpriteSetModel->_setnum == 3) {
-        _draw_setnum = 2;
+    } else if (4 <= cnt && _pSpriteSetModel->_setnum >= 3) {
+        _draw_set_index = 2;
         _draw_object_num = 4;
-    } else if (2 <= cnt && _pSpriteSetModel->_setnum == 2) {
-        _draw_setnum = 1;
+    } else if (2 <= cnt && _pSpriteSetModel->_setnum >= 2) {
+        _draw_set_index = 1;
         _draw_object_num = 2;
     } else {
-        _draw_setnum = 0;
+        _draw_set_index = 0;
         _draw_object_num = 1;
     }
+
+
+    _TRACE_("GgafDx9SpriteSetActor::processDrawMain() _draw_set_index="<<_draw_set_index<<"/_draw_object_num="<<_draw_object_num);
 
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;

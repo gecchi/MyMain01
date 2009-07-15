@@ -10,7 +10,7 @@ class GgafDx9SpriteSetModel : public GgafDx9Model {
 
 protected:
 public:
-    static int _setnum_LastDraw;
+    static int _set_index_LastDraw;
     int _setnum;
 
 

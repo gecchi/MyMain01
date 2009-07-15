@@ -59,7 +59,7 @@ public:
 
     };
 
-    static int _setnum_LastDraw;
+    static int _set_index_LastDraw;
     int _setnum;
 
     /** ’¸“_‚ÌFVF */

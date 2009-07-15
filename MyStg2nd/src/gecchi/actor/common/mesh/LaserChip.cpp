@@ -171,21 +171,21 @@ void LaserChip::processDrawMain() {
             break;
         }
     }
-    _draw_setnum = 0;
+    _draw_set_index = 0;
     _draw_object_num = 1;
     //index   0 1 2 3 4
     //object  1 2 4 8 16
-    if (cnt >= 8 && _pMeshSetModel->_setnum == 4) {
-        _draw_setnum = 3;
+    if (cnt >= 8 && _pMeshSetModel->_setnum >= 4) {
+        _draw_set_index = 3;
         _draw_object_num = 8;
-    } else if (4 <= cnt && _pMeshSetModel->_setnum == 3) {
-        _draw_setnum = 2;
+    } else if (4 <= cnt && _pMeshSetModel->_setnum >= 3) {
+        _draw_set_index = 2;
         _draw_object_num = 4;
-    } else if (2 <= cnt && _pMeshSetModel->_setnum == 2) {
-        _draw_setnum = 1;
+    } else if (2 <= cnt && _pMeshSetModel->_setnum >= 2) {
+        _draw_set_index = 1;
         _draw_object_num = 2;
     } else {
-        _draw_setnum = 0;
+        _draw_set_index = 0;
         _draw_object_num = 1;
     }
     static ID3DXEffect* pID3DXEffect;

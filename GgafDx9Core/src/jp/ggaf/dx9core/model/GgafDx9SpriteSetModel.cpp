@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 DWORD GgafDx9SpriteSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-int GgafDx9SpriteSetModel::_setnum_LastDraw = -1;
+int GgafDx9SpriteSetModel::_set_index_LastDraw = -1;
 GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
     TRACE3("GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(" << _model_name << ")");
 
@@ -35,16 +35,16 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
+    int set_index = pTargetActor->_draw_set_index;
 
-
-    int setnum = pTargetActor->_draw_setnum;
+    _TRACE_("GgafDx9SpriteSetModel::draw set_index="<<set_index);
 
     static HRESULT hr;
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、の設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this ||
-        GgafDx9SpriteSetModel::_setnum_LastDraw != setnum)
+        GgafDx9SpriteSetModel::_set_index_LastDraw != set_index)
     {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[setnum], 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index], 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
@@ -75,7 +75,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
-    GgafDx9SpriteSetModel::_setnum_LastDraw = setnum;
+    GgafDx9SpriteSetModel::_set_index_LastDraw = set_index;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
