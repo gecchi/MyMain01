@@ -1377,6 +1377,30 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
                 papaVertex[setcount][i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
                 papaVertex[setcount][i*4 + 3].index = i*4 + 3;
+
+
+
+
+
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].x ="<<papaVertex[setcount][i*4 + 0].x );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].y ="<<papaVertex[setcount][i*4 + 0].y );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].z ="<<papaVertex[setcount][i*4 + 0].z );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].index ="<<papaVertex[setcount][i*4 + 0].index );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].x ="<<papaVertex[setcount][i*4 + 1].x );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].y ="<<papaVertex[setcount][i*4 + 1].y );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].z ="<<papaVertex[setcount][i*4 + 1].z );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].index ="<<papaVertex[setcount][i*4 + 1].index );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].x ="<<papaVertex[setcount][i*4 + 2].x );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].y ="<<papaVertex[setcount][i*4 + 2].y );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].z ="<<papaVertex[setcount][i*4 + 2].z );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].index ="<<papaVertex[setcount][i*4 + 2].index );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].x ="<<papaVertex[setcount][i*4 + 3].x );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].y ="<<papaVertex[setcount][i*4 + 3].y );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].z ="<<papaVertex[setcount][i*4 + 3].z );
+                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].index ="<<papaVertex[setcount][i*4 + 3].index );
+
+
+
             }
 
             hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(

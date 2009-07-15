@@ -72,6 +72,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    D3DPT_TRIANGLESTRIPでどう頂点の順序になるか？
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
