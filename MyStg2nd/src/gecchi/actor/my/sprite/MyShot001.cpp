@@ -40,7 +40,7 @@ void MyShot001::initialize() {
     //
     _SX = 50000;
     _SY = 50000;
-    //setAlpha(0.3);
+    setAlpha(0.5);
 
     setBumpable(true);
     inactivateTree();

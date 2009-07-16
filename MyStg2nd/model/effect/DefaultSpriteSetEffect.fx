@@ -60,22 +60,23 @@ struct OUT_VS
 ///////////////////////////////////////////////////////////////////////////
 
 //スプライト標準頂点シェーダー
-OUT_VS GgafDx9VS_DefaultSpriteSet(
+OUT_VS GgafDx9VS_DefaultSpriteSet(                              
       float4 prm_pos    : POSITION,     // モデルの頂点
       float  prm_index  : PSIZE ,    // モデルの頂点番号
+      float3 prm_normal : NORMAL,        // モデルの頂点の法
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
-
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
+	int cnt_vertec = (int)prm_index;
 	//頂点計算
 	float4x4 matWorld;
 	float offsetU;
 	float offsetV;
 	float alpah;
 
-	if (16 > prm_index) {
-		if (8 > prm_index) {
-			if (4 > prm_index) {
+	if (16 > cnt_vertec) {
+		if (8 > cnt_vertec) {
+			if (4 > cnt_vertec) {
 				matWorld = g_matWorld001;
 				offsetU  = g_offsetU001;
 				offsetV  = g_offsetV001;
@@ -87,7 +88,7 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 				alpah   = g_alpha002;
 			}
 		} else {
-			if (12 > prm_index) {
+			if (12 > cnt_vertec) {
 				matWorld = g_matWorld003;
 				offsetU  = g_offsetU003;
 				offsetV  = g_offsetV003;
@@ -100,8 +101,8 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 			}
 		}
 	} else {
-		if (24 > prm_index) {
-			if (20 > prm_index) {
+		if (24 > cnt_vertec) {
+			if (20 > cnt_vertec) {
 				matWorld = g_matWorld005;
 				offsetU  = g_offsetU005;
 				offsetV  = g_offsetV005;
@@ -113,7 +114,7 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 				alpah   = g_alpha006;
 			}
 		} else { 
-			if (28 > prm_index) {
+			if (28 > cnt_vertec) {
 				matWorld = g_matWorld007;
 				offsetU  = g_offsetU007;
 				offsetV  = g_offsetV007;
@@ -148,7 +149,7 @@ float4 GgafDx9PS_DefaultSpriteSet(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv);
 	//α計算、テクスチャαとオブジェクトαの合算
-	out_color.a = out_color.a * prm_col.a; 
+	//out_color.a = out_color.a * prm_col.a; 
 	return out_color;
 }
 
