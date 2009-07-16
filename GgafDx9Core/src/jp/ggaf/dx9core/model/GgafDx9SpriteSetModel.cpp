@@ -45,6 +45,8 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         GgafDx9SpriteSetModel::_set_index_LastDraw != set_index)
     {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index], 0, _size_vertec_unit);
+_TRACE_("GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9["<<set_index<<"], 0, _size_vertec_unit);");
+
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
@@ -72,7 +74,6 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-    D3DPT_TRIANGLESTRIPでどう頂点の順序になるか？
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
