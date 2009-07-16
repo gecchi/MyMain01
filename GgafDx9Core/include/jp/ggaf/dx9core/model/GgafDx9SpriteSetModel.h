@@ -19,7 +19,6 @@ public:
         float x, y, z;    // 頂点座標
         float nx, ny, nz; // 頂点の法線
         float index;      // psizeではなくてはなくて頂点番号を埋め込む。シェーダー側で何セット目かを判断するために使用。
-        DWORD color;      // 頂点色（現在未使用）
         float tu, tv;     // 頂点のテクスチャ座標
     };
 

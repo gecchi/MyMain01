@@ -1340,7 +1340,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 0].nx = 0.0f;
                 papaVertex[setcount][i*4 + 0].ny = 0.0f;
                 papaVertex[setcount][i*4 + 0].nz = -1.0f;
-                papaVertex[setcount][i*4 + 0].color = D3DCOLOR_ARGB(255,255,255,255);
+                //papaVertex[setcount][i*4 + 0].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 0].tu = 0.0f;
                 papaVertex[setcount][i*4 + 0].tv = 0.0f;
                 papaVertex[setcount][i*4 + 0].index = i*4 + 0;
@@ -1351,7 +1351,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 1].nx = 0.0f;
                 papaVertex[setcount][i*4 + 1].ny = 0.0f;
                 papaVertex[setcount][i*4 + 1].nz = -1.0f;
-                papaVertex[setcount][i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
+                //papaVertex[setcount][i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
                 papaVertex[setcount][i*4 + 1].tv = 0.0f;
                 papaVertex[setcount][i*4 + 1].index = i*4 + 1;
@@ -1362,7 +1362,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 2].nx = 0.0f;
                 papaVertex[setcount][i*4 + 2].ny = 0.0f;
                 papaVertex[setcount][i*4 + 2].nz = -1.0f;
-                papaVertex[setcount][i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
+                //papaVertex[setcount][i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 2].tu = 0.0f;
                 papaVertex[setcount][i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
                 papaVertex[setcount][i*4 + 2].index = i*4 + 2;
@@ -1373,7 +1373,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 papaVertex[setcount][i*4 + 3].nx = 0.0f;
                 papaVertex[setcount][i*4 + 3].ny = 0.0f;
                 papaVertex[setcount][i*4 + 3].nz = -1.0f;
-                papaVertex[setcount][i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
+                //papaVertex[setcount][i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
                 papaVertex[setcount][i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
                 papaVertex[setcount][i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
                 papaVertex[setcount][i*4 + 3].index = i*4 + 3;

@@ -52,7 +52,7 @@ sampler MyTextureSampler : register(s0);
 struct OUT_VS
 {
     float4 pos    : POSITION;
-	float4 col    : COLOR0;
+	//float4 col    : COLOR0;
 	float2 uv     : TEXCOORD0;
 };
 
@@ -62,8 +62,8 @@ struct OUT_VS
 //スプライト標準頂点シェーダー
 OUT_VS GgafDx9VS_DefaultSpriteSet(                              
       float4 prm_pos    : POSITION,     // モデルの頂点
-      float  prm_index  : PSIZE ,    // モデルの頂点番号
       float3 prm_normal : NORMAL,        // モデルの頂点の法
+      float  prm_index  : PSIZE ,    // モデルの頂点番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
@@ -137,14 +137,14 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.col  = alpah;
+	//out_vs.col  = alpah;
 	return out_vs;
 }
 
 //スプライト標準ピクセルシェーダー
 float4 GgafDx9PS_DefaultSpriteSet(
-	float2 prm_uv	  : TEXCOORD0,
-	float4 prm_col    : COLOR0 
+	float2 prm_uv	  : TEXCOORD0 //,
+	//float4 prm_col    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv);
