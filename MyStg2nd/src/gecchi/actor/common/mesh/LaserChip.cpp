@@ -153,14 +153,15 @@ void LaserChip::processJudgement() {
 }
 
 void LaserChip::processDrawMain() {
-    int cnt = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
+    int _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
             if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
-                cnt++;
-                if (cnt > 8) {
+                _draw_set_num++;
+                if (_draw_set_num > 8) {
+                    _draw_set_num = 8;
                     break;
                 }
                 _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -171,23 +172,23 @@ void LaserChip::processDrawMain() {
             break;
         }
     }
-    _draw_set_index = 0;
-    _draw_object_num = 1;
-    //index   0 1 2 3 4
-    //object  1 2 4 8 16
-    if (cnt >= 8 && _pMeshSetModel->_setnum >= 4) {
-        _draw_set_index = 3;
-        _draw_object_num = 8;
-    } else if (4 <= cnt && _pMeshSetModel->_setnum >= 3) {
-        _draw_set_index = 2;
-        _draw_object_num = 4;
-    } else if (2 <= cnt && _pMeshSetModel->_setnum >= 2) {
-        _draw_set_index = 1;
-        _draw_object_num = 2;
-    } else {
-        _draw_set_index = 0;
-        _draw_object_num = 1;
-    }
+//    _draw_set_index = 0;
+//    _draw_object_num = 1;
+//    //index   0 1 2 3 4
+//    //object  1 2 4 8 16
+//    if (cnt >= 8 && _pMeshSetModel->_setnum >= 4) {
+//        _draw_set_index = 3;
+//        _draw_object_num = 8;
+//    } else if (4 <= cnt && _pMeshSetModel->_setnum >= 3) {
+//        _draw_set_index = 2;
+//        _draw_object_num = 4;
+//    } else if (2 <= cnt && _pMeshSetModel->_setnum >= 2) {
+//        _draw_set_index = 1;
+//        _draw_object_num = 2;
+//    } else {
+//        _draw_set_index = 0;
+//        _draw_object_num = 1;
+//    }
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
@@ -205,7 +206,7 @@ void LaserChip::processDrawMain() {
     bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
     float slant;
     float crossCamX;
-    for (int i = 0; i < _draw_object_num; i++) {
+    for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
 
