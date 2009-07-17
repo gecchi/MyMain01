@@ -11,8 +11,15 @@ class GgafDx9SpriteSetModel : public GgafDx9Model {
 protected:
 public:
     static int _draw_set_num_LastDraw;
-    int _setnum;
-
+    int _set_num;
+    struct INDEXPARAM {
+        UINT MaterialNo;
+        INT BaseVertexIndex;
+        UINT MinIndex;
+        UINT NumVertices;
+        UINT StartIndex;
+        UINT PrimitiveCount;
+    };
 
     /** 頂点構造体 */
     struct VERTEX {
@@ -23,7 +30,9 @@ public:
     };
 
     /** 頂点バッファの各セット */
-    LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** インデックスバッファ */
+    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
     /** 頂点のFVF */
     static DWORD FVF;
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */

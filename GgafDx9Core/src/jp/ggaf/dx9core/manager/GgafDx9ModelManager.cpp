@@ -1319,121 +1319,165 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
     //バッファ作成
-    if (prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 == NULL) {
-        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pSpriteSetModel->_setnum];
-        GgafDx9SpriteSetModel::VERTEX** papaVertex = NEW GgafDx9SpriteSetModel::VERTEX*[prm_pSpriteSetModel->_setnum];
+    if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
         prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
         prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
-        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
-            papaVertex[setcount] = NEW GgafDx9SpriteSetModel::VERTEX[4 * pow2(setcount)];
+
+
+//        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pSpriteSetModel->_setnum];
+//        GgafDx9SpriteSetModel::VERTEX** papaVertex = NEW GgafDx9SpriteSetModel::VERTEX*[prm_pSpriteSetModel->_set_num];
+//
+//        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
+
+        GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
     //    GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4];
 
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
         //x,y の ÷2 とは、モデル中心をローカル座標の原点中心としたいため
-            for (int i = 0; i < pow2(setcount); i++) {
+        for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
 
-                papaVertex[setcount][i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 0].z = 0.0f;
-                papaVertex[setcount][i*4 + 0].nx = 0.0f;
-                papaVertex[setcount][i*4 + 0].ny = 0.0f;
-                papaVertex[setcount][i*4 + 0].nz = -1.0f;
-                //papaVertex[setcount][i*4 + 0].color = D3DCOLOR_ARGB(255,255,255,255);
-                papaVertex[setcount][i*4 + 0].tu = 0.0f;
-                papaVertex[setcount][i*4 + 0].tv = 0.0f;
-                papaVertex[setcount][i*4 + 0].index = i*4 + 0;
-                //右上
-                papaVertex[setcount][i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 1].z = 0.0f;
-                papaVertex[setcount][i*4 + 1].nx = 0.0f;
-                papaVertex[setcount][i*4 + 1].ny = 0.0f;
-                papaVertex[setcount][i*4 + 1].nz = -1.0f;
-                //papaVertex[setcount][i*4 + 1].color = D3DCOLOR_ARGB(255,255,255,255);
-                papaVertex[setcount][i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-                papaVertex[setcount][i*4 + 1].tv = 0.0f;
-                papaVertex[setcount][i*4 + 1].index = i*4 + 1;
-                //左下
-                papaVertex[setcount][i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 2].z = 0.0f;
-                papaVertex[setcount][i*4 + 2].nx = 0.0f;
-                papaVertex[setcount][i*4 + 2].ny = 0.0f;
-                papaVertex[setcount][i*4 + 2].nz = -1.0f;
-                //papaVertex[setcount][i*4 + 2].color = D3DCOLOR_ARGB(255,255,255,255);
-                papaVertex[setcount][i*4 + 2].tu = 0.0f;
-                papaVertex[setcount][i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
-                papaVertex[setcount][i*4 + 2].index = i*4 + 2;
-                //右下
-                papaVertex[setcount][i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
-                papaVertex[setcount][i*4 + 3].z = 0.0f;
-                papaVertex[setcount][i*4 + 3].nx = 0.0f;
-                papaVertex[setcount][i*4 + 3].ny = 0.0f;
-                papaVertex[setcount][i*4 + 3].nz = -1.0f;
-                //papaVertex[setcount][i*4 + 3].color = D3DCOLOR_ARGB(255,255,255,255);
-                papaVertex[setcount][i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-                papaVertex[setcount][i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
-                papaVertex[setcount][i*4 + 3].index = i*4 + 3;
+            paVertex[i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+            paVertex[i*4 + 0].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+            paVertex[i*4 + 0].z = 0.0f;
+            paVertex[i*4 + 0].nx = 0.0f;
+            paVertex[i*4 + 0].ny = 0.0f;
+            paVertex[i*4 + 0].nz = -1.0f;
+            paVertex[i*4 + 0].tu = 0.0f;
+            paVertex[i*4 + 0].tv = 0.0f;
+            paVertex[i*4 + 0].index = i*4 + 0;
+            //右上
+            paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+            paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
+            paVertex[i*4 + 1].z = 0.0f;
+            paVertex[i*4 + 1].nx = 0.0f;
+            paVertex[i*4 + 1].ny = 0.0f;
+            paVertex[i*4 + 1].nz = -1.0f;
+            paVertex[i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+            paVertex[i*4 + 1].tv = 0.0f;
+            paVertex[i*4 + 1].index = i*4 + 1;
+            //左下
+            paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
+            paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+            paVertex[i*4 + 2].z = 0.0f;
+            paVertex[i*4 + 2].nx = 0.0f;
+            paVertex[i*4 + 2].ny = 0.0f;
+            paVertex[i*4 + 2].nz = -1.0f;
+            paVertex[i*4 + 2].tu = 0.0f;
+            paVertex[i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+            paVertex[i*4 + 2].index = i*4 + 2;
+            //右下
+            paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
+            paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
+            paVertex[i*4 + 3].z = 0.0f;
+            paVertex[i*4 + 3].nx = 0.0f;
+            paVertex[i*4 + 3].ny = 0.0f;
+            paVertex[i*4 + 3].nz = -1.0f;
+            paVertex[i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+            paVertex[i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+            paVertex[i*4 + 3].index = i*4 + 3;
 
+            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
+            _TRACE_("paVertex["<<(i*4 + 0)<<"].y ="<<paVertex[i*4 + 0].y );
+            _TRACE_("paVertex["<<(i*4 + 0)<<"].z ="<<paVertex[i*4 + 0].z );
+            _TRACE_("paVertex["<<(i*4 + 0)<<"].index ="<<paVertex[i*4 + 0].index );
+            _TRACE_("paVertex["<<(i*4 + 1)<<"].x ="<<paVertex[i*4 + 1].x );
+            _TRACE_("paVertex["<<(i*4 + 1)<<"].y ="<<paVertex[i*4 + 1].y );
+            _TRACE_("paVertex["<<(i*4 + 1)<<"].z ="<<paVertex[i*4 + 1].z );
+            _TRACE_("paVertex["<<(i*4 + 1)<<"].index ="<<paVertex[i*4 + 1].index );
+            _TRACE_("paVertex["<<(i*4 + 2)<<"].x ="<<paVertex[i*4 + 2].x );
+            _TRACE_("paVertex["<<(i*4 + 2)<<"].y ="<<paVertex[i*4 + 2].y );
+            _TRACE_("paVertex["<<(i*4 + 2)<<"].z ="<<paVertex[i*4 + 2].z );
+            _TRACE_("paVertex["<<(i*4 + 2)<<"].index ="<<paVertex[i*4 + 2].index );
+            _TRACE_("paVertex["<<(i*4 + 3)<<"].x ="<<paVertex[i*4 + 3].x );
+            _TRACE_("paVertex["<<(i*4 + 3)<<"].y ="<<paVertex[i*4 + 3].y );
+            _TRACE_("paVertex["<<(i*4 + 3)<<"].z ="<<paVertex[i*4 + 3].z );
+            _TRACE_("paVertex["<<(i*4 + 3)<<"].index ="<<paVertex[i*4 + 3].index );
 
+        }
 
+        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+                prm_pSpriteSetModel->_size_vertecs * prm_pSpriteSetModel->_set_num,
+                D3DUSAGE_WRITEONLY,
+                GgafDx9SpriteSetModel::FVF,
+                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
+                NULL);
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Lock(
+                                       0,
+                                       prm_pSpriteSetModel->_size_vertecs * prm_pSpriteSetModel->_set_num,
+                                       (void**)&pVertexBuffer,
+                                       0
+                                   );
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteSetModel->_model_name);
 
+        memcpy(
+            pVertexBuffer,
+            paVertex,
+            prm_pSpriteSetModel->_size_vertecs* prm_pSpriteSetModel->_set_num
+        ); //pVertexBuffer ← paVertex
+        prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
+//}
+        DELETEARR_IMPOSSIBLE_NULL(paVertex);
+    }
 
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].x ="<<papaVertex[setcount][i*4 + 0].x );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].y ="<<papaVertex[setcount][i*4 + 0].y );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].z ="<<papaVertex[setcount][i*4 + 0].z );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 0)<<"].index ="<<papaVertex[setcount][i*4 + 0].index );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].x ="<<papaVertex[setcount][i*4 + 1].x );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].y ="<<papaVertex[setcount][i*4 + 1].y );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].z ="<<papaVertex[setcount][i*4 + 1].z );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 1)<<"].index ="<<papaVertex[setcount][i*4 + 1].index );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].x ="<<papaVertex[setcount][i*4 + 2].x );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].y ="<<papaVertex[setcount][i*4 + 2].y );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].z ="<<papaVertex[setcount][i*4 + 2].z );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 2)<<"].index ="<<papaVertex[setcount][i*4 + 2].index );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].x ="<<papaVertex[setcount][i*4 + 3].x );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].y ="<<papaVertex[setcount][i*4 + 3].y );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].z ="<<papaVertex[setcount][i*4 + 3].z );
-                _TRACE_("papaVertex["<<setcount<<"]["<<(i*4 + 3)<<"].index ="<<papaVertex[setcount][i*4 + 3].index );
+    //インデックスバッファ作成
+    if (prm_pSpriteSetModel->_pIDirect3DIndexBuffer9 == NULL) {
+        int nVertices = 4;
+        int nFaces = 2;
+        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
+        unit_paIdxBuffer[0] = 0;
+        unit_paIdxBuffer[1] = 1;
+        unit_paIdxBuffer[2] = 2;
 
+        unit_paIdxBuffer[3] = 3;
+        unit_paIdxBuffer[4] = 2;
+        unit_paIdxBuffer[5] = 1;
 
-
+        WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * prm_pSpriteSetModel->_set_num];
+        for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
+            for (int j = 0; j < nFaces; j++) {
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
             }
-
-            hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                    prm_pSpriteSetModel->_size_vertecs * pow2(setcount),
-                    D3DUSAGE_WRITEONLY,
-                    GgafDx9SpriteSetModel::FVF,
-                    D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
-                    &(prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]),
-                    NULL);
-            mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
-            //頂点バッファ作成
-            //頂点情報をビデオカード頂点バッファへロード
-            void *pVertexBuffer;
-            hr = prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]->Lock(
-                                           0,
-                                           prm_pSpriteSetModel->_size_vertecs * pow2(setcount),
-                                           (void**)&pVertexBuffer,
-                                           0
-                                       );
-            mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteSetModel->_model_name);
-
-            memcpy(
-                pVertexBuffer,
-                papaVertex[setcount],
-                prm_pSpriteSetModel->_size_vertecs* pow2(setcount)
-            ); //pVertexBuffer ← paVertex
-            prm_pSpriteSetModel->_paIDirect3DVertexBuffer9[setcount]->Unlock();
         }
 
-        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
-            DELETEARR_IMPOSSIBLE_NULL(papaVertex[setcount]);
-        }
-        DELETEARR_IMPOSSIBLE_NULL(papaVertex);
+        hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
+                               sizeof(WORD) * nFaces * 3 * prm_pSpriteSetModel->_set_num,
+                                D3DUSAGE_WRITEONLY,
+                                D3DFMT_INDEX16,
+                                D3DPOOL_MANAGED,
+                                &(prm_pSpriteSetModel->_pIDirect3DIndexBuffer9),
+                                NULL);
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pSpriteSetModel->_model_name));
+
+        void* pIndexBuffer;
+        prm_pSpriteSetModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
+        memcpy(
+          pIndexBuffer ,
+          paIdxBufferSet,
+          sizeof(WORD) * nFaces * 3 * prm_pSpriteSetModel->_set_num
+        );
+        prm_pSpriteSetModel->_pIDirect3DIndexBuffer9->Unlock();
+        DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
+        DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
+
+
+        //描画時パラメーター
+        GgafDx9SpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9SpriteSetModel::INDEXPARAM[nFaces * prm_pSpriteSetModel->_set_num];
+        paIndexParam[0].MaterialNo = 0;
+        paIndexParam[0].BaseVertexIndex = 0;
+        paIndexParam[0].MinIndex = 0;
+        paIndexParam[0].NumVertices = 0;
+        paIndexParam[0].StartIndex = 0;
+        paIndexParam[0].PrimitiveCount = 0;
+        ここ
     }
 
     //全パターンのUV情報の配列作成しモデルに保持させる

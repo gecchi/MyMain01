@@ -13,11 +13,11 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx
     _row_texture_split = 1;
     _col_texture_split = 1;
     _pattno_ani_Max = 0;
-    _paIDirect3DVertexBuffer9 = NULL;
+    _pIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
 
 
-    _setnum = 4;
+    _set_num = 8;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel*)
     //で行っている。
@@ -44,7 +44,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw  != this ||
         GgafDx9SpriteSetModel::_draw_set_num_LastDraw != set_index)
     {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9[set_index], 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9[set_index], 0, _size_vertec_unit);
 _TRACE_("GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9["<<set_index<<"], 0, _size_vertec_unit);");
 
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
@@ -97,10 +97,8 @@ void GgafDx9SpriteSetModel::onDeviceLost() {
 
 void GgafDx9SpriteSetModel::release() {
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " start");
-    for (int i = 0; i < _setnum; i++) {
-        RELEASE_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9[i]);
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
     _papTextureCon[0]->close();
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
