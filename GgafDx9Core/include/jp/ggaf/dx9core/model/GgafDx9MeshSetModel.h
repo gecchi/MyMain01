@@ -59,15 +59,16 @@ public:
 
     };
 
-    static int _set_index_LastDraw;
-    int _setnum;
+    static int _draw_set_num_LastDraw;
+
+    int _set_num;
 
     /** 頂点のFVF */
     static DWORD FVF;
     /** 頂点バッファ */
-    LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9;
+    LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
     /** インデックスバッファ */
-    LPDIRECT3DINDEXBUFFER9* _paIDirect3DIndexBuffer9;
+    LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
 
     /** 1頂点のサイズ */
@@ -76,15 +77,16 @@ public:
     UINT _size_vertecs;
     /** 基本モデル頂点数 */
     UINT _nVertices;
-
+    /** 基本モデル面の数 */
     UINT _nFaces;
 
-    INDEXPARAM** _papaIndexParam;
+    INDEXPARAM* _paIndexParam;
 
-    UINT* _pa_nMaterialListGrp;
+    /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
+    UINT _nMaterialListGrp;
 
-    VERTEX** _papaVtxBuffer_org;
-    WORD** _papaIdxBuffer_org;
+    VERTEX* _paVtxBuffer_org;
+    WORD* _paIdxBuffer_org;
 
     /** Paulさんモデル */
     Frm::Model3D* _pModel3D;
