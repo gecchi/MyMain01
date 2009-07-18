@@ -36,17 +36,18 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
 }
 
 void GgafDx9SpriteSetActor::processDrawMain() {
-    int cnt = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルが連続しているカウント数
+    _draw_set_num = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model = _pNextDrawActor->_pGgafDx9Model;
-_TRACE_("cnt="<<cnt<<" pGgafDx9Model = "<<pGgafDx9Model->getName() << " =?= _pSpriteSetModel="<<_pSpriteSetModel->getName());
+//_TRACE_("cnt="<<cnt<<" pGgafDx9Model = "<<pGgafDx9Model->getName() << " =?= _pSpriteSetModel="<<_pSpriteSetModel->getName());
 
             if (pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
-                cnt++;
-                if (cnt > 8) {
+                _draw_set_num++;
+                if (_draw_set_num > 8) {
+                    _draw_set_num = 8;
                     break;
                 }
                 _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -57,27 +58,27 @@ _TRACE_("cnt="<<cnt<<" pGgafDx9Model = "<<pGgafDx9Model->getName() << " =?= _pSp
             break;
         }
     }
-    _draw_set_index = 0;
-    _draw_object_num = 1;
-_TRACE_("_pSpriteSetModel->_setnum = "<<_pSpriteSetModel->_setnum);
-    //index   0 1 2 3 4
-    //object  1 2 4 8 16
-    if (cnt >= 8 && _pSpriteSetModel->_setnum >= 4) {
-        _draw_set_index = 3;
-        _draw_object_num = 8;
-    } else if (4 <= cnt && _pSpriteSetModel->_setnum >= 3) {
-        _draw_set_index = 2;
-        _draw_object_num = 4;
-    } else if (2 <= cnt && _pSpriteSetModel->_setnum >= 2) {
-        _draw_set_index = 1;
-        _draw_object_num = 2;
-    } else {
-        _draw_set_index = 0;
-        _draw_object_num = 1;
-    }
+//    _draw_set_index = 0;
+//    _draw_object_num = 1;
+//_TRACE_("_pSpriteSetModel->_setnum = "<<_pSpriteSetModel->_setnum);
+//    //index   0 1 2 3 4
+//    //object  1 2 4 8 16
+//    if (cnt >= 8 && _pSpriteSetModel->_setnum >= 4) {
+//        _draw_set_index = 3;
+//        _draw_object_num = 8;
+//    } else if (4 <= cnt && _pSpriteSetModel->_setnum >= 3) {
+//        _draw_set_index = 2;
+//        _draw_object_num = 4;
+//    } else if (2 <= cnt && _pSpriteSetModel->_setnum >= 2) {
+//        _draw_set_index = 1;
+//        _draw_object_num = 2;
+//    } else {
+//        _draw_set_index = 0;
+//        _draw_object_num = 1;
+//    }
 
 
-_TRACE_("GgafDx9SpriteSetActor::processDrawMain() _draw_set_index="<<_draw_set_index<<"/_draw_object_num="<<_draw_object_num);
+//_TRACE_("GgafDx9SpriteSetActor::processDrawMain() _draw_set_num="<<_draw_set_num);
 
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
@@ -87,9 +88,7 @@ _TRACE_("GgafDx9SpriteSetActor::processDrawMain() _draw_set_index="<<_draw_set_i
 
     GgafDx9DrawableActor *pDrawActor;
     pDrawActor = this;
-    for (int i = 0; i < _draw_object_num; i++) {
-
-_TRACE_("GgafDx9SpriteSetActor::processDrawMain() pDrawActor="<<pDrawActor->getName());
+    for (int i = 0; i < _draw_set_num; i++) {
 
         if (_isBillboardingFlg) {
             GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(pDrawActor, pDrawActor->_matWorld);
@@ -98,7 +97,6 @@ _TRACE_("GgafDx9SpriteSetActor::processDrawMain() pDrawActor="<<pDrawActor->getN
         }
         hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) に失敗しました。");
-_TRACE_("GgafDx9SpriteSetActor::processDrawMain() pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld["<<i<<"], &(pDrawActor->_matWorld) );");
         //今回描画のUV
         static GgafDx9RectUV* pRectUV_Active;
         pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pattno_ani_now);

@@ -19,9 +19,9 @@ private:
     unsigned int _aniframe_counter;
 
 public:
-
-    int _draw_set_index;
-    int _draw_object_num;
+    int _draw_set_num;
+//    int _draw_set_index;
+//    int _draw_object_num;
 
 
     /** モデルオブジェクトへのポインタ */

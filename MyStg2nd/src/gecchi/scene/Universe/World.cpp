@@ -23,9 +23,9 @@ void World::initialize() {
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
 
-    GgafDx9Universe::_pCamera->_X = GgafDx9Universe::_pCamera->_Z; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
-    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
-
+//    GgafDx9Universe::_pCamera->_X = GgafDx9Universe::_pCamera->_Z; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
+//    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
+//
 
 _TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
 

@@ -1435,16 +1435,22 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         unit_paIdxBuffer[1] = 1;
         unit_paIdxBuffer[2] = 2;
 
-        unit_paIdxBuffer[3] = 3;
-        unit_paIdxBuffer[4] = 2;
-        unit_paIdxBuffer[5] = 1;
+        unit_paIdxBuffer[3] = 1;
+        unit_paIdxBuffer[4] = 3;
+        unit_paIdxBuffer[5] = 2;
 
+        _TRACE_("prm_pSpriteSetModel->_set_num="<<prm_pSpriteSetModel->_set_num);
         WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * prm_pSpriteSetModel->_set_num];
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
                 paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+
+                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 0)<<"] = unit_paIdxBuffer["<<(j*3 + 0)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 0] + (nVertices*i)));
+                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 1)<<"] = unit_paIdxBuffer["<<(j*3 + 1)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 1] + (nVertices*i)));
+                _TRACE_("paIdxBufferSet["<<(((i*nFaces*3)+(j*3)) + 2)<<"] = unit_paIdxBuffer["<<(j*3 + 2)<<"] + (nVertices*"<<i<<")="<<(unit_paIdxBuffer[j*3 + 2] + (nVertices*i)));
+
             }
         }
 
@@ -1468,16 +1474,17 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
         DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
 
-
         //描画時パラメーター
-        GgafDx9SpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9SpriteSetModel::INDEXPARAM[nFaces * prm_pSpriteSetModel->_set_num];
-        paIndexParam[0].MaterialNo = 0;
-        paIndexParam[0].BaseVertexIndex = 0;
-        paIndexParam[0].MinIndex = 0;
-        paIndexParam[0].NumVertices = 0;
-        paIndexParam[0].StartIndex = 0;
-        paIndexParam[0].PrimitiveCount = 0;
-        ここ
+        GgafDx9SpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9SpriteSetModel::INDEXPARAM[prm_pSpriteSetModel->_set_num];
+        for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
+            paIndexParam[i].MaterialNo = 0;
+            paIndexParam[i].BaseVertexIndex = 0;
+            paIndexParam[i].MinIndex = 0;
+            paIndexParam[i].NumVertices = nVertices*(i+1);
+            paIndexParam[i].StartIndex = 0;
+            paIndexParam[i].PrimitiveCount = nFaces*(i+1);
+        }
+        prm_pSpriteSetModel->_paIndexParam = paIndexParam;
     }
 
     //全パターンのUV情報の配列作成しモデルに保持させる
@@ -1848,7 +1855,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         TRACE3("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         for (int i = 0; i < nVertices; i++) {
-            TRACE3("["<<i<<"]=" << model_paVtxBuffer_org[i].x << "\t, " << model_paVtxBuffer_org[i].y << "\t, " << model_paVtxBuffer_org[i].z << "\t, " << model_paVtxBuffer_org[i].nx << "\t, " << model_paVtxBuffer_org[i].ny << "\t, " << model_paVtxBuffer_org[i].nz << "\t, " << model_paVtxBuffer_org[i].tu << "\t, " << model_paVtxBuffer_org[i].tv);
+            TRACE3("["<<i<<"]=" << unit_paVtxBuffer_org[i].x << "\t, " << unit_paVtxBuffer_org[i].y << "\t, " << unit_paVtxBuffer_org[i].z << "\t, " << unit_paVtxBuffer_org[i].nx << "\t, " << unit_paVtxBuffer_org[i].ny << "\t, " << unit_paVtxBuffer_org[i].nz << "\t, " << unit_paVtxBuffer_org[i].tu << "\t, " << unit_paVtxBuffer_org[i].tv);
         }
         TRACE3("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
         //インデックスバッファ登録

@@ -41,7 +41,7 @@ public:
     UINT _size_vertecs;
     /** 1頂点のサイズ */
     UINT _size_vertec_unit;
-
+    INDEXPARAM* _paIndexParam;
     /**
      * コンストラクタ<BR>
      * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。

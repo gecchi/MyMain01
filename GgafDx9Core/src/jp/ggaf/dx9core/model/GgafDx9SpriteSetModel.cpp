@@ -14,6 +14,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx
     _col_texture_split = 1;
     _pattno_ani_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
+    _pIDirect3DIndexBuffer9 = NULL;
     _paRectUV = NULL;
 
 
@@ -35,20 +36,15 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //対象エフェクト
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
-    int set_index = pTargetActor->_draw_set_index;
-
-    _TRACE_("GgafDx9SpriteSetModel::draw set_index="<<set_index);
+    int draw_set_num = pTargetActor->_draw_set_num;
 
     static HRESULT hr;
-    //モデルが同じでかつ、セット数も同じならば頂点バッファ、の設定はスキップできる
-    if (GgafDx9ModelManager::_pModelLastDraw  != this ||
-        GgafDx9SpriteSetModel::_draw_set_num_LastDraw != set_index)
-    {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9[set_index], 0, _size_vertec_unit);
-_TRACE_("GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9["<<set_index<<"], 0, _size_vertec_unit);");
-
+    //モデルが同じならば頂点バッファ等、の設定はスキップできる
+    if (GgafDx9ModelManager::_pModelLastDraw  != this) {
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
+        GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
     }
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect)  {
@@ -73,11 +69,17 @@ _TRACE_("GgafDx9God::_pID3DDevice9->SetStreamSource(0, _paIDirect3DVertexBuffer9
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
-    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
+                                                    _paIndexParam[draw_set_num - 1].BaseVertexIndex,
+                                                    _paIndexParam[draw_set_num - 1].MinIndex,
+                                                    _paIndexParam[draw_set_num - 1].NumVertices,
+                                                    _paIndexParam[draw_set_num - 1].StartIndex,
+                                                    _paIndexParam[draw_set_num - 1].PrimitiveCount);
+//    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
-    GgafDx9SpriteSetModel::_draw_set_num_LastDraw = set_index;
+    GgafDx9SpriteSetModel::_draw_set_num_LastDraw = draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
     GgafGod::_num_actor_playing++;
     return D3D_OK;
@@ -102,6 +104,7 @@ void GgafDx9SpriteSetModel::release() {
     _papTextureCon[0]->close();
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+    DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " end");
 }
 
