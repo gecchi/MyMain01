@@ -24,7 +24,14 @@ float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
-float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse001;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse002;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse003;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse004;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse005;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse006;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse007;  //マテリアルのDiffuse反射色と、Ambien反射色
+float4 g_MaterialDiffuse008;  //マテリアルのDiffuse反射色と、Ambien反射色
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -39,6 +46,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
+	float4 col    : COLOR0;
 	float3 normal : TEXCOORD1;   // ワールド変換した法線
 };
 
@@ -58,22 +66,32 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 
 	//頂点計算
 	float4x4 matWorld;
+	float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+
 	if (index == 0) {
 		matWorld = g_matWorld001;
+		g_MaterialDiffuse = g_MaterialDiffuse001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
+		g_MaterialDiffuse = g_MaterialDiffuse002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
+		g_MaterialDiffuse = g_MaterialDiffuse003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
+		g_MaterialDiffuse = g_MaterialDiffuse004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
+		g_MaterialDiffuse = g_MaterialDiffuse005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
+		g_MaterialDiffuse = g_MaterialDiffuse006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
+		g_MaterialDiffuse = g_MaterialDiffuse007;
 	} else {
 		matWorld = g_matWorld008;
+		g_MaterialDiffuse = g_MaterialDiffuse008;
 	} 
 
 //	if (g_nVertexs*4 > prm_index) {
@@ -115,27 +133,28 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
     out_vs.normal = normalize(mul(prm_normal, matWorld)); 	//法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv;
+	out_vs.col = g_MaterialDiffuse;
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultMeshSet(
 	float2 prm_uv	  : TEXCOORD0,
-	float3 prm_normal : TEXCOORD1
+	float3 prm_normal : TEXCOORD1,
+	float4 prm_col    : COLOR0
 ) : COLOR  {
 	//求める色
 	float4 out_color; 
-
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	out_color = prm_col * g_LightDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	out_color =  (g_LightAmbient * tex_color) + out_color;  
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα
 
 	return out_color;
 }
