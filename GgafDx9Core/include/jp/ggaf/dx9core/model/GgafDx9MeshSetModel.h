@@ -80,10 +80,10 @@ public:
     /** 基本モデル面の数 */
     UINT _nFaces;
 
-    INDEXPARAM* _paIndexParam;
+    INDEXPARAM** _papaIndexParam;
 
     /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
-    UINT _nMaterialListGrp;
+    UINT* _pa_nMaterialListGrp;
 
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;

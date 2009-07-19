@@ -1718,7 +1718,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     Frm::Mesh* model_pMeshesFront = NULL;
 
     GgafDx9MeshSetModel::INDEXPARAM* unit_paIndexParam = NULL;
-    GgafDx9MeshSetModel::INDEXPARAM* model_paIndexParam = NULL;
+    //GgafDx9MeshSetModel::INDEXPARAM* model_paIndexParam = NULL;
+    GgafDx9MeshSetModel::INDEXPARAM** model_papaIndexParam = NULL;
     //GgafDx9MeshSetModel::INDEXPARAM** model_papaIndexParam = NULL;
     GgafDx9MeshSetModel::VERTEX* unit_paVtxBuffer_org = NULL;
     GgafDx9MeshSetModel::VERTEX* model_paVtxBuffer_org = NULL;
@@ -1902,102 +1903,111 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 //            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
 //        }
 
-        //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-        //GgafDx9MeshSetModel::INDEXPARAM** papaParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
-
-        //??model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
-        //??prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_setnum];
-
-
-
-
-
-        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
 
 
 
 
 
 
-        Sleep(1);
-        GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * prm_pMeshSetModel->_set_num];
-        int prev_materialno = -1; //初回必ずBREAKさせるため負のマテリアルNO
-        int materialno = 0;
-        int paramno = 0;
-        int faceNoCnt_break = 0;
-        int prev_faceNoCnt_break = -1;
-        UINT max_num_vertices = 0;
-        UINT min_num_vertices = INT_MAX;
 
-        int faceNoCnt;
-        for (faceNoCnt = 0; faceNoCnt < nFaces * prm_pMeshSetModel->_set_num; faceNoCnt++) {
-            materialno = paFaceMaterials[faceNoCnt];
-            if (prev_materialno != materialno) {
-                //BREAK!
-                prev_faceNoCnt_break = faceNoCnt_break;
-                faceNoCnt_break = faceNoCnt;
 
-                paParam[paramno].MaterialNo = materialno;
-                paParam[paramno].BaseVertexIndex = 0;
-                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
-                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
-                paParam[paramno].StartIndex = faceNoCnt*3;
-                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
 
-                if (faceNoCnt > 0) {
-                    paParam[paramno-1].MinIndex = min_num_vertices;
-                    paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-                    paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
-                    //リセット
-                    max_num_vertices = 0;
-                    min_num_vertices = INT_MAX;
+
+
+
+
+
+
+
+        model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
+        prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
+        for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {
+          Sleep(1);
+            GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * (set_index+1)];
+            int prev_materialno = -1;
+            int materialno = 0;
+            int paramno = 0;
+            int faceNoCnt_break = 0;
+            int prev_faceNoCnt_break = -1;
+            UINT max_num_vertices = 0;
+            UINT min_num_vertices = INT_MAX;
+
+            int faceNoCnt;
+            for (faceNoCnt = 0; faceNoCnt < nFaces * (set_index+1); faceNoCnt++) {
+                materialno = paFaceMaterials[faceNoCnt];
+                if (prev_materialno != materialno) {
+                    //TRACE3("BREAK! paramno="<<paramno);
+                    prev_faceNoCnt_break = faceNoCnt_break;
+                    faceNoCnt_break = faceNoCnt;
+
+                    paParam[paramno].MaterialNo = materialno;
+                    paParam[paramno].BaseVertexIndex = 0;
+                    paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
+                    paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+                    paParam[paramno].StartIndex = faceNoCnt*3;
+                    paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+
+                    if (faceNoCnt > 0) {
+                        paParam[paramno-1].MinIndex = min_num_vertices;
+                        paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+                        paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
+                        //リセット
+                        max_num_vertices = 0;
+                        min_num_vertices = INT_MAX;
+                    }
+                    paramno++;
                 }
-                paramno++;
+
+                if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                    max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+                }
+                if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                    max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+                }
+                if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                    max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+                }
+                if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
+                    min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+                }
+                if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
+                    min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+                }
+                if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
+                    min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+                }
+                prev_materialno = materialno;
+            }
+            if (nFaces > 0) {
+                paParam[paramno-1].MinIndex = min_num_vertices;
+                paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+                paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
             }
 
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+            model_papaIndexParam[set_index] = NEW GgafDx9MeshSetModel::INDEXPARAM[paramno];
+            for (int i = 0; i < paramno; i++) {
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].MaterialNo = paParam["<<i<<"].MaterialNo = "<<paParam[i].MaterialNo);
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].BaseVertexIndex = paParam["<<i<<"].BaseVertexIndex = "<<paParam[i].BaseVertexIndex);
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].MinIndex = paParam["<<i<<"].MinIndex = "<<paParam[i].MinIndex);
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].NumVertices = paParam["<<i<<"].NumVertices = "<<paParam[i].NumVertices);
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].StartIndex = paParam["<<i<<"].StartIndex = "<<paParam[i].StartIndex);
+                _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].PrimitiveCount = paParam["<<i<<"].PrimitiveCount = "<<paParam[i].PrimitiveCount);
+
+
+
+                model_papaIndexParam[set_index][i].MaterialNo = paParam[i].MaterialNo;
+                model_papaIndexParam[set_index][i].BaseVertexIndex = paParam[i].BaseVertexIndex;
+                model_papaIndexParam[set_index][i].MinIndex = paParam[i].MinIndex;
+                model_papaIndexParam[set_index][i].NumVertices = paParam[i].NumVertices;
+                model_papaIndexParam[set_index][i].StartIndex = paParam[i].StartIndex;
+                model_papaIndexParam[set_index][i].PrimitiveCount = paParam[i].PrimitiveCount;
             }
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
-            }
-            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
-            }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
-            }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
-            }
-            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
-            }
-            prev_materialno = materialno;
+
+            prm_pMeshSetModel->_pa_nMaterialListGrp[set_index] = paramno;
+
+            _TRACE_("prm_pMeshSetModel->_pa_nMaterialListGrp["<<set_index<<"]="<<prm_pMeshSetModel->_pa_nMaterialListGrp[set_index]);
+            delete[] paParam;
         }
-        if (nFaces > 0) {
-            paParam[paramno-1].MinIndex = min_num_vertices;
-            paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-            paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
-        }
-
-        model_paIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM[paramno];
-        for (int i = 0; i < paramno; i++) {
-            model_paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
-            model_paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
-            model_paIndexParam[i].MinIndex = paParam[i].MinIndex;
-            model_paIndexParam[i].NumVertices = paParam[i].NumVertices;
-            model_paIndexParam[i].StartIndex = paParam[i].StartIndex;
-            model_paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
-        }
-
-        prm_pMeshSetModel->_nMaterialListGrp = paramno;
-        delete[] paParam;
-
-
-
-
-        //}
 
         //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
         //    DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials[setcount]);
@@ -2011,6 +2021,150 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         delete[] paRad;
         delete[] paRadSum_Vtx;
         //delete[] paParam;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//        //描画時（DrawIndexedPrimitive）のパラメータリスト作成
+//        //GgafDx9MeshSetModel::INDEXPARAM** papaParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
+//
+//        //??model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
+//        //??prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_setnum];
+//
+//
+//
+//
+//
+//        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
+//
+//
+//
+//
+//
+//
+//        Sleep(1);
+//        GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * prm_pMeshSetModel->_set_num];
+//        int prev_materialno = -1; //初回必ずBREAKさせるため負のマテリアルNO
+//        int materialno = 0;
+//        int paramno = 0;
+//        int faceNoCnt_break = 0;
+//        int prev_faceNoCnt_break = -1;
+//        UINT max_num_vertices = 0;
+//        UINT min_num_vertices = INT_MAX;
+//
+//        int faceNoCnt;
+//        for (faceNoCnt = 0; faceNoCnt < nFaces * prm_pMeshSetModel->_set_num; faceNoCnt++) {
+//            materialno = paFaceMaterials[faceNoCnt];
+//            if (prev_materialno != materialno) {
+//                //BREAK!
+//                prev_faceNoCnt_break = faceNoCnt_break;
+//                faceNoCnt_break = faceNoCnt;
+//
+//                paParam[paramno].MaterialNo = materialno;
+//                paParam[paramno].BaseVertexIndex = 0;
+//                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
+//                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
+//                paParam[paramno].StartIndex = faceNoCnt*3;
+//                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
+//
+//                if (faceNoCnt > 0) {
+//                    paParam[paramno-1].MinIndex = min_num_vertices;
+//                    paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+//                    paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
+//                    //リセット
+//                    max_num_vertices = 0;
+//                    min_num_vertices = INT_MAX;
+//                }
+//                paramno++;
+//            }
+//
+//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
+//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+//            }
+//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
+//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+//            }
+//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
+//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+//            }
+//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
+//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
+//            }
+//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
+//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
+//            }
+//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
+//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
+//            }
+//            prev_materialno = materialno;
+//        }
+//        if (nFaces > 0) {
+//            paParam[paramno-1].MinIndex = min_num_vertices;
+//            paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
+//            paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
+//        }
+//
+//        model_paIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM[paramno];
+//        for (int i = 0; i < paramno; i++) {
+//            model_paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
+//            model_paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
+//            model_paIndexParam[i].MinIndex = paParam[i].MinIndex;
+//            model_paIndexParam[i].NumVertices = paParam[i].NumVertices;
+//            model_paIndexParam[i].StartIndex = paParam[i].StartIndex;
+//            model_paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
+//        }
+//
+//        prm_pMeshSetModel->_nMaterialListGrp = paramno;
+//        delete[] paParam;
+//
+//
+//
+//
+//        //}
+//
+//        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
+//        //    DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials[setcount]);
+//        //}
+//        DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
+//
+//
+//        //prm_pMeshSetModel->_nMaterialListGrp = paramno;
+//        //↑なんとか
+//
+//        delete[] paRad;
+//        delete[] paRadSum_Vtx;
+//        //delete[] paParam;
+
+
+
+
+
+
+
+
+
+
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -2152,7 +2306,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
     prm_pMeshSetModel->_paIdxBuffer_org = model_paIdxBuffer_org;
     prm_pMeshSetModel->_paVtxBuffer_org = model_paVtxBuffer_org;
-    prm_pMeshSetModel->_paIndexParam = model_paIndexParam;
+    //prm_pMeshSetModel->_paIndexParam = model_paIndexParam;
+    prm_pMeshSetModel->_papaIndexParam = model_papaIndexParam;
     prm_pMeshSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pMeshSetModel->_papTextureCon = model_papTextureCon;
     prm_pMeshSetModel->_dwNumMaterials = model_nMaterials;

@@ -16,10 +16,10 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Mod
     _set_num = 8;
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
-    _nMaterialListGrp = NULL;
+    _pa_nMaterialListGrp = NULL;
     _paVtxBuffer_org = NULL;
     _paIdxBuffer_org = NULL;
-    _paIndexParam = NULL;
+    _papaIndexParam = NULL;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどのメンバー初期化は
     //void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel*)
     //で行っている。
@@ -93,14 +93,14 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
 
     //描画
-    for (UINT material_grp_index = 0; material_grp_index < _nMaterialListGrp; material_grp_index++) {
+    for (UINT material_grp_index = 0; material_grp_index < _pa_nMaterialListGrp[draw_set_num-1]; material_grp_index++) {
         // TODO
         //モデルが同じでかつ、セット数も同じかつ、マテリアルNOが１つしかないならば、テクスチャ設定もスキップできる
         if (GgafDx9ModelManager::_pModelLastDraw  != this      ||
             GgafDx9MeshSetModel::_draw_set_num_LastDraw != draw_set_num ||
-            _nMaterialListGrp != 1)
+            _pa_nMaterialListGrp[draw_set_num-1] != 1)
         {
-            material_no = _paIndexParam[material_grp_index].MaterialNo;
+            material_no = _papaIndexParam[draw_set_num-1][material_grp_index].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -137,11 +137,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
-                                                        _paIndexParam[material_grp_index].BaseVertexIndex,
-                                                        _paIndexParam[material_grp_index].MinIndex,
-                                                        _paIndexParam[material_grp_index].NumVertices,
-                                                        _paIndexParam[material_grp_index].StartIndex,
-                                                        _paIndexParam[material_grp_index].PrimitiveCount);
+                                        _papaIndexParam[draw_set_num-1][material_grp_index].BaseVertexIndex,
+                                        _papaIndexParam[draw_set_num-1][material_grp_index].MinIndex,
+                                        _papaIndexParam[draw_set_num-1][material_grp_index].NumVertices,
+                                        _papaIndexParam[draw_set_num-1][material_grp_index].StartIndex,
+                                        _papaIndexParam[draw_set_num-1][material_grp_index].PrimitiveCount);
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9MeshSetModel::_draw_set_num_LastDraw = draw_set_num;
@@ -183,7 +183,10 @@ void GgafDx9MeshSetModel::release() {
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
-    DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+    for (int i = 0; i < _set_num; i++) {
+        DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam);
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " end");
 
 }
