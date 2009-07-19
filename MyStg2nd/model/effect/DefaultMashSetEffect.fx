@@ -54,38 +54,57 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
+	int index = (int)prm_index;
 
 	//’¸“_ŒvŽZ
 	float4x4 matWorld;
-	if (g_nVertexs*4 > prm_index) {
-		if (g_nVertexs*2 > prm_index) {
-			if (g_nVertexs > prm_index) {
-				matWorld = g_matWorld001;
-			} else {
-				matWorld = g_matWorld002;
-			}
-		} else {
-			if (g_nVertexs*3 > prm_index) {
-				matWorld = g_matWorld003;
-			} else {
-				matWorld = g_matWorld004;
-			}
-		}
+	if (index == 0) {
+		matWorld = g_matWorld001;
+	} else if (index == 1) {
+		matWorld = g_matWorld002;
+	} else if (index == 2) {
+		matWorld = g_matWorld003;
+	} else if (index == 3) {
+		matWorld = g_matWorld004;
+	} else if (index == 4) {
+		matWorld = g_matWorld005;
+	} else if (index == 5) {
+		matWorld = g_matWorld006;
+	} else if (index == 6) {
+		matWorld = g_matWorld007;
 	} else {
-		if (g_nVertexs*6 > prm_index) {
-			if (g_nVertexs*5 > prm_index) {
-				matWorld = g_matWorld005;
-			} else {
-				matWorld = g_matWorld006;
-			}
-		} else { 
-			if (g_nVertexs*7 > prm_index) {
-				matWorld = g_matWorld007;
-			} else {
-				matWorld = g_matWorld008;
-			}
-		}
-	}
+		matWorld = g_matWorld008;
+	} 
+
+//	if (g_nVertexs*4 > prm_index) {
+//		if (g_nVertexs*2 > prm_index) {
+//			if (g_nVertexs > prm_index) {
+//				matWorld = g_matWorld001;
+//			} else {
+//				matWorld = g_matWorld002;
+//			}
+//		} else {
+//			if (g_nVertexs*3 > prm_index) {
+//				matWorld = g_matWorld003;
+//			} else {
+//				matWorld = g_matWorld004;
+//			}
+//		}
+//	} else {
+//		if (g_nVertexs*6 > prm_index) {
+//			if (g_nVertexs*5 > prm_index) {
+//				matWorld = g_matWorld005;
+//			} else {
+//				matWorld = g_matWorld006;
+//			}
+//		} else { 
+//			if (g_nVertexs*7 > prm_index) {
+//				matWorld = g_matWorld007;
+//			} else {
+//				matWorld = g_matWorld008;
+//			}
+//		}
+//	}
 
 
 	float4 posWorld = mul( prm_pos, matWorld );               // World•ÏŠ·
