@@ -53,9 +53,9 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //頂点バッファ設定
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //頂点フォーマット
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertec_unit_primary);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
-            GgafDx9God::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertec_unit_morph);
+            GgafDx9God::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
         //インデックスバッファ設定
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);

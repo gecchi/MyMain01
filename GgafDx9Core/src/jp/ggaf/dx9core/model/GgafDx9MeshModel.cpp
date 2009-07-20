@@ -39,7 +39,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     UINT material_no;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
     }

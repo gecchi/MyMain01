@@ -41,7 +41,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static HRESULT hr;
     //モデルが同じならば頂点バッファ等、の設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);

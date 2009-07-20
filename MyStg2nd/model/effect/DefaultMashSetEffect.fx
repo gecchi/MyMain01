@@ -66,64 +66,33 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 
 	//頂点計算
 	float4x4 matWorld;
-	float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+	float4 colorMaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
-		g_MaterialDiffuse = g_MaterialDiffuse001;
+		colorMaterialDiffuse = g_MaterialDiffuse001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
-		g_MaterialDiffuse = g_MaterialDiffuse002;
+		colorMaterialDiffuse = g_MaterialDiffuse002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
-		g_MaterialDiffuse = g_MaterialDiffuse003;
+		colorMaterialDiffuse = g_MaterialDiffuse003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
-		g_MaterialDiffuse = g_MaterialDiffuse004;
+		colorMaterialDiffuse = g_MaterialDiffuse004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
-		g_MaterialDiffuse = g_MaterialDiffuse005;
+		colorMaterialDiffuse = g_MaterialDiffuse005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
-		g_MaterialDiffuse = g_MaterialDiffuse006;
+		colorMaterialDiffuse = g_MaterialDiffuse006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
-		g_MaterialDiffuse = g_MaterialDiffuse007;
+		colorMaterialDiffuse = g_MaterialDiffuse007;
 	} else {
 		matWorld = g_matWorld008;
-		g_MaterialDiffuse = g_MaterialDiffuse008;
+		colorMaterialDiffuse = g_MaterialDiffuse008;
 	} 
-
-//	if (g_nVertexs*4 > prm_index) {
-//		if (g_nVertexs*2 > prm_index) {
-//			if (g_nVertexs > prm_index) {
-//				matWorld = g_matWorld001;
-//			} else {
-//				matWorld = g_matWorld002;
-//			}
-//		} else {
-//			if (g_nVertexs*3 > prm_index) {
-//				matWorld = g_matWorld003;
-//			} else {
-//				matWorld = g_matWorld004;
-//			}
-//		}
-//	} else {
-//		if (g_nVertexs*6 > prm_index) {
-//			if (g_nVertexs*5 > prm_index) {
-//				matWorld = g_matWorld005;
-//			} else {
-//				matWorld = g_matWorld006;
-//			}
-//		} else { 
-//			if (g_nVertexs*7 > prm_index) {
-//				matWorld = g_matWorld007;
-//			} else {
-//				matWorld = g_matWorld008;
-//			}
-//		}
-//	}
-
 
 	float4 posWorld = mul( prm_pos, matWorld );               // World変換
 	float4 posWorldView = mul(posWorld, g_matView );            // View変換
@@ -133,7 +102,7 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
     out_vs.normal = normalize(mul(prm_normal, matWorld)); 	//法線を World 変換して正規化
 	//UVはそのまま
 	out_vs.uv = prm_uv;
-	out_vs.col = g_MaterialDiffuse;
+	out_vs.col = colorMaterialDiffuse;
 	return out_vs;
 }
 
@@ -150,9 +119,9 @@ float4 GgafDx9PS_DefaultMeshSet(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = prm_col * g_LightDiffuse * tex_color * power; 
+	out_color =  g_LightDiffuse * prm_col * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * tex_color) + out_color;  
+	out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα
 

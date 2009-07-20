@@ -95,13 +95,13 @@ public:
 
 
     /** 頂点のサイズ（プライマリ） */
-    UINT _size_vertecs_primary;
+    UINT _size_vertices_primary;
     /** 1頂点のサイズ（プライマリ） */
-    UINT _size_vertec_unit_primary;
+    UINT _size_vertex_unit_primary;
     /** 頂点のサイズ（モーフターゲット） */
-    UINT _size_vertecs_morph;
+    UINT _size_vertices_morph;
     /** 1頂点のサイズ（モーフターゲット） */
-    UINT _size_vertec_unit_morph;
+    UINT _size_vertex_unit_morph;
 
     /** DrawIndexedPrimitive描画パラメーター（プライマリのみ） */
     INDEXPARAM* _paIndexParam;

@@ -32,9 +32,9 @@ public:
 //    /** 矩形の頂点情報 */
 //    VERTEX* _paVertex;
 //    /** 矩形の頂点合計のサイズ */
-//    UINT _size_vertecs;
+//    UINT _size_vertices;
 //    /** 1頂点のサイズ */
-//    UINT _size_vertec_unit;
+//    UINT _size_vertex_unit;
 
     /** パターン番号の上限 */
     int _pattno_top;

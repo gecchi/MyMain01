@@ -63,9 +63,9 @@ public:
     /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
-    UINT _size_vertecs;
+    UINT _size_vertices;
     /** 1頂点のサイズ */
-    UINT _size_vertec_unit;
+    UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
 
     UINT _nMaterialListGrp;

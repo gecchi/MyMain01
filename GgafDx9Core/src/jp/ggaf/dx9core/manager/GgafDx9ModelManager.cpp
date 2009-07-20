@@ -165,8 +165,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         int nFaces = model_pMeshesFront->_nFaces;
 
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
-        prm_pMeshModel->_size_vertecs = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
-        prm_pMeshModel->_size_vertec_unit = sizeof(GgafDx9MeshModel::VERTEX);
+        prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
+        prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
 
         //法線以外設定
         for (int i = 0; i < nVertices; i++) {
@@ -272,11 +272,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-        TRACE3("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("法線正規化後----------------------------");
         for (int i = 0; i < nVertices; i++) {
             TRACE3("["<<i<<"]=" << model_paVtxBuffer_org[i].x << "\t, " << model_paVtxBuffer_org[i].y << "\t, " << model_paVtxBuffer_org[i].z << "\t, " << model_paVtxBuffer_org[i].nx << "\t, " << model_paVtxBuffer_org[i].ny << "\t, " << model_paVtxBuffer_org[i].nz << "\t, " << model_paVtxBuffer_org[i].tu << "\t, " << model_paVtxBuffer_org[i].tv);
         }
-        TRACE3("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("--------------------------------------");
         //インデックスバッファ登録
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
@@ -373,7 +373,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pMeshModel->_size_vertecs,
+                prm_pMeshModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9MeshModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -387,9 +387,9 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
-        hr = prm_pMeshModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pMeshModel->_size_vertecs, (void**)&pVertexBuffer, 0);
+        hr = prm_pMeshModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pMeshModel->_size_vertices, (void**)&pVertexBuffer, 0);
         mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] 頂点バッファのロック取得に失敗 model="<<prm_pMeshModel->_model_name);
-        memcpy(pVertexBuffer, model_paVtxBuffer_org, prm_pMeshModel->_size_vertecs); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, model_paVtxBuffer_org, prm_pMeshModel->_size_vertices); //pVertexBuffer ← paVertex
         prm_pMeshModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
@@ -533,8 +533,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             if (pattern == 0) {
                 //プライマリメッシュ
                 model_paVtxBuffer_org_primary = NEW GgafDx9MorphMeshModel::VERTEX_PRIMARY[nVertices];
-                prm_pMorphMeshModel->_size_vertecs_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY) * nVertices;
-                prm_pMorphMeshModel->_size_vertec_unit_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY);
+                prm_pMorphMeshModel->_size_vertices_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY) * nVertices;
+                prm_pMorphMeshModel->_size_vertex_unit_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY);
                 //法線以外設定
                 for (int i = 0; i < nVertices; i++) {
                     model_paVtxBuffer_org_primary[i].x = model_papMeshesFront[pattern]->_Vertices[i].data[0];
@@ -550,8 +550,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             } else {
                 //モーフターゲットメッシュ
                 model_papaVtxBuffer_org_morph[pattern-1] = NEW GgafDx9MorphMeshModel::VERTEX_MORPH[nVertices];
-                prm_pMorphMeshModel->_size_vertecs_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH) * nVertices;
-                prm_pMorphMeshModel->_size_vertec_unit_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH);
+                prm_pMorphMeshModel->_size_vertices_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH) * nVertices;
+                prm_pMorphMeshModel->_size_vertex_unit_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH);
                 //法線以外設定
                 for (int i = 0; i < nVertices; i++) {
                     model_papaVtxBuffer_org_morph[pattern-1][i].x = model_papMeshesFront[pattern]->_Vertices[i].data[0];
@@ -859,7 +859,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             if (pattern == 0) {
                 //プライマリ
                 hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                        prm_pMorphMeshModel->_size_vertecs_primary,
+                        prm_pMorphMeshModel->_size_vertices_primary,
                         D3DUSAGE_WRITEONLY,
                         0, //GgafDx9MorphMeshModel::FVF,
                         D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -868,14 +868,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（プライマリ） model="<<(prm_pMorphMeshModel->_model_name));
                 //バッファへ作成済み頂点データを流し込む
                 void *pVertexBuffer;
-                hr = prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Lock(0, prm_pMorphMeshModel->_size_vertecs_primary, (void**)&pVertexBuffer, 0);
+                hr = prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Lock(0, prm_pMorphMeshModel->_size_vertices_primary, (void**)&pVertexBuffer, 0);
                 mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] 頂点バッファのロック取得に失敗（プライマリ） model="<<prm_pMorphMeshModel->_model_name);
-                memcpy(pVertexBuffer, model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertecs_primary); //pVertexBuffer ← paVertex
+                memcpy(pVertexBuffer, model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertices_primary); //pVertexBuffer ← paVertex
                 prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Unlock();
             } else {
                 //モーフターゲット
                 hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                        prm_pMorphMeshModel->_size_vertecs_morph,
+                        prm_pMorphMeshModel->_size_vertices_morph,
                         D3DUSAGE_WRITEONLY,
                         0, //GgafDx9MorphMeshModel::FVF,
                         D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -884,9 +884,9 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer 失敗（モーフ:"<<pattern-1<<"） model="<<(prm_pMorphMeshModel->_model_name));
                 //バッファへ作成済み頂点データを流し込む
                 void *pVertexBuffer;
-                hr = prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, prm_pMorphMeshModel->_size_vertecs_morph, (void**)&pVertexBuffer, 0);
+                hr = prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, prm_pMorphMeshModel->_size_vertices_morph, (void**)&pVertexBuffer, 0);
                 mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] 頂点バッファのロック取得に失敗（モーフ:"<<pattern-1<<"） model="<<prm_pMorphMeshModel->_model_name);
-                memcpy(pVertexBuffer, model_papaVtxBuffer_org_morph[pattern-1], prm_pMorphMeshModel->_size_vertecs_morph); //pVertexBuffer ← paVertex
+                memcpy(pVertexBuffer, model_papaVtxBuffer_org_morph[pattern-1], prm_pMorphMeshModel->_size_vertices_morph); //pVertexBuffer ← paVertex
                 prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
         }
@@ -1129,8 +1129,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
 
     GgafDx9SpriteModel::VERTEX* paVertex = NEW GgafDx9SpriteModel::VERTEX[4];
-    prm_pSpriteModel->_size_vertecs = sizeof(GgafDx9SpriteModel::VERTEX)*4;
-    prm_pSpriteModel->_size_vertec_unit = sizeof(GgafDx9SpriteModel::VERTEX);
+    prm_pSpriteModel->_size_vertices = sizeof(GgafDx9SpriteModel::VERTEX)*4;
+    prm_pSpriteModel->_size_vertex_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 
 
 //    //1pxあたりのuvの大きさを求める
@@ -1190,7 +1190,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pSpriteModel->_size_vertecs,
+                prm_pSpriteModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9SpriteModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -1201,10 +1201,10 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     //頂点バッファ作成
     //頂点情報をビデオカード頂点バッファへロード
     void *pVertexBuffer;
-    hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteModel->_size_vertecs, (void**)&pVertexBuffer, 0);
+    hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteModel->_size_vertices, (void**)&pVertexBuffer, 0);
     mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] 頂点バッファのロック取得に失敗 model="<<prm_pSpriteModel->_model_name);
 
-    memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertecs); //pVertexBuffer ← paVertex
+    memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
     //全パターンのUV情報の配列作成しモデルに保持させる
@@ -1320,18 +1320,10 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
     //バッファ作成
     if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
-        prm_pSpriteSetModel->_size_vertecs = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
-        prm_pSpriteSetModel->_size_vertec_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
-
-
-//        prm_pSpriteSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pSpriteSetModel->_setnum];
-//        GgafDx9SpriteSetModel::VERTEX** papaVertex = NEW GgafDx9SpriteSetModel::VERTEX*[prm_pSpriteSetModel->_set_num];
-//
-//        for (int setcount = 0; setcount < prm_pSpriteSetModel->_setnum; setcount++) {
+        prm_pSpriteSetModel->_size_vertices = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
+        prm_pSpriteSetModel->_size_vertex_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
 
         GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
-    //    GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4];
-
         //頂点配列情報をモデルに保持させる
         //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
         //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
@@ -1398,7 +1390,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         }
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pSpriteSetModel->_size_vertecs * prm_pSpriteSetModel->_set_num,
+                prm_pSpriteSetModel->_size_vertices * prm_pSpriteSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9SpriteSetModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -1410,7 +1402,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         void *pVertexBuffer;
         hr = prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Lock(
                                        0,
-                                       prm_pSpriteSetModel->_size_vertecs * prm_pSpriteSetModel->_set_num,
+                                       prm_pSpriteSetModel->_size_vertices * prm_pSpriteSetModel->_set_num,
                                        (void**)&pVertexBuffer,
                                        0
                                    );
@@ -1419,10 +1411,9 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         memcpy(
             pVertexBuffer,
             paVertex,
-            prm_pSpriteSetModel->_size_vertecs* prm_pSpriteSetModel->_set_num
+            prm_pSpriteSetModel->_size_vertices* prm_pSpriteSetModel->_set_num
         ); //pVertexBuffer ← paVertex
         prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
-//}
         DELETEARR_IMPOSSIBLE_NULL(paVertex);
     }
 
@@ -1591,8 +1582,8 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
 
     GgafDx9BoardModel::VERTEX* paVertex = NEW GgafDx9BoardModel::VERTEX[4];
-    prm_pBoardModel->_size_vertecs = sizeof(GgafDx9BoardModel::VERTEX)*4;
-    prm_pBoardModel->_size_vertec_unit = sizeof(GgafDx9BoardModel::VERTEX);
+    prm_pBoardModel->_size_vertices = sizeof(GgafDx9BoardModel::VERTEX)*4;
+    prm_pBoardModel->_size_vertex_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
      D3DSURFACE_DESC d3dsurface_desc;
@@ -1629,7 +1620,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pBoardModel->_size_vertecs,
+                prm_pBoardModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9BoardModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -1640,10 +1631,10 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     //頂点バッファ作成
     //頂点情報をビデオカード頂点バッファへロード
     void *pVertexBuffer;
-    hr = prm_pBoardModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pBoardModel->_size_vertecs, (void**)&pVertexBuffer, 0);
+    hr = prm_pBoardModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pBoardModel->_size_vertices, (void**)&pVertexBuffer, 0);
     mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] 頂点バッファのロック取得に失敗 model="<<prm_pBoardModel->_model_name);
 
-    memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertecs); //pVertexBuffer ← paVertex
+    memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertices); //pVertexBuffer ← paVertex
     prm_pBoardModel->_pIDirect3DVertexBuffer9->Unlock();
 
     //全パターンのUV情報の配列作成しモデルに保持させる
@@ -1695,38 +1686,20 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
 
 void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
-    //【GgafDx9MeshSetModel再構築（＝初期化）処理概要】
-    //１）頂点バッファ、頂点インデックスバッファ を作成
-    //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
-    //３）２）を行なう過程で、同時に GgafDx9MeshSetModel に次のメンバを作成。
-    //　　　　・頂点バッファの写し
-    //　　　　・頂点インデックスバッファの写し
-    //　　　　・マテリアル配列(要素数＝マテリアル数)
-    //　　　　・テクスチャ配列(要素数＝マテリアル数)
-    //　　　　・DrawIndexedPrimitive用引数配列(要素数＝マテリアルリストが変化した数)
 
     string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
     HRESULT hr;
-//    LPDIRECT3DVERTEXBUFFER9 pIDirect3DVertexBuffer9;
-//    LPDIRECT3DINDEXBUFFER9 pIDirect3DIndexBuffer9;
-//    D3DMATERIAL9* model_paD3DMaterial9;
-
     //流し込む頂点バッファデータ作成
     ToolBox::IO_Model_X iox;
 
     Frm::Model3D* model_pModel3D = NULL;
     Frm::Mesh* model_pMeshesFront = NULL;
 
-    GgafDx9MeshSetModel::INDEXPARAM* unit_paIndexParam = NULL;
-    //GgafDx9MeshSetModel::INDEXPARAM* model_paIndexParam = NULL;
     GgafDx9MeshSetModel::INDEXPARAM** model_papaIndexParam = NULL;
-    //GgafDx9MeshSetModel::INDEXPARAM** model_papaIndexParam = NULL;
     GgafDx9MeshSetModel::VERTEX* unit_paVtxBuffer_org = NULL;
     GgafDx9MeshSetModel::VERTEX* model_paVtxBuffer_org = NULL;
-    //GgafDx9MeshSetModel::VERTEX** model_papaVtxBuffer_org = NULL;
     WORD* unit_paIdxBuffer_org = NULL;
     WORD* model_paIdxBuffer_org = NULL;
-    //WORD** model_papaIdxBuffer_org = NULL;
     D3DMATERIAL9* model_paD3DMaterial9 = NULL;
     GgafDx9TextureConnection** model_papTextureCon = NULL;
 
@@ -1746,8 +1719,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         unit_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;
-        prm_pMeshSetModel->_size_vertecs = sizeof(GgafDx9MeshSetModel::VERTEX) * nVertices;
-        prm_pMeshSetModel->_size_vertec_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
+        prm_pMeshSetModel->_size_vertices = sizeof(GgafDx9MeshSetModel::VERTEX) * nVertices;
+        prm_pMeshSetModel->_size_vertex_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
 
         //法線以外設定
         for (int i = 0; i < nVertices; i++) {
@@ -1854,11 +1827,11 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 unit_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-        TRACE3("法線正規化後ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("法線正規化後----------------------------");
         for (int i = 0; i < nVertices; i++) {
             TRACE3("["<<i<<"]=" << unit_paVtxBuffer_org[i].x << "\t, " << unit_paVtxBuffer_org[i].y << "\t, " << unit_paVtxBuffer_org[i].z << "\t, " << unit_paVtxBuffer_org[i].nx << "\t, " << unit_paVtxBuffer_org[i].ny << "\t, " << unit_paVtxBuffer_org[i].nz << "\t, " << unit_paVtxBuffer_org[i].tu << "\t, " << unit_paVtxBuffer_org[i].tv);
         }
-        TRACE3("ーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーーー");
+        TRACE3("--------------------------------------");
         //インデックスバッファ登録
         unit_paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
@@ -1896,29 +1869,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             }
         }
 
-
-        //マテリアルリスト
-//        UINT aMaterialsGrp = UINT[nFaces];
-//        for (int i = 0; i < nFaces; i++) {
-//            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
-//        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //パラメータ
         model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
         prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
         for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {
@@ -1993,8 +1944,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].StartIndex = paParam["<<i<<"].StartIndex = "<<paParam[i].StartIndex);
                 _TRACE_("model_papaIndexParam["<<set_index<<"]["<<i<<"].PrimitiveCount = paParam["<<i<<"].PrimitiveCount = "<<paParam[i].PrimitiveCount);
 
-
-
                 model_papaIndexParam[set_index][i].MaterialNo = paParam[i].MaterialNo;
                 model_papaIndexParam[set_index][i].BaseVertexIndex = paParam[i].BaseVertexIndex;
                 model_papaIndexParam[set_index][i].MinIndex = paParam[i].MinIndex;
@@ -2009,179 +1958,16 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             delete[] paParam;
         }
 
-        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-        //    DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials[setcount]);
-        //}
         DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
-
-
-        //prm_pMeshSetModel->_nMaterialListGrp = paramno;
-        //↑なんとか
-
         delete[] paRad;
         delete[] paRadSum_Vtx;
-        //delete[] paParam;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//        //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-//        //GgafDx9MeshSetModel::INDEXPARAM** papaParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
-//
-//        //??model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_setnum];
-//        //??prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_setnum];
-//
-//
-//
-//
-//
-//        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-//
-//
-//
-//
-//
-//
-//        Sleep(1);
-//        GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * prm_pMeshSetModel->_set_num];
-//        int prev_materialno = -1; //初回必ずBREAKさせるため負のマテリアルNO
-//        int materialno = 0;
-//        int paramno = 0;
-//        int faceNoCnt_break = 0;
-//        int prev_faceNoCnt_break = -1;
-//        UINT max_num_vertices = 0;
-//        UINT min_num_vertices = INT_MAX;
-//
-//        int faceNoCnt;
-//        for (faceNoCnt = 0; faceNoCnt < nFaces * prm_pMeshSetModel->_set_num; faceNoCnt++) {
-//            materialno = paFaceMaterials[faceNoCnt];
-//            if (prev_materialno != materialno) {
-//                //BREAK!
-//                prev_faceNoCnt_break = faceNoCnt_break;
-//                faceNoCnt_break = faceNoCnt;
-//
-//                paParam[paramno].MaterialNo = materialno;
-//                paParam[paramno].BaseVertexIndex = 0;
-//                paParam[paramno].MinIndex = INT_MAX; //次回ブレイク時に設定、必ずブレイクしたいため変な値にしとく
-//                paParam[paramno].NumVertices = INT_MAX; //次回ブレイク時に設定
-//                paParam[paramno].StartIndex = faceNoCnt*3;
-//                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
-//
-//                if (faceNoCnt > 0) {
-//                    paParam[paramno-1].MinIndex = min_num_vertices;
-//                    paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-//                    paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
-//                    //リセット
-//                    max_num_vertices = 0;
-//                    min_num_vertices = INT_MAX;
-//                }
-//                paramno++;
-//            }
-//
-//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
-//            }
-//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
-//            }
-//            if (max_num_vertices <  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-//                max_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
-//            }
-//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 0]) {
-//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 0];
-//            }
-//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 1]) {
-//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 1];
-//            }
-//            if (min_num_vertices >  model_paIdxBuffer_org[faceNoCnt*3 + 2]) {
-//                min_num_vertices = model_paIdxBuffer_org[faceNoCnt*3 + 2];
-//            }
-//            prev_materialno = materialno;
-//        }
-//        if (nFaces > 0) {
-//            paParam[paramno-1].MinIndex = min_num_vertices;
-//            paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
-//            paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt - faceNoCnt_break);
-//        }
-//
-//        model_paIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM[paramno];
-//        for (int i = 0; i < paramno; i++) {
-//            model_paIndexParam[i].MaterialNo = paParam[i].MaterialNo;
-//            model_paIndexParam[i].BaseVertexIndex = paParam[i].BaseVertexIndex;
-//            model_paIndexParam[i].MinIndex = paParam[i].MinIndex;
-//            model_paIndexParam[i].NumVertices = paParam[i].NumVertices;
-//            model_paIndexParam[i].StartIndex = paParam[i].StartIndex;
-//            model_paIndexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
-//        }
-//
-//        prm_pMeshSetModel->_nMaterialListGrp = paramno;
-//        delete[] paParam;
-//
-//
-//
-//
-//        //}
-//
-//        //for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-//        //    DELETEARR_IMPOSSIBLE_NULL(papaFaceMaterials[setcount]);
-//        //}
-//        DELETEARR_IMPOSSIBLE_NULL(paFaceMaterials);
-//
-//
-//        //prm_pMeshSetModel->_nMaterialListGrp = paramno;
-//        //↑なんとか
-//
-//        delete[] paRad;
-//        delete[] paRadSum_Vtx;
-//        //delete[] paParam;
-
-
-
-
-
-
-
-
-
-
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {
-
-
-//        prm_pMeshSetModel->_paIDirect3DVertexBuffer9 = NEW LPDIRECT3DVERTEXBUFFER9[prm_pMeshSetModel->_setnum];
-//        for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-
-
-
-
-
-
         Sleep(1);
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pMeshSetModel->_size_vertecs * prm_pMeshSetModel->_set_num,
+                prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9MeshSetModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -2197,7 +1983,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         void *pVertexBuffer;
         hr = prm_pMeshSetModel->_pIDirect3DVertexBuffer9->Lock(
                                       0,
-                                      prm_pMeshSetModel->_size_vertecs * prm_pMeshSetModel->_set_num,
+                                      prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
                                       (void**)&pVertexBuffer,
                                       0
                                     );
@@ -2206,26 +1992,14 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         memcpy(
           pVertexBuffer,
           model_paVtxBuffer_org,
-          prm_pMeshSetModel->_size_vertecs * prm_pMeshSetModel->_set_num
+          prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num
         ); //pVertexBuffer ← paVertex
         prm_pMeshSetModel->_pIDirect3DVertexBuffer9->Unlock();
-
-
-//        }
-
-
     }
 
 
     //流し込むインデックスバッファデータ作成
     if (prm_pMeshSetModel->_pIDirect3DIndexBuffer9 == NULL) {
-
-
-//        prm_pMeshSetModel->_paIDirect3DIndexBuffer9 = NEW LPDIRECT3DINDEXBUFFER9[prm_pMeshSetModel->_setnum];
-//        for (int setcount = 0; setcount < prm_pMeshSetModel->_setnum; setcount++) {
-
-
-
 
         int nFaces = model_pMeshesFront->_nFaces;
 
@@ -2246,14 +2020,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
           sizeof(WORD) * nFaces * 3 * prm_pMeshSetModel->_set_num
         );
         prm_pMeshSetModel->_pIDirect3DIndexBuffer9->Unlock();
-
-
-//        }
-
     }
-
-
-
 
 
     //マテリアル

@@ -17,23 +17,6 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9MeshSetActor用のモデルクラス.
- * GgafDx9MeshSetModel は D3DXLoadMeshFromX を使用せず、Xファイルからのモデルデータを保持、描画するクラスです。<BR>
- * <B>＜留意＞</B><BR>
- * ・アニメーションは読み込まれません。静的モデルです。(TODO:いつかスキンメッシュも)<BR>
- * ・Faceは、3角形しか駄目です。（D3DXLoadMeshFromX は 3角形 or 4角形をサポート）<BR>
- * ・UV座標について、頂点数と一致しなくても、とりあえず順番に設定する。データーが無いUV座標は(0,0)に設定される。<BR>
- * ・共有頂点法線は、独自計算で平均化される。
- *   計算方法は、共有頂点から伸びる各Faceの「成す角」／「全Faceの成す角合計の」によって法線の掛ける割合が決まる。<BR>
- * ・GgafDx9MeshSetModelは並べ替えによるインデックスの最適化しないを行なわない。行なわないのが売りでもある。<BR>
- *   そのため、描画時は、Xファイルから読み込んだマテリアルリストの順番通りに描画する。<BR>
- *   Xファイルのマテリアルリストのバラけ具合によっては、D3DXLoadMeshFromX よりパフォーマンスが落ちるやもしれない。<BR>
- *   例えば、Xファイルのマテリアルリストが {0,0,1,1,2,0,1} な場合、マテリアル数が3つでも、描画は5回実行することになる。<BR>
- * ・void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshSetModel* prm_pPrimModel) で実際の設定を行なっています。<BR>
- * <B>＜使い所＞</B><BR>
- * ・単純な分、基本的に D3DXLoadMeshFromX → drawSubset(n) より描画は高速。<BR>
- * ・ロジックで頂点をいじりたい場合等、D3DXLoadMeshFromX により最適化されたかもしれない ID3DXMesh から、
- *   所望の頂点を割り出すのがしんどい場合。<BR>
- * ・不完全と解っているXファイルを、あえて読みたい場合。（データローダー的な意味で使う場合）<BR>
  */
 class GgafDx9MeshSetModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
@@ -59,25 +42,26 @@ public:
 
     };
 
+    /** 前回表示の同時描画したセット数（キャラクタ数）*/
     static int _draw_set_num_LastDraw;
-
+    /** 最大同時描画セット数（キャラクタ数）、現在は８キャラ同時描画可能 */
     int _set_num;
 
     /** 頂点のFVF */
     static DWORD FVF;
-    /** 頂点バッファ */
+    /** 頂点バッファ（８キャラ分） */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** インデックスバッファ */
+    /** インデックスバッファ（８キャラ分） */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
 
-    /** 1頂点のサイズ */
-    UINT _size_vertec_unit;
-    /** 基本モデル頂点サイズ */
-    UINT _size_vertecs;
-    /** 基本モデル頂点数 */
+    /** １頂点のサイズ */
+    UINT _size_vertex_unit;
+    /** 基本モデル（１キャラ分）頂点サイズ計 */
+    UINT _size_vertices;
+    /** 基本モデル（１キャラ分）頂点数 */
     UINT _nVertices;
-    /** 基本モデル面の数 */
+    /** 基本モデル（１キャラ分）の面の数 */
     UINT _nFaces;
 
     INDEXPARAM** _papaIndexParam;

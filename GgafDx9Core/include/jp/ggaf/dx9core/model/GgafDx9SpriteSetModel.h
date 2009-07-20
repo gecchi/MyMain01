@@ -38,9 +38,9 @@ public:
     /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
     GgafDx9RectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
-    UINT _size_vertecs;
+    UINT _size_vertices;
     /** 1頂点のサイズ */
-    UINT _size_vertec_unit;
+    UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
     /**
      * コンストラクタ<BR>

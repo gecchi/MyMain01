@@ -40,7 +40,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }

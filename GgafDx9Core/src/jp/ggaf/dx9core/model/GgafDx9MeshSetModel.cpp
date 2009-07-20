@@ -45,48 +45,11 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     int draw_set_num = pTargetActor->_draw_set_num;
     TRACE4("GgafDx9MeshSetModel  draw_set_num="<<draw_set_num);
-//    static int ddd = 1;
-//    if (ddd == 1) {
-//        for (int i = 0; i < _setnum; i++) {
-//            int pp = 1;
-//            if (i == 0) {
-//                pp = 1;
-//            } else if (i == 1) {
-//                pp = 2;
-//            } else if (i == 2) {
-//                pp = 4;
-//            } else if (i == 3) {
-//                pp = 8;
-//            }
-//            for (int j = 0; j < _nVertices*pp; j++) {
-//                _TRACE_("_papaVtxBuffer_org["<<i<<"]["<<j<<"]=["<<_papaVtxBuffer_org[i][j].index<<"]"<<_papaVtxBuffer_org[i][j].x<<","<<_papaVtxBuffer_org[i][j].y<<","<<_papaVtxBuffer_org[i][j].z<<")");
-//            }
-//        }
-//
-//        for (int i = 0; i < _setnum; i++) {
-//            int pp = 1;
-//            if (i == 0) {
-//                pp = 1;
-//            } else if (i == 1) {
-//                pp = 2;
-//            } else if (i == 2) {
-//                pp = 4;
-//            } else if (i == 3) {
-//                pp = 8;
-//            }
-//            for (int j = 0; j < _nFaces*3*pp; j++) {
-//                _TRACE_("_papaIdxBuffer_org["<<i<<"]["<<j<<"]="<<_papaIdxBuffer_org[i][j]<<"");
-//            }
-//        }
-//
-//        ddd=2;
-//
-//    }
 
     //モデルが同じでかつ、セット数も同じならば頂点バッファ、インデックスバッファの設定はスキップできる
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
         //頂点バッファとインデックスバッファを設定
-        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertec_unit);
+        GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9,  0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9MeshSetModel::FVF);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
     }
@@ -109,9 +72,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            //GgafDx9MeshSetActor側でマテリアルを設定する。
-            //hr = pID3DXEffect->SetValue(pMeshSetEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-            //mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
+            //MaterialDiffuseはGgafDx9MeshSetActor側でマテリアルを設定する。
         }
 
 
@@ -180,7 +141,6 @@ void GgafDx9MeshSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
 
-    //DELETEARR_IMPOSSIBLE_NULL(_nMaterialListGrp);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
