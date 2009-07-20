@@ -20,11 +20,6 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
     _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
 
-    //モデルのマテリアルをコピーして保持
-//    _paD3DMaterial9 = NEW D3DMATERIAL9[1];
-//    _paD3DMaterial9[0] = *(_pSpriteSetModel->_pD3DMaterial9_default);
-    //エフェクト取得
-
     _pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteSetModel->_pattno_ani_Max;
     _pattno_ani_now = 0;
@@ -42,8 +37,6 @@ void GgafDx9SpriteSetActor::processDrawMain() {
     while (true) {
         if (_pNextDrawActor != NULL)  {
             GgafDx9Model* pGgafDx9Model = _pNextDrawActor->_pGgafDx9Model;
-//_TRACE_("cnt="<<cnt<<" pGgafDx9Model = "<<pGgafDx9Model->getName() << " =?= _pSpriteSetModel="<<_pSpriteSetModel->getName());
-
             if (pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
                 _draw_set_num++;
                 if (_draw_set_num > 8) {
@@ -58,27 +51,6 @@ void GgafDx9SpriteSetActor::processDrawMain() {
             break;
         }
     }
-//    _draw_set_index = 0;
-//    _draw_object_num = 1;
-//_TRACE_("_pSpriteSetModel->_setnum = "<<_pSpriteSetModel->_setnum);
-//    //index   0 1 2 3 4
-//    //object  1 2 4 8 16
-//    if (cnt >= 8 && _pSpriteSetModel->_setnum >= 4) {
-//        _draw_set_index = 3;
-//        _draw_object_num = 8;
-//    } else if (4 <= cnt && _pSpriteSetModel->_setnum >= 3) {
-//        _draw_set_index = 2;
-//        _draw_object_num = 4;
-//    } else if (2 <= cnt && _pSpriteSetModel->_setnum >= 2) {
-//        _draw_set_index = 1;
-//        _draw_object_num = 2;
-//    } else {
-//        _draw_set_index = 0;
-//        _draw_object_num = 1;
-//    }
-
-
-//_TRACE_("GgafDx9SpriteSetActor::processDrawMain() _draw_set_num="<<_draw_set_num);
 
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;

@@ -20,11 +20,6 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
 
-    //モデルのマテリアルをコピーして保持
-//    _paD3DMaterial9 = NEW D3DMATERIAL9[1];
-//    _paD3DMaterial9[0] = *(_pSpriteModel->_pD3DMaterial9_default);
-    //エフェクト取得
-
     _pattno_ani_top = 0;
     _pattno_ani_bottom = _pSpriteModel->_pattno_ani_Max;
     _pattno_ani_now = 0;

@@ -22,7 +22,6 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) に失敗しました。");
     //シェーダーハンドル
     _hMorphTargetnum = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
-    //_hWeight[0] = _pID3DXEffect->GetParameterByName(NULL, "g_weight0");
     _hWeight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");
     _hWeight[2] = _pID3DXEffect->GetParameterByName(NULL, "g_weight2");
     _hWeight[3] = _pID3DXEffect->GetParameterByName(NULL, "g_weight3");
@@ -33,8 +32,6 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     _hWeight[8] = _pID3DXEffect->GetParameterByName(NULL, "g_weight8");
     _hWeight[9] = _pID3DXEffect->GetParameterByName(NULL, "g_weight9");
 
-//    hr = _pID3DXEffect->SetFloat(_hWeight[0], 1.0);
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight[0]) に失敗しました。");
     for (int i = 1; i < 10; i++) {
         hr = _pID3DXEffect->SetFloat(_hWeight[i], 0.0);
         mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) に失敗しました。");

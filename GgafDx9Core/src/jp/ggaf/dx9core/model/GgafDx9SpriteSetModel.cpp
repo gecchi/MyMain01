@@ -16,8 +16,6 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_platemodel_name) : GgafDx
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
     _paRectUV = NULL;
-
-
     _set_num = 8;
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel*)
@@ -75,7 +73,6 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                                                     _paIndexParam[draw_set_num - 1].NumVertices,
                                                     _paIndexParam[draw_set_num - 1].StartIndex,
                                                     _paIndexParam[draw_set_num - 1].PrimitiveCount);
-//    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;

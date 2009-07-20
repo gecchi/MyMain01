@@ -137,7 +137,6 @@ void GgafDx9MeshSetModel::release() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
 
-
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
 

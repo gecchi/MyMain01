@@ -13,7 +13,6 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _dwNumMaterials = 0;
     _papTextureCon = NULL;
 	TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
-
 }
 
 GgafDx9Model::~GgafDx9Model() {

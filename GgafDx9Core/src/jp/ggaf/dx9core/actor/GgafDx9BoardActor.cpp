@@ -14,19 +14,12 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
                                                                           NULL) {
 
     _class_name = "GgafDx9BoardActor";
-//    _technique = NEW char[51];
-//    strcpy(_technique, prm_technique);
 
     _pBoardModel = (GgafDx9BoardModel*)_pGgafDx9Model;
     _pBoardEffect = (GgafDx9BoardEffect*)_pGgafDx9Effect;
 
-//    _pModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(prm_model_name);
-//    _pBoardModel = (GgafDx9BoardModel*)_pModelCon->view();
-    //モデルのマテリアルをコピーして保持(2009/3/10 現在マテリアル未使用。将来使うかも。)
     _fAlpha = 1.0;
-    //エフェクト取得
-//    _pEffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(prm_effect);
-//    _pBoardEffect = (GgafDx9BoardEffect*)_pEffectCon->view();
+
     _pattno_top = 0;
     _pattno_bottom = _pBoardModel->_pattno_max;
     _patteno_now = 0;
