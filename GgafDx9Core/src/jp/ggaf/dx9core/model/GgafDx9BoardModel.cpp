@@ -5,8 +5,8 @@ using namespace GgafDx9Core;
 
 DWORD GgafDx9BoardModel::FVF = (D3DFVF_XYZ | D3DFVF_TEX1);
 
-GgafDx9BoardModel::GgafDx9BoardModel(char* prm_platemodel_name) :
-    GgafDx9Model(prm_platemodel_name) {
+GgafDx9BoardModel::GgafDx9BoardModel(char* prm_model_name) :
+    GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9BoardModel::GgafDx9BoardModel(" << _model_name << ")");
     _fSize_BoardModelWidthPx = 32.0f;
     _fSize_BoardModelHeightPx = 32.0f;

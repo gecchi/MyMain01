@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 
 DWORD GgafDx9SpriteModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 
-GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
+GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9SpriteModel::GgafDx9SpriteModel(" << _model_name << ")");
 
     _fSize_SpriteModelWidthPx = 32.0f;

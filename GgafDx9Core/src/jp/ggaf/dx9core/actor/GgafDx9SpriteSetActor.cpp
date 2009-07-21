@@ -39,8 +39,8 @@ void GgafDx9SpriteSetActor::processDrawMain() {
             GgafDx9Model* pGgafDx9Model = _pNextDrawActor->_pGgafDx9Model;
             if (pGgafDx9Model == _pSpriteSetModel && _pNextDrawActor->isActive()) {
                 _draw_set_num++;
-                if (_draw_set_num > 8) {
-                    _draw_set_num = 8;
+                if (_draw_set_num > _pSpriteSetModel->_set_num) {
+                    _draw_set_num = _pSpriteSetModel->_set_num;
                     break;
                 }
                 _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;

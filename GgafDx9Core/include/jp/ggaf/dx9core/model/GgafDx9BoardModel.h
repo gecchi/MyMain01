@@ -11,9 +11,9 @@ class GgafDx9BoardModel : public GgafDx9Model {
 protected:
     /**
      * コンストラクタ<BR>
-     * @param prm_platemodel_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDx9BoardModel(char* prm_platemodel_name);
+    GgafDx9BoardModel(char* prm_model_name);
 
 public:
     struct VERTEX {

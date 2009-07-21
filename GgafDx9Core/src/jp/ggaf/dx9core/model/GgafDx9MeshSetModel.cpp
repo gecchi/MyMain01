@@ -8,7 +8,7 @@ DWORD GgafDx9MeshSetModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_PSIZE | D3
 int GgafDx9MeshSetModel::_draw_set_num_LastDraw = -1;
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
-GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
+GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MeshSetModel::GgafDx9MeshSetModel(" << _model_name << ")");
     _pModel3D = NULL;
     _pMeshesFront = NULL;

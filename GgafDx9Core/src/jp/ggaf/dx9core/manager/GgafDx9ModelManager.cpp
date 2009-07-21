@@ -48,7 +48,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             pResourceModel = createMeshSetModel(model_name);
             break;
 
-        case 'M': // "M/4/xxxxx" の場合、プライマリのメッシュが１、モーフターゲットのメッシュが３つという意味
+        case 'M': // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
             break;
         case 'S':
@@ -110,6 +110,8 @@ GgafDx9BoardSetModel* GgafDx9ModelManager::createBoardSetModel(char* prm_model_n
     return pBoardSetModel_New;
 }
 
+
+
 GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
     GgafDx9MeshModel* pMeshModel_New = NEW GgafDx9MeshModel(prm_model_name);
     restoreMeshModel(pMeshModel_New);
@@ -122,7 +124,7 @@ GgafDx9MeshSetModel* GgafDx9ModelManager::createMeshSetModel(char* prm_model_nam
     return pMeshSetModel_New;
 }
 GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model_name) {
-    // "M/4/xxxxx" の場合、プライマリのメッシュが１、モーフターゲットのメッシュが３つという意味
+    // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
     // ここでprm_model_name は "4/xxxxx" という文字列になっている。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
     GgafDx9MorphMeshModel* pMorphMeshModel_New = NEW GgafDx9MorphMeshModel(prm_model_name);

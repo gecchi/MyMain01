@@ -44,7 +44,6 @@ private:
      * @param prm_model_name モデル定義の識別名。".sprx"を追加するとスプライト定義のXファイル名になる。
      */
     GgafDx9BoardModel* createBoardModel(char* prm_model_name);
-
     GgafDx9BoardSetModel* createBoardSetModel(char* prm_model_name);
 
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);

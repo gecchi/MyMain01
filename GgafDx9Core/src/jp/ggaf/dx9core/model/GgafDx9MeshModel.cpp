@@ -7,7 +7,7 @@ using namespace GgafDx9Core;
 DWORD GgafDx9MeshModel::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
 //LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9 = NULL;
 
-GgafDx9MeshModel::GgafDx9MeshModel(char* prm_platemodel_name) : GgafDx9Model(prm_platemodel_name) {
+GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MeshModel::GgafDx9MeshModel(" << _model_name << ")");
     _pModel3D = NULL;
     _pMeshesFront = NULL;
