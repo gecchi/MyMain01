@@ -67,7 +67,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         hr = pID3DXEffect->CommitChanges();
         mightDx9Exception(hr, D3D_OK, "GgafDx9BoardSetModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
-    TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
+    TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
                                                     _paIndexParam[draw_set_num - 1].BaseVertexIndex,
                                                     _paIndexParam[draw_set_num - 1].MinIndex,

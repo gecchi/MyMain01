@@ -147,6 +147,7 @@ void GgafDx9MeshSetModel::release() {
         DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam);
+    DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " end");
 
 }

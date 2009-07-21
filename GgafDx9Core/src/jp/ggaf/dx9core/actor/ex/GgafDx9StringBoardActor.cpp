@@ -58,40 +58,13 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
 }
 
 void GgafDx9StringBoardActor::processDrawMain() {
-
-//
-//    if (_len == 0) {
-//        return;
-//    }
-//    static float x_beginning, y_beginning;
-//    x_beginning = _x;
-//    y_beginning = _y;
-//    for (int i = 0; i < _len; i++) {
-//        if (_draw_string[i] == '\n') {
-//            _x = x_beginning;
-//            _y += _pBoardModel->_fSize_BoardModelHeightPx;
-//            continue;
-//        } else if (_draw_string[i] == '\0') {
-//            break;
-//        } else {
-//            if (_draw_string[i] - ' ' < 0) {
-//                setPatternNo('?' - ' '); //”ÍˆÍŠO‚Í"?"
-//            } else {
-//                setPatternNo(_draw_string[i] - ' '); //’Êí•¶Žš—ñ
-//            }
-//        }
-//        GgafDx9BoardActor::processDrawMain();
-//
-//        _x += _pBoardModel->_fSize_BoardModelWidthPx;
-//    }
-//    _x = x_beginning;
-//    _y = y_beginning;
-
+    if (_len == 0) {
+        return;
+    }
     ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pBoardSetEffect->_pID3DXEffect;
     GgafDx9RectUV* pRectUV_Active;
     HRESULT hr;
-
 
     hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[0], _y);
     mightDx9Exception(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -102,28 +75,23 @@ void GgafDx9StringBoardActor::processDrawMain() {
     int len_pack_num = _len/_pBoardSetModel->_set_num;
     int remainder_len = _len%_pBoardSetModel->_set_num;
     int strindex;
-    for (int pack = 0; pack < len_pack_num+1; pack++) {
+    for (int pack = 0; pack < len_pack_num+(remainder_len == 0 ? 0 : 1); pack++) {
         if (pack < len_pack_num) {
             _draw_set_num = _pBoardSetModel->_set_num;
         } else {
             _draw_set_num = remainder_len;
         }
 
-
-
-
-
         for (int i = 0; i < _draw_set_num; i++) {
             strindex = pack * _pBoardSetModel->_set_num + i;
-
             if (_draw_string[strindex] == '\0') {
               break;
             }
             int pattno;
-            if (_draw_string[i] - ' ' < 0) {
+            if (_draw_string[strindex] - ' ' < 0) {
                 pattno = '?' - ' '; //”ÍˆÍŠO‚Í"?"
             } else {
-                pattno = _draw_string[i] - ' '; //’Êí•¶Žš—ñ
+                pattno = _draw_string[strindex] - ' '; //’Êí•¶Žš—ñ
             }
             hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], _x+(_pBoardSetModel->_fSize_BoardSetModelWidthPx*strindex));
             mightDx9Exception(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
@@ -135,8 +103,6 @@ void GgafDx9StringBoardActor::processDrawMain() {
         }
         _pBoardSetModel->draw(this);
     }
-
-
 }
 
 GgafDx9StringBoardActor::~GgafDx9StringBoardActor() {
