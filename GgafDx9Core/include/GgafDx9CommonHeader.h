@@ -110,6 +110,7 @@ class GgafDx9SpriteActor;
 class GgafDx9SpriteSetActor;
 class GgafDx9Camera;
 class GgafDx9BoardActor;
+class GgafDx9BoardSetActor;
 
 class GgafDx9Model;
 class GgafDx9D3DXMeshModel;
@@ -119,6 +120,7 @@ class GgafDx9MeshModel;
 class GgafDx9MeshSetModel;
 class GgafDx9MorphMeshModel;
 class GgafDx9BoardModel;
+class GgafDx9BoardSetModel;
 
 class GgafDx9Effect;
 class GgafDx9MeshEffect;
@@ -127,6 +129,7 @@ class GgafDx9MorphMeshEffect;
 class GgafDx9SpriteEffect;
 class GgafDx9SpriteSetEffect;
 class GgafDx9BoardEffect;
+class GgafDx9BoardSetEffect;
 class GgafDx9StringBoardActor;
 
 class GgafDx9Scene;
@@ -185,6 +188,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardActor.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9Model.h"
 #include "jp/ggaf/dx9core/model/GgafDx9D3DXMeshModel.h"
@@ -194,6 +198,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/model/GgafDx9MeshSetModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9MorphMeshModel.h"
 #include "jp/ggaf/dx9core/model/GgafDx9BoardModel.h"
+#include "jp/ggaf/dx9core/model/GgafDx9BoardSetModel.h"
 
 #include "jp/ggaf/dx9core/effect/GgafDx9Effect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9MeshEffect.h"
@@ -202,6 +207,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/GgafDx9SpriteEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9SpriteSetEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardEffect.h"
+#include "jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9StringBoardActor.h"
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"

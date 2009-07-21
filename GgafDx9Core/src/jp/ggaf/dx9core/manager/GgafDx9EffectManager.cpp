@@ -36,6 +36,9 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
         case 'B':
             pResourceEffect = NEW GgafDx9BoardEffect(effect_name);
             break;
+        case 'b':
+            pResourceEffect = NEW GgafDx9BoardSetEffect(effect_name);
+            break;
        default:
             TRACE("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") そんな種別はありません");
             throwGgafCriticalException("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") そんなエッフェクト種別は知りません");

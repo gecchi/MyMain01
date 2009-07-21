@@ -45,6 +45,8 @@ private:
      */
     GgafDx9BoardModel* createBoardModel(char* prm_model_name);
 
+    GgafDx9BoardSetModel* createBoardSetModel(char* prm_model_name);
+
     GgafDx9MeshModel* createMeshModel(char* prm_model_name);
     GgafDx9MeshSetModel* createMeshSetModel(char* prm_model_name);
 
@@ -84,6 +86,8 @@ public:
      */
 
     void restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel);
+
+    void restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardSetModel);
 
     void restoreMeshModel(GgafDx9MeshModel* prm_pD3DXMeshModel);
 

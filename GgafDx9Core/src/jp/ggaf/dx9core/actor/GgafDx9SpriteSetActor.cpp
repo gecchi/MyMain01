@@ -59,6 +59,7 @@ void GgafDx9SpriteSetActor::processDrawMain() {
     mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     GgafDx9DrawableActor *pDrawActor;
+    GgafDx9RectUV* pRectUV_Active;
     pDrawActor = this;
     for (int i = 0; i < _draw_set_num; i++) {
 
@@ -70,7 +71,7 @@ void GgafDx9SpriteSetActor::processDrawMain() {
         hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         //ç°âÒï`âÊÇÃUV
-        static GgafDx9RectUV* pRectUV_Active;
+
         pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pattno_ani_now);
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);

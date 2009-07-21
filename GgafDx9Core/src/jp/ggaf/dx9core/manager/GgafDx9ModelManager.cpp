@@ -63,6 +63,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             //BoardModel
             pResourceModel = createBoardModel(model_name);
             break;
+        case 'b':
+            //BoardSetModel
+            pResourceModel = createBoardSetModel(model_name);
+            break;
         case 'C':
             //cubeModel
             pResourceModel = createD3DXMeshModel("cube", D3DXMESH_SYSTEMMEM);
@@ -98,6 +102,12 @@ GgafDx9BoardModel* GgafDx9ModelManager::createBoardModel(char* prm_model_name) {
     GgafDx9BoardModel* pBoardModel_New = NEW GgafDx9BoardModel(prm_model_name);
     restoreBoardModel(pBoardModel_New);
     return pBoardModel_New;
+}
+
+GgafDx9BoardSetModel* GgafDx9ModelManager::createBoardSetModel(char* prm_model_name) {
+    GgafDx9BoardSetModel* pBoardSetModel_New = NEW GgafDx9BoardSetModel(prm_model_name);
+    restoreBoardSetModel(pBoardSetModel_New);
+    return pBoardSetModel_New;
 }
 
 GgafDx9MeshModel* GgafDx9ModelManager::createMeshModel(char* prm_model_name) {
@@ -1682,6 +1692,251 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
+
+
+
+
+void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardSetModel) {
+    TRACE3("GgafDx9ModelManager::restoreBoardSetModel(" << prm_pBoardSetModel->_model_name << ")");
+
+    prm_pBoardSetModel->_papTextureCon = NULL;
+    prm_pBoardSetModel->_paRectUV = NULL;
+
+    HRESULT hr;
+    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
+
+    //スプライト情報読込みテンプレートの登録(初回実行時のみ)
+
+    IDirectXFileEnumObject* pIDirectXFileEnumObject;
+    IDirectXFileData* pIDirectXFileData;
+    hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
+    mightDx9Exception(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
+
+    //TODO:GUIDなんとかする。今は完全無視。
+    //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
+
+    char** ppaChar_TextureFile;
+    float* pFloat_Size_BoardSetModelWidth;
+    float* pFloat_Size_BoardSetModelHeight;
+    int* pInt_RowNum_TextureSplit;
+    int* pInt_ColNum_TextureSplit;
+
+    // 1セットだけ読込み
+    hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
+    if(hr != DXFILE_OK) {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" の読込みに失敗しました。項目名を見直して");
+    }
+    const GUID *pGuid;
+    pIDirectXFileData->GetType( &pGuid );
+    //if( *pGuid == PersonID_GUID ) {
+    if(true) {
+        DWORD Size;
+        pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
+        pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_BoardSetModelWidth);
+        pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_BoardSetModelHeight);
+        pIDirectXFileData->GetData("TextureSplitRows", &Size, (void**)&pInt_RowNum_TextureSplit);
+        pIDirectXFileData->GetData("TextureSplitCols", &Size, (void**)&pInt_ColNum_TextureSplit);
+
+        prm_pBoardSetModel->_fSize_BoardSetModelWidthPx = *pFloat_Size_BoardSetModelWidth;
+        prm_pBoardSetModel->_fSize_BoardSetModelHeightPx = *pFloat_Size_BoardSetModelHeight;
+        prm_pBoardSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
+        prm_pBoardSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
+    } else {
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" のGUIDが一致しません。");
+    }
+
+    //テクスチャ取得しモデルに保持させる
+    //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
+    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->getConnection(*ppaChar_TextureFile);
+    //テクスチャの参照を保持させる。
+    prm_pBoardSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
+    prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
+
+    if (prm_pBoardSetModel->_pIDirect3DVertexBuffer9 == NULL) {
+
+        //GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4];
+        prm_pBoardSetModel->_size_vertices = sizeof(GgafDx9BoardSetModel::VERTEX)*4;
+        prm_pBoardSetModel->_size_vertex_unit = sizeof(GgafDx9BoardSetModel::VERTEX);
+        GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
+
+        //1pxあたりのuvの大きさを求める
+         D3DSURFACE_DESC d3dsurface_desc;
+         model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
+         float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
+         float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+
+         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
+            //左上
+            paVertex[i*4 + 0].x = 0.0f;
+            paVertex[i*4 + 0].y = 0.0f;
+            paVertex[i*4 + 0].z = 0.0f;
+            paVertex[i*4 + 0].tu = 0.0f;
+            paVertex[i*4 + 0].tv = 0.0f;
+            paVertex[i*4 + 0].index = i;
+            //右上
+            paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
+            paVertex[i*4 + 1].y = 0.0f;
+            paVertex[i*4 + 1].z = 0.0f;
+            paVertex[i*4 + 1].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/10); //僅かに小さく(1/10px)取る
+            paVertex[i*4 + 1].tv = 0.0f;
+            paVertex[i*4 + 1].index = i;
+            //左下
+            paVertex[i*4 + 2].x = 0.0f;
+            paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
+            paVertex[i*4 + 2].z = 0.0f;
+            paVertex[i*4 + 2].tu = 0.0f;
+            paVertex[i*4 + 2].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/10); //僅かに小さく(1/10px)取る
+            paVertex[i*4 + 2].index = i;
+            //右下
+            paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
+            paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
+            paVertex[i*4 + 3].z = 0.0f;
+            paVertex[i*4 + 3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit) + (pxU/10);
+            paVertex[i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit) + (pxV/10);
+            paVertex[i*4 + 3].index = i;
+         }
+
+        //バッファ作成
+
+        hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
+                prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num,
+                D3DUSAGE_WRITEONLY,
+                GgafDx9BoardSetModel::FVF,
+                D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
+                &(prm_pBoardSetModel->_pIDirect3DVertexBuffer9),
+                NULL);
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateVertexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
+        //頂点バッファ作成
+        //頂点情報をビデオカード頂点バッファへロード
+        void *pVertexBuffer;
+        hr = prm_pBoardSetModel->_pIDirect3DVertexBuffer9->Lock(
+                                                             0,
+                                                             prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num,
+                                                             (void**)&pVertexBuffer,
+                                                             0
+                                                           );
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] 頂点バッファのロック取得に失敗 model="<<prm_pBoardSetModel->_model_name);
+
+        memcpy(
+          pVertexBuffer,
+          paVertex,
+          prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num
+        ); //pVertexBuffer ← paVertex
+        prm_pBoardSetModel->_pIDirect3DVertexBuffer9->Unlock();
+
+        DELETEARR_IMPOSSIBLE_NULL(paVertex);
+    }
+
+
+
+    //インデックスバッファ作成
+    if (prm_pBoardSetModel->_pIDirect3DIndexBuffer9 == NULL) {
+        int nVertices = 4;
+        int nFaces = 2;
+        WORD* unit_paIdxBuffer = NEW WORD[(nFaces*3)];
+        unit_paIdxBuffer[0] = 0;
+        unit_paIdxBuffer[1] = 1;
+        unit_paIdxBuffer[2] = 2;
+
+        unit_paIdxBuffer[3] = 1;
+        unit_paIdxBuffer[4] = 3;
+        unit_paIdxBuffer[5] = 2;
+
+        WORD* paIdxBufferSet = NEW WORD[(nFaces*3) * prm_pBoardSetModel->_set_num];
+        for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
+            for (int j = 0; j < nFaces; j++) {
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 0] = unit_paIdxBuffer[j*3 + 0] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 1] = unit_paIdxBuffer[j*3 + 1] + (nVertices*i);
+                paIdxBufferSet[((i*nFaces*3)+(j*3)) + 2] = unit_paIdxBuffer[j*3 + 2] + (nVertices*i);
+            }
+        }
+
+        hr = GgafDx9God::_pID3DDevice9->CreateIndexBuffer(
+                               sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num,
+                                D3DUSAGE_WRITEONLY,
+                                D3DFMT_INDEX16,
+                                D3DPOOL_MANAGED,
+                                &(prm_pBoardSetModel->_pIDirect3DIndexBuffer9),
+                                NULL);
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateIndexBuffer 失敗 model="<<(prm_pBoardSetModel->_model_name));
+
+        void* pIndexBuffer;
+        prm_pBoardSetModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
+        memcpy(
+          pIndexBuffer ,
+          paIdxBufferSet,
+          sizeof(WORD) * nFaces * 3 * prm_pBoardSetModel->_set_num
+        );
+        prm_pBoardSetModel->_pIDirect3DIndexBuffer9->Unlock();
+        DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
+        DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
+
+        //描画時パラメーター
+        GgafDx9BoardSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9BoardSetModel::INDEXPARAM[prm_pBoardSetModel->_set_num];
+        for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
+            paIndexParam[i].MaterialNo = 0;
+            paIndexParam[i].BaseVertexIndex = 0;
+            paIndexParam[i].MinIndex = 0;
+            paIndexParam[i].NumVertices = nVertices*(i+1);
+            paIndexParam[i].StartIndex = 0;
+            paIndexParam[i].PrimitiveCount = nFaces*(i+1);
+        }
+        prm_pBoardSetModel->_paIndexParam = paIndexParam;
+    }
+
+
+
+
+
+
+    //全パターンのUV情報の配列作成しモデルに保持させる
+    //＜2009/3/13＞
+    //シェーダーでUV操作するようになってから、描画時にUV左上の情報(model_paRectUV[n]._aUV[0])以外は使用しなくなった。
+    //TODO:しばらくしたら余分な所を見直すか消す。
+    int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
+    GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
+    for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
+        for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
+            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0*row/(*pInt_RowNum_TextureSplit));
+
+            model_paRectUV[pattno_ani]._aUV[1].tu = (float)(1.0*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0*row/(*pInt_RowNum_TextureSplit));
+
+            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_ani]._aUV[2].tv = (float)(1.0*(row+1)/(*pInt_RowNum_TextureSplit));
+
+            model_paRectUV[pattno_ani]._aUV[3].tu = (float)(1.0*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_ani]._aUV[3].tv = (float)(1.0*(row+1)/(*pInt_RowNum_TextureSplit));
+        }
+    }
+    prm_pBoardSetModel->_paRectUV = model_paRectUV;
+    prm_pBoardSetModel->_pattno_max = pattnum-1;
+    prm_pBoardSetModel->_dwNumMaterials = 1;
+    D3DMATERIAL9* model_paD3DMaterial9;
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pBoardSetModel->_dwNumMaterials];
+    for( DWORD i = 0; i < prm_pBoardSetModel->_dwNumMaterials; i++){
+        //model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+        model_paD3DMaterial9[i].Diffuse.r = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.g = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.b = 1.0f;
+        model_paD3DMaterial9[i].Diffuse.a = 1.0f;
+        model_paD3DMaterial9[i].Ambient.r = 1.0f;
+        model_paD3DMaterial9[i].Ambient.g = 1.0f;
+        model_paD3DMaterial9[i].Ambient.b = 1.0f;
+        model_paD3DMaterial9[i].Ambient.a = 1.0f;
+    }
+    prm_pBoardSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+
+    //後始末
+
+    RELEASE_SAFETY(pIDirectXFileData);
+    RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
+}
+
+
+
 
 
 void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetModel) {

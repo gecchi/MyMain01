@@ -9,7 +9,7 @@ class GgafDx9BoardEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hMatWorld;
+    //D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hOffsetU;
     D3DXHANDLE _hOffsetV;
     D3DXHANDLE _hTransformedX;
