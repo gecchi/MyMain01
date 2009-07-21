@@ -9,10 +9,10 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
 
     _papChipBoard = NEW BackGroundChipBoard*[4];
-    _papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "B/background01");
-    _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "B/background02");
-    _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "B/background03");
-    _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "B/background04");
+    _papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "b/background01");
+    _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "b/background02");
+    _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "b/background03");
+    _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "b/background04");
 
 //    _papBackGroundStar001 = NEW BackGroundStar001*[4];
 //    _papBackGroundStar001[0] = NEW BackGroundStar001("star01");
@@ -73,24 +73,24 @@ void BackGround01::processDrawPrior() {
 void BackGround01::processDrawMain() {
     _papChipBoard[0]->_x = _x;
     _papChipBoard[0]->_y = _y;
-    _papChipBoard[1]->_x = _x + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelWidthPx;
+    _papChipBoard[1]->_x = _x + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
     _papChipBoard[1]->_y = _y;
     _papChipBoard[2]->_x = _x;
-    _papChipBoard[2]->_y = _y + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelHeightPx;
-    _papChipBoard[3]->_x = _x + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelWidthPx;
-    _papChipBoard[3]->_y = _y + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelHeightPx;
+    _papChipBoard[2]->_y = _y + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+    _papChipBoard[3]->_x = _x + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
+    _papChipBoard[3]->_y = _y + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
     for (int i = 0; i < 4; i++) {
         _papChipBoard[i]->processDrawMain();
     }
 
     _papChipBoard[0]->_x = _x + 1024;
     _papChipBoard[0]->_y = _y;
-    _papChipBoard[1]->_x = _x + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelWidthPx + 1024;
+    _papChipBoard[1]->_x = _x + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
     _papChipBoard[1]->_y = _y;
     _papChipBoard[2]->_x = _x + 1024;
-    _papChipBoard[2]->_y = _y + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelHeightPx;
-    _papChipBoard[3]->_x = _x + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelWidthPx + 1024;
-    _papChipBoard[3]->_y = _y + _papChipBoard[0]->_pBoardModel->_fSize_BoardModelHeightPx;
+    _papChipBoard[2]->_y = _y + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+    _papChipBoard[3]->_x = _x + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
+    _papChipBoard[3]->_y = _y + _papChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
     for (int i = 0; i < 4; i++) {
         _papChipBoard[i]->processDrawMain();
     }

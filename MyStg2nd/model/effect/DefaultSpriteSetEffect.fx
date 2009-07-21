@@ -63,7 +63,7 @@ struct OUT_VS
 OUT_VS GgafDx9VS_DefaultSpriteSet(                              
       float4 prm_pos    : POSITION,     // モデルの頂点
       float3 prm_normal : NORMAL,        // モデルの頂点の法
-      float  prm_index  : PSIZE ,    // モデルの頂点番号
+      float  prm_index  : PSIZE ,    // モデル番号
       float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
@@ -72,49 +72,49 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 	float4x4 matWorld;
 	float offsetU;
 	float offsetV;
-	float alpah;
+	float alpha;
 
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		offsetU  = g_offsetU001;
 		offsetV  = g_offsetV001;
-		alpah   = g_alpha001;
+		alpha   = g_alpha001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
 		offsetU  = g_offsetU002;
 		offsetV  = g_offsetV002;
-		alpah   = g_alpha002;
+		alpha   = g_alpha002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
 		offsetU  = g_offsetU003;
 		offsetV  = g_offsetV003;
-		alpah   = g_alpha003;
+		alpha   = g_alpha003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
 		offsetU  = g_offsetU004;
 		offsetV  = g_offsetV004;
-		alpah   = g_alpha004;
+		alpha   = g_alpha004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
 		offsetU  = g_offsetU005;
 		offsetV  = g_offsetV005;
-		alpah   = g_alpha005;
+		alpha   = g_alpha005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
 		offsetU  = g_offsetU006;
 		offsetV  = g_offsetV006;
-		alpah   = g_alpha006;
+		alpha   = g_alpha006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
 		offsetU  = g_offsetU007;
 		offsetV  = g_offsetV007;
-		alpah   = g_alpha007;
+		alpha   = g_alpha007;
 	} else {
 		matWorld = g_matWorld008;
 		offsetU  = g_offsetU008;
 		offsetV  = g_offsetV008;
-		alpah   = g_alpha008;
+		alpha   = g_alpha008;
 	}
 //	if (16 > cnt_vertec) {
 //		if (8 > cnt_vertec) {
@@ -122,24 +122,24 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 //				matWorld = g_matWorld001;
 //				offsetU  = g_offsetU001;
 //				offsetV  = g_offsetV001;
-//				alpah   = g_alpha001;
+//				alpha   = g_alpha001;
 //			} else {
 //				matWorld = g_matWorld002;
 //				offsetU  = g_offsetU002;
 //				offsetV  = g_offsetV002;
-//				alpah   = g_alpha002;
+//				alpha   = g_alpha002;
 //			}
 //		} else {
 //			if (12 > cnt_vertec) {
 //				matWorld = g_matWorld003;
 //				offsetU  = g_offsetU003;
 //				offsetV  = g_offsetV003;
-//				alpah   = g_alpha003;
+//				alpha   = g_alpha003;
 //			} else {
 //				matWorld = g_matWorld004;
 //				offsetU  = g_offsetU004;
 //				offsetV  = g_offsetV004;
-//				alpah   = g_alpha004;
+//				alpha   = g_alpha004;
 //			}
 //		}
 //	} else {
@@ -148,24 +148,24 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 //				matWorld = g_matWorld005;
 //				offsetU  = g_offsetU005;
 //				offsetV  = g_offsetV005;
-//				alpah   = g_alpha005;
+//				alpha   = g_alpha005;
 //			} else {
 //				matWorld = g_matWorld006;
 //				offsetU  = g_offsetU006;
 //				offsetV  = g_offsetV006;
-//				alpah   = g_alpha006;
+//				alpha   = g_alpha006;
 //			}
 //		} else { 
 //			if (28 > cnt_vertec) {
 //				matWorld = g_matWorld007;
 //				offsetU  = g_offsetU007;
 //				offsetV  = g_offsetV007;
-//				alpah   = g_alpha007;
+//				alpha   = g_alpha007;
 //			} else {
 //				matWorld = g_matWorld008;
 //				offsetU  = g_offsetU008;
 //				offsetV  = g_offsetV008;
-//				alpah   = g_alpha008;
+//				alpha   = g_alpha008;
 //			}
 //		}
 //	}
@@ -179,7 +179,7 @@ OUT_VS GgafDx9VS_DefaultSpriteSet(
 	//UVのオフセット(パターン番号による増分)加算
 	out_vs.uv.x = prm_uv.x + offsetU;
 	out_vs.uv.y = prm_uv.y + offsetV;
-	out_vs.col  = alpah;
+	out_vs.col  = alpha;
 	return out_vs;
 }
 
