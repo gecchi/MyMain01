@@ -7,9 +7,9 @@ using namespace MyStg2nd;
 
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEDEMO_PROG_INIT);
-    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "B/moji");
+    _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "b/moji");
     getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
-    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "B/moji");
+    _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "b/moji");
     getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
 
 //    orderActorToFactory(111111, TamagoActor, "TAMAGO_X");
