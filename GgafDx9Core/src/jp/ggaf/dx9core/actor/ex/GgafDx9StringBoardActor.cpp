@@ -4,7 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9StringBoardActor::GgafDx9StringBoardActor(const char* prm_name, const char* prm_model)
-  : GgafDx9BoardSetActor(prm_name, prm_model, "b/StringBoardEffect", "StringBoardTechnique") {
+  : GgafDx9BoardSetActor(prm_name, prm_model, "StringBoardEffect", "StringBoardTechnique") {
     _class_name = "GgafDx9StringBoardActor";
     _draw_string = NULL;
     _len = 0;

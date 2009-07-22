@@ -26,8 +26,8 @@ public:
      * @param prm_pChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
      */
     GgafDx9MeshActor(const char* prm_name,
-                     const char* prm_model,
-                     const char* prm_effect,
+                     const char* prm_model_id,
+                     const char* prm_effect_id,
                      const char* prm_technique,
                      GgafDx9Checker* prm_pChecker );
 

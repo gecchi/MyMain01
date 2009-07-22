@@ -37,10 +37,18 @@ public:
      * @param	prm_name Ž¯•Ê–¼
      */
     GgafDx9DrawableActor(const char* prm_name,
-                                      const char* prm_model,
-                                      const char* prm_effect,
-                                      const char* prm_technique,
-                                      GgafDx9Checker* prm_pChecker);
+                         const char* prm_model,
+                         const char* prm_effect,
+                         const char* prm_technique,
+                         GgafDx9Checker* prm_pChecker);
+
+    GgafDx9DrawableActor(const char* prm_name,
+                         const char* prm_model_id,
+                         const char* prm_model_type,
+                         const char* prm_effect_id,
+                         const char* prm_effect_type,
+                         const char* prm_technique,
+                         GgafDx9Checker* prm_pChecker);
 
     virtual GgafDx9DrawableActor* getPrev() {
         return (GgafDx9DrawableActor*)GgafActor::getPrev();

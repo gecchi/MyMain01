@@ -4,16 +4,18 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
-                                             const char* prm_model,
-                                             const char* prm_effect,
+                                             const char* prm_model_id,
+                                             const char* prm_effect_id,
                                              const char* prm_technique,
                                              GgafDx9Checker* prm_pChecker) :
 
                                                  GgafDx9DrawableActor(prm_name,
-                                                                                   prm_model,
-                                                                                   prm_effect,
-                                                                                   prm_technique,
-                                                                                   prm_pChecker) {
+                                                                       prm_model_id,
+                                                                       "M",
+                                                                       prm_effect_id,
+                                                                       "M",
+                                                                       prm_technique,
+                                                                       prm_pChecker) {
     _class_name = "GgafDx9MorphMeshActor";
     _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
     _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;

@@ -45,9 +45,9 @@ public:
     int _patteno_now;
 
     GgafDx9BoardSetActor(const char* prm_name,
-                      const char* prm_model,
-                      const char* prm_effect,
-                      const char* prm_technique );
+                         const char* prm_model_id,
+                         const char* prm_effect_id,
+                         const char* prm_technique );
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>

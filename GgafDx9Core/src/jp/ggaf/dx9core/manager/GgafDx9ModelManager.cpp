@@ -36,7 +36,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
         case 'd':
-            //DynaD3DXMeshModel
+            //GgafDx9DynaD3DXMeshActor
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'X':

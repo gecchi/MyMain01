@@ -4,16 +4,18 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
-                                       const char* prm_model,
-                                       const char* prm_effect,
+                                       const char* prm_model_id,
+                                       const char* prm_effect_id,
                                        const char* prm_technique,
                                        GgafDx9Checker* prm_pChecker) :
 
                                            GgafDx9DrawableActor(prm_name,
-                                                                             prm_model,
-                                                                             prm_effect,
-                                                                             prm_technique,
-                                                                             prm_pChecker) {
+                                                                prm_model_id,
+                                                                "S",
+                                                                prm_effect_id,
+                                                                "S",
+                                                                prm_technique,
+                                                                prm_pChecker) {
     _class_name = "GgafDx9SpriteActor";
 
     //ƒ‚ƒfƒ‹Žæ“¾

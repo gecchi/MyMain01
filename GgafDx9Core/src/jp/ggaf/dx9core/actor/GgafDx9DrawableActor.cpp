@@ -3,10 +3,10 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
-                                                                     const char* prm_model,
-                                                                     const char* prm_effect,
-                                                                     const char* prm_technique,
-                                                                     GgafDx9Checker* prm_pChecker) :
+                                           const char* prm_model,
+                                           const char* prm_effect,
+                                           const char* prm_technique,
+                                           GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
 _TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
@@ -35,6 +35,66 @@ _TRACE_(")");
     _fAlpha = 1.0f;
 
 }
+
+
+GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
+                                           const char* prm_model_id,
+                                           const char* prm_model_type,
+                                           const char* prm_effect_id,
+                                           const char* prm_effect_type,
+                                           const char* prm_technique,
+                                           GgafDx9Checker* prm_pChecker) :
+  GgafDx9GeometricActor(prm_name, prm_pChecker) {
+
+_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
+_TRACE_("    prm_name="<<prm_name);
+_TRACE_("    prm_model_id="<<prm_model_id);
+_TRACE_("    prm_model_type="<<prm_model_type);
+_TRACE_("    prm_effect_id="<<prm_effect_id);
+_TRACE_("    prm_effect_type="<<prm_effect_type);
+_TRACE_("    prm_technique="<<prm_technique);
+_TRACE_(")");
+
+    _class_name = "GgafDx9DrawableActor";
+    _technique = NEW char[51];
+    strcpy(_technique, prm_technique);
+
+    char* model_name = NEW char[51];
+    model_name[0] = '\0';
+    strcat(model_name, prm_model_type);
+    strcat(model_name, "/");
+    strcat(model_name, prm_model_id);
+    char* effelct_name = NEW char[51];
+    effelct_name[0] = '\0';
+    strcat(effelct_name, prm_effect_type);
+    strcat(effelct_name, "/");
+    strcat(effelct_name, prm_effect_id);
+    // prm_model_id   = "Celes"
+    // prm_model_type = "X"
+    // の場合、model_name として
+    // model_name     = "X/Celes"
+    // という文字列を作成。
+
+    _pNext_TheSameDrawDepthLevel = NULL;
+    //モデル取得
+    _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->getConnection(model_name);
+    _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
+    //エフェクト取得
+    _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->getConnection(effelct_name);
+    _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
+    //マテリアルをコピー
+    _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
+    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
+        _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
+    }
+    _fAlpha = 1.0f;
+
+
+    DELETEARR_IMPOSSIBLE_NULL(model_name);
+    DELETEARR_IMPOSSIBLE_NULL(effelct_name);
+
+}
+
 
 
 void GgafDx9DrawableActor::processDrawPrior() {

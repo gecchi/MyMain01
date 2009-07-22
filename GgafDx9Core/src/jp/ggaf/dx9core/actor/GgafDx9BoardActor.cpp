@@ -4,14 +4,16 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
-                                     const char* prm_model,
-                                     const char* prm_effect,
+                                     const char* prm_model_id,
+                                     const char* prm_effect_id,
                                      const char* prm_technique) :
                                          GgafDx9DrawableActor(prm_name,
-                                                                          prm_model,
-                                                                          prm_effect,
-                                                                          prm_technique,
-                                                                          NULL) {
+                                                              prm_model_id,
+                                                              "B",
+                                                              prm_effect_id,
+                                                              "B",
+                                                              prm_technique,
+                                                              NULL) {
 
     _class_name = "GgafDx9BoardActor";
 
