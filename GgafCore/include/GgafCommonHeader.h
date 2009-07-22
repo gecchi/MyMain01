@@ -143,6 +143,7 @@ class GgafGarbageBox;
 class GgafScene;
 class GgafGarbageRootScene;
 class GgafActor;
+class GgafStatus;
 class GgafGarbageRootActor;
 class GgafMainActor;
 class GgafDummyActor;
@@ -160,6 +161,7 @@ class GgafProperties;
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/exception/GgafException.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
+#include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/core/util/GgafLogger.h"
 #include "jp/ggaf/core/util/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
@@ -177,6 +179,7 @@ class GgafProperties;
 #include "jp/ggaf/core/scene/GgafGarbageRootScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
+
 #include "jp/ggaf/core/actor/GgafGarbageRootActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"

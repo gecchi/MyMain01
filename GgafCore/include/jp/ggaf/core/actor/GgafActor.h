@@ -94,6 +94,7 @@ public:
     /** アクター衝突判定有無フラグ */
     bool _can_bump_flg;
 
+    GgafStatus* _pStatus;
 
 
 
