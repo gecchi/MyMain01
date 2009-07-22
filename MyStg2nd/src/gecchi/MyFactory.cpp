@@ -54,7 +54,7 @@ using namespace MyStg2nd;
 
 GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 
-	GgafDummyActor* pDummyActor = NEW GgafDummyActor("DUMMY");
+    GgafDummyActor* pDummyActor = NEW GgafDummyActor("DUMMY");
 //	for (int i = 1; i < 5; i++) {
 //		stringstream str_stream;
 //		str_stream << "TAMAGO" << i;
@@ -89,12 +89,12 @@ GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 //	}
 //	//TamagoActor* pot = NEW TamagoActor("POT", "pot");
 //	//pDummyActor->addSubLast(pot);
-	return pDummyActor;
+    return pDummyActor;
 }
 
 //
 //GgafMainActor* MyFactory::createEnemyCeres(void* pArg1, void* pArg2) {
-//	EnemyCeres* pEnemyCeres = NEW EnemyCeres("Ceres01", "M/Ceres");
+//	EnemyCeres* pEnemyCeres = NEW EnemyCeres("Ceres01", "Ceres");
 //	return pEnemyCeres;
 //}
 //
@@ -111,11 +111,11 @@ GgafMainActor* MyFactory::createTamagoSet01(void* pArg1, void* pArg2) {
 //
 
 GgafMainActor* MyFactory::createFormationJuno001First(void* pArg1, void* pArg2) {
-	FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F");
-	FormationJuno001::_X_FormationWhole = *((int*)(pArg1));
-	int* n = (int*)(pArg1);
-	DELETE_IMPOSSIBLE_NULL(n);
-	return pFormationJuno001;
+    FormationJuno001* pFormationJuno001 = NEW FormationJuno001("F_JUN001F");
+    FormationJuno001::_X_FormationWhole = *((int*)(pArg1));
+    int* n = (int*)(pArg1);
+    DELETE_IMPOSSIBLE_NULL(n);
+    return pFormationJuno001;
 }
 
 //GgafMainActor* MyFactory::createFormationJuno001(void* pArg1, void* pArg2) {

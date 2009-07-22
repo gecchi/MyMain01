@@ -9,7 +9,7 @@ using namespace MyStg2nd;
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     GgafDx9MeshSetActor(prm_name,
                      prm_model,
-                     "x/LaserChipEffect",
+                     "LaserChipEffect",
                      "LaserChipTechnique",
                      NEW StgChecker(this) ) {
     _pStgChecker = (StgChecker*)_pChecker;

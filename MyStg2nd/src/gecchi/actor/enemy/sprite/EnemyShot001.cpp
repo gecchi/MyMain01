@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name, "S/hoge") {
+EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name, "hoge") {
     _class_name = "EnemyShot001";
     inactivateTree();
 }

@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Magic::Magic(const char* prm_name,
              GgafDx9GeometricActor* prm_pCaster,
-             GgafDx9GeometricActor* prm_pReceiver) : DefaultSpriteActor(prm_name, "S/magic") {
+             GgafDx9GeometricActor* prm_pReceiver) : DefaultSpriteActor(prm_name, "magic") {
     _cost = 10000000;
     _cast_speed = 60;
     _duration = 1;

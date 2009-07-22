@@ -9,10 +9,10 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
 
     _papChipBoard = NEW BackGroundChipBoard*[4];
-    _papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "b/background01");
-    _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "b/background02");
-    _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "b/background03");
-    _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "b/background04");
+    _papChipBoard[0] = NEW BackGroundChipBoard("Bg01_Chip01", "background01");
+    _papChipBoard[1] = NEW BackGroundChipBoard("Bg01_Chip02", "background02");
+    _papChipBoard[2] = NEW BackGroundChipBoard("Bg01_Chip03", "background03");
+    _papChipBoard[3] = NEW BackGroundChipBoard("Bg01_Chip04", "background04");
 
 //    _papBackGroundStar001 = NEW BackGroundStar001*[4];
 //    _papBackGroundStar001[0] = NEW BackGroundStar001("star01");

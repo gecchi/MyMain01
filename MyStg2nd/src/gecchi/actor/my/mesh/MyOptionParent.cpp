@@ -10,7 +10,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
                             NULL) {
 
 //MyOptionParent::MyOptionParent(const char* prm_name) :
-//    DefaultMeshActor(prm_name, "X/vic2") {
+//    DefaultMeshActor(prm_name, "vic2") {
 
     _angVelocity_Turn = 3000;
     _pMover = NEW GgafDx9GeometryMover(this);
