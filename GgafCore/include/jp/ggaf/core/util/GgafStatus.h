@@ -20,7 +20,7 @@ public:
 
     virtual int get(int n);
 
-    virtual int set(int n, int val);
+    virtual void set(int n, int val);
 
     virtual ~GgafStatus() {
         delete[] _pa_val;
