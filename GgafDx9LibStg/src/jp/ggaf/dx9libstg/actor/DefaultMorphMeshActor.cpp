@@ -4,10 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model) :
+DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id) :
     GgafDx9MorphMeshActor(prm_name,
-                     prm_model,
-                     "M/DefaultMorphMeshEffect",
+                     prm_model_id,
+                     "DefaultMorphMeshEffect",
                      "DefaultMorphMeshTechnique",
                      NEW StgChecker(this) ) {
 

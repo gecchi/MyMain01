@@ -17,7 +17,7 @@ public:
     GgafDx9Core::GgafDx9GeometryMorpher* _pMorpher;
     StgChecker* _pStgChecker;
 
-    DefaultMorphMeshActor(const char* prm_name, const char* prm_model);
+    DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id);
 
     virtual void initialize() {
     }

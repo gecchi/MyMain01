@@ -4,10 +4,10 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model) :
+DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_model_id) :
     GgafDx9SpriteActor(prm_name,
-                       prm_model,
-                       "S/DefaultSpriteEffect",
+                       prm_model_id,
+                       "DefaultSpriteEffect",
                        "DefaultSpriteTechnique",
                        NEW StgChecker(this) ) {
     _class_name = "DefaultSpriteActor";

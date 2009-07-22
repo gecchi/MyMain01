@@ -18,7 +18,7 @@ public:
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
 
-    DefaultSpriteActor(const char* prm_name, const char* prm_model);
+    DefaultSpriteActor(const char* prm_name, const char* prm_model_id);
 
     virtual void initialize() {
     }
