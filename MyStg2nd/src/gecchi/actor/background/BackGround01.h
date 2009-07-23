@@ -4,10 +4,14 @@ namespace MyStg2nd {
 
 class BackGround01 : public GgafDx9Core::GgafDx9GeometricActor {
 
-    BackGroundChipBoard** _papChipBoard;
+    BackGroundChipBoard*** _papapChipBoard;
 //    BackGroundStar001** _papBackGroundStar001;
 
 public:
+
+    float _chip_width;
+    float _chip_height;
+
     BackGround01(const char* prm_name, const char* prm_dummy);
 
     virtual void processJudgement() {
