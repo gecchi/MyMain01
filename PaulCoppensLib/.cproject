@@ -22,7 +22,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.747441517." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.1807367144" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.1221829158" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-<builder buildPath="${workspace_loc:/PaulCoppensLib/デバッグ}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.115403988" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/PaulCoppensLib/デバッグ}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.115403988" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT 内部ビルダー" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.326173458" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1523570843" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
@@ -45,8 +45,8 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
 </option>
-<option id="gnu.c.compiler.option.warnings.nowarn.1948337406" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
-<option id="gnu.c.compiler.option.warnings.allwarn.988805975" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.nowarn.1948337406" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
+<option id="gnu.c.compiler.option.warnings.allwarn.988805975" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <inputType id="cdt.managedbuild.tool.gnu.c.compiler.input.276539922" superClass="cdt.managedbuild.tool.gnu.c.compiler.input"/>
 </tool>
 <tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.base.1577296690" name="MinGW C リンカー" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.base"/>

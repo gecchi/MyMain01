@@ -47,7 +47,7 @@ void BackGround01::initialize() {
 
 
     for (int i = 0; i < 4; i++) {
-        base‚ª‚È‚È‚ß‚Á‚Ä‚é
+        //base‚ª‚È‚È‚ß‚Á‚Ä‚é
         float base_x = i * (_chip_width + _chip_width);
         float base_y = i * (_chip_height + _chip_height);
         _papapChipBoard[i][0]->_x = base_x + _x;
