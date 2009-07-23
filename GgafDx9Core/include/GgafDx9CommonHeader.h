@@ -4,6 +4,21 @@
 
 
 #define DIRECTINPUT_VERSION 0x0800
+
+#ifndef DECLSPEC_DEPRECATED
+#if (_MSC_VER >= 1300) && !defined(MIDL_PASS)
+#define DECLSPEC_DEPRECATED   __declspec(deprecated)
+#define DEPRECATE_SUPPORTED
+#else
+#define DECLSPEC_DEPRECATED
+#undef  DEPRECATE_SUPPORTED
+#endif
+#endif
+//http://www.ogre3d.org/forums/viewtopic.php?f=2&t=45140
+//à”ñ°ÇñYÇÍÇΩÇÁÅAéQè∆ÇπÇÊ
+
+
+
 #define ANGLE0 (0)
 #define ANGLE360 (360000)
 #define ANGLE45 (45000)
