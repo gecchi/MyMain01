@@ -45,22 +45,28 @@ void BackGround01::initialize() {
         }
     }
 
+   _base_x[0] = 0;
+   _base_y[0] = 0;
+   _base_x[1] = _chip_width*2;
+   _base_y[1] = 0;
+   _base_x[2] = 0;
+   _base_y[2] = _chip_height*2;
+   _base_x[3] = _chip_width*2;
+   _base_y[3] = _chip_height*2;
 
     for (int i = 0; i < 4; i++) {
         //base‚ª‚È‚È‚ß‚Á‚Ä‚é
-        float base_x = i * (_chip_width + _chip_width);
-        float base_y = i * (_chip_height + _chip_height);
-        _papapChipBoard[i][0]->_x = base_x + _x;
-        _papapChipBoard[i][0]->_y = base_y + _y;
+        _papapChipBoard[i][0]->_x = _base_x[i] + _x;
+        _papapChipBoard[i][0]->_y = _base_y[i] + _y;
         _papapChipBoard[i][0]->_z = _z;
-        _papapChipBoard[i][1]->_x = base_x + _x + _chip_width;
-        _papapChipBoard[i][1]->_y = base_y + _y;
+        _papapChipBoard[i][1]->_x = _base_x[i] + _x + _chip_width;
+        _papapChipBoard[i][1]->_y = _base_y[i] + _y;
         _papapChipBoard[i][1]->_z = _z;
-        _papapChipBoard[i][2]->_x = base_x + _x;
-        _papapChipBoard[i][2]->_y = base_y + _y + _chip_height;
+        _papapChipBoard[i][2]->_x = _base_x[i] + _x;
+        _papapChipBoard[i][2]->_y = _base_y[i] + _y + _chip_height;
         _papapChipBoard[i][2]->_z = _z;
-        _papapChipBoard[i][3]->_x = base_x + _x + _chip_width;
-        _papapChipBoard[i][3]->_y = base_y + _y + _chip_height;
+        _papapChipBoard[i][3]->_x = _base_x[i] + _x + _chip_width;
+        _papapChipBoard[i][3]->_y = _base_y[i] + _y + _chip_height;
         _papapChipBoard[i][3]->_z = _z;
    }
 //    //GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)
@@ -94,20 +100,18 @@ void BackGround01::processBehavior() {
     if (_x < -1 * (_chip_width + _chip_width) ) {
         _x += (_chip_width + _chip_width);
     } else {
-        _x -= 0.1;
+        _x -= 1;
     }
 
     for (int i = 0; i < 4; i++) {
-        float base_x = i * (_chip_width + _chip_width);
-        float base_y = i * (_chip_height + _chip_height);
-        _papapChipBoard[i][0]->_x = base_x + _x;
-        _papapChipBoard[i][0]->_y = base_y + _y;
-        _papapChipBoard[i][1]->_x = base_x + _x + _chip_width;
-        _papapChipBoard[i][1]->_y = base_y + _y;
-        _papapChipBoard[i][2]->_x = base_x + _x;
-        _papapChipBoard[i][2]->_y = base_y + _y + _chip_height;
-        _papapChipBoard[i][3]->_x = base_x + _x + _chip_width;
-        _papapChipBoard[i][3]->_y = base_y + _y + _chip_height;
+        _papapChipBoard[i][0]->_x = _base_x[i] + _x;
+        _papapChipBoard[i][0]->_y = _base_y[i] + _y;
+        _papapChipBoard[i][1]->_x = _base_x[i] + _x + _chip_width;
+        _papapChipBoard[i][1]->_y = _base_y[i] + _y;
+        _papapChipBoard[i][2]->_x = _base_x[i] + _x;
+        _papapChipBoard[i][2]->_y = _base_y[i] + _y + _chip_height;
+        _papapChipBoard[i][3]->_x = _base_x[i] + _x + _chip_width;
+        _papapChipBoard[i][3]->_y = _base_y[i] + _y + _chip_height;
    }
 
 }

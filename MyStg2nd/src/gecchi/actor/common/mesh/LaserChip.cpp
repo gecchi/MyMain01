@@ -21,7 +21,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pChip_behind = NULL;
     _pDispatcher = NULL; //LaserChipDispatcherの new 時に設定される。
     _chiptex_kind = 1;
-
     _ahKind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
     _ahKind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind002" );
     _ahKind[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind003" );
@@ -38,7 +37,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahRevPosZ[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ006" );
     _ahRevPosZ[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ007" );
     _ahRevPosZ[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ008" );
-
     _ahMatWorld_front[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
     _ahMatWorld_front[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
     _ahMatWorld_front[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front003" );
@@ -47,8 +45,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahMatWorld_front[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front006" );
     _ahMatWorld_front[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front007" );
     _ahMatWorld_front[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front008" );
-
-
 }
 
 void LaserChip::initialize() {
@@ -172,23 +168,6 @@ void LaserChip::processDrawMain() {
             break;
         }
     }
-//    _draw_set_index = 0;
-//    _draw_object_num = 1;
-//    //index   0 1 2 3 4
-//    //object  1 2 4 8 16
-//    if (cnt >= 8 && _pMeshSetModel->_setnum >= 4) {
-//        _draw_set_index = 3;
-//        _draw_object_num = 8;
-//    } else if (4 <= cnt && _pMeshSetModel->_setnum >= 3) {
-//        _draw_set_index = 2;
-//        _draw_object_num = 4;
-//    } else if (2 <= cnt && _pMeshSetModel->_setnum >= 2) {
-//        _draw_set_index = 1;
-//        _draw_object_num = 2;
-//    } else {
-//        _draw_set_index = 0;
-//        _draw_object_num = 1;
-//    }
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
@@ -232,13 +211,13 @@ void LaserChip::processDrawMain() {
                 if (pDrawLaserChipActor->_pChip_front->_Z == pDrawLaserChipActor->_Z) {
                     rev_pos_Z = false;
                 } else {
-                    //＜2009/5/19 メモ：何を判定しようとしているのか＞
-                    //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
-                    //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
-                    //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
-                    //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し羽の描画順序を変更する。
-                    //羽とは下図の①と④のポリゴンのことをさす。①～④がデフォルトの描画順序。
-                    //特定の角度ではこの①と④の描画順番を変えなければ、半透明のためギザギザになる場合があるということであるのだ。
+                    //＜2009/5/19 メモ：rev_pos_Zは何を判定しようとしているのか＞
+                    //頂点Z座標を反転(-1倍)して描画とはチップの羽の描画順序を逆にするかどうかの判断をする。
+                    //羽とは下図（レーザーのチップのローカル座標図）の①と④のポリゴンのことを指す。
+                    //頂点インデックス（＝描画順序）は①②③④の順番になっている。
+                    //ワールド変換後、カメラから下図ような角度でチップが見える場合、 ①が一番奥まった場所、④は一番手前側にあるので綺麗に描画されるが、
+                    //①、④の奥手前が逆になってしまう角度（＝カメラの左を通過するような角度）だと、ギザギザな描画になってしまう。
+                    //
                     //         ↑ｙ軸
                     //         │
                     //
@@ -254,8 +233,12 @@ void LaserChip::processDrawMain() {
                     //          ＼ ③┃  ＼
                     //            ＼ ┃    ＼ ｘ軸（方向）
                     //               ┃      ┘
-
-
+                    //
+                    //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
+                    //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
+                    //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
+                    //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し描画する。
+                    //Z座標を反転描画しなければならない場合 rev_pos_Z = true としてシェーダーに渡すこととする。
                     crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - pDrawLaserChipActor->_Z)) *
                                  ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
                                   (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
@@ -268,7 +251,8 @@ void LaserChip::processDrawMain() {
                 }
 
                 if (pDrawLaserChipActor->_pChip_front->_Z > pDrawLaserChipActor->_Z) {
-                    //上記の判定はレーザーは奥から手前へ来てる場合の判定、手前から奥へ飛ぶ場合は判定は反転することになる。
+                    //これまでの上記の判定は全てレーザーは奥から手前へ来てる場合の判定。
+                    //もし手前から奥へ飛んでいる場合は、Z座標を反転の判定は逆になる。
                     rev_pos_Z = !rev_pos_Z;
                 }
             }

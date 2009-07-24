@@ -291,6 +291,9 @@ void MyShip::processBehavior() {
     _pStgChecker->behave();
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 
+    if (isOffScreen()) {
+        _TRACE_("isOffScreen! = ("<<_X<<","<<_Y<<","<<_Z<<")");
+    }
     //_TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
 }
 

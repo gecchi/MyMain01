@@ -12,6 +12,8 @@ public:
     float _chip_width;
     float _chip_height;
 
+    float _base_x[4];
+    float _base_y[4];
     BackGround01(const char* prm_name, const char* prm_dummy);
 
     virtual void processJudgement() {
