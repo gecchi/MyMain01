@@ -162,6 +162,17 @@ public:
 
     static void getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
+    static int sign(float x) {
+        if (x < 0) {
+            return -1;
+        } else if (x > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
     virtual ~GgafDx9GeometricActor(); //デストラクタ
 };
 

@@ -32,35 +32,66 @@ public:
     /** 正射影変換魚売れる */
     D3DXMATRIX _vMatrixOrthoProj;
 
-    /** カメラの位置 */
+    /** カメラの位置(読み込み専用、フレーム毎更新) */
     D3DXVECTOR3* _pVecCamFromPoint;
-    /** カメラの注視点 */
+    /** カメラの注視点(読み込み専用、フレーム毎更新) */
     D3DXVECTOR3* _pVecCamLookatPoint;
-    /** カメラの上ベクトル(読み込み専用) */
+    /** カメラの上ベクトル(読み込み専用、生成後不変) */
     D3DXVECTOR3* _pVecCamUp;
-    /** VIEW変換行列(読み込み専用) */
+    /** VIEW変換行列(読み込み専用、フレーム毎更新) */
     D3DXMATRIX _vMatrixView;
-    /** 視野角X(読み込み専用) */
+    /** 視野角X(読み込み専用、生成後不変) */
     float _rad_fovX;
-    /** 視野角Y(読み込み専用) */
+    /** 視野角Xの半分(読み込み専用、生成後不変) */
+    float _rad_half_fovX;
+    /** 視野角Y(読み込み専用、生成後不変) */
     float _rad_fovY;
+    /** 視野角Yの半分(読み込み専用、生成後不変) */
+    float _rad_half_fovY;
     /** カメラのZ座標(読み込み専用) */
     float _cameraZ;
-    /** カメラのZ座標初期位置(読み込み専用) */
+    /** カメラのZ座標初期位置(読み込み専用、生成後不変) */
     float _cameraZ_org;
-    /** アスペクト比 */
+    /** アスペクト比(読み込み専用、生成後不変) */
     float _screen_aspect;
 
     float _tan_half_fovY;
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
+
+    /** XY平面座標の視点から注視点を結ぶ直線の傾き */
+    float _view_slant_XZ;
+    /** XY平面座標の視点から注視点を結ぶ直線の傾き */
+    float _view_slant_ZY;
+
+    float _view_rad_XZ;
+    float _view_rad_ZY;
+
+    float _view_border_rad1_XZ;
+    float _view_border_rad2_XZ;
+    float _view_border_rad1_ZY;
+    float _view_border_rad2_ZY;
+
     float _view_border_slant1_XZ;
     float _view_border_slant2_XZ;
+    float _view_border_slant1_ZY;
+    float _view_border_slant2_ZY;
+    //切片
+    int _view_border_intercept1_XZ;
+    int _view_border_intercept2_XZ;
+    int _view_border_intercept1_ZY;
+    int _view_border_intercept2_ZY;
 
     /** 注視点（読み書き可) */
     int _gazeX, _gazeY, _gazeZ;
 
-    GgafDx9Camera(const char* prm_name);
+    /**
+     * コンストラクタ
+     * @param prm_name 名前(デバックで表示。何でもよい)
+     * @param prm_rad_fovX 左右の視野角（ラジアン）
+     * @return
+     */
+    GgafDx9Camera(const char* prm_name, float prm_rad_fovX);
 
     virtual void initialize();
 

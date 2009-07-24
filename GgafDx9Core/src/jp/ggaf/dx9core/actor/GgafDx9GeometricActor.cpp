@@ -382,46 +382,77 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 
 bool GgafDx9GeometricActor::isOffScreen() {
-//    if (_Z > 0) {
-        static int hy;
-        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY*2.0 + 128000;
+    //y < (a*n)x+b
+    //y > (a*(1/n))x+b
+    //y = ax + b は、カメラの視点と注視点を結ぶ直線。
+    //nは傾き範囲
 
-        if (_Y < -1.0 * hy) {
-            return true;
-        } else {
-            if (_Y > hy) {
-                return true;
-            } else {
-                if (_X > hy*GgafDx9Universe::_pCamera->_screen_aspect) {
-                    return true;
-                } else {
-                    if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
-                        return true;
-                    } else {
-                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 3000000) {
-                            return true;
-                        } else {
+
+    float a1 = GgafDx9Universe::_pCamera->_view_border_slant1_XZ;
+    int   b1 = GgafDx9Universe::_pCamera->_view_border_intercept1_XZ;
+    float a2 = GgafDx9Universe::_pCamera->_view_border_slant2_XZ;
+    int   b2 = GgafDx9Universe::_pCamera->_view_border_intercept2_XZ;
+
+    float a3 = GgafDx9Universe::_pCamera->_view_border_slant1_ZY;
+    int   b3 = GgafDx9Universe::_pCamera->_view_border_intercept1_ZY;
+    float a4 = GgafDx9Universe::_pCamera->_view_border_slant2_ZY;
+    int   b4 = GgafDx9Universe::_pCamera->_view_border_intercept2_ZY;
+
+    _TRACE_("a1="<<a1<<" b1="<<b1);
+    _TRACE_("a2="<<a2<<" b2="<<b2);
+    _TRACE_("a3="<<a3<<" b3="<<b3);
+    _TRACE_("a4="<<a4<<" b4="<<b4);
+
+
+
+
+    if (_Z*sign(a1) < (a1*_X + b1)*sign(a1)) {
+        if (_Z*sign(a2) > (a2*_X + b2)*sign(a2)) {
+            if (_Y*sign(a3) < (a3*_Z + b3)*sign(a3)) {
+                if (_Y*sign(a4) > (a4*_Z + b4)*sign(a4)) {
+                    if (GgafDx9Universe::_pCamera->_Z < _Z) {
+                        if (_Z < GgafDx9Universe::_pCamera->_Z + 3000000) {
                             return false;
                         }
                     }
                 }
             }
         }
+    }
+    return true;
+}
 
-//    } else {
-//        if (_X < _X_OffScreenLeft) {
+
+
+
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+////    if (_Z > 0) {
+//        static int hy;
+//        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY*2.0 + 128000;
+//
+//        if (_Y < -1.0 * hy) {
 //            return true;
 //        } else {
-//            if (_X > _X_OffScreenRight) {
+//            if (_Y > hy) {
 //                return true;
 //            } else {
-//                if (_Y > _Y_OffScreenTop) {
+//                if (_X > hy*GgafDx9Universe::_pCamera->_screen_aspect) {
 //                    return true;
 //                } else {
-//                    if (_Y < _Y_OffScreenBottom) {
+//                    if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
 //                        return true;
 //                    } else {
-//                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
+//                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 3000000) {
 //                            return true;
 //                        } else {
 //                            return false;
@@ -430,8 +461,31 @@ bool GgafDx9GeometricActor::isOffScreen() {
 //                }
 //            }
 //        }
-//    }
-}
+//
+////    } else {
+////        if (_X < _X_OffScreenLeft) {
+////            return true;
+////        } else {
+////            if (_X > _X_OffScreenRight) {
+////                return true;
+////            } else {
+////                if (_Y > _Y_OffScreenTop) {
+////                    return true;
+////                } else {
+////                    if (_Y < _Y_OffScreenBottom) {
+////                        return true;
+////                    } else {
+////                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
+////                            return true;
+////                        } else {
+////                            return false;
+////                        }
+////                    }
+////                }
+////            }
+////        }
+////    }
+//}
 
 
 

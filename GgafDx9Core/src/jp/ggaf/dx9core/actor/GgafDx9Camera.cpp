@@ -3,28 +3,31 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Camera::GgafDx9Camera(const char* prm_name) : GgafDx9GeometricActor(prm_name, NULL) {
+GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
     _pMover = NEW GgafDx9GeometryMover(this);
-    //FOVXを基準に考える
-    //視野角80度
-    _rad_fovX = PI * 4.0 / 9.0 ;
-
-    //_iPxDep = abs(_cameraZ_org * PX_UNIT * 2);
-    //アスペクト比(w/h)
+    //全ての基準はfovXから考える
+    _rad_fovX = prm_rad_fovX;
+    //半分を保持
+    _rad_half_fovX = _rad_fovX / 2.0;
+    //画面アスペクト比(w/h)
     _screen_aspect = (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
-    //FovXとアスペクト比からFovYを求める
+    //fovXとアスペクト比からfovYを計算して求める
     double xzRatio = tan( _rad_fovX/2 );
     double yRatio = xzRatio / _screen_aspect;
-    _rad_fovY = atan( yRatio )*2;
-    _tan_half_fovY = tan(_rad_fovY/2);
-    _tan_half_fovX = tan(_rad_fovX/2);
-    //初期カメラ位置はZ=0のXY平面で丁度ピクセル幅と一致するような所
+    _rad_fovY = atan( yRatio )*2.0;
+    //半分を保持
+    _rad_half_fovY = _rad_fovY / 2.0;
+    //tan値も保持
+    _tan_half_fovY = tan(_rad_fovY/2.0);
+    _tan_half_fovX = tan(_rad_fovX/2.0);
+    //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
+    //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
     _cameraZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
-    _view_border_slant1_XZ = sin((PI - _rad_fovX) / 2) / cos((PI - _rad_fovX) / 2);
-    _view_border_slant2_XZ = -_view_border_slant1_XZ;
+//    _view_border_slant1_XZ = sin((PI - _rad_fovX) / 2) / cos((PI - _rad_fovX) / 2);
+//    _view_border_slant2_XZ = -_view_border_slant1_XZ;
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -86,6 +89,44 @@ void GgafDx9Camera::initialize() {
 
 void GgafDx9Camera::processBehavior() {
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+    //XY
+    //傾き (y2-y1)/(x2-x1)   = tanθ
+    //切片 (x2y1-x1y2)/(x2-x1)
+
+    //ZY
+    //傾き (y2-y1)/(z2-z1)   = tanθ
+    //切片 (z2y1-z1y2)/(z2-z1)
+
+    //XZ
+    //傾き (z2-z1)/(x2-x1)   = tanθ
+    //切片 (x2z1-x1z2)/(x2-x1)
+    //クリップボーダー計算
+    float x1 = _pVecCamFromPoint->x;
+    float y1 = _pVecCamFromPoint->y;
+    float z1 = _pVecCamFromPoint->z;
+    float x2 = _pVecCamLookatPoint->x;
+    float y2 = _pVecCamLookatPoint->y;
+    float z2 = _pVecCamLookatPoint->z;
+    _view_slant_XZ = (z2-z1)/(x2-x1);
+    _view_slant_ZY = (y2-y1)/(z2-z1);
+    _view_rad_XZ = atan(_view_slant_XZ);
+    _view_rad_ZY = atan(_view_slant_ZY);
+    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX;
+    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX;
+    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY;
+    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY;
+
+    _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
+    _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
+    _view_border_slant1_ZY = tan(_view_border_rad1_ZY);
+    _view_border_slant2_ZY = tan(_view_border_rad2_ZY);
+
+    _view_border_intercept1_XZ = _Z - (_view_border_slant1_XZ*_X);
+    _view_border_intercept2_XZ = _Z - (_view_border_slant2_XZ*_X);
+    _view_border_intercept1_ZY = _Y - (_view_border_slant1_ZY*_Z);
+    _view_border_intercept2_ZY = _Y - (_view_border_slant2_ZY*_Z);
+
+
     _pMover->behave();
 //    D3DXMatrixOrthoLH(
 //        &_vMatrixOrthoProj,
