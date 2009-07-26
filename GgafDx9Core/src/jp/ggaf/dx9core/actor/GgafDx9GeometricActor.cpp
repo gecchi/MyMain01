@@ -398,94 +398,98 @@ bool GgafDx9GeometricActor::isOffScreen() {
     float a4 = GgafDx9Universe::_pCamera->_view_border_slant2_ZY;
     int   b4 = GgafDx9Universe::_pCamera->_view_border_intercept2_ZY;
 
-    _TRACE_("a1="<<a1<<" b1="<<b1);
-    _TRACE_("a2="<<a2<<" b2="<<b2);
-    _TRACE_("a3="<<a3<<" b3="<<b3);
-    _TRACE_("a4="<<a4<<" b4="<<b4);
-
-
-
-
-    if (_Z*sign(a1) < (a1*_X + b1)*sign(a1)) {
-        if (_Z*sign(a2) > (a2*_X + b2)*sign(a2)) {
-            if (_Y*sign(a3) < (a3*_Z + b3)*sign(a3)) {
-                if (_Y*sign(a4) > (a4*_Z + b4)*sign(a4)) {
-                    if (GgafDx9Universe::_pCamera->_Z < _Z) {
-                        if (_Z < GgafDx9Universe::_pCamera->_Z + 3000000) {
-                            return false;
-                        }
-                    }
+    if ( GgafDx9Universe::_pCamera->z < Z && Z < GgafDx9Universe::_pCamera->z + 3000000) {
+        if (a1 >= 0 && a2 >= 0) {
+            if (_Z < a1*_X + b1) {
+                if (_Z > a2*_X + b2) {
+                    //return false;
+                } else {
+                    return true;
                 }
+            } else {
+                return true;
             }
+        } else if (a1 >= 0 && a2 < 0) {
+            return true;
+    //        if (_Z < a1*_X + b1) {
+    //            if (_Z > a2*_X + b2) {
+    //                return false;
+    //            }
+    //        }
+        } else if (a1 < 0 && a2 < 0) {
+            if (_Z > a1*_X + b1) {
+                if (_Z < a2*_X + b2) {
+                    //return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else if (a1 < 0 && a2 > 0) {
+            if (_Z > a1*_X + b1) {
+                if (_Z > a2*_X + b2) {
+                    //return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else {
+            return true;
         }
+
+        if (a3 >= 0 && a4 >= 0) {
+            if (_Y < a3*_Z + b3) {
+                if (_Y > a4*_Z + b4) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else if (a3 >= 0 && a4 < 0) {
+            if (_Y < a3*_Z + b3) {
+                if (_Y > a4*_Z + b4) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else if (a3 < 0 && a4 < 0) {
+            if (_Y < a3*_Z + b3) {
+                if (_Y > a4*_Z + b4) {
+                    return false;
+                } else {
+                    return true;
+                }
+            } else {
+                return true;
+            }
+        } else if (a3 < 0 && a4 > 0) {
+            return true;
+    //        if (_Y > a3*_Z + b1) {
+    //            if (_Y > a4*_Z + b2) {
+    //                //return false;
+    //            } else {
+    //                return true;
+    //            }
+    //        } else {
+    //            return true;
+    //        }
+        } else {
+            return true;
+        }
+    } else {
+        return true;
     }
-    return true;
+
 }
 
-
-
-
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-////    if (_Z > 0) {
-//        static int hy;
-//        hy = (_Z - GgafDx9Universe::_pCamera->_Z)*GgafDx9Universe::_pCamera->_tan_half_fovY*2.0 + 128000;
-//
-//        if (_Y < -1.0 * hy) {
-//            return true;
-//        } else {
-//            if (_Y > hy) {
-//                return true;
-//            } else {
-//                if (_X > hy*GgafDx9Universe::_pCamera->_screen_aspect) {
-//                    return true;
-//                } else {
-//                    if (_X < -1.0*hy*GgafDx9Universe::_pCamera->_screen_aspect) {
-//                        return true;
-//                    } else {
-//                        if (_Z >  GgafDx9Universe::_pCamera->_Z + 3000000) {
-//                            return true;
-//                        } else {
-//                            return false;
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//
-////    } else {
-////        if (_X < _X_OffScreenLeft) {
-////            return true;
-////        } else {
-////            if (_X > _X_OffScreenRight) {
-////                return true;
-////            } else {
-////                if (_Y > _Y_OffScreenTop) {
-////                    return true;
-////                } else {
-////                    if (_Y < _Y_OffScreenBottom) {
-////                        return true;
-////                    } else {
-////                        if (_Z < GgafDx9Universe::_pCamera->_Z) {
-////                            return true;
-////                        } else {
-////                            return false;
-////                        }
-////                    }
-////                }
-////            }
-////        }
-////    }
-//}
 
 
 
