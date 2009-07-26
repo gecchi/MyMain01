@@ -398,7 +398,7 @@ bool GgafDx9GeometricActor::isOffScreen() {
     float a4 = GgafDx9Universe::_pCamera->_view_border_slant2_ZY;
     int   b4 = GgafDx9Universe::_pCamera->_view_border_intercept2_ZY;
 
-    if ( GgafDx9Universe::_pCamera->z < Z && Z < GgafDx9Universe::_pCamera->z + 3000000) {
+    if ( GgafDx9Universe::_pCamera->_Z < _Z && _Z < GgafDx9Universe::_pCamera->_Z + 3000000) {
         if (a1 >= 0 && a2 >= 0) {
             if (_Z < a1*_X + b1) {
                 if (_Z > a2*_X + b2) {
