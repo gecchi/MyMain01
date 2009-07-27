@@ -147,6 +147,118 @@ void GgafDx9Camera::processDrawPrior() {
     _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
 }
 
+
+
+bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
+    //y < (a*n)x+b
+    //y > (a*(1/n))x+b
+    //y = ax + b は、カメラの視点と注視点を結ぶ直線。
+    //nは傾き範囲
+
+    float a1 = _view_border_slant1_XZ;
+    int   b1 = _view_border_intercept1_XZ;
+    float a2 = _view_border_slant2_XZ;
+    int   b2 = _view_border_intercept2_XZ;
+
+    float a3 = _view_border_slant1_ZY;
+    int   b3 = _view_border_intercept1_ZY;
+    float a4 = _view_border_slant2_ZY;
+    int   b4 = _view_border_intercept2_ZY;
+
+    if ( _Z < prm_Z && prm_Z < _Z + 3000000) {
+
+        if (a1 >= 0 && a2 >= 0) {
+            if (prm_Z < a1*prm_X + b1) {
+                if (prm_Z > a2*prm_X + b2) {
+                    //return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (a1 >= 0 && a2 < 0) {
+            return false;
+    //        if (prm_Z < a1*prm_X + b1) {
+    //            if (prm_Z > a2*prm_X + b2) {
+    //                return true;
+    //            }
+    //        }
+        } else if (a1 < 0 && a2 < 0) {
+            if (prm_Z > a1*prm_X + b1) {
+                if (prm_Z < a2*prm_X + b2) {
+                    //return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (a1 < 0 && a2 > 0) {
+            if (prm_Z > a1*prm_X + b1) {
+                if (prm_Z > a2*prm_X + b2) {
+                    //return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else {
+            return false;
+        }
+
+        if (a3 >= 0 && a4 >= 0) {
+            if (prm_Y < a3*prm_Z + b3) {
+                if (prm_Y > a4*prm_Z + b4) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (a3 >= 0 && a4 < 0) {
+            if (prm_Y < a3*prm_Z + b3) {
+                if (prm_Y > a4*prm_Z + b4) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (a3 < 0 && a4 < 0) {
+            if (prm_Y < a3*prm_Z + b3) {
+                if (prm_Y > a4*prm_Z + b4) {
+                    return true;
+                } else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if (a3 < 0 && a4 > 0) {
+            return false;
+    //        if (prm_Y > a3*prm_Z + b1) {
+    //            if (prm_Y > a4*prm_Z + b2) {
+    //                //return true;
+    //            } else {
+    //                return false;
+    //            }
+    //        } else {
+    //            return false;
+    //        }
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+}
+
+
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
     DELETE_IMPOSSIBLE_NULL(_pMover);

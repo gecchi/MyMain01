@@ -2419,16 +2419,3 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
 }
 
 
-int GgafDx9ModelManager::pow2(int a) {
-    if (a == 0) {
-        return 1;
-    } else {
-        int ret = 2;
-        for (int i = 1; i < a; i++) {
-            ret = 2*ret;
-        }
-        return ret;
-    }
-
-}
-

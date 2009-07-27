@@ -120,6 +120,12 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
+    virtual bool isInTheViewports(int prm_X, int prm_Y, int prm_Z);
+
+    virtual bool isInTheViewports(GgafDx9GeometricActor* prm_pActor) {
+        return isInTheViewports(prm_pActor->_X, prm_pActor->_Y, prm_pActor->_Z);
+    }
+
     /**
      * カメラの注視点を設定 .
      * @param prm_tX 注視点X座標
