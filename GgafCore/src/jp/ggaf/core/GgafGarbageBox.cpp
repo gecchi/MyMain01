@@ -9,11 +9,11 @@ GgafGarbageBox::GgafGarbageBox() : GgafObject() {
 }
 
 void GgafGarbageBox::add(GgafActor* prm_pActor) {
-    _pGarbageRootActor->addSubLast(prm_pActor->breakAwayFromTree());
+    _pGarbageRootActor->addSubLast(prm_pActor->extract());
 }
 
 void GgafGarbageBox::add(GgafScene* prm_pScene) {
-    _pGarbageRootScene->addSubLast(prm_pScene->breakAwayFromTree());
+    _pGarbageRootScene->addSubLast(prm_pScene->extract());
 }
 
 void GgafGarbageBox::cleane(int prm_num_cleaning) {

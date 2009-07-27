@@ -16,7 +16,7 @@ void GgafLordActor::remove() {
 void GgafLordActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pLordActor != NULL) {
         //_TRACE_("【警告】GgafLordActor::accept("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
-        prm_pMainActor->breakAwayFromTree();
+        prm_pMainActor->extract();
     }
     GgafHeadActor* pHeadActor = NULL;
     if (hasSubHeadActor(prm_kind)) {

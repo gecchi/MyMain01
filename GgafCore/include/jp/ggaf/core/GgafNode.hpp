@@ -151,7 +151,7 @@ public:
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
      * @return	T* 自ノードのポインタ
      */
-    virtual T* breakAwayFromTree();
+    virtual T* extract();
 
     /**
      * 自ノードを、最終ノードへ移動する .
@@ -323,7 +323,7 @@ _is_last_flg(false)
 }
 
 template<class T>
-T* GgafNode<T>::breakAwayFromTree() {
+T* GgafNode<T>::extract() {
     if (_pParent != NULL) {
         //連結から外す
         T* pMyNext = _pNext;
@@ -354,7 +354,7 @@ T* GgafNode<T>::breakAwayFromTree() {
         //要素を追加するためのメソッドが、現在 addSubLast() のみであるため、親がいないことはツリーの頂点であることと同値。
         //TODO:将来、addNext() のような隣に要素を追加するメソッドを作らなければいけなくなった場合、
         //     この場所に横連結から切り離す処理を追加するのを忘れずに。
-        TRACE("[GgafNode<" << _class_name << ">::breakAwayFromTree()] ＜警告＞ " << getName() << "は、何所にも所属していません。既に独立してました");
+        TRACE("[GgafNode<" << _class_name << ">::extract()] ＜警告＞ " << getName() << "は、何所にも所属していません。既に独立してました");
         return (T*)this;
     }
 }

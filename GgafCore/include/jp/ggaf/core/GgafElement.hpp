@@ -1145,7 +1145,7 @@ bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
 template<class T>
 T* GgafElement<T>::becomeIndependent() {
     if (_can_live_flg) {
-        return SUPER::breakAwayFromTree();
+        return SUPER::extract();
     } else {
         throwGgafCriticalException("[GgafTreeNode<"<<SUPER::_class_name<<">::becomeIndependent()] ÅÉåxçêÅÑ "<<SUPER::getName()<<"ÇÕÅAÇ¢Ç∏ÇÍéÄÇ…çsÇ≠â^ñΩÇ≈Ç†ÇÈÅB");
     }
