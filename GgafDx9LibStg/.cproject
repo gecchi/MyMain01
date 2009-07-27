@@ -22,7 +22,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.674032190." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.1553786585" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.65325821" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-<builder buildPath="${workspace_loc:/GgafDx9LibStg/DebugCdt}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.888821792" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/GgafDx9LibStg/DebugCdt}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.888821792" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT 内部ビルダー" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.281299091" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.1942593811" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>

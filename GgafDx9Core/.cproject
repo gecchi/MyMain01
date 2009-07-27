@@ -27,7 +27,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.1294883959." name="/" resourcePath="">
 <toolChain errorParsers="" id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.687261938" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 <targetPlatform binaryParser="org.eclipse.cdt.core.PE;org.eclipse.cdt.core.ELF;org.eclipse.cdt.core.GNU_ELF" id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.438638643" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
-<builder buildPath="${workspace_loc:/GgafDx9Core/デバッグ}" errorParsers="" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1214816729" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/GgafDx9Core/デバッグ}" errorParsers="" id="cdt.managedbuild.tool.gnu.builder.mingw.base.1214816729" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT 内部ビルダー" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
 <tool errorParsers="org.eclipse.cdt.core.GASErrorParser" id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug.1562522851" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.debug">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.923349400" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
@@ -516,7 +516,7 @@
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.release.282007558." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.release.868160651" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.release">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.release.172981763" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.release"/>
-<builder buildPath="${workspace_loc:/GgafDx9Core/リリース}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.298892123" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT Internal Builder" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
+<builder buildPath="${workspace_loc:/GgafDx9Core/リリース}" id="cdt.managedbuild.tool.gnu.builder.mingw.base.298892123" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="CDT 内部ビルダー" superClass="cdt.managedbuild.tool.gnu.builder.mingw.base"/>
 <tool id="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release.249474299" name="GCC アセンブラー" superClass="cdt.managedbuild.tool.gnu.assembler.mingw.lib.release">
 <inputType id="cdt.managedbuild.tool.gnu.assembler.input.231411123" superClass="cdt.managedbuild.tool.gnu.assembler.input"/>
 </tool>
