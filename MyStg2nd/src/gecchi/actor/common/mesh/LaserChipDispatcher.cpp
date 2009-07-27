@@ -21,9 +21,8 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : ActorDispatcher
 void LaserChipDispatcher::processBehavior() {
 }
 
-
 LaserChip* LaserChipDispatcher::employ() {
-if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、5フレーム弾切れにする。
+    if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、5フレーム弾切れにする。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
         _lifeframe_prev_employ = 0;
