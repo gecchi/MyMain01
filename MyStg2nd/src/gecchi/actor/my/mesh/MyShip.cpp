@@ -36,9 +36,8 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
     _way = WAY_FRONT;
     MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
     addSubLast(pMyOptionParent);
-}
 
-void MyShip::initialize() {
+
     _pDispatcher_MyShots001 = NEW ActorDispatcher("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 10; i++) { //自弾ストック
@@ -46,7 +45,7 @@ void MyShip::initialize() {
         pShot->inactivateImmediately();
         _pDispatcher_MyShots001->addSubLast(pShot);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyShots001);
+    addSubLast(_pDispatcher_MyShots001); //仮サブ
 
     _pDispatcher_MyWaves001 = NEW ActorDispatcher("RotWave001");
     MyWave001* pWave;
@@ -55,7 +54,7 @@ void MyShip::initialize() {
         pWave->inactivateImmediately();
         _pDispatcher_MyWaves001->addSubLast(pWave);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyWaves001);
+    addSubLast(_pDispatcher_MyWaves001); //仮サブ
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyLaserChip001* pChip;
@@ -68,13 +67,21 @@ void MyShip::initialize() {
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher);
+    addSubLast(_pLaserChipDispatcher); //仮サブ
+
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
+}
+
+void MyShip::initialize() {
+    //種別に振り分け
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyShots001->extract());
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyWaves001->extract());
+    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher->extract());
 
     setBumpable(true);
     _pStgChecker->useHitAreaBoxNum(1);

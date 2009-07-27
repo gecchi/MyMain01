@@ -20,6 +20,21 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angExpanse = 290000;      //オプションの広がり角の回転角（上書き初期設定可）
     _angveloExpanse = 0; //オプションの広がり角の角回転速度 （上書き初期設定可）
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->getConnection("laser001");
+
+    _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
+    _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
+    MyLaserChip001* pChip;
+    for (int i = 0; i < 30; i++) { //レーザーストック
+        Sleep(2); //工場に気を使う。
+        stringstream name;
+        name <<  getName() << "'s MYS_LaserChip" << i;
+        string name2 = name.str();
+        pChip = NEW MyLaserChip001(name2.c_str());
+        pChip->inactivateImmediately();
+        _pLaserChipDispatcher->addLaserChip(pChip);
+    }
+    addSubLast(_pLaserChipDispatcher); //仮サブ
+
 }
 
 void MyDummyOption::initialize() {
@@ -53,21 +68,7 @@ void MyDummyOption::initialize() {
     _RYorg = _RY;
     _RZorg = _RZ;
 
-    _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-    _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
-    MyLaserChip001* pChip;
-    for (int i = 0; i < 30; i++) { //レーザーストック
-        Sleep(2); //工場に気を使う。
-        stringstream name;
-        name <<  getName() << "'s MYS_LaserChip" << i;
-        string name2 = name.str();
-        pChip = NEW MyLaserChip001(name2.c_str());
-        pChip->inactivateImmediately();
-        _pLaserChipDispatcher->addLaserChip(pChip);
-    }
-
-
-    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher);
+    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher->extract());
 
 }
 

@@ -64,7 +64,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
 
 void EnemyCeres::initialize() {
     //–{—ˆ‚ÌêŠ‚Ö
-    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyMeshShots001->breakAwayFromTree());
+    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyMeshShots001->extract());
 
     setBumpable(true);
 

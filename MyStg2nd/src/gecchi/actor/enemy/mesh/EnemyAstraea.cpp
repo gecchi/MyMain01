@@ -34,7 +34,7 @@ void EnemyAstraea::initialize() {
     _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
 
-    getLordActor()->accept(KIND_ENEMY_SHOT_PA, _pLaserChipDispatcher); //–{Š‘®
+    getLordActor()->accept(KIND_ENEMY_SHOT_PA, _pLaserChipDispatcher->extract()); //–{Š‘®
 }
 
 void EnemyAstraea::processBehavior() {
