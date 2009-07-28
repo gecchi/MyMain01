@@ -58,6 +58,11 @@ public:
      */
     static void getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle);
 
+
+//    static void getMoveRzRyWayShot3D_XZ(int prm_way, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
+//                                        angle& out_angRotZ, angle* out_paAngRotY);
+
+
     /**
      * XY座標系（Z軸無視）において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
      * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。

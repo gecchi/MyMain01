@@ -143,6 +143,17 @@ void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* ou
     }
 }
 
+//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_way, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
+//                                          angle& out_angRotZ, angle* out_paAngRotY) {
+//    angle tRz, tRy;
+//    getRotAngleZY(prm_tX, prm_tY, prm_tZ, tRy, tRy);
+//
+//    angle angStart = addAngle(tRy, ((prm_way - 1) * prm_angClearance) / -2);
+//    for (int i = 0; i < prm_way; i++) {
+//        out_paAngRotY[i] = addAngle(angstart, prm_angClearance * i);
+//    }
+//}
+
 angle GgafDx9Util::addAngle(angle prm_angNow, angle prm_angOffset) {
     static angle angAdd;
     angAdd = prm_angNow + prm_angOffset;
