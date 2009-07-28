@@ -8,36 +8,36 @@ using namespace GgafDx9LibStg;
 VirtualButton::VBMap* VirtualButton::_pVBMap = NULL;
 
 VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
-                              DIK_Z, // SHOT1
-                              DIK_X, // SHOT2
-                              DIK_A, // SHOT3
-                              DIK_Q, // ZMOVE
-                              DIK_C, // CONTROL
-                              DIK_V, // POWERUP
+                              DIK_Z,      // BUTTON1
+                              DIK_X,      // BUTTON2
+                              DIK_A,      // BUTTON3
+                              DIK_Q,      // BUTTON4
+                              DIK_C,      // BUTTON5
+                              DIK_V,      // BUTTON6
                               DIK_ESCAPE, // PAUSE
-                              DIK_UP, // UP
-                              DIK_DOWN, // DOWN
-                              DIK_LEFT, // LEFT
-                              DIK_RIGHT, // RIGHT
-                              DIK_UP, // UI_UP
-                              DIK_DOWN, // UI_DOWN
-                              DIK_LEFT, // UI_LEFT
-                              DIK_RIGHT, // UI_RIGHT
+                              DIK_UP,     // UP
+                              DIK_DOWN,   // DOWN
+                              DIK_LEFT,   // LEFT
+                              DIK_RIGHT,  // RIGHT
+                              DIK_UP,     // UI_UP
+                              DIK_DOWN,   // UI_DOWN
+                              DIK_LEFT,   // UI_LEFT
+                              DIK_RIGHT,  // UI_RIGHT
                               DIK_RETURN, // UI_EXECUTE
                               DIK_ESCAPE, // UI_CANCEL
-                              DIK_D //UI_DEBUG
+                              DIK_D       // UI_DEBUG
                            };
 
 VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
-                              0, // SHOT1
-                              7, // SHOT2
-                              8, // SHOT3
-                              1, // ZMOVE
-                              2, // CONTROL
-                              3, // POWERUP
+                              0, // BUTTON1
+                              7, // BUTTON2
+                              8, // BUTTON3
+                              1, // BUTTON4
+                              2, // BUTTON5
+                              3, // BUTTON6
                               6, // PAUSE
                               0, // UI_EXECUTE
-                              4 // UI_CANCEL
+                              4  // UI_CANCEL
                            };
 
 VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
@@ -280,26 +280,26 @@ void VirtualButton::update() {
 
     _pVBMap = _pVBMap->_next;
 
-    _pVBMap->_state[VB_SHOT1] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT1) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT1);
+    _pVBMap->_state[VB_BUTTON1] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON1) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON1);
 
-    _pVBMap->_state[VB_SHOT2] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT2) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT2);
+    _pVBMap->_state[VB_BUTTON2] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON2) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON2);
 
-    _pVBMap->_state[VB_SHOT3] = GgafDx9Input::isBeingPressedKey(_tagKeymap.SHOT3) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.SHOT3);
+    _pVBMap->_state[VB_BUTTON3] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON3) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON3);
 
-    _pVBMap->_state[VB_XMOVE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.ZMOVE) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.ZMOVE);
+    _pVBMap->_state[VB_BUTTON4] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON4) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON4);
 
-    _pVBMap->_state[VB_CONTROL] = GgafDx9Input::isBeingPressedKey(_tagKeymap.CONTROL) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.CONTROL);
+    _pVBMap->_state[VB_BUTTON5] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON5) ||
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON5);
 
-    _pVBMap->_state[VB_POWERUP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.POWERUP) ||
+    _pVBMap->_state[VB_BUTTON6] = GgafDx9Input::isBeingPressedKey(_tagKeymap.BUTTON6) ||
                                     GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.PAUSE);
 
     _pVBMap->_state[VB_PAUSE] = GgafDx9Input::isBeingPressedKey(_tagKeymap.PAUSE) ||
-                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.POWERUP);
+                                  GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.BUTTON6);
 
     _pVBMap->_state[VB_UP] = GgafDx9Input::isBeingPressedKey(_tagKeymap.UP) ||
                                GgafDx9Input::isBeingPressedJoyUp();

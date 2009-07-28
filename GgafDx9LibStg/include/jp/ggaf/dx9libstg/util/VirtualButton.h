@@ -2,12 +2,12 @@
 #define VBRTUALBUTTON_H_
 namespace GgafDx9LibStg {
 
-#define VB_SHOT1 1
-#define VB_SHOT2 2
-#define VB_SHOT3 3
-#define VB_XMOVE 4
-#define VB_CONTROL 5
-#define VB_POWERUP 6
+#define VB_BUTTON1 1
+#define VB_BUTTON2 2
+#define VB_BUTTON3 3
+#define VB_BUTTON4 4
+#define VB_BUTTON5 5
+#define VB_BUTTON6 6
 #define VB_PAUSE 7
 #define VB_UP 8
 #define VB_DOWN 9
@@ -47,12 +47,12 @@ class VirtualButton {
 public:
 
     struct KEYBOARDMAP {
-        int SHOT1;
-        int SHOT2;
-        int SHOT3;
-        int ZMOVE;
-        int CONTROL;
-        int POWERUP;
+        int BUTTON1;
+        int BUTTON2;
+        int BUTTON3;
+        int BUTTON4;
+        int BUTTON5;
+        int BUTTON6;
         int PAUSE;
         int UP;
         int DOWN;
@@ -68,12 +68,12 @@ public:
     };
 
     struct JOYSTICKMAP {
-        int SHOT1;
-        int SHOT2;
-        int SHOT3;
-        int ZMOVE;
-        int CONTROL;
-        int POWERUP;
+        int BUTTON1;
+        int BUTTON2;
+        int BUTTON3;
+        int BUTTON4;
+        int BUTTON5;
+        int BUTTON6;
         int PAUSE;
         int UI_EXECUTE;
         int UI_CANCEL;
@@ -86,7 +86,10 @@ public:
     public :
         VBMap* _next; //時系列で次のフレームの入力状態
         VBMap* _prev; //時系列で前のフレームの入力状態
+
         bool _state[VB_NUM]; //ボタンの状態
+        //TODO: あとでビットフィールドにして高速化
+
         VBMap() {
             for (int i = 0; i < VB_NUM; i++) {_state[i] = false;}
             _next = NULL;
