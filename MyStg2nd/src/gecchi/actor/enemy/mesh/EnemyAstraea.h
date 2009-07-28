@@ -16,10 +16,15 @@ public:
     int _shot_interval;
     /** 発射レーザーチップの数 */
     int _laser_length;
+    /** Way数     */
+    int _laser_way;
+
+    GgafDx9Core::angle* _paWay;
+
     /** 方向転換角速度 */
     GgafDx9Core::angvelo _angveloTurn;
 
-    LaserChipDispatcher* _pLaserChipDispatcher;
+    LaserChipDispatcher** _papLaserChipDispatcher;
 
     EnemyAstraea(const char* prm_name);
 

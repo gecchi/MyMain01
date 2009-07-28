@@ -166,7 +166,7 @@ void MyShip::processBehavior() {
 
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
             if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
-                if (VB::isBeingPressed(VB_XMOVE)) {
+                if (VB::isBeingPressed(VB_BUTTON4)) {
                     turnFaceNeutralZY();
                     turnFaceXYMove(_stc);
                     beginTurboXY(_stc);
@@ -178,7 +178,7 @@ void MyShip::processBehavior() {
                 }
             } else {
                 //方向ダブルプッシュでない＝方向シングルプッシュ
-                if (VB::isBeingPressed(VB_XMOVE)) {
+                if (VB::isBeingPressed(VB_BUTTON4)) {
                     turnFaceNeutralXY();
                     turnFaceZYMove(_stc);
                     moveZY(_stc);
@@ -192,7 +192,7 @@ void MyShip::processBehavior() {
         } else {
 
             //方向押しっぱ
-            if (VB::isBeingPressed(VB_XMOVE)) {
+            if (VB::isBeingPressed(VB_BUTTON4)) {
                 turnFaceNeutralZY();
                 turnFaceXYMove(_stc);
                 moveXY(_stc);
@@ -206,7 +206,7 @@ void MyShip::processBehavior() {
         }
 //////////////
     } else {
-        if (VB::isBeingPressed(VB_XMOVE)) {
+        if (VB::isBeingPressed(VB_BUTTON4)) {
             //ニュートラルターボ
             doNotingMoveInput();
             turnFaceNeutralXY();
@@ -229,7 +229,7 @@ void MyShip::processBehavior() {
 
     //ショット関連処理
     //MyShip::transactShot(this);
-    if (VB::isPushedDown(VB_SHOT1)) {
+    if (VB::isPushedDown(VB_BUTTON1)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             pShot->activateTree();
@@ -242,7 +242,7 @@ void MyShip::processBehavior() {
         }
     }
 
-    if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
+    if (VB::isBeingPressed(VB_BUTTON2)) {//isBeingPressed
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
         MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
@@ -269,7 +269,7 @@ void MyShip::processBehavior() {
     }
 
     //ショットボタン
-    if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+    if (VB::arePushedDownAtOnce(VB_BUTTON1, VB_BUTTON2)) {
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activateTree();
@@ -282,15 +282,15 @@ void MyShip::processBehavior() {
         }
     }
 
-    if (VB::isBeingPressed(VB_SHOT3)) {
+    if (VB::isBeingPressed(VB_BUTTON3)) {
         setAlpha(getAlpha()-0.01);
         //equipOption();
     }
 
-    if (VB::isBeingPressed(VB_POWERUP)) {
+    if (VB::isBeingPressed(VB_BUTTON6)) {
         _pScaler->increaseScale(-200);
     }
-    if (VB::isBeingPressed(VB_CONTROL)) {
+    if (VB::isBeingPressed(VB_BUTTON5)) {
         _pScaler->increaseScale(200);    }
 
     //座標に反映

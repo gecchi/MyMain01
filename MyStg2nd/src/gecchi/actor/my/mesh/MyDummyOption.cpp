@@ -206,7 +206,7 @@ void MyDummyOption::processBehavior() {
 
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
-    if (VB::isBeingPressed(VB_SHOT2)) {
+    if (VB::isBeingPressed(VB_BUTTON2)) {
         MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
 

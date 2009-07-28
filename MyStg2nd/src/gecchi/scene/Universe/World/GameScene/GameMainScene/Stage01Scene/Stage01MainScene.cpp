@@ -19,58 +19,48 @@ Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name
 
     // 以下の gen01 start ～ end はマクロにより自動生成されたコードです。
     // gen01 start
-	DWORD dw[] = {1,10,20,60,100,140,160,180,200,220,250,260,280,300,340,350,380,400,420,450,460,500,510,520,530,540,550,560,570,580,590,600,610,620,660,700,740,780,820,860,900};
-	_paFrame_NextEvent = new DWORD[41];
-	for (int i = 0; i < 41; i++) {
+	DWORD dw[] = {1,10,20,60,100,140,160,180,200,220,250,260,280,300,340,350,380,400,420,450,460,500,520,540,550,560,580,600,620,660,700,740,780,820,860,900};
+	_paFrame_NextEvent = new DWORD[36];
+	for (int i = 0; i < 36; i++) {
 		_paFrame_NextEvent[i] = dw[i];
 	}
 	orderActorToFactory(1105610, EnemyAstraea, "Astraea_1");
 	orderActorToFactory(11077500, EnemyAstraea, "Astraea_2");
-	orderActorToFactory(11087510, EnemyAstraea, "Astraea_3");
-	orderActorToFactory(11097520, EnemyAstraea, "Astraea_4");
-	orderActorToFactory(11107530, EnemyAstraea, "Astraea_5");
-	orderActorToFactory(11117540, EnemyAstraea, "Astraea_6");
-	orderActorToFactory(11127550, EnemyAstraea, "Astraea_7");
-	orderActorToFactory(11137560, EnemyAstraea, "Astraea_8");
-	orderActorToFactory(11147570, EnemyAstraea, "Astraea_9");
-	orderActorToFactory(11157580, EnemyAstraea, "Astraea_10");
-	orderActorToFactory(11167590, EnemyAstraea, "Astraea_11");
-	orderActorToFactory(11177600, EnemyAstraea, "Astraea_12");
-	orderActorToFactory(11217500, EnemyAstraea, "Astraea_13");
-	orderActorToFactory(11227510, EnemyAstraea, "Astraea_14");
-	orderActorToFactory(11237520, EnemyAstraea, "Astraea_15");
-	orderActorToFactory(11247530, EnemyAstraea, "Astraea_16");
-	orderActorToFactory(11257540, EnemyAstraea, "Astraea_17");
-	orderActorToFactory(11267550, EnemyAstraea, "Astraea_18");
-	orderActorToFactory(11277560, EnemyAstraea, "Astraea_19");
-	orderActorToFactory(11287570, EnemyAstraea, "Astraea_20");
-	orderActorToFactory(11297580, EnemyAstraea, "Astraea_21");
-	orderActorToFactory(11307590, EnemyAstraea, "Astraea_22");
-	orderActorToFactory(11317600, EnemyAstraea, "Astraea_23");
-	orderActorToFactory(11497100, EnemyCeres, "Ceres_24");
-	orderActorToFactory(11497160, EnemyCeres, "Ceres_25");
-	orderActorToFactory(11497220, EnemyCeres, "Ceres_26");
-	orderActorToFactory(11497280, EnemyCeres, "Ceres_27");
-	orderActorToFactory(11497340, EnemyCeres, "Ceres_28");
-	orderActorToFactory(11497400, EnemyCeres, "Ceres_29");
-	orderActorToFactory(11497460, EnemyCeres, "Ceres_30");
-	orderActorToFactory(11507200, EnemyCeres, "Ceres_31");
-	orderActorToFactory(11507250, EnemyCeres, "Ceres_32");
-	orderActorToFactory(11507300, EnemyCeres, "Ceres_33");
-	orderActorToFactory(11507350, EnemyCeres, "Ceres_34");
-	orderActorToFactory(11507400, EnemyCeres, "Ceres_35");
-	orderActorToFactory(11507450, EnemyCeres, "Ceres_36");
-	orderActorToFactory(11507500, EnemyCeres, "Ceres_37");
-	orderActorToFactory(11507550, EnemyCeres, "Ceres_38");
-	orderActorToFactory(11507600, EnemyCeres, "Ceres_39");
-	orderActorToFactory(11517300, EnemyCeres, "Ceres_40");
-	orderActorToFactory(11517340, EnemyCeres, "Ceres_41");
-	orderActorToFactory(11517380, EnemyCeres, "Ceres_42");
-	orderActorToFactory(11517420, EnemyCeres, "Ceres_43");
-	orderActorToFactory(11517460, EnemyCeres, "Ceres_44");
-	orderActorToFactory(11517500, EnemyCeres, "Ceres_45");
-	orderActorToFactory(11517540, EnemyCeres, "Ceres_46");
-	orderActorToFactory(11517580, EnemyCeres, "Ceres_47");
+	orderActorToFactory(11087520, EnemyAstraea, "Astraea_3");
+	orderActorToFactory(11097540, EnemyAstraea, "Astraea_4");
+	orderActorToFactory(11107560, EnemyAstraea, "Astraea_5");
+	orderActorToFactory(11117580, EnemyAstraea, "Astraea_6");
+	orderActorToFactory(11127600, EnemyAstraea, "Astraea_7");
+	orderActorToFactory(11157500, EnemyAstraea, "Astraea_8");
+	orderActorToFactory(11167520, EnemyAstraea, "Astraea_9");
+	orderActorToFactory(11177540, EnemyAstraea, "Astraea_10");
+	orderActorToFactory(11187560, EnemyAstraea, "Astraea_11");
+	orderActorToFactory(11197580, EnemyAstraea, "Astraea_12");
+	orderActorToFactory(11207600, EnemyAstraea, "Astraea_13");
+	orderActorToFactory(11377100, EnemyCeres, "Ceres_14");
+	orderActorToFactory(11377160, EnemyCeres, "Ceres_15");
+	orderActorToFactory(11377220, EnemyCeres, "Ceres_16");
+	orderActorToFactory(11377280, EnemyCeres, "Ceres_17");
+	orderActorToFactory(11377340, EnemyCeres, "Ceres_18");
+	orderActorToFactory(11377400, EnemyCeres, "Ceres_19");
+	orderActorToFactory(11377460, EnemyCeres, "Ceres_20");
+	orderActorToFactory(11387200, EnemyCeres, "Ceres_21");
+	orderActorToFactory(11387250, EnemyCeres, "Ceres_22");
+	orderActorToFactory(11387300, EnemyCeres, "Ceres_23");
+	orderActorToFactory(11387350, EnemyCeres, "Ceres_24");
+	orderActorToFactory(11387400, EnemyCeres, "Ceres_25");
+	orderActorToFactory(11387450, EnemyCeres, "Ceres_26");
+	orderActorToFactory(11387500, EnemyCeres, "Ceres_27");
+	orderActorToFactory(11387550, EnemyCeres, "Ceres_28");
+	orderActorToFactory(11387600, EnemyCeres, "Ceres_29");
+	orderActorToFactory(11397300, EnemyCeres, "Ceres_30");
+	orderActorToFactory(11397340, EnemyCeres, "Ceres_31");
+	orderActorToFactory(11397380, EnemyCeres, "Ceres_32");
+	orderActorToFactory(11397420, EnemyCeres, "Ceres_33");
+	orderActorToFactory(11397460, EnemyCeres, "Ceres_34");
+	orderActorToFactory(11397500, EnemyCeres, "Ceres_35");
+	orderActorToFactory(11397540, EnemyCeres, "Ceres_36");
+	orderActorToFactory(11397580, EnemyCeres, "Ceres_37");
     // gen01 end
 }
 
@@ -87,33 +77,31 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 10:
 				getLordActor()->accept(KIND_ENEMY, obtainActorFromFactory(1105610));
-				orderActorToFactory(11187610, EnemyAstraea, "Astraea_48");
-				orderActorToFactory(11327610, EnemyAstraea, "Astraea_49");
 				break;
 			case 20:
-				orderActorToFactory(11197620, EnemyAstraea, "Astraea_50");
-				orderActorToFactory(11337620, EnemyAstraea, "Astraea_51");
-				orderActorToFactory(11517620, EnemyCeres, "Ceres_52");
+				orderActorToFactory(11137620, EnemyAstraea, "Astraea_38");
+				orderActorToFactory(11217620, EnemyAstraea, "Astraea_39");
+				orderActorToFactory(11397620, EnemyCeres, "Ceres_40");
 				break;
 			case 60:
-				orderActorToFactory(11517660, EnemyCeres, "Ceres_53");
+				orderActorToFactory(11397660, EnemyCeres, "Ceres_41");
 				break;
 			case 100:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497100);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377100);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(11517700, EnemyCeres, "Ceres_54");
+				orderActorToFactory(11397700, EnemyCeres, "Ceres_42");
 				break;
 			case 140:
-				orderActorToFactory(11517740, EnemyCeres, "Ceres_55");
+				orderActorToFactory(11397740, EnemyCeres, "Ceres_43");
 				break;
 			case 160:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497160);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377160);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
@@ -121,11 +109,11 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 180:
-				orderActorToFactory(11517780, EnemyCeres, "Ceres_56");
+				orderActorToFactory(11397780, EnemyCeres, "Ceres_44");
 				break;
 			case 200:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507200);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387200);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -134,17 +122,17 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 220:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497220);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377220);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(11517820, EnemyCeres, "Ceres_57");
+				orderActorToFactory(11397820, EnemyCeres, "Ceres_45");
 				break;
 			case 250:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507250);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387250);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -152,11 +140,11 @@ void Stage01MainScene::processBehavior() {
 				}
 				break;
 			case 260:
-				orderActorToFactory(11517860, EnemyCeres, "Ceres_58");
+				orderActorToFactory(11397860, EnemyCeres, "Ceres_46");
 				break;
 			case 280:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497280);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377280);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
@@ -165,31 +153,31 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 300:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507300);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387300);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517300);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397300);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
-				orderActorToFactory(11517900, EnemyCeres, "Ceres_59");
+				orderActorToFactory(11397900, EnemyCeres, "Ceres_47");
 				break;
 			case 340:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497340);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377340);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517340);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397340);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -198,7 +186,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 350:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507350);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387350);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -207,7 +195,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 380:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517380);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397380);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -216,14 +204,14 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 400:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497400);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377400);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507400);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387400);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -232,7 +220,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 420:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517420);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397420);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -241,7 +229,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 450:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507450);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387450);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -250,14 +238,14 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 460:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11497460);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11377460);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = -150000;
 				pActor->_veloBegin = 8000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517460);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397460);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -272,83 +260,55 @@ void Stage01MainScene::processBehavior() {
 				pActor->_Y = -300000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11217500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11157500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -300000;
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397500);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
-			case 510:
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11087510);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = -250000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11227510);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = -250000;
-				}
-				break;
 			case 520:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11097520);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11087520);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -200000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11237520);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11167520);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -200000;
-				}
-				break;
-			case 530:
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11107530);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = -150000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11247530);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = -150000;
 				}
 				break;
 			case 540:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11117540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11097540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -100000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11257540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11177540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -100000;
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397540);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -357,19 +317,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 550:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11127550);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = -50000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11267550);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = -50000;
-				}
-				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507550);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387550);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
@@ -378,117 +326,75 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 560:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11137560);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11107560);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = -0;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11277560);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11187560);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = -0;
-				}
-				break;
-			case 570:
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11147570);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = 50000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11287570);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = 50000;
 				}
 				break;
 			case 580:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11157580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11117580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 100000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11297580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11197580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 100000;
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397580);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
-			case 590:
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11167590);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = 150000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11307590);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = 150000;
-				}
-				break;
 			case 600:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11177600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11127600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 200000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11317600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11207600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 200000;
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11507600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11387600);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 0;
 				pActor->_veloBegin = 9000;
 				getLordActor()->accept(KIND_ENEMY, pActor);
 				}
 				break;
-			case 610:
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11187610);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = -200000;
-				pActor->_Y = 250000;
-				}
-				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11327610);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-				pActor->_X = 800000;
-				pActor->_Z = 200000;
-				pActor->_Y = 250000;
-				}
-				break;
 			case 620:
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11197620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11137620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = -200000;
 				pActor->_Y = 300000;
 				}
 				{
-				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11337620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(11217620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_X = 800000;
 				pActor->_Z = 200000;
 				pActor->_Y = 300000;
 				}
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397620);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -497,7 +403,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 660:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517660);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397660);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -506,7 +412,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 700:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517700);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397700);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -515,7 +421,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 740:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517740);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397740);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -524,7 +430,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 780:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517780);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397780);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -533,7 +439,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 820:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517820);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397820);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -542,7 +448,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 860:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517860);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397860);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
@@ -551,7 +457,7 @@ void Stage01MainScene::processBehavior() {
 				break;
 			case 900:
 				{
-				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11517900);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+				EnemyCeres* pActor = (EnemyCeres*)obtainActorFromFactory(11397900);  getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 				pActor->_Z = -1500000;
 				pActor->_Y_turn = 150000;
 				pActor->_veloBegin = 9000;
