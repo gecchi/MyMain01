@@ -23,8 +23,9 @@ void World::initialize() {
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
 
-//    GgafDx9Universe::_pCamera->_X = GgafDx9Universe::_pCamera->_Z; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
-//    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
+    GgafDx9Universe::_pCamera->_X = GgafDx9Universe::_pCamera->_Z; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
+    GgafDx9Universe::_pCamera->setGaze(0,0,0);
+    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
 //
 
 _TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
@@ -104,15 +105,17 @@ void World::processBehavior() {
         }
     }
 
-    //ƒJƒƒ‰’Ž‹•ûŒüÝ’è
-    GgafDx9Universe::_pCamera->setGaze (
-               GgafDx9Universe::_pCamera->_X + (GgafDx9Universe::_pCamera->_pMover->_vX * LEN_UNIT * PX_UNIT),
-               GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pMover->_vY * LEN_UNIT * PX_UNIT),
-               GgafDx9Universe::_pCamera->_Z + (GgafDx9Universe::_pCamera->_pMover->_vZ * LEN_UNIT * PX_UNIT)
-              );
+
     if ( getSubFirst()->isBehaving() ) {
         //ƒXƒ‹[
     } else {
+        //ƒJƒƒ‰’Ž‹•ûŒüÝ’è
+        GgafDx9Universe::_pCamera->setGaze (
+                   GgafDx9Universe::_pCamera->_X + (GgafDx9Universe::_pCamera->_pMover->_vX * LEN_UNIT * PX_UNIT),
+                   GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pMover->_vY * LEN_UNIT * PX_UNIT),
+                   GgafDx9Universe::_pCamera->_Z + (GgafDx9Universe::_pCamera->_pMover->_vZ * LEN_UNIT * PX_UNIT)
+                  );
+
         if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
             GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
             _TRACE_("GgafDx9Universe Camera=("<<GgafDx9Universe::_pCamera->_X<<","<<GgafDx9Universe::_pCamera->_Y<<","<<GgafDx9Universe::_pCamera->_Z<<")");

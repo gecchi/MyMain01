@@ -132,82 +132,11 @@ OUT_VS GgafDx9VS_LaserChip(
 		revPosZ = g_RevPosZ008;
 	} 
 
-
-
-
-
-
-
-
-//	if (64 > g_cnt_vertec) {
-//		if (32 > g_cnt_vertec) {
-//			if (16 > g_cnt_vertec) {
-//				matWorld = g_matWorld001;
-//				matWorld_front = g_matWorld_front001;
-//				kind = g_kind001;
-//				revPosZ = g_RevPosZ001;
-//			} else {
-//				matWorld = g_matWorld002;
-//				matWorld_front = g_matWorld_front002;
-//				kind = g_kind002;
-//				revPosZ = g_RevPosZ002;
-//			}
-//		} else {
-//			if (48 > g_cnt_vertec) {
-//				matWorld = g_matWorld003;
-//				matWorld_front = g_matWorld_front003;
-//				kind = g_kind003;
-//				revPosZ = g_RevPosZ003;
-//			} else {
-//				matWorld = g_matWorld004;
-//				matWorld_front = g_matWorld_front004;
-//				kind = g_kind004;
-//				revPosZ = g_RevPosZ004;
-//			}
-//		}
-//	} else {
-//		if (96 > g_cnt_vertec) {
-//			if (80 > g_cnt_vertec) {
-//				matWorld = g_matWorld005;
-//				matWorld_front = g_matWorld_front005;
-//				kind = g_kind005;
-//				revPosZ = g_RevPosZ005;
-//			} else {
-//				matWorld = g_matWorld006;
-//				matWorld_front = g_matWorld_front006;
-//				kind = g_kind006;
-//				revPosZ = g_RevPosZ006;
-//			}
-//		} else {
-//			if (112 > g_cnt_vertec) {
-//				matWorld = g_matWorld007;
-//				matWorld_front = g_matWorld_front007;
-//				kind = g_kind007;
-//				revPosZ = g_RevPosZ007;
-//			} else {
-//				matWorld = g_matWorld008;
-//				matWorld_front = g_matWorld_front008;
-//				kind = g_kind008;
-//				revPosZ = g_RevPosZ008;
-//			}
-//		}
-//	}
-//
-//
 	if (revPosZ == true) {
 		prm_pos.z = -prm_pos.z;
 	}
-//
-//	if (g_Y - g_matWorld._42 < 0) {
-//		prm_pos.y = -prm_pos.y;
-//	}
-//
-	//‚Ù‚Ú^‰¡‚È‚ç‰H‚Í‚¢‚ç‚È‚¢ TODO
-//	if (abs(g_Z - matWorld._43) < 1.5) {
-//		if (abs(g_Y - matWorld._42) < 1.0) {
-//			prm_pos.z = 0;
-//		}
-//	}
+
+	//‚Ù‚Ú^‰¡‚È‚ç‰H‚Í‚¢‚ç‚È‚¢
 	if (-1.5 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.5) {
 		if (-1.5 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.5) {
 			prm_pos.z = 0;
