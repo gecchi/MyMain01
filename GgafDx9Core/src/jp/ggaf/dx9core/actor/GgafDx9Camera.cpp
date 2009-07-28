@@ -76,9 +76,20 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pMover->setRyMoveAngleVelocity(0);
     _pMover->_move_angle_rz_target_flg = true;
     _pMover->_move_angle_ry_target_flg = true;
-    _pMover->setVzMoveVelocityRenge(-10000, 10000);
+
+    _pMover->setVxMoveVelocityRenge(-5000, 5000);
+    _pMover->setVxMoveVelocity(0);
+    _pMover->setVxMoveAcceleration(0);
+
+    _pMover->setVyMoveVelocityRenge(-5000, 5000);
+    _pMover->setVyMoveVelocity(0);
+    _pMover->setVyMoveAcceleration(0);
+
+    _pMover->setVzMoveVelocityRenge(-5000, 5000);
     _pMover->setVzMoveVelocity(0);
     _pMover->setVzMoveAcceleration(0);
+
+
     setBumpable(false);
 }
 
