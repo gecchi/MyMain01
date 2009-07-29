@@ -112,10 +112,10 @@ void GgafDx9Camera::processBehavior() {
     _view_slant_ZY = (y2-y1)/(z2-z1);
     _view_rad_XZ = atan(_view_slant_XZ);
     _view_rad_ZY = atan(_view_slant_ZY);
-    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX*1.1;
-    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX*1.1;
-    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY*1.1;
-    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY*1.1;
+    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX*1.3; //この1.3は適当
+    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX*1.3;
+    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY*1.3;
+    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY*1.3;
 
     _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
     _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
@@ -152,7 +152,8 @@ void GgafDx9Camera::processJudgement() {
 
 
 bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
-    //簡易視錐台判定
+    //速度優先のため簡易視錐台判定
+    //fovX*1.3  fovY*1.3 はの1.3は、 視野角によって変えなければいけません。このあたりが適当です。
     //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
     //正しく判定できません。
 
