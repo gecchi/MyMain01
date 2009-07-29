@@ -58,7 +58,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyLaserChip001* pChip;
-    for (int i = 0; i < 30; i++) { //レーザーストック
+    for (int i = 0; i < 60; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  "MyLaserChip001_" << i;

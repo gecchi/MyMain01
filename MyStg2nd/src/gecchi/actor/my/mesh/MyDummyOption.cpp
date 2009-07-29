@@ -24,7 +24,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyLaserChip001* pChip;
-    for (int i = 0; i < 30; i++) { //レーザーストック
+    for (int i = 0; i < 50; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;

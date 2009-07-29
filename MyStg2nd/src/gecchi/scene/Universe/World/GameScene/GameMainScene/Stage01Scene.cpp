@@ -28,37 +28,6 @@ void Stage01Scene::initialize() {
 
 void Stage01Scene::processBehavior() {
 
-    static int dx,dy,dz = 0;
-
-
-
-
-
-    if (VB::isBeingPressed(VB_BUTTON4)) {
-        dz = (GameGlobal::_pMyShip->_Z - 200000) - GgafDx9Universe::_pCamera->_Z;
-        dx = (GameGlobal::_pMyShip->_X - 500000) - GgafDx9Universe::_pCamera->_X;
-    } else {
-        dz = (GameGlobal::_pMyShip->_Z - 500000) - GgafDx9Universe::_pCamera->_Z;
-        dx = (GameGlobal::_pMyShip->_X - 100000) - GgafDx9Universe::_pCamera->_X;
-
-    }
-    if (-20000 < dz && dz < 20000) {
-        GgafDx9Universe::_pCamera->_pMover->_veloVzMove /= 1.3;
-        GgafDx9Universe::_pCamera->_pMover->setVzMoveAcceleration(0);
-    } else {
-        GgafDx9Universe::_pCamera->_pMover->setVzMoveAcceleration(dz/100);
-    }
-    if (-20000 < dx && dx < 20000) {
-        GgafDx9Universe::_pCamera->_pMover->_veloVxMove /= 1.3;
-        GgafDx9Universe::_pCamera->_pMover->setVxMoveAcceleration(0);
-    } else {
-        GgafDx9Universe::_pCamera->_pMover->setVxMoveAcceleration(dx/100);
-    }
-
-    GgafDx9Universe::_pCamera->setGaze(GameGlobal::_pMyShip->_X, 0, GameGlobal::_pMyShip->_Z);
-
-
-
 
     if (getProgress() == STAGE01_PROG_INIT) {
         setProgress(STAGE01_PROG_BEGIN);
@@ -77,7 +46,11 @@ void Stage01Scene::processBehavior() {
             _pStage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }
+    } else if (getProgress() == STAGE01_PROG_PLAY) {
+        _pBackGround01->_x -= 1; //îwåiÉXÉNÉçÅ[Éã
     }
+
+
 
 }
 

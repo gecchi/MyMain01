@@ -174,7 +174,7 @@ void LaserChip::processDrawMain() {
     HRESULT hr;
 
     //VIEW変換行列
-    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &GgafDx9Universe::_pCamera->_vMatrixView);
+    hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatView) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pMeshSetEffect->_h_nVertexs, _pMeshSetModel->_nVertices);
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_h_nVertexs) に失敗しました。2");
@@ -201,7 +201,7 @@ void LaserChip::processDrawMain() {
             slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
             if (pDrawLaserChipActor->_pChip_front->_X == pDrawLaserChipActor->_X) {
                 rev_pos_Z = false;
-            } else if (GgafDx9Universe::_pCamera->_view_border_slant2_XZ < slant && slant < GgafDx9Universe::_pCamera->_view_border_slant1_XZ) {
+            } else if (pCAM->_view_border_slant2_XZ < slant && slant < pCAM->_view_border_slant1_XZ) {
                 if (pDrawLaserChipActor->_pChip_front->_X > pDrawLaserChipActor->_X ) {
                     rev_pos_Z = false;
                 } else {
@@ -239,11 +239,11 @@ void LaserChip::processDrawMain() {
                     //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
                     //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し描画する。
                     //Z座標を反転描画しなければならない場合 rev_pos_Z = true としてシェーダーに渡すこととする。
-                    crossCamX = ((float)(GgafDx9Universe::_pCamera->_Z - pDrawLaserChipActor->_Z)) *
+                    crossCamX = ((float)(pCAM->_Z - pDrawLaserChipActor->_Z)) *
                                  ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
                                   (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
                                  ) + pDrawLaserChipActor->_X;
-                    if (crossCamX < GgafDx9Universe::_pCamera->_X) {
+                    if (crossCamX < pCAM->_X) {
                         rev_pos_Z = true;
                     } else {
                         rev_pos_Z = false;

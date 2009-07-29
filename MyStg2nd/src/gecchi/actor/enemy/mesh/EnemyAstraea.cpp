@@ -7,11 +7,11 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshSetActor(prm_name, "ceres") {
     //レーザーストック
-    _laser_way = 9;
+    _laser_way = 4;
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 3;
+    _laser_length = 10;
     _shot_interval = 120;
     _angveloTurn = 1000;
 

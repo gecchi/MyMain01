@@ -23,13 +23,22 @@ void World::initialize() {
 #endif
     //初期カメラ位置
 
-    GgafDx9Universe::_pCamera->_X = (GgafDx9Universe::_pCamera->_Z / 2); //４５度斜めから見る
-    GgafDx9Universe::_pCamera->setGaze(0,0,0);
-    GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
-//
+    pCAM->_X = (pCAM->_Z / 2); //４５度斜めから見る
+    pCAM->setGaze(0,0,0);
+    pCAM->_pMover->setMoveAngle(0,0,0);
 
-_TRACE_("GgafDx9Universe::_pCamera="<<GgafDx9Universe::_pCamera);
 
+    pCAM->_pMover->setVxMoveVelocityRenge(-8000, 8000);
+    pCAM->_pMover->setVxMoveVelocity(0);
+    pCAM->_pMover->setVxMoveAcceleration(0);
+
+    pCAM->_pMover->setVyMoveVelocityRenge(-4500, 4500);
+    pCAM->_pMover->setVyMoveVelocity(0);
+    pCAM->_pMover->setVyMoveAcceleration(0);
+
+    pCAM->_pMover->setVzMoveVelocityRenge(-4500, 4500);
+    pCAM->_pMover->setVzMoveVelocity(0);
+    pCAM->_pMover->setVzMoveAcceleration(0);
 }
 
 
@@ -49,58 +58,95 @@ void World::processBehavior() {
         }
     }
 
+
+
+    static int dX, dY, dZ;
+    static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
+    static int dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+
+    if (VB::isBeingPressed(VB_BUTTON4)) {
+        dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 2)) - pCAM->_Z;
+        dX = X_screen_left - pCAM->_X;
+    } else {
+        dZ = (GameGlobal::_pMyShip->_Z - dZ_camera_init) - pCAM->_Z;
+        dX = (0 - (dZ_camera_init / 7)) - pCAM->_X;
+    }
+    if (-40000 < dZ && dZ < 40000) {
+        pCAM->_pMover->_veloVzMove *= 0.8;
+        pCAM->_pMover->setVzMoveAcceleration(0);
+    } else {
+        pCAM->_pMover->setVzMoveAcceleration(dZ/500);
+    }
+    if (-40000 < dX && dX < 40000) {
+        pCAM->_pMover->_veloVxMove *= 0.8;
+        pCAM->_pMover->setVxMoveAcceleration(0);
+    } else {
+        pCAM->_pMover->setVxMoveAcceleration(dX/500);
+    }
+    pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
+
+
+
+
+
+
+
+
+
+
+
     //サブシーンが一時停止していれば、カメラ操作できる。
     if ( getSubFirst()->isBehaving() ) {
         //スルー
     } else {
-        GgafDx9Universe::_pCamera->_pMover->_move_angle_rz_target_flg = true;
-        GgafDx9Universe::_pCamera->_pMover->_move_angle_ry_target_flg = true;
+        pCAM->_pMover->_move_angle_rz_target_flg = true;
+        pCAM->_pMover->_move_angle_ry_target_flg = true;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
             if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
-                GgafDx9Universe::_pCamera->_Y += 2000;
+                pCAM->_Y += 2000;
             } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
-                GgafDx9Universe::_pCamera->_Y -= 2000;
+                pCAM->_Y -= 2000;
             } else {
 
             }
 
             if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
-                GgafDx9Universe::_pCamera->_X += 2000;
+                pCAM->_X += 2000;
             } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
-                GgafDx9Universe::_pCamera->_X -= 2000;
+                pCAM->_X -= 2000;
             } else {
             }
 
             if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-                GgafDx9Universe::_pCamera->_Z += 2000;
+                pCAM->_Z += 2000;
             } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
-                GgafDx9Universe::_pCamera->_Z -= 2000;
+                pCAM->_Z -= 2000;
             } else {
             }
 
         } else {
             if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
-                GgafDx9Universe::_pCamera->_pMover->addRzMoveAngle(2000);
+                pCAM->_pMover->addRzMoveAngle(2000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
-                GgafDx9Universe::_pCamera->_pMover->addRzMoveAngle(-2000);
+                pCAM->_pMover->addRzMoveAngle(-2000);
             } else {
-                GgafDx9Universe::_pCamera->_pMover->addRzMoveAngle(0);
+                pCAM->_pMover->addRzMoveAngle(0);
             }
 
             if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
-                GgafDx9Universe::_pCamera->_pMover->addRyMoveAngle(2000);
+                pCAM->_pMover->addRyMoveAngle(2000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
-                GgafDx9Universe::_pCamera->_pMover->addRyMoveAngle(-2000);
+                pCAM->_pMover->addRyMoveAngle(-2000);
             } else {
-                GgafDx9Universe::_pCamera->_pMover->addRyMoveAngle(0);
+                pCAM->_pMover->addRyMoveAngle(0);
             }
             if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-                GgafDx9Universe::_pCamera->_pMover->setMoveVelocity(2000);
+                pCAM->_pMover->setMoveVelocity(2000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
-                GgafDx9Universe::_pCamera->_pMover->setMoveVelocity(-2000);
+                pCAM->_pMover->setMoveVelocity(-2000);
             } else {
-                GgafDx9Universe::_pCamera->_pMover->setMoveVelocity(0);
+                pCAM->_pMover->setMoveVelocity(0);
             }
         }
     }
@@ -110,15 +156,15 @@ void World::processBehavior() {
         //スルー
     } else {
         //カメラ注視方向設定
-        GgafDx9Universe::_pCamera->setGaze (
-                   GgafDx9Universe::_pCamera->_X + (GgafDx9Universe::_pCamera->_pMover->_vX * LEN_UNIT * PX_UNIT),
-                   GgafDx9Universe::_pCamera->_Y + (GgafDx9Universe::_pCamera->_pMover->_vY * LEN_UNIT * PX_UNIT),
-                   GgafDx9Universe::_pCamera->_Z + (GgafDx9Universe::_pCamera->_pMover->_vZ * LEN_UNIT * PX_UNIT)
+        pCAM->setGaze (
+                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
+                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
+                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
                   );
 
         if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-            GgafDx9Universe::_pCamera->_pMover->setMoveAngle(0,0,0);
-            _TRACE_("GgafDx9Universe Camera=("<<GgafDx9Universe::_pCamera->_X<<","<<GgafDx9Universe::_pCamera->_Y<<","<<GgafDx9Universe::_pCamera->_Z<<")");
+            pCAM->_pMover->setMoveAngle(0,0,0);
+            _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
         }
     }
 

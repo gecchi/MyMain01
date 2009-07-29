@@ -99,8 +99,8 @@ void BackGround01::processBehavior() {
 
     if (_x < -1 * (_chip_width + _chip_width) ) {
         _x += (_chip_width + _chip_width);
-    } else {
-        _x -= 1;
+    } if (_x > 0)  {
+        _x -= (_chip_width + _chip_width);
     }
 
     for (int i = 0; i < 4; i++) {
