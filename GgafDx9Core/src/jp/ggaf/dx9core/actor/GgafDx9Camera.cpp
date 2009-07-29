@@ -77,18 +77,6 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pMover->_move_angle_rz_target_flg = true;
     _pMover->_move_angle_ry_target_flg = true;
 
-    _pMover->setVxMoveVelocityRenge(-5000, 5000);
-    _pMover->setVxMoveVelocity(0);
-    _pMover->setVxMoveAcceleration(0);
-
-    _pMover->setVyMoveVelocityRenge(-5000, 5000);
-    _pMover->setVyMoveVelocity(0);
-    _pMover->setVyMoveAcceleration(0);
-
-    _pMover->setVzMoveVelocityRenge(-5000, 5000);
-    _pMover->setVzMoveVelocity(0);
-    _pMover->setVzMoveAcceleration(0);
-
 
     setBumpable(false);
 }
@@ -124,10 +112,10 @@ void GgafDx9Camera::processBehavior() {
     _view_slant_ZY = (y2-y1)/(z2-z1);
     _view_rad_XZ = atan(_view_slant_XZ);
     _view_rad_ZY = atan(_view_slant_ZY);
-    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX;
-    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX;
-    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY;
-    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY;
+    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX*1.1;
+    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX*1.1;
+    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY*1.1;
+    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY*1.1;
 
     _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
     _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
@@ -141,6 +129,13 @@ void GgafDx9Camera::processBehavior() {
 
 
     _pMover->behave();
+    _pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
+    _pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
+    _pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
+
 //    D3DXMatrixOrthoLH(
 //        &_vMatrixOrthoProj,
 //        (FLOAT)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)) ,    //w ビュー ボリュームの幅
@@ -151,22 +146,15 @@ void GgafDx9Camera::processBehavior() {
 
 }
 
-void GgafDx9Camera::processDrawPrior() {
-    _pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
+void GgafDx9Camera::processJudgement() {
 }
 
 
 
 bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
-    //y < (a*n)x+b
-    //y > (a*(1/n))x+b
-    //y = ax + b は、カメラの視点と注視点を結ぶ直線。
-    //nは傾き範囲
+    //簡易視錐台判定
+    //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
+    //正しく判定できません。
 
     float a1 = _view_border_slant1_XZ;
     int   b1 = _view_border_intercept1_XZ;
@@ -178,29 +166,76 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
     float a4 = _view_border_slant2_ZY;
     int   b4 = _view_border_intercept2_ZY;
 
-    if ( _Z < prm_Z && prm_Z < _Z + 3000000) {
-
+    if ( _Z - 10000000 < prm_Z && prm_Z < _Z + 10000000) {
+        //XZ平面視点
         if (a1 >= 0 && a2 >= 0) {
-            if (prm_Z < a1*prm_X + b1) {
-                if (prm_Z > a2*prm_X + b2) {
-                    //return true;
+            if (_X < _gazeX && _Z < _gazeZ) {
+                if (prm_Z < a1*prm_X + b1) {
+                    if (prm_Z > a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (_X > _gazeX && _Z > _gazeZ) {
+                if (prm_Z > a1*prm_X + b1) {
+                    if (prm_Z < a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
             } else {
                 return false;
             }
+
         } else if (a1 >= 0 && a2 < 0) {
-            return false;
-    //        if (prm_Z < a1*prm_X + b1) {
-    //            if (prm_Z > a2*prm_X + b2) {
-    //                return true;
-    //            }
-    //        }
+            if (_X < _gazeX) {
+                if (prm_Z < a1*prm_X + b1) {
+                    if (prm_Z > a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
+                }else {
+                    return false;
+                }
+            } else if (_X > _gazeX) {
+                if (prm_Z > a1*prm_X + b1) {
+                    if (prm_Z < a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
+                }else {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
         } else if (a1 < 0 && a2 < 0) {
-            if (prm_Z > a1*prm_X + b1) {
-                if (prm_Z < a2*prm_X + b2) {
-                    //return true;
+            if (_X < _gazeX && _Z > _gazeZ) {
+                if (prm_Z < a1*prm_X + b1) {
+                    if (prm_Z > a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            } else if (_X > _gazeX && _Z < _gazeZ) {
+                if (prm_Z > a1*prm_X + b1) {
+                    if (prm_Z < a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
@@ -208,9 +243,25 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                 return false;
             }
         } else if (a1 < 0 && a2 > 0) {
-            if (prm_Z > a1*prm_X + b1) {
-                if (prm_Z > a2*prm_X + b2) {
-                    //return true;
+            if (_Z < _gazeZ) {
+
+                if (prm_Z > a1*prm_X + b1) {
+                    if (prm_Z > a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
+            } else if (_Z > _gazeZ) {
+                if (prm_Z < a1*prm_X + b1) {
+                    if (prm_Z < a2*prm_X + b2) {
+                        //XZ平面OK
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
@@ -221,47 +272,107 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
             return false;
         }
 
+        //ZY平面視点
         if (a3 >= 0 && a4 >= 0) {
-            if (prm_Y < a3*prm_Z + b3) {
-                if (prm_Y > a4*prm_Z + b4) {
-                    return true;
+            if (_Z < _gazeZ && _Y < _gazeY) {
+                if (prm_Y < a3*prm_Z + b3) {
+                    if (prm_Y > a4*prm_Z + b4) {
+                        return true; //OK
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
+            } else if (_Z > _gazeZ && _Y > _gazeY) {
+                if (prm_Y > a3*prm_Z + b3) {
+                    if (prm_Y < a4*prm_Z + b4) {
+                        return true; //OK
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
             } else {
                 return false;
             }
         } else if (a3 >= 0 && a4 < 0) {
-            if (prm_Y < a3*prm_Z + b3) {
-                if (prm_Y > a4*prm_Z + b4) {
-                    return true;
+            if (_Z < _gazeZ) {
+                if (prm_Y < a3*prm_Z + b3) {
+                    if (prm_Y > a4*prm_Z + b4) {
+                        return true; //ok
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
+            } else if (_Y > _gazeY) {
+                if (prm_Y > a3*prm_Z + b3) {
+                    if (prm_Y < a4*prm_Z + b4) {
+                        return true; //ok
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
             } else {
                 return false;
             }
         } else if (a3 < 0 && a4 < 0) {
-            if (prm_Y < a3*prm_Z + b3) {
-                if (prm_Y > a4*prm_Z + b4) {
-                    return true;
+            if (_Z < _gazeZ && _Y > _gazeY) {
+                if (prm_Y < a3*prm_Z + b3) {
+                    if (prm_Y > a4*prm_Z + b4) {
+                        return true;
+                    } else {
+                        return false;
+                    }
                 } else {
                     return false;
                 }
+            } else if (_Z > _gazeZ && _Y < _gazeY) {
+                if (prm_Y > a3*prm_Z + b3) {
+                    if (prm_Y < a4*prm_Z + b4) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
             } else {
                 return false;
             }
         } else if (a3 < 0 && a4 > 0) {
-            return false;
-    //        if (prm_Y > a3*prm_Z + b1) {
-    //            if (prm_Y > a4*prm_Z + b2) {
-    //                //return true;
-    //            } else {
-    //                return false;
-    //            }
-    //        } else {
-    //            return false;
-    //        }
+            if (_Z > _gazeZ) {
+                if (prm_Y < a3*prm_Z + b1) {
+                    if (prm_Y < a4*prm_Z + b2) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+
+            } else if (_Z < _gazeZ) {
+                if (prm_Y > a3*prm_Z + b1) {
+                    if (prm_Y > a4*prm_Z + b2) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                } else {
+                    return false;
+                }
+            }else {
+                return false;
+            }
         } else {
             return false;
         }

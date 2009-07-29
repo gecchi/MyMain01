@@ -142,19 +142,19 @@ void GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9GeometricAct
     sy = prm_pActor->_SY / fRateScale;
     sz = prm_pActor->_SZ / fRateScale;
 
-    out_matWorld._11 = GgafDx9Universe::_pCamera->_vMatrixView._11 * sx;
-    out_matWorld._12 = GgafDx9Universe::_pCamera->_vMatrixView._21 * sy;
-    out_matWorld._13 = GgafDx9Universe::_pCamera->_vMatrixView._31 * sz;
+    out_matWorld._11 = pCAM->_vMatrixView._11 * sx;
+    out_matWorld._12 = pCAM->_vMatrixView._21 * sy;
+    out_matWorld._13 = pCAM->_vMatrixView._31 * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = GgafDx9Universe::_pCamera->_vMatrixView._12 * sx;
-    out_matWorld._22 = GgafDx9Universe::_pCamera->_vMatrixView._22 * sy;
-    out_matWorld._23 = GgafDx9Universe::_pCamera->_vMatrixView._32 * sz;
+    out_matWorld._21 = pCAM->_vMatrixView._12 * sx;
+    out_matWorld._22 = pCAM->_vMatrixView._22 * sy;
+    out_matWorld._23 = pCAM->_vMatrixView._32 * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = GgafDx9Universe::_pCamera->_vMatrixView._13 * sx;
-    out_matWorld._32 = GgafDx9Universe::_pCamera->_vMatrixView._23 * sy;
-    out_matWorld._33 = GgafDx9Universe::_pCamera->_vMatrixView._33 * sz;
+    out_matWorld._31 = pCAM->_vMatrixView._13 * sx;
+    out_matWorld._32 = pCAM->_vMatrixView._23 * sy;
+    out_matWorld._33 = pCAM->_vMatrixView._33 * sz;
     out_matWorld._34 = 0.0f;
 
     out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
@@ -188,17 +188,17 @@ void GgafDx9GeometricActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricA
     sy = prm_pActor->_SY / fRateScale;
     sz = prm_pActor->_SZ / fRateScale;
 
-    out_matWorld._11 = GgafDx9Universe::_pCamera->_vMatrixView._11 * sx;
+    out_matWorld._11 = pCAM->_vMatrixView._11 * sx;
     out_matWorld._12 = sinRZ * sy;
     out_matWorld._13 = cosRZ * -sinRY * sz;
     out_matWorld._14 = 0.0f;
 
-    out_matWorld._21 = GgafDx9Universe::_pCamera->_vMatrixView._12 * sx;
+    out_matWorld._21 = pCAM->_vMatrixView._12 * sx;
     out_matWorld._22 = cosRX * cosRZ * sy;
     out_matWorld._23 = ((cosRX * -sinRZ * -sinRY) + (sinRX * cosRY)) * sz;
     out_matWorld._24 = 0.0f;
 
-    out_matWorld._31 = GgafDx9Universe::_pCamera->_vMatrixView._13 * sx;
+    out_matWorld._31 = pCAM->_vMatrixView._13 * sx;
     out_matWorld._32 = -sinRX * cosRZ * sy;
     out_matWorld._33 = ((-sinRX * -sinRZ * -sinRY) + (cosRX * cosRY)) * sz;
     out_matWorld._34 = 0.0f;
@@ -383,7 +383,7 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 bool GgafDx9GeometricActor::isOffScreen() {
 
-    return !(GgafDx9Universe::_pCamera->isInTheViewports(_X, _Y, _Z));
+    return !(pCAM->isInTheViewports(_X, _Y, _Z));
 }
 
 

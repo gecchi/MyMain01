@@ -115,7 +115,7 @@ void GgafDx9DrawableActor::processDrawPrior() {
                 //粗さは 1000。←この範囲のZは同一深度となる。
                 //TODO: カメラが動きZ座標で深度が決まらない場合波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
                 GgafDx9Universe::setDrawDepthLevel(
-                  (_Z-(GgafDx9Universe::_pCamera->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / 10000,
+                  (_Z-(pCAM->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / 10000,
                   this
                 );
             }

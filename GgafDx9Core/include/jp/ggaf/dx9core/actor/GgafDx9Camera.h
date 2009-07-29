@@ -97,13 +97,10 @@ public:
 
     virtual void processBehavior();
 
-    virtual void processJudgement() {
-    }
+    virtual void processJudgement();
 
-    /**
-     * ƒJƒƒ‰‚ÌXV
-     */
-    virtual void processDrawPrior();
+    virtual void processDrawPrior() {
+    }
 
     virtual void processDrawMain() {
     }
