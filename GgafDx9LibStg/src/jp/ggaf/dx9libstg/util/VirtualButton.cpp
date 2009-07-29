@@ -11,7 +11,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z,      // BUTTON1
                               DIK_X,      // BUTTON2
                               DIK_A,      // BUTTON3
-                              DIK_Q,      // BUTTON4
+                              DIK_P,      // BUTTON4
                               DIK_C,      // BUTTON5
                               DIK_V,      // BUTTON6
                               DIK_ESCAPE, // PAUSE
