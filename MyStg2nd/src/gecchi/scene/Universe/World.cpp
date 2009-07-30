@@ -64,26 +64,31 @@ void World::processBehavior() {
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
-    if (VB::isBeingPressed(VB_BUTTON4)) {
-        dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 2)) - pCAM->_Z;
-        dX = X_screen_left - pCAM->_X;
-    } else {
-        dZ = (GameGlobal::_pMyShip->_Z - dZ_camera_init) - pCAM->_Z;
-        dX = (0 - (dZ_camera_init / 7)) - pCAM->_X;
+    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+        if (VB::isBeingPressed(VB_BUTTON4)) {
+            dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 3 * 2)) - pCAM->_Z;
+            dX = X_screen_left - pCAM->_X;
+        } else {
+            dZ = (GameGlobal::_pMyShip->_Z - dZ_camera_init) - pCAM->_Z;
+            dX = (0 - (dZ_camera_init / 7)) - pCAM->_X;
+        }
+        if (-40000 < dZ && dZ < 40000) {
+            pCAM->_pMover->_veloVzMove *= 0.8;
+            pCAM->_pMover->setVzMoveAcceleration(0);
+        } else {
+            pCAM->_pMover->setVzMoveAcceleration(dZ/500);
+        }
+        if (-40000 < dX && dX < 40000) {
+            pCAM->_pMover->_veloVxMove *= 0.8;
+            pCAM->_pMover->setVxMoveAcceleration(0);
+        } else {
+            pCAM->_pMover->setVxMoveAcceleration(dX/500);
+        }
+        pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
+
+        pCAM->_pMover->behave();
+
     }
-    if (-40000 < dZ && dZ < 40000) {
-        pCAM->_pMover->_veloVzMove *= 0.8;
-        pCAM->_pMover->setVzMoveAcceleration(0);
-    } else {
-        pCAM->_pMover->setVzMoveAcceleration(dZ/500);
-    }
-    if (-40000 < dX && dX < 40000) {
-        pCAM->_pMover->_veloVxMove *= 0.8;
-        pCAM->_pMover->setVxMoveAcceleration(0);
-    } else {
-        pCAM->_pMover->setVxMoveAcceleration(dX/500);
-    }
-    pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
 
 
 
