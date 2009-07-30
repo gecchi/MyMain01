@@ -112,10 +112,10 @@ void GgafDx9Camera::processBehavior() {
     _view_slant_ZY = (y2-y1)/(z2-z1);
     _view_rad_XZ = atan(_view_slant_XZ);
     _view_rad_ZY = atan(_view_slant_ZY);
-    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX*1.3; //‚±‚Ì1.3‚Í“K“–
-    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX*1.3;
-    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY*1.3;
-    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY*1.3;
+    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX; //‚±‚Ì1.3‚Í“K“–
+    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX;
+    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY;
+    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY;
 
     _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
     _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
