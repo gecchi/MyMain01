@@ -89,7 +89,7 @@ void GgafDx9Camera::initialize() {
 
 
 void GgafDx9Camera::processBehavior() {
-    D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
+
     //XY
     //傾き (y2-y1)/(x2-x1)   = tanθ
     //切片 (x2y1-x1y2)/(x2-x1)
@@ -128,13 +128,6 @@ void GgafDx9Camera::processBehavior() {
     _view_border_intercept2_ZY = _Y - (_view_border_slant2_ZY*_Z);
 
 
-    _pMover->behave();
-    _pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
 
 //    D3DXMatrixOrthoLH(
 //        &_vMatrixOrthoProj,
@@ -147,6 +140,15 @@ void GgafDx9Camera::processBehavior() {
 }
 
 void GgafDx9Camera::processJudgement() {
+    _pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
+    _pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
+    _pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
+
+
+    D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
 
@@ -157,22 +159,12 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
     //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
     //正しく判定できません。
 
-    float a1 = _view_border_slant1_XZ;
-    int   b1 = _view_border_intercept1_XZ;
-    float a2 = _view_border_slant2_XZ;
-    int   b2 = _view_border_intercept2_XZ;
-
-    float a3 = _view_border_slant1_ZY;
-    int   b3 = _view_border_intercept1_ZY;
-    float a4 = _view_border_slant2_ZY;
-    int   b4 = _view_border_intercept2_ZY;
-
     if ( _Z - 10000000 < prm_Z && prm_Z < _Z + 10000000) {
         //XZ平面視点
-        if (a1 >= 0 && a2 >= 0) {
+        if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ >= 0) {
             if (_X < _gazeX && _Z < _gazeZ) {
-                if (prm_Z < a1*prm_X + b1) {
-                    if (prm_Z > a2*prm_X + b2) {
+                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -181,8 +173,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_X > _gazeX && _Z > _gazeZ) {
-                if (prm_Z > a1*prm_X + b1) {
-                    if (prm_Z < a2*prm_X + b2) {
+                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -194,10 +186,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                 return false;
             }
 
-        } else if (a1 >= 0 && a2 < 0) {
+        } else if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ < 0) {
             if (_X < _gazeX) {
-                if (prm_Z < a1*prm_X + b1) {
-                    if (prm_Z > a2*prm_X + b2) {
+                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -206,8 +198,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_X > _gazeX) {
-                if (prm_Z > a1*prm_X + b1) {
-                    if (prm_Z < a2*prm_X + b2) {
+                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -219,10 +211,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                 return false;
             }
 
-        } else if (a1 < 0 && a2 < 0) {
+        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ < 0) {
             if (_X < _gazeX && _Z > _gazeZ) {
-                if (prm_Z < a1*prm_X + b1) {
-                    if (prm_Z > a2*prm_X + b2) {
+                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -231,8 +223,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_X > _gazeX && _Z < _gazeZ) {
-                if (prm_Z > a1*prm_X + b1) {
-                    if (prm_Z < a2*prm_X + b2) {
+                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -243,11 +235,11 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
             } else {
                 return false;
             }
-        } else if (a1 < 0 && a2 > 0) {
+        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ > 0) {
             if (_Z < _gazeZ) {
 
-                if (prm_Z > a1*prm_X + b1) {
-                    if (prm_Z > a2*prm_X + b2) {
+                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -257,8 +249,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                 }
 
             } else if (_Z > _gazeZ) {
-                if (prm_Z < a1*prm_X + b1) {
-                    if (prm_Z < a2*prm_X + b2) {
+                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
                         //XZ平面OK
                     } else {
                         return false;
@@ -274,10 +266,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
         }
 
         //ZY平面視点
-        if (a3 >= 0 && a4 >= 0) {
+        if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY >= 0) {
             if (_Z < _gazeZ && _Y < _gazeY) {
-                if (prm_Y < a3*prm_Z + b3) {
-                    if (prm_Y > a4*prm_Z + b4) {
+                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true; //OK
                     } else {
                         return false;
@@ -286,8 +278,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_Z > _gazeZ && _Y > _gazeY) {
-                if (prm_Y > a3*prm_Z + b3) {
-                    if (prm_Y < a4*prm_Z + b4) {
+                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true; //OK
                     } else {
                         return false;
@@ -299,10 +291,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
             } else {
                 return false;
             }
-        } else if (a3 >= 0 && a4 < 0) {
+        } else if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY < 0) {
             if (_Z < _gazeZ) {
-                if (prm_Y < a3*prm_Z + b3) {
-                    if (prm_Y > a4*prm_Z + b4) {
+                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true; //ok
                     } else {
                         return false;
@@ -311,8 +303,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_Y > _gazeY) {
-                if (prm_Y > a3*prm_Z + b3) {
-                    if (prm_Y < a4*prm_Z + b4) {
+                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true; //ok
                     } else {
                         return false;
@@ -324,10 +316,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
             } else {
                 return false;
             }
-        } else if (a3 < 0 && a4 < 0) {
+        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY < 0) {
             if (_Z < _gazeZ && _Y > _gazeY) {
-                if (prm_Y < a3*prm_Z + b3) {
-                    if (prm_Y > a4*prm_Z + b4) {
+                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true;
                     } else {
                         return false;
@@ -336,8 +328,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                     return false;
                 }
             } else if (_Z > _gazeZ && _Y < _gazeY) {
-                if (prm_Y > a3*prm_Z + b3) {
-                    if (prm_Y < a4*prm_Z + b4) {
+                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true;
                     } else {
                         return false;
@@ -349,10 +341,10 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
             } else {
                 return false;
             }
-        } else if (a3 < 0 && a4 > 0) {
+        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY > 0) {
             if (_Z > _gazeZ) {
-                if (prm_Y < a3*prm_Z + b1) {
-                    if (prm_Y < a4*prm_Z + b2) {
+                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true;
                     } else {
                         return false;
@@ -362,8 +354,8 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
                 }
 
             } else if (_Z < _gazeZ) {
-                if (prm_Y > a3*prm_Z + b1) {
-                    if (prm_Y > a4*prm_Z + b2) {
+                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
                         return true;
                     } else {
                         return false;
