@@ -23,6 +23,19 @@ class GgafDx9Camera : public GgafDx9GeometricActor {
 private:
 
 public:
+
+
+
+    //test
+    D3DXVECTOR3 Near[4];
+    D3DXVECTOR3 Far[4];
+
+
+
+
+
+
+
     /** 座標移動支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryMover* _pMover;
 
@@ -117,10 +130,13 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual bool isInTheViewports(int prm_X, int prm_Y, int prm_Z);
+    virtual bool Function(D3DXVECTOR3 &pos, FLOAT radius);
 
-    virtual bool isInTheViewports(GgafDx9GeometricActor* prm_pActor) {
-        return isInTheViewports(prm_pActor->_X, prm_pActor->_Y, prm_pActor->_Z);
+
+    virtual bool isInTheViewports_old(int prm_X, int prm_Y, int prm_Z);
+
+    virtual bool isInTheViewports_old(GgafDx9GeometricActor* prm_pActor) {
+        return isInTheViewports_old(prm_pActor->_X, prm_pActor->_Y, prm_pActor->_Z);
     }
 
     /**

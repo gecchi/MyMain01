@@ -153,7 +153,7 @@ void GgafDx9Camera::processJudgement() {
 
 
 
-bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
+bool GgafDx9Camera::isInTheViewports_old(int prm_X, int prm_Y, int prm_Z) {
     //速度優先のため簡易視錐台判定
     //fovX*1.3  fovY*1.3 はの1.3は、 視野角によって変えなければいけません。このあたりが適当です。
     //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
@@ -376,6 +376,92 @@ bool GgafDx9Camera::isInTheViewports(int prm_X, int prm_Y, int prm_Z) {
 }
 
 
+//test
+bool GgafDx9Camera::Function(D3DXVECTOR3 &pos, FLOAT radius) {
+    HRESULT hr;
+    D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
+    //スクリーン全体のクライアント領域を保持。
+    hr = GgafDx9God::_pID3DDevice9->GetViewport(&viewport);
+
+    // viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
+     float x1 = (float)viewport.X;
+     float y1 = (float)viewport.Y;
+     float x2 = (float)viewport.X + (float)viewport.Width;
+     float y2 = (float)viewport.Y + (float)viewport.Height;
+
+     // 視錐台の８点が格納されるインスタンス
+     Near[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // 左下 (変換後)
+     Near[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // 右下 (変換後)
+     Near[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // 左上 (変換後)
+     Near[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // 右上 (変換後)
+
+     Far[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // 左下 (変換後)
+     Far[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // 右下 (変換後)
+     Far[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // 左上 (変換後)
+     Far[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // 右上 (変換後)
+
+     // 視錐台の８点の計算
+     D3DXMATRIX mat_world;
+     D3DXMatrixIdentity( &mat_world );
+     D3DVIEWPORT9 *pViewport = const_cast<D3DVIEWPORT9*>(&viewport);
+     // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
+     for( int i = 0; i < 4; ++i )
+     {
+         D3DXVec3Unproject(&Near[i], &Near[i],
+             pViewport, &_vMatrixProj, &_vMatrixView, &mat_world);
+         D3DXVec3Unproject(&Far[i], &Far[i],
+             pViewport, &_vMatrixProj, &_vMatrixView, &mat_world);
+     }
+
+     //-------------------------------------------------
+     //  平面方程式：ax+by+cz+d
+     //  平面の法線ベクトル：n = (a, b, c)
+     //  平面上の1点を、p = (x0, y0, z0) とすると、
+     //  平面の法線ベクトルと平面状の1点の内積：d = n*p
+     //
+     //  表裏判定をするときは、点 p = (x0, y0, z0)を、
+     //  p = (x0, y0, z0, 1) とみなし、
+     //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
+     //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
+     //  DXPlaneDotCoord() は、この処理を行っている
+     //
+     //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
+     //  角度の関係を調べることができる。
+     //  → D3DXPlaneDotNormal()
+     //-------------------------------------------------
+
+     // 視錐台の6つの面を算出
+     D3DXPLANE Top, Bottom, Left, Right, Front, Back;
+
+     // 上 ( F左上、N左上、N右上 )
+     D3DXPlaneNormalize(&Top,
+         D3DXPlaneFromPoints(&Top, &(Far[2]), &(Near[2]), &(Near[3])));
+     // 下 ( F左下、N右下、N左下 )
+     D3DXPlaneNormalize(&Bottom,
+         D3DXPlaneFromPoints(&Bottom, &(Far[0]), &(Near[1]), &(Near[0])));
+
+     // 左 ( F左下、N左下、N左上 )
+     D3DXPlaneNormalize(&Left,
+         D3DXPlaneFromPoints(&Left, &(Far[0]), &(Near[0]), &(Near[2])));
+     // 右 ( F右下、N右上、N右下 )
+     D3DXPlaneNormalize(&Right,
+         D3DXPlaneFromPoints(&Right, &(Far[1]), &(Near[3]), &(Near[1])));
+
+     // 手前 ( N左上、N左下、N右上)
+     D3DXPlaneNormalize(&Front,
+         D3DXPlaneFromPoints(&Front, &(Near[2]), &(Near[0]), &(Near[3])));
+     // 奥 ( F右上、F左下、F左上)
+     D3DXPlaneNormalize(&Back,
+         D3DXPlaneFromPoints(&Back, &(Far[3]), &(Far[0]), &(Far[2])));
+
+     return ( Top.a*pos.x + Top.b*pos.y + Top.c * pos.z + Top.d <= radius)
+         && ( Bottom.a*pos.x + Bottom.b*pos.y + Bottom.c * pos.z + Bottom.d <= radius)
+         && ( Left.a*pos.x + Left.b*pos.y + Left.c * pos.z + Left.d <= radius)
+         && ( Right.a*pos.x + Right.b*pos.y + Right.c * pos.z + Right.d <= radius)
+         && ( Front.a*pos.x + Front.b*pos.y + Front.c * pos.z + Front.d <= radius)
+         && ( Back.a*pos.x + Back.b*pos.y + Back.c * pos.z + Back.d <= radius);
+
+}
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
     DELETE_IMPOSSIBLE_NULL(_pMover);
