@@ -377,7 +377,13 @@ bool GgafDx9Camera::isInTheViewports_old(int prm_X, int prm_Y, int prm_Z) {
 
 
 //test
-bool GgafDx9Camera::Function(D3DXVECTOR3 &pos, FLOAT radius) {
+bool GgafDx9Camera::isInTheViewports(GgafDx9GeometricActor* pActor, FLOAT radius) {
+    D3DXVECTOR3 pos;
+    pos.x = (float)(1.0 * pActor->_X / LEN_UNIT / PX_UNIT);
+    pos.y = (float)(1.0 * pActor->_Y / LEN_UNIT / PX_UNIT);
+    pos.z = (float)(1.0 * pActor->_Z / LEN_UNIT / PX_UNIT);
+
+
     HRESULT hr;
     D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
     //スクリーン全体のクライアント領域を保持。

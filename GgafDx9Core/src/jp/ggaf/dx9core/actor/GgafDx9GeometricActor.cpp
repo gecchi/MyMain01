@@ -383,7 +383,7 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 bool GgafDx9GeometricActor::isOffScreen() {
 
-    return !(pCAM->isInTheViewports_old(_X, _Y, _Z));
+    return !(pCAM->isInTheViewports(this, 1.0));
 }
 
 

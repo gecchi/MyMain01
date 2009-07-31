@@ -130,7 +130,7 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual bool Function(D3DXVECTOR3 &pos, FLOAT radius);
+    virtual bool isInTheViewports(GgafDx9GeometricActor* pActor, FLOAT radius);
 
 
     virtual bool isInTheViewports_old(int prm_X, int prm_Y, int prm_Z);
