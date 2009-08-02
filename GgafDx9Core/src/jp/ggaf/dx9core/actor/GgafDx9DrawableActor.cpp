@@ -9,12 +9,12 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
-_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
-_TRACE_("    prm_name="<<prm_name);
-_TRACE_("    prm_model="<<prm_model);
-_TRACE_("    prm_effect="<<prm_effect);
-_TRACE_("    prm_technique="<<prm_technique);
-_TRACE_(")");
+//_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
+//_TRACE_("    prm_name="<<prm_name);
+//_TRACE_("    prm_model="<<prm_model);
+//_TRACE_("    prm_effect="<<prm_effect);
+//_TRACE_("    prm_technique="<<prm_technique);
+//_TRACE_(")");
 
     _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];
@@ -46,14 +46,14 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            GgafDx9Checker* prm_pChecker) :
   GgafDx9GeometricActor(prm_name, prm_pChecker) {
 
-_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
-_TRACE_("    prm_name="<<prm_name);
-_TRACE_("    prm_model_id="<<prm_model_id);
-_TRACE_("    prm_model_type="<<prm_model_type);
-_TRACE_("    prm_effect_id="<<prm_effect_id);
-_TRACE_("    prm_effect_type="<<prm_effect_type);
-_TRACE_("    prm_technique="<<prm_technique);
-_TRACE_(")");
+//_TRACE_("GgafDx9DrawableActor::GgafDx9DrawableActor(");
+//_TRACE_("    prm_name="<<prm_name);
+//_TRACE_("    prm_model_id="<<prm_model_id);
+//_TRACE_("    prm_model_type="<<prm_model_type);
+//_TRACE_("    prm_effect_id="<<prm_effect_id);
+//_TRACE_("    prm_effect_type="<<prm_effect_type);
+//_TRACE_("    prm_technique="<<prm_technique);
+//_TRACE_(")");
 
     _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];
