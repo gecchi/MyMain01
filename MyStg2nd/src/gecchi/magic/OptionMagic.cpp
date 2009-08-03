@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 OptionMagic::OptionMagic(const char* prm_name,
              GgafDx9GeometricActor* prm_pCaster,
              GgafDx9GeometricActor* prm_pReceiver) : DefaultMagic(prm_name, prm_pCaster, prm_pReceiver) {
-
+//TODO:–‚–@‚Å‘•”õHI
 }
 
 OptionMagic::~OptionMagic() {
