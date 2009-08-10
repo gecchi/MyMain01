@@ -185,6 +185,23 @@ void LaserChip::processDrawMain() {
     bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
     float slant;
     float crossCamX;
+
+//    float x1;
+//    float y1;
+//    float z1;
+//    float x2;
+//    float y2;
+//    float z2;
+    float D1;
+    float D2;
+
+
+
+
+
+
+
+
     for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
@@ -196,6 +213,63 @@ void LaserChip::processDrawMain() {
         if (pDrawLaserChipActor->_pChip_front != NULL) {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
+
+            //手前な向きなチップか、奥向きなチップか
+            //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
+            //D1 > D2 ならば手前な向きなチップ。
+            //D1 < D2 ならば奥向きなチップ。
+            //D1 = D2 ならば真横
+//            x1 = pDrawLaserChipActor->_matWorld._41;
+//            y1 = pDrawLaserChipActor->_matWorld._42;
+//            z1 = pDrawLaserChipActor->_matWorld._43;
+//            x2 = pDrawLaserChipActor->_pChip_front->_matWorld._41;
+//            y2 = pDrawLaserChipActor->_pChip_front->_matWorld._42;
+//            z2 = pDrawLaserChipActor->_pChip_front->_matWorld._43;
+//
+//            _TRACE_("(x1,y1,z1)=("<<x1<<","<<y1<<","<<z1<<")");
+//            _TRACE_("(x2,y2,z2)=("<<x2<<","<<y2<<","<<z2<<")");
+//
+//
+//            D1 = GgafDx9Universe::_pCamera->_plnBack.a*x1 +
+//                 GgafDx9Universe::_pCamera->_plnBack.b*y1 +
+//                 GgafDx9Universe::_pCamera->_plnBack.c*z1 +
+//                 GgafDx9Universe::_pCamera->_plnBack.d;
+//            D2 = GgafDx9Universe::_pCamera->_plnBack.a*x2 +
+//                 GgafDx9Universe::_pCamera->_plnBack.b*y2 +
+//                 GgafDx9Universe::_pCamera->_plnBack.c*z2 +
+//                 GgafDx9Universe::_pCamera->_plnBack.d;
+
+
+            D1 = pDrawLaserChipActor->_fDistance_plnBack;
+            D2 = pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+
+//            _TRACE_("D1="<<D1<<"  D2="<<D2<<"");
+//
+//
+//           if (D1 > D2){
+//               _TRACE_("手前向き！");
+//           } else if (D1 < D2) {
+//               _TRACE_("奥前向き！");
+//           } else {
+//               _TRACE_("まよっこ");
+//           }
+//
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //チップの十字の左右の羽の描画順序を考える。
             slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
