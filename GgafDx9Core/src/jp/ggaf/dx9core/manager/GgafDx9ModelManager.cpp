@@ -181,6 +181,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
 
         //法線以外設定
+        FLOAT dis;
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -191,6 +192,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
             model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
             model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+
+            //距離
+            dis = (FLOAT)(sqrt(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+                               model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
+                               model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
+            if (prm_pMeshModel->_max_radius < dis) {
+                prm_pMeshModel->_max_radius = dis;
+            }
+
         }
 
         int nTextureCoords = model_pMeshesFront->_nTextureCoords;
@@ -528,7 +538,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         model_papaVtxBuffer_org_morph = NEW GgafDx9MorphMeshModel::VERTEX_MORPH*[morph_target_num];
         int nVertices;
         int nFaces;
-
+        FLOAT dis;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
           Sleep(1);
             model_papModel3D[pattern] = NEW Frm::Model3D();
@@ -558,6 +568,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_paVtxBuffer_org_primary[i].color = D3DCOLOR_ARGB(255,255,255,255);
                     model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //出来る限りUV座標設定
                     model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
+
+                    //距離
+                    dis = (FLOAT)(sqrt(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
+                                       model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
+                                       model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
+                    if (prm_pMorphMeshModel->_max_radius < dis) {
+                        prm_pMorphMeshModel->_max_radius = dis;
+                    }
                 }
             } else {
                 //モーフターゲットメッシュ
@@ -572,6 +590,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_papaVtxBuffer_org_morph[pattern-1][i].nx = 0.0f;
                     model_papaVtxBuffer_org_morph[pattern-1][i].ny = 0.0f;
                     model_papaVtxBuffer_org_morph[pattern-1][i].nz = 0.0f;
+
+                    //距離
+                    dis = (FLOAT)(sqrt(model_papaVtxBuffer_org_morph[pattern-1][i].x * model_papaVtxBuffer_org_morph[pattern-1][i].x +
+                                       model_papaVtxBuffer_org_morph[pattern-1][i].y * model_papaVtxBuffer_org_morph[pattern-1][i].y +
+                                       model_papaVtxBuffer_org_morph[pattern-1][i].z * model_papaVtxBuffer_org_morph[pattern-1][i].z));
+                    if (prm_pMorphMeshModel->_max_radius < dis) {
+                        prm_pMorphMeshModel->_max_radius = dis;
+                    }
                 }
             }
 
@@ -1198,6 +1224,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].tu = 1.0/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
     paVertex[3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
 
+
+    //距離
+    FLOAT dis = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
+                             paVertex[0].y * paVertex[0].y +
+                             paVertex[0].z * paVertex[0].z));
+    prm_pSpriteModel->_max_radius = dis;
+
+
     //バッファ作成
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
@@ -1382,24 +1416,31 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 3].tv = 1.0/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
             paVertex[i*4 + 3].index = i;
 
-            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
-            _TRACE_("paVertex["<<(i*4 + 0)<<"].y ="<<paVertex[i*4 + 0].y );
-            _TRACE_("paVertex["<<(i*4 + 0)<<"].z ="<<paVertex[i*4 + 0].z );
-            _TRACE_("paVertex["<<(i*4 + 0)<<"].index ="<<paVertex[i*4 + 0].index );
-            _TRACE_("paVertex["<<(i*4 + 1)<<"].x ="<<paVertex[i*4 + 1].x );
-            _TRACE_("paVertex["<<(i*4 + 1)<<"].y ="<<paVertex[i*4 + 1].y );
-            _TRACE_("paVertex["<<(i*4 + 1)<<"].z ="<<paVertex[i*4 + 1].z );
-            _TRACE_("paVertex["<<(i*4 + 1)<<"].index ="<<paVertex[i*4 + 1].index );
-            _TRACE_("paVertex["<<(i*4 + 2)<<"].x ="<<paVertex[i*4 + 2].x );
-            _TRACE_("paVertex["<<(i*4 + 2)<<"].y ="<<paVertex[i*4 + 2].y );
-            _TRACE_("paVertex["<<(i*4 + 2)<<"].z ="<<paVertex[i*4 + 2].z );
-            _TRACE_("paVertex["<<(i*4 + 2)<<"].index ="<<paVertex[i*4 + 2].index );
-            _TRACE_("paVertex["<<(i*4 + 3)<<"].x ="<<paVertex[i*4 + 3].x );
-            _TRACE_("paVertex["<<(i*4 + 3)<<"].y ="<<paVertex[i*4 + 3].y );
-            _TRACE_("paVertex["<<(i*4 + 3)<<"].z ="<<paVertex[i*4 + 3].z );
-            _TRACE_("paVertex["<<(i*4 + 3)<<"].index ="<<paVertex[i*4 + 3].index );
+//            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
+//            _TRACE_("paVertex["<<(i*4 + 0)<<"].y ="<<paVertex[i*4 + 0].y );
+//            _TRACE_("paVertex["<<(i*4 + 0)<<"].z ="<<paVertex[i*4 + 0].z );
+//            _TRACE_("paVertex["<<(i*4 + 0)<<"].index ="<<paVertex[i*4 + 0].index );
+//            _TRACE_("paVertex["<<(i*4 + 1)<<"].x ="<<paVertex[i*4 + 1].x );
+//            _TRACE_("paVertex["<<(i*4 + 1)<<"].y ="<<paVertex[i*4 + 1].y );
+//            _TRACE_("paVertex["<<(i*4 + 1)<<"].z ="<<paVertex[i*4 + 1].z );
+//            _TRACE_("paVertex["<<(i*4 + 1)<<"].index ="<<paVertex[i*4 + 1].index );
+//            _TRACE_("paVertex["<<(i*4 + 2)<<"].x ="<<paVertex[i*4 + 2].x );
+//            _TRACE_("paVertex["<<(i*4 + 2)<<"].y ="<<paVertex[i*4 + 2].y );
+//            _TRACE_("paVertex["<<(i*4 + 2)<<"].z ="<<paVertex[i*4 + 2].z );
+//            _TRACE_("paVertex["<<(i*4 + 2)<<"].index ="<<paVertex[i*4 + 2].index );
+//            _TRACE_("paVertex["<<(i*4 + 3)<<"].x ="<<paVertex[i*4 + 3].x );
+//            _TRACE_("paVertex["<<(i*4 + 3)<<"].y ="<<paVertex[i*4 + 3].y );
+//            _TRACE_("paVertex["<<(i*4 + 3)<<"].z ="<<paVertex[i*4 + 3].z );
+//            _TRACE_("paVertex["<<(i*4 + 3)<<"].index ="<<paVertex[i*4 + 3].index );
 
         }
+
+        //距離
+        FLOAT dis = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
+                                 paVertex[0].y * paVertex[0].y +
+                                 paVertex[0].z * paVertex[0].z));
+        prm_pSpriteSetModel->_max_radius = dis;
+
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pSpriteSetModel->_size_vertices * prm_pSpriteSetModel->_set_num,
@@ -1980,6 +2021,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         prm_pMeshSetModel->_size_vertex_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
 
         //法線以外設定
+        FLOAT dis;
         for (int i = 0; i < nVertices; i++) {
             unit_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             unit_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -1991,6 +2033,16 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
             unit_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
+
+            //距離
+            dis = (FLOAT)(sqrt(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
+                               unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
+                               unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
+            if (prm_pMeshSetModel->_max_radius < dis) {
+                prm_pMeshSetModel->_max_radius = dis;
+            }
+
+
         }
 
         int nTextureCoords = model_pMeshesFront->_nTextureCoords;

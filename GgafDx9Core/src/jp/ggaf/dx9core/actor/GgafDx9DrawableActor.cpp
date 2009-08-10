@@ -33,6 +33,8 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
         _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
     }
     _fAlpha = 1.0f;
+    //Å‘å‹——£’¸“_
+    _max_radius = _pGgafDx9Model->_max_radius;
 
 }
 

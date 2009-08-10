@@ -230,7 +230,7 @@ void GgafDx9Util::getRotAngleZY(int x,
     //単位球は X^2 + Y^2 + Z^2 = 1 ･･･(2)
     //(1)(2)を連立させて、t について解く。
     //t = 1 / sqrt(vx^2 + vy^2 + vz^2)
-    t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
+    t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     //求めた t を (1) に代入し (X,Y,Z) を求める。
     out_nvx = t * vx;
     out_nvy = t * vy;

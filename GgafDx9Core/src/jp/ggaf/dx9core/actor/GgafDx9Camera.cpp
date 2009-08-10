@@ -102,14 +102,14 @@ void GgafDx9Camera::processBehavior() {
     //傾き (z2-z1)/(x2-x1)   = tanθ
     //切片 (x2z1-x1z2)/(x2-x1)
     //クリップボーダー計算
-    float x1 = _pVecCamFromPoint->x;
-    float y1 = _pVecCamFromPoint->y;
-    float z1 = _pVecCamFromPoint->z;
-    float x2 = _pVecCamLookatPoint->x;
-    float y2 = _pVecCamLookatPoint->y;
-    float z2 = _pVecCamLookatPoint->z;
-    _view_slant_XZ = (z2-z1)/(x2-x1);
-    _view_slant_ZY = (y2-y1)/(z2-z1);
+    float x1_ = _pVecCamFromPoint->x;
+    float y1_ = _pVecCamFromPoint->y;
+    float z1_ = _pVecCamFromPoint->z;
+    float x2_ = _pVecCamLookatPoint->x;
+    float y2_ = _pVecCamLookatPoint->y;
+    float z2_ = _pVecCamLookatPoint->z;
+    _view_slant_XZ = (z2_-z1_)/(x2_-x1_);
+    _view_slant_ZY = (y2_-y1_)/(z2_-z1_);
     _view_rad_XZ = atan(_view_slant_XZ);
     _view_rad_ZY = atan(_view_slant_ZY);
     _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX; //この1.3は適当
@@ -136,6 +136,115 @@ void GgafDx9Camera::processBehavior() {
 //        1.0,    //zn ビュー ボリュームの最小 z 値 (z 近ともいう)
 //        2000.0  //zf ビュー ボリュームの最大 z 値 (z 遠ともいう)
 //    );
+
+
+
+
+
+
+
+
+    HRESULT hr;
+    D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
+    //スクリーン全体のクライアント領域を保持。
+    hr = GgafDx9God::_pID3DDevice9->GetViewport(&viewport);
+
+    // viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
+     float x1 = (float)viewport.X;
+     float y1 = (float)viewport.Y;
+     float x2 = (float)viewport.X + (float)viewport.Width;
+     float y2 = (float)viewport.Y + (float)viewport.Height;
+
+     // 視錐台の８点が格納されるインスタンス
+     _vecNear[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // 左下 (変換後)
+     _vecNear[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // 右下 (変換後)
+     _vecNear[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // 左上 (変換後)
+     _vecNear[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // 右上 (変換後)
+
+     _vecFar[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // 左下 (変換後)
+     _vecFar[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // 右下 (変換後)
+     _vecFar[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // 左上 (変換後)
+     _vecFar[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // 右上 (変換後)
+
+     // 視錐台の８点の計算
+     D3DXMATRIX mat_world;
+     D3DXMatrixIdentity( &mat_world );
+     D3DVIEWPORT9 *pViewport = const_cast<D3DVIEWPORT9*>(&viewport);
+     // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
+     for( int i = 0; i < 4; ++i )
+     {
+         D3DXVec3Unproject(
+             &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] 演算結果である D3DXVECTOR3 構造体へのポインタ。
+             &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] 処理の基になる D3DXVECTOR3 構造体へのポインタ。
+             pViewport,      //CONST D3DVIEWPORT9 *pViewport,  [in] ビューポートを表す D3DVIEWPORT9 構造体へのポインタ。
+             &_vMatrixProj,  //CONST D3DXMATRIX *pProjection,  [in] 射影行列を表す D3DXMATRIX 構造体へのポインタ。
+             &_vMatrixView,  //CONST D3DXMATRIX *pView,        [in] ビュー行列を表す D3DXMATRIX 構造体へのポインタ。
+             &mat_world      //CONST D3DXMATRIX *pWorld        [in] ワールド行列を表す D3DXMATRIX 構造体へのポインタ。
+         );
+         D3DXVec3Unproject(
+             &_vecFar[i],
+             &_vecFar[i],
+             pViewport,
+             &_vMatrixProj,
+             &_vMatrixView,
+             &mat_world
+         );
+     }
+     //-------------------------------------------------
+     //  平面方程式：ax+by+cz+d
+     //  平面の法線ベクトル：n = (a, b, c)
+     //  平面上の1点を、p = (x0, y0, z0) とすると、
+     //  平面の法線ベクトルと平面状の1点の内積：d = n*p
+     //
+     //  表裏判定をするときは、点 p = (x0, y0, z0)を、
+     //  p = (x0, y0, z0, 1) とみなし、
+     //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
+     //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
+     //  DXPlaneDotCoord() は、この処理を行っている
+     //
+     //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
+     //  角度の関係を調べることができる。
+     //  → D3DXPlaneDotNormal()
+     //-------------------------------------------------
+
+
+     // 上 ( F左上、N左上、N右上 )
+    D3DXPlaneNormalize(
+        &_plnTop,
+        D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
+    );
+    // 下 ( F左下、N右下、N左下 )
+    D3DXPlaneNormalize(
+        &_plnBottom,
+        D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
+    );
+    // 左 ( F左下、N左下、N左上 )
+    D3DXPlaneNormalize(
+        &_plnLeft,
+        D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
+    );
+    // 右 ( F右下、N右上、N右下 )
+    D3DXPlaneNormalize(
+        &_plnRight,
+        D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
+    );
+    // 手前 ( N左上、N左下、N右上)
+    D3DXPlaneNormalize(
+        &_plnFront,
+        D3DXPlaneFromPoints(&_plnFront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
+    );
+    // 奥 ( F右上、F左下、F左上)
+    D3DXPlaneNormalize(
+        &_plnBack,
+        D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
+    );
+
+
+
+
+
+
+
 
 }
 
@@ -377,97 +486,55 @@ bool GgafDx9Camera::isInTheViewports_old(int prm_X, int prm_Y, int prm_Z) {
 
 
 //test
-bool GgafDx9Camera::isInTheViewports(GgafDx9GeometricActor* pActor, FLOAT radius) {
-    D3DXVECTOR3 pos;
-    pos.x = (float)(1.0 * pActor->_X / LEN_UNIT / PX_UNIT);
-    pos.y = (float)(1.0 * pActor->_Y / LEN_UNIT / PX_UNIT);
-    pos.z = (float)(1.0 * pActor->_Z / LEN_UNIT / PX_UNIT);
+//int GgafDx9Camera::canView(GgafDx9GeometricActor* pActor, FLOAT radius) {
+//    D3DXVECTOR3 pos;
+//    pos.x = (float)(1.0 * pActor->_X / LEN_UNIT / PX_UNIT);
+//    pos.y = (float)(1.0 * pActor->_Y / LEN_UNIT / PX_UNIT);
+//    pos.z = (float)(1.0 * pActor->_Z / LEN_UNIT / PX_UNIT);
+//
+//    if ( _plnTop.a*pos.x + _plnTop.b*pos.y + _plnTop.c * pos.z + _plnTop.d <= radius) {
+//        if ( _plnBottom.a*pos.x + _plnBottom.b*pos.y + _plnBottom.c * pos.z + _plnBottom.d <= radius) {
+//            if ( _plnLeft.a*pos.x + _plnLeft.b*pos.y + _plnLeft.c * pos.z + _plnLeft.d <= radius) {
+//                if ( _plnRight.a*pos.x + _plnRight.b*pos.y + _plnRight.c * pos.z + _plnRight.d <= radius) {
+//                    if ( _plnFront.a*pos.x + _plnFront.b*pos.y + _plnFront.c * pos.z + _plnFront.d <= radius) {
+//                        if ( _plnBack.a*pos.x + _plnBack.b*pos.y + _plnBack.c * pos.z + _plnBack.d <= radius) {
+//                            //Viewport範囲内
+//                            return 0;
+//                        } else {
+//                            //奥平面より奥で範囲外
+//                            return 6;
+//                        }
+//                    } else {
+//                        //手前平面より手前で範囲外
+//                        return 5;
+//                    }
+//                } else {
+//                    //右平面より右で範囲外
+//                    return 4;
+//                }
+//            } else {
+//                //左平面より左で範囲外
+//                return 3;
+//            }
+//        } else {
+//            //下平面より下で範囲外
+//            return 2;
+//        }
+//    } else {
+//        //上平面より上で範囲外
+//        return 1;
+//    }
+//
+////     return ( _plnTop.a*pos.x + _plnTop.b*pos.y + _plnTop.c * pos.z + _plnTop.d <= radius)
+////         && ( _plnBottom.a*pos.x + _plnBottom.b*pos.y + _plnBottom.c * pos.z + _plnBottom.d <= radius)
+////         && ( _plnLeft.a*pos.x + _plnLeft.b*pos.y + _plnLeft.c * pos.z + _plnLeft.d <= radius)
+////         && ( _plnRight.a*pos.x + _plnRight.b*pos.y + _plnRight.c * pos.z + _plnRight.d <= radius)
+////         && ( _plnFront.a*pos.x + _plnFront.b*pos.y + _plnFront.c * pos.z + _plnFront.d <= radius)
+////         && ( _plnBack.a*pos.x + _plnBack.b*pos.y + _plnBack.c * pos.z + _plnBack.d <= radius);
+//
+//}
 
 
-    HRESULT hr;
-    D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
-    //スクリーン全体のクライアント領域を保持。
-    hr = GgafDx9God::_pID3DDevice9->GetViewport(&viewport);
-
-    // viewport.MinZ / MaxZ は、通常それぞれ 0 / 1
-     float x1 = (float)viewport.X;
-     float y1 = (float)viewport.Y;
-     float x2 = (float)viewport.X + (float)viewport.Width;
-     float y2 = (float)viewport.Y + (float)viewport.Height;
-
-     // 視錐台の８点が格納されるインスタンス
-     Near[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // 左下 (変換後)
-     Near[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // 右下 (変換後)
-     Near[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // 左上 (変換後)
-     Near[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // 右上 (変換後)
-
-     Far[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // 左下 (変換後)
-     Far[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // 右下 (変換後)
-     Far[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // 左上 (変換後)
-     Far[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // 右上 (変換後)
-
-     // 視錐台の８点の計算
-     D3DXMATRIX mat_world;
-     D3DXMatrixIdentity( &mat_world );
-     D3DVIEWPORT9 *pViewport = const_cast<D3DVIEWPORT9*>(&viewport);
-     // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
-     for( int i = 0; i < 4; ++i )
-     {
-         D3DXVec3Unproject(&Near[i], &Near[i],
-             pViewport, &_vMatrixProj, &_vMatrixView, &mat_world);
-         D3DXVec3Unproject(&Far[i], &Far[i],
-             pViewport, &_vMatrixProj, &_vMatrixView, &mat_world);
-     }
-
-     //-------------------------------------------------
-     //  平面方程式：ax+by+cz+d
-     //  平面の法線ベクトル：n = (a, b, c)
-     //  平面上の1点を、p = (x0, y0, z0) とすると、
-     //  平面の法線ベクトルと平面状の1点の内積：d = n*p
-     //
-     //  表裏判定をするときは、点 p = (x0, y0, z0)を、
-     //  p = (x0, y0, z0, 1) とみなし、
-     //  平面との内積：a*x0 + b*y0 + c*z0 + d*1 = ans
-     //  ans > 0 なら表、ans < 0 なら裏、ans == 0 なら面上、となる。
-     //  DXPlaneDotCoord() は、この処理を行っている
-     //
-     //  また、p = (x0, y0, z0, 0) とみなして内積の計算を行うと、
-     //  角度の関係を調べることができる。
-     //  → D3DXPlaneDotNormal()
-     //-------------------------------------------------
-
-     // 視錐台の6つの面を算出
-     D3DXPLANE Top, Bottom, Left, Right, Front, Back;
-
-     // 上 ( F左上、N左上、N右上 )
-     D3DXPlaneNormalize(&Top,
-         D3DXPlaneFromPoints(&Top, &(Far[2]), &(Near[2]), &(Near[3])));
-     // 下 ( F左下、N右下、N左下 )
-     D3DXPlaneNormalize(&Bottom,
-         D3DXPlaneFromPoints(&Bottom, &(Far[0]), &(Near[1]), &(Near[0])));
-
-     // 左 ( F左下、N左下、N左上 )
-     D3DXPlaneNormalize(&Left,
-         D3DXPlaneFromPoints(&Left, &(Far[0]), &(Near[0]), &(Near[2])));
-     // 右 ( F右下、N右上、N右下 )
-     D3DXPlaneNormalize(&Right,
-         D3DXPlaneFromPoints(&Right, &(Far[1]), &(Near[3]), &(Near[1])));
-
-     // 手前 ( N左上、N左下、N右上)
-     D3DXPlaneNormalize(&Front,
-         D3DXPlaneFromPoints(&Front, &(Near[2]), &(Near[0]), &(Near[3])));
-     // 奥 ( F右上、F左下、F左上)
-     D3DXPlaneNormalize(&Back,
-         D3DXPlaneFromPoints(&Back, &(Far[3]), &(Far[0]), &(Far[2])));
-
-     return ( Top.a*pos.x + Top.b*pos.y + Top.c * pos.z + Top.d <= radius)
-         && ( Bottom.a*pos.x + Bottom.b*pos.y + Bottom.c * pos.z + Bottom.d <= radius)
-         && ( Left.a*pos.x + Left.b*pos.y + Left.c * pos.z + Left.d <= radius)
-         && ( Right.a*pos.x + Right.b*pos.y + Right.c * pos.z + Right.d <= radius)
-         && ( Front.a*pos.x + Front.b*pos.y + Front.c * pos.z + Front.d <= radius)
-         && ( Back.a*pos.x + Back.b*pos.y + Back.c * pos.z + Back.d <= radius);
-
-}
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
     DELETE_IMPOSSIBLE_NULL(_pMover);

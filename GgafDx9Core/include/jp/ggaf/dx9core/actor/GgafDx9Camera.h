@@ -26,9 +26,25 @@ public:
 
 
 
-    //test
-    D3DXVECTOR3 Near[4];
-    D3DXVECTOR3 Far[4];
+    // 視錐台の6つの面の頂点座標
+    /** 視錐台面、手前の四角形の頂点(out:毎フレーム更新) */
+    D3DXVECTOR3 _vecNear[4];
+    /** 視錐台面、奥の四角形の頂点(out:毎フレーム更新) */
+    D3DXVECTOR3 _vecFar[4];
+
+    // 視錐台の6つの面
+    /** 視錐台面、上(out:毎フレーム更新) */
+    D3DXPLANE _plnTop;
+    /** 視錐台面、下(out:毎フレーム更新) */
+    D3DXPLANE _plnBottom;
+    /** 視錐台面、左(out:毎フレーム更新) */
+    D3DXPLANE _plnLeft;
+    /** 視錐台面、右(out:毎フレーム更新) */
+    D3DXPLANE _plnRight;
+    /** 視錐台面、手前(out:毎フレーム更新) */
+    D3DXPLANE _plnFront;
+    /** 視錐台面、奥(out:毎フレーム更新) */
+    D3DXPLANE _plnBack;
 
 
 
@@ -130,7 +146,12 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    virtual bool isInTheViewports(GgafDx9GeometricActor* pActor, FLOAT radius);
+//    virtual int canView(GgafDx9GeometricActor* pActor) {
+//        return canView(pActor, pActor->_max_radius);
+//    }
+//
+//
+//    virtual int canView(GgafDx9GeometricActor* pActor, FLOAT radius);
 
 
     virtual bool isInTheViewports_old(int prm_X, int prm_Y, int prm_Z);

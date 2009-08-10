@@ -35,6 +35,29 @@ public:
     /** ワールドZ軸方向倍率 */
     int _SZ;
 
+    /** このオブジェクトのローカル座標の原点から全頂点の距離で最大の長さ */
+    FLOAT _max_radius;
+
+    /** directXのワールドX座標 */
+    FLOAT _fX;
+    /** directYのワールドY座標 */
+    FLOAT _fY;
+    /** directZのワールドZ座標 */
+    FLOAT _fZ;
+    /** 視野外の自身の座標から視錐台上面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnTop;
+    /** 視野外の自身の座標から視錐台下面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnBottom;
+    /** 視野外の自身の座標から視錐台左面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnLeft;
+    /** 視野外の自身の座標から視錐台右面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnRight;
+    /** 視野外の自身の座標から視錐台手前面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnFront;
+    /** 視野外の自身の座標から視錐台奥面までの距離、視野内の距離は負の値になる */
+    FLOAT _fDistance_plnBack;
+
+
     /** 自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;
 
@@ -82,6 +105,10 @@ public:
     }
 
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent);
+
+    /** いろいろな計算を行っておく */
+    virtual void processPreJudgement();
+
 
     virtual bool isOffScreen();
 
