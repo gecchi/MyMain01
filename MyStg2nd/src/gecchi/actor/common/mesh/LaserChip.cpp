@@ -192,10 +192,12 @@ void LaserChip::processDrawMain() {
 //    float x2;
 //    float y2;
 //    float z2;
-    float D1;
-    float D2;
-
-
+    float DBF;
+    float DBT;
+    float DLF; //distance left from
+    float DLT; //distance left to
+    float DRF; //distance right from
+    float DRT; //distance right to
 
 
 
@@ -240,8 +242,62 @@ void LaserChip::processDrawMain() {
 //                 GgafDx9Universe::_pCamera->_plnBack.d;
 
 
-            D1 = pDrawLaserChipActor->_fDistance_plnBack;
-            D2 = pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+            DBF = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
+            DBT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+
+            DLF = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
+            DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+            DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
+            DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+            if (DBF < DBT) {
+                if (DLF < DLT) {
+                    //視錐台右平面にぶつかる
+                    rev_pos_Z = false;
+                } else if (DRF < DRT) {
+                    //視錐台左平面にぶつかる
+                    rev_pos_Z = true;
+                } else if (DLF > DLT && DRF > DRT) {
+                    if (DLF < DRF && DLT < DRT) {
+                        //視錐台左平面にぶつかる
+                        rev_pos_Z = true;
+                    } else if (DLF > DRF && DLT > DRT) {
+                        //視錐台右平面にぶつかる
+                        rev_pos_Z = false;
+                    } else if (DLF < DRF && DLT > DRT) {
+                        //視錐台右平面にぶつかる
+                        rev_pos_Z = false;
+                    } else if (DLF > DRF && DLT < DRT) {
+                        //視錐台左平面にぶつかる
+                        rev_pos_Z = true;
+                    }
+                } else {
+                    _TRACE_("おかしいのではA？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
+                }
+            } else {
+                if (DLF < DLT) {
+                    //視錐台左平面にぶつかる
+                    rev_pos_Z = true;
+                } else if (DRF < DRT) {
+                    //視錐台右平面にぶつかる
+                    rev_pos_Z = false;
+                } else if (DLF > DLT && DRF > DRT) {
+                    if (DLF < DRF && DLT < DRT) {
+                        //視錐台右平面にぶつかる
+                        rev_pos_Z = false;
+                    } else if (DLF > DRF && DLT > DRT) {
+                        //視錐台左平面にぶつかる
+                        rev_pos_Z = true;
+                    } else if (DLF < DRF && DLT > DRT) {
+                        //視錐台左平面にぶつかる
+                        rev_pos_Z = true;
+                    } else if (DLF > DRF && DLT < DRT) {
+                        //視錐台右平面にぶつかる
+                        rev_pos_Z = false;
+                    }
+                } else {
+                    _TRACE_("おかしいのではB？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
+                }
+            }
 
 //            _TRACE_("D1="<<D1<<"  D2="<<D2<<"");
 //
@@ -256,90 +312,75 @@ void LaserChip::processDrawMain() {
 //
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            //チップの十字の左右の羽の描画順序を考える。
-            slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
-            if (pDrawLaserChipActor->_pChip_front->_X == pDrawLaserChipActor->_X) {
-                rev_pos_Z = false;
-            } else if (pCAM->_view_border_slant2_XZ < slant && slant < pCAM->_view_border_slant1_XZ) {
-                if (pDrawLaserChipActor->_pChip_front->_X > pDrawLaserChipActor->_X ) {
-                    rev_pos_Z = false;
-                } else {
-                    rev_pos_Z = true;
-                }
-            } else {
-                if (pDrawLaserChipActor->_pChip_front->_Z == pDrawLaserChipActor->_Z) {
-                    rev_pos_Z = false;
-                } else {
-                    //＜2009/5/19 メモ：rev_pos_Zは何を判定しようとしているのか＞
-                    //頂点Z座標を反転(-1倍)して描画とはチップの羽の描画順序を逆にするかどうかの判断をする。
-                    //羽とは下図（レーザーのチップのローカル座標図）の①と④のポリゴンのことを指す。
-                    //頂点インデックス（＝描画順序）は①②③④の順番になっている。
-                    //ワールド変換後、カメラから下図ような角度でチップが見える場合、 ①が一番奥まった場所、④は一番手前側にあるので綺麗に描画されるが、
-                    //①、④の奥手前が逆になってしまう角度（＝カメラの左を通過するような角度）だと、ギザギザな描画になってしまう。
-                    //
-                    //         ↑ｙ軸
-                    //         │
-                    //
-                    //          ＼
-                    //         │ ＼
-                    //         │② ＼
-                    //  (0,0,0)│    ┃        ｚ軸
-                    // ────┘----┃─   ─→
-                    //  ＼  ④ ：＼  ┃   ＼
-                    //    ＼   ：  ＼┃  ① ＼
-                    //       ━━━━╋━━━━
-                    //         │    ┃
-                    //          ＼ ③┃  ＼
-                    //            ＼ ┃    ＼ ｘ軸（方向）
-                    //               ┃      ┘
-                    //
-                    //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
-                    //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
-                    //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
-                    //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し描画する。
-                    //Z座標を反転描画しなければならない場合 rev_pos_Z = true としてシェーダーに渡すこととする。
-                    crossCamX = ((float)(pCAM->_Z - pDrawLaserChipActor->_Z)) *
-                                 ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
-                                  (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
-                                 ) + pDrawLaserChipActor->_X;
-
-                    //TODO:
-                    //それよりXZ平面においｔ、チップ座標とViewPointを結ぶ直線の傾きと
-                    //チップと次のチップが作る傾きを比較すればよい
-                    //ViewPointが第１～４象限によって判定は変わるでしょう。注意
-
-
-                    if (crossCamX < pCAM->_X) {
-                        rev_pos_Z = true;
-                    } else {
-                        rev_pos_Z = false;
-                    }
-                }
-
-                if (pDrawLaserChipActor->_pChip_front->_Z > pDrawLaserChipActor->_Z) {
-                    //これまでの上記の判定は全てレーザーは奥から手前へ来てる場合の判定。
-                    //もし手前から奥へ飛んでいる場合は、Z座標を反転の判定は逆になる。
-
-
-                    //TODO:何を持って奥とするか。今はZ座標にしているが・・・
-                    rev_pos_Z = !rev_pos_Z;
-                }
-            }
+//            //チップの十字の左右の羽の描画順序を考える。
+//            slant = (pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)*1.0 / (pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X)*1.0;
+//            if (pDrawLaserChipActor->_pChip_front->_X == pDrawLaserChipActor->_X) {
+//                rev_pos_Z = false;
+//            } else if (pCAM->_view_border_slant2_XZ < slant && slant < pCAM->_view_border_slant1_XZ) {
+//                if (pDrawLaserChipActor->_pChip_front->_X > pDrawLaserChipActor->_X ) {
+//                    rev_pos_Z = false;
+//                } else {
+//                    rev_pos_Z = true;
+//                }
+//            } else {
+//                if (pDrawLaserChipActor->_pChip_front->_Z == pDrawLaserChipActor->_Z) {
+//                    rev_pos_Z = false;
+//                } else {
+//                    //＜2009/5/19 メモ：rev_pos_Zは何を判定しようとしているのか＞
+//                    //頂点Z座標を反転(-1倍)して描画とはチップの羽の描画順序を逆にするかどうかの判断をする。
+//                    //羽とは下図（レーザーのチップのローカル座標図）の①と④のポリゴンのことを指す。
+//                    //頂点インデックス（＝描画順序）は①②③④の順番になっている。
+//                    //ワールド変換後、カメラから下図ような角度でチップが見える場合、 ①が一番奥まった場所、④は一番手前側にあるので綺麗に描画されるが、
+//                    //①、④の奥手前が逆になってしまう角度（＝カメラの左を通過するような角度）だと、ギザギザな描画になってしまう。
+//                    //
+//                    //         ↑ｙ軸
+//                    //         │
+//                    //
+//                    //          ＼
+//                    //         │ ＼
+//                    //         │② ＼
+//                    //  (0,0,0)│    ┃        ｚ軸
+//                    // ────┘----┃─   ─→
+//                    //  ＼  ④ ：＼  ┃   ＼
+//                    //    ＼   ：  ＼┃  ① ＼
+//                    //       ━━━━╋━━━━
+//                    //         │    ┃
+//                    //          ＼ ③┃  ＼
+//                    //            ＼ ┃    ＼ ｘ軸（方向）
+//                    //               ┃      ┘
+//                    //
+//                    //XZ平面において、レーザーチップがカメラの右を通過するのか左を通過するのか、
+//                    //２点(X1,Z1)(X2,Z2) を通る直線の方程式において、 Z = CamZ の時のX座標は
+//                    //X = ((CamZ-Z1)*(X2-X1)/ (Z2-Z1))+X1 となる。２点にチップの座標、一つ先のチップの座標を代入し
+//                    //この式のXがCamXより小さければのカメラ左を通過することになる。その場合チップの頂点バッファのZ座標を反転(-1倍)し描画する。
+//                    //Z座標を反転描画しなければならない場合 rev_pos_Z = true としてシェーダーに渡すこととする。
+//                    crossCamX = ((float)(pCAM->_Z - pDrawLaserChipActor->_Z)) *
+//                                 ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
+//                                  (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
+//                                 ) + pDrawLaserChipActor->_X;
+//
+//                    //TODO:
+//                    //それよりXZ平面においｔ、チップ座標とViewPointを結ぶ直線の傾きと
+//                    //チップと次のチップが作る傾きを比較すればよい
+//                    //ViewPointが第１～４象限によって判定は変わるでしょう。注意
+//
+//
+//                    if (crossCamX < pCAM->_X) {
+//                        rev_pos_Z = true;
+//                    } else {
+//                        rev_pos_Z = false;
+//                    }
+//                }
+//
+//                if (pDrawLaserChipActor->_pChip_front->_Z > pDrawLaserChipActor->_Z) {
+//                    //これまでの上記の判定は全てレーザーは奥から手前へ来てる場合の判定。
+//                    //もし手前から奥へ飛んでいる場合は、Z座標を反転の判定は逆になる。
+//
+//
+//                    //TODO:何を持って奥とするか。今はZ座標にしているが・・・
+//                    rev_pos_Z = !rev_pos_Z;
+//                }
+//            }
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], rev_pos_Z);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
 
