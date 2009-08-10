@@ -243,6 +243,13 @@ void LaserChip::processDrawMain() {
                                  ((float)(pDrawLaserChipActor->_pChip_front->_X - pDrawLaserChipActor->_X) /
                                   (float)(pDrawLaserChipActor->_pChip_front->_Z - pDrawLaserChipActor->_Z)
                                  ) + pDrawLaserChipActor->_X;
+
+                    //TODO:
+                    //それよりXZ平面においｔ、チップ座標とViewPointを結ぶ直線の傾きと
+                    //チップと次のチップが作る傾きを比較すればよい
+                    //ViewPointが第１～４象限によって判定は変わるでしょう。注意
+
+
                     if (crossCamX < pCAM->_X) {
                         rev_pos_Z = true;
                     } else {
@@ -253,6 +260,9 @@ void LaserChip::processDrawMain() {
                 if (pDrawLaserChipActor->_pChip_front->_Z > pDrawLaserChipActor->_Z) {
                     //これまでの上記の判定は全てレーザーは奥から手前へ来てる場合の判定。
                     //もし手前から奥へ飛んでいる場合は、Z座標を反転の判定は逆になる。
+
+
+                    //TODO:何を持って奥とするか。今はZ座標にしているが・・・
                     rev_pos_Z = !rev_pos_Z;
                 }
             }

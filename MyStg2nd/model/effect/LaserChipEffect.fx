@@ -145,6 +145,19 @@ OUT_VS GgafDx9VS_LaserChip(
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {
+//TODO:20090806アイディア
+//現在先頭のチップは何も表示されないので
+//２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
+//・・・単に２倍90度回転してだめだった、風車になるだけ
+
+//		if (kind == 4) {  //3ではないよ
+//         x =  cos90*_Xorg + sin90*_Yorg  = 0*_Xorg + 1*_Yorg   =  Y
+//         y = -sin90*_Xorg + cos90*_Yorg  = -1*_Xorg + 0*_Yorg  = -X
+
+//			sin
+//		   ナインか
+//		}
+
 		// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {
