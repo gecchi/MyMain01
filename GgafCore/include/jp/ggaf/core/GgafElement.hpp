@@ -201,7 +201,12 @@ public:
     virtual void happen(int prm_no);
 
     /**
-     * フレーム毎の個別振る舞い処理を実装。(単体) .
+     * フレーム毎の個別振る舞い処理を実装。(フレームワーク実装用、単体) .
+     */
+    virtual void processPreBehavior() {}
+
+    /**
+     * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .
      * behave() 時の処理先頭でコールバックされる。<BR>
      * このメンバ関数を下位クラスでオーバーライドして、ノード個別の振る舞いを処理を実装する。<BR>
      * 想定している振る舞い処理とは、主に座標計算と移動処理等である。<BR>
@@ -210,7 +215,12 @@ public:
     virtual void processBehavior() = 0;
 
     /**
-     * フレーム毎の個別判断処理を実装。(単体) .
+     * フレーム毎の個別判断処理を実装。(フレームワーク実装用、単体) .
+     */
+    virtual void processPreJudgement() {}
+
+    /**
+     * フレーム毎の個別判断処理を実装。(ユーザー実装用、単体) .
      * judge() 時の処理先頭でコールバックされる。<BR>
      * このメンバ関数をオーバーライドして、ノード個別判断処理を記述する。<BR>
      * 本メンバ関数がコールバックされると言う事は、全ノード対してて、processBehavior() が実行済みであることを保証する。<BR>
@@ -672,6 +682,7 @@ void GgafElement<T>::behave() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
+        processPreBehavior();
         processBehavior();
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
@@ -696,6 +707,7 @@ void GgafElement<T>::judge() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
+        processPreJudgement();
         processJudgement();
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
