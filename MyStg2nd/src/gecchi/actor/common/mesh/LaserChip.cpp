@@ -249,55 +249,81 @@ void LaserChip::processDrawMain() {
             DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
             DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
             DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-            if (DBF < DBT) {
-                if (DLF < DLT) {
-                    //視錐台右平面にぶつかる
-                    rev_pos_Z = false;
-                } else if (DRF < DRT) {
-                    //視錐台左平面にぶつかる
-                    rev_pos_Z = true;
-                } else if (DLF > DLT && DRF > DRT) {
-                    if (DLF < DRF && DLT < DRT) {
-                        //視錐台左平面にぶつかる
-                        rev_pos_Z = true;
-                    } else if (DLF > DRF && DLT > DRT) {
-                        //視錐台右平面にぶつかる
-                        rev_pos_Z = false;
-                    } else if (DLF < DRF && DLT > DRT) {
-                        //視錐台右平面にぶつかる
-                        rev_pos_Z = false;
-                    } else if (DLF > DRF && DLT < DRT) {
-                        //視錐台左平面にぶつかる
-                        rev_pos_Z = true;
-                    }
-                } else {
-                    _TRACE_("おかしいのではA？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
-                }
+            //  DLF / DLT  = DRF / DRT となった場合、
+            // 視点を通るのじゃないのか？
+            //  DLF / DLT  < DRF / DRT となった場合、
+            // 左の壁にぶつかるのじゃないのか？
+            //  DLF / DLT  < DRF / DRT となった場合、
+            // 右の壁にぶつかるのじゃないのか？
+
+            if (DLF / DLT  < DRF / DRT) {
+                //視錐台左平面にぶつかる
+                rev_pos_Z = true;
+            } else if (DLF / DLT  > DRF / DRT) {
+                //視錐台右平面にぶつかる
+                rev_pos_Z = false;
             } else {
-                if (DLF < DLT) {
-                    //視錐台左平面にぶつかる
-                    rev_pos_Z = true;
-                } else if (DRF < DRT) {
-                    //視錐台右平面にぶつかる
-                    rev_pos_Z = false;
-                } else if (DLF > DLT && DRF > DRT) {
-                    if (DLF < DRF && DLT < DRT) {
-                        //視錐台右平面にぶつかる
-                        rev_pos_Z = false;
-                    } else if (DLF > DRF && DLT > DRT) {
-                        //視錐台左平面にぶつかる
-                        rev_pos_Z = true;
-                    } else if (DLF < DRF && DLT > DRT) {
-                        //視錐台左平面にぶつかる
-                        rev_pos_Z = true;
-                    } else if (DLF > DRF && DLT < DRT) {
-                        //視錐台右平面にぶつかる
-                        rev_pos_Z = false;
-                    }
-                } else {
-                    _TRACE_("おかしいのではB？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
-                }
+                rev_pos_Z = false;
             }
+
+
+
+//            DBF = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
+//            DBT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+//
+//            DLF = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
+//            DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+//            DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
+//            DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+//            if (DBF < DBT) {
+//                if (DLF < DLT) {
+//                    //視錐台右平面にぶつかる
+//                    rev_pos_Z = false;
+//                } else if (DRF < DRT) {
+//                    //視錐台左平面にぶつかる
+//                    rev_pos_Z = true;
+//                } else if (DLF > DLT && DRF > DRT) {
+//                    if (DLF < DRF && DLT < DRT) {
+//                        //視錐台左平面にぶつかる
+//                        rev_pos_Z = true;
+//                    } else if (DLF > DRF && DLT > DRT) {
+//                        //視錐台右平面にぶつかる
+//                        rev_pos_Z = false;
+//                    } else if (DLF < DRF && DLT > DRT) {
+//                        //視錐台右平面にぶつかる
+//                        rev_pos_Z = false;
+//                    } else if (DLF > DRF && DLT < DRT) {
+//                        //視錐台左平面にぶつかる
+//                        rev_pos_Z = true;
+//                    }
+//                } else {
+//                    _TRACE_("おかしいのではA？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
+//                }
+//            } else {
+//                if (DLF < DLT) {
+//                    //視錐台左平面にぶつかる
+//                    rev_pos_Z = true;
+//                } else if (DRF < DRT) {
+//                    //視錐台右平面にぶつかる
+//                    rev_pos_Z = false;
+//                } else if (DLF > DLT && DRF > DRT) {
+//                    if (DLF < DRF && DLT < DRT) {
+//                        //視錐台右平面にぶつかる
+//                        rev_pos_Z = false;
+//                    } else if (DLF > DRF && DLT > DRT) {
+//                        //視錐台左平面にぶつかる
+//                        rev_pos_Z = true;
+//                    } else if (DLF < DRF && DLT > DRT) {
+//                        //視錐台左平面にぶつかる
+//                        rev_pos_Z = true;
+//                    } else if (DLF > DRF && DLT < DRT) {
+//                        //視錐台右平面にぶつかる
+//                        rev_pos_Z = false;
+//                    }
+//                } else {
+//                    _TRACE_("おかしいのではB？ DBF="<<DBF<<",DBT="<<DBT<<",DLF="<<DLF<<",DLT="<<DLT<<",DRF="<<DRF<<",DRT="<<DRT<<"");
+//                }
+//            }
 
 //            _TRACE_("D1="<<D1<<"  D2="<<D2<<"");
 //
