@@ -27,6 +27,16 @@ void BackGroundStar::initialize() {
 //    }
 }
 
+
+void BackGroundStar::processPreJudgement() {
+    for (int i = 0; i < 4; i++) {
+        _papBackGroundStar001[i]->_fX = (FLOAT)(1.0 * _papBackGroundStar001[i]->_X / LEN_UNIT / PX_UNIT);
+        _papBackGroundStar001[i]->_fY = (FLOAT)(1.0 * _papBackGroundStar001[i]->_Y / LEN_UNIT / PX_UNIT);
+        _papBackGroundStar001[i]->_fZ = (FLOAT)(1.0 * _papBackGroundStar001[i]->_Z / LEN_UNIT / PX_UNIT);
+    }
+}
+
+
 void BackGroundStar::processBehavior() {
     //フェードイン
 //    if (0 < _lifeframe && _lifeframe <= 255) {

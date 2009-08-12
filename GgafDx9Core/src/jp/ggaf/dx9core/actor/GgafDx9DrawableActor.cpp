@@ -110,16 +110,13 @@ void GgafDx9DrawableActor::processDrawPrior() {
                                     this
                                  );
             } else {
-                //＜メモ＞
-                //透明の場合は、Z軸値で遠くから描画するように設定。
-                //_Z が カメラ位置 ～ カメラ + 1000*MAX_DRAW_DEPTH_LEVEL の間であれば MAX_DRAW_DEPTH_LEVELで
-                //段階レンダリングをすることとする。
-                //粗さは 1000。←この範囲のZは同一深度となる。
-                //TODO: カメラが動きZ座標で深度が決まらない場合波状する。正しくはカメラ座標からの距離でソートすべき。・・・その内やろう。
-                GgafDx9Universe::setDrawDepthLevel(
-                  (_Z-(pCAM->_pVecCamFromPoint->z*LEN_UNIT*PX_UNIT)) / 10000,
-                  this
-                );
+
+                //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1*PX_UNIT, this);
+                //↑これで1px間隔段階レンダリング
+                //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
+                //↑ということはこれで10px間隔段階レンダリング
+                //今は20px間隔段階レンダリング
+                GgafDx9Universe::setDrawDepthLevel((_fDistance_plnFront)/-2, this);
             }
         } else {
             //不透明の場合は初めに描画するように設定。

@@ -91,6 +91,7 @@ void MyShip::initialize() {
 }
 
 void MyShip::processBehavior() {
+
     _stc = VB::getBeingPressedStick();
 
     ///////////スケーリングテスト////////////////
@@ -305,6 +306,7 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
+    //_TRACE_("dep="<< (_fDistance_plnFront)<<"");
 }
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {

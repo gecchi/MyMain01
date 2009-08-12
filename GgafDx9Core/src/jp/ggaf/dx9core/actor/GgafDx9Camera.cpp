@@ -46,7 +46,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
             _rad_fovY, //y方向視野角ラディアン(0～π)
             _screen_aspect, //アスペクト比  640×480 の場合  640/480
             1.0, //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-            2000.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+            500.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
             //(FLOAT)(-1.0*dCam*4)
             //(-1.0*fCam)-30,
             //(-1.0*fCam)+30
@@ -102,30 +102,32 @@ void GgafDx9Camera::processBehavior() {
     //傾き (z2-z1)/(x2-x1)   = tanθ
     //切片 (x2z1-x1z2)/(x2-x1)
     //クリップボーダー計算
-    float x1_ = _pVecCamFromPoint->x;
-    float y1_ = _pVecCamFromPoint->y;
-    float z1_ = _pVecCamFromPoint->z;
-    float x2_ = _pVecCamLookatPoint->x;
-    float y2_ = _pVecCamLookatPoint->y;
-    float z2_ = _pVecCamLookatPoint->z;
-    _view_slant_XZ = (z2_-z1_)/(x2_-x1_);
-    _view_slant_ZY = (y2_-y1_)/(z2_-z1_);
-    _view_rad_XZ = atan(_view_slant_XZ);
-    _view_rad_ZY = atan(_view_slant_ZY);
-    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX; //この1.3は適当
-    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX;
-    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY;
-    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY;
+//    float x1_ = _pVecCamFromPoint->x;
+//    float y1_ = _pVecCamFromPoint->y;
+//    float z1_ = _pVecCamFromPoint->z;
+//    float x2_ = _pVecCamLookatPoint->x;
+//    float y2_ = _pVecCamLookatPoint->y;
+//    float z2_ = _pVecCamLookatPoint->z;
+//    _view_slant_XZ = (z2_-z1_)/(x2_-x1_);
+//    _view_slant_ZY = (y2_-y1_)/(z2_-z1_);
 
-    _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
-    _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
-    _view_border_slant1_ZY = tan(_view_border_rad1_ZY);
-    _view_border_slant2_ZY = tan(_view_border_rad2_ZY);
+//    _view_rad_XZ = atan(_view_slant_XZ);
+//    _view_rad_ZY = atan(_view_slant_ZY);
 
-    _view_border_intercept1_XZ = _Z - (_view_border_slant1_XZ*_X);
-    _view_border_intercept2_XZ = _Z - (_view_border_slant2_XZ*_X);
-    _view_border_intercept1_ZY = _Y - (_view_border_slant1_ZY*_Z);
-    _view_border_intercept2_ZY = _Y - (_view_border_slant2_ZY*_Z);
+//    _view_border_rad1_XZ =  _view_rad_XZ + _rad_half_fovX; //この1.3は適当
+//    _view_border_rad2_XZ =  _view_rad_XZ - _rad_half_fovX;
+//    _view_border_rad1_ZY =  _view_rad_ZY + _rad_half_fovY;
+//    _view_border_rad2_ZY =  _view_rad_ZY - _rad_half_fovY;
+
+//    _view_border_slant1_XZ = tan(_view_border_rad1_XZ);
+//    _view_border_slant2_XZ = tan(_view_border_rad2_XZ);
+//    _view_border_slant1_ZY = tan(_view_border_rad1_ZY);
+//    _view_border_slant2_ZY = tan(_view_border_rad2_ZY);
+
+//    _view_border_intercept1_XZ = _Z - (_view_border_slant1_XZ*_X);
+//    _view_border_intercept2_XZ = _Z - (_view_border_slant2_XZ*_X);
+//    _view_border_intercept1_ZY = _Y - (_view_border_slant1_ZY*_Z);
+//    _view_border_intercept2_ZY = _Y - (_view_border_slant2_ZY*_Z);
 
 
 
@@ -239,19 +241,14 @@ void GgafDx9Camera::processBehavior() {
         D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
     );
 
-
-
-
-
-
-
-
 }
 
+
+
 void GgafDx9Camera::processJudgement() {
-    _pVecCamFromPoint->x = (1.0 * _X) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->y = (1.0 * _Y) / LEN_UNIT / PX_UNIT;
-    _pVecCamFromPoint->z = (1.0 * _Z) / LEN_UNIT / PX_UNIT;
+    _pVecCamFromPoint->x = _fX;
+    _pVecCamFromPoint->y = _fY;
+    _pVecCamFromPoint->z = _fZ;
     _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
     _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
     _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
@@ -262,227 +259,227 @@ void GgafDx9Camera::processJudgement() {
 
 
 
-bool GgafDx9Camera::isInTheViewports_old(int prm_X, int prm_Y, int prm_Z) {
-    //速度優先のため簡易視錐台判定
-    //fovX*1.3  fovY*1.3 はの1.3は、 視野角によって変えなければいけません。このあたりが適当です。
-    //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
-    //正しく判定できません。
-
-    if ( _Z - 10000000 < prm_Z && prm_Z < _Z + 10000000) {
-        //XZ平面視点
-        if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ >= 0) {
-            if (_X < _gazeX && _Z < _gazeZ) {
-                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (_X > _gazeX && _Z > _gazeZ) {
-                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-
-        } else if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ < 0) {
-            if (_X < _gazeX) {
-                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                }else {
-                    return false;
-                }
-            } else if (_X > _gazeX) {
-                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                }else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-
-        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ < 0) {
-            if (_X < _gazeX && _Z > _gazeZ) {
-                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (_X > _gazeX && _Z < _gazeZ) {
-                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ > 0) {
-            if (_Z < _gazeZ) {
-
-                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            } else if (_Z > _gazeZ) {
-                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
-                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
-                        //XZ平面OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-
-        //ZY平面視点
-        if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY >= 0) {
-            if (_Z < _gazeZ && _Y < _gazeY) {
-                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true; //OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (_Z > _gazeZ && _Y > _gazeY) {
-                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true; //OK
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        } else if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY < 0) {
-            if (_Z < _gazeZ) {
-                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true; //ok
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (_Y > _gazeY) {
-                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true; //ok
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY < 0) {
-            if (_Z < _gazeZ && _Y > _gazeY) {
-                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            } else if (_Z > _gazeZ && _Y < _gazeY) {
-                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            } else {
-                return false;
-            }
-        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY > 0) {
-            if (_Z > _gazeZ) {
-                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-
-            } else if (_Z < _gazeZ) {
-                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
-                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } else {
-                    return false;
-                }
-            }else {
-                return false;
-            }
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-}
+//bool GgafDx9Camera::isInTheViewports_old(int prm_X, int prm_Y, int prm_Z) {
+//    //速度優先のため簡易視錐台判定
+//    //fovX*1.3  fovY*1.3 はの1.3は、 視野角によって変えなければいけません。このあたりが適当です。
+//    //カメラが真上付近から真下付近を見る場合、および、真下付近から真上付近を見る場合は
+//    //正しく判定できません。
+//
+//    if ( _Z - 10000000 < prm_Z && prm_Z < _Z + 10000000) {
+//        //XZ平面視点
+//        if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ >= 0) {
+//            if (_X < _gazeX && _Z < _gazeZ) {
+//                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else if (_X > _gazeX && _Z > _gazeZ) {
+//                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//
+//        } else if (_view_border_slant1_XZ >= 0 && _view_border_slant2_XZ < 0) {
+//            if (_X < _gazeX) {
+//                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                }else {
+//                    return false;
+//                }
+//            } else if (_X > _gazeX) {
+//                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                }else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//
+//        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ < 0) {
+//            if (_X < _gazeX && _Z > _gazeZ) {
+//                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else if (_X > _gazeX && _Z < _gazeZ) {
+//                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//        } else if (_view_border_slant1_XZ < 0 && _view_border_slant2_XZ > 0) {
+//            if (_Z < _gazeZ) {
+//
+//                if (prm_Z > _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z > _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//
+//            } else if (_Z > _gazeZ) {
+//                if (prm_Z < _view_border_slant1_XZ*prm_X + _view_border_intercept1_XZ) {
+//                    if (prm_Z < _view_border_slant2_XZ*prm_X + _view_border_intercept2_XZ) {
+//                        //XZ平面OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else {
+//                return false;
+//            }
+//        } else {
+//            return false;
+//        }
+//
+//        //ZY平面視点
+//        if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY >= 0) {
+//            if (_Z < _gazeZ && _Y < _gazeY) {
+//                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true; //OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else if (_Z > _gazeZ && _Y > _gazeY) {
+//                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true; //OK
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//
+//            } else {
+//                return false;
+//            }
+//        } else if (_view_border_slant1_ZY >= 0 && _view_border_slant2_ZY < 0) {
+//            if (_Z < _gazeZ) {
+//                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true; //ok
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else if (_Y > _gazeY) {
+//                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true; //ok
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//
+//            } else {
+//                return false;
+//            }
+//        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY < 0) {
+//            if (_Z < _gazeZ && _Y > _gazeY) {
+//                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            } else if (_Z > _gazeZ && _Y < _gazeY) {
+//                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//
+//            } else {
+//                return false;
+//            }
+//        } else if (_view_border_slant1_ZY < 0 && _view_border_slant2_ZY > 0) {
+//            if (_Z > _gazeZ) {
+//                if (prm_Y < _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y < _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//
+//            } else if (_Z < _gazeZ) {
+//                if (prm_Y > _view_border_slant1_ZY*prm_Z + _view_border_intercept1_ZY) {
+//                    if (prm_Y > _view_border_slant2_ZY*prm_Z + _view_border_intercept2_ZY) {
+//                        return true;
+//                    } else {
+//                        return false;
+//                    }
+//                } else {
+//                    return false;
+//                }
+//            }else {
+//                return false;
+//            }
+//        } else {
+//            return false;
+//        }
+//    } else {
+//        return false;
+//    }
+//
+//}
 
 
 //test

@@ -19,6 +19,10 @@ public:
      */
     void processBehavior();
 
+
+    void processPreJudgement();
+
+
     void processJudgement() {
     }
 

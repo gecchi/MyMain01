@@ -88,9 +88,9 @@ void GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm
     out_matWorld._33 = (sz * -sinRX * -sinRZ * -sinRY) + (sz * cosRX * cosRY);
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
     /*
      //‘O‚Ì‚â‚è•û
@@ -142,9 +142,9 @@ void GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm
     out_matWorld._33 = ((-sinRX * -sinRZ * -sinRY) + (cosRX * cosRY)) * sz;
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
@@ -172,9 +172,9 @@ void GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(GgafDx9GeometricAct
     out_matWorld._33 = pCAM->_vMatrixView._33 * sz;
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
@@ -218,9 +218,9 @@ void GgafDx9GeometricActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricA
     out_matWorld._33 = ((-sinRX * -sinRZ * -sinRY) + (cosRX * cosRY)) * sz;
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
@@ -263,9 +263,9 @@ void GgafDx9GeometricActor::getWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm
     out_matWorld._33 = cosRX*cosRY*sz;
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
@@ -308,9 +308,9 @@ void GgafDx9GeometricActor::getWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm
     out_matWorld._33 = ((-sinRX * cosRZ * sinRY) + (cosRX *  cosRY)) * sz;
     out_matWorld._34 = 0.0f;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
 
@@ -340,9 +340,9 @@ void GgafDx9GeometricActor::getWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActo
     out_matWorld._33 = 1.0;
     out_matWorld._34 = 0.0;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1;
 }
 
@@ -379,18 +379,18 @@ void GgafDx9GeometricActor::getWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pAc
     out_matWorld._33 = sz;
     out_matWorld._34 = 0.0;
 
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0;
 }
 
 
 
 void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    out_matWorld._41 = (float)(1.0 * prm_pActor->_X / LEN_UNIT / PX_UNIT);
-    out_matWorld._42 = (float)(1.0 * prm_pActor->_Y / LEN_UNIT / PX_UNIT);
-    out_matWorld._43 = (float)(1.0 * prm_pActor->_Z / LEN_UNIT / PX_UNIT);
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0;
 }
 

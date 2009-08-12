@@ -5,7 +5,7 @@
 
 namespace GgafDx9Core {
 
-#define MAX_DRAW_DEPTH_LEVEL 1000
+#define MAX_DRAW_DEPTH_LEVEL 500
 
 /**
  * GgafDx9Core–¼‘O‹óŠÔ‚Ì‚±‚Ì¢ƒNƒ‰ƒX.
