@@ -51,6 +51,13 @@ void World::processBehavior() {
     if (VB::isPushedDown(VB_PAUSE)) {
         if (getSubFirst()->isBehaving()) {
             _TRACE_("PAUSE!");
+            //ƒJƒƒ‰’‹•ûŒüİ’è
+            pCAM->_pMover->setMoveAngle(
+                                pCAM->_gazeX,
+                                pCAM->_gazeY,
+                                pCAM->_gazeZ
+                           );
+
             getSubFirst()->pause();     //ˆê’â~
         } else {
             _TRACE_("UNPAUSE!");
@@ -62,9 +69,10 @@ void World::processBehavior() {
 
     static int dX, dY, dZ;
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
-    static int dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+    static int dZ_camera_init = -1 * pCAM->_cameraZ_org*2 * LEN_UNIT * PX_UNIT;
 
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+    if ( getSubFirst()->isBehaving() ) {
         if (VB::isBeingPressed(VB_BUTTON4)) {
             dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 2)) - pCAM->_Z;
             dX = X_screen_left - pCAM->_X;
@@ -87,6 +95,7 @@ void World::processBehavior() {
         pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
 
         pCAM->_pMover->behave();
+    }
 
     //}
 

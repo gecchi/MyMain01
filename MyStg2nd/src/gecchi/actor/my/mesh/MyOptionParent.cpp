@@ -51,7 +51,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption04->_angPosition = ANGLE270;
     pMyDummyOption04->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 0, 1.0);
     addSubLast(pMyDummyOption04);
-/*
+
     MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
     pMyDummyOption05->_radiusPosition = 200000;
     pMyDummyOption05->_angPosition = 0;
@@ -120,7 +120,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption12->_angveloExpanse = 0;
     pMyDummyOption12->_veloMove = 8000;
     addSubLast(pMyDummyOption12);
-*/
+
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {

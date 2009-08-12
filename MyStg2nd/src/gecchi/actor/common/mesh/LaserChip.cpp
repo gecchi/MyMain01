@@ -255,18 +255,39 @@ void LaserChip::processDrawMain() {
             // 左の壁にぶつかるのじゃないのか？
             //  DLF / DLT  < DRF / DRT となった場合、
             // 右の壁にぶつかるのじゃないのか？
-
-            if (DLF / DLT  < DRF / DRT) {
-                //視錐台左平面にぶつかる
-                rev_pos_Z = true;
-            } else if (DLF / DLT  > DRF / DRT) {
-                //視錐台右平面にぶつかる
+            float DL = DLF / DLT ;
+            float DR = DRF / DRT;
+//            _TRACE_("DLF="<<DLF<<",DLT="<<DLT<<",   DL="<<DL<<"");
+//            _TRACE_("DRF="<<DRF<<",DRT="<<DRT<<",   DR="<<DR<<"");
+//            if (DL < 0) {
+//                DL = 0;
+//            }
+//            if (DR < 0) {
+//                DR = 0;
+//            }
+            if (DL < DR) {
+                //手前向きなら視錐台右平面にぶつかる
+                //奥向きなら大小逆になって都合よし
                 rev_pos_Z = false;
+                //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   rev_pos_Z = false;");
+            } else if (DL  > DR) {
+                //手前向きなら視錐台左平面にぶつかる
+                //奥向きなら大小逆になって都合よし
+                rev_pos_Z = true;
+                //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   rev_pos_Z = true;");
             } else {
                 rev_pos_Z = false;
             }
+            if (DLT < 0 || DRT < 0) {
+                rev_pos_Z = !rev_pos_Z;
+            }
 
 
+//            if (DBF < DBT) {
+//
+//            } else {
+//                rev_pos_Z = !rev_pos_Z;
+//            }
 
 //            DBF = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
 //            DBT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
