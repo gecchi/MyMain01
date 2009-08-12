@@ -66,7 +66,7 @@ public:
      * ’A‚µ 0 … n ƒ MAX_DRAW_DEPTH_LEVEL
      * TODO:private virtual ‚É‚·‚é‚×‚«‚©”Û‚©HBfainal ‚ª—~‚µ‚¢
      */
-    virtual void processDrawPrior();
+    virtual void processPreDraw();
 
     virtual void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;

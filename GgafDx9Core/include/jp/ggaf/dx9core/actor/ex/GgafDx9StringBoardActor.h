@@ -29,9 +29,9 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawMain(); //オーバーライド
+    virtual void processDraw(); //オーバーライド
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {

@@ -40,7 +40,7 @@ public:
 	/**
 	 * ÅÉOverRide Ç≈Ç∑ÅÑ
 	 */
-	void processDrawPrior();
+	void processPreDraw();
 
 	virtual ~Universe();
 };

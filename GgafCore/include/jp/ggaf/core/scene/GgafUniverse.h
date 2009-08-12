@@ -40,7 +40,7 @@ public:
     /**
      * フレーム毎の描画事前処理<BR>
      */
-    virtual void processDrawPrior() {
+    virtual void processPreDraw() {
     }
 
     /**
@@ -52,13 +52,13 @@ public:
     /**
      * フレーム毎の描画処理<BR>
      */
-    virtual void processDrawMain() {
+    virtual void processDraw() {
     }
 
     /**
      * フレーム毎の描画事後処理<BR>
      */
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     /**

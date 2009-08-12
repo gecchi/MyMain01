@@ -25,7 +25,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 
 }
 
-void GgafDx9DynaD3DXMeshActor::processDrawMain() {
+void GgafDx9DynaD3DXMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
@@ -33,7 +33,7 @@ void GgafDx9DynaD3DXMeshActor::processDrawMain() {
     hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &pCAM->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::processDrawMain() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     _pD3DXMeshModel->draw(this);
 }

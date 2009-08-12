@@ -29,13 +29,13 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior() {
+    virtual void processPreDraw() {
     }
 
-    virtual void processDrawMain() {
+    virtual void processDraw() {
    }
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {

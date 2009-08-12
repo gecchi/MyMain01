@@ -25,16 +25,16 @@ public:
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _lifeframe);
     }
 
-    virtual void processDrawPrior() {
-        TRACE("DefaultScene::processDrawPrior " << getName() << "frame:" << _lifeframe);
+    virtual void processPreDraw() {
+        TRACE("DefaultScene::processPreDraw " << getName() << "frame:" << _lifeframe);
     }
 
-    virtual void processDrawMain() {
+    virtual void processDraw() {
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _lifeframe);
     }
 
-    virtual void processDrawTerminate() {
-        TRACE("DefaultScene::processDrawTerminate " << getName() << "frame:" << _lifeframe);
+    virtual void processAfterDraw() {
+        TRACE("DefaultScene::processAfterDraw " << getName() << "frame:" << _lifeframe);
     }
 
     virtual void processHappen(int prm_no) {

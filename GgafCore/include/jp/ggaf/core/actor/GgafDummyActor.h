@@ -40,19 +40,19 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processDrawPrior() {
+    virtual void processPreDraw() {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processDrawMain() {
+    virtual void processDraw() {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     /**

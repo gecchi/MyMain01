@@ -56,7 +56,7 @@ void BackGroundStar::processBehavior() {
     _papBackGroundStar001[3]->_X = _X + 1600000;
 }
 
-void BackGroundStar::processDrawPrior() {
+void BackGroundStar::processPreDraw() {
     //本アクターはGgafDx9DrawableActorではないかつ、
     //BackGroundStar001がツリーの子ではなくメンバーでないので、
     //無理やり段階レンダリングに登録
@@ -65,9 +65,9 @@ void BackGroundStar::processDrawPrior() {
     }
 }
 
-void BackGroundStar::processDrawMain() {
+void BackGroundStar::processDraw() {
     for (int i = 0; i < 4; i++) {
-        _papBackGroundStar001[i]->processDrawMain();
+        _papBackGroundStar001[i]->processDraw();
     }
 }
 

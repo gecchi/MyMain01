@@ -36,6 +36,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     //ç≈ëÂãóó£í∏ì_
     _max_radius = _pGgafDx9Model->_max_radius;
 
+
 }
 
 
@@ -91,6 +92,8 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     }
     _fAlpha = 1.0f;
 
+    //ç≈ëÂãóó£í∏ì_
+    _max_radius = _pGgafDx9Model->_max_radius;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
@@ -99,7 +102,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
 
 
-void GgafDx9DrawableActor::processDrawPrior() {
+void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:óvåüèÿ
     if (_is_active_flg && _can_live_flg) {

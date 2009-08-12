@@ -32,7 +32,7 @@ public:
     /**
      * ƒOverRide ‚Å‚·„<BR>
      */
-    virtual void processDrawMain();
+    virtual void processDraw();
 
     /**
      * ƒ¿İ’è.

@@ -15,9 +15,9 @@ namespace GgafCore {
  * ＜通常、毎フレーム呼び出される純粋仮想関数＞<BR>
  * void processBehavior() ・・・フレーム毎の振る舞い処理（座標移動等） <BR>
  * void processJudgement() ・・・フレーム毎の様々な判定処理（全アクター振る舞い処理後の処理） <BR>
- * void processDrawPrior() ・・・フレーム毎の描画事前処理 <BR>
- * void processDrawMain() ・・・フレーム毎の描画本処理 <BR>
- * void processDrawTerminate() ・・・フレーム毎の描画事後処理 <BR>
+ * void processPreDraw() ・・・フレーム毎の描画事前処理 <BR>
+ * void processDraw() ・・・フレーム毎の描画本処理 <BR>
+ * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
  * void processHappen(int prm_no) ・・・その他のイベント時の処理 <BR>

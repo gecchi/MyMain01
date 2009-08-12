@@ -17,6 +17,7 @@ void MyLaserChip001::initialize() {
     setBumpable(true);
     _SX = _SY = _SZ = 40*1000;
     _fAlpha = 0.9;
+    _max_radius = 5.0;
 }
 
 void MyLaserChip001::processBehavior() {

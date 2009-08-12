@@ -11,16 +11,16 @@ private:
     D3DXHANDLE _ahMatWorld_front[8];
 
     D3DXHANDLE _h_cnt_vertec;
-    void processDrawPrior() {
-        GgafDx9Core::GgafDx9MeshSetActor::processDrawPrior();
+    void processPreDraw() {
+        GgafDx9Core::GgafDx9MeshSetActor::processPreDraw();
     }
 
-    void processDrawTerminate();
+    void processAfterDraw();
 
     /**
      * ＜OverRide です＞
      */
-    void processDrawMain();
+    void processDraw();
 
     /**
      * 出現時コールバック実装

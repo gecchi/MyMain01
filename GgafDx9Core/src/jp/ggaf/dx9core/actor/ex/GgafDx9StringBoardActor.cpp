@@ -57,7 +57,7 @@ void GgafDx9StringBoardActor::update(char* prm_str) {
     _len = strlen(prm_str);
 }
 
-void GgafDx9StringBoardActor::processDrawMain() {
+void GgafDx9StringBoardActor::processDraw() {
     if (_len == 0) {
         return;
     }

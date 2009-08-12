@@ -397,7 +397,7 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 
 bool GgafDx9GeometricActor::isOffScreen() {
-
+    //_TRACE_("name="<<getName()<<" _max_radius="<<_max_radius);
     if ( _fDistance_plnTop <= _max_radius) {
         if ( _fDistance_plnBottom <= _max_radius) {
             if ( _fDistance_plnLeft <= _max_radius) {

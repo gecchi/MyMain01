@@ -19,7 +19,7 @@ void Universe::initialize() {
 void Universe::processJudgement() {
 }
 
-void Universe::processDrawPrior() {
+void Universe::processPreDraw() {
 
 //    _pCamera->_pMover->setTargetRzRyMoveAngle(0,0,0);
 

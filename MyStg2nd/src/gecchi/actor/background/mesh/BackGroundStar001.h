@@ -24,15 +24,15 @@ public:
 
     void processJudgement();
 
-    void processDrawPrior() {
+    void processPreDraw() {
     }
 
-    void processDrawMain();
+    void processDraw();
 
     void processHappen(int prm_no) {
     }
 
-    void processDrawTerminate(){
+    void processAfterDraw(){
     }
 
     void processFinal() {

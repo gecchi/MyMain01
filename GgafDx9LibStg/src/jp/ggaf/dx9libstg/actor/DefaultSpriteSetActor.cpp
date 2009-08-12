@@ -19,7 +19,7 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
 
 #ifdef OREDEBUG
 
-void DefaultSpriteSetActor::processDrawTerminate() {
+void DefaultSpriteSetActor::processAfterDraw() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -30,7 +30,7 @@ void DefaultSpriteSetActor::processDrawTerminate() {
 
 #else
 
-void DefaultSpriteSetActor::processDrawTerminate() {}
+void DefaultSpriteSetActor::processAfterDraw() {}
 
 #endif
 

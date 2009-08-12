@@ -10,7 +10,7 @@ namespace GgafDx9Core {
  * カメラアクター.
  * GgafDx9GeometricActor を継承し、カメラを表したアクターです。<BR>
  * 本クラスは神(GgafDx9God)と連動ています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
- * processDrawPrior メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
+ * processPreDraw メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
  * <BR>
  * _X,_Y,_Z             ・・・ カメラの位置 <BR>
  * _gazeX,_gazeY,_gazeZ ・・・ カメラが注視する座標 <BR>
@@ -45,11 +45,6 @@ public:
     D3DXPLANE _plnFront;
     /** 視錐台面、奥(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnBack;
-
-
-
-
-
 
 
     /** 座標移動支援オブジェクト */
@@ -88,28 +83,6 @@ public:
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
 
-//    /** XY平面座標の視点から注視点を結ぶ直線の傾き */
-//    float _view_slant_XZ;
-//    /** XY平面座標の視点から注視点を結ぶ直線の傾き */
-//    float _view_slant_ZY;
-
-//    float _view_rad_XZ;
-//    float _view_rad_ZY;
-
-//    float _view_border_rad1_XZ;
-//    float _view_border_rad2_XZ;
-//    float _view_border_rad1_ZY;
-//    float _view_border_rad2_ZY;
-
-//    float _view_border_slant1_XZ;
-//    float _view_border_slant2_XZ;
-//    float _view_border_slant1_ZY;
-//    float _view_border_slant2_ZY;
-    //切片
-//    int _view_border_intercept1_XZ;
-//    int _view_border_intercept2_XZ;
-//    int _view_border_intercept1_ZY;
-//    int _view_border_intercept2_ZY;
 
     /** 注視点（読み書き可) */
     int _gazeX, _gazeY, _gazeZ;
@@ -128,13 +101,13 @@ public:
 
     virtual void processJudgement();
 
-    virtual void processDrawPrior() {
+    virtual void processPreDraw() {
     }
 
-    virtual void processDrawMain() {
+    virtual void processDraw() {
     }
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {
@@ -146,19 +119,6 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-//    virtual int canView(GgafDx9GeometricActor* pActor) {
-//        return canView(pActor, pActor->_max_radius);
-//    }
-//
-//
-//    virtual int canView(GgafDx9GeometricActor* pActor, FLOAT radius);
-
-
-//    virtual bool isInTheViewports_old(int prm_X, int prm_Y, int prm_Z);
-//
-//    virtual bool isInTheViewports_old(GgafDx9GeometricActor* prm_pActor) {
-//        return isInTheViewports_old(prm_pActor->_X, prm_pActor->_Y, prm_pActor->_Z);
-//    }
 
     /**
      * カメラの注視点を設定 .

@@ -34,7 +34,7 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDrawMain();
+    virtual void processDraw();
 
     /**
      * モーフターゲットメッシュ数取得

@@ -55,7 +55,7 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDrawMain();
+    virtual void processDraw();
 
     virtual ~GgafDx9SpriteSetActor(); //デストラクタ
 

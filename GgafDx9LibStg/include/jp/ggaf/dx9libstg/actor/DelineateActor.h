@@ -15,7 +15,7 @@ public:
 
     DelineateActor(const char* prm_name);
 
-    //void processDrawMain() {} //オーバーライド未実装にする。
+    //void processDraw() {} //オーバーライド未実装にする。
 
 
     void drawHitarea(StgChecker* prm_pStgChecker);

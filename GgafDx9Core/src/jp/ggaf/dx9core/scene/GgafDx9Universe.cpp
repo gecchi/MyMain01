@@ -24,7 +24,7 @@ void GgafDx9Universe::drawMain() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //左（反時計回り）回りにカリング ∵左手座標系
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
-        _pActor_DrawActive->processDrawMain();
+        _pActor_DrawActive->processDraw();
         _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
     }
     _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
@@ -35,7 +35,7 @@ void GgafDx9Universe::drawMain() {
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
-            _pActor_DrawActive->processDrawMain();
+            _pActor_DrawActive->processDraw();
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
         _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
@@ -45,9 +45,9 @@ void GgafDx9Universe::drawMain() {
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
         TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDrawMain() EndPass() に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() に失敗しました。");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDrawMain() End() に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDraw() End() に失敗しました。");
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
     }

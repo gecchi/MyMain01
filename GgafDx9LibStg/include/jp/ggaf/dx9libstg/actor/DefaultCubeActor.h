@@ -18,15 +18,15 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior() {
-        GgafDx9Core::GgafDx9CubeActor::processDrawPrior();
+    virtual void processPreDraw() {
+        GgafDx9Core::GgafDx9CubeActor::processPreDraw();
     }
 
-    virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9CubeActor::processDrawMain();
+    virtual void processDraw() {
+        GgafDx9Core::GgafDx9CubeActor::processDraw();
     }
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {

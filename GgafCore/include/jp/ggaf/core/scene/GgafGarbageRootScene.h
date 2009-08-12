@@ -18,11 +18,11 @@ public:
     }
     void processJudgement() {
     }
-    void processDrawPrior() {
+    void processPreDraw() {
     }
-    void processDrawMain() {
+    void processDraw() {
     }
-    void processDrawTerminate() {
+    void processAfterDraw() {
     }
     void processHappen(int prm_no) {
     }

@@ -29,15 +29,15 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawPrior();
+    virtual void processPreDraw() {
+        GgafDx9Core::GgafDx9MeshActor::processPreDraw();
     }
 
-    virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9MeshActor::processDrawMain();
+    virtual void processDraw() {
+        GgafDx9Core::GgafDx9MeshActor::processDraw();
     }
 
-    virtual void processDrawTerminate();
+    virtual void processAfterDraw();
 
     virtual void processHappen(int prm_no) {
     }

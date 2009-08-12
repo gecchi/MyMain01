@@ -31,7 +31,7 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
 }
 
 
-void GgafDx9MeshSetActor::processDrawMain() {
+void GgafDx9MeshSetActor::processDraw() {
     _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
@@ -60,17 +60,17 @@ void GgafDx9MeshSetActor::processDrawMain() {
 
     //VIEW変換行列
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(_hMatView) に失敗しました。");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_hMatView) に失敗しました。");
     //基本モデル頂点数
     hr = pID3DXEffect->SetInt(_pMeshSetEffect->_h_nVertexs, _pMeshSetModel->_nVertices);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetInt(_h_nVertexs) に失敗しました。2");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetInt(_h_nVertexs) に失敗しました。2");
 
     GgafDx9DrawableActor *pDrawActor;
     pDrawActor = this;
     for (int i = 0; i < _draw_set_num; i++) {
         GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
-        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ahMaterialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
         //↑本来はマテリアルは複数保持し、テクスチャ毎に設定するものだが、使用レジスタ数削減の為[0]のマテリアルを全体のマテリアルとする。
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");

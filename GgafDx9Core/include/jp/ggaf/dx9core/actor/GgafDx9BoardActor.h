@@ -51,7 +51,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processDrawMain();
+    virtual void processDraw();
 
     virtual void setPatternNo(int prm_patteno);
 

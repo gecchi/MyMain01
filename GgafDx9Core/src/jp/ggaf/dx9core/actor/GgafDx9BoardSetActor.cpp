@@ -29,7 +29,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
     _isTransformed = true;
 }
 
-void GgafDx9BoardSetActor::processDrawMain() {
+void GgafDx9BoardSetActor::processDraw() {
     _draw_set_num = 1; //同一描画深度に、GgafDx9BoardSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;

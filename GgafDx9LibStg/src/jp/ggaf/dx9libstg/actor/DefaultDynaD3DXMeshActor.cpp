@@ -21,7 +21,7 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
 
 #ifdef OREDEBUG
 
-void DefaultDynaD3DXMeshActor::processDrawTerminate() {
+void DefaultDynaD3DXMeshActor::processAfterDraw() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -32,7 +32,7 @@ void DefaultDynaD3DXMeshActor::processDrawTerminate() {
 
 #else
 
-void DefaultDynaD3DXMeshActor::processDrawTerminate() {}
+void DefaultDynaD3DXMeshActor::processAfterDraw() {}
 
 #endif
 

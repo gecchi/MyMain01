@@ -40,17 +40,17 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processDrawPrior() {
+    void processPreDraw() {
     }
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processDrawMain() {
+    void processDraw() {
     }
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processDrawTerminate() {
+    void processAfterDraw() {
     }
 
     /**

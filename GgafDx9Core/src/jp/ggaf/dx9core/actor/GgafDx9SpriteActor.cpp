@@ -32,7 +32,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _isBillboardingFlg = false;
 }
 
-void GgafDx9SpriteActor::processDrawMain() {
+void GgafDx9SpriteActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
@@ -44,9 +44,9 @@ void GgafDx9SpriteActor::processDrawMain() {
         GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDrawMain SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pSpriteModel->draw(this);
 }
 

@@ -21,7 +21,7 @@ DefaultMeshActor::DefaultMeshActor(const char* prm_name, const char* prm_model) 
 
 #ifdef OREDEBUG
 
-void DefaultMeshActor::processDrawTerminate() {
+void DefaultMeshActor::processAfterDraw() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -32,7 +32,7 @@ void DefaultMeshActor::processDrawTerminate() {
 
 #else
 
-void DefaultMeshActor::processDrawTerminate() {}
+void DefaultMeshActor::processAfterDraw() {}
 
 #endif
 

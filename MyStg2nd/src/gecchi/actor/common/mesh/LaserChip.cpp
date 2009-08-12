@@ -48,8 +48,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void LaserChip::initialize() {
-
-    _pMover->setMoveVelocity(30000);
+    //下位レーザーチップでオーバーライトされている可能性あり
+    _pMover->setMoveVelocity(40000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -148,7 +148,7 @@ void LaserChip::processJudgement() {
     GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
-void LaserChip::processDrawMain() {
+void LaserChip::processDraw() {
     _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -175,9 +175,9 @@ void LaserChip::processDrawMain() {
 
     //VIEW変換行列
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
-    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatView) に失敗しました。");
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) に失敗しました。");
     hr = pID3DXEffect->SetInt(_pMeshSetEffect->_h_nVertexs, _pMeshSetModel->_nVertices);
-    mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_h_nVertexs) に失敗しました。2");
+    mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_h_nVertexs) に失敗しました。2");
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
@@ -206,15 +206,15 @@ void LaserChip::processDrawMain() {
 
     for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(g_matWorld) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
         //テクスチャ種類
         hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chiptex_kind);
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetInt(_hKind) に失敗しました。2");
+        mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。1");
+            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。1");
 
             //手前な向きなチップか、奥向きなチップか
             //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
@@ -429,13 +429,13 @@ void LaserChip::processDrawMain() {
 //                }
 //            }
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], rev_pos_Z);
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。1");
+            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。1");
 
         } else {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetMatrix(_hMatWorld_front) に失敗しました。2");
+            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。2");
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], false);
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDrawMain() SetBool(_hRevPosZ) に失敗しました。2");
+            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。2");
         }
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
         if (i > 0) {
@@ -449,7 +449,7 @@ void LaserChip::processDrawMain() {
 
 #ifdef OREDEBUG
 
-void LaserChip::processDrawTerminate() {
+void LaserChip::processAfterDraw() {
     //当たり判定領域表示
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
@@ -460,7 +460,7 @@ void LaserChip::processDrawTerminate() {
 
 #else
 
-void LaserChip::processDrawTerminate() {}
+void LaserChip::processAfterDraw() {}
 
 #endif
 

@@ -19,10 +19,10 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDrawPrior();
+    virtual void processPreDraw();
 
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {
@@ -51,7 +51,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processDrawMain();
+    void processDraw();
 
     virtual ~BackGround01();
 };

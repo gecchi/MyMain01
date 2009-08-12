@@ -32,7 +32,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _isBillboardingFlg = false;
 }
 
-void GgafDx9SpriteSetActor::processDrawMain() {
+void GgafDx9SpriteSetActor::processDraw() {
     _draw_set_num = 1; //同一描画深度に、GgafDx9SpriteSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
@@ -71,18 +71,18 @@ void GgafDx9SpriteSetActor::processDrawMain() {
             GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         }
         hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetMatrix(_hMatWorld) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) に失敗しました。");
         //今回描画のUV
 
         pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pattno_ani_now);
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain() SetFloat(_hOffsetU) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetU) に失敗しました。");
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain() SetFloat(_hOffsetV) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetV) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[i], pDrawActor->_fAlpha);
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDrawMain SetFloat(_fAlpha) に失敗しました。");
+        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetFloat(_fAlpha) に失敗しました。");
         pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
         if (i > 0) {
             //アクティブを進める

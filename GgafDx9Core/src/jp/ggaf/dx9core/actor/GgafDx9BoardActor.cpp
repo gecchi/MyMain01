@@ -29,7 +29,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _isTransformed = true;
 }
 
-void GgafDx9BoardActor::processDrawMain() {
+void GgafDx9BoardActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;

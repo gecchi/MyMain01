@@ -116,18 +116,18 @@ void BackGround01::processBehavior() {
 
 }
 
-void BackGround01::processDrawPrior() {
+void BackGround01::processPreDraw() {
 //    if (_is_active_flg && _can_live_flg) {
 //        for (int i = 0; i < 4; i++) {
 //           GgafDx9Universe::setDrawDepthMaxLevel(_papapChipBoard[i]);
 //
-//           //Ž©•ªŽ©g‚ª this ‚ª’iŠKƒŒƒ“ƒ_‚É“o˜^‚³‚ê–³‚¢‚ÆprocessDrawMain‚ª‚æ‚Î‚ê‚ñI
+//           //Ž©•ªŽ©g‚ª this ‚ª’iŠKƒŒƒ“ƒ_‚É“o˜^‚³‚ê–³‚¢‚ÆprocessDraw‚ª‚æ‚Î‚ê‚ñI
 //        }
 //    }
 }
 
 
-void BackGround01::processDrawMain() {
+void BackGround01::processDraw() {
 //    _papapChipBoard[0]->_x = _x;
 //    _papapChipBoard[0]->_y = _y;
 //    _papapChipBoard[1]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
@@ -137,7 +137,7 @@ void BackGround01::processDrawMain() {
 //    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
 //    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
 //    for (int i = 0; i < 4; i++) {
-//        _papapChipBoard[i]->processDrawMain();
+//        _papapChipBoard[i]->processDraw();
 //    }
 //
 //    _papapChipBoard[0]->_x = _x + 1024;
@@ -149,7 +149,7 @@ void BackGround01::processDrawMain() {
 //    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
 //    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
 //    for (int i = 0; i < 4; i++) {
-//        _papapChipBoard[i]->processDrawMain();
+//        _papapChipBoard[i]->processDraw();
 //    }
 
 }

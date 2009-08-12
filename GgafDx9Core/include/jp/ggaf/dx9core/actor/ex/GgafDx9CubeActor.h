@@ -16,7 +16,7 @@ public:
 ///**
 //     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
 //     */
-//    virtual void processDrawMain();
+//    virtual void processDraw();
 //
     void drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2);
 

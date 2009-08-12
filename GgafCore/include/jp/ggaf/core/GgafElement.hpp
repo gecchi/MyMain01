@@ -156,7 +156,7 @@ public:
      * ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processDrawPrior() をコールした後、配下のノード全てについて drawPrior() を再帰的に実行する。<BR>
+     * processPreDraw() をコールした後、配下のノード全てについて drawPrior() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、drawMain() を実行する。<BR>
      */
@@ -166,7 +166,7 @@ public:
      * ノードのフレーム毎の描画本処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processDrawMain() をコールした後、配下のノード全てについて drawMain() を再帰的に実行する。<BR>
+     * processDraw() をコールした後、配下のノード全てについて drawMain() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、drawTerminate() を実行する。<BR>
      */
@@ -235,27 +235,27 @@ public:
      * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装する。<BR>
      * 個別描画事前処理とは、主に当たり背景描画などである。<BR>
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みであることも保証する。<BR>
-     * さらに、本メンバ関数実行後、processDrawMain()、processDrawTerminate() が呼び出されることも保証される。
+     * さらに、本メンバ関数実行後、processDraw()、processAfterDraw() が呼び出されることも保証される。
      */
-    virtual void processDrawPrior() = 0;
+    virtual void processPreDraw() = 0;
 
     /**
      * ノードのフレーム毎の個別描画本処理を実装。(単体) .
      * drawMain() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
      * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
-     * 本メンバ関数がコールバックされると言う事は、全ノード対して、processDrawPrior() が実行済みであることを保証する。<BR>
+     * 本メンバ関数がコールバックされると言う事は、全ノード対して、processPreDraw() が実行済みであることを保証する。<BR>
      */
-    virtual void processDrawMain() = 0;
+    virtual void processDraw() = 0;
 
     /**
      * ノードのフレーム毎の個別表示事後処理を記述。(単体)
      * drawTerminate() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装する。<BR>
      * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などである。<BR>
-     * 本メンバがコールバックされると言う事は、全ノード対して、processDrawMain() が実行済みであることを保証する。<BR>
+     * 本メンバがコールバックされると言う事は、全ノード対して、processDraw() が実行済みであることを保証する。<BR>
      */
-    virtual void processDrawTerminate() = 0;
+    virtual void processAfterDraw() = 0;
 
     /**
      * ノードのフレーム毎の個別終端処理を実装。(単体) .
@@ -732,7 +732,7 @@ void GgafElement<T>::drawPrior() {
 
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
-        processDrawPrior();
+        processPreDraw();
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -769,7 +769,7 @@ template<class T>
 void GgafElement<T>::drawTerminate() {
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
-        processDrawTerminate();
+        processAfterDraw();
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {

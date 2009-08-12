@@ -21,11 +21,11 @@ public:
     }
 
 
-    virtual void processDrawMain() {
-        GgafDx9Core::GgafDx9BoardActor::processDrawMain();
+    virtual void processDraw() {
+        GgafDx9Core::GgafDx9BoardActor::processDraw();
     }
 
-    virtual void processDrawTerminate() {
+    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {
