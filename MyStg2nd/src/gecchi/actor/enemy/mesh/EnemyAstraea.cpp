@@ -117,7 +117,7 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-bool EnemyAstraea::isOffScreen() {
+int EnemyAstraea::isOffScreen() {
     if (_X < _X_OffScreenLeft - 800000) {
         return true;
     } else {

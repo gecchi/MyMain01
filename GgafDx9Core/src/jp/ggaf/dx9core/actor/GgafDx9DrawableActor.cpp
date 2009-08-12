@@ -119,7 +119,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                 //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
                 //↑ということはこれで10px間隔段階レンダリング
                 //今は20px間隔段階レンダリング
-                GgafDx9Universe::setDrawDepthLevel((_fDistance_plnFront)/-2, this);
+                GgafDx9Universe::setDrawDepthLevel((_fDistance_plnFront)/-1, this);
             }
         } else {
             //不透明の場合は初めに描画するように設定。

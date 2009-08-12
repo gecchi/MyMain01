@@ -110,7 +110,7 @@ public:
     virtual void processPreJudgement();
 
 
-    virtual bool isOffScreen();
+    virtual int isOffScreen();
 
     virtual void setGeometry(int X, int Y, int Z) {
         _X = X;

@@ -20,7 +20,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    bool isOffScreen();
+    int isOffScreen();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

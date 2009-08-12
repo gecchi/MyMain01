@@ -48,7 +48,7 @@ void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-bool EnemyJuno::isOffScreen() {
+int EnemyJuno::isOffScreen() {
     if (_Z < -1000000) {
         return true;
     } else {

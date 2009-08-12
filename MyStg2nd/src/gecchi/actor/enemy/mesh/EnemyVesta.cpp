@@ -55,7 +55,7 @@ void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-bool EnemyVesta::isOffScreen() {
+int EnemyVesta::isOffScreen() {
     if (_Y < _Y_OffScreenBottom - 100000) {
         return true;
     } else {

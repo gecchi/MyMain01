@@ -18,7 +18,7 @@ public:
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-    bool isOffScreen();
+    int isOffScreen();
 
     virtual ~EnemyJuno();
 };

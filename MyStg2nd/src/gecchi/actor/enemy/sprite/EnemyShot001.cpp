@@ -29,7 +29,7 @@ void EnemyShot001::processBehavior() {
 
 }
 
-bool EnemyShot001::isOffScreen() {
+int EnemyShot001::isOffScreen() {
     if (_X < _X_OffScreenLeft) {
         return true;
     } else {

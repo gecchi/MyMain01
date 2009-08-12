@@ -304,7 +304,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-bool EnemyCeres::isOffScreen() {
+int EnemyCeres::isOffScreen() {
     if (_X < _X_OffScreenLeft - 800000) {
         return true;
     } else {

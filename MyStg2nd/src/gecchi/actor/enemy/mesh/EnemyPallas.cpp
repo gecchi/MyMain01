@@ -55,7 +55,7 @@ void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-bool EnemyPallas::isOffScreen() {
+int EnemyPallas::isOffScreen() {
     if (_X < _X_OffScreenLeft - 100000) {
         return true;
     } else {
