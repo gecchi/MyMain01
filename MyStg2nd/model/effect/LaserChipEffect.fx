@@ -136,12 +136,14 @@ OUT_VS GgafDx9VS_LaserChip(
 		prm_pos.z = -prm_pos.z;
 	}
 
+prm_pos.z = 0;
+
 	//ÇŸÇ⁄ê^â°Ç»ÇÁâHÇÕÇ¢ÇÁÇ»Ç¢
-	if (-1.5 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.5) {
-		if (-1.5 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.5) {
-			prm_pos.z = 0;
-		}
-	}
+//	if (-1.5 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.5) {
+//		if (-1.5 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.5) {
+//			prm_pos.z = 0;
+//		}
+//	}
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {
@@ -197,8 +199,12 @@ technique LaserChipTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-		SrcBlend  = SrcAlpha;   //â¡éZçáê¨
-		DestBlend = One;
+//		SrcBlend  = SrcAlpha;   //â¡éZçáê¨
+//		DestBlend = One;
+
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
 		VertexShader = compile vs_2_0 GgafDx9VS_LaserChip();
 		PixelShader  = compile ps_2_0 GgafDx9PS_LaserChip();
 	}
