@@ -136,14 +136,28 @@ OUT_VS GgafDx9VS_LaserChip(
 		prm_pos.z = -prm_pos.z;
 	}
 
-prm_pos.z = 0;
+
+//	if (revPosZ == true) {
+//		prm_pos.y = 0;
+//	} else {
+//		prm_pos.z = 0;
+//	}
+//
+
+
 
 	//ÇŸÇ⁄ê^â°Ç»ÇÁâHÇÕÇ¢ÇÁÇ»Ç¢
-//	if (-1.5 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.5) {
-//		if (-1.5 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.5) {
+//	if (-1.0 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.0) {
+//		if (-1.0 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.0) {
 //			prm_pos.z = 0;
 //		}
 //	}
+
+
+//		if (-1.0 < matWorld_front._41 - matWorld._41 && matWorld_front._41 - matWorld._41 < 1.0) {
+//			prm_pos.z = 0;
+//		}
+//
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {
@@ -166,6 +180,7 @@ prm_pos.z = 0;
 		//í∏ì_åvéZ
 		posWorld = mul( prm_pos, matWorld );        // Worldïœä∑
 	}
+
 	float4 posWorldView = mul(posWorld    , g_matView);  // Viewïœä∑
 	out_vs.pos          = mul(posWorldView, g_matProj);  // éÀâeïœä∑
 

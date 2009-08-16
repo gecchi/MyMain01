@@ -130,6 +130,48 @@ void GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm
 
 
 
+
+
+void GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    //sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    //cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = sx*cosRZ*cosRY;
+    out_matWorld._12 = sx*sinRZ;
+    out_matWorld._13 = sx*cosRZ*-sinRY;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = sy*-sinRZ*cosRY;
+    out_matWorld._22 = sy*cosRZ;
+    out_matWorld._23 = sy*-sinRZ*-sinRY;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = sz*sinRY;
+    out_matWorld._32 = 0.0f;
+    out_matWorld._33 = sz*cosRY;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
+
+
+
+
+
+
 void GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ XŽ²‰ñ“] ~ ZŽ²‰ñ“] ~ YŽ²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ðì¬
@@ -248,6 +290,76 @@ void GgafDx9GeometricActor::getWorldMatrix_BillBoardX_RzRyScMv(GgafDx9GeometricA
     out_matWorld._44 = 1.0f;
 }
 
+void GgafDx9GeometricActor::getWorldMatrix_BillBoardX_RyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+
+    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+
+    sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRX = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = pCAM->_vMatrixView._11*cosRY*cosRZ*sx;
+    out_matWorld._12 = pCAM->_vMatrixView._11*cosRY*sinRZ*sy;
+    out_matWorld._13 = pCAM->_vMatrixView._11*-sinRY*sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = (pCAM->_vMatrixView._12*cosRY*cosRZ + -sinRZ)*sx;
+    out_matWorld._22 = (pCAM->_vMatrixView._12*cosRY*sinRZ + cosRZ)*sy;
+    out_matWorld._23 = pCAM->_vMatrixView._12*-sinRY*sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = ((pCAM->_vMatrixView._13*cosRY + sinRY)*cosRZ)*sx;
+    out_matWorld._32 = ((pCAM->_vMatrixView._13*cosRY + sinRY)*sinRZ)*sy;
+    out_matWorld._33 = ((pCAM->_vMatrixView._13*-sinRY + cosRY))*sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
+
+
+void GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_RzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
+    static float sx, sy, sz;
+    static float  sinRZ, cosRZ;
+
+    sinRZ = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+
+    sx = prm_pActor->_SX / fRateScale;
+    sy = prm_pActor->_SY / fRateScale;
+    sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = (pCAM->_vMatrixView._11*cosRZ + pCAM->_vMatrixView._21*-sinRZ)*sx;
+    out_matWorld._12 = (pCAM->_vMatrixView._11*sinRZ + pCAM->_vMatrixView._21*cosRZ)*sy;
+    out_matWorld._13 = pCAM->_vMatrixView._31*sz;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = (pCAM->_vMatrixView._12*cosRZ + pCAM->_vMatrixView._22*-sinRZ)*sx;
+    out_matWorld._22 = (pCAM->_vMatrixView._12*sinRZ + pCAM->_vMatrixView._22*cosRZ)*sy;
+    out_matWorld._23 = pCAM->_vMatrixView._32*sz;
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = (pCAM->_vMatrixView._13*cosRZ + pCAM->_vMatrixView._32*-sinRZ)*sx;
+    out_matWorld._32 = (pCAM->_vMatrixView._13*sinRZ + pCAM->_vMatrixView._32*cosRZ)*sy;
+    out_matWorld._33 = pCAM->_vMatrixView._33*sz;
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
+}
 
 
 void GgafDx9GeometricActor::getWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {

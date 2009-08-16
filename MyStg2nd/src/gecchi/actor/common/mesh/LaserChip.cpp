@@ -70,7 +70,7 @@ void LaserChip::onActive() {
     _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(this, _matWorld);
 }
 
 void LaserChip::onInactive() {
@@ -190,6 +190,8 @@ void LaserChip::processDraw() {
     float DRF; //distance right from
     float DRT; //distance right to
 
+    float DTF; //distance top from
+    float DTT; //distance top to
 
 
 
@@ -220,6 +222,18 @@ void LaserChip::processDraw() {
             DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
             DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
             DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+
+
+            DTF = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
+            DTT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+
+//            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+//                //たてに
+//                rev_pos_Z = true;
+//            } else {
+//                rev_pos_Z = false;
+//            }
+
             //  DLF / DLT  = DRF / DRT となった場合、
             // 視点を通るのじゃないのか？
             //  DLF / DLT  < DRF / DRT となった場合、
@@ -236,6 +250,10 @@ void LaserChip::processDraw() {
 //            if (DR < 0) {
 //                DR = 0;
 //            }
+
+
+
+
             if (DL < DR) {
                 //手前向きなら視錐台右平面にぶつかる
                 //奥向きなら大小逆になって都合よし
@@ -252,6 +270,11 @@ void LaserChip::processDraw() {
             if (DLT < 0 || DRT < 0) {
                 rev_pos_Z = !rev_pos_Z;
             }
+
+
+
+
+
 
             hr = pID3DXEffect->SetBool(_ahRevPosZ[i], rev_pos_Z);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。1");

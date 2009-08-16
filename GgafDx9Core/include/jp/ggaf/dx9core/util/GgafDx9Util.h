@@ -196,6 +196,21 @@ public:
     }
 
     /**
+     * @param x
+     * @return
+     */
+    template<typename T>
+    static T abs(T x) {
+        if (x < 0) {
+            return -1.0* x;
+        } else if (x > 0) {
+            return x;
+        } else {
+            return 0.0;
+        }
+    }
+
+    /**
      * 平方根の近似を求める .
      * 標準sqrtよりも計算がはやいでしょう。
      * @param a 平方根を求めたい値
