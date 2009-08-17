@@ -70,7 +70,7 @@ void LaserChip::onActive() {
     _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
-    GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_RzScMv(this, _matWorld);
 }
 
 void LaserChip::onInactive() {
@@ -192,6 +192,8 @@ void LaserChip::processDraw() {
 
     float DTF; //distance top from
     float DTT; //distance top to
+    float DBoF; //distance bottom from
+    float DBoT; //distance bottom to
 
 
 
@@ -222,10 +224,11 @@ void LaserChip::processDraw() {
             DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
             DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
             DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-
-
             DTF = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
             DTT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+
+            DBoF = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
+            DBoT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
 
 //            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
 //                //たてに
