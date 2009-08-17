@@ -57,6 +57,7 @@ public:
     /** 視野外の自身の座標から視錐台奥面までの距離、視野内の距離は負の値になる */
     FLOAT _fDistance_plnBack;
 
+    int _offscreenkind;
 
     /** 自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;

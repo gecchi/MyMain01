@@ -21,6 +21,8 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
 
     _pChecker = prm_pChecker;
 
+    _offscreenkind = -1;
+
 }
 
 
@@ -58,6 +60,7 @@ void GgafDx9GeometricActor::processPreJudgement() {
                            GgafDx9Universe::_pCamera->_plnBack.b*_fY +
                            GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
                            GgafDx9Universe::_pCamera->_plnBack.d;
+    _offscreenkind = -1;
 }
 
 
@@ -133,7 +136,7 @@ void GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm
 
 
 void GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
+    static float sinRY, cosRY, sinRZ, cosRZ;
     static float fRateScale = 1.0 * LEN_UNIT * PX_UNIT;
     static float sx, sy, sz;
     //sinRX = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
@@ -534,39 +537,42 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 int GgafDx9GeometricActor::isOffScreen() {
     //_TRACE_("name="<<getName()<<" _max_radius="<<_max_radius);
-    if ( _fDistance_plnTop <= _max_radius) {
-        if ( _fDistance_plnBottom <= _max_radius) {
-            if ( _fDistance_plnLeft <= _max_radius) {
-                if ( _fDistance_plnRight <= _max_radius) {
-                    if ( _fDistance_plnFront <= _max_radius) {
-                        if ( _fDistance_plnBack <= _max_radius) {
-                            //Viewport範囲内
-                            return 0;
+    if (_offscreenkind == -1) {
+        if ( _fDistance_plnTop <= _max_radius) {
+            if ( _fDistance_plnBottom <= _max_radius) {
+                if ( _fDistance_plnLeft <= _max_radius) {
+                    if ( _fDistance_plnRight <= _max_radius) {
+                        if ( _fDistance_plnFront <= _max_radius) {
+                            if ( _fDistance_plnBack <= _max_radius) {
+                                //Viewport範囲内
+                                _offscreenkind = 0;
+                            } else {
+                                //奥平面より奥で範囲外
+                                _offscreenkind = 6;
+                            }
                         } else {
-                            //奥平面より奥で範囲外
-                            return 6;
+                            //手前平面より手前で範囲外
+                            _offscreenkind = 5;
                         }
                     } else {
-                        //手前平面より手前で範囲外
-                        return 5;
+                        //右平面より右で範囲外
+                        _offscreenkind = 4;
                     }
                 } else {
-                    //右平面より右で範囲外
-                    return 4;
+                    //左平面より左で範囲外
+                    _offscreenkind = 3;
                 }
             } else {
-                //左平面より左で範囲外
-                return 3;
+                //下平面より下で範囲外
+                _offscreenkind = 2;
             }
         } else {
-            //下平面より下で範囲外
-            return 2;
+            //上平面より上で範囲外
+            _offscreenkind = 1;
         }
-    } else {
-        //上平面より上で範囲外
-        return 1;
+        //return (pCAM->canView(this) > 0);
     }
-    //return (pCAM->canView(this) > 0);
+    return _offscreenkind;
 }
 
 
