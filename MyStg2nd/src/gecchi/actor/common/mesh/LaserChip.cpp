@@ -70,7 +70,7 @@ void LaserChip::onActive() {
     _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
-    GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_RzScMv(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(this, _matWorld);
 }
 
 void LaserChip::onInactive() {
@@ -182,7 +182,7 @@ void LaserChip::processDraw() {
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
 
-    bool rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
+    int rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
     float DBF;
     float DBT;
     float DLF; //distance left from
@@ -260,32 +260,40 @@ void LaserChip::processDraw() {
             if (DL < DR) {
                 //手前向きなら視錐台右平面にぶつかる
                 //奥向きなら大小逆になって都合よし
-                rev_pos_Z = false;
+                rev_pos_Z = 0;
                 //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   rev_pos_Z = false;");
             } else if (DL  > DR) {
                 //手前向きなら視錐台左平面にぶつかる
                 //奥向きなら大小逆になって都合よし
-                rev_pos_Z = true;
+                rev_pos_Z = 1;
                 //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   rev_pos_Z = true;");
             } else {
-                rev_pos_Z = false;
+                rev_pos_Z = 0;
             }
             if (DLT < 0 || DRT < 0) {
                 rev_pos_Z = !rev_pos_Z;
             }
 
 
+            //ここを考える
+            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+                //たてに
+                rev_pos_Z += 100;
+            } else {
+                rev_pos_Z += 0;
+            }
 
 
 
 
-            hr = pID3DXEffect->SetBool(_ahRevPosZ[i], rev_pos_Z);
+
+            hr = pID3DXEffect->SetInt(_ahRevPosZ[i], rev_pos_Z);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。1");
 
         } else {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。2");
-            hr = pID3DXEffect->SetBool(_ahRevPosZ[i], false);
+            hr = pID3DXEffect->SetInt(_ahRevPosZ[i], 0);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。2");
         }
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);

@@ -17,14 +17,14 @@ int g_nVertexs;
 
 //float4x4 g_matWorld;  //自身のWorld変換行列
 //float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
-bool g_RevPosZ001;
-bool g_RevPosZ002;
-bool g_RevPosZ003;
-bool g_RevPosZ004;
-bool g_RevPosZ005;
-bool g_RevPosZ006;
-bool g_RevPosZ007;
-bool g_RevPosZ008;
+int g_RevPosZ001;
+int g_RevPosZ002;
+int g_RevPosZ003;
+int g_RevPosZ004;
+int g_RevPosZ005;
+int g_RevPosZ006;
+int g_RevPosZ007;
+int g_RevPosZ008;
 int g_kind001;
 int g_kind002;
 int g_kind003;
@@ -88,7 +88,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4x4 matWorld;
 	float4x4 matWorld_front;
 	int kind;
-	bool revPosZ;
+	int revPosZ;
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
@@ -132,7 +132,13 @@ OUT_VS GgafDx9VS_LaserChip(
 		revPosZ = g_RevPosZ008;
 	} 
 
-	if (revPosZ == true) {
+
+	if (revPosZ >= 100) {
+		prm_pos.z = 0;
+		revPosZ -= 100;
+	}
+
+	if (revPosZ == 1) {
 		prm_pos.z = -prm_pos.z;
 	}
 
@@ -214,11 +220,11 @@ technique LaserChipTechnique
 {
 	pass P0 {
 		AlphaBlendEnable = true;
-//		SrcBlend  = SrcAlpha;   //加算合成
-//		DestBlend = One;
+		SrcBlend  = SrcAlpha;   //加算合成
+		DestBlend = One;
 
-		SrcBlend  = SrcAlpha;
-		DestBlend = InvSrcAlpha;
+//		SrcBlend  = SrcAlpha;
+//		DestBlend = InvSrcAlpha;
 
 		VertexShader = compile vs_2_0 GgafDx9VS_LaserChip();
 		PixelShader  = compile ps_2_0 GgafDx9PS_LaserChip();
