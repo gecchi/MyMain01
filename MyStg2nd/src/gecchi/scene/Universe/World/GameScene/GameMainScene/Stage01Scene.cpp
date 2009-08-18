@@ -17,7 +17,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGroundStar->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
 
-    _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->getConnection("JM5");
+    _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("JM5");
     //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
     setProgress(STAGE01_PROG_INIT);
 }

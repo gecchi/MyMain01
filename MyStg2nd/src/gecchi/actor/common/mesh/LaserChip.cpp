@@ -243,8 +243,12 @@ void LaserChip::processDraw() {
             // 左の壁にぶつかるのじゃないのか？
             //  DLF / DLT  < DRF / DRT となった場合、
             // 右の壁にぶつかるのじゃないのか？
-            float DL = DLF / DLT ;
-            float DR = DRF / DRT;
+            float DLr = DLF / DLT;
+            float DRr = DRF / DRT;
+
+            float DTr = DTF / DTT;
+            float DBor = DBoF / DBoT;
+
 //            _TRACE_("DLF="<<DLF<<",DLT="<<DLT<<",   DL="<<DL<<"");
 //            _TRACE_("DRF="<<DRF<<",DRT="<<DRT<<",   DR="<<DR<<"");
 //            if (DL < 0) {
@@ -257,31 +261,42 @@ void LaserChip::processDraw() {
 
 
 
-            if (DL < DR) {
+            if (DLr < DRr) {
                 //手前向きなら視錐台右平面にぶつかる
                 //奥向きなら大小逆になって都合よし
                 rev_pos_Z = 0;
                 //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   rev_pos_Z = false;");
-            } else if (DL  > DR) {
+                if (DLT < 0 || DRT < 0) {
+                    rev_pos_Z = !rev_pos_Z;
+                }
+
+                if (DRr > DTr && DRr > DBor) {
+                    rev_pos_Z += 100;
+                }
+            } else if (DLr  > DRr) {
                 //手前向きなら視錐台左平面にぶつかる
                 //奥向きなら大小逆になって都合よし
                 rev_pos_Z = 1;
+                if (DLT < 0 || DRT < 0) {
+                    rev_pos_Z = !rev_pos_Z;
+                }
+
                 //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   rev_pos_Z = true;");
+                if (DLr > DTr && DLr > DBor) {
+                    rev_pos_Z += 100;
+                }
             } else {
                 rev_pos_Z = 0;
             }
-            if (DLT < 0 || DRT < 0) {
-                rev_pos_Z = !rev_pos_Z;
-            }
 
 
-            //ここを考える
-            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
-                //たてに
-                rev_pos_Z += 100;
-            } else {
-                rev_pos_Z += 0;
-            }
+//            //ここを考える
+//            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+//                //たてに
+//                rev_pos_Z += 100;
+//            } else {
+//                rev_pos_Z += 0;
+//            }
 
 
 

@@ -314,7 +314,7 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 
-void MyShip::beginTurboZY(int prm_VB) {
+void MyShip::beginTurboZY(vbsta prm_VB) {
     _pMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pMover->setMoveAcceleration(_iMvAcce_MT);
@@ -371,7 +371,7 @@ void MyShip::beginTurboZY(int prm_VB) {
 }
 
 
-void MyShip::beginTurboXY(int prm_VB) {
+void MyShip::beginTurboXY(vbsta prm_VB) {
     _pMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pMover->setMoveAcceleration(_iMvAcce_MT);
@@ -414,7 +414,7 @@ void MyShip::beginTurboXY(int prm_VB) {
     }
 }
 
-void MyShip::moveXY(int prm_VB) {
+void MyShip::moveXY(vbsta prm_VB) {
     switch (prm_VB) {
         case VB_UP_STC:
             _way = WAY_UP;
@@ -458,7 +458,7 @@ void MyShip::moveXY(int prm_VB) {
     }
 }
 
-void MyShip::moveZY(int prm_VB) {
+void MyShip::moveZY(vbsta prm_VB) {
     static angle distwk, angRX;
     switch (prm_VB) {
         case VB_LEFT_STC:
@@ -549,7 +549,7 @@ void MyShip::moveZY(int prm_VB) {
 }
 
 
-void MyShip::turnFaceXYMove(int prm_VB) {
+void MyShip::turnFaceXYMove(vbsta prm_VB) {
 
         switch (prm_VB) {
 
@@ -582,7 +582,7 @@ void MyShip::turnFaceXYMove(int prm_VB) {
         }
 }
 
-void MyShip::turnFaceZYMove(int prm_VB) {
+void MyShip::turnFaceZYMove(vbsta prm_VB) {
 }
 
 void MyShip::turnFaceNeutralXY() {
@@ -632,21 +632,21 @@ MyShip::~MyShip() {
 }
 
 
-bool MyShip::isDoublePushedDown(int prm_VB) {
+bool MyShip::isDoublePushedDown(vbsta prm_VB) {
     //過去に遡りながら検証
     static VB::VBMap* pVBMap;
     DWORD dwFrameApply;
     DWORD dwFrameAgo = 1;
     pVBMap = VB::getPastVBMap(dwFrameAgo);
     //直前は必ず押されていてはは駄目
-    if (pVBMap->_state[prm_VB] == false) {
+    if ((pVBMap->_state & prm_VB) == 0) {
 
         dwFrameAgo++;
         //その前の5フレーム以内のどこかで押していなければならない
         dwFrameApply = dwFrameAgo + 6;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
-            if (pVBMap->_state[prm_VB]) {
+            if (pVBMap->_state & prm_VB) {
                 break;
             }
         }
@@ -658,7 +658,7 @@ bool MyShip::isDoublePushedDown(int prm_VB) {
         dwFrameApply = dwFrameAgo + 6;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
-            if (pVBMap->_state[prm_VB] == false) {
+            if ((pVBMap->_state & prm_VB) == 0) {
 
                 break;
             }

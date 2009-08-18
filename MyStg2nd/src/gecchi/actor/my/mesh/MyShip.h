@@ -144,15 +144,15 @@ public:
     }
 
     //âÊñ éËëOÇ÷à⁄ìÆèâÇﬂXé≤âÒì]èàóù
-    virtual void beginTurboXY(int prm_VB);
-    virtual void beginTurboZY(int prm_VB);
+    virtual void beginTurboXY(GgafDx9LibStg::vbsta prm_VB);
+    virtual void beginTurboZY(GgafDx9LibStg::vbsta prm_VB);
 
-    virtual void moveZY(int prm_VB);
+    virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
 
-    virtual void moveXY(int prm_VB);
+    virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
 
-    virtual void turnFaceXYMove(int prm_VB);
-    virtual void turnFaceZYMove(int prm_VB);
+    virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
+    virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void doNotingMoveInput();
 
@@ -170,7 +170,7 @@ public:
 
     virtual ~MyShip();
 
-    static bool isDoublePushedDown(int prm_VB);
+    static bool isDoublePushedDown(GgafDx9LibStg::vbsta prm_VB);
 
 };
 
