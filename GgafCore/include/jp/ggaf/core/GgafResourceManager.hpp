@@ -92,7 +92,7 @@ public:
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
      */
-    virtual GgafResourceConnection<T>* getConnection(char* prm_idstr);
+    virtual GgafResourceConnection<T>* connect(char* prm_idstr);
 
     /**
      * GgafResourceConnectionオブジェクトを取得。<BR>
@@ -101,7 +101,7 @@ public:
      * new した場合、接続カウンタは1です。<BR>
      * @param prm_idstr 識別名
      */
-    virtual GgafResourceConnection<T>* getConnection(const char* prm_idstr);
+    virtual GgafResourceConnection<T>* connect(const char* prm_idstr);
 
 
     /**
@@ -147,9 +147,9 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr) {
+GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
     if (prm_idstr == NULL) {
-        TRACE3("警告 GgafResourceManager<T>::getConnection(NULL) [" << _manager_name << "]");
+        TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     GgafResourceConnection<T>* pObj = find(prm_idstr);
     if (pObj == NULL) {
@@ -169,8 +169,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(char* prm_idstr
 }
 
 template<class T>
-GgafResourceConnection<T>* GgafResourceManager<T>::getConnection(const char* prm_idstr) {
-    return this->getConnection((char*)prm_idstr);
+GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr) {
+    return this->connect((char*)prm_idstr);
 }
 
 template<class T>
