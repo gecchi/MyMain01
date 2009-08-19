@@ -198,7 +198,7 @@ void MyOptionParent::processBehavior() {
         _way_myship_prev = GameGlobal::_pMyShip->_way;
     }
     //À•W‚É”½‰f
-    if (GameGlobal::_pMyShip->_stc != 0) {
+    if (GameGlobal::_pMyShip->_stc != VB_NEUTRAL_STC) {
         _angVelocity_Turn = 3500 + GameGlobal::_pMyShip->_pMover->_veloMove;
         //“®‚©‚»‚¤‚Æ‚µ‚Ä‚¢‚½I
         _pMover->behave();

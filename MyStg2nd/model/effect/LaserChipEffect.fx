@@ -134,7 +134,7 @@ OUT_VS GgafDx9VS_LaserChip(
 
 
 	if (revPosZ >= 100) {
-		prm_pos.z = 0;
+		prm_pos.z /= 5.0;
 		revPosZ -= 100;
 	}
 

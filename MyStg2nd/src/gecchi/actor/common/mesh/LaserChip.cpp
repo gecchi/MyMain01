@@ -71,6 +71,129 @@ void LaserChip::onActive() {
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
     //後でdx,dy,dzだけ更新する。
     GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(this, _matWorld);
+
+
+
+
+
+
+
+    if (_pChip_front != NULL) {
+        processPreJudgement();
+        //true = 頂点のZを-1を乗ずる。false = 何もしない
+//       float DBF;
+//       float DBT;
+//       float DLF; //distance left from
+//       float DLT; //distance left to
+//       float DRF; //distance right from
+//       float DRT; //distance right to
+//
+//       float DTF; //distance top from
+//       float DTT; //distance top to
+//       float DBoF; //distance bottom from
+//       float DBoT; //distance bottom to
+//
+//        //手前な向きなチップか、奥向きなチップか
+//        //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
+//        //D1 > D2 ならば手前な向きなチップ。
+//        //D1 < D2 ならば奥向きなチップ。
+//        //D1 = D2 ならば真横
+//
+//        DBF = -1.0 * _fDistance_plnBack;
+//        DBT = -1.0 * _pChip_front->_fDistance_plnBack;
+//
+//        DLF = -1.0 * _fDistance_plnLeft;
+//        DLT = -1.0 * _pChip_front->_fDistance_plnLeft;
+//        DRF = -1.0 * _fDistance_plnRight;
+//        DRT = -1.0 * _pChip_front->_fDistance_plnRight;
+//        DTF = -1.0 * _fDistance_plnTop;
+//        DTT = -1.0 * _pChip_front->_fDistance_plnTop;
+//
+//        DBoF = -1.0 * _fDistance_plnBottom;
+//        DBoT = -1.0 * _pChip_front->_fDistance_plnBottom;
+//
+//    //            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+//    //                //たてに
+//    //                _rev_pos_Z = true;
+//    //            } else {
+//    //                _rev_pos_Z = false;
+//    //            }
+//
+//        //  DLF / DLT  = DRF / DRT となった場合、
+//        // 視点を通るのじゃないのか？
+//        //  DLF / DLT  < DRF / DRT となった場合、
+//        // 左の壁にぶつかるのじゃないのか？
+//        //  DLF / DLT  < DRF / DRT となった場合、
+//        // 右の壁にぶつかるのじゃないのか？
+//        float DLr = DLF / DLT;
+//        float DRr = DRF / DRT;
+//
+//        float DTr = DTF / DTT;
+//        float DBor = DBoF / DBoT;
+//
+//    //            _TRACE_("DLF="<<DLF<<",DLT="<<DLT<<",   DL="<<DL<<"");
+//    //            _TRACE_("DRF="<<DRF<<",DRT="<<DRT<<",   DR="<<DR<<"");
+//    //            if (DL < 0) {
+//    //                DL = 0;
+//    //            }
+//    //            if (DR < 0) {
+//    //                DR = 0;
+//    //            }
+//
+//
+//
+//
+//        if (DLr < DRr) {
+//            //手前向きなら視錐台右平面にぶつかる
+//            //奥向きなら大小逆になって都合よし
+//            _rev_pos_Z = 0;
+//            //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = false;");
+//
+//            if (DRr > DTr && DRr > DBor) {
+//                if (DLT < 0 || DRT < 0) {
+//                  //  _rev_pos_Z = ~_rev_pos_Z;
+//                }
+//
+//                _rev_pos_Z += 100;
+//            } else {
+//                if (DTT < 0 || DBoT < 0) {
+//                 //   _rev_pos_Z = ~_rev_pos_Z;
+//                }
+//            }
+//        } else if (DLr  > DRr) {
+//            //手前向きなら視錐台左平面にぶつかる
+//            //奥向きなら大小逆になって都合よし
+//            _rev_pos_Z = 1;
+//
+//            //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = true;");
+//            if (DLr > DTr && DLr > DBor) {
+//                if (DLT < 0 || DRT < 0) {
+//                    // _rev_pos_Z = ~_rev_pos_Z;
+//                 }
+//                _rev_pos_Z += 100;
+//            } else {
+//
+//                if (DTT < 0 || DBoT < 0) {
+//                 //   _rev_pos_Z = ~_rev_pos_Z;
+//                }
+//            }
+//        } else {
+//            _rev_pos_Z = 0;
+//        }
+
+
+    //            //ここを考える
+    //            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+    //                //たてに
+    //                _rev_pos_Z += 100;
+    //            } else {
+    //                _rev_pos_Z += 0;
+    //            }
+
+    } else {
+        _rev_pos_Z = 0;
+    }
+
 }
 
 void LaserChip::onInactive() {
@@ -182,7 +305,12 @@ void LaserChip::processDraw() {
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
 
-    int rev_pos_Z; //true = 頂点のZを-1を乗ずる。false = 何もしない
+
+
+
+
+
+
     float DBF;
     float DBT;
     float DLF; //distance left from
@@ -194,9 +322,6 @@ void LaserChip::processDraw() {
     float DTT; //distance top to
     float DBoF; //distance bottom from
     float DBoT; //distance bottom to
-
-
-
 
 
     for (int i = 0; i < _draw_set_num; i++) {
@@ -211,98 +336,106 @@ void LaserChip::processDraw() {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。1");
 
-            //手前な向きなチップか、奥向きなチップか
-            //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
-            //D1 > D2 ならば手前な向きなチップ。
-            //D1 < D2 ならば奥向きなチップ。
-            //D1 = D2 ならば真横
-
-            DBF = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
-            DBT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
-
-            DLF = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
-            DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
-            DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
-            DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-            DTF = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
-            DTT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
-
-            DBoF = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
-            DBoT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
-
-//            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
-//                //たてに
-//                rev_pos_Z = true;
-//            } else {
-//                rev_pos_Z = false;
-//            }
-
-            //  DLF / DLT  = DRF / DRT となった場合、
-            // 視点を通るのじゃないのか？
-            //  DLF / DLT  < DRF / DRT となった場合、
-            // 左の壁にぶつかるのじゃないのか？
-            //  DLF / DLT  < DRF / DRT となった場合、
-            // 右の壁にぶつかるのじゃないのか？
-            float DLr = DLF / DLT;
-            float DRr = DRF / DRT;
-
-            float DTr = DTF / DTT;
-            float DBor = DBoF / DBoT;
-
-//            _TRACE_("DLF="<<DLF<<",DLT="<<DLT<<",   DL="<<DL<<"");
-//            _TRACE_("DRF="<<DRF<<",DRT="<<DRT<<",   DR="<<DR<<"");
-//            if (DL < 0) {
-//                DL = 0;
-//            }
-//            if (DR < 0) {
-//                DR = 0;
-//            }
-
-
-
-
-            if (DLr < DRr) {
-                //手前向きなら視錐台右平面にぶつかる
-                //奥向きなら大小逆になって都合よし
-                rev_pos_Z = 0;
-                //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   rev_pos_Z = false;");
-                if (DLT < 0 || DRT < 0) {
-                    rev_pos_Z = !rev_pos_Z;
-                }
-
-                if (DRr > DTr && DRr > DBor) {
-                    rev_pos_Z += 100;
-                }
-            } else if (DLr  > DRr) {
-                //手前向きなら視錐台左平面にぶつかる
-                //奥向きなら大小逆になって都合よし
-                rev_pos_Z = 1;
-                if (DLT < 0 || DRT < 0) {
-                    rev_pos_Z = !rev_pos_Z;
-                }
-
-                //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   rev_pos_Z = true;");
-                if (DLr > DTr && DLr > DBor) {
-                    rev_pos_Z += 100;
-                }
-            } else {
-                rev_pos_Z = 0;
-            }
-
-
-//            //ここを考える
-//            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
-//                //たてに
-//                rev_pos_Z += 100;
-//            } else {
-//                rev_pos_Z += 0;
-//            }
 
 
 
 
 
-            hr = pID3DXEffect->SetInt(_ahRevPosZ[i], rev_pos_Z);
+
+
+             //手前な向きなチップか、奥向きなチップか
+             //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
+             //D1 > D2 ならば手前な向きなチップ。
+             //D1 < D2 ならば奥向きなチップ。
+             //D1 = D2 ならば真横
+
+             DBF = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
+             DBT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+
+             DLF = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
+             DLT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+             DRF = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
+             DRT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+             DTF = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
+             DTT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+
+             DBoF = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
+             DBoT = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
+
+         //            if (GgafDx9Util::abs(DTT - DTF) >  GgafDx9Util::abs(DLT - DLF)) {
+         //                //たてに
+         //                _rev_pos_Z = true;
+         //            } else {
+         //                _rev_pos_Z = false;
+         //            }
+
+             //  DLF / DLT  = DRF / DRT となった場合、
+             // 視点を通るのじゃないのか？
+             //  DLF / DLT  < DRF / DRT となった場合、
+             // 左の壁にぶつかるのじゃないのか？
+             //  DLF / DLT  < DRF / DRT となった場合、
+             // 右の壁にぶつかるのじゃないのか？
+             float DLr = DLF / DLT;
+             float DRr = DRF / DRT;
+
+             float DTr = DTF / DTT;
+             float DBor = DBoF / DBoT;
+
+         //            _TRACE_("DLF="<<DLF<<",DLT="<<DLT<<",   DL="<<DL<<"");
+         //            _TRACE_("DRF="<<DRF<<",DRT="<<DRT<<",   DR="<<DR<<"");
+         //            if (DL < 0) {
+         //                DL = 0;
+         //            }
+         //            if (DR < 0) {
+         //                DR = 0;
+         //            }
+
+
+
+
+             if (DLr < DRr) {
+                 //手前向きなら視錐台右平面にぶつかる
+                 //奥向きなら大小逆になって都合よし
+                 pDrawLaserChipActor->_rev_pos_Z = 0;
+                 //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = false;");
+
+                 if (DRr > DTr && DRr > DBor) {
+                     if (DLT < 0 || DRT < 0) {
+                       //  _rev_pos_Z = ~_rev_pos_Z;
+                     }
+
+                     pDrawLaserChipActor->_rev_pos_Z += 100;
+                 } else {
+                     if (DTT < 0 || DBoT < 0) {
+                         pDrawLaserChipActor->_rev_pos_Z = 1;
+                     }
+                 }
+             } else if (DLr  > DRr) {
+                 //手前向きなら視錐台左平面にぶつかる
+                 //奥向きなら大小逆になって都合よし
+                 pDrawLaserChipActor->_rev_pos_Z = 1;
+
+                 //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = true;");
+                 if (DLr > DTr && DLr > DBor) {
+                     if (DLT < 0 || DRT < 0) {
+                         // _rev_pos_Z = ~_rev_pos_Z;
+                      }
+                     pDrawLaserChipActor->_rev_pos_Z += 100;
+                 } else {
+
+                     if (DTT < 0 || DBoT < 0) {
+                         pDrawLaserChipActor->_rev_pos_Z = 0;
+                     }
+                 }
+             } else {
+                 pDrawLaserChipActor->_rev_pos_Z = 0;
+             }
+
+
+
+
+
+            hr = pID3DXEffect->SetInt(_ahRevPosZ[i], pDrawLaserChipActor->_rev_pos_Z);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetBool(_hRevPosZ) に失敗しました。1");
 
         } else {

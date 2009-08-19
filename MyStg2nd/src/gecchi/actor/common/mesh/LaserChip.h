@@ -11,6 +11,8 @@ private:
     D3DXHANDLE _ahMatWorld_front[8];
 
     D3DXHANDLE _h_cnt_vertec;
+
+    int _rev_pos_Z;
     void processPreDraw() {
         GgafDx9Core::GgafDx9MeshSetActor::processPreDraw();
     }
