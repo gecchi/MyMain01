@@ -271,9 +271,6 @@ void VirtualButton::init() {
     pVBMapOldest->_prev = _pVBMap;
     _pVBMap->_next = pVBMapOldest;
 
-
-
-
     _mapDIK["DIK_ESCAPE"]       = 0x01;
     _mapDIK["DIK_1"]            = 0x02;
     _mapDIK["DIK_2"]            = 0x03;
@@ -434,16 +431,16 @@ void VirtualButton::init() {
     _mapDIK["DIK_DOWNARROW"]    = 0xD0;
     _mapDIK["DIK_PGDN"]         = 0xD1;
 
-    _mapDIK["BUTTON00"]    = 0;
-    _mapDIK["BUTTON01"]    = 1;
-    _mapDIK["BUTTON02"]    = 2;
-    _mapDIK["BUTTON03"]    = 3;
-    _mapDIK["BUTTON04"]    = 4;
-    _mapDIK["BUTTON05"]    = 5;
-    _mapDIK["BUTTON06"]    = 6;
-    _mapDIK["BUTTON07"]    = 7;
-    _mapDIK["BUTTON08"]    = 8;
-    _mapDIK["BUTTON09"]    = 9;
+    _mapDIK["JOY_BUTTON_00"]    = 0;
+    _mapDIK["JOY_BUTTON_01"]    = 1;
+    _mapDIK["JOY_BUTTON_02"]    = 2;
+    _mapDIK["JOY_BUTTON_03"]    = 3;
+    _mapDIK["JOY_BUTTON_04"]    = 4;
+    _mapDIK["JOY_BUTTON_05"]    = 5;
+    _mapDIK["JOY_BUTTON_06"]    = 6;
+    _mapDIK["JOY_BUTTON_07"]    = 7;
+    _mapDIK["JOY_BUTTON_08"]    = 8;
+    _mapDIK["JOY_BUTTON_09"]    = 9;
 
 }
 
