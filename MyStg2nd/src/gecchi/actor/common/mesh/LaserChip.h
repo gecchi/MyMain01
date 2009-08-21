@@ -12,7 +12,11 @@ private:
 
     D3DXHANDLE _h_cnt_vertec;
 
+    /** チップの頂点バッファをシェーダーでレンダリングする際にZ座標に-1を乗ずるかどうかのフラグ */
     int _rev_pos_Z;
+    /** チップの頂点バッファをシェーダーでレンダリングする際にZ座標を2で割るかどうかのフラグ */
+    int _div_pos_Z;
+
     void processPreDraw() {
         GgafDx9Core::GgafDx9MeshSetActor::processPreDraw();
     }
@@ -43,11 +47,11 @@ public:
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
     /** 一つ後方のレーザーチップ */
-	LaserChip* _pChip_behind;
-	/** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先） */
-	int _chiptex_kind;
+    LaserChip* _pChip_behind;
+    /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先） */
+    int _chip_kind;
 
-	/** 自身のWorld変換行列 */
+    /** 自身のWorld変換行列 */
     D3DXMATRIX _matWorld;
     /** 一つ前方のWorld変換行列 */
     D3DXMATRIX _matWorld_front;

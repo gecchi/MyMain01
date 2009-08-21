@@ -94,52 +94,52 @@ OUT_VS GgafDx9VS_LaserChip(
 		matWorld = g_matWorld001;
 		matWorld_front = g_matWorld_front001;
 		kind = g_kind001;
-		revPosZ = g_RevPosZ001;
+		//revPosZ = g_RevPosZ001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
 		matWorld_front = g_matWorld_front002;
 		kind = g_kind002;
-		revPosZ = g_RevPosZ002;
+	//	revPosZ = g_RevPosZ002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
 		matWorld_front = g_matWorld_front003;
 		kind = g_kind003;
-		revPosZ = g_RevPosZ003;
+	//	revPosZ = g_RevPosZ003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
 		matWorld_front = g_matWorld_front004;
 		kind = g_kind004;
-		revPosZ = g_RevPosZ004;
+	//	revPosZ = g_RevPosZ004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
 		matWorld_front = g_matWorld_front005;
 		kind = g_kind005;
-		revPosZ = g_RevPosZ005;
+	//	revPosZ = g_RevPosZ005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
 		matWorld_front = g_matWorld_front006;
 		kind = g_kind006;
-		revPosZ = g_RevPosZ006;
+	//	revPosZ = g_RevPosZ006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
 		matWorld_front = g_matWorld_front007;
 		kind = g_kind007;
-		revPosZ = g_RevPosZ007;
+	//	revPosZ = g_RevPosZ007;
 	} else  {
 		matWorld = g_matWorld008;
 		matWorld_front = g_matWorld_front008;
 		kind = g_kind008;
-		revPosZ = g_RevPosZ008;
+	//	revPosZ = g_RevPosZ008;
 	} 
 
-
-	if (revPosZ >= 100) {
-		prm_pos.z /= 5.0;
-		revPosZ -= 100;
+	if (kind >= 100) {
+		prm_pos.z = prm_pos.z / 3;
+		kind -= 100;
 	}
 
-	if (revPosZ == 1) {
+	if (kind >= 10) {
 		prm_pos.z = -prm_pos.z;
+		kind -= 10;
 	}
 
 

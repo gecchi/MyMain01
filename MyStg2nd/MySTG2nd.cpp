@@ -7,6 +7,8 @@
 #include "resource.h"
 
 using namespace std;
+
+
 #define MAX_LOADSTRING 100
 //#define WINDOW_TITLE "MyStg2nd"
 //#define WINDOW_CLASS "mogera"
@@ -89,11 +91,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     //プロパティファイル読込み
     try {
-        GgafDx9Core::GgafDx9Properties::load(".\\config.properties");
+        MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
         MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
-        GgafDx9Core::GgafDx9Properties::clean();
+        MyStg2nd::Properties::clean();
         return EXIT_FAILURE;
     }
 
@@ -138,12 +140,12 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     fh = wh - ch;
     // 計算した幅と高さをウィンドウに設定
     SetWindowPos(
-        hWnd, 
-        HWND_TOP, 
-        wRect.left, 
-        wRect.top, 
-        GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw, 
-        GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh, 
+        hWnd,
+        HWND_TOP,
+        wRect.left,
+        wRect.top,
+        GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
+        GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
         SWP_NOMOVE
     );
 
@@ -168,7 +170,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
                         delete god; //神さようなら
-                        GgafDx9Core::GgafDx9Properties::clean();
+                        MyStg2nd::Properties::clean();
                         ::timeEndPeriod(1);
 #ifdef OREDEBUG
                         //メモリーリ－クチェックEND
@@ -193,9 +195,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
 
-        		try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
-        		try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-        		try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+                try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
+                try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+                try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
         //		::timeEndPeriod(1);//タイマー精度終了処理
         //#ifdef OREDEBUG
         //		//メモリーリ－クチェックEND
@@ -203,9 +205,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         //#endif
         //		PostQuitMessage(0);
         return EXIT_SUCCESS;
-	}
+    }
 /*
-	} catch (...) {
+    } catch (...) {
         _TRACE_("＜原因不明例外＞たぶんアクセス違反");
         string message = "原因不明例外が発生しました。心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
         MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
@@ -213,7 +215,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         ::timeEndPeriod(1);
         try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
         try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-        try { GgafDx9Core::GgafDx9Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("GgafDx9Properties::clean(); 不可"); } //エラー無視
+        try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
         return EXIT_SUCCESS;
     }
 */

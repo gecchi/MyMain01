@@ -26,6 +26,8 @@
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
+
+
 class God;
 class World;
 
@@ -86,6 +88,7 @@ class DefaultMagic;
 class OptionMagic;
 
 class MyFactory;
+class Properties;
 }
 
 
@@ -149,6 +152,8 @@ class MyFactory;
 #include "gecchi/magic/OptionMagic.h"
 
 #include "gecchi/MyFactory.h"
+
+#include "gecchi/util/Properties.h"
 
 
 #endif /*MYSTG2NDHEADER_H_*/
