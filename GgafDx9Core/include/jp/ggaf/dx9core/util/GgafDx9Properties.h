@@ -1,8 +1,9 @@
 #ifndef GGAFDX9PROPERTIES_H_
 #define GGAFDX9PROPERTIES_H_
-namespace GgafDx9Core {
 
 #define GGAFDX9_PROPERTY(X) (*GgafDx9Core::GgafDx9Properties::X)
+
+namespace GgafDx9Core {
 
 class GgafDx9Properties: GgafCore::GgafProperties {
 public:
