@@ -1,8 +1,9 @@
 #ifndef GGAFPROPERTIES
 #define GGAFPROPERTIES
-namespace GgafCore {
 
 #define GGAF_PROPERTY(X) (*GgafCore::GgafProperties::X)
+
+namespace GgafCore {
 
 class GgafProperties {
 
@@ -12,7 +13,6 @@ public:
     static void load(std::string prm_properties_filename);
     static void clean();
 
-protected:
     static std::map<std::string, std::string>* _pMapProperties;
 
     static int read(std::string prm_properties_filename);
