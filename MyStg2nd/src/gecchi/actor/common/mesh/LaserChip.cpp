@@ -307,22 +307,24 @@ void LaserChip::processDraw() {
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
 
-    float DBackFrom;
-    float DBackTo;
-    float DFrontFrom;
-    float DFrontTo;
+    //float DBackFrom;
+    //float DBackTo;
+    //float DFrontFrom;
+    static float DFrontTo;
+    static float DLeftFrom;  //distance left from
+    static float DLeftTo;    //distance left to
+    static float DRightFrom; //distance right from
+    static float DRightTo;   //distance right to
+    static float DTopFrom;   //distance top from
+    static float DTopTo;     //distance top to
+    static float DBtmFrom;   //distance bottom from
+    static float DBtmTo;     //distance bottom to
 
-    float DLeftFrom; //distance left from
-    float DLeftTo; //distance left to
-    float DRightFrom; //distance right from
-    float DRightTo; //distance right to
-
-    float DTopFrom; //distance top from
-    float DTopTo; //distance top to
-    float DBtmFrom; //distance bottom from
-    float DBtmTo; //distance bottom to
-
-
+    static float LeftIncRate;
+    static float RightIncRate;
+    static float TopIncRate;
+    static float BtmIncRate;
+    static int kind;
     for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) に失敗しました。");
@@ -330,24 +332,24 @@ void LaserChip::processDraw() {
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
 
-             DBackFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
-             DBackTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
-             DFrontFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnFront;
-             DFrontTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
-             DLeftFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
-             DLeftTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+             //DBackFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
+             //DBackTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+             //DFrontFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnFront;
+             DFrontTo   = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
+             DLeftFrom  = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
+             DLeftTo    = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
              DRightFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
-             DRightTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-             DTopFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
-             DTopTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
-             DBtmFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
-             DBtmTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
+             DRightTo   = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+             DTopFrom   = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
+             DTopTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+             DBtmFrom   = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
+             DBtmTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
 
-             float LeftIncRate = DLeftFrom / DLeftTo;
-             float RightIncRate = DRightFrom / DRightTo;
+             LeftIncRate = DLeftFrom / DLeftTo;
+             RightIncRate = DRightFrom / DRightTo;
 
-             float TopIncRate = DTopFrom / DTopTo;
-             float BtmIncRate = DBtmFrom / DBtmTo;
+             TopIncRate = DTopFrom / DTopTo;
+             BtmIncRate = DBtmFrom / DBtmTo;
 
              if (LeftIncRate < RightIncRate) {
                  //手前向きなら視錐台右平面にぶつかる
@@ -382,9 +384,9 @@ void LaserChip::processDraw() {
                  pDrawLaserChipActor->_div_pos_Z = 0;
              }
 
-             int kind = (pDrawLaserChipActor->_chip_kind) +
-                        (pDrawLaserChipActor->_rev_pos_Z*10) +
-                        (pDrawLaserChipActor->_div_pos_Z*100);
+             kind = (pDrawLaserChipActor->_chip_kind) +
+                    (pDrawLaserChipActor->_rev_pos_Z*10) +
+                    (pDrawLaserChipActor->_div_pos_Z*100);
              //テクスチャ等のチップの種類
              hr = pID3DXEffect->SetInt(_ahKind[i], kind);
              mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");

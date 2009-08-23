@@ -9,7 +9,7 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
     _x = 0;
     _y = 0;
-    _z = 0.999;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
+    _z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
 
     _papapChipBoard = NEW BackGroundChipBoard**[4];
     for (int i = 0; i < 4; i++) {

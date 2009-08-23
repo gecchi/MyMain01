@@ -94,8 +94,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
         MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
-        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         MyStg2nd::Properties::clean();
+        GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         return EXIT_FAILURE;
     }
 
@@ -169,8 +169,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             while (true) {
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
-                        delete god; //神さようなら
                         MyStg2nd::Properties::clean();
+                        delete god; //神さようなら
+
                         ::timeEndPeriod(1);
 #ifdef OREDEBUG
                         //メモリーリ－クチェックEND
@@ -194,10 +195,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
-
+                try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
                 try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
                 try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-                try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
+
         //		::timeEndPeriod(1);//タイマー精度終了処理
         //#ifdef OREDEBUG
         //		//メモリーリ－クチェックEND

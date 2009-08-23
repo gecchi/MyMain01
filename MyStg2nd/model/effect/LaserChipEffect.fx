@@ -17,14 +17,14 @@ int g_nVertexs;
 
 //float4x4 g_matWorld;  //自身のWorld変換行列
 //float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
-int g_RevPosZ001;
-int g_RevPosZ002;
-int g_RevPosZ003;
-int g_RevPosZ004;
-int g_RevPosZ005;
-int g_RevPosZ006;
-int g_RevPosZ007;
-int g_RevPosZ008;
+//int g_RevPosZ001;
+//int g_RevPosZ002;
+//int g_RevPosZ003;
+//int g_RevPosZ004;
+//int g_RevPosZ005;
+//int g_RevPosZ006;
+//int g_RevPosZ007;
+//int g_RevPosZ008;
 int g_kind001;
 int g_kind002;
 int g_kind003;
@@ -88,7 +88,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4x4 matWorld;
 	float4x4 matWorld_front;
 	int kind;
-	int revPosZ;
+//	int revPosZ;
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
@@ -133,7 +133,7 @@ OUT_VS GgafDx9VS_LaserChip(
 	} 
 
 	if (kind >= 100) {
-		prm_pos.z = 0;
+		prm_pos.z /= 4;
 		kind -= 100;
 	}
 
