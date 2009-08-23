@@ -5,7 +5,7 @@
 
 namespace GgafDx9Core {
 
-class GgafDx9Properties: GgafCore::GgafProperties {
+class GgafDx9Properties: public GgafCore::GgafProperties {
 public:
     static bool* FULL_SCREEN;
     static int* GAME_SCREEN_WIDTH;

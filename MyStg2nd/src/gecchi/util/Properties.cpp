@@ -36,7 +36,7 @@ string* Properties::MY_JOY_UI_CANCEL = NULL;
 
 void Properties::load(string prm_ini_filename) {
     GgafDx9Properties::load(prm_ini_filename);
-    MY_KEY_SHOT1      = GgafDx9Properties::getStr("MY_KEY_SHOT1");
+    MY_KEY_SHOT1      = getStr("MY_KEY_SHOT1");
     MY_KEY_SHOT2      = getStr("MY_KEY_SHOT2");
     MY_KEY_OPTION     = getStr("MY_KEY_OPTION");
     MY_KEY_ZMOVE      = getStr("MY_KEY_ZMOVE");

@@ -6,36 +6,36 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
-    VirtualButton::init();
+    VB::init();
 
-    VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT1) ];
-    VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT2) ];
-    VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_OPTION) ];
-    VirtualButton::_tagKeymap.BUTTON4    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_ZMOVE) ];
-    VirtualButton::_tagKeymap.BUTTON5    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_BUTTON5) ];
-    VirtualButton::_tagKeymap.BUTTON6    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_BUTTON6) ];
-    VirtualButton::_tagKeymap.PAUSE      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_PAUSE) ];
-    VirtualButton::_tagKeymap.UP         = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UP) ];
-    VirtualButton::_tagKeymap.DOWN       = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_DOWN) ];
-    VirtualButton::_tagKeymap.LEFT       = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_LEFT) ];
-    VirtualButton::_tagKeymap.RIGHT      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_RIGHT) ];
-    VirtualButton::_tagKeymap.UI_UP      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_UP) ];
-    VirtualButton::_tagKeymap.UI_DOWN    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_DOWN) ];
-    VirtualButton::_tagKeymap.UI_LEFT    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_LEFT) ];
-    VirtualButton::_tagKeymap.UI_RIGHT   = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_RIGHT) ];
-    VirtualButton::_tagKeymap.UI_EXECUTE = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_EXECUT) ];
-    VirtualButton::_tagKeymap.UI_CANCEL  = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_CANCEL) ];
-    VirtualButton::_tagKeymap.UI_DEBUG   = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_DEBUG) ];
-    VirtualButton::_tagJoymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_SHOT1) ];
-    VirtualButton::_tagJoymap.BUTTON2    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_SHOT2) ];
-    VirtualButton::_tagJoymap.BUTTON3    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_OPTION) ];
-    VirtualButton::_tagJoymap.BUTTON4    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_ZMOVE) ];
-    VirtualButton::_tagJoymap.BUTTON5    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_BUTTON5) ];
-    VirtualButton::_tagJoymap.BUTTON6    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_BUTTON6) ];
-    VirtualButton::_tagJoymap.PAUSE      = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_PAUSE) ];
-    VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_UI_EXECUT) ];
-    VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_UI_CANCEL) ];
-//    VirtualButton::_tagKeymap = {
+    VB::_tagKeymap.BUTTON1    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT1) ];
+    VB::_tagKeymap.BUTTON2    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT2) ];
+    VB::_tagKeymap.BUTTON3    = VB::_mapDIK[ PROPERTY(MY_KEY_OPTION) ];
+    VB::_tagKeymap.BUTTON4    = VB::_mapDIK[ PROPERTY(MY_KEY_ZMOVE) ];
+    VB::_tagKeymap.BUTTON5    = VB::_mapDIK[ PROPERTY(MY_KEY_BUTTON5) ];
+    VB::_tagKeymap.BUTTON6    = VB::_mapDIK[ PROPERTY(MY_KEY_BUTTON6) ];
+    VB::_tagKeymap.PAUSE      = VB::_mapDIK[ PROPERTY(MY_KEY_PAUSE) ];
+    VB::_tagKeymap.UP         = VB::_mapDIK[ PROPERTY(MY_KEY_UP) ];
+    VB::_tagKeymap.DOWN       = VB::_mapDIK[ PROPERTY(MY_KEY_DOWN) ];
+    VB::_tagKeymap.LEFT       = VB::_mapDIK[ PROPERTY(MY_KEY_LEFT) ];
+    VB::_tagKeymap.RIGHT      = VB::_mapDIK[ PROPERTY(MY_KEY_RIGHT) ];
+    VB::_tagKeymap.UI_UP      = VB::_mapDIK[ PROPERTY(MY_KEY_UI_UP) ];
+    VB::_tagKeymap.UI_DOWN    = VB::_mapDIK[ PROPERTY(MY_KEY_UI_DOWN) ];
+    VB::_tagKeymap.UI_LEFT    = VB::_mapDIK[ PROPERTY(MY_KEY_UI_LEFT) ];
+    VB::_tagKeymap.UI_RIGHT   = VB::_mapDIK[ PROPERTY(MY_KEY_UI_RIGHT) ];
+    VB::_tagKeymap.UI_EXECUTE = VB::_mapDIK[ PROPERTY(MY_KEY_UI_EXECUTE) ];
+    VB::_tagKeymap.UI_CANCEL  = VB::_mapDIK[ PROPERTY(MY_KEY_UI_CANCEL) ];
+    VB::_tagKeymap.UI_DEBUG   = VB::_mapDIK[ PROPERTY(MY_KEY_UI_DEBUG) ];
+    VB::_tagJoymap.BUTTON1    = VB::_mapDIK[ PROPERTY(MY_JOY_SHOT1) ];
+    VB::_tagJoymap.BUTTON2    = VB::_mapDIK[ PROPERTY(MY_JOY_SHOT2) ];
+    VB::_tagJoymap.BUTTON3    = VB::_mapDIK[ PROPERTY(MY_JOY_OPTION) ];
+    VB::_tagJoymap.BUTTON4    = VB::_mapDIK[ PROPERTY(MY_JOY_ZMOVE) ];
+    VB::_tagJoymap.BUTTON5    = VB::_mapDIK[ PROPERTY(MY_JOY_BUTTON5) ];
+    VB::_tagJoymap.BUTTON6    = VB::_mapDIK[ PROPERTY(MY_JOY_BUTTON6) ];
+    VB::_tagJoymap.PAUSE      = VB::_mapDIK[ PROPERTY(MY_JOY_PAUSE) ];
+    VB::_tagJoymap.UI_EXECUTE = VB::_mapDIK[ PROPERTY(MY_JOY_UI_EXECUTE) ];
+    VB::_tagJoymap.UI_CANCEL  = VB::_mapDIK[ PROPERTY(MY_JOY_UI_CANCEL) ];
+//    VB::_tagKeymap = {
 //                                  DIK_Z,      // BUTTON1
 //                                  DIK_X,      // BUTTON2
 //                                  DIK_A,      // BUTTON3
@@ -56,7 +56,7 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
 //                                  DIK_D       // UI_DEBUG
 //                               };
 
-//    VirtualButton::_tagJoymap = {
+//    VB::_tagJoymap = {
 //                                  0, // BUTTON1
 //                                  7, // BUTTON2
 //                                  8, // BUTTON3
@@ -77,6 +77,6 @@ GgafUniverse* God::createUniverse() {
 }
 
 God::~God() {
-    VirtualButton::clear();
+    VB::clear();
     _pUniverse->dump();
 }

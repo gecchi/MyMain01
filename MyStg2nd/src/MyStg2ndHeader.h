@@ -86,9 +86,9 @@ class FormationVesta001;
 class Magic;
 class DefaultMagic;
 class OptionMagic;
-
-class MyFactory;
 class Properties;
+class MyFactory;
+
 }
 
 
@@ -150,10 +150,10 @@ class Properties;
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/magic/OptionMagic.h"
-
+#include "gecchi/util/Properties.h"
 #include "gecchi/MyFactory.h"
 
-#include "gecchi/util/Properties.h"
+
 
 
 #endif /*MYSTG2NDHEADER_H_*/
