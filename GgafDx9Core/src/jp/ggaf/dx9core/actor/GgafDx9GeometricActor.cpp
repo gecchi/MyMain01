@@ -27,40 +27,42 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
 
 
 void GgafDx9GeometricActor::processPreJudgement() {
-    _fX = (FLOAT)(1.0 * _X / LEN_UNIT / PX_UNIT);
-    _fY = (FLOAT)(1.0 * _Y / LEN_UNIT / PX_UNIT);
-    _fZ = (FLOAT)(1.0 * _Z / LEN_UNIT / PX_UNIT);
+    if (_isTransformed == false) {
+        _fX = (FLOAT)(1.0 * _X / LEN_UNIT / PX_UNIT);
+        _fY = (FLOAT)(1.0 * _Y / LEN_UNIT / PX_UNIT);
+        _fZ = (FLOAT)(1.0 * _Z / LEN_UNIT / PX_UNIT);
 
-    _fDistance_plnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnTop.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnTop.d;
+        _fDistance_plnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnTop.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnTop.d;
 
-    _fDistance_plnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnBottom.d;
+        _fDistance_plnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnBottom.d;
 
-    _fDistance_plnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnLeft.d;
+        _fDistance_plnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnLeft.d;
 
-    _fDistance_plnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnRight.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnRight.d;
+        _fDistance_plnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnRight.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnRight.d;
 
-    _fDistance_plnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnFront.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnFront.d;
+        _fDistance_plnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnFront.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnFront.d;
 
-    _fDistance_plnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
-                           GgafDx9Universe::_pCamera->_plnBack.b*_fY +
-                           GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
-                           GgafDx9Universe::_pCamera->_plnBack.d;
-    _offscreenkind = -1;
+        _fDistance_plnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
+                               GgafDx9Universe::_pCamera->_plnBack.b*_fY +
+                               GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
+                               GgafDx9Universe::_pCamera->_plnBack.d;
+        _offscreenkind = -1;
+    }
 }
 
 

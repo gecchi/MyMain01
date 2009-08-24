@@ -207,7 +207,7 @@ HRESULT GgafDx9God::init() {
                                                D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
         if (hr != D3D_OK) {
-			//ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
+            //ソフトウェアによる頂点処理、ラスタライズを行うデバイス作成を試みる。REF
             hr = GgafDx9God::_pID3D9->CreateDevice(D3DADAPTER_DEFAULT, D3DDEVTYPE_REF, GgafDx9God::_hWnd,
                                                    D3DCREATE_SOFTWARE_VERTEXPROCESSING | D3DCREATE_MULTITHREADED,
                                                    &_structD3dPresent_Parameters, &GgafDx9God::_pID3DDevice9);
@@ -308,6 +308,8 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //Zバッファ書き込み不可
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+
+    //D3DRENDERSTATE_ZFUNC
 
     //ステンシルテストの方法
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);    //常にテストをパス

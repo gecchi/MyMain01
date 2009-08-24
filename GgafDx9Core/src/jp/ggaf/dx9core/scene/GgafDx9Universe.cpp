@@ -31,7 +31,11 @@ void GgafDx9Universe::drawMain() {
 
     //αがあるなど、段階レンダリングが必要なオブジェクトを描画
     //＜メモ＞VIEWの注視方向がが正のZ軸に向いているっぽいことが前提。Z軸でしか深度を測ってません。
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングしない
+   // GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングしない
+
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //tesuto
+
+
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
