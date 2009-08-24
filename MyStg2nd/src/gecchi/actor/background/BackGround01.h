@@ -16,20 +16,15 @@ public:
     float _base_y[4];
     BackGround01(const char* prm_name, const char* prm_dummy);
 
-    virtual void processJudgement() {
-    }
+
 
     virtual void processPreDraw();
 
 
-    virtual void processAfterDraw() {
-    }
 
     virtual void processHappen(int prm_no) {
     }
 
-    virtual void processFinal() {
-    }
 
     virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
         return false;
@@ -43,6 +38,9 @@ public:
      */
     void initialize();
 
+    void processJudgement() {
+    }
+
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
@@ -51,7 +49,14 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processDraw();
+    void processDraw() {
+    }
+
+    void processAfterDraw() {
+    }
+
+    virtual void processFinal() {
+    }
 
     virtual ~BackGround01();
 };

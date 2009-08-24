@@ -9,7 +9,6 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
     _x = 0;
     _y = 0;
-    _z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
 
     _papapChipBoard = NEW BackGroundChipBoard**[4];
     for (int i = 0; i < 4; i++) {
@@ -44,6 +43,7 @@ void BackGround01::initialize() {
             addSubLast(_papapChipBoard[j][i]); //[j][i]Ç…Ç∑ÇÈÇ±Ç∆Ç…ÇÊÇËìØÉÇÉfÉãÇ™ÇSÇ¬Ç≈ÉOÉãÅ[ÉsÉìÉOï\é¶ÇÇ≥ÇπÇÈÅB
         }
     }
+    _z = 0.999999f;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
 
    _base_x[0] = 0;
    _base_y[0] = 0;
@@ -97,6 +97,23 @@ void BackGround01::processBehavior() {
 //        }
 //    }
 
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+        _z += 0.1;
+        _TRACE_("_z="<<_z);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _z -= 0.1;
+        _TRACE_("_z="<<_z);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+        _z += 0.01;
+        _TRACE_("_z="<<_z);
+    }else if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
+        _z -= 0.01;
+        _TRACE_("_z="<<_z);
+    }
+
+
+
     if (_x < -1 * (_chip_width + _chip_width) ) {
         _x += (_chip_width + _chip_width);
     } if (_x > 0)  {
@@ -106,53 +123,57 @@ void BackGround01::processBehavior() {
     for (int i = 0; i < 4; i++) {
         _papapChipBoard[i][0]->_x = _base_x[i] + _x;
         _papapChipBoard[i][0]->_y = _base_y[i] + _y;
+        _papapChipBoard[i][0]->_z = _z;
         _papapChipBoard[i][1]->_x = _base_x[i] + _x + _chip_width;
         _papapChipBoard[i][1]->_y = _base_y[i] + _y;
+        _papapChipBoard[i][1]->_z = _z;
         _papapChipBoard[i][2]->_x = _base_x[i] + _x;
         _papapChipBoard[i][2]->_y = _base_y[i] + _y + _chip_height;
+        _papapChipBoard[i][2]->_z = _z;
         _papapChipBoard[i][3]->_x = _base_x[i] + _x + _chip_width;
         _papapChipBoard[i][3]->_y = _base_y[i] + _y + _chip_height;
+        _papapChipBoard[i][3]->_z = _z;
    }
 
 }
 
 void BackGround01::processPreDraw() {
-//    if (_is_active_flg && _can_live_flg) {
-//        for (int i = 0; i < 4; i++) {
-//           GgafDx9Universe::setDrawDepthMaxLevel(_papapChipBoard[i]);
-//
-//           //é©ï™é©êgÇ™ this Ç™íiäKÉåÉìÉ_Ç…ìoò^Ç≥ÇÍñ≥Ç¢Ç∆processDrawÇ™ÇÊÇŒÇÍÇÒÅI
-//        }
-//    }
+////    if (_is_active_flg && _can_live_flg) {
+////        for (int i = 0; i < 4; i++) {
+////           GgafDx9Universe::setDrawDepthMaxLevel(_papapChipBoard[i]);
+////
+////           //é©ï™é©êgÇ™ this Ç™íiäKÉåÉìÉ_Ç…ìoò^Ç≥ÇÍñ≥Ç¢Ç∆processDrawÇ™ÇÊÇŒÇÍÇÒÅI
+////        }
+////    }
 }
 
 
-void BackGround01::processDraw() {
-//    _papapChipBoard[0]->_x = _x;
-//    _papapChipBoard[0]->_y = _y;
-//    _papapChipBoard[1]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
-//    _papapChipBoard[1]->_y = _y;
-//    _papapChipBoard[2]->_x = _x;
-//    _papapChipBoard[2]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
-//    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
-//    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
-//    for (int i = 0; i < 4; i++) {
-//        _papapChipBoard[i]->processDraw();
-//    }
-//
-//    _papapChipBoard[0]->_x = _x + 1024;
-//    _papapChipBoard[0]->_y = _y;
-//    _papapChipBoard[1]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
-//    _papapChipBoard[1]->_y = _y;
-//    _papapChipBoard[2]->_x = _x + 1024;
-//    _papapChipBoard[2]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
-//    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
-//    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
-//    for (int i = 0; i < 4; i++) {
-//        _papapChipBoard[i]->processDraw();
-//    }
+//void BackGround01::processDraw() {
+////    _papapChipBoard[0]->_x = _x;
+////    _papapChipBoard[0]->_y = _y;
+////    _papapChipBoard[1]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
+////    _papapChipBoard[1]->_y = _y;
+////    _papapChipBoard[2]->_x = _x;
+////    _papapChipBoard[2]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+////    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx;
+////    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+////    for (int i = 0; i < 4; i++) {
+////        _papapChipBoard[i]->processDraw();
+////    }
+////
+////    _papapChipBoard[0]->_x = _x + 1024;
+////    _papapChipBoard[0]->_y = _y;
+////    _papapChipBoard[1]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
+////    _papapChipBoard[1]->_y = _y;
+////    _papapChipBoard[2]->_x = _x + 1024;
+////    _papapChipBoard[2]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+////    _papapChipBoard[3]->_x = _x + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelWidthPx + 1024;
+////    _papapChipBoard[3]->_y = _y + _papapChipBoard[0]->_pBoardSetModel->_fSize_BoardSetModelHeightPx;
+////    for (int i = 0; i < 4; i++) {
+////        _papapChipBoard[i]->processDraw();
+////    }
 
-}
+//}
 
 BackGround01::~BackGround01() {
     for (int i = 0; i < 4; i++) {

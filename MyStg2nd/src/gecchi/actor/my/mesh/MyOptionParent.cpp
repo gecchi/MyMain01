@@ -23,6 +23,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
     pMyDummyOption01->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
+    pMyDummyOption01->setAlpha(1.0f);
     addSubLast(pMyDummyOption01);
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
