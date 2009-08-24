@@ -46,7 +46,7 @@ public:
     /**
      * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æˆ—<BR>
      */
-    virtual void drawMain() {
+    virtual void draw() {
     }
 
     /**

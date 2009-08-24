@@ -183,9 +183,9 @@ public:
     virtual void nextFrame();
     virtual void behave();
     virtual void judge();
-    virtual void drawPrior();
-    virtual void drawMain();
-    virtual void drawTerminate();
+    virtual void preDraw();
+    virtual void draw();
+    virtual void afterDraw();
     virtual void finally();
 
     virtual void happen(int prm_no);

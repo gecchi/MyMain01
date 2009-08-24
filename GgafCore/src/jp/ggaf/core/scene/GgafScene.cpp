@@ -46,22 +46,22 @@ void GgafScene::judge() {
     _pLordActor->judge();
 }
 
-void GgafScene::drawPrior() {
-    TRACE("GgafScene::drawPrior() " << getName());
-    GgafElement<GgafScene>::drawPrior();
-    _pLordActor->drawPrior();
+void GgafScene::preDraw() {
+    TRACE("GgafScene::preDraw() " << getName());
+    GgafElement<GgafScene>::preDraw();
+    _pLordActor->preDraw();
 }
 
-void GgafScene::drawMain() {
-    TRACE("GgafScene::drawMain() " << getName());
-    GgafElement<GgafScene>::drawMain();
-    _pLordActor->drawMain();
+void GgafScene::draw() {
+    TRACE("GgafScene::draw() " << getName());
+    GgafElement<GgafScene>::draw();
+    _pLordActor->draw();
 }
 
-void GgafScene::drawTerminate() {
-    TRACE("GgafScene::drawTerminate() " << getName());
-    GgafElement<GgafScene>::drawTerminate();
-    _pLordActor->drawTerminate();
+void GgafScene::afterDraw() {
+    TRACE("GgafScene::afterDraw() " << getName());
+    GgafElement<GgafScene>::afterDraw();
+    _pLordActor->afterDraw();
 }
 
 void GgafScene::happen(int prm_no) {

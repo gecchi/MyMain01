@@ -151,9 +151,9 @@ void GgafGod::makeUniversalJudge() {
 
 void GgafGod::makeUniversalMaterialize() {
     _num_actor_playing = 0;
-    _pUniverse->drawPrior();
-    _pUniverse->drawMain();
-    _pUniverse->drawTerminate();
+    _pUniverse->preDraw();
+    _pUniverse->draw();
+    _pUniverse->afterDraw();
 }
 
 void GgafGod::makeUniversalVisualize() {

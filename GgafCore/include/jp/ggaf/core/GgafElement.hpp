@@ -7,10 +7,10 @@ namespace GgafCore {
 /**
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
  * 毎フレーム、を神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
- * nextFrame() > behave() > judge() > [drawPrior() > drawMain() > drawTerminate()] > finally() <BR>
+ * nextFrame() > behave() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
  * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
  * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
- * drawPrior() drawMain() drawTerminate() は、次フレームまでの残時間に余裕がある場合<BR>
+ * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合<BR>
  * 実行される。次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
  * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
@@ -147,7 +147,7 @@ public:
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
      * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば drawPrior()
+     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば preDraw()
      * 無ければ finally() を実行する。<BR>
      */
     virtual void judge();
@@ -156,31 +156,31 @@ public:
      * ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processPreDraw() をコールした後、配下のノード全てについて drawPrior() を再帰的に実行する。<BR>
+     * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、drawMain() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、draw() を実行する。<BR>
      */
-    virtual void drawPrior();
+    virtual void preDraw();
 
     /**
      * ノードのフレーム毎の描画本処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット、<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processDraw() をコールした後、配下のノード全てについて drawMain() を再帰的に実行する。<BR>
+     * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、drawTerminate() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、afterDraw() を実行する。<BR>
      */
-    virtual void drawMain();
+    virtual void draw();
 
     /**
      * ノードのフレーム毎の描画事後処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
      * 活動フラグ、生存フラグがセット<BR>
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processTerminate() をコールした後、配下のノード全てについて drawTerminate() を再帰的に実行する。<BR>
+     * processTerminate() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
      * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、finally() を実行する。<BR>
      */
-    virtual void drawTerminate();
+    virtual void afterDraw();
 
     /**
      * ノードのフレーム毎の最終処理(自ツリー) .
@@ -231,7 +231,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別描画事前処理を実装。(フレームワーク実装用、単体) .
-     * drawPrior() 時の処理先頭でコールバックされる。 但し、神(GgafGod)が描画スキップした場合、フレーム内で呼び出されません。<BR>
+     * preDraw() 時の処理先頭でコールバックされる。 但し、神(GgafGod)が描画スキップした場合、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装する。<BR>
      * 個別描画事前処理とは、主に当たり背景描画などである。<BR>
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みであることも保証する。<BR>
@@ -241,7 +241,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別描画本処理を実装。(単体) .
-     * drawMain() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * draw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
      * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
      * 本メンバ関数がコールバックされると言う事は、全ノード対して、processPreDraw() が実行済みであることを保証する。<BR>
@@ -250,7 +250,7 @@ public:
 
     /**
      * ノードのフレーム毎の個別表示事後処理を記述。(フレームワーク実装用、単体) .
-     * drawTerminate() 時の処理先頭でコールバックされる。 但し、drawPrior() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
+     * afterDraw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装する。<BR>
      * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などである。<BR>
      * 本メンバがコールバックされると言う事は、全ノード対して、processDraw() が実行済みであることを保証する。<BR>
@@ -724,7 +724,7 @@ void GgafElement<T>::judge() {
 }
 
 template<class T>
-void GgafElement<T>::drawPrior() {
+void GgafElement<T>::preDraw() {
     if(_was_initialize_flg == false) {
         initialize();
         _was_initialize_flg = true;
@@ -736,7 +736,7 @@ void GgafElement<T>::drawPrior() {
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->drawPrior();
+                pElementTemp->preDraw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -748,13 +748,13 @@ void GgafElement<T>::drawPrior() {
 }
 
 template<class T>
-void GgafElement<T>::drawMain() {
+void GgafElement<T>::draw() {
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->drawMain();
+                pElementTemp->draw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
@@ -766,14 +766,14 @@ void GgafElement<T>::drawMain() {
 }
 
 template<class T>
-void GgafElement<T>::drawTerminate() {
+void GgafElement<T>::afterDraw() {
     if (_is_active_flg && _can_live_flg) {
         _frame_relative = 0;
         processAfterDraw();
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
-                pElementTemp->drawTerminate();
+                pElementTemp->afterDraw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
