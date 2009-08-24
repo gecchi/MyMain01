@@ -133,8 +133,10 @@ OUT_VS GgafDx9VS_LaserChip(
 	} 
 
 	if (kind >= 100) {
-		prm_pos.z /= 4;
+		prm_pos.z = 0;
 		kind -= 100;
+	} else {
+		prm_pos.z /= 2;
 	}
 
 	if (kind >= 10) {

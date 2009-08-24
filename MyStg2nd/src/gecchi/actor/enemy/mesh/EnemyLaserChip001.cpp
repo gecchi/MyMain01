@@ -11,12 +11,13 @@ EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : LaserChip(prm_name,
 }
 
 void EnemyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(10000);
+    _pMover->setMoveVelocity(60000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
-    _SX = _SY = _SZ = 40*1000;
+    _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9;
+    _max_radius = 5.0;
 }
 
 void EnemyLaserChip001::processBehavior() {
