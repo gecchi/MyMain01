@@ -32,9 +32,6 @@ public:
     void processHappen(int prm_no) {
     }
 
-    void processAfterDraw(){
-    }
-
     void processFinal() {
     }
 

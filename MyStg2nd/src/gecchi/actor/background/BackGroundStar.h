@@ -33,10 +33,6 @@ public:
      */
     void processDraw();
 
-
-    void processAfterDraw() {
-    }
-
     void processHappen(int prm_no) {
     }
 

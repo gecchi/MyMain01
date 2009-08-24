@@ -52,9 +52,6 @@ public:
     void processDraw() {
     }
 
-    void processAfterDraw() {
-    }
-
     virtual void processFinal() {
     }
 

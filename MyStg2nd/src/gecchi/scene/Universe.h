@@ -20,29 +20,24 @@ class Universe : public GgafDx9LibStg::DefaultUniverse {
 
 public:
 
-	Universe(const char* prm_name);
+    Universe(const char* prm_name);
 
-	/**
-	 * ‰Šúˆ—
-	 */
-	void initialize();
+    /**
+     * ‰Šúˆ—
+     */
+    void initialize();
 
- 	/**
-	 * ƒOverRide ‚Å‚·„
-	 */
-	void processBehavior();
+     /**
+     * ƒOverRide ‚Å‚·„
+     */
+    void processBehavior();
 
- 	/**
-	 * ƒOverRide ‚Å‚·„
-	 */
-	void processJudgement();
+     /**
+     * ƒOverRide ‚Å‚·„
+     */
+    void processJudgement();
 
-	/**
-	 * ƒOverRide ‚Å‚·„
-	 */
-	void processPreDraw();
-
-	virtual ~Universe();
+    virtual ~Universe();
 };
 
 }
