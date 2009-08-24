@@ -25,8 +25,6 @@ public:
         GgafDx9Core::GgafDx9BoardSetActor::processDraw();
     }
 
-    virtual void processAfterDraw() {
-    }
 
     virtual void processHappen(int prm_no) {
     }

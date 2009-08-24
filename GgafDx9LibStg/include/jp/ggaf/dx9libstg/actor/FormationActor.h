@@ -29,13 +29,7 @@ public:
         }
     }
 
-    virtual void processPreDraw() {
-    }
-
     virtual void processDraw() {
-    }
-
-    virtual void processAfterDraw() {
     }
 
     virtual void processHappen(int prm_no) {

@@ -26,9 +26,6 @@ public:
         GgafDx9Core::GgafDx9CubeActor::processDraw();
     }
 
-    virtual void processAfterDraw() {
-    }
-
     virtual void processHappen(int prm_no) {
     }
 

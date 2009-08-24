@@ -38,7 +38,7 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 //		_papFontSpriteActor[i]->_X = X;
 //		_papFontSpriteActor[i]->_Y = Y;
 //		_papFontSpriteActor[i]->_Z = prm_Z;
-//		_papFontSpriteActor[i]->drawMain();
+//		_papFontSpriteActor[i]->draw();
 //		X += (int)((pSpriteModel->_fSize_SpriteModelWidthPx) * LEN_UNIT);
 //	}
 }
