@@ -37,14 +37,13 @@ void GgafDx9MeshSetActor::processDraw() {
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            GgafDx9Model* pGgafDx9Model = _pNextDrawActor->_pGgafDx9Model;
-            if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
+            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
                 _draw_set_num++;
                 if (_draw_set_num > _pMeshSetModel->_set_num) {
                     _draw_set_num = _pMeshSetModel->_set_num;
                     break;
                 }
-                _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
+                _pNextDrawActor = _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
             } else {
                 break;
             }

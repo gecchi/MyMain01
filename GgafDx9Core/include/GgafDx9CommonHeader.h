@@ -121,6 +121,7 @@ class GgafDx9MorphMeshActor;
 class GgafDx9D3DXMeshActor;
 class GgafDx9DynaD3DXMeshActor;
 class GgafDx9CubeActor;
+class GgafDx9CubeEx;
 class GgafDx9SpriteActor;
 class GgafDx9SpriteSetActor;
 class GgafDx9Camera;
@@ -152,6 +153,7 @@ class GgafDx9Universe;
 class GgafDx9Util;
 class GgafDx9SphereRadiusVectors;
 class GgafDx9Quaternion;
+class GgafDx9HitArea;
 class GgafDx9Properties;
 class GgafDx9GeometryMover;
 class GgafDx9Checker;
@@ -199,6 +201,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9MorphMeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9DynaD3DXMeshActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeActor.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeEx.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"
@@ -230,6 +233,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"
+#include "jp/ggaf/dx9core/util/GgafDx9HitArea.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMover.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Checker.h"

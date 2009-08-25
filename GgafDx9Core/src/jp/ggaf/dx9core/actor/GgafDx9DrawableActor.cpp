@@ -130,6 +130,24 @@ void GgafDx9DrawableActor::processPreDraw() {
 }
 
 
+#ifdef OREDEBUG
+
+void GgafDx9DrawableActor::processAfterDraw() {
+    //“–‚½‚è”»’è—Ìˆæ•\Ž¦
+    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+        drawHitArea();
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    }
+}
+
+#else
+
+void DefaultMorphMeshActor::processAfterDraw() {}
+
+#endif
+
+
 
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {

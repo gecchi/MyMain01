@@ -68,6 +68,11 @@ public:
      */
     virtual void processPreDraw();
 
+    virtual void processAfterDraw();
+
+
+    virtual void drawHitArea() {};
+
     virtual void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;
     }
