@@ -195,6 +195,8 @@ public:
 
     static void getWorldMatrix_BillBoardXYZ_RzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
+    static void getWorldMatrix_ScMvRxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
 
     static int sign(float x) {
         if (x < 0) {
