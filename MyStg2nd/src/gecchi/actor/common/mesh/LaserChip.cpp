@@ -31,14 +31,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _ahKind[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind006" );
     _ahKind[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind007" );
     _ahKind[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind008" );
-    _ahRevPosZ[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ001" );
-    _ahRevPosZ[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ002" );
-    _ahRevPosZ[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ003" );
-    _ahRevPosZ[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ004" );
-    _ahRevPosZ[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ005" );
-    _ahRevPosZ[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ006" );
-    _ahRevPosZ[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ007" );
-    _ahRevPosZ[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ008" );
+//    _ahRevPosZ[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ001" );
+//    _ahRevPosZ[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ002" );
+//    _ahRevPosZ[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ003" );
+//    _ahRevPosZ[3]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ004" );
+//    _ahRevPosZ[4]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ005" );
+//    _ahRevPosZ[5]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ006" );
+//    _ahRevPosZ[6]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ007" );
+//    _ahRevPosZ[7]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_RevPosZ008" );
     _ahMatWorld_front[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front001" );
     _ahMatWorld_front[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front002" );
     _ahMatWorld_front[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_matWorld_front003" );
@@ -75,122 +75,8 @@ void LaserChip::onActive() {
     GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 
 
-
-
-
-
-
     if (_pChip_front != NULL) {
         processPreJudgement();
-        //true = 頂点のZを-1を乗ずる。false = 何もしない
-//       float DBackFrom;
-//       float DBackTo;
-//       float DLeftFrom; //distance left from
-//       float DLeftTo; //distance left to
-//       float DRightFrom; //distance right from
-//       float DRightTo; //distance right to
-//
-//       float DTopFrom; //distance top from
-//       float DTopTo; //distance top to
-//       float DBtmFrom; //distance bottom from
-//       float DBtmTo; //distance bottom to
-//
-//        //手前な向きなチップか、奥向きなチップか
-//        //自身の座標 ～ 視錐台奥面 の距離(D1)、前方チップ座標 ～ 視錐台奥面 の距離(D2) を比較して
-//        //D1 > D2 ならば手前な向きなチップ。
-//        //D1 < D2 ならば奥向きなチップ。
-//        //D1 = D2 ならば真横
-//
-//        DBackFrom = -1.0 * _fDistance_plnBack;
-//        DBackTo = -1.0 * _pChip_front->_fDistance_plnBack;
-//
-//        DLeftFrom = -1.0 * _fDistance_plnLeft;
-//        DLeftTo = -1.0 * _pChip_front->_fDistance_plnLeft;
-//        DRightFrom = -1.0 * _fDistance_plnRight;
-//        DRightTo = -1.0 * _pChip_front->_fDistance_plnRight;
-//        DTopFrom = -1.0 * _fDistance_plnTop;
-//        DTopTo = -1.0 * _pChip_front->_fDistance_plnTop;
-//
-//        DBtmFrom = -1.0 * _fDistance_plnBottom;
-//        DBtmTo = -1.0 * _pChip_front->_fDistance_plnBottom;
-//
-//    //            if (GgafDx9Util::abs(DTopTo - DTopFrom) >  GgafDx9Util::abs(DLeftTo - DLeftFrom)) {
-//    //                //たてに
-//    //                _rev_pos_Z = true;
-//    //            } else {
-//    //                _rev_pos_Z = false;
-//    //            }
-//
-//        //  DLeftFrom / DLeftTo  = DRightFrom / DRightTo となった場合、
-//        // 視点を通るのじゃないのか？
-//        //  DLeftFrom / DLeftTo  < DRightFrom / DRightTo となった場合、
-//        // 左の壁にぶつかるのじゃないのか？
-//        //  DLeftFrom / DLeftTo  < DRightFrom / DRightTo となった場合、
-//        // 右の壁にぶつかるのじゃないのか？
-//        float LeftIncRate = DLeftFrom / DLeftTo;
-//        float RightIncRate = DRightFrom / DRightTo;
-//
-//        float TopIncRate = DTopFrom / DTopTo;
-//        float BtmIncRate = DBtmFrom / DBtmTo;
-//
-//    //            _TRACE_("DLeftFrom="<<DLeftFrom<<",DLeftTo="<<DLeftTo<<",   DL="<<DL<<"");
-//    //            _TRACE_("DRightFrom="<<DRightFrom<<",DRightTo="<<DRightTo<<",   DR="<<DR<<"");
-//    //            if (DL < 0) {
-//    //                DL = 0;
-//    //            }
-//    //            if (DR < 0) {
-//    //                DR = 0;
-//    //            }
-//
-//
-//
-//
-//        if (LeftIncRate < RightIncRate) {
-//            //手前向きなら視錐台右平面にぶつかる
-//            //奥向きなら大小逆になって都合よし
-//            _rev_pos_Z = 0;
-//            //_TRACE_("DL < DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = false;");
-//
-//            if (RightIncRate > TopIncRate && RightIncRate > BtmIncRate) {
-//                if (DLeftTo < 0 || DRightTo < 0) {
-//                  //  _rev_pos_Z = ~_rev_pos_Z;
-//                }
-//
-//                _rev_pos_Z += 100;
-//            } else {
-//                if (DTopTo < 0 || DBtmTo < 0) {
-//                 //   _rev_pos_Z = ~_rev_pos_Z;
-//                }
-//            }
-//        } else if (LeftIncRate  > RightIncRate) {
-//            //手前向きなら視錐台左平面にぶつかる
-//            //奥向きなら大小逆になって都合よし
-//            _rev_pos_Z = 1;
-//
-//            //_TRACE_("DL > DR  "<<DL<<">"<<DR<<"   _rev_pos_Z = true;");
-//            if (LeftIncRate > TopIncRate && LeftIncRate > BtmIncRate) {
-//                if (DLeftTo < 0 || DRightTo < 0) {
-//                    // _rev_pos_Z = ~_rev_pos_Z;
-//                 }
-//                _rev_pos_Z += 100;
-//            } else {
-//
-//                if (DTopTo < 0 || DBtmTo < 0) {
-//                 //   _rev_pos_Z = ~_rev_pos_Z;
-//                }
-//            }
-//        } else {
-//            _rev_pos_Z = 0;
-//        }
-
-
-    //            //ここを考える
-    //            if (GgafDx9Util::abs(DTopTo - DTopFrom) >  GgafDx9Util::abs(DLeftTo - DLeftFrom)) {
-    //                //たてに
-    //                _rev_pos_Z += 100;
-    //            } else {
-    //                _rev_pos_Z += 0;
-    //            }
 
     } else {
         _rev_pos_Z = 0;
@@ -278,8 +164,7 @@ void LaserChip::processDraw() {
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
-            GgafDx9Model* pGgafDx9Model =  _pNextDrawActor->_pGgafDx9Model;
-            if (pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
+            if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
                 _draw_set_num++;
                 if (_draw_set_num > 8) {
                     _draw_set_num = 8;
@@ -412,22 +297,9 @@ void LaserChip::processDraw() {
     _pMeshSetModel->draw(this);
 }
 
-#ifdef OREDEBUG
-
-void LaserChip::processAfterDraw() {
-    //当たり判定領域表示
-    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        DelineateActor::get()->drawHitarea(_pStgChecker);
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
-    }
+void LaserChip::drawHitArea() {
+    CubeEx::get()->drawHitarea(_pStgChecker);
 }
-
-#else
-
-void LaserChip::processAfterDraw() {}
-
-#endif
 
 void LaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 }

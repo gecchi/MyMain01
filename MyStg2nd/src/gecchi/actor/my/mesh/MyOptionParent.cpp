@@ -194,6 +194,7 @@ void MyOptionParent::processBehavior() {
                 setTerget(ANGLE315, ANGLE90);
                 break;
             default:
+                //setTerget(0, 0);
                 break;
         }
         _way_myship_prev = GameGlobal::_pMyShip->_way;

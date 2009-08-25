@@ -15,16 +15,6 @@
 
 int g_nVertexs;
 
-//float4x4 g_matWorld;  //自身のWorld変換行列
-//float4x4 g_matWorld_front;  //一つ前を行くチップのWorld変換行列
-//int g_RevPosZ001;
-//int g_RevPosZ002;
-//int g_RevPosZ003;
-//int g_RevPosZ004;
-//int g_RevPosZ005;
-//int g_RevPosZ006;
-//int g_RevPosZ007;
-//int g_RevPosZ008;
 int g_kind001;
 int g_kind002;
 int g_kind003;
@@ -88,48 +78,39 @@ OUT_VS GgafDx9VS_LaserChip(
 	float4x4 matWorld;
 	float4x4 matWorld_front;
 	int kind;
-//	int revPosZ;
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
 		matWorld_front = g_matWorld_front001;
 		kind = g_kind001;
-		//revPosZ = g_RevPosZ001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
 		matWorld_front = g_matWorld_front002;
 		kind = g_kind002;
-	//	revPosZ = g_RevPosZ002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
 		matWorld_front = g_matWorld_front003;
 		kind = g_kind003;
-	//	revPosZ = g_RevPosZ003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
 		matWorld_front = g_matWorld_front004;
 		kind = g_kind004;
-	//	revPosZ = g_RevPosZ004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
 		matWorld_front = g_matWorld_front005;
 		kind = g_kind005;
-	//	revPosZ = g_RevPosZ005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
 		matWorld_front = g_matWorld_front006;
 		kind = g_kind006;
-	//	revPosZ = g_RevPosZ006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
 		matWorld_front = g_matWorld_front007;
 		kind = g_kind007;
-	//	revPosZ = g_RevPosZ007;
 	} else  {
 		matWorld = g_matWorld008;
 		matWorld_front = g_matWorld_front008;
 		kind = g_kind008;
-	//	revPosZ = g_RevPosZ008;
 	} 
 
 	if (kind >= 100) {
@@ -181,16 +162,21 @@ OUT_VS GgafDx9VS_LaserChip(
 //			sin
 //		   ナインか
 //		}
-
-		// 一つ前方のチップ座標へくっつける
+		//頂点計算
+		if (kind == 4) {  //3ではないよ
+			float tmpy = prm_pos.y;
+			prm_pos.y = -8.0 * prm_pos.z;
+			prm_pos.z = 8.0 * tmpy;
+		} 
+			// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {
 		//頂点計算
 		posWorld = mul( prm_pos, matWorld );        // World変換
 	}
 
-	float4 posWorldView = mul(posWorld    , g_matView);  // View変換
-	out_vs.pos          = mul(posWorldView, g_matProj);  // 射影変換
+	//float4 posWorldView = mul(posWorld    , g_matView);  // View変換
+	out_vs.pos = mul(mul(posWorld, g_matView), g_matProj);  // 射影変換
 
 	//UV
 	if (kind == 2) {
@@ -203,13 +189,13 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.y = prm_uv.y - 0.5;
 	} else {
 		//何も描画したくない
-		out_vs.uv.x = 0.1;
-		out_vs.uv.y = 0.1;
+		out_vs.uv.x = prm_uv.x - 0.5;
+		out_vs.uv.y = prm_uv.y - 0.5;
 	}
 	return out_vs;
 }
 
-float4 GgafDx9PS_LaserChip(
+float4 GgafDx9PS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 

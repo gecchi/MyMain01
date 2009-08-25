@@ -7,7 +7,7 @@ class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
 private:
 //    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ;
     D3DXHANDLE _ahKind[8];
-    D3DXHANDLE _ahRevPosZ[8];
+//    D3DXHANDLE _ahRevPosZ[8];
     D3DXHANDLE _ahMatWorld_front[8];
 
     D3DXHANDLE _h_cnt_vertec;
@@ -21,7 +21,9 @@ private:
         GgafDx9Core::GgafDx9MeshSetActor::processPreDraw();
     }
 
-    void processAfterDraw();
+
+
+//    void processAfterDraw();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -95,6 +97,7 @@ public:
      */
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
+    virtual void drawHitArea();
 
     virtual ~LaserChip();
 
