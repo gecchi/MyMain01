@@ -5,7 +5,7 @@ namespace GgafDx9LibStg {
 /**
  * “–‚½‚è”»’è—ÌˆæƒNƒ‰ƒX
  */
-class HitAreaBoxs : public GgafCore::GgafObject {
+class HitAreaBoxs : public GgafDx9Core::GgafDx9HitArea {
 
     struct Box {
         int x1; //xÀ•W‚Ì¬‚³‚¢•û
@@ -28,17 +28,15 @@ class HitAreaBoxs : public GgafCore::GgafObject {
 
 public:
 
-    int _iBoxNum;
-
     Box* _paBase;
     Box* _paHitArea;
 
-    HitAreaBoxs(int prm_iBoxNum);
+    HitAreaBoxs(int prm_iAreaNum);
 
-    void setBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
-    void enable(int prm_index);
-    void disable(int prm_index);
-    bool isEnable(int prm_index);
+    void setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
+    void enable(int prm_iArea);
+    void disable(int prm_iArea);
+    bool isEnable(int prm_iArea);
 
     virtual ~HitAreaBoxs();
 };

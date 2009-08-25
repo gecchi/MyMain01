@@ -8,5 +8,5 @@ DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND _hWnd) : GgafDx9God(prm_hIn
 }
 
 DefaultGod::~DefaultGod() {
-    DelineateActor::release();
+    CubeEx::release();
 }

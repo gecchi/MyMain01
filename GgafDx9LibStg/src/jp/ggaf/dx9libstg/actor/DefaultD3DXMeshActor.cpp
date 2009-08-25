@@ -18,22 +18,9 @@ DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm
 
 }
 
-#ifdef OREDEBUG
-
-void DefaultD3DXMeshActor::processAfterDraw() {
-    //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        DelineateActor::get()->drawHitarea(_pStgChecker);
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
-    }
+void DefaultD3DXMeshActor::drawHitArea() {
+    CubeEx::get()->drawHitarea(_pStgChecker);
 }
-
-#else
-
-void DefaultD3DXMeshActor::processAfterDraw() {}
-
-#endif
 
 DefaultD3DXMeshActor::~DefaultD3DXMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);

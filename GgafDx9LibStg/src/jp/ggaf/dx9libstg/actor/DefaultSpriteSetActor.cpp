@@ -17,22 +17,12 @@ DefaultSpriteSetActor::DefaultSpriteSetActor(const char* prm_name, const char* p
     _pScaler = NEW GgafDx9GeometryScaler(this);
 }
 
-#ifdef OREDEBUG
 
-void DefaultSpriteSetActor::processAfterDraw() {
-    //“–‚½‚è”»’è—Ìˆæ•\Ž¦
-    if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-        DelineateActor::get()->drawHitarea(_pStgChecker);
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
-    }
+
+void DefaultSpriteSetActor::drawHitArea() {
+    CubeEx::get()->drawHitarea(_pStgChecker);
 }
 
-#else
-
-void DefaultSpriteSetActor::processAfterDraw() {}
-
-#endif
 
 DefaultSpriteSetActor::~DefaultSpriteSetActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);

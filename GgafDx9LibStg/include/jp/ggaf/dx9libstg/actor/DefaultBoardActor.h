@@ -20,11 +20,6 @@ public:
     virtual void processJudgement() {
     }
 
-
-    virtual void processDraw() {
-        GgafDx9Core::GgafDx9BoardActor::processDraw();
-    }
-
     virtual void processHappen(int prm_no) {
     }
 

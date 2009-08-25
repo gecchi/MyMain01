@@ -50,7 +50,7 @@ void StgChecker::behave() {
     s_RY = _pActor->_RY / ANGLE_RATE;
     s_RZ = _pActor->_RZ / ANGLE_RATE;
 
-    for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
+    for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
         if (!_pHitAreaBoxs->_paBase[i].rotX && !_pHitAreaBoxs->_paBase[i].rotY && !_pHitAreaBoxs->_paBase[i].rotZ) {
             continue;
         }
@@ -103,8 +103,8 @@ bool StgChecker::isBump(GgafDx9Checker* prm_pOtherChecker) {
     //Ž©•ª‚Ì” ‚Æ‘ŠŽè‚Ì” 
     if (_pHitAreaBoxs->_paHitArea != NULL && pOtherHitAreaBoxs->_paHitArea != NULL && _pHitAreaBoxs->_paHitArea->active
             && pOtherHitAreaBoxs->_paHitArea->active) {
-        for (int i = 0; i < _pHitAreaBoxs->_iBoxNum; i++) {
-            for (int j = 0; j < pOtherHitAreaBoxs->_iBoxNum; j++) {
+        for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
+            for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
 
                 if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
                     if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {

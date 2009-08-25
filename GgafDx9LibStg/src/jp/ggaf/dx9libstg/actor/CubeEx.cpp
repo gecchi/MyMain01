@@ -4,24 +4,24 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DelineateActor* DelineateActor::_pObj = NULL;
+CubeEx* CubeEx::_pObj = NULL;
 
-DelineateActor::DelineateActor(const char* prm_name) : DefaultCubeActor(prm_name) {
-    _class_name = "DelineateActor";
+CubeEx::CubeEx(const char* prm_name) : GgafDx9CubeEx(prm_name) {
+    _class_name = "CubeEx";
 }
 
-DelineateActor* DelineateActor::get() {
+CubeEx* CubeEx::get() {
     if (_pObj == NULL) {
-        _pObj = NEW DelineateActor("HITAREA");
+        _pObj = NEW CubeEx("HITAREA");
     }
     return _pObj;
 }
 
-void DelineateActor::release() {
+void CubeEx::release() {
     DELETE_POSSIBLE_NULL(_pObj);
 }
 
-void DelineateActor::drawHitarea(StgChecker* prm_pStgChecker) {
+void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
     if (prm_pStgChecker != NULL && prm_pStgChecker->getHitAreaBoxs() != NULL && prm_pStgChecker->getTargetActor()->canBump()
             && prm_pStgChecker->getTargetActor()->isActive()) {
         GgafDx9GeometricActor* pActor = prm_pStgChecker->getTargetActor();
@@ -30,9 +30,9 @@ void DelineateActor::drawHitarea(StgChecker* prm_pStgChecker) {
         //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
         //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 
-        int iBoxNum = pHitAreaBoxs->_iBoxNum;
-        if (iBoxNum > 0) {
-            for (int i = 0; i < iBoxNum; i++) {
+        int iAreaNum = pHitAreaBoxs->_iAreaNum;
+        if (iAreaNum > 0) {
+            for (int i = 0; i < iAreaNum; i++) {
                 if (pHitAreaBoxs->isEnable(i)) {
 
                     drawBox(pActor->_X + pHitAreaBoxs->_paHitArea[i].x1, pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
@@ -47,5 +47,5 @@ void DelineateActor::drawHitarea(StgChecker* prm_pStgChecker) {
     }
 }
 
-DelineateActor::~DelineateActor() {
+CubeEx::~CubeEx() {
 }

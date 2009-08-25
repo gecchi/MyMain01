@@ -25,7 +25,7 @@ class FontSpriteActor;
 class FormationActor;
 class ActorDispatcher;
 //class FontSpriteString;
-class DelineateActor;
+class CubeEx;
 class StgChecker;
 class HitAreaBoxs;
 
@@ -51,7 +51,7 @@ class HitAreaBoxs;
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
 #include "jp/ggaf/dx9libstg/actor/ActorDispatcher.h"
-#include "jp/ggaf/dx9libstg/actor/DelineateActor.h"
+#include "jp/ggaf/dx9libstg/actor/CubeEx.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"

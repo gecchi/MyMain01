@@ -2,7 +2,7 @@
 #define STGUTIL_H_
 namespace GgafDx9LibStg {
 
-class StgUtil: GgafDx9Core::GgafDx9Util {
+class StgUtil: public GgafDx9Core::GgafDx9Util {
 public:
 
     static int a;

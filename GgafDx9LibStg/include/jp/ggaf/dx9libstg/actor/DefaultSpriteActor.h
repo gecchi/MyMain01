@@ -29,16 +29,6 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processPreDraw() {
-        GgafDx9Core::GgafDx9SpriteActor::processPreDraw();
-    }
-
-    virtual void processDraw() {
-        GgafDx9Core::GgafDx9SpriteActor::processDraw();
-    }
-
-    virtual void processAfterDraw();
-
     virtual void processHappen(int prm_no) {
     }
 
@@ -47,6 +37,8 @@ public:
 
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
+
+    virtual void drawHitArea();
 
     virtual ~DefaultSpriteActor();
 
