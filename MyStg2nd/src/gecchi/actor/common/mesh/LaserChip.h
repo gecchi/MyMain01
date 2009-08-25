@@ -4,7 +4,7 @@ namespace MyStg2nd {
 
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
-private:
+public:
 //    D3DXHANDLE _hKind, _hX, _hY, _hZ, _hRevPosZ;
     D3DXHANDLE _ahKind[8];
 //    D3DXHANDLE _ahRevPosZ[8];
@@ -40,7 +40,7 @@ private:
      */
     void onInactive();
 
-public:
+
     GgafDx9LibStg::StgChecker* _pStgChecker;
     /** 座標移動支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryMover* _pMover;

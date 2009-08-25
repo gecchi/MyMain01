@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 class StraightLaserChip : public LaserChip {
-
+    friend class LaserChipDispatcher;
 public:
 
     int _X_onActive;

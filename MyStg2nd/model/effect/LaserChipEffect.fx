@@ -163,11 +163,11 @@ OUT_VS GgafDx9VS_LaserChip(
 //		   ナインか
 //		}
 		//頂点計算
-		if (kind == 4) {  //3ではないよ
-			float tmpy = prm_pos.y;
-			prm_pos.y = -8.0 * prm_pos.z;
-			prm_pos.z = 8.0 * tmpy;
-		} 
+//		if (kind == 4) {  //3ではないよ
+//			float tmpy = prm_pos.y;
+//			prm_pos.y = -8.0 * prm_pos.z;
+//			prm_pos.z = 8.0 * tmpy;
+//		} 
 			// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {

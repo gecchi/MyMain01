@@ -11,7 +11,7 @@ namespace MyStg2nd {
  */
 class LaserChipDispatcher : public GgafDx9LibStg::ActorDispatcher {
     friend class LaserChip;
-private:
+public:
     /** 保持するレーザーチップ数(読み取り専用) */
     int _num_chip_max;
     /** 活動中レーザーチップ数(読み取り専用) */
@@ -27,7 +27,7 @@ private:
     /** レーザーチップ連続未取得カウント(読み取り専用) */
     int _num_interval_frame_count;
 
-public:
+
     /** 弾切れフレーム数（読み書き可／デフォルト=10） */
     int _num_chip_interval;
     /** レーザーチップ発射時SE（読み書き可／デフォルト=NULL） */
