@@ -5,12 +5,12 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyOptionParent::MyOptionParent(const char* prm_name) :
-  GgafDx9GeometricActor(prm_name,
-                            NULL) {
-
 //MyOptionParent::MyOptionParent(const char* prm_name) :
-//    DefaultMeshActor(prm_name, "vic2") {
+//  GgafDx9GeometricActor(prm_name,
+//                            NULL) {
+
+MyOptionParent::MyOptionParent(const char* prm_name) :
+    DefaultMeshActor(prm_name, "vic2") {
 
     _angVelocity_Turn = 3000;
 

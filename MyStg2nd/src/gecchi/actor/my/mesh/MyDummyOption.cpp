@@ -32,12 +32,12 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setSource(this);
 
-        pChip->_pSource_X = &_X;
-        pChip->_pSource_Y = &_Y;
-        pChip->_pSource_Z = &_Z;
+        pChip->_pSource_X = &_X2;
+        pChip->_pSource_Y = &_Y2;
+        pChip->_pSource_Z = &_Z2;
         pChip->_pSource_RX = &_RX;
-        pChip->_pSource_RY = &_RY;
-        pChip->_pSource_RZ = &_RZ;
+        pChip->_pSource_RY = &_RY2;
+        pChip->_pSource_RZ = &_RZ2;
 //        pChip->_pSource_vX = &_Q._x;
 //        pChip->_pSource_vY = &_Q._y;
 //        pChip->_pSource_vZ = &_Q._z;

@@ -2,8 +2,8 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
-class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
-//class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+//class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
+class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
 
@@ -27,8 +27,8 @@ public:
     virtual void processJudgement() {
     }
 
-    virtual void processDraw() {
-   }
+//    virtual void processDraw() {
+//   }
 
     virtual void processHappen(int prm_no) {
     }
