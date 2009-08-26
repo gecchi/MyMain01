@@ -6,8 +6,6 @@ class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 //class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-    /** 座標移動支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryMover* _pMover;
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 

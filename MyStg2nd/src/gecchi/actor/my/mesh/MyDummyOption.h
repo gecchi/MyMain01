@@ -15,7 +15,7 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     int _Xorg,_Yorg,_Zorg;
     float _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
-
+    GgafDx9Core::GgafDx9Quaternion _Q;
 
 public:
     LaserChipDispatcher* _pLaserChipDispatcher;

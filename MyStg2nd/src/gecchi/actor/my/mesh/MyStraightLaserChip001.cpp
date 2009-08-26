@@ -6,12 +6,13 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyLaserChip001::MyLaserChip001(const char* prm_name) : LaserChip(prm_name, "laser_chip") {
-    _class_name = "MyLaserChip001";
+MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "laser_chip") {
+    _class_name = "MyStraightLaserChip001";
 }
 
-void MyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(40000);
+void MyStraightLaserChip001::initialize() {
+    _pMover->setMoveVelocity(0);
+    _veloMove = 50000;
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
@@ -20,10 +21,12 @@ void MyLaserChip001::initialize() {
     _max_radius = 5.0;
 }
 
-void MyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
+
+
+void MyStraightLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 
-MyLaserChip001::~MyLaserChip001() {
+MyStraightLaserChip001::~MyStraightLaserChip001() {
 }
 

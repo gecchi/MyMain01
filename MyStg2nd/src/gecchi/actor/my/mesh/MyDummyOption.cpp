@@ -23,13 +23,24 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
-    MyLaserChip001* pChip;
+    MyStraightLaserChip001* pChip;
     for (int i = 0; i < 50; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
-        pChip = NEW MyLaserChip001(name2.c_str());
+        pChip = NEW MyStraightLaserChip001(name2.c_str());
+        pChip->setSource(this);
+
+        pChip->_pSource_X = &_X;
+        pChip->_pSource_Y = &_Y;
+        pChip->_pSource_Z = &_Z;
+        pChip->_pSource_RX = &_RX;
+        pChip->_pSource_RY = &_RY;
+        pChip->_pSource_RZ = &_RZ;
+//        pChip->_pSource_vX = &_Q._x;
+//        pChip->_pSource_vY = &_Q._y;
+//        pChip->_pSource_vZ = &_Q._z;
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
@@ -181,15 +192,15 @@ void MyDummyOption::processBehavior() {
     k = 1.0 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
 
     //計算
-    GgafDx9Quaternion Q( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
-    Q.mul(0, k*vx, k*vy, k*vz); //R*P 回転軸が現在の進行方向ベクトルとなる
-    Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-    //Q._x, Q._y, Q._z が回転後の座標となる
+    _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
+    _Q.mul(0, k*vx, k*vy, k*vz); //R*P 回転軸が現在の進行方向ベクトルとなる
+    _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
+    //_Q._x, _Q._y, _Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
     GgafDx9Util::getRotAngleZY(
-        Q._x,
-        Q._y,
-        Q._z,
+        _Q._x,
+        _Q._y,
+        _Q._z,
         _RZ,
         _RY
      );
@@ -207,12 +218,11 @@ void MyDummyOption::processBehavior() {
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
     if (VB::isBeingPressed(VB_BUTTON2)) {
-        MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
+        MyStraightLaserChip001* pLaserChip = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
-
-            pLaserChip->_pMover->_vX = Q._x;
-            pLaserChip->_pMover->_vY = Q._y;
-            pLaserChip->_pMover->_vZ = Q._z;
+            pLaserChip->_pMover->_vX = _Q._x;
+            pLaserChip->_pMover->_vY = _Q._y;
+            pLaserChip->_pMover->_vZ = _Q._z;
             pLaserChip->_pMover->_angRzMove = _RZ2;
             pLaserChip->_pMover->_angRyMove = _RY2;
             static angle angWk;

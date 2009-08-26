@@ -1,21 +1,17 @@
-#ifndef MYLASERCHIP001_H_
-#define MYLASERCHIP001_H_
+#ifndef MYSTRAIGHTLASERCHIP001_H_
+#define MYSTRAIGHTLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyLaserChip001 : public LaserChip {
+class MyStraightLaserChip001 : public StraightLaserChip {
 
 public:
 
-    MyLaserChip001(const char* prm_name);
+    MyStraightLaserChip001(const char* prm_name);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void initialize();
-
-//    void processBehavior();
-//
-//    void processJudgement();
 
     void processHappen(int prm_no) {
     }
@@ -29,10 +25,10 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
-    virtual ~MyLaserChip001();
+    virtual ~MyStraightLaserChip001();
 
 };
 
 }
-#endif /*MYLASERCHIP001_H_*/
+#endif /*MYSTRAIGHTLASERCHIP001_H_*/
 

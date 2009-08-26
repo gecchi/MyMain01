@@ -8,52 +8,64 @@ using namespace MyStg2nd;
 
 StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model) :
     LaserChip(prm_name, prm_model) {
-    _pSourceActor = NULL;
+//    _pPosSourceActor = NULL;
+//    _pAngleSourceActor = NULL;
 }
+
 void StraightLaserChip::initialize() {
     //下位レーザーチップでオーバーライトされている可能性あり
-    _pMover->setVxMoveVelocity(100000);
+    _veloMove = 10000;
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _fAlpha = 0.9;
+    _dwActiveFrame = 0;
 }
 
 void StraightLaserChip::onActive() {
-    //・・・
-    _X_onActive = _X;
-    _Y_onActive = _Y;
-    _Z_onActive = _Z;
-    _RX = _pSourceActor->_RX;
-    _RY = _pSourceActor->_RY;
-    _RZ = _pSourceActor->_RZ;
-    _X = 0;
-    _Y = 0;
-    _Z = 0;
-
-    //出現時
-    _chip_kind = 1;
-    if (_pChip_front == NULL) {
-        if (_pDispatcher->_pSeConnection) {
-            _pDispatcher->_pSeConnection->view()->play();
-        }
-    }
-
-    _pDispatcher->_num_chip_active++;
-
-    GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
-    //俺はFKをやろうとしてるのか？！・・・・
-
-    if (_pChip_front != NULL) {
-        processPreJudgement();
-
-    } else {
-        _rev_pos_Z = 0;
-    }
-
+    LaserChip::onActive();
+    _dwActiveFrame = 0;
 }
 
+void StraightLaserChip::processBehavior() {
+    _dwActiveFrame++;
+    _RX = (*_pSource_RX);
+    _RY = (*_pSource_RY);
+    _RZ = (*_pSource_RZ);
+    double vX,vY,vZ;
+    GgafDx9Util::getNormalizeVectorZY(_RZ, _RY, vX, vY, vZ);
+
+    _X = (*_pSource_X) + (vX * 1.0 * _veloMove * _dwActiveFrame);
+    _Y = (*_pSource_Y) + (vY * 1.0 * _veloMove * _dwActiveFrame);
+    _Z = (*_pSource_Z) + (vZ * 1.0 * _veloMove * _dwActiveFrame);
+
+    //座標に反映
+    //_pMover->behave();
+/*
+    //中間地点にも当たり判定
+    static int centerX, centerY, centerZ;
+    if (_pChip_front != NULL) {
+      centerX = (_X - _pChip_front->_X) / 2;
+      centerY = (_Y - _pChip_front->_Y) / 2;
+      centerZ = (_Z - _pChip_front->_Z) / 2;
+      _pStgChecker->setHitAreaBox(
+                      1,
+                      centerX - 30000,
+                      centerY - 30000,
+                      centerZ - 30000,
+                      centerX + 30000,
+                      centerY + 30000,
+                      centerZ + 30000
+                 ); //中間の当たり判定
+      _pStgChecker->getHitAreaBoxs()->enable(1);
+    } else {
+      _pStgChecker->getHitAreaBoxs()->disable(1);
+
+    }
+*/
+
+}
 
 void StraightLaserChip::processJudgement() {
     if (isOffScreen()) {

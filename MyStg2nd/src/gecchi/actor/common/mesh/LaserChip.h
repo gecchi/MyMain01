@@ -17,7 +17,7 @@ public:
     /** チップの頂点バッファをシェーダーでレンダリングする際にZ座標を2で割るかどうかのフラグ */
     int _div_pos_Z;
 
-    void processPreDraw() {
+    virtual void processPreDraw() {
         GgafDx9Core::GgafDx9MeshSetActor::processPreDraw();
     }
 
@@ -28,23 +28,20 @@ public:
     /**
      * ＜OverRide です＞
      */
-    void processDraw();
+    virtual void processDraw();
 
     /**
      * 出現時コールバック実装
      */
-    void onActive();
+    virtual void onActive();
 
     /**
      * 消失時コールバック実装
      */
-    void onInactive();
+    virtual void onInactive();
 
 
     GgafDx9LibStg::StgChecker* _pStgChecker;
-    /** 座標移動支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryMover* _pMover;
-
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;

@@ -56,7 +56,8 @@ class Stage05Scene;
 class LaserChip;
 class StraightLaserChip;
 class LaserChipDispatcher;
-
+class MyLaserChip001;
+class MyStraightLaserChip001;
 class Stage01MainScene;
 class MyShip;
 class MyOptionParent;
@@ -125,6 +126,7 @@ class MyFactory;
 #include "gecchi/actor/my/sprite/MyShot001.h"
 #include "gecchi/actor/my/mesh/MyWave001.h"
 #include "gecchi/actor/my/mesh/MyLaserChip001.h"
+#include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"

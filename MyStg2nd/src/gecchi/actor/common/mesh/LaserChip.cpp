@@ -13,7 +13,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
                      "LaserChipTechnique",
                      NEW StgChecker(this) ) {
     _pStgChecker = (StgChecker*)_pChecker;
-    _pMover = NEW GgafDx9GeometryMover(this);
 
 
     _class_name = "LaserChip";
@@ -306,7 +305,6 @@ void LaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 LaserChip::~LaserChip() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);
-    DELETE_IMPOSSIBLE_NULL(_pMover);
 
 }
 

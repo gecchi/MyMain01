@@ -13,8 +13,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    DefaultMeshActor(prm_name, "vic2") {
 
     _angVelocity_Turn = 3000;
-    _pMover = NEW GgafDx9GeometryMover(this);
-
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radiusPosition = 120000;
@@ -225,6 +223,5 @@ void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
 }
 
 MyOptionParent::~MyOptionParent() {
-    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }
