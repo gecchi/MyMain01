@@ -10,5 +10,6 @@ GgafDx9Quaternion::GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, floa
     _z(prm_z) {
 }
 
+
 GgafDx9Quaternion::~GgafDx9Quaternion() {
 }

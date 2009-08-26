@@ -5,7 +5,6 @@ using namespace GgafDx9Core;
 
 GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
-    _pMover = NEW GgafDx9GeometryMover(this);
     //‘S‚Ä‚ÌŠî€‚ÍfovX‚©‚çl‚¦‚é
     _rad_fovX = prm_rad_fovX;
     //”¼•ª‚ğ•Û
@@ -200,7 +199,6 @@ void GgafDx9Camera::processJudgement() {
 
 GgafDx9Camera::~GgafDx9Camera() {
     //‚¢‚ë‚¢‚ë‰ğ•ú
-    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamUp);

@@ -13,8 +13,20 @@ public:
     float   _y;
     float   _z;
 
-    GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z);
+    GgafDx9Quaternion() {
+        _t = 0;
+        _x = 0;
+        _y = 0;
+        _z = 0;
+    }
 
+    GgafDx9Quaternion(float prm_t, float prm_x, float prm_y, float prm_z);
+    void set(float prm_t, float prm_x, float prm_y, float prm_z) {
+        _t = prm_t;
+        _x = prm_x;
+        _y = prm_y;
+        _z = prm_z;
+    }
     void mul(float t2, float x2, float y2, float z2) {
         static float t1, x1, y1, z1;
         t1 = _t;

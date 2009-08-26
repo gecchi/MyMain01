@@ -20,6 +20,7 @@ _Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 
     _max_radius = 0;
 
     _pChecker = prm_pChecker;
+    _pMover = NEW GgafDx9GeometryMover(this);
 
     _offscreenkind = -1;
 
@@ -624,4 +625,5 @@ int GgafDx9GeometricActor::isOffScreen() {
 
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
+    DELETE_IMPOSSIBLE_NULL(_pMover);
 }
