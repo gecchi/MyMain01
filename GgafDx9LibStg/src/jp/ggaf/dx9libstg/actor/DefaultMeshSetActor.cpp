@@ -14,7 +14,6 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
     _class_name = "DefaultMeshSetActor";
     _frame_offset = 0;
     _pStgChecker = (StgChecker*)_pChecker;
-    _pMover = NEW GgafDx9GeometryMover(this);
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 }
@@ -25,6 +24,5 @@ void DefaultMeshSetActor::drawHitArea() {
 
 DefaultMeshSetActor::~DefaultMeshSetActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);
-    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

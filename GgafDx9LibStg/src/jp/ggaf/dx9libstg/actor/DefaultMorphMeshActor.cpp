@@ -15,7 +15,6 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
     _frame_offset = 0;
     _pStgChecker = (StgChecker*)_pChecker;
 
-    _pMover = NEW GgafDx9GeometryMover(this);
     _pScaler = NEW GgafDx9GeometryScaler(this);
     _pMorpher = NEW GgafDx9GeometryMorpher(this);
 
@@ -28,7 +27,6 @@ void DefaultMorphMeshActor::drawHitArea() {
 
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);
-    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
     DELETE_IMPOSSIBLE_NULL(_pMorpher);
 }

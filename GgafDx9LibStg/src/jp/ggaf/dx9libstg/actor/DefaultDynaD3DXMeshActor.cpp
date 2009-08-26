@@ -13,7 +13,6 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
     _class_name = "DefaultDynaD3DXMeshActor";
     _frame_offset = 0;
     _pStgChecker = (StgChecker*)_pChecker;
-    _pMover = NEW GgafDx9GeometryMover(this);
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 
@@ -26,6 +25,5 @@ void DefaultDynaD3DXMeshActor::drawHitArea() {
 
 DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);
-    DELETE_IMPOSSIBLE_NULL(_pMover);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

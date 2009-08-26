@@ -12,8 +12,6 @@ public:
     DWORD _frame_offset;
 
     StgChecker* _pStgChecker;
-    /** 座標移動支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryMover* _pMover;
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 

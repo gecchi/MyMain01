@@ -9,8 +9,6 @@ namespace GgafDx9LibStg {
 class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 
 public:
-    /** 座標移動支援オブジェクト */
-    GgafDx9Core::GgafDx9GeometryMover* _pMover;
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
