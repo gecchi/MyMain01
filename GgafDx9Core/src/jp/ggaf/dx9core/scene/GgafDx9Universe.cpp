@@ -21,7 +21,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 void GgafDx9Universe::draw() {
     //不透明アクターなど、段階レンダリングが不要なオブジェクトを描画
     //※TODO:本来は手前から描画のほうが効率良いが、とりあえず。
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //左（反時計回り）回りにカリング ∵左手座標系
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //左（反時計回り）回りにカリング ∵左手座標系
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
         _pActor_DrawActive->processDraw();

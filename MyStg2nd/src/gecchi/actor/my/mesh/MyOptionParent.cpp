@@ -21,7 +21,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
     pMyDummyOption01->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
-    pMyDummyOption01->setAlpha(1.0f);
     addSubLast(pMyDummyOption01);
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
@@ -87,38 +86,38 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     pMyDummyOption08->setAlpha(0.3);
     addSubLast(pMyDummyOption08);
-
-    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
-    pMyDummyOption09->_radiusPosition = 280000;
-    pMyDummyOption09->_angPosition = 0;
-    pMyDummyOption09->_angExpanse = 270000;
-    pMyDummyOption09->_angveloExpanse = 0;
-    pMyDummyOption09->_veloMove = 8000;
-    addSubLast(pMyDummyOption09);
-
-    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
-    pMyDummyOption10->_radiusPosition = 280000;
-    pMyDummyOption10->_angPosition = ANGLE90;
-    pMyDummyOption10->_angExpanse = 270000;
-    pMyDummyOption10->_angveloExpanse = 0;
-    pMyDummyOption10->_veloMove = 8000;
-    addSubLast(pMyDummyOption10);
-
-    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
-    pMyDummyOption11->_radiusPosition = 280000;
-    pMyDummyOption11->_angPosition = ANGLE180;
-    pMyDummyOption11->_angExpanse = 270000;
-    pMyDummyOption11->_angveloExpanse = 0;
-    pMyDummyOption11->_veloMove = 8000;
-    addSubLast(pMyDummyOption11);
-
-    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
-    pMyDummyOption12->_radiusPosition = 280000;
-    pMyDummyOption12->_angPosition = ANGLE270;
-    pMyDummyOption12->_angExpanse = 270000;
-    pMyDummyOption12->_angveloExpanse = 0;
-    pMyDummyOption12->_veloMove = 8000;
-    addSubLast(pMyDummyOption12);
+//
+//    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
+//    pMyDummyOption09->_radiusPosition = 280000;
+//    pMyDummyOption09->_angPosition = 0;
+//    pMyDummyOption09->_angExpanse = 270000;
+//    pMyDummyOption09->_angveloExpanse = 0;
+//    pMyDummyOption09->_veloMove = 8000;
+//    addSubLast(pMyDummyOption09);
+//
+//    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
+//    pMyDummyOption10->_radiusPosition = 280000;
+//    pMyDummyOption10->_angPosition = ANGLE90;
+//    pMyDummyOption10->_angExpanse = 270000;
+//    pMyDummyOption10->_angveloExpanse = 0;
+//    pMyDummyOption10->_veloMove = 8000;
+//    addSubLast(pMyDummyOption10);
+//
+//    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
+//    pMyDummyOption11->_radiusPosition = 280000;
+//    pMyDummyOption11->_angPosition = ANGLE180;
+//    pMyDummyOption11->_angExpanse = 270000;
+//    pMyDummyOption11->_angveloExpanse = 0;
+//    pMyDummyOption11->_veloMove = 8000;
+//    addSubLast(pMyDummyOption11);
+//
+//    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
+//    pMyDummyOption12->_radiusPosition = 280000;
+//    pMyDummyOption12->_angPosition = ANGLE270;
+//    pMyDummyOption12->_angExpanse = 270000;
+//    pMyDummyOption12->_angveloExpanse = 0;
+//    pMyDummyOption12->_veloMove = 8000;
+//    addSubLast(pMyDummyOption12);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
