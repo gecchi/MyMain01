@@ -32,15 +32,6 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this);
         pChip->setAngleSource(_pMyOptionParent);
-//        pChip->_pSource_X = &_X2;
-//        pChip->_pSource_Y = &_Y2;
-//        pChip->_pSource_Z = &_Z2;
-//        pChip->_pSource_RX = &_pMyOptionParent->_RX;
-//        pChip->_pSource_RY = &_pMyOptionParent->_RY;
-//        pChip->_pSource_RZ = &_pMyOptionParent->_RZ;
-//        pChip->_pSource_vX = &_pMyOptionParent->_pMover->_vX;
-//        pChip->_pSource_vY = &_pMyOptionParent->_pMover->_vY;
-//        pChip->_pSource_vZ = &_pMyOptionParent->_pMover->_vZ;
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
