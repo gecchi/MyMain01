@@ -23,15 +23,17 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
-    MyStraightLaserChip001* pChip;
+    MyLaserChip001* pChip;
     for (int i = 0; i < 50; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
-        pChip = NEW MyStraightLaserChip001(name2.c_str());
-        pChip->setPositionSource(this);
-        pChip->setAngleSource(_pMyOptionParent);
+        pChip = NEW MyLaserChip001(name2.c_str());
+//        pChip->setSource(this);
+//        pChip->_pSource_vX = &_Q._x;
+//        pChip->_pSource_vY = &_Q._y;
+//        pChip->_pSource_vZ = &_Q._z;
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
@@ -99,6 +101,12 @@ void MyDummyOption::processBehavior() {
 //
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
+
+    if (VB::isBeingPressed(VB_BUTTON5)) {
+        _angveloExpanse = 1000;
+    } else {
+        _angveloExpanse = 0;
+    }
 
 
     _X = _Xorg;
@@ -209,7 +217,7 @@ void MyDummyOption::processBehavior() {
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
     if (VB::isBeingPressed(VB_BUTTON2)) {
-        MyStraightLaserChip001* pLaserChip = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
+        MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;

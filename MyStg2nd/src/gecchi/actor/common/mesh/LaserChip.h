@@ -69,11 +69,6 @@ public:
     /**
      * 下位クラスでオーバーライドして下さい。
      */
-    virtual void processBehavior();
-
-    /**
-     * 下位クラスでオーバーライドして下さい。
-     */
     virtual void processJudgement();
 
     /**

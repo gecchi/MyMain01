@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : LaserChip(prm_name, "laser_chip") {
+EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : CurveLaserChip(prm_name, "laser_chip") {
     _class_name = "EnemyLaserChip001";
 }
 
@@ -19,15 +19,6 @@ void EnemyLaserChip001::initialize() {
     _fAlpha = 0.9;
     _max_radius = 5.0;
 }
-
-void EnemyLaserChip001::processBehavior() {
-    LaserChip::processBehavior();
-}
-
-void EnemyLaserChip001::processJudgement() {
-    LaserChip::processJudgement();
-}
-
 
 void EnemyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }

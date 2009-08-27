@@ -2,7 +2,7 @@
 #define MYLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyLaserChip001 : public LaserChip {
+class MyLaserChip001 : public CurveLaserChip {
 
 public:
 
@@ -12,10 +12,6 @@ public:
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void initialize();
-
-//    void processBehavior();
-//
-//    void processJudgement();
 
     void processHappen(int prm_no) {
     }

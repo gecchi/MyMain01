@@ -98,34 +98,6 @@ void LaserChip::onInactive() {
 
 }
 
-void LaserChip::processBehavior() {
-
-    //座標に反映
-    _pMover->behave();
-/*
-    //中間地点にも当たり判定
-    static int centerX, centerY, centerZ;
-    if (_pChip_front != NULL) {
-      centerX = (_X - _pChip_front->_X) / 2;
-      centerY = (_Y - _pChip_front->_Y) / 2;
-      centerZ = (_Z - _pChip_front->_Z) / 2;
-      _pStgChecker->setHitAreaBox(
-                      1,
-                      centerX - 30000,
-                      centerY - 30000,
-                      centerZ - 30000,
-                      centerX + 30000,
-                      centerY + 30000,
-                      centerZ + 30000
-                 ); //中間の当たり判定
-      _pStgChecker->getHitAreaBoxs()->enable(1);
-    } else {
-      _pStgChecker->getHitAreaBoxs()->disable(1);
-
-    }
-*/
-
-}
 
 void LaserChip::processJudgement() {
     if (isOffScreen()) {
@@ -151,11 +123,11 @@ void LaserChip::processJudgement() {
         _chip_kind = 4; //何も描画したくない
     }
 
-    //【注意】4/15 メモ
-    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
-    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。
-    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
-    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
+//    //【注意】4/15 メモ
+//    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
+//    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。
+//    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
+//    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
 void LaserChip::processDraw() {

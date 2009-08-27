@@ -69,13 +69,15 @@ public:
 
     virtual void initialize();
 
-    virtual void onActive();
+
 
     virtual void processBehavior();
 
     virtual void processJudgement();
 
-    //virtual void processDraw();
+    virtual void onActive();
+
+    virtual void onInactive();
 
     virtual ~StraightLaserChip();
 

@@ -57,13 +57,14 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
     addSubLast(_pDispatcher_MyWaves001); //仮サブ
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
-    MyLaserChip001* pChip;
+    MyStraightLaserChip001* pChip;
     for (int i = 0; i < 60; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
-        name <<  "MyLaserChip001_" << i;
+        name <<  "MyStraightLaserChip001_" << i;
         string name2 = name.str();
-        pChip = NEW MyLaserChip001(name2.c_str());
+        pChip = NEW MyStraightLaserChip001(name2.c_str());
+        pChip->setSource(this);
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
@@ -244,25 +245,25 @@ void MyShip::processBehavior() {
 
     if (VB::isBeingPressed(VB_BUTTON2)) {//isBeingPressed
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
-        MyLaserChip001* pLaser = (MyLaserChip001*)_pLaserChipDispatcher->employ();
+        MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
-            pLaser->_pMover->_vX = _pMover->_vX;
-            pLaser->_pMover->_vY = _pMover->_vY;
-            pLaser->_pMover->_vZ = _pMover->_vZ;
-            pLaser->_pMover->_angRzMove = _pMover->_angRzMove;
-            pLaser->_pMover->_angRyMove = _pMover->_angRyMove;
-            static angle wk;
-            if ((0<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE90) ||
-                (ANGLE270<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE360) ) {
-                wk = 0;
-            } else {
-                wk = ANGLE180;
-            }
-            pLaser->_pMover->_angRot[AXIS_X] = wk;
-            pLaser->_pMover->_angRot[AXIS_Z] = _pMover->_angRzMove;
-            pLaser->_pMover->_angRot[AXIS_Y] = _pMover->_angRyMove;
-            pLaser->_pMover->behave();
-            pLaser->setGeometry(this);
+//            pLaser->_pMover->_vX = _pMover->_vX;
+//            pLaser->_pMover->_vY = _pMover->_vY;
+//            pLaser->_pMover->_vZ = _pMover->_vZ;
+//            pLaser->_pMover->_angRzMove = _pMover->_angRzMove;
+//            pLaser->_pMover->_angRyMove = _pMover->_angRyMove;
+//            static angle wk;
+//            if ((0<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE90) ||
+//                (ANGLE270<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE360) ) {
+//                wk = 0;
+//            } else {
+//                wk = ANGLE180;
+//            }
+//            pLaser->_pMover->_angRot[AXIS_X] = wk;
+//            pLaser->_pMover->_angRot[AXIS_Z] = _pMover->_angRzMove;
+//            pLaser->_pMover->_angRot[AXIS_Y] = _pMover->_angRyMove;
+//            pLaser->_pMover->behave();
+//            pLaser->setGeometry(this);
 
             //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }
