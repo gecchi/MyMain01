@@ -68,7 +68,5 @@ void CurveLaserChip::processJudgement() {
 }
 
 CurveLaserChip::~CurveLaserChip() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
-
 }
 
