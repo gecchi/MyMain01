@@ -51,74 +51,74 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption04->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 0, 1.0);
     addSubLast(pMyDummyOption04);
 
-//    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
-//    pMyDummyOption05->_radiusPosition = 200000;
-//    pMyDummyOption05->_angPosition = 0;
-//    pMyDummyOption05->_angExpanse = 270000;
-//    pMyDummyOption05->_angveloExpanse = 0;
-//    pMyDummyOption05->_veloMove = -7000;
-//    pMyDummyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
-//    addSubLast(pMyDummyOption05);
-//
-//    MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
-//    pMyDummyOption06->_radiusPosition = 200000;
-//    pMyDummyOption06->_angPosition = ANGLE90;
-//    pMyDummyOption06->_angExpanse = 270000;
-//    pMyDummyOption06->_angveloExpanse = 0;
-//    pMyDummyOption06->_veloMove = -7000;
-//    pMyDummyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
-//    addSubLast(pMyDummyOption06);
-//
-//    MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
-//    pMyDummyOption07->_radiusPosition = 200000;
-//    pMyDummyOption07->_angPosition = ANGLE180;
-//    pMyDummyOption07->_angExpanse = 270000;
-//    pMyDummyOption07->_angveloExpanse = 0;
-//    pMyDummyOption07->_veloMove = -7000;
-//    pMyDummyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
-//    addSubLast(pMyDummyOption07);
-//
-//    MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
-//    pMyDummyOption08->_radiusPosition = 200000;
-//    pMyDummyOption08->_angPosition = ANGLE270;
-//    pMyDummyOption08->_angExpanse = 270000;
-//    pMyDummyOption08->_angveloExpanse = 0;
-//    pMyDummyOption08->_veloMove = -7000;
-//    pMyDummyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
-//    pMyDummyOption08->setAlpha(0.3);
-//    addSubLast(pMyDummyOption08);
-//
-//    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
-//    pMyDummyOption09->_radiusPosition = 280000;
-//    pMyDummyOption09->_angPosition = 0;
-//    pMyDummyOption09->_angExpanse = 270000;
-//    pMyDummyOption09->_angveloExpanse = 0;
-//    pMyDummyOption09->_veloMove = 8000;
-//    addSubLast(pMyDummyOption09);
-//
-//    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
-//    pMyDummyOption10->_radiusPosition = 280000;
-//    pMyDummyOption10->_angPosition = ANGLE90;
-//    pMyDummyOption10->_angExpanse = 270000;
-//    pMyDummyOption10->_angveloExpanse = 0;
-//    pMyDummyOption10->_veloMove = 8000;
-//    addSubLast(pMyDummyOption10);
-//
-//    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
-//    pMyDummyOption11->_radiusPosition = 280000;
-//    pMyDummyOption11->_angPosition = ANGLE180;
-//    pMyDummyOption11->_angExpanse = 270000;
-//    pMyDummyOption11->_angveloExpanse = 0;
-//    pMyDummyOption11->_veloMove = 8000;
-//    addSubLast(pMyDummyOption11);
-//
-//    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
-//    pMyDummyOption12->_radiusPosition = 280000;
-//    pMyDummyOption12->_angPosition = ANGLE270;
-//    pMyDummyOption12->_angExpanse = 270000;
-//    pMyDummyOption12->_angveloExpanse = 0;
-//    pMyDummyOption12->_veloMove = 8000;
-//    addSubLast(pMyDummyOption12);
+    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
+    pMyDummyOption05->_radiusPosition = 200000;
+    pMyDummyOption05->_angPosition = 0;
+    pMyDummyOption05->_angExpanse = 270000;
+    pMyDummyOption05->_angveloExpanse = 0;
+    pMyDummyOption05->_veloMove = -7000;
+    pMyDummyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
+    addSubLast(pMyDummyOption05);
+
+    MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
+    pMyDummyOption06->_radiusPosition = 200000;
+    pMyDummyOption06->_angPosition = ANGLE90;
+    pMyDummyOption06->_angExpanse = 270000;
+    pMyDummyOption06->_angveloExpanse = 0;
+    pMyDummyOption06->_veloMove = -7000;
+    pMyDummyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
+    addSubLast(pMyDummyOption06);
+
+    MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
+    pMyDummyOption07->_radiusPosition = 200000;
+    pMyDummyOption07->_angPosition = ANGLE180;
+    pMyDummyOption07->_angExpanse = 270000;
+    pMyDummyOption07->_angveloExpanse = 0;
+    pMyDummyOption07->_veloMove = -7000;
+    pMyDummyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
+    addSubLast(pMyDummyOption07);
+
+    MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
+    pMyDummyOption08->_radiusPosition = 200000;
+    pMyDummyOption08->_angPosition = ANGLE270;
+    pMyDummyOption08->_angExpanse = 270000;
+    pMyDummyOption08->_angveloExpanse = 0;
+    pMyDummyOption08->_veloMove = -7000;
+    pMyDummyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
+    pMyDummyOption08->setAlpha(0.3);
+    addSubLast(pMyDummyOption08);
+
+    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
+    pMyDummyOption09->_radiusPosition = 280000;
+    pMyDummyOption09->_angPosition = 0;
+    pMyDummyOption09->_angExpanse = 270000;
+    pMyDummyOption09->_angveloExpanse = 0;
+    pMyDummyOption09->_veloMove = 8000;
+    addSubLast(pMyDummyOption09);
+
+    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
+    pMyDummyOption10->_radiusPosition = 280000;
+    pMyDummyOption10->_angPosition = ANGLE90;
+    pMyDummyOption10->_angExpanse = 270000;
+    pMyDummyOption10->_angveloExpanse = 0;
+    pMyDummyOption10->_veloMove = 8000;
+    addSubLast(pMyDummyOption10);
+
+    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
+    pMyDummyOption11->_radiusPosition = 280000;
+    pMyDummyOption11->_angPosition = ANGLE180;
+    pMyDummyOption11->_angExpanse = 270000;
+    pMyDummyOption11->_angveloExpanse = 0;
+    pMyDummyOption11->_veloMove = 8000;
+    addSubLast(pMyDummyOption11);
+
+    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
+    pMyDummyOption12->_radiusPosition = 280000;
+    pMyDummyOption12->_angPosition = ANGLE270;
+    pMyDummyOption12->_angExpanse = 270000;
+    pMyDummyOption12->_angveloExpanse = 0;
+    pMyDummyOption12->_veloMove = 8000;
+    addSubLast(pMyDummyOption12);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -133,6 +133,7 @@ void MyOptionParent::initialize() {
     _pMover->setRzMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
 
     _way_myship_prev = GameGlobal::_pMyShip->_way;
+    _pMover->behave();
 }
 
 void MyOptionParent::processBehavior() {

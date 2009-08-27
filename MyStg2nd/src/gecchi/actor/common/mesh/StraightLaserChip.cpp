@@ -10,6 +10,16 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     LaserChip(prm_name, prm_model) {
 //    _pPosSourceActor = NULL;
 //    _pAngleSourceActor = NULL;
+
+    _pSource_X = &_X;
+    _pSource_Y = &_Y;
+    _pSource_Z = &_Z;
+    _pSource_RX = &_RX;
+    _pSource_RY = &_RY;
+    _pSource_RZ = &_RZ;
+    _pSource_vX = &_pMover->_vX;
+    _pSource_vY = &_pMover->_vY;
+    _pSource_vZ = &_pMover->_vZ;
 }
 
 void StraightLaserChip::initialize() {
@@ -33,12 +43,9 @@ void StraightLaserChip::processBehavior() {
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);
-    double vX,vY,vZ;
-    GgafDx9Util::getNormalizeVectorZY(_RZ, _RY, vX, vY, vZ);
-
-    _X = (*_pSource_X) + (vX * 1.0 * _veloMove * _dwActiveFrame);
-    _Y = (*_pSource_Y) + (vY * 1.0 * _veloMove * _dwActiveFrame);
-    _Z = (*_pSource_Z) + (vZ * 1.0 * _veloMove * _dwActiveFrame);
+    _X = (*_pSource_X) + ((*_pSource_vX) * 1.0 * _veloMove * _dwActiveFrame);
+    _Y = (*_pSource_Y) + ((*_pSource_vY) * 1.0 * _veloMove * _dwActiveFrame);
+    _Z = (*_pSource_Z) + ((*_pSource_vZ) * 1.0 * _veloMove * _dwActiveFrame);
 
     //À•W‚É”½‰f
     //_pMover->behave();
@@ -67,6 +74,12 @@ void StraightLaserChip::processBehavior() {
 
 }
 
+//void StraightLaserChip::processDraw() {
+//    _TRACE_("> StraightLaserChip,(RZ,RY)=("<<_RZ<<","<<_RY<<")");
+//    LaserChip::processDraw();
+//    _TRACE_("< StraightLaserChip,(RZ,RY)=("<<_RZ<<","<<_RY<<")");
+//}
+
 void StraightLaserChip::processJudgement() {
     if (isOffScreen()) {
         inactivate();
@@ -92,7 +105,7 @@ void StraightLaserChip::processJudgement() {
     }
 
 
-    GgafDx9GeometricActor::getWorldMatrix_ScMvRxRzRy(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
 }
 
 

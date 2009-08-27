@@ -30,17 +30,17 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
-        pChip->setSource(this);
-
-        pChip->_pSource_X = &_X2;
-        pChip->_pSource_Y = &_Y2;
-        pChip->_pSource_Z = &_Z2;
-        pChip->_pSource_RX = &_RX;
-        pChip->_pSource_RY = &_RY2;
-        pChip->_pSource_RZ = &_RZ2;
-//        pChip->_pSource_vX = &_Q._x;
-//        pChip->_pSource_vY = &_Q._y;
-//        pChip->_pSource_vZ = &_Q._z;
+        pChip->setPositionSource(this);
+        pChip->setAngleSource(_pMyOptionParent);
+//        pChip->_pSource_X = &_X2;
+//        pChip->_pSource_Y = &_Y2;
+//        pChip->_pSource_Z = &_Z2;
+//        pChip->_pSource_RX = &_pMyOptionParent->_RX;
+//        pChip->_pSource_RY = &_pMyOptionParent->_RY;
+//        pChip->_pSource_RZ = &_pMyOptionParent->_RZ;
+//        pChip->_pSource_vX = &_pMyOptionParent->_pMover->_vX;
+//        pChip->_pSource_vY = &_pMyOptionParent->_pMover->_vY;
+//        pChip->_pSource_vZ = &_pMyOptionParent->_pMover->_vZ;
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
@@ -252,6 +252,7 @@ void MyDummyOption::processJudgement() {
 void MyDummyOption::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
+
 
 MyDummyOption::~MyDummyOption() {
     _pSeCon_Laser->close();
