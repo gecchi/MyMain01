@@ -84,16 +84,45 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
         draw_depth_level = prm_draw_depth_level;
     }
 
+
+
+
     if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
         //そのprm_draw_depth_levelで最初のアクターの場合
         prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
         _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-        pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
-        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+        //お知りから追加、或いは、前に積み上げ(ランダムどちらか）
+        //何故ならば半透明オブジェクトが交差した場合、ぼやかすため
+        if ((GgafGod::_pGod->_pUniverse->_lifeframe & 1) == 1) {
+            //お尻に追加
+            pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
+            prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
+            _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+        } else {
+            //前に追加
+            pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
+            while(pActorTmp->_pNext_TheSameDrawDepthLevel != NULL) {
+                pActorTmp = pActorTmp->_pNext_TheSameDrawDepthLevel;
+            }
+            pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
+            prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+
+        }
+
     }
+
+//    if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
+//        //そのprm_draw_depth_levelで最初のアクターの場合
+//        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+//        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+//    } else {
+//        //そのprm_draw_depth_levelで既にアクター登録済みだった場合
+//        pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
+//        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
+//        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
+//    }
 }
 
 GgafDx9Universe::~GgafDx9Universe() {
