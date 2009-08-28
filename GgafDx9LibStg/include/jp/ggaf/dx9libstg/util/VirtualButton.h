@@ -8,6 +8,7 @@ namespace GgafDx9LibStg {
 #define VB_BUTTON4 (0x8)
 #define VB_BUTTON5 (0x10)
 #define VB_BUTTON6 (0x20)
+
 #define VB_PAUSE   (0x400)
 #define VB_UP      (0x800)
 #define VB_DOWN    (0x1000)

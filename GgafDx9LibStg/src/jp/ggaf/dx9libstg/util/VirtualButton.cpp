@@ -12,10 +12,10 @@ VirtualButton::VBMap* VirtualButton::_pVBMap = NULL;
 VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z,      // BUTTON1
                               DIK_X,      // BUTTON2
-                              DIK_A,      // BUTTON3
-                              DIK_Q,      // BUTTON4
-                              DIK_C,      // BUTTON5
-                              DIK_V,      // BUTTON6
+                              DIK_C,      // BUTTON3
+                              DIK_A,      // BUTTON4
+                              DIK_S,      // BUTTON5
+                              DIK_D,      // BUTTON6
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
                               DIK_DOWN,   // DOWN
@@ -27,19 +27,19 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_RIGHT,  // UI_RIGHT
                               DIK_RETURN, // UI_EXECUTE
                               DIK_ESCAPE, // UI_CANCEL
-                              DIK_D       // UI_DEBUG
+                              DIK_Q       // UI_DEBUG
                            };
 
 VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               0, // BUTTON1
-                              7, // BUTTON2
-                              8, // BUTTON3
-                              1, // BUTTON4
-                              2, // BUTTON5
-                              3, // BUTTON6
+                              1, // BUTTON2
+                              2, // BUTTON3
+                              3, // BUTTON4
+                              4, // BUTTON5
+                              5, // BUTTON6
                               6, // PAUSE
                               0, // UI_EXECUTE
-                              4  // UI_CANCEL
+                              1  // UI_CANCEL
                            };
 
 VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
