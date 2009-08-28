@@ -35,39 +35,6 @@ God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd)
     VB::_tagJoymap.PAUSE      = VB::_mapDIK[ PROPERTY(MY_JOY_PAUSE) ];
     VB::_tagJoymap.UI_EXECUTE = VB::_mapDIK[ PROPERTY(MY_JOY_UI_EXECUTE) ];
     VB::_tagJoymap.UI_CANCEL  = VB::_mapDIK[ PROPERTY(MY_JOY_UI_CANCEL) ];
-//    VB::_tagKeymap = {
-//                                  DIK_Z,      // BUTTON1
-//                                  DIK_X,      // BUTTON2
-//                                  DIK_A,      // BUTTON3
-//                                  DIK_Q,      // BUTTON4
-//                                  DIK_C,      // BUTTON5
-//                                  DIK_V,      // BUTTON6
-//                                  DIK_ESCAPE, // PAUSE
-//                                  DIK_UP,     // UP
-//                                  DIK_DOWN,   // DOWN
-//                                  DIK_LEFT,   // LEFT
-//                                  DIK_RIGHT,  // RIGHT
-//                                  DIK_UP,     // UI_UP
-//                                  DIK_DOWN,   // UI_DOWN
-//                                  DIK_LEFT,   // UI_LEFT
-//                                  DIK_RIGHT,  // UI_RIGHT
-//                                  DIK_RETURN, // UI_EXECUTE
-//                                  DIK_ESCAPE, // UI_CANCEL
-//                                  DIK_D       // UI_DEBUG
-//                               };
-
-//    VB::_tagJoymap = {
-//                                  0, // BUTTON1
-//                                  7, // BUTTON2
-//                                  8, // BUTTON3
-//                                  1, // BUTTON4
-//                                  2, // BUTTON5
-//                                  3, // BUTTON6
-//                                  6, // PAUSE
-//                                  0, // UI_EXECUTE
-//                                  4  // UI_CANCEL
-//                               };
-
 
 }
 

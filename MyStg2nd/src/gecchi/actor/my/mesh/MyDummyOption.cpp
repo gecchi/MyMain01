@@ -102,7 +102,7 @@ void MyDummyOption::processBehavior() {
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
 
-    if (VB::isBeingPressed(VB_BUTTON5)) {
+    if (VB::isBeingPressed(VB_OPTION)) {
         _angveloExpanse = 1000;
     } else {
         _angveloExpanse = 0;
@@ -216,7 +216,7 @@ void MyDummyOption::processBehavior() {
 
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 
-    if (VB::isBeingPressed(VB_BUTTON2)) {
+    if (VB::isBeingPressed(VB_SHOT2)) {
         MyLaserChip001* pLaserChip = (MyLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
             pLaserChip->_pMover->_vX = _Q._x;

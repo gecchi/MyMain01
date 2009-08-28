@@ -20,17 +20,17 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_vX = &_pMover->_vX;
     _pSource_vY = &_pMover->_vY;
     _pSource_vZ = &_pMover->_vZ;
+    _veloMove = 10000;
+    _dwActiveFrame = 0;
 }
 
 void StraightLaserChip::initialize() {
     //下位レーザーチップでオーバーライトされている可能性あり
-    _veloMove = 10000;
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _fAlpha = 0.9;
-    _dwActiveFrame = 0;
 }
 
 void StraightLaserChip::onActive() {

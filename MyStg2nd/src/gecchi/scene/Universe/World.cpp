@@ -73,7 +73,7 @@ void World::processBehavior() {
 
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
     if ( getSubFirst()->isBehaving() ) {
-        if (VB::isBeingPressed(VB_BUTTON4)) {
+        if (VB::isBeingPressed(VB_ZMOVE)) {
             dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 2)) - pCAM->_Z;
             dX = X_screen_left - pCAM->_X;
         } else {

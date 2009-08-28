@@ -6,22 +6,26 @@
 #include "GgafDx9LibStgHeader.h"
 
 
-#define KIND_EFFECT            0
-#define KIND_MY_BODY           1
-#define KIND_MY_SHOT_GU        2
-#define KIND_MY_SHOT_CHOKI     4
-#define KIND_MY_SHOT_PA        8
-#define KIND_MY_SHOT_NOMAL     16
-#define KIND_ENEMY_BODY        32
-#define KIND_ENEMY_SHOT_GU     64
-#define KIND_ENEMY_SHOT_CHOKI  128
-#define KIND_ENEMY_SHOT_PA     256
-#define KIND_ENEMY_SHOT_NOMAL  512
-#define KIND_OTHER             1024
-#define KIND_CHIKEI            2048
+#define KIND_EFFECT            (0x0)
+#define KIND_MY_BODY           (0x1)
+#define KIND_MY_SHOT_GU        (0x2)
+#define KIND_MY_SHOT_CHOKI     (0x4)
+#define KIND_MY_SHOT_PA        (0x8)
+#define KIND_MY_SHOT_NOMAL     (0x10)
+#define KIND_ENEMY_BODY        (0x20)
+#define KIND_ENEMY_SHOT_GU     (0x40)
+#define KIND_ENEMY_SHOT_CHOKI  (0x80)
+#define KIND_ENEMY_SHOT_PA     (0x100)
+#define KIND_ENEMY_SHOT_NOMAL  (0x200)
+#define KIND_OTHER             (0x400)
+#define KIND_CHIKEI            (0x800)
 #define KIND_MY                (KIND_MY_BODY|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_SHOT_NOMAL)
 #define KIND_ENEMY             (KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL)
 
+#define VB_SHOT1    VB_BUTTON1
+#define VB_SHOT2    VB_BUTTON2
+#define VB_OPTION   VB_BUTTON3
+#define VB_ZMOVE    VB_BUTTON4
 
 namespace MyStg2nd {
 
