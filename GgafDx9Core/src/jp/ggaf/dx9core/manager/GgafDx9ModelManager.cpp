@@ -176,6 +176,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         int nVertices = model_pMeshesFront->_nVertices;
         int nFaces = model_pMeshesFront->_nFaces;
 
+        //TODO:‚±‚Ìs—ñ‚ğÅ‰‚ÉŠ|‚¯‚é•K—v‚ª‚ ‚é‚ª‚â‚Á‚Ä‚È‚¢‚Ì‚Å‚·‚é—\’è
+        for (int q = 0; q < 16; q++) {
+            _TRACE_(q<<"="<<(model_pModel3D->_Skeletton->_MatrixPos.data[q])<<"");
+        }
+
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
