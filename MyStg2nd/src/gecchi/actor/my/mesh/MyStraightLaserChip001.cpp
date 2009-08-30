@@ -8,11 +8,11 @@ using namespace MyStg2nd;
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "laser_chip") {
     _class_name = "MyStraightLaserChip001";
+    _veloMove = 100000;
 }
 
 void MyStraightLaserChip001::initialize() {
     _pMover->setMoveVelocity(0);
-    _veloMove = 100000;
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);

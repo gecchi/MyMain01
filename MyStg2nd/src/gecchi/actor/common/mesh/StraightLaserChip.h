@@ -20,25 +20,7 @@ public:
     int _veloMove;
     DWORD _dwActiveFrame;
 
-//    GgafDx9Core::GgafDx9GeometricActor* _pPosSourceActor;
-//    GgafDx9Core::GgafDx9GeometricActor* _pAngleSourceActor;
-
     StraightLaserChip(const char* prm_name, const char* prm_model);
-
-//    void setSource(int* pSrcX, int* pSrcY, int* pSrcZ,
-//                       GgafDx9Core::angle* pSrcRX, GgafDx9Core::angle* pSrcRY, GgafDx9Core::angle* pSrcRZ
-//                   ) {
-//        _pSource_X = pSrcX;
-//        _pSource_Y = pSrcY;
-//        _pSource_Z = pSrcZ;
-//        _pSource_RX = pSrcRX;
-//        _pSource_RY = pSrcRY;
-//        _pSource_RZ = pSrcRZ;
-//        _pSource_vX = pSrcvX;
-//        _pSource_vY = pSrcvY;
-//        _pSource_vZ = pSrcvZ;
-//    }
-
 
     void setPositionSource(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor) {
         _pSource_X = &prm_pGeoActor->_X;
@@ -68,8 +50,6 @@ public:
     }
 
     virtual void initialize();
-
-
 
     virtual void processBehavior();
 

@@ -6,15 +6,6 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 //int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
-
-//float g_X; //一つ前を行くチップX
-//float g_Y; //一つ前を行くチップY
-//float g_Z; //一つ前を行くチップZ
-
-//bool g_RevPosZ; //Z座標を反転するかどうか
-
-int g_nVertexs;
-
 int g_kind001;
 int g_kind002;
 int g_kind003;
@@ -167,16 +158,19 @@ OUT_VS GgafDx9VS_LaserChip(
 //			float tmpy = prm_pos.y;
 //			prm_pos.y = -8.0 * prm_pos.z;
 //			prm_pos.z = 8.0 * tmpy;
-//		} 
-			// 一つ前方のチップ座標へくっつける
+//		}
+		if (kind == 4) {  //3ではないよ
+			prm_pos.x = 0;
+			prm_pos.y = 0;
+			prm_pos.z = 0;
+		} 
+		// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {
 		//頂点計算
 		posWorld = mul( prm_pos, matWorld );        // World変換
 	}
-
-	//float4 posWorldView = mul(posWorld    , g_matView);  // View変換
-	out_vs.pos = mul(mul(posWorld, g_matView), g_matProj);  // 射影変換
+	out_vs.pos = mul(mul(posWorld, g_matView), g_matProj);  // View変換射影変換
 
 	//UV
 	if (kind == 2) {
@@ -189,8 +183,8 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.y = prm_uv.y - 0.5;
 	} else {
 		//何も描画したくない
-		out_vs.uv.x = prm_uv.x - 0.5;
-		out_vs.uv.y = prm_uv.y - 0.5;
+		out_vs.uv.x = 0;
+		out_vs.uv.y = 1;
 	}
 	return out_vs;
 }

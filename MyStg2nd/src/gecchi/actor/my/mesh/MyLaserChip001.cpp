@@ -11,13 +11,13 @@ MyLaserChip001::MyLaserChip001(const char* prm_name) : CurveLaserChip(prm_name, 
 }
 
 void MyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(80000);
+    _pMover->setMoveVelocity(100000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _SX = _SY = _SZ = 40*1000;
     _fAlpha = 0.9;
-    _max_radius = 5.0;
+    _max_radius = 10.0;
 }
 
 void MyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
