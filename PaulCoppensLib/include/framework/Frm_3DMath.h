@@ -188,6 +188,33 @@ public:
         data[10] = (T) 1;
         data[15] = (T) 1;
     }
+    //add tsugecchi 2009/08/31
+    bool isIdentity() {
+        T val0 =  (T)0;
+        T val1 =  (T)1;
+        if( data[0] == val1 &&
+            data[1] == val0 &&
+            data[2] == val0 &&
+            data[3] == val0 &&
+            data[4] == val0 &&
+            data[5] == val1 &&
+            data[6] == val0 &&
+            data[7] == val0 &&
+            data[8] == val0 &&
+            data[9] == val0 &&
+            data[10] == val1 &&
+            data[11] == val0 &&
+            data[12] == val0 &&
+            data[13] == val0 &&
+            data[14] == val0 &&
+            data[15] == val1 )
+        {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     matrix<T>& operator=(const matrix<T> &pm) {
         memcpy(data, pm.data, 16 * sizeof(T));
         return *this;
@@ -589,7 +616,7 @@ T quaternion<T>::Dot(quaternion<T> &pq)
 
 template<typename T>
 quaternion<T> quaternion<T>::Slerp(T pT, quaternion<T> &pq) {
-	//We calculate the angle spread between both quaternions
+    //We calculate the angle spread between both quaternions
     T AngleCos = pq.Dot(*this);
     T Angle = qACos(AngleCos); //see the function ACos above
 
