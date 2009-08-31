@@ -625,14 +625,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_papaVtxBuffer_org_morph[pattern-1][i].nx = 0.0f;
                     model_papaVtxBuffer_org_morph[pattern-1][i].ny = 0.0f;
                     model_papaVtxBuffer_org_morph[pattern-1][i].nz = 0.0f;
-
-                    //‹——£
-                    dis = (FLOAT)(sqrt(model_papaVtxBuffer_org_morph[pattern-1][i].x * model_papaVtxBuffer_org_morph[pattern-1][i].x +
-                                       model_papaVtxBuffer_org_morph[pattern-1][i].y * model_papaVtxBuffer_org_morph[pattern-1][i].y +
-                                       model_papaVtxBuffer_org_morph[pattern-1][i].z * model_papaVtxBuffer_org_morph[pattern-1][i].z));
-                    if (prm_pMorphMeshModel->_max_radius < dis) {
-                        prm_pMorphMeshModel->_max_radius = dis;
-                    }
                 }
             }
 

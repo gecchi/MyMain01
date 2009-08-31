@@ -279,9 +279,9 @@ void GgafDx9GeometryMover::behave() {
     ///////////////
 
     //Actor‚É”½‰f
-    _pActor->_X += (_vX * _veloMove + _veloVxMove);
-    _pActor->_Y += (_vY * _veloMove + _veloVyMove);
-    _pActor->_Z += (_vZ * _veloMove + _veloVzMove);
+    _pActor->_X += (int)(_vX * _veloMove + _veloVxMove);
+    _pActor->_Y += (int)(_vY * _veloMove + _veloVyMove);
+    _pActor->_Z += (int)(_vZ * _veloMove + _veloVzMove);
 
 }
 

@@ -53,7 +53,7 @@ public:
             _bottom_weight[prm_target_mesh] = prm_weight1;
             _top_weight[prm_target_mesh] = prm_weight2;
         } else {
-            prm_target_mesh = prm_weight1;
+            _top_weight[prm_target_mesh] = prm_weight1;
             _bottom_weight[prm_target_mesh] = prm_weight2;
         }
     }

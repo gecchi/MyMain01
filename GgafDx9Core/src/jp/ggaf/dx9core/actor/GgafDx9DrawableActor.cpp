@@ -105,32 +105,39 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:要検証
-	if (isOffScreen()) {
+    if (_is_active_flg && _can_live_flg) {
+        if (getAlpha() < 1.0) {
+            if (_isTransformed) {
+                GgafDx9Universe::setDrawDepthLevel(
+                                    (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                    this
+                                 );
+            } else {
+                if (isOffScreen()) {
 
-	} else {
-		if (_is_active_flg && _can_live_flg) {
-			if (getAlpha() < 1.0) {
-				if (_isTransformed) {
-					GgafDx9Universe::setDrawDepthLevel(
-										(int)(_z * MAX_DRAW_DEPTH_LEVEL),
-										this
-									 );
-				} else {
+                } else {
+                    //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1*PX_UNIT, this);
+                    //↑これで1px間隔段階レンダリング
+                    //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
+                    //↑ということはこれで10px間隔段階レンダリング
+                    //今は20px間隔段階レンダリング
+                    GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
+                }
+            }
+        } else {
+            //不透明の場合は初めに描画するように設定。
+            //レンダリング時最遠から描画するので、深度レベルはMAX
+            if (_isTransformed) {
+                GgafDx9Universe::setDrawDepthMaxLevel(this);
+            } else {
+                if (isOffScreen()) {
 
-					//GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1*PX_UNIT, this);
-					//↑これで1px間隔段階レンダリング
-					//GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
-					//↑ということはこれで10px間隔段階レンダリング
-					//今は20px間隔段階レンダリング
-					GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
-				}
-			} else {
-				//不透明の場合は初めに描画するように設定。
-				//レンダリング時最遠から描画するので、深度レベルはMAX
-				GgafDx9Universe::setDrawDepthMaxLevel(this);
-			}
-		}
-	}
+                } else {
+                    GgafDx9Universe::setDrawDepthMaxLevel(this);
+                }
+            }
+        }
+    }
 }
 
 

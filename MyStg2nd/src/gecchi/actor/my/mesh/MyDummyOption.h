@@ -13,7 +13,7 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 
     //ˆê•Ï”’B
     int _Xorg,_Yorg,_Zorg;
-    float _RXorg,_RYorg,_RZorg;
+    GgafDx9Core::angle _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
     GgafDx9Core::GgafDx9Quaternion _Q;
 
