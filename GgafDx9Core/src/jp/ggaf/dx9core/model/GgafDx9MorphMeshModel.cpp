@@ -48,7 +48,7 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 
-	HRESULT hr;
+    HRESULT hr;
     UINT material_no;
     //頂点バッファ設定
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
@@ -63,8 +63,8 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
+        material_no = _paIndexParam[i].MaterialNo;
         if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
-            material_no = _paIndexParam[i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -73,9 +73,9 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) に失敗しました。");
         }
+        hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) に失敗しました。");
 
         if (GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
@@ -155,7 +155,7 @@ void GgafDx9MorphMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
-	//_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
+    //_papMeshesFront[0],_papMeshesFront[1] は _papModel3D をDELETEしているのでする必要は無い
     DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
     _papMeshesFront = NULL;
 

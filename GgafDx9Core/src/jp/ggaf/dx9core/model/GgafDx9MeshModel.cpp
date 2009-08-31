@@ -35,7 +35,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMeshEffect->_pID3DXEffect;
 
-	HRESULT hr;
+    HRESULT hr;
     UINT material_no;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         //頂点バッファとインデックスバッファを設定
@@ -46,8 +46,8 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     //描画
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
+        material_no = _paIndexParam[i].MaterialNo;
         if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
-            material_no = _paIndexParam[i].MaterialNo;
             if (_papTextureCon[material_no] != NULL) {
                 //テクスチャをs0レジスタにセット
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view());
@@ -56,9 +56,9 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
         }
+        hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
+        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
 
 
         if (GgafDx9EffectManager::_pEffect_Active != pMeshEffect) {
@@ -113,11 +113,11 @@ void GgafDx9MeshModel::release() {
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-	for (DWORD i = 0; i < _dwNumMaterials; i++) {
-		if (_papTextureCon[i] != NULL) {
-			_papTextureCon[i]->close();
-		}
-	}
+    for (DWORD i = 0; i < _dwNumMaterials; i++) {
+        if (_papTextureCon[i] != NULL) {
+            _papTextureCon[i]->close();
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
@@ -126,7 +126,7 @@ void GgafDx9MeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETE_IMPOSSIBLE_NULL(_pModel3D);
-	//_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
+    //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " end");

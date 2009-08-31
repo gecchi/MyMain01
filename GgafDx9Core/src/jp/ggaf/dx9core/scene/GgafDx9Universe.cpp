@@ -21,7 +21,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 void GgafDx9Universe::draw() {
     //不透明アクターなど、段階レンダリングが不要なオブジェクトを描画
     //※TODO:本来は手前から描画のほうが効率良いが、とりあえず。
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //左（反時計回り）回りにカリング ∵左手座標系
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //左（反時計回り）回りにカリング ∵左手座標系
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
         _pActor_DrawActive->processDraw();
@@ -30,12 +30,7 @@ void GgafDx9Universe::draw() {
     _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
 
     //αがあるなど、段階レンダリングが必要なオブジェクトを描画
-    //＜メモ＞VIEWの注視方向がが正のZ軸に向いているっぽいことが前提。Z軸でしか深度を測ってません。
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングしない
-
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW); //tesuto
-
-
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングなし
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
@@ -45,6 +40,7 @@ void GgafDx9Universe::draw() {
         _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
     }
 
+    //最後のEndPass
     HRESULT hr;
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
         TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
@@ -84,17 +80,14 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
         draw_depth_level = prm_draw_depth_level;
     }
 
-
-
-
     if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
         //そのprm_draw_depth_levelで最初のアクターの場合
         prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
         _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-        //お知りから追加、或いは、前に積み上げ(ランダムどちらか）
-        //何故ならば半透明オブジェクトが交差した場合、ぼやかすため
+        //お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
+        //何故ならば、半透明オブジェクトが交差した場合、ぼやかしたいため
         if ((GgafGod::_pGod->_pUniverse->_lifeframe & 1) == 1) {
             //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
@@ -108,34 +101,10 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
             }
             pActorTmp->_pNext_TheSameDrawDepthLevel = prm_pActor;
             prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
-
         }
-
     }
 
-//    if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
-//        //そのprm_draw_depth_levelで最初のアクターの場合
-//        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
-//        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
-//    } else {
-//        //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-//        pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
-//        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-//        _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
-//    }
 }
 
 GgafDx9Universe::~GgafDx9Universe() {
-//    GgafActor* pActor;
-//    for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
-//        pActor = _apAlphaActorList_DrawDepthLevel[i];
-//        while (pActor != NULL) {
-//            _TRACE_pActor->getName();
-//            _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
-//        }
-//        _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
-//    }
-
-
-
 }
