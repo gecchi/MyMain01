@@ -48,7 +48,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption04->_angExpanse = 270000;
     pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;
-    pMyDummyOption04->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 0, 1.0);
+    pMyDummyOption04->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
     addSubLast(pMyDummyOption04);
 
 //    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);

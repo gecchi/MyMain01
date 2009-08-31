@@ -7,14 +7,12 @@ using namespace MyStg2nd;
 
 
 LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
-    GgafDx9MeshSetActor(prm_name,
-                     prm_model,
-                     "LaserChipEffect",
-                     "LaserChipTechnique",
-                     NEW StgChecker(this) ) {
+     GgafDx9MeshSetActor(prm_name,
+                         prm_model,
+                         "LaserChipEffect",
+                         "LaserChipTechnique",
+                         NEW StgChecker(this) ) {
     _pStgChecker = (StgChecker*)_pChecker;
-
-
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
@@ -65,10 +63,8 @@ void LaserChip::onActive() {
     //後でdx,dy,dzだけ更新する。
     GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 
-
     if (_pChip_front != NULL) {
         processPreJudgement();
-
     } else {
         _rev_pos_Z = 0;
     }
@@ -95,7 +91,6 @@ void LaserChip::processJudgement() {
     if (isOffScreen()) {
         inactivate();
     }
-
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
     if (_pChip_front) {
         if (_pChip_behind) {
@@ -136,8 +131,8 @@ void LaserChip::processDraw() {
         if (_pNextDrawActor != NULL)  {
             if (_pNextDrawActor->_pGgafDx9Model == _pMeshSetModel && _pNextDrawActor->isActive()) {
                 _draw_set_num++;
-                if (_draw_set_num > 8) {
-                    _draw_set_num = 8;
+                if (_draw_set_num > _pMeshSetModel->_set_num) {
+                    _draw_set_num = _pMeshSetModel->_set_num;
                     break;
                 }
                 _pNextDrawActor= _pNextDrawActor->_pNext_TheSameDrawDepthLevel;
@@ -152,7 +147,6 @@ void LaserChip::processDraw() {
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
-
     //VIEW変換行列
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
     mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) に失敗しました。");
@@ -186,7 +180,6 @@ void LaserChip::processDraw() {
 
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
-
              //DBackFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
              //DBackTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
              //DFrontFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnFront;
@@ -199,10 +192,8 @@ void LaserChip::processDraw() {
              DTopTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
              DBtmFrom   = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
              DBtmTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
-
              LeftIncRate = DLeftFrom / DLeftTo;
              RightIncRate = DRightFrom / DRightTo;
-
              TopIncRate = DTopFrom / DTopTo;
              BtmIncRate = DBtmFrom / DBtmTo;
 
@@ -210,7 +201,8 @@ void LaserChip::processDraw() {
                  //手前向きなら視錐台右平面にぶつかる
                  //奥向きなら大小逆になって都合よし
                  if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
-
+                     //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
+                     //前フレームと同じ値とする。
                  } else {
                      pDrawLaserChipActor->_rev_pos_Z = 0;
                      if (RightIncRate > TopIncRate && RightIncRate > BtmIncRate) {
@@ -219,12 +211,12 @@ void LaserChip::processDraw() {
                          pDrawLaserChipActor->_div_pos_Z = 0;
                      }
                  }
-
              } else if (LeftIncRate  > RightIncRate) {
                  //手前向きなら視錐台左平面にぶつかる
                  //奥向きなら大小逆になって都合よし
                  if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
-
+                     //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
+                     //前フレームと同じ値とする。
                  } else {
                      pDrawLaserChipActor->_rev_pos_Z = 1;
                      if (LeftIncRate > TopIncRate && LeftIncRate > BtmIncRate) {
@@ -233,27 +225,22 @@ void LaserChip::processDraw() {
                          pDrawLaserChipActor->_div_pos_Z = 0;
                      }
                  }
-
              } else {
                  pDrawLaserChipActor->_rev_pos_Z = 0;
                  pDrawLaserChipActor->_div_pos_Z = 0;
              }
-
              kind = (pDrawLaserChipActor->_chip_kind) +
                     (pDrawLaserChipActor->_rev_pos_Z*10) +
                     (pDrawLaserChipActor->_div_pos_Z*100);
              //テクスチャ等のチップの種類
              hr = pID3DXEffect->SetInt(_ahKind[i], kind);
              mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-
              hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
              mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。1");
-
         } else {
             //テクスチャ種類
             hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
-
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。2");
         }
@@ -263,7 +250,6 @@ void LaserChip::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-
     _pMeshSetModel->draw(this);
 }
 
