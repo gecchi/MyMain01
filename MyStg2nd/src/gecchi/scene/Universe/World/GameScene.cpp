@@ -21,7 +21,7 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pGameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pGameEnding);
 
-    _pGameDemo->activate();        //最初のアクティブなサブシーンはデモシーン
+    _pGameDemo->inactivate();        //最初のアクティブなサブシーンはデモシーン
     _pGameBeginning->inactivate();
     _pGameMain->inactivate();
     _pGameEnding->inactivate();
@@ -98,7 +98,7 @@ void GameScene::processBehavior() {
 void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
-    if (_lifeframe >= 2) {
+    if (_lifeframe >= 120) {
         executeBumpChkHeadActors(
           KIND_CHIKEI,
           KIND_MY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
@@ -123,6 +123,11 @@ void GameScene::processJudgement() {
 }
 
 void GameScene::processFinal() {
+
+    if (_lifeframe == 120) {
+        //デモ開始
+        _pGameDemo->activate();
+    }
 
 }
 

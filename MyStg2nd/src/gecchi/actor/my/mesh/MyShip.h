@@ -148,8 +148,10 @@ public:
     virtual void beginTurboZY(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
+    virtual void turnZY(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
+    virtual void turnXY(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
     virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);

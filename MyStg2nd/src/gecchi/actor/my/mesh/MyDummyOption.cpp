@@ -102,7 +102,7 @@ void MyDummyOption::processBehavior() {
     _pMorpher->behave();
     /////////////モーフテスト////////////////
 
-    if (VB::isBeingPressed(VB_OPTION)) {
+    if (!VB::isBeingPressed(VB_SHOT2) && VB::isBeingPressed(VB_OPTION)) {
         _angveloExpanse = 1000;
     } else {
         _angveloExpanse = 0;
@@ -213,6 +213,10 @@ void MyDummyOption::processBehavior() {
     _X2 = _X;
     _Y2 = _Y;
     _Z2 = _Z;
+
+    //TODO
+    //最適化
+
 
     _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
 

@@ -13,6 +13,8 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
 }
 
 void Universe::initialize() {
+    _pWorld = NEW World("WORLD");
+    addSubLast(_pWorld);
     _TRACE_("Universe::initialize()");
 }
 
@@ -21,13 +23,6 @@ void Universe::processJudgement() {
 
 
 void Universe::processBehavior() {
-    if (_lifeframe == 2) {
-        //ê¢äEÇçÏê¨
-        World* pWorld = NEW World("WORLD");
-        addSubLast(pWorld);
-    }
-
-
 }
 
 Universe::~Universe() {

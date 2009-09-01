@@ -182,11 +182,19 @@ void MyShip::processBehavior() {
                 if (VB::isBeingPressed(VB_ZMOVE)) {
                     turnFaceNeutralZY();
                     turnFaceXYMove(_stc);
-                    moveXY(_stc);
+                    if (VB::isBeingPressed(VB_OPTION)) {
+                        turnXY(_stc);
+                    } else {
+                        moveXY(_stc);
+                    }
                 } else {
                     turnFaceNeutralXY();
                     turnFaceZYMove(_stc);
-                    moveZY(_stc);
+                    if (VB::isBeingPressed(VB_OPTION)) {
+                        turnZY(_stc);
+                    } else {
+                        moveZY(_stc);
+                    }
                 }
             }
 
@@ -436,7 +444,6 @@ void MyShip::moveXY(vbsta prm_VB) {
             _X -= _iMoveSpeed;
             break;
         case VB_RIGHT_STC:
-            _way = WAY_DOWN_FRONT;
             _way = WAY_FRONT;
             _X += _iMoveSpeed;
             break;
@@ -458,6 +465,38 @@ void MyShip::moveXY(vbsta prm_VB) {
             break;
     }
 }
+
+void MyShip::turnXY(vbsta prm_VB) {
+    switch (prm_VB) {
+        case VB_UP_STC:
+            _way = WAY_UP;
+            break;
+        case VB_UP_RIGHT_STC:
+            _way = WAY_UP_FRONT;
+            break;
+        case VB_UP_LEFT_STC:
+            _way = WAY_UP_BEHIND;
+            break;
+        case VB_LEFT_STC:
+            _way = WAY_BEHIND;
+            break;
+        case VB_RIGHT_STC:
+            _way = WAY_FRONT;
+            break;
+        case VB_DOWN_STC:
+            _way = WAY_DOWN;
+            break;
+        case VB_DOWN_RIGHT_STC:
+            _way = WAY_DOWN_FRONT;
+            break;
+        case VB_DOWN_LEFT_STC:
+            _way = WAY_DOWN_BEHIND;
+            break;
+        default:
+            break;
+    }
+}
+
 
 void MyShip::moveZY(vbsta prm_VB) {
     static angle distwk, angRX;
@@ -548,6 +587,47 @@ void MyShip::moveZY(vbsta prm_VB) {
             break;
     }
 }
+
+
+void MyShip::turnZY(vbsta prm_VB) {
+    switch (prm_VB) {
+        case VB_LEFT_STC:
+            _way = WAY_ZLEFT;
+            break;
+        case VB_UP_LEFT_STC:
+            _way = WAY_ZLEFT_UP;
+            break;
+        case VB_DOWN_LEFT_STC:
+            _way = WAY_ZLEFT_DOWN;
+            break;
+        case VB_DOWN_STC:
+            _way = WAY_DOWN;
+            break;
+        case VB_UP_STC:
+            _way = WAY_UP;
+            break;
+        case VB_RIGHT_STC:
+            _way = WAY_ZRIGHT;
+            break;
+        case VB_UP_RIGHT_STC:
+            _way = WAY_ZRIGHT_UP;
+            break;
+        case VB_DOWN_RIGHT_STC:
+            _way = WAY_ZRIGHT_DOWN;
+            break;
+        default:
+            break;
+    }
+}
+
+
+
+
+
+
+
+
+
 
 
 void MyShip::turnFaceXYMove(vbsta prm_VB) {
