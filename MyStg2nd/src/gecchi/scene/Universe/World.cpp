@@ -79,11 +79,17 @@ void World::processBehavior() {
         if (pCAM->_pos_camera == 0) {
             pCAM->_pos_camera = 1;
         } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-            if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-                pCAM->_pos_camera = 3;
-            } else {
-                pCAM->_pos_camera = 0;
-            }
+//			if (VB::isBeingPressed(VB_RIGHT)) {
+//				pCAM->_pos_camera = 3;
+//			} else if (VB::isBeingPressed(VB_LEFT)) {
+//				pCAM->_pos_camera = 0;
+//			} else {
+	            if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
+		            pCAM->_pos_camera = 3;
+			    } else {
+				    pCAM->_pos_camera = 0;
+			    }
+//			}
         } else if (pCAM->_pos_camera == 3) {
             pCAM->_pos_camera = 2;
         }
@@ -92,7 +98,7 @@ void World::processBehavior() {
 
 
     if (VB::isReleasedUp(VB_ZMOVE)) {
-        if (_frame_pushdown_zmove + 20 > _lifeframe) {
+        if (_frame_pushdown_zmove + 15 > _lifeframe) {
 //            if (pCAM->_pos_camera == 0) {
 //                pCAM->_pos_camera = 1;
 //            } else if (pCAM->_pos_camera == 1) {
@@ -106,11 +112,17 @@ void World::processBehavior() {
             if (pCAM->_pos_camera == 0) {
                 pCAM->_pos_camera = 0;
             } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-                    pCAM->_pos_camera = 3;
-                } else {
-                    pCAM->_pos_camera = 0;
-                }
+				if (VB::isBeingPressed(VB_RIGHT)) {
+					pCAM->_pos_camera = 3;
+				} else if (VB::isBeingPressed(VB_LEFT)) {
+					pCAM->_pos_camera = 0;
+				} else {
+					if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
+						pCAM->_pos_camera = 3;
+					} else {
+						pCAM->_pos_camera = 0;
+					}
+				}
             } else if (pCAM->_pos_camera == 3) {
                 pCAM->_pos_camera = 3;
             }
@@ -130,16 +142,16 @@ void World::processBehavior() {
     if ( getSubFirst()->isBehaving() ) {
         if (pCAM->_pos_camera == 0) {
             dZ = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 10)) - pCAM->_X;
+            dX = (0 - (_dZ_camera_init / 9)) - pCAM->_X;
         } else if (pCAM->_pos_camera == 1) {
-            dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 9)) - pCAM->_Z;
-            dX = X_screen_left - 100000 - pCAM->_X;
+            dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 10)) - pCAM->_Z;
+            dX = X_screen_left - 200000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 2) {
-            dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 9)) - pCAM->_Z;
-            dX = X_screen_left - 100000 - pCAM->_X;
+            dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 10)) - pCAM->_Z;
+            dX = X_screen_left - 200000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 3) {
             dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 10)) - pCAM->_X;
+            dX = (0 - (_dZ_camera_init / 9)) - pCAM->_X;
         }
 
         if (-30000 < dZ && dZ < 30000) {
@@ -149,7 +161,7 @@ void World::processBehavior() {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //Œã‚ë‚É‰ñ‚éŽž
                 pCAM->_pMover->setVzMoveAcceleration(dZ/1000);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVzMoveAcceleration(dZ/500);
+                pCAM->_pMover->setVzMoveAcceleration(dZ/700);
             }
         }
         if (-30000 < dX && dX < 30000) {
@@ -157,7 +169,7 @@ void World::processBehavior() {
             pCAM->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //Œã‚ë‚É‰ñ‚éŽž
-                pCAM->_pMover->setVxMoveAcceleration(dX/700);
+                pCAM->_pMover->setVxMoveAcceleration(dX/800);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
                 pCAM->_pMover->setVxMoveAcceleration(dX/4000);
             }
