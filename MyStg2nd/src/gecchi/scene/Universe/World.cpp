@@ -142,26 +142,26 @@ void World::processBehavior() {
             dX = (0 - (_dZ_camera_init / 10)) - pCAM->_X;
         }
 
-        if (-40000 < dZ && dZ < 40000) {
+        if (-30000 < dZ && dZ < 30000) {
             pCAM->_pMover->_veloVzMove *= 0.8;
             pCAM->_pMover->setVzMoveAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //Œã‚ë‚É‰ñ‚éŽž
                 pCAM->_pMover->setVzMoveAcceleration(dZ/1000);
-            } else {
-                pCAM->_pMover->setVzMoveAcceleration(dZ/1000);
+            } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
+                pCAM->_pMover->setVzMoveAcceleration(dZ/500);
             }
         }
-        if (-40000 < dX && dX < 40000) {
+        if (-30000 < dX && dX < 30000) {
             pCAM->_pMover->_veloVxMove *= 0.8;
             pCAM->_pMover->setVxMoveAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                pCAM->_pMover->setVxMoveAcceleration(dX/1000);
-            } else {
-                pCAM->_pMover->setVxMoveAcceleration(dX/1000);
+            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //Œã‚ë‚É‰ñ‚éŽž
+                pCAM->_pMover->setVxMoveAcceleration(dX/700);
+            } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
+                pCAM->_pMover->setVxMoveAcceleration(dX/4000);
             }
-        }
+    }
         pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
 
         pCAM->_pMover->behave();
