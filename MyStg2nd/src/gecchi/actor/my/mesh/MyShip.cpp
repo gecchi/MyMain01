@@ -164,11 +164,9 @@ void MyShip::processBehavior() {
         } else {
 //////////////////////
 
-
-
         if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
             if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
-                if (VB::isBeingPressed(VB_ZMOVE)) {
+                if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
                     turnFaceNeutralXY();
                     turnFaceZYMove(_stc);
                     beginTurboZY(_stc);
@@ -179,7 +177,7 @@ void MyShip::processBehavior() {
                 }
             } else {
                 //方向ダブルプッシュでない＝方向シングルプッシュ
-                if (VB::isBeingPressed(VB_ZMOVE)) {
+                if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
                     turnFaceNeutralZY();
                     turnFaceXYMove(_stc);
                     if (VB::isBeingPressed(VB_OPTION)) {
@@ -201,7 +199,7 @@ void MyShip::processBehavior() {
         } else {
 
             //方向押しっぱ
-            if (VB::isBeingPressed(VB_ZMOVE)) {
+            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
                 turnFaceZYMove(_stc);
                 turnFaceXYMove(_stc);
                 moveZY(_stc);
@@ -215,7 +213,7 @@ void MyShip::processBehavior() {
         }
 //////////////
     } else {
-        if (VB::isBeingPressed(VB_ZMOVE)) {
+        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
             //ニュートラルターボ
             doNotingMoveInput();
             turnFaceNeutralXY();

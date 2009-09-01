@@ -7,6 +7,8 @@ using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
+    pCAM->_pos_camera = 0;
+    _frame_pushdown_zmove = 0;
 
     //y‚ß‚àz
     //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ð‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
@@ -23,7 +25,14 @@ void World::initialize() {
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
 
-    pCAM->_X = (pCAM->_Z / 2); //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
+
+    pCAM->_pos_camera = 0;
+    _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
+
+    pCAM->_X = _dZ_camera_init / 10; //­‚µŽÎ‚ß‚ß‚©‚çŒ©‚Ä‚é
+    pCAM->_Y = 0; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
+    pCAM->_Z = -_dZ_camera_init;
+
     pCAM->setGaze(0,0,0);
     pCAM->_pMover->setMoveAngle(0,0,0);
 
@@ -65,26 +74,76 @@ void World::processBehavior() {
         }
     }
 
+    //ƒJƒƒ‰ˆÊ’u‚ðs‚Á‚½‚è—ˆ‚½‚è
+    if (VB::isPushedDown(VB_ZMOVE)) {
+        if (pCAM->_pos_camera == 0) {
+            pCAM->_pos_camera = 1;
+        } else if (pCAM->_pos_camera == 1) {
+            pCAM->_pos_camera = 0;
+        } else if (pCAM->_pos_camera == 2) {
+            pCAM->_pos_camera = 3;
+        } else if (pCAM->_pos_camera == 3) {
+            pCAM->_pos_camera = 2;
+        }
+        _frame_pushdown_zmove = _lifeframe;
+    }
+
+
+    if (VB::isReleasedUp(VB_ZMOVE)) {
+        if (_frame_pushdown_zmove + 20 < _lifeframe) {
+            if (pCAM->_pos_camera == 0) {
+                pCAM->_pos_camera = 1;
+            } else if (pCAM->_pos_camera == 1) {
+                pCAM->_pos_camera = 0;
+            } else if (pCAM->_pos_camera == 2) {
+                pCAM->_pos_camera = 3;
+            } else if (pCAM->_pos_camera == 3) {
+                pCAM->_pos_camera = 2;
+            }
+        } else {
+            if (pCAM->_pos_camera == 0) {
+                pCAM->_pos_camera = 0;
+            } else if (pCAM->_pos_camera == 1) {
+                pCAM->_pos_camera = 2;
+            } else if (pCAM->_pos_camera == 2) {
+                pCAM->_pos_camera = 1;
+            } else if (pCAM->_pos_camera == 3) {
+                pCAM->_pos_camera = 3;
+            }
+        }
+
+
+    }
+
+
+
+
 
 
     static int dX, dY, dZ;
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
-    static int dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
     if ( getSubFirst()->isBehaving() ) {
-        if (VB::isBeingPressed(VB_ZMOVE)) {
-            dZ = (GameGlobal::_pMyShip->_Z - (dZ_camera_init / 2)) - pCAM->_Z;
-            dX = X_screen_left - pCAM->_X;
-        } else {
-            dZ = (GameGlobal::_pMyShip->_Z - dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (dZ_camera_init / 8)) - pCAM->_X;
+        if (pCAM->_pos_camera == 0) {
+            dZ = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
+            dX = (0 - (_dZ_camera_init / 20)) - pCAM->_X;
+        } else if (pCAM->_pos_camera == 1) {
+            dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 9)) - pCAM->_Z;
+            dX = X_screen_left - 20000 - pCAM->_X;
+        } else if (pCAM->_pos_camera == 2) {
+            dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 9)) - pCAM->_Z;
+            dX = X_screen_left - 20000 - pCAM->_X;
+        } else if (pCAM->_pos_camera == 3) {
+            dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
+            dX = (0 - (_dZ_camera_init / 20)) - pCAM->_X;
         }
+
         if (-40000 < dZ && dZ < 40000) {
             pCAM->_pMover->_veloVzMove *= 0.8;
             pCAM->_pMover->setVzMoveAcceleration(0);
         } else {
-            pCAM->_pMover->setVzMoveAcceleration(dZ/200);
+            pCAM->_pMover->setVzMoveAcceleration(dZ/400);
         }
         if (-40000 < dX && dX < 40000) {
             pCAM->_pMover->_veloVxMove *= 0.8;

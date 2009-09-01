@@ -19,24 +19,28 @@ class World : public GgafDx9LibStg::DefaultScene {
 
 public:
 
-	World(const char* prm_name);
+    int _dZ_camera_init;
 
-	/**
-	 * ‰Šúˆ—
-	 */
-	void initialize();
+    DWORD _frame_pushdown_zmove;
 
- 	/**
-	 * ƒOverRide ‚Å‚·„
-	 */
-	void processBehavior();
+    World(const char* prm_name);
 
- 	/**
-	 * ƒOverRide ‚Å‚·„
-	 */
-	void processJudgement();
+    /**
+     * ‰Šúˆ—
+     */
+    void initialize();
 
-	virtual ~World();
+     /**
+     * ƒOverRide ‚Å‚·„
+     */
+    void processBehavior();
+
+     /**
+     * ƒOverRide ‚Å‚·„
+     */
+    void processJudgement();
+
+    virtual ~World();
 };
 
 }
