@@ -29,7 +29,7 @@ GgafGod::GgafGod() : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
-    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 1000);
+    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 3000); //3ïbèº
     _time_prev = _time_at_beginning_frame;
     _frame_of_visualize = 0;
     _frame_of_prev_visualize = 0;
