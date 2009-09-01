@@ -383,115 +383,228 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pMover->setMoveAcceleration(_iMvAcce_MT);
 
-    switch (prm_VB) {
-        case VB_UP_STC:
-            _way = WAY_UP;
-            _pMover->setRzRyMoveAngle(ANGLE90, 0);
-            break;
-        case VB_UP_RIGHT_STC:
-            _way = WAY_UP_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE45, 0);
-            break;
-        case VB_UP_LEFT_STC:
-            _way = WAY_UP_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE135, 0);
-            break;
-        case VB_LEFT_STC:
-            _way = WAY_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            break;
-        case VB_RIGHT_STC:
-            _way = WAY_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE0, 0);
-            break;
-        case VB_DOWN_STC:
-            _way = WAY_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE270, 0);
-            break;
-        case VB_DOWN_RIGHT_STC:
-            _way = WAY_DOWN_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE315, 0);
-            break;
-        case VB_DOWN_LEFT_STC:
-            _way = WAY_DOWN_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE225, 0);
-            break;
-        default:
-            break;
+    if (pCAM->_pos_camera == 0) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                _pMover->setRzRyMoveAngle(ANGLE90, 0);
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE45, 0);
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE135, 0);
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE0, 0);
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                _pMover->setRzRyMoveAngle(ANGLE270, 0);
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE315, 0);
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE225, 0);
+                break;
+            default:
+                break;
+        }
+    } else if (pCAM->_pos_camera == 3) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                _pMover->setRzRyMoveAngle(ANGLE90, 0);
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE135, 0);
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE45, 0);
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE0, 0);
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                _pMover->setRzRyMoveAngle(ANGLE270, 0);
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE225, 0);
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE315, 0);
+                break;
+            default:
+                break;
+        }
     }
 }
 
 void MyShip::moveXY(vbsta prm_VB) {
-    switch (prm_VB) {
-        case VB_UP_STC:
-            _way = WAY_UP;
-            _Y += _iMoveSpeed;
-            break;
-        case VB_UP_RIGHT_STC:
-            _way = WAY_UP_FRONT;
-            _Y += _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-            break;
-        case VB_UP_LEFT_STC:
-            _way = WAY_UP_BEHIND;
-            _Y += _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-            break;
-        case VB_LEFT_STC:
-            _way = WAY_BEHIND;
-            _X -= _iMoveSpeed;
-            break;
-        case VB_RIGHT_STC:
-            _way = WAY_FRONT;
-            _X += _iMoveSpeed;
-            break;
-        case VB_DOWN_STC:
-            _way = WAY_DOWN;
-            _Y -= _iMoveSpeed;
-            break;
-        case VB_DOWN_RIGHT_STC:
-            _way = WAY_DOWN_FRONT;
-            _Y -= _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-            break;
-        case VB_DOWN_LEFT_STC:
-            _way = WAY_DOWN_BEHIND;
-            _Y -= _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-            break;
-        default:
-            break;
+    if (pCAM->_pos_camera == 0) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                _Y += _iMoveSpeed;
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_FRONT;
+                _Y += _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_BEHIND;
+                _Y += _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_BEHIND;
+                _X -= _iMoveSpeed;
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_FRONT;
+                _X += _iMoveSpeed;
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                _Y -= _iMoveSpeed;
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_FRONT;
+                _Y -= _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_BEHIND;
+                _Y -= _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+                break;
+            default:
+                break;
+        }
+    } else if (pCAM->_pos_camera == 3) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                _Y += _iMoveSpeed;
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_BEHIND;
+                _Y += _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_FRONT;
+                _Y += _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_FRONT;
+                _X += _iMoveSpeed;
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_BEHIND;
+                _X -= _iMoveSpeed;
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                _Y -= _iMoveSpeed;
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_BEHIND;
+                _Y -= _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_FRONT;
+                _Y -= _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+                break;
+            default:
+                break;
+        }
     }
 }
 
 void MyShip::turnXY(vbsta prm_VB) {
-    switch (prm_VB) {
-        case VB_UP_STC:
-            _way = WAY_UP;
-            break;
-        case VB_UP_RIGHT_STC:
-            _way = WAY_UP_FRONT;
-            break;
-        case VB_UP_LEFT_STC:
-            _way = WAY_UP_BEHIND;
-            break;
-        case VB_LEFT_STC:
-            _way = WAY_BEHIND;
-            break;
-        case VB_RIGHT_STC:
-            _way = WAY_FRONT;
-            break;
-        case VB_DOWN_STC:
-            _way = WAY_DOWN;
-            break;
-        case VB_DOWN_RIGHT_STC:
-            _way = WAY_DOWN_FRONT;
-            break;
-        case VB_DOWN_LEFT_STC:
-            _way = WAY_DOWN_BEHIND;
-            break;
-        default:
-            break;
+    if (pCAM->_pos_camera == 0) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_FRONT;
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_BEHIND;
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_BEHIND;
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_FRONT;
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_FRONT;
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_BEHIND;
+                break;
+            default:
+                break;
+        }
+    } else if (pCAM->_pos_camera == 1) {
+        switch (prm_VB) {
+            case VB_UP_STC:
+                _way = WAY_UP;
+                break;
+            case VB_UP_RIGHT_STC:
+                _way = WAY_UP_BEHIND;
+                break;
+            case VB_UP_LEFT_STC:
+                _way = WAY_UP_FRONT;
+                break;
+            case VB_LEFT_STC:
+                _way = WAY_FRONT;
+                break;
+            case VB_RIGHT_STC:
+                _way = WAY_BEHIND;
+                break;
+            case VB_DOWN_STC:
+                _way = WAY_DOWN;
+                break;
+            case VB_DOWN_RIGHT_STC:
+                _way = WAY_DOWN_BEHIND;
+                break;
+            case VB_DOWN_LEFT_STC:
+                _way = WAY_DOWN_FRONT;
+                break;
+            default:
+                break;
+        }
     }
 }
 
