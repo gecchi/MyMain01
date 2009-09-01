@@ -190,9 +190,9 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
 
             //距離
-            dis = (FLOAT)(sqrt(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
-                               model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
-                               model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
+            dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+                                                 model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
+                                                 model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
             if (prm_pMeshModel->_max_radius < dis) {
                 prm_pMeshModel->_max_radius = dis;
             }
@@ -397,7 +397,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             _TRACE_("FrameTransformMatrix is Identity");
         } else {
             _TRACE_("Execute FrameTransform!");
-            D3DXMATRIX FrameTransformMatrix;
+            static D3DXMATRIX FrameTransformMatrix;
             FrameTransformMatrix._11 = pMatPos->data[0];
             FrameTransformMatrix._12 = pMatPos->data[1];
             FrameTransformMatrix._13 = pMatPos->data[2];
@@ -415,8 +415,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             FrameTransformMatrix._43 = pMatPos->data[14];
             FrameTransformMatrix._44 = pMatPos->data[15];
 
-            D3DXVECTOR3 vecVertex;
-            D3DXVECTOR3 vecNormal;
+            static D3DXVECTOR3 vecVertex;
+            static D3DXVECTOR3 vecNormal;
             for (int i = 0; i < nVertices; i++) {
                 vecVertex.x = model_paVtxBuffer_org[i].x;
                 vecVertex.y = model_paVtxBuffer_org[i].y;
@@ -605,9 +605,9 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
 
                     //距離
-                    dis = (FLOAT)(sqrt(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
-                                       model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
-                                       model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
+                    dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
+                                                         model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
+                                                         model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
                     if (prm_pMorphMeshModel->_max_radius < dis) {
                         prm_pMorphMeshModel->_max_radius = dis;
                     }
@@ -920,7 +920,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     if (prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary == NULL) {
 
         //XファイルのFrameTransformMatrixを考慮
-        D3DXMATRIX FrameTransformMatrix;
+        static D3DXMATRIX FrameTransformMatrix;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             Frm::Matrix* pMatPos = &(model_papModel3D[pattern]->_Skeletton->_MatrixPos);
             if (pMatPos->isIdentity()) {
@@ -946,8 +946,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 FrameTransformMatrix._43 = pMatPos->data[14];
                 FrameTransformMatrix._44 = pMatPos->data[15];
 
-                D3DXVECTOR3 vecVertex;
-                D3DXVECTOR3 vecNormal;
+                static D3DXVECTOR3 vecVertex;
+                static D3DXVECTOR3 vecNormal;
                 if (pattern == 0) {
                     for (int i = 0; i < nVertices; i++) {
                         vecVertex.x = model_paVtxBuffer_org_primary[i].x;
@@ -1322,9 +1322,9 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
 
 
     //距離
-    FLOAT dis = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
-                             paVertex[0].y * paVertex[0].y +
-                             paVertex[0].z * paVertex[0].z));
+    FLOAT dis = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
+                                               paVertex[0].y * paVertex[0].y +
+                                               paVertex[0].z * paVertex[0].z));
     prm_pSpriteModel->_max_radius = dis;
 
 
@@ -1528,9 +1528,9 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         }
 
         //距離
-        FLOAT dis = (FLOAT)(sqrt(paVertex[0].x * paVertex[0].x +
-                                 paVertex[0].y * paVertex[0].y +
-                                 paVertex[0].z * paVertex[0].z));
+        FLOAT dis = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
+                                                   paVertex[0].y * paVertex[0].y +
+                                                   paVertex[0].z * paVertex[0].z));
         prm_pSpriteSetModel->_max_radius = dis;
 
 
@@ -2116,9 +2116,9 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
-            dis = (FLOAT)(sqrt(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
-                               unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
-                               unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
+            dis = (FLOAT)(GgafDx9Util::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
+                                                 unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
+                                                 unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
             if (prm_pMeshSetModel->_max_radius < dis) {
                 prm_pMeshSetModel->_max_radius = dis;
             }
@@ -2228,7 +2228,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             _TRACE_("FrameTransformMatrix is Identity");
         } else {
             _TRACE_("Execute FrameTransform!");
-            D3DXMATRIX FrameTransformMatrix;
+            static D3DXMATRIX FrameTransformMatrix;
             FrameTransformMatrix._11 = pMatPos->data[0];
             FrameTransformMatrix._12 = pMatPos->data[1];
             FrameTransformMatrix._13 = pMatPos->data[2];
@@ -2246,8 +2246,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             FrameTransformMatrix._43 = pMatPos->data[14];
             FrameTransformMatrix._44 = pMatPos->data[15];
 
-            D3DXVECTOR3 vecVertex;
-            D3DXVECTOR3 vecNormal;
+            static D3DXVECTOR3 vecVertex;
+            static D3DXVECTOR3 vecNormal;
             for (int i = 0; i < nVertices; i++) {
                 vecVertex.x = unit_paVtxBuffer_org[i].x;
                 vecVertex.y = unit_paVtxBuffer_org[i].y;
