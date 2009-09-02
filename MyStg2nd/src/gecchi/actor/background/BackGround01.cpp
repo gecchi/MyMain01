@@ -98,19 +98,19 @@ void BackGround01::processBehavior() {
 //    }
 
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-        _z += 0.1;
-        _TRACE_("_z="<<_z);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _z -= 0.1;
-        _TRACE_("_z="<<_z);
-    } else if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
-        _z += 0.01;
-        _TRACE_("_z="<<_z);
-    }else if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-        _z -= 0.01;
-        _TRACE_("_z="<<_z);
-    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+//        _z += 0.1;
+//        _TRACE_("_z="<<_z);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//        _z -= 0.1;
+//        _TRACE_("_z="<<_z);
+//    } else if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+//        _z += 0.01;
+//        _TRACE_("_z="<<_z);
+//    }else if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
+//        _z -= 0.01;
+//        _TRACE_("_z="<<_z);
+//    }
 
 
 

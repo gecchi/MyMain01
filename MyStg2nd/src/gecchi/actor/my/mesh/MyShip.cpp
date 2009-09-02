@@ -259,7 +259,7 @@ void MyShip::processBehavior() {
 
 
     //À•W‚É”½‰f
-
+    _pMover->behave();
     _pStgChecker->behave();
     _pRing_GeoHistory->next()->set(_X, _Y, _Z);
 
