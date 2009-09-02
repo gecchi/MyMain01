@@ -113,7 +113,7 @@ void GgafDx9DrawableActor::processPreDraw() {
                                     this
                                  );
             } else {
-                if (isOffScreen()) {
+                if (isOffscreen()) {
 
                 } else {
                     //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1*PX_UNIT, this);
@@ -130,7 +130,7 @@ void GgafDx9DrawableActor::processPreDraw() {
             if (_isTransformed) {
                 GgafDx9Universe::setDrawDepthMaxLevel(this);
             } else {
-                if (isOffScreen()) {
+                if (isOffscreen()) {
 
                 } else {
                     GgafDx9Universe::setDrawDepthMaxLevel(this);

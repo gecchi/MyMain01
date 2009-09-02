@@ -87,10 +87,10 @@ public:
 
     GgafDx9Checker* _pChecker;
 
-    const int _X_OffScreenLeft;
-    const int _X_OffScreenRight;
-    const int _Y_OffScreenTop;
-    const int _Y_OffScreenBottom;
+    const int _X_ScreenLeft;
+    const int _X_ScreenRight;
+    const int _Y_ScreenTop;
+    const int _Y_ScreenBottom;
 
     /**
      * コンストラクタ<BR>
@@ -112,8 +112,9 @@ public:
     /** いろいろな計算を行っておく */
     virtual void processPreJudgement();
 
+    virtual int isOffscreen();
 
-    virtual int isOffScreen();
+    virtual int isGone();
 
     virtual void setGeometry(int X, int Y, int Z) {
         _X = X;

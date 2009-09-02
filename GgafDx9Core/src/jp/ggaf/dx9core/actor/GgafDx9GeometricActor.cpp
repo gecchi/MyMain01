@@ -5,10 +5,10 @@ using namespace GgafDx9Core;
 
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                                      GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name),
-_X_OffScreenLeft((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
-_X_OffScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
-_Y_OffScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
-_Y_OffScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
+_X_ScreenLeft((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
+_X_ScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
+_Y_ScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
+_Y_ScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
 {
     _class_name = "GgafDx9GeometricActor";
     _isTransformed = false;
@@ -172,7 +172,6 @@ void GgafDx9GeometricActor::getWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_p
     out_matWorld._43 = prm_pActor->_fZ;
     out_matWorld._44 = 1.0f;
 }
-
 
 
 
@@ -581,7 +580,7 @@ void GgafDx9GeometricActor::updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pAct
 
 
 
-int GgafDx9GeometricActor::isOffScreen() {
+int GgafDx9GeometricActor::isOffscreen() {
     //_TRACE_("name="<<getName()<<" _max_radius="<<_max_radius);
     if (_offscreenkind == -1) {
         if ( _fDistance_plnTop <= _max_radius) {
@@ -621,6 +620,29 @@ int GgafDx9GeometricActor::isOffScreen() {
     return _offscreenkind;
 }
 
+int GgafDx9GeometricActor::isGone() {
+    static int X_goneLeft   = _X_ScreenLeft * 5;
+    static int X_goneRight  = _X_ScreenRight * 10;
+    static int Y_goneTop    = _Y_ScreenTop * 5;
+    static int Y_goneBottom = _Y_ScreenBottom * 5;
+    static int Z_goneBack   = _Y_ScreenTop * 10;
+    static int Z_goneFront  = _Y_ScreenBottom * 10;
+
+    if (X_goneLeft < _X) {
+        if (_X < X_goneRight) {
+            if (Y_goneBottom < _Y) {
+                 if (_Y < Y_goneTop) {
+                     if (Z_goneFront < _Z) {
+                          if (_Z < Z_goneBack) {
+                              return false;
+                          }
+                     }
+                 }
+            }
+        }
+    }
+    return true;
+}
 
 
 
