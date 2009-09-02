@@ -84,11 +84,11 @@ void World::processBehavior() {
 //			} else if (VB::isBeingPressed(VB_LEFT)) {
 //				pCAM->_pos_camera = 0;
 //			} else {
-	            if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-		            pCAM->_pos_camera = 3;
-			    } else {
-				    pCAM->_pos_camera = 0;
-			    }
+                if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
+                    pCAM->_pos_camera = 3;
+                } else {
+                    pCAM->_pos_camera = 0;
+                }
 //			}
         } else if (pCAM->_pos_camera == 3) {
             pCAM->_pos_camera = 2;
@@ -112,17 +112,17 @@ void World::processBehavior() {
             if (pCAM->_pos_camera == 0) {
                 pCAM->_pos_camera = 0;
             } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-				if (VB::isBeingPressed(VB_RIGHT)) {
-					pCAM->_pos_camera = 3;
-				} else if (VB::isBeingPressed(VB_LEFT)) {
-					pCAM->_pos_camera = 0;
-				} else {
-					if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-						pCAM->_pos_camera = 3;
-					} else {
-						pCAM->_pos_camera = 0;
-					}
-				}
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    pCAM->_pos_camera = 3;
+                } else if (VB::isBeingPressed(VB_LEFT)) {
+                    pCAM->_pos_camera = 0;
+                } else {
+                    if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
+                        pCAM->_pos_camera = 3;
+                    } else {
+                        pCAM->_pos_camera = 0;
+                    }
+                }
             } else if (pCAM->_pos_camera == 3) {
                 pCAM->_pos_camera = 3;
             }
@@ -142,7 +142,7 @@ void World::processBehavior() {
     if ( getSubFirst()->isBehaving() ) {
         if (pCAM->_pos_camera == 0) {
             dZ = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 9)) - pCAM->_X;
+            dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
         } else if (pCAM->_pos_camera == 1) {
             dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 10)) - pCAM->_Z;
             dX = X_screen_left - 200000 - pCAM->_X;
@@ -151,7 +151,7 @@ void World::processBehavior() {
             dX = X_screen_left - 200000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 3) {
             dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 9)) - pCAM->_X;
+            dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
         }
 
         if (-30000 < dZ && dZ < 30000) {

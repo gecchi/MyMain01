@@ -50,7 +50,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     _X = -356000; //ŠJŽnÀ•W
     _Y = 0;
     _Z = -680000;
-    _X_turn = _X_OffScreenRight - 30000;
+    _X_turn = _X_ScreenRight - 30000;
     _Y_turn = -10000;
     _Z_turn = 0;
     _veloBegin = 5000;
@@ -276,7 +276,7 @@ void EnemyCeres::processBehavior() {
 //}
 
 void EnemyCeres::processJudgement() {
-    if (isOffScreen()) {
+    if (isGone()) {
         adios();
         if (_createActorDispatcher) { //’e‰ð•ú—\–ñ
             _pDispatcher_EnemyMeshShots001->adios(60 * 5);
@@ -304,8 +304,8 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-int EnemyCeres::isOffScreen() {
-    if (_X < _X_OffScreenLeft - 800000) {
+int EnemyCeres::isGone() {
+    if (_X < _X_ScreenLeft - 800000) {
         return true;
     } else {
         return false;

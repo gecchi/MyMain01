@@ -234,6 +234,42 @@ void MyShip::processBehavior() {
 
     ////////////////////////////////////////////////////
 
+
+
+    if (VB::isBeingPressed(VB_BUTTON5)) {
+        setAlpha(getAlpha()-0.01);
+        //equipOption();
+    }
+    if (VB::isBeingPressed(VB_BUTTON6)) {
+        setAlpha(getAlpha()+0.01);
+        //equipOption();
+    }
+
+    if (VB::isBeingPressed(VB_BUTTON6)) {
+        _pScaler->increaseScale(-200);
+    }
+    if (VB::isBeingPressed(VB_BUTTON5)) {
+        _pScaler->increaseScale(200);
+    }
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _TRACE_("(X,Y,Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
+
+    }
+
+
+    //座標に反映
+
+    _pStgChecker->behave();
+    _pRing_GeoHistory->next()->set(_X, _Y, _Z);
+
+    if (isOffscreen()) {
+        _TRACE_("MyShip is Offscreen! = ("<<_X<<","<<_Y<<","<<_Z<<")");
+    }
+    //_TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
+}
+
+void MyShip::processJudgement() {
     //ショット関連処理
     //MyShip::transactShot(this);
     if (VB::isPushedDown(VB_SHOT1)) {
@@ -288,30 +324,6 @@ void MyShip::processBehavior() {
             }
         }
     }
-
-    if (VB::isBeingPressed(VB_BUTTON6)) {
-        setAlpha(getAlpha()-0.01);
-        //equipOption();
-    }
-
-    if (VB::isBeingPressed(VB_BUTTON6)) {
-        _pScaler->increaseScale(-200);
-    }
-    if (VB::isBeingPressed(VB_BUTTON5)) {
-        _pScaler->increaseScale(200);    }
-
-    //座標に反映
-    _pMover->behave();
-    _pStgChecker->behave();
-    _pRing_GeoHistory->next()->set(_X, _Y, _Z);
-
-    if (isOffScreen()) {
-        _TRACE_("isOffScreen! = ("<<_X<<","<<_Y<<","<<_Z<<")");
-    }
-    //_TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
-}
-
-void MyShip::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
     //_TRACE_("dep="<< (_fDistance_plnFront)<<"");
 }

@@ -109,9 +109,8 @@ void EnemyMeshShot001::processBehavior() {
 }
 
 void EnemyMeshShot001::processJudgement() {
-    if (isOffScreen()) {
+    if (isGone()) {
         inactivateTree();
-
         //adios();
     }
 }

@@ -38,7 +38,11 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
-    int isOffScreen() {
+    int isOffscreen() {
+        return false;
+    }
+
+    int isGone() {
         return false;
     }
 

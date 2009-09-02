@@ -20,7 +20,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    int isOffScreen();
+    int isGone();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

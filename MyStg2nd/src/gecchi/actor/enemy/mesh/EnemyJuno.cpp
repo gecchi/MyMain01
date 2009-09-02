@@ -37,7 +37,7 @@ void EnemyJuno::processBehavior() {
 }
 
 void EnemyJuno::processJudgement() {
-    if (isOffScreen()) {
+    if (isGone()) {
         setBumpable(false);
         adios();
     }
@@ -48,7 +48,7 @@ void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyJuno::isOffScreen() {
+int EnemyJuno::isGone() {
     if (_Z < -1000000) {
         return true;
     } else {

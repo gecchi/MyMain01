@@ -13,7 +13,7 @@ EnemyVesta::EnemyVesta(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
 
 void EnemyVesta::initialize() {
     setBumpable(true);
-    _X = _X_OffScreenRight + 100;
+    _X = _X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
     _pMover->setMoveVelocityRenge(-8000, 8000);
@@ -45,7 +45,7 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-    if (isOffScreen()) {
+    if (isOffscreen()) {
         adios();
     }
 }
@@ -55,8 +55,8 @@ void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyVesta::isOffScreen() {
-    if (_Y < _Y_OffScreenBottom - 100000) {
+int EnemyVesta::isGone() {
+    if (_Y < _Y_ScreenBottom - 100000) {
         return true;
     } else {
         return false;
