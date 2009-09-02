@@ -11,21 +11,21 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     //全ての基準はfovXから考える
     _rad_fovX = prm_rad_fovX;
     //半分を保持
-    _rad_half_fovX = _rad_fovX / 2.0;
+    _rad_half_fovX = _rad_fovX / 2.0f;
     //画面アスペクト比(w/h)
-    _screen_aspect = (FLOAT)(1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
+    _screen_aspect = (FLOAT)(1.0f * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
     //fovXとアスペクト比からfovYを計算して求める
-    double xzRatio = tan( _rad_fovX/2 );
-    double yRatio = xzRatio / _screen_aspect;
-    _rad_fovY = atan( yRatio )*2.0;
+    float xzRatio = tan( _rad_fovX/2 );
+    float yRatio = xzRatio / _screen_aspect;
+    _rad_fovY = atan( yRatio )*2.0f;
     //半分を保持
-    _rad_half_fovY = _rad_fovY / 2.0;
+    _rad_half_fovY = _rad_fovY / 2.0f;
     //tan値も保持
     _tan_half_fovY = tan(_rad_fovY/2.0);
     _tan_half_fovX = tan(_rad_fovX/2.0);
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0 * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0) / _tan_half_fovY;
+    _cameraZ = -1.0f * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0f) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
@@ -47,9 +47,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
             _screen_aspect, //アスペクト比  640×480 の場合  640/480
             1.0,            //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
             500.0           //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
-            //(FLOAT)(-1.0*dCam*4)
-            //(-1.0*fCam)-30,
-            //(-1.0*fCam)+30
+            //(FLOAT)(-1.0f*dCam*4)
+            //(-1.0f*fCam)-30,
+            //(-1.0f*fCam)+30
     );
     /*
      //左手座標系正射影
@@ -194,9 +194,9 @@ void GgafDx9Camera::processJudgement() {
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = (1.0 * _gazeX) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->y = (1.0 * _gazeY) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->z = (1.0 * _gazeZ) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->x = (1.0f * _gazeX) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->y = (1.0f * _gazeY) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->z = (1.0f * _gazeZ) / LEN_UNIT / PX_UNIT;
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 

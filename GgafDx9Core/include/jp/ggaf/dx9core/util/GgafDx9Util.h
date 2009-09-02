@@ -117,9 +117,9 @@ public:
     static void getRotAngleZY(int x,
                               int y,
                               int z,
-                              double& out_nvx,
-                              double& out_nvy,
-                              double& out_nvz,
+                              float& out_nvx,
+                              float& out_nvy,
+                              float& out_nvz,
                               angle& out_angRotZ,
                               angle& out_angRotY);
 
@@ -142,7 +142,7 @@ public:
      * @param out_angRotZ [out]Z軸回転アングル値
      * @param out_angRotY [out]Y軸回転アングル値
      */
-    static void getRotAngleZY(double vx, double vy, double vz, angle& out_angRotZ, angle& out_angRotY);
+    static void getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY);
 
 
     /**
@@ -155,16 +155,16 @@ public:
      */
     static void getNormalizeVectorZY(angle prm_angRotZ,
                                      angle prm_angRotY,
-                                     double& out_nvx,
-                                     double& out_nvy,
-                                     double& out_nvz);
+                                     float& out_nvx,
+                                     float& out_nvy,
+                                     float& out_nvz);
 
     static void getNormalizeVector(int x,
                                    int y,
                                    int z,
-                                   double& out_nvx,
-                                   double& out_nvy,
-                                   double& out_nvz);
+                                   float& out_nvx,
+                                   float& out_nvy,
+                                   float& out_nvz);
     /**
      * 線分の当たり判定<BR>
      * @param x11

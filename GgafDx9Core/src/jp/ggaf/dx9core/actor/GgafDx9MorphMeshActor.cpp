@@ -21,7 +21,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
     //d‚İ‰Šú‰»
     for (int i = 1; i < 10; i++) {
-        _weight[i] = 0.0;
+        _weight[i] = 0.0f;
     }
 }
 

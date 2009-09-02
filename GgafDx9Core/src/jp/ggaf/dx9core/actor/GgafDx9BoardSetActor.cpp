@@ -20,7 +20,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
     _pBoardSetModel = (GgafDx9BoardSetModel*)_pGgafDx9Model;
     _pBoardSetEffect = (GgafDx9BoardSetEffect*)_pGgafDx9Effect;
 
-    _fAlpha = 1.0;
+    _fAlpha = 1.0f;
 
     _pattno_top = 0;
     _pattno_bottom = _pBoardSetModel->_pattno_max;

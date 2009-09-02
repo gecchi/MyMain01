@@ -7,10 +7,10 @@ GgafDx9GeometryMorpher::GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor
     GgafObject() {
     _pActor = prm_pActor;
     for (int i = 0; i < 10; i++) {
-        _velo_weight[i] = 0.0;
-        _target_weight[i] = 0.0;
-        _top_weight[i] = 1.0;
-        _bottom_weight[i] = 0.0;
+        _velo_weight[i] = 0.0f;
+        _target_weight[i] = 0.0f;
+        _top_weight[i] = 1.0f;
+        _bottom_weight[i] = 0.0f;
         _halfloop_cnt[i] = 0;
         _loop_attack_frame[i] = 0;
         _loop_rest_frame[i] = 0;
@@ -71,7 +71,7 @@ void GgafDx9GeometryMorpher::behave() {
 
             } else if (_bottom_weight[i] > _pActor->_weight[i]) {
                 _pActor->_weight[i] = _bottom_weight[i];
-                _velo_weight[i] = 0.0;
+                _velo_weight[i] = 0.0f;
 
             } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_lifeframe) { //ƒ‹[ƒvI—¹Žž
                 _loop_begin_frame[i] = _pActor->_lifeframe;
@@ -108,14 +108,14 @@ void GgafDx9GeometryMorpher::intoTargetLinerStep(int prm_target_mesh, float prm_
 void GgafDx9GeometryMorpher::loopLiner(int prm_target_mesh, DWORD prm_loop_spend_frame, float prm_loop_num) {
     _method[prm_target_mesh] = LOOP_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0);
-    _velo_weight[prm_target_mesh] = 1.0 / (prm_loop_spend_frame / 2);
+    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
+    _velo_weight[prm_target_mesh] = 1.0f / (prm_loop_spend_frame / 2);
 }
 
 void GgafDx9GeometryMorpher::loopTriangleWave(int prm_target_mesh, DWORD prm_loop_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_loop_num) {
     _method[prm_target_mesh] = LOOP_TRIANGLEWAVE;
     _halfloop_cnt[prm_target_mesh] = 0;
-    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0);
+    _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
 
     _loop_attack_frame[prm_target_mesh] = prm_attack_frame;
     _loop_rest_frame[prm_target_mesh] = prm_rest_frame;

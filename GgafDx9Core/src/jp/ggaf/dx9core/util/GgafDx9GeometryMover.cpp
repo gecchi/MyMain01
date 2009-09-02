@@ -32,7 +32,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
 
     //////////////////////////////////////////////////////
     //ƒLƒƒƒ‰‚ÌˆÚ“®•ûŠp’PˆÊƒxƒNƒgƒ‹
-    _vX = _vY = _vZ = 0.0;
+    _vX = _vY = _vZ = 0.0f;
     //ˆÚ“®•ûŠp‚ÌZŽ²‰ñ“]
     _angRzMove = 0;
     //ˆÚ“®•ûŠp‚ÌYŽ²‰ñ“]

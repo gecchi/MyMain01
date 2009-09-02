@@ -19,7 +19,7 @@ void GgafDx9Util::init() {
         return;
     } else {
         for (s_ang ang = 0; ang < S_ANG360; ang++) {
-            double rad = (PI * 2.0 * ang) / S_ANG360;
+            double rad = (PI * 2.0f * ang) / S_ANG360;
             COS_UNITLEN[ang] = (int)(cos(rad) * LEN_UNIT);
             SIN_UNITLEN[ang] = (int)(sin(rad) * LEN_UNIT);
             TAN_UNITLEN[ang] = (int)(tan(rad) * LEN_UNIT);
@@ -103,7 +103,7 @@ angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
             return 0; //仕方ないので0
         }
         s_ang middle_prev = -1;
-        int lTerget = (int)(LEN_UNIT * ((1.0 * prm_vy) / (1.0 * prm_vx)));
+        int lTerget = (int)(LEN_UNIT * ((1.0f * prm_vy) / (1.0f * prm_vx)));
         while (true) {
             middle = (left + right) / 2;
             if (TAN_UNITLEN[middle] < lTerget) {
@@ -139,7 +139,7 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angC
 }
 void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle) {
     for (int i = 0; i < prm_way; i++) {
-        out_paAngle[i] = addAngle(prm_angStart, (1.0 * ANGLE360 / prm_way * i));
+        out_paAngle[i] = addAngle(prm_angStart, (1.0f * ANGLE360 / prm_way * i));
     }
 }
 
@@ -215,15 +215,15 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
 void GgafDx9Util::getRotAngleZY(int x,
                                 int y,
                                 int z,
-                                double& out_nvx,
-                                double& out_nvy,
-                                double& out_nvz,
+                                float& out_nvx,
+                                float& out_nvy,
+                                float& out_nvz,
                                 angle& out_angRotZ,
                                 angle& out_angRotY ) {
-    static double vx, vy, vz, t;
-    vx = ((double)x) / LEN_UNIT;
-    vy = ((double)y) / LEN_UNIT;
-    vz = ((double)z) / LEN_UNIT;
+    static float vx, vy, vz, t;
+    vx = ((float)x) / LEN_UNIT;
+    vy = ((float)y) / LEN_UNIT;
+    vz = ((float)z) / LEN_UNIT;
     //vx,vy,vz を正規化する。
     //求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
     //関係式   X=t*vx; Y=t*vy; Z=t*vz; ･･･ (1) を得る
@@ -290,10 +290,10 @@ void GgafDx9Util::getRotAngleZY(int x,
 }
 
 void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY) {
-    static double vx, vy, vz, t;
-    vx = ((double)x) / LEN_UNIT;
-    vy = ((double)y) / LEN_UNIT;
-    vz = ((double)z) / LEN_UNIT;
+    static float vx, vy, vz, t;
+    vx = ((float)x) / LEN_UNIT;
+    vy = ((float)y) / LEN_UNIT;
+    vz = ((float)z) / LEN_UNIT;
     t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     static s_ang rZ, rY;
 
@@ -333,7 +333,7 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
     }
 }
 
-void GgafDx9Util::getRotAngleZY(double vx, double vy, double vz, angle& out_angRotZ, angle& out_angRotY) {
+void GgafDx9Util::getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY) {
     static s_ang rZ, rY;
     _srv.getRotAngleClosely(
             (unsigned __int16) abs(vx*10000),
@@ -371,16 +371,16 @@ void GgafDx9Util::getRotAngleZY(double vx, double vy, double vz, angle& out_angR
     }
 }
 
-void GgafDx9Util::getNormalizeVector( int x,
-                                             int y,
-                                             int z,
-                                             double& out_nvx,
-                                             double& out_nvy,
-                                             double& out_nvz) {
-    static double vx, vy, vz, t;
-    vx = ((double)x) / LEN_UNIT;
-    vy = ((double)y) / LEN_UNIT;
-    vz = ((double)z) / LEN_UNIT;
+void GgafDx9Util::getNormalizeVector(int x,
+                                     int y,
+                                     int z,
+                                     float& out_nvx,
+                                     float& out_nvy,
+                                     float& out_nvz) {
+    static float vx, vy, vz, t;
+    vx = ((float)x) / LEN_UNIT;
+    vy = ((float)y) / LEN_UNIT;
+    vz = ((float)z) / LEN_UNIT;
     t = 1 / sqrt_fast(vx * vx + vy * vy + vz * vz);
     out_nvx = t * vx;
     out_nvy = t * vy;
@@ -405,9 +405,9 @@ void GgafDx9Util::getNormalizeVector( int x,
 
 void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ,
                                        angle prm_angRotY,
-                                       double& out_nvx,
-                                       double& out_nvy,
-                                       double& out_nvz) {
+                                       float& out_nvx,
+                                       float& out_nvy,
+                                       float& out_nvz) {
     //void GgafDx9SphereRadiusVectors::getVectorClosely(int out_angRotY, int prm_angRotZ, unsigned __int16& out_x, unsigned __int16& out_y, unsigned __int16& out_z) {
     //回転角によって象限を考慮し、getVectorCloselyのパラメータ角(< 900)を出す
     static int Xsign, Ysign, Zsign;
@@ -514,9 +514,9 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angRotZ,
     //	_TRACE_("prm_angRotZ="<<prm_angRotZ<<"/prm_angRotY="<<prm_angRotY<<" rY="<<rY<<"/rZ="<<rZ<<")");
     //	_TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
     _srv.getVectorClosely(rY, rZ, vx, vy, vz);
-    out_nvx = Xsign * vx / 10000.0;
-    out_nvy = Ysign * vy / 10000.0;
-    out_nvz = Zsign * vz / 10000.0;
+    out_nvx = Xsign * vx / 10000.0f;
+    out_nvy = Ysign * vy / 10000.0f;
+    out_nvz = Zsign * vz / 10000.0f;
 }
 
 //DWORD GgafDx9Util::max3(DWORD a, DWORD b, DWORD c) {

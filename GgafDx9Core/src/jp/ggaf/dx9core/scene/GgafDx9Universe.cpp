@@ -13,7 +13,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
-    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 7.0 / 18.0 );
+    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 7.0f / 18.0f );
     getLordActor()->accept(_pCamera);
     _pActor_DrawActive = NULL;
 }

@@ -106,7 +106,7 @@ void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:óvåüèÿ
     if (_is_active_flg && _can_live_flg) {
-        if (getAlpha() < 1.0) {
+        if (getAlpha() < 1.0f) {
             if (_isTransformed) {
                 GgafDx9Universe::setDrawDepthLevel(
                                     (int)(_z * MAX_DRAW_DEPTH_LEVEL),
