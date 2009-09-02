@@ -16,8 +16,8 @@ void MyLaserChip001::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _SX = _SY = _SZ = 40*1000;
-    _fAlpha = 0.9;
-    _max_radius = 10.0;
+    _fAlpha = 0.9f;
+    _max_radius = 10.0f;
 }
 
 void MyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {

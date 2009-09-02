@@ -121,7 +121,7 @@ void MyShip::processBehavior() {
             _pScaler->resetScale();
         }
         _pScaler->behave();
-    ///////////モーフテスト////////////////
+    ///////////スケーリングテスト////////////////
 
     if (_stc != 0) {
 //////////////////////////

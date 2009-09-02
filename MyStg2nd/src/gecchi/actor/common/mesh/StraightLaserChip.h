@@ -19,11 +19,11 @@ public:
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
     GgafDx9Core::angle* _pSource_RZ;
     /** レーザーの移動方向を同期するための、単位方向ベクトルX成分変数場所 */
-    double* _pSource_vX;
+    float* _pSource_vX;
     /** レーザーの移動方向を同期するための、単位方向ベクトルY成分変数場所 */
-    double* _pSource_vY;
+    float* _pSource_vY;
     /** レーザーの移動方向を同期するための、単位方向ベクトルZ成分変数場所 */
-    double* _pSource_vZ;
+    float* _pSource_vZ;
     /** 移動速度 */
     int _veloMove;
 

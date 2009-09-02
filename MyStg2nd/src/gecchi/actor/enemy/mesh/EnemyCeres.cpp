@@ -76,7 +76,7 @@ void EnemyCeres::initialize() {
     ////	_pMover->setMoveAngle(100*1000,0,-100);
 
 
-    //	_incZ =  (1.0*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_veloBegin * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
+    //	_incZ =  (1.0f*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_veloBegin * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
 
     _pMover->setMoveAngle(_X_turn, _Y_turn, _Z_turn);
     _pMover->setMoveVelocity(_veloBegin);

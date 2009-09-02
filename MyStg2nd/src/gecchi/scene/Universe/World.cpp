@@ -41,11 +41,11 @@ void World::initialize() {
     pCAM->_pMover->setVxMoveVelocity(0);
     pCAM->_pMover->setVxMoveAcceleration(0);
 
-    pCAM->_pMover->setVyMoveVelocityRenge(-4500, 4500);
+    pCAM->_pMover->setVyMoveVelocityRenge(-8000, 8000);
     pCAM->_pMover->setVyMoveVelocity(0);
     pCAM->_pMover->setVyMoveAcceleration(0);
 
-    pCAM->_pMover->setVzMoveVelocityRenge(-4500, 4500);
+    pCAM->_pMover->setVzMoveVelocityRenge(-8000, 8000);
     pCAM->_pMover->setVzMoveVelocity(0);
     pCAM->_pMover->setVzMoveAcceleration(0);
 }
@@ -145,10 +145,10 @@ void World::processBehavior() {
             dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
         } else if (pCAM->_pos_camera == 1) {
             dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 10)) - pCAM->_Z;
-            dX = X_screen_left - 200000 - pCAM->_X;
+            dX = X_screen_left - 300000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 2) {
             dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 10)) - pCAM->_Z;
-            dX = X_screen_left - 200000 - pCAM->_X;
+            dX = X_screen_left - 300000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 3) {
             dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
             dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
@@ -247,6 +247,10 @@ void World::processBehavior() {
         }
     }
 
+    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+        pCAM->_pMover->setMoveAngle(0,0,0);
+        _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
+    }
 
     if ( getSubFirst()->isBehaving() ) {
         //ƒXƒ‹[
@@ -257,11 +261,7 @@ void World::processBehavior() {
                    pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
                    pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
                   );
-
-        if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-            pCAM->_pMover->setMoveAngle(0,0,0);
-            _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
-        }
+        pCAM->_pMover->setMoveAngle(0,0,0);
     }
 
 }

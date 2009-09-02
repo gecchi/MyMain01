@@ -373,20 +373,20 @@ void adjustGameScreen(HWND hWnd) {
     if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
         RECT rect;
         GetClientRect(hWnd, &rect); //Ç†ÇÈÇ¢ÇÕÅH
-        if (1.0 * rect.right / rect.bottom > 1.0 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
+        if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
             //ÇÊÇËâ°í∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
-            double rate = 1.0 * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //èkè¨ó¶=ècïùÇÃî‰ó¶
-            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0);
+            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //èkè¨ó¶=ècïùÇÃî‰ó¶
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate;
         } else {
             //ÇÊÇËècí∑Ç…Ç»Ç¡ÇƒÇµÇ‹Ç¡ÇƒÇ¢ÇÈ
-            double rate = 1.0 * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //èkè¨ó¶=â°ïùÇÃî‰ó¶
+            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //èkè¨ó¶=â°ïùÇÃî‰ó¶
             GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
         }
     } else {
         GetClientRect(hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));

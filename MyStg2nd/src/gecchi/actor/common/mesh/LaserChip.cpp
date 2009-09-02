@@ -185,18 +185,18 @@ void LaserChip::processDraw() {
 
             if (_on_change_to_active_flg || _lifeframe % 10 == 0) { //10ƒtƒŒ‚É‚P‰ñŒvŽZ
 
-                 //DBackFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnBack;
-                 //DBackTo = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
-                 //DFrontFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnFront;
-                 DFrontTo   = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
-                 DLeftFrom  = -1.0 * pDrawLaserChipActor->_fDistance_plnLeft;
-                 DLeftTo    = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
-                 DRightFrom = -1.0 * pDrawLaserChipActor->_fDistance_plnRight;
-                 DRightTo   = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-                 DTopFrom   = -1.0 * pDrawLaserChipActor->_fDistance_plnTop;
-                 DTopTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
-                 DBtmFrom   = -1.0 * pDrawLaserChipActor->_fDistance_plnBottom;
-                 DBtmTo     = -1.0 * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
+                 //DBackFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnBack;
+                 //DBackTo = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+                 //DFrontFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnFront;
+                 DFrontTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
+                 DLeftFrom  = -1.0f * pDrawLaserChipActor->_fDistance_plnLeft;
+                 DLeftTo    = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+                 DRightFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnRight;
+                 DRightTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+                 DTopFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnTop;
+                 DTopTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+                 DBtmFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnBottom;
+                 DBtmTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
                  LeftIncRate = DLeftFrom / DLeftTo;
                  RightIncRate = DRightFrom / DRightTo;
                  TopIncRate = DTopFrom / DTopTo;

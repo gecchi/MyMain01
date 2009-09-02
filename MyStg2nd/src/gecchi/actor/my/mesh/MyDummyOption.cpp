@@ -42,7 +42,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 }
 
 void MyDummyOption::initialize() {
-    _angveloMove = ((1.0*_veloMove / _radiusPosition)*(double)ANGLE180)/PI;
+    _angveloMove = ((1.0f*_veloMove / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setMoveVelocity(_veloMove);
     _pMover->setRzMoveAngle(_angPosition+ANGLE90);
     _pMover->setRyMoveAngle(-ANGLE90);
@@ -84,9 +84,9 @@ void MyDummyOption::processBehavior() {
         _pMorpher->stopImmediately(1);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pMorpher->intoTargetAccelerationStep(2, 1.0, 0, 0.002);
+        _pMorpher->intoTargetAccelerationStep(2, 1.0f, 0, 0.002f);
     } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004);
+        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004f);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _pMorpher->loopTriangleWave(3, 20, 13, 2);
@@ -188,7 +188,7 @@ void MyDummyOption::processBehavior() {
     vx = ((float)_X) / LEN_UNIT;
     vy = ((float)_Y) / LEN_UNIT;
     vz = ((float)_Z) / LEN_UNIT;
-    k = 1.0 / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
+    k = 1.0f / GgafDx9Util::sqrt_fast(vx*vx + vy*vy + vz*vz);
 
     //ŒvŽZ
     _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
