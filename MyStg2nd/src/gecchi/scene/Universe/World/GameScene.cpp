@@ -98,6 +98,9 @@ void GameScene::processBehavior() {
 void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
+
+    //TODO:ボトルネックもいいところ
+    //なんとかしなければ
     if (_lifeframe >= 120) {
         executeBumpChkHeadActors(
           KIND_CHIKEI,
