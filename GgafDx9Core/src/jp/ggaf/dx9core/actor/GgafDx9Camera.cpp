@@ -115,7 +115,7 @@ void GgafDx9Camera::processBehavior() {
          // 視錐台の８点の計算
          D3DXMATRIX mat_world;
          D3DXMatrixIdentity( &mat_world );
-         D3DVIEWPORT9 *pViewport = const_cast<D3DVIEWPORT9*>(&viewport);
+         D3DVIEWPORT9* pViewport = (D3DVIEWPORT9*)(&viewport);
          // ワールド → ビュー → 射影 → スクリーン変換 の逆を行う
          for( int i = 0; i < 4; ++i )
          {
