@@ -72,35 +72,27 @@ OUT_VS GgafDx9VS_LaserChip(
 
 	if (index == 0) {
 		matWorld = g_matWorld001;
-		matWorld_front = g_matWorld_front001;
 		kind = g_kind001;
 	} else if (index == 1) {
 		matWorld = g_matWorld002;
-		matWorld_front = g_matWorld_front002;
 		kind = g_kind002;
 	} else if (index == 2) {
 		matWorld = g_matWorld003;
-		matWorld_front = g_matWorld_front003;
 		kind = g_kind003;
 	} else if (index == 3) {
 		matWorld = g_matWorld004;
-		matWorld_front = g_matWorld_front004;
 		kind = g_kind004;
 	} else if (index == 4) {
 		matWorld = g_matWorld005;
-		matWorld_front = g_matWorld_front005;
 		kind = g_kind005;
 	} else if (index == 5) {
 		matWorld = g_matWorld006;
-		matWorld_front = g_matWorld_front006;
 		kind = g_kind006;
 	} else if (index == 6) {
 		matWorld = g_matWorld007;
-		matWorld_front = g_matWorld_front007;
 		kind = g_kind007;
 	} else  {
 		matWorld = g_matWorld008;
-		matWorld_front = g_matWorld_front008;
 		kind = g_kind008;
 	} 
 
@@ -141,6 +133,27 @@ OUT_VS GgafDx9VS_LaserChip(
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {
+		if (index == 0) {
+			matWorld_front = g_matWorld_front001;
+		} else if (index == 1) {
+			matWorld_front = g_matWorld_front002;
+		} else if (index == 2) {
+			matWorld_front = g_matWorld_front003;
+		} else if (index == 3) {
+			matWorld_front = g_matWorld_front004;
+		} else if (index == 4) {
+			matWorld_front = g_matWorld_front005;
+		} else if (index == 5) {
+			matWorld_front = g_matWorld_front006;
+		} else if (index == 6) {
+			matWorld_front = g_matWorld_front007;
+		} else  {
+			matWorld_front = g_matWorld_front008;
+		} 
+
+
+
+
 //TODO:20090806アイディア
 //現在先頭のチップは何も表示されないので
 //２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
@@ -192,9 +205,7 @@ OUT_VS GgafDx9VS_LaserChip(
 float4 GgafDx9PS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);
-	return tex_color;
+	return tex2D( MyTextureSampler, prm_uv);;
 }
 
 

@@ -45,7 +45,7 @@ void EnemyAstraea::initialize() {
     _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
     for (int i = 0; i < _laser_way; i++) {
-        getLordActor()->accept(KIND_ENEMY_SHOT_PA, _papLaserChipDispatcher[i]->extract()); //–{Š‘®
+        getLordActor()->accept(KIND_ENEMY_SHOT_NOMAL, _papLaserChipDispatcher[i]->extract()); //–{Š‘®
     }
 }
 

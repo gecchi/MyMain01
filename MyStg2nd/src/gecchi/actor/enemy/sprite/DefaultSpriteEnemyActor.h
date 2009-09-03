@@ -3,12 +3,12 @@
 namespace MyStg2nd {
 
 
-class DefaultSpriteEnemyActor : public GgafDx9LibStg::DefaultSpriteActor {
+class DefaultSpriteEnemyActor : public GgafDx9LibStg::DefaultSpriteSetActor {
 
 public:
-	DefaultSpriteEnemyActor(const char* prm_name, const char* prm_model);
+    DefaultSpriteEnemyActor(const char* prm_name, const char* prm_model);
 
-	virtual ~DefaultSpriteEnemyActor();
+    virtual ~DefaultSpriteEnemyActor();
 };
 
 }

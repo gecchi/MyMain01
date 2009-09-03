@@ -72,7 +72,7 @@ void MyDummyOption::initialize() {
     _RYorg = _RY;
     _RZorg = _RZ;
 
-    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher->extract());
+    GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
 }
 

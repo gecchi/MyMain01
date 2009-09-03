@@ -105,7 +105,12 @@ void GameScene::processJudgement() {
         );
         executeBumpChkHeadActors(
           KIND_ENEMY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
-          KIND_MY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA | KIND_MY_SHOT_NOMAL
+          KIND_MY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
+        );
+
+        executeBumpChkHeadActors(
+            KIND_ENEMY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
+            KIND_MY_SHOT_NOMAL
         );
         executeBumpChkHeadActors(
           KIND_OTHER,
