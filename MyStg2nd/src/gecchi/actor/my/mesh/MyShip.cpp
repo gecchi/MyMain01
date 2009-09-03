@@ -164,51 +164,54 @@ void MyShip::processBehavior() {
         } else {
 //////////////////////
 
-        if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
-            if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
+            if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
+                if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
+                    if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+                        turnFaceNeutralXY();
+                        turnFaceZYMove(_stc);
+                        beginTurboZY(_stc);
+                    } else {
+                        turnFaceNeutralZY();
+                        turnFaceXYMove(_stc);
+                        beginTurboXY(_stc);
+                    }
+                } else {
+                    //方向ダブルプッシュでない＝方向シングルプッシュ
+                    if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+                        turnFaceNeutralXY();
+                        turnFaceZYMove(_stc);
+                        if (VB::isBeingPressed(VB_OPTION)) {
+                            turnZY(_stc);
+                        } else {
+                            moveZY(_stc);
+                        }
+
+                    } else {
+
+                        turnFaceNeutralZY();
+                        turnFaceXYMove(_stc);
+                        if (VB::isBeingPressed(VB_OPTION)) {
+                            turnXY(_stc);
+                        } else {
+                            moveXY(_stc);
+                        }
+
+                    }
+                }
+
+            } else {
+
+                //方向押しっぱ
                 if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                    turnFaceNeutralXY();
                     turnFaceZYMove(_stc);
-                    beginTurboZY(_stc);
+                    turnFaceXYMove(_stc);
+                    moveZY(_stc);
                 } else {
                     turnFaceNeutralZY();
                     turnFaceXYMove(_stc);
-                    beginTurboXY(_stc);
-                }
-            } else {
-                //方向ダブルプッシュでない＝方向シングルプッシュ
-                if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                    turnFaceNeutralZY();
-                    turnFaceXYMove(_stc);
-                    if (VB::isBeingPressed(VB_OPTION)) {
-                        turnXY(_stc);
-                    } else {
-                        moveXY(_stc);
-                    }
-                } else {
-                    turnFaceNeutralXY();
-                    turnFaceZYMove(_stc);
-                    if (VB::isBeingPressed(VB_OPTION)) {
-                        turnZY(_stc);
-                    } else {
-                        moveZY(_stc);
-                    }
+                    moveXY(_stc);
                 }
             }
-
-        } else {
-
-            //方向押しっぱ
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                turnFaceZYMove(_stc);
-                turnFaceXYMove(_stc);
-                moveZY(_stc);
-            } else {
-                turnFaceNeutralZY();
-                turnFaceXYMove(_stc);
-                moveXY(_stc);
-            }
-        }
 //////////////
         }
 //////////////
