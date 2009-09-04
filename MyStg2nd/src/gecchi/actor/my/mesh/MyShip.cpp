@@ -80,9 +80,9 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
 
 void MyShip::initialize() {
     //Ží•Ê‚ÉU‚è•ª‚¯
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyShots001->extract());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pDispatcher_MyWaves001->extract());
-    getLordActor()->accept(KIND_MY_SHOT_GU, _pLaserChipDispatcher->extract());
+    getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
+    getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
+    getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
     setBumpable(true);
     _pStgChecker->useHitAreaBoxNum(1);
