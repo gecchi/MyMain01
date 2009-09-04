@@ -12,6 +12,8 @@ class DefaultUniverse : public GgafDx9Core::GgafDx9Universe {
 public:
     DefaultUniverse(const char* prm_name);
 
+    virtual void nextFrame();
+
     virtual ~DefaultUniverse();
 };
 

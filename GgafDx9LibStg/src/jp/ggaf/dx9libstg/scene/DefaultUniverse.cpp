@@ -8,5 +8,9 @@ DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_nam
     _class_name = "DefaultUniverse";
 }
 
+void DefaultUniverse::nextFrame() {
+    GgafDx9Core::GgafDx9Universe::nextFrame();
+}
+
 DefaultUniverse::~DefaultUniverse() {
 }

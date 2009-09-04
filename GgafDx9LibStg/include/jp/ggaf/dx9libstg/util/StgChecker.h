@@ -13,6 +13,8 @@ protected:
 
 public:
 
+    static int _num_check;
+
     /** Œ»İ‚Ì“¾“_ */
     int _iScorePoint;
     /** Œ³—ˆ‚Ì“¾“_ */
