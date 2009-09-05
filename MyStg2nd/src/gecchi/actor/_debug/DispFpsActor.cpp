@@ -19,7 +19,6 @@ void DispFpsActor::processBehavior() {
     //sprintf_s(_aBuf, 17, "%06d %.1f fps", prm_dwFrame, askGod()->_fps);
     sprintf(_aBuf, "%05uActor %06uchk %07u %.1f fps", GgafGod::_num_actor_playing, StgChecker::_num_check, (unsigned int)askGod()->_godframe, askGod()->_fps);
     update(0, 0, _aBuf);
-    StgChecker::_num_check = 0;
 }
 
 DispFpsActor::~DispFpsActor() {

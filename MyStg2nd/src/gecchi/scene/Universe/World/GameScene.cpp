@@ -102,6 +102,7 @@ void GameScene::processJudgement() {
     //TODO:ボトルネックもいいところ
     //なんとかしなければ
     if (_lifeframe >= 120) {
+        StgChecker::_num_check = 0;
         executeBumpChkHeadActors(
           KIND_CHIKEI,
           KIND_MY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
