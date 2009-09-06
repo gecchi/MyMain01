@@ -145,10 +145,10 @@ void World::processBehavior() {
             dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
         } else if (pCAM->_pos_camera == 1) {
             dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 10)) - pCAM->_Z;
-            dX = X_screen_left - 300000 - pCAM->_X;
+            dX = X_screen_left - 200000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 2) {
             dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 10)) - pCAM->_Z;
-            dX = X_screen_left - 300000 - pCAM->_X;
+            dX = X_screen_left - 200000 - pCAM->_X;
         } else if (pCAM->_pos_camera == 3) {
             dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
             dX = (0 - (_dZ_camera_init / 6)) - pCAM->_X;
