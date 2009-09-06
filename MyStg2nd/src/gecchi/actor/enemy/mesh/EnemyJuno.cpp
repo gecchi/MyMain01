@@ -37,7 +37,7 @@ void EnemyJuno::processBehavior() {
 }
 
 void EnemyJuno::processJudgement() {
-    if (isGone()) {
+    if (wasGone()) {
         setBumpable(false);
         adios();
     }
@@ -48,7 +48,7 @@ void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyJuno::isGone() {
+int EnemyJuno::wasGone() {
     if (_Z < -1000000) {
         return true;
     } else {

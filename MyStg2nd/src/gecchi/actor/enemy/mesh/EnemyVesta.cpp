@@ -55,7 +55,7 @@ void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyVesta::isGone() {
+int EnemyVesta::wasGone() {
     if (_Y < _Y_ScreenBottom - 100000) {
         return true;
     } else {

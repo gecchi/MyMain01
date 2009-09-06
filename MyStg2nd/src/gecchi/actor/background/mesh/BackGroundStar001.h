@@ -42,7 +42,7 @@ public:
         return false;
     }
 
-    int isGone() {
+    int wasGone() {
         return false;
     }
 

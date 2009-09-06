@@ -64,7 +64,7 @@ void MyShot001::processBehavior() {
 }
 
 void MyShot001::processJudgement() {
-    if (isGone()) {
+    if (wasGone()) {
         inactivateTree();
     }
 

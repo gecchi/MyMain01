@@ -20,7 +20,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    int isGone();
+    int wasGone();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

@@ -66,7 +66,7 @@ void MyWave001::processBehavior() {
 
 void MyWave001::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
-    if (isGone()) {
+    if (wasGone()) {
         inactivateTree();
     }
 

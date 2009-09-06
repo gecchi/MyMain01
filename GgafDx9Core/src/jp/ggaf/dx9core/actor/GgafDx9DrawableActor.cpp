@@ -154,7 +154,7 @@ void GgafDx9DrawableActor::processAfterDraw() {
 
 #else
 
-void DefaultMorphMeshActor::processAfterDraw() {}
+void GgafDx9DrawableActor::processAfterDraw() {}
 
 #endif
 

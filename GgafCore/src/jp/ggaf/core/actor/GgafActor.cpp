@@ -64,8 +64,13 @@ void GgafActor::executeBumpChk_MeAnd(GgafActor* prm_pActor_Opponent) {
     if (prm_pActor_Opponent == this) {
         return;
     } else {
-        if (_can_bump_flg && prm_pActor_Opponent->_can_bump_flg && _can_live_flg && prm_pActor_Opponent->_can_live_flg && _is_active_flg
-                && prm_pActor_Opponent->_is_active_flg) {
+        if (_can_bump_flg &&
+            prm_pActor_Opponent->_can_bump_flg &&
+            _can_live_flg &&
+            prm_pActor_Opponent->_can_live_flg &&
+            _is_active_flg &&
+            prm_pActor_Opponent->_is_active_flg)
+        {
             if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
                 processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
                 prm_pActor_Opponent->processOnHit(this); //相手のヒット時の振る舞い

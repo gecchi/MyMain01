@@ -620,7 +620,7 @@ int GgafDx9GeometricActor::isOffscreen() {
     return _offscreenkind;
 }
 
-int GgafDx9GeometricActor::isGone() {
+int GgafDx9GeometricActor::wasGone() {
     static int X_goneLeft   = _X_ScreenLeft * 5;
     static int X_goneRight  = _X_ScreenRight * 10;
     static int Y_goneTop    = _Y_ScreenTop * 5;

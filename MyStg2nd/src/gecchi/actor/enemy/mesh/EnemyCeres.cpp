@@ -276,7 +276,7 @@ void EnemyCeres::processBehavior() {
 //}
 
 void EnemyCeres::processJudgement() {
-    if (isGone()) {
+    if (wasGone()) {
         adios();
         if (_createActorDispatcher) { //’e‰ð•ú—\–ñ
             _pDispatcher_EnemyMeshShots001->adios(60 * 5);
@@ -304,7 +304,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-int EnemyCeres::isGone() {
+int EnemyCeres::wasGone() {
     if (_X < _X_ScreenLeft - 800000) {
         return true;
     } else {

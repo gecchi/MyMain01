@@ -45,7 +45,7 @@ void EnemyPallas::processBehavior() {
 }
 
 void EnemyPallas::processJudgement() {
-    if (isGone()) {
+    if (wasGone()) {
         adios();
     }
 }
@@ -55,7 +55,7 @@ void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyPallas::isGone() {
+int EnemyPallas::wasGone() {
     if (_X < _X_ScreenLeft - 100000) {
         return true;
     } else {

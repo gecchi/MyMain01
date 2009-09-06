@@ -53,7 +53,7 @@ public:
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-    int isGone();
+    int wasGone();
 
     virtual ~EnemyCeres();
 };

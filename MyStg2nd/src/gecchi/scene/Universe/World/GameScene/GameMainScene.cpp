@@ -88,8 +88,8 @@ void GameMainScene::processBehavior() {
     }
 
     //SCORE•\Ž¦
-    sprintf(_buf, "SCORE:%07u", GameGlobal::_dwScore);
-    _pStringBoard_SCORE->update(500, 0, _buf);
+    sprintf(_buf, "Src:%07u", GameGlobal::_dwScore);
+    _pStringBoard_SCORE->update(600, 0, _buf);
 }
 
 void GameMainScene::processFinal() {

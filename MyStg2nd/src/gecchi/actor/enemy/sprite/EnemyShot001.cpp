@@ -29,7 +29,7 @@ void EnemyShot001::processBehavior() {
 
 }
 
-int EnemyShot001::isGone() {
+int EnemyShot001::wasGone() {
     if (_X < _X_ScreenLeft) {
         return true;
     } else {

@@ -86,7 +86,7 @@ void EnemyAstraea::processBehavior() {
 }
 
 void EnemyAstraea::processJudgement() {
-    if (isGone()) {
+    if (wasGone()) {
         adios();
         for (int i = 0; i < _laser_way; i++) {
             if (_papLaserChipDispatcher[i]) { //’e‰ð•ú—\–ñ
@@ -117,7 +117,7 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-int EnemyAstraea::isGone() {
+int EnemyAstraea::wasGone() {
     if (_X < _X_ScreenLeft - 800000) {
         return true;
     } else {

@@ -99,18 +99,17 @@ bool StgChecker::isBump(GgafDx9Checker* prm_pOtherChecker) {
 
     pOtherActor = prm_pOtherChecker->getTargetActor();
     pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
-    if (_pActor == NULL || pOtherActor == NULL || _pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL) {
+    if (_pActor == NULL || pOtherActor == NULL || _pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL ||
+        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ||
+        _pHitAreaBoxs->_paHitArea->active == false || pOtherHitAreaBoxs->_paHitArea->active == false) {
         return false;
-    }
+    } else {
 
-    //Ž©•ª‚Ì” ‚Æ‘ŠŽè‚Ì” 
-    if (_pHitAreaBoxs->_paHitArea != NULL && pOtherHitAreaBoxs->_paHitArea != NULL && _pHitAreaBoxs->_paHitArea->active
-            && pOtherHitAreaBoxs->_paHitArea->active) {
+        //Ž©•ª‚Ì” ‚Æ‘ŠŽè‚Ì” 
 
-        StgChecker::_num_check++;
         for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
             for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
-
+                StgChecker::_num_check++;
                 if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
                     if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
                         if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
@@ -128,7 +127,6 @@ bool StgChecker::isBump(GgafDx9Checker* prm_pOtherChecker) {
             }
         }
     }
-
     return false;
 }
 
