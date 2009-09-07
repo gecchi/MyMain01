@@ -158,7 +158,9 @@ void GgafDx9GeometryMover::behave() {
             //if (_angacceRot[i] != 0) {
             //フレーム毎の軸回転方角旋廻の処理
             _angveloRot[i] += _angacceRot[i];
-            addRotAngle(i, _angveloRot[i]);
+            if (_angveloRot[i] != 0) {
+                addRotAngle(i, _angveloRot[i]);
+            }
             //}
         }
     }
@@ -224,7 +226,9 @@ void GgafDx9GeometryMover::behave() {
         //if (_angacceRzMove != 0) {
         //フレーム毎の移動方角（Z軸回転）旋廻の処理
         _angveloRzMove += _angacceRzMove;
-        addRzMoveAngle(_angveloRzMove);
+        if (_angveloRzMove != 0) {
+            addRzMoveAngle(_angveloRzMove);
+        }
         //}
     }
     ////////////////
@@ -273,7 +277,9 @@ void GgafDx9GeometryMover::behave() {
         //if (_angacceRyMove != 0) {
         //フレーム毎の移動方角（Y軸回転）旋廻の処理
         _angveloRyMove += _angacceRyMove;
-        addRyMoveAngle(_angveloRyMove);
+        if(_angveloRyMove != 0) {
+            addRyMoveAngle(_angveloRyMove);
+        }
         //}
     }
     ///////////////
