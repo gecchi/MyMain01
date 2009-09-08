@@ -8,9 +8,9 @@ GgafActor::GgafActor(const char* prm_name) :
     TRACE("GgafActor::GgafActor("<<prm_name<<")");
     _class_name = "GgafActor";
     _pStatus = NULL;
-    _can_bump_flg = true;
     _pScene_Platform = NULL;
     _pGod = NULL;
+    setBumpable(false);
 }
 
 GgafActor::~GgafActor() {
@@ -94,12 +94,12 @@ void GgafActor::executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-void GgafActor::executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent) {
+void GgafActor::executeBumpChk_RoundRobin(GgafActor* prm_pActor_Opponent) {
     executeBumpChk_WeAnd(prm_pActor_Opponent);
     if (prm_pActor_Opponent->_pSubFirst != NULL) {
         GgafActor* _pActor_tmpZ = prm_pActor_Opponent->_pSubFirst;
         while (true) {
-            executeBumpChkRoundRobin(_pActor_tmpZ);
+            executeBumpChk_RoundRobin(_pActor_tmpZ);
             if (_pActor_tmpZ->_is_last_flg) {
                 break;
             } else {
@@ -149,12 +149,12 @@ bool GgafActor::executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-void GgafActor::executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent) {
+void GgafActor::executeBumpChk_RoundRobin2(GgafActor* prm_pActor_Opponent) {
     executeBumpChk2_WeAnd(prm_pActor_Opponent);
     if (prm_pActor_Opponent->_pSubFirst != NULL) {
         GgafActor* pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
         while (true) {
-            executeBumpChkRoundRobin2(pActor_tmpZ2);
+            executeBumpChk_RoundRobin2(pActor_tmpZ2);
             if (pActor_tmpZ2->_is_last_flg) {
                 break;
             } else {

@@ -4,10 +4,10 @@ using namespace std;
 using namespace GgafCore;
 
 GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
-    setBumpable(false);
     _class_name = "GgafMainActor";
     _pHeadActor = NULL;
     _pLordActor = NULL;
+    setBumpable(false);
 }
 
 void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {

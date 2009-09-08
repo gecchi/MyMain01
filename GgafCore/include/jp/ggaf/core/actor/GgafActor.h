@@ -70,7 +70,7 @@ private:
 
     /**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
-     * executeBumpChkRoundRobin2() から呼び出される。<BR>
+     * executeBumpChk_RoundRobin2() から呼び出される。<BR>
      * executeBumpChk_WeAnd(GgafActor*)と基本的に同じ組み合わせアルゴリズムであるが、<BR>
      * 必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で離脱し、<BR>
      * それ以上再帰ループを行わないようしている。残りの組み合わせは後続のループで補われる。（ハズである）<BR>
@@ -78,7 +78,7 @@ private:
      *  Actor① → Actor② 　　（矢印は衝突判定するという意味）<BR>
      *  Actor② → Actor①<BR>
      * のように、衝突判定処理が重複してしまうため、これを避けるため途中でループ離脱するのである。<BR>
-     * executeBumpChkRoundRobin2() 専用メソッドといっても良い。汎用性は無い。<BR>
+     * executeBumpChk_RoundRobin2() 専用メソッドといっても良い。汎用性は無い。<BR>
      * 戻り値の bool はヒットしたorしてないを意味する物ではないので忘れるな。<BR>
      * @param	prm_pActor_Opponent	衝突判定する自ツリーアクターのどれか1つのアクター
      * @retval	true	再帰処理打ち切り
@@ -125,19 +125,19 @@ public:
      * 自アクターの衝突判定有無を設定する。 .
      * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpable(bool prm_can_bump_flg);
+    void setBumpable(bool prm_can_bump_flg);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
      * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    virtual void setBumpableTree(bool prm_can_bump_flg);
+    void setBumpableTree(bool prm_can_bump_flg);
 
     /**
      * 衝突できるかどうか
      * @return	bool true:衝突できる／false:衝突できない
      */
-    virtual bool canBump();
+    bool canBump();
 
     /**
      * 所属しているシーンを取得。 .
@@ -167,7 +167,7 @@ public:
      * 但し、自ツリーにも他ツリーにも同時に所属しているアクターがあってはいけない。<BR>
      * @param	prm_pActor_Opponent	相手の他ツリーアクター
      */
-    virtual void executeBumpChkRoundRobin(GgafActor* prm_pActor_Opponent);
+    virtual void executeBumpChk_RoundRobin(GgafActor* prm_pActor_Opponent);
 
     /**
      * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
@@ -175,7 +175,7 @@ public:
      * 但し自アクター同士の重複組み合わせを無視する。 <BR>
      * @param	prm_pActor_Opponent	自ツリーアクターのどれか1つのアクター
      */
-    virtual void executeBumpChkRoundRobin2(GgafActor* prm_pActor_Opponent);
+    virtual void executeBumpChk_RoundRobin2(GgafActor* prm_pActor_Opponent);
 
     /**
      * 自アクターと何かのアクターと衝突したかどうか判定する。 .

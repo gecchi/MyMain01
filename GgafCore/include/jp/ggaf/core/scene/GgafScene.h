@@ -239,7 +239,7 @@ public:
     /**
      * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
      * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
-     * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
+     * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
      * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
      * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
      */
@@ -249,7 +249,7 @@ public:
     /**
      * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
      * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
-     * GgafActor#executeBumpChkRoundRobinを実行する。<BR>
+     * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
      * @param	prm_actorkind01	判定する対象のGgafHeadActorに登録されているActor種別
      * 		    prm_actorkind01	判定される対象のGgafHeadActorに登録されているActor種別<BR>
      */
