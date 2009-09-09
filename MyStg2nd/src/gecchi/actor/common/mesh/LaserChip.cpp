@@ -183,7 +183,7 @@ void LaserChip::processDraw() {
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
 
-            if (_on_change_to_active_flg || _lifeframe % 10 == 0) { //10フレに１回計算
+            if (_on_change_to_active_flg || _lifeframe % 2 == 0) { //10フレに１回計算
 
                  //DBackFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnBack;
                  //DBackTo = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
@@ -256,7 +256,16 @@ void LaserChip::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
+
+    // Zバッファを無効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    //Zバッファ書き込み不可
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
     _pMeshSetModel->draw(this);
+    // Zバッファを有効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    //Zバッファ書き込み可
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
 
 void LaserChip::drawHitArea() {
