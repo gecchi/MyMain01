@@ -53,7 +53,7 @@ void HitAreaBoxs::setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, 
     _paBase[prm_iArea].rotY = rotY;
     _paBase[prm_iArea].rotZ = rotZ;
 
-    _paBase[prm_iArea].active = true;
+    //_paBase[prm_iArea].active = true;
     _paHitArea[prm_iArea] = _paBase[prm_iArea];
 }
 //
