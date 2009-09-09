@@ -33,13 +33,12 @@ void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
         int iAreaNum = pHitAreaBoxs->_iAreaNum;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
-                if (pHitAreaBoxs->isEnable(i)) {
-
+                //if (pHitAreaBoxs->isEnable(i)) {
                     drawBox(pActor->_X + pHitAreaBoxs->_paHitArea[i].x1, pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
                             pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1, pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
                             pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2, pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2);
                     GgafGod::_num_actor_playing--; //当たり判定表示は表示オブジェクト数にカウントしない
-                }
+                //}
             }
         }
         //元に戻す

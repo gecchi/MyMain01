@@ -6,7 +6,7 @@ namespace GgafDx9LibStg {
  * 当たり判定領域クラス
  */
 class HitAreaBoxs : public GgafDx9Core::GgafDx9HitArea {
-
+public:
     struct Box {
         int x1; //x座標の小さい方
         int y1; //y座標の小さい方
@@ -23,10 +23,10 @@ class HitAreaBoxs : public GgafDx9Core::GgafDx9HitArea {
         bool rotX; //中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（箱が回転するのではない）
         bool rotY; //中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（箱が回転するのではない）
         bool rotZ; //中心点を、オブジェクトの(0,0)を中心にZ軸回転の移動をさせるかどうか（箱が回転するのではない）
-        bool active; //有効フラグ
+ //       bool active; //有効フラグ
     };
 
-public:
+
 
     Box* _paBase;
     Box* _paHitArea;
@@ -34,9 +34,9 @@ public:
     HitAreaBoxs(int prm_iAreaNum);
 
     void setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
-    void enable(int prm_iArea);
-    void disable(int prm_iArea);
-    bool isEnable(int prm_iArea);
+//    void enable(int prm_iArea);
+//    void disable(int prm_iArea);
+//    bool isEnable(int prm_iArea);
 
     virtual ~HitAreaBoxs();
 };

@@ -75,9 +75,9 @@ public:
 
         pOtherActor = prm_pOtherChecker->getTargetActor();
         pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
-        if (_pActor == NULL || pOtherActor == NULL || _pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL ||
-            _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ||
-            _pHitAreaBoxs->_paHitArea->active == false || pOtherHitAreaBoxs->_paHitArea->active == false) {
+        if (_pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL ||
+            _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {
+            //||      _pHitAreaBoxs->_paHitArea->active == false || pOtherHitAreaBoxs->_paHitArea->active == false) {
             return false;
         } else {
 
