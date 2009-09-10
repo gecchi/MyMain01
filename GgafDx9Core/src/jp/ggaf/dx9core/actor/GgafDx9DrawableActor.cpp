@@ -128,7 +128,12 @@ void GgafDx9DrawableActor::processPreDraw() {
             //不透明の場合は初めに描画するように設定。
             //レンダリング時最遠から描画するので、深度レベルはMAX
             if (_isTransformed) {
-                GgafDx9Universe::setDrawDepthMaxLevel(this);
+                //GgafDx9Universe::setDrawDepthMaxLevel(this);
+
+                GgafDx9Universe::setDrawDepthLevel(
+                                    (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                    this
+                                 );
             } else {
                 if (isOffscreen()) {
 

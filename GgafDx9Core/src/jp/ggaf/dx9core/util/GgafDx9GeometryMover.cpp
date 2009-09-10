@@ -499,8 +499,10 @@ void GgafDx9GeometryMover::setRzMoveAngle(int prm_tX, int prm_tY) {
 }
 
 void GgafDx9GeometryMover::setRzMoveAngle(angle prm_angle) {
-    _angRzMove = simplifyAngle(prm_angle);
-    GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    if (prm_angle !=  _angRzMove) {
+        _angRzMove = simplifyAngle(prm_angle);
+        GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    }
     if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
         setRotAngle(AXIS_Z, _angRzMove);
     }
@@ -647,8 +649,10 @@ void GgafDx9GeometryMover::setRyMoveAngle(int prm_tX, int prm_tY) {
 }
 
 void GgafDx9GeometryMover::setRyMoveAngle(angle prm_angle) {
-    _angRyMove = simplifyAngle(prm_angle);
-    GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    if (prm_angle != _angRyMove) {
+        _angRyMove = simplifyAngle(prm_angle);
+        GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    }
     if (_synchronize_YRotAngle_to_RyMoveAngle_flg) {
         setRotAngle(AXIS_Y, _angRyMove);
     }
@@ -790,9 +794,11 @@ angle GgafDx9GeometryMover::getDifferenceFromRyMoveAngleTo(angle prm_angTargetRy
 ////ÉRÉsÅ[å≥end
 
 void GgafDx9GeometryMover::setRzRyMoveAngle(angle prm_angRz, angle prm_angRy) {
-    _angRzMove = simplifyAngle(prm_angRz);
-    _angRyMove = simplifyAngle(prm_angRy);
-    GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    if (prm_angRz != _angRzMove || prm_angRy !=_angRyMove ) {
+        _angRzMove = simplifyAngle(prm_angRz);
+        _angRyMove = simplifyAngle(prm_angRy);
+        GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
+    }
     if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
         setRotAngle(AXIS_Z, _angRzMove);
     }
