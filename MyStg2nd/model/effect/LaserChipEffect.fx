@@ -104,18 +104,18 @@ OUT_VS GgafDx9VS_LaserChip(
 		kind = g_kind008;
 	} 
 
-	if (kind >= 100) {
-		prm_pos.z = 0;
-		kind -= 100;
-	} else {
-		prm_pos.z /= 2;
-	}
-
-	if (kind >= 10) {
-		prm_pos.z = -prm_pos.z;
-		kind -= 10;
-	}
-
+//	if (kind >= 100) {
+//		prm_pos.z = 0;
+//		kind -= 100;
+//	} else {
+//		prm_pos.z /= 2;
+//	}
+//
+//	if (kind >= 10) {
+//		prm_pos.z = -prm_pos.z;
+//		kind -= 10;
+//	}
+//
 
 //	if (revPosZ == true) {
 //		prm_pos.y = 0;

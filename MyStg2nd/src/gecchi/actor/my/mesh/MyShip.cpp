@@ -123,7 +123,7 @@ void MyShip::processBehavior() {
         _pScaler->behave();
     ///////////スケーリングテスト////////////////
 
-    if (_stc != 0) {
+    if (_stc != VB_NEUTRAL_STC) {
 //////////////////////////
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
             switch (_stc) {
@@ -398,168 +398,203 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
     _pMover->setMoveAcceleration(_iMvAcce_MT);
 
-    if (pCAM->_pos_camera == 0) {
-        if (prm_VB & VB_UP_STC) {
+    switch (prm_VB) {
+        case VB_UP_STC:
             _way = WAY_UP;
             _pMover->setRzRyMoveAngle(ANGLE90, 0);
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE45, 0);
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE135, 0);
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE180, 0);
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE0, 0);
-        } else if (prm_VB & VB_DOWN_STC) {
+            break;
+        case VB_UP_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE45, 0);
+            } else {
+                _way = WAY_UP_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE135, 0);
+            }
+            break;
+        case VB_UP_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE135, 0);
+            } else {
+                _way = WAY_UP_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE45, 0);
+            }
+            break;
+        case VB_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+            } else {
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE0, 0);
+            }
+            break;
+        case VB_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE0, 0);
+            } else {
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+            }
+            break;
+        case VB_DOWN_STC:
             _way = WAY_DOWN;
             _pMover->setRzRyMoveAngle(ANGLE270, 0);
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE315, 0);
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE225, 0);
-        } else {
-        }
-    } else if (pCAM->_pos_camera == 3) {
-        if (prm_VB & VB_UP_STC) {
-            _way = WAY_UP;
-            _pMover->setRzRyMoveAngle(ANGLE90, 0);
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE135, 0);
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE45, 0);
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE0, 0);
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE180, 0);
-        } else if (prm_VB & VB_DOWN_STC) {
-            _way = WAY_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE270, 0);
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE225, 0);
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE315, 0);
-        } else {
-        }
+            break;
+        case VB_DOWN_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE315, 0);
+            } else {
+                _way = WAY_DOWN_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE225, 0);
+            }
+            break;
+        case VB_DOWN_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE225, 0);
+            } else {
+                _way = WAY_DOWN_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE315, 0);
+            }
+            break;
+        default:
+            break;
     }
 }
 
 void MyShip::moveXY(vbsta prm_VB) {
-    if (pCAM->_pos_camera == 0) {
-        if (prm_VB & VB_UP_STC) {
+    switch (prm_VB) {
+        case VB_UP_STC:
             _way = WAY_UP;
             _Y += _iMoveSpeed;
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_FRONT;
-            _Y += _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_BEHIND;
-            _Y += _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_BEHIND;
-            _X -= _iMoveSpeed;
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_FRONT;
-            _X += _iMoveSpeed;
-        } else if (prm_VB & VB_DOWN_STC) {
+            break;
+        case VB_UP_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_FRONT;
+                _Y += _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+            } else {
+                _way = WAY_UP_BEHIND;
+                _Y += _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+            }
+            break;
+        case VB_UP_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_BEHIND;
+                _Y += _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+            } else {
+                _way = WAY_UP_FRONT;
+                _Y += _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+            }
+            break;
+        case VB_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_BEHIND;
+                _X -= _iMoveSpeed;
+            } else {
+                _way = WAY_FRONT;
+                _X += _iMoveSpeed;
+            }
+            break;
+        case VB_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_FRONT;
+                _X += _iMoveSpeed;
+            } else {
+                _way = WAY_BEHIND;
+                _X -= _iMoveSpeed;
+            }
+            break;
+        case VB_DOWN_STC:
             _way = WAY_DOWN;
             _Y -= _iMoveSpeed;
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_FRONT;
-            _Y -= _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_BEHIND;
-            _Y -= _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-        } else {
-        }
-    } else if (pCAM->_pos_camera == 3) {
-        if (prm_VB & VB_UP_STC) {
-            _way = WAY_UP;
-            _Y += _iMoveSpeed;
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_BEHIND;
-            _Y += _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_FRONT;
-            _Y += _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_FRONT;
-            _X += _iMoveSpeed;
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_BEHIND;
-            _X -= _iMoveSpeed;
-        } else if (prm_VB & VB_DOWN_STC) {
-            _way = WAY_DOWN;
-            _Y -= _iMoveSpeed;
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_BEHIND;
-            _Y -= _iMoveSpeed * NANAME;
-            _X -= _iMoveSpeed * NANAME;
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_FRONT;
-            _Y -= _iMoveSpeed * NANAME;
-            _X += _iMoveSpeed * NANAME;
-        } else {
-        }
+            break;
+        case VB_DOWN_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_FRONT;
+                _Y -= _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+            } else {
+                _way = WAY_DOWN_BEHIND;
+                _Y -= _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+            }
+            break;
+        case VB_DOWN_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_BEHIND;
+                _Y -= _iMoveSpeed * NANAME;
+                _X -= _iMoveSpeed * NANAME;
+            } else {
+                _way = WAY_DOWN_FRONT;
+                _Y -= _iMoveSpeed * NANAME;
+                _X += _iMoveSpeed * NANAME;
+            }
+            break;
+        default:
+            break;
     }
 }
 
 void MyShip::turnXY(vbsta prm_VB) {
-    if (pCAM->_pos_camera == 0) {
-        if (prm_VB & VB_UP_STC) {
+    switch (prm_VB) {
+        case VB_UP_STC:
             _way = WAY_UP;
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_FRONT;
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_BEHIND;
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_BEHIND;
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_FRONT;
-        } else if (prm_VB & VB_DOWN_STC) {
+            break;
+        case VB_UP_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_FRONT;
+            } else {
+                _way = WAY_UP_BEHIND;
+            }
+            break;
+        case VB_UP_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_UP_BEHIND;
+            } else {
+                _way = WAY_UP_FRONT;
+            }
+            break;
+        case VB_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_BEHIND;
+            } else {
+                _way = WAY_FRONT;
+            }
+            break;
+        case VB_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_FRONT;
+            } else {
+                _way = WAY_BEHIND;
+            }
+            break;
+        case VB_DOWN_STC:
             _way = WAY_DOWN;
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_FRONT;
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_BEHIND;
-        } else {
-        }
-    } else if (pCAM->_pos_camera == 1) {
-        if (prm_VB & VB_UP_STC) {
-            _way = WAY_UP;
-        } else if (prm_VB & VB_UP_RIGHT_STC) {
-            _way = WAY_UP_BEHIND;
-        } else if (prm_VB & VB_UP_LEFT_STC) {
-            _way = WAY_UP_FRONT;
-        } else if (prm_VB & VB_LEFT_STC) {
-            _way = WAY_FRONT;
-        } else if (prm_VB & VB_RIGHT_STC) {
-            _way = WAY_BEHIND;
-        } else if (prm_VB & VB_DOWN_STC) {
-            _way = WAY_DOWN;
-        } else if (prm_VB & VB_DOWN_RIGHT_STC) {
-            _way = WAY_DOWN_BEHIND;
-        } else if (prm_VB & VB_DOWN_LEFT_STC) {
-            _way = WAY_DOWN_FRONT;
-        } else {
-        }
+            break;
+        case VB_DOWN_RIGHT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_FRONT;
+            } else {
+                _way = WAY_DOWN_BEHIND;
+            }
+            break;
+        case VB_DOWN_LEFT_STC:
+            if (pCAM->_pos_camera == 0) {
+                _way = WAY_DOWN_BEHIND;
+            } else {
+                _way = WAY_DOWN_FRONT;
+            }
+            break;
+        default:
+            break;
     }
 }
 

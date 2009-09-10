@@ -110,12 +110,12 @@ void LaserChip::processJudgement() {
         _chip_kind = 4; //何も描画したくない
     }
 
-    if ((0 <= _RZ && _RZ < ANGLE90) ||
-        (ANGLE270 <= _RZ && _RZ < ANGLE360) ) {
-        _RX = 0;
-    } else {
-        _RX = ANGLE180;
-    }
+//    if ((0 <= _RZ && _RZ < ANGLE90) ||
+//        (ANGLE270 <= _RZ && _RZ < ANGLE360) ) {
+//        _RX = 0;
+//    } else {
+//        _RX = ANGLE180;
+//    }
 
 //    //【注意】4/15 メモ
 //    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
@@ -159,21 +159,21 @@ void LaserChip::processDraw() {
     //float DBackFrom;
     //float DBackTo;
     //float DFrontFrom;
-    static float DFrontTo;
-    static float DLeftFrom;  //distance left from
-    static float DLeftTo;    //distance left to
-    static float DRightFrom; //distance right from
-    static float DRightTo;   //distance right to
-    static float DTopFrom;   //distance top from
-    static float DTopTo;     //distance top to
-    static float DBtmFrom;   //distance bottom from
-    static float DBtmTo;     //distance bottom to
-
-    static float LeftIncRate;
-    static float RightIncRate;
-    static float TopIncRate;
-    static float BtmIncRate;
-    static int kind;
+//    static float DFrontTo;
+//    static float DLeftFrom;  //distance left from
+//    static float DLeftTo;    //distance left to
+//    static float DRightFrom; //distance right from
+//    static float DRightTo;   //distance right to
+//    static float DTopFrom;   //distance top from
+//    static float DTopTo;     //distance top to
+//    static float DBtmFrom;   //distance bottom from
+//    static float DBtmTo;     //distance bottom to
+//
+//    static float LeftIncRate;
+//    static float RightIncRate;
+//    static float TopIncRate;
+//    static float BtmIncRate;
+//    static int kind;
 
 
     for (int i = 0; i < _draw_set_num; i++) {
@@ -183,63 +183,66 @@ void LaserChip::processDraw() {
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
 
-            if (_on_change_to_active_flg || _lifeframe % 2 == 0) { //10フレに１回計算
+//            if (_on_change_to_active_flg || _lifeframe % 2 == 0) { //10フレに１回計算
+//
+//                 //DBackFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnBack;
+//                 //DBackTo = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
+//                 //DFrontFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnFront;
+//                 DFrontTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
+//                 DLeftFrom  = -1.0f * pDrawLaserChipActor->_fDistance_plnLeft;
+//                 DLeftTo    = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
+//                 DRightFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnRight;
+//                 DRightTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
+//                 DTopFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnTop;
+//                 DTopTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
+//                 DBtmFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnBottom;
+//                 DBtmTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
+//                 LeftIncRate = DLeftFrom / DLeftTo;
+//                 RightIncRate = DRightFrom / DRightTo;
+//                 TopIncRate = DTopFrom / DTopTo;
+//                 BtmIncRate = DBtmFrom / DBtmTo;
+//
+//                 if (LeftIncRate < RightIncRate) {
+//                     //手前向きなら視錐台右平面にぶつかる
+//                     //奥向きなら大小逆になって都合よし
+//                     if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
+//                         //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
+//                         //前フレームと同じ値とする。
+//                     } else {
+//                         pDrawLaserChipActor->_rev_pos_Z = 0;
+//                         if (RightIncRate > TopIncRate && RightIncRate > BtmIncRate) {
+//                             pDrawLaserChipActor->_div_pos_Z = 1;
+//                         } else {
+//                             pDrawLaserChipActor->_div_pos_Z = 0;
+//                         }
+//                     }
+//                 } else if (LeftIncRate  > RightIncRate) {
+//                     //手前向きなら視錐台左平面にぶつかる
+//                     //奥向きなら大小逆になって都合よし
+//                     if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
+//                         //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
+//                         //前フレームと同じ値とする。
+//                     } else {
+//                         pDrawLaserChipActor->_rev_pos_Z = 1;
+//                         if (LeftIncRate > TopIncRate && LeftIncRate > BtmIncRate) {
+//                             pDrawLaserChipActor->_div_pos_Z = 1;
+//                         } else {
+//                             pDrawLaserChipActor->_div_pos_Z = 0;
+//                         }
+//                     }
+//                 } else {
+//                     pDrawLaserChipActor->_rev_pos_Z = 0;
+//                     pDrawLaserChipActor->_div_pos_Z = 0;
+//                 }
+//            }
+//            kind = (pDrawLaserChipActor->_chip_kind) +
+//                   (pDrawLaserChipActor->_rev_pos_Z*10) +
+//                   (pDrawLaserChipActor->_div_pos_Z*100);
+//            //テクスチャ等のチップの種類
+//            hr = pID3DXEffect->SetInt(_ahKind[i], kind);
 
-                 //DBackFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnBack;
-                 //DBackTo = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBack;
-                 //DFrontFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnFront;
-                 DFrontTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnFront;
-                 DLeftFrom  = -1.0f * pDrawLaserChipActor->_fDistance_plnLeft;
-                 DLeftTo    = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnLeft;
-                 DRightFrom = -1.0f * pDrawLaserChipActor->_fDistance_plnRight;
-                 DRightTo   = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnRight;
-                 DTopFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnTop;
-                 DTopTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnTop;
-                 DBtmFrom   = -1.0f * pDrawLaserChipActor->_fDistance_plnBottom;
-                 DBtmTo     = -1.0f * pDrawLaserChipActor->_pChip_front->_fDistance_plnBottom;
-                 LeftIncRate = DLeftFrom / DLeftTo;
-                 RightIncRate = DRightFrom / DRightTo;
-                 TopIncRate = DTopFrom / DTopTo;
-                 BtmIncRate = DBtmFrom / DBtmTo;
-
-                 if (LeftIncRate < RightIncRate) {
-                     //手前向きなら視錐台右平面にぶつかる
-                     //奥向きなら大小逆になって都合よし
-                     if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
-                         //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
-                         //前フレームと同じ値とする。
-                     } else {
-                         pDrawLaserChipActor->_rev_pos_Z = 0;
-                         if (RightIncRate > TopIncRate && RightIncRate > BtmIncRate) {
-                             pDrawLaserChipActor->_div_pos_Z = 1;
-                         } else {
-                             pDrawLaserChipActor->_div_pos_Z = 0;
-                         }
-                     }
-                 } else if (LeftIncRate  > RightIncRate) {
-                     //手前向きなら視錐台左平面にぶつかる
-                     //奥向きなら大小逆になって都合よし
-                     if (DFrontTo < 0 || DLeftTo < 0 || DRightTo < 0 || DTopTo < 0 || DBtmTo < 0) {
-                         //画面から切れている場合、_rev_pos_Z と _div_pos_Z はうまく計算できないため、
-                         //前フレームと同じ値とする。
-                     } else {
-                         pDrawLaserChipActor->_rev_pos_Z = 1;
-                         if (LeftIncRate > TopIncRate && LeftIncRate > BtmIncRate) {
-                             pDrawLaserChipActor->_div_pos_Z = 1;
-                         } else {
-                             pDrawLaserChipActor->_div_pos_Z = 0;
-                         }
-                     }
-                 } else {
-                     pDrawLaserChipActor->_rev_pos_Z = 0;
-                     pDrawLaserChipActor->_div_pos_Z = 0;
-                 }
-            }
-            kind = (pDrawLaserChipActor->_chip_kind) +
-                   (pDrawLaserChipActor->_rev_pos_Z*10) +
-                   (pDrawLaserChipActor->_div_pos_Z*100);
-            //テクスチャ等のチップの種類
-            hr = pID3DXEffect->SetInt(_ahKind[i], kind);
+            //テクスチャ種類
+            hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) に失敗しました。2");
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
             mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。1");
@@ -256,16 +259,16 @@ void LaserChip::processDraw() {
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-
-    // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    //Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+//
+//    // Zバッファを無効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+//    //Zバッファ書き込み不可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
     _pMeshSetModel->draw(this);
-    // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    //Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+//    // Zバッファを有効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+//    //Zバッファ書き込み可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
 
 void LaserChip::drawHitArea() {
