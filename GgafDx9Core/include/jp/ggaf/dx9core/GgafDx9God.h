@@ -61,7 +61,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void makeUniversalVisualize();
+    virtual void presentUniversalVisualize();
 
     D3DXMATRIX getInvRotateMat();
     //    /**

@@ -501,7 +501,7 @@ void GgafDx9God::makeUniversalMaterialize() {
     TRACE("GgafDx9God::makeUniversalMaterialize() end");
 }
 
-void GgafDx9God::makeUniversalVisualize() {
+void GgafDx9God::presentUniversalVisualize() {
     if (_is_device_lost_flg != true) {
         //バックバッファをプライマリバッファに転送
         //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {

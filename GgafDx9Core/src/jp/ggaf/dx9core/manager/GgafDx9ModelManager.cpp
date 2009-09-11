@@ -481,7 +481,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        Sleep(1);
         model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
         model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
         model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
@@ -575,7 +574,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         int nFaces = 0;
         FLOAT dis;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
-          Sleep(1);
             model_papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], model_papModel3D[pattern]);
             if (r == false) {
@@ -645,7 +643,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             static unsigned short indexVertices_per_Face[3];
             static unsigned short indexNormals_per_Face[3];
             for (int i = 0; i < nFaces; i++) {
-            Sleep(1);
                 for (int j = 0; j < 3; j++) {
                     //面に対する頂点インデックス３つ(A,B,Cとする)
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
@@ -679,7 +676,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
             static float rate; //その法線の出ている頂点の成す角の率。つまり法線ベクトルに掛ける率。その法線ベクトルの影響の強さ。
             for (int i = 0; i < nFaces; i++) {
-            Sleep(1);
                 for (int j = 0; j < 3; j++) {
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
                     indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
@@ -781,7 +777,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
         int faceNoCnt;
         for (faceNoCnt = 0; faceNoCnt < nFaces; faceNoCnt++) {
-          Sleep(1);
             materialno = model_papMeshesFront[0]->_FaceMaterials[faceNoCnt];
             if (prev_materialno != materialno) {
                 //TRACE3("BREAK! paramno="<<paramno);
@@ -1055,7 +1050,6 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_papMeshesFront[0]->_Materials.begin(); material != model_papMeshesFront[0]->_Materials.end(); material++) {
-        Sleep(1);
         model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
         model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
         model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];
@@ -2308,7 +2302,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
         prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
         for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {
-          Sleep(1);
             GgafDx9MeshSetModel::INDEXPARAM* paParam = NEW GgafDx9MeshSetModel::INDEXPARAM[nFaces * (set_index+1)];
             int prev_materialno = -1;
             int materialno = 0;
@@ -2398,7 +2391,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {
-        Sleep(1);
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
@@ -2465,7 +2457,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     char* texture_filename;
     int n = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        Sleep(1);
         model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
         model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
         model_paD3DMaterial9[n].Diffuse.b = (*material)->_FaceColor.data[2];

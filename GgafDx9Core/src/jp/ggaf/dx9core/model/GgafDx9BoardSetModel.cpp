@@ -79,7 +79,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9BoardSetModel::_draw_set_num_LastDraw = draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pBoardSetEffect;
-    GgafGod::_num_actor_playing++;
+    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

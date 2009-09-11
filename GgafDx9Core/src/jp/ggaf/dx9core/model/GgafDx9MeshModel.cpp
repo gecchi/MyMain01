@@ -93,7 +93,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
-    GgafGod::_num_actor_playing++;
+    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

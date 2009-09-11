@@ -77,7 +77,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pSpriteEffect;
     //前回描画UV座標（へのポインタ）を保存
-    GgafGod::_num_actor_playing++;
+    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 

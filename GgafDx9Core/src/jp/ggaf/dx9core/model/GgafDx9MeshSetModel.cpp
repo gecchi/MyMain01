@@ -108,7 +108,7 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9MeshSetModel::_draw_set_num_LastDraw = draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pMeshSetEffect;
-    GgafGod::_num_actor_playing++;
+    GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
 
