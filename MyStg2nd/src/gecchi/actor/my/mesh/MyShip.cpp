@@ -10,14 +10,14 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
+
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "negi") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
-
 
     //CommonSceneがnewの場合設定
     //キャッシュロード
@@ -69,7 +69,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
     addSubLast(_pLaserChipDispatcher); //仮サブ
-
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
