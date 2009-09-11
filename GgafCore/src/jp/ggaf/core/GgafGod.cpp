@@ -6,7 +6,7 @@ using namespace GgafCore;
 GgafCriticalException* GgafGod::_pException_Factory = NULL;
 CRITICAL_SECTION GgafGod::CS1;
 CRITICAL_SECTION GgafGod::CS2;
-int GgafGod::_num_actor_playing = 0;
+int GgafGod::_num_actor_drawing = 0;
 GgafGod* GgafGod::_pGod = NULL;
 DWORD GgafGod::_aTime_OffsetOfNextFrame[] = {17, 17, 16, 17, 17, 16, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17,
                                              17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 17, 17, 17, 16, 17, 17, 16,
@@ -57,15 +57,15 @@ void GgafGod::be() {
         _is_behaved_flg = true;
      ___BeginSynchronized; // ----->排他開始
         _godframe++;
-        makeUniversalMoment();
-        makeUniversalJudge();
+        presentUniversalMoment();
+        enforcementUniversalJudge();
      ___EndSynchronized; // <----- 排他終了
         //描画タイミングフレーム加算
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //予定は変わらない
-        if (_num_actor_playing > 800) {
-            _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 3);
-        } else if (_num_actor_playing > 700) {
-            _expected_time_of_next_frame += (_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
+        if (_num_actor_drawing > 300) {
+            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 4);
+        } else if (_num_actor_drawing > 200) {
+            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
         }
@@ -85,7 +85,7 @@ void GgafGod::be() {
     //fps計算
     if (_time_at_beginning_frame - _time_prev >= 1000) {
         _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev) / 1000.0f);
-        _TRACE_(_godframe<<"Frame "<<_num_actor_playing<<"Actor "<<_fps<<"Fps");
+        _TRACE_(_godframe<<"Frame "<<_num_actor_drawing<<"Actor "<<_fps<<"Fps");
         _time_prev = _time_at_beginning_frame;
         _frame_of_prev_visualize = _frame_of_visualize;
     }
@@ -101,19 +101,19 @@ void GgafGod::be() {
                 _frame_of_visualize++;
              ___BeginSynchronized; // ----->排他開始
                 if (_is_materialized_flg) {
-                    makeUniversalVisualize();
-                    makeUniversalFinalize();
+                    presentUniversalVisualize();
+                    finalizeUniversal();
                 } else {
                     makeUniversalMaterialize();
-                    makeUniversalVisualize();
-                    makeUniversalFinalize();
+                    presentUniversalVisualize();
+                    finalizeUniversal();
                 }
                 //getUniverse()->cleane(10);
              ___EndSynchronized; // <----- 排他終了
             } else {
-                //スキップ時はmakeUniversalFinalize()だけ
+                //スキップ時はfinalizeUniversal()だけ
              ___BeginSynchronized; // ----->排他開始
-                makeUniversalFinalize();
+                finalizeUniversal();
              ___EndSynchronized; // <----- 排他終了
             }
         } else {
@@ -121,12 +121,12 @@ void GgafGod::be() {
             _frame_of_visualize++;
          ___BeginSynchronized; // ----->排他開始
             if (_is_materialized_flg) {
-                makeUniversalVisualize();
-                makeUniversalFinalize();
+                presentUniversalVisualize();
+                finalizeUniversal();
             } else {
                 makeUniversalMaterialize();
-                makeUniversalVisualize();
-                makeUniversalFinalize();
+                presentUniversalVisualize();
+                finalizeUniversal();
 
             }
          ___EndSynchronized; // <----- 排他終了
@@ -134,33 +134,33 @@ void GgafGod::be() {
         _is_behaved_flg = false;
         _is_materialized_flg = false;
     } else {//描画タイミングフレームになってない(余裕がある)
-        Sleep(1); //工場（別スレッド）に回す
+        Sleep(2); //工場（別スレッド）に回す
     }
 
     return;
 }
 
-void GgafGod::makeUniversalMoment() {
+void GgafGod::presentUniversalMoment() {
     _pUniverse->nextFrame();
     _pUniverse->behave();
 }
 
-void GgafGod::makeUniversalJudge() {
+void GgafGod::enforcementUniversalJudge() {
     _pUniverse->judge();
 }
 
 void GgafGod::makeUniversalMaterialize() {
-    _num_actor_playing = 0;
+    _num_actor_drawing = 0;
     _pUniverse->preDraw();
     _pUniverse->draw();
     _pUniverse->afterDraw();
 }
 
-void GgafGod::makeUniversalVisualize() {
+void GgafGod::presentUniversalVisualize() {
     _pUniverse->dump();
 }
 
-void GgafGod::makeUniversalFinalize() {
+void GgafGod::finalizeUniversal() {
     _pUniverse->finally();
 }
 

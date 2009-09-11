@@ -682,8 +682,8 @@ void GgafElement<T>::behave() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
-        processPreBehavior();
-        processBehavior();
+        processPreBehavior(); //フレームワーク用
+        processBehavior();    //ユーザー実装用
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -707,8 +707,8 @@ void GgafElement<T>::judge() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
-        processPreJudgement();
-        processJudgement();
+        processPreJudgement(); //フレームワーク用
+        processJudgement();    //ユーザー実装用
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {

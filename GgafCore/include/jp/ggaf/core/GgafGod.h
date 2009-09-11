@@ -7,10 +7,10 @@ namespace GgafCore {
 
 /**
  * 神クラス.
- * 主にこの世(GgafUniverse)を管理します。<BR>
- * この世がゲームアプリとするならば、このクラスが一番えらい。<BR>
+ * 主にこの世を管理し操作することを目的とするクラスです。一番えらい。<BR>
+ * 本クラスの be() メソッドを呼び続けることで、この余は動きます。<BR>
  * 基本的にインスタンスは１個です。<BR>
- * その他アプリ内でグローバルな参照が在ったり便利屋クラスでもある。<BR>
+ * その他、アプリ内でグローバルな参照が在ったり便利屋クラスでもある。<BR>
  * TODO:最終的には 神を２個 new して、交互に be() を実行すれば、ゲームが２個平行動作するようにしよう。
  */
 class GgafGod : public GgafObject {
@@ -53,7 +53,7 @@ public:
     DWORD _frame_of_prev_visualize;
 
     /**  */
-    static int _num_actor_playing;
+    static int _num_actor_drawing;
 
     bool _is_behaved_flg;
     bool _is_materialized_flg;
@@ -65,36 +65,36 @@ public:
     GgafGod();
 
     /**
-     * ここに居てます.<BR>
-     * 神が居る、すなわち、ゲームが進行します。<BR>
-     * このメソッドをひたすら呼び続けてください。<BR>
+     * 在ります。というメソッド。.<BR>
+     * 神が在るすなわち、この世が動き、アプリが進行します。<BR>
+     * OS側で、このメソッドをひたすら呼び続けてください。<BR>
      */
     void be();
 
     /**
-     * この世をの刹那を創造<BR>
+     * この世の瞬間を創造<BR>
      */
-    virtual void makeUniversalMoment();
+    virtual void presentUniversalMoment();
 
     /**
-     * この世を審判する<BR>
+     * この世の瞬間を審判する<BR>
      */
-    virtual void makeUniversalJudge();
+    virtual void enforcementUniversalJudge();
 
     /**
-     * この世を具現化する<BR>
+     * この世の瞬間の具現的なものを作成<BR>
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * この世を視覚化する<BR>
+     * この世の瞬間の状態を映像化<BR>
      */
-    virtual void makeUniversalVisualize();
+    virtual void presentUniversalVisualize();
 
     /**
      * この世の後始末<BR>
      */
-    virtual void makeUniversalFinalize();
+    virtual void finalizeUniversal();
 
     /**
      * この世を取得<BR>
