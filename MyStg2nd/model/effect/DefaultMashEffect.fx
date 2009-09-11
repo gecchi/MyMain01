@@ -64,7 +64,8 @@ float4 GgafDx9PS_DefaultMesh(
 	float4 out_color; 
 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
+	//float power = max(dot(prm_normal, -g_LightDirection ), 0);          
+	float power = 1;
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              

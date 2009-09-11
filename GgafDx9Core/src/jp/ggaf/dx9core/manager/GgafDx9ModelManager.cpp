@@ -159,6 +159,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     GgafDx9TextureConnection**    model_papTextureCon = NULL;
     int nVertices = 0;
     int nFaces = 0;
+    int nNomals = 0;
 
     if (prm_pMeshModel->_pModel3D == NULL) {
         model_pModel3D = NEW Frm::Model3D();
@@ -171,7 +172,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices;
         nFaces = model_pMeshesFront->_nFaces;
-
+        nNomals = model_pMeshesFront->_nNormals;
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
@@ -226,7 +227,12 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 //面に対する頂点インデックス３つ(A,B,Cとする)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
                 //面に対する法線インデックス３つ
-                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+                if (nNomals >= i+1) {
+                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+                } else {
+                    //法線が無い場合
+                    indexNormals_per_Face[j] = (unsigned short)0;
+                }
             }
 
             //頂点インデックス A の角(∠CAB)を求めて、配列に保持
@@ -257,21 +263,39 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+				if (nNomals >= i+1) {
+                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+                } else {
+                    //法線が無い場合
+                    indexNormals_per_Face[j] = (unsigned short)0;
+                }
+
             }
-            rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-            model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
-            rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-            model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
-            rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-            model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
-            model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
-        }
+			if (nNomals >= i+1) {
+				rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
+				rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
+				rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
+			} else {
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += 0;
+				model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += 0;
+			}
+		}
 
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
@@ -391,50 +415,52 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     if (prm_pMeshModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         //XファイルのFrameTransformMatrixを考慮
-        Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
-        if (pMatPos->isIdentity()) {
-            //FrameTransformMatrix は単位行列
-            _TRACE_("FrameTransformMatrix is Identity");
-        } else {
-            _TRACE_("Execute FrameTransform!");
-            static D3DXMATRIX FrameTransformMatrix;
-            FrameTransformMatrix._11 = pMatPos->data[0];
-            FrameTransformMatrix._12 = pMatPos->data[1];
-            FrameTransformMatrix._13 = pMatPos->data[2];
-            FrameTransformMatrix._14 = pMatPos->data[3];
-            FrameTransformMatrix._21 = pMatPos->data[4];
-            FrameTransformMatrix._22 = pMatPos->data[5];
-            FrameTransformMatrix._23 = pMatPos->data[6];
-            FrameTransformMatrix._24 = pMatPos->data[7];
-            FrameTransformMatrix._31 = pMatPos->data[8];
-            FrameTransformMatrix._32 = pMatPos->data[9];
-            FrameTransformMatrix._33 = pMatPos->data[10];
-            FrameTransformMatrix._34 = pMatPos->data[11];
-            FrameTransformMatrix._41 = pMatPos->data[12];
-            FrameTransformMatrix._42 = pMatPos->data[13];
-            FrameTransformMatrix._43 = pMatPos->data[14];
-            FrameTransformMatrix._44 = pMatPos->data[15];
+		if (model_pModel3D->_Skeletton != NULL) {
+            Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
+            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+                //FrameTransformMatrix は単位行列
+                _TRACE_("FrameTransformMatrix is Identity");
+            } else {
+                _TRACE_("Execute FrameTransform!");
+                static D3DXMATRIX FrameTransformMatrix;
+                FrameTransformMatrix._11 = pMatPos->data[0];
+                FrameTransformMatrix._12 = pMatPos->data[1];
+                FrameTransformMatrix._13 = pMatPos->data[2];
+                FrameTransformMatrix._14 = pMatPos->data[3];
+                FrameTransformMatrix._21 = pMatPos->data[4];
+                FrameTransformMatrix._22 = pMatPos->data[5];
+                FrameTransformMatrix._23 = pMatPos->data[6];
+                FrameTransformMatrix._24 = pMatPos->data[7];
+                FrameTransformMatrix._31 = pMatPos->data[8];
+                FrameTransformMatrix._32 = pMatPos->data[9];
+                FrameTransformMatrix._33 = pMatPos->data[10];
+                FrameTransformMatrix._34 = pMatPos->data[11];
+                FrameTransformMatrix._41 = pMatPos->data[12];
+                FrameTransformMatrix._42 = pMatPos->data[13];
+                FrameTransformMatrix._43 = pMatPos->data[14];
+                FrameTransformMatrix._44 = pMatPos->data[15];
 
-            static D3DXVECTOR3 vecVertex;
-            static D3DXVECTOR3 vecNormal;
-            for (int i = 0; i < nVertices; i++) {
-                vecVertex.x = model_paVtxBuffer_org[i].x;
-                vecVertex.y = model_paVtxBuffer_org[i].y;
-                vecVertex.z = model_paVtxBuffer_org[i].z;
-                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                vecNormal.x = model_paVtxBuffer_org[i].nx;
-                vecNormal.y = model_paVtxBuffer_org[i].ny;
-                vecNormal.z = model_paVtxBuffer_org[i].nz;
-                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                static D3DXVECTOR3 vecVertex;
+                static D3DXVECTOR3 vecNormal;
+                for (int i = 0; i < nVertices; i++) {
+                    vecVertex.x = model_paVtxBuffer_org[i].x;
+                    vecVertex.y = model_paVtxBuffer_org[i].y;
+                    vecVertex.z = model_paVtxBuffer_org[i].z;
+                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                    vecNormal.x = model_paVtxBuffer_org[i].nx;
+                    vecNormal.y = model_paVtxBuffer_org[i].ny;
+                    vecNormal.z = model_paVtxBuffer_org[i].nz;
+                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
 
-                model_paVtxBuffer_org[i].x = vecVertex.x;
-                model_paVtxBuffer_org[i].y = vecVertex.y;
-                model_paVtxBuffer_org[i].z = vecVertex.z;
-                model_paVtxBuffer_org[i].nx = vecNormal.x;
-                model_paVtxBuffer_org[i].ny = vecNormal.y;
-                model_paVtxBuffer_org[i].nz = vecNormal.z;
+                    model_paVtxBuffer_org[i].x = vecVertex.x;
+                    model_paVtxBuffer_org[i].y = vecVertex.y;
+                    model_paVtxBuffer_org[i].z = vecVertex.z;
+                    model_paVtxBuffer_org[i].nx = vecNormal.x;
+                    model_paVtxBuffer_org[i].ny = vecNormal.y;
+                    model_paVtxBuffer_org[i].nz = vecNormal.z;
+                }
             }
-        }
+		}
 
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(

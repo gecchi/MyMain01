@@ -11,7 +11,7 @@ using namespace MyStg2nd;
 #define NANAME 0.7
 
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "negi") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "katana1") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -87,7 +87,7 @@ void MyShip::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
-    _pScaler->setScaleRange(1000, 3000);
+    _pScaler->setScale(10000000);
 }
 
 void MyShip::processBehavior() {
@@ -96,13 +96,13 @@ void MyShip::processBehavior() {
 
     ///////////スケーリングテスト////////////////
         if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-            _pScaler->intoTargetScaleLinerUntil(2000, 60);
+            _pScaler->intoTargetScaleLinerUntil(200000, 60);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-            _pScaler->intoTargetScaleLinerStep(3000, 10);
+            _pScaler->intoTargetScaleLinerStep(300000, 10);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-            _pScaler->intoTargetScaleAccelerationStep(8000, 0, 3);
+            _pScaler->intoTargetScaleAccelerationStep(800000, 0, 3);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
             _pScaler->beatLiner(20, -1);

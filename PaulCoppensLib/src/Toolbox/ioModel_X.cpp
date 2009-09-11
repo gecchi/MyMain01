@@ -109,8 +109,13 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 //////////////////////////////////////////////////////////
 
 int16 ToolBox::IO_Model_X::ProcessBlock(void) {
+
+
+
     std::string Text;
+    std::string Text2;
     char Token = fin.peek();
+    //_TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -132,6 +137,23 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         return X_COMMENT;
     default:
         fin >> Text;
+        //_TRACE_("text='"<<Text<<"'");
+        int len = Text.size();
+        //_TRACE_("len="<<len);
+        if (len > 0) {
+            char c = Text[len-1];
+            //_TRACE_("c='"<<c<<"'");
+            if (c == '{') {
+                Text2 = string(Text,0,len-1);
+                //_TRACE_("Text2='"<<Text2<<"'");
+                char Token2 = fin.peek();
+                //_TRACE_("Token2='"<<Token2<<"'");
+                fin.seekg(-2,ios_base::cur);
+                char Token3 = fin.peek();
+                //_TRACE_("Token3='"<<Token3<<"'");
+                return BlockID(Text2);
+            }
+        }
         return BlockID(Text);
     };
 }
