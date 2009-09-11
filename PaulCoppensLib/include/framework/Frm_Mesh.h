@@ -28,6 +28,8 @@ public:
         _nVertices(0), _Vertices(0), _Weights(0) {
         _MatrixPos.Identity();
         _SkinOffset.Identity();
+        _MeshName = ""; //add tsuge
+        _Name = "";     //add tsuge
     }
     ~Bone(void);
     Bone* IsName(std::string &BoneName);

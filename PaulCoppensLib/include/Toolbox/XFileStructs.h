@@ -13,8 +13,12 @@
 #define XOFFILE_FORMAT_VERSION03 \
     ((long)'0' + ((long)'3' << 8))
 
+//#define XOFFILE_FORMAT_VERSION02 \
+//    ((long)'0' + ((long)'3' << 8))
+
+//tsuge alter
 #define XOFFILE_FORMAT_VERSION02 \
-    ((long)'0' + ((long)'3' << 8))
+    ((long)'0' + ((long)'2' << 8))
 
 #define XOFFILE_FORMAT_BINARY \
     ((long)'b' + ((long)'i' << 8) + ((long)'n' << 16) + ((long)' ' << 24))
@@ -33,7 +37,7 @@
 
 
 struct XFileHeader {
-	unsigned long Magic;
+    unsigned long Magic;
    unsigned short Major_Version;
    unsigned short Minor_Version;
    unsigned long Format;

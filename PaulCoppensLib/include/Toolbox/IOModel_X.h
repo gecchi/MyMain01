@@ -22,7 +22,8 @@ namespace ToolBox {
 
 class IO_Model_X: Frm::IO<Frm::Model3D*> {
 public:
-    IO_Model_X(void) {
+    IO_Model_X(void) :
+        _LoadSkeletton(0) { //tsuge add
         _Type = IO_3DX;
     }
     bool Load(std::string pFilename, Frm::Model3D* &pT);

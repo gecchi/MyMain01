@@ -31,6 +31,7 @@ XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE },
 
 bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     XFileHeader XHeader;
+    _LoadSkeletton = 0;
 
     _TRACE_("Processing file:" << pFilename);
 
@@ -51,7 +52,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     }
 
     if ((XHeader.Minor_Version != XOFFILE_FORMAT_VERSION03)
-            || (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02)) {
+            && (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02)) {
         _TRACE_("Minor version greater than 03. Aborted...");
         return false;
     }
@@ -274,6 +275,8 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
     while (Token != X_EBRACE) {
         Token = ProcessBlock();
         switch (Token) {
+        case X_HEADER: //add tsuge
+            break;
         case X_COMMENT:
             break; //used for spaces and other kind of comments
         case X_EBRACE:
