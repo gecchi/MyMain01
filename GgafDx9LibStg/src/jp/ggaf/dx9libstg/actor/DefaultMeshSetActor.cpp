@@ -15,6 +15,12 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
     _frame_offset = 0;
     _pStgChecker = (StgChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
+    if (_pMeshSetModel->_paVtxBuffer_org[0].nx == 0 &&
+        _pMeshSetModel->_paVtxBuffer_org[0].ny == 0 &&
+        _pMeshSetModel->_paVtxBuffer_org[0].nz == 0)
+    {
+        strcpy(_technique, "DefaultMeshSetTechnique2");
+    }
 
 }
 

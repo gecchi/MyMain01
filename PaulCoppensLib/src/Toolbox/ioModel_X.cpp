@@ -7,7 +7,10 @@
 #include "ToolBox\IOModel_X.h"
 
 #define TEXT_BUFFER 255
-
+//add tsuge
+#define FACE3 (0)
+#define FACE4 (1)
+//
 #define MAX_TEMPLATES 15
 
 struct XOF_TEMPLATEID {
@@ -381,21 +384,70 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         fin.get();//eats either the comma or the semicolon at the end of each vertex description
     }
 
+//delete tsuge
+//
+//    fin.getline(Data, TEXT_BUFFER, ';');
+//    _LoadMesh->_nFaces = (uint16) TextToNum(Data);
+//    _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
+//    _LoadMesh->_Faces = new Frm::Face[_LoadMesh->_nFaces];
+//    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
+//        Find(';');
+//        fin.getline(Data, TEXT_BUFFER, ',');
+//        _LoadMesh->_Faces[i].data[0] = (uint16) TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ',');
+//        _LoadMesh->_Faces[i].data[1] = (uint16) TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ';');
+//        _LoadMesh->_Faces[i].data[2] = (uint16) TextToNum(Data);
+//        fin.get(); //eats either the comma or the semicolon at the end of each face description
+//        //_TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
+//    }
+
+//add tsuge
+//4頂点インデックスによるFace指定に対応
+//4;0,1,2,3;
+//の場合は、0,1,2 と 0,2,3 に分割
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaces = (uint16) TextToNum(Data);
-    _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
-    _LoadMesh->_Faces = new Frm::Face[_LoadMesh->_nFaces];
-    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
-        Find(';');
-        fin.getline(Data, TEXT_BUFFER, ',');
-        _LoadMesh->_Faces[i].data[0] = (uint16) TextToNum(Data);
-        fin.getline(Data, TEXT_BUFFER, ',');
-        _LoadMesh->_Faces[i].data[1] = (uint16) TextToNum(Data);
+    _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
+    _LoadMesh->_Faces = new Frm::Face[(_LoadMesh->_nFaces)*2];
+    int face_vtx_num;
+    int nFaces = _LoadMesh->_nFaces;
+    for (int i = 0, n = 0; i < nFaces; i++, n++) {
         fin.getline(Data, TEXT_BUFFER, ';');
-        _LoadMesh->_Faces[i].data[2] = (uint16) TextToNum(Data);
-        fin.get(); //eats either the comma or the semicolon at the end of each face description
-        //_TRACE_("Face:" << i, ":" << _LoadMesh->_Faces[i].data[0],_LoadMesh->_Faces[i].data[1],_LoadMesh->_Faces[i].data[2]);
+        face_vtx_num = (int) TextToNum(Data);
+
+        if (face_vtx_num == 3) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_Faces[n].data[1] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ';');
+            _LoadMesh->_Faces[n].data[2] = (uint16) TextToNum(Data);
+            fin.get(); //eats either the comma or the semicolon at the end of each face description
+            _LoadMesh->_Faces[n].data[3] = FACE3;
+        } else if (face_vtx_num == 4) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_Faces[n].data[1] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_Faces[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_Faces[n].data[3] = FACE4;
+
+            _LoadMesh->_Faces[n+1].data[0] = _LoadMesh->_Faces[n].data[0];
+            _LoadMesh->_Faces[n+1].data[1] = _LoadMesh->_Faces[n].data[2];
+            fin.getline(Data, TEXT_BUFFER, ';');
+            _LoadMesh->_Faces[n+1].data[2] = (uint16) TextToNum(Data);
+            fin.get();
+            _LoadMesh->_Faces[n+1].data[3] = FACE3;
+            n++;
+            _LoadMesh->_nFaces = _LoadMesh->_nFaces + 1;
+        } else {
+            _TRACE_("おかしい face_vtx_num = "<<face_vtx_num);
+        }
     }
+
+    _TRACE_("After Number of Faces:" << _LoadMesh->_nFaces);
 
     Token = X_COMMENT;
     while (Token != X_EBRACE) {
@@ -464,6 +516,39 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     char Data[TEXT_BUFFER];
 
     Find('{');
+
+//delete tsuge
+//    fin.getline(Data, TEXT_BUFFER, ';');
+//    _LoadMesh->_nNormals = (uint16) TextToNum(Data);
+//    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
+//    _LoadMesh->_Normals = new Frm::vector<float>[_LoadMesh->_nNormals];
+//    for (int i = 0; i < _LoadMesh->_nNormals; i++) {
+//        fin.getline(Data, TEXT_BUFFER, ';');
+//        _LoadMesh->_Normals[i].x = TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ';');
+//        _LoadMesh->_Normals[i].y = TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ';');
+//        _LoadMesh->_Normals[i].z = TextToNum(Data);
+//        fin.get();//eats the comma or the semicolon at the end
+//    }
+//
+//    Find(';'); //add gecchi 2009/03/01 face数を読み飛ばすために追加。恐らく作者のバグ。
+//
+//    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
+//    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
+//        Find(';');
+//        fin.getline(Data, TEXT_BUFFER, ',');
+//        _LoadMesh->_FaceNormals[i].data[0] = (uint16) TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ',');
+//        _LoadMesh->_FaceNormals[i].data[1] = (uint16) TextToNum(Data);
+//        fin.getline(Data, TEXT_BUFFER, ';');
+//        _LoadMesh->_FaceNormals[i].data[2] = (uint16) TextToNum(Data);
+//        fin.get(); //eats either the comma or the semicolon at the end of each face description
+//        //      _TRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
+//    }
+
+    //add tsuge
+    //4頂点による法線インデックスに対応
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nNormals = (uint16) TextToNum(Data);
     _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
@@ -478,20 +563,44 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
         fin.get();//eats the comma or the semicolon at the end
     }
 
-    Find(';'); //add gecchi 2009/03/01 face数を読み飛ばすために追加。恐らく作者のバグ。
-
+    fin.getline(Data, TEXT_BUFFER, ';');
+    int org_nFaces = TextToNum(Data);
+    _TRACE_("Before Number of normals index :" << org_nFaces);
     _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
-    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
-        Find(';');
-        fin.getline(Data, TEXT_BUFFER, ',');
-        _LoadMesh->_FaceNormals[i].data[0] = (uint16) TextToNum(Data);
-        fin.getline(Data, TEXT_BUFFER, ',');
-        _LoadMesh->_FaceNormals[i].data[1] = (uint16) TextToNum(Data);
+    int face_vtx_num;
+    int n = 0;
+    for (int i = 0; i < org_nFaces; i++, n++) {
         fin.getline(Data, TEXT_BUFFER, ';');
-        _LoadMesh->_FaceNormals[i].data[2] = (uint16) TextToNum(Data);
-        fin.get(); //eats either the comma or the semicolon at the end of each face description
-        //      _TRACE_("Face Normal indexes:" << i, ":" << _LoadMesh->_FaceNormals[i].data[0],_LoadMesh->_FaceNormals[i].data[1],_LoadMesh->_FaceNormals[i].data[2]);
+        face_vtx_num = (int) TextToNum(Data);
+        if (face_vtx_num == 3) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_FaceNormals[n].data[0] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_FaceNormals[n].data[1] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ';');
+            _LoadMesh->_FaceNormals[n].data[2] = (uint16) TextToNum(Data);
+            fin.get(); //eats either the comma or the semicolon at the end of each face description
+        } else if (face_vtx_num == 4) {
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_FaceNormals[n].data[0] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_FaceNormals[n].data[1] = (uint16) TextToNum(Data);
+            fin.getline(Data, TEXT_BUFFER, ',');
+            _LoadMesh->_FaceNormals[n].data[2] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceNormals[n+1].data[0] = _LoadMesh->_FaceNormals[n].data[0];
+            _LoadMesh->_FaceNormals[n+1].data[1] = _LoadMesh->_FaceNormals[n].data[2];
+            fin.getline(Data, TEXT_BUFFER, ';');
+            _LoadMesh->_FaceNormals[n+1].data[2] = (uint16) TextToNum(Data);
+            fin.get(); //eats either the comma or the semicolon at the end of each face description
+            n++;
+        } else {
+            _TRACE_("おかしい face_vtx_num = "<<face_vtx_num);
+        }
     }
+    _TRACE_("After Number of normals index :" << n+1);
+
+
+
 
     Find('}');
 }
@@ -509,20 +618,57 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
     Find('{');
 
+// delete tsuge
+//    fin.getline(Data, TEXT_BUFFER, ';');
+//    _LoadMesh->_nMaterials = (uint16) TextToNum(Data);
+//    _TRACE_("Number of Materials:" << (uint16)TextToNum(Data));
+//
+//    fin.getline(Data, TEXT_BUFFER, ';');
+//    _LoadMesh->_FaceMaterials = new uint16[(uint16) TextToNum(Data)];
+//    for (int i = 0; i < _LoadMesh->_nFaces - 1; i++) {
+//        fin.getline(Data, TEXT_BUFFER, ',');
+//        _LoadMesh->_FaceMaterials[i] = (uint16) TextToNum(Data);
+//    }
+//    fin.getline(Data, TEXT_BUFFER, ';');
+//    _LoadMesh->_FaceMaterials[_LoadMesh->_nFaces - 1]
+//            = (uint16) TextToNum(Data);
+//    fin.get(); //eats the last semicolon
+
+//add tsuge
+//4頂点インデックスのFace指定対応による、マテリアルグループリストのずれを補正
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nMaterials = (uint16) TextToNum(Data);
-    _TRACE_("Number of Materials:" << (uint16)TextToNum(Data));
+
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_FaceMaterials = new uint16[(uint16) TextToNum(Data)];
-    for (int i = 0; i < _LoadMesh->_nFaces - 1; i++) {
+    _LoadMesh->_FaceMaterials = new uint16[(uint16) (TextToNum(Data)*2)];
+    _TRACE_("Before Number of Materials:" << (uint16)TextToNum(Data));
+
+    int file_nFaceMaterials = (uint16) TextToNum(Data);
+    int n = 0;
+    for (int i = 0; i < file_nFaceMaterials - 1; i++, n++) {
         fin.getline(Data, TEXT_BUFFER, ',');
-        _LoadMesh->_FaceMaterials[i] = (uint16) TextToNum(Data);
+        if (_LoadMesh->_Faces[n].data[3] == FACE3) {
+            _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+        } else if (_LoadMesh->_Faces[n].data[3] == FACE4) {
+            _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+            _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
+            n++;
+        }
+
     }
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_FaceMaterials[_LoadMesh->_nFaces - 1]
-            = (uint16) TextToNum(Data);
+    if (_LoadMesh->_Faces[n].data[3] == FACE3) {
+        _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+    } else if (_LoadMesh->_Faces[n].data[3] == FACE4) {
+        _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+        _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
+        n++;
+    }
     fin.get(); //eats the last semicolon
+
+    _TRACE_("After Number of Materials:" << n+1);
+
 
     Token = X_COMMENT;
     while (Token != X_EBRACE) {

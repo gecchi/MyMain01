@@ -132,7 +132,9 @@ struct Array {
     }
 };
 
-typedef Array<unsigned short, 3> Face;
+//typedef Array<unsigned short, 3> Face;
+typedef Array<unsigned short, 4> Face; //modify tsuge
+
 typedef Array<float, 3> Vertex;
 typedef Array<float, 2> TCoord;
 typedef Array<float, 4> Color4;

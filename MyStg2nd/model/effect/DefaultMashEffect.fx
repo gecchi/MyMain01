@@ -64,14 +64,31 @@ float4 GgafDx9PS_DefaultMesh(
 	float4 out_color; 
 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-	//float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	float power = 1;
+	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
+	//float power = 1;
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+
+	return out_color;
+}
+
+float4 GgafDx9PS_DefaultMesh2(
+	float2 prm_uv	  : TEXCOORD0,
+	float3 prm_normal : TEXCOORD1
+) : COLOR  {
+	//求める色
+	float4 out_color; 
+
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+	//ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
+	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
@@ -114,4 +131,17 @@ technique DefaultMeshTechnique
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh();
 	}
 }
+
+technique DefaultMeshTechnique2
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMesh2();
+	}
+}
+
 

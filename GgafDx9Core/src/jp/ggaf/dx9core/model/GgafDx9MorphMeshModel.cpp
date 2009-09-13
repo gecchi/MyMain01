@@ -77,7 +77,7 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
-        if (GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect) {
+        if (GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
