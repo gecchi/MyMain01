@@ -36,7 +36,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     XFileHeader XHeader;
     _LoadSkeletton = 0;
 
-    _TRACE_("Processing file:" << pFilename);
+    _TRACE_("===> Processing file:" << pFilename << " ===>");
 
     fin.open(pFilename.c_str(), ios::in);
 
@@ -95,7 +95,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     if (_LoadSkeletton != 0)
         MapMeshToBones(_LoadSkeletton);
 
-    _TRACE_("Processed file:" << pFilename << " OK");
+    _TRACE_("<=== Processed file:" << pFilename << " OK <===");
 
     fin.close();
     return true;
@@ -412,10 +412,10 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     _LoadMesh->_Faces = new Frm::Face[(_LoadMesh->_nFaces)*2];
     int face_vtx_num;
     int nFaces = _LoadMesh->_nFaces;
-    for (int i = 0, n = 0; i < nFaces; i++, n++) {
+    int n = 0;
+    for (int i = 0; i < nFaces; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         face_vtx_num = (int) TextToNum(Data);
-
         if (face_vtx_num == 3) {
             fin.getline(Data, TEXT_BUFFER, ',');
             _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
@@ -445,6 +445,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         } else {
             _TRACE_("‚¨‚©‚µ‚¢ face_vtx_num = "<<face_vtx_num);
         }
+        n++;
     }
 
     _TRACE_("After Number of Faces:" << _LoadMesh->_nFaces);
@@ -569,7 +570,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
     int face_vtx_num;
     int n = 0;
-    for (int i = 0; i < org_nFaces; i++, n++) {
+    for (int i = 0; i < org_nFaces; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         face_vtx_num = (int) TextToNum(Data);
         if (face_vtx_num == 3) {
@@ -596,8 +597,9 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
         } else {
             _TRACE_("‚¨‚©‚µ‚¢ face_vtx_num = "<<face_vtx_num);
         }
+        n++;
     }
-    _TRACE_("After Number of normals index :" << n+1);
+    _TRACE_("After Number of normals index :" << n);
 
 
 
@@ -646,7 +648,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
     int file_nFaceMaterials = (uint16) TextToNum(Data);
     int n = 0;
-    for (int i = 0; i < file_nFaceMaterials - 1; i++, n++) {
+    for (int i = 0; i < file_nFaceMaterials - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         if (_LoadMesh->_Faces[n].data[3] == FACE3) {
             _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
@@ -655,19 +657,21 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
             _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
             n++;
         }
-
+        n++;
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     if (_LoadMesh->_Faces[n].data[3] == FACE3) {
         _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
+
     } else if (_LoadMesh->_Faces[n].data[3] == FACE4) {
         _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
         _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
         n++;
     }
+    n++;
     fin.get(); //eats the last semicolon
 
-    _TRACE_("After Number of Materials:" << n+1);
+    _TRACE_("After Number of Materials:" << n);
 
 
     Token = X_COMMENT;
