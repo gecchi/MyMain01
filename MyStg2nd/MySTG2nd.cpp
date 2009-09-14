@@ -191,13 +191,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     } catch (GgafCore::GgafCriticalException& e) {
         //異常終了時
         _TRACE_("＜例外＞"<<e.getMsg());
-        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-        MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけします。\n";
+        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
-                try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
-                try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
-                try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+        return EXIT_FAILURE;
+
+        //try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
+        //try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
+        //try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
 
         //		::timeEndPeriod(1);//タイマー精度終了処理
         //#ifdef OREDEBUG
@@ -205,7 +208,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         //		::detectMemoryLeaksEnd(std::cout);
         //#endif
         //		PostQuitMessage(0);
-        return EXIT_SUCCESS;
+        //return EXIT_SUCCESS;
     }
 /*
     } catch (...) {
