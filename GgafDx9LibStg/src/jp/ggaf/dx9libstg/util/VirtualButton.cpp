@@ -501,7 +501,6 @@ void VirtualButton::update() {
     _pVBMap->_state |= (VB_UI_RIGHT * (GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_RIGHT) ||
                                        GgafDx9Input::isBeingPressedJoyRight()));
 
-
     _pVBMap->_state |= (VB_UI_EXECUTE * (GgafDx9Input::isBeingPressedKey(_tagKeymap.UI_EXECUTE) ||
                                          GgafDx9Input::isBeingPressedJoyRgbButton(_tagJoymap.UI_EXECUTE)));
 
