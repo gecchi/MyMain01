@@ -15,7 +15,7 @@ float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 
-//soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
+//s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
 //texture g_diffuseMap;
@@ -44,10 +44,7 @@ OUT_VS GgafDx9VS_DefaultMesh(
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-	float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
     //法線計算
     out_vs.normal = normalize(mul(prm_normal, g_matWorld)); 	//法線を World 変換して正規化
 	//UVはそのまま
@@ -60,19 +57,15 @@ float4 GgafDx9PS_DefaultMesh(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1
 ) : COLOR  {
-	//求める色
-	float4 out_color; 
-
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//float power = 1;
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;
@@ -82,14 +75,11 @@ float4 GgafDx9PS_DefaultMesh2(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1
 ) : COLOR  {
-	//求める色
-	float4 out_color; 
-
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
-	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
+	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;

@@ -94,10 +94,10 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 		colorMaterialDiffuse = g_MaterialDiffuse008;
 	} 
 
-	float4 posWorld = mul( prm_pos, matWorld );               // World•ÏŠ·
-	float4 posWorldView = mul(posWorld, g_matView );            // View•ÏŠ·
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // Ë‰e•ÏŠ·
-	out_vs.pos = posWorldViewProj;                              // o—Í‚Éİ’è
+//	float4 posWorld = mul( prm_pos, matWorld );               // World•ÏŠ·
+//	float4 posWorldView = mul(posWorld, g_matView );            // View•ÏŠ·
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // Ë‰e•ÏŠ·
+	out_vs.pos = mul( mul(mul( prm_pos, matWorld ), g_matView ), g_matProj); //World*View*Ë‰e•ÏŠ·
     //–@üŒvZ
     out_vs.normal = normalize(mul(prm_normal, matWorld)); 	//–@ü‚ğ World •ÏŠ·‚µ‚Ä³‹K‰»
 	//UV‚Í‚»‚Ì‚Ü‚Ü

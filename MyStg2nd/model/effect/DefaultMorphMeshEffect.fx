@@ -52,10 +52,10 @@ OUT_VS GgafDx9VS_DefaultMorphMesh0(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//頂点計算
-	float4 posWorld = mul( prm_pos0, g_matWorld );               // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+//	float4 posWorld = mul( prm_pos0, g_matWorld );               // World変換
+//	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = mul( mul(mul( prm_pos0, g_matWorld ), g_matView ), g_matProj);//
     //法線計算
     out_vs.normal = normalize(mul(prm_normal0, g_matWorld)); 	//法線を World 変換して正規化
 	//UVはそのまま
@@ -82,10 +82,10 @@ OUT_VS GgafDx9VS_DefaultMorphMesh1(
 		normal = lerp(normal, prm_normal1, g_weight1);
 	}
 	//頂点出力設定
-	float4 posWorld = mul( pos, g_matWorld );                   // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+//	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+//	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
 	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
@@ -119,10 +119,10 @@ OUT_VS GgafDx9VS_DefaultMorphMesh2(
 		normal = lerp(normal, prm_normal2, g_weight2);
 	}
 	//頂点出力設定
-	float4 posWorld = mul( pos, g_matWorld );                   // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+//	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+//	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
 	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
@@ -161,10 +161,10 @@ OUT_VS GgafDx9VS_DefaultMorphMesh3(
 		normal = lerp(normal, prm_normal3, g_weight3);
 	}
 	//頂点出力設定
-	float4 posWorld = mul( pos, g_matWorld );                   // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+//	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+//	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
 	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
@@ -209,10 +209,10 @@ OUT_VS GgafDx9VS_DefaultMorphMesh4(
 		normal = lerp(normal, prm_normal4, g_weight4);
 	}
 	//頂点出力設定
-	float4 posWorld = mul( pos, g_matWorld );                   // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
+//	float4 posWorld = mul( pos, g_matWorld );                   // World変換
+//	float4 posWorldView = mul(posWorld, g_matView );            // View変換
+//	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
+	out_vs.pos = mul(mul(mul( pos, g_matWorld ), g_matView ), g_matProj); //World*View*射影変換
 	//法線出力設定
 	out_vs.normal = normalize(mul(normal, g_matWorld)); 	    //法線を World 変換して正規化
 	//UVはそのまま
@@ -242,6 +242,25 @@ float4 GgafDx9PS_DefaultMorphMesh(
 
 	return out_color;
 }
+
+//メッシュ標準ピクセルシェーダー（テクスチャ有り）
+float4 GgafDx9PS_DefaultMorphMesh2(
+	float2 prm_uv	  : TEXCOORD0,
+	float3 prm_normal : TEXCOORD1
+) : COLOR  {
+	//求める色
+	float4 out_color; 
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
+	out_color = g_MaterialDiffuse * tex_color;
+	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
+	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+
+	return out_color;
+}
+
+
 
 technique DefaultMorphMeshTechnique
 {
@@ -315,6 +334,60 @@ technique DefaultMorphMeshTechnique
 		DestBlend = InvSrcAlpha;
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh();
+	}
+
+	//以下同様に P9 まで拡張可能。
+	//でも、そんなに必要ないので省略。
+
+}
+
+
+technique DefaultMorphMeshTechnique2
+{
+
+	//モーフターゲット無し
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh2();
+	}
+
+	//モーフターゲット１つ
+	pass P1 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh2();
+	}
+
+	//モーフターゲット２つ
+	pass P2 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh2();
+	}
+
+	//モーフターゲット３つ
+	pass P3 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh2();
+	}
+
+	//モーフターゲット４つ
+	pass P4 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMorphMesh2();
 	}
 
 	//以下同様に P9 まで拡張可能。

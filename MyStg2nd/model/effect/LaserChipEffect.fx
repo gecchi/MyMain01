@@ -104,45 +104,8 @@ OUT_VS GgafDx9VS_LaserChip(
 		kind = g_kind008;
 	} 
 
-//	if (kind >= 100) {
-//		prm_pos.z = 0;
-//		kind -= 100;
-//	} else {
-//		prm_pos.z /= 2;
-//	}
-//
-//	if (kind >= 10) {
-//		prm_pos.z = -prm_pos.z;
-//		kind -= 10;
-//	}
-//
-
-//	if (revPosZ == true) {
-//		prm_pos.y = 0;
-//	} else {
-//		prm_pos.z = 0;
-//	}
-//
-
-
-
-	//ほぼ真横なら羽はいらない
-//	if (-1.0 < matWorld_front._43 - matWorld._43 && matWorld_front._43 - matWorld._43 < 1.0) {
-//		if (-1.0 < matWorld_front._42 - matWorld._42 && matWorld_front._42 - matWorld._42 < 1.0) {
-//			prm_pos.z = 0;
-//		}
-//	}
-
-
-//		if (-1.0 < matWorld_front._41 - matWorld._41 && matWorld_front._41 - matWorld._41 < 1.0) {
-//			prm_pos.z = 0;
-//		}
-//
-
 	float4 posWorld;
 	if (prm_pos.x > 0) {
-
-
 //TODO:20090806アイディア
 //現在先頭のチップは何も表示されないので
 //２倍して90度回転して、先頭専用テクスチャをを張れば、先を丸く見せれるのではないか
@@ -194,7 +157,7 @@ OUT_VS GgafDx9VS_LaserChip(
 float4 GgafDx9PS_LaserChip( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv);;
+	return tex2D( MyTextureSampler, prm_uv);
 }
 
 
