@@ -131,7 +131,7 @@ void MyOptionParent::initialize() {
     _pMover->setMoveVelocity(0);
     _pMover->setRyMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
     _pMover->setRzMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
-
+    _pMover->setRzRyMoveAngle(0,0);
     _way_myship_prev = GameGlobal::_pMyShip->_way;
     _pMover->behave();
 }
