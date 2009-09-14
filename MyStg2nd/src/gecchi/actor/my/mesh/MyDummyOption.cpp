@@ -51,9 +51,9 @@ void MyDummyOption::initialize() {
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //X軸中心回転なのでXYではなくてZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
     _X = 0;
-//_X = 50000; //TODO:＜メモ＞オプションをX軸回転していると、 _angExpanse の値によってはシンバルロックが起きて、
-//                //カクつきが目につく（目につきだすと止まらない）。解決を断念。オプションの回転を考え直す。
-//                //解決するためには根本的に回転部分のライブラリ(GgafDx9GeometryMover)を作り直す必要アリ。時間があれば考えよ。後回し。
+//_X = 50000; //TODO:＜メモ＞オプションをX軸付近を回転していると、 _angExpanse の値によってはシンバルロック付近で、
+//                //急激な回転が目につく（目につきだすと止まらない）。解決を断念。オプションの回転を考え直す。
+//                //解決するためには根本的に回転部分のライブラリ(GgafDx9GeometryMover)を作り直す必要アリ。時間があれば考えよう。後回し。
 //                //TODO:2009/04/08
 //                //本当は0（自機の真横）にしたい。が、やや自機の真横からずらす事で、シンバルロックによるワープのような回転する確率をやや緩和する。
 //                //X軸回転角角速度を速めに設定し、くるくる速く回して気付かれないようにごまかす。↑と↓向き付近で急激な回転を起こす事は免れない。
@@ -101,12 +101,11 @@ void MyDummyOption::processBehavior() {
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
 
-    if (!VB::isBeingPressed(VB_SHOT2) && VB::isBeingPressed(VB_OPTION)) {
-        _angveloExpanse = 1000;
+    if (GameGlobal::_pMyShip->_stc == VB_NEUTRAL_STC && VB::isBeingPressed(VB_OPTION)) {
+        _angveloExpanse = 2000;
     } else {
         _angveloExpanse = 0;
     }
-
 
     _X = _Xorg;
     _Y = _Yorg;
