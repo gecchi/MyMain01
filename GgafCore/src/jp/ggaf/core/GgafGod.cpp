@@ -63,9 +63,9 @@ void GgafGod::be() {
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
         if (_num_actor_drawing > 300) {
-            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 4);
-        } else if (_num_actor_drawing > 200) {
             _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
+        } else if (_num_actor_drawing > 200) {
+            _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 1.5);
         } else {
             _expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60];
         }
