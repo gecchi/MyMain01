@@ -263,7 +263,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-				if (nNomals >= i+1) {
+                if (nNomals >= i+1) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
                     //法線が無い場合
@@ -271,31 +271,31 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 }
 
             }
-			if (nNomals >= i+1) {
-				rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
-				rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
-				rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
-			} else {
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += 0;
-				model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += 0;
-			}
-		}
+            if (nNomals >= i+1) {
+                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
+                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
+                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
+            } else {
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += 0;
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += 0;
+            }
+        }
 
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
@@ -415,7 +415,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     if (prm_pMeshModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         //XファイルのFrameTransformMatrixを考慮
-		if (model_pModel3D->_Skeletton != NULL) {
+        if (model_pModel3D->_Skeletton != NULL) {
             Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
             if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
                 //FrameTransformMatrix は単位行列
@@ -460,7 +460,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                     model_paVtxBuffer_org[i].nz = vecNormal.z;
                 }
             }
-		}
+        }
 
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -598,6 +598,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         model_papaVtxBuffer_org_morph = NEW GgafDx9MorphMeshModel::VERTEX_MORPH*[morph_target_num];
         int nVertices = 0;
         int nFaces = 0;
+        int nNomals = 0;
         FLOAT dis;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             model_papModel3D[pattern] = NEW Frm::Model3D();
@@ -610,7 +611,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
             nVertices = model_papMeshesFront[pattern]->_nVertices;
             nFaces = model_papMeshesFront[pattern]->_nFaces;
-
+            nNomals = model_papMeshesFront[pattern]->_nNormals;
             if (pattern == 0) {
                 //プライマリメッシュ
                 model_paVtxBuffer_org_primary = NEW GgafDx9MorphMeshModel::VERTEX_PRIMARY[nVertices];
@@ -673,7 +674,12 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     //面に対する頂点インデックス３つ(A,B,Cとする)
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
                     //面に対する法線インデックス３つ
-                    indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];
+                    if (nNomals >= i+1) {
+                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];
+                    } else {
+                        //法線が無い場合
+                        indexNormals_per_Face[j] = (unsigned short)0;
+                    }
                 }
 
                 //頂点インデックス A の角(∠CAB)を求めて、配列に保持
@@ -704,37 +710,67 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             for (int i = 0; i < nFaces; i++) {
                 for (int j = 0; j < 3; j++) {
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                    indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                    if (nNomals >= i+1) {
+                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                    } else {
+                        //法線が無い場合
+                        indexNormals_per_Face[j] = (unsigned short)0;
+                    }
                 }
-                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                if (pattern == 0) { //プライマリメッシュ
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
-                } else {            //モーフターゲットメッシュ
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
-                }
-                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                if (pattern == 0) { //プライマリメッシュ
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
-                } else {            //モーフターゲットメッシュ
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
-                }
-                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                if (pattern == 0) { //プライマリメッシュ
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
-                    model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
-                } else {            //モーフターゲットメッシュ
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
-                    model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
+                if (nNomals >= i+1) {
+                    rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+                    if (pattern == 0) { //プライマリメッシュ
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
+                    } else {            //モーフターゲットメッシュ
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
+                    }
+                    rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+                    if (pattern == 0) { //プライマリメッシュ
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
+                    } else {            //モーフターゲットメッシュ
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
+                    }
+                    rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+                    if (pattern == 0) { //プライマリメッシュ
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
+                    } else {            //モーフターゲットメッシュ
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
+                    }
+                } else {
+                    //法線が無い場合
+                    if (pattern == 0) { //プライマリメッシュ
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += 0;
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += 0;
+                    } else {
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += 0;
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += 0;
+                    }
                 }
             }
 
@@ -2101,6 +2137,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
     int nVertices = 0;
     int nFaces = 0;
+    int nNomals = 0;
 
     if (prm_pMeshSetModel->_pModel3D == NULL) {
         model_pModel3D = NEW Frm::Model3D();
@@ -2111,10 +2148,9 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         model_pModel3D->ConcatenateMeshes();
         model_pMeshesFront = model_pModel3D->_Meshes.front();
-
         nVertices = model_pMeshesFront->_nVertices;
         nFaces = model_pMeshesFront->_nFaces;
-
+        nNomals = model_pMeshesFront->_nNormals;
         unit_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;
@@ -2171,7 +2207,12 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 //面に対する頂点インデックス３つ(A,B,Cとする)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
                 //面に対する法線インデックス３つ
-                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+                if (nNomals >= i+1) {
+                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
+                } else {
+                    //法線が無い場合
+                    indexNormals_per_Face[j] = (unsigned short)0;
+                }
             }
 
             //頂点インデックス A の角(∠CAB)を求めて、配列に保持
@@ -2202,20 +2243,37 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                if (nNomals >= i+1) {
+                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
+                } else {
+                    //法線が無い場合
+                    indexNormals_per_Face[j] = (unsigned short)0;
+                }
             }
-            rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-            unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
-            rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-            unit_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
-            rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-            unit_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
-            unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
+            if (nNomals >= i+1) {
+                rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].z * rate);
+                rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].x * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].y * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[1]].z * rate);
+                rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].x * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
+            } else {
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[0]].nz += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nx += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].ny += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[1]].nz += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nx += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].ny += 0;
+                unit_paVtxBuffer_org[indexVertices_per_Face[2]].nz += 0;
+            }
         }
 
         //最後に法線正規化して設定
