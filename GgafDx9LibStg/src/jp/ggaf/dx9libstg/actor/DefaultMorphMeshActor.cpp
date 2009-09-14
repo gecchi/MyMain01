@@ -18,6 +18,14 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
     _pScaler = NEW GgafDx9GeometryScaler(this);
     _pMorpher = NEW GgafDx9GeometryMorpher(this);
 
+    if (_pMorphMeshModel->_paVtxBuffer_org_primary[0].nx == 0 &&
+        _pMorphMeshModel->_paVtxBuffer_org_primary[0].ny == 0 &&
+        _pMorphMeshModel->_paVtxBuffer_org_primary[0].nz == 0)
+    {
+        strcpy(_technique, "DefaultMorphMeshTechnique2");
+    }
+
+
 }
 
 void DefaultMorphMeshActor::drawHitArea() {
