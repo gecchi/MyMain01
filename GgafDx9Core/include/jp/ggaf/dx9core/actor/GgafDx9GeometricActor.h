@@ -59,6 +59,17 @@ public:
 
     int _offscreenkind;
 
+    //TODO:起源アクターと起源アクターからのオフセット受け皿
+    GgafDx9GeometricActor* _pActorOrigin;
+    velo _offset_origin_veloMove;
+    int _offset_origin_X;
+    int _offset_origin_Y;
+    int _offset_origin_Z;
+    angle _offset_origin_angRxMove;
+    angle _offset_origin_angRyMove;
+    angle _offset_origin_angRot[3];
+
+
     /** 自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;
 
