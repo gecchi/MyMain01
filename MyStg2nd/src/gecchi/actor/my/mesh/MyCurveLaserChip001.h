@@ -2,11 +2,11 @@
 #define MYLASERCHIP001_H_
 namespace MyStg2nd {
 
-class MyLaserChip001 : public CurveLaserChip {
+class MyCurveLaserChip001 : public CurveLaserChip {
 
 public:
 
-    MyLaserChip001(const char* prm_name);
+    MyCurveLaserChip001(const char* prm_name);
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
@@ -25,7 +25,7 @@ public:
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
 
-    virtual ~MyLaserChip001();
+    virtual ~MyCurveLaserChip001();
 
 };
 

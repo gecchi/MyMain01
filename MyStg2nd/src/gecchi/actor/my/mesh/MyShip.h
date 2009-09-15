@@ -32,6 +32,7 @@ enum MoveWay {
 class MyShip : public GgafDx9LibStg::DefaultMeshSetActor {
 //class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
+
     class State {
     public:
         int eq_option;

@@ -31,7 +31,8 @@
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
-
+template<class P>
+class GameActor;
 
 class God;
 class World;
@@ -62,7 +63,7 @@ class LaserChip;
 class CurveLaserChip;
 class StraightLaserChip;
 class LaserChipDispatcher;
-class MyLaserChip001;
+class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class Stage01MainScene;
 class MyShip;
@@ -97,8 +98,11 @@ class OptionMagic;
 class Properties;
 class MyFactory;
 
-}
 
+
+
+}
+#include "gecchi/actor/GameActor.h"
 
 #include "gecchi/God.h"
 #include "gecchi/scene/Universe.h"
@@ -132,7 +136,7 @@ class MyFactory;
 #include "gecchi/actor/my/mesh/MyDummyOption.h"
 #include "gecchi/actor/my/sprite/MyShot001.h"
 #include "gecchi/actor/my/mesh/MyWave001.h"
-#include "gecchi/actor/my/mesh/MyLaserChip001.h"
+#include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/mesh/TamagoActor.h"

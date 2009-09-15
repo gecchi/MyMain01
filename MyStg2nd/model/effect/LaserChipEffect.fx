@@ -132,15 +132,22 @@ OUT_VS GgafDx9VS_LaserChip(
 		// 一つ前方のチップ座標へくっつける
 		posWorld = mul( prm_pos, matWorld_front );      // World変換
 	} else {
+//		if (kind == 1) {  
+//			prm_pos.x = 0;
+//			prm_pos.y = 0;
+//			prm_pos.z = 0;
+//		} 
 		//頂点計算
 		posWorld = mul( prm_pos, matWorld );        // World変換
 	}
 	out_vs.pos = mul(mul(posWorld, g_matView), g_matProj);  // View変換射影変換
 
 	//UV
+	//チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
 	if (kind == 2) {
 		out_vs.uv = prm_uv;
 	} else if (kind == 1) {
+		//out_vs.uv = prm_uv;
 		out_vs.uv.x = prm_uv.x - 0.5;
 		out_vs.uv.y = prm_uv.y;
 	} else if (kind == 3) {

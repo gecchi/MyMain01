@@ -16,9 +16,9 @@ void MyStraightLaserChip001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
-    _SX = _SY = _SZ = 40*1000;
+    _SX = _SY = _SZ = 200*1000;
     _fAlpha = 0.9;
-    _max_radius = 5.0;
+    _max_radius = 10.0;
 }
 
 

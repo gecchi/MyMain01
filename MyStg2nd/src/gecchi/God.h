@@ -3,6 +3,8 @@
 
 namespace MyStg2nd {
 
+#define pGOD ((God*)GgafGod::_pGod)
+#define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
 
 class God : public GgafDx9LibStg::DefaultGod {
 

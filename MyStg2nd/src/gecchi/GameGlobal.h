@@ -2,6 +2,8 @@
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
 #define RANK (GameGlobal::_iRank)
+#define pMYSHIP (GameGlobal::_pMyShip)
+#define pSCENECOMMON (GameGlobal::_pSceneCommon)
 
 class GameGlobal {
 public:

@@ -21,7 +21,6 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
     _pSource_vY = &_pMover->_vY;
     _pSource_vZ = &_pMover->_vZ;
     _veloMove = 100000;
-    _dwActiveFrame = 0;
 }
 
 void StraightLaserChip::initialize() {
@@ -35,7 +34,6 @@ void StraightLaserChip::initialize() {
 
 void StraightLaserChip::onActive() {
     LaserChip::onActive();
-    _dwActiveFrame = 0;
 }
 
 void StraightLaserChip::onInactive() {
@@ -47,9 +45,9 @@ void StraightLaserChip::processBehavior() {
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);
-    _X = (*_pSource_X) + ((*_pSource_vX) * 1.0f * _veloMove * _dwActiveFrame);
-    _Y = (*_pSource_Y) + ((*_pSource_vY) * 1.0f * _veloMove * _dwActiveFrame);
-    _Z = (*_pSource_Z) + ((*_pSource_vZ) * 1.0f * _veloMove * _dwActiveFrame);
+    _X = (*_pSource_X) + ((*_pSource_vX) * 1.0f * _veloMove * (_dwActiveFrame-1));
+    _Y = (*_pSource_Y) + ((*_pSource_vY) * 1.0f * _veloMove * (_dwActiveFrame-1));
+    _Z = (*_pSource_Z) + ((*_pSource_vZ) * 1.0f * _veloMove * (_dwActiveFrame-1));
 
     //À•W‚É”½‰f
     //_pMover->behave();

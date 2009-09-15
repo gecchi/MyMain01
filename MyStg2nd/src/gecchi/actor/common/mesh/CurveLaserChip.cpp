@@ -31,8 +31,11 @@ void CurveLaserChip::onInactive() {
 }
 
 void CurveLaserChip::processBehavior() {
+    _dwActiveFrame++;
     //À•W‚É”½‰f
-    _pMover->behave();
+    if (_dwActiveFrame > 1) {
+        _pMover->behave();
+    }
 /*
     //’†ŠÔ’n“_‚É‚à“–‚½‚è”»’è
     static int centerX, centerY, centerZ;

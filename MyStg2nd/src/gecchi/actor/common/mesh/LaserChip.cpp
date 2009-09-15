@@ -20,6 +20,8 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _chip_kind = 1;
     _rev_pos_Z = 0;
     _div_pos_Z = 0;
+    _dwActiveFrame = 0;
+
     _ahKind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
     _ahKind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind002" );
     _ahKind[2]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind003" );
@@ -50,6 +52,7 @@ void LaserChip::initialize() {
 
 
 void LaserChip::onActive() {
+    _dwActiveFrame = 0;
     //èoåªéû
     _chip_kind = 1;
     if (_pChip_front == NULL) {

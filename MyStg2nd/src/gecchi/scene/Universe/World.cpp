@@ -24,7 +24,7 @@ void World::initialize() {
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
-
+    int speed = pMYSHIP->_iMoveSpeed * 0.9;
 
     pCAM->_pos_camera = 0;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -37,15 +37,15 @@ void World::initialize() {
     pCAM->_pMover->setMoveAngle(0,0,0);
 
 
-    pCAM->_pMover->setVxMoveVelocityRenge(-8000, 8000);
+    pCAM->_pMover->setVxMoveVelocityRenge(-speed, speed);
     pCAM->_pMover->setVxMoveVelocity(0);
     pCAM->_pMover->setVxMoveAcceleration(0);
 
-    pCAM->_pMover->setVyMoveVelocityRenge(-8000, 8000);
+    pCAM->_pMover->setVyMoveVelocityRenge(-speed, speed);
     pCAM->_pMover->setVyMoveVelocity(0);
     pCAM->_pMover->setVyMoveAcceleration(0);
 
-    pCAM->_pMover->setVzMoveVelocityRenge(-8000, 8000);
+    pCAM->_pMover->setVzMoveVelocityRenge(-speed, speed);
     pCAM->_pMover->setVzMoveVelocity(0);
     pCAM->_pMover->setVzMoveAcceleration(0);
 }

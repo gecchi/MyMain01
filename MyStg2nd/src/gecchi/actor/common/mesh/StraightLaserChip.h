@@ -27,7 +27,6 @@ public:
     /** ˆÚ“®‘¬“x */
     int _veloMove;
 
-    DWORD _dwActiveFrame;
 
     StraightLaserChip(const char* prm_name, const char* prm_model);
 

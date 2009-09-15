@@ -11,7 +11,7 @@ using namespace MyStg2nd;
 #define NANAME 0.7
 
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshSetActor(prm_name, "vic2") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshSetActor(prm_name, "Ceres") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -291,6 +291,7 @@ void MyShip::processJudgement() {
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
+            pLaser->setSource(this);
 //            pLaser->_pMover->_vX = _pMover->_vX;
 //            pLaser->_pMover->_vY = _pMover->_vY;
 //            pLaser->_pMover->_vZ = _pMover->_vZ;

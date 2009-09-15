@@ -29,6 +29,8 @@ public:
     /** 自身を管理してるアクター発送者 */
     LaserChipDispatcher* _pDispatcher;
 
+    DWORD _dwActiveFrame;
+
     LaserChip(const char* prm_name, const char* prm_model);
 
     virtual void initialize();

@@ -10,7 +10,7 @@ namespace MyStg2nd {
 #define getParentActor(X) ((X##Actor*)getParent(#X))
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
-
+#define pWORLD (((Universe*)(GgafGod::_pGod->_pUniverse))->_pWorld)
 /**
  * ‚±‚Ì¢ƒV[ƒ“ .
  * ‚Ü‚¸‚±‚Ì¢‚ª‚ ‚è‚Ü‚µ‚½B<BR>
