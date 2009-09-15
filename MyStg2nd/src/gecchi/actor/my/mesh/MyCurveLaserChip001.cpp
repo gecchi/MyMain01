@@ -15,9 +15,9 @@ void MyCurveLaserChip001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
-    _SX = _SY = _SZ = 100*1000;
+    _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;
-    _max_radius = 10.0f;
+    _max_radius = 20.0f;
 }
 
 void MyCurveLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {

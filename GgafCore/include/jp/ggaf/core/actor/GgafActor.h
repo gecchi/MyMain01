@@ -300,7 +300,9 @@ public:
      * @retval	true	衝突しているを返す事
      * @retval	false	衝突していないを返す事
      */
-    virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {};
+    virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+		return false;
+	}
 
     /**
      * アクターと衝突した時の処理 .
@@ -308,7 +310,7 @@ public:
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pActor_Opponent	衝突している相手のアクター（１つ）
      */
-    virtual void processOnHit(GgafActor* prm_pActor_Opponent) {};
+    virtual void processOnHit(GgafActor* prm_pActor_Opponent) {}
 
     /**
      * デバッグ用：ツリー構造を表示<BR>
