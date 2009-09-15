@@ -100,6 +100,10 @@ enum GgafDx9AnimationMethod {
 };
 typedef int angle;
 typedef int s_ang;
+typedef int velo;
+typedef int acce;
+typedef int angvelo;
+typedef int angacce;
 
 class GgafDx9CriticalException;
 class GgafDx9God;

@@ -18,11 +18,6 @@ namespace GgafDx9Core {
 //軸Z
 #define AXIS_Z 2
 
-typedef int velo;
-typedef int acce;
-typedef int angvelo;
-typedef int angacce;
-
 
 /**
  * 座標計算支援クラス.
