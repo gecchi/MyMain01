@@ -62,8 +62,8 @@ void LaserChip::onActive() {
     }
 
     _pDispatcher->_num_chip_active++;
-    //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり計算回数を節約。
-    //後でdx,dy,dzだけ更新する。
+    //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり後でdx,dy,dzだけ更新する。
+    //計算回数を節約。
     GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 
     if (_pChip_front != NULL) {
@@ -122,7 +122,7 @@ void LaserChip::processJudgement() {
 
 //    //【注意】4/15 メモ
 //    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
-//    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。
+//    //processBehavior,processJudgementでは _pChip_front が必ず先に実行される（処理順序がツリー構造に依存するため）。
 //    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
 //    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
