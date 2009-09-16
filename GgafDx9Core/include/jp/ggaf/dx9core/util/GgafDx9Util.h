@@ -217,8 +217,8 @@ public:
      * @param s 精度（計算ループ回数）
      * @return 引数aの平方根
      */
-    static double sqrt_fast(double a, int s = 11) {
-        double ret = 1;
+    static float sqrt_fast(float a, int s = 11) {
+        float ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);
         }
