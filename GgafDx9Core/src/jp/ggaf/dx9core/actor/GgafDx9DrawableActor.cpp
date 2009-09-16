@@ -163,6 +163,27 @@ void GgafDx9DrawableActor::processAfterDraw() {}
 
 
 
+void GgafDx9DrawableActor::setMaterialColor(float r, float g, float b) {
+    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++) {
+        _paD3DMaterial9[i].Ambient.r = r;
+        _paD3DMaterial9[i].Diffuse.r = r;
+        _paD3DMaterial9[i].Ambient.g = g;
+        _paD3DMaterial9[i].Diffuse.g = g;
+        _paD3DMaterial9[i].Ambient.b = b;
+        _paD3DMaterial9[i].Diffuse.b = b;
+    }
+}
+
+void GgafDx9DrawableActor::resetMaterialColor() {
+    for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++) {
+        _paD3DMaterial9[i].Ambient.r = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.r;
+        _paD3DMaterial9[i].Diffuse.r = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.r;
+        _paD3DMaterial9[i].Ambient.g = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.g;
+        _paD3DMaterial9[i].Diffuse.g = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.g;
+        _paD3DMaterial9[i].Ambient.b = _pGgafDx9Model->_paD3DMaterial9_default[i].Ambient.b;
+        _paD3DMaterial9[i].Diffuse.b = _pGgafDx9Model->_paD3DMaterial9_default[i].Diffuse.b;
+    }
+}
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);

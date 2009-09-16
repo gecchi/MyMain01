@@ -85,6 +85,9 @@ public:
         return _fAlpha;
     }
 
+    virtual void setMaterialColor(float r, float g, float b);
+
+    virtual void resetMaterialColor();
 
     virtual ~GgafDx9DrawableActor(); //デストラクタ
 };

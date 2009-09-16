@@ -176,7 +176,7 @@ void GgafDx9SpriteSetActor::addNextAnimationFrame() {
 void GgafDx9SpriteSetActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
     //α設定、現在マテリアルはDiffuse以外関係ない
-    _paD3DMaterial9[0].Ambient.a = _fAlpha;
+    _paD3DMaterial9[0].Ambient.a = _fAlpha; //＜今のところ無意味
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
 
