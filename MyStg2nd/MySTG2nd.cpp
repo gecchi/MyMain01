@@ -1,18 +1,14 @@
 // MySTG2nd.cpp : アプリケーションのエントリ ポイントを定義します。
 //
-
-
 #include "stdafx.h"
 #include "MySTG2nd.h"
 #include "resource.h"
 
 using namespace std;
 
-
 #define MAX_LOADSTRING 100
 //#define WINDOW_TITLE "MyStg2nd"
 //#define WINDOW_CLASS "mogera"
-
 
 // グローバル変数:
 HINSTANCE hInst; // 現在のインターフェイス
