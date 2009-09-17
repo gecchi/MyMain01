@@ -68,7 +68,9 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     _Object = pT;
 
     while (!fin.eof()) {
-        switch (ProcessBlock()) {
+        int16 blockid = ProcessBlock();
+        _TRACE_("blockid="<<blockid);
+        switch (blockid) {
         case X_ERROR:
             _TRACE_("Stopped processing the file ...");
             return false;
@@ -118,7 +120,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
     std::string Text;
     std::string Text2;
     char Token = fin.peek();
-    //_TRACE_("Token='"<<Token<<"'");
+    _TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -140,7 +142,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         return X_COMMENT;
     default:
         fin >> Text;
-        //_TRACE_("text='"<<Text<<"'");
+        _TRACE_("text='"<<Text<<"'");
         int len = Text.size();
         //_TRACE_("len="<<len);
         if (len > 0) {
@@ -149,10 +151,10 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
             if (c == '{') {
                 Text2 = string(Text,0,len-1);
                 //_TRACE_("Text2='"<<Text2<<"'");
-                char Token2 = fin.peek();
+                //char Token2 = fin.peek();
                 //_TRACE_("Token2='"<<Token2<<"'");
                 fin.seekg(-2,ios_base::cur);
-                char Token3 = fin.peek();
+                //char Token3 = fin.peek();
                 //_TRACE_("Token3='"<<Token3<<"'");
                 return BlockID(Text2);
             }
