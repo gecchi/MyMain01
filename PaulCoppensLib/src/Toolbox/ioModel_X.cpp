@@ -69,7 +69,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
 
     while (!fin.eof()) {
         int16 blockid = ProcessBlock();
-        _TRACE_("blockid="<<blockid);
+        //_TRACE_("blockid="<<blockid);
         switch (blockid) {
         case X_ERROR:
             _TRACE_("Stopped processing the file ...");
@@ -114,13 +114,10 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 //////////////////////////////////////////////////////////
 
 int16 ToolBox::IO_Model_X::ProcessBlock(void) {
-
-
-
     std::string Text;
     std::string Text2;
     char Token = fin.peek();
-    _TRACE_("Token='"<<Token<<"'");
+    //_TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -141,21 +138,15 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         fin.ignore(TEXT_BUFFER, '\n');
         return X_COMMENT;
     default:
+        // modify tsuge
         fin >> Text;
-        _TRACE_("text='"<<Text<<"'");
         int len = Text.size();
-        //_TRACE_("len="<<len);
         if (len > 0) {
             char c = Text[len-1];
-            //_TRACE_("c='"<<c<<"'");
             if (c == '{') {
+                _TRACE_("＜警告＞xファイルブロック開始は、中括弧の前に半角スペースが必要です。  Text='"<<Text<<"'");
                 Text2 = string(Text,0,len-1);
-                //_TRACE_("Text2='"<<Text2<<"'");
-                //char Token2 = fin.peek();
-                //_TRACE_("Token2='"<<Token2<<"'");
                 fin.seekg(-2,ios_base::cur);
-                //char Token3 = fin.peek();
-                //_TRACE_("Token3='"<<Token3<<"'");
                 return BlockID(Text2);
             }
         }

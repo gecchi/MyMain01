@@ -184,7 +184,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         //法線以外設定
         FLOAT dis;
-        _TRACE_("1prm_pMeshModel="<<prm_pMeshModel);
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -201,7 +200,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[i].tv = 0.0f;
             }
 
-            _TRACE_("3prm_pMeshModel="<<prm_pMeshModel<<"/i="<<i);
             //距離
             dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
@@ -209,8 +207,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             if (prm_pMeshModel->_max_radius < dis) {
                 prm_pMeshModel->_max_radius = dis;
             }
-            _TRACE_("4prm_pMeshModel="<<prm_pMeshModel<<"/i="<<i);
-
         }
 
 
@@ -606,6 +602,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         model_papMeshesFront = NEW Frm::Mesh*[morph_target_num+1];
         model_papaVtxBuffer_org_morph = NEW GgafDx9MorphMeshModel::VERTEX_MORPH*[morph_target_num];
         int nVertices = 0;
+		int nTextureCoords = 0;
         int nFaces = 0;
         int nNomals = 0;
         FLOAT dis;
@@ -619,6 +616,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             model_papMeshesFront[pattern] = model_papModel3D[pattern]->_Meshes.front();
 
             nVertices = model_papMeshesFront[pattern]->_nVertices;
+			nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
             nFaces = model_papMeshesFront[pattern]->_nFaces;
             nNomals = model_papMeshesFront[pattern]->_nNormals;
             if (pattern == 0) {
@@ -635,8 +633,13 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_paVtxBuffer_org_primary[i].ny = 0.0f;
                     model_paVtxBuffer_org_primary[i].nz = 0.0f;
                     model_paVtxBuffer_org_primary[i].color = D3DCOLOR_ARGB(255,255,255,255);
-                    model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-                    model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
+					if (i < nTextureCoords) {
+						model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+						model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
+					} else {
+						model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+						model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
+					}
 
                     //距離
                     dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
@@ -988,71 +991,73 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         //XファイルのFrameTransformMatrixを考慮
         static D3DXMATRIX FrameTransformMatrix;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
-            Frm::Matrix* pMatPos = &(model_papModel3D[pattern]->_Skeletton->_MatrixPos);
-            if (pMatPos->isIdentity()) {
-                //FrameTransformMatrix は単位行列
-                _TRACE_("pattern=["<<pattern<<"] FrameTransformMatrix is Identity");
-            } else {
-                _TRACE_("pattern=["<<pattern<<"] Execute FrameTransform!");
-                int nVertices = model_papMeshesFront[pattern]->_nVertices;
-                FrameTransformMatrix._11 = pMatPos->data[0];
-                FrameTransformMatrix._12 = pMatPos->data[1];
-                FrameTransformMatrix._13 = pMatPos->data[2];
-                FrameTransformMatrix._14 = pMatPos->data[3];
-                FrameTransformMatrix._21 = pMatPos->data[4];
-                FrameTransformMatrix._22 = pMatPos->data[5];
-                FrameTransformMatrix._23 = pMatPos->data[6];
-                FrameTransformMatrix._24 = pMatPos->data[7];
-                FrameTransformMatrix._31 = pMatPos->data[8];
-                FrameTransformMatrix._32 = pMatPos->data[9];
-                FrameTransformMatrix._33 = pMatPos->data[10];
-                FrameTransformMatrix._34 = pMatPos->data[11];
-                FrameTransformMatrix._41 = pMatPos->data[12];
-                FrameTransformMatrix._42 = pMatPos->data[13];
-                FrameTransformMatrix._43 = pMatPos->data[14];
-                FrameTransformMatrix._44 = pMatPos->data[15];
+			if (model_papModel3D[pattern]->_Skeletton != NULL) {
+				Frm::Matrix* pMatPos = &(model_papModel3D[pattern]->_Skeletton->_MatrixPos);
+				if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+					//FrameTransformMatrix は単位行列
+					_TRACE_("pattern=["<<pattern<<"] FrameTransformMatrix is Identity");
+				} else {
+					_TRACE_("pattern=["<<pattern<<"] Execute FrameTransform!");
+					int nVertices = model_papMeshesFront[pattern]->_nVertices;
+					FrameTransformMatrix._11 = pMatPos->data[0];
+					FrameTransformMatrix._12 = pMatPos->data[1];
+					FrameTransformMatrix._13 = pMatPos->data[2];
+					FrameTransformMatrix._14 = pMatPos->data[3];
+					FrameTransformMatrix._21 = pMatPos->data[4];
+					FrameTransformMatrix._22 = pMatPos->data[5];
+					FrameTransformMatrix._23 = pMatPos->data[6];
+					FrameTransformMatrix._24 = pMatPos->data[7];
+					FrameTransformMatrix._31 = pMatPos->data[8];
+					FrameTransformMatrix._32 = pMatPos->data[9];
+					FrameTransformMatrix._33 = pMatPos->data[10];
+					FrameTransformMatrix._34 = pMatPos->data[11];
+					FrameTransformMatrix._41 = pMatPos->data[12];
+					FrameTransformMatrix._42 = pMatPos->data[13];
+					FrameTransformMatrix._43 = pMatPos->data[14];
+					FrameTransformMatrix._44 = pMatPos->data[15];
 
-                static D3DXVECTOR3 vecVertex;
-                static D3DXVECTOR3 vecNormal;
-                if (pattern == 0) {
-                    for (int i = 0; i < nVertices; i++) {
-                        vecVertex.x = model_paVtxBuffer_org_primary[i].x;
-                        vecVertex.y = model_paVtxBuffer_org_primary[i].y;
-                        vecVertex.z = model_paVtxBuffer_org_primary[i].z;
-                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                        vecNormal.x = model_paVtxBuffer_org_primary[i].nx;
-                        vecNormal.y = model_paVtxBuffer_org_primary[i].ny;
-                        vecNormal.z = model_paVtxBuffer_org_primary[i].nz;
-                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+					static D3DXVECTOR3 vecVertex;
+					static D3DXVECTOR3 vecNormal;
+					if (pattern == 0) {
+						for (int i = 0; i < nVertices; i++) {
+							vecVertex.x = model_paVtxBuffer_org_primary[i].x;
+							vecVertex.y = model_paVtxBuffer_org_primary[i].y;
+							vecVertex.z = model_paVtxBuffer_org_primary[i].z;
+							D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+							vecNormal.x = model_paVtxBuffer_org_primary[i].nx;
+							vecNormal.y = model_paVtxBuffer_org_primary[i].ny;
+							vecNormal.z = model_paVtxBuffer_org_primary[i].nz;
+							D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
 
-                        model_paVtxBuffer_org_primary[i].x = vecVertex.x;
-                        model_paVtxBuffer_org_primary[i].y = vecVertex.y;
-                        model_paVtxBuffer_org_primary[i].z = vecVertex.z;
-                        model_paVtxBuffer_org_primary[i].nx = vecNormal.x;
-                        model_paVtxBuffer_org_primary[i].ny = vecNormal.y;
-                        model_paVtxBuffer_org_primary[i].nz = vecNormal.z;
-                    }
-                } else {
-                    for (int i = 0; i < nVertices; i++) {
-                        vecVertex.x = model_papaVtxBuffer_org_morph[pattern-1][i].x;
-                        vecVertex.y = model_papaVtxBuffer_org_morph[pattern-1][i].y;
-                        vecVertex.z = model_papaVtxBuffer_org_morph[pattern-1][i].z;
-                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                        vecNormal.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
-                        vecNormal.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
-                        vecNormal.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
-                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+							model_paVtxBuffer_org_primary[i].x = vecVertex.x;
+							model_paVtxBuffer_org_primary[i].y = vecVertex.y;
+							model_paVtxBuffer_org_primary[i].z = vecVertex.z;
+							model_paVtxBuffer_org_primary[i].nx = vecNormal.x;
+							model_paVtxBuffer_org_primary[i].ny = vecNormal.y;
+							model_paVtxBuffer_org_primary[i].nz = vecNormal.z;
+						}
+					} else {
+						for (int i = 0; i < nVertices; i++) {
+							vecVertex.x = model_papaVtxBuffer_org_morph[pattern-1][i].x;
+							vecVertex.y = model_papaVtxBuffer_org_morph[pattern-1][i].y;
+							vecVertex.z = model_papaVtxBuffer_org_morph[pattern-1][i].z;
+							D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+							vecNormal.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
+							vecNormal.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
+							vecNormal.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
+							D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
 
-                        model_papaVtxBuffer_org_morph[pattern-1][i].x = vecVertex.x;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].y = vecVertex.y;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].z = vecVertex.z;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nx = vecNormal.x;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].ny = vecNormal.y;
-                        model_papaVtxBuffer_org_morph[pattern-1][i].nz = vecNormal.z;
-                    }
-                }
-            }
-        }
+							model_papaVtxBuffer_org_morph[pattern-1][i].x = vecVertex.x;
+							model_papaVtxBuffer_org_morph[pattern-1][i].y = vecVertex.y;
+							model_papaVtxBuffer_org_morph[pattern-1][i].z = vecVertex.z;
+							model_papaVtxBuffer_org_morph[pattern-1][i].nx = vecNormal.x;
+							model_papaVtxBuffer_org_morph[pattern-1][i].ny = vecNormal.y;
+							model_papaVtxBuffer_org_morph[pattern-1][i].nz = vecNormal.z;
+						}
+					}
+				}
+			}
+		}
 
         //頂点バッファ作成
         prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[morph_target_num];
@@ -2145,6 +2150,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     GgafDx9TextureConnection** model_papTextureCon = NULL;
 
     int nVertices = 0;
+	int nTextureCoords = 0;
     int nFaces = 0;
     int nNomals = 0;
 
@@ -2158,6 +2164,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         model_pModel3D->ConcatenateMeshes();
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices;
+		nTextureCoords = model_pMeshesFront->_nTextureCoords;
         nFaces = model_pMeshesFront->_nFaces;
         nNomals = model_pMeshesFront->_nNormals;
         unit_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
@@ -2176,8 +2183,13 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paVtxBuffer_org[i].ny = 0.0f;
             unit_paVtxBuffer_org[i].nz = 0.0f;
             unit_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
-            unit_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-            unit_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+			if (i < nTextureCoords) {
+				unit_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+				unit_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+			} else {
+				unit_paVtxBuffer_org[i].tu = 0;
+				unit_paVtxBuffer_org[i].tv = 0;
+			}
             unit_paVtxBuffer_org[i].index = 0; //頂点番号（むりやり埋め込み）
 
             //距離
@@ -2309,48 +2321,50 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         TRACE3("--------------------------------------");
 
         //XファイルのFrameTransformMatrixを考慮
-        Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
-        if (pMatPos->isIdentity()) {
-            //FrameTransformMatrix は単位行列
-            _TRACE_("FrameTransformMatrix is Identity");
-        } else {
-            _TRACE_("Execute FrameTransform!");
-            static D3DXMATRIX FrameTransformMatrix;
-            FrameTransformMatrix._11 = pMatPos->data[0];
-            FrameTransformMatrix._12 = pMatPos->data[1];
-            FrameTransformMatrix._13 = pMatPos->data[2];
-            FrameTransformMatrix._14 = pMatPos->data[3];
-            FrameTransformMatrix._21 = pMatPos->data[4];
-            FrameTransformMatrix._22 = pMatPos->data[5];
-            FrameTransformMatrix._23 = pMatPos->data[6];
-            FrameTransformMatrix._24 = pMatPos->data[7];
-            FrameTransformMatrix._31 = pMatPos->data[8];
-            FrameTransformMatrix._32 = pMatPos->data[9];
-            FrameTransformMatrix._33 = pMatPos->data[10];
-            FrameTransformMatrix._34 = pMatPos->data[11];
-            FrameTransformMatrix._41 = pMatPos->data[12];
-            FrameTransformMatrix._42 = pMatPos->data[13];
-            FrameTransformMatrix._43 = pMatPos->data[14];
-            FrameTransformMatrix._44 = pMatPos->data[15];
+        if (model_pModel3D->_Skeletton != NULL) {
+            Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
+            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+                //FrameTransformMatrix は単位行列
+                _TRACE_("FrameTransformMatrix is Identity");
+            } else {
+                _TRACE_("Execute FrameTransform!");
+                static D3DXMATRIX FrameTransformMatrix;
+                FrameTransformMatrix._11 = pMatPos->data[0];
+                FrameTransformMatrix._12 = pMatPos->data[1];
+                FrameTransformMatrix._13 = pMatPos->data[2];
+                FrameTransformMatrix._14 = pMatPos->data[3];
+                FrameTransformMatrix._21 = pMatPos->data[4];
+                FrameTransformMatrix._22 = pMatPos->data[5];
+                FrameTransformMatrix._23 = pMatPos->data[6];
+                FrameTransformMatrix._24 = pMatPos->data[7];
+                FrameTransformMatrix._31 = pMatPos->data[8];
+                FrameTransformMatrix._32 = pMatPos->data[9];
+                FrameTransformMatrix._33 = pMatPos->data[10];
+                FrameTransformMatrix._34 = pMatPos->data[11];
+                FrameTransformMatrix._41 = pMatPos->data[12];
+                FrameTransformMatrix._42 = pMatPos->data[13];
+                FrameTransformMatrix._43 = pMatPos->data[14];
+                FrameTransformMatrix._44 = pMatPos->data[15];
 
-            static D3DXVECTOR3 vecVertex;
-            static D3DXVECTOR3 vecNormal;
-            for (int i = 0; i < nVertices; i++) {
-                vecVertex.x = unit_paVtxBuffer_org[i].x;
-                vecVertex.y = unit_paVtxBuffer_org[i].y;
-                vecVertex.z = unit_paVtxBuffer_org[i].z;
-                D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                vecNormal.x = unit_paVtxBuffer_org[i].nx;
-                vecNormal.y = unit_paVtxBuffer_org[i].ny;
-                vecNormal.z = unit_paVtxBuffer_org[i].nz;
-                D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                static D3DXVECTOR3 vecVertex;
+                static D3DXVECTOR3 vecNormal;
+                for (int i = 0; i < nVertices; i++) {
+                    vecVertex.x = unit_paVtxBuffer_org[i].x;
+                    vecVertex.y = unit_paVtxBuffer_org[i].y;
+                    vecVertex.z = unit_paVtxBuffer_org[i].z;
+                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                    vecNormal.x = unit_paVtxBuffer_org[i].nx;
+                    vecNormal.y = unit_paVtxBuffer_org[i].ny;
+                    vecNormal.z = unit_paVtxBuffer_org[i].nz;
+                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
 
-                unit_paVtxBuffer_org[i].x = vecVertex.x;
-                unit_paVtxBuffer_org[i].y = vecVertex.y;
-                unit_paVtxBuffer_org[i].z = vecVertex.z;
-                unit_paVtxBuffer_org[i].nx = vecNormal.x;
-                unit_paVtxBuffer_org[i].ny = vecNormal.y;
-                unit_paVtxBuffer_org[i].nz = vecNormal.z;
+                    unit_paVtxBuffer_org[i].x = vecVertex.x;
+                    unit_paVtxBuffer_org[i].y = vecVertex.y;
+                    unit_paVtxBuffer_org[i].z = vecVertex.z;
+                    unit_paVtxBuffer_org[i].nx = vecNormal.x;
+                    unit_paVtxBuffer_org[i].ny = vecNormal.y;
+                    unit_paVtxBuffer_org[i].nz = vecNormal.z;
+                }
             }
         }
 

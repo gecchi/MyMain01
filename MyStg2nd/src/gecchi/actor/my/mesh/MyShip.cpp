@@ -11,7 +11,7 @@ using namespace MyStg2nd;
 #define NANAME 0.7
 
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "sentoki") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -36,7 +36,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "sentoki") {
     _way = WAY_FRONT;
     MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
     addSubLast(pMyOptionParent);
-
 
     _pDispatcher_MyShots001 = NEW ActorDispatcher("RotShot001");
     MyShot001* pShot;
@@ -87,7 +86,7 @@ void MyShip::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
-    _pScaler->setScale(1000000);
+    _pScaler->setScale(1000);
 }
 
 void MyShip::processBehavior() {

@@ -72,7 +72,8 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
                 //無ければテクスチャ無し
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            //MaterialDiffuseはGgafDx9MeshSetActor側でマテリアルを設定する。
+            //MaterialDiffuseはGgafDx9MeshSetActor側でマテリアルを設定する。マテリアル色は単色とする。
+            //理由はGgafDx9MeshSetActorのメモ【GgafDx9MeshSetActorのマテリアルカラーについて】を参照
         }
 
 
