@@ -176,9 +176,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
+        int nTextureCoords = model_pMeshesFront->_nTextureCoords;
+        if (nVertices < nTextureCoords) {
+            TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
+            TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
+        }
 
         //法線以外設定
         FLOAT dis;
+        _TRACE_("1prm_pMeshModel="<<prm_pMeshModel);
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
             model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
@@ -187,9 +193,15 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             model_paVtxBuffer_org[i].ny = 0.0f;
             model_paVtxBuffer_org[i].nz = 0.0f;
             model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
-            model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-            model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+            if (i < nTextureCoords) {
+                model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
+                model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
+            } else {
+                model_paVtxBuffer_org[i].tu = 0.0f;
+                model_paVtxBuffer_org[i].tv = 0.0f;
+            }
 
+            _TRACE_("3prm_pMeshModel="<<prm_pMeshModel<<"/i="<<i);
             //距離
             dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
@@ -197,14 +209,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             if (prm_pMeshModel->_max_radius < dis) {
                 prm_pMeshModel->_max_radius = dis;
             }
+            _TRACE_("4prm_pMeshModel="<<prm_pMeshModel<<"/i="<<i);
 
         }
 
-        int nTextureCoords = model_pMeshesFront->_nTextureCoords;
-        if (nVertices < nTextureCoords) {
-            TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
-        }
+
 
         //法線設定。
         //共有頂点の法線は平均化を試みる！
