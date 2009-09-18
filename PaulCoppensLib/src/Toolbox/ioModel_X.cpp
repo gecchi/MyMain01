@@ -33,6 +33,7 @@ XOF_TEMPLATEID Templates[MAX_TEMPLATES] = { { "template", X_TEMPLATE },
 //////////////////////////////////////////////////////////
 
 bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
+    active_load_filename = pFilename;
     XFileHeader XHeader;
     _LoadSkeletton = 0;
 
@@ -46,21 +47,25 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
     fin.read((char*) &XHeader, 16);
     if (XHeader.Magic != XOFFILE_FORMAT_MAGIC) {
         _TRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
+        throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'が見つかりません"); //add tsuge
         return false;
     }
 
     if (XHeader.Major_Version != XOFFILE_FORMAT_VERSION03) {
         _TRACE_("Major version greater than 03. Aborted...");
+        throwGgafCriticalException("本アプリは、Xファイルのメジャーバージョンが3を想定しています。\nしかし、'"<<active_load_filename<<"'のバージョンは"<<XHeader.Major_Version<<"でした。"); //add tsuge
         return false;
     }
 
     if ((XHeader.Minor_Version != XOFFILE_FORMAT_VERSION03)
             && (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02)) {
         _TRACE_("Minor version greater than 03. Aborted...");
+        throwGgafCriticalException("本アプリは、Xファイルのマイナーージョンが 2 or 3 を想定しています。\nしかし、'"<<active_load_filename<<"'のバージョンは"<<XHeader.Minor_Version<<"でした。"); //add tsuge
         return false;
     }
 
     if (XHeader.Format != XOFFILE_FORMAT_TEXT) {
+        throwGgafCriticalException("Xファイルのヘッダ文字列が見つかりません。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
         _TRACE_("Not a text format. Aborted...");
         return false;
     }
@@ -72,6 +77,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
         //_TRACE_("blockid="<<blockid);
         switch (blockid) {
         case X_ERROR:
+            throwGgafCriticalException("Xファイルを正しく読み込めませんでした。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
             _TRACE_("Stopped processing the file ...");
             return false;
         case X_COMMENT:
@@ -144,10 +150,10 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') {
-                _TRACE_("＜警告＞xファイルブロック開始は、中括弧の前に半角スペースが必要です。  Text='"<<Text<<"'");
-                Text2 = string(Text,0,len-1);
-                fin.seekg(-2,ios_base::cur);
-                return BlockID(Text2);
+                throwGgafCriticalException("Xファイルのブロック開始は、ブロック文字と中括弧'{'の間に半角スペースが必要です。ファイルの修正をお願いいたします。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Text<<"'");
+//                Text2 = string(Text,0,len-1);
+//                fin.seekg(-2,ios_base::cur);
+//                return BlockID(Text2);
             }
         }
         return BlockID(Text);
@@ -162,7 +168,8 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
 
     if (pText.empty()) {
         _TRACE_("Error, no block read !");
-        return X_ERROR;
+        throwGgafCriticalException("Xファイルの読み込みブロックがありません。\n対象ファイル='"<<active_load_filename<<"'"); //add tsuge
+        //return X_ERROR;
     }
 
     for (int i = 0; i < MAX_TEMPLATES; i++) {
@@ -173,6 +180,7 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
         }
     }
     _TRACE_("Unknown Block:" << pText);
+    _TRACE_("Xファイルに想定しない不明なブロックがあります。無視されます。対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<pText<<"'"); //add tsuge
     return X_UNKNOWN;
 }
 
@@ -779,21 +787,21 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16) TextToNum(Data);
-        //      _TRACE_("Vertex:" << atoi(Data));
+        _TRACE_("Vertex:" << atoi(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Vertices[cBone->_nVertices - 1] = (uint16) TextToNum(Data);
-    //   _TRACE_("Vertex:" << atoi(Data));
+    _TRACE_("Vertex:" << atoi(Data));
 
     cBone->_Weights = new float[cBone->_nVertices];
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
-        //      _TRACE_("Weight:" << atof(Data));
+        _TRACE_("Weight:" << atof(Data));
     }
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_Weights[cBone->_nVertices - 1] = TextToNum(Data);
-    //   _TRACE_("Weight:" << atof(Data));
+    _TRACE_("Weight:" << atof(Data));
 
     for (int i = 0; i < 15; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
@@ -1002,8 +1010,8 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     default:
-        _TRACE_("Unknown Type" << Type << " ...")
-        ;
+        _TRACE_("Unknown Type" << Type << " ...");
+        throwGgafCriticalException("Xファイルに想定しない不明な ANIMATION KEY のタイプがあります。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Type<<"'"); //add tsuge
         break;
     }
 

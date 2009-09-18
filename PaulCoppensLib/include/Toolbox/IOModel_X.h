@@ -41,7 +41,7 @@ private:
     Frm::Mesh* _LoadMesh;
     Frm::AnimationSet* _LoadAnimationSet;
     Frm::Model3D* _Object;
-
+    std::string active_load_filename;
     //Utilities
     int16 ProcessBlock(void);
     int16 BlockID(std::string &pText);
