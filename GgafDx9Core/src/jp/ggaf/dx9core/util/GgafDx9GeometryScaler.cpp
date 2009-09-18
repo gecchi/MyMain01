@@ -11,7 +11,7 @@ GgafDx9GeometryScaler::GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor) 
         _scale[axis] = LEN_UNIT;
         _velo_scale[axis] = 0;
         _target_scale[axis] = LEN_UNIT;
-        _top_scale[axis] = LEN_UNIT*100;
+        _top_scale[axis] = LEN_UNIT*1000;
         _bottom_scale[axis] = 0;
         _one_way_cnt[axis] = 0;
         _beat_attack_frame[axis] = 0;
@@ -79,7 +79,7 @@ void GgafDx9GeometryScaler::behave() {
             _scale[axis] += _velo_scale[axis];
             if (_beat_begin_frame[axis] + _beat_attack_frame[axis] <= _pActor->_lifeframe) { //アタック頂点時
                 _scale[axis] = _top_scale[axis];
-				_velo_scale[axis] = ((int)(_bottom_scale[axis] - _top_scale[axis])) / ((int)(_beat_spend_frame[axis] - _beat_attack_frame[axis] - _beat_rest_frame[axis]));
+                _velo_scale[axis] = ((int)(_bottom_scale[axis] - _top_scale[axis])) / ((int)(_beat_spend_frame[axis] - _beat_attack_frame[axis] - _beat_rest_frame[axis]));
                 _one_way_cnt[axis]++;
                 if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
                     _method[axis] = NOSCALE;
@@ -115,9 +115,9 @@ void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_axis, int prm_targ
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis])/prm_spend_frame;
-	if (_velo_scale[prm_axis] == 0) {
-		_velo_scale[prm_axis] = prm_target_scale - _scale[prm_axis];
-	}
+    if (_velo_scale[prm_axis] == 0) {
+        _velo_scale[prm_axis] = prm_target_scale - _scale[prm_axis];
+    }
 }
 
 void GgafDx9GeometryScaler::intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
@@ -158,9 +158,9 @@ void GgafDx9GeometryScaler::beatLiner(int prm_axis, DWORD prm_beat_spend_frame, 
     _stop_one_way_num[prm_axis] = (int)(prm_beat_num*2.0f);
     _beat_spend_frame[prm_axis] = prm_beat_spend_frame;
     _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / (prm_beat_spend_frame / 2);
-	if (_velo_scale[prm_axis] == 0) {
-		_velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
-	}
+    if (_velo_scale[prm_axis] == 0) {
+        _velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
+    }
 }
 
 void GgafDx9GeometryScaler::beat(DWORD prm_beat_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_beat_num) {
@@ -181,9 +181,9 @@ void GgafDx9GeometryScaler::beat(int prm_axis, DWORD prm_beat_spend_frame, DWORD
     _beat_spend_frame[prm_axis] = prm_beat_spend_frame;
 
     _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / prm_attack_frame;
-	if (_velo_scale[prm_axis] == 0) {
-		_velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
-	}
+    if (_velo_scale[prm_axis] == 0) {
+        _velo_scale[prm_axis] = _top_scale[prm_axis] - _scale[prm_axis];
+    }
 
 }
 
