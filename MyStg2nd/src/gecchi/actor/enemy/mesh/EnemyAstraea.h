@@ -5,7 +5,7 @@ namespace MyStg2nd {
 /**
  * アストラエア .
  */
-class EnemyAstraea : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyAstraea : public GgafDx9LibStg::DefaultMorphMeshActor {
 
 private:
     /** 発射済みレーザーチップ数 */

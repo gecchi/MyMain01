@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMeshSetActor(prm_name, "ceres") {
+EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/donatu") {
     //レーザーストック
     _laser_way = 4;
     _X = 0;
@@ -50,6 +50,31 @@ void EnemyAstraea::initialize() {
 }
 
 void EnemyAstraea::processBehavior() {
+    /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
+    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+        _pMorpher->loopTriangleWave(1, 30, 3, 22);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+        _pMorpher->stopImmediately(1);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+        _pMorpher->intoTargetAccelerationStep(2, 1.0f, 0, 0.002f);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
+        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004f);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+        _pMorpher->loopTriangleWave(3, 20, 13, 2);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
+        _pMorpher->stopImmediately(3);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+        _pMorpher->loopTriangleWave(4, 60, 3, 20);
+    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+        _pMorpher->stopImmediately(4);
+    }
+    _pMorpher->behave();
+    /////////////モーフテスト////////////////
+
+
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
