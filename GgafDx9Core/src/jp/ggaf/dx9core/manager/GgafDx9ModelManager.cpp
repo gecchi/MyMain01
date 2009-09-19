@@ -2269,6 +2269,20 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 } else {
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
+
+                    //TODO:計算してみよう
+//                   　D3DXVECTOR3　　v1(10, 10, 0), v2(-10, 10, 0), v3(-10, -10, 0);
+//                   　D3DXPLANE　　Plane;
+//
+//                   　// 3 つの点から平面を作成
+//                   　D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+//
+//                   　// 正規化した平面(法線)を算出
+//                   　D3DXPlaneNormalize(&Plane, &Plane);
+//
+//                   　cout << "Plane.a = " << Plane.a << endl;
+//                   　cout << "Plane.b = " << Plane.b << endl;
+//                   　cout << "Plane.c = " << Plane.c << endl;
                 }
             }
             if (nFaceNormals > i) {
