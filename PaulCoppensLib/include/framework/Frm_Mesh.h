@@ -53,7 +53,7 @@ class Mesh {
 public:
     Mesh(void) :
         _nVertices(0), _Vertices(0), _nFaces(0), _Faces(0), _nTextureCoords(0),
-                _TextureCoords(0), _FaceMaterials(0), _nNormals(0),
+                _TextureCoords(0), _nFaceNormals(0), _FaceMaterials(0), _nNormals(0),
                 _Normals(0), _nMaterials(0), _FirstVertex(0), //The _Firstxxx series are used
                 _FirstFace(0), //for mesh concatenation
                 _FirstTextureCoord(0), _FirstNormal(0), _FirstMaterial(0) {
@@ -80,6 +80,7 @@ public:
     //Normals
     uint16 _nNormals, _FirstNormal;
     vector<float>* _Normals;
+    uint16 _nFaceNormals; //add tsuge
     Face* _FaceNormals;
     //Material index for each face
     uint16 _nMaterials, _FirstMaterial;

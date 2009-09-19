@@ -566,12 +566,12 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     }
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    int org_nFaces = TextToNum(Data);
-    _TRACE_("Before Number of normals index :" << org_nFaces);
-    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
+    _LoadMesh->_nFaceNormals = TextToNum(Data);
+    _TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
+    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces]; //new Frm::Face[_LoadMesh->_nFaceNormals] Ç∆ä‘à·Ç¶ÇƒÇÕÇ¢Ç»Ç¢ÅB
     int face_vtx_num;
     int n = 0;
-    for (int i = 0; i < org_nFaces; i++) {
+    for (int i = 0; i < _LoadMesh->_nFaceNormals; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         face_vtx_num = (int) TextToNum(Data);
         if (face_vtx_num == 3) {
@@ -600,6 +600,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
         }
         n++;
     }
+    _LoadMesh->_nFaceNormals = n;
     _TRACE_("After Number of normals index :" << n);
 
 

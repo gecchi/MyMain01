@@ -159,7 +159,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     GgafDx9TextureConnection**    model_papTextureCon = NULL;
     int nVertices = 0;
     int nFaces = 0;
-    int nNomals = 0;
+    int nFaceNormals = 0;
 
     if (prm_pMeshModel->_pModel3D == NULL) {
         model_pModel3D = NEW Frm::Model3D();
@@ -172,7 +172,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices;
         nFaces = model_pMeshesFront->_nFaces;
-        nNomals = model_pMeshesFront->_nNormals;
+        nFaceNormals = model_pMeshesFront->_nFaceNormals;
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
@@ -232,7 +232,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 //面に対する頂点インデックス３つ(A,B,Cとする)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
                 //面に対する法線インデックス３つ
-                if (nNomals >= i+1) {
+                if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
                     //法線が無い場合
@@ -268,7 +268,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                if (nNomals >= i+1) {
+                if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
                     //法線が無い場合
@@ -276,7 +276,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 }
 
             }
-            if (nNomals >= i+1) {
+            if (nFaceNormals > i) {
                 rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
                 model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
                 model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
@@ -604,7 +604,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         int nVertices = 0;
 		int nTextureCoords = 0;
         int nFaces = 0;
-        int nNomals = 0;
+        int nFaceNormals = 0;
         FLOAT dis;
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
             model_papModel3D[pattern] = NEW Frm::Model3D();
@@ -618,7 +618,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             nVertices = model_papMeshesFront[pattern]->_nVertices;
 			nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
             nFaces = model_papMeshesFront[pattern]->_nFaces;
-            nNomals = model_papMeshesFront[pattern]->_nNormals;
+            nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
             if (pattern == 0) {
                 //プライマリメッシュ
                 model_paVtxBuffer_org_primary = NEW GgafDx9MorphMeshModel::VERTEX_PRIMARY[nVertices];
@@ -686,7 +686,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     //面に対する頂点インデックス３つ(A,B,Cとする)
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
                     //面に対する法線インデックス３つ
-                    if (nNomals >= i+1) {
+                    if (nFaceNormals > i) {
                         indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];
                     } else {
                         //法線が無い場合
@@ -722,14 +722,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             for (int i = 0; i < nFaces; i++) {
                 for (int j = 0; j < 3; j++) {
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                    if (nNomals >= i+1) {
+                    if (nFaceNormals > i) {
                         indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
                     } else {
                         //法線が無い場合
                         indexNormals_per_Face[j] = (unsigned short)0;
                     }
                 }
-                if (nNomals >= i+1) {
+                if (nFaceNormals > i) {
                     rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
                     if (pattern == 0) { //プライマリメッシュ
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
@@ -2152,7 +2152,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     int nVertices = 0;
 	int nTextureCoords = 0;
     int nFaces = 0;
-    int nNomals = 0;
+    int nFaceNormals = 0;
 
     if (prm_pMeshSetModel->_pModel3D == NULL) {
         model_pModel3D = NEW Frm::Model3D();
@@ -2166,7 +2166,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         nVertices = model_pMeshesFront->_nVertices;
 		nTextureCoords = model_pMeshesFront->_nTextureCoords;
         nFaces = model_pMeshesFront->_nFaces;
-        nNomals = model_pMeshesFront->_nNormals;
+        nFaceNormals = model_pMeshesFront->_nFaceNormals;
         unit_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices];
         prm_pMeshSetModel->_nVertices = nVertices;
         prm_pMeshSetModel->_nFaces = nFaces;
@@ -2228,7 +2228,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 //面に対する頂点インデックス３つ(A,B,Cとする)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
                 //面に対する法線インデックス３つ
-                if (nNomals >= i+1) {
+                if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
                     //法線が無い場合
@@ -2264,14 +2264,14 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //面に対する頂点インデックス３つ
-                if (nNomals >= i+1) {
+                if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //面に対する法線インデックス３つ
                 } else {
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
             }
-            if (nNomals >= i+1) {
+            if (nFaceNormals > i) {
                 rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
                 unit_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].x * rate);
                 unit_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[0]].y * rate);
