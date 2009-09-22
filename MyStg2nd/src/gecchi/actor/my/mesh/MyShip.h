@@ -29,7 +29,7 @@ enum MoveWay {
     WAY_ZRIGHT_DOWN
 };
 
-class MyShip : public GgafDx9LibStg::DefaultMorphMeshActor {
+class MyShip : public GgafDx9LibStg::DefaultMeshSetActor {
 //class MyShip : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
 
