@@ -648,13 +648,13 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             model_papModel3D[pattern]->ConcatenateMeshes();
             model_papMeshesFront[pattern] = model_papModel3D[pattern]->_Meshes.front();
 //            _TRACE_("---");
-//            nVertices = model_papMeshesFront[pattern]->_nVertices;
+            nVertices = model_papMeshesFront[pattern]->_nVertices;
 //            _TRACE_("pattern="<<pattern<<"/nVertices="<<nVertices);
-//            nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
+            nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
 //            _TRACE_("pattern="<<pattern<<"/nTextureCoords="<<nTextureCoords);
-//            nFaces = model_papMeshesFront[pattern]->_nFaces;
+            nFaces = model_papMeshesFront[pattern]->_nFaces;
 //            _TRACE_("pattern="<<pattern<<"/nFaces="<<nFaces);
-//            nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
+            nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
 //            _TRACE_("pattern="<<pattern<<"/nFaceNormals="<<nFaceNormals);
             if (pattern == 0) {
                 //プライマリメッシュ
