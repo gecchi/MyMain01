@@ -16,7 +16,7 @@ void MyCurveLaserChip001::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);
     _SX = _SY = _SZ = 80*1000;
-    _fAlpha = 0.9f;
+    _fAlpha = 0.99f;
     _max_radius = 20.0f;
 }
 
