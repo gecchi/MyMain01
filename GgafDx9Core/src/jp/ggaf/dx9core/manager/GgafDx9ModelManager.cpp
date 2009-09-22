@@ -235,6 +235,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
+					
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
@@ -290,15 +291,60 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
                 model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
             } else {
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += 0;
-                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += 0;
+					                    //TODO:計算してみよう
+//                   　D3DXVECTOR3　　v1(10, 10, 0), v2(-10, 10, 0), v3(-10, -10, 0);
+//                   　D3DXPLANE　　Plane;
+//
+//                   　// 3 つの点から平面を作成
+//                   　D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+//
+//                   　// 正規化した平面(法線)を算出
+//                   　D3DXPlaneNormalize(&Plane, &Plane);
+//
+//                   　cout << "Plane.a = " << Plane.a << endl;
+//                   　cout << "Plane.b = " << Plane.b << endl;
+//                   　cout << "Plane.c = " << Plane.c << endl;
+			    //model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
+		        //model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
+	            //model_paVtxBuffer_org[i].z = model_pMeshesFront->_Vertices[i].data[2];
+				//面に対する頂点インデックス３つ
+				int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
+				int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
+				int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
+				D3DXVECTOR3 v1 = D3DXVECTOR3(
+					model_pMeshesFront->_Vertices[indexVertices1].data[0],
+					model_pMeshesFront->_Vertices[indexVertices1].data[1],
+					model_pMeshesFront->_Vertices[indexVertices1].data[2]
+				);
+				D3DXVECTOR3 v2 = D3DXVECTOR3(
+					model_pMeshesFront->_Vertices[indexVertices2].data[0],
+					model_pMeshesFront->_Vertices[indexVertices2].data[1],
+					model_pMeshesFront->_Vertices[indexVertices2].data[2]
+				);
+				D3DXVECTOR3 v3 = D3DXVECTOR3(				
+					model_pMeshesFront->_Vertices[indexVertices3].data[0],
+					model_pMeshesFront->_Vertices[indexVertices3].data[1],
+					model_pMeshesFront->_Vertices[indexVertices3].data[2]
+				);
+
+				D3DXPLANE Plane;
+				// 3 つの点から平面を作成
+				D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+				//正規化した平面(法線)を算出
+				D3DXPlaneNormalize(&Plane, &Plane);
+				
+				rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+				model_paVtxBuffer_org[indexVertices_per_Face[0]].nx += (Plane.a * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].ny += (Plane.b * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[0]].nz += (Plane.c * rate);
+				rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nx += (Plane.a * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].ny += (Plane.b * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[1]].nz += (Plane.c * rate);
+				rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nx += (Plane.a * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (Plane.b * rate);
+                model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (Plane.c * rate);
             }
         }
 
@@ -762,26 +808,57 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     }
                 } else {
                     //法線が無い場合
+					int indexVertices1 = model_papMeshesFront[pattern]->_Faces[i].data[0];
+					int indexVertices2 = model_papMeshesFront[pattern]->_Faces[i].data[1];
+					int indexVertices3 = model_papMeshesFront[pattern]->_Faces[i].data[2];
+					D3DXVECTOR3 v1 = D3DXVECTOR3(
+						model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[0],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[1],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices1].data[2]
+					);
+					D3DXVECTOR3 v2 = D3DXVECTOR3(
+						model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[0],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[1],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices2].data[2]
+					);
+					D3DXVECTOR3 v3 = D3DXVECTOR3(				
+						model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[0],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[1],
+						model_papMeshesFront[pattern]->_Vertices[indexVertices3].data[2]
+					);
+
+					D3DXPLANE Plane;
+					// 3 つの点から平面を作成
+					D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
+					//正規化した平面(法線)を算出
+					D3DXPlaneNormalize(&Plane, &Plane);
+					
                     if (pattern == 0) { //プライマリメッシュ
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += 0;
-                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += 0;
+						rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (Plane.a * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (Plane.b * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (Plane.c * rate);
+                        rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+						model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (Plane.a * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (Plane.b * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (Plane.c * rate);
+                        rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+						model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (Plane.a * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (Plane.b * rate);
+                        model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (Plane.c * rate);
                     } else {
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += 0;
-                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += 0;
+						rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (Plane.a * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (Plane.b * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (Plane.c * rate);
+                        rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (Plane.a * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (Plane.b * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (Plane.c * rate);
+                        rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (Plane.a * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (Plane.b * rate);
+                        model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (Plane.c * rate);
                     }
                 }
             }
@@ -2270,19 +2347,6 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
 
-                    //TODO:計算してみよう
-//                   　D3DXVECTOR3　　v1(10, 10, 0), v2(-10, 10, 0), v3(-10, -10, 0);
-//                   　D3DXPLANE　　Plane;
-//
-//                   　// 3 つの点から平面を作成
-//                   　D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-//
-//                   　// 正規化した平面(法線)を算出
-//                   　D3DXPlaneNormalize(&Plane, &Plane);
-//
-//                   　cout << "Plane.a = " << Plane.a << endl;
-//                   　cout << "Plane.b = " << Plane.b << endl;
-//                   　cout << "Plane.c = " << Plane.c << endl;
                 }
             }
             if (nFaceNormals > i) {
