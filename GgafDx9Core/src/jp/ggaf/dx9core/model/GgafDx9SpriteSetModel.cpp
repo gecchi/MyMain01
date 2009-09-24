@@ -102,6 +102,8 @@ void GgafDx9SpriteSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " end");
 }
 

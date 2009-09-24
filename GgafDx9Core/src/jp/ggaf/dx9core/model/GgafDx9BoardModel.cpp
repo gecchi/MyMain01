@@ -97,6 +97,8 @@ void GgafDx9BoardModel::release() {
     _papTextureCon[0]->close();
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9BoardModel::release() " << _model_name << " end");
 }
 

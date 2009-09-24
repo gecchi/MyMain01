@@ -149,6 +149,10 @@ void GgafDx9MeshSetModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papaIndexParam);
     DELETEARR_IMPOSSIBLE_NULL(_pa_nMaterialListGrp);
+
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " end");
 
 }

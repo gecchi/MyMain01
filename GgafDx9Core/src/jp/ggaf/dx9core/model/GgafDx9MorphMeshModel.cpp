@@ -163,6 +163,9 @@ void GgafDx9MorphMeshModel::release() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " end");
 
 }

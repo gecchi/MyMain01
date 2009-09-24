@@ -130,6 +130,11 @@ void GgafDx9MeshModel::release() {
     //_pMeshesFront は _pModel3D をDELETEしているのでする必要は無い
     _pMeshesFront = NULL;
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
+
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+
+
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " end");
 
 }

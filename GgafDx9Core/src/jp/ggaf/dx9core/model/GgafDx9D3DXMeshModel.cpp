@@ -118,6 +118,10 @@ void GgafDx9D3DXMeshModel::release() {
 
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
+
+    //TODO:親クラスメンバをDELETEするのはややきたないか
+    DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
+
     TRACE3("GgafDx9D3DXMeshModel::release() " << _model_name << " end");
 }
 
