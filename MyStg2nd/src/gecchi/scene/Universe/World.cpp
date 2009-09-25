@@ -60,12 +60,12 @@ void World::processBehavior() {
     if (VB::isPushedDown(VB_PAUSE)) {
         if (getSubFirst()->isBehaving()) {
             _TRACE_("PAUSE!");
-            //カメラ注視方向設定
-            pCAM->_pMover->setMoveAngle(
-                                pCAM->_gazeX,
-                                pCAM->_gazeY,
-                                pCAM->_gazeZ
-                           );
+//            //カメラ注視方向設定
+//            pCAM->_pMover->setMoveAngle(
+//                                pCAM->_gazeX,
+//                                pCAM->_gazeY,
+//                                pCAM->_gazeZ
+//                           );
 
             getSubFirst()->pause();     //一時停止
         } else {
@@ -79,17 +79,17 @@ void World::processBehavior() {
         if (pCAM->_pos_camera == 0) {
             pCAM->_pos_camera = 1;
         } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-//			if (VB::isBeingPressed(VB_RIGHT)) {
-//				pCAM->_pos_camera = 3;
-//			} else if (VB::isBeingPressed(VB_LEFT)) {
-//				pCAM->_pos_camera = 0;
-//			} else {
+            if (VB::isBeingPressed(VB_RIGHT)) {
+                pCAM->_pos_camera = 3;
+            } else if (VB::isBeingPressed(VB_LEFT)) {
+                pCAM->_pos_camera = 0;
+            } else {
                 if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
                     pCAM->_pos_camera = 3;
                 } else {
                     pCAM->_pos_camera = 0;
                 }
-//			}
+            }
         } else if (pCAM->_pos_camera == 3) {
             pCAM->_pos_camera = 2;
         }
@@ -99,15 +99,15 @@ void World::processBehavior() {
 
     if (VB::isReleasedUp(VB_ZMOVE)) {
         if (_frame_pushdown_zmove + 15 > _lifeframe) {
-            if (pCAM->_pos_camera == 0) {
-                pCAM->_pos_camera = 1;
-            } else if (pCAM->_pos_camera == 1) {
-                pCAM->_pos_camera = 0;
-            } else if (pCAM->_pos_camera == 2) {
-                pCAM->_pos_camera = 3;
-            } else if (pCAM->_pos_camera == 3) {
-                pCAM->_pos_camera = 2;
-            }
+//            if (pCAM->_pos_camera == 0) {
+//                pCAM->_pos_camera = 1;
+//            } else if (pCAM->_pos_camera == 1) {
+//                pCAM->_pos_camera = 0;
+//            } else if (pCAM->_pos_camera == 2) {
+//                pCAM->_pos_camera = 3;
+//            } else if (pCAM->_pos_camera == 3) {
+//                pCAM->_pos_camera = 2;
+//            }
         } else {
             if (pCAM->_pos_camera == 0) {
                 pCAM->_pos_camera = 0;
@@ -159,9 +159,9 @@ void World::processBehavior() {
             pCAM->_pMover->setVzMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //後ろに回る時
-                pCAM->_pMover->setVzMoveAcceleration(dZ/1000);
+                pCAM->_pMover->setVzMoveAcceleration(dZ/10000);
             } else {                                                //横に回るとき
-                pCAM->_pMover->setVzMoveAcceleration(dZ/700);
+                pCAM->_pMover->setVzMoveAcceleration(dZ/7000);
             }
         }
         if (-30000 < dX && dX < 30000) {
@@ -169,9 +169,9 @@ void World::processBehavior() {
             pCAM->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //後ろに回る時
-                pCAM->_pMover->setVxMoveAcceleration(dX/800);
+                pCAM->_pMover->setVxMoveAcceleration(dX/8000);
             } else {                                                //横に回るとき
-                pCAM->_pMover->setVxMoveAcceleration(dX/4000);
+                pCAM->_pMover->setVxMoveAcceleration(dX/40000);
             }
     }
         pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
@@ -180,15 +180,6 @@ void World::processBehavior() {
     }
 
     //}
-
-
-
-
-
-
-
-
-
 
 
     //サブシーンが一時停止していれば、カメラ操作できる。
@@ -252,17 +243,17 @@ void World::processBehavior() {
         _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
     }
 
-    if ( getSubFirst()->isBehaving() ) {
-        //スルー
-    } else {
-        //カメラ注視方向設定
-        pCAM->setGaze (
-                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
-                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
-                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
-                  );
-        pCAM->_pMover->setMoveAngle(0,0,0);
-    }
+//    if ( getSubFirst()->isBehaving() ) {
+//        //スルー
+//    } else {
+//        //カメラ注視方向設定
+//        pCAM->setGaze (
+//                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
+//                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
+//                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
+//                  );
+//        pCAM->_pMover->setMoveAngle(0,0,0);
+//    }
 
 }
 
