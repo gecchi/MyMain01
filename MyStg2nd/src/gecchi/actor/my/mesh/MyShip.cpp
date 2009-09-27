@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -85,7 +85,7 @@ void MyShip::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
-    _pScaler->setScale(4000);
+    //_pScaler->setScale(4000);
 }
 
 void MyShip::processBehavior() {
