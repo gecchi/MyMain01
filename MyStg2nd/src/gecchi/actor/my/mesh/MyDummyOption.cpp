@@ -59,13 +59,7 @@ void MyDummyOption::initialize() {
 //                //XŽ²‰ñ“]ŠpŠp‘¬“x‚ð‘¬‚ß‚ÉÝ’è‚µA‚­‚é‚­‚é‘¬‚­‰ñ‚µ‚Ä‹C•t‚©‚ê‚È‚¢‚æ‚¤‚É‚²‚Ü‚©‚·Bª‚Æ«Œü‚«•t‹ß‚Å‹}Œƒ‚È‰ñ“]‚ð‹N‚±‚·Ž–‚Í–Æ‚ê‚È‚¢B
     _pMover->setRotAngleVelocity(AXIS_X, 8000);
 
-    _RZ2 = _RZ;
-    _RY2 = _RY;
-    _X2 = _X;
-    _Y2 = _Y;
-    _Z2 = _Z;
-
-    _Xorg = _X;
+     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
     _RXorg = _RX;
@@ -101,11 +95,11 @@ void MyDummyOption::processBehavior() {
 //    _pMorpher->behave();
 //    /////////////ƒ‚[ƒtƒeƒXƒg////////////////
 
-    if (GameGlobal::_pMyShip->_stc == VB_NEUTRAL_STC && VB::isBeingPressed(VB_OPTION)) {
-        _angveloExpanse = 2000;
-    } else {
-        _angveloExpanse = 0;
-    }
+    //if (GameGlobal::_pMyShip->_stc == VB_NEUTRAL_STC && VB::isBeingPressed(VB_OPTION)) {
+    //    _angveloExpanse = 2000;
+    //} else {
+    //    _angveloExpanse = 0;
+    //}
 
     _X = _Xorg;
     _Y = _Yorg;
@@ -158,26 +152,31 @@ void MyDummyOption::processBehavior() {
     //Ž©‹@‚ð’†S‚ÉVIEW•ÏŠ·‚Ì‚æ‚¤‚Èù‰ô
     //_TRACE_(_pMyOptionParent->_pMover->_angRot[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angRot[AXIS_Y]);
 
-    //YŽ²‰ñ“] „ ZŽ²‰ñ“]
-    _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
-    _Y = sinRZ*_Xorg + cosRZ*_Yorg;
-    _Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
+    //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+		//YŽ²‰ñ“] „ ZŽ²‰ñ“]
+		_X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
+		_Y = sinRZ*_Xorg + cosRZ*_Yorg;
+		_Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
+	//} else {
+	//	//ZŽ²‰ñ“] „ YŽ²‰ñ“]
+	//	_X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
+	//	_Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
+	//	_Z = -sinRY*_Xorg + cosRY*_Zorg;
+	//}
 
-//    ZŽ²‰ñ“] „ YŽ²‰ñ“]
-//    _X = cosRZ*cosRY*_Xorg + -sinRZ*_Yorg + cosRZ*sinRY*_Zorg;
-//    _Y = sinRZ*cosRY*_Xorg + cosRZ*_Yorg + sinRZ*sinRY*_Zorg;
-//    _Z = -sinRY*_Xorg + cosRY*_Zorg;
+
 
     //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
-    vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
-    vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
-    vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
-
-//    vX_axis = cosRZ*cosRY*_pMover->_vX + -sinRZ*_pMover->_vY + cosRZ*sinRY*_pMover->_vZ;
-//    vY_axis = sinRZ*cosRY*_pMover->_vX +  cosRZ*_pMover->_vY + sinRZ*sinRY*_pMover->_vZ;
-//    vZ_axis = -sinRY*_pMover->_vX + cosRY*_pMover->_vZ;
-
+	//if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+		vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
+		vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
+		vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
+	//} else {
+	//	vX_axis = cosRZ*cosRY*_pMover->_vX + -sinRZ*_pMover->_vY + cosRZ*sinRY*_pMover->_vZ;
+	//	vY_axis = sinRZ*cosRY*_pMover->_vX +  cosRZ*_pMover->_vY + sinRZ*sinRY*_pMover->_vZ;
+	//	vZ_axis = -sinRY*_pMover->_vX + cosRY*_pMover->_vZ;
+	//}
     static float sinHalf, cosHalf;
     sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
     cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
@@ -203,14 +202,9 @@ void MyDummyOption::processBehavior() {
      );
     _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
     _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
-    _RZ2 = _RZ;
-    _RY2 = _RY;
     _X += GameGlobal::_pMyShip->_X;
     _Y += GameGlobal::_pMyShip->_Y;
     _Z += GameGlobal::_pMyShip->_Z;
-    _X2 = _X;
-    _Y2 = _Y;
-    _Z2 = _Z;
 
     //TODO
     //Å“K‰»
@@ -224,22 +218,15 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;
             pLaserChip->_pMover->_vZ = _Q._z;
-            pLaserChip->_pMover->_angRzMove = _RZ2;
-            pLaserChip->_pMover->_angRyMove = _RY2;
-            static angle angWk;
-            if ((0 <= _RZ2 && _RZ2 < ANGLE90) ||
-                (ANGLE270 <= _RZ2 && _RZ2 < ANGLE360) ) {
-                angWk = 0;
-            } else {
-                angWk = ANGLE180;
-            }
-            pLaserChip->_pMover->_angRot[AXIS_X] = angWk;
-            pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ2;
-            pLaserChip->_pMover->_angRot[AXIS_Y] = _RY2;
+            pLaserChip->_pMover->_angRzMove = _RZ;
+            pLaserChip->_pMover->_angRyMove = _RY;
+//            pLaserChip->_pMover->_angRot[AXIS_X] = angWk;
+            pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ;
+            pLaserChip->_pMover->_angRot[AXIS_Y] = _RY;
             pLaserChip->_pMover->behave();
-            pLaserChip->_X = _X2;
-            pLaserChip->_Y = _Y2;
-            pLaserChip->_Z = _Z2;
+            pLaserChip->_X = _X;
+            pLaserChip->_Y = _Y;
+            pLaserChip->_Z = _Z;
 
         }
     }

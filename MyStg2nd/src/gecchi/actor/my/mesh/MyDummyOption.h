@@ -23,9 +23,9 @@ public:
 
 
     /** 現在の最終的な座標（読み出し専用） */
-    int _X2, _Y2, _Z2;
+    //int _X2, _Y2, _Z2;
     /** 現在の最終的な軸回転角度（読み出し専用） */
-    GgafDx9Core::angle _RZ2, _RY2;
+    //GgafDx9Core::angle _RZ2, _RY2;
     /** 現在の旋廻円周移動角速度（読み出し専用） */
     GgafDx9Core::angvelo _angveloMove;
 

@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "miku") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "vic2") {
     _class_name = "MyShip";
     GameGlobal::_pMyShip = this;
     /** 移動スピードレベル */
@@ -405,7 +405,7 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
             if (pCAM->_pos_camera == 0) {
                 _way = WAY_UP_FRONT;
                 _pMover->setRzRyMoveAngle(ANGLE45, 0);
-            } else {
+            } else { //pCAM->_pos_camera == 3 である
                 _way = WAY_UP_BEHIND;
                 _pMover->setRzRyMoveAngle(ANGLE135, 0);
             }

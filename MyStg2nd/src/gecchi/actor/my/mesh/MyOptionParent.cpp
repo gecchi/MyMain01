@@ -149,7 +149,11 @@ void MyOptionParent::processBehavior() {
             _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
             switch(GameGlobal::_pMyShip->_way) {
                 case WAY_UP:
-                    setTerget(ANGLE90, 0);
+					if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+						setTerget(ANGLE90, 0);
+					} else {
+						setTerget(ANGLE90, ANGLE90);
+					}
                     break;
                 case WAY_UP_FRONT:
                     setTerget(ANGLE45, 0);
@@ -158,7 +162,11 @@ void MyOptionParent::processBehavior() {
                     setTerget(ANGLE135, 0);
                     break;
                 case WAY_DOWN:
-                    setTerget(ANGLE270, 0);
+					if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+						setTerget(ANGLE270, 0);
+					} else {
+						setTerget(ANGLE270, ANGLE90);
+					}
                     break;
                 case WAY_DOWN_FRONT:
                     setTerget(ANGLE315, 0);
@@ -170,19 +178,19 @@ void MyOptionParent::processBehavior() {
                     setTerget(0, 0);
                     break;
                 case WAY_BEHIND:
-                    setTerget(0, ANGLE180);
+                    setTerget(ANGLE180, 0);
                     //            _pMover->setTargetRzMoveAngle(0);
                     //            _pMover->setTargetRyMoveAngle(ANGLE180);
 
                     break;
                 case WAY_ZLEFT:
-                    setTerget(0, ANGLE270);
+                    setTerget(ANGLE180, ANGLE90);
                     break;
                 case WAY_ZLEFT_UP:
-                    setTerget(ANGLE45, ANGLE270);
+					setTerget(ANGLE135, ANGLE90);
                     break;
                 case WAY_ZLEFT_DOWN:
-                    setTerget(ANGLE315, ANGLE270);
+					setTerget(ANGLE225, ANGLE90);
                     break;
                 case WAY_ZRIGHT:
                     setTerget(0, ANGLE90);
