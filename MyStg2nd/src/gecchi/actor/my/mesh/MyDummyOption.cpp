@@ -62,9 +62,9 @@ void MyDummyOption::initialize() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    _RXorg = _RX;
-    _RYorg = _RY;
-    _RZorg = _RZ;
+//    _RXorg = _RX;
+//    _RYorg = _RY;
+//    _RZorg = _RZ;
 
     GameGlobal::_pSceneCommon->getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
@@ -104,9 +104,9 @@ void MyDummyOption::processBehavior() {
     _X = _Xorg;
     _Y = _Yorg;
     _Z = _Zorg;
-    _RX = _RXorg;
-    _RY = _RYorg;
-    _RZ = _RZorg;
+//    _RX = _RXorg;
+//    _RY = _RYorg;
+//    _RZ = _RZorg;
 
     _pMover->setMoveVelocity(_veloMove);
     _pMover->behave();
@@ -114,9 +114,9 @@ void MyDummyOption::processBehavior() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-    _RXorg = _RX;
-    _RYorg = _RY;
-    _RZorg = _RZ;
+//    _RXorg = _RX;
+//    _RYorg = _RY;
+//    _RZorg = _RZ;
 
     //ƒƒƒ‚„
     //‚±‚±‚Ü‚Å‚ÅAGgafDx9GeometryMover‚Ìƒƒ\ƒbƒh‚Ì‚Ý‚ÅA
@@ -152,6 +152,9 @@ void MyDummyOption::processBehavior() {
     //Ž©‹@‚ð’†S‚ÉVIEW•ÏŠ·‚Ì‚æ‚¤‚Èù‰ô
     //_TRACE_(_pMyOptionParent->_pMover->_angRot[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angRot[AXIS_Y]);
 
+
+
+
     //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
         //YŽ²‰ñ“] „ ZŽ²‰ñ“]
         _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
@@ -168,6 +171,16 @@ void MyDummyOption::processBehavior() {
 
     //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
+//_TRACE_("_pMover->_angRot[AXIS_Z],_pMover->_angRot[AXIS_Y]="<<(_pMover->_angRot[AXIS_Z])<<","<<(_pMover->_angRot[AXIS_Y]));
+//    angle zz = _pMyOptionParent->_pMover->_angRot[AXIS_Z] + _pMover->_angRot[AXIS_Z];
+//    angle yy = _pMyOptionParent->_pMover->_angRot[AXIS_Y] + _pMover->_angRot[AXIS_Y];
+//    GgafDx9Util::getNormalizeVectorZY(GgafDx9GeometryMover::simplifyAngle(zz),
+//                                      GgafDx9GeometryMover::simplifyAngle(yy),
+//                                      vX_axis,
+//                                      vY_axis,
+//                                      vZ_axis);
+
+
     //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
         vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
         vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
