@@ -173,7 +173,7 @@ void World::processBehavior() {
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
                 pCAM->_pMover->setVxMoveAcceleration(dX/6000);
             }
-    }
+        }
         pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
 
         pCAM->_pMover->behave();

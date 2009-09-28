@@ -18,7 +18,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radiusPosition = 120000;
     pMyDummyOption01->_veloMove = 6000;
-    pMyDummyOption01->_angExpanse = 270000;
+    pMyDummyOption01->_angExpanse = 0;
     pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
     pMyDummyOption01->setMaterialColor(1.0, 1.0, 1.0);
@@ -27,7 +27,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
     pMyDummyOption02->_radiusPosition = 120000;
     pMyDummyOption02->_veloMove = 6000;
-    pMyDummyOption02->_angExpanse = 270000;
+    pMyDummyOption02->_angExpanse = 0;
     pMyDummyOption02->_angveloExpanse = 0;
     pMyDummyOption02->_angPosition = ANGLE90;
     pMyDummyOption02->setMaterialColor(0.0, 1.0, 1.0);;
@@ -36,7 +36,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
     pMyDummyOption03->_radiusPosition = 120000;
     pMyDummyOption03->_veloMove = 6000;
-    pMyDummyOption03->_angExpanse = 270000;
+    pMyDummyOption03->_angExpanse = 0;
     pMyDummyOption03->_angveloExpanse = 0;
     pMyDummyOption03->_angPosition = ANGLE180;
     pMyDummyOption03->setMaterialColor(1.0, 0, 1.0);
@@ -45,7 +45,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
     pMyDummyOption04->_radiusPosition = 120000;
     pMyDummyOption04->_veloMove = 6000;
-    pMyDummyOption04->_angExpanse = 270000;
+    pMyDummyOption04->_angExpanse = 0;
     pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;
     pMyDummyOption04->setMaterialColor(0, 1.0, 0);
@@ -54,7 +54,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
 //    pMyDummyOption05->_radiusPosition = 200000;
 //    pMyDummyOption05->_angPosition = 0;
-//    pMyDummyOption05->_angExpanse = 270000;
+//    pMyDummyOption05->_angExpanse = 0;
 //    pMyDummyOption05->_angveloExpanse = 0;
 //    pMyDummyOption05->_veloMove = -7000;
 //    pMyDummyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
@@ -63,7 +63,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption06 = NEW MyDummyOption("MY_OPTION06", 6, this);
 //    pMyDummyOption06->_radiusPosition = 200000;
 //    pMyDummyOption06->_angPosition = ANGLE90;
-//    pMyDummyOption06->_angExpanse = 270000;
+//    pMyDummyOption06->_angExpanse = 0;
 //    pMyDummyOption06->_angveloExpanse = 0;
 //    pMyDummyOption06->_veloMove = -7000;
 //    pMyDummyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
@@ -72,7 +72,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption07 = NEW MyDummyOption("MY_OPTION07", 7, this);
 //    pMyDummyOption07->_radiusPosition = 200000;
 //    pMyDummyOption07->_angPosition = ANGLE180;
-//    pMyDummyOption07->_angExpanse = 270000;
+//    pMyDummyOption07->_angExpanse = 0;
 //    pMyDummyOption07->_angveloExpanse = 0;
 //    pMyDummyOption07->_veloMove = -7000;
 //    pMyDummyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
@@ -81,7 +81,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption08 = NEW MyDummyOption("MY_OPTION08", 8, this);
 //    pMyDummyOption08->_radiusPosition = 200000;
 //    pMyDummyOption08->_angPosition = ANGLE270;
-//    pMyDummyOption08->_angExpanse = 270000;
+//    pMyDummyOption08->_angExpanse = 0;
 //    pMyDummyOption08->_angveloExpanse = 0;
 //    pMyDummyOption08->_veloMove = -7000;
 //    pMyDummyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
@@ -91,7 +91,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
 //    pMyDummyOption09->_radiusPosition = 280000;
 //    pMyDummyOption09->_angPosition = 0;
-//    pMyDummyOption09->_angExpanse = 270000;
+//    pMyDummyOption09->_angExpanse = 0;
 //    pMyDummyOption09->_angveloExpanse = 0;
 //    pMyDummyOption09->_veloMove = 8000;
 //    addSubLast(pMyDummyOption09);
@@ -99,7 +99,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
 //    pMyDummyOption10->_radiusPosition = 280000;
 //    pMyDummyOption10->_angPosition = ANGLE90;
-//    pMyDummyOption10->_angExpanse = 270000;
+//    pMyDummyOption10->_angExpanse = 0;
 //    pMyDummyOption10->_angveloExpanse = 0;
 //    pMyDummyOption10->_veloMove = 8000;
 //    addSubLast(pMyDummyOption10);
@@ -107,7 +107,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
 //    pMyDummyOption11->_radiusPosition = 280000;
 //    pMyDummyOption11->_angPosition = ANGLE180;
-//    pMyDummyOption11->_angExpanse = 270000;
+//    pMyDummyOption11->_angExpanse = 0;
 //    pMyDummyOption11->_angveloExpanse = 0;
 //    pMyDummyOption11->_veloMove = 8000;
 //    addSubLast(pMyDummyOption11);
@@ -115,7 +115,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
 //    pMyDummyOption12->_radiusPosition = 280000;
 //    pMyDummyOption12->_angPosition = ANGLE270;
-//    pMyDummyOption12->_angExpanse = 270000;
+//    pMyDummyOption12->_angExpanse = 0;
 //    pMyDummyOption12->_angveloExpanse = 0;
 //    pMyDummyOption12->_veloMove = 8000;
 //    addSubLast(pMyDummyOption12);
@@ -149,11 +149,11 @@ void MyOptionParent::processBehavior() {
             _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
             switch(GameGlobal::_pMyShip->_way) {
                 case WAY_UP:
-					if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-						setTerget(ANGLE90, 0);
-					} else {
-						setTerget(ANGLE90, ANGLE90);
-					}
+                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+                        setTerget(ANGLE90, 0);
+                    } else {
+                        setTerget(ANGLE90, ANGLE90);
+                    }
                     break;
                 case WAY_UP_FRONT:
                     setTerget(ANGLE45, 0);
@@ -162,11 +162,11 @@ void MyOptionParent::processBehavior() {
                     setTerget(ANGLE135, 0);
                     break;
                 case WAY_DOWN:
-					if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-						setTerget(ANGLE270, 0);
-					} else {
-						setTerget(ANGLE270, ANGLE90);
-					}
+                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+                        setTerget(ANGLE270, 0);
+                    } else {
+                        setTerget(ANGLE270, ANGLE90);
+                    }
                     break;
                 case WAY_DOWN_FRONT:
                     setTerget(ANGLE315, 0);
@@ -187,10 +187,10 @@ void MyOptionParent::processBehavior() {
                     setTerget(ANGLE180, ANGLE90);
                     break;
                 case WAY_ZLEFT_UP:
-					setTerget(ANGLE135, ANGLE90);
+                    setTerget(ANGLE135, ANGLE90);
                     break;
                 case WAY_ZLEFT_DOWN:
-					setTerget(ANGLE225, ANGLE90);
+                    setTerget(ANGLE225, ANGLE90);
                     break;
                 case WAY_ZRIGHT:
                     setTerget(0, ANGLE90);

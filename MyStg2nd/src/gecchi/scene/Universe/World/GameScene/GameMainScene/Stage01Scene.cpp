@@ -47,7 +47,15 @@ void Stage01Scene::processBehavior() {
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
-        _pBackGround01->_x -= 1; //”wŒiƒXƒNƒ[ƒ‹
+        //pCAM->_plnBack ‚Ì–@ò‚ÌŠp“x·‚ðŽg‚¨‚¤‚º
+
+        _pBackGround01->_x += (pCAM->_pMover->_veloVzMove/1000);
+        if (pCAM->_pos_camera == 0) {
+            _pBackGround01->_x -= 0.01; //”wŒiƒXƒNƒ[ƒ‹
+        } else if (pCAM->_pos_camera == 3) {
+            _pBackGround01->_x += 0.01;
+        }
+
     }
 
 
