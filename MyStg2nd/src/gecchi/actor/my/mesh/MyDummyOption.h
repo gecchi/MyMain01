@@ -35,7 +35,7 @@ public:
     int _radiusPosition;
     /** 旋廻円周移動速度（随時変更可／デフォルト=1000） */
     GgafDx9Core::velo _veloMove;
-    /** オプションの広がり回転角（随時変更可／デフォルト=0 中心を向いている） */
+    /** オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
     GgafDx9Core::angle _angExpanse;
     /** オプションの広がり回転角速度 （随時変更可／デフォルト=100）*/
     GgafDx9Core::angvelo _angveloExpanse;
