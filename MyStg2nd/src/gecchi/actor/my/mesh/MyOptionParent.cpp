@@ -141,72 +141,72 @@ void MyOptionParent::processBehavior() {
 //    _Y = GameGlobal::_pMyShip->_Y;
 //    _Z = GameGlobal::_pMyShip->_Z;
 
-    if (VB::isBeingPressed(VB_OPTION)) {
-        if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
-
-            //ï˚å¸Ç™ïœÇÌÇ¡ÇΩ
-            _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
-            _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
-            switch(GameGlobal::_pMyShip->_way) {
-                case WAY_UP:
-                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-                        setTerget(ANGLE90, 0);
-                    } else {
-                        setTerget(ANGLE90, ANGLE90);
-                    }
-                    break;
-                case WAY_UP_FRONT:
-                    setTerget(ANGLE45, 0);
-                    break;
-                case WAY_UP_BEHIND:
-                    setTerget(ANGLE135, 0);
-                    break;
-                case WAY_DOWN:
-                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-                        setTerget(ANGLE270, 0);
-                    } else {
-                        setTerget(ANGLE270, ANGLE90);
-                    }
-                    break;
-                case WAY_DOWN_FRONT:
-                    setTerget(ANGLE315, 0);
-                    break;
-                case WAY_DOWN_BEHIND:
-                    setTerget(ANGLE225, 0);
-                    break;
-                case WAY_FRONT:
-                    setTerget(0, 0);
-                    break;
-                case WAY_BEHIND:
-                    setTerget(ANGLE180, 0);
-                    //            _pMover->setTargetRzMoveAngle(0);
-                    //            _pMover->setTargetRyMoveAngle(ANGLE180);
-
-                    break;
-                case WAY_ZLEFT:
-                    setTerget(ANGLE180, ANGLE90);
-                    break;
-                case WAY_ZLEFT_UP:
-                    setTerget(ANGLE135, ANGLE90);
-                    break;
-                case WAY_ZLEFT_DOWN:
-                    setTerget(ANGLE225, ANGLE90);
-                    break;
-                case WAY_ZRIGHT:
-                    setTerget(0, ANGLE90);
-                    break;
-                case WAY_ZRIGHT_UP:
-                    setTerget(ANGLE45, ANGLE90);
-                    break;
-                case WAY_ZRIGHT_DOWN:
-                    setTerget(ANGLE315, ANGLE90);
-                    break;
-                default:
-                    //setTerget(0, 0);
-                    break;
-            }
-            _way_myship_prev = GameGlobal::_pMyShip->_way;
-        }
+//    if (VB::isBeingPressed(VB_OPTION) && pMYSHIP->_stc == VB_NEUTRAL_STC ) {
+//        if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
+//
+//            //ï˚å¸Ç™ïœÇÌÇ¡ÇΩ
+//            _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+//            _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+//            switch(GameGlobal::_pMyShip->_way) {
+//                case WAY_UP:
+//                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+//                        setTerget(ANGLE90, 0);
+//                    } else {
+//                        setTerget(ANGLE90, ANGLE90);
+//                    }
+//                    break;
+//                case WAY_UP_FRONT:
+//                    setTerget(ANGLE45, 0);
+//                    break;
+//                case WAY_UP_BEHIND:
+//                    setTerget(ANGLE135, 0);
+//                    break;
+//                case WAY_DOWN:
+//                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+//                        setTerget(ANGLE270, 0);
+//                    } else {
+//                        setTerget(ANGLE270, ANGLE90);
+//                    }
+//                    break;
+//                case WAY_DOWN_FRONT:
+//                    setTerget(ANGLE315, 0);
+//                    break;
+//                case WAY_DOWN_BEHIND:
+//                    setTerget(ANGLE225, 0);
+//                    break;
+//                case WAY_FRONT:
+//                    setTerget(0, 0);
+//                    break;
+//                case WAY_BEHIND:
+//                    setTerget(ANGLE180, 0);
+//                    //            _pMover->setTargetRzMoveAngle(0);
+//                    //            _pMover->setTargetRyMoveAngle(ANGLE180);
+//
+//                    break;
+//                case WAY_ZLEFT:
+//                    setTerget(ANGLE180, ANGLE90);
+//                    break;
+//                case WAY_ZLEFT_UP:
+//                    setTerget(ANGLE135, ANGLE90);
+//                    break;
+//                case WAY_ZLEFT_DOWN:
+//                    setTerget(ANGLE225, ANGLE90);
+//                    break;
+//                case WAY_ZRIGHT:
+//                    setTerget(0, ANGLE90);
+//                    break;
+//                case WAY_ZRIGHT_UP:
+//                    setTerget(ANGLE45, ANGLE90);
+//                    break;
+//                case WAY_ZRIGHT_DOWN:
+//                    setTerget(ANGLE315, ANGLE90);
+//                    break;
+//                default:
+//                    //setTerget(0, 0);
+//                    break;
+//            }
+//            _way_myship_prev = GameGlobal::_pMyShip->_way;
+//        }
 
 
         //ç¿ïWÇ…îΩâf

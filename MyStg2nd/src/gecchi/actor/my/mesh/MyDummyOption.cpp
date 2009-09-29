@@ -172,8 +172,8 @@ void MyDummyOption::processBehavior() {
     //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
 //_TRACE_("_pMover->_angRot[AXIS_Z],_pMover->_angRot[AXIS_Y]="<<(_pMover->_angRot[AXIS_Z])<<","<<(_pMover->_angRot[AXIS_Y]));
-//    angle zz = _pMyOptionParent->_pMover->_angRot[AXIS_Z] + _pMover->_angRot[AXIS_Z];
-//    angle yy = _pMyOptionParent->_pMover->_angRot[AXIS_Y] + _pMover->_angRot[AXIS_Y];
+//    angle zz = _pMyOptionParent->_pMover->_angRot[AXIS_Z] + _pMover->_angRzMove;
+//    angle yy = _pMyOptionParent->_pMover->_angRot[AXIS_Y] + _pMover->_angRyMove;
 //    GgafDx9Util::getNormalizeVectorZY(GgafDx9GeometryMover::simplifyAngle(zz),
 //                                      GgafDx9GeometryMover::simplifyAngle(yy),
 //                                      vX_axis,
