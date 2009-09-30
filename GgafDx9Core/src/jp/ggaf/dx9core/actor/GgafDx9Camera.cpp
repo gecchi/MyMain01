@@ -32,6 +32,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
 
+    _pVecCamFromPoint_prev   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
+    _pVecCamLookatPoint_prev = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
+
     // VIEW変換行列作成
     D3DXMatrixLookAtLH(
        &_vMatrixView,         // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
@@ -191,6 +194,12 @@ void GgafDx9Camera::processBehavior() {
 
 
 void GgafDx9Camera::processJudgement() {
+//    _pVecCamFromPoint_prev->x = _pVecCamFromPoint->x;
+//    _pVecCamFromPoint_prev->y = _pVecCamFromPoint->y;
+//    _pVecCamFromPoint_prev->z = _pVecCamFromPoint->z;
+//    _pVecCamLookatPoint_prev->x = _pVecCamLookatPoint->x;
+//    _pVecCamLookatPoint_prev->y = _pVecCamLookatPoint->y;
+//    _pVecCamLookatPoint_prev->z = _pVecCamLookatPoint->z;
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
@@ -203,6 +212,8 @@ void GgafDx9Camera::processJudgement() {
 
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
+    DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint_prev);
+    DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint_prev);
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamUp);

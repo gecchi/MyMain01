@@ -80,6 +80,9 @@ public:
     float _dCamHarfXfovTan;
 
 
+    D3DXVECTOR3* _pVecCamFromPoint_prev;
+    D3DXVECTOR3* _pVecCamLookatPoint_prev;
+
     /** ’‹“_i“Ç‚İ‘‚«‰Â) */
     int _gazeX, _gazeY, _gazeZ;
 
