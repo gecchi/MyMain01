@@ -48,7 +48,11 @@ void Stage01Scene::processBehavior() {
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
         //pCAM->_plnBack の法泉の角度差を使おうぜ
-
+        float vx = pCAM->_pVecCamFromPoint_prev->x - pCAM->_pVecCamFromPoint->x;
+        float vz = pCAM->_pVecCamFromPoint_prev->z - pCAM->_pVecCamFromPoint->z;
+        //          a1b1 + a2b2
+        //cosθ  =  -----------------
+        //          (√a1^2 + a2^2)(√b1^2 + b2^2)
         _pBackGround01->_x += (pCAM->_pMover->_veloVzMove/1000);
         if (pCAM->_pos_camera == 0) {
             _pBackGround01->_x -= 0.01; //背景スクロール
