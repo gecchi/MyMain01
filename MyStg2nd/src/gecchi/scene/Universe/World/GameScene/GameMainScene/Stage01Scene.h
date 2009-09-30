@@ -17,6 +17,8 @@ public:
     Stage01MainScene* _pStage01Main;
     BackGround01* _pBackGround01;
     BackGroundStar* _pBackGroundStar;
+    float _fSlantCamXZ_prev;
+
 
     DWORD _dwFrame_Begin;
     DWORD _dwFrame_End;

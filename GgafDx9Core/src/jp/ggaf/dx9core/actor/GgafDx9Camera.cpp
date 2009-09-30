@@ -194,12 +194,12 @@ void GgafDx9Camera::processBehavior() {
 
 
 void GgafDx9Camera::processJudgement() {
-//    _pVecCamFromPoint_prev->x = _pVecCamFromPoint->x;
-//    _pVecCamFromPoint_prev->y = _pVecCamFromPoint->y;
-//    _pVecCamFromPoint_prev->z = _pVecCamFromPoint->z;
-//    _pVecCamLookatPoint_prev->x = _pVecCamLookatPoint->x;
-//    _pVecCamLookatPoint_prev->y = _pVecCamLookatPoint->y;
-//    _pVecCamLookatPoint_prev->z = _pVecCamLookatPoint->z;
+    _pVecCamFromPoint_prev->x = _pVecCamFromPoint->x;
+    _pVecCamFromPoint_prev->y = _pVecCamFromPoint->y;
+    _pVecCamFromPoint_prev->z = _pVecCamFromPoint->z;
+    _pVecCamLookatPoint_prev->x = _pVecCamLookatPoint->x;
+    _pVecCamLookatPoint_prev->y = _pVecCamLookatPoint->y;
+    _pVecCamLookatPoint_prev->z = _pVecCamLookatPoint->z;
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
