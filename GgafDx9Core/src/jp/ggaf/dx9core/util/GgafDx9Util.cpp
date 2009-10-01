@@ -12,6 +12,13 @@ float GgafDx9Util::PARABORA[S_ANG360];
 float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
+
+float GgafDx9Util::RAD_SLANT_0[S_ANG360];
+float GgafDx9Util::RAD_SLANT_1[S_ANG360];
+float GgafDx9Util::RAD_SLANT_2[S_ANG360];
+float GgafDx9Util::RAD_SLANT_3[S_ANG360];
+
+
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
@@ -58,6 +65,9 @@ void GgafDx9Util::init() {
         SIN[S_ANG180] = 0;
         SIN[S_ANG270] = -1;
 
+        //RAD_SLANT
+        for (int i = 0; i <
+‚±‚±
     }
 }
 

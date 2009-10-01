@@ -20,6 +20,12 @@ public:
     static float COS[];
     static float SIN[];
     static float RAD[];
+
+    static float RAD_SLANT_0[];
+    static float RAD_SLANT_1[];
+    static float RAD_SLANT_2[];
+    static float RAD_SLANT_3[];
+
     static GgafDx9SphereRadiusVectors _srv;
 
     static bool _was_inited_flg;
