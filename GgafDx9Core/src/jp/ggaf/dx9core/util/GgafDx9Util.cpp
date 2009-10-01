@@ -71,7 +71,6 @@ void GgafDx9Util::init() {
         int index_slant;
         int index_slant_prev = -1;
 
-
         //ŒX‚« 0.0 ` 1.0 ‚Ì Šp“x‚ğ‹‚ß”z—ñ‚Éû‚ß‚éBû‚ß‚éŠp“x‚Í1000”{‚Ì®”B
         //—v‘f”Ô†‚ÍAŒX‚«*1000
 
