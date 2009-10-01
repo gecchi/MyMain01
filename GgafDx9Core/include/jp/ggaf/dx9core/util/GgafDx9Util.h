@@ -21,10 +21,9 @@ public:
     static float SIN[];
     static float RAD[];
 
-    static float RAD_SLANT_0[];
-    static float RAD_SLANT_1[];
-    static float RAD_SLANT_2[];
-    static float RAD_SLANT_3[];
+    static int SLANT_ANG_0[];
+    static int SLANT_ANG_1[];
+    static int SLANT_ANG_2[];
 
     static GgafDx9SphereRadiusVectors _srv;
 
