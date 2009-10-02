@@ -30,6 +30,12 @@ public:
     static bool _was_inited_flg;
 
     static void init();
+
+
+    static angle getAngleFromSlant(float prm_slant);
+
+    static angle getAngleFromXY(int prm_vx, int prm_vy);
+
     /**
      * XY座標系（Z軸無視）において、方向ベクトルの成す角をアングル値で取得 .
      * XY座標系（Z軸無視）において、原点(0,0)から(prm_vx,prm_vy)に線分を引いた時、

@@ -67,7 +67,7 @@ void GgafDx9Util::init() {
         double rad;
         double vx;
         double vy;
-		float slant;
+        float slant;
         int index_slant;
         int index_slant_prev = -1;
 
@@ -119,7 +119,7 @@ void GgafDx9Util::init() {
                 }
                 SLANT_ANG_0[i] = ang*100;
             }
-			index_slant_prev = index_slant;
+            index_slant_prev = index_slant;
 //			_TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
         for (int i = index_slant_prev+1; i <= 1000; i++) {
@@ -200,10 +200,10 @@ void GgafDx9Util::init() {
 
         //åXÇ´Ç∆äpìxÇÃä÷åWÅiñ{ÉtÉ@ÉCÉãÇÃç≈å„ÇÃÉRÉÅÉìÉgéQè∆)ÇÊÇË
 
-        //ang=890 slant=57.29 vx,vy=0.0174524,0.999848
+        //ang=890 slant=57.29   vx,vy=0.0174524,0.999848
         //ang=891 slant=63.6567 vx,vy=0.0157073,0.999877
         //ang=892 slant=71.6151 vx,vy=0.0139622,0.999903
-        //ang=893 slant=81.847 vx,vy=0.012217,0.999925
+        //ang=893 slant=81.847  vx,vy=0.012217,0.999925
         //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
         //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
         //---Ç≥Ç©Ç¢Çﬂ
@@ -254,6 +254,104 @@ void GgafDx9Util::init() {
 
     }
 }
+
+angle GgafDx9Util::getAngleFromXY(int prm_vx, int prm_vy) {
+    if (prm_vx == 0) {
+        if (prm_vy > 0) {
+            return ANGLE90;
+        } else if (prm_vy < 0) {
+            return ANGLE270;
+        } else {
+            //å¥ì_Ç≈Ç†ÇÈÅAïsíËÅB
+            return 0;
+        }
+    }
+    angle angR = getAngleFromSlant(prm_vy*1.0/prm_vx);
+    if (prm_vx >= 0 && prm_vy >= 0) { //ëÊ1è€å¿
+        //âΩÇ‡ÇµÇ»Ç¢
+    } else if (prm_vx <= 0 && prm_vy >= 0) { //ëÊ2è€å¿
+        angR = ANGLE180 + angR;
+    } else if (prm_vx <= 0 && prm_vy <= 0) { //ëÊ3è€å¿
+        angR = ANGLE180 + angR;
+    } else if (prm_vx >= 0 && prm_vy <= 0) { //ëÊ4è€å¿
+        angR = ANGLE360 + angR;
+    }
+    return angR;
+}
+
+
+angle GgafDx9Util::getAngleFromSlant(float prm_slant) {
+    if (prm_slant >= 0) {
+        //ê≥ÇÃåXÇ´
+        if (prm_slant < 1.0) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*1000
+            return SLANT_ANG_0[(int)(prm_slant*1000)];
+        } else if (prm_slant < 10.0187) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*1000 - 1000
+            return SLANT_ANG_1[(int)(prm_slant*1000)-1000];
+        } else if (prm_slant < 95.4895) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*10 - 100
+            return SLANT_ANG_2[(int)(prm_slant*10)-100];
+        }
+        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
+        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
+        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
+        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
+        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
+        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
+        //å„ÇÕÇ≤ÇËâüÇµ
+        if (prm_slant < 114.589) {
+            return 89400;
+        } else if (prm_slant < 143.237) {
+            return 89500;
+        } else if (prm_slant < 190.237) {
+            return 89600;
+        } else if (prm_slant < 286.478) {
+            return 89700;
+        } else if (prm_slant < 572.957) {
+            return 89800;
+        } else if (prm_slant < 999) {
+            return 89900;
+        } else {
+            return 90000;
+        }
+    } else {
+        //ïâÇÃåXÇ´
+        if (prm_slant > -1.0) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*1000
+            return -SLANT_ANG_0[(int)(-prm_slant*1000)];
+        } else if (prm_slant > -10.0187) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*1000 - 1000
+            return -SLANT_ANG_1[(int)(-prm_slant*1000)-1000];
+        } else if (prm_slant > -95.4895) {
+            //óvëfî‘çÜÇÕÅAåXÇ´*10 - 100
+            return -SLANT_ANG_2[(int)(-prm_slant*10)-100];
+        }
+        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
+        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
+        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
+        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
+        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
+        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
+        //å„ÇÕÇ≤ÇËâüÇµ
+        if (prm_slant > -114.589) {
+            return -89400;
+        } else if (prm_slant > -143.237) {
+            return -89500;
+        } else if (prm_slant > -190.237) {
+            return -89600;
+        } else if (prm_slant > -286.478) {
+            return -89700;
+        } else if (prm_slant > -572.957) {
+            return -89800;
+        } else if (prm_slant > -999) {
+            return -89900;
+        } else {
+            return -90000;
+        }
+    }
+}
+
 
 angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
     if (prm_vy == 0) {
