@@ -16,7 +16,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
     _pBackGroundStar->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
-    _fSlantCamXZ_prev = 1.0;
+    _angCamXZ_prev = 0;
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_06");
     //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
     setProgress(STAGE01_PROG_INIT);
@@ -26,13 +26,8 @@ void Stage01Scene::initialize() {
 
     float vx = pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x;
     float vz = pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z;
-    float fSlantCamXZ;
-    float fRateSlantXZ;
-    if (vx == 0) {
-        _fSlantCamXZ_prev = 0;
-    } else {
-        _fSlantCamXZ_prev = vz / vx;
-    }
+    _angCamXZ_prev = GgafDx9Util::getAngleFromXY(vx, vz);
+
     setProgress(STAGE01_PROG_INIT);
 }
 
@@ -59,17 +54,8 @@ void Stage01Scene::processBehavior() {
     } else if (getProgress() == STAGE01_PROG_PLAY) {
         float vx = pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x;
         float vz = pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z;
-        float fSlantCamXZ;
-		float fRateSlantXZ;
-		if (vx == 0) {
-			fSlantCamXZ = 0;
-			fRateSlantXZ = 0;
-		} else {
-			fSlantCamXZ = vz / vx;
-			fRateSlantXZ = (float)(_fSlantCamXZ_prev / fSlantCamXZ);
-		}
-
-        _pBackGround01->_x -= (float)(fRateSlantXZ*5.0);
+        angle angCamXZ = GgafDx9Util::getAngleFromXY(vx, vz);
+        _pBackGround01->_x += ((angCamXZ - _angCamXZ_prev)/300);
 //		_TRACE_("pCAM->_pVecCamFromPoint_prev->x="<<pCAM->_pVecCamFromPoint_prev->x);
 //		_TRACE_("pCAM->_pVecCamFromPoint_prev->z="<<pCAM->_pVecCamFromPoint_prev->z);
 //		_TRACE_("fSlantCamXZ="<<fSlantCamXZ);
@@ -77,12 +63,11 @@ void Stage01Scene::processBehavior() {
 //		_TRACE_("fRateSlantXZ="<<fRateSlantXZ);
 
         if (pCAM->_pos_camera == 0) {
-            _pBackGround01->_x -= 1; //”wŒiƒXƒNƒ[ƒ‹
+            _pBackGround01->_x -= 0.5; //”wŒiƒXƒNƒ[ƒ‹
         } else if (pCAM->_pos_camera == 3) {
-			_pBackGround01->_x += 1;
+            _pBackGround01->_x += 0.5;
         }
-
-        _fSlantCamXZ_prev = fSlantCamXZ;
+        _angCamXZ_prev = angCamXZ;
 
     }
 
