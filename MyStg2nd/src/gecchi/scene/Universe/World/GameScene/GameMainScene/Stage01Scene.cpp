@@ -55,7 +55,7 @@ void Stage01Scene::processBehavior() {
         float vx = pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x;
         float vz = pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z;
         angle angCamXZ = GgafDx9Util::getAngleFromXY(vx, vz);
-        _pBackGround01->_x += ((angCamXZ - _angCamXZ_prev)/300);
+        _pBackGround01->_x += ((angCamXZ - _angCamXZ_prev)/70);
 //		_TRACE_("pCAM->_pVecCamFromPoint_prev->x="<<pCAM->_pVecCamFromPoint_prev->x);
 //		_TRACE_("pCAM->_pVecCamFromPoint_prev->z="<<pCAM->_pVecCamFromPoint_prev->z);
 //		_TRACE_("fSlantCamXZ="<<fSlantCamXZ);
