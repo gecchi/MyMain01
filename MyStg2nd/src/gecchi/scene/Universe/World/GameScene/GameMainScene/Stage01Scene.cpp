@@ -52,20 +52,15 @@ void Stage01Scene::processBehavior() {
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
-        float vx = pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x;
-        float vz = pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z;
-        angle angCamXZ = GgafDx9Util::getAngleFromXY(vx, vz);
-        _pBackGround01->_x += ((angCamXZ - _angCamXZ_prev)/70);
-//		_TRACE_("pCAM->_pVecCamFromPoint_prev->x="<<pCAM->_pVecCamFromPoint_prev->x);
-//		_TRACE_("pCAM->_pVecCamFromPoint_prev->z="<<pCAM->_pVecCamFromPoint_prev->z);
-//		_TRACE_("fSlantCamXZ="<<fSlantCamXZ);
-//		_TRACE_("_fSlantCamXZ_prev="<<_fSlantCamXZ_prev);
-//		_TRACE_("fRateSlantXZ="<<fRateSlantXZ);
+        angle angCamXZ = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
+                                                     -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
+                                                    );
 
+        _pBackGround01->_x += ((angCamXZ-_angCamXZ_prev)/250.0);
         if (pCAM->_pos_camera == 0) {
-            _pBackGround01->_x -= 0.5; //”wŒiƒXƒNƒ[ƒ‹
+            _pBackGround01->_x -= 0.02; //”wŒiƒXƒNƒ[ƒ‹
         } else if (pCAM->_pos_camera == 3) {
-            _pBackGround01->_x += 0.5;
+            _pBackGround01->_x += 0.02;
         }
         _angCamXZ_prev = angCamXZ;
 

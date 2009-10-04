@@ -88,19 +88,19 @@ void MyShip::initialize() {
 
 
     //GgafDx9Util::getAngleFromSlantテスト
-    float rad;
-    int vx;
-    int vy;
-    int r1;
-    int r2 ;
-    for (int ang = 0; ang < 3600; ang++) {
-        rad = (PI * 2.0f * ang) / 3600;
-        vx = cos(rad)*1000;
-        vy = sin(rad)*1000;
-        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
-        r2 = GgafDx9Util::getAngle2D(vx, vy);
-        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
-    }
+//    float rad;
+//    int vx;
+//    int vy;
+//    int r1;
+//    int r2 ;
+//    for (int ang = 0; ang < 3600; ang++) {
+//        rad = (PI * 2.0f * ang) / 3600;
+//        vx = cos(rad)*1000;
+//        vy = sin(rad)*1000;
+//        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
+//        r2 = GgafDx9Util::getAngle2D(vx, vy);
+//        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
+//    }
 //
 //    _TRACE_("START getAngleFromXY");
 //    for (int i = 0; i < 50000; i++) {
@@ -442,7 +442,7 @@ void MyShip::beginTurboZY(vbsta prm_VB) {
 
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE315, ANGLE135);
+            _pMover->setRzRyMoveAngle(ANGLE315, ANGLE90);
             _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
         default:

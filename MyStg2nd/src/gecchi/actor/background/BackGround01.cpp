@@ -113,10 +113,12 @@ void BackGround01::processBehavior() {
 //    }
 
 
-
+    //_TRACE_("_x="<<_x);
     if (_x < -1 * (_chip_width + _chip_width) ) {
+        //_TRACE_("++++ _x += "<<(_chip_width + _chip_width)<<");");
         _x += (_chip_width + _chip_width);
     } if (_x > 0)  {
+        //_TRACE_("---- _x -= "<<(_chip_width + _chip_width)<<");");
         _x -= (_chip_width + _chip_width);
     }
 

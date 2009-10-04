@@ -13,7 +13,7 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-int GgafDx9Util::SLANT_ANG_0[1000 + 1];
+int GgafDx9Util::SLANT_ANG_0[10000 + 1];
 int GgafDx9Util::SLANT_ANG_1[10000 + 1];
 int GgafDx9Util::SLANT_ANG_2[1100 + 1];
 
@@ -104,7 +104,7 @@ void GgafDx9Util::init() {
         //ç≈ëÂóvëfINDEXÇÕ 1000 Ç∆Ç»ÇÈÅB
 
         for (s_ang ang = 0; ang <= S_ANG45; ang++) {
-            rad = (PI * 2.0f * ang) / S_ANG360;
+			rad = (PI * 2.0f * ang) / S_ANG360;
             vx = cos(rad);
             vy = sin(rad);
             if (vx == 0) {
