@@ -24,12 +24,19 @@ void BackGroundStar001::initialize() {
 
 void BackGroundStar001::processBehavior() {
 }
+void BackGroundStar001::processPreJudgement() {
+        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+}
 
 void BackGroundStar001::processJudgement() {
 }
-
+void BackGroundStar001::processPreDraw() {
+    GgafDx9Universe::setDrawDepthLevel(1,this);
+}
 void BackGroundStar001::processDraw() {
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_POINT);
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     GgafDx9Core::GgafDx9MeshActor::processDraw();
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 }

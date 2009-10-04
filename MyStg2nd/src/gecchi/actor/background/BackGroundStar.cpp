@@ -19,6 +19,11 @@ BackGroundStar::BackGroundStar(const char* prm_name) : GgafDx9GeometricActor(prm
 
 void BackGroundStar::initialize() {
     _TRACE_("BackGroundStar::initialize()");
+
+    for (int i = 0; i < 4; i++) {
+        addSubLast(_papBackGroundStar001[i]);
+    }
+
 //    _X = 0;
 //    _Y = 0;
 //    _Z = 0;
@@ -26,16 +31,6 @@ void BackGroundStar::initialize() {
 //        _papBackGroundStar001[i]->setAlpha(0.5);
 //    }
 }
-
-
-void BackGroundStar::processPreJudgement() {
-    for (int i = 0; i < 4; i++) {
-        _papBackGroundStar001[i]->_fX = (FLOAT)(1.0f * _papBackGroundStar001[i]->_X / LEN_UNIT / PX_UNIT);
-        _papBackGroundStar001[i]->_fY = (FLOAT)(1.0f * _papBackGroundStar001[i]->_Y / LEN_UNIT / PX_UNIT);
-        _papBackGroundStar001[i]->_fZ = (FLOAT)(1.0f * _papBackGroundStar001[i]->_Z / LEN_UNIT / PX_UNIT);
-    }
-}
-
 
 void BackGroundStar::processBehavior() {
     //フェードイン
@@ -48,7 +43,7 @@ void BackGroundStar::processBehavior() {
     if (_X < -800000) {
         _X += 800000;
     } else {
-        _X -= 1000;
+        _X -= 4000;
     }
     _papBackGroundStar001[0]->_X = _X - 800000;
     _papBackGroundStar001[1]->_X = _X ;
@@ -57,19 +52,19 @@ void BackGroundStar::processBehavior() {
 }
 
 void BackGroundStar::processPreDraw() {
-    //本アクターはGgafDx9DrawableActorではないかつ、
-    //BackGroundStar001がツリーの子ではなくメンバーでないので、
-    //無理やり段階レンダリングに登録
-    for (int i = 0; i < 4; i++) {
-        GgafDx9Universe::setDrawDepthMaxLevel(_papBackGroundStar001[i]);
-    }
+//    //本アクターはGgafDx9DrawableActorではないかつ、
+//    //BackGroundStar001がツリーの子ではなくメンバーでないので、
+//    //無理やり段階レンダリングに登録
+//    for (int i = 0; i < 4; i++) {
+//        GgafDx9Universe::setDrawDepthMaxLevel(_papBackGroundStar001[i]);
+//    }
 }
 
-void BackGroundStar::processDraw() {
-    for (int i = 0; i < 4; i++) {
-        _papBackGroundStar001[i]->processDraw();
-    }
-}
+//void BackGroundStar::processDraw() {
+//    for (int i = 0; i < 4; i++) {
+//        _papBackGroundStar001[i]->processDraw();
+//    }
+//}
 
 BackGroundStar::~BackGroundStar() {
     DELETE_IMPOSSIBLE_NULL(_papBackGroundStar001[0]);

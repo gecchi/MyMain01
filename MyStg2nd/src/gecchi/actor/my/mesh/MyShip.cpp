@@ -16,7 +16,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 5000;
+    _iMoveSpeed = 7000;
     //CommonSceneがnewの場合設定
     //キャッシュロード
     //GgafDx9SeManager::get("laser001");

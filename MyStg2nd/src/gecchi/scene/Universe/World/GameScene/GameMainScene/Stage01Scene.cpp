@@ -23,11 +23,9 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 }
 
 void Stage01Scene::initialize() {
-
-    float vx = pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x;
-    float vz = pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z;
-    _angCamXZ_prev = GgafDx9Util::getAngleFromXY(vx, vz);
-
+    _angCamXZ_prev = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
+                                                     -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
+                                                    );
     setProgress(STAGE01_PROG_INIT);
 }
 
@@ -47,7 +45,7 @@ void Stage01Scene::processBehavior() {
 
         if (_dwFrame_Begin == 120) { //ステージ１開始！
             _pBackGround01->activateTree();
-            //_pBackGroundStar->activateTree();
+            _pBackGroundStar->activateTree();
             _pStage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }
@@ -56,7 +54,12 @@ void Stage01Scene::processBehavior() {
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
 
-        _pBackGround01->_x += ((angCamXZ-_angCamXZ_prev)/250.0);
+        float incx = (angCamXZ-_angCamXZ_prev)*0.002;
+        if (incx > 0) {
+            _pBackGround01->_x += (incx*incx);
+        } else {
+            _pBackGround01->_x += (-1.0*incx*incx);
+        }
         if (pCAM->_pos_camera == 0) {
             _pBackGround01->_x -= 0.02; //背景スクロール
         } else if (pCAM->_pos_camera == 3) {

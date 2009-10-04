@@ -20,9 +20,6 @@ public:
     void processBehavior();
 
 
-    void processPreJudgement();
-
-
     void processJudgement() {
     }
 
@@ -31,7 +28,8 @@ public:
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·
      */
-    void processDraw();
+    void processDraw(){
+    }
 
     void processHappen(int prm_no) {
     }

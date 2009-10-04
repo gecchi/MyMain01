@@ -22,10 +22,11 @@ public:
 
     void processBehavior();
 
+    void processPreJudgement();
+
     void processJudgement();
 
-    void processPreDraw() {
-    }
+    void processPreDraw();
 
     void processDraw();
 
