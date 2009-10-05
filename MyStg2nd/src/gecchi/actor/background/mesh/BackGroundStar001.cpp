@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 BackGroundStar001::BackGroundStar001(const char* prm_name) :
     GgafDx9MeshActor(prm_name,
-                     "hoshiboshi2",
+                     "hoshiboshi3",
                      "BackGroundStarEffect",
                      "BackGroundStarTechnique",
                      NULL ) {
@@ -16,10 +16,12 @@ BackGroundStar001::BackGroundStar001(const char* prm_name) :
     _X = 0; //ŠJŽnÀ•W
     _Y = 0;
     _Z = 0;
+
 }
 
 void BackGroundStar001::initialize() {
     setBumpable(false);
+    setAlpha(0.9);
 }
 
 void BackGroundStar001::processBehavior() {
@@ -36,9 +38,9 @@ void BackGroundStar001::processPreDraw() {
     GgafDx9Universe::setDrawDepthLevel(1,this);
 }
 void BackGroundStar001::processDraw() {
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
     GgafDx9Core::GgafDx9MeshActor::processDraw();
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 }
 
 BackGroundStar001::~BackGroundStar001() {

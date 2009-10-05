@@ -43,7 +43,7 @@ void BackGroundStar::processBehavior() {
     if (_X < -800000) {
         _X += 800000;
     } else {
-        _X -= 4000;
+        _X -= 2000;
     }
     _papBackGroundStar001[0]->_X = _X - 800000;
     _papBackGroundStar001[1]->_X = _X ;
