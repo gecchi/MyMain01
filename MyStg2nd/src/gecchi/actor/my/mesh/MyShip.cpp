@@ -331,19 +331,7 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //ショット関連処理
-    //MyShip::transactShot(this);
-    if (VB::isPushedDown(VB_SHOT1)) {
-        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
-        if (pShot != NULL) {
-            pShot->activateTree();
 
-            EffectExplosion001* pExplo001 =
-                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-            if (pExplo001 != NULL) {
-                pExplo001->setGeometry(this);
-            }
-        }
-    }
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
@@ -377,6 +365,17 @@ void MyShip::processJudgement() {
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activateTree();
+
+            EffectExplosion001* pExplo001 =
+                    (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+            if (pExplo001 != NULL) {
+                pExplo001->setGeometry(this);
+            }
+        }
+    } else if (VB::isPushedDown(VB_SHOT1) || VB::isPushedDown(VB_SHOT1_R) ) {
+        MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
+        if (pShot != NULL) {
+            pShot->activateTree();
 
             EffectExplosion001* pExplo001 =
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
@@ -447,7 +446,7 @@ void MyShip::beginTurboZY(vbsta prm_VB) {
             break;
         default:
             break;
-        }
+    }
 }
 
 
