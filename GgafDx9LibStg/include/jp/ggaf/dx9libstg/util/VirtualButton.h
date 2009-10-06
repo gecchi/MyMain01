@@ -107,7 +107,9 @@ public:
 
     static keymap _mapDIK;
 
-    static VBMap* _pVBMap; //現在フレームの入力状態
+    static VBMap* _pVBMap_Active; //現在フレームの入力状態
+
+    static VBMap* _pVBMap_Reset; //入力状態をリセットする位置
 
     static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
