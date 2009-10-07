@@ -30,7 +30,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption02->_angExpanse = 0;
     pMyDummyOption02->_angveloExpanse = 0;
     pMyDummyOption02->_angPosition = ANGLE90;
-    pMyDummyOption02->setMaterialColor(0.0, 1.0, 1.0);;
+    pMyDummyOption02->setMaterialColor(0.0, 1.0, 1.0);
     addSubLast(pMyDummyOption02);
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);

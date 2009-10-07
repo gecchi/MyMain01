@@ -877,12 +877,12 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
     DWORD dwFrameApply;
     DWORD dwFrameAgo = 1;
     pVBMap = VB::getPastVBMap(dwFrameAgo);
-    //直前は必ず押されていてはは駄目
+    //直前は必ず押されていては駄目、ニュートラルでなければだめ
     if ((pVBMap->_state & prm_VB) == 0) {
 
         dwFrameAgo++;
         //その前の5フレーム以内のどこかで押していなければならない
-        dwFrameApply = dwFrameAgo + 6;//許容フレーム
+        dwFrameApply = dwFrameAgo + 7;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
             if (pVBMap->_state & prm_VB) {
@@ -894,7 +894,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
         }
 
         //さらにそこから以前5フレーム以内のどこかで押されていては駄目
-        dwFrameApply = dwFrameAgo + 6;//許容フレーム
+        dwFrameApply = dwFrameAgo + 7;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
             if ((pVBMap->_state & prm_VB) == 0) {
