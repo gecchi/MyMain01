@@ -13,9 +13,10 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-int GgafDx9Util::SLANT_ANG_0[10000 + 1];
+int GgafDx9Util::SLANT_ANG_0[1000 + 1];
 int GgafDx9Util::SLANT_ANG_1[10000 + 1];
 int GgafDx9Util::SLANT_ANG_2[1100 + 1];
+int GgafDx9Util::SLANT_ANG_3[10000 + 1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -70,6 +71,21 @@ void GgafDx9Util::init() {
         float slant;
         int index_slant;
         int index_slant_prev = -1;
+        int d_index_slant = 0;
+//        for (int ang = 0; ang <= 36000; ang++) {
+//            rad = (PI * 2.0f * ang) / 36000;
+//            vx = cos(rad);
+//            vy = sin(rad);
+//            if (vx == 0) {
+//                slant = 0;
+//            } else {
+//                slant = vy / vx;
+//            }
+//          _TRACE_("ang="<<ang<<"\tslant="<<slant<<"\tvx,vy="<<vx<<","<<vy);
+//        }
+
+
+
 
         //傾き 0.0 ～ 1.0 の 角度を求め配列に収める。収める角度は1000倍の整数。
         //要素番号は、傾き*1000
@@ -84,7 +100,7 @@ void GgafDx9Util::init() {
         // SLANT_ANG_0[0]      = 0
         // SLANT_ANG_0[1]～[3] = 1000
         // SLANT_ANG_0[4]～[5] = 2000
-        // SLANT_ANG_0[6]     s= 4000
+        // SLANT_ANG_0[6]      = 4000
         // SLANT_ANG_0[7]～[8] = 5000 といった具合
 
 
@@ -104,7 +120,7 @@ void GgafDx9Util::init() {
         //最大要素INDEXは 1000 となる。
 
         for (s_ang ang = 0; ang <= S_ANG45; ang++) {
-			rad = (PI * 2.0f * ang) / S_ANG360;
+            rad = (PI * 2.0f * ang) / S_ANG360;
             vx = cos(rad);
             vy = sin(rad);
             if (vx == 0) {
@@ -113,20 +129,23 @@ void GgafDx9Util::init() {
                 slant = vy / vx;
             }
             index_slant = slant * 1000;
-            for (int i = index_slant_prev+1; i <= index_slant; i++) {
+            d_index_slant = index_slant - index_slant_prev;
+            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
                 if (i > 1000) {
                     _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(ang*100));
                 }
-                SLANT_ANG_0[i] = ang*100;
+                //等分する（ここがアバウトのもと）
+                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
             }
             index_slant_prev = index_slant;
 //			_TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
-        for (int i = index_slant_prev+1; i <= 1000; i++) {
+        d_index_slant = 1000 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 1000; i++, d++) {
             if (i > 1000) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(S_ANG45*100));
             }
-            SLANT_ANG_0[i] = S_ANG45*100;
+            SLANT_ANG_0[i] = ((S_ANG45-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
         }
 
         //傾き 1.0 ～ 10.0187 の 角度を求め配列に収める。
@@ -169,20 +188,23 @@ void GgafDx9Util::init() {
                 slant = vy / vx;
             }
             index_slant = slant*1000.0 - 1000.0;
-            for (int i = index_slant_prev+1; i <= index_slant; i++) {
+            d_index_slant = index_slant - index_slant_prev;
+            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
                 if (i > 9018) {
                     _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_1["<<i<<"]<="<<(ang*100));
                 }
-                SLANT_ANG_1[i] = ang*100;
+                SLANT_ANG_1[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
             }
             index_slant_prev = index_slant;
 //            _TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
-        for (int i = index_slant_prev+1; i <= 9018; i++) {
+        d_index_slant = 9018 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 9018; i++, d++) {
             if (i > 9018) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_1["<<i<<"]<=843000");
             }
-            SLANT_ANG_1[i] = 843000;
+            SLANT_ANG_1[i] = ((843-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
+            //SLANT_ANG_1[i] = 84300;
         }
 
         //傾き 10.0187 ～ 95.4895 の 角度を求め配列に収める。
@@ -226,31 +248,55 @@ void GgafDx9Util::init() {
                 slant = vy / vx;
             }
             index_slant = slant*10.0 - 100.0;
-            for (int i = index_slant_prev+1; i <= index_slant; i++) {
+            d_index_slant = index_slant - index_slant_prev;
+            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
                 if (i > 1045) {
                     _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_2["<<i<<"]<="<<(ang*100));
                 }
-                SLANT_ANG_2[i] = ang*100;
+                SLANT_ANG_2[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
             }
             index_slant_prev = index_slant;
 //            _TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
-        for (int i = index_slant_prev+1; i <= 1045; i++) {
+        d_index_slant = 1045 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 1045; i++, d++) {
             if (i > 1045) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_2["<<i<<"]<=894000");
             }
-            SLANT_ANG_2[i] = 894000;
+            SLANT_ANG_2[i] = ((895-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
         }
 
-//        for (int s = 0; s <= 1000; s++) {
-//            _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/1000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
-//        }
-//        for (int s = 0; s <= 9018; s++) {
-//            _TRACE_("SLANT_ANG_1["<<s<<"]="<<SLANT_ANG_1[s]<<" 傾き"<<((s+1000)/1000.0)<<"=角度"<<(SLANT_ANG_1[s]/1000.0));
-//        }
-//        for (int s = 0; s <= 854; s++) {
-//            _TRACE_("SLANT_ANG_2["<<s<<"]="<<SLANT_ANG_2[s]<<" 傾き"<<((s+100)/10.0)<<"=角度"<<(SLANT_ANG_2[s]/1000.0));
-//        }
+        //傾き 95.4895 ～ 572.957 の 角度を求め配列に収める。
+        //要素番号は、傾き*10 - 954
+
+        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
+        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
+        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
+        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
+        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
+        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
+
+
+        // SLANT_ANG_3[0]～114.5      = 894000
+        // SLANT_ANG_3[1]      = 844000
+        // SLANT_ANG_3[2]～[3] = 845000
+        // SLANT_ANG_3[4]～[5] = 846000 といった具合
+
+
+
+        //TODOやるの？
+
+
+
+        for (int s = 0; s <= 1000; s++) {
+            _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/1000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
+        }
+        for (int s = 0; s <= 9018; s++) {
+            _TRACE_("SLANT_ANG_1["<<s<<"]="<<SLANT_ANG_1[s]<<" 傾き"<<((s+1000)/1000.0)<<"=角度"<<(SLANT_ANG_1[s]/1000.0));
+        }
+        for (int s = 0; s <= 854; s++) {
+            _TRACE_("SLANT_ANG_2["<<s<<"]="<<SLANT_ANG_2[s]<<" 傾き"<<((s+100)/10.0)<<"=角度"<<(SLANT_ANG_2[s]/1000.0));
+        }
 
     }
 }
@@ -301,7 +347,13 @@ angle GgafDx9Util::getAngleFromSlant(float prm_slant) {
         //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
         //後はごり押し
         if (prm_slant < 114.589) {
-            return 89400;
+            float d_slant = 114.589 - 95.4895;
+            float u_slant = d_slant / 20.0; //20等分
+            for (int i = 0; i < 20; i++) {
+                if (prm_slant < 95.4895 + (u_slant * i)) {
+                    return ((894 - 1) + (u_slant * i))*100;
+                }
+            }
         } else if (prm_slant < 143.237) {
             return 89500;
         } else if (prm_slant < 190.237) {
