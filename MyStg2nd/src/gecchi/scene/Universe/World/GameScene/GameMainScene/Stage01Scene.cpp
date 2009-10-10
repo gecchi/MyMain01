@@ -54,11 +54,11 @@ void Stage01Scene::processBehavior() {
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
 
-        float incx = (angCamXZ-_angCamXZ_prev)*0.002;
+        float incx = (angCamXZ-_angCamXZ_prev)/100;
         if (incx > 0) {
-            _pBackGround01->_x += (incx*incx);
+            _pBackGround01->_x += (incx);
         } else {
-            _pBackGround01->_x += (-1.0*incx*incx);
+            _pBackGround01->_x += (incx);
         }
         if (pCAM->_pos_camera == 0) {
             _pBackGround01->_x -= 0.02; //”wŒiƒXƒNƒ[ƒ‹
