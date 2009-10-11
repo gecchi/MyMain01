@@ -88,20 +88,20 @@ void MyShip::initialize() {
 
 
     //GgafDx9Util::getAngleFromSlantƒeƒXƒg
-//    float rad;
-//    int vx;
-//    int vy;
-//    int r1;
-//    int r2 ;
-//    for (int ang = 0; ang < 3600; ang++) {
-//        rad = (PI * 2.0f * ang) / 3600;
-//        vx = cos(rad)*1000;
-//        vy = sin(rad)*1000;
-//        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
-//        r2 = GgafDx9Util::getAngle2D(vx, vy);
-//        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
-//    }
-//
+    float rad;
+    int vx;
+    int vy;
+    int r1;
+    int r2 ;
+    for (int ang = 0; ang < 36000; ang++) {
+        rad = (PI * 2.0f * ang) / 36000;
+        vx = cos(rad)*1000;
+        vy = sin(rad)*1000;
+        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
+        r2 = GgafDx9Util::getAngle2D(vx, vy);
+        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
+    }
+
 //    _TRACE_("START getAngleFromXY");
 //    for (int i = 0; i < 50000; i++) {
 //        for (int ang = 0; ang < 360; ang++) {
