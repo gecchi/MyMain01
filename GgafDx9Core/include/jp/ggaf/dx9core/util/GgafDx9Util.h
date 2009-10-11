@@ -33,8 +33,6 @@ public:
     static void init();
 
 
-    static angle getAngleFromSlant(float prm_slant);
-
     static angle getAngleFromXY(int prm_vx, int prm_vy);
 
     /**

@@ -115,9 +115,6 @@ void GgafDx9Util::init() {
         //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
         //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
 
-        //ang=4500(45.0度)以降は次の配列に収める。
-        //最大要素INDEXは0.9996なので 1000 としよう。
-
         for (int ang = 0; ang <= 4500; ang++) {
             rad = (PI * 2.0f * ang) / 36000;
             vx = cos(rad);
@@ -147,154 +144,8 @@ void GgafDx9Util::init() {
             SLANT_ANG_0[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant))) * 10;
         }
 
-        //傾き 1.0 ～ 10.0187 の 角度を求め配列に収める。
-        //要素番号は、傾き*1000 - 1000
-
-        //ang=450 slant=1       vx,vy=0.707107,0.707107
-        //ang=451 slant=1.0035  vx,vy=0.705872,0.70834
-        //ang=452 slant=1.00701 vx,vy=0.704634,0.709571
-        //ang=453 slant=1.01053 vx,vy=0.703395,0.710799
-
-        // SLANT_ANG_1[0]      = 450000
-        // SLANT_ANG_1[1]～[3] = 451000
-        // SLANT_ANG_1[4]～[7] = 452000
-        // SLANT_ANG_1[8]～[10] = 453000 といった具合
-
-        //傾きと角度の関係（本ファイルの最後のコメント参照)より
-
-        //ang=838 slant=9.20516 vx,vy=0.107999,0.994151
-        //ang=839 slant=9.35724 vx,vy=0.106264,0.994338
-        //ang=840 slant=9.51436 vx,vy=0.104528,0.994522
-        //ang=841 slant=9.6768  vx,vy=0.102793,0.994703
-        //ang=842 slant=9.84482 vx,vy=0.101056,0.994881
-        //ang=843 slant=10.0187 vx,vy=0.0993197,0.995056 <--さかいめ
-        //---
-        //ang=843 slant=10.0187 vx,vy=0.0993197,0.995056 <--さかいめ
-        //ang=844 slant=10.1988 vx,vy=0.0975829,0.995227
-        //ang=845 slant=10.3854 vx,vy=0.0958458,0.995396
-        //ang=846 slant=10.5789 vx,vy=0.0941083,0.995562
-
-        //ang=842(84.2度)以降は次の配列に収める。したがってこの配列のサポートはslant=9.84482までとしよう
-        //最大要素INDEXは 10.0187*1000 - 1000 = 10018 - 1000 = 9018 となる。（そうすれば要素数が10000で収まるし）
-        index_slant_prev = -1;
-        for (s_ang ang = S_ANG45; ang <= 843; ang++) {
-            rad = (PI * 2.0f * ang) / S_ANG360;
-            vx = cos(rad);
-            vy = sin(rad);
-            if (vx == 0) {
-                slant = 0;
-            } else {
-                slant = vy / vx;
-            }
-            index_slant = slant*1000.0 - 1000.0;
-            d_index_slant = index_slant - index_slant_prev;
-            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-                if (i > 9018) {
-                    _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_1["<<i<<"]<="<<(ang*100));
-                }
-                SLANT_ANG_1[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
-            }
-            index_slant_prev = index_slant;
-//            _TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
-        }
-        d_index_slant = 9018 - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= 9018; i++, d++) {
-            if (i > 9018) {
-                _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_1["<<i<<"]<=843000");
-            }
-            SLANT_ANG_1[i] = ((843-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
-            //SLANT_ANG_1[i] = 84300;
-        }
-
-        //傾き 10.0187 ～ 95.4895 の 角度を求め配列に収める。
-        //要素番号は、傾き*10 - 100
-
-        //ang=843 slant=10.0187 vx,vy=0.0993197,0.995056
-        //ang=844 slant=10.1988 vx,vy=0.0975829,0.995227
-        //ang=845 slant=10.3854 vx,vy=0.0958458,0.995396
-        //ang=846 slant=10.5789 vx,vy=0.0941083,0.995562
-
-        // SLANT_ANG_2[0]      = 843000
-        // SLANT_ANG_2[1]      = 844000
-        // SLANT_ANG_2[2]～[3] = 845000
-        // SLANT_ANG_2[4]～[5] = 846000 といった具合
-
-        //傾きと角度の関係（本ファイルの最後のコメント参照)より
-
-        //ang=890 slant=57.29   vx,vy=0.0174524,0.999848
-        //ang=891 slant=63.6567 vx,vy=0.0157073,0.999877
-        //ang=892 slant=71.6151 vx,vy=0.0139622,0.999903
-        //ang=893 slant=81.847  vx,vy=0.012217,0.999925
-        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
-        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
-        //---さかいめ
-        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
-        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
-        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
-        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
-        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
-
-        //ang=895(89.5度)以降は、もう・・・if文で場合わけする
-        //最大要素INDEXは 114.589 * 10 - 100 = 1145 - 100 = 1045 となる。
-        index_slant_prev = -1;
-        for (s_ang ang = 843; ang <= 895; ang++) {
-            rad = (PI * 2.0f * ang) / S_ANG360;
-            vx = cos(rad);
-            vy = sin(rad);
-            if (vx == 0) {
-                slant = 0;
-            } else {
-                slant = vy / vx;
-            }
-            index_slant = slant*10.0 - 100.0;
-            d_index_slant = index_slant - index_slant_prev;
-            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-                if (i > 1045) {
-                    _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_2["<<i<<"]<="<<(ang*100));
-                }
-                SLANT_ANG_2[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
-            }
-            index_slant_prev = index_slant;
-//            _TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
-        }
-        d_index_slant = 1045 - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= 1045; i++, d++) {
-            if (i > 1045) {
-                _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_2["<<i<<"]<=894000");
-            }
-            SLANT_ANG_2[i] = ((895-1) + ((1.0*d)/(1.0*d_index_slant))) * 100;
-        }
-
-        //傾き 95.4895 ～ 572.957 の 角度を求め配列に収める。
-        //要素番号は、傾き*10 - 954
-
-        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
-        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
-        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
-        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
-        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
-        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
-
-
-        // SLANT_ANG_3[0]～114.5      = 894000
-        // SLANT_ANG_3[1]      = 844000
-        // SLANT_ANG_3[2]～[3] = 845000
-        // SLANT_ANG_3[4]～[5] = 846000 といった具合
-
-
-
-        //TODOやるの？
-
-
-
-        for (int s = 0; s <= 9018; s++) {
+        for (int s = 0; s <= 10000; s++) {
             _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/10000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
-        }
-        for (int s = 0; s <= 9018; s++) {
-            _TRACE_("SLANT_ANG_1["<<s<<"]="<<SLANT_ANG_1[s]<<" 傾き"<<((s+1000)/1000.0)<<"=角度"<<(SLANT_ANG_1[s]/1000.0));
-        }
-        for (int s = 0; s <= 854; s++) {
-            _TRACE_("SLANT_ANG_2["<<s<<"]="<<SLANT_ANG_2[s]<<" 傾き"<<((s+100)/10.0)<<"=角度"<<(SLANT_ANG_2[s]/1000.0));
         }
 
     }
@@ -311,98 +162,43 @@ angle GgafDx9Util::getAngleFromXY(int prm_vx, int prm_vy) {
             return 0;
         }
     }
-    angle angR = getAngleFromSlant(prm_vy*1.0/prm_vx);
+    if (prm_vy == 0) {
+        if (prm_vx > 0) {
+            return 0;
+        } else if (prm_vx < 0) {
+            return ANGLE180;
+        } else {
+            //原点である、不定。
+            return 0;
+        }
+    }
     if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
-        //何もしない
+		if (prm_vx >= prm_vy) {
+			return SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+		} else {
+			return ANGLE90 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+		}
     } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
-        angR = ANGLE180 + angR;
+		if (-prm_vx <= prm_vy) {
+			return ANGLE90 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+		} else {
+			return ANGLE180 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+		}
     } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
-        angR = ANGLE180 + angR;
+		if (-prm_vx >= -prm_vy) {
+			return ANGLE180 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+		} else {
+			return ANGLE270 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+		}
     } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
-        angR = ANGLE360 + angR;
-    }
-    return angR;
+		if (prm_vx <= -prm_vy) {
+			return ANGLE270 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+		} else {
+			return ANGLE360 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+		}    
+	}
+    return 0;
 }
-
-
-angle GgafDx9Util::getAngleFromSlant(float prm_slant) {
-    if (prm_slant >= 0) {
-        //正の傾き
-        if (prm_slant < 1.0) {
-            //要素番号は、傾き*10000
-            return SLANT_ANG_0[(int)(prm_slant*10000)];
-        } else if (prm_slant < 10.0187) {
-            //要素番号は、傾き*1000 - 1000
-            return SLANT_ANG_1[(int)(prm_slant*1000)-1000];
-        } else if (prm_slant < 95.4895) {
-            //要素番号は、傾き*10 - 100
-            return SLANT_ANG_2[(int)(prm_slant*10)-100];
-        }
-        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
-        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
-        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
-        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
-        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
-        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
-        //後はごり押し
-        if (prm_slant < 114.589) {
-            float d_slant = 114.589 - 95.4895;
-            float u_slant = d_slant / 20.0; //20等分
-            for (int i = 0; i < 20; i++) {
-                if (prm_slant < 95.4895 + (u_slant * i)) {
-                    return ((894 - 1) + (u_slant * i))*100;
-                }
-            }
-        } else if (prm_slant < 143.237) {
-            return 89500;
-        } else if (prm_slant < 190.237) {
-            return 89600;
-        } else if (prm_slant < 286.478) {
-            return 89700;
-        } else if (prm_slant < 572.957) {
-            return 89800;
-        } else if (prm_slant < 999) {
-            return 89900;
-        } else {
-            return 90000;
-        }
-    } else {
-        //負の傾き
-        if (prm_slant > -1.0) {
-            //要素番号は、傾き*1000
-            return -SLANT_ANG_0[(int)(-prm_slant*10000)];
-        } else if (prm_slant > -10.0187) {
-            //要素番号は、傾き*1000 - 1000
-            return -SLANT_ANG_1[(int)(-prm_slant*1000)-1000];
-        } else if (prm_slant > -95.4895) {
-            //要素番号は、傾き*10 - 100
-            return -SLANT_ANG_2[(int)(-prm_slant*10)-100];
-        }
-        //ang=894 slant=95.4895 vx,vy=0.0104718,0.999945
-        //ang=895 slant=114.589 vx,vy=0.00872654,0.999962
-        //ang=896 slant=143.237 vx,vy=0.00698126,0.999976
-        //ang=897 slant=190.984 vx,vy=0.00523596,0.999986
-        //ang=898 slant=286.478 vx,vy=0.00349065,0.999994
-        //ang=899 slant=572.957 vx,vy=0.00174533,0.999998
-        //後はごり押し
-        if (prm_slant > -114.589) {
-            return -89400;
-        } else if (prm_slant > -143.237) {
-            return -89500;
-        } else if (prm_slant > -190.237) {
-            return -89600;
-        } else if (prm_slant > -286.478) {
-            return -89700;
-        } else if (prm_slant > -572.957) {
-            return -89800;
-        } else if (prm_slant > -999) {
-            return -89900;
-        } else {
-            return -90000;
-        }
-    }
-}
-
 
 angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
     if (prm_vy == 0) {
