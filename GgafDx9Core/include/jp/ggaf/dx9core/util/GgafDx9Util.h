@@ -22,9 +22,7 @@ public:
     static float RAD[];
 
     static int SLANT_ANG_0[];
-    static int SLANT_ANG_1[];
-    static int SLANT_ANG_2[];
-    static int SLANT_ANG_3[];
+
 
     static GgafDx9SphereRadiusVectors _srv;
 

@@ -9,6 +9,8 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
     _class_name = "BackGround01";
     _x = 0;
     _y = 0;
+    _inc_x = 0;
+    _inc_y = 0;
 
     _papapChipBoard = NEW BackGroundChipBoard**[4];
     for (int i = 0; i < 4; i++) {
@@ -113,14 +115,20 @@ void BackGround01::processBehavior() {
 //    }
 
 
-    //_TRACE_("_x="<<_x);
     if (_x < -1 * (_chip_width + _chip_width) ) {
-        //_TRACE_("++++ _x += "<<(_chip_width + _chip_width)<<");");
         _x += (_chip_width + _chip_width);
     } if (_x > 0)  {
-        //_TRACE_("---- _x -= "<<(_chip_width + _chip_width)<<");");
         _x -= (_chip_width + _chip_width);
     }
+
+    if (_y < -1 * (_chip_height + _chip_height) ) {
+        _y += (_chip_height + _chip_height);
+    } if (_y > 0)  {
+        _y -= (_chip_height + _chip_height);
+    }
+
+    _x += _inc_x;
+    _y += _inc_y;
 
     for (int i = 0; i < 4; i++) {
         _papapChipBoard[i][0]->_x = _base_x[i] + _x;

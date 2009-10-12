@@ -13,10 +13,8 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-int GgafDx9Util::SLANT_ANG_0[10000 + 1];
-int GgafDx9Util::SLANT_ANG_1[10000 + 1];
-int GgafDx9Util::SLANT_ANG_2[1100 + 1];
-int GgafDx9Util::SLANT_ANG_3[10000 + 1];
+int GgafDx9Util::SLANT_ANG_0[100000 + 1];
+
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -72,17 +70,17 @@ void GgafDx9Util::init() {
         int index_slant;
         int index_slant_prev = -1;
         int d_index_slant = 0;
-        for (int ang = 0; ang <= 36000; ang++) {
-            rad = (PI * 2.0f * ang) / 36000;
-            vx = cos(rad);
-            vy = sin(rad);
-            if (vx == 0) {
-                slant = 0;
-            } else {
-                slant = vy / vx;
-            }
-          _TRACE_("ang="<<ang<<"\tslant="<<slant<<"\tvx,vy="<<vx<<","<<vy);
-        }
+//        for (int ang = 0; ang <= 36000; ang++) {
+//            rad = (PI * 2.0f * ang) / 36000;
+//            vx = cos(rad);
+//            vy = sin(rad);
+//            if (vx == 0) {
+//                slant = 0;
+//            } else {
+//                slant = vy / vx;
+//            }
+//          _TRACE_("ang="<<ang<<"\tslant="<<slant<<"\tvx,vy="<<vx<<","<<vy);
+//        }
 
 
 
@@ -115,8 +113,8 @@ void GgafDx9Util::init() {
         //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
         //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
 
-        for (int ang = 0; ang <= 4500; ang++) {
-            rad = (PI * 2.0f * ang) / 36000;
+        for (int ang = 0; ang <= 45000; ang++) {
+            rad = (PI * 2.0f * ang) / 360000;
             vx = cos(rad);
             vy = sin(rad);
             if (vx == 0) {
@@ -124,29 +122,29 @@ void GgafDx9Util::init() {
             } else {
                 slant = vy / vx;
             }
-            index_slant = slant * 10000;
+            index_slant = slant * 100000;
             d_index_slant = index_slant - index_slant_prev;
             for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-                if (i > 10000) {
+                if (i > 100000) {
                     _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(ang*10));
                 }
                 //等分する（ここがアバウトのもと）
-                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 10;
+                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant)));
             }
             index_slant_prev = index_slant;
 //			_TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
-        d_index_slant = 10000 - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= 10000; i++, d++) {
-            if (i > 10000) {
+        d_index_slant = 100000 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
+            if (i > 100000) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(45000));
             }
-            SLANT_ANG_0[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant))) * 10;
+            SLANT_ANG_0[i] = ((45000-1) + ((1.0*d)/(1.0*d_index_slant)));
         }
 
-        for (int s = 0; s <= 10000; s++) {
-            _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/10000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
-        }
+//        for (int s = 0; s <= 10000; s++) {
+//            _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/10000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
+//        }
 
     }
 }
@@ -174,28 +172,28 @@ angle GgafDx9Util::getAngleFromXY(int prm_vx, int prm_vy) {
     }
     if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
 		if (prm_vx >= prm_vy) {
-			return SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+			return ANGLE0  + SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*100000)];
 		} else {
-			return ANGLE90 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+			return ANGLE90 - SLANT_ANG_0[(int)(1.0*prm_vx/prm_vy*100000)];
 		}
     } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
 		if (-prm_vx <= prm_vy) {
-			return ANGLE90 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+			return ANGLE90 + SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*100000)];
 		} else {
-			return ANGLE180 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+			return ANGLE180 - SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*100000)];
 		}
     } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
 		if (-prm_vx >= -prm_vy) {
-			return ANGLE180 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+			return ANGLE180 + SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*100000)];
 		} else {
-			return ANGLE270 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
+			return ANGLE270 - SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*100000)];
 		}
     } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
 		if (prm_vx <= -prm_vy) {
-			return ANGLE270 + SLANT_ANG_0[(int)(prm_vy/prm_vx*10000)];
+			return ANGLE270 + SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*100000)];
 		} else {
-			return ANGLE360 - SLANT_ANG_0[(int)(prm_vx/prm_vy*10000)];
-		}    
+			return ANGLE360 - SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*100000)];
+		}
 	}
     return 0;
 }

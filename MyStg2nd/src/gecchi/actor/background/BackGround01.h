@@ -9,6 +9,10 @@ class BackGround01 : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
 
+
+    float _inc_x;
+    float _inc_y;
+
     float _chip_width;
     float _chip_height;
 

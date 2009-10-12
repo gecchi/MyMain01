@@ -16,7 +16,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 7000;
+    _iMoveSpeed = 5000;
     //CommonSceneがnewの場合設定
     //キャッシュロード
     //GgafDx9SeManager::get("laser001");
@@ -88,19 +88,19 @@ void MyShip::initialize() {
 
 
     //GgafDx9Util::getAngleFromSlantテスト
-    float rad;
-    int vx;
-    int vy;
-    int r1;
-    int r2 ;
-    for (int ang = 0; ang < 36000; ang++) {
-        rad = (PI * 2.0f * ang) / 36000;
-        vx = cos(rad)*1000;
-        vy = sin(rad)*1000;
-        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
-        r2 = GgafDx9Util::getAngle2D(vx, vy);
-        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
-    }
+//    float rad;
+//    int vx;
+//    int vy;
+//    int r1;
+//    int r2 ;
+//    for (int ang = 0; ang < 36000; ang++) {
+//        rad = (PI * 2.0f * ang) / 36000;
+//        vx = cos(rad)*1000;
+//        vy = sin(rad)*1000;
+//        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
+//        r2 = GgafDx9Util::getAngle2D(vx, vy);
+//        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
+//    }
 
 //    _TRACE_("START getAngleFromXY");
 //    for (int i = 0; i < 50000; i++) {

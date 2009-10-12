@@ -53,17 +53,22 @@ void Stage01Scene::processBehavior() {
         angle angCamXZ = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
-
-        float incx = (angCamXZ-_angCamXZ_prev)/100;
-        if (incx > 0) {
-            _pBackGround01->_x += (incx);
+        float prev_inc_x =  _pBackGround01->_inc_x;
+        float inc_x =  (angCamXZ-_angCamXZ_prev)/100.0;
+        if (GgafDx9Util::abs(inc_x) < GgafDx9Util::abs(prev_inc_x)) {
+            inc_x = prev_inc_x * 0.9;
         } else {
-            _pBackGround01->_x += (incx);
+            inc_x = inc_x - _pBackGround01->_inc_x;
         }
+        _pBackGround01->_inc_x = inc_x;
+
+
         if (pCAM->_pos_camera == 0) {
             _pBackGround01->_x -= 0.02; //”wŒiƒXƒNƒ[ƒ‹
         } else if (pCAM->_pos_camera == 3) {
             _pBackGround01->_x += 0.02;
+        } else {
+            _pBackGround01->_y += 1;
         }
         _angCamXZ_prev = angCamXZ;
 
