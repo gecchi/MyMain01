@@ -17,6 +17,8 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGroundStar->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
     _angCamXZ_prev = 0;
+    _angCamXY_prev = 0;
+
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_06");
     //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
     setProgress(STAGE01_PROG_INIT);
@@ -53,6 +55,11 @@ void Stage01Scene::processBehavior() {
         angle angCamXZ = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
+        angle angCamXY = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
+                                                     -(pCAM->_pVecCamLookatPoint->y - pCAM->_pVecCamFromPoint->y)
+                                                    );
+
+
         float prev_inc_x =  _pBackGround01->_inc_x;
         float inc_x =  (angCamXZ-_angCamXZ_prev)/100.0;
         if (GgafDx9Util::abs(inc_x) < GgafDx9Util::abs(prev_inc_x)) {
@@ -62,15 +69,24 @@ void Stage01Scene::processBehavior() {
         }
         _pBackGround01->_inc_x = inc_x;
 
+        float prev_inc_y =  _pBackGround01->_inc_y;
+        float inc_y =  (angCamXY-_angCamXY_prev)/100.0;
+        if (GgafDx9Util::abs(inc_y) < GgafDx9Util::abs(prev_inc_y)) {
+            inc_y = prev_inc_y * 0.9;
+        } else {
+            inc_y = inc_y - _pBackGround01->_inc_y;
+        }
+        _pBackGround01->_inc_y = inc_y;
 
         if (pCAM->_pos_camera == 0) {
             _pBackGround01->_x -= 0.02; //”wŒiƒXƒNƒ[ƒ‹
         } else if (pCAM->_pos_camera == 3) {
             _pBackGround01->_x += 0.02;
         } else {
-            _pBackGround01->_y += 1;
+            _pBackGround01->_y += 0.02;
         }
         _angCamXZ_prev = angCamXZ;
+        _angCamXY_prev = angCamXY;
 
     }
 

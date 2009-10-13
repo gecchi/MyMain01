@@ -24,9 +24,13 @@ enum MoveWay {
     WAY_ZLEFT,
     WAY_ZLEFT_UP,
     WAY_ZLEFT_DOWN,
+    WAY_ZLEFT_FRONT,
+    WAY_ZLEFT_BEHIND,
     WAY_ZRIGHT,
     WAY_ZRIGHT_UP,
-    WAY_ZRIGHT_DOWN
+    WAY_ZRIGHT_DOWN,
+    WAY_ZRIGHT_FRONT,
+    WAY_ZRIGHT_BEHIND
 };
 
 class MyShip : public GgafDx9LibStg::DefaultMeshActor {
@@ -147,6 +151,7 @@ public:
     //âÊñ éËëOÇ÷à⁄ìÆèâÇﬂXé≤âÒì]èàóù
     virtual void beginTurboXY(GgafDx9LibStg::vbsta prm_VB);
     virtual void beginTurboZY(GgafDx9LibStg::vbsta prm_VB);
+    virtual void beginTurboZX(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
     virtual void turnZY(GgafDx9LibStg::vbsta prm_VB);
@@ -154,13 +159,19 @@ public:
     virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
     virtual void turnXY(GgafDx9LibStg::vbsta prm_VB);
 
+    virtual void moveZX(GgafDx9LibStg::vbsta prm_VB);
+    virtual void turnZX(GgafDx9LibStg::vbsta prm_VB);
+
     virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
     virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);
+    virtual void turnFaceZXMove(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void doNotingMoveInput();
 
     virtual void turnFaceNeutralXY();
     virtual void turnFaceNeutralZY();
+    virtual void turnFaceNeutralZX();
+
 
     //virtual void beginMoveZX(int prm_VB);
 

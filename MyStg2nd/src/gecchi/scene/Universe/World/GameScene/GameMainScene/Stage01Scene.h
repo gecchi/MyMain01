@@ -18,6 +18,7 @@ public:
     BackGround01* _pBackGround01;
     BackGroundStar* _pBackGroundStar;
     GgafDx9Core::angle _angCamXZ_prev;
+    GgafDx9Core::angle _angCamXY_prev;
 
 
     DWORD _dwFrame_Begin;
