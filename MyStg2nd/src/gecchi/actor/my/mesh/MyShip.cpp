@@ -90,6 +90,15 @@ void MyShip::initialize() {
     _pMover->setMoveVelocity(0);
     //_pScaler->setScale(4000);
 
+//テスト
+//    int r, r_prev;
+//    int x = -500000;
+//    r_prev = GgafDx9Util::getAngleFromXY(-764000, x);
+//    for (int y = -764000; y < 764000; y+=5000) {
+//        r = GgafDx9Util::getAngleFromXY(x, y);
+//        _TRACE_("x,y="<<x<<","<<y<<" r="<<r<<" 差="<<(r_prev-r));
+//        r_prev = r;
+//    }
 
     //GgafDx9Util::getAngleFromSlantテスト
 //    float rad;

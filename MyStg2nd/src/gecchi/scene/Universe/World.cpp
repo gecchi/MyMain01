@@ -33,7 +33,7 @@ void World::initialize() {
     pCAM->_Y = 0; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
     pCAM->_Z = -_dZ_camera_init;
 
-    pCAM->setGaze(0,0,0);
+    pCAM->setViewPoint(0,0,0);
     pCAM->_pMover->setMoveAngle(0,0,0);
 
 
@@ -135,62 +135,77 @@ void World::processBehavior() {
 
 
 
-    static int dX, dY, dZ;
+    static int dX_from, dY_from, dZ_from;
+    static int dX_to, dY_to, dZ_to;
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
     if ( getSubFirst()->isBehaving() ) {
         if (pCAM->_pos_camera == 0) {
-            dZ = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY = 0 - pCAM->_Y;
+            dZ_from = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
+            dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
+            dY_from = 0 - pCAM->_Y;
         } else if (pCAM->_pos_camera == 1) {
-            dZ = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
-            dX = X_screen_left + 100000 - pCAM->_X;
-            dY = Y_screen_top + 200000 - pCAM->_Y;
+            dZ_from = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
+            dX_from = X_screen_left + 100000 - pCAM->_X;
+            dY_from = Y_screen_top + 200000 - pCAM->_Y;
         } else if (pCAM->_pos_camera == 2) {
-            dZ = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
-            dX = X_screen_left + 100000 - pCAM->_X;
-            dY = Y_screen_top + 200000 - pCAM->_Y;
+            dZ_from = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
+            dX_from = X_screen_left + 100000 - pCAM->_X;
+            dY_from = Y_screen_top + 200000 - pCAM->_Y;
         } else if (pCAM->_pos_camera == 3) {
-            dZ = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
-            dX = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY = 0 - pCAM->_Y;
+            dZ_from = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
+            dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
+            dY_from = 0 - pCAM->_Y;
         }
 
-        if (-30000 < dZ && dZ < 30000) {
+        if (-30000 < dZ_from && dZ_from < 30000) {
             pCAM->_pMover->_veloVzMove *= 0.7;
             pCAM->_pMover->setVzMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‰ñ‚éŽž
-                pCAM->_pMover->setVzMoveAcceleration(dZ/1000.0);
+                //pCAM->_pMover->setVzMoveAcceleration(dZ_from/1000.0);
+                pCAM->_pMover->setVzMoveAcceleration(GgafDx9Util::sign(dZ_from)*100);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVzMoveAcceleration(dZ/3.0);
+                //pCAM->_pMover->setVzMoveAcceleration(dZ_from/3.0);
+                pCAM->_pMover->setVzMoveAcceleration(GgafDx9Util::sign(dZ_from)*1000);
             }
         }
-        if (-30000 < dX && dX < 30000) {
+        if (-30000 < dX_from && dX_from < 30000) {
             pCAM->_pMover->_veloVxMove *= 0.7;
             pCAM->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pCAM->_pMover->setVxMoveAcceleration(dX/3.0);
+                //pCAM->_pMover->setVxMoveAcceleration(dX_from/3.0);
+                pCAM->_pMover->setVxMoveAcceleration(GgafDx9Util::sign(dX_from)*1000);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVxMoveAcceleration(dX/1000.0);
+                //pCAM->_pMover->setVxMoveAcceleration(dX_from/1000.0);
+                pCAM->_pMover->setVxMoveAcceleration(GgafDx9Util::sign(dX_from)*100);
             }
         }
 
-        if (-30000 < dY && dY < 30000) {
+        if (-30000 < dY_from && dY_from < 30000) {
             pCAM->_pMover->_veloVyMove *= 0.7;
             pCAM->_pMover->setVyMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pCAM->_pMover->setVyMoveAcceleration(dY/1000.0);
+                //pCAM->_pMover->setVyMoveAcceleration(dY_from/1000.0);
+                pCAM->_pMover->setVyMoveAcceleration(GgafDx9Util::sign(dY_from)*100);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVyMoveAcceleration(dY/3.0);
+                //pCAM->_pMover->setVyMoveAcceleration(dY_from/3.0);
+                pCAM->_pMover->setVyMoveAcceleration(GgafDx9Util::sign(dY_from)*1000);
             }
         }
 
-        pCAM->setGaze(0, 0, GameGlobal::_pMyShip->_Z);
+        dX_to = 0;
+        dY_to = 0;
+        dZ_to = GameGlobal::_pMyShip->_Z;
+
+
+        pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
+        //GameGlobal::_pMyShip->_Z‚±‚ê‚ð‰½‚Æ‚©‚·‚ê‚Î‚¢‚¢‚Í‚¸
+        //pCAM->setViewPoint(0, 0, 0);//
+
 
         pCAM->_pMover->behave();
     }
@@ -263,7 +278,7 @@ void World::processBehavior() {
 //        //ƒXƒ‹[
 //    } else {
 //        //ƒJƒƒ‰’Ž‹•ûŒüÝ’è
-//        pCAM->setGaze (
+//        pCAM->setViewPoint (
 //                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
 //                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
 //                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
