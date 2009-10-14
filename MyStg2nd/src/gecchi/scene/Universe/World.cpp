@@ -227,21 +227,21 @@ void World::processBehavior() {
         }
 
         if (-slow_reng_from < dY_from && dY_from < slow_reng_from) {
-            pCAM->_pMover->_veloVyMove *= 0.7;
+			pCAM->_pMover->_veloVyMove *= 0.7;
             pCAM->_pMover->setVyMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //è„Ç…Ç…âÒÇÈéû
-                pCAM->_pMover->setVyMoveAcceleration(dY_from/3.01000.0);
+				pCAM->_pMover->setVyMoveAcceleration(dY_from/3.0);
             } else {                                                //â°Ç…âÒÇÈÇ∆Ç´
                 pCAM->_pMover->setVyMoveAcceleration(dY_from/1000.0);
             }
         }
 
 
-        static int slow_reng_to = 10000;
+        static int slow_reng_to = 30000;
 
         if (-slow_reng_to < dZ_to && dZ_to < slow_reng_to) {
-            pVP->_pMover->_veloVzMove *= 0.7;
+            pVP->_pMover->_veloVzMove *= 0.9;
             pVP->_pMover->setVzMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //è„Ç…âÒÇÈéû
@@ -251,7 +251,7 @@ void World::processBehavior() {
             }
         }
         if (-slow_reng_to < dX_to && dX_to < slow_reng_to) {
-            pVP->_pMover->_veloVxMove *= 0.7;
+            pVP->_pMover->_veloVxMove *= 0.9;
             pVP->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //è„Ç…Ç…âÒÇÈéû
@@ -263,8 +263,8 @@ void World::processBehavior() {
 
 
         if (-slow_reng_to < dY_to && dY_to < slow_reng_to) {
-            pCAM->_pMover->_veloVyMove *= 0.7;
-            pCAM->_pMover->setVyMoveAcceleration(0);
+            pVP->_pMover->_veloVyMove *= 0.9;
+            pVP->_pMover->setVyMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //è„Ç…Ç…âÒÇÈéû
                 pVP->_pMover->setVyMoveAcceleration(dY_to/1000.0);
@@ -273,9 +273,9 @@ void World::processBehavior() {
             }
         }
 
-        pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
+        //pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
         //GameGlobal::_pMyShip->_ZÇ±ÇÍÇâΩÇ∆Ç©Ç∑ÇÍÇŒÇ¢Ç¢ÇÕÇ∏
-        //pCAM->setViewPoint(0, 0, 0);//
+        pCAM->setViewPoint(0, 0, 0);//
 
 
         pCAM->_pMover->behave();

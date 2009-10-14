@@ -62,20 +62,20 @@ void Stage01Scene::processBehavior() {
 
         float prev_inc_x =  _pBackGround01->_inc_x;
         float inc_x =  (angCamXZ-_angCamXZ_prev)/100.0;
-        if (GgafDx9Util::abs(inc_x) < GgafDx9Util::abs(prev_inc_x)) {
-            inc_x = prev_inc_x * 0.9;
-        } else {
-            inc_x = inc_x - _pBackGround01->_inc_x;
-        }
+        //if (GgafDx9Util::abs(inc_x) < GgafDx9Util::abs(prev_inc_x)) {
+        //    inc_x = prev_inc_x * 0.9;
+        //} else {
+        //    inc_x = inc_x - _pBackGround01->_inc_x;
+        //}
         _pBackGround01->_inc_x = inc_x;
 
         float prev_inc_y =  _pBackGround01->_inc_y;
         float inc_y =  (angCamXY-_angCamXY_prev)/100.0;
-        if (GgafDx9Util::abs(inc_y) < GgafDx9Util::abs(prev_inc_y)) {
-            inc_y = prev_inc_y * 0.9;
-        } else {
-            inc_y = inc_y - _pBackGround01->_inc_y;
-        }
+        //if (GgafDx9Util::abs(inc_y) < GgafDx9Util::abs(prev_inc_y)) {
+        //    inc_y = prev_inc_y * 0.9;
+        //} else {
+        //    inc_y = inc_y - _pBackGround01->_inc_y;
+        //}
         _pBackGround01->_inc_y = inc_y;
 
         if (pCAM->_pos_camera == 0) {
