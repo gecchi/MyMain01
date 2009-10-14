@@ -13,7 +13,6 @@ namespace GgafDx9Core {
  * processPreDraw メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
  * <BR>
  * _X,_Y,_Z             ・・・ カメラの位置 <BR>
- * _gazeX,_gazeY,_gazeZ ・・・ カメラが注視する座標 <BR>
  * <BR>
  * ＜使い方＞<BR>
  * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
@@ -79,12 +78,8 @@ public:
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
 
-
-    D3DXVECTOR3* _pVecCamFromPoint_prev;
-    D3DXVECTOR3* _pVecCamLookatPoint_prev;
-
-    /** 注視点（読み書き可) */
-    int _gazeX, _gazeY, _gazeZ;
+    /** 注視点 **/
+    GgafDx9CameraViewPoint* _pViewPoint;
 
     /**
      * コンストラクタ
@@ -125,22 +120,14 @@ public:
      * @param prm_tY 注視点Y座標
      * @param prm_tZ 注視点Z座標
      */
-    void setGaze(int prm_tX, int prm_tY, int prm_tZ) {
-        _gazeX = prm_tX;
-        _gazeY = prm_tY;
-        _gazeZ = prm_tZ;
-    }
+    void setViewPoint(int prm_tX, int prm_tY, int prm_tZ);
 
     /**
      * カメラの注視点を設定 .
-     * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetGazeされるだけです。
+     * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetViewPointされるだけです。
      * @param prm_pActor 注視するアクター
      */
-    void setGaze(GgafDx9GeometricActor* prm_pActor) {
-        _gazeX = prm_pActor->_X;
-        _gazeY = prm_pActor->_Y;
-        _gazeZ = prm_pActor->_Z;
-    }
+    void setViewPoint(GgafDx9GeometricActor* prm_pActor);
 
     virtual ~GgafDx9Camera(); //デストラクタ
 };

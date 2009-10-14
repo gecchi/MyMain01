@@ -129,6 +129,7 @@ class GgafDx9CubeEx;
 class GgafDx9SpriteActor;
 class GgafDx9SpriteSetActor;
 class GgafDx9Camera;
+class GgafDx9CameraViewPoint;
 class GgafDx9BoardActor;
 class GgafDx9BoardSetActor;
 
@@ -209,6 +210,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"
+#include "jp/ggaf/dx9core/actor/GgafDx9CameraViewPoint.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9BoardSetActor.h"
 

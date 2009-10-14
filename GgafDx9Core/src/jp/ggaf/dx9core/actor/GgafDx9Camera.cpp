@@ -32,9 +32,6 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
 
-    _pVecCamFromPoint_prev   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
-    _pVecCamLookatPoint_prev = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
-
     // VIEW変換行列作成
     D3DXMatrixLookAtLH(
        &_vMatrixView,         // pOut [in, out] 演算結果である D3DXMATRIX 構造体へのポインタ。
@@ -65,10 +62,6 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
      );
      */
 
-
-    _gazeX = _pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
-    _gazeY = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
-    _gazeZ = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
     _X = _pVecCamFromPoint->x * LEN_UNIT * PX_UNIT;
     _Y = _pVecCamFromPoint->y * LEN_UNIT * PX_UNIT;
     _Z = _pVecCamFromPoint->z * LEN_UNIT * PX_UNIT;
@@ -82,14 +75,18 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
 
 
     setBumpable(false);
+
+
+
+    _pViewPoint = NEW GgafDx9CameraViewPoint();
+    _pViewPoint->_X = _pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
+    _pViewPoint->_Y = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
+    _pViewPoint->_Z = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
 }
 
 void GgafDx9Camera::initialize() {
-
+    addSubLast(_pViewPoint);
 }
-
-
-
 
 void GgafDx9Camera::processBehavior() {
     //if (_lifeframe % 2 == 0) { //10フレームに１回だけ計算
@@ -194,26 +191,26 @@ void GgafDx9Camera::processBehavior() {
 
 
 void GgafDx9Camera::processJudgement() {
-    _pVecCamFromPoint_prev->x = _pVecCamFromPoint->x;
-    _pVecCamFromPoint_prev->y = _pVecCamFromPoint->y;
-    _pVecCamFromPoint_prev->z = _pVecCamFromPoint->z;
-    _pVecCamLookatPoint_prev->x = _pVecCamLookatPoint->x;
-    _pVecCamLookatPoint_prev->y = _pVecCamLookatPoint->y;
-    _pVecCamLookatPoint_prev->z = _pVecCamLookatPoint->z;
     _pVecCamFromPoint->x = _fX;
     _pVecCamFromPoint->y = _fY;
     _pVecCamFromPoint->z = _fZ;
-    _pVecCamLookatPoint->x = (1.0f * _gazeX) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->y = (1.0f * _gazeY) / LEN_UNIT / PX_UNIT;
-    _pVecCamLookatPoint->z = (1.0f * _gazeZ) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->x = (1.0f * _pViewPoint->_X ) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->y = (1.0f * _pViewPoint->_Y ) / LEN_UNIT / PX_UNIT;
+    _pVecCamLookatPoint->z = (1.0f * _pViewPoint->_Z ) / LEN_UNIT / PX_UNIT;
     D3DXMatrixLookAtLH(&_vMatrixView, _pVecCamFromPoint, _pVecCamLookatPoint, _pVecCamUp);
 }
 
+void GgafDx9Camera::setViewPoint(int prm_tX, int prm_tY, int prm_tZ) {
+    _pViewPoint->_X = prm_tX;
+    _pViewPoint->_Y = prm_tY;
+    _pViewPoint->_Z = prm_tZ;
+}
 
+void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
+    _pViewPoint->setGeometry(prm_pActor);
+}
 GgafDx9Camera::~GgafDx9Camera() {
     //いろいろ解放
-    DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint_prev);
-    DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint_prev);
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamUp);
