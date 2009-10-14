@@ -13,7 +13,6 @@ void GgafDx9CameraViewPoint::initialize() {
 }
 
 void GgafDx9CameraViewPoint::processBehavior() {
-    _pMover->behave();
 }
 
 
