@@ -172,7 +172,7 @@ void World::processBehavior() {
             dY_from = 0 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dY_to = 0;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 1) {
@@ -181,7 +181,7 @@ void World::processBehavior() {
             dY_from = Y_screen_top + 200000 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dY_to = 0;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 2) {
@@ -190,7 +190,7 @@ void World::processBehavior() {
             dY_from = Y_screen_top + 200000 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dY_to = 0;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 3) {
@@ -199,7 +199,7 @@ void World::processBehavior() {
             dY_from = 0 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dY_to = 0;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
         }
 
