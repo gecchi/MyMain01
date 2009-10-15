@@ -30,8 +30,115 @@ public:
 
     static void init();
 
+    template<typename T>
+    static angle getAngleFromXY(T prm_vx, T prm_vy) {
+        if (prm_vx == 0) {
+            if (prm_vy > 0) {
+                return ANGLE90;
+            } else if (prm_vy < 0) {
+                return ANGLE270;
+            } else {
+                //原点である、不定。
+                return 0;
+            }
+        }
+        if (prm_vy == 0) {
+            if (prm_vx > 0) {
+                return 0;
+            } else if (prm_vx < 0) {
+                return ANGLE180;
+            } else {
+                //原点である、不定。
+                return 0;
+            }
+        }
+        if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
+            if (prm_vx >= prm_vy) {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT_ANG_0["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE0+SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*100000)]));
+                return ANGLE0  + SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*100000)];
+            } else {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT_ANG_0["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE90-SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*100000)]));
+                return ANGLE90 - SLANT_ANG_0[(int)(1.0*prm_vx/prm_vy*100000)];
+            }
+        } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
+            if (-prm_vx <= prm_vy) {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90+SLANT_ANG_0["<<(int)(1.0*-prm_vx/prm_vy*100000)<<"]="<<(ANGLE90+SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*100000)]));
+                return ANGLE90 + SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*100000)];
+            } else {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180-SLANT_ANG_0["<<(int)(1.0*prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180-SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*100000)]));
+                return ANGLE180 - SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*100000)];
+            }
+        } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
+            if (-prm_vx >= -prm_vy) {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180+SLANT_ANG_0["<<(int)(1.0*-prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180+SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*100000)]));
+                return ANGLE180 + SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*100000)];
+            } else {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270-SLANT_ANG_0["<<(int)(1.0*-prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270-SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*100000)]));
+                return ANGLE270 - SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*100000)];
+            }
+        } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
+            if (prm_vx <= -prm_vy) {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270+SLANT_ANG_0["<<(int)(1.0*prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270+SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*100000)]));
+                return ANGLE270 + SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*100000)];
+            } else {
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE360-SLANT_ANG_0["<<(int)(1.0*-prm_vy/prm_vx*100000)<<"]="<<(ANGLE360-SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*100000)]));
+                return ANGLE360 - SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*100000)];
+            }
+        }
+        return 0;
+    }
 
-    static angle getAngleFromXY(int prm_vx, int prm_vy);
+    /**
+     * 近いほうのアングル値の差を取る
+     * @param angFrom
+     * @param angTo
+     * @return アングル値の差（正負あり)
+     */
+    static angle getDifferenceAngle(angle angFrom, angle angTo) {
+            if (0 <= angFrom && angFrom < ANGLE180) {
+                if (0 <= angTo && angTo < angFrom) {
+                    return -1 * (angFrom - angTo);
+                } else if (angTo == angFrom) {
+                    //重なってる場合
+                    return 0;
+                } else if (angFrom < angTo && angTo < angFrom + ANGLE180) {
+                    return angTo - angFrom;
+                } else if (angTo == angFrom + ANGLE180) {
+                    //正反対を向いている（＝距離は等しい）
+                    //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
+                    return ANGLE180;
+                } else if (angFrom + ANGLE180 < angTo && angTo <= ANGLE360) {
+                    return -1 * (angFrom + (ANGLE360 - angTo));
+                } else {
+                    //おかしい
+                    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                    throwGgafCriticalException("GgafDx9Util::getDifferenceAngle アングル値が範囲外です(1)。");
+                }
+            } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
+                if (0 <= angTo && angTo < angFrom - ANGLE180) {
+                    return ANGLE360 - angFrom + angTo;
+                } else if (angTo == angFrom - ANGLE180) {
+                    //正反対を向いている（＝距離は等しい）
+                    //仕方ないので正の値とする。(正確には -ANGLE180 or ANGLE180)
+                    return ANGLE180;
+                } else if (angFrom - ANGLE180 < angTo && angTo < angFrom) {
+                    return -1 * (angFrom - angTo);
+                } else if (angFrom == angTo) {
+                    //重なってる場合
+                    return 0;
+                } else if (angFrom < angTo && angTo <= ANGLE360) {
+                    return angTo - angFrom;
+                } else {
+                    //おかしい
+                    _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+                    throwGgafCriticalException("GgafDx9Util::getDifferenceAngle アングル値が範囲外です(2)。");
+                }
+            }
+
+        _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
+        throwGgafCriticalException("GgafDx9Util::getDifferenceAngle  何故かしら角の距離が求めれません。(1)");
+    }
+
 
     /**
      * XY座標系（Z軸無視）において、方向ベクトルの成す角をアングル値で取得 .

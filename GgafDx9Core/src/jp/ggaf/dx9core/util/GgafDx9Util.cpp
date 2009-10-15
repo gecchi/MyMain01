@@ -149,54 +149,6 @@ void GgafDx9Util::init() {
     }
 }
 
-angle GgafDx9Util::getAngleFromXY(int prm_vx, int prm_vy) {
-    if (prm_vx == 0) {
-        if (prm_vy > 0) {
-            return ANGLE90;
-        } else if (prm_vy < 0) {
-            return ANGLE270;
-        } else {
-            //原点である、不定。
-            return 0;
-        }
-    }
-    if (prm_vy == 0) {
-        if (prm_vx > 0) {
-            return 0;
-        } else if (prm_vx < 0) {
-            return ANGLE180;
-        } else {
-            //原点である、不定。
-            return 0;
-        }
-    }
-    if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
-		if (prm_vx >= prm_vy) {
-			return ANGLE0  + SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*100000)];
-		} else {
-			return ANGLE90 - SLANT_ANG_0[(int)(1.0*prm_vx/prm_vy*100000)];
-		}
-    } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
-		if (-prm_vx <= prm_vy) {
-			return ANGLE90 + SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*100000)];
-		} else {
-			return ANGLE180 - SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*100000)];
-		}
-    } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
-		if (-prm_vx >= -prm_vy) {
-			return ANGLE180 + SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*100000)];
-		} else {
-			return ANGLE270 - SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*100000)];
-		}
-    } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
-		if (prm_vx <= -prm_vy) {
-			return ANGLE270 + SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*100000)];
-		} else {
-			return ANGLE360 - SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*100000)];
-		}
-	}
-    return 0;
-}
 
 angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
     if (prm_vy == 0) {
