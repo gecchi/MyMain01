@@ -52,41 +52,27 @@ void Stage01Scene::processBehavior() {
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
-        angle angCamXZ = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
-                                                     -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
-                                                    );
-        angle angCamXY = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
-                                                     -(pCAM->_pVecCamLookatPoint->y - pCAM->_pVecCamFromPoint->y)
-                                                    );
-
-
-        float prev_inc_x =  _pBackGround01->_inc_x;
-        float inc_x =  (angCamXZ-_angCamXZ_prev)/100.0;
-        //if (GgafDx9Util::abs(inc_x) < GgafDx9Util::abs(prev_inc_x)) {
-        //    inc_x = prev_inc_x * 0.9;
-        //} else {
-        //    inc_x = inc_x - _pBackGround01->_inc_x;
-        //}
-        _pBackGround01->_inc_x = inc_x;
-
-        float prev_inc_y =  _pBackGround01->_inc_y;
-        float inc_y =  (angCamXY-_angCamXY_prev)/100.0;
-        //if (GgafDx9Util::abs(inc_y) < GgafDx9Util::abs(prev_inc_y)) {
-        //    inc_y = prev_inc_y * 0.9;
-        //} else {
-        //    inc_y = inc_y - _pBackGround01->_inc_y;
-        //}
-        _pBackGround01->_inc_y = inc_y;
-
-        if (pCAM->_pos_camera == 0) {
-            _pBackGround01->_x -= 0.02; //”wŒiƒXƒNƒ[ƒ‹
-        } else if (pCAM->_pos_camera == 3) {
-            _pBackGround01->_x += 0.02;
-        } else {
-            _pBackGround01->_y += 0.02;
-        }
+        angle angCamXZ = GgafDx9Util::getAngleFromXY(
+                             pCAM->_X - pCAM->_pViewPoint->_X,
+                             pCAM->_Z - pCAM->_pViewPoint->_Z
+                         );
+        angle angCamXY = GgafDx9Util::getAngleFromXY(
+                             pCAM->_X - pCAM->_pViewPoint->_X,
+                             pCAM->_Y - pCAM->_pViewPoint->_Y
+                         );
+        _pBackGround01->_inc_x = -1.0 * GgafDx9Util::getDifferenceAngle(_angCamXZ_prev, angCamXZ)/100.0;
+        _pBackGround01->_inc_y = -1.0 * GgafDx9Util::getDifferenceAngle(_angCamXY_prev, angCamXY)/100.0;
         _angCamXZ_prev = angCamXZ;
         _angCamXY_prev = angCamXY;
+
+        if (pCAM->_pos_camera == 0) {
+            _pBackGround01->_x -= 0.5; //”wŒiƒXƒNƒ[ƒ‹
+        } else if (pCAM->_pos_camera == 3) {
+            _pBackGround01->_x += 0.5;
+        } else {
+            _pBackGround01->_y += 0.5;
+        }
+
 
     }
 

@@ -172,7 +172,7 @@ void World::processBehavior() {
             dY_from = 0 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = 0;
+            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 1) {
@@ -181,8 +181,8 @@ void World::processBehavior() {
             dY_from = Y_screen_top + 200000 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pVP->_Z;
+            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 2) {
             dZ_from = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
@@ -190,8 +190,8 @@ void World::processBehavior() {
             dY_from = Y_screen_top + 200000 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pVP->_Z;
+            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
 
         } else if (pCAM->_pos_camera == 3) {
             dZ_from = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
@@ -199,46 +199,46 @@ void World::processBehavior() {
             dY_from = 0 - pCAM->_Y;
 
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pVP->_Z;
+            dY_to = pMYSHIP->_Y - pCAM->_pViewPoint->_Y;
+            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
         }
 
-        static int slow_reng_from = 30000;
+        static int slow_reng_from = 50000;
 
         if (-slow_reng_from < dZ_from && dZ_from < slow_reng_from) {
-            pCAM->_pMover->_veloVzMove *= 0.7;
+            pCAM->_pMover->_veloVzMove *= 0.9;
             pCAM->_pMover->setVzMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‰ñ‚éŽž
                 pCAM->_pMover->setVzMoveAcceleration(dZ_from/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVzMoveAcceleration(dZ_from/3.0);
+                pCAM->_pMover->setVzMoveAcceleration(dZ_from/100.0);
             }
         }
         if (-slow_reng_from < dX_from && dX_from < slow_reng_from) {
-            pCAM->_pMover->_veloVxMove *= 0.7;
+            pCAM->_pMover->_veloVxMove *= 0.9;
             pCAM->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pCAM->_pMover->setVxMoveAcceleration(dX_from/3.0);
+                pCAM->_pMover->setVxMoveAcceleration(dX_from/100.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
                 pCAM->_pMover->setVxMoveAcceleration(dX_from/1000.0);
             }
         }
 
         if (-slow_reng_from < dY_from && dY_from < slow_reng_from) {
-			pCAM->_pMover->_veloVyMove *= 0.7;
+            pCAM->_pMover->_veloVyMove *= 0.9;
             pCAM->_pMover->setVyMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-				pCAM->_pMover->setVyMoveAcceleration(dY_from/3.0);
+                pCAM->_pMover->setVyMoveAcceleration(dY_from/100.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
                 pCAM->_pMover->setVyMoveAcceleration(dY_from/1000.0);
             }
         }
 
 
-        static int slow_reng_to = 30000;
+        static int slow_reng_to = 50000;
 
         if (-slow_reng_to < dZ_to && dZ_to < slow_reng_to) {
             pVP->_pMover->_veloVzMove *= 0.9;
@@ -247,7 +247,7 @@ void World::processBehavior() {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‰ñ‚éŽž
                 pVP->_pMover->setVzMoveAcceleration(dZ_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pVP->_pMover->setVzMoveAcceleration(dZ_to/3.0);
+                pVP->_pMover->setVzMoveAcceleration(dZ_to/1000.0);
             }
         }
         if (-slow_reng_to < dX_to && dX_to < slow_reng_to) {
@@ -255,7 +255,7 @@ void World::processBehavior() {
             pVP->_pMover->setVxMoveAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pVP->_pMover->setVxMoveAcceleration(dX_to/3.0);
+                pVP->_pMover->setVxMoveAcceleration(dX_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
                 pVP->_pMover->setVxMoveAcceleration(dX_to/1000.0);
             }
@@ -269,13 +269,13 @@ void World::processBehavior() {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
                 pVP->_pMover->setVyMoveAcceleration(dY_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pVP->_pMover->setVyMoveAcceleration(dY_to/3.0);
+                pVP->_pMover->setVyMoveAcceleration(dY_to/1000.0);
             }
         }
 
         //pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
         //GameGlobal::_pMyShip->_Z‚±‚ê‚ð‰½‚Æ‚©‚·‚ê‚Î‚¢‚¢‚Í‚¸
-        pCAM->setViewPoint(0, 0, 0);//
+        //pCAM->setViewPoint(0, 0, 0);//
 
 
         pCAM->_pMover->behave();
