@@ -504,6 +504,11 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setVzMoveVelocityRenge(velo prm_veloVzMove01, velo prm_veloVzMove02);
     void setVzMoveAcceleration(acce prm_acceVzMove);
 
+
+    //void programSplineCurve(int* X, int* Y, int* Z, int prm_num, float accuracy)
+
+
+
     /**
      * 毎フレームのActorの振る舞い。<BR>
      * 本クラスを利用する場合は、このbehave() を毎フレーム実行します。<BR>

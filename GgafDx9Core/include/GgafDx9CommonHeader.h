@@ -115,6 +115,7 @@ class GgafDx9ModelConnection;
 class GgafDx9ModelManager;
 class GgafDx9EffectConnection;
 class GgafDx9EffectManager;
+class GgafDx9Spline3D;
 
 class GgafDx9BaseActor;
 class GgafDx9GeometricActor;
@@ -196,6 +197,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/manager/GgafDx9ModelManager.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9EffectConnection.h"
 #include "jp/ggaf/dx9core/manager/GgafDx9EffectManager.h"
+#include "jp/ggaf/dx9core/util/GgafDx9Spline3D.h"
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9GeometricActor.h"
