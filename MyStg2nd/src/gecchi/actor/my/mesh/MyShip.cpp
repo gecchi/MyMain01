@@ -92,12 +92,6 @@ void MyShip::initialize() {
 
 
 
-
-
-
-
-
-
     double xx[][3] = { {  1,   0,   0},
                        {  0,   1,   1},
                        {-10,   0,   0},
@@ -106,10 +100,10 @@ void MyShip::initialize() {
                        {1.1, 0.1, 0.1}
                      };
 
-    GgafDx9Spline3D* sp = NEW GgafDx9Spline3D(xx, 6);
-    sp->culc(0.2);
-    for (int t = 0; t < sp->_rnum; t ++) {
-        printf("%10f %10f %10f\n",sp->_rx[t], sp->_ry[t], sp->_rz[t]);
+    GgafDx9Spline3D sp(xx, 6);
+    sp.compute(0.1);
+    for (int t = 0; t < sp._rnum; t ++) {
+        _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
     }
 
 //ƒeƒXƒg

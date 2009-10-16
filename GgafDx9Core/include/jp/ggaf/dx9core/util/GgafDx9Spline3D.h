@@ -14,14 +14,14 @@ public:
 
     public:
         int num;
-        double a[100 + 1], b[100 + 1], c[100 + 1], d[100 + 1];
+        double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
 
         GgafDx9Spline() {
             num = 0;
         }
 
         void init(double *sp, int spnum) {
-            double tmp, w[100 + 1];
+            double tmp, w[MaxSplineSize + 1];
             int i;
             num = spnum - 1;
             // ‚RŸ‘½€®‚Ì0ŸŒW”(a)‚ğİ’è
@@ -55,7 +55,7 @@ public:
             }
         }
 
-        double culc(double t) {
+        double compute(double t) {
             int j;
             double dt;
             j = (int)floor(t); // ¬”“_ˆÈ‰ºØÌ‚Ä
@@ -69,21 +69,23 @@ public:
 
     GgafDx9Spline3D(double prm_paaBase[][3], int num);
 
-    void culc(double prm_accuracy);
+    void compute(double prm_accuracy);
 
-    double* _bx;
-    double* _by;
-    double* _bz;
-
-    double* _rx;
-    double* _ry;
-    double* _rz;
-    int _rnum;
+    double* _X_establish;
+    double* _Y_establish;
+    double* _Z_establish;
+    int _num_establish;
 
     GgafDx9Spline _xs;
     GgafDx9Spline _ys;
     GgafDx9Spline _zs;
-    int _num;
+
+    double* _X_compute;
+    double* _Y_compute;
+    double* _Z_compute;
+    int _rnum;
+
+
 
     virtual ~GgafDx9Spline3D();
 

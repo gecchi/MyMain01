@@ -505,7 +505,9 @@ public: //_X , _Y, _Z ëÄçÏä÷òA //////////////////////////////////////////////
     void setVzMoveAcceleration(acce prm_acceVzMove);
 
 
-    //void programSplineCurve(int* X, int* Y, int* Z, int prm_num, float accuracy)
+//    void programSplineCurve(double prm_paaBase[][3],) {
+//
+//    }
 
 
 
