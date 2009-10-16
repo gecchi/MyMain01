@@ -90,6 +90,28 @@ void MyShip::initialize() {
     _pMover->setMoveVelocity(0);
     //_pScaler->setScale(4000);
 
+
+
+
+
+
+
+
+
+    double xx[][3] = { {  1,   0,   0},
+                       {  0,   1,   1},
+                       {-10,   0,   0},
+                       {  0,  -1,   1},
+                       {  1,   0,   0},
+                       {1.1, 0.1, 0.1}
+                     };
+
+    GgafDx9Spline3D* sp = NEW GgafDx9Spline3D(xx, 6);
+    sp->culc(0.2);
+    for (int t = 0; t < sp->_rnum; t ++) {
+        printf("%10f %10f %10f\n",sp->_rx[t], sp->_ry[t], sp->_rz[t]);
+    }
+
 //ƒeƒXƒg
 //    int r, r_prev;
 //    int x = -500000;
