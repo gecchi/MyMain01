@@ -92,9 +92,9 @@ void drowSpline(double *x, double *y, double *z, int num) {
 }
 
 int main() {
-    double x[6] = {1, 0, -1, 0, 1,1.1};
+    double x[6] = {1, 0, -350, 0, 1,1.1};
     double y[6] = {0, 1, 0, -1, 0,0.1};
-    double z[6] = {0, 1, 0, 10, 0,0.1};
+    double z[6] = {0, 1, 0, 1, 0,0.1};
     drowSpline(x, y, z, 6);
 
 }
