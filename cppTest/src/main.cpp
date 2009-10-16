@@ -9,7 +9,7 @@
 //set grid xtics ytics ztics
 //splot "xyz.txt" using 1:2:3 with point ps 1 pt 4, "xyz.txt" using 1:2:3 with line
 
-
+h
 class Spline {
     int num;
     double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
