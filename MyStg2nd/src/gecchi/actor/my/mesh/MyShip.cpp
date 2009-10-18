@@ -384,7 +384,7 @@ void MyShip::processJudgement() {
 
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
-        //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる。
+        //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->setSource(this);
