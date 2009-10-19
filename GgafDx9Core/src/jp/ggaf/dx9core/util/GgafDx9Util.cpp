@@ -150,66 +150,66 @@ void GgafDx9Util::init() {
 }
 
 
-angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
-    if (prm_vy == 0) {
-        if (prm_vx > 0) {
-            return 0;
-        } else if (prm_vx < 0) {
-            return ANGLE180;
-        } else {
-            //(0,0)のベクトル方向は無い
-            //しかたないので 0
-            return 0;
-        }
-    } else if (prm_vx == 0) {
-        if (prm_vy > 0) {
-            return ANGLE90;
-        } else if (prm_vy < 0) {
-            return ANGLE270;
-        } else {
-            //(0,0)のベクトル方向は無い
-            //しかたないので 0
-            return 0;
-        }
-    } else {
-
-        //バイナリーサーチで直近を探す
-        static s_ang left, right, middle;
-        if (prm_vx > 0 && prm_vy > 0) { //第1象限
-            left = 1;
-            right = S_ANG90 - 1;
-        } else if (prm_vx < 0 && prm_vy > 0) { //第2象限
-            left = S_ANG90 + 1;
-            right = S_ANG180 - 1;
-        } else if (prm_vx < 0 && prm_vy < 0) { //第3象限
-            left = S_ANG180 + 1;
-            right = S_ANG270 - 1;
-        } else if (prm_vx > 0 && prm_vy < 0) { //第4象限
-            left = S_ANG270 + 1;
-            right = S_ANG360 - 1;
-        } else {
-            //ぴったり重なっている場合
-            return 0; //仕方ないので0
-        }
-        s_ang middle_prev = -1;
-        int lTerget = (int)(LEN_UNIT * ((1.0f * prm_vy) / (1.0f * prm_vx)));
-        while (true) {
-            middle = (left + right) / 2;
-            if (TAN_UNITLEN[middle] < lTerget) {
-
-                left = middle;
-            } else {
-                right = middle;
-            }
-            if (middle_prev == middle) {
-                break;
-            } else {
-                middle_prev = middle;
-            }
-        }
-        return left * ANGLE_RATE;
-    }
-}
+//angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
+//    if (prm_vy == 0) {
+//        if (prm_vx > 0) {
+//            return 0;
+//        } else if (prm_vx < 0) {
+//            return ANGLE180;
+//        } else {
+//            //(0,0)のベクトル方向は無い
+//            //しかたないので 0
+//            return 0;
+//        }
+//    } else if (prm_vx == 0) {
+//        if (prm_vy > 0) {
+//            return ANGLE90;
+//        } else if (prm_vy < 0) {
+//            return ANGLE270;
+//        } else {
+//            //(0,0)のベクトル方向は無い
+//            //しかたないので 0
+//            return 0;
+//        }
+//    } else {
+//
+//        //バイナリーサーチで直近を探す
+//        static s_ang left, right, middle;
+//        if (prm_vx > 0 && prm_vy > 0) { //第1象限
+//            left = 1;
+//            right = S_ANG90 - 1;
+//        } else if (prm_vx < 0 && prm_vy > 0) { //第2象限
+//            left = S_ANG90 + 1;
+//            right = S_ANG180 - 1;
+//        } else if (prm_vx < 0 && prm_vy < 0) { //第3象限
+//            left = S_ANG180 + 1;
+//            right = S_ANG270 - 1;
+//        } else if (prm_vx > 0 && prm_vy < 0) { //第4象限
+//            left = S_ANG270 + 1;
+//            right = S_ANG360 - 1;
+//        } else {
+//            //ぴったり重なっている場合
+//            return 0; //仕方ないので0
+//        }
+//        s_ang middle_prev = -1;
+//        int lTerget = (int)(LEN_UNIT * ((1.0f * prm_vy) / (1.0f * prm_vx)));
+//        while (true) {
+//            middle = (left + right) / 2;
+//            if (TAN_UNITLEN[middle] < lTerget) {
+//
+//                left = middle;
+//            } else {
+//                right = middle;
+//            }
+//            if (middle_prev == middle) {
+//                break;
+//            } else {
+//                middle_prev = middle;
+//            }
+//        }
+//        return left * ANGLE_RATE;
+//    }
+//}
 
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,

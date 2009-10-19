@@ -31,7 +31,7 @@ public:
     static void init();
 
     template<typename T>
-    static angle getAngleFromXY(T prm_vx, T prm_vy) {
+    static angle getAngle2D(T prm_vx, T prm_vy) {
         if (prm_vx == 0) {
             if (prm_vy > 0) {
                 return ANGLE90;
@@ -148,7 +148,7 @@ public:
      * @param prm_vy	Y座標
      * @return 成す角
      */
-    static angle getAngle2D(int prm_vx, int prm_vy);
+    //static angle getAngle2D(int prm_vx, int prm_vy);
 
     /**
      * XY座標系（Z軸無視）において、'N'way弾(N=整数)のアングル値を取得 .
