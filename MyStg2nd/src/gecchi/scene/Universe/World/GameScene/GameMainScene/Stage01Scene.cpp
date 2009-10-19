@@ -25,7 +25,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 }
 
 void Stage01Scene::initialize() {
-    _angCamXZ_prev = GgafDx9Util::getAngleFromXY(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
+    _angCamXZ_prev = GgafDx9Util::getAngle2D(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
     setProgress(STAGE01_PROG_INIT);
@@ -52,11 +52,11 @@ void Stage01Scene::processBehavior() {
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {
-        angle angCamXZ = GgafDx9Util::getAngleFromXY(
+        angle angCamXZ = GgafDx9Util::getAngle2D(
                              pCAM->_X - pCAM->_pViewPoint->_X,
                              pCAM->_Z - pCAM->_pViewPoint->_Z
                          );
-        angle angCamXY = GgafDx9Util::getAngleFromXY(
+        angle angCamXY = GgafDx9Util::getAngle2D(
                              pCAM->_X - pCAM->_pViewPoint->_X,
                              pCAM->_Y - pCAM->_pViewPoint->_Y
                          );
