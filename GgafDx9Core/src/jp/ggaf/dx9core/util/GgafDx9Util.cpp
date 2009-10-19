@@ -13,7 +13,7 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-int GgafDx9Util::SLANT_ANG_0[100000 + 1];
+int GgafDx9Util::SLANT_ANG_0[10000 + 1];
 
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
@@ -113,8 +113,8 @@ void GgafDx9Util::init() {
         //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
         //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
 
-        for (int ang = 0; ang <= 45000; ang++) {
-            rad = (PI * 2.0f * ang) / 360000;
+        for (int ang = 0; ang <= 4500; ang++) {
+            rad = (PI * 2.0f * ang) / 36000;
             vx = cos(rad);
             vy = sin(rad);
             if (vx == 0) {
@@ -122,24 +122,24 @@ void GgafDx9Util::init() {
             } else {
                 slant = vy / vx;
             }
-            index_slant = slant * 100000;
+            index_slant = slant * 10000;
             d_index_slant = index_slant - index_slant_prev;
             for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-                if (i > 100000) {
+                if (i > 10000) {
                     _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(ang*10));
                 }
                 //等分する（ここがアバウトのもと）
-                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant)));
+                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 10.0;
             }
             index_slant_prev = index_slant;
 //			_TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
         }
-        d_index_slant = 100000 - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
-            if (i > 100000) {
+        d_index_slant = 10000 - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= 10000; i++, d++) {
+            if (i > 10000) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(45000));
             }
-            SLANT_ANG_0[i] = ((45000-1) + ((1.0*d)/(1.0*d_index_slant)));
+            SLANT_ANG_0[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant)));
         }
 
 //        for (int s = 0; s <= 10000; s++) {
