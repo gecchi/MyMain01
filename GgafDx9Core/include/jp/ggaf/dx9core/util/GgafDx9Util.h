@@ -21,7 +21,9 @@ public:
     static float SIN[];
     static float RAD[];
 
-    static int SLANT_ANG_0[];
+    static int SLANT2ANG[];
+    static int PROJ_ANG2ROT_ANG_Z[S_ANG90+1][S_ANG90+1];
+    static int PROJ_ANG2ROT_ANG_Y[S_ANG90+1][S_ANG90+1];
 
 
     static GgafDx9SphereRadiusVectors _srv;
@@ -54,35 +56,35 @@ public:
         }
         if (prm_vx >= 0 && prm_vy >= 0) { //第1象限
             if (prm_vx >= prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT_ANG_0["<<(int)(1.0*prm_vy/prm_vx*10000)<<"]="<<(ANGLE0+SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*10000)]));
-                return ANGLE0  + SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*10000)<<"]="<<(ANGLE0+SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
+                return ANGLE0  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT_ANG_0["<<(int)(1.0*prm_vy/prm_vx*10000)<<"]="<<(ANGLE90-SLANT_ANG_0[(int)(1.0*prm_vy/prm_vx*10000)]));
-                return ANGLE90 - SLANT_ANG_0[(int)(1.0*prm_vx/prm_vy*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*10000)<<"]="<<(ANGLE90-SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
+                return ANGLE90 - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*10000)];
             }
         } else if (prm_vx <= 0 && prm_vy >= 0) { //第2象限
             if (-prm_vx <= prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90+SLANT_ANG_0["<<(int)(1.0*-prm_vx/prm_vy*10000)<<"]="<<(ANGLE90+SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*10000)]));
-                return ANGLE90 + SLANT_ANG_0[(int)(1.0*-prm_vx/prm_vy*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90+SLANT2ANG["<<(int)(1.0*-prm_vx/prm_vy*10000)<<"]="<<(ANGLE90+SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*10000)]));
+                return ANGLE90 + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*10000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180-SLANT_ANG_0["<<(int)(1.0*prm_vy/-prm_vx*10000)<<"]="<<(ANGLE180-SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*10000)]));
-                return ANGLE180 - SLANT_ANG_0[(int)(1.0*prm_vy/-prm_vx*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180-SLANT2ANG["<<(int)(1.0*prm_vy/-prm_vx*10000)<<"]="<<(ANGLE180-SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*10000)]));
+                return ANGLE180 - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*10000)];
             }
         } else if (prm_vx <= 0 && prm_vy <= 0) { //第3象限
             if (-prm_vx >= -prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180+SLANT_ANG_0["<<(int)(1.0*-prm_vy/-prm_vx*10000)<<"]="<<(ANGLE180+SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*10000)]));
-                return ANGLE180 + SLANT_ANG_0[(int)(1.0*-prm_vy/-prm_vx*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180+SLANT2ANG["<<(int)(1.0*-prm_vy/-prm_vx*10000)<<"]="<<(ANGLE180+SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*10000)]));
+                return ANGLE180 + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*10000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270-SLANT_ANG_0["<<(int)(1.0*-prm_vx/-prm_vy*10000)<<"]="<<(ANGLE270-SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*10000)]));
-                return ANGLE270 - SLANT_ANG_0[(int)(1.0*-prm_vx/-prm_vy*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270-SLANT2ANG["<<(int)(1.0*-prm_vx/-prm_vy*10000)<<"]="<<(ANGLE270-SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*10000)]));
+                return ANGLE270 - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*10000)];
             }
         } else if (prm_vx >= 0 && prm_vy <= 0) { //第4象限
             if (prm_vx <= -prm_vy) {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270+SLANT_ANG_0["<<(int)(1.0*prm_vx/-prm_vy*10000)<<"]="<<(ANGLE270+SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*10000)]));
-                return ANGLE270 + SLANT_ANG_0[(int)(1.0*prm_vx/-prm_vy*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270+SLANT2ANG["<<(int)(1.0*prm_vx/-prm_vy*10000)<<"]="<<(ANGLE270+SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*10000)]));
+                return ANGLE270 + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*10000)];
             } else {
-                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE360-SLANT_ANG_0["<<(int)(1.0*-prm_vy/prm_vx*10000)<<"]="<<(ANGLE360-SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*10000)]));
-                return ANGLE360 - SLANT_ANG_0[(int)(1.0*-prm_vy/prm_vx*10000)];
+                //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE360-SLANT2ANG["<<(int)(1.0*-prm_vy/prm_vx*10000)<<"]="<<(ANGLE360-SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*10000)]));
+                return ANGLE360 - SLANT2ANG[(int)(1.0*-prm_vy/prm_vx*10000)];
             }
         }
         return 0;
@@ -246,7 +248,7 @@ public:
      * @param out_angRotZ [out]Z軸回転アングル値
      * @param out_angRotY [out]Y軸回転アングル値
      */
-    static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY);
+    static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s = 25);
 
     /**
      * 原点からパラメータの正規化された方向ベクトル(単位ベクトル)の、Z軸回転アングル値とY軸回転アングル値を取得 .
@@ -257,7 +259,7 @@ public:
      * @param out_angRotZ [out]Z軸回転アングル値
      * @param out_angRotY [out]Y軸回転アングル値
      */
-    static void getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY);
+    static void getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY, int s = 25);
 
 
     /**

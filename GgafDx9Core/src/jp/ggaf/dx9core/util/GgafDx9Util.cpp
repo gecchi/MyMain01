@@ -13,203 +13,180 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-int GgafDx9Util::SLANT_ANG_0[10000 + 1];
-
+int GgafDx9Util::SLANT2ANG[10000 + 1];
+int GgafDx9Util::PROJ_ANG2ROT_ANG_Z[S_ANG90+1][S_ANG90+1];
+int GgafDx9Util::PROJ_ANG2ROT_ANG_Y[S_ANG90+1][S_ANG90+1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
 void GgafDx9Util::init() {
     if (_was_inited_flg) {
         return;
-    } else {
-        for (s_ang ang = 0; ang < S_ANG360; ang++) {
-            double rad = (PI * 2.0f * ang) / S_ANG360;
-            COS_UNITLEN[ang] = (int)(cos(rad) * LEN_UNIT);
-            SIN_UNITLEN[ang] = (int)(sin(rad) * LEN_UNIT);
-            TAN_UNITLEN[ang] = (int)(tan(rad) * LEN_UNIT);
-            RAD_UNITLEN[ang] = (int)(rad * LEN_UNIT);
-
-            COS[ang] = (float)(cos(rad));
-            SIN[ang] = (float)(sin(rad));
-            RAD[ang] = (float)rad;
-            PARABORA[ang] = (float)((double)((ang-(S_ANG360/2))*(ang-(S_ANG360/2))) /  (double)(-1.0*(S_ANG360/2)*(S_ANG360/2)) + 1.0);
-            //PARABORA[0] = 0 , PARABORA[S_ANG180] = 1,  PARABORA[S_ANG360-1] = 0 で y = -x^2  放物線の値をとる
-        }
-
-        COS_UNITLEN[0] = 1 * LEN_UNIT;
-        COS_UNITLEN[S_ANG90] = 0;
-        COS_UNITLEN[S_ANG180] = -1 * LEN_UNIT;
-        COS_UNITLEN[S_ANG270] = 0;
-
-        SIN_UNITLEN[0] = 0;
-        SIN_UNITLEN[S_ANG90] = 1 * LEN_UNIT;
-        SIN_UNITLEN[S_ANG180] = 0;
-        SIN_UNITLEN[S_ANG270] = -1 * LEN_UNIT;
-
-        TAN_UNITLEN[0] = 0;
-        TAN_UNITLEN[S_ANG90] = LONG_MAX;
-        TAN_UNITLEN[S_ANG180] = 0;
-        TAN_UNITLEN[S_ANG270] = -1 * LONG_MAX;
-        //TAN_UNITLEN[ANGLE360] = 0;
-
-        COS[0] = 1;
-        COS[S_ANG90] = 0;
-        COS[S_ANG180] = -1;
-        COS[S_ANG270] = 0;
-
-        SIN[0] = 0;
-        SIN[S_ANG90] = 1;
-        SIN[S_ANG180] = 0;
-        SIN[S_ANG270] = -1;
-
-        //RAD_SLANT
-        double rad;
-        double vx;
-        double vy;
-        float slant;
-        int index_slant;
-        int index_slant_prev = -1;
-        int d_index_slant = 0;
-//        for (int ang = 0; ang <= 36000; ang++) {
-//            rad = (PI * 2.0f * ang) / 36000;
-//            vx = cos(rad);
-//            vy = sin(rad);
-//            if (vx == 0) {
-//                slant = 0;
-//            } else {
-//                slant = vy / vx;
-//            }
-//          _TRACE_("ang="<<ang<<"\tslant="<<slant<<"\tvx,vy="<<vx<<","<<vy);
-//        }
-
-
-
-
-        //傾き 0.0 ～ 1.0 の 角度を求め配列に収める。収める角度は100倍の整数。
-        //要素番号は、傾き*10000
-
-        //ang=0  slant=0 vx,vy=1,0
-        //ang=1  slant=0.000174533   vx,vy=1,0.000174533
-        //ang=2  slant=0.000349066   vx,vy=1,0.000349066
-        //ang=3  slant=0.000523599   vx,vy=1,0.000523599
-        //ang=4  slant=0.000698132   vx,vy=1,0.000698132
-        //ang=5  slant=0.000872665   vx,vy=1,0.000872665
-
-        // SLANT_ANG_0[0]      = 0
-        // SLANT_ANG_0[1(.7)]～ = 1000～
-        // SLANT_ANG_0[3(.4)]～ = 2000～
-        // SLANT_ANG_0[5(.2)]  = 3000～
-        // SLANT_ANG_0[6(.9)]  = 4000～
-        // SLANT_ANG_0[8(.7)]  = 5000～ といった具合になるように調整
-
-        //ang=4493   slant=0.99756   vx,vy=0.70797,0.706242
-        //ang=4494   slant=0.997908  vx,vy=0.707847,0.706366
-        //ang=4495   slant=0.998256  vx,vy=0.707724,0.706489
-        //ang=4496   slant=0.998605  vx,vy=0.7076,0.706613
-        //ang=4497   slant=0.998953  vx,vy=0.707477,0.706736
-        //ang=4498   slant=0.999302  vx,vy=0.707354,0.70686
-        //ang=4499   slant=0.999651  vx,vy=0.70723,0.706983
-        //ang=4500   slant=1 vx,vy=0.707107,0.707107         <--このあたりまで求める
-        //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
-        //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
-
-        for (int ang = 0; ang <= 4500; ang++) {
-            rad = (PI * 2.0f * ang) / 36000;
-            vx = cos(rad);
-            vy = sin(rad);
-            if (vx == 0) {
-                slant = 0;
-            } else {
-                slant = vy / vx;
-            }
-            index_slant = slant * 10000;
-            d_index_slant = index_slant - index_slant_prev;
-            for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-                if (i > 10000) {
-                    _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(ang*10));
-                }
-                //等分する（ここがアバウトのもと）
-                SLANT_ANG_0[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 10.0;
-            }
-            index_slant_prev = index_slant;
-//			_TRACE_("ang="<<ang<<" slant="<<slant<<" index_slant="<<index_slant<<" vx,vy="<<vx<<","<<vy);
-        }
-        d_index_slant = 10000 - index_slant_prev;
-        for (int i = index_slant_prev+1, d = 1; i <= 10000; i++, d++) {
-            if (i > 10000) {
-                _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT_ANG_0["<<i<<"]<="<<(45000));
-            }
-            SLANT_ANG_0[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant)));
-        }
-
-//        for (int s = 0; s <= 10000; s++) {
-//            _TRACE_("SLANT_ANG_0["<<s<<"]="<<SLANT_ANG_0[s]<<" 傾き"<<(s/10000.0)<<"=角度"<<(SLANT_ANG_0[s]/1000.0));
-//        }
-
     }
+
+    for (s_ang ang = 0; ang < S_ANG360; ang++) {
+        double rad = (PI * 2.0f * ang) / S_ANG360;
+        COS_UNITLEN[ang] = (int)(cos(rad) * LEN_UNIT);
+        SIN_UNITLEN[ang] = (int)(sin(rad) * LEN_UNIT);
+        TAN_UNITLEN[ang] = (int)(tan(rad) * LEN_UNIT);
+        RAD_UNITLEN[ang] = (int)(rad * LEN_UNIT);
+
+        COS[ang] = (float)(cos(rad));
+        SIN[ang] = (float)(sin(rad));
+        RAD[ang] = (float)rad;
+        PARABORA[ang] = (float)((double)((ang-(S_ANG360/2))*(ang-(S_ANG360/2))) /  (double)(-1.0*(S_ANG360/2)*(S_ANG360/2)) + 1.0);
+        //PARABORA[0] = 0 , PARABORA[S_ANG180] = 1,  PARABORA[S_ANG360-1] = 0 で y = -x^2  放物線の値をとる
+    }
+
+    COS_UNITLEN[0] = 1 * LEN_UNIT;
+    COS_UNITLEN[S_ANG90] = 0;
+    COS_UNITLEN[S_ANG180] = -1 * LEN_UNIT;
+    COS_UNITLEN[S_ANG270] = 0;
+
+    SIN_UNITLEN[0] = 0;
+    SIN_UNITLEN[S_ANG90] = 1 * LEN_UNIT;
+    SIN_UNITLEN[S_ANG180] = 0;
+    SIN_UNITLEN[S_ANG270] = -1 * LEN_UNIT;
+
+    TAN_UNITLEN[0] = 0;
+    TAN_UNITLEN[S_ANG90] = LONG_MAX;
+    TAN_UNITLEN[S_ANG180] = 0;
+    TAN_UNITLEN[S_ANG270] = -1 * LONG_MAX;
+    //TAN_UNITLEN[ANGLE360] = 0;
+
+    COS[0] = 1;
+    COS[S_ANG90] = 0;
+    COS[S_ANG180] = -1;
+    COS[S_ANG270] = 0;
+
+    SIN[0] = 0;
+    SIN[S_ANG90] = 1;
+    SIN[S_ANG180] = 0;
+    SIN[S_ANG270] = -1;
+
+    //<SLANT2ANG>
+    double rad;
+    double vx,vy,vz;
+    float slant;
+    int index_slant;
+    int index_slant_prev = -1;
+    int d_index_slant = 0;
+    //傾き 0.0 ～ 1.0 の 角度を求め配列に収める。収める角度は100倍の整数。
+    //要素番号は、傾き*10000
+
+    //ang=0  slant=0 vx,vy=1,0
+    //ang=1  slant=0.000174533   vx,vy=1,0.000174533
+    //ang=2  slant=0.000349066   vx,vy=1,0.000349066
+    //ang=3  slant=0.000523599   vx,vy=1,0.000523599
+    //ang=4  slant=0.000698132   vx,vy=1,0.000698132
+    //ang=5  slant=0.000872665   vx,vy=1,0.000872665
+
+    // SLANT2ANG[0]      = 0
+    // SLANT2ANG[1(.7)]～ = 1000～
+    // SLANT2ANG[3(.4)]～ = 2000～
+    // SLANT2ANG[5(.2)]  = 3000～
+    // SLANT2ANG[6(.9)]  = 4000～
+    // SLANT2ANG[8(.7)]  = 5000～ といった具合になるように調整
+
+    //ang=4493   slant=0.99756   vx,vy=0.70797,0.706242
+    //ang=4494   slant=0.997908  vx,vy=0.707847,0.706366
+    //ang=4495   slant=0.998256  vx,vy=0.707724,0.706489
+    //ang=4496   slant=0.998605  vx,vy=0.7076,0.706613
+    //ang=4497   slant=0.998953  vx,vy=0.707477,0.706736
+    //ang=4498   slant=0.999302  vx,vy=0.707354,0.70686
+    //ang=4499   slant=0.999651  vx,vy=0.70723,0.706983
+    //ang=4500   slant=1 vx,vy=0.707107,0.707107         <--このあたりまで求める
+    //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
+    //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
+    for (int ang = 0; ang <= 4500; ang++) {
+        rad = (PI * 2.0f * ang) / 36000;
+        vx = cos(rad);
+        vy = sin(rad);
+        if (vx == 0) {
+            slant = 0;
+        } else {
+            slant = vy / vx;
+        }
+        index_slant = slant * 10000;
+        d_index_slant = index_slant - index_slant_prev;
+        for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
+            if (i > 10000) {
+                _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
+            }
+            //等分する（ここがアバウトのもと）
+            SLANT2ANG[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 10.0;
+        }
+        index_slant_prev = index_slant;
+    }
+    d_index_slant = 10000 - index_slant_prev;
+    for (int i = index_slant_prev+1, d = 1; i <= 10000; i++, d++) {
+        if (i > 10000) {
+            _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(45000));
+        }
+        SLANT2ANG[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant)));
+    }
+
+    //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
+    //ある方向ベクトルから、XY平面、ZY平面に投影した時にできる軸との角（それぞれXY射影角、ZY射影角と呼ぶこととする）と、
+    //その方向ベクトルの単位ベクトルが指す単位球の緯度と経度（Z軸回転角、Y軸回転角）を紐つけることを目的とする。
+    //つまり、XY射影角、ZY射影角 → Z軸回転角、Y軸回転角 の読み替えを高速に行いたい
+    //XY射影角90度分 * ZY射影角90度分 を配列要素、値をZ軸回転角、Y軸回転角を値とする配列を構築。
+
+
+
+
+    double nvx,nvy,nvz;
+
+    double prj_rad_xy,prj_rad_zx;
+    s_ang rZ, rY;
+
+    for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90; prj_ang_xy++) {
+        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*S_ANG360);
+        for (s_ang prj_ang_zx = 0; prj_ang_zx <= S_ANG90; prj_ang_zx++) {
+            prj_rad_zx = (PI * 2.0 * prj_ang_zx) / (1.0*S_ANG360);
+            //方向ベクトルを作成
+            //vxだけをエイヤと決める
+            vx = 1.0;
+            vy = tan(prj_rad_xy);
+            //tan(θ) = z/x、  XZ平面射影角が prj_ang_zx で x=vx のとき
+            vz = tan(prj_rad_zx)* -1.0; //ワールド変換の軸回転は軸の正の方向を向いて反時計回り、よってZX平面≒Y軸回転の正の方向に方向ベクトルを回すとは
+                                         //ZX平面ではZのは負になる
+                                         //よって-1.0を乗ず
+
+            //vx,vy,vz を正規化する。
+            //求める単位ベクトルを (X,Y,Z) とすると (X,Y,Z) = t(vx,vy,vz)
+            //関係式   X=t*vx; Y=t*vy; Z=t*vz; ･･･ (1) を得る
+            //単位球は X^2 + Y^2 + Z^2 = 1 ･･･(2)
+            //(1)(2)を連立させて、t について解く。
+            //t = 1 / sqrt(vx^2 + vy^2 + vz^2)
+            double t = 1 / sqrt(vx * vx + vy * vy + vz * vz);
+            //求めた t を (1) に代入し (X,Y,Z) を求める。
+            nvx = t * vx;
+            nvy = t * vy;
+            nvz = t * vz;
+            getRotAngleZY((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+//
+//            //単位ベクトルからRxRyを求める
+//            _srv.getRotAngleClosely(
+//                    (unsigned __int16) abs(nvx*10000),
+//                    (unsigned __int16) abs(nvy*10000),
+//                    (unsigned __int16) abs(nvz*10000),
+//                    rZ,
+//                    rY,
+//                    50
+//            );
+            PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx] = rZ*100;
+            PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx] = rY*100;
+
+
+            _TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_zx<<"]=("<<PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx]<<","<<PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx]<<")");
+
+        }
+    }
+
 }
 
 
-//angle GgafDx9Util::getAngle2D(int prm_vx, int prm_vy) {
-//    if (prm_vy == 0) {
-//        if (prm_vx > 0) {
-//            return 0;
-//        } else if (prm_vx < 0) {
-//            return ANGLE180;
-//        } else {
-//            //(0,0)のベクトル方向は無い
-//            //しかたないので 0
-//            return 0;
-//        }
-//    } else if (prm_vx == 0) {
-//        if (prm_vy > 0) {
-//            return ANGLE90;
-//        } else if (prm_vy < 0) {
-//            return ANGLE270;
-//        } else {
-//            //(0,0)のベクトル方向は無い
-//            //しかたないので 0
-//            return 0;
-//        }
-//    } else {
-//
-//        //バイナリーサーチで直近を探す
-//        static s_ang left, right, middle;
-//        if (prm_vx > 0 && prm_vy > 0) { //第1象限
-//            left = 1;
-//            right = S_ANG90 - 1;
-//        } else if (prm_vx < 0 && prm_vy > 0) { //第2象限
-//            left = S_ANG90 + 1;
-//            right = S_ANG180 - 1;
-//        } else if (prm_vx < 0 && prm_vy < 0) { //第3象限
-//            left = S_ANG180 + 1;
-//            right = S_ANG270 - 1;
-//        } else if (prm_vx > 0 && prm_vy < 0) { //第4象限
-//            left = S_ANG270 + 1;
-//            right = S_ANG360 - 1;
-//        } else {
-//            //ぴったり重なっている場合
-//            return 0; //仕方ないので0
-//        }
-//        s_ang middle_prev = -1;
-//        int lTerget = (int)(LEN_UNIT * ((1.0f * prm_vy) / (1.0f * prm_vx)));
-//        while (true) {
-//            middle = (left + right) / 2;
-//            if (TAN_UNITLEN[middle] < lTerget) {
-//
-//                left = middle;
-//            } else {
-//                right = middle;
-//            }
-//            if (middle_prev == middle) {
-//                break;
-//            } else {
-//                middle_prev = middle;
-//            }
-//        }
-//        return left * ANGLE_RATE;
-//    }
-//}
 
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,
@@ -378,7 +355,7 @@ void GgafDx9Util::getRotAngleZY(int x,
     //_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
 }
 
-void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY) {
+void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s) {
     static float vx, vy, vz, t;
     vx = ((float)x) / LEN_UNIT;
     vy = ((float)y) / LEN_UNIT;
@@ -391,7 +368,8 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
             (unsigned __int16) abs(t*vy*10000),
             (unsigned __int16) abs(t*vz*10000),
             rZ,
-            rY
+            rY,
+            s
     );
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
         out_angRotZ = rZ * ANGLE_RATE;
@@ -422,14 +400,15 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
     }
 }
 
-void GgafDx9Util::getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY) {
+void GgafDx9Util::getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY, int s) {
     static s_ang rZ, rY;
     _srv.getRotAngleClosely(
             (unsigned __int16) abs(vx*10000),
             (unsigned __int16) abs(vy*10000),
             (unsigned __int16) abs(vz*10000),
             rZ,
-            rY
+            rY,
+            s
     );
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
         out_angRotZ = rZ * ANGLE_RATE;
