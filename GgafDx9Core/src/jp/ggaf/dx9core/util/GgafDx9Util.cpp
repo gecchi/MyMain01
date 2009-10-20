@@ -164,22 +164,22 @@ void GgafDx9Util::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            getRotAngleZY((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //getRotAngleZY((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
 //
 //            //単位ベクトルからRxRyを求める
-//            _srv.getRotAngleClosely(
-//                    (unsigned __int16) abs(nvx*10000),
-//                    (unsigned __int16) abs(nvy*10000),
-//                    (unsigned __int16) abs(nvz*10000),
-//                    rZ,
-//                    rY,
-//                    50
-//            );
-            PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx] = rZ*100;
-            PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx] = rY*100;
+            _srv.getRotAngleClosely(
+                    (unsigned __int16) (vx*10000),
+                    (unsigned __int16) (vy*10000),
+                    (unsigned __int16) (vz*10000),
+                    rZ,
+                    rY,
+                    30
+            );
+            PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx] = rZ;
+            PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx] = rY;
 
 
-            _TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_zx<<"]=("<<PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx]<<","<<PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx]<<")");
+//            _TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_zx<<"]=("<<PROJ_ANG2ROT_ANG_Z[prj_ang_xy][prj_ang_zx]<<","<<PROJ_ANG2ROT_ANG_Y[prj_ang_xy][prj_ang_zx]<<")");
 
         }
     }

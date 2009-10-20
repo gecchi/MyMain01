@@ -107,7 +107,7 @@ void MyShip::initialize() {
     }
 
     int rZ,rY;
-    GgafDx9Util::getRotAngleZY(1.0f,1.0f,-1.0f,rZ,rY,30);
+    GgafDx9Util::getRotAngleZY(2000,2000,-2000,rZ,rY,30);
         _TRACE_("テストrZ,rY="<<rZ<<","<<rY);
 
 //テスト
