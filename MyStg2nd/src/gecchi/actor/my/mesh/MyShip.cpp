@@ -106,6 +106,10 @@ void MyShip::initialize() {
         _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
     }
 
+    int rZ,rY;
+    GgafDx9Util::getRotAngleZY(1.0f,1.0f,-1.0f,rZ,rY,30);
+        _TRACE_("テストrZ,rY="<<rZ<<","<<rY);
+
 //テスト
 //    int r, r_prev;
 //    int x = -500000;
