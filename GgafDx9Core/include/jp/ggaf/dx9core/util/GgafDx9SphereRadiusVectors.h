@@ -60,30 +60,29 @@ public:
     /**
      * 引数のX,Y,Z方向ベクトルから、相当するZ軸回転とY軸回転の近時を求める。
      * 但し、X,Y,Z は全て正でなくてはならない
-     * @param prm_x 単位方向ベクトルX要素（長さ1 が 10000)
-     * @param prm_y 単位方向ベクトルY要素（長さ1 が 10000)
-     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 10000)
-     * @param out_angRotZ Z軸回転値（単位s_ang）
-     * @param out_angRotY Y軸回転値（単位s_ang）
+     * @param prm_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
+     * @param prm_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
+     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0
+     * @param out_angRotZ Z軸回転値（横軸をX、縦軸をYとしたXZ平面の半時計周り）（単位s_ang）
+     * @param out_angRotY_rev 反対周りY軸回転値（横軸をX、縦軸をZとしたXZ平面の半時計周り）（単位s_ang）
      */
     void getRotAngleClosely(unsigned __int16 prm_x,
                             unsigned __int16 prm_y,
                             unsigned __int16 prm_z,
                             s_ang& out_angRotZ,
-                            s_ang& out_angRotY,
+                            s_ang& out_angRotY_rev,
                             int s = 25);
 
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める。
      * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。
-     * @param prm_angRotY Z軸回転値（単位s_ang）
-     * @param prm_angRotZ Y軸回転値（単位s_ang）
-     * @param out_x 単位方向ベクトルX要素（長さ1 が 10000)
-     * @param out_y 単位方向ベクトルY要素（長さ1 が 10000)
-     * @param out_z 単位方向ベクトルZ要素（長さ1 が 10000)
-     * @param 精度 (デフォルト=25 25段階バイナリーサーチするという意味）
+     * @param prm_angRotY Z軸回転値（横軸をX、縦軸をYとしたXZ平面の半時計周り）（単位s_ang）
+     * @param prm_angRotZ 反対周りY軸回転値（横軸をX、縦軸をZとしたXZ平面の半時計周り）（単位s_ang）
+     * @param out_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
+     * @param out_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
+     * @param out_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0
      */
-    void getVectorClosely(s_ang prm_angRotY,
+    void getVectorClosely(s_ang prm_angRotY_rev,
                           s_ang prm_angRotZ,
                           unsigned __int16& out_x,
                           unsigned __int16& out_y,

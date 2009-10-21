@@ -21,9 +21,9 @@ public:
     static float SIN[];
     static float RAD[];
 
-    static int SLANT2ANG[];
-    static int PROJ_ANG2ROT_ANG_Z[S_ANG90+1][S_ANG90+1];
-    static int PROJ_ANG2ROT_ANG_Y[S_ANG90+1][S_ANG90+1];
+    static angle SLANT2ANG[];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
 
 
     static GgafDx9SphereRadiusVectors _srv;
@@ -216,6 +216,19 @@ public:
      * @return
      */
     static int getDistance(int x1, int y1, int x2, int y2);
+
+
+
+
+
+    static void getRotAngleZY_new(int vx,
+                                   int vy,
+                                   int vz,
+                                   angle& out_angRotZ,
+                                   angle& out_angRotY );
+
+
+
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .

@@ -17,6 +17,8 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
         yXY = sin(radRotAxisZ) * 10000.0;
         for (s_ang angRotAxisY = 0; angRotAxisY <= S_ANG90; angRotAxisY++) {
             //XY平面上の球表面の点を、Y軸回転する。
+            //注意：このY軸回転とは、左手系ｙ軸回転という意味ではなく、
+            //XY平面に向いてY軸中心に回転移動すると言う意味で反時計回りになります。）
             radRotAxisY = s_angRad * angRotAxisY;
             xXZ = xXY * cos(radRotAxisY);
             zXZ = xXY * sin(radRotAxisY);
@@ -30,7 +32,7 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x,
                                                     unsigned __int16 prm_y,
                                                     unsigned __int16 prm_z,
                                                     s_ang& out_angRotZ,
-                                                    s_ang& out_angRotY,
+                                                    s_ang& out_angRotY_rev,
                                                     int s) {
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
@@ -77,17 +79,17 @@ void GgafDx9SphereRadiusVectors::getRotAngleClosely(unsigned __int16 prm_x,
     }
 
     out_angRotZ = top / (S_ANG90+1);
-    out_angRotY = top % (S_ANG90+1);
+    out_angRotY_rev = top % (S_ANG90+1);
 
 }
 
-void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY,
+void GgafDx9SphereRadiusVectors::getVectorClosely(s_ang prm_angRotY_rev,
                                                   s_ang prm_angRotZ,
                                                   unsigned __int16& out_x,
                                                   unsigned __int16& out_y,
                                                   unsigned __int16& out_z) {
     static int index;
-    index = prm_angRotZ*(S_ANG90+1)+prm_angRotY;
+    index = prm_angRotZ*(S_ANG90+1)+prm_angRotY_rev;
     out_x = _sr[index].vec.x;
     out_y = _sr[index].vec.y;
     out_z = _sr[index].vec.z;
