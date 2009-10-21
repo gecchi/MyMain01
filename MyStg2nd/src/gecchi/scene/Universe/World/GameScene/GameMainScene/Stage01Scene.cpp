@@ -16,7 +16,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
     _pBackGroundStar->inactivateTree();
     getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
-    _angCamXZ_prev = 0;
+    _angCamZX_prev = 0;
     _angCamXY_prev = 0;
 
     _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_06");
@@ -25,7 +25,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 }
 
 void Stage01Scene::initialize() {
-    _angCamXZ_prev = GgafDx9Util::getAngle2D(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
+    _angCamZX_prev = GgafDx9Util::getAngle2D(-(pCAM->_pVecCamLookatPoint->x - pCAM->_pVecCamFromPoint->x),
                                                      -(pCAM->_pVecCamLookatPoint->z - pCAM->_pVecCamFromPoint->z)
                                                     );
     setProgress(STAGE01_PROG_INIT);
@@ -60,11 +60,11 @@ void Stage01Scene::processBehavior() {
                              pCAM->_X - pCAM->_pViewPoint->_X,
                              pCAM->_Y - pCAM->_pViewPoint->_Y
                          );
-        _pBackGround01->_inc_x = GgafDx9Util::getDifferenceAngle(_angCamXZ_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
+        _pBackGround01->_inc_x = GgafDx9Util::getDifferenceAngle(_angCamZX_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
         _pBackGround01->_inc_y = GgafDx9Util::getDifferenceAngle(_angCamXY_prev, angCamXY) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)/(ANGLE90*0.5));
-		//* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ‚Å 90“xƒJƒƒ‰‚ð‰ñ‚·‚Æ”wŒi‚ª‚PT‚·‚éŒvŽZ(1‰æ–Ê•ª“®‚­jB
-		//ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.3 
-        _angCamXZ_prev = angCamXZ;
+        //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ‚Å 90“xƒJƒƒ‰‚ð‰ñ‚·‚Æ”wŒi‚ª‚PT‚·‚éŒvŽZ(1‰æ–Ê•ª“®‚­jB
+        //ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.3
+        _angCamZX_prev = angCamXZ;
         _angCamXY_prev = angCamXY;
 
         if (pCAM->_pos_camera == 0) {

@@ -17,7 +17,7 @@ public:
     Stage01MainScene* _pStage01Main;
     BackGround01* _pBackGround01;
     BackGroundStar* _pBackGroundStar;
-    GgafDx9Core::angle _angCamXZ_prev;
+    GgafDx9Core::angle _angCamZX_prev;
     GgafDx9Core::angle _angCamXY_prev;
 
 
