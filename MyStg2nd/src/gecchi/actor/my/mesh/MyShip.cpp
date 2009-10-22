@@ -106,28 +106,39 @@ void MyShip::initialize() {
         _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
     }
 
-    int rZ1,rY1,rZ2,rY2;
-    _TRACE_("START getRotAngleZY");
-    for (int x = -30000; x < 30000; x+= 1000) {
-        for (int y = -30000; y < 30000; y+= 1000) {
-            for (int z = -30000; z < 30000; z+= 1000) {
-                GgafDx9Util::getRotAngleZY(x,y,z,rZ1,rY1);
-            }
-        }
-    }
-    _TRACE_("DONE getRotAngleZY");
-    _TRACE_("START getRotAngleZY_new");
-    for (int x = -30000; x < 30000; x+= 1000) {
-        for (int y = -30000; y < 30000; y+= 1000) {
-            for (int z = -30000; z < 30000; z+= 1000) {
-                GgafDx9Util::getRotAngleZY_new(x,y,z,rZ2,rY2);
+//    int rZ1,rY1,rZ2,rY2;
+//    _TRACE_("START getRotAngleZY");
+//    for (int x = -30000; x < 30000; x+= 100) {
+//        for (int y = -30000; y < 30000; y+= 100) {
+//            for (int z = -30000; z < 30000; z+= 100) {
+//                GgafDx9Util::getRotAngleZY(x,y,z,rZ1,rY1);
+//            }
+//        }
+//    }
+//    _TRACE_("DONE getRotAngleZY");
+//    _TRACE_("START getRotAngleZY_new");
+//    for (int x = -30000; x < 30000; x+= 100) {
+//        for (int y = -30000; y < 30000; y+= 100) {
+//            for (int z = -30000; z < 30000; z+= 100) {
+//                GgafDx9Util::getRotAngleZY_new(x,y,z,rZ2,rY2);
+//            }
+//        }
+//    }
+//    _TRACE_("DONE getRotAngleZY_new");
+//    _TRACE_("START getRotAngleZY_new2");
+//    for (int x = -30000; x < 30000; x+= 100) {
+//        for (int y = -30000; y < 30000; y+= 100) {
+//            for (int z = -30000; z < 30000; z+= 100) {
+//                GgafDx9Util::getRotAngleZY_new2(x,y,z,rZ2,rY2);
+//            }
+//        }
+//    }
+//    _TRACE_("DONE getRotAngleZY_new2");
 
-            }
-        }
-    }
-    _TRACE_("DONE getRotAngleZY_new");
     //_TRACE_(x<<","<<y<<","<<z<<" = ("<<rZ1<<","<<rY1<<") , ("<<rZ2<<","<<rY2<<")");
-
+    //                if (GgafDx9Util::abs(rZ1-rZ2) > 201 || GgafDx9Util::abs(rY1-rY2) > 201) {
+    //                    _TRACE_("why? "<<x<<","<<y<<","<<z<<" = ("<<rZ1<<","<<rY1<<") , ("<<rZ2<<","<<rY2<<")");
+    //                }
 //ƒeƒXƒg
 //    int r, r_prev;
 //    int x = -500000;
