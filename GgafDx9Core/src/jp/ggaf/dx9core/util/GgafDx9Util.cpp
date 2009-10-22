@@ -8,7 +8,7 @@ using namespace GgafDx9Core;
 
 
 
-//角度の種類に忘れないようメモ(2009/10/21)
+//角度の種類の変数名の命名。忘れないようメモ(2009/10/21)
 //
 //変数名と種類
 //
@@ -21,7 +21,7 @@ using namespace GgafDx9Core;
 //
 //次に軸回転と平面の円周角の表現区別について
 //＜軸回転の角度の変数名表現＞
-//軸回転は rot または r で書くようにする。
+//軸回転は rot または r で書くようにする。 angRot とか、とにかく R が変数名に入ってる
 //＜例＞
 //angRx angRotX rotX rX Rx rX radRx ･･･ X軸回転angle値
 //angRy angRotY rotY rY Ry rY radRy ･･･ Y軸回転angle値
@@ -44,17 +44,17 @@ using namespace GgafDx9Core;
 //＜平面の円周角、または直線の成す角度を、軸回転とみなして計算する場合の変数名表現＞
 //angXY は ３次元空間の Z=0 のXY平面上に限り、angRz とみなすことが出来ます。
 //このようにして計算を行っている箇所があり、
-//「平面の円周角、または直線の成す角度 として値を求めたけども、軸回転として使いたかったのだよ」
+//「平面の円周角、または直線の成す角度 として値を求めたけども、軸回転として読み替えた、或いは、使いたかった」
 //という場合は rotXY という変数にしています。
-//angXY → angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいですが、
+//angXY -> angRz は角度0°の位置(方向ベクトル(x,y,z)=(1,0,0))、正の回転方向が一致するのでわかりやすいですが、
 //
-//つまり rotXY = angXY → angRz
-//
-//angXZ → angRy の読み替えは正の回転方向が angXZ と angRy で逆になってしまいます。
-//angZX → angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
+//つまり rotXY = angXY or angRz
+//「めも」
+//angXZ -> angRy の読み替えは正の回転方向が angXZ と angRy で逆になってしまいます。
+//angZX -> angRy の場合は正の回転方向は一致しますが、角度0°の位置が(x,y,z)=(1,0,0) ではなくなってしまうため、キャラの軸回転には向きません
 //
 //そこで
-//rotXZ = angXZ → angRy_rev
+//rotXZ = angXZ or angRy_rev
 //のように "rev" 「逆周りですよ」と書くようにした。
 
 
@@ -354,7 +354,7 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
     return sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
-void GgafDx9Util::getRotAngleZY_new(int vx,
+void GgafDx9Util::getRotAngleZY(int vx,
                                    int vy,
                                    int vz,
                                    angle& out_angRotZ,
@@ -397,10 +397,42 @@ void GgafDx9Util::getRotAngleZY_new(int vx,
 
 
 
+void GgafDx9Util::getRotAngleZY(int vx,
+                          int vy,
+                          int vz,
+                          float& out_nvx,
+                          float& out_nvy,
+                          float& out_nvz,
+                          angle& out_angRotZ,
+                          angle& out_angRotY) {
+
+    getRotAngleZY(vx,
+                       vy,
+                       vz,
+                       out_angRotZ,
+                       out_angRotY );
+
+    getNormalizeVectorZY(out_angRotZ,
+                         out_angRotY,
+                       out_nvx,
+                       out_nvy,
+                       out_nvz);
+
+}
+
+void GgafDx9Util::getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY) {
+    getRotAngleZY((int)nvx*LEN_UNIT*PX_UNIT,
+                      (int)nvy*LEN_UNIT*PX_UNIT,
+                      (int)nvz*LEN_UNIT*PX_UNIT,
+                      out_angRotZ,
+                      out_angRotY );
+
+
+}
 
 
 
-void GgafDx9Util::getRotAngleZY(int x,
+void GgafDx9Util::getRotAngleZY_old(int x,
                                 int y,
                                 int z,
                                 float& out_nvx,
@@ -477,7 +509,7 @@ void GgafDx9Util::getRotAngleZY(int x,
     //_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
 }
 
-void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s) {
+void GgafDx9Util::getRotAngleZY_old(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s) {
     static float vx, vy, vz, t;
     vx = ((float)x) / LEN_UNIT;
     vy = ((float)y) / LEN_UNIT;
@@ -522,7 +554,7 @@ void GgafDx9Util::getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& 
     }
 }
 
-void GgafDx9Util::getRotAngleZY(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY, int s) {
+void GgafDx9Util::getRotAngleZY_old(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY, int s) {
     static s_ang rZ, rY;
     _srv.getRotAngleClosely(
             (unsigned __int16) abs(vx*10000),

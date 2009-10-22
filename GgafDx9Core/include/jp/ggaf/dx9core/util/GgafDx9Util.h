@@ -221,14 +221,25 @@ public:
 
 
 
-    static void getRotAngleZY_new(int vx,
+    static void getRotAngleZY_old(int vx,
                                    int vy,
                                    int vz,
                                    angle& out_angRotZ,
-                                   angle& out_angRotY );
+                                   angle& out_angRotY,
+                                   int s = 25);
 
 
+    static void getRotAngleZY_old(int x,
+                              int y,
+                              int z,
+                              float& out_nvx,
+                              float& out_nvy,
+                              float& out_nvz,
+                              angle& out_angRotZ,
+                              angle& out_angRotY);
 
+
+    static void getRotAngleZY_old(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY, int s = 25);
 
     /**
      * 原点からパラメータ座標を向く方向ベクトルの、Z軸回転アングル値とY軸回転アングル値を取得 .
@@ -261,7 +272,7 @@ public:
      * @param out_angRotZ [out]Z軸回転アングル値
      * @param out_angRotY [out]Y軸回転アングル値
      */
-    static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s = 25);
+    static void getRotAngleZY(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY);
 
     /**
      * 原点からパラメータの正規化された方向ベクトル(単位ベクトル)の、Z軸回転アングル値とY軸回転アングル値を取得 .
@@ -272,7 +283,7 @@ public:
      * @param out_angRotZ [out]Z軸回転アングル値
      * @param out_angRotY [out]Y軸回転アングル値
      */
-    static void getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY, int s = 25);
+    static void getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY);
 
 
     /**
