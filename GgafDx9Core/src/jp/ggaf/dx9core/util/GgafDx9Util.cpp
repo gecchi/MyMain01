@@ -421,9 +421,9 @@ void GgafDx9Util::getRotAngleZY(int vx,
 }
 
 void GgafDx9Util::getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY) {
-    getRotAngleZY((int)nvx*LEN_UNIT*PX_UNIT,
-                      (int)nvy*LEN_UNIT*PX_UNIT,
-                      (int)nvz*LEN_UNIT*PX_UNIT,
+    getRotAngleZY((int)(nvx*LEN_UNIT*PX_UNIT),
+                      (int)(nvy*LEN_UNIT*PX_UNIT),
+                      (int)(nvz*LEN_UNIT*PX_UNIT),
                       out_angRotZ,
                       out_angRotY );
 
