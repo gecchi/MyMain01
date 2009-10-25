@@ -49,7 +49,7 @@ OUT_VS BackGroundStarVS_DefaultMesh(
 float4 BackGroundStarPS_DefaultMesh(
 ) : COLOR  {
 	//‹‚ß‚éF
-	return float4( 0.9, 0.9, 0.9, 0.8 );
+	return float4( 1, 1, 1, 0.9 );
 }
 
 
