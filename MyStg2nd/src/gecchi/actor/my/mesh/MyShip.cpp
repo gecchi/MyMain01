@@ -82,10 +82,26 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
 #define ArrayOf(x) (sizeof(x)/sizeof((x)[0]))
 void MyShip::programSplineCurve(double prm_paaCriteriaPoint[][3],
                                 int prm_point_num,
-                                double prm_accuracy) {
+                                double prm_accuracy
+                                DWORD prm_spent_frame) {
 
     GgafDx9Spline3D sp(prm_paaCriteriaPoint, prm_point_num);
     sp.compute(prm_accuracy);
+    double* paDistace = NEW double[prm_point_num];
+
+    for (iny i = 0; i < prm_point_num; i++) {
+
+    }
+
+
+
+    DWORD prm_spent_frame);
+
+
+
+
+
+
     for (int t = 0; t < sp._rnum; t ++) {
         _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
     }

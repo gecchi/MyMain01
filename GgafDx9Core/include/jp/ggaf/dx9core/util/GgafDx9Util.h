@@ -217,8 +217,19 @@ public:
      */
     static int getDistance(int x1, int y1, int x2, int y2);
 
-
-
+    template<typename T>
+    static T getDistance(T x1, T y1, T z1, T x2, T y2, T z2) {
+        return (T)( sqrt(
+                      (
+                        ((double)(x2 - x1)) * ((double)(x2 - x1))
+                      ) + (
+                        ((double)(y2 - y1)) * ((double)(y2 - y1))
+                      ) + (
+                        ((double)(z2 - z1)) * ((double)(z2 - z1))
+                      )
+                    )
+                 );
+    }
 
 
     static void getRotAngleZY_old(int vx,

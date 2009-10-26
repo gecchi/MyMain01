@@ -67,10 +67,12 @@ public:
      *                      1の場合基点から次基点まで何も無い（直線）。
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
+     * @param prm_paaCriteriaPoint 基点から基点へ移動するのに費やすフレーム数
      */
     void programSplineCurve(double prm_paaCriteriaPoint[][3],
                             int prm_point_num,
-                            double prm_accuracy);
+                            double prm_accuracy
+                            DWORD prm_spent_frame);
 
 
     /** 方向入力値 */
