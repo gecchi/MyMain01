@@ -78,6 +78,21 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
     }
 }
 
+// ï÷óòÉ}ÉNÉçä÷êî(óvëfêîÇãÅÇﬂÇÈ)
+#define ArrayOf(x) (sizeof(x)/sizeof((x)[0]))
+void MyShip::programSplineCurve(double prm_paaCriteriaPoint[][3],
+                                int prm_point_num,
+                                double prm_accuracy) {
+
+    GgafDx9Spline3D sp(prm_paaCriteriaPoint, prm_point_num);
+    sp.compute(prm_accuracy);
+    for (int t = 0; t < sp._rnum; t ++) {
+        _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
+    }
+
+}
+
+
 void MyShip::initialize() {
     //éÌï Ç…êUÇËï™ÇØ
     getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
@@ -97,14 +112,10 @@ void MyShip::initialize() {
                        {-10,   0,   0},
                        {  0,  -1,   1},
                        {  1,   0,   0},
+                       {  1,   0,   0},
                        {1.1, 0.1, 0.1}
                      };
-
-    GgafDx9Spline3D sp(xx, 6);
-    sp.compute(0.1);
-    for (int t = 0; t < sp._rnum; t ++) {
-        _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
-    }
+    programSplineCurve(xx, 7, 0.2);
 
 //    int rZ1,rY1,rZ2,rY2;
 //    _TRACE_("START getRotAngleZY");

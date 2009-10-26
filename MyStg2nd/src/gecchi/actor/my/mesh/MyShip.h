@@ -58,6 +58,21 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     };
 
 public:
+    /**
+     *
+     * @param prm_paaCriteriaPoint 基点配列
+     * @param prm_point_num  基点配列の要素数
+     * @param prm_accuracy  1基点の精度（荒い 1.0 ～ 0.0 細かい)、
+     *                      基点と基点の間を1とした場合の、補完点の入り具合（細やかさ）を指定。
+     *                      1の場合基点から次基点まで何も無い（直線）。
+     *                      0.5 とすると基点から次基点までに補完点は1つ入る。
+     *                      0.1 とすると基点と基点の間に補完点は9つ。
+     */
+    void programSplineCurve(double prm_paaCriteriaPoint[][3],
+                            int prm_point_num,
+                            double prm_accuracy);
+
+
     /** 方向入力値 */
     int _stc;
 
