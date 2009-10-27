@@ -33,11 +33,32 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
         pEnemyMeshShot->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
             _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
     }
-        //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
-        addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
+    //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
+    addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
 
-        _createActorDispatcher = true;
-    }
+    _createActorDispatcher = true;
+
+    double p[][3] = {
+                       { -1024000 ,  -300000 ,  680000 },
+                       {  -800000 ,   300000 ,  480000 },
+                       {  -200000 ,  -300000 ,  200000 },
+                       {   200000 ,   300000 ,  100000 },
+                       {   400000 ,        0 ,       0 },
+                       {   300000 ,        0 ,       0 },
+                       {   200000 ,   200000 ,       0 },
+                       {   100000 ,        0 ,  200000 },
+                       {        0 ,  -200000 ,       0 },
+                       {  -100000 ,        0 , -200000 },
+                       {   300000 ,        0 ,       0 },
+                       {        0 ,   300000 ,       0 },
+                       {        0 ,        0 ,  300000 },
+					   {   -300000 ,        0 ,       0 },
+                       {        0 ,   -300000 ,       0 },
+                       {        0 ,        0 ,  -300000 },
+                       {  -800000 ,        0 ,       0 }
+                    };
+    _programSP = NEW GgafDx9SplineProgram(p, 17, 0.05, 1000, 5000);
+}
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyMeshShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
@@ -62,6 +83,27 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     }
     _pDispatcher_EnemyMeshShots001 = prm_pDispatcher_EnemyMeshShots001;
     _createActorDispatcher = false;
+
+    double p[][3] = {
+                       { -1024000 ,  -300000 ,  680000 },
+                       {  -800000 ,   300000 ,  480000 },
+                       {  -200000 ,  -300000 ,  200000 },
+                       {   200000 ,   300000 ,  100000 },
+                       {   400000 ,        0 ,       0 },
+                       {   300000 ,        0 ,       0 },
+                       {   200000 ,   200000 ,       0 },
+                       {   100000 ,        0 ,  200000 },
+                       {        0 ,  -200000 ,       0 },
+                       {  -100000 ,        0 , -200000 },
+                       {   100000 ,        0 ,       0 },
+                       {        0 ,   100000 ,       0 },
+                       {        0 ,        0 ,  100000 },
+                       {  -800000 ,        0 ,       0 }
+                    };
+    _programSP = NEW GgafDx9SplineProgram(p, 14, 0.2, 360, 2000);
+
+
+
 }
 
 void EnemyCeres::initialize() {
@@ -95,19 +137,6 @@ void EnemyCeres::initialize() {
     _pStgChecker->setStatus(100, 1, 1, 1);
 
 
-    _pMover->setRzMoveAngleVelocityRenge(-3000,3000);
-    _pMover->setRyMoveAngleVelocityRenge(-3000,3000);
-    double p[][3] = {
-                       { -1024000 ,  -300000 ,  680000 },
-                       {  -800000 ,   300000 ,  480000 },
-                       {  -200000 ,  -300000 ,  200000 },
-                       {   200000 ,   300000 ,  100000 },
-                       {   400000 ,        0 ,       0 },
-                       {   300000 ,        0 ,       0 },
-                       {   200000 ,        0 ,       0 },
-                       {  -800000 ,        0 ,       0 }
-                    };
-    _programSP = NEW GgafDx9SplineProgram(p, 8, 0.2, 360);
 
     _pMover->executeSplineProgram(_programSP, false);
 }

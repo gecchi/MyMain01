@@ -13,6 +13,7 @@ public:
     velo* _paSPMoveVelocityTo;
     boolean _is_executing;
     GgafDx9GeometricActor* _pActor_executing;
+    angvelo _angRotMove;
 
     /** 相対移動フラグ */
     boolean _is_relative;
@@ -32,12 +33,14 @@ public:
      *                      1の場合基点から次基点まで何も無い（直線）。
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
-     * @param prm_paaCriteriaPoint 基点から基点へ移動するのに費やすフレーム数
+     * @param prm_paaCriteriaPoint 始点から終点へ移動するのに費やすフレーム数
+     * @param prm_angRotMove 補完点への方向ベクトルにターゲンティングする際の、旋回可能な1フレームあたりの回転移動角
      */
     GgafDx9SplineProgram(double prm_paaCriteriaPoint[][3],
                          int prm_point_num,
                          double prm_accuracy,
-                         DWORD prm_spent_frame);
+                         DWORD prm_spent_frame,
+                         angvelo prm_angRotMove);
 
 
     void beginSplineCurveAbsolute(GgafDx9GeometricActor* _pActor);

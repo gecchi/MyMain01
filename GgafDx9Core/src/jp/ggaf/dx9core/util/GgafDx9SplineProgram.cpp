@@ -17,12 +17,14 @@ GgafDx9SplineProgram::GgafDx9SplineProgram() : GgafObject() {
     _Y_relative = 0;
     _Z_relative = 0;
 
+    _angRotMove = ANGLE360;
 }
 
 GgafDx9SplineProgram::GgafDx9SplineProgram(double prm_paaCriteriaPoints[][3],
                                             int prm_point_num,
                                             double prm_accuracy,
-                                            DWORD prm_spent_frame) {
+                                            DWORD prm_spent_frame,
+                                            angvelo prm_angRotMove ) {
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
     // prm_point_num = 3          //基点の数
     // prm_accuracy = 0.25(=1/4)  //補完点精度
@@ -58,7 +60,7 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(double prm_paaCriteriaPoints[][3],
     //
     //                 <-->
     //                 frm_segment = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
-
+    _angRotMove = prm_angRotMove;
     _sp = NEW GgafDx9Spline3D(prm_paaCriteriaPoints, prm_point_num);
     _sp->compute(prm_accuracy); //計算
 
@@ -99,10 +101,10 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(double prm_paaCriteriaPoints[][3],
 
 
     }
-
-    for (int t = 0; t < _sp->_rnum; t ++) {
-        _TRACE_((float)_sp->_X_compute[t]<<"  "<< (float)_sp->_Y_compute[t]<<"  "<< (float)_sp->_Z_compute[t]);
-    }
+//
+//    for (int t = 0; t < _sp->_rnum; t ++) {
+//        _TRACE_((float)_sp->_X_compute[t]<<"  "<< (float)_sp->_Y_compute[t]<<"  "<< (float)_sp->_Z_compute[t]);
+//    }
 
 }
 
@@ -158,24 +160,24 @@ void GgafDx9SplineProgram::behave() {
                 _pActor_executing->_pMover->setTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
                                                                    _sp->_Y_compute[SPPointIndex] - _Y_relative,
                                                                    _sp->_Z_compute[SPPointIndex] - _Z_relative);
-                if (_pActor_executing->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_executing->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
-                    _pActor_executing->_pMover->setRzMoveAngleVelocity(ANGLE180);
-                } else {
-                    _pActor_executing->_pMover->setRzMoveAngleVelocity(-ANGLE180);
-                }
-
-                if (_pActor_executing->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_executing->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
-                    _pActor_executing->_pMover->setRyMoveAngleVelocity(ANGLE180);
-                } else {
-                    _pActor_executing->_pMover->setRyMoveAngleVelocity(-ANGLE180);
-                }
-
-
             } else {
                 _pActor_executing->_pMover->setTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex],
                                                                    _sp->_Y_compute[SPPointIndex],
                                                                    _sp->_Z_compute[SPPointIndex]);
             }
+
+            if (_pActor_executing->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_executing->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
+                _pActor_executing->_pMover->setRzMoveAngleVelocity(_angRotMove);
+            } else {
+                _pActor_executing->_pMover->setRzMoveAngleVelocity(-_angRotMove);
+            }
+
+            if (_pActor_executing->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_executing->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
+                _pActor_executing->_pMover->setRyMoveAngleVelocity(_angRotMove);
+            } else {
+                _pActor_executing->_pMover->setRyMoveAngleVelocity(-_angRotMove);
+            }
+
 
             _pActor_executing->_pMover->setMoveVelocity(_paSPMoveVelocityTo[SPPointIndex]);
         }
