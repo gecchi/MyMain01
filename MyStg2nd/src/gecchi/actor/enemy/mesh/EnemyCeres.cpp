@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
+	_programSP = NULL;
 
     _iMovePatternNo = 0;
     _pStgChecker->_iScorePoint = 100;
@@ -85,12 +86,17 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pMover->setRotAngleVelocity(AXIS_X, 6000);
 
+
+
+
+
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
 
 
-
+    _pMover->setRzMoveAngleVelocityRenge(-3000,3000);
+    _pMover->setRyMoveAngleVelocityRenge(-3000,3000);
     double p[][3] = {
                        { -1024000 ,  -300000 ,  680000 },
                        {  -800000 ,   300000 ,  480000 },
@@ -331,5 +337,5 @@ int EnemyCeres::wasGone() {
 }
 
 EnemyCeres::~EnemyCeres() {
-    DELETE_IMPOSSIBLE_NULL(_programSP);
+    DELETE_POSSIBLE_NULL(_programSP);
 }

@@ -123,12 +123,6 @@ void GgafDx9GeometryMover::behave() {
     //スプライン曲線移動
     if (_progSP != NULL) {
         _progSP->behave();
-        if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
-            setRotAngle(AXIS_Z, _angRzMove);
-        }
-        if (synchronize_YRotAngle_to_RyMoveAngle_flg) {
-            setRotAngle(AXIS_Y, _angRyMove);
-        }
     }
 
 
@@ -953,5 +947,6 @@ void GgafDx9GeometryMover::setVzMoveAcceleration(acce prm_acceVzMove) {
 
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {
-    DELETE_POSSIBLE_NULL(_progSP);
+
+    //DELETE_POSSIBLE_NULL(_progSP);//Actorで始末する。いらない
 }

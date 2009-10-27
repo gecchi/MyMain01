@@ -155,13 +155,26 @@ void GgafDx9SplineProgram::behave() {
         //•Ï‚í‚è–Ú
         if (_SPframe % _SPframe_segment == 0) {
             if (_is_relative) {
-                _pActor_executing->_pMover->setMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
-                                                          _sp->_Y_compute[SPPointIndex] - _Y_relative,
-                                                          _sp->_Z_compute[SPPointIndex] - _Z_relative);
+                _pActor_executing->_pMover->setTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
+                                                                   _sp->_Y_compute[SPPointIndex] - _Y_relative,
+                                                                   _sp->_Z_compute[SPPointIndex] - _Z_relative);
+                if (_pActor_executing->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_executing->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
+                    _pActor_executing->_pMover->setRzMoveAngleVelocity(ANGLE180);
+                } else {
+                    _pActor_executing->_pMover->setRzMoveAngleVelocity(-ANGLE180);
+                }
+
+                if (_pActor_executing->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_executing->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
+                    _pActor_executing->_pMover->setRyMoveAngleVelocity(ANGLE180);
+                } else {
+                    _pActor_executing->_pMover->setRyMoveAngleVelocity(-ANGLE180);
+                }
+
+
             } else {
-                _pActor_executing->_pMover->setMoveAngle(_sp->_X_compute[SPPointIndex],
-                                                          _sp->_Y_compute[SPPointIndex],
-                                                          _sp->_Z_compute[SPPointIndex]);
+                _pActor_executing->_pMover->setTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex],
+                                                                   _sp->_Y_compute[SPPointIndex],
+                                                                   _sp->_Z_compute[SPPointIndex]);
             }
 
             _pActor_executing->_pMover->setMoveVelocity(_paSPMoveVelocityTo[SPPointIndex]);
