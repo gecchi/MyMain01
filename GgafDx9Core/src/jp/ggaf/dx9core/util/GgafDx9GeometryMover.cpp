@@ -113,9 +113,25 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _veloBottomVzMove = -256 * LEN_UNIT;
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMove = 0;
+
+    _progSP = NULL;
+
 }
 
 void GgafDx9GeometryMover::behave() {
+
+    //スプライン曲線移動
+    if (_progSP != NULL) {
+        _progSP->behave();
+        if (_synchronize_ZRotAngle_to_RzMoveAngle_flg) {
+            setRotAngle(AXIS_Z, _angRzMove);
+        }
+        if (synchronize_YRotAngle_to_RyMoveAngle_flg) {
+            setRotAngle(AXIS_Y, _angRyMove);
+        }
+    }
+
+
     static angle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_rot_angle_targeting_flg[i]) {
@@ -932,5 +948,10 @@ void GgafDx9GeometryMover::setVzMoveAcceleration(acce prm_acceVzMove) {
     _acceVzMove = prm_acceVzMove;
 }
 
+
+
+
+
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {
+    DELETE_POSSIBLE_NULL(_progSP);
 }

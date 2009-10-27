@@ -32,6 +32,27 @@ class GgafDx9GeometryMover : public GgafCore::GgafObject {
 public:
     /** 対象アクター */
     GgafDx9GeometricActor* _pActor;
+    /** スプラインプログラム  */
+    GgafDx9SplineProgram* _progSP;
+
+    /**
+     * コンストラクタ<BR>
+     * @param   prm_pActor  適用Actor
+     */
+    GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor);
+
+    /**
+     * スプラインプログラム実行
+     * @param prm_progSP スプラインプログラム
+     */
+    void executeSplineProgram(GgafDx9SplineProgram* prm_progSP, bool prm_is_relative) {
+        _progSP = prm_progSP;
+        if (prm_is_relative) {
+            _progSP->beginSplineCurveRelative(_pActor);
+        } else {
+            _progSP->beginSplineCurveAbsolute(_pActor);
+        }
+    }
 
 public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
@@ -54,11 +75,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     /** 目標の軸回転方角自動停止機能が有効になる角速度（回転正負共通） */
     angvelo _rot_angle_target_allow_velocity[3]; //この角速度より小さい値の場合機能有効とするz
 
-    /**
-     * コンストラクタ<BR>
-     * @param	prm_pActor	適用Actor
-     */
-    GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor);
+
 
     /**
      * アングル値を単純化する。
@@ -505,9 +522,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setVzMoveAcceleration(acce prm_acceVzMove);
 
 
-//    void programSplineCurve(double prm_paaBase[][3],) {
-//
-//    }
+
 
 
 
