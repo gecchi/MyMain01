@@ -28,7 +28,7 @@ public:
     int _incZ;
 
     int _iMovePatternNo;
-
+    GgafDx9Core::GgafDx9SplineProgram* _programSP;
     /**
      * コンストラクタ
      * @param prm_name オブジェクト名

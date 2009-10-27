@@ -80,33 +80,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "myvic") {
 
 // 便利マクロ関数(要素数を求める)
 #define ArrayOf(x) (sizeof(x)/sizeof((x)[0]))
-void MyShip::programSplineCurve(double prm_paaCriteriaPoint[][3],
-                                int prm_point_num,
-                                double prm_accuracy
-                                DWORD prm_spent_frame) {
-
-    GgafDx9Spline3D sp(prm_paaCriteriaPoint, prm_point_num);
-    sp.compute(prm_accuracy);
-    double* paDistace = NEW double[prm_point_num];
-
-    for (iny i = 0; i < prm_point_num; i++) {
-
-    }
-
-
-
-    DWORD prm_spent_frame);
-
-
-
-
-
-
-    for (int t = 0; t < sp._rnum; t ++) {
-        _TRACE_((float)sp._X_compute[t]<<"  "<< (float)sp._Y_compute[t]<<"  "<< (float)sp._Z_compute[t]);
-    }
-
-}
 
 
 void MyShip::initialize() {
@@ -123,15 +96,9 @@ void MyShip::initialize() {
 
 
 
-    double xx[][3] = { {  1,   0,   0},
-                       {  0,   1,   1},
-                       {-10,   0,   0},
-                       {  0,  -1,   1},
-                       {  1,   0,   0},
-                       {  1,   0,   0},
-                       {1.1, 0.1, 0.1}
-                     };
-    programSplineCurve(xx, 7, 0.2);
+
+
+
 
 //    int rZ1,rY1,rZ2,rY2;
 //    _TRACE_("START getRotAngleZY");
@@ -442,8 +409,24 @@ void MyShip::processBehavior() {
 void MyShip::processJudgement() {
     //ショット関連処理
 
+//    //スプラインテスト！！！
+//    if (VB::isPushedDown(VB_SHOT1)) {
+//        _pMover->executeSplineProgram(_programSP, false);
+//    }
+//    if (VB::isPushedDown(VB_SHOT2)) {
+//        _pMover->executeSplineProgram(_programSP, true);
+//    }
+
+
+
+
+
+
+
+
 
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
+
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
@@ -472,6 +455,7 @@ void MyShip::processJudgement() {
 
     //ショットボタン
     if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activateTree();
@@ -1174,9 +1158,7 @@ void MyShip::equipOption() {
 
 }
 
-MyShip::~MyShip() {
-    DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
-}
+
 
 
 bool MyShip::isDoublePushedDown(vbsta prm_VB) {
@@ -1218,6 +1200,12 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
     } else {
         return false;
     }
+
+}
+
+
+MyShip::~MyShip() {
+    DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 
 }
 

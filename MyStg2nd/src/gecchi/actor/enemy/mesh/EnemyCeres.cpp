@@ -22,6 +22,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     _Z_turn = 0;
     _veloBegin = 5000;
 
+
     //’eƒXƒgƒbƒNì¬
     _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
@@ -30,7 +31,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
         pEnemyMeshShot->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
             _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
-        }
+    }
         //‚«‚¯‚ñ	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
         addSubLast(_pDispatcher_EnemyMeshShots001); //‰¼Š‘®
 
@@ -88,9 +89,26 @@ void EnemyCeres::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
 
+
+
+    double p[][3] = {
+                       { -1024000 ,  -300000 ,  680000 },
+                       {  -800000 ,   300000 ,  480000 },
+                       {  -200000 ,  -300000 ,  200000 },
+                       {   200000 ,   300000 ,  100000 },
+                       {   400000 ,        0 ,       0 },
+                       {   300000 ,        0 ,       0 },
+                       {   200000 ,        0 ,       0 },
+                       {  -800000 ,        0 ,       0 }
+                    };
+    _programSP = NEW GgafDx9SplineProgram(p, 8, 0.2, 360);
+
+    _pMover->executeSplineProgram(_programSP, false);
 }
 
 void EnemyCeres::processBehavior() {
+
+
     //	if (_lifeframe > 5) {
     //		_TRACE_(_lifeframe << ":("<<_X<<","<<_Y<<","<<_Z<<")");
     //	}
@@ -135,18 +153,18 @@ void EnemyCeres::processBehavior() {
 
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > _X_turn) {
-        if (_pMover->getDifferenceFromRzMoveAngleTo(0, TURN_CLOSE_TO) > 0) {
-            _pMover->setRzMoveAngleVelocity(4000);
-        } else {
-            _pMover->setRzMoveAngleVelocity(-4000);
-        }
-        if (_pMover->getDifferenceFromRyMoveAngleTo(ANGLE180, TURN_CLOSE_TO) > 0) {
-            _pMover->setRyMoveAngleVelocity(4000);
-        } else {
-            _pMover->setRyMoveAngleVelocity(-4000);
-        }
-        _pMover->setTargetRzMoveAngle(0);
-        _pMover->setTargetRyMoveAngle(ANGLE180);
+//        if (_pMover->getDifferenceFromRzMoveAngleTo(0, TURN_CLOSE_TO) > 0) {
+//            _pMover->setRzMoveAngleVelocity(4000);
+//        } else {
+//            _pMover->setRzMoveAngleVelocity(-4000);
+//        }
+//        if (_pMover->getDifferenceFromRyMoveAngleTo(ANGLE180, TURN_CLOSE_TO) > 0) {
+//            _pMover->setRyMoveAngleVelocity(4000);
+//        } else {
+//            _pMover->setRyMoveAngleVelocity(-4000);
+//        }
+//        _pMover->setTargetRzMoveAngle(0);
+//        _pMover->setTargetRyMoveAngle(ANGLE180);
 
         //’e‚ðŒ‚‚Á‚Ä‚Ý‚é
         //		‚TWAY’e
@@ -188,13 +206,13 @@ void EnemyCeres::processBehavior() {
         _iMovePatternNo++;
     }
 
-    if ( _iMovePatternNo == 1) {
-        if (_Z > _Z_turn) {
-            _Z -= 1000;
-        } else if (_Z < _Z_turn) {
-            _Z += 1000;
-        }
-    }
+//    if ( _iMovePatternNo == 1) {
+//        if (_Z > _Z_turn) {
+//            _Z -= 1000;
+//        } else if (_Z < _Z_turn) {
+//            _Z += 1000;
+//        }
+//    }
 
     //	if(0<_iMovePatternNo && _iMovePatternNo<20) {
     //		_iMovePatternNo++;
@@ -305,7 +323,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 int EnemyCeres::wasGone() {
-    if (_X < _X_ScreenLeft - 800000) {
+    if (_X < _X_ScreenLeft - 20000000) {
         return true;
     } else {
         return false;
@@ -313,4 +331,5 @@ int EnemyCeres::wasGone() {
 }
 
 EnemyCeres::~EnemyCeres() {
+    DELETE_IMPOSSIBLE_NULL(_programSP);
 }
