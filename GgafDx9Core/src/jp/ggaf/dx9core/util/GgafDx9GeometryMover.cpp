@@ -367,12 +367,12 @@ void GgafDx9GeometryMover::setRotAngleAcceleration(int prm_axis, angacce prm_ang
     _angacceRot[prm_axis] = prm_angacceRot;
 }
 
-void GgafDx9GeometryMover::setTargetRotAngleV(int prm_axis,
+void GgafDx9GeometryMover::setSuspendTargetRotAngleV(int prm_axis,
                                                   int prm_tX,
                                                   int prm_tY,
                                                   int prm_way_allow,
                                                   angvelo prm_angveloAllowRyMove) {
-    setTargetRotAngle(
+    setSuspendTargetRotAngle(
       prm_axis,
       GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)),
       prm_way_allow,
@@ -380,7 +380,7 @@ void GgafDx9GeometryMover::setTargetRotAngleV(int prm_axis,
     );
 }
 
-void GgafDx9GeometryMover::setTargetRotAngle(int prm_axis,
+void GgafDx9GeometryMover::setSuspendTargetRotAngle(int prm_axis,
                                              angle prm_angTargetRot,
                                              int prm_way_allow,
                                              angvelo prm_angveloAllow) {
@@ -555,7 +555,7 @@ void GgafDx9GeometryMover::setRzMoveAngleVelocityRenge(angvelo prm_angveloRzMove
     setRzMoveAngleVelocity(_angveloRzMove); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
-void GgafDx9GeometryMover::setTargetRzMoveAngle(angle prm_angTargetRzMove,
+void GgafDx9GeometryMover::setSuspendTargetRzMoveAngle(angle prm_angTargetRzMove,
                                                     int prm_way_allow,
                                                     angvelo prm_angveloAllowRyMove) {
     _move_angle_rz_target_flg = true;
@@ -564,11 +564,11 @@ void GgafDx9GeometryMover::setTargetRzMoveAngle(angle prm_angTargetRzMove,
     _move_angle_rz_target_allow_velocity = prm_angveloAllowRyMove;
 }
 
-void GgafDx9GeometryMover::setTargetRzMoveAngleV(int prm_tX,
+void GgafDx9GeometryMover::setSuspendTargetRzMoveAngleV(int prm_tX,
                                                      int prm_tY,
                                                      int prm_way_allow,
                                                      angvelo prm_angveloAllowRyMove) {
-    setTargetRzMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
+    setSuspendTargetRzMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
 angle GgafDx9GeometryMover::getDifferenceFromRzMoveAngleTo(int prm_tX, int prm_tY, int prm_way) {
@@ -705,7 +705,7 @@ void GgafDx9GeometryMover::setRyMoveAngleVelocityRenge(angvelo prm_angveloRyMove
     setRyMoveAngleVelocity(_angveloRyMove); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
-void GgafDx9GeometryMover::setTargetRyMoveAngle(angle prm_angTargetRyMove,
+void GgafDx9GeometryMover::setSuspendTargetRyMoveAngle(angle prm_angTargetRyMove,
                                                 int prm_way_allow,
                                                 angvelo prm_angveloAllowRyMove) {
     _move_angle_ry_target_flg = true;
@@ -714,11 +714,11 @@ void GgafDx9GeometryMover::setTargetRyMoveAngle(angle prm_angTargetRyMove,
     _move_angle_ry_target_allow_velocity = prm_angveloAllowRyMove;
 }
 
-void GgafDx9GeometryMover::setTargetRyMoveAngleV(int prm_tX,
+void GgafDx9GeometryMover::setSuspendTargetRyMoveAngleV(int prm_tX,
                                                  int prm_tY,
                                                  int prm_way_allow,
                                                  angvelo prm_angveloAllowRyMove) {
-    setTargetRyMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
+    setSuspendTargetRyMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)), prm_way_allow);
 }
 
 angle GgafDx9GeometryMover::getDifferenceFromRyMoveAngleTo(int prm_tX, int prm_tY, int prm_way) {
@@ -841,15 +841,15 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
                  );
 }
 
-void GgafDx9GeometryMover::setTargetRzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target) {
-    setTargetRzRyMoveAngle(
+void GgafDx9GeometryMover::setSuspendTargetRzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target) {
+    setSuspendTargetRzRyMoveAngle(
         prm_pActor_Target->_X,
         prm_pActor_Target->_Y,
         prm_pActor_Target->_Z
     );
 }
 
-void GgafDx9GeometryMover::setTargetRzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
+void GgafDx9GeometryMover::setSuspendTargetRzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
     angle angRz_Target;
     angle angRy_Target;
 
@@ -863,8 +863,8 @@ void GgafDx9GeometryMover::setTargetRzRyMoveAngle(int prm_tX, int prm_tY, int pr
                    angRz_Target,
                    angRy_Target
                  );
-    setTargetRzMoveAngle(angRz_Target);
-    setTargetRyMoveAngle(angRy_Target);
+    setSuspendTargetRzMoveAngle(angRz_Target);
+    setSuspendTargetRyMoveAngle(angRy_Target);
 }
 
 void GgafDx9GeometryMover::setVxMoveVelocityRenge(velo prm_veloVxMove01, velo prm_veloVxMove02) {

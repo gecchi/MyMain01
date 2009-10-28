@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num) {
-    _TRACE_("prm_num="<<prm_num);
     _num_establish = prm_num;
     _X_establish = NEW double[prm_num];
     _Y_establish = NEW double[prm_num];
