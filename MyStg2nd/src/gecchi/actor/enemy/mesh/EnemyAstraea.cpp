@@ -78,7 +78,7 @@ void EnemyAstraea::processBehavior() {
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
-        _pMover->setTargetRzRyMoveAngle(GameGlobal::_pMyShip);
+        _pMover->setSuspendTargetRzRyMoveAngle(GameGlobal::_pMyShip);
         _pMover->setRzMoveAngleVelocity(
                         _angveloTurn*sgn(_pMover->getDifferenceFromRzMoveAngleTo(_pMover->_angTargetRzMove,TURN_CLOSE_TO))
                     );

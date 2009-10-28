@@ -86,8 +86,8 @@ void EnemyMeshShot001::processBehavior() {
             } else {
                 _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
             }
-            _pMover->setTargetRyMoveAngle(angRy_Target);
-            _pMover->setTargetRzMoveAngle(angRz_Target);
+            _pMover->setSuspendTargetRyMoveAngle(angRy_Target);
+            _pMover->setSuspendTargetRzMoveAngle(angRz_Target);
 
             _pMover->setMoveAcceleration(_iMoveAcceleration_2nd);
         }

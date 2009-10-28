@@ -179,8 +179,8 @@ void MyOptionParent::processBehavior() {
                     break;
                 case WAY_BEHIND:
                     setTerget(ANGLE180, 0);
-                    //            _pMover->setTargetRzMoveAngle(0);
-                    //            _pMover->setTargetRyMoveAngle(ANGLE180);
+                    //            _pMover->setSuspendTargetRzMoveAngle(0);
+                    //            _pMover->setSuspendTargetRyMoveAngle(ANGLE180);
 
                     break;
                 case WAY_ZLEFT:
@@ -248,8 +248,8 @@ void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
     } else {
         _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    _pMover->setTargetRzMoveAngle(prm_angRz_Target);
-    _pMover->setTargetRyMoveAngle(prm_angRy_Target);
+    _pMover->setSuspendTargetRzMoveAngle(prm_angRz_Target);
+    _pMover->setSuspendTargetRyMoveAngle(prm_angRy_Target);
 }
 
 MyOptionParent::~MyOptionParent() {

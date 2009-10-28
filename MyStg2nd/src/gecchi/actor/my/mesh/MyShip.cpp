@@ -820,7 +820,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_UP;
@@ -833,7 +833,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_DOWN;
@@ -846,7 +846,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_DOWN;
@@ -865,7 +865,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_UP;
@@ -878,7 +878,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_DOWN;
@@ -891,7 +891,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -951,7 +951,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_FRONT;
@@ -964,7 +964,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_BEHIND;
@@ -977,7 +977,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_BEHIND;
@@ -996,7 +996,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_FRONT;
@@ -1009,7 +1009,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_BEHIND;
@@ -1022,7 +1022,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -1116,7 +1116,7 @@ void MyShip::turnFaceNeutralZY() {
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
         _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setSuspendTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::turnFaceNeutralZX() {
@@ -1127,7 +1127,7 @@ void MyShip::turnFaceNeutralZX() {
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
         _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setSuspendTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::doNotingMoveInput() {

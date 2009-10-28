@@ -53,7 +53,7 @@ void TamagoActor::processBehavior() {
 //    if (_frame_offset % _rnd == 0) {
 //        _rnd = (110 + (rand() % 90));
 //
-//        _pMover->setTargetRzMoveAngleV(GameGlobal::_pMyShip->_X, GameGlobal::_pMyShip->_Y);
+//        _pMover->setSuspendTargetRzMoveAngleV(GameGlobal::_pMyShip->_X, GameGlobal::_pMyShip->_Y);
 //        if (_pMover->getDifferenceFromRzMoveAngleTo(_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
 //            _pMover->setRzMoveAngleVelocity(2 * 1000);
 //        } else {
@@ -63,54 +63,54 @@ void TamagoActor::processBehavior() {
 //        _pMover->setMoveVelocityRenge(ANGLE360, 2 * 1000);
 //        _pMover->setMoveVelocity(10 * 1000); //‰‘¬10px
 //        _pMover->setMoveAcceleration(-80);
-//        //		_pMover->setTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+//        //		_pMover->setSuspendTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
 //    }
 
     //	if (_frame_offset == 10) {
-    //		//_pMover->setTargetRzMoveAngle(c);
+    //		//_pMover->setSuspendTargetRzMoveAngle(c);
     //		_pMover->setMoveVelocity(2000);
-    //		_pMover->setTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pMover->setSuspendTargetRzMoveAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //	if (_frame_offset == 150) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(ANGLE360*1000);
-    //		//_pMover->setTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pMover->setSuspendTargetRzMoveAngle(ANGLE360*1000);
+    //		//_pMover->setSuspendTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //
     //	if (_frame_offset == 200) {
     //
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(ANGLE90*1000);
-    //		//_pMover->setTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
+    //		_pMover->setSuspendTargetRzMoveAngle(ANGLE90*1000);
+    //		//_pMover->setSuspendTargetRotAngle(GameGlobal::_pMyShip->_X,GameGlobal::_pMyShip->_Y);
     //	}
     //
     //	if (_frame_offset == 250) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(0);
+    //		_pMover->setSuspendTargetRzMoveAngle(0);
     //	}
     //	if (_frame_offset == 300) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(2250*1000);
+    //		_pMover->setSuspendTargetRzMoveAngle(2250*1000);
     //	}
     //	if (_frame_offset == 400) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(ANGLE90*1000);
+    //		_pMover->setSuspendTargetRzMoveAngle(ANGLE90*1000);
     //	}
     //
     //	if (_frame_offset == 500) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(3150*1000);
+    //		_pMover->setSuspendTargetRzMoveAngle(3150*1000);
     //	}
     //
     //	if (_frame_offset == 550) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(ANGLE90*1000);
+    //		_pMover->setSuspendTargetRzMoveAngle(ANGLE90*1000);
     //	}
     //	if (_frame_offset == 570) {
     //		_pMover->setMoveVelocity(6000);
-    //		_pMover->setTargetRzMoveAngle(2250*1000);
+    //		_pMover->setSuspendTargetRzMoveAngle(2250*1000);
     //	}
     //
     //

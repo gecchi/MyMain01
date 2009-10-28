@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
-	_programSP = NULL;
+    _programSP = NULL;
 
     _iMovePatternNo = 0;
     _pStgChecker->_iScorePoint = 100;
@@ -52,12 +52,12 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
                        {   300000 ,        0 ,       0 },
                        {        0 ,   300000 ,       0 },
                        {        0 ,        0 ,  300000 },
-					   {   -300000 ,        0 ,       0 },
+                       {   -300000 ,        0 ,       0 },
                        {        0 ,   -300000 ,       0 },
                        {        0 ,        0 ,  -300000 },
                        {  -800000 ,        0 ,       0 }
                     };
-    _programSP = NEW GgafDx9SplineProgram(p, 17, 0.05, 1000, 5000);
+    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 20000, 90000);
 }
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyMeshShots001) :
@@ -95,13 +95,15 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
                        {   100000 ,        0 ,  200000 },
                        {        0 ,  -200000 ,       0 },
                        {  -100000 ,        0 , -200000 },
-                       {   100000 ,        0 ,       0 },
-                       {        0 ,   100000 ,       0 },
-                       {        0 ,        0 ,  100000 },
+                       {   300000 ,        0 ,       0 },
+                       {        0 ,   300000 ,       0 },
+                       {        0 ,        0 ,  300000 },
+                       {   -300000 ,        0 ,       0 },
+                       {        0 ,   -300000 ,       0 },
+                       {        0 ,        0 ,  -300000 },
                        {  -800000 ,        0 ,       0 }
                     };
-    _programSP = NEW GgafDx9SplineProgram(p, 14, 0.2, 360, 2000);
-
+    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 20000, 90000);
 
 
 }
@@ -122,8 +124,8 @@ void EnemyCeres::initialize() {
 
     //	_incZ =  (1.0f*abs(_Z) / (GgafDx9Util::getDistance(_X, _Y, _X_turn, _Y_turn) / (_veloBegin * sgn(_Z) * -1)) );//_incZ‚ª‚¨‚©‚µ‚¢?
 
-    _pMover->setMoveAngle(_X_turn, _Y_turn, _Z_turn);
-    _pMover->setMoveVelocity(_veloBegin);
+//    _pMover->setMoveAngle(_X_turn, _Y_turn, _Z_turn);
+//    _pMover->setMoveVelocity(_veloBegin);
     _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pMover->setRotAngleVelocity(AXIS_X, 6000);
@@ -138,7 +140,7 @@ void EnemyCeres::initialize() {
 
 
 
-    _pMover->executeSplineProgram(_programSP, false);
+    _pMover->executeSplineProgram(_programSP, 0);
 }
 
 void EnemyCeres::processBehavior() {
@@ -154,35 +156,35 @@ void EnemyCeres::processBehavior() {
     //		_TRACE_("_lifeframe="<<_lifeframe);
     //		//_pMover->setRyMoveAngle(ANGLE45);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE45);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE45);
     //	} else if (_lifeframe == 300) {
     ////		_pMover->setRyMoveAngle(ANGLE90);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE90);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE90);
     //	} else if (_lifeframe == 400) {
     ////		_pMover->setRyMoveAngle(ANGLE135);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE135);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE135);
     //	} else if (_lifeframe == 500) {
     ////		_pMover->setRyMoveAngle(ANGLE180);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE180);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE180);
     //	} else if (_lifeframe == 600) {
     ////		_pMover->setRyMoveAngle(ANGLE225);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE225);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE225);
     //	} else if (_lifeframe == 700) {
     ////		_pMover->setRyMoveAngle(ANGLE270);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE270);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE270);
     //	} else if (_lifeframe == 800) {
     ////		_pMover->setRyMoveAngle(ANGLE315);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE315);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE315);
     //	} else if (_lifeframe == 900) {
     ////		_pMover->setRyMoveAngle(ANGLE360);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setTargetRyMoveAngle(ANGLE360);
+    //		_pMover->setSuspendTargetRyMoveAngle(ANGLE360);
     //	}
 
 
@@ -198,8 +200,8 @@ void EnemyCeres::processBehavior() {
 //        } else {
 //            _pMover->setRyMoveAngleVelocity(-4000);
 //        }
-//        _pMover->setTargetRzMoveAngle(0);
-//        _pMover->setTargetRyMoveAngle(ANGLE180);
+//        _pMover->setSuspendTargetRzMoveAngle(0);
+//        _pMover->setSuspendTargetRyMoveAngle(ANGLE180);
 
         //’e‚ðŒ‚‚Á‚Ä‚Ý‚é
         //		‚TWAY’e
@@ -263,11 +265,11 @@ void EnemyCeres::processBehavior() {
 //	if (_iMovePatternNo == 0 && _X > _X_turn) {
 //		_pMover->setRzMoveAngle(sgn(_incZ)*-1*90000);
 //		_pMover->setRzMoveAngleVelocity(sgn(_incZ)*-1*3000);
-//		_pMover->setTargetRzMoveAngle(ANGLE180);
+//		_pMover->setSuspendTargetRzMoveAngle(ANGLE180);
 //		_pMover->setMoveVelocity(1000);
 //
 //		_pMover->setRotAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
-//		_pMover->setTargetRotAngle(AXIS_Y, ANGLE180);
+//		_pMover->setSuspendTargetRotAngle(AXIS_Y, ANGLE180);
 //
 //		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
 //
