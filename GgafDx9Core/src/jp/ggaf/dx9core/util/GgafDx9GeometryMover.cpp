@@ -3,6 +3,80 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+//【自分メモ】本ライブラリの表現と考え方
+//
+//＜方角という言葉について＞
+//「移動方角（方向）」はキャラの進行方向のみを表せる。
+//「移動速度」と伴って、キャラは座標内を移動する。
+//「軸回転方角」はキャラの向きのみを表せる。
+//キャラクタが画面の上部から下部へ移動しても、キャラクタは下を向くとは限らず自機に向いてほしい場合もある。。
+//右にキャラを向かせて、左に移動させたいこともある。それぞれ設定が必要。
+
+//＜移動方角＞
+//キャラが進む方向、つまり「移動方角（方向）」の方向は、原点から単位球の表面に向かって伸びるベクトル (_vX, _vY, _vZ) で表す方法と、
+//緯度と経度(または、アジマスと仰角)の２つのアングル値 (_angRzMove, _angRyMove) で表す方法の２種類用意した。
+//単に「移動方角」と呼ぶ場合は、移動方向のベクトルを表現している場合もあるが、上記の理由により
+//ここでは、２つのアングル値をセットの事を「移動方角」と呼ぶ場合が多い。
+//で、緯度経度表現の場合、緯度＝Z軸回転角、経度＝Y軸回転角 と見立てる事ができるので、それぞれの成分を分けて表現したい場合
+//それぞれ「移動方角（Z軸）」「移動方角（Y軸）」と表現することにする。・・・方角、などという言葉だか、内容は角度の値です。
+//つまり、「移動方角（Y軸）」という言葉の語彙は、まわりくどく詳しく表現すると、
+//「キャラの進行方向を、方向ベクトルでは無く緯度経度に見立てたZ軸回転角とY軸回転角で表現した場合のY軸回転角成分のみのアングル値」ということとする。
+//
+//移動方角には緯度経度指定(_angRzMove, _angRyMove)と単位ベクトル指定(_vX, _vY, _vZ) があると言ったが、
+//もっぱら使うのは緯度経度指定である。(便利なので)
+//しかし、最終的には ワールド変換行列の移動先の行列を求めるため、単位ベクトル(_vX, _vY, _vZ) ＊ 移動速度 という計算をする必要がある。
+//そのため最後に結局単位ベクトル求めている。
+//本クラスのメソッドを使用する限り、この(_angRzMove, _angRyMove)と(_vX, _vY, _vZ) は、同期はとれている。
+
+//＜移動＞
+//キャラは「移動速度」(_veloMove)を保持している。移動するのは簡単で、毎フレーム「移動方角」に「移動速度」分動くだけである。
+//内部的には「移動方角」(_vX, _vY, _vZ)に「移動速度」を掛け算している。
+
+//＜軸回転方角＞
+//キャラが向いている方角（方向）、を「軸回転方角」と呼ぶことにする。「軸回転方角」は、最後はワールド変換行列の軸回転に対応している。
+//ワールド変換行列の軸回転とは、X軸回転角、Y軸回転角、Z軸回転角のことで、_angRot[AXIS_X]、_angRot[AXIS_Y]、_angRot[AXIS_Z] が保持している。
+//本ライブラリでは、キャラが原点にあるとして、単位球の表面に向かって伸びるベクトル(1, 0, 0) をキャラの「前方」と設定している。「後方」は（-1, 0, 0)。
+//また、ワールド変換行列の回転行列のかける順番は、基本的に 「X軸回転角行列 > Z軸回転角行列 > Y軸回転角行列 > 移動行列 」。
+//したがって、X軸回転角は幾ら回転させようとも、キャラが向いている方向は変わらず、残りのZ軸回転角と、Y軸回転角でキャラが向いている方向を決定する。
+//
+//そのようなわけでX軸回転角はキャラのスピン、のこり２角（Z軸回転角・Y軸回転角）でキャラの「前方」方角がを決定するとした場合、
+//「軸回転方角」も先ほどの「移動方角（方向）」と同じように、緯度と経度(または、アジマスと仰角)の２つのアングル値(_angRot[AXIS_Z], _angRot[AXIS_Y])
+//で表現できる。
+//「前方」は Z軸回転角・Y軸回転角共に0度、「前方を向いて後ろ向き」は[Z軸回転角,Y軸回転角]=[180度,0度] 或いは [0度,180度] と表現する。
+//単に「Z軸回転角」などと書くと、「移動方角」のZ軸回転角なのか、「軸回転方角」のZ軸回転角なのかややこしくなるやめ、
+//「軸回転方角(Z軸)」「軸回転方角(Y軸)」と書くこととする。
+//「前方を向い右向き」は [軸回転方角(Z軸), 軸回転方角(Y軸)]=[0, 90度] or [180度,270度] と表現できる。
+//（※軸回転方角(Y軸)は左手系座標のためY軸の正方向を向いて反時計回り）
+//このように１つのキャラが向いている方角に対して、２通りのアクセスする方法があるので注意。実は「前方」も[180度,180度]と表現できる。
+//どちらも向いている方向は同じだが姿勢は異なる。
+
+//＜移動方角と軸回転方角で同期＞
+//ここで 「移動方角（Z軸）」を「軸回転方角(Z軸)」へ、「移動方角（Y軸）」を「軸回転方角(Y軸)」 へコピーしてやると、
+//なんと移動方角と、キャラクタの向きの同期が簡単に取れるじゃまいか。
+//逆にキャラが向いている方向に移動を追従させることも簡単に可能。
+
+//＜自動前方向き機能＞
+//自動前方向き機能とは「移動方角」を設定すると、それに伴って自動的に「軸回転方角」を設定する事を意味している。
+//具体的には、以下のようにフレーム毎に、アングル値を上書きコピーしているだけ。
+// ・移動方角（Z軸） → 軸回転方角(Z軸)
+// ・移動方角（Y軸） → 軸回転方角(Y軸)
+//しかし「軸回転方角」を設定ても「移動方角」変化しない（逆は関連しない）ので注意。
+
+//＜角速度＞
+//「移動方角（Z軸）」「移動方角（Y軸）」、「軸回転方角(Z軸)」「軸回転方角(Y軸)」には、それぞれの「角速度」を設けてある。
+//例えば90度右に向きたい場合、キャラがいきなりカクっと向きを変えては悲しいので、毎フレーム角速度だけ角を加算するようにして、
+//滑らかに向きを変える、或いは移動方角を変えることが出来る。
+//「角速度」は正負の注意が必要。正の場合は反時計回り、負の場合は時計回りになる。
+//方向転換する場合、ターゲットとなる角度への行き方の考え方は、常に４通りある。
+//「反時計回で行く」「時計回りで行く」「近い角の周り方向で行く」「遠回りな角の周り方向で行く」
+//それぞれ用途があるので、オプション引数などで、選択できるようにしてある。
+
+//＜軸方向移動＞
+//上記の移動体系とは別に、独立して X軸、Y軸、Z軸に平行な移動指定ができる。
+//「X軸方向移動速度」「Y軸方向移動速度」「Z軸方向移動速度」を設定すると、毎フレーム(_X,_Y,_Z)にそれぞれの移動増分が
+//加算される。
+
+
 GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
@@ -47,7 +121,6 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _accMove = 0; //_veloMove の増分。デフォルトは加速無し
 
-    /////コピー元begin
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _angveloRzMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
@@ -66,9 +139,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _move_angle_rz_target_allow_velocity = ANGLE180;
     //移動方角（Z軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
     _synchronize_ZRotAngle_to_RzMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
-    ////コピー元end
 
-    /////コピー元begin
     //移動方角（Y軸回転）の角速度 = 0 angle/fream
     _angveloRyMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Y軸回転）の角速度上限 = +360,000 angle/fream
@@ -87,7 +158,6 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _move_angle_ry_target_allow_velocity = ANGLE180;
     //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
     _synchronize_YRotAngle_to_RyMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
-    ////コピー元end
 
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMove = 0;
@@ -125,7 +195,7 @@ void GgafDx9GeometryMover::behave() {
         _progSP->behave();
     }
 
-
+    //軸回転方角処理
     static angle angDistance;
     for (int i = 0; i < 3; i++) {
         if (_rot_angle_targeting_flg[i]) {
@@ -471,8 +541,6 @@ angle GgafDx9GeometryMover::getDifferenceFromRotAngleTo(int prm_axis, angle prm_
     throwGgafCriticalException("GgafDx9GeometryMover::getDifferenceFromRotAngleTo() 何故かしら角の距離が求めれません。(2)");
 }
 
-////////////////////////////////////////////////////////Mover
-
 
 void GgafDx9GeometryMover::setMoveVelocityRenge(int prm_veloMove01, int prm_veloMove02) {
     if (prm_veloMove01 < prm_veloMove02) {
@@ -502,8 +570,6 @@ void GgafDx9GeometryMover::addMoveVelocity(int prm_veloMove_Offset) {
 void GgafDx9GeometryMover::setMoveAcceleration(int prm_acceMove) {
     _accMove = prm_acceMove;
 }
-
-////コピー元begin
 
 void GgafDx9GeometryMover::setRzMoveAngle(int prm_tX, int prm_tY) {
     setRzMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
@@ -651,9 +717,6 @@ angle GgafDx9GeometryMover::getDifferenceFromRzMoveAngleTo(angle prm_angTargetRz
 
 }
 
-////コピー元end
-
-////コピー元begin
 
 void GgafDx9GeometryMover::setRyMoveAngle(int prm_tX, int prm_tY) {
     setRyMoveAngle(GgafDx9Util::getAngle2D(prm_tX - (_pActor->_X), prm_tY - (_pActor->_Y)));
@@ -802,7 +865,6 @@ angle GgafDx9GeometryMover::getDifferenceFromRyMoveAngleTo(angle prm_angTargetRy
 
 }
 
-////コピー元end
 
 void GgafDx9GeometryMover::setRzRyMoveAngle(angle prm_angRz, angle prm_angRy) {
     if (prm_angRz != _angRzMove || prm_angRy !=_angRyMove ) {

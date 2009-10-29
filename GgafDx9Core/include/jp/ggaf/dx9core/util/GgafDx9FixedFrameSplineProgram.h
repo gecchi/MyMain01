@@ -10,7 +10,7 @@ class GgafDx9FixedFrameSplineProgram : public GgafDx9SplineProgram {
 public:
 
     DWORD _SPframe_segment;
-    int* _paSPDistaceTo;
+    int* _paDistace_to;
     velo* _paSPMoveVelocityTo;
     angvelo _angRotMove;
 

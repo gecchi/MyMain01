@@ -13,7 +13,7 @@ public:
     GgafDx9Spline3D* _sp;
     DWORD _SPframe;
     boolean _is_executing;
-    GgafDx9GeometricActor* _pActor_executing;
+    GgafDx9GeometricActor* _pActor_target;
 
     GgafDx9SplineProgram();
 
@@ -34,10 +34,10 @@ public:
 
     /**
      * スプライン曲線利用移動プログラム開始
-     * @param prm_pActor 対象のアクター
+     * @param prm_pActor_target 対象のアクター
      * @param prm_option オプション 特に意味無し。下位実装用
      */
-    virtual void begin(GgafDx9GeometricActor* _pActor, int prm_option = 0);
+    virtual void begin(GgafDx9GeometricActor* prm_pActor_target, int prm_option = 0);
 
     /**
      * 毎フレームこのメソッドを呼び出す必要があります。

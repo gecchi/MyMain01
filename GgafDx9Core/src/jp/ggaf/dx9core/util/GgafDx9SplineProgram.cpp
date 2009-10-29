@@ -19,10 +19,10 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(double prm_paaCriteriaPoints[][3],
 
 }
 
-void GgafDx9SplineProgram::begin(GgafDx9GeometricActor* _pActor, int prm_option) {
+void GgafDx9SplineProgram::begin(GgafDx9GeometricActor* prm_pActor_target, int prm_option) {
     if (_sp != NULL) {
         _is_executing = true;
-        _pActor_executing = _pActor;
+        _pActor_target = prm_pActor_target;
         _SPframe = 0;
     }
 }
@@ -38,9 +38,9 @@ void GgafDx9SplineProgram::behave() {
             return;
         }
 
-        _pActor_executing->_X = _sp->_X_compute[SPPointIndex];
-        _pActor_executing->_Y = _sp->_Y_compute[SPPointIndex];
-        _pActor_executing->_Z = _sp->_Z_compute[SPPointIndex];
+        _pActor_target->_X = _sp->_X_compute[SPPointIndex];
+        _pActor_target->_Y = _sp->_Y_compute[SPPointIndex];
+        _pActor_target->_Z = _sp->_Z_compute[SPPointIndex];
 
         _SPframe++;
 

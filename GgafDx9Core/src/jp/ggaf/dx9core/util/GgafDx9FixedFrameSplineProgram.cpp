@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram() : GgafDx9SplineProgram() {
 
     _SPframe_segment = 0;
-    _paSPDistaceTo = NULL;
+    _paDistace_to = NULL;
     _paSPMoveVelocityTo = NULL;
     _is_executing = false;
     _option = 0;
@@ -40,7 +40,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
     // X:基点
     // o:基点間の補完点（スプライン曲線通過点）
     // X--o: 移動予定の座標線
-    // _paSPDistaceTo[] : 次の補完点までの距離
+    // _paDistace_to[] : 次の補完点までの距離
     // paSPMoveVelocityTo[] : 次の補完点到達に必要な速度
     //
     // sp._rnum は合計の点の数を返す。したがって sp._rnum = 9 になる。
@@ -73,7 +73,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
     if (_SPframe_segment < 1) {
         _SPframe_segment = 1;
     }
-    _paSPDistaceTo = NEW int[_sp->_rnum];
+    _paDistace_to = NEW int[_sp->_rnum];
     _paSPMoveVelocityTo = NEW velo[_sp->_rnum];
     int x_from, y_from, z_from;
     int x_to, y_to, z_to;
@@ -88,7 +88,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
         x_to = _sp->_X_compute[t];
         y_to = _sp->_Y_compute[t];
         z_to = _sp->_Z_compute[t];
-        _paSPDistaceTo[t] = GgafDx9Util::getDistance(
+        _paDistace_to[t] = GgafDx9Util::getDistance(
                                     x_from,
                                     y_from,
                                     z_from,
@@ -99,7 +99,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
 
         //距離 paDistaceTo[t] を、時間frm_segment で移動するために必要な速度を求める。
         //速さ＝距離÷時間
-        _paSPMoveVelocityTo[t] = (velo)(_paSPDistaceTo[t] / _SPframe_segment);
+        _paSPMoveVelocityTo[t] = (velo)(_paDistace_to[t] / _SPframe_segment);
 
 
     }
@@ -115,7 +115,7 @@ void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* _pActor, int p
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;
-        _pActor_executing = _pActor;
+        _pActor_target = _pActor;
         _SPframe = 0;
         velo v = _pActor->_pMover->_veloMove;
         if (v == 0) {
@@ -150,30 +150,30 @@ void GgafDx9FixedFrameSplineProgram::behave() {
         if (_SPframe % _SPframe_segment == 0) {
             if (_option == 1) {
                 //相対座標ターゲット
-                _pActor_executing->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
+                _pActor_target->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
                                                                    _sp->_Y_compute[SPPointIndex] - _Y_relative,
                                                                    _sp->_Z_compute[SPPointIndex] - _Z_relative);
             } else {
                 //絶対座標ターゲット
-                _pActor_executing->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex],
+                _pActor_target->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex],
                                                                    _sp->_Y_compute[SPPointIndex],
                                                                    _sp->_Z_compute[SPPointIndex]);
             }
 
-            if (_pActor_executing->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_executing->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
-                _pActor_executing->_pMover->setRzMoveAngleVelocity(_angRotMove);
+            if (_pActor_target->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_target->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
+                _pActor_target->_pMover->setRzMoveAngleVelocity(_angRotMove);
             } else {
-                _pActor_executing->_pMover->setRzMoveAngleVelocity(-_angRotMove);
+                _pActor_target->_pMover->setRzMoveAngleVelocity(-_angRotMove);
             }
 
-            if (_pActor_executing->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_executing->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
-                _pActor_executing->_pMover->setRyMoveAngleVelocity(_angRotMove);
+            if (_pActor_target->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_target->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
+                _pActor_target->_pMover->setRyMoveAngleVelocity(_angRotMove);
             } else {
-                _pActor_executing->_pMover->setRyMoveAngleVelocity(-_angRotMove);
+                _pActor_target->_pMover->setRyMoveAngleVelocity(-_angRotMove);
             }
 
 
-            _pActor_executing->_pMover->setMoveVelocity(_paSPMoveVelocityTo[SPPointIndex]);
+            _pActor_target->_pMover->setMoveVelocity(_paSPMoveVelocityTo[SPPointIndex]);
         }
 
         _SPframe++;
@@ -182,6 +182,6 @@ void GgafDx9FixedFrameSplineProgram::behave() {
 
 }
 GgafDx9FixedFrameSplineProgram::~GgafDx9FixedFrameSplineProgram() {
-    DELETEARR_POSSIBLE_NULL(_paSPDistaceTo);
+    DELETEARR_POSSIBLE_NULL(_paDistace_to);
     DELETEARR_POSSIBLE_NULL(_paSPMoveVelocityTo);
 }

@@ -9,13 +9,14 @@ class GgafDx9FixedVelocitySplineProgram : public GgafDx9SplineProgram {
 
 public:
 
-    int* _paSPDistaceTo;
-    DWORD* _paSPNeedFrameTo;
-    velo _veloMove;
+    int* _paDistace_to;
+    float* _paFrame_need_at;
+    velo _veloMoveUnit; //単位速度
     angvelo _angRotMove;
-
-    DWORD _SPNextChangeFrame;
-    int _SPPointIndex;
+    float _fFrame_executing;
+    float _fFrame_next_point;
+    //float _fSPPointFrame;
+    int _point_index;
 
     /** オプション 0:絶対座標移動、1:始点をActorの現座標とみなし、そこからの相対座標移動 */
     int _option;
@@ -43,7 +44,7 @@ public:
     GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
-                                   velo prm_veloMove,
+                                   //velo prm_veloMove,
                                    angvelo prm_angRotMove);
 
     /**
