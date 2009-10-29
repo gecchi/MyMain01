@@ -57,7 +57,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
                        {        0 ,        0 ,  -300000 },
                        {  -800000 ,        0 ,       0 }
                     };
-    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 20000, 90000);
+    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
 }
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyMeshShots001) :
@@ -103,7 +103,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
                        {        0 ,        0 ,  -300000 },
                        {  -800000 ,        0 ,       0 }
                     };
-    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 20000, 90000);
+    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
 
 
 }
@@ -129,7 +129,7 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
     _pMover->setRotAngleVelocity(AXIS_X, 6000);
-
+    _pMover->setMoveVelocity(6000);
 
 
 
@@ -144,6 +144,14 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::processBehavior() {
+
+    if (VB::isBeingPressed(VB_UP)) {
+        _pMover->addMoveVelocity(300);
+    } else if (VB::isBeingPressed(VB_DOWN)) {
+        _pMover->addMoveVelocity(-300);
+    }
+
+
 
 
     //	if (_lifeframe > 5) {
