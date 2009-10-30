@@ -169,40 +169,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
         //メッシュを結合する前に、情報を確保しておく
-
         int nMesh = (int)model_pModel3D->_Meshes.size();
-        uint16*  paNumVertices = NEW uint16[nMesh];
+        uint16* paNumVertices = NEW uint16[nMesh];
         int index_Mesh = 0;
         for (list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
-
-            _TRACE_("(*iteMeshes)->_nVertices="<<((*iteMeshes)->_nVertices));
-			uint16 n = ((*iteMeshes)->_nVertices);
-			_TRACE_("n ="<<n);
-            paNumVertices[index_Mesh] = n;
-			_TRACE_("paNumVertices["<<index_Mesh<<"] ="<<(paNumVertices[index_Mesh]));
+            paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
             index_Mesh++;
         }
-
-        for (int i = 0; i < nMesh; i++) {
-            _TRACE_("paNumVertices["<<i<<"]="<<(paNumVertices[i]));
-        }
-
-
-
-//
-//
-//        for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin();
-//               material != model_pMeshesFront->_Materials.end(); material++) {
-//            model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
-//            model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
-//        }
-//
-//
-//
-//
-
-
 
         model_pModel3D->ConcatenateMeshes(); //メッシュを繋げる
 
@@ -272,7 +246,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
-
                     //法線が無い場合
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
@@ -376,13 +349,13 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         int n = 0;
         int nVertices_begin;
         int nVertices_end;
-        for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin() ;
-                iteBone != _pMeshModel->_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
+        for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
+                iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
 
             //XファイルのFrameTransformMatrix(全フレームのアニメーション)を考慮
-            if (model_pModel3D->_Skeletton != NULL) {
+            if ((*iteBone) != NULL) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
                     //FrameTransformMatrix は単位行列
@@ -407,13 +380,12 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                     FrameTransformMatrix._43 = pMatPos->data[14];
                     FrameTransformMatrix._44 = pMatPos->data[15];
 
-
                     if (n == 0) {
                         nVertices_begin = 0;
-                        nVertices_end = paNumVertices[n]
+                        nVertices_end = paNumVertices[n];
                     } else {
-                        nVertices_begin = paNumVertices[n-1];
-                        nVertices_end = paNumVertices[n]
+                        nVertices_begin += paNumVertices[n-1];
+                        nVertices_end += paNumVertices[n];
                     }
 
                     static D3DXVECTOR3 vecVertex;
@@ -439,6 +411,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             }
             n++;
         }
+        DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
@@ -594,24 +567,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         prm_pMeshModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //マテリアル
-    int num_mate = 0;
+    //マテリアル数カウント
+    int model_nMaterials = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-
-        num_mate++;
+        model_nMaterials++;
     }
-    _TRACE_("num_mate="<<num_mate);
-    _TRACE_("model_pMeshesFront->_nMaterials"<<(model_pMeshesFront->_nMaterials));
 
-//
-//    int model_nMaterials = model_pMeshesFront->_nMaterials;
-//    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
-//    model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
-
-    int model_nMaterials = num_mate;
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[num_mate];
-    model_papTextureCon = NEW GgafDx9TextureConnection*[num_mate];
-
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
+    model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
     char* texture_filename;
     int n = 0;
@@ -647,10 +610,6 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         n++;
     }
 
-    if (model_nMaterials != n) {
-        TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ") ちなみにマテリアル数がおかしいです。model_nMaterials="<<model_nMaterials<<"/n="<<n);
-    }
-
     //モデルに保持させる
     prm_pMeshModel->_pModel3D = model_pModel3D;
     prm_pMeshModel->_pMeshesFront = model_pMeshesFront;
@@ -662,76 +621,76 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     prm_pMeshModel->_papTextureCon = model_papTextureCon;
     prm_pMeshModel->_dwNumMaterials = model_nMaterials;
 
-    {
-        //デバッグ
-        _TRACE_("#頂点バッファ nVertices="<<nVertices);
-        float x,y,z,nx,ny,nz,tu,tv;
-        for (int i = 0; i < nVertices; i++) {
-            x = model_paVtxBuffer_org[i].x;
-            y = model_paVtxBuffer_org[i].y;
-            z = model_paVtxBuffer_org[i].z;
-            nx = model_paVtxBuffer_org[i].nx;
-            ny = model_paVtxBuffer_org[i].ny;
-            nz = model_paVtxBuffer_org[i].nz;
-            tu = model_paVtxBuffer_org[i].tu;
-            tv = model_paVtxBuffer_org[i].tv;
-
-            _TRACE_("頂点["<<i<<"] "<<x<<";"<<y<<";"<<z<<";,\t"<<nx<<";"<<ny<<";"<<nz<<";,\t"<<tu<<";"<<tv<<";,");
-        }
-
-
-        _TRACE_("#インデックスバッファ nFaces="<<nFaces);
-        WORD vtx1,vtx2,vtx3;
-        for (int face = 0; face < nFaces; face++) {
-            vtx1 = model_paIdxBuffer_org[face*3 + 0];
-            vtx2 = model_paIdxBuffer_org[face*3 + 1];
-            vtx3 = model_paIdxBuffer_org[face*3 + 2];
-            _TRACE_("面["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
-        }
-
-        _TRACE_("マテリアル  model_nMaterials="<<model_nMaterials);
-        float a,r,g,b;
-        for (int i = 0; i < model_nMaterials; i++) {
-            a = model_paD3DMaterial9[i].Diffuse.a;
-            r = model_paD3DMaterial9[i].Diffuse.r;
-            g = model_paD3DMaterial9[i].Diffuse.g;
-            b = model_paD3DMaterial9[i].Diffuse.b;
-            _TRACE_("nMaterial["<<i<<"] Diffuse(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
-            a = model_paD3DMaterial9[i].Ambient.a;
-            r = model_paD3DMaterial9[i].Ambient.r;
-            g = model_paD3DMaterial9[i].Ambient.g;
-            b = model_paD3DMaterial9[i].Ambient.b;
-            _TRACE_("nMaterial["<<i<<"] Ambient(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
-        }
-
-        _TRACE_("#マテリアルリスト _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
-        for (UINT i = 0; i < prm_pMeshModel->_nMaterialListGrp; i++) {
-            int material_no = prm_pMeshModel->_paIndexParam[i].MaterialNo;
-            _TRACE_("MaterialGrp["<<i<<"] "<<material_no<<",");
-        }
-
-        _TRACE_("#IndexParam  _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
-        UINT MaterialNo;
-        INT BaseVertexIndex;
-        UINT MinIndex;
-        UINT NumVertices;
-        UINT StartIndex;
-        UINT PrimitiveCount;
-        for (UINT i = 0; i < prm_pMeshModel->_nMaterialListGrp; i++) {
-            MaterialNo = model_paIndexParam[i].MaterialNo;
-            BaseVertexIndex = model_paIndexParam[i].BaseVertexIndex;
-            MinIndex = model_paIndexParam[i].MinIndex;
-            NumVertices = model_paIndexParam[i].NumVertices;
-            StartIndex = model_paIndexParam[i].StartIndex;
-            PrimitiveCount = model_paIndexParam[i].PrimitiveCount;
-            _TRACE_("MaterialGrp["<<i<<"] MaterialNo="<<MaterialNo);
-            _TRACE_("MaterialGrp["<<i<<"] BaseVertexIndex="<<BaseVertexIndex);
-            _TRACE_("MaterialGrp["<<i<<"] MinIndex="<<MinIndex);
-            _TRACE_("MaterialGrp["<<i<<"] NumVertices="<<MaterialNo);
-            _TRACE_("MaterialGrp["<<i<<"] StartIndex="<<StartIndex);
-            _TRACE_("MaterialGrp["<<i<<"] PrimitiveCount="<<PrimitiveCount);
-        }
-    }
+//    {
+//        //デバッグ
+//        _TRACE_("#頂点バッファ nVertices="<<nVertices);
+//        float x,y,z,nx,ny,nz,tu,tv;
+//        for (int i = 0; i < nVertices; i++) {
+//            x = model_paVtxBuffer_org[i].x;
+//            y = model_paVtxBuffer_org[i].y;
+//            z = model_paVtxBuffer_org[i].z;
+//            nx = model_paVtxBuffer_org[i].nx;
+//            ny = model_paVtxBuffer_org[i].ny;
+//            nz = model_paVtxBuffer_org[i].nz;
+//            tu = model_paVtxBuffer_org[i].tu;
+//            tv = model_paVtxBuffer_org[i].tv;
+//
+//            _TRACE_("頂点["<<i<<"] "<<x<<";"<<y<<";"<<z<<";,\t"<<nx<<";"<<ny<<";"<<nz<<";,\t"<<tu<<";"<<tv<<";,");
+//        }
+//
+//
+//        _TRACE_("#インデックスバッファ nFaces="<<nFaces);
+//        WORD vtx1,vtx2,vtx3;
+//        for (int face = 0; face < nFaces; face++) {
+//            vtx1 = model_paIdxBuffer_org[face*3 + 0];
+//            vtx2 = model_paIdxBuffer_org[face*3 + 1];
+//            vtx3 = model_paIdxBuffer_org[face*3 + 2];
+//            _TRACE_("面["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
+//        }
+//
+//        _TRACE_("マテリアル  model_nMaterials="<<model_nMaterials);
+//        float a,r,g,b;
+//        for (int i = 0; i < model_nMaterials; i++) {
+//            a = model_paD3DMaterial9[i].Diffuse.a;
+//            r = model_paD3DMaterial9[i].Diffuse.r;
+//            g = model_paD3DMaterial9[i].Diffuse.g;
+//            b = model_paD3DMaterial9[i].Diffuse.b;
+//            _TRACE_("nMaterial["<<i<<"] Diffuse(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
+//            a = model_paD3DMaterial9[i].Ambient.a;
+//            r = model_paD3DMaterial9[i].Ambient.r;
+//            g = model_paD3DMaterial9[i].Ambient.g;
+//            b = model_paD3DMaterial9[i].Ambient.b;
+//            _TRACE_("nMaterial["<<i<<"] Ambient(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
+//        }
+//
+//        _TRACE_("#マテリアルリスト _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
+//        for (UINT i = 0; i < prm_pMeshModel->_nMaterialListGrp; i++) {
+//            int material_no = prm_pMeshModel->_paIndexParam[i].MaterialNo;
+//            _TRACE_("MaterialGrp["<<i<<"] "<<material_no<<",");
+//        }
+//
+//        _TRACE_("#IndexParam  _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
+//        UINT MaterialNo;
+//        INT BaseVertexIndex;
+//        UINT MinIndex;
+//        UINT NumVertices;
+//        UINT StartIndex;
+//        UINT PrimitiveCount;
+//        for (UINT i = 0; i < prm_pMeshModel->_nMaterialListGrp; i++) {
+//            MaterialNo = model_paIndexParam[i].MaterialNo;
+//            BaseVertexIndex = model_paIndexParam[i].BaseVertexIndex;
+//            MinIndex = model_paIndexParam[i].MinIndex;
+//            NumVertices = model_paIndexParam[i].NumVertices;
+//            StartIndex = model_paIndexParam[i].StartIndex;
+//            PrimitiveCount = model_paIndexParam[i].PrimitiveCount;
+//            _TRACE_("MaterialGrp["<<i<<"] MaterialNo="<<MaterialNo);
+//            _TRACE_("MaterialGrp["<<i<<"] BaseVertexIndex="<<BaseVertexIndex);
+//            _TRACE_("MaterialGrp["<<i<<"] MinIndex="<<MinIndex);
+//            _TRACE_("MaterialGrp["<<i<<"] NumVertices="<<MaterialNo);
+//            _TRACE_("MaterialGrp["<<i<<"] StartIndex="<<StartIndex);
+//            _TRACE_("MaterialGrp["<<i<<"] PrimitiveCount="<<PrimitiveCount);
+//        }
+//    }
 
 }
 
@@ -2370,7 +2329,18 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         if (r == false) {
             throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
-        model_pModel3D->ConcatenateMeshes();
+
+        //メッシュを結合する前に、情報を確保しておく
+        int nMesh = (int)model_pModel3D->_Meshes.size();
+        uint16* paNumVertices = NEW uint16[nMesh];
+        int index_Mesh = 0;
+        for (list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
+                iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
+            paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
+            index_Mesh++;
+        }
+        model_pModel3D->ConcatenateMeshes(); //メッシュを繋げる
+
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices;
         nTextureCoords = model_pMeshesFront->_nTextureCoords;
@@ -2541,54 +2511,71 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
             }
         }
+        int n = 0;
+        int nVertices_begin;
+        int nVertices_end;
+        for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
+                iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
-        //XファイルのFrameTransformMatrixを考慮
-        if (model_pModel3D->_Skeletton != NULL) {
-            Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
-            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                //FrameTransformMatrix は単位行列
-                _TRACE_("FrameTransformMatrix is Identity");
-            } else {
-                _TRACE_("Execute FrameTransform!");
-                static D3DXMATRIX FrameTransformMatrix;
-                FrameTransformMatrix._11 = pMatPos->data[0];
-                FrameTransformMatrix._12 = pMatPos->data[1];
-                FrameTransformMatrix._13 = pMatPos->data[2];
-                FrameTransformMatrix._14 = pMatPos->data[3];
-                FrameTransformMatrix._21 = pMatPos->data[4];
-                FrameTransformMatrix._22 = pMatPos->data[5];
-                FrameTransformMatrix._23 = pMatPos->data[6];
-                FrameTransformMatrix._24 = pMatPos->data[7];
-                FrameTransformMatrix._31 = pMatPos->data[8];
-                FrameTransformMatrix._32 = pMatPos->data[9];
-                FrameTransformMatrix._33 = pMatPos->data[10];
-                FrameTransformMatrix._34 = pMatPos->data[11];
-                FrameTransformMatrix._41 = pMatPos->data[12];
-                FrameTransformMatrix._42 = pMatPos->data[13];
-                FrameTransformMatrix._43 = pMatPos->data[14];
-                FrameTransformMatrix._44 = pMatPos->data[15];
+            _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
+            //XファイルのFrameTransformMatrixを考慮
+            if ((*iteBone) != NULL) {
+                Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
+                if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+                    //FrameTransformMatrix は単位行列
+                    _TRACE_("FrameTransformMatrix is Identity");
+                } else {
+                    _TRACE_("Execute FrameTransform!");
+                    static D3DXMATRIX FrameTransformMatrix;
+                    FrameTransformMatrix._11 = pMatPos->data[0];
+                    FrameTransformMatrix._12 = pMatPos->data[1];
+                    FrameTransformMatrix._13 = pMatPos->data[2];
+                    FrameTransformMatrix._14 = pMatPos->data[3];
+                    FrameTransformMatrix._21 = pMatPos->data[4];
+                    FrameTransformMatrix._22 = pMatPos->data[5];
+                    FrameTransformMatrix._23 = pMatPos->data[6];
+                    FrameTransformMatrix._24 = pMatPos->data[7];
+                    FrameTransformMatrix._31 = pMatPos->data[8];
+                    FrameTransformMatrix._32 = pMatPos->data[9];
+                    FrameTransformMatrix._33 = pMatPos->data[10];
+                    FrameTransformMatrix._34 = pMatPos->data[11];
+                    FrameTransformMatrix._41 = pMatPos->data[12];
+                    FrameTransformMatrix._42 = pMatPos->data[13];
+                    FrameTransformMatrix._43 = pMatPos->data[14];
+                    FrameTransformMatrix._44 = pMatPos->data[15];
 
-                static D3DXVECTOR3 vecVertex;
-                static D3DXVECTOR3 vecNormal;
-                for (int i = 0; i < nVertices; i++) {
-                    vecVertex.x = unit_paVtxBuffer_org[i].x;
-                    vecVertex.y = unit_paVtxBuffer_org[i].y;
-                    vecVertex.z = unit_paVtxBuffer_org[i].z;
-                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-                    vecNormal.x = unit_paVtxBuffer_org[i].nx;
-                    vecNormal.y = unit_paVtxBuffer_org[i].ny;
-                    vecNormal.z = unit_paVtxBuffer_org[i].nz;
-                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+                    if (n == 0) {
+                        nVertices_begin = 0;
+                        nVertices_end = paNumVertices[n];
+                    } else {
+                        nVertices_begin += paNumVertices[n-1];
+                        nVertices_end += paNumVertices[n];
+                    }
 
-                    unit_paVtxBuffer_org[i].x = vecVertex.x;
-                    unit_paVtxBuffer_org[i].y = vecVertex.y;
-                    unit_paVtxBuffer_org[i].z = vecVertex.z;
-                    unit_paVtxBuffer_org[i].nx = vecNormal.x;
-                    unit_paVtxBuffer_org[i].ny = vecNormal.y;
-                    unit_paVtxBuffer_org[i].nz = vecNormal.z;
+                    static D3DXVECTOR3 vecVertex;
+                    static D3DXVECTOR3 vecNormal;
+                    for (int i = nVertices_begin; i < nVertices_end; i++) {
+                        vecVertex.x = unit_paVtxBuffer_org[i].x;
+                        vecVertex.y = unit_paVtxBuffer_org[i].y;
+                        vecVertex.z = unit_paVtxBuffer_org[i].z;
+                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                        vecNormal.x = unit_paVtxBuffer_org[i].nx;
+                        vecNormal.y = unit_paVtxBuffer_org[i].ny;
+                        vecNormal.z = unit_paVtxBuffer_org[i].nz;
+                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+
+                        unit_paVtxBuffer_org[i].x = vecVertex.x;
+                        unit_paVtxBuffer_org[i].y = vecVertex.y;
+                        unit_paVtxBuffer_org[i].z = vecVertex.z;
+                        unit_paVtxBuffer_org[i].nx = vecNormal.x;
+                        unit_paVtxBuffer_org[i].ny = vecNormal.y;
+                        unit_paVtxBuffer_org[i].nz = vecNormal.z;
+                    }
                 }
             }
+            n++;
         }
+        DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
@@ -2801,9 +2788,13 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         prm_pMeshSetModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
+    //マテリアル数カウント
+    int model_nMaterials = 0;
+    for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
+        model_nMaterials++;
+    }
 
     //マテリアル
-    int model_nMaterials = model_pMeshesFront->_nMaterials;
     model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
