@@ -62,6 +62,7 @@
     //デバッグ用
     #define _TRACEORE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 
+
     //メモリ解放用マクロ
     //NULLかもしれない delete
     #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
