@@ -15,41 +15,41 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     _angVelocity_Turn = 3000;
 
-    MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
-    pMyDummyOption01->_radiusPosition = 120000;
-    pMyDummyOption01->_veloMove = 6000;
-    pMyDummyOption01->_angExpanse = 0;
-    pMyDummyOption01->_angveloExpanse = 0;
-    pMyDummyOption01->_angPosition = 0;
-    pMyDummyOption01->setMaterialColor(1.0, 1.0, 1.0);
-    addSubLast(pMyDummyOption01);
-
-    MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
-    pMyDummyOption02->_radiusPosition = 120000;
-    pMyDummyOption02->_veloMove = 6000;
-    pMyDummyOption02->_angExpanse = 0;
-    pMyDummyOption02->_angveloExpanse = 0;
-    pMyDummyOption02->_angPosition = ANGLE90;
-    pMyDummyOption02->setMaterialColor(0.0, 1.0, 1.0);
-    addSubLast(pMyDummyOption02);
-
-    MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
-    pMyDummyOption03->_radiusPosition = 120000;
-    pMyDummyOption03->_veloMove = 6000;
-    pMyDummyOption03->_angExpanse = 0;
-    pMyDummyOption03->_angveloExpanse = 0;
-    pMyDummyOption03->_angPosition = ANGLE180;
-    pMyDummyOption03->setMaterialColor(1.0, 0, 1.0);
-    addSubLast(pMyDummyOption03);
-
-    MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
-    pMyDummyOption04->_radiusPosition = 120000;
-    pMyDummyOption04->_veloMove = 6000;
-    pMyDummyOption04->_angExpanse = 0;
-    pMyDummyOption04->_angveloExpanse = 0;
-    pMyDummyOption04->_angPosition = ANGLE270;
-    pMyDummyOption04->setMaterialColor(0, 1.0, 0);
-    addSubLast(pMyDummyOption04);
+//    MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
+//    pMyDummyOption01->_radiusPosition = 120000;
+//    pMyDummyOption01->_veloMove = 6000;
+//    pMyDummyOption01->_angExpanse = 0;
+//    pMyDummyOption01->_angveloExpanse = 0;
+//    pMyDummyOption01->_angPosition = 0;
+//    pMyDummyOption01->setMaterialColor(1.0, 1.0, 1.0);
+//    addSubLast(pMyDummyOption01);
+//
+//    MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
+//    pMyDummyOption02->_radiusPosition = 120000;
+//    pMyDummyOption02->_veloMove = 6000;
+//    pMyDummyOption02->_angExpanse = 0;
+//    pMyDummyOption02->_angveloExpanse = 0;
+//    pMyDummyOption02->_angPosition = ANGLE90;
+//    pMyDummyOption02->setMaterialColor(0.0, 1.0, 1.0);
+//    addSubLast(pMyDummyOption02);
+//
+//    MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
+//    pMyDummyOption03->_radiusPosition = 120000;
+//    pMyDummyOption03->_veloMove = 6000;
+//    pMyDummyOption03->_angExpanse = 0;
+//    pMyDummyOption03->_angveloExpanse = 0;
+//    pMyDummyOption03->_angPosition = ANGLE180;
+//    pMyDummyOption03->setMaterialColor(1.0, 0, 1.0);
+//    addSubLast(pMyDummyOption03);
+//
+//    MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
+//    pMyDummyOption04->_radiusPosition = 120000;
+//    pMyDummyOption04->_veloMove = 6000;
+//    pMyDummyOption04->_angExpanse = 0;
+//    pMyDummyOption04->_angveloExpanse = 0;
+//    pMyDummyOption04->_angPosition = ANGLE270;
+//    pMyDummyOption04->setMaterialColor(0, 1.0, 0);
+//    addSubLast(pMyDummyOption04);
 
 //    MyDummyOption* pMyDummyOption05 = NEW MyDummyOption("MY_OPTION05", 5, this);
 //    pMyDummyOption05->_radiusPosition = 200000;

@@ -96,6 +96,20 @@ void MyShip::initialize() {
 
 
 
+    for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin();
+            iteBone != _pMeshModel->_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
+        _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
+        _TRACE_("(*iteBone)->_nVertices="<<((*iteBone)->_nVertices));
+    }
+//            if ((*i)->IsName(pText) != 0)
+//    _pMeshModel->_pModel3D->_top_LoadSkeletton
+//    _TRACE_("_pMeshModel->_pModel3D->_Skeletton->_Name="<<(_pMeshModel->_pModel3D->_Skeletton->_Name));
+////    _TRACE_("_pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Name="<<(_pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Name));
+////    _TRACE_(" _pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Bones.front()->_Name="<<( _pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Bones.front()->_Name));
+
+
+
+
 
 
 
