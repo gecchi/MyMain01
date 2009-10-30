@@ -373,55 +373,71 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         }
 
 
+        int n = 0;
+        for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin() ;
+                iteBone != _pMeshModel->_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
-//でバグのため
-//        //XファイルのFrameTransformMatrix(全フレームのアニメーション)を考慮
-//        if (model_pModel3D->_Skeletton != NULL) {
-//            Frm::Matrix* pMatPos = &(model_pModel3D->_Skeletton->_MatrixPos);
-//            if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-//                //FrameTransformMatrix は単位行列
-//                _TRACE_("FrameTransformMatrix is Identity");
-//            } else {
-//                _TRACE_("Execute FrameTransform!");
-//                static D3DXMATRIX FrameTransformMatrix;
-//                FrameTransformMatrix._11 = pMatPos->data[0];
-//                FrameTransformMatrix._12 = pMatPos->data[1];
-//                FrameTransformMatrix._13 = pMatPos->data[2];
-//                FrameTransformMatrix._14 = pMatPos->data[3];
-//                FrameTransformMatrix._21 = pMatPos->data[4];
-//                FrameTransformMatrix._22 = pMatPos->data[5];
-//                FrameTransformMatrix._23 = pMatPos->data[6];
-//                FrameTransformMatrix._24 = pMatPos->data[7];
-//                FrameTransformMatrix._31 = pMatPos->data[8];
-//                FrameTransformMatrix._32 = pMatPos->data[9];
-//                FrameTransformMatrix._33 = pMatPos->data[10];
-//                FrameTransformMatrix._34 = pMatPos->data[11];
-//                FrameTransformMatrix._41 = pMatPos->data[12];
-//                FrameTransformMatrix._42 = pMatPos->data[13];
-//                FrameTransformMatrix._43 = pMatPos->data[14];
-//                FrameTransformMatrix._44 = pMatPos->data[15];
-//
-//                static D3DXVECTOR3 vecVertex;
-//                static D3DXVECTOR3 vecNormal;
-//                for (int i = 0; i < nVertices; i++) {
-//                    vecVertex.x = model_paVtxBuffer_org[i].x;
-//                    vecVertex.y = model_paVtxBuffer_org[i].y;
-//                    vecVertex.z = model_paVtxBuffer_org[i].z;
-//                    D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-//                    vecNormal.x = model_paVtxBuffer_org[i].nx;
-//                    vecNormal.y = model_paVtxBuffer_org[i].ny;
-//                    vecNormal.z = model_paVtxBuffer_org[i].nz;
-//                    D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
-//
-//                    model_paVtxBuffer_org[i].x = vecVertex.x;
-//                    model_paVtxBuffer_org[i].y = vecVertex.y;
-//                    model_paVtxBuffer_org[i].z = vecVertex.z;
-//                    model_paVtxBuffer_org[i].nx = vecNormal.x;
-//                    model_paVtxBuffer_org[i].ny = vecNormal.y;
-//                    model_paVtxBuffer_org[i].nz = vecNormal.z;
-//                }
-//            }
-//        }
+            _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
+
+            //XファイルのFrameTransformMatrix(全フレームのアニメーション)を考慮
+            if (model_pModel3D->_Skeletton != NULL) {
+                Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
+                if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
+                    //FrameTransformMatrix は単位行列
+                    _TRACE_("FrameTransformMatrix is Identity");
+                } else {
+                    _TRACE_("Execute FrameTransform!");
+                    static D3DXMATRIX FrameTransformMatrix;
+                    FrameTransformMatrix._11 = pMatPos->data[0];
+                    FrameTransformMatrix._12 = pMatPos->data[1];
+                    FrameTransformMatrix._13 = pMatPos->data[2];
+                    FrameTransformMatrix._14 = pMatPos->data[3];
+                    FrameTransformMatrix._21 = pMatPos->data[4];
+                    FrameTransformMatrix._22 = pMatPos->data[5];
+                    FrameTransformMatrix._23 = pMatPos->data[6];
+                    FrameTransformMatrix._24 = pMatPos->data[7];
+                    FrameTransformMatrix._31 = pMatPos->data[8];
+                    FrameTransformMatrix._32 = pMatPos->data[9];
+                    FrameTransformMatrix._33 = pMatPos->data[10];
+                    FrameTransformMatrix._34 = pMatPos->data[11];
+                    FrameTransformMatrix._41 = pMatPos->data[12];
+                    FrameTransformMatrix._42 = pMatPos->data[13];
+                    FrameTransformMatrix._43 = pMatPos->data[14];
+                    FrameTransformMatrix._44 = pMatPos->data[15];
+
+                    int nVertices_begin;
+                    int nVertices_end;
+                    if (n == 0) {
+                        nVertices_begin = 0;
+                        nVertices_end = paNumVertices[n]
+                    } else {
+                        nVertices_begin = paNumVertices[n-1];
+                        nVertices_end = paNumVertices[n]
+                    }
+
+                    static D3DXVECTOR3 vecVertex;
+                    static D3DXVECTOR3 vecNormal;
+                    for (int i = nVertices_begin; i < nVertices_end; i++) {
+                        vecVertex.x = model_paVtxBuffer_org[i].x;
+                        vecVertex.y = model_paVtxBuffer_org[i].y;
+                        vecVertex.z = model_paVtxBuffer_org[i].z;
+                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
+                        vecNormal.x = model_paVtxBuffer_org[i].nx;
+                        vecNormal.y = model_paVtxBuffer_org[i].ny;
+                        vecNormal.z = model_paVtxBuffer_org[i].nz;
+                        D3DXVec3TransformNormal(&vecNormal, &vecNormal, &FrameTransformMatrix);
+
+                        model_paVtxBuffer_org[i].x = vecVertex.x;
+                        model_paVtxBuffer_org[i].y = vecVertex.y;
+                        model_paVtxBuffer_org[i].z = vecVertex.z;
+                        model_paVtxBuffer_org[i].nx = vecNormal.x;
+                        model_paVtxBuffer_org[i].ny = vecNormal.y;
+                        model_paVtxBuffer_org[i].nz = vecNormal.z;
+                    }
+                }
+            }
+            n++;
+        }
 
         //最後に法線正規化して設定
         static D3DXVECTOR3 vec;
