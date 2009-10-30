@@ -35,7 +35,7 @@ bool ToolBox::IO_Texture_BMP::Load(std::string pFilename, TEXTURE &pT) {
     } else {
         pT.Size = (uint32) BmpIH.biSizeImage;
     }
-    pT.Bits = new uchar[pT.Size];
+    pT.Bits = NEW uchar[pT.Size];
 
     switch (BmpIH.biBitCount) {
     case 24:

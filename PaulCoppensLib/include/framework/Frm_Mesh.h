@@ -155,6 +155,11 @@ public:
     Bone* _Skeletton;
     std::list<Mesh*> _Meshes;
     std::list<AnimationSet*> _AnimationSets;
+
+    //add tsuge begin
+    std::list<Frm::Bone*> _toplevel_Skelettons;
+    //add tsuge end
+
 private:
     void UpdateBoneIndices(Bone* &pBone);
 };

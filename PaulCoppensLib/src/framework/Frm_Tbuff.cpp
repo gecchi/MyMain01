@@ -4,7 +4,7 @@ TBuff* TBuff::_Instance = 0;
 
 TBuff* TBuff::GetInstance(void) {
     if (TBuff::_Instance == 0)
-        TBuff::_Instance = new TBuff;
+        TBuff::_Instance = NEW TBuff;
     return TBuff::_Instance;
 }
 

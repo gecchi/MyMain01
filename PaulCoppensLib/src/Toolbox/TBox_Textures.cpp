@@ -45,7 +45,7 @@ void ToolBox::ConvText::RGB2RGBA(TEXTURE* pText) {
     uint32 tempSize;
 
     tempSize = pText->Width * pText->Height * 4;
-    tempBits = new uchar[tempSize];
+    tempBits = NEW uchar[tempSize];
 
     uint32 src, dst;
 
@@ -74,7 +74,7 @@ void ToolBox::ConvText::RGB2A(TEXTURE* pText) {
     uint32 tempSize;
 
     tempSize = pText->Width * pText->Height * 1;
-    tempBits = new uchar[tempSize];
+    tempBits = NEW uchar[tempSize];
 
     uint32 src, dst;
     uint32 test;
@@ -105,7 +105,7 @@ void ToolBox::ConvText::RGB2LA(TEXTURE* pText) {
     uint32 tempSize;
 
     tempSize = pText->Width * pText->Height * 2;
-    tempBits = new uchar[tempSize];
+    tempBits = NEW uchar[tempSize];
 
     uint32 src, dst;
     uint32 test;

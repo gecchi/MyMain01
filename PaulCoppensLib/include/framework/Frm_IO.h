@@ -30,7 +30,7 @@ public:
         length = fin.tellg();
         fin.seekg(0, ios::beg);
 
-        Buffer = new char[length];
+        Buffer = NEW char[length];
         // read data as a block:
         fin.read(Buffer, length);
 

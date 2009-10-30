@@ -45,6 +45,9 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
         return false;
 
     fin.read((char*) &XHeader, 16);
+
+    //add tsuge 日本語エラーメッセージ追加
+
     if (XHeader.Magic != XOFFILE_FORMAT_MAGIC) {
         _TRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
         throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'が見つかりません"); //add tsuge
@@ -279,7 +282,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
     int16 Token;
     char Data[TEXT_BUFFER];
 
-    cBone = new Frm::Bone();
+    cBone = NEW Frm::Bone();
 
     Token = fin.peek();
     //if (Token != '{')
@@ -292,6 +295,14 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         _TRACE_("Skeletton 1st bone:" << cBone->_Name);
         _LoadSkeletton = cBone;
         _Object->_Skeletton = _LoadSkeletton;
+
+        //add tsuge begin
+        //作者のバグだと思われる。
+        //_LoadSkelettonが上書きされていくような仕組みになってしまっているのを修正。
+        //とりあえず listに退避する。・・・修正前はメモリーリークになってたし。
+        _Object->_toplevel_Skelettons.push_back(cBone);
+        //add tsuge end
+
     } else {
         _TRACE_("\t" << pBone->_Name << "->" << cBone->_Name);
         pBone->_Bones.push_back(cBone);
@@ -339,7 +350,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     int16 Token;
     char Data[TEXT_BUFFER];
 
-    _LoadMesh = new Frm::Mesh;
+    _LoadMesh = NEW Frm::Mesh;
     if (!_Object->_Meshes.empty()) {
         Frm::Mesh* LastMesh = _Object->_Meshes.back();
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
@@ -373,8 +384,8 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nVertices = (uint16) TextToNum(Data);
     _TRACE_("Number of vertices:" << _LoadMesh->_nVertices);
-    _LoadMesh->_Vertices = new Frm::Vertex[_LoadMesh->_nVertices];
-    //   _LoadMesh->_SkinnedVertices = new Frm::Vertex[_LoadMesh->_nVertices];
+    _LoadMesh->_Vertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
+    //   _LoadMesh->_SkinnedVertices = NEW Frm::Vertex[_LoadMesh->_nVertices];
     for (int i = 0; i < _LoadMesh->_nVertices; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         _LoadMesh->_Vertices[i].data[0] = TextToNum(Data);
@@ -390,7 +401,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_nFaces = (uint16) TextToNum(Data);
 //    _TRACE_("Number of Faces:" << _LoadMesh->_nFaces);
-//    _LoadMesh->_Faces = new Frm::Face[_LoadMesh->_nFaces];
+//    _LoadMesh->_Faces = NEW Frm::Face[_LoadMesh->_nFaces];
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
 //        Find(';');
 //        fin.getline(Data, TEXT_BUFFER, ',');
@@ -410,7 +421,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaces = (uint16) TextToNum(Data);
     _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
-    _LoadMesh->_Faces = new Frm::Face[(_LoadMesh->_nFaces)*2];
+    _LoadMesh->_Faces = NEW Frm::Face[(_LoadMesh->_nFaces)*2];
     int face_vtx_num;
     int nFaces = _LoadMesh->_nFaces;
     int n = 0;
@@ -497,7 +508,7 @@ void ToolBox::IO_Model_X::ProcessMeshTextureCoords(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nTextureCoords = (uint16) TextToNum(Data);
     _TRACE_("Number of Texture Coords:" << _LoadMesh->_nTextureCoords);
-    _LoadMesh->_TextureCoords = new Frm::TCoord[_LoadMesh->_nTextureCoords];
+    _LoadMesh->_TextureCoords = NEW Frm::TCoord[_LoadMesh->_nTextureCoords];
     for (int i = 0; i < _LoadMesh->_nTextureCoords; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         _LoadMesh->_TextureCoords[i].data[0] = TextToNum(Data);
@@ -523,7 +534,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //    fin.getline(Data, TEXT_BUFFER, ';');
 //    _LoadMesh->_nNormals = (uint16) TextToNum(Data);
 //    _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
-//    _LoadMesh->_Normals = new Frm::vector<float>[_LoadMesh->_nNormals];
+//    _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
 //    for (int i = 0; i < _LoadMesh->_nNormals; i++) {
 //        fin.getline(Data, TEXT_BUFFER, ';');
 //        _LoadMesh->_Normals[i].x = TextToNum(Data);
@@ -536,7 +547,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //
 //    Find(';'); //add gecchi 2009/03/01 face数を読み飛ばすために追加。恐らく作者のバグ。
 //
-//    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces];
+//    _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces];
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
 //        Find(';');
 //        fin.getline(Data, TEXT_BUFFER, ',');
@@ -554,7 +565,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nNormals = (uint16) TextToNum(Data);
     _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
-    _LoadMesh->_Normals = new Frm::vector<float>[_LoadMesh->_nNormals];
+    _LoadMesh->_Normals = NEW Frm::vector<float>[_LoadMesh->_nNormals];
     for (int i = 0; i < _LoadMesh->_nNormals; i++) {
         fin.getline(Data, TEXT_BUFFER, ';');
         _LoadMesh->_Normals[i].x = TextToNum(Data);
@@ -568,7 +579,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaceNormals = TextToNum(Data);
     _TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
-    _LoadMesh->_FaceNormals = new Frm::Face[_LoadMesh->_nFaces]; //new Frm::Face[_LoadMesh->_nFaceNormals] と間違えてはいない。
+    _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces]; //NEW Frm::Face[_LoadMesh->_nFaceNormals] と間違えてはいない。
     int face_vtx_num;
     int n = 0;
     for (int i = 0; i < _LoadMesh->_nFaceNormals; i++) {
@@ -628,7 +639,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 //    _TRACE_("Number of Materials:" << (uint16)TextToNum(Data));
 //
 //    fin.getline(Data, TEXT_BUFFER, ';');
-//    _LoadMesh->_FaceMaterials = new uint16[(uint16) TextToNum(Data)];
+//    _LoadMesh->_FaceMaterials = NEW uint16[(uint16) TextToNum(Data)];
 //    for (int i = 0; i < _LoadMesh->_nFaces - 1; i++) {
 //        fin.getline(Data, TEXT_BUFFER, ',');
 //        _LoadMesh->_FaceMaterials[i] = (uint16) TextToNum(Data);
@@ -645,7 +656,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_FaceMaterials = new uint16[(uint16) (TextToNum(Data)*2)];
+    _LoadMesh->_FaceMaterials = NEW uint16[(uint16) (TextToNum(Data)*2)];
     _TRACE_("Before Number of Materials:" << (uint16)TextToNum(Data));
 
     int file_nFaceMaterials = (uint16) TextToNum(Data);
@@ -705,8 +716,8 @@ void ToolBox::IO_Model_X::ProcessMaterial(void) {
     int16 Token;
     char Data[TEXT_BUFFER];
 
-    //Frm::Material* NewMaterial = new Frm::Material;
-    Frm::Material* NewMaterial = new Frm::Material(); //alter tsuge
+    //Frm::Material* NewMaterial = NEW Frm::Material;
+    Frm::Material* NewMaterial = NEW Frm::Material(); //alter tsuge
 
     Find('{');
     for (int i = 0; i < 4; i++) {
@@ -784,7 +795,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_nVertices = (uint16) TextToNum(Data);
-    cBone->_Vertices = new uint16[cBone->_nVertices];
+    cBone->_Vertices = NEW uint16[cBone->_nVertices];
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16) TextToNum(Data);
@@ -794,7 +805,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
     cBone->_Vertices[cBone->_nVertices - 1] = (uint16) TextToNum(Data);
     _TRACE_("Vertex:" << atoi(Data));
 
-    cBone->_Weights = new float[cBone->_nVertices];
+    cBone->_Weights = NEW float[cBone->_nVertices];
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Weights[i] = TextToNum(Data);
@@ -827,7 +838,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
     //   char Data[TEXT_BUFFER];
 
     _MaxKey = 0;
-    _LoadAnimationSet = new Frm::AnimationSet;
+    _LoadAnimationSet = NEW Frm::AnimationSet;
 
     Token = fin.peek();
     //if (Token != '{')
@@ -872,7 +883,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
 void ToolBox::IO_Model_X::ProcessAnimations(Frm::AnimationSet* &pAS) {
     int16 Token;
     char Data[TEXT_BUFFER];
-    Frm::Animation* TempAnimation = new Frm::Animation;
+    Frm::Animation* TempAnimation = NEW Frm::Animation;
 
     Find('{');
 
@@ -928,7 +939,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         MYTRACE(Size, "Rotation Keys");
         pA->_Rotations.reserve(Size);
         while (Size--) {
-            TempRot = new Frm::RotateKey;
+            TempRot = NEW Frm::RotateKey;
             fin.getline(Data, TEXT_BUFFER, ';');
             TempRot->Time = (uint16) TextToNum(Data);
             if (TempRot->Time > _MaxKey)
@@ -951,7 +962,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         MYTRACE(Size, "Scaling Keys");
         pA->_Scalings.reserve(Size);
         while (Size--) {
-            TempScale = new Frm::ScaleKey;
+            TempScale = NEW Frm::ScaleKey;
             fin.getline(Data, TEXT_BUFFER, ';');
             TempScale->Time = (uint16) TextToNum(Data);
             if (TempScale->Time > _MaxKey)
@@ -972,7 +983,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         MYTRACE(Size, "Position Keys");
         pA->_Translations.reserve(Size);
         while (Size--) {
-            TempPos = new Frm::PositionKey;
+            TempPos = NEW Frm::PositionKey;
             fin.getline(Data, TEXT_BUFFER, ';');
             TempPos->Time = (uint16) TextToNum(Data);
             if (TempPos->Time > _MaxKey)
@@ -993,7 +1004,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         MYTRACE(Size, "Matrix Keys");
         pA->_Matrices.reserve(Size);
         while (Size--) {
-            TempMatrix = new Frm::MatrixKey;
+            TempMatrix = NEW Frm::MatrixKey;
             fin.getline(Data, TEXT_BUFFER, ';');
             TempMatrix->Time = (uint16) TextToNum(Data);
             if (TempMatrix->Time > _MaxKey)

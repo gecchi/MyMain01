@@ -57,6 +57,11 @@ Mesh::~Mesh(void) {
         delete _Subsets.back();
         _Subsets.pop_back();
     }
+    //add tsuge begin
+    if (_FaceNormals != 0) {
+        delete[] _FaceNormals;
+    }
+    //sdd tsuge end
 }
 
 void Mesh::UpdateIndices(void) {
@@ -88,9 +93,9 @@ void Mesh::CreateSubsets(void) {
             if (_FaceMaterials[j] == i)
                 ++FaceCount;
         //We initialise the mesh subset
-        MeshSubset = new Subset;
+        MeshSubset = NEW Subset;
         MeshSubset->Size = FaceCount;
-        MeshSubset->Faces = new Face[FaceCount];
+        MeshSubset->Faces = NEW Face[FaceCount];
         int k = 0;
         //We fill in the Mesh subset
         for (int j = 0; j < _nFaces; j++)
@@ -141,8 +146,19 @@ Animation* AnimationSet::FindAnimation(std::string &pText) {
 /*************************************************/
 
 Model3D::~Model3D(void) {
-    if (_Skeletton != 0)
-        delete _Skeletton;
+    //tsuge modify begin
+
+    //if (_Skeletton != 0)
+    //    delete _Skeletton;
+
+    //_toplevel_Skelettonsのリスト解放するので、上の
+    //delete は不要になった。
+    while (!_toplevel_Skelettons.empty()) {
+        delete _toplevel_Skelettons.back();
+        _toplevel_Skelettons.pop_back();
+    }
+    //tsuge modify end
+
     while (!_Meshes.empty()) {
         delete _Meshes.back();
         _Meshes.pop_back();
@@ -167,28 +183,31 @@ void Model3D::ConcatenateMeshes(void) {
 
     _TRACE_("Concatenating Meshes ...");
 
-    Mesh* ConcatMesh = new Mesh;
+    Mesh* ConcatMesh = NEW Mesh;
     Mesh* LastMesh = _Meshes.back();
 
     ConcatMesh->_Name = "ConcatMesh";
 
-    //We create the new mesh.
-    //We get the dimensions of the new mesh
+    //We create the NEW mesh.
+    //We get the dimensions of the NEW mesh
     ConcatMesh->_nVertices = LastMesh->_FirstVertex + LastMesh->_nVertices;
     ConcatMesh->_nFaces = LastMesh->_FirstFace + LastMesh->_nFaces;
-    ConcatMesh->_nTextureCoords = LastMesh->_FirstTextureCoord
-            + LastMesh->_nTextureCoords;
+    ConcatMesh->_nTextureCoords = LastMesh->_FirstTextureCoord + LastMesh->_nTextureCoords;
     ConcatMesh->_nNormals = LastMesh->_FirstNormal + LastMesh->_nNormals;
+    //add tsuge begin
+    ConcatMesh->_nMaterials = LastMesh->_FirstMaterial + LastMesh->_nMaterials;
+    //addtsuge end
+
 
     //Here we have a control:
     //Texture coordinates must be as numerous as Vertices or there must be none
     //Normal vectors must be as numerous as Vertices or there must be none
-    if ((ConcatMesh->_nTextureCoords < ConcatMesh->_nVertices)
-            && (ConcatMesh->_nTextureCoords != 0))
+    if ((ConcatMesh->_nTextureCoords < ConcatMesh->_nVertices) && (ConcatMesh->_nTextureCoords != 0)) {
         ConcatMesh->_nTextureCoords = ConcatMesh->_nVertices;
-    if ((ConcatMesh->_nNormals < ConcatMesh->_nVertices)
-            && (ConcatMesh->_nNormals != 0))
+    }
+    if ((ConcatMesh->_nNormals < ConcatMesh->_nVertices) && (ConcatMesh->_nNormals != 0)) {
         ConcatMesh->_nNormals = ConcatMesh->_nVertices;
+    }
 
     _TRACE_("Final number of Vertices:"<< ConcatMesh->_nVertices);
     _TRACE_("Final number of Faces:"<< ConcatMesh->_nFaces);
@@ -201,22 +220,22 @@ void Model3D::ConcatenateMeshes(void) {
     // - Material indices per face
     // - Texture Coords
     // - Normal vectors and Face Allocation of Normal vectors
-    ConcatMesh->_Vertices = new Frm::Vertex[ConcatMesh->_nVertices];
+    ConcatMesh->_Vertices = NEW Frm::Vertex[ConcatMesh->_nVertices];
     memset(ConcatMesh->_Vertices, 0, ConcatMesh->_nVertices
             * sizeof(Frm::Vertex));
-    ConcatMesh->_Faces = new Frm::Face[ConcatMesh->_nFaces];
+    ConcatMesh->_Faces = NEW Frm::Face[ConcatMesh->_nFaces];
     memset(ConcatMesh->_Faces, 0, ConcatMesh->_nFaces * sizeof(Frm::Face));
-    ConcatMesh->_FaceMaterials = new uint16[ConcatMesh->_nFaces];
+    ConcatMesh->_FaceMaterials = NEW uint16[ConcatMesh->_nFaces];
     memset(ConcatMesh->_FaceMaterials, 0, ConcatMesh->_nFaces * sizeof(uint16));
     if (ConcatMesh->_nTextureCoords != 0) {
         ConcatMesh->_TextureCoords
-                = new Frm::TCoord[ConcatMesh->_nTextureCoords];
+                = NEW Frm::TCoord[ConcatMesh->_nTextureCoords];
         memset(ConcatMesh->_TextureCoords, 0, ConcatMesh->_nTextureCoords
                 * sizeof(Frm::TCoord));
     }
     if (ConcatMesh->_nNormals != 0) {
-        ConcatMesh->_Normals = new Frm::vector<float>[ConcatMesh->_nNormals];
-        ConcatMesh->_FaceNormals = new Frm::Face[ConcatMesh->_nFaces];
+        ConcatMesh->_Normals = NEW Frm::vector<float>[ConcatMesh->_nNormals];
+        ConcatMesh->_FaceNormals = NEW Frm::Face[ConcatMesh->_nFaces];
         memset(ConcatMesh->_Normals, 0, ConcatMesh->_nNormals
                 * sizeof(Frm::vector<float>));
         memset(ConcatMesh->_FaceNormals, 0, ConcatMesh->_nFaces
@@ -255,6 +274,7 @@ void Model3D::ConcatenateMeshes(void) {
     _TRACE_("Adapting the Bone hierarchy ...");
     if (_Skeletton != 0)
         UpdateBoneIndices(_Skeletton);
+    //TODO: ここは複数。_toplevel_Skelettonsでまわす？
 
     _TRACE_("Bone hierarchy adapted.");
 
@@ -264,7 +284,7 @@ void Model3D::ConcatenateMeshes(void) {
         _Meshes.pop_back();
     }
 
-    //and push the new concatenated one
+    //and push the NEW concatenated one
     _Meshes.push_back(ConcatMesh);
 
     //We create the subsets

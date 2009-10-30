@@ -72,6 +72,7 @@ private:
     void ProcessAnimations(Frm::AnimationSet* &pAS);
     void ProcessAnimationKeys(Frm::Animation* &pA);
     void MapMeshToBones(Frm::Bone* &pBone);
+
 };
 
 }
