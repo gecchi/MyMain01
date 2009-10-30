@@ -374,6 +374,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 
         int n = 0;
+        int nVertices_begin;
+        int nVertices_end;
         for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin() ;
                 iteBone != _pMeshModel->_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
@@ -405,8 +407,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                     FrameTransformMatrix._43 = pMatPos->data[14];
                     FrameTransformMatrix._44 = pMatPos->data[15];
 
-                    int nVertices_begin;
-                    int nVertices_end;
+
                     if (n == 0) {
                         nVertices_begin = 0;
                         nVertices_end = paNumVertices[n]
