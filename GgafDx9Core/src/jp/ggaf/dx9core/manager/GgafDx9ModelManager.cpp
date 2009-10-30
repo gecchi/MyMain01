@@ -174,7 +174,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         int index_Mesh = 0;
         for (list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
-            paNumVertices[index_Mesh] = (*iteMeshes)->_nVertices;
+            paNumVertices[index_Mesh] = (*iteMeshes)->_FirstVertex;
             index_Mesh++;
         }
 
