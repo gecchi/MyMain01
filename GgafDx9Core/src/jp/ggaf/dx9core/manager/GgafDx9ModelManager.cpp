@@ -169,18 +169,40 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshModel] Xファイルの読込み失敗。対象="<<xfile_name);
         }
         //メッシュを結合する前に、情報を確保しておく
+
         int nMesh = (int)model_pModel3D->_Meshes.size();
         uint16*  paNumVertices = NEW uint16[nMesh];
         int index_Mesh = 0;
         for (list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
                 iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
-            paNumVertices[index_Mesh] = (*iteMeshes)->_FirstVertex;
+
+            _TRACE_("(*iteMeshes)->_nVertices="<<((*iteMeshes)->_nVertices));
+			uint16 n = ((*iteMeshes)->_nVertices);
+			_TRACE_("n ="<<n);
+            paNumVertices[index_Mesh] = n;
+			_TRACE_("paNumVertices["<<index_Mesh<<"] ="<<(paNumVertices[index_Mesh]));
             index_Mesh++;
         }
 
-        for (int i = 0; i < index_Mesh; i++) {
-            _TRACE_("paNumVertices["<<i<<"]="<<paNumVertices[index_Mesh]);
+        for (int i = 0; i < nMesh; i++) {
+            _TRACE_("paNumVertices["<<i<<"]="<<(paNumVertices[i]));
         }
+
+
+
+//
+//
+//        for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin();
+//               material != model_pMeshesFront->_Materials.end(); material++) {
+//            model_paD3DMaterial9[n].Diffuse.r = (*material)->_FaceColor.data[0];
+//            model_paD3DMaterial9[n].Diffuse.g = (*material)->_FaceColor.data[1];
+//        }
+//
+//
+//
+//
+
+
 
         model_pModel3D->ConcatenateMeshes(); //メッシュを繋げる
 
