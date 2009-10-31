@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-MyWave001::MyWave001(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") {
+MyWave001::MyWave001(const char* prm_name) : DefaultMeshActor(prm_name, "wave") {
     _class_name = "MyWave001";
 }
 
@@ -16,7 +16,7 @@ void MyWave001::initialize() {
     //_pMover->setRotAngleVelocity(AXIS_Z, 2*1000);
     //_pMover->setRzMoveAngle(0);
     //_pMover->setRotAngle(AXIS_Z, 0);
-    _pMover->setMoveVelocity(2000);
+    _pMover->setMoveVelocity(5000);
 
     _pStgChecker->useHitAreaBoxNum(7);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
@@ -34,8 +34,7 @@ void MyWave001::initialize() {
     //	_pStgChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
     //	_pStgChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    _SX = 10000;
-    _SY = 10000;
+    _pScaler->setScaleRange(1000,20000);
     //setAlpha(0.2);
 
     setBumpable(true);
@@ -46,6 +45,8 @@ void MyWave001::initialize() {
 void MyWave001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
+        _pScaler->setScale(1000);
+        _pScaler->intoTargetScaleLinerStep(100000,100);
         setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
         _pMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z]);
@@ -59,6 +60,7 @@ void MyWave001::processBehavior() {
         //’Êíˆ—
         //addNextAnimationFrame();
         //À•W‚É”½‰f
+        _pScaler->behave();
         _pMover->behave();
         _pStgChecker->behave();
     }

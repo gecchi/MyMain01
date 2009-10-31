@@ -71,7 +71,7 @@ public:
     /**
      * ターゲットへ一定速度でモーフする（フレーム数指定） .
      * @param prm_target_mesh ターゲットメッシュNO
-     * @param prm_target_weight ターゲットメッシュの目標重み
+     * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_spend_frame 費やすフレーム数
      */
     void intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, DWORD prm_spend_frame);
@@ -79,7 +79,7 @@ public:
     /**
      * ターゲットへ一定速度でモーフする（重み差分指定） .
      * @param prm_target_mesh ターゲットメッシュNO
-     * @param prm_target_weight ターゲットメッシュの目標重み
+     * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 毎フレーム加算する重み差分(>0.0)。正の重みを指定する事。加算か減算かは自動判断する。
      */
     void intoTargetLinerStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight);
@@ -89,7 +89,7 @@ public:
      * 重み加速度を0に指定すると intoTargetLinerStep とほぼ同じ意味になる。
      * intoTargetLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * @param prm_target_mesh ターゲットメッシュNO
-     * @param prm_target_weight ターゲットメッシュの目標重み
+     * @param prm_target_weight ターゲットメッシュの目標重み(0.0～1.0)
      * @param prm_velo_weight 初期重み速度
      * @param prm_acce_weight 重み加速度
      */

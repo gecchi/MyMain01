@@ -61,13 +61,13 @@ public:
      */
     GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor);
 
-    void increaseScale(int prm_scale_diff) {
+    void addScale(int prm_scale_diff) {
         for (int axis = 0; axis < 3; axis++) {
-            increaseScale(axis, prm_scale_diff);
+            addScale(axis, prm_scale_diff);
         }
     }
 
-    void increaseScale(int prm_axis, int prm_scale_diff) {
+    void addScale(int prm_axis, int prm_scale_diff) {
         setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
     }
 

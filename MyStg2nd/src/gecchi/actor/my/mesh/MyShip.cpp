@@ -397,10 +397,10 @@ void MyShip::processBehavior() {
     }
 
     if (VB::isBeingPressed(VB_BUTTON6)) {
-        _pScaler->increaseScale(-200);
+        _pScaler->addScale(-200);
     }
     if (VB::isBeingPressed(VB_BUTTON5)) {
-        _pScaler->increaseScale(200);
+        _pScaler->addScale(200);
     }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
