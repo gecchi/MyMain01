@@ -11,7 +11,7 @@ EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : CurveLaserChip(prm_
 }
 
 void EnemyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(60000);
+    _pMover->setMoveVelocity(30000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);

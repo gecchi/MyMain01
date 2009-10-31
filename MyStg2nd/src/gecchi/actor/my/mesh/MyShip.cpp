@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 //1/√2
 #define NANAME 0.7
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "3Box") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _class_name = "MyShip";
 
     GameGlobal::init();
@@ -92,8 +92,8 @@ void MyShip::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
-    //_pScaler->setScale(4000);
-
+    _pScaler->setScale(1000);
+    _pScaler->setScaleRange(1000, 3000);
 
 
 //    for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin();
@@ -201,13 +201,13 @@ void MyShip::processBehavior() {
 
     ///////////スケーリングテスト////////////////
         if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-            _pScaler->intoTargetScaleLinerUntil(8000, 60);
+            _pScaler->intoTargetScaleLinerUntil(3000, 60);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-            _pScaler->intoTargetScaleLinerStep(8000, 10);
+            _pScaler->intoTargetScaleLinerStep(3000, 10);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-            _pScaler->intoTargetScaleAccelerationStep(8000, 0, 3);
+            _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
         }
         if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
             _pScaler->beatLiner(20, -1);
