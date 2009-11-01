@@ -1006,6 +1006,35 @@ void GgafDx9GeometryMover::setVzMoveAcceleration(acce prm_acceVzMove) {
 
 
 
+void GgafDx9GeometryMover::executeSplineMoveSequence(GgafDx9SplineProgram* prm_progSP, int prm_option) {
+    _progSP = prm_progSP;
+    _progSP->begin(_pActor, prm_option);
+}
+
+void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ, angvelo prm_angVelocity) {
+    angle out_angRz_Target;
+    angle out_angRy_Target;
+    GgafDx9Util::getRzRyAngle(prm_tX - _pActor->_X,
+                              prm_tY - _pActor->_Y,
+                              prm_tZ - _pActor->_Z,
+                              out_angRz_Target,
+                              out_angRy_Target);
+    if (getDifferenceFromRzMoveAngleTo(out_angRz_Target, TURN_CLOSE_TO) > 0) {
+        setRzMoveAngleVelocity(prm_angVelocity);
+    } else {
+       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+    }
+    if (getDifferenceFromRyMoveAngleTo(out_angRy_Target, TURN_CLOSE_TO) > 0) {
+        setRyMoveAngleVelocity(prm_angVelocity);
+    } else {
+        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+    }
+
+    setSuspendTargetRzMoveAngle(out_angRz_Target);
+    setSuspendTargetRyMoveAngle(out_angRy_Target);
+}
+
+
 
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {

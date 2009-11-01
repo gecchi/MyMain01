@@ -41,14 +41,7 @@ public:
      */
     GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor);
 
-    /**
-     * スプラインプログラム実行
-     * @param prm_progSP スプラインプログラム
-     */
-    void executeSplineProgram(GgafDx9SplineProgram* prm_progSP, int prm_option) {
-        _progSP = prm_progSP;
-        _progSP->begin(_pActor, prm_option);
-    }
+
 
 public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
@@ -482,6 +475,28 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setVzMoveAcceleration(acce prm_acceVzMove);
 
 
+    /**
+     * スプラインプログラム実行
+     * @param prm_progSP スプラインプログラム
+     */
+    void executeSplineMoveSequence(GgafDx9SplineProgram* prm_progSP, int prm_option);
+
+    /**
+     * 移動方角をターゲットするシークエンスを実行
+     * @param prm_tX
+     * @param prm_tY
+     * @param prm_tZ
+     */
+    void executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ, angvelo prm_angVelocity);
+
+    void executeTagettingMoveAngleSequence(GgafDx9GeometricActor* prm_pActor_Target, angvelo prm_angVelocity) {
+        executeTagettingMoveAngleSequence(
+                prm_pActor_Target->_X,
+                prm_pActor_Target->_Y,
+                prm_pActor_Target->_Z,
+                prm_angVelocity
+        );
+    }
 
     /**
      * 毎フレームのActorの振る舞い。<BR>

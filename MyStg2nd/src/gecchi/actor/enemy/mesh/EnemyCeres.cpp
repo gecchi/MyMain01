@@ -140,7 +140,7 @@ void EnemyCeres::initialize() {
 
 
 
-    _pMover->executeSplineProgram(_programSP, 0);
+    _pMover->executeSplineMoveSequence(_programSP, 0);
 }
 
 void EnemyCeres::processBehavior() {

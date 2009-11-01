@@ -424,10 +424,10 @@ void MyShip::processJudgement() {
 
 //    //スプラインテスト！！！
 //    if (VB::isPushedDown(VB_SHOT1)) {
-//        _pMover->executeSplineProgram(_programSP, false);
+//        _pMover->executeSplineMoveSequence(_programSP, false);
 //    }
 //    if (VB::isPushedDown(VB_SHOT2)) {
-//        _pMover->executeSplineProgram(_programSP, true);
+//        _pMover->executeSplineMoveSequence(_programSP, true);
 //    }
 
 
