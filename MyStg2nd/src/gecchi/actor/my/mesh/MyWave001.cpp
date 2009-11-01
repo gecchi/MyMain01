@@ -16,7 +16,7 @@ void MyWave001::initialize() {
     //_pMover->setRotAngleVelocity(AXIS_Z, 2*1000);
     //_pMover->setRzMoveAngle(0);
     //_pMover->setRotAngle(AXIS_Z, 0);
-    _pMover->setMoveVelocity(5000);
+    _pMover->setMoveVelocity(20000);
 
     _pStgChecker->useHitAreaBoxNum(7);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);
@@ -47,6 +47,7 @@ void MyWave001::processBehavior() {
         //oŒ»Žž‹¤’Êˆ—
         _pScaler->setScale(1000);
         _pScaler->intoTargetScaleLinerStep(100000,100);
+		_pScaler->behave();
         setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
         _pMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z]);

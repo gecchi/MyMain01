@@ -30,6 +30,11 @@ public:
     GgafDx9EffectConnection* _pGgafDx9EffectCon;
     /** エフェクト資源 */
     GgafDx9Effect* _pGgafDx9Effect;
+    /** SE資源接続 */
+    GgafDx9SeConnection* _pSeCon;
+    /** SE資源 */
+    GgafDx9Se* _pSe;
+
 
 
     /**
@@ -88,6 +93,10 @@ public:
     virtual void setMaterialColor(float r, float g, float b);
 
     virtual void resetMaterialColor();
+
+    void useSe(char* prm_se_name);
+
+    void playSe();
 
     virtual ~GgafDx9DrawableActor(); //デストラクタ
 };

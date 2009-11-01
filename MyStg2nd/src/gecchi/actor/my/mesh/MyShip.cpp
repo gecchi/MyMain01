@@ -22,8 +22,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
     //CommonSceneがnewの場合設定
-    //キャッシュロード
-    //GgafDx9SeManager::get("laser001");
+
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
     _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
@@ -468,7 +467,7 @@ void MyShip::processJudgement() {
     }
 
     //ショットボタン
-    if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+    if (VB::isPushedDown(VB_SHOT1)) {
 
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
@@ -480,7 +479,7 @@ void MyShip::processJudgement() {
                 pExplo001->setGeometry(this);
             }
         }
-    } else if (VB::isPushedDown(VB_SHOT1) || VB::isPushedDown(VB_SHOT1_R) ) {
+    } else if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             pShot->activateTree();

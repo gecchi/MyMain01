@@ -36,7 +36,8 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     //Å‘å‹——£’¸“_
     _max_radius = _pGgafDx9Model->_max_radius;
 
-
+    _pSeCon = NULL;
+    _pSe = NULL;
 }
 
 
@@ -98,6 +99,8 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
 
+    _pSeCon = NULL;
+    _pSe = NULL;
 }
 
 
@@ -185,9 +188,23 @@ void GgafDx9DrawableActor::resetMaterialColor() {
     }
 }
 
+
+void GgafDx9DrawableActor::useSe(char* prm_se_name) {
+    _pSeCon = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(prm_se_name);
+    _pSe = _pSeCon->view();
+}
+
+void GgafDx9DrawableActor::playSe() {
+    _pSe->play();
+}
+
+
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
     _pGgafDx9ModelCon->close();
     _pGgafDx9EffectCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
+    if (_pSeCon) {
+        _pSeCon->close();
+    }
 }

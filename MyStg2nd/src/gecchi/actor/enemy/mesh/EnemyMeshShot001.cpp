@@ -38,6 +38,7 @@ void EnemyMeshShot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     setBumpable(true);
+    useSe("bomb1");
 }
 
 void EnemyMeshShot001::processBehavior() {
@@ -118,6 +119,7 @@ void EnemyMeshShot001::processJudgement() {
 void EnemyMeshShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //adios();
+    playSe();
     setBumpable(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
