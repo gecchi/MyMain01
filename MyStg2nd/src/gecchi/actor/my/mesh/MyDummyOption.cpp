@@ -203,7 +203,7 @@ void MyDummyOption::processBehavior() {
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //_Q._x, _Q._y, _Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //Z²‰ñ“]AY²‰ñ“]Šp“x‚ğŒvZ
-    GgafDx9Util::getRotAngleZY(
+    GgafDx9Util::getRzRyAngle(
         _Q._x,
         _Q._y,
         _Q._z,

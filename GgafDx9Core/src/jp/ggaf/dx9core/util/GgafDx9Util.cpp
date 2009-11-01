@@ -230,7 +230,7 @@ void GgafDx9Util::init() {
             nvx = t * vx;
             nvy = t * vy;
             nvz = t * vz;
-            //getRotAngleZY((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
+            //getRzRyAngle((float)nvx,(float)nvy,(float)nvz,rZ,rY,30);
 //
 //            //単位ベクトルからRxRyを求める
             _srv.getRotAngleClosely(
@@ -289,7 +289,7 @@ void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* ou
 //void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_way, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
 //                                          angle& out_angRotZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
-//    getRotAngleZY(prm_tX, prm_tY, prm_tZ, tRy, tRy);
+//    getRzRyAngle(prm_tX, prm_tY, prm_tZ, tRy, tRy);
 //
 //    angle angStart = addAngle(tRy, ((prm_way - 1) * prm_angClearance) / -2);
 //    for (int i = 0; i < prm_way; i++) {
@@ -354,7 +354,7 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
     return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
-void GgafDx9Util::getRotAngleZY(int vx,
+void GgafDx9Util::getRzRyAngle(int vx,
                                    int vy,
                                    int vz,
                                    angle& out_angRotZ,
@@ -389,7 +389,7 @@ void GgafDx9Util::getRotAngleZY(int vx,
         out_angRotZ = (ANGLE360 - rotZ);
         out_angRotY = rotY_rev;
     } else {
-        _TRACE_("おかしいですぜgetRotAngleZY_new");
+        _TRACE_("おかしいですぜgetRzRyAngle_new");
     }
 }
 
@@ -397,7 +397,7 @@ void GgafDx9Util::getRotAngleZY(int vx,
 
 
 
-void GgafDx9Util::getRotAngleZY(int vx,
+void GgafDx9Util::getRzRyAngle(int vx,
                           int vy,
                           int vz,
                           float& out_nvx,
@@ -406,7 +406,7 @@ void GgafDx9Util::getRotAngleZY(int vx,
                           angle& out_angRotZ,
                           angle& out_angRotY) {
 
-    getRotAngleZY(vx,
+    getRzRyAngle(vx,
                        vy,
                        vz,
                        out_angRotZ,
@@ -420,8 +420,8 @@ void GgafDx9Util::getRotAngleZY(int vx,
 
 }
 
-void GgafDx9Util::getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY) {
-    getRotAngleZY((int)(nvx*LEN_UNIT*PX_UNIT),
+void GgafDx9Util::getRzRyAngle(float nvx, float nvy, float nvz, angle& out_angRotZ, angle& out_angRotY) {
+    getRzRyAngle((int)(nvx*LEN_UNIT*PX_UNIT),
                       (int)(nvy*LEN_UNIT*PX_UNIT),
                       (int)(nvz*LEN_UNIT*PX_UNIT),
                       out_angRotZ,
@@ -432,7 +432,7 @@ void GgafDx9Util::getRotAngleZY(float nvx, float nvy, float nvz, angle& out_angR
 
 
 
-void GgafDx9Util::getRotAngleZY_old(int x,
+void GgafDx9Util::getRzRyAngle_old(int x,
                                 int y,
                                 int z,
                                 float& out_nvx,
@@ -509,7 +509,7 @@ void GgafDx9Util::getRotAngleZY_old(int x,
     //_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angRotZ<<" RY="<<out_angRotY);
 }
 
-void GgafDx9Util::getRotAngleZY_old(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s) {
+void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angRotZ, angle& out_angRotY, int s) {
     static float vx, vy, vz, t;
     vx = ((float)x) / LEN_UNIT;
     vy = ((float)y) / LEN_UNIT;
@@ -554,7 +554,7 @@ void GgafDx9Util::getRotAngleZY_old(int x, int y, int z, angle& out_angRotZ, ang
     }
 }
 
-void GgafDx9Util::getRotAngleZY_old(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY, int s) {
+void GgafDx9Util::getRzRyAngle_old(float vx, float vy, float vz, angle& out_angRotZ, angle& out_angRotY, int s) {
     static s_ang rZ, rY;
     _srv.getRotAngleClosely(
             (unsigned __int16) abs(vx*10000),

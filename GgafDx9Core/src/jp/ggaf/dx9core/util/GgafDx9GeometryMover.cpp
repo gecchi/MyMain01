@@ -390,7 +390,7 @@ void GgafDx9GeometryMover::setRotAngle(int prm_axis, angle prm_angRot) {
 }
 
 void GgafDx9GeometryMover::setRotAngle(int prm_tX, int prm_tY, int prm_tZ) {
-    GgafDx9Util::getRotAngleZY(
+    GgafDx9Util::getRzRyAngle(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
                    prm_tZ - _pActor->_Z,
@@ -891,7 +891,7 @@ void GgafDx9GeometryMover::setMoveAngle(GgafDx9GeometricActor* prm_pActor_Target
 }
 
 void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
-    GgafDx9Util::getRotAngleZY(
+    GgafDx9Util::getRzRyAngle(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
                    prm_tZ - _pActor->_Z,
@@ -915,7 +915,7 @@ void GgafDx9GeometryMover::setSuspendTargetRzRyMoveAngle(int prm_tX, int prm_tY,
     angle angRz_Target;
     angle angRy_Target;
 
-    GgafDx9Util::getRotAngleZY(
+    GgafDx9Util::getRzRyAngle(
                    prm_tX - _pActor->_X,
                    prm_tY - _pActor->_Y,
                    prm_tZ - _pActor->_Z,

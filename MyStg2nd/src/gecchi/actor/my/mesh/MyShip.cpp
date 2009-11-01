@@ -114,33 +114,33 @@ void MyShip::initialize() {
 
 
 //    int rZ1,rY1,rZ2,rY2;
-//    _TRACE_("START getRotAngleZY");
+//    _TRACE_("START getRzRyAngle");
 //    for (int x = -30000; x < 30000; x+= 100) {
 //        for (int y = -30000; y < 30000; y+= 100) {
 //            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRotAngleZY(x,y,z,rZ1,rY1);
+//                GgafDx9Util::getRzRyAngle(x,y,z,rZ1,rY1);
 //            }
 //        }
 //    }
-//    _TRACE_("DONE getRotAngleZY");
-//    _TRACE_("START getRotAngleZY_new");
+//    _TRACE_("DONE getRzRyAngle");
+//    _TRACE_("START getRzRyAngle_new");
 //    for (int x = -30000; x < 30000; x+= 100) {
 //        for (int y = -30000; y < 30000; y+= 100) {
 //            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRotAngleZY_new(x,y,z,rZ2,rY2);
+//                GgafDx9Util::getRzRyAngle_new(x,y,z,rZ2,rY2);
 //            }
 //        }
 //    }
-//    _TRACE_("DONE getRotAngleZY_new");
-//    _TRACE_("START getRotAngleZY_new2");
+//    _TRACE_("DONE getRzRyAngle_new");
+//    _TRACE_("START getRzRyAngle_new2");
 //    for (int x = -30000; x < 30000; x+= 100) {
 //        for (int y = -30000; y < 30000; y+= 100) {
 //            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRotAngleZY_new2(x,y,z,rZ2,rY2);
+//                GgafDx9Util::getRzRyAngle_new2(x,y,z,rZ2,rY2);
 //            }
 //        }
 //    }
-//    _TRACE_("DONE getRotAngleZY_new2");
+//    _TRACE_("DONE getRzRyAngle_new2");
 
     //_TRACE_(x<<","<<y<<","<<z<<" = ("<<rZ1<<","<<rY1<<") , ("<<rZ2<<","<<rY2<<")");
     //                if (GgafDx9Util::abs(rZ1-rZ2) > 201 || GgafDx9Util::abs(rY1-rY2) > 201) {

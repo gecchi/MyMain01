@@ -60,7 +60,7 @@ void EnemyMeshShot001::processBehavior() {
         //		angle angRz_Target;
         //		angle angRy_Target;
         //		double dummy1,dummy2,dummy3;
-        //		GgafDx9Util::getRotAngleZY(
+        //		GgafDx9Util::getRzRyAngle(
         //				GameGlobal::_pMyShip->_X - _X,
         //				GameGlobal::_pMyShip->_Y - _Y,
         //				GameGlobal::_pMyShip->_Z - _Z,
@@ -75,8 +75,11 @@ void EnemyMeshShot001::processBehavior() {
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
             static angle angRz_Target;
             static angle angRy_Target;
-            GgafDx9Util::getRotAngleZY(GameGlobal::_pMyShip->_X - _X, GameGlobal::_pMyShip->_Y - _Y,
-                                       GameGlobal::_pMyShip->_Z - _Z, angRz_Target, angRy_Target);
+            GgafDx9Util::getRzRyAngle(GameGlobal::_pMyShip->_X - _X,
+                                       GameGlobal::_pMyShip->_Y - _Y,
+                                       GameGlobal::_pMyShip->_Z - _Z,
+                                       angRz_Target,
+                                       angRy_Target);
             if (_pMover->getDifferenceFromRzMoveAngleTo(angRz_Target, TURN_CLOSE_TO) > 0) {
                 _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
             } else {
