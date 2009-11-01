@@ -354,11 +354,11 @@ public:
     template<typename T>
     static T abs(T x) {
         if (x < 0) {
-            return -1.0* x;
+            return (T)(-1.0* x);
         } else if (x > 0) {
             return x;
         } else {
-            return 0.0;
+            return (T)0.0;
         }
     }
 
@@ -370,11 +370,11 @@ public:
      * @return ˆø”a‚Ì•½•ûª
      */
     static float sqrt_fast(float a, int s = 11) {
-        float ret = 1;
+        double ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);
         }
-        return ret;
+        return (float)ret;
     }
     //static DWORD max3(DWORD a, DWORD b, DWORD c);
 };

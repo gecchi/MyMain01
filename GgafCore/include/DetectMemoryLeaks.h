@@ -1,6 +1,6 @@
 #ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
-#pragma warning(disable:C4291)
+#pragma warning(disable: 4291)
 
 extern std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 

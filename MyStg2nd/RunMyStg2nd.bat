@@ -10,6 +10,6 @@ set MI=%TIME_TMP:~3,2%
 set SS=%TIME_TMP:~6,2%
 set SSS=%TIME_TMP:~9,2%
 set DATETIME=%yyyy%%mm%%dd%%hh%%mi%%ss%_%sss%
-cd MyStg2nd
+cd %WORKSPACE%\MyStg2nd
 set LOGFILE=log\%DATETIME%.log
 DebugCdt\MyStg2nd.exe  2>&1) >> %LOGFILE%

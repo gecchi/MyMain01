@@ -170,18 +170,18 @@ void GgafDx9Util::init() {
         vx = cos(rad);
         vy = sin(rad);
         if (vx == 0) {
-            slant = 0;
+            slant = 0.0f;
         } else {
-            slant = vy / vx;
+            slant = (float)(vy / vx);
         }
-        index_slant = slant * 10000;
+        index_slant = (int)(slant * 10000);
         d_index_slant = index_slant - index_slant_prev;
         for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
             if (i > 10000) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
-            SLANT2ANG[i] = ((ang-1) + ((1.0*d)/(1.0*d_index_slant))) * 10.0;
+            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*10.0 );
         }
         index_slant_prev = index_slant;
     }
@@ -190,7 +190,7 @@ void GgafDx9Util::init() {
         if (i > 10000) {
             _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(45000));
         }
-        SLANT2ANG[i] = ((4500-1) + ((1.0*d)/(1.0*d_index_slant)));
+        SLANT2ANG[i] = (angle)( (4500-1) + (1.0*d)/(1.0*d_index_slant) );
     }
 
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
@@ -282,7 +282,7 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angC
 }
 void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle) {
     for (int i = 0; i < prm_way; i++) {
-        out_paAngle[i] = addAngle(prm_angStart, (1.0f * ANGLE360 / prm_way * i));
+        out_paAngle[i] = addAngle(prm_angStart, (angle)(1.0f * ANGLE360 / prm_way * i));
     }
 }
 
@@ -351,7 +351,7 @@ bool GgafDx9Util::chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21,
 }
 
 int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
-    return sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
+    return (int)sqrt((((double)(x2 - x1)) * ((double)(x2 - x1))) + (((double)(y2 - y1)) * ((double)(y2 - y1))));
 }
 
 void GgafDx9Util::getRotAngleZY(int vx,

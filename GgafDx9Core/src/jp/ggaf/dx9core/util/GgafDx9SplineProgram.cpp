@@ -38,9 +38,9 @@ void GgafDx9SplineProgram::behave() {
             return;
         }
 
-        _pActor_target->_X = _sp->_X_compute[SPPointIndex];
-        _pActor_target->_Y = _sp->_Y_compute[SPPointIndex];
-        _pActor_target->_Z = _sp->_Z_compute[SPPointIndex];
+        _pActor_target->_X = (int)(_sp->_X_compute[SPPointIndex]);
+        _pActor_target->_Y = (int)(_sp->_Y_compute[SPPointIndex]);
+        _pActor_target->_Z = (int)(_sp->_Z_compute[SPPointIndex]);
 
         _SPframe++;
 
