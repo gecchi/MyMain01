@@ -15,14 +15,14 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram() : GgafDx9Spline
     _Y_relative = 0;
     _Z_relative = 0;
 
-    _angRotMove = ANGLE360;
+    _angFaceMove = ANGLE360;
 }
 
 GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCriteriaPoints[][3],
                                                                int prm_point_num,
                                                                double prm_accuracy,
                                                                DWORD prm_spent_frame,
-                                                               angvelo prm_angRotMove )
+                                                               angvelo prm_angFaceMove )
 
                                         : GgafDx9SplineProgram(prm_paaCriteriaPoints,
                                                                prm_point_num,
@@ -67,7 +67,7 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
     //                                 120Frame費やして移動(=prm_spent_frame)
     //                  <-->
     //                  frm_segment = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
-    _angRotMove = prm_angRotMove;
+    _angFaceMove = prm_angFaceMove;
     //１区間の使用可能フレーム
     _SPframe_segment = 1.0*prm_spent_frame / (_sp->_rnum-1);
     if (_SPframe_segment < 1) {
@@ -150,26 +150,26 @@ void GgafDx9FixedFrameSplineProgram::behave() {
         if (_SPframe % _SPframe_segment == 0) {
             if (_option == 1) {
                 //相対座標ターゲット
-                _pActor_target->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
+                _pActor_target->_pMover->setSuspendTarget_RzRyMoveAngle(_sp->_X_compute[SPPointIndex] - _X_relative,
                                                                    _sp->_Y_compute[SPPointIndex] - _Y_relative,
                                                                    _sp->_Z_compute[SPPointIndex] - _Z_relative);
             } else {
                 //絶対座標ターゲット
-                _pActor_target->_pMover->setSuspendTargetRzRyMoveAngle(_sp->_X_compute[SPPointIndex],
+                _pActor_target->_pMover->setSuspendTarget_RzRyMoveAngle(_sp->_X_compute[SPPointIndex],
                                                                    _sp->_Y_compute[SPPointIndex],
                                                                    _sp->_Z_compute[SPPointIndex]);
             }
 
-            if (_pActor_target->_pMover->getDifferenceFromRzMoveAngleTo(_pActor_target->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
-                _pActor_target->_pMover->setRzMoveAngleVelocity(_angRotMove);
+            if (_pActor_target->_pMover->getRzMoveAngleDistance(_pActor_target->_pMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
+                _pActor_target->_pMover->setRzMoveAngleVelocity(_angFaceMove);
             } else {
-                _pActor_target->_pMover->setRzMoveAngleVelocity(-_angRotMove);
+                _pActor_target->_pMover->setRzMoveAngleVelocity(-_angFaceMove);
             }
 
-            if (_pActor_target->_pMover->getDifferenceFromRyMoveAngleTo(_pActor_target->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
-                _pActor_target->_pMover->setRyMoveAngleVelocity(_angRotMove);
+            if (_pActor_target->_pMover->getRyMoveAngleDistance(_pActor_target->_pMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
+                _pActor_target->_pMover->setRyMoveAngleVelocity(_angFaceMove);
             } else {
-                _pActor_target->_pMover->setRyMoveAngleVelocity(-_angRotMove);
+                _pActor_target->_pMover->setRyMoveAngleVelocity(-_angFaceMove);
             }
 
 

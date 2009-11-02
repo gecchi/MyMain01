@@ -67,7 +67,7 @@ public:
     int _offset_origin_Z;
     GgafDx9Core::angle _offset_origin_angRxMove;
     GgafDx9Core::angle _offset_origin_angRyMove;
-    GgafDx9Core::angle _offset_origin_angRot[3];
+    GgafDx9Core::angle _offset_origin_angFace[3];
 
 
     /** é©êgÇÃåªç›ÇÃWorldïœä∑çsóÒ */

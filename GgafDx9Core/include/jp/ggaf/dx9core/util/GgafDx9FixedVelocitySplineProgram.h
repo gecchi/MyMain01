@@ -12,7 +12,7 @@ public:
     int* _paDistace_to;
     float* _paFrame_need_at;
     velo _veloMoveUnit; //単位速度
-    angvelo _angRotMove;
+    angvelo _angFaceMove;
     float _fFrame_executing;
     float _fFrame_next_point;
     //float _fSPPointFrame;
@@ -39,13 +39,13 @@ public:
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
      * @param prm_veloMove 移動速度
-     * @param prm_angRotMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
+     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
     GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
                                    double prm_accuracy,
                                    //velo prm_veloMove,
-                                   angvelo prm_angRotMove);
+                                   angvelo prm_angFaceMove);
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
