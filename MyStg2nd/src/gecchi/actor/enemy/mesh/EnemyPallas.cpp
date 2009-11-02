@@ -16,16 +16,16 @@ void EnemyPallas::initialize() {
     _X = _X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
-    _pMover->setMoveVelocityRenge(-8000, 8000);
+    _pMover->setMoveVeloRenge(-8000, 8000);
     _pMover->setMoveVelocity(8000);
-    _pMover->setMoveAcceleration(-500);
+    _pMover->setMoveVeloAcceleration(-500);
     _pMover->setRzMoveAngle(ANGLE90);
 
-    _pMover->setRotAngleVelocityRenge(AXIS_X, 0, 5000);
-    _pMover->setRotAngleVelocity(AXIS_X, 5000);
-    _pMover->setRotAngleAcceleration(AXIS_X, 0);
+    _pMover->setFaceAngleVeloRenge(AXIS_X, 0, 5000);
+    _pMover->setFaceAngleVelocity(AXIS_X, 5000);
+    _pMover->setFaceAngleVeloAcceleration(AXIS_X, 0);
 
-    _pMover->setRotAngle(AXIS_Z, ANGLE180);
+    _pMover->setFaceAngle(AXIS_Z, ANGLE180);
 
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
@@ -34,9 +34,9 @@ void EnemyPallas::initialize() {
 
 void EnemyPallas::processBehavior() {
     if (_pMover->_veloMove <= -8000) {
-        _pMover->setMoveAcceleration(+500);
+        _pMover->setMoveVeloAcceleration(+500);
     } else if (_pMover->_veloMove >= +8000) {
-        _pMover->setMoveAcceleration(-500);
+        _pMover->setMoveVeloAcceleration(-500);
     }
     _X -= 2000;
 

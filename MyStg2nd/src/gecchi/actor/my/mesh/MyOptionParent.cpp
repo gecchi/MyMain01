@@ -129,8 +129,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
 void MyOptionParent::initialize() {
     _pMover->setMoveVelocity(0);
-    _pMover->setRyMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
-    _pMover->setRzMoveAngleVelocityRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
+    _pMover->setRyMoveAngleVeloRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
+    _pMover->setRzMoveAngleVeloRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
     _pMover->setRzRyMoveAngle(0,0);
     _way_myship_prev = GameGlobal::_pMyShip->_way;
     _pMover->behave();
@@ -145,8 +145,8 @@ void MyOptionParent::processBehavior() {
         if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
 
             //•ûŒü‚ª•Ï‚í‚Á‚½
-            _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
-            _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+            _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
+            _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
             switch(GameGlobal::_pMyShip->_way) {
                 case WAY_UP:
                     if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
@@ -179,8 +179,8 @@ void MyOptionParent::processBehavior() {
                     break;
                 case WAY_BEHIND:
                     setTerget(ANGLE180, 0);
-                    //            _pMover->setSuspendTargetRzMoveAngle(0);
-                    //            _pMover->setSuspendTargetRyMoveAngle(ANGLE180);
+                    //            _pMover->setSuspendTarget_RzMoveAngle(0);
+                    //            _pMover->setSuspendTarget_RyMoveAngle(ANGLE180);
 
                     break;
                 case WAY_ZLEFT:
@@ -238,18 +238,18 @@ void MyOptionParent::processBehavior() {
 
 
 void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
-    if (_pMover->getDifferenceFromRzMoveAngleTo(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
+    if (_pMover->getRzMoveAngleDistance(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
         _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
     } else {
         _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    if (_pMover->getDifferenceFromRyMoveAngleTo(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
+    if (_pMover->getRyMoveAngleDistance(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
         _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
     } else {
         _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
     }
-    _pMover->setSuspendTargetRzMoveAngle(prm_angRz_Target);
-    _pMover->setSuspendTargetRyMoveAngle(prm_angRy_Target);
+    _pMover->setSuspendTarget_RzMoveAngle(prm_angRz_Target);
+    _pMover->setSuspendTarget_RyMoveAngle(prm_angRy_Target);
 }
 
 MyOptionParent::~MyOptionParent() {

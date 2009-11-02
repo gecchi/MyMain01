@@ -14,12 +14,12 @@ void MyShot001::initialize() {
     setAnimationMethod(OSCILLATE_LOOP, 2);
 
     _pMover->setRzMoveAngleVelocity(0);
-    //_pMover->setRotAngleVelocity(AXIS_Z, 2 * 1000);
-    _pMover->setRotAngleVelocity(AXIS_X, 10000);
-    //_pMover->setRotAngleVelocity(AXIS_Y, 2 * 1800);
+    //_pMover->setFaceAngleVelocity(AXIS_Z, 2 * 1000);
+    _pMover->setFaceAngleVelocity(AXIS_X, 10000);
+    //_pMover->setFaceAngleVelocity(AXIS_Y, 2 * 1800);
 
     _pMover->setRzMoveAngle(0);
-    _pMover->setRotAngle(AXIS_Z, 0);
+    _pMover->setFaceAngle(AXIS_Z, 0);
     _pMover->setMoveVelocity(40000);
 
     _pStgChecker->useHitAreaBoxNum(7);

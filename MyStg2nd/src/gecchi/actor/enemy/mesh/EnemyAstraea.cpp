@@ -42,8 +42,8 @@ void EnemyAstraea::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
     _pMover->setMoveVelocity(0);
-    _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
-    _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
+    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
+    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     for (int i = 0; i < _laser_way; i++) {
         getLordActor()->accept(KIND_ENEMY_SHOT_NOMAL, _papLaserChipDispatcher[i]->extract()); //–{Š‘®
     }
@@ -112,12 +112,12 @@ void EnemyAstraea::processBehavior() {
     _X = _X - 100;
     if (_lifeframe % _shot_interval == 0) {
 
-        _pMover->setSuspendTargetRzRyMoveAngle(GameGlobal::_pMyShip);
+        _pMover->setSuspendTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
         _pMover->setRzMoveAngleVelocity(
-                        _angveloTurn*sgn(_pMover->getDifferenceFromRzMoveAngleTo(_pMover->_angTargetRzMove,TURN_CLOSE_TO))
+                        _angveloTurn*sgn(_pMover->getRzMoveAngleDistance(_pMover->_angTargetRzMove,TURN_CLOSE_TO))
                     );
         _pMover->setRyMoveAngleVelocity(
-                        _angveloTurn*sgn(_pMover->getDifferenceFromRyMoveAngleTo(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
+                        _angveloTurn*sgn(_pMover->getRyMoveAngleDistance(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
     }
@@ -133,8 +133,8 @@ void EnemyAstraea::processBehavior() {
             pLaserChip = (EnemyLaserChip001*)_papLaserChipDispatcher[i]->employ();
             if (pLaserChip != NULL) {
                 pLaserChip->_pMover->setRzRyMoveAngle(_pMover->_angRzMove, _paWay[i]);
-                pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ;
-                pLaserChip->_pMover->_angRot[AXIS_Y] = _paWay[i];
+                pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
+                pLaserChip->_pMover->_angFace[AXIS_Y] = _paWay[i];
                 pLaserChip->_pMover->behave();
                 pLaserChip->setGeometry(this);
             }

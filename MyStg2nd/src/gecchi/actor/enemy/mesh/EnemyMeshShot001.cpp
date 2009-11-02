@@ -21,19 +21,19 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
     /** 最低保証移動速度 */
     _iMoveVelocity_Bottom = 0;
     /** 方向転換に費やすことができるフレーム数 */
-    _dwFrameInterval_Turn = 100;
+    _dwFrameInterval_Turn = 400;
     /** 方向転換中の角速度アングル値(正の値) */
-    _angVelocity_Turn = 5000;
+    _angVelocity_Turn = 7000;
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
-    _iMoveAcceleration_2nd = 300;
+    _iMoveAcceleration_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
 }
 
 void EnemyMeshShot001::initialize() {
-    _pMover->setVxMoveVelocityRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
-    _pMover->_synchronize_ZRotAngle_to_RzMoveAngle_flg = true;
-    _pMover->_synchronize_YRotAngle_to_RyMoveAngle_flg = true;
+    _pMover->setVxMoveVeloRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
+    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
+    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
 
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
@@ -45,7 +45,7 @@ void EnemyMeshShot001::processBehavior() {
     if (onChangeToActive()) {
         //出現時
         _pMover->setMoveVelocity(_iMoveVelocity_1st);
-        _pMover->setMoveAcceleration(_iMoveAcceleration_1st);
+        _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);
 
         _frame_on_change_to_active_flg = 0;
         setBumpable(true);
@@ -56,8 +56,8 @@ void EnemyMeshShot001::processBehavior() {
         //方向転換開始
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
 
-            _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, _angVelocity_Turn);
-            _pMover->setMoveAcceleration(_iMoveAcceleration_2nd);
+            _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, _angVelocity_Turn, TURN_ANTICLOSE_TO);
+            _pMover->setMoveVeloAcceleration(_iMoveAcceleration_2nd);
         }
 
         //方向転換終了

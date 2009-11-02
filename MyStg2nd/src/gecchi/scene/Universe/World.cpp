@@ -37,17 +37,17 @@ void World::initialize() {
     pCAM->_pMover->setMoveAngle(0,0,0);
 
 
-    pCAM->_pMover->setVxMoveVelocityRenge(-speed, speed);
+    pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
     pCAM->_pMover->setVxMoveVelocity(0);
-    pCAM->_pMover->setVxMoveAcceleration(0);
+    pCAM->_pMover->setVxMoveVeloAcceleration(0);
 
-    pCAM->_pMover->setVyMoveVelocityRenge(-speed, speed);
+    pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
     pCAM->_pMover->setVyMoveVelocity(0);
-    pCAM->_pMover->setVyMoveAcceleration(0);
+    pCAM->_pMover->setVyMoveVeloAcceleration(0);
 
-    pCAM->_pMover->setVzMoveVelocityRenge(-speed, speed);
+    pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
     pCAM->_pMover->setVzMoveVelocity(0);
-    pCAM->_pMover->setVzMoveAcceleration(0);
+    pCAM->_pMover->setVzMoveVeloAcceleration(0);
 
     pCAM->_pViewPoint->_X = 0;
     pCAM->_pViewPoint->_Y = 0;
@@ -56,17 +56,17 @@ void World::initialize() {
 
     pCAM->_pViewPoint->_pMover->setMoveAngle(0,0,0);
 
-    pCAM->_pViewPoint->_pMover->setVxMoveVelocityRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVxMoveVeloRenge(-speed, speed);
     pCAM->_pViewPoint->_pMover->setVxMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVxMoveAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVxMoveVeloAcceleration(0);
 
-    pCAM->_pViewPoint->_pMover->setVyMoveVelocityRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVyMoveVeloRenge(-speed, speed);
     pCAM->_pViewPoint->_pMover->setVyMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVyMoveAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVyMoveVeloAcceleration(0);
 
-    pCAM->_pViewPoint->_pMover->setVzMoveVelocityRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVzMoveVeloRenge(-speed, speed);
     pCAM->_pViewPoint->_pMover->setVzMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVzMoveAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVzMoveVeloAcceleration(0);
 
 
 }
@@ -207,33 +207,33 @@ void World::processBehavior() {
 
         if (-slow_reng_from < dZ_from && dZ_from < slow_reng_from) {
             pCAM->_pMover->_veloVzMove *= 0.9;
-            pCAM->_pMover->setVzMoveAcceleration(0);
+            pCAM->_pMover->setVzMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‰ñ‚éŽž
-                pCAM->_pMover->setVzMoveAcceleration(dZ_from/1000.0);
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_from/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVzMoveAcceleration(dZ_from/100.0);
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_from/100.0);
             }
         }
         if (-slow_reng_from < dX_from && dX_from < slow_reng_from) {
             pCAM->_pMover->_veloVxMove *= 0.9;
-            pCAM->_pMover->setVxMoveAcceleration(0);
+            pCAM->_pMover->setVxMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pCAM->_pMover->setVxMoveAcceleration(dX_from/100.0);
+                pCAM->_pMover->setVxMoveVeloAcceleration(dX_from/100.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVxMoveAcceleration(dX_from/1000.0);
+                pCAM->_pMover->setVxMoveVeloAcceleration(dX_from/1000.0);
             }
         }
 
         if (-slow_reng_from < dY_from && dY_from < slow_reng_from) {
             pCAM->_pMover->_veloVyMove *= 0.9;
-            pCAM->_pMover->setVyMoveAcceleration(0);
+            pCAM->_pMover->setVyMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pCAM->_pMover->setVyMoveAcceleration(dY_from/100.0);
+                pCAM->_pMover->setVyMoveVeloAcceleration(dY_from/100.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pCAM->_pMover->setVyMoveAcceleration(dY_from/1000.0);
+                pCAM->_pMover->setVyMoveVeloAcceleration(dY_from/1000.0);
             }
         }
 
@@ -242,34 +242,34 @@ void World::processBehavior() {
 
         if (-slow_reng_to < dZ_to && dZ_to < slow_reng_to) {
             pVP->_pMover->_veloVzMove *= 0.9;
-            pVP->_pMover->setVzMoveAcceleration(0);
+            pVP->_pMover->setVzMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‰ñ‚éŽž
-                pVP->_pMover->setVzMoveAcceleration(dZ_to/1000.0);
+                pVP->_pMover->setVzMoveVeloAcceleration(dZ_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pVP->_pMover->setVzMoveAcceleration(dZ_to/1000.0);
+                pVP->_pMover->setVzMoveVeloAcceleration(dZ_to/1000.0);
             }
         }
         if (-slow_reng_to < dX_to && dX_to < slow_reng_to) {
             pVP->_pMover->_veloVxMove *= 0.9;
-            pVP->_pMover->setVxMoveAcceleration(0);
+            pVP->_pMover->setVxMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pVP->_pMover->setVxMoveAcceleration(dX_to/1000.0);
+                pVP->_pMover->setVxMoveVeloAcceleration(dX_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pVP->_pMover->setVxMoveAcceleration(dX_to/1000.0);
+                pVP->_pMover->setVxMoveVeloAcceleration(dX_to/1000.0);
             }
         }
 
 
         if (-slow_reng_to < dY_to && dY_to < slow_reng_to) {
             pVP->_pMover->_veloVyMove *= 0.9;
-            pVP->_pMover->setVyMoveAcceleration(0);
+            pVP->_pMover->setVyMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //ã‚É‚É‰ñ‚éŽž
-                pVP->_pMover->setVyMoveAcceleration(dY_to/1000.0);
+                pVP->_pMover->setVyMoveVeloAcceleration(dY_to/1000.0);
             } else {                                                //‰¡‚É‰ñ‚é‚Æ‚«
-                pVP->_pMover->setVyMoveAcceleration(dY_to/1000.0);
+                pVP->_pMover->setVyMoveVeloAcceleration(dY_to/1000.0);
             }
         }
 

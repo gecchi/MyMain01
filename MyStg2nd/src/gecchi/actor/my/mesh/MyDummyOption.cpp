@@ -57,7 +57,7 @@ void MyDummyOption::initialize() {
 //                //TODO:2009/04/08
 //                //本当は0（自機の真横）にしたい。が、やや自機の真横からずらす事で、シンバルロックによるワープのような回転する確率をやや緩和する。
 //                //X軸回転角角速度を速めに設定し、くるくる速く回して気付かれないようにごまかす。↑と↓向き付近で急激な回転を起こす事は免れない。
-    _pMover->setRotAngleVelocity(AXIS_X, 8000);
+    _pMover->setFaceAngleVelocity(AXIS_X, 8000);
 
     _Xorg = _X;
     _Yorg = _Y;
@@ -143,14 +143,14 @@ void MyDummyOption::processBehavior() {
 
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
 
-    //sinRX = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_X] / ANGLE_RATE];
-    //cosRX = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_X] / ANGLE_RATE];
-    sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
-    cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Z] / ANGLE_RATE];
-    sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
-    cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angRot[AXIS_Y] / ANGLE_RATE];
+    //sinRX = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_X] / ANGLE_RATE];
+    //cosRX = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_X] / ANGLE_RATE];
+    sinRZ = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
+    sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
+    cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     //自機を中心にVIEW変換のような旋廻
-    //_TRACE_(_pMyOptionParent->_pMover->_angRot[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angRot[AXIS_Y]);
+    //_TRACE_(_pMyOptionParent->_pMover->_angFace[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angFace[AXIS_Y]);
 
 
 
@@ -171,9 +171,9 @@ void MyDummyOption::processBehavior() {
 
     //懐中電灯の照射角が広がるような回転（Quaternionで実現）
     static float vX_axis,vY_axis,vZ_axis; //回転させたい軸ベクトル
-//_TRACE_("_pMover->_angRot[AXIS_Z],_pMover->_angRot[AXIS_Y]="<<(_pMover->_angRot[AXIS_Z])<<","<<(_pMover->_angRot[AXIS_Y]));
-//    angle zz = _pMyOptionParent->_pMover->_angRot[AXIS_Z] + _pMover->_angRzMove;
-//    angle yy = _pMyOptionParent->_pMover->_angRot[AXIS_Y] + _pMover->_angRyMove;
+//_TRACE_("_pMover->_angFace[AXIS_Z],_pMover->_angFace[AXIS_Y]="<<(_pMover->_angFace[AXIS_Z])<<","<<(_pMover->_angFace[AXIS_Y]));
+//    angle zz = _pMyOptionParent->_pMover->_angFace[AXIS_Z] + _pMover->_angRzMove;
+//    angle yy = _pMyOptionParent->_pMover->_angFace[AXIS_Y] + _pMover->_angRyMove;
 //    GgafDx9Util::getNormalizeVectorZY(GgafDx9GeometryMover::simplifyAngle(zz),
 //                                      GgafDx9GeometryMover::simplifyAngle(yy),
 //                                      vX_axis,
@@ -230,9 +230,9 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_pMover->_vZ = _Q._z;
             pLaserChip->_pMover->_angRzMove = _RZ;
             pLaserChip->_pMover->_angRyMove = _RY;
-//            pLaserChip->_pMover->_angRot[AXIS_X] = angWk;
-            pLaserChip->_pMover->_angRot[AXIS_Z] = _RZ;
-            pLaserChip->_pMover->_angRot[AXIS_Y] = _RY;
+//            pLaserChip->_pMover->_angFace[AXIS_X] = angWk;
+            pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
+            pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;
             pLaserChip->_pMover->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;

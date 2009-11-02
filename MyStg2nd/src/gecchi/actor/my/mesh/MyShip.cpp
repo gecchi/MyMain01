@@ -261,8 +261,8 @@ void MyShip::processBehavior() {
                 default:
                     break;
             }
-            _pMover->setRotAngle(AXIS_Z, _pMover->_angRzMove);
-            _pMover->setRotAngle(AXIS_Y, _pMover->_angRyMove);
+            _pMover->setFaceAngle(AXIS_Z, _pMover->_angRzMove);
+            _pMover->setFaceAngle(AXIS_Y, _pMover->_angRyMove);
 
         } else {
 //////////////////////
@@ -355,10 +355,10 @@ void MyShip::processBehavior() {
     }
 
     //X軸転落ち着け
-    if (_pMover->_angveloRot[AXIS_X] > _angRXTopVelo_MZ) {
-        _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMover->_angveloRot[AXIS_X] < -1*_angRXTopVelo_MZ) {
-        _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ*2);
+    if (_pMover->_angveloRotFace[AXIS_X] > _angRXTopVelo_MZ) {
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
+    } else if (_pMover->_angveloRotFace[AXIS_X] < -1*_angRXTopVelo_MZ) {
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
     }
 
     ////////////////////////////////////////////////////
@@ -424,10 +424,10 @@ void MyShip::processJudgement() {
 
 //    //スプラインテスト！！！
 //    if (VB::isPushedDown(VB_SHOT1)) {
-//        _pMover->executeSplineMoveSequence(_programSP, false);
+//        _pMover->executeSplineMoveProgram(_programSP, false);
 //    }
 //    if (VB::isPushedDown(VB_SHOT2)) {
-//        _pMover->executeSplineMoveSequence(_programSP, true);
+//        _pMover->executeSplineMoveProgram(_programSP, true);
 //    }
 
 
@@ -456,9 +456,9 @@ void MyShip::processJudgement() {
 //            } else {
 //                wk = ANGLE180;
 //            }
-//            pLaser->_pMover->_angRot[AXIS_X] = wk;
-//            pLaser->_pMover->_angRot[AXIS_Z] = _pMover->_angRzMove;
-//            pLaser->_pMover->_angRot[AXIS_Y] = _pMover->_angRyMove;
+//            pLaser->_pMover->_angFace[AXIS_X] = wk;
+//            pLaser->_pMover->_angFace[AXIS_Z] = _pMover->_angRzMove;
+//            pLaser->_pMover->_angFace[AXIS_Y] = _pMover->_angRyMove;
 //            pLaser->_pMover->behave();
 //            pLaser->setGeometry(this);
 
@@ -501,27 +501,27 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
 
 
 void MyShip::beginTurboZY(vbsta prm_VB) {
-    _pMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveAcceleration(_iMvAcce_MT);
+    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
     switch(prm_VB) {
 
         case VB_LEFT_STC: //奥
             _way = WAY_ZLEFT;
             _pMover->setRzRyMoveAngle(0, ANGLE270);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_UP;
             _pMover->setRzRyMoveAngle(ANGLE45, ANGLE270);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_DOWN;
             _pMover->setRzRyMoveAngle(ANGLE315, ANGLE270);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_STC:
@@ -537,19 +537,19 @@ void MyShip::beginTurboZY(vbsta prm_VB) {
         case VB_RIGHT_STC: //手前
             _way = WAY_ZRIGHT;
             _pMover->setRzRyMoveAngle(0, ANGLE90);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_UP;
             _pMover->setRzRyMoveAngle(ANGLE45, ANGLE90);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_DOWN;
             _pMover->setRzRyMoveAngle(ANGLE315, ANGLE90);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
         default:
             break;
@@ -558,27 +558,27 @@ void MyShip::beginTurboZY(vbsta prm_VB) {
 
 
 void MyShip::beginTurboZX(vbsta prm_VB) {
-    _pMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveAcceleration(_iMvAcce_MT);
+    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
     switch(prm_VB) {
 
         case VB_LEFT_STC:
             _way = WAY_ZLEFT;
             _pMover->setRzRyMoveAngle(ANGLE180, ANGLE90);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_FRONT;
             _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_BEHIND;
             _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
-            _pMover->setRotAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_STC:
@@ -594,19 +594,19 @@ void MyShip::beginTurboZX(vbsta prm_VB) {
         case VB_RIGHT_STC:
             _way = WAY_ZRIGHT;
             _pMover->setRzRyMoveAngle(0, ANGLE90);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_FRONT;
             _pMover->setRzRyMoveAngle(0, ANGLE45);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
 
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_BEHIND;
             _pMover->setRzRyMoveAngle(0, ANGLE135);
-            _pMover->setRotAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
             break;
         default:
             break;
@@ -616,9 +616,9 @@ void MyShip::beginTurboZX(vbsta prm_VB) {
 
 
 void MyShip::beginTurboXY(vbsta prm_VB) {
-    _pMover->setMoveVelocityRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveAcceleration(_iMvAcce_MT);
+    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
 
     switch (prm_VB) {
         case VB_UP_STC:
@@ -827,39 +827,39 @@ void MyShip::moveZY(vbsta prm_VB) {
         case VB_LEFT_STC:
             _way = WAY_ZLEFT;
             _Z += _iMoveSpeed;
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_UP;
             _Z += _iMoveSpeed * NANAME;
             _Y += _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_DOWN;
             _Z += _iMoveSpeed * NANAME;
             _Y -= _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_DOWN;
@@ -872,39 +872,39 @@ void MyShip::moveZY(vbsta prm_VB) {
         case VB_RIGHT_STC:
             _way = WAY_ZRIGHT;
             _Z -= _iMoveSpeed;
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_UP;
             _Z -= _iMoveSpeed * NANAME;
             _Y += _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_DOWN;
             _Z -= _iMoveSpeed * NANAME;
             _Y -= _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -958,39 +958,39 @@ void MyShip::moveZX(vbsta prm_VB) {
         case VB_LEFT_STC:
             _way = WAY_ZLEFT;
             _Z += _iMoveSpeed;
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_FRONT;
             _Z += _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_BEHIND;
             _Z += _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
             if (0 < distwk && distwk <= ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_BEHIND;
@@ -1003,39 +1003,39 @@ void MyShip::moveZX(vbsta prm_VB) {
         case VB_RIGHT_STC:
             _way = WAY_ZRIGHT;
             _Z -= _iMoveSpeed;
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_FRONT;
             _Z -= _iMoveSpeed * NANAME;
             _X += _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_BEHIND;
             _Z -= _iMoveSpeed * NANAME;
             _X -= _iMoveSpeed * NANAME;
             angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-            distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
+            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
             if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-                _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-                _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTargetRotAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -1123,24 +1123,24 @@ void MyShip::turnFaceNeutralXY() {
 
 void MyShip::turnFaceNeutralZY() {
 
-    angle distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+    angle distwk = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
     if (0 < distwk && distwk < ANGLE180) {
-        _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-        _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setSuspendTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setSuspendTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::turnFaceNeutralZX() {
 
-    angle distwk = _pMover->getDifferenceFromRotAngleTo(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
+    angle distwk = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
     if (0 < distwk && distwk < ANGLE180) {
-        _pMover->setRotAngleAcceleration(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-        _pMover->setRotAngleAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setSuspendTargetRotAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setSuspendTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::doNotingMoveInput() {

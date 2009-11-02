@@ -13,9 +13,9 @@ void MyWave001::initialize() {
     //setAnimationMethod(OSCILLATE_LOOP, 2);
 
     _pMover->setRzMoveAngleVelocity(0);
-    //_pMover->setRotAngleVelocity(AXIS_Z, 2*1000);
+    //_pMover->setFaceAngleVelocity(AXIS_Z, 2*1000);
     //_pMover->setRzMoveAngle(0);
-    //_pMover->setRotAngle(AXIS_Z, 0);
+    //_pMover->setFaceAngle(AXIS_Z, 0);
     _pMover->setMoveVelocity(20000);
 
     _pStgChecker->useHitAreaBoxNum(7);
@@ -50,10 +50,10 @@ void MyWave001::processBehavior() {
 		_pScaler->behave();
         setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
-        _pMover->setRotAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z]);
-        _pMover->setRotAngle(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Y]);
-        _pMover->setRzRyMoveAngle(GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Z],
-                                     GameGlobal::_pMyShip->_pMover->_angRot[AXIS_Y]);
+        _pMover->setFaceAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z]);
+        _pMover->setFaceAngle(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
+        _pMover->setRzRyMoveAngle(GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z],
+                                     GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
         //		_X = GameGlobal::_pMyShip->_X;
         //		_Y = GameGlobal::_pMyShip->_Y;
         //		_Z = GameGlobal::_pMyShip->_Z;
