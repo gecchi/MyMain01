@@ -505,8 +505,8 @@ angle GgafDx9GeometryMover::getFaceAngleDistance(int prm_axis, angle prm_angTarg
                 return ANGLE360 - _angFace[prm_axis] + _angTargetRot;
             } else if (_angTargetRot == _angFace[prm_axis] - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
-                //仕方ないので正の値とする。
-                return ANGLE180;
+                //仕方ないので負の値とする。
+                return -ANGLE180;
             } else if (_angFace[prm_axis] - ANGLE180 < _angTargetRot && _angTargetRot
                     < _angFace[prm_axis]) {
                 return -1 * (_angFace[prm_axis] - _angTargetRot);
@@ -547,12 +547,12 @@ angle GgafDx9GeometryMover::getFaceAngleDistance(int prm_axis, angle prm_angTarg
             } else if (_angTargetRot == _angFace[prm_axis] - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
+                return -ANGLE180;
             } else if (_angFace[prm_axis] - ANGLE180 < _angTargetRot && _angTargetRot < _angFace[prm_axis]) {
                 return (ANGLE360 - _angFace[prm_axis]) + _angTargetRot;
             } else if (_angFace[prm_axis] == _angTargetRot) {
                 //重なってる場合
-                return ANGLE360;
+                return -ANGLE360;
             } else if (_angFace[prm_axis] < _angTargetRot && _angTargetRot <= ANGLE360) {
                 return (_angFace[prm_axis] + (ANGLE360 - _angTargetRot)) ;
             } else {
@@ -720,8 +720,8 @@ angle GgafDx9GeometryMover::getRzMoveAngleDistance(angle prm_angTargetRzMove, in
                 return ANGLE360 - _angRzMove + angTargetRzMove;
             } else if (angTargetRzMove == _angRzMove - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
-                //仕方ないので正の値とする。
-                return ANGLE180;
+                //仕方ないので負の値とする。
+                return -ANGLE180;
             } else if (_angRzMove - ANGLE180 < angTargetRzMove && angTargetRzMove < _angRzMove) {
                 return -1 * (_angRzMove - angTargetRzMove);
             } else if (_angRzMove == angTargetRzMove) {
@@ -760,13 +760,13 @@ angle GgafDx9GeometryMover::getRzMoveAngleDistance(angle prm_angTargetRzMove, in
                 return  -1*(_angRzMove - angTargetRzMove);
             } else if (angTargetRzMove == _angRzMove - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
-                //仕方ないので正の値とする。
-                return ANGLE180;
+                //仕方ないので負の値とする。
+                return -ANGLE180;
             } else if (_angRzMove - ANGLE180 < angTargetRzMove && angTargetRzMove < _angRzMove) {
                 return _angRzMove + (ANGLE360 - angTargetRzMove);
             } else if (_angRzMove == angTargetRzMove) {
                 //重なってる場合
-                return ANGLE360;
+                return -ANGLE360;
             } else if (_angRzMove < angTargetRzMove && angTargetRzMove <= ANGLE360) {
                 return angTargetRzMove + (ANGLE360 - _angRzMove);
             } else {
@@ -908,8 +908,8 @@ angle GgafDx9GeometryMover::getRyMoveAngleDistance(angle prm_angTargetRyMove, in
                 return ANGLE360 - _angRyMove + angTargetRyMove;
             } else if (angTargetRyMove == _angRyMove - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
-                //仕方ないので正の値とする。
-                return ANGLE180;
+                //仕方ないので負の値とする。
+                return -ANGLE180;
             } else if (_angRyMove - ANGLE180 < angTargetRyMove && angTargetRyMove < _angRyMove) {
                 return -1 * (_angRyMove - angTargetRyMove);
             } else if (_angRyMove == angTargetRyMove) {
@@ -949,12 +949,12 @@ angle GgafDx9GeometryMover::getRyMoveAngleDistance(angle prm_angTargetRyMove, in
             } else if (angTargetRyMove == _angRyMove - ANGLE180) {
                 //正反対を向いている（＝距離は等しい）
                 //仕方ないので正の値とする。
-                return ANGLE180;
+                return -ANGLE180;
             } else if (_angRyMove - ANGLE180 < angTargetRyMove && angTargetRyMove < _angRyMove) {
                 return _angRyMove + (ANGLE360 - angTargetRyMove);
             } else if (_angRyMove == angTargetRyMove) {
                 //重なってる場合
-                return ANGLE360;
+                return -ANGLE360;
             } else if (_angRyMove < angTargetRyMove && angTargetRyMove <= ANGLE360) {
                 return angTargetRyMove + (ANGLE360 - _angRyMove);
             } else {
@@ -1166,7 +1166,23 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm
     setSuspendTarget_RyMoveAngle(out_angRy_Target);
 }
 
+void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+                                                             angvelo prm_angVelocity, int prm_way) {
+    if (getRzMoveAngleDistance(prm_angRz_Target, prm_way) > 0) {
+        setRzMoveAngleVelocity(prm_angVelocity);
+    } else {
+       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+    }
+    if (getRyMoveAngleDistance(prm_angRy_Target, prm_way) > 0) {
+        setRyMoveAngleVelocity(prm_angVelocity);
+    } else {
+        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+    }
 
+    setSuspendTarget_RzMoveAngle(prm_angRz_Target);
+    setSuspendTarget_RyMoveAngle(prm_angRy_Target);
+
+}
 
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {

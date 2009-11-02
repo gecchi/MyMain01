@@ -13,7 +13,7 @@ CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
 
 void CurveLaserChip::initialize() {
     //下位レーザーチップでオーバーライトされている可能性あり
-    _pMover->setMoveVelocity(40000);
+    _pMover->setMoveVelocity(30000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -24,6 +24,7 @@ void CurveLaserChip::initialize() {
 
 void CurveLaserChip::onActive() {
     LaserChip::onActive();
+    _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, 7000, TURN_ANTICLOSE_TO);
 }
 
 void CurveLaserChip::onInactive() {

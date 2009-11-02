@@ -490,7 +490,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
                                            angvelo prm_angVelocity,
-                                           int prm_way = TURN_CLOSE_TO);
+                                           int prm_way);
+
+    void executeTagettingMoveAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
+                                           angvelo prm_angVelocity, int prm_way);
 
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行

@@ -133,7 +133,7 @@ void EnemyAstraea::processBehavior() {
             pLaserChip = (EnemyLaserChip001*)_papLaserChipDispatcher[i]->employ();
             if (pLaserChip != NULL) {
                 pLaserChip->_pMover->setRzRyMoveAngle(_pMover->_angRzMove, _paWay[i]);
-                pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
+                pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ-1000;
                 pLaserChip->_pMover->_angFace[AXIS_Y] = _paWay[i];
                 pLaserChip->_pMover->behave();
                 pLaserChip->setGeometry(this);
