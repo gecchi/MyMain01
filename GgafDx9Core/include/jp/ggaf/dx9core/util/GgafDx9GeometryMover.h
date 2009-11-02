@@ -173,7 +173,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 移動加速度 */
     acce _accMove;
 
-    ///////コピー元begin
     /** 移動方角（Z軸回転）の角速度（移動方角（Z軸回転）に毎フレーム加算する方角） */
     angvelo _angveloRzMove;
     /** 移動方角（Z軸回転）の角速度上限(最高値は360,000) */
@@ -306,7 +305,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）設定)<BR>
      * 引数に設定された移動方角（Z軸回転）になるまで、移動方角（Z軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
      * 加算か減算かは、移動方角（Z軸回転）の角速度（_angveloRzMove）の正負で決定されます。<BR>
-     * <B>移動方角（Z軸回転）の角速度が 0 ならば、何も起こりません。</B>動作さえるには、角速度が必要です。<BR>
+     * <B>移動方角（Z軸回転）の角速度が 0 ならば、何も起こりません。</B>動作させるには、角速度が必要です。<BR>
      * 内部的には、addRzMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Z軸回転）に到達したならば、この目標の移動方角（Z軸回転）自動停止機能は解除されます。<BR>
      *
@@ -315,8 +314,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
     void setSuspendTarget_RzMoveAngle(angle prm_angRzMove,
-                                  int prm_way_allow = TURN_BOTH,
-                                  angvelo prm_angveloAllowRyMove = ANGLE180);
+                                      int prm_way_allow = TURN_BOTH,
+                                      angvelo prm_angveloAllowRyMove = ANGLE180);
 
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）を現在Z軸座標からの対象Z軸座標で設定)<BR>
@@ -328,9 +327,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
     void setSuspendTarget_RzMoveAngleV(int prm_tX,
-                                   int prm_tY,
-                                   int prm_way_allow = TURN_BOTH,
-                                   angvelo prm_angveloAllowRyMove = ANGLE180);
+                                       int prm_tY,
+                                       int prm_way_allow = TURN_BOTH,
+                                       angvelo prm_angveloAllowRyMove = ANGLE180);
 
     void setRzMoveAngleVelocity(angvelo prm_angveloRzMove);
 
@@ -404,7 +403,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）設定)<BR>
      * 引数に設定された移動方角（Y軸回転）になるまで、移動方角（Y軸回転）を加算(減算)を毎フレーム行い続けます。<BR>
      * 加算か減算かは、移動方角（Y軸回転）の角速度（_angveloRyMove）の正負で決定されます。<BR>
-     * <B>移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。</B>動作さえるには、角速度が必要です。<BR>
+     * <B>移動方角（Y軸回転）の角速度が 0 ならば、何も起こりません。</B>動作させるには、角速度が必要です。<BR>
      * 内部的には、addRyMoveAngle(int) が毎フレーム行われる仕組みです。(this->behave()で実行)<BR>
      * 目標の移動方角（Y軸回転）に到達したならば、この目標の移動方角（Y軸回転）自動停止機能は解除されます。<BR>
      *
@@ -413,8 +412,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
     void setSuspendTarget_RyMoveAngle(angle prm_angRyMove,
-                              int _move_angle_ry_target_allow_way = TURN_BOTH,
-                              angvelo prm_angveloAllowRyMove = ANGLE180);
+                                      int _move_angle_ry_target_allow_way = TURN_BOTH,
+                                      angvelo prm_angveloAllowRyMove = ANGLE180);
 
     /**
      * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標で設定)<BR>
@@ -426,9 +425,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
     void setSuspendTarget_RyMoveAngleV(int prm_tX,
-                               int prm_tY,
-                               int _move_angle_ry_target_allow_way = TURN_BOTH,
-                               angvelo prm_angveloAllowRyMove = ANGLE180);
+                                       int prm_tY,
+                                       int _move_angle_ry_target_allow_way = TURN_BOTH,
+                                       angvelo prm_angveloAllowRyMove = ANGLE180);
 
     void setRyMoveAngleVelocity(angvelo prm_angveloRyMove);
 
@@ -490,7 +489,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angVelocity ターゲット遂行中に許される角速度
      */
     void executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
-                                           angvelo prm_angVelocity, int prm_way = TURN_CLOSE_TO);
+                                           angvelo prm_angVelocity,
+                                           int prm_way = TURN_CLOSE_TO);
 
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
