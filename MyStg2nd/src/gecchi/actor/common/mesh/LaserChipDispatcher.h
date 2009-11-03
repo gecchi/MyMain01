@@ -6,7 +6,7 @@ namespace MyStg2nd {
  * レーザーチップ使いまわし管理クラス .
  * new した後 addLaserChip メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
- * ・_num_chip_interval ･･･弾切れフレーム数（デフォルト:3）<BR>
+ * ・_num_chip_interval ･･･弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeCon_Laser ･･･ レーザーチップ発射時SE（デフォルト:NULL）<BR>
  */
 class LaserChipDispatcher : public GgafDx9LibStg::ActorDispatcher {
@@ -28,7 +28,7 @@ public:
     int _num_interval_frame_count;
 
 
-    /** 弾切れフレーム数（読み書き可／デフォルト=10） */
+    /** 弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
     /** レーザーチップ発射時SE（読み書き可／デフォルト=NULL） */
     GgafDx9Core::GgafDx9SeConnection* _pSeConnection;
