@@ -1184,6 +1184,28 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(angle prm_angRz_Tar
 
 }
 
+void GgafDx9GeometryMover::executeTagettingRzMoveAngleSequence(angle prm_angRz_Target,
+                                                               angvelo prm_angVelocity, int prm_way) {
+    if (getRzMoveAngleDistance(prm_angRz_Target, prm_way) > 0) {
+        setRzMoveAngleVelocity(prm_angVelocity);
+    } else {
+       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+    }
+    setSuspendTarget_RzMoveAngle(prm_angRz_Target);
+
+}
+
+void GgafDx9GeometryMover::executeTagettingRyMoveAngleSequence(angle prm_angRy_Target,
+                                                               angvelo prm_angVelocity, int prm_way) {
+    if (getRyMoveAngleDistance(prm_angRy_Target, prm_way) > 0) {
+        setRyMoveAngleVelocity(prm_angVelocity);
+    } else {
+        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+    }
+    setSuspendTarget_RyMoveAngle(prm_angRy_Target);
+}
+
+
 
 GgafDx9GeometryMover::~GgafDx9GeometryMover() {
 
