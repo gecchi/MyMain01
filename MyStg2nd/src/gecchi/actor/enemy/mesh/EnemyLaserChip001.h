@@ -13,6 +13,7 @@ public:
      */
     void initialize();
 
+    void onActive();
 
     void processBehaviorHeadChip();
 
