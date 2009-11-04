@@ -146,10 +146,18 @@ public:
     T* next();
 
     /**
-     * アクティブ要素をの次の要素の値を取得する。アクティブ要素は変化しない .
+     * アクティブ要素の次の要素の値を取得する。アクティブ要素は変化しない .
      * @return 次の要素の値
      */
     T* getNext();
+
+    /**
+     * アクティブ要素のｎ番目の要素の値を取得する。アクティブ要素は変化しない .
+     * getNext(1) は、getNext() と同じです。getNext(0) は get()と同じです。
+     * @param インデックス
+     * @return アクティブ要素からｎ番目の要素
+     */
+    T* getNext(int n);
 
     /**
      * アクティブ要素を一つ戻す。 .
@@ -157,11 +165,20 @@ public:
      */
     T* prev();
 
+
+
     /**
      * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
      * @return 前の要素の値
      */
     T* getPrev();
+    /**
+     * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
+     * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
+     * @param インデックス
+     * @return アクティブ要素からｎ番目前の要素
+     */
+    T* getPrev(int n);
 
     /**
      * アクティブ要素がリストの末尾であるか判定する .
@@ -236,6 +253,16 @@ T* GgafLinkedListRing<T>::getNext() {
 }
 
 template<class T>
+T* GgafLinkedListRing<T>::getNext(int n) {
+    Elem* pElem_return = _pElemActive;
+    for (int i = 0; i < n; i++) {
+        pElem_return = pElem_return->_pNext;
+    }
+    return pElem_return->_pValue;
+}
+
+
+template<class T>
 T* GgafLinkedListRing<T>::prev() {
     _pElemActive = _pElemActive->_pPrev;
     return _pElemActive->_pValue;
@@ -244,6 +271,15 @@ T* GgafLinkedListRing<T>::prev() {
 template<class T>
 T* GgafLinkedListRing<T>::getPrev() {
     return _pElemActive->_pPrev->_pValue;
+}
+
+template<class T>
+T* GgafLinkedListRing<T>::getPrev(int n) {
+    Elem* pElem_return = _pElemActive;
+    for (int i = 0; i < n; i++) {
+        pElem_return = pElem_return->_pPrev;
+    }
+    return pElem_return->_pValue;
 }
 
 template<class T>
