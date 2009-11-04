@@ -17,8 +17,17 @@ public:
     float _begining_vZ;
     int _begining_RzMoveAngle;
     int _begining_RyMoveAngle;
-    GgafDx9Core::angle _begining_target_RzMoveAngle;
-    GgafDx9Core::angle _begining_target_RyMoveAngle;
+//    GgafDx9Core::angle _begining_target_RzMoveAngle;
+//    GgafDx9Core::angle _begining_target_RyMoveAngle;
+
+
+    int _prev_X;
+    int _prev_Y;
+    int _prev_Z;
+    int _prev_RX;
+    int _prev_RY;
+    int _prev_RZ;
+
 
 
     HomingLaserChip(const char* prm_name, const char* prm_model);
@@ -32,6 +41,8 @@ public:
      */
     virtual void processBehavior();
 
+
+    virtual void processBehaviorHeadChip() {}
     /**
      * レーザーチップ判定等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。

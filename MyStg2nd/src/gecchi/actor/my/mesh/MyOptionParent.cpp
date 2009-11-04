@@ -253,7 +253,7 @@ void MyOptionParent::processBehavior() {
             _pMover->behave();
         }
     }
-    _pRing_GeoHistory->next()->set(_X, _Y, _Z);
+    _pRing_GeoHistory->next()->set(this);
 }
 
 

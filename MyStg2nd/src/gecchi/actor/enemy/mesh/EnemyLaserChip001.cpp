@@ -22,17 +22,22 @@ void EnemyLaserChip001::initialize() {
 }
 
 
-void EnemyLaserChip001::processBehavior() {
+void EnemyLaserChip001::processBehaviorHeadChip() {
 
 
     if (_dwActiveFrame == 15) {
         _pMover->executeTagettingMoveAngleSequence(
-                    _begining_target_RzMoveAngle,
-                    _begining_target_RyMoveAngle,
-                    6000, TURN_ANTICLOSE_TO);
+                    GameGlobal::_pMyShip,
+                    7000, TURN_CLOSE_TO);
     }
 
-    HomingLaserChip::processBehavior();
+
+    if (_dwActiveFrame == 30) {
+        _pMover->executeTagettingMoveAngleSequence(
+                    GameGlobal::_pMyShip,
+                    7000, TURN_CLOSE_TO);
+    }
+    _pMover->behave();
 }
 
 

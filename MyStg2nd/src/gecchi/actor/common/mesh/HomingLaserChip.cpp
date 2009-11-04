@@ -27,9 +27,13 @@ void HomingLaserChip::initialize() {
 
 
 void HomingLaserChip::onActive() {
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの onActive() メソッドも呼び出してください。
+    LaserChip::onActive();
+    HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
+
     //レーザーチップ出現時処理
-    HomingLaserChip* pChip_front = (HomingLaserChip*)_pChip_front;
-    if (_pChip_front == NULL) {
+    if (pChip_front == NULL) {
         //自身が先頭の場合
         _begining_X = _X;
         _begining_Y = _Y;
@@ -39,8 +43,7 @@ void HomingLaserChip::onActive() {
         _begining_vZ = _pMover->_vZ;
         _begining_RzMoveAngle = _pMover->_angRzMove;
         _begining_RyMoveAngle = _pMover->_angRyMove;
-        _begining_target_RzMoveAngle = _pMover->_angTargetRzMove;
-        _begining_target_RyMoveAngle = _pMover->_angTargetRyMove;
+
     } else {
         _begining_X = pChip_front->_begining_X;
         _begining_Y = pChip_front->_begining_Y;
@@ -50,8 +53,6 @@ void HomingLaserChip::onActive() {
         _begining_vZ = pChip_front->_begining_vZ;
         _begining_RzMoveAngle = pChip_front->_begining_RzMoveAngle;
         _begining_RyMoveAngle = pChip_front->_begining_RyMoveAngle;
-        _begining_target_RzMoveAngle = pChip_front->_begining_target_RzMoveAngle;
-        _begining_target_RyMoveAngle = pChip_front->_begining_target_RyMoveAngle;
 
         _X = _begining_X;
         _Y = _begining_Y;
@@ -61,15 +62,11 @@ void HomingLaserChip::onActive() {
         _pMover->_vZ = _begining_vZ;
         _pMover->_angRzMove = _begining_RzMoveAngle;
         _pMover->_angRyMove = _begining_RyMoveAngle;
-        _pMover->_angTargetRzMove = _begining_target_RzMoveAngle;
-        _pMover->_angTargetRyMove = _begining_target_RyMoveAngle;
     }
 
 
 
-    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    //その際 は、本クラスの onActive() メソッドも呼び出してください。
-    LaserChip::onActive();
+
 }
 
 void HomingLaserChip::onInactive() {
@@ -85,8 +82,37 @@ void HomingLaserChip::processBehavior() {
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     _dwActiveFrame++;
     //座標に反映
+    HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
     if (_dwActiveFrame > 1) {
-        _pMover->behave();
+        //ActorDispatcher::employ() は
+        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
+        //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
+        //数珠繋ぎになる。
+        if (pChip_front == NULL) {
+            _prev_X  = _X;
+            _prev_Y  = _Y;
+            _prev_Z  = _Z;
+            _prev_RX = _RX;
+            _prev_RY = _RY;
+            _prev_RZ = _RZ;
+
+            processBehaviorHeadChip();
+        } else {
+
+            _prev_X  = _X;
+            _prev_Y  = _Y;
+            _prev_Z  = _Z;
+            _prev_RX = _RX;
+            _prev_RY = _RY;
+            _prev_RZ = _RZ;
+
+            _X  = pChip_front->_prev_X;
+            _Y  = pChip_front->_prev_Y;
+            _Z  = pChip_front->_prev_Z;
+            _RX = pChip_front->_prev_RX;
+            _RY = pChip_front->_prev_RY;
+            _RZ = pChip_front->_prev_RZ;
+        }
     }
 }
 

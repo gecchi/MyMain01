@@ -18,8 +18,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pChip_behind = NULL;
     _pDispatcher = NULL; //LaserChipDispatcher‚Ì new Žž‚ÉÝ’è‚³‚ê‚éB
     _chip_kind = 1;
-    _rev_pos_Z = 0;
-    _div_pos_Z = 0;
     _dwActiveFrame = 0;
 
     _ahKind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
@@ -59,6 +57,7 @@ void LaserChip::onActive() {
         if (_pDispatcher->_pSeConnection) {
             _pDispatcher->_pSeConnection->view()->play();
         }
+    } else {
     }
 
     _pDispatcher->_num_chip_active++;
@@ -69,8 +68,9 @@ void LaserChip::onActive() {
     if (_pChip_front != NULL) {
         processPreJudgement();
     } else {
-        _rev_pos_Z = 0;
+
     }
+
 
 }
 

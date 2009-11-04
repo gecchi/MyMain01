@@ -14,7 +14,8 @@ public:
     void initialize();
 
 
-    void processBehavior();
+    void processBehaviorHeadChip();
+
 
 
     void processHappen(int prm_no) {

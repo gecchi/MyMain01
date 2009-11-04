@@ -148,9 +148,9 @@ void EnemyAstraea::processBehavior() {
                     pLaserChip->_pMover->setRzRyMoveAngle(_paWayRz[i], _paWayRy[j]);
                     pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
                     pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
-                    //とりあえずまっすぐ飛ばす、しかし、ターゲットは保存したいのでここで角速度０でたーげっと。
-                    pLaserChip->_pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip,
-                                                               0, TURN_CLOSE_TO);
+//                    //とりあえずまっすぐ飛ばす、しかし、ターゲットは保存したいのでここで角速度０でたーげっと。
+//                    pLaserChip->_pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip,
+//                                                               0, TURN_CLOSE_TO);
 
                     pLaserChip->_pMover->behave();
 
