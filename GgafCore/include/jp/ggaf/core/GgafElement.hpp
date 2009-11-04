@@ -1193,7 +1193,6 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
             if (pElementTemp->_can_live_flg == false) {
                 DELETE_IMPOSSIBLE_NULL(pElementTemp);
                 GgafFactory::_cnt_cleaned++;
-                Sleep(1);
             }
             break;
         } else {
@@ -1209,7 +1208,6 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
             if (pWk->_can_live_flg == false) {
                 DELETE_IMPOSSIBLE_NULL(pWk);
                 GgafFactory::_cnt_cleaned++;
-                Sleep(1);
             }
         }
     }
