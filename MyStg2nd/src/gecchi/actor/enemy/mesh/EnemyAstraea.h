@@ -19,12 +19,12 @@ public:
     /** Way”     */
     int _laser_way;
 
-    GgafDx9Core::angle* _paWay;
-
+    GgafDx9Core::angle* _paWayRz;
+    GgafDx9Core::angle* _paWayRy;
     /** •ûŒü“]Š·Šp‘¬“x */
     GgafDx9Core::angvelo _angveloTurn;
 
-    LaserChipDispatcher** _papLaserChipDispatcher;
+    LaserChipDispatcher*** _papapLaserChipDispatcher;
 
     EnemyAstraea(const char* prm_name);
 

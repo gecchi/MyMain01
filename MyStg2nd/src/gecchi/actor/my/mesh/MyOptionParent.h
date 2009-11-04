@@ -32,7 +32,7 @@ public:
 
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {}
 
-    void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
+    //void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
 
 
     virtual ~MyOptionParent();

@@ -61,6 +61,7 @@ class Stage05Scene;
 
 class LaserChip;
 class CurveLaserChip;
+class HomingLaserChip;
 class StraightLaserChip;
 class LaserChipDispatcher;
 class MyCurveLaserChip001;
@@ -129,6 +130,7 @@ class MyFactory;
 
 #include "gecchi/actor/common/mesh/LaserChip.h"
 #include "gecchi/actor/common/mesh/CurveLaserChip.h"
+#include "gecchi/actor/common/mesh/HomingLaserChip.h"
 #include "gecchi/actor/common/mesh/StraightLaserChip.h"
 #include "gecchi/actor/common/mesh/LaserChipDispatcher.h"
 #include "gecchi/actor/my/mesh/MyShip.h"

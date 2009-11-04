@@ -11,25 +11,30 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 10;
+    _laser_length = 12;
     _shot_interval = 120;
     _angveloTurn = 1000;
 
 
-    _papLaserChipDispatcher = NEW LaserChipDispatcher*[_laser_way];
-    _paWay = NEW angle[_laser_way];
-
+    _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
+    for (int i = 0; i < _laser_way; i++) {
+        _papapLaserChipDispatcher[i] = NEW LaserChipDispatcher*[_laser_way];
+    }
+    _paWayRz = NEW angle[_laser_way];
+    _paWayRy = NEW angle[_laser_way];
     EnemyLaserChip001* pChip;
 
     for (int i = 0; i < _laser_way; i++) {
-        _papLaserChipDispatcher[i] = NEW LaserChipDispatcher("RotLaser");
-        for (int j = 0; j < _laser_length*2; j++) {
-            Sleep(2);
-            pChip = NEW EnemyLaserChip001("ELC001");
-            pChip->inactivateImmediately();
-            _papLaserChipDispatcher[i]->addLaserChip(pChip);
+        for (int j = 0; j < _laser_way; j++) {
+            _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
+            for (int k = 0; k < _laser_length*2; k++) { //_laser_length ÇÃÇQî{ï™ÉXÉgÉbÉN
+                Sleep(1);
+                pChip = NEW EnemyLaserChip001("ELC001");
+                pChip->inactivateImmediately();
+                _papapLaserChipDispatcher[i][j]->addLaserChip(pChip);
+            }
+            addSubLast(_papapLaserChipDispatcher[i][j]); //âºèäëÆ
         }
-        addSubLast(_papLaserChipDispatcher[i]); //âºèäëÆ
     }
 
 
@@ -45,7 +50,9 @@ void EnemyAstraea::initialize() {
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     for (int i = 0; i < _laser_way; i++) {
-        getLordActor()->accept(KIND_ENEMY_SHOT_NOMAL, _papLaserChipDispatcher[i]->extract()); //ñ{èäëÆ
+        for (int j = 0; j < _laser_way; j++) {
+            getLordActor()->accept(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //ñ{èäëÆ
+        }
     }
 }
 
@@ -127,16 +134,27 @@ void EnemyAstraea::processBehavior() {
 
     if (_pMover->_angveloRzMove == 0 && _pMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
         static EnemyLaserChip001* pLaserChip;
-        GgafDx9Util::getWayAngle2D(_RY, _laser_way, 20000, _paWay);
+
+        angle angClearance = 20000;
+
+        GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
+        GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
 
         for (int i = 0; i < _laser_way; i++) {
-            pLaserChip = (EnemyLaserChip001*)_papLaserChipDispatcher[i]->employ();
-            if (pLaserChip != NULL) {
-                pLaserChip->_pMover->setRzRyMoveAngle(_pMover->_angRzMove, _paWay[i]);
-                pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ-1000;
-                pLaserChip->_pMover->_angFace[AXIS_Y] = _paWay[i];
-                pLaserChip->_pMover->behave();
-                pLaserChip->setGeometry(this);
+            for (int j = 0; j < _laser_way; j++) {
+                pLaserChip = (EnemyLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
+                if (pLaserChip != NULL) {
+                    pLaserChip->setGeometry(this);
+                    pLaserChip->_pMover->setRzRyMoveAngle(_paWayRz[i], _paWayRy[j]);
+                    pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
+                    pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
+                    //Ç∆ÇËÇ†Ç¶Ç∏Ç‹Ç¡Ç∑ÇÆîÚÇŒÇ∑ÅAÇµÇ©ÇµÅAÉ^Å[ÉQÉbÉgÇÕï€ë∂ÇµÇΩÇ¢ÇÃÇ≈Ç±Ç±Ç≈äpë¨ìxÇOÇ≈ÇΩÅ[Ç∞Ç¡Ç∆ÅB
+                    pLaserChip->_pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip,
+                                                               0, TURN_CLOSE_TO);
+
+                    pLaserChip->_pMover->behave();
+
+                }
             }
         }
         _cnt_laserchip++;
@@ -148,8 +166,10 @@ void EnemyAstraea::processJudgement() {
     if (wasGone()) {
         adios();
         for (int i = 0; i < _laser_way; i++) {
-            if (_papLaserChipDispatcher[i]) { //íeâï˙ó\ñÒ
-                _papLaserChipDispatcher[i]->adios(60 * 5);
+            for (int j = 0; j < _laser_way; j++) {
+                if (_papapLaserChipDispatcher[i][j]) { //íeâï˙ó\ñÒ
+                    _papapLaserChipDispatcher[i][j]->adios(60 * 5);
+                }
             }
         }
     }
@@ -165,8 +185,10 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_lifeframe);
     adios();
     for (int i = 0; i < _laser_way; i++) {
-        if (_papLaserChipDispatcher[i]) { //íeâï˙ó\ñÒ
-            _papLaserChipDispatcher[i]->adios(60 * 5);
+        for (int j = 0; j < _laser_way; j++) {
+            if (_papapLaserChipDispatcher[i][j]) { //íeâï˙ó\ñÒ
+                _papapLaserChipDispatcher[i][j]->adios(60 * 5);
+            }
         }
     }
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
@@ -185,8 +207,12 @@ int EnemyAstraea::wasGone() {
 }
 
 EnemyAstraea::~EnemyAstraea() {
-    DELETEARR_IMPOSSIBLE_NULL(_paWay);
+    DELETEARR_IMPOSSIBLE_NULL(_paWayRz);
+    DELETEARR_IMPOSSIBLE_NULL(_paWayRy);
+    for (int i = 0; i < _laser_way; i++) {
+        DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher[i]);
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_papapLaserChipDispatcher);
 
-    DELETEARR_IMPOSSIBLE_NULL(_papLaserChipDispatcher);
 
 }

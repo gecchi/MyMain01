@@ -6,12 +6,12 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : CurveLaserChip(prm_name, "laser_chip") {
+EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "laser_chip") {
     _class_name = "EnemyLaserChip001";
 }
 
 void EnemyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(30000);
+    _pMover->setMoveVelocity(16000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
@@ -20,6 +20,22 @@ void EnemyLaserChip001::initialize() {
     _max_radius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
 }
+
+
+void EnemyLaserChip001::processBehavior() {
+
+
+    if (_dwActiveFrame == 15) {
+        _pMover->executeTagettingMoveAngleSequence(
+                    _begining_target_RzMoveAngle,
+                    _begining_target_RyMoveAngle,
+                    6000, TURN_ANTICLOSE_TO);
+    }
+
+    HomingLaserChip::processBehavior();
+}
+
+
 
 void EnemyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }

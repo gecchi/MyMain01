@@ -1,11 +1,27 @@
-#ifndef CURVELASERCHIP_H_
-#define CURVELASERCHIP_H_
+#ifndef HOMINGLASERCHIP_H_
+#define HOMINGLASERCHIP_H_
 namespace MyStg2nd {
 
-class CurveLaserChip : public LaserChip {
+class HomingLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
+
+
+
 public:
-    CurveLaserChip(const char* prm_name, const char* prm_model);
+
+    int _begining_X;
+    int _begining_Y;
+    int _begining_Z;
+    float _begining_vX;
+    float _begining_vY;
+    float _begining_vZ;
+    int _begining_RzMoveAngle;
+    int _begining_RyMoveAngle;
+    GgafDx9Core::angle _begining_target_RzMoveAngle;
+    GgafDx9Core::angle _begining_target_RyMoveAngle;
+
+
+    HomingLaserChip(const char* prm_name, const char* prm_model);
 
     virtual void initialize();
 
@@ -21,7 +37,7 @@ public:
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
      * 実は本メソッドで、GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
-     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に CurveLaserChip::processJudgement(); と
+     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に HomingLaserChip::processJudgement(); と
      * したほうが良いでしょう。
      */
     virtual void processJudgement();
@@ -40,10 +56,13 @@ public:
      */
     virtual void onInactive();
 
-    virtual ~CurveLaserChip();
+
+    //virtual void initializeHoming(GgafDx9Core::GgafDx9GeometricActor* prm_pActor_Target);
+
+    virtual ~HomingLaserChip();
 
 };
 
 }
-#endif /*CURVELASERCHIP_H_*/
+#endif /*HOMINGLASERCHIP_H_*/
 

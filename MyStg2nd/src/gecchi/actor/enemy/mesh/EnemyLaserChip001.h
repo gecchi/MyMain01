@@ -2,7 +2,7 @@
 #define ENEMYLASERCHIP001_H_
 namespace MyStg2nd {
 
-class EnemyLaserChip001 : public CurveLaserChip {
+class EnemyLaserChip001 : public HomingLaserChip {
 
 
 public:
@@ -12,6 +12,10 @@ public:
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void initialize();
+
+
+    void processBehavior();
+
 
     void processHappen(int prm_no) {
     }

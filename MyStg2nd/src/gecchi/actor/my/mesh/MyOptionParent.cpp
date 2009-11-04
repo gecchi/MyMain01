@@ -150,76 +150,96 @@ void MyOptionParent::processBehavior() {
             switch(GameGlobal::_pMyShip->_way) {
                 case WAY_UP:
                     if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-                        setTerget(ANGLE90, 0);
+                        _pMover->executeTagettingMoveAngleSequence(ANGLE90, 0,
+                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
                     } else {
-                        setTerget(ANGLE90, ANGLE90);
+                        _pMover->executeTagettingMoveAngleSequence(ANGLE90, ANGLE90,
+                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
                     }
                     break;
                 case WAY_UP_FRONT:
-                    setTerget(ANGLE45, 0);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE45, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_UP_BEHIND:
-                    setTerget(ANGLE135, 0);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE135, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_DOWN:
                     if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-                        setTerget(ANGLE270, 0);
+                        _pMover->executeTagettingMoveAngleSequence(ANGLE270, 0,
+                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
                     } else {
-                        setTerget(ANGLE270, ANGLE90);
+                        _pMover->executeTagettingMoveAngleSequence(ANGLE270, ANGLE90,
+                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
                     }
                     break;
                 case WAY_DOWN_FRONT:
-                    setTerget(ANGLE315, 0);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE315, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_DOWN_BEHIND:
-                    setTerget(ANGLE225, 0);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE225, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_FRONT:
-                    setTerget(0, 0);
+                    _pMover->executeTagettingMoveAngleSequence(0, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_BEHIND:
-                    setTerget(ANGLE180, 0);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, 0,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     //            _pMover->setSuspendTarget_RzMoveAngle(0);
                     //            _pMover->setSuspendTarget_RyMoveAngle(ANGLE180);
 
                     break;
                 case WAY_ZLEFT:
-                    setTerget(ANGLE180, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE90,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
 
                 case WAY_ZLEFT_UP:
-                    setTerget(ANGLE135, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE135, ANGLE90,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_ZLEFT_DOWN:
-                    setTerget(ANGLE225, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE225, ANGLE90,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
 
                 case WAY_ZLEFT_FRONT:
-                    setTerget(ANGLE180, ANGLE135);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE135,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_ZLEFT_BEHIND:
-                    setTerget(ANGLE180, ANGLE45);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE45,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
 
 
                 case WAY_ZRIGHT:
-                    setTerget(0, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE90
+                                                               , _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_ZRIGHT_UP:
-                    setTerget(ANGLE45, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE45, ANGLE90,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_ZRIGHT_DOWN:
-                    setTerget(ANGLE315, ANGLE90);
+                    _pMover->executeTagettingMoveAngleSequence(ANGLE315, ANGLE90,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
 
                 case WAY_ZRIGHT_FRONT:
-                    setTerget(0, ANGLE45);
+                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE45,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_ZRIGHT_BEHIND:
-                    setTerget(0, ANGLE135);
+                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE135,
+                                                               _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 default:
-                    //setTerget(0, 0);
+                    //_pMover->executeTagettingMoveAngleSequence(0, 0, _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
             }
             _way_myship_prev = GameGlobal::_pMyShip->_way;
@@ -237,20 +257,20 @@ void MyOptionParent::processBehavior() {
 }
 
 
-void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
-    if (_pMover->getRzMoveAngleDistance(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
-        _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
-    } else {
-        _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
-    }
-    if (_pMover->getRyMoveAngleDistance(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
-        _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
-    } else {
-        _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
-    }
-    _pMover->setSuspendTarget_RzMoveAngle(prm_angRz_Target);
-    _pMover->setSuspendTarget_RyMoveAngle(prm_angRy_Target);
-}
+//void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
+//    if (_pMover->getRzMoveAngleDistance(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
+//        _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
+//    } else {
+//        _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
+//    }
+//    if (_pMover->getRyMoveAngleDistance(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
+//        _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
+//    } else {
+//        _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
+//    }
+//    _pMover->setSuspendTarget_RzMoveAngle(prm_angRz_Target);
+//    _pMover->setSuspendTarget_RyMoveAngle(prm_angRy_Target);
+//}
 
 MyOptionParent::~MyOptionParent() {
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);

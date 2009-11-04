@@ -12,7 +12,11 @@ CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void CurveLaserChip::initialize() {
-    //下位レーザーチップでオーバーライトされている可能性あり
+    //初期設定です。
+    //30px/frame の移動速度
+    //当たり判定あり。
+    //α＝0.99
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     _pMover->setMoveVelocity(30000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -23,51 +27,32 @@ void CurveLaserChip::initialize() {
 
 
 void CurveLaserChip::onActive() {
+    //レーザーチップ出現時処理
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, 7000, TURN_ANTICLOSE_TO);
 }
 
 void CurveLaserChip::onInactive() {
+    //レーザーチップ消失時処理
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの onInactive() メソッドも呼び出してください。
     LaserChip::onInactive();
 }
 
 void CurveLaserChip::processBehavior() {
+    //レーザーチップ消失時処理
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     _dwActiveFrame++;
     //座標に反映
     if (_dwActiveFrame > 1) {
         _pMover->behave();
     }
-/*
-    //中間地点にも当たり判定
-    static int centerX, centerY, centerZ;
-    if (_pChip_front != NULL) {
-      centerX = (_X - _pChip_front->_X) / 2;
-      centerY = (_Y - _pChip_front->_Y) / 2;
-      centerZ = (_Z - _pChip_front->_Z) / 2;
-      _pStgChecker->setHitAreaBox(
-                      1,
-                      centerX - 30000,
-                      centerY - 30000,
-                      centerZ - 30000,
-                      centerX + 30000,
-                      centerY + 30000,
-                      centerZ + 30000
-                 ); //中間の当たり判定
-      _pStgChecker->getHitAreaBoxs()->enable(1);
-    } else {
-      _pStgChecker->getHitAreaBoxs()->disable(1);
-
-    }
-*/
-
 }
 
 void CurveLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    //【注意】4/15 メモ
-    //奥から描画となるので processDrawXxxx は、同一フレーム内で _pChip_front が必ずしも先に実行されとは限らない。
-    //processBehavior,processJudgementは _pChip_front が必ず先に実行される。
-    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
     GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
 }
 
