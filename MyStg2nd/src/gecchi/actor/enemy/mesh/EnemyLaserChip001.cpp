@@ -32,7 +32,7 @@ void EnemyLaserChip001::processBehaviorHeadChip() {
     }
 
 
-    if (_dwActiveFrame == 30) {
+    if (_dwActiveFrame == 60) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
                     7000, TURN_CLOSE_TO);
