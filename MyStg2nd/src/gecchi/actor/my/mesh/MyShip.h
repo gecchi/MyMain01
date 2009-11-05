@@ -179,16 +179,14 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
         }
         int getIndex() {
             //3êiêîÅ®10êiêîïœä∑
-
-            return TN(_way.X, _way.Y, _way.Z);
-//
-//            ((3*3*3)*(sgn(_way.X)+1)) + ((3*3)*(sgn(_way.Y)+1)) + ((3)*(sgn(_way.Z)+1));
+            //_TRACE_("_way.X, _way.Y, _way.Z="<<_way.X<<","<<_way.Y<<","<< _way.Z);
+            return (3*3*(sgn(_way.X)+1)) + (3*(sgn(_way.Y)+1)) + (sgn(_way.Z)+1);
         }
     };
 public:
 
 
-    WaySwitch _ways;
+    WaySwitch _way_switch;
     void (MyShip::*fpaMoveFunc[3*3*3])();
 
 //    void (MyShip::*fpaFunc[])() =  {
@@ -362,7 +360,7 @@ public:
         } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_FRONT() {
         _way = WAY_ZLEFT_FRONT;
@@ -375,7 +373,7 @@ public:
         } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_BEHIND() {
         _way = WAY_ZLEFT_BEHIND;
@@ -388,7 +386,7 @@ public:
         } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_FRONT() {
         _way = WAY_ZRIGHT_FRONT;
@@ -401,7 +399,7 @@ public:
         } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
 
     void move_WAY_ZRIGHT() {
@@ -413,7 +411,7 @@ public:
         } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_BEHIND() {
         _way = WAY_ZRIGHT_BEHIND;
@@ -426,7 +424,7 @@ public:
         } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
 
     void move_WAY_ZLEFT_UP() {
@@ -440,7 +438,7 @@ public:
         } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_DOWN() {
         _way = WAY_ZLEFT_DOWN;
@@ -453,7 +451,7 @@ public:
         } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
 
     void move_WAY_ZRIGHT_UP() {
@@ -467,7 +465,7 @@ public:
         } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_DOWN() {
         _way = WAY_ZRIGHT_DOWN;
@@ -480,7 +478,7 @@ public:
         } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
             _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_UP_FRONT() {
         _TRACE_("move_WAY_ZLEFT_UP_FRONTLEFT() came!");

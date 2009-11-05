@@ -20,6 +20,19 @@ class World : public GgafDx9LibStg::DefaultScene {
 public:
 
     int _dZ_camera_init;
+    int _lim_CAM_top;
+    int _lim_CAM_bottom;
+    int _lim_CAM_front;
+    int _lim_CAM_behaind;
+    int _lim_CAM_zleft;
+    int _lim_CAM_zright;
+
+    int _lim_VP_top;
+    int _lim_VP_bottom;
+    int _lim_VP_front;
+    int _lim_VP_behaind;
+    int _lim_VP_zleft;
+    int _lim_VP_zright;
 
     DWORD _frame_pushdown_zmove;
 

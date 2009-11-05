@@ -11,7 +11,7 @@ public:
     static std::string* MY_KEY_SHOT2;
     static std::string* MY_KEY_OPTION;
     static std::string* MY_KEY_ZMOVE;
-    static std::string* MY_KEY_BUTTON5;
+    static std::string* MY_KEY_TURBO;
     static std::string* MY_KEY_BUTTON6;
     static std::string* MY_KEY_PAUSE;
     static std::string* MY_KEY_UP;
@@ -29,7 +29,7 @@ public:
     static std::string* MY_JOY_SHOT2;
     static std::string* MY_JOY_OPTION;
     static std::string* MY_JOY_ZMOVE;
-    static std::string* MY_JOY_BUTTON5;
+    static std::string* MY_JOY_TURBO;
     static std::string* MY_JOY_BUTTON6;
     static std::string* MY_JOY_PAUSE;
     static std::string* MY_JOY_UI_EXECUTE;

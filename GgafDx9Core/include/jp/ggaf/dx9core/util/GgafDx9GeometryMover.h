@@ -124,7 +124,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param	prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
      * @param	prm_angveloAllowRyMove 自動停止機能が有効になる回転角速度
      */
-    void setSuspendTarget_FaceAngle(int prm_axis,
+    void setStopTarget_FaceAngle(int prm_axis,
                            angle prm_angTargetRot,
                            int prm_way_allow = TURN_BOTH,
                            angvelo prm_angveloAllow = ANGLE180);
@@ -137,7 +137,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * @param	prm_way_allow  自動停止機能が有効になる回転方向
      * @param	prm_angveloAllowRyMove 自動停止機能が有効になる回転角速度
      */
-    void setSuspendTarget_FaceAngleV(int prm_axis,
+    void setStopTarget_FaceAngleV(int prm_axis,
                                 int prm_tX,
                                 int prm_tY,
                                 int prm_way_allow = TURN_BOTH,
@@ -257,7 +257,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの移動方角（Z軸回転）を設定。<BR>
      * 加算後の移動方角（Z軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
      * 自動前方向き機能が有効(_synchronize_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
-     * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setSuspendTarget_FaceAngle(int) も実行されます。<BR>
+     * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
      *
      * @param	prm_angRzMove	移動方角（Z軸回転）(0～360,000)
      */
@@ -266,7 +266,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * Actorの移動方角（Z軸回転）を現在XY座標からの対象XY座標への方向を割り出し、設定する。<BR>
      * 自動前方向き機能が有効(_synchronize_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
-     * ActorのZ軸方角（向き）も移動方角（Z軸回転）と同じ方向を向くように setSuspendTarget_FaceAngle(int) が実行されます。<BR>
+     * ActorのZ軸方角（向き）も移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xZ軸座標
      * @param	prm_tY	対象yZ軸座標
@@ -313,20 +313,20 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
-    void setSuspendTarget_RzMoveAngle(angle prm_angRzMove,
+    void setStopTarget_RzMoveAngle(angle prm_angRzMove,
                                       int prm_way_allow = TURN_BOTH,
                                       angvelo prm_angveloAllowRyMove = ANGLE180);
 
     /**
      * Actorの目標の移動方角（Z軸回転）自動停止機能を有効(目標の移動方角（Z軸回転）を現在Z軸座標からの対象Z軸座標で設定)<BR>
-     * 機能はsetSuspendTarget_RzMoveAngle(int)と同じ<BR>
+     * 機能はsetStopTarget_RzMoveAngle(int)と同じ<BR>
      *
      * @param	prm_tX	xRz座標
      * @param	prm_tY	yRy座標
      * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
-    void setSuspendTarget_RzMoveAngleV(int prm_tX,
+    void setStopTarget_RzMoveAngleV(int prm_tX,
                                        int prm_tY,
                                        int prm_way_allow = TURN_BOTH,
                                        angvelo prm_angveloAllowRyMove = ANGLE180);
@@ -355,7 +355,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * Actorの移動方角（Y軸回転）を設定。<BR>
      * 加算後の移動方角（Y軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
      * 自動前方向き機能が有効(_synchronize_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
-     * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setSuspendTarget_FaceAngle(int) も実行されます。<BR>
+     * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
      *
      * @param	prm_angRyMove	移動方角（Y軸回転）(0～360,000)
      */
@@ -364,7 +364,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * Actorの移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標への方向を割り出し、設定する。<BR>
      * 自動前方向き機能が有効(_synchronize_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
-     * ActorのZ軸方角（向き）も移動方角（Y軸回転）と同じ方向を向くように setSuspendTarget_FaceAngle(int) が実行されます。<BR>
+     * ActorのZ軸方角（向き）も移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xY軸座標
      * @param	prm_tY	対象yY軸座標
@@ -411,20 +411,20 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
-    void setSuspendTarget_RyMoveAngle(angle prm_angRyMove,
+    void setStopTarget_RyMoveAngle(angle prm_angRyMove,
                                       int _move_angle_ry_target_allow_way = TURN_BOTH,
                                       angvelo prm_angveloAllowRyMove = ANGLE180);
 
     /**
      * Actorの目標の移動方角（Y軸回転）自動停止機能を有効(目標の移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標で設定)<BR>
-     * 機能はsetSuspendTarget_RyMoveAngle(int)と同じ<BR>
+     * 機能はsetStopTarget_RyMoveAngle(int)と同じ<BR>
      *
      * @param	prm_tX	xRy座標
      * @param	prm_tY	yRy座標
      * @param	prm_way_allow  自動停止機能が有効になる進入回転方向
      * @param	prm_angveloAllowRyMove 停止機能が有効になる移動方角角速度
      */
-    void setSuspendTarget_RyMoveAngleV(int prm_tX,
+    void setStopTarget_RyMoveAngleV(int prm_tX,
                                        int prm_tY,
                                        int _move_angle_ry_target_allow_way = TURN_BOTH,
                                        angvelo prm_angveloAllowRyMove = ANGLE180);
@@ -457,9 +457,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setMoveAngle(GgafDx9GeometricActor* prm_pActor_Target);
 
-    void setSuspendTarget_RzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
+    void setStopTarget_RzRyMoveAngle(int prm_tX, int prm_tY, int prm_tZ);
 
-    void setSuspendTarget_RzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target);
+    void setStopTarget_RzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target);
 
     //virtual void behave();
 

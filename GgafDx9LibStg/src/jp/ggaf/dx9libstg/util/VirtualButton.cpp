@@ -15,7 +15,7 @@ VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_X,      // BUTTON2
                               DIK_C,      // BUTTON3
                               DIK_A,      // BUTTON4
-                              DIK_S,      // BUTTON5
+                              DIK_S,      // TURBO
                               DIK_D,      // BUTTON6
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
@@ -36,7 +36,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               1, // BUTTON2
                               2, // BUTTON3
                               3, // BUTTON4
-                              4, // BUTTON5
+                              4, // TURBO
                               5, // BUTTON6
                               6, // PAUSE
                               0, // UI_EXECUTE

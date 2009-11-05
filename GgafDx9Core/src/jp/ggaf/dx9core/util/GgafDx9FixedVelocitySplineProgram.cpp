@@ -146,12 +146,12 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
 
             if (_option == 1) {
                 //相対座標ターゲット
-                _pActorMover->setSuspendTarget_RzRyMoveAngle(_sp->_X_compute[_point_index] - _X_relative,
+                _pActorMover->setStopTarget_RzRyMoveAngle(_sp->_X_compute[_point_index] - _X_relative,
                                                             _sp->_Y_compute[_point_index] - _Y_relative,
                                                             _sp->_Z_compute[_point_index] - _Z_relative);
             } else {
                 //絶対座標ターゲット
-                _pActorMover->setSuspendTarget_RzRyMoveAngle(_sp->_X_compute[_point_index],
+                _pActorMover->setStopTarget_RzRyMoveAngle(_sp->_X_compute[_point_index],
                                                             _sp->_Y_compute[_point_index],
                                                             _sp->_Z_compute[_point_index]);
             }

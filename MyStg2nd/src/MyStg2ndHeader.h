@@ -26,6 +26,7 @@
 #define VB_SHOT2    VB_BUTTON2
 #define VB_OPTION   VB_BUTTON3
 #define VB_ZMOVE    VB_BUTTON4
+#define VB_TURBO    VB_BUTTON5
 #define VB_SHOT1_R  VB_BUTTON6
 
 namespace MyStg2nd {

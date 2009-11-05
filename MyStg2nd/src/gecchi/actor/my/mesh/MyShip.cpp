@@ -331,62 +331,62 @@ void MyShip::processBehavior() {
     if (pCAM->_pos_camera == 0) {
         //サイドビュー(右スクロール)
         if (VB::isPushedDown(VB_UP)) {
-            _ways.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
         }
         if (VB::isPushedDown(VB_RIGHT)) {
-            _ways.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
+            _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
         if (VB::isPushedDown(VB_LEFT)) {
-            _ways.ON_LEFT(SW_SUB, SW_NOP, SW_NOP); //後方
+            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
         if (VB::isPushedDown(VB_DOWN)) {
-            _ways.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
         }
     } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
         //トップビュー
         if (VB::isPushedDown(VB_UP)) {
-            _ways.ON_UP(SW_ADD, SW_NOP, SW_NOP); //前方
+            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP); //前方
         }
         if (VB::isPushedDown(VB_RIGHT)) {
-            _ways.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
+            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
         if (VB::isPushedDown(VB_LEFT)) {
-            _ways.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
         }
         if (VB::isPushedDown(VB_DOWN)) {
-            _ways.ON_DOWN(SW_SUB, SW_NOP, SW_NOP); //後方
+            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP); //後方
         }
-    } else if (pCAM->_pos_camera == 0) {
+    } else if (pCAM->_pos_camera == 3) {
         //サイドビュー(左スクロール)
         if (VB::isPushedDown(VB_UP)) {
-            _ways.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
         }
         if (VB::isPushedDown(VB_RIGHT)) {
-            _ways.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
+            _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
         if (VB::isPushedDown(VB_LEFT)) {
-            _ways.ON_LEFT(SW_ADD, SW_NOP, SW_NOP); //前方
+            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
         if (VB::isPushedDown(VB_DOWN)) {
-            _ways.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
         }
     }
     if (VB::isReleasedUp(VB_UP)) {
-        _ways.OFF_UP();
+        _way_switch.OFF_UP();
     }
     if (VB::isReleasedUp(VB_RIGHT)) {
-        _ways.OFF_RIGHT();
+        _way_switch.OFF_RIGHT();
     }
     if (VB::isReleasedUp(VB_LEFT)) {
-        _ways.OFF_LEFT();
+        _way_switch.OFF_LEFT();
     }
     if (VB::isReleasedUp(VB_DOWN)) {
-        _ways.OFF_DOWN();
+        _way_switch.OFF_DOWN();
     }
 
 
-    int way_index = _ways.getIndex();
-    (this->*fpaMoveFunc[way_index])();
+    _way = (MoveWay)(_way_switch.getIndex());
+    (this->*fpaMoveFunc[_way])();
 
 
     if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
@@ -573,10 +573,10 @@ void MyShip::processBehavior() {
         //equipOption();
     }
 
-    if (VB::isBeingPressed(VB_BUTTON6)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_A)) {
         _pScaler->addScale(-200);
     }
-    if (VB::isBeingPressed(VB_BUTTON5)) {
+    if (GgafDx9Input::isBeingPressedKey(DIK_S)) {
         _pScaler->addScale(200);
     }
 
@@ -1013,7 +1013,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_UP;
@@ -1026,7 +1026,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_DOWN;
@@ -1039,7 +1039,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_DOWN;
@@ -1058,7 +1058,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_UP;
@@ -1071,7 +1071,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_DOWN;
@@ -1084,7 +1084,7 @@ void MyShip::moveZY(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -1144,7 +1144,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_LEFT_STC:
             _way = WAY_ZLEFT_FRONT;
@@ -1157,7 +1157,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_LEFT_STC:
             _way = WAY_ZLEFT_BEHIND;
@@ -1170,7 +1170,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (ANGLE180 < distwk && distwk < ANGLE360) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_STC:
             _way = WAY_BEHIND;
@@ -1189,7 +1189,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_UP_RIGHT_STC:
             _way = WAY_ZRIGHT_FRONT;
@@ -1202,7 +1202,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         case VB_DOWN_RIGHT_STC:
             _way = WAY_ZRIGHT_BEHIND;
@@ -1215,7 +1215,7 @@ void MyShip::moveZX(vbsta prm_VB) {
             } else if (-1*ANGLE180 <= distwk && distwk < 0) {
                 _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
             }
-            _pMover->setSuspendTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
             break;
         default:
             break;
@@ -1309,7 +1309,7 @@ void MyShip::turnFaceNeutralZY() {
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
         _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setSuspendTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::turnFaceNeutralZX() {
@@ -1320,7 +1320,7 @@ void MyShip::turnFaceNeutralZX() {
     } else if (ANGLE180 < distwk && distwk < ANGLE360) {
         _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
     }
-    _pMover->setSuspendTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
 }
 
 void MyShip::doNotingMoveInput() {

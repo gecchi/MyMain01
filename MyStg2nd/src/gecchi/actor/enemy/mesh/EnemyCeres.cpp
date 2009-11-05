@@ -164,35 +164,35 @@ void EnemyCeres::processBehavior() {
     //		_TRACE_("_lifeframe="<<_lifeframe);
     //		//_pMover->setRyMoveAngle(ANGLE45);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE45);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE45);
     //	} else if (_lifeframe == 300) {
     ////		_pMover->setRyMoveAngle(ANGLE90);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE90);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE90);
     //	} else if (_lifeframe == 400) {
     ////		_pMover->setRyMoveAngle(ANGLE135);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE135);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE135);
     //	} else if (_lifeframe == 500) {
     ////		_pMover->setRyMoveAngle(ANGLE180);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE180);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE180);
     //	} else if (_lifeframe == 600) {
     ////		_pMover->setRyMoveAngle(ANGLE225);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE225);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE225);
     //	} else if (_lifeframe == 700) {
     ////		_pMover->setRyMoveAngle(ANGLE270);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE270);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE270);
     //	} else if (_lifeframe == 800) {
     ////		_pMover->setRyMoveAngle(ANGLE315);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE315);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE315);
     //	} else if (_lifeframe == 900) {
     ////		_pMover->setRyMoveAngle(ANGLE360);
     //		_pMover->setRyMoveAngleVelocity(2000);
-    //		_pMover->setSuspendTarget_RyMoveAngle(ANGLE360);
+    //		_pMover->setStopTarget_RyMoveAngle(ANGLE360);
     //	}
 
 
@@ -208,8 +208,8 @@ void EnemyCeres::processBehavior() {
 //        } else {
 //            _pMover->setRyMoveAngleVelocity(-4000);
 //        }
-//        _pMover->setSuspendTarget_RzMoveAngle(0);
-//        _pMover->setSuspendTarget_RyMoveAngle(ANGLE180);
+//        _pMover->setStopTarget_RzMoveAngle(0);
+//        _pMover->setStopTarget_RyMoveAngle(ANGLE180);
 
         //’e‚ðŒ‚‚Á‚Ä‚Ý‚é
         //		‚TWAY’e
@@ -273,11 +273,11 @@ void EnemyCeres::processBehavior() {
 //	if (_iMovePatternNo == 0 && _X > _X_turn) {
 //		_pMover->setRzMoveAngle(sgn(_incZ)*-1*90000);
 //		_pMover->setRzMoveAngleVelocity(sgn(_incZ)*-1*3000);
-//		_pMover->setSuspendTarget_RzMoveAngle(ANGLE180);
+//		_pMover->setStopTarget_RzMoveAngle(ANGLE180);
 //		_pMover->setMoveVelocity(1000);
 //
 //		_pMover->setFaceAngleVelocity(AXIS_Y, sgn(_incZ)*-1*4000);
-//		_pMover->setSuspendTarget_FaceAngle(AXIS_Y, ANGLE180);
+//		_pMover->setStopTarget_FaceAngle(AXIS_Y, ANGLE180);
 //
 //		//’e‚ðŒ‚‚Á‚Ä‚Ý‚é
 //

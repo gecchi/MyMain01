@@ -29,6 +29,21 @@ void World::initialize() {
     pCAM->_pos_camera = 0;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
+    _lim_CAM_top     = GameGlobal::_lim_MyShip_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT / 2);
+    _lim_CAM_bottom  = GameGlobal::_lim_MyShip_bottom  + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT / 2);
+    _lim_CAM_front   = GameGlobal::_lim_MyShip_front   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_CAM_behaind = GameGlobal::_lim_MyShip_behaind + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_CAM_zleft   = GameGlobal::_lim_MyShip_zleft   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_CAM_zright  = GameGlobal::_lim_MyShip_zright  + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+
+    _lim_VP_top     = GameGlobal::_lim_MyShip_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT / 2);
+    _lim_VP_bottom  = GameGlobal::_lim_MyShip_bottom  + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT / 2);
+    _lim_VP_front   = GameGlobal::_lim_MyShip_front   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_VP_behaind = GameGlobal::_lim_MyShip_behaind + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_VP_zleft   = GameGlobal::_lim_MyShip_zleft   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+    _lim_VP_zright  = GameGlobal::_lim_MyShip_zright  + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
+
+
     pCAM->_X = _dZ_camera_init / 10; //­‚µŽÎ‚ß‚ß‚©‚çŒ©‚Ä‚é
     pCAM->_Y = 0; //‚S‚T“xŽÎ‚ß‚©‚çŒ©‚é
     pCAM->_Z = -_dZ_camera_init;
@@ -167,43 +182,98 @@ void World::processBehavior() {
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
     if ( getSubFirst()->isBehaving() ) {
         if (pCAM->_pos_camera == 0) {
-            dZ_from = (GameGlobal::_pMyShip->_Z - _dZ_camera_init) - pCAM->_Z;
+            dZ_from = (pMYSHIP->_Z - _dZ_camera_init) - pCAM->_Z;
             dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY_from = 0 - pCAM->_Y;
+            if (pCAM->_Y > _lim_VP_top && pCAM->_pMover->_veloVyMove > 0) {
+                dY_from = 0;//pMYSHIP->_Y - _lim_VP_top;
+            } else if (pCAM->_Y < _lim_VP_bottom) {
+                dY_from = 0;//pMYSHIP->_Y - _lim_VP_bottom;
+            } else {
+                dY_from = pMYSHIP->_Y - pCAM->_Y;
+            }
 
-            dX_to = 0;
-            dY_to = 0;
             dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
-
+            dX_to = 0;
+            if (pVP->_Y > _lim_VP_top) {
+                dY_to = 0;//pMYSHIP->_Y - _lim_VP_top;
+            } else if (pVP->_Y < _lim_VP_bottom) {
+                dY_to = 0;//pMYSHIP->_Y - _lim_VP_bottom;
+            } else {
+                dY_to = pMYSHIP->_Y - pVP->_Y;
+            }
         } else if (pCAM->_pos_camera == 1) {
-            dZ_from = (GameGlobal::_pMyShip->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
             dX_from = X_screen_left + 100000 - pCAM->_X;
-            dY_from = Y_screen_top + 200000 - pCAM->_Y;
+            dY_from = (pMYSHIP->_Y +_dZ_camera_init) - pCAM->_Y;
+            if (pCAM->_Z > _lim_VP_zleft) {
+                dZ_from = 0;//pCAM->_Z - _lim_VP_zleft;
+            } else if (pCAM->_Z < _lim_VP_zright) {
+                dZ_from = 0;//pCAM->_Z - _lim_VP_zright;
+            } else {
+                dZ_from = (pMYSHIP->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
+            }
 
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
+            dY_to = pMYSHIP->_Y - pVP->_Y;
+            if (pVP->_Z > _lim_VP_zleft) {
+                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zleft;
+            } else if (pVP->_Z < _lim_VP_zright) {
+                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zright;
+            } else {
+                dZ_to = pMYSHIP->_Z - pVP->_Z;
+            }
 
         } else if (pCAM->_pos_camera == 2) {
-            dZ_from = (GameGlobal::_pMyShip->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
+
             dX_from = X_screen_left + 100000 - pCAM->_X;
-            dY_from = Y_screen_top + 200000 - pCAM->_Y;
+            dY_from = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
+            if (pCAM->_Z > _lim_VP_zleft) {
+                dZ_from = 0;//pCAM->_Z - _lim_VP_zleft;
+            } else if (pCAM->_Z < _lim_VP_zright) {
+                dZ_from = 0;//pCAM->_Z - _lim_VP_zright;
+            } else {
+                dZ_from = (pMYSHIP->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
+            }
 
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
+            dY_to = pMYSHIP->_Y - pVP->_Y;
+            if (pVP->_Z > _lim_VP_zleft) {
+                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zleft;
+            } else if (pVP->_Z < _lim_VP_zright) {
+                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zright;
+            } else {
+                dZ_to = pMYSHIP->_Z - pVP->_Z;
+            }
 
         } else if (pCAM->_pos_camera == 3) {
-            dZ_from = (GameGlobal::_pMyShip->_Z + _dZ_camera_init) - pCAM->_Z;
+            dZ_from = (pMYSHIP->_Z + _dZ_camera_init) - pCAM->_Z;
             dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY_from = 0 - pCAM->_Y;
+            if (pCAM->_Y > _lim_VP_top) {
+                dY_from = 0;//pMYSHIP->_Y - _lim_VP_top;
+            } else if (pCAM->_Y < _lim_VP_bottom) {
+                dY_from = 0;//pMYSHIP->_Y - _lim_VP_bottom;
+            } else {
+                dY_from = pMYSHIP->_Y - pCAM->_Y;
+            }
 
+            dZ_to = pMYSHIP->_Z - pVP->_Z;
             dX_to = 0;
-            dY_to = 0;
-            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
+            if (pVP->_Y > _lim_VP_top) {
+                dY_to = 0;//pMYSHIP->_Y - _lim_VP_top;
+            } else if (pVP->_Y < _lim_VP_bottom) {
+                dY_to = 0;//pMYSHIP->_Y - _lim_VP_bottom;
+            } else {
+                dY_to = pMYSHIP->_Y - pVP->_Y;
+            }
         }
 
+
+
         static int slow_reng_from = 50000;
+        int speed = (pMYSHIP->_iMoveSpeed + pMYSHIP->_pMover->_veloMove)* 0.99;
+        pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
+        pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
+        pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
+
 
         if (-slow_reng_from < dZ_from && dZ_from < slow_reng_from) {
             pCAM->_pMover->_veloVzMove *= 0.9;
@@ -237,6 +307,12 @@ void World::processBehavior() {
             }
         }
 
+//        pCAM->_pMover->setVxMoveVeloRenge(-(dX_from - pCAM->_X), dX_from - pCAM->_X);
+//        pCAM->_pMover->setVyMoveVeloRenge(-(dY_from - pCAM->_Y), dY_from - pCAM->_Y);
+//        pCAM->_pMover->setVzMoveVeloRenge(-(dZ_from - pCAM->_Z), dZ_from - pCAM->_Z);
+        pVP->_pMover->setVxMoveVeloRenge(-speed, speed);
+        pVP->_pMover->setVyMoveVeloRenge(-speed, speed);
+        pVP->_pMover->setVzMoveVeloRenge(-speed, speed);
 
         static int slow_reng_to = 50000;
 
@@ -276,6 +352,35 @@ void World::processBehavior() {
         //pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
         //GameGlobal::_pMyShip->_Z‚±‚ê‚ð‰½‚Æ‚©‚·‚ê‚Î‚¢‚¢‚Í‚¸
         //pCAM->setViewPoint(0, 0, 0);//
+
+
+//        if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+//            if (pVP->_Y > _lim_VP_top) {
+//                pVP->_Y = _lim_VP_top;
+//            }
+//            if (pVP->_Y < _lim_VP_bottom ) {
+//                pVP->_Y = _lim_VP_bottom;
+//            }
+//            if (pCAM->_Y > _lim_VP_top) {
+//                pCAM->_Y = _lim_VP_top;
+//            }
+//            if (pCAM->_Y < _lim_VP_bottom ) {
+//                pCAM->_Y = _lim_VP_bottom;
+//            }
+//        } else {
+//            if (pCAM->_Z > _lim_VP_zleft) {
+//                pCAM->_Z = _lim_VP_zleft;
+//            }
+//            if (pCAM->_Z < _lim_VP_zright) {
+//                pCAM->_Z = _lim_VP_zright;
+//            }
+//            if (pVP->_Z > _lim_VP_zleft) {
+//                pVP->_Z = _lim_VP_zleft;
+//            }
+//            if (pVP->_Z < _lim_VP_zright) {
+//                pVP->_Z = _lim_VP_zright;
+//            }
+//        }
 
 
         pCAM->_pMover->behave();
