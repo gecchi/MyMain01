@@ -4,11 +4,11 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
-
+int MyShip::wk_dist = 0;
+angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
-//1/√2
-#define NANAME 0.7
+
 
 MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _class_name = "MyShip";
@@ -75,13 +75,112 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
+
+
+
+
+    //     X   Y   Z
+    //    -----------
+    //    -1  -1  -1
+    //     0   0   0    の全体を+1
+    //    +1  +1  +1
+
+    /////////////// X  Y  Z
+    fpaMoveFunc[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //0    TN(-1,-1,-1)
+    fpaMoveFunc[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //1    TN(-1,-1, 0)
+    fpaMoveFunc[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BEHIND;    //2    TN(-1,-1, 1)
+    fpaMoveFunc[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BEHIND;        //3    TN(-1, 0,-1)
+    fpaMoveFunc[TN(-1, 0, 0)] = &MyShip::move_WAY_BEHIND;               //4    TN(-1, 0, 0)
+    fpaMoveFunc[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BEHIND;         //5    TN(-1, 0, 1)
+    fpaMoveFunc[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BEHIND;     //6    TN(-1, 1,-1)
+    fpaMoveFunc[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BEHIND;            //7    TN(-1, 1, 0)
+    fpaMoveFunc[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BEHIND;      //8    TN(-1, 1, 1)
+    fpaMoveFunc[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;          //9    TN( 0,-1,-1)
+    fpaMoveFunc[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                 //10   TN( 0,-1, 0)
+    fpaMoveFunc[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;           //11   TN( 0,-1, 1)
+    fpaMoveFunc[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;               //12   TN( 0, 0,-1)
+    fpaMoveFunc[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                 //13   TN( 0, 0, 0)
+    fpaMoveFunc[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                //14   TN( 0, 0, 1)
+    fpaMoveFunc[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;            //15   TN( 0, 1,-1)
+    fpaMoveFunc[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                   //16   TN( 0, 1, 0)
+    fpaMoveFunc[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;             //17   TN( 0, 1, 1)
+    fpaMoveFunc[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FRONT;    //18   TN( 1,-1,-1)
+    fpaMoveFunc[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FRONT;           //19   TN( 1,-1, 0)
+    fpaMoveFunc[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FRONT;     //20   TN( 1,-1, 1)
+    fpaMoveFunc[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FRONT;         //21   TN( 1, 0,-1)
+    fpaMoveFunc[TN( 1, 0, 0)] = &MyShip::move_WAY_FRONT;                //22   TN( 1, 0, 0)
+    fpaMoveFunc[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FRONT;          //23   TN( 1, 0, 1)
+    fpaMoveFunc[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FRONT;      //24   TN( 1, 1,-1)
+    fpaMoveFunc[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FRONT;             //25   TN( 1, 1, 0)
+    fpaMoveFunc[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FRONT;       //26   TN( 1, 1, 1)
+
+
+
 }
 
-// 便利マクロ関数(要素数を求める)
-#define ArrayOf(x) (sizeof(x)/sizeof((x)[0]))
-
-
 void MyShip::initialize() {
+
+    _TRACE_("TN( 0, 0, 0)="<<TN( 0, 0, 0)<<"");
+    _TRACE_("TN( 0, 1, 0)="<<TN( 0, 1, 0)<<"");
+    _TRACE_("TN( 1, 1, 0)="<<TN( 1, 1, 0)<<"");
+    _TRACE_("TN(-1, 1, 0)="<<TN(-1, 1, 0)<<"");
+    _TRACE_("TN( 0,-1, 0)="<<TN( 0,-1, 0)<<"");
+    _TRACE_("TN( 1,-1, 0)="<<TN( 1,-1, 0)<<"");
+    _TRACE_("TN(-1,-1, 0)="<<TN(-1,-1, 0)<<"");
+    _TRACE_("TN( 1, 0, 0)="<<TN( 1, 0, 0)<<"");
+    _TRACE_("TN(-1, 0, 0)="<<TN(-1, 0, 0)<<"");
+    _TRACE_("TN( 0, 0, 1)="<<TN( 0, 0, 1)<<"");
+    _TRACE_("TN( 0, 1, 1)="<<TN( 0, 1, 1)<<"");
+    _TRACE_("TN( 0,-1, 1)="<<TN( 0,-1, 1)<<"");
+    _TRACE_("TN( 1, 0, 1)="<<TN( 1, 0, 1)<<"");
+    _TRACE_("TN(-1, 0, 1)="<<TN(-1, 0, 1)<<"");
+    _TRACE_("TN( 0, 0,-1)="<<TN( 0, 0,-1)<<"");
+    _TRACE_("TN( 0, 1,-1)="<<TN( 0, 1,-1)<<"");
+    _TRACE_("TN( 0,-1,-1)="<<TN( 0,-1,-1)<<"");
+    _TRACE_("TN( 1, 0,-1)="<<TN( 1, 0,-1)<<"");
+    _TRACE_("TN(-1, 0,-1)="<<TN(-1, 0,-1)<<"");
+    _TRACE_("TN( 1, 1, 1)="<<TN( 1, 1, 1)<<"");
+    _TRACE_("TN(-1, 1, 1)="<<TN(-1, 1, 1)<<"");
+    _TRACE_("TN( 1,-1, 1)="<<TN( 1,-1, 1)<<"");
+    _TRACE_("TN(-1,-1, 1)="<<TN(-1,-1, 1)<<"");
+    _TRACE_("TN( 1, 1,-1)="<<TN( 1, 1,-1)<<"");
+    _TRACE_("TN(-1, 1,-1)="<<TN(-1, 1,-1)<<"");
+    _TRACE_("TN( 1,-1,-1)="<<TN( 1,-1,-1)<<"");
+    _TRACE_("TN(-1,-1,-1)="<<TN(-1,-1,-1)<<"");
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //種別に振り分け
     getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
     getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
@@ -196,163 +295,242 @@ void MyShip::initialize() {
 
 void MyShip::processBehavior() {
 
+
+
+///////////スケーリングテスト////////////////
+    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+        _pScaler->intoTargetScaleLinerUntil(3000, 60);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+        _pScaler->intoTargetScaleLinerStep(3000, 10);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+        _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+        _pScaler->beatLiner(20, -1);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
+        _pScaler->beatLiner(10, 5);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
+        _pScaler->beat(20, 2 ,5, -1);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+        _pScaler->stopImmediately();
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+        _pScaler->resetScale();
+    }
+    _pScaler->behave();
+///////////スケーリングテスト////////////////
+
     _stc = VB::getBeingPressedStick();
 
-    ///////////スケーリングテスト////////////////
-        if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-            _pScaler->intoTargetScaleLinerUntil(3000, 60);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-            _pScaler->intoTargetScaleLinerStep(3000, 10);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-            _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-            _pScaler->beatLiner(20, -1);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
-            _pScaler->beatLiner(10, 5);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
-            _pScaler->beat(20, 2 ,5, -1);
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-            _pScaler->stopImmediately();
-        }
-        if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-            _pScaler->resetScale();
-        }
-        _pScaler->behave();
-    ///////////スケーリングテスト////////////////
 
-    if (_stc != VB_NEUTRAL_STC) {
-//////////////////////////
-        if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
-            switch (_stc) {
-                case VB_UP_STC:
-                    _pMover->addRzMoveAngle(1000);
-                    break;
-                case VB_UP_RIGHT_STC:
-                    _pMover->addRzMoveAngle(1000);
-                    _pMover->addRyMoveAngle(-1000);
-                    break;
-                case VB_UP_LEFT_STC:
-                    _pMover->addRzMoveAngle(1000);
-                    _pMover->addRyMoveAngle(1000);
-                    break;
-                case VB_LEFT_STC:
-                    _pMover->addRyMoveAngle(1000);
-                    break;
-                case VB_RIGHT_STC:
-                    _pMover->addRyMoveAngle(-1000);
-                    break;
-                case VB_DOWN_STC:
-                    _pMover->addRzMoveAngle(-1000);
-                    break;
-                case VB_DOWN_RIGHT_STC:
-                    _pMover->addRzMoveAngle(-1000);
-                    _pMover->addRyMoveAngle(-1000);
-                    break;
-                case VB_DOWN_LEFT_STC:
-                    _pMover->addRzMoveAngle(-1000);
-                    _pMover->addRyMoveAngle(1000);
-                    break;
-                default:
-                    break;
-            }
-            _pMover->setFaceAngle(AXIS_Z, _pMover->_angRzMove);
-            _pMover->setFaceAngle(AXIS_Y, _pMover->_angRyMove);
-
-        } else {
-//////////////////////
-            if (VB::isBeingPressed(VB_OPTION)) {
-                //おぷ操作
-                switch (_stc) {
-                    case VB_UP_STC:
-                        break;
-                    case VB_UP_RIGHT_STC:
-                        break;
-                    case VB_UP_LEFT_STC:
-                        break;
-                    case VB_LEFT_STC:
-                        break;
-                    case VB_RIGHT_STC:
-                        break;
-                    case VB_DOWN_STC:
-                        break;
-                    case VB_DOWN_RIGHT_STC:
-                        break;
-                    case VB_DOWN_LEFT_STC:
-                        break;
-                    default:
-                        break;
-                }
-            } else {
-                if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
-                    if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
-                        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                            turnFaceNeutralXY();
-                            turnFaceZXMove(_stc);
-                            beginTurboZX(_stc);
-                        } else {
-                            turnFaceNeutralZX();
-                            turnFaceXYMove(_stc);
-                            beginTurboXY(_stc);
-                        }
-                    } else {
-                        //方向ダブルプッシュでない＝方向シングルプッシュ
-                        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                            turnFaceNeutralXY();
-                            turnFaceZXMove(_stc);
-                            if (VB::isBeingPressed(VB_OPTION)) {
-                                turnZX(_stc);
-                            } else {
-                                moveZX(_stc);
-                            }
-
-                        } else {
-
-                            turnFaceNeutralZX();
-                            turnFaceXYMove(_stc);
-                            if (VB::isBeingPressed(VB_OPTION)) {
-                                turnXY(_stc);
-                            } else {
-                                moveXY(_stc);
-                            }
-
-                        }
-                    }
-
-                } else {
-
-                    //方向押しっぱ
-                    if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                        turnFaceZXMove(_stc);
-                        turnFaceXYMove(_stc);
-                        moveZX(_stc);
-                    } else {
-                        turnFaceNeutralZX();
-                        turnFaceXYMove(_stc);
-                        moveXY(_stc);
-                    }
-                }
-            }
-//////////////
+    if (pCAM->_pos_camera == 0) {
+        //サイドビュー(右スクロール)
+        if (VB::isPushedDown(VB_UP)) {
+            _ways.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
         }
-//////////////
-    } else {
-        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-            //ニュートラルターボ
-            doNotingMoveInput();
-            turnFaceNeutralXY();
-            turnFaceNeutralZX();
-        } else {
-            doNotingMoveInput();
-            turnFaceNeutralXY();
-            turnFaceNeutralZX();
+        if (VB::isPushedDown(VB_RIGHT)) {
+            _ways.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
+        }
+        if (VB::isPushedDown(VB_LEFT)) {
+            _ways.ON_LEFT(SW_SUB, SW_NOP, SW_NOP); //後方
+        }
+        if (VB::isPushedDown(VB_DOWN)) {
+            _ways.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+        }
+    } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+        //トップビュー
+        if (VB::isPushedDown(VB_UP)) {
+            _ways.ON_UP(SW_ADD, SW_NOP, SW_NOP); //前方
+        }
+        if (VB::isPushedDown(VB_RIGHT)) {
+            _ways.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
+        }
+        if (VB::isPushedDown(VB_LEFT)) {
+            _ways.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
+        }
+        if (VB::isPushedDown(VB_DOWN)) {
+            _ways.ON_DOWN(SW_SUB, SW_NOP, SW_NOP); //後方
+        }
+    } else if (pCAM->_pos_camera == 0) {
+        //サイドビュー(左スクロール)
+        if (VB::isPushedDown(VB_UP)) {
+            _ways.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
+        }
+        if (VB::isPushedDown(VB_RIGHT)) {
+            _ways.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
+        }
+        if (VB::isPushedDown(VB_LEFT)) {
+            _ways.ON_LEFT(SW_ADD, SW_NOP, SW_NOP); //前方
+        }
+        if (VB::isPushedDown(VB_DOWN)) {
+            _ways.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
         }
     }
+    if (VB::isReleasedUp(VB_UP)) {
+        _ways.OFF_UP();
+    }
+    if (VB::isReleasedUp(VB_RIGHT)) {
+        _ways.OFF_RIGHT();
+    }
+    if (VB::isReleasedUp(VB_LEFT)) {
+        _ways.OFF_LEFT();
+    }
+    if (VB::isReleasedUp(VB_DOWN)) {
+        _ways.OFF_DOWN();
+    }
+
+
+    int way_index = _ways.getIndex();
+    (this->*fpaMoveFunc[way_index])();
+
+
+    if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
+        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+            turnFaceNeutralXY();
+            turnFaceZXMove(_stc);
+            beginTurboZX(_stc);
+        } else {
+            turnFaceNeutralZX();
+            turnFaceXYMove(_stc);
+            beginTurboXY(_stc);
+        }
+    }
+
+
+
+
+//    if (_stc != VB_NEUTRAL_STC) {
+////////////////////////////
+//        if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
+//            switch (_stc) {
+//                case VB_UP_STC:
+//                    _pMover->addRzMoveAngle(1000);
+//                    break;
+//                case VB_UP_RIGHT_STC:
+//                    _pMover->addRzMoveAngle(1000);
+//                    _pMover->addRyMoveAngle(-1000);
+//                    break;
+//                case VB_UP_LEFT_STC:
+//                    _pMover->addRzMoveAngle(1000);
+//                    _pMover->addRyMoveAngle(1000);
+//                    break;
+//                case VB_LEFT_STC:
+//                    _pMover->addRyMoveAngle(1000);
+//                    break;
+//                case VB_RIGHT_STC:
+//                    _pMover->addRyMoveAngle(-1000);
+//                    break;
+//                case VB_DOWN_STC:
+//                    _pMover->addRzMoveAngle(-1000);
+//                    break;
+//                case VB_DOWN_RIGHT_STC:
+//                    _pMover->addRzMoveAngle(-1000);
+//                    _pMover->addRyMoveAngle(-1000);
+//                    break;
+//                case VB_DOWN_LEFT_STC:
+//                    _pMover->addRzMoveAngle(-1000);
+//                    _pMover->addRyMoveAngle(1000);
+//                    break;
+//                default:
+//                    break;
+//            }
+//            _pMover->setFaceAngle(AXIS_Z, _pMover->_angRzMove);
+//            _pMover->setFaceAngle(AXIS_Y, _pMover->_angRyMove);
+//
+//        } else {
+////////////////////////
+//            if (VB::isBeingPressed(VB_OPTION)) {
+//                //おぷ操作
+//                switch (_stc) {
+//                    case VB_UP_STC:
+//                        break;
+//                    case VB_UP_RIGHT_STC:
+//                        break;
+//                    case VB_UP_LEFT_STC:
+//                        break;
+//                    case VB_LEFT_STC:
+//                        break;
+//                    case VB_RIGHT_STC:
+//                        break;
+//                    case VB_DOWN_STC:
+//                        break;
+//                    case VB_DOWN_RIGHT_STC:
+//                        break;
+//                    case VB_DOWN_LEFT_STC:
+//                        break;
+//                    default:
+//                        break;
+//                }
+//            } else {
+//                if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
+//                    if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
+//                        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+//                            turnFaceNeutralXY();
+//                            turnFaceZXMove(_stc);
+//                            beginTurboZX(_stc);
+//                        } else {
+//                            turnFaceNeutralZX();
+//                            turnFaceXYMove(_stc);
+//                            beginTurboXY(_stc);
+//                        }
+//                    } else {
+//                        //方向ダブルプッシュでない＝方向シングルプッシュ
+//                        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+//                            turnFaceNeutralXY();
+//                            turnFaceZXMove(_stc);
+//                            if (VB::isBeingPressed(VB_OPTION)) {
+//                                turnZX(_stc);
+//                            } else {
+//                                moveZX(_stc);
+//                            }
+//
+//                        } else {
+//
+//                            turnFaceNeutralZX();
+//                            turnFaceXYMove(_stc);
+//                            if (VB::isBeingPressed(VB_OPTION)) {
+//                                turnXY(_stc);
+//                            } else {
+//                                moveXY(_stc);
+//                            }
+//
+//                        }
+//                    }
+//
+//                } else {
+//
+//                    //方向押しっぱ
+//                    if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+//                        turnFaceZXMove(_stc);
+//                        turnFaceXYMove(_stc);
+//                        moveZX(_stc);
+//                    } else {
+//                        turnFaceNeutralZX();
+//                        turnFaceXYMove(_stc);
+//                        moveXY(_stc);
+//                    }
+//                }
+//            }
+////////////////
+//        }
+////////////////
+//    } else {
+//        if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+//            //ニュートラルターボ
+//            doNotingMoveInput();
+//            turnFaceNeutralXY();
+//            turnFaceNeutralZX();
+//        } else {
+//            doNotingMoveInput();
+//            turnFaceNeutralXY();
+//            turnFaceNeutralZX();
+//        }
+//    }
 
     //X軸転落ち着け
     if (_pMover->_angveloRotFace[AXIS_X] > _angRXTopVelo_MZ) {
@@ -688,6 +866,7 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
     }
 }
 
+
 void MyShip::moveXY(vbsta prm_VB) {
     switch (prm_VB) {
         case VB_UP_STC:
@@ -771,7 +950,8 @@ void MyShip::turnXY(vbsta prm_VB) {
             _way = WAY_UP;
             break;
         case VB_UP_RIGHT_STC:
-            if (pCAM->_pos_camera == 0) {
+
+            if (pCAM->_pos_camera == 0 ) {
                 _way = WAY_UP_FRONT;
             } else {
                 _way = WAY_UP_BEHIND;

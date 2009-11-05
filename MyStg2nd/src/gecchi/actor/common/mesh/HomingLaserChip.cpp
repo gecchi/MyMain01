@@ -118,7 +118,7 @@ void HomingLaserChip::processBehavior() {
 
 void HomingLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
+    GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 HomingLaserChip::~HomingLaserChip() {
