@@ -2,8 +2,8 @@
 #define GGAFDX9UTIL_H_
 namespace GgafDx9Core {
 
-#define sgn(X) (GgafDx9Util::sign(X))
-#define max3(A,B,C) (GgafDx9Util::max3(A,B,C))
+#define sgn(X) (GgafDx9Core::GgafDx9Util::sign(X))
+#define max3(A,B,C) (GgafDx9Core::GgafDx9Util::max3(A,B,C))
 
 /**
  * ユーティリティ.
@@ -345,7 +345,9 @@ public:
         } else {
             return 0;
         }
+
     }
+
 
     /**
      * @param x
