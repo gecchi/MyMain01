@@ -170,9 +170,10 @@ void World::processBehavior() {
 
 
 
-
-    static int dX_from, dY_from, dZ_from;
-    static int dX_to, dY_to, dZ_to;
+    //カメラ（始点）の目標地点までの距離（座標差分）
+    static int dX_CAM, dY_CAM, dZ_CAM;
+    //ビューポイント（終点）の目標地点までの距離（座標差分）
+    static int dX_VP, dY_VP, dZ_VP;
 //    startc int X_MyShip_prev = pMYSHIP->_X;
 //    startc int Y_MyShip_prev = pMYSHIP->_Y;
 //    startc int Z_MyShip_prev = pMYSHIP->_Z;
@@ -182,170 +183,175 @@ void World::processBehavior() {
     //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
     if ( getSubFirst()->isBehaving() ) {
         if (pCAM->_pos_camera == 0) {
-            dZ_from = (pMYSHIP->_Z - _dZ_camera_init) - pCAM->_Z;
-            dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            if (pCAM->_Y > _lim_VP_top && pCAM->_pMover->_veloVyMove > 0) {
-                dY_from = 0;//pMYSHIP->_Y - _lim_VP_top;
-            } else if (pCAM->_Y < _lim_VP_bottom) {
-                dY_from = 0;//pMYSHIP->_Y - _lim_VP_bottom;
-            } else {
-                dY_from = pMYSHIP->_Y - pCAM->_Y;
+            dZ_CAM = (pMYSHIP->_Z - _dZ_camera_init) - pCAM->_Z;
+            dX_CAM = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
+            dY_CAM = pMYSHIP->_Y - pCAM->_Y;
+
+            if (pCAM->_Y > _lim_VP_top && dY_CAM > 0) {
+                dY_CAM = 0;//pMYSHIP->_Y - _lim_VP_top;
+            } else if (pCAM->_Y < _lim_VP_bottom && dY_CAM < 0) {
+                dY_CAM = 0;//  pMYSHIP->_Y -_lim_VP_bottom;
             }
 
-            dZ_to = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
-            dX_to = 0;
-            if (pVP->_Y > _lim_VP_top) {
-                dY_to = 0;//pMYSHIP->_Y - _lim_VP_top;
-            } else if (pVP->_Y < _lim_VP_bottom) {
-                dY_to = 0;//pMYSHIP->_Y - _lim_VP_bottom;
-            } else {
-                dY_to = pMYSHIP->_Y - pVP->_Y;
+            dZ_VP = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
+            dX_VP = 0;
+            dY_VP = pMYSHIP->_Y - pVP->_Y;
+
+            if (pVP->_Y > _lim_VP_top && dY_VP > 0) {
+                dY_VP = 0;// pMYSHIP->_Y - _lim_VP_top;
+            } else if (pVP->_Y < _lim_VP_bottom && dY_VP < 0) {
+                dY_VP = 0;// pMYSHIP->_Y -_lim_VP_bottom;
             }
         } else if (pCAM->_pos_camera == 1) {
-            dX_from = X_screen_left + 100000 - pCAM->_X;
-            dY_from = (pMYSHIP->_Y +_dZ_camera_init) - pCAM->_Y;
-            if (pCAM->_Z > _lim_VP_zleft) {
-                dZ_from = 0;//pCAM->_Z - _lim_VP_zleft;
-            } else if (pCAM->_Z < _lim_VP_zright) {
-                dZ_from = 0;//pCAM->_Z - _lim_VP_zright;
-            } else {
-                dZ_from = (pMYSHIP->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
+            dX_CAM = (0 - (_dZ_camera_init / 2)) - pCAM->_X;
+            dY_CAM = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
+            dZ_CAM = (pMYSHIP->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
+
+            if (pCAM->_Z > _lim_VP_zleft && dZ_CAM > 0) {
+                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zleft;
+            } else if (pCAM->_Z < _lim_VP_zright && dZ_CAM < 0) {
+                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zright;
             }
 
-            dX_to = 0;
-            dY_to = pMYSHIP->_Y - pVP->_Y;
-            if (pVP->_Z > _lim_VP_zleft) {
-                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zleft;
-            } else if (pVP->_Z < _lim_VP_zright) {
-                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zright;
+            dX_VP = 0;
+            dY_VP = pMYSHIP->_Y - pVP->_Y;
+            dZ_VP = pMYSHIP->_Z - pVP->_Z;
+
+            if (pVP->_Z > _lim_VP_zleft && dZ_VP > 0) {
+                dZ_VP = 0;//pVP->_Z - _lim_VP_zleft;
+            } else if (pVP->_Z < _lim_VP_zright && dZ_VP < 0) {
+                dZ_VP = 0;//pVP->_Z - _lim_VP_zright;
             } else {
-                dZ_to = pMYSHIP->_Z - pVP->_Z;
+
             }
 
         } else if (pCAM->_pos_camera == 2) {
 
-            dX_from = X_screen_left + 100000 - pCAM->_X;
-            dY_from = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
-            if (pCAM->_Z > _lim_VP_zleft) {
-                dZ_from = 0;//pCAM->_Z - _lim_VP_zleft;
-            } else if (pCAM->_Z < _lim_VP_zright) {
-                dZ_from = 0;//pCAM->_Z - _lim_VP_zright;
+            dX_CAM = (0 - (_dZ_camera_init / 2)) - pCAM->_X;
+            dY_CAM = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
+            dZ_CAM = (pMYSHIP->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
+
+            if (pCAM->_Z > _lim_VP_zleft && dZ_CAM > 0) {
+                dZ_CAM = 0;//pCAM->_Z- _lim_VP_zleft;
+            } else if (pCAM->_Z < _lim_VP_zright && dZ_CAM < 0) {
+                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zright;
             } else {
-                dZ_from = (pMYSHIP->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
+
             }
 
-            dX_to = 0;
-            dY_to = pMYSHIP->_Y - pVP->_Y;
-            if (pVP->_Z > _lim_VP_zleft) {
-                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zleft;
-            } else if (pVP->_Z < _lim_VP_zright) {
-                dZ_to = 0;//pMYSHIP->_Z - _lim_VP_zright;
-            } else {
-                dZ_to = pMYSHIP->_Z - pVP->_Z;
+            dX_VP = 0;
+            dY_VP = pMYSHIP->_Y - pVP->_Y;
+            dZ_VP = pMYSHIP->_Z - pVP->_Z;
+
+            if (pVP->_Z > _lim_VP_zleft && dZ_VP > 0) {
+                dZ_VP = 0;//pVP->_Z - _lim_VP_zleft;
+            } else if (pVP->_Z < _lim_VP_zright && dZ_VP < 0) {
+                dZ_VP = 0;//pVP->_Z - _lim_VP_zright;
             }
 
         } else if (pCAM->_pos_camera == 3) {
-            dZ_from = (pMYSHIP->_Z + _dZ_camera_init) - pCAM->_Z;
-            dX_from = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            if (pCAM->_Y > _lim_VP_top) {
-                dY_from = 0;//pMYSHIP->_Y - _lim_VP_top;
-            } else if (pCAM->_Y < _lim_VP_bottom) {
-                dY_from = 0;//pMYSHIP->_Y - _lim_VP_bottom;
-            } else {
-                dY_from = pMYSHIP->_Y - pCAM->_Y;
+            dZ_CAM = (pMYSHIP->_Z + _dZ_camera_init) - pCAM->_Z;
+            dX_CAM = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
+            dY_CAM = pMYSHIP->_Y - pCAM->_Y;
+
+            if (pCAM->_Y > _lim_VP_top && dY_CAM > 0) {
+                dY_CAM = 0;//pCAM->_Y - _lim_VP_top;
+            } else if (pCAM->_Y < _lim_VP_bottom && dY_CAM < 0) {
+                dY_CAM = 0;//pCAM->_Y - _lim_VP_bottom;
             }
 
-            dZ_to = pMYSHIP->_Z - pVP->_Z;
-            dX_to = 0;
-            if (pVP->_Y > _lim_VP_top) {
-                dY_to = 0;//pMYSHIP->_Y - _lim_VP_top;
-            } else if (pVP->_Y < _lim_VP_bottom) {
-                dY_to = 0;//pMYSHIP->_Y - _lim_VP_bottom;
+            dZ_VP = pMYSHIP->_Z - pVP->_Z;
+            dX_VP = 0;
+            dY_VP = pMYSHIP->_Y - pVP->_Y;
+            if (pVP->_Y > _lim_VP_top && dY_VP > 0) {
+                dY_VP = 0;//pVP->_Y - _lim_VP_top;
+            } else if (pVP->_Y < _lim_VP_bottom && dY_VP < 0) {
+                dY_VP = 0;//pVP->_Y - _lim_VP_bottom;
             } else {
-                dY_to = pMYSHIP->_Y - pVP->_Y;
+
             }
         }
 
 
 
-        static int slow_reng_from = 50000;
+        static int slow_reng_CAM = 30000;
         int speed = (pMYSHIP->_iMoveSpeed + pMYSHIP->_pMover->_veloMove)* 0.99;
         pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
 
 
-        if (-slow_reng_from < dZ_from && dZ_from < slow_reng_from) {
-            pCAM->_pMover->_veloVzMove *= 0.9;
+        if (-slow_reng_CAM < dZ_CAM && dZ_CAM < slow_reng_CAM) {
+            pCAM->_pMover->_veloVzMove *= 0.8;
             pCAM->_pMover->setVzMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上に回る時
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_from/1000.0);
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/1000.0);
             } else {                                                //横に回るとき
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_from/100.0);
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/100.0);
             }
         }
-        if (-slow_reng_from < dX_from && dX_from < slow_reng_from) {
+        if (-slow_reng_CAM < dX_CAM && dX_CAM < slow_reng_CAM) {
             pCAM->_pMover->_veloVxMove *= 0.9;
             pCAM->_pMover->setVxMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pCAM->_pMover->setVxMoveVeloAcceleration(dX_from/100.0);
+                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/100.0);
             } else {                                                //横に回るとき
-                pCAM->_pMover->setVxMoveVeloAcceleration(dX_from/1000.0);
+                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/1000.0);
             }
         }
 
-        if (-slow_reng_from < dY_from && dY_from < slow_reng_from) {
+        if (-slow_reng_CAM < dY_CAM && dY_CAM < slow_reng_CAM) {
             pCAM->_pMover->_veloVyMove *= 0.9;
             pCAM->_pMover->setVyMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pCAM->_pMover->setVyMoveVeloAcceleration(dY_from/100.0);
+                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/100.0);
             } else {                                                //横に回るとき
-                pCAM->_pMover->setVyMoveVeloAcceleration(dY_from/1000.0);
+                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/1000.0);
             }
         }
 
-//        pCAM->_pMover->setVxMoveVeloRenge(-(dX_from - pCAM->_X), dX_from - pCAM->_X);
-//        pCAM->_pMover->setVyMoveVeloRenge(-(dY_from - pCAM->_Y), dY_from - pCAM->_Y);
-//        pCAM->_pMover->setVzMoveVeloRenge(-(dZ_from - pCAM->_Z), dZ_from - pCAM->_Z);
+//        pCAM->_pMover->setVxMoveVeloRenge(-(dX_CAM - pCAM->_X), dX_CAM - pCAM->_X);
+//        pCAM->_pMover->setVyMoveVeloRenge(-(dY_CAM - pCAM->_Y), dY_CAM - pCAM->_Y);
+//        pCAM->_pMover->setVzMoveVeloRenge(-(dZ_CAM - pCAM->_Z), dZ_CAM - pCAM->_Z);
         pVP->_pMover->setVxMoveVeloRenge(-speed, speed);
         pVP->_pMover->setVyMoveVeloRenge(-speed, speed);
         pVP->_pMover->setVzMoveVeloRenge(-speed, speed);
 
-        static int slow_reng_to = 50000;
+        static int slow_reng_VP = 50000;
 
-        if (-slow_reng_to < dZ_to && dZ_to < slow_reng_to) {
+        if (-slow_reng_VP < dZ_VP && dZ_VP < slow_reng_VP) {
             pVP->_pMover->_veloVzMove *= 0.9;
             pVP->_pMover->setVzMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上に回る時
-                pVP->_pMover->setVzMoveVeloAcceleration(dZ_to/1000.0);
+                pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/1000.0);
             } else {                                                //横に回るとき
-                pVP->_pMover->setVzMoveVeloAcceleration(dZ_to/1000.0);
+                pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/1000.0);
             }
         }
-        if (-slow_reng_to < dX_to && dX_to < slow_reng_to) {
+        if (-slow_reng_VP < dX_VP && dX_VP < slow_reng_VP) {
             pVP->_pMover->_veloVxMove *= 0.9;
             pVP->_pMover->setVxMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pVP->_pMover->setVxMoveVeloAcceleration(dX_to/1000.0);
+                pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
             } else {                                                //横に回るとき
-                pVP->_pMover->setVxMoveVeloAcceleration(dX_to/1000.0);
+                pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
             }
         }
 
 
-        if (-slow_reng_to < dY_to && dY_to < slow_reng_to) {
+        if (-slow_reng_VP < dY_VP && dY_VP < slow_reng_VP) {
             pVP->_pMover->_veloVyMove *= 0.9;
             pVP->_pMover->setVyMoveVeloAcceleration(0);
         } else {
             if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pVP->_pMover->setVyMoveVeloAcceleration(dY_to/1000.0);
+                pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/1000.0);
             } else {                                                //横に回るとき
-                pVP->_pMover->setVyMoveVeloAcceleration(dY_to/1000.0);
+                pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/1000.0);
             }
         }
 
