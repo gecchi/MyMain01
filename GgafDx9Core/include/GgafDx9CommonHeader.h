@@ -255,6 +255,9 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"
+
+
+
 //#include "jp/ggaf/dx9core/sound/c3dsound.hpp"
 //#include "jp/ggaf/dx9core/sound/oggdecorder.hpp"
 //#include "jp/ggaf/dx9core/sound/wavedecorder.hpp"
