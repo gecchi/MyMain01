@@ -75,29 +75,76 @@ public:
     }
 
     // 3Dモートン空間番号算出関数
-    WORD Get3DMortonNumber(WORD x, WORD y, WORD z)
-    {
-        return BitSeparateFor3D(x) | BitSeparateFor3D(y)<<1 | BitSeparateFor3D(z)<<2;
+
+
+    /**
+     * 8分木モートン順序計算 .
+     * @param x x軸空間の何個目空間か
+     * @param y y軸空間の何個目空間か
+     * @param z z軸空間の何個目空間か
+     * @return (x,y,z)で示される
+     */
+    DWORD Get3DMortonOrder( BYTE x, BYTE y, BYTE z ) {
+       return BitSeparateFor3D(x) | BitSeparateFor3D(y)<<1 | BitSeparateFor3D(z)<<2;
     }
+
     //ビット分割関数
-    DWORD BitSeparateFor3D( WORD n )
-    {
-        DWORD s = n;
-        s = ( s | s << 8 ) & 0x0000f00f;
-        s = ( s | s << 4 ) & 0x000c30c3;
-        s = ( s | s << 2 ) & 0x00249249;
-        return s;
+
+    /**
+     * 3バイトごとに間隔を開ける関数 .
+     * <code>
+     * n
+     * abcd efgh
+     *
+     * DWORD s = n
+     * 0000 0000 0000 0000 0000 0000 abcd efgh
+     *
+     * (s<<8)
+     * 0000 0000 0000 0000 abcd efgh 0000 0000
+     *
+     * s|s(s<<8)
+     * 0000 0000 0000 0000 abcd efgh abcd efgh
+     *
+     * 0x0000f00f
+     * 0000 0000 0000 0000 1111 0000 0000 1111
+     *
+     * s = s|s(s<<8) & 0x0000f00f
+     * 0000 0000 0000 0000 abcd 0000 0000 efgh
+     *
+     * s<<4
+     * 0000 0000 0000 abcd 0000 0000 efgh 0000
+     *
+     * s|s(s<<4)
+     * 0000 0000 0000 abcd abcd 0000 efgh efgh
+     *
+     * 0x000c30c3
+     * 0000 0000 0000 1100 0011 0000 1100 0011
+     *
+     * s = s|s(s<<4) & 0x000c30c3
+     * 0000 0000 0000 ab00 00cd 0000 ef00 00gh
+     *
+     * s<<2
+     * 0000 0000 00ab 0000 cd00 00ef 0000 gh00
+     *
+     * s|s(s<<2)
+     * 0000 0000 00ab ab00 cdcd 00ef ef00 ghgh
+     *
+     * 0x00249249
+     * 0000 0000 0010 0100 1001 0010 0100 1001
+     *
+     * s|s(s<<2) & 0x00249249
+     * 0000 0000 00a0 0b00 c00d 00e0 0f00 g00h
+     *
+     * 00 000 000 00a 00b 00c 00d 00e 00f 00g 00h
+     *
+     */
+    DWORD separateEveryThirdBit(BYTE n) {
+       DWORD s = n;
+       s = ( s | s<<8 ) & 0x0000f00f;
+       s = ( s | s<<4 ) & 0x000c30c3;
+       s = ( s | s<<2 ) & 0x00249249;
+       return s;
     }
-
-          1111000000001111
-      11000011000011000011
-    1001001001001001001001
-
-
-
-
-
-    00 000 000 000 000 000 000 000 000 000 000
 
 
     virtual ~LinearOctree();
