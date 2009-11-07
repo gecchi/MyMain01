@@ -172,7 +172,7 @@ public:
                                       (DWORD)((tX2 - _root_X2) / _max_level_dX),
                                       (DWORD)((tY2 - _root_Y2) / _max_level_dY),
                                       (DWORD)((tZ2 - _root_Z2) / _max_level_dZ)
-                                     );
+                                    );
         //ˆø”‚ÌBOX‚ÍA‚Ç‚ÌƒŒƒxƒ‹‚Ì‹óŠÔ‚É‚·‚Á‚Û‚èû‚Ü‚Á‚Ä‚¢‚é‚©æ“¾
 
         DWORD differ_bit_pos = max_num_in_maxlevel ^ min_num_in_maxlevel;
@@ -199,22 +199,22 @@ public:
         DWORD shift_pos = 0;
         //ƒ—á„
         //Å‘å‹óŠÔ•ªŠ„Level = 5 ‚Ìê‡
-        //shift_pos =  0 1 2 3 4 5
-        //Š‘®Level   =  5 4 3 2 1 0
+        //shift_pos = 0 1 2 3 4 5
+        //Š‘®Level  = 5 4 3 2 1 0
         //Å‘å‹óŠÔ•ªŠ„Level=8 ‚Ìê‡
-        //shift_pos =  1 2 3 4 5 6 7 8
-        //Š‘®Level   =  7 6 5 4 3 2 1 0
+        //shift_pos = 1 2 3 4 5 6 7 8
+        //Š‘®Level  = 7 6 5 4 3 2 1 0
         for(DWORD bit3_index = 0; bit3_index < _level; lv++) {
             if (differ_bit_pos>>(bit3_index*3)) & 0x7 != 0 ) {
                 shift_pos = bit3_index+1;
             }
         }
 
-   255        11 11 11 11
-   768     11 00 00 00 00
-
- bit3_index   4  3  2  1  0
-             11 11 11 11 11
+//   255        11 11 11 11
+//   768     11 00 00 00 00
+//
+// bit3_index   4  3  2  1  0
+//             11 11 11 11 11
 
 
         DWORD SpaceNum = RB>>(HiLevel*3);
