@@ -15,9 +15,9 @@ LinearOctree::LinearOctree(int prm_level, int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2
 
     //üŒ`‚W•ª–Ø”z—ñì¬
     _num_space = (_paPow[_level+1] -1) / 7; //‹óŠÔ”
-    _papSpace = NEW GgafHeadActor*[_num_space];
+    _papSpace = NEW Space*[_num_space];
     for (int i = 0; i < _num_space; i++) {
-        _papSpace[i] = NEW GgafHeadActor(i);
+        _papSpace[i] = NEW Space();
     }
 
     _X1 = X1;
