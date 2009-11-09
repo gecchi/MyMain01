@@ -5,6 +5,7 @@ namespace GgafCore {
 class GgafLogger {
 
 public:
+    static void writeln(std::string prm_msg);
     static void write(std::string prm_msg);
 };
 
