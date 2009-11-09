@@ -257,6 +257,91 @@ void MyShip::initialize() {
 //        }
 //    }
 //    _TRACE_("DONE getAngle2D "<<r1);
+    GgafLinearOctree<GgafDx9GeometricActor>* pLinearOctree =
+            NEW GgafLinearOctree<GgafDx9GeometricActor>
+                (
+                    5,
+                    -8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000
+                );
+    GgafLinearOctree<GgafDx9GeometricActor>::Elem* pElem = NEW GgafLinearOctree<GgafDx9GeometricActor>::Elem(this);
+    pLinearOctree->registElem(pElem, 1000,1000,1000,1500,1500,1500);
+
+    _TRACE_("----------------------------------------------------------------”ª•ª–Ø")
+    int aPow[8];
+    aPow[0] = 1;
+    for(int i = 1; i < 8; i++) {
+        aPow[i] = aPow[i-1] * 8;
+    }
+    int idx0 = 0;
+    int LV0 = 0;
+    for (int LV1 = 0; LV1 < 8; LV1++) {
+        int idx1 = aPow[0] +
+                    LV1;
+        _TEXT_("L0[0] L1["<<LV1<<","<<idx1<<"]");
+        if (pLinearOctree->_papSpace[idx1]->_pElemFirst == NULL) {
+            continue;
+        } else {
+            pLinearOctree->_papSpace[idx1]->dump();
+        }
+        for (int LV2 = 0; LV2 < 8; LV2++) {
+            int idx2 = aPow[1] +
+                       LV1*aPow[1] +
+                       LV2;
+            _TEXT_(" L2["<<LV2<<","<<idx2<<"]");
+
+            if (pLinearOctree->_papSpace[idx2]->_pElemFirst == NULL) {
+                continue;
+            } else {
+                pLinearOctree->_papSpace[idx2]->dump();
+            }
+            for (int LV3 = 0; LV3 < 8; LV3++) {
+
+                int idx3 = aPow[2] +
+                            LV1*aPow[2] +
+                            LV2*aPow[1] +
+                            LV3;
+                _TEXT_(" L3["<<LV3<<","<<idx3<<"]]");
+                if (pLinearOctree->_papSpace[idx3]->_pElemFirst == NULL) {
+                    continue;
+                } else {
+                    pLinearOctree->_papSpace[idx3]->dump();
+                }
+                for (int LV4 = 0; LV4 < 8; LV4++) {
+                    int idx4 = aPow[3] +
+                                LV1*aPow[3] +
+                                LV2*aPow[2] +
+                                LV3*aPow[1] +
+                                LV4;
+
+                    _TEXT_(" L4["<<LV4<<","<<idx4<<"]");
+
+                    if (pLinearOctree->_papSpace[idx4]->_pElemFirst == NULL) {
+                        continue;
+                    } else {
+                        pLinearOctree->_papSpace[idx4]->dump();
+                    }
+                    for (int LV5 = 0; LV5 < 8; LV5++) {
+                        int idx5 = aPow[5] +
+                                    LV1*aPow[4] +
+                                    LV2*aPow[3] +
+                                    LV3*aPow[2] +
+                                    LV4*aPow[1] +
+                                    LV5;
+                        _TEXT_(" L5["<<LV5<<","<<idx5<<"]");
+                        if (pLinearOctree->_papSpace[idx5]->_pElemFirst == NULL) {
+                            _TEXT_("\n");
+                            continue;
+                        } else {
+                            pLinearOctree->_papSpace[idx5]->dump();
+                            _TEXT_("\n");
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+
 
 }
 
