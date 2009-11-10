@@ -159,7 +159,7 @@ class GgafOrder;
 class GgafProperties;
 
 class LinearOctree;
-
+class LinearOctreeForActor;
 }
 
 #include "jp/ggaf/core/util/GgafUtil.h"
@@ -193,5 +193,6 @@ class LinearOctree;
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 
 #endif /*GGAFCOMMONHEADER_H_*/

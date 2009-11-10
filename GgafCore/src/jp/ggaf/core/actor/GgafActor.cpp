@@ -11,6 +11,7 @@ GgafActor::GgafActor(const char* prm_name) :
     _pScene_Platform = NULL;
     _pGod = NULL;
     setBumpable(false);
+    _use_octree = false;
 }
 
 GgafActor::~GgafActor() {

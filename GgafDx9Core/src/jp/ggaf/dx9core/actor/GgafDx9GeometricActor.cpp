@@ -64,6 +64,8 @@ void GgafDx9GeometricActor::processPreJudgement() {
                                GgafDx9Universe::_pCamera->_plnBack.d;
         _offscreenkind = -1;
     }
+
+    ‚±‚ê‚¯‚·‚©
     _pChecker->updateHitArea();
 
 

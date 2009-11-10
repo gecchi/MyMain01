@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 int StgChecker::_num_check = 0;
-GgafLinearOctree<StgChecker>* StgChecker::_pLinearOctree = NULL;
+GgafLinearOctree* StgChecker::_pLinearOctree = NULL;
 StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
     _pHitAreaBoxs = NULL;
     _iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
@@ -46,7 +46,7 @@ void StgChecker::setHitAreaBox(int prm_index,
     } else {
         _pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
         if (_pElem == NULL) {
-            _pElem = NEW GgafLinearOctree<StgChecker>::Elem(this);
+            _pElem = NEW GgafLinearOctree::Elem(this);
         }
         if (x1 < _X1) {
             _X1 = x1;

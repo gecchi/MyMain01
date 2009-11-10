@@ -51,6 +51,7 @@ private:
     GgafActor* _pActor_tmp3;
     GgafActor* _pActor_tmp4;
 
+    bool _use_octree;
     /**
      * Š‘®ƒV[ƒ“‚ğİ’è‚·‚éB .
      */

@@ -11,7 +11,7 @@ class DefaultUniverse : public GgafDx9Core::GgafDx9Universe {
 
 public:
 
-    GgafCore::GgafLinearOctree<StgChecker>* _pLinearOctree;
+    GgafCore::GgafLinearOctree* _pLinearOctree;
 
     DefaultUniverse(const char* prm_name);
 

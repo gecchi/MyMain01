@@ -95,6 +95,8 @@ protected:
     static GgafHeadActor* _apHeadActor01[];
     static GgafHeadActor* _apHeadActor02[];
 
+    static GgafLinearOctreeForActor* _pOctree;
+
 public:
     /** êiíªãÔçá */
     int _progress;
