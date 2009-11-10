@@ -80,10 +80,7 @@ public:
         int _belong_elem;
         Elem* _pElemFirst;
         Elem* _pElemLast;
-
         Space();
-
-
         void dump();
     };
 
@@ -92,6 +89,8 @@ public:
      */
     class Elem {
     public:
+        /** 所属ツリー */
+        GgafLinearOctree* _pLinearOctree;
         /** 所属空間 */
         Space* _pSpace_Current;
         /** 次要素 */
@@ -100,25 +99,34 @@ public:
         Elem* _pPrev;
         /** 対象オブジェクト */
         GgafObject* _pObject;
+        /** 登録リスト用リンク */
+        Elem* _pRegLinkNext;
 
         Elem(GgafObject* prm_pObject);
 
         /**
+         * 自身が自ら離脱
+         */
+        void extract();
+
+        /**
+         * 自身が自ら空間の末尾に追加
+         */
+        void addElem(Space* prm_pSpace_target);
+
+        /**
          * 自身が自ら他空間へ移動
+         * extract()してaddElem()します.
          * @param prm_pSpace_target
          */
         void moveToSpace(Space* prm_pSpace_target);
-        /**
-         * 自身が自ら離脱
-         */
-        Elem* extract();
         void dump();
     };
 
     /** 8分木の空間を意味する線形配列 */
     Space** _papSpace; //_papSpace[0] は ROOT空間へのポインタ
     /**s     */
-    Elem* _pRegElem;
+    Elem* _pRegElemFirst;
     /** root空間の対角の頂点となるx座標の小さい方 */
     int _root_X1;
     /** root空間の対角の頂点となるy座標の小さい方 */
@@ -164,19 +172,6 @@ public:
 
 
     /**
-     * 空間から要素を除去。
-     * @param prm_pElem 移動したがってる要素。
-     */
-    static void removeElem(Space* prm_pSpace, Elem* prm_pElem);
-
-    /**
-     * 空間から要素を追加
-     * 要素を末尾に追加
-     * @param prm_pElem ニューカマー要素（ただし、前後要素はNULLが前提)
-     */
-    static void addElem(Space* prm_pSpace, Elem* prm_pElem);
-
-    /**
      * 要素を八分木空間に登録する
      * @param prm_pElem 要素
      * @param prm_X 要素対象オブジェクトのX座標
@@ -184,6 +179,11 @@ public:
      * @param prm_Z 要素対象オブジェクトのZ座標
      */
     virtual void registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+
+
+    virtual void clearElem();
+
+
 
     /**
      * 座標から空間配列要素番号（線形八分木配列の要素番号）を算出 .

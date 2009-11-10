@@ -3,14 +3,15 @@ using namespace std;
 using namespace GgafCore;
 
 
+
+////// GgafLinearOctree::Space //////
+
 GgafLinearOctree::Space::Space() {
     _pElemFirst = NULL;
     _pElemLast = NULL;
     _my_index = 0;
     _belong_elem = 0;
 }
-
-
 
 void GgafLinearOctree::Space::dump() {
     if (!_pElemFirst) {
@@ -29,11 +30,96 @@ void GgafLinearOctree::Space::dump() {
 }
 
 
+
+////// GgafLinearOctree::Elem //////
+
 GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject) {
     _pSpace_Current = NULL;
     _pNext = NULL;
     _pPrev = NULL;
     _pObject = prm_pObject;
+    _pLinearOctree = NULL;
+    _pRegLinkNext = NULL;
+}
+
+void GgafLinearOctree::Elem::extract() {
+    if(!_pSpace_Current) {
+        _TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
+        return;
+    }
+
+    // 引数の要素番号
+    int index = _pSpace_Current->_my_index;
+    while(true) {
+        //要素が追加されましたよカウント
+        _pLinearOctree->_papSpace[index]->_belong_elem --;
+        //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+        if (index == 0) {
+            break;
+        }
+        // 親空間要素番号で繰り返す
+        index = (index-1)>>3;
+    }
+    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
+        //先頭かつ末尾の場合
+        _pSpace_Current->_pElemFirst = NULL;
+        _pSpace_Current->_pElemLast = NULL;
+        _pSpace_Current = NULL;
+    } else if (this == _pSpace_Current->_pElemFirst) {
+        //先頭だった場合
+        _pSpace_Current->_pElemFirst = _pNext;
+        _pSpace_Current->_pElemFirst->_pPrev = NULL;
+        _pNext = NULL;
+        _pSpace_Current = NULL;
+    } else if (this == _pSpace_Current->_pElemLast) {
+        //末尾だった場合
+        _pSpace_Current->_pElemLast = _pPrev;
+        _pSpace_Current->_pElemLast->_pNext = NULL;
+        _pPrev = NULL;
+        _pSpace_Current = NULL;
+    } else {
+        //中間だった場合
+        _pPrev->_pNext = _pNext;
+        _pNext->_pPrev = _pPrev;
+        _pNext = NULL;
+        _pPrev = NULL;
+        _pSpace_Current = NULL;
+    }
+}
+
+void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
+    if (_pSpace_Current == prm_pSpace_target) {
+        _TRACE_("addElemせんでいい");
+        return;
+    } else {
+        if (prm_pSpace_target->_pElemFirst == NULL) {
+            //１番目に追加の場合
+            prm_pSpace_target->_pElemFirst = this;
+            prm_pSpace_target->_pElemLast = this;
+            _pNext = NULL;
+            _pPrev = NULL;
+            _pSpace_Current = prm_pSpace_target;
+        } else {
+            //末尾に追加の場合
+            prm_pSpace_target->_pElemLast->_pNext = this;
+            _pPrev = prm_pSpace_target->_pElemLast;
+            _pNext = NULL;
+            prm_pSpace_target->_pElemLast = this;
+            _pSpace_Current = prm_pSpace_target;
+        }
+    }
+    // 引数の要素番号
+    int index = prm_pSpace_target->_my_index;
+    while(true) {
+        //要素が追加されましたよカウント
+        _pLinearOctree->_papSpace[index]->_belong_elem ++;
+        //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+        if (index == 0) {
+            break;
+        }
+        // 親空間要素番号で繰り返す
+        index = (index-1)>>3;
+    }
 }
 
 void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
@@ -41,24 +127,20 @@ void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
         return; //移動せんでいい
     } else {
         if(_pSpace_Current) {
-            GgafLinearOctree::removeElem(_pSpace_Current, this); //抜けますよ
+            extract(); //抜けますよ
         }
-        GgafLinearOctree::addElem(prm_pSpace_target, this); //入りますよ
-        return; //移動せんでいい
+        addElem(prm_pSpace_target); //入りますよ
+        return;
     }
-}
-
-GgafLinearOctree::Elem* GgafLinearOctree::Elem::extract() {
-    if(_pSpace_Current) {
-        GgafLinearOctree::removeElem(_pSpace_Current, this);
-    }
-    return this;
 }
 
 void GgafLinearOctree::Elem::dump() {
     _TEXT_("o");
 }
 
+
+
+////// GgafLinearOctree //////
 
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
@@ -68,7 +150,6 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     for(int i = 1; i < SPACE_MAXLEVEL + 1; i++) {
         _paPow[i] = _paPow[i-1] * 8;
     }
-
     //線形８分木配列作成
     _num_space = (_paPow[_top_space_level+1] -1) / 7; //空間数
     _TRACE_("_num_space="<<_num_space);
@@ -80,8 +161,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
         _papSpace[i] = NEW Space();
         _papSpace[i]->_my_index = i;
     }
-
-    _pRegElem = NULL;
+    _pRegElemFirst = NULL;
 }
 
 void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
@@ -96,91 +176,20 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dZ = (_root_Z2-_root_Z1) / ((float)(1<<_top_space_level));
 }
 
-void GgafLinearOctree::removeElem(Space* prm_pSpace, Elem* prm_pElem) {
-    if (prm_pElem->_pSpace_Current != prm_pSpace) {
-        _TRACE_("removeElem：知らない所属空間 prm_pElem->_pSpace_Current->_my_index="<<prm_pElem->_pSpace_Current->_my_index<<"/_my_index="<<_my_index);
-        return;
-    } else {
-        if (prm_pElem == prm_pSpace->_pElemFirst && prm_pElem == prm_pSpace->_pElemLast) {
-            //先頭かつ末尾の場合
-            prm_pSpace->_pElemFirst = NULL;
-            prm_pSpace->_pElemLast = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else if (prm_pElem == _pElemFirst) {
-            //先頭だった場合
-            prm_pSpace->_pElemFirst = prm_pElem->_pNext;
-            prm_pSpace->_pElemFirst->_pPrev = NULL;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else if (prm_pElem == _pElemLast) {
-            //末尾だった場合
-            prm_pSpace->_pElemLast = prm_pElem->_pPrev;
-            prm_pSpace->_pElemLast->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else {
-            //中間だった場合
-            prm_pElem->_pPrev->_pNext = prm_pElem->_pNext;
-            prm_pElem->_pNext->_pPrev = prm_pElem->_pPrev;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        }
-        // 引数の要素番号
-        int index = prm_pSpace->_my_index;
-        while(true) {
-            //要素が追加されましたよカウント
-            _papSpace[index]->_belong_elem --;
-            //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
-            if (index == 0) {
-                break;
-            }
-            // 親空間要素番号で繰り返す
-            index = (index-1)>>3;
-        }
-    }
-}
-
-void GgafLinearOctree::addElem(Space* prm_pSpace, Elem* prm_pElem) {
-    if (prm_pElem->_pSpace_Current == this) {
-        return;
-    } else {
-        if (prm_pSpace->_pElemFirst == NULL) {
-            //１番目に追加の場合
-            prm_pSpace->_pElemFirst = prm_pElem;
-            prm_pSpace->_pElemLast = prm_pElem;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = prm_pSpace;
-        } else {
-            //末尾に追加の場合
-            prm_pSpace->_pElemLast->_pNext = prm_pElem;
-            prm_pElem->_pPrev = _pElemLast;
-            prm_pElem->_pNext = NULL;
-            prm_pSpace->_pElemLast = prm_pElem;
-            prm_pElem->_pSpace_Current = prm_pSpace;
-        }
-    }
-
-
-    // 引数の要素番号
-    int index = prm_pSpace->_my_index;
-    while(true) {
-        //要素が追加されましたよカウント
-        _papSpace[index]->_belong_elem ++;
-        //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
-        if (index == 0) {
-            break;
-        }
-        // 親空間要素番号で繰り返す
-        index = (index-1)>>3;
-    }
-
-}
-
-
 void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+    if (prm_pElem->_pSpace_Current == NULL) {
+        //登録Elemリストに追加
+        if (_pRegElemFirst == NULL) {
+            prm_pElem->_pRegLinkNext = NULL;
+            _pRegElemFirst = prm_pElem;
+        } else {
+            prm_pElem->_pRegLinkNext = _pRegElemFirst;
+            _pRegElemFirst = prm_pElem;
+        }
+    }
+
     //空間座標インデックス
+    prm_pElem->_pLinearOctree = this;
     DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
     if (index > _num_space) {
         _TRACE_("over space!!");
@@ -189,11 +198,22 @@ void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,in
         prm_pElem->moveToSpace(_papSpace[index]);
     }
 }
-
-
+void GgafLinearOctree::clearElem() {
+    if (_pRegElemFirst == NULL) {
+        return;
+    }
+    Elem* pElem = _pRegElemFirst;
+    while(true) {
+        pElem->extract();
+        pElem = pElem -> _pRegLinkNext;
+        if (pElem == NULL) {
+            break;
+        }
+    }
+    _pRegElemFirst = NULL;
+}
 
 DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
-
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
 
     //BOXの左上手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
@@ -202,7 +222,6 @@ DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
                                   (DWORD)((tY1 - _root_Y1) / _top_level_dY),
                                   (DWORD)((tZ1 - _root_Z1) / _top_level_dZ)
                                 );
-
 
     //BOXの右下奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
     DWORD maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
@@ -413,7 +432,6 @@ void GgafLinearOctree::putTree() {
                             _papSpace[idx5]->dump();
                             _TEXT_("\n");
                         }
-
                     }
                 }
             }
