@@ -2,7 +2,7 @@
 #define GGAFLINEAROCTREE_H_
 namespace GgafCore {
 
-
+#define SPACE_MAXLEVEL     7
 /**
  *
  *   用語定義(4分木での例)
@@ -77,37 +77,66 @@ public:
     class Space {
     public:
         /** 要素の先頭 */
-        int _ary_index;
+        int _my_index;
+        int _belong_elem;
+        GgafLinearOctree<T>* _pLinearOctree;
         Elem* _pElemFirst;
         Elem* _pElemLast;
 
         Space() {
             _pElemFirst = NULL;
             _pElemLast = NULL;
-            _ary_index = 0;
+            _my_index = 0;
+            _belong_elem = 0;
         }
 
-        bool push(Elem* prm_pElem) {
-            if(prm_pElem) {
-                return false;
-            } else {
-                processOnIncommingElem(prm_pElem);
-                return true;
-            }
-        }
 
         /**
          * 要素が移動するときに呼び出されるコールバック。
          * @param prm_pElem 移動したがってる要素。
          */
-        void processOnRemoveElem(Elem* prm_pElem) {
-            prm_pElem->_pPrev->_pNext = prm_pElem->_pNext;
-            prm_pElem->_pNext->_pPrev = prm_pElem->_pPrev;
-            if (prm_pElem == _pElemFirst) {
-                _pElemFirst = prm_pElem->_pNext;
-            }
-            if (prm_pElem == _pElemLast) {
-                _pElemLast = prm_pElem->_pPrev;
+        void removeElem(Elem* prm_pElem) {
+            if (prm_pElem->_pSpace_Current != this) {
+                _TRACE_("removeElem：知らない所属空間 prm_pElem->_pSpace_Current->_my_index="<<prm_pElem->_pSpace_Current->_my_index<<"/_my_index="<<_my_index);
+                return;
+            } else {
+                if (prm_pElem == _pElemFirst && prm_pElem == _pElemLast) {
+                    //先頭かつ末尾の場合
+                    _pElemFirst = NULL;
+                    _pElemLast = NULL;
+                    prm_pElem->_pSpace_Current = NULL;
+                } else if (prm_pElem == _pElemFirst) {
+                    //先頭だった場合
+                    _pElemFirst = prm_pElem->_pNext;
+                    _pElemFirst->_pPrev = NULL;
+                    prm_pElem->_pNext = NULL;
+                    prm_pElem->_pSpace_Current = NULL;
+                } else if (prm_pElem == _pElemLast) {
+                    //末尾だった場合
+                    _pElemLast = prm_pElem->_pPrev;
+                    _pElemLast->_pNext = NULL;
+                    prm_pElem->_pPrev = NULL;
+                    prm_pElem->_pSpace_Current = NULL;
+                } else {
+                    //中間だった場合
+                    prm_pElem->_pPrev->_pNext = prm_pElem->_pNext;
+                    prm_pElem->_pNext->_pPrev = prm_pElem->_pPrev;
+                    prm_pElem->_pNext = NULL;
+                    prm_pElem->_pPrev = NULL;
+                    prm_pElem->_pSpace_Current = NULL;
+                }
+                // 引数の要素番号
+                int index = _my_index;
+                while(true) {
+                    //要素が追加されましたよカウント
+                    _pLinearOctree->_papSpace[index]->_belong_elem --;
+                    //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+                    if (index == 0) {
+                        break;
+                    }
+                    // 親空間要素番号で繰り返す
+                    index = (index-1)>>3;
+                }
             }
         }
 
@@ -116,13 +145,39 @@ public:
          * 要素を末尾に追加
          * @param prm_pElem ニューカマー要素（ただし、前後要素はNULLが前提)
          */
-        void processOnIncommingElem(Elem* prm_pElem) {
-            if (_pElemFirst == NULL) {
-                _pElemFirst = prm_pElem;
+        void addElem(Elem* prm_pElem) {
+            if (prm_pElem->_pSpace_Current == this) {
+                return;
             } else {
-                _pElemLast->_pNext = prm_pElem;
-                prm_pElem->_pPrev = _pElemLast;
-                prm_pElem->_pNext = NULL;
+                if (_pElemFirst == NULL) {
+                    //１番目に追加の場合
+                    _pElemFirst = prm_pElem;
+                    _pElemLast = prm_pElem;
+                    prm_pElem->_pNext = NULL;
+                    prm_pElem->_pPrev = NULL;
+                    prm_pElem->_pSpace_Current = this;
+                } else {
+                    //末尾に追加の場合
+                    _pElemLast->_pNext = prm_pElem;
+                    prm_pElem->_pPrev = _pElemLast;
+                    prm_pElem->_pNext = NULL;
+                    _pElemLast = prm_pElem;
+                    prm_pElem->_pSpace_Current = this;
+                }
+            }
+
+
+            // 引数の要素番号
+            int index = _my_index;
+            while(true) {
+                //要素が追加されましたよカウント
+                _pLinearOctree->_papSpace[index]->_belong_elem ++;
+                //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+                if (index == 0) {
+                    break;
+                }
+                // 親空間要素番号で繰り返す
+                index = (index-1)>>3;
             }
 
         }
@@ -134,11 +189,11 @@ public:
                 Elem* pElem = _pElemFirst;
                 while (true) {
                     pElem->dump();
+
                     if (pElem == _pElemLast) {
                         break;
-                    } else {
-                        pElem = pElem -> _pNext;
                     }
+                    pElem = pElem -> _pNext;
                 }
             }
         }
@@ -164,29 +219,29 @@ public:
         }
 
         /**
-         * 自身が他空間へ移動
+         * 自身が自ら他空間へ移動
          * @param prm_pSpace_target
          */
-        Elem* moveToSpace(Space* prm_pSpace_target) {
+        void moveToSpace(Space* prm_pSpace_target) {
             if (prm_pSpace_target == _pSpace_Current) {
-                return NULL; //移動せんでいい
+                return; //移動せんでいい
+            } else {
+                if(_pSpace_Current) {
+                    _pSpace_Current->removeElem(this); //抜けますよ
+                }
+                prm_pSpace_target->addElem(this); //入りますよ
+                return; //移動せんでいい
             }
-            if (_pSpace_Current) { //既に所属してる場合(新規Elemじゃない場合)
-                _pSpace_Current->processOnRemoveElem(this); //抜けますよ通知
-            }
-            _pNext = NULL;
-            _pPrev = NULL;
-            prm_pSpace_target->processOnIncommingElem(this); //入りますよ通知
-            return this;
         }
 
         /**
-         * 自身が離脱
+         * 自身が自ら離脱
          */
-        Elem* extractFromCurrentSpace() {
-            _pSpace_Current->processOnRemoveElem(this);
-            _pNext = NULL;
-            _pPrev = NULL;
+        Elem* extract() {
+            if(_pSpace_Current) {
+                _pSpace_Current->removeElem(this);
+            }
+            return this;
         }
 
         void dump() {
@@ -209,8 +264,8 @@ public:
     int _top_level_dZ;  //最小空間のZの距離
 
 
-    int* _paPow;
-    int _num_space;
+    DWORD* _paPow;
+    DWORD _num_space;
     /** 最大空間レベル */
     DWORD _top_space_level; //ルート空間はLevel=0
 
@@ -218,23 +273,28 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param	prm_pActor	適用Actor
+     * @param   prm_pActor  適用Actor
      */
     GgafLinearOctree(int prm_level, int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
         _top_space_level = prm_level;
         //べき乗作成
-        _paPow = NEW int[_top_space_level+1];
+        _paPow = NEW DWORD[SPACE_MAXLEVEL+1];
         _paPow[0] = 1;
-        for(int i = 1; i < _top_space_level + 1; i++) {
+        for(int i = 1; i < SPACE_MAXLEVEL + 1; i++) {
             _paPow[i] = _paPow[i-1] * 8;
         }
 
         //線形８分木配列作成
         _num_space = (_paPow[_top_space_level+1] -1) / 7; //空間数
+        _TRACE_("_num_space="<<_num_space);
+        if (_num_space > 100000) {
+            return;
+        }
         _papSpace = NEW Space*[_num_space];
-        for (int i = 0; i < _num_space; i++) {
+        for (DWORD i = 0; i < _num_space; i++) {
             _papSpace[i] = NEW Space();
-            _papSpace[i]->_ary_index = i;
+            _papSpace[i]->_my_index = i;
+            _papSpace[i]->_pLinearOctree = this;
         }
 
         _root_X1 = X1;
@@ -264,7 +324,12 @@ public:
     void registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
         //空間座標インデックス
         DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-        prm_pElem->moveToSpace(_papSpace[index]);
+        if (index > _num_space) {
+            _TRACE_("over space!!");
+            prm_pElem->extract();
+        } else {
+            prm_pElem->moveToSpace(_papSpace[index]);
+        }
     }
 
 
@@ -294,11 +359,12 @@ public:
                                       (DWORD)((tZ1 - _root_Z1) / _top_level_dZ)
                                     );
 
+
         //BOXの右下奥のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得
         DWORD maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
-                                      (DWORD)((tX2 - _root_X2) / _top_level_dX),
-                                      (DWORD)((tY2 - _root_Y2) / _top_level_dY),
-                                      (DWORD)((tZ2 - _root_Z2) / _top_level_dZ)
+                                      (DWORD)((tX2 - _root_X1) / _top_level_dX),
+                                      (DWORD)((tY2 - _root_Y1) / _top_level_dY),
+                                      (DWORD)((tZ2 - _root_Z1) / _top_level_dZ)
                                     );
 
 
@@ -386,7 +452,7 @@ public:
 
 #ifdef OREDEBUG
         if(index > _num_space) {
-            _TRACE_("minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
+            _TRACE_("index > _num_space でおかしいです。minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
                     "differ_bit_pos="<<differ_bit_pos<<"/shift_num="<<shift_num<<"/morton_order_space_num="<<morton_order_space_num<<
                     "index="<<index);
         }
@@ -498,6 +564,124 @@ public:
     }
 
     virtual ~GgafLinearOctree() {
+        for (DWORD i = 0; i < _num_space; i++) {
+            DELETE_IMPOSSIBLE_NULL(_papSpace[i]);
+        }
+        DELETEARR_IMPOSSIBLE_NULL(_papSpace);
+    }
+
+
+
+
+
+
+
+    void putTree() {
+        int _paPow[8];
+        _paPow[0] = 1;
+        for(int i = 1; i < 8; i++) {
+            _paPow[i] = _paPow[i-1] * 8;
+        }
+        int mn0 = 0;
+        int idx0 = 0;
+        int LV0 = 0;
+
+        if (_papSpace[0]->_belong_elem == 0) {
+            _TRACE_("ツリーに何も無し！");
+        } else {
+            _TEXT_("L0["<<LV0<<","<<mn0<<","<<idx0<<"]");
+            _papSpace[idx0]->dump();
+            _TEXT_("\n");
+        }
+        for (int LV1 = 0; LV1 < 8; LV1++) {
+            int mn1 = LV1;
+            int idx1 = _paPow[0] +
+                        LV1;
+
+            if (_papSpace[idx1]->_belong_elem == 0) {
+                continue;
+            } else {
+                _TEXT_(" L1["<<LV1<<","<<mn1<<","<<idx1<<"]");
+                _papSpace[idx1]->dump();
+                _TEXT_("\n");
+            }
+            for (int LV2 = 0; LV2 < 8; LV2++) {
+                int mn2 = LV1*_paPow[1] +
+                          LV2;
+                int idx2 = _paPow[0]+ _paPow[1] +
+                           LV1*_paPow[1] +
+                           LV2;
+
+
+                if (_papSpace[idx2]->_belong_elem == 0) {
+                    continue;
+                } else {
+                    _TEXT_("   L2["<<LV2<<","<<mn2<<","<<idx2<<"]");
+                    _papSpace[idx2]->dump();
+                    _TEXT_("\n");
+                }
+                for (int LV3 = 0; LV3 < 8; LV3++) {
+                    int mn3 = LV1*_paPow[2] +
+                              LV2*_paPow[1] +
+                              LV3;
+                    int idx3 = _paPow[0]+ _paPow[1] + _paPow[2] +
+                                LV1*_paPow[2] +
+                                LV2*_paPow[1] +
+                                LV3;
+
+                    if (_papSpace[idx3]->_belong_elem == 0) {
+                        continue;
+                    } else {
+                        _TEXT_("    L3["<<LV3<<","<<mn3<<","<<idx3<<"]");
+                        _papSpace[idx3]->dump();
+                        _TEXT_("\n");
+                    }
+                    for (int LV4 = 0; LV4 < 8; LV4++) {
+                        int mn4 =LV1*_paPow[3] +
+                                LV2*_paPow[2] +
+                                LV3*_paPow[1] +
+                                LV4;
+                        int idx4 = _paPow[0]+ _paPow[1] + _paPow[2] + _paPow[3] +
+                                    LV1*_paPow[3] +
+                                    LV2*_paPow[2] +
+                                    LV3*_paPow[1] +
+                                    LV4;
+
+
+
+                        if (_papSpace[idx4]->_belong_elem == 0) {
+                            continue;
+                        } else {
+                            _TEXT_("     L4["<<LV4<<","<<mn4<<","<<idx4<<"]");
+                            _papSpace[idx4]->dump();
+                            _TEXT_("\n");
+                        }
+                        for (int LV5 = 0; LV5 < 8; LV5++) {
+                            int mn5 =   LV1*_paPow[4] +
+                                        LV2*_paPow[3] +
+                                        LV3*_paPow[2] +
+                                        LV4*_paPow[1] +
+                                        LV5;
+                            int idx5 =  _paPow[0]+ _paPow[1] + _paPow[2] + _paPow[3] + _paPow[4] +
+                                        LV1*_paPow[4] +
+                                        LV2*_paPow[3] +
+                                        LV3*_paPow[2] +
+                                        LV4*_paPow[1] +
+                                        LV5;
+
+                            if (_papSpace[idx5]->_belong_elem == 0) {
+                                continue;
+                            } else {
+                                _TEXT_("      L5["<<LV5<<","<<mn5<<","<<idx5<<"]");
+                                _papSpace[idx5]->dump();
+                                _TEXT_("\n");
+                            }
+
+                        }
+                    }
+                }
+            }
+        }
     }
 };
 
