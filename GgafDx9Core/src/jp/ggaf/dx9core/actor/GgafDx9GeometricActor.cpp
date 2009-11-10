@@ -3,13 +3,11 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+bool GgafDx9GeometricActor::_init = false;
+
+
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
-                                                     GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name),
-_X_ScreenLeft((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
-_X_ScreenRight((int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2)),
-_Y_ScreenTop((int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2)),
-_Y_ScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
-{
+                                             GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
     _class_name = "GgafDx9GeometricActor";
     _isTransformed = false;
     _X = _Y = _Z = 0;
@@ -18,12 +16,14 @@ _Y_ScreenBottom((int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2))
     _x = _y = _z = 0.0f;
 
     _max_radius = 0;
-
-    _pChecker = prm_pChecker;
+    if (prm_pChecker) {
+        _pChecker = prm_pChecker;
+    } else {
+        _pChecker = NEW GgafDx9Checker(this);
+    }
     _pMover = NEW GgafDx9GeometryMover(this);
 
     _offscreenkind = -1;
-
 }
 
 
@@ -64,6 +64,9 @@ void GgafDx9GeometricActor::processPreJudgement() {
                                GgafDx9Universe::_pCamera->_plnBack.d;
         _offscreenkind = -1;
     }
+    _pChecker->updateHitArea();
+
+
 }
 
 
@@ -628,19 +631,13 @@ int GgafDx9GeometricActor::isOffscreen() {
 }
 
 int GgafDx9GeometricActor::wasGone() {
-    static int X_goneLeft   = _X_ScreenLeft * 5;
-    static int X_goneRight  = _X_ScreenRight * 10;
-    static int Y_goneTop    = _Y_ScreenTop * 5;
-    static int Y_goneBottom = _Y_ScreenBottom * 5;
-    static int Z_goneBack   = _Y_ScreenTop * 10;
-    static int Z_goneFront  = _Y_ScreenBottom * 10;
 
-    if (X_goneLeft < _X) {
-        if (_X < X_goneRight) {
-            if (Y_goneBottom < _Y) {
-                 if (_Y < Y_goneTop) {
-                     if (Z_goneFront < _Z) {
-                          if (_Z < Z_goneBack) {
+    if (GgafDx9Universe::_X_goneLeft < _X) {
+        if (_X < GgafDx9Universe::_X_goneRight) {
+            if (GgafDx9Universe::_Y_goneBottom < _Y) {
+                 if (_Y < GgafDx9Universe::_Y_goneTop) {
+                     if (GgafDx9Universe::_Z_goneFront < _Z) {
+                          if (_Z < GgafDx9Universe::_Z_goneBack) {
                               return false;
                           }
                      }
@@ -656,3 +653,49 @@ int GgafDx9GeometricActor::wasGone() {
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pMover);
 }
+
+
+
+void GgafDx9GeometricActor::dump() {
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
+
+    GgafActor* pActor_tmp = _pSubFirst;
+    if (_pSubFirst != NULL) {
+        while (true) {
+            pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
+            if (pActor_tmp->getNext() != NULL) {
+                pActor_tmp = pActor_tmp->getNext();
+            } else {
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                break;
+            }
+            if (pActor_tmp->isFirst()) {
+                _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+                break;
+            }
+        }
+    }
+}
+
+void GgafDx9GeometricActor::dump(string prm_parent) {
+    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
+    GgafActor* pActor_tmp = _pSubFirst;
+    if (_pSubFirst != NULL) {
+        while (true) {
+            pActor_tmp->dump(prm_parent + "Åb");
+            if (pActor_tmp->getNext() != NULL) {
+                pActor_tmp = pActor_tmp->getNext();
+            } else {
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                break;
+            }
+            if (pActor_tmp->isFirst()) {
+                _TRACE_(prm_parent+"Ñ§Ñü");
+                break;
+            }
+        }
+    }
+}
+
+
+

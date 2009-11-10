@@ -58,6 +58,9 @@ public:
     FLOAT _fDistance_plnBack;
 
     int _offscreenkind;
+    static bool _init;
+
+
 
     //TODO:起源アクターと起源アクターからのオフセット受け皿
     GgafDx9GeometricActor* _pActorOrigin;
@@ -98,10 +101,7 @@ public:
 
     GgafDx9Checker* _pChecker;
 
-    const int _X_ScreenLeft;
-    const int _X_ScreenRight;
-    const int _Y_ScreenTop;
-    const int _Y_ScreenBottom;
+
 
     /**
      * コンストラクタ<BR>
@@ -224,6 +224,17 @@ public:
     }
 
     virtual ~GgafDx9GeometricActor(); //デストラクタ
+
+    /**
+     * デバッグ用：ツリー構造を表示<BR>
+     */
+    virtual void dump();
+
+    /**
+     * デバッグ用：dump()から使用される<BR>
+     */
+    virtual void dump(std::string prm_parent);
+
 };
 
 }

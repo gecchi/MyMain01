@@ -8,8 +8,6 @@ GgafDx9Checker::GgafDx9Checker(GgafDx9GeometricActor* prm_pActor) :
     _pActor = prm_pActor;
 }
 
-void GgafDx9Checker::behave() {
-}
 
 GgafDx9Checker::~GgafDx9Checker() {
 }

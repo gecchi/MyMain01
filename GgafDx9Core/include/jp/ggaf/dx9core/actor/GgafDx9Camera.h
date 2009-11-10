@@ -81,6 +81,13 @@ public:
     /** 注視点 **/
     GgafDx9CameraViewPoint* _pViewPoint;
 
+
+    static int _X_ScreenLeft;
+    static int _X_ScreenRight;
+    static int _Y_ScreenTop;
+    static int _Y_ScreenBottom;
+
+
     /**
      * コンストラクタ
      * @param prm_name 名前(デバックで表示。何でもよい)

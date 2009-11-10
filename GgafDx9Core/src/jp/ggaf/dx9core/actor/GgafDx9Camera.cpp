@@ -3,6 +3,13 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
+int GgafDx9Camera::_X_ScreenLeft   = 0;
+int GgafDx9Camera::_X_ScreenRight  = 0;
+int GgafDx9Camera::_Y_ScreenTop    = 0;
+int GgafDx9Camera::_Y_ScreenBottom = 0;
+
+
+
 GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
 
@@ -82,6 +89,12 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pViewPoint->_X = _pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
     _pViewPoint->_Y = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
     _pViewPoint->_Z = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
+
+
+    _X_ScreenLeft   = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
+    _X_ScreenRight  = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
+    _Y_ScreenTop    = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
+    _Y_ScreenBottom = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
 }
 
 void GgafDx9Camera::initialize() {

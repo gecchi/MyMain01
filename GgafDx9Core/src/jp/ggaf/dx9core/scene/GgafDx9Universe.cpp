@@ -8,6 +8,13 @@ GgafDx9DrawableActor* GgafDx9Universe::_pActors_DrawMaxDrawDepth = NULL;
 GgafDx9DrawableActor* GgafDx9Universe::_pActor_DrawActive = NULL;
 GgafDx9Camera* GgafDx9Universe::_pCamera = NULL;
 
+int GgafDx9Universe::_X_goneLeft   = 0;
+int GgafDx9Universe::_X_goneRight  = 0;
+int GgafDx9Universe::_Y_goneTop    = 0;
+int GgafDx9Universe::_Y_goneBottom = 0;
+int GgafDx9Universe::_Z_goneBack   = 0;
+int GgafDx9Universe::_Z_goneFront  = 0;
+
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
     _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
@@ -16,6 +23,16 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _pCamera = NEW GgafDx9Camera("CAMERA", PI * 7.0f / 18.0f );
     getLordActor()->accept(_pCamera);
     _pActor_DrawActive = NULL;
+
+
+    _X_goneLeft   = GgafDx9Camera::_X_ScreenLeft * 5;
+    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 5;
+    _Y_goneTop    = GgafDx9Camera::_Y_ScreenTop * 10;
+    _Y_goneBottom = GgafDx9Camera::_Y_ScreenBottom * 10;
+    _Z_goneBack   = GgafDx9Camera::_X_ScreenLeft * 10;
+    _Z_goneFront  = GgafDx9Camera::_X_ScreenRight * 10;
+
+
 }
 
 void GgafDx9Universe::draw() {

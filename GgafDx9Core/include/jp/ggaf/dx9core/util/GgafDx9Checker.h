@@ -15,7 +15,7 @@ public:
      */
     GgafDx9Checker(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void behave();
+    virtual void updateHitArea() {}
 
     //virtual void draw();
 
@@ -26,7 +26,9 @@ public:
         return _pActor;
     }
 
-    virtual bool isBump(GgafDx9Checker* prm_pOtherChecker) = 0;
+    virtual bool isBump(GgafDx9Checker* prm_pOtherChecker) {
+        return false;
+    }
 
     virtual ~GgafDx9Checker();
 };

@@ -23,6 +23,16 @@ public:
     /** アクター順序レンダリング最遠グループ(一番最初にレンダリング) */
     static GgafDx9DrawableActor* _pActors_DrawMaxDrawDepth;
     static GgafDx9DrawableActor* _pActor_DrawActive;
+
+
+    static int _X_goneLeft;
+    static int _X_goneRight;
+    static int _Y_goneTop;
+    static int _Y_goneBottom;
+    static int _Z_goneBack;
+    static int _Z_goneFront;
+
+
     GgafDx9Universe(const char* prm_name);
 
     virtual ~GgafDx9Universe();
