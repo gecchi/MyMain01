@@ -30,16 +30,16 @@ void EnemyShot001::processBehavior() {
 }
 
 int EnemyShot001::wasGone() {
-    if (_X < _X_ScreenLeft) {
+    if (_X < GgafDx9Camera::_X_ScreenLeft) {
         return true;
     } else {
-        if (_X > _X_ScreenRight) {
+        if (_X > GgafDx9Camera::_X_ScreenRight) {
             return true;
         } else {
-            if (_Y > _Y_ScreenTop) {
+            if (_Y > GgafDx9Camera::_Y_ScreenTop) {
                 return true;
             } else {
-                if (_Y < _Y_ScreenBottom) {
+                if (_Y < GgafDx9Camera::_Y_ScreenBottom) {
                     return true;
                 } else {
                     return false;

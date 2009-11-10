@@ -13,7 +13,7 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshEnemyActor(prm_name,
 
 void EnemyPallas::initialize() {
     setBumpable(true);
-    _X = _X_ScreenRight + 100;
+    _X = GgafDx9Camera::_X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
     _pMover->setMoveVeloRenge(-8000, 8000);
@@ -56,7 +56,7 @@ void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 int EnemyPallas::wasGone() {
-    if (_X < _X_ScreenLeft - 100000) {
+    if (_X < GgafDx9Camera::_X_ScreenLeft - 100000) {
         return true;
     } else {
         return false;

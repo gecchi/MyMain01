@@ -125,7 +125,6 @@ void TamagoActor::processBehavior() {
 
     //À•W‚É”½‰f
     _pMover->behave();
-    _pStgChecker->behave();
 
 }
 

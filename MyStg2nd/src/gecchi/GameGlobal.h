@@ -3,7 +3,8 @@
 namespace MyStg2nd {
 #define RANK (GameGlobal::_iRank)
 #define pMYSHIP (GameGlobal::_pMyShip)
-#define pSCENECOMMON (GameGlobal::_pSceneCommon)
+#define pCOMMONSCENE (GameGlobal::_pSceneCommon)
+#define pGAMESCENE (GameGlobal::_pSceneGame)
 
 class GameGlobal {
 public:
@@ -26,7 +27,7 @@ public:
     static int _lim_MyShip_zleft;
     static int _lim_MyShip_zright;
     static CommonScene* _pSceneCommon;
-
+    static GameScene* _pSceneGame;
     static void init();
 };
 

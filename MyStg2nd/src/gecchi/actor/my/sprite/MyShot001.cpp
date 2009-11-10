@@ -59,7 +59,6 @@ void MyShot001::processBehavior() {
         addNextAnimationFrame();
         //À•W‚É”½‰f
         _pMover->behave();
-        _pStgChecker->behave();
     }
 }
 

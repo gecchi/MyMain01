@@ -18,6 +18,8 @@ namespace MyStg2nd {
 class GameScene : public GgafDx9LibStg::DefaultScene {
 
 public:
+
+
     GameDemoScene*      _pGameDemo;
     GameBeginningScene* _pGameBeginning;
     GameMainScene*      _pGameMain;

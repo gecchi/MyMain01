@@ -6,6 +6,7 @@ class MyCurveLaserChip001 : public CurveLaserChip {
 
 public:
 
+
     MyCurveLaserChip001(const char* prm_name);
 
     /**

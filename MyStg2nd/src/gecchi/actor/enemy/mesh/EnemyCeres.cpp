@@ -73,7 +73,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     _X = -356000; //äJénç¿ïW
     _Y = 0;
     _Z = -680000;
-    _X_turn = _X_ScreenRight - 30000;
+    _X_turn = GgafDx9Camera::_X_ScreenRight - 30000;
     _Y_turn = -10000;
     _Z_turn = 0;
     _veloBegin = 5000;
@@ -368,7 +368,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 int EnemyCeres::wasGone() {
-    if (_X < _X_ScreenLeft - 20000000) {
+    if (_X < GgafDx9Camera::_X_ScreenLeft - 20000000) {
         return true;
     } else {
         return false;

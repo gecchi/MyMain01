@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
+    GameGlobal::_pSceneGame = this;
+
     _pCommonScene = NEW CommonScene("Common");
     addSubLast(_pCommonScene);
 

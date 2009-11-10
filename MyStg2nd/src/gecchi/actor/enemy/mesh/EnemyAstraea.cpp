@@ -199,7 +199,7 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
 }
 
 int EnemyAstraea::wasGone() {
-    if (_X < _X_ScreenLeft - 800000) {
+    if (_X < GgafDx9Camera::_X_ScreenLeft - 800000) {
         return true;
     } else {
         return false;

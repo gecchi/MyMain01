@@ -47,7 +47,7 @@ void MyWave001::processBehavior() {
         //oŒ»‹¤’Êˆ—
         _pScaler->setScale(1000);
         _pScaler->intoTargetScaleLinerStep(100000,100);
-		_pScaler->behave();
+        _pScaler->behave();
         setBumpable(true);
         setGeometry(GameGlobal::_pMyShip);
         _pMover->setFaceAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z]);
@@ -63,7 +63,6 @@ void MyWave001::processBehavior() {
         //À•W‚É”½‰f
         _pScaler->behave();
         _pMover->behave();
-        _pStgChecker->behave();
     }
 }
 
