@@ -10,87 +10,7 @@ GgafLinearOctree::Space::Space() {
     _belong_elem = 0;
 }
 
-void GgafLinearOctree::Space::removeElem(Elem* prm_pElem) {
-    if (prm_pElem->_pSpace_Current != this) {
-        _TRACE_("removeElemF’m‚ç‚È‚¢Š‘®‹óŠÔ prm_pElem->_pSpace_Current->_my_index="<<prm_pElem->_pSpace_Current->_my_index<<"/_my_index="<<_my_index);
-        return;
-    } else {
-        if (prm_pElem == _pElemFirst && prm_pElem == _pElemLast) {
-            //æ“ª‚©‚Â––”ö‚Ìê‡
-            _pElemFirst = NULL;
-            _pElemLast = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else if (prm_pElem == _pElemFirst) {
-            //æ“ª‚¾‚Á‚½ê‡
-            _pElemFirst = prm_pElem->_pNext;
-            _pElemFirst->_pPrev = NULL;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else if (prm_pElem == _pElemLast) {
-            //––”ö‚¾‚Á‚½ê‡
-            _pElemLast = prm_pElem->_pPrev;
-            _pElemLast->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        } else {
-            //’†ŠÔ‚¾‚Á‚½ê‡
-            prm_pElem->_pPrev->_pNext = prm_pElem->_pNext;
-            prm_pElem->_pNext->_pPrev = prm_pElem->_pPrev;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = NULL;
-        }
-        // ˆø”‚Ì—v‘f”Ô†
-        int index = _my_index;
-        while(true) {
-            //—v‘f‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½‚æƒJƒEƒ“ƒg
-            _pLinearOctree->_papSpace[index]->_belong_elem --;
-            //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
-            if (index == 0) {
-                break;
-            }
-            // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
-            index = (index-1)>>3;
-        }
-    }
-}
 
-void GgafLinearOctree::Space::addElem(Elem* prm_pElem) {
-    if (prm_pElem->_pSpace_Current == this) {
-        return;
-    } else {
-        if (_pElemFirst == NULL) {
-            //‚P”Ô–Ú‚É’Ç‰Á‚Ìê‡
-            _pElemFirst = prm_pElem;
-            _pElemLast = prm_pElem;
-            prm_pElem->_pNext = NULL;
-            prm_pElem->_pPrev = NULL;
-            prm_pElem->_pSpace_Current = this;
-        } else {
-            //––”ö‚É’Ç‰Á‚Ìê‡
-            _pElemLast->_pNext = prm_pElem;
-            prm_pElem->_pPrev = _pElemLast;
-            prm_pElem->_pNext = NULL;
-            _pElemLast = prm_pElem;
-            prm_pElem->_pSpace_Current = this;
-        }
-    }
-
-
-    // ˆø”‚Ì—v‘f”Ô†
-    int index = _my_index;
-    while(true) {
-        //—v‘f‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½‚æƒJƒEƒ“ƒg
-        _pLinearOctree->_papSpace[index]->_belong_elem ++;
-        //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
-        if (index == 0) {
-            break;
-        }
-        // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
-        index = (index-1)>>3;
-    }
-
-}
 
 void GgafLinearOctree::Space::dump() {
     if (!_pElemFirst) {
@@ -121,16 +41,16 @@ void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
         return; //ˆÚ“®‚¹‚ñ‚Å‚¢‚¢
     } else {
         if(_pSpace_Current) {
-            _pSpace_Current->removeElem(this); //”²‚¯‚Ü‚·‚æ
+            GgafLinearOctree::removeElem(_pSpace_Current, this); //”²‚¯‚Ü‚·‚æ
         }
-        prm_pSpace_target->addElem(this); //“ü‚è‚Ü‚·‚æ
+        GgafLinearOctree::addElem(prm_pSpace_target, this); //“ü‚è‚Ü‚·‚æ
         return; //ˆÚ“®‚¹‚ñ‚Å‚¢‚¢
     }
 }
 
 GgafLinearOctree::Elem* GgafLinearOctree::Elem::extract() {
     if(_pSpace_Current) {
-        _pSpace_Current->removeElem(this);
+        GgafLinearOctree::removeElem(_pSpace_Current, this);
     }
     return this;
 }
@@ -159,8 +79,9 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     for (DWORD i = 0; i < _num_space; i++) {
         _papSpace[i] = NEW Space();
         _papSpace[i]->_my_index = i;
-        _papSpace[i]->_pLinearOctree = this;
     }
+
+    _pRegElem = NULL;
 }
 
 void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
@@ -173,6 +94,88 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dX = (_root_X2-_root_X1) / ((float)(1<<_top_space_level));
     _top_level_dY = (_root_Y2-_root_Y1) / ((float)(1<<_top_space_level));
     _top_level_dZ = (_root_Z2-_root_Z1) / ((float)(1<<_top_space_level));
+}
+
+void GgafLinearOctree::removeElem(Space* prm_pSpace, Elem* prm_pElem) {
+    if (prm_pElem->_pSpace_Current != prm_pSpace) {
+        _TRACE_("removeElemF’m‚ç‚È‚¢Š‘®‹óŠÔ prm_pElem->_pSpace_Current->_my_index="<<prm_pElem->_pSpace_Current->_my_index<<"/_my_index="<<_my_index);
+        return;
+    } else {
+        if (prm_pElem == prm_pSpace->_pElemFirst && prm_pElem == prm_pSpace->_pElemLast) {
+            //æ“ª‚©‚Â––”ö‚Ìê‡
+            prm_pSpace->_pElemFirst = NULL;
+            prm_pSpace->_pElemLast = NULL;
+            prm_pElem->_pSpace_Current = NULL;
+        } else if (prm_pElem == _pElemFirst) {
+            //æ“ª‚¾‚Á‚½ê‡
+            prm_pSpace->_pElemFirst = prm_pElem->_pNext;
+            prm_pSpace->_pElemFirst->_pPrev = NULL;
+            prm_pElem->_pNext = NULL;
+            prm_pElem->_pSpace_Current = NULL;
+        } else if (prm_pElem == _pElemLast) {
+            //––”ö‚¾‚Á‚½ê‡
+            prm_pSpace->_pElemLast = prm_pElem->_pPrev;
+            prm_pSpace->_pElemLast->_pNext = NULL;
+            prm_pElem->_pPrev = NULL;
+            prm_pElem->_pSpace_Current = NULL;
+        } else {
+            //’†ŠÔ‚¾‚Á‚½ê‡
+            prm_pElem->_pPrev->_pNext = prm_pElem->_pNext;
+            prm_pElem->_pNext->_pPrev = prm_pElem->_pPrev;
+            prm_pElem->_pNext = NULL;
+            prm_pElem->_pPrev = NULL;
+            prm_pElem->_pSpace_Current = NULL;
+        }
+        // ˆø”‚Ì—v‘f”Ô†
+        int index = prm_pSpace->_my_index;
+        while(true) {
+            //—v‘f‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½‚æƒJƒEƒ“ƒg
+            _papSpace[index]->_belong_elem --;
+            //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+            if (index == 0) {
+                break;
+            }
+            // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
+            index = (index-1)>>3;
+        }
+    }
+}
+
+void GgafLinearOctree::addElem(Space* prm_pSpace, Elem* prm_pElem) {
+    if (prm_pElem->_pSpace_Current == this) {
+        return;
+    } else {
+        if (prm_pSpace->_pElemFirst == NULL) {
+            //‚P”Ô–Ú‚É’Ç‰Á‚Ìê‡
+            prm_pSpace->_pElemFirst = prm_pElem;
+            prm_pSpace->_pElemLast = prm_pElem;
+            prm_pElem->_pNext = NULL;
+            prm_pElem->_pPrev = NULL;
+            prm_pElem->_pSpace_Current = prm_pSpace;
+        } else {
+            //––”ö‚É’Ç‰Á‚Ìê‡
+            prm_pSpace->_pElemLast->_pNext = prm_pElem;
+            prm_pElem->_pPrev = _pElemLast;
+            prm_pElem->_pNext = NULL;
+            prm_pSpace->_pElemLast = prm_pElem;
+            prm_pElem->_pSpace_Current = prm_pSpace;
+        }
+    }
+
+
+    // ˆø”‚Ì—v‘f”Ô†
+    int index = prm_pSpace->_my_index;
+    while(true) {
+        //—v‘f‚ª’Ç‰Á‚³‚ê‚Ü‚µ‚½‚æƒJƒEƒ“ƒg
+        _papSpace[index]->_belong_elem ++;
+        //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+        if (index == 0) {
+            break;
+        }
+        // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
+        index = (index-1)>>3;
+    }
+
 }
 
 

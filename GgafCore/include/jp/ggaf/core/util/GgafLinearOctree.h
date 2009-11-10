@@ -78,22 +78,12 @@ public:
         /** 要素の先頭 */
         int _my_index;
         int _belong_elem;
-        GgafLinearOctree* _pLinearOctree;
         Elem* _pElemFirst;
         Elem* _pElemLast;
 
         Space();
-        /**
-         * 要素が移動するときに呼び出されるコールバック。
-         * @param prm_pElem 移動したがってる要素。
-         */
-        void removeElem(Elem* prm_pElem);
-        /**
-         * 新しい要素の受け入れ。 .
-         * 要素を末尾に追加
-         * @param prm_pElem ニューカマー要素（ただし、前後要素はNULLが前提)
-         */
-        void addElem(Elem* prm_pElem);
+
+
         void dump();
     };
 
@@ -112,6 +102,7 @@ public:
         GgafObject* _pObject;
 
         Elem(GgafObject* prm_pObject);
+
         /**
          * 自身が自ら他空間へ移動
          * @param prm_pSpace_target
@@ -126,6 +117,8 @@ public:
 
     /** 8分木の空間を意味する線形配列 */
     Space** _papSpace; //_papSpace[0] は ROOT空間へのポインタ
+    /**s     */
+    Elem* _pRegElem;
     /** root空間の対角の頂点となるx座標の小さい方 */
     int _root_X1;
     /** root空間の対角の頂点となるy座標の小さい方 */
@@ -169,6 +162,19 @@ public:
 
     virtual void setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2);
 
+
+    /**
+     * 空間から要素を除去。
+     * @param prm_pElem 移動したがってる要素。
+     */
+    static void removeElem(Space* prm_pSpace, Elem* prm_pElem);
+
+    /**
+     * 空間から要素を追加
+     * 要素を末尾に追加
+     * @param prm_pElem ニューカマー要素（ただし、前後要素はNULLが前提)
+     */
+    static void addElem(Space* prm_pSpace, Elem* prm_pElem);
 
     /**
      * 要素を八分木空間に登録する

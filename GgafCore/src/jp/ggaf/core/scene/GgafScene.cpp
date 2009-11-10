@@ -5,8 +5,6 @@ using namespace GgafCore;
 
 GgafHeadActor* GgafScene::_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
 GgafHeadActor* GgafScene::_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
-GgafLinearOctreeForActor* GgafScene::_pOctree = NULL;
-
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
