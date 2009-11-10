@@ -12,6 +12,10 @@ protected:
     HitAreaBoxs* _pHitAreaBoxs;
 
 public:
+    static GgafCore::GgafLinearOctree<StgChecker>* _pLinearOctree;
+
+
+    GgafCore::GgafLinearOctree<StgChecker>::Elem* _pElem;
 
     static int _num_check;
 
@@ -28,6 +32,10 @@ public:
     /** 防御力*/
     int _iDefensePoint;
 
+    int _X1, _Y1, _Z1, _X2, _Y2, _Z2;
+
+
+
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
@@ -41,7 +49,7 @@ public:
         _iDefensePoint = prm_iDefensePoint;
     }
 
-    virtual void behave();
+    virtual void updateHitArea();
 
     void useHitAreaBoxNum(int n);
 

@@ -5,6 +5,7 @@ namespace GgafDx9LibStg {
 class DefaultGod : public GgafDx9Core::GgafDx9God {
 
 public:
+
     DefaultGod(HINSTANCE prm_hInstance, HWND prm_hWnd);
 
     virtual ~DefaultGod();

@@ -10,6 +10,9 @@ namespace GgafDx9LibStg {
 class DefaultUniverse : public GgafDx9Core::GgafDx9Universe {
 
 public:
+
+    GgafCore::GgafLinearOctree<StgChecker>* _pLinearOctree;
+
     DefaultUniverse(const char* prm_name);
 
     virtual void nextFrame();

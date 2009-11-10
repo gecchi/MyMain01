@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 int StgChecker::_num_check = 0;
-
+GgafLinearOctree<StgChecker>* StgChecker::_pLinearOctree = NULL;
 StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
     _pHitAreaBoxs = NULL;
     _iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
@@ -14,6 +14,13 @@ StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_p
     _iScorePoint = 0; //“¾“_
     _iAttackPoint = 0; //UŒ‚—Í
     _iDefensePoint = 0; //–hŒä—Í
+    if (StgChecker::_pLinearOctree == NULL) {
+        StgChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
+    }
+    _pElem = NULL;
+
+
+
 }
 
 void StgChecker::useHitAreaBoxNum(int n) {
@@ -38,56 +45,130 @@ void StgChecker::setHitAreaBox(int prm_index,
         throwGgafCriticalException("StgChecker::setHitAreaBox ‚Ü‚¸ useHitAreaBoxNum ‚ðŽÀs‚µ‚ÄA—v‘f”‚ðéŒ¾‚µ‚Ä‚­‚¾‚³‚¢B");
     } else {
         _pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
+        if (_pElem == NULL) {
+            _pElem = NEW GgafLinearOctree<StgChecker>::Elem(this);
+        }
+        if (x1 < _X1) {
+            _X1 = x1;
+        }
+        if (y1 < _Y1) {
+            _Y1 = y1;
+        }
+        if (z1 < _Z1) {
+            _Z1 = z1;
+        }
+
+        if (x2 > _X2) {
+            _X2 = x2;
+        }
+        if (y2 > _Y2) {
+            _Y2 = y2;
+        }
+        if (z2 > _Z2) {
+            _Z2 = z2;
+        }
+
+        _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
+                                           _pActor->_Y + _Y1,
+                                           _pActor->_Z + _Z1,
+                                           _pActor->_X + _X2,
+                                           _pActor->_Y + _Y2,
+                                           _pActor->_Z + _Z2);
     }
+
+
 }
 
-void StgChecker::behave() {
+void StgChecker::updateHitArea() {
     if (_pActor == NULL || _pHitAreaBoxs == NULL) {
         return;
     }
 
-    static int cx, cy, cz;
-    static s_ang s_RX, s_RY, s_RZ;
-    s_RX = _pActor->_RX / ANGLE_RATE;
-    s_RY = _pActor->_RY / ANGLE_RATE;
-    s_RZ = _pActor->_RZ / ANGLE_RATE;
+    if (_pActor->_can_bump_flg && _pActor->isActive()) {
+        _TRACE_("updateHitArea() _can_bump_flg && isActive() "<<_pActor->getName());
+        int cx, cy, cz;
+        s_ang s_RX, s_RY, s_RZ;
+        HitAreaBoxs::Box* pHitArea;
+        HitAreaBoxs::Box* pBase;
 
-    for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
-        if (!_pHitAreaBoxs->_paBase[i].rotX && !_pHitAreaBoxs->_paBase[i].rotY && !_pHitAreaBoxs->_paBase[i].rotZ) {
-            continue;
+        for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
+            pHitArea = &(_pHitAreaBoxs->_paHitArea[i]);
+            pBase= &(_pHitAreaBoxs->_paBase[i]);
+            if (pBase->rotX || pBase->rotY || pBase->rotZ) {
+                if (i == 0) {
+
+                    s_RX = _pActor->_RX / ANGLE_RATE;
+                    s_RY = _pActor->_RY / ANGLE_RATE;
+                    s_RZ = _pActor->_RZ / ANGLE_RATE;
+                }
+
+                cx = pBase->cx;
+                cy = pBase->cy;
+                cz = pBase->cz;
+
+                if (pBase->rotX) {
+                    pHitArea->cy = (cy * GgafDx9Util::COS[s_RX]) - (cz * GgafDx9Util::SIN[s_RX]);
+                    pHitArea->cz = (cy * GgafDx9Util::SIN[s_RX]) + (cz * GgafDx9Util::COS[s_RX]);
+                    cy = pHitArea->cy;
+                    cz = pHitArea->cz;
+                }
+
+                if (pBase->rotY) {
+                    pHitArea->cz = (cz * GgafDx9Util::COS[s_RY]) - (cx * GgafDx9Util::SIN[s_RY]);
+                    pHitArea->cx = (cz * GgafDx9Util::SIN[s_RY]) + (cx * GgafDx9Util::COS[s_RY]);
+                    cz = pHitArea->cz;
+                    cx = pHitArea->cx;
+                }
+
+                if (pBase->rotZ) {
+                    pHitArea->cx = (cx * GgafDx9Util::COS[s_RZ]) - (cy * GgafDx9Util::SIN[s_RZ]);
+                    pHitArea->cy = (cx * GgafDx9Util::SIN[s_RZ]) + (cy * GgafDx9Util::COS[s_RZ]);
+                    cx = pHitArea->cx;
+                    cy = pHitArea->cy;
+                }
+
+                pHitArea->x1 = cx - pBase->hdx;
+                pHitArea->y1 = cy - pBase->hdy;
+                pHitArea->z1 = cz - pBase->hdz;
+                pHitArea->x2 = cx + pBase->hdx;
+                pHitArea->y2 = cy + pBase->hdy;
+                pHitArea->z2 = cz + pBase->hdz;
+
+
+                if (pHitArea->x1 < _X1) {
+                    _X1 = pHitArea->x1;
+                }
+                if (pHitArea->y1 < _Y1) {
+                    _Y1 = pHitArea->y1;
+                }
+                if (pHitArea->z1 < _Z1) {
+                    _Z1 = pHitArea->z1;
+                }
+
+                if (pHitArea->x2 > _X2) {
+                    _X2 = pHitArea->x2;
+                }
+                if (pHitArea->y2 > _Y2) {
+                    _Y2 = pHitArea->y2;
+                }
+                if (pHitArea->z2 > _Z2) {
+                    _Z2 = pHitArea->z2;
+                }
+
+
+            }
+
         }
-        cx = _pHitAreaBoxs->_paBase[i].cx;
-        cy = _pHitAreaBoxs->_paBase[i].cy;
-        cz = _pHitAreaBoxs->_paBase[i].cz;
 
-        if (_pHitAreaBoxs->_paBase[i].rotX) {
-            _pHitAreaBoxs->_paHitArea[i].cy = (cy * GgafDx9Util::COS[s_RX]) - (cz * GgafDx9Util::SIN[s_RX]);
-            _pHitAreaBoxs->_paHitArea[i].cz = (cy * GgafDx9Util::SIN[s_RX]) + (cz * GgafDx9Util::COS[s_RX]);
-            cy = _pHitAreaBoxs->_paHitArea[i].cy;
-            cz = _pHitAreaBoxs->_paHitArea[i].cz;
-        }
-
-        if (_pHitAreaBoxs->_paBase[i].rotY) {
-            _pHitAreaBoxs->_paHitArea[i].cz = (cz * GgafDx9Util::COS[s_RY]) - (cx * GgafDx9Util::SIN[s_RY]);
-            _pHitAreaBoxs->_paHitArea[i].cx = (cz * GgafDx9Util::SIN[s_RY]) + (cx * GgafDx9Util::COS[s_RY]);
-            cz = _pHitAreaBoxs->_paHitArea[i].cz;
-            cx = _pHitAreaBoxs->_paHitArea[i].cx;
-        }
-
-        if (_pHitAreaBoxs->_paBase[i].rotZ) {
-            _pHitAreaBoxs->_paHitArea[i].cx = (cx * GgafDx9Util::COS[s_RZ]) - (cy * GgafDx9Util::SIN[s_RZ]);
-            _pHitAreaBoxs->_paHitArea[i].cy = (cx * GgafDx9Util::SIN[s_RZ]) + (cy * GgafDx9Util::COS[s_RZ]);
-            cx = _pHitAreaBoxs->_paHitArea[i].cx;
-            cy = _pHitAreaBoxs->_paHitArea[i].cy;
-        }
-
-        _pHitAreaBoxs->_paHitArea[i].x1 = cx - _pHitAreaBoxs->_paBase[i].hdx;
-        _pHitAreaBoxs->_paHitArea[i].y1 = cy - _pHitAreaBoxs->_paBase[i].hdy;
-        _pHitAreaBoxs->_paHitArea[i].z1 = cz - _pHitAreaBoxs->_paBase[i].hdz;
-        _pHitAreaBoxs->_paHitArea[i].x2 = cx + _pHitAreaBoxs->_paBase[i].hdx;
-        _pHitAreaBoxs->_paHitArea[i].y2 = cy + _pHitAreaBoxs->_paBase[i].hdy;
-        _pHitAreaBoxs->_paHitArea[i].z2 = cz + _pHitAreaBoxs->_paBase[i].hdz;
-
+        _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
+                                           _pActor->_Y + _Y1,
+                                           _pActor->_Z + _Z1,
+                                           _pActor->_X + _X2,
+                                           _pActor->_Y + _Y2,
+                                           _pActor->_Z + _Z2);
+    } else {
+        _TRACE_("updateHitArea() _pElem->extract();!!!");
+        _pElem->extract();
     }
 
 }
@@ -110,12 +191,12 @@ void StgChecker::behave() {
 //        for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
 //            for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
 //                StgChecker::_num_check++;
-//                if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
-//                    if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
-//                        if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
-//                            if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
-//                                if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
-//                                    if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
+//                if (_pActor->_Z + pHitArea->z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
+//                    if (_pActor->_Z + pHitArea->z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
+//                        if (_pActor->_X + pHitArea->x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
+//                            if (_pActor->_X + pHitArea->x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
+//                                if (_pActor->_Y + pHitArea->y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
+//                                    if (_pActor->_Y + pHitArea->y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
 //                                        return true;
 //                                    }
 //                                }
@@ -132,5 +213,6 @@ void StgChecker::behave() {
 
 StgChecker::~StgChecker() {
     TRACE("StgChecker::~StgChecker() _pActor="<<_pActor->getName());
+    DELETE_POSSIBLE_NULL(_pElem);
     DELETE_POSSIBLE_NULL(_pHitAreaBoxs);
 }
