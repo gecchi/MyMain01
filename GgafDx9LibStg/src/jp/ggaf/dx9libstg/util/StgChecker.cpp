@@ -68,12 +68,12 @@ void StgChecker::setHitAreaBox(int prm_index,
             _Z2 = z2;
         }
 
-        _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
-                                           _pActor->_Y + _Y1,
-                                           _pActor->_Z + _Z1,
-                                           _pActor->_X + _X2,
-                                           _pActor->_Y + _Y2,
-                                           _pActor->_Z + _Z2);
+//        _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
+//                                           _pActor->_Y + _Y1,
+//                                           _pActor->_Z + _Z1,
+//                                           _pActor->_X + _X2,
+//                                           _pActor->_Y + _Y2,
+//                                           _pActor->_Z + _Z2);
     }
 
 
@@ -84,8 +84,8 @@ void StgChecker::updateHitArea() {
         return;
     }
 
-    if (_pActor->_can_bump_flg && _pActor->isActive()) {
-        _TRACE_("updateHitArea() _can_bump_flg && isActive() "<<_pActor->getName());
+    if (_pActor->_can_bump_flg && _pActor->isActive() && _pActor->isOffscreen() > 0 ) {
+        //_TRACE_("updateHitArea() _can_bump_flg && isActive() "<<_pActor->getName());
         int cx, cy, cz;
         s_ang s_RX, s_RY, s_RZ;
         HitAreaBoxs::Box* pHitArea;
@@ -167,7 +167,6 @@ void StgChecker::updateHitArea() {
                                            _pActor->_Y + _Y2,
                                            _pActor->_Z + _Z2);
     } else {
-        _TRACE_("updateHitArea() _pElem->extract();!!!");
         _pElem->extract();
     }
 
