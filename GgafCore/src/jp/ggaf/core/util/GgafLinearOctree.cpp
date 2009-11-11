@@ -193,7 +193,10 @@ void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,in
     //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
     DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-    prm_pElem->addElem(_papSpace[index]);
+	if (index < _num_space) { //Root空間を更新した際に起こりうるため、この判定は必要。
+							 
+		prm_pElem->addElem(_papSpace[index]);
+	}
 
 
 //    if (index > _num_space) {

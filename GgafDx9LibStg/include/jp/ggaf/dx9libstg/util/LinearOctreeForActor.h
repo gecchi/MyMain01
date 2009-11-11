@@ -9,8 +9,8 @@ public:
     class ElemEx : public GgafLinearOctree::Elem {
     public:
 
-        ElemEx(GgafCore::GgafObject* prm_pObject) : GgafLinearOctree::Elem(prm_pObject) {
-            _pActorList = (ActorList*)prm_pObject;
+        ElemEx(GgafCore::GgafObject* prm_pObject, DWORD prm_kindbit) : GgafLinearOctree::Elem(prm_pObject,prm_kindbit) {
+            //_pActorList = (ActorList*)prm_pObject;
 
         }
     };
@@ -37,11 +37,11 @@ public:
             return NULL;
         }
 
-        void put(actorkind prm_key,
+      
 
     };
 
-    void executeBumpChk(Space* prm_pSpace);
+    void executeBumpChk(int index);
 
     void executeAllBumpChk(actorkind prm_paaActorkindMaskPair[][2], int prm_mnum);
 

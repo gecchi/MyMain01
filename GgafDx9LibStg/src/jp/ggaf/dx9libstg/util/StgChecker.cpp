@@ -17,10 +17,7 @@ StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_p
     if (StgChecker::_pLinearOctree == NULL) {
         StgChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
-    _pElem = NULL;
-
-
-
+    _pElem = NEW GgafLinearOctree::Elem(this, 1);
 }
 
 void StgChecker::useHitAreaBoxNum(int n) {
@@ -45,9 +42,7 @@ void StgChecker::setHitAreaBox(int prm_index,
         throwGgafCriticalException("StgChecker::setHitAreaBox まず useHitAreaBoxNum を実行して、要素数を宣言してください。");
     } else {
         _pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
-        if (_pElem == NULL) {
-            _pElem = NEW GgafLinearOctree::Elem(this);
-        }
+
         if (x1 < _X1) {
             _X1 = x1;
         }

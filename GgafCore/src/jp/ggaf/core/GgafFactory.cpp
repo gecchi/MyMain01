@@ -206,7 +206,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 TRACE2("GgafFactory::work ＜工場＞ 工場には何～んもありません。さぁなんでも注文来い来い！。暇なのでゴミ箱掃除でもやっときます。（待機）");
              ___EndSynchronized; // <----- 排他終了
                 if (GgafGod::_pGod->_fps > 52.0) {
-                    TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。");
+                    _TRACE_("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。1");
                     _pGarbageBox->cleane(2); //暇なので、ゴミ箱掃除
                     _cnt_cleaned = 0;
                     Sleep(2);
@@ -222,7 +222,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     TRACE2("GgafFactory::work ＜工場＞ よし、未製造注文は無し。あ～棚に製造済のがたまってるす、早く取に来やがれ！。（待機）");
                  ___EndSynchronized; // <----- 排他終了
                     if (GgafGod::_pGod->_fps > 52) {
-                        TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。");
+                        _TRACE_("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。2");
                         _pGarbageBox->cleane(2); //暇なので、ゴミ箱掃除
                         _cnt_cleaned = 0;
                         Sleep(2);

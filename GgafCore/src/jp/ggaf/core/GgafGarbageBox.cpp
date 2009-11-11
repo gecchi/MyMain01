@@ -22,7 +22,10 @@ void GgafGarbageBox::cleane(int prm_num_cleaning) {
 }
 
 GgafGarbageBox::~GgafGarbageBox() {
+    _TRACE_("GgafGarbageBox::~GgafGarbageBox() begin");
     DELETE_IMPOSSIBLE_NULL(_pGarbageRootScene);
+
     DELETE_IMPOSSIBLE_NULL(_pGarbageRootActor);
+    _TRACE_("GgafGarbageBox::~GgafGarbageBox() done");
 }
 
