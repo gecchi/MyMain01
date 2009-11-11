@@ -17,6 +17,30 @@ void LinearOctreeForActor::executeAllBumpChk(actorkind prm_paaActorkindMaskPair[
     executeBumpChk(Space* prm_pSpace);
 }
 
+void LinearOctreeForActor::executeBumpChk(int prm_index) {
+    Space* pSpace = _papSpace[prm_index];
+
+    Elem* pElem = pSpace->_pElemFirst;
+    while(true) {
+
+        pElem = pElem -> _pNext;
+        if (pElem == pSpace->_pElemLast) {
+            break;
+        }
+    }
+    _pRegElemFirst = NULL;
+
+
+
+
+    int next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
+    for(int i = next_level_index; i < next_level_index+8; i++) {
+        executeBumpChk(i);
+    }
+
+}
+
+
 
 LinearOctreeForActor::~LinearOctreeForActor() {
 }

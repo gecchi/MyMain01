@@ -77,7 +77,8 @@ public:
     public:
         /** 要素の先頭 */
         int _my_index;
-        int _belong_elem;
+        /** 所属してる要素の種別情報 */
+        DWORD _kindinfobit;
         Elem* _pElemFirst;
         Elem* _pElemLast;
         Space();
@@ -99,10 +100,12 @@ public:
         Elem* _pPrev;
         /** 対象オブジェクト */
         GgafObject* _pObject;
+        /** 対象オブジェクト種別 */
+        DWORD _kindbit;
         /** 登録リスト用リンク */
         Elem* _pRegLinkNext;
 
-        Elem(GgafObject* prm_pObject);
+        Elem(GgafObject* prm_pObject, DWORD prm_kindbit);
 
         /**
          * 自身が自ら離脱
@@ -119,7 +122,7 @@ public:
          * extract()してaddElem()します.
          * @param prm_pSpace_target
          */
-        void moveToSpace(Space* prm_pSpace_target);
+        //void moveToSpace(Space* prm_pSpace_target);
         void dump();
     };
 
@@ -174,6 +177,7 @@ public:
     /**
      * 要素を八分木空間に登録する
      * @param prm_pElem 要素
+     * @param prm_kind 種別
      * @param prm_X 要素対象オブジェクトのX座標
      * @param prm_Y 要素対象オブジェクトのY座標
      * @param prm_Z 要素対象オブジェクトのZ座標

@@ -9,16 +9,13 @@ public:
     class ElemEx : public GgafLinearOctree::Elem {
     public:
 
-        ElemEx(GgafObject* prm_pObject) : GgafLinearOctree::Elem(prm_pObject) {
+        ElemEx(GgafCore::GgafObject* prm_pObject) : GgafLinearOctree::Elem(prm_pObject) {
             _pActorList = (ActorList*)prm_pObject;
 
         }
     };
 
-    class ActorList {
-
-    }
-
+    class ActorList;
 
     class KindMap {
     public:
@@ -27,6 +24,7 @@ public:
             actorkind  key;
             ActorList* _pActor;
         };
+
         Node _node[10];
         KindMap() {
         }
@@ -41,16 +39,16 @@ public:
 
         void put(actorkind prm_key,
 
-    }
+    };
 
+    void executeBumpChk(Space* prm_pSpace);
 
-    void LinearOctreeForActor::executeAllBumpChk(actorkind prm_paaActorkindMaskPair[][2], int prm_mnum);
+    void executeAllBumpChk(actorkind prm_paaActorkindMaskPair[][2], int prm_mnum);
 
 
     LinearOctreeForActor(int prm_level);
 
 
-    void executeAllBumpChk();
 
     virtual ~LinearOctreeForActor();
 };

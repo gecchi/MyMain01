@@ -10,7 +10,7 @@ GgafLinearOctree::Space::Space() {
     _pElemFirst = NULL;
     _pElemLast = NULL;
     _my_index = 0;
-    _belong_elem = 0;
+    _kindinfobit = 0;
 }
 
 void GgafLinearOctree::Space::dump() {
@@ -33,11 +33,12 @@ void GgafLinearOctree::Space::dump() {
 
 ////// GgafLinearOctree::Elem //////
 
-GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject) {
+GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject, DWORD prm_kindbit) {
     _pSpace_Current = NULL;
     _pNext = NULL;
     _pPrev = NULL;
     _pObject = prm_pObject;
+    _kindbit = prm_kindbit;
     _pLinearOctree = NULL;
     _pRegLinkNext = NULL;
 }
@@ -47,13 +48,14 @@ void GgafLinearOctree::Elem::extract() {
         //_TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
         return;
     }
-
-    // 引数の要素番号
+    //情報リセット
     int index = _pSpace_Current->_my_index;
     while(true) {
-        //要素が追加されましたよカウント
-        _pLinearOctree->_papSpace[index]->_belong_elem --;
-        //_TRACE_("_papSpace["<<index<<"]->_belong_elem --  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+        //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
+        //基本ツリーは、登録と、クリア飲み行うという設計
+        _pLinearOctree->_papSpace[index]->_kindinfobit =
+                        _pLinearOctree->_papSpace[index]->_kindinfobit ^ _kindbit;
+
         if (index == 0) {
             break;
         }
@@ -108,31 +110,31 @@ void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
             _pSpace_Current = prm_pSpace_target;
         }
     }
-    // 引数の要素番号
+    //引数の要素番号
     int index = prm_pSpace_target->_my_index;
+    //親空間すべてに要素種別情報を流す
     while(true) {
-        //要素が追加されましたよカウント
-        _pLinearOctree->_papSpace[index]->_belong_elem ++;
-        //_TRACE_("_papSpace["<<index<<"]->_belong_elem ++  "<<(_pLinearOctree->_papSpace[index]->_belong_elem));
+        _pLinearOctree->_papSpace[index]->_kindinfobit =
+                _pLinearOctree->_papSpace[index]->_kindinfobit | this->_kindbit;
         if (index == 0) {
             break;
         }
-        // 親空間要素番号で繰り返す
+        //一つ上の親空間要素番号で繰り返す
         index = (index-1)>>3;
     }
 }
 
-void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
-    if (prm_pSpace_target == _pSpace_Current) {
-        return; //移動せんでいい
-    } else {
-        if(_pSpace_Current) {
-            extract(); //抜けますよ
-        }
-        addElem(prm_pSpace_target); //入りますよ
-        return;
-    }
-}
+//void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
+//    if (prm_pSpace_target == _pSpace_Current) {
+//        return; //移動せんでいい
+//    } else {
+//        if(_pSpace_Current) {
+//            extract(); //抜けますよ
+//        }
+//        addElem(prm_pSpace_target); //入りますよ
+//        return;
+//    }
+//}
 
 void GgafLinearOctree::Elem::dump() {
     _TEXT_("o");
@@ -191,12 +193,15 @@ void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,in
     //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
     DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-    if (index > _num_space) {
-        //_TRACE_("over space!!");
-        prm_pElem->extract();
-    } else {
-        prm_pElem->moveToSpace(_papSpace[index]);
-    }
+    prm_pElem->addElem(_papSpace[index]);
+
+
+//    if (index > _num_space) {
+//        //_TRACE_("over space!!");
+//        prm_pElem->extract();
+//    } else {
+//        prm_pElem->moveToSpace(_papSpace[index]);
+//    }
 }
 void GgafLinearOctree::clearElem() {
     if (_pRegElemFirst == NULL) {
@@ -358,10 +363,10 @@ void GgafLinearOctree::putTree() {
     int idx0 = 0;
     int LV0 = 0;
 
-    if (_papSpace[0]->_belong_elem == 0) {
+    if (_papSpace[0]->_kindinfobit == 0) {
         _TRACE_("ツリーに何も無し！");
     } else {
-        _TEXT_("L0["<<LV0<<","<<mn0<<","<<idx0<<"]");
+        _TEXT_("L0["<<LV0<<","<<mn0<<","<<idx0<<"]_kind="<<_papSpace[0]->_kindinfobit<<" ");
         _papSpace[idx0]->dump();
         _TEXT_("\n");
     }
@@ -370,10 +375,10 @@ void GgafLinearOctree::putTree() {
         int idx1 = _paPow[0] +
                     LV1;
 
-        if (_papSpace[idx1]->_belong_elem == 0) {
+        if (_papSpace[idx1]->_kindinfobit == 0) {
             continue;
         } else {
-            _TEXT_(" L1["<<LV1<<","<<mn1<<","<<idx1<<"]");
+            _TEXT_(" L1["<<LV1<<","<<mn1<<","<<idx1<<"]_kind="<<_papSpace[idx1]->_kindinfobit<<" ");
             _papSpace[idx1]->dump();
             _TEXT_("\n");
         }
@@ -385,10 +390,10 @@ void GgafLinearOctree::putTree() {
                        LV2;
 
 
-            if (_papSpace[idx2]->_belong_elem == 0) {
+            if (_papSpace[idx2]->_kindinfobit == 0) {
                 continue;
             } else {
-                _TEXT_("   L2["<<LV2<<","<<mn2<<","<<idx2<<"]");
+                _TEXT_("   L2["<<LV2<<","<<mn2<<","<<idx2<<"]_kind="<<_papSpace[idx2]->_kindinfobit<<" ");
                 _papSpace[idx2]->dump();
                 _TEXT_("\n");
             }
@@ -401,10 +406,10 @@ void GgafLinearOctree::putTree() {
                             LV2*_paPow[1] +
                             LV3;
 
-                if (_papSpace[idx3]->_belong_elem == 0) {
+                if (_papSpace[idx3]->_kindinfobit == 0) {
                     continue;
                 } else {
-                    _TEXT_("    L3["<<LV3<<","<<mn3<<","<<idx3<<"]");
+                    _TEXT_("    L3["<<LV3<<","<<mn3<<","<<idx3<<"]_kind="<<_papSpace[idx3]->_kindinfobit<<" ");
                     _papSpace[idx3]->dump();
                     _TEXT_("\n");
                 }
@@ -421,10 +426,10 @@ void GgafLinearOctree::putTree() {
 
 
 
-                    if (_papSpace[idx4]->_belong_elem == 0) {
+                    if (_papSpace[idx4]->_kindinfobit == 0) {
                         continue;
                     } else {
-                        _TEXT_("     L4["<<LV4<<","<<mn4<<","<<idx4<<"]");
+                        _TEXT_("     L4["<<LV4<<","<<mn4<<","<<idx4<<"]_kind="<<_papSpace[idx4]->_kindinfobit<<" ");
                         _papSpace[idx4]->dump();
                         _TEXT_("\n");
                     }
@@ -441,10 +446,10 @@ void GgafLinearOctree::putTree() {
                                     LV4*_paPow[1] +
                                     LV5;
 
-                        if (_papSpace[idx5]->_belong_elem == 0) {
+                        if (_papSpace[idx5]->_kindinfobit == 0) {
                             continue;
                         } else {
-                            _TEXT_("      L5["<<LV5<<","<<mn5<<","<<idx5<<"]");
+                            _TEXT_("      L5["<<LV5<<","<<mn5<<","<<idx5<<"]_kind="<<_papSpace[idx5]->_kindinfobit<<" ");
                             _papSpace[idx5]->dump();
                             _TEXT_("\n");
                         }

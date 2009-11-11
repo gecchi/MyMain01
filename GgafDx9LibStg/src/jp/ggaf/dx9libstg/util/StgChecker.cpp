@@ -167,7 +167,8 @@ void StgChecker::updateHitArea() {
                                            _pActor->_Y + _Y2,
                                            _pActor->_Z + _Z2);
     } else {
-        _pElem->extract();
+        //–ˆ‰ñƒNƒŠƒA‚·‚é‚Ì‚Å‚¢‚ç‚È‚¢‚Í‚¸‚¾
+        //_pElem->extract();
     }
 
 }

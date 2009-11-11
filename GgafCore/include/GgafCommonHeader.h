@@ -114,7 +114,7 @@
 
 #define MAX_HEADACTOR_PER_SCENE 16
 
-typedef unsigned int actorkind;
+typedef DWORD actorkind;
 
 namespace GgafCore {
 class GgafUtil;
@@ -159,7 +159,6 @@ class GgafOrder;
 class GgafProperties;
 
 class LinearOctree;
-class LinearOctreeForActor;
 }
 
 #include "jp/ggaf/core/util/GgafUtil.h"
@@ -193,6 +192,5 @@ class LinearOctreeForActor;
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
-#include "jp/ggaf/core/util/GgafLinearOctreeForActor.h"
 
 #endif /*GGAFCOMMONHEADER_H_*/

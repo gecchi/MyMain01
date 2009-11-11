@@ -245,7 +245,7 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
 
 
 void GgafScene::executeBumpChkHeadActors2(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
-    GgafLinearOctree* pLinearOctree = StgChecker::_pLinearOctree;
+    //GgafLinearOctree* pLinearOctree = StgChecker::_pLinearOctree;
     static GgafScene* pScene;
     pScene = this;
     static GgafHeadActor* pHeadActor;
