@@ -28,6 +28,7 @@ class ActorDispatcher;
 class CubeEx;
 class HitAreaBoxs;
 class StgChecker;
+class LinearOctreeForActor;
 
 
 
@@ -57,7 +58,7 @@ class StgChecker;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
-
+#include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 
 
 #define DISP_HITAREA 1
