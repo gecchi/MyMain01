@@ -241,6 +241,75 @@ void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkin
     }
 }
 
+
+
+
+void GgafScene::executeBumpChkHeadActors2(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
+    GgafLinearOctree* pLinearOctree = StgChecker::_pLinearOctree;
+    static GgafScene* pScene;
+    pScene = this;
+    static GgafHeadActor* pHeadActor;
+    pHeadActor = NULL;
+    static int index01, index02;
+    index01 = 0;
+    index02 = 0;
+
+    do {
+        pHeadActor = (GgafHeadActor*)(pScene->getLordActor()->_pSubFirst);
+        if (pHeadActor != NULL) {
+            do {
+                if ((pHeadActor->_kind & prm_actorkindmask01) > 0) {
+                    _apHeadActor01[index01] = pHeadActor;
+                    index01++;
+                }
+                if ((pHeadActor->_kind & prm_actorkindmask02) > 0) {
+                    _apHeadActor02[index02] = pHeadActor;
+                    index02++;
+                }
+                if (pHeadActor->_is_last_flg) {
+                    break;
+                } else {
+                    pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
+                    continue;
+                }
+            } while (true);
+        }
+
+        if (pScene->_pSubFirst != NULL) {
+            pScene = pScene->_pSubFirst;
+            continue;
+        }
+
+        loop: if (pScene->_is_last_flg) {
+            if (pScene == this) {
+                break;
+            } else {
+                if (pScene->_pParent == this) {
+                    break;
+                } else {
+                    pScene = pScene->_pParent;
+                    goto loop;
+                }
+            }
+        } else {
+            pScene = pScene->_pNext;
+            continue;
+        }
+    } while (true);
+
+    for (int i = 0; i < index01; i++) {
+        for (int j = 0; j < index02; j++) {
+            if (_apHeadActor01[i] == _apHeadActor02[j]) {
+                _apHeadActor01[i]->executeBumpChk_RoundRobin2(_apHeadActor02[j]);
+            } else {
+                _apHeadActor01[i]->executeBumpChk_RoundRobin(_apHeadActor02[j]);
+            }
+        }
+    }
+}
+
+
+
 GgafGod* GgafScene::askGod() {
     if (_pGod == NULL) {
         _pGod = getParent()->askGod();

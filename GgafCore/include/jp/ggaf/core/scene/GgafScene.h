@@ -255,6 +255,7 @@ public:
      */
     virtual void executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
 
+    virtual void executeBumpChkHeadActors2(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
     /**
      * 経過フレーム判定。 .
      * 直前の delay(n) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。<BR>
