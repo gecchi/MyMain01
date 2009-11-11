@@ -547,7 +547,6 @@ void MyShip::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
         _TRACE_("(X,Y,Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
-
     }
 
 

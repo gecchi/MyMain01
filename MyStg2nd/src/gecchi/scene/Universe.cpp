@@ -19,10 +19,11 @@ void Universe::initialize() {
 }
 
 void Universe::processJudgement() {
+    DefaultUniverse::processJudgement();
 }
 
-
 void Universe::processBehavior() {
+    DefaultUniverse::processBehavior();
 }
 
 Universe::~Universe() {
