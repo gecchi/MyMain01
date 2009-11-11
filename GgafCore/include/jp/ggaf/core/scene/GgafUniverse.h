@@ -35,6 +35,7 @@ public:
      * ƒtƒŒ[ƒ€–ˆ‚Ì”»’èˆ—<BR>
      */
     virtual void processJudgement() {
+
     }
 
     /**

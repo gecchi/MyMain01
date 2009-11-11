@@ -44,7 +44,7 @@ GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject) {
 
 void GgafLinearOctree::Elem::extract() {
     if(!_pSpace_Current) {
-        _TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
+        //_TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
         return;
     }
 
@@ -89,7 +89,7 @@ void GgafLinearOctree::Elem::extract() {
 
 void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
     if (_pSpace_Current == prm_pSpace_target) {
-        _TRACE_("addElemせんでいい");
+        //_TRACE_("addElemせんでいい");
         return;
     } else {
         if (prm_pSpace_target->_pElemFirst == NULL) {
@@ -192,7 +192,7 @@ void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,in
     prm_pElem->_pLinearOctree = this;
     DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
     if (index > _num_space) {
-        _TRACE_("over space!!");
+        //_TRACE_("over space!!");
         prm_pElem->extract();
     } else {
         prm_pElem->moveToSpace(_papSpace[index]);
@@ -305,32 +305,34 @@ DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
 
     //所属空間(シフト回数)とその空間のモートン順序通し空間番号から線形八分木配列の要素番号を求める
     DWORD index = morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
-
+    //(_paPow[_top_space_level-shift_num]-1)/7;
+    //は、線形八分木空間配列の、所属空間レベルの最初の空間の要素番号をあらわす。
     //等比数列の和
-    //     Σar^k = ar^0 + ar^1 + ar^2 + ... + ar^n
-    //ここで
+    //     Σr^k = r^0 + r^1 + r^2 + ... + r^n
     //(1-r)Σr^k = (1-r)(r^0 + r^1 + r^2 + ... + r^n)
     //          = (r^0 + r^1 + r^2 + ... + r^n) - (r^1 + r^2 + ... + r^n + r^(n+1))
     //          = 1 - r^(n+1)
     //であるので
-    //Σar^k = a(1 - r^(n+1))  / (1-r)
+    //Σr^k = (1 - r^(n+1)) / (1 - r)
     //
-    //線形8分木の配列要素の合計は a=1 r=8 で
-    //(1 - 8^(n+1)) / (1-8)  =  1-8^(n+1) / -7  =  8^(n+1) - 1 / 7 となる
-    //n = 所属空間レベル-1 の値が親空間レベルまでの要素数になるので、その次の要素が所属空間レベルの先頭の要素になる、という求め方をする。
-    //したがって最後に求めた値を +1 する必要がある。しかし配列は0番から始まるため +1 を省略してよい。
+    //線形8分木の配列要素の空間レベルｎまでの合計空関数は r=8 で
+    //(1 - 8^(n+1)) / (1-8)  =  (1-8^(n+1)) / -7  =  (8^(n+1) - 1) / 7 となる
+    //ここで、所属空間の最初の空間要素を求めるため、 n = 所属空間レベル-1 の計算値（親空間レベルまでの要素数）の、
+    //その次の要素が所属空間レベルの先頭の要素になるはずだ！。という求め方をする。
+    //したがって最後に値を +1 したものがほしい値であるが、配列は0番から始まるため +1 を省略してしまおう。
     //先の例でいうと shift_num = 3 で、最大空間分割Level(_top_space_level) = 5 であるので
     // 5 - 3 = 2 で所属空間レベルは 2
-    // 8^((2-1)+1) - 1 / 7 = 9 で
-    //所属空間レベル2より一つ低い所属空間レベル1までの要素数合計は9個とわかるため、所属空間レベルは 2の配列は10番目から始まる。
-    //10番目とは、配列要素番号は-1して9になる。
-    //結局、所属空間レベルxの最初の配列要素番号は  8^x - 1 / 7 となる
+    // n = 2 - 1 = 1 を代入して  (8^(1+1) - 1) / 7 = 9 で
+    //所属空間のレベル2より一つ親の空間レベルである、空間レベル1までの配列要素数合計は9個とわかる。
+    //所望の所属空間レベルは 2の最初の空間は配列は 9+1 の10番目から始まる。
+    //配列の10番目とは、配列要素番号は-1して9になる。
+    //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (8^x - 1) / 7 となる
 
 #ifdef OREDEBUG
     if(index > _num_space) {
-        _TRACE_("index > _num_space でおかしいです。minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
-                "differ_bit_pos="<<differ_bit_pos<<"/shift_num="<<shift_num<<"/morton_order_space_num="<<morton_order_space_num<<
-                "index="<<index);
+//        _TRACE_("index > _num_space でおかしいです。minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
+//                "differ_bit_pos="<<differ_bit_pos<<"/shift_num="<<shift_num<<"/morton_order_space_num="<<morton_order_space_num<<
+//                "index="<<index);
     }
 #endif
     return index;
@@ -342,6 +344,7 @@ GgafLinearOctree::~GgafLinearOctree() {
         DELETE_IMPOSSIBLE_NULL(_papSpace[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papSpace);
+    DELETEARR_IMPOSSIBLE_NULL(_paPow);
 }
 
 
