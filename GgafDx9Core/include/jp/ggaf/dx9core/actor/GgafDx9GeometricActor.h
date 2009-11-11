@@ -58,7 +58,7 @@ public:
     FLOAT _fDistance_plnBack;
 
     int _offscreenkind;
-    static bool _init;
+    bool _delete_pChecker;
 
 
 

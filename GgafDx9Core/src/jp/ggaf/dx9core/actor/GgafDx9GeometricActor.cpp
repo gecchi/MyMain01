@@ -3,8 +3,6 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-bool GgafDx9GeometricActor::_init = false;
-
 
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
@@ -18,8 +16,10 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _max_radius = 0;
     if (prm_pChecker) {
         _pChecker = prm_pChecker;
+        _delete_pChecker = false;
     } else {
         _pChecker = NEW GgafDx9Checker(this);
+        _delete_pChecker = true;
     }
     _pMover = NEW GgafDx9GeometryMover(this);
 
@@ -629,7 +629,6 @@ int GgafDx9GeometricActor::isOffscreen() {
 }
 
 int GgafDx9GeometricActor::wasGone() {
-
     if (GgafDx9Universe::_X_goneLeft < _X) {
         if (_X < GgafDx9Universe::_X_goneRight) {
             if (GgafDx9Universe::_Y_goneBottom < _Y) {
@@ -649,6 +648,9 @@ int GgafDx9GeometricActor::wasGone() {
 
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
+    if (_delete_pChecker) {
+        DELETE_IMPOSSIBLE_NULL(_pChecker);
+    }
     DELETE_IMPOSSIBLE_NULL(_pMover);
 }
 
