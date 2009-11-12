@@ -47,15 +47,18 @@ private:
         bool _is_first_flg;
         /** 末尾要素フラグ (自要素が末尾要素の場合 true)*/
         bool _is_last_flg;
+        /** delete時に_pValueもdeleteするかどうかのフラグ */
+        bool _is_delete_value;
 
         /**
          * コンストラクタ
          * @param prm_pValue 値ポインタ
          */
-        Elem(T* prm_pValue) {
+        Elem(T* prm_pValue, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
             _pNext = _pPrev = NULL;
             _is_first_flg = _is_last_flg = false;
+            _is_delete_value = prm_is_delete_value;
         }
 
         /**
@@ -218,7 +221,7 @@ public:
      *
      * @param   prm_pSub    インスタンス生成済み要素のポインタ
      */
-    virtual void addLast(T* prm_pSub);
+    virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
 
 };
 
@@ -300,16 +303,14 @@ T* GgafLinkedListRing<T>::set(T* prm_pVal) {
 }
 
 template<class T>
-void GgafLinkedListRing<T>::addLast(T* prm_pSub) {
+void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     if (prm_pSub == NULL) {
         throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
     }
     static Elem* pElem;
     static Elem* pLastElem;
-    pElem = NEW Elem(prm_pSub);
-
+    pElem = NEW Elem(prm_pSub, prm_is_delete_value);
     pElem->_is_last_flg = true;
-
     if (_pElemFirst == NULL) {
         //最初の１つ
         pElem->_is_first_flg = true;
