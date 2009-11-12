@@ -14,13 +14,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _x = _y = _z = 0.0f;
 
     _max_radius = 0;
-    if (prm_pChecker) {
-        _pChecker = prm_pChecker;
-        _delete_pChecker = false;
-    } else {
-        _pChecker = NEW GgafDx9Checker(this);
-        _delete_pChecker = true;
-    }
+    _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
 
     _offscreenkind = -1;
@@ -64,7 +58,9 @@ void GgafDx9GeometricActor::processPreJudgement() {
                                GgafDx9Universe::_pCamera->_plnBack.d;
         _offscreenkind = -1;
     }
-    _pChecker->updateHitArea();
+    if (_pChecker) {
+        _pChecker->updateHitArea();
+    }
 }
 
 
@@ -648,7 +644,7 @@ int GgafDx9GeometricActor::wasGone() {
 
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
-    if (_delete_pChecker) {
+    if (_pChecker) {
         DELETE_IMPOSSIBLE_NULL(_pChecker);
     }
     DELETE_IMPOSSIBLE_NULL(_pMover);
