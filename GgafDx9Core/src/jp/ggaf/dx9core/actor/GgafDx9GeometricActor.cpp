@@ -644,9 +644,9 @@ int GgafDx9GeometricActor::wasGone() {
 
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
-    if (_pChecker) {
-        DELETE_IMPOSSIBLE_NULL(_pChecker);
-    }
+    //if (_pChecker) {
+    //    DELETE_IMPOSSIBLE_NULL(_pChecker);
+    //}
     DELETE_IMPOSSIBLE_NULL(_pMover);
 }
 

@@ -31,7 +31,6 @@ class StgChecker;
 class LinearOctreeForActor;
 
 
-
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
@@ -57,8 +56,9 @@ class LinearOctreeForActor;
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
-#include "jp/ggaf/dx9libstg/util/StgChecker.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
+#include "jp/ggaf/dx9libstg/util/StgChecker.h"
+
 
 
 #define DISP_HITAREA 1

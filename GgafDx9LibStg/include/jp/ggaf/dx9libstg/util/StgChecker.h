@@ -12,10 +12,10 @@ protected:
     HitAreaBoxs* _pHitAreaBoxs;
 
 public:
-    static GgafCore::GgafLinearOctree* _pLinearOctree;
+    static LinearOctreeForActor* _pLinearOctree;
 
 
-    GgafCore::GgafLinearOctree::Elem* _pElem;
+	LinearOctreeForActor::ElemEx* _pElem;
 
     static int _num_check;
 

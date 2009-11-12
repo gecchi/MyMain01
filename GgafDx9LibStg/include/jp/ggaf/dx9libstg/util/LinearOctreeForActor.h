@@ -79,6 +79,9 @@ public:
     actorkind _kind_groupB;
 
     void executeBumpChk_RoundRobin(CollisionList* prm_pListA, CollisionList* prm_pListB);
+	void executeBumpChk_RoundRobin2(CollisionList* prm_pListA, CollisionList* prm_pListB,
+                                                     int& add_num_GroupA, int& add_num_GroupB);
+
 //    class KindMap {
 //    public:
 //        class Node {

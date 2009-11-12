@@ -14,7 +14,7 @@ GgafLinearOctree::Space::Space() {
 }
 
 void GgafLinearOctree::Space::dump() {
-    if (!_pElemFirst) {
+    if (_pElemFirst == NULL) {
         _TEXT_("x");
     } else {
         Elem* pElem = _pElemFirst;
@@ -45,7 +45,7 @@ GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject, DWORD prm_kindbit) {
 }
 
 void GgafLinearOctree::Elem::extract() {
-    if(!_pSpace_Current) {
+    if(_pSpace_Current == NULL) {
         //_TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
         return;
     }
@@ -157,14 +157,12 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     //線形８分木配列作成
     _num_space = (_paPow[_top_space_level+1] -1) / 7; //空間数
     _TRACE_("_num_space="<<_num_space);
-    if (_num_space > 100000) {
-        return;
-    }
     _paSpace = NEW Space[_num_space];
     for (DWORD i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
-    }
+    }xx
     _pRegElemFirst = NULL;
+
 }
 
 void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2) {
@@ -213,11 +211,13 @@ void GgafLinearOctree::clearElem() {
     }
     Elem* pElem = _pRegElemFirst;
     while(true) {
+
         pElem->extract();
         pElem = pElem -> _pRegLinkNext;
-        if (pElem == NULL) {
+		if (pElem == NULL) {
             break;
         }
+
     }
     _pRegElemFirst = NULL;
 }
@@ -244,7 +244,7 @@ DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
     DWORD differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
     DWORD shift_num = 0;
     for(DWORD i = 0; i < _top_space_level; i++) {
-        if ((differ_bit_pos>>(i*3)) & 0x7 != 0 ) {
+        if (((differ_bit_pos>>(i*3)) & 0x7) != 0 ) {
             shift_num = i+1;
         }
     }
@@ -254,7 +254,7 @@ DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
     //最も遠い3ビットが食い違っている箇所(シフト回数＝shift_num)より所属空間レベルがわかる
     //最大空間分割Level = 5として、左上手前が6001番、右下奥を6041番に所属していたBOXを例にすると
     //
-    //各レベル空間のモートン順序位置                             lv0 lv1 lv2 lv3 lv4 lv5
+    //各レベル空間のモートン順序位置 lv0 lv1 lv2 lv3 lv4 lv5
     //     6001 = 00 000 000 000 000 000 001 011 101 110 001
     // XOR)6041 = 00 000 000 000 000 000 001 011 110 011 001
     // -----------------------------------------------------

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 int StgChecker::_num_check = 0;
-GgafLinearOctree* StgChecker::_pLinearOctree = NULL;
+LinearOctreeForActor* StgChecker::_pLinearOctree = NULL;
 StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_pActor) {
     _pHitAreaBoxs = NULL;
     _iStaminaPointOriginally = 1;//Œ³—ˆ‚Ì‘Ï‹v—Í
@@ -17,7 +17,7 @@ StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_p
     if (StgChecker::_pLinearOctree == NULL) {
         StgChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
-    _pElem = NEW GgafLinearOctree::Elem(this, 1);
+    _pElem = new LinearOctreeForActor::ElemEx(prm_pActor, 0);
 }
 
 void StgChecker::useHitAreaBoxNum(int n) {
@@ -154,7 +154,7 @@ void StgChecker::updateHitArea() {
             }
 
         }
-
+		_pElem->_kindbit = _pActor->_pHeadActor->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
                                            _pActor->_Y + _Y1,
                                            _pActor->_Z + _Z1,

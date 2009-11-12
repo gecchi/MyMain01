@@ -39,16 +39,24 @@ void LinearOctreeForActor::executeBumpChk(int prm_index) {
     }
 
     //ツリーが管理してる、親空間のリストと衝突判定
-    executeBumpChk_RoundRobin(&_listGroupA    , &_listTreeGroupB, false);
-    executeBumpChk_RoundRobin(&_listTreeGroupA, &_listGroupB    , false);
+    executeBumpChk_RoundRobin(&_listGroupA    , &_listTreeGroupB);
+    executeBumpChk_RoundRobin(&_listTreeGroupA, &_listGroupB    );
 
+    int add_num_GroupA, add_num_GroupB;
+    add_num_GroupA = add_num_GroupB = 0;
     //同一空間内で_listGroupA x _listGroupB
-    executeBumpChk_RoundRobin(&_listGroupA, &_listGroupB, true);
+    executeBumpChk_RoundRobin2(&_listGroupA, &_listGroupB, add_num_GroupA, add_num_GroupB);
 
 
     int next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     if ( next_level_index > _num_space) {
         //リーフ
+        for (int i = 0; i < add_num_GroupA; i ++) {
+            _listTreeGroupA.pop();
+        }
+        for (int i = 0; i < add_num_GroupB; i ++) {
+            _listTreeGroupB.pop();
+        }
         return;
     } else {
         //もぐる
@@ -58,11 +66,20 @@ void LinearOctreeForActor::executeBumpChk(int prm_index) {
             }
         }
 
+        for (int i = 0; i < add_num_GroupA; i ++) {
+            _listTreeGroupA.pop();
+        }
+        for (int i = 0; i < add_num_GroupB; i ++) {
+            _listTreeGroupB.pop();
+        }
         return;
     }
 
+
 }
-void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionList* prm_pListA, CollisionList* prm_pListB, bool addTreeList) {
+
+void LinearOctreeForActor::executeBumpChk_RoundRobin2(CollisionList* prm_pListA, CollisionList* prm_pListB,
+                                                     int& add_num_GroupA, int& add_num_GroupB) {
     GgafActor* pActor_A;
     GgafActor* pActor_B;
     while(true) {
@@ -70,18 +87,34 @@ void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionList* prm_pListA, 
         if (pActor_A == NULL) {
             break; //終了
         } else {
-            if (addTreeList) {
-                _listTreeGroupA.push(pActor_A);
-            }
+            add_num_GroupA++;
+            _listTreeGroupA.push(pActor_A);
         }
         while(true) {
             pActor_B = prm_pListB->pop();
             if (pActor_B == NULL) {
                 break;
             } else {
-                if (addTreeList) {
-                    _listTreeGroupB.push(pActor_B);
-                }
+                add_num_GroupB++;
+                _listTreeGroupB.push(pActor_B);
+            }
+            pActor_A->executeBumpChk_MeAnd(pActor_B);
+        }
+    }
+}
+
+void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionList* prm_pListA, CollisionList* prm_pListB) {
+    GgafActor* pActor_A;
+    GgafActor* pActor_B;
+    while(true) {
+        pActor_A = prm_pListA->pop();
+        if (pActor_A == NULL) {
+            break; //終了
+        }
+        while(true) {
+            pActor_B = prm_pListB->pop();
+            if (pActor_B == NULL) {
+                break;
             }
             pActor_A->executeBumpChk_MeAnd(pActor_B);
         }
