@@ -23,12 +23,12 @@ void LinearOctreeForActor::executeAllBumpChk(actorkind prm_groupA, actorkind prm
 void LinearOctreeForActor::executeBumpChk(int prm_index) {
     Space* pSpace = &(_paSpace[prm_index]);
 
-    Elem* pElem = (ElemEx*)(pSpace->_pElemFirst);
+    Elem* pElem = pSpace->_pElemFirst;
     while(true) {
-        if (pElem->_kindbit & _kind_groupA > 0) {
+        if (((pElem->_kindbit) & _kind_groupA) > 0) { ‚±‚±‚Å‚¨‚¿‚éI
             _listGroupA.push(((ElemEx*)pElem)->_pActor);
         }
-        if (pElem->_kindbit & _kind_groupB > 0) {
+        if (((pElem->_kindbit) & _kind_groupB) > 0) {
             _listGroupB.push(((ElemEx*)pElem)->_pActor);
         }
 

@@ -79,13 +79,13 @@ void StgChecker::updateHitArea() {
         return;
     }
 
-    if (_pActor->_can_bump_flg && _pActor->isActive() && _pActor->isOffscreen() > 0 ) {
+    if (_pActor->_can_bump_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
         //_TRACE_("updateHitArea() _can_bump_flg && isActive() "<<_pActor->getName());
         int cx, cy, cz;
         s_ang s_RX, s_RY, s_RZ;
         HitAreaBoxs::Box* pHitArea;
         HitAreaBoxs::Box* pBase;
-
+        _X1=_Y1=_Z1=_X2=_Y2=_Z2=0;
         for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
             pHitArea = &(_pHitAreaBoxs->_paHitArea[i]);
             pBase= &(_pHitAreaBoxs->_paBase[i]);
@@ -128,29 +128,25 @@ void StgChecker::updateHitArea() {
                 pHitArea->x2 = cx + pBase->hdx;
                 pHitArea->y2 = cy + pBase->hdy;
                 pHitArea->z2 = cz + pBase->hdz;
+            }
+            if (pHitArea->x1 < _X1) {
+                _X1 = pHitArea->x1;
+            }
+            if (pHitArea->y1 < _Y1) {
+                _Y1 = pHitArea->y1;
+            }
+            if (pHitArea->z1 < _Z1) {
+                _Z1 = pHitArea->z1;
+            }
 
-
-                if (pHitArea->x1 < _X1) {
-                    _X1 = pHitArea->x1;
-                }
-                if (pHitArea->y1 < _Y1) {
-                    _Y1 = pHitArea->y1;
-                }
-                if (pHitArea->z1 < _Z1) {
-                    _Z1 = pHitArea->z1;
-                }
-
-                if (pHitArea->x2 > _X2) {
-                    _X2 = pHitArea->x2;
-                }
-                if (pHitArea->y2 > _Y2) {
-                    _Y2 = pHitArea->y2;
-                }
-                if (pHitArea->z2 > _Z2) {
-                    _Z2 = pHitArea->z2;
-                }
-
-
+            if (pHitArea->x2 > _X2) {
+                _X2 = pHitArea->x2;
+            }
+            if (pHitArea->y2 > _Y2) {
+                _Y2 = pHitArea->y2;
+            }
+            if (pHitArea->z2 > _Z2) {
+                _Z2 = pHitArea->z2;
             }
 
         }
@@ -161,6 +157,17 @@ void StgChecker::updateHitArea() {
                                            _pActor->_X + _X2,
                                            _pActor->_Y + _Y2,
                                            _pActor->_Z + _Z2);
+
+        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+            _TRACE_("registElem("<<(_pActor->getName())<<")=("<<
+                                             (_pActor->_X + _X1)<<","<<
+                                             (_pActor->_Y + _Y1)<<","<<
+                                             (_pActor->_Z + _Z1)<<","<<
+                                             (_pActor->_X + _X2)<<","<<
+                                             (_pActor->_Y + _Y2)<<","<<
+                                             (_pActor->_Z + _Z2)<<")");
+        }
+
     } else {
         //–ˆ‰ñƒNƒŠƒA‚·‚é‚Ì‚Å‚¢‚ç‚È‚¢‚Í‚¸‚¾
         //_pElem->extract();

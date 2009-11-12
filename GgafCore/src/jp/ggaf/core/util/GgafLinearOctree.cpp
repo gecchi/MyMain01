@@ -54,8 +54,9 @@ void GgafLinearOctree::Elem::extract() {
     while(true) {
         //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
         //基本ツリーは、登録と、クリア飲み行うという設計
-        _pLinearOctree->_paSpace[index]._kindinfobit =
-                        _pLinearOctree->_paSpace[index]._kindinfobit ^ _kindbit;
+        _pLinearOctree->_paSpace[index]._kindinfobit = 0;
+        _pLinearOctree->_paSpace[index]._pElemFirst = NULL;
+        _pLinearOctree->_paSpace[index]._pElemLast = NULL;
 
         if (index == 0) {
             break;
@@ -63,31 +64,35 @@ void GgafLinearOctree::Elem::extract() {
         // 親空間要素番号で繰り返す
         index = (index-1)>>3;
     }
-    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
-        //先頭かつ末尾の場合
-        _pSpace_Current->_pElemFirst = NULL;
-        _pSpace_Current->_pElemLast = NULL;
-        _pSpace_Current = NULL;
-    } else if (this == _pSpace_Current->_pElemFirst) {
-        //先頭だった場合
-        _pSpace_Current->_pElemFirst = _pNext;
-        _pSpace_Current->_pElemFirst->_pPrev = NULL;
-        _pNext = NULL;
-        _pSpace_Current = NULL;
-    } else if (this == _pSpace_Current->_pElemLast) {
-        //末尾だった場合
-        _pSpace_Current->_pElemLast = _pPrev;
-        _pSpace_Current->_pElemLast->_pNext = NULL;
-        _pPrev = NULL;
-        _pSpace_Current = NULL;
-    } else {
-        //中間だった場合
-        _pPrev->_pNext = _pNext;
-        _pNext->_pPrev = _pPrev;
-        _pNext = NULL;
-        _pPrev = NULL;
-        _pSpace_Current = NULL;
-    }
+    _pNext = NULL;
+    _pPrev = NULL;
+    _pSpace_Current = NULL;
+
+//    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
+//        //先頭かつ末尾の場合
+//        _pSpace_Current->_pElemFirst = NULL;
+//        _pSpace_Current->_pElemLast = NULL;
+//        _pSpace_Current = NULL;
+//    } else if (this == _pSpace_Current->_pElemFirst) {
+//        //先頭だった場合
+//        _pSpace_Current->_pElemFirst = _pNext;
+//        _pSpace_Current->_pElemFirst->_pPrev = NULL;
+//        _pNext = NULL;
+//        _pSpace_Current = NULL;
+//    } else if (this == _pSpace_Current->_pElemLast) {
+//        //末尾だった場合
+//        _pSpace_Current->_pElemLast = _pPrev;
+//        _pSpace_Current->_pElemLast->_pNext = NULL;
+//        _pPrev = NULL;
+//        _pSpace_Current = NULL;
+//    } else {
+//        //中間だった場合
+//        _pPrev->_pNext = _pNext;
+//        _pNext->_pPrev = _pPrev;
+//        _pNext = NULL;
+//        _pPrev = NULL;
+//        _pSpace_Current = NULL;
+//    }
 }
 
 void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
@@ -160,7 +165,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _paSpace = NEW Space[_num_space];
     for (DWORD i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
-    }xx
+    }
     _pRegElemFirst = NULL;
 
 }
@@ -223,6 +228,9 @@ void GgafLinearOctree::clearElem() {
 }
 
 DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+    //TODO: 本来は、tX1 - _root_X1 などが負になった場合の対応をしなければいけないが、どうしたものか
+
+
     //まず、BOXの所属空間 Level と、その空間Levelのモートン順序通し空間番号を求める
 
     //BOXの左上手前のXYZ座標点が所属する空間は、最大レベル空間でモートン順序通し空間番号は何番かを取得

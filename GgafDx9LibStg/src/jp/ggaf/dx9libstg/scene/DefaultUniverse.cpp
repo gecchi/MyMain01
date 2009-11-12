@@ -88,19 +88,19 @@ void DefaultUniverse::processFinal() {
     }
 
 
-    _pLinearOctree->setRootSpace(x1 * PX_UNIT * LEN_UNIT,
-                                 y1 * PX_UNIT * LEN_UNIT,
-                                 z1 * PX_UNIT * LEN_UNIT,
-                                 x2 * PX_UNIT * LEN_UNIT,
-                                 y2 * PX_UNIT * LEN_UNIT,
-                                 z2 * PX_UNIT * LEN_UNIT);
+    _pLinearOctree->setRootSpace(x1*1.3 * PX_UNIT * LEN_UNIT,
+                                 y1*1.3 * PX_UNIT * LEN_UNIT,
+                                 z1*1.3 * PX_UNIT * LEN_UNIT,
+                                 x2*1.3 * PX_UNIT * LEN_UNIT,
+                                 y2*1.3 * PX_UNIT * LEN_UNIT,
+                                 z2*1.3 * PX_UNIT * LEN_UNIT);
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _TRACE_("(x1,y1,z1,x2,y2,z2)=("<<(x1 * PX_UNIT * LEN_UNIT)<<","<<
-                                         (y1 * PX_UNIT * LEN_UNIT)<<","<<
-                                         (z1 * PX_UNIT * LEN_UNIT)<<","<<
-                                         (x2 * PX_UNIT * LEN_UNIT)<<","<<
-                                         (y2 * PX_UNIT * LEN_UNIT)<<","<<
-                                         (z2 * PX_UNIT * LEN_UNIT)<<")");
+        _TRACE_("ROOT(x1,y1,z1,x2,y2,z2)=("<<(_pLinearOctree->_root_X1)<<","<<
+                                             (_pLinearOctree->_root_Y2)<<","<<
+                                             (_pLinearOctree->_root_Z2)<<","<<
+                                             (_pLinearOctree->_root_X2)<<","<<
+                                             (_pLinearOctree->_root_Y2)<<","<<
+                                             (_pLinearOctree->_root_Z2)<<")");
     }
 
 
