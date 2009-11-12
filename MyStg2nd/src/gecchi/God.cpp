@@ -46,6 +46,13 @@ GgafUniverse* God::createUniverse() {
 }
 
 God::~God() {
+    GgafFactory::_is_working_flg = false;
+    while (GgafFactory::_was_finished_flg == false) {
+        Sleep(30); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
+        _TRACE_("Hê‰Ò“®’â~‘Ò‚¿");
+    }
+    _TRACE_("Hê’â~");
+
     VB::clear();
     _pUniverse->dump();
 }
