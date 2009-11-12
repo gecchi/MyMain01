@@ -22,31 +22,33 @@ void LinearOctreeForActor::executeAllBumpChk(actorkind prm_groupA, actorkind prm
 
 void LinearOctreeForActor::executeBumpChk(int prm_index) {
     Space* pSpace = &(_paSpace[prm_index]);
-
-    Elem* pElem = pSpace->_pElemFirst;
-    while(true) {
-        if (((pElem->_kindbit) & _kind_groupA) > 0) { ここでおちる！
-            _listGroupA.push(((ElemEx*)pElem)->_pActor);
-        }
-        if (((pElem->_kindbit) & _kind_groupB) > 0) {
-            _listGroupB.push(((ElemEx*)pElem)->_pActor);
-        }
-
-        pElem = pElem -> _pNext;
-        if (pElem == pSpace->_pElemLast) {
-            break;
-        }
-    }
-
-    //ツリーが管理してる、親空間のリストと衝突判定
-    executeBumpChk_RoundRobin(&_listGroupA    , &_listTreeGroupB);
-    executeBumpChk_RoundRobin(&_listTreeGroupA, &_listGroupB    );
-
     int add_num_GroupA, add_num_GroupB;
     add_num_GroupA = add_num_GroupB = 0;
-    //同一空間内で_listGroupA x _listGroupB
-    executeBumpChk_RoundRobin2(&_listGroupA, &_listGroupB, add_num_GroupA, add_num_GroupB);
+    Elem* pElem = pSpace->_pElemFirst;
+    if (pElem != NULL) {
+        while(true) {
+ここにこない
+            if (((pElem->_kindbit) & _kind_groupA) > 0) {
+                _listGroupA.push(((ElemEx*)pElem)->_pActor);
+            }
+            if (((pElem->_kindbit) & _kind_groupB) > 0) {
+                _listGroupB.push(((ElemEx*)pElem)->_pActor);
+            }
 
+            pElem = pElem -> _pNext;
+            if (pElem == pSpace->_pElemLast) {
+                break;
+            }
+        }
+
+        //ツリーが管理してる、親空間のリストと衝突判定
+        executeBumpChk_RoundRobin(&_listGroupA    , &_listTreeGroupB);
+        executeBumpChk_RoundRobin(&_listTreeGroupA, &_listGroupB    );
+
+
+        //同一空間内で_listGroupA x _listGroupB
+        executeBumpChk_RoundRobin2(&_listGroupA, &_listGroupB, add_num_GroupA, add_num_GroupB);
+    }
 
     int next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     if ( next_level_index > _num_space) {
