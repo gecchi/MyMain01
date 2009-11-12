@@ -18,7 +18,7 @@ void LinearOctreeForActor::executeAllBumpChk(actorkind prm_paaActorkindMaskPair[
 }
 
 void LinearOctreeForActor::executeBumpChk(int prm_index) {
-    Space* pSpace = _papSpace[prm_index];
+    Space* pSpace = &(_paSpace[prm_index]);
 
     Elem* pElem = pSpace->_pElemFirst;
     while(true) {

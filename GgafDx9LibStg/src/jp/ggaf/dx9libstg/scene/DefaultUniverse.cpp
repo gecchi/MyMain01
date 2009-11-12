@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
     _class_name = "DefaultUniverse";
-    _pLinearOctree = NEW GgafLinearOctree(5);
+    _pLinearOctree = NEW GgafLinearOctree(6);
     _pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
 //
 //
@@ -25,11 +25,16 @@ DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_nam
 
 void DefaultUniverse::nextFrame() {
     GgafDx9Core::GgafDx9Universe::nextFrame();
-    _pLinearOctree->clearElem();
 }
 
 
-void DefaultUniverse::processJudgement() {
+void DefaultUniverse::processFinal() {
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _pLinearOctree->putTree();
+    }
+    _pLinearOctree->clearElem();
+
+
 
     //ルートシーンを更新
     float x1,y1,z1,x2,y2,z2;
@@ -90,7 +95,6 @@ void DefaultUniverse::processJudgement() {
                                  x2 * PX_UNIT * LEN_UNIT,
                                  y2 * PX_UNIT * LEN_UNIT,
                                  z2 * PX_UNIT * LEN_UNIT);
-
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
         _TRACE_("(x1,y1,z1,x2,y2,z2)=("<<(x1 * PX_UNIT * LEN_UNIT)<<","<<
                                          (y1 * PX_UNIT * LEN_UNIT)<<","<<
@@ -99,7 +103,6 @@ void DefaultUniverse::processJudgement() {
                                          (y2 * PX_UNIT * LEN_UNIT)<<","<<
                                          (z2 * PX_UNIT * LEN_UNIT)<<")");
     }
-
 
 
 }
