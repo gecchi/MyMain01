@@ -15,7 +15,7 @@ public:
      */
     GgafDx9Checker(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void updateHitArea() {}
+    virtual void updateHitArea()=0;
 
     //virtual void draw();
 
