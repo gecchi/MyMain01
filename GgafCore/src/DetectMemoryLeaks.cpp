@@ -11,11 +11,11 @@ throw (std::bad_alloc)
 {
     void * address = malloc(size);
     if (address == 0) {
-        _TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
+        //_TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
         throw std::bad_alloc();
     } else {
         if (detectMemoryLeaksFlag) {
-            TRACE("new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address );
+            //_TRACE_("new: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address );
             std::ostringstream oss;
             oss << strFileName << ":" << nLineNum << " size=" << size << " address=" << address;
             detectMemoryLeaksMemoryMap.insert(std::pair<std::size_t, std::string>((std::size_t)address, oss.str()));
@@ -30,11 +30,11 @@ throw (std::bad_alloc)
 {
     void * address = malloc(size);
     if (address == 0) {
-        _TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
+        //_TRACE_(strFileName << ":" << nLineNum << " bad_alloc....");
         throw std::bad_alloc();
     } else {
         if (detectMemoryLeaksFlag) {
-            TRACE("new[]: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address);
+            //_TRACE_("new[]: " << strFileName << ":" << nLineNum << " size=" << size << " address=" << address);
             std::ostringstream oss;
             oss << strFileName << ":" << nLineNum << " size=" << size << " address=" << address;
             detectMemoryLeaksMemoryMap.insert(std::pair<std::size_t, std::string>((std::size_t)address, oss.str()));
@@ -48,7 +48,7 @@ void operator delete(void * address) {
     return;
 
     if (detectMemoryLeaksFlag) {
-        //TRACE("delete: " << " address=" << address );
+        //_TRACE_("delete: " << " address=" << address );
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;
@@ -67,7 +67,7 @@ void operator delete[](void * address) {
     return;
 
     if (detectMemoryLeaksFlag) {
-        //TRACE("delete[]: " << " address=" << address);
+        //_TRACE_("delete[]: " << " address=" << address);
         std::map<std::size_t, std::string>::iterator it = detectMemoryLeaksMemoryMap.begin();
         std::map<std::size_t, std::string>::iterator itEnd = detectMemoryLeaksMemoryMap.end();
         std::size_t checkAddress = (std::size_t)address;

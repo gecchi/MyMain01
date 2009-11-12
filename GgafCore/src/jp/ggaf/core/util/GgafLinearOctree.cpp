@@ -28,7 +28,8 @@ void GgafLinearOctree::Space::dump() {
         }
     }
 }
-
+GgafLinearOctree::Space::~Space() {
+}
 
 
 ////// GgafLinearOctree::Elem //////
@@ -53,8 +54,8 @@ void GgafLinearOctree::Elem::extract() {
     while(true) {
         //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
         //基本ツリーは、登録と、クリア飲み行うという設計
-        _pLinearOctree->_papSpace[index]->_kindinfobit =
-                        _pLinearOctree->_papSpace[index]->_kindinfobit ^ _kindbit;
+        _pLinearOctree->_paSpace[index]._kindinfobit =
+                        _pLinearOctree->_paSpace[index]._kindinfobit ^ _kindbit;
 
         if (index == 0) {
             break;
@@ -114,8 +115,8 @@ void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
     int index = prm_pSpace_target->_my_index;
     //親空間すべてに要素種別情報を流す
     while(true) {
-        _pLinearOctree->_papSpace[index]->_kindinfobit =
-                _pLinearOctree->_papSpace[index]->_kindinfobit | this->_kindbit;
+        _pLinearOctree->_paSpace[index]._kindinfobit =
+                _pLinearOctree->_paSpace[index]._kindinfobit | this->_kindbit;
         if (index == 0) {
             break;
         }
@@ -140,7 +141,8 @@ void GgafLinearOctree::Elem::dump() {
     _TEXT_("o");
 }
 
-
+GgafLinearOctree::Elem::~Elem() {
+}
 
 ////// GgafLinearOctree //////
 
@@ -158,10 +160,9 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     if (_num_space > 100000) {
         return;
     }
-    _papSpace = NEW Space*[_num_space];
+    _paSpace = NEW Space[_num_space];
     for (DWORD i = 0; i < _num_space; i++) {
-        _papSpace[i] = NEW Space();
-        _papSpace[i]->_my_index = i;
+        _paSpace[i]._my_index = i;
     }
     _pRegElemFirst = NULL;
 }
@@ -193,17 +194,17 @@ void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,in
     //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
     DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-	if (index < _num_space) { //Root空間を更新した際に起こりうるため、この判定は必要。
-							 
-		prm_pElem->addElem(_papSpace[index]);
-	}
+    if (index < _num_space) { //Root空間を更新した際に起こりうるため、この判定は必要。
+
+        prm_pElem->addElem(&(_paSpace[index]));
+    }
 
 
 //    if (index > _num_space) {
 //        //_TRACE_("over space!!");
 //        prm_pElem->extract();
 //    } else {
-//        prm_pElem->moveToSpace(_papSpace[index]);
+//        prm_pElem->moveToSpace(_paSpace[index]);
 //    }
 }
 void GgafLinearOctree::clearElem() {
@@ -348,10 +349,7 @@ DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY
 
 
 GgafLinearOctree::~GgafLinearOctree() {
-    for (DWORD i = 0; i < _num_space; i++) {
-        DELETE_IMPOSSIBLE_NULL(_papSpace[i]);
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_papSpace);
+    DELETEARR_IMPOSSIBLE_NULL(_paSpace);
     DELETEARR_IMPOSSIBLE_NULL(_paPow);
 }
 
@@ -366,11 +364,11 @@ void GgafLinearOctree::putTree() {
     int idx0 = 0;
     int LV0 = 0;
 
-    if (_papSpace[0]->_kindinfobit == 0) {
+    if (_paSpace[0]._kindinfobit == 0) {
         _TRACE_("ツリーに何も無し！");
     } else {
-        _TEXT_("L0["<<LV0<<","<<mn0<<","<<idx0<<"]_kind="<<_papSpace[0]->_kindinfobit<<" ");
-        _papSpace[idx0]->dump();
+        _TEXT_("L0["<<LV0<<","<<mn0<<","<<idx0<<"]_kind="<<_paSpace[0]._kindinfobit<<" ");
+        _paSpace[idx0].dump();
         _TEXT_("\n");
     }
     for (int LV1 = 0; LV1 < 8; LV1++) {
@@ -378,11 +376,11 @@ void GgafLinearOctree::putTree() {
         int idx1 = _paPow[0] +
                     LV1;
 
-        if (_papSpace[idx1]->_kindinfobit == 0) {
+        if (_paSpace[idx1]._kindinfobit == 0) {
             continue;
         } else {
-            _TEXT_(" L1["<<LV1<<","<<mn1<<","<<idx1<<"]_kind="<<_papSpace[idx1]->_kindinfobit<<" ");
-            _papSpace[idx1]->dump();
+            _TEXT_(" L1["<<LV1<<","<<mn1<<","<<idx1<<"]_kind="<<_paSpace[idx1]._kindinfobit<<" ");
+            _paSpace[idx1].dump();
             _TEXT_("\n");
         }
         for (int LV2 = 0; LV2 < 8; LV2++) {
@@ -393,11 +391,11 @@ void GgafLinearOctree::putTree() {
                        LV2;
 
 
-            if (_papSpace[idx2]->_kindinfobit == 0) {
+            if (_paSpace[idx2]._kindinfobit == 0) {
                 continue;
             } else {
-                _TEXT_("   L2["<<LV2<<","<<mn2<<","<<idx2<<"]_kind="<<_papSpace[idx2]->_kindinfobit<<" ");
-                _papSpace[idx2]->dump();
+                _TEXT_("   L2["<<LV2<<","<<mn2<<","<<idx2<<"]_kind="<<_paSpace[idx2]._kindinfobit<<" ");
+                _paSpace[idx2].dump();
                 _TEXT_("\n");
             }
             for (int LV3 = 0; LV3 < 8; LV3++) {
@@ -409,11 +407,11 @@ void GgafLinearOctree::putTree() {
                             LV2*_paPow[1] +
                             LV3;
 
-                if (_papSpace[idx3]->_kindinfobit == 0) {
+                if (_paSpace[idx3]._kindinfobit == 0) {
                     continue;
                 } else {
-                    _TEXT_("    L3["<<LV3<<","<<mn3<<","<<idx3<<"]_kind="<<_papSpace[idx3]->_kindinfobit<<" ");
-                    _papSpace[idx3]->dump();
+                    _TEXT_("    L3["<<LV3<<","<<mn3<<","<<idx3<<"]_kind="<<_paSpace[idx3]._kindinfobit<<" ");
+                    _paSpace[idx3].dump();
                     _TEXT_("\n");
                 }
                 for (int LV4 = 0; LV4 < 8; LV4++) {
@@ -429,11 +427,11 @@ void GgafLinearOctree::putTree() {
 
 
 
-                    if (_papSpace[idx4]->_kindinfobit == 0) {
+                    if (_paSpace[idx4]._kindinfobit == 0) {
                         continue;
                     } else {
-                        _TEXT_("     L4["<<LV4<<","<<mn4<<","<<idx4<<"]_kind="<<_papSpace[idx4]->_kindinfobit<<" ");
-                        _papSpace[idx4]->dump();
+                        _TEXT_("     L4["<<LV4<<","<<mn4<<","<<idx4<<"]_kind="<<_paSpace[idx4]._kindinfobit<<" ");
+                        _paSpace[idx4].dump();
                         _TEXT_("\n");
                     }
                     for (int LV5 = 0; LV5 < 8; LV5++) {
@@ -449,13 +447,38 @@ void GgafLinearOctree::putTree() {
                                     LV4*_paPow[1] +
                                     LV5;
 
-                        if (_papSpace[idx5]->_kindinfobit == 0) {
+                        if (_paSpace[idx5]._kindinfobit == 0) {
                             continue;
                         } else {
-                            _TEXT_("      L5["<<LV5<<","<<mn5<<","<<idx5<<"]_kind="<<_papSpace[idx5]->_kindinfobit<<" ");
-                            _papSpace[idx5]->dump();
+                            _TEXT_("      L5["<<LV5<<","<<mn5<<","<<idx5<<"]_kind="<<_paSpace[idx5]._kindinfobit<<" ");
+                            _paSpace[idx5].dump();
                             _TEXT_("\n");
                         }
+                        for (int LV6 = 0; LV6 < 8; LV6++) {
+                            int mn6 =   LV1*_paPow[5] +
+                                        LV2*_paPow[4] +
+                                        LV3*_paPow[3] +
+                                        LV4*_paPow[2] +
+                                        LV5*_paPow[1] +
+                                        LV6;
+                            int idx6 =  _paPow[0]+ _paPow[1] + _paPow[2] + _paPow[3] + _paPow[4] + _paPow[5] +
+                                        LV1*_paPow[5] +
+                                        LV2*_paPow[4] +
+                                        LV3*_paPow[3] +
+                                        LV4*_paPow[2] +
+                                        LV5*_paPow[1] +
+                                        LV6;
+
+                            if (_paSpace[idx6]._kindinfobit == 0) {
+                                continue;
+                            } else {
+                                _TEXT_("       L6["<<LV6<<","<<mn6<<","<<idx6<<"]_kind="<<_paSpace[idx6]._kindinfobit<<" ");
+                                _paSpace[idx6].dump();
+                                _TEXT_("\n");
+                            }
+
+                        }
+
                     }
                 }
             }

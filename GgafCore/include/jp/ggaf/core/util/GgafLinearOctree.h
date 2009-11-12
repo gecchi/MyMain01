@@ -83,6 +83,7 @@ public:
         Elem* _pElemLast;
         Space();
         void dump();
+        virtual ~Space();
     };
 
     /**
@@ -124,10 +125,12 @@ public:
          */
         //void moveToSpace(Space* prm_pSpace_target);
         void dump();
+
+        virtual ~Elem();
     };
 
     /** 8分木の空間を意味する線形配列 */
-    Space** _papSpace; //_papSpace[0] は ROOT空間へのポインタ
+    Space* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
     /**s     */
     Elem* _pRegElemFirst;
     /** root空間の対角の頂点となるx座標の小さい方 */
