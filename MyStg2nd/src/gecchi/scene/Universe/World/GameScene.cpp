@@ -106,6 +106,11 @@ void GameScene::processJudgement() {
     if (_lifeframe >= 120) {
         StgChecker::_num_check = 0;
 
+        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+            _TRACE_(" GameScene::processJudgement()  befor");
+            StgChecker::_pLinearOctree->putTree();
+        }
+
         StgChecker::_pLinearOctree->executeAllBumpChk(
                  KIND_ENEMY_BODY ,
                  KIND_MY_BODY

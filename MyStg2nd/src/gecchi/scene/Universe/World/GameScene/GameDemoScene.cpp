@@ -23,7 +23,9 @@ void GameDemoScene::ready() {
 }
 
 void GameDemoScene::initialize() {
-	setProgress(GAMEDEMO_PROG_INIT);
+    setProgress(GAMEDEMO_PROG_INIT);
+
+    orderActorToFactory(1111, EnemyAstraea, "Astraea_1");
 }
 
 void GameDemoScene::processBehavior() {
@@ -34,6 +36,14 @@ void GameDemoScene::processBehavior() {
 
         //自機表示
         GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
+
+        EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(1111);
+        pActor->_X = 40000;
+        pActor->_Y = 40000;
+        pActor->_Z = 0;
+        getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+
+
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
 
@@ -54,7 +64,7 @@ void GameDemoScene::processBehavior() {
     //ループ----->
 
     if (onChangeProgressAt(GAMEDEMO_PROG_TITLE)) {
-    	 //タイトル開始
+         //タイトル開始
         _pStringBoard01->update(100, 100, "GameDemoScene TITLE");
         _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
         _dwFrame_Title = 0;
@@ -73,7 +83,7 @@ void GameDemoScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
-    	//デモプレイ開始
+        //デモプレイ開始
         _pStringBoard01->update(100, 100, "GameDemoScene DEMOPLAY");
         _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
