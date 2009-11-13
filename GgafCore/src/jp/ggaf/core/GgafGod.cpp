@@ -146,6 +146,7 @@ void GgafGod::presentUniversalMoment() {
 }
 
 void GgafGod::enforcementUniversalJudge() {
+    _pUniverse->preJudge();
     _pUniverse->judge();
 }
 

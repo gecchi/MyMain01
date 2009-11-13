@@ -7,7 +7,7 @@ namespace GgafCore {
 /**
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
  * 毎フレーム、を神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
- * nextFrame() > behave() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
+ * nextFrame() > behave() > preJudge() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
  * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
  * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
  * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合<BR>
@@ -140,6 +140,16 @@ public:
      */
     virtual void onInactive() {
     }
+    /**
+     * ノードのフレーム毎の判定事前処理(自ツリー) .
+     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
+     * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
+     * processJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
+     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
+     * 無ければ finally() を実行する。<BR>
+     */
+    virtual void preJudge();
+
 
     /**
      * ノードのフレーム毎の判定処理(自ツリー) .
@@ -199,11 +209,6 @@ public:
      * @param   prm_no 何かの番号
      */
     virtual void happen(int prm_no);
-
-    /**
-     * フレーム毎の個別振る舞い処理を実装。(フレームワーク実装用、単体) .
-     */
-    virtual void processPreBehavior() {}
 
     /**
      * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .
@@ -682,7 +687,6 @@ void GgafElement<T>::behave() {
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
-        processPreBehavior(); //フレームワーク用
         processBehavior();    //ユーザー実装用
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
@@ -699,7 +703,7 @@ void GgafElement<T>::behave() {
 }
 
 template<class T>
-void GgafElement<T>::judge() {
+void GgafElement<T>::preJudge() {
     if(_was_initialize_flg == false) {
         initialize();
         _was_initialize_flg = true;
@@ -708,6 +712,30 @@ void GgafElement<T>::judge() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         _frame_relative = 0;
         processPreJudgement(); //フレームワーク用
+        if (SUPER::_pSubFirst != NULL) {
+            T* pElementTemp = SUPER::_pSubFirst;
+            while(true) {
+                pElementTemp->preJudge();
+                if (pElementTemp->_is_last_flg) {
+                    break;
+                } else {
+                    pElementTemp = pElementTemp->SUPER::_pNext;
+                }
+            }
+        }
+    }
+}
+
+
+template<class T>
+void GgafElement<T>::judge() {
+    if(_was_initialize_flg == false) {
+        initialize();
+        _was_initialize_flg = true;
+    }
+
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _frame_relative = 0;
         processJudgement();    //ユーザー実装用
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;

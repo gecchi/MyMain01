@@ -28,6 +28,30 @@ public:
             if (*s1++ == 0) return (0);
         return (*s1 - *(s2 - 1));
     }
+
+    /*  */
+
+    /**
+     * 10進数-->2進数変換関数
+     * @param DecimalNumber
+     * @param BinaryString 2進数文字列化  char[33]  [out]
+     */
+    static void strbin(unsigned long int DecimalNumber, char* BinaryString, int bitnum = 32){
+        /* 10進数-->2進数変換 */
+        int i, k;
+        for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
+            if ((DecimalNumber >> i) & 1) BinaryString[k] = '1';
+            else BinaryString[k] = '0';
+        }
+        BinaryString[i] = '\0';
+
+        /* 変換結果の例00011001における、上位桁の000を削除する処理 */
+//        for (i = 0; i < BITS_DIGIT; i++) {
+//            if (BinaryString[0] == '0') memmove(BinaryString, BinaryString + 1, BITS_DIGIT);
+//            else break;
+//        }
+    }
+
 };
 
 }

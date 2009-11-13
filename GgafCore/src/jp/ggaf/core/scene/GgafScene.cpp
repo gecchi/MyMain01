@@ -40,6 +40,12 @@ void GgafScene::behave() {
     _pLordActor->behave();
 }
 
+void GgafScene::preJudge() {
+    TRACE("GgafScene::preJudge() " << getName());
+    GgafElement<GgafScene>::preJudge();
+    _pLordActor->preJudge();
+}
+
 void GgafScene::judge() {
     TRACE("GgafScene::judge() " << getName());
     GgafElement<GgafScene>::judge();

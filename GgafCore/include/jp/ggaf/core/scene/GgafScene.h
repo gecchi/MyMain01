@@ -182,6 +182,7 @@ public:
 
     virtual void nextFrame();
     virtual void behave();
+    virtual void preJudge();
     virtual void judge();
     virtual void preDraw();
     virtual void draw();
