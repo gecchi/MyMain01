@@ -59,7 +59,14 @@ void GgafDx9GeometricActor::processPreJudgement() {
         _offscreenkind = -1;
     }
     if (_pChecker) {
+        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+            _TRACE_(" GgafDx9GeometricActor::processPreJudgement() updateHitArea() befor");
+        }
         _pChecker->updateHitArea();
+        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+            _TRACE_(" GgafDx9GeometricActor::processPreJudgement() updateHitArea() after");
+        }
+
     }
 }
 
