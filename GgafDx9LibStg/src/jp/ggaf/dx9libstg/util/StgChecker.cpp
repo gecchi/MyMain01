@@ -150,7 +150,7 @@ void StgChecker::updateHitArea() {
             }
 
         }
-		_pElem->_kindbit = _pActor->_pHeadActor->_kind;
+        _pElem->_kindbit = _pActor->_pHeadActor->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
                                            _pActor->_Y + _Y1,
                                            _pActor->_Z + _Z1,
@@ -159,13 +159,15 @@ void StgChecker::updateHitArea() {
                                            _pActor->_Z + _Z2);
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_("registElem("<<(_pActor->getName())<<")=("<<
+            _TRACE_("  StgChecker::updateHitArea()  registElem("<<(_pActor->getName())<<")=("<<
                                              (_pActor->_X + _X1)<<","<<
                                              (_pActor->_Y + _Y1)<<","<<
                                              (_pActor->_Z + _Z1)<<","<<
                                              (_pActor->_X + _X2)<<","<<
                                              (_pActor->_Y + _Y2)<<","<<
                                              (_pActor->_Z + _Z2)<<")");
+            _pLinearOctree->putTree();
+
         }
 
     } else {

@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
     _class_name = "DefaultUniverse";
-    _pLinearOctree = NEW LinearOctreeForActor(6);
+    _pLinearOctree = NEW LinearOctreeForActor(0);
     _pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
 //
 //
@@ -30,10 +30,16 @@ void DefaultUniverse::nextFrame() {
 
 void DefaultUniverse::processFinal() {
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _TRACE_(" DefaultUniverse::processFinal() befor");
         _pLinearOctree->putTree();
     }
-    _pLinearOctree->clearElem();
 
+
+    _pLinearOctree->clearElem();
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _TRACE_(" DefaultUniverse::processFinal() _pLinearOctree->clearElem(); after");
+        _pLinearOctree->putTree();
+    }
 
     //ルートシーンを更新
     float x1,y1,z1,x2,y2,z2;

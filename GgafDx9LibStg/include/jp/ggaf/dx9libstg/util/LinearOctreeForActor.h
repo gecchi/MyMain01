@@ -15,72 +15,85 @@ public:
     };
 
 
-    class CollisionList {
+    class CollisionStack {
     public:
         class Elem {
         public:
             /** ŽŸ—v‘f */
             Elem* _pNext;
-            /** ‘O—v‘f */
-            Elem* _pPrev;
             /** ’l */
             GgafCore::GgafActor* _pValue;
 
             Elem(GgafCore::GgafActor* prm_pActor) {
                 _pValue = prm_pActor;
                 _pNext = NULL;
-                _pPrev = NULL;
             }
 
             ~Elem() {}
         };
 
+        /** æ“ª—v‘f */
         Elem* _pFirst;
-        Elem* _pLast;
-        CollisionList() {
+        CollisionStack() {
             _pFirst = NULL;
-            _pLast = NULL;
         }
 
         void push(GgafCore::GgafActor* prm_pActor) {
             Elem* pNew = NEW Elem(prm_pActor);
-            if (_pFirst) {
-                _pLast->_pNext = pNew;
-                pNew->_pPrev = _pLast;
-            } else {
+            if (_pFirst == NULL) {
+                //Å‰‚Ìˆê‚Â–Ú
                 _pFirst = pNew;
-                _pLast = _pFirst;
+                pNew->_pNext = NULL; //‡@
+            } else {
+                //‚Q‚Â–ÚˆÈ~
+                Elem* pFirst_temp = _pFirst;
+                _pFirst = pNew;
+                pNew->_pNext = _pFirst;
             }
         }
         GgafCore::GgafActor* pop() {
-            if (_pFirst) {
-                Elem* pRet = _pLast;
-                GgafCore::GgafActor* pVal = pRet->_pValue; //”O‚Ì‚½‚ß
-                _pLast->_pPrev->_pNext = NULL;
-                _pLast = _pLast ->_pPrev;
-                delete pRet;
-                return pVal;
-            } else {
+            if (_pFirst == NULL) {
+                //‰½‚à–³‚¢ê‡
                 return NULL;
+            } else {
+                //‚ ‚éê‡
+                Elem* pFirst_temp = _pFirst;
+                _pFirst = _pFirst->_pNext; //ÅŒã‚Ì‚P‚Â‚Ìê‡‚Å‚àA‡@‚É‚æ‚èA‚±‚±‚ÅNULL‚ª“ü‚é
+                GgafCore::GgafActor* pRetVal = pFirst_temp->_pValue;
+                delete pFirst_temp;
+                return pRetVal;
             }
         }
 
-        ~CollisionList() {}
+        void clear() {
+            Elem* pElem = _pFirst;
+            while(true) {
+                if (pElem == NULL) {
+                    break;
+                }
+                Elem* pTemp = pElem;
+                pElem = pElem -> _pNext;
+                delete pTemp;
+            }
+            _pFirst = NULL;
+        }
+
+        ~CollisionStack() {
+            clear();
+        }
     };
 
 
-    CollisionList _listTreeGroupA;
-    CollisionList _listTreeGroupB;
+    CollisionStack _stackParentSpaceActor_GroupA;
+    CollisionStack _stackParentSpaceActor_GroupB;
 
-    CollisionList _listGroupA;
-    CollisionList _listGroupB;
+    CollisionStack _stackCurrentSpaceActor_GroupA;
+    CollisionStack _stackCurrentSpaceActor_GroupB;
 
     actorkind _kind_groupA;
     actorkind _kind_groupB;
 
-    void executeBumpChk_RoundRobin(CollisionList* prm_pListA, CollisionList* prm_pListB);
-	void executeBumpChk_RoundRobin2(CollisionList* prm_pListA, CollisionList* prm_pListB,
-                                                     int& add_num_GroupA, int& add_num_GroupB);
+    void executeBumpChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
 
 //    class KindMap {
 //    public:
