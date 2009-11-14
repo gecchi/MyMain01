@@ -32,7 +32,7 @@
 //#include <crtdbg.h>
 
 //俺デ
-#define OREDEBUG 1
+//#define OREDEBUG 1
 
 
 #ifdef OREDEBUG
@@ -97,8 +97,11 @@
     #define TRACE2(X)
     #define TRACE3(X)
     #define TRACE4(X)
+    #define TRACE5(X)
+    #define TEXT5(X)
     //ダンプ出力用
     #define _TRACE_(X)
+	#define _TEXT_(X)
     //デバッグ用
     #define _TRACEORE(X)
 
