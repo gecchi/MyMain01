@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
-    TRACE("GgafActor::GgafActor("<<prm_name<<")");
+    _TRACE_("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
     _pStatus = NULL;
     _pScene_Platform = NULL;
