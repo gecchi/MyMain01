@@ -101,20 +101,13 @@ void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
 
-    //TODO:ボトルネックもいいところ
-    //なんとかしなければ
+
     if (_lifeframe >= 120) {
         StgChecker::_num_check = 0;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
             StgChecker::_pLinearOctree->putTree();
         }
-
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
-//                 KIND_ENEMY_BODY ,
-//                 KIND_MY_BODY
-//               );
-
 
 
         StgChecker::_pLinearOctree->executeAllBumpChk(
@@ -144,6 +137,10 @@ void GameScene::processJudgement() {
                 KIND_MY_SHOT_GU
               );
 
+
+        //ボトルネックもいいところ
+        //なんとかしなければ
+        //昔の相当たり法
 //
 //        executeBumpChkHeadActors(
 //          KIND_CHIKEI,
