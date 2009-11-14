@@ -5,9 +5,9 @@ using namespace GgafCore;
 int main() {
     GgafLinearOctree* pTree =  NEW GgafLinearOctree(0);
     pTree->setRootSpace(-8000 ,-8000 ,-8000 ,8000 ,8000 ,8000);
-    GgafLinearOctree::Elem* pElem1 = NEW GgafLinearOctree::Elem(NEW GgafObject(), 1);
-    GgafLinearOctree::Elem* pElem2 = NEW GgafLinearOctree::Elem(NEW GgafObject(), 2);
-    GgafLinearOctree::Elem* pElem3 = NEW GgafLinearOctree::Elem(NEW GgafObject(), 4);
+    GgafLinearOctreeElem* pElem1 = NEW GgafLinearOctreeElem(NEW GgafObject(), 1);
+    GgafLinearOctreeElem* pElem2 = NEW GgafLinearOctreeElem(NEW GgafObject(), 2);
+    GgafLinearOctreeElem* pElem3 = NEW GgafLinearOctreeElem(NEW GgafObject(), 4);
     //pTree->registElem(pElem1, 10 ,10 ,10, 41 ,51 ,61);
     pTree->registElem(pElem2, -7999 ,-7999 ,-7999, -7000 ,-7000 ,-7000);
     pTree->registElem(pElem3, 5000 ,-7000 ,3000, 5000 ,-7000 ,3000);

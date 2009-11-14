@@ -6,75 +6,33 @@ class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 
 public:
 
-    class ElemEx : public GgafLinearOctree::Elem {
-    public:
-        GgafCore::GgafActor* _pActor;
-        ElemEx(GgafCore::GgafObject* prm_pObject, DWORD prm_kindbit) : GgafLinearOctree::Elem(prm_pObject,prm_kindbit) {
-            _pActor = (GgafCore::GgafActor*)prm_pObject;
-        }
-    };
 
 
     class CollisionStack {
     public:
-        class Elem {
-        public:
-            /** ŽŸ—v‘f */
-            Elem* _pNext;
-            /** ’l */
-            GgafCore::GgafActor* _pValue;
 
-            Elem(GgafCore::GgafActor* prm_pActor) {
-                _pValue = prm_pActor;
-                _pNext = NULL;
-            }
+        GgafCore::GgafActor* _apActor[5000];
+        DWORD _p;
 
-            ~Elem() {}
-        };
-
-        /** æ“ª—v‘f */
-        Elem* _pFirst;
         CollisionStack() {
-            _pFirst = NULL;
+            _p = 0;
         }
 
         void push(GgafCore::GgafActor* prm_pActor) {
-            Elem* pNew = NEW Elem(prm_pActor);
-            if (_pFirst == NULL) {
-                //Å‰‚Ìˆê‚Â–Ú
-                pNew->_pNext = NULL; //‡@
-                _pFirst = pNew;
-            } else {
-                //‚Q‚Â–ÚˆÈ~
-                pNew->_pNext = _pFirst;
-                _pFirst = pNew;
-            }
+            _apActor[_p] = prm_pActor;
+            _p++;
         }
         GgafCore::GgafActor* pop() {
-            if (_pFirst == NULL) {
-                //‰½‚à–³‚¢ê‡
+            if (_p == 0) {
                 return NULL;
             } else {
-                //‚ ‚éê‡
-                Elem* pFirst_temp = _pFirst;
-                _pFirst = _pFirst->_pNext; //ÅŒã‚Ì‚P‚Â‚Ìê‡‚Å‚àA‡@‚É‚æ‚èA‚±‚±‚ÅNULL‚ª“ü‚é
-                GgafCore::GgafActor* pRetVal = pFirst_temp->_pValue;
-                delete pFirst_temp;
-                return pRetVal;
+                _p--;
+                return _apActor[_p];
             }
         }
 
         void clear() {
-            Elem* pElem = _pFirst;
-            while(true) {
-                if (pElem == NULL) {
-                    break;
-                }
-                Elem* pTemp = pElem;
-                pElem = pElem -> _pNext;
-                delete pTemp;
-            }
-            _pFirst = NULL;
+            _p = 0;
         }
 
         ~CollisionStack() {
@@ -83,16 +41,10 @@ public:
 
         void dump() {
             TEXT5("CollisionStack.dump=");
-            Elem* pElem = _pFirst;
-            while(true) {
-                if (pElem == NULL) {
-                    TEXT5("END");
-                    break;
-                }
-                TEXT5((pElem->_pValue->getName())<<"->");
-                pElem = pElem -> _pNext;
+            for (int i = 0; i < _p; i++) {
+                TEXT5((_apActor[i]->getName())<<"->");
             }
-
+            TEXT5("END");
         }
     };
 
@@ -132,7 +84,7 @@ public:
 //
 //    };
 
-    void executeBumpChk(int prm_index);
+    void executeBumpChk(DWORD prm_index);
 
     void executeAllBumpChk(actorkind prm_groupA, actorkind prm_groupB);
 
@@ -143,6 +95,10 @@ public:
 
     virtual ~LinearOctreeForActor();
 };
+
+
+
+
 
 }
 #endif /*LINEAROCTREEFORACTOR_H_*/

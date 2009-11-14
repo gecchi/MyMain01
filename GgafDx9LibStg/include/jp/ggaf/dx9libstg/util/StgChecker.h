@@ -15,7 +15,7 @@ public:
     static LinearOctreeForActor* _pLinearOctree;
 
 
-	LinearOctreeForActor::ElemEx* _pElem;
+    LOFA_Elem* _pElem;
 
     static int _num_check;
 

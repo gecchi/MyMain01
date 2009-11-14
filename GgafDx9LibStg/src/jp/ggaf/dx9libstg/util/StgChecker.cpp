@@ -17,7 +17,7 @@ StgChecker::StgChecker(GgafDx9GeometricActor* prm_pActor) : GgafDx9Checker(prm_p
     if (StgChecker::_pLinearOctree == NULL) {
         StgChecker::_pLinearOctree  = ((DefaultUniverse*)(GgafGod::_pGod->_pUniverse))->_pLinearOctree;
     }
-    _pElem = new LinearOctreeForActor::ElemEx(prm_pActor, 0);
+    _pElem = new LOFA_Elem(prm_pActor, 0);
 }
 
 void StgChecker::useHitAreaBoxNum(int n) {

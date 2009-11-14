@@ -68,71 +68,11 @@ namespace GgafCore {
 class GgafLinearOctree {
 
 public:
-    class Elem;
-
-    /**
-     * 空間クラス .
-     */
-    class Space {
-    public:
-        /** 要素の先頭 */
-        int _my_index;
-        /** 所属してる要素の種別情報 */
-        DWORD _kindinfobit;
-        Elem* _pElemFirst;
-        Elem* _pElemLast;
-        Space();
-        void dump();
-        virtual ~Space();
-    };
-
-    /**
-     * 空間要素クラス .
-     */
-    class Elem {
-    public:
-        /** 所属ツリー */
-        GgafLinearOctree* _pLinearOctree;
-        /** 所属空間 */
-        Space* _pSpace_Current;
-        /** 次要素 */
-        Elem* _pNext;
-        /** 前要素 */
-        Elem* _pPrev;
-        /** 対象オブジェクト */
-        GgafObject* _pObject;
-        /** 対象オブジェクト種別 */
-        DWORD _kindbit;
-        /** 登録リスト用リンク */
-        Elem* _pRegLinkNext;
-
-        Elem(GgafObject* prm_pObject, DWORD prm_kindbit);
-
-        /**
-         * 自身が自ら離脱
-         */
-        void extract();
-
-        /**
-         * 自身が自ら空間の末尾に追加
-         */
-        void addElem(Space* prm_pSpace_target);
-
-        /**
-         * 自身が自ら他空間へ移動
-         * extract()してaddElem()します.
-         * @param prm_pSpace_target
-         */
-        //void moveToSpace(Space* prm_pSpace_target);
-        void dump();
-
-        virtual ~Elem();
-    };
 
     /** 8分木の空間を意味する線形配列 */
-    Space* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
+    GgafLinearOctreeSpace* _paSpace; //_paSpace[0] は ROOT空間へのポインタ
     /**s     */
-    Elem* _pRegElemFirst;
+    GgafLinearOctreeElem* _pRegElemFirst;
     /** root空間の対角の頂点となるx座標の小さい方 */
     int _root_X1;
     /** root空間の対角の頂点となるy座標の小さい方 */
@@ -185,7 +125,7 @@ public:
      * @param prm_Y 要素対象オブジェクトのY座標
      * @param prm_Z 要素対象オブジェクトのZ座標
      */
-    virtual void registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+    virtual void registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
 
     virtual void clearElem();

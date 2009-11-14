@@ -27,10 +27,9 @@ class ActorDispatcher;
 //class FontSpriteString;
 class CubeEx;
 class HitAreaBoxs;
-class StgChecker;
 class LinearOctreeForActor;
-
-
+class LOFA_Elem;
+class StgChecker;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
@@ -57,6 +56,7 @@ class LinearOctreeForActor;
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
+#include "jp/ggaf/dx9libstg/util/LOFA_Elem.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
 
 

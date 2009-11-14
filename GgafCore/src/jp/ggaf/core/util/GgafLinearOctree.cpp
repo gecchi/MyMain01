@@ -3,154 +3,6 @@ using namespace std;
 using namespace GgafCore;
 
 
-
-////// GgafLinearOctree::Space //////
-
-GgafLinearOctree::Space::Space() {
-    _pElemFirst = NULL;
-    _pElemLast = NULL;
-    _my_index = 0;
-    _kindinfobit = 0;
-}
-
-void GgafLinearOctree::Space::dump() {
-    if (_pElemFirst == NULL) {
-        _TEXT_("x");
-    } else {
-        Elem* pElem = _pElemFirst;
-        while (true) {
-            pElem->dump();
-
-            if (pElem == _pElemLast) {
-                break;
-            }
-            pElem = pElem -> _pNext;
-        }
-    }
-}
-GgafLinearOctree::Space::~Space() {
-}
-
-
-////// GgafLinearOctree::Elem //////
-
-GgafLinearOctree::Elem::Elem(GgafObject* prm_pObject, DWORD prm_kindbit) {
-    _pSpace_Current = NULL;
-    _pNext = NULL;
-    _pPrev = NULL;
-    _pObject = prm_pObject;
-    _kindbit = prm_kindbit;
-    _pLinearOctree = NULL;
-    _pRegLinkNext = NULL;
-}
-
-void GgafLinearOctree::Elem::extract() {
-    if(_pSpace_Current == NULL) {
-        //_TRACE_("GgafLinearOctree::Elem::extract() できません。意図してますか？");
-        return;
-    }
-    //情報リセット
-    int index = _pSpace_Current->_my_index;
-    while(true) {
-        //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
-        //基本ツリーは、登録と、クリア飲み行うという設計
-        _pLinearOctree->_paSpace[index]._kindinfobit = 0;
-        _pLinearOctree->_paSpace[index]._pElemFirst = NULL;
-        _pLinearOctree->_paSpace[index]._pElemLast = NULL;
-
-        if (index == 0) {
-            break;
-        }
-        // 親空間要素番号で繰り返す
-        index = (index-1)>>3;
-    }
-    _pNext = NULL;
-    _pPrev = NULL;
-    _pSpace_Current = NULL;
-
-//    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
-//        //先頭かつ末尾の場合
-//        _pSpace_Current->_pElemFirst = NULL;
-//        _pSpace_Current->_pElemLast = NULL;
-//        _pSpace_Current = NULL;
-//    } else if (this == _pSpace_Current->_pElemFirst) {
-//        //先頭だった場合
-//        _pSpace_Current->_pElemFirst = _pNext;
-//        _pSpace_Current->_pElemFirst->_pPrev = NULL;
-//        _pNext = NULL;
-//        _pSpace_Current = NULL;
-//    } else if (this == _pSpace_Current->_pElemLast) {
-//        //末尾だった場合
-//        _pSpace_Current->_pElemLast = _pPrev;
-//        _pSpace_Current->_pElemLast->_pNext = NULL;
-//        _pPrev = NULL;
-//        _pSpace_Current = NULL;
-//    } else {
-//        //中間だった場合
-//        _pPrev->_pNext = _pNext;
-//        _pNext->_pPrev = _pPrev;
-//        _pNext = NULL;
-//        _pPrev = NULL;
-//        _pSpace_Current = NULL;
-//    }
-}
-
-void GgafLinearOctree::Elem::addElem(Space* prm_pSpace_target) {
-    if (_pSpace_Current == prm_pSpace_target) {
-        //_TRACE_("addElemせんでいい");
-        return;
-    } else {
-        if (prm_pSpace_target->_pElemFirst == NULL) {
-            //１番目に追加の場合
-            prm_pSpace_target->_pElemFirst = this;
-            prm_pSpace_target->_pElemLast = this;
-            _pNext = NULL;
-            _pPrev = NULL;
-            _pSpace_Current = prm_pSpace_target;
-        } else {
-            //末尾に追加の場合
-            prm_pSpace_target->_pElemLast->_pNext = this;
-            _pPrev = prm_pSpace_target->_pElemLast;
-            _pNext = NULL;
-            prm_pSpace_target->_pElemLast = this;
-            _pSpace_Current = prm_pSpace_target;
-        }
-    }
-    //引数の要素番号
-    int index = prm_pSpace_target->_my_index;
-    //親空間すべてに要素種別情報を流す
-    while(true) {
-        _pLinearOctree->_paSpace[index]._kindinfobit =
-                _pLinearOctree->_paSpace[index]._kindinfobit | this->_kindbit;
-        if (index == 0) {
-            break;
-        }
-        //一つ上の親空間要素番号で繰り返す
-        index = (index-1)>>3;
-    }
-}
-
-//void GgafLinearOctree::Elem::moveToSpace(Space* prm_pSpace_target) {
-//    if (prm_pSpace_target == _pSpace_Current) {
-//        return; //移動せんでいい
-//    } else {
-//        if(_pSpace_Current) {
-//            extract(); //抜けますよ
-//        }
-//        addElem(prm_pSpace_target); //入りますよ
-//        return;
-//    }
-//}
-
-void GgafLinearOctree::Elem::dump() {
-    _TEXT_("o");
-}
-
-GgafLinearOctree::Elem::~Elem() {
-}
-
-////// GgafLinearOctree //////
-
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
     //べき乗作成
@@ -162,7 +14,7 @@ GgafLinearOctree::GgafLinearOctree(int prm_level) {
     //線形８分木配列作成
     _num_space = (_paPow[_top_space_level+1] -1) / 7; //空間数
     _TRACE_("_num_space="<<_num_space);
-    _paSpace = NEW Space[_num_space];
+    _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (DWORD i = 0; i < _num_space; i++) {
         _paSpace[i]._my_index = i;
     }
@@ -182,7 +34,7 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
     _top_level_dZ = (_root_Z2-_root_Z1) / ((float)(1<<_top_space_level));
 }
 
-void GgafLinearOctree::registElem(Elem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
     if (prm_pElem->_pSpace_Current == NULL) {
         //登録Elemリストに追加
         if (_pRegElemFirst == NULL) {
@@ -215,7 +67,7 @@ void GgafLinearOctree::clearElem() {
     if (_pRegElemFirst == NULL) {
         return;
     }
-    Elem* pElem = _pRegElemFirst;
+    GgafLinearOctreeElem* pElem = _pRegElemFirst;
     while(true) {
 
         pElem->extract();
@@ -392,7 +244,7 @@ void GgafLinearOctree::putTree() {
         _TRACE_("8分木に何も無し！");
     } else {
         GgafUtil::strbin(_paSpace[LV0]._kindinfobit, aChar_strbit);
-        _TEXT_("LV0."<<lv0_order_num<<"(POS:"<<lv0_order_pos<<")["<<LV0<<"]="<<aChar_strbit<<" /Elem->");
+        _TEXT_("LV0."<<lv0_order_num<<"(POS:"<<lv0_order_pos<<")["<<LV0<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
         _paSpace[LV0].dump();
         _TEXT_("\n");
     }
@@ -403,7 +255,7 @@ void GgafLinearOctree::putTree() {
     for (int LV1 = index_lv1_begin, lv1_order_pos = 0; LV1 < index_lv1_begin+8; LV1++, lv1_order_num++, lv1_order_pos++) {
         if (_paSpace[LV1]._kindinfobit == 0) { continue; }
         GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-        _TEXT_("  LV1-"<<lv1_order_num<<"(POS:"<<lv1_order_pos<<")["<<LV1<<"]="<<aChar_strbit<<" /Elem->");
+        _TEXT_("  LV1-"<<lv1_order_num<<"(POS:"<<lv1_order_pos<<")["<<LV1<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
         _paSpace[LV1].dump();
         _TEXT_("\n");
         ////
@@ -413,7 +265,7 @@ void GgafLinearOctree::putTree() {
         for (int LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+8; LV2++, lv2_order_num++, lv2_order_pos++) {
             if (_paSpace[LV2]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-            _TEXT_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /Elem->");
+            _TEXT_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
             _paSpace[LV2].dump();
             _TEXT_("\n");
             ///
@@ -422,7 +274,7 @@ void GgafLinearOctree::putTree() {
             for (int LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+8; LV3++, lv3_order_num++, lv3_order_pos++) {
                 if (_paSpace[LV3]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                _TEXT_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /Elem->");
+                _TEXT_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                 _paSpace[LV3].dump();
                 _TEXT_("\n");
                 ///
@@ -431,7 +283,7 @@ void GgafLinearOctree::putTree() {
                 for (int LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+8; LV4++, lv4_order_num++, lv4_order_pos++) {
                     if (_paSpace[LV4]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                    _TEXT_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /Elem->");
+                    _TEXT_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                     _paSpace[LV4].dump();
                     _TEXT_("\n");
                     ///
@@ -440,7 +292,7 @@ void GgafLinearOctree::putTree() {
                     for (int LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+8; LV5++, lv5_order_num++, lv5_order_pos++) {
                         if (_paSpace[LV5]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                         GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                        _TEXT_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /Elem->");
+                        _TEXT_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                         _paSpace[LV5].dump();
                         _TEXT_("\n");
                         ///
@@ -449,7 +301,7 @@ void GgafLinearOctree::putTree() {
                         for (int LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+8; LV6++, lv6_order_num++, lv6_order_pos++) {
                             if (_paSpace[LV6]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                            _TEXT_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /Elem->");
+                            _TEXT_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                             _paSpace[LV6].dump();
                             _TEXT_("\n");
                             ///
@@ -458,7 +310,7 @@ void GgafLinearOctree::putTree() {
                             for (int LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+8; LV7++, lv7_order_num++, lv7_order_pos++) {
                                 if (_paSpace[LV7]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                                _TEXT_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /Elem->");
+                                _TEXT_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                 _paSpace[LV7].dump();
                                 _TEXT_("\n");
                                 ///
@@ -467,7 +319,7 @@ void GgafLinearOctree::putTree() {
                                 for (int LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+8; LV8++, lv8_order_num++, lv8_order_pos++) {
                                     if (_paSpace[LV8]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
-                                    _TEXT_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /Elem->");
+                                    _TEXT_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                     _paSpace[LV8].dump();
                                     _TEXT_("\n");
                                 }

@@ -57,7 +57,7 @@
 
     //‚W•ª–ØŠÖ˜A
     //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
-	//#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
 
     #define TRACE5(X)
     #define TEXT5(X)
@@ -167,7 +167,11 @@ class GgafOrder;
 
 class GgafProperties;
 
-class LinearOctree;
+class GgafLinearOctree;
+class GgafLinearOctreeSpace;
+class GgafLinearOctreeElem;
+
+
 }
 
 #include "jp/ggaf/core/util/GgafUtil.h"
@@ -201,5 +205,9 @@ class LinearOctree;
 #include "jp/ggaf/core/actor/GgafHeadActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
+#include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
+
+
 
 #endif /*GGAFCOMMONHEADER_H_*/
