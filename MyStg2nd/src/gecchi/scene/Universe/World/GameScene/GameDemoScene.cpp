@@ -37,10 +37,12 @@ void GameDemoScene::processBehavior() {
         //自機表示
         GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
 
+        //TODO:kesu
+        //テスト
         EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(1111);
-        pActor->_X = 40000;
+        pActor->_X = 400000;
         pActor->_Y = 40000;
-        pActor->_Z = 0;
+        pActor->_Z = 40000;
         getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
 
 

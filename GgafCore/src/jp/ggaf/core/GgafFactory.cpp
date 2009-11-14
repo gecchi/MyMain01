@@ -207,7 +207,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
              ___EndSynchronized; // <----- îrëºèIóπ
                 if (GgafGod::_pGod->_fps > 52.0) {
                     TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB1");
-                    _pGarbageBox->cleane(2); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+                    _pGarbageBox->cleane(10); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
                     _cnt_cleaned = 0;
                     Sleep(2);
                 }
@@ -223,7 +223,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                  ___EndSynchronized; // <----- îrëºèIóπ
                     if (GgafGod::_pGod->_fps > 52) {
                         TRACE2("GgafFactory::work ÅÉçHèÍÅÑ ê_Ç≥ÇÒÇ‡ó]óTÇ†ÇÈÇµÅAâ…Ç»ÇÃÇ≈ÉSÉ~î†ë|èúÇ≈Ç‡Ç‚Ç¡Ç∆Ç´Ç‹Ç∑ÅB2");
-                        _pGarbageBox->cleane(2); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
+                        _pGarbageBox->cleane(10); //â…Ç»ÇÃÇ≈ÅAÉSÉ~î†ë|èú
                         _cnt_cleaned = 0;
                         Sleep(2);
                     }

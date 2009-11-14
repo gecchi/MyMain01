@@ -171,90 +171,90 @@ public:
         }
     }
 
-    inline void executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent) {
-        executeBumpChk_MeAnd(prm_pActor_Opponent);
-        if (_pSubFirst != NULL) {
-            _pActor_tmp3 = _pSubFirst;
-            while (true) {
-                _pActor_tmp3->executeBumpChk_WeAnd(prm_pActor_Opponent);
-                if (_pActor_tmp3->_is_last_flg) {
-                    break;
-                } else {
-                    _pActor_tmp3 = _pActor_tmp3->_pNext;
-                }
-            }
-        }
-    }
-
-    inline void executeBumpChk_RoundRobin(GgafActor* prm_pActor_Opponent) {
-        executeBumpChk_WeAnd(prm_pActor_Opponent);
-        if (prm_pActor_Opponent->_pSubFirst != NULL) {
-            GgafActor* _pActor_tmpZ = prm_pActor_Opponent->_pSubFirst;
-            while (true) {
-                executeBumpChk_RoundRobin(_pActor_tmpZ);
-                if (_pActor_tmpZ->_is_last_flg) {
-                    break;
-                } else {
-                    _pActor_tmpZ = _pActor_tmpZ->_pNext;
-                }
-            }
-        }
-    }
-
-    inline bool executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent) {
-        if (prm_pActor_Opponent == this) {
-            return true;
-        } else {
-            if (_can_bump_flg && prm_pActor_Opponent->_can_bump_flg && _can_live_flg && prm_pActor_Opponent->_can_live_flg && _is_active_flg
-                    && prm_pActor_Opponent->_is_active_flg) {
-                if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
-                    processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
-                    prm_pActor_Opponent->processOnHit(this); //相手のヒット時の振る舞い
-                }
-            }
-            return false;
-        }
-    }
-
-    inline bool executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
-        bool ret1 = executeBumpChk2_MeAnd(prm_pActor_Opponent);
-        bool ret2;
-        if (ret1) {
-            return true;
-        } else {
-            if (_pSubFirst != NULL) {
-                _pActor_tmp4 = _pSubFirst;
-                while (true) {
-                    ret2 = _pActor_tmp4->executeBumpChk2_WeAnd(prm_pActor_Opponent);
-                    if (ret2) {
-                        return true;
-                    } else {
-                        if (_pActor_tmp4->_is_last_flg) {
-                            break;
-                        } else {
-                            _pActor_tmp4 = _pActor_tmp4->_pNext;
-                        }
-                    }
-                }
-            }
-            return false;
-        }
-    }
-
-    inline void executeBumpChk_RoundRobin2(GgafActor* prm_pActor_Opponent) {
-        executeBumpChk2_WeAnd(prm_pActor_Opponent);
-        if (prm_pActor_Opponent->_pSubFirst != NULL) {
-            GgafActor* pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
-            while (true) {
-                executeBumpChk_RoundRobin2(pActor_tmpZ2);
-                if (pActor_tmpZ2->_is_last_flg) {
-                    break;
-                } else {
-                    pActor_tmpZ2 = pActor_tmpZ2->_pNext;
-                }
-            }
-        }
-    }
+//    inline void executeBumpChk_WeAnd(GgafActor* prm_pActor_Opponent) {
+//        executeBumpChk_MeAnd(prm_pActor_Opponent);
+//        if (_pSubFirst != NULL) {
+//            _pActor_tmp3 = _pSubFirst;
+//            while (true) {
+//                _pActor_tmp3->executeBumpChk_WeAnd(prm_pActor_Opponent);
+//                if (_pActor_tmp3->_is_last_flg) {
+//                    break;
+//                } else {
+//                    _pActor_tmp3 = _pActor_tmp3->_pNext;
+//                }
+//            }
+//        }
+//    }
+//
+//    inline void executeBumpChk_RoundRobin(GgafActor* prm_pActor_Opponent) {
+//        executeBumpChk_WeAnd(prm_pActor_Opponent);
+//        if (prm_pActor_Opponent->_pSubFirst != NULL) {
+//            GgafActor* _pActor_tmpZ = prm_pActor_Opponent->_pSubFirst;
+//            while (true) {
+//                executeBumpChk_RoundRobin(_pActor_tmpZ);
+//                if (_pActor_tmpZ->_is_last_flg) {
+//                    break;
+//                } else {
+//                    _pActor_tmpZ = _pActor_tmpZ->_pNext;
+//                }
+//            }
+//        }
+//    }
+//
+//    inline bool executeBumpChk2_MeAnd(GgafActor* prm_pActor_Opponent) {
+//        if (prm_pActor_Opponent == this) {
+//            return true;
+//        } else {
+//            if (_can_bump_flg && prm_pActor_Opponent->_can_bump_flg && _can_live_flg && prm_pActor_Opponent->_can_live_flg && _is_active_flg
+//                    && prm_pActor_Opponent->_is_active_flg) {
+//                if (processBumpChkLogic(prm_pActor_Opponent)) { //自身のヒットチェック
+//                    processOnHit(prm_pActor_Opponent); //自分のヒット時の振る舞い
+//                    prm_pActor_Opponent->processOnHit(this); //相手のヒット時の振る舞い
+//                }
+//            }
+//            return false;
+//        }
+//    }
+//
+//    inline bool executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent) {
+//        bool ret1 = executeBumpChk2_MeAnd(prm_pActor_Opponent);
+//        bool ret2;
+//        if (ret1) {
+//            return true;
+//        } else {
+//            if (_pSubFirst != NULL) {
+//                _pActor_tmp4 = _pSubFirst;
+//                while (true) {
+//                    ret2 = _pActor_tmp4->executeBumpChk2_WeAnd(prm_pActor_Opponent);
+//                    if (ret2) {
+//                        return true;
+//                    } else {
+//                        if (_pActor_tmp4->_is_last_flg) {
+//                            break;
+//                        } else {
+//                            _pActor_tmp4 = _pActor_tmp4->_pNext;
+//                        }
+//                    }
+//                }
+//            }
+//            return false;
+//        }
+//    }
+//
+//    inline void executeBumpChk_RoundRobin2(GgafActor* prm_pActor_Opponent) {
+//        executeBumpChk2_WeAnd(prm_pActor_Opponent);
+//        if (prm_pActor_Opponent->_pSubFirst != NULL) {
+//            GgafActor* pActor_tmpZ2 = prm_pActor_Opponent->_pSubFirst;
+//            while (true) {
+//                executeBumpChk_RoundRobin2(pActor_tmpZ2);
+//                if (pActor_tmpZ2->_is_last_flg) {
+//                    break;
+//                } else {
+//                    pActor_tmpZ2 = pActor_tmpZ2->_pNext;
+//                }
+//            }
+//        }
+//    }
 
 //
 //    /**

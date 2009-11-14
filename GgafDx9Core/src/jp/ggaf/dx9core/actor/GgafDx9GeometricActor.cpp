@@ -660,7 +660,7 @@ GgafDx9GeometricActor::~GgafDx9GeometricActor() {
 
 
 void GgafDx9GeometricActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
 
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -669,7 +669,7 @@ void GgafDx9GeometricActor::dump() {
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {
@@ -689,7 +689,7 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {

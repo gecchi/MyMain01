@@ -27,7 +27,7 @@ EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "
     //弾ストック作成
     _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
-    for (int i = 0; i < 16; i++) {
+    for (int i = 0; i < 32; i++) {
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
         pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
@@ -227,11 +227,11 @@ void EnemyCeres::processBehavior() {
         //		}
 
 
-        angle way[16];
+        angle way[32];
         //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-        GgafDx9Util::getRadiationAngle2D(0, 16, way);
+        GgafDx9Util::getRadiationAngle2D(0, 32, way);
         EnemyMeshShot001* pTama;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 16; i++) {
             pTama = (EnemyMeshShot001*)_pDispatcher_EnemyMeshShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
@@ -239,7 +239,7 @@ void EnemyCeres::processBehavior() {
                 pTama->activate();
             }
         }
-        for (int i = 8; i < 16; i++) {
+        for (int i = 16; i < 32; i++) {
             pTama = (EnemyMeshShot001*)_pDispatcher_EnemyMeshShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);

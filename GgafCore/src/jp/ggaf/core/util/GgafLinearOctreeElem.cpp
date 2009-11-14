@@ -23,9 +23,13 @@ void GgafLinearOctreeElem::extract() {
     while(true) {
         //一つでもextract()すると情報は崩れることを注意、アプリケーションロジックからextract() は使用しないこと。
         //基本ツリーは、登録と、クリア飲み行うという設計
-        _pLinearOctree->_paSpace[index]._kindinfobit = 0;
-        _pLinearOctree->_paSpace[index]._pElemFirst = NULL;
-        _pLinearOctree->_paSpace[index]._pElemLast = NULL;
+        if (_pLinearOctree->_paSpace[index]._kindinfobit == 0 ) {
+            break;
+        } else {
+            _pLinearOctree->_paSpace[index]._kindinfobit = 0;
+            _pLinearOctree->_paSpace[index]._pElemFirst = NULL;
+            _pLinearOctree->_paSpace[index]._pElemLast = NULL;
+        }
 
         if (index == 0) {
             break;
