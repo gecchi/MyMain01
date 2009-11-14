@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
     _class_name = "DefaultUniverse";
-    _pLinearOctree = NEW LinearOctreeForActor(0);
+    _pLinearOctree = NEW LinearOctreeForActor(6);
     _pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
 //
 //

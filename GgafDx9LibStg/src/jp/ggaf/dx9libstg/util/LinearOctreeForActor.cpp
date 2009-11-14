@@ -47,15 +47,15 @@ void LinearOctreeForActor::executeBumpChk(int prm_index) {
             pActor_ElemValue = ((ElemEx*)pElem)->_pActor;
         }
         //現在の空間のグループAとグループB総当り
-        _TRACE_("1executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);");
+        TRACE5("1executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);");
         executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
 
         //現在の空間のグループAと親空間所属のグループB総当り
-        _TRACE_("2executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );");
+        TRACE5("2executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );");
         executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );
 
         //親空間所属のグループAと現在の空間のグループB総当り
-        _TRACE_("3executeBumpChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);");
+        TRACE5("3executeBumpChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);");
         executeBumpChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
 
@@ -111,7 +111,8 @@ void LinearOctreeForActor::executeBumpChk(int prm_index) {
 }
 
 void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
-
+//    TEXT5("prm_pStackA:"); prm_pStackA->dump(); TEXT5("\n");
+//    TEXT5("prm_pStackB:"); prm_pStackB->dump(); TEXT5("\n");
     //両方無ければ終了
     if (prm_pStackA->_pFirst == NULL || prm_pStackB->_pFirst == NULL ) {
         return;
@@ -119,22 +120,28 @@ void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionStack* prm_pStackA
 
     GgafActor* pActor_A;
     GgafActor* pActor_B;
+    CollisionStack::Elem* pElemA = prm_pStackA->_pFirst;
+    CollisionStack::Elem* pElemB;
     while(true) {
-        pActor_A = prm_pStackA->pop();
-        if (pActor_A == NULL) {
+        if (pElemA == NULL) {
             break; //終了
+        } else {
+            pActor_A = pElemA->_pValue;
         }
+        pElemB = prm_pStackB->_pFirst;
         while(true) {
-            pActor_B = prm_pStackB->pop();
-            if (pActor_B == NULL) {
-                break;
+            if (pElemB == NULL) {
+                break; //終了
+            } else {
+                pActor_B = pElemB->_pValue;
             }
-            _TRACE_("BumpChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
+            TRACE5("BumpChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
             pActor_A->executeBumpChk_MeAnd(pActor_B);
+            pElemB = pElemB->_pNext;
         }
+        pElemA = pElemA->_pNext;
     }
 }
-
 
 
 LinearOctreeForActor::~LinearOctreeForActor() {

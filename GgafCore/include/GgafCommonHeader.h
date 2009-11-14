@@ -55,6 +55,15 @@
     //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE4(X)
 
+    //８分木関連
+    //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+	//#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+
+    #define TRACE5(X)
+    #define TEXT5(X)
+
+
+
     //ダンプ出力用
     #define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     //#define _TRACE_(X)

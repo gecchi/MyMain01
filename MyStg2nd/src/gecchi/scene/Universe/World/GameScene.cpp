@@ -107,14 +107,13 @@ void GameScene::processJudgement() {
         StgChecker::_num_check = 0;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_(" GameScene::processJudgement()  befor");
             StgChecker::_pLinearOctree->putTree();
         }
 
-        StgChecker::_pLinearOctree->executeAllBumpChk(
-                 KIND_ENEMY_BODY ,
-                 KIND_MY_BODY
-               );
+//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//                 KIND_ENEMY_BODY ,
+//                 KIND_MY_BODY
+//               );
 
 //
 //
@@ -122,10 +121,19 @@ void GameScene::processJudgement() {
 //                KIND_CHIKEI,
 //                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //              );
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
-//                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
-//                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
-//              );
+
+
+
+
+        StgChecker::_pLinearOctree->executeAllBumpChk(
+                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
+                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
+              );
+
+
+
+
+
 //        StgChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
 //                KIND_MY_SHOT_NOMAL

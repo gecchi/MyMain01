@@ -42,13 +42,12 @@ public:
             Elem* pNew = NEW Elem(prm_pActor);
             if (_pFirst == NULL) {
                 //Å‰‚Ìˆê‚Â–Ú
-                _pFirst = pNew;
                 pNew->_pNext = NULL; //‡@
+                _pFirst = pNew;
             } else {
                 //‚Q‚Â–ÚˆÈ~
-                Elem* pFirst_temp = _pFirst;
-                _pFirst = pNew;
                 pNew->_pNext = _pFirst;
+                _pFirst = pNew;
             }
         }
         GgafCore::GgafActor* pop() {
@@ -80,6 +79,20 @@ public:
 
         ~CollisionStack() {
             clear();
+        }
+
+        void dump() {
+            TEXT5("CollisionStack.dump=");
+            Elem* pElem = _pFirst;
+            while(true) {
+                if (pElem == NULL) {
+                    TEXT5("END");
+                    break;
+                }
+                TEXT5((pElem->_pValue->getName())<<"->");
+                pElem = pElem -> _pNext;
+            }
+
         }
     };
 
