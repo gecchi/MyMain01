@@ -59,14 +59,7 @@ void GgafDx9GeometricActor::processPreJudgement() {
         _offscreenkind = -1;
     }
     if (_pChecker) {
-        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_(" GgafDx9GeometricActor::processPreJudgement() updateHitArea() befor");
-        }
         _pChecker->updateHitArea();
-        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            _TRACE_(" GgafDx9GeometricActor::processPreJudgement() updateHitArea() after");
-        }
-
     }
 }
 
@@ -681,7 +674,7 @@ void GgafDx9GeometricActor::dump() {
 }
 
 void GgafDx9GeometricActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]("<<_X<<","<<_Y<<","<<_Z<<")@"<<_lifeframe<<","<<_can_bump_flg<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_a_few_frames_flg<<"("<<_frame_of_activation<<")");
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
