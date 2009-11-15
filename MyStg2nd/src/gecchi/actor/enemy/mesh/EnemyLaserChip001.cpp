@@ -23,7 +23,7 @@ void EnemyLaserChip001::initialize() {
 
 void EnemyLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    _pMover->setMoveVelocity(1000);
+    _pMover->setMoveVelocity(3000);
     _pMover->setMoveVeloAcceleration(300);
 }
 
@@ -34,14 +34,14 @@ void EnemyLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 30) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    8000, TURN_ANTICLOSE_TO);
+                    6000, TURN_ANTICLOSE_TO);
     }
 
 
-//    if (_dwActiveFrame == 30) {
+//    if (_dwActiveFrame == 50) {
 //        _pMover->executeTagettingMoveAngleSequence(
 //                    GameGlobal::_pMyShip,
-//                    9000, TURN_ANTICLOSE_TO);
+//                    8000, TURN_CLOSE_TO);
 //    }
 //
 //    if (_dwActiveFrame == 35) {
