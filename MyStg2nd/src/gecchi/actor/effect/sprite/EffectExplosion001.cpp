@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteActor(prm_name, "EffectExplosion001") {
+EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "EffectExplosion001") {
     _class_name = "EffectExplosion001";
 }
 

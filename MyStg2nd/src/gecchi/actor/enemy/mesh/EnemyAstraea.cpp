@@ -7,11 +7,11 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     //レーザーストック
-    _laser_way = 3;
+    _laser_way = 2;
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 12;
+    _laser_length = 20;
     _shot_interval = 120;
     _angveloTurn = 1000;
 
@@ -116,7 +116,7 @@ void EnemyAstraea::processBehavior() {
     /////////////モーフテスト////////////////
 
 
-    _X = _X - 100;
+    _X = _X - 500;
     if (_lifeframe % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);

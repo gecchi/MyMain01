@@ -3,10 +3,14 @@
 namespace MyStg2nd {
 
 //ƒ”ƒFƒXƒ^
-class EnemyVesta : public DefaultMeshEnemyActor {
+class EnemyVesta : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     int _iMovePatternNo;
+
+    int _width_X;
+    int _height_Z;
+    int _depth_Y;
 
     EnemyVesta(const char* prm_name);
 
@@ -18,7 +22,7 @@ public:
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
-    int wasGone();
+
 
     virtual ~EnemyVesta();
 };

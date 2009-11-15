@@ -2,7 +2,7 @@
 #define EFFECTEXPLOSION001_H_
 namespace MyStg2nd {
 
-class EffectExplosion001 : public GgafDx9LibStg::DefaultSpriteActor {
+class EffectExplosion001 : public GgafDx9LibStg::DefaultSpriteSetActor {
 
 public:
     EffectExplosion001(const char* prm_name);

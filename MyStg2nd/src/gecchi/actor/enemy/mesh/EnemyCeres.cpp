@@ -129,7 +129,7 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
-    _pMover->setMoveVelocity(6000);
+    _pMover->setMoveVelocity(8000);
 
 
 
@@ -146,9 +146,9 @@ void EnemyCeres::initialize() {
 void EnemyCeres::processBehavior() {
 
     if (VB::isBeingPressed(VB_UP)) {
-        _pMover->addMoveVelocity(300);
+        _pMover->addMoveVelocity(100);
     } else if (VB::isBeingPressed(VB_DOWN)) {
-        _pMover->addMoveVelocity(-300);
+        _pMover->addMoveVelocity(-100);
     }
 
 

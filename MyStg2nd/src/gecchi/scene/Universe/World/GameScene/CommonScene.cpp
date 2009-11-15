@@ -29,7 +29,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         _pDispatcher_EffectExplosion001 = NEW ActorDispatcher("RotExplo001");
         getLordActor()->accept(KIND_EFFECT, _pDispatcher_EffectExplosion001);
         EffectExplosion001* pEffectExplosion;
-        for (int i = 0; i < 30; i++) { //ストック100個
+        for (int i = 0; i < 512; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
             pEffectExplosion->inactivateTreeImmediately(); //最初非表示
             _pDispatcher_EffectExplosion001->addSubLast(pEffectExplosion);

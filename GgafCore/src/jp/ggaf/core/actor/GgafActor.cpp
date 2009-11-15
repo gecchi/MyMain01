@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
-    _TRACE_("GgafActor::GgafActor("<<this<<") "<<prm_name);
+    TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
     _pStatus = NULL;
     _pScene_Platform = NULL;
@@ -15,7 +15,7 @@ GgafActor::GgafActor(const char* prm_name) :
 }
 
 GgafActor::~GgafActor() {
-    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
+    TRACE("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 }
 
 void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
