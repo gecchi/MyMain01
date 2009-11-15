@@ -50,6 +50,12 @@ void LaserChip::initialize() {
 
 
 void LaserChip::onActive() {
+    _TRACE_("LaserChip::onActive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+            "/_is_active_flg="<<_is_active_flg);
+
+
     _dwActiveFrame = 0;
     //oŒ»
     _chip_kind = 1;
@@ -75,6 +81,12 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::onInactive() {
+    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+            "/_is_active_flg="<<_is_active_flg);
+
+
     //Á¸
     _pDispatcher->_num_chip_active--;
     //‘OŒã‚ÌŒq‚ª‚è‚ğØ’f

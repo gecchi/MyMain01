@@ -62,7 +62,8 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame) {
+            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame || pActor->_on_change_to_inactive_flg) {
+                //今活動中、或いは、次フレーム活動予定、或いは、次フレーム非活動予定の場合は見送る
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;

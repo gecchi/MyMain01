@@ -7,13 +7,13 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     //レーザーストック
-    _laser_way = 2;
+    _laser_way = 1;
     _X = 0;
     _Y = 0;
     _Z = 0;
     _laser_length = 20;
-    _shot_interval = 10;
-    _angveloTurn = 2000;
+    _shot_interval = 1;
+    _angveloTurn = 4000;
 
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
@@ -116,7 +116,7 @@ void EnemyAstraea::processBehavior() {
     /////////////モーフテスト////////////////
 
 
-    _X = _X - 500;
+    _X = _X - 10;
     if (_lifeframe % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
@@ -144,6 +144,10 @@ void EnemyAstraea::processBehavior() {
             for (int j = 0; j < _laser_way; j++) {
                 pLaserChip = (EnemyLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
+                    _TRACE_("Dispatcher employ()!!"<<(pLaserChip->getName())<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+                                                                              "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+                                                                              "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+                                                                              "/_is_active_flg="<<_is_active_flg);
                     pLaserChip->setGeometry(this);
                     pLaserChip->_pMover->setRzRyMoveAngle(_paWayRz[i], _paWayRy[j]);
                     pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];

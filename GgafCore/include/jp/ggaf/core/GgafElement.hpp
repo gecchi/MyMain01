@@ -634,16 +634,16 @@ void GgafElement<T>::nextFrame() {
             }
         }
 
+        _on_change_to_active_flg = false;
+        _on_change_to_inactive_flg = false;
+        if (_is_active_flg && _is_active_flg_in_next_frame == false) {
+            _on_change_to_inactive_flg = true;
+            onInactive(); //コールバック
+        }
         //活動、非活動の状態変化時
         if (_is_active_flg == false && _is_active_flg_in_next_frame) {
             _on_change_to_active_flg = true;
             onActive(); //コールバック
-        } else if (_is_active_flg && _is_active_flg_in_next_frame == false) {
-            _on_change_to_inactive_flg = true;
-            onInactive(); //コールバック
-        } else {
-            _on_change_to_active_flg = false;
-            _on_change_to_inactive_flg = false;
         }
 
         //フラグたちを反映
