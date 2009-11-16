@@ -11,10 +11,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 15;
-    _shot_interval = 180;
+    _laser_length = 12;
+    _shot_interval = 120;
     _angveloTurn = 4000;
-
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {

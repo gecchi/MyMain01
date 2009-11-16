@@ -17,7 +17,7 @@ private:
 
 public:
     /** 弾ストック */
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyMeshShots001;
+    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyCeresShots001;
     /** ActorDispatcherをコンストラクタで生成したか否か */
     bool _createActorDispatcher;
 
@@ -40,10 +40,10 @@ public:
      * コンストラクタ
      * @param prm_name オブジェクト
      * @param prm_model モデル
-     * @param prm_pDispatcher_EnemyMeshShots001 発射弾ストックのアクター発送者
+     * @param prm_pDispatcher_EnemyCeresShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyMeshShots001 = NULL);
+    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyCeresShots001 = NULL);
 
     void initialize();
 

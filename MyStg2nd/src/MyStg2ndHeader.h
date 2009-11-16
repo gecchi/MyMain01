@@ -87,6 +87,7 @@ class EnemyMeshShot001;
 class EnemyLaserChip001;
 
 class EnemyCeres;
+class EnemyCeresShot001;
 class FormationCeres001;
 class FormationCeres002;
 
@@ -166,6 +167,7 @@ class MyFactory;
 #include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/Ceres/EnemyCeres.h"
+#include "gecchi/actor/enemy/Ceres/EnemyCeresShot001.h"
 #include "gecchi/actor/enemy/Ceres/FormationCeres001.h"
 #include "gecchi/actor/enemy/Ceres/FormationCeres002.h"
 #include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
