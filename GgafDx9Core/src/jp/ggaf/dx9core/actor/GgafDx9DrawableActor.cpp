@@ -73,10 +73,10 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     strcat(effelct_name, prm_effect_type);
     strcat(effelct_name, "/");
     strcat(effelct_name, prm_effect_id);
-    // prm_model_id   = "Celes"
+    // prm_model_id   = "Ceres"
     // prm_model_type = "X"
     // ‚Ìê‡Amodel_name ‚Æ‚µ‚Ä
-    // model_name     = "X/Celes"
+    // model_name     = "X/Ceres"
     // ‚Æ‚¢‚¤•¶š—ñ‚ğì¬B
 
     _pNext_TheSameDrawDepthLevel = NULL;
