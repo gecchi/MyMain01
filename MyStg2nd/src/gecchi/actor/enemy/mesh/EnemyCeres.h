@@ -28,13 +28,13 @@ public:
     int _incZ;
 
     int _iMovePatternNo;
-    GgafDx9Core::GgafDx9SplineProgram* _programSP;
+    static GgafDx9Core::GgafDx9SplineProgram* _programSP;
     /**
      * コンストラクタ
      * @param prm_name オブジェクト名
      * @param prm_model モデル名
      */
-    EnemyCeres(const char* prm_name);
+    //EnemyCeres(const char* prm_name);
 
     /**
      * コンストラクタ
@@ -43,7 +43,7 @@ public:
      * @param prm_pDispatcher_EnemyMeshShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyMeshShots001);
+    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyMeshShots001 = NULL);
 
     void initialize();
 

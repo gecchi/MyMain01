@@ -5,60 +5,67 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "Ceres") {
-    _class_name = "EnemyCeres";
-    _programSP = NULL;
 
-    _iMovePatternNo = 0;
-    _pStgChecker->_iScorePoint = 100;
-    //	_X = -100*1000;
-    //	_Y = -100*1000;
-    //	_Z = 0;
-
-    _X = -356000; //開始座標
-    _Y = 0;
-    _Z = -680000;
-    _X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2 - 200000;
-    _Y_turn = -10000;
-    _Z_turn = 0;
-    _veloBegin = 5000;
+GgafDx9SplineProgram*  EnemyCeres::_programSP = NULL;
 
 
-    //弾ストック作成
-    _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
-    EnemyMeshShot001* pEnemyMeshShot;
-    for (int i = 0; i < 32; i++) {
-        Sleep(1);
-        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
-            _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
-    }
-    //きけん	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
-    addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
 
-    _createActorDispatcher = true;
-
-    double p[][3] = {
-                       { -1024000 ,  -300000 ,  680000 },
-                       {  -800000 ,   300000 ,  480000 },
-                       {  -200000 ,  -300000 ,  200000 },
-                       {   200000 ,   300000 ,  100000 },
-                       {   400000 ,        0 ,       0 },
-                       {   300000 ,        0 ,       0 },
-                       {   200000 ,   200000 ,       0 },
-                       {   100000 ,        0 ,  200000 },
-                       {        0 ,  -200000 ,       0 },
-                       {  -100000 ,        0 , -200000 },
-                       {   300000 ,        0 ,       0 },
-                       {        0 ,   300000 ,       0 },
-                       {        0 ,        0 ,  300000 },
-                       {   -300000 ,        0 ,       0 },
-                       {        0 ,   -300000 ,       0 },
-                       {        0 ,        0 ,  -300000 },
-                       {  -800000 ,        0 ,       0 }
-                    };
-    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
-}
+//EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "Ceres") {
+//    _class_name = "EnemyCeres";
+//    _programSP = NULL;
+//
+//    _iMovePatternNo = 0;
+//    _pStgChecker->_iScorePoint = 100;
+//    //	_X = -100*1000;
+//    //	_Y = -100*1000;
+//    //	_Z = 0;
+//
+//    _X = -356000; //開始座標
+//    _Y = 0;
+//    _Z = -680000;
+//    _X_turn = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2 - 200000;
+//    _Y_turn = -10000;
+//    _Z_turn = 0;
+//    _veloBegin = 5000;
+//
+//
+//    //弾ストック作成
+//    _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
+//    EnemyMeshShot001* pEnemyMeshShot;
+//    for (int i = 0; i < 32; i++) {
+//        Sleep(1);
+//        pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
+//        pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
+//            _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
+//    }
+//    //きけん	GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
+//    addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
+//
+//    _createActorDispatcher = true;
+//
+//    if (_programSP) {
+//        double p[][3] = {
+//                           { -1024000 ,  -300000 ,  680000 },
+//                           {  -800000 ,   300000 ,  480000 },
+//                           {  -200000 ,  -300000 ,  200000 },
+//                           {   200000 ,   300000 ,  100000 },
+//                           {   400000 ,        0 ,       0 },
+//                           {   300000 ,        0 ,       0 },
+//                           {   200000 ,   200000 ,       0 },
+//                           {   100000 ,        0 ,  200000 },
+//                           {        0 ,  -200000 ,       0 },
+//                           {  -100000 ,        0 , -200000 },
+//                           {   300000 ,        0 ,       0 },
+//                           {        0 ,   300000 ,       0 },
+//                           {        0 ,        0 ,  300000 },
+//                           {   -300000 ,        0 ,       0 },
+//                           {        0 ,   -300000 ,       0 },
+//                           {        0 ,        0 ,  -300000 },
+//                           {  -800000 ,        0 ,       0 }
+//                        };
+//        _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
+//    }
+//}
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyMeshShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
@@ -79,39 +86,51 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     _veloBegin = 5000;
 
     if (prm_pDispatcher_EnemyMeshShots001 == NULL) {
-        _TRACE_("アクター発送者_pDispatcher_EnemyMeshShots001がNULL。よいのですか？");
+        //弾ストック作成
+        _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
+        EnemyMeshShot001* pEnemyMeshShot;
+        for (int i = 0; i < 32; i++) {
+            Sleep(1);
+            pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
+            pEnemyMeshShot->inactivateTreeImmediately(); //最初非表示
+            _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
+        }
+        //きけん   GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
+        addSubLast(_pDispatcher_EnemyMeshShots001); //仮所属
+        _createActorDispatcher = true;
+    } else {
+        _pDispatcher_EnemyMeshShots001 = prm_pDispatcher_EnemyMeshShots001;
+        _createActorDispatcher = false;
     }
-    _pDispatcher_EnemyMeshShots001 = prm_pDispatcher_EnemyMeshShots001;
-    _createActorDispatcher = false;
-
-    double p[][3] = {
-                       { -1024000 ,  -300000 ,  680000 },
-                       {  -800000 ,   300000 ,  480000 },
-                       {  -200000 ,  -300000 ,  200000 },
-                       {   200000 ,   300000 ,  100000 },
-                       {   400000 ,        0 ,       0 },
-                       {   300000 ,        0 ,       0 },
-                       {   200000 ,   200000 ,       0 },
-                       {   100000 ,        0 ,  200000 },
-                       {        0 ,  -200000 ,       0 },
-                       {  -100000 ,        0 , -200000 },
-                       {   300000 ,        0 ,       0 },
-                       {        0 ,   300000 ,       0 },
-                       {        0 ,        0 ,  300000 },
-                       {   -300000 ,        0 ,       0 },
-                       {        0 ,   -300000 ,       0 },
-                       {        0 ,        0 ,  -300000 },
-                       {  -800000 ,        0 ,       0 }
-                    };
-    _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
-
-
+    if (_programSP == NULL) {
+        double p[][3] = {
+                           { -1024000 ,  -300000 ,  680000 },
+                           {  -800000 ,   300000 ,  480000 },
+                           {  -200000 ,  -300000 ,  200000 },
+                           {   200000 ,   300000 ,  100000 },
+                           {   400000 ,        0 ,       0 },
+                           {   300000 ,        0 ,       0 },
+                           {   200000 ,   200000 ,       0 },
+                           {   100000 ,        0 ,  200000 },
+                           {        0 ,  -200000 ,       0 },
+                           {  -100000 ,        0 , -200000 },
+                           {   300000 ,        0 ,       0 },
+                           {        0 ,   300000 ,       0 },
+                           {        0 ,        0 ,  300000 },
+                           {   -300000 ,        0 ,       0 },
+                           {        0 ,   -300000 ,       0 },
+                           {        0 ,        0 ,  -300000 },
+                           {  -800000 ,        0 ,       0 }
+                        };
+        _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
+    }
 }
 
 void EnemyCeres::initialize() {
     //本来の場所へ
-    getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyMeshShots001->extract());
-
+    if (_createActorDispatcher) {
+        getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyMeshShots001->extract());
+    }
     setBumpable(true);
 
     //	_pMover->setMoveVelocity(1000);
@@ -130,9 +149,6 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setMoveVelocity(8000);
-
-
-
 
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);

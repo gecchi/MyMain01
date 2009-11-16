@@ -50,11 +50,11 @@ void LaserChip::initialize() {
 
 
 void LaserChip::onActive() {
-    _TRACE_("LaserChip::onActive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
-            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
-            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
-            "/_is_active_flg="<<_is_active_flg);
-
+//    _TRACE_("LaserChip::onActive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+//            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+//            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+//            "/_is_active_flg="<<_is_active_flg);
+//    _TRACE_("LaserChip::onActive() _dwActiveFrame = 0;!!!"<<getName()<<"");
 
     _dwActiveFrame = 0;
     //出現時
@@ -62,8 +62,10 @@ void LaserChip::onActive() {
     if (_pChip_front == NULL) {
         if (_pDispatcher->_pSeConnection) {
             _pDispatcher->_pSeConnection->view()->play();
+            //_TRACE_("LaserChip::onActive() _pChip_front == NULL!!");
         }
     } else {
+        //_TRACE_("LaserChip::onActive() _pChip_front == "<<(_pChip_front->getName())<<"");
     }
 
     _pDispatcher->_num_chip_active++;
@@ -71,6 +73,8 @@ void LaserChip::onActive() {
     //計算回数を節約。
     GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
 
+    //??
+    //TODO: 何でこれを追加したんだっけ？・・・調べる
     if (_pChip_front != NULL) {
         processPreJudgement();
     } else {
@@ -81,12 +85,10 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::onInactive() {
-    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
-            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
-            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
-            "/_is_active_flg="<<_is_active_flg);
-
-
+//    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+//            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+//            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+//            "/_is_active_flg="<<_is_active_flg);
     //消失時
     _pDispatcher->_num_chip_active--;
     //前後の繋がりを切断

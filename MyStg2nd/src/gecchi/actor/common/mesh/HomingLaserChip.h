@@ -8,27 +8,20 @@ class HomingLaserChip : public LaserChip {
 
 
 public:
-
+    /** 先導チップ（本当の先頭チップ）フラグ */
+    bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。
     int _begining_X;
     int _begining_Y;
     int _begining_Z;
-    float _begining_vX;
-    float _begining_vY;
-    float _begining_vZ;
-    int _begining_RzMoveAngle;
-    int _begining_RyMoveAngle;
-//    GgafDx9Core::angle _begining_target_RzMoveAngle;
-//    GgafDx9Core::angle _begining_target_RyMoveAngle;
-
-
+    GgafDx9Core::angle _begining_RX;
+    GgafDx9Core::angle _begining_RY;
+    GgafDx9Core::angle _begining_RZ;
     int _prev_X;
     int _prev_Y;
     int _prev_Z;
-    int _prev_RX;
-    int _prev_RY;
-    int _prev_RZ;
-
-
+    GgafDx9Core::angle _prev_RX;
+    GgafDx9Core::angle _prev_RY;
+    GgafDx9Core::angle _prev_RZ;
 
     HomingLaserChip(const char* prm_name, const char* prm_model);
 
@@ -41,8 +34,13 @@ public:
      */
     virtual void processBehavior();
 
-
+    /**
+     * ホーミングレーザーの先頭チップの動きを実装する .
+     * 本当の先頭チップの場合はもちろんコールバックされるが、
+     * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
+     */
     virtual void processBehaviorHeadChip() {}
+
     /**
      * レーザーチップ判定等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
