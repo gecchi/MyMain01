@@ -22,15 +22,15 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     }
     _paWayRz = NEW angle[_laser_way];
     _paWayRy = NEW angle[_laser_way];
-    EnemyLaserChip001* pChip;
+    EnemyAstraeaLaserChip001* pChip;
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
             for (int k = 0; k < _laser_length*2; k++) { //_laser_length ‚Ì‚Q”{•ªƒXƒgƒbƒN
                 stringstream name;
-                name <<  getName() << "'s EnemyLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
-                pChip = NEW EnemyLaserChip001(name.str().c_str());
+                name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
+                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
                 pChip->inactivateImmediately();
                 _papapLaserChipDispatcher[i][j]->addLaserChip(pChip);
             }
@@ -134,7 +134,7 @@ void EnemyAstraea::processBehavior() {
     _pMover->behave();
 
     if (_pMover->_angveloRzMove == 0 && _pMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
-        static EnemyLaserChip001* pLaserChip;
+        static EnemyAstraeaLaserChip001* pLaserChip;
 
         angle angClearance = 20000;
 
@@ -143,7 +143,7 @@ void EnemyAstraea::processBehavior() {
 
         for (int i = 0; i < _laser_way; i++) {
             for (int j = 0; j < _laser_way; j++) {
-                pLaserChip = (EnemyLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
+                pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
 //                    _TRACE_("Dispatcher employ()!!"<<(pLaserChip->getName())<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //                                                                              "/_on_change_to_active_flg="<<_on_change_to_active_flg<<

@@ -82,17 +82,29 @@ class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;
 class DefaultSpriteEffectActor;
-class EnemyCeres;
-class EnemyPallas;
+
 class EnemyMeshShot001;
 class EnemyLaserChip001;
 
-
-
+class EnemyCeres;
 class FormationCeres001;
 class FormationCeres002;
+
+class EnemyPallas;
+
+class EnemyJuno;
 class FormationJuno001;
+
+class EnemyVesta;
 class FormationVesta001;
+
+class EnemyAstraea;
+class EnemyAstraeaLaserChip001;
+
+
+
+
+
 
 class Magic;
 class DefaultMagic;
@@ -162,6 +174,7 @@ class MyFactory;
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
 #include "gecchi/actor/enemy/Vesta/FormationVesta001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
+#include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
 
