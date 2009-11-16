@@ -49,10 +49,10 @@ public:
     }
 
     /**
-     * 暇そうなアクター発送者のメンバー（play中、またはplay予約されていない）がいれば、activate() して取得する。<BR>
+     * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば、activate() して取得する。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
-     * @return 暇そうなアクター発送者のメンバーアクター
+     * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
         if (_pSubFirst == NULL) {
@@ -62,8 +62,8 @@ public:
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame || pActor->_on_change_to_inactive_flg) {
-                //今活動中、或いは、次フレーム活動予定、或いは、次フレーム非活動予定の場合は見送る
+            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame) {
+                //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
