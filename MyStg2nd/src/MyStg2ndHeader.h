@@ -142,7 +142,7 @@ class MyFactory;
 #include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
-#include "gecchi/actor/enemy/mesh/TamagoActor.h"
+#include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShot001.h"
 #include "gecchi/actor/_debug/DispFpsActor.h"
@@ -153,17 +153,20 @@ class MyFactory;
 
 #include "gecchi/GameGlobal.h"
 
-#include "gecchi/actor/enemy/mesh/EnemyCeres.h"
-#include "gecchi/actor/enemy/mesh/EnemyPallas.h"
-#include "gecchi/actor/enemy/mesh/EnemyJuno.h"
-#include "gecchi/actor/enemy/mesh/EnemyVesta.h"
-#include "gecchi/actor/enemy/mesh/EnemyAstraea.h"
+#include "gecchi/actor/enemy/Ceres/EnemyCeres.h"
+#include "gecchi/actor/enemy/Ceres/FormationCeres001.h"
+#include "gecchi/actor/enemy/Ceres/FormationCeres002.h"
+#include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
+#include "gecchi/actor/enemy/Juno/EnemyJuno.h"
+#include "gecchi/actor/enemy/Juno/FormationJuno001.h"
+#include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
+#include "gecchi/actor/enemy/Vesta/FormationVesta001.h"
+#include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
-#include "gecchi/actor/enemy/FormationCeres001.h"
-#include "gecchi/actor/enemy/FormationCeres002.h"
-#include "gecchi/actor/enemy/FormationJuno001.h"
-#include "gecchi/actor/enemy/FormationVesta001.h"
+
+
+
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
