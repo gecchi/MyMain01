@@ -27,8 +27,21 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
                                         : GgafDx9SplineProgram(prm_paaCriteriaPoints,
                                                                prm_point_num,
                                                                prm_accuracy)      {
+    _spent_frame = prm_spent_frame;
+    _angFaceMove = prm_angFaceMove;
+    init();
+}
+
+GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* prm_sp,
+                                                               DWORD prm_spent_frame,
+                                                               angvelo prm_angFaceMove) : GgafDx9SplineProgram(prm_sp) {
+    _spent_frame = prm_spent_frame;
+    _angFaceMove = prm_angFaceMove;
+    init();
+}
 
 
+void GgafDx9FixedFrameSplineProgram::init() {
     //各点の時点の、距離と速度を予め全部求めておく
 
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
@@ -67,9 +80,9 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(double prm_paaCri
     //                                 120Frame費やして移動(=prm_spent_frame)
     //                  <-->
     //                  frm_segment = １区間は 120/8 Frame = prm_spent_frame / (sp._rnum-1);
-    _angFaceMove = prm_angFaceMove;
+
     //１区間の使用可能フレーム
-    _SPframe_segment = 1.0*prm_spent_frame / (_sp->_rnum-1);
+    _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_SPframe_segment < 1) {
         _SPframe_segment = 1;
     }

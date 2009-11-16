@@ -13,6 +13,7 @@ public:
     int* _paDistace_to;
     velo* _paSPMoveVelocityTo;
     angvelo _angFaceMove;
+    DWORD _spent_frame;
 
     /** オプション 0:絶対座標移動、1:始点をActorの現座標とみなし、そこからの相対座標移動 */
     int _option;
@@ -40,6 +41,19 @@ public:
                                    double prm_accuracy,
                                    DWORD prm_spent_frame,
                                    angvelo prm_angFaceMove);
+    /**
+     *
+     * @param prm_sp
+     * @param prm_spent_frame 始点～終点へ移動するのに許されるフレーム数
+     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
+     * @return
+     */
+    GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* prm_sp,
+                                   DWORD prm_spent_frame,
+                                   angvelo prm_angFaceMove);
+
+
+    void init();
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始

@@ -21,16 +21,25 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram() : GgafDx9
     _veloMoveUnit = LEN_UNIT;
 }
 
+GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
+                                                                     angvelo prm_angFaceMove) : GgafDx9SplineProgram(prm_sp) {
+    _angFaceMove = prm_angFaceMove;
+    init();
+}
+
 GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoints[][3],
-                                                               int prm_point_num,
-                                                               double prm_accuracy,
-                                                               //velo prm_veloMoveUnit,
-                                                               angvelo prm_angFaceMove )
+                                                                     int prm_point_num,
+                                                                     double prm_accuracy,
+                                                                     angvelo prm_angFaceMove )
 
-                                        : GgafDx9SplineProgram(prm_paaCriteriaPoints,
-                                                               prm_point_num,
-                                                               prm_accuracy)      {
+                                                    : GgafDx9SplineProgram(prm_paaCriteriaPoints,
+                                                                           prm_point_num,
+                                                                           prm_accuracy)  {
+    _angFaceMove = prm_angFaceMove;
+    init();
+}
 
+void GgafDx9FixedVelocitySplineProgram::init() {
 
     //各点の時点の、距離と必要なフレーム数を予め全部求めておく
 
@@ -77,7 +86,7 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(double prm_
     //                                 ずっと veloMoveUnit で移動とした場合を計算
     //
 
-    _angFaceMove = prm_angFaceMove;
+
     _veloMoveUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
     _paDistace_to = NEW int[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];

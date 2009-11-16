@@ -14,6 +14,7 @@ public:
     DWORD _SPframe;
     boolean _is_executing;
     GgafDx9GeometricActor* _pActor_target;
+    bool _is_create_sp;
 
     GgafDx9SplineProgram();
 
@@ -31,6 +32,12 @@ public:
     GgafDx9SplineProgram(double prm_paaCriteriaPoint[][3],
                          int prm_point_num,
                          double prm_accuracy);
+    /**
+     *
+     * @param prm_sp
+     * @return
+     */
+    GgafDx9SplineProgram(GgafDx9Spline3D* prm_sp);
 
     /**
      * スプライン曲線利用移動プログラム開始

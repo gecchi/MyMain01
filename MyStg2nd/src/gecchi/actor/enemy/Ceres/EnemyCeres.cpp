@@ -6,13 +6,13 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-GgafDx9SplineProgram*  EnemyCeres::_programSP = NULL;
+GgafDx9Spline3D*  EnemyCeres::_pSpline = NULL;
 
 
 
 //EnemyCeres::EnemyCeres(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "Ceres") {
 //    _class_name = "EnemyCeres";
-//    _programSP = NULL;
+//    _pProgram_CeresMove = NULL;
 //
 //    _iMovePatternNo = 0;
 //    _pStgChecker->_iScorePoint = 100;
@@ -43,7 +43,7 @@ GgafDx9SplineProgram*  EnemyCeres::_programSP = NULL;
 //
 //    _createActorDispatcher = true;
 //
-//    if (_programSP) {
+//    if (_pProgram_CeresMove) {
 //        double p[][3] = {
 //                           { -1024000 ,  -300000 ,  680000 },
 //                           {  -800000 ,   300000 ,  480000 },
@@ -63,7 +63,7 @@ GgafDx9SplineProgram*  EnemyCeres::_programSP = NULL;
 //                           {        0 ,        0 ,  -300000 },
 //                           {  -800000 ,        0 ,       0 }
 //                        };
-//        _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
+//        _pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
 //    }
 //}
 
@@ -102,7 +102,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
         _pDispatcher_EnemyCeresShots001 = prm_pDispatcher_EnemyCeresShots001;
         _createActorDispatcher = false;
     }
-    if (_programSP == NULL) {
+    if (_pSpline == NULL) {
         double p[][3] = {
                            { -1024000 ,  -300000 ,  680000 },
                            {  -800000 ,   300000 ,  480000 },
@@ -122,8 +122,11 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
                            {        0 ,        0 ,  -300000 },
                            {  -800000 ,        0 ,       0 }
                         };
-        _programSP = NEW GgafDx9FixedVelocitySplineProgram(p, 17, 0.2, 5000);
+        _pSpline = NEW GgafDx9Spline3D(p, 17, 0.2);
     }
+
+    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(_pSpline, 5000);
+    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(_pSpline, 600, 5000);
 }
 
 void EnemyCeres::initialize() {
@@ -156,7 +159,7 @@ void EnemyCeres::initialize() {
 
 
 
-    _pMover->executeSplineMoveProgram(_programSP, 0);
+    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0);
 }
 
 void EnemyCeres::processBehavior() {
@@ -392,5 +395,5 @@ int EnemyCeres::wasGone() {
 }
 
 EnemyCeres::~EnemyCeres() {
-    DELETE_POSSIBLE_NULL(_programSP);
+    DELETE_POSSIBLE_NULL(_pProgram_CeresMove);
 }

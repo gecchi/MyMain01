@@ -7,16 +7,20 @@ GgafDx9SplineProgram::GgafDx9SplineProgram() : GgafObject() {
 
     _sp = NULL;
     _SPframe = 0;
+    _is_create_sp = false;
 }
 
 GgafDx9SplineProgram::GgafDx9SplineProgram(double prm_paaCriteriaPoints[][3],
                                             int prm_point_num,
                                             double prm_accuracy) : GgafObject() {
-    _sp = NEW GgafDx9Spline3D(prm_paaCriteriaPoints, prm_point_num);
-    _sp->compute(prm_accuracy); //ŒvŽZ
+    _sp = NEW GgafDx9Spline3D(prm_paaCriteriaPoints, prm_point_num, prm_accuracy);
     _SPframe = 0;
+    _is_create_sp = true;
+}
 
-
+GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9Spline3D* prm_sp) {
+    _sp = prm_sp;
+    _is_create_sp = false;
 }
 
 void GgafDx9SplineProgram::begin(GgafDx9GeometricActor* prm_pActor_target, int prm_option) {
@@ -48,5 +52,7 @@ void GgafDx9SplineProgram::behave() {
 
 }
 GgafDx9SplineProgram::~GgafDx9SplineProgram() {
-    DELETE_IMPOSSIBLE_NULL(_sp);
+    if (_is_create_sp) {
+        DELETE_IMPOSSIBLE_NULL(_sp);
+    }
 }

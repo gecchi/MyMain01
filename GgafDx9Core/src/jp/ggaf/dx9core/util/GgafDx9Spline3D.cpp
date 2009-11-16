@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num) {
+GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_establish = prm_num;
     _X_establish = NEW double[prm_num];
     _Y_establish = NEW double[prm_num];
@@ -20,6 +20,7 @@ GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num) {
     _X_compute = NULL;
     _Y_compute = NULL;
     _Z_compute = NULL;
+    compute(prm_accuracy);
 }
 
 void GgafDx9Spline3D::compute(double prm_accuracy) {

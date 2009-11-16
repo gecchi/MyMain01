@@ -69,7 +69,7 @@ namespace Dix {
 		if ( threadHandle_ != 0 ) {
 			bool end = false;
 			while( !end ) {
-				DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 100 );
+				DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 10 );
 				switch( flag ) {
 				case WAIT_OBJECT_0:
 					// スレッドが終わった
@@ -257,7 +257,7 @@ namespace Dix {
 				prePlayPos = curPlayPos;
 			}
 
-			Sleep( 100 );
+			Sleep( 10 );
 		}
 	}
 

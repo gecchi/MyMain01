@@ -67,7 +67,7 @@ public:
         }
     };
 
-    GgafDx9Spline3D(double prm_paaBase[][3], int num);
+    GgafDx9Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
 
     void compute(double prm_accuracy);
 

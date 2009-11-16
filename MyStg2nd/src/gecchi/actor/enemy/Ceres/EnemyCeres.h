@@ -18,6 +18,10 @@ private:
 public:
     /** 弾ストック */
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyCeresShots001;
+    /** Ceres共通スプライン */
+    static GgafDx9Core::GgafDx9Spline3D* _pSpline;
+
+
     /** ActorDispatcherをコンストラクタで生成したか否か */
     bool _createActorDispatcher;
 
@@ -28,7 +32,9 @@ public:
     int _incZ;
 
     int _iMovePatternNo;
-    static GgafDx9Core::GgafDx9SplineProgram* _programSP;
+
+    GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
+
     /**
      * コンストラクタ
      * @param prm_name オブジェクト名

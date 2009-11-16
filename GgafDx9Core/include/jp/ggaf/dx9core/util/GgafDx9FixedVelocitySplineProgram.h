@@ -42,10 +42,15 @@ public:
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
     GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoint[][3],
-                                   int prm_point_num,
-                                   double prm_accuracy,
-                                   //velo prm_veloMove,
-                                   angvelo prm_angFaceMove);
+                                      int prm_point_num,
+                                      double prm_accuracy,
+                                      angvelo prm_angFaceMove);
+
+    GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
+                                      angvelo prm_angFaceMove);
+
+
+    void init();
 
     /**
      * スプライン曲線利用のフレーム数指定移動プログラム開始
