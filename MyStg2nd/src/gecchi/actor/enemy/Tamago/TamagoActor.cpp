@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "miku") {
+TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "tamago") {
     _class_name = "TamagoActor";
 }
 
