@@ -313,46 +313,46 @@ public:
 
     static GgafDx9Core::angle wk_dist, wk_angRx;
     void move_WAY_NONE() {
-        _way = WAY_NONE;
+        //_way = WAY_NONE;
     }
     void move_WAY_UP() {
-        _way = WAY_UP;
+        //_way = WAY_UP;
         _Y += _iMoveSpeed;
     }
     void move_WAY_UP_FRONT() {
-        _way = WAY_UP_FRONT;
+        //_way = WAY_UP_FRONT;
         _Y += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
     }
     void move_WAY_UP_BEHIND() {
-        _way = WAY_UP_BEHIND;
+        //_way = WAY_UP_BEHIND;
         _Y += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
     }
     void move_WAY_FRONT() {
-        _way = WAY_UP_FRONT;
+        //_way = WAY_FRONT;
         _X += _iMoveSpeed;
     }
     void move_WAY_BEHIND() {
-        _way = WAY_UP_BEHIND;
+        //_way = WAY_BEHIND;
         _X -= _iMoveSpeed;
     }
     void move_WAY_DOWN() {
-        _way = WAY_DOWN;
+        //_way = WAY_DOWN;
         _Y -= _iMoveSpeed;
     }
     void move_WAY_DOWN_BEHIND() {
-        _way = WAY_DOWN_BEHIND;
+        //_way = WAY_DOWN_BEHIND;
         _Y -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
     }
     void move_WAY_DOWN_FRONT() {
-        _way = WAY_DOWN_FRONT;
+        //_way = WAY_DOWN_FRONT;
         _Y -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
     }
     void move_WAY_ZLEFT() {
-        _way = WAY_ZLEFT;
+        //_way = WAY_ZLEFT;
         _Z += _iMoveSpeed;
         wk_dist = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //”½ŽžŒv‰ñ‚è‚Ì‹——£
         if (0 < wk_dist && wk_dist <= ANGLE180) {
@@ -363,7 +363,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_FRONT() {
-        _way = WAY_ZLEFT_FRONT;
+        //_way = WAY_ZLEFT_FRONT;
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
@@ -376,7 +376,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_BEHIND() {
-        _way = WAY_ZLEFT_BEHIND;
+        //_way = WAY_ZLEFT_BEHIND;
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
@@ -389,7 +389,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_FRONT() {
-        _way = WAY_ZRIGHT_FRONT;
+        //_way = WAY_ZRIGHT_FRONT;
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
@@ -403,7 +403,7 @@ public:
     }
 
     void move_WAY_ZRIGHT() {
-        _way = WAY_ZRIGHT;
+        //_way = WAY_ZRIGHT;
         _Z -= _iMoveSpeed;
         wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //ŽžŒv‰ñ‚è‚Ì‹——£
         if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
@@ -414,7 +414,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_BEHIND() {
-        _way = WAY_ZRIGHT_BEHIND;
+        //_way = WAY_ZRIGHT_BEHIND;
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
@@ -428,7 +428,7 @@ public:
     }
 
     void move_WAY_ZLEFT_UP() {
-        _way = WAY_ZLEFT_UP;
+        //_way = WAY_ZLEFT_UP;
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
@@ -441,7 +441,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZLEFT_DOWN() {
-        _way = WAY_ZLEFT_DOWN;
+        //_way = WAY_ZLEFT_DOWN;
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
@@ -455,7 +455,7 @@ public:
     }
 
     void move_WAY_ZRIGHT_UP() {
-        _way = WAY_ZRIGHT_UP;
+        //_way = WAY_ZRIGHT_UP;
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
@@ -468,7 +468,7 @@ public:
         _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     void move_WAY_ZRIGHT_DOWN() {
-        _way = WAY_ZRIGHT_DOWN;
+        //_way = WAY_ZRIGHT_DOWN;
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);

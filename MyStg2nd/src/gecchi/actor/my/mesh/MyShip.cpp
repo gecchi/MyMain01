@@ -353,6 +353,10 @@ void MyShip::processBehavior() {
     _way = (MoveWay)(_way_switch.getIndex());
     (this->*fpaMoveFunc[_way])();
 
+    if (_stc == 0) {
+        _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    }
+
 
     if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
         if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {

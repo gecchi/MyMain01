@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "tamago") {
+TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "Vesta") {
     _class_name = "TamagoActor";
 }
 
@@ -13,7 +13,7 @@ void TamagoActor::initialize() {
     //inactivateTree();
     setBumpable(false);
     _X = _Y = _Z = 0;
-    _Y = -500000;
+    _Y = -300000;
     //
 //    _pMover->setRzMoveAngle(ANGLE180);
 //    _pMover->setMoveVelocity(2000);
