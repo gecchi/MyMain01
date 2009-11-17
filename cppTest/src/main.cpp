@@ -10,25 +10,24 @@ class Status;
 class Parent {
 public:
     int _p;
+    void *pSt;
 };
+class Parent2  : public Parent  {
+public:
+};
+
 
 
 
 class Status {
 public:
     int _point;
-    virtual Status* getThis() {
-        return getSub();
-    }
-
-    virtual Status* getSub() = 0;
-
 };
 
 
 
 
-class MMM : public Parent  {
+class MMM :  public Parent2  {
 public:
     int _X;
 };
@@ -46,14 +45,13 @@ public:
 
 };
 
-
-
-class Sprite : public Parent, public Status {
+class SSS : public Parent2  {
+public:
+    int _X;
+};
+class Sprite : public SSS,  public Status {
 public:
     int _s;
-    virtual Status* getSub() {
-        return this;
-    }
 };
 class SpriteSub : public Sprite {
 public:
@@ -63,9 +61,9 @@ public:
 
 
 
-void putPoint(Parent* p) {
-    Status* s = (Status*)p;
-    _TRACE_("Status="<<(s->getThis()->_point));
+void putPoint(Parent2* p) {
+    Status* s = (Status*)(p->pSt);
+    _TRACE_("Status="<<(s->_point));
 
 }
 
@@ -76,8 +74,11 @@ int main() {
     sprite_sub -> _point = 100;
     mesh_sub -> _point = 500;
 
-    Parent* pA = (Parent*)sprite_sub;
-    Parent* pB = (Parent*)mesh_sub;
+    sprite_sub->pSt = (Status*)sprite_sub;
+    mesh_sub->pSt = (Status*)mesh_sub;
+
+    Parent2* pA = (Parent2*)sprite_sub;
+    Parent2* pB = (Parent2*)mesh_sub;
 
 //    Status* statusA;
 //    Status* statusB;
