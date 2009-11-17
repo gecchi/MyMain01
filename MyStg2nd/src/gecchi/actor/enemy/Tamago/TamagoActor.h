@@ -2,7 +2,7 @@
 #define TAMAGOACTOR_H_
 namespace MyStg2nd {
 
-class TamagoActor : public GgafDx9LibStg::DefaultD3DXMeshActor {
+class TamagoActor : public GroundMeshActor {
 
     int _rnd;
 

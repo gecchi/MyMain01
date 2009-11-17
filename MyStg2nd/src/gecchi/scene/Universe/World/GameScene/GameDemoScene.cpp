@@ -24,8 +24,9 @@ void GameDemoScene::ready() {
 
 void GameDemoScene::initialize() {
     setProgress(GAMEDEMO_PROG_INIT);
-
-    orderActorToFactory(1111, EnemyAstraea, "Astraea_1");
+    //TODO:kesu
+    //テスト
+    orderActorToFactory(1111, TamagoActor, "TEST_TamagoActor");
 }
 
 void GameDemoScene::processBehavior() {
@@ -39,12 +40,8 @@ void GameDemoScene::processBehavior() {
 
         //TODO:kesu
         //テスト
-        EnemyAstraea* pActor = (EnemyAstraea*)obtainActorFromFactory(1111);
-        pActor->_X = 400000;
-        pActor->_Y = 40000;
-        pActor->_Z = 40000;
+        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(1111);
         getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
-
 
         setProgress(GAMEDEMO_PROG_BEGIN);
     }

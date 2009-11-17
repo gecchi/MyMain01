@@ -59,7 +59,7 @@ class Stage04Scene;
 class Stage05Scene;
 
 
-
+class GroundMeshActor;
 class LaserChip;
 class CurveLaserChip;
 class HomingLaserChip;
@@ -107,6 +107,7 @@ class EnemyAstraeaLaserChip001;
 
 
 
+
 class Magic;
 class DefaultMagic;
 class OptionMagic;
@@ -141,7 +142,7 @@ class MyFactory;
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
-
+#include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/mesh/LaserChip.h"
 #include "gecchi/actor/common/mesh/CurveLaserChip.h"
 #include "gecchi/actor/common/mesh/HomingLaserChip.h"
