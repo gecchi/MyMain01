@@ -96,7 +96,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
             _pDispatcher_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
         //‚«‚¯‚ñ   GgafFactory::_pGarbageBox->_pGarbageRootActor->addSubLast(_pDispatcher_EnemyCeresShots001); //‰¼Š‘®
-        addSubLast(_pDispatcher_EnemyCeresShots001); //‰¼Š‘®
+        accept(KIND_ENEMY_SHOT_GU, _pDispatcher_EnemyCeresShots001); //‰¼Š‘®
         _createActorDispatcher = true;
     } else {
         _pDispatcher_EnemyCeresShots001 = prm_pDispatcher_EnemyCeresShots001;
@@ -131,9 +131,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
 
 void EnemyCeres::initialize() {
     //–{—ˆ‚ÌêŠ‚Ö
-    if (_createActorDispatcher) {
-        getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyCeresShots001->extract());
-    }
+//    if (_createActorDispatcher) {
+//        getLordActor()->accept(KIND_ENEMY_SHOT_GU, (GgafMainActor*)_pDispatcher_EnemyCeresShots001->extract());
+//    }
     setBumpable(true);
 
     //	_pMover->setMoveVelocity(1000);
@@ -359,10 +359,13 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (wasGone()) {
-        adios();
-        if (_createActorDispatcher) { //’e‰ð•ú—\–ñ
-            _pDispatcher_EnemyCeresShots001->adios(60 * 5);
+        if (_createActorDispatcher) {
+            //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
+            getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getHeadActor()->extract());
+           _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
         }
+
+        adios();
     }
 }
 
@@ -374,10 +377,14 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
 
-    adios();
-    if (_createActorDispatcher) { //’e‰ð•ú—\–ñ
-        _pDispatcher_EnemyCeresShots001->adios(60 * 5);
+
+    if (_createActorDispatcher) {
+        //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
+        getLordActor()->addSubLast(getSubHeadActor(KIND_ENEMY_SHOT_GU)->extract());
+       _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
     }
+
+    adios(); //TODO:‚³‚æ‚È‚ç
 
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
