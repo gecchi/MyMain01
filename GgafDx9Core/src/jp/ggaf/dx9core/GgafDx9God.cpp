@@ -566,7 +566,10 @@ GgafDx9God::~GgafDx9God() {
         while (GgafFactory::_was_finished_flg == false) {
             Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
         }
-
+        //”r‘¼‚Ì‰ðœ
+        CloseHandle(_handleFactory01);
+        DeleteCriticalSection(&(GgafGod::CS2));
+        DeleteCriticalSection(&(GgafGod::CS1));
         //Hê‘|œ
      //___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();

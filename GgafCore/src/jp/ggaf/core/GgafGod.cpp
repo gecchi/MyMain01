@@ -184,8 +184,8 @@ GgafGod::~GgafGod() {
         GgafFactory::clean();
     //___EndSynchronized; // <----- ”r‘¼I—¹
         //ƒSƒ~” 
-        GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
-        GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+        //GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
+        //GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
         //‚±‚Ì¢‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
         Sleep(20);
