@@ -568,19 +568,19 @@ GgafDx9God::~GgafDx9God() {
         }
 
         //Hê‘|œ
-     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+     //___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();
         //ƒSƒ~” 
         GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
         GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-     ___EndSynchronized; // <----- ”r‘¼I—¹
+     //___EndSynchronized; // <----- ”r‘¼I—¹
 
         //‚±‚Ì¢‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
         Sleep(20);
-     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+     //___BeginSynchronized; // ----->”r‘¼ŠJŽn
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
-     ___EndSynchronized; // <----- ”r‘¼I—¹
+     //___EndSynchronized; // <----- ”r‘¼I—¹
     }
 
     CmRandomNumberGenerator::getInstance()->release();
