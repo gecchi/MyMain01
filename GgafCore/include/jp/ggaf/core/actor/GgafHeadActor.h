@@ -33,6 +33,8 @@ namespace GgafCore {
 class GgafHeadActor : public GgafActor {
 
 public:
+    /** ä«óùé“ */
+    GgafLordActor* _pLordActor;
 
     actorkind _kind;
 
@@ -97,6 +99,13 @@ public:
      */
     void processOnHit(GgafActor* prm_pActor_Opponent) {
     }
+
+
+
+    GgafLordActor* getLordActor();
+    void setLordActor(GgafLordActor* prm_pLordActor);
+
+
 
     /**
      * ê_Ç…âyå© .

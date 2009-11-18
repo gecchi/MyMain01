@@ -1,6 +1,16 @@
 #ifndef GGAFACTOR_H_
 #define GGAFACTOR_H_
+
+
+#define LORDACTOR  1
+#define HEADACTOR  2
+#define MAINACTOR  3
+
+
 namespace GgafCore {
+
+
+
 
 /**
  * アクターの基底クラス .
@@ -88,6 +98,9 @@ private:
 //    bool executeBumpChk2_WeAnd(GgafActor* prm_pActor_Opponent);
 
 public:
+    /** アクターの階級 */
+    int _actor_class; //1:GgafLoadActor 2:GgafHeadActor 3:GgafMainActor 0:その他
+
 
     /** アクター開始システム時刻 */
     DWORD _start_system_time;
@@ -302,8 +315,8 @@ public:
      * @retval	false	衝突していないを返す事
      */
     virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
-		return false;
-	}
+        return false;
+    }
 
     /**
      * アクターと衝突した時の処理 .

@@ -83,6 +83,10 @@ public:
      */
     virtual GgafHeadActor* getHeadActor();
 
+
+    void accept(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+
+    GgafHeadActor* getSubHeadActor(actorkind prm_kind);
     /**
      * _‚É‰yŒ© .
      * @return	ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½_

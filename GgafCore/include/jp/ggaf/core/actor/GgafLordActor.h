@@ -103,7 +103,11 @@ public:
      */
     void accept(GgafMainActor* prm_pMainActor);
 
-    bool hasSubHeadActor(actorkind prm_kind);
+    /**
+     * サブの団長アクターを取得、無ければNULLを帰す
+     * @param prm_kind
+     * @return
+     */
     GgafHeadActor* getSubHeadActor(actorkind prm_kind);
 
     /**

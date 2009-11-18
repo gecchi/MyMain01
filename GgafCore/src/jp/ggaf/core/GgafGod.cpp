@@ -174,26 +174,27 @@ GgafGod::~GgafGod() {
         while (GgafFactory::_was_finished_flg == false) {
             Sleep(10); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
         }
+        //”r‘¼‚Ì‰ðœ
+        CloseHandle(_handleFactory01);
+        DeleteCriticalSection(&(GgafGod::CS2));
+        DeleteCriticalSection(&(GgafGod::CS1));
 
         //Hê‘|œ
-     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+    // ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();
-     ___EndSynchronized; // <----- ”r‘¼I—¹
+    //___EndSynchronized; // <----- ”r‘¼I—¹
         //ƒSƒ~” 
         GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
         GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
         //‚±‚Ì¢‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
         Sleep(20);
-     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+     //___BeginSynchronized; // ----->”r‘¼ŠJŽn
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
-     ___EndSynchronized; // <----- ”r‘¼I—¹
+     //___EndSynchronized; // <----- ”r‘¼I—¹
     }
 
-    //”r‘¼‚Ì‰ðœ
-    CloseHandle(_handleFactory01);
-    DeleteCriticalSection(&(GgafGod::CS2));
-    DeleteCriticalSection(&(GgafGod::CS1));
+
 
     DELETE_POSSIBLE_NULL(_pException_Factory);TRACE("GgafGod::~GgafGod end");
 }

@@ -12,10 +12,11 @@ GgafActor::GgafActor(const char* prm_name) :
     _pGod = NULL;
     setBumpable(false);
     _use_octree = false;
+    _actor_class = 0;
 }
 
 GgafActor::~GgafActor() {
-    TRACE("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
+    _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 }
 
 void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
