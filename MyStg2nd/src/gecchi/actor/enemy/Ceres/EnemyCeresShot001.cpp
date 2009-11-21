@@ -11,11 +11,11 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshEnemyAct
     inactivateTree();
 
     /** 出現時の初速 */
-    _iMoveVelocity_1st = 10000;
+    _iMoveVelocity_1st = 13000;
     /** 出現時の加速度（負で遅くなる） */
     _iMoveAcceleration_1st = -150;
     /** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
-    _dwFrame_TurnBegin = 50;
+    _dwFrame_TurnBegin = 60;
     /** 移動速度上限 */
     _iMoveVelocity_Top = 30000;
     /** 最低保証移動速度 */
@@ -77,7 +77,7 @@ void EnemyCeresShot001::processBehavior() {
 }
 
 void EnemyCeresShot001::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         inactivateTree();
         //adios();
     }

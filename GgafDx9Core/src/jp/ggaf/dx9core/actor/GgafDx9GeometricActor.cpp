@@ -624,7 +624,7 @@ int GgafDx9GeometricActor::isOffscreen() {
     return _offscreenkind;
 }
 
-int GgafDx9GeometricActor::wasGone() {
+int GgafDx9GeometricActor::isOutOfGameSpace() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         if (_X < GgafDx9Universe::_X_goneRight) {
             if (GgafDx9Universe::_Y_goneBottom < _Y) {

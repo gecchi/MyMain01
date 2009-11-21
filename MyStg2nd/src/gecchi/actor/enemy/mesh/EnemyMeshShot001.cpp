@@ -77,7 +77,7 @@ void EnemyMeshShot001::processBehavior() {
 }
 
 void EnemyMeshShot001::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         inactivateTree();
         //adios();
     }

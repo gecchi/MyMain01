@@ -51,9 +51,9 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-//    if (isOffscreen()) {
-//        adios();
-//    }
+    if (isOutOfGameSpace()) {
+        adios();
+    }
 }
 
 void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {

@@ -45,7 +45,7 @@ void EnemyPallas::processBehavior() {
 }
 
 void EnemyPallas::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         adios();
     }
 }
@@ -55,7 +55,7 @@ void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyPallas::wasGone() {
+int EnemyPallas::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 100000) {
         return true;
     } else {

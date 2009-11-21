@@ -37,7 +37,7 @@ void EnemyJuno::processBehavior() {
 }
 
 void EnemyJuno::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         setBumpable(false);
         adios();
     }
@@ -48,7 +48,7 @@ void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
     adios();
 }
 
-int EnemyJuno::wasGone() {
+int EnemyJuno::isOutOfGameSpace() {
     if (_Z < -1000000) {
         return true;
     } else {

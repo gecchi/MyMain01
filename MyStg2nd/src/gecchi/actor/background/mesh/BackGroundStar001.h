@@ -43,7 +43,7 @@ public:
         return false;
     }
 
-    int wasGone() {
+    int isOutOfGameSpace() {
         return false;
     }
 

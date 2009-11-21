@@ -167,7 +167,7 @@ void EnemyAstraea::processBehavior() {
 }
 
 void EnemyAstraea::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
 
         //レーザーは遅れて開放させるように、動きを継続させるため移動
         GgafHeadActor* pHead = getSubHeadActor(KIND_ENEMY_SHOT_NOMAL);
@@ -215,8 +215,8 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-int EnemyAstraea::wasGone() {
-    if (_X < GgafDx9Camera::_X_ScreenLeft - 800000) {
+int EnemyAstraea::isOutOfGameSpace() {
+    if (_X < GgafDx9Camera::_X_ScreenLeft - 300000) {
         return true;
     } else {
         return false;

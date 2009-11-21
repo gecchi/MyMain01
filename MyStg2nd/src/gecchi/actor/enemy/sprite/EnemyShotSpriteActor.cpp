@@ -24,7 +24,7 @@ void EnemyShotSpriteActor::processBehavior() {
 }
 
 void EnemyShotSpriteActor::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         inactivateTree();
     }
 

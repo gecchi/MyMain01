@@ -105,7 +105,7 @@ void LaserChip::onInactive() {
 
 
 void LaserChip::processJudgement() {
-    if (wasGone()) {
+    if (isOutOfGameSpace()) {
         inactivate();
     }
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）

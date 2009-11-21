@@ -29,7 +29,7 @@ void EnemyShot001::processBehavior() {
 
 }
 
-int EnemyShot001::wasGone() {
+int EnemyShot001::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft) {
         return true;
     } else {

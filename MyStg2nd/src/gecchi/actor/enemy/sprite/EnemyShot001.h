@@ -20,7 +20,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    int wasGone();
+    int isOutOfGameSpace();
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
