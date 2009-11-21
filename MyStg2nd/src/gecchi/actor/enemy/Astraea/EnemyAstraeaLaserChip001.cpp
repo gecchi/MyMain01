@@ -37,7 +37,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 30) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    7000, TURN_ANTICLOSE_TO);
+                    4000, TURN_ANTICLOSE_TO);
     }
 
 

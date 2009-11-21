@@ -17,9 +17,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //EnemyShot001
         _pDispatcher_EnemyShots001 = NEW ActorDispatcher("TAMAS001");
         getLordActor()->accept(KIND_ENEMY_SHOT_GU, _pDispatcher_EnemyShots001);
-        EnemyShot001* pEnemyShot;
-        for (int i = 0; i < 1; i++) { //ストック256個
-            pEnemyShot = NEW EnemyShot001("EnemyShot001");
+        EnemyCeresShot001* pEnemyShot;
+        for (int i = 0; i < 36*7; i++) { //ストック256個
+            pEnemyShot = NEW EnemyCeresShot001("EnemyCeresShot001");
             pEnemyShot->inactivateTreeImmediately(); //最初非表示
             _pDispatcher_EnemyShots001->addSubLast(pEnemyShot);
         }

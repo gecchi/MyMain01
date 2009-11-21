@@ -180,16 +180,13 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     void* arg3 = CREATING_ORDER->_pArg3;
                     TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"]");
                  ___EndSynchronized; // <----- 排他終了
-                    Sleep(1);
                     pObject = (*func)(arg1, arg2, arg3); //製品の製造！
-                    Sleep(1);
                  ___BeginSynchronized; // ----->排他開始
                     TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == NULL) {
                         TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか(T_T)。破棄します。pObjectをdelete!");
                         DELETE_IMPOSSIBLE_NULL(pObject);
                      ___EndSynchronized; // <----- 排他終了
-                        Sleep(1);
                         continue;
                     } else {
                         CREATING_ORDER = pOrder_InManufacturing_save; //ポインタ復帰
@@ -205,27 +202,24 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 //無条件待機
                 TRACE2("GgafFactory::work ＜工場＞ 工場には何～んもありません。さぁなんでも注文来い来い！。暇なのでゴミ箱掃除でもやっときます。（待機）");
              ___EndSynchronized; // <----- 排他終了
-                if (GgafGod::_pGod->_fps > 52.0) {
+                if (GgafGod::_pGod->_fps > 55.0) {
                     TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。1");
-                    _pGarbageBox->cleane(50); //暇なので、ゴミ箱掃除
+                    _pGarbageBox->cleane(40); //暇なので、ゴミ箱掃除
                     _cnt_cleaned = 0;
-                    Sleep(1);
                 }
             } else {
                 if (ROOT_ORDER != NULL && ROOT_ORDER->_pOrder_Prev->_progress == 0) {
                     TRACE2("GgafFactory::work ＜工場＞ ･･･む、次に未製造の注文["<<CREATING_ORDER->_pOrder_Next->_id<<"]がありんす");
                     CREATING_ORDER = CREATING_ORDER->_pOrder_Next;
                  ___EndSynchronized; // <----- 排他終了
-                    Sleep(1);
                     continue;
                 } else {
                     TRACE2("GgafFactory::work ＜工場＞ よし、未製造注文は無し。あ～棚に製造済のがたまってるす、早く取に来やがれ！。（待機）");
                  ___EndSynchronized; // <----- 排他終了
                     if (GgafGod::_pGod->_fps > 52) {
                         TRACE2("GgafFactory::work ＜工場＞ 神さんも余裕あるし、暇なのでゴミ箱掃除でもやっときます。2");
-                        _pGarbageBox->cleane(50); //暇なので、ゴミ箱掃除
+                        _pGarbageBox->cleane(40); //暇なので、ゴミ箱掃除
                         _cnt_cleaned = 0;
-                        Sleep(1);
                     }
                 }
             }

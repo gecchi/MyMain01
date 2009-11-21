@@ -91,11 +91,11 @@ void EnemyCeres::processBehavior() {
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > _X_turn) {
 
-        angle way[16];
+        angle way[32];
         //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
-        GgafDx9Util::getRadiationAngle2D(0, 16, way);
+        GgafDx9Util::getRadiationAngle2D(0, 32, way);
         EnemyCeresShot001* pTama;
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < 16; i++) {
             pTama = (EnemyCeresShot001*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
@@ -103,7 +103,7 @@ void EnemyCeres::processBehavior() {
                 pTama->activate();
             }
         }
-        for (int i = 8; i < 16; i++) {
+        for (int i = 16; i < 32; i++) {
             pTama = (EnemyCeresShot001*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
@@ -143,6 +143,8 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
         getLordActor()->addSubLast(getSubHeadActor(KIND_ENEMY_SHOT_GU)->extract());
        _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
+    } else {
+
     }
 
     adios(); //TODO:‚³‚æ‚È‚ç

@@ -22,7 +22,7 @@ public:
     }
 
     template<class X>
-    static X* createActorWithRot(void* p1, void* p2, void* p3) {
+    static X* createActorWithDp(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : アクター発送者
         X* p = NEW X((char*)p1, (GgafDx9LibStg::ActorDispatcher*)p2);
@@ -30,7 +30,7 @@ public:
     }
 
     template<class X>
-    static X* createActorWithModelRot(void* p1, void* p2, void* p3) {
+    static X* createActorWithModelDp(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : モデル識別文字列
         //p3 : アクター発送者
@@ -75,8 +75,8 @@ public:
 
 #define orderActorToFactory(ID, CLASS, NAME) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL))
 #define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
-#define orderActorWithModelRotToFactory(ID, CLASS, NAME, MODEL, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModelRot,(void*)(NAME),(void*)(MODEL),(void*)(ROT))
-#define orderActorWithRotToFactory(ID, CLASS, NAME, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithRot,(void*)(NAME),(void*)(ROT), (void*)(NULL))
+#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(ROT))
+#define orderActorWithDpToFactory(ID, CLASS, NAME, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithDp,(void*)(NAME),(void*)(ROT), (void*)(NULL))
 
 #define obtainActorFromFactory(ID) MyFactory::obtainActor(ID)
 #define orderSceneToFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL))
