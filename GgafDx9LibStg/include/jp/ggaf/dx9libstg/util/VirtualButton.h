@@ -91,10 +91,6 @@ public:
 
         vbsta _state;
 
-
-        //bool _state[VB_NUM]; //ボタンの状態
-        //TODO: あとでビットフィールドにして高速化
-
         VBMap() {
             //for (int i = 0; i < VB_NUM; i++) {_state[i] = false;}
             _next = NULL;
