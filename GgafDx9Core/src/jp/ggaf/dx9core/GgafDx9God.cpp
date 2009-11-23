@@ -561,10 +561,10 @@ GgafDx9God::~GgafDx9God() {
     _TRACE_("GgafDx9God::~GgafDx9God()");
     if (_pUniverse != NULL) {
         //Hê‚ğ~‚ß‚é
-        Sleep(20);
+        Sleep(1);
         GgafFactory::_is_working_flg = false;
         while (GgafFactory::_was_finished_flg == false) {
-            Sleep(10); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
+            Sleep(1); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
         }
         //”r‘¼‚Ì‰ğœ
         CloseHandle(_handleFactory01);

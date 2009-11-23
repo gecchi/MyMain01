@@ -354,14 +354,29 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     if (!_Object->_Meshes.empty()) {
         Frm::Mesh* LastMesh = _Object->_Meshes.back();
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
+        if (65535 < ((int)LastMesh->_FirstVertex + (int)LastMesh->_nVertices)) {
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65565を超えました。\n頂点数が多いので何とかしてください。");
+        }
         _LoadMesh->_FirstFace = LastMesh->_FirstFace + LastMesh->_nFaces;
+        if (65535 < ((int)LastMesh->_FirstFace + (int)LastMesh->_nFaces)) {
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstFace が 65565を超えました。\n頂点インデックス（面）数が多いので何とかしてください。");
+        }
         _LoadMesh->_FirstTextureCoord = LastMesh->_FirstTextureCoord
                 + LastMesh->_nTextureCoords;
+        if (65535 < ((int)LastMesh->_FirstTextureCoord + (int)LastMesh->_nTextureCoords)) {
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstTextureCoord が 65565を超えました。\nテクスチャUV座標数が多いので何とかしてください。");
+        }
         _LoadMesh->_FirstMaterial = LastMesh->_FirstMaterial
                 + LastMesh->_nMaterials;
+        if (65535 < ((int)LastMesh->_FirstMaterial + (int)LastMesh->_nMaterials)) {
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstMaterial が 65565を超えました。\nマテリアル数が多いので何とかしてください。");
+        }
         if (_LoadMesh->_FirstTextureCoord < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstTextureCoord = _LoadMesh->_FirstVertex;
         _LoadMesh->_FirstNormal = LastMesh->_FirstNormal + LastMesh->_nNormals;
+        if (65535 < ((int)LastMesh->_FirstNormal + (int)LastMesh->_nNormals)) {
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstNormal が 65565を超えました。\n法線数が多いので何とかしてください。");
+        }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
         _TRACE_("Starting Vertex index:" << _LoadMesh->_FirstVertex);
@@ -656,7 +671,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 
 
     fin.getline(Data, TEXT_BUFFER, ';');
-    _LoadMesh->_FaceMaterials = NEW uint16[(uint16) (TextToNum(Data)*2)];
+    _LoadMesh->_FaceMaterials = NEW uint16[((uint16)TextToNum(Data))*2];
     _TRACE_("Before Number of Materials:" << (uint16)TextToNum(Data));
 
     int file_nFaceMaterials = (uint16) TextToNum(Data);
@@ -795,7 +810,7 @@ void ToolBox::IO_Model_X::ProcessSkinWeights(void) {
 
     fin.getline(Data, TEXT_BUFFER, ';');
     cBone->_nVertices = (uint16) TextToNum(Data);
-    cBone->_Vertices = NEW uint16[cBone->_nVertices];
+    cBone->_Vertices = NEW uint16[(cBone->_nVertices)];
     for (int i = 0; i < cBone->_nVertices - 1; i++) {
         fin.getline(Data, TEXT_BUFFER, ',');
         cBone->_Vertices[i] = (uint16) TextToNum(Data);
