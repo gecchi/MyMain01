@@ -3,23 +3,32 @@
 namespace GgafCore {
 
 /**
- * 空間クラス .
+ * 線形八分木配列空間クラス .
  */
 class GgafLinearOctreeSpace {
 public:
-    /** 要素の先頭 */
+    /** 線形八分木配列の自身の要素番号 */
     int _my_index;
     /** 所属してる要素の種別情報 */
     DWORD _kindinfobit;
+    /** ぶら下がる要素の先頭 */
     GgafLinearOctreeElem* _pElemFirst;
+    /** ぶら下がる要素の末尾 */
     GgafLinearOctreeElem* _pElemLast;
+
+    /**
+     * コンストラクタ
+     * @return
+     */
     GgafLinearOctreeSpace() {
         _pElemFirst = NULL;
         _pElemLast = NULL;
         _kindinfobit = 0;
-        _my_index -1;
+        _my_index = -1; //ありえない-1を入れておく
     }
+
     void dump();
+
     virtual ~GgafLinearOctreeSpace();
 };
 

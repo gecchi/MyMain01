@@ -48,7 +48,7 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
 
     //空間座標インデックス
     prm_pElem->_pLinearOctree = this;
-    DWORD index = getSpaceIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
+    DWORD index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
     if (index > _num_space-1) { //Root空間を更新した際に起こりうるため、この判定は必要。
         return;
     } else {
@@ -80,7 +80,7 @@ void GgafLinearOctree::clearElem() {
     _pRegElemFirst = NULL;
 }
 
-DWORD GgafLinearOctree::getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
+DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
     //TODO: 本来は、tX1 - _root_X1 などが負になった場合の対応をしなければいけないが、どうしたものか
 
 
@@ -249,74 +249,74 @@ void GgafLinearOctree::putTree() {
         _TEXT_("\n");
     }
 
-    int index_lv1_begin = LV0*8 + 1;
+    DWORD index_lv1_begin = LV0*8 + 1;
     if (index_lv1_begin > _num_space-1) { return; }
 
-    for (int LV1 = index_lv1_begin, lv1_order_pos = 0; LV1 < index_lv1_begin+8; LV1++, lv1_order_num++, lv1_order_pos++) {
+    for (DWORD LV1 = index_lv1_begin, lv1_order_pos = 0; LV1 < index_lv1_begin+8; LV1++, lv1_order_num++, lv1_order_pos++) {
         if (_paSpace[LV1]._kindinfobit == 0) { continue; }
         GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
         _TEXT_("  LV1-"<<lv1_order_num<<"(POS:"<<lv1_order_pos<<")["<<LV1<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
         _paSpace[LV1].dump();
         _TEXT_("\n");
         ////
-        int index_lv2_begin = LV1*8 + 1;
+        DWORD index_lv2_begin = LV1*8 + 1;
         if (index_lv2_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
 
-        for (int LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+8; LV2++, lv2_order_num++, lv2_order_pos++) {
+        for (DWORD LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+8; LV2++, lv2_order_num++, lv2_order_pos++) {
             if (_paSpace[LV2]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
             _TEXT_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
             _paSpace[LV2].dump();
             _TEXT_("\n");
             ///
-            int index_lv3_begin = LV2*8 + 1;
+            DWORD index_lv3_begin = LV2*8 + 1;
             if (index_lv3_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-            for (int LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+8; LV3++, lv3_order_num++, lv3_order_pos++) {
+            for (DWORD LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+8; LV3++, lv3_order_num++, lv3_order_pos++) {
                 if (_paSpace[LV3]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                 _TEXT_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                 _paSpace[LV3].dump();
                 _TEXT_("\n");
                 ///
-                int index_lv4_begin = LV3*8 + 1;
+                DWORD index_lv4_begin = LV3*8 + 1;
                 if (index_lv4_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                for (int LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+8; LV4++, lv4_order_num++, lv4_order_pos++) {
+                for (DWORD LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+8; LV4++, lv4_order_num++, lv4_order_pos++) {
                     if (_paSpace[LV4]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                     _TEXT_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                     _paSpace[LV4].dump();
                     _TEXT_("\n");
                     ///
-                    int index_lv5_begin = LV4*8 + 1;
+                    DWORD index_lv5_begin = LV4*8 + 1;
                     if (index_lv5_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                    for (int LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+8; LV5++, lv5_order_num++, lv5_order_pos++) {
+                    for (DWORD LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+8; LV5++, lv5_order_num++, lv5_order_pos++) {
                         if (_paSpace[LV5]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                         GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                         _TEXT_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                         _paSpace[LV5].dump();
                         _TEXT_("\n");
                         ///
-                        int index_lv6_begin = LV5*8 + 1;
+                        DWORD index_lv6_begin = LV5*8 + 1;
                         if (index_lv6_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                        for (int LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+8; LV6++, lv6_order_num++, lv6_order_pos++) {
+                        for (DWORD LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+8; LV6++, lv6_order_num++, lv6_order_pos++) {
                             if (_paSpace[LV6]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                             _TEXT_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                             _paSpace[LV6].dump();
                             _TEXT_("\n");
                             ///
-                            int index_lv7_begin = LV6*8 + 1;
+                            DWORD index_lv7_begin = LV6*8 + 1;
                             if (index_lv7_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                            for (int LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+8; LV7++, lv7_order_num++, lv7_order_pos++) {
+                            for (DWORD LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+8; LV7++, lv7_order_num++, lv7_order_pos++) {
                                 if (_paSpace[LV7]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                                 _TEXT_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                 _paSpace[LV7].dump();
                                 _TEXT_("\n");
                                 ///
-                                int index_lv8_begin = LV7*8 + 1;
+                                DWORD index_lv8_begin = LV7*8 + 1;
                                 if (index_lv8_begin > _num_space-1) { continue; } //次の階層にもぐれるかLvチェック
-                                for (int LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+8; LV8++, lv8_order_num++, lv8_order_pos++) {
+                                for (DWORD LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+8; LV8++, lv8_order_num++, lv8_order_pos++) {
                                     if (_paSpace[LV8]._kindinfobit == 0) { continue; }  //何も無いので下位表示を飛ばし
                                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                                     _TEXT_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");

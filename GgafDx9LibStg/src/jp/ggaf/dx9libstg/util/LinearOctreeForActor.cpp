@@ -10,29 +10,22 @@ LinearOctreeForActor::LinearOctreeForActor(int prm_level) : GgafLinearOctree(prm
 
 
 void LinearOctreeForActor::executeAllBumpChk(actorkind prm_groupA, actorkind prm_groupB) {
-//    for (int i = 0; i < prm_pair_num; i++) {
-//        //actorkind group_A = prm_actorkindmask_pair[i][0];
-//       // actorkind group_B = prm_actorkindmask_pair[i][1];
-//    }
-
     _kind_groupA = prm_groupA;
     _kind_groupB = prm_groupB;
     TRACE5("_kind_groupA="<<_kind_groupA);
     TRACE5("_kind_groupB="<<_kind_groupB);
     if (((_paSpace[0]._kindinfobit & _kind_groupA) > 0) && ((_paSpace[0]._kindinfobit & _kind_groupB) > 0)) {
-        executeBumpChk(0);//行ってらっしゃい
+        //では八分木を巡る旅へ行ってらっしゃい
+        executeBumpChk(0); //ルート空間のチェック
+        //お帰りなさい。
         _stackParentSpaceActor_GroupA.clear();
         _stackParentSpaceActor_GroupB.clear();
-        //お帰りなさい。
     }
 }
 
 
 void LinearOctreeForActor::executeBumpChk(DWORD prm_index) {
 	TRACE5("InSpaceNo="<<prm_index);
-
-
-
     LOFA_Elem* pElem = ((LOFA_Elem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem != NULL) {
 		GgafActor* pActor_ElemValue = pElem->_pActor;
@@ -50,18 +43,14 @@ void LinearOctreeForActor::executeBumpChk(DWORD prm_index) {
             pActor_ElemValue = pElem->_pActor;
         }
         //現在の空間のグループAとグループB総当り
-        TRACE5("1executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);");
         executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
 
         //現在の空間のグループAと親空間所属のグループB総当り
-        TRACE5("2executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );");
         executeBumpChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );
 
         //親空間所属のグループAと現在の空間のグループB総当り
-        TRACE5("3executeBumpChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);");
         executeBumpChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
-
 
     DWORD next_level_index = prm_index*8 + 1; //_papSpace[prm_index] 空間の子空間のモートン順序位置0番の配列要素番号
     TRACE5("next_level_index="<<next_level_index);
@@ -103,10 +92,10 @@ void LinearOctreeForActor::executeBumpChk(DWORD prm_index) {
         }
 
         //お帰りなさい
-        for (DWORD i = 0; i < add_num_GroupA; i ++) {
+        for (int i = 0; i < add_num_GroupA; i ++) {
             _stackParentSpaceActor_GroupA.pop();
         }
-        for (DWORD i = 0; i < add_num_GroupB; i ++) {
+        for (int i = 0; i < add_num_GroupB; i ++) {
             _stackParentSpaceActor_GroupB.pop();
         }
         return; //親空間へ戻る
@@ -122,12 +111,11 @@ void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionStack* prm_pStackA
     if (prm_pStackA->_p == 0 || prm_pStackB->_p == 0) {
         return;
     }
-
     GgafActor* pActor_A;
     GgafActor* pActor_B;
-    for (int i = 0; i < prm_pStackA->_p; i++) {
+    for (DWORD i = 0; i < prm_pStackA->_p; i++) {
         pActor_A = prm_pStackA->_apActor[i];
-        for (int j = 0; j < prm_pStackB->_p; j++) {
+        for (DWORD j = 0; j < prm_pStackB->_p; j++) {
             pActor_B = prm_pStackB->_apActor[j];
             TRACE5("BumpChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
             pActor_A->executeBumpChk_MeAnd(pActor_B);

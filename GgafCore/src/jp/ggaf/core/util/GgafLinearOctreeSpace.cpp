@@ -19,5 +19,6 @@ void GgafLinearOctreeSpace::dump() {
         }
     }
 }
+
 GgafLinearOctreeSpace::~GgafLinearOctreeSpace() {
 }

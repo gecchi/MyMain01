@@ -144,7 +144,7 @@ public:
      * @param tZ2
      * @return ‹óŠÔ”Ô†
      */
-    virtual DWORD getSpaceIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
+    virtual DWORD getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
     /**
      * À•W¨üŒ`8•ª–Ø—v‘f”Ô†•ÏŠ·ŠÖ”

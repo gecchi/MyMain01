@@ -4,7 +4,7 @@ namespace GgafCore {
 
 
 /**
- * 空間要素クラス .
+ * 線形八分木配列空間の要素クラス .
  */
 class GgafLinearOctreeElem {
 public:
@@ -23,6 +23,12 @@ public:
     /** 登録リスト用リンク */
     GgafLinearOctreeElem* _pRegLinkNext;
 
+    /**
+     * コンストラクタ
+     * @param prm_pObject 対象オブジェクト(キャラクタなど八分木で管理したい実際の値)
+     * @param prm_kindbit その対象オブジェクの種別、種類分け不要な場合は、任意の数値でよい。
+     * @return
+     */
     GgafLinearOctreeElem(GgafObject* prm_pObject, DWORD prm_kindbit);
 
     /**
