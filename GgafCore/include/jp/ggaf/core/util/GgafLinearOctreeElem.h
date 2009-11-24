@@ -4,7 +4,7 @@ namespace GgafCore {
 
 
 /**
- * 線形八分木配列空間の要素クラス .
+ * 線形八分木配列用空間の要素クラス .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge

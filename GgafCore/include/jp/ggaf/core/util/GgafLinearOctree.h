@@ -2,7 +2,15 @@
 #define GGAFLINEAROCTREE_H_
 namespace GgafCore {
 
-#define SPACE_MAXLEVEL     7
+// 本プログラムは、
+// 「○×（まるぺけ）つくろーどっとコム」 http://marupeke296.com/index.html
+// サイト内コンテンツの 「その15 8分木空間分割を最適化する！」 http://marupeke296.com/COL_3D_No15_Octree.html
+// を参考にし、独自にアレンジしています。丁寧な説明を掲載して下さったIKD氏に感謝。
+//
+//                                            2009/01/13 Masatoshi Tsuge
+
+
+#define SPACE_MAXLEVEL 7
 /**
  * 線形八分木クラス .
  *
@@ -242,7 +250,9 @@ public:
 
 
     virtual ~GgafLinearOctree();
-
+    /**
+     * デバッグ用ツリー状況出力 .
+     */
     void putTree();
 };
 
