@@ -2,6 +2,12 @@
 #define TAMAGOACTOR_H_
 namespace MyStg2nd {
 
+/**
+ * Å‰‚Éì‚Á‚½3D‚Ì“G(Œ»İ–¢g—p)
+ * @version 1.00
+ * @since 2008/07/23
+ * @author Masatoshi Tsuge
+ */
 class TamagoActor : public GroundMeshActor {
 
     int _rnd;

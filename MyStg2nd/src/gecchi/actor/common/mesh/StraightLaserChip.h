@@ -2,6 +2,15 @@
 #define STRAIGHTLASERCHIP_H_
 namespace MyStg2nd {
 
+/**
+ * ストレートレーザー用ポリラインのチップ .
+ * ストレートレーザーと表現しているが、
+ * 正確には発射座標任意、移動方向は発射元座標と向きに追従するレーザーというべきか。
+ * グラディウス方式レーザーと言うべきか、そんな感じ。
+ * @version 1.00
+ * @since 2009/08/25
+ * @author Masatoshi Tsuge
+ */
 class StraightLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 

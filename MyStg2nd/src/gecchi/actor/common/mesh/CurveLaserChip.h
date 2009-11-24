@@ -2,6 +2,15 @@
 #define CURVELASERCHIP_H_
 namespace MyStg2nd {
 
+/**
+ * カーブレーザー用ポリラインのチップ .
+ * カーブレーザーと表現しているが、
+ * 正確には発射座標任意、移動方向固定,で隣接チップと手を取り合うレーザーというべきか。
+ * 水撒きの時のホースから出る水方式レーザーと言うべきか、そんな感じ。
+ * @version 1.00
+ * @since 2009/08/27
+ * @author Masatoshi Tsuge
+ */
 class CurveLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 public:

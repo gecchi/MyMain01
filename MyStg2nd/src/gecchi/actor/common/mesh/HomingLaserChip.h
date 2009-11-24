@@ -2,6 +2,15 @@
 #define HOMINGLASERCHIP_H_
 namespace MyStg2nd {
 
+/**
+ * ホーミングレーザー用ポリラインのチップ .
+ * ホーミングレーザーと表現しているが、
+ * 正確には発射座標固定、移動方向は先頭チップが決める、押し出し形レーザーというべきか。
+ * ところてん方式レーザーと言うべきか、そんな感じ。
+ * @version 1.00
+ * @since 2009/11/04
+ * @author Masatoshi Tsuge
+ */
 class HomingLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 

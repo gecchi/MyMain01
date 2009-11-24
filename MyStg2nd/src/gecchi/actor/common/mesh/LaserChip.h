@@ -2,6 +2,12 @@
 #define LASERCHIP_H_
 namespace MyStg2nd {
 
+/**
+ * ポリラインレーザーのチップの基底クラス .
+ * @version 1.00
+ * @since 2008/11/24
+ * @author Masatoshi Tsuge
+ */
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
 public:
