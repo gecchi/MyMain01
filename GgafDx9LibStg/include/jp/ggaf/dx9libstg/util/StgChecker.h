@@ -4,6 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * チェッククラス.
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class StgChecker : public GgafDx9Core::GgafDx9Checker {
 

@@ -17,6 +17,9 @@ namespace GgafDx9Core {
  * ＜使い方＞<BR>
  * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
  * <BR>
+ * @version 1.00
+ * @since 2009/02/12
+ * @author Masatoshi Tsuge
  */
 class GgafDx9Camera : public GgafDx9GeometricActor {
 private:

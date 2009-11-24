@@ -44,6 +44,12 @@ typedef map<string, int> keymap;
 typedef unsigned long int vbsta;
 
 
+/**
+ * ‰¼‘zƒ{ƒ^ƒ“
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
+ */
 class VirtualButton {
 
 public:

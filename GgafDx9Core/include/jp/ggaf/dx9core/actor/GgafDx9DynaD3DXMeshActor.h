@@ -12,6 +12,9 @@ namespace GgafDx9Core {
  * GgafDx9D3DXMeshActor との違いは、頂点バッファに直接アクセスをことに考慮して、<BR>
  * D3DXMESH_DYNAMIC オプションを使用しているところだけです。<BR>
  * 頂点をロックする場合はGgafDx9D3DXMeshActorではなく、こちらを継承してください。<BR>
+ * @version 1.00
+ * @since 2008/11/17
+ * @author Masatoshi Tsuge
  */
 class GgafDx9DynaD3DXMeshActor : public GgafDx9DrawableActor {
 private:

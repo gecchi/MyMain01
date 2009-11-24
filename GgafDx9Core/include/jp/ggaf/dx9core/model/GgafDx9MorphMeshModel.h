@@ -52,6 +52,9 @@ namespace GgafDx9Core {
  * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>ÅEÅEÅE<BR>ball_9.x</td>
  * </tr>
  * </table>
+ * @version 1.00
+ * @since 2009/05/08
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MorphMeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;

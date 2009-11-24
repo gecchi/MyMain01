@@ -33,6 +33,9 @@ namespace GgafDx9Core {
  * ・単純な分、基本的に D3DXLoadMeshFromX → drawSubset(n) より描画は高速なはず。<BR>
  * ・ロジックで頂点をいじりたい場合等、 ID3DXMesh から所望の頂点を割り出すのがめんどくさい場合。<BR>
  * ・不完全と解っているXファイルを、あえて読みたい場合。<BR>
+ * @version 1.00
+ * @since 2009/03/10
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;

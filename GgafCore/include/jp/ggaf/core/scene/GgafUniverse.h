@@ -8,7 +8,7 @@ namespace GgafCore {
  * 神自らが new してくれます。本クラスが new されると、芋づる的にシーン(GgafScene)が new されます。<BR>
  * 少なくとも１つはこの世をnewしなければいけません。<BR>
  * @version 1.00
- * @since 2008/06/20
+ * @since 2007/11/20
  * @author Masatoshi Tsuge
  */
 class GgafUniverse : public GgafMainScene {

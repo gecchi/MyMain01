@@ -17,6 +17,9 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9MeshSetActor用のモデルクラス.
+ * @version 1.00
+ * @since 2009/06/15
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MeshSetModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;

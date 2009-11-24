@@ -4,6 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * FontSpriteActor•\Ž¦ƒNƒ‰ƒX
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class FontSpriteString : public GgafCore::GgafObject {
     std::string _font_modelname;

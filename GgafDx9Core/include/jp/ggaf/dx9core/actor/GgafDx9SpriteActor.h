@@ -6,6 +6,9 @@ namespace GgafDx9Core {
  * スプライトアクター.
  * GgafDx9GeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
+ * @version 1.00
+ * @since 2008/02/27
+ * @author Masatoshi Tsuge
  */
 class GgafDx9SpriteActor : public GgafDx9DrawableActor {
 

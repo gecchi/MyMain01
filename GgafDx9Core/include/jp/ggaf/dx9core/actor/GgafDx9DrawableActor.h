@@ -6,6 +6,9 @@ namespace GgafDx9Core {
  * 画面に描画を行う座標未変換アクターの抽象クラス .
  * GgafDx9GeometricActor に モデル、エフェクト、マテリアルなどを保持し、<BR>
  * 描画関連メソッドを追加<BR>
+ * @version 1.00
+ * @since 2009/06/10
+ * @author Masatoshi Tsuge
  */
 class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 

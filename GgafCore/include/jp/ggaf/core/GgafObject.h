@@ -2,6 +2,9 @@
 #define GGAFOBJECT_H_
 namespace GgafCore {
 
+/**
+ *
+ */
 class GgafObject {
 
 public:

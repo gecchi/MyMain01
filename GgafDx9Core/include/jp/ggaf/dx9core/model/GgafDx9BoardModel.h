@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9BoardActor用モデルクラス.
+ * @version 1.00
+ * @since 2009/03/10
+ * @author Masatoshi Tsuge
  */
 class GgafDx9BoardModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;

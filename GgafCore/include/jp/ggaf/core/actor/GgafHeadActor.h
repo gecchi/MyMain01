@@ -27,7 +27,7 @@ namespace GgafCore {
  * 　　キャラのアクター達　　キャラのアクター達　　キャラのアクター
  * </PRE>
  * @version 1.00
- * @since 2008/06/20
+ * @since 2007/12/06
  * @author Masatoshi Tsuge
  */
 class GgafHeadActor : public GgafActor {

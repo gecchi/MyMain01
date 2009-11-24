@@ -5,6 +5,9 @@ namespace GgafDx9LibStg {
 /**
  * GgafActorを要素とし当たり判定機能を追加した線形八分木配列クラス .
  * 種別Aグループ 対 種別Bグループの2グループ間の当たり判定を行う
+ * @version 1.00
+ * @since 2009/11/23
+ * @author Masatoshi Tsuge
  */
 class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 

@@ -1,7 +1,12 @@
 #ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
 namespace GgafDx9Core {
-
+/**
+ * DirectXÇçló∂ÇµÇΩê_
+ * @version 1.00
+ * @since 2009/01/10
+ * @author Masatoshi Tsuge
+ */
 class GgafDx9God : public GgafCore::GgafGod {
 
 public:

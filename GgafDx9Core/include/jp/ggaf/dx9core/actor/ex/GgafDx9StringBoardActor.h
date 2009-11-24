@@ -5,6 +5,9 @@ namespace GgafDx9Core {
 /**
  * 文字表示クラス(座標変換済み).
  * GgafDx9BoardActor を継承し、文字セットテクスチャーから文字表示機能を追加したアクターです。
+ * @version 1.00
+ * @since 2009/04/09
+ * @author Masatoshi Tsuge
  */
 class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
     /** 文字数50文字まで */

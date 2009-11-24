@@ -11,6 +11,9 @@ namespace GgafCore {
  * の関係で、これでワンセットです。<BR>
  * 資源管理クラスは主な機能は、資源接続クラスのインスタンスをを内部にリストで保持し、取得要求があった場合、
  * 内部保持していればそれを返し、保持していなければ生成して、リストに追加した後それを返します。
+ * @version 1.00
+ * @since 2008/01/28
+ * @author Masatoshi Tsuge
  */
 template<class T>
 class GgafResourceManager : public GgafObject {

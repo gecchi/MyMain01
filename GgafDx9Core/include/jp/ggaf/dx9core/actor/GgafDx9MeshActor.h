@@ -4,8 +4,11 @@ namespace GgafDx9Core {
 
 /**
  * メッシュアクター.
- * GgafDx9DrawableActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
+ * GgafDx9DrawableActor を継承し、独自のXファイル定義のメッシュ表示機能を<BR>
  * 追加したアクターです<BR>
+ * @version 1.00
+ * @since 2009/02/26
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MeshActor : public GgafDx9DrawableActor {
 private:

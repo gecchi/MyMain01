@@ -4,6 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * “–‚½‚è”»’è—ÌˆæƒNƒ‰ƒX
+ * @version 1.00
+ * @since 2007/11/29
+ * @author Masatoshi Tsuge
  */
 class HitAreaBoxs : public GgafDx9Core::GgafDx9HitArea {
 public:

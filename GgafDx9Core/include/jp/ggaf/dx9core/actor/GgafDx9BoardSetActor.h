@@ -8,6 +8,9 @@ namespace GgafDx9Core {
  * 擬似スプライト機能を追加したアクター。<BR>
  * 単純表示（回転拡大無し）のため高速。スコア表示や、背景等に使用しよう。<BR>
  * ２Ｄゲームだけなら、オブジェクトはこのクラス一本でいける。<BR>
+ * @version 1.00
+ * @since 2009/07/21
+ * @author Masatoshi Tsuge
  */
 class GgafDx9BoardSetActor : public GgafDx9DrawableActor {
 private:

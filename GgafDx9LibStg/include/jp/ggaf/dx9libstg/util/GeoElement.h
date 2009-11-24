@@ -4,6 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * 座標コンテナ
+ * @version 1.00
+ * @since 2008/12/19
+ * @author Masatoshi Tsuge
  */
 class GeoElement {
 public:

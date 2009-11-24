@@ -3,7 +3,10 @@
 namespace GgafDx9Core {
 
 /**
- * メッシュアクターの具象クラス.
+ * カメラの視点の目標点クラス.
+ * @version 1.00
+ * @since 2009/10/14
+ * @author Masatoshi Tsuge
  */
 class GgafDx9CameraViewPoint : public GgafDx9GeometricActor {
 

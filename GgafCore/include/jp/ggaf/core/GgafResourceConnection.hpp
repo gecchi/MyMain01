@@ -15,6 +15,9 @@ namespace GgafCore {
  * close() を呼び出すと、内部で「接続カウント」により本当に解放か否かを判断します。<BR>
  * 接続カウントが0になった場合、資源(Resource)は解放されます。
  * T には資源の型を指定してください。<BR>
+ * @version 1.00
+ * @since 2008/01/28
+ * @author Masatoshi Tsuge
  */
 template<class T>
 class GgafResourceConnection : public GgafObject {

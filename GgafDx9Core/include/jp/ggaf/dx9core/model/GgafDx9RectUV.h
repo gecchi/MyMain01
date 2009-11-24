@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * テクスチャーのU,V座標コンテナ.
+ * @version 1.00
+ * @since 2008/02/19
+ * @author Masatoshi Tsuge
  */
 class GgafDx9RectUV : public GgafCore::GgafObject {
 

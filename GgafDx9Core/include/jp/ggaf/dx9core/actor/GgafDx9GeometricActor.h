@@ -6,6 +6,10 @@ namespace GgafDx9Core {
  * 座標を持ったのアクター.
  * ワールド座標、或いは変換済み座標の何れかを持ち、<BR>
  * 座標関連メソッドを備えたアクターです。<BR>
+ * (旧GgafDx9UntranceformedActor とGgafDx9TranceformedActor を統合)
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class GgafDx9GeometricActor : public GgafDx9BaseActor {
 

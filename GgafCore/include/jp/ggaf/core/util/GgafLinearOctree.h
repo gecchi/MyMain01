@@ -64,6 +64,9 @@ namespace GgafCore {
  *  |14|15|
  *  +--+--+
  *  のことを指し、これのモートン順序位置3なので、Lv2空間モートン順序通し番号 14 を指してることとする。
+ * @version 1.00
+ * @since 2009/11/23
+ * @author Masatoshi Tsuge
  */
 class GgafLinearOctree {
 

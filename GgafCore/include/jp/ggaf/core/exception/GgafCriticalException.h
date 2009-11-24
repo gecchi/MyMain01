@@ -6,7 +6,7 @@ namespace GgafCore {
  * GgafCoreライブラリ専用、ライブラリ業務例外 .
  * GgafCoreライブラリの利用者（私だけ）は本クラスをキャッチしてプログラムをストップして下さい。
  * @version 1.00
- * @since 2008/06/20
+ * @since 2007/12/03
  * @author Masatoshi Tsuge
  */
 #define throwGgafCriticalException(X) {std::stringstream ss; ss <<__FILE__<<"("<<__LINE__<<") : "<< X; throw GgafCore::GgafCriticalException(ss.str()); }

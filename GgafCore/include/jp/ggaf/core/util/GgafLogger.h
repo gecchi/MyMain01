@@ -2,6 +2,12 @@
 #define GGAFLOGGER_H_
 namespace GgafCore {
 
+/**
+ * ƒƒOƒNƒ‰ƒX
+ * @version 1.00
+ * @since 2007/11/27
+ * @author Masatoshi Tsuge
+ */
 class GgafLogger {
 
 public:

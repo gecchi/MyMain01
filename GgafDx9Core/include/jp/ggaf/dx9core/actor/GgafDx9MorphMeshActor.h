@@ -6,6 +6,9 @@ namespace GgafDx9Core {
  * モーフメッシュアクター.
  * GgafDx9DrawableActor を継承し、Xファイル定義のメッシュ表示機能及び<BR>
  * モーフアニメーション機能を備えたアクター<BR>
+ * @version 1.00
+ * @since 2009/05/08
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MorphMeshActor : public GgafDx9DrawableActor {
 private:
