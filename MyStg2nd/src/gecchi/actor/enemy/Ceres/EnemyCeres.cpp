@@ -27,7 +27,6 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
         _pDispatcher_EnemyCeresShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
         EnemyCeresShot001* pCeresShot001;
         for (int i = 0; i < 32; i++) {
-            Sleep(1);
             pCeresShot001 = NEW EnemyCeresShot001("EnemyMeshShot");
             pCeresShot001->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
             _pDispatcher_EnemyCeresShots001->addSubLast(pCeresShot001);

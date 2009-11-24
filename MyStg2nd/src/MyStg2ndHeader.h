@@ -114,7 +114,8 @@ class OptionMagic;
 class Properties;
 class MyFactory;
 
-
+template<class T>
+class Formation001;
 
 
 }
@@ -190,6 +191,8 @@ class MyFactory;
 #include "gecchi/util/Properties.h"
 #include "gecchi/MyFactory.h"
 
+
+#include "gecchi/actor/common/template/Formation001.hpp"
 
 
 
