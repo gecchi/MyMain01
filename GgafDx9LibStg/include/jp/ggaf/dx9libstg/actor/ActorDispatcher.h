@@ -8,6 +8,10 @@ namespace GgafDx9LibStg {
  * 取得したアクターを、アクター発送者戻す（再度使いまわしをしたい）たい時は inactivate() して下さい。本クラスが自動的に拾います。<BR>
  * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
  * また連続employ()の場合、次のemploy()のアクターは必ず隣同士となっています。<BR>
+ * (旧RotationActor)
+ * @version 1.00
+ * @since 2008/08/11
+ * @author Masatoshi Tsuge
  */
 class ActorDispatcher : public GgafCore::GgafDummyActor {
 
@@ -49,6 +53,7 @@ public:
     }
 
     /**
+     * アクター取り出し .
      * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば、activate() して取得する。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>

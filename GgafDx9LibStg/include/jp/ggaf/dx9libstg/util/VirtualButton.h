@@ -45,7 +45,7 @@ typedef unsigned long int vbsta;
 
 
 /**
- * 仮想ボタン
+ * 仮想ボタン .
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge

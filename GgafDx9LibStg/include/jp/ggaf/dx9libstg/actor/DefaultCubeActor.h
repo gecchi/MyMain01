@@ -2,6 +2,12 @@
 #define DEFAULTCUBEACTOR_H_
 namespace GgafDx9LibStg {
 
+/**
+ * 当たり判定表示用キューブ .
+ * @version 1.00
+ * @since 2008/10/10
+ * @author Masatoshi Tsuge
+ */
 class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
 
 public:

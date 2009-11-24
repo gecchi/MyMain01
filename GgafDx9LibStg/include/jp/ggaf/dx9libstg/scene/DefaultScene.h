@@ -3,8 +3,11 @@
 namespace GgafDx9LibStg {
 
 /**
- * シーンの具象クラス
+ * シーンの具象クラス .
  * GgafDx9Core::GgafDx9Scene を継承し、空実装した具象シーンです。
+ * @version 1.00
+ * @since 2007/12/06
+ * @author Masatoshi Tsuge
  */
 class DefaultScene : public GgafDx9Core::GgafDx9Scene {
 public:

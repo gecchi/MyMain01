@@ -5,6 +5,9 @@ namespace GgafDx9LibStg {
 /**
  * 座標変換済みスプライトアクターの具象クラス.
  * GgafDx9Core::GgafDx9BoardSetActor を空実装した具象アクターです。
+ * @version 1.00
+ * @since 2009/07/21
+ * @author Masatoshi Tsuge
  */
 class DefaultBoardSetActor : public GgafDx9Core::GgafDx9BoardSetActor {
 

@@ -5,6 +5,9 @@ namespace GgafDx9LibStg {
 /**
  * メッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9D3DXMeshActor を空実装した具象アクターです。
+ * @version 1.00
+ * @since 2008/11/17
+ * @author Masatoshi Tsuge
  */
 class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 

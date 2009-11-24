@@ -4,6 +4,9 @@ namespace GgafDx9LibStg {
 
 /**
  * フォーメーションアクタークラス .
+ * @version 1.00
+ * @since 2008/08/08
+ * @author Masatoshi Tsuge
  */
 class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 

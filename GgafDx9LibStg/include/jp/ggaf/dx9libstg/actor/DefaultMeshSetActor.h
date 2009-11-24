@@ -1,10 +1,13 @@
-#ifndef DEFAULTMESHSETACTORH_
-#define DEFAULTMESHSETACTORH_
+#ifndef DEFAULTMESHSETACTOR_H_
+#define DEFAULTMESHSETACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
  * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
+ * @version 1.00
+ * @since 2009/06/16
+ * @author Masatoshi Tsuge
  */
 class DefaultMeshSetActor : public GgafDx9Core::GgafDx9MeshSetActor {
 
@@ -42,4 +45,4 @@ public:
 };
 
 }
-#endif /*DEFAULTMESHSETACTORH_*/
+#endif /*DEFAULTMESHSETACTOR_H_*/

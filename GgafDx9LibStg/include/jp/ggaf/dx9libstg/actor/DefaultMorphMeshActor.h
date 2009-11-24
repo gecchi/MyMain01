@@ -3,8 +3,11 @@
 namespace GgafDx9LibStg {
 
 /**
- * メッシュアクターの具象クラス.
- * GgafDx9Core::GgafDx9MeshActor を空実装した具象アクターです。
+ * モーフメッシュアクターの具象クラス.
+ * GgafDx9Core::GgafDx9MorphMeshActor を空実装した具象アクターです。
+ * @version 1.00
+ * @since 2009/05/08
+ * @author Masatoshi Tsuge
  */
 class DefaultMorphMeshActor : public GgafDx9Core::GgafDx9MorphMeshActor {
 

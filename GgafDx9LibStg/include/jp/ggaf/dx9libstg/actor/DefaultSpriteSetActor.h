@@ -5,6 +5,9 @@ namespace GgafDx9LibStg {
 /**
  * スプライトセットアクターの具象クラス.
  * GgafDx9Core::GgafDx9SpriteSetActor を空実装した具象アクターです。
+ * @version 1.00
+ * @since 2009/07/15
+ * @author Masatoshi Tsuge
  */
 class DefaultSpriteSetActor : public GgafDx9Core::GgafDx9SpriteSetActor {
 

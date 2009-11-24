@@ -5,6 +5,9 @@ namespace GgafDx9LibStg {
 /**
  * FontSpriteString 用スプライトクラス.
  * FontSpriteString が内部で利用するクラスです。<BR>
+ * @version 1.00
+ * @since 2008/04/09
+ * @author Masatoshi Tsuge
  */
 class FontSpriteActor : public DefaultSpriteActor {
 
