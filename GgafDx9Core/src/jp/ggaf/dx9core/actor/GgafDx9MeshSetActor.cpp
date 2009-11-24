@@ -32,7 +32,7 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
 
 
 void GgafDx9MeshSetActor::processDraw() {
-    _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
+    _draw_set_num = 1; //GgafDx9MeshSetActorの同じモデルが連続しているカウント数。同一描画深度は一度に描画する。
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -71,9 +71,9 @@ void GgafDx9MeshSetActor::processDraw() {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ahMaterialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
-        //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録
-        //本来はマテリアルは複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、1セット目の[0]のマテリアルを全体のマテリアルとする。
-        //したがってGgafDx9MeshSetActorはマテリアル色は8セット全て１色しか不可能。αしか使わないのでこのようにした。
+        //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録メモ
+        //本来はマテリアルは複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、各セットの[0]のマテリアルを全体のマテリアルとする。
+        //したがってGgafDx9MeshSetActorはマテリアル色は8セット全てそれぞれ１色しか不可能。
         //もともと本クラスは、同一モデル複数オブジェクトを、最大8セット同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
         //マテリアル色で色分けしたい場合は GgafDx9MeshActor を使うこととする。あるいは テクスチャを貼ってしまえば問題ない。という方針。
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");

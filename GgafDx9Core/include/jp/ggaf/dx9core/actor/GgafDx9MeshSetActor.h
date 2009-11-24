@@ -5,7 +5,7 @@ namespace GgafDx9Core {
 /**
  * メッシュアクター.
  * GgafDx9DrawableActor を継承し、Xファイル定義のメッシュ表示機能を<BR>
- * 追加したアクターです<BR>
+ * 追加、さらに同一モデル複数オブジェクトの頂点バッファを持ち、大量表示に最適化したアクターです<BR>
  * @version 1.00
  * @since 2009/06/16
  * @author Masatoshi Tsuge
