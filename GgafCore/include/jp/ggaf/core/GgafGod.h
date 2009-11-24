@@ -13,7 +13,7 @@ namespace GgafCore {
  * その他、アプリ内でグローバルな参照が在ったり便利屋クラスでもある。<BR>
  * TODO:最終的には 神を２個 new して、交互に be() を実行すれば、ゲームが２個平行動作するようにしよう。
  * @version 1.00
- * @since 2007/11/27
+ * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
 class GgafGod : public GgafObject {

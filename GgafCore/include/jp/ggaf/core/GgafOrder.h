@@ -7,7 +7,7 @@ namespace GgafCore {
  * 工場(GgafFactory)に渡す注文を表したクラスで、 商品（何かのインスタンス）１つを内部保持します。<BR>
  * また注文オブジェクト同士で連結リストを作成でき、そのリストは工場(GgafFactory)が操作することになります。<BR>
  * @version 1.00
- * @since 2007/12/19
+ * @since 2007/12/17
  * @author Masatoshi Tsuge
  */
 class GgafOrder : public GgafObject {

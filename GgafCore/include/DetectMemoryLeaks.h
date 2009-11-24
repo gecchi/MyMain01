@@ -2,6 +2,14 @@
 #define DETECT_MEMORY_LEAKS_H
 #pragma warning(disable: 4291)
 
+/**
+ * メモリリーク検出用
+ * @version 1.00
+ * @since 2008/08/21
+ * @author Masatoshi Tsuge
+ */
+
+
 extern std::map<std::size_t, std::string> detectMemoryLeaksMemoryMap;
 
 extern bool detectMemoryLeaksFlag;

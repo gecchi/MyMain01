@@ -7,7 +7,7 @@ namespace GgafCore {
  * 子アクターが無くなれば自動的に自殺する悲しい一時的なアクターです。<BR>
  * 団体行動を採るときに、親アクターにすると何かと便利かもしれません。<BR>
  * @version 1.00
- * @since 2008/06/20
+ * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
 class GgafDummyActor : public GgafMainActor {

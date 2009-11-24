@@ -1,5 +1,14 @@
 #ifndef GGAFCOMMONHEADER_H_
 #define GGAFCOMMONHEADER_H_
+
+/**
+ * Ggafライブラリヘッダー郡ヘッダー
+ * @version 1.00
+ * @since 2007/11/29
+ * @author Masatoshi Tsuge
+ */
+
+
 #ifndef _MSC_VER
 #define _WIN32_IE 0x0300
 #endif
@@ -101,7 +110,7 @@
     #define TEXT5(X)
     //ダンプ出力用
     #define _TRACE_(X)
-	#define _TEXT_(X)
+    #define _TEXT_(X)
     //デバッグ用
     #define _TRACEORE(X)
 

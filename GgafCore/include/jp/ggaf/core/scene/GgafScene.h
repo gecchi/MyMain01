@@ -76,7 +76,7 @@ namespace GgafCore {
  * void processHappen(int prm_no) ・・・その他のイベント時処理 <BR>
  * <BR>
  * @version 1.00
- * @since 2007/11/20
+ * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
 class GgafScene : public GgafElement<GgafScene> {

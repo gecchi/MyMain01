@@ -24,7 +24,7 @@ namespace GgafCore {
  * イテレータのような使い方を想定していますが、上図から解るように、hasNext() による判定は存在しません。<BR>
  * <BR>
  * @version 1.00
- * @since 2008/12/20
+ * @since 2008/12/19
  * @author Masatoshi Tsuge
  */
 template<class T>

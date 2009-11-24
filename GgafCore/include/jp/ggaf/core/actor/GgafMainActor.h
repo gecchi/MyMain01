@@ -7,7 +7,7 @@ namespace GgafCore {
  * 下位アクタークラスへのインターフェイスであり、<BR>
  * 新たにアクタークラスを作る場合本クラスを継承してアクタークラスを作ることとする。<BR>
  * @version 1.00
- * @since 2008/06/20
+ * @since 2008/03/24
  * @author Masatoshi Tsuge
  */
 class GgafMainActor : public GgafActor {

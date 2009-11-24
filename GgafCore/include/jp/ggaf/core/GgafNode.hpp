@@ -66,7 +66,7 @@ namespace GgafCore {
  * </TR>
  * </TABLE>
  * @version 1.00
- * @since 2008/06/20
+ * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
 

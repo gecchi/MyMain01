@@ -12,7 +12,7 @@ namespace GgafCore {
  * 管理者(GgafLordActor)のサブアクターは必ず団長(GgafHeadActor)になっています。<BR>
  * 団長(GgafHeadActor)の解説もあわせて参照して下さい。
  * @version 1.00
- * @since 2007/12/06
+ * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
 class GgafLordActor : public GgafActor {

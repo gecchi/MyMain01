@@ -15,8 +15,9 @@ namespace GgafCore {
  * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
  * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
+ * (※旧クラス名はGgafFactor)
  * @version 1.00
- * @since 2008/06/20
+ * @since 2008/08/21
  * @author Masatoshi Tsuge
  */
 template<class T>

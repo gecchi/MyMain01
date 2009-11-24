@@ -3,7 +3,10 @@
 namespace GgafCore {
 
 /**
- *
+ * 基底クラス
+ * @version 1.00
+ * @since 2007/12/24 イブ！
+ * @author Masatoshi Tsuge
  */
 class GgafObject {
 
