@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9SpriteActor用モデルクラス.
+ * @version 1.00
+ * @since 2008/02/22
+ * @author Masatoshi Tsuge
  */
 class GgafDx9SpriteModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;

@@ -6,7 +6,7 @@ namespace GgafDx9Core {
  * GgafDx9D3DXActor用モデルクラス.(現在未使用？)
  * GgafDx9D3DXMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
  * @version 1.00
- * @since 2008/11/17
+ * @since 2008/02/22
  * @author Masatoshi Tsuge
  */
 class GgafDx9D3DXMeshModel : public GgafDx9Model {

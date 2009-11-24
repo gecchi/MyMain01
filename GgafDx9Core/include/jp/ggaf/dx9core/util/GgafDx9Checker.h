@@ -2,6 +2,13 @@
 #define GGAFDX9CHECKER_H_
 namespace GgafDx9Core {
 
+/**
+ * チェックに関する色々な機能を持ったクラス .
+ * （旧GgafDx9GeometryChecker）
+ * @version 1.00
+ * @since 2008/08/20
+ * @author Masatoshi Tsuge
+ */
 class GgafDx9Checker : public GgafCore::GgafObject {
 
 protected:

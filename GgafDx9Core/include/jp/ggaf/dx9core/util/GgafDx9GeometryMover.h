@@ -22,11 +22,15 @@ namespace GgafDx9Core {
 
 
 /**
- * 座標計算支援クラス.
+ * 座標計算支援クラス .
  * GgafDx9GeometricActor のメンバの<BR>
  *  _X ,  _Y,  _Z  ･･･ アクターの座標<BR>
  * _RX , _RY, _RZ  ･･･ アクターの軸回転角度<BR>
  * を、簡単に操作するために設計。<BR>
+ * TODO:いつの間にか肥大化。分割せよ。
+ * @version 1.00
+ * @since 2008/08/20
+ * @author Masatoshi Tsuge
  */
 class GgafDx9GeometryMover : public GgafCore::GgafObject {
     float _dummy1, _dummy2, _dummy3;

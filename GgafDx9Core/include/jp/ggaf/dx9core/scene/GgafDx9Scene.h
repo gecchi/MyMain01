@@ -7,7 +7,7 @@ namespace GgafDx9Core {
  * GgafMainScene を継承しただけです。<BR>
  * GgafDx9Core名前空間内では、このクラスを基底シーンとします。<BR>
  * @version 1.00
- * @since 2009/01/10
+ * @since 2008/01/24
  * @author Masatoshi Tsuge
  */
 class GgafDx9Scene : public GgafCore::GgafMainScene {

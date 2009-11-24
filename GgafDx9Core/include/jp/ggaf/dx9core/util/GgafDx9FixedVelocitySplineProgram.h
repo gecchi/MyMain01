@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * スプライン曲線、なめらかな等速移動のための情報セット
+ * @version 1.00
+ * @since 2009/10/28
+ * @author Masatoshi Tsuge
  */
 class GgafDx9FixedVelocitySplineProgram : public GgafDx9SplineProgram {
 

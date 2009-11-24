@@ -2,6 +2,12 @@
 #define GGAFDX9INPUT_H_
 namespace GgafDx9Core {
 
+/**
+ * “ü—ÍƒNƒ‰ƒX .
+ * @version 1.00
+ * @since 2006/01/10
+ * @author Masatoshi Tsuge
+ */
 class GgafDx9Input {
 
 public:

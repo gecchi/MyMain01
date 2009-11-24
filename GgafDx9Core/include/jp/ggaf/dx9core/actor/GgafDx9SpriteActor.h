@@ -7,7 +7,7 @@ namespace GgafDx9Core {
  * GgafDx9GeometricActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
  * 擬似スプライト機能を追加したアクターです。<BR>
  * @version 1.00
- * @since 2008/02/27
+ * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
 class GgafDx9SpriteActor : public GgafDx9DrawableActor {
@@ -41,10 +41,10 @@ public:
     bool _isBillboardingFlg;
 
     GgafDx9SpriteActor(const char* prm_name,
-                       const char* prm_model_id,
-                       const char* prm_effect_id,
-                       const char* prm_technique,
-                       GgafDx9Checker* prm_pChecker );
+                          const char* prm_model_id,
+                          const char* prm_effect_id,
+                          const char* prm_technique,
+                          GgafDx9Checker* prm_pChecker );
 
     /**
      * ＜OverRide です＞<BR>

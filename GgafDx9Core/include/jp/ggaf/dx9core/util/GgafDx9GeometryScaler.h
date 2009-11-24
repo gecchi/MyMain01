@@ -20,6 +20,10 @@ enum Method {
  * GgafDx9GeometricActor のメンバの<BR>
  * _SX , _SY, _SZ  ･･･ アクターのスケール<BR>
  * を、簡単に操作するために設計した。<BR>
+ * 2009/05/22 GgafDx9GeometryMover から分割した。
+ * @version 1.00
+ * @since 2009/05/22
+ * @author Masatoshi Tsuge
  */
 class GgafDx9GeometryScaler : public GgafCore::GgafObject {
 

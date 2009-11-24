@@ -6,7 +6,7 @@ namespace GgafDx9Core {
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  * @version 1.00
- * @since 2008/09/08
+ * @since 2008/02/21
  * @author Masatoshi Tsuge
  */
 class GgafDx9Model : public GgafCore::GgafObject {

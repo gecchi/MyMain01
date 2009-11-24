@@ -17,10 +17,13 @@ enum GgafDx9MorphMethod {
 
 
 /**
- * モーフ支援クラス.
+ * モーフ支援クラス .
  * GgafDx9MorphMeshActor のメンバの<BR>
  * _weight[] <BR>
- * を簡単に操作するために設計した。<BR>
+ * を簡単に操作するために設計。<BR>
+ * @version 1.00
+ * @since 2009/05/11
+ * @author Masatoshi Tsuge
  */
 class GgafDx9GeometryMorpher : public GgafCore::GgafObject {
 

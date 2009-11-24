@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 /**
  * サウンドクラス.
  * IDirectSound8を保持し、サウンドに関するもろもろの機能を持ったクラスです
+ * @version 1.00
+ * @since 2008/03/04
+ * @author Masatoshi Tsuge
  */
 class GgafDx9Sound {
 public:
