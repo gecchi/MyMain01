@@ -75,12 +75,13 @@ public:
 
 #define orderActorToFactory(ID, CLASS, NAME) MyFactory::orderActor<CLASS>(ID,MyFactory::createActor,(void*)(NAME),(void*)(NULL),(void*)(NULL))
 #define orderActorWithModelToFactory(ID, CLASS, NAME, MODEL) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModel,(void*)(NAME),(void*)(MODEL),(void*)(NULL))
-#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(ROT))
-#define orderActorWithDpToFactory(ID, CLASS, NAME, ROT) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithDp,(void*)(NAME),(void*)(ROT), (void*)(NULL))
+#define orderActorWithModelDpToFactory(ID, CLASS, NAME, MODEL, DISPATCHER) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithModelDp,(void*)(NAME),(void*)(MODEL),(void*)(DISPATCHER))
+#define orderActorWithDpToFactory(ID, CLASS, NAME, DISPATCHER) MyFactory::orderActor<CLASS>(ID,MyFactory::createActorWithDp,(void*)(NAME),(void*)(DISPATCHER), (void*)(NULL))
 
 #define obtainActorFromFactory(ID) MyFactory::obtainActor(ID)
 #define orderSceneToFactory(ID, CLASS, NAME) MyFactory::orderScene<CLASS>(ID,MyFactory::createScene,(void*)(NAME),(void*)(NULL),(void*)(NULL))
 #define obtainSceneFromFactory(ID) MyFactory::obtainScene(ID)
+
 
 }
 #endif /*MYFACTORY_H_*/
