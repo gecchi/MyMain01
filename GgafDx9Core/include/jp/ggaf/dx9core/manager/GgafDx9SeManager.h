@@ -5,6 +5,9 @@ namespace GgafDx9Core {
 /**
  * GgafDx9Se 管理クラス .
  * 生成済み GgafDx9Se オブジェクトを登録しておき、使いまわします。
+ * @version 1.00
+ * @since 2008/09/08
+ * @author Masatoshi Tsuge
  */
 class GgafDx9SeManager : public GgafCore::GgafResourceManager<GgafDx9Se> {
 

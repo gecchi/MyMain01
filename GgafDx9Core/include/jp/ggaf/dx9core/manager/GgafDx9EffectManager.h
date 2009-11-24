@@ -5,6 +5,9 @@ namespace GgafDx9Core {
 /**
  * GgafDx9EffectConnection 管理クラス .
  * 生成済み GgafDx9EffectConnection オブジェクトを登録しておき、使いまわします。
+ * @version 1.00
+ * @since 2009/02/09
+ * @author Masatoshi Tsuge
  */
 class GgafDx9EffectManager : public GgafCore::GgafResourceManager<GgafDx9Effect> {
 

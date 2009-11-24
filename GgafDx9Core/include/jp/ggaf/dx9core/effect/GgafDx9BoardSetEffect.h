@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9BoardSet用モデルクラス.
+ * @version 1.00
+ * @since 2009/07/21
+ * @author Masatoshi Tsuge
  */
 class GgafDx9BoardSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;

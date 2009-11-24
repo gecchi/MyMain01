@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * テクスチャのコネクション.
+ * @version 1.00
+ * @since 2009/01/27
+ * @author Masatoshi Tsuge
  */
 class GgafDx9TextureConnection : public GgafCore::GgafResourceConnection<IDirect3DTexture9> {
 

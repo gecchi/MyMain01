@@ -5,6 +5,9 @@ namespace GgafDx9Core {
 /**
  * GgafDx9TextureConnection 管理クラス .
  * 生成済み GgafDx9TextureConnection オブジェクトを登録しておき、使いまわします。
+ * @version 1.00
+ * @since 2009/01/26
+ * @author Masatoshi Tsuge
  */
 class GgafDx9TextureManager : public GgafCore::GgafResourceManager<IDirect3DTexture9> {
 

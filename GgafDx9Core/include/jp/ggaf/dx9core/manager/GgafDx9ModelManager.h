@@ -6,6 +6,10 @@ namespace GgafDx9Core {
  * モデルインスタンス管理.
  * 主に、モデルをリストにより保持し、モデルを要求された時に<BR>
  * 生成するか、あるいは生成済を返すかを判断します。<BR>
+ * TODO:中核とも言えるクラスで肥大化はしかたないが、分割したなぁ。
+ * @version 1.00
+ * @since 2009/02/01
+ * @author Masatoshi Tsuge
  */
 class GgafDx9ModelManager : public GgafCore::GgafResourceManager<GgafDx9Model> {
 

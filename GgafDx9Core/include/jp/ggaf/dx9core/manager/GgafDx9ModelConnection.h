@@ -3,11 +3,12 @@
 namespace GgafDx9Core {
 
 /**
- * モデルのコネクション.
+ * モデル資源のコネクション.
+ * @version 1.00
+ * @since 2009/02/01
+ * @author Masatoshi Tsuge
  */
 class GgafDx9ModelConnection : public GgafCore::GgafResourceConnection<GgafDx9Model> {
-
-
 public:
 
     /**

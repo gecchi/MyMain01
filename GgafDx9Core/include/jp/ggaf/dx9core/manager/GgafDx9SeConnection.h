@@ -4,6 +4,9 @@ namespace GgafDx9Core {
 
 /**
  * GgafDx9Seコネクション.
+ * @version 1.00
+ * @since 2009/01/30
+ * @author Masatoshi Tsuge
  */
 class GgafDx9SeConnection : public GgafCore::GgafResourceConnection<GgafDx9Se> {
 

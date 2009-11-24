@@ -3,8 +3,11 @@
 namespace GgafDx9Core {
 
 /**
- * モデル基底クラス.
- * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * エフェクト基底クラス.
+ * キャラ(アクター)のエフェクトを保持するクラスです。<BR>
+ * @version 1.00
+ * @since 2009/03/09
+ * @author Masatoshi Tsuge
  */
 class GgafDx9Effect : public GgafCore::GgafObject {
     friend class GgafDx9EffectManager;

@@ -3,7 +3,10 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9SpriteSet用モデルクラス.
+ * GgafDx9SpriteSet用エフェクトクラス .
+ * @version 1.00
+ * @since 2009/07/14
+ * @author Masatoshi Tsuge
  */
 class GgafDx9SpriteSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;

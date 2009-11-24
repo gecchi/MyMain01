@@ -3,7 +3,10 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Board用モデルクラス.
+ * GgafDx9Board用エフェクトクラス.
+ * @version 1.00
+ * @since 2009/03/10
+ * @author Masatoshi Tsuge
  */
 class GgafDx9BoardEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;

@@ -3,7 +3,10 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Mesh用モデルクラス.
+ * GgafDx9MeshSet用エフェクトクラス .
+ * @version 1.00
+ * @since 2009/06/15
+ * @author Masatoshi Tsuge
  */
 class GgafDx9MeshSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;

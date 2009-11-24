@@ -5,6 +5,9 @@ namespace GgafDx9Core {
 /**
  * モデル基底クラス.
  * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
+ * @version 1.00
+ * @since 2009/02/09
+ * @author Masatoshi Tsuge
  */
 class GgafDx9EffectConnection : public GgafCore::GgafResourceConnection<GgafDx9Effect> {
 
