@@ -1558,22 +1558,6 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     typedef struct _D3DXMATERIAL
     {
         D3DMATERIAL9  MatD3D;
