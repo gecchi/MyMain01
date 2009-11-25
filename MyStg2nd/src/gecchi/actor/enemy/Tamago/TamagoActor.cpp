@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "ball_0") {
+TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "CubeAndSphere1") {
     _class_name = "TamagoActor";
 }
 
@@ -13,7 +13,7 @@ void TamagoActor::initialize() {
     //inactivateTree();
     setBumpable(false);
     _X = _Y = _Z = 0;
-    _Y = -300000;
+    _Y = 0;
     //
 //    _pMover->setRzMoveAngle(ANGLE180);
 //    _pMover->setMoveVelocity(2000);
@@ -31,15 +31,15 @@ void TamagoActor::initialize() {
 
     //	_pStgChecker->useHitAreaBoxNum(1, 0);
     //	_pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-
+    _pMover->setFaceAngle(AXIS_Z, -ANGLE90);
     _pMover->setFaceAngleVelocity(AXIS_Y, -200);
 //    _pStgChecker->useHitAreaBoxNum(2);
 //    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _pStgChecker->setHitAreaBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
-    _pScaler->setScale(10000);
+    _pScaler->setScale(200000);
     _frame_offset = 0;
     //_pMover->_iIncrementFaceAngle[AXIS_X] = -100*1000;
-    setAlpha(0.99);
+    setAlpha(1);
     //_rnd = (110 + (rand() % 90));
 }
 
