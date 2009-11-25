@@ -36,12 +36,13 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <stack>
 #include <sstream>
 #include <cstddef>
 //#include <crtdbg.h>
 
 //‰´ƒf
-//#define OREDEBUG 1
+#define OREDEBUG 1
 
 
 #ifdef OREDEBUG
