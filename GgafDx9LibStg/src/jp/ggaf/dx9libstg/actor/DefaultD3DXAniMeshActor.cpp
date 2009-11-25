@@ -4,24 +4,24 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-DefaultD3DXMeshActor::DefaultD3DXMeshActor(const char* prm_name, const char* prm_model) :
-    GgafDx9D3DXMeshActor(prm_name,
+DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model) :
+    GgafDx9D3DXAniMeshActor(prm_name,
                          prm_model,
-                         "DefaultMeshEffect",
-                         "DefaultMeshTechnique",
+                         "DefaultAniMeshEffect",
+                         "DefaultAniMeshTechnique",
                          NEW StgChecker(this) ) {
-    _class_name = "DefaultD3DXMeshActor";
+    _class_name = "DefaultD3DXAniMeshActor";
     _frame_offset = 0;
     _pStgChecker = (StgChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 }
 
-void DefaultD3DXMeshActor::drawHitArea() {
+void DefaultD3DXAniMeshActor::drawHitArea() {
     CubeEx::get()->drawHitarea(_pStgChecker);
 }
 
-DefaultD3DXMeshActor::~DefaultD3DXMeshActor() {
+DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
     DELETE_IMPOSSIBLE_NULL(_pStgChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

@@ -12,6 +12,7 @@ class GeoElement;
 class GeometryChain;
 class DefaultScene;
 class DefaultD3DXMeshActor;
+class DefaultD3DXAniMeshActor;
 class DefaultMeshActor;
 class DefaultMeshSetActor;
 class DefaultMorphMeshActor;
@@ -40,6 +41,7 @@ class StgChecker;
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultUniverse.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultD3DXMeshActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultD3DXAniMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMeshSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultMorphMeshActor.h"
