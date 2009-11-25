@@ -25,6 +25,8 @@ private:
      */
     GgafDx9D3DXMeshModel* createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
 
+    GgafDx9D3DXAniMeshModel* createD3DXAniMeshModel(char* prm_model_name);
+
     /**
      * GgafDx9D3DXMeshModel オブジェクトを生成。 .
      * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
@@ -73,6 +75,8 @@ public:
      * @param prm_pD3DXMeshModel 再構築するGgafDx9D3DXMeshModel
      */
     void restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel);
+
+    void restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel);
 
     /**
      * GgafDx9SpriteModel オブジェクトを再構築する。 .

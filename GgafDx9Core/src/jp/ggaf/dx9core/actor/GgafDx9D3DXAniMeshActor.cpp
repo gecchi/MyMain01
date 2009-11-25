@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-DWORD GgafDx9D3DXMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
-GgafDx9D3DXMeshActor::GgafDx9D3DXMeshActor(const char* prm_name,
+DWORD GgafDx9D3DXAniMeshActor::FVF = (D3DFVF_XYZ | D3DFVF_NORMAL | D3DFVF_DIFFUSE | D3DFVF_TEX1);
+GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
                                                  const char* prm_model_id,
                                                  const char* prm_effect_id,
                                                  const char* prm_technique,
@@ -17,37 +17,37 @@ GgafDx9D3DXMeshActor::GgafDx9D3DXMeshActor(const char* prm_name,
                                                                 "X",
                                                                 prm_technique,
                                                                 prm_pChecker) {
-    _class_name = "GgafDx9D3DXMeshActor";
-    _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pGgafDx9Model;
+    _class_name = "GgafDx9D3DXAniMeshActor";
+    _pD3DXAniMeshModel = (GgafDx9D3DXAniMeshModel*)_pGgafDx9Model;
     _pMeshEffect = (GgafDx9MeshEffect*)_pGgafDx9Effect;
 
 }
 
-void GgafDx9D3DXMeshActor::setAlpha(float prm_fAlpha) {
+void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9D3DXMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
+    //GgafDx9D3DXAniMeshActorはメッシュαも設定（シェーダーで参照するため）
+    for (DWORD i = 0; i < _pD3DXAniMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
         _paD3DMaterial9[i].Diffuse.a = _fAlpha;
     }
 }
 
-void GgafDx9D3DXMeshActor::processDraw() {
+void GgafDx9D3DXAniMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     // Zバッファを有効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファ書き込み可
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
-    _pD3DXMeshModel->draw(this);
+    _pD3DXAniMeshModel->draw(this);
 
     // Zバッファを無効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
@@ -56,5 +56,5 @@ void GgafDx9D3DXMeshActor::processDraw() {
 
 }
 
-GgafDx9D3DXMeshActor::~GgafDx9D3DXMeshActor() {
+GgafDx9D3DXAniMeshActor::~GgafDx9D3DXAniMeshActor() {
 }

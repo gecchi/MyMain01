@@ -26,7 +26,6 @@ private:
     int _aniframe_counter;
 
 public:
-//    char* _technique;
     /** モデルオブジェクトへのポインタ */
     GgafDx9BoardModel* _pBoardModel;
     /** エフェクト */

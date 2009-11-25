@@ -39,6 +39,10 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             //GgafDx9DynaD3DXMeshActor
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
+        case 'A':
+            //GgafDx9D3DXAniMeshModel
+            pResourceModel = createD3DXAniMeshModel(model_name);
+            break;
         case 'X':
             //MeshModel
             pResourceModel = createMeshModel(model_name);
@@ -84,6 +88,12 @@ GgafDx9D3DXMeshModel* GgafDx9ModelManager::createD3DXMeshModel(char* prm_model_n
     GgafDx9D3DXMeshModel* pD3DXMeshModel_New = NEW GgafDx9D3DXMeshModel(prm_model_name, prm_dwOptions);
     restoreD3DXMeshModel(pD3DXMeshModel_New);
     return pD3DXMeshModel_New;
+}
+
+GgafDx9D3DXAniMeshModel* GgafDx9ModelManager::createD3DXAniMeshModel(char* prm_model_name) {
+    GgafDx9D3DXAniMeshModel* pD3DXAniMeshModel_New = NEW GgafDx9D3DXAniMeshModel(prm_model_name);
+    restoreD3DXAniMeshModel(pD3DXAniMeshModel_New);
+    return pD3DXAniMeshModel_New;
 }
 
 GgafDx9SpriteModel* GgafDx9ModelManager::createSpriteModel(char* prm_model_name) {
@@ -1478,6 +1488,288 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
     prm_pD3DXMeshModel->_dwNumMaterials = dwNumMaterials;
 }
+
+void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel) {
+    TRACE3("GgafDx9ModelManager::restoreD3DXAniMeshModel(" << prm_pD3DXAniMeshModel->_model_name << ")");
+    //【restoreD3DXAniMeshModel再構築（＝初期化）処理概要】
+    //1)D3DXLoadMeshFromXを使用してXファイルを読み込む
+    //2)GgafDx9D3DXAniMeshModelのメンバにセット
+    //TODO:GgafDx9D3DXAniMeshModelはもう必要無いのかもしれない。
+
+    //Xファイルのロードして必要な内容をGgafDx9D3DXAniMeshModelメンバに設定しインスタンスとして完成させたい
+    LPD3DXMESH pID3DXAniMesh; //メッシュ(ID3DXAniMeshインターフェイスへのポインタ）
+    D3DMATERIAL9* model_paD3DMaterial9; //マテリアル(D3DXMATERIAL構造体の配列の先頭要素を指すポインタ）
+    GgafDx9TextureConnection** model_papTextureCon; //テクスチャ配列(IDirect3DTexture9インターフェイスへのポインタを保持するオブジェクト）
+    DWORD dwNumMaterials;
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
+
+    LPD3DXBUFFER pID3DXBuffer; //受け取り用バッファ（マテリアル用）
+    HRESULT hr;
+    //Xファイルのファイルロード
+    GgafDx9AllocHierarchyWorldFrame AH; // CAllocHierarchyBaseの派生クラス
+    D3DXFRAME_WORLD* pFR; // ワールド変換行列付きフレーム構造体
+    ID3DXAnimationController* pAC; // アニメーションコントローラ
+    hr = D3DXLoadMeshHierarchyFromX(
+            xfile_name.c_str(),
+            D3DXMESH_MANAGED,
+            GgafDx9God::_pID3DDevice9,
+            &AH,
+            NULL,
+            (D3DXFRAME**)(&pFR),
+            &pAC
+         );
+
+
+    //テクスチャとマテリアルを探す旅に出ます。
+    map< LPD3DXMESHCONTAINER, D3DXMATERIAL* > mapMaterial;
+    map< LPD3DXMESHCONTAINER, GgafDx9TextureConnection* > mapTextureCon;
+    class Temp {
+    public:
+        static void investigateFrame(D3DXFRAME* prm_pFrame) {
+            if( prm_pFrame->pMeshContainer != NULL ) {
+                //テクスチャとマテリアルを取り出す
+                Temp::extractResource(prm_pFrame->pMeshContainer);
+            }
+            if( prm_pFrame->pFrameFirstChild != NULL ){
+                investigateFrame(prm_pFrame->pFrameSibling);
+            }
+            if( prm_pFrame->pFrameSibling != NULL){
+                investigateFrame(prm_pFrame->pFrameSibling);
+            }
+
+            //リーフ
+            return;
+        }
+
+        //テクスチャとマテリアルを取り出す
+        static void extractResource(LPD3DXMESHCONTAINER prm_pMeshContainer) {
+            int nMaterial = prm_pMeshContainer->NumMaterials;
+
+            mapMaterial.
+
+        }
+    };
+    Temp::investigateFrame(pFR);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    typedef struct _D3DXMATERIAL
+    {
+        D3DMATERIAL9  MatD3D;
+        LPSTR         pTextureFilename;
+    } D3DXMATERIAL;
+    typedef D3DXMATERIAL *LPD3DXMATERIAL;
+
+    typedef struct _D3DXMESHCONTAINER
+    {
+        LPSTR                   Name;
+
+        D3DXMESHDATA            MeshData;
+
+        LPD3DXMATERIAL          pMaterials;
+        LPD3DXEFFECTINSTANCE    pEffects;
+        DWORD                   NumMaterials;
+        DWORD                  *pAdjacency;
+
+        LPD3DXSKININFO          pSkinInfo;
+
+        struct _D3DXMESHCONTAINER *pNextMeshContainer;
+    } D3DXMESHCONTAINER, *LPD3DXMESHCONTAINER;
+
+
+    typedef struct _D3DXFRAME
+    {
+        LPSTR                   Name;
+        D3DXMATRIX              TransformationMatrix;
+
+        LPD3DXMESHCONTAINER     pMeshContainer;
+
+        struct _D3DXFRAME       *pFrameSibling;
+        struct _D3DXFRAME       *pFrameFirstChild;
+    } D3DXFRAME, *LPD3DXFRAME;
+
+    void GgafDx9WorldMatStack::CalcFrameWorldMatrix( D3DXFRAME_WORLD* frame )
+    {
+       // 現在のスタックの先頭にあるワールド変換行列を参照
+       D3DXMATRIX *pStackMat = m_MatrixStack.top();
+
+       // 引数のフレームに対応するワールド変換行列を計算
+       D3DXMatrixMultiply( &frame->WorldTransMatrix, &frame->TransformationMatrix, pStackMat );
+
+       // フレームにメッシュコンテナがあれば、このフレームをリストに追加する
+       if( frame->pMeshContainer != NULL )
+          m_DrawFrameList.push_back( frame );
+
+       // 子フレームがあればスタックを積んで、子フレームのワールド変換座標の計算へ
+       if( frame->pFrameFirstChild != NULL ){
+          m_MatrixStack.push( &frame->WorldTransMatrix );
+          CalcFrameWorldMatrix( (D3DXFRAME_WORLD*)frame->pFrameFirstChild );
+          m_MatrixStack.pop();    // 子フレームがもう終わったのでスタックを1つ外す
+       }
+
+       // 兄弟フレームがあれば「現在の」スタックを利用
+       if( frame->pFrameSibling != NULL){
+          CalcFrameWorldMatrix( (D3DXFRAME_WORLD*)frame->pFrameSibling );
+       }
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //pAC->SetTrackSpeed(0, 1000.0f);   // アニメーションスピードを調整
+     // アニメーションをフレーム分進める
+    //pAC->AdvanceTime(6.0f, NULL);
+    //FLOAT Ang = 0.0f;
+    GgafDx9WorldMatStack WTMStack;
+    list< D3DXFRAME_WORLD* > *pDrawList;
+    D3DXMATRIX WorldMat, Rot;
+    // ワールド変換行列スタックによるワールド変換行列の計算
+    //Ang += 0.004f;
+    //D3DXMatrixIdentity(&WorldMat);
+    //D3DXMatrixRotationYawPitchRoll(&Rot, Ang, Ang / 2.37f, 0);
+    //D3DXMatrixMultiply(&WorldMat, &WorldMat, &Rot);
+    //WTMStack.SetWorldMatrix(&WorldMat);
+
+    // フレームのワールド変換行列を計算
+    WTMStack.UpdateFrame(pFR);
+
+    pDrawList = WTMStack.GetDrawList(); // 描画リストを取得
+
+    list<D3DXFRAME_WORLD*>::iterator it = pDrawList->begin();
+    int materialnum;
+    int i;
+    for (; it != pDrawList->end(); it++) {
+        //g_pD3DDev->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
+        materialnum = (*it)->pMeshContainer->NumMaterials;
+        for (i = 0; i < materialnum; i++) {
+            //g_pD3DDev->SetMaterial(&(*it)->pMeshContainer->pMaterials[i].MatD3D);
+            (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(i);
+        }
+    }
+
+//    hr = D3DXLoadMeshFromX(
+//           xfile_name.c_str(),         //[in]  LPCTSTR pFilename
+//           D3DXMESH_SYSTEMMEM, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
+//           GgafDx9God::_pID3DDevice9,  //[in]  LPDIRECT3DDEVICE9 pDevice
+//           NULL,                       //[out] LPD3DXBUFFER* ppAdjacency
+//           &pID3DXBuffer,              //[out] LPD3DXBUFFER* ppMaterials
+//           NULL,                       //[out] LPD3DXBUFFER* ppEffectInstances
+//           &dwNumMaterials,            //[out] DWORD* pNumMaterials
+//           &pID3DXAniMesh                 //[out] LPD3DXMESH* pMesh
+//         );
+    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXAniMeshModel] D3DXLoadMeshFromXによるロードが失敗。対象="<<xfile_name);
+
+//    //最適化
+//    DWORD *pAdjacency = NEW DWORD [ pID3DXAniMesh->GetNumFaces() * 3 ];
+//    hr = pID3DXAniMesh->GenerateAdjacency( 1e-6f, pAdjacency );
+//    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXAniMeshModel] GenerateAdjacencyがつくれません。対象="<<xfile_name);
+//    hr = pID3DXAniMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, NULL, NULL, NULL );
+//    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXAniMeshModel] D3DXMESHOPT_ATTRSORTできません。対象="<<xfile_name);
+//    hr = pID3DXAniMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, NULL, NULL, NULL );
+//    mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXAniMeshModel] D3DXMESHOPT_VERTEXCACHEできません。対象="<<xfile_name);
+//    DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
+
+    //マテリアルを取り出す
+    D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
+    //＜2008/02/02 の脳みそ＞
+    // やっていることメモ
+    // GetBufferPointer()で取得できる D3DXMATERIAL構造体配列のメンバのMatD3D (D3DMATERIAL9構造体) が欲しい。
+    //（∵クラスのメンバー持ちにしたいため）。 pID3DXBuffer_tmp の方はさっさと解放(Release())しようとした。
+    // だが解放すると D3DXMATERIAL構造体配列も消えるようだ、すぐには消えないかもしれんが…（ハマる；）。
+    // しかたないので、paD3DMaterial9_tmp の構造体を物理コピーをして保存することにしましょ～、とりあえずそ～しましょう。
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
+    for( DWORD i = 0; i < dwNumMaterials; i++){
+        model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
+    }
+
+    //マテリアルのDiffuse反射をAmbient反射にコピーする
+    //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
+    //xファイルのマテリアルにはAmbient反射値は設定できない（みたい）、そこでDiffuse反射値で
+    //Ambient反射値を代用することにする、とりあえず。後で好きに変えて。
+    //＜2009/3/13＞
+    //固定機能はもう使わなくなった。それに伴いマテリアルDiffuseはシェーダーのパラメータのみで利用している。
+    //TODO:マテリアルAmbientは使わない。今後もそうする？
+    for( DWORD i = 0; i < dwNumMaterials; i++) {
+        model_paD3DMaterial9[i].Ambient = model_paD3DMaterial9[i].Diffuse;
+    }
+
+    //テクスチャを取り出す
+    model_papTextureCon = NEW GgafDx9TextureConnection*[dwNumMaterials];
+    char* texture_filename;
+    for( DWORD i = 0; i < dwNumMaterials; i++) {
+        texture_filename = paD3DMaterial9_tmp[i].pTextureFilename;
+        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
+        } else {
+            //テクスチャ無し
+            model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
+        }
+    }
+    RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//テクスチャファイル名はもういらないのでバッファ解放
+
+    //Xファイルに法線がない場合、FVFに法線を追加し、法線を計算してを設定。
+    if(pID3DXAniMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
+        LPD3DXMESH pID3DXAniMesh_tmp = NULL;
+        hr = pID3DXAniMesh->CloneMeshFVF(
+                           pID3DXAniMesh->GetOptions(),             // [in]  DWORD Options,
+                           D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1, // [in]  DWORD FVF,
+                           GgafDx9God::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
+                           &pID3DXAniMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
+                         );
+        mightDx9Exception(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXAniMeshModel]  pID3DXAniMesh->CloneMeshFVF()失敗。対象="<<xfile_name);
+        D3DXComputeNormals(pID3DXAniMesh_tmp, NULL); //法線計算（Faceの表裏どっちに法線向けるか、どうやって判定しているのだろうか･･･）
+        RELEASE_IMPOSSIBLE_NULL(pID3DXAniMesh);
+        pID3DXAniMesh = pID3DXAniMesh_tmp;
+    }
+
+    //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
+    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
+    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
+    prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
+    prm_pD3DXAniMeshModel->_dwNumMaterials = dwNumMaterials;
+}
+
 
 void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel) {
     TRACE3("GgafDx9ModelManager::restoreSpriteModel(" << prm_pSpriteModel->_model_name << ")");

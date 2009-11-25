@@ -62,7 +62,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _class_name = "GgafDx9DrawableActor";
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
-
     char* model_name = NEW char[51];
     model_name[0] = '\0';
     strcat(model_name, prm_model_type);

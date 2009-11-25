@@ -27,7 +27,6 @@ private:
 
 public:
     int _draw_set_num;
-//    char* _technique;
     /** モデルオブジェクトへのポインタ */
     GgafDx9BoardSetModel* _pBoardSetModel;
     /** エフェクト */
