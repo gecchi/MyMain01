@@ -68,6 +68,13 @@ void putPoint(Parent2* p) {
 }
 
 int main() {
+
+    class Z {
+    public:
+        static void xx() {
+        }
+    };
+
     SpriteSub* sprite_sub  = new SpriteSub();
     MeshSub* mesh_sub  = new MeshSub();
 
