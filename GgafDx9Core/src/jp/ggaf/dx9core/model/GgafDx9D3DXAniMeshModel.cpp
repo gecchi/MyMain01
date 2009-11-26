@@ -45,7 +45,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //D3DXMatrixMultiply(&WorldMat, &WorldMat, &Rot);
     //&(pTargetActor->_matWorld)
     // アニメーションをフレーム分進める
-    _pAC->AdvanceTime( 1.0f, NULL );
+    _pAC->AdvanceTime( 6.0f, NULL );
 
     WTMStack.SetWorldMatrix(&(pTargetActor->_matWorld));
     // フレームのワールド変換行列を計算

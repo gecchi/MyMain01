@@ -8,7 +8,7 @@ GgafDx9CubeActor::GgafDx9CubeActor(const char* prm_name,
 
                                    GgafDx9MeshActor(prm_name,
                                                     "cube",
-                                                    "DefaultMashEffect",
+                                                    "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
                                                     prm_pChecker) {
     _class_name = "GgafDx9CubeActor";

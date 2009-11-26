@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const char* prm_model) :
     GgafDx9DynaD3DXMeshActor(prm_name,
                              prm_model,
-                             "DefaultMashEffect",
+                             "DefaultMeshEffect",
                              "DefaultMeshTechnique",
                              NEW StgChecker(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";

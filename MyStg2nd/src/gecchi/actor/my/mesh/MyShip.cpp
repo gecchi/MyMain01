@@ -265,10 +265,10 @@ void MyShip::processBehavior() {
 
 ///////////スケーリングテスト////////////////
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pScaler->addScale(2000);
+        //_pScaler->addScale(2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pScaler->addScale(-2000);
+        //_pScaler->addScale(-2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);

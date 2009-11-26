@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_model) :
     GgafDx9MeshSetActor(prm_name,
                         prm_model,
-                        "DefaultMashSetEffect",
+                        "DefaultMeshSetEffect",
                         "DefaultMeshSetTechnique",
                         NEW StgChecker(this) ) {
 
