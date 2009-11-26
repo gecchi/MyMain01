@@ -120,6 +120,11 @@ class GgafDx9SplineProgram;
 class GgafDx9FixedFrameSplineProgram;
 class GgafDx9FixedVelocitySplineProgram;
 
+class GgafDx9AllocHierarchy;
+class D3DXFRAME_WORLD;
+class GgafDx9AllocHierarchyWorldFrame;
+class GgafDx9WorldMatStack;
+
 class GgafDx9BaseActor;
 class GgafDx9GeometricActor;
 class GgafDx9DrawableActor;
@@ -182,10 +187,7 @@ class GgafDx9BgmManager;
 class GgafDx9Sound;
 class CWaveDecorder;
 
-class GgafDx9AllocHierarchy;
-class D3DXFRAME_WORLD;
-class GgafDx9AllocHierarchyWorldFrame;
-class GgafDx9WorldMatStack;
+
 
 
 }
@@ -214,6 +216,11 @@ class GgafDx9WorldMatStack;
 #include "jp/ggaf/dx9core/util/GgafDx9SplineProgram.h"
 #include "jp/ggaf/dx9core/util/GgafDx9FixedFrameSplineProgram.h"
 #include "jp/ggaf/dx9core/util/GgafDx9FixedVelocitySplineProgram.h"
+
+#include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchy.h"
+#include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h"
+#include "jp/ggaf/dx9core/util/GgafDx9WorldMatStack.h"
+
 
 #include "jp/ggaf/dx9core/actor/GgafDx9BaseActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9GeometricActor.h"
@@ -267,9 +274,7 @@ class GgafDx9WorldMatStack;
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryScaler.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
 
-#include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchy.h"
-#include "jp/ggaf/dx9core/util/GgafDx9AllocHierarchyWorldFrame.h"
-#include "jp/ggaf/dx9core/util/GgafDx9WorldMatStack.h"
+
 
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"

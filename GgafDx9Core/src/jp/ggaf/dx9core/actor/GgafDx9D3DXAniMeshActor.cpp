@@ -12,35 +12,35 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
 
                                            GgafDx9DrawableActor(prm_name,
                                                                 prm_model_id,
-                                                                "D",
+                                                                "A",
                                                                 prm_effect_id,
-                                                                "X",
+                                                                "A",
                                                                 prm_technique,
                                                                 prm_pChecker) {
     _class_name = "GgafDx9D3DXAniMeshActor";
     _pD3DXAniMeshModel = (GgafDx9D3DXAniMeshModel*)_pGgafDx9Model;
-    _pMeshEffect = (GgafDx9MeshEffect*)_pGgafDx9Effect;
+    _pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)_pGgafDx9Effect;
 
 }
 
 void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
     //GgafDx9D3DXAniMeshActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pD3DXAniMeshModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
-    }
+//    for (DWORD i = 0; i < _pD3DXAniMeshModel->_dwNumMaterials; i++) {
+//        _paD3DMaterial9[i].Ambient.a = _fAlpha;
+//        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
+//    }
 }
 
 void GgafDx9D3DXAniMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
-    pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
+    hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatView, &pCAM->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
-    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
+    //mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     // Zバッファを有効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);

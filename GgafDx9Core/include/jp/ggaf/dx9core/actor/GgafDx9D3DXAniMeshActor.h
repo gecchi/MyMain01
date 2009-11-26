@@ -18,7 +18,7 @@ public:
     /** モデル */
     GgafDx9D3DXAniMeshModel* _pD3DXAniMeshModel;
     /** エフェクト資源 */
-    GgafDx9MeshEffect* _pMeshEffect;
+    GgafDx9D3DXAniMeshEffect* _pD3DXAniMeshEffect;
 
     GgafDx9D3DXAniMeshActor(const char* prm_name,
                          const char* prm_model_id,

@@ -14,7 +14,14 @@ class GgafDx9D3DXAniMeshModel : public GgafDx9Model {
 
 public:
     /** メッシュ(インスタンスはモデル毎） */
-    LPD3DXMESH _pID3DXAniMesh;
+    GgafDx9AllocHierarchyWorldFrame* _pAH;
+    D3DXFRAME_WORLD* _pFR;
+    ID3DXAnimationController* _pAC;
+    FLOAT _Ang;
+
+
+    GgafDx9WorldMatStack WTMStack;
+    list< D3DXFRAME_WORLD* > *pDrawList;
     /** D3DXLoadMeshFromXのオプション */
     //	LPD3DXBUFFER	_pAdjacency;
 
