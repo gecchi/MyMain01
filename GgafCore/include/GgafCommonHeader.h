@@ -68,7 +68,6 @@
     //‚W•ª–ØŠÖ˜A
     //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
-
     #define TRACE5(X)
     #define TEXT5(X)
 
