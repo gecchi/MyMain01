@@ -9,8 +9,8 @@ angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
 
-//MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
-MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
+//MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
 
     GameGlobal::init();
