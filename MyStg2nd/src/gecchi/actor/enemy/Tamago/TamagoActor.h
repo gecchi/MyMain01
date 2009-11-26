@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2008/07/23
  * @author Masatoshi Tsuge
  */
-class TamagoActor : public GgafDx9LibStg::DefaultD3DXAniMeshActor {
+class TamagoActor : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
     int _rnd;
 

@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "CubeAndSphere1") {
+TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "tamago") {
     _class_name = "TamagoActor";
 }
 
@@ -36,7 +36,7 @@ void TamagoActor::initialize() {
 //    _pStgChecker->useHitAreaBoxNum(2);
 //    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _pStgChecker->setHitAreaBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
-    _pScaler->setScale(200000);
+    _pScaler->setScale(10000);
     _frame_offset = 0;
     //_pMover->_iIncrementFaceAngle[AXIS_X] = -100*1000;
     setAlpha(1);

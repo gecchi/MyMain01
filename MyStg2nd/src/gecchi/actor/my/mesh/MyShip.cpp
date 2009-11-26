@@ -10,7 +10,7 @@ angle MyShip::wk_angRx = 0;
 #define S_OPTION 0
 
 //MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
-MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "tamago") {
+MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
 
     GameGlobal::init();
@@ -158,7 +158,7 @@ void MyShip::initialize() {
     _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
     _pScaler->setScale(1000);
-    _pScaler->setScaleRange(1000, 3000);
+    _pScaler->setScaleRange(1000, 900000);
 
 
 //    for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin();
@@ -265,10 +265,10 @@ void MyShip::processBehavior() {
 
 ///////////スケーリングテスト////////////////
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pScaler->intoTargetScaleLinerUntil(3000, 60);
+        _pScaler->addScale(2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pScaler->intoTargetScaleLinerStep(3000, 10);
+        _pScaler->addScale(-2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
