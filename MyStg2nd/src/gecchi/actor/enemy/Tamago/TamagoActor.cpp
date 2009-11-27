@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "CubeAndSphere1") {
+TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AniSphere0") {
     _class_name = "TamagoActor";
 }
 
@@ -14,7 +14,6 @@ void TamagoActor::initialize() {
     setBumpable(false);
     _X = _Y = _Z = 0;
     _Y = 0;
-    //
 //    _pMover->setRzMoveAngle(ANGLE180);
 //    _pMover->setMoveVelocity(2000);
 //    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
@@ -31,8 +30,8 @@ void TamagoActor::initialize() {
 
     //	_pStgChecker->useHitAreaBoxNum(1, 0);
     //	_pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    _pMover->setFaceAngle(AXIS_Z, -ANGLE90);
-    _pMover->setFaceAngleVelocity(AXIS_Y, -200);
+    //_pMover->setFaceAngle(AXIS_Z, -ANGLE90);
+    //_pMover->setFaceAngleVelocity(AXIS_Y, -200);
 //    _pStgChecker->useHitAreaBoxNum(2);
 //    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _pStgChecker->setHitAreaBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
@@ -46,10 +45,10 @@ void TamagoActor::initialize() {
 void TamagoActor::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pScaler->addScale(2000);
+        _pScaler->addScale(200);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pScaler->addScale(-2000);
+        _pScaler->addScale(-200);
     }
     //À•W‚É”½‰f
     _pMover->behave();
