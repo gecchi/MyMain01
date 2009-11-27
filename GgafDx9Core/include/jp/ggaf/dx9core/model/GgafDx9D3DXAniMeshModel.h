@@ -46,6 +46,15 @@ public:
 
     virtual void release();
 
+
+
+    void putMat(D3DXMATRIX* pMat) {
+        _TRACE_( pMat->_11<<", "<< pMat->_12<<", "<< pMat->_13<<", "<< pMat->_14);
+        _TRACE_( pMat->_21<<", "<< pMat->_22<<", "<< pMat->_23<<", "<< pMat->_24);
+        _TRACE_( pMat->_31<<", "<< pMat->_32<<", "<< pMat->_33<<", "<< pMat->_34);
+        _TRACE_( pMat->_41<<", "<< pMat->_42<<", "<< pMat->_43<<", "<< pMat->_44);
+    };
+
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9D3DXAniMeshModelManagerである<BR>

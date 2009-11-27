@@ -92,7 +92,15 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
             //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
             _TRACE_("["<<i<<"]○SetMatrix FrameName="<<((*it)->Name)<<" 描画！");
+
             D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
+
+            _TRACE_("(*it)->WorldTransMatrix=");
+            putMat(&((*it)->WorldTransMatrix));
+            _TRACE_("pTargetActor->_matWorld=");
+            putMat(&(pTargetActor->_matWorld));
+            _TRACE_("WorldMat=");
+            putMat(&WorldMat);
             //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &((*it)->WorldTransMatrix));
             hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &WorldMat);
             mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
