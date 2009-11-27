@@ -1522,7 +1522,7 @@ _TRACE_("1");
     FLOAT LoopTime = 3.0f;   // 3秒ループ
     //FLOAT AdjustSpeed = 60.0 / 4800;//ID3DXAnimationControllerに読み込まれるアニメーションセットは4800フレームを1秒とするようです。
     //FLOAT AdjustSpeed = pAC->GetPeriod() * LoopTime;
-    pAC->SetTrackSpeed(0, 1000.0f);
+    //pAC->SetTrackSpeed(0, 1000.0f);
     //pAC->SetTrackSpeed(0, 1.0);
 
 //    //テクスチャとマテリアルを探す旅に出ます。

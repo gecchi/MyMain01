@@ -21,7 +21,6 @@ public:
 
 
     GgafDx9WorldMatStack WTMStack;
-    list< D3DXFRAME_WORLD* > *pDrawList;
     /** D3DXLoadMeshFromX‚ÌƒIƒvƒVƒ‡ƒ“ */
     //	LPD3DXBUFFER	_pAdjacency;
 

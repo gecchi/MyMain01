@@ -33,9 +33,12 @@ void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
 }
 
 void GgafDx9D3DXAniMeshActor::processDraw() {
+
+_TRACE_("アニメッシュアクターDRAW");
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
     HRESULT hr;
+    //ビュー変換行列
     hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatView, &pCAM->_vMatrixView );
     mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
