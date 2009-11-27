@@ -33,8 +33,6 @@ void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
 }
 
 void GgafDx9D3DXAniMeshActor::processDraw() {
-
-_TRACE_("アニメッシュアクターDRAW");
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
     HRESULT hr;
@@ -44,6 +42,7 @@ _TRACE_("アニメッシュアクターDRAW");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
     //mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    //SetMatrixはモデルでせざるをえない
 
     // Zバッファを有効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);

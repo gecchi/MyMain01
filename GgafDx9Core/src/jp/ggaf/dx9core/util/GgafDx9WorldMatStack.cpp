@@ -15,8 +15,6 @@ void GgafDx9WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
 }
 
 void GgafDx9WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
-
-    _TRACE_("GgafDx9WorldMatStack::UpdateFrame!!");
     // スタックの初期化
     while (!m_MatrixStack.empty())
         m_MatrixStack.pop();
@@ -32,7 +30,6 @@ void GgafDx9WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
 }
 
 void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
-    _TRACE_("GgafDx9WorldMatStack::CalcFrameWorldMatrix("<<(frame->Name)<<")");
     // 現在のスタックの先頭にあるワールド変換行列を参照
     D3DXMATRIX *pStackMat = m_MatrixStack.top();
 

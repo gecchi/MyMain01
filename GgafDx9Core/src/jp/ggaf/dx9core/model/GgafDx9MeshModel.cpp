@@ -81,6 +81,8 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             hr = pID3DXEffect->BeginPass(0);
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
         } else {
+            //マテリアルが２個以上ならば、ここを通り、仕方なくCommitChanges()を実行。
+            //つまり、マテリアルが１個の場合は、CommitChanges() すら省略して、DrawIndexedPrimitive() だけ実行しまくりの高速化を目論む。
             hr = pID3DXEffect->CommitChanges();
             mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
         }

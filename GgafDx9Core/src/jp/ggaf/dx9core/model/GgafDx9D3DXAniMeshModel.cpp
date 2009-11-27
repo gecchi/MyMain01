@@ -77,39 +77,44 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
             mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
             mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() BeginPass(0) に失敗しました。");
-        } else {
-            hr = pID3DXEffect->CommitChanges();
-            mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
         }
+
+        //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
+        //_TRACE_("["<<i<<"]○SetMatrix FrameName="<<((*it)->Name)<<" 描画！");
+
+        D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
+
+//        _TRACE_("(*it)->WorldTransMatrix=");
+//        putMat(&((*it)->WorldTransMatrix));
+//        _TRACE_("pTargetActor->_matWorld=");
+//        putMat(&(pTargetActor->_matWorld));
+//        _TRACE_("WorldMat=");
+//        putMat(&WorldMat);
+        //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &((*it)->WorldTransMatrix));
+        hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &WorldMat);
+        mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+
+
 
 
         //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
             //mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         if ((*it)->pMeshContainer == NULL) {
-            _TRACE_("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
+            TRACE4("["<<i<<"]×SetMatrix FrameName="<<((*it)->Name)<<" 飛ばし！");
             continue;
         } else {
-
-            //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ワールド変換行列を設定
-            _TRACE_("["<<i<<"]○SetMatrix FrameName="<<((*it)->Name)<<" 描画！");
-
-            D3DXMatrixMultiply(&WorldMat, &((*it)->WorldTransMatrix), &(pTargetActor->_matWorld));
-
-            _TRACE_("(*it)->WorldTransMatrix=");
-            putMat(&((*it)->WorldTransMatrix));
-            _TRACE_("pTargetActor->_matWorld=");
-            putMat(&(pTargetActor->_matWorld));
-            _TRACE_("WorldMat=");
-            putMat(&WorldMat);
-            //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &((*it)->WorldTransMatrix));
-            hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &WorldMat);
-            mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
             materialnum = (*it)->pMeshContainer->NumMaterials;
             for (int j = 0; j < materialnum; j++) {
                 TRACE4("["<<i<<"]["<<j<<"],SetMaterial");
-                GgafDx9God::_pID3DDevice9->SetMaterial(&(*it)->pMeshContainer->pMaterials[j].MatD3D);
-                _TRACE_("["<<i<<"]["<<j<<"],DrawSubset");
+                //GgafDx9God::_pID3DDevice9->SetMaterial(&(*it)->pMeshContainer->pMaterials[j].MatD3D);
+
+                hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_hMaterialDiffuse, &((*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse), sizeof(D3DCOLORVALUE) );
+                mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
+
+                hr = pID3DXEffect->CommitChanges();
+                mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() に失敗しました。");
+
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
             }
         }

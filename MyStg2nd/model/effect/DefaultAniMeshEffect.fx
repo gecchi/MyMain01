@@ -58,19 +58,19 @@ float4 GgafDx9PS_DefaultAniMesh(
 	float3 prm_normal : TEXCOORD1
 ) : COLOR  {
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
-//	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
+	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
 	//テクスチャをサンプリングして色取得（原色を取得）
-//	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-//	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-//	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
-//	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
-//	return out_color;
+	return out_color;
 
-	return float4( 1.0, 1.0, 1.0, 1.0 );
+	//return float4( 1.0, 1.0, 1.0, 1.0 );
     
 }
 
