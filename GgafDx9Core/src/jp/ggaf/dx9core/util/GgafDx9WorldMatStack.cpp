@@ -34,7 +34,13 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
     D3DXMATRIX *pStackMat = m_MatrixStack.top();
 
     D3DXMatrixMultiply(&(frame->WorldTransMatrix), &(frame->TransformationMatrix), pStackMat);
-    m_DrawFrameList.push_back(frame);
+
+    if (frame->pMeshContainer != NULL) {
+        //_TRACE_("フレームにメッシュコンテナがあり");
+        // 引数のフレームに対応するワールド変換行列を計算
+        m_DrawFrameList.push_back(frame);
+    }
+
 
 //    // フレームにメッシュコンテナがあれば、このフレームをリストに追加する
 //    if (frame->pMeshContainer != NULL) {
