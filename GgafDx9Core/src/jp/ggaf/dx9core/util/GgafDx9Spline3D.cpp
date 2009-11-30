@@ -45,6 +45,7 @@ void GgafDx9Spline3D::compute(double prm_accuracy) {
 }
 
 GgafDx9Spline3D::~GgafDx9Spline3D() {
+    _TRACE_("GgafDx9Spline3D::~GgafDx9Spline3D() !!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     DELETEARR_IMPOSSIBLE_NULL(_X_establish);
     DELETEARR_IMPOSSIBLE_NULL(_Y_establish);
     DELETEARR_IMPOSSIBLE_NULL(_Z_establish);

@@ -16,7 +16,7 @@ using namespace GgafDx9Core;
 //
 //    *ppNewFrame = NULL;
 //
-//    pFrame = new D3DXFRAME_DERIVED;
+//    pFrame = NEW D3DXFRAME_DERIVED;
 //    if (pFrame == NULL)//フレームが作成できなかったら
 //    {
 //        hr = E_OUTOFMEMORY;
@@ -83,7 +83,7 @@ using namespace GgafDx9Core;
 //    }
 //
 //    //D3DXMESHCONTAINERとしてリターンするためにオーバーロード状態の構造体を設定する
-//    pMeshContainer = new D3DXMESHCONTAINER_DERIVED;
+//    pMeshContainer = NEW D3DXMESHCONTAINER_DERIVED;
 //    if (pMeshContainer == NULL)
 //    {
 //        hr = E_OUTOFMEMORY;
@@ -129,9 +129,9 @@ using namespace GgafDx9Core;
 //    //メモリを割り当てマテリアル情報を設定する
 //    //シェーダーの代わりにD3D9のマテリアルとテクスチャ
 //    pMeshContainer->NumMaterials = max(1, NumMaterials);
-//    pMeshContainer->pMaterials = new D3DXMATERIAL[pMeshContainer->NumMaterials];
-//    pMeshContainer->ppTextures = new LPDIRECT3DTEXTURE9[pMeshContainer->NumMaterials];
-//    pMeshContainer->pAdjacency = new DWORD[NumFaces*3];
+//    pMeshContainer->pMaterials = NEW D3DXMATERIAL[pMeshContainer->NumMaterials];
+//    pMeshContainer->ppTextures = NEW LPDIRECT3DTEXTURE9[pMeshContainer->NumMaterials];
+//    pMeshContainer->pAdjacency = NEW DWORD[NumFaces*3];
 //    if ((pMeshContainer->pAdjacency == NULL) || (pMeshContainer->pMaterials == NULL))
 //    {
 //        hr = E_OUTOFMEMORY;
@@ -184,7 +184,7 @@ using namespace GgafDx9Core;
 //
 //        //フィギュアスペースからボーンスペースへの頂点を移すためにオフセットマトリクスの配列が必要
 //        cBones = pSkinInfo->GetNumBones();
-//        pMeshContainer->pBoneOffsetMatrices = new D3DXMATRIX[cBones];
+//        pMeshContainer->pBoneOffsetMatrices = NEW D3DXMATRIX[cBones];
 //        if (pMeshContainer->pBoneOffsetMatrices == NULL)
 //        {
 //            hr = E_OUTOFMEMORY;
@@ -292,9 +292,9 @@ GgafDx9AllocHierarchy::~GgafDx9AllocHierarchy(void)
 // フレーム構造体を生成
 D3DXFRAME* GgafDx9AllocHierarchy::CreateNewFrame()
 {
-    D3DXFRAME* tmp = new D3DXFRAME;
+    D3DXFRAME* tmp = NEW D3DXFRAME;
     ZeroMemory( tmp, sizeof(D3DXFRAME) );
-    AddDelList( new deleter<D3DXFRAME>(tmp) );
+    AddDelList( NEW deleter<D3DXFRAME>(tmp) );
     return tmp;
 }
 
@@ -302,9 +302,9 @@ D3DXFRAME* GgafDx9AllocHierarchy::CreateNewFrame()
 // メッシュコンテナ構造体を生成
 D3DXMESHCONTAINER *GgafDx9AllocHierarchy::CreateNewMeshContainer()
 {
-    D3DXMESHCONTAINER* tmp = new D3DXMESHCONTAINER;
+    D3DXMESHCONTAINER* tmp = NEW D3DXMESHCONTAINER;
     ZeroMemory( tmp, sizeof(D3DXMESHCONTAINER) );
-    AddDelList( new deleter<D3DXMESHCONTAINER>(tmp) );
+    AddDelList( NEW deleter<D3DXMESHCONTAINER>(tmp) );
     return tmp;
 }
 
@@ -327,9 +327,9 @@ void GgafDx9AllocHierarchy::AddReleaseList( IUnknown *comptr)
 LPSTR GgafDx9AllocHierarchy::CopyStr(LPCSTR name)
 {
     if(!name) return NULL;   // NULLは文字数をカウントできない
-    LPSTR Str = new char[strlen(name)+1];
+    LPSTR Str = NEW char[strlen(name)+1];
     Str = strcpy(Str, name);
-    AddDelList( new deleter<char>( Str, true ) );
+    AddDelList( NEW deleter<char>( Str, true ) );
     return Str;
 }
 
@@ -347,8 +347,8 @@ void GgafDx9AllocHierarchy::RegistMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDAT
 void GgafDx9AllocHierarchy::RegistMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **ppDest)
 {
     // マテリアル配列の生成
-    *ppDest = new D3DXMATERIAL[ num ];
-    AddDelList( new deleter<D3DXMATERIAL>( *ppDest, true ) );
+    *ppDest = NEW D3DXMATERIAL[ num ];
+    AddDelList( NEW deleter<D3DXMATERIAL>( *ppDest, true ) );
 
     DWORD i;
     for(i=0; i<num; i++)
@@ -362,12 +362,12 @@ void GgafDx9AllocHierarchy::RegistMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, 
 // エフェクト登録
 void GgafDx9AllocHierarchy::RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest)
 {
-    *ppDest = new D3DXEFFECTINSTANCE;
-    AddDelList( new deleter<D3DXEFFECTINSTANCE>(*ppDest) );
+    *ppDest = NEW D3DXEFFECTINSTANCE;
+    AddDelList( NEW deleter<D3DXEFFECTINSTANCE>(*ppDest) );
     (*ppDest)->pEffectFilename = CopyStr(pSrc->pEffectFilename);     // エフェクト名
     (*ppDest)->NumDefaults = pSrc->NumDefaults;                      // エフェクトデフォルト数
-    (*ppDest)->pDefaults = new D3DXEFFECTDEFAULT[pSrc->NumDefaults];  // エフェクトデフォルト配列生成
-    AddDelList( new deleter<D3DXEFFECTDEFAULT>( (*ppDest)->pDefaults, true ) );
+    (*ppDest)->pDefaults = NEW D3DXEFFECTDEFAULT[pSrc->NumDefaults];  // エフェクトデフォルト配列生成
+    AddDelList( NEW deleter<D3DXEFFECTDEFAULT>( (*ppDest)->pDefaults, true ) );
 
     // エフェクトデフォルトの登録
     D3DXEFFECTDEFAULT *pEDSrc  = pSrc->pDefaults;   // コピー元
@@ -379,9 +379,9 @@ void GgafDx9AllocHierarchy::RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFF
        DWORD NumBytes		 = pEDDest[i].NumBytes = pEDSrc[i].NumBytes;	// パラメータサイズ
        pEDDest[i].Type		 = pEDSrc[i].Type;								// パラメータタイプ
        if(pEDSrc[i].Type <= D3DXEDT_DWORD){
-          pEDDest[i].pValue = (void*)( new BYTE[ NumBytes ] );              // パラメータ配列生成
+          pEDDest[i].pValue = (void*)( NEW BYTE[ NumBytes ] );              // パラメータ配列生成
           memcpy( pEDDest[i].pValue, pEDSrc[i].pValue, NumBytes );
-          AddDelList( new deleter<void>( pEDDest[i].pValue, true ) );
+          AddDelList( NEW deleter<void>( pEDDest[i].pValue, true ) );
        }
     }
 }
@@ -390,9 +390,9 @@ void GgafDx9AllocHierarchy::RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFF
 // 隣接ポリゴン登録
 void GgafDx9AllocHierarchy::RegistAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest)
 {
-    *Dest = new DWORD[ polynum * 3 ];   // 配列生成
+    *Dest = NEW DWORD[ polynum * 3 ];   // 配列生成
     memcpy( *Dest, Src, polynum * 3 * sizeof(DWORD));  // コピー
-    AddDelList( new deleter<DWORD>( *Dest, true ) );
+    AddDelList( NEW deleter<DWORD>( *Dest, true ) );
 }
 
 
