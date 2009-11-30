@@ -56,10 +56,13 @@ protected:
 
         deleter( T* deletePtr, bool is_Ary = false ) : pObj(deletePtr), isAry( is_Ary ) {};
         virtual ~deleter(){
-            if ( isAry )
-                delete[] pObj;
-            else
-                delete pObj;
+            if ( isAry ) {
+                T* pa = (T*)pObj;
+                delete[] pa;
+            } else {
+                T* p = (T*)pObj;
+                delete p;
+            }
         }
     };
 

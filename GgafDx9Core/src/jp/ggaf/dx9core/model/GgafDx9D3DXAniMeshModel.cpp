@@ -218,7 +218,7 @@ void GgafDx9D3DXAniMeshModel::release() {
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     RELEASE_IMPOSSIBLE_NULL(_pAC);
-    //DELETE_IMPOSSIBLE_NULL(_pAH);
+    DELETE_IMPOSSIBLE_NULL(_pAH);
     //TODO:いつ消すの？
     TRACE3("GgafDx9D3DXAniMeshModel::release() " << _model_name << " end");
 }

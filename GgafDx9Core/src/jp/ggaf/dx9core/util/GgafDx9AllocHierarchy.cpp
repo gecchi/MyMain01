@@ -278,8 +278,11 @@ GgafDx9AllocHierarchy::~GgafDx9AllocHierarchy(void)
 {
     // 登録されたオブジェクトを全て削除する
     list<deleterBase*>::iterator it = m_DelList.begin();
-    for(; it!=m_DelList.end(); it++)
-        delete[] (*it);
+    for(; it!=m_DelList.end(); it++) {
+        deleterBase* p = (*it);
+        //delete[] p;
+        delete p;
+    }
 
     list<IUnknown*>::iterator comit = m_ReleaseList.begin();
     for(; comit!=m_ReleaseList.end();comit++){
@@ -381,7 +384,7 @@ void GgafDx9AllocHierarchy::RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFF
        if(pEDSrc[i].Type <= D3DXEDT_DWORD){
           pEDDest[i].pValue = (void*)( NEW BYTE[ NumBytes ] );              // パラメータ配列生成
           memcpy( pEDDest[i].pValue, pEDSrc[i].pValue, NumBytes );
-          AddDelList( NEW deleter<void>( pEDDest[i].pValue, true ) );
+          AddDelList( NEW deleter<BYTE>( (BYTE*)(pEDDest[i].pValue), true ) );
        }
     }
 }
