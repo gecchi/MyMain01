@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-GgafDx9Spline3D*  EnemyCeres::_pSpline = NULL;
+GgafDx9Spline3D EnemyCeres::_spline;
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
@@ -22,7 +22,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     _Z_turn = 0;
     _veloBegin = 5000;
 
+
     if (prm_pDispatcher_EnemyCeresShots001 == NULL) {
+        //共有の弾が引数に未指定の場合
         //弾ストック作成
         _pDispatcher_EnemyCeresShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
         EnemyCeresShot001* pCeresShot001;
@@ -34,12 +36,14 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
         accept(KIND_ENEMY_SHOT_GU, _pDispatcher_EnemyCeresShots001);
         _createActorDispatcher = true;
     } else {
+        //共有の弾が指定されてるの場合
         _pDispatcher_EnemyCeresShots001 = prm_pDispatcher_EnemyCeresShots001;
         _createActorDispatcher = false;
     }
 
-    if (_pSpline == NULL) {
-        double p[][3] = {
+    //ケレス用スプライン移動の定義
+    if (EnemyCeres::_spline._num_basepoint == 0) { //ケレスクラスで１回だけ作成
+        double p[][3] = { //        X ,        Y ,       Z
                            { -1024000 ,  -300000 ,  680000 },
                            {  -800000 ,   300000 ,  480000 },
                            {  -200000 ,  -300000 ,  200000 },
@@ -53,16 +57,17 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
                            {   300000 ,        0 ,       0 },
                            {        0 ,   300000 ,       0 },
                            {        0 ,        0 ,  300000 },
-                           {   -300000 ,        0 ,       0 },
-                           {        0 ,   -300000 ,       0 },
-                           {        0 ,        0 ,  -300000 },
+                           {  -300000 ,        0 ,       0 },
+                           {        0 ,  -300000 ,       0 },
+                           {        0 ,        0 , -300000 },
                            {  -800000 ,        0 ,       0 }
                         };
-        _pSpline = NEW GgafDx9Spline3D(p, 17, 0.2);
+        EnemyCeres::_spline.init(p, 17, 0.2);
     }
 
-    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(_pSpline, 5000);
-    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(_pSpline, 600, 5000);
+    //Mover に渡すプログラムオブジェクトを生成しておく
+    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
+    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //移動フレーム数固定
 }
 
 void EnemyCeres::initialize() {
@@ -71,12 +76,11 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setMoveVelocity(8000);
+    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
 
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
-
-    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0);
 }
 
 void EnemyCeres::processBehavior() {
@@ -114,7 +118,7 @@ void EnemyCeres::processBehavior() {
         _iMovePatternNo++;
     }
 
-    _pMover->behave();
+    _pMover->behave(); //次の座標へ移動
 }
 
 void EnemyCeres::processJudgement() {

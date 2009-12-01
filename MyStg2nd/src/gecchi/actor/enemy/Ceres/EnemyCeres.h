@@ -19,8 +19,9 @@ public:
     /** 弾ストック */
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyCeresShots001;
     /** Ceres共通スプライン */
-    static GgafDx9Core::GgafDx9Spline3D* _pSpline;
-
+    static GgafDx9Core::GgafDx9Spline3D _spline;
+    /** プログラム */
+    GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
 
     /** ActorDispatcherをコンストラクタで生成したか否か */
     bool _createActorDispatcher;
@@ -33,7 +34,7 @@ public:
 
     int _iMovePatternNo;
 
-    GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
+
 
     /**
      * コンストラクタ

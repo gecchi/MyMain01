@@ -62,6 +62,9 @@ int main(int argc, char *argv[]) {
     WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
 }
 
+static MyStg2nd::God* pGod = NULL;
+
+
 /**
  * VCならばエントリポイント
  */
@@ -153,11 +156,11 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     //メモリーリ－クチェックBEGIN
     ::detectMemoryLeaksStart(std::cout);
 #endif
-    MyStg2nd::God* god = NULL;
+
     try {
         //神の誕生！
-        god = NEW MyStg2nd::God(hInstance, hWnd);
-        if (SUCCEEDED(god->init())) {
+        pGod = NEW MyStg2nd::God(hInstance, hWnd);
+        if (SUCCEEDED(pGod->init())) {
             adjustGameScreen(hWnd);
 
             // ループ・ザ・ループ
@@ -165,8 +168,6 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             while (true) {
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
-                        MyStg2nd::Properties::clean();
-                        delete god; //神さようなら
 
                         ::timeEndPeriod(1);
 #ifdef OREDEBUG
@@ -179,7 +180,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::DispatchMessage(&msg);
                 } else {
 
-                    god->be(); //神が存在したらしめる（この世が動く）
+                    pGod->be(); //神が存在したらしめる（この世が動く）
 
                 }
             }
@@ -338,7 +339,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         EndPaint(hWnd, &ps);
         break;
         case WM_DESTROY:
-        PostQuitMessage(0);
+            MyStg2nd::Properties::clean();
+            delete pGod; //神さようなら
+
+            PostQuitMessage(0);
         break;
         default:
         return DefWindowProc(hWnd, message, wParam, lParam);
