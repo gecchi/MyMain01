@@ -69,7 +69,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 
-    useSe("yume_SUZU");
+    useSe("a_shot");
 }
 
 void EnemyCeres::initialize() {

@@ -26,8 +26,8 @@ void EnemyVesta::initialize() {
     _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
 
     _pMover->setMoveVelocity(0);
-    _pMover->setVxMoveVelocity(-1000);
-    _pMover->setFaceAngleVelocity(AXIS_Z, 200);
+    _pMover->setVxMoveVelocity(-5000);
+    _pMover->setFaceAngleVelocity(AXIS_Z, 1000);
 
     int nArea = 0;
     for (int i = 0; i < (_width_X - _depth_Y) ; i+= _depth_Y) {

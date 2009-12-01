@@ -25,8 +25,8 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    _pMover->setMoveVelocity(3000);
-    _pMover->setMoveVeloAcceleration(300);
+    _pMover->setMoveVelocity(5000);
+    _pMover->setMoveVeloAcceleration(500);
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
 }
@@ -38,7 +38,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 30) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    6000, TURN_ANTICLOSE_TO);
+                    8000, TURN_ANTICLOSE_TO);
     }
 
 
