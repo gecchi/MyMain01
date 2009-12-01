@@ -17,7 +17,7 @@ namespace GgafDx9Core {
 //                                2009/10/16 Masatoshi Tsuge
 
 /**
- * スプライン曲線生成クラス .
+ * 3次元スプライン曲線生成クラス .
  * @version 1.00
  * @since 2009/10/16
  * @author Masatoshi Tsuge
@@ -26,16 +26,16 @@ class GgafDx9Spline3D {
 
 public:
 
+    /**
+     * １次元スプライン生成
+     */
     class GgafDx9Spline {
-
     public:
         int num;
         double a[MaxSplineSize + 1], b[MaxSplineSize + 1], c[MaxSplineSize + 1], d[MaxSplineSize + 1];
-
         GgafDx9Spline() {
             num = 0;
         }
-
         void init(double *sp, int spnum) {
             double tmp, w[MaxSplineSize + 1];
             int i;
@@ -62,7 +62,6 @@ public:
             for (i = num - 1; i > 0; i--) {
                 c[i] = c[i] - c[i + 1] * w[i];
             }
-
             // ３次多項式の1次係数(b)と3次係数(b)を計算
             b[num] = d[num] = 0.0;
             for (i = 0; i < num; i++) {
@@ -70,7 +69,6 @@ public:
                 b[i] = a[i + 1] - a[i] - c[i] - d[i];
             }
         }
-
         double compute(double t) {
             int j;
             double dt;
@@ -83,14 +81,32 @@ public:
         }
     };
 
+    /**
+     * コンストラクタ .
+     * 後で init() を呼び出して下さい。
+     */
+    GgafDx9Spline3D();
+
     GgafDx9Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
 
+    /**
+     * 初期化し補完点し、使用できる状態にします .
+     * @param prm_paaBase
+     * @param num
+     * @param prm_accuracy
+     */
+    void init(double prm_paaBase[][3], int num, double prm_accuracy);
+
+    /**
+     * 補完点計算
+     * @param prm_accuracy 精度 0.0 ～ 1.0 (1.0で補完なし、0.5で中点が一つ追加、0.1だと10点補完)
+     */
     void compute(double prm_accuracy);
 
-    double* _X_establish;
-    double* _Y_establish;
-    double* _Z_establish;
-    int _num_establish;
+    double* _X_basepoint;
+    double* _Y_basepoint;
+    double* _Z_basepoint;
+    int _num_basepoint;
 
     GgafDx9Spline _xs;
     GgafDx9Spline _ys;

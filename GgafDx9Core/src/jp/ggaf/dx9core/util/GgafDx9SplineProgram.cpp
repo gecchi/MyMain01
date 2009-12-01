@@ -23,6 +23,11 @@ GgafDx9SplineProgram::GgafDx9SplineProgram(GgafDx9Spline3D* prm_sp) {
     _is_create_sp = false;
 }
 
+void GgafDx9SplineProgram::setSpline(GgafDx9Spline3D* prm_sp) {
+    _sp = prm_sp;
+    _is_create_sp = false;
+}
+
 void GgafDx9SplineProgram::begin(GgafDx9GeometricActor* prm_pActor_target, int prm_option) {
     if (_sp != NULL) {
         _is_executing = true;

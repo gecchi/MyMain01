@@ -53,6 +53,8 @@ public:
      */
     GgafDx9SplineProgram(GgafDx9Spline3D* prm_sp);
 
+
+    virtual void setSpline(GgafDx9Spline3D* prm_sp);
     /**
      * スプライン曲線の補完点を移動するプログラムを実行開始
      * @param prm_pActor_target 対象のアクター
