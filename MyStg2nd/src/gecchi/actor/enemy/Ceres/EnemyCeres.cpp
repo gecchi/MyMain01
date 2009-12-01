@@ -68,6 +68,8 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     //Mover に渡すプログラムオブジェクトを生成しておく
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //移動フレーム数固定
+
+    useSe("yume_SUZU");
 }
 
 void EnemyCeres::initialize() {
@@ -136,6 +138,7 @@ void EnemyCeres::processJudgement() {
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
     setBumpable(false);
+    playSe();
 
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;

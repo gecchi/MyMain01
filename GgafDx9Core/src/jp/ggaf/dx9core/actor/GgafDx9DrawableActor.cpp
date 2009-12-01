@@ -197,6 +197,14 @@ void GgafDx9DrawableActor::playSe() {
     _pSe->play();
 }
 
+void GgafDx9DrawableActor::useSe2(char* prm_se_name) {
+    _pSeCon2 = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(prm_se_name);
+    _pSe2 = _pSeCon2->view();
+}
+
+void GgafDx9DrawableActor::playSe2() {
+    _pSe2->play();
+}
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);

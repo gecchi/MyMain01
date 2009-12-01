@@ -9,7 +9,6 @@ GgafDx9BgmConnection::GgafDx9BgmConnection(char* prm_idstr, GgafDx9Bgm* prm_pGga
 
 void GgafDx9BgmConnection::processReleaseResource(GgafDx9Bgm* prm_pResource) {
     prm_pResource->stop();
-    prm_pResource->clear();
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

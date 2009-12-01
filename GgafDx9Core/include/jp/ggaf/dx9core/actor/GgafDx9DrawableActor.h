@@ -37,6 +37,10 @@ public:
     GgafDx9SeConnection* _pSeCon;
     /** SE資源 */
     GgafDx9Se* _pSe;
+    /** SE資源接続 */
+    GgafDx9SeConnection* _pSeCon2;
+    /** SE資源 */
+    GgafDx9Se* _pSe2;
 
 
 
@@ -100,6 +104,11 @@ public:
     void useSe(char* prm_se_name);
 
     void playSe();
+
+    void useSe2(char* prm_se_name);
+
+    void playSe2();
+
 
     virtual ~GgafDx9DrawableActor(); //デストラクタ
 };

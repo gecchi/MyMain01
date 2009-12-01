@@ -20,6 +20,7 @@ void EnemyAstraeaLaserChip001::initialize() {
     _fAlpha = 0.9f;
     _max_radius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
+
 }
 
 void EnemyAstraeaLaserChip001::onActive() {
@@ -37,7 +38,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 30) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    4000, TURN_ANTICLOSE_TO);
+                    6000, TURN_ANTICLOSE_TO);
     }
 
 

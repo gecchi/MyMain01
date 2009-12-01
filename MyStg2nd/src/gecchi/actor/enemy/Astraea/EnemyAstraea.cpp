@@ -7,13 +7,13 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     //レーザーストック
-    _laser_way = 3;
+    _laser_way = 2;
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 17;
-    _shot_interval = 120;
-    _angveloTurn = 4000;
+    _laser_length = 30;
+    _shot_interval = 240;
+    _angveloTurn = 2000;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
@@ -37,8 +37,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-
-
+    useSe("yume_Sbend"); //レーザー発射
+    useSe2("bomb1");     //爆発
 }
 
 void EnemyAstraea::initialize() {
@@ -127,12 +127,14 @@ void EnemyAstraea::processBehavior() {
                         _angveloTurn*sgn(_pMover->getRyMoveAngleDistance(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
+        playSe();
     }
 
 
     _pMover->behave();
 
     if (_pMover->_angveloRzMove == 0 && _pMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
+
         static EnemyAstraeaLaserChip001* pLaserChip;
 
         angle angClearance = 20000;
@@ -188,7 +190,7 @@ void EnemyAstraea::processJudgement() {
 void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
     setBumpable(false);
-
+    playSe2();
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }

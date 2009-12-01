@@ -38,7 +38,7 @@ void EnemyCeresShot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     setBumpable(true);
-    useSe("bomb1");
+    useSe("yume_ashi_022");
 }
 
 void EnemyCeresShot001::processBehavior() {

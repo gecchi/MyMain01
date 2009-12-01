@@ -19,7 +19,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _angCamZX_prev = 0;
     _angCamXY_prev = 0;
 
-    _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_06");
+    _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_11");
     //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
     setProgress(STAGE01_PROG_INIT);
 }

@@ -11,7 +11,6 @@ EnemyVesta::EnemyVesta(const char* prm_name) : DefaultMeshActor(prm_name, "Vesta
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
-
 }
 
 void EnemyVesta::initialize() {
@@ -42,7 +41,7 @@ void EnemyVesta::initialize() {
                                    );
     }
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
-    useSe("bomb1");
+    useSe("yume_shototsu");
 }
 
 void EnemyVesta::processBehavior() {
