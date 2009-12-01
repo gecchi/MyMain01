@@ -179,8 +179,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::TranslateMessage(&msg);
                     ::DispatchMessage(&msg);
                 } else {
-
-                    pGod->be(); //神が存在したらしめる（この世が動く）
+                    if (pGod) {
+                        pGod->be(); //神が存在したらしめる（この世が動く）
+                    }
 
                 }
             }
@@ -338,10 +339,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         hdc = BeginPaint(hWnd, &ps);
         EndPaint(hWnd, &ps);
         break;
-        case WM_DESTROY:
+        case WM_CLOSE:
+            ShowWindow(hWnd, SW_HIDE);
+            SetActiveWindow(hWnd);
             MyStg2nd::Properties::clean();
             delete pGod; //神さようなら
-
+            pGod = NULL;
+            DestroyWindow(hWnd);
+            break;
+        case WM_DESTROY:
             PostQuitMessage(0);
         break;
         default:
