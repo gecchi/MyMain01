@@ -60,10 +60,11 @@ int main(int argc, char *argv[]) {
 
     //本来のWinMainへ
     WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
+    return 0;
 }
 
 static MyStg2nd::God* pGod = NULL;
-
+static bool can_be_god = true;
 
 /**
  * VCならばエントリポイント
@@ -122,10 +123,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return FALSE;
     }
 
-    RECT wRect, cRect;  // ウィンドウ全体の矩形、クライアント領域の矩形
-    int ww, wh;         // ウィンドウ全体の幅、高さ
-    int cw, ch;         // クライアント領域の幅、高さ
-    int fw, fh;         // フレームの幅、高さ
+    RECT wRect, cRect; // ウィンドウ全体の矩形、クライアント領域の矩形
+    int ww, wh; // ウィンドウ全体の幅、高さ
+    int cw, ch; // クライアント領域の幅、高さ
+    int fw, fh; // フレームの幅、高さ
     // ウィンドウ全体の幅・高さを計算
     GetWindowRect(hWnd, &wRect);
     ww = wRect.right - wRect.left;
@@ -139,13 +140,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     fh = wh - ch;
     // 計算した幅と高さをウィンドウに設定
     SetWindowPos(
-        hWnd,
-        HWND_TOP,
-        wRect.left,
-        wRect.top,
-        GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
-        GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
-        SWP_NOMOVE
+            hWnd,
+            HWND_TOP,
+            wRect.left,
+            wRect.top,
+            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) + fw,
+            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) + fh,
+            SWP_NOMOVE
     );
 
     ShowWindow(hWnd, nCmdShow);
@@ -168,7 +169,13 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
             while (true) {
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
-
+                        can_be_god = false;
+                        SetActiveWindow(hWnd);
+                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
+                        //優先度上げる理由。
+                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
+                        MyStg2nd::Properties::clean();
+                        delete pGod; //神さようなら
                         ::timeEndPeriod(1);
 #ifdef OREDEBUG
                         //メモリーリ－クチェックEND
@@ -179,7 +186,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::TranslateMessage(&msg);
                     ::DispatchMessage(&msg);
                 } else {
-                    if (pGod) {
+                    if (can_be_god) {
                         pGod->be(); //神が存在したらしめる（この世が動く）
                     }
 
@@ -189,38 +196,35 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     } catch (GgafCore::GgafCriticalException& e) {
         //異常終了時
         _TRACE_("＜例外＞"<<e.getMsg());
-        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグと思われます。\n誠にもうしわけございません。\n";
+        string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能\性があります。\n誠に申\し訳ございません。\n";
         string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
         MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
-
-        //try { MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
-        //try { god->_pUniverse->dump();	      } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
-        //try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-
-        //		::timeEndPeriod(1);//タイマー精度終了処理
-        //#ifdef OREDEBUG
-        //		//メモリーリ－クチェックEND
-        //		::detectMemoryLeaksEnd(std::cout);
-        //#endif
-        //		PostQuitMessage(0);
-        //return EXIT_SUCCESS;
-    }
-/*
-    } catch (...) {
-        _TRACE_("＜原因不明例外＞たぶんアクセス違反");
-        string message = "原因不明例外が発生しました。心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
-        MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
-        GgafCore::GgafLogger::write("＜原因不明例外＞たぶんアクセス違反");
+    } catch (exception& e2) {
+        string what(e2.what());
+        _TRACE_("＜致命的な例外＞"<<what);
+        string message = "\n・"+what+"  \n\n恐れ入りますが、作者には予\測できなかったエラーです。\n誠に申\し訳ございません。\n";
+        string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+        MessageBox(NULL, message_dialog.c_str(),"下記の致命的な例外が発生してしまいました", MB_OK|MB_ICONSTOP);
+        GgafCore::GgafLogger::write("[exception]:"+what);
         ::timeEndPeriod(1);
-        try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
-        try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
-        try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
-        return EXIT_SUCCESS;
+        return EXIT_FAILURE;
     }
-*/
+    /*
+     } catch (...) {
+     _TRACE_("＜原因不明例外＞たぶんアクセス違反");
+     string message = "原因不明例外が発生しました。心あたりが無いメッセージの場合、当方のバグと思われます。\nご迷惑をおかけしましたことをお詫びいたします。";
+     MessageBox(NULL, message.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+     GgafCore::GgafLogger::write("＜原因不明例外＞たぶんアクセス違反");
+     ::timeEndPeriod(1);
+     try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() 不可"); } //エラー無視
+     try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; 不可"); } //エラー無視
+     try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); 不可"); } //エラー無視
+     return EXIT_SUCCESS;
+     }
+     */
     //_CrtDumpMemoryLeaks();	// この時点で解放されていないメモリの情報の表示
     return (int) msg.wParam;
 }
@@ -300,14 +304,12 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 //  WM_DESTROY	- 中止メッセージを表示して戻る
 //
 //
-LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
-{
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
     //	int wmId, wmEvent;
     PAINTSTRUCT ps;
     HDC hdc;
 
-    switch (message)
-    {
+    switch (message) {
         /*
          case WM_COMMAND:
          wmId    = LOWORD(wParam);
@@ -327,35 +329,23 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
          break;
          */
         case WM_SIZE:
-        adjustGameScreen(hWnd);
-        break;
-        //    case WM_KEYDOWN:
-        //        //エスケープキーを押したら終了させる
-        //        case VK_ESCAPE:
-        //            PostMessage(hWnd,WM_CLOSE,0,0);
-        //            return 0;
-        //
+            adjustGameScreen(hWnd);
+            break;
+            //    case WM_KEYDOWN:
+            //        //エスケープキーを押したら終了させる
+            //        case VK_ESCAPE:
+            //            PostMessage(hWnd,WM_CLOSE,0,0);
+            //            return 0;
+            //
         case WM_PAINT:
-        hdc = BeginPaint(hWnd, &ps);
-        EndPaint(hWnd, &ps);
-        break;
-        case WM_CLOSE:
-
-            MyStg2nd::God* pGod_work;
-            pGod_work = pGod;
-            pGod = NULL;
-            ShowWindow(hWnd, SW_HIDE);
-            SetActiveWindow(hWnd);
-            MyStg2nd::Properties::clean();
-            delete pGod_work ; //神さようなら
-            pGod_work = NULL;
-            DestroyWindow(hWnd);
+            hdc = BeginPaint(hWnd, &ps);
+            EndPaint(hWnd, &ps);
             break;
         case WM_DESTROY:
             PostQuitMessage(0);
             break;
         default:
-        return DefWindowProc(hWnd, message, wParam, lParam);
+            return DefWindowProc(hWnd, message, wParam, lParam);
     }
     return 0;
 }
@@ -389,17 +379,21 @@ void adjustGameScreen(HWND hWnd) {
         if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
             //より横長になってしまっている
             float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //縮小率=縦幅の比率
-            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)
+                    * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f) + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.right = (rect.right / 2.0f)
+                    + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate;
         } else {
             //より縦長になってしまっている
             float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //縮小率=横幅の比率
             GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
+                    - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.right = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate;
-            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f) + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
+            GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = (rect.bottom / 2.0f)
+                    + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);
         }
     } else {
         GetClientRect(hWnd, &(GgafDx9Core::GgafDx9God::_rectPresentDest));

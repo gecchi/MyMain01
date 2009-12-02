@@ -7,11 +7,11 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     //レーザーストック
-    _laser_way = 2;
+    _laser_way = 3;
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 30;
+    _laser_length = 17;
     _shot_interval = 240;
     _angveloTurn = 2000;
 
@@ -127,7 +127,6 @@ void EnemyAstraea::processBehavior() {
                         _angveloTurn*sgn(_pMover->getRyMoveAngleDistance(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
-        playSe();
     }
 
 
@@ -143,6 +142,9 @@ void EnemyAstraea::processBehavior() {
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
 
         for (int i = 0; i < _laser_way; i++) {
+            if (i == 0) {
+                playSe(); //発射音
+            }
             for (int j = 0; j < _laser_way; j++) {
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
