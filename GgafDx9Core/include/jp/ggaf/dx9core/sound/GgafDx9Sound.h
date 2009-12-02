@@ -17,6 +17,7 @@ public:
     static void release();
     static GgafDx9SeManager* _pSeManager;
     static GgafDx9BgmManager* _pBgmManager;
+    static int _master_volume;
 };
 
 }

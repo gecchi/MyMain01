@@ -8,7 +8,7 @@ GgafDx9SeManager::GgafDx9SeManager(const char* prm_manager_name) :
 }
 
 GgafDx9Se* GgafDx9SeManager::processCreateResource(char* prm_idstr) {
-    GgafDx9Se* pResource = NEW GgafDx9Se(prm_idstr, 2);
+    GgafDx9Se* pResource = NEW GgafDx9Se(prm_idstr);
     return pResource;
 }
 

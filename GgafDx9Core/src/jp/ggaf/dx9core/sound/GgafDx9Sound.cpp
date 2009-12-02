@@ -7,7 +7,11 @@ IDirectSound8* GgafDx9Sound::_pIDirectSound8 = NULL;
 
 GgafDx9BgmManager* GgafDx9Sound::_pBgmManager = NULL;
 GgafDx9SeManager* GgafDx9Sound::_pSeManager = NULL;
+
+
 DSCAPS GgafDx9Sound::_dsCaps;
+
+int GgafDx9Sound::_master_volume = 0; //マスターボリューム (TODO:未実装)
 
 void GgafDx9Sound::init() {
     HRESULT hr;
