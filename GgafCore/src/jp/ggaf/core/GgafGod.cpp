@@ -168,6 +168,7 @@ void GgafGod::finalizeUniversal() {
 GgafGod::~GgafGod() {
     _TRACE_("GgafGod::~GgafGod start");
     if (_pUniverse != NULL) {
+        _TRACE_("_pUniverse != NULL");
         //Hê‚ðŽ~‚ß‚é
         Sleep(1);
         GgafFactory::_is_working_flg = false;
@@ -178,10 +179,10 @@ GgafGod::~GgafGod() {
         CloseHandle(_handleFactory01);
         DeleteCriticalSection(&(GgafGod::CS2));
         DeleteCriticalSection(&(GgafGod::CS1));
-
         //Hê‘|œ
     // ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();
+        _TRACE_("GgafFactory::clean()");
     //___EndSynchronized; // <----- ”r‘¼I—¹
         //ƒSƒ~” 
         //GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
@@ -193,8 +194,6 @@ GgafGod::~GgafGod() {
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
      //___EndSynchronized; // <----- ”r‘¼I—¹
     }
-
-
-
-    DELETE_POSSIBLE_NULL(_pException_Factory);TRACE("GgafGod::~GgafGod end");
+    DELETE_POSSIBLE_NULL(_pException_Factory);
+    _TRACE_("GgafGod::~GgafGod end");
 }
