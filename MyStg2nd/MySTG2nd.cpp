@@ -340,16 +340,20 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         EndPaint(hWnd, &ps);
         break;
         case WM_CLOSE:
+
+            MyStg2nd::God* pGod_work;
+            pGod_work = pGod;
+            pGod = NULL;
             ShowWindow(hWnd, SW_HIDE);
             SetActiveWindow(hWnd);
             MyStg2nd::Properties::clean();
-            delete pGod; //ê_Ç≥ÇÊÇ§Ç»ÇÁ
-            pGod = NULL;
+            delete pGod_work ; //ê_Ç≥ÇÊÇ§Ç»ÇÁ
+            pGod_work = NULL;
             DestroyWindow(hWnd);
             break;
         case WM_DESTROY:
             PostQuitMessage(0);
-        break;
+            break;
         default:
         return DefWindowProc(hWnd, message, wParam, lParam);
     }
