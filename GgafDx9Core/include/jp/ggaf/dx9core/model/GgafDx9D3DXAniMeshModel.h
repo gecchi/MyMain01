@@ -19,6 +19,8 @@ public:
     ID3DXAnimationController* _pAC;
     FLOAT _Ang;
 
+    /** 60フレーム(1秒)で1ループする場合の1フレーム辺りの時間 */
+    double _advanceTimePerFrame;//60フレーム(1秒)で1ループすることを標準設定とする。
 
     GgafDx9WorldMatStack WTMStack;
     /** D3DXLoadMeshFromXのオプション */

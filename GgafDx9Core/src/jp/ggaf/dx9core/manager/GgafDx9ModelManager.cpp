@@ -1516,12 +1516,28 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
             &pAC
          );
 
-    FLOAT LoopTime = 3.0f;   // 3秒ループ
+
+
+    LPD3DXANIMATIONSET pAnimationSet0;
+    pAC->GetAnimationSet(0, &pAnimationSet0); //ID0番のアニメーションセット
+    pAC->SetTrackAnimationSet(0, pAnimationSet0);//ID0番のアニメーションセットをトラック0番にセット（デフォルトでこうなるはず）
+    pAC->ResetTime();//グローバル時間を0にする
+    pAC->SetTrackPosition(0,0);//トラック0(=ID0番)のローカル時間を0にする
+    pAC->AdvanceTime(0,NULL);//それを反映させる。
+    double time_set0 =  pAnimationSet0->GetPeriod(); //ID0番(=トラック0)のアニメーションセットの開始～終了までの時間
+    double advanceTimePerFrame0 = time_set0 / 60.0 ; //トラック0番のアニメーションを60分割時間を求める、つまり１ループ1フレームにするための時間
+    pAC->SetTrackSpeed(0, 0.5f);  //トラック0(=ID0番)のスピードを設定。
+                                  //1.0で1ループ60フレーム
+                                  //0.5で1ループ60*2フレーム
+                                  //0.1で1ループ60*10フレームになるはず
 
     //メッシュ、マテリアル、テクスチャの参照、マテリアル数をモデルオブジェクトに保持させる
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAC = pAC;
+    prm_pD3DXAniMeshModel->_advanceTimePerFrame =  advanceTimePerFrame0; //トラック0番１ループの時間
+    _TRACE_("アニメーションセット0番_advanceTimePerFrame");
+
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
 //    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
 //    prm_pD3DXAniMeshModel->_papTextureCon = model_papTextureCon;
