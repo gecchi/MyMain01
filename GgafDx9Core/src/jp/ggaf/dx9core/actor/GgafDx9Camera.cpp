@@ -48,10 +48,10 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     // 射影変換行列作成（３Ｄ→平面）
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
-            _rad_fovY,      //y方向視野角ラディアン(0～π)
-            _screen_aspect, //アスペクト比  640×480 の場合  640/480
-            0.01,            //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-            600.0           //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
+            _rad_fovY,        //y方向視野角ラディアン(0～π)
+            _screen_aspect,   //アスペクト比  640×480 の場合  640/480
+            0.01,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
+            _cameraZ_org*20.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn (20.0は適当)
             //(FLOAT)(-1.0f*dCam*4)
             //(-1.0f*fCam)-30,
             //(-1.0f*fCam)+30
@@ -77,17 +77,12 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _pMover->setRyMoveAngleVelocity(0);
     _pMover->_move_angle_rz_target_flg = true;
     _pMover->_move_angle_ry_target_flg = true;
-
-
     setBumpable(false);
-
-
 
     _pViewPoint = NEW GgafDx9CameraViewPoint();
     _pViewPoint->_X = _pVecCamLookatPoint->x * LEN_UNIT * PX_UNIT;
     _pViewPoint->_Y = _pVecCamLookatPoint->y * LEN_UNIT * PX_UNIT;
     _pViewPoint->_Z = _pVecCamLookatPoint->z * LEN_UNIT * PX_UNIT;
-
 
     _X_ScreenLeft   = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     _X_ScreenRight  = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
@@ -221,9 +216,7 @@ void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
     _pViewPoint->setGeometry(prm_pActor);
 }
 GgafDx9Camera::~GgafDx9Camera() {
-    //いろいろ解放
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamUp);
-
 }
