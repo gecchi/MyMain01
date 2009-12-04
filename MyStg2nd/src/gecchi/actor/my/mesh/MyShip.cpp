@@ -291,94 +291,93 @@ void MyShip::processBehavior() {
     _pScaler->behave();
 ///////////スケーリングテスト////////////////
 
+    //オリジナルシステム VAMSystemの実装
+    // (Viewpoint Adaptive Moving System 視点適応型移動システム)
     _stc = VB::getBeingPressedStick();
-
-
     if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
-        if (VB::isPushedDown(VB_UP)) {
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
+        if (VB::isPushedDown(VB_UP)) {     // ↑
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {
+        if (VB::isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
-        if (VB::isPushedDown(VB_LEFT)) {
-            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP); //後方
+        if (VB::isPushedDown(VB_LEFT)) {   // ←
+            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-        if (VB::isPushedDown(VB_DOWN)) {
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
-        if (VB::isPushedDown(VB_UP)) {
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP); //上
+        if (VB::isPushedDown(VB_UP)) {     // ↑
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {
+        if (VB::isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
-        if (VB::isPushedDown(VB_LEFT)) {
-            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP); //前方
+        if (VB::isPushedDown(VB_LEFT)) {   // ←
+            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-        if (VB::isPushedDown(VB_DOWN)) {
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
-        if (VB::isPushedDown(VB_UP)) {
-            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP); //前方
+        if (VB::isPushedDown(VB_UP)) {     // ↑
+            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
         }
-        if (VB::isPushedDown(VB_RIGHT)) {
+        if (VB::isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
+        if (VB::isPushedDown(VB_LEFT)) {   // ←
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {
-            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP); //後方
+        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
     } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
-        if (VB::isPushedDown(VB_UP)) {
-            _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);  //後方
+        if (VB::isPushedDown(VB_UP)) {     // ↑
+            _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
         }
-        if (VB::isPushedDown(VB_RIGHT)) {
+        if (VB::isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
+        if (VB::isPushedDown(VB_LEFT)) {   // ←
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {
-            _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP); //前方
+        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+            _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
     } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
-        if (VB::isPushedDown(VB_UP)) {
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);  //上
+        if (VB::isPushedDown(VB_UP)) {     // ↑
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {
+        if (VB::isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD); //左
+        if (VB::isPushedDown(VB_LEFT)) {   // ←
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP); //下
+        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     }
-
     if (VB::isReleasedUp(VB_UP)) {
-        _way_switch.OFF_UP();
+        _way_switch.OFF_UP();    // ↑ を離す
     }
     if (VB::isReleasedUp(VB_RIGHT)) {
-        _way_switch.OFF_RIGHT();
+        _way_switch.OFF_RIGHT(); // → を離す
     }
     if (VB::isReleasedUp(VB_LEFT)) {
-        _way_switch.OFF_LEFT();
+        _way_switch.OFF_LEFT();  // ← を離す
     }
     if (VB::isReleasedUp(VB_DOWN)) {
-        _way_switch.OFF_DOWN();
+        _way_switch.OFF_DOWN();  // ↓ を離す
     }
-    _way = (MoveWay)(_way_switch.getIndex());
+    _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向が入る
     (this->*fpaMoveFunc[_way])();
 
     if (_stc == 0) {
@@ -615,25 +614,6 @@ void MyShip::processJudgement() {
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->setGeometry(this);
-//            pLaser->_pMover->_vX = _pMover->_vX;
-//            pLaser->_pMover->_vY = _pMover->_vY;
-//            pLaser->_pMover->_vZ = _pMover->_vZ;
-//            pLaser->_pMover->_angRzMove = _pMover->_angRzMove;
-//            pLaser->_pMover->_angRyMove = _pMover->_angRyMove;
-//            static angle wk;
-//            if ((0<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE90) ||
-//                (ANGLE270<=_pMover->_angRzMove && _pMover->_angRzMove < ANGLE360) ) {
-//                wk = 0;
-//            } else {
-//                wk = ANGLE180;
-//            }
-//            pLaser->_pMover->_angFace[AXIS_X] = wk;
-//            pLaser->_pMover->_angFace[AXIS_Z] = _pMover->_angRzMove;
-//            pLaser->_pMover->_angFace[AXIS_Y] = _pMover->_angRyMove;
-//            pLaser->_pMover->behave();
-//            pLaser->setGeometry(this);
-
-            //pLaser->_frame_on_change_to_active_flg = _lifeframe;
         }
     }
 
