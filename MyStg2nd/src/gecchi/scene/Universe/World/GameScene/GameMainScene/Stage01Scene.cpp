@@ -63,16 +63,18 @@ void Stage01Scene::processBehavior() {
         _pBackGround01->_inc_x = GgafDx9Util::getDiffAngle(_angCamZX_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
         _pBackGround01->_inc_y = GgafDx9Util::getDiffAngle(_angCamXY_prev, angCamXY) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)/(ANGLE90*0.5));
         //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ‚Å 90“xƒJƒƒ‰‚ð‰ñ‚·‚Æ”wŒi‚ª‚PT‚·‚éŒvŽZ(1‰æ–Ê•ª“®‚­jB
-        //ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.3
+        //ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.5
         _angCamZX_prev = angCamXZ;
         _angCamXY_prev = angCamXY;
 
-        if (pCAM->_pos_camera == 0) {
+        if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
             _pBackGround01->_x -= 0.1; //”wŒiƒXƒNƒ[ƒ‹
-        } else if (pCAM->_pos_camera == 3) {
+        } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
             _pBackGround01->_x += 0.1;
-        } else {
+        } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
             _pBackGround01->_y += 0.1;
+        } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+            _pBackGround01->_y -= 0.1;
         }
 
 

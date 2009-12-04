@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
-    pCAM->_pos_camera = 0;
+    _pos_camera = 0;
     _frame_pushdown_zmove = 0;
 
     //【めも】
@@ -25,8 +25,6 @@ void World::initialize() {
 #endif
     //初期カメラ位置
     int speed = pMYSHIP->_iMoveSpeed * 0.99;
-
-    pCAM->_pos_camera = 0;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
     _lim_CAM_top     = GameGlobal::_lim_MyShip_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT / 2);
@@ -43,6 +41,8 @@ void World::initialize() {
     _lim_VP_zleft   = GameGlobal::_lim_MyShip_zleft   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
     _lim_VP_zright  = GameGlobal::_lim_MyShip_zright  + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
 
+    _pos_camera = CAM_POS_RIGHT;
+    _pos_camera_prev = CAM_POS_RIGHT;
 
     pCAM->_X = _dZ_camera_init / 10; //少し斜めめから見てる
     pCAM->_Y = 0; //４５度斜めから見る
@@ -112,289 +112,190 @@ void World::processBehavior() {
 
     //カメラ位置を行ったり来たり
     if (VB::isPushedDown(VB_ZMOVE)) {
-        if (pCAM->_pos_camera == 0) {
-            pCAM->_pos_camera = 1;
-        } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
+        int temp_pos_camera_prev = _pos_camera_prev;
+        _pos_camera_prev = _pos_camera;
+        if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
+            _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
+        } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
             if (VB::isBeingPressed(VB_RIGHT)) {
-                pCAM->_pos_camera = 3;
+                _pos_camera = CAM_POS_RIGHT;
             } else if (VB::isBeingPressed(VB_LEFT)) {
-                pCAM->_pos_camera = 0;
+                _pos_camera = CAM_POS_LEFT;
+            } else if (VB::isBeingPressed(VB_UP)) {
+                _pos_camera = CAM_POS_TOP;
+            } else if (VB::isBeingPressed(VB_DOWN)) {
+                _pos_camera = CAM_POS_BOTTOM;
             } else {
-                if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-                    pCAM->_pos_camera = 3;
-                } else {
-                    pCAM->_pos_camera = 0;
-                }
-            }
-        } else if (pCAM->_pos_camera == 3) {
-            pCAM->_pos_camera = 2;
-        }
-        _frame_pushdown_zmove = _lifeframe;
-    }
-
-
-    if (VB::isReleasedUp(VB_ZMOVE)) {
-        if (_frame_pushdown_zmove + 15 > _lifeframe) {
-//            if (pCAM->_pos_camera == 0) {
-//                pCAM->_pos_camera = 1;
-//            } else if (pCAM->_pos_camera == 1) {
-//                pCAM->_pos_camera = 0;
-//            } else if (pCAM->_pos_camera == 2) {
-//                pCAM->_pos_camera = 3;
-//            } else if (pCAM->_pos_camera == 3) {
-//                pCAM->_pos_camera = 2;
-//            }
-        } else {
-            if (pCAM->_pos_camera == 0) {
-                pCAM->_pos_camera = 0;
-            } else if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
-                    pCAM->_pos_camera = 3;
-                } else if (VB::isBeingPressed(VB_LEFT)) {
-                    pCAM->_pos_camera = 0;
-                } else {
-                    if (pCAM->_Z > GameGlobal::_pMyShip->_Z) {
-                        pCAM->_pos_camera = 3;
-                    } else {
-                        pCAM->_pos_camera = 0;
-                    }
-                }
-            } else if (pCAM->_pos_camera == 3) {
-                pCAM->_pos_camera = 3;
+                _pos_camera = temp_pos_camera_prev;
             }
         }
 
     }
 
-
-
-
-
-    //カメラ（始点）の目標地点までの距離（座標差分）
-    static int dX_CAM, dY_CAM, dZ_CAM;
-    //ビューポイント（終点）の目標地点までの距離（座標差分）
-    static int dX_VP, dY_VP, dZ_VP;
-//    startc int X_MyShip_prev = pMYSHIP->_X;
-//    startc int Y_MyShip_prev = pMYSHIP->_Y;
-//    startc int Z_MyShip_prev = pMYSHIP->_Z;
     static GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
+
+    //カメラの移動目標点
+    int move_target_X_CAM, move_target_Y_CAM, move_target_Z_CAM;
+    //カメラの注視点の移動目標点
+    int move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
+    //カメラ（始点）の目標地点までの距離（座標差分）
+    int dX_CAM, dY_CAM, dZ_CAM;
+    //ビューポイント（終点）の目標地点までの距離（座標差分）
+    int dX_VP, dY_VP, dZ_VP;
+
+    static int Dx = (int)(_dZ_camera_init / 4);
+    static int Dd = (int)(_dZ_camera_init / 128);
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
-    //if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-    if ( getSubFirst()->isBehaving() ) {
-        if (pCAM->_pos_camera == 0) {
-            dZ_CAM = (pMYSHIP->_Z - _dZ_camera_init) - pCAM->_Z;
-            dX_CAM = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY_CAM = pMYSHIP->_Y - pCAM->_Y;
+    static int slow_range_CAM = 30000;
+    static int slow_range_VP = 50000;
 
-            if (pCAM->_Y > _lim_VP_top && dY_CAM > 0) {
-                dY_CAM = 0;//pMYSHIP->_Y - _lim_VP_top;
-            } else if (pCAM->_Y < _lim_VP_bottom && dY_CAM < 0) {
-                dY_CAM = 0;//  pMYSHIP->_Y -_lim_VP_bottom;
-            }
-
-            dZ_VP = pMYSHIP->_Z - pCAM->_pViewPoint->_Z;
-            dX_VP = 0;
-            dY_VP = pMYSHIP->_Y - pVP->_Y;
-
-            if (pVP->_Y > _lim_VP_top && dY_VP > 0) {
-                dY_VP = 0;// pMYSHIP->_Y - _lim_VP_top;
-            } else if (pVP->_Y < _lim_VP_bottom && dY_VP < 0) {
-                dY_VP = 0;// pMYSHIP->_Y -_lim_VP_bottom;
-            }
-        } else if (pCAM->_pos_camera == 1) {
-            dX_CAM = (0 - (_dZ_camera_init / 2)) - pCAM->_X;
-            dY_CAM = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
-            dZ_CAM = (pMYSHIP->_Z - (_dZ_camera_init / 128)) - pCAM->_Z;
-
-            if (pCAM->_Z > _lim_VP_zleft && dZ_CAM > 0) {
-                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zleft;
-            } else if (pCAM->_Z < _lim_VP_zright && dZ_CAM < 0) {
-                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zright;
-            }
-
-            dX_VP = 0;
-            dY_VP = pMYSHIP->_Y - pVP->_Y;
-            dZ_VP = pMYSHIP->_Z - pVP->_Z;
-
-            if (pVP->_Z > _lim_VP_zleft && dZ_VP > 0) {
-                dZ_VP = 0;//pVP->_Z - _lim_VP_zleft;
-            } else if (pVP->_Z < _lim_VP_zright && dZ_VP < 0) {
-                dZ_VP = 0;//pVP->_Z - _lim_VP_zright;
-            } else {
-
-            }
-
-        } else if (pCAM->_pos_camera == 2) {
-
-            dX_CAM = (0 - (_dZ_camera_init / 2)) - pCAM->_X;
-            dY_CAM = (pMYSHIP->_Y + _dZ_camera_init) - pCAM->_Y;
-            dZ_CAM = (pMYSHIP->_Z + (_dZ_camera_init / 128)) - pCAM->_Z;
-
-            if (pCAM->_Z > _lim_VP_zleft && dZ_CAM > 0) {
-                dZ_CAM = 0;//pCAM->_Z- _lim_VP_zleft;
-            } else if (pCAM->_Z < _lim_VP_zright && dZ_CAM < 0) {
-                dZ_CAM = 0;//pCAM->_Z - _lim_VP_zright;
-            } else {
-
-            }
-
-            dX_VP = 0;
-            dY_VP = pMYSHIP->_Y - pVP->_Y;
-            dZ_VP = pMYSHIP->_Z - pVP->_Z;
-
-            if (pVP->_Z > _lim_VP_zleft && dZ_VP > 0) {
-                dZ_VP = 0;//pVP->_Z - _lim_VP_zleft;
-            } else if (pVP->_Z < _lim_VP_zright && dZ_VP < 0) {
-                dZ_VP = 0;//pVP->_Z - _lim_VP_zright;
-            }
-
-        } else if (pCAM->_pos_camera == 3) {
-            dZ_CAM = (pMYSHIP->_Z + _dZ_camera_init) - pCAM->_Z;
-            dX_CAM = (0 - (_dZ_camera_init / 4)) - pCAM->_X;
-            dY_CAM = pMYSHIP->_Y - pCAM->_Y;
-
-            if (pCAM->_Y > _lim_VP_top && dY_CAM > 0) {
-                dY_CAM = 0;//pCAM->_Y - _lim_VP_top;
-            } else if (pCAM->_Y < _lim_VP_bottom && dY_CAM < 0) {
-                dY_CAM = 0;//pCAM->_Y - _lim_VP_bottom;
-            }
-
-            dZ_VP = pMYSHIP->_Z - pVP->_Z;
-            dX_VP = 0;
-            dY_VP = pMYSHIP->_Y - pVP->_Y;
-            if (pVP->_Y > _lim_VP_top && dY_VP > 0) {
-                dY_VP = 0;//pVP->_Y - _lim_VP_top;
-            } else if (pVP->_Y < _lim_VP_bottom && dY_VP < 0) {
-                dY_VP = 0;//pVP->_Y - _lim_VP_bottom;
-            } else {
-
-            }
+    if (_pos_camera < CAM_POS_TO_BEHIND) {
+        if (_pos_camera == CAM_POS_RIGHT) {
+            move_target_X_CAM = -Dx;
+            move_target_Y_CAM = pMYSHIP->_Y;
+            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
+            move_target_X_VP = Dx;
+            move_target_Y_VP = pMYSHIP->_Y;
+            move_target_Z_VP = pMYSHIP->_Z;
+        } else if (_pos_camera == CAM_POS_LEFT) {
+            move_target_X_CAM = -Dx;
+            move_target_Y_CAM = pMYSHIP->_Y;
+            move_target_Z_CAM = pMYSHIP->_Z + _dZ_camera_init;
+            move_target_X_VP = Dx;
+            move_target_Y_VP = pMYSHIP->_Y;
+            move_target_Z_VP = pMYSHIP->_Z;
+        } else if (_pos_camera == CAM_POS_TOP) {
+            move_target_X_CAM = -Dx * pCAM->_screen_aspect;
+            move_target_Y_CAM = pMYSHIP->_Y + _dZ_camera_init;
+            move_target_Z_CAM = pMYSHIP->_Z;
+            move_target_X_VP = Dx;
+            move_target_Y_VP = pMYSHIP->_Y;
+            move_target_Z_VP = pMYSHIP->_Z;
+        } else if (_pos_camera == CAM_POS_BOTTOM) {
+            move_target_X_CAM = -Dx * pCAM->_screen_aspect;
+            move_target_Y_CAM = pMYSHIP->_Y - _dZ_camera_init;
+            move_target_Z_CAM = pMYSHIP->_Z;
+            move_target_X_VP = Dx;
+            move_target_Y_VP = pMYSHIP->_Y;
+            move_target_Z_VP = pMYSHIP->_Z;
         }
+    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+        move_target_X_CAM = X_screen_left - Dx;
+        move_target_Y_CAM = pMYSHIP->_Y;
+        move_target_Z_CAM = pMYSHIP->_Z;
+        move_target_X_VP = Dx;
+        move_target_Y_VP = pMYSHIP->_Y;
+        move_target_Z_VP = pMYSHIP->_Z;
+        if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
+            move_target_Z_CAM -= Dd;
+        } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
+            move_target_Z_CAM += Dd;
+        } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
+            move_target_Y_CAM -= Dd;
+        } else if (_pos_camera > CAM_POS_BEHIND_BOTTOM) {
+            move_target_Y_CAM += Dd;
+        }
+    }
+    //目標地点までの各軸距離
+    dX_CAM = move_target_X_CAM - pCAM->_X;
+    dY_CAM = move_target_Y_CAM - pCAM->_Y;
+    dZ_CAM = move_target_Z_CAM - pCAM->_Z;
+    dX_VP = move_target_X_VP - pVP->_X;
+    dY_VP = move_target_Y_VP - pVP->_Y;
+    dZ_VP = move_target_Z_VP - pVP->_Z;
 
+    if ( getSubFirst()->isBehaving() ) {
 
-
-        static int slow_reng_CAM = 30000;
         int speed = (pMYSHIP->_iMoveSpeed + pMYSHIP->_pMover->_veloMove)* 0.99;
         pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
-
-
-        if (-slow_reng_CAM < dZ_CAM && dZ_CAM < slow_reng_CAM) {
-            pCAM->_pMover->_veloVzMove *= 0.8;
-            pCAM->_pMover->setVzMoveVeloAcceleration(0);
-        } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上に回る時
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/1000.0);
-            } else {                                                //横に回るとき
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/100.0);
-            }
-        }
-        if (-slow_reng_CAM < dX_CAM && dX_CAM < slow_reng_CAM) {
-            pCAM->_pMover->_veloVxMove *= 0.9;
+        if (-slow_range_CAM < dX_CAM && dX_CAM < slow_range_CAM) {
+            pCAM->_pMover->_veloVxMove *= 0.8;
             pCAM->_pMover->setVxMoveVeloAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/100.0);
-            } else {                                                //横に回るとき
+            if (_pos_camera > CAM_POS_TO_BEHIND) {
+                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/100.0);//背後に回る時
+            } else {
                 pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/1000.0);
             }
         }
-
-        if (-slow_reng_CAM < dY_CAM && dY_CAM < slow_reng_CAM) {
-            pCAM->_pMover->_veloVyMove *= 0.9;
+        if (-slow_range_CAM < dY_CAM && dY_CAM < slow_range_CAM) {
+            pCAM->_pMover->_veloVyMove *= 0.8;
             pCAM->_pMover->setVyMoveVeloAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
+            if (_pos_camera > CAM_POS_TO_BEHIND) {
+                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/1000.0);//背後に回る時
+            } else {
                 pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/100.0);
-            } else {                                                //横に回るとき
-                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/1000.0);
             }
         }
-
-//        pCAM->_pMover->setVxMoveVeloRenge(-(dX_CAM - pCAM->_X), dX_CAM - pCAM->_X);
-//        pCAM->_pMover->setVyMoveVeloRenge(-(dY_CAM - pCAM->_Y), dY_CAM - pCAM->_Y);
-//        pCAM->_pMover->setVzMoveVeloRenge(-(dZ_CAM - pCAM->_Z), dZ_CAM - pCAM->_Z);
+        if (-slow_range_CAM < dZ_CAM && dZ_CAM < slow_range_CAM) {
+            pCAM->_pMover->_veloVzMove *= 0.8;
+            pCAM->_pMover->setVzMoveVeloAcceleration(0);
+        } else {
+            if (_pos_camera > CAM_POS_TO_BEHIND) {
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/1000.0);//背後に回る時
+            } else {
+                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/100.0);
+            }
+        }
         pVP->_pMover->setVxMoveVeloRenge(-speed, speed);
         pVP->_pMover->setVyMoveVeloRenge(-speed, speed);
         pVP->_pMover->setVzMoveVeloRenge(-speed, speed);
 
-        static int slow_reng_VP = 50000;
 
-        if (-slow_reng_VP < dZ_VP && dZ_VP < slow_reng_VP) {
-            pVP->_pMover->_veloVzMove *= 0.9;
+        if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
+            pVP->_pMover->_veloVxMove *= 0.8;
             pVP->_pMover->setVzMoveVeloAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上に回る時
-                pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/1000.0);
-            } else {                                                //横に回るとき
-                pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/1000.0);
-            }
+            pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
         }
-        if (-slow_reng_VP < dX_VP && dX_VP < slow_reng_VP) {
-            pVP->_pMover->_veloVxMove *= 0.9;
-            pVP->_pMover->setVxMoveVeloAcceleration(0);
-        } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
-            } else {                                                //横に回るとき
-                pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
-            }
-        }
-
-
-        if (-slow_reng_VP < dY_VP && dY_VP < slow_reng_VP) {
-            pVP->_pMover->_veloVyMove *= 0.9;
+        if (-slow_range_VP < dY_VP && dY_VP < slow_range_VP) {
+            pVP->_pMover->_veloVyMove *= 0.8;
             pVP->_pMover->setVyMoveVeloAcceleration(0);
         } else {
-            if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) { //上にに回る時
-                pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/1000.0);
-            } else {                                                //横に回るとき
-                pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/1000.0);
-            }
+            pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/1000.0);
+        }
+        if (-slow_range_VP < dZ_VP && dZ_VP < slow_range_VP) {
+            pVP->_pMover->_veloVzMove *= 0.8;
+            pVP->_pMover->setVzMoveVeloAcceleration(0);
+        } else {
+            pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/1000.0);
         }
 
-        //pCAM->setViewPoint(0, 0, GameGlobal::_pMyShip->_Z);//
-        //GameGlobal::_pMyShip->_Zこれを何とかすればいいはず
-        //pCAM->setViewPoint(0, 0, 0);//
-
-
-//        if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
-//            if (pVP->_Y > _lim_VP_top) {
-//                pVP->_Y = _lim_VP_top;
-//            }
-//            if (pVP->_Y < _lim_VP_bottom ) {
-//                pVP->_Y = _lim_VP_bottom;
-//            }
-//            if (pCAM->_Y > _lim_VP_top) {
-//                pCAM->_Y = _lim_VP_top;
-//            }
-//            if (pCAM->_Y < _lim_VP_bottom ) {
-//                pCAM->_Y = _lim_VP_bottom;
-//            }
-//        } else {
-//            if (pCAM->_Z > _lim_VP_zleft) {
-//                pCAM->_Z = _lim_VP_zleft;
-//            }
-//            if (pCAM->_Z < _lim_VP_zright) {
-//                pCAM->_Z = _lim_VP_zright;
-//            }
-//            if (pVP->_Z > _lim_VP_zleft) {
-//                pVP->_Z = _lim_VP_zleft;
-//            }
-//            if (pVP->_Z < _lim_VP_zright) {
-//                pVP->_Z = _lim_VP_zright;
-//            }
-//        }
-
+        //        if (_pos_camera == 0 || _pos_camera == 3) {
+        //            if (pVP->_Y > _lim_VP_top) {
+        //                pVP->_Y = _lim_VP_top;
+        //            }
+        //            if (pVP->_Y < _lim_VP_bottom ) {
+        //                pVP->_Y = _lim_VP_bottom;
+        //            }
+        //            if (pCAM->_Y > _lim_VP_top) {
+        //                pCAM->_Y = _lim_VP_top;
+        //            }
+        //            if (pCAM->_Y < _lim_VP_bottom ) {
+        //                pCAM->_Y = _lim_VP_bottom;
+        //            }
+        //        } else {
+        //            if (pCAM->_Z > _lim_VP_zleft) {
+        //                pCAM->_Z = _lim_VP_zleft;
+        //            }
+        //            if (pCAM->_Z < _lim_VP_zright) {
+        //                pCAM->_Z = _lim_VP_zright;
+        //            }
+        //            if (pVP->_Z > _lim_VP_zleft) {
+        //                pVP->_Z = _lim_VP_zleft;
+        //            }
+        //            if (pVP->_Z < _lim_VP_zright) {
+        //                pVP->_Z = _lim_VP_zright;
+        //            }
+        //        }
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
     }
-
-    //}
-
 
     //サブシーンが一時停止していれば、カメラ操作できる。
     if ( getSubFirst()->isBehaving() ) {

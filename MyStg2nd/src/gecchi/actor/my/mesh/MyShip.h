@@ -298,24 +298,24 @@ public:
     virtual void beginTurboZY(GgafDx9LibStg::vbsta prm_VB);
     virtual void beginTurboZX(GgafDx9LibStg::vbsta prm_VB);
 
-    virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
-    virtual void turnZY(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnZY(GgafDx9LibStg::vbsta prm_VB);
+//
+//    virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnXY(GgafDx9LibStg::vbsta prm_VB);
+//
+//    virtual void moveZX(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnZX(GgafDx9LibStg::vbsta prm_VB);
 
-    virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
-    virtual void turnXY(GgafDx9LibStg::vbsta prm_VB);
-
-    virtual void moveZX(GgafDx9LibStg::vbsta prm_VB);
-    virtual void turnZX(GgafDx9LibStg::vbsta prm_VB);
-
-    virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
-    virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);
-    virtual void turnFaceZXMove(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);
+//    virtual void turnFaceZXMove(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void doNotingMoveInput();
 
-    virtual void turnFaceNeutralXY();
-    virtual void turnFaceNeutralZY();
-    virtual void turnFaceNeutralZX();
+//    virtual void turnFaceNeutralXY();
+//    virtual void turnFaceNeutralZY();
+//    virtual void turnFaceNeutralZX();
 
     static GgafDx9Core::angle wk_dist, wk_angRx;
     void move_WAY_NONE() {

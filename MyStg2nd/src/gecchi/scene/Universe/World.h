@@ -10,10 +10,22 @@ namespace MyStg2nd {
 #define getParentActor(X) ((X##Actor*)getParent(#X))
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
+
+#define CAM_POS_RIGHT 1
+#define CAM_POS_LEFT 2
+#define CAM_POS_TOP 3
+#define CAM_POS_BOTTOM 4
+#define CAM_POS_TO_BEHIND 10
+#define CAM_POS_BEHIND_RIGHT 11
+#define CAM_POS_BEHIND_LEFT 12
+#define CAM_POS_BEHIND_TOP 13
+#define CAM_POS_BEHIND_BOTTOM 14
+
 /**
  * 世界シーンクラス .
  * この世に、とある世界がありました。<BR>
  * 本クラスは、世界の振る舞い等を実装しています。<BR>
+ * メインの処理はカメラ操作になってしまっている。
  */
 class World : public GgafDx9LibStg::DefaultScene {
 
@@ -33,6 +45,9 @@ public:
     int _lim_VP_behaind;
     int _lim_VP_zleft;
     int _lim_VP_zright;
+
+    int _pos_camera;
+    int _pos_camera_prev;
 
     DWORD _frame_pushdown_zmove;
 

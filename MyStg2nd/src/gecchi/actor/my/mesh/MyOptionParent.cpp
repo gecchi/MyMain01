@@ -149,7 +149,7 @@ void MyOptionParent::processBehavior() {
             _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
             switch(GameGlobal::_pMyShip->_way) {
                 case WAY_UP:
-                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+                    if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
                         _pMover->executeTagettingMoveAngleSequence(ANGLE90, 0,
                                                                    _angVelocity_Turn, TURN_CLOSE_TO);
                     } else {
@@ -166,7 +166,7 @@ void MyOptionParent::processBehavior() {
                                                                _angVelocity_Turn, TURN_CLOSE_TO);
                     break;
                 case WAY_DOWN:
-                    if (pCAM->_pos_camera == 0 || pCAM->_pos_camera == 3) {
+                    if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
                         _pMover->executeTagettingMoveAngleSequence(ANGLE270, 0,
                                                                    _angVelocity_Turn, TURN_CLOSE_TO);
                     } else {
