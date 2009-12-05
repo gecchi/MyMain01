@@ -197,7 +197,7 @@ Frame Box01 {
     0.000000;0.000000;0.000000;;
     0.000000;0.000000;0.000000;;
     TextureFilename {
-     "laserchip128.png";
+     "laserchip128_hosoi.png";
     }
    }
   }

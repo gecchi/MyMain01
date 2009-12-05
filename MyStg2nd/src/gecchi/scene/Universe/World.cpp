@@ -144,10 +144,10 @@ void World::processBehavior() {
     int dX_VP, dY_VP, dZ_VP;
 
     static int Dx = (int)(_dZ_camera_init / 4);
-    static int Dd = (int)(_dZ_camera_init / 128);
+    static int Dd = (int)(_dZ_camera_init / 100);
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
-    static int slow_range_CAM = 30000;
+    static int slow_range_CAM = 100000;
     static int slow_range_VP = 50000;
 
     if (_pos_camera < CAM_POS_TO_BEHIND) {
@@ -248,7 +248,7 @@ void World::processBehavior() {
 
         if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
             pVP->_pMover->_veloVxMove *= 0.8;
-            pVP->_pMover->setVzMoveVeloAcceleration(0);
+            pVP->_pMover->setVxMoveVeloAcceleration(0);
         } else {
             pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/1000.0);
         }
