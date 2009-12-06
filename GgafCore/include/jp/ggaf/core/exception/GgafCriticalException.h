@@ -4,7 +4,7 @@ namespace GgafCore {
 
 /**
  * GgafCoreライブラリ専用、ライブラリ業務例外 .
- * GgafCoreライブラリの利用者（私だけ）は本クラスをキャッチしてプログラムをストップして下さい。
+ * GgafCoreライブラリの利用者（私だけ?）は本クラスをキャッチしてプログラムをストップして下さい。
  * @version 1.00
  * @since 2007/12/03
  * @author Masatoshi Tsuge

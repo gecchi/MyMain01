@@ -6,8 +6,8 @@ namespace GgafCore {
  * 資源接続クラス .
  * 資源(Resource)を無駄に生成を行わず、参照して使いまわしたい。しかし new するのかどうかを意識したくない。<BR>
  * そんなときに使うクラス。<BR>
- * GgafResourceManager : Resource : GgafResourceConnection  = 1 : N : N
- * の関係で、これでワンセットです。GgafResourceConnection は言わば Resource のラッパークラスです。
+ * GgafResourceManager : 資源(Resource) : GgafResourceConnection  = 1 : N : N
+ * の関係で、これでワンセットです。GgafResourceConnection は言わば 資源(Resource)のラッパークラスです。
  * GgafResourceConnection実装クラスのインスタンスを、マネージャークラス(GgafResourceManager実装クラス)
  * から取得(getConnection メソッド)することとします。<BR>
  * マネージャーへの接続 GgafResourceManager<T>::getConnection で「接続カウント」が+1、
