@@ -33,7 +33,7 @@ public:
     int _incZ;
 
     int _iMovePatternNo;
-
+    DWORD _dwFrame_Active;
 
 
     /**
@@ -54,9 +54,13 @@ public:
 
     void initialize();
 
+    void onActive();
+
     void processBehavior();
 
     void processJudgement();
+
+    void onInactive();
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
