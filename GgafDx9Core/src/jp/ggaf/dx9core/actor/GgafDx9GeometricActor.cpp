@@ -662,7 +662,7 @@ void GgafDx9GeometricActor::dump() {
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {
@@ -682,7 +682,7 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ¡ÇƒÇ‹Ç∑");
                 break;
             }
             if (pActor_tmp->isFirst()) {
