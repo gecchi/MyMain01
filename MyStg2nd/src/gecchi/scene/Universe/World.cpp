@@ -42,7 +42,6 @@ void World::initialize() {
     _lim_VP_zright  = GameGlobal::_lim_MyShip_zright  + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2);
 
     _pos_camera = CAM_POS_RIGHT;
-    _pos_camera_prev = CAM_POS_RIGHT;
 
     pCAM->_X = _dZ_camera_init / 10; //少し斜めめから見てる
     pCAM->_Y = 0; //４５度斜めから見る
@@ -112,21 +111,21 @@ void World::processBehavior() {
 
     //カメラ位置を行ったり来たり
     if (VB::isPushedDown(VB_ZMOVE)) {
-        int temp_pos_camera_prev = _pos_camera_prev;
-        _pos_camera_prev = _pos_camera;
         if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
             _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
         } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
+            //方向入力により新たな視点へ
             if (VB::isBeingPressed(VB_RIGHT)) {
-                _pos_camera = CAM_POS_RIGHT;
-            } else if (VB::isBeingPressed(VB_LEFT)) {
                 _pos_camera = CAM_POS_LEFT;
+            } else if (VB::isBeingPressed(VB_LEFT)) {
+                _pos_camera = CAM_POS_RIGHT;
             } else if (VB::isBeingPressed(VB_UP)) {
-                _pos_camera = CAM_POS_TOP;
-            } else if (VB::isBeingPressed(VB_DOWN)) {
                 _pos_camera = CAM_POS_BOTTOM;
+            } else if (VB::isBeingPressed(VB_DOWN)) {
+                _pos_camera = CAM_POS_TOP;
             } else {
-                _pos_camera = temp_pos_camera_prev;
+                //方向未入力の場合、元の視点へ
+                _pos_camera -= CAM_POS_TO_BEHIND;
             }
         }
 
@@ -207,7 +206,8 @@ void World::processBehavior() {
 
     if ( getSubFirst()->isBehaving() ) {
 
-        int speed = (pMYSHIP->_iMoveSpeed + pMYSHIP->_pMover->_veloMove)* 0.99;
+        int speed = (pMYSHIP->_iMoveSpeed + pMYSHIP->_pMover->_veloMove)* 0.7; //0.7の意味は 1/√2 よりわずかに小さい
+                                                                                 //これは自機が斜め移動時カメラが追いつかないようにするため
         pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);

@@ -380,12 +380,7 @@ void MyShip::processBehavior() {
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向が入る
     (this->*fpaMoveFunc[_way])();
 
-    if (_stc == 0) {
-        _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
-    }
-
-
-    if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
+    if (VB::isPushedDown(VB_TURBO)) { //ターボ
         if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
             beginTurboXY(_stc);
         } else if (pWORLD->_pos_camera == CAM_POS_TOP || pWORLD->_pos_camera == CAM_POS_BOTTOM) {
@@ -395,143 +390,26 @@ void MyShip::processBehavior() {
         }
     }
 
-
-
-
-//    if (_stc != VB_NEUTRAL_STC) {
-////////////////////////////
-//        if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
-//            switch (_stc) {
-//                case VB_UP_STC:
-//                    _pMover->addRzMoveAngle(1000);
-//                    break;
-//                case VB_UP_RIGHT_STC:
-//                    _pMover->addRzMoveAngle(1000);
-//                    _pMover->addRyMoveAngle(-1000);
-//                    break;
-//                case VB_UP_LEFT_STC:
-//                    _pMover->addRzMoveAngle(1000);
-//                    _pMover->addRyMoveAngle(1000);
-//                    break;
-//                case VB_LEFT_STC:
-//                    _pMover->addRyMoveAngle(1000);
-//                    break;
-//                case VB_RIGHT_STC:
-//                    _pMover->addRyMoveAngle(-1000);
-//                    break;
-//                case VB_DOWN_STC:
-//                    _pMover->addRzMoveAngle(-1000);
-//                    break;
-//                case VB_DOWN_RIGHT_STC:
-//                    _pMover->addRzMoveAngle(-1000);
-//                    _pMover->addRyMoveAngle(-1000);
-//                    break;
-//                case VB_DOWN_LEFT_STC:
-//                    _pMover->addRzMoveAngle(-1000);
-//                    _pMover->addRyMoveAngle(1000);
-//                    break;
-//                default:
-//                    break;
-//            }
-//            _pMover->setFaceAngle(AXIS_Z, _pMover->_angRzMove);
-//            _pMover->setFaceAngle(AXIS_Y, _pMover->_angRyMove);
-//
-//        } else {
-////////////////////////
-//            if (VB::isBeingPressed(VB_OPTION)) {
-//                //おぷ操作
-//                switch (_stc) {
-//                    case VB_UP_STC:
-//                        break;
-//                    case VB_UP_RIGHT_STC:
-//                        break;
-//                    case VB_UP_LEFT_STC:
-//                        break;
-//                    case VB_LEFT_STC:
-//                        break;
-//                    case VB_RIGHT_STC:
-//                        break;
-//                    case VB_DOWN_STC:
-//                        break;
-//                    case VB_DOWN_RIGHT_STC:
-//                        break;
-//                    case VB_DOWN_LEFT_STC:
-//                        break;
-//                    default:
-//                        break;
-//                }
-//            } else {
-//                if (VB::isPushedDown(_stc)) { //方向シングルプッシュ
-//                    if (MyShip::isDoublePushedDown(_stc)) { //方向ダブルプッシュ
-//                        if (pWORLD->_pos_camera == 1 || pWORLD->_pos_camera == 2) {
-//                            turnFaceNeutralXY();
-//                            turnFaceZXMove(_stc);
-//                            beginTurboZX(_stc);
-//                        } else {
-//                            turnFaceNeutralZX();
-//                            turnFaceXYMove(_stc);
-//                            beginTurboXY(_stc);
-//                        }
-//                    } else {
-//                        //方向ダブルプッシュでない＝方向シングルプッシュ
-//                        if (pWORLD->_pos_camera == 1 || pWORLD->_pos_camera == 2) {
-//                            turnFaceNeutralXY();
-//                            turnFaceZXMove(_stc);
-//                            if (VB::isBeingPressed(VB_OPTION)) {
-//                                turnZX(_stc);
-//                            } else {
-//                                moveZX(_stc);
-//                            }
-//
-//                        } else {
-//
-//                            turnFaceNeutralZX();
-//                            turnFaceXYMove(_stc);
-//                            if (VB::isBeingPressed(VB_OPTION)) {
-//                                turnXY(_stc);
-//                            } else {
-//                                moveXY(_stc);
-//                            }
-//
-//                        }
-//                    }
-//
-//                } else {
-//
-//                    //方向押しっぱ
-//                    if (pWORLD->_pos_camera == 1 || pWORLD->_pos_camera == 2) {
-//                        turnFaceZXMove(_stc);
-//                        turnFaceXYMove(_stc);
-//                        moveZX(_stc);
-//                    } else {
-//                        turnFaceNeutralZX();
-//                        turnFaceXYMove(_stc);
-//                        moveXY(_stc);
-//                    }
-//                }
-//            }
-////////////////
-//        }
-////////////////
-//    } else {
-//        if (pWORLD->_pos_camera == 1 || pWORLD->_pos_camera == 2) {
-//            //ニュートラルターボ
-//            doNotingMoveInput();
-//            turnFaceNeutralXY();
-//            turnFaceNeutralZX();
-//        } else {
-//            doNotingMoveInput();
-//            turnFaceNeutralXY();
-//            turnFaceNeutralZX();
-//        }
-//    }
-
-    //X軸転落ち着け
-    if (_pMover->_angveloRotFace[AXIS_X] > _angRXTopVelo_MZ) {
+    //スピンが勢いよく回っているならば速度を弱める
+    if (_pMover->_angveloRotFace[AXIS_X] >= _angRXTopVelo_MZ) {
+        //_pMover->_angveloRotFace[AXIS_X] *= 0.7;
         _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMover->_angveloRotFace[AXIS_X] < -1*_angRXTopVelo_MZ) {
+    } else if (_pMover->_angveloRotFace[AXIS_X] <= -1*_angRXTopVelo_MZ) {
+        //_pMover->_angveloRotFace[AXIS_X] *= 0.7;
         _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
     }
+
+    //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngleの第4引数より角速度がゆるい場合受け入れ）
+    if (VB::isBeingPressed(VB_LEFT) || VB::isBeingPressed(VB_RIGHT)) {
+
+    } else {
+        _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+    }
+
+
+
+
+
 
     ////////////////////////////////////////////////////
 
@@ -721,25 +599,47 @@ void MyShip::beginTurboZX(vbsta prm_VB) {
             break;
 
         case VB_UP_LEFT_STC:
-            _way = WAY_ZLEFT_FRONT;
-            _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_ZLEFT_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
+                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            } else {
+                _way = WAY_ZLEFT_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
+                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            }
             break;
 
         case VB_DOWN_LEFT_STC:
-            _way = WAY_ZLEFT_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_ZLEFT_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
+                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            } else {
+                _way = WAY_ZLEFT_FRONT;
+                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
+                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
+            }
             break;
 
         case VB_UP_STC:
-            _way = WAY_FRONT;
-            _pMover->setRzRyMoveAngle(0, 0);
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(0, 0);
+            } else { //if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+            }
             break;
 
         case VB_DOWN_STC:
-            _way = WAY_BEHIND;
-            _pMover->setRzRyMoveAngle(ANGLE180, 0);
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_BEHIND;
+                _pMover->setRzRyMoveAngle(ANGLE180, 0);
+            } else {
+                _way = WAY_FRONT;
+                _pMover->setRzRyMoveAngle(0, 0);
+            }
             break;
 
         case VB_RIGHT_STC:
@@ -749,15 +649,27 @@ void MyShip::beginTurboZX(vbsta prm_VB) {
             break;
 
         case VB_UP_RIGHT_STC:
-            _way = WAY_ZRIGHT_FRONT;
-            _pMover->setRzRyMoveAngle(0, ANGLE45);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_ZRIGHT_FRONT;
+                _pMover->setRzRyMoveAngle(0, ANGLE45);
+                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            } else {
+                _way = WAY_ZRIGHT_BEHIND;
+                _pMover->setRzRyMoveAngle(0, ANGLE135);
+                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            }
             break;
 
         case VB_DOWN_RIGHT_STC:
-            _way = WAY_ZRIGHT_BEHIND;
-            _pMover->setRzRyMoveAngle(0, ANGLE135);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                _way = WAY_ZRIGHT_BEHIND;
+                _pMover->setRzRyMoveAngle(0, ANGLE135);
+                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            } else {
+                _way = WAY_ZRIGHT_FRONT;
+                _pMover->setRzRyMoveAngle(0, ANGLE45);
+                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
+            }
             break;
         default:
             break;
@@ -777,16 +689,16 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
             _pMover->setRzRyMoveAngle(ANGLE90, 0);
             break;
         case VB_UP_RIGHT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_UP_FRONT;
                 _pMover->setRzRyMoveAngle(ANGLE45, 0);
-            } else { //pWORLD->_pos_camera == 3 である
+            } else {
                 _way = WAY_UP_BEHIND;
                 _pMover->setRzRyMoveAngle(ANGLE135, 0);
             }
             break;
         case VB_UP_LEFT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_UP_BEHIND;
                 _pMover->setRzRyMoveAngle(ANGLE135, 0);
             } else {
@@ -795,16 +707,16 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
             }
             break;
         case VB_LEFT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_BEHIND;
                 _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            } else {
+            } else { //if (pWORLD->_pos_camera == CAM_POS_LEFT) {
                 _way = WAY_FRONT;
                 _pMover->setRzRyMoveAngle(ANGLE0, 0);
             }
             break;
         case VB_RIGHT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_FRONT;
                 _pMover->setRzRyMoveAngle(ANGLE0, 0);
             } else {
@@ -817,7 +729,7 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
             _pMover->setRzRyMoveAngle(ANGLE270, 0);
             break;
         case VB_DOWN_RIGHT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_DOWN_FRONT;
                 _pMover->setRzRyMoveAngle(ANGLE315, 0);
             } else {
@@ -826,7 +738,7 @@ void MyShip::beginTurboXY(vbsta prm_VB) {
             }
             break;
         case VB_DOWN_LEFT_STC:
-            if (pWORLD->_pos_camera == 0) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 _way = WAY_DOWN_BEHIND;
                 _pMover->setRzRyMoveAngle(ANGLE225, 0);
             } else {
