@@ -77,17 +77,17 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
-    _pMover->setMoveVelocity(8000); 
+    _pMover->setMoveVelocity(8000);
 
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
 
-	_pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
+    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
 }
 
 void EnemyCeres::onActive() {
-	
+
     _dwFrame_Active = 0;
 }
 
@@ -104,6 +104,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
+                pTama->activate();
             }
         }
         for (int i = 16; i < 32; i++) {
@@ -111,6 +112,7 @@ void EnemyCeres::processBehavior() {
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
+                pTama->activate();
             }
         }
 

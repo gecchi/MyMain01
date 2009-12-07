@@ -31,7 +31,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
 
     _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
-    _iMvVelo_BeginMT = _iMoveSpeed * 3; //Turbo移動開始時の移動速度の初速度
+    _iMvVelo_BeginMT = _iMoveSpeed * 2; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
     _way = WAY_FRONT;
@@ -64,7 +64,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
         name <<  "MyStraightLaserChip001_" << i;
         string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
-        pChip->setSource(this);
+        pChip->setPositionSource(this); //位置だけ同期
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addLaserChip(pChip);
     }
@@ -82,71 +82,73 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     //     X   Y   Z
     //    -----------
     //    -1  -1  -1
-    //     0   0   0    の全体を+1
+    //     0   0   0    の全体を+1して3進数で扱う
     //    +1  +1  +1
 
+    //それぞれのスイッチの状態に応じた処理の関数テーブル配列。
     /////////////// X  Y  Z
-    fpaMoveFunc[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //0    TN(-1,-1,-1)
-    fpaMoveFunc[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //1    TN(-1,-1, 0)
-    fpaMoveFunc[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BEHIND;    //2    TN(-1,-1, 1)
-    fpaMoveFunc[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BEHIND;        //3    TN(-1, 0,-1)
-    fpaMoveFunc[TN(-1, 0, 0)] = &MyShip::move_WAY_BEHIND;               //4    TN(-1, 0, 0)
-    fpaMoveFunc[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BEHIND;         //5    TN(-1, 0, 1)
-    fpaMoveFunc[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BEHIND;     //6    TN(-1, 1,-1)
-    fpaMoveFunc[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BEHIND;            //7    TN(-1, 1, 0)
-    fpaMoveFunc[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BEHIND;      //8    TN(-1, 1, 1)
-    fpaMoveFunc[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;          //9    TN( 0,-1,-1)
-    fpaMoveFunc[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                 //10   TN( 0,-1, 0)
-    fpaMoveFunc[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;           //11   TN( 0,-1, 1)
-    fpaMoveFunc[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;               //12   TN( 0, 0,-1)
-    fpaMoveFunc[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                 //13   TN( 0, 0, 0)
-    fpaMoveFunc[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                //14   TN( 0, 0, 1)
-    fpaMoveFunc[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;            //15   TN( 0, 1,-1)
-    fpaMoveFunc[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                   //16   TN( 0, 1, 0)
-    fpaMoveFunc[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;             //17   TN( 0, 1, 1)
-    fpaMoveFunc[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FRONT;    //18   TN( 1,-1,-1)
-    fpaMoveFunc[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FRONT;           //19   TN( 1,-1, 0)
-    fpaMoveFunc[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FRONT;     //20   TN( 1,-1, 1)
-    fpaMoveFunc[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FRONT;         //21   TN( 1, 0,-1)
-    fpaMoveFunc[TN( 1, 0, 0)] = &MyShip::move_WAY_FRONT;                //22   TN( 1, 0, 0)
-    fpaMoveFunc[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FRONT;          //23   TN( 1, 0, 1)
-    fpaMoveFunc[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FRONT;      //24   TN( 1, 1,-1)
-    fpaMoveFunc[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FRONT;             //25   TN( 1, 1, 0)
-    fpaMoveFunc[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FRONT;       //26   TN( 1, 1, 1)
+    fpaMoveFunc[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
+    fpaMoveFunc[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
+    fpaMoveFunc[TN(-1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
+    fpaMoveFunc[TN(-1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_BEHIND;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BEHIND       = 3
+    fpaMoveFunc[TN(-1, 0, 0)] = &MyShip::move_WAY_BEHIND;               //TN(-1, 0, 0) =  WAY_BEHIND              = 4
+    fpaMoveFunc[TN(-1, 0, 1)] = &MyShip::move_WAY_ZLEFT_BEHIND;         //TN(-1, 0, 1) =  WAY_ZLEFT_BEHIND        = 5
+    fpaMoveFunc[TN(-1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_BEHIND;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BEHIND    = 6
+    fpaMoveFunc[TN(-1, 1, 0)] = &MyShip::move_WAY_UP_BEHIND;            //TN(-1, 1, 0) =  WAY_UP_BEHIND           = 7
+    fpaMoveFunc[TN(-1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_BEHIND;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BEHIND     = 8
+    fpaMoveFunc[TN( 0,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN;          //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN         = 9
+    fpaMoveFunc[TN( 0,-1, 0)] = &MyShip::move_WAY_DOWN;                 //TN( 0,-1, 0) =  WAY_DOWN                = 10
+    fpaMoveFunc[TN( 0,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN;           //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN          = 11
+    fpaMoveFunc[TN( 0, 0,-1)] = &MyShip::move_WAY_ZRIGHT;               //TN( 0, 0,-1) =  WAY_ZRIGHT              = 12
+    fpaMoveFunc[TN( 0, 0, 0)] = &MyShip::move_WAY_NONE;                 //TN( 0, 0, 0) =  WAY_NONE                = 13
+    fpaMoveFunc[TN( 0, 0, 1)] = &MyShip::move_WAY_ZLEFT;                //TN( 0, 0, 1) =  WAY_ZLEFT               = 14
+    fpaMoveFunc[TN( 0, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP;            //TN( 0, 1,-1) =  WAY_ZRIGHT_UP           = 15
+    fpaMoveFunc[TN( 0, 1, 0)] = &MyShip::move_WAY_UP;                   //TN( 0, 1, 0) =  WAY_UP                  = 16
+    fpaMoveFunc[TN( 0, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP;             //TN( 0, 1, 1) =  WAY_ZLEFT_UP            = 17
+    fpaMoveFunc[TN( 1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_FRONT;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FRONT   = 18
+    fpaMoveFunc[TN( 1,-1, 0)] = &MyShip::move_WAY_DOWN_FRONT;           //TN( 1,-1, 0) =  WAY_DOWN_FRONT          = 19
+    fpaMoveFunc[TN( 1,-1, 1)] = &MyShip::move_WAY_ZLEFT_DOWN_FRONT;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FRONT    = 20
+    fpaMoveFunc[TN( 1, 0,-1)] = &MyShip::move_WAY_ZRIGHT_FRONT;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FRONT        = 21
+    fpaMoveFunc[TN( 1, 0, 0)] = &MyShip::move_WAY_FRONT;                //TN( 1, 0, 0) =  WAY_FRONT               = 22
+    fpaMoveFunc[TN( 1, 0, 1)] = &MyShip::move_WAY_ZLEFT_FRONT;          //TN( 1, 0, 1) =  WAY_ZLEFT_FRONT         = 23
+    fpaMoveFunc[TN( 1, 1,-1)] = &MyShip::move_WAY_ZRIGHT_UP_FRONT;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FRONT     = 24
+    fpaMoveFunc[TN( 1, 1, 0)] = &MyShip::move_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
+    fpaMoveFunc[TN( 1, 1, 1)] = &MyShip::move_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
 
+    fpaTurboFunc[TN(-1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
+    fpaTurboFunc[TN(-1,-1, 0)] = &MyShip::turbo_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
+    fpaTurboFunc[TN(-1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_BEHIND;    //TN(-1,-1, 1) =  WAY_ZLEFT_DOWN_BEHIND   = 2
+    fpaTurboFunc[TN(-1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_BEHIND;        //TN(-1, 0,-1) =  WAY_ZRIGHT_BEHIND       = 3
+    fpaTurboFunc[TN(-1, 0, 0)] = &MyShip::turbo_WAY_BEHIND;               //TN(-1, 0, 0) =  WAY_BEHIND              = 4
+    fpaTurboFunc[TN(-1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_BEHIND;         //TN(-1, 0, 1) =  WAY_ZLEFT_BEHIND        = 5
+    fpaTurboFunc[TN(-1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_BEHIND;     //TN(-1, 1,-1) =  WAY_ZRIGHT_UP_BEHIND    = 6
+    fpaTurboFunc[TN(-1, 1, 0)] = &MyShip::turbo_WAY_UP_BEHIND;            //TN(-1, 1, 0) =  WAY_UP_BEHIND           = 7
+    fpaTurboFunc[TN(-1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_BEHIND;      //TN(-1, 1, 1) =  WAY_ZLEFT_UP_BEHIND     = 8
+    fpaTurboFunc[TN( 0,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN;          //TN( 0,-1,-1) =  WAY_ZRIGHT_DOWN         = 9
+    fpaTurboFunc[TN( 0,-1, 0)] = &MyShip::turbo_WAY_DOWN;                 //TN( 0,-1, 0) =  WAY_DOWN                = 10
+    fpaTurboFunc[TN( 0,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN;           //TN( 0,-1, 1) =  WAY_ZLEFT_DOWN          = 11
+    fpaTurboFunc[TN( 0, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT;               //TN( 0, 0,-1) =  WAY_ZRIGHT              = 12
+    fpaTurboFunc[TN( 0, 0, 0)] = &MyShip::turbo_WAY_NONE;                 //TN( 0, 0, 0) =  WAY_NONE                = 13
+    fpaTurboFunc[TN( 0, 0, 1)] = &MyShip::turbo_WAY_ZLEFT;                //TN( 0, 0, 1) =  WAY_ZLEFT               = 14
+    fpaTurboFunc[TN( 0, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP;            //TN( 0, 1,-1) =  WAY_ZRIGHT_UP           = 15
+    fpaTurboFunc[TN( 0, 1, 0)] = &MyShip::turbo_WAY_UP;                   //TN( 0, 1, 0) =  WAY_UP                  = 16
+    fpaTurboFunc[TN( 0, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP;             //TN( 0, 1, 1) =  WAY_ZLEFT_UP            = 17
+    fpaTurboFunc[TN( 1,-1,-1)] = &MyShip::turbo_WAY_ZRIGHT_DOWN_FRONT;    //TN( 1,-1,-1) =  WAY_ZRIGHT_DOWN_FRONT   = 18
+    fpaTurboFunc[TN( 1,-1, 0)] = &MyShip::turbo_WAY_DOWN_FRONT;           //TN( 1,-1, 0) =  WAY_DOWN_FRONT          = 19
+    fpaTurboFunc[TN( 1,-1, 1)] = &MyShip::turbo_WAY_ZLEFT_DOWN_FRONT;     //TN( 1,-1, 1) =  WAY_ZLEFT_DOWN_FRONT    = 20
+    fpaTurboFunc[TN( 1, 0,-1)] = &MyShip::turbo_WAY_ZRIGHT_FRONT;         //TN( 1, 0,-1) =  WAY_ZRIGHT_FRONT        = 21
+    fpaTurboFunc[TN( 1, 0, 0)] = &MyShip::turbo_WAY_FRONT;                //TN( 1, 0, 0) =  WAY_FRONT               = 22
+    fpaTurboFunc[TN( 1, 0, 1)] = &MyShip::turbo_WAY_ZLEFT_FRONT;          //TN( 1, 0, 1) =  WAY_ZLEFT_FRONT         = 23
+    fpaTurboFunc[TN( 1, 1,-1)] = &MyShip::turbo_WAY_ZRIGHT_UP_FRONT;      //TN( 1, 1,-1) =  WAY_ZRIGHT_UP_FRONT     = 24
+    fpaTurboFunc[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
+    fpaTurboFunc[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
 }
 
 void MyShip::initialize() {
 
-//    _TRACE_("TN( 0, 0, 0)="<<TN( 0, 0, 0)<<"");
-//    _TRACE_("TN( 0, 1, 0)="<<TN( 0, 1, 0)<<"");
-//    _TRACE_("TN( 1, 1, 0)="<<TN( 1, 1, 0)<<"");
-//    _TRACE_("TN(-1, 1, 0)="<<TN(-1, 1, 0)<<"");
-//    _TRACE_("TN( 0,-1, 0)="<<TN( 0,-1, 0)<<"");
-//    _TRACE_("TN( 1,-1, 0)="<<TN( 1,-1, 0)<<"");
-//    _TRACE_("TN(-1,-1, 0)="<<TN(-1,-1, 0)<<"");
-//    _TRACE_("TN( 1, 0, 0)="<<TN( 1, 0, 0)<<"");
-//    _TRACE_("TN(-1, 0, 0)="<<TN(-1, 0, 0)<<"");
-//    _TRACE_("TN( 0, 0, 1)="<<TN( 0, 0, 1)<<"");
-//    _TRACE_("TN( 0, 1, 1)="<<TN( 0, 1, 1)<<"");
-//    _TRACE_("TN( 0,-1, 1)="<<TN( 0,-1, 1)<<"");
-//    _TRACE_("TN( 1, 0, 1)="<<TN( 1, 0, 1)<<"");
-//    _TRACE_("TN(-1, 0, 1)="<<TN(-1, 0, 1)<<"");
-//    _TRACE_("TN( 0, 0,-1)="<<TN( 0, 0,-1)<<"");
-//    _TRACE_("TN( 0, 1,-1)="<<TN( 0, 1,-1)<<"");
-//    _TRACE_("TN( 0,-1,-1)="<<TN( 0,-1,-1)<<"");
-//    _TRACE_("TN( 1, 0,-1)="<<TN( 1, 0,-1)<<"");
-//    _TRACE_("TN(-1, 0,-1)="<<TN(-1, 0,-1)<<"");
-//    _TRACE_("TN( 1, 1, 1)="<<TN( 1, 1, 1)<<"");
-//    _TRACE_("TN(-1, 1, 1)="<<TN(-1, 1, 1)<<"");
-//    _TRACE_("TN( 1,-1, 1)="<<TN( 1,-1, 1)<<"");
-//    _TRACE_("TN(-1,-1, 1)="<<TN(-1,-1, 1)<<"");
-//    _TRACE_("TN( 1, 1,-1)="<<TN( 1, 1,-1)<<"");
-//    _TRACE_("TN(-1, 1,-1)="<<TN(-1, 1,-1)<<"");
-//    _TRACE_("TN( 1,-1,-1)="<<TN( 1,-1,-1)<<"");
-//    _TRACE_("TN(-1,-1,-1)="<<TN(-1,-1,-1)<<"");
+
 
     //種別に振り分け
     getLordActor()->accept(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
@@ -160,103 +162,17 @@ void MyShip::initialize() {
     _pScaler->setScale(1000);
     _pScaler->setScaleRange(1000, 900000);
 
+    _pMover->setVxMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->setVyMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->setVzMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
 
-//    for (std::list<Frm::Bone*>::iterator iteBone = _pMeshModel->_pModel3D->_toplevel_Skelettons.begin();
-//            iteBone != _pMeshModel->_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
-//        _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-//        _TRACE_("(*iteBone)->_nVertices="<<((*iteBone)->_nVertices));
-//    }
-//            if ((*i)->IsName(pText) != 0)
-//    _pMeshModel->_pModel3D->_top_LoadSkeletton
-//    _TRACE_("_pMeshModel->_pModel3D->_Skeletton->_Name="<<(_pMeshModel->_pModel3D->_Skeletton->_Name));
-////    _TRACE_("_pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Name="<<(_pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Name));
-////    _TRACE_(" _pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Bones.front()->_Name="<<( _pMeshModel->_pModel3D->_Skeletton->_Bones.front()->_Bones.front()->_Name));
+    _pMover->setVxMoveVeloAcceleration(0);
+    _pMover->setVyMoveVeloAcceleration(0);
+    _pMover->setVzMoveVeloAcceleration(0);
 
-
-
-
-
-
-
-
-//    int rZ1,rY1,rZ2,rY2;
-//    _TRACE_("START getRzRyAngle");
-//    for (int x = -30000; x < 30000; x+= 100) {
-//        for (int y = -30000; y < 30000; y+= 100) {
-//            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRzRyAngle(x,y,z,rZ1,rY1);
-//            }
-//        }
-//    }
-//    _TRACE_("DONE getRzRyAngle");
-//    _TRACE_("START getRzRyAngle_new");
-//    for (int x = -30000; x < 30000; x+= 100) {
-//        for (int y = -30000; y < 30000; y+= 100) {
-//            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRzRyAngle_new(x,y,z,rZ2,rY2);
-//            }
-//        }
-//    }
-//    _TRACE_("DONE getRzRyAngle_new");
-//    _TRACE_("START getRzRyAngle_new2");
-//    for (int x = -30000; x < 30000; x+= 100) {
-//        for (int y = -30000; y < 30000; y+= 100) {
-//            for (int z = -30000; z < 30000; z+= 100) {
-//                GgafDx9Util::getRzRyAngle_new2(x,y,z,rZ2,rY2);
-//            }
-//        }
-//    }
-//    _TRACE_("DONE getRzRyAngle_new2");
-
-    //_TRACE_(x<<","<<y<<","<<z<<" = ("<<rZ1<<","<<rY1<<") , ("<<rZ2<<","<<rY2<<")");
-    //                if (GgafDx9Util::abs(rZ1-rZ2) > 201 || GgafDx9Util::abs(rY1-rY2) > 201) {
-    //                    _TRACE_("why? "<<x<<","<<y<<","<<z<<" = ("<<rZ1<<","<<rY1<<") , ("<<rZ2<<","<<rY2<<")");
-    //                }
-//テスト
-//    int r, r_prev;
-//    int x = -500000;
-//    r_prev = GgafDx9Util::getAngleFromXY(-764000, x);
-//    for (int y = -764000; y < 764000; y+=5000) {
-//        r = GgafDx9Util::getAngleFromXY(x, y);
-//        _TRACE_("x,y="<<x<<","<<y<<" r="<<r<<" 差="<<(r_prev-r));
-//        r_prev = r;
-//    }
-
-    //GgafDx9Util::getAngleFromSlantテスト
-//    float rad;
-//    int vx;
-//    int vy;
-//    int r1;
-//    int r2 ;
-//    for (int ang = 0; ang < 36000; ang++) {
-//        rad = (PI * 2.0f * ang) / 36000;
-//        vx = cos(rad)*1000;
-//        vy = sin(rad)*1000;
-//        r1 = GgafDx9Util::getAngleFromXY(vx, vy);
-//        r2 = GgafDx9Util::getAngle2D(vx, vy);
-//        _TRACE_("TEST ang="<<ang<<" r1="<<r1<<" r2="<<r2);
-//    }
-
-//    _TRACE_("START getAngleFromXY");
-//    for (int i = 0; i < 50000; i++) {
-//        for (int ang = 0; ang < 360; ang++) {
-//            rad = (PI * 2.0f * ang) / 360;
-//            vx = cos(rad)*1000;
-//            vy = sin(rad)*1000;
-//            r1 = GgafDx9Util::getAngleFromXY(vx, vy);
-//        }
-//    }
-//    _TRACE_("DONE getAngleFromXY "<<r1);
-//    _TRACE_("START getAngle2D");
-//    for (int i = 0; i < 50000; i++) {
-//        for (int ang = 0; ang < 360; ang++) {
-//            rad = (PI * 2.0f * ang) / 360;
-//            vx = cos(rad)*1000;
-//            vy = sin(rad)*1000;
-//            r1 = GgafDx9Util::getAngle2D(vx, vy);
-//        }
-//    }
-//    _TRACE_("DONE getAngle2D "<<r1);
+    //        _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    //        _pMover->addMoveVelocity(_iMvVelo_BeginMT);  //速度追加
+    //        _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
 }
 
 void MyShip::processBehavior() {
@@ -377,39 +293,40 @@ void MyShip::processBehavior() {
     if (VB::isReleasedUp(VB_DOWN)) {
         _way_switch.OFF_DOWN();  // ↓ を離す
     }
-    _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向が入る
-    (this->*fpaMoveFunc[_way])();
+    _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
+    (this->*fpaMoveFunc[_way])();             //方向値に応じた移動処理メソッドを呼び出す
 
     if (VB::isPushedDown(VB_TURBO)) { //ターボ
-        if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
-            beginTurboXY(_stc);
-        } else if (pWORLD->_pos_camera == CAM_POS_TOP || pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-            beginTurboZX(_stc);
-        } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-            beginTurboZY(_stc);
-        }
+        (this->*fpaTurboFunc[_way])();
+    } else {
+        _pMover->_veloVxMove *= 0.95;
+        _pMover->_veloVyMove *= 0.95;
+        _pMover->_veloVzMove *= 0.95;
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     if (_pMover->_angveloRotFace[AXIS_X] >= _angRXTopVelo_MZ) {
-        //_pMover->_angveloRotFace[AXIS_X] *= 0.7;
-        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
+        _pMover->_angveloRotFace[AXIS_X] *= 0.90;
+        //_pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
     } else if (_pMover->_angveloRotFace[AXIS_X] <= -1*_angRXTopVelo_MZ) {
-        //_pMover->_angveloRotFace[AXIS_X] *= 0.7;
-        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
+        _pMover->_angveloRotFace[AXIS_X] *= 0.90;
+        //_pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngleの第4引数より角速度がゆるい場合受け入れ）
     if (VB::isBeingPressed(VB_LEFT) || VB::isBeingPressed(VB_RIGHT)) {
 
     } else {
+
+        angle dist = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        if (0 <= dist && dist < ANGLE180) {
+            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
+        } else if (-1*ANGLE180 < dist && dist < 0) {
+            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+        }
+        _pMover->setMoveVeloAcceleration(0);
         _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
     }
-
-
-
-
-
 
     ////////////////////////////////////////////////////
 
@@ -436,22 +353,6 @@ void MyShip::processBehavior() {
     }
 
 
-    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
-        setAlpha(getAlpha()-0.01);
-        //equipOption();
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
-        setAlpha(getAlpha()+0.01);
-        //equipOption();
-    }
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_A)) {
-        _pScaler->addScale(-200);
-    }
-    if (GgafDx9Input::isBeingPressedKey(DIK_S)) {
-        _pScaler->addScale(200);
-    }
-
     if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
         _TRACE_("(X,Y,Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
     }
@@ -469,29 +370,12 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //ショット関連処理
-
-//    //スプラインテスト！！！
-//    if (VB::isPushedDown(VB_SHOT1)) {
-//        _pMover->executeSplineMoveProgram(_programSP, false);
-//    }
-//    if (VB::isPushedDown(VB_SHOT2)) {
-//        _pMover->executeSplineMoveProgram(_programSP, true);
-//    }
-
-
-
-
-
-
-
-
-
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
 
         //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
-            pLaser->setGeometry(this);
+            pLaser->activate();
         }
     }
 
@@ -500,23 +384,25 @@ void MyShip::processJudgement() {
 
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
-            pWave->activateTree();
+            pWave->activate();
 
             EffectExplosion001* pExplo001 =
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
             if (pExplo001 != NULL) {
+                pExplo001->activate();
                 pExplo001->setGeometry(this);
             }
         }
     } else if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
-            pShot->activateTree();
+            pShot->activate();
 
             EffectExplosion001* pExplo001 =
                     (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
             if (pExplo001 != NULL) {
                 pExplo001->setGeometry(this);
+                pExplo001->activate();
             }
         }
     }
@@ -528,228 +414,6 @@ void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
     //_TRACE_("MyShipヒットしました。("<<_X<<","<<_Y<<","<<_Z<<")");
 }
 
-
-void MyShip::beginTurboZY(vbsta prm_VB) {
-    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
-    switch(prm_VB) {
-
-        case VB_LEFT_STC: //奥
-            _way = WAY_ZLEFT;
-            _pMover->setRzRyMoveAngle(0, ANGLE270);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_UP_LEFT_STC:
-            _way = WAY_ZLEFT_UP;
-            _pMover->setRzRyMoveAngle(ANGLE45, ANGLE270);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_DOWN_LEFT_STC:
-            _way = WAY_ZLEFT_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE315, ANGLE270);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_UP_STC:
-            _way = WAY_UP;
-            _pMover->setRzRyMoveAngle(ANGLE90, 0);
-            break;
-
-        case VB_DOWN_STC:
-            _way = WAY_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE270, 0);
-            break;
-
-        case VB_RIGHT_STC: //手前
-            _way = WAY_ZRIGHT;
-            _pMover->setRzRyMoveAngle(0, ANGLE90);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_UP_RIGHT_STC:
-            _way = WAY_ZRIGHT_UP;
-            _pMover->setRzRyMoveAngle(ANGLE45, ANGLE90);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_DOWN_RIGHT_STC:
-            _way = WAY_ZRIGHT_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE315, ANGLE90);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-        default:
-            break;
-    }
-}
-
-
-void MyShip::beginTurboZX(vbsta prm_VB) {
-    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
-    switch(prm_VB) {
-
-        case VB_LEFT_STC:
-            _way = WAY_ZLEFT;
-            _pMover->setRzRyMoveAngle(ANGLE180, ANGLE90);
-            _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_UP_LEFT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_ZLEFT_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
-                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            } else {
-                _way = WAY_ZLEFT_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
-                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            }
-            break;
-
-        case VB_DOWN_LEFT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_ZLEFT_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
-                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            } else {
-                _way = WAY_ZLEFT_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
-                _pMover->setFaceAngleVelocity(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
-            }
-            break;
-
-        case VB_UP_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_FRONT;
-                _pMover->setRzRyMoveAngle(0, 0);
-            } else { //if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-                _way = WAY_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            }
-            break;
-
-        case VB_DOWN_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            } else {
-                _way = WAY_FRONT;
-                _pMover->setRzRyMoveAngle(0, 0);
-            }
-            break;
-
-        case VB_RIGHT_STC:
-            _way = WAY_ZRIGHT;
-            _pMover->setRzRyMoveAngle(0, ANGLE90);
-            _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            break;
-
-        case VB_UP_RIGHT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_ZRIGHT_FRONT;
-                _pMover->setRzRyMoveAngle(0, ANGLE45);
-                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            } else {
-                _way = WAY_ZRIGHT_BEHIND;
-                _pMover->setRzRyMoveAngle(0, ANGLE135);
-                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            }
-            break;
-
-        case VB_DOWN_RIGHT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                _way = WAY_ZRIGHT_BEHIND;
-                _pMover->setRzRyMoveAngle(0, ANGLE135);
-                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            } else {
-                _way = WAY_ZRIGHT_FRONT;
-                _pMover->setRzRyMoveAngle(0, ANGLE45);
-                _pMover->setFaceAngleVelocity(AXIS_X, -1*_angRXVelo_BeginMZT); //勢いよく回転開始
-            }
-            break;
-        default:
-            break;
-    }
-}
-
-
-
-void MyShip::beginTurboXY(vbsta prm_VB) {
-    _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    _pMover->setMoveVelocity(_iMvVelo_BeginMT);
-    _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
-
-    switch (prm_VB) {
-        case VB_UP_STC:
-            _way = WAY_UP;
-            _pMover->setRzRyMoveAngle(ANGLE90, 0);
-            break;
-        case VB_UP_RIGHT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_UP_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE45, 0);
-            } else {
-                _way = WAY_UP_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE135, 0);
-            }
-            break;
-        case VB_UP_LEFT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_UP_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE135, 0);
-            } else {
-                _way = WAY_UP_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE45, 0);
-            }
-            break;
-        case VB_LEFT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            } else { //if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-                _way = WAY_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE0, 0);
-            }
-            break;
-        case VB_RIGHT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE0, 0);
-            } else {
-                _way = WAY_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE180, 0);
-            }
-            break;
-        case VB_DOWN_STC:
-            _way = WAY_DOWN;
-            _pMover->setRzRyMoveAngle(ANGLE270, 0);
-            break;
-        case VB_DOWN_RIGHT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_DOWN_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE315, 0);
-            } else {
-                _way = WAY_DOWN_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE225, 0);
-            }
-            break;
-        case VB_DOWN_LEFT_STC:
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                _way = WAY_DOWN_BEHIND;
-                _pMover->setRzRyMoveAngle(ANGLE225, 0);
-            } else {
-                _way = WAY_DOWN_FRONT;
-                _pMover->setRzRyMoveAngle(ANGLE315, 0);
-            }
-            break;
-        default:
-            break;
-    }
-}
 
 
 void MyShip::doNotingMoveInput() {
@@ -850,468 +514,5 @@ MyShip::~MyShip() {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-//
-//void MyShip::turnFaceXYMove(vbsta prm_VB) {
-//
-//        switch (prm_VB) {
-//
-//            case VB_UP_STC:
-//                break;
-//
-//            case VB_UP_RIGHT_STC:
-//                break;
-//
-//            case VB_UP_LEFT_STC:
-//                break;
-//
-//            case VB_LEFT_STC:
-//                break;
-//
-//            case VB_RIGHT_STC:
-//                break;
-//
-//            case VB_DOWN_STC:
-//                break;
-//
-//            case VB_DOWN_RIGHT_STC:
-//                break;
-//
-//            case VB_DOWN_LEFT_STC:
-//                break;
-//
-//            default:
-//                break;
-//        }
-//}
-//
-//void MyShip::turnFaceZYMove(vbsta prm_VB) {
-//}
-//
-//void MyShip::turnFaceZXMove(vbsta prm_VB) {
-//}
-//
-//void MyShip::turnFaceNeutralXY() {
-//}
-//
-//void MyShip::turnFaceNeutralZY() {
-//
-//    angle distwk = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//    if (0 < distwk && distwk < ANGLE180) {
-//        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//    } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//    }
-//    _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
-//}
-//
-//void MyShip::turnFaceNeutralZX() {
-//
-//    angle distwk = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//    if (0 < distwk && distwk < ANGLE180) {
-//        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//    } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//    }
-//    _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
-//}
-
-
-//void MyShip::moveXY(vbsta prm_VB) {
-//    switch (prm_VB) {
-//        case VB_UP_STC:
-//            _way = WAY_UP;
-//            _Y += _iMoveSpeed;
-//            break;
-//        case VB_UP_RIGHT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_UP_FRONT;
-//                _Y += _iMoveSpeed * NANAME;
-//                _X += _iMoveSpeed * NANAME;
-//            } else {
-//                _way = WAY_UP_BEHIND;
-//                _Y += _iMoveSpeed * NANAME;
-//                _X -= _iMoveSpeed * NANAME;
-//            }
-//            break;
-//        case VB_UP_LEFT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_UP_BEHIND;
-//                _Y += _iMoveSpeed * NANAME;
-//                _X -= _iMoveSpeed * NANAME;
-//            } else {
-//                _way = WAY_UP_FRONT;
-//                _Y += _iMoveSpeed * NANAME;
-//                _X += _iMoveSpeed * NANAME;
-//            }
-//            break;
-//        case VB_LEFT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_BEHIND;
-//                _X -= _iMoveSpeed;
-//            } else {
-//                _way = WAY_FRONT;
-//                _X += _iMoveSpeed;
-//            }
-//            break;
-//        case VB_RIGHT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_FRONT;
-//                _X += _iMoveSpeed;
-//            } else {
-//                _way = WAY_BEHIND;
-//                _X -= _iMoveSpeed;
-//            }
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_DOWN;
-//            _Y -= _iMoveSpeed;
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_DOWN_FRONT;
-//                _Y -= _iMoveSpeed * NANAME;
-//                _X += _iMoveSpeed * NANAME;
-//            } else {
-//                _way = WAY_DOWN_BEHIND;
-//                _Y -= _iMoveSpeed * NANAME;
-//                _X -= _iMoveSpeed * NANAME;
-//            }
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            if (pWORLD->_pos_camera == 0) {
-//                _way = WAY_DOWN_BEHIND;
-//                _Y -= _iMoveSpeed * NANAME;
-//                _X -= _iMoveSpeed * NANAME;
-//            } else {
-//                _way = WAY_DOWN_FRONT;
-//                _Y -= _iMoveSpeed * NANAME;
-//                _X += _iMoveSpeed * NANAME;
-//            }
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
-//void MyShip::turnXY(vbsta prm_VB) {
-//    switch (prm_VB) {
-//        case VB_UP_STC:
-//            _way = WAY_UP;
-//            break;
-//        case VB_UP_RIGHT_STC:
-//
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT ) {
-//                _way = WAY_UP_FRONT;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_UP_BEHIND;
-//            }
-//            break;
-//        case VB_UP_LEFT_STC:
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-//                _way = WAY_UP_BEHIND;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_UP_FRONT;
-//            }
-//            break;
-//        case VB_LEFT_STC:
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-//                _way = WAY_BEHIND;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_FRONT;
-//            }
-//            break;
-//        case VB_RIGHT_STC:
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-//                _way = WAY_FRONT;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_BEHIND;
-//            }
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_DOWN;
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-//                _way = WAY_DOWN_FRONT;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_DOWN_BEHIND;
-//            }
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-//                _way = WAY_DOWN_BEHIND;
-//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT ) {
-//                _way = WAY_DOWN_FRONT;
-//            }
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
-//
-//void MyShip::moveZY(vbsta prm_VB) {
-//    static angle distwk, angRX;
-//    switch (prm_VB) {
-//        case VB_LEFT_STC:
-//            _way = WAY_ZLEFT;
-//            _Z += _iMoveSpeed;
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_UP_LEFT_STC:
-//            _way = WAY_ZLEFT_UP;
-//            _Z += _iMoveSpeed * NANAME;
-//            _Y += _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            _way = WAY_ZLEFT_DOWN;
-//            _Z += _iMoveSpeed * NANAME;
-//            _Y -= _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_DOWN;
-//            _Y -= _iMoveSpeed;
-//            break;
-//        case VB_UP_STC:
-//            _way = WAY_UP;
-//            _Y += _iMoveSpeed;
-//            break;
-//        case VB_RIGHT_STC:
-//            _way = WAY_ZRIGHT;
-//            _Z -= _iMoveSpeed;
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_UP_RIGHT_STC:
-//            _way = WAY_ZRIGHT_UP;
-//            _Z -= _iMoveSpeed * NANAME;
-//            _Y += _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            _way = WAY_ZRIGHT_DOWN;
-//            _Z -= _iMoveSpeed * NANAME;
-//            _Y -= _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
-//
-//void MyShip::turnZY(vbsta prm_VB) {
-//    switch (prm_VB) {
-//        case VB_LEFT_STC:
-//            _way = WAY_ZLEFT;
-//            break;
-//        case VB_UP_LEFT_STC:
-//            _way = WAY_ZLEFT_UP;
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            _way = WAY_ZLEFT_DOWN;
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_DOWN;
-//            break;
-//        case VB_UP_STC:
-//            _way = WAY_UP;
-//            break;
-//        case VB_RIGHT_STC:
-//            _way = WAY_ZRIGHT;
-//            break;
-//        case VB_UP_RIGHT_STC:
-//            _way = WAY_ZRIGHT_UP;
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            _way = WAY_ZRIGHT_DOWN;
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//void MyShip::moveZX(vbsta prm_VB) {
-//    static angle distwk, angRX;
-//    switch (prm_VB) {
-//        case VB_LEFT_STC:
-//            _way = WAY_ZLEFT;
-//            _Z += _iMoveSpeed;
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_UP_LEFT_STC:
-//            _way = WAY_ZLEFT_FRONT;
-//            _Z += _iMoveSpeed * NANAME;
-//            _X += _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            _way = WAY_ZLEFT_BEHIND;
-//            _Z += _iMoveSpeed * NANAME;
-//            _X -= _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, angRX, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-//            if (0 < distwk && distwk <= ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (ANGLE180 < distwk && distwk < ANGLE360) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, angRX, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_BEHIND;
-//            _X -= _iMoveSpeed;
-//            break;
-//        case VB_UP_STC:
-//            _way = WAY_FRONT;
-//            _X += _iMoveSpeed;
-//            break;
-//        case VB_RIGHT_STC:
-//            _way = WAY_ZRIGHT;
-//            _Z -= _iMoveSpeed;
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_UP_RIGHT_STC:
-//            _way = WAY_ZRIGHT_FRONT;
-//            _Z -= _iMoveSpeed * NANAME;
-//            _X += _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ - (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            _way = WAY_ZRIGHT_BEHIND;
-//            _Z -= _iMoveSpeed * NANAME;
-//            _X -= _iMoveSpeed * NANAME;
-//            angRX = _angRXStop_MZ + (_angRXStop_MZ/2);
-//            distwk = _pMover->getFaceAngleDistance(AXIS_X, -1*angRX, TURN_CLOCKWISE); //時計回りの距離
-//            if (-1*ANGLE360 < distwk && distwk < -1*ANGLE180) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-//            } else if (-1*ANGLE180 <= distwk && distwk < 0) {
-//                _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-//            }
-//            _pMover->setStopTarget_FaceAngle(AXIS_X, -1*angRX, TURN_CLOCKWISE, _angRXTopVelo_MZ);
-//            break;
-//        default:
-//            break;
-//    }
-//}
-//
-//
-//void MyShip::turnZX(vbsta prm_VB) {
-//    switch (prm_VB) {
-//        case VB_LEFT_STC:
-//            _way = WAY_ZLEFT;
-//            break;
-//        case VB_UP_LEFT_STC:
-//            _way = WAY_ZLEFT_FRONT;
-//            break;
-//        case VB_DOWN_LEFT_STC:
-//            _way = WAY_ZLEFT_BEHIND;
-//            break;
-//        case VB_DOWN_STC:
-//            _way = WAY_BEHIND;
-//            break;
-//        case VB_UP_STC:
-//            _way = WAY_FRONT;
-//            break;
-//        case VB_RIGHT_STC:
-//            _way = WAY_ZRIGHT;
-//            break;
-//        case VB_UP_RIGHT_STC:
-//            _way = WAY_ZRIGHT_FRONT;
-//            break;
-//        case VB_DOWN_RIGHT_STC:
-//            _way = WAY_ZRIGHT_BEHIND;
-//            break;
-//        default:
-//            break;
-//    }
-//}
 
 

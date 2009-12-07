@@ -148,6 +148,7 @@ void EnemyAstraea::processBehavior() {
             for (int j = 0; j < _laser_way; j++) {
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
+                    pLaserChip->activate();
 //                    _TRACE_("Dispatcher employ()!!"<<(pLaserChip->getName())<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //                                                                              "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //                                                                              "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
@@ -214,8 +215,8 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
 //    }
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry(this);
         pExplo001->activate();
+        pExplo001->setGeometry(this);
     }
 }
 

@@ -115,7 +115,6 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
                 _on_UP.Y = swY;
                 _on_UP.Z = swZ;
                 _sw_UP = true;
-
             }
         }
         void ON_LEFT(Switch swX, Switch swY, Switch swZ) {
@@ -194,6 +193,7 @@ public:
 
     WaySwitch _way_switch;
     void (MyShip::*fpaMoveFunc[3*3*3])();
+    void (MyShip::*fpaTurboFunc[3*3*3])();
 
 //    void (MyShip::*fpaFunc[])() =  {
 //          move_WAY_UP,
@@ -294,202 +294,189 @@ public:
     }
 
     //画面手前へ移動初めX軸回転処理
-    virtual void beginTurboXY(GgafDx9LibStg::vbsta prm_VB);
-    virtual void beginTurboZY(GgafDx9LibStg::vbsta prm_VB);
-    virtual void beginTurboZX(GgafDx9LibStg::vbsta prm_VB);
-
-//    virtual void moveZY(GgafDx9LibStg::vbsta prm_VB);
-//    virtual void turnZY(GgafDx9LibStg::vbsta prm_VB);
-//
-//    virtual void moveXY(GgafDx9LibStg::vbsta prm_VB);
-//    virtual void turnXY(GgafDx9LibStg::vbsta prm_VB);
-//
-//    virtual void moveZX(GgafDx9LibStg::vbsta prm_VB);
-//    virtual void turnZX(GgafDx9LibStg::vbsta prm_VB);
-
-//    virtual void turnFaceXYMove(GgafDx9LibStg::vbsta prm_VB);
-//    virtual void turnFaceZYMove(GgafDx9LibStg::vbsta prm_VB);
-//    virtual void turnFaceZXMove(GgafDx9LibStg::vbsta prm_VB);
 
     virtual void doNotingMoveInput();
-
-//    virtual void turnFaceNeutralXY();
-//    virtual void turnFaceNeutralZY();
-//    virtual void turnFaceNeutralZX();
 
     static GgafDx9Core::angle wk_dist, wk_angRx;
     void move_WAY_NONE() {
         //_way = WAY_NONE;
     }
+    /**
+     * 上移動
+     */
     void move_WAY_UP() {
-        //_way = WAY_UP;
+        _pMover->setRzRyMoveAngle(ANGLE90, 0);
         _Y += _iMoveSpeed;
     }
+    /**
+     * 前方斜め上移動
+     */
     void move_WAY_UP_FRONT() {
-        //_way = WAY_UP_FRONT;
+        _pMover->setRzRyMoveAngle(ANGLE45, 0);
         _Y += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
     }
+    /**
+     * 後方斜め上移動
+     */
     void move_WAY_UP_BEHIND() {
-        //_way = WAY_UP_BEHIND;
+        _pMover->setRzRyMoveAngle(ANGLE135, 0);
         _Y += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
     }
+    /**
+     * 前移動
+     */
     void move_WAY_FRONT() {
-        //_way = WAY_FRONT;
+        _pMover->setRzRyMoveAngle(0, 0);
         _X += _iMoveSpeed;
     }
+    /**
+     * 後ろ移動
+     */
     void move_WAY_BEHIND() {
-        //_way = WAY_BEHIND;
+        _pMover->setRzRyMoveAngle(ANGLE180, 0);
         _X -= _iMoveSpeed;
     }
+    /**
+     * 下移動
+     */
     void move_WAY_DOWN() {
-        //_way = WAY_DOWN;
+        _pMover->setRzRyMoveAngle(ANGLE270, 0);
         _Y -= _iMoveSpeed;
     }
+    /**
+     * 後方斜め下移動
+     */
     void move_WAY_DOWN_BEHIND() {
-        //_way = WAY_DOWN_BEHIND;
+        _pMover->setRzRyMoveAngle(ANGLE225, 0);
         _Y -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
     }
+    /**
+     * 前方斜め下移動
+     */
     void move_WAY_DOWN_FRONT() {
-        //_way = WAY_DOWN_FRONT;
+        _pMover->setRzRyMoveAngle(ANGLE315, 0);
         _Y -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
     }
+    /**
+     * 左移動
+     */
     void move_WAY_ZLEFT() {
-        //_way = WAY_ZLEFT;
         _Z += _iMoveSpeed;
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-        if (0 < wk_dist && wk_dist <= ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 前方斜め左移動
+     */
     void move_WAY_ZLEFT_FRONT() {
-        //_way = WAY_ZLEFT_FRONT;
+        _pMover->setRzRyMoveAngle(0, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-        if (0 < wk_dist && wk_dist <= ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 後方斜め左移動
+     */
     void move_WAY_ZLEFT_BEHIND() {
-        //_way = WAY_ZLEFT_BEHIND;
+        _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-        if (0 < wk_dist && wk_dist <= ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, (_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 前方斜め右移動
+     */
     void move_WAY_ZRIGHT_FRONT() {
-        //_way = WAY_ZRIGHT_FRONT;
+        _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE); //時計回りの距離
-        if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
-
+    /**
+     * 右移動
+     */
     void move_WAY_ZRIGHT() {
-        //_way = WAY_ZRIGHT;
+        _pMover->setRzRyMoveAngle(0, ANGLE90);
         _Z -= _iMoveSpeed;
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE); //時計回りの距離
-        if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
         _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 後方斜め右
+     */
     void move_WAY_ZRIGHT_BEHIND() {
-        //_way = WAY_ZRIGHT_BEHIND;
+        _pMover->setRzRyMoveAngle(0, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE); //時計回りの距離
-        if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
-
+    /**
+     * 左斜め上移動
+     */
     void move_WAY_ZLEFT_UP() {
-        //_way = WAY_ZLEFT_UP;
+        _pMover->setRzRyMoveAngle(ANGLE45, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-        if (0 < wk_dist && wk_dist <= ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 左斜め下移動
+     */
     void move_WAY_ZLEFT_DOWN() {
-        //_way = WAY_ZLEFT_DOWN;
+        _pMover->setRzRyMoveAngle(ANGLE315, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE); //反時計回りの距離
-        if (0 < wk_dist && wk_dist <= ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (ANGLE180 < wk_dist && wk_dist < ANGLE360) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, wk_angRx, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ/2);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
-
+    /**
+     * 右斜め上移動
+     */
     void move_WAY_ZRIGHT_UP() {
-        //_way = WAY_ZRIGHT_UP;
+        _pMover->setRzRyMoveAngle(ANGLE45, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ - (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE); //時計回りの距離
-        if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 右斜め下移動
+     */
     void move_WAY_ZRIGHT_DOWN() {
-        //_way = WAY_ZRIGHT_DOWN;
+        _pMover->setRzRyMoveAngle(ANGLE315, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
-        wk_angRx = _angRXStop_MZ + (_angRXStop_MZ/2);
-        wk_dist = _pMover->getFaceAngleDistance(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE); //時計回りの距離
-        if (-1*ANGLE360 < wk_dist && wk_dist < -1*ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
-        } else if (-1*ANGLE180 <= wk_dist && wk_dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
-        }
-        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*wk_angRx, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
+    /**
+     * 前方左斜め上移動
+     */
     void move_WAY_ZLEFT_UP_FRONT() {
         _TRACE_("move_WAY_ZLEFT_UP_FRONTLEFT() came!");
     }
-
+    /**
+     * 後方左斜め上移動
+     */
     void move_WAY_ZLEFT_UP_BEHIND() {
         _TRACE_("move_WAY_ZLEFT_UP_BEHINDLEFT() came!");
     }
@@ -519,45 +506,218 @@ public:
     }
 
 
+    /////////////////TURBO_BEGIN
+
+    void turbo_WAY_NONE() {
+
+    }
+
+    /**
+     * 上ターボ開始
+     */
+    void turbo_WAY_UP() {
+        _pMover->setRzRyMoveAngle(ANGLE90, 0);
+        _pMover->addVyMoveVelocity(_iMvVelo_BeginMT);
+    }
+    /**
+     * 前方斜め上ターボ開始
+     */
+    void turbo_WAY_UP_FRONT() {
+        _pMover->setRzRyMoveAngle(ANGLE45, 0);
+        _pMover->addVyMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(_iMvVelo_BeginMT * NANAME);
+    }
+    /**
+     * 後方斜め上ターボ開始
+     */
+    void turbo_WAY_UP_BEHIND() {
+        _pMover->setRzRyMoveAngle(ANGLE135, 0);
+        _pMover->addVyMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+    }
+    /**
+     * 前ターボ開始
+     */
+    void turbo_WAY_FRONT() {
+        _pMover->setRzRyMoveAngle(0, 0);
+        _pMover->addVxMoveVelocity(_iMvVelo_BeginMT);
+    }
+    /**
+     * 後ろターボ開始
+     */
+    void turbo_WAY_BEHIND() {
+        _pMover->setRzRyMoveAngle(ANGLE180, 0);
+        _pMover->addVxMoveVelocity(-_iMvVelo_BeginMT);
+    }
+    /**
+     * 下ターボ開始
+     */
+    void turbo_WAY_DOWN() {
+        _pMover->setRzRyMoveAngle(ANGLE270, 0);
+        _pMover->addVyMoveVelocity(-_iMvVelo_BeginMT);
+    }
+    /**
+     * 後方斜め下ターボ開始
+     */
+    void turbo_WAY_DOWN_BEHIND() {
+        _pMover->setRzRyMoveAngle(ANGLE225, 0);
+        _pMover->addVyMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+    }
+    /**
+     * 前方斜め下ターボ開始
+     */
+    void turbo_WAY_DOWN_FRONT() {
+        _pMover->setRzRyMoveAngle(ANGLE315, 0);
+        _pMover->addVyMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(_iMvVelo_BeginMT * NANAME);
+    }
+    /**
+     * 左ターボ開始
+     */
+    void turbo_WAY_ZLEFT() {
+        _pMover->addVzMoveVelocity(_iMvVelo_BeginMT);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 前方斜め左ターボ開始
+     */
+    void turbo_WAY_ZLEFT_FRONT() {
+        _pMover->setRzRyMoveAngle(0, ANGLE270);
+        _pMover->addVzMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 後方斜め左ターボ開始
+     */
+    void turbo_WAY_ZLEFT_BEHIND() {
+        _pMover->setRzRyMoveAngle(ANGLE180, ANGLE45);
+        _pMover->addVzMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, (_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 前方斜め右ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_FRONT() {
+        _pMover->setRzRyMoveAngle(ANGLE180, ANGLE135);
+        _pMover->addVzMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 右ターボ開始
+     */
+    void turbo_WAY_ZRIGHT() {
+        _pMover->setRzRyMoveAngle(0, ANGLE90);
+        _pMover->addVzMoveVelocity(-_iMvVelo_BeginMT);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 後方斜め右
+     */
+    void turbo_WAY_ZRIGHT_BEHIND() {
+        _pMover->setRzRyMoveAngle(0, ANGLE135);
+        _pMover->addVzMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVxMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 左斜め上ターボ開始
+     */
+    void turbo_WAY_ZLEFT_UP() {
+        _pMover->setRzRyMoveAngle(ANGLE45, ANGLE270);
+        _pMover->addVzMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVyMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 左斜め下ターボ開始
+     */
+    void turbo_WAY_ZLEFT_DOWN() {
+        _pMover->setRzRyMoveAngle(ANGLE315, ANGLE270);
+        _pMover->addVzMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        _pMover->addVyMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ/2);
+        _pMover->setStopTarget_FaceAngle(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 右斜め上ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_UP() {
+        _pMover->setRzRyMoveAngle(ANGLE45, ANGLE90);
+        _pMover->addVzMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVyMoveVelocity(_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 右斜め下ターボ開始
+     */
+    void turbo_WAY_ZRIGHT_DOWN() {
+        _pMover->setRzRyMoveAngle(ANGLE315, ANGLE90);
+        _pMover->addVzMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        _pMover->addVyMoveVelocity(-_iMvVelo_BeginMT * NANAME);
+        //旋廻
+        _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setStopTarget_FaceAngle(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+    }
+    /**
+     * 前方左斜め上ターボ開始
+     */
+    void turbo_WAY_ZLEFT_UP_FRONT() {
+        _TRACE_("turbo_WAY_ZLEFT_UP_FRONTLEFT() came!");
+    }
+    /**
+     * 後方左斜め上ターボ開始
+     */
+    void turbo_WAY_ZLEFT_UP_BEHIND() {
+        _TRACE_("turbo_WAY_ZLEFT_UP_BEHINDLEFT() came!");
+    }
+
+    void turbo_WAY_ZLEFT_DOWN_FRONT() {
+        _TRACE_("turbo_WAY_ZLEFT_DOWN_FRONTLEFT() came!");
+    }
+
+    void turbo_WAY_ZLEFT_DOWN_BEHIND() {
+        _TRACE_("turbo_WAY_ZLEFT_DOWN_BEHINDLEFT() came!");
+    }
+
+    void turbo_WAY_ZRIGHT_UP_FRONT() {
+        _TRACE_("turbo_WAY_ZRIGHT_UP_FRONTLEFT() came!");
+    }
+
+    void turbo_WAY_ZRIGHT_UP_BEHIND() {
+        _TRACE_("turbo_WAY_ZRIGHT_UP_BEHINDLEFT() came!");
+    }
+
+    void turbo_WAY_ZRIGHT_DOWN_FRONT() {
+        _TRACE_("turbo_WAY_ZRIGHT_DOWN_FRONTLEFT() came!");
+    }
+
+    void turbo_WAY_ZRIGHT_DOWN_BEHIND() {
+        _TRACE_("turbo_WAY_ZRIGHT_DOWN_BEHIND() came!");
+    }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    //virtual void beginMoveZX(int prm_VB);
-
-    //virtual void beginMoveXY(int prm_VB);
 
     static void transactShot(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 

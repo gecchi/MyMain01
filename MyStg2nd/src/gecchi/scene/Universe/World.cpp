@@ -180,7 +180,7 @@ void World::processBehavior() {
             move_target_Z_VP = pMYSHIP->_Z;
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        move_target_X_CAM = X_screen_left - Dx;
+        move_target_X_CAM = X_screen_left - Dd;
         move_target_Y_CAM = pMYSHIP->_Y;
         move_target_Z_CAM = pMYSHIP->_Z;
         move_target_X_VP = Dx;
@@ -305,48 +305,48 @@ void World::processBehavior() {
         pCAM->_pMover->_move_angle_ry_target_flg = true;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
-            if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
-                pCAM->_Y += 2000;
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
-                pCAM->_Y -= 2000;
+            if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
+                pCAM->_Y += 4000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
+                pCAM->_Y -= 4000;
             } else {
 
             }
 
-            if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
-                pCAM->_X += 2000;
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
-                pCAM->_X -= 2000;
+            if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
+                pCAM->_X += 4000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
+                pCAM->_X -= 4000;
             } else {
             }
 
-            if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-                pCAM->_Z += 2000;
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
-                pCAM->_Z -= 2000;
+            if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
+                pCAM->_Z += 4000;
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
+                pCAM->_Z -= 4000;
             } else {
             }
 
         } else {
-            if (GgafDx9Input::isBeingPressedKey(DIK_T)) {
-                pCAM->_pMover->addRzMoveAngle(2000);
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_G)) {
-                pCAM->_pMover->addRzMoveAngle(-2000);
+            if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
+                pCAM->_pMover->addRzMoveAngle(4000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
+                pCAM->_pMover->addRzMoveAngle(-4000);
             } else {
                 pCAM->_pMover->addRzMoveAngle(0);
             }
 
-            if (GgafDx9Input::isBeingPressedKey(DIK_H)) {
-                pCAM->_pMover->addRyMoveAngle(2000);
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_F)) {
-                pCAM->_pMover->addRyMoveAngle(-2000);
+            if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
+                pCAM->_pMover->addRyMoveAngle(4000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
+                pCAM->_pMover->addRyMoveAngle(-4000);
             } else {
                 pCAM->_pMover->addRyMoveAngle(0);
             }
-            if (GgafDx9Input::isBeingPressedKey(DIK_U)) {
-                pCAM->_pMover->setMoveVelocity(2000);
-            } else if (GgafDx9Input::isBeingPressedKey(DIK_J)) {
-                pCAM->_pMover->setMoveVelocity(-2000);
+            if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
+                pCAM->_pMover->setMoveVelocity(4000);
+            } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
+                pCAM->_pMover->setMoveVelocity(-4000);
             } else {
                 pCAM->_pMover->setMoveVelocity(0);
             }

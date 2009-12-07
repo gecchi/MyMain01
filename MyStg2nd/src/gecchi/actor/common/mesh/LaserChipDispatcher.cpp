@@ -42,7 +42,7 @@ LaserChip* LaserChipDispatcher::employ() {
     } else {
         LaserChip* pChip = (LaserChip*)ActorDispatcher::employ();
         if (pChip != NULL) {
-
+            pChip->activate();
             if (_pChip_prev_employ != NULL) {
                 if (_lifeframe_prev_employ == _pChip_prev_employ->_lifeframe) { //アクティブになってフレームが加算されるのは１フレーム次であるため
                     //2フレーム連続でemployの場合連結とみなす

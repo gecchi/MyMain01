@@ -237,8 +237,7 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
-
-
+            pLaserChip->activate();
         }
     }
 
