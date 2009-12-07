@@ -77,7 +77,7 @@ public:
                     continue;
                 }
             } else {
-                pActor->activate();
+                //pActor->activate();
                 pActor->moveLast(); //æ“¾I
                 break;
             }
