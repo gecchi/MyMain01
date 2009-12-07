@@ -468,14 +468,17 @@ public: //_X , _Y, _Z ëÄçÏä÷òA //////////////////////////////////////////////
     //virtual void behave();
 
     void setVxMoveVelocity(velo prm_veloVxMove);
+    void addVxMoveVelocity(velo prm_veloVxMove);
     void setVxMoveVeloRenge(velo prm_veloVxMove01, velo prm_veloVxMove02);
     void setVxMoveVeloAcceleration(acce prm_acceVxMove);
 
     void setVyMoveVelocity(velo prm_veloVyMove);
+    void addVyMoveVelocity(velo prm_veloVyMove);
     void setVyMoveVeloRenge(velo prm_veloVyMove01, velo prm_veloVyMove02);
     void setVyMoveVeloAcceleration(acce prm_acceVyMove);
 
     void setVzMoveVelocity(velo prm_veloVzMove);
+    void addVzMoveVelocity(velo prm_veloVzMove);
     void setVzMoveVeloRenge(velo prm_veloVzMove01, velo prm_veloVzMove02);
     void setVzMoveVeloAcceleration(acce prm_acceVzMove);
 

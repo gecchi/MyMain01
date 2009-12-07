@@ -1081,6 +1081,17 @@ void GgafDx9GeometryMover::setVxMoveVelocity(velo prm_veloVxMove) {
     }
 }
 
+void GgafDx9GeometryMover::addVxMoveVelocity(velo prm_veloVxMove) {
+    _veloVxMove += prm_veloVxMove;
+    if (_veloVxMove > _veloTopVxMove) {
+        _veloVxMove = _veloTopVxMove;
+    } else if (_veloVxMove < _veloBottomVxMove) {
+        _veloVxMove = _veloBottomVxMove;
+    } else {
+        _veloVxMove = prm_veloVxMove;
+    }
+}
+
 void GgafDx9GeometryMover::setVxMoveVeloAcceleration(acce prm_acceVxMove) {
     _acceVxMove = prm_acceVxMove;
 }
@@ -1106,6 +1117,17 @@ void GgafDx9GeometryMover::setVyMoveVelocity(velo prm_veloVyMove) {
     }
 }
 
+void GgafDx9GeometryMover::addVyMoveVelocity(velo prm_veloVyMove) {
+    _veloVyMove += prm_veloVyMove;
+    if (_veloVyMove > _veloTopVyMove) {
+        _veloVyMove = _veloTopVyMove;
+    } else if (_veloVyMove < _veloBottomVyMove) {
+        _veloVyMove = _veloBottomVyMove;
+    } else {
+        _veloVyMove = prm_veloVyMove;
+    }
+}
+
 void GgafDx9GeometryMover::setVyMoveVeloAcceleration(acce prm_acceVyMove) {
     _acceVyMove = prm_acceVyMove;
 }
@@ -1125,6 +1147,17 @@ void GgafDx9GeometryMover::setVzMoveVelocity(velo prm_veloVzMove) {
     if (prm_veloVzMove > _veloTopVzMove) {
         _veloVzMove = _veloTopVzMove;
     } else if (prm_veloVzMove < _veloBottomVzMove) {
+        _veloVzMove = _veloBottomVzMove;
+    } else {
+        _veloVzMove = prm_veloVzMove;
+    }
+}
+
+void GgafDx9GeometryMover::addVzMoveVelocity(velo prm_veloVzMove) {
+    _veloVzMove += prm_veloVzMove;
+    if (_veloVzMove > _veloTopVzMove) {
+        _veloVzMove = _veloTopVzMove;
+    } else if (_veloVzMove < _veloBottomVzMove) {
         _veloVzMove = _veloBottomVzMove;
     } else {
         _veloVzMove = prm_veloVzMove;
