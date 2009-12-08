@@ -30,6 +30,14 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMatWorld[5]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld006" );
     _ahMatWorld[6]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld007" );
     _ahMatWorld[7]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld008" );
+    _ahMatWorld[8]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld009" );
+    _ahMatWorld[9]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld010" );
+    _ahMatWorld[10]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld011" );
+    _ahMatWorld[11]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld012" );
+    _ahMatWorld[12]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld013" );
+    _ahMatWorld[13]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld014" );
+    _ahMatWorld[14]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld015" );
+    _ahMatWorld[15]  = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld016" );
 
     _ahMaterialDiffuse[0] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse001" );
     _ahMaterialDiffuse[1] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse002" );
@@ -39,6 +47,14 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMaterialDiffuse[5] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse006" );
     _ahMaterialDiffuse[6] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse007" );
     _ahMaterialDiffuse[7] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse008" );
+    _ahMaterialDiffuse[8] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse009" );
+    _ahMaterialDiffuse[9] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse010" );
+    _ahMaterialDiffuse[10] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse011" );
+    _ahMaterialDiffuse[11] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse012" );
+    _ahMaterialDiffuse[12] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse013" );
+    _ahMaterialDiffuse[13] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse014" );
+    _ahMaterialDiffuse[14] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse015" );
+    _ahMaterialDiffuse[15] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse016" );
 
     _h_nVertexs = _pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
 

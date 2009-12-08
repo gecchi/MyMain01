@@ -9,13 +9,25 @@ using namespace GgafDx9Core;
 
 GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ")");
-    _TRACE_("GgafDx9MorphMeshModel::draw() this="<<getName());
-    // "M/4/xxxxx" でモデルマネージャから取得した場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
-    // ここでprm_model_name は "4/xxxxx" という文字列になっている。
-    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残す。
-
+    _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ") Begin");
+    // 下位実装クラスが指定するモデル名は"M/4/xxxxx"という形式で、GgafDx9ModelManagerは
+    // "M"からGgafDx9MorphMeshModelと判断し、"M"を取り除いた"4/XXXX"をモデル名として扱う。
+    // prm_model_name には "4/XXXX" が、渡ってくる。
+    // プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+    // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
     // モデル名からフターゲット数を取得
-    _morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
+    _TRACE_("GgafDx9MorphMeshModel prm_model_name="<<prm_model_name);
+    const char* tp = strtok( prm_model_name, "/" );
+    int num = (int)strtol(tp, NULL, 10);
+    tp = strtok( NULL, "/" );
+    if (tp == NULL) {
+        _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定なし、よって0個とします");
+        _morph_target_num = 0;
+    } else {
+        _morph_target_num = num;
+        _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
+    }
+    //_morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
     if (0 > _morph_target_num || _morph_target_num > 9) {
         throwGgafCriticalException("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数は9までです。_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
     }
@@ -33,6 +45,7 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel*)
     //で行っている。
+    _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ") End");
 }
 
 HRESULT GgafDx9MorphMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
