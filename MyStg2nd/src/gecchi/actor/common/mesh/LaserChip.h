@@ -11,8 +11,8 @@ namespace MyStg2nd {
 class LaserChip : public GgafDx9Core::GgafDx9MeshSetActor {
     friend class LaserChipDispatcher;
 public:
-    D3DXHANDLE _ahKind[8];
-    D3DXHANDLE _ahMatWorld_front[8];
+    D3DXHANDLE _ahKind[16];
+    D3DXHANDLE _ahMatWorld_front[16];
     D3DXHANDLE _h_cnt_vertec;
 
     GgafDx9LibStg::StgChecker* _pStgChecker;

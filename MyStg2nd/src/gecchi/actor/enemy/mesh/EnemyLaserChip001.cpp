@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "laser_chip") {
+EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip") {
     _class_name = "EnemyLaserChip001";
 }
 

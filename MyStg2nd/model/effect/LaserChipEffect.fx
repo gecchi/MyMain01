@@ -14,6 +14,10 @@ int g_kind005;
 int g_kind006;
 int g_kind007;
 int g_kind008;
+int g_kind009;
+int g_kind010;
+int g_kind011;
+int g_kind012;
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
 float4x4 g_matWorld003;
@@ -22,6 +26,10 @@ float4x4 g_matWorld005;
 float4x4 g_matWorld006;
 float4x4 g_matWorld007;
 float4x4 g_matWorld008;
+float4x4 g_matWorld009;
+float4x4 g_matWorld010;
+float4x4 g_matWorld011;
+float4x4 g_matWorld012;
 float4x4 g_matWorld_front001;
 float4x4 g_matWorld_front002;
 float4x4 g_matWorld_front003;
@@ -30,6 +38,10 @@ float4x4 g_matWorld_front005;
 float4x4 g_matWorld_front006;
 float4x4 g_matWorld_front007;
 float4x4 g_matWorld_front008;
+float4x4 g_matWorld_front009;
+float4x4 g_matWorld_front010;
+float4x4 g_matWorld_front011;
+float4x4 g_matWorld_front012;
 
 float4x4 g_matView;   //View•ÏŠ·s—ñ
 float4x4 g_matProj;   //ŽË‰e•ÏŠ·s—ñ
@@ -98,11 +110,46 @@ OUT_VS GgafDx9VS_LaserChip(
 		matWorld = g_matWorld007;
 		matWorld_front = g_matWorld_front007;
 		kind = g_kind007;
-	} else  {
+	} else if (index == 7) {
 		matWorld = g_matWorld008;
 		matWorld_front = g_matWorld_front008;
 		kind = g_kind008;
+	} else if (index == 8) {
+		matWorld = g_matWorld009;
+		matWorld_front = g_matWorld_front009;
+		kind = g_kind009;
+	} else if (index == 9) {
+		matWorld = g_matWorld010;
+		matWorld_front = g_matWorld_front010;
+		kind = g_kind010;
+	} else if (index == 10) {
+		matWorld = g_matWorld011;
+		matWorld_front = g_matWorld_front011;
+		kind = g_kind011;
+	} else {
+		matWorld = g_matWorld012;
+		matWorld_front = g_matWorld_front012;
+		kind = g_kind012;
 	} 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	float4 posWorld;
 	if (prm_pos.x > 0) {

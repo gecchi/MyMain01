@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "laser_chip") {
+MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyStraightLaserChip001";
     _veloMove = 100000;
 }
