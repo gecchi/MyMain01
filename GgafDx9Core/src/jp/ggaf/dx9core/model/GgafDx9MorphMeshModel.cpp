@@ -17,10 +17,12 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そう
     // モデル名からフターゲット数を取得
     _TRACE_("GgafDx9MorphMeshModel prm_model_name="<<prm_model_name);
-    const char* tp = strtok( prm_model_name, "/" );
-    int num = (int)strtol(tp, NULL, 10);
-    tp = strtok( NULL, "/" );
-    if (tp == NULL) {
+    char nm[51];
+    strcpy(nm, prm_model_name);
+    const char* pT = strtok(nm, "/" );
+    int num = (int)strtol(pT, NULL, 10);
+    pT = strtok(NULL, "/");
+    if (pT == NULL) {
         _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定なし、よって0個とします");
         _morph_target_num = 0;
     } else {

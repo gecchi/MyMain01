@@ -18,10 +18,12 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
     // モデル名から同時描画セット数指定があれば取り出す。無ければ8
     _TRACE_("GgafDx9MeshSetModel prm_model_name="<<prm_model_name);
-    const char* tp = strtok( prm_model_name, "/" );
-    int num = (int)strtol(tp, NULL, 10);
-    tp = strtok( NULL, "/" );
-    if (tp == NULL) {
+    char nm[51];
+    strcpy(nm, prm_model_name);
+    const char* pT = strtok(nm, "/" );
+    int num = (int)strtol(pT, NULL, 10);
+    pT = strtok(NULL, "/");
+    if (pT == NULL) {
         _TRACE_("GgafDx9MeshSetModel セット数は指定なし、 よって8個とします");
         _set_num = 8;
     } else {

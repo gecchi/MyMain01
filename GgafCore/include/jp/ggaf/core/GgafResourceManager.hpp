@@ -126,6 +126,7 @@ template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     while (pCurrent != NULL) {
+        //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
             return pCurrent;
         }
