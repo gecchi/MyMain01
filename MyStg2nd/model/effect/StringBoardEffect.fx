@@ -23,6 +23,26 @@ float g_offsetU005;
 float g_offsetU006;
 float g_offsetU007;
 float g_offsetU008;
+float g_offsetU009;
+float g_offsetU010;
+float g_offsetU011;
+float g_offsetU012;
+float g_offsetU013;
+float g_offsetU014;
+float g_offsetU015;
+float g_offsetU016;
+float g_offsetU017;
+float g_offsetU018;
+float g_offsetU019;
+float g_offsetU020;
+float g_offsetU021;
+float g_offsetU022;
+float g_offsetU023;
+float g_offsetU024;
+float g_offsetU025;
+float g_offsetU026;
+float g_offsetU027;
+float g_offsetU028;
 
 float g_offsetV001;
 float g_offsetV002;
@@ -32,6 +52,26 @@ float g_offsetV005;
 float g_offsetV006;
 float g_offsetV007;
 float g_offsetV008;
+float g_offsetV009;
+float g_offsetV010;
+float g_offsetV011;
+float g_offsetV012;
+float g_offsetV013;
+float g_offsetV014;
+float g_offsetV015;
+float g_offsetV016;
+float g_offsetV017;
+float g_offsetV018;
+float g_offsetV019;
+float g_offsetV020;
+float g_offsetV021;
+float g_offsetV022;
+float g_offsetV023;
+float g_offsetV024;
+float g_offsetV025;
+float g_offsetV026;
+float g_offsetV027;
+float g_offsetV028;
 
 float g_transformedX001;
 float g_transformedX002;
@@ -41,6 +81,26 @@ float g_transformedX005;
 float g_transformedX006;
 float g_transformedX007;
 float g_transformedX008;
+float g_transformedX009;
+float g_transformedX010;
+float g_transformedX011;
+float g_transformedX012;
+float g_transformedX013;
+float g_transformedX014;
+float g_transformedX015;
+float g_transformedX016;
+float g_transformedX017;
+float g_transformedX018;
+float g_transformedX019;
+float g_transformedX020;
+float g_transformedX021;
+float g_transformedX022;
+float g_transformedX023;
+float g_transformedX024;
+float g_transformedX025;
+float g_transformedX026;
+float g_transformedX027;
+float g_transformedX028;
 
 float g_transformedY001;
 
@@ -99,20 +159,95 @@ OUT_VS GgafDx9VS_StringBoard(
 		transformedX = g_transformedX006;
 		offsetU  = g_offsetU006;
 		offsetV  = g_offsetV006;
-	} else if (index == 6) {
+	} else if (index == 6) {	
 		transformedX = g_transformedX007;
 		offsetU  = g_offsetU007;
 		offsetV  = g_offsetV007;
-	} else {
+	} else if (index == 7) {	
 		transformedX = g_transformedX008;
 		offsetU  = g_offsetU008;
 		offsetV  = g_offsetV008;
-	}
-
-
-
-
-
+	} else if (index == 8) {	
+		transformedX = g_transformedX009;
+		offsetU  = g_offsetU009;
+		offsetV  = g_offsetV009;
+	} else if (index == 9) {	
+		transformedX = g_transformedX010;
+		offsetU  = g_offsetU010;
+		offsetV  = g_offsetV010;
+	} else if (index == 10) {	
+		transformedX = g_transformedX011;
+		offsetU  = g_offsetU011;
+		offsetV  = g_offsetV011;
+	} else if (index == 11) {	
+		transformedX = g_transformedX012;
+		offsetU  = g_offsetU012;
+		offsetV  = g_offsetV012;
+	} else if (index == 12) {	
+		transformedX = g_transformedX013;
+		offsetU  = g_offsetU013;
+		offsetV  = g_offsetV013;
+	} else if (index == 13) {	
+		transformedX = g_transformedX014;
+		offsetU  = g_offsetU014;
+		offsetV  = g_offsetV014;
+	} else if (index == 14) {	
+		transformedX = g_transformedX015;
+		offsetU  = g_offsetU015;
+		offsetV  = g_offsetV015;
+	} else if (index == 15) {	
+		transformedX = g_transformedX016;
+		offsetU  = g_offsetU016;
+		offsetV  = g_offsetV016;
+	} else if (index == 16) {	
+		transformedX = g_transformedX017;
+		offsetU  = g_offsetU017;
+		offsetV  = g_offsetV017;
+	} else if (index == 17) {	
+		transformedX = g_transformedX018;
+		offsetU  = g_offsetU018;
+		offsetV  = g_offsetV018;
+	} else if (index == 18) {	
+		transformedX = g_transformedX019;
+		offsetU  = g_offsetU019;
+		offsetV  = g_offsetV019;
+	} else if (index == 19) {	
+		transformedX = g_transformedX020;
+		offsetU  = g_offsetU020;
+		offsetV  = g_offsetV020;
+	} else if (index == 20) {	
+		transformedX = g_transformedX021;
+		offsetU  = g_offsetU021;
+		offsetV  = g_offsetV021;
+	} else if (index == 21) {	
+		transformedX = g_transformedX022;
+		offsetU  = g_offsetU022;
+		offsetV  = g_offsetV022;
+	} else if (index == 22) {	
+		transformedX = g_transformedX023;
+		offsetU  = g_offsetU023;
+		offsetV  = g_offsetV023;
+	} else if (index == 23) {	
+		transformedX = g_transformedX024;
+		offsetU  = g_offsetU024;
+		offsetV  = g_offsetV024;
+	} else if (index == 24) {	
+		transformedX = g_transformedX025;
+		offsetU  = g_offsetU025;
+		offsetV  = g_offsetV025;
+	} else if (index == 25) {	
+		transformedX = g_transformedX026;
+		offsetU  = g_offsetU026;
+		offsetV  = g_offsetV026;
+	} else if (index == 26) {	
+		transformedX = g_transformedX027;
+		offsetU  = g_offsetU027;
+		offsetV  = g_offsetV027;
+	} else {	
+		transformedX = g_transformedX028;
+		offsetU  = g_offsetU028;
+		offsetV  = g_offsetV028;
+	} 
 
 	//Xç¿ïWYç¿ïWÇÇ -1 Å` +1 Ç…âüÇµçûÇﬂÇÈÅB
 	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*transformedX - 1) / g_view_width);

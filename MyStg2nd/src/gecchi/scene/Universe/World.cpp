@@ -20,7 +20,7 @@ void World::initialize() {
     GameScene* pGameScene = NEW GameScene("Game");
     addSubLast(pGameScene);
 #ifdef OREDEBUG
-    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "moji");
+    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
