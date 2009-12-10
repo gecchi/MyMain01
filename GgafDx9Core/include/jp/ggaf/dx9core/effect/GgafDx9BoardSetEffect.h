@@ -12,12 +12,12 @@ class GgafDx9BoardSetEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _ahOffsetU[8];
-    D3DXHANDLE _ahOffsetV[8];
-    D3DXHANDLE _ahTransformedX[8];
-    D3DXHANDLE _ahTransformedY[8];
-    D3DXHANDLE _ahAlpha[8];
-    D3DXHANDLE _ahDepthZ[8];
+    D3DXHANDLE _ahOffsetU[28];
+    D3DXHANDLE _ahOffsetV[28];
+    D3DXHANDLE _ahTransformedX[28];
+    D3DXHANDLE _ahTransformedY[28];
+    D3DXHANDLE _ahAlpha[28];
+    D3DXHANDLE _ahDepthZ[28];
 
 public:
     /**

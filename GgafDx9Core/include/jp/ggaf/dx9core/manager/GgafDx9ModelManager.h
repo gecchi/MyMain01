@@ -66,7 +66,9 @@ public:
     GgafDx9ModelManager(const char* prm_manager_name);
 
     /**
-     * オーバーライド
+     * モデル識別IDにより、モデルオブジェクトを生成する
+     * @param prm_idstr モデル識別ID
+     * @return モデルオブジェクト
      */
     GgafDx9Model* processCreateResource(char* prm_idstr);
 
@@ -91,7 +93,6 @@ public:
      * GgafDx9PlateModel オブジェクトを再構築する。 .
      * @param prm_pPlateModel 再構築するGgafDx9PlateModel
      */
-
     void restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel);
 
     void restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardSetModel);
@@ -107,7 +108,7 @@ public:
     GgafCore::GgafResourceConnection<GgafDx9Model>* processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource);
 
     /**
-     * GgafDx9Modelオブジェクトをリストの各インスタンスの内容を再構築。 .
+     * モデルオブジェクトリストの各インスタンスの内容を再構築。 .
      * デバイスロスト後の復帰時に呼び出される<BR>
      */
     void restoreAll();
@@ -125,10 +126,16 @@ public:
         _id_max++;
         return _id_max;
     }
-    /** 前回描画ModelのId */
+    /** 前回描画Model */
     static GgafDx9Model* _pModelLastDraw;
 
-
+    /**
+     * 空間の3点v0 v1 v2 より、直線 v0v1 と v1v2 の成す角(角v1)を求める
+     * @param v0
+     * @param v1
+     * @param v2
+     * @return 成す角(ラディアン)
+     */
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 
     virtual ~GgafDx9ModelManager();

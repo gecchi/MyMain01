@@ -17,7 +17,21 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
     _paRectUV = NULL;
-    _set_num = 8;
+
+    char nm[51];
+    strcpy(nm, prm_model_name);
+    const char* pT = strtok(nm, "/" );
+    int num = (int)strtol(pT, NULL, 10);
+    pT = strtok(NULL, "/");
+    if (pT == NULL) {
+        _set_num = 1;
+    } else {
+        _set_num = num;
+        if (_set_num > 28) {
+            _TRACE_("GgafDx9BoardSetModel("<<prm_model_name<<") の同時描画セット数オーバー。\n_set_num="<<_set_num<<"(最大は28です");
+            _set_num = 28;
+        }
+    }
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel*)
     //で行っている。

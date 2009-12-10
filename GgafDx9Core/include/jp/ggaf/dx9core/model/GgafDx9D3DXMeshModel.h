@@ -3,8 +3,13 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9D3DXActor用モデルクラス.(現在未使用？)
- * GgafDx9D3DXMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み設定する。<BR>
+ * メッシュモデルクラス(GgafDx9D3DXActor用).
+ * GgafDx9D3DXMeshModel は D3DXLoadMeshFromX を使用して、Xファイルからモデルデータを読み込み、<BR>
+ * 描画する機能を持った静的モデル用のクラスです。
+ * ＜長所＞
+ * ・D3DXLoadMeshFromX を使用して読み込むため、複雑なXファイルでも問題なく読みこみ描画できる。
+ * ＜短所＞
+ * ・他のモデルクラス郡に比べて、描画の最適化という面では劣る。読み込んで DrawSubset() するだけ。
  * @version 1.00
  * @since 2008/02/22
  * @author Masatoshi Tsuge

@@ -26,6 +26,22 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
 }
 
 GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
+    //＜prm_idstrの形式＞メモ
+    // "D/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"
+    // "d/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
+    // "A/MyShip"   --> D3DXAniMeshModel の モデル。読み込むファイルは "MyShip.x"
+    // "X/MyShip"   --> MeshModel の モデル。読み込むファイルは "MyShip.x"
+    // "x/MyShip"   --> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は8
+    // "x/12/MyShip"--> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は12
+    // "M/3/MyShip" --> MorphMeshModel の モデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
+    //                  プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
+    // "S/Bomb"     --> SpriteModel の モデル。読み込むファイルは "Bomb.sprx"。
+    // "s/Bomb"     --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は8
+    // "s/16/Bomb"  --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は16
+    // "B/Font"     --> BoardModelの モデル。読み込むファイルは "Font.sprx"。
+    // "b/Font"     --> BoardSetModelの モデル。読み込むファイルは "Font.sprx"。同時描画セット数は8
+    // "C"          --> D3DXMeshModel の モデル。読み込むファイルは "cube.x"
+
     //振り分け
     char model_type = *prm_idstr; //頭一文字
     char* model_name = prm_idstr + 2; //３文字目以降
@@ -36,11 +52,11 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_SYSTEMMEM);
             break;
         case 'd':
-            //GgafDx9DynaD3DXMeshActor
+            //DynaD3DXMeshModel
             pResourceModel = createD3DXMeshModel(model_name, D3DXMESH_DYNAMIC);
             break;
         case 'A':
-            //GgafDx9D3DXAniMeshModel
+            //D3DXAniMeshModel
             pResourceModel = createD3DXAniMeshModel(model_name);
             break;
         case 'X':
@@ -52,7 +68,8 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             pResourceModel = createMeshSetModel(model_name);
             break;
 
-        case 'M': // "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
+        case 'M':
+            //MorphMeshModel "M/4/xxxxx" の場合、プライマリのメッシュが1、モーフターゲットのメッシュが4つという意味
             pResourceModel = createMorphMeshModel(model_name);
             break;
         case 'S':
@@ -1742,12 +1759,18 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
 
 
     HRESULT hr;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
-
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
-
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
+    string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
+    //"12/Bomb" or "8/Bomb" or "Bomb" から "Bomb" だけ取とりだしてフルパス名取得
+    if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
+    } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 3) + ".sprx";
+    } else {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
+    }
     hr = _pIDirectXFile->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
     mightDx9Exception(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<"のCreateEnumObjectに失敗しました。");
 
@@ -2172,8 +2195,15 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     prm_pBoardSetModel->_paRectUV = NULL;
 
     HRESULT hr;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
-
+    string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
+    //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得
+    if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
+    } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 3) + ".sprx";
+    } else {
+        xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
+    }
     //スプライト情報読込みテンプレートの登録(初回実行時のみ)
 
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
@@ -2401,10 +2431,8 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
 
 void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
-
-    _TRACE_("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
-    //string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
-    string xfile_name;
+    string xfile_name; //読み込むXファイル名
+    //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {

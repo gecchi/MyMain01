@@ -10,25 +10,25 @@ int GgafDx9MeshSetModel::_draw_set_num_LastDraw = -1;
 
 GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MeshSetModel::GgafDx9MeshSetModel(" << _model_name << ")");
-    _TRACE_("GgafDx9MeshSetModel::GgafDx9MeshSetModel(" << _model_name << ") Begin");
     _pModel3D = NULL;
     _pMeshesFront = NULL;
     // prm_model_name には "xxxxxx" or "8/xxxxx" が、渡ってくる。
     // 同時描画セット数が8という意味です。
     // モーフターゲット数が違うモデルは、別モデルという扱いにするため、モデル名に数値を残そうかな。
     // モデル名から同時描画セット数指定があれば取り出す。無ければ8
-    _TRACE_("GgafDx9MeshSetModel prm_model_name="<<prm_model_name);
     char nm[51];
     strcpy(nm, prm_model_name);
     const char* pT = strtok(nm, "/" );
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _TRACE_("GgafDx9MeshSetModel セット数は指定なし、 よって8個とします");
-        _set_num = 8;
+        _set_num = 1;
     } else {
         _set_num = num;
-        _TRACE_("GgafDx9MeshSetModel セット数は指定あり、 _set_num="<<_set_num);
+        if (_set_num > 16) {
+            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"(最大は16です");
+            _set_num = 16;
+        }
     }
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
