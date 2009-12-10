@@ -74,7 +74,7 @@ public:
 
 
     /** ノードが誕生(addSubされた）時からのフレーム */
-    DWORD _lifeframe;
+    DWORD _frame_of_life;
 
     /**
      * コンストラクタ
@@ -560,7 +560,7 @@ public:
      * ノードの現在の経過フレームを取得する
      */
     DWORD getSurvivalFrame() {
-        return _lifeframe;
+        return _frame_of_life;
     }
 
     /**
@@ -578,7 +578,7 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
-            _pGod(NULL), _was_initialize_flg(false), _dwGodFrame_when_goodbye(MAXDWORD), _lifeframe(0),
+            _pGod(NULL), _was_initialize_flg(false), _dwGodFrame_when_goodbye(MAXDWORD), _frame_of_life(0),
             _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
             _can_live_flg_in_next_frame(true), _will_move_first_in_next_frame_flg(false), _will_move_last_in_next_frame_flg(false),
@@ -588,7 +588,7 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-    TRACE("GgafElement::nextFrame BEGIN _lifeframe=" << _lifeframe << " name=" << GgafNode<T>::_name << " class="
+    TRACE("GgafElement::nextFrame BEGIN _frame_of_life=" << _frame_of_life << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
     _was_paused_flg  = _was_paused_flg_in_next_frame;
     if (_was_paused_flg) {
@@ -615,7 +615,7 @@ void GgafElement<T>::nextFrame() {
         if (_can_live_flg) {
             if (_will_activate_after_a_few_frames_flg) {
                 //遅延play処理
-                if (_lifeframe >= _frame_of_activation) {
+                if (_frame_of_life >= _frame_of_activation) {
                     activate();
                     _frame_of_activation = 0;
                     _will_activate_after_a_few_frames_flg = false;
@@ -624,14 +624,14 @@ void GgafElement<T>::nextFrame() {
 
             if (_will_inactivate_after_a_few_frames_flg) {
                 //遅延stop処理
-                if (_lifeframe == _frame_of_inactivation) {
+                if (_frame_of_life == _frame_of_inactivation) {
                     inactivate();
                     _frame_of_inactivation = 0;
                     _will_inactivate_after_a_few_frames_flg = false;
                 }
             }
             if (_is_active_flg) {
-                _lifeframe++;
+                _frame_of_life++;
             }
         }
 
@@ -676,7 +676,7 @@ void GgafElement<T>::nextFrame() {
         }
 
     }
-    TRACE("GgafElement::nextFrame END _lifeframe="<<_lifeframe<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
+    TRACE("GgafElement::nextFrame END _frame_of_life="<<_frame_of_life<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>
@@ -934,7 +934,7 @@ void GgafElement<T>::activateTreeImmediately() {
 template<class T>
 void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
     _will_activate_after_a_few_frames_flg = true;
-    _frame_of_activation = _lifeframe + prm_frame_offset;
+    _frame_of_activation = _frame_of_life + prm_frame_offset;
 }
 
 template<class T>
@@ -965,7 +965,7 @@ void GgafElement<T>::inactivateTree() {
 template<class T>
 void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
     _will_inactivate_after_a_few_frames_flg = true;
-    _frame_of_inactivation = _lifeframe + prm_frame_offset;
+    _frame_of_inactivation = _frame_of_life + prm_frame_offset;
 }
 
 template<class T>
@@ -1175,7 +1175,7 @@ bool GgafElement<T>::isBehaving() {
 template<class T>
 bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
     _frame_relative += prm_frame_relative;
-    if (_lifeframe == _frame_relative) {
+    if (_frame_of_life == _frame_relative) {
         return true;
     } else {
         return false;
