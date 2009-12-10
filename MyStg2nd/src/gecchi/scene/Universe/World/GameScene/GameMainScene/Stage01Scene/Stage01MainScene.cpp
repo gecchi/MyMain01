@@ -58,8 +58,8 @@ void Stage01MainScene::initialize() {
 void Stage01MainScene::processBehavior() {
     // 以下の gen02 start ～ end はマクロにより自動生成されたコードです。
     // gen02 start
-	if (_lifeframe == _paFrame_NextEvent[_iCnt_Event]) {
-		switch (_lifeframe) {
+	if (_frame_of_life == _paFrame_NextEvent[_iCnt_Event]) {
+		switch (_frame_of_life) {
 			case 1:
 				break;
 			case 10:
@@ -3582,7 +3582,7 @@ void Stage01MainScene::processBehavior() {
 	}
     // gen02 end
 
-    if (_lifeframe== 2) {
+    if (_frame_of_life== 2) {
 
         _TRACE_("Stage01MainScene::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
         // 共通シーンを配下に移動
@@ -3593,7 +3593,7 @@ void Stage01MainScene::processBehavior() {
 }
 
 void Stage01MainScene::processFinal() {
-    //	if (_lifeframe== 1) {
+    //	if (_frame_of_life== 1) {
     //		_TRACE_("Stage01MainScene::processFinally 私はいきなり停止します。GameMainSceneが解除してくれるはずー");
     //		this->inactivateTree(); //GameMainSceneが解除してくれる
     //	}

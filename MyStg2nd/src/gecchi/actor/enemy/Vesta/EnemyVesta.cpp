@@ -17,7 +17,7 @@ void EnemyVesta::initialize() {
     setBumpable(true);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(GameGlobal::_pSceneGame->_lifeframe);
+    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_life);
     DWORD appearances_renge_Z = (GameGlobal::_lim_MyShip_zleft - GameGlobal::_lim_MyShip_zright) * 3;
     DWORD appearances_renge_Y = (GameGlobal::_lim_MyShip_top - GameGlobal::_lim_MyShip_bottom) * 3;
 
@@ -41,7 +41,7 @@ void EnemyVesta::initialize() {
                                    );
     }
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
-    useSe("yume_shototsu");
+    useSe1("yume_shototsu");
 }
 
 void EnemyVesta::processBehavior() {
@@ -57,7 +57,7 @@ void EnemyVesta::processJudgement() {
 
 void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe();
+    playSe1();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pActor_Opponent);
         pExplo001->activate();

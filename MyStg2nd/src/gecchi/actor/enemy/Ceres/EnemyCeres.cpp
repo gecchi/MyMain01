@@ -69,7 +69,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
     _dwFrame_Active = 0;
-    useSe("a_shot");
+    useSe1("a_shot");
 }
 
 void EnemyCeres::initialize() {
@@ -144,7 +144,7 @@ void EnemyCeres::onInactive() {
 void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
     setBumpable(false);
-    playSe();
+    playSe1();
 
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;

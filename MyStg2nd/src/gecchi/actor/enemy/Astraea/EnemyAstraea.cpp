@@ -37,7 +37,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-    useSe("yume_Sbend"); //レーザー発射
+    useSe1("yume_Sbend", pWORLD->_frame_of_life); //レーザー発射
     useSe2("bomb1");     //爆発
 }
 
@@ -117,7 +117,7 @@ void EnemyAstraea::processBehavior() {
 
 
     _X = _X - 800;
-    if (_lifeframe % _shot_interval == 0) {
+    if (_frame_of_life % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
         _pMover->setRzMoveAngleVelocity(
@@ -143,7 +143,7 @@ void EnemyAstraea::processBehavior() {
 
         for (int i = 0; i < _laser_way; i++) {
             if (i == 0) {
-                playSe(); //発射音
+                playSe1(); //発射音
             }
             for (int j = 0; j < _laser_way; j++) {
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
@@ -197,7 +197,7 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
-    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_lifeframe);
+    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_life);
 
     //レーザーは遅れて開放させるように、動きを継続させるため移動
     GgafHeadActor* pHead = getSubHeadActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
