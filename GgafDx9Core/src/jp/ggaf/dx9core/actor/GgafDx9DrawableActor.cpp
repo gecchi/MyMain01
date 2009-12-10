@@ -188,17 +188,21 @@ void GgafDx9DrawableActor::resetMaterialColor() {
 }
 
 
-void GgafDx9DrawableActor::useSe(char* prm_se_name) {
-    _pSeCon = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(prm_se_name);
+void GgafDx9DrawableActor::useSe1(char* prm_se_name, unsigned int prm_cannel) {
+    char idstr[129];
+    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
+    _pSeCon = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
     _pSe = _pSeCon->view();
 }
 
-void GgafDx9DrawableActor::playSe() {
+void GgafDx9DrawableActor::playSe1() {
     _pSe->play();
 }
 
-void GgafDx9DrawableActor::useSe2(char* prm_se_name) {
-    _pSeCon2 = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(prm_se_name);
+void GgafDx9DrawableActor::useSe2(char* prm_se_name, unsigned int prm_cannel) {
+    char idstr[129];
+    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
+    _pSeCon2 = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
     _pSe2 = _pSeCon2->view();
 }
 

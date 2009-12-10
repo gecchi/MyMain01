@@ -115,7 +115,7 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
         //お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
         //何故ならば、半透明オブジェクトが交差した場合、ぼやかしたいため
-        if ((GgafGod::_pGod->_pUniverse->_lifeframe & 1) == 1) {
+        if ((GgafGod::_pGod->_pUniverse->_frame_of_life & 1) == 1) {
             //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;

@@ -101,11 +101,11 @@ public:
 
     virtual void resetMaterialColor();
 
-    void useSe(char* prm_se_name);
+    void useSe1(char* prm_se_name, unsigned int prm_cannel = 0);
 
-    void playSe();
+    void playSe1();
 
-    void useSe2(char* prm_se_name);
+    void useSe2(char* prm_se_name, unsigned int prm_cannel = 0);
 
     void playSe2();
 

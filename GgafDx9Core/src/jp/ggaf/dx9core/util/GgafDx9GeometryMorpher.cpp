@@ -61,7 +61,7 @@ void GgafDx9GeometryMorpher::behave() {
             }
         } else if (_method[i] == LOOP_TRIANGLEWAVE) {
             _pActor->_weight[i] += _velo_weight[i];
-            if (_loop_begin_frame[i] + _loop_attack_frame[i] == _pActor->_lifeframe) { //アタック頂点時
+            if (_loop_begin_frame[i] + _loop_attack_frame[i] == _pActor->_frame_of_life) { //アタック頂点時
                 _pActor->_weight[i] = _top_weight[i];
                 _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (_loop_spend_frame[i] - _loop_attack_frame[i] - _loop_rest_frame[i]);
                 _halfloop_cnt[i]++;
@@ -73,8 +73,8 @@ void GgafDx9GeometryMorpher::behave() {
                 _pActor->_weight[i] = _bottom_weight[i];
                 _velo_weight[i] = 0.0f;
 
-            } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_lifeframe) { //ループ終了時
-                _loop_begin_frame[i] = _pActor->_lifeframe;
+            } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_frame_of_life) { //ループ終了時
+                _loop_begin_frame[i] = _pActor->_frame_of_life;
                 _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / _loop_attack_frame[i];
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
@@ -119,7 +119,7 @@ void GgafDx9GeometryMorpher::loopTriangleWave(int prm_target_mesh, DWORD prm_loo
 
     _loop_attack_frame[prm_target_mesh] = prm_attack_frame;
     _loop_rest_frame[prm_target_mesh] = prm_rest_frame;
-    _loop_begin_frame[prm_target_mesh] = _pActor->_lifeframe;
+    _loop_begin_frame[prm_target_mesh] = _pActor->_frame_of_life;
     _loop_spend_frame[prm_target_mesh] = prm_loop_spend_frame;
 
     _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _pActor->_weight[prm_target_mesh]) / prm_attack_frame;

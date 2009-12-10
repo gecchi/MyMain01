@@ -77,7 +77,7 @@ void GgafDx9GeometryScaler::behave() {
 
         } else if (_method[axis] == BEAT_SCALE_TRIANGLEWAVE) {
             _scale[axis] += _velo_scale[axis];
-            if (_beat_begin_frame[axis] + _beat_attack_frame[axis] <= _pActor->_lifeframe) { //アタック頂点時
+            if (_beat_begin_frame[axis] + _beat_attack_frame[axis] <= _pActor->_frame_of_life) { //アタック頂点時
                 _scale[axis] = _top_scale[axis];
                 _velo_scale[axis] = ((int)(_bottom_scale[axis] - _top_scale[axis])) / ((int)(_beat_spend_frame[axis] - _beat_attack_frame[axis] - _beat_rest_frame[axis]));
                 _one_way_cnt[axis]++;
@@ -89,8 +89,8 @@ void GgafDx9GeometryScaler::behave() {
                 _scale[axis] = _bottom_scale[axis];
                 _velo_scale[axis] = 0;
 
-            } else if (_beat_begin_frame[axis] + _beat_spend_frame[axis] <= _pActor->_lifeframe) { //ループ終了時
-                _beat_begin_frame[axis] = _pActor->_lifeframe;
+            } else if (_beat_begin_frame[axis] + _beat_spend_frame[axis] <= _pActor->_frame_of_life) { //ループ終了時
+                _beat_begin_frame[axis] = _pActor->_frame_of_life;
                 _velo_scale[axis] = ((int)(_top_scale[axis] - _bottom_scale[axis])) / _beat_attack_frame[axis];
                 _one_way_cnt[axis]++;
                 if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
@@ -177,7 +177,7 @@ void GgafDx9GeometryScaler::beat(int prm_axis, DWORD prm_beat_spend_frame, DWORD
 
     _beat_attack_frame[prm_axis] = prm_attack_frame;
     _beat_rest_frame[prm_axis] = prm_rest_frame;
-    _beat_begin_frame[prm_axis] = _pActor->_lifeframe;
+    _beat_begin_frame[prm_axis] = _pActor->_frame_of_life;
     _beat_spend_frame[prm_axis] = prm_beat_spend_frame;
 
     _velo_scale[prm_axis] = (int)(_top_scale[prm_axis] - _scale[prm_axis]) / prm_attack_frame;
