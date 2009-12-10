@@ -21,15 +21,15 @@ public:
     }
 
     virtual void processBehavior() {
-        TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _lifeframe);
+        TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_life);
     }
 
     virtual void processJudgement() {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _lifeframe);
+        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_life);
     }
 
     virtual void processDraw() {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _lifeframe);
+        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_life);
     }
 
     virtual void processHappen(int prm_no) {
@@ -37,7 +37,7 @@ public:
     }
 
     virtual void processFinal() {
-        TRACE("DefaultScene::processFinally " << getName() << "frame:" << _lifeframe);
+        TRACE("DefaultScene::processFinally " << getName() << "frame:" << _frame_of_life);
     }
 
     virtual ~DefaultScene();
