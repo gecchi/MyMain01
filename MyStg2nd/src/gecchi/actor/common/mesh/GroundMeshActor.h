@@ -30,6 +30,7 @@ public:
 //     * フレームワークオーバーライド
 //     */
 //    virtual void processPreDraw();
+    virtual void processDraw();
 
     virtual void processHappen(int prm_no) {
     }

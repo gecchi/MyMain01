@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-TamagoActor::TamagoActor(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
+TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "straw") {
     _class_name = "TamagoActor";
 }
 
@@ -19,7 +19,7 @@ void TamagoActor::initialize() {
 //    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
 //
     //	_pMover->setFaceAngle(AXIS_Z, ANGLE180*1000);
-    //	_pMover->setMoveVelocity(2000);
+    _pMover->setMoveVelocity(-500);
     //
 
 
@@ -30,25 +30,25 @@ void TamagoActor::initialize() {
 
     //	_pStgChecker->useHitAreaBoxNum(1, 0);
     //	_pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    //_pMover->setFaceAngle(AXIS_Z, -ANGLE90);
-    //_pMover->setFaceAngleVelocity(AXIS_Y, -200);
+    _pMover->setFaceAngle(AXIS_Z, -ANGLE90);
+    //_pMover->setFaceAngleVelocity(AXIS_Y, 1000);
 //    _pStgChecker->useHitAreaBoxNum(2);
 //    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _pStgChecker->setHitAreaBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
-    _pScaler->setScale(10000);
+    _pScaler->setScale(20000000);
     _frame_offset = 0;
     //_pMover->_iIncrementFaceAngle[AXIS_X] = -100*1000;
-    setAlpha(1);
+    setAlpha(0.99);
     //_rnd = (110 + (rand() % 90));
 }
 
 void TamagoActor::processBehavior() {
 
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        _pScaler->addScale(200);
+        _pScaler->addScale(200000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        _pScaler->addScale(-200);
+        _pScaler->addScale(-200000);
     }
     //À•W‚É”½‰f
     _pMover->behave();

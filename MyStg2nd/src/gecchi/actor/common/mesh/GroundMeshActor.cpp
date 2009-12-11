@@ -33,6 +33,30 @@ GroundMeshActor::GroundMeshActor(const char* prm_name, const char* prm_model) :
 //    }
 //}
 
+void GroundMeshActor::processDraw() {
+    static ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = _pMeshEffect->_pID3DXEffect;
+    HRESULT hr;
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
+    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
+    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+
+    // Zバッファを有効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    // Zバッファ書き込み可
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
+    _pMeshModel->draw(this);
+
+    // Zバッファを無効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    // Zバッファ書き込み不可
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+}
+
+
 
 void GroundMeshActor::drawHitArea() {
     CubeEx::get()->drawHitarea(_pStgChecker);
