@@ -54,7 +54,7 @@ public:
 
     /**
      * アクター取り出し .
-     * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば、activate() して取得する。<BR>
+     * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
      * @return アクター発送者の暇そうなメンバーアクター
@@ -77,7 +77,7 @@ public:
                     continue;
                 }
             } else {
-                //pActor->activate();
+                //pActor->activate(); //activateは呼び元で明示的に行うようにした
                 pActor->moveLast(); //取得！
                 break;
             }
