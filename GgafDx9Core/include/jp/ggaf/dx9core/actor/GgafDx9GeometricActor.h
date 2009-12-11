@@ -127,6 +127,10 @@ public:
     /** ‚¢‚ë‚¢‚ë‚ÈŒvZ‚ğs‚Á‚Ä‚¨‚­ */
     virtual void processPreJudgement();
 
+    /**
+     * ‰æ–Ê“à‚É•\¦‚³‚ê‚Ä‚¢‚é‚©”»’è
+     * @return 0:Viewport”ÍˆÍ“à
+     */
     virtual int isOffscreen();
 
     virtual int isOutOfGameSpace();
