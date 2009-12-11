@@ -124,7 +124,6 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 
 int16 ToolBox::IO_Model_X::ProcessBlock(void) {
     std::string Text;
-    std::string Text2;
     char Token = fin.peek();
     //_TRACE_("Token='"<<Token<<"'");
     switch (Token) {
@@ -148,20 +147,35 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         return X_COMMENT;
     default:
         // modify tsuge
+        // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なす
+        // "Header {" でも "Header{" でも両方OKとするため。
+        streampos pBase = fin.tellg();
         fin >> Text;
         int len = Text.size();
         if (len > 0) {
             char c = Text[len-1];
-            if (c == '{') {
-                throwGgafCriticalException("Xファイルのブロック開始は、ブロック文字と中括弧'{'の間に半角スペースが必要です。ファイルの修正をお願いいたします。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Text<<"'");
-//                Text2 = string(Text,0,len-1);
-//                fin.seekg(-2,ios_base::cur);
-//                return BlockID(Text2);
+            if (c == '{') { //最終文字
+                char blocktxt[80];
+                fin.seekg(pBase);
+                fin.read((char*)&blocktxt, len-1);
+                blocktxt[len-1] = '\0';
+                _TRACE_("blocktxt="<<blocktxt);
+                Text = string(blocktxt);
+                fin.seekg(pBase);
+                fin.read((char*)&blocktxt, len-2);
             }
         }
+        //_TRACE_("Text="<<Text);
         return BlockID(Text);
     };
 }
+
+//                throwGgafCriticalException("Xファイルのブロック開始は、ブロック文字と中括弧'{'の間に半角スペースが必要です。ファイルの修正をお願いいたします。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Text<<"'");
+////                Text2 = string(Text,0,len-1);
+////                fin.seekg(-2,ios_base::cur);
+////                return BlockID(Text2);
+//            }
+//        }
 
 int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
     long Pos;
@@ -189,9 +203,9 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
 
 void ToolBox::IO_Model_X::AvoidTemplate(void) {
     char Token;
-
+    //Token = fin.peek();
+    //_TRACE_("AvoidTemplate Token="<<Token);
     fin.ignore(TEXT_BUFFER, '{');
-
     while (!fin.eof()) {
         Token = fin.peek();
         if (Token == '{')
@@ -355,27 +369,27 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         Frm::Mesh* LastMesh = _Object->_Meshes.back();
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
         if (65535 < ((int)LastMesh->_FirstVertex + (int)LastMesh->_nVertices)) {
-            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65565を超えました。\n頂点数が多いので何とかしてください。");
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65535を超えたかもしれません。\n頂点数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstFace = LastMesh->_FirstFace + LastMesh->_nFaces;
         if (65535 < ((int)LastMesh->_FirstFace + (int)LastMesh->_nFaces)) {
-            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstFace が 65565を超えました。\n頂点インデックス（面）数が多いので何とかしてください。");
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstFace が 65535を超えたかもしれません。\n頂点インデックス（面）数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstTextureCoord = LastMesh->_FirstTextureCoord
                 + LastMesh->_nTextureCoords;
         if (65535 < ((int)LastMesh->_FirstTextureCoord + (int)LastMesh->_nTextureCoords)) {
-            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstTextureCoord が 65565を超えました。\nテクスチャUV座標数が多いので何とかしてください。");
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstTextureCoord が 65535を超えたかもしれません。\nテクスチャUV座標数が多いので何とかしてください。");
         }
         _LoadMesh->_FirstMaterial = LastMesh->_FirstMaterial
                 + LastMesh->_nMaterials;
         if (65535 < ((int)LastMesh->_FirstMaterial + (int)LastMesh->_nMaterials)) {
-            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstMaterial が 65565を超えました。\nマテリアル数が多いので何とかしてください。");
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstMaterial が 65535を超えたかもしれません。\nマテリアル数が多いので何とかしてください。");
         }
         if (_LoadMesh->_FirstTextureCoord < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstTextureCoord = _LoadMesh->_FirstVertex;
         _LoadMesh->_FirstNormal = LastMesh->_FirstNormal + LastMesh->_nNormals;
         if (65535 < ((int)LastMesh->_FirstNormal + (int)LastMesh->_nNormals)) {
-            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstNormal が 65565を超えました。\n法線数が多いので何とかしてください。");
+            throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstNormal が 65535を超えたかもしれません。\n法線数が多いので何とかしてください。");
         }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
