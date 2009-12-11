@@ -23,6 +23,9 @@ public:
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
 
+    bool isOffScreen() {
+        return 0;
+    }
     virtual ~TamagoActor();
 };
 
