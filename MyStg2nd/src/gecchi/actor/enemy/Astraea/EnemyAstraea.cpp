@@ -11,7 +11,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 20;
+    _laser_length = 30;
     _shot_interval = 180;
     _angveloTurn = 2000;
 
@@ -116,7 +116,7 @@ void EnemyAstraea::processBehavior() {
     /////////////モーフテスト////////////////
 
 
-    _X = _X - 800;
+    _X = _X - 300;
     if (_frame_of_life % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
@@ -136,7 +136,7 @@ void EnemyAstraea::processBehavior() {
 
         static EnemyAstraeaLaserChip001* pLaserChip;
 
-        angle angClearance = 20000;
+        angle angClearance = 2000;//開き具合
 
         GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
