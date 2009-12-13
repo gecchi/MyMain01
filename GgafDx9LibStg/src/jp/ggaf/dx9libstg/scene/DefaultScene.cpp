@@ -11,5 +11,6 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDx9Scene(prm_name) {
 }
 
 DefaultScene::~DefaultScene() {
+    //シーンにイベントが無いかもしれない
     DELETEARR_POSSIBLE_NULL(_paFrame_NextEvent);
 }

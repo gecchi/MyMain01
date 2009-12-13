@@ -66,6 +66,7 @@ GgafDx9Spline3D::~GgafDx9Spline3D() {
     DELETEARR_IMPOSSIBLE_NULL(_X_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Y_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Z_basepoint);
+    //イニシャライズされる前に解放されるかもしれない
     DELETEARR_POSSIBLE_NULL(_X_compute);
     DELETEARR_POSSIBLE_NULL(_Y_compute);
     DELETEARR_POSSIBLE_NULL(_Z_compute);

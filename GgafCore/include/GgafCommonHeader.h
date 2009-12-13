@@ -42,62 +42,131 @@
 //#include <crtdbg.h>
 
 //俺デ
-//#define OREDEBUG 1
+#define OREDEBUG 1
 
 
 #ifdef OREDEBUG
     #include "DetectMemoryLeaks.h"
+
     #define NEW new(__FILE__, __LINE__)
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
+    //コンストラクタ、主要メソッド、デストラクタ関連ログ
     //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE(X)
 
-    //工場関連
+    //工場関連関連ログ
     //#define TRACE2(X) {std::stringstream ss; ss << "[別スレッド]" << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE2(X)
 
-    //資源、マネージャ、コネクション関連
+    //資源マネージャ、コネクション関連ログ
     //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE3(X)
 
-    //エフェクト、パス、Draw関連
+    //エフェクト、パス、Draw関連ログ
     //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE4(X)
 
-    //８分木関連
+    //８分木、あたり判定関連ログ
     //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
-    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
     #define TRACE5(X)
+    //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
     #define TEXT5(X)
 
-
-
-    //ダンプ出力用
-    #define _TRACE_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //デバッグ用通常ログ
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     //#define _TRACE_(X)
-    //ダンプ出力用
-    #define _TEXT_(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
-
-    //デバッグ用
-    #define _TRACEORE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
-
+    #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
+    //#define _TEXT_(X)
 
     //メモリ解放用マクロ
-    //NULLかもしれない delete
-    #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    //NULLかもしれない delete[]
-    #define DELETEARR_POSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    //NULLかもしれない Release()
-    #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { int rc = (POINTER)->Release(); if (rc > 0) { std::stringstream ss; ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; GgafCore::GgafLogger::writeln(ss.str()); } (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    //NULLはありえない delete
-    #define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << " の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafCore::GgafLogger::writeln(ss.str()); (POINTER)=NULL; }  }
-    //NULLはありえない delete[]
-    #define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else {std::stringstream ss; ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafCore::GgafLogger::writeln(ss.str()); (POINTER)=NULL; }  }
-    //NULLはありえない Release()
-    #define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { int rc = (POINTER)->Release(); if (rc > 0) { std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; GgafCore::GgafLogger::writeln(ss.str()); } (POINTER)=NULL; } else {std::stringstream ss; ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< #POINTER << "の解放を無視しましたが、本来ここでNULLであるべきでは無い。要調査"; GgafCore::GgafLogger::writeln(ss.str());  (POINTER)=NULL; }  }
-    //何も言わない Release()
-    #define RELEASE_SAFETY(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
+    //NULLかどうか不明なdelete
+    #define DELETE_POSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            delete (POINTER); \
+            (POINTER) = NULL; \
+        } else { \
+            (POINTER) = NULL; \
+        } \
+    }
+    //NULLかどうか不明なdelete[]
+    #define DELETEARR_POSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            delete[] (POINTER); \
+            (POINTER) = NULL; \
+        } else { \
+            (POINTER) = NULL; \
+        } \
+    }
+    //NULLかどうか不明なRelease()
+    #define RELEASE_POSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            int rc = (POINTER)->Release(); \
+            if (rc > 0) { \
+                std::stringstream ss; \
+                ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                      #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                GgafCore::GgafLogger::writeln(ss.str()); \
+            } \
+            (POINTER) = NULL; \
+        } else { \
+            (POINTER) = NULL; \
+        } \
+    }
+    //NULLはありえないdelete
+    #define DELETE_IMPOSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            delete (POINTER); \
+            (POINTER) = NULL; \
+        } else { \
+            std::stringstream ss; \
+            ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
+                  #POINTER << " の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+            GgafCore::GgafLogger::writeln(ss.str()); \
+            (POINTER) = NULL; \
+        } \
+    }
+    //NULLはありえないdelete[]
+    #define DELETEARR_IMPOSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            delete[] (POINTER); \
+            (POINTER) = NULL; \
+        } else { \
+            std::stringstream ss; \
+            ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
+                  #POINTER << "の解放をやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+            GgafCore::GgafLogger::writeln(ss.str()); \
+            (POINTER) = NULL; \
+        } \
+    }
+    //NULLはありえないRelease()
+    #define RELEASE_IMPOSSIBLE_NULL(POINTER) { \
+        if (POINTER) { \
+            int rc = (POINTER)->Release(); \
+            if (rc > 0) { \
+                std::stringstream ss; \
+                ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
+                      #POINTER << "は、まだ解放されません。参照カウンタ="<<rc; \
+                GgafCore::GgafLogger::writeln(ss.str()); \
+            } \
+            (POINTER) = NULL; \
+        } else { \
+            std::stringstream ss; \
+            ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") 既にNULLであるため "<< \
+                  #POINTER << "のリリースをやむなく無視しました。本来は、ここでNULLになってこと自体おかしい。調査せよ。"; \
+            GgafCore::GgafLogger::writeln(ss.str()); \
+            (POINTER) = NULL; \
+        } \
+    }
+    //自明で検査不要の何も言わないRelease()
+    #define RELEASE_SAFETY(POINTER) { \
+        if (POINTER) { \
+            (POINTER)->Release(); \
+            (POINTER) = NULL; \
+        } else { \
+            (POINTER) = NULL; \
+        } \
+    }
 
 #else
     #define NEW new
@@ -108,10 +177,8 @@
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
-    //ダンプ出力用
     #define _TRACE_(X)
     #define _TEXT_(X)
-    //デバッグ用
     #define _TRACEORE(X)
 
     //メモリ解放用マクロ
@@ -133,7 +200,7 @@
 #endif
 
 
-#define MAX_HEADACTOR_PER_SCENE 16
+//#define MAX_HEADACTOR_PER_SCENE 16
 
 typedef DWORD actorkind;
 
@@ -219,7 +286,5 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
-
-
 
 #endif /*GGAFCOMMONHEADER_H_*/

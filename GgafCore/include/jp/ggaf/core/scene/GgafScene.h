@@ -92,8 +92,8 @@ protected:
     /** ‚±‚ÌƒV[ƒ“‚ÌŠÇ—Ò */
     GgafLordActor* _pLordActor;
 
-    static GgafHeadActor* _apHeadActor01[];
-    static GgafHeadActor* _apHeadActor02[];
+    //static GgafHeadActor* _apHeadActor01[];
+    //static GgafHeadActor* _apHeadActor02[];
 
 public:
     /** i’»‹ï‡ */

@@ -73,6 +73,7 @@ void HitAreaBoxs::setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, 
 
 HitAreaBoxs::~HitAreaBoxs() {
     TRACE("HitAreaBoxs::~HitAreaBoxs()");
+    //ƒLƒƒƒ‰‚Í‚ ‚Á‚Ä‚à”»’è‚Í‚È‚¢‚©‚à‚µ‚ê‚È‚¢
     DELETEARR_POSSIBLE_NULL(_paBase);
     DELETEARR_POSSIBLE_NULL(_paHitArea)
 }

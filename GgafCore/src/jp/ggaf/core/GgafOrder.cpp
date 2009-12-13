@@ -18,6 +18,7 @@ GgafOrder::GgafOrder(unsigned long prm_id) {
 }
 
 GgafOrder::~GgafOrder() {
+    //è§ïi _pObject_Creation ÇÕçHèÍÇ™ê∂ê¨Ç∑ÇÈÇ©Ç‡ÇµÇÍÇ»Ç¢ÅB
     DELETE_POSSIBLE_NULL(_pObject_Creation);
 }
 

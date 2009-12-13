@@ -195,6 +195,8 @@ void GgafDx9FixedFrameSplineProgram::behave() {
 
 }
 GgafDx9FixedFrameSplineProgram::~GgafDx9FixedFrameSplineProgram() {
+    //イニシャライズされる前に解放されるかもしれない
     DELETEARR_POSSIBLE_NULL(_paDistace_to);
+    //イニシャライズされる前に解放されるかもしれない
     DELETEARR_POSSIBLE_NULL(_paSPMoveVelocityTo);
 }

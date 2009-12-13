@@ -18,6 +18,7 @@ CubeEx* CubeEx::get() {
 }
 
 void CubeEx::release() {
+    //あたり判定を持つオブジェクトが一度も使用されないとNULLかもしれない
     DELETE_POSSIBLE_NULL(_pObj);
 }
 

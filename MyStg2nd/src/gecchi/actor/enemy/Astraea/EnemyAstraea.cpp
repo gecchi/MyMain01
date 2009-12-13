@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     //レーザーストック
-    _laser_way = 3;
+    _laser_way = 2;
     _X = 0;
     _Y = 0;
     _Z = 0;

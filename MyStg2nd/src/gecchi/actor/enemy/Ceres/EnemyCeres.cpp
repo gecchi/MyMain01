@@ -177,5 +177,6 @@ int EnemyCeres::isOutOfGameSpace() {
 }
 
 EnemyCeres::~EnemyCeres() {
+    //static‚È‚Ì‚ÅÅ‰‚Ì‚P‰ñ‚¾‚¯‰ğ•ú‚µ‚½‚¢
     DELETE_POSSIBLE_NULL(_pProgram_CeresMove);
 }

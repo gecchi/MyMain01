@@ -13,6 +13,7 @@ GgafActor::GgafActor(const char* prm_name) :
     setBumpable(false);
     _use_octree = false;
     _actor_class = 0;
+    _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 }
 
 GgafActor::~GgafActor() {

@@ -217,6 +217,7 @@ void StgChecker::updateHitArea() {
 
 StgChecker::~StgChecker() {
     TRACE("StgChecker::~StgChecker() _pActor="<<_pActor->getName());
-    DELETE_POSSIBLE_NULL(_pElem);
+    DELETE_IMPOSSIBLE_NULL(_pElem);
+    //“–‚½‚è”»’è‚Í‚È‚¢‚©‚à‚µ‚ê‚È‚¢B‚±‚Ìê‡_pElem‚Í–³‘Ê‚È¶¬‚Æ‰ğ•ú‚ğ‚·‚é‚±‚Æ‚É‚È‚éBB
     DELETE_POSSIBLE_NULL(_pHitAreaBoxs);
 }

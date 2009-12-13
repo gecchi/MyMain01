@@ -194,6 +194,8 @@ GgafGod::~GgafGod() {
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
      //___EndSynchronized; // <----- ”r‘¼I—¹
     }
+
+    //Hê—áŠO _pException_Factory ‚ª‹N‚±‚Á‚Ä‚¢‚é‚©‚à‚µ‚ê‚È‚¢B
     DELETE_POSSIBLE_NULL(_pException_Factory);
     _TRACE_("GgafGod::~GgafGod end");
 }
