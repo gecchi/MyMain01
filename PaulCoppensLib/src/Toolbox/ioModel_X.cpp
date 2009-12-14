@@ -125,7 +125,7 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 int16 ToolBox::IO_Model_X::ProcessBlock(void) {
     std::string Text;
     char Token = fin.peek();
-    //_TRACE_("Token='"<<Token<<"'");
+    _TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -151,7 +151,8 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         // "Header {" Ç≈Ç‡ "Header{" Ç≈Ç‡óºï˚OKÇ∆Ç∑ÇÈÇΩÇﬂÅB
         streampos pBase = fin.tellg();
         fin >> Text;
-        int len = Text.size();
+        size_t len = Text.size();
+        _TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //ç≈èIï∂éö
@@ -165,7 +166,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
                 fin.read((char*)&blocktxt, len-2);
             }
         }
-        //_TRACE_("Text="<<Text);
+        _TRACE_("2Text="<<Text);
         return BlockID(Text);
     };
 }
