@@ -174,8 +174,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                         SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
                         //優先度上げる理由。
                         //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
-                        MyStg2nd::Properties::clean();
+
                         delete pGod; //神さようなら
+                        MyStg2nd::Properties::clean();
+
                         ::timeEndPeriod(1);
 #ifdef OREDEBUG
                         //メモリーリ－クチェックEND
