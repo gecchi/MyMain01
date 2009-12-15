@@ -131,7 +131,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         Token = token_next;
         token_next = 0;
     }
-    _TRACE_("Token='"<<Token<<"'");
+    //_TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
     case ' ':
@@ -159,23 +159,16 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //最終文字
-                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコア用）
+                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコアXファイル用）
                 // "Header {" でも "Header{" でも両方OKとするため。
                 Text = string(Text, 0, len-1);
                 token_next = c;
             }
         }
-        _TRACE_("2Text="<<Text);
+        //_TRACE_("2Text="<<Text);
         return BlockID(Text);
     };
 }
-
-//                throwGgafCriticalException("Xファイルのブロック開始は、ブロック文字と中括弧'{'の間に半角スペースが必要です。ファイルの修正をお願いいたします。\n対象ファイル='"<<active_load_filename<<"'\n該当データ='"<<Text<<"'");
-////                Text2 = string(Text,0,len-1);
-////                fin.seekg(-2,ios_base::cur);
-////                return BlockID(Text2);
-//            }
-//        }
 
 int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
     long Pos;
