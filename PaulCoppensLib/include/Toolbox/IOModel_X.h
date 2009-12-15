@@ -25,6 +25,7 @@ public:
     IO_Model_X(void) :
         _LoadSkeletton(0) { //tsuge add
         _Type = IO_3DX;
+        token_next = 0; //add tsuge
     }
     bool Load(std::string pFilename, Frm::Model3D* &pT);
     bool Save(std::string pFilename, Frm::Model3D* &pT);
@@ -57,6 +58,9 @@ private:
         //char Text[5];
         char Text[6]; //mod tsuge
     } _X_UID;
+
+    /** Xファイル読み込み時の次のトークン予約 */
+    uchar token_next; //add tsuge
 
     //X File struct processing
     uint32 _MaxKey; //Max animation key for a loaded animation set

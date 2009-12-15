@@ -124,7 +124,13 @@ bool ToolBox::IO_Model_X::Save(std::string pFilename, Frm::Model3D* &pT) {
 
 int16 ToolBox::IO_Model_X::ProcessBlock(void) {
     std::string Text;
-    char Token = fin.peek();
+    char Token;
+    if (token_next == 0) {
+        Token = fin.peek();
+    } else {
+        Token = token_next;
+        token_next = 0;
+    }
     _TRACE_("Token='"<<Token<<"'");
     switch (Token) {
     case '\n':
@@ -146,24 +152,17 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         fin.ignore(TEXT_BUFFER, '\n');
         return X_COMMENT;
     default:
-        // modify tsuge
-        // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なす
-        // "Header {" でも "Header{" でも両方OKとするため。
-        streampos pBase = fin.tellg();
+
         fin >> Text;
         size_t len = Text.size();
         _TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //最終文字
-                char blocktxt[80];
-                fin.seekg(pBase);
-                fin.read((char*)&blocktxt, len-1);
-                blocktxt[len-1] = '\0';
-                _TRACE_("blocktxt="<<blocktxt);
-                Text = string(blocktxt);
-                fin.seekg(pBase);
-                fin.read((char*)&blocktxt, len-2);
+                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコア用）
+                // "Header {" でも "Header{" でも両方OKとするため。
+                Text = string(Text, 0, len-1);
+                token_next = c;
             }
         }
         _TRACE_("2Text="<<Text);
@@ -206,7 +205,20 @@ void ToolBox::IO_Model_X::AvoidTemplate(void) {
     char Token;
     //Token = fin.peek();
     //_TRACE_("AvoidTemplate Token="<<Token);
-    fin.ignore(TEXT_BUFFER, '{');
+    //fin.ignore(TEXT_BUFFER, '{');
+
+    if (token_next == 0) {
+        fin.ignore(TEXT_BUFFER, '{');
+        token_next = 0;
+    } else {
+        if (token_next == '{') {
+            token_next = 0;
+        } else {
+            fin.ignore(TEXT_BUFFER, '{');
+            token_next = 0;
+        }
+    }
+
     while (!fin.eof()) {
         Token = fin.peek();
         if (Token == '{')
@@ -220,7 +232,17 @@ void ToolBox::IO_Model_X::AvoidTemplate(void) {
 }
 
 void ToolBox::IO_Model_X::Find(uchar pChar) {
-    fin.ignore(TEXT_BUFFER, pChar);
+    if (token_next == 0) {
+        fin.ignore(TEXT_BUFFER, pChar);
+    } else {
+        if (token_next == pChar) {
+            token_next = 0;
+            return;
+        } else {
+            fin.ignore(TEXT_BUFFER, pChar);
+            token_next = 0;
+        }
+    }
 }
 
 char* ToolBox::IO_Model_X::SetUID(char pType) {
@@ -299,7 +321,14 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
 
     cBone = NEW Frm::Bone();
 
-    Token = fin.peek();
+
+    //mod tsuge Token = fin.peek();
+    if (token_next == 0) {
+        Token = fin.peek();
+    } else {
+        Token = token_next;
+        token_next = 0;
+    }
     //if (Token != '{')
     if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
         fin >> cBone->_Name;
