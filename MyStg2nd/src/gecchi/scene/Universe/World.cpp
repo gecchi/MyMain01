@@ -146,8 +146,8 @@ void World::processBehavior() {
     static int Dd = (int)(_dZ_camera_init / 100);
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
-    static int slow_range_CAM = 90000;
-    static int slow_range_VP = 50000;
+    static int slow_range_CAM = 40000;
+    static int slow_range_VP = 40000;
 
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
@@ -180,10 +180,10 @@ void World::processBehavior() {
             move_target_Z_VP = pMYSHIP->_Z;
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        move_target_X_CAM = pMYSHIP->_X - _dZ_camera_init/2;
+        move_target_X_CAM = pMYSHIP->_X - _dZ_camera_init;
         move_target_Y_CAM = pMYSHIP->_Y;
         move_target_Z_CAM = pMYSHIP->_Z;
-        move_target_X_VP = pMYSHIP->_X;
+        move_target_X_VP = pMYSHIP->_X + _dZ_camera_init;
         move_target_Y_VP = pMYSHIP->_Y;
         move_target_Z_VP = pMYSHIP->_Z;
         if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
@@ -275,18 +275,19 @@ void World::processBehavior() {
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
-
-        if (pCAM->_Y > _lim_CAM_top) {
-            pCAM->_Y = _lim_CAM_top;
-        }
-        if (pCAM->_Y < _lim_CAM_bottom ) {
-            pCAM->_Y = _lim_CAM_bottom;
-        }
-        if (pCAM->_Z > _lim_CAM_zleft) {
-            pCAM->_Z = _lim_CAM_zleft;
-        }
-        if (pCAM->_Z < _lim_CAM_zright) {
-            pCAM->_Z = _lim_CAM_zright;
+        if (_pos_camera > CAM_POS_TO_BEHIND) {
+            if (pCAM->_Y > _lim_CAM_top) {
+                pCAM->_Y = _lim_CAM_top;
+            }
+            if (pCAM->_Y < _lim_CAM_bottom ) {
+                pCAM->_Y = _lim_CAM_bottom;
+            }
+            if (pCAM->_Z > _lim_CAM_zleft) {
+                pCAM->_Z = _lim_CAM_zleft;
+            }
+            if (pCAM->_Z < _lim_CAM_zright) {
+                pCAM->_Z = _lim_CAM_zright;
+            }
         }
     }
 
