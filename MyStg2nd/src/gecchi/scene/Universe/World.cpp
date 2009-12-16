@@ -180,10 +180,10 @@ void World::processBehavior() {
             move_target_Z_VP = pMYSHIP->_Z;
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        move_target_X_CAM = X_screen_left - _dZ_camera_init/2;
+        move_target_X_CAM = pMYSHIP->_X - _dZ_camera_init/2;
         move_target_Y_CAM = pMYSHIP->_Y;
         move_target_Z_CAM = pMYSHIP->_Z;
-        move_target_X_VP = Dx;
+        move_target_X_VP = pMYSHIP->_X;
         move_target_Y_VP = pMYSHIP->_Y;
         move_target_Z_VP = pMYSHIP->_Z;
         if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
@@ -213,7 +213,7 @@ void World::processBehavior() {
                     GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)
                   )
                  ) * 0.7; //0.7の意味は 1/√2 よりわずかに小さい
-                                                                                 //これは自機が斜め移動時カメラが追いつかないようにするため
+                          //これは自機が斜め移動時カメラがわずかに追いつかないようにするため
         pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
         pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
@@ -271,36 +271,23 @@ void World::processBehavior() {
             pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/500.0);
         }
 
-        //        if (_pos_camera == 0 || _pos_camera == 3) {
-        //            if (pVP->_Y > _lim_VP_top) {
-        //                pVP->_Y = _lim_VP_top;
-        //            }
-        //            if (pVP->_Y < _lim_VP_bottom ) {
-        //                pVP->_Y = _lim_VP_bottom;
-        //            }
-        //            if (pCAM->_Y > _lim_VP_top) {
-        //                pCAM->_Y = _lim_VP_top;
-        //            }
-        //            if (pCAM->_Y < _lim_VP_bottom ) {
-        //                pCAM->_Y = _lim_VP_bottom;
-        //            }
-        //        } else {
-        //            if (pCAM->_Z > _lim_VP_zleft) {
-        //                pCAM->_Z = _lim_VP_zleft;
-        //            }
-        //            if (pCAM->_Z < _lim_VP_zright) {
-        //                pCAM->_Z = _lim_VP_zright;
-        //            }
-        //            if (pVP->_Z > _lim_VP_zleft) {
-        //                pVP->_Z = _lim_VP_zleft;
-        //            }
-        //            if (pVP->_Z < _lim_VP_zright) {
-        //                pVP->_Z = _lim_VP_zright;
-        //            }
-        //        }
+
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
+
+        if (pCAM->_Y > _lim_CAM_top) {
+            pCAM->_Y = _lim_CAM_top;
+        }
+        if (pCAM->_Y < _lim_CAM_bottom ) {
+            pCAM->_Y = _lim_CAM_bottom;
+        }
+        if (pCAM->_Z > _lim_CAM_zleft) {
+            pCAM->_Z = _lim_CAM_zleft;
+        }
+        if (pCAM->_Z < _lim_CAM_zright) {
+            pCAM->_Z = _lim_CAM_zright;
+        }
     }
 
     //サブシーンが一時停止していれば、カメラ操作できる。
