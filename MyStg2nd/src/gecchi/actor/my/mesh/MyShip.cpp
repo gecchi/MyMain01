@@ -190,10 +190,10 @@ void MyShip::processBehavior() {
         _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-        _pScaler->beatLiner(20, -1);
+        _pScaler->loopLiner(20, -1);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
-        _pScaler->beatLiner(10, 5);
+        _pScaler->loopLiner(10, 5);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
         _pScaler->beat(20, 2 ,5, -1);
