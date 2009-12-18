@@ -2,17 +2,20 @@
 #define GGAFDX9GEOMETRYSCALER_H_
 namespace GgafDx9Core {
 
+/**
+ * スケーリング方法
+ */
 enum Method {
-    NOSCALE,
-    TARGET_SCALE_LINER,
-    BEAT_SCALE_LINER,
-    BEAT_SCALE_TRIANGLEWAVE,
-    TARGET_SCALE_SIN,
-    BEAT_SCALE_SIN,
-    TARGET_SCALE_ACCELERATION,
-    BEAT_SCALE_PARABOLA,
-    TARGET_SCALE_PARABOLA_REV,
-    BEAT_SCALE_PARABOLA_REV
+    NOSCALE,                  //!< NOSCALE
+    TARGET_SCALE_LINER,       //!< TARGET_SCALE_LINER
+    BEAT_SCALE_LINER,         //!< BEAT_SCALE_LINER
+    BEAT_SCALE_TRIANGLEWAVE,  //!< BEAT_SCALE_TRIANGLEWAVE
+    TARGET_SCALE_SIN,         //!< TARGET_SCALE_SIN
+    BEAT_SCALE_SIN,           //!< BEAT_SCALE_SIN
+    TARGET_SCALE_ACCELERATION,//!< TARGET_SCALE_ACCELERATION
+    BEAT_SCALE_PARABOLA,      //!< BEAT_SCALE_PARABOLA
+    TARGET_SCALE_PARABOLA_REV,//!< TARGET_SCALE_PARABOLA_REV
+    BEAT_SCALE_PARABOLA_REV   //!< BEAT_SCALE_PARABOLA_REV
 };
 
 /**
@@ -20,6 +23,16 @@ enum Method {
  * GgafDx9GeometricActor のメンバの<BR>
  * _SX , _SY, _SZ  ･･･ アクターのスケール<BR>
  * を、簡単に操作するために設計した。<BR>
+ * 拡大縮小1.0倍（スケール無し）は、本クラスでのスケール値1000に
+ * 相当する。以下例
+ * [日本語]     → [本クラスのスケール値]
+ * 等倍         → 1000
+ * 拡大率2.5倍  → 2500
+ * 半分の大きさ → 500
+ * 縮小率80%    → 800
+ * 本クラスでは、スケールとスケーリングという単語を次の意味で使用している箇所がある。
+ * スケール･･･現在（のフレーム）の拡大縮小状態
+ * スケーリング･･･フレーム間の拡大縮小状態の遷移
  * 2009/05/22 GgafDx9GeometryMover から分割した。
  * @version 1.00
  * @since 2009/05/22
@@ -32,7 +45,7 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     GgafDx9GeometricActor* _pActor;
 
     /** スケール(1000 で 1倍) */
-    int _scale[3]; //[0]:X軸スケール、[1]:Y軸スケール、[1]:Z軸スケール
+    int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]･･･X軸、Y軸、Z軸の意
     /** 目標のスケール */
     int _target_scale[3];
     /** スケール上限 */
@@ -61,27 +74,43 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
 public:
     /**
      * コンストラクタ<BR>
-     * @param   prm_pActor  適用Actor
+     * @param   prm_pActor  適用対象のActor
      */
     GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor);
 
+    /**
+     * スケールを相対指定（全軸指定）
+     * @param prm_scale_diff スケール値増分
+     */
     void addScale(int prm_scale_diff) {
         for (int axis = 0; axis < 3; axis++) {
             addScale(axis, prm_scale_diff);
         }
     }
-
+    /**
+     * スケールを相対指定（軸単位で指定）
+     * @param prm_axis 軸
+     * @param prm_scale_diff スケール値増分
+     */
     void addScale(int prm_axis, int prm_scale_diff) {
         setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
     }
 
-
+    /**
+     * スケールを絶対指定（全軸指定）
+     * @param prm_scale スケール値
+     */
     void setScale(int prm_scale) {
         for (int axis = 0; axis < 3; axis++) {
             setScale(axis, prm_scale);
         }
-   }
+    }
 
+    /**
+     * スケールを絶対指定（軸単位で指定）
+     * @param prm_axis 軸
+     * @param prm_scale スケール値
+     */
     void setScale(int prm_axis, int prm_scale) {
         if (_top_scale[prm_axis] < prm_scale) {
             _scale[prm_axis] = _top_scale[prm_axis];
@@ -92,9 +121,10 @@ public:
         }
     }
     /**
-     * スケーリングの上限下限を設定（全軸指定）
-     * @param prm_scale1
-     * @param prm_scale2
+     * スケールの上限下限を設定（全軸指定） .
+     * 引数の大小は気にせず渡して(内部で自動判別)
+     * @param prm_scale1 スケール値1
+     * @param prm_scale2 スケール値2
      */
     void setScaleRange(int prm_scale1, int prm_scale2) {
         for (int axis = 0; axis < 3; axis++) {
@@ -102,10 +132,10 @@ public:
         }
     }
     /**
-     * スケーリングの上限下限を設定（軸ごとに指定）
+     * スケールの上限下限を設定（軸単位で指定）
      * @param prm_axis 軸
-     * @param prm_scale1
-     * @param prm_scale2
+     * @param prm_scale1 スケール値1
+     * @param prm_scale2 スケール値2
      */
     void setScaleRange(int prm_axis, int prm_scale1, int prm_scale2) {
         if (prm_scale1 < prm_scale2) {
@@ -116,12 +146,22 @@ public:
             _top_scale[prm_axis] = prm_scale2;
         }
     }
-
+    /**
+     * スケールをリセット （全軸指定） .
+     * 本オブジェクト(GgafDx9GeometryScaler)によって変化さえる前の
+     * 初期の大きさに戻す。
+     */
     void resetScale() {
         for (int axis = 0; axis < 3; axis++) {
             resetScale(axis);
         }
     }
+    /**
+     * スケールをリセット （軸単位で指定）
+     * 本オブジェクト(GgafDx9GeometryScaler)によって変化さえる前の
+     * 初期の大きさに戻す。
+     * @param prm_axis 軸
+     */
     void resetScale(int prm_axis) {
         _scale[prm_axis] = _bottom_scale[prm_axis];
     }
@@ -135,19 +175,27 @@ public:
         _scale[prm_axis] = _top_scale[prm_axis];
     }
 
-
+    /**
+     * スケーリングを停止させる。 （全軸指定） .
+     */
     void stopImmediately();
+    /**
+     * スケーリングを停止させる。 （軸単位で指定）.
+     * @param prm_axis
+     */
     void stopImmediately(int prm_axis);
 
     /**
-     * 目標のスケールへ一定速度でスケーリングする（フレーム数指定） .
+     * 片道等速スケーリング（全軸・持続フレーム数指定） .
+     * 目標のスケールへ一定速度でスケーリングする
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
      */
     void intoTargetScaleLinerUntil(int prm_target_scale, DWORD prm_spend_frame);
 
     /**
-     * 目標のスケールへ一定速度でスケーリングする（フレーム数指定） .
+     * 片道等速スケーリング（軸単位・持続フレーム数指定） .
+     * 目標のスケールへ一定速度でスケーリングする。
      * @param prm_axis 軸
      * @param prm_target_scale 目標スケール
      * @param prm_spend_frame 費やすフレーム数
@@ -155,13 +203,15 @@ public:
     void intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, DWORD prm_spend_frame);
 
     /**
-     * 目標のスケールへ一定速度でスケーリングする（スケール差分指定） .
+     * 片道等速スケーリング（全軸・スケール速度指定） .
+     * 目標のスケールへ一定速度でスケーリングする
      * @param prm_target_scale 目標スケール
      * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
      */
     void intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale);
 
     /**
+     * 片道等速スケーリング（軸単位・スケール速度指定） .
      * 目標のスケールへ一定速度でスケーリングする（スケール差分指定） .
      * @param prm_axis 軸
      * @param prm_target_scale 目標スケール
@@ -170,7 +220,8 @@ public:
     void intoTargetScaleLinerStep(int prm_axis, int prm_target_scale, int prm_velo_scale);
 
     /**
-     * 目標のスケールへ加速指定でスケーリングする（スケール速度、スケール加速度差指定） .
+     * 片道加速スケーリング（全軸・スケール速度・スケール加速度指定） .
+     * 目標のスケールへ加速指定でスケーリングする
      * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
      * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
      * @param prm_target_scale 目標スケール
@@ -180,6 +231,7 @@ public:
     void intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
+     * 片道加速スケーリング（軸単位・スケール速度・スケール加速度指定） .
      * 目標のスケールへ加速指定でスケーリングする（スケール速度、スケール加速度差指定） .
      * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
      * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
@@ -191,22 +243,25 @@ public:
     void intoTargetScaleAccelerationStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
+     * 反復等速スケーリング（全軸・フレーム数指定） .
      * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void beatLiner(DWORD prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
+     * 反復等速スケーリング（軸単位・フレーム数指定）
+     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。
+     * これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_axis 軸
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
-    void beatLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num);
+    void loopLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * 三角波の波形でスケーリングする。.
+     * 三角波の波形でスケーリングする。（全軸指定）.
      * <PRE>
      * ④  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
      *            /＼                     /＼
@@ -223,8 +278,8 @@ public:
      * ① １ループのフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 休憩フレーム数<BR>
-     * ④ スケール上限(_top_scale[prm_axis] が保持)<BR>
-     * ⑤ スケール下限(_bottom_scale[prm_axis] が保持)<BR>
+     * ④ スケール上限(_top_scale[軸] 配列が保持)<BR>
+     * ⑤ スケール下限(_bottom_scale[軸] 配列が保持)<BR>
      * <BR>
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数
@@ -236,7 +291,7 @@ public:
               DWORD prm_rest_frame,
               float prm_beat_num);
     /**
-     * 三角波の波形でスケーリングする。.
+     * 三角波の波形でスケーリングする。（軸指定）..
      * @param prm_axis 軸
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数
@@ -249,11 +304,10 @@ public:
               DWORD prm_rest_frame,
               float prm_beat_num);
 
-
-
     /**
-     * 毎フレームのActorの振る舞い。<BR>
-     * 本クラスを利用する場合は、このbehave() を毎フレーム実行します。<BR>
+     * 毎フレームの振る舞いメソッド。<BR>
+     * 本クラスの機能を利用する場合は、このメソッドを<BR>
+     * 毎フレーム実行することが必要。
      */
     virtual void behave();
 

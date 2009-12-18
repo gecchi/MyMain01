@@ -146,13 +146,13 @@ void GgafDx9GeometryScaler::intoTargetScaleLinerStep(int prm_axis, int prm_targe
 }
 
 
-void GgafDx9GeometryScaler::beatLiner(DWORD prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num) {
     for (int axis = 0; axis < 3; axis++) {
-        beatLiner(axis, prm_beat_spend_frame, prm_beat_num);
+        loopLiner(axis, prm_beat_spend_frame, prm_beat_num);
     }
 }
 
-void GgafDx9GeometryScaler::beatLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num) {
+void GgafDx9GeometryScaler::loopLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num) {
     _method[prm_axis] = BEAT_SCALE_LINER;
     _one_way_cnt[prm_axis] = 0;
     _stop_one_way_num[prm_axis] = (int)(prm_beat_num*2.0f);
