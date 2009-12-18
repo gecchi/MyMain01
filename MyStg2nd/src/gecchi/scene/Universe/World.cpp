@@ -146,9 +146,9 @@ void World::processBehavior() {
     static int Dd = (int)(_dZ_camera_init / 100);
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
-    static int slow_range_CAM = 40000;
-    static int slow_range_VP = 40000;
-
+    static int slow_range_CAM = 60000;
+    static int slow_range_VP = 60000;
+    //カメラと視点の移動目標設定
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
             move_target_X_CAM = -Dx;
@@ -196,6 +196,98 @@ void World::processBehavior() {
             move_target_Y_CAM += Dd;
         }
     }
+    //カメラと視点の移動目標補正
+    if (_pos_camera < CAM_POS_TO_BEHIND) {
+        if (_pos_camera == CAM_POS_RIGHT) {
+            if (move_target_Y_CAM > _lim_CAM_top) {
+                move_target_Y_CAM = _lim_CAM_top;
+            }
+            if (move_target_Y_CAM < _lim_CAM_bottom ) {
+                move_target_Y_CAM = _lim_CAM_bottom;
+            }
+        } else if (_pos_camera == CAM_POS_LEFT) {
+            if (move_target_Y_CAM > _lim_CAM_top) {
+                move_target_Y_CAM = _lim_CAM_top;
+            }
+            if (move_target_Y_CAM < _lim_CAM_bottom ) {
+                move_target_Y_CAM = _lim_CAM_bottom;
+            }
+        } else if (_pos_camera == CAM_POS_TOP) {
+            if (move_target_Z_CAM > _lim_CAM_zleft) {
+                move_target_Z_CAM = _lim_CAM_zleft;
+            }
+            if (move_target_Z_CAM < _lim_CAM_zright) {
+                move_target_Z_CAM = _lim_CAM_zright;
+            }
+        } else if (_pos_camera == CAM_POS_BOTTOM) {
+            if (move_target_Z_CAM > _lim_CAM_zleft) {
+                move_target_Z_CAM = _lim_CAM_zleft;
+            }
+            if (move_target_Z_CAM < _lim_CAM_zright) {
+                move_target_Z_CAM = _lim_CAM_zright;
+            }
+        }
+    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+        if (move_target_Y_CAM > _lim_CAM_top) {
+            move_target_Y_CAM = _lim_CAM_top;
+        }
+        if (move_target_Y_CAM < _lim_CAM_bottom ) {
+            move_target_Y_CAM = _lim_CAM_bottom;
+        }
+        if (move_target_Z_CAM > _lim_CAM_zleft) {
+            move_target_Z_CAM = _lim_CAM_zleft;
+        }
+        if (move_target_Z_CAM < _lim_CAM_zright) {
+            move_target_Z_CAM = _lim_CAM_zright;
+        }
+    }
+    if (_pos_camera < CAM_POS_TO_BEHIND) {
+        if (_pos_camera == CAM_POS_RIGHT) {
+            if (move_target_Y_VP > _lim_VP_top) {
+                move_target_Y_VP = _lim_VP_top;
+            }
+            if (move_target_Y_VP < _lim_VP_bottom ) {
+                move_target_Y_VP = _lim_VP_bottom;
+            }
+        } else if (_pos_camera == CAM_POS_LEFT) {
+            if (move_target_Y_VP > _lim_VP_top) {
+                move_target_Y_VP = _lim_VP_top;
+            }
+            if (move_target_Y_VP < _lim_VP_bottom ) {
+                move_target_Y_VP = _lim_VP_bottom;
+            }
+        } else if (_pos_camera == CAM_POS_TOP) {
+            if (move_target_Z_VP > _lim_VP_zleft) {
+                move_target_Z_VP = _lim_VP_zleft;
+            }
+            if (move_target_Z_VP < _lim_VP_zright) {
+                move_target_Z_VP = _lim_VP_zright;
+            }
+        } else if (_pos_camera == CAM_POS_BOTTOM) {
+            if (move_target_Z_VP > _lim_VP_zleft) {
+                move_target_Z_VP = _lim_VP_zleft;
+            }
+            if (move_target_Z_VP < _lim_VP_zright) {
+                move_target_Z_VP = _lim_VP_zright;
+            }
+        }
+    } else if (_pos_camera > CAM_POS_TO_BEHIND) {
+        if (move_target_Y_VP > _lim_VP_top) {
+            move_target_Y_VP = _lim_VP_top;
+        }
+        if (move_target_Y_VP < _lim_VP_bottom ) {
+            move_target_Y_VP = _lim_VP_bottom;
+        }
+        if (move_target_Z_VP > _lim_VP_zleft) {
+            move_target_Z_VP = _lim_VP_zleft;
+        }
+        if (move_target_Z_VP < _lim_VP_zright) {
+            move_target_Z_VP = _lim_VP_zright;
+        }
+    }
+
+
+
     //目標地点までの各軸距離
     dX_CAM = move_target_X_CAM - pCAM->_X;
     dY_CAM = move_target_Y_CAM - pCAM->_Y;
@@ -275,94 +367,6 @@ void World::processBehavior() {
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
-        if (_pos_camera < CAM_POS_TO_BEHIND) {
-            if (_pos_camera == CAM_POS_RIGHT) {
-                if (pCAM->_Y > _lim_CAM_top) {
-                    pCAM->_Y = _lim_CAM_top;
-                }
-                if (pCAM->_Y < _lim_CAM_bottom ) {
-                    pCAM->_Y = _lim_CAM_bottom;
-                }
-            } else if (_pos_camera == CAM_POS_LEFT) {
-                if (pCAM->_Y > _lim_CAM_top) {
-                    pCAM->_Y = _lim_CAM_top;
-                }
-                if (pCAM->_Y < _lim_CAM_bottom ) {
-                    pCAM->_Y = _lim_CAM_bottom;
-                }
-            } else if (_pos_camera == CAM_POS_TOP) {
-                if (pCAM->_Z > _lim_CAM_zleft) {
-                    pCAM->_Z = _lim_CAM_zleft;
-                }
-                if (pCAM->_Z < _lim_CAM_zright) {
-                    pCAM->_Z = _lim_CAM_zright;
-                }
-            } else if (_pos_camera == CAM_POS_BOTTOM) {
-                if (pCAM->_Z > _lim_CAM_zleft) {
-                    pCAM->_Z = _lim_CAM_zleft;
-                }
-                if (pCAM->_Z < _lim_CAM_zright) {
-                    pCAM->_Z = _lim_CAM_zright;
-                }
-            }
-        } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-            if (pCAM->_Y > _lim_CAM_top) {
-                pCAM->_Y = _lim_CAM_top;
-            }
-            if (pCAM->_Y < _lim_CAM_bottom ) {
-                pCAM->_Y = _lim_CAM_bottom;
-            }
-            if (pCAM->_Z > _lim_CAM_zleft) {
-                pCAM->_Z = _lim_CAM_zleft;
-            }
-            if (pCAM->_Z < _lim_CAM_zright) {
-                pCAM->_Z = _lim_CAM_zright;
-            }
-        }
-        if (_pos_camera < CAM_POS_TO_BEHIND) {
-            if (_pos_camera == CAM_POS_RIGHT) {
-                if (pVP->_Y > _lim_VP_top) {
-                    pVP->_Y = _lim_VP_top;
-                }
-                if (pVP->_Y < _lim_VP_bottom ) {
-                    pVP->_Y = _lim_VP_bottom;
-                }
-            } else if (_pos_camera == CAM_POS_LEFT) {
-                if (pVP->_Y > _lim_VP_top) {
-                    pVP->_Y = _lim_VP_top;
-                }
-                if (pVP->_Y < _lim_VP_bottom ) {
-                    pVP->_Y = _lim_VP_bottom;
-                }
-            } else if (_pos_camera == CAM_POS_TOP) {
-                if (pVP->_Z > _lim_VP_zleft) {
-                    pVP->_Z = _lim_VP_zleft;
-                }
-                if (pVP->_Z < _lim_VP_zright) {
-                    pVP->_Z = _lim_VP_zright;
-                }
-            } else if (_pos_camera == CAM_POS_BOTTOM) {
-                if (pVP->_Z > _lim_VP_zleft) {
-                    pVP->_Z = _lim_VP_zleft;
-                }
-                if (pVP->_Z < _lim_VP_zright) {
-                    pVP->_Z = _lim_VP_zright;
-                }
-            }
-        } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-            if (pVP->_Y > _lim_VP_top) {
-                pVP->_Y = _lim_VP_top;
-            }
-            if (pVP->_Y < _lim_VP_bottom ) {
-                pVP->_Y = _lim_VP_bottom;
-            }
-            if (pVP->_Z > _lim_VP_zleft) {
-                pVP->_Z = _lim_VP_zleft;
-            }
-            if (pVP->_Z < _lim_VP_zright) {
-                pVP->_Z = _lim_VP_zright;
-            }
-        }
     }
 
     //サブシーンが一時停止していれば、カメラ操作できる。

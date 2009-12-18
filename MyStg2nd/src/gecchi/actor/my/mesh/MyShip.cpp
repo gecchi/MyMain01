@@ -331,6 +331,17 @@ void MyShip::processBehavior() {
     ////////////////////////////////////////////////////
 
 
+
+    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+        _TRACE_("(X,Y,Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
+    }
+
+
+    //À•W‚É”½‰f
+    _pMover->behave();
+
+
+
     if (_Y > GameGlobal::_lim_MyShip_top) {
         _Y = GameGlobal::_lim_MyShip_top;
     }
@@ -352,14 +363,6 @@ void MyShip::processBehavior() {
         _Z = GameGlobal::_lim_MyShip_zright;
     }
 
-
-    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _TRACE_("(X,Y,Z)=("<<_X<<","<<_Y<<","<<_Z<<")");
-    }
-
-
-    //À•W‚É”½‰f
-    _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
 
     if (isOffscreen()) {
