@@ -12,7 +12,6 @@ EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : Homin
 }
 
 void EnemyAstraeaLaserChip001::initialize() {
-    _pMover->setMoveVelocity(1000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
@@ -25,8 +24,8 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    _pMover->setMoveVelocity(5000);
-    _pMover->setMoveVeloAcceleration(500);
+    _pMover->setMoveVelocity(2000);
+    _pMover->setMoveVeloAcceleration(300);
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
 }
@@ -35,18 +34,18 @@ void EnemyAstraeaLaserChip001::onActive() {
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 
-    if (_dwActiveFrame == 30) {
+    if (_dwActiveFrame == 40) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
                     8000, TURN_ANTICLOSE_TO);
     }
 
 
-//    if (_dwActiveFrame == 50) {
-//        _pMover->executeTagettingMoveAngleSequence(
-//                    GameGlobal::_pMyShip,
-//                    8000, TURN_CLOSE_TO);
-//    }
+    if (_pMover->_move_angle_ry_target_flg == false && _pMover->_move_angle_rz_target_flg == false) {
+        _pMover->executeTagettingMoveAngleSequence(
+                    GameGlobal::_pMyShip,
+                    100, TURN_CLOSE_TO);
+    }
 //
 //    if (_dwActiveFrame == 35) {
 //        _pMover->executeTagettingMoveAngleSequence(

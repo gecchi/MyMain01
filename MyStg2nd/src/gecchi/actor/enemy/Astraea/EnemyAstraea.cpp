@@ -11,9 +11,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 30;
-    _shot_interval = 180;
-    _angveloTurn = 2000;
+    _laser_length = 6;
+    _shot_interval = 35;
+    _angveloTurn = 3000;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
     for (int i = 0; i < _laser_way; i++) {
@@ -26,7 +26,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
-            for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
+            for (int k = 0; k < _laser_length*6; k++) { //_laser_length の２倍分ストック
                 stringstream name;
                 name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
@@ -37,7 +37,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-    useSe1("yume_Sbend", pWORLD->_frame_of_life); //レーザー発射
+    useSe1("tama1", pWORLD->_frame_of_life); //レーザー発射
     useSe2("bomb1");     //爆発
 }
 
@@ -116,7 +116,7 @@ void EnemyAstraea::processBehavior() {
     /////////////モーフテスト////////////////
 
 
-    _X = _X - 300;
+    _X = _X - 8000;
     if (_frame_of_life % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
@@ -136,7 +136,7 @@ void EnemyAstraea::processBehavior() {
 
         static EnemyAstraeaLaserChip001* pLaserChip;
 
-        angle angClearance = 2000;//開き具合
+        angle angClearance = 20000;//開き具合
 
         GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);

@@ -114,7 +114,9 @@ void GgafDx9SpriteSetModel::release() {
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
-    _papTextureCon[0]->close();
+	if (_papTextureCon) {
+		_papTextureCon[0]->close();
+	}
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);

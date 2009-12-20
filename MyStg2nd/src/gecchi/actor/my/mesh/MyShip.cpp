@@ -144,6 +144,8 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     fpaTurboFunc[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     fpaTurboFunc[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
+
+    useSe1("se-020");
 }
 
 void MyShip::initialize() {
@@ -414,7 +416,14 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    //_TRACE_("MyShipÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<","<<_Z<<")");
+    GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
+    playSe1();
+
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    if (pExplo001 != NULL) {
+        pExplo001->setGeometry(pActor_Opponent);
+        pExplo001->activate();
+    }
 }
 
 

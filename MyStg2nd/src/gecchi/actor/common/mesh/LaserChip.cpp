@@ -127,6 +127,7 @@ void LaserChip::processJudgement() {
         inactivate();
     }
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
+    setBumpable(true);
     if (_pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActive()) {
@@ -143,6 +144,7 @@ void LaserChip::processJudgement() {
         }
     } else {
         _chip_kind = 4; //何も描画したくない
+        setBumpable(false);
     }
 
 //    if ((0 <= _RZ && _RZ < ANGLE90) ||

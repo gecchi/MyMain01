@@ -13,6 +13,7 @@ MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightL
 
 void MyStraightLaserChip001::initialize() {
     _pMover->setMoveVelocity(0);
+    _pMover->setMoveVeloAcceleration(300);
     _pMover->setRzRyMoveAngle(0,0);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);

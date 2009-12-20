@@ -26,7 +26,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 
 
     _X_goneLeft   = GgafDx9Camera::_X_ScreenLeft * 4;
-    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 10;
+    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 30;
     _Y_goneTop    = GgafDx9Camera::_Y_ScreenTop * 10;
     _Y_goneBottom = GgafDx9Camera::_Y_ScreenBottom * 10;
     _Z_goneBack   = GgafDx9Camera::_X_ScreenRight * 10;

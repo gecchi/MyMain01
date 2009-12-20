@@ -13,6 +13,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(
 
 void MyCurveLaserChip001::initialize() {
     _pMover->setMoveVelocity(100000);
+    _pMover->setMoveVeloAcceleration(300);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     setBumpable(true);

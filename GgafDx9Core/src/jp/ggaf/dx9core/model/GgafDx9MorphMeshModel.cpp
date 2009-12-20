@@ -150,11 +150,13 @@ void GgafDx9MorphMeshModel::release() {
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        if (_papTextureCon[i] != NULL) {
-            _papTextureCon[i]->close();
-        }
-    }
+	if (_papTextureCon) {
+		for (DWORD i = 0; i < _dwNumMaterials; i++) {
+			if (_papTextureCon[i] != NULL) {
+				_papTextureCon[i]->close();
+			}
+		}
+	}
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {

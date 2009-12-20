@@ -24,7 +24,7 @@ void World::initialize() {
     getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
 #endif
     //初期カメラ位置
-    int speed = pMYSHIP->_iMoveSpeed * 0.99;
+    int max_cam_veloMove = pMYSHIP->_iMoveSpeed * 0.99;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
     _lim_CAM_top     = GameGlobal::_lim_MyShip_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2);
@@ -51,15 +51,15 @@ void World::initialize() {
     pCAM->_pMover->setMoveAngle(0,0,0);
 
 
-    pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
+    pCAM->_pMover->setVxMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pMover->setVxMoveVelocity(0);
     pCAM->_pMover->setVxMoveVeloAcceleration(0);
 
-    pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
+    pCAM->_pMover->setVyMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pMover->setVyMoveVelocity(0);
     pCAM->_pMover->setVyMoveVeloAcceleration(0);
 
-    pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
+    pCAM->_pMover->setVzMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pMover->setVzMoveVelocity(0);
     pCAM->_pMover->setVzMoveVeloAcceleration(0);
 
@@ -70,15 +70,15 @@ void World::initialize() {
 
     pCAM->_pViewPoint->_pMover->setMoveAngle(0,0,0);
 
-    pCAM->_pViewPoint->_pMover->setVxMoveVeloRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVxMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pViewPoint->_pMover->setVxMoveVelocity(0);
     pCAM->_pViewPoint->_pMover->setVxMoveVeloAcceleration(0);
 
-    pCAM->_pViewPoint->_pMover->setVyMoveVeloRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVyMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pViewPoint->_pMover->setVyMoveVelocity(0);
     pCAM->_pViewPoint->_pMover->setVyMoveVeloAcceleration(0);
 
-    pCAM->_pViewPoint->_pMover->setVzMoveVeloRenge(-speed, speed);
+    pCAM->_pViewPoint->_pMover->setVzMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
     pCAM->_pViewPoint->_pMover->setVzMoveVelocity(0);
     pCAM->_pViewPoint->_pMover->setVzMoveVeloAcceleration(0);
 
@@ -298,17 +298,23 @@ void World::processBehavior() {
 
     if ( getSubFirst()->isBehaving() ) {
 
-        int speed =
+        int max_cam_veloMove =
                 ( pMYSHIP->_iMoveSpeed +
                   ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
                     GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
                     GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)
                   )
-                 ) * 2; //0.7の意味は 1/√2 よりわずかに小さい
+                 ) * 2;//どうするか????0.7; //0.7の意味は 1/√2 よりわずかに小さい
                           //これは自機が斜め移動時カメラがわずかに追いつかないようにするため
-        pCAM->_pMover->setVxMoveVeloRenge(-speed, speed);
-        pCAM->_pMover->setVyMoveVeloRenge(-speed, speed);
-        pCAM->_pMover->setVzMoveVeloRenge(-speed, speed);
+//        if (GgafDx9Util::abs(dX_CAM) > slow_range_CAM*1.2 ||
+//            GgafDx9Util::abs(dY_CAM) > slow_range_CAM*1.2 ||
+//            GgafDx9Util::abs(dZ_CAM) > slow_range_CAM*1.2) {
+//            max_cam_veloMove = max_cam_veloMove * 2;
+//        }
+
+        pCAM->_pMover->setVxMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
+        pCAM->_pMover->setVyMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
+        pCAM->_pMover->setVzMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
 		static double acc_rate = 800.0;
         if (-slow_range_CAM < dX_CAM && dX_CAM < slow_range_CAM) {
             pCAM->_pMover->_veloVxMove *= 0.9;
@@ -340,9 +346,9 @@ void World::processBehavior() {
                 pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);
             }
         }
-        pVP->_pMover->setVxMoveVeloRenge(-speed, speed);
-        pVP->_pMover->setVyMoveVeloRenge(-speed, speed);
-        pVP->_pMover->setVzMoveVeloRenge(-speed, speed);
+        pVP->_pMover->setVxMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
+        pVP->_pMover->setVyMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
+        pVP->_pMover->setVzMoveVeloRenge(-max_cam_veloMove, max_cam_veloMove);
 
         if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
             pVP->_pMover->_veloVxMove *= 0.9;

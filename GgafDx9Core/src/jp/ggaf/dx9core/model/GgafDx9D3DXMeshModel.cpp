@@ -110,12 +110,13 @@ void GgafDx9D3DXMeshModel::release() {
         throwGgafCriticalException("[GgafDx9D3DXMeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
-    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        if (_papTextureCon[i] != NULL) {
-            _papTextureCon[i]->close();
-        }
-    }
-
+	if (_papTextureCon) {
+		for (DWORD i = 0; i < _dwNumMaterials; i++) {
+			if (_papTextureCon[i] != NULL) {
+				_papTextureCon[i]->close();
+			}
+		}
+	}
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
 
