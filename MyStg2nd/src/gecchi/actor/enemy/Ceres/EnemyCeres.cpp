@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 GgafDx9Spline3D EnemyCeres::_spline;
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
-    DefaultMeshEnemyActor(prm_name, "Ceres") {
+    DefaultMeshEnemyActor(prm_name, "Iris") {
     _class_name = "EnemyCeres";
 
     _iMovePatternNo = 0;
