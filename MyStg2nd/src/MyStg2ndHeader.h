@@ -103,7 +103,7 @@ class EnemyAstraea;
 class EnemyAstraeaLaserChip001;
 
 
-
+class EnemyIris;
 
 
 
@@ -181,7 +181,7 @@ class Formation001;
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
-
+#include "gecchi/actor/enemy/Iris/EnemyIris.h"
 
 
 
