@@ -8,6 +8,12 @@ int MyShip::wk_dist = 0;
 angle MyShip::wk_angRx = 0;
 
 #define S_OPTION 0
+int MyShip::_lim_top     =  0;
+int MyShip::_lim_bottom  =  0;
+int MyShip::_lim_front   =  0;
+int MyShip::_lim_behaind =  0;
+int MyShip::_lim_zleft   =  0;
+int MyShip::_lim_zright  =  0;
 
 MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
@@ -15,7 +21,13 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     GameGlobal::init();
     GameGlobal::_pMyShip = this;
-
+    //画面の大きさに伴って、移動範囲を決定
+    _lim_top     = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*3*LEN_UNIT / 2;
+    _lim_bottom  = -(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*3*LEN_UNIT / 2);
+    _lim_front   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2 * 2.0;
+    _lim_behaind = -(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT / 2 * 0.5);
+    _lim_zleft   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*3*LEN_UNIT / 2;
+    _lim_zright  = -(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*3*LEN_UNIT / 2);
 
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
@@ -344,25 +356,25 @@ void MyShip::processBehavior() {
 
 
 
-    if (_Y > GameGlobal::_lim_MyShip_top) {
-        _Y = GameGlobal::_lim_MyShip_top;
+    if (_Y > MyShip::_lim_top) {
+        _Y = MyShip::_lim_top;
     }
-    if (_Y < GameGlobal::_lim_MyShip_bottom ) {
-        _Y = GameGlobal::_lim_MyShip_bottom;
-    }
-
-    if (_X > GameGlobal::_lim_MyShip_front) {
-        _X = GameGlobal::_lim_MyShip_front;
-    }
-    if (_X < GameGlobal::_lim_MyShip_behaind) {
-        _X = GameGlobal::_lim_MyShip_behaind;
+    if (_Y < MyShip::_lim_bottom ) {
+        _Y = MyShip::_lim_bottom;
     }
 
-    if (_Z > GameGlobal::_lim_MyShip_zleft) {
-        _Z = GameGlobal::_lim_MyShip_zleft;
+    if (_X > MyShip::_lim_front) {
+        _X = MyShip::_lim_front;
     }
-    if (_Z < GameGlobal::_lim_MyShip_zright) {
-        _Z = GameGlobal::_lim_MyShip_zright;
+    if (_X < MyShip::_lim_behaind) {
+        _X = MyShip::_lim_behaind;
+    }
+
+    if (_Z > MyShip::_lim_zleft) {
+        _Z = MyShip::_lim_zleft;
+    }
+    if (_Z < MyShip::_lim_zright) {
+        _Z = MyShip::_lim_zright;
     }
 
     _pRing_GeoHistory->next()->set(this);

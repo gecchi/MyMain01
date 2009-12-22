@@ -20,7 +20,7 @@ public:
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyCeresShots001;
     /** Ceres共通スプライン */
     static GgafDx9Core::GgafDx9Spline3D _spline;
-    /** プログラム */
+    /** スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
 
     /** ActorDispatcherをコンストラクタで生成したか否か */

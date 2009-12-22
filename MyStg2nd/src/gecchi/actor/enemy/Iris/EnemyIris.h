@@ -11,13 +11,20 @@ class EnemyIris : public GgafDx9LibStg::DefaultMeshActor {
 public:
     int _iMovePatternNo;
 
-    int _width_X;
-    int _height_Z;
-    int _depth_Y;
+    /** Iris共通スプラインA */
+    static GgafDx9Core::GgafDx9Spline3D _spIris_A;
+    /** Iris共通スプラインB */
+    static GgafDx9Core::GgafDx9Spline3D _spIris_B;
+    /** スプラインプログラムA */
+    GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMoveA;
+    /** スプラインプログラムB */
+    GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMoveB;
 
     EnemyIris(const char* prm_name);
 
     void initialize();
+
+    void onActive();
 
     void processBehavior();
 

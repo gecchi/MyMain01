@@ -5,12 +5,38 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+GgafDx9Spline3D EnemyIris::_spIris_A;
+GgafDx9Spline3D EnemyIris::_spIris_B;
+
 EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshActor(prm_name, "Iris") {
     _class_name = "EnemyIris";
-    _width_X = 220*2*LEN_UNIT;
-    _height_Z = 220*2*LEN_UNIT;
-    _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
+
+    //イリス用スプライン移動の定義(全イリスで１回だけ作成)
+    if (EnemyIris::_spIris_A._num_basepoint == 0) {
+        //後方から
+        double p[][3] = { //           X  ,                       Y ,                         Z
+           { MyShip::_lim_behaind - 100000 ,                    0.0 ,  MyShip::_lim_zleft * 0.8 },
+           {      MyShip::_lim_front * 0.5 , MyShip::_lim_top * 0.2 ,                       0.0 },
+           {      MyShip::_lim_front * 1.2 , MyShip::_lim_top * 0.5 , MyShip::_lim_zright * 0.3 },
+           {      MyShip::_lim_front * 1.0 , MyShip::_lim_top * 1.0 ,                       0.0 },
+           {      MyShip::_lim_front * 0.5 ,                    0.0 ,                       0.0 }
+        };
+        EnemyIris::_spIris_A.init(p, 5, 0.2);
+    }
+    _pProgram_IrisMoveA = NEW GgafDx9FixedVelocitySplineProgram(&EnemyIris::_spIris_A, 5000); //移動速度固定
+
+    if (EnemyIris::_spIris_B._num_basepoint == 0) {
+        double p[][3] = { //           X  ,                          Y ,                         Z
+           { MyShip::_lim_behaind - 100000 ,                         0 , MyShip::_lim_zright * 0.8 },
+           {      MyShip::_lim_front * 0.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
+           {      MyShip::_lim_front * 1.2 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
+           {      MyShip::_lim_front * 1.0 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
+           {      MyShip::_lim_front * 0.5 ,                       0.0 ,                       0.0 }
+        };
+        EnemyIris::_spIris_B.init(p, 5, 0.2);
+    }
+    _pProgram_IrisMoveB = NEW GgafDx9FixedVelocitySplineProgram(&EnemyIris::_spIris_B, 5000); //移動速度固定
 }
 
 void EnemyIris::initialize() {
@@ -18,30 +44,23 @@ void EnemyIris::initialize() {
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_life);
-    DWORD appearances_renge_Z = (GameGlobal::_lim_MyShip_zleft - GameGlobal::_lim_MyShip_zright) * 3;
-    DWORD appearances_renge_Y = (GameGlobal::_lim_MyShip_top - GameGlobal::_lim_MyShip_bottom) * 3;
 
-    _X = GgafDx9Camera::_X_ScreenRight + 3200000;
-    _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
-    _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
+    _X = MyShip::_lim_behaind - 100000;
+    _Y = 0;
+    _Z = 0;
 
-    _pMover->setMoveVelocity(0);
-    _pMover->setVxMoveVelocity(-5000);
-    _pMover->setFaceAngleVelocity(AXIS_Z, 1000);
+    _pMover->setMoveVelocity(5000);
+    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
+    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
 
-    int nArea = 0;
-    for (int i = 0; i < (_width_X - _depth_Y) ; i+= _depth_Y) {
-        nArea++;
-    }
-    _pStgChecker->useHitAreaBoxNum(nArea);
-    for (int i = 0, n = 0; i < (_width_X - _depth_Y)  ; i+= _depth_Y, n++) {
-        _pStgChecker->setHitAreaBox(n, i - ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0), -((_depth_Y/2.0)/1.5), -(_height_Z/2.0),
-                                       i + ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0),  ((_depth_Y/2.0)/1.5),  (_height_Z/2.0),
-                                       false, false, true
-                                   );
-    }
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
     useSe1("yume_shototsu");
+}
+
+void EnemyIris::onActive() {
+    _pMover->executeSplineMoveProgram(_pProgram_IrisMoveA, 0); //スプライン移動をプログラムしておく
 }
 
 void EnemyIris::processBehavior() {
@@ -50,9 +69,9 @@ void EnemyIris::processBehavior() {
 }
 
 void EnemyIris::processJudgement() {
-    if (isOutOfGameSpace()) {
-        adios();
-    }
+//    if (isOutOfGameSpace()) {
+//        adios();
+//    }
 }
 
 void EnemyIris::processOnHit(GgafActor* prm_pActor_Opponent) {

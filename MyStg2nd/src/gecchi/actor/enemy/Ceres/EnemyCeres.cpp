@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 GgafDx9Spline3D EnemyCeres::_spline;
 
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
-    DefaultMeshEnemyActor(prm_name, "Iris") {
+    DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
 
     _iMovePatternNo = 0;
@@ -77,6 +77,7 @@ void EnemyCeres::initialize() {
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
+    _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setMoveVelocity(8000);
 
     _pStgChecker->useHitAreaBoxNum(1);
@@ -87,7 +88,6 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::onActive() {
-
     _dwFrame_Active = 0;
 }
 

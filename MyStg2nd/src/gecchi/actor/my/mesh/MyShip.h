@@ -189,7 +189,18 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
         }
     };
 public:
-
+    /** 移動Y座標上限 */
+    static int _lim_top;
+    /** 移動Y座標下限 */
+    static int _lim_bottom;
+    /** 移動X座標上限 */
+    static int _lim_front;
+    /** 移動X座標下限 */
+    static int _lim_behaind;
+    /** 移動Z座標上限 */
+    static int _lim_zleft;
+    /** 移動Z座標下限 */
+    static int _lim_zright;
 
     WaySwitch _way_switch;
     void (MyShip::*fpaMoveFunc[3*3*3])();

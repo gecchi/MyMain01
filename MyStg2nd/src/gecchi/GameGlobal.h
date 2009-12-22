@@ -20,12 +20,7 @@ public:
     /** 自機へのポインタ */
     static MyShip* _pMyShip;
     /** */
-    static int _lim_MyShip_top;
-    static int _lim_MyShip_bottom;
-    static int _lim_MyShip_front;
-    static int _lim_MyShip_behaind;
-    static int _lim_MyShip_zleft;
-    static int _lim_MyShip_zright;
+
     static CommonScene* _pSceneCommon;
     static GameScene* _pSceneGame;
     static void init();
