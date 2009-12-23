@@ -19,8 +19,8 @@ public:
      */
     class CollisionStack {
     public:
-        /** 一つの空間に 5000 もキャラが集まらないだろうという安易な見積もり */
-        GgafCore::GgafActor* _apActor[5000];
+        /** 一つの空間に 3000 もキャラが集まらないだろうという安易な見積もり */
+        GgafCore::GgafActor* _apActor[3000];
         /** カーソルポインタ  */
         DWORD _p;
         /**
@@ -37,6 +37,12 @@ public:
         void push(GgafCore::GgafActor* prm_pActor) {
             _apActor[_p] = prm_pActor;
             _p++;
+#ifdef OREDEBUG
+            if (_p > 3000) {
+                _TRACE_("スタックを使い切りました、このままではメモリを破壊し異常終了するでしょう。_p-- やっときます。");
+                p--;
+            }
+#endif
         }
         /**
          * スタックから取り出す .
