@@ -17,7 +17,7 @@ void Stage05Scene::processBehavior() {
 
 void Stage05Scene::processFinal() {
 
-    if (_frame_of_life == 1) {
+    if (_frame_of_active == 1) {
         _TRACE_("Stage05Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
         this->inactivateTree(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
     }

@@ -43,7 +43,7 @@ void EnemyIris::initialize() {
     setBumpable(true);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_life);
+    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_active);
 
     _X = MyShip::_lim_behaind - 100000;
     _Y = 0;
@@ -57,6 +57,7 @@ void EnemyIris::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
     useSe1("yume_shototsu");
+    onActive();
 }
 
 void EnemyIris::onActive() {
@@ -83,6 +84,7 @@ void EnemyIris::processOnHit(GgafActor* prm_pActor_Opponent) {
     }
 }
 
-
 EnemyIris::~EnemyIris() {
+    DELETE_POSSIBLE_NULL(_pProgram_IrisMoveA);
+    DELETE_POSSIBLE_NULL(_pProgram_IrisMoveB);
 }

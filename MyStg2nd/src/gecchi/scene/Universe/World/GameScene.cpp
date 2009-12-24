@@ -102,7 +102,7 @@ void GameScene::processJudgement() {
     //詳細は ACTOR.xls の hantei シート
 
 
-    if (_frame_of_life >= 120) {
+    if (_frame_of_active >= 120) {
         StgChecker::_num_check = 0;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
@@ -172,7 +172,7 @@ void GameScene::processJudgement() {
 
 void GameScene::processFinal() {
 
-    if (_frame_of_life == 120) {
+    if (_frame_of_active == 120) {
         //デモ開始
         _pGameDemo->activate();
     }

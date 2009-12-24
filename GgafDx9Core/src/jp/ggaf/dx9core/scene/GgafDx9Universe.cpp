@@ -26,7 +26,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 
 
     _X_goneLeft   = GgafDx9Camera::_X_ScreenLeft * 4;
-    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 30;
+    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 35;
     _Y_goneTop    = GgafDx9Camera::_Y_ScreenTop * 10;
     _Y_goneBottom = GgafDx9Camera::_Y_ScreenBottom * 10;
     _Z_goneBack   = GgafDx9Camera::_X_ScreenRight * 10;
@@ -115,7 +115,7 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
         //お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
         //何故ならば、半透明オブジェクトが交差した場合、ぼやかしたいため
-        if ((GgafGod::_pGod->_pUniverse->_frame_of_life & 1) == 1) {
+        if ((GgafGod::_pGod->_pUniverse->_frame_of_active & 1) == 1) {
             //お尻に追加
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;

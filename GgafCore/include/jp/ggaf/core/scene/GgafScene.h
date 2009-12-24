@@ -129,7 +129,7 @@ public:
      */
     virtual void setProgress(int prm_progress) {
         _progress_nextframe = prm_progress;
-        _aFrame_ProgressChange[prm_progress] = _frame_of_life+1;
+        _aFrame_ProgressChange[prm_progress] = _frame_of_active+1;
     }
 
     bool onChangeProgressAt(int prm_progress) {

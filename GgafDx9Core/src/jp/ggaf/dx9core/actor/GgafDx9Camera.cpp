@@ -95,7 +95,7 @@ void GgafDx9Camera::initialize() {
 }
 
 void GgafDx9Camera::processBehavior() {
-    //if (_frame_of_life % 2 == 0) { //10フレームに１回だけ計算
+    //if (_frame_of_active % 2 == 0) { //10フレームに１回だけ計算
     HRESULT hr;
     static D3DVIEWPORT9 viewport;       //クライアント領域全体の保持
     //スクリーン全体のクライアント領域を保持。

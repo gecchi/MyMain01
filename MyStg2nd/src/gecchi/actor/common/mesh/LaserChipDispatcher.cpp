@@ -13,7 +13,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : ActorDispatcher
     _num_chip_max = 0;
     _num_chip_interval = 20;
     _pChip_prev_employ = NULL;
-    _frame_of_life_prev_employ = 0;
+    _frame_of_active_prev_employ = 0;
     _pSeConnection = NULL;
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
 }
@@ -25,7 +25,7 @@ LaserChip* LaserChipDispatcher::employ() {
     if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、5フレーム弾切れにする。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
-        _frame_of_life_prev_employ = 0;
+        _frame_of_active_prev_employ = 0;
         _num_continual_employ_count = 0;
         _num_interval_frame_count = 0;
         return NULL;
@@ -35,7 +35,7 @@ LaserChip* LaserChipDispatcher::employ() {
     } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //弾切れの時 _num_chip_max/4 溜まってから発射
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
-        _frame_of_life_prev_employ = 0;
+        _frame_of_active_prev_employ = 0;
         _num_continual_employ_count = 0;
         _num_interval_frame_count++;
         return NULL;
@@ -44,7 +44,7 @@ LaserChip* LaserChipDispatcher::employ() {
         if (pChip != NULL) {
             pChip->activate();
             if (_pChip_prev_employ != NULL) {
-                if (_frame_of_life_prev_employ == _pChip_prev_employ->_frame_of_life) { //アクティブになってフレームが加算されるのは１フレーム次であるため
+                if (_frame_of_active_prev_employ == _pChip_prev_employ->_frame_of_active) { //アクティブになってフレームが加算されるのは１フレーム次であるため
                     //2フレーム連続でemployの場合連結とみなす
                     _num_continual_employ_count++;
                     pChip->_pChip_front = _pChip_prev_employ;
@@ -60,7 +60,7 @@ LaserChip* LaserChipDispatcher::employ() {
                 pChip->_pChip_front = NULL;
             }
             _pChip_prev_employ = pChip;
-            _frame_of_life_prev_employ = pChip->_frame_of_life;
+            _frame_of_active_prev_employ = pChip->_frame_of_active;
 
             return pChip;
 
@@ -68,7 +68,7 @@ LaserChip* LaserChipDispatcher::employ() {
             _num_continual_employ_count = 0;
             _is_tear_laser = true;
             _pChip_prev_employ = NULL;
-            _frame_of_life_prev_employ = 0;
+            _frame_of_active_prev_employ = 0;
             _num_interval_frame_count++;
             return NULL;
         }

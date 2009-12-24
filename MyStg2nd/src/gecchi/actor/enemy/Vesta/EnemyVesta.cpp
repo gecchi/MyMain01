@@ -17,7 +17,7 @@ void EnemyVesta::initialize() {
     setBumpable(true);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_life);
+    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_active);
     DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
     DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
 

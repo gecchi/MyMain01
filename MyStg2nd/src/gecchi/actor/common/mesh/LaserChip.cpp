@@ -73,7 +73,6 @@ void LaserChip::onActive() {
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
 //            "/_is_active_flg="<<_is_active_flg);
 //    _TRACE_("LaserChip::onActive() _dwActiveFrame = 0;!!!"<<getName()<<"");
-
     _dwActiveFrame = 0;
     //oŒ»Žž
     _chip_kind = 1;

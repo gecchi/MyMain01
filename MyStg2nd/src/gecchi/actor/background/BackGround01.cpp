@@ -85,17 +85,17 @@ void BackGround01::initialize() {
 
 void BackGround01::processBehavior() {
     //フェードイン
-    //	if (0 < _frame_of_life && _frame_of_life <= 255) {
+    //	if (0 < _frame_of_active && _frame_of_active <= 255) {
     //		for (int i = 0; i < 4; i++) {
     //			for (int j = 0; j < 4; j++) {
-    //				_papapChipBoard[i]->_paVertex[j].color = D3DCOLOR_ARGB(_frame_of_life,255,255,255);
+    //				_papapChipBoard[i]->_paVertex[j].color = D3DCOLOR_ARGB(_frame_of_active,255,255,255);
     //			}
     //		}
     //	}
     //フェードイン
-//    if (0 < _frame_of_life && _frame_of_life <= 255) {
+//    if (0 < _frame_of_active && _frame_of_active <= 255) {
 //        for (int i = 0; i < 4; i++) {
-//            _papapChipBoard[i]->setAlpha(float(_frame_of_life / 255.0));
+//            _papapChipBoard[i]->setAlpha(float(_frame_of_active / 255.0));
 //        }
 //    }
 
