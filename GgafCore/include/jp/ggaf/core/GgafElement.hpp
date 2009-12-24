@@ -646,6 +646,11 @@ void GgafElement<T>::nextFrame() {
             _on_change_to_active_flg = true;
             onActive(); //コールバック
         }
+        //生まれてそのままならば、一回onActive();
+        if (_is_active_flg && _frame_of_life == 1) {
+            _on_change_to_active_flg = true;
+            onActive(); //コールバック
+        }
 
         //フラグたちを反映
         _is_active_flg   = _is_active_flg_in_next_frame;
