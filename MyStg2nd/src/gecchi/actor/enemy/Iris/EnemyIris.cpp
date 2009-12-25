@@ -26,12 +26,29 @@ void EnemyIris::onActive() {
     if (_pProgram_IrisMove) {
         _pMover->executeSplineMoveProgram(_pProgram_IrisMove, 0); //スプライン移動をプログラムしておく
     }
+    _iMovePatternNo = 0;
 }
 
 void EnemyIris::processBehavior() {
-
-    //座標に反映
+    //スプライン移動中
+    if (_iMovePatternNo == 0 && !(_pProgram_IrisMove->isExecuting())) {
+        _iMovePatternNo++;
+    }
+    //スプライン移動終了
+    if (_iMovePatternNo == 1) {
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, _Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
+        _iMovePatternNo++;
+    }
+    //自機とZ軸が接近
+    if (_iMovePatternNo == 2) {
+        if (_Z-20000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+20000) {
+            _pMover->executeTagettingMoveAngleSequence(MyShip::_lim_behaind - 500000 , _Y, _Z, 2000, TURN_CLOSE_TO);
+            _pMover->setMoveVeloAcceleration(100);
+            _iMovePatternNo++;
+        }
+    }
     _pMover->behave();
+
 }
 
 void EnemyIris::processJudgement() {
