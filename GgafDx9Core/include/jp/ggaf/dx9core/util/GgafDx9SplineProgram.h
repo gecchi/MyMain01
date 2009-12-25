@@ -68,6 +68,14 @@ public:
      */
     virtual void behave();
 
+    /**
+     * スプライン移動プログラム実行中か
+     * @return true:実行中 / false:実行が終了している
+     */
+    bool isExecuting() {
+        return _is_executing;
+    }
+
     virtual ~GgafDx9SplineProgram();
 };
 

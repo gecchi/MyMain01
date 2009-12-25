@@ -620,6 +620,32 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void executeTagettingRyMoveAngleSequence(angle prm_angRy_Target, angvelo prm_angVelocity, int prm_way);
 
+
+    /**
+     * 目標軸回転方角にターゲットするシークエンスが実行中か .
+     * @return true:実行中/false:実行中でない
+     */
+    bool isExecutingTagettingFaceAngle() {
+        if (_face_angle_targeting_flg[AXIS_X] ||
+            _face_angle_targeting_flg[AXIS_Y] ||
+            _face_angle_targeting_flg[AXIS_Z]) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
+     * 目標移動方角にターゲットするシークエンスが実行中か .
+     * @return true:実行中/false:実行中でない
+     */
+    bool isExecutingTagettingMoveAngle() {
+        if (_move_angle_rz_target_flg || _move_angle_rz_target_flg) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     /**
      * 毎フレームのActorの振る舞い。<BR>
      * 本クラスを利用する場合は、このbehave() を毎フレーム実行します。<BR>
