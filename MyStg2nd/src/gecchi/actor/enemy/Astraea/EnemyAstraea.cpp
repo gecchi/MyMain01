@@ -33,7 +33,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
                 pChip->inactivateImmediately();
                 _papapLaserChipDispatcher[i][j]->addLaserChip(pChip);
             }
-            accept(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]); //‰¼Š‘®
+            addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]); //‰¼Š‘®
         }
     }
 
@@ -51,7 +51,7 @@ void EnemyAstraea::initialize() {
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {
-//            getLordActor()->accept(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //–{Š‘®
+//            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //–{Š‘®
 //        }
 //    }
 }

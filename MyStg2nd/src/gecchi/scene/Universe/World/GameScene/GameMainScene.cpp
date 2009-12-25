@@ -13,11 +13,11 @@ using namespace MyStg2nd;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "moji");
-    getLordActor()->accept(KIND_EFFECT, _pStringBoard_SCORE);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_SCORE);
     _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "moji");
-    getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
-    getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
     _pStage01 = NULL;
     _pStage02 = NULL;
     _pStage03 = NULL;

@@ -21,7 +21,7 @@ void World::initialize() {
     addSubLast(pGameScene);
 #ifdef OREDEBUG
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
-    getLordActor()->accept(KIND_EFFECT, pDispFpsActor);
+    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif
     //‰ŠúƒJƒƒ‰ˆÊ’u
     int max_cam_veloMove = pMYSHIP->_iMoveSpeed * 0.99;

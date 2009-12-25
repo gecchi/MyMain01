@@ -12,10 +12,10 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     Sleep(2);
     _pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
     _pBackGround01->inactivateTree();
-    getLordActor()->accept(KIND_EFFECT, _pBackGround01);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pBackGround01);
     _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
     _pBackGroundStar->inactivateTree();
-    getLordActor()->accept(KIND_EFFECT, _pBackGroundStar);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pBackGroundStar);
     _angCamZX_prev = 0;
     _angCamXY_prev = 0;
 

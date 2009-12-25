@@ -1,7 +1,7 @@
 #ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
-#define RANK (GameGlobal::_iRank)
+#define _RANK_ (GameGlobal::_rank)
 #define pMYSHIP (GameGlobal::_pMyShip)
 #define pCOMMONSCENE (GameGlobal::_pSceneCommon)
 #define pGAMESCENE (GameGlobal::_pSceneGame)
@@ -15,7 +15,7 @@ public:
     /** ステージ */
     static int _iScene;
     /** ランク */
-    static int _iRank;
+    static double _rank;
 
     /** 自機へのポインタ */
     static MyShip* _pMyShip;

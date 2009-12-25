@@ -182,7 +182,7 @@ class Formation001;
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"
-
+#include "gecchi/actor/enemy/Iris/FormationIris001.h"
 
 
 #include "gecchi/magic/Magic.h"

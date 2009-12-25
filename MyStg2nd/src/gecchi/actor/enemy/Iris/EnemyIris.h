@@ -3,22 +3,18 @@
 namespace MyStg2nd {
 
 /**
- * イリス
- * 2009/12/22
+ * 敵機イリス .
+ * @version 1.00
+ * @since 2009/12/22
+ * @author Masatoshi Tsuge
  */
 class EnemyIris : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     int _iMovePatternNo;
 
-    /** Iris共通スプラインA */
-    static GgafDx9Core::GgafDx9Spline3D _spIris_A;
-    /** Iris共通スプラインB */
-    static GgafDx9Core::GgafDx9Spline3D _spIris_B;
-    /** スプラインプログラムA */
-    GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMoveA;
-    /** スプラインプログラムB */
-    GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMoveB;
+    /** スプラインプログラム */
+    GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMove;
 
     EnemyIris(const char* prm_name);
 
@@ -31,8 +27,6 @@ public:
     void processJudgement();
 
     void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
-
-
 
     virtual ~EnemyIris();
 };

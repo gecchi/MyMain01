@@ -8,9 +8,9 @@ using namespace MyStg2nd;
 GameDemoScene::GameDemoScene(const char* prm_name) : DefaultScene(prm_name) {
     setProgress(GAMEDEMO_PROG_INIT);
     _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "moji");
-    getLordActor()->accept(KIND_EFFECT, _pStringBoard01);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
-    getLordActor()->accept(KIND_EFFECT, _pStringBoard02);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
 
 //    orderActorToFactory(111111, TamagoActor, "TAMAGO_X");
 }
@@ -33,7 +33,7 @@ void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
 
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
-//        getLordActor()->accept(KIND_ENEMY_BODY, pActor);
+//        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);
 
         //自機表示
         GameGlobal::_pSceneCommon->_pMyShip->activate(); //下位にオプション等があるし
@@ -41,7 +41,7 @@ void GameDemoScene::processBehavior() {
         //TODO:kesu
         //テスト
         TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(1111);
-        getLordActor()->accept(KIND_ENEMY_BODY,  pActor);
+        getLordActor()->addSubGroup(KIND_ENEMY_BODY,  pActor);
 
         setProgress(GAMEDEMO_PROG_BEGIN);
     }
