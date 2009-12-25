@@ -93,7 +93,7 @@ public:
      * @param   prm_kind    種別名（＝GgafHeadActor名）
      * @param   prm_pMainActor   登録するアクター
      */
-    void accept(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
      * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
@@ -101,7 +101,7 @@ public:
      * 本関数はの部的処理は prm_pActor を GgafHeadActor の子アクターとしているだけである。<BR>
      * @param   prm_pMainActor   登録するアクター
      */
-    void accept(GgafMainActor* prm_pMainActor);
+    void addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
      * サブの団長アクターを取得、無ければNULLを帰す

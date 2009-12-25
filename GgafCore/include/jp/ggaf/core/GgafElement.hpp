@@ -34,7 +34,7 @@ public:
     bool _was_initialize_flg;
 
     /** 余命 */
-    DWORD _dwGodFrame_when_goodbye;
+    DWORD _frame_of_life_when_adios;
     /** 相対フレーム計算用 */
     DWORD _frame_relative;
     /** ノード活動フラグ */
@@ -57,14 +57,14 @@ public:
     bool _will_move_last_in_next_frame_flg;
 
     /** あとで活動予約フラグ */
-    bool _will_activate_after_a_few_frames_flg;
-    /** あとで活動までの残フレーム数（神フレームと一致したら活動） */
-    DWORD _frame_of_activation;
+    bool _will_activate_after_flg;
+    /** あとで活動までの残フレーム数 */
+    DWORD _frame_of_life_when_activation;
 
     /** あとで非活動予約フラグ */
-    bool _will_inactivate_after_a_few_frames_flg;
-    /** あとで停止の残フレーム数（神フレームと一致したら停止） */
-    DWORD _frame_of_inactivation;
+    bool _will_inactivate_after_flg;
+    /** あとで停止の残フレーム数 */
+    DWORD _frame_of_life_when_inactivation;
 
     /** ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
     bool _on_change_to_active_flg;
@@ -74,6 +74,8 @@ public:
 
 
     /** ノードが誕生(addSubされた）時からのフレーム */
+    DWORD _frame_of_life;
+
     DWORD _frame_of_active;
 
     /**
@@ -485,6 +487,7 @@ public:
      * インスタンスがすぐに解放されないことに注意。今はさよならするだけ。<BR>
      * 注意：さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
      * これは本メソッドで、GgafGarbageRootActorに所属するためです。<BR>
+     * @param prm_frame_offset 予約猶予フレーム
      */
     void adios(DWORD prm_frame_offset = 0);
 
@@ -578,11 +581,11 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
-            _pGod(NULL), _was_initialize_flg(false), _dwGodFrame_when_goodbye(MAXDWORD), _frame_of_active(0),
+            _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_adios(MAXDWORD), _frame_of_life(0), _frame_of_active(0),
             _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
             _can_live_flg_in_next_frame(true), _will_move_first_in_next_frame_flg(false), _will_move_last_in_next_frame_flg(false),
-            _will_activate_after_a_few_frames_flg(false), _frame_of_activation(0), _will_inactivate_after_a_few_frames_flg(false), _frame_of_inactivation(0),
+            _will_activate_after_flg(false), _frame_of_life_when_activation(0), _will_inactivate_after_flg(false), _frame_of_life_when_inactivation(0),
             _on_change_to_active_flg(false), _on_change_to_inactive_flg(false) {
 }
 
@@ -591,12 +594,13 @@ void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _frame_of_active=" << _frame_of_active << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
     _was_paused_flg  = _was_paused_flg_in_next_frame;
+    DWORD godframe = askGod()->_godframe;
     if (_was_paused_flg) {
         return;
     }
 
     //死の時か
-    if (_dwGodFrame_when_goodbye == (askGod()->_godframe)) {
+    if (_frame_of_life_when_adios == _frame_of_life+1) {
         _is_active_flg_in_next_frame = false;
         _can_live_flg_in_next_frame = false;
     }
@@ -612,22 +616,23 @@ void GgafElement<T>::nextFrame() {
             _was_initialize_flg = true;
         }
 
+        _frame_of_life++;
         if (_can_live_flg) {
-            if (_will_activate_after_a_few_frames_flg) {
+            if (_will_activate_after_flg) {
                 //遅延play処理
-                if (_frame_of_active >= _frame_of_activation) {
+                if (_frame_of_life >= _frame_of_life_when_activation) {
                     activate();
-                    _frame_of_activation = 0;
-                    _will_activate_after_a_few_frames_flg = false;
+                    _frame_of_life_when_activation = 0;
+                    _will_activate_after_flg = false;
                 }
             }
 
-            if (_will_inactivate_after_a_few_frames_flg) {
+            if (_will_inactivate_after_flg) {
                 //遅延stop処理
-                if (_frame_of_active == _frame_of_inactivation) {
+                if (_frame_of_life == _frame_of_life_when_inactivation) {
                     inactivate();
-                    _frame_of_inactivation = 0;
-                    _will_inactivate_after_a_few_frames_flg = false;
+                    _frame_of_life_when_inactivation = 0;
+                    _will_inactivate_after_flg = false;
                 }
             }
             if (_is_active_flg) {
@@ -939,8 +944,8 @@ void GgafElement<T>::activateTreeImmediately() {
 
 template<class T>
 void GgafElement<T>::activateAfter(DWORD prm_frame_offset) {
-    _will_activate_after_a_few_frames_flg = true;
-    _frame_of_activation = _frame_of_active + prm_frame_offset;
+    _will_activate_after_flg = true;
+    _frame_of_life_when_activation = _frame_of_life + prm_frame_offset;
 }
 
 template<class T>
@@ -970,8 +975,8 @@ void GgafElement<T>::inactivateTree() {
 
 template<class T>
 void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
-    _will_inactivate_after_a_few_frames_flg = true;
-    _frame_of_inactivation = _frame_of_active + prm_frame_offset;
+    _will_inactivate_after_flg = true;
+    _frame_of_life_when_inactivation = _frame_of_life + prm_frame_offset;
 }
 
 template<class T>
@@ -1118,7 +1123,7 @@ void GgafElement<T>::unpauseImmediately() {
 template<class T>
 void GgafElement<T>::adios(DWORD prm_frame_offset) {
 
-    _dwGodFrame_when_goodbye = (askGod()->_godframe) + prm_frame_offset + 1;
+    _frame_of_life_when_adios = _frame_of_life + prm_frame_offset + 1;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {

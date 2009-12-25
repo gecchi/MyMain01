@@ -84,7 +84,7 @@ public:
     virtual GgafHeadActor* getHeadActor();
 
 
-    void accept(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     GgafHeadActor* getSubHeadActor(actorkind prm_kind);
     /**

@@ -89,9 +89,9 @@ GgafLordActor* GgafMainActor::getLordActor() {
 
 
 
-void GgafMainActor::accept(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
+void GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pLordActor != NULL) {
-        //_TRACE_("【警告】GgafLordActor::accept("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
+        //_TRACE_("【警告】GgafLordActor::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
         prm_pMainActor->extract();
     }
     GgafHeadActor* pSubHeadActor = getSubHeadActor(prm_kind);
