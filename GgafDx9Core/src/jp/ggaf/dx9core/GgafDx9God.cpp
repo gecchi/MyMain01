@@ -93,7 +93,7 @@ HRESULT GgafDx9God::init() {
     //_structD3dPresent_Parameters.EnableAutoDepthStencil = FALSE;
     //_structD3dPresent_Parameters.AutoDepthStencilFormat = 0;
     _structD3dPresent_Parameters.EnableAutoDepthStencil = 1; //Z バッファの自動作成
-    _structD3dPresent_Parameters.AutoDepthStencilFormat = D3DFMT_D16;
+    _structD3dPresent_Parameters.AutoDepthStencilFormat = D3DFMT_D24S8;//D3DFMT_D16;
     //0にしておく
     _structD3dPresent_Parameters.Flags = 0;
     //フルスクリーンでのリフレッシュレート(ウィンドウモードなら0を指定)
@@ -301,13 +301,13 @@ HRESULT GgafDx9God::initDx9Device() {
 //   GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
 
     // Zバッファを有効に
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
     //Zバッファ書き込み可
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     //D3DRENDERSTATE_ZFUNC
 
@@ -320,9 +320,9 @@ HRESULT GgafDx9God::initDx9Device() {
 
 
     //左（反時計回り）回りにカリング ∵左手座標系
-    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);
     //カリングしない
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE);
 
     // ディザリング
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DITHERENABLE, TRUE );

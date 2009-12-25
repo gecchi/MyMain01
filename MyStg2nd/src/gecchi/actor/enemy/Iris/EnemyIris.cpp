@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshActor(prm_name, "Iris") {
+EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris") {
     _class_name = "EnemyIris";
     _iMovePatternNo = 0;
     _pProgram_IrisMove = NULL;
@@ -15,6 +15,7 @@ void EnemyIris::initialize() {
     setBumpable(true);
     _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
     _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
+    _pMover->setFaceAngleVelocity(AXIS_X, 4000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 99999, 99999, 99999);

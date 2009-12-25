@@ -2718,22 +2718,22 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
         //ÅŒã‚É–@ü³‹K‰»‚µ‚Äİ’è
-        static D3DXVECTOR3 vec;
-        for (int i = 0; i < nVertices; i++) {
-            vec.x = unit_paVtxBuffer_org[i].nx;
-            vec.y = unit_paVtxBuffer_org[i].ny;
-            vec.z = unit_paVtxBuffer_org[i].nz;
-            if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
-                unit_paVtxBuffer_org[i].nx = 0;
-                unit_paVtxBuffer_org[i].ny = 0;
-                unit_paVtxBuffer_org[i].nz = 0;
-            } else {
-                D3DXVec3Normalize( &vec, &vec);
-                unit_paVtxBuffer_org[i].nx = vec.x;
-                unit_paVtxBuffer_org[i].ny = vec.y;
-                unit_paVtxBuffer_org[i].nz = vec.z;
-            }
-        }
+//        static D3DXVECTOR3 vec;
+//        for (int i = 0; i < nVertices; i++) {
+//            vec.x = unit_paVtxBuffer_org[i].nx;
+//            vec.y = unit_paVtxBuffer_org[i].ny;
+//            vec.z = unit_paVtxBuffer_org[i].nz;
+//            if (vec.x == 0 && vec.y == 0 && vec.z == 0) {
+//                unit_paVtxBuffer_org[i].nx = 0;
+//                unit_paVtxBuffer_org[i].ny = 0;
+//                unit_paVtxBuffer_org[i].nz = 0;
+//            } else {
+//                D3DXVec3Normalize( &vec, &vec);
+//                unit_paVtxBuffer_org[i].nx = vec.x;
+//                unit_paVtxBuffer_org[i].ny = vec.y;
+//                unit_paVtxBuffer_org[i].nz = vec.z;
+//            }
+//        }
         TRACE3("–@ü³‹K‰»Œã----------------------------");
         for (int i = 0; i < nVertices; i++) {
             TRACE3("["<<i<<"]=" << unit_paVtxBuffer_org[i].x << "\t, " << unit_paVtxBuffer_org[i].y << "\t, " << unit_paVtxBuffer_org[i].z << "\t, " << unit_paVtxBuffer_org[i].nx << "\t, " << unit_paVtxBuffer_org[i].ny << "\t, " << unit_paVtxBuffer_org[i].nz << "\t, " << unit_paVtxBuffer_org[i].tu << "\t, " << unit_paVtxBuffer_org[i].tv);
