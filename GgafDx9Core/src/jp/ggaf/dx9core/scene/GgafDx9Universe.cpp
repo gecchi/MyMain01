@@ -21,7 +21,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
     _pCamera = NEW GgafDx9Camera("CAMERA", PI * 7.0f / 18.0f );
-    getLordActor()->accept(_pCamera);
+    getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
 
