@@ -2,19 +2,6 @@
 #define GGAFDX9MORPHMESHMODEL_H_
 namespace GgafDx9Core {
 
-
-// このクラスは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
-// を元に、独自に修正（やデバッグ）したクラスを使用しています。
-// ありがとう Paul。
-//
-// 【対象】
-// Frm 名前空間のクラス
-//
-// 【Loading and displaying .X files without DirectX 】
-// http://www.gamedev.net/reference/programming/features/xfilepc/
-//
-//                                         2009/03/06 Masatoshi Tsuge
-
 /**
  * GgafDx9MorphMeshModel用のモデルクラス.
  * GgafDx9MorphMeshModel は GgafDx9MeshModel の描画する機能に加え、モーフアニメーション機能を有するモデルです。<BR>

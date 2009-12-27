@@ -26,7 +26,7 @@ void GameDemoScene::initialize() {
     setProgress(GAMEDEMO_PROG_INIT);
     //TODO:kesu
     //テスト
-    orderActorToFactory(1111, TamagoActor, "TEST_TamagoActor");
+    //orderActorToFactory(1111, TamagoActor, "TEST_TamagoActor");
 }
 
 void GameDemoScene::processBehavior() {
@@ -40,8 +40,8 @@ void GameDemoScene::processBehavior() {
 
         //TODO:kesu
         //テスト
-        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(1111);
-        getLordActor()->addSubGroup(KIND_ENEMY_BODY,  pActor);
+//        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(1111);
+//        getLordActor()->addSubGroup(KIND_ENEMY_BODY,  pActor);
 
         setProgress(GAMEDEMO_PROG_BEGIN);
     }

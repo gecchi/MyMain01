@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/12/22
  * @author Masatoshi Tsuge
  */
-class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
+class EnemyIris : public GgafDx9LibStg::DefaultD3DXMeshActor {
 
 public:
     int _iMovePatternNo;
