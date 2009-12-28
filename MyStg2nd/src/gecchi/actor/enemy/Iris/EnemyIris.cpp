@@ -87,9 +87,9 @@ void EnemyIris::processBehavior() {
 }
 
 void EnemyIris::processJudgement() {
-//    if (isOutOfGameSpace()) {
-//        adios();
-//    }
+    if (isOutOfGameSpace()) {
+        adios();
+    }
 }
 
 void EnemyIris::processOnHit(GgafActor* prm_pActor_Opponent) {

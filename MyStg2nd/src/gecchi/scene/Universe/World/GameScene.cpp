@@ -28,10 +28,6 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pGameMain->inactivate();
     _pGameEnding->inactivate();
 
-
-    _pDispatcherManager = NEW DispatcherManager("DispatcherManager");
-
-
 }
 
 void GameScene::initialize() {
@@ -184,5 +180,4 @@ void GameScene::processFinal() {
 }
 
 GameScene::~GameScene() {
-    DELETE_IMPOSSIBLE_NULL(_pDispatcherManager);
 }

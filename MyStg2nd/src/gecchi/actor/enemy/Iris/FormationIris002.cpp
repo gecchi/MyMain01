@@ -35,7 +35,7 @@ FormationIris002::FormationIris002(const char* prm_name) : FormationActor(prm_na
         addSubGroup(KIND_ENEMY, _papIris[i]);
     }
 
-    _pDispatcherCon = (DispatcherConnection*)pGAMESCENE->_pDispatcherManager->connect("Shot001");
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
 
 }
 

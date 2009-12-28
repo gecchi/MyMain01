@@ -112,6 +112,7 @@ class FormationIris002;
 class DispatcherManager;
 class DispatcherConnection;
 
+class TestDispatcher;
 
 class Magic;
 class DefaultMagic;
@@ -202,6 +203,6 @@ class Formation001;
 #include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
-
+#include "gecchi/actor/common/TestDispatcher.h"
 
 #endif /*MYSTG2NDHEADER_H_*/

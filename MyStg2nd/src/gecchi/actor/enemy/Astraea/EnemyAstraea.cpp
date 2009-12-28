@@ -12,7 +12,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _Y = 0;
     _Z = 0;
     _laser_length = 30;
-    _shot_interval = 100;
+    _shot_interval = 110;
     _angveloTurn = 3000;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
@@ -26,7 +26,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
-            for (int k = 0; k < _laser_length*6; k++) { //_laser_length の２倍分ストック
+            for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
                 stringstream name;
                 name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
@@ -37,7 +37,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-    useSe1("tama1", pWORLD->_frame_of_active); //レーザー発射
+    useSe1("yume_Sbend", pWORLD->_frame_of_active); //レーザー発射
     useSe2("bomb1");     //爆発
 }
 
@@ -141,10 +141,11 @@ void EnemyAstraea::processBehavior() {
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
 
         for (int i = 0; i < _laser_way; i++) {
-            if (i == 0) {
-                playSe1(); //発射音
-            }
+
             for (int j = 0; j < _laser_way; j++) {
+                if (i == 0 && j == 0) {
+                    playSe1(); //発射音
+                }
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
                     pLaserChip->activate();
