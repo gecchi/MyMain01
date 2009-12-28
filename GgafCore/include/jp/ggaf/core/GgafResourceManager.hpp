@@ -162,12 +162,12 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         pObj = createResourceConnection(prm_idstr, pResource);
         pObj->_num_connection = 1;
         add(pObj);
-        TRACE3("GgafResourceManager<T>::getConnection [" << _manager_name << "]" << prm_idstr << "‚Í–³‚¢‚Ì‚ÅAV‹Kì¬‚µ‚Ä•ÛŽ‚ÉŒˆ’è");
+        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "‚Í–³‚¢‚Ì‚ÅAV‹Kì¬‚µ‚Ä•ÛŽ‚ÉŒˆ’è");
         return pObj;
     } else {
         //¶¬Ï‚Ý‚È‚ç‚»‚ê‚ð•Ô‚·BÚ‘±ƒJƒEƒ“ƒ^‚ð{‚P
         pObj->_num_connection++;
-        TRACE3("GgafResourceManager<T>::getConnection [" << _manager_name << "]" << prm_idstr << "‚Í‚ ‚é‚Ì‚ÅÚ‘±ƒJƒEƒ“ƒg{‚P." << pObj->_num_connection);
+        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "‚Í‚ ‚é‚Ì‚ÅÚ‘±ƒJƒEƒ“ƒg{‚P." << pObj->_num_connection);
         return pObj;
     }
 }
