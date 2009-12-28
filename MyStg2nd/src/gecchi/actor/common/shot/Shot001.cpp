@@ -16,8 +16,8 @@ void Shot001::initialize() {
 }
 
 void Shot001::onActive() {
-    _pMover->setMoveVelocity(10000*_RANK_);
-    _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_);
+    _pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
+    _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚İ‹ï‡
 }
 
 void Shot001::processBehavior() {

@@ -30,6 +30,9 @@ public:
 
     CommonScene* _pCommonScene;
 
+
+    DispatcherManager* _pDispatcherManager;
+
     GameScene(const char* prm_name);
     virtual ~GameScene();
 

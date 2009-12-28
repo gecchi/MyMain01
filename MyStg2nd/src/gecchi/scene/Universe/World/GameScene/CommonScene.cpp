@@ -14,17 +14,6 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
         _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
     }
 
-    //Shot001
-    {
-        _pDispatcher_Shot001 = NEW ActorDispatcher("DP_Shot001");
-        getLordActor()->addSubGroup(KIND_ENEMY_SHOT_GU, _pDispatcher_Shot001);
-        Shot001* pShot001;
-        for (int i = 0; i < 100; i++) { //ストック100個
-            pShot001 = NEW Shot001("EnemyCeresShot001");
-            pShot001->inactivateImmediately();
-            _pDispatcher_Shot001->addSubLast(pShot001);
-        }
-    }
 
     { //EnemyShot001
         _pDispatcher_EnemyShots001 = NEW ActorDispatcher("TAMAS001");

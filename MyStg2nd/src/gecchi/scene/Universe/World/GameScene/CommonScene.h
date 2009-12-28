@@ -13,7 +13,6 @@ public:
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyShots001;
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_EffectExplosion001;
 
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_Shot001;
 
     CommonScene(const char* prm_name);
     /**

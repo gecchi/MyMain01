@@ -51,7 +51,7 @@ void EnemyIris::processBehavior() {
             GgafDx9DrawableActor* pActor;
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                if (pActor != NULL) {
+                if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->setRzRyMoveAngle(-ANGLE180 + aAngWay[i], ANGLE90);
                     pActor->activate();
@@ -60,7 +60,9 @@ void EnemyIris::processBehavior() {
             //ショット発射エフェクト
             if (_pDispatcher_ShotEffect) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                pActor->setGeometry(_X, _Y, _Z);
+                if (pActor) {
+                    pActor->setGeometry(_X, _Y, _Z);
+                }
             }
 
         }

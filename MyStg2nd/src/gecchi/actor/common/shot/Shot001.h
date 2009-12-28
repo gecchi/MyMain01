@@ -3,8 +3,11 @@
 namespace MyStg2nd {
 
 /**
- * 3D“G’e001 .
- * “™‘¬‚Å‚Ü‚Á‚·‚®”ò‚Ô<BR>
+ * ”Ä—p“G’e001(¬) .
+ * “™‘¬’¼üˆÚ“®<BR>
+ * @version 1.00
+ * @since 2009/12/28
+ * @author Masatoshi Tsuge
  */
 class Shot001 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:

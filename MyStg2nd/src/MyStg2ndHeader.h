@@ -109,7 +109,8 @@ class EnemyIris;
 class FormationIris001;
 class FormationIris002;
 
-
+class DispatcherManager;
+class DispatcherConnection;
 
 
 class Magic;
@@ -197,8 +198,8 @@ class Formation001;
 #include "gecchi/magic/OptionMagic.h"
 #include "gecchi/util/Properties.h"
 #include "gecchi/MyFactory.h"
-
-
+#include "gecchi/manager/DispatcherManager.h"
+#include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
 
 

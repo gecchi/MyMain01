@@ -34,17 +34,21 @@ FormationIris002::FormationIris002(const char* prm_name) : FormationActor(prm_na
         _papIris[i]->inactivateImmediately();
         addSubGroup(KIND_ENEMY, _papIris[i]);
     }
+
+    _pDispatcherCon = (DispatcherConnection*)pGAMESCENE->_pDispatcherManager->connect("Shot001");
+
 }
 
 void FormationIris002::initialize() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zright * 0.8);
         _papIris[i]->_pMover->setMoveVelocity(_move_velocity);
-        _papIris[i]->setDispatcher_Shot(pCOMMONSCENE->_pDispatcher_Shot001);
+        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view());
         _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 
 FormationIris002::~FormationIris002() {
+    _pDispatcherCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_papIris);
 }
