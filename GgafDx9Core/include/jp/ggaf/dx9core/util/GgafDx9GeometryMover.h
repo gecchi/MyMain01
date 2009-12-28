@@ -194,7 +194,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度 */
     angvelo _move_angle_rz_target_allow_velocity;
     /** 自動前方向き機能有効フラグ */
-    bool _synchronize_RzFaceAngle_to_RzMoveAngle_flg;
+    bool _relate_RzFaceAngle_to_RzMoveAngle_flg;
     //true  : 移動方角（Z軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Z軸)にも設定される
     //false : 移動方角（Z軸回転）とZ軸軸回転方角は独立
 
@@ -215,7 +215,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /** 目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度 */
     int _move_angle_ry_target_allow_velocity;
     /** 自動前方向き機能有効フラグ */
-    bool _synchronize_RyFaceAngle_to_RyMoveAngle_flg;
+    bool _relate_RyFaceAngle_to_RyMoveAngle_flg;
     //true  : 移動方角（Y軸回転）を変更すると、それに伴い同じ方角が軸回転方角(Y軸)にも設定される
     //false : 移動方角（Y軸回転）とY軸軸回転方角は独立
 
@@ -260,7 +260,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * Actorの移動方角（Z軸回転）を設定。<BR>
      * 加算後の移動方角（Z軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
-     * 自動前方向き機能が有効(_synchronize_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
      * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
      *
      * @param	prm_angRzMove	移動方角（Z軸回転）(0～360,000)
@@ -269,7 +269,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの移動方角（Z軸回転）を現在XY座標からの対象XY座標への方向を割り出し、設定する。<BR>
-     * 自動前方向き機能が有効(_synchronize_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xZ軸座標
@@ -289,7 +289,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *   _angveloRzBottomMove ≦ 引数の動方角増分 ≦ _angveloRzTopMove  です。<BR>
      *
      * もし範囲外の引数の移動方角（Z軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
-     * また、自動前方向き機能が有効(_synchronize_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
+     * また、自動前方向き機能が有効(_relate_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
      * 加算後の移動方角（Z軸回転）の値が、Z軸の目標の軸回転方角として設定されます。（自動で前方を向くに設定されます。但し前方＝アングル0のキャラの場合ですけど；）<BR>
      *
      * 【補足：】<BR>
@@ -358,7 +358,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * Actorの移動方角（Y軸回転）を設定。<BR>
      * 加算後の移動方角（Y軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
-     * 自動前方向き機能が有効(_synchronize_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
      * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
      *
      * @param	prm_angRyMove	移動方角（Y軸回転）(0～360,000)
@@ -367,7 +367,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * Actorの移動方角（Y軸回転）を現在Y軸座標からの対象Y軸座標への方向を割り出し、設定する。<BR>
-     * 自動前方向き機能が有効(_synchronize_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
+     * 自動前方向き機能が有効(_relate_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
      * ActorのZ軸方角（向き）も移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) が実行されます。<BR>
      *
      * @param	prm_tX	対象xY軸座標
@@ -387,7 +387,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      *   _angveloRyBottomMove ≦ 引数の動方角増分 ≦ _angveloRyTopMove  です。<BR>
      *
      * もし範囲外の引数の移動方角（Y軸回転）増分を指定した場合は、直近の範囲内の値に強制的に抑えられ、その値が加算されます。<BR>
-     * また、自動前方向き機能が有効(_synchronize_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
+     * また、自動前方向き機能が有効(_relate_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
      * 加算後の移動方角（Y軸回転）の値が、Z軸の目標の軸回転方角として設定されます。（自動で前方を向くに設定されます。但し前方＝アングル0のキャラの場合ですけど；）<BR>
      *
      * 【補足：】<BR>
@@ -504,9 +504,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                            angvelo prm_angVelocity,
                                            int prm_way);
     /**
-     * 軸回転方角を目標にターゲットするシークエンスを実行 .
+     * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angRy_Target 目標軸回転方角(Y軸)
+     * @param prm_angRy_Target 目標軸回転方角(
      * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
@@ -515,9 +515,9 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                            angvelo prm_angVelocity, int prm_way);
 
     /**
-     * 軸回転方角を目標にターゲットの座標にするシークエンスを実行
+     * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelocity ターゲット遂行中に許される角速度
+     * @param prm_angVelocity ターゲッティング遂行中に許される角速度
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -532,8 +532,6 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                 prm_way
         );
     }
-
-
 
 
     /**
@@ -554,9 +552,13 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      */
     void executeTagettingRyFaceAngleSequence(angle prm_angRy_Target, angvelo prm_angVelocity, int prm_way);
 
-
-
-
+    /**
+     * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
+     * @param prm_angRy_Target 目標軸回転方角(X軸)
+     * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
+     * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
+     *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     */
     void executeTagettingRxSpinAngleSequence(angle prm_angRx_Target, angvelo prm_angVelocity, int prm_way);
 
 
@@ -586,7 +588,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelocity ターゲット遂行中に許される角速度
+     * @param prm_angVelocity ターゲッティング遂行中に許される角速度
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -646,6 +648,20 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
             return false;
         }
     }
+
+
+    /**
+     * 移動方角に伴って軸回転方角を更新 .
+     * true を設定すると、自動的に移動方角の方に向きが変わる。
+     * false を設定すると、移動方角と向きは独立。
+     * @param prm_b true:移動方角に伴って軸回転方角を更新/false:移動方角と軸回転方角は独立
+     */
+    void relateRzRyFaceAngleToMoveAngle(bool prm_b) {
+        _relate_RyFaceAngle_to_RyMoveAngle_flg = prm_b;
+        _relate_RzFaceAngle_to_RzMoveAngle_flg = prm_b;
+    }
+
+
     /**
      * 毎フレームのActorの振る舞い。<BR>
      * 本クラスを利用する場合は、このbehave() を毎フレーム実行します。<BR>

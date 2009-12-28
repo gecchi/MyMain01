@@ -149,7 +149,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     //目標の移動方角（Z軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _move_angle_rz_target_allow_velocity = ANGLE180;
     //移動方角（Z軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _synchronize_RzFaceAngle_to_RzMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    _relate_RzFaceAngle_to_RzMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 
     //移動方角（Y軸回転）の角速度 = 0 angle/fream
     _angveloRyMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
@@ -168,7 +168,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     //目標の移動方角（Y軸回転）自動停止機能が有効になる移動方角角速度(角速度正負共通)
     _move_angle_ry_target_allow_velocity = ANGLE180;
     //移動方角（Y軸回転）に伴いZ軸回転方角の同期を取る機能フラグ ＝ 無効
-    _synchronize_RyFaceAngle_to_RyMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
+    _relate_RyFaceAngle_to_RyMoveAngle_flg = false; //有効の場合は、移動方角を設定するとZ軸回転方角が同じになる。
 
     //X軸方向移動速度（X移動座標増分）＝ 0 px/fream
     _veloVxMove = 0;
@@ -631,7 +631,7 @@ void GgafDx9GeometryMover::setRzMoveAngle(angle prm_angle) {
         _angRzMove = simplifyAngle(prm_angle);
         GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
     }
-    if (_synchronize_RzFaceAngle_to_RzMoveAngle_flg) {
+    if (_relate_RzFaceAngle_to_RzMoveAngle_flg) {
         setFaceAngle(AXIS_Z, _angRzMove);
     }
 }
@@ -818,7 +818,7 @@ void GgafDx9GeometryMover::setRyMoveAngle(angle prm_angle) {
         _angRyMove = simplifyAngle(prm_angle);
         GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
     }
-    if (_synchronize_RyFaceAngle_to_RyMoveAngle_flg) {
+    if (_relate_RyFaceAngle_to_RyMoveAngle_flg) {
         setFaceAngle(AXIS_Y, _angRyMove);
     }
 }
@@ -1003,10 +1003,10 @@ void GgafDx9GeometryMover::setRzRyMoveAngle(angle prm_angRz, angle prm_angRy) {
         _angRyMove = simplifyAngle(prm_angRy);
         GgafDx9Util::getNormalizeVectorZY(_angRzMove, _angRyMove, _vX, _vY, _vZ);
     }
-    if (_synchronize_RzFaceAngle_to_RzMoveAngle_flg) {
+    if (_relate_RzFaceAngle_to_RzMoveAngle_flg) {
         setFaceAngle(AXIS_Z, _angRzMove);
     }
-    if (_synchronize_RyFaceAngle_to_RyMoveAngle_flg) {
+    if (_relate_RyFaceAngle_to_RyMoveAngle_flg) {
         setFaceAngle(AXIS_Y, _angRyMove);
     }
 
