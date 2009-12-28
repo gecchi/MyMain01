@@ -1,0 +1,50 @@
+#include "stdafx.h"
+using namespace std;
+using namespace GgafCore;
+using namespace GgafDx9Core;
+using namespace GgafDx9LibStg;
+using namespace MyStg2nd;
+
+GgafDx9Spline3D FormationIris002::_sp;
+
+FormationIris002::FormationIris002(const char* prm_name) : FormationActor(prm_name) {
+    _class_name = "FormationIris002";
+    _num_Iris       = 7*_RANK_;    //編隊数
+    _frame_interval = 25*_RANK_;   //イリスの間隔(frame)
+    _move_velocity  = 8000*_RANK_; //速度
+    //スプライン移動の定義
+    if (FormationIris002::_sp._num_basepoint == 0) {
+        //後方から
+        double p[][3] = { //           X  ,                          Y ,                         Z
+           { MyShip::_lim_behaind - 500000 ,                       0.0 , MyShip::_lim_zright * 0.8 },
+           {      MyShip::_lim_front * 0.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
+           {      MyShip::_lim_front * 1.5 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
+           {      MyShip::_lim_front * 1.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
+           {      MyShip::_lim_front * 1.0 ,                       0.0 ,                       0.0 }
+        };
+        FormationIris002::_sp.init(p, 5, 0.2); //粒度 0.2
+    }
+
+    //イリス編隊作成
+    _papIris = NEW EnemyIris*[_num_Iris];
+    for (int i = 0; i < _num_Iris; i++) {
+        _papIris[i] = NEW EnemyIris("Iris01");
+        _papIris[i]->_pProgram_IrisMove =
+                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris002::_sp, 2000); //移動速度固定
+        _papIris[i]->inactivateImmediately();
+        addSubGroup(KIND_ENEMY, _papIris[i]);
+    }
+}
+
+void FormationIris002::initialize() {
+    for (int i = 0; i < _num_Iris; i++) {
+        _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zright * 0.8);
+        _papIris[i]->_pMover->setMoveVelocity(_move_velocity);
+        _papIris[i]->setDispatcher_Shot(pCOMMONSCENE->_pDispatcher_Shot001);
+        _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
+    }
+}
+
+FormationIris002::~FormationIris002() {
+    DELETEARR_IMPOSSIBLE_NULL(_papIris);
+}

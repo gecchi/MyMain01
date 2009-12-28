@@ -9,13 +9,14 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "Iri
     _class_name = "EnemyIris";
     _iMovePatternNo = 0;
     _pProgram_IrisMove = NULL;
+    _pDispatcher_Shot = NULL;
+    _pDispatcher_ShotEffect = NULL;
 }
 
 void EnemyIris::initialize() {
     setBumpable(true);
-    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
-    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
-    _pMover->setFaceAngleVelocity(AXIS_X, 4000);
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
+    _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
@@ -31,23 +32,54 @@ void EnemyIris::onActive() {
 }
 
 void EnemyIris::processBehavior() {
-    //スプライン移動中
-    if (_iMovePatternNo == 0 && !(_pProgram_IrisMove->isExecuting())) {
-        _iMovePatternNo++;
+
+    if (_iMovePatternNo == 0) {
+        //スプライン移動中
+        if (!(_pProgram_IrisMove->isExecuting())) {
+            _iMovePatternNo++; //スプライン移動が終了したら次の行動パターンへ
+        }
     }
-    //スプライン移動終了
+
     if (_iMovePatternNo == 1) {
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, _Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
-        _iMovePatternNo++;
+        //スプライン移動終了時
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
+        if (_pDispatcher_Shot) {
+            //放射状ショット発射
+            int way = 4+4*_RANK_;
+            angle* aAngWay = new angle[way];
+            GgafDx9Util::getRadiationAngle2D(0, way, aAngWay);
+            GgafDx9DrawableActor* pActor;
+            for (int i = 0; i < way; i++) {
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor != NULL) {
+                    pActor->setGeometry(this);
+                    pActor->_pMover->setRzRyMoveAngle(-ANGLE180 + aAngWay[i], ANGLE90);
+                    pActor->activate();
+                }
+            }
+            //ショット発射エフェクト
+            if (_pDispatcher_ShotEffect) {
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                pActor->setGeometry(_X, _Y, _Z);
+            }
+
+        }
+        _iMovePatternNo++; //次の行動パターンへ
     }
-    //自機とZ軸が接近
+
     if (_iMovePatternNo == 2) {
-        if (_Z-20000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+20000) {
+        if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
+            //自機とZ軸が接近
             _pMover->executeTagettingMoveAngleSequence(MyShip::_lim_behaind - 500000 , _Y, _Z, 2000, TURN_CLOSE_TO);
             _pMover->setMoveVeloAcceleration(100);
             _iMovePatternNo++;
         }
     }
+
+    if (_iMovePatternNo == 3) {
+
+    }
+
     _pMover->behave();
 
 }

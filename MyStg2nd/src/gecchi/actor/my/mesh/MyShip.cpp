@@ -15,7 +15,7 @@ int MyShip::_lim_behaind =  0;
 int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "tenkyu") {
+MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
 

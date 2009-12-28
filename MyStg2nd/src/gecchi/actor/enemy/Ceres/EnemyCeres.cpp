@@ -74,8 +74,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
 
 void EnemyCeres::initialize() {
     setBumpable(true);
-    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
-    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setMoveVelocity(8000);
@@ -98,9 +97,9 @@ void EnemyCeres::processBehavior() {
         angle way[32];
         //GgafDx9Util::getWayAngle2D(180000, 8, 10000, way);
         GgafDx9Util::getRadiationAngle2D(0, 32, way);
-        EnemyCeresShot001* pTama;
+        GgafDx9DrawableActor* pTama;
         for (int i = 0; i < 16; i++) {
-            pTama = (EnemyCeresShot001*)_pDispatcher_EnemyCeresShots001->employ();
+            pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
@@ -108,7 +107,7 @@ void EnemyCeres::processBehavior() {
             }
         }
         for (int i = 16; i < 32; i++) {
-            pTama = (EnemyCeresShot001*)_pDispatcher_EnemyCeresShots001->employ();
+            pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
                 pTama->_pMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
@@ -161,7 +160,7 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
 
     adios(); //TODO:‚³‚æ‚È‚ç
 
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(this);
         pExplo001->activate();

@@ -16,7 +16,7 @@ void TamagoActor::initialize() {
     _Y = 0;
 //    _pMover->setRzMoveAngle(ANGLE180);
 //    _pMover->setMoveVelocity(2000);
-//    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
+//    _pMover->_relate_RzFaceAngle_to_RzMoveAngle_flg = true;
 //
     //	_pMover->setFaceAngle(AXIS_Z, ANGLE180*1000);
     _pMover->setMoveVelocity(-500);

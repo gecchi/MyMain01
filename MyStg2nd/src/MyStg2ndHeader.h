@@ -65,6 +65,7 @@ class CurveLaserChip;
 class HomingLaserChip;
 class StraightLaserChip;
 class LaserChipDispatcher;
+class Shot001;
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class Stage01MainScene;
@@ -104,6 +105,8 @@ class EnemyAstraeaLaserChip001;
 
 
 class EnemyIris;
+class FormationIris001;
+class FormationIris002;
 
 
 
@@ -144,11 +147,13 @@ class Formation001;
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
-#include "gecchi/actor/common/mesh/LaserChip.h"
-#include "gecchi/actor/common/mesh/CurveLaserChip.h"
-#include "gecchi/actor/common/mesh/HomingLaserChip.h"
-#include "gecchi/actor/common/mesh/StraightLaserChip.h"
-#include "gecchi/actor/common/mesh/LaserChipDispatcher.h"
+#include "gecchi/actor/common/laserchip/LaserChip.h"
+#include "gecchi/actor/common/laserchip/CurveLaserChip.h"
+#include "gecchi/actor/common/laserchip/HomingLaserChip.h"
+#include "gecchi/actor/common/laserchip/StraightLaserChip.h"
+#include "gecchi/actor/common/laserchip/LaserChipDispatcher.h"
+#include "gecchi/actor/common/shot/Shot001.h"
+
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
 #include "gecchi/actor/my/mesh/MyDummyOption.h"
@@ -183,7 +188,7 @@ class Formation001;
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"
 #include "gecchi/actor/enemy/Iris/FormationIris001.h"
-
+#include "gecchi/actor/enemy/Iris/FormationIris002.h"
 
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"

@@ -26,8 +26,7 @@ void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
     _pMover->setMoveVelocity(2000);
     _pMover->setMoveVeloAcceleration(300);
-    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
-    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
 }
 
 

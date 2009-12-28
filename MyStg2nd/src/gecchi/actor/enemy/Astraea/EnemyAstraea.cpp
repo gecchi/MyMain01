@@ -11,8 +11,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     _X = 0;
     _Y = 0;
     _Z = 0;
-    _laser_length = 6;
-    _shot_interval = 35;
+    _laser_length = 30;
+    _shot_interval = 100;
     _angveloTurn = 3000;
 
     _papapLaserChipDispatcher = NEW LaserChipDispatcher**[_laser_way];
@@ -47,8 +47,7 @@ void EnemyAstraea::initialize() {
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
     _pMover->setMoveVelocity(0);
-    _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
-    _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {
 //            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //–{Š‘®

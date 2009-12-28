@@ -145,8 +145,7 @@ void MyOptionParent::processBehavior() {
         if (_way_myship_prev != GameGlobal::_pMyShip->_way) {
 
             //•ûŒü‚ª•Ï‚í‚Á‚½
-            _pMover->_synchronize_RzFaceAngle_to_RzMoveAngle_flg = true;
-            _pMover->_synchronize_RyFaceAngle_to_RyMoveAngle_flg = true;
+            _pMover->relateRzRyFaceAngleToMoveAngle(true);
             _pMover->executeTagettingMoveAngleSequence(
                             GameGlobal::_pMyShip->_pMover->_angTargetRzMove,
                             GameGlobal::_pMyShip->_pMover->_angTargetRyMove,
