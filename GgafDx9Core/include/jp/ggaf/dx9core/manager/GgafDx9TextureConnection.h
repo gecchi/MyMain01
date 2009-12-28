@@ -21,7 +21,8 @@ public:
 
     void processReleaseResource(IDirect3DTexture9* prm_pResource);
 
-    virtual ~GgafDx9TextureConnection();
+    virtual ~GgafDx9TextureConnection() {
+    }
 };
 
 }
