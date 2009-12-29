@@ -11,6 +11,7 @@ DispatcherConnection::DispatcherConnection(char* prm_idstr, ActorDispatcher* prm
 
 void DispatcherConnection::processReleaseResource(ActorDispatcher* prm_pResource) {
     _TRACE_("DispatcherConnection::processReleaseResource‚ÅŠJ•ú");
-    DELETE_IMPOSSIBLE_NULL(prm_pResource);
+	prm_pResource->adios(); //ActorDispatcher‚ÍƒSƒ~” ‚Åíœ‚·‚é‚½‚ß‚±‚±‚Å‚©‚¢‚Ù‚¤‚Ís‚í‚È‚¢
+	// DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

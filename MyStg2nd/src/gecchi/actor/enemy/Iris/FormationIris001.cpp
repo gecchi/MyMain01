@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 GgafDx9Spline3D FormationIris001::_sp;
 
-FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_name) {
+FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationIris001";
     _num_Iris       = 7*_RANK_;    //ï“ë‡êî
     _frame_interval = 25*_RANK_;   //ÉCÉäÉXÇÃä‘äu(frame)

@@ -12,7 +12,9 @@ class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 
 public:
 
-    FormationActor(const char* prm_name);
+    DWORD _frame_offset_adios;
+
+    FormationActor(const char* prm_name, DWORD prm_frame_offset_adios = 5*60);
 
     virtual void initialize() {
     }
@@ -26,7 +28,9 @@ public:
      */
     virtual void processJudgement() {
         if (getSubFirst() == NULL) {
-            adios();
+            _TRACE_("FormationActor["<<getName()<<" adios(5*60)!!!!!!!!!!!!");
+            inactivate();
+            adios(30*60);//‚P•ªŒãŠJ•ú
         }
     }
 
