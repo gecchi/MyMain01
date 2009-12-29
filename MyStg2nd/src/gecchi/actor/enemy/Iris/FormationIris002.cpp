@@ -30,12 +30,12 @@ FormationIris002::FormationIris002(const char* prm_name) : FormationActor(prm_na
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         _papIris[i]->_pProgram_IrisMove =
-                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris002::_sp, 2000); //ˆÚ“®‘¬“xŒÅ’è
+                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris002::_sp, 4000); //ˆÚ“®‘¬“xŒÅ’è
         _papIris[i]->inactivateImmediately();
         addSubGroup(KIND_ENEMY, _papIris[i]);
     }
 
-    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot002");
 
 }
 

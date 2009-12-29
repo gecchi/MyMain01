@@ -30,20 +30,24 @@ FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_na
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         _papIris[i]->_pProgram_IrisMove =
-                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris001::_sp, 2000); //ˆÚ“®‘¬“xŒÅ’è
+                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris001::_sp, 4000); //ˆÚ“®‘¬“xŒÅ’è
         _papIris[i]->inactivateImmediately();
         addSubGroup(KIND_ENEMY, _papIris[i]);
     }
+
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
 }
 
 void FormationIris001::initialize() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
         _papIris[i]->_pMover->setMoveVelocity(_move_velocity);
+        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view()); //’eÝ’è
         _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 
 FormationIris001::~FormationIris001() {
+    _pDispatcherCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_papIris);
 }

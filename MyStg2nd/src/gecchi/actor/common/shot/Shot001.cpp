@@ -12,6 +12,8 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/shot0
 void Shot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pScaler->setScaleRange(1000, 300);
+    _pScaler->beat(30,5,10,-1);
     setBumpable(true);
 }
 
@@ -23,6 +25,7 @@ void Shot001::onActive() {
 void Shot001::processBehavior() {
     //À•W‚É”½‰f
     _pMover->behave();
+    _pScaler->behave();
 }
 
 void Shot001::processJudgement() {
@@ -33,6 +36,7 @@ void Shot001::processJudgement() {
 
 void Shot001::processOnHit(GgafActor* prm_pActor_Opponent) {
     inactivate();
+    setBumpable(false);
 }
 
 Shot001::~Shot001() {

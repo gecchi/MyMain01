@@ -13,6 +13,9 @@ class FormationIris001 : public GgafDx9LibStg::FormationActor {
     /** 移動用スプライン */
     static GgafDx9Core::GgafDx9Spline3D _sp;
 
+    /** */
+    DispatcherConnection* _pDispatcherCon;
+
 public:
     /** 編隊数(RANK変動) */
     int _num_Iris;

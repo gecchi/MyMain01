@@ -11,6 +11,8 @@ namespace MyStg2nd {
  */
 class Shot002 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
+    DWORD _my_frame;
+
     Shot002(const char* prm_name);
 
     void initialize();
