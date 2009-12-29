@@ -60,8 +60,8 @@
     #define TRACE2(X)
 
     //資源マネージャ、コネクション関連ログ
-    #define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
-    //#define TRACE3(X)
+    //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    #define TRACE3(X)
 
     //エフェクト、パス、Draw関連ログ
     //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
