@@ -7,7 +7,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip") {
+EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip_red") {
     _class_name = "EnemyAstraeaLaserChip001";
 }
 
@@ -24,7 +24,7 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    _pMover->setMoveVelocity(2000);
+    _pMover->setMoveVelocity(5000);
     _pMover->setMoveVeloAcceleration(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 }
