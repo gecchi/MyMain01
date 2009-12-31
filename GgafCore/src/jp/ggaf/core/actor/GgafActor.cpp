@@ -13,11 +13,20 @@ GgafActor::GgafActor(const char* prm_name) :
     setBumpable(false);
     _use_octree = false;
     _actor_class = 0;
+#ifdef OREDEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
+#else
+
+#endif
+
 }
 
 GgafActor::~GgafActor() {
+#ifdef OREDEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
+#else
+	GgafCore::GgafLogger::write("*");
+#endif
 }
 
 void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
@@ -101,7 +110,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
+    TRACE(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
                                                                          ","<<
                                                                          _can_bump_flg<<
                                                                          ","<<

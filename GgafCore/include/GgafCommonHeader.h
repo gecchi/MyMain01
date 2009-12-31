@@ -177,7 +177,8 @@
     #define TRACE4(X)
     #define TRACE5(X)
     #define TEXT5(X)
-    #define _TRACE_(X)
+    #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    //#define _TRACE_(X)
     #define _TEXT_(X)
     #define _TRACEORE(X)
 
