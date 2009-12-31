@@ -10,9 +10,9 @@ GgafDx9Spline3D FormationIris002::_sp;
 FormationIris002::FormationIris002(const char* prm_name) :
         FormationActor(prm_name, 30*60) { //30*60後にadios()する。早く開放しすぎると Dispatcher の接続が切れるため。
     _class_name = "FormationIris002";
-    _num_Iris       = 7*_RANK_;    //編隊数
-    _frame_interval = 25*_RANK_;   //イリスの間隔(frame)
-    _move_velocity  = 8000*_RANK_; //速度
+    _num_Iris       = 10*_RANK_;    //編隊数
+    _frame_interval = 20*_RANK_;   //イリスの間隔(frame)
+    _move_velocity  = 16000*_RANK_; //速度
     //スプライン移動の定義
     if (FormationIris002::_sp._num_basepoint == 0) {
         //後方から

@@ -18,9 +18,9 @@ void EnemyIris::initialize() {
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
-    useSe1("yume_shototsu");
+    useSe2("bomb1");     //”š”­
     onActive();
 }
 
@@ -45,7 +45,7 @@ void EnemyIris::processBehavior() {
         _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
             //•úŽËóƒVƒ‡ƒbƒg”­ŽË
-            int way = 4+4*_RANK_;
+            int way = 5+5*_RANK_;
             angle* aAngWay = new angle[way];
             GgafDx9Util::getRadiationAngle2D(0, way, aAngWay);
             GgafDx9DrawableActor* pActor;
@@ -94,10 +94,10 @@ void EnemyIris::processJudgement() {
 
 void EnemyIris::processOnHit(GgafActor* prm_pActor_Opponent) {
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe1();
+    playSe2();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry(this);
         pExplo001->activate();
+        pExplo001->setGeometry(this);
     }
     adios();
 }
