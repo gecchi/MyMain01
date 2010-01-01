@@ -25,7 +25,7 @@ GgafActor::~GgafActor() {
 #ifdef OREDEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 #else
-	GgafCore::GgafLogger::write("*");
+    OutputDebugStringA("*\n");
 #endif
 }
 
