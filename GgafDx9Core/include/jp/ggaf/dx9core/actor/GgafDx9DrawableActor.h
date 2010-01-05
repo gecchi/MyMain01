@@ -70,6 +70,10 @@ public:
         return (GgafDx9DrawableActor*)GgafActor::getNext();
     }
 
+    void setTechnique(char* prm_technique) {
+        strcpy(_technique, prm_technique);
+    }
+
 
     /**
      * _Zの値により、大まかにレンダリング順序を設定する。

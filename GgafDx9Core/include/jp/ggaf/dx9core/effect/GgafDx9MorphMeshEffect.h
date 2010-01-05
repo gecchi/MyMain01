@@ -13,7 +13,7 @@ class GgafDx9MorphMeshEffect : public GgafDx9Effect {
 
 public:
     D3DXHANDLE _hMorphTargetnum;
-    D3DXHANDLE _hWeight[10];
+    D3DXHANDLE _hWeight[MAX_MORPH_TARGET+1];
     D3DXHANDLE _hMatView;
     D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hMaterialDiffuse;

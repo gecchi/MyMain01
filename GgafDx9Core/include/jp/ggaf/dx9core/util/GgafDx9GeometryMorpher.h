@@ -31,19 +31,19 @@ public:
     /** 対象アクター */
     GgafDx9MorphMeshActor* _pActor;
 
-    float _target_weight[10];
-    float _top_weight[10];
-    float _bottom_weight[10];
-    float _velo_weight[10];
-    float _acce_weight[10];
-    DWORD _loop_attack_frame[10];
-    DWORD _loop_rest_frame[10];
-    DWORD _loop_spend_frame[10];
-    DWORD _loop_begin_frame[10];
-    int _halfloop_cnt[10];
-    int _stop_halfloop_num[10];
+    float _target_weight[MAX_MORPH_TARGET+1];
+    float _top_weight[MAX_MORPH_TARGET+1];
+    float _bottom_weight[MAX_MORPH_TARGET+1];
+    float _velo_weight[MAX_MORPH_TARGET+1];
+    float _acce_weight[MAX_MORPH_TARGET+1];
+    DWORD _loop_attack_frame[MAX_MORPH_TARGET+1];
+    DWORD _loop_rest_frame[MAX_MORPH_TARGET+1];
+    DWORD _loop_spend_frame[MAX_MORPH_TARGET+1];
+    DWORD _loop_begin_frame[MAX_MORPH_TARGET+1];
+    int _halfloop_cnt[MAX_MORPH_TARGET+1];
+    int _stop_halfloop_num[MAX_MORPH_TARGET+1];
 
-    GgafDx9MorphMethod _method[10];
+    GgafDx9MorphMethod _method[MAX_MORPH_TARGET+1];
 
     /**
      * コンストラクタ<BR>

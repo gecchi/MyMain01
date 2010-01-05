@@ -56,6 +56,11 @@
 #define GGAF_EVENT_DEVICE_LOST_RESTORE 102
 #define GGAF_EVENT_NOLOOP_ANIMATION_FINISHED 201
 
+
+
+//シェーダー2.0の限界のモーフターゲットは6個だった
+#define MAX_MORPH_TARGET 6
+
 #include <dxerr9.h>
 #include <d3d9.h>
 #include <d3dx9.h>

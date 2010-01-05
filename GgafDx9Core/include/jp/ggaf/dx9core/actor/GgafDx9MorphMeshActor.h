@@ -19,7 +19,7 @@ public:
     /** エフェクト資源 */
     GgafDx9MorphMeshEffect* _pMorphMeshEffect;
     /** モーフターゲットの重み(0.0 ～ 1.0) */
-    float _weight[10]; //[0]は未使用、[1]～[9]がモーフターゲット1～9の重み
+    float _weight[MAX_MORPH_TARGET+1]; //[0]は未使用、[1]～[6]がモーフターゲット1～6の重み
 
     /**
      * コンストラクタ

@@ -280,6 +280,7 @@ void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angC
         out_paAngle[i] = addAngle(angstart, prm_angClearance * i);
     }
 }
+
 void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle) {
     for (int i = 0; i < prm_way; i++) {
         out_paAngle[i] = addAngle(prm_angStart, (angle)(1.0f * ANGLE360 / prm_way * i));
@@ -431,7 +432,7 @@ void GgafDx9Util::getRzRyAngle(float nvx, float nvy, float nvz, angle& out_angFa
 }
 
 
-
+//現在未使用。より高速なgetRzRyAngleを使用している。
 void GgafDx9Util::getRzRyAngle_old(int x,
                                 int y,
                                 int z,
@@ -509,6 +510,7 @@ void GgafDx9Util::getRzRyAngle_old(int x,
     //_TRACE_("(x,y,z)=("<<x<<","<<y<<","<<z<<") (out_nvx,nvy,nvz)=("<<out_nvx<<","<<out_nvy<<","<<out_nvz<<") RZ="<<out_angFaceZ<<" RY="<<out_angFaceY);
 }
 
+//現在未使用。より高速なgetRzRyAngleを使用している。
 void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angFaceZ, angle& out_angFaceY, int s) {
     static float vx, vy, vz, t;
     vx = ((float)x) / LEN_UNIT;
@@ -554,6 +556,7 @@ void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angFaceZ, ang
     }
 }
 
+//現在未使用。より高速なgetRzRyAngleを使用している。
 void GgafDx9Util::getRzRyAngle_old(float vx, float vy, float vz, angle& out_angFaceZ, angle& out_angFaceY, int s) {
     static s_ang rZ, rY;
     _srv.getFaceAngleClosely(

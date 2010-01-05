@@ -47,17 +47,19 @@ void GgafDx9SpriteActor::processDraw() {
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetFloat(_fAlpha) に失敗しました。");
-//    // Zバッファを有効に
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-//    // Zバッファ書き込み可
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
+    // Zバッファを無効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    // Zバッファ書き込み不可
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pSpriteModel->draw(this);
 
-//    // Zバッファを無効に
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-//    // Zバッファ書き込み不可
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+    // Zバッファを有効に
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    // Zバッファ書き込み可
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+
 }
 
 void GgafDx9SpriteActor::setActivAnimationPattern(int prm_pattno_ani) {

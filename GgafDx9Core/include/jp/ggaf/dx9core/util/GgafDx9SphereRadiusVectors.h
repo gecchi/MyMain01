@@ -63,8 +63,8 @@ public:
      * @param prm_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
      * @param prm_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
      * @param prm_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0
-     * @param out_angFaceZ Z軸回転値（横軸をX、縦軸をYとしたXZ平面の半時計周り）（単位s_ang）
-     * @param out_angFaceY_rev 反対周りY軸回転値（横軸をX、縦軸をZとしたXZ平面の半時計周り）（単位s_ang）
+     * @param out_angFaceZ Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
+     * @param out_angFaceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      */
     void getFaceAngleClosely(unsigned __int16 prm_x,
                             unsigned __int16 prm_y,
@@ -76,8 +76,8 @@ public:
     /**
      * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める。
      * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。
-     * @param prm_angFaceY Z軸回転値（横軸をX、縦軸をYとしたXZ平面の半時計周り）（単位s_ang）
-     * @param prm_angFaceZ 反対周りY軸回転値（横軸をX、縦軸をZとしたXZ平面の半時計周り）（単位s_ang）
+     * @param prm_angFaceY Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
+     * @param prm_angFaceZ 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param out_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
      * @param out_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
      * @param out_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0

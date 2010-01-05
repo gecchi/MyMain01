@@ -6,7 +6,7 @@ using namespace GgafDx9Core;
 GgafDx9GeometryMorpher::GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor) :
     GgafObject() {
     _pActor = prm_pActor;
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
         _velo_weight[i] = 0.0f;
         _target_weight[i] = 0.0f;
         _top_weight[i] = 1.0f;

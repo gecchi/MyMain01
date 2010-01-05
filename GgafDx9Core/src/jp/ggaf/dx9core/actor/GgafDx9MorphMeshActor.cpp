@@ -20,7 +20,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
     _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
     //重み初期化
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
     }
 }
@@ -53,16 +53,16 @@ void GgafDx9MorphMeshActor::processDraw() {
     mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
     _pMorphMeshModel->draw(this);
 
     // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
     // Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+    //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
 }
 

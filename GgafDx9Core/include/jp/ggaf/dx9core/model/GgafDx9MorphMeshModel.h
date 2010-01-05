@@ -34,9 +34,9 @@ namespace GgafDx9Core {
  * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x</td>
  * </tr>
  * <tr>
- * <td>"M/9/ball"</td>
+ * <td>"M/6/ball"</td>
  * <td>ball_0.x</td>
- * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>・・・<BR>ball_9.x</td>
+ * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>・・・<BR>ball_6.x</td>
  * </tr>
  * </table>
  * @version 1.00

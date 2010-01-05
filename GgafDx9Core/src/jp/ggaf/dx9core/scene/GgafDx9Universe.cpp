@@ -36,32 +36,33 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 }
 
 void GgafDx9Universe::draw() {
-    //不透明アクターなど、段階レンダリングが不要なオブジェクトを描画
-    //※TODO:本来は手前から描画のほうが効率良いが、とりあえず。
-
+    //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
+    //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
         if (_pActor_DrawActive->_fAlpha < 1.0) {
-            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリング無し
-        } else {
-            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //左（反時計回り）回りにカリング ∵左手座標系
+            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
+            //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
         }
         _pActor_DrawActive->processDraw();
+        if (_pActor_DrawActive->_fAlpha < 1.0) {
+            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
+        }
         _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
     }
     _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
 
-    //αがあるなど、段階レンダリングが必要なオブジェクトを描画
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //カリングなし
+    //段階レンダリングが必要なオブジェクトを描画
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
             if (_pActor_DrawActive->_fAlpha < 1.0) {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリング無し
-            } else {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //左（反時計回り）回りにカリング ∵左手座標系
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
             }
             _pActor_DrawActive->processDraw();
+            if (_pActor_DrawActive->_fAlpha < 1.0) {
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す
+            }
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
         _apAlphaActorList_DrawDepthLevel[i] = NULL; //次回のためにリセット
@@ -113,7 +114,7 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
         _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
         //そのprm_draw_depth_levelで既にアクター登録済みだった場合
-        //お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
+        //固まらないように、お尻から追加(キュー)、或いは、前に積み上げ(スタック)を、フレームよって交互に行う。
         //何故ならば、半透明オブジェクトが交差した場合、ぼやかしたいため
         if ((GgafGod::_pGod->_pUniverse->_frame_of_active & 1) == 1) {
             //お尻に追加

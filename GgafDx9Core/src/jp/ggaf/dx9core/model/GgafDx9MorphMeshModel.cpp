@@ -30,8 +30,9 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
         _TRACE_("GgafDx9MorphMeshModel モーフターゲット数は指定あり、_morph_target_num="<<_morph_target_num);
     }
     //_morph_target_num = (int)(*prm_model_name - '0'); //頭一文字の半角数字文字を数値に
-    if (0 > _morph_target_num || _morph_target_num > 9) {
-        throwGgafCriticalException("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数は9までです。_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+    if (_morph_target_num > 6) {
+        _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel モーフターゲット数は最大6個までです。_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+        _morph_target_num = 6;
     }
     _papModel3D = NULL;
     _papMeshesFront = NULL;
@@ -150,13 +151,13 @@ void GgafDx9MorphMeshModel::release() {
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-	if (_papTextureCon) {
-		for (DWORD i = 0; i < _dwNumMaterials; i++) {
-			if (_papTextureCon[i] != NULL) {
-				_papTextureCon[i]->close();
-			}
-		}
-	}
+    if (_papTextureCon) {
+        for (DWORD i = 0; i < _dwNumMaterials; i++) {
+            if (_papTextureCon[i] != NULL) {
+                _papTextureCon[i]->close();
+            }
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {

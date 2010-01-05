@@ -153,7 +153,7 @@ public:
     //static angle getAngle2D(int prm_vx, int prm_vy);
 
     /**
-     * XY座標系（Z軸無視）において、'N'way弾(N=整数)のアングル値を取得 .
+     * 平面上において、'N'way弾(N=整数)のアングル値を取得 .
      * @param prm_vx_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
      * @param prm_way	[in] 'N'way弾の N
@@ -167,7 +167,7 @@ public:
                               int* out_paAngle);
 
     /**
-     * XY座標系（Z軸無視）において、'N'way弾(N=整数)のアングル値の配列を取得 .
+     * 平面上において、'N'way弾(N=整数)のアングル値の配列を取得 .
      * @param prm_angCenter	[in]'N'way弾の全体として向いている方向のアングル値
      * @param prm_way	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
@@ -181,7 +181,7 @@ public:
 
 
     /**
-     * XY座標系（Z軸無視）において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
+     * 平面上において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
      * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。
      * @param prm_angStart	放射状の全方向'N'way弾の１つ目の弾のアングル値
      * @param prm_way	[in] 'N'way弾の N。
@@ -231,7 +231,7 @@ public:
                  );
     }
 
-
+    //現在未使用。より高速なgetRzRyAngleを使用している。
     static void getRzRyAngle_old(int vx,
                                    int vy,
                                    int vz,
@@ -239,7 +239,7 @@ public:
                                    angle& out_angFaceY,
                                    int s = 25);
 
-
+    //現在未使用。より高速なgetRzRyAngleを使用している。
     static void getRzRyAngle_old(int x,
                               int y,
                               int z,
@@ -249,7 +249,7 @@ public:
                               angle& out_angFaceZ,
                               angle& out_angFaceY);
 
-
+    //現在未使用。より高速なgetRzRyAngleを使用している。
     static void getRzRyAngle_old(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY, int s = 25);
 
     /**

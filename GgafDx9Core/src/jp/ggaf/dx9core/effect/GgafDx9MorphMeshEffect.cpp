@@ -28,11 +28,8 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
     _hWeight[4] = _pID3DXEffect->GetParameterByName(NULL, "g_weight4");
     _hWeight[5] = _pID3DXEffect->GetParameterByName(NULL, "g_weight5");
     _hWeight[6] = _pID3DXEffect->GetParameterByName(NULL, "g_weight6");
-    _hWeight[7] = _pID3DXEffect->GetParameterByName(NULL, "g_weight7");
-    _hWeight[8] = _pID3DXEffect->GetParameterByName(NULL, "g_weight8");
-    _hWeight[9] = _pID3DXEffect->GetParameterByName(NULL, "g_weight9");
 
-    for (int i = 1; i < 10; i++) {
+    for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         hr = _pID3DXEffect->SetFloat(_hWeight[i], 0.0f);
         mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     }

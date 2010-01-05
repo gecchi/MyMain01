@@ -17,8 +17,7 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
         yXY = sin(radRotAxisZ) * 10000.0;
         for (s_ang angFaceAxisY = 0; angFaceAxisY <= S_ANG90; angFaceAxisY++) {
             //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ðAYŽ²‰ñ“]‚·‚éB
-            //’ˆÓF‚±‚ÌYŽ²‰ñ“]‚Æ‚ÍA¶ŽèŒn‚™Ž²‰ñ“]‚Æ‚¢‚¤ˆÓ–¡‚Å‚Í‚È‚­A
-            //XY•½–Ê‚ÉŒü‚¢‚ÄYŽ²’†S‚É‰ñ“]ˆÚ“®‚·‚é‚ÆŒ¾‚¤ˆÓ–¡‚Å”½ŽžŒv‰ñ‚è‚É‚È‚è‚Ü‚·Bj
+            //’ˆÓF‚±‚ÌYŽ²‰ñ“]‚Æ‚ÍAŒvŽZ‚Ì“s‡ãA¶ŽèŒnYŽ²‰ñ“]‚Ì‹t‰ñ“]‚É‚È‚è‚Ü‚·B
             radRotAxisY = s_angRad * angFaceAxisY;
             xXZ = xXY * cos(radRotAxisY);
             zXZ = xXY * sin(radRotAxisY);
