@@ -29,7 +29,7 @@ void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
         HitAreaBoxs* pHitAreaBoxs = prm_pStgChecker->getHitAreaBoxs();
 
         //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
-        //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 
         int iAreaNum = pHitAreaBoxs->_iAreaNum;
         if (iAreaNum > 0) {
@@ -43,7 +43,7 @@ void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
             }
         }
         //Œ³‚É–ß‚·
-        //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     }
 }
 
