@@ -15,9 +15,11 @@ int MyShip::_lim_behaind =  0;
 int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
-MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "jiki") {
+//MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "Flora") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "Flora") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
+    setTechnique("DestBlendOne"); //加算合成Technique指定
 
     GameGlobal::init();
     GameGlobal::_pMyShip = this;
@@ -195,10 +197,10 @@ void MyShip::processBehavior() {
 
 ///////////スケーリングテスト////////////////
     if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-        //_pScaler->addScale(2000);
+        _pScaler->addScale(2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-        //_pScaler->addScale(-2000);
+        _pScaler->addScale(-2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
         _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);

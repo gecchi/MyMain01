@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/donatu_0") {
+Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/Flora") {
     _class_name = "Shot002";
     _my_frame = 0;
 }
