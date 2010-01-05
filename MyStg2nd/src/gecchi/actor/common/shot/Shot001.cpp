@@ -13,7 +13,6 @@ void Shot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pScaler->setScaleRange(1000, 300);
-    _pScaler->beat(30,5,10,-1);
     useSe1("break_glass01");
     setBumpable(true);
 }
@@ -21,6 +20,7 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     _pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
     _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚İ‹ï‡
+    _pScaler->beat(30,5,10,-1);
     setBumpable(true);
 }
 

@@ -169,24 +169,12 @@ float4 GgafDx9PS_DefaultMeshSet(
 	return out_color;
 }
 
-//float4 GgafDx9PS_DefaultMeshSet2(
-//	float2 prm_uv	  : TEXCOORD0,
-//	float3 prm_normal : TEXCOORD1,
-//	float4 prm_col    : COLOR0
-//) : COLOR  {
-//	//求める色
-//	float4 out_color; 
-//	//テクスチャをサンプリングして色取得（原色を取得）
-//	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
-//	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-//	out_color =  g_LightDiffuse * prm_col * tex_color; 
-//	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-//	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα
-//
-//	return out_color;
-//}
-
-
+float4 PS_DestBlendOne( 
+	float2 prm_uv	  : TEXCOORD0,
+    float4 prm_col    : COLOR0
+) : COLOR  {
+	return tex2D( MyTextureSampler, prm_uv)*prm_col;
+}
 
 technique DefaultMeshSetTechnique
 {
@@ -218,22 +206,19 @@ technique DefaultMeshSetTechnique
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
 		DestBlend = InvSrcAlpha;
-
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
 		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMeshSet();
 	}
 }
 
-
-//technique DefaultMeshSetTechnique2
-//{
-//	pass P0 {
-//		AlphaBlendEnable = true;
-//		SrcBlend  = SrcAlpha;
-//		DestBlend = InvSrcAlpha;
-//
-//		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
-//		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultMeshSet2();
-//	}
-//}
+technique DestBlendOne
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;   
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMeshSet();
+		PixelShader  = compile ps_2_0 PS_DestBlendOne();
+	}
+}
 

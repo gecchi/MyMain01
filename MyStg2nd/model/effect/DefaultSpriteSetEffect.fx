@@ -261,4 +261,15 @@ technique DefaultSpriteSetTechnique
 	}
 }
 
+technique DestBlendOne
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;   
+		DestBlend = One; //â¡éZçáê¨
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSpriteSet();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultSpriteSet();
+	}
+}
+
 

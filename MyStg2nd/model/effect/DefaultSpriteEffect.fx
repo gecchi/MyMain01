@@ -44,35 +44,12 @@ OUT_VS GgafDx9VS_DefaultSprite(
 	return out_vs;
 }
 
-//ビルボード頂点シェーダー
-OUT_VS GgafDx9VS_BillBoardSprite(
-      float4 prm_pos    : POSITION,     // モデルの頂点
-      float2 prm_uv     : TEXCOORD0     // モデルの頂点のUV
-
-) {
-	OUT_VS out_vs = (OUT_VS)0;
-
-	//頂点計算
-	float4 posWorld = mul( prm_pos, g_matWorld );               // World変換
-	float4 posWorldView = mul(posWorld, g_matView );            // View変換
-	float4 posWorldViewProj = mul( posWorldView, g_matProj);    // 射影変換
-	out_vs.pos = posWorldViewProj;                              // 出力に設定
-	//UVのオフセットを加算
-	out_vs.uv.x = prm_uv.x + g_offsetU;
-	out_vs.uv.y = prm_uv.y + g_offsetV;
-	return out_vs;
-}
-
 
 //スプライト標準ピクセルシェーダー
 float4 GgafDx9PS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);
-	//α計算、テクスチャαと引数αの合算
-	out_color.a = g_hAlpha * out_color.a ; 
-	return out_color;
+	return tex2D( MyTextureSampler, prm_uv) * g_hAlpha;
 }
 
 //＜テクニック：DefaultSpriteTechnique＞
@@ -109,4 +86,14 @@ technique DefaultSpriteTechnique
 	}
 }
 
+technique DestBlendOne
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;   
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultSprite();
+	}
+}
 

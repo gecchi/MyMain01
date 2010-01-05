@@ -132,25 +132,6 @@ OUT_VS GgafDx9VS_LaserChip(
 		kind = g_kind012;
 	} 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	float4 posWorld;
 	if (prm_pos.x > 0) {
 //TODO:20090806アイディア
