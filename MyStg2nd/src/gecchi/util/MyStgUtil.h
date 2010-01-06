@@ -19,6 +19,11 @@ public:
      * @return
      */
     static void getRankStr(int prm_rank, char* out);
+
+
+
+    static void resetEnemyIrisStatus(GgafCore::GgafActor* p);
+
 };
 
 }

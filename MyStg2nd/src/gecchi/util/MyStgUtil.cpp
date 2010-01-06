@@ -113,4 +113,17 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 //    7   BAA 70 KLEF 700 YZ[PQR 7000 lmno`abc 70000           pqrstpqrstpqrstpqrstpqrstpqrstpqrst
 //    8  BAAA 80 KLGH 800 YZ[STU 8000 lmnodefg 80000      pqrstpqrstpqrstpqrstpqrstpqrstpqrstpqrst
 //    9 BAAAA 90 KLIJ 900 YZ[VWX 9000 lmnohijk 90000 pqrstpqrstpqrstpqrstpqrstpqrstpqrstpqrstpqrst
+
+
+    void MyStgUtil::resetEnemyIrisStatus(GgafActor* p) {
+        p->_pStatus->set(STAT_AddScorePoint, 50);
+        p->_pStatus->set(STAT_AddRankPoint , 100);
+        p->_pStatus->set(STAT_StaminaPoint , 1);
+        p->_pStatus->set(STAT_DefensePoint , 0);
+        p->_pStatus->set(STAT_AttackPoint  , 1);
+    }
+
+
+
+
 }

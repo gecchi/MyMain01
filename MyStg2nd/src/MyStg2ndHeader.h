@@ -29,6 +29,13 @@
 #define VB_TURBO    VB_BUTTON5
 #define VB_SHOT1_R  VB_BUTTON6
 
+#define STAT_AddScorePoint     0        //
+#define STAT_StaminaPoint      1
+#define STAT_AttackPoint       2
+#define STAT_DefensePoint      3
+#define STAT_AddRankPoint      4
+
+
 namespace MyStg2nd {
 
 //その他のヘッダファイルはここに記述
