@@ -155,7 +155,7 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
 
         fin >> Text;
         size_t len = Text.size();
-        _TRACE_("1Text="<<Text<<" len="<<len);
+        //_TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //ç≈èIï∂éö
