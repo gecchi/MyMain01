@@ -126,7 +126,7 @@ void EnemyCeres::processJudgement() {
     if (isOutOfGameSpace()) {
         if (_createActorDispatcher) {
             //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-            getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getHeadActor()->extract());
+            getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
            _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
         }
 
@@ -145,14 +145,14 @@ void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
     setBumpable(false);
     playSe1();
 
-    if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
+    if (pActor_Opponent->getGroupActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
 
 
     if (_createActorDispatcher) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getLordActor()->addSubLast(getSubHeadActor(KIND_ENEMY_SHOT_GU)->extract());
+        getLordActor()->addSubLast(getSubGroupActor(KIND_ENEMY_SHOT_GU)->extract());
        _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
     } else {
 

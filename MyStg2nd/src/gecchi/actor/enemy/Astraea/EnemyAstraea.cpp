@@ -175,7 +175,7 @@ void EnemyAstraea::processJudgement() {
     if (isOutOfGameSpace()) {
 
         //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        GgafHeadActor* pHead = getSubHeadActor(KIND_ENEMY_SHOT_NOMAL);
+        GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);
         pHead->adios(60 * 5);//‰ð•ú—\–ñ
         getLordActor()->addSubLast(pHead->extract());
 
@@ -194,13 +194,13 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
     GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
     setBumpable(false);
     playSe2();
-    if (pActor_Opponent->getHeadActor()->_kind & KIND_MY) {
+    if (pActor_Opponent->getGroupActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
     _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_active);
 
     //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-    GgafHeadActor* pHead = getSubHeadActor(KIND_ENEMY_SHOT_NOMAL);//‰ð•ú—\–ñ
+    GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//‰ð•ú—\–ñ
     pHead->adios(60 * 5);
     getLordActor()->addSubLast(pHead->extract());
 
