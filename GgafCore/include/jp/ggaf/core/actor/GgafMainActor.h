@@ -18,7 +18,7 @@ public:
     /** 管理者 */
     GgafLordActor* _pLordActor;
     /** 種別（グループ）を司る団長 */
-    GgafHeadActor* _pHeadActor;
+    GgafGroupActor* _pGroupActor;
 
     GgafMainActor(const char* prm_name);
 
@@ -69,7 +69,7 @@ public:
     /**
      * 団長を設定する。<BR>
      */
-    virtual void setHeadActor(GgafHeadActor* prm_pHeadActor);
+    virtual void setGroupActor(GgafGroupActor* prm_pGroupActor);
 
     /**
      * 管理者取得。 .
@@ -81,12 +81,12 @@ public:
      * 団長を取得する。 .
      * @return 団長
      */
-    virtual GgafHeadActor* getHeadActor();
+    virtual GgafGroupActor* getGroupActor();
 
 
     void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
-    GgafHeadActor* getSubHeadActor(actorkind prm_kind);
+    GgafGroupActor* getSubGroupActor(actorkind prm_kind);
     /**
      * 神に謁見 .
      * @return	呼ばれて出てきた神

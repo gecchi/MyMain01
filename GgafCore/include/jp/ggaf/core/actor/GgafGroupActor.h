@@ -1,5 +1,5 @@
-#ifndef GGAFHEADACTOR_H_
-#define GGAFHEADACTOR_H_
+#ifndef GGAFGROUPACTOR_H_
+#define GGAFGROUPACTOR_H_
 namespace GgafCore {
 
 /**
@@ -11,7 +11,7 @@ namespace GgafCore {
  * 団長は配下のアクターが消滅すると、次のフレームに自身も自殺します。部下を持たない上司は不要というわけです。<BR>
  * 管理者のサブアクターは、全て必ずこの団長になっています。<BR>
  * また、団長配下に団長が存在してはいけないことになっています。<BR>
- * ＜補足：団長クラス(GgafHeadActor)のオブジェクトイメージ図＞<BR>
+ * ＜補足：団長クラス(GgafGroupActor)のオブジェクトイメージ図＞<BR>
  * <PRE STYLE="font-size:18px">
  * 　　　　･･･⇔ GgafScene ⇔ GgafScene ⇔･･･
  * 　　　　　　　　　｜
@@ -20,7 +20,7 @@ namespace GgafCore {
  * 　　　　　　　｜
  * 　　　　　　　｜getSubFirst()
  * 　　　　　　　↓
- * 　　GgafHeadActor ⇔ GgafHeadActor ⇔ GgafHeadActor ⇔
+ * 　　GgafGroupActor ⇔ GgafGroupActor ⇔ GgafGroupActor ⇔
  * 　　　　　｜　　　　　　　　　｜　　　　　　　　　｜
  * 　　　　　｜getSubFirst()　　 ｜　　　　　　　　　｜
  * 　　　　　↓　　　　　　　　　↓　　　　　　　　　↓
@@ -30,7 +30,7 @@ namespace GgafCore {
  * @since 2007/11/29
  * @author Masatoshi Tsuge
  */
-class GgafHeadActor : public GgafActor {
+class GgafGroupActor : public GgafActor {
 
 public:
     /** 管理者 */
@@ -38,7 +38,7 @@ public:
 
     actorkind _kind;
 
-    GgafHeadActor(actorkind prm_kind);
+    GgafGroupActor(actorkind prm_kind);
 
     /**
      * 初期処理<BR>
@@ -113,8 +113,8 @@ public:
      */
     virtual GgafGod* askGod();
 
-    virtual ~GgafHeadActor();
+    virtual ~GgafGroupActor();
 };
 
 }
-#endif /*GGAFHEADACTOR_H_*/
+#endif /*GGAFGROUPACTOR_H_*/

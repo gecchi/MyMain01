@@ -3,7 +3,7 @@
 
 
 #define LORDACTOR  1
-#define HEADACTOR  2
+#define GROUPACTOR  2
 #define MAINACTOR  3
 
 
@@ -44,7 +44,7 @@ class GgafActor : public GgafElement<GgafActor> {
     friend class GgafGod;
     friend class GgafMainActor;
     friend class GgafLordActor;
-    friend class GgafHeadActor;
+    friend class GgafGroupActor;
     friend class GgafDummyActor;
     friend class GgafScene;
     friend class GgafUniverse;
@@ -99,7 +99,7 @@ private:
 
 public:
     /** アクターの階級 */
-    int _actor_class; //1:GgafLoadActor 2:GgafHeadActor 3:GgafMainActor 0:その他
+    int _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:その他
 
 
     /** アクター開始システム時刻 */

@@ -201,7 +201,7 @@
 #endif
 
 
-//#define MAX_HEADACTOR_PER_SCENE 16
+//#define MAX_GROUPACTOR_PER_SCENE 16
 
 typedef DWORD actorkind;
 
@@ -242,7 +242,7 @@ class GgafDummyActor;
 class GgafUniverse;
 class GgafMainScene;
 class GgafLordActor;
-class GgafHeadActor;
+class GgafGroupActor;
 class GgafOrder;
 
 class GgafProperties;
@@ -282,7 +282,7 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafLordActor.h"
-#include "jp/ggaf/core/actor/GgafHeadActor.h"
+#include "jp/ggaf/core/actor/GgafGroupActor.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"

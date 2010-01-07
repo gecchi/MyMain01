@@ -3,8 +3,8 @@ using namespace std;
 
 using namespace GgafCore;
 
-//GgafHeadActor* GgafScene::_apHeadActor01[MAX_HEADACTOR_PER_SCENE];
-//GgafHeadActor* GgafScene::_apHeadActor02[MAX_HEADACTOR_PER_SCENE];
+//GgafGroupActor* GgafScene::_apGroupActor01[MAX_GROUPACTOR_PER_SCENE];
+//GgafGroupActor* GgafScene::_apGroupActor02[MAX_GROUPACTOR_PER_SCENE];
 
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
@@ -183,31 +183,31 @@ GgafLordActor* GgafScene::getLordActor() {
     return _pLordActor;
 }
 
-//void GgafScene::executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
+//void GgafScene::executeBumpChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
 //    static GgafScene* pScene;
 //    pScene = this;
-//    static GgafHeadActor* pHeadActor;
-//    pHeadActor = NULL;
+//    static GgafGroupActor* pGroupActor;
+//    pGroupActor = NULL;
 //    static int index01, index02;
 //    index01 = 0;
 //    index02 = 0;
 //
 //    do {
-//        pHeadActor = (GgafHeadActor*)(pScene->getLordActor()->_pSubFirst);
-//        if (pHeadActor != NULL) {
+//        pGroupActor = (GgafGroupActor*)(pScene->getLordActor()->_pSubFirst);
+//        if (pGroupActor != NULL) {
 //            do {
-//                if ((pHeadActor->_kind & prm_actorkindmask01) > 0) {
-//                    _apHeadActor01[index01] = pHeadActor;
+//                if ((pGroupActor->_kind & prm_actorkindmask01) > 0) {
+//                    _apGroupActor01[index01] = pGroupActor;
 //                    index01++;
 //                }
-//                if ((pHeadActor->_kind & prm_actorkindmask02) > 0) {
-//                    _apHeadActor02[index02] = pHeadActor;
+//                if ((pGroupActor->_kind & prm_actorkindmask02) > 0) {
+//                    _apGroupActor02[index02] = pGroupActor;
 //                    index02++;
 //                }
-//                if (pHeadActor->_is_last_flg) {
+//                if (pGroupActor->_is_last_flg) {
 //                    break;
 //                } else {
-//                    pHeadActor = (GgafHeadActor*)(pHeadActor->_pNext);
+//                    pGroupActor = (GgafGroupActor*)(pGroupActor->_pNext);
 //                    continue;
 //                }
 //            } while (true);
@@ -237,10 +237,10 @@ GgafLordActor* GgafScene::getLordActor() {
 //
 //    for (int i = 0; i < index01; i++) {
 //        for (int j = 0; j < index02; j++) {
-//            if (_apHeadActor01[i] == _apHeadActor02[j]) {
-//                _apHeadActor01[i]->executeBumpChk_RoundRobin2(_apHeadActor02[j]);
+//            if (_apGroupActor01[i] == _apGroupActor02[j]) {
+//                _apGroupActor01[i]->executeBumpChk_RoundRobin2(_apGroupActor02[j]);
 //            } else {
-//                _apHeadActor01[i]->executeBumpChk_RoundRobin(_apHeadActor02[j]);
+//                _apGroupActor01[i]->executeBumpChk_RoundRobin(_apGroupActor02[j]);
 //            }
 //        }
 //    }

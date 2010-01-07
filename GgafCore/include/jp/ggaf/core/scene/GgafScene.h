@@ -84,7 +84,7 @@ class GgafScene : public GgafElement<GgafScene> {
     friend class GgafGod;
     friend class GgafUniverse;
     friend class GgafActor;
-    friend class GgafHeadActor;
+    friend class GgafGroupActor;
     friend class GgafLordActor;
 
 protected:
@@ -92,8 +92,8 @@ protected:
     /** このシーンの管理者 */
     GgafLordActor* _pLordActor;
 
-    //static GgafHeadActor* _apHeadActor01[];
-    //static GgafHeadActor* _apHeadActor02[];
+    //static GgafGroupActor* _apGroupActor01[];
+    //static GgafGroupActor* _apGroupActor02[];
 
 public:
     /** 進捗具合 */
@@ -239,22 +239,22 @@ public:
 
     /**
      * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
-     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
+     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafGroupActor 全てに対して<BR>
      * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
-     * @param	prm_actor_kind_name01	判定する対象のGgafHeadActorに登録されているActor種別名
-     * 		    prm_actor_kind_name02	判定される対象のGgafHeadActorに登録されているActor種別名<BR>
+     * @param	prm_actor_kind_name01	判定する対象のGgafGroupActorに登録されているActor種別名
+     * 		    prm_actor_kind_name02	判定される対象のGgafGroupActorに登録されているActor種別名<BR>
      */
-    //virtual void executeBumpChkHeadActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
+    //virtual void executeBumpChkGroupActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
 
 
     /**
      * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
-     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafHeadActor 全てに対して<BR>
+     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafGroupActor 全てに対して<BR>
      * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
-     * @param	prm_actorkind01	判定する対象のGgafHeadActorに登録されているActor種別
-     * 		    prm_actorkind01	判定される対象のGgafHeadActorに登録されているActor種別<BR>
+     * @param	prm_actorkind01	判定する対象のGgafGroupActorに登録されているActor種別
+     * 		    prm_actorkind01	判定される対象のGgafGroupActorに登録されているActor種別<BR>
      */
-    //virtual void executeBumpChkHeadActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
+    //virtual void executeBumpChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
     /**
      * 経過フレーム判定。 .
      * 直前の delay(n) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。<BR>

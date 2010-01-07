@@ -19,15 +19,15 @@ void GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActo
         //_TRACE_("ÅyåxçêÅzGgafLordActor::addSubGroup("<<getName()<<") Ç∑Ç≈Ç…"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"ÉVÅ[ÉìÇÃä«óùé“Ç…èäëÆÇµÇƒÇ¢Ç‹Ç∑ÅBÇ™ÅA"<<_pScene_Platform->getName()<<"ÉVÅ[ÉìÇÃä«óùé“Ç…èÊÇËä∑Ç¶Ç‹Ç∑");
         prm_pMainActor->extract();
     }
-    GgafHeadActor* pSubHeadActor = getSubHeadActor(prm_kind);
-    if (pSubHeadActor == NULL) {
-        pSubHeadActor = NEW GgafHeadActor(prm_kind);
-        addSubLast(pSubHeadActor);
+    GgafGroupActor* pSubGroupActor = getSubGroupActor(prm_kind);
+    if (pSubGroupActor == NULL) {
+        pSubGroupActor = NEW GgafGroupActor(prm_kind);
+        addSubLast(pSubGroupActor);
     } else {
        //OK
     }
-    pSubHeadActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setHeadActor(pSubHeadActor);
+    pSubGroupActor->addSubLast(prm_pMainActor);
+    prm_pMainActor->setGroupActor(pSubGroupActor);
     prm_pMainActor->setLordActor(this);
     prm_pMainActor->setScenePlatform(_pScene_Platform);
 }
@@ -38,17 +38,17 @@ void GgafLordActor::addSubGroup(GgafMainActor* prm_pMainActor) {
 
 
 
-GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
+GgafGroupActor* GgafLordActor::getSubGroupActor(actorkind prm_kind) {
     if (_pSubFirst == NULL) {
         return NULL;
     } else {
         GgafActor* pSubActor = _pSubFirst;
-        GgafHeadActor* pSubHeadActor_ret = NULL;
+        GgafGroupActor* pSubGroupActor_ret = NULL;
         do {
-            if (pSubActor->_actor_class == HEADACTOR) {
-                pSubHeadActor_ret = (GgafHeadActor*)pSubActor;
-                if (pSubHeadActor_ret->_kind == prm_kind) {
-                    return pSubHeadActor_ret;
+            if (pSubActor->_actor_class == GROUPACTOR) {
+                pSubGroupActor_ret = (GgafGroupActor*)pSubActor;
+                if (pSubGroupActor_ret->_kind == prm_kind) {
+                    return pSubGroupActor_ret;
                 }
             }
             if (pSubActor->_is_last_flg) {
@@ -61,7 +61,7 @@ GgafHeadActor* GgafLordActor::getSubHeadActor(actorkind prm_kind) {
 }
 
 /*
- GgafHeadActor* GgafLordActor::getHeadActor(string prm_kind) {
+ GgafGroupActor* GgafLordActor::getGroupActor(string prm_kind) {
 
  }
  */

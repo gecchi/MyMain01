@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
     _class_name = "GgafMainActor";
-    _pHeadActor = NULL;
+    _pGroupActor = NULL;
     _pLordActor = NULL;
     setBumpable(false);
     _actor_class = MAINACTOR;
@@ -18,8 +18,8 @@ void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
         while (true) {
             if (pActor->_actor_class == MAINACTOR) {
                 ((GgafMainActor*)(pActor))->setLordActor(prm_pLordActor);
-            } else if (pActor->_actor_class == HEADACTOR) {
-                ((GgafHeadActor*)(pActor))->setLordActor(prm_pLordActor);
+            } else if (pActor->_actor_class == GROUPACTOR) {
+                ((GgafGroupActor*)(pActor))->setLordActor(prm_pLordActor);
             }
             if (pActor->_is_last_flg) {
                 break;
@@ -30,16 +30,16 @@ void GgafMainActor::setLordActor(GgafLordActor* prm_pLordActor) {
     }
 }
 
-void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
-    _pHeadActor = prm_pHeadActor;
+void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
+    _pGroupActor = prm_pGroupActor;
     if (_pSubFirst != NULL) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_actor_class == MAINACTOR) {
-                ((GgafMainActor*)(pActor))->setHeadActor(prm_pHeadActor);
-            } else if (pActor->_actor_class == HEADACTOR) {
+                ((GgafMainActor*)(pActor))->setGroupActor(prm_pGroupActor);
+            } else if (pActor->_actor_class == GROUPACTOR) {
                 //スルーする
-                //下位ツリーにGgafHeadActorがあれば、そのツリーには影響させないこととする
+                //下位ツリーにGgafGroupActorがあれば、そのツリーには影響させないこととする
             }
             if (pActor->_is_last_flg) {
                 break;
@@ -51,19 +51,19 @@ void GgafMainActor::setHeadActor(GgafHeadActor* prm_pHeadActor) {
 
 }
 
-GgafHeadActor* GgafMainActor::getHeadActor() {
-    if (_pHeadActor == NULL) {
+GgafGroupActor* GgafMainActor::getGroupActor() {
+    if (_pGroupActor == NULL) {
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::getHeadActor 所属していないため、HeadActorがとれません！("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::getGroupActor 所属していないため、GroupActorがとれません！("<<getName()<<")");
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
-                _pHeadActor = ((GgafMainActor*)(_pParent))->getHeadActor();
-            } else if (_pParent->_actor_class == HEADACTOR) {
-                return (GgafHeadActor*)_pParent;
+                _pGroupActor = ((GgafMainActor*)(_pParent))->getGroupActor();
+            } else if (_pParent->_actor_class == GROUPACTOR) {
+                return (GgafGroupActor*)_pParent;
             }
         }
     }
-    return _pHeadActor;
+    return _pGroupActor;
 }
 
 GgafLordActor* GgafMainActor::getLordActor() {
@@ -74,8 +74,8 @@ GgafLordActor* GgafMainActor::getLordActor() {
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class == HEADACTOR) {
-                _pLordActor = ((GgafHeadActor*)(_pParent))->getLordActor();
+            } else if (_pParent->_actor_class == GROUPACTOR) {
+                _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
             } else if (_pParent->_actor_class == LORDACTOR) {
                 return (GgafLordActor*)_pParent;
             }
@@ -94,29 +94,29 @@ void GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActo
         //_TRACE_("【警告】GgafLordActor::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
         prm_pMainActor->extract();
     }
-    GgafHeadActor* pSubHeadActor = getSubHeadActor(prm_kind);
-    if (pSubHeadActor == NULL) {
-        pSubHeadActor = NEW GgafHeadActor(prm_kind);
-        addSubLast(pSubHeadActor);
+    GgafGroupActor* pSubGroupActor = getSubGroupActor(prm_kind);
+    if (pSubGroupActor == NULL) {
+        pSubGroupActor = NEW GgafGroupActor(prm_kind);
+        addSubLast(pSubGroupActor);
     } else {
        //OK
     }
-    pSubHeadActor->addSubLast(prm_pMainActor);
-    prm_pMainActor->setHeadActor(pSubHeadActor);
+    pSubGroupActor->addSubLast(prm_pMainActor);
+    prm_pMainActor->setGroupActor(pSubGroupActor);
 }
 
 
-GgafHeadActor* GgafMainActor::getSubHeadActor(actorkind prm_kind) {
+GgafGroupActor* GgafMainActor::getSubGroupActor(actorkind prm_kind) {
     if (_pSubFirst == NULL) {
         return NULL;
     } else {
         GgafActor* pSubActor = _pSubFirst;
-        GgafHeadActor* pSubHeadActor_ret = NULL;
+        GgafGroupActor* pSubGroupActor_ret = NULL;
         do {
-            if (pSubActor->_actor_class == HEADACTOR) {
-                pSubHeadActor_ret = (GgafHeadActor*)pSubActor;
-                if (pSubHeadActor_ret->_kind == prm_kind) {
-                    return pSubHeadActor_ret;
+            if (pSubActor->_actor_class == GROUPACTOR) {
+                pSubGroupActor_ret = (GgafGroupActor*)pSubActor;
+                if (pSubGroupActor_ret->_kind == prm_kind) {
+                    return pSubGroupActor_ret;
                 }
             }
             if (pSubActor->_is_last_flg) {

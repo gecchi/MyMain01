@@ -3,21 +3,21 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafHeadActor::GgafHeadActor(actorkind prm_kind) : GgafActor("HEAD") {
+GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("HEAD") {
     char aChar_strbit[33];
     GgafUtil::strbin(prm_kind, aChar_strbit);
     stringstream ss;
     ss <<  "kind=" << aChar_strbit << "";
     string name = ss.str();
     strcpy(_name, name.c_str());
-    _class_name = "GgafHeadActor";
+    _class_name = "GgafGroupActor";
     _kind = prm_kind;
     setBumpable(false);
     _pLordActor = NULL;
-    _actor_class = HEADACTOR;
+    _actor_class = GROUPACTOR;
 }
 
-void GgafHeadActor::processJudgement() {
+void GgafGroupActor::processJudgement() {
     //サブが無ければ自殺
     if (getSubFirst() == NULL) {
         adios();
@@ -25,16 +25,16 @@ void GgafHeadActor::processJudgement() {
 }
 
 
-GgafLordActor* GgafHeadActor::getLordActor() {
+GgafLordActor* GgafGroupActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("【警告】GgafHeadActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
+            _TRACE_("【警告】GgafGroupActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
-            } else if (_pParent->_actor_class == HEADACTOR) {
-                _pLordActor = ((GgafHeadActor*)(_pParent))->getLordActor();
+            } else if (_pParent->_actor_class == GROUPACTOR) {
+                _pLordActor = ((GgafGroupActor*)(_pParent))->getLordActor();
             } else if (_pParent->_actor_class == LORDACTOR) {
                 return (GgafLordActor*)_pParent;
             }
@@ -45,15 +45,15 @@ GgafLordActor* GgafHeadActor::getLordActor() {
     return _pLordActor;
 }
 
-void GgafHeadActor::setLordActor(GgafLordActor* prm_pLordActor) {
+void GgafGroupActor::setLordActor(GgafLordActor* prm_pLordActor) {
     _pLordActor = prm_pLordActor;
     if (_pSubFirst != NULL) {
         GgafActor* pActor = getSubFirst();
         while (true) {
             if (pActor->_actor_class == MAINACTOR) {
                 ((GgafMainActor*)(pActor))->setLordActor(prm_pLordActor);
-            } else if (pActor->_actor_class == HEADACTOR) {
-                ((GgafHeadActor*)(pActor))->setLordActor(prm_pLordActor);
+            } else if (pActor->_actor_class == GROUPACTOR) {
+                ((GgafGroupActor*)(pActor))->setLordActor(prm_pLordActor);
             }
             if (pActor->_is_last_flg) {
                 break;
@@ -64,10 +64,10 @@ void GgafHeadActor::setLordActor(GgafLordActor* prm_pLordActor) {
     }
 }
 
-GgafGod* GgafHeadActor::askGod() {
+GgafGod* GgafGroupActor::askGod() {
     if (_pGod == NULL) {
         if (getParent() == NULL) {
-            throwGgafCriticalException("GgafHeadActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafGroupActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
         } else {
             _pGod = getParent()->askGod();
         }
@@ -75,5 +75,5 @@ GgafGod* GgafHeadActor::askGod() {
     return _pGod;
 }
 
-GgafHeadActor::~GgafHeadActor() {
+GgafGroupActor::~GgafGroupActor() {
 }
