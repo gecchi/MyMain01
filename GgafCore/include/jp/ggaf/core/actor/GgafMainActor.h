@@ -15,9 +15,9 @@ class GgafMainActor : public GgafActor {
 protected:
 
 public:
-    /** 管理者 */
+    /** シーン管理者 */
     GgafLordActor* _pLordActor;
-    /** 種別（グループ）を司る団長 */
+    /** 種別（グループ）を司る直近の団長 */
     GgafGroupActor* _pGroupActor;
 
     GgafMainActor(const char* prm_name);
@@ -62,7 +62,7 @@ public:
     }
 
     /**
-     * 管理者を設定する。 .
+     * シーン管理者を設定する。 .
      */
     virtual void setLordActor(GgafLordActor* prm_pLordActor);
 
@@ -72,21 +72,34 @@ public:
     virtual void setGroupActor(GgafGroupActor* prm_pGroupActor);
 
     /**
-     * 管理者取得。 .
+     * シーン管理者取得。 .
      * @return 管理者
      */
     virtual GgafLordActor* getLordActor();
 
     /**
-     * 団長を取得する。 .
+     * シーン団長を取得する。 .
      * @return 団長
      */
     virtual GgafGroupActor* getGroupActor();
 
-
+    /**
+     * 新たに種別を設定したアクターを配下に追加する。
+     * 配下に団長(GgafGroupActor)を挟んでその配下に引数のアクターを追加します。
+     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * @param prm_kind 種別
+     * @param prm_pMainActor 種別と共に追加したいアクター
+     */
     void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
+    /**
+     * 配下の団長を探す。
+     * @param prm_kind 探したい団長の種別
+     * @return 団長、或いは存在しなければ NULL
+     */
+
     GgafGroupActor* getSubGroupActor(actorkind prm_kind);
+
     /**
      * 神に謁見 .
      * @return	呼ばれて出てきた神
