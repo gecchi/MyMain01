@@ -53,6 +53,7 @@ void EnemyIris::processBehavior() {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
                     pActor->setGeometry(this);
+					pActor->_pMover->relateRzRyFaceAngleToMoveAngle(true);
                     pActor->_pMover->setRzRyMoveAngle(-ANGLE180 + aAngWay[i], ANGLE90);
                     pActor->activate();
                 }
