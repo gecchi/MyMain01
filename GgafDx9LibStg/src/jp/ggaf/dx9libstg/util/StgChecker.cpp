@@ -150,7 +150,7 @@ void StgChecker::updateHitArea() {
             }
 
         }
-        _pElem->_kindbit = _pActor->getHeadActor()->_kind;
+        _pElem->_kindbit = _pActor->getGroupActor()->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
                                            _pActor->_Y + _Y1,
                                            _pActor->_Z + _Z1,
