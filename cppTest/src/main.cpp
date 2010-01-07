@@ -7,9 +7,9 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 int main() {
-	char rankstr[80];
-	MyStgUtil::getRankStr(1111, (char*)rankstr);
-	_TRACE_(rankstr);
+	//char rankstr[80];
+	//MyStgUtil::getRankStr(1111, (char*)rankstr);
+	//_TRACE_(rankstr);
 }
 
 
