@@ -3139,7 +3139,7 @@ void Stage01MainScene::processBehavior() {
 			default :
 				break;
 		}
-		_iCnt_Event++;
+		_iCnt_Event = (_iCnt_Event < 682-1 ? _iCnt_Event+1 : _iCnt_Event);
 	}
     // gen02 end
 
