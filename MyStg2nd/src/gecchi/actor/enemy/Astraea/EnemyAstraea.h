@@ -30,6 +30,8 @@ public:
 
     void initialize();
 
+    void onActive();
+
     void processBehavior();
 
     void processJudgement();

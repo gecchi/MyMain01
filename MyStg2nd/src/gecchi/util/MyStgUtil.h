@@ -20,10 +20,18 @@ public:
      */
     static void getRankStr(int prm_rank, char* out);
 
-
-
-    static void resetEnemyIrisStatus(GgafCore::GgafActor* p);
-
+    // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
+    // コード変更は「シーンCreater.xls」から行っていただきたい。
+    // gen01 start
+	//ケレス
+	static void resetEnemyCeresStatus(GgafCore::GgafActor* p);
+	//アストラエア
+	static void resetEnemyAstraeaStatus(GgafCore::GgafActor* p);
+	//ヴェスタ
+	static void resetEnemyVestaStatus(GgafCore::GgafActor* p);
+	//イリス
+	static void resetEnemyIrisStatus(GgafCore::GgafActor* p);
+    // gen01 end
 };
 
 }

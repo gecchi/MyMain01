@@ -14,7 +14,10 @@ public:
 
     EnemyVesta(const char* prm_name);
 
+
     void initialize();
+
+    void onActive();
 
     void processBehavior();
 

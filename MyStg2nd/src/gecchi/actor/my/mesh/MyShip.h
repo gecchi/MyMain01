@@ -12,8 +12,7 @@ namespace MyStg2nd {
 
 #define EQ_OPTION 1
 #define EQ_MAX_OPTION 0
-//1/Å„2
-#define NANAME 0.7
+
 enum MoveWay {
     WAY_ZRIGHT_DOWN_BEHIND = 0,   //0    TN(-1,-1,-1)
     WAY_DOWN_BEHIND,              //1    TN(-1,-1, 0)

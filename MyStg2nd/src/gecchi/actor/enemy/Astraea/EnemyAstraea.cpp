@@ -6,6 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
+    MyStgUtil::resetEnemyAstraeaStatus(this);
+
     //レーザーストック
     _laser_way = 3;
     _X = 0;
@@ -53,6 +55,12 @@ void EnemyAstraea::initialize() {
 //            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //本所属
 //        }
 //    }
+    onActive();
+}
+
+
+void EnemyAstraea::onActive() {
+    MyStgUtil::resetEnemyAstraeaStatus(this);
 }
 
 void EnemyAstraea::processBehavior() {

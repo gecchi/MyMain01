@@ -10,8 +10,9 @@ GgafDx9Spline3D EnemyCeres::_spline;
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
-
+    MyStgUtil::resetEnemyCeresStatus(this);
     _iMovePatternNo = 0;
+
     _pStgChecker->_iScorePoint = 100;
 
     _X = -356000; //開始座標
@@ -68,25 +69,27 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     //Mover に渡すプログラムオブジェクトを生成しておく
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //移動速度固定
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //移動フレーム数固定
-    _dwFrame_Active = 0;
+
     useSe1("a_shot");
 }
 
 void EnemyCeres::initialize() {
+    _pStgChecker->useHitAreaBoxNum(1);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pStgChecker->setStatus(100, 1, 1, 1);
+    onActive();
+}
+
+void EnemyCeres::onActive() {
     setBumpable(true);
+    MyStgUtil::resetEnemyCeresStatus(this);
+    _iMovePatternNo = 0;
+    _dwFrame_Active = 0;
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setFaceAngleVelocity(AXIS_X, 6000);
     _pMover->setMoveVelocity(8000);
-
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
-    _pStgChecker->setStatus(100, 1, 1, 1);
-
     _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
-}
-
-void EnemyCeres::onActive() {
     _dwFrame_Active = 0;
 }
 
