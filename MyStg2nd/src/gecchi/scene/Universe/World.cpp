@@ -147,9 +147,9 @@ void World::processBehavior() {
     static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
     static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
     static int slow_range_CAM = 50000;
-    static int slow_range02_CAM = slow_range_CAM * 1.2;
+    static int slow_range02_CAM = slow_range_CAM * 1.1;
     static int slow_range_VP = 50000;
-    static int slow_range02_VP = slow_range_VP * 1.2;
+    static int slow_range02_VP = slow_range_VP * 1.1;
     //カメラと視点の移動目標設定
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
@@ -318,13 +318,13 @@ void World::processBehavior() {
             cam_MoveVeloRenge = pMYSHIP->_iMoveSpeed*NANAME +
                                   ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
                                     GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
-                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove) ); //カメラ移動スピード（自機斜め移動時）
+                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)*1.5  ); //カメラ移動スピード（自機斜め移動時）
 
         } else {
             cam_MoveVeloRenge = pMYSHIP->_iMoveSpeed +
                                     ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
                                       GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
-                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove) ); //カメラ移動スピード（標準）
+                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)*1.5  ); //カメラ移動スピード（標準）
         }
 
 //                +

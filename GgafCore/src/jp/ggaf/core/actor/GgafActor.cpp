@@ -110,7 +110,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    TRACE(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
                                                                          ","<<
                                                                          _can_bump_flg<<
                                                                          ","<<
