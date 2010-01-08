@@ -33,7 +33,7 @@ void GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActo
 }
 
 void GgafLordActor::addSubGroup(GgafMainActor* prm_pMainActor) {
-    addSubGroup(0, prm_pMainActor);
+    addSubGroup(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
 

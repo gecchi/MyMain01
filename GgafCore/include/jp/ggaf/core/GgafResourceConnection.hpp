@@ -31,6 +31,7 @@ private:
     /** 使いまわす大事な資源 */
     T* _pResource;
 
+    static volatile bool _is_closeing_resource;
 protected:
     /** 資源マネジャー */
     GgafResourceManager<T>* _pManager;
@@ -92,6 +93,8 @@ public:
 };
 
 /////////////////////////////////// 実装部 /////
+template<class T>
+volatile bool GgafResourceConnection<T>::_is_closeing_resource = false;
 
 template<class T>
 char* GgafResourceConnection<T>::getIdStr() {
@@ -107,6 +110,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
     TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
+    _is_closeing_resource = false;
     _pResource = prm_pResource;
     _pNext = NULL;
     _pManager = NULL;
@@ -130,6 +134,13 @@ int GgafResourceConnection<T>::close() {
 
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
+
+    //TODO:簡易的な排他。完全ではない。
+    while(GgafResourceManager<T>::_is_finding_resource) {
+        Sleep(1);
+    }
+
+    _is_closeing_resource = true;
     pCurrent = _pManager->_pFirstConnection;
     pPrev = NULL;
     while (pCurrent != NULL) {
@@ -175,6 +186,7 @@ int GgafResourceConnection<T>::close() {
             pCurrent = pCurrent->_pNext;
         }
     }
+    _is_closeing_resource = false;
 
     if (_num_connection == 0) {
         T* r = pCurrent->view();

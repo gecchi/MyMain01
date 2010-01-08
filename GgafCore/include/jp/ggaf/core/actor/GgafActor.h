@@ -6,10 +6,10 @@
 #define GROUPACTOR  2
 #define MAINACTOR  3
 
+#define STAT_DEFAULT_ACTOR_KIND 0
+
 
 namespace GgafCore {
-
-
 
 
 /**

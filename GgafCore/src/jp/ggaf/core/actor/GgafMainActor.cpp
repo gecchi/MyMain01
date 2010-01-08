@@ -105,6 +105,10 @@ void GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActo
     prm_pMainActor->setGroupActor(pSubGroupActor);
 }
 
+void GgafMainActor::addSubGroup(GgafMainActor* prm_pMainActor) {
+    addSubGroup(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+}
+
 
 GgafGroupActor* GgafMainActor::getSubGroupActor(actorkind prm_kind) {
     if (_pSubFirst == NULL) {
@@ -139,6 +143,7 @@ GgafGod* GgafMainActor::askGod() {
     }
     return _pGod;
 }
+
 
 GgafMainActor::~GgafMainActor() {
 }

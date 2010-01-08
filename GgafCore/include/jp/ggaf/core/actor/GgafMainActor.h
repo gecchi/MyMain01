@@ -1,5 +1,6 @@
 #ifndef GGAFMAINACTOR_H_
 #define GGAFMAINACTOR_H_
+
 namespace GgafCore {
 
 /**
@@ -91,6 +92,8 @@ public:
      * @param prm_pMainActor 種別と共に追加したいアクター
      */
     void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+
+    void addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
      * 配下の団長を探す。

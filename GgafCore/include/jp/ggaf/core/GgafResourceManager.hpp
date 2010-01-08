@@ -20,6 +20,9 @@ class GgafResourceManager : public GgafObject {
     friend class GgafResourceConnection<T>;
 
 private:
+    static volatile bool _is_finding_resource;
+
+
     /**
      * GgafResourceConnectionオブジェクトをリストに追加。<BR>
      * @param prm_pNew 追加するGgafResourceConnectionオブジェクトのポインタ
@@ -115,23 +118,36 @@ public:
 
 // ---------------------------------------------------------------------//
 
+
+template<class T>
+volatile bool GgafResourceManager<T>::_is_finding_resource = false;
+
 template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
     TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
     _pFirstConnection = NULL;
+    _is_finding_resource = false;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
+
+    //TODO:簡易的な排他。完全ではない。
+    while(GgafResourceConnection<T>::_is_closeing_resource) {
+        Sleep(1);
+    }
+    _is_finding_resource = true;
     while (pCurrent != NULL) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
+            _is_finding_resource = false;
             return pCurrent;
         }
         pCurrent = pCurrent->_pNext;
     }
+    _is_finding_resource = false;
     return NULL;
 }
 
@@ -180,7 +196,8 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
 template<class T>
 T* GgafResourceManager<T>::createResource(char* prm_idstr) {
     TRACE3("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "を生成しましょう");
-    return processCreateResource(prm_idstr);
+    T* p = processCreateResource(prm_idstr);
+    return p;
 }
 
 template<class T>
