@@ -12,8 +12,6 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "8/Ir
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-
-    setTechnique("DestBlendOne");
 }
 
 void EnemyIris::initialize() {

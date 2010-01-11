@@ -38,7 +38,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]); //‰¼Š‘®
         }
     }
-
+    setTechnique("DestBlendOne");
     useSe1("yume_Sbend", pWORLD->_frame_of_active); //ƒŒ[ƒU[”­Ë
     useSe2("bomb1");     //”š”­
 }
