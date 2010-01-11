@@ -16,7 +16,7 @@ GgafDx9D3DXAniMeshModel::GgafDx9D3DXAniMeshModel(char* prm_model_name) : GgafDx9
     _Ang = 0.0f;
 }
 
-HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
+HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXAniMeshModel::draw("<<prm_pActor_Target->getName()<<")");
     GgafDx9D3DXAniMeshActor* pTargetActor;
     //‘ÎÛƒAƒNƒ^[
@@ -59,7 +59,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
 
     for (int i = 0; it != pDrawList->end(); i++, it++) {
         //•`‰æ
-        if (GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect && i == 0) {
+        if ((GgafDx9EffectManager::_pEffect_Active != pD3DXAniMeshEffect || GgafDx9DrawableActor::_hash_technique_active != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("["<<i<<"],EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -169,6 +169,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pD3DXAniMeshEffect;
+    GgafDx9DrawableActor::_hash_technique_active = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }

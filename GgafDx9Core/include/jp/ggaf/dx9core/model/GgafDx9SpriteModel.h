@@ -52,7 +52,7 @@ public:
      * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9SpriteActor
      * @return	HRESULT
      */
-    virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target);
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target);
 
     virtual void restore();
 

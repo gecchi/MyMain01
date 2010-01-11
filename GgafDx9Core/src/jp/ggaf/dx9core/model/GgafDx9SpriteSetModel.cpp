@@ -39,7 +39,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
 }
 
 //•`‰æ
-HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
+HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9SpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //‘ÎÛActor
     static GgafDx9SpriteSetActor* pTargetActor;
@@ -61,7 +61,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
     }
 
-    if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect)  {
+    if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect || GgafDx9DrawableActor::_hash_technique_active != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -94,6 +94,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9SpriteSetModel::_draw_set_num_LastDraw = draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
+    GgafDx9DrawableActor::_hash_technique_active = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }

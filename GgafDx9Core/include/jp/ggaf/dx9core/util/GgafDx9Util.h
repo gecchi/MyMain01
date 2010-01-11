@@ -9,7 +9,7 @@ namespace GgafDx9Core {
  * ユーティリティ.
  * 独立した静的な座標関連関数はココに集約。
  */
-class GgafDx9Util: GgafCore::GgafUtil {
+class GgafDx9Util: public GgafCore::GgafUtil {
 
 public:
     static int COS_UNITLEN[];

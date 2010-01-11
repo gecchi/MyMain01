@@ -22,6 +22,7 @@ GgafActor::GgafActor(const char* prm_name) :
 }
 
 GgafActor::~GgafActor() {
+    DELETE_IMPOSSIBLE_NULL(_pStatus);
 #ifdef OREDEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 #else

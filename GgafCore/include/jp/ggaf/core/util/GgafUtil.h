@@ -58,7 +58,19 @@ public:
 //            else break;
 //        }
     }
-
+    /**
+     * 簡易ハッシュ
+     * @param key
+     * @return ハッシュ値
+     */
+    static unsigned int easy_hash(const char* prm_key) {
+        unsigned int n = 0;
+        for (unsigned int i = 1; (*prm_key) != '\0'; i++) {
+            n = n * 7 +  ((*prm_key) * i); //思いついきの適当なハッシュ関数です。
+            prm_key++;
+        }
+        return n;
+    }
 };
 
 }

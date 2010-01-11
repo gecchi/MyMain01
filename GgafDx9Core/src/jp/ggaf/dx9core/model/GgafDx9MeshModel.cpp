@@ -23,7 +23,7 @@ GgafDx9MeshModel::GgafDx9MeshModel(char* prm_model_name) : GgafDx9Model(prm_mode
 }
 
 //描画
-HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
+HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     //対象アクター
     static GgafDx9MeshActor* pTargetActor;
@@ -61,7 +61,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
 
-        if (GgafDx9EffectManager::_pEffect_Active != pMeshEffect && i == 0) {
+        if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_active != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
 				TRACE4("前回_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
@@ -96,6 +96,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9BaseActor* prm_pActor_Target) {
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
+    GgafDx9DrawableActor::_hash_technique_active = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }

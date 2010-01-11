@@ -23,6 +23,11 @@ public:
     float _fAlpha;
 
     char* _technique;
+
+    unsigned int _hash_technique;
+
+    static unsigned int _hash_technique_active;
+
     /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9;
     /** モデル資源接続 */
@@ -71,6 +76,7 @@ public:
     }
 
     void setTechnique(char* prm_technique) {
+        _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
 

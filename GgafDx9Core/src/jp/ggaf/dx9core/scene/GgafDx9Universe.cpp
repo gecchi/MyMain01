@@ -78,6 +78,7 @@ void GgafDx9Universe::draw() {
         mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDraw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
+        GgafDx9DrawableActor::_hash_technique_active = 0;
     }
 }
 

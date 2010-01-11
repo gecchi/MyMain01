@@ -2,6 +2,9 @@
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
+
+unsigned int GgafDx9DrawableActor::_hash_technique_active = 0;
+
 GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            const char* prm_model,
                                            const char* prm_effect,
@@ -60,22 +63,30 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 //_TRACE_(")");
 
     _class_name = "GgafDx9DrawableActor";
+    _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
+
     char* model_name = NEW char[51];
     model_name[0] = '\0';
     strcat(model_name, prm_model_type);
     strcat(model_name, "/");
     strcat(model_name, prm_model_id);
+    // prm_model_id   = "Ceres"
+    // prm_model_type = "X"
+    // の場合、model_name として
+    // model_name     = "X/Ceres"
+    // という文字列を作成。
+
     char* effelct_name = NEW char[51];
     effelct_name[0] = '\0';
     strcat(effelct_name, prm_effect_type);
     strcat(effelct_name, "/");
     strcat(effelct_name, prm_effect_id);
-    // prm_model_id   = "Ceres"
-    // prm_model_type = "X"
-    // の場合、model_name として
-    // model_name     = "X/Ceres"
+    // prm_effect_id   = "DefaultMeshEffect"
+    // prm_effect_type = "X"
+    // の場合、effelct_name として
+    // effelct_name     = "X/DefaultMeshEffect"
     // という文字列を作成。
 
     _pNext_TheSameDrawDepthLevel = NULL;

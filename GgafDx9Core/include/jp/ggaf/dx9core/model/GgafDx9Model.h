@@ -48,7 +48,7 @@ public:
      * @param prm_pActor_Target 描画するモデルのアクター
      * @return HRESULT
      */
-    virtual HRESULT draw(GgafDx9BaseActor* prm_pActor_Target) = 0;
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) = 0;
 
     /**
      * モデルを再構築します.
