@@ -44,10 +44,10 @@ public:
     /**
      * メンバーを登録します.
      * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
-     * 最後に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をregistしてください。
+     * 最初に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をaddSubLastしてください。
      * @param prm_pSub 登録アクター
      */
-    virtual void regist(GgafCore::GgafActor* prm_pSub);
+    virtual void addSubLast(GgafCore::GgafActor* prm_pSub);
 
 
     /**
