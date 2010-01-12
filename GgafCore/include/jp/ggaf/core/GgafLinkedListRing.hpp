@@ -53,6 +53,7 @@ private:
         /**
          * コンストラクタ
          * @param prm_pValue 値ポインタ
+         * @param prm_is_delete_value true:GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。/false:要素(_pValue)をdeleteしない。
          */
         Elem(T* prm_pValue, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
@@ -106,7 +107,9 @@ private:
          * 内部保持する要素の値もdeleteされます。<BR>
          */
         ~Elem() {
-            DELETE_IMPOSSIBLE_NULL(_pValue);
+            if (_is_delete_value) {
+                DELETE_IMPOSSIBLE_NULL(_pValue);
+            }
         }
 
     };
@@ -157,7 +160,7 @@ public:
     /**
      * アクティブ要素のｎ番目の要素の値を取得する。アクティブ要素は変化しない .
      * getNext(1) は、getNext() と同じです。getNext(0) は get()と同じです。
-     * @param インデックス
+     * @param n インデックス
      * @return アクティブ要素からｎ番目の要素
      */
     T* getNext(int n);
@@ -178,7 +181,7 @@ public:
     /**
      * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
      * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
-     * @param インデックス
+     * @param n インデックス
      * @return アクティブ要素からｎ番目前の要素
      */
     T* getPrev(int n);
@@ -219,7 +222,8 @@ public:
      * 初めてのaddLastは、引数のオブジェクトはにアクティブ要素なり、<BR>
      * ２回目以降addLastを行なってもにアクティブ要素は影響されません。<BR>
      *
-     * @param   prm_pSub    インスタンス生成済み要素のポインタ
+     * @param prm_pSub インスタンス生成済み要素のポインタ
+     * @param prm_is_delete_value true:本インスタンスdelete時に、引数の追加要素もdeleteする。/false:delete時に、引数の追加要素をdeleteしない。
      */
     virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
 

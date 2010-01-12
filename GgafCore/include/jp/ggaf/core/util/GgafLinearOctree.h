@@ -113,28 +113,30 @@ public:
     /**
      * 線形八分木空間を構築する.
      * @param prm_level 構築する空間レベル
-     * @param X1 構築する外枠の空間座標
-     * @param Y1
-     * @param Z1
-     * @param X2
-     * @param Y2
-     * @param Z2
-     * @return
      */
     GgafLinearOctree(int prm_level);
 
-
-
+    /**
+     * 空間レベル0の範囲を更新.
+     * 随時変更可能。
+     * @param X1 構築する外枠の空間座標
+     * @param Y1 〃
+     * @param Z1 〃
+     * @param X2 〃
+     * @param Y2 〃
+     * @param Z2 〃
+     */
     virtual void setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int Z2);
-
 
     /**
      * 要素を八分木空間に登録する
      * @param prm_pElem 要素
-     * @param prm_kind 種別
-     * @param prm_X 要素対象オブジェクトのX座標
-     * @param prm_Y 要素対象オブジェクトのY座標
-     * @param prm_Z 要素対象オブジェクトのZ座標
+     * @param tX1 要素対象オブジェクトの外枠の座標
+     * @param tY1 〃
+     * @param tZ1 〃
+     * @param tX2 〃
+     * @param tY2 〃
+     * @param tZ2 〃
      */
     virtual void registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2);
 
@@ -199,9 +201,9 @@ public:
      *                           |   +-------&B(vnf) = そのLevelの親の親の空間のモートン順序の位置 0～7
      *
      *
-     * @param x_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
-     * @param y_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)
-     * @param z_index 同一のレベル空間のz座標空間インデックス (ただし 0～255 とする)
+     * @param x_space_index 同一のレベル空間のx座標空間インデックス (ただし 0～255 とする)
+     * @param y_space_index 同一のレベル空間のy座標空間インデックス (ただし 0～255 とする)
+     * @param z_space_index 同一のレベル空間のz座標空間インデックス (ただし 0～255 とする)
      * @return そのLevell空間の(x_index, y_index, z_index)で示される空間に対応する
      *         八分木モートン順序の通し空間番号(最大Level8で、0～23068671)
      */

@@ -39,18 +39,19 @@ public:
     /*  */
 
     /**
-     * 10進数-->2進数変換関数
-     * @param DecimalNumber
-     * @param BinaryString 2進数文字列化  char[33]  [out]
+     * 10進数-->2進数文字列変換関数
+     * @param prm_decimal
+     * @param out_binstr 2進数文字列化  char[33]  [out]
+     * @param bitnum 所望の２進数ビット数
      */
-    static void strbin(unsigned long int DecimalNumber, char* BinaryString, int bitnum = 32){
+    static void strbin(unsigned long int prm_decimal, char* out_binstr, int bitnum = 32){
         /* 10進数-->2進数変換 */
         int i, k;
         for (i = 0, k = bitnum - 1; k >= 0; i++, k--) {
-            if ((DecimalNumber >> i) & 1) BinaryString[k] = '1';
-            else BinaryString[k] = '0';
+            if ((prm_decimal >> i) & 1) out_binstr[k] = '1';
+            else out_binstr[k] = '0';
         }
-        BinaryString[i] = '\0';
+        out_binstr[i] = '\0';
 
         /* 変換結果の例00011001における、上位桁の000を削除する処理 */
 //        for (i = 0; i < BITS_DIGIT; i++) {
@@ -58,19 +59,85 @@ public:
 //            else break;
 //        }
     }
+
+//    static unsigned int easy_hash(const char* prm_key) {
+//        unsigned int n = 0;
+//        for (unsigned int i = 1; (*prm_key) != '\0'; i++) {
+//            n = n * 33  + ((*prm_key)-32);
+//            prm_key++;
+//        }
+//        return n;
+//        //n = n * 33  + ((*prm_key)-32); とした理由メモ
+//        //-32 は ' '(ASCII:32番) 以降の文字しか扱わないため
+//        //33を乗ずると、なんか衝突が少ないらしい
+//    }
+
     /**
-     * 簡易ハッシュ
-     * @param key
+     * 簡易ハッシュ .
+     * 文字列 を、さも一意のような32biｔ数値に変換。
+     * スピード優先のハッシュ関数のため、厳密ではない。
+     * @param str 文字列
      * @return ハッシュ値
      */
-    static unsigned int easy_hash(const char* prm_key) {
-        unsigned int n = 0;
-        for (unsigned int i = 1; (*prm_key) != '\0'; i++) {
-            n = n * 7 +  ((*prm_key) * i); //思いついきの適当なハッシュ関数です。
-            prm_key++;
+    static unsigned int easy_hash(const char* str) {
+        unsigned long hash = 5381;
+        char c;
+        while (c = *str++) {
+            hash = ((hash << 5) + hash) + c; // hash * 33 + c
         }
-        return n;
+        return hash;
     }
+
+    /**
+     * 符号判定.
+     * @param x
+     * @return
+     */
+    template<typename T>
+    static T sign(T x) {
+        if (x < 0) {
+            return -1;
+        } else if (x > 0) {
+            return 1;
+        } else {
+            return 0;
+        }
+
+    }
+
+
+    /**
+     * 絶対値を求める
+     * @param x
+     * @return
+     */
+    template<typename T>
+    static T abs(T x) {
+        if (x < 0) {
+            return (T)(-1.0* x);
+        } else if (x > 0) {
+            return x;
+        } else {
+            return (T)0.0;
+        }
+    }
+
+    /**
+     * 平方根の近似を求める .
+     * 標準sqrtよりも計算が速いが、アバウト。
+     * @param a 平方根を求めたい値
+     * @param s 精度（計算ループ回数。省略時11）
+     * @return 引数aの平方根
+     */
+    static float sqrt_fast(float a, int s = 11) {
+        double ret = 1;
+        for (int i = 1; i <= s; i++) {
+            ret = 0.5 * (ret + a / ret);
+        }
+        return (float)ret;
+    }
+    //static DWORD max3(DWORD a, DWORD b, DWORD c);
+
 };
 
 }

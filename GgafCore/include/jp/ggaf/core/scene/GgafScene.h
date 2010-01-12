@@ -214,14 +214,14 @@ public:
     virtual void unpauseImmediately();
 
     /**
-     * 自ツリーシーンを次フレーム絶命させる。 .
-     * ＜OverRide です＞<BR>
+     * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
+     * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
      */
     virtual void adios(DWORD prm_frame_offset = 0);
 
     /**
-     * 自ツリーシーンを絶命させる。 .
-     * ＜OverRide です＞<BR>
+     * 自ツリーを末端から開放する。 .
+     * @param prm_num_cleaning 開放インスタンス数
      */
     virtual void cleane(int prm_num_cleaning);
 
@@ -236,33 +236,6 @@ public:
      * @return	管理者
      */
     virtual GgafLordActor* getLordActor();
-
-    /**
-     * 自ツリーシーンのアクターに衝突判定を実行 (遅い方。こちらはgetName()のstd::string比較なのでやや遅い。次のメソッドを使う方が良いだー).
-     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafGroupActor 全てに対して<BR>
-     * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
-     * @param	prm_actor_kind_name01	判定する対象のGgafGroupActorに登録されているActor種別名
-     * 		    prm_actor_kind_name02	判定される対象のGgafGroupActorに登録されているActor種別名<BR>
-     */
-    //virtual void executeBumpChkGroupActors(std::string prm_actor_kind_name01, std::string prm_actor_kind_name02);
-
-
-    /**
-     * 自ツリーシーンのアクターに衝突判定を実行 （速いほう）.
-     * 自ツリーシーン全てに対して、各シーンに所属する管理者のサブアクターである GgafGroupActor 全てに対して<BR>
-     * GgafActor#executeBumpChk_RoundRobinを実行する。<BR>
-     * @param	prm_actorkind01	判定する対象のGgafGroupActorに登録されているActor種別
-     * 		    prm_actorkind01	判定される対象のGgafGroupActorに登録されているActor種別<BR>
-     */
-    //virtual void executeBumpChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02);
-    /**
-     * 経過フレーム判定。 .
-     * 直前の delay(n) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。<BR>
-     * 注意：入れ子で使用した場合はうまく動きません。<BR>
-     * @param	prm_dwFrame_delay	経過フレーム数
-     * @return	bool	true:経過フレーム数に達した/false:達していない
-     */
-    //	virtual bool delayed(_delay);
 
     /**
      * デバッグ用：ツリー構造を表示 .

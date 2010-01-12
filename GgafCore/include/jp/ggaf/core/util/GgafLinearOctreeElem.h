@@ -44,12 +44,12 @@ public:
      */
     void addElem(GgafLinearOctreeSpace* prm_pSpace_target);
 
-    /**
-     * ©g‚ª©‚ç‘¼‹óŠÔ‚ÖˆÚ“®
-     * extract()‚µ‚ÄaddElem()‚µ‚Ü‚·.
-     * @param prm_pSpace_target
-     */
-    //void moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target);
+//    /**
+//     * ©g‚ª©‚ç‘¼‹óŠÔ‚ÖˆÚ“®
+//     * extract()‚µ‚ÄaddElem()‚µ‚Ü‚·.
+//     * @param prm_pSpace_target
+//     */
+//void moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target);
     void dump();
 
     virtual ~GgafLinearOctreeElem();

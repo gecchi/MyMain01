@@ -138,13 +138,6 @@ public:
      */
     GgafGroupActor* getSubGroupActor(actorkind prm_kind);
 
-    /**
-     * 直属のGgafGroupActorを取得する。<BR>
-     * @param   prm_kind    種別("*"による省略可能)
-     * @param   prm_pActor   登録するアクター
-     */
-    //    virtual GgafGroupActor* getGroupActor(std::string prm_kind);
-
 
     /**
      * 神に謁見 .

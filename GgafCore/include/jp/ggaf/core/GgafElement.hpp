@@ -279,7 +279,7 @@ public:
      * ノードの個別何かの処理を記述。(単体)
      * happen() 時の処理先頭でコールバックされる。
      * 利用目的不定の汎用イベント用コールバック
-     * @param   int prm_no 何かの番号
+     * @param prm_no 何かの番号
      */
     virtual void processHappen(int prm_no) = 0;
 

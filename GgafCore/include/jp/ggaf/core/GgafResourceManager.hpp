@@ -38,13 +38,20 @@ private:
 
     /**
      * 資源のを生成。.
-     * @param prm_name 識別名
+     * @param prm_idstr 識別名
      */
     T* createResource(char* prm_idstr);
 
     /**
      * 資源接続オブジェクトを生成.
-     * @param prm_name 識別名
+     * @param prm_idstr 識別名
+     */
+
+    /**
+     * 資源接続オブジェクトを生成.
+     * @param prm_idstr 識別名
+     * @param prm_pResource 資源接続オブジェクトのValue。つまり資源インスタンス。
+     * @return 資源接続オブジェクト
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
