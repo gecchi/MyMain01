@@ -42,11 +42,12 @@ public:
 //    }
 
     /**
-     * メンバーを追加します。
-     * GgafNode<GgafActor>::addSubLast() を呼び出し、種別を引き継ぎます
-     * @param prm_pSub
+     * メンバーを登録します.
+     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
+     * 最後に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をregistしてください。
+     * @param prm_pSub 登録アクター
      */
-    virtual void enter(GgafCore::GgafActor* prm_pSub);
+    virtual void regist(GgafCore::GgafActor* prm_pSub);
 
 
     /**

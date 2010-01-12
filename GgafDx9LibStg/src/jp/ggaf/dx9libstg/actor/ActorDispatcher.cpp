@@ -10,7 +10,7 @@ ActorDispatcher::ActorDispatcher(const char* prm_name) : GgafDummyActor(prm_name
 }
 
 
-void ActorDispatcher::enter(GgafActor* prm_pSub) {
+void ActorDispatcher::regist(GgafActor* prm_pSub) {
     addSubLast(prm_pSub);
     if (prm_pSub->_pStatus) {
         //Ží•Ê‚ðˆø‚«Œp‚®
