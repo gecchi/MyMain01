@@ -81,7 +81,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //ˆÊ’u‚¾‚¯“¯Šú
         pChip->inactivateImmediately();
-        _pLaserChipDispatcher->enter(pChip);
+        _pLaserChipDispatcher->addSubLast(pChip);
     }
     addSubGroup(_pLaserChipDispatcher);
 
