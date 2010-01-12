@@ -76,10 +76,10 @@ LaserChip* LaserChipDispatcher::employ() {
 
 }
 
-void LaserChipDispatcher::addLaserChip(LaserChip* prm_pLaserChip) {
+void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     prm_pLaserChip->_pDispatcher = this;
-    addSubLast(prm_pLaserChip);
+    ActorDispatcher::addSubLast(prm_pLaserChip);
 }
 
 LaserChipDispatcher::~LaserChipDispatcher() {

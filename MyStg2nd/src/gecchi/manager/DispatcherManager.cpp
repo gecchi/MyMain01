@@ -20,7 +20,7 @@ ActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
             pShot001->inactivateImmediately();
             pResource->addSubLast(pShot001);
         }
-        pCOMMONSCENE->getLordActor()->addSubGroup(KIND_ENEMY_SHOT_GU, pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
+        pCOMMONSCENE->getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, pResource); //最後にaddSubGroupすべし（さもないと直ぐに削除対象になる）
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {

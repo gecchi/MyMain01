@@ -4,7 +4,7 @@ namespace MyStg2nd {
 
 /**
  * レーザーチップ使いまわし管理クラス .
- * new した後 addLaserChip メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
+ * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
  * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  * ・_num_chip_interval ･･･弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeCon_Laser ･･･ レーザーチップ発射時SE（デフォルト:NULL）<BR>
@@ -51,7 +51,7 @@ public:
      * 追加すればするほど玉切れがおきにくい
      * @param prm_pLaserChip レーザーチップ
      */
-    void addLaserChip(LaserChip* prm_pLaserChip);
+    void addSubLast(LaserChip* prm_pLaserChip);
 
      virtual ~LaserChipDispatcher();
 

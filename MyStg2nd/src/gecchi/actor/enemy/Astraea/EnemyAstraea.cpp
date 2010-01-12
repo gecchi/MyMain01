@@ -33,7 +33,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
                 name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
                 pChip->inactivateImmediately();
-                _papapLaserChipDispatcher[i][j]->addLaserChip(pChip);
+                _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
             }
             addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]); //âºèäëÆ
         }

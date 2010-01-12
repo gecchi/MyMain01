@@ -96,6 +96,10 @@ void EnemyIris::processJudgement() {
 }
 
 void EnemyIris::processOnHit(GgafActor* prm_pActor_Opponent) {
+    //_TRACE_("EnemyIris::processOnHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+	//_TRACE_("EnemyIris::processOnHit!!! prm_pActor_Opponent="<<prm_pActor_Opponent->getName()<<"("<<prm_pActor_Opponent->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+
+
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     playSe2();
     if (pExplo001 != NULL) {

@@ -35,7 +35,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 //        pChip->_pSource_vY = &_Q._y;
 //        pChip->_pSource_vZ = &_Q._z;
         pChip->inactivateImmediately();
-        _pLaserChipDispatcher->addLaserChip(pChip);
+        _pLaserChipDispatcher->addSubLast(pChip);
     }
     addSubLast(_pLaserChipDispatcher); //âºÉTÉu
 
