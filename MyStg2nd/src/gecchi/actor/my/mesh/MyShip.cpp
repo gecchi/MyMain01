@@ -19,6 +19,7 @@ int MyShip::_lim_zright  =  0;
 MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
+    MyStgUtil::resetMyShipStatus(this);
     //setTechnique("DestBlendOne"); //加算合成Technique指定
 
     GameGlobal::init();
@@ -80,9 +81,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
         pChip = NEW MyStraightLaserChip001(name2.c_str());
         pChip->setPositionSource(this); //位置だけ同期
         pChip->inactivateImmediately();
-        _pLaserChipDispatcher->addLaserChip(pChip);
+        _pLaserChipDispatcher->enter(pChip);
     }
-    addSubLast(_pLaserChipDispatcher); //仮サブ
+    addSubGroup(_pLaserChipDispatcher);
+
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
@@ -162,10 +164,16 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     useSe1("se-020");
 
 
-	char rankstr[80] = {0} ;// 全て0で初期化
-	MyStgUtil::getRankStr(99999, rankstr);
-	_TRACE_("RANKSTR:"<<rankstr);
+    char rankstr[80] = {0} ;// 全て0で初期化
+    MyStgUtil::getRankStr(99999, rankstr);
+    _TRACE_("RANKSTR:"<<rankstr);
 }
+
+void MyShip::onActive() {
+    MyStgUtil::resetMyShipStatus(this);
+
+}
+
 
 void MyShip::initialize() {
 
@@ -174,7 +182,7 @@ void MyShip::initialize() {
     //種別に振り分け
     getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
     getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
-    getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
     setBumpable(true);
     _pStgChecker->useHitAreaBoxNum(1);

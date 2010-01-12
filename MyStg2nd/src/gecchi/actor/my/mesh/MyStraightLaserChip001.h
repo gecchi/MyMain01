@@ -13,6 +13,8 @@ public:
      */
     void initialize();
 
+    void onActive();
+
     void processHappen(int prm_no) {
     }
 

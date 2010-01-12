@@ -283,6 +283,11 @@ public:
      * ＜OverRide です＞
      */
     virtual void initialize();
+    /**
+     *
+     * 自機がアクティブになった瞬間の処理 .
+     */
+    void onActive();
 
     /**
      * ＜OverRide です＞

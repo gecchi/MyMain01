@@ -130,11 +130,11 @@ void GameScene::processJudgement() {
               );
         StgChecker::_pLinearOctree->executeAllBumpChk(
                 KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
-                KIND_ENEMY_SHOT_GU
+                KIND_MY_SHOT_GU
               );
         StgChecker::_pLinearOctree->executeAllBumpChk(
-                KIND_MY_SHOT_CHOKI,
-                KIND_MY_SHOT_GU
+                KIND_ENEMY_SHOT_CHOKI,
+                KIND_ENEMY_SHOT_GU
               );
 
 

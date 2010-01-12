@@ -31,6 +31,10 @@ public:
 	static void resetEnemyVestaStatus(GgafCore::GgafActor* p);
 	//イリス
 	static void resetEnemyIrisStatus(GgafCore::GgafActor* p);
+	//自機レーザー
+	static void resetMyStraightLaserChip001Status(GgafCore::GgafActor* p);
+	//自機
+	static void resetMyShipStatus(GgafCore::GgafActor* p);
     // gen01 end
 };
 

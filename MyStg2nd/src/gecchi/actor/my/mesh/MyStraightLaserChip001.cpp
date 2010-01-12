@@ -8,6 +8,7 @@ using namespace MyStg2nd;
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyStraightLaserChip001";
+    MyStgUtil::resetMyStraightLaserChip001Status(this);
     _veloMove = 100000;
 }
 
@@ -23,7 +24,10 @@ void MyStraightLaserChip001::initialize() {
     _max_radius = 20.0;
 }
 
-
+void MyStraightLaserChip001::onActive() {
+    StraightLaserChip::onActive();
+    MyStgUtil::resetMyStraightLaserChip001Status(this);
+}
 
 void MyStraightLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
 }

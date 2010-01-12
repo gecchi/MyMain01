@@ -121,35 +121,51 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 // gen02 start
 	void MyStgUtil::resetEnemyCeresStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
-		p->_pStatus->set(STAT_AddScorePoint, 1);
-		p->_pStatus->set(STAT_AddRankPoint, 10);
-		p->_pStatus->set(STAT_StaminaPoint, 100);
-		p->_pStatus->set(STAT_DefensePoint, 1000);
-		p->_pStatus->set(STAT_AttackPoint, 10000);
+		p->_pStatus->set(STAT_AddScorePoint, 100);
+		p->_pStatus->set(STAT_AddRankPoint, 0.1);
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 0);
+		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 	void MyStgUtil::resetEnemyAstraeaStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
-		//p->_pStatus->set(STAT_AddScorePoint, ???);
-		p->_pStatus->set(STAT_AddRankPoint, 20);
-		p->_pStatus->set(STAT_StaminaPoint, 200);
-		p->_pStatus->set(STAT_DefensePoint, 2000);
-		p->_pStatus->set(STAT_AttackPoint, 20000);
+		p->_pStatus->set(STAT_AddScorePoint, 300);
+		p->_pStatus->set(STAT_AddRankPoint, 0.2);
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 0);
+		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 	void MyStgUtil::resetEnemyVestaStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
-		p->_pStatus->set(STAT_AddScorePoint, 3);
-		//p->_pStatus->set(STAT_AddRankPoint, ???);
-		p->_pStatus->set(STAT_StaminaPoint, 300);
-		p->_pStatus->set(STAT_DefensePoint, 3000);
-		p->_pStatus->set(STAT_AttackPoint, 30000);
+		p->_pStatus->set(STAT_AddScorePoint, 1000);
+		p->_pStatus->set(STAT_AddRankPoint, 0.5);
+		p->_pStatus->set(STAT_StaminaPoint, 30);
+		p->_pStatus->set(STAT_DefensePoint, 0);
+		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 	void MyStgUtil::resetEnemyIrisStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
-		p->_pStatus->set(STAT_AddScorePoint, 4);
-		p->_pStatus->set(STAT_AddRankPoint, 40);
-		p->_pStatus->set(STAT_StaminaPoint, 400);
-		p->_pStatus->set(STAT_DefensePoint, 4000);
-		p->_pStatus->set(STAT_AttackPoint, 40000);
+		p->_pStatus->set(STAT_AddScorePoint, 20);
+		p->_pStatus->set(STAT_AddRankPoint, 0.2);
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 0);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetMyStraightLaserChip001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0);
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetMyShipStatus(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0);
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 // gen02 end
 
