@@ -45,7 +45,7 @@ public:
      *                      1の場合基点から次基点まで何も無い（直線）。
      *                      0.5 とすると基点から次基点までに補完点は1つ入る。
      *                      0.1 とすると基点と基点の間に補完点は9つ。
-     * @param prm_paaCriteriaPoint 始点～終点へ移動するのに許されるフレーム数
+     * @param prm_spent_frame 始点～終点へ移動するのに費やすフレーム数
      * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
     GgafDx9FixedFrameSplineProgram(double prm_paaCriteriaPoint[][3],
@@ -77,7 +77,7 @@ public:
      * @param prm_pActor 対象のアクター
      * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
-    void begin(GgafDx9GeometricActor* _pActor, int prm_option = 0);
+    void begin(GgafDx9GeometricActor* prm_pActor, int prm_option = 0);
 
     /**
      * 移動実行メソッド .

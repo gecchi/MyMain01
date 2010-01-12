@@ -15,8 +15,8 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
-     * @param prm_pID3DXEffect テクスチャ
+     * @param prm_idstr エフェクト識別名(＝ファイル名)
+     * @param prm_pEffect エフェクト
      */
     GgafDx9EffectConnection(char* prm_idstr, GgafDx9Effect* prm_pEffect);
 

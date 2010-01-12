@@ -5,7 +5,7 @@ namespace GgafDx9Core {
 /**
  * GgafDx9MorphMeshModel用のモデルクラス.
  * GgafDx9MorphMeshModel は GgafDx9MeshModel の描画する機能に加え、モーフアニメーション機能を有するモデルです。<BR>
- * <u>引数のモデル名 ( prm_model_name ) の与えかたと読み込まれるXファイルについて</u><BR>
+ * <b>引数のモデル名 ( prm_model_name ) の与えかたと読み込まれるXファイルについて</b><BR>
  * ＜例＞<BR>
  * <table border=1>
  * <tr>

@@ -124,28 +124,28 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
      * 内部的には、addFaceAngle(prm_axis, int) が毎フレーム行われる仕組みです。<BR>
      * 目標の回転方角に到達したならば、この目標の軸回転方角自動停止機能は解除(内部のフラグをアンセット)されます。<BR>
      * @param	prm_axis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	prm_angRzMove	到達目標の回転方角(0～360,000)
+     * @param	prm_angTargetRot	到達目標の回転方角(0～360,000)
      * @param	prm_way_allow  自動停止を許可する進入方向(TURN_CLOCKWISE/TURN_COUNTERCLOCKWISE/TURN_BOTH)
-     * @param	prm_angveloAllowRyMove 自動停止機能が有効になる回転角速度
+     * @param	prm_angveloAllow 自動停止機能が有効になる回転角速度
      */
     void setStopTarget_FaceAngle(int prm_axis,
-                           angle prm_angTargetRot,
-                           int prm_way_allow = TURN_BOTH,
-                           angvelo prm_angveloAllow = ANGLE180);
+                                 angle prm_angTargetRot,
+                                 int prm_way_allow = TURN_BOTH,
+                                 angvelo prm_angveloAllow = ANGLE180);
 
     /**
      * Actorの目標回転方向自動停止機能を有効(現在XY座標からの対象XY座標で設定)<BR>
      * @param	prm_axis	回転軸（AXIS_X / AXIS_Y / AXIS_Z)
-     * @param	　　prm_tX	対象X座標
+     * @param	prm_tX	対象X座標
      * @param	prm_tY	対象Y座標
      * @param	prm_way_allow  自動停止機能が有効になる回転方向
      * @param	prm_angveloAllowRyMove 自動停止機能が有効になる回転角速度
      */
     void setStopTarget_FaceAngleV(int prm_axis,
-                                int prm_tX,
-                                int prm_tY,
-                                int prm_way_allow = TURN_BOTH,
-                                angvelo prm_angveloAllowRyMove = ANGLE180);
+                                  int prm_tX,
+                                  int prm_tY,
+                                  int prm_way_allow = TURN_BOTH,
+                                  angvelo prm_angveloAllowRyMove = ANGLE180);
 
     void setFaceAngleVelocity(int prm_axis, angvelo prm_angveloRot);
 
@@ -263,7 +263,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 自動前方向き機能が有効(_relate_RzFaceAngle_to_RzMoveAngle_flg)の場合、<BR>
      * Actorの向きも移動方角（Z軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
      *
-     * @param	prm_angRzMove	移動方角（Z軸回転）(0～360,000)
+     * @param	prm_angle	移動方角（Z軸回転）(0～360,000)
      */
     void setRzMoveAngle(angle prm_angle);
 
@@ -360,8 +360,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * 加算後の移動方角（Y軸回転）が範囲外（0～360,000 以外）の値になっても、正しい 0～360,000 の範囲内の値に再計算されます。<BR>
      * 自動前方向き機能が有効(_relate_RyFaceAngle_to_RyMoveAngle_flg)の場合、<BR>
      * Actorの向きも移動方角（Y軸回転）と同じ方向を向くように setStopTarget_FaceAngle(int) も実行されます。<BR>
-     *
-     * @param	prm_angRyMove	移動方角（Y軸回転）(0～360,000)
+     * @param prm_angle 移動方角（Y軸回転）(0～360,000)
      */
     void setRyMoveAngle(angle prm_angle);
 
@@ -497,6 +496,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      * @param prm_tZ 目標Z座標
+     * @param prm_angVelocity ターゲットするための、回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -506,8 +506,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angRy_Target 目標軸回転方角(
-     * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
+     * @param prm_angRy_Target 目標軸回転方角(Y軸)
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -517,7 +517,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelocity ターゲッティング遂行中に許される角速度
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -537,7 +537,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -546,7 +546,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRy_Target 目標軸回転方角(Y軸)
-     * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -554,8 +554,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
-     * @param prm_angRy_Target 目標軸回転方角(X軸)
-     * @param prm_angVelocity ターゲットへ軸回転方角を回転移動中に適用する目標軸回転方角回転移動角速度
+     * @param prm_angRx_Target 目標軸回転方角(X軸)
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
@@ -568,6 +568,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      * @param prm_tZ 目標Z座標
+     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */

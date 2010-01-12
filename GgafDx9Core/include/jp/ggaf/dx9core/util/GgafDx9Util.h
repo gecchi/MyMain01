@@ -143,16 +143,6 @@ public:
 
 
     /**
-     * XY座標系（Z軸無視）において、方向ベクトルの成す角をアングル値で取得 .
-     * XY座標系（Z軸無視）において、原点(0,0)から(prm_vx,prm_vy)に線分を引いた時、
-     * X軸との間に出来る角（３時の方向から反時計回りに）をアングル値で取得 .
-     * @param prm_vx	X座標
-     * @param prm_vy	Y座標
-     * @return 成す角
-     */
-    //static angle getAngle2D(int prm_vx, int prm_vy);
-
-    /**
      * 平面上において、'N'way弾(N=整数)のアングル値を取得 .
      * @param prm_vx_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
@@ -217,6 +207,16 @@ public:
      */
     static int getDistance(int x1, int y1, int x2, int y2);
 
+    /**
+     * 距離計算 .
+     * @param x1
+     * @param y1
+     * @param z1
+     * @param x2
+     * @param y2
+     * @param z2
+     * @return
+     */
     template<typename T>
     static T getDistance(T x1, T y1, T z1, T x2, T y2, T z2) {
         return (T)( sqrt(
@@ -231,7 +231,15 @@ public:
                  );
     }
 
-    //現在未使用。より高速なgetRzRyAngleを使用している。
+    /**
+     * @deprecated 現在未使用。より高速なgetRzRyAngle()を使用している。
+     * @param vx
+     * @param vy
+     * @param vz
+     * @param out_angFaceZ
+     * @param out_angFaceY
+     * @param s
+     */
     static void getRzRyAngle_old(int vx,
                                    int vy,
                                    int vz,
@@ -239,7 +247,17 @@ public:
                                    angle& out_angFaceY,
                                    int s = 25);
 
-    //現在未使用。より高速なgetRzRyAngleを使用している。
+    /**
+     * @deprecated 現在未使用。より高速なgetRzRyAngle()を使用している。
+     * @param x
+     * @param y
+     * @param z
+     * @param out_nvx
+     * @param out_nvy
+     * @param out_nvz
+     * @param out_angFaceZ
+     * @param out_angFaceY
+     */
     static void getRzRyAngle_old(int x,
                               int y,
                               int z,
@@ -250,6 +268,15 @@ public:
                               angle& out_angFaceY);
 
     //現在未使用。より高速なgetRzRyAngleを使用している。
+    /**
+     * @deprecated より高速なgetRzRyAngle() を使用している。
+     * @param nvx
+     * @param nvy
+     * @param nvz
+     * @param out_angFaceZ
+     * @param out_angFaceY
+     * @param s
+     */
     static void getRzRyAngle_old(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY, int s = 25);
 
     /**
@@ -288,9 +315,9 @@ public:
     /**
      * 原点からパラメータの正規化された方向ベクトル(単位ベクトル)の、Z軸回転アングル値とY軸回転アングル値を取得 .
      * 方向ベクトルの正規化は行わないので高速です。<BR>
-     * @param vx [in]単位ベクトルX要素
-     * @param vy [in]単位ベクトルY要素
-     * @param vz [in]単位ベクトルZ要素
+     * @param nvx [in]単位ベクトルX要素
+     * @param nvy [in]単位ベクトルY要素
+     * @param nvz [in]単位ベクトルZ要素
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
@@ -331,54 +358,6 @@ public:
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 
-    /**
-     * 符号判定.
-     * @param x
-     * @return
-     */
-    template<typename T>
-    static T sign(T x) {
-        if (x < 0) {
-            return -1;
-        } else if (x > 0) {
-            return 1;
-        } else {
-            return 0;
-        }
-
-    }
-
-
-    /**
-     * @param x
-     * @return
-     */
-    template<typename T>
-    static T abs(T x) {
-        if (x < 0) {
-            return (T)(-1.0* x);
-        } else if (x > 0) {
-            return x;
-        } else {
-            return (T)0.0;
-        }
-    }
-
-    /**
-     * 平方根の近似を求める .
-     * 標準sqrtよりも計算がはやいでしょう。
-     * @param a 平方根を求めたい値
-     * @param s 精度（計算ループ回数）
-     * @return 引数aの平方根
-     */
-    static float sqrt_fast(float a, int s = 11) {
-        double ret = 1;
-        for (int i = 1; i <= s; i++) {
-            ret = 0.5 * (ret + a / ret);
-        }
-        return (float)ret;
-    }
-    //static DWORD max3(DWORD a, DWORD b, DWORD c);
 };
 
 }

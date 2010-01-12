@@ -17,7 +17,7 @@ private:
 
 public:
 
-    /** 変換済み座標であるか */
+    /** 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
     bool _isTransformed;
 
     /** ワールドX座標 */
@@ -80,6 +80,7 @@ public:
     /** 自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;
 
+    /** 移動用座標計算支援オブジェクト */
     GgafDx9GeometryMover* _pMover;
 
     //補足
@@ -102,14 +103,14 @@ public:
     float _y;
     /** 変換済みオブジェクトの場合の深度 (0.0 <= _z < 1.0) */
     float _z;
-
+    /** チェッカーオブジェクト */
     GgafDx9Checker* _pChecker;
 
-
-
     /**
-     * コンストラクタ<BR>
-     * @param	prm_name 識別名
+     *
+     * @param prm_name アクター名
+     * @param prm_pChecker チェッカー(未使用時NULL)
+     * @return
      */
     GgafDx9GeometricActor(const char* prm_name,
                               GgafDx9Checker* prm_pChecker);

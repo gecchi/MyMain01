@@ -22,7 +22,28 @@ public:
     GgafDx9EffectManager(const char* prm_manager_name);
 
     /**
-     * オーバーライド
+     * エフェクト識別IDにより、エフェクトブジェクトを生成する .
+     * <pre>
+     * ＜prm_idstrの形式＞メモ
+     * prm_idstrは、
+     * 『エフェクトタイプ  + "/" + fxファイル名(拡張子 .fx を除いたもの)』
+     * という文字列になっている。エフェクトタイプは以下の通り
+     * 'D': GgafDx9MeshEffect オブジェクト
+     * 'd': GgafDx9MeshEffect オブジェクト
+     * 'X': GgafDx9MeshEffect オブジェクト
+     * 'x': GgafDx9MeshSetEffect オブジェクト
+     * 'A': GgafDx9D3DXAniMeshEffect オブジェクト
+     * 'M': GgafDx9MorphMeshEffect オブジェクト
+     * 'S': GgafDx9SpriteEffect オブジェクト
+     * 's': GgafDx9SpriteSetEffect オブジェクト
+     * 'B': GgafDx9BoardEffect オブジェクト
+     * 'b': GgafDx9BoardSetEffect オブジェクト
+     *
+     * 例："x/LaserChipEffect" の場合。
+     * "LaserChipEffect.fx"を読み込む GgafDx9MeshSetEffectインスタンス を返す。
+     * </pre>
+     * @param prm_idstr エフェクト識別ID
+     * @return エフェクトオブジェクト
      */
     GgafDx9Effect* processCreateResource(char* prm_idstr);
 

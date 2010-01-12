@@ -37,7 +37,7 @@
  * @brief	Class (of mathematical module) for generating random number
  *			by Mersenne Twister
  * @author  Takayuki HARUKI (University of Toyama, Japan)
- * @data	Nov. 2005
+ * @date	Nov. 2005
  * @par	how to use
  *			-# get singleton object by using getInstance
  *			-# change seed by changeSeed if you want

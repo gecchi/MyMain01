@@ -47,11 +47,13 @@ public:
     /** SE資源 */
     GgafDx9Se* _pSe2;
 
-
-
     /**
-     * コンストラクタ<BR>
-     * @param	prm_name 識別名
+     * コンストラクタ .
+     * @param prm_name モデル名称（任意）
+     * @param prm_model モデル識別キー文字列
+     * @param prm_effect エフェクト識別キー文字列
+     * @param prm_technique エフェクトのテクニック
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      */
     GgafDx9DrawableActor(const char* prm_name,
                          const char* prm_model,
@@ -59,6 +61,19 @@ public:
                          const char* prm_technique,
                          GgafDx9Checker* prm_pChecker);
 
+    /**
+     * コンストラクタ .
+     * GgafDx9ModelManager::processCreateResource() 及び
+     * GgafDx9EffectManager::processCreateResource()
+     * の説明も参照すべし。
+     * @param prm_name アクター名称（任意）
+     * @param prm_model_id モデル定義名
+     * @param prm_model_type モデルタイプ
+     * @param prm_effect_id エフェクト定義名
+     * @param prm_effect_type エフェクトタイプ
+     * @param prm_technique エフェクトのテクニック
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
+     */
     GgafDx9DrawableActor(const char* prm_name,
                          const char* prm_model_id,
                          const char* prm_model_type,
@@ -75,40 +90,76 @@ public:
         return (GgafDx9DrawableActor*)GgafActor::getNext();
     }
 
+    /**
+     * テクニックを変更する .
+     * 随時可能。
+     * @param prm_technique テクニック名
+     */
     void setTechnique(char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
 
-
     /**
-     * _Zの値により、大まかにレンダリング順序を設定する。
-     * 任意の優先順位でレンダリングしたい場合は、このメソッドをオーバーライドし
-     * GgafUniverse::_apAlphaActorList_DrawDepthLevel[n] の好きな n に addSubLast(this) を行って下さい。
-     * 但し 0 ≦ n ＜ MAX_DRAW_DEPTH_LEVEL
+     * 共通の描画事前処理 .
+     * 段階レンダリングを実現するために、自身の深度に応じて
+     * GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[] または  GgafDx9Universe::_pActors_DrawMaxDrawDepth に
+     * 自身を登録する。
      * TODO:private virtual にするべきか否か？。fainal が欲しい
      */
     virtual void processPreDraw();
 
+    /**
+     * 共通の描画事後処理 .
+     * 俺デバッグモード (<code>#define OREDEBUG 1</code>)の場合は
+     * 当たり判定領域を描画する。
+     * (といっても drawHitArea() をコールするだけ)
+     */
     virtual void processAfterDraw();
 
-
+    /**
+     * 当たり判定領域を描画 .
+     * 実際の処理は下位クラスに任せる。
+     */
     virtual void drawHitArea() {};
 
+    /**
+     * アクターのアルファ設定 .
+     * @param prm_fAlpha
+     */
     virtual void setAlpha(float prm_fAlpha) {
         _fAlpha = prm_fAlpha;
     }
 
+    /**
+     * アクターのアルファ加算 .
+     * @param prm_fAlpha
+     */
     virtual void addAlpha(float prm_fAlpha) {
         _fAlpha += prm_fAlpha;
     }
 
+    /**
+     * アクターの現在のアルファ値 .
+     * @return
+     */
     virtual float getAlpha() {
         return _fAlpha;
     }
 
+    /**
+     * マテリアルカラーを設定。
+     * キャラクタ全体に色を重ねる。
+     * 本メソッドによるマテリアルカラーとは、いわゆる「DirectXのマテリアル」の意味とは範囲が異なる。
+     * @param r
+     * @param g
+     * @param b
+     */
     virtual void setMaterialColor(float r, float g, float b);
 
+    /**
+     * マテリアルカラーを初期状態にリセット。
+     */
     virtual void resetMaterialColor();
 
     void useSe1(char* prm_se_name, unsigned int prm_cannel = 0);

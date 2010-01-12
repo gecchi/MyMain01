@@ -23,14 +23,13 @@ public:
     double _advanceTimePerFrame;//60フレーム(1秒)で1ループすることを標準設定とする。
 
     GgafDx9WorldMatStack WTMStack;
-    /** D3DXLoadMeshFromXのオプション */
+    ///** D3DXLoadMeshFromXのオプション */
     //	LPD3DXBUFFER	_pAdjacency;
 
 public:
     /**
      * コンストラクタ<BR>
      * @param prm_model モデルの識別名。".x"を追加すると定義Xファイル名になる。
-     * @param prm_dwOptions D3DXLoadMeshFromXのオプション
      * @return
      */
     GgafDx9D3DXAniMeshModel(char* prm_model);

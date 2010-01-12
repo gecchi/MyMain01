@@ -291,7 +291,7 @@ public:
               DWORD prm_rest_frame,
               float prm_beat_num);
     /**
-     * 三角波の波形でスケーリングする。（軸指定）..
+     * 三角波の波形でスケーリングする。（軸指定）.
      * @param prm_axis 軸
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数

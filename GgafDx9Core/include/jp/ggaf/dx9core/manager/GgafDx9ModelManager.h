@@ -66,7 +66,25 @@ public:
     GgafDx9ModelManager(const char* prm_manager_name);
 
     /**
-     * モデル識別IDにより、モデルオブジェクトを生成する
+     * モデル識別IDにより、モデルオブジェクトを生成する .
+     * <pre>
+     * ＜モデル識別IDの形式＞メモ
+     * 『モデルタイプ  + "/" + モデル定義名』となっている。
+     *  "D/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"
+     *  "d/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
+     *  "A/MyShip"   --> D3DXAniMeshModel の モデル。読み込むファイルは "MyShip.x"
+     *  "X/MyShip"   --> MeshModel の モデル。読み込むファイルは "MyShip.x"
+     *  "x/MyShip"   --> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は8
+     *  "x/12/MyShip"--> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は12
+     *  "M/3/MyShip" --> MorphMeshModel の モデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
+     *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
+     *  "S/Bomb"     --> SpriteModel の モデル。読み込むファイルは "Bomb.sprx"。
+     *  "s/Bomb"     --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は8
+     *  "s/16/Bomb"  --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は16
+     *  "B/Font"     --> BoardModelの モデル。読み込むファイルは "Font.sprx"。
+     *  "b/Font"     --> BoardSetModelの モデル。読み込むファイルは "Font.sprx"。同時描画セット数は8
+     *  "C"          --> D3DXMeshModel の モデル。読み込むファイルは "cube.x"
+     *  </pre>
      * @param prm_idstr モデル識別ID
      * @return モデルオブジェクト
      */
@@ -90,8 +108,8 @@ public:
 
 
     /**
-     * GgafDx9PlateModel オブジェクトを再構築する。 .
-     * @param prm_pPlateModel 再構築するGgafDx9PlateModel
+     * GgafDx9BoardModel オブジェクトを再構築する。 .
+     * @param prm_pBoardModel 再構築するGgafDx9BoardModel
      */
     void restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel);
 

@@ -11,7 +11,6 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9MeshActor : public GgafDx9DrawableActor {
-private:
 
 public:
 
@@ -20,13 +19,13 @@ public:
     /** エフェクト資源 */
     GgafDx9MeshEffect* _pMeshEffect;
 
-
     /**
      * コンストラクタ
-     * @param prm_name  モデル名称（デバッグログで表示、なんでも良い）
-     * @param prm_model モデル定義名、末尾に ".x" をつけてXファイル名になること。
-     * @param prm_technique エフェクト(GgafDx9MeshEffect.fx) のテクニック。
-     * @param prm_pChecker   様々な判定を行なうチェッカークラスのインスタンスを渡す
+     * @param prm_name モデル名称（デバッグログで表示、なんでも良い）
+     * @param prm_model_id モデル定義名。末尾に ".x" をつけてXファイル名になること。
+     * @param prm_effect_id エフェクト定義名。末尾に ".fx" をつけてエフェクトファイル名になること。
+     * @param prm_technique エフェクトのテクニック名
+     * @param prm_pChecker 使用するチェッカーオブジェクト（チェッカー未使用時はNULLでよい）
      */
     GgafDx9MeshActor(const char* prm_name,
                        const char* prm_model_id,
@@ -34,15 +33,12 @@ public:
                        const char* prm_technique,
                        GgafDx9Checker* prm_pChecker );
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     virtual void processDraw();
 
     /**
-     * α設定.
+     * α値設定.
      * ＜オーバーライト＞
-     * @param prm_fAlpha
+     * @param prm_fAlpha α値
      */
     void setAlpha(float prm_fAlpha);
 

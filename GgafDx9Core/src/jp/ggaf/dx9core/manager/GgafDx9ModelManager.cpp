@@ -26,22 +26,6 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
 }
 
 GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
-    //＜prm_idstrの形式＞メモ
-    // "D/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"
-    // "d/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
-    // "A/MyShip"   --> D3DXAniMeshModel の モデル。読み込むファイルは "MyShip.x"
-    // "X/MyShip"   --> MeshModel の モデル。読み込むファイルは "MyShip.x"
-    // "x/MyShip"   --> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は8
-    // "x/12/MyShip"--> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は12
-    // "M/3/MyShip" --> MorphMeshModel の モデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
-    //                  プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
-    // "S/Bomb"     --> SpriteModel の モデル。読み込むファイルは "Bomb.sprx"。
-    // "s/Bomb"     --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は8
-    // "s/16/Bomb"  --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は16
-    // "B/Font"     --> BoardModelの モデル。読み込むファイルは "Font.sprx"。
-    // "b/Font"     --> BoardSetModelの モデル。読み込むファイルは "Font.sprx"。同時描画セット数は8
-    // "C"          --> D3DXMeshModel の モデル。読み込むファイルは "cube.x"
-
     //振り分け
     char model_type = *prm_idstr; //頭一文字
     char* model_name = prm_idstr + 2; //３文字目以降

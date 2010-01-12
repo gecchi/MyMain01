@@ -123,14 +123,14 @@ void GgafDx9FixedFrameSplineProgram::init() {
 
 }
 
-void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* _pActor, int prm_option) {
+void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* prm_pActor, int prm_option) {
 
     if (_sp != NULL) {
         _is_executing = true;
         _option = prm_option;
-        _pActor_target = _pActor;
+        _pActor_target = prm_pActor;
         _SPframe = 0;
-        velo v = _pActor->_pMover->_veloMove;
+        velo v = prm_pActor->_pMover->_veloMove;
         if (v == 0) {
             _paSPMoveVelocityTo[0] = 1000;
         } else {
@@ -138,9 +138,9 @@ void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* _pActor, int p
         }
 
         if (_option == 1) {
-            _X_relative = _sp->_X_compute[0] - _pActor->_X ;
-            _Y_relative = _sp->_Y_compute[0] - _pActor->_Y;
-            _Z_relative = _sp->_Z_compute[0] - _pActor->_Z;
+            _X_relative = _sp->_X_compute[0] - prm_pActor->_X ;
+            _Y_relative = _sp->_Y_compute[0] - prm_pActor->_Y;
+            _Z_relative = _sp->_Z_compute[0] - prm_pActor->_Z;
         }
     }
 }

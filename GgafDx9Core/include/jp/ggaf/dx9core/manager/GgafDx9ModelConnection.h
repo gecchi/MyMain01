@@ -13,7 +13,7 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param prm_texture_file_name テクスチャ識別名(＝ファイル名)
+     * @param prm_idstr モデル識別名
      * @param prm_pModel リソースとなるモデル
      */
     GgafDx9ModelConnection(char* prm_idstr, GgafDx9Model* prm_pModel);

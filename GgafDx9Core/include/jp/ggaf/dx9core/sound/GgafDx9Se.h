@@ -84,14 +84,15 @@ public:
 
     /**
      * パン設定
-     * @param prm_iVolume パン(left:-10000 right:10000)
+     * @param prm_iPan パン(left:-10000 right:10000)
      */
     void setPan(int prm_iPan) {
         _iPan = prm_iPan;
     }
 
     /**
-     *
+     * マスタボリューム設定(現在未実装).
+     * TODO:マスターボリューム処理をする！
      * @param prm_master_volume
      */
     static void setMasterVolume(int prm_master_volume) {

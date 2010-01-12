@@ -14,7 +14,7 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param prm_texture_file_name OGG識別名(＝ファイル名)
+     * @param prm_idstr OGG識別名(＝ファイル名)
      * @param prm_pGgafDx9Bgm OGG
      */
     GgafDx9BgmConnection(char* prm_idstr, GgafDx9Bgm* prm_pGgafDx9Bgm);
