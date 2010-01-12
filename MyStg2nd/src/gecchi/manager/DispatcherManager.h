@@ -19,6 +19,12 @@ public:
      */
     DispatcherManager(const char* prm_manager_name);
 
+    /**
+     * ディスパッチャーを識別文字列から生成。
+     * 本アプリのディスパッチャーはココに集約しようと思っている。
+     * @param prm_idstr
+     * @return ディスパッチャー
+     */
     GgafDx9LibStg::ActorDispatcher* processCreateResource(char* prm_idstr);
 
     GgafCore::GgafResourceConnection<GgafDx9LibStg::ActorDispatcher>* processCreateConnection(char* prm_idstr, GgafDx9LibStg::ActorDispatcher* prm_pResource);

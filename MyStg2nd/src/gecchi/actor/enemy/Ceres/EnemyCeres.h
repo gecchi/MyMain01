@@ -46,7 +46,6 @@ public:
     /**
      * コンストラクタ
      * @param prm_name オブジェクト
-     * @param prm_model モデル
      * @param prm_pDispatcher_EnemyCeresShots001 発射弾ストックのアクター発送者
      * @return
      */

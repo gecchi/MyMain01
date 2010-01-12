@@ -14,8 +14,8 @@ public:
 
     /**
      * コンストラクタ<BR>
-     * @param prm_texture_file_name OGG識別名(＝ファイル名)
-     * @param prm_pDispatcher OGG
+     * @param prm_idstr 識別名
+     * @param prm_pDispatcher ディスパッチャー
      */
     DispatcherConnection(char* prm_idstr, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher);
 

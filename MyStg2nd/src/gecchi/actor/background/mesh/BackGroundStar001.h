@@ -14,7 +14,6 @@ public:
     /**
      * コンストラクタ
      * @param prm_name オブジェクト名
-     * @param prm_model モデル名
      */
     BackGroundStar001(const char* prm_name);
 
