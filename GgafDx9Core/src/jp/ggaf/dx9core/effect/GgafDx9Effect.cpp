@@ -10,7 +10,7 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
 	strcpy(_effect_name, prm_effect_name);
 
     ID3DXBuffer* pError;
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     DWORD dwFlags = D3DXSHADER_DEBUG;
 #else
     DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;

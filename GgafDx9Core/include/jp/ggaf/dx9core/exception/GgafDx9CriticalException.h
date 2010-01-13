@@ -10,7 +10,7 @@ namespace GgafDx9Core {
  * @since 2008/11/12
  * @author Masatoshi Tsuge
  */
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
 #define mightDx9Exception(HR, OKVAL, X) {if (HR != OKVAL) {std::stringstream ss; ss <<__FILE__<<"("<<__LINE__<<") : " << X; throw GgafDx9CriticalException(ss.str(),HR); } }
 #else
 #define mightDx9Exception(HR, OKVAL, X)

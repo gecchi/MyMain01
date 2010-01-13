@@ -157,7 +157,7 @@ void GgafDx9DrawableActor::processPreDraw() {
 }
 
 
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
 
 void GgafDx9DrawableActor::processAfterDraw() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦

@@ -170,7 +170,7 @@ HRESULT GgafDx9God::init() {
     //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
     D3DDEVTYPE DeviceType = D3DDEVTYPE_HAL;
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
 
 #if SHIPPING_VERSION
     // When building a shipping version, disable PerfHUD (opt-out)
@@ -489,7 +489,7 @@ void GgafDx9God::makeUniversalMaterialize() {
         hr = GgafDx9God::_pID3DDevice9->BeginScene();
         mightDx9Exception(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->BeginScene() に失敗しました。");
         //全て具現化！（描画）
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
 #endif
         GgafGod::makeUniversalMaterialize(); //スーパーのmaterialize実行

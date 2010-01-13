@@ -111,7 +111,7 @@ public:
 
     /**
      * 共通の描画事後処理 .
-     * 俺デバッグモード (<code>#define OREDEBUG 1</code>)の場合は
+     * 俺デバッグモード (<code>#define MY_DEBUG 1</code>)の場合は
      * 当たり判定領域を描画する。
      * (といっても drawHitArea() をコールするだけ)
      */

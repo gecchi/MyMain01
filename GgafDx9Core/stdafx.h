@@ -5,5 +5,5 @@
 
 #pragma once
 
-//俺ライブラリヘッダ
+//ライブラリヘッダ
 #include "include/GgafDx9CommonHeader.h"
