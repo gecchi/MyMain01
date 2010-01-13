@@ -142,8 +142,8 @@ public:
             _bottom_scale[prm_axis] = prm_scale1;
             _top_scale[prm_axis] = prm_scale2;
         } else {
-            _bottom_scale[prm_axis] = prm_scale1;
-            _top_scale[prm_axis] = prm_scale2;
+            _bottom_scale[prm_axis] = prm_scale2;
+            _top_scale[prm_axis] = prm_scale1;
         }
     }
     /**

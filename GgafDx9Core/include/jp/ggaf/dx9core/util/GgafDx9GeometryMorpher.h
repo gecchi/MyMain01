@@ -53,8 +53,8 @@ public:
 
     void setWeightRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
         if (prm_weight1 < prm_weight2) {
-            _bottom_weight[prm_target_mesh] = prm_weight1;
             _top_weight[prm_target_mesh] = prm_weight2;
+            _bottom_weight[prm_target_mesh] = prm_weight1;
         } else {
             _top_weight[prm_target_mesh] = prm_weight1;
             _bottom_weight[prm_target_mesh] = prm_weight2;
