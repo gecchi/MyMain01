@@ -119,6 +119,22 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 // 以下の gen02 start ～ end はExcelマクロにより自動生成されたコードです。
 // コード変更は「シーンCreater.xls」から行っていただきたい。
 // gen02 start
+	void MyStgUtil::resetMyStraightLaserChip001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetMyShipStatus(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
 	void MyStgUtil::resetEnemyCeresStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 100);
@@ -127,12 +143,28 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
+	void MyStgUtil::resetEnemyCeresShot001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
+		p->_pStatus->set(STAT_AddScorePoint, 1);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
 	void MyStgUtil::resetEnemyAstraeaStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 300);
 		p->_pStatus->set(STAT_AddRankPoint, 0.20000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 0);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
 		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 	void MyStgUtil::resetEnemyVestaStatus(GgafActor* p) {
@@ -151,22 +183,6 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
-	void MyStgUtil::resetMyStraightLaserChip001Status(GgafActor* p) {
-		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);
-		p->_pStatus->set(STAT_AddScorePoint, 0);
-		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
-		p->_pStatus->set(STAT_StaminaPoint, 1);
-		p->_pStatus->set(STAT_DefensePoint, 1);
-		p->_pStatus->set(STAT_AttackPoint, 1);
-	}
-	void MyStgUtil::resetMyShipStatus(GgafActor* p) {
-		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY);
-		p->_pStatus->set(STAT_AddScorePoint, 0);
-		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
-		p->_pStatus->set(STAT_StaminaPoint, 1);
-		p->_pStatus->set(STAT_DefensePoint, 1);
-		p->_pStatus->set(STAT_AttackPoint, 1);
-	}
 	void MyStgUtil::resetShot001Status(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
 		p->_pStatus->set(STAT_AddScorePoint, 1);
@@ -176,22 +192,6 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->_pStatus->set(STAT_AttackPoint, 1);
 	}
 	void MyStgUtil::resetShot002Status(GgafActor* p) {
-		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
-		p->_pStatus->set(STAT_AddScorePoint, 1);
-		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
-		p->_pStatus->set(STAT_StaminaPoint, 1);
-		p->_pStatus->set(STAT_DefensePoint, 1);
-		p->_pStatus->set(STAT_AttackPoint, 1);
-	}
-	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafActor* p) {
-		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);
-		p->_pStatus->set(STAT_AddScorePoint, 0);
-		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
-		p->_pStatus->set(STAT_StaminaPoint, 1);
-		p->_pStatus->set(STAT_DefensePoint, 1);
-		p->_pStatus->set(STAT_AttackPoint, 1);
-	}
-	void MyStgUtil::resetEnemyCeresShot001Status(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
 		p->_pStatus->set(STAT_AddScorePoint, 1);
 		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );

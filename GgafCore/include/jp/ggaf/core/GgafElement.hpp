@@ -682,14 +682,16 @@ void GgafElement<T>::nextFrame() {
 
 template<class T>
 void GgafElement<T>::behave() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processBehavior();    //ユーザー実装用
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processBehavior();    //ユーザー実装用
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -706,14 +708,16 @@ void GgafElement<T>::behave() {
 
 template<class T>
 void GgafElement<T>::preJudge() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processPreJudgement(); //フレームワーク用
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processPreJudgement(); //フレームワーク用
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -731,14 +735,16 @@ void GgafElement<T>::preJudge() {
 
 template<class T>
 void GgafElement<T>::judge() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processJudgement();    //ユーザー実装用
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processJudgement();    //ユーザー実装用
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -755,14 +761,16 @@ void GgafElement<T>::judge() {
 
 template<class T>
 void GgafElement<T>::preDraw() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_is_active_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processPreDraw();
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processPreDraw();
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -780,7 +788,10 @@ void GgafElement<T>::preDraw() {
 template<class T>
 void GgafElement<T>::draw() {
     if (_is_active_flg && _can_live_flg) {
-        _frame_relative = 0;
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            //processDraw();
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -798,8 +809,10 @@ void GgafElement<T>::draw() {
 template<class T>
 void GgafElement<T>::afterDraw() {
     if (_is_active_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processAfterDraw();
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processAfterDraw();
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -816,14 +829,16 @@ void GgafElement<T>::afterDraw() {
 
 template<class T>
 void GgafElement<T>::happen(int prm_no) {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_can_live_flg) {
-        _frame_relative = 0;
-        processHappen(prm_no);
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processHappen(prm_no);
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -840,14 +855,16 @@ void GgafElement<T>::happen(int prm_no) {
 
 template<class T>
 void GgafElement<T>::finally() {
-    if(_was_initialize_flg == false) {
-        initialize();
-        _was_initialize_flg = true;
-    }
+//    if(_was_initialize_flg == false) {
+//        initialize();
+//        _was_initialize_flg = true;
+//    }
 
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
-        _frame_relative = 0;
-        processFinal();
+        if (_was_initialize_flg) {
+            _frame_relative = 0;
+            processFinal();
+        }
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {

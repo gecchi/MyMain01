@@ -154,6 +154,8 @@ void GgafFactory::clean() {
 }
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
+	//_CrtSetBreakAlloc(95299);
+
     try {
         static GgafObject* (*func)(void*, void*, void*);
         static GgafObject* pObject;
