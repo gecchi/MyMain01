@@ -34,7 +34,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
             pCeresShot001->inactivateTreeImmediately(); //Å‰”ñ•\¦
             _pDispatcher_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
-        addSubGroup(KIND_ENEMY_SHOT_GU, _pDispatcher_EnemyCeresShots001);
+        addSubGroup(_pDispatcher_EnemyCeresShots001);
         _createActorDispatcher = true;
     } else {
         //‹¤—L‚Ì’e‚ªw’è‚³‚ê‚Ä‚é‚Ìê‡

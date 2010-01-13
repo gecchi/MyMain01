@@ -122,7 +122,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyCeresStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 100);
-		p->_pStatus->set(STAT_AddRankPoint, 0.1);
+		p->_pStatus->set(STAT_AddRankPoint, 0.10000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
@@ -130,7 +130,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyAstraeaStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 300);
-		p->_pStatus->set(STAT_AddRankPoint, 0.2);
+		p->_pStatus->set(STAT_AddRankPoint, 0.20000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
@@ -138,7 +138,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyVestaStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 1000);
-		p->_pStatus->set(STAT_AddRankPoint, 0.5);
+		p->_pStatus->set(STAT_AddRankPoint, 0.50000 );
 		p->_pStatus->set(STAT_StaminaPoint, 30);
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
@@ -146,7 +146,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyIrisStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 20);
-		p->_pStatus->set(STAT_AddRankPoint, 0.2);
+		p->_pStatus->set(STAT_AddRankPoint, 0.20000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 0);
 		p->_pStatus->set(STAT_AttackPoint, 1);
@@ -154,7 +154,7 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetMyStraightLaserChip001Status(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);
 		p->_pStatus->set(STAT_AddScorePoint, 0);
-		p->_pStatus->set(STAT_AddRankPoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 1);
 		p->_pStatus->set(STAT_AttackPoint, 1);
@@ -162,7 +162,39 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetMyShipStatus(GgafActor* p) {
 		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY);
 		p->_pStatus->set(STAT_AddScorePoint, 0);
-		p->_pStatus->set(STAT_AddRankPoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetShot001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
+		p->_pStatus->set(STAT_AddScorePoint, 1);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetShot002Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
+		p->_pStatus->set(STAT_AddScorePoint, 1);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);
+		p->_pStatus->set(STAT_AddScorePoint, 0);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
+		p->_pStatus->set(STAT_StaminaPoint, 1);
+		p->_pStatus->set(STAT_DefensePoint, 1);
+		p->_pStatus->set(STAT_AttackPoint, 1);
+	}
+	void MyStgUtil::resetEnemyCeresShot001Status(GgafActor* p) {
+		p->_pStatus->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);
+		p->_pStatus->set(STAT_AddScorePoint, 1);
+		p->_pStatus->set(STAT_AddRankPoint, 0.00000 );
 		p->_pStatus->set(STAT_StaminaPoint, 1);
 		p->_pStatus->set(STAT_DefensePoint, 1);
 		p->_pStatus->set(STAT_AttackPoint, 1);

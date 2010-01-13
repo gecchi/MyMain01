@@ -7,22 +7,23 @@ using namespace MyStg2nd;
 
 Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/ball_2") {
     _class_name = "Shot001";
+    MyStgUtil::resetShot001Status(this);
 }
 
 void Shot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pScaler->setScale(1000);
-    _pScaler->setScaleRange(300, 3000);
+    _pScaler->setScaleRange(300, 2000);
     useSe1("break_glass01");
 }
 
 void Shot001::onActive() {
-
+    MyStgUtil::resetShot001Status(this);
     setBumpable(true);
     _pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
     _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚Ý‹ï‡
-    _pScaler->beat(20,5,5,5);
+    _pScaler->beat(30,5,2,-1);
 }
 
 void Shot001::processBehavior() {

@@ -7,6 +7,7 @@ using namespace MyStg2nd;
 
 Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/Flora") {
     _class_name = "Shot002";
+    MyStgUtil::resetShot002Status(this);
     _my_frame = 0;
 }
 
@@ -17,6 +18,7 @@ void Shot002::initialize() {
 }
 
 void Shot002::onActive() {
+    MyStgUtil::resetShot002Status(this);
     setBumpable(true);
     _pScaler->setScale(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);

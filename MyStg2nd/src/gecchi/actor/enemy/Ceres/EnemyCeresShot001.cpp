@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "16/vic2") {
     _class_name = "EnemyCeresShot001";
-
+    MyStgUtil::resetEnemyCeresShot001Status(this);
     inactivateTree();
 
     /** oŒ»Žž‚Ì‰‘¬ */
@@ -42,6 +42,8 @@ void EnemyCeresShot001::initialize() {
 
 void EnemyCeresShot001::processBehavior() {
     if (onChangeToActive()) {
+        MyStgUtil::resetEnemyCeresShot001Status(this);
+
         //oŒ»Žž
         _pMover->setMoveVelocity(_iMoveVelocity_1st);
         _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);

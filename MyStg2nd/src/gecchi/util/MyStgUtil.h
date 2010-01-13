@@ -35,6 +35,14 @@ public:
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafActor* p);
 	//自機
 	static void resetMyShipStatus(GgafCore::GgafActor* p);
+	//汎用ショット001
+	static void resetShot001Status(GgafCore::GgafActor* p);
+	//汎用ショット002
+	static void resetShot002Status(GgafCore::GgafActor* p);
+	//アストラエアレーザー
+	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafActor* p);
+	//ケレスショット001
+	static void resetEnemyCeresShot001Status(GgafCore::GgafActor* p);
     // gen01 end
 };
 

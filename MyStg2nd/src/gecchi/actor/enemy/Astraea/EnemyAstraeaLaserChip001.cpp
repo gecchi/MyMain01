@@ -9,6 +9,7 @@ using namespace MyStg2nd;
 
 EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip_red") {
     _class_name = "EnemyAstraeaLaserChip001";
+    MyStgUtil::resetEnemyAstraeaLaserChip001Status(this);
 }
 
 void EnemyAstraeaLaserChip001::initialize() {
@@ -24,6 +25,7 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
+    MyStgUtil::resetEnemyAstraeaLaserChip001Status(this);
     _pMover->setMoveVelocity(5000);
     _pMover->setMoveVeloAcceleration(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
