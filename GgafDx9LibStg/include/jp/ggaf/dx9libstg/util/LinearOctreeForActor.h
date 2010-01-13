@@ -37,7 +37,7 @@ public:
         void push(GgafCore::GgafActor* prm_pActor) {
             _apActor[_p] = prm_pActor;
             _p++;
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
             if (_p > 3000) {
                 _TRACE_("スタックを使い切りました、このままではメモリを破壊し異常終了するでしょう。_p-- やっときます。");
                 _p--;

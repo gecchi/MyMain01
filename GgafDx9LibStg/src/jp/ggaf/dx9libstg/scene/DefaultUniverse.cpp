@@ -113,7 +113,7 @@ void DefaultUniverse::processFinal() {
 }
 
 DefaultUniverse::~DefaultUniverse() {
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     _pLinearOctree->putTree();
 #endif
     DELETE_IMPOSSIBLE_NULL(_pLinearOctree);
