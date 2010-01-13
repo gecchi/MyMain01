@@ -14,13 +14,12 @@ void Shot002::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -50000, -50000, -50000, 50000, 50000, 50000);
     useSe1("break_glass01");
-	onActive();	
 }
 
 void Shot002::onActive() {
-	setBumpable(true);
-	_pScaler->setScale(300);
-	_pMover->relateRzRyFaceAngleToMoveAngle(true);
+    setBumpable(true);
+    _pScaler->setScale(300);
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setMoveVelocity(8000*_RANK_);
     _pMover->setFaceAngleVelocity(AXIS_X, 1000*_RANK_);
     _my_frame = 0;
@@ -28,7 +27,7 @@ void Shot002::onActive() {
 
 void Shot002::processBehavior() {
 
-	
+
 
     if (_my_frame == 70) {
         _pMover->executeTagettingMoveAngleSequence(pMYSHIP,3000,TURN_CLOSE_TO);

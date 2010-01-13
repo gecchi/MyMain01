@@ -77,7 +77,6 @@ void EnemyCeres::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
-    onActive();
 }
 
 void EnemyCeres::onActive() {

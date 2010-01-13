@@ -28,7 +28,6 @@ void EnemyVesta::initialize() {
     }
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
     useSe1("yume_shototsu");
-    onActive();
 }
 
 void EnemyVesta::onActive() {

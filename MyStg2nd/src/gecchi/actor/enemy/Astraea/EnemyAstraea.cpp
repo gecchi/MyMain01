@@ -55,7 +55,6 @@ void EnemyAstraea::initialize() {
 //            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //–{Š‘®
 //        }
 //    }
-    onActive();
 }
 
 
