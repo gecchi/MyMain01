@@ -988,7 +988,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
 
     switch (Type) {
     case 0:
-        MYTRACE(Size, "Rotation Keys");
+        _TRACE_(Size<<" Rotation Keys");
         pA->_Rotations.reserve(Size);
         while (Size--) {
             TempRot = NEW Frm::RotateKey;
@@ -1011,7 +1011,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 1:
-        MYTRACE(Size, "Scaling Keys");
+        _TRACE_(Size<<" Scaling Keys");
         pA->_Scalings.reserve(Size);
         while (Size--) {
             TempScale = NEW Frm::ScaleKey;
@@ -1032,7 +1032,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 2:
-        MYTRACE(Size, "Position Keys");
+        _TRACE_(Size<<" Position Keys");
         pA->_Translations.reserve(Size);
         while (Size--) {
             TempPos = NEW Frm::PositionKey;
@@ -1053,7 +1053,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         }
         break;
     case 4:
-        MYTRACE(Size, "Matrix Keys");
+        _TRACE_(Size<<" Matrix Keys");
         pA->_Matrices.reserve(Size);
         while (Size--) {
             TempMatrix = NEW Frm::MatrixKey;
