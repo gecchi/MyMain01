@@ -7,8 +7,12 @@
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-
-
+#ifdef _MSC_VER
+    #ifdef _DEBUG
+        #define _CRTDBG_MAP_ALLOC
+        #define _CRTDBG_MAP_ALLOC_NEW
+    #endif
+#endif
 #ifndef _MSC_VER
 #define _WIN32_IE 0x0300
 #endif
@@ -17,9 +21,16 @@
 
 // Windows ヘッダー ファイル:
 #include <windows.h>
-// C ランタイム ヘッダー ファイル
 #include <stdio.h>
+
+
 #include <stdlib.h>
+#ifdef _MSC_VER
+    #ifdef _DEBUG
+        #include <crtdbg.h>
+    #endif
+#endif
+
 #include <malloc.h>
 #include <memory.h>
 #include <tchar.h>
@@ -39,16 +50,30 @@
 #include <stack>
 #include <sstream>
 #include <cstddef>
-//#include <crtdbg.h>
 
-//俺デ
-//#define OREDEBUG 1
+//自分用デバッグビルド(コメントを外せば使用可能)
+//#define MY_DEBUG 1
 
 
-#ifdef OREDEBUG
-    #include "DetectMemoryLeaks.h"
+#ifdef MY_DEBUG
+//自分用デバッグビルドの場合
 
-    #define NEW new(__FILE__, __LINE__)
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            //自分用デバッグ かつ VC++の デバッグビルド時
+            //VC++のリーク検出を仕込む
+            #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )
+        #else
+            //自分用デバッグ かつ VC++のリリースビルド時
+            #define NEW new
+        #endif
+    #else
+        //GCC で自分用デバッグビルド時
+        //GCC用のリーク検出を仕込む
+        #include "DetectMemoryLeaks.h"
+        #define NEW new(__FILE__, __LINE__)
+    #endif
+
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
     /** コンストラクタ、主要メソッド、デストラクタ関連ログ */
@@ -169,7 +194,21 @@
     }
 
 #else
-    #define NEW new
+//自分用リリースビルド時
+
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            //自分用リリースビルド時 かつ VC++の デバッグビルド時
+            //VC++のリーク検出あり（にしておこう）
+            #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )
+        #else
+            //自分用リリースビルド時 VC++の リリースビルド時
+            #define NEW new
+        #endif
+    #else
+        //GCC で自分用リリースビルド時
+        #define NEW new
+    #endif
 
     #define TRACE(X)
     #define TRACE2(X)
@@ -199,6 +238,9 @@
     #define RELEASE_SAFETY(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
 
 #endif
+
+
+
 
 
 //#define MAX_GROUPACTOR_PER_SCENE 16

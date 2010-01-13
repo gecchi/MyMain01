@@ -13,7 +13,7 @@ GgafActor::GgafActor(const char* prm_name) :
     setBumpable(false);
     _use_octree = false;
     _actor_class = 0;
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
 
@@ -23,7 +23,7 @@ GgafActor::GgafActor(const char* prm_name) :
 
 GgafActor::~GgafActor() {
     DELETE_IMPOSSIBLE_NULL(_pStatus);
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     _TRACE_("delete "<<_class_name<<"("<<this<<")["<<getName()<<"]");
 #else
     OutputDebugStringA("*\n");

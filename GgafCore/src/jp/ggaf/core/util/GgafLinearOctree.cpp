@@ -198,7 +198,7 @@ DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int 
     //配列の10番目とは、配列要素番号は-1して9になる。
     //+1 して -1 するので結局、所属空間レベルxの最初の配列要素番号は  (8^x - 1) / 7 となる
 
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     if(index > _num_space-1) {
 //        _TRACE_("index > _num_space でおかしいです。minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
 //                "differ_bit_pos="<<differ_bit_pos<<"/shift_num="<<shift_num<<"/morton_order_space_num="<<morton_order_space_num<<

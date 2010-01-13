@@ -5,7 +5,7 @@
 
 #pragma once
 
-//俺ライブラリヘッダ
+//ライブラリヘッダ
 #include "include/GgafCommonHeader.h"
 
 
