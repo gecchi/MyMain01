@@ -75,7 +75,7 @@ public:
 
     /** ノードが誕生(addSubされた）時からのフレーム */
     DWORD _frame_of_life;
-
+    /** ノードが誕生(addSubされた）時から、アクティブだったフレーム総計 */
     DWORD _frame_of_active;
 
     /**
@@ -291,7 +291,7 @@ public:
 
     //==================状態変移メソッド郡==================>
     /**
-     * 活動状態にする(自ツリー) .
+     * 活動状態にする(自ツリー・コールバック有り) .
      * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で活動状態になる事になる。<BR>
      * 自身と配下ノード全てについて再帰的に activateTree() が実行される。<BR>
@@ -303,7 +303,7 @@ public:
     void activateTree();
 
     /**
-     * 活動状態にする(単体) .
+     * 活動状態にする(単体・コールバック有り).
      * Nフレーム後に activate() が実行されることを予約する。<BR>
      * 自身と配下ノード全てについて再帰的に activateAfter(DWORD) が実行される。<BR>
      * activateAfter(1) は、activate() と同じ意味になります。<BR>
@@ -313,7 +313,7 @@ public:
     void activateAfter(DWORD prm_frame_offset);
 
     /**
-     * 活動状態にする(単体) .
+     * 活動状態にする(単体・コールバック有り) .
      * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
@@ -321,15 +321,10 @@ public:
     void activate();
 
     /**
-     * 活動状態にする(単体・即時) .
-     * 自ノードについて、即座に活動状態にする。通常、本メソッドの使用は非推奨。<BR>
+     * 活動状態にする(単体・即時・コールバック無し) .
+     * 自ノードについて、即座に活動状態にする。通常、初期化以外で本メソッドの使用は非推奨。<BR>
+     * onActive() コールバックは実行されない。<BR>
      * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 実行前の自ノード状態が 非活動状態 ( _is_active_flg == false ) の場合、非活動→活動に変化したとして、<BR>
-     * 直ちに onActive() コールバックを呼び出し、また _on_change_to_active_flg = true とする。<BR>
-     * onActive() コールバックは、次フレーム加算時は呼び出されない。 （２重に呼ばれる事は無いようにしてある）<BR>
-     * さらに onActive() は仮想関数であるため、もし本クラスを継承した下位にクラスのコンストラクタ内で activateImmediately() <BR>
-     * を呼び出した場合、継承クラスの実装の onActive() は実行されず、空実装の本クラスの onInctive() が呼び出される。<BR>
-     * また、 _on_change_to_active_flg をはじめ、その他本メソッドによって変化した新たなフラグ状態は、<BR>
      * 『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
      * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
      * 他ノードのロジックが、「このノードが活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
@@ -339,7 +334,7 @@ public:
     void activateImmediately();
 
     /**
-     * 活動状態にする(自ツリー・即時) .
+     * 活動状態にする(自ツリー・即時・コールバック無し)
      * 自身と配下ノード全てについて再帰的に activateImmediately() が実行される。<BR>
      * activateImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
@@ -347,7 +342,7 @@ public:
     void activateTreeImmediately();
     //===================
     /**
-     * 非活動状態にする(自ツリー) .
+     * 非活動状態にする(自ツリー・コールバック有り) .
      * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
      * そして、次フレーム先頭処理で非活動状態になる事になる。<BR>
      * 自身と配下ノード全てについて再帰的に inactivate() が実行される。<BR>
@@ -356,7 +351,7 @@ public:
     void inactivateTree();
 
     /**
-     * 非活動予約する(自ツリー) .
+     * 非活動予約する(自ツリー・コールバック有り) .
      * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
      * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
      * inactivateAfter(1) は、inactivateTree() と同じ意味になります。<BR>
@@ -366,7 +361,7 @@ public:
     void inactivateAfter(DWORD prm_frame_offset);
 
     /**
-     * 非活動状態にする(単体) .
+     * 非活動状態にする(単体・コールバック有り) .
      * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
      * 配下ノードには何も影響がありません。
      * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
@@ -374,15 +369,10 @@ public:
     void inactivate();
 
     /**
-     * 非活動状態にする(単体・即時) .
+     * 非活動状態にする(単体・即時・コールバック無し)  .
      * 自ノードについて、即座に非活動状態にする。通常、本メソッドの使用は非推奨。<BR>
+     * onInactive() コールバックは実行されない。<BR>
      * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 実行前の自ノード状態が 活動状態 ( _is_active_flg == true ) の場合、活動→非活動に変化したとして、<BR>
-     * 直ちに onInctive() コールバックを呼び出し、また _on_change_to_inactive_flg = true とする。<BR>
-     * onInctive() コールバックは、次フレーム加算時は呼び出されない。（２重に呼ばれる事は無いようにしてある） <BR>
-     * さらに onInctive() は仮想関数であるため、もし本クラスを継承した下位にクラスのコンストラクタ内で inactivateImmediately() <BR>
-     * を呼び出した場合、継承クラスの実装の onInctive() は実行されず、空実装の本クラスの onInctive() が呼び出される。<BR>
-     * また、 _on_change_to_inactive_flg をはじめ、その他本メソッドによって変化した新たなフラグ状態は、<BR>
      * 『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
      * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
      * 他ノードのロジックが、「このノードが非活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
@@ -392,7 +382,7 @@ public:
     void inactivateImmediately();
 
     /**
-     * 非活動状態にする(自ツリー・即時) .
+     * 非活動状態にする(自ツリー・即時・コールバック無し)  .
      * 自身と配下ノード全てについて再帰的に inactivateImmediately() が実行される。<BR>
      * inactivateImmediately() の説明を要参照。<BR>
      * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
@@ -650,13 +640,13 @@ void GgafElement<T>::nextFrame() {
         if (_is_active_flg == false && _is_active_flg_in_next_frame) {
             _on_change_to_active_flg = true;
             onActive(); //コールバック
+        } else if (_is_active_flg && _frame_of_life == 1) {
+            //生まれてそのままならば、いきなり一回だけonActive()。
+            _on_change_to_active_flg = true;
+            onActive(); //コールバック
         }
 
-//        else if (_is_active_flg && _frame_of_active == 1) {
-//            //生まれてそのままならば、一回onActive()。 eles if にしておかないと２回onActive()になってしまう。
-//            _on_change_to_active_flg = true;
-//            onActive(); //コールバック
-//        }
+
 
         //フラグたちを反映
         _is_active_flg   = _is_active_flg_in_next_frame;
@@ -902,12 +892,12 @@ void GgafElement<T>::activateTree() {
 template<class T>
 void GgafElement<T>::activateImmediately() {
     if (_can_live_flg) {
-        if (_is_active_flg == false) {
-            _on_change_to_active_flg = true;
-            onActive(); //コールバック
-        } else {
-            _on_change_to_active_flg = false;
-        }
+//        if (_is_active_flg == false) {
+//            _on_change_to_active_flg = true;
+//            onActive(); //コールバック
+//        } else {
+//            _on_change_to_active_flg = false;
+//        }
         _is_active_flg = true;
         _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
@@ -918,12 +908,11 @@ void GgafElement<T>::activateImmediately() {
 template<class T>
 void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
-        if (_is_active_flg == false) {
-            _on_change_to_active_flg = true;
-            onInactive(); //コールバック
-        } else {
-            _on_change_to_active_flg = false;
-        }
+//        if (_is_active_flg == false) {
+//            _on_change_to_active_flg = true;
+//        } else {
+//            _on_change_to_active_flg = false;
+//        }
         _is_active_flg = true;
         _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
@@ -982,11 +971,11 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
 template<class T>
 void GgafElement<T>::inactivateImmediately() {
     if (_can_live_flg) {
-        if (_is_active_flg) {
-            _on_change_to_inactive_flg = true;
-        } else {
-            _on_change_to_inactive_flg = false;
-        }
+//        if (_is_active_flg) {
+//            _on_change_to_inactive_flg = true;
+//        } else {
+//            _on_change_to_inactive_flg = false;
+//        }
         _is_active_flg = false;
         _is_active_flg_in_next_frame = false;
     }
@@ -995,11 +984,11 @@ void GgafElement<T>::inactivateImmediately() {
 template<class T>
 void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
-        if (_is_active_flg) {
-            _on_change_to_inactive_flg = true;
-        } else {
-            _on_change_to_inactive_flg = false;
-        }
+//        if (_is_active_flg) {
+//            _on_change_to_inactive_flg = true;
+//        } else {
+//            _on_change_to_inactive_flg = false;
+//        }
         _is_active_flg = false;
         _is_active_flg_in_next_frame = false;
         if (SUPER::_pSubFirst != NULL) {
