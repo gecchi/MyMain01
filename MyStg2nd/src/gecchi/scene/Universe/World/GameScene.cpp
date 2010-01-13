@@ -37,7 +37,7 @@ void GameScene::initialize() {
 }
 
 void GameScene::processBehavior() {
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     //ワイヤフレーム表示切替
     if (VB::isPushedDown(VB_UI_DEBUG)) {
         if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {

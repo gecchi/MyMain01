@@ -75,6 +75,8 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         int nCmdShow)
 {
 
+	//_CrtSetBreakAlloc(135);
+
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
 
@@ -153,9 +155,27 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     UpdateWindow(hWnd);
     //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ショートカットロード
 
-#ifdef OREDEBUG
-    //メモリーリ－クチェックBEGIN
-    ::detectMemoryLeaksStart(std::cout);
+#ifdef MY_DEBUG
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            //特に何も無し
+        #else
+            //特に何も無し
+        #endif
+    #else
+        //メモリーリ－クチェックBEGIN
+        ::detectMemoryLeaksStart(std::cout);
+    #endif
+#else
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+            //特に何も無し
+        #else
+            //特に何も無し
+        #endif
+    #else
+        //特に何も無し
+    #endif
 #endif
 
     try {
@@ -179,10 +199,34 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                         MyStg2nd::Properties::clean();
 
                         ::timeEndPeriod(1);
-#ifdef OREDEBUG
+
+#ifdef MY_DEBUG
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+                        //ダンプ
+                        _CrtDumpMemoryLeaks();
+        #else
+                        //特に何も無し
+        #endif
+    #else
                         //メモリーリ－クチェックEND
                         ::detectMemoryLeaksEnd(std::cout);
+    #endif
+#else
+    #ifdef _MSC_VER
+        #ifdef _DEBUG
+                        //ダンプ
+                        //_CrtDumpMemoryLeaks();
+						_CrtMemDumpAllObjectsSince( NULL );
+
+        #else
+                        //特に何も無し
+        #endif
+    #else
+                        //特に何も無し
+    #endif
 #endif
+
                         return EXIT_SUCCESS;
                     }
                     ::TranslateMessage(&msg);

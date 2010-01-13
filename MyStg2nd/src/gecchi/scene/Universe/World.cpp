@@ -19,7 +19,7 @@ void World::initialize() {
         _TRACE_("World::initialize()");
     GameScene* pGameScene = NEW GameScene("Game");
     addSubLast(pGameScene);
-#ifdef OREDEBUG
+#ifdef MY_DEBUG
     DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
     getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif
