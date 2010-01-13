@@ -46,6 +46,14 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
     }
 
+    /**
+     * メンバーの登録します.
+     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
+     * 最初に登録したアクターが、フォーメーションの種別となるため、同じ種別をaddSubLastしてください。
+     * @param prm_pSub 登録アクター
+     */
+    virtual void addSubLast(GgafCore::GgafActor* prm_pSub);
+
     virtual ~FormationActor();
 };
 

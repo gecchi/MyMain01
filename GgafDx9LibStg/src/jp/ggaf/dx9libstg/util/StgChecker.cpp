@@ -158,6 +158,7 @@ void StgChecker::updateHitArea() {
                                            _pActor->_Y + _Y2,
                                            _pActor->_Z + _Z2);
 
+#ifdef MY_DEBUG
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
             _TRACE_("  StgChecker::updateHitArea()  registElem("<<(_pActor->getName())<<")=("<<
                                              (_pActor->_X + _X1)<<","<<
@@ -169,6 +170,7 @@ void StgChecker::updateHitArea() {
             _pLinearOctree->putTree();
 
         }
+#endif
 
     } else {
         //–ˆ‰ñƒNƒŠƒA‚·‚é‚Ì‚Å‚¢‚ç‚È‚¢‚Í‚¸‚¾

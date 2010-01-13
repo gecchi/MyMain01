@@ -25,10 +25,10 @@ void LinearOctreeForActor::executeAllBumpChk(actorkind prm_groupA, actorkind prm
 
 
 void LinearOctreeForActor::executeBumpChk(DWORD prm_index) {
-	TRACE5("InSpaceNo="<<prm_index);
+    TRACE5("InSpaceNo="<<prm_index);
     LOFA_Elem* pElem = ((LOFA_Elem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem != NULL) {
-		GgafActor* pActor_ElemValue = pElem->_pActor;
+        GgafActor* pActor_ElemValue = pElem->_pActor;
         while(true) {
             if ((pElem->_kindbit & _kind_groupA) > 0) {
                 _stackCurrentSpaceActor_GroupA.push(pActor_ElemValue);
@@ -117,7 +117,12 @@ void LinearOctreeForActor::executeBumpChk_RoundRobin(CollisionStack* prm_pStackA
         pActor_A = prm_pStackA->_apActor[i];
         for (DWORD j = 0; j < prm_pStackB->_p; j++) {
             pActor_B = prm_pStackB->_apActor[j];
-            TRACE5("BumpChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
+#ifdef MY_DEBUG
+        if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+            _TRACE_("BumpChk("<<pActor_A->getName()<<" x "<<pActor_B->getName()<<")");
+        }
+#endif
+
             pActor_A->executeBumpChk_MeAnd(pActor_B);
         }
     }
