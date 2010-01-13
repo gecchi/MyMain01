@@ -12,17 +12,17 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/ball_
 void Shot001::initialize() {
     _pStgChecker->useHitAreaBoxNum(1);
     _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
-    _pScaler->setScaleRange(1000, 300);
+    _pScaler->setScale(1000);
+    _pScaler->setScaleRange(300, 3000);
     useSe1("break_glass01");
-	onActive();
 }
 
 void Shot001::onActive() {
 
     setBumpable(true);
-	_pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
+    _pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
     _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚Ý‹ï‡
-    _pScaler->beat(30,5,10,-1);
+    _pScaler->beat(20,5,5,5);
 }
 
 void Shot001::processBehavior() {
