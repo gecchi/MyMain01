@@ -91,14 +91,14 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+    bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
         return false;
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processOnHit(GgafActor* prm_pActor_Opponent) {
+    void processOnHit(GgafActor* prm_pOtherActor) {
     }
 
 

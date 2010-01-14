@@ -31,10 +31,10 @@ public:
     }
     void processFinal() {
     }
-    bool processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
+    bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
         return false;
     }
-    void processOnHit(GgafActor* prm_pActor_Opponent) {
+    void processOnHit(GgafActor* prm_pOtherActor) {
     }
     GgafGod* askGod() {
         return NULL;

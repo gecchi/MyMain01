@@ -39,6 +39,30 @@ public:
         _paValue[n]._double_val = val;
     }
 
+    virtual char plus(int n, char val) {
+        return _paValue[n]._char_val += val;
+    }
+
+    virtual int plus(int n, int val) {
+        return _paValue[n]._int_val += val;
+    }
+
+    virtual double plus(int n, double val) {
+        return _paValue[n]._double_val += val;
+    }
+
+    virtual char minus(int n, char val) {
+        return _paValue[n]._char_val += val;
+    }
+
+    virtual int minus(int n, int val) {
+        return _paValue[n]._int_val += val;
+    }
+
+    virtual double minus(int n, double val) {
+        return _paValue[n]._double_val += val;
+    }
+
     virtual int get(int n) {
         return _paValue[n]._int_val;
     }
