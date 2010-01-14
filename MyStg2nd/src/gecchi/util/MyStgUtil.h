@@ -31,8 +31,8 @@ public:
      * <tr><td>kind_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
      * <table>
      */
-    static int judgeMyDominant(actorkint kind_my, actorkint kind_enemy) {
-        ret = 0;
+    static int judgeMyDominant(actorkind kind_my, actorkind kind_enemy) {
+        int ret = 0;
         if (kind_my & KIND_MY_SHOT_GU) {
             if (kind_enemy & KIND_ENEMY_SHOT_CHOKI) {
                 ret++;
@@ -63,8 +63,8 @@ public:
     }
 
 
-    static int judgeEnemyDominant(actorkint kind_enemy, actorkint kind_my) {
-        ret = 0;
+    static int judgeEnemyDominant(actorkind kind_enemy, actorkind kind_my) {
+        int ret = 0;
         if (kind_enemy & KIND_ENEMY_SHOT_GU) {
             if (kind_my & KIND_MY_SHOT_CHOKI) {
                 ret++;
@@ -101,16 +101,36 @@ public:
      * @return
      */
     static int calMyStamina(GgafCore::GgafActor* pMy, GgafCore::GgafActor* pEnemy) {
-        int domi = MyStgUtil::judgeMyDominant(pMy->getGroupActor()->_kind, pEnemy->getGroupActor()->_kind);
+        int domi = MyStgUtil::judgeMyDominant(
+                                  ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind,
+                                  ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind
+                              );
         if (domi > 0) {
             //©•ª‚ª—D«
-            return pMy->pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—ò«‚ÌUŒ‚—Í‚ğó‚¯‚é
-        } else if (domi == 0) {
-            //‘Šè‚Æ“¯Ši
-            return pMy->pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_Attack));
+            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—ò«‚ÌUŒ‚—Í‚ğó‚¯‚é
         } else if (domi < 0) {
             //©•ª‚ª—ò«
-            return pMy->pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
+            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
+        } else {
+            //‘Šè‚Æ“¯Ši
+            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_Attack));
+        }
+    }
+
+    static int calEnemyStamina(GgafCore::GgafActor* pEnemy, GgafCore::GgafActor* pMy) {
+        int domi = MyStgUtil::judgeMyDominant(
+                                  ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind,
+                                  ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind
+                              );
+        if (domi > 0) {
+            //“G‚ª—D«
+            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackRecessive)); //©‹@‚Ì—ò«‚ÌUŒ‚—Í‚ğó‚¯‚é
+        } else if (domi < 0) {
+            //“G‚ª—ò«
+            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackRecessive)); //©‹@‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
+        } else {
+            //‘Šè‚Æ“¯Ši
+            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_Attack));
         }
     }
 
