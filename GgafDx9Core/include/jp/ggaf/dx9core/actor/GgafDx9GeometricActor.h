@@ -123,7 +123,7 @@ public:
         return (GgafDx9GeometricActor*)GgafActor::getNext();
     }
 
-    virtual bool processBumpChkLogic(GgafActor* prm_pActor_Opponent);
+    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor);
 
     /** Ç¢ÇÎÇ¢ÇÎÇ»åvéZÇçsÇ¡ÇƒÇ®Ç≠ */
     virtual void processPreJudgement();

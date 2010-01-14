@@ -65,23 +65,26 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
 
-bool GgafDx9GeometricActor::processBumpChkLogic(GgafActor* prm_pActor_Opponent) {
-    if (_pChecker == NULL) {
+bool GgafDx9GeometricActor::processBumpChkLogic(GgafActor* prm_pOtherActor) {
+    if (_pChecker == NULL || _actor_class != MAINACTOR) {
         return false;
     } else {
-//        GgafDx9GeometricActor* pActor_Opponent = dynamic_cast<GgafDx9GeometricActor*> (prm_pActor_Opponent);
-//        if (pActor_Opponent != NULL && pActor_Opponent->_pChecker != NULL) {
-//            return _pChecker->isBump(pActor_Opponent->_pChecker);
+//        GgafDx9GeometricActor* pOtherActor = dynamic_cast<GgafDx9GeometricActor*> (prm_pOtherActor);
+//        if (pOtherActor != NULL && pOtherActor->_pChecker != NULL) {
+//            return _pChecker->isBump(pOtherActor->_pChecker);
 //        } else {
-//            _TRACE_("GgafDx9GeometricActor::processBumpChkLogic prm_pActor_Opponent("<<(prm_pActor_Opponent->getName())<<") is not GgafDx9GeometricActor")
+//            _TRACE_("GgafDx9GeometricActor::processBumpChkLogic prm_pOtherActor("<<(prm_pOtherActor->getName())<<") is not GgafDx9GeometricActor")
 //            return false;
 //        }
 
-        //本来は↑のようにするのが汎用的かつ安全。しかし、dynamic_castを省きたいがために、危険なことをしています。
+        //本来は↑のようにdynamic_castするのが汎用的かつ安全。しかし、速度UPのため（dynamic_castを省きたいがため）に、
+        //GgafDx9GeometricActorに決め打ちキャストしています。危険です。
+        //一応_can_bump_flg を忘れずにfalseにすることによって、ここの引数にGgafDx9GeometricActorに
+        //キャストできないポインタは来ないよう なっています。
+        //万が一来たら・・・その時にまた考える。
         //何かおかしいとおもったらここが怪しいかもしれない。潜在的なバグの可能性あり。
-        //_can_bump_flg を忘れずにfalseにすることによって、ここの引数にGgafDx9GeometricActorにキャストできないポインタは来ない。
-        //忘れたらもうしらん。
-        return _pChecker->isBump(((GgafDx9GeometricActor*)prm_pActor_Opponent)->_pChecker);
+        //TODO:考える。
+        return _pChecker->isBump(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
     }
 }
 

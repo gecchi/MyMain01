@@ -30,11 +30,11 @@ public:
     virtual void processFinal() {
     }
 
-    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
+    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
         return false;
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
 
     //void processDraw() {} //オーバーライド未実装にする。
