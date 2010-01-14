@@ -61,7 +61,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
-    if (MyStgUtil::calEnemyStamina(this, prm_pOtherActor) <= 0) {
+    if (MyStgUtil::calcEnemyStamina(this, prm_pOtherActor) <= 0) {
         //ここに消滅エフェクト
         inactivate();
     } else {

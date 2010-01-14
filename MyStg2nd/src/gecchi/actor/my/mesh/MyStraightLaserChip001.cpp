@@ -31,7 +31,7 @@ void MyStraightLaserChip001::onActive() {
 
 void MyStraightLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
     //ここにMyのヒットエフェクト
-    if (MyStgUtil::calMyStamina(this, prm_pOtherActor) <= 0) {
+    if (MyStgUtil::calcMyStamina(this, prm_pOtherActor) <= 0) {
         //ここにMyの消滅エフェクト
         inactivate();
     } else {

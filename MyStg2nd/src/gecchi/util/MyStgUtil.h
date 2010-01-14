@@ -100,7 +100,7 @@ public:
      * @param pEnemy
      * @return
      */
-    static int calMyStamina(GgafCore::GgafActor* pMy, GgafCore::GgafActor* pEnemy) {
+    static int calcMyStamina(GgafCore::GgafActor* pMy, GgafCore::GgafActor* pEnemy) {
         int domi = MyStgUtil::judgeMyDominant(
                                   ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind,
                                   ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind
@@ -110,14 +110,14 @@ public:
             return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—ò«‚ÌUŒ‚—Í‚ğó‚¯‚é
         } else if (domi < 0) {
             //©•ª‚ª—ò«
-            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //‘Šè‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
+            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackDominant)); //‘Šè‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
         } else {
             //‘Šè‚Æ“¯Ši
             return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_Attack));
         }
     }
 
-    static int calEnemyStamina(GgafCore::GgafActor* pEnemy, GgafCore::GgafActor* pMy) {
+    static int calcEnemyStamina(GgafCore::GgafActor* pEnemy, GgafCore::GgafActor* pMy) {
         int domi = MyStgUtil::judgeMyDominant(
                                   ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind,
                                   ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind
@@ -127,7 +127,7 @@ public:
             return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackRecessive)); //©‹@‚Ì—ò«‚ÌUŒ‚—Í‚ğó‚¯‚é
         } else if (domi < 0) {
             //“G‚ª—ò«
-            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackRecessive)); //©‹@‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
+            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackDominant)); //©‹@‚Ì—D«‚ÌUŒ‚—Í‚ğó‚¯‚é
         } else {
             //‘Šè‚Æ“¯Ši
             return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_Attack));
