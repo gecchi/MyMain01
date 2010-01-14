@@ -43,7 +43,7 @@ public:
     virtual void processFinal() {
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
 
     /**
