@@ -21,7 +21,7 @@ public:
 
     void processJudgement();
 
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
     bool isOffScreen() {
         return 0;

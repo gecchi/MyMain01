@@ -22,7 +22,14 @@ void MyCurveLaserChip001::initialize() {
     _max_radius = 20.0f;
 }
 
-void MyCurveLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void MyCurveLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
+    //ここにMyのヒットエフェクト
+    if (MyStgUtil::calMyStamina(this, prm_pOtherActor) <= 0) {
+        //ここにMyの消滅エフェクト
+        inactivate();
+    } else {
+
+    }
 }
 
 

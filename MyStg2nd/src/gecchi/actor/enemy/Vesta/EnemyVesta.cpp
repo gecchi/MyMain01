@@ -59,11 +59,11 @@ void EnemyVesta::processJudgement() {
     }
 }
 
-void EnemyVesta::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyVesta::processOnHit(GgafActor* prm_pOtherActor) {
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     playSe1();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pActor_Opponent);
+        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
         pExplo001->activate();
     }
 }

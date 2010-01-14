@@ -24,7 +24,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
 
     virtual ~MyStraightLaserChip001();

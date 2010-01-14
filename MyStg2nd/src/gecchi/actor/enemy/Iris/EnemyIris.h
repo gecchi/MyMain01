@@ -49,9 +49,9 @@ public:
 
     /**
      * ƒCƒŠƒX‚ÌÕ“Ëˆ— .
-     * @param prm_pActor_Opponent Õ“Ë‘ÎÛ
+     * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
     /**
      * ”­Ë’eİ’è .

@@ -37,11 +37,11 @@ public:
     void processFinal() {
     }
 
-    bool processBumpChkLogic(GgafCore::GgafActor* prm_pActor_Opponent) {
+    bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
         return false;
     }
 
-    void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
 
 

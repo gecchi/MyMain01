@@ -302,7 +302,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
     virtual void setMoveSpeedLv(int lv) {
         _lv_MoveSpeed = lv;

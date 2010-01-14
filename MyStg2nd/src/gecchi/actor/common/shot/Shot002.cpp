@@ -52,7 +52,7 @@ void Shot002::processJudgement() {
     }
 }
 
-void Shot002::processOnHit(GgafActor* prm_pActor_Opponent) {
+void Shot002::processOnHit(GgafActor* prm_pOtherActor) {
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     playSe1();
     if (pExplo001 != NULL) {

@@ -2,6 +2,7 @@
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
 #define _RANK_ (GameGlobal::_rank)
+#define _SCORE_ (GameGlobal::_dwScore)
 #define pMYSHIP (GameGlobal::_pMyShip)
 #define pCOMMONSCENE (GameGlobal::_pSceneCommon)
 #define pGAMESCENE (GameGlobal::_pSceneGame)

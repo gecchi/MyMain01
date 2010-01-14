@@ -43,7 +43,7 @@ void EnemyJuno::processJudgement() {
     }
 }
 
-void EnemyJuno::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyJuno::processOnHit(GgafActor* prm_pOtherActor) {
     setBumpable(false);
     adios();
 }

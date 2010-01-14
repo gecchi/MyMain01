@@ -30,7 +30,7 @@ public:
 
     virtual void processFinal() {}
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent) {}
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {}
 
     //void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
 

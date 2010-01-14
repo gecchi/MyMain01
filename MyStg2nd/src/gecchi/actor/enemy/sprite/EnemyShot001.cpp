@@ -49,7 +49,7 @@ int EnemyShot001::isOutOfGameSpace() {
     }
 }
 
-void EnemyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyShot001::processOnHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //adios();
     setBumpable(false);

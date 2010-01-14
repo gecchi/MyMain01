@@ -70,7 +70,7 @@ void MyShot001::processJudgement() {
 }
 
 
-void MyShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void MyShot001::processOnHit(GgafActor* prm_pOtherActor) {
     inactivateTree();
 }
 

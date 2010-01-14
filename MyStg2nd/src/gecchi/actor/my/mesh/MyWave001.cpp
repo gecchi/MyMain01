@@ -75,13 +75,13 @@ void MyWave001::processJudgement() {
 }
 
 /*
- bool MyWave001::processBumpChkLogic(GgafDx9GeometricActor* prm_pActor_Opponent) {
- //TRACE("MyWave001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pActor_Opponent->getPlatformScene()->getName()+"."+prm_pActor_Opponent->getName());
+ bool MyWave001::processBumpChkLogic(GgafDx9GeometricActor* prm_pOtherActor) {
+ //TRACE("MyWave001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
  return false;
  }
  */
 
-void MyWave001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void MyWave001::processOnHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("MyWave001::processOnHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
     //adios();

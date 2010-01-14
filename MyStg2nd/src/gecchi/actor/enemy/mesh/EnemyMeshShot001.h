@@ -55,7 +55,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void processOnHit(GgafCore::GgafActor* prm_pActor_Opponent);
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
     virtual ~EnemyMeshShot001();
 };

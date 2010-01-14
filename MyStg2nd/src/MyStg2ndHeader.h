@@ -31,10 +31,11 @@
 
 //STAT_DEFAULT_ACTOR_KINDÇÕ0
 #define STAT_AddScorePoint     1        //
-#define STAT_StaminaPoint      2
-#define STAT_AttackPoint       3
-#define STAT_DefensePoint      4
-#define STAT_AddRankPoint      5
+#define STAT_AddRankPoint      2
+#define STAT_Stamina           3
+#define STAT_Attack            4
+#define STAT_AttackDominant    5
+#define STAT_AttackRecessive   6
 
 //1/Å„2
 #define NANAME 0.70710

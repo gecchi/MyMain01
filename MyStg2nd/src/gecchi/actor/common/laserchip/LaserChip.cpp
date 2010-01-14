@@ -232,7 +232,7 @@ void LaserChip::drawHitArea() {
     CubeEx::get()->drawHitarea(_pStgChecker);
 }
 
-void LaserChip::processOnHit(GgafActor* prm_pActor_Opponent) {
+void LaserChip::processOnHit(GgafActor* prm_pOtherActor) {
 }
 
 LaserChip::~LaserChip() {

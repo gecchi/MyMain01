@@ -440,13 +440,13 @@ void MyShip::processJudgement() {
     //_TRACE_("dep="<< (_fDistance_plnFront)<<"");
 }
 
-void MyShip::processOnHit(GgafActor* prm_pActor_Opponent) {
-    GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
+void MyShip::processOnHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
     playSe1();
 
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
-        pExplo001->setGeometry(pActor_Opponent);
+        pExplo001->setGeometry(pOtherActor);
         pExplo001->activate();
     }
 }

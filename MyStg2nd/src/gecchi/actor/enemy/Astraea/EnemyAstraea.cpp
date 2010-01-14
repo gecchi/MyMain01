@@ -197,21 +197,40 @@ void EnemyAstraea::processJudgement() {
     }
 }
 
-void EnemyAstraea::processOnHit(GgafActor* prm_pActor_Opponent) {
-    GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
-    setBumpable(false);
-    playSe2();
-    if (pActor_Opponent->getGroupActor()->_kind & KIND_MY) {
-        GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
+void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //ヒットエフェクト
+    if (MyStgUtil::calEnemyStamina(this, pOther) <= 0) {
+
+        _SCORE_ += _pStatus->get(STAT_AddScorePoint);
+        _RANK_  += _pStatus->get(STAT_AddRankPoint);
+        playSe2();
+        inactivate();
+        //レーザーは遅れて開放させるように、動きを継続させるため移動
+        GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
+        pHead->adios(60 * 5);
+        adios(); //さよなら
+        //消滅エフェクト
+    } else {
+
     }
-    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_active);
 
-    //レーザーは遅れて開放させるように、動きを継続させるため移動
-    GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
-    pHead->adios(60 * 5);
-    getLordActor()->addSubLast(pHead->extract());
 
-    adios(); //さよなら
+
+//    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
+//    setBumpable(false);
+//    playSe2();
+//    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
+//        GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
+//    }
+//    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_active);
+//
+//    //レーザーは遅れて開放させるように、動きを継続させるため移動
+//    GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
+//    pHead->adios(60 * 5);
+//    getLordActor()->addSubLast(pHead->extract());
+//
+//    adios(); //さよなら
 
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {

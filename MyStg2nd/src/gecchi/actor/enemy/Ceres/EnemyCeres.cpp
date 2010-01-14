@@ -142,12 +142,12 @@ void EnemyCeres::onInactive() {
 
 }
 
-void EnemyCeres::processOnHit(GgafActor* prm_pActor_Opponent) {
-    GgafDx9GeometricActor* pActor_Opponent = (GgafDx9GeometricActor*)prm_pActor_Opponent;
+void EnemyCeres::processOnHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
     setBumpable(false);
     playSe1();
 
-    if (pActor_Opponent->getGroupActor()->_kind & KIND_MY) {
+    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
         GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
     }
 

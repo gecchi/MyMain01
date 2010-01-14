@@ -84,7 +84,7 @@ void EnemyCeresShot001::processJudgement() {
     }
 }
 
-void EnemyCeresShot001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyCeresShot001::processOnHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyCeresShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //adios();
     playSe1();

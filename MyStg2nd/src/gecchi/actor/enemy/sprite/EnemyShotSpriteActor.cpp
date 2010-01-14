@@ -30,7 +30,7 @@ void EnemyShotSpriteActor::processJudgement() {
 
 }
 
-void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyShotSpriteActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     inactivateTree();
 }

@@ -50,7 +50,7 @@ void EnemyPallas::processJudgement() {
     }
 }
 
-void EnemyPallas::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyPallas::processOnHit(GgafActor* prm_pOtherActor) {
     setBumpable(false);
     adios();
 }

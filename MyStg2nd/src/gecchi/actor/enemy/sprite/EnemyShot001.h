@@ -25,7 +25,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processOnHit(GgafActor* prm_pActor_Opponent);
+    void processOnHit(GgafActor* prm_pOtherActor);
 
     virtual ~EnemyShot001();
 };

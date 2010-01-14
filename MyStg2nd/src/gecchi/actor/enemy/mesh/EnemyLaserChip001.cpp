@@ -55,7 +55,7 @@ void EnemyLaserChip001::processBehaviorHeadChip() {
 
 
 
-void EnemyLaserChip001::processOnHit(GgafActor* prm_pActor_Opponent) {
+void EnemyLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
 }
 
 
