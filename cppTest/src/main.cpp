@@ -7,30 +7,49 @@ using namespace GgafCore;
 //using namespace GgafDx9LibStg;
 //using namespace MyStg2nd;
 
+
+class Base {
+public:
+
+};
+class Base2 : public Base {
+public:
+};
+
+class Base3 : public Base2 {
+public:
+};
+
+
+class SuperActor {
+public:
+    virtual void addSub(Base* b) {
+        _TRACE_("Super::addSub");
+    }
+
+};
+
+class SuperActor2 : public SuperActor {
+public:
+    void addSub(Base2* b) {
+        _TRACE_("Super2::addSub");
+    }
+};
+
+class SuperActor3 : public SuperActor2 {
+public:
+
+};
+
+
+
 int main() {
-    //char rankstr[80];
 
-    char moji[] = { '\0','A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','Q','R','S','T','U','V','W','X','Y','Z',
-                    'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
-                    '1','2','3','4','5','6','7','8','9','0','_',' ', '\0'};
-    int len = strlen(moji);
-    char str[256];
-    for (int q = 0; q < 256; q++) {
-        str[q] = '\0';
-    }
+    Base* base = new Base2();
+    SuperActor* pSuperActor = new SuperActor3();
+    pSuperActor->addSub((Base*)base);
 
-
-
-
-    for (int n = 1; n < len; n++) {
-        str[n] = n;
-        for (int j = 1 ; j < len; j++) {
-            str[i] =  moji[j];
-            unsigned int u = GgafUtil::easy_hash(str);
-            _TRACE_(str<<"="<<u);
-        }
-    }
-
+    //super->hoge(((Base* )base));
 
  }
 
