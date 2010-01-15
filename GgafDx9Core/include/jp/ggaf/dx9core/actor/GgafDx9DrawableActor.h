@@ -23,10 +23,13 @@ public:
     float _fAlpha;
 
     char* _technique;
-
+    char* _technique_temp;
+    DWORD _frame_temp_technique;
     unsigned int _hash_technique;
+    unsigned int _hash_technique_temp;
+    bool _is_temp_technique;
 
-    static unsigned int _hash_technique_active;
+    static unsigned int _hash_technique_last_draw;
 
     /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9;
@@ -98,6 +101,17 @@ public:
     void setTechnique(char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
+    }
+
+    void setTechniqueTemporarily(char* prm_technique, DWORD prm_frame) {
+        //元々のテクニックを退避
+        _hash_technique_temp = _hash_technique;
+        strcpy(_technique_temp, _technique);
+        //テクニック変更
+        _frame_temp_technique = _frame_of_active + prm_frame; //変更満期フレーム
+        _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
+        strcpy(_technique, prm_technique);
+        _is_temp_technique = true;
     }
 
     /**

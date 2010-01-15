@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-unsigned int GgafDx9DrawableActor::_hash_technique_active = 0;
+unsigned int GgafDx9DrawableActor::_hash_technique_last_draw = 0;
 
 GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
                                            const char* prm_model,
@@ -20,8 +20,13 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 //_TRACE_(")");
 
     _class_name = "GgafDx9DrawableActor";
+    _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
+    _technique_temp = NEW char[51];
+    _hash_technique = 0;
+    _frame_temp_technique = 0;
+    _is_temp_technique = false;
 
     _pNext_TheSameDrawDepthLevel = NULL;
     //モデル取得
@@ -66,6 +71,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _hash_technique = GgafUtil::easy_hash(prm_technique);
     _technique = NEW char[51];
     strcpy(_technique, prm_technique);
+    _technique_temp = NEW char[51];
+    _hash_technique = 0;
+    _frame_temp_technique = 0;
 
     char* model_name = NEW char[51];
     model_name[0] = '\0';
@@ -154,6 +162,17 @@ void GgafDx9DrawableActor::processPreDraw() {
             }
         }
     }
+
+    //一時テクニック期間チェック
+    if (_is_temp_technique) {
+        if (_frame_temp_technique <= _frame_of_active) {
+            //一時テクニック期間満了。元に戻す
+            _hash_technique = _hash_technique_temp;
+            strcpy(_technique, _technique_temp);
+            _is_temp_technique = false;
+        }
+    }
+
 }
 
 
@@ -223,6 +242,7 @@ void GgafDx9DrawableActor::playSe2() {
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
+    DELETEARR_IMPOSSIBLE_NULL(_technique_temp);
     _pGgafDx9ModelCon->close();
     _pGgafDx9EffectCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);

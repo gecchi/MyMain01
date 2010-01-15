@@ -52,7 +52,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
     mightDx9Exception(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) に失敗しました。");
 
-    if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect || GgafDx9DrawableActor::_hash_technique_active != prm_pActor_Target->_hash_technique) {
+    if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
@@ -79,7 +79,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pBoardEffect;
-    GgafDx9DrawableActor::_hash_technique_active = prm_pActor_Target->_hash_technique;
+    GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
     //前回描画UV座標（へのポインタ）を保存
     GgafGod::_num_actor_drawing++;
     return D3D_OK;

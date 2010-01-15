@@ -61,7 +61,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-        if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_active != prm_pActor_Target->_hash_technique) && i == 0) {
+        if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
 				TRACE4("‘O‰ñ_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
@@ -96,7 +96,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     }
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
-    GgafDx9DrawableActor::_hash_technique_active = prm_pActor_Target->_hash_technique;
+    GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 }
