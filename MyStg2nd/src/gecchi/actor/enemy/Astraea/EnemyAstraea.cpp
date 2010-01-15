@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
-    MyStgUtil::resetEnemyAstraeaStatus(this);
+    MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
     _laser_way = 3;
@@ -59,10 +59,15 @@ void EnemyAstraea::initialize() {
 
 
 void EnemyAstraea::onActive() {
-    MyStgUtil::resetEnemyAstraeaStatus(this);
+    //ステータスリセット
+    MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 }
 
 void EnemyAstraea::processBehavior() {
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
+
+
     /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->loopTriangleWave(1, 30, 3, 22);
@@ -199,11 +204,10 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ヒットエフェクト
-    if (MyStgUtil::calEnemyStamina(this, pOther) <= 0) {
-
-        _SCORE_ += _pStatus->get(STAT_AddScorePoint);
-        _RANK_  += _pStatus->get(STAT_AddRankPoint);
+    //・・・ココにヒットされたエフェクト
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //破壊された場合
+        //・・・ココに破壊されたエフェクト
         playSe2();
         inactivate();
         //レーザーは遅れて開放させるように、動きを継続させるため移動

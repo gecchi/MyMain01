@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyStraightLaserChip001";
-    MyStgUtil::resetMyStraightLaserChip001Status(this);
+    MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
     _veloMove = 100000;
 }
 
@@ -26,16 +26,17 @@ void MyStraightLaserChip001::initialize() {
 
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    MyStgUtil::resetMyStraightLaserChip001Status(this);
+    MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
 }
 
 void MyStraightLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
-    //ここにMyのヒットエフェクト
-    if (MyStgUtil::calcMyStamina(this, prm_pOtherActor) <= 0) {
-        //ここにMyの消滅エフェクト
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //・・・ココにヒットされたエフェクト
+    playSe1();
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //破壊された場合
+        //・・・ココに破壊されたエフェクト
         inactivate();
-    } else {
-
     }
 
 }

@@ -10,7 +10,7 @@ GgafDx9Spline3D EnemyCeres::_spline;
 EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
-    MyStgUtil::resetEnemyCeresStatus(this);
+    MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
 
     _pStgChecker->_iScorePoint = 100;
@@ -81,7 +81,7 @@ void EnemyCeres::initialize() {
 
 void EnemyCeres::onActive() {
     setBumpable(true);
-    MyStgUtil::resetEnemyCeresStatus(this);
+    MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _dwFrame_Active = 0;
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
@@ -93,6 +93,9 @@ void EnemyCeres::onActive() {
 }
 
 void EnemyCeres::processBehavior() {
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
+
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > 400000) {
 
@@ -143,30 +146,29 @@ void EnemyCeres::onInactive() {
 }
 
 void EnemyCeres::processOnHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
-    setBumpable(false);
-    playSe1();
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //”j‰ó‚³‚ê‚½ê‡
+        setBumpable(false);
+        playSe1();
+        if (_createActorDispatcher) {
+            //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
+            getLordActor()->addSubLast(getSubGroupActor(KIND_ENEMY_SHOT_GU)->extract());
+           _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
+        } else {
 
-    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
-        GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
+        }
+        adios(); //TODO:‚³‚æ‚È‚ç
+        GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry(this);
+            pExplo001->activate();
+        }
     }
 
 
-    if (_createActorDispatcher) {
-        //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-        getLordActor()->addSubLast(getSubGroupActor(KIND_ENEMY_SHOT_GU)->extract());
-       _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
-    } else {
 
-    }
-
-    adios(); //TODO:‚³‚æ‚È‚ç
-
-    GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry(this);
-        pExplo001->activate();
-    }
 }
 
 int EnemyCeres::isOutOfGameSpace() {

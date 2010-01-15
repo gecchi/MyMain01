@@ -30,12 +30,14 @@
 #define VB_SHOT1_R  VB_BUTTON6
 
 //STAT_DEFAULT_ACTOR_KINDÇÕ0
-#define STAT_AddScorePoint     1        //
-#define STAT_AddRankPoint      2
-#define STAT_Stamina           3
-#define STAT_Attack            4
-#define STAT_AttackDominant    5
-#define STAT_AttackRecessive   6
+#define STAT_AddScorePoint          1
+#define STAT_AddRankPoint           2
+#define STAT_AddRankPoint_Reduction 3
+#define STAT_Stamina                4
+#define STAT_Attack                 5
+#define STAT_DefaultDefenceRate     6
+#define STAT_DominantDefenceRate    7
+#define STAT_RecessiveDefenceRate   8
 
 //1/Å„2
 #define NANAME 0.70710

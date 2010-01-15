@@ -19,7 +19,7 @@ int MyShip::_lim_zright  =  0;
 MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
-    MyStgUtil::resetMyShipStatus(this);
+    MyStgUtil::resetMyShipStatus(_pStatus);
     //setTechnique("DestBlendOne"); //加算合成Technique指定
 
     GameGlobal::init();
@@ -170,7 +170,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 }
 
 void MyShip::onActive() {
-    MyStgUtil::resetMyShipStatus(this);
+    MyStgUtil::resetMyShipStatus(_pStatus);
 
 }
 
@@ -441,14 +441,21 @@ void MyShip::processJudgement() {
 }
 
 void MyShip::processOnHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //ここにヒットエフェクト
     playSe1();
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //ここに消滅エフェクト
 
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry(pOtherActor);
-        pExplo001->activate();
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry(pOther);
+            pExplo001->activate();
+        }
     }
+
+    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
+
 }
 
 

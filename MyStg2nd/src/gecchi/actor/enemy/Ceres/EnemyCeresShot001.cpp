@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "16/vic2") {
     _class_name = "EnemyCeresShot001";
-    MyStgUtil::resetEnemyCeresShot001Status(this);
+    MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
     inactivateTree();
 
     /** 出現時の初速 */
@@ -42,7 +42,7 @@ void EnemyCeresShot001::initialize() {
 
 void EnemyCeresShot001::processBehavior() {
     if (onChangeToActive()) {
-        MyStgUtil::resetEnemyCeresShot001Status(this);
+        MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
 
         //出現時
         _pMover->setMoveVelocity(_iMoveVelocity_1st);
@@ -85,16 +85,19 @@ void EnemyCeresShot001::processJudgement() {
 }
 
 void EnemyCeresShot001::processOnHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyCeresShot001ヒットしました。("<<_X<<","<<_Y<<")");
-    //adios();
-    playSe1();
-    setBumpable(false);
-    inactivateTree();
-    EffectExplosion001* pExplo001 =
-            (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry(this);
-        pExplo001->activate();
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //ここにヒットエフェクト
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //ここに消滅エフェクト
+        playSe1();
+        setBumpable(false);
+        inactivate();
+        EffectExplosion001* pExplo001 =
+                (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry(this);
+            pExplo001->activate();
+        }
     }
 }
 

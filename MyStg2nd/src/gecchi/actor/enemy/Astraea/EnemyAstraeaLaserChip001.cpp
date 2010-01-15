@@ -9,7 +9,7 @@ using namespace MyStg2nd;
 
 EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : HomingLaserChip(prm_name, "12/laser_chip_red") {
     _class_name = "EnemyAstraeaLaserChip001";
-    MyStgUtil::resetEnemyAstraeaLaserChip001Status(this);
+    MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 }
 
 void EnemyAstraeaLaserChip001::initialize() {
@@ -25,15 +25,20 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    MyStgUtil::resetEnemyAstraeaLaserChip001Status(this);
+    //ステータスリセット
+    MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
+
     _pMover->setMoveVelocity(5000);
     _pMover->setMoveVeloAcceleration(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 }
 
-
+void EnemyAstraeaLaserChip001::processBehavior() {
+    HomingLaserChip::processBehavior();
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
+}
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
-
 
     if (_dwActiveFrame == 40) {
         _pMover->executeTagettingMoveAngleSequence(
@@ -60,8 +65,9 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 
 void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    if (MyStgUtil::calcEnemyStamina(this, prm_pOtherActor) <= 0) {
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
         inactivate();
     } else {

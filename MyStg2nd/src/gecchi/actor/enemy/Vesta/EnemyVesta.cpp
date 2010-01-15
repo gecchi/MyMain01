@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyVesta::EnemyVesta(const char* prm_name) : DefaultMeshActor(prm_name, "Vesta") {
     _class_name = "EnemyVesta";
-    MyStgUtil::resetEnemyVestaStatus(this);
+    MyStgUtil::resetEnemyVestaStatus(_pStatus);
     _width_X = 220*2*LEN_UNIT;
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
@@ -31,7 +31,7 @@ void EnemyVesta::initialize() {
 }
 
 void EnemyVesta::onActive() {
-    MyStgUtil::resetEnemyVestaStatus(this);
+    MyStgUtil::resetEnemyVestaStatus(_pStatus);
     _iMovePatternNo = 0;
 
     _pMover->setMoveVelocity(0);
@@ -60,12 +60,22 @@ void EnemyVesta::processJudgement() {
 }
 
 void EnemyVesta::processOnHit(GgafActor* prm_pOtherActor) {
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe1();
-    if (pExplo001 != NULL) {
-        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
-        pExplo001->activate();
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //ここにヒットエフェクト
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //ここに消滅エフェクト
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        playSe1();
+        if (pExplo001 != NULL) {
+            pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001->activate();
+        }
+
     }
+
+
+
+
 }
 
 

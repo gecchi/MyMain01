@@ -13,7 +13,9 @@ using namespace MyStg2nd;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "moji");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_SCORE);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
+    _pStringBoard_RANK = NEW GgafDx9StringBoardActor("RANK", "moji");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
     _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
@@ -88,8 +90,10 @@ void GameMainScene::processBehavior() {
     }
 
     //SCORE•\Ž¦
-    sprintf(_buf, "Scr:%07u", GameGlobal::_dwScore);
+    sprintf(_buf, "Scr:%07u", _SCORE_);
     _pStringBoard_SCORE->update(600, 0, _buf);
+    sprintf(_buf, "R:%.7f", _RANK_);
+    _pStringBoard_RANK->update(600, 30, _buf);
 }
 
 void GameMainScene::processFinal() {

@@ -17,7 +17,7 @@ public:
 
     void processBehaviorHeadChip();
 
-
+    void processBehavior();
 
     void processHappen(int prm_no) {
     }

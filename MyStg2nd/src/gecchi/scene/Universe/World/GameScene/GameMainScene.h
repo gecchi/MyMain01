@@ -16,6 +16,7 @@ class GameMainScene : public GgafDx9LibStg::DefaultScene {
 public:
     char _buf[20];
     GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_SCORE;
+    GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard_RANK;
     GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard01;
     GgafDx9Core::GgafDx9StringBoardActor* _pStringBoard02;
 

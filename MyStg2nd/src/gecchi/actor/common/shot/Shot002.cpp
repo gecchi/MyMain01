@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/Flora") {
     _class_name = "Shot002";
-    MyStgUtil::resetShot002Status(this);
+    MyStgUtil::resetShot002Status(_pStatus);
     _my_frame = 0;
 }
 
@@ -18,7 +18,7 @@ void Shot002::initialize() {
 }
 
 void Shot002::onActive() {
-    MyStgUtil::resetShot002Status(this);
+    MyStgUtil::resetShot002Status(_pStatus);
     setBumpable(true);
     _pScaler->setScale(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
@@ -28,6 +28,8 @@ void Shot002::onActive() {
 }
 
 void Shot002::processBehavior() {
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
 
 
 
@@ -53,13 +55,18 @@ void Shot002::processJudgement() {
 }
 
 void Shot002::processOnHit(GgafActor* prm_pOtherActor) {
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe1();
-    if (pExplo001 != NULL) {
-        pExplo001->activate();
-        pExplo001->setGeometry(this);
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    //・・・ココにヒットされたエフェクト
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+        //破壊された場合
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        playSe1();
+        if (pExplo001 != NULL) {
+            pExplo001->activate();
+            pExplo001->setGeometry(this);
+        }
+        inactivate();
     }
-    inactivate();
 }
 
 Shot002::~Shot002() {

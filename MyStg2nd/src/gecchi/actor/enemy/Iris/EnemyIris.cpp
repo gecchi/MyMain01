@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "8/Iris") {
     _class_name = "EnemyIris";
-    MyStgUtil::resetEnemyIrisStatus(this);
+    MyStgUtil::resetEnemyIrisStatus(_pStatus);
     _iMovePatternNo = 0;
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
@@ -25,7 +25,7 @@ void EnemyIris::initialize() {
 }
 
 void EnemyIris::onActive() {
-    MyStgUtil::resetEnemyIrisStatus(this);
+    MyStgUtil::resetEnemyIrisStatus(_pStatus);
     if (_pProgram_IrisMove) {
         _pMover->executeSplineMoveProgram(_pProgram_IrisMove, 0); //スプライン移動をプログラムしておく
     }
@@ -33,6 +33,8 @@ void EnemyIris::onActive() {
 }
 
 void EnemyIris::processBehavior() {
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
         //スプライン移動中

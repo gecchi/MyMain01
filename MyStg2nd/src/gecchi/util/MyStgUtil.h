@@ -100,38 +100,61 @@ public:
      * @param pEnemy
      * @return
      */
-    static int calcMyStamina(GgafCore::GgafActor* pMy, GgafCore::GgafActor* pEnemy) {
-        int domi = MyStgUtil::judgeMyDominant(
-                                  ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind,
-                                  ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind
-                              );
-        if (domi > 0) {
+    static int calcMyStamina(GgafCore::GgafStatus* pStatMy,
+                             actorkind kind_my,
+                             GgafCore::GgafStatus* pStatEnemy,
+                             actorkind kind_enemy) {
+        //優性劣性判定
+        int my_domi = MyStgUtil::judgeMyDominant(kind_my, kind_enemy);
+        //相手攻撃力
+        int enemy_attack = pStatEnemy->get(STAT_Attack);
+        //優性劣性に応じて防御率を乗ずる
+        if (my_domi > 0) {
             //自分が優性時
-            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackRecessive)); //相手の劣性時の攻撃力を受ける
-        } else if (domi < 0) {
+            return pStatMy->minus(STAT_Stamina,
+                                  enemy_attack * pStatMy->get(STAT_DominantDefenceRate));
+        } else if (my_domi < 0) {
             //自分が劣性時
-            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_AttackDominant)); //相手の優性時の攻撃力を受ける
+            return pStatMy->minus(STAT_Stamina,
+                                  enemy_attack * pStatMy->get(STAT_RecessiveDefenceRate));
         } else {
             //相手と同格時
-            return pMy->_pStatus->minus(STAT_Stamina, pEnemy->_pStatus->get(STAT_Attack));
+            return pStatMy->minus(STAT_Stamina,
+                                  enemy_attack * pStatMy->get(STAT_DefaultDefenceRate));
         }
     }
 
-    static int calcEnemyStamina(GgafCore::GgafActor* pEnemy, GgafCore::GgafActor* pMy) {
-        int domi = MyStgUtil::judgeMyDominant(
-                                  ((GgafCore::GgafMainActor*)pEnemy)->getGroupActor()->_kind,
-                                  ((GgafCore::GgafMainActor*)pMy)->getGroupActor()->_kind
-                              );
-        if (domi > 0) {
-            //敵が優性時
-            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackRecessive)); //自機の劣性時の攻撃力を受ける
-        } else if (domi < 0) {
-            //敵が劣性時
-            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_AttackDominant)); //自機の優性時の攻撃力を受ける
+    static int calcEnemyStamina(GgafCore::GgafStatus* pStatEnemy,
+                                actorkind kind_enemy,
+                                GgafCore::GgafStatus* pStatMy,
+                                actorkind kind_my) {
+        //優性劣性判定
+        int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_my);
+        //相手(自機関連)攻撃力
+        int my_attack = pStatMy->get(STAT_Attack);
+        //優性劣性に応じて防御率を乗ずる
+        int enemy_stamina;
+        if (enemy_domi > 0) {
+            //自分（敵関連）が優性時
+            enemy_stamina = pStatEnemy->minus(STAT_Stamina,
+                                              my_attack * pStatEnemy->get(STAT_DominantDefenceRate));
+        } else if (enemy_domi < 0) {
+            //自分（敵関連）が劣性時
+            enemy_stamina = pStatEnemy->minus(STAT_Stamina,
+                                              my_attack * pStatEnemy->get(STAT_RecessiveDefenceRate));
         } else {
-            //相手と同格時
-            return pEnemy->_pStatus->minus(STAT_Stamina, pMy->_pStatus->get(STAT_Attack));
+            //相手(自機関連)と同格時
+            enemy_stamina = pStatEnemy->minus(STAT_Stamina,
+                                              my_attack * pStatEnemy->get(STAT_DefaultDefenceRate));
         }
+        if (enemy_stamina <= 0) {
+            //得点加算
+            _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);
+            _RANK_  += pStatEnemy->get(STAT_AddRankPoint);
+        }
+
+        return enemy_stamina;
+
     }
 
 
@@ -140,25 +163,25 @@ public:
     // コード変更は「シーンCreater.xls」から行っていただきたい。
     // gen01 start
     //自機レーザー
-    static void resetMyStraightLaserChip001Status(GgafCore::GgafActor* p);
+    static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
     //自機
-    static void resetMyShipStatus(GgafCore::GgafActor* p);
+    static void resetMyShipStatus(GgafCore::GgafStatus* p);
     //ケレス
-    static void resetEnemyCeresStatus(GgafCore::GgafActor* p);
+    static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
     //ケレスショット001
-    static void resetEnemyCeresShot001Status(GgafCore::GgafActor* p);
+    static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
     //アストラエア
-    static void resetEnemyAstraeaStatus(GgafCore::GgafActor* p);
+    static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
     //アストラエアレーザー
-    static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafActor* p);
+    static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
     //ヴェスタ
-    static void resetEnemyVestaStatus(GgafCore::GgafActor* p);
+    static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
     //イリス
-    static void resetEnemyIrisStatus(GgafCore::GgafActor* p);
+    static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
     //汎用ショット001
-    static void resetShot001Status(GgafCore::GgafActor* p);
+    static void resetShot001Status(GgafCore::GgafStatus* p);
     //汎用ショット002
-    static void resetShot002Status(GgafCore::GgafActor* p);
+    static void resetShot002Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
