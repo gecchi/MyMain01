@@ -144,6 +144,10 @@ GgafGod* GgafMainActor::askGod() {
     return _pGod;
 }
 
+actorkind GgafMainActor::getKind() {
+    getGroupActor()->_kind;
+}
+
 
 GgafMainActor::~GgafMainActor() {
 }

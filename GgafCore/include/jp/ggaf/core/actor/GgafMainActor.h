@@ -109,6 +109,9 @@ public:
      */
     virtual GgafGod* askGod();
 
+
+    actorkind getKind();
+
     virtual ~GgafMainActor();
 };
 

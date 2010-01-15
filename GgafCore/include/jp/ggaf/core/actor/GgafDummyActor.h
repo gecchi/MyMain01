@@ -33,7 +33,7 @@ public:
      */
     virtual void processJudgement() {
         if (getSubFirst() == NULL) {
-            adios();
+            adios(1); //1ƒtƒŒ[ƒ€Œã
         }
     }
 
