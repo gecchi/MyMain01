@@ -5,22 +5,56 @@
 //次の"GgafDx9LibStgHeader.h"ヘッダをインクルードします。
 #include "GgafDx9LibStgHeader.h"
 
-#define KIND_EFFECT            (0x0)
-#define KIND_MY_BODY           (0x1)
-#define KIND_MY_SHOT_GU        (0x2)
-#define KIND_MY_SHOT_CHOKI     (0x4)
-#define KIND_MY_SHOT_PA        (0x8)
-#define KIND_MY_SHOT_NOMAL     (0x10)
-#define KIND_ENEMY_BODY        (0x20)
-#define KIND_ENEMY_SHOT_GU     (0x40)
-#define KIND_ENEMY_SHOT_CHOKI  (0x80)
-#define KIND_ENEMY_SHOT_PA     (0x100)
-#define KIND_ENEMY_SHOT_NOMAL  (0x200)
-#define KIND_OTHER             (0x400)
-#define KIND_CHIKEI            (0x800)
+//#define KIND_EFFECT            (0x0)
+//#define KIND_MY_BODY           (0x1)
+//#define KIND_MY_SHOT_GU        (0x2)
+//#define KIND_MY_SHOT_CHOKI     (0x4)
+//#define KIND_MY_SHOT_PA        (0x8)
+//#define KIND_MY_SHOT_NOMAL     (0x10)
+//#define KIND_ENEMY_BODY        (0x20)
+//#define KIND_ENEMY_SHOT_GU     (0x40)
+//#define KIND_ENEMY_SHOT_CHOKI  (0x80)
+//#define KIND_ENEMY_SHOT_PA     (0x100)
+//#define KIND_ENEMY_SHOT_NOMAL  (0x200)
+//#define KIND_OTHER             (0x400)
+//#define KIND_CHIKEI            (0x800)
+//
+//#define KIND_MY                (KIND_MY_BODY|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_SHOT_NOMAL)
+//#define KIND_ENEMY             (KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL)
 
-#define KIND_MY                (KIND_MY_BODY|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_SHOT_NOMAL)
-#define KIND_ENEMY             (KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL)
+
+
+#define KIND_EFFECT              (0x0)
+#define KIND_MY_SHOT_NOMAL       (0x1)
+#define KIND_MY_SHOT_GU          (0x2)
+#define KIND_MY_SHOT_CHOKI       (0x4)
+#define KIND_MY_SHOT_PA          (0x8)
+#define KIND_ENEMY_SHOT_NOMAL    (0x10)
+#define KIND_ENEMY_SHOT_GU       (0x20)
+#define KIND_ENEMY_SHOT_CHOKI    (0x40)
+#define KIND_ENEMY_SHOT_PA       (0x80)
+#define KIND_MY_BODY_NOMAL       (0x100)
+#define KIND_MY_BODY_GU          (0x200)
+#define KIND_MY_BODY_CHOKI       (0x400)
+#define KIND_MY_BODY_PA          (0x800)
+#define KIND_ENEMY_BODY_NOMAL    (0x1000)
+#define KIND_ENEMY_BODY_GU       (0x2000)
+#define KIND_ENEMY_BODY_CHOKI    (0x4000)
+#define KIND_ENEMY_BODY_PA       (0x8000)
+#define KIND_OTHER               (0x10000)
+#define KIND_CHIKEI              (0x20000)
+
+#define KIND_MY     (KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA)
+#define KIND_ENEMY  (KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA)
+
+
+
+
+
+
+
+
+
 
 #define VB_SHOT1    VB_BUTTON1
 #define VB_SHOT2    VB_BUTTON2

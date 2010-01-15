@@ -122,8 +122,8 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -131,10 +131,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetMyShipStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -142,10 +142,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 100 );  //加算得点
 		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -153,10 +153,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);  //種別(デフォルト)
-		p->set(STAT_AddScorePoint, 1 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
+		p->set(STAT_AddScorePoint, 10 );  //加算得点
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -164,10 +164,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 300 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.20000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -177,8 +177,8 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 0 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -186,10 +186,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 1000 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.50000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -197,10 +197,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY);  //種別(デフォルト)
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
 		p->set(STAT_AddScorePoint, 20 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.20000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -208,10 +208,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetShot001Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);  //種別(デフォルト)
-		p->set(STAT_AddScorePoint, 1 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
+		p->set(STAT_AddScorePoint, 2 );  //加算得点
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
@@ -219,10 +219,10 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //劣性時の防御率
 	}
 	void MyStgUtil::resetShot002Status(GgafStatus* p) {
-		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_GU);  //種別(デフォルト)
-		p->set(STAT_AddScorePoint, 1 );  //加算得点
-		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //加算ランク
-		p->set(STAT_AddRankPoint, 0.90000 );  //加算ランク減少率
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //種別(デフォルト)
+		p->set(STAT_AddScorePoint, 3 );  //加算得点
+		p->set(STAT_AddRankPoint_Reduction, 0.10000 );  //加算ランク
+		p->set(STAT_AddRankPoint, 0.99000 );  //加算ランク減少率
 		p->set(STAT_Stamina, 100 );  //体力
 		p->set(STAT_Attack, 100 );  //攻撃力
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //基準防御率
