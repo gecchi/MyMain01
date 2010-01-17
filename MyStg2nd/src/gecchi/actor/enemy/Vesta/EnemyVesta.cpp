@@ -70,14 +70,12 @@ void EnemyVesta::processOnHit(GgafActor* prm_pOtherActor) {
             pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001->activate();
         }
-
+        inactivate();
     }
-
-
-
-
 }
 
-
+void EnemyVesta::onInctive() {
+    adios();
+}
 EnemyVesta::~EnemyVesta() {
 }

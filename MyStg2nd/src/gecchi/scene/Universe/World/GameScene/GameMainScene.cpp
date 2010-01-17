@@ -13,9 +13,11 @@ using namespace MyStg2nd;
 
 GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     _pStringBoard_SCORE = NEW GgafDx9StringBoardActor("SCORE", "moji");
-    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_SCORE);
     _pStringBoard_RANK = NEW GgafDx9StringBoardActor("RANK", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_RANK);
+    _pStringBoard_STAMINA = NEW GgafDx9StringBoardActor("STAMINA", "moji");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard_STAMINA);
     _pStringBoard01 = NEW GgafDx9StringBoardActor("STR01", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
@@ -93,7 +95,9 @@ void GameMainScene::processBehavior() {
     sprintf(_buf, "Scr:%07u", _SCORE_);
     _pStringBoard_SCORE->update(600, 0, _buf);
     sprintf(_buf, "R:%.7f", _RANK_);
-    _pStringBoard_RANK->update(600, 30, _buf);
+    _pStringBoard_RANK->update(500, 20, _buf);
+    sprintf(_buf, "STAMINA:%7d", pMYSHIP->_pStatus->get(STAT_Stamina));
+    _pStringBoard_STAMINA->update(500, 40, _buf);
 }
 
 void GameMainScene::processFinal() {

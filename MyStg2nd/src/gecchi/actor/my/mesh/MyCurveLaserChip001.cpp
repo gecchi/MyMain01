@@ -23,8 +23,9 @@ void MyCurveLaserChip001::initialize() {
 }
 
 void MyCurveLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにMyのヒットエフェクト
-    if (MyStgUtil::calcMyStamina(this, prm_pOtherActor) <= 0) {
+    if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここにMyの消滅エフェクト
         inactivate();
     } else {

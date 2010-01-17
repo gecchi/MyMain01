@@ -53,6 +53,9 @@ public:
      */
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
+
+    void onInactive();
+
     /**
      * 発射弾設定 .
      * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ

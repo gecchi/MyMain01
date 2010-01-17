@@ -19,17 +19,18 @@ public:
 
     void processBehavior();
 
+    void processJudgement() {
+    }
+
     void processHappen(int prm_no) {
     }
 
     void processFinal() {
     }
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
-     */
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
+    void onInctive();
 
     virtual ~EnemyAstraeaLaserChip001();
 

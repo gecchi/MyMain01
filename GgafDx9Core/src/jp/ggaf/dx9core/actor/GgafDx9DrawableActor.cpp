@@ -74,6 +74,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _technique_temp = NEW char[51];
     _hash_technique = 0;
     _frame_temp_technique = 0;
+    _is_temp_technique = false;
 
     char* model_name = NEW char[51];
     model_name[0] = '\0';
@@ -170,6 +171,8 @@ void GgafDx9DrawableActor::processPreDraw() {
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);
             _is_temp_technique = false;
+			_technique_temp = "";
+			_hash_technique_temp = 0;
         }
     }
 

@@ -36,7 +36,14 @@ public:
 
     void processJudgement();
 
+    void processHappen(int prm_no) {
+    }
+
+    void processFinal() {
+    }
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+
+    void onInctive();
 
     int isOutOfGameSpace();
 

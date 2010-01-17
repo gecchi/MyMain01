@@ -94,7 +94,7 @@ void EnemyCeres::onActive() {
 
 void EnemyCeres::processBehavior() {
     //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > 400000) {
@@ -129,21 +129,10 @@ void EnemyCeres::processBehavior() {
 
 void EnemyCeres::processJudgement() {
     if (isOutOfGameSpace()) {
-        if (_createActorDispatcher) {
-            //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-            getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
-           _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
-        }
-
-        adios();
+        inactivate();
     }
 }
 
-
-
-void EnemyCeres::onInactive() {
-
-}
 
 void EnemyCeres::processOnHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
@@ -152,23 +141,22 @@ void EnemyCeres::processOnHit(GgafActor* prm_pOtherActor) {
         //”j‰ó‚³‚ê‚½ê‡
         setBumpable(false);
         playSe1();
-        if (_createActorDispatcher) {
-            //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
-            getLordActor()->addSubLast(getSubGroupActor(KIND_ENEMY_SHOT_GU)->extract());
-           _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
-        } else {
-
-        }
-        adios(); //TODO:‚³‚æ‚È‚ç
+        inactivate(); //TODO:‚³‚æ‚È‚ç
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);
             pExplo001->activate();
         }
     }
+}
 
-
-
+void EnemyCeres::onInactive() {
+    if (_createActorDispatcher) {
+        //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
+        getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
+       _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
+    }
+    adios();
 }
 
 int EnemyCeres::isOutOfGameSpace() {

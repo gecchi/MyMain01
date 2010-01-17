@@ -40,35 +40,35 @@ void EnemyCeresShot001::initialize() {
     useSe1("break_glass01");
 }
 
+void EnemyCeresShot001::onActive() {
+    MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
+
+    //出現時
+    _pMover->setMoveVelocity(_iMoveVelocity_1st);
+    _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);
+
+    _frame_on_change_to_active_flg = 0;
+    setBumpable(true);
+}
+
 void EnemyCeresShot001::processBehavior() {
-    if (onChangeToActive()) {
-        MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-        //出現時
-        _pMover->setMoveVelocity(_iMoveVelocity_1st);
-        _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);
+    _frame_on_change_to_active_flg++;
+    //方向転換開始
+    if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
 
-        _frame_on_change_to_active_flg = 0;
-        setBumpable(true);
-    } else {
+        _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, _angVelocity_Turn, TURN_CLOSE_TO);
+        _pMover->setMoveVeloAcceleration(_iMoveAcceleration_2nd);
+    }
 
-
-        _frame_on_change_to_active_flg++;
-        //方向転換開始
-        if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
-
-            _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, _angVelocity_Turn, TURN_CLOSE_TO);
-            _pMover->setMoveVeloAcceleration(_iMoveAcceleration_2nd);
-        }
-
-        //方向転換終了
-        if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
-            _pMover->setRzMoveAngleVelocity(0);
-            _pMover->setRyMoveAngleVelocity(0);
-            _pMover->_move_angle_ry_target_flg = false;
-            _pMover->_move_angle_rz_target_flg = false;
-        }
-
+    //方向転換終了
+    if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
+        _pMover->setRzMoveAngleVelocity(0);
+        _pMover->setRyMoveAngleVelocity(0);
+        _pMover->_move_angle_ry_target_flg = false;
+        _pMover->_move_angle_rz_target_flg = false;
     }
 
     //addNextAnimationFrame();
@@ -79,8 +79,7 @@ void EnemyCeresShot001::processBehavior() {
 
 void EnemyCeresShot001::processJudgement() {
     if (isOutOfGameSpace()) {
-        inactivateTree();
-        //adios();
+        inactivate();
     }
 }
 
@@ -99,6 +98,11 @@ void EnemyCeresShot001::processOnHit(GgafActor* prm_pOtherActor) {
             pExplo001->activate();
         }
     }
+}
+
+void EnemyCeresShot001::onInactive() {
+    //ディスパッチャに戻るだけなのでadios不要？
+    //adios();
 }
 
 EnemyCeresShot001::~EnemyCeresShot001() {

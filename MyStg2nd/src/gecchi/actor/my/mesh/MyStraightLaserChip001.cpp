@@ -32,8 +32,8 @@ void MyStraightLaserChip001::onActive() {
 void MyStraightLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
-    playSe1();
-    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    //playSe1();
+    if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         inactivate();

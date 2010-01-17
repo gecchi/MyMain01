@@ -4,11 +4,25 @@ namespace GgafDx9LibStg {
 
 /**
  * フォーメーションアクタークラス .
+ * processJudgement()を実装済みのため、
+ * 継承クラスはprocessJudgement()使用時注意すること。
  * @version 1.00
  * @since 2008/08/08
  * @author Masatoshi Tsuge
  */
 class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
+private:
+    /**
+     * サブが無ければ死
+     * ＜OverRide です＞<BR>
+     */
+    virtual void processJudgement() {
+        if (getSubFirst() == NULL) {
+            _TRACE_("FormationActor["<<getName()<<" adios(5*60)!!!!!!!!!!!!");
+            inactivate();
+            adios(20*60);//20秒後開放
+        }
+    }
 
 public:
 
@@ -20,18 +34,6 @@ public:
     }
 
     virtual void processBehavior() {
-    }
-
-    /**
-     * サブが無ければ死
-     * ＜OverRide です＞<BR>
-     */
-    virtual void processJudgement() {
-        if (getSubFirst() == NULL) {
-            _TRACE_("FormationActor["<<getName()<<" adios(5*60)!!!!!!!!!!!!");
-            inactivate();
-            adios(30*60);//１分後開放
-        }
     }
 
     virtual void processDraw() {

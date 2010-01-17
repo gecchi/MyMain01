@@ -34,7 +34,7 @@ void EnemyIris::onActive() {
 
 void EnemyIris::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
         //スプライン移動中
@@ -92,21 +92,27 @@ void EnemyIris::processBehavior() {
 
 void EnemyIris::processJudgement() {
     if (isOutOfGameSpace()) {
-        adios();
+        inactivate();
     }
 }
 
 void EnemyIris::processOnHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyIris::processOnHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     //_TRACE_("EnemyIris::processOnHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
-
-    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe2();
-    if (pExplo001 != NULL) {
-        pExplo001->activate();
-        pExplo001->setGeometry(this);
+        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        playSe2();
+        if (pExplo001 != NULL) {
+            pExplo001->activate();
+            pExplo001->setGeometry(this);
+        }
+        inactivate();
     }
+}
+
+void EnemyIris::onInactive() {
     adios();
 }
 

@@ -11,7 +11,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
         _pMyShip->inactivateImmediately(); //配下に仮登録のアクター発送者とかあるし
-        getLordActor()->addSubGroup(KIND_MY_BODY, _pMyShip);
+        getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
     }
 
 

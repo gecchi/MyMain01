@@ -59,11 +59,11 @@ public:
 
     void processJudgement();
 
-    void onInactive();
-
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
     int isOutOfGameSpace();
+
+    void onInactive();
 
     virtual ~EnemyCeres();
 };

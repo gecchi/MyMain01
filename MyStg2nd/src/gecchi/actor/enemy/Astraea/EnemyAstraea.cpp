@@ -65,8 +65,7 @@ void EnemyAstraea::onActive() {
 
 void EnemyAstraea::processBehavior() {
     //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
-
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
@@ -185,13 +184,11 @@ void EnemyAstraea::processBehavior() {
 
 void EnemyAstraea::processJudgement() {
     if (isOutOfGameSpace()) {
-
         //レーザーは遅れて開放させるように、動きを継続させるため移動
         GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);
         pHead->adios(60 * 5);//解放予約
         getLordActor()->addSubLast(pHead->extract());
-
-        adios();
+        inactivate();
 //        for (int i = 0; i < _laser_way; i++) {
 //            for (int j = 0; j < _laser_way; j++) {
 //                if (_papapLaserChipDispatcher[i][j]) { //弾解放予約
@@ -209,11 +206,10 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         playSe2();
-        inactivate();
         //レーザーは遅れて開放させるように、動きを継続させるため移動
         GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
         pHead->adios(60 * 5);
-        adios(); //さよなら
+        inactivate(); //さよなら
         //消滅エフェクト
     } else {
 
@@ -249,6 +245,12 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
         pExplo001->setGeometry(this);
     }
 }
+
+
+void EnemyAstraea::onInctive() {
+    adios();
+}
+
 
 int EnemyAstraea::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 300000) {

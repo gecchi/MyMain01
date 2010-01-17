@@ -35,11 +35,9 @@ void EnemyAstraeaLaserChip001::onActive() {
 
 void EnemyAstraeaLaserChip001::processBehavior() {
     HomingLaserChip::processBehavior();
-    //加算ランクポイントを減少
-    _pStatus->mul(STAT_AddRankPoint, _pStatus->get(STAT_AddRankPoint_Reduction));
 }
-void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
+void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 40) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
@@ -65,16 +63,20 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 
 void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ここにヒットエフェクト
-    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ここに消滅エフェクト
-        inactivate();
-    } else {
-
-    }
+//    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+//    //ヒット時
+//
+//    //体力計算
+//    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//        //ヒットして消滅時
+//        inactivate();
+//    } else {
+//        //ヒットして生存時
+//    }
 }
+void EnemyAstraeaLaserChip001::onInctive() {
 
+}
 
 EnemyAstraeaLaserChip001::~EnemyAstraeaLaserChip001() {
 

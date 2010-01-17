@@ -27,71 +27,71 @@ public:
     }
 
 
-    virtual void set(int n, char val) {
+    void set(int n, char val) {
         _paValue[n]._char_val = val;
     }
 
-    virtual void set(int n, int val) {
+    void set(int n, int val) {
         _paValue[n]._int_val = val;
     }
 
-    virtual void set(int n, double val) {
+    void set(int n, double val) {
         _paValue[n]._double_val = val;
     }
 
-    virtual char plus(int n, char val) {
+    char plus(int n, char val) {
         return _paValue[n]._char_val += val;
     }
 
-    virtual int plus(int n, int val) {
+    int plus(int n, int val) {
         return _paValue[n]._int_val += val;
     }
 
-    virtual double plus(int n, double val) {
+    double plus(int n, double val) {
         return _paValue[n]._double_val += val;
     }
 
-    virtual char minus(int n, char val) {
-        return _paValue[n]._char_val += val;
+    char minus(int n, char val) {
+        return _paValue[n]._char_val -= val;
     }
 
-    virtual int minus(int n, int val) {
-        return _paValue[n]._int_val += val;
+    int minus(int n, int val) {
+        return _paValue[n]._int_val -= val;
     }
 
-    virtual double minus(int n, double val) {
-        return _paValue[n]._double_val += val;
+    double minus(int n, double val) {
+        return _paValue[n]._double_val -= val;
     }
 
-    virtual char mul(int n, char val) {
+    char mul(int n, char val) {
         return _paValue[n]._char_val *= val;
     }
 
-    virtual int mul(int n, int val) {
+    int mul(int n, int val) {
         return _paValue[n]._int_val *= val;
     }
 
-    virtual double mul(int n, double val) {
+    double mul(int n, double val) {
         return _paValue[n]._double_val *= val;
     }
 
-    virtual int get(int n) {
+    int get(int n) {
         return _paValue[n]._int_val;
     }
 
-    virtual int getChar(int n) {
+    int getChar(int n) {
         return _paValue[n]._char_val;
     }
 
-    virtual int getInt(int n) {
+    int getInt(int n) {
         return _paValue[n]._int_val;
     }
 
-    virtual double getDouble(int n) {
+    double getDouble(int n) {
         return _paValue[n]._double_val;
     }
 
-    virtual ~GgafStatus() {
+    ~GgafStatus() {
         delete[] _paValue;
     }
 

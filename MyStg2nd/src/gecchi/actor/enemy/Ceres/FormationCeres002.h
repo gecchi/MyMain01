@@ -14,8 +14,8 @@ public:
 
     FormationCeres002(const char* prm_name);
 
-    virtual void initialize();
-    virtual void processJudgement();
+    void initialize();
+
     virtual ~FormationCeres002();
 };
 
