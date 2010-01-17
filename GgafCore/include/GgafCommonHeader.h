@@ -12,9 +12,9 @@
         #define _CRTDBG_MAP_ALLOC
         #define _CRTDBG_MAP_ALLOC_NEW
     #endif
-#endif
-#ifndef _MSC_VER
-#define _WIN32_IE 0x0300
+#else
+   #define _WIN32_IE 0x0300
+   #define override
 #endif
 
 #define _HAS_ITERATOR_DEBUGGING 0

@@ -83,7 +83,7 @@ void EnemyVesta::processOnHit(GgafActor* prm_pOtherActor) {
     }
 }
 
-void EnemyVesta::onInctive() {
+void EnemyVesta::onInactive() {
     adios();
 }
 EnemyVesta::~EnemyVesta() {

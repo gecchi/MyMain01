@@ -43,7 +43,7 @@ public:
     }
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
-    void onInctive();
+    void onInactive() override;
 
     int isOutOfGameSpace();
 

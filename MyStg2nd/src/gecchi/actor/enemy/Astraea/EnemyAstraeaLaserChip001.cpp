@@ -76,7 +76,7 @@ void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
 //        //ƒqƒbƒg‚µ‚Ä¶‘¶
 //    }
 }
-void EnemyAstraeaLaserChip001::onInctive() {
+void EnemyAstraeaLaserChip001::onInactive() {
     HomingLaserChip::onInactive();
 
 }

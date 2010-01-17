@@ -25,7 +25,7 @@ public:
 
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
 
-    void onInctive();
+    void onInactive();
 
     virtual ~EnemyVesta();
 };

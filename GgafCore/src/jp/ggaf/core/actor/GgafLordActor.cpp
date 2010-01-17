@@ -14,7 +14,7 @@ void GgafLordActor::remove() {
     throwGgafCriticalException("[GgafLordActor::remove] Error! GgafLordActorはremove()によって削除は行えません！");
 }
 
-void GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
+GgafGroupActor* GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pLordActor != NULL) {
         //_TRACE_("【警告】GgafLordActor::addSubGroup("<<getName()<<") すでに"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"シーンの管理者に所属しています。が、"<<_pScene_Platform->getName()<<"シーンの管理者に乗り換えます");
         prm_pMainActor->extract();
@@ -30,10 +30,11 @@ void GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActo
     prm_pMainActor->setGroupActor(pSubGroupActor);
     prm_pMainActor->setLordActor(this);
     prm_pMainActor->setScenePlatform(_pScene_Platform);
+    return pSubGroupActor;
 }
 
-void GgafLordActor::addSubGroup(GgafMainActor* prm_pMainActor) {
-    addSubGroup(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
+GgafGroupActor* GgafLordActor::addSubGroup(GgafMainActor* prm_pMainActor) {
+    return addSubGroup(prm_pMainActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND), prm_pMainActor);
 }
 
 

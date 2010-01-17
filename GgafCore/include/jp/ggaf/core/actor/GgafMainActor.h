@@ -90,10 +90,11 @@ public:
      * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
      * @param prm_kind 種別
      * @param prm_pMainActor 種別と共に追加したいアクター
+     * @return 挟み込まれている配下の団長(GgafGroupActor)
      */
-    void addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
+    GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
-    void addSubGroup(GgafMainActor* prm_pMainActor);
+    GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
      * 配下の団長を探す。

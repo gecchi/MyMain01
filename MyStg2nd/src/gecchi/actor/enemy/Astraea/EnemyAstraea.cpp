@@ -32,7 +32,6 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
                 stringstream name;
                 name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
                 pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
-                pChip->inactivateImmediately();
                 _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
             }
             addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
@@ -184,10 +183,7 @@ void EnemyAstraea::processBehavior() {
 
 void EnemyAstraea::processJudgement() {
     if (isOutOfGameSpace()) {
-        //レーザーは遅れて開放させるように、動きを継続させるため移動
-        GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);
-        pHead->adios(60 * 5);//解放予約
-        getLordActor()->addSubLast(pHead->extract());
+
         inactivate();
 //        for (int i = 0; i < _laser_way; i++) {
 //            for (int j = 0; j < _laser_way; j++) {
@@ -206,9 +202,6 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         playSe2();
-        //レーザーは遅れて開放させるように、動きを継続させるため移動
-        GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
-        pHead->adios(60 * 5);
         inactivate(); //さよなら
         //消滅エフェクト
     } else {
@@ -247,7 +240,12 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
 }
 
 
-void EnemyAstraea::onInctive() {
+void EnemyAstraea::onInactive() {
+    _TRACE_("EnemyAstraea::onInactive()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+    //レーザーは遅れて開放させるように、動きを継続させるため移動
+    GgafGroupActor* pHead = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
+    pHead->adios(60 * 5);//解放予約
+    getLordActor()->addSubLast(pHead->extract());
     adios();
 }
 
