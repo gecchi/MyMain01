@@ -28,24 +28,24 @@ public:
 
     EnemyAstraea(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
-    void onActive();
+    void onActive() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
 
-    void processFinal() {
+    void processFinal() override {
     }
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
 
-    int isOutOfGameSpace();
+    int isOutOfGameSpace() override;
 
     virtual ~EnemyAstraea();
 };
