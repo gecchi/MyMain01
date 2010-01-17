@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 
 MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyCurveLaserChip001";
-
+    MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
 }
 
 void MyCurveLaserChip001::initialize() {
@@ -20,6 +20,11 @@ void MyCurveLaserChip001::initialize() {
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;
+}
+
+void MyCurveLaserChip001::onActive() {
+    CurveLaserChip::onActive();
+    MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
 }
 
 void MyCurveLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {

@@ -77,6 +77,12 @@ float4 PS_DestBlendOne(
 	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse;
 }
 
+float4 PS_Flush( 
+	float2 prm_uv	  : TEXCOORD0
+) : COLOR  {
+	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse*10.0;
+}
+
 technique DefaultMeshTechnique
 {
 	//pass P0「メッシュ標準シェーダー」
@@ -123,3 +129,15 @@ technique DestBlendOne
 		PixelShader  = compile ps_2_0 PS_DestBlendOne();
 	}
 }
+
+technique Flush
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMesh();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+}
+

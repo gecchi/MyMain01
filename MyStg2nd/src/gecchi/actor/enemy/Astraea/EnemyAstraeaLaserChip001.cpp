@@ -60,7 +60,9 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     _pMover->behave();
 }
 
-
+void EnemyAstraeaLaserChip001::processJudgement() {
+    HomingLaserChip::processJudgement();
+}
 
 void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
@@ -75,6 +77,7 @@ void EnemyAstraeaLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
 //    }
 }
 void EnemyAstraeaLaserChip001::onInctive() {
+    HomingLaserChip::onInactive();
 
 }
 

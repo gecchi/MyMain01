@@ -19,8 +19,7 @@ public:
 
     void processBehavior();
 
-    void processJudgement() {
-    }
+    void processJudgement();
 
     void processHappen(int prm_no) {
     }

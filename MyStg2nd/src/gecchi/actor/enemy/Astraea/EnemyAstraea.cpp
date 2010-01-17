@@ -9,7 +9,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
     //レーザーストック
-    _laser_way = 3;
+    _laser_way = 2;
     _X = 0;
     _Y = 0;
     _Z = 0;

@@ -112,15 +112,15 @@ public:
         if (my_domi > 0) {
             //自分が優性時
             return pStatMy->minus(STAT_Stamina,
-                                  enemy_attack * pStatMy->getDouble(STAT_DominantDefenceRate));
+                                  (int)(enemy_attack * pStatMy->getDouble(STAT_DominantDefenceRate)));
         } else if (my_domi < 0) {
             //自分が劣性時
             return pStatMy->minus(STAT_Stamina,
-                                  enemy_attack * pStatMy->getDouble(STAT_RecessiveDefenceRate));
+                                  (int)(enemy_attack * pStatMy->getDouble(STAT_RecessiveDefenceRate)));
         } else {
             //相手と同格時
             return pStatMy->minus(STAT_Stamina,
-                                  enemy_attack * pStatMy->getDouble(STAT_DefaultDefenceRate));
+                                  (int)(enemy_attack * pStatMy->getDouble(STAT_DefaultDefenceRate)));
         }
     }
 
@@ -141,13 +141,13 @@ public:
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->get(STAT_DominantDefenceRate));
 
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
-                                              my_attack * pStatEnemy->getDouble(STAT_DominantDefenceRate));
+                                              (int)(my_attack * pStatEnemy->getDouble(STAT_DominantDefenceRate)));
 		//_TRACE_("enemy_stamina="<<enemy_stamina);
         } else if (enemy_domi < 0) {
             //自分（敵関連）が劣性時
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_RecessiveDefenceRate));
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
-                                              my_attack * pStatEnemy->get(STAT_RecessiveDefenceRate));
+                                              (int)(my_attack * pStatEnemy->get(STAT_RecessiveDefenceRate)));
 
 		_TRACE_("enemy_stamina="<<enemy_stamina);
         } else {
@@ -155,7 +155,7 @@ public:
 
             //相手(自機関連)と同格時
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
-                                              my_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate));
+                                              (int)(my_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
 		//_TRACE_("enemy_stamina="<<enemy_stamina);
         }
 //_TRACE_("enemy_stamina="<<enemy_stamina);
@@ -177,6 +177,8 @@ public:
     // gen01 start
 	//自機レーザー
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+	//オプションレーザー
+	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
 	//自機
 	static void resetMyShipStatus(GgafCore::GgafStatus* p);
 	//ケレス

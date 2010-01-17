@@ -28,6 +28,7 @@ void EnemyVesta::initialize() {
     }
     _pStgChecker->setStatus(100, 99999, 99999, 99999);
     useSe1("yume_shototsu");
+    useSe2("bomb1");     //爆発
 }
 
 void EnemyVesta::onActive() {
@@ -62,13 +63,21 @@ void EnemyVesta::processJudgement() {
 void EnemyVesta::processOnHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
+    setTechniqueTemporarily("Flush", 2); //フラッシュ
+    playSe1();
+        //ここに消滅エフェクト
+    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+    if (pExplo001 != NULL) {
+        pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
+        pExplo001->activate();
+    }
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-        EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe1();
-        if (pExplo001 != NULL) {
-            pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
-            pExplo001->activate();
+        EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
+        playSe2();
+        if (pExplo001_2 != NULL) {
+            pExplo001_2->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
+            pExplo001_2->activate();
         }
         inactivate();
     }
