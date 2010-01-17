@@ -171,7 +171,7 @@ void GgafDx9DrawableActor::processPreDraw() {
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);
             _is_temp_technique = false;
-			_technique_temp = "";
+			//これはダメ。配列領域がどっかにいくため。_technique_temp = ""; 
 			_hash_technique_temp = 0;
         }
     }

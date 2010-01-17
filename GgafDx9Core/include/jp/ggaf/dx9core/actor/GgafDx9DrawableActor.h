@@ -104,14 +104,16 @@ public:
     }
 
     void setTechniqueTemporarily(char* prm_technique, DWORD prm_frame) {
-        //元々のテクニックを退避
-        _hash_technique_temp = _hash_technique;
-        strcpy(_technique_temp, _technique);
-        //テクニック変更
-        _frame_temp_technique = _frame_of_active + prm_frame; //変更満期フレーム
-        _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
-        strcpy(_technique, prm_technique);
-        _is_temp_technique = true;
+        if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
+            //元々のテクニックを退避
+            _hash_technique_temp = _hash_technique;
+            strcpy(_technique_temp, _technique);
+            //テクニック変更
+            _frame_temp_technique = _frame_of_active + prm_frame; //変更満期フレーム
+            _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
+            strcpy(_technique, prm_technique);
+            _is_temp_technique = true;
+        }
     }
 
     /**
