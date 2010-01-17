@@ -241,7 +241,6 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-    _TRACE_("EnemyAstraea::onInactive()!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
     //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
     GgafGroupActor* pHead = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
     pHead->adios(60 * 5);//‰ð•ú—\–ñ
