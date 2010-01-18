@@ -22,7 +22,7 @@ public:
     virtual void nextFrame();
 
 
-    virtual void processFinal();
+    virtual void processFinal() override;
 
     virtual ~DefaultUniverse();
 };

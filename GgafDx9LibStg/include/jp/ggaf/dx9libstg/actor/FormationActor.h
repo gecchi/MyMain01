@@ -16,7 +16,7 @@ private:
      * ƒTƒu‚ª–³‚¯‚ê‚Î€
      * ƒOverRide ‚Å‚·„<BR>
      */
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
             _TRACE_("FormationActor["<<getName()<<" adios(5*60)!!!!!!!!!!!!");
             inactivate();
@@ -30,22 +30,22 @@ public:
 
     FormationActor(const char* prm_name, DWORD prm_frame_offset_adios = 5*60);
 
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
     }
 
     virtual void processDraw() {
     }
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     /**

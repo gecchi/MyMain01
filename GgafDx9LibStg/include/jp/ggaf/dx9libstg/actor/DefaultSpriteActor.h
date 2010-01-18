@@ -21,25 +21,25 @@ public:
 
     DefaultSpriteActor(const char* prm_name, const char* prm_model_id);
 
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
     }
 
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
     }
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    virtual void drawHitArea();
+    virtual void drawHitArea() override;
 
     virtual ~DefaultSpriteActor();
 

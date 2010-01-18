@@ -19,14 +19,14 @@ public:
 
     DefaultScene(const char* prm_name);
 
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
         TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_active);
     }
 
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_active);
     }
 
@@ -34,11 +34,11 @@ public:
         TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_active);
     }
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
         TRACE("DefaultScene::processHappen " << getName() << "no:" << prm_no);
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
         TRACE("DefaultScene::processFinally " << getName() << "frame:" << _frame_of_active);
     }
 

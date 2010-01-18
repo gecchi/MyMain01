@@ -26,7 +26,7 @@ public:
 //     * TODO:‚±‚ê‚Í•‰‰×‚ª‚©‚©‚é‚Ì‚Å‚ ‚Ü‚è‚â‚è‚½‚­‚È‚¢ALaserˆÈŠO‚Í‚È‚ñ‚Å‚à‚¢‚¢‚Í‚¸
 //     * ƒOverRide ‚Å‚·„<BR>
 //     */
-//    virtual void processBehavior() {
+//    virtual void processBehavior() override {
 //        static GgafMainActor* pActor;
 //        pActor = getSubFirst();
 //        while (true) {
