@@ -16,14 +16,14 @@ class CurveLaserChip : public LaserChip {
 public:
     CurveLaserChip(const char* prm_name, const char* prm_model);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
     /**
      * レーザーチップ座標計算等処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
      */
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
     /**
      * レーザーチップ判定等処理 .
@@ -33,21 +33,21 @@ public:
      * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に CurveLaserChip::processJudgement(); と
      * したほうが良いでしょう。
      */
-    virtual void processJudgement();
+    virtual void processJudgement() override;
 
     /**
      * レーザーチップ出現時処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの onActive() メソッドも呼び出してください。
      */
-    virtual void onActive();
+    virtual void onActive() override;
 
     /**
      * レーザーチップ消失時処理 .
      * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
      * その際 は、本クラスの onInactive() メソッドも呼び出してください。
      */
-    virtual void onInactive();
+    virtual void onInactive() override;
 
     virtual ~CurveLaserChip();
 

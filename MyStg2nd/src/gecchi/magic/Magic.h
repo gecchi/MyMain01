@@ -29,7 +29,7 @@ public:
           GgafDx9Core::GgafDx9GeometricActor* prm_pCaster,
           GgafDx9Core::GgafDx9GeometricActor* prm_pReceiver);
 
-    void processBehavior();
+    void processBehavior() override;
 
 
     virtual void cast() {

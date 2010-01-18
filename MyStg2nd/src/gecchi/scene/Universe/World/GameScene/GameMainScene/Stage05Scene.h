@@ -10,11 +10,11 @@ public:
     /**
      * ‰Šúˆ—
      */
-    void initialize();
+    void initialize() override;
 
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
-    virtual void processFinal();
+    virtual void processFinal() override;
 
     virtual ~Stage05Scene();
 };

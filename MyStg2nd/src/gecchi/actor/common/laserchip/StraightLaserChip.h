@@ -39,15 +39,15 @@ public:
 
     StraightLaserChip(const char* prm_name, const char* prm_model);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
-    virtual void processJudgement();
+    virtual void processJudgement() override;
 
-    virtual void onActive();
+    virtual void onActive() override;
 
-    virtual void onInactive();
+    virtual void onInactive() override;
 
     void setPositionSource(GgafDx9Core::GgafDx9GeometricActor* prm_pGeoActor) {
         _pSource_X = &prm_pGeoActor->_X;

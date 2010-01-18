@@ -10,27 +10,27 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processBehavior();
+    void processBehavior() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processJudgement();
+    void processJudgement() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void onInactive();
+    void onInactive() override;
 
     virtual ~MyWave001();
 };

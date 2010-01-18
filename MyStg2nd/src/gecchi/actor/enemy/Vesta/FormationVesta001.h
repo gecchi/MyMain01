@@ -12,7 +12,7 @@ class FormationVesta001 : public GgafDx9LibStg::FormationActor {
 public:
     FormationVesta001(const char* prm_name);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
     virtual ~FormationVesta001();
 };

@@ -14,17 +14,17 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void initialize();
+    virtual void initialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void processJudgement();
+    virtual void processJudgement() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

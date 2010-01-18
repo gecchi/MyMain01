@@ -18,9 +18,9 @@ public:
 
     FormationJuno001(const char* prm_name);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
     virtual ~FormationJuno001();
 };

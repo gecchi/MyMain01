@@ -35,7 +35,7 @@ public:
 
     LaserChipDispatcher(const char* prm_name);
 
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
     /**
      * レーザーチップの借り入れを試みる .
@@ -43,7 +43,7 @@ public:
      * 使い終われば inactivate() を実行してください。自動的にストックに戻ります。
      * @return 借り入れしたレーザーチップ。借り入れできない場合はNULL
      */
-    virtual LaserChip* employ();
+    virtual LaserChip* employ() override;
 
     /**
      * レーザーチップストックの追加 .

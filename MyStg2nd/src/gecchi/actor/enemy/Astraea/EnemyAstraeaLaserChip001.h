@@ -11,25 +11,25 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
-    void onActive();
+    void onActive() override;
 
     void processBehaviorHeadChip();
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
 
-    void processFinal() {
+    void processFinal() override {
     }
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void onInactive();
+    void onInactive() override;
 
     virtual ~EnemyAstraeaLaserChip001();
 

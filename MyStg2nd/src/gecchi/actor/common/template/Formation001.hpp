@@ -14,7 +14,7 @@ class Formation001 : public GgafDx9LibStg::FormationActor {
 public:
     Formation001(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher = NULL);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
     virtual ~Formation001();
 };

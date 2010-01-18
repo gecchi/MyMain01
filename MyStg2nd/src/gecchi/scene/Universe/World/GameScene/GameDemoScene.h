@@ -34,9 +34,9 @@ public:
     void reset();
     void ready();
 
-    void initialize();
-    virtual void processBehavior();
-    virtual void processFinal();
+    void initialize() override;
+    virtual void processBehavior() override;
+    virtual void processFinal() override;
     virtual ~GameDemoScene();
 };
 

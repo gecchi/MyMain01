@@ -48,11 +48,11 @@ public:
 
     void cannelStage(int prm_stage);
 
-    void initialize();
+    void initialize() override;
 
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
-    virtual void processFinal();
+    virtual void processFinal() override;
 
     virtual ~GameMainScene();
 

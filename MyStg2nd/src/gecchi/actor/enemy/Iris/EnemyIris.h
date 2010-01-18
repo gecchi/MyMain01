@@ -30,31 +30,31 @@ public:
     /**
      * イリスのが初期処理（インスタンス生成後保証）
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * イリスのがアクティブになった瞬間の処理 .
      */
-    void onActive();
+    void onActive() override;
 
     /**
      * イリスの振る舞い .
      */
-    void processBehavior();
+    void processBehavior() override;
 
     /**
      * イリスの振る舞い後の判定処理 .
      */
-    void processJudgement();
+    void processJudgement() override;
 
     /**
      * イリスの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
 
-    void onInactive();
+    void onInactive() override;
 
     /**
      * 発射弾設定 .

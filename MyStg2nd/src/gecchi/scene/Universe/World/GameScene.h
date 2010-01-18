@@ -33,10 +33,10 @@ public:
     GameScene(const char* prm_name);
     virtual ~GameScene();
 
-    void initialize();
-    void processBehavior();
-    void processJudgement();
-    void processFinal();
+    void initialize() override;
+    void processBehavior() override;
+    void processJudgement() override;
+    void processFinal() override;
 
 //    void cannelGameDemo();
 //

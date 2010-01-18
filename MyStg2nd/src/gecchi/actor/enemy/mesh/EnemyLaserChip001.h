@@ -11,24 +11,24 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
-    void onActive();
+    void onActive() override;
 
     void processBehaviorHeadChip();
 
 
 
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
 
-    void processFinal() {
+    void processFinal() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
 
     virtual ~EnemyLaserChip001();

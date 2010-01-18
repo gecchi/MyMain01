@@ -10,15 +10,15 @@ public:
 
     EnemyJuno(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    int isOutOfGameSpace();
+    int isOutOfGameSpace() override;
 
     virtual ~EnemyJuno();
 };

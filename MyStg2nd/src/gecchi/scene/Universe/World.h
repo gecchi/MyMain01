@@ -55,17 +55,17 @@ public:
     /**
      * ‰Šúˆ—
      */
-    void initialize();
+    void initialize() override;
 
      /**
      * ƒOverRide ‚Å‚·„
      */
-    void processBehavior();
+    void processBehavior() override;
 
      /**
      * ƒOverRide ‚Å‚·„
      */
-    void processJudgement();
+    void processJudgement() override;
 
     virtual ~World();
 };

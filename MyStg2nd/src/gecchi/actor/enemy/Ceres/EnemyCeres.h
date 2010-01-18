@@ -51,19 +51,19 @@ public:
      */
     EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyCeresShots001 = NULL);
 
-    void initialize();
+    void initialize() override;
 
-    void onActive();
+    void onActive() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    int isOutOfGameSpace();
+    int isOutOfGameSpace() override;
 
-    void onInactive();
+    void onInactive() override;
 
     virtual ~EnemyCeres();
 };

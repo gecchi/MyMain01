@@ -28,7 +28,7 @@ public:
 
     FormationIris002(const char* prm_name);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
     virtual ~FormationIris002();
 };

@@ -42,13 +42,13 @@ public:
 
     MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
-    void initialize();
+    void initialize() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MyDummyOption();
 };

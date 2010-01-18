@@ -17,32 +17,32 @@ public:
      */
     BackGroundStar001(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processPreJudgement();
+    void processPreJudgement() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processPreDraw();
+    void processPreDraw() override;
 
-    void processDraw();
+    void processDraw() override;
 
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
 
-    void processFinal() {
+    void processFinal() override {
     }
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    int isOffscreen() {
+    int isOffscreen() override {
         return false;
     }
 
-    int isOutOfGameSpace() {
+    int isOutOfGameSpace() override {
         return false;
     }
 

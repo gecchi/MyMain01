@@ -36,17 +36,17 @@ public:
 public:
     EnemyCeresShot001(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
-    void onActive();
+    void onActive() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    void onInactive();
+    void onInactive() override;
 
     virtual ~EnemyCeresShot001();
 };

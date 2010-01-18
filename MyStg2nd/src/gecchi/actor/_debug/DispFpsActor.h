@@ -11,12 +11,12 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processBehavior();
+    void processBehavior() override;
 
     virtual ~DispFpsActor();
 };

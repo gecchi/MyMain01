@@ -22,41 +22,41 @@ public:
 
 
 
-    virtual void processPreDraw();
+    virtual void processPreDraw() override;
 
 
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
 
-    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
-    void processJudgement() {
+    void processJudgement() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processBehavior();
+    void processBehavior() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processDraw() {
+    void processDraw() override {
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
     virtual ~BackGround01();

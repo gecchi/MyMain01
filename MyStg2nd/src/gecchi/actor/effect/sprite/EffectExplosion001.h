@@ -16,20 +16,20 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processBehavior();
+    void processBehavior() override;
 
 
-    void onActive();
+    void onActive() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processJudgement();
+    void processJudgement() override;
 
     virtual ~EffectExplosion001();
 };

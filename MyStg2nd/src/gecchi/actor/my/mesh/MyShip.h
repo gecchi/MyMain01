@@ -282,27 +282,27 @@ public:
     /**
      * ＜OverRide です＞
      */
-    virtual void initialize();
+    virtual void initialize() override;
     /**
      *
      * 自機がアクティブになった瞬間の処理 .
      */
-    void onActive();
+    void onActive() override;
 
     /**
      * ＜OverRide です＞
      */
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
     /**
      * ＜OverRide です＞
      */
-    virtual void processJudgement();
+    virtual void processJudgement() override;
 
     /**
      * ＜OverRide です＞
      */
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual void setMoveSpeedLv(int lv) {
         _lv_MoveSpeed = lv;

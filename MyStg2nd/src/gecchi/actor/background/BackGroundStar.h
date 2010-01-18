@@ -12,36 +12,36 @@ public:
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·
      */
-    void processBehavior();
+    void processBehavior() override;
 
 
-    void processJudgement() {
+    void processJudgement() override {
     }
 
-    void processPreDraw();
+    void processPreDraw() override;
 
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·
      */
-    void processDraw(){
+    void processDraw() override{
     }
 
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
 
-    void processFinal() {
+    void processFinal() override {
     }
 
-    bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
+    bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
 

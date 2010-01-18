@@ -14,7 +14,7 @@ public:
 
     FormationCeres002(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
     virtual ~FormationCeres002();
 };

@@ -14,27 +14,27 @@ public:
     /**
      * ＜OverRide です＞
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ＜OverRide です＞
      */
-    void processBehavior();
+    void processBehavior() override;
 
     /**
      * ＜OverRide です＞
      */
-    void processJudgement();
+    void processJudgement() override;
 
     /**
      * ＜OverRide です＞
      */
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**
      * ＜OverRide です＞
      */
-    void onInactive();
+    void onInactive() override;
 
     /**
      * 親元対象アクター

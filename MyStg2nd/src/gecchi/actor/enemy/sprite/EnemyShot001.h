@@ -10,17 +10,17 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void initialize();
+    void initialize() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    void processBehavior();
+    void processBehavior() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    int isOutOfGameSpace();
+    int isOutOfGameSpace() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

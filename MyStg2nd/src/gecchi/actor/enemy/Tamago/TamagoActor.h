@@ -15,13 +15,13 @@ class TamagoActor : public GroundMeshActor {
 public:
     TamagoActor(const char* prm_name);
 
-    void initialize();
+    void initialize() override;
 
-    void processBehavior();
+    void processBehavior() override;
 
-    void processJudgement();
+    void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor);
+    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     bool isOffScreen() {
         return 0;
