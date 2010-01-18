@@ -99,7 +99,7 @@ void GameScene::processBehavior() {
 
 void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
-    //詳細は ACTOR.xls の hantei シート
+    //詳細は シーンCreater.xls の 種別相関 シート
     if (_frame_of_active >= 120) {
         StgChecker::_num_check = 0;
 
