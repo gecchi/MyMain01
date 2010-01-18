@@ -6,48 +6,55 @@ using namespace GgafCore;
 //using namespace GgafDx9Core;
 //using namespace GgafDx9LibStg;
 //using namespace MyStg2nd;
-
+class Base4;
+class Base5;
+class Base6;
 
 class Base {
 public:
-
+    virtual void chk(Base* p) {
+        logic(p);
+    }
+    virtual Base* logic(Base* p) = 0;
 };
 class Base2 : public Base {
 public:
+    virtual Base* logic(Base* p) {
+        _TRACE_("Base2‚Ìlogic");
+        return p;
+    }
 };
 
 class Base3 : public Base2 {
-public:
-};
-
-
-class SuperActor {
-public:
-    virtual void addSub(Base* b) {
-        _TRACE_("Super::addSub");
+private:
+    virtual Base* logic(Base* p) {
+        _TRACE_("Base3‚ÌlogicB");
+        return p;
     }
 
 };
 
-class SuperActor2 : public SuperActor {
-public:
-    void addSub(Base2* b) {
-        _TRACE_("Super2::addSub");
+class Base4 : public Base3 {
+private:
+    virtual Base* logic(Base* p) {
+        _TRACE_("Base4‚Ìlogic");
+        return p;
     }
 };
 
-class SuperActor3 : public SuperActor2 {
+class Base5 : public Base4 {
 public:
-
 };
 
-
+class Base6 : public Base5 {
+public:
+};
 
 int main() {
 
-    Base* base = new Base2();
-    SuperActor* pSuperActor = new SuperActor3();
-    pSuperActor->addSub((Base*)base);
+    Base* pBase = new Base3();
+    Base* prm_pB = new Base6();
+    pBase->logic(prm_pB);
 
     //super->hoge(((Base* )base));
 
