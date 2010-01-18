@@ -161,7 +161,6 @@ public:
 //_TRACE_("enemy_stamina="<<enemy_stamina);
         if (enemy_stamina <= 0) {
             //“¾“_‰ÁŽZ
-            _TRACE_("pStatEnemy->getDouble(STAT_AddRankPoint)="<<pStatEnemy->getDouble(STAT_AddRankPoint));
             _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);
             _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint);
         }
