@@ -22,65 +22,62 @@ public:
     /**
      * èâä˙èàóù<BR>
      */
-    void initialize() {
+    void initialize() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processBehavior() {
+    void processBehavior() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processJudgement() {
+    void processJudgement() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processPreDraw() {
+    void processPreDraw() override {
     }
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processDraw() {
+    void processDraw() override {
     }
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processAfterDraw() {
-    }
-
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
-     */
-    void processHappen(int prm_no) {
+    void processAfterDraw() override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processFinal() {
+    void processHappen(int prm_no) override {
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
+    virtual void processFinal() override {
+    }
+
+    /**
+     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
+     */
+    bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processOnHit(GgafActor* prm_pOtherActor) {
+    void processOnHit(GgafActor* prm_pOtherActor) override {
     }
 
-    /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
-     */
     void remove();
 
     /**

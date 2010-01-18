@@ -22,57 +22,57 @@ public:
     /**
      * 初期処理<BR>
      */
-    void initialize() {
+    void initialize() override {
     }
 
     /**
      * フレーム毎の振る舞い<BR>
      */
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
     }
 
     /**
      * フレーム毎の判定処理<BR>
      */
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
 
     }
 
     /**
      * フレーム毎の描画事前処理<BR>
      */
-    virtual void processPreDraw() {
+    virtual void processPreDraw() override {
     }
 
     /**
      * フレーム毎の描画処理<BR>
      */
-    virtual void draw() {
+    virtual void draw() override {
     }
 
     /**
      * フレーム毎の描画処理<BR>
      */
-    virtual void processDraw() {
+    virtual void processDraw() override {
     }
 
     /**
      * フレーム毎の描画事後処理<BR>
      */
-    virtual void processAfterDraw() {
+    virtual void processAfterDraw() override {
     }
 
     /**
      * 何かの処理<BR>
      * @param prm_no 何かを表す数値
      */
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
     /**
      * 最終処理<BR>
      */
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
     virtual ~GgafUniverse();

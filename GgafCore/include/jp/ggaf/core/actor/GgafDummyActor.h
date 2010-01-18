@@ -18,20 +18,20 @@ public:
     /**
      * 初期処理<BR>
      */
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
     }
 
     /**
      * サブが無ければ死亡します。
      * ＜OverRide です＞<BR>
      */
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
             adios(1); //1フレーム後
         }
@@ -40,44 +40,44 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processPreDraw() {
+    virtual void processPreDraw() override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDraw() {
+    virtual void processDraw() override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processAfterDraw() {
+    virtual void processAfterDraw() override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
+    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processOnHit(GgafActor* prm_pOtherActor) {
+    virtual void processOnHit(GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~GgafDummyActor();

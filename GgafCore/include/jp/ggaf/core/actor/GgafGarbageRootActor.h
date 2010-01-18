@@ -15,26 +15,26 @@ public:
     GgafGarbageRootActor() :
         GgafActor("GarbageRootActor") {
     }
-    void initialize() {
+    void initialize() override {
     }
-    void processBehavior() {
+    void processBehavior() override {
     }
-    void processJudgement() {
+    void processJudgement() override {
     }
-    void processPreDraw() {
+    void processPreDraw() override {
     }
-    void processDraw() {
+    void processDraw() override {
     }
-    void processAfterDraw() {
+    void processAfterDraw() override {
     }
-    void processHappen(int prm_no) {
+    void processHappen(int prm_no) override {
     }
-    void processFinal() {
+    void processFinal() override {
     }
-    bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
+    bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
-    void processOnHit(GgafActor* prm_pOtherActor) {
+    void processOnHit(GgafActor* prm_pOtherActor) override {
     }
     GgafGod* askGod() {
         return NULL;

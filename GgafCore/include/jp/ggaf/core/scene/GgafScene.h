@@ -188,9 +188,7 @@ public:
     virtual void draw();
     virtual void afterDraw();
     virtual void finally();
-
     virtual void happen(int prm_no);
-
     virtual void activateTree();
     virtual void activateAfter(DWORD prm_frame_offset);
     virtual void activate();

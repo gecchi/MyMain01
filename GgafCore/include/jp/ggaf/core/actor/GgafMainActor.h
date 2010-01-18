@@ -28,7 +28,7 @@ public:
      * ＜OverRide です＞
      * @return	次ノード
      */
-    virtual GgafMainActor* getNext() {
+    virtual GgafMainActor* getNext() override {
         return (GgafMainActor*)GgafActor::getNext();
     }
 
@@ -37,7 +37,7 @@ public:
      * ＜OverRide です＞
      * @return	前ノード
      */
-    virtual GgafMainActor* getPrev() {
+    virtual GgafMainActor* getPrev() override {
         return (GgafMainActor*)GgafActor::getPrev();
     }
 
@@ -47,7 +47,7 @@ public:
      * ＜OverRide です＞
      * @return	子ノードの先頭ノード
      */
-    virtual GgafMainActor* getSubFirst() {
+    virtual GgafMainActor* getSubFirst() override {
         return (GgafMainActor*)GgafActor::getSubFirst();
     }
 
@@ -58,7 +58,7 @@ public:
      * ＜OverRide です＞
      * @return	自ノードのポインタ
      */
-    virtual GgafMainActor* extract() {
+    virtual GgafMainActor* extract() override {
         return (GgafMainActor*)GgafActor::extract();
     }
 
