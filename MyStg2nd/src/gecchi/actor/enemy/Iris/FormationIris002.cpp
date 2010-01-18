@@ -18,10 +18,10 @@ FormationIris002::FormationIris002(const char* prm_name) :
         //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                          Y ,                         Z
            { MyShip::_lim_behaind - 500000 ,                       0.0 , MyShip::_lim_zright * 0.8 },
-           {      MyShip::_lim_front * 0.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
-           {      MyShip::_lim_front * 1.5 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
-           {      MyShip::_lim_front * 1.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
-           {      MyShip::_lim_front * 1.0 ,                       0.0 ,                       0.0 }
+           {      MyShip::_lim_front * 1.5 , MyShip::_lim_bottom * 0.2 ,                       0.0 },
+           {      MyShip::_lim_front * 2.5 , MyShip::_lim_bottom * 0.5 ,  MyShip::_lim_zleft * 0.3 },
+           {      MyShip::_lim_front * 2.2 , MyShip::_lim_bottom * 1.0 ,                       0.0 },
+           {      MyShip::_lim_front * 2.0 ,                       0.0 ,                       0.0 }
         };
         FormationIris002::_sp.init(p, 5, 0.2); //—±“x 0.2
     }

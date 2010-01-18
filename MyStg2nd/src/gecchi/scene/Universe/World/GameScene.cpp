@@ -100,8 +100,6 @@ void GameScene::processBehavior() {
 void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は ACTOR.xls の hantei シート
-
-
     if (_frame_of_active >= 120) {
         StgChecker::_num_check = 0;
 
@@ -109,24 +107,19 @@ void GameScene::processJudgement() {
             StgChecker::_pLinearOctree->putTree();
         }
 
+        //八分木アルゴリズムでヒットチェック
         StgChecker::_pLinearOctree->executeAllBumpChk(
-                KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA,
-                KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA
+                KIND_MY_SHOT|KIND_MY_BODY,
+                KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
               );
         StgChecker::_pLinearOctree->executeAllBumpChk(
-                KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA,
-                KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA
+                KIND_ENEMY_SHOT,
+                KIND_MY_BODY|KIND_OTHER|KIND_CHIKEI
               );
         StgChecker::_pLinearOctree->executeAllBumpChk(
-                KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA,
-                KIND_OTHER|KIND_CHIKEI
-              );
-        StgChecker::_pLinearOctree->executeAllBumpChk(
-                KIND_OTHER,
+                KIND_ENEMY_BODY|KIND_OTHER,
                 KIND_OTHER
               );
-
-
 
 //        StgChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_CHIKEI,
@@ -156,9 +149,9 @@ void GameScene::processJudgement() {
 //              );
 
 
-        //ボトルネックもいいところ
-        //なんとかしなければ
-        //昔の相当たり法
+//        ボトルネックもいいところ
+//        なんとかしなければ
+//        昔の相当たり法
 //
 //        executeBumpChkGroupActors(
 //          KIND_CHIKEI,

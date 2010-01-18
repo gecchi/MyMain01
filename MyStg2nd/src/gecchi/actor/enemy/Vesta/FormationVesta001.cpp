@@ -16,7 +16,7 @@ FormationVesta001::FormationVesta001(const char* prm_name) : FormationActor(prm_
 
 void FormationVesta001::initialize() {
     for (int i = 0; i < NUM_VESTA_FORMATION001; i++) {
-        _pEnemyVesta[i]->activateAfter(i * 30 + 1);
+        _pEnemyVesta[i]->activateAfter(i * 20 + 1);
     }
 }
 
