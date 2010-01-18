@@ -37,7 +37,6 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
         }
     }
-    setTechnique("DestBlendOne");
     useSe1("yume_Sbend", pWORLD->_frame_of_active); //レーザー発射
     useSe2("bomb1");     //爆発
 }
@@ -45,7 +44,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
 void EnemyAstraea::initialize() {
     setBumpable(true);
     _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pStgChecker->setStatus(100, 1, 1, 1);
     _pMover->setMoveVelocity(0);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
@@ -197,6 +196,7 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    setTechniqueTemporarily("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合

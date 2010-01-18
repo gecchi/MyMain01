@@ -403,7 +403,11 @@ float4 PS_DestBlendOne(
 	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse;
 }
 
-
+float4 PS_Flush( 
+	float2 prm_uv	  : TEXCOORD0
+) : COLOR  {
+	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse*9.0;
+}
 
 technique DefaultMorphMeshTechnique
 {
@@ -584,3 +588,78 @@ technique DestBlendOne
 
 }
 
+technique Flush
+{
+	//モーフターゲット無し
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh0();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット１つ
+	pass P1 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh1();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット２つ
+	pass P2 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh2();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット３つ
+	pass P3 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh3();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット４つ
+	pass P4 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh4();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット５つ
+	pass P5 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh5();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+	//モーフターゲット６つ
+	pass P6 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = One; //加算合成
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh6();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+
+//	//モーフターゲット７つ
+//	pass P7 {
+//		AlphaBlendEnable = true;
+//		SrcBlend  = SrcAlpha;
+//		DestBlend = One; //加算合成
+//		VertexShader = compile vs_2_0 GgafDx9VS_DefaultMorphMesh7();
+//		PixelShader  = compile ps_2_0 PS_Flush();
+//	}
+
+}

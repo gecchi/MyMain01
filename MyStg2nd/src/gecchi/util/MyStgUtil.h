@@ -130,10 +130,10 @@ public:
                                 actorkind kind_my) {
         //優性劣性判定
         int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_my);
-		//_TRACE_("enemy_domi="<<enemy_domi);
+        //_TRACE_("enemy_domi="<<enemy_domi);
         //相手(自機関連)攻撃力
         int my_attack = pStatMy->get(STAT_Attack);
-		//_TRACE_("my_attack="<<my_attack);
+        //_TRACE_("my_attack="<<my_attack);
         //優性劣性に応じて防御率を乗ずる
         int enemy_stamina;
         if (enemy_domi > 0) {
@@ -142,21 +142,21 @@ public:
 
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->getDouble(STAT_DominantDefenceRate)));
-		//_TRACE_("enemy_stamina="<<enemy_stamina);
+        //_TRACE_("enemy_stamina="<<enemy_stamina);
         } else if (enemy_domi < 0) {
             //自分（敵関連）が劣性時
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_RecessiveDefenceRate));
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->get(STAT_RecessiveDefenceRate)));
 
-		_TRACE_("enemy_stamina="<<enemy_stamina);
+        _TRACE_("enemy_stamina="<<enemy_stamina);
         } else {
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_DefaultDefenceRate));
 
             //相手(自機関連)と同格時
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
-		//_TRACE_("enemy_stamina="<<enemy_stamina);
+        //_TRACE_("enemy_stamina="<<enemy_stamina);
         }
 //_TRACE_("enemy_stamina="<<enemy_stamina);
         if (enemy_stamina <= 0) {
@@ -170,33 +170,37 @@ public:
 
     }
 
+    static int nextRepeatVal(prm_id) {
+
+    }
+
 
 
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「シーンCreater.xls」から行っていただきたい。
     // gen01 start
-	//自機レーザー
-	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//オプションレーザー
-	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
-	//自機
-	static void resetMyShipStatus(GgafCore::GgafStatus* p);
-	//ケレス
-	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
-	//ケレスショット001
-	static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
-	//アストラエア
-	static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
-	//アストラエアレーザー
-	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
-	//ヴェスタ
-	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
-	//イリス
-	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
-	//汎用ショット001
-	static void resetShot001Status(GgafCore::GgafStatus* p);
-	//汎用ショット002
-	static void resetShot002Status(GgafCore::GgafStatus* p);
+    //自機レーザー
+    static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+    //オプションレーザー
+    static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+    //自機
+    static void resetMyShipStatus(GgafCore::GgafStatus* p);
+    //ケレス
+    static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
+    //ケレスショット001
+    static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
+    //アストラエア
+    static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
+    //アストラエアレーザー
+    static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
+    //ヴェスタ
+    static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
+    //イリス
+    static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
+    //汎用ショット001
+    static void resetShot001Status(GgafCore::GgafStatus* p);
+    //汎用ショット002
+    static void resetShot002Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
