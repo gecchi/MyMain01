@@ -44,6 +44,13 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     //最大距離頂点
     _max_radius = _pGgafDx9Model->_max_radius;
 
+    _papSeCon = NEW GgafDx9SeConnection*[10];
+    _papSe    = NEW GgafDx9Se*[10];
+    for (int i = 0; i < 10; i++) {
+        _papSeCon[i] = NULL;
+        _papSe[i] = NULL;
+    }
+
     _pSeCon = NULL;
     _pSe = NULL;
 }
@@ -118,6 +125,15 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
 
+
+    _papSeCon = NEW GgafDx9SeConnection*[10];
+    _papSe    = NEW GgafDx9Se*[10];
+    for (int i = 0; i < 10; i++) {
+        _papSeCon[i] = NULL;
+        _papSe[i] = NULL;
+    }
+
+
     _pSeCon = NULL;
     _pSe = NULL;
 }
@@ -171,8 +187,8 @@ void GgafDx9DrawableActor::processPreDraw() {
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);
             _is_temp_technique = false;
-			//これはダメ。配列領域がどっかにいくため。_technique_temp = ""; 
-			_hash_technique_temp = 0;
+            //これはダメ。配列領域がどっかにいくため。_technique_temp = "";
+            _hash_technique_temp = 0;
         }
     }
 
@@ -220,6 +236,17 @@ void GgafDx9DrawableActor::resetMaterialColor() {
     }
 }
 
+void GgafDx9DrawableActor::useSe(int prm_id, char* prm_se_name, unsigned int prm_cannel) {
+    char idstr[129];
+    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
+    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
+    _papSe[prm_id] = _papSeCon[prm_id]->view();
+}
+
+void GgafDx9DrawableActor::playSe(int prm_id) {
+    _papSe[prm_id]->play();
+}
+
 
 void GgafDx9DrawableActor::useSe1(char* prm_se_name, unsigned int prm_cannel) {
     char idstr[129];
@@ -252,4 +279,11 @@ GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     if (_pSeCon) {
         _pSeCon->close();
     }
+    for (int i = 0; i < 10; i++) {
+        if (_papSeCon[i]) {
+            _papSeCon[i]->close();
+        }
+    }
+    DELETEARR_IMPOSSIBLE_NULL(_papSeCon);
+    DELETEARR_IMPOSSIBLE_NULL(_papSe);
 }

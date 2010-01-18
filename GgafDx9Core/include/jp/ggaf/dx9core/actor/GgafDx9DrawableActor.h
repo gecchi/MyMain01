@@ -41,14 +41,7 @@ public:
     GgafDx9EffectConnection* _pGgafDx9EffectCon;
     /** エフェクト資源 */
     GgafDx9Effect* _pGgafDx9Effect;
-    /** SE資源接続 */
-    GgafDx9SeConnection* _pSeCon;
-    /** SE資源 */
-    GgafDx9Se* _pSe;
-    /** SE資源接続 */
-    GgafDx9SeConnection* _pSeCon2;
-    /** SE資源 */
-    GgafDx9Se* _pSe2;
+
 
     /**
      * コンストラクタ .
@@ -177,6 +170,24 @@ public:
      * マテリアルカラーを初期状態にリセット。
      */
     virtual void resetMaterialColor();
+
+    /** SE資源接続 */
+    GgafDx9SeConnection** _papSeCon;
+    /** SE資源 */
+    GgafDx9Se** _papSe;
+
+    /** SE資源接続 */
+    GgafDx9SeConnection* _pSeCon;
+    /** SE資源 */
+    GgafDx9Se* _pSe;
+    /** SE資源接続 */
+    GgafDx9SeConnection* _pSeCon2;
+    /** SE資源 */
+    GgafDx9Se* _pSe2;
+
+    void useSe(int prm_id, char* prm_se_name, unsigned int prm_cannel = 1) ;
+
+    void playSe(int prm_id);
 
     void useSe1(char* prm_se_name, unsigned int prm_cannel = 0);
 
