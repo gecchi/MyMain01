@@ -63,13 +63,13 @@ public:
      * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9BoardSetActor
      * @return	HRESULT
      */
-    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target);
+    virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
 
-    virtual void restore();
+    virtual void restore() override;
 
-    virtual void onDeviceLost();
+    virtual void onDeviceLost() override;
 
-    virtual void release();
+    virtual void release() override;
 
     void changeVertexAlpha(int prm_vertex_alpha);
 

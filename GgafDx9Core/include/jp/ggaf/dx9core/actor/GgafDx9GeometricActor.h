@@ -115,18 +115,18 @@ public:
     GgafDx9GeometricActor(const char* prm_name,
                               GgafDx9Checker* prm_pChecker);
 
-    virtual GgafDx9GeometricActor* getPrev() {
+    virtual GgafDx9GeometricActor* getPrev() override {
         return (GgafDx9GeometricActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDx9GeometricActor* getNext() {
+    virtual GgafDx9GeometricActor* getNext() override {
         return (GgafDx9GeometricActor*)GgafActor::getNext();
     }
 
-    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor);
+    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) override;
 
     /** Ç¢ÇÎÇ¢ÇÎÇ»åvéZÇçsÇ¡ÇƒÇ®Ç≠ */
-    virtual void processPreJudgement();
+    virtual void processPreJudgement() override;
 
     /**
      * âÊñ ì‡Ç…ï\é¶Ç≥ÇÍÇƒÇ¢ÇÈÇ©îªíË

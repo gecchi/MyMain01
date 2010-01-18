@@ -96,28 +96,28 @@ public:
      */
     GgafDx9Camera(const char* prm_name, float prm_rad_fovX);
 
-    virtual void initialize();
+    virtual void initialize() override;
 
-    virtual void processBehavior();
+    virtual void processBehavior() override;
 
-    virtual void processJudgement();
+    virtual void processJudgement() override;
 
-    virtual void processPreDraw() {
+    virtual void processPreDraw() override {
     }
 
-    virtual void processDraw() {
+    virtual void processDraw() override {
     }
 
-    virtual void processAfterDraw() {
+    virtual void processAfterDraw() override {
     }
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
 

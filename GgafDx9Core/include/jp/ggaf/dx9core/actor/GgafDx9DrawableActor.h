@@ -85,11 +85,11 @@ public:
                          const char* prm_technique,
                          GgafDx9Checker* prm_pChecker);
 
-    virtual GgafDx9DrawableActor* getPrev() {
+    virtual GgafDx9DrawableActor* getPrev() override {
         return (GgafDx9DrawableActor*)GgafActor::getPrev();
     }
 
-    virtual GgafDx9DrawableActor* getNext() {
+    virtual GgafDx9DrawableActor* getNext() override {
         return (GgafDx9DrawableActor*)GgafActor::getNext();
     }
 
@@ -123,7 +123,7 @@ public:
      * ©g‚ğ“o˜^‚·‚éB
      * TODO:private virtual ‚É‚·‚é‚×‚«‚©”Û‚©HBfainal ‚ª—~‚µ‚¢
      */
-    virtual void processPreDraw();
+    virtual void processPreDraw() override;
 
     /**
      * ‹¤’Ê‚Ì•`‰æ–Œãˆ— .
@@ -131,7 +131,7 @@ public:
      * “–‚½‚è”»’è—Ìˆæ‚ğ•`‰æ‚·‚éB
      * (‚Æ‚¢‚Á‚Ä‚à drawHitArea() ‚ğƒR[ƒ‹‚·‚é‚¾‚¯)
      */
-    virtual void processAfterDraw();
+    virtual void processAfterDraw() override;
 
     /**
      * “–‚½‚è”»’è—Ìˆæ‚ğ•`‰æ .

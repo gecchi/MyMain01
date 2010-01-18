@@ -37,7 +37,7 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDraw();
+    virtual void processDraw() override;
 
     /**
      * モーフターゲットメッシュ数取得
@@ -50,7 +50,7 @@ public:
      * ＜オーバーライト＞
      * @param prm_fAlpha
      */
-    void setAlpha(float prm_fAlpha);
+    void setAlpha(float prm_fAlpha) override;
 
     virtual ~GgafDx9MorphMeshActor (); //デストラクタ
 };

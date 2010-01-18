@@ -16,7 +16,14 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9Universe : public GgafCore::GgafUniverse {
-
+private:
+    /**
+     * フレーム毎の描画処理 .
+     * 段階レンダリングを行なうため void GgafElement<T>::draw() をオーバーライド。<BR>
+     * 本クラス(GgafUniverse)は頂点のシーンであるため、その他のアクターやシーンの全ての、<BR>
+     * void GgafElement<T>::draw() が呼ばれることも無いでしょう。<BR>
+     */
+    virtual void draw() override;
 public:
 
     /** カメラ */
@@ -41,13 +48,7 @@ public:
 
     virtual ~GgafDx9Universe();
 
-    /**
-     * フレーム毎の描画処理 .
-     * 段階レンダリングを行なうため void GgafElement<T>::draw() をオーバーライド。<BR>
-     * 本クラス(GgafUniverse)は頂点のシーンであるため、その他のアクターやシーンの全ての、<BR>
-     * void GgafElement<T>::draw() が呼ばれることも無いでしょう。<BR>
-     */
-    virtual void draw();
+
 
     /**
      * 描画レベル（順序）を登録 .

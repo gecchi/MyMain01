@@ -58,7 +58,7 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDraw();
+    virtual void processDraw() override;
 
     virtual ~GgafDx9SpriteSetActor(); //デストラクタ
 
@@ -98,7 +98,7 @@ public:
      * ＜オーバーライト＞
      * @param prm_fAlpha
      */
-    void setAlpha(float prm_fAlpha);
+    void setAlpha(float prm_fAlpha) override;
 
     /**
      * ビルボード有効 .

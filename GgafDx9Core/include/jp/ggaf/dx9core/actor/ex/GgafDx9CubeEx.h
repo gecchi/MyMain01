@@ -15,7 +15,7 @@ public:
 
     GgafDx9CubeEx(const char* prm_name);
 
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
     virtual void processBehavior() {

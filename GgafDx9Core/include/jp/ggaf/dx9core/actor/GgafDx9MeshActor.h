@@ -33,14 +33,14 @@ public:
                        const char* prm_technique,
                        GgafDx9Checker* prm_pChecker );
 
-    virtual void processDraw();
+    virtual void processDraw() override;
 
     /**
      * α値設定.
      * ＜オーバーライト＞
      * @param prm_fAlpha α値
      */
-    void setAlpha(float prm_fAlpha);
+    void setAlpha(float prm_fAlpha) override;
 
     virtual ~GgafDx9MeshActor(); //デストラクタ
 };

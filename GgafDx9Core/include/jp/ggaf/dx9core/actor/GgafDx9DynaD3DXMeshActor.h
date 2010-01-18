@@ -35,14 +35,14 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDraw();
+    virtual void processDraw() override;
 
     /**
      * α設定.
      * ＜オーバーライト＞
      * @param prm_fAlpha
      */
-    void setAlpha(float prm_fAlpha);
+    void setAlpha(float prm_fAlpha) override;
 
     virtual ~GgafDx9DynaD3DXMeshActor(); //デストラクタ
 };

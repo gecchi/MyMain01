@@ -23,7 +23,7 @@ public:
      */
     GgafDx9StringBoardActor(const char* prm_name, const char* prm_model);
 
-    virtual void initialize() {
+    virtual void initialize() override {
     }
 
     virtual void processBehavior() {

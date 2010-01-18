@@ -49,7 +49,7 @@ public:
     /**
      * ＜OverRide です＞<BR>
      */
-    virtual void processDraw();
+    virtual void processDraw() override;
 
     virtual ~GgafDx9SpriteActor(); //デストラクタ
 
