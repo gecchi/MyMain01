@@ -10,6 +10,10 @@ class Base4;
 class Base5;
 class Base6;
 
+
+
+d
+
 class Base {
 public:
     virtual void chk(Base* p) {
