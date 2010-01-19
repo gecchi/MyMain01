@@ -249,6 +249,7 @@ typedef DWORD actorkind;
 
 namespace GgafCore {
 class GgafUtil;
+class GgafRepeatSeq;
 class GgafObject;
 class GgafException;
 class GgafCriticalException;
@@ -297,6 +298,7 @@ class GgafLinearOctreeElem;
 }
 
 #include "jp/ggaf/core/util/GgafUtil.h"
+#include "jp/ggaf/core/util/GgafRepeatSeq.h"
 #include "jp/ggaf/core/GgafObject.h"
 #include "jp/ggaf/core/exception/GgafException.h"
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
