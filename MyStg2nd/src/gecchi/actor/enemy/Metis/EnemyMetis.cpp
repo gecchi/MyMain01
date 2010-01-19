@@ -43,7 +43,7 @@ void EnemyMetis::onActive() {
     pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_active);
     DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
     DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
-    _X = GgafDx9Universe::_X_goneLeft - 1000;
+    _X = GgafDx9Universe::_X_goneRight - 1000;
     _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
     _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
     setBumpable(true);

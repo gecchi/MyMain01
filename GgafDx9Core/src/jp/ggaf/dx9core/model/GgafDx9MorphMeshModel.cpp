@@ -107,7 +107,7 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             mightDx9Exception(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             UINT numPass;
-            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAMETISTE );
+            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
             mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() Begin() に失敗しました。");
             //モーフターゲットの数により pass を切り替えている
             //プリマリメッシュのみ                             = pass0
