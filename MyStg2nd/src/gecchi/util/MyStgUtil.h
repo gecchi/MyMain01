@@ -33,29 +33,29 @@ public:
      */
     static int judgeMyDominant(actorkind kind_my, actorkind kind_enemy) {
         int ret = 0;
-        if (kind_my & KIND_MY_SHOT_GU) {
-            if (kind_enemy & KIND_ENEMY_SHOT_CHOKI) {
+        if (kind_my & KIND_GU) {
+            if (kind_enemy & KIND_CHOKI) {
                 ret++;
             }
-            if (kind_enemy & KIND_ENEMY_SHOT_PA) {
+            if (kind_enemy & KIND_PA) {
                 ret--;
             }
         }
 
-        if (kind_my & KIND_MY_SHOT_CHOKI) {
-            if (kind_enemy & KIND_ENEMY_SHOT_PA) {
+        if (kind_my & KIND_CHOKI) {
+            if (kind_enemy & KIND_PA) {
                 ret++;
             }
-            if (kind_enemy & KIND_ENEMY_SHOT_GU) {
+            if (kind_enemy & KIND_GU) {
                 ret--;
             }
         }
 
-        if (kind_my & KIND_MY_SHOT_PA) {
-            if (kind_enemy & KIND_ENEMY_SHOT_GU) {
+        if (kind_my & KIND_PA) {
+            if (kind_enemy & KIND_GU) {
                 ret++;
             }
-            if (kind_enemy & KIND_ENEMY_SHOT_CHOKI) {
+            if (kind_enemy & KIND_CHOKI) {
                 ret--;
             }
         }
@@ -65,29 +65,29 @@ public:
 
     static int judgeEnemyDominant(actorkind kind_enemy, actorkind kind_my) {
         int ret = 0;
-        if (kind_enemy & KIND_ENEMY_SHOT_GU) {
-            if (kind_my & KIND_MY_SHOT_CHOKI) {
+        if (kind_enemy & KIND_GU) {
+            if (kind_my & KIND_CHOKI) {
                 ret++;
             }
-            if (kind_my & KIND_MY_SHOT_PA) {
+            if (kind_my & KIND_PA) {
                 ret--;
             }
         }
 
-        if (kind_enemy & KIND_ENEMY_SHOT_CHOKI) {
-            if (kind_my & KIND_MY_SHOT_PA) {
+        if (kind_enemy & KIND_CHOKI) {
+            if (kind_my & KIND_PA) {
                 ret++;
             }
-            if (kind_my & KIND_MY_SHOT_GU) {
+            if (kind_my & KIND_GU) {
                 ret--;
             }
         }
 
-        if (kind_enemy & KIND_ENEMY_SHOT_PA) {
-            if (kind_my & KIND_MY_SHOT_GU) {
+        if (kind_enemy & KIND_PA) {
+            if (kind_my & KIND_GU) {
                 ret++;
             }
-            if (kind_my & KIND_MY_SHOT_CHOKI) {
+            if (kind_my & KIND_CHOKI) {
                 ret--;
             }
         }
@@ -192,6 +192,8 @@ public:
 	static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
 	//アストラエアレーザー
 	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
+	//アストラエアレーザー
+	static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
 	//ヴェスタ
 	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
 	//イリス

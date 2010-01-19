@@ -24,25 +24,25 @@
 
 
 
-#define KIND_EFFECT              (0x0)
-#define KIND_MY_SHOT_NOMAL       (0x1)
-#define KIND_MY_SHOT_GU          (0x2)
-#define KIND_MY_SHOT_CHOKI       (0x4)
-#define KIND_MY_SHOT_PA          (0x8)
-#define KIND_ENEMY_SHOT_NOMAL    (0x10)
-#define KIND_ENEMY_SHOT_GU       (0x20)
-#define KIND_ENEMY_SHOT_CHOKI    (0x40)
-#define KIND_ENEMY_SHOT_PA       (0x80)
-#define KIND_MY_BODY_NOMAL       (0x100)
-#define KIND_MY_BODY_GU          (0x200)
-#define KIND_MY_BODY_CHOKI       (0x400)
-#define KIND_MY_BODY_PA          (0x800)
-#define KIND_ENEMY_BODY_NOMAL    (0x1000)
-#define KIND_ENEMY_BODY_GU       (0x2000)
-#define KIND_ENEMY_BODY_CHOKI    (0x4000)
-#define KIND_ENEMY_BODY_PA       (0x8000)
-#define KIND_OTHER               (0x10000)
-#define KIND_CHIKEI              (0x20000)
+#define KIND_EFFECT              (0x0)     //00000000000000000000000000000000
+#define KIND_MY_SHOT_NOMAL       (0x4)     //00000000000000000000000000000100
+#define KIND_MY_SHOT_GU          (0x9)     //00000000000000000000000000001001
+#define KIND_MY_SHOT_CHOKI       (0x12)    //00000000000000000000000000010010
+#define KIND_MY_SHOT_PA          (0x23)    //00000000000000000000000000100011
+#define KIND_ENEMY_SHOT_NOMAL    (0x40)    //00000000000000000000000001000000
+#define KIND_ENEMY_SHOT_GU       (0x81)    //00000000000000000000000010000001
+#define KIND_ENEMY_SHOT_CHOKI    (0x102)   //00000000000000000000000100000010
+#define KIND_ENEMY_SHOT_PA       (0x203)   //00000000000000000000001000000011
+#define KIND_MY_BODY_NOMAL       (0x400)   //00000000000000000000010000000000
+#define KIND_MY_BODY_GU          (0x801)   //00000000000000000000100000000001
+#define KIND_MY_BODY_CHOKI       (0x1002)  //00000000000000000001000000000010
+#define KIND_MY_BODY_PA          (0x2003)  //00000000000000000010000000000011
+#define KIND_ENEMY_BODY_NOMAL    (0x4000)  //00000000000000000100000000000000
+#define KIND_ENEMY_BODY_GU       (0x8001)  //00000000000000001000000000000001
+#define KIND_ENEMY_BODY_CHOKI    (0x10002) //00000000000000010000000000000010
+#define KIND_ENEMY_BODY_PA       (0x20003) //00000000000000100000000000000011
+#define KIND_OTHER               (0x40000) //00000000000001000000000000000000
+#define KIND_CHIKEI              (0x80000) //00000000000010000000000000000000
 
 #define KIND_MY     (KIND_MY_SHOT_NOMAL|KIND_MY_SHOT_GU|KIND_MY_SHOT_CHOKI|KIND_MY_SHOT_PA|KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA)
 #define KIND_ENEMY  (KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA)
@@ -50,6 +50,15 @@
 #define KIND_MY_BODY     (KIND_MY_BODY_NOMAL|KIND_MY_BODY_GU|KIND_MY_BODY_CHOKI|KIND_MY_BODY_PA)
 #define KIND_ENEMY_SHOT  (KIND_ENEMY_SHOT_NOMAL|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA)
 #define KIND_ENEMY_BODY  (KIND_ENEMY_BODY_NOMAL|KIND_ENEMY_BODY_GU|KIND_ENEMY_BODY_CHOKI|KIND_ENEMY_BODY_PA)
+#define KIND_NOMAL       (0x0)    //00
+#define KIND_GU          (0x1)    //01
+#define KIND_CHOKI       (0x2)    //10
+#define KIND_PA          (0x3)    //11
+
+
+
+
+
 
 
 #define VB_SHOT1    VB_BUTTON1
@@ -108,6 +117,7 @@ class LaserChip;
 class CurveLaserChip;
 class HomingLaserChip;
 class StraightLaserChip;
+class RefractionLaserChip;
 class LaserChipDispatcher;
 class Shot001;
 class Shot002;
@@ -147,7 +157,7 @@ class FormationVesta001;
 
 class EnemyAstraea;
 class EnemyAstraeaLaserChip001;
-
+class EnemyAstraeaLaserChip002;
 
 class EnemyIris;
 class FormationIris001;
@@ -199,6 +209,7 @@ class Formation001;
 #include "gecchi/actor/common/laserchip/CurveLaserChip.h"
 #include "gecchi/actor/common/laserchip/HomingLaserChip.h"
 #include "gecchi/actor/common/laserchip/StraightLaserChip.h"
+#include "gecchi/actor/common/laserchip/RefractionLaserChip.h"
 #include "gecchi/actor/common/laserchip/LaserChipDispatcher.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
@@ -233,6 +244,7 @@ class Formation001;
 #include "gecchi/actor/enemy/Vesta/FormationVesta001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
+#include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
 #include "gecchi/actor/enemy/mesh/EnemyMeshShot001.h"
 #include "gecchi/actor/enemy/mesh/EnemyLaserChip001.h"
 #include "gecchi/actor/enemy/Iris/EnemyIris.h"

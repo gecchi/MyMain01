@@ -119,126 +119,137 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 // ˆÈ‰º‚Ì gen02 start ` end ‚ÍExcelƒ}ƒNƒ‚É‚æ‚è©“®¶¬‚³‚ê‚½ƒR[ƒh‚Å‚·B
 // ƒR[ƒh•ÏX‚ÍuƒV[ƒ“Creater.xlsv‚©‚çs‚Á‚Ä‚¢‚½‚¾‚«‚½‚¢B
 // gen02 start
-    void MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetMyCurveLaserChip001Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetMyShipStatus(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 9999999 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 100 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 10 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 300 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 1000 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_OTHER);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 30000 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 10000 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 20 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetShot001Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 2 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.01000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
-    void MyStgUtil::resetShot002Status(GgafStatus* p) {
-        p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
-        p->set(STAT_AddScorePoint, 3 );  //‰ÁZ“¾“_
-        p->set(STAT_AddRankPoint, 0.01000 );  //‰ÁZƒ‰ƒ“ƒN
-        p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
-        p->set(STAT_Stamina, 100 );  //‘Ì—Í
-        p->set(STAT_Attack, 100 );  //UŒ‚—Í
-        p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
-        p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
-        p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
-    }
+	void MyStgUtil::resetMyStraightLaserChip001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetMyCurveLaserChip001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetMyShipStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_MY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 9999999 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyCeresStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 100 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyCeresShot001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 10 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyAstraeaStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 300 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 1000 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyAstraeaLaserChip001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyAstraeaLaserChip002Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyVestaStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_OTHER);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 30000 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 10000 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetEnemyIrisStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 20 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetShot001Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 2 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.01000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetShot002Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 3 );  //‰ÁZ“¾“_
+		p->set(STAT_AddRankPoint, 0.01000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«‚Ì–hŒä—¦
+	}
 // gen02 end
 
