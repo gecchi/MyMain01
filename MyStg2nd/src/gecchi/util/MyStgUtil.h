@@ -194,8 +194,8 @@ public:
 	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
 	//アストラエアレーザー
 	static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
-	//ヴェスタ
-	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
+	//メティス
+	static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
 	//イリス
 	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
 	//汎用ショット001

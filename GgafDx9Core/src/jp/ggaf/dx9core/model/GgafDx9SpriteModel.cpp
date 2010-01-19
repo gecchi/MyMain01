@@ -62,7 +62,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         mightDx9Exception(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         UINT numPass;
-        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
+        hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAMETISTE );
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
         mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

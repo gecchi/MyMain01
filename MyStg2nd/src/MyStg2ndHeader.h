@@ -152,8 +152,8 @@ class EnemyPallas;
 class EnemyJuno;
 class FormationJuno001;
 
-class EnemyVesta;
-class FormationVesta001;
+class EnemyMetis;
+class FormationMetis001;
 
 class EnemyAstraea;
 class EnemyAstraeaLaserChip001;
@@ -240,8 +240,8 @@ class Formation001;
 #include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
 #include "gecchi/actor/enemy/Juno/EnemyJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno001.h"
-#include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
-#include "gecchi/actor/enemy/Vesta/FormationVesta001.h"
+#include "gecchi/actor/enemy/Metis/EnemyMetis.h"
+#include "gecchi/actor/enemy/Metis/FormationMetis001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraea.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip001.h"
 #include "gecchi/actor/enemy/Astraea/EnemyAstraeaLaserChip002.h"
