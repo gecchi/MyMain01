@@ -50,7 +50,7 @@ void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
 //                                  out_angRz_Target,
 //                                  out_angRy_Target);
 
-        _pMover->setMoveAngle(pMYSIP);
+        _pMover->setMoveAngle(pMYSHIP);
     }
 
 
