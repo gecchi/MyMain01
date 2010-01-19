@@ -104,11 +104,13 @@ void RefractionLaserChip::processBehavior() {
     if (_isRefracting) {
         if (_frame_of_active >= _frame_refraction_outer) {
             _cnt_refraction++;
-            if (_cnt_refraction <= _num_refraction) {
+            RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
+            if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
                 processOnRefraction(_cnt_refraction);
             }
             _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
             _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+            _isRefracting = false;
         }
     } else {
         //レーザーチップ消失時処理
@@ -130,10 +132,7 @@ void RefractionLaserChip::processBehavior() {
                 _prev_RX = _RX;
                 _prev_RY = _RY;
                 _prev_RZ = _RZ;
-				_TRACE_("_frame_of_active="<<_frame_of_active<<" _frame_refraction_enter="<<_frame_refraction_enter);
-                if (_frame_of_active >= _frame_refraction_enter) {
-                    _isRefracting = true;
-                }
+                _pMover->behave();
             } else {
                 _prev_X  = _X;
                 _prev_Y  = _Y;
@@ -148,6 +147,11 @@ void RefractionLaserChip::processBehavior() {
                 _RY = pChip_front->_prev_RY;
                 _RZ = pChip_front->_prev_RZ;
             }
+        }
+
+        //_TRACE_("_frame_of_active="<<_frame_of_active<<" _frame_refraction_enter="<<_frame_refraction_enter);
+        if (_frame_of_active >= _frame_refraction_enter) {
+            _isRefracting = true;
         }
     }
 }

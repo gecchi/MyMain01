@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) : RefractionLaserChip(prm_name, "12/laser_chip_red") {
     _class_name = "EnemyAstraeaLaserChip002";
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
-    setParam(3, 10, 20);
+    setParam(5, 15, 30);
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
@@ -36,16 +36,21 @@ void EnemyAstraeaLaserChip002::onActive() {
 
 void EnemyAstraeaLaserChip002::processBehavior() {
     RefractionLaserChip::processBehavior();
-    _pMover->behave();
 }
 
 void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
-_TRACE_("REFRECT!!!!="<<prm_num_refraction);
-
     if (prm_num_refraction == 0) {
 
     } else {
-        _pMover->setMoveAngle(pMYSHIP);
+//        angle out_angRz_Target;
+//        angle out_angRy_Target;
+//        GgafDx9Util::getRzRyAngle(pMYSIP->_X - _X,
+//                                  pMYSIP->_Y - _Y,
+//                                  pMYSIP->_Z - _Z,
+//                                  out_angRz_Target,
+//                                  out_angRy_Target);
+
+        _pMover->setMoveAngle(pMYSIP);
     }
 
 
