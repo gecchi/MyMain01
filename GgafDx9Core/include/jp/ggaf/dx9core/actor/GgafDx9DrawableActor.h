@@ -185,15 +185,15 @@ public:
     /** SEŽ‘Œ¹ */
     GgafDx9Se* _pSe2;
 
-    void useSe(int prm_id, char* prm_se_name, unsigned int prm_cannel = 1) ;
+    void useSe(int prm_id, char* prm_se_name, int prm_cannel = 1) ;
 
     void playSe(int prm_id);
 
-    void useSe1(char* prm_se_name, unsigned int prm_cannel = 0);
+    void useSe1(char* prm_se_name, int prm_cannel = 0);
 
     void playSe1();
 
-    void useSe2(char* prm_se_name, unsigned int prm_cannel = 0);
+    void useSe2(char* prm_se_name, int prm_cannel = 0);
 
     void playSe2();
 
