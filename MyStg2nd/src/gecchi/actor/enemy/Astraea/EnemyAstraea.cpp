@@ -37,7 +37,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
         }
     }
-    useSe1("yume_Sbend", pWORLD->_frame_of_active); //レーザー発射
+    useSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
     useSe2("bomb1");     //爆発
 }
 

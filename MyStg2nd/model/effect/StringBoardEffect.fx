@@ -274,6 +274,17 @@ float4 GgafDx9PS_StringBoard(
 	return out_color;
 }
 
+float4 PS_Flush(
+	float2 prm_uv	  : TEXCOORD0,
+	float4 prm_col    : COLOR0 
+) : COLOR  {
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	//α考慮
+	out_color.a = out_color.a * prm_col.a; 
+	return out_color * float4(7.0, 7.0, 7.0, 1.0);
+}
+
 
 //＜テクニック：StringBoardTechnique＞
 //【機能】
@@ -318,6 +329,18 @@ technique DestBlendOne
 		DestBlend = One; //加算合成
 		VertexShader = compile vs_2_0 GgafDx9VS_StringBoard();
 		PixelShader  = compile ps_2_0 GgafDx9PS_StringBoard();
+	}
+}
+
+technique Flush
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_StringBoard();
+		PixelShader  = compile ps_2_0 PS_Flush();
 	}
 }
 

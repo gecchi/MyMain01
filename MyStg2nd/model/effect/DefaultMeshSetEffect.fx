@@ -180,7 +180,7 @@ float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv)*prm_col*9.0;
+	return tex2D( MyTextureSampler, prm_uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);
 }
 
 technique DefaultMeshSetTechnique

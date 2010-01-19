@@ -47,12 +47,31 @@ OUT_VS GgafDx9VS_DefaultBoard(
 }
 
 
-//GgafDx9BoardModel標準ピクセルシェーダー
 float4 GgafDx9PS_DefaultBoard(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv)*g_alpha;
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	//α考慮
+	out_color.a = out_color.a * prm_col.a; 
+	return out_color;
 }
+
+
+
+float4 PS_Flush(
+	float2 prm_uv	  : TEXCOORD0
+) : COLOR  {
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	//α考慮
+	out_color.a = out_color.a * prm_col.a; 
+	return out_color * float4(7.0, 7.0, 7.0, 1.0);
+}
+
+
+
+
 
 
 //＜テクニック：DefaultBoardTechnique＞
@@ -101,3 +120,13 @@ technique DestBlendOne
 	}
 }
 
+technique Flush
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultBoard();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+}

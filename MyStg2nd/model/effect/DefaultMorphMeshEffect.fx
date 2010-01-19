@@ -406,7 +406,7 @@ float4 PS_DestBlendOne(
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse*9.0;
+	return tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
 }
 
 technique DefaultMorphMeshTechnique

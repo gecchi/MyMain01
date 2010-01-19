@@ -52,6 +52,12 @@ float4 GgafDx9PS_DefaultSprite(
 	return tex2D( MyTextureSampler, prm_uv) * g_hAlpha;
 }
 
+float4 GgafDx9PS_DefaultSprite(
+	float2 prm_uv	  : TEXCOORD0
+) : COLOR  {
+	return tex2D( MyTextureSampler, prm_uv) * g_hAlpha * float4(7.0, 7.0, 7.0, 1.0);
+}
+
 //＜テクニック：DefaultSpriteTechnique＞
 //【機能】
 //GgafDx9SpriteModel用標準シェーダー
@@ -97,3 +103,14 @@ technique DestBlendOne
 	}
 }
 
+technique Flush
+{
+	pass P0 {
+		AlphaBlendEnable = true;
+		SrcBlend  = SrcAlpha;
+		DestBlend = InvSrcAlpha;
+
+		VertexShader = compile vs_2_0 GgafDx9VS_DefaultSprite();
+		PixelShader  = compile ps_2_0 PS_Flush();
+	}
+}
