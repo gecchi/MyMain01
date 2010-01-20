@@ -25,10 +25,6 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
 
 void StraightLaserChip::initialize() {
     //下位レーザーチップでオーバーライトされている可能性あり
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
-    setBumpable(true);
     _fAlpha = 0.99;
 }
 
@@ -41,6 +37,8 @@ void StraightLaserChip::onInactive() {
 }
 
 void StraightLaserChip::processBehavior() {
+    LaserChip::processBehavior();
+
     _dwActiveFrame++;
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);

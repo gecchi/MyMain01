@@ -14,8 +14,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) : Refra
 }
 
 void EnemyAstraeaLaserChip002::initialize() {
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    registHitAreaCube(2000);
     setBumpable(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;
@@ -32,10 +31,6 @@ void EnemyAstraeaLaserChip002::onActive() {
     _pMover->setMoveVelocity(10000);
     _pMover->setMoveVeloAcceleration(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
-}
-
-void EnemyAstraeaLaserChip002::processBehavior() {
-    RefractionLaserChip::processBehavior();
 }
 
 void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
@@ -56,10 +51,6 @@ void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
 
 }
 
-void EnemyAstraeaLaserChip002::processJudgement() {
-    RefractionLaserChip::processJudgement();
-}
-
 void EnemyAstraeaLaserChip002::processOnHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 //    //ヒット時
@@ -71,10 +62,6 @@ void EnemyAstraeaLaserChip002::processOnHit(GgafActor* prm_pOtherActor) {
 //    } else {
 //        //ヒットして生存時
 //    }
-}
-void EnemyAstraeaLaserChip002::onInactive() {
-    RefractionLaserChip::onInactive();
-
 }
 
 EnemyAstraeaLaserChip002::~EnemyAstraeaLaserChip002() {

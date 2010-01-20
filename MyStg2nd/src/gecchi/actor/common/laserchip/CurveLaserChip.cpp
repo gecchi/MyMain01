@@ -18,10 +18,6 @@ void CurveLaserChip::initialize() {
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     _pMover->setMoveVelocity(30000);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
-    setBumpable(true);
     _fAlpha = 0.99;
 }
 
@@ -41,9 +37,7 @@ void CurveLaserChip::onInactive() {
 }
 
 void CurveLaserChip::processBehavior() {
-    //レーザーチップ消失時処理
-    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
+    LaserChip::processBehavior();
     _dwActiveFrame++;
     //座標に反映
     if (_dwActiveFrame > 1) {

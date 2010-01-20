@@ -17,19 +17,7 @@ public:
 
     void processOnRefraction(int prm_num_refraction) override;
 
-    void processBehavior() override;
-
-    void processJudgement() override;
-
-    void processHappen(int prm_no) override {
-    }
-
-    void processFinal() override {
-    }
-
     void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
-
-    void onInactive() override;
 
     virtual ~EnemyAstraeaLaserChip002();
 

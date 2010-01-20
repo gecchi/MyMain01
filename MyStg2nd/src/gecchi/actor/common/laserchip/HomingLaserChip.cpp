@@ -19,10 +19,6 @@ void HomingLaserChip::initialize() {
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     _pMover->setMoveVelocity(30000);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
-    setBumpable(true);
     _fAlpha = 0.99;
 }
 
@@ -91,7 +87,8 @@ void HomingLaserChip::onInactive() {
 }
 
 void HomingLaserChip::processBehavior() {
-    //レーザーチップ消失時処理
+    LaserChip::processBehavior();
+
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
     _dwActiveFrame++;

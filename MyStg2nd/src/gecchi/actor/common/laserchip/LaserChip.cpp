@@ -19,6 +19,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pDispatcher = NULL; //LaserChipDispatcherの new 時に設定される。
     _chip_kind = 1;
     _dwActiveFrame = 0;
+    _is_regist_hitarea = false;
+    _hitarea_edge_length = 0;
+    _harf_hitarea_edge_length = 0;
 
     _ahKind[0]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind001" );
     _ahKind[1]  = _pMeshSetEffect->_pID3DXEffect->GetParameterByName( NULL, "g_kind002" );
@@ -57,17 +60,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void LaserChip::initialize() {
-    //下位レーザーチップでオーバーライトされている可能性あり
+    //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canBump());
     _pMover->setMoveVelocity(40000);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    //_pStgChecker->setHitAreaBox(1, -30000, -30000, -30000, 30000, 30000, 30000);
-    setBumpable(true);
     _fAlpha = 0.99;
 }
 
 
 void LaserChip::onActive() {
+    //_TRACE_("LaserChip::onActive()st "<<getName()<<" bump="<<canBump());
 //    _TRACE_("LaserChip::onActive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
@@ -89,7 +89,6 @@ void LaserChip::onActive() {
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり後でdx,dy,dzだけ更新する。
     //計算回数を節約。
     GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
-
     //??
     //TODO: 何でこれを追加したんだっけ？・・・調べる
     if (_pChip_front != NULL) {
@@ -98,10 +97,58 @@ void LaserChip::onActive() {
 
     }
 
-
+    //_TRACE_("LaserChip::onActive()ed "<<getName()<<" bump="<<canBump());
 }
 
+void LaserChip::processBehavior() {
+    //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canBump());
+    if (_is_regist_hitarea) {
+        //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+        if (_pChip_front != NULL) {
+            static int dX, dY, dZ;
+            if (_pChip_front != NULL) {
+                dX = _pChip_front->_X - _X;
+                dY = _pChip_front->_Y - _Y;
+                dZ = _pChip_front->_Z - _Z;
+                if (abs(dX) >= _hitarea_edge_length*3 || abs(dY) >= _hitarea_edge_length*3 || abs(dZ) >= _hitarea_edge_length*3) {
+                    //自身と前方チップの中間に当たり判定を作り出す
+                    static int cX, cY, cZ, h;
+                    cX = dX / 2;
+                    cY = dY / 2;
+                    cZ = dZ / 2;
+                    h = _hitarea_edge_length / 2;
+                    _pStgChecker->setHitAreaBox(
+                                  1,
+                                  cX - _harf_hitarea_edge_length,
+                                  cY - _harf_hitarea_edge_length,
+                                  cZ - _harf_hitarea_edge_length,
+                                  cX + _harf_hitarea_edge_length,
+                                  cY + _harf_hitarea_edge_length,
+                                  cZ + _harf_hitarea_edge_length
+                                  );
+//                    _TRACE_("中間"
+//                                  <<(cX - _harf_hitarea_edge_length)<<","
+//                                  <<(cY - _harf_hitarea_edge_length)<<","
+//                                  <<(cZ - _harf_hitarea_edge_length)<<","
+//                                  <<(cX + _harf_hitarea_edge_length)<<","
+//                                  <<(cY + _harf_hitarea_edge_length)<<","
+//                                  <<(cZ + _harf_hitarea_edge_length));
+
+                    _pStgChecker->enable(1);
+                } else {
+                    _pStgChecker->disable(1);
+                }
+            } else {
+                _pStgChecker->disable(1);
+            }
+        }
+    }
+    //_TRACE_("LaserChip::processBehavior()ed "<<getName()<<" bump="<<canBump());
+}
+
+
 void LaserChip::onInactive() {
+    //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canBump());
 //    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
@@ -117,11 +164,12 @@ void LaserChip::onInactive() {
         _pChip_behind->_pChip_front = NULL;
     }
     _pChip_behind = NULL;
-
+    //_TRACE_("LaserChip::onInactive()ed "<<getName()<<" bump="<<canBump());
 }
 
 
 void LaserChip::processJudgement() {
+    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canBump());
     if (isOutOfGameSpace()) {
         inactivate();
     }
@@ -158,9 +206,11 @@ void LaserChip::processJudgement() {
 //    //processBehavior,processJudgementでは _pChip_front が必ず先に実行される（処理順序がツリー構造に依存するため）。
 //    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
 //    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
+    //_TRACE_("LaserChip::processJudgement()ed "<<getName()<<" bump="<<canBump());
 }
 
 void LaserChip::processDraw() {
+    //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canBump());
     _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -225,14 +275,31 @@ void LaserChip::processDraw() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファ書き込み可
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-
+    //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canBump());
 }
 
 void LaserChip::drawHitArea() {
+    //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canBump());
     CubeEx::get()->drawHitarea(_pStgChecker);
+    //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canBump());
 }
 
 void LaserChip::processOnHit(GgafActor* prm_pOtherActor) {
+}
+
+void LaserChip::registHitAreaCube(int prm_edge_length) {
+    //_TRACE_("LaserChip::registHitAreaCube()st "<<getName()<<" bump="<<canBump());
+    //下位レーザーチップでオーバーライトされている可能性あり
+    _is_regist_hitarea = true;
+    _hitarea_edge_length = prm_edge_length;
+    _harf_hitarea_edge_length = _hitarea_edge_length / 2;
+    _pStgChecker->useHitAreaBoxNum(2);
+    _pStgChecker->setHitAreaBox_Cube(0, prm_edge_length);
+    _pStgChecker->setHitAreaBox_Cube(1, prm_edge_length);
+    _pStgChecker->disable(1);
+    setBumpable(true);
+    //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canBump());
+
 }
 
 LaserChip::~LaserChip() {

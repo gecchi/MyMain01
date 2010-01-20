@@ -16,8 +16,7 @@ void MyStraightLaserChip001::initialize() {
     _pMover->setMoveVelocity(0);
     _pMover->setMoveVeloAcceleration(300);
     _pMover->setRzRyMoveAngle(0,0);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    registHitAreaCube(30000);
     setBumpable(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.99;

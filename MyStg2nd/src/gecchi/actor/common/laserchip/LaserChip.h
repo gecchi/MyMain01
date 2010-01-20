@@ -30,19 +30,25 @@ public:
     /** 自身を管理してるアクター発送者 */
     LaserChipDispatcher* _pDispatcher;
 
+    bool _is_regist_hitarea;
+    int _hitarea_edge_length;
+    int _harf_hitarea_edge_length;
+
     DWORD _dwActiveFrame;
 
     LaserChip(const char* prm_name, const char* prm_model);
 
     virtual void initialize() override;
 
+    virtual void onActive() override;
+
+    virtual void processBehavior() override;
+
     virtual void processJudgement() override;
 
     virtual void processDraw() override;
 
     virtual void processFinal() override {}
-
-    virtual void onActive() override;
 
     virtual void onInactive() override;
 
@@ -51,6 +57,8 @@ public:
     virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual void drawHitArea() override;
+
+    virtual void registHitAreaCube(int prm_edge_length);
 
     virtual ~LaserChip();
 
