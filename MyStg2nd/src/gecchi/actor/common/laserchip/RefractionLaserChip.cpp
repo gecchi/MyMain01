@@ -108,6 +108,7 @@ void RefractionLaserChip::processBehavior() {
             _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
             _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
             _isRefracting = false;
+            _pMover->behave();
         }
     } else {
         //レーザーチップ消失時処理

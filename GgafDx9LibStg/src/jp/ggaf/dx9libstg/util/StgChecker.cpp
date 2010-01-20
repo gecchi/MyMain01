@@ -89,9 +89,10 @@ void StgChecker::updateHitArea() {
         for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
             pHitArea = &(_pHitAreaBoxs->_paHitArea[i]);
             pBase= &(_pHitAreaBoxs->_paBase[i]);
-            if (pBase->rotX || pBase->rotY || pBase->rotZ) {
-                if (i == 0) {
 
+            if (pBase->rotX || pBase->rotY || pBase->rotZ) {
+                //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]
+                if (i == 0) {
                     s_RX = _pActor->_RX / ANGLE_RATE;
                     s_RY = _pActor->_RY / ANGLE_RATE;
                     s_RZ = _pActor->_RZ / ANGLE_RATE;
@@ -129,6 +130,7 @@ void StgChecker::updateHitArea() {
                 pHitArea->y2 = cy + pBase->hdy;
                 pHitArea->z2 = cz + pBase->hdz;
             }
+
             if (pHitArea->x1 < _X1) {
                 _X1 = pHitArea->x1;
             }
@@ -150,6 +152,7 @@ void StgChecker::updateHitArea() {
             }
 
         }
+
         _pElem->_kindbit = _pActor->getGroupActor()->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
                                            _pActor->_Y + _Y1,

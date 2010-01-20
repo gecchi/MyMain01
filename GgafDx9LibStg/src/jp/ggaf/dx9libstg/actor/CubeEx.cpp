@@ -35,7 +35,7 @@ void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
                 if (pHitAreaBoxs->_paHitArea[i].is_valid_flg) {
-                    _TRACE_("drawHitarea name="<<prm_pStgChecker->getTargetActor()->getName()<<" index="<<i);
+                    //_TRACE_("drawHitarea name="<<prm_pStgChecker->getTargetActor()->getName()<<" index="<<i);
 
                     drawBox(pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
                             pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,

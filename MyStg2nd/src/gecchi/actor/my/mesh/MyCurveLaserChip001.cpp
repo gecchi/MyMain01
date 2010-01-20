@@ -15,7 +15,7 @@ void MyCurveLaserChip001::initialize() {
     _pMover->setMoveVelocity(100000);
     _pMover->setMoveVeloAcceleration(300);
 
-    registHitAreaCube(10000);
+    registHitAreaCube(50000);
 
     setBumpable(true);
     _SX = _SY = _SZ = 80*1000;

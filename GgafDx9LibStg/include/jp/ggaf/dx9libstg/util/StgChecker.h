@@ -38,7 +38,6 @@ public:
     int _X1, _Y1, _Z1, _X2, _Y2, _Z2;
 
 
-
     /**
      * コンストラクタ<BR>
      * @param	prm_pActor	適用Actor
@@ -126,7 +125,7 @@ public:
             for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
                 if (_pHitAreaBoxs->_paHitArea[i].is_valid_flg) {
                     for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
-                        if (pOtherHitAreaBoxs->_paHitArea[i].is_valid_flg) {
+                        if (pOtherHitAreaBoxs->_paHitArea[j].is_valid_flg) {
                             StgChecker::_num_check++;
                             if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
                                 if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {

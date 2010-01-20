@@ -44,6 +44,8 @@ public:
 
     virtual void processBehavior() override;
 
+    virtual void processPreJudgement() override;
+
     virtual void processJudgement() override;
 
     virtual void processDraw() override;

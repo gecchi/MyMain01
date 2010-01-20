@@ -101,102 +101,51 @@ void LaserChip::onActive() {
 }
 
 void LaserChip::processBehavior() {
-    //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canBump());
-    if (_is_regist_hitarea) {
-        //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
-        if (_pChip_front != NULL) {
-            static int dX, dY, dZ;
-            if (_pChip_front != NULL) {
-                dX = _pChip_front->_X - _X;
-                dY = _pChip_front->_Y - _Y;
-                dZ = _pChip_front->_Z - _Z;
-                if (abs(dX) >= _hitarea_edge_length*3 || abs(dY) >= _hitarea_edge_length*3 || abs(dZ) >= _hitarea_edge_length*3) {
-                    //自身と前方チップの中間に当たり判定を作り出す
-                    static int cX, cY, cZ, h;
-                    cX = dX / 2;
-                    cY = dY / 2;
-                    cZ = dZ / 2;
-                    h = _hitarea_edge_length / 2;
-                    _pStgChecker->setHitAreaBox(
-                                  1,
-                                  cX - _harf_hitarea_edge_length,
-                                  cY - _harf_hitarea_edge_length,
-                                  cZ - _harf_hitarea_edge_length,
-                                  cX + _harf_hitarea_edge_length,
-                                  cY + _harf_hitarea_edge_length,
-                                  cZ + _harf_hitarea_edge_length
-                                  );
-                    //８分木登録用の外枠の領域を更新
-                    if (dX > 0) {
-                        _pStgChecker->_X1 = -_harf_hitarea_edge_length;
-                        _pStgChecker->_X2 = cX + _harf_hitarea_edge_length;
-                    } else {
-                        _pStgChecker->_X1 = cX - _harf_hitarea_edge_length;
-                        _pStgChecker->_X2 = _harf_hitarea_edge_length;
-                    }
-                    if (dY > 0) {
-                        _pStgChecker->_Y1 = -_harf_hitarea_edge_length;
-                        _pStgChecker->_Y2 = cY + _harf_hitarea_edge_length;
-                    } else {
-                        _pStgChecker->_Y1 = cY - _harf_hitarea_edge_length;
-                        _pStgChecker->_Y2 = _harf_hitarea_edge_length;
-                    }
-                    if (dZ > 0) {
-                        _pStgChecker->_Z1 = -_harf_hitarea_edge_length;
-                        _pStgChecker->_Z2 = cZ + _harf_hitarea_edge_length;
-                    } else {
-                        _pStgChecker->_Z1 = cZ - _harf_hitarea_edge_length;
-                        _pStgChecker->_Z2 = _harf_hitarea_edge_length;
-                    }
-
-//                    _TRACE_("中間"
-//                                  <<(cX - _harf_hitarea_edge_length)<<","
-//                                  <<(cY - _harf_hitarea_edge_length)<<","
-//                                  <<(cZ - _harf_hitarea_edge_length)<<","
-//                                  <<(cX + _harf_hitarea_edge_length)<<","
-//                                  <<(cY + _harf_hitarea_edge_length)<<","
-//                                  <<(cZ + _harf_hitarea_edge_length));
-
-                    _pStgChecker->enable(1);
-                } else {
-                    //８分木登録用の外枠の領域を更新
-                    _pStgChecker->_X1 = -_harf_hitarea_edge_length;
-                    _pStgChecker->_Y1 = -_harf_hitarea_edge_length;
-                    _pStgChecker->_Z1 = -_harf_hitarea_edge_length;
-                    _pStgChecker->_X2 = +_harf_hitarea_edge_length;
-                    _pStgChecker->_Y2 = +_harf_hitarea_edge_length;
-                    _pStgChecker->_Z2 = +_harf_hitarea_edge_length;
-                    _pStgChecker->disable(1);
-                }
-            } else {
-                _pStgChecker->disable(1);
-            }
-        }
-    }
     //_TRACE_("LaserChip::processBehavior()ed "<<getName()<<" bump="<<canBump());
 }
 
 
-void LaserChip::onInactive() {
-    //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canBump());
-//    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
-//            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
-//            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
-//            "/_is_active_flg="<<_is_active_flg);
-    //消失時
-    _pDispatcher->_num_chip_active--;
-    //前後の繋がりを切断
-    if (_pChip_front) {
-        _pChip_front->_pChip_behind = NULL;
-    }
-    _pChip_front = NULL;
-    if (_pChip_behind) {
-        _pChip_behind->_pChip_front = NULL;
-    }
-    _pChip_behind = NULL;
-    //_TRACE_("LaserChip::onInactive()ed "<<getName()<<" bump="<<canBump());
-}
 
+
+void LaserChip::processPreJudgement() {
+    //前方チップと離れすぎた場合に、中間に当たり判定領域を一時的に有効化
+    //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
+
+    static int dX, dY, dZ,cX, cY, cZ,h;
+    //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canBump());
+    if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
+        if (_pChip_front != NULL && _pChip_front->_pChip_front != NULL) {
+            dX = _pChip_front->_X - _X;
+            dY = _pChip_front->_Y - _Y;
+            dZ = _pChip_front->_Z - _Z;
+            if (abs(dX) >= _hitarea_edge_length*3 || abs(dY) >= _hitarea_edge_length*3 || abs(dZ) >= _hitarea_edge_length*3) {
+                //自身と前方チップの中間に当たり判定を作り出す
+                cX = dX / 2;
+                cY = dY / 2;
+                cZ = dZ / 2;
+                h = _hitarea_edge_length / 2;
+                _pStgChecker->setHitAreaBox(
+                              1,
+                              cX - _harf_hitarea_edge_length,
+                              cY - _harf_hitarea_edge_length,
+                              cZ - _harf_hitarea_edge_length,
+                              cX + _harf_hitarea_edge_length,
+                              cY + _harf_hitarea_edge_length,
+                              cZ + _harf_hitarea_edge_length
+                              );
+                _pStgChecker->enable(1);
+            } else {
+                _pStgChecker->disable(1);
+            }
+        } else {
+            _pStgChecker->disable(1);
+        }
+    }
+
+    GgafDx9MeshSetActor::processPreJudgement(); //８分木登録
+    //当たり判定領域を更新してからprocessPreJudgementで８分木登録すること。
+
+}
 
 void LaserChip::processJudgement() {
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canBump());
@@ -238,6 +187,7 @@ void LaserChip::processJudgement() {
 //    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
     //_TRACE_("LaserChip::processJudgement()ed "<<getName()<<" bump="<<canBump());
 }
+
 
 void LaserChip::processDraw() {
     //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canBump());
@@ -315,6 +265,26 @@ void LaserChip::drawHitArea() {
 }
 
 void LaserChip::processOnHit(GgafActor* prm_pOtherActor) {
+}
+
+void LaserChip::onInactive() {
+    //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canBump());
+//    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
+//            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
+//            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
+//            "/_is_active_flg="<<_is_active_flg);
+    //消失時
+    _pDispatcher->_num_chip_active--;
+    //前後の繋がりを切断
+    if (_pChip_front) {
+        _pChip_front->_pChip_behind = NULL;
+    }
+    _pChip_front = NULL;
+    if (_pChip_behind) {
+        _pChip_behind->_pChip_front = NULL;
+    }
+    _pChip_behind = NULL;
+    //_TRACE_("LaserChip::onInactive()ed "<<getName()<<" bump="<<canBump());
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {
