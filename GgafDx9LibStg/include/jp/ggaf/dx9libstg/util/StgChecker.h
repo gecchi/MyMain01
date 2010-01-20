@@ -34,7 +34,7 @@ public:
     int _iAttackPoint;
     /** –hŒä—Í*/
     int _iDefensePoint;
-
+	/** “–‚½‚è”»’è—Ìˆæ‚Ì‚¢‚¿‚Î‚ñŠO‘¤‚ÌBOX */
     int _X1, _Y1, _Z1, _X2, _Y2, _Z2;
 
 
@@ -52,6 +52,10 @@ public:
         _iDefensePoint = prm_iDefensePoint;
     }
 
+    /**
+     * “–‚½‚è”»’è—ÌˆæBOX‚Ì‰ñ“]•½sˆÚ“®‚ÆA‚W•ª–Ø“o˜^‚ðs‚¢‚Ü‚·B .
+     * Œ»Ý‚Í GgafDx9GeometricActor::processPreJudgement ‚©‚çƒR[ƒ‹‚³‚ê‚Ä‚¢‚éB
+     */
     virtual void updateHitArea();
 
     void useHitAreaBoxNum(int n);
@@ -67,10 +71,36 @@ public:
                       false);
     }
 
+
+    void setHitAreaBox_WHD(int prm_index, int prm_width, int prm_height, int prm_depth) {
+        int hw = prm_width  / 2;
+        int hh = prm_height / 2;
+        int hd = prm_depth  / 2;
+
+        setHitAreaBox(prm_index, -hw, -hh, -hd, hw, hh, hd);
+    }
+    void setHitAreaBox_Cube(int prm_index, int prm_edge) {
+        int h = prm_edge / 2;
+        setHitAreaBox(prm_index, -h, -h, -h, h, h, h);
+    }
     HitAreaBoxs* getHitAreaBoxs() {
         return _pHitAreaBoxs;
     }
 
+
+    void enable(int prm_index) {
+        _pHitAreaBoxs->_paBase[prm_index].is_valid_flg = true;
+        _pHitAreaBoxs->_paHitArea[prm_index].is_valid_flg = true;
+    }
+
+    void disable(int prm_index) {
+        _pHitAreaBoxs->_paBase[prm_index].is_valid_flg = false;
+        _pHitAreaBoxs->_paHitArea[prm_index].is_valid_flg = false;
+    }
+
+    bool isEnable(int prm_index) {
+        return _pHitAreaBoxs->_paHitArea[prm_index].is_valid_flg;
+    }
     //virtual void draw();
 
     /**
@@ -88,29 +118,31 @@ public:
         pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
         if (_pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL ||
             _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {
-            //||      _pHitAreaBoxs->_paHitArea->active == false || pOtherHitAreaBoxs->_paHitArea->active == false) {
             return false;
         } else {
 
             //Ž©•ª‚Ì” ‚Æ‘ŠŽè‚Ì” 
 
             for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
-                for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
-                    StgChecker::_num_check++;
-                    if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
-                        if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
-                            if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
-                                if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
-                                    if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
-                                        if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
-                                            return true;
+                if (_pHitAreaBoxs->_paHitArea[i].is_valid_flg) {
+                    for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
+                        if (pOtherHitAreaBoxs->_paHitArea[i].is_valid_flg) {
+                            StgChecker::_num_check++;
+                            if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
+                                if (_pActor->_Z + _pHitAreaBoxs->_paHitArea[i].z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
+                                    if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
+                                        if (_pActor->_X + _pHitAreaBoxs->_paHitArea[i].x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
+                                            if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
+                                                if (_pActor->_Y + _pHitAreaBoxs->_paHitArea[i].y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
+                                                    return true;
+                                                }
+                                            }
                                         }
                                     }
                                 }
                             }
                         }
                     }
-
                 }
             }
         }

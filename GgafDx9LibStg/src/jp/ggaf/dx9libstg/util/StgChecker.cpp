@@ -42,26 +42,26 @@ void StgChecker::setHitAreaBox(int prm_index,
         throwGgafCriticalException("StgChecker::setHitAreaBox まず useHitAreaBoxNum を実行して、要素数を宣言してください。");
     } else {
         _pHitAreaBoxs->setBox(prm_index, x1, y1, z1, x2, y2, z2, rotX, rotY, rotZ);
-
-        if (x1 < _X1) {
-            _X1 = x1;
-        }
-        if (y1 < _Y1) {
-            _Y1 = y1;
-        }
-        if (z1 < _Z1) {
-            _Z1 = z1;
-        }
-
-        if (x2 > _X2) {
-            _X2 = x2;
-        }
-        if (y2 > _Y2) {
-            _Y2 = y2;
-        }
-        if (z2 > _Z2) {
-            _Z2 = z2;
-        }
+//
+//        if (x1 < _X1) {
+//            _X1 = x1;
+//        }
+//        if (y1 < _Y1) {
+//            _Y1 = y1;
+//        }
+//        if (z1 < _Z1) {
+//            _Z1 = z1;
+//        }
+//
+//        if (x2 > _X2) {
+//            _X2 = x2;
+//        }
+//        if (y2 > _Y2) {
+//            _Y2 = y2;
+//        }
+//        if (z2 > _Z2) {
+//            _Z2 = z2;
+//        }
 
 //        _pLinearOctree->registElem(_pElem, _pActor->_X + _X1,
 //                                           _pActor->_Y + _Y1,
