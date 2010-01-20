@@ -126,6 +126,29 @@ void LaserChip::processBehavior() {
                                   cY + _harf_hitarea_edge_length,
                                   cZ + _harf_hitarea_edge_length
                                   );
+                    //‚W•ª–Ø“o˜^—p‚ÌŠO˜g‚Ì—Ìˆæ‚ðXV
+                    if (dX > 0) {
+                        _pStgChecker->_X1 = -_harf_hitarea_edge_length;
+                        _pStgChecker->_X2 = cX + _harf_hitarea_edge_length;
+                    } else {
+                        _pStgChecker->_X1 = cX - _harf_hitarea_edge_length;
+                        _pStgChecker->_X2 = _harf_hitarea_edge_length;
+                    }
+                    if (dY > 0) {
+                        _pStgChecker->_Y1 = -_harf_hitarea_edge_length;
+                        _pStgChecker->_Y2 = cY + _harf_hitarea_edge_length;
+                    } else {
+                        _pStgChecker->_Y1 = cY - _harf_hitarea_edge_length;
+                        _pStgChecker->_Y2 = _harf_hitarea_edge_length;
+                    }
+                    if (dZ > 0) {
+                        _pStgChecker->_Z1 = -_harf_hitarea_edge_length;
+                        _pStgChecker->_Z2 = cZ + _harf_hitarea_edge_length;
+                    } else {
+                        _pStgChecker->_Z1 = cZ - _harf_hitarea_edge_length;
+                        _pStgChecker->_Z2 = _harf_hitarea_edge_length;
+                    }
+
 //                    _TRACE_("’†ŠÔ"
 //                                  <<(cX - _harf_hitarea_edge_length)<<","
 //                                  <<(cY - _harf_hitarea_edge_length)<<","
@@ -136,6 +159,13 @@ void LaserChip::processBehavior() {
 
                     _pStgChecker->enable(1);
                 } else {
+                    //‚W•ª–Ø“o˜^—p‚ÌŠO˜g‚Ì—Ìˆæ‚ðXV
+                    _pStgChecker->_X1 = -_harf_hitarea_edge_length;
+                    _pStgChecker->_Y1 = -_harf_hitarea_edge_length;
+                    _pStgChecker->_Z1 = -_harf_hitarea_edge_length;
+                    _pStgChecker->_X2 = +_harf_hitarea_edge_length;
+                    _pStgChecker->_Y2 = +_harf_hitarea_edge_length;
+                    _pStgChecker->_Z2 = +_harf_hitarea_edge_length;
                     _pStgChecker->disable(1);
                 }
             } else {
