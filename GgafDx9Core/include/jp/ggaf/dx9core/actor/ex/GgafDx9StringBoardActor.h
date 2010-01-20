@@ -26,21 +26,21 @@ public:
     virtual void initialize() override {
     }
 
-    virtual void processBehavior() {
+    virtual void processBehavior() override {
     }
 
-    virtual void processJudgement() {
+    virtual void processJudgement() override {
     }
 
-    virtual void processDraw(); //オーバーライド
+    virtual void processDraw() override; //オーバーライド
 
-    virtual void processAfterDraw() {
+    virtual void processAfterDraw() override {
     }
 
-    virtual void processHappen(int prm_no) {
+    virtual void processHappen(int prm_no) override {
     }
 
-    virtual void processFinal() {
+    virtual void processFinal() override {
     }
 
     virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
