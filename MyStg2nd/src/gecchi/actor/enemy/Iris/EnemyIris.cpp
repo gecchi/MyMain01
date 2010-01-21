@@ -18,9 +18,8 @@ void EnemyIris::initialize() {
     setBumpable(true);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pStgChecker->setStatus(100, 99999, 99999, 99999);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     useSe2("bomb1");     //”š”­
 }
 

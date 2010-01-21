@@ -19,9 +19,8 @@ void EnemyJuno::initialize() {
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pMover->setFaceAngle(AXIS_Y, 90000);
 
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    _pStgChecker->setStatus(100, 1, 1, 1);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
 }
 
 void EnemyJuno::processBehavior() {

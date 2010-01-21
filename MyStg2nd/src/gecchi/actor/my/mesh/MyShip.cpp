@@ -185,8 +185,8 @@ void MyShip::initialize() {
     //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
     setBumpable(true);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
     _pMover->setMoveVelocity(0);
     _pScaler->setScale(1000);
     _pScaler->setScaleRange(1000, 7000);

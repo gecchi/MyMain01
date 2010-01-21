@@ -12,8 +12,8 @@ EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm
 
 void EnemyLaserChip001::initialize() {
     _pMover->setMoveVelocity(1000);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setBumpable(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;

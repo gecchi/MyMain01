@@ -27,9 +27,8 @@ void EnemyPallas::initialize() {
 
     _pMover->setFaceAngle(AXIS_Z, ANGLE180);
 
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
-    _pStgChecker->setStatus(100, 1, 1, 1);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
 }
 
 void EnemyPallas::processBehavior() {

@@ -101,49 +101,49 @@ void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は シーンCreater.xls の 種別相関 シート
     if (_frame_of_active >= 120) {
-        StgChecker::_num_check = 0;
+        CollisionChecker::_num_check = 0;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-            StgChecker::_pLinearOctree->putTree();
+            CollisionChecker::_pLinearOctree->putTree();
         }
 
         //八分木アルゴリズムでヒットチェック
-        StgChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllBumpChk(
                 KIND_MY_SHOT|KIND_MY_BODY,
                 KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
               );
-        StgChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllBumpChk(
                 KIND_ENEMY_SHOT,
                 KIND_MY_BODY|KIND_OTHER|KIND_CHIKEI
               );
-        StgChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllBumpChk(
                 KIND_ENEMY_BODY|KIND_OTHER,
                 KIND_OTHER
               );
 
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_CHIKEI,
 //                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //              );
 //
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
 //                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
 //              );
 //
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
 //                KIND_MY_SHOT_NOMAL
 //            );
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_OTHER,
 //                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //              );
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
 //                KIND_MY_SHOT_GU
 //              );
-//        StgChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
 //                KIND_ENEMY_SHOT_CHOKI,
 //                KIND_ENEMY_SHOT_GU
 //              );

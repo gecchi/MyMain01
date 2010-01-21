@@ -13,7 +13,7 @@ public:
 
     DWORD _frame_offset;
 
-    GgafDx9LibStg::StgChecker* _pStgChecker;
+    GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
     GroundMeshActor(const char* prm_name, const char* prm_model);
 

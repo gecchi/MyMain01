@@ -43,9 +43,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
 
 void EnemyAstraea::initialize() {
     setBumpable(true);
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pStgChecker->setStatus(100, 1, 1, 1);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pMover->setMoveVelocity(0);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 //    for (int i = 0; i < _laser_way; i++) {
@@ -214,7 +213,7 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
 //    setBumpable(false);
 //    playSe2();
 //    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
-//        GameGlobal::_dwScore += _pStgChecker->_iScorePoint;
+//        GameGlobal::_dwScore += _pCollisionChecker->_iScorePoint;
 //    }
 //    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_active);
 //

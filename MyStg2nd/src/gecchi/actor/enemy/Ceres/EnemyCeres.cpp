@@ -12,9 +12,6 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     _class_name = "EnemyCeres";
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
-
-    _pStgChecker->_iScorePoint = 100;
-
     _X = -356000; //ŠJŽnÀ•W
     _Y = 0;
     _Z = -680000;
@@ -74,9 +71,8 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
 }
 
 void EnemyCeres::initialize() {
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
-    _pStgChecker->setStatus(100, 1, 1, 1);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
 }
 
 void EnemyCeres::onActive() {

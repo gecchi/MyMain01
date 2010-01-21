@@ -28,13 +28,13 @@ void TamagoActor::initialize() {
     //	_pMover->_synchronize_ZaxisFaceAngle_to_RzMoveAngle_Flg = true;
     //	_pMover->_iType_AutoXYMoveAngleTarget = TURN_COUNTERCLOCKWISE;
 
-    //	_pStgChecker->useHitAreaBoxNum(1, 0);
-    //	_pStgChecker->setHitAreaBox(0, -10000, -10000, 10000, 10000);
+    //	_pCollisionChecker->makeCollision(1, 0);
+    //	_pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
     _pMover->setFaceAngle(AXIS_Z, -ANGLE90);
     //_pMover->setFaceAngleVelocity(AXIS_Y, 1000);
-//    _pStgChecker->useHitAreaBoxNum(2);
-//    _pStgChecker->setHitAreaBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-//    _pStgChecker->setHitAreaBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
+//    _pCollisionChecker->makeCollision(2);
+//    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+//    _pCollisionChecker->setColliBox(1, 100000, 100000, 100000, 130000, 130000, 130000);
     _pScaler->setScale(20000000);
     _frame_offset = 0;
     //_pMover->_iIncrementFaceAngle[AXIS_X] = -100*1000;

@@ -56,7 +56,7 @@ void StraightLaserChip::processBehavior() {
       centerX = (_X - _pChip_front->_X) / 2;
       centerY = (_Y - _pChip_front->_Y) / 2;
       centerZ = (_Z - _pChip_front->_Z) / 2;
-      _pStgChecker->setHitAreaBox(
+      _pCollisionChecker->setColliBox(
                       1,
                       centerX - 30000,
                       centerY - 30000,
@@ -65,9 +65,9 @@ void StraightLaserChip::processBehavior() {
                       centerY + 30000,
                       centerZ + 30000
                  ); //’†ŠÔ‚Ì“–‚½‚è”»’è
-      _pStgChecker->getHitAreaBoxs()->enable(1);
+      _pCollisionChecker->getHitAreaBoxs()->enable(1);
     } else {
-      _pStgChecker->getHitAreaBoxs()->disable(1);
+      _pCollisionChecker->getHitAreaBoxs()->disable(1);
 
     }
 */

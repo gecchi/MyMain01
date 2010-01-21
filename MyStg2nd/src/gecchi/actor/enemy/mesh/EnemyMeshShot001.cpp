@@ -34,8 +34,8 @@ void EnemyMeshShot001::initialize() {
     _pMover->setVxMoveVeloRenge(_iMoveVelocity_Top, _iMoveVelocity_Bottom);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -30000, -30000, 30000, 30000);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     setBumpable(true);
     useSe1("bomb1");
 }

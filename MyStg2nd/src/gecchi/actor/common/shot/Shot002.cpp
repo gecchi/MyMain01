@@ -12,8 +12,8 @@ Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/Flora
 }
 
 void Shot002::initialize() {
-    _pStgChecker->useHitAreaBoxNum(1);
-    _pStgChecker->setHitAreaBox(0, -50000, -50000, -50000, 50000, 50000, 50000);
+    _pCollisionChecker->makeCollision(1);
+    _pCollisionChecker->setColliBox(0, -50000, -50000, -50000, 50000, 50000, 50000);
     useSe1("break_glass01");
 }
 

@@ -17,7 +17,7 @@ void DispFpsActor::initialize() {
 
 void DispFpsActor::processBehavior() {
     //sprintf_s(_aBuf, 17, "%06d %.1f fps", prm_dwFrame, askGod()->_fps);
-    sprintf(_aBuf, "%05uDraw %06uChk\n%07u %.1ffps", GgafGod::_num_actor_drawing, StgChecker::_num_check, (unsigned int)askGod()->_godframe, askGod()->_fps);
+    sprintf(_aBuf, "%05uDraw %06uChk\n%07u %.1ffps", GgafGod::_num_actor_drawing, CollisionChecker::_num_check, (unsigned int)askGod()->_godframe, askGod()->_fps);
     update(0, 0, _aBuf);
 }
 

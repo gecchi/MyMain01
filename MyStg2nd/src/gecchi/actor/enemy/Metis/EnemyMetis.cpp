@@ -19,14 +19,13 @@ void EnemyMetis::initialize() {
     for (int i = 0; i < (_width_X - _depth_Y) ; i+= _depth_Y) {
         nArea++;
     }
-    _pStgChecker->useHitAreaBoxNum(nArea);
+    _pCollisionChecker->makeCollision(nArea);
     for (int i = 0, n = 0; i < (_width_X - _depth_Y)  ; i+= _depth_Y, n++) {
-        _pStgChecker->setHitAreaBox(n, i - ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0), -((_depth_Y/2.0)/1.5), -(_height_Z/2.0),
+        _pCollisionChecker->setColliBox(n, i - ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0), -((_depth_Y/2.0)/1.5), -(_height_Z/2.0),
                                        i + ((_depth_Y/2.0)/1.5)-(_width_X/2 - _depth_Y/2.0),  ((_depth_Y/2.0)/1.5),  (_height_Z/2.0),
                                        false, false, true
                                    );
     }
-    _pStgChecker->setStatus(100, 99999, 99999, 99999);
     useSe1("yume_shototsu");
     useSe2("bomb1");     //”š”­
 }
