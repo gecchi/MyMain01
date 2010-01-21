@@ -16,7 +16,7 @@ public:
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
     GgafDx9Core::GgafDx9GeometryMorpher* _pMorpher;
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
 
     DefaultMorphMeshActor(const char* prm_name, const char* prm_model_id);
 

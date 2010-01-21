@@ -9,11 +9,11 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
                      prm_model_id,
                      "DefaultMorphMeshEffect",
                      "DefaultMorphMeshTechnique",
-                     NEW StgChecker(this) ) {
+                     NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMorphMeshActor";
     _frame_offset = 0;
-    _pStgChecker = (StgChecker*)_pChecker;
+    _pCollisionChecker = (CollisionChecker*)_pChecker;
 
     _pScaler = NEW GgafDx9GeometryScaler(this);
     _pMorpher = NEW GgafDx9GeometryMorpher(this);
@@ -21,12 +21,12 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
 }
 
 void DefaultMorphMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pStgChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 
 DefaultMorphMeshActor::~DefaultMorphMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
     DELETE_IMPOSSIBLE_NULL(_pMorpher);
 }

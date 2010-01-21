@@ -9,18 +9,18 @@ DefaultSpriteActor::DefaultSpriteActor(const char* prm_name, const char* prm_mod
                        prm_model_id,
                        "DefaultSpriteEffect",
                        "DefaultSpriteTechnique",
-                       NEW StgChecker(this) ) {
+                       NEW CollisionChecker(this) ) {
     _class_name = "DefaultSpriteActor";
     _frame_offset = 0;
-    _pStgChecker = (StgChecker*)_pChecker;
+    _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 }
 
 void DefaultSpriteActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pStgChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultSpriteActor::~DefaultSpriteActor() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

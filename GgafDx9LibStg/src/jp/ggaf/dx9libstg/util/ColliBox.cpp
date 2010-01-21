@@ -43,9 +43,12 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _hdx = _dx / 2;
     _hdy = _dy / 2;
     _hdz = _dz / 2;
-    _cx = _x1 + _hdx;
-    _cy = _y1 + _hdy;
-    _cz = _z1 + _hdz;
+    _base_cx = _x1 + _hdx;
+    _base_cy = _y1 + _hdy;
+    _base_cz = _z1 + _hdz;
+    _cx = _base_cx;
+    _cy = _base_cy;
+    _cz = _base_cz;
     _rotX = rotX;
     _rotY = rotY;
     _rotZ = rotZ;
@@ -56,6 +59,8 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _aabb_x2 = _x2;
     _aabb_y2 = _y2;
     _aabb_z2 = _z2;
+
+    _is_valid_flg = true;
 }
 
 bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
@@ -66,9 +71,9 @@ bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core:
         s_RX = rX / ANGLE_RATE;
         s_RY = rY / ANGLE_RATE;
         s_RZ = rZ / ANGLE_RATE;
-        wk_cx = _cx;
-        wk_cy = _cy;
-        wk_cz = _cz;
+        wk_cx = _base_cx;
+        wk_cy = _base_cy;
+        wk_cz = _base_cz;
 
         if (_rotX) {
             _cy = (wk_cy * GgafDx9Util::COS[s_RX]) - (wk_cz * GgafDx9Util::SIN[s_RX]);

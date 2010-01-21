@@ -37,7 +37,7 @@ class CollisionChecker;
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
-#include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
+
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
 #include "jp/ggaf/dx9libstg/util/GeoElement.h"
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
@@ -64,6 +64,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LOFA_Elem.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
+#include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
 
 
 

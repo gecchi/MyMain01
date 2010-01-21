@@ -21,7 +21,7 @@ public:
     //void processDraw() {} //オーバーライド未実装にする。
 
 
-    void drawHitarea(StgChecker* prm_pChecker);
+    void drawHitarea(CollisionChecker* prm_pChecker);
 
     virtual ~CubeEx();
 

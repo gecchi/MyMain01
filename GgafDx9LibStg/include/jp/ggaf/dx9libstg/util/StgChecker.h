@@ -34,7 +34,7 @@ public:
     int _iAttackPoint;
     /** –hŒä—Í*/
     int _iDefensePoint;
-	/** “–‚½‚è”»’è—Ìˆæ‚Ì‚¢‚¿‚Î‚ñŠO‘¤‚ÌBOX */
+    /** “–‚½‚è”»’è—Ìˆæ‚Ì‚¢‚¿‚Î‚ñŠO‘¤‚ÌBOX */
     int _X1, _Y1, _Z1, _X2, _Y2, _Z2;
 
 

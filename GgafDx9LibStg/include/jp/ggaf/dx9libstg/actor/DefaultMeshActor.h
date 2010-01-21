@@ -17,7 +17,7 @@ public:
 
     DWORD _frame_offset;
 
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
 
     DefaultMeshActor(const char* prm_name, const char* prm_model);
 

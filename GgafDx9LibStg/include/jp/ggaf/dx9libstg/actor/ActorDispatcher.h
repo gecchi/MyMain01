@@ -16,7 +16,7 @@ namespace GgafDx9LibStg {
 class ActorDispatcher : public GgafCore::GgafDummyActor {
 
 public:
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
 
     ActorDispatcher(const char* prm_name);
 

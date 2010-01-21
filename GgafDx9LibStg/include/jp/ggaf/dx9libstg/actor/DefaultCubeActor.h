@@ -11,7 +11,7 @@ namespace GgafDx9LibStg {
 class DefaultCubeActor : public GgafDx9Core::GgafDx9CubeActor {
 
 public:
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
 
     DefaultCubeActor(const char* prm_name);
 

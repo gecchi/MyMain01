@@ -10,12 +10,12 @@ namespace GgafDx9LibStg {
  */
 class CollisionChecker : public GgafDx9Core::GgafDx9Checker {
 
-protected:
+public:
     /** “–‚½‚è”»’è—Ìˆæ */
     GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
 
     bool _need_update_aabb;
-public:
+
     static LinearOctreeForActor* _pLinearOctree;
     LOFA_Elem* _pElem;
 

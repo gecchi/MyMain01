@@ -14,7 +14,7 @@ class DefaultD3DXMeshActor : public GgafDx9Core::GgafDx9D3DXMeshActor {
 public:
     DWORD _frame_offset;
 
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 

@@ -9,19 +9,19 @@ DefaultD3DXAniMeshActor::DefaultD3DXAniMeshActor(const char* prm_name, const cha
                          prm_model,
                          "DefaultAniMeshEffect",
                          "DefaultAniMeshTechnique",
-                         NEW StgChecker(this) ) {
+                         NEW CollisionChecker(this) ) {
     _class_name = "DefaultD3DXAniMeshActor";
     _frame_offset = 0;
-    _pStgChecker = (StgChecker*)_pChecker;
+    _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 }
 
 void DefaultD3DXAniMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pStgChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultD3DXAniMeshActor::~DefaultD3DXAniMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

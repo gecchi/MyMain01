@@ -9,21 +9,21 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
                              prm_model,
                              "DefaultMeshEffect",
                              "DefaultMeshTechnique",
-                             NEW StgChecker(this) ) {
+                             NEW CollisionChecker(this) ) {
     _class_name = "DefaultDynaD3DXMeshActor";
     _frame_offset = 0;
-    _pStgChecker = (StgChecker*)_pChecker;
+    _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 
 }
 
 void DefaultDynaD3DXMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pStgChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 
 DefaultDynaD3DXMeshActor::~DefaultDynaD3DXMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

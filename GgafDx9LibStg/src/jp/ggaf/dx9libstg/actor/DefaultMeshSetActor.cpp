@@ -9,11 +9,11 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
                         prm_model,
                         "DefaultMeshSetEffect",
                         "DefaultMeshSetTechnique",
-                        NEW StgChecker(this) ) {
+                        NEW CollisionChecker(this) ) {
 
     _class_name = "DefaultMeshSetActor";
     _frame_offset = 0;
-    _pStgChecker = (StgChecker*)_pChecker;
+    _pCollisionChecker = (CollisionChecker*)_pChecker;
     _pScaler = NEW GgafDx9GeometryScaler(this);
 //    if (_pMeshSetModel->_paVtxBuffer_org[0].nx == 0 &&
 //        _pMeshSetModel->_paVtxBuffer_org[0].ny == 0 &&
@@ -25,10 +25,10 @@ DefaultMeshSetActor::DefaultMeshSetActor(const char* prm_name, const char* prm_m
 }
 
 void DefaultMeshSetActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pStgChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 DefaultMeshSetActor::~DefaultMeshSetActor() {
-    DELETE_IMPOSSIBLE_NULL(_pStgChecker);
+    DELETE_IMPOSSIBLE_NULL(_pCollisionChecker);
     DELETE_IMPOSSIBLE_NULL(_pScaler);
 }

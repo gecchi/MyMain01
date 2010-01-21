@@ -22,27 +22,30 @@ void CubeEx::release() {
     DELETE_POSSIBLE_NULL(_pObj);
 }
 
-void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
-    if (prm_pStgChecker != NULL && prm_pStgChecker->getHitAreaBoxs() != NULL && prm_pStgChecker->getTargetActor()->canBump()
-            && prm_pStgChecker->getTargetActor()->isActive()) {
-        GgafDx9GeometricActor* pActor = prm_pStgChecker->getTargetActor();
-        HitAreaBoxs* pHitAreaBoxs = prm_pStgChecker->getHitAreaBoxs();
+void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
+    if (prm_pCollisionChecker != NULL &&
+        prm_pCollisionChecker->_pCollisionArea != NULL &&
+        prm_pCollisionChecker->getTargetActor()->canBump() &&
+        prm_pCollisionChecker->getTargetActor()->isActive()) {
+        GgafDx9GeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
+        GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
 
         //最前面に表示するため一時OFF
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
 
-        int iAreaNum = pHitAreaBoxs->_iAreaNum;
+        int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
-                if (pHitAreaBoxs->_paHitAreaBox[i].is_valid_flg) {
-                    //_TRACE_("drawHitarea name="<<prm_pStgChecker->getTargetActor()->getName()<<" index="<<i);
+                if (pCollisionArea->_papColliPart[i]->_is_valid_flg) {
+                    ColliBox* box = (ColliBox*)pCollisionArea->_papColliPart[i];
+                    //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
 
-                    drawBox(pActor->_X + pHitAreaBoxs->_paHitAreaBox[i].x1,
-                            pActor->_Y + pHitAreaBoxs->_paHitAreaBox[i].y1,
-                            pActor->_Z + pHitAreaBoxs->_paHitAreaBox[i].z1,
-                            pActor->_X + pHitAreaBoxs->_paHitAreaBox[i].x2,
-                            pActor->_Y + pHitAreaBoxs->_paHitAreaBox[i].y2,
-                            pActor->_Z + pHitAreaBoxs->_paHitAreaBox[i].z2);
+                    drawBox(pActor->_X + box->_x1,
+                            pActor->_Y + box->_y1,
+                            pActor->_Z + box->_z1,
+                            pActor->_X + box->_x2,
+                            pActor->_Y + box->_y2,
+                            pActor->_Z + box->_z2);
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }

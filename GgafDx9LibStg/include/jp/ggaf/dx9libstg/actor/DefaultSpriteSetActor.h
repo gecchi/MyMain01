@@ -14,7 +14,7 @@ class DefaultSpriteSetActor : public GgafDx9Core::GgafDx9SpriteSetActor {
 public:
     DWORD _frame_offset;
 
-    StgChecker* _pStgChecker;
+    CollisionChecker* _pCollisionChecker;
     /** 拡大縮小支援オブジェクト */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
