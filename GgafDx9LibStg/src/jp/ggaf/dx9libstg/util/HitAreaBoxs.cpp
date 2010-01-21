@@ -6,8 +6,8 @@ using namespace GgafDx9LibStg;
 
 HitAreaBoxs::HitAreaBoxs(int prm_iAreaNum) : GgafDx9HitArea(prm_iAreaNum) {
     if (prm_iAreaNum > 0) {
-        _paBase = NEW Box[prm_iAreaNum];
-        _paHitArea = NEW Box[prm_iAreaNum];
+        _paBaseBox = NEW Box[prm_iAreaNum];
+        _paHitAreaBox = NEW Box[prm_iAreaNum];
     } else {
         throwGgafCriticalException("HitAreaBoxs::HitAreaBoxs Box数が不正。prm_iAreaNum="<<prm_iAreaNum);
     }
@@ -18,43 +18,43 @@ void HitAreaBoxs::setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, 
         throwGgafCriticalException("HitAreaBoxs::setBox() 要素オーバー。_iAreaNum="<<_iAreaNum<<"/prm_iArea="<<prm_iArea);
     }
     if (x1 < x2) {
-        _paBase[prm_iArea].x1 = x1;
-        _paBase[prm_iArea].x2 = x2;
+        _paBaseBox[prm_iArea].x1 = x1;
+        _paBaseBox[prm_iArea].x2 = x2;
     } else {
-        _paBase[prm_iArea].x1 = x2;
-        _paBase[prm_iArea].x2 = x1;
+        _paBaseBox[prm_iArea].x1 = x2;
+        _paBaseBox[prm_iArea].x2 = x1;
     }
 
     if (y1 < y2) {
-        _paBase[prm_iArea].y1 = y1;
-        _paBase[prm_iArea].y2 = y2;
+        _paBaseBox[prm_iArea].y1 = y1;
+        _paBaseBox[prm_iArea].y2 = y2;
     } else {
-        _paBase[prm_iArea].y1 = y2;
-        _paBase[prm_iArea].y2 = y1;
+        _paBaseBox[prm_iArea].y1 = y2;
+        _paBaseBox[prm_iArea].y2 = y1;
     }
 
     if (z1 < z2) {
-        _paBase[prm_iArea].z1 = z1;
-        _paBase[prm_iArea].z2 = z2;
+        _paBaseBox[prm_iArea].z1 = z1;
+        _paBaseBox[prm_iArea].z2 = z2;
     } else {
-        _paBase[prm_iArea].z1 = z2;
-        _paBase[prm_iArea].z2 = z1;
+        _paBaseBox[prm_iArea].z1 = z2;
+        _paBaseBox[prm_iArea].z2 = z1;
     }
 
-    _paBase[prm_iArea].hdx = (_paBase[prm_iArea].x2 - _paBase[prm_iArea].x1) / 2;
-    _paBase[prm_iArea].hdy = (_paBase[prm_iArea].y2 - _paBase[prm_iArea].y1) / 2;
-    _paBase[prm_iArea].hdz = (_paBase[prm_iArea].z2 - _paBase[prm_iArea].z1) / 2;
+    _paBaseBox[prm_iArea].hdx = (_paBaseBox[prm_iArea].x2 - _paBaseBox[prm_iArea].x1) / 2;
+    _paBaseBox[prm_iArea].hdy = (_paBaseBox[prm_iArea].y2 - _paBaseBox[prm_iArea].y1) / 2;
+    _paBaseBox[prm_iArea].hdz = (_paBaseBox[prm_iArea].z2 - _paBaseBox[prm_iArea].z1) / 2;
 
-    _paBase[prm_iArea].cx = _paBase[prm_iArea].x1 + _paBase[prm_iArea].hdx;
-    _paBase[prm_iArea].cy = _paBase[prm_iArea].y1 + _paBase[prm_iArea].hdy;
-    _paBase[prm_iArea].cz = _paBase[prm_iArea].z1 + _paBase[prm_iArea].hdz;
+    _paBaseBox[prm_iArea].cx = _paBaseBox[prm_iArea].x1 + _paBaseBox[prm_iArea].hdx;
+    _paBaseBox[prm_iArea].cy = _paBaseBox[prm_iArea].y1 + _paBaseBox[prm_iArea].hdy;
+    _paBaseBox[prm_iArea].cz = _paBaseBox[prm_iArea].z1 + _paBaseBox[prm_iArea].hdz;
 
-    _paBase[prm_iArea].rotX = rotX;
-    _paBase[prm_iArea].rotY = rotY;
-    _paBase[prm_iArea].rotZ = rotZ;
+    _paBaseBox[prm_iArea].rotX = rotX;
+    _paBaseBox[prm_iArea].rotY = rotY;
+    _paBaseBox[prm_iArea].rotZ = rotZ;
 
-    _paBase[prm_iArea].is_valid_flg = true;
-    _paHitArea[prm_iArea] = _paBase[prm_iArea];
+    _paBaseBox[prm_iArea].is_valid_flg = true;
+    _paHitAreaBox[prm_iArea] = _paBaseBox[prm_iArea];
 }
 
 
@@ -62,6 +62,6 @@ void HitAreaBoxs::setBox(int prm_iArea, int x1, int y1, int z1, int x2, int y2, 
 HitAreaBoxs::~HitAreaBoxs() {
     TRACE("HitAreaBoxs::~HitAreaBoxs()");
     //キャラはあっても判定はないかもしれない
-    DELETEARR_POSSIBLE_NULL(_paBase);
-    DELETEARR_POSSIBLE_NULL(_paHitArea)
+    DELETEARR_POSSIBLE_NULL(_paBaseBox);
+    DELETEARR_POSSIBLE_NULL(_paHitAreaBox)
 }

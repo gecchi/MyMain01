@@ -34,15 +34,15 @@ void CubeEx::drawHitarea(StgChecker* prm_pStgChecker) {
         int iAreaNum = pHitAreaBoxs->_iAreaNum;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
-                if (pHitAreaBoxs->_paHitArea[i].is_valid_flg) {
+                if (pHitAreaBoxs->_paHitAreaBox[i].is_valid_flg) {
                     //_TRACE_("drawHitarea name="<<prm_pStgChecker->getTargetActor()->getName()<<" index="<<i);
 
-                    drawBox(pActor->_X + pHitAreaBoxs->_paHitArea[i].x1,
-                            pActor->_Y + pHitAreaBoxs->_paHitArea[i].y1,
-                            pActor->_Z + pHitAreaBoxs->_paHitArea[i].z1,
-                            pActor->_X + pHitAreaBoxs->_paHitArea[i].x2,
-                            pActor->_Y + pHitAreaBoxs->_paHitArea[i].y2,
-                            pActor->_Z + pHitAreaBoxs->_paHitArea[i].z2);
+                    drawBox(pActor->_X + pHitAreaBoxs->_paHitAreaBox[i].x1,
+                            pActor->_Y + pHitAreaBoxs->_paHitAreaBox[i].y1,
+                            pActor->_Z + pHitAreaBoxs->_paHitAreaBox[i].z1,
+                            pActor->_X + pHitAreaBoxs->_paHitAreaBox[i].x2,
+                            pActor->_Y + pHitAreaBoxs->_paHitAreaBox[i].y2,
+                            pActor->_Z + pHitAreaBoxs->_paHitAreaBox[i].z2);
                     GgafGod::_num_actor_drawing--; //当たり判定表示は表示オブジェクト数にカウントしない
                 }
             }

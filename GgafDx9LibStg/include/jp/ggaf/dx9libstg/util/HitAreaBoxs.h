@@ -23,16 +23,16 @@ public:
         int hdx; //x幅の半分
         int hdy; //y幅の半分
         int hdz; //z幅の半分
-        bool rotX; //中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（箱が回転するのではない）
-        bool rotY; //中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（箱が回転するのではない）
-        bool rotZ; //中心点を、オブジェクトの(0,0)を中心にZ軸回転の移動をさせるかどうか（箱が回転するのではない）
+        bool rotX; //中心点を、オブジェクトの(0,0)を中心にX軸回転の移動をさせるかどうか（箱が軸回転するのではない）
+        bool rotY; //中心点を、オブジェクトの(0,0)を中心にY軸回転の移動をさせるかどうか（箱が軸回転するのではない）
+        bool rotZ; //中心点を、オブジェクトの(0,0)を中心にZ軸回転の移動をさせるかどうか（箱が軸回転するのではない）
         bool is_valid_flg; //有効フラグ
     };
 
 
 
-    Box* _paBase;
-    Box* _paHitArea;
+    Box* _paBaseBox;
+    Box* _paHitAreaBox;
 
     HitAreaBoxs(int prm_iAreaNum);
 

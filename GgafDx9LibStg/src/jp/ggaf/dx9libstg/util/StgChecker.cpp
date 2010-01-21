@@ -87,8 +87,8 @@ void StgChecker::updateHitArea() {
         HitAreaBoxs::Box* pBase;
         _X1=_Y1=_Z1=_X2=_Y2=_Z2=0;
         for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
-            pHitArea = &(_pHitAreaBoxs->_paHitArea[i]);
-            pBase= &(_pHitAreaBoxs->_paBase[i]);
+            pHitArea = &(_pHitAreaBoxs->_paHitAreaBox[i]);
+            pBase= &(_pHitAreaBoxs->_paBaseBox[i]);
 
             if (pBase->rotX || pBase->rotY || pBase->rotZ) {
                 //“–‚½‚è”»’è—ÌˆæŽ²‰ñ“]
@@ -191,7 +191,7 @@ void StgChecker::updateHitArea() {
 //    pOtherHitAreaBoxs = ((StgChecker*)prm_pOtherChecker)->getHitAreaBoxs();
 //    if (_pActor == NULL || pOtherActor == NULL || _pHitAreaBoxs == NULL || pOtherHitAreaBoxs == NULL ||
 //        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ||
-//        _pHitAreaBoxs->_paHitArea->active == false || pOtherHitAreaBoxs->_paHitArea->active == false) {
+//        _pHitAreaBoxs->_paHitAreaBox->active == false || pOtherHitAreaBoxs->_paHitAreaBox->active == false) {
 //        return false;
 //    } else {
 //
@@ -200,12 +200,12 @@ void StgChecker::updateHitArea() {
 //        for (int i = 0; i < _pHitAreaBoxs->_iAreaNum; i++) {
 //            for (int j = 0; j < pOtherHitAreaBoxs->_iAreaNum; j++) {
 //                StgChecker::_num_check++;
-//                if (_pActor->_Z + pHitArea->z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z1) {
-//                    if (_pActor->_Z + pHitArea->z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitArea[j].z2) {
-//                        if (_pActor->_X + pHitArea->x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x1) {
-//                            if (_pActor->_X + pHitArea->x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitArea[j].x2) {
-//                                if (_pActor->_Y + pHitArea->y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y1) {
-//                                    if (_pActor->_Y + pHitArea->y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitArea[j].y2) {
+//                if (_pActor->_Z + pHitArea->z2 >= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitAreaBox[j].z1) {
+//                    if (_pActor->_Z + pHitArea->z1 <= pOtherActor->_Z + pOtherHitAreaBoxs->_paHitAreaBox[j].z2) {
+//                        if (_pActor->_X + pHitArea->x2 >= pOtherActor->_X + pOtherHitAreaBoxs->_paHitAreaBox[j].x1) {
+//                            if (_pActor->_X + pHitArea->x1 <= pOtherActor->_X + pOtherHitAreaBoxs->_paHitAreaBox[j].x2) {
+//                                if (_pActor->_Y + pHitArea->y2 >= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitAreaBox[j].y1) {
+//                                    if (_pActor->_Y + pHitArea->y1 <= pOtherActor->_Y + pOtherHitAreaBoxs->_paHitAreaBox[j].y2) {
 //                                        return true;
 //                                    }
 //                                }
