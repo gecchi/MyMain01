@@ -11,11 +11,11 @@ namespace GgafDx9LibStg {
 class ColliSphere : public GgafDx9Core::GgafDx9CollisionPart {
 public:
     /** xç¿ïW */
-    int _x1;
+    int _x;
     /** yç¿ïW */
-    int _y1;
+    int _y;
     /** zç¿ïW */
-    int _z1;
+    int _z;
     /** îºåa */
     int _r;
 

@@ -27,17 +27,14 @@ void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
         prm_pCollisionChecker->_pCollisionArea != NULL &&
         prm_pCollisionChecker->getTargetActor()->canBump() &&
         prm_pCollisionChecker->getTargetActor()->isActive()) {
+
         GgafDx9GeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
         GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
-
-        //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
 
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == ) {
+                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_AABB) {
                     ColliBox* box = (ColliBox*)pCollisionArea->_papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
 
@@ -51,8 +48,7 @@ void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
                 }
             }
         }
-        //Œ³‚É–ß‚·
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+
     }
 }
 

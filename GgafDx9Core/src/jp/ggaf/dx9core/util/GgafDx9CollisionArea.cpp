@@ -46,7 +46,7 @@ void GgafDx9CollisionArea::updateAABB() {
 }
 
 GgafDx9CollisionArea::~GgafDx9CollisionArea() {
-    for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
+    for (int i = 0; i < _nColliPart; i++) {
         DELETE_POSSIBLE_NULL(_papColliPart[i]);
     }
     DELETEARR_IMPOSSIBLE_NULL(_papColliPart);

@@ -36,7 +36,7 @@ void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
-                if (pCollisionArea->_papColliPart[i]->_is_valid_flg) {
+                if (pCollisionArea->_papColliPart[i]->_is_valid_flg && pCollisionArea->_papColliPart[i]->_shape_kind == COLLI_SPHERE) {
                     ColliSphere* sphere = (ColliSphere*)pCollisionArea->_papColliPart[i];
                     //_TRACE_("drawHitarea name="<<prm_pCollisionChecker->getTargetActor()->getName()<<" index="<<i);
 

@@ -103,28 +103,52 @@ bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
         return false;
     } else {
         //自分の箱と相手の箱
-        ColliBox* pBox;
-        ColliBox* pOtherBox;
+        GgafDx9CollisionPart* pColliPart;
+        GgafDx9CollisionPart* pOtherColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
-            pBox = (ColliBox*)_pCollisionArea->_papColliPart[i];
-            if (pBox->_is_valid_flg) {
+            pColliPart = _pCollisionArea->_papColliPart[i];
+            if (pColliPart->_is_valid_flg) {
                 for (int j = 0; j < pOtherCollisionArea->_nColliPart; j++) {
-                    pOtherBox = (ColliBox*)pOtherCollisionArea->_papColliPart[j];
-                    if (pOtherBox->_is_valid_flg) {
+                    pOtherColliPart = pOtherCollisionArea->_papColliPart[j];
+                    if (pOtherColliPart->_is_valid_flg) {
                         CollisionChecker::_num_check++;
-                        if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
-                            if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
-                                if (_pActor->_X + pBox->_x2 >= pOtherActor->_X + pOtherBox->_x1) {
-                                    if (_pActor->_X + pBox->_x1 <= pOtherActor->_X + pOtherBox->_x2) {
-                                        if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {
-                                            if (_pActor->_Y + pBox->_y1 <= pOtherActor->_Y + pOtherBox->_y2) {
-                                                return true;
+
+
+                        if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_AABB) {
+                            //AABB AABB
+                            ColliBox* pBox = (ColliBox*)pColliPart;
+                            ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
+                            if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
+                                if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
+                                    if (_pActor->_X + pBox->_x2 >= pOtherActor->_X + pOtherBox->_x1) {
+                                        if (_pActor->_X + pBox->_x1 <= pOtherActor->_X + pOtherBox->_x2) {
+                                            if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {
+                                                if (_pActor->_Y + pBox->_y1 <= pOtherActor->_Y + pOtherBox->_y2) {
+                                                    return true;
+                                                }
                                             }
                                         }
                                     }
                                 }
                             }
+
+                        } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOtherColliPart->_shape_kind == COLLI_SPHERE) {
+                            //球と球
+                            ColliSphere* pSphere = (ColliSphere*)pColliPart;
+                            ColliSphere* pOtherSphere = (ColliSphere*)pOtherColliPart;
+                            //球1 ： 中心点の座標P1(x1, y1, z1), 半径r1
+                            //球2 ： 中心点の座標P2(x2, y2, z2), 半径r2
+                            //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
+                            if ( ( pow(2.0, (pOtherSphere->_x - pSphere->_x)) +
+                                   pow(2.0, (pOtherSphere->_y - pSphere->_y)) +
+                                   pow(2.0, (pOtherSphere->_z - pSphere->_z)) )  <=  pow(2.0, (pOtherSphere->_r - pSphere->_r)) ) {
+
+                                return true;
+                            }
+
                         }
+
+
                     }
                 }
             }
