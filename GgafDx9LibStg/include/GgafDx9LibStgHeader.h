@@ -27,8 +27,10 @@ class FormationActor;
 class ActorDispatcher;
 //class FontSpriteString;
 class CubeEx;
+class SphereEx;
 class HitAreaBoxs;
 class ColliBox;
+class ColliSphere;
 class LinearOctreeForActor;
 class LOFA_Elem;
 class StgChecker;
@@ -58,9 +60,11 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
 #include "jp/ggaf/dx9libstg/actor/ActorDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"
+#include "jp/ggaf/dx9libstg/actor/SphereEx.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
 #include "jp/ggaf/dx9libstg/util/ColliBox.h"
+#include "jp/ggaf/dx9libstg/util/ColliSphere.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LOFA_Elem.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"

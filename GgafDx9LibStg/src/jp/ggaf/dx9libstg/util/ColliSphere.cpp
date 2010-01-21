@@ -4,67 +4,48 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-ColliBox::ColliBox() : GgafDx9CollisionPart() {
-    _x1 = 0;
-    _y1 = 0;
-    _z1 = 0;
-    _x2 = 0;
-    _y2 = 0;
-    _z2 = 0;
-    _shape_kind = COLLI_AABB;
+ColliSphere::ColliSphere() : GgafDx9CollisionPart() {
+    _x = 0;
+    _y = 0;
+    _z = 0;
+    _r = 0;
+    _shape_kind = COLLI_SPHERE;
 }
 
-void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ) {
-    if (x1 < x2) {
-        _x1 = x1;
-        _x2 = x2;
-    } else {
-        _x1 = x2;
-        _x2 = x1;
-    }
-    if (y1 < y2) {
-        _y1 = y1;
-        _y2 = y2;
-    } else {
-        _y1 = y2;
-        _y2 = y1;
-    }
-    if (z1 < z2) {
-        _z1 = z1;
-        _z2 = z2;
-    } else {
-        _z1 = z2;
-        _z2 = z1;
-    }
+void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ) {
+    _x = x;
+    _y = y;
+    _z = z;
+    _r = r;
 
     //基底クラスメンバの更新
-    _dx = (_x2 - _x1);
-    _dy = (_y2 - _y1);
-    _dz = (_z2 - _z1);
+    _dx = _r*2;
+    _dy = _r*2;
+    _dz = _r*2;
     _hdx = _dx / 2;
     _hdy = _dy / 2;
     _hdz = _dz / 2;
-    _base_cx = _x1 + _hdx;
-    _base_cy = _y1 + _hdy;
-    _base_cz = _z1 + _hdz;
+    _base_cx = _x;
+    _base_cy = _y;
+    _base_cz = _z;
     _cx = _base_cx;
     _cy = _base_cy;
     _cz = _base_cz;
     _rotX = rotX;
     _rotY = rotY;
     _rotZ = rotZ;
-    //境界領域は全く同じ
-    _aabb_x1 = _x1;
-    _aabb_y1 = _y1;
-    _aabb_z1 = _z1;
-    _aabb_x2 = _x2;
-    _aabb_y2 = _y2;
-    _aabb_z2 = _z2;
+    //境界領域
+    _aabb_x1 = _x - _r;
+    _aabb_y1 = _y - _r;
+    _aabb_z1 = _z - _r;
+    _aabb_x2 = _x + _r;
+    _aabb_y2 = _y + _r;
+    _aabb_z2 = _z + _r;
 
     _is_valid_flg = true;
 }
 
-bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
+bool ColliSphere::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
@@ -97,19 +78,17 @@ bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core:
             wk_cy = _cy;
         }
 
-        _x1 = wk_cx - _hdx;
-        _y1 = wk_cy - _hdy;
-        _z1 = wk_cz - _hdz;
-        _x2 = wk_cx + _hdx;
-        _y2 = wk_cy + _hdy;
-        _z2 = wk_cz + _hdz;
+        _x = wk_cx;
+        _y = wk_cy;
+        _z = wk_cz;
+        //_r = r;
         //境界領域も更新
-        _aabb_x1 = _x1;
-        _aabb_y1 = _y1;
-        _aabb_z1 = _z1;
-        _aabb_x2 = _x2;
-        _aabb_y2 = _y2;
-        _aabb_z2 = _z2;
+        _aabb_x1 = _x - _r;
+        _aabb_y1 = _y - _r;
+        _aabb_z1 = _z - _r;
+        _aabb_x2 = _x + _r;
+        _aabb_y2 = _y + _r;
+        _aabb_z2 = _z + _r;
         return true;
     } else {
         return false;
@@ -117,6 +96,6 @@ bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core:
 }
 
 
-ColliBox::~ColliBox() {
-    TRACE("ColliBox::~ColliBox()");
+ColliSphere::~ColliSphere() {
+    TRACE("ColliSphere::~ColliSphere()");
 }
