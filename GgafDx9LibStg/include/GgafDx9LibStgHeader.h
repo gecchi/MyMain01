@@ -28,13 +28,16 @@ class ActorDispatcher;
 //class FontSpriteString;
 class CubeEx;
 class HitAreaBoxs;
+class ColliBox;
 class LinearOctreeForActor;
 class LOFA_Elem;
 class StgChecker;
+class CollisionChecker;
 }
 
 #include "jp/ggaf/dx9libstg/DefaultGod.h"
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
+#include "jp/ggaf/dx9libstg/util/CollisionChecker.h"
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
 #include "jp/ggaf/dx9libstg/util/GeoElement.h"
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
@@ -57,6 +60,7 @@ class StgChecker;
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/HitAreaBoxs.h"
+#include "jp/ggaf/dx9libstg/util/ColliBox.h"
 #include "jp/ggaf/dx9libstg/util/LinearOctreeForActor.h"
 #include "jp/ggaf/dx9libstg/util/LOFA_Elem.h"
 #include "jp/ggaf/dx9libstg/util/StgChecker.h"
@@ -64,6 +68,9 @@ class StgChecker;
 
 
 #define DISP_HITAREA 1
+
+#define COLLI_AABB 1
+#define COLLI_SPHERE 2
 
 
 #endif /*GGAFDX9LIBSTGHEADER_H_*/
