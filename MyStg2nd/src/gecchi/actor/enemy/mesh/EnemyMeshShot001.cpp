@@ -36,7 +36,7 @@ void EnemyMeshShot001::initialize() {
 
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
-    setBumpable(true);
+    setCollisionable(true);
     useSe1("bomb1");
 }
 
@@ -47,7 +47,7 @@ void EnemyMeshShot001::processBehavior() {
         _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);
 
         _frame_on_change_to_active_flg = 0;
-        setBumpable(true);
+        setCollisionable(true);
     } else {
 
 
@@ -82,11 +82,11 @@ void EnemyMeshShot001::processJudgement() {
     }
 }
 
-void EnemyMeshShot001::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //adios();
     playSe1();
-    setBumpable(false);
+    setCollisionable(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 DefaultSpriteEffectActor::DefaultSpriteEffectActor(const char* prm_name, const char* prm_model) :
     DefaultSpriteActor(prm_name, prm_model) {
     _class_name = "DefaultSpriteEffectActor";
-    setBumpable(false);
+    setCollisionable(false);
 }
 //オーバーライド
 void DefaultSpriteEffectActor::processHappen(int prm_event) {

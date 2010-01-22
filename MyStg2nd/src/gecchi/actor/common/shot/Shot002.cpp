@@ -19,7 +19,7 @@ void Shot002::initialize() {
 
 void Shot002::onActive() {
     MyStgUtil::resetShot002Status(_pStatus);
-    setBumpable(true);
+    setCollisionable(true);
     _pScaler->setScale(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setMoveVelocity(8000*_RANK_);
@@ -54,7 +54,7 @@ void Shot002::processJudgement() {
     }
 }
 
-void Shot002::processOnHit(GgafActor* prm_pOtherActor) {
+void Shot002::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

@@ -29,7 +29,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    virtual void processOnHit(GgafActor* prm_pOtherActor);
+    virtual void onHit(GgafActor* prm_pOtherActor);
 
     virtual ~EnemyShotSpriteActor();
 };

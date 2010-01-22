@@ -14,7 +14,7 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm
 
 void EnemyShotSpriteActor::initialize() {
     setAnimationMethod(ORDER_LOOP, 1);
-    setBumpable(true);
+    setCollisionable(true);
 }
 
 void EnemyShotSpriteActor::processBehavior() {
@@ -30,7 +30,7 @@ void EnemyShotSpriteActor::processJudgement() {
 
 }
 
-void EnemyShotSpriteActor::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyShotSpriteActor::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyShotSpriteActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     inactivateTree();
 }

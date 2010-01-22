@@ -15,7 +15,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, 
 }
 
 void EnemyTamago01::initialize() {
-    setBumpable(true);
+    setCollisionable(true);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
@@ -89,7 +89,7 @@ void EnemyTamago01::processJudgement() {
     }
 }
 
-void EnemyTamago01::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     playSe2();

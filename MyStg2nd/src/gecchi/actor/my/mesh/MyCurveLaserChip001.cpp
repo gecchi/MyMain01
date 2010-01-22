@@ -17,7 +17,7 @@ void MyCurveLaserChip001::initialize() {
 
     registHitAreaCube(50000);
 
-    setBumpable(true);
+    setCollisionable(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;
@@ -32,7 +32,7 @@ void MyCurveLaserChip001:: processBehavior() {;
     CurveLaserChip::processBehavior();
 }
 
-void MyCurveLaserChip001::processOnHit(GgafActor* prm_pOtherActor) {
+void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにMyのヒットエフェクト
     if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

@@ -45,7 +45,7 @@ void EnemyMetis::onActive() {
     _X = GgafDx9Universe::_X_goneRight - 1000;
     _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
     _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
-    setBumpable(true);
+    setCollisionable(true);
 }
 
 void EnemyMetis::processBehavior() {
@@ -59,7 +59,7 @@ void EnemyMetis::processJudgement() {
     }
 }
 
-void EnemyMetis::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     setTechniqueTemporarily("Flush", 2); //フラッシュ

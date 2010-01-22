@@ -247,7 +247,7 @@ void MyDummyOption::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 }
 
-void MyDummyOption::processOnHit(GgafActor* prm_pOtherActor) {
+void MyDummyOption::onHit(GgafActor* prm_pOtherActor) {
     adios();
 }
 

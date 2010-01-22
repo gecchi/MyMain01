@@ -37,7 +37,7 @@ void MyWave001::initialize() {
     _pScaler->setScaleRange(1000,20000);
     //setAlpha(0.2);
 
-    setBumpable(true);
+    setCollisionable(true);
     inactivateTree();
 
 }
@@ -48,7 +48,7 @@ void MyWave001::processBehavior() {
         _pScaler->setScale(1000);
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
-        setBumpable(true);
+        setCollisionable(true);
         setGeometry(GameGlobal::_pMyShip);
         _pMover->setFaceAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z]);
         _pMover->setFaceAngle(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
@@ -75,14 +75,14 @@ void MyWave001::processJudgement() {
 }
 
 /*
- bool MyWave001::processBumpChkLogic(GgafDx9GeometricActor* prm_pOtherActor) {
- //TRACE("MyWave001::processBumpChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
+ bool MyWave001::processHitChkLogic(GgafDx9GeometricActor* prm_pOtherActor) {
+ //TRACE("MyWave001::processHitChkLogic "+getPlatformScene()->getName()+"."+getName()+"ｘ"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
  return false;
  }
  */
 
-void MyWave001::processOnHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("MyWave001::processOnHit ショットがヒットしました");
+void MyWave001::onHit(GgafActor* prm_pOtherActor) {
+    //_TRACE_("MyWave001::onHit ショットがヒットしました");
     //_TRACE_("MyWave001ヒットしました。("<<_X<<","<<_Y<<")");
     //adios();
     inactivateTree();
@@ -90,7 +90,7 @@ void MyWave001::processOnHit(GgafActor* prm_pOtherActor) {
 
 void MyWave001::onInactive() {
     //消失時処理
-    setBumpable(false);
+    setCollisionable(false);
     moveFirst();
 }
 

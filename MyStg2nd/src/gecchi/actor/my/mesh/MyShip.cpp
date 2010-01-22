@@ -184,7 +184,7 @@ void MyShip::initialize() {
     getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
     //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
-    setBumpable(true);
+    setCollisionable(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 40000);
 //    _pCollisionChecker->setColliBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
@@ -446,7 +446,7 @@ void MyShip::processJudgement() {
     //_TRACE_("dep="<< (_fDistance_plnFront)<<"");
 }
 
-void MyShip::processOnHit(GgafActor* prm_pOtherActor) {
+void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
     playSe1();

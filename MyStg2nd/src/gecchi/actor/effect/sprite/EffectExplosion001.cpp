@@ -13,7 +13,7 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetA
 void EffectExplosion001::initialize() {
     setAnimationMethod(ORDER_NOLOOP, 1);
     setAnimationPatternRenge(0, 15);
-    setBumpable(false);
+    setCollisionable(false);
     enableBillboarding();
 }
 

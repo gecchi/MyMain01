@@ -41,7 +41,7 @@ public:
 
     void processFinal() override {
     }
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     void onInactive() override;
 

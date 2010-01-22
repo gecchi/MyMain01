@@ -37,11 +37,11 @@ public:
     void processFinal() override {
     }
 
-    bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
 

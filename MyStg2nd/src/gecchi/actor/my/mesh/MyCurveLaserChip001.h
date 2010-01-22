@@ -14,7 +14,7 @@ public:
 
     void processBehavior() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MyCurveLaserChip001();
 

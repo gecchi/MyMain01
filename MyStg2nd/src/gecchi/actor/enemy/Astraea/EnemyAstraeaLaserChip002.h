@@ -17,7 +17,7 @@ public:
 
     void processOnRefraction(int prm_num_refraction) override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyAstraeaLaserChip002();
 

@@ -15,7 +15,7 @@ EnemyAstraeaLaserChip002::EnemyAstraeaLaserChip002(const char* prm_name) : Refra
 
 void EnemyAstraeaLaserChip002::initialize() {
     registHitAreaCube(2000);
-    setBumpable(true);
+    setCollisionable(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;
     _max_radius = 5.0f;
@@ -51,7 +51,7 @@ void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
 
 }
 
-void EnemyAstraeaLaserChip002::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 //    //ƒqƒbƒgŽž
 //

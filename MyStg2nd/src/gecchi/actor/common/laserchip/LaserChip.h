@@ -56,7 +56,7 @@ public:
 
     virtual void processHappen(int prm_no) override {}
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual void drawHitArea() override;
 

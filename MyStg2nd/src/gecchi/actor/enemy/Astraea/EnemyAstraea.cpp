@@ -42,7 +42,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
 }
 
 void EnemyAstraea::initialize() {
-    setBumpable(true);
+    setCollisionable(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pMover->setMoveVelocity(0);
@@ -193,7 +193,7 @@ void EnemyAstraea::processJudgement() {
     }
 }
 
-void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     setTechniqueTemporarily("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
@@ -210,12 +210,12 @@ void EnemyAstraea::processOnHit(GgafActor* prm_pOtherActor) {
 
 
 //    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    setBumpable(false);
+//    setCollisionable(false);
 //    playSe2();
 //    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
 //        GameGlobal::_dwScore += _pCollisionChecker->_iScorePoint;
 //    }
-//    _TRACE_(" EnemyAstraea::EnemyAstraea::processOnHit()  "<<getName()<<" "<<_frame_of_active);
+//    _TRACE_(" EnemyAstraea::EnemyAstraea::onHit()  "<<getName()<<" "<<_frame_of_active);
 //
 //    //レーザーは遅れて開放させるように、動きを継続させるため移動
 //    GgafGroupActor* pHead = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約

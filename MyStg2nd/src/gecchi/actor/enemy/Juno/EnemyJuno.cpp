@@ -26,7 +26,7 @@ void EnemyJuno::initialize() {
 void EnemyJuno::processBehavior() {
     if (onChangeToActive()) {
         //èoåªéûèàóù
-        setBumpable(true);
+        setCollisionable(true);
         _X += FormationJuno001::_X_FormationWhole;
     }
 
@@ -37,13 +37,13 @@ void EnemyJuno::processBehavior() {
 
 void EnemyJuno::processJudgement() {
     if (isOutOfGameSpace()) {
-        setBumpable(false);
+        setCollisionable(false);
         adios();
     }
 }
 
-void EnemyJuno::processOnHit(GgafActor* prm_pOtherActor) {
-    setBumpable(false);
+void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
+    setCollisionable(false);
     adios();
 }
 

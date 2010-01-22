@@ -15,7 +15,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "8/Ir
 }
 
 void EnemyIris::initialize() {
-    setBumpable(true);
+    setCollisionable(true);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
@@ -95,9 +95,9 @@ void EnemyIris::processJudgement() {
     }
 }
 
-void EnemyIris::processOnHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyIris::processOnHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
-    //_TRACE_("EnemyIris::processOnHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
+    //_TRACE_("EnemyIris::onHit!!! this="<<getName()<<"("<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
+    //_TRACE_("EnemyIris::onHit!!! prm_pOtherActor="<<prm_pOtherActor->getName()<<"("<<prm_pOtherActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<")");
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 

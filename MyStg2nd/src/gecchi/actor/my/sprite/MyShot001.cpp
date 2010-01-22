@@ -42,7 +42,7 @@ void MyShot001::initialize() {
     _SY = 50000;
     setAlpha(0.5);
 
-    setBumpable(true);
+    setCollisionable(true);
     inactivateTree();
 
 }
@@ -50,7 +50,7 @@ void MyShot001::initialize() {
 void MyShot001::processBehavior() {
     if (onChangeToActive()) {
         //èoåªéûã§í èàóù
-        setBumpable(true);
+        setCollisionable(true);
         _X = GameGlobal::_pMyShip->_X;
         _Y = GameGlobal::_pMyShip->_Y;
         _Z = GameGlobal::_pMyShip->_Z;
@@ -70,13 +70,13 @@ void MyShot001::processJudgement() {
 }
 
 
-void MyShot001::processOnHit(GgafActor* prm_pOtherActor) {
+void MyShot001::onHit(GgafActor* prm_pOtherActor) {
     inactivateTree();
 }
 
 void MyShot001::onInactive() {
     //è¡é∏éûèàóù
-    setBumpable(false);
+    setCollisionable(false);
     moveFirst();
 }
 

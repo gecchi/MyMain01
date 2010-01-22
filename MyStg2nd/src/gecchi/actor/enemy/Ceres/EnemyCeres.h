@@ -59,7 +59,7 @@ public:
 
     void processJudgement() override;
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     int isOutOfGameSpace() override;
 

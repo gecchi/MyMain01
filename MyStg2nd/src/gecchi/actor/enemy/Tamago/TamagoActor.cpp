@@ -11,7 +11,7 @@ TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "stra
 
 void TamagoActor::initialize() {
     //inactivateTree();
-    setBumpable(false);
+    setCollisionable(false);
     _X = _Y = _Z = 0;
     _Y = 0;
 //    _pMover->setRzMoveAngle(ANGLE180);
@@ -58,7 +58,7 @@ void TamagoActor::processBehavior() {
 void TamagoActor::processJudgement() {
 }
 
-void TamagoActor::processOnHit(GgafActor* prm_pOtherActor) {
+void TamagoActor::onHit(GgafActor* prm_pOtherActor) {
     _TRACE_("TamagoActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<","<<_Z<<")");
 }
 

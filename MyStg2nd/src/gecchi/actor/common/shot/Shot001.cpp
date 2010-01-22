@@ -20,7 +20,7 @@ void Shot001::initialize() {
 
 void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
-    setBumpable(true);
+    setCollisionable(true);
     _pMover->setMoveVelocity(10000*_RANK_);             //移動速度
     _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //きりもみ具合
     _pScaler->beat(30,5,2,-1);
@@ -40,7 +40,7 @@ void Shot001::processJudgement() {
     }
 }
 
-void Shot001::processOnHit(GgafActor* prm_pOtherActor) {
+void Shot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

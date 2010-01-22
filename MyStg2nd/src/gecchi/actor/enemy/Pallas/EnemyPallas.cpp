@@ -12,7 +12,7 @@ EnemyPallas::EnemyPallas(const char* prm_name) : DefaultMeshEnemyActor(prm_name,
 }
 
 void EnemyPallas::initialize() {
-    setBumpable(true);
+    setCollisionable(true);
     _X = GgafDx9Camera::_X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
@@ -49,8 +49,8 @@ void EnemyPallas::processJudgement() {
     }
 }
 
-void EnemyPallas::processOnHit(GgafActor* prm_pOtherActor) {
-    setBumpable(false);
+void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
+    setCollisionable(false);
     adios();
 }
 

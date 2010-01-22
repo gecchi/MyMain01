@@ -30,7 +30,7 @@ public:
 
     virtual void processFinal() override {}
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {}
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {}
 
     //void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
 

@@ -14,7 +14,7 @@ public:
 
     void processBehaviorHeadChip();
 
-    void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
 
     virtual ~EnemyAstraeaLaserChip001();

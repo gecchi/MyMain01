@@ -76,7 +76,7 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::onActive() {
-    setBumpable(true);
+    setCollisionable(true);
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _dwFrame_Active = 0;
@@ -130,12 +130,12 @@ void EnemyCeres::processJudgement() {
 }
 
 
-void EnemyCeres::processOnHit(GgafActor* prm_pOtherActor) {
+void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
-        setBumpable(false);
+        setCollisionable(false);
         playSe1();
         inactivate(); //TODO:さよなら
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
