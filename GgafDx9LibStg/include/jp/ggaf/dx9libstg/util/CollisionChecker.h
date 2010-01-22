@@ -35,6 +35,16 @@ public:
 
     void makeCollision(int prm_nColliPart);
 
+    void setColliSphere(int prm_index, int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ);
+
+    void setColliSphere(int prm_index, int x, int y, int z, int r) {
+        setColliSphere(prm_index, x, y, z, r, false, false, false);
+    }
+
+    void setColliSphere(int prm_index, int r) {
+        setColliSphere(prm_index, 0, 0, 0, r, false, false, false);
+    }
+
     void setColliBox(int prm_index, int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 
 

@@ -21,7 +21,7 @@ DefaultMorphMeshActor::DefaultMorphMeshActor(const char* prm_name, const char* p
 }
 
 void DefaultMorphMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 

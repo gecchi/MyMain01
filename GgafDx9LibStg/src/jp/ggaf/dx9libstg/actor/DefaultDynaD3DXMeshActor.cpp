@@ -19,7 +19,7 @@ DefaultDynaD3DXMeshActor::DefaultDynaD3DXMeshActor(const char* prm_name, const c
 }
 
 void DefaultDynaD3DXMeshActor::drawHitArea() {
-    CubeEx::get()->drawHitarea(_pCollisionChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
 }
 
 
