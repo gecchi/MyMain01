@@ -12,6 +12,9 @@
         #define _CRTDBG_MAP_ALLOC
         #define _CRTDBG_MAP_ALLOC_NEW
     #endif
+	#if _MSC_VER < 1500
+		#define override
+    #endif
 #else
    #define _WIN32_IE 0x0300
    #define override
