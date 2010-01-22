@@ -10,7 +10,7 @@ GgafActor::GgafActor(const char* prm_name) :
     _pStatus = NEW GgafStatus(10);
     _pScene_Platform = NULL;
     _pGod = NULL;
-    setBumpable(false);
+    setCollisionable(false);
     _use_octree = false;
     _actor_class = 0;
 #ifdef MY_DEBUG
@@ -45,18 +45,18 @@ void GgafActor::setScenePlatform(GgafScene* prm_pScene_Platform) {
     }
 }
 
-void GgafActor::setBumpable(bool prm_can_bump_flg) {
-    TRACE("GgafActor::setBumpable() " << getName());
-    _can_bump_flg = prm_can_bump_flg;
+void GgafActor::setCollisionable(bool prm_can_collide_flg) {
+    TRACE("GgafActor::setCollisionable() " << getName());
+    _can_collide_flg = prm_can_collide_flg;
 }
 
-void GgafActor::setBumpableTree(bool prm_can_bump_flg) {
-    TRACE("GgafActor::setBumpable() " << getName());
-    _can_bump_flg = prm_can_bump_flg;
+void GgafActor::setCollisionableTree(bool prm_can_collide_flg) {
+    TRACE("GgafActor::setCollisionable() " << getName());
+    _can_collide_flg = prm_can_collide_flg;
     if (_pSubFirst != NULL) {
         _pActor_tmp = _pSubFirst;
         while (true) {
-            _pActor_tmp->setBumpable(prm_can_bump_flg);
+            _pActor_tmp->setCollisionable(prm_can_collide_flg);
             if (_pActor_tmp->_is_last_flg) {
                 break;
             } else {
@@ -79,7 +79,7 @@ GgafScene* GgafActor::getPlatformScene() {
 void GgafActor::dump() {
     _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
                                                                                ","<<
-                                                                               _can_bump_flg<<
+                                                                               _can_collide_flg<<
                                                                                ","<<
                                                                                _is_active_flg<<
                                                                                _was_paused_flg<<
@@ -113,7 +113,7 @@ void GgafActor::dump() {
 void GgafActor::dump(string prm_parent) {
     _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
                                                                          ","<<
-                                                                         _can_bump_flg<<
+                                                                         _can_collide_flg<<
                                                                          ","<<
                                                                          _is_active_flg<<
                                                                          _was_paused_flg<<

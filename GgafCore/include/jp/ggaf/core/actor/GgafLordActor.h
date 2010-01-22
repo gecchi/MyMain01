@@ -68,14 +68,14 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
+    bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    void processOnHit(GgafActor* prm_pOtherActor) override {
+    void onHit(GgafActor* prm_pOtherActor) override {
     }
 
     void remove();

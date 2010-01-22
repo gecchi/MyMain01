@@ -70,14 +70,14 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ<BR>
      */
-    virtual void processOnHit(GgafActor* prm_pOtherActor) override {
+    virtual void onHit(GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~GgafDummyActor();

@@ -7,7 +7,7 @@ GgafMainActor::GgafMainActor(const char* prm_name) : GgafActor(prm_name) {
     _class_name = "GgafMainActor";
     _pGroupActor = NULL;
     _pLordActor = NULL;
-    setBumpable(false);
+    setCollisionable(false);
     _actor_class = MAINACTOR;
 }
 

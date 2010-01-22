@@ -6,7 +6,7 @@ using namespace GgafCore;
 GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor(prm_pScene_Platform->getName()) {
     _pScene_Platform = prm_pScene_Platform;
     _class_name = "GgafLordActor";
-    setBumpable(false);
+    setCollisionable(false);
     _actor_class = LORDACTOR;
 }
 

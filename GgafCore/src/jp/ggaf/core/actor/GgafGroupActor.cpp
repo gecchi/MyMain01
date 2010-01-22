@@ -12,7 +12,7 @@ GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("HEAD") {
     strcpy(_name, name.c_str());
     _class_name = "GgafGroupActor";
     _kind = prm_kind;
-    setBumpable(false);
+    setCollisionable(false);
     _pLordActor = NULL;
     _actor_class = GROUPACTOR;
 }

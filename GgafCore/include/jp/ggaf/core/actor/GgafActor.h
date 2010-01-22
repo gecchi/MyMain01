@@ -31,8 +31,8 @@ namespace GgafCore {
  * void processFinal() ・・・フレーム毎の終端処理 <BR>
  * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
  * void processHappen(int prm_no) ・・・その他のイベント時の処理 <BR>
- * bool processBumpChkLogic(GgafActor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
- * void processOnHit(GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
+ * bool processHitChkLogic(GgafActor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
+ * void onHit(GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
  * <BR>
  * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。<BR>
  * @version 1.00
@@ -70,8 +70,8 @@ private:
 //    /**
 //     * 【自アクター 対 自ツリーアクターのどれか1つのアクター】の衝突判定処理を実行する .
 //     * 本メソッドは executeBumpChk2_WeAnd(GgafActor*)から呼び出される専用メソッド。汎用性はない。<BR>
-//     * 実行すると自アクターのprocessHitLogic()を呼び出し、その結果がtrueの場合(衝突した場合)は自身のprocessOnHit()と、
-//     * 相手のアクターのprocessOnHit()を呼び出す。<BR>
+//     * 実行すると自アクターのprocessHitLogic()を呼び出し、その結果がtrueの場合(衝突した場合)は自身のonHit()と、
+//     * 相手のアクターのonHit()を呼び出す。<BR>
 //     * 戻り値の bool はヒットしたorしてないを意味する物ではないので忘れるな。<BR>
 //     * @param	prm_pOtherActor	衝突判定する自ツリーアクターのどれか1つのアクター
 //     * @retval	true	パラメータが自アクター
@@ -106,7 +106,7 @@ public:
     DWORD _start_system_time;
 
     /** アクター衝突判定有無フラグ */
-    bool _can_bump_flg;
+    bool _can_collide_flg;
 
     GgafStatus* _pStatus;
 
@@ -137,23 +137,23 @@ public:
 
     /**
      * 自アクターの衝突判定有無を設定する。 .
-     * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_can_collide_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    void setBumpable(bool prm_can_bump_flg);
+    void setCollisionable(bool prm_can_collide_flg);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
-     * @param	prm_can_bump_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_can_collide_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    void setBumpableTree(bool prm_can_bump_flg);
+    void setCollisionableTree(bool prm_can_collide_flg);
 
     /**
      * 衝突できるかどうか
      * @return	bool true:衝突できる／false:衝突できない
      */
-    //bool canBump();
-    inline bool canBump() {
-        if (isActive() && _can_bump_flg) {
+    //bool canCollide();
+    inline bool canCollide() {
+        if (isActive() && _can_collide_flg) {
             return true;
         } else {
             return false;
@@ -169,16 +169,16 @@ public:
         if (prm_pOtherActor == this) {
             return;
         } else {
-            if (_can_bump_flg &&
-                prm_pOtherActor->_can_bump_flg &&
+            if (_can_collide_flg &&
+                prm_pOtherActor->_can_collide_flg &&
                 _can_live_flg &&
                 prm_pOtherActor->_can_live_flg &&
                 _is_active_flg &&
                 prm_pOtherActor->_is_active_flg)
             {
-                if (processBumpChkLogic(prm_pOtherActor)) { //自身のヒットチェック
-                    processOnHit(prm_pOtherActor); //自分のヒット時の振る舞い
-                    prm_pOtherActor->processOnHit(this); //相手のヒット時の振る舞い
+                if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
+                    onHit(prm_pOtherActor); //自分のヒット時の振る舞い
+                    prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
                 }
             }
         }
@@ -218,11 +218,11 @@ public:
 //        if (prm_pOtherActor == this) {
 //            return true;
 //        } else {
-//            if (_can_bump_flg && prm_pOtherActor->_can_bump_flg && _can_live_flg && prm_pOtherActor->_can_live_flg && _is_active_flg
+//            if (_can_collide_flg && prm_pOtherActor->_can_collide_flg && _can_live_flg && prm_pOtherActor->_can_live_flg && _is_active_flg
 //                    && prm_pOtherActor->_is_active_flg) {
-//                if (processBumpChkLogic(prm_pOtherActor)) { //自身のヒットチェック
-//                    processOnHit(prm_pOtherActor); //自分のヒット時の振る舞い
-//                    prm_pOtherActor->processOnHit(this); //相手のヒット時の振る舞い
+//                if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
+//                    onHit(prm_pOtherActor); //自分のヒット時の振る舞い
+//                    prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
 //                }
 //            }
 //            return false;
@@ -272,7 +272,7 @@ public:
 //
 //    /**
 //     * 【自アクター 対 他アクター】の衝突判定処理を実行する .
-//     * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のprocessOnHit()と、相手アクターのprocessOnHit()が実行される <BR>
+//     * 自身のprocessHitLogic()の結果、衝突した場合(true)は自身のonHit()と、相手アクターのonHit()が実行される <BR>
 //     * 但し、引数に、自身のポインタを渡してはいけない。<BR>
 //     * @param	prm_pOtherActor	相手の他アクター
 //     */
@@ -314,17 +314,17 @@ public:
      * @retval	true	衝突しているを返す事
      * @retval	false	衝突していないを返す事
      */
-    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) {
+    virtual bool processHitChkLogic(GgafActor* prm_pOtherActor) {
         return false;
     }
 
     /**
      * アクターと衝突した時の処理 .
-     * processBumpChkLogic(GgafActor*) が true の場合に呼び出されることになります。<BR>
+     * processHitChkLogic(GgafActor*) が true の場合に呼び出されることになります。<BR>
      * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
      * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
      */
-    virtual void processOnHit(GgafActor* prm_pOtherActor) {}
+    virtual void onHit(GgafActor* prm_pOtherActor) {}
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

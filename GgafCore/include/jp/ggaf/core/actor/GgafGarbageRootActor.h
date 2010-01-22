@@ -31,10 +31,10 @@ public:
     }
     void processFinal() override {
     }
-    bool processBumpChkLogic(GgafActor* prm_pOtherActor) override {
+    bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
-    void processOnHit(GgafActor* prm_pOtherActor) override {
+    void onHit(GgafActor* prm_pOtherActor) override {
     }
     GgafGod* askGod() {
         return NULL;
