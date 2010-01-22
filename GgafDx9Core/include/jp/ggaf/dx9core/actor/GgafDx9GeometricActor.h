@@ -123,7 +123,7 @@ public:
         return (GgafDx9GeometricActor*)GgafActor::getNext();
     }
 
-    virtual bool processBumpChkLogic(GgafActor* prm_pOtherActor) override;
+    virtual bool processHitChkLogic(GgafActor* prm_pOtherActor) override;
 
     /** Ç¢ÇÎÇ¢ÇÎÇ»åvéZÇçsÇ¡ÇƒÇ®Ç≠ */
     virtual void processPreJudgement() override;

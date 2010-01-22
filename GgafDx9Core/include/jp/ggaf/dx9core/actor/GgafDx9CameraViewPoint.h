@@ -38,7 +38,7 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~GgafDx9CameraViewPoint();

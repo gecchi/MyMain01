@@ -43,11 +43,11 @@ public:
     virtual void processFinal() override {
     }
 
-    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) {
         return false;
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) {
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) {
     }
 
 
