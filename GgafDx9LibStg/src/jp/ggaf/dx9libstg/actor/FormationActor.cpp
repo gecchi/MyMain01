@@ -9,7 +9,7 @@ FormationActor::FormationActor(const char* prm_name, DWORD prm_frame_offset_adio
 {
     _class_name = "FormationsActor";
     _frame_offset_adios = prm_frame_offset_adios;
-    setBumpable(false);
+    setCollisionable(false);
 }
 
 

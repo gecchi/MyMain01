@@ -35,11 +35,11 @@ public:
      * @param prm_pOtherActor
      * @return
      */
-    virtual bool processBumpChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    virtual void processOnHit(GgafCore::GgafActor* prm_pOtherActor) override {
+    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
     virtual ~DefaultCubeActor();

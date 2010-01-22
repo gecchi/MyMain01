@@ -25,7 +25,7 @@ void SphereEx::release() {
 void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
     if (prm_pCollisionChecker != NULL &&
         prm_pCollisionChecker->_pCollisionArea != NULL &&
-        prm_pCollisionChecker->getTargetActor()->canBump() &&
+        prm_pCollisionChecker->getTargetActor()->canCollide() &&
         prm_pCollisionChecker->getTargetActor()->isActive()) {
         GgafDx9GeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
         GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;

@@ -80,7 +80,7 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    if (_pActor->_can_bump_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
+    if (_pActor->_can_collide_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG

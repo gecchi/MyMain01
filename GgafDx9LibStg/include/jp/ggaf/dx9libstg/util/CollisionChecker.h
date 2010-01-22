@@ -3,7 +3,8 @@
 namespace GgafDx9LibStg {
 
 /**
- * チェッククラス.
+ * チェッカークラス.
+ * アクターに当たり判定チェック等様々なチェック機能を追加できる。
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
