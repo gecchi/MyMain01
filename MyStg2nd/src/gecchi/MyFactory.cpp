@@ -22,29 +22,29 @@ using namespace MyStg2nd;
 
 //GgafMainScene* MyFactory::createStage01Scene(void* pArg1, void* pArg2) {
 //_TRACE_("çHèÍÅFStage01Scene çÏÇ¡ÇƒÇ‹Ç∑");
-//	Stage01Scene* pStage01Scene = NEW Stage01Scene("Stage01");
+//	Stage01Scene* pScene_Stage01Scene = NEW Stage01Scene("Stage01");
 //_TRACE_("çHèÍÅFStage01Scene ä¥ìÆÇÃëÂäÆê¨");
-//	return pStage01Scene;
+//	return pScene_Stage01Scene;
 //}
 //
 //GgafMainScene* MyFactory::createStage02Scene(void* pArg1, void* pArg2) {
-//	Stage02Scene* pStage02Scene = NEW Stage02Scene("Stage02");
-//	return pStage02Scene;
+//	Stage02Scene* pScene_Stage02Scene = NEW Stage02Scene("Stage02");
+//	return pScene_Stage02Scene;
 //}
 //
 //GgafMainScene* MyFactory::createStage03Scene(void* pArg1, void* pArg2) {
-//	Stage03Scene* pStage03Scene = NEW Stage03Scene("Stage03");
-//	return pStage03Scene;
+//	Stage03Scene* pScene_Stage03Scene = NEW Stage03Scene("Stage03");
+//	return pScene_Stage03Scene;
 //}
 //
 //GgafMainScene* MyFactory::createStage04Scene(void* pArg1, void* pArg2) {
-//	Stage04Scene* pStage04Scene = NEW Stage04Scene("Stage04");
-//	return pStage04Scene;
+//	Stage04Scene* pScene_Stage04Scene = NEW Stage04Scene("Stage04");
+//	return pScene_Stage04Scene;
 //}
 //
 //GgafMainScene* MyFactory::createStage05Scene(void* pArg1, void* pArg2) {
-//	Stage05Scene* pStage05Scene = NEW Stage05Scene("Stage05");
-//	return pStage05Scene;
+//	Stage05Scene* pScene_Stage05Scene = NEW Stage05Scene("Stage05");
+//	return pScene_Stage05Scene;
 //}
 //GgafMainActor* MyFactory::createDebugDelineateActor(void* pArg1, void* pArg2) {
 //	DelineateActor* pDelineateActor = NEW DelineateActor("HITAREA");

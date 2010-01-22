@@ -110,7 +110,7 @@ class Stage02Scene;
 class Stage03Scene;
 class Stage04Scene;
 class Stage05Scene;
-
+class TamagoScene;
 
 class GroundMeshActor;
 class LaserChip;
@@ -131,6 +131,7 @@ class MyShot001;
 class MyWave001;
 class EffectExplosion001;
 class TamagoActor;
+class EnemyTamago01Actor;
 class MyUtil;
 class GameGlobal;
 
@@ -199,6 +200,7 @@ class Formation001;
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage03Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage04Scene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameMainScene/Stage05Scene.h"
+#include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
@@ -223,6 +225,7 @@ class Formation001;
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
+#include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
 #include "gecchi/actor/enemy/sprite/EnemyShot001.h"
 #include "gecchi/actor/_debug/DispFpsActor.h"

@@ -186,7 +186,13 @@ void MyShip::initialize() {
 
     setBumpable(true);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
+    _pCollisionChecker->setColliSphere(0, 40000);
+//    _pCollisionChecker->setColliBox(0, -20000, -20000, -20000, 20000, 20000, 20000);
+//    _pCollisionChecker->setColliSphere(1, 0,-100000,0, 30000, true, true, true);
+//    _pCollisionChecker->setColliSphere(2, 0,100000,0, 30000, true, true, true);
+//    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
+//    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
+
     _pMover->setMoveVelocity(0);
     _pScaler->setScale(1000);
     _pScaler->setScaleRange(1000, 7000);

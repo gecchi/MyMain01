@@ -22,11 +22,11 @@ GameMainScene::GameMainScene(const char* prm_name) : DefaultScene(prm_name) {
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard01);
     _pStringBoard02 = NEW GgafDx9StringBoardActor("STR02", "moji");
     getLordActor()->addSubGroup(KIND_EFFECT, _pStringBoard02);
-    _pStage01 = NULL;
-    _pStage02 = NULL;
-    _pStage03 = NULL;
-    _pStage04 = NULL;
-    _pStage05 = NULL;
+    _pScene_Stage01 = NULL;
+    _pScene_Stage02 = NULL;
+    _pScene_Stage03 = NULL;
+    _pScene_Stage04 = NULL;
+    _pScene_Stage05 = NULL;
 
     _pSceneMainCannnel = NULL;
     setProgress(GAMEMAIN_PROG_INIT);
@@ -39,23 +39,23 @@ void GameMainScene::ready(int prm_stage) {
     switch (prm_stage) {
         case 1:
             orderSceneToFactory(11, Stage01Scene, "Stage01");
-            _pSceneMainCannnel = _pStage01;
+            _pSceneMainCannnel = _pScene_Stage01;
             break;
         case 2:
             orderSceneToFactory(11, Stage02Scene, "Stage02");
-            _pSceneMainCannnel = _pStage02;
+            _pSceneMainCannnel = _pScene_Stage02;
             break;
         case 3:
             orderSceneToFactory(11, Stage03Scene, "Stage03");
-            _pSceneMainCannnel = _pStage03;
+            _pSceneMainCannnel = _pScene_Stage03;
             break;
         case 4:
             orderSceneToFactory(11, Stage04Scene, "Stage04");
-            _pSceneMainCannnel = _pStage04;
+            _pSceneMainCannnel = _pScene_Stage04;
             break;
         case 5:
             orderSceneToFactory(11, Stage05Scene, "Stage05");
-            _pSceneMainCannnel = _pStage05;
+            _pSceneMainCannnel = _pScene_Stage05;
             break;
         default:
             break;

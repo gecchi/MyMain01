@@ -20,10 +20,11 @@ class GameScene : public GgafDx9LibStg::DefaultScene {
 public:
 
 
-    GameDemoScene*      _pGameDemo;
-    GameBeginningScene* _pGameBeginning;
-    GameMainScene*      _pGameMain;
-    GameEndingScene*    _pGameEnding;
+    GameDemoScene*      _pScene_GameDemo;
+    GameBeginningScene* _pScene_GameBeginning;
+    GameMainScene*      _pScene_GameMain;
+    GameEndingScene*    _pScene_GameEnding;
+
 
     int _stage;
     GgafDx9LibStg::DefaultScene* _pSceneCannel;

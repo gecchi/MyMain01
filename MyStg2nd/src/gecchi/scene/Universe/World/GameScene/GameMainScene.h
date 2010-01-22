@@ -23,11 +23,11 @@ public:
 
 
 
-    Stage01Scene* _pStage01;
-    Stage02Scene* _pStage02;
-    Stage03Scene* _pStage03;
-    Stage04Scene* _pStage04;
-    Stage05Scene* _pStage05;
+    Stage01Scene* _pScene_Stage01;
+    Stage02Scene* _pScene_Stage02;
+    Stage03Scene* _pScene_Stage03;
+    Stage04Scene* _pScene_Stage04;
+    Stage05Scene* _pScene_Stage05;
     StageScene* _pSceneMainCannnel;
 
     DWORD _dwFrame_Begin;

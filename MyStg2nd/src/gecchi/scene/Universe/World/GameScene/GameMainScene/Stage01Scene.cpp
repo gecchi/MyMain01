@@ -6,9 +6,9 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
-    _pStage01Main = NEW Stage01MainScene("Stage01Main");
-    _pStage01Main->inactivate();
-    addSubLast(_pStage01Main);
+    _pScene_Stage01Main = NEW Stage01MainScene("Stage01Main");
+    _pScene_Stage01Main->inactivate();
+    addSubLast(_pScene_Stage01Main);
     Sleep(2);
     _pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
     _pBackGround01->inactivateTree();
@@ -48,7 +48,7 @@ void Stage01Scene::processBehavior() {
         if (_dwFrame_Begin == 120) { //ステージ１開始！
             _pBackGround01->activateTree();
             _pBackGroundStar->activateTree();
-            _pStage01Main->activate();
+            _pScene_Stage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }
     } else if (getProgress() == STAGE01_PROG_PLAY) {

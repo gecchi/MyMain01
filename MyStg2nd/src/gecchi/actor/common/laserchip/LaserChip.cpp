@@ -260,7 +260,7 @@ void LaserChip::processDraw() {
 
 void LaserChip::drawHitArea() {
     //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canBump());
-    CubeEx::get()->drawHitarea(_pCollisionChecker);
+    CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
     //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canBump());
 }
 

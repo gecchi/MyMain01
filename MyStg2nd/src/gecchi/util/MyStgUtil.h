@@ -202,6 +202,8 @@ public:
 	static void resetShot001Status(GgafCore::GgafStatus* p);
 	//汎用ショット002
 	static void resetShot002Status(GgafCore::GgafStatus* p);
+	//たまご１
+	static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
