@@ -22,11 +22,12 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
+        _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") のセット数省略。最大の16セットが設定されます。");
         _set_num = 1;
     } else {
         _set_num = num;
         if (_set_num > 16) {
-            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"(最大は16です");
+            _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"。最大の16セットが設定されます。");
             _set_num = 16;
         }
     }
@@ -148,11 +149,11 @@ void GgafDx9MeshSetModel::release() {
 
     //テクスチャを解放
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
-		if (_papTextureCon) {
-			if (_papTextureCon[i] != NULL) {
-				_papTextureCon[i]->close();
-			}
-		}
+        if (_papTextureCon) {
+            if (_papTextureCon[i] != NULL) {
+                _papTextureCon[i]->close();
+            }
+        }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);

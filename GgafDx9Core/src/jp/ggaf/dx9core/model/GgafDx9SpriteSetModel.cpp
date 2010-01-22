@@ -23,11 +23,12 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _set_num = 1;
+        _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数省略。最大の18セットが設定されます。");
+        _set_num = 18;
     } else {
         _set_num = num;
         if (_set_num > 18) {
-            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。\n_set_num="<<_set_num<<"(最大は18です");
+            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") の同時描画セット数オーバー。_set_num="<<_set_num<<"。最大の18セットが設定されます。");
             _set_num = 18;
         }
     }
@@ -115,9 +116,9 @@ void GgafDx9SpriteSetModel::release() {
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
-	if (_papTextureCon) {
-		_papTextureCon[0]->close();
-	}
+    if (_papTextureCon) {
+        _papTextureCon[0]->close();
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
