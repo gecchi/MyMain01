@@ -30,9 +30,6 @@ void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
         GgafDx9GeometricActor* pActor = prm_pCollisionChecker->getTargetActor();
         GgafDx9CollisionArea* pCollisionArea = prm_pCollisionChecker->_pCollisionArea;
 
-        //Å‘O–Ê‚É•\Ž¦‚·‚é‚½‚ßˆêŽžOFF
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-
         int iAreaNum = pCollisionArea->_nColliPart;
         if (iAreaNum > 0) {
             for (int i = 0; i < iAreaNum; i++) {
@@ -48,8 +45,7 @@ void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
                 }
             }
         }
-        //Œ³‚É–ß‚·
-        GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+
     }
 }
 
