@@ -37,10 +37,10 @@ void GgafDx9D3DXMeshActor::processDraw() {
     pID3DXEffect = _pMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
 
     // Zバッファを有効に
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);

@@ -99,22 +99,22 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            mightDx9Exception(hr, S_OK, "GgafDx9MeshSetModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, S_OK, "GgafDx9MeshSetModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->BeginPass(0);
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         } else {
             hr = pID3DXEffect->CommitChanges();
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshSetModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,

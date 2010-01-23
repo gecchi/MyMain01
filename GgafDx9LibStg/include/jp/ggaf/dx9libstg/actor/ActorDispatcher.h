@@ -69,9 +69,11 @@ public:
      * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
+#ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
             throwGgafCriticalException("ActorDispatcher::getFreeOne() 子がありません");
         }
+#endif
         static GgafMainActor* pActor;
         pActor = getSubFirst();
 

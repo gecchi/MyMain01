@@ -59,32 +59,32 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             }
         }
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
+        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
 				TRACE4("前回_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
+                checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() End() に失敗しました。");
+                checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() End() に失敗しました。");
             }
 
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            mightDx9Exception(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+            checkDxException(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() Begin() に失敗しました。");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() Begin() に失敗しました。");
             hr = pID3DXEffect->BeginPass(0);
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
         } else {
             //マテリアルが２個以上ならば、ここを通り、仕方なくCommitChanges()を実行。
             //つまり、マテリアルが１個の場合は、CommitChanges() すら省略して、DrawIndexedPrimitive() だけ実行しまくりの高速化を目論む。
             hr = pID3DXEffect->CommitChanges();
-            mightDx9Exception(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
+            checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
         }
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,

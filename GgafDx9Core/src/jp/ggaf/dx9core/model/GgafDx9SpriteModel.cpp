@@ -45,30 +45,30 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetFloat(pSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetV) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() SetFloat(_hOffsetV) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-            mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-            mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-        mightDx9Exception(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->BeginPass(0);
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     } else {
         hr = pID3DXEffect->CommitChanges();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);

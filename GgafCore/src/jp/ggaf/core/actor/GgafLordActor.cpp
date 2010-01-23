@@ -69,11 +69,12 @@ GgafGroupActor* GgafLordActor::getSubGroupActor(actorkind prm_kind) {
 
 GgafGod* GgafLordActor::askGod() {
     if (_pGod == NULL) {
+#ifdef MY_DEBUG
         if (getPlatformScene() == NULL) {
             throwGgafCriticalException("GgafLordActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
-        } else {
-            _pGod = getPlatformScene()->askGod();
         }
+#endif
+        _pGod = getPlatformScene()->askGod();
     }
     return _pGod;
 }

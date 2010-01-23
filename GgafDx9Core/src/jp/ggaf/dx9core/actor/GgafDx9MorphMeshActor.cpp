@@ -41,16 +41,16 @@ void GgafDx9MorphMeshActor::processDraw() {
     pID3DXEffect = _pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
         hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight[pattern], _weight[pattern]);
-        mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_hWeight["<<pattern<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_hWeight["<<pattern<<"]) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     // ZÉoÉbÉtÉ@ÇóLå¯Ç…
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);

@@ -11,9 +11,9 @@ GgafDx9BoardEffect::GgafDx9BoardEffect(char* prm_effect_name) : GgafDx9Effect(pr
     static float view_height = (float)(GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT));
 
     hr = _pID3DXEffect->SetFloat("g_view_width", view_width);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = _pID3DXEffect->SetFloat("g_view_height", view_height);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     //ƒnƒ“ƒhƒ‹
     _hAlpha = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );

@@ -63,20 +63,20 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("["<<i<<"],EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }
 
             TRACE4("["<<i<<"],SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            mightDx9Exception(hr, S_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, S_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             hr = pID3DXEffect->BeginPass(0);
-            mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         //GgafDx9God::_pID3DDevice9->SetTransform(D3DTS_WORLD, &(*it)->WorldTransMatrix); // ÉèÅ[ÉãÉhïœä∑çsóÒÇê›íË
@@ -92,13 +92,13 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 //        putMat(&WorldMat);
         //hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &((*it)->WorldTransMatrix));
         hr = pID3DXEffect->SetMatrix(pD3DXAniMeshEffect->_hMatWorld, &WorldMat);
-        mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
 
 
         //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
-            //mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         if ((*it)->pMeshContainer == NULL) {
             TRACE4("["<<i<<"]Å~SetMatrix FrameName="<<((*it)->Name)<<" îÚÇŒÇµÅI");
             continue;
@@ -110,10 +110,10 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 //GgafDx9God::_pID3DDevice9->SetMaterial(&(*it)->pMeshContainer->pMaterials[j].MatD3D);
 
                 hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_hMaterialDiffuse, &((*it)->pMeshContainer->pMaterials[j].MatD3D.Diffuse), sizeof(D3DCOLORVALUE) );
-                mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 hr = pID3DXEffect->CommitChanges();
-                mightDx9Exception(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+                checkDxException(hr, D3D_OK, "["<<i<<"],GgafDx9D3DXAniMeshModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
                 (*it)->pMeshContainer->MeshData.pMesh->DrawSubset(j);
             }
@@ -136,7 +136,7 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 //            //É}ÉeÉäÉAÉãÇÃÉZÉbÉg
 //            //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
 //            hr = pID3DXEffect->SetValue(pD3DXAniMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-//            mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //        }
 //
 //        //ï`âÊ
@@ -144,23 +144,23 @@ HRESULT GgafDx9D3DXAniMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 //            if (GgafDx9EffectManager::_pEffect_Active != NULL) {
 //                TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
 //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-//                mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //                hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-//                mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//                checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //            }
 //
 //            TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
 //            hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-//            mightDx9Exception(hr, S_OK, "GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//            checkDxException(hr, S_OK, "GgafDx9D3DXAniMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //            TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
 //            UINT numPass;
 //            hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-//            mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //            hr = pID3DXEffect->BeginPass(0);
-//            mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() BeginPass(0) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //        } else {
 //            hr = pID3DXEffect->CommitChanges();
-//            mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+//            checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshModel::draw() CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //        }
 //        TRACE4("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pD3DXAniMeshEffect->_effect_name);
 //        hr = _pID3DXAniMesh->DrawSubset(i);

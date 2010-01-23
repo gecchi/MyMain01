@@ -37,16 +37,16 @@ void GgafDx9SpriteActor::processDraw() {
     pID3DXEffect = _pSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &pCAM->_vMatrixView );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     if (_isBillboardingFlg) {
         GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, _matWorld);
     } else {
         GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     }
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &_matWorld );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetFloat(_fAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
     // Zƒoƒbƒtƒ@‚ð–³Œø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);

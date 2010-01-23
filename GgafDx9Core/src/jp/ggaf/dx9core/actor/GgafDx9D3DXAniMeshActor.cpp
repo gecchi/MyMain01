@@ -38,10 +38,10 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
     HRESULT hr;
     //ビュー変換行列
     hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) に失敗しました。");
     GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
     //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
-    //mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
+    //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
     //SetMatrixはモデルでせざるをえない
 
     // Zバッファを有効に

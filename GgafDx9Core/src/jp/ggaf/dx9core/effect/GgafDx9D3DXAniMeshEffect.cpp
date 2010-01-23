@@ -10,16 +10,16 @@ GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect(char* prm_effect_name) : Ggaf
     HRESULT hr;
     //ŽË‰e•ÏŠ·s—ñ
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒ‰ƒCƒg•ûŒü
     hr = _pID3DXEffect->SetValue("g_LightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Diffuse”½ŽË
     hr = _pID3DXEffect->SetValue("g_LightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //Ambient”½ŽË
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    mightDx9Exception(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshEffect::GgafDx9D3DXAniMeshEffect SetValue(g_LightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
     _hMatView = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );

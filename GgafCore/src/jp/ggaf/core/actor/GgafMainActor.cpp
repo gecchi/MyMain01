@@ -53,14 +53,15 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
 
 GgafGroupActor* GgafMainActor::getGroupActor() {
     if (_pGroupActor == NULL) {
+#ifdef MY_DEBUG
         if (_pParent == NULL) {
             throwGgafCriticalException("GgafMainActor::getGroupActor 所属していないため、GroupActorがとれません！("<<getName()<<")");
-        } else {
-            if (_pParent->_actor_class == MAINACTOR) {
-                _pGroupActor = ((GgafMainActor*)(_pParent))->getGroupActor();
-            } else if (_pParent->_actor_class == GROUPACTOR) {
-                return (GgafGroupActor*)_pParent;
-            }
+        }
+#endif
+        if (_pParent->_actor_class == MAINACTOR) {
+            _pGroupActor = ((GgafMainActor*)(_pParent))->getGroupActor();
+        } else if (_pParent->_actor_class == GROUPACTOR) {
+            return (GgafGroupActor*)_pParent;
         }
     }
     return _pGroupActor;
@@ -136,11 +137,12 @@ GgafGroupActor* GgafMainActor::getSubGroupActor(actorkind prm_kind) {
 
 GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {
+#ifdef MY_DEBUG
         if (_pParent == NULL) {
             throwGgafCriticalException("GgafMainActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
-        } else {
-            _pGod = getParent()->askGod();
         }
+#endif
+        _pGod = getParent()->askGod();
     }
     return _pGod;
 }

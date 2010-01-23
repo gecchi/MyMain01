@@ -42,9 +42,11 @@ GgafGod::GgafGod() : GgafObject(),
 void GgafGod::be() {
     if (_pUniverse == NULL) {
         _pUniverse = createUniverse();
+#ifdef MY_DEBUG
         if (_pUniverse == NULL) {
             throwGgafCriticalException("GgafGod::be() Error! ‚±‚Ì¢‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
         }
+#endif
         _pUniverse->_pGod = this;
     }
 

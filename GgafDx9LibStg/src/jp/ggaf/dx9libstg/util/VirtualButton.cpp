@@ -452,10 +452,11 @@ void VirtualButton::init() {
 }
 
 void VirtualButton::update() {
+#ifdef MY_DEBUG
     if (_pVBMap_Active == NULL) {
         throwGgafCriticalException("VirtualButton::update() 利用前に一度 init() を呼び出して下さい。");
     }
-
+#endif
     GgafDx9Input::updateKeyboardState();
     GgafDx9Input::updateJoystickState();
 

@@ -73,9 +73,9 @@ void GgafDx9Universe::draw() {
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
         TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9Universe::processDraw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
         GgafDx9DrawableActor::_hash_technique_last_draw = 0;

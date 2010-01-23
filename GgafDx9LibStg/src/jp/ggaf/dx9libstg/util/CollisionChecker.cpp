@@ -19,7 +19,7 @@ void CollisionChecker::makeCollision(int prm_nColliPart) {
     if (_pCollisionArea == NULL) {
         _pCollisionArea = NEW GgafDx9CollisionArea(prm_nColliPart);
     } else {
-        throwGgafCriticalException("CollisionChecker::useHitAreaBoxNum HitAreaBoxsは既に new されています。");
+        throwGgafCriticalException("CollisionChecker::makeCollision 既に makeCollision されています。");
     }
 }
 
@@ -34,10 +34,12 @@ void CollisionChecker::setColliSphere(int prm_index, int x, int y, int z, int r,
 #endif
     if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
         _pCollisionArea->_papColliPart[prm_index] = NEW ColliSphere();
-    } else if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_SPHERE) {
+    }
+#ifdef MY_DEBUG
+    if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_SPHERE) {
         throwGgafCriticalException("CollisionChecker::setColliSphere()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"はSPHEREでなかったため、更新はできません。");
     }
-
+#endif
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
     pSphere->_shape_kind = COLLI_SPHERE;
     pSphere->_is_valid_flg = true;
@@ -47,15 +49,15 @@ void CollisionChecker::setColliSphere(int prm_index, int x, int y, int z, int r,
 
 
 void CollisionChecker::setColliBox(int prm_index,
-                                       int x1,
-                                       int y1,
-                                       int z1,
-                                       int x2,
-                                       int y2,
-                                       int z2,
-                                       bool rotX,
-                                       bool rotY,
-                                       bool rotZ) {
+                                   int x1,
+                                   int y1,
+                                   int z1,
+                                   int x2,
+                                   int y2,
+                                   int z2,
+                                   bool rotX,
+                                   bool rotY,
+                                   bool rotZ) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == NULL) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  まず makeCollision を実行して、要素数を宣言してください。");
@@ -66,9 +68,12 @@ void CollisionChecker::setColliBox(int prm_index,
 #endif
     if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
         _pCollisionArea->_papColliPart[prm_index] = NEW ColliBox();
-    } else if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABB) {
+    }
+#ifdef MY_DEBUG
+    if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABB) {
         throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  要素インデックス"<<prm_index<<"はAABBでなかったため、更新はできません。");
     }
+#endif
     ColliBox* pBox = (ColliBox*)_pCollisionArea->_papColliPart[prm_index];
     pBox->_shape_kind = COLLI_AABB;
     pBox->_is_valid_flg = true;

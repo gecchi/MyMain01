@@ -47,7 +47,7 @@ IDirect3DTexture9* GgafDx9TextureManager::processCreateResource(char* prm_idstr)
                          NULL,                      // [in] PALETTEENTRY *pPalette,
                          &pResourceTexture    // [out] GgafDx9TextureConnection* *ppTextureCon
                       );
-        mightDx9Exception(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_idstr);
+        checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_idstr);
     }
 
     Sleep(2); //çHèÍÇ…ãCÇégÇ§ÅB

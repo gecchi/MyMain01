@@ -215,27 +215,27 @@ void LaserChip::processDraw() {
     HRESULT hr;
     //VIEWïœä∑çsóÒ
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
-    mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
 
     for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
-        mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
             //ÉeÉNÉXÉ`ÉÉéÌóﬁ
             hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB1");
         } else {
             //ÉeÉNÉXÉ`ÉÉéÌóﬁ
             hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //êÊì™Ç™Ç»Ç¢ÇÃÇ≈é©êMÇÃ_matWorld
-            mightDx9Exception(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) Ç…é∏îsÇµÇ‹ÇµÇΩÅB2");
         }
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
         if (i > 0) {

@@ -282,7 +282,7 @@ public:
     /**
      * ＜OverRide です＞
      */
-    virtual void initialize() override;
+    void initialize() override;
     /**
      *
      * 自機がアクティブになった瞬間の処理 .
@@ -292,26 +292,26 @@ public:
     /**
      * ＜OverRide です＞
      */
-    virtual void processBehavior() override;
+    void processBehavior() override;
 
     /**
      * ＜OverRide です＞
      */
-    virtual void processJudgement() override;
+    void processJudgement() override;
 
     /**
      * ＜OverRide です＞
      */
-    virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    virtual void setMoveSpeedLv(int lv) {
+    void setMoveSpeedLv(int lv) {
         _lv_MoveSpeed = lv;
         _iMoveSpeed = _lv_MoveSpeed * 1000;
     }
 
     //画面手前へ移動初めX軸回転処理
 
-    virtual void doNotingMoveInput();
+    void doNotingMoveInput();
 
     static GgafDx9Core::angle wk_dist, wk_angRx;
     void move_WAY_NONE() {

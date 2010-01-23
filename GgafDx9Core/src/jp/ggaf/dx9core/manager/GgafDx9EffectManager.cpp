@@ -58,7 +58,7 @@ void GgafDx9EffectManager::onDeviceLostAll() {
     HRESULT hr;
     while (pCurrent != NULL) {
         hr = pCurrent->view()->_pID3DXEffect->OnLostDevice();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll エフェクト["<<pCurrent->getIdStr()<<"]の OnLostDevice() に失敗しました。");
+        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll エフェクト["<<pCurrent->getIdStr()<<"]の OnLostDevice() に失敗しました。");
         TRACE3("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
     }
@@ -71,7 +71,7 @@ void GgafDx9EffectManager::restoreAll() {
     HRESULT hr;
     while (pCurrent != NULL) {
         hr = pCurrent->view()->_pID3DXEffect->OnResetDevice();
-        mightDx9Exception(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() エフェクト["<<pCurrent->getIdStr()<<"]の OnResetDevice() に失敗しました。");
+        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() エフェクト["<<pCurrent->getIdStr()<<"]の OnResetDevice() に失敗しました。");
         TRACE3("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
     }

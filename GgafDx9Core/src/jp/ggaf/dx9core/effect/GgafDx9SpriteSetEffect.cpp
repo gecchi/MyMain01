@@ -9,10 +9,10 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
     HRESULT hr;
 //    //VIEW変換行列
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-//    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix(g_matView) に失敗しました。");
+//    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix(g_matView) に失敗しました。");
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
-    mightDx9Exception(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() に失敗しました。");
     //シェーダーハンドル
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _ahMatWorld[0] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
