@@ -94,9 +94,11 @@ void CollisionChecker::updateHitArea() {
             }
         }
         if (_need_update_aabb) {
-            //‹«ŠE—ÌˆæXV
+            //ÅŠOˆæ‚ÌAABBXV
             _pCollisionArea->updateAABB();
         }
+
+        //‚W•ª–Ø‚É“o˜^I
         _pElem->_kindbit = _pActor->getGroupActor()->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _pCollisionArea->_AABB_X1,
                                            _pActor->_Y + _pCollisionArea->_AABB_Y1,
@@ -132,7 +134,6 @@ bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
         _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {
         return false;
     } else {
-        //Ž©•ª‚Ì” ‚Æ‘ŠŽè‚Ì” 
         GgafDx9CollisionPart* pColliPart;
         GgafDx9CollisionPart* pOtherColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
@@ -143,17 +144,17 @@ bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                     if (pOtherColliPart->_is_valid_flg) {
                         CollisionChecker::_num_check++;
 
-
                         if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_AABB) {
-                            //AABB AABB
+                            //AABB ‚Æ  AABB
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
+                            //Ž²‚ªˆê’v‚µ‚È‚¢Šm—¦‚ª‚‚»‚¤‚È‡”Ô‚É”»’è
                             if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
                                 if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
-                                    if (_pActor->_X + pBox->_x2 >= pOtherActor->_X + pOtherBox->_x1) {
-                                        if (_pActor->_X + pBox->_x1 <= pOtherActor->_X + pOtherBox->_x2) {
-                                            if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {
-                                                if (_pActor->_Y + pBox->_y1 <= pOtherActor->_Y + pOtherBox->_y2) {
+                                    if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {
+                                        if (_pActor->_Y + pBox->_y1 <= pOtherActor->_Y + pOtherBox->_y2) {
+                                            if (_pActor->_X + pBox->_x2 >= pOtherActor->_X + pOtherBox->_x1) {
+                                                if (_pActor->_X + pBox->_x1 <= pOtherActor->_X + pOtherBox->_x2) {
                                                     return true;
                                                 }
                                             }
@@ -180,6 +181,7 @@ bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             }
 
                         } else if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_SPHERE) {
+                            //AABB ‚Æ ‹…
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliSphere* pOtherSphere = (ColliSphere*)pOtherColliPart;
                             int o_scx =  pOtherActor->_X+pOtherSphere->_cx;
@@ -226,6 +228,7 @@ bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                                 return true;
                             }
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOtherColliPart->_shape_kind == COLLI_AABB) {
+                            //‹… ‚Æ AABB
                             ColliSphere* pSphere = (ColliSphere*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
                             int scx =  _pActor->_X+pSphere->_cx;
