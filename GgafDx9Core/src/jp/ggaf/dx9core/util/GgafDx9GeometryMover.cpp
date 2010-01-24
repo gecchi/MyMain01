@@ -1045,6 +1045,12 @@ void GgafDx9GeometryMover::setMoveAngle(int prm_tX, int prm_tY, int prm_tZ) {
                    _angRzMove,
                    _angRyMove
                  );
+    if (_relate_RzFaceAngle_to_RzMoveAngle_flg) {
+        setFaceAngle(AXIS_Z, _angRzMove);
+    }
+    if (_relate_RyFaceAngle_to_RyMoveAngle_flg) {
+        setFaceAngle(AXIS_Y, _angRyMove);
+    }
 }
 
 void GgafDx9GeometryMover::setStopTarget_RzRyMoveAngle(GgafDx9GeometricActor* prm_pActor_Target) {
