@@ -38,10 +38,8 @@ void RefractionLaserChip::onActive() {
 
 
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
-	_TRACE_("!!!!" << getName() << " onActive() pChip_front="<<pChip_front);
     //レーザーチップ出現時処理
     if (pChip_front == NULL) {
-        //_TRACE_("RefractionLaserChip::onActive() "<<getName()<<" pChip_front == NULL");
         _is_leader = true;
         //自身が先頭の場合
         _begining_X = _X;
@@ -55,7 +53,6 @@ void RefractionLaserChip::onActive() {
         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
     } else {
         _is_leader = false;
-        //_TRACE_("RefractionLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
         _begining_X = pChip_front->_begining_X;
         _begining_Y = pChip_front->_begining_Y;
         _begining_Z = pChip_front->_begining_Z;
