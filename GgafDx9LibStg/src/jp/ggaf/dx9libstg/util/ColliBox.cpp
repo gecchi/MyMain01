@@ -64,7 +64,7 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _is_valid_flg = true;
 }
 
-bool ColliBox::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
+bool ColliBox::rotate(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;

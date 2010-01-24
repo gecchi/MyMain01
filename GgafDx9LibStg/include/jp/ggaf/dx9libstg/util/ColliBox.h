@@ -28,7 +28,7 @@ public:
 
     void set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bool rotY, bool rotZ);
 
-    bool rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) override;
+    bool rotate(angle rX, angle rY, angle rZ) override;
 
     virtual ~ColliBox();
 };

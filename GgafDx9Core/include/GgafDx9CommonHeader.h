@@ -97,18 +97,18 @@
 
 class CmRandomNumberGenerator;
 
-
-namespace GgafDx9Core {
-
-enum GgafDx9AnimationMethod {
-    ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED
-};
 typedef int angle;
 typedef int s_ang;
 typedef int velo;
 typedef int acce;
 typedef int angvelo;
 typedef int angacce;
+
+enum GgafDx9AnimationMethod {
+    ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED
+};
+
+namespace GgafDx9Core {
 
 class GgafDx9CriticalException;
 class GgafDx9God;

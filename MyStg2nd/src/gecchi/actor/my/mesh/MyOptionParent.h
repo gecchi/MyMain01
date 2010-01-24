@@ -14,7 +14,7 @@ public:
     /** 対象アクター */
 
     /** 方向転換角速度 */
-    GgafDx9Core::angle _angVelocity_Turn;
+    angle _angVelocity_Turn;
 
     MyOptionParent(const char* prm_name);
 
@@ -32,7 +32,7 @@ public:
 
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {}
 
-    //void setTerget(GgafDx9Core::angle prm_angRz_Target, GgafDx9Core::angle prm_angRy_Target);
+    //void setTerget(angle prm_angRz_Target, angle prm_angRy_Target);
 
 
     virtual ~MyOptionParent();

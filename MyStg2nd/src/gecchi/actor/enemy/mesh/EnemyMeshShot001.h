@@ -26,7 +26,7 @@ public:
     /** 方向転換に費やすことができるフレーム数 */
     DWORD _dwFrameInterval_Turn;
     /** 方向転換中の角速度アングル値 */
-    GgafDx9Core::angle _angVelocity_Turn;
+    angle _angVelocity_Turn;
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     int _iMoveAcceleration_2nd;
     /** 出現してからのフレーム数 */

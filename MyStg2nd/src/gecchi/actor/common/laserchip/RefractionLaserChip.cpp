@@ -35,9 +35,10 @@ void RefractionLaserChip::onActive() {
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
-    _cnt_refraction = 0;
+
 
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
+	_TRACE_("!!!!" << getName() << " onActive() pChip_front="<<pChip_front);
     //レーザーチップ出現時処理
     if (pChip_front == NULL) {
         //_TRACE_("RefractionLaserChip::onActive() "<<getName()<<" pChip_front == NULL");
@@ -49,6 +50,9 @@ void RefractionLaserChip::onActive() {
         _begining_RX = _RX;
         _begining_RY = _RY;
         _begining_RZ = _RZ;
+        _cnt_refraction = 0;
+        _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
+        _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
     } else {
         _is_leader = false;
         //_TRACE_("RefractionLaserChip::onActive() "<<getName()<<" pChip_front =="<<(pChip_front->getName()));
@@ -65,10 +69,12 @@ void RefractionLaserChip::onActive() {
         _RX = _begining_RX;
         _RY = _begining_RY;
         _RZ = _begining_RZ;
+        _cnt_refraction = INT_MAX;
+        _frame_refraction_enter = INT_MAX;
+        _frame_refraction_outer = INT_MAX;
     }
     processOnRefraction(_cnt_refraction);
-    _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
-    _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+
     _isRefracting = false;
 }
 
@@ -131,11 +137,16 @@ void RefractionLaserChip::processBehavior() {
 		            _cnt_refraction++;
 		            RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
 		            if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
-                        _TEACE_("!!!!" << getname() << " _cnt_refraction="<<_cnt_refraction<<" _num_refraction="<<_num_refraction);
+                        _TRACE_("!!!!" << getName() << " _cnt_refraction="<<_cnt_refraction<<" _num_refraction="<<_num_refraction);
 		                processOnRefraction(_cnt_refraction);
+                        _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
+                        _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+		            } else {
+		                _cnt_refraction = INT_MAX;
+		                _frame_refraction_enter = INT_MAX;
+		                _frame_refraction_outer = INT_MAX;
 		            }
-		            _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
-		            _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
+
 		            _isRefracting = false;
 		            //_pMover->behave();
                 } else {

@@ -23,7 +23,7 @@ public:
 
     void set(int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ);
 
-    bool rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) override;
+    bool rotate(angle rX, angle rY, angle rZ) override;
 
     virtual ~ColliSphere();
 };

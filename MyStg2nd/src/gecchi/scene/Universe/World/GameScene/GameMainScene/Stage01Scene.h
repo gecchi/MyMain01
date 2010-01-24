@@ -17,8 +17,8 @@ public:
     Stage01MainScene* _pScene_Stage01Main;
     BackGround01* _pBackGround01;
     BackGroundStar* _pBackGroundStar;
-    GgafDx9Core::angle _angCamZX_prev;
-    GgafDx9Core::angle _angCamXY_prev;
+    angle _angCamZX_prev;
+    angle _angCamXY_prev;
 
 
     DWORD _dwFrame_Begin;

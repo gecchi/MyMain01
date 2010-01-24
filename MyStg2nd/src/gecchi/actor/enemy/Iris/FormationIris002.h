@@ -24,7 +24,7 @@ public:
     /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
     DWORD _frame_interval;
     /** ˆÚ“®‘¬“x(RANK•Ï“®) */
-    GgafDx9Core::velo _move_velocity;
+    velo _move_velocity;
 
     FormationIris002(const char* prm_name);
 

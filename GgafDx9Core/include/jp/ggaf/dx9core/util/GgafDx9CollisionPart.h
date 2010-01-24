@@ -62,7 +62,7 @@ public:
      * @param rZ
      * @return
      */
-    virtual bool rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
+    virtual bool rotate(angle rX, angle rY, angle rZ) {
         return false;
     }
 

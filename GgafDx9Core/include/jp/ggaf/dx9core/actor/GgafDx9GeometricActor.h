@@ -68,13 +68,13 @@ public:
 
     //TODO:起源アクターと起源アクターからのオフセット受け皿
     GgafDx9GeometricActor* _pActorOrigin;
-    GgafDx9Core::velo _offset_origin_veloMove;
+    velo _offset_origin_veloMove;
     int _offset_origin_X;
     int _offset_origin_Y;
     int _offset_origin_Z;
-    GgafDx9Core::angle _offset_origin_angRxMove;
-    GgafDx9Core::angle _offset_origin_angRyMove;
-    GgafDx9Core::angle _offset_origin_angFace[3];
+    angle _offset_origin_angRxMove;
+    angle _offset_origin_angRyMove;
+    angle _offset_origin_angFace[3];
 
 
     /** 自身の現在のWorld変換行列 */

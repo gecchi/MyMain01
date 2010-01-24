@@ -22,15 +22,15 @@ public:
     int _begining_X;
     int _begining_Y;
     int _begining_Z;
-    GgafDx9Core::angle _begining_RX;
-    GgafDx9Core::angle _begining_RY;
-    GgafDx9Core::angle _begining_RZ;
+    angle _begining_RX;
+    angle _begining_RY;
+    angle _begining_RZ;
     int _prev_X;
     int _prev_Y;
     int _prev_Z;
-    GgafDx9Core::angle _prev_RX;
-    GgafDx9Core::angle _prev_RY;
-    GgafDx9Core::angle _prev_RZ;
+    angle _prev_RX;
+    angle _prev_RY;
+    angle _prev_RZ;
 
     HomingLaserChip(const char* prm_name, const char* prm_model);
 

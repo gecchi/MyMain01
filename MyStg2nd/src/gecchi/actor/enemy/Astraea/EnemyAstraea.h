@@ -19,10 +19,10 @@ public:
     /** Wayêî     */
     int _laser_way;
 
-    GgafDx9Core::angle* _paWayRz;
-    GgafDx9Core::angle* _paWayRy;
+    angle* _paWayRz;
+    angle* _paWayRy;
     /** ï˚å¸ì]ä∑äpë¨ìx */
-    GgafDx9Core::angvelo _angveloTurn;
+    angvelo _angveloTurn;
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;
 

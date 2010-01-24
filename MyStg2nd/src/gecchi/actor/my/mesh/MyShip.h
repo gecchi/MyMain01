@@ -245,23 +245,23 @@ public:
     //これもZ軸が絡む場合、うまくこの値から計算しよう
 
     /** 奥又は手前へ通常移動開始時のX軸回転角速度の初速度 */
-    GgafDx9Core::angle _angRXVelo_BeginMZ; //Rotation axisX angle Velocity when I Begin To Move Z
+    angle _angRXVelo_BeginMZ; //Rotation axisX angle Velocity when I Begin To Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥又は手前へ通常移動中のX軸回転角速度の角加速度 */
-    GgafDx9Core::angle _angRXAcce_MZ; //Rotation axisX angle Acceleration while I Move Z
+    angle _angRXAcce_MZ; //Rotation axisX angle Acceleration while I Move Z
     //奥の場合は正、手前の場合はこれに -1 を乗ずる
 
     /** 奥又は手前へ移動中のX軸回転角速度の上限角速度 */
-    GgafDx9Core::angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velocity while I Move Z
+    angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velocity while I Move Z
     //下限角速度はこれに -1 を乗ずる
 
     /** 奥又は手前へ通常Z移動中のX軸回転角の停止角度 */
-    GgafDx9Core::angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
+    angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
 
 
     /** 上又は下へTurbo移動開始時のZ軸回転角速度の初速度 */
-    GgafDx9Core::angle _angRXVelo_BeginMZT; //Rotation axisX angle Velocity when I Begin To Move Z with Turbo
+    angle _angRXVelo_BeginMZT; //Rotation axisX angle Velocity when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
 
@@ -313,7 +313,7 @@ public:
 
     void doNotingMoveInput();
 
-    static GgafDx9Core::angle wk_dist, wk_angRx;
+    static angle wk_dist, wk_angRx;
     void move_WAY_NONE() {
         //_way = WAY_NONE;
     }

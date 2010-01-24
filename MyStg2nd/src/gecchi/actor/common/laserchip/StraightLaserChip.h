@@ -22,11 +22,11 @@ public:
     /** レーザーの位置を同期するための、Z座標変数場所 */
     int* _pSource_Z;
     /** レーザーの向き方向のを同期するための、X軸回転アングル値変数場所 */
-    GgafDx9Core::angle* _pSource_RX;
+    angle* _pSource_RX;
     /** レーザーの向き方向のを同期するための、Y軸回転アングル値変数場所 */
-    GgafDx9Core::angle* _pSource_RY;
+    angle* _pSource_RY;
     /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
-    GgafDx9Core::angle* _pSource_RZ;
+    angle* _pSource_RZ;
     /** レーザーの移動方向を同期するための、単位方向ベクトルX成分変数場所 */
     float* _pSource_vX;
     /** レーザーの移動方向を同期するための、単位方向ベクトルY成分変数場所 */

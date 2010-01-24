@@ -45,7 +45,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _is_valid_flg = true;
 }
 
-bool ColliSphere::rotate(GgafDx9Core::angle rX, GgafDx9Core::angle rY, GgafDx9Core::angle rZ) {
+bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
