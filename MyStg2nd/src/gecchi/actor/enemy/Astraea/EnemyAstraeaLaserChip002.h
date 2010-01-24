@@ -15,7 +15,7 @@ public:
 
     void onActive() override;
 
-    void processOnRefraction(int prm_num_refraction) override;
+    void onRefraction(int prm_num_refraction) override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

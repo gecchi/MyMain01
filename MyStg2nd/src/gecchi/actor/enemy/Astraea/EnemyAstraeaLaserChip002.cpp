@@ -33,7 +33,7 @@ void EnemyAstraeaLaserChip002::onActive() {
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 }
 
-void EnemyAstraeaLaserChip002::processOnRefraction(int prm_num_refraction)  {
+void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
     if (prm_num_refraction == 0) {
 
     } else {
