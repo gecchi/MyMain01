@@ -5,7 +5,7 @@ using namespace GgafCore;
 
 GgafDummyActor::GgafDummyActor(const char* prm_name) : GgafMainActor(prm_name) {
     _class_name = "GgafDummyActor";
-    setCollisionable(false);
+    setHitAble(false);
 }
 
 GgafDummyActor::~GgafDummyActor() {

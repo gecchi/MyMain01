@@ -183,7 +183,7 @@ GgafLordActor* GgafScene::getLordActor() {
     return _pLordActor;
 }
 
-//void GgafScene::executeBumpChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
+//void GgafScene::executeHitChkGroupActors(actorkind prm_actorkindmask01, actorkind prm_actorkindmask02) {
 //    static GgafScene* pScene;
 //    pScene = this;
 //    static GgafGroupActor* pGroupActor;
@@ -238,9 +238,9 @@ GgafLordActor* GgafScene::getLordActor() {
 //    for (int i = 0; i < index01; i++) {
 //        for (int j = 0; j < index02; j++) {
 //            if (_apGroupActor01[i] == _apGroupActor02[j]) {
-//                _apGroupActor01[i]->executeBumpChk_RoundRobin2(_apGroupActor02[j]);
+//                _apGroupActor01[i]->executeHitChk_RoundRobin2(_apGroupActor02[j]);
 //            } else {
-//                _apGroupActor01[i]->executeBumpChk_RoundRobin(_apGroupActor02[j]);
+//                _apGroupActor01[i]->executeHitChk_RoundRobin(_apGroupActor02[j]);
 //            }
 //        }
 //    }

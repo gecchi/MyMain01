@@ -69,7 +69,7 @@ private:
 
 //    /**
 //     * 【自アクター 対 自ツリーアクターのどれか1つのアクター】の衝突判定処理を実行する .
-//     * 本メソッドは executeBumpChk2_WeAnd(GgafActor*)から呼び出される専用メソッド。汎用性はない。<BR>
+//     * 本メソッドは executeHitChk2_WeAnd(GgafActor*)から呼び出される専用メソッド。汎用性はない。<BR>
 //     * 実行すると自アクターのprocessHitLogic()を呼び出し、その結果がtrueの場合(衝突した場合)は自身のonHit()と、
 //     * 相手のアクターのonHit()を呼び出す。<BR>
 //     * 戻り値の bool はヒットしたorしてないを意味する物ではないので忘れるな。<BR>
@@ -77,25 +77,25 @@ private:
 //     * @retval	true	パラメータが自アクター
 //     * @retval	false	パラメータが自アクター以外
 //     */
-//    bool executeBumpChk2_MeAnd(GgafActor* prm_pOtherActor);
+//    bool executeHitChk2_MeAnd(GgafActor* prm_pOtherActor);
 //
 //    /**
-//     * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeBumpChk_MeAnd)を実行する .
-//     * executeBumpChk_RoundRobin2() から呼び出される。<BR>
-//     * executeBumpChk_WeAnd(GgafActor*)と基本的に同じ組み合わせアルゴリズムであるが、<BR>
+//     * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクター】ついて衝突判定処理(executeHitChk_MeAnd)を実行する .
+//     * executeHitChk_RoundRobin2() から呼び出される。<BR>
+//     * executeHitChk_WeAnd(GgafActor*)と基本的に同じ組み合わせアルゴリズムであるが、<BR>
 //     * 必ずやってくる自アクター同士当たり判定のチェックを行うようになってしまった時点で離脱し、<BR>
 //     * それ以上再帰ループを行わないようしている。残りの組み合わせは後続のループで補われる。（ハズである）<BR>
 //     * 離脱しても大丈夫な理由は、自アクター配下同士の総当たりであるため、単純に襷（タスキ）の組み合わせで行うと<BR>
 //     *  Actor① → Actor② 　　（矢印は衝突判定するという意味）<BR>
 //     *  Actor② → Actor①<BR>
 //     * のように、衝突判定処理が重複してしまうため、これを避けるため途中でループ離脱するのである。<BR>
-//     * executeBumpChk_RoundRobin2() 専用メソッドといっても良い。汎用性は無い。<BR>
+//     * executeHitChk_RoundRobin2() 専用メソッドといっても良い。汎用性は無い。<BR>
 //     * 戻り値の bool はヒットしたorしてないを意味する物ではないので忘れるな。<BR>
 //     * @param	prm_pOtherActor	衝突判定する自ツリーアクターのどれか1つのアクター
 //     * @retval	true	再帰処理打ち切り
 //     * @retval	false	再帰処理続行
 //     */
-//    bool executeBumpChk2_WeAnd(GgafActor* prm_pOtherActor);
+//    bool executeHitChk2_WeAnd(GgafActor* prm_pOtherActor);
 
 public:
     /** アクターの階級 */
@@ -106,7 +106,7 @@ public:
     DWORD _start_system_time;
 
     /** アクター衝突判定有無フラグ */
-    bool _can_collide_flg;
+    bool _can_hit_flg;
 
     GgafStatus* _pStatus;
 
@@ -137,23 +137,22 @@ public:
 
     /**
      * 自アクターの衝突判定有無を設定する。 .
-     * @param	prm_can_collide_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    void setCollisionable(bool prm_can_collide_flg);
+    void setHitAble(bool prm_can_hit_flg);
 
     /**
      * 自ツリーアクターの衝突判定有無を設定する。 .
-     * @param	prm_can_collide_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
      */
-    void setCollisionableTree(bool prm_can_collide_flg);
+    void setHitAbleTree(bool prm_can_hit_flg);
 
     /**
      * 衝突できるかどうか
      * @return	bool true:衝突できる／false:衝突できない
      */
-    //bool canCollide();
-    inline bool canCollide() {
-        if (isActive() && _can_collide_flg) {
+    inline bool canHit() {
+        if (isActive() && _can_hit_flg) {
             return true;
         } else {
             return false;
@@ -165,12 +164,12 @@ public:
      */
     virtual GgafScene* getPlatformScene();
 
-    inline void executeBumpChk_MeAnd(GgafActor* prm_pOtherActor) {
+    inline void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
         if (prm_pOtherActor == this) {
             return;
         } else {
-            if (_can_collide_flg &&
-                prm_pOtherActor->_can_collide_flg &&
+            if (_can_hit_flg &&
+                prm_pOtherActor->_can_hit_flg &&
                 _can_live_flg &&
                 prm_pOtherActor->_can_live_flg &&
                 _is_active_flg &&
@@ -184,12 +183,12 @@ public:
         }
     }
 
-//    inline void executeBumpChk_WeAnd(GgafActor* prm_pOtherActor) {
-//        executeBumpChk_MeAnd(prm_pOtherActor);
+//    inline void executeHitChk_WeAnd(GgafActor* prm_pOtherActor) {
+//        executeHitChk_MeAnd(prm_pOtherActor);
 //        if (_pSubFirst != NULL) {
 //            _pActor_tmp3 = _pSubFirst;
 //            while (true) {
-//                _pActor_tmp3->executeBumpChk_WeAnd(prm_pOtherActor);
+//                _pActor_tmp3->executeHitChk_WeAnd(prm_pOtherActor);
 //                if (_pActor_tmp3->_is_last_flg) {
 //                    break;
 //                } else {
@@ -199,12 +198,12 @@ public:
 //        }
 //    }
 //
-//    inline void executeBumpChk_RoundRobin(GgafActor* prm_pOtherActor) {
-//        executeBumpChk_WeAnd(prm_pOtherActor);
+//    inline void executeHitChk_RoundRobin(GgafActor* prm_pOtherActor) {
+//        executeHitChk_WeAnd(prm_pOtherActor);
 //        if (prm_pOtherActor->_pSubFirst != NULL) {
 //            GgafActor* _pActor_tmpZ = prm_pOtherActor->_pSubFirst;
 //            while (true) {
-//                executeBumpChk_RoundRobin(_pActor_tmpZ);
+//                executeHitChk_RoundRobin(_pActor_tmpZ);
 //                if (_pActor_tmpZ->_is_last_flg) {
 //                    break;
 //                } else {
@@ -214,11 +213,11 @@ public:
 //        }
 //    }
 //
-//    inline bool executeBumpChk2_MeAnd(GgafActor* prm_pOtherActor) {
+//    inline bool executeHitChk2_MeAnd(GgafActor* prm_pOtherActor) {
 //        if (prm_pOtherActor == this) {
 //            return true;
 //        } else {
-//            if (_can_collide_flg && prm_pOtherActor->_can_collide_flg && _can_live_flg && prm_pOtherActor->_can_live_flg && _is_active_flg
+//            if (_can_hit_flg && prm_pOtherActor->_can_hit_flg && _can_live_flg && prm_pOtherActor->_can_live_flg && _is_active_flg
 //                    && prm_pOtherActor->_is_active_flg) {
 //                if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
 //                    onHit(prm_pOtherActor); //自分のヒット時の振る舞い
@@ -229,8 +228,8 @@ public:
 //        }
 //    }
 //
-//    inline bool executeBumpChk2_WeAnd(GgafActor* prm_pOtherActor) {
-//        bool ret1 = executeBumpChk2_MeAnd(prm_pOtherActor);
+//    inline bool executeHitChk2_WeAnd(GgafActor* prm_pOtherActor) {
+//        bool ret1 = executeHitChk2_MeAnd(prm_pOtherActor);
 //        bool ret2;
 //        if (ret1) {
 //            return true;
@@ -238,7 +237,7 @@ public:
 //            if (_pSubFirst != NULL) {
 //                _pActor_tmp4 = _pSubFirst;
 //                while (true) {
-//                    ret2 = _pActor_tmp4->executeBumpChk2_WeAnd(prm_pOtherActor);
+//                    ret2 = _pActor_tmp4->executeHitChk2_WeAnd(prm_pOtherActor);
 //                    if (ret2) {
 //                        return true;
 //                    } else {
@@ -254,12 +253,12 @@ public:
 //        }
 //    }
 //
-//    inline void executeBumpChk_RoundRobin2(GgafActor* prm_pOtherActor) {
-//        executeBumpChk2_WeAnd(prm_pOtherActor);
+//    inline void executeHitChk_RoundRobin2(GgafActor* prm_pOtherActor) {
+//        executeHitChk2_WeAnd(prm_pOtherActor);
 //        if (prm_pOtherActor->_pSubFirst != NULL) {
 //            GgafActor* pActor_tmpZ2 = prm_pOtherActor->_pSubFirst;
 //            while (true) {
-//                executeBumpChk_RoundRobin2(pActor_tmpZ2);
+//                executeHitChk_RoundRobin2(pActor_tmpZ2);
 //                if (pActor_tmpZ2->_is_last_flg) {
 //                    break;
 //                } else {
@@ -276,35 +275,35 @@ public:
 //     * 但し、引数に、自身のポインタを渡してはいけない。<BR>
 //     * @param	prm_pOtherActor	相手の他アクター
 //     */
-//    void executeBumpChk_MeAnd(GgafActor* prm_pOtherActor);
+//    void executeHitChk_MeAnd(GgafActor* prm_pOtherActor);
 //
 //    /**
 //     * 【自ツリーアクター 対 他アクター】の衝突判定処理を実行する .
-//     * 内部的には、自ツリーアクター 全てについて、executeBumpChk_MeAnd(GgafActor*) を順次実行。<BR>
+//     * 内部的には、自ツリーアクター 全てについて、executeHitChk_MeAnd(GgafActor*) を順次実行。<BR>
 //     * 但し、引数に、自ツリーアクター所属のアクターのポインタを渡してはいけない。<BR>
 //     * @param	prm_pOtherActor	相手の他アクター
 //     */
-//    void executeBumpChk_WeAnd(GgafActor* prm_pOtherActor);
+//    void executeHitChk_WeAnd(GgafActor* prm_pOtherActor);
 //
 //    /**
 //     * 【自ツリーアクター 対 他ツリーアクター】の総当たりで衝突判定を実行する .
-//     * 内部的には、引数である 他ツリーアクター の全てについて、executeBumpChk_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
+//     * 内部的には、引数である 他ツリーアクター の全てについて、executeHitChk_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
 //     * 但し、自ツリーにも他ツリーにも同時に所属しているアクターがあってはいけない。<BR>
 //     * @param	prm_pOtherActor	相手の他ツリーアクター
 //     */
-//    void executeBumpChk_RoundRobin(GgafActor* prm_pOtherActor);
+//    void executeHitChk_RoundRobin(GgafActor* prm_pOtherActor);
 //
 //    /**
 //     * 【自ツリーアクター 対 自ツリーアクターのどれか1つのアクターを頂点とするツリーアクター】の総当たりで衝突判定を実行する。.
-//     * 内部的には、引数のアクター の全てについて、executeBumpChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
+//     * 内部的には、引数のアクター の全てについて、executeHitChk2_WeAnd(GgafActor*) を順次実行しているだけ。<BR>
 //     * 但し自アクター同士の重複組み合わせを無視する。 <BR>
 //     * @param	prm_pOtherActor	自ツリーアクターのどれか1つのアクター
 //     */
-//    void executeBumpChk_RoundRobin2(GgafActor* prm_pOtherActor);
+//    void executeHitChk_RoundRobin2(GgafActor* prm_pOtherActor);
 //
     /**
      * 自アクターと何かのアクターと衝突したかどうか判定する。 .
-     * executeBumpChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになる。<BR>
+     * executeHitChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになる。<BR>
      * 下位クラスで衝突判定ロジックを実装する。<BR>
      * このメソッドは何時呼び出されるかは決まっていない。呼び出しタイミングも下位クラスで実装する。<BR>
      * 想定としては、processJudgement() メソッドを実装したクラスが、その中で本メソッドを呼び出すものとしている。<BR>
