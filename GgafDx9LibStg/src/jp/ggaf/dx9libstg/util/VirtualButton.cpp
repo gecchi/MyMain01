@@ -98,18 +98,15 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
     } else {
         return false;
     }
-    _TRACE_("OK1");
     pVBMap = pVBMap->_prev;
     //’¼‘O‚Í•K‚¸‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í‘Ê–Ú
     if (pVBMap->_state & prm_VB) {
         return false;
     }
-    _TRACE_("OK2");
     bool ok = false;
     for (DWORD i = 0; i < prm_frame_delay; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & prm_VB) {
-            _TRACE_("OK3");
             //OK
             ok = true;
             break;
@@ -120,14 +117,12 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
     } else {
         return false;
     }
-    _TRACE_("OK4");
     ok = false;
     for (DWORD i = 0; i < prm_frame_push; i++) {
         pVBMap = pVBMap->_prev;
         if (pVBMap->_state & prm_VB) {
 
         } else {
-            _TRACE_("OK5");
             //OK
             ok = true;
             break;

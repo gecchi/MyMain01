@@ -101,22 +101,23 @@ void MyDummyOption::processBehavior() {
     if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
         _TRACE_("isDoublePushedDown");
         _is_flapping = true;
+        _angveloExpanse = 1000;
         _angacceExpanse = 100;
-        _range_angveloExpanse = 10000;
+        _range_angveloExpanse = 8000;
     } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
         _is_flapping = false;
     }
     if (_is_flapping) {
 
 
-        _angveloExpanse = 2000;
+
 
 
         _angacceExpanse += _angjerkExpanse;
         _angveloExpanse += _angacceExpanse;
         if (_angveloExpanse >= _range_angveloExpanse) {
             _angveloExpanse = _range_angveloExpanse;
-        } else if (_angveloExpanse <= _range_angveloExpanse) {
+        } else if (_angveloExpanse <= -_range_angveloExpanse) {
             _angveloExpanse = -_range_angveloExpanse;
         }
         _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
