@@ -99,12 +99,11 @@ void MyDummyOption::processBehavior() {
 //    /////////////モーフテスト////////////////
 
     if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
+        _TRACE_("isDoublePushedDown");
         _is_flapping = true;
         _angacceExpanse = 100;
         _range_angveloExpanse = 10000;
-    }
-
-    if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
+    } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
         _is_flapping = false;
     }
     if (_is_flapping) {
@@ -120,6 +119,8 @@ void MyDummyOption::processBehavior() {
         } else if (_angveloExpanse <= _range_angveloExpanse) {
             _angveloExpanse = -_range_angveloExpanse;
         }
+        _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
+        _TRACE_("_angExpanse="<<_angExpanse);
     }
 
     _X = _Xorg;
@@ -241,7 +242,7 @@ void MyDummyOption::processBehavior() {
     //最適化
 
 
-    _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
+
 
     if (VB::isBeingPressed(VB_SHOT2)) {
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
