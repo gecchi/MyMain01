@@ -89,8 +89,8 @@ public:
      * @param prm_pOtherChecker
      * @return
      */
- //   bool isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
-    inline bool isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
+ //   bool isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
+    inline bool isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker);
 
     virtual ~CollisionChecker();
 };

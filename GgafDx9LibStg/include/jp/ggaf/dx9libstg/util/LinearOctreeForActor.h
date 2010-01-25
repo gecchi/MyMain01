@@ -102,22 +102,22 @@ public:
      * @param prm_groupA アクター種別Aグループ
      * @param prm_groupB アクター種別Bグループ
      */
-    void executeAllBumpChk(actorkind prm_groupA, actorkind prm_groupB);
+    void executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB);
 
     /**
      * 引数の空間の当たり判定を行う  .
-     * executeAllBumpChk から使用される。
+     * executeAllHitChk から使用される。
      * @param prm_index 線形八分木配列の配列要素番号
      */
-    void executeBumpChk(DWORD prm_index);
+    void executeHitChk(DWORD prm_index);
 
     /**
      * アクター種別Aグループのスタックと、アクター種別Bグループのスタックの総当りの当たり判定を行う  .
-     * executeBumpChk から使用される。
+     * executeHitChk から使用される。
      * @param prm_pStackA アクター種別Aグループのスタック
      * @param prm_pStackB アクター種別Bグループのスタック
      */
-    void executeBumpChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
+    void executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
 
 
     virtual ~LinearOctreeForActor();

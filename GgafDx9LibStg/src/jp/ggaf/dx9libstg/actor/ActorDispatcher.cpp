@@ -6,7 +6,7 @@ using namespace GgafDx9LibStg;
 
 ActorDispatcher::ActorDispatcher(const char* prm_name) : GgafDummyActor(prm_name) {
     _class_name = "ActorDispatcher";
-    setCollisionable(false);
+    setHitAble(false);
 }
 
 

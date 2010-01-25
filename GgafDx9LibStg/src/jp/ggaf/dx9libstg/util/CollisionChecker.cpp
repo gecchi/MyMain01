@@ -85,7 +85,7 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    if (_pActor->_can_collide_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
+    if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG
@@ -129,7 +129,7 @@ void CollisionChecker::updateHitArea() {
 }
 
 
-bool CollisionChecker::isBump(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
+bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
     static GgafDx9Core::GgafDx9GeometricActor* pOtherActor;
     static GgafDx9CollisionArea* pOtherCollisionArea;
 
