@@ -12,8 +12,8 @@
         #define _CRTDBG_MAP_ALLOC
         #define _CRTDBG_MAP_ALLOC_NEW
     #endif
-	#if _MSC_VER < 1500
-		#define override
+    #if _MSC_VER < 1500
+        #define override
     #endif
 #else
    #define _WIN32_IE 0x0300
@@ -54,6 +54,10 @@
 #include <sstream>
 #include <cstddef>
 
+#ifdef _MSC_VER
+#else
+#include "sal.h"
+#endif
 //自分用デバッグビルド(コメントを外せば使用可能)
 //#define MY_DEBUG 1
 
@@ -299,6 +303,12 @@ class GgafLinearOctreeElem;
 
 
 }
+
+#ifdef _MSC_VER
+
+#else
+#define NULL 0
+#endif
 
 #include "jp/ggaf/core/util/GgafUtil.h"
 #include "jp/ggaf/core/util/GgafRepeatSeq.h"
