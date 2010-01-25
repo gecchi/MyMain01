@@ -101,8 +101,10 @@ typedef int angle;
 typedef int s_ang;
 typedef int velo;
 typedef int acce;
+typedef int jerk;
 typedef int angvelo;
 typedef int angacce;
+typedef int angjerk;
 
 enum GgafDx9AnimationMethod {
     ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED

@@ -61,6 +61,8 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
     angvelo _angveloRotBottomFace[3];
     /** 軸回転方角の角加速度（角速度に毎フレーム加算する値） */
     angacce _angacceRotFace[3];
+    /** 軸回転方角の角躍度（角加速度に毎フレーム加算する値） */
+    angjerk _angjerkRotFace[3];
     /** 目標の軸回転方角自動停止機能有効フラグ */
     bool _face_angle_targeting_flg[3];
     /** 目標とするキャラの軸回転方角の方角(0～360,000) */
@@ -176,6 +178,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     velo _veloBottomMove;
     /** 移動加速度 */
     acce _accMove;
+    /** 移動躍度 */
+    jerk _jerkMove;
 
     /** 移動方角（Z軸回転）の角速度（移動方角（Z軸回転）に毎フレーム加算する方角） */
     angvelo _angveloRzMove;
@@ -185,6 +189,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     angvelo _angveloRzBottomMove;
     /** 移動方角（Z軸回転）の角加速度（角速度に毎フレーム加算する値） */
     angacce _angacceRzMove;
+    /** 移動方角（Z軸回転）の角躍度（角加速度に毎フレーム加算する値） */
+    angjerk _angjerkRzMove;
     /** 目標の移動方角（Z軸回転）自動停止機能有効フラグ */
     bool _move_angle_rz_target_flg;
     /** 目標とするキャラの移動方角（Z軸回転）の方角(0～360,000) */
@@ -206,6 +212,8 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     angvelo _angveloRyBottomMove;
     /** 移動方角（Y軸回転）の角加速度（角速度に毎フレーム加算する値） */
     angacce _angacceRyMove;
+    /** 移動方角（Y軸回転）の角躍度（角加速度に毎フレーム加算する値） */
+    angjerk _angjerkRyMove;
     /** 目標の移動方角（Y軸回転）自動停止機能有効フラグ */
     bool _move_angle_ry_target_flg;
     /** 目標とするキャラの移動方角（Y軸回転）の方角(0～360,000) */

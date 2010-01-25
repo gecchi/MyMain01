@@ -118,6 +118,8 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
         _angveloRotBottomFace[i] = ANGLE360 * -1; //_angveloRotFace[n] の増分の下限。デフォルトは1フレームで好きな軸回転方角に振り向く事が出来る事を意味する
         //軸回転方角の角加速度（角速度の増分） ＝ 0 angle/fream^2
         _angacceRotFace[i] = 0; //_angveloRotFace[n] の増分。デフォルトは軸回転方角の角加速度無し
+
+        _angjerkRotFace[i] = 0;
         //目標軸回転方角への自動制御フラグ = 無効
         _face_angle_targeting_flg[i] = false;
         //目標の軸回転方角
@@ -145,6 +147,7 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     //移動加速度（移動速度の増分） = 0 px/fream^2
     _accMove = 0; //_veloMove の増分。デフォルトは加速無し
 
+    _jerkMove = 0;
     //移動方角（Z軸回転）の角速度 = 0 angle/fream
     _angveloRzMove = 0; //1フレームに加算される移動方角の角増分。デフォルトは移動方角の角増分無し、つまり直線移動。
     //移動方角（Z軸回転）の角速度上限 = +360,000 angle/fream
@@ -153,6 +156,8 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _angveloRzBottomMove = ANGLE360 * -1; //_angveloRzMove の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Z軸回転）の角加速度 = 0 angle/fream^2
     _angacceRzMove = 0; //_angveloRzMove の増分。デフォルトは移動方角の角加速度無し
+
+    _angjerkRzMove = 0;
     //目標移動方角（Z軸回転）への自動制御フラグ = 無効
     _move_angle_rz_target_flg = false;
     //目標の移動方角（Z軸回転）
@@ -172,6 +177,8 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _angveloRyBottomMove = ANGLE360 * -1; //_angveloRyMove の増分の下限。デフォルトは1フレームで好きな移動方向に変更が出来る事を意味する
     //移動方角（Y軸回転）の角加速度 = 0 angle/fream^2
     _angacceRyMove = 0; //_angveloRyMove の増分。デフォルトは移動方角の角加速度無し
+
+    _angjerkRyMove = 0;
     //目標移動方角（Y軸回転）への自動制御フラグ = 無効
     _move_angle_ry_target_flg = false;
     //目標の移動方角（Y軸回転）
@@ -286,6 +293,8 @@ void GgafDx9GeometryMover::behave() {
     _veloVzMove += _acceVzMove;
     setVzMoveVelocity(_veloVzMove);
 
+
+    _accMove += _jerkMove;
     //移動加速度の処理
     _veloMove += _accMove;
     setMoveVelocity(_veloMove);
@@ -329,6 +338,8 @@ void GgafDx9GeometryMover::behave() {
 
     } else {
         //if (_angacceRzMove != 0) {
+
+        _angacceRzMove += _angjerkRzMove;
         //フレーム毎の移動方角（Z軸回転）旋廻の処理
         _angveloRzMove += _angacceRzMove;
         if (_angveloRzMove != 0) {
@@ -380,6 +391,7 @@ void GgafDx9GeometryMover::behave() {
         }
     } else {
         //if (_angacceRyMove != 0) {
+        _angacceRyMove += _angjerkRyMove;
         //フレーム毎の移動方角（Y軸回転）旋廻の処理
         _angveloRyMove += _angacceRyMove;
         if(_angveloRyMove != 0) {
