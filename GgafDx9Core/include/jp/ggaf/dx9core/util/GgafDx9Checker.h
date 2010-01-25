@@ -33,7 +33,7 @@ public:
         return _pActor;
     }
 
-    virtual bool isBump(GgafDx9Checker* prm_pOtherChecker) {
+    virtual bool isHit(GgafDx9Checker* prm_pOtherChecker) {
         return false;
     }
 
