@@ -42,7 +42,7 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
 }
 
 void EnemyAstraea::initialize() {
-    setCollisionable(true);
+    setHitAble(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pMover->setMoveVelocity(0);
@@ -210,7 +210,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 //    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    setCollisionable(false);
+//    setHitAble(false);
 //    playSe2();
 //    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
 //        GameGlobal::_dwScore += _pCollisionChecker->_iScorePoint;

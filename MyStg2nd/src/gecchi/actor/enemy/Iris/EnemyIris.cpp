@@ -15,7 +15,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "8/Ir
 }
 
 void EnemyIris::initialize() {
-    setCollisionable(true);
+    setHitAble(true);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);

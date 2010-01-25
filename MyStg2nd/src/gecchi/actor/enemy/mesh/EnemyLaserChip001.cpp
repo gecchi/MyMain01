@@ -14,7 +14,7 @@ void EnemyLaserChip001::initialize() {
     _pMover->setMoveVelocity(1000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    setCollisionable(true);
+    setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;
     _max_radius = 5.0f;

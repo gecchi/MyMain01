@@ -76,7 +76,7 @@ void EnemyCeres::initialize() {
 }
 
 void EnemyCeres::onActive() {
-    setCollisionable(true);
+    setHitAble(true);
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _dwFrame_Active = 0;
@@ -135,7 +135,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
-        setCollisionable(false);
+        setHitAble(false);
         playSe1();
         inactivate(); //TODO:さよなら
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

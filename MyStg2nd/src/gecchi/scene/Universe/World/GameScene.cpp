@@ -110,42 +110,42 @@ void GameScene::processJudgement() {
         }
 
         //八分木アルゴリズムでヒットチェック
-        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllHitChk(
                 KIND_MY_SHOT|KIND_MY_BODY,
                 KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
               );
-        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllHitChk(
                 KIND_ENEMY_SHOT,
                 KIND_MY_BODY|KIND_OTHER|KIND_CHIKEI
               );
-        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+        CollisionChecker::_pLinearOctree->executeAllHitChk(
                 KIND_ENEMY_BODY|KIND_OTHER,
                 KIND_OTHER
               );
 
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_CHIKEI,
 //                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //              );
 //
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
 //                KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
 //              );
 //
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
 //                KIND_MY_SHOT_NOMAL
 //            );
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_OTHER,
 //                KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //              );
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
 //                KIND_MY_SHOT_GU
 //              );
-//        CollisionChecker::_pLinearOctree->executeAllBumpChk(
+//        CollisionChecker::_pLinearOctree->executeAllHitChk(
 //                KIND_ENEMY_SHOT_CHOKI,
 //                KIND_ENEMY_SHOT_GU
 //              );
@@ -155,28 +155,28 @@ void GameScene::processJudgement() {
 //        なんとかしなければ
 //        昔の相当たり法
 //
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //          KIND_CHIKEI,
 //          KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //        );
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //          KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER,
 //          KIND_MY_BODY | KIND_MY_SHOT_GU | KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_PA
 //        );
 //
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //            KIND_ENEMY_BODY|KIND_ENEMY_SHOT_GU|KIND_ENEMY_SHOT_CHOKI|KIND_ENEMY_SHOT_PA|KIND_OTHER,
 //            KIND_MY_SHOT_NOMAL
 //        );
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //          KIND_OTHER,
 //          KIND_ENEMY_BODY | KIND_ENEMY_SHOT_GU | KIND_ENEMY_SHOT_CHOKI | KIND_ENEMY_SHOT_PA | KIND_ENEMY_SHOT_NOMAL | KIND_OTHER
 //        );
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //          KIND_MY_SHOT_CHOKI | KIND_MY_SHOT_NOMAL,
 //          KIND_ENEMY_SHOT_GU
 //        );
-//        executeBumpChkGroupActors(
+//        executeHitChkGroupActors(
 //          KIND_MY_SHOT_CHOKI,
 //          KIND_MY_SHOT_GU
 //        );

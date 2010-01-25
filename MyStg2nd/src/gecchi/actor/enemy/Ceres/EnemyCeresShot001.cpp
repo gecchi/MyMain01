@@ -36,7 +36,7 @@ void EnemyCeresShot001::initialize() {
 
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
-    setCollisionable(true);
+    setHitAble(true);
     useSe1("break_glass01");
 }
 
@@ -48,7 +48,7 @@ void EnemyCeresShot001::onActive() {
     _pMover->setMoveVeloAcceleration(_iMoveAcceleration_1st);
 
     _frame_on_change_to_active_flg = 0;
-    setCollisionable(true);
+    setHitAble(true);
 }
 
 void EnemyCeresShot001::processBehavior() {
@@ -89,7 +89,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
         playSe1();
-        setCollisionable(false);
+        setHitAble(false);
         inactivate();
         EffectExplosion001* pExplo001 =
                 (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

@@ -19,7 +19,7 @@ void Shot002::initialize() {
 
 void Shot002::onActive() {
     MyStgUtil::resetShot002Status(_pStatus);
-    setCollisionable(true);
+    setHitAble(true);
     _pScaler->setScale(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setMoveVelocity(8000*_RANK_);

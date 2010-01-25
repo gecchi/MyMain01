@@ -17,7 +17,7 @@ void MyCurveLaserChip001::initialize() {
 
     registHitAreaCube(50000);
 
-    setCollisionable(true);
+    setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;

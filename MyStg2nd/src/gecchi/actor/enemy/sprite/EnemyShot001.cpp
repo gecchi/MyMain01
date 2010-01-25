@@ -15,13 +15,13 @@ void EnemyShot001::initialize() {
     _pMover->setMoveVelocity(3000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
-    setCollisionable(true);
+    setHitAble(true);
 }
 
 void EnemyShot001::processBehavior() {
     if (onChangeToActive()) {
         //出現時
-        setCollisionable(true);
+        setHitAble(true);
     }
     addNextAnimationFrame();
     //座標に反映
@@ -52,7 +52,7 @@ int EnemyShot001::isOutOfGameSpace() {
 void EnemyShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyShot001ヒットしました。("<<_X<<","<<_Y<<")");
     //adios();
-    setCollisionable(false);
+    setHitAble(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

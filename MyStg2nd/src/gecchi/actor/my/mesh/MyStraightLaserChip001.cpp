@@ -17,7 +17,7 @@ void MyStraightLaserChip001::initialize() {
     _pMover->setMoveVeloAcceleration(300);
     _pMover->setRzRyMoveAngle(0,0);
     registHitAreaCube(50000);
-    setCollisionable(true);
+    setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.99;
     _max_radius = 20.0;

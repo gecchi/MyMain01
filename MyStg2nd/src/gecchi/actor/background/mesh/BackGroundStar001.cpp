@@ -20,7 +20,7 @@ BackGroundStar001::BackGroundStar001(const char* prm_name) :
 }
 
 void BackGroundStar001::initialize() {
-    setCollisionable(false);
+    setHitAble(false);
     setAlpha(0.9);
 }
 

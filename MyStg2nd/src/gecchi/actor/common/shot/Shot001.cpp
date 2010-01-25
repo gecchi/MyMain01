@@ -20,7 +20,7 @@ void Shot001::initialize() {
 
 void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
-    setCollisionable(true);
+    setHitAble(true);
     _pMover->setMoveVelocity(10000*_RANK_);             //ˆÚ“®‘¬“x
     _pMover->setFaceAngleVelocity(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚İ‹ï‡
     _pScaler->beat(30,5,2,-1);

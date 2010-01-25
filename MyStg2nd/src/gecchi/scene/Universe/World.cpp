@@ -388,7 +388,8 @@ void World::processBehavior() {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
                 pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
             } else {
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);
+
+				pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);
             }
         }
 

@@ -37,7 +37,7 @@ void MyWave001::initialize() {
     _pScaler->setScaleRange(1000,20000);
     //setAlpha(0.2);
 
-    setCollisionable(true);
+    setHitAble(true);
     inactivateTree();
 
 }
@@ -48,7 +48,7 @@ void MyWave001::processBehavior() {
         _pScaler->setScale(1000);
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
-        setCollisionable(true);
+        setHitAble(true);
         setGeometry(GameGlobal::_pMyShip);
         _pMover->setFaceAngle(AXIS_Z, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Z]);
         _pMover->setFaceAngle(AXIS_Y, GameGlobal::_pMyShip->_pMover->_angFace[AXIS_Y]);
@@ -90,7 +90,7 @@ void MyWave001::onHit(GgafActor* prm_pOtherActor) {
 
 void MyWave001::onInactive() {
     //Á¸ˆ—
-    setCollisionable(false);
+    setHitAble(false);
     moveFirst();
 }
 

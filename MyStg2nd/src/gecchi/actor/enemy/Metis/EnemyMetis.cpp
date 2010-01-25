@@ -45,7 +45,7 @@ void EnemyMetis::onActive() {
     _X = GgafDx9Universe::_X_goneRight - 1000;
     _Y = (pRndGen->genrand_int32() % (appearances_renge_Y)) - (appearances_renge_Y/2);
     _Z = (pRndGen->genrand_int32() % (appearances_renge_Z)) - (appearances_renge_Z/2);
-    setCollisionable(true);
+    setHitAble(true);
 }
 
 void EnemyMetis::processBehavior() {

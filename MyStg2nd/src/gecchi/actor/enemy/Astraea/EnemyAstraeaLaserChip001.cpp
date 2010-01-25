@@ -14,7 +14,7 @@ EnemyAstraeaLaserChip001::EnemyAstraeaLaserChip001(const char* prm_name) : Homin
 
 void EnemyAstraeaLaserChip001::initialize() {
     registHitAreaCube(2000);
-    setCollisionable(true);
+    setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
     _fAlpha = 0.9f;
     _max_radius = 5.0f;

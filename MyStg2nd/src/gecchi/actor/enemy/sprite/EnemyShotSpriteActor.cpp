@@ -14,7 +14,7 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm
 
 void EnemyShotSpriteActor::initialize() {
     setAnimationMethod(ORDER_LOOP, 1);
-    setCollisionable(true);
+    setHitAble(true);
 }
 
 void EnemyShotSpriteActor::processBehavior() {

@@ -11,7 +11,7 @@ TamagoActor::TamagoActor(const char* prm_name) : GroundMeshActor(prm_name, "stra
 
 void TamagoActor::initialize() {
     //inactivateTree();
-    setCollisionable(false);
+    setHitAble(false);
     _X = _Y = _Z = 0;
     _Y = 0;
 //    _pMover->setRzMoveAngle(ANGLE180);

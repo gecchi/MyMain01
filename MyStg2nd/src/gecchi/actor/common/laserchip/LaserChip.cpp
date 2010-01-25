@@ -60,14 +60,14 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void LaserChip::initialize() {
-    //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canHit());
     _pMover->setMoveVelocity(40000);
     _fAlpha = 0.99;
 }
 
 
 void LaserChip::onActive() {
-    //_TRACE_("LaserChip::onActive()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::onActive()st "<<getName()<<" bump="<<canHit());
 //    _TRACE_("LaserChip::onActive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
@@ -97,11 +97,11 @@ void LaserChip::onActive() {
 
     }
 
-    //_TRACE_("LaserChip::onActive()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::onActive()ed "<<getName()<<" bump="<<canHit());
 }
 
 void LaserChip::processBehavior() {
-    //_TRACE_("LaserChip::processBehavior()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processBehavior()ed "<<getName()<<" bump="<<canHit());
 }
 
 
@@ -112,7 +112,7 @@ void LaserChip::processPreJudgement() {
     //この処理はprocessBehavior()で行えない。なぜならば、_pChip_front が座標移動済みの保証がないため。
 
     static int dX, dY, dZ,cX, cY, cZ,h;
-    //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canHit());
     if (_is_regist_hitarea) { //registHitAreaCubeメソッドによって登録された場合。
         if (_pChip_front != NULL && _pChip_front->_pChip_front != NULL) {
             dX = _pChip_front->_X - _X;
@@ -148,12 +148,12 @@ void LaserChip::processPreJudgement() {
 }
 
 void LaserChip::processJudgement() {
-    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfGameSpace()) {
         inactivate();
     }
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
-    setCollisionable(true);
+    setHitAble(true);
     if (_pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActive()) {
@@ -170,7 +170,7 @@ void LaserChip::processJudgement() {
         }
     } else {
         _chip_kind = 4; //何も描画したくない
-        setCollisionable(false);
+        setHitAble(false);
     }
 
 //    if ((0 <= _RZ && _RZ < ANGLE90) ||
@@ -185,12 +185,12 @@ void LaserChip::processJudgement() {
 //    //processBehavior,processJudgementでは _pChip_front が必ず先に実行される（処理順序がツリー構造に依存するため）。
 //    //描画時に_pChip_frontも使用するためここで設定しとく必要がある。
 //    GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld);
-    //_TRACE_("LaserChip::processJudgement()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processJudgement()ed "<<getName()<<" bump="<<canHit());
 }
 
 
 void LaserChip::processDraw() {
-    //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canHit());
     _draw_set_num = 1; //同一描画深度に、GgafDx9MeshSetActorの同じモデルが連続しているカウント数
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -255,20 +255,20 @@ void LaserChip::processDraw() {
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
     // Zバッファ書き込み可
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
-    //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canHit());
 }
 
 void LaserChip::drawHitArea() {
-    //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::drawHitArea()st "<<getName()<<" bump="<<canHit());
     CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
-    //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::drawHitArea()ed "<<getName()<<" bump="<<canHit());
 }
 
 void LaserChip::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void LaserChip::onInactive() {
-    //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::onInactive()st "<<getName()<<" bump="<<canHit());
 //    _TRACE_("LaserChip::onInactive() !!"<<getName()<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
@@ -284,11 +284,11 @@ void LaserChip::onInactive() {
         _pChip_behind->_pChip_front = NULL;
     }
     _pChip_behind = NULL;
-    //_TRACE_("LaserChip::onInactive()ed "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::onInactive()ed "<<getName()<<" bump="<<canHit());
 }
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {
-    //_TRACE_("LaserChip::registHitAreaCube()st "<<getName()<<" bump="<<canCollide());
+    //_TRACE_("LaserChip::registHitAreaCube()st "<<getName()<<" bump="<<canHit());
     //下位レーザーチップでオーバーライトされている可能性あり
     _is_regist_hitarea = true;
     _hitarea_edge_length = prm_edge_length;
@@ -297,8 +297,8 @@ void LaserChip::registHitAreaCube(int prm_edge_length) {
     _pCollisionChecker->setColliBox_Cube(0, prm_edge_length);
     _pCollisionChecker->setColliBox_Cube(1, prm_edge_length);
     _pCollisionChecker->disable(1);
-    setCollisionable(true);
-    //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canCollide());
+    setHitAble(true);
+    //_TRACE_("LaserChip::registHitAreaCube()ed "<<getName()<<" bump="<<canHit());
 
 }
 

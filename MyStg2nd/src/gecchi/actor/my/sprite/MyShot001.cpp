@@ -42,7 +42,7 @@ void MyShot001::initialize() {
     _SY = 50000;
     setAlpha(0.5);
 
-    setCollisionable(true);
+    setHitAble(true);
     inactivateTree();
 
 }
@@ -50,7 +50,7 @@ void MyShot001::initialize() {
 void MyShot001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»‹¤’Êˆ—
-        setCollisionable(true);
+        setHitAble(true);
         _X = GameGlobal::_pMyShip->_X;
         _Y = GameGlobal::_pMyShip->_Y;
         _Z = GameGlobal::_pMyShip->_Z;
@@ -76,7 +76,7 @@ void MyShot001::onHit(GgafActor* prm_pOtherActor) {
 
 void MyShot001::onInactive() {
     //Á¸ˆ—
-    setCollisionable(false);
+    setHitAble(false);
     moveFirst();
 }
 
