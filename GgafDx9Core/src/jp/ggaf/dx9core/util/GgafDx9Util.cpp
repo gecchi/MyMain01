@@ -709,7 +709,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
             Ysign = -1;
             Zsign = -1;
         }
-    } else if (ANGLE270 <= prm_angFaceZ && prm_angFaceZ < ANGLE360) {
+    } else if (ANGLE270 <= prm_angFaceZ && prm_angFaceZ <= ANGLE360) {
         rZ = (ANGLE360 - prm_angFaceZ) / ANGLE_RATE;
         if (0 <= prm_angFaceY && prm_angFaceY < ANGLE90) { //‘æ”ªÛŒÀ
             rY_rev = prm_angFaceY / ANGLE_RATE;
@@ -733,7 +733,7 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
             Zsign = 1;
         }
     } else {
-        _TRACE_("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º");
+        _TRACE_("getNormalizeVectorZY: ‚È‚ñ‚©‚¨‚©‚µ‚¢‚Å‚·‚º prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
     }
     static unsigned __int16 vx, vy, vz;
     //	_TRACE_("prm_angFaceZ="<<prm_angFaceZ<<"/prm_angFaceY="<<prm_angFaceY<<" rY="<<rY<<"/rZ="<<rZ<<")");

@@ -61,7 +61,7 @@
 //シェーダー2.0の限界のモーフターゲットは6個だった
 #define MAX_MORPH_TARGET 6
 
-#include <dxerr9.h>
+#include <dxerr.h>
 #include <d3d9.h>
 #include <d3dx9.h>
 #include <dinput.h>

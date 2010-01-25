@@ -11,7 +11,7 @@ string GgafDx9CriticalException::getMsg() {
     ZeroMemory(buff, sizeof(buff));
 
     sprintf(buff, "\nHRESULT=0x%08X(%d) is %s. ErrStr=%s Desc=%s", (UINT)_hr, (int)_hr, ((FAILED(_hr)) ? "FAILED" : "SUCCEEDED"),
-            DXGetErrorString9(_hr), DXGetErrorDescription9(_hr));
+            DXGetErrorString(_hr), DXGetErrorDescription(_hr));
     string hrstr = buff;
     return _message + hrstr;
 }
