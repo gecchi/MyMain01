@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?fileVersion 4.0.0?>
 
 <cproject>
@@ -70,7 +70,7 @@
 <option id="gnu.cpp.link.option.libs.643623027" name="ライブラリー (-l)" superClass="gnu.cpp.link.option.libs" valueType="libs">
 <listOptionValue builtIn="false" value="GgafDx9LibStg"/>
 <listOptionValue builtIn="false" value="GgafDx9Core"/>
-<listOptionValue builtIn="false" value="dxerr9"/>
+<listOptionValue builtIn="false" value="dxerr"/>
 <listOptionValue builtIn="false" value="IkdLib"/>
 <listOptionValue builtIn="false" value="PaulCoppensLib"/>
 <listOptionValue builtIn="false" value="GgafCore"/>
