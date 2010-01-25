@@ -5,8 +5,8 @@
 #define IKD_DIX_PCMPLAYER_H
 
 #include "DixSmartPtr.h"
-#include "PCMDecoder.h"
 #include "DixComPtr.h"
+#include "PCMDecoder.h"
 #include "dsound.h"
 
 namespace Dix {
@@ -76,8 +76,8 @@ namespace Dix {
         sp< PCMDecoder >				spPCMDecoder_;		//!< 再生対象デコード
         WAVEFORMATEX					waveFormat_;		//!< WAVEFORMATEX構造体
         DSBUFFERDESC					DSBufferDesc_;		//!< DSBUFFERDESC構造体
-        IDirectSound8*		pDS8_;				//!< サウンドデバイス
-        IDirectSoundBuffer8*	pDSBuffer_;		//!< セカンダリバッファ
+        IDirectSound8*                  pDS8_;				//!< サウンドデバイス
+        IDirectSoundBuffer8*            pDSBuffer_;		//!< セカンダリバッファ
         bool							isReady_;			//!< 準備できた？
         unsigned int					threadHandle_;		//!< ストリーム再生スレッドハンドル
         bool							isTerminate_;		//!< スレッド停止

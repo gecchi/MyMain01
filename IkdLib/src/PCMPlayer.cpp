@@ -5,6 +5,12 @@
 #include <process.h>
 #include <stdio.h>
 
+#ifdef _MSC_VER
+
+#else
+#define NULL 0
+#endif
+
 namespace {
     double playTime_g = 1;	// 1 sec.
 }
