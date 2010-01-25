@@ -85,6 +85,58 @@ vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
         return false;
     }
 }
+vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWORD prm_frame_delay) {
+    //-------oooo-----o
+    //       <--><--->
+    //         |    `-- prm_frame_delay
+    //         `-- prm_frame_push
+    //âﬂãéÇ…ëkÇËÇ»Ç™ÇÁåüèÿ
+    static VB::VBMap* pVBMap;
+    pVBMap = _pVBMap_Active;
+    if (pVBMap->_state & prm_VB) {
+        //OK
+    } else {
+        return false;
+    }
+    pVBMap->_prev;
+    //íºëOÇÕïKÇ∏âüÇ≥ÇÍÇƒÇ¢ÇƒÇÕë ñ⁄
+    if (pVBMap->_state & prm_VB) {
+        return false;
+    }
+
+    bool ok = false;
+    for (int i = 0; i < prm_frame_delay; i++) {
+        pVBMap = _pVBMap_Active->_prev;
+        if (pVBMap->_state & prm_VB) {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+
+    } else {
+        return false;
+    }
+
+    ok = false;
+    for (int i = 0; i < prm_frame_push; i++) {
+        pVBMap = _pVBMap_Active->_prev;
+        if (pVBMap->_state & prm_VB) {
+
+        } else {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 
 
 ////âΩèäÇ‡âüÇ≥ÇÍÇƒÇ¢Ç»Ç¢Å®âüÇµÇΩ

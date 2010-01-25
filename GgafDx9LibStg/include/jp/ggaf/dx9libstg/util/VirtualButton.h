@@ -125,6 +125,9 @@ public:
 
     static vbsta isPushedDown(vbsta prm_VB);
 
+    static vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 4, DWORD prm_frame_delay = 4);
+
+
 
     static vbsta wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo);
 
