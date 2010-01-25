@@ -19,6 +19,8 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _veloMove = 5000;     //旋廻移動速度（上書き初期設定可）
     _angExpanse = 0;      //オプションの広がり角の回転角（上書き初期設定可）
     _angveloExpanse = 0; //オプションの広がり角の角回転速度 （上書き初期設定可）
+    _angacceExpanse = 0;
+    _angjerkExpanse = 0;
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect("laser001");
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
@@ -39,6 +41,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     }
     addSubLast(_pLaserChipDispatcher); //仮サブ
 
+    _is_flapping = false;
 }
 
 void MyDummyOption::initialize() {
@@ -95,10 +98,28 @@ void MyDummyOption::processBehavior() {
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
 
-    if (GameGlobal::_pMyShip->_stc == VB_NEUTRAL_STC && VB::isBeingPressed(VB_OPTION)) {
+    if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
+        _is_flapping = true;
+        _angacceExpanse = 100;
+        _range_angveloExpanse = 10000;
+    }
+
+    if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
+        _is_flapping = false;
+    }
+    if (_is_flapping) {
+
+
         _angveloExpanse = 2000;
-    } else {
-        _angveloExpanse = 0;
+
+
+        _angacceExpanse += _angjerkExpanse;
+        _angveloExpanse += _angacceExpanse;
+        if (_angveloExpanse >= _range_angveloExpanse) {
+            _angveloExpanse = _range_angveloExpanse;
+        } else if (_angveloExpanse <= _range_angveloExpanse) {
+            _angveloExpanse = -_range_angveloExpanse;
+        }
     }
 
     _X = _Xorg;

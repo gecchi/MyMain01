@@ -5,6 +5,7 @@ namespace MyStg2nd {
 //class MyDummyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
 class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
+
     /** 親アクター */
     MyOptionParent* _pMyOptionParent;
 
@@ -18,6 +19,9 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     GgafDx9Core::GgafDx9Quaternion _Q;
 
 public:
+
+
+
     LaserChipDispatcher* _pLaserChipDispatcher;
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;
 
@@ -39,6 +43,15 @@ public:
     angle _angExpanse;
     /** オプションの広がり回転角速度 （随時変更可／デフォルト=100）*/
     angvelo _angveloExpanse;
+
+    /** オプションの広がり回転角加速度 */
+    angacce _angacceExpanse;
+
+    angjerk _angjerkExpanse;
+
+    angvelo _range_angveloExpanse;
+
+    bool _is_flapping;
 
     MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
