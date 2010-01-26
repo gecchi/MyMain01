@@ -1208,7 +1208,8 @@ void GgafDx9GeometryMover::executeSplineMoveProgram(GgafDx9SplineProgram* prm_pr
 
 
 void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
-                                                             angvelo prm_angVelocity, int prm_way) {
+                                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                             int prm_way) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     GgafDx9Util::getRzRyAngle(prm_tX - _pActor->_X,
@@ -1218,13 +1219,17 @@ void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(int prm_tX, int prm
                               out_angRy_Target);
     if (getFaceAngleDistance(AXIS_Z, out_angRz_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Z,prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, prm_angAcceleration);
     } else {
-       setFaceAngleVelocity(AXIS_Z, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Z, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, -prm_angAcceleration);
     }
     if (getFaceAngleDistance(AXIS_Y, out_angRy_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Y, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, prm_angAcceleration);
     } else {
-        setFaceAngleVelocity(AXIS_Y, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Y, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, -prm_angAcceleration);
     }
 
     setStopTarget_FaceAngle(AXIS_Z, out_angRz_Target);
@@ -1232,16 +1237,21 @@ void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(int prm_tX, int prm
 }
 
 void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                                             angvelo prm_angVelocity, int prm_way) {
+                                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                             int prm_way) {
     if (getFaceAngleDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Z, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, prm_angAcceleration);
     } else {
-       setFaceAngleVelocity(AXIS_Z, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Z, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, -prm_angAcceleration);
     }
     if (getFaceAngleDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Y, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, prm_angAcceleration);
     } else {
-        setFaceAngleVelocity(AXIS_Y, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Y, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, -prm_angAcceleration);
     }
 
     setStopTarget_FaceAngle(AXIS_Z, prm_angRz_Target);
@@ -1250,43 +1260,50 @@ void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(angle prm_angRz_Tar
 }
 
 void GgafDx9GeometryMover::executeTagettingRzFaceAngleSequence(angle prm_angRz_Target,
-                                                               angvelo prm_angVelocity, int prm_way) {
+                                                               angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                               int prm_way) {
     if (getFaceAngleDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Z, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, prm_angAcceleration);
     } else {
-       setFaceAngleVelocity(AXIS_Z, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Z, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Z, -prm_angAcceleration);
     }
     setStopTarget_FaceAngle(AXIS_Z, prm_angRz_Target);
 
 }
 
 void GgafDx9GeometryMover::executeTagettingRyFaceAngleSequence(angle prm_angRy_Target,
-                                                               angvelo prm_angVelocity, int prm_way) {
+                                                               angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                               int prm_way) {
     if (getFaceAngleDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Y, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, prm_angAcceleration);
     } else {
-        setFaceAngleVelocity(AXIS_Y, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_Y, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_Y, -prm_angAcceleration);
     }
     setStopTarget_FaceAngle(AXIS_Y, prm_angRy_Target);
 }
 
 void GgafDx9GeometryMover::executeTagettingRxSpinAngleSequence(angle prm_angRx_Target,
-                                                               angvelo prm_angVelocity, int prm_way) {
+                                                               angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                               int prm_way) {
     if (getFaceAngleDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_X, prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_X, prm_angAcceleration);
     } else {
-        setFaceAngleVelocity(AXIS_X, -1 * prm_angVelocity);
+        setFaceAngleVelocity(AXIS_X, -prm_angVelocity);
+        setFaceAngleVeloAcceleration(AXIS_X, -prm_angAcceleration);
     }
     setStopTarget_FaceAngle(AXIS_X, prm_angRx_Target);
 }
 
 
 
-
-
-
 void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
-                                                             angvelo prm_angVelocity, int prm_way) {
+                                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                             int prm_way) {
     angle out_angRz_Target;
     angle out_angRy_Target;
     GgafDx9Util::getRzRyAngle(prm_tX - _pActor->_X,
@@ -1296,13 +1313,17 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm
                               out_angRy_Target);
     if (getRzMoveAngleDistance(out_angRz_Target, prm_way) > 0) {
         setRzMoveAngleVelocity(prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+        setRzMoveAngleVelocity(-prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
     if (getRyMoveAngleDistance(out_angRy_Target, prm_way) > 0) {
         setRyMoveAngleVelocity(prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+        setRyMoveAngleVelocity(-prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
 
     setStopTarget_RzMoveAngle(out_angRz_Target);
@@ -1310,16 +1331,21 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm
 }
 
 void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                                             angvelo prm_angVelocity, int prm_way) {
+                                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                             int prm_way) {
     if (getRzMoveAngleDistance(prm_angRz_Target, prm_way) > 0) {
         setRzMoveAngleVelocity(prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+        setRzMoveAngleVelocity(-prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
     if (getRyMoveAngleDistance(prm_angRy_Target, prm_way) > 0) {
         setRyMoveAngleVelocity(prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+        setRyMoveAngleVelocity(-prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
 
     setStopTarget_RzMoveAngle(prm_angRz_Target);
@@ -1328,22 +1354,28 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(angle prm_angRz_Tar
 }
 
 void GgafDx9GeometryMover::executeTagettingRzMoveAngleSequence(angle prm_angRz_Target,
-                                                               angvelo prm_angVelocity, int prm_way) {
+                                                               angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                               int prm_way) {
     if (getRzMoveAngleDistance(prm_angRz_Target, prm_way) > 0) {
         setRzMoveAngleVelocity(prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-       setRzMoveAngleVelocity(-1 * prm_angVelocity);
+        setRzMoveAngleVelocity(-prm_angVelocity);
+        setRzMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
     setStopTarget_RzMoveAngle(prm_angRz_Target);
 
 }
 
 void GgafDx9GeometryMover::executeTagettingRyMoveAngleSequence(angle prm_angRy_Target,
-                                                               angvelo prm_angVelocity, int prm_way) {
+                                                               angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                                               int prm_way) {
     if (getRyMoveAngleDistance(prm_angRy_Target, prm_way) > 0) {
         setRyMoveAngleVelocity(prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
         setRyMoveAngleVelocity(-1 * prm_angVelocity);
+        setRyMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
     setStopTarget_RyMoveAngle(prm_angRy_Target);
 }

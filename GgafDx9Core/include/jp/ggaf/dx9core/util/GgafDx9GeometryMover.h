@@ -504,33 +504,37 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      * @param prm_tZ 目標Z座標
-     * @param prm_angVelocity ターゲットするための、回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingFaceAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
-                                           angvelo prm_angVelocity,
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
                                            int prm_way);
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
      * @param prm_angRy_Target 目標軸回転方角(Y軸)
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingFaceAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                           angvelo prm_angVelocity, int prm_way);
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                           int prm_way);
 
     /**
      * 軸回転方角(Z軸とY軸)を目標にターゲットの方向を向くようなシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingFaceAngleSequence(GgafDx9GeometricActor* prm_pActor_Target,
-                                           angvelo prm_angVelocity,
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
                                            int prm_way = TURN_CLOSE_TO) {
         executeTagettingFaceAngleSequence(
                 prm_pActor_Target->_X,
@@ -545,29 +549,38 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 軸回転方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標軸回転方角(Z軸)
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void executeTagettingRzFaceAngleSequence(angle prm_angRz_Target, angvelo prm_angVelocity, int prm_way);
+    void executeTagettingRzFaceAngleSequence(angle prm_angRz_Target,
+                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                             int prm_way);
 
     /**
      * 軸回転方角(Y軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRy_Target 目標軸回転方角(Y軸)
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void executeTagettingRyFaceAngleSequence(angle prm_angRy_Target, angvelo prm_angVelocity, int prm_way);
+    void executeTagettingRyFaceAngleSequence(angle prm_angRy_Target,
+                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                             int prm_way);
 
     /**
      * 軸回転方角(X軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRx_Target 目標軸回転方角(X軸)
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void executeTagettingRxSpinAngleSequence(angle prm_angRx_Target, angvelo prm_angVelocity, int prm_way);
+    void executeTagettingRxSpinAngleSequence(angle prm_angRx_Target,
+                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                             int prm_way);
 
 
 
@@ -576,33 +589,37 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_tX 目標X座標
      * @param prm_tY 目標Y座標
      * @param prm_tZ 目標Z座標
-     * @param prm_angVelocity ターゲッティング遂行中の回転移動角速度を設定。
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingMoveAngleSequence(int prm_tX, int prm_tY, int prm_tZ,
-                                           angvelo prm_angVelocity,
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
                                            int prm_way);
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標移動方角(Z軸)
      * @param prm_angRy_Target 目標移動方角(Y軸)
-     * @param prm_angVelocity ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingMoveAngleSequence(angle prm_angRz_Target, angle prm_angRy_Target,
-                                           angvelo prm_angVelocity, int prm_way);
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                           int prm_way);
 
     /**
      * 移動方角を目標にターゲットの座標にするシークエンスを実行
      * @param prm_pActor_Target 目標オブジェクト
-     * @param prm_angVelocity ターゲッティング遂行中に許される角速度
+     * @param prm_angVelocity ターゲッティング遂行中に加算される角度、つまり角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
     void executeTagettingMoveAngleSequence(GgafDx9GeometricActor* prm_pActor_Target,
-                                           angvelo prm_angVelocity,
+                                           angvelo prm_angVelocity, angacce prm_angAcceleration,
                                            int prm_way = TURN_CLOSE_TO) {
         executeTagettingMoveAngleSequence(
                 prm_pActor_Target->_X,
@@ -616,20 +633,26 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     /**
      * 移動方角(Z軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRz_Target 目標移動方角(Z軸)
-     * @param prm_angVelocity ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度
+     * @param prm_angVelocity ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void executeTagettingRzMoveAngleSequence(angle prm_angRz_Target, angvelo prm_angVelocity, int prm_way);
+    void executeTagettingRzMoveAngleSequence(angle prm_angRz_Target,
+                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                             int prm_way);
 
     /**
      * 移動方角(Y軸)を目標にターゲットするシークエンスを実行 .
      * @param prm_angRy_Target 目標移動方角(Y軸)
-     * @param prm_angVelocity ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度
+     * @param prm_angVelocity ターゲットへ移動方角を回転移動中に適用する目標移動方角回転移動角速度（正負自動判定）
+     * @param prm_angAcceleration 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
      */
-    void executeTagettingRyMoveAngleSequence(angle prm_angRy_Target, angvelo prm_angVelocity, int prm_way);
+    void executeTagettingRyMoveAngleSequence(angle prm_angRy_Target,
+                                             angvelo prm_angVelocity, angacce prm_angAcceleration,
+                                             int prm_way);
 
 
     /**
