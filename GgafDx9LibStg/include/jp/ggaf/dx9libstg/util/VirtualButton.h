@@ -23,18 +23,18 @@ namespace GgafDx9LibStg {
 #define VB_UI_CANCEL  (0x100000)
 #define VB_UI_DEBUG   (0x200000)
 
-#define VB_NEUTRAL_STC    (0x400000)
-#define VB_UP_RIGHT_STC   (0x800000)
-#define VB_DOWN_RIGHT_STC (0x1000000)
-#define VB_DOWN_LEFT_STC  (0x2000000)
-#define VB_UP_LEFT_STC    (0x4000000)
-#define VB_UP_STC         (0x8000000)
-#define VB_RIGHT_STC      (0x10000000)
-#define VB_DOWN_STC       (0x20000000)
-#define VB_LEFT_STC       (0x40000000)
+#define VB_NEUTRAL_STC    (0x400000)   //&B 00000000 01000000 00000000 00000000
+#define VB_UP_RIGHT_STC   (0x800000)   //&B 00000000 10000000 00000000 00000000
+#define VB_DOWN_RIGHT_STC (0x1000000)  //&B 00000001 00000000 00000000 00000000
+#define VB_DOWN_LEFT_STC  (0x2000000)  //&B 00000010 00000000 00000000 00000000
+#define VB_UP_LEFT_STC    (0x4000000)  //&B 00000100 00000000 00000000 00000000
+#define VB_UP_STC         (0x8000000)  //&B 00001000 00000000 00000000 00000000
+#define VB_RIGHT_STC      (0x10000000) //&B 00010000 00000000 00000000 00000000
+#define VB_DOWN_STC       (0x20000000) //&B 00100000 00000000 00000000 00000000
+#define VB_LEFT_STC       (0x40000000) //&B 01000000 00000000 00000000 00000000
 
-#define VB_STC_CLIP_MASK       (0x803FFFFF) //&B 10000000 00111111 11111111 11111111
-#define VB_STC_MASK            (0x7FC00000) //&B 01111111 11000000 00000000 00000000
+#define VB_STC_CLIP_MASK  (0x803FFFFF) //&B 10000000 00111111 11111111 11111111
+#define VB_STC_MASK       (0x7FC00000) //&B 01111111 11000000 00000000 00000000
 
 #define VB_MAP_BUFFER 200
 #define VB_NUM 29
@@ -125,7 +125,8 @@ public:
 
     static vbsta isPushedDown(vbsta prm_VB);
 
-    static vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 4, DWORD prm_frame_delay = 4);
+    static vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
+
 
 
 
@@ -190,6 +191,9 @@ public:
      * VB_NEUTRAL_STC
      */
     static vbsta getPushedDownStick();
+
+
+    static vbsta isDoublePushedDownStick(DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
 
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。

@@ -231,12 +231,59 @@ vbsta VirtualButton::getBeingPressedStick() {
 }
 
 vbsta VirtualButton::getPushedDownStick() {
-    if ((_pVBMap_Active->_prev->_state & VB_STC_MASK) == 0) {
+    if ((_pVBMap_Active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
         return _pVBMap_Active->_state & VB_STC_MASK;
     } else {
         return 0;
     }
 }
+
+
+vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_frame_delay) {
+    vbsta STC = getPushedDownStick();
+    if (STC == 0 || STC == VB_NEUTRAL_STC) {
+        return 0;
+    }
+    //-------oooo-----o
+    //       <--><--->
+    //         |    `-- prm_frame_delay
+    //         `-- prm_frame_push
+    //âﬂãéÇ…ëkÇËÇ»Ç™ÇÁåüèÿ
+    VB::VBMap* pVBMap;
+    pVBMap = _pVBMap_Active;
+    pVBMap = pVBMap->_prev; //è„ÇÃgetPushedDownStickÇ≈í≤ç∏çœÇ›Ç»ÇÃÇ≈îÚÇŒÇ∑ÅB
+    bool ok = false;
+    for (DWORD i = 0; i < prm_frame_delay; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & STC) {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+
+    } else {
+        return 0;
+    }
+    ok = false;
+    for (DWORD i = 0; i < prm_frame_push; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & STC) {
+
+        } else {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+        return STC;
+    } else {
+        return 0;
+    }
+}
+
 
 //vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
 //    if (isBeingPressed(prm_VB)) {
