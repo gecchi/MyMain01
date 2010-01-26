@@ -1376,7 +1376,7 @@ void GgafDx9GeometryMover::executeTagettingRyMoveAngleSequence(angle prm_angRy_T
         setRyMoveAngleVelocity(prm_angVelocity);
         setRyMoveAngleVeloAcceleration(prm_angAcceleration);
     } else {
-        setRyMoveAngleVelocity(-1 * prm_angVelocity);
+        setRyMoveAngleVelocity(-prm_angVelocity);
         setRyMoveAngleVeloAcceleration(-prm_angAcceleration);
     }
     setStopTarget_RyMoveAngle(prm_angRy_Target);

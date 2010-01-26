@@ -37,15 +37,17 @@ void MyCurveLaserChip001:: processBehavior() {;
     if (_pOrg) {
         if (_pOrg->_pLockOnTarget) {
             if (_pOrg->_pLockOnTarget->isActive()) {
-                _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-                                                           3000, 0
-                                                           );
-            } else {
-                _pOrg->_pLockOnTarget = NULL;
-                _pMover->stopTagettingMoveAngleSequence();
+                _pMover->setMoveAngle(_pOrg->_pLockOnTarget);
+
+//                _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
+//                                                           ANGLE270, 0,
+//                                                           TURN_ANTICLOSE_TO);
+                return;
             }
         }
     }
+    _pOrg->_pLockOnTarget = NULL;
+    _pMover->stopTagettingMoveAngleSequence();
 }
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {

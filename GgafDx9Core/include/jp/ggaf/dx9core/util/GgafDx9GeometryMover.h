@@ -541,6 +541,7 @@ public: //_X , _Y, _Z ‘€ìŠÖ˜A //////////////////////////////////////////////
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
                 prm_angVelocity,
+                prm_angAcceleration,
                 prm_way
         );
     }
@@ -620,12 +621,13 @@ public: //_X , _Y, _Z ‘€ìŠÖ˜A //////////////////////////////////////////////
      */
     void executeTagettingMoveAngleSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                            angvelo prm_angVelocity, angacce prm_angAcceleration,
-                                           int prm_way = TURN_CLOSE_TO) {
+                                           int prm_way) {
         executeTagettingMoveAngleSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
                 prm_angVelocity,
+                prm_angAcceleration,
                 prm_way
         );
     }
