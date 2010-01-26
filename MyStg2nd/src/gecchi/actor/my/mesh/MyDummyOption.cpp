@@ -270,6 +270,8 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_Z = _Z;
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
+        } else {
+            _pLockOnTarget = NULL;
         }
     }
 

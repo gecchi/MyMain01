@@ -38,8 +38,8 @@ void MyCurveLaserChip001:: processBehavior() {;
         if (_pOrg->_pLockOnTarget) {
             if (_pOrg->_pLockOnTarget->isActive()) {
                 _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-                                                           3000, 0,
-                                                           TURN_CLOSE_TO);
+                                                           3000, 0
+                                                           );
             } else {
                 _pOrg->_pLockOnTarget = NULL;
                 _pMover->stopTagettingMoveAngleSequence();
