@@ -41,6 +41,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     addSubLast(_pLaserChipDispatcher); //‰¼ƒTƒu
 
     _is_flapping = false;
+    _pLockOnTarget = NULL;
 }
 
 void MyDummyOption::initialize() {
@@ -267,6 +268,7 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
             pLaserChip->_Z = _Z;
+            pLaserChip->_pOrg = this;
             pLaserChip->activate();
         }
     }

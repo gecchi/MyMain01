@@ -338,10 +338,11 @@ void MyShip::processBehavior() {
     }
 
     //スピンが勢いよく回っているならば速度を弱める
-    if (_pMover->_angveloRotFace[AXIS_X] >= _angRXTopVelo_MZ) {
+    angvelo MZ = _angRXTopVelo_MZ-2000; //2000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
+    if (_pMover->_angveloRotFace[AXIS_X] >= MZ) {
         _pMover->_angveloRotFace[AXIS_X] *= 0.90;
         //_pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMover->_angveloRotFace[AXIS_X] <= -1*_angRXTopVelo_MZ) {
+    } else if (_pMover->_angveloRotFace[AXIS_X] <= -MZ) {
         _pMover->_angveloRotFace[AXIS_X] *= 0.90;
         //_pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
     }
