@@ -353,6 +353,7 @@ public:
      * ç∂à⁄ìÆ
      */
     void move_WAY_ZLEFT() {
+        _pMover->setRzRyMoveAngle(0, ANGLE270);
         _Z += _iMoveSpeed;
         //ê˘âÙ
         _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
@@ -362,7 +363,7 @@ public:
      * ëOï˚éŒÇﬂç∂à⁄ìÆ
      */
     void move_WAY_ZLEFT_FRONT() {
-        _pMover->setRzRyMoveAngle(0, ANGLE270);
+        _pMover->setRzRyMoveAngle(0, ANGLE315);
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         //ê˘âÙ

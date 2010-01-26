@@ -44,7 +44,9 @@ void EnemyIris::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
+                                                   2000, 0,
+                                                   TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
             //放射状ショット発射
             int way = 5+5*_RANK_;
@@ -75,7 +77,9 @@ void EnemyIris::processBehavior() {
     if (_iMovePatternNo == 2) {
         if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
             //自機とZ軸が接近
-            _pMover->executeTagettingMoveAngleSequence(MyShip::_lim_behaind - 500000 , _Y, _Z, 2000, TURN_CLOSE_TO);
+            _pMover->executeTagettingMoveAngleSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
+                                                       2000, 0,
+                                                       TURN_CLOSE_TO);
             _pMover->setMoveVeloAcceleration(100);
             _iMovePatternNo++;
         }

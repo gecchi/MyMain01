@@ -20,7 +20,6 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _angExpanse = 0;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
     _angveloExpanse = 0; //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚ÌŠp‰ñ“]‘¬“x iã‘‚«‰ŠúÝ’è‰Âj
     _angacceExpanse = 0;
-    _angjerkExpanse = 0;
     _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect("laser001");
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
@@ -101,19 +100,27 @@ void MyDummyOption::processBehavior() {
     if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
         _TRACE_("isDoublePushedDown");
         _is_flapping = true;
-        _angveloExpanse = 1000;
+        _iflappingSeq = 0;
+        _angveloExpanse = 500;
         _angacceExpanse = 100;
-        _range_angveloExpanse = 8000;
+        _range_angveloExpanse = 5000;
     } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
         _is_flapping = false;
     }
     if (_is_flapping) {
-
-
-
-
-
-        _angacceExpanse += _angjerkExpanse;
+        if (_iflappingSeq == 0) {
+            if (ANGLE225 < _angExpanse && _angExpanse <= ANGLE270) {
+                _iflappingSeq == 1;
+                _angveloExpanse = -_angveloExpanse;
+                _angacceExpanse = -_angacceExpanse;
+            }
+        } else if (_iflappingSeq == 1) {
+            if (ANGLE270 <_angExpanse && _angExpanse < ANGLE315) {
+                _iflappingSeq == 0;
+                _angveloExpanse = -_angveloExpanse;
+                _angacceExpanse = -_angacceExpanse;
+            }
+        }
         _angveloExpanse += _angacceExpanse;
         if (_angveloExpanse >= _range_angveloExpanse) {
             _angveloExpanse = _range_angveloExpanse;
@@ -192,7 +199,7 @@ void MyDummyOption::processBehavior() {
 
 
 
-    //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
+    //‰ùL“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
 //_TRACE_("_pMover->_angFace[AXIS_Z],_pMover->_angFace[AXIS_Y]="<<(_pMover->_angFace[AXIS_Z])<<","<<(_pMover->_angFace[AXIS_Y]));
 //    angle zz = _pMyOptionParent->_pMover->_angFace[AXIS_Z] + _pMover->_angRzMove;

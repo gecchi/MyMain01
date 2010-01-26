@@ -55,7 +55,9 @@ void EnemyMeshShot001::processBehavior() {
         //•ûŒü“]Š·ŠJŽn
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
 
-            _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip, _angVelocity_Turn, TURN_CLOSE_TO);
+            _pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip,
+                                                       _angVelocity_Turn, 0,
+                                                       TURN_CLOSE_TO);
             _pMover->setMoveVeloAcceleration(_iMoveAcceleration_2nd);
         }
 

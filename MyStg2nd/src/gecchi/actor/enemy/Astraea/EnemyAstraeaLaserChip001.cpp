@@ -36,14 +36,16 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 40) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    8000, TURN_ANTICLOSE_TO);
+                    8000, 0,
+                    TURN_ANTICLOSE_TO);
     }
 
 
     if (_pMover->_move_angle_ry_target_flg == false && _pMover->_move_angle_rz_target_flg == false) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    100, TURN_CLOSE_TO);
+                    100, 0,
+                    TURN_CLOSE_TO);
     }
 //
 //    if (_dwActiveFrame == 35) {

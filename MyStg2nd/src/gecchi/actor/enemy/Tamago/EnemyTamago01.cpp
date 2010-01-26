@@ -49,7 +49,9 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z, 2000, TURN_CLOSE_TO);
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
+                                                   2000, 0,
+                                                   TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
             //放射状ショット発射
             GgafDx9DrawableActor* pActor;

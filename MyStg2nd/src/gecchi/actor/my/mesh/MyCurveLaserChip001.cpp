@@ -12,10 +12,10 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(
 }
 
 void MyCurveLaserChip001::initialize() {
-    _pMover->setMoveVelocity(100000);
+    _pMover->setMoveVelocity(60000);
     _pMover->setMoveVeloAcceleration(300);
 
-    registHitAreaCube(50000);
+    registHitAreaCube(60000);
 
     setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
@@ -25,6 +25,8 @@ void MyCurveLaserChip001::initialize() {
 
 void MyCurveLaserChip001::onActive() {
     CurveLaserChip::onActive();
+    _pMover->setMoveVelocity(60000);
+    _pMover->setMoveVeloAcceleration(300);
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
 }
 

@@ -47,11 +47,11 @@ public:
     /** ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚è‰ñ“]Šp‰Á‘¬“x */
     angacce _angacceExpanse;
 
-    angjerk _angjerkExpanse;
 
     angvelo _range_angveloExpanse;
 
     bool _is_flapping;
+    bool _iflappingSeq;
 
     MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 

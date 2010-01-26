@@ -34,13 +34,16 @@ void Shot002::processBehavior() {
 
 
     if (_my_frame == 70) {
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP,3000,TURN_CLOSE_TO);
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP,
+                                                   3000, 0,
+                                                   TURN_CLOSE_TO);
     }
 
     if (_my_frame > 70 && _pMover->_move_angle_ry_target_flg == false && _pMover->_move_angle_rz_target_flg == false) {
         _pMover->executeTagettingMoveAngleSequence(
                     GameGlobal::_pMyShip,
-                    100, TURN_CLOSE_TO);
+                    100, 0,
+                    TURN_CLOSE_TO);
     }
     //À•W‚É”½‰f
     _pMover->behave();

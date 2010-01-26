@@ -13,10 +13,10 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9GeometricActor(prm_name,
                             NULL) {
 
-    _angVelocity_Turn = 3000;
+    _angVelocity_Turn = 8000;
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
-    pMyDummyOption01->_radiusPosition = 60000;
+    pMyDummyOption01->_radiusPosition = 80000;
     pMyDummyOption01->_veloMove = 5000;
     pMyDummyOption01->_angExpanse = 0;
     pMyDummyOption01->_angveloExpanse = 0;
@@ -25,7 +25,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     addSubLast(pMyDummyOption01);
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
-    pMyDummyOption02->_radiusPosition = 60000;
+    pMyDummyOption02->_radiusPosition = 80000;
     pMyDummyOption02->_veloMove = 5000;
     pMyDummyOption02->_angExpanse = 0;
     pMyDummyOption02->_angveloExpanse = 0;
@@ -34,7 +34,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     addSubLast(pMyDummyOption02);
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
-    pMyDummyOption03->_radiusPosition = 60000;
+    pMyDummyOption03->_radiusPosition = 80000;
     pMyDummyOption03->_veloMove = 5000;
     pMyDummyOption03->_angExpanse = 0;
     pMyDummyOption03->_angveloExpanse = 0;
@@ -43,8 +43,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     addSubLast(pMyDummyOption03);
 
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
-    pMyDummyOption04->_radiusPosition = 60000;
-    pMyDummyOption04->_veloMove = 6000;
+    pMyDummyOption04->_radiusPosition = 80000;
+    pMyDummyOption04->_veloMove = 5000;
     pMyDummyOption04->_angExpanse = 0;
     pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;
@@ -125,6 +125,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
+    _is_rotate = false;
 }
 
 void MyOptionParent::initialize() {
@@ -133,6 +134,7 @@ void MyOptionParent::initialize() {
     _pMover->setRzMoveAngleVeloRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
     _pMover->setRzRyMoveAngle(0,0);
     _way_myship_prev = GameGlobal::_pMyShip->_way;
+    _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->behave();
 }
 
@@ -142,15 +144,34 @@ void MyOptionParent::processBehavior() {
 //    _Z = GameGlobal::_pMyShip->_Z;
 
     //•ûŒü‚ª•Ï‚í‚Á‚½
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
-    _pMover->executeTagettingMoveAngleSequence(
-                    GameGlobal::_pMyShip->_pMover->_angRzMove,
-                    GameGlobal::_pMyShip->_pMover->_angRyMove,
-                    _angVelocity_Turn,
-                    TURN_CLOSE_TO
-             );
+
+    if (VB::isBeingPressed(VB_OPTION)) {
+        _is_rotate = true;
+    } else {
+        _is_rotate = false;
+    }
+
+    if (_is_rotate) {
+        _pMover->executeTagettingMoveAngleSequence(
+                        GameGlobal::_pMyShip->_pMover->_angRzMove,
+                        GameGlobal::_pMyShip->_pMover->_angRyMove,
+                        3000, 0,
+                        TURN_CLOSE_TO
+                 );
+    } else {
+        _pMover->executeTagettingMoveAngleSequence(
+                        0,
+                        0,
+                        200, 0,
+                        TURN_CLOSE_TO
+                 );
+    }
+
     if (pMYSHIP->_way != WAY_NONE && VB::isBeingPressed(VB_OPTION)) {
         _pMover->behave();
+    } else {
+
+
     }
 //
 //

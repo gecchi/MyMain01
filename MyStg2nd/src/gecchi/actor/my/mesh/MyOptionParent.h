@@ -11,6 +11,8 @@ public:
 
     MoveWay _way_myship_prev;
 
+    bool _is_rotate;
+
     /** 対象アクター */
 
     /** 方向転換角速度 */

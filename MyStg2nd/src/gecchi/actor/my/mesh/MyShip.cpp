@@ -328,8 +328,8 @@ void MyShip::processBehavior() {
     }
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
     (this->*fpaMoveFunc[_way])();             //方向値に応じた移動処理メソッドを呼び出す
-
-    if (VB::isPushedDown(VB_TURBO)) { //ターボ
+    vbsta turbo_stc = VB::isDoublePushedDownStick();
+    if (turbo_stc) { //ターボ
         (this->*fpaTurboFunc[_way])();
     } else {
         _pMover->_veloVxMove *= 0.95;
