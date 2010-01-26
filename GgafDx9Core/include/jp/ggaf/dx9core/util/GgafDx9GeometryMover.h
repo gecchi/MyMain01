@@ -655,6 +655,12 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                              int prm_way);
 
 
+    void stopTagettingMoveAngleSequence() {
+        _move_angle_rz_target_flg = false;
+        _move_angle_rz_target_flg = false;
+    }
+
+
     /**
      * 目標軸回転方角にターゲットするシークエンスが実行中か .
      * @return true:実行中/false:実行中でない

@@ -237,6 +237,8 @@ void GgafDx9GeometryMover::behave() {
                 angDistance = getFaceAngleDistance(i, _angTargetRotFace[i], TURN_COUNTERCLOCKWISE);
                 if (_angveloRotFace[i] > angDistance && _face_angle_target_allow_way[i] != TURN_CLOCKWISE
                         && _face_angle_target_allow_velocity[i] >= _angveloRotFace[i]) {
+
+                    //_TRACE_("STOP1 _angveloRotFace["<<i<<"]="<<_angveloRotFace[i]<<" angDistance="<<angDistance<<" _face_angle_target_allow_velocity["<<i<<"]="<<_face_angle_target_allow_velocity[i]<<" _angveloRotFace["<<i<<"]="<<_angveloRotFace[i]);
                     addFaceAngle(i, angDistance);
                     _face_angle_targeting_flg[i] = false; //ƒtƒ‰ƒO‚ð–ß‚µ‚ÄI—¹
                 } else {
