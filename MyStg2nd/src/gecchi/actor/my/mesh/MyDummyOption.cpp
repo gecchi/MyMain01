@@ -244,7 +244,7 @@ void MyDummyOption::processBehavior() {
 
     _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
     _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
-    GgafDx9Util::optimizeRzRy(_RZ,_RY);
+    GgafDx9Util::anotherRzRy(_RZ,_RY);
     _X += GameGlobal::_pMyShip->_X;
     _Y += GameGlobal::_pMyShip->_Y;
     _Z += GameGlobal::_pMyShip->_Z;

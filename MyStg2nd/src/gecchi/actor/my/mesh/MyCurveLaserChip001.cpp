@@ -35,6 +35,12 @@ void MyCurveLaserChip001::onActive() {
         _is_lockon = true;
     } else {
         _is_lockon = false;
+        _pOrg->_pLockOnTarget = NULL;
+        _pMover->stopTagettingMoveAngleSequence();
+        _pMover->setRyMoveAngleVelocity(0);
+        _pMover->setRzMoveAngleVelocity(0);
+        _pMover->setRyMoveAngleVeloAcceleration(0);
+        _pMover->setRzMoveAngleVeloAcceleration(0);
     }
 }
 
@@ -47,7 +53,7 @@ void MyCurveLaserChip001:: processBehavior() {
                     //_pMover->setMoveAngle(_pOrg->_pLockOnTarget);
 
                 _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-                                                           300, 0,
+                                                           1000, 0,
                                                            TURN_CLOSE_TO);
             }
         } else {

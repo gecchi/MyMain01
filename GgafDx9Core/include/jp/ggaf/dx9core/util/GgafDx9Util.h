@@ -350,36 +350,36 @@ public:
      * @param rz1
      * @param ry1
      */
-    static void optimizeRzRy(angle& rz1, angle& ry1) {
+    static void anotherRzRy(angle& rz1, angle& ry1) {
         int rz2, ry2;
-        if (0 <= rz1 && rz1 < 90) {
-            rz2 = 180 - rz1;
+        if (0 <= rz1 && rz1 < ANGLE90) {
+            rz2 = ANGLE180 - rz1;
 
-            if (0 <= ry1 && ry1 < 180) {
-                ry2 = ry1 + 180;
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
             } else {
-                ry2 = ry1 - 180;
+                ry2 = ry1 - ANGLE180;
             }
-        } else if (90 <= rz1 && rz1 < 180) {
-            rz2 = 180 - rz1;
-            if (0 <= ry1 && ry1 < 180) {
-                ry2 = ry1 + 180;
+        } else if (ANGLE90 <= rz1 && rz1 < ANGLE180) {
+            rz2 = ANGLE180 - rz1;
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
             } else {
-                ry2 = ry1 - 180;
+                ry2 = ry1 - ANGLE180;
             }
-        } else if (180 <= rz1 && rz1 < 270) {
-            rz2 = 180 + (360 - rz1);
-            if (0 <= ry1 && ry1 < 180) {
-                ry2 = ry1 + 180;
+        } else if (ANGLE180 <= rz1 && rz1 < ANGLE270) {
+            rz2 = ANGLE180 + (ANGLE360 - rz1);
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
             } else {
-                ry2 = ry1 - 180;
+                ry2 = ry1 - ANGLE180;
             }
-        } else if (270 <= rz1 && rz1 <= 360) {
-            rz2 = 180 + (360 - rz1);
-            if (0 <= ry1 && ry1 < 180) {
-                ry2 = ry1 + 180;
+        } else if (ANGLE270 <= rz1 && rz1 <= ANGLE360) {
+            rz2 = ANGLE180 + (ANGLE360 - rz1);
+            if (0 <= ry1 && ry1 < ANGLE180) {
+                ry2 = ry1 + ANGLE180;
             } else {
-                ry2 = ry1 - 180;
+                ry2 = ry1 - ANGLE180;
             }
         }
         rz1 = rz2;
