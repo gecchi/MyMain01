@@ -19,13 +19,13 @@ void EnemyTamago01::initialize() {
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
     _pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
-    //_pCollisionChecker->setColliSphere(0, 50000);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliSphere(0, 90000);
+    //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     useSe2("bomb1");     //”š”­
-    _X = -100000;
-    _Y = -100000;
-    _Z = -100000;
-    _pScaler->setScale(4000);
+    _X = 200000;
+    _Y = 000000;
+    _Z = 000000;
+    _pScaler->setScale(6000);
 }
 
 void EnemyTamago01::onActive() {

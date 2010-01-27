@@ -40,7 +40,7 @@ void CurveLaserChip::processBehavior() {
     LaserChip::processBehavior();
     _dwActiveFrame++;
     //À•W‚É”½‰f
-    if (_dwActiveFrame > 1) {
+    if (_dwActiveFrame > 0) {
         _pMover->behave();
     }
 }

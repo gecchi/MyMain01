@@ -10,6 +10,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(
     _class_name = "MyCurveLaserChip001";
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
+    _is_lockon = false;
 }
 
 void MyCurveLaserChip001::initialize() {
@@ -30,34 +31,45 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setMoveVelocity(60000);
     _pMover->setMoveVeloAcceleration(300);
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
+    if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+        _is_lockon = true;
+    } else {
+        _is_lockon = false;
+    }
 }
 
-void MyCurveLaserChip001:: processBehavior() {;
-    CurveLaserChip::processBehavior();
-    if (_pOrg) {
-        if (_pOrg->_pLockOnTarget) {
-            if (_pOrg->_pLockOnTarget->isActive()) {
-                _pMover->setMoveAngle(_pOrg->_pLockOnTarget);
+void MyCurveLaserChip001:: processBehavior() {
+    if (_is_lockon && 0 < _dwActiveFrame && _dwActiveFrame < 120) {
+        if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+            if (_pMover->isExecutingTagettingMoveAngle()) {
 
-//                _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-//                                                           ANGLE270, 0,
-//                                                           TURN_ANTICLOSE_TO);
-                return;
+            } else {
+                    //_pMover->setMoveAngle(_pOrg->_pLockOnTarget);
+
+                _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
+                                                           300, 0,
+                                                           TURN_CLOSE_TO);
             }
+        } else {
+            _pOrg->_pLockOnTarget = NULL;
+            _pMover->stopTagettingMoveAngleSequence();
+            _pMover->setRyMoveAngleVelocity(0);
+            _pMover->setRzMoveAngleVelocity(0);
+            _pMover->setRyMoveAngleVeloAcceleration(0);
+            _pMover->setRzMoveAngleVeloAcceleration(0);
         }
     }
-    _pOrg->_pLockOnTarget = NULL;
-    _pMover->stopTagettingMoveAngleSequence();
+    CurveLaserChip::processBehavior();
+
+
 }
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    if (_pOrg) {
-        if (_pOrg->_pLockOnTarget) {
+    if (_pOrg->_pLockOnTarget) {
 
-        } else {
-            _pOrg->_pLockOnTarget = pOther;
-        }
+    } else {
+        _pOrg->_pLockOnTarget = pOther;
     }
     //ここにMyのヒットエフェクト
     if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {

@@ -5,6 +5,7 @@ namespace MyStg2nd {
 class MyCurveLaserChip001 : public CurveLaserChip {
 
 public:
+    bool _is_lockon;
     MyDummyOption* _pOrg;
 
     MyCurveLaserChip001(const char* prm_name);
