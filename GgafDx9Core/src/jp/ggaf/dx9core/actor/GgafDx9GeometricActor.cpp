@@ -422,7 +422,7 @@ void GgafDx9GeometricActor::getWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm
 void GgafDx9GeometricActor::getWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
     //World•ÏŠ·
     //’PˆÊs—ñ ~ X²‰ñ“] ~ Z²‰ñ“] ~ X²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬.
-    //¦Y²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚ª‚Q‰ñ–Ú‚ÌX²‰ñ“]‚Æ‚È‚é
+    //¦Y²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñBRY‚Í‚Q‰ñ–Ú‚ÌX²‰ñ“]‚Æ‚È‚é
     //|         cosRZ*sx,                          sinRZ*cosRY*sy ,                          sinRZ*sinRY*sz, 0 |
     //|  cosRX*-sinRZ*sx, (( cosRX*cosRZ*cosRY + sinRX*-sinRY)*sy), (( cosRX*cosRZ*sinRY + sinRX*cosRY)*sz), 0 |
     //| -sinRX*-sinRZ*sx, ((-sinRX*cosRZ*cosRY + cosRX*-sinRY)*sy), ((-sinRX*cosRZ*sinRY + cosRX*cosRY)*sz), 0 |

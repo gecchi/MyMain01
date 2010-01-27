@@ -659,7 +659,7 @@ public: //_X , _Y, _Z ‘€ìŠÖ˜A //////////////////////////////////////////////
 
     void stopTagettingMoveAngleSequence() {
         _move_angle_rz_target_flg = false;
-        _move_angle_rz_target_flg = false;
+        _move_angle_ry_target_flg = false;
     }
 
 

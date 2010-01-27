@@ -344,6 +344,48 @@ public:
                                    float& out_nvx,
                                    float& out_nvy,
                                    float& out_nvz);
+
+    /**
+     * 方向を変えず、Z軸回転+Y軸回転の合計が小さくなるように最適化を試みる。
+     * @param rz1
+     * @param ry1
+     */
+    static void optimizeRzRy(angle& rz1, angle& ry1) {
+        int rz2, ry2;
+        if (0 <= rz1 && rz1 < 90) {
+            rz2 = 180 - rz1;
+
+            if (0 <= ry1 && ry1 < 180) {
+                ry2 = ry1 + 180;
+            } else {
+                ry2 = ry1 - 180;
+            }
+        } else if (90 <= rz1 && rz1 < 180) {
+            rz2 = 180 - rz1;
+            if (0 <= ry1 && ry1 < 180) {
+                ry2 = ry1 + 180;
+            } else {
+                ry2 = ry1 - 180;
+            }
+        } else if (180 <= rz1 && rz1 < 270) {
+            rz2 = 180 + (360 - rz1);
+            if (0 <= ry1 && ry1 < 180) {
+                ry2 = ry1 + 180;
+            } else {
+                ry2 = ry1 - 180;
+            }
+        } else if (270 <= rz1 && rz1 <= 360) {
+            rz2 = 180 + (360 - rz1);
+            if (0 <= ry1 && ry1 < 180) {
+                ry2 = ry1 + 180;
+            } else {
+                ry2 = ry1 - 180;
+            }
+        }
+        rz1 = rz2;
+        ry1 = ry2;
+    }
+
     /**
      * 線分の当たり判定<BR>
      * @param x11

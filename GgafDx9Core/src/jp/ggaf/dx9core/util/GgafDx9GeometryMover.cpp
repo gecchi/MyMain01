@@ -1219,6 +1219,7 @@ void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(int prm_tX, int prm
                               prm_tZ - _pActor->_Z,
                               out_angRz_Target,
                               out_angRy_Target);
+    GgafDx9Util::optimizeRzRy(out_angRz_Target, out_angRy_Target);
     if (getFaceAngleDistance(AXIS_Z, out_angRz_Target, prm_way) > 0) {
         setFaceAngleVelocity(AXIS_Z,prm_angVelocity);
         setFaceAngleVeloAcceleration(AXIS_Z, prm_angAcceleration);
@@ -1313,6 +1314,7 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm
                               prm_tZ - _pActor->_Z,
                               out_angRz_Target,
                               out_angRy_Target);
+    GgafDx9Util::optimizeRzRy(out_angRz_Target, out_angRy_Target);
     if (getRzMoveAngleDistance(out_angRz_Target, prm_way) > 0) {
         setRzMoveAngleVelocity(prm_angVelocity);
         setRzMoveAngleVeloAcceleration(prm_angAcceleration);
