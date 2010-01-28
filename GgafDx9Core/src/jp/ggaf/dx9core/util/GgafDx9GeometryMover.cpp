@@ -1027,29 +1027,38 @@ void GgafDx9GeometryMover::getRzRyMoveAngleDistance(int prm_way,
                                                     angle prm_target_angRz, angle prm_target_angRy,
                                                     angle& out_d_angRz, angle& out_d_angRy,
                                                     angle& out_target_angRz, angle& out_target_angRy) {
-
+//_TRACE_("getRzRyMoveAngleDistance ---->");
+//_TRACE_("prm_target_angRz="<<prm_target_angRz<<" prm_target_angRy="<<prm_target_angRy);
     angle target_angRz = prm_target_angRz;
     angle target_angRy = prm_target_angRy;
     if (prm_way == TURN_CLOSE_TO) { //‹ß‚¢‚Ù‚¤‰ñ“]
+        //_TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d1_angRz = getRzMoveAngleDistance(target_angRz, TURN_CLOSE_TO);
         angle d1_angRy = getRyMoveAngleDistance(target_angRy, TURN_CLOSE_TO);
+        //_TRACE_("d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
         angle d1 = abs(d1_angRz) + abs(d1_angRy);
+        //_TRACE_("d1="<<d1);
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
+        //_TRACE_("anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d2_angRz = getRzMoveAngleDistance(target_angRz, TURN_CLOSE_TO);
         angle d2_angRy = getRyMoveAngleDistance(target_angRy, TURN_CLOSE_TO);
+        //_TRACE_("d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
         angle d2 = abs(d2_angRz) + abs(d2_angRy);
+        //_TRACE_("d2="<<d2);
         if (d1 <= d2) {
+            //_TRACE_("d1 <= d2");
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
             out_target_angRz = prm_target_angRz;
             out_target_angRy = prm_target_angRy;
         } else {
+            //_TRACE_("d1 > d2");
             out_d_angRz = d2_angRz;
             out_d_angRy = d2_angRy;
             out_target_angRz = target_angRz;
             out_target_angRy = target_angRy;
         }
-
+        //_TRACE_("<--- getRzRyMoveAngleDistance");
     } else if (prm_way == TURN_ANTICLOSE_TO) { //‰“‚¢•û‚Ì‰ñ“]
         angle d1_angRz = getRzMoveAngleDistance(target_angRz, TURN_ANTICLOSE_TO);
         angle d1_angRy = getRyMoveAngleDistance(target_angRy, TURN_ANTICLOSE_TO);
@@ -1338,9 +1347,9 @@ void GgafDx9GeometryMover::executeTagettingFaceAngleSequence(angle prm_angRz_Tar
     angle out_d_angRz;
     angle out_d_angRy;
     getRzRyFaceAngleDistance(prm_way,
-                             prm_angRz_Target, prm_angRz_Target,
+                             prm_angRz_Target, prm_angRy_Target,
                              out_d_angRz, out_d_angRy,
-                             prm_angRz_Target, prm_angRz_Target);
+                             prm_angRz_Target, prm_angRy_Target);
 
     if (out_d_angRz > 0) {
         setFaceAngleVelocity(AXIS_Z, prm_angVelocity);
@@ -1421,10 +1430,14 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(angle prm_angRz_Tar
                                                              int prm_way) {
     angle out_d_angRz;
     angle out_d_angRy;
+    //_TRACE_("execute _angRzMove="<<_angRzMove<<" _angRyMove="<<_angRyMove);
+    //_TRACE_("target in  prm_angRz_Target="<<prm_angRz_Target<<" prm_angRy_Target="<<prm_angRy_Target);
     getRzRyMoveAngleDistance(prm_way,
-                             prm_angRz_Target, prm_angRz_Target,
+                             prm_angRz_Target, prm_angRy_Target,
                              out_d_angRz, out_d_angRy,
-                             prm_angRz_Target, prm_angRz_Target);
+                             prm_angRz_Target, prm_angRy_Target);
+    //_TRACE_("target out  prm_angRz_Target="<<prm_angRz_Target<<" prm_angRy_Target="<<prm_angRy_Target);
+    //_TRACE_("target out_d_angRz="<<out_d_angRz<<" out_d_angRy="<<out_d_angRy);
     if (out_d_angRz > 0) {
         setRzMoveAngleVelocity(prm_angVelocity);
         setRzMoveAngleVeloAcceleration(prm_angAcceleration);
@@ -1456,7 +1469,7 @@ void GgafDx9GeometryMover::executeTagettingMoveAngleSequence(int prm_tX, int prm
                               prm_tZ - _pActor->_Z,
                               out_angRz_Target,
                               out_angRy_Target);
-    executeTagettingMoveAngleSequence(out_angRz_Target, out_angRz_Target,
+    executeTagettingMoveAngleSequence(out_angRz_Target, out_angRy_Target,
                                       prm_angVelocity, prm_angAcceleration,
                                       prm_way);
 }
