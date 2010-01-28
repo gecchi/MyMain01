@@ -137,10 +137,10 @@ void LaserChip::processPreJudgement() {
             } else {
                 _pCollisionChecker->disable(1);
             }
-            //L‚Ñ‚·‚¬‚½‚çØ‚ê‚é
-            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
-                inactivate();
-            }
+//            //L‚Ñ‚·‚¬‚½‚çØ‚ê‚é
+//            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
+//                inactivate();
+//            }
         } else {
             _pCollisionChecker->disable(1);
         }

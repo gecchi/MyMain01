@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, "Tamago") {
+EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") {
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -17,15 +17,15 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, 
 void EnemyTamago01::initialize() {
     setHitAble(true);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
-    _pMover->setFaceAngleVelocity(AXIS_X, 5000);
+    //_pMover->setFaceAngleVelocity(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     useSe2("bomb1");     //”š”­
-    _X = 200000;
-    _Y = 000000;
-    _Z = 000000;
-    _pScaler->setScale(6000);
+    _X = 300000;
+    _Y = 300000;
+    _Z = 300000;
+    _pScaler->setScale(2000);
 }
 
 void EnemyTamago01::onActive() {
@@ -78,6 +78,9 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 3) {
 
+    }
+    if (_frame_of_active % 180 == 0) {
+        _pMover->executeTagettingMoveAngleSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
     }
 
     _pMover->behave();
