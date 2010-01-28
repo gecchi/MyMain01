@@ -20,7 +20,7 @@ class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
-
+    EffectLockOn001* _pEffectLockOn;
 
     LaserChipDispatcher* _pLaserChipDispatcher;
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;

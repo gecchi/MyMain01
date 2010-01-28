@@ -159,6 +159,7 @@ class MyDummyOption;
 class MyShot001;
 class MyWave001;
 class EffectExplosion001;
+class EffectLockOn001;
 class TamagoActor;
 class EnemyTamago01Actor;
 class MyUtil;
@@ -253,6 +254,7 @@ class Formation001;
 #include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
+#include "gecchi/actor/effect/EffectLockOn001.h"
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"

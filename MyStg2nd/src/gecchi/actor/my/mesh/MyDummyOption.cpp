@@ -38,7 +38,10 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
-    addSubLast(_pLaserChipDispatcher); //‰¼ƒTƒu
+    addSubLast(_pLaserChipDispatcher);
+
+    _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
+    addSubGroup(_pEffectLockOn);
 
     _is_flapping = false;
     _pLockOnTarget = NULL;
@@ -275,6 +278,17 @@ void MyDummyOption::processBehavior() {
         }
     } else {
         _pLockOnTarget = NULL;
+    }
+
+    if (_pLockOnTarget->isOffscreen()) {
+        _pLockOnTarget = NULL;
+    }
+
+    if (_pLockOnTarget) {
+       _pEffectLockOn->setGeometry(_pLockOnTarget);
+       _pEffectLockOn->activate();
+    } else {
+       _pEffectLockOn->inactivate();
     }
 
 }
