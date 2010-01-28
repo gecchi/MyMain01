@@ -41,6 +41,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				AdditionalIncludeDirectories="&quot;$(WORKSPACE)\PaulCoppensLib\include&quot;;&quot;$(WORKSPACE)\CustomizeOgg_static\include&quot;;&quot;$(WORKSPACE)\CustomizeVorbis_static\include&quot;;&quot;$(WORKSPACE)\GgafCore\include&quot;;&quot;$(WORKSPACE)\IkdLib\include&quot;;&quot;$(WORKSPACE)\GgafDx9Core\include&quot;;&quot;$(WORKSPACE)\GgafDx9LibStg\include&quot;"
 				PreprocessorDefinitions="WIN32;_DEBUG;_WINDOWS"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -60,7 +61,9 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
+				AdditionalDependencies="GgafCore.lib GgafDx9Core.lib GgafDx9LibStg.lib IkdLib.lib CustomizeOgg_static.lib CustomizeVorbis_static.lib d3d9.lib d3dx9.lib dinput8.lib dsound.lib dxguid.lib d3dxof.lib dxerr.lib winmm.lib"
 				LinkIncremental="2"
+				AdditionalLibraryDirectories="$(WORKSPACE)\debug"
 				GenerateDebugInformation="true"
 				SubSystem="2"
 				TargetMachine="1"
