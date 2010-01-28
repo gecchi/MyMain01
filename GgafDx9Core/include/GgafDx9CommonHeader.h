@@ -107,7 +107,12 @@ typedef int angacce;
 typedef int angjerk;
 
 enum GgafDx9AnimationMethod {
-    ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED
+    ORDER_LOOP,
+    REVERSE_LOOP,
+    OSCILLATE_LOOP,
+    ORDER_NOLOOP,
+    REVERSE_NOLOOP,
+    NOT_ANIMATED
 };
 
 namespace GgafDx9Core {
