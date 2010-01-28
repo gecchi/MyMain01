@@ -280,13 +280,15 @@ void MyDummyOption::processBehavior() {
         _pLockOnTarget = NULL;
     }
 
-    if (_pLockOnTarget->isOffscreen()) {
-        _pLockOnTarget = NULL;
-    }
+
 
     if (_pLockOnTarget) {
-       _pEffectLockOn->setGeometry(_pLockOnTarget);
-       _pEffectLockOn->activate();
+
+		_pEffectLockOn->setGeometry(_pLockOnTarget);
+		_pEffectLockOn->activate();
+		if (_pLockOnTarget->isOffscreen()) {
+			_pLockOnTarget = NULL;
+		}
     } else {
        _pEffectLockOn->inactivate();
     }
