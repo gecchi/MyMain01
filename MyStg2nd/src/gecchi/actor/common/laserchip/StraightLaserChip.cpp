@@ -82,7 +82,7 @@ void StraightLaserChip::processBehavior() {
 
 void StraightLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    GgafDx9Util::calcWorldMatrix_ScRxRzRyMv(this, _matWorld);
 }
 
 

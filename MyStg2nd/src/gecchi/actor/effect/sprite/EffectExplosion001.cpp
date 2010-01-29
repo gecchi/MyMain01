@@ -8,13 +8,14 @@ using namespace MyStg2nd;
 EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion001") {
     _class_name = "EffectExplosion001";
     setTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
+    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv);
 }
 
 void EffectExplosion001::initialize() {
     setAnimationMethod(ORDER_NOLOOP, 1);
     setAnimationPatternRenge(0, 15);
     setHitAble(false);
-    enableBillboarding();
+
 }
 
 void EffectExplosion001::onActive() {

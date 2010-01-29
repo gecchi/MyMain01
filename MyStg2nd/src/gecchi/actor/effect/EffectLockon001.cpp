@@ -9,13 +9,13 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     _class_name = "EffectLockOn001";
     setTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     inactivateImmediately();
+    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv);
 }
 
 void EffectLockOn001::initialize() {
     setAnimationMethod(ORDER_LOOP, 3);
     setAnimationPatternRenge(0, 15);
     setHitAble(false);
-    enableBillboarding();
     _pScaler->setScaleRange(100000, 5000);
 }
 

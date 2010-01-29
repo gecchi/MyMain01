@@ -47,7 +47,7 @@ void CurveLaserChip::processBehavior() {
 
 void CurveLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    GgafDx9GeometricActor::getWorldMatrix_RxRzRyScMv(this, _matWorld);
+    GgafDx9Util::calcWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 CurveLaserChip::~CurveLaserChip() {
