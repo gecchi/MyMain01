@@ -29,7 +29,7 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _animation_method = ORDER_LOOP;
     _aniframe_counter = 0;
     _is_reverse_order_in_oscillate_animation_flg = false;
-    _isBillboardingFlg = false;
+    _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
 void GgafDx9SpriteActor::processDraw() {
@@ -38,27 +38,23 @@ void GgafDx9SpriteActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) に失敗しました。");
-    if (_isBillboardingFlg) {
-        GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(this, _matWorld);
-    } else {
-        GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
-    }
+    (*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pSpriteEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetMatrix(_hMatWorld) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pSpriteEffect->_hAlpha, _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::processDraw SetFloat(_fAlpha) に失敗しました。");
 
-    // Zバッファを無効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zバッファ書き込み不可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
+//    // Zバッファを無効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
+//    // Zバッファ書き込み不可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pSpriteModel->draw(this);
 
-    // Zバッファを有効に
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zバッファ書き込み可
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
+//    // Zバッファを有効に
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
+//    // Zバッファ書き込み可
+//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
 }
 

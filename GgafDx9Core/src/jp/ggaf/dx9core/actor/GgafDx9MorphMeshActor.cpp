@@ -19,6 +19,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     _class_name = "GgafDx9MorphMeshActor";
     _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
     _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
+    _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
     //èdÇ›èâä˙âª
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
@@ -42,7 +43,7 @@ void GgafDx9MorphMeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    (*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
     checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {

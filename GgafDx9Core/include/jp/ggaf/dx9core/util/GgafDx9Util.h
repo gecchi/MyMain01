@@ -400,6 +400,75 @@ public:
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 
+
+
+    /**
+     * world変換行列設定 .
+     * 拡大縮小 × X軸回転 × Z軸回転 × Y軸回転 × 平行移動 の変換行列を設定<BR>
+     * ※XYZの順でないことに注意<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+
+    static void calcWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Z軸回転 × Y軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
+     * ※XYZの順でないことに注意<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Y軸回転 × Z軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * X軸回転 × Y軸回転 × X軸回転 × 拡大縮小 × 平行移動 の変換行列を設定<BR>
+     * ※Y軸回転がありません。_RYが２回目のX軸回転となる<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+
+    static void updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * 単位行列 × Z軸回転 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * 単位行列 × 拡大縮小 × Z軸回転 × 平行移動 の変換行列を設定<BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
+    /**
+     * world変換行列設定 .
+     * ビルボードX軸回転 × ビルボードY軸回転 × ビルボードZ軸回転  × 拡大縮小 × 平行移動　の変換行列を作成＆デバイスに設定 <BR>
+     * @param prm_pActor [in]対象アクター
+     * @param out_matWorld [out]world変換行列
+     */
+    static void calcWorldMatrix_BBxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void calcWorldMatrix_ScRzBBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void calcWorldMatrix_ScMvRxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+
 };
 
 }

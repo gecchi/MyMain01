@@ -46,9 +46,6 @@ public:
     /** OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
-    /** ビルボード要否 */
-    bool _isBillboardingFlg;
-
     GgafDx9SpriteSetActor(const char* prm_name,
                        const char* prm_model_id,
                        const char* prm_effect_id,
@@ -100,21 +97,6 @@ public:
      */
     void setAlpha(float prm_fAlpha) override;
 
-    /**
-     * ビルボード有効 .
-     * （デフォルトは無効です）<BR>
-     */
-    void enableBillboarding() {
-        _isBillboardingFlg = true;
-    }
-
-    /**
-     * ビルボード無効 .
-     * （デフォルトは無効です）<BR>
-     */
-    void disableBillboarding() {
-        _isBillboardingFlg = false;
-    }
 };
 
 }

@@ -27,6 +27,7 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _patteno_now = 0;
 
     _isTransformed = true;
+    _pFunc_calcWorldMatrix = NULL;
 }
 
 void GgafDx9BoardActor::processDraw() {

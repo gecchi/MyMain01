@@ -29,7 +29,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _animation_method = ORDER_LOOP;
     _aniframe_counter = 0;
     _is_reverse_order_in_oscillate_animation_flg = false;
-    _isBillboardingFlg = false;
+    _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
 void GgafDx9SpriteSetActor::processDraw() {
@@ -63,12 +63,7 @@ void GgafDx9SpriteSetActor::processDraw() {
     GgafDx9RectUV* pRectUV_Active;
     pDrawActor = this;
     for (int i = 0; i < _draw_set_num; i++) {
-
-        if (_isBillboardingFlg) {
-            GgafDx9GeometricActor::getWorldMatrix_BillBoardXYZ_ScMv(pDrawActor, pDrawActor->_matWorld);
-        } else {
-            GgafDx9GeometricActor::getWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
-        }
+        (*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
         checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         //ç°âÒï`âÊÇÃUV
