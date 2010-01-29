@@ -7,6 +7,8 @@ class MyCurveLaserChip001 : public CurveLaserChip {
 public:
     bool _is_lockon;
     MyDummyOption* _pOrg;
+    angvelo _prev_angveloRzMove;
+    angvelo _prev_angveloRyMove;
 
     MyCurveLaserChip001(const char* prm_name);
 

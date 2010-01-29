@@ -11,11 +11,12 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
     _is_lockon = false;
+    _prev_angveloRzMove = 0;
+    _prev_angveloRyMove = 0;
+
 }
 
 void MyCurveLaserChip001::initialize() {
-    _pMover->setMoveVelocity(70000);
-    _pMover->setMoveVeloAcceleration(300);
     _pMover->relateRzRyFaceAngleToMoveAngle(true);
 
     registHitAreaCube(60000);
@@ -28,48 +29,59 @@ void MyCurveLaserChip001::initialize() {
 
 void MyCurveLaserChip001::onActive() {
     CurveLaserChip::onActive();
-    _pMover->setMoveVelocity(60000);
+    _pMover->setMoveVelocity(80000);
     _pMover->setMoveVeloAcceleration(300);
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
-    if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-        _is_lockon = true;
-        _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-                                                   1000, 100,
-                                                   TURN_CLOSE_TO);
+    if (_pChip_front == NULL) {
+        if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+            _is_lockon = true;
+            _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
+                                                       1000, 0,
+                                                       TURN_CLOSE_TO);
+        } else {
+            _is_lockon = false;
+            _pOrg->_pLockOnTarget = NULL;
+            _pMover->stopTagettingMoveAngleSequence();
+            _pMover->setRzMoveAngleVelocity(0);
+            _pMover->setRyMoveAngleVelocity(0);
+            _pMover->setRzMoveAngleVeloAcceleration(0);
+            _pMover->setRyMoveAngleVeloAcceleration(0);
+        }
     } else {
-        _is_lockon = false;
-        _pOrg->_pLockOnTarget = NULL;
-        _pMover->stopTagettingMoveAngleSequence();
-        _pMover->setRyMoveAngleVelocity(0);
-        _pMover->setRzMoveAngleVelocity(0);
-        _pMover->setRyMoveAngleVeloAcceleration(0);
-        _pMover->setRzMoveAngleVeloAcceleration(0);
+        _pMover->setRzMoveAngleVelocity(((MyCurveLaserChip001*)(_pChip_front))->_prev_angveloRzMove);
+        _pMover->setRyMoveAngleVelocity(((MyCurveLaserChip001*)(_pChip_front))->_prev_angveloRyMove);
     }
+    _prev_angveloRzMove = _pMover->_angveloRzMove;
+    _prev_angveloRyMove = _pMover->_angveloRyMove;
 }
 
 void MyCurveLaserChip001:: processBehavior() {
-    if (_is_lockon && 1 < _dwActiveFrame && _dwActiveFrame < 120) {
-        if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-            if (_pMover->isExecutingTagettingMoveAngle()) {
+    if (_pChip_front == NULL) {
+        if (_is_lockon && 1 < _dwActiveFrame && _dwActiveFrame < 120) {
+            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+                if (_pMover->isExecutingTagettingMoveAngle()) {
 
+                } else {
+                        //_pMover->setMoveAngle(_pOrg->_pLockOnTarget);
+
+                    _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
+                                                               1000, 0,
+                                                               TURN_CLOSE_TO);
+                }
             } else {
-                    //_pMover->setMoveAngle(_pOrg->_pLockOnTarget);
-
-                _pMover->executeTagettingMoveAngleSequence(_pOrg->_pLockOnTarget,
-                                                           1000, 100,
-                                                           TURN_CLOSE_TO);
+                _pOrg->_pLockOnTarget = NULL;
+                _pMover->stopTagettingMoveAngleSequence();
+                _pMover->setRzMoveAngleVelocity(0);
+                _pMover->setRyMoveAngleVelocity(0);
             }
-        } else {
-            _pOrg->_pLockOnTarget = NULL;
-            _pMover->stopTagettingMoveAngleSequence();
-            _pMover->setRyMoveAngleVelocity(0);
-            _pMover->setRzMoveAngleVelocity(0);
-            _pMover->setRyMoveAngleVeloAcceleration(0);
-            _pMover->setRzMoveAngleVeloAcceleration(0);
         }
+    } else {
+        _pMover->setRzMoveAngleVelocity(((MyCurveLaserChip001*)(_pChip_front))->_prev_angveloRzMove);
+        _pMover->setRyMoveAngleVelocity(((MyCurveLaserChip001*)(_pChip_front))->_prev_angveloRyMove);
     }
     CurveLaserChip::processBehavior();
-
+    _prev_angveloRzMove = _pMover->_angveloRzMove;
+    _prev_angveloRyMove = _pMover->_angveloRyMove;
 
 }
 
