@@ -24,7 +24,7 @@ void EffectLockOn001::onActive() {
     setAlpha(1.0);
     _pScaler->setScale(100000);
     _pScaler->intoTargetScaleLinerUntil(10000, 100);
-    _pMover->setFaceAngleVelocity(AXIS_Z, 1000);
+    _pMover->setFaceAngVelo(AXIS_Z, 1000);
 }
 
 void EffectLockOn001::processBehavior() {

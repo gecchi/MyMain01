@@ -34,7 +34,7 @@ public:
     /** レーザーの移動方向を同期するための、単位方向ベクトルZ成分変数場所 */
     float* _pSource_vZ;
     /** 移動速度 */
-    int _veloMove;
+    int _veloMv;
 
 
     StraightLaserChip(const char* prm_name, const char* prm_model);

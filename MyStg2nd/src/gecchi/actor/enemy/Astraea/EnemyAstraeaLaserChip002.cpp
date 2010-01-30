@@ -28,9 +28,9 @@ void EnemyAstraeaLaserChip002::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip002Status(_pStatus);
 
-    _pMover->setMoveVelocity(10000);
-    _pMover->setMoveVeloAcceleration(300);
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
+    _pMover->setMvVelo(10000);
+    _pMover->setMvVeloAcce(300);
+    _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
@@ -39,13 +39,13 @@ void EnemyAstraeaLaserChip002::onRefraction(int prm_num_refraction)  {
     } else {
 //        angle out_angRz_Target;
 //        angle out_angRy_Target;
-//        GgafDx9Util::getRzRyAngle(pMYSIP->_X - _X,
+//        GgafDx9Util::getRzRyAng(pMYSIP->_X - _X,
 //                                  pMYSIP->_Y - _Y,
 //                                  pMYSIP->_Z - _Z,
 //                                  out_angRz_Target,
 //                                  out_angRy_Target);
 
-        _pMover->setMoveAngle(pMYSHIP);
+        _pMover->setMvAng(pMYSHIP);
     }
 
 

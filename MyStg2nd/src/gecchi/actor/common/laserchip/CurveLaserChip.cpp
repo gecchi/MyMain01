@@ -17,7 +17,7 @@ void CurveLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMover->setMoveVelocity(30000);
+    _pMover->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 

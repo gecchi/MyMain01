@@ -80,10 +80,10 @@ void EnemyCeres::onActive() {
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
     _dwFrame_Active = 0;
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
-    _pMover->setFaceAngleVelocity(AXIS_X, 6000);
-    _pMover->setFaceAngleVelocity(AXIS_X, 6000);
-    _pMover->setMoveVelocity(8000);
+    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pMover->setFaceAngVelo(AXIS_X, 6000);
+    _pMover->setFaceAngVelo(AXIS_X, 6000);
+    _pMover->setMvVelo(8000);
     _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //スプライン移動をプログラムしておく
     _dwFrame_Active = 0;
 }
@@ -103,7 +103,7 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
-                pTama->_pMover->setRzRyMoveAngle(-ANGLE90 + way[i], ANGLE90);
+                pTama->_pMover->setRzRyMvAng(-ANGLE90 + way[i], ANGLE90);
                 pTama->activate();
             }
         }
@@ -111,7 +111,7 @@ void EnemyCeres::processBehavior() {
             pTama = (GgafDx9DrawableActor*)_pDispatcher_EnemyCeresShots001->employ();
             if (pTama != NULL) {
                 pTama->setGeometry(_X, _Y, _Z);
-                pTama->_pMover->setRzRyMoveAngle(-ANGLE90 - way[i], -ANGLE90);
+                pTama->_pMover->setRzRyMvAng(-ANGLE90 - way[i], -ANGLE90);
                 pTama->activate();
             }
         }

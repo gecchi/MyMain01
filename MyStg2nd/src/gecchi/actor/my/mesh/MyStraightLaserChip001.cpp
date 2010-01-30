@@ -9,11 +9,11 @@ using namespace MyStg2nd;
 MyStraightLaserChip001::MyStraightLaserChip001(const char* prm_name) : StraightLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyStraightLaserChip001";
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
-    _veloMove = 100000;
+    _veloMv = 100000;
 }
 
 void MyStraightLaserChip001::initialize() {
-    _pMover->setRzRyMoveAngle(0,0);
+    _pMover->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
     _SX = _SY = _SZ = 80*1000;
@@ -23,8 +23,8 @@ void MyStraightLaserChip001::initialize() {
 
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
-    _pMover->setMoveVelocity(60000);
-    _pMover->setMoveVeloAcceleration(300);
+    _pMover->setMvVelo(60000);
+    _pMover->setMvVeloAcce(300);
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
 }
 

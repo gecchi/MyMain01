@@ -16,26 +16,26 @@ void EnemyPallas::initialize() {
     _X = GgafDx9Camera::_X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
-    _pMover->setMoveVeloRenge(-8000, 8000);
-    _pMover->setMoveVelocity(8000);
-    _pMover->setMoveVeloAcceleration(-500);
-    _pMover->setRzMoveAngle(ANGLE90);
+    _pMover->setMvVeloRenge(-8000, 8000);
+    _pMover->setMvVelo(8000);
+    _pMover->setMvVeloAcce(-500);
+    _pMover->setRzMvAng(ANGLE90);
 
-    _pMover->setFaceAngleVeloRenge(AXIS_X, 0, 5000);
-    _pMover->setFaceAngleVelocity(AXIS_X, 5000);
-    _pMover->setFaceAngleVeloAcceleration(AXIS_X, 0);
+    _pMover->setFaceAngVeloRenge(AXIS_X, 0, 5000);
+    _pMover->setFaceAngVelo(AXIS_X, 5000);
+    _pMover->setFaceAngVeloAcce(AXIS_X, 0);
 
-    _pMover->setFaceAngle(AXIS_Z, ANGLE180);
+    _pMover->setFaceAng(AXIS_Z, ANGLE180);
 
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
 }
 
 void EnemyPallas::processBehavior() {
-    if (_pMover->_veloMove <= -8000) {
-        _pMover->setMoveVeloAcceleration(+500);
-    } else if (_pMover->_veloMove >= +8000) {
-        _pMover->setMoveVeloAcceleration(-500);
+    if (_pMover->_veloMv <= -8000) {
+        _pMover->setMvVeloAcce(+500);
+    } else if (_pMover->_veloMv >= +8000) {
+        _pMover->setMvVeloAcce(-500);
     }
     _X -= 2000;
 

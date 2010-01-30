@@ -16,7 +16,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 
     _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
     _radiusPosition = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
-    _veloMove = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
+    _veloMv = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
     _angExpanse = 0;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
     _angveloExpanse = 0; //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚ÌŠp‰ñ“]‘¬“x iã‘‚«‰ŠúÝ’è‰Âj
     _angacceExpanse = 0;
@@ -48,12 +48,12 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
 }
 
 void MyDummyOption::initialize() {
-    _angveloMove = ((1.0f*_veloMove / _radiusPosition)*(float)ANGLE180)/PI;
-    _pMover->setMoveVelocity(_veloMove);
-    _pMover->setRzMoveAngle(_angPosition+ANGLE90);
-    _pMover->setRyMoveAngle(-ANGLE90);
-    _pMover->setRzMoveAngleVelocity(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _pMover->setRyMoveAngleVelocity(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
+    _pMover->setMvVelo(_veloMv);
+    _pMover->setRzMvAng(_angPosition+ANGLE90);
+    _pMover->setRyMvAng(-ANGLE90);
+    _pMover->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
+    _pMover->setRyMvAngVelo(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
     _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
     _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition;
     _X = 0;
@@ -63,7 +63,7 @@ void MyDummyOption::initialize() {
 //                //TODO:2009/04/08
 //                //–{“–‚Í0iŽ©‹@‚Ì^‰¡j‚É‚µ‚½‚¢B‚ªA‚â‚âŽ©‹@‚Ì^‰¡‚©‚ç‚¸‚ç‚·Ž–‚ÅAƒVƒ“ƒoƒ‹ƒƒbƒN‚É‚æ‚éƒ[ƒv‚Ì‚æ‚¤‚È‰ñ“]‚·‚éŠm—¦‚ð‚â‚âŠÉ˜a‚·‚éB
 //                //XŽ²‰ñ“]ŠpŠp‘¬“x‚ð‘¬‚ß‚ÉÝ’è‚µA‚­‚é‚­‚é‘¬‚­‰ñ‚µ‚Ä‹C•t‚©‚ê‚È‚¢‚æ‚¤‚É‚²‚Ü‚©‚·Bª‚Æ«Œü‚«•t‹ß‚Å‹}Œƒ‚È‰ñ“]‚ð‹N‚±‚·Ž–‚Í–Æ‚ê‚È‚¢B
-    _pMover->setFaceAngleVelocity(AXIS_X, 8000);
+    _pMover->setFaceAngVelo(AXIS_X, 8000);
 
     _Xorg = _X;
     _Yorg = _Y;
@@ -84,9 +84,9 @@ void MyDummyOption::processBehavior() {
 //        _pMorpher->stopImmediately(1);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//        _pMorpher->intoTargetAccelerationStep(2, 1.0f, 0, 0.002f);
+//        _pMorpher->intoTargetAcceStep(2, 1.0f, 0, 0.002f);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-//        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004f);
+//        _pMorpher->intoTargetAcceStep(2, 0, 0, -0.004f);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->loopTriangleWave(3, 20, 13, 2);
@@ -131,7 +131,7 @@ void MyDummyOption::processBehavior() {
         } else if (_angveloExpanse <= -_range_angveloExpanse) {
             _angveloExpanse = -_range_angveloExpanse;
         }
-        _angExpanse = GgafDx9GeometryMover::simplifyAngle(_angExpanse+_angveloExpanse);
+        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse+_angveloExpanse);
         _TRACE_("_angExpanse="<<_angExpanse);
     }
 
@@ -142,7 +142,7 @@ void MyDummyOption::processBehavior() {
 //    _RY = _RYorg;
 //    _RZ = _RZorg;
 
-    _pMover->setMoveVelocity(_veloMove);
+    _pMover->setMvVelo(_veloMv);
     _pMover->behave();
 
     _Xorg = _X;
@@ -206,10 +206,10 @@ void MyDummyOption::processBehavior() {
     //‰ùL“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
     static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
 //_TRACE_("_pMover->_angFace[AXIS_Z],_pMover->_angFace[AXIS_Y]="<<(_pMover->_angFace[AXIS_Z])<<","<<(_pMover->_angFace[AXIS_Y]));
-//    angle zz = _pMyOptionParent->_pMover->_angFace[AXIS_Z] + _pMover->_angRzMove;
-//    angle yy = _pMyOptionParent->_pMover->_angFace[AXIS_Y] + _pMover->_angRyMove;
-//    GgafDx9Util::getNormalizeVectorZY(GgafDx9GeometryMover::simplifyAngle(zz),
-//                                      GgafDx9GeometryMover::simplifyAngle(yy),
+//    angle zz = _pMyOptionParent->_pMover->_angFace[AXIS_Z] + _pMover->_angRzMv;
+//    angle yy = _pMyOptionParent->_pMover->_angFace[AXIS_Y] + _pMover->_angRyMv;
+//    GgafDx9Util::getNormalizeVectorZY(GgafDx9GeometryMover::simplifyAng(zz),
+//                                      GgafDx9GeometryMover::simplifyAng(yy),
 //                                      vX_axis,
 //                                      vY_axis,
 //                                      vZ_axis);
@@ -237,7 +237,7 @@ void MyDummyOption::processBehavior() {
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //_Q._x, _Q._y, _Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
-    GgafDx9Util::getRzRyAngle(
+    GgafDx9Util::getRzRyAng(
         _Q._x,
         _Q._y,
         _Q._z,
@@ -245,8 +245,8 @@ void MyDummyOption::processBehavior() {
         _RY
      );
 
-    _RZ = GgafDx9GeometryMover::simplifyAngle(_RZ);
-    _RY = GgafDx9GeometryMover::simplifyAngle(_RY);
+    _RZ = GgafDx9GeometryMover::simplifyAng(_RZ);
+    _RY = GgafDx9GeometryMover::simplifyAng(_RY);
     GgafDx9Util::anotherRzRy(_RZ,_RY);
     _X += GameGlobal::_pMyShip->_X;
     _Y += GameGlobal::_pMyShip->_Y;
@@ -264,8 +264,8 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_pMover->_vX = _Q._x;
             pLaserChip->_pMover->_vY = _Q._y;
             pLaserChip->_pMover->_vZ = _Q._z;
-            pLaserChip->_pMover->_angRzMove = _RZ;
-            pLaserChip->_pMover->_angRyMove = _RY;
+            pLaserChip->_pMover->_angRzMv = _RZ;
+            pLaserChip->_pMover->_angRyMv = _RY;
 //            pLaserChip->_pMover->_angFace[AXIS_X] = angWk;
             pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;

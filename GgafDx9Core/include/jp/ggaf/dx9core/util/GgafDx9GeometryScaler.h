@@ -228,7 +228,7 @@ public:
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
      * 片道加速スケーリング（軸単位・スケール速度・スケール加速度指定） .
@@ -240,7 +240,7 @@ public:
      * @param prm_velo_scale 初期スケール速度
      * @param prm_acce_scale スケール加速度
      */
-    void intoTargetScaleAccelerationStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
+    void intoTargetScaleAcceStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
      * 反復等速スケーリング（全軸・フレーム数指定） .

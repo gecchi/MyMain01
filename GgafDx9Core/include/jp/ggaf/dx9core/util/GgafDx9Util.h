@@ -96,7 +96,7 @@ public:
      * @param angTo
      * @return アングル値の差（正負あり)
      */
-    static angle getDiffAngle(angle angFrom, angle angTo) {
+    static angle getDiffAng(angle angFrom, angle angTo) {
             if (0 <= angFrom && angFrom < ANGLE180) {
                 if (0 <= angTo && angTo < angFrom) {
                     return -1 * (angFrom - angTo);
@@ -185,7 +185,7 @@ public:
      * @param prm_angOffset
      * @return
      */
-    static angle addAngle(angle prm_angNow, angle prm_angOffset);
+    static angle addAng(angle prm_angNow, angle prm_angOffset);
 
     /**
      *
@@ -232,7 +232,7 @@ public:
     }
 
     /**
-     * @deprecated 現在未使用。より高速なgetRzRyAngle()を使用している。
+     * @deprecated 現在未使用。より高速なgetRzRyAng()を使用している。
      * @param vx
      * @param vy
      * @param vz
@@ -248,7 +248,7 @@ public:
                                    int s = 25);
 
     /**
-     * @deprecated 現在未使用。より高速なgetRzRyAngle()を使用している。
+     * @deprecated 現在未使用。より高速なgetRzRyAng()を使用している。
      * @param x
      * @param y
      * @param z
@@ -269,7 +269,7 @@ public:
 
     //現在未使用。より高速なgetRzRyAngleを使用している。
     /**
-     * @deprecated より高速なgetRzRyAngle() を使用している。
+     * @deprecated より高速なgetRzRyAng() を使用している。
      * @param nvx
      * @param nvy
      * @param nvz
@@ -293,7 +293,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAngle(int x,
+    static void getRzRyAng(int x,
                               int y,
                               int z,
                               float& out_nvx,
@@ -310,7 +310,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAngle(int x, int y, int z, angle& out_angFaceZ, angle& out_angFaceY);
+    static void getRzRyAng(int x, int y, int z, angle& out_angFaceZ, angle& out_angFaceY);
 
     /**
      * 原点からパラメータの正規化された方向ベクトル(単位ベクトル)の、Z軸回転アングル値とY軸回転アングル値を取得 .
@@ -321,7 +321,7 @@ public:
      * @param out_angFaceZ [out]Z軸回転アングル値
      * @param out_angFaceY [out]Y軸回転アングル値
      */
-    static void getRzRyAngle(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY);
+    static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY);
 
 
     /**

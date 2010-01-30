@@ -14,7 +14,7 @@ public:
 
     int* _paDistace_to;
     float* _paFrame_need_at;
-    velo _veloMoveUnit; //単位速度
+    velo _veloMvUnit; //単位速度
     angvelo _angFaceMove;
     float _fFrame_executing;
     float _fFrame_next_point;

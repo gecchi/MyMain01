@@ -12,7 +12,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
     _class_name = "FormationIris002";
     _num_Iris       = 10*_RANK_;    //編隊数
     _frame_interval = 20/_RANK_;   //イリスの間隔(frame)
-    _move_velocity  = 16000*_RANK_; //速度
+    _mv_velo  = 16000*_RANK_; //速度
     //スプライン移動の定義
     if (FormationIris002::_sp._num_basepoint == 0) {
         //後方から
@@ -43,7 +43,7 @@ FormationIris002::FormationIris002(const char* prm_name) :
 void FormationIris002::initialize() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zright * 0.8);
-        _papIris[i]->_pMover->setMoveVelocity(_move_velocity);
+        _papIris[i]->_pMover->setMvVelo(_mv_velo);
         _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view());
         _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_interval間隔でActiveにする。
     }

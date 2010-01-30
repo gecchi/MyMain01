@@ -21,9 +21,9 @@ void Shot002::onActive() {
     MyStgUtil::resetShot002Status(_pStatus);
     setHitAble(true);
     _pScaler->setScale(300);
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
-    _pMover->setMoveVelocity(8000*_RANK_);
-    _pMover->setFaceAngleVelocity(AXIS_X, 1000*_RANK_);
+    _pMover->relateRzRyFaceAngToMvAng(true);
+    _pMover->setMvVelo(8000*_RANK_);
+    _pMover->setFaceAngVelo(AXIS_X, 1000*_RANK_);
     _my_frame = 0;
 }
 
@@ -34,13 +34,13 @@ void Shot002::processBehavior() {
 
 
     if (_my_frame == 70) {
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP,
+        _pMover->execTagettingMvAngSequence(pMYSHIP,
                                                    3000, 0,
                                                    TURN_CLOSE_TO);
     }
 
-    if (_my_frame > 70 && _pMover->_move_angle_ry_target_flg == false && _pMover->_move_angle_rz_target_flg == false) {
-        _pMover->executeTagettingMoveAngleSequence(
+    if (_my_frame > 70 && _pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
+        _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     100, 0,
                     TURN_CLOSE_TO);

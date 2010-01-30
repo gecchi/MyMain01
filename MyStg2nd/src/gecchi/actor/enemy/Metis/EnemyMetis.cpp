@@ -34,9 +34,9 @@ void EnemyMetis::onActive() {
     MyStgUtil::resetEnemyMetisStatus(_pStatus);
     _iMovePatternNo = 0;
 
-    _pMover->setMoveVelocity(0);
-    _pMover->setVxMoveVelocity(-5000);
-    _pMover->setFaceAngleVelocity(AXIS_Z, 1000);
+    _pMover->setMvVelo(0);
+    _pMover->setVxMvVelo(-5000);
+    _pMover->setFaceAngVelo(AXIS_Z, 1000);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
     pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_active);

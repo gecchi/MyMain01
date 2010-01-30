@@ -96,7 +96,7 @@ public:
      * @param prm_velo_weight 初期重み速度
      * @param prm_acce_weight 重み加速度
      */
-    void intoTargetAccelerationStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
+    void intoTargetAcceStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
 
     /**
      * ターゲットへ一定速度でモーフし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .

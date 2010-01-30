@@ -13,11 +13,11 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
   GgafDx9GeometricActor(prm_name,
                             NULL) {
 
-    _angVelocity_Turn = 8000;
+    _angVelo_Turn = 8000;
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radiusPosition = 80000;
-    pMyDummyOption01->_veloMove = 2000;
+    pMyDummyOption01->_veloMv = 2000;
     pMyDummyOption01->_angExpanse = 0;
     pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
@@ -26,7 +26,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
     pMyDummyOption02->_radiusPosition = 80000;
-    pMyDummyOption02->_veloMove = 2000;
+    pMyDummyOption02->_veloMv = 2000;
     pMyDummyOption02->_angExpanse = 0;
     pMyDummyOption02->_angveloExpanse = 0;
     pMyDummyOption02->_angPosition = ANGLE90;
@@ -35,7 +35,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
     pMyDummyOption03->_radiusPosition = 80000;
-    pMyDummyOption03->_veloMove = 2000;
+    pMyDummyOption03->_veloMv = 2000;
     pMyDummyOption03->_angExpanse = 0;
     pMyDummyOption03->_angveloExpanse = 0;
     pMyDummyOption03->_angPosition = ANGLE180;
@@ -44,7 +44,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
     pMyDummyOption04->_radiusPosition = 80000;
-    pMyDummyOption04->_veloMove = 2000;
+    pMyDummyOption04->_veloMv = 2000;
     pMyDummyOption04->_angExpanse = 0;
     pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;
@@ -56,7 +56,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption05->_angPosition = 0;
     pMyDummyOption05->_angExpanse = 0;
     pMyDummyOption05->_angveloExpanse = 0;
-    pMyDummyOption05->_veloMove = -3000;
+    pMyDummyOption05->_veloMv = -3000;
     pMyDummyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
     addSubLast(pMyDummyOption05);
 
@@ -65,7 +65,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption06->_angPosition = ANGLE90;
     pMyDummyOption06->_angExpanse = 0;
     pMyDummyOption06->_angveloExpanse = 0;
-    pMyDummyOption06->_veloMove = -3000;
+    pMyDummyOption06->_veloMv = -3000;
     pMyDummyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
     addSubLast(pMyDummyOption06);
 
@@ -74,7 +74,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption07->_angPosition = ANGLE180;
     pMyDummyOption07->_angExpanse = 0;
     pMyDummyOption07->_angveloExpanse = 0;
-    pMyDummyOption07->_veloMove = -3000;
+    pMyDummyOption07->_veloMv = -3000;
     pMyDummyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
     addSubLast(pMyDummyOption07);
 
@@ -83,7 +83,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption08->_angPosition = ANGLE270;
     pMyDummyOption08->_angExpanse = 0;
     pMyDummyOption08->_angveloExpanse = 0;
-    pMyDummyOption08->_veloMove = -3000;
+    pMyDummyOption08->_veloMv = -3000;
     pMyDummyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     pMyDummyOption08->setAlpha(0.3);
     addSubLast(pMyDummyOption08);
@@ -93,7 +93,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    pMyDummyOption09->_angPosition = 0;
 //    pMyDummyOption09->_angExpanse = 0;
 //    pMyDummyOption09->_angveloExpanse = 0;
-//    pMyDummyOption09->_veloMove = 8000;
+//    pMyDummyOption09->_veloMv = 8000;
 //    addSubLast(pMyDummyOption09);
 //
 //    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
@@ -101,7 +101,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    pMyDummyOption10->_angPosition = ANGLE90;
 //    pMyDummyOption10->_angExpanse = 0;
 //    pMyDummyOption10->_angveloExpanse = 0;
-//    pMyDummyOption10->_veloMove = 8000;
+//    pMyDummyOption10->_veloMv = 8000;
 //    addSubLast(pMyDummyOption10);
 //
 //    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
@@ -109,7 +109,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    pMyDummyOption11->_angPosition = ANGLE180;
 //    pMyDummyOption11->_angExpanse = 0;
 //    pMyDummyOption11->_angveloExpanse = 0;
-//    pMyDummyOption11->_veloMove = 8000;
+//    pMyDummyOption11->_veloMv = 8000;
 //    addSubLast(pMyDummyOption11);
 //
 //    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
@@ -117,7 +117,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    pMyDummyOption12->_angPosition = ANGLE270;
 //    pMyDummyOption12->_angExpanse = 0;
 //    pMyDummyOption12->_angveloExpanse = 0;
-//    pMyDummyOption12->_veloMove = 8000;
+//    pMyDummyOption12->_veloMv = 8000;
 //    addSubLast(pMyDummyOption12);
 
     //トレース用履歴
@@ -129,12 +129,12 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 }
 
 void MyOptionParent::initialize() {
-    _pMover->setMoveVelocity(0);
-    _pMover->setRyMoveAngleVeloRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
-    _pMover->setRzMoveAngleVeloRenge(-1*_angVelocity_Turn, _angVelocity_Turn);
-    _pMover->setRzRyMoveAngle(0,0);
+    _pMover->setMvVelo(0);
+    _pMover->setRyMvAngVeloRenge(-1*_angVelo_Turn, _angVelo_Turn);
+    _pMover->setRzMvAngVeloRenge(-1*_angVelo_Turn, _angVelo_Turn);
+    _pMover->setRzRyMvAng(0,0);
     _way_myship_prev = GameGlobal::_pMyShip->_way;
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
+    _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->behave();
 }
 
@@ -152,14 +152,14 @@ void MyOptionParent::processBehavior() {
     }
 
 //    if (_is_rotate) {
-//        _pMover->executeTagettingMoveAngleSequence(
-//                        GameGlobal::_pMyShip->_pMover->_angRzMove,
-//                        GameGlobal::_pMyShip->_pMover->_angRyMove,
+//        _pMover->execTagettingMvAngSequence(
+//                        GameGlobal::_pMyShip->_pMover->_angRzMv,
+//                        GameGlobal::_pMyShip->_pMover->_angRyMv,
 //                        3000, 0,
 //                        TURN_CLOSE_TO
 //                 );
 //    } else {
-//        _pMover->executeTagettingMoveAngleSequence(
+//        _pMover->execTagettingMvAngSequence(
 //                        0,
 //                        0,
 //                        200, 0,
@@ -186,96 +186,96 @@ void MyOptionParent::processBehavior() {
 ////
 ////                case WAY_UP:
 ////                    if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
-////                        _pMover->executeTagettingMoveAngleSequence(ANGLE90, 0,
-////                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
+////                        _pMover->execTagettingMvAngSequence(ANGLE90, 0,
+////                                                                   _angVelo_Turn, TURN_CLOSE_TO);
 ////                    } else {
-////                        _pMover->executeTagettingMoveAngleSequence(ANGLE90, ANGLE90,
-////                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
+////                        _pMover->execTagettingMvAngSequence(ANGLE90, ANGLE90,
+////                                                                   _angVelo_Turn, TURN_CLOSE_TO);
 ////                    }
 ////                    break;
 ////                case WAY_UP_FRONT:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE45, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE45, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_UP_BEHIND:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE135, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE135, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_DOWN:
 ////                    if (pWORLD->_pos_camera == CAM_POS_RIGHT || pWORLD->_pos_camera == CAM_POS_LEFT) {
-////                        _pMover->executeTagettingMoveAngleSequence(ANGLE270, 0,
-////                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
+////                        _pMover->execTagettingMvAngSequence(ANGLE270, 0,
+////                                                                   _angVelo_Turn, TURN_CLOSE_TO);
 ////                    } else {
-////                        _pMover->executeTagettingMoveAngleSequence(ANGLE270, ANGLE90,
-////                                                                   _angVelocity_Turn, TURN_CLOSE_TO);
+////                        _pMover->execTagettingMvAngSequence(ANGLE270, ANGLE90,
+////                                                                   _angVelo_Turn, TURN_CLOSE_TO);
 ////                    }
 ////                    break;
 ////                case WAY_DOWN_FRONT:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE315, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE315, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_DOWN_BEHIND:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE225, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE225, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_FRONT:
-////                    _pMover->executeTagettingMoveAngleSequence(0, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(0, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_BEHIND:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, 0,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
-////                    //            _pMover->setStopTarget_RzMoveAngle(0);
-////                    //            _pMover->setStopTarget_RyMoveAngle(ANGLE180);
+////                    _pMover->execTagettingMvAngSequence(ANGLE180, 0,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
+////                    //            _pMover->setStopTarget_RzMvAng(0);
+////                    //            _pMover->setStopTarget_RyMvAng(ANGLE180);
 ////
 ////                    break;
 ////                case WAY_ZLEFT:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE90,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE180, ANGLE90,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////
 ////                case WAY_ZLEFT_UP:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE135, ANGLE90,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE135, ANGLE90,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_ZLEFT_DOWN:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE225, ANGLE90,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE225, ANGLE90,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////
 ////                case WAY_ZLEFT_FRONT:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE135,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE180, ANGLE135,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_ZLEFT_BEHIND:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE180, ANGLE45,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE180, ANGLE45,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////
 ////
 ////                case WAY_ZRIGHT:
-////                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE90
-////                                                               , _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(0, ANGLE90
+////                                                               , _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_ZRIGHT_UP:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE45, ANGLE90,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE45, ANGLE90,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_ZRIGHT_DOWN:
-////                    _pMover->executeTagettingMoveAngleSequence(ANGLE315, ANGLE90,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(ANGLE315, ANGLE90,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////
 ////                case WAY_ZRIGHT_FRONT:
-////                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE45,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(0, ANGLE45,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                case WAY_ZRIGHT_BEHIND:
-////                    _pMover->executeTagettingMoveAngleSequence(0, ANGLE135,
-////                                                               _angVelocity_Turn, TURN_CLOSE_TO);
+////                    _pMover->execTagettingMvAngSequence(0, ANGLE135,
+////                                                               _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////                default:
-////                    //_pMover->executeTagettingMoveAngleSequence(0, 0, _angVelocity_Turn, TURN_CLOSE_TO);
+////                    //_pMover->execTagettingMvAngSequence(0, 0, _angVelo_Turn, TURN_CLOSE_TO);
 ////                    break;
 ////            }
 //
@@ -285,7 +285,7 @@ void MyOptionParent::processBehavior() {
 //
 //        //座標に反映
 //        if (GameGlobal::_pMyShip->_stc != VB_NEUTRAL_STC) {
-//            _angVelocity_Turn = 3500 + GameGlobal::_pMyShip->_pMover->_veloMove;
+//            _angVelo_Turn = 3500 + GameGlobal::_pMyShip->_pMover->_veloMv;
 //            //動かそうとしていた！
 //            _pMover->behave();
 //        }
@@ -295,18 +295,18 @@ void MyOptionParent::processBehavior() {
 
 
 //void MyOptionParent::setTerget(angle prm_angRz_Target, angle prm_angRy_Target) {
-//    if (_pMover->getRzMoveAngleDistance(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
-//        _pMover->setRzMoveAngleVelocity(_angVelocity_Turn);
+//    if (_pMover->getRzMvAngDistance(prm_angRz_Target, TURN_CLOSE_TO) > 0) {
+//        _pMover->setRzMvAngVelo(_angVelo_Turn);
 //    } else {
-//        _pMover->setRzMoveAngleVelocity(-1 * _angVelocity_Turn);
+//        _pMover->setRzMvAngVelo(-1 * _angVelo_Turn);
 //    }
-//    if (_pMover->getRyMoveAngleDistance(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
-//        _pMover->setRyMoveAngleVelocity(_angVelocity_Turn);
+//    if (_pMover->getRyMvAngDistance(prm_angRy_Target, TURN_CLOSE_TO) > 0) {
+//        _pMover->setRyMvAngVelo(_angVelo_Turn);
 //    } else {
-//        _pMover->setRyMoveAngleVelocity(-1 * _angVelocity_Turn);
+//        _pMover->setRyMvAngVelo(-1 * _angVelo_Turn);
 //    }
-//    _pMover->setStopTarget_RzMoveAngle(prm_angRz_Target);
-//    _pMover->setStopTarget_RyMoveAngle(prm_angRy_Target);
+//    _pMover->setStopTarget_RzMvAng(prm_angRz_Target);
+//    _pMover->setStopTarget_RyMvAng(prm_angRy_Target);
 //}
 
 MyOptionParent::~MyOptionParent() {

@@ -120,13 +120,13 @@ void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_axis, int prm_targ
     }
 }
 
-void GgafDx9GeometryScaler::intoTargetScaleAccelerationStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+void GgafDx9GeometryScaler::intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
     for (int axis = 0; axis < 3; axis++) {
-        intoTargetScaleAccelerationStep(axis, prm_target_scale, prm_velo_scale, prm_acce_scale);
+        intoTargetScaleAcceStep(axis, prm_target_scale, prm_velo_scale, prm_acce_scale);
     }
 }
 
-void GgafDx9GeometryScaler::intoTargetScaleAccelerationStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
+void GgafDx9GeometryScaler::intoTargetScaleAcceStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale) {
     _method[prm_axis] = TARGET_SCALE_ACCELERATION;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = prm_velo_scale;

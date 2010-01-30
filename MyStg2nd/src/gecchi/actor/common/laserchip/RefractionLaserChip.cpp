@@ -26,7 +26,7 @@ void RefractionLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMover->setMoveVelocity(30000);
+    _pMover->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -87,9 +87,9 @@ void RefractionLaserChip::onInactive() {
         _pChip_behind->_pMover->_vX = _pMover->_vX;
         _pChip_behind->_pMover->_vY = _pMover->_vY;
         _pChip_behind->_pMover->_vZ = _pMover->_vZ;
-        _pChip_behind->_pMover->_angRzMove = _pMover->_angRzMove;
-        _pChip_behind->_pMover->_angRyMove = _pMover->_angRyMove;
-        _pChip_behind->_pMover->_veloMove = _pMover->_veloMove;
+        _pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
+        _pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
+        _pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
         _pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
         _pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
         _pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];

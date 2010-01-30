@@ -67,7 +67,7 @@ public:
      * @param out_angFaceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param s 計算回数（精度）。回数が多いほど正確になる。
      */
-    void getFaceAngleClosely(unsigned __int16 prm_x,
+    void getFaceAngClosely(unsigned __int16 prm_x,
                             unsigned __int16 prm_y,
                             unsigned __int16 prm_z,
                             s_ang& out_angFaceZ,

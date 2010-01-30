@@ -27,7 +27,7 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     }
 }
 
-void GgafDx9SphereRadiusVectors::getFaceAngleClosely(unsigned __int16 prm_x,
+void GgafDx9SphereRadiusVectors::getFaceAngClosely(unsigned __int16 prm_x,
                                                     unsigned __int16 prm_y,
                                                     unsigned __int16 prm_z,
                                                     s_ang& out_angFaceZ,

@@ -9,7 +9,7 @@ GgafDx9CameraViewPoint::GgafDx9CameraViewPoint() : GgafDx9GeometricActor("ViewPo
 }
 
 void GgafDx9CameraViewPoint::initialize() {
-    _pMover->setMoveVelocity(0);
+    _pMover->setMvVelo(0);
 }
 
 void GgafDx9CameraViewPoint::processBehavior() {

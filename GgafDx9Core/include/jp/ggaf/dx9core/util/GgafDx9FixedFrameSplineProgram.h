@@ -16,7 +16,7 @@ public:
     /** 次の補完点までの距離のテーブル */
     int* _paDistace_to;
     /** 次の補完点到達に必要な移動速度のテーブル */
-    velo* _paSPMoveVelocityTo;
+    velo* _paSPMvVeloTo;
     /** 方向転換に許されるRzRyの軸転速度 */
     angvelo _angFaceMove;
     /** 目標地点に到着までに設定されたフレーム数 */

@@ -24,7 +24,7 @@ void World::initialize() {
     getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif
     //初期カメラ位置
-    int cam_MoveVeloRenge = pMYSHIP->_iMoveSpeed * 0.99;
+    int cam_MvVeloRenge = pMYSHIP->_iMoveSpeed * 0.99;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
 
     _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2);
@@ -48,39 +48,39 @@ void World::initialize() {
     pCAM->_Z = -_dZ_camera_init;
 
     pCAM->setViewPoint(0,0,0);
-    pCAM->_pMover->setMoveAngle(0,0,0);
+    pCAM->_pMover->setMvAng(0,0,0);
 
 
-    pCAM->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pMover->setVxMoveVelocity(0);
-    pCAM->_pMover->setVxMoveVeloAcceleration(0);
+    pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pMover->setVxMvVelo(0);
+    pCAM->_pMover->setVxMvVeloAcce(0);
 
-    pCAM->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pMover->setVyMoveVelocity(0);
-    pCAM->_pMover->setVyMoveVeloAcceleration(0);
+    pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pMover->setVyMvVelo(0);
+    pCAM->_pMover->setVyMvVeloAcce(0);
 
-    pCAM->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pMover->setVzMoveVelocity(0);
-    pCAM->_pMover->setVzMoveVeloAcceleration(0);
+    pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pMover->setVzMvVelo(0);
+    pCAM->_pMover->setVzMvVeloAcce(0);
 
     pCAM->_pViewPoint->_X = 0;
     pCAM->_pViewPoint->_Y = 0;
     pCAM->_pViewPoint->_Z = pMYSHIP->_Z;
 
 
-    pCAM->_pViewPoint->_pMover->setMoveAngle(0,0,0);
+    pCAM->_pViewPoint->_pMover->setMvAng(0,0,0);
 
-    pCAM->_pViewPoint->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pViewPoint->_pMover->setVxMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVxMoveVeloAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pViewPoint->_pMover->setVxMvVelo(0);
+    pCAM->_pViewPoint->_pMover->setVxMvVeloAcce(0);
 
-    pCAM->_pViewPoint->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pViewPoint->_pMover->setVyMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVyMoveVeloAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pViewPoint->_pMover->setVyMvVelo(0);
+    pCAM->_pViewPoint->_pMover->setVyMvVeloAcce(0);
 
-    pCAM->_pViewPoint->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
-    pCAM->_pViewPoint->_pMover->setVzMoveVelocity(0);
-    pCAM->_pViewPoint->_pMover->setVzMoveVeloAcceleration(0);
+    pCAM->_pViewPoint->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
+    pCAM->_pViewPoint->_pMover->setVzMvVelo(0);
+    pCAM->_pViewPoint->_pMover->setVzMvVeloAcce(0);
 
 
 }
@@ -96,7 +96,7 @@ void World::processBehavior() {
         if (getSubFirst()->isBehaving()) {
             _TRACE_("PAUSE!");
 //            //カメラ注視方向設定
-//            pCAM->_pMover->setMoveAngle(
+//            pCAM->_pMover->setMvAng(
 //                                pCAM->_gazeX,
 //                                pCAM->_gazeY,
 //                                pCAM->_gazeZ
@@ -300,7 +300,7 @@ void World::processBehavior() {
 
     if ( getSubFirst()->isBehaving() ) {
 
-        int cam_MoveVeloRenge;//カメラ移動スピード
+        int cam_MvVeloRenge;//カメラ移動スピード
         int moveway_num = 0; //自機移動方向数
         if (VB::isBeingPressed(VB_LEFT)) {
             moveway_num++;
@@ -315,81 +315,81 @@ void World::processBehavior() {
             moveway_num++;
         }
         if (moveway_num >= 2) {
-            cam_MoveVeloRenge = pMYSHIP->_iMoveSpeed*NANAME +
-                                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
-                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
-                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)*1.5  ); //カメラ移動スピード（自機斜め移動時）
+            cam_MvVeloRenge = pMYSHIP->_iMoveSpeed*NANAME +
+                                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
+                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
+                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)*1.5  ); //カメラ移動スピード（自機斜め移動時）
 
         } else {
-            cam_MoveVeloRenge = pMYSHIP->_iMoveSpeed +
-                                    ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
-                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
-                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)*1.5  ); //カメラ移動スピード（標準）
+            cam_MvVeloRenge = pMYSHIP->_iMoveSpeed +
+                                    ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
+                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
+                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)*1.5  ); //カメラ移動スピード（標準）
         }
 
 //                +
-//                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMove) +
-//                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMove) +
-//                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMove)
+//                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
+//                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
+//                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)
 //                  )
 //                 ) * 0.7;//どうするか????0.7; //0.7の意味は 1/√2 よりわずかに小さい
                           //これは自機が斜め移動時カメラがわずかに追いつかないようにするため
 //        if (GgafDx9Util::abs(dX_CAM) > slow_range_CAM*1.2 ||
 //            GgafDx9Util::abs(dY_CAM) > slow_range_CAM*1.2 ||
 //            GgafDx9Util::abs(dZ_CAM) > slow_range_CAM*1.2) {
-//            cam_MoveVeloRenge = cam_MoveVeloRenge * 2;
+//            cam_MvVeloRenge = cam_MvVeloRenge * 2;
 //        }
 
 
         //カメラがスロー範囲（ちょっと広め）時とそうでない時の処理
         if (-slow_range02_CAM > dX_CAM && dX_CAM > slow_range02_CAM) {
-            pCAM->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pCAM->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
         if (-slow_range02_CAM > dY_CAM && dY_CAM > slow_range02_CAM) {
-            pCAM->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pCAM->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
         if (-slow_range02_CAM > dZ_CAM && dZ_CAM > slow_range02_CAM) {
-            pCAM->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pCAM->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
 
 
         //カメラがスロー範囲時とそうでない時の処理
         static double acc_rate = 500.0;
         if (-slow_range_CAM < dX_CAM && dX_CAM < slow_range_CAM) {
-            pCAM->_pMover->_veloVxMove *= 0.9;
-            pCAM->_pMover->setVxMoveVeloAcceleration(0);
+            pCAM->_pMover->_veloVxMv *= 0.9;
+            pCAM->_pMover->setVxMvVeloAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/acc_rate);//背後に回る時
+                pCAM->_pMover->setVxMvVeloAcce(dX_CAM/acc_rate);//背後に回る時
             } else {
-                pCAM->_pMover->setVxMoveVeloAcceleration(dX_CAM/acc_rate);
+                pCAM->_pMover->setVxMvVeloAcce(dX_CAM/acc_rate);
             }
         }
         if (-slow_range_CAM < dY_CAM && dY_CAM < slow_range_CAM) {
-            pCAM->_pMover->_veloVyMove *= 0.9;
-            pCAM->_pMover->setVyMoveVeloAcceleration(0);
+            pCAM->_pMover->_veloVyMv *= 0.9;
+            pCAM->_pMover->setVyMvVeloAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/acc_rate);//背後に回る時
+                pCAM->_pMover->setVyMvVeloAcce(dY_CAM/acc_rate);//背後に回る時
             } else {
-                pCAM->_pMover->setVyMoveVeloAcceleration(dY_CAM/acc_rate);
+                pCAM->_pMover->setVyMvVeloAcce(dY_CAM/acc_rate);
             }
         }
         if (-slow_range_CAM < dZ_CAM && dZ_CAM < slow_range_CAM) {
-            pCAM->_pMover->_veloVzMove *= 0.9;
-            pCAM->_pMover->setVzMoveVeloAcceleration(0);
+            pCAM->_pMover->_veloVzMv *= 0.9;
+            pCAM->_pMover->setVzMvVeloAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);//背後に回る時
+                pCAM->_pMover->setVzMvVeloAcce(dZ_CAM/acc_rate);//背後に回る時
             } else {
 
-				pCAM->_pMover->setVzMoveVeloAcceleration(dZ_CAM/acc_rate);
+				pCAM->_pMover->setVzMvVeloAcce(dZ_CAM/acc_rate);
             }
         }
 
@@ -399,38 +399,38 @@ void World::processBehavior() {
 
 
         if (-slow_range02_VP > dX_VP && dX_VP > slow_range02_VP) {
-            pVP->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pVP->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pVP->_pMover->setVxMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pVP->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
         if (-slow_range02_VP > dY_VP && dY_VP > slow_range02_VP) {
-            pVP->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pVP->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pVP->_pMover->setVyMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pVP->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
         if (-slow_range02_VP > dZ_VP && dZ_VP > slow_range02_VP) {
-            pVP->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge*10, cam_MoveVeloRenge*10);
+            pVP->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
         } else {
-            pVP->_pMover->setVzMoveVeloRenge(-cam_MoveVeloRenge, cam_MoveVeloRenge);
+            pVP->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
         }
 
         if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
-            pVP->_pMover->_veloVxMove *= 0.9;
-            pVP->_pMover->setVxMoveVeloAcceleration(0);
+            pVP->_pMover->_veloVxMv *= 0.9;
+            pVP->_pMover->setVxMvVeloAcce(0);
         } else {
-            pVP->_pMover->setVxMoveVeloAcceleration(dX_VP/acc_rate);
+            pVP->_pMover->setVxMvVeloAcce(dX_VP/acc_rate);
         }
         if (-slow_range_VP < dY_VP && dY_VP < slow_range_VP) {
-            pVP->_pMover->_veloVyMove *= 0.9;
-            pVP->_pMover->setVyMoveVeloAcceleration(0);
+            pVP->_pMover->_veloVyMv *= 0.9;
+            pVP->_pMover->setVyMvVeloAcce(0);
         } else {
-            pVP->_pMover->setVyMoveVeloAcceleration(dY_VP/acc_rate);
+            pVP->_pMover->setVyMvVeloAcce(dY_VP/acc_rate);
         }
         if (-slow_range_VP < dZ_VP && dZ_VP < slow_range_VP) {
-            pVP->_pMover->_veloVzMove *= 0.9;
-            pVP->_pMover->setVzMoveVeloAcceleration(0);
+            pVP->_pMover->_veloVzMv *= 0.9;
+            pVP->_pMover->setVzMvVeloAcce(0);
         } else {
-            pVP->_pMover->setVzMoveVeloAcceleration(dZ_VP/acc_rate);
+            pVP->_pMover->setVzMvVeloAcce(dZ_VP/acc_rate);
         }
 
 
@@ -443,8 +443,8 @@ void World::processBehavior() {
     if ( getSubFirst()->isBehaving() ) {
         //スルー
     } else {
-        pCAM->_pMover->_move_angle_rz_target_flg = true;
-        pCAM->_pMover->_move_angle_ry_target_flg = true;
+        pCAM->_pMover->_mv_ang_rz_target_flg = true;
+        pCAM->_pMover->_mv_ang_ry_target_flg = true;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_SPACE)) {
             if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
@@ -471,32 +471,32 @@ void World::processBehavior() {
 
         } else {
             if (GgafDx9Input::isBeingPressedKey(DIK_UP)) {
-                pCAM->_pMover->addRzMoveAngle(4000);
+                pCAM->_pMover->addRzMvAng(4000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_DOWN)) {
-                pCAM->_pMover->addRzMoveAngle(-4000);
+                pCAM->_pMover->addRzMvAng(-4000);
             } else {
-                pCAM->_pMover->addRzMoveAngle(0);
+                pCAM->_pMover->addRzMvAng(0);
             }
 
             if (GgafDx9Input::isBeingPressedKey(DIK_RIGHT)) {
-                pCAM->_pMover->addRyMoveAngle(4000);
+                pCAM->_pMover->addRyMvAng(4000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_LEFT)) {
-                pCAM->_pMover->addRyMoveAngle(-4000);
+                pCAM->_pMover->addRyMvAng(-4000);
             } else {
-                pCAM->_pMover->addRyMoveAngle(0);
+                pCAM->_pMover->addRyMvAng(0);
             }
             if (GgafDx9Input::isBeingPressedKey(DIK_PGUP)) {
-                pCAM->_pMover->setMoveVelocity(4000);
+                pCAM->_pMover->setMvVelo(4000);
             } else if (GgafDx9Input::isBeingPressedKey(DIK_PGDN)) {
-                pCAM->_pMover->setMoveVelocity(-4000);
+                pCAM->_pMover->setMvVelo(-4000);
             } else {
-                pCAM->_pMover->setMoveVelocity(0);
+                pCAM->_pMover->setMvVelo(0);
             }
         }
     }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
-        pCAM->_pMover->setMoveAngle(0,0,0);
+        pCAM->_pMover->setMvAng(0,0,0);
         _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
     }
 
@@ -509,7 +509,7 @@ void World::processBehavior() {
 //                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),
 //                   pCAM->_Z + (pCAM->_pMover->_vZ * LEN_UNIT * PX_UNIT)
 //                  );
-//        pCAM->_pMover->setMoveAngle(0,0,0);
+//        pCAM->_pMover->setMvAng(0,0,0);
 //    }
 
 }

@@ -91,7 +91,7 @@ void GgafDx9GeometryMorpher::intoTargetLinerUntil(int prm_target_mesh, float prm
     _velo_weight[prm_target_mesh] = (prm_target_weight - _pActor->_weight[prm_target_mesh])/prm_spend_frame;
 }
 
-void GgafDx9GeometryMorpher::intoTargetAccelerationStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
+void GgafDx9GeometryMorpher::intoTargetAcceStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
     _method[prm_target_mesh] = TARGET_ACCELERATION;
     _target_weight[prm_target_mesh] = prm_target_weight;
     _velo_weight[prm_target_mesh] = prm_velo_weight;

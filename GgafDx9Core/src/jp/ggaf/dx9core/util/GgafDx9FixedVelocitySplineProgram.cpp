@@ -18,7 +18,7 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram() : GgafDx9
     _point_index = 0;
     //_fSPPointFrame = 0;
     _angFaceMove = ANGLE360;
-    _veloMoveUnit = LEN_UNIT;
+    _veloMvUnit = LEN_UNIT;
 }
 
 GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
@@ -59,7 +59,7 @@ void GgafDx9FixedVelocitySplineProgram::init() {
     // prm_accuracy が綺麗な分数にならない場合、基点上に補完点が繰るかとか、全然わからないので、sp._rnumを必ず使用せよ
     // 下図は綺麗に重なった場合の図である。
     //
-    //                           ＜速さは  _veloMoveUnit = 1000＞
+    //                           ＜速さは  _veloMvUnit = 1000＞
     //
     //               _paFrame_need_at[1] 必要なフレーム数
     //                     ||              _paFrame_need_at[5]
@@ -87,7 +87,7 @@ void GgafDx9FixedVelocitySplineProgram::init() {
     //
 
 
-    _veloMoveUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
+    _veloMvUnit = LEN_UNIT; //速度1000とした場合の、各区間のフレーム数を求める
     _paDistace_to = NEW int[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 
@@ -116,9 +116,9 @@ void GgafDx9FixedVelocitySplineProgram::init() {
                                     z_to
                                  );
 
-        //距離 paDistaceTo[t] を、速度 _veloMoveUnit(=1000) で移動するのに必要なフレーム数を求める。
+        //距離 paDistaceTo[t] を、速度 _veloMvUnit(=1000) で移動するのに必要なフレーム数を求める。
         //時間＝距離÷速さ
-        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMoveUnit);
+        _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMvUnit);
 
     }
 
@@ -155,24 +155,24 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
 
             if (_option == 1) {
                 //相対座標ターゲット
-                _pActorMover->setStopTarget_RzRyMoveAngle(_sp->_X_compute[_point_index] - _X_relative,
+                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_relative,
                                                             _sp->_Y_compute[_point_index] - _Y_relative,
                                                             _sp->_Z_compute[_point_index] - _Z_relative);
             } else {
                 //絶対座標ターゲット
-                _pActorMover->setStopTarget_RzRyMoveAngle(_sp->_X_compute[_point_index],
+                _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
                                                             _sp->_Y_compute[_point_index],
                                                             _sp->_Z_compute[_point_index]);
             }
-            if (_pActorMover->getRzMoveAngleDistance(_pActorMover->_angTargetRzMove, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRzMoveAngleVelocity(_angFaceMove);
+            if (_pActorMover->getRzMvAngDistance(_pActorMover->_angTargetRzMv, TURN_CLOSE_TO) > 0) {
+                _pActorMover->setRzMvAngVelo(_angFaceMove);
             } else {
-                _pActorMover->setRzMoveAngleVelocity(-_angFaceMove);
+                _pActorMover->setRzMvAngVelo(-_angFaceMove);
             }
-            if (_pActorMover->getRyMoveAngleDistance(_pActorMover->_angTargetRyMove, TURN_CLOSE_TO) > 0) {
-                _pActorMover->setRyMoveAngleVelocity(_angFaceMove);
+            if (_pActorMover->getRyMvAngDistance(_pActorMover->_angTargetRyMv, TURN_CLOSE_TO) > 0) {
+                _pActorMover->setRyMvAngVelo(_angFaceMove);
             } else {
-                _pActorMover->setRyMoveAngleVelocity(-_angFaceMove);
+                _pActorMover->setRyMvAngVelo(-_angFaceMove);
             }
 
 
@@ -187,7 +187,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                                         _sp->_Z_compute[0]
                                      );
                 //始点までに必要なフレーム数取得
-                _paFrame_need_at[0] =  (float)(1.0*_paDistace_to[0] / _veloMoveUnit);
+                _paFrame_need_at[0] =  (float)(1.0*_paDistace_to[0] / _veloMvUnit);
                 _fFrame_next_point = _paFrame_need_at[0];
             } else {
                 //次の補完点までに必要なフレーム数を更新
@@ -205,7 +205,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
         //キャラの速度が1000ならば、_fFrame_executing ++;
         //キャラの速度が2000ならば  _fFrame_executing += 2.0;
         //キャラの速度が500ならば、 _fFrame_executing += 0.5
-        _fFrame_executing = _fFrame_executing +  (1.0*_pActorMover->_veloMove / LEN_UNIT);
+        _fFrame_executing = _fFrame_executing +  (1.0*_pActorMover->_veloMv / LEN_UNIT);
     }
 
 }

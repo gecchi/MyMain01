@@ -18,7 +18,7 @@ void HomingLaserChip::initialize() {
     //当たり判定あり。
     //α＝0.99
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-    _pMover->setMoveVelocity(30000);
+    _pMover->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
@@ -75,9 +75,9 @@ void HomingLaserChip::onInactive() {
         _pChip_behind->_pMover->_vX = _pMover->_vX;
         _pChip_behind->_pMover->_vY = _pMover->_vY;
         _pChip_behind->_pMover->_vZ = _pMover->_vZ;
-        _pChip_behind->_pMover->_angRzMove = _pMover->_angRzMove;
-        _pChip_behind->_pMover->_angRyMove = _pMover->_angRyMove;
-        _pChip_behind->_pMover->_veloMove = _pMover->_veloMove;
+        _pChip_behind->_pMover->_angRzMv = _pMover->_angRzMv;
+        _pChip_behind->_pMover->_angRyMv = _pMover->_angRyMv;
+        _pChip_behind->_pMover->_veloMv = _pMover->_veloMv;
         _pChip_behind->_pMover->_angFace[AXIS_X] = _pMover->_angFace[AXIS_X];
         _pChip_behind->_pMover->_angFace[AXIS_Y] = _pMover->_angFace[AXIS_Y];
         _pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
@@ -110,8 +110,8 @@ void HomingLaserChip::processBehavior() {
 //            _prev_vX = _pMover->_vX;
 //            _prev_vY = _pMover->_vY;
 //            _prev_vZ = _pMover->_vZ;
-//            _prev_RzMoveAngle = _pMover->_angRzMove;
-//            _prev_RyMoveAngle = _pMover->_angRyMove;
+//            _prev_RzMvAng = _pMover->_angRzMv;
+//            _prev_RyMvAng = _pMover->_angRyMv;
 
             processBehaviorHeadChip();
         } else {
@@ -125,8 +125,8 @@ void HomingLaserChip::processBehavior() {
 //            _prev_vX = _pMover->_vX;
 //            _prev_vY = _pMover->_vY;
 //            _prev_vZ = _pMover->_vZ;
-//            _prev_RzMoveAngle = _pMover->_angRzMove;
-//            _prev_RyMoveAngle = _pMover->_angRyMove;
+//            _prev_RzMvAng = _pMover->_angRzMv;
+//            _prev_RyMvAng = _pMover->_angRyMv;
 
             _X  = pChip_front->_prev_X;
             _Y  = pChip_front->_prev_Y;
@@ -137,8 +137,8 @@ void HomingLaserChip::processBehavior() {
 //            _pMover->_vX = pChip_front->_prev_vX;
 //            _pMover->_vY = pChip_front->_prev_vY;
 //            _pMover->_vZ = pChip_front->_prev_vZ;
-//            _pMover->_angRzMove = pChip_front->_prev_RzMoveAngle;
-//            _pMover->_angRyMove = pChip_front->_prev_RyMoveAngle;
+//            _pMover->_angRzMv = pChip_front->_prev_RzMvAng;
+//            _pMover->_angRyMv = pChip_front->_prev_RyMvAng;
         }
     }
 }

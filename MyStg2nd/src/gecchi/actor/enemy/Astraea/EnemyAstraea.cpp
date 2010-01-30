@@ -45,8 +45,8 @@ void EnemyAstraea::initialize() {
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _pMover->setMoveVelocity(0);
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
+    _pMover->setMvVelo(0);
+    _pMover->relateRzRyFaceAngToMvAng(true);
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {
 //            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //本所属
@@ -71,9 +71,9 @@ void EnemyAstraea::processBehavior() {
 //        _pMorpher->stopImmediately(1);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//        _pMorpher->intoTargetAccelerationStep(2, 1.0f, 0, 0.002f);
+//        _pMorpher->intoTargetAcceStep(2, 1.0f, 0, 0.002f);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-//        _pMorpher->intoTargetAccelerationStep(2, 0, 0, -0.004f);
+//        _pMorpher->intoTargetAcceStep(2, 0, 0, -0.004f);
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
 //        _pMorpher->loopTriangleWave(3, 20, 13, 2);
@@ -126,12 +126,12 @@ void EnemyAstraea::processBehavior() {
     _X = _X - 5000;
     if (_frame_of_active % _shot_interval == 0) {
 
-        _pMover->setStopTarget_RzRyMoveAngle(GameGlobal::_pMyShip);
-        _pMover->setRzMoveAngleVelocity(
-                        _angveloTurn*sgn(_pMover->getRzMoveAngleDistance(_pMover->_angTargetRzMove,TURN_CLOSE_TO))
+        _pMover->setStopTarget_RzRyMvAng(GameGlobal::_pMyShip);
+        _pMover->setRzMvAngVelo(
+                        _angveloTurn*sgn(_pMover->getRzMvAngDistance(_pMover->_angTargetRzMv,TURN_CLOSE_TO))
                     );
-        _pMover->setRyMoveAngleVelocity(
-                        _angveloTurn*sgn(_pMover->getRyMoveAngleDistance(_pMover->_angTargetRyMove,TURN_CLOSE_TO))
+        _pMover->setRyMvAngVelo(
+                        _angveloTurn*sgn(_pMover->getRyMvAngDistance(_pMover->_angTargetRyMv,TURN_CLOSE_TO))
                     );
         _cnt_laserchip = 0;
     }
@@ -139,7 +139,7 @@ void EnemyAstraea::processBehavior() {
 
     _pMover->behave();
 
-    if (_pMover->_angveloRzMove == 0 && _pMover->_angveloRyMove == 0 && _cnt_laserchip < _laser_length) {
+    if (_pMover->_angveloRzMv == 0 && _pMover->_angveloRyMv == 0 && _cnt_laserchip < _laser_length) {
 
         static EnemyAstraeaLaserChip002* pLaserChip;
 
@@ -162,11 +162,11 @@ void EnemyAstraea::processBehavior() {
 //                                                                              "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
 //                                                                              "/_is_active_flg="<<_is_active_flg);
                     pLaserChip->setGeometry(this);
-                    pLaserChip->_pMover->setRzRyMoveAngle(_paWayRz[i], _paWayRy[j]);
+                    pLaserChip->_pMover->setRzRyMvAng(_paWayRz[i], _paWayRy[j]);
                     pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
                     pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
 //                    //とりあえずまっすぐ飛ばす、しかし、ターゲットは保存したいのでここで角速度０でたーげっと。
-//                    pLaserChip->_pMover->executeTagettingMoveAngleSequence(GameGlobal::_pMyShip,
+//                    pLaserChip->_pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
 //                                                               0,0, TURN_CLOSE_TO);
 
                     pLaserChip->_pMover->behave();

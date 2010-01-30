@@ -11,7 +11,7 @@ EnemyLaserChip001::EnemyLaserChip001(const char* prm_name) : HomingLaserChip(prm
 }
 
 void EnemyLaserChip001::initialize() {
-    _pMover->setMoveVelocity(1000);
+    _pMover->setMvVelo(1000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     setHitAble(true);
@@ -23,8 +23,8 @@ void EnemyLaserChip001::initialize() {
 
 void EnemyLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    _pMover->setMoveVelocity(3000);
-    _pMover->setMoveVeloAcceleration(300);
+    _pMover->setMvVelo(3000);
+    _pMover->setMvVeloAcce(300);
 }
 
 
@@ -32,7 +32,7 @@ void EnemyLaserChip001::processBehaviorHeadChip() {
 
 
     if (_dwActiveFrame == 30) {
-        _pMover->executeTagettingMoveAngleSequence(
+        _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     7000, 0,
                     TURN_ANTICLOSE_TO);
@@ -40,13 +40,13 @@ void EnemyLaserChip001::processBehaviorHeadChip() {
 
 
 //    if (_dwActiveFrame == 50) {
-//        _pMover->executeTagettingMoveAngleSequence(
+//        _pMover->execTagettingMvAngSequence(
 //                    GameGlobal::_pMyShip,
 //                    8000, TURN_CLOSE_TO);
 //    }
 //
 //    if (_dwActiveFrame == 35) {
-//        _pMover->executeTagettingMoveAngleSequence(
+//        _pMover->execTagettingMvAngSequence(
 //                    GameGlobal::_pMyShip,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }

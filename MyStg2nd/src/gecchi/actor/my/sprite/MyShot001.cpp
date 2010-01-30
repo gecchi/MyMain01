@@ -13,14 +13,14 @@ MyShot001::MyShot001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "mo
 void MyShot001::initialize() {
     setAnimationMethod(OSCILLATE_LOOP, 2);
 
-    _pMover->setRzMoveAngleVelocity(0);
-    //_pMover->setFaceAngleVelocity(AXIS_Z, 2 * 1000);
-    _pMover->setFaceAngleVelocity(AXIS_X, 10000);
-    //_pMover->setFaceAngleVelocity(AXIS_Y, 2 * 1800);
+    _pMover->setRzMvAngVelo(0);
+    //_pMover->setFaceAngVelo(AXIS_Z, 2 * 1000);
+    _pMover->setFaceAngVelo(AXIS_X, 10000);
+    //_pMover->setFaceAngVelo(AXIS_Y, 2 * 1800);
 
-    _pMover->setRzMoveAngle(0);
-    _pMover->setFaceAngle(AXIS_Z, 0);
-    _pMover->setMoveVelocity(40000);
+    _pMover->setRzMvAng(0);
+    _pMover->setFaceAng(AXIS_Z, 0);
+    _pMover->setMvVelo(40000);
 
     _pCollisionChecker->makeCollision(7);
     _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000, true, true, true);

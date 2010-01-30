@@ -14,21 +14,21 @@ class EnemyCeresShot001 : public DefaultMeshEnemyActor {
 public:
     //本Actorのカスタムプロパティ --->
     /** 出現時の初速 */
-    int _iMoveVelocity_1st;
+    int _iMvVelo_1st;
     /** 出現時の加速度（負で遅くなる */
-    int _iMoveAcceleration_1st;
+    int _iMoveAcce_1st;
     /** 自身が出現してから、時機の方向に方向転換を開始するフレーム */
     DWORD _dwFrame_TurnBegin;
     /** 移動速度上限 */
-    int _iMoveVelocity_Top;
+    int _iMvVelo_Top;
     /** 最低保証移動速度 */
-    int _iMoveVelocity_Bottom;
+    int _iMvVelo_Bottom;
     /** 方向転換に費やすことができるフレーム数 */
     DWORD _dwFrameInterval_Turn;
     /** 方向転換中の角速度アングル値 */
-    angle _angVelocity_Turn;
+    angle _angVelo_Turn;
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
-    int _iMoveAcceleration_2nd;
+    int _iMoveAcce_2nd;
     /** 出現してからのフレーム数 */
     DWORD _frame_on_change_to_active_flg;
     //<--- 本Actorのカスタムプロパティ

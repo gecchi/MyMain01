@@ -27,29 +27,29 @@ void EnemyAstraeaLaserChip001::onActive() {
     //ステータスリセット
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 
-    _pMover->setMoveVelocity(5000);
-    _pMover->setMoveVeloAcceleration(300);
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
+    _pMover->setMvVelo(5000);
+    _pMover->setMvVeloAcce(300);
+    _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
     if (_dwActiveFrame == 40) {
-        _pMover->executeTagettingMoveAngleSequence(
+        _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     8000, 0,
                     TURN_ANTICLOSE_TO);
     }
 
 
-    if (_pMover->_move_angle_ry_target_flg == false && _pMover->_move_angle_rz_target_flg == false) {
-        _pMover->executeTagettingMoveAngleSequence(
+    if (_pMover->_mv_ang_ry_target_flg == false && _pMover->_mv_ang_rz_target_flg == false) {
+        _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     100, 0,
                     TURN_CLOSE_TO);
     }
 //
 //    if (_dwActiveFrame == 35) {
-//        _pMover->executeTagettingMoveAngleSequence(
+//        _pMover->execTagettingMvAngSequence(
 //                    GameGlobal::_pMyShip,
 //                    20000, TURN_ANTICLOSE_TO);
 //    }

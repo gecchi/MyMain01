@@ -38,7 +38,7 @@ public:
     /** 旋廻円周半径（initialize()までに変更可／デフォルト=200000） */
     int _radiusPosition;
     /** 旋廻円周移動速度（随時変更可／デフォルト=1000） */
-    velo _veloMove;
+    velo _veloMv;
     /** オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
     angle _angExpanse;
     /** オプションの広がり回転角速度 （随時変更可／デフォルト=100）*/

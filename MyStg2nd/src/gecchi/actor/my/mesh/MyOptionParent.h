@@ -16,7 +16,7 @@ public:
     /** 対象アクター */
 
     /** 方向転換角速度 */
-    angle _angVelocity_Turn;
+    angle _angVelo_Turn;
 
     MyOptionParent(const char* prm_name);
 

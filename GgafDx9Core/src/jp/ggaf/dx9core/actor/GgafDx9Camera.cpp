@@ -71,12 +71,12 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _Y = _pVecCamFromPoint->y * LEN_UNIT * PX_UNIT;
     _Z = _pVecCamFromPoint->z * LEN_UNIT * PX_UNIT;
 
-    _pMover->setMoveAngle(0,0,0);
-    _pMover->setMoveVelocity(0);
-    _pMover->setRzMoveAngleVelocity(0);
-    _pMover->setRyMoveAngleVelocity(0);
-    _pMover->_move_angle_rz_target_flg = true;
-    _pMover->_move_angle_ry_target_flg = true;
+    _pMover->setMvAng(0,0,0);
+    _pMover->setMvVelo(0);
+    _pMover->setRzMvAngVelo(0);
+    _pMover->setRyMvAngVelo(0);
+    _pMover->_mv_ang_rz_target_flg = true;
+    _pMover->_mv_ang_ry_target_flg = true;
     setHitAble(false);
 
     _pViewPoint = NEW GgafDx9CameraViewPoint();

@@ -52,9 +52,9 @@ public:
     bool _can_live_flg_in_next_frame;
 
     /** 先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
-    bool _will_move_first_in_next_frame_flg;
+    bool _will_mv_first_in_next_frame_flg;
     /** 末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
-    bool _will_move_last_in_next_frame_flg;
+    bool _will_mv_last_in_next_frame_flg;
 
     /** あとで活動予約フラグ */
     bool _will_activate_after_flg;
@@ -108,7 +108,7 @@ public:
      * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) .
      * _is_active_flg_in_next_frame _was_paused_flg_in_next_frame _can_live_flg_in_next_frame を<BR>
      * _is_active_flg _was_paused_flg _can_live_flg に反映（コピー）する。<BR>
-     * また、_will_move_first_in_next_frame_flg, _will_move_last_in_next_frame_flg が true の場合は、<BR>
+     * また、_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg が true の場合は、<BR>
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
@@ -487,7 +487,7 @@ public:
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
     void moveLast() {
-        _will_move_last_in_next_frame_flg = true;
+        _will_mv_last_in_next_frame_flg = true;
     }
 
     /**
@@ -496,7 +496,7 @@ public:
      * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
      */
     void moveFirst() {
-        _will_move_first_in_next_frame_flg = true;
+        _will_mv_first_in_next_frame_flg = true;
     }
 
     /**
@@ -574,7 +574,7 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
             _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_adios(MAXDWORD), _frame_of_life(0), _frame_of_active(0),
             _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
-            _can_live_flg_in_next_frame(true), _will_move_first_in_next_frame_flg(false), _will_move_last_in_next_frame_flg(false),
+            _can_live_flg_in_next_frame(true), _will_mv_first_in_next_frame_flg(false), _will_mv_last_in_next_frame_flg(false),
             _will_activate_after_flg(false), _frame_of_life_when_activation(0), _will_inactivate_after_flg(false), _frame_of_life_when_inactivation(0),
             _on_change_to_active_flg(false), _on_change_to_inactive_flg(false) {
 }
@@ -596,8 +596,8 @@ void GgafElement<T>::nextFrame() {
     }
 
 
-    if (_will_move_last_in_next_frame_flg) {
-        _will_move_last_in_next_frame_flg = false;
+    if (_will_mv_last_in_next_frame_flg) {
+        _will_mv_last_in_next_frame_flg = false;
         SUPER::moveLast();
     } else {
 
@@ -671,8 +671,8 @@ void GgafElement<T>::nextFrame() {
             }
         }
 
-        if (_will_move_first_in_next_frame_flg) {
-            _will_move_first_in_next_frame_flg = false;
+        if (_will_mv_first_in_next_frame_flg) {
+            _will_mv_first_in_next_frame_flg = false;
             SUPER::moveFirst();
         }
 

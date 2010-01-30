@@ -193,21 +193,21 @@ void MyShip::initialize() {
 //    _pCollisionChecker->setColliSphere(3, 0,0,-100000, 30000, true, true, true);
 //    _pCollisionChecker->setColliSphere(4, 0,0,100000, 30000, true, true, true);
 
-    _pMover->setMoveVelocity(0);
+    _pMover->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->setScaleRange(1000, 7000);
 
-    _pMover->setVxMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->setVyMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->setVzMoveVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->setVxMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->setVyMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->setVzMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
 
-    _pMover->setVxMoveVeloAcceleration(0);
-    _pMover->setVyMoveVeloAcceleration(0);
-    _pMover->setVzMoveVeloAcceleration(0);
+    _pMover->setVxMvVeloAcce(0);
+    _pMover->setVyMvVeloAcce(0);
+    _pMover->setVzMvVeloAcce(0);
 
-    //        _pMover->setMoveVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    //        _pMover->addMoveVelocity(_iMvVelo_BeginMT);  //速度追加
-    //        _pMover->setMoveVeloAcceleration(_iMvAcce_MT);
+    //        _pMover->setMvVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //速度追加
+    //        _pMover->setMvVeloAcce(_iMvAcce_MT);
 }
 
 void MyShip::processBehavior() {
@@ -220,7 +220,7 @@ void MyShip::processBehavior() {
         _pScaler->addScale(-2000);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-        _pScaler->intoTargetScaleAccelerationStep(3000, 0, 3);
+        _pScaler->intoTargetScaleAcceStep(3000, 0, 3);
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
         _pScaler->loopLiner(20, -1);
@@ -332,34 +332,34 @@ void MyShip::processBehavior() {
     if (turbo_stc) { //ターボ
         (this->*fpaTurboFunc[_way])();
     } else {
-        _pMover->_veloVxMove *= 0.95;
-        _pMover->_veloVyMove *= 0.95;
-        _pMover->_veloVzMove *= 0.95;
+        _pMover->_veloVxMv *= 0.95;
+        _pMover->_veloVyMv *= 0.95;
+        _pMover->_veloVzMv *= 0.95;
     }
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = _angRXTopVelo_MZ-2000; //2000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
-    if (_pMover->_angveloRotFace[AXIS_X] >= MZ) {
-        _pMover->_angveloRotFace[AXIS_X] *= 0.90;
-        //_pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ*2);
-    } else if (_pMover->_angveloRotFace[AXIS_X] <= -MZ) {
-        _pMover->_angveloRotFace[AXIS_X] *= 0.90;
-        //_pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ*2);
+    if (_pMover->_angveloFace[AXIS_X] >= MZ) {
+        _pMover->_angveloFace[AXIS_X] *= 0.90;
+        //_pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ*2);
+    } else if (_pMover->_angveloFace[AXIS_X] <= -MZ) {
+        _pMover->_angveloFace[AXIS_X] *= 0.90;
+        //_pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
-    //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngleの第4引数より角速度がゆるい場合受け入れ）
+    //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
     if (VB::isBeingPressed(VB_LEFT) || VB::isBeingPressed(VB_RIGHT)) {
 
     } else {
 
-        angle dist = _pMover->getFaceAngleDistance(AXIS_X, 0, TURN_CLOSE_TO);
+        angle dist = _pMover->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, _angRXAcce_MZ);
+            _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {
-            _pMover->setFaceAngleVeloAcceleration(AXIS_X, -1*_angRXAcce_MZ);
+            _pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setMoveVeloAcceleration(0);
-        _pMover->setStopTarget_FaceAngle(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
+        _pMover->setMvVeloAcce(0);
+        _pMover->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
     }
 
     ////////////////////////////////////////////////////

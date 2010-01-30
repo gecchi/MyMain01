@@ -16,8 +16,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, 
 
 void EnemyTamago01::initialize() {
     setHitAble(true);
-    _pMover->relateRzRyFaceAngleToMoveAngle(true);
-    //_pMover->setFaceAngleVelocity(AXIS_X, 5000);
+    _pMover->relateRzRyFaceAngToMvAng(true);
+    //_pMover->setFaceAngVelo(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
@@ -49,7 +49,7 @@ void EnemyTamago01::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
+        _pMover->execTagettingMvAngSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
@@ -80,7 +80,7 @@ void EnemyTamago01::processBehavior() {
 
     }
     if (_frame_of_active % 180 == 0) {
-        _pMover->executeTagettingMoveAngleSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
+        _pMover->execTagettingMvAngSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
     }
 
     _pMover->behave();
