@@ -25,7 +25,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyCurveLaserChip001* pChip;
-    for (int i = 0; i < 50; i++) { //レーザーストック
+    for (int i = 0; i < 60; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
@@ -254,7 +254,9 @@ void MyDummyOption::processBehavior() {
 
     //TODO
     //最適化
-
+    _pMover->setVxMvVelo(0);
+    _pMover->setVyMvVelo(0);
+    _pMover->setVzMvVelo(0);
 
 
 
@@ -269,6 +271,10 @@ void MyDummyOption::processBehavior() {
 //            pLaserChip->_pMover->_angFace[AXIS_X] = angWk;
             pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;
+            pLaserChip->_pMover->setVxMvVelo(_Q._x*80000);
+            pLaserChip->_pMover->setVyMvVelo(_Q._y*80000);
+            pLaserChip->_pMover->setVzMvVelo(_Q._z*80000);
+
             pLaserChip->_pMover->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;

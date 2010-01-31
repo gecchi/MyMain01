@@ -8,6 +8,9 @@ public:
     bool _is_lockon;
     MyDummyOption* _pOrg;
     velo _veloCurve;
+    int _slow_renge;
+
+    int _cnt_rev;
 
     MyCurveLaserChip001(const char* prm_name);
 
@@ -18,6 +21,8 @@ public:
     void processBehavior() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+
+    void processFinal();
 
     virtual ~MyCurveLaserChip001();
 
