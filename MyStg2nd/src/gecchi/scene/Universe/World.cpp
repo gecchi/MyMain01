@@ -53,15 +53,15 @@ void World::initialize() {
 
     pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pMover->setVxMvVelo(0);
-    pCAM->_pMover->setVxMvVeloAcce(0);
+    pCAM->_pMover->setVxMvAcce(0);
 
     pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pMover->setVyMvVelo(0);
-    pCAM->_pMover->setVyMvVeloAcce(0);
+    pCAM->_pMover->setVyMvAcce(0);
 
     pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pMover->setVzMvVelo(0);
-    pCAM->_pMover->setVzMvVeloAcce(0);
+    pCAM->_pMover->setVzMvAcce(0);
 
     pCAM->_pViewPoint->_X = 0;
     pCAM->_pViewPoint->_Y = 0;
@@ -72,15 +72,15 @@ void World::initialize() {
 
     pCAM->_pViewPoint->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pViewPoint->_pMover->setVxMvVelo(0);
-    pCAM->_pViewPoint->_pMover->setVxMvVeloAcce(0);
+    pCAM->_pViewPoint->_pMover->setVxMvAcce(0);
 
     pCAM->_pViewPoint->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pViewPoint->_pMover->setVyMvVelo(0);
-    pCAM->_pViewPoint->_pMover->setVyMvVeloAcce(0);
+    pCAM->_pViewPoint->_pMover->setVyMvAcce(0);
 
     pCAM->_pViewPoint->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
     pCAM->_pViewPoint->_pMover->setVzMvVelo(0);
-    pCAM->_pViewPoint->_pMover->setVzMvVeloAcce(0);
+    pCAM->_pViewPoint->_pMover->setVzMvAcce(0);
 
 
 }
@@ -363,33 +363,33 @@ void World::processBehavior() {
         static double acc_rate = 500.0;
         if (-slow_range_CAM < dX_CAM && dX_CAM < slow_range_CAM) {
             pCAM->_pMover->_veloVxMv *= 0.9;
-            pCAM->_pMover->setVxMvVeloAcce(0);
+            pCAM->_pMover->setVxMvAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVxMvVeloAcce(dX_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
+                pCAM->_pMover->setVxMvAcce(dX_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
             } else {
-                pCAM->_pMover->setVxMvVeloAcce(dX_CAM/acc_rate);
+                pCAM->_pMover->setVxMvAcce(dX_CAM/acc_rate);
             }
         }
         if (-slow_range_CAM < dY_CAM && dY_CAM < slow_range_CAM) {
             pCAM->_pMover->_veloVyMv *= 0.9;
-            pCAM->_pMover->setVyMvVeloAcce(0);
+            pCAM->_pMover->setVyMvAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVyMvVeloAcce(dY_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
+                pCAM->_pMover->setVyMvAcce(dY_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
             } else {
-                pCAM->_pMover->setVyMvVeloAcce(dY_CAM/acc_rate);
+                pCAM->_pMover->setVyMvAcce(dY_CAM/acc_rate);
             }
         }
         if (-slow_range_CAM < dZ_CAM && dZ_CAM < slow_range_CAM) {
             pCAM->_pMover->_veloVzMv *= 0.9;
-            pCAM->_pMover->setVzMvVeloAcce(0);
+            pCAM->_pMover->setVzMvAcce(0);
         } else {
             if (_pos_camera > CAM_POS_TO_BEHIND) {
-                pCAM->_pMover->setVzMvVeloAcce(dZ_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
+                pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
             } else {
 
-				pCAM->_pMover->setVzMvVeloAcce(dZ_CAM/acc_rate);
+				pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);
             }
         }
 
@@ -416,21 +416,21 @@ void World::processBehavior() {
 
         if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
             pVP->_pMover->_veloVxMv *= 0.9;
-            pVP->_pMover->setVxMvVeloAcce(0);
+            pVP->_pMover->setVxMvAcce(0);
         } else {
-            pVP->_pMover->setVxMvVeloAcce(dX_VP/acc_rate);
+            pVP->_pMover->setVxMvAcce(dX_VP/acc_rate);
         }
         if (-slow_range_VP < dY_VP && dY_VP < slow_range_VP) {
             pVP->_pMover->_veloVyMv *= 0.9;
-            pVP->_pMover->setVyMvVeloAcce(0);
+            pVP->_pMover->setVyMvAcce(0);
         } else {
-            pVP->_pMover->setVyMvVeloAcce(dY_VP/acc_rate);
+            pVP->_pMover->setVyMvAcce(dY_VP/acc_rate);
         }
         if (-slow_range_VP < dZ_VP && dZ_VP < slow_range_VP) {
             pVP->_pMover->_veloVzMv *= 0.9;
-            pVP->_pMover->setVzMvVeloAcce(0);
+            pVP->_pMover->setVzMvAcce(0);
         } else {
-            pVP->_pMover->setVzMvVeloAcce(dZ_VP/acc_rate);
+            pVP->_pMover->setVzMvAcce(dZ_VP/acc_rate);
         }
 
 

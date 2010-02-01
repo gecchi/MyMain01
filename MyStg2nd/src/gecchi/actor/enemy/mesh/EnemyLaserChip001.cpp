@@ -24,7 +24,7 @@ void EnemyLaserChip001::initialize() {
 void EnemyLaserChip001::onActive() {
     HomingLaserChip::onActive();
     _pMover->setMvVelo(3000);
-    _pMover->setMvVeloAcce(300);
+    _pMover->setMvAcce(300);
 }
 
 

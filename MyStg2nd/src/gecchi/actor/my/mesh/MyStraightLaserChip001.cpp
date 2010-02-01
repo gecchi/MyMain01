@@ -24,7 +24,7 @@ void MyStraightLaserChip001::initialize() {
 void MyStraightLaserChip001::onActive() {
     StraightLaserChip::onActive();
     _pMover->setMvVelo(60000);
-    _pMover->setMvVeloAcce(300);
+    _pMover->setMvAcce(300);
     MyStgUtil::resetMyStraightLaserChip001Status(_pStatus);
 }
 

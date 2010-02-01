@@ -13,6 +13,8 @@ float g_transformedY; //変換済みY座標(px)
 float g_depthZ; //深度Z (0 ～ +1)
 float g_view_width; //画面幅(px)
 float g_view_height; //画面高さ(px)
+float g_sx;
+float g_sy;
 
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -35,6 +37,8 @@ OUT_VS GgafDx9VS_DefaultBoard(
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 	//X座標Y座標をを -1 ～ +1 に押し込める。
+	out_vs.pos.x = out_vs.pos.x * g_sx;
+	out_vs.pos.y = out_vs.pos.y * g_sy;	
 	out_vs.pos.x = - 1 + ((2*prm_pos.x + 2*g_transformedX - 1) / g_view_width);
 	out_vs.pos.y =   1 - ((2*prm_pos.y + 2*g_transformedY - 1) / g_view_height);
 	out_vs.pos.z = g_depthZ;

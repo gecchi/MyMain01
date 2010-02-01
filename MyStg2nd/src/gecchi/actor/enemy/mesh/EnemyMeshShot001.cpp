@@ -44,7 +44,7 @@ void EnemyMeshShot001::processBehavior() {
     if (onChangeToActive()) {
         //oŒ»
         _pMover->setMvVelo(_iMvVelo_1st);
-        _pMover->setMvVeloAcce(_iMoveAcce_1st);
+        _pMover->setMvAcce(_iMoveAcce_1st);
 
         _frame_on_change_to_active_flg = 0;
         setHitAble(true);
@@ -58,7 +58,7 @@ void EnemyMeshShot001::processBehavior() {
             _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
                                                        _angVelo_Turn, 0,
                                                        TURN_CLOSE_TO);
-            _pMover->setMvVeloAcce(_iMoveAcce_2nd);
+            _pMover->setMvAcce(_iMoveAcce_2nd);
         }
 
         //•ûŒü“]Š·I—¹

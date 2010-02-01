@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") {
+EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, "Flora") {
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -25,7 +25,7 @@ void EnemyTamago01::initialize() {
     _X = 300000;
     _Y = 300000;
     _Z = 300000;
-    _pScaler->setScale(2000);
+    _pScaler->setScale(8000);
 }
 
 void EnemyTamago01::onActive() {

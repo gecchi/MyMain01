@@ -201,13 +201,13 @@ void MyShip::initialize() {
     _pMover->setVyMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
     _pMover->setVzMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
 
-    _pMover->setVxMvVeloAcce(0);
-    _pMover->setVyMvVeloAcce(0);
-    _pMover->setVzMvVeloAcce(0);
+    _pMover->setVxMvAcce(0);
+    _pMover->setVyMvAcce(0);
+    _pMover->setVzMvAcce(0);
 
     //        _pMover->setMvVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //速度追加
-    //        _pMover->setMvVeloAcce(_iMvAcce_MT);
+    //        _pMover->setMvAcce(_iMvAcce_MT);
 }
 
 void MyShip::processBehavior() {
@@ -341,10 +341,10 @@ void MyShip::processBehavior() {
     angvelo MZ = _angRXTopVelo_MZ-2000; //2000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
     if (_pMover->_angveloFace[AXIS_X] >= MZ) {
         _pMover->_angveloFace[AXIS_X] *= 0.90;
-        //_pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ*2);
+        //_pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
     } else if (_pMover->_angveloFace[AXIS_X] <= -MZ) {
         _pMover->_angveloFace[AXIS_X] *= 0.90;
-        //_pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ*2);
+        //_pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
@@ -354,11 +354,11 @@ void MyShip::processBehavior() {
 
         angle dist = _pMover->getFaceAngDistance(AXIS_X, 0, TURN_CLOSE_TO);
         if (0 <= dist && dist < ANGLE180) {
-            _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
+            _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         } else if (-1*ANGLE180 < dist && dist < 0) {
-            _pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ);
+            _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         }
-        _pMover->setMvVeloAcce(0);
+        _pMover->setMvAcce(0);
         _pMover->setStopTarget_FaceAng(AXIS_X, 0, TURN_BOTH, _angRXTopVelo_MZ);
     }
 

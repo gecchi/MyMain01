@@ -153,16 +153,19 @@ float4 GgafDx9PS_DefaultMeshSet(
 	float3 prm_normal : TEXCOORD1,
 	float4 prm_col    : COLOR0
 ) : COLOR  {
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
 	//求める色
 	float4 out_color; 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	out_color =  g_LightDiffuse * prm_col * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
+	if (tex_color.r == 1.0f || tex_color.g == 1.0f || tex_color.b == 1.0f) {
+		out_color = tex_color + out_color;// * g_Blinker; //g_Blinkerは-1.0～1.0のCOS波。アンビエントが0.3なので大体で４ぐらいに
+	}
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα
 

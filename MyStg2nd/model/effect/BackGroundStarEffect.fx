@@ -14,6 +14,7 @@ float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_Blinker;   
 
 
 //texture g_diffuseMap;

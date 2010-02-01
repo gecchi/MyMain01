@@ -80,7 +80,7 @@ void EnemyIris::processBehavior() {
             _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
                                                        2000, 0,
                                                        TURN_CLOSE_TO);
-            _pMover->setMvVeloAcce(100);
+            _pMover->setMvAcce(100);
             _iMovePatternNo++;
         }
     }

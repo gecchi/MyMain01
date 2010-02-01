@@ -356,7 +356,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE270);
         _Z += _iMoveSpeed;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -367,7 +367,7 @@ public:
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
+        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -378,7 +378,7 @@ public:
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, (_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -389,7 +389,7 @@ public:
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -399,7 +399,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE90);
         _Z -= _iMoveSpeed;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -410,7 +410,7 @@ public:
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -421,7 +421,7 @@ public:
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -432,7 +432,7 @@ public:
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ/2);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -443,7 +443,7 @@ public:
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -454,7 +454,7 @@ public:
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -567,7 +567,7 @@ public:
     void turbo_WAY_ZLEFT() {
         _pMover->addVzMvVelo(_iMvVelo_BeginMT);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -578,7 +578,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
+        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -589,7 +589,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, (_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -600,7 +600,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -610,7 +610,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE90);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*_angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -621,7 +621,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -632,7 +632,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -643,7 +643,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, _angRXAcce_MZ/2);
+        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -654,7 +654,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
@@ -665,7 +665,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngVeloAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
+        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**

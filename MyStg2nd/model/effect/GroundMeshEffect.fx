@@ -8,6 +8,8 @@ float4 g_LightDiffuse;
 
 float4 g_MaterialDiffuse;
 
+float g_Blinker;   
+
 sampler MyTextureSampler : register(s0);
 
 
@@ -32,13 +34,13 @@ OUT_VS GgafDx9VS_GroundMesh(
 
 	out_vs.pos = mul( mul(prm_pos, g_matWorld), g_matView);
 	out_vs.color = prm_color;
-//カメラの位置(0,0,-57.1259)
-//実は世界は(-1.0f, -1.0f, 0 )という点から(1.0f, 1.0f, 1,0f)という点を対角線とする直方体の世界に収められてしまっています
+//�J�����̈ʒu(0,0,-57.1259)
+//���͐��E��(-1.0f, -1.0f, 0 )�Ƃ����_����(1.0f, 1.0f, 1,0f)�Ƃ����_��Ίp���Ƃ��钼���̂̐��E�Ɏ��߂��Ă��܂��Ă��܂�
 
-//wは射影空間（視錐台空間）にある頂点座標をそれで割ることにより
-//「頂点をスクリーンに投影するための立方体の領域（-1≦x≦1、-1≦y≦1そして0≦z≦1）に納める」
-//という大切な役目をしています。wが「同次系」と呼ばれるのは、
-//上の例のように視錐状にカメラの視線方向に広がっている頂点を同じXY座標に投影するためです。
+//w�͎ˉe��ԁi�������ԁj�ɂ��钸�_���W������Ŋ��邱�Ƃɂ��
+//�u���_���X�N���[���ɓ��e���邽�߂̗����̗̂̈�i-1��x��1�A-1��y��1������0��z��1�j�ɔ[�߂�v
+//�Ƃ�����؂Ȗ�ڂ����Ă��܂��Bw���u�����n�v�ƌĂ΂��̂́A
+//��̗�̂悤�Ɏ�����ɃJ�����̎��������ɍL�����Ă��钸�_�𓯂�XY���W�ɓ��e���邽�߂ł��B
 
 
 	if ( out_vs.pos.z < 60) {
@@ -71,11 +73,11 @@ float4 GgafDx9PS_GroundMesh2(
 	float3 prm_normal : TEXCOORD1,
 	float4 prm_color  : COLOR0 
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
+	//�e�N�X�`�����T���v�����O���ĐF�擾�i���F���擾�j
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
-	//ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
+	//���C�g�F�A�}�e���A���F�A�e�N�X�`���F���l�������F�쐬�B              
 	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
-	//α計算、
+	//���v�Z�A
 	out_color.a = g_MaterialDiffuse.a * tex_color.a * prm_color.a; 
 
 	return out_color;
@@ -84,30 +86,30 @@ float4 GgafDx9PS_GroundMesh2(
 
 technique GroundMeshTechnique
 {
-	//pass P0「メッシュ標準シェーダー」
-	//メッシュを描画する
-	//【考慮される要素】
+	//pass P0�u���b�V���W���V�F�[�_�[�v
+	//���b�V����`�悷��
+	//�y�l�������v�f�z
 	//--- VS ---
-	//・頂点を World、View、射影 変換
-	//・法線を World変換
+	//�E���_�� World�AView�A�ˉe �ϊ�
+	//�E�@���� World�ϊ�
 	//--- PS ---
-	//・Diffuseライト色
-	//・Ambientライト色
-	//・ライト方向
-	//・オブジェクトのマテリアルのDiffuse反射（色はAmbient反射と共通）
-	//・オブジェクトのテクスチャ
-	//・半透明α（Diffuse反射αとテクスチャαの乗算）
-	//【使用条件】
-	//・テクスチャが存在しs0レジスタにバインドされていること。
-	//【設定パラメータ】
-	// float4x4 g_matWorld		:	World変換行列
-	// float4x4 g_matView		:	View変換行列
-	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_LightDirection	:	ライトの方向
-	// float4 g_LightAmbient	:	Ambienライト色（入射色）
-	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
-	// s0レジスタ				:	2Dテクスチャ
+	//�EDiffuse���C�g�F
+	//�EAmbient���C�g�F
+	//�E���C�g����
+	//�E�I�u�W�F�N�g�̃}�e���A����Diffuse���ˁi�F��Ambient���˂Ƌ��ʁj
+	//�E�I�u�W�F�N�g�̃e�N�X�`��
+	//�E���������iDiffuse���˃��ƃe�N�X�`�����̏�Z�j
+	//�y�g�p�����z
+	//�E�e�N�X�`�������݂�s0���W�X�^�Ƀo�C���h����Ă��邱�ƁB
+	//�y�ݒ�p�����[�^�z
+	// float4x4 g_matWorld		:	World�ϊ��s��
+	// float4x4 g_matView		:	View�ϊ��s��
+	// float4x4 g_matProj		:	�ˉe�ϊ��s��   
+	// float3 g_LightDirection	:	���C�g�̕���
+	// float4 g_LightAmbient	:	Ambien���C�g�F�i���ːF�j
+	// float4 g_LightDiffuse	:	Diffuse���C�g�F�i���ːF�j
+	// float4 g_MaterialDiffuse	:	�}�e���A����Diffuse���ˁiAmbient���˂Ƌ��ʁj
+	// s0���W�X�^				:	2D�e�N�X�`��
 	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;

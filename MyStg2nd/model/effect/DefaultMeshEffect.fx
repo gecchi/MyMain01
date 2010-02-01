@@ -14,6 +14,7 @@ float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_Blinker;   
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -57,14 +58,18 @@ float4 GgafDx9PS_DefaultMesh(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1
 ) : COLOR  {
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	if (tex_color.r == 1.0f || tex_color.g == 1.0f || tex_color.b == 1.0f) {
+		out_color = tex_color + out_color * g_Blinker; //g_Blinkerは-1.0～1.0のCOS波。アンビエントが0.3なので大体で４ぐらいに
+	} 
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 

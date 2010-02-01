@@ -18,12 +18,12 @@ void EnemyPallas::initialize() {
     _Z = 0;
     _pMover->setMvVeloRenge(-8000, 8000);
     _pMover->setMvVelo(8000);
-    _pMover->setMvVeloAcce(-500);
+    _pMover->setMvAcce(-500);
     _pMover->setRzMvAng(ANGLE90);
 
     _pMover->setFaceAngVeloRenge(AXIS_X, 0, 5000);
     _pMover->setFaceAngVelo(AXIS_X, 5000);
-    _pMover->setFaceAngVeloAcce(AXIS_X, 0);
+    _pMover->setFaceAngAcce(AXIS_X, 0);
 
     _pMover->setFaceAng(AXIS_Z, ANGLE180);
 
@@ -33,9 +33,9 @@ void EnemyPallas::initialize() {
 
 void EnemyPallas::processBehavior() {
     if (_pMover->_veloMv <= -8000) {
-        _pMover->setMvVeloAcce(+500);
+        _pMover->setMvAcce(+500);
     } else if (_pMover->_veloMv >= +8000) {
-        _pMover->setMvVeloAcce(-500);
+        _pMover->setMvAcce(-500);
     }
     _X -= 2000;
 

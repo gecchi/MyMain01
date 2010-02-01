@@ -28,7 +28,7 @@ void EnemyAstraeaLaserChip001::onActive() {
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 
     _pMover->setMvVelo(5000);
-    _pMover->setMvVeloAcce(300);
+    _pMover->setMvAcce(300);
     _pMover->relateRzRyFaceAngToMvAng(true);
 }
 
