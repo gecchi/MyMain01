@@ -31,13 +31,13 @@ void GgafDx9GeometryScaler::behave() {
 
             _scale[axis] += _velo_scale[axis];
 
-            _TRACE_("_velo_scale["<<axis<<"]="<<_velo_scale[axis]<<"/_target_scale["<<axis<<"]="<<_target_scale[axis]<<"/_scale["<<axis<<"]="<<_scale[axis]);
+            //_TRACE_("_velo_scale["<<axis<<"]="<<_velo_scale[axis]<<"/_target_scale["<<axis<<"]="<<_target_scale[axis]<<"/_scale["<<axis<<"]="<<_scale[axis]);
             if (_velo_scale[axis] > 0 && _target_scale[axis] <= _scale[axis]) {
-                _TRACE_("END1");
+                //_TRACE_("END1");
                 _scale[axis] = _target_scale[axis];
                 _method[axis] = NOSCALE;
             } else if (_velo_scale[axis] < 0 && _target_scale[axis] >= _scale[axis]) {
-                _TRACE_("END2");
+                //_TRACE_("END2");
                 _scale[axis] = _target_scale[axis];
                 _method[axis] = NOSCALE;
             }
@@ -117,12 +117,12 @@ void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_target_scale, DWOR
 }
 
 void GgafDx9GeometryScaler::intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, DWORD prm_spend_frame) {
-    _TRACE_("intoTargetScaleLinerUntil prm_axis="<<prm_axis<<"/prm_target_scale="<<prm_target_scale<<"/prm_spend_frame="<<prm_spend_frame);
+    //_TRACE_("intoTargetScaleLinerUntil prm_axis="<<prm_axis<<"/prm_target_scale="<<prm_target_scale<<"/prm_spend_frame="<<prm_spend_frame);
     _method[prm_axis] = TARGET_SCALE_LINER;
     _target_scale[prm_axis] = prm_target_scale;
     _velo_scale[prm_axis] = (prm_target_scale - _scale[prm_axis]) / (int)prm_spend_frame;
-    _TRACE_("intoTargetScaleLinerUntil prm_target_scale="<<prm_target_scale<<"/ _scale["<<prm_axis<<"]="<<_scale[prm_axis]);
-    _TRACE_("intoTargetScaleLinerUntil _velo_scale["<<prm_axis<<"]="<<_velo_scale[prm_axis]);
+    //_TRACE_("intoTargetScaleLinerUntil prm_target_scale="<<prm_target_scale<<"/ _scale["<<prm_axis<<"]="<<_scale[prm_axis]);
+    //_TRACE_("intoTargetScaleLinerUntil _velo_scale["<<prm_axis<<"]="<<_velo_scale[prm_axis]);
     if (_velo_scale[prm_axis] == 0) {
         _velo_scale[prm_axis] = prm_target_scale - _scale[prm_axis];
     }

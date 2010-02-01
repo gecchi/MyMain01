@@ -62,14 +62,17 @@ void MyCurveLaserChip001::onActive() {
 }
 
 void MyCurveLaserChip001:: processBehavior() {
-    if (_is_lockon && 3 < _dwActiveFrame && _dwActiveFrame < 300) {
+	int asobiX,asobiY,asobiZ;
+    if (_pChip_front) {
+        asobiX = abs(_pChip_front->_pMover->_veloVxMv -_pMover->_veloVxMv) / 2;
+        asobiY = abs(_pChip_front->_pMover->_veloVyMv -_pMover->_veloVyMv) / 2;
+        asobiZ = abs(_pChip_front->_pMover->_veloVzMv -_pMover->_veloVzMv) / 2;
+    }
+
+    if (_is_lockon && 1 < _dwActiveFrame && _dwActiveFrame < 300) {
         if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-            int asobiX,asobiY,asobiZ;
-            if (_pChip_front) {
-                asobiX = abs(_pChip_front->_pMover->_veloVxMv -_pMover->_veloVxMv) / 5;
-                asobiY = abs(_pChip_front->_pMover->_veloVyMv -_pMover->_veloVyMv) / 5;
-                asobiZ = abs(_pChip_front->_pMover->_veloVzMv -_pMover->_veloVzMv) / 5;
-            }
+
+
 
 
             int dx = _pOrg->_pLockOnTarget->_X - _X;
@@ -78,54 +81,58 @@ void MyCurveLaserChip001:: processBehavior() {
 
             if (-_slow_renge < dx && dx < _slow_renge) {
                 _pMover->setVxMvAcce(0);
-                _pMover->_veloVxMv *= 0.8;
+                _pMover->_veloVxMv *= 0.6;
             } else {
-                _pMover->setVxMvAcce(dx/400);
+                _pMover->setVxMvAcce(dx/200);
                 //_TRACE_("dx="<<dx);
             }
 
             if (-_slow_renge < dy && dy < _slow_renge) {
                 _pMover->setVyMvAcce(0);
-                _pMover->_veloVyMv *= 0.8;
+                _pMover->_veloVyMv *= 0.6;
             } else {
-                _pMover->setVyMvAcce(dy/400);
+                _pMover->setVyMvAcce(dy/200);
             }
 
             if (-_slow_renge < dz && dz < _slow_renge) {
                 _pMover->setVzMvAcce(0);
-                _pMover->_veloVzMv *= 0.8;
+                _pMover->_veloVzMv *= 0.6;
             } else {
-                _pMover->setVzMvAcce(dz/400);
+                _pMover->setVzMvAcce(dz/200);
             }
-            if (_pChip_front) {
 
-                if (_pChip_front->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
-                    _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv + asobiX;
-                }
-                if (_pChip_front->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
-                    _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv - asobiX;
-                }
 
-                if (_pChip_front->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
-                    _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv + asobiY;
-                }
-                if (_pChip_front->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
-                    _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv - asobiY;
-                }
 
-                if (_pChip_front->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
-                    _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv + asobiZ;
-                }
-                if (_pChip_front->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
-                    _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv - asobiZ;
-                }
-            }
         } else {
             _pOrg->_pLockOnTarget = NULL;
         }
     } else {
         //_pMover->setMvVelo(80000);
     }
+
+	if (_pChip_front && _pOrg->_pLockOnTarget != NULL) {
+
+		if (_pChip_front->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
+			_pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv + asobiX;
+		}
+		if (_pChip_front->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
+			_pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv - asobiX;
+		}
+
+		if (_pChip_front->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
+			_pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv + asobiY;
+		}
+		if (_pChip_front->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
+			_pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv - asobiY;
+		}
+
+		if (_pChip_front->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
+			_pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv + asobiZ;
+		}
+		if (_pChip_front->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
+			_pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv - asobiZ;
+		}
+	}
     CurveLaserChip::processBehavior();
 
 }
