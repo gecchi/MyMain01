@@ -17,6 +17,8 @@ public:
     D3DXHANDLE _hOffsetV;
     D3DXHANDLE _hTransformedX;
     D3DXHANDLE _hTransformedY;
+    D3DXHANDLE _hSx;
+    D3DXHANDLE _hSy;
     D3DXHANDLE _hAlpha;
     D3DXHANDLE _hDepthZ;
 

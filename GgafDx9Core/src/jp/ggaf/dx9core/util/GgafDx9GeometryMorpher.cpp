@@ -63,7 +63,7 @@ void GgafDx9GeometryMorpher::behave() {
             _pActor->_weight[i] += _velo_weight[i];
             if (_loop_begin_frame[i] + _loop_attack_frame[i] == _pActor->_frame_of_active) { //アタック頂点時
                 _pActor->_weight[i] = _top_weight[i];
-                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (_loop_spend_frame[i] - _loop_attack_frame[i] - _loop_rest_frame[i]);
+                _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_loop_spend_frame[i] - _loop_attack_frame[i] - _loop_rest_frame[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;
@@ -75,7 +75,7 @@ void GgafDx9GeometryMorpher::behave() {
 
             } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_frame_of_active) { //ループ終了時
                 _loop_begin_frame[i] = _pActor->_frame_of_active;
-                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / _loop_attack_frame[i];
+                _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_loop_attack_frame[i]);
                 _halfloop_cnt[i]++;
                 if (_halfloop_cnt[i] == _stop_halfloop_num[i]) {
                     _method[i] = NOMORPH;
@@ -88,7 +88,7 @@ void GgafDx9GeometryMorpher::behave() {
 void GgafDx9GeometryMorpher::intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, DWORD prm_spend_frame) {
     _method[prm_target_mesh] = TARGET_LINER;
     _target_weight[prm_target_mesh] = prm_target_weight;
-    _velo_weight[prm_target_mesh] = (prm_target_weight - _pActor->_weight[prm_target_mesh])/prm_spend_frame;
+    _velo_weight[prm_target_mesh] = (prm_target_weight - _pActor->_weight[prm_target_mesh]) / (int)(prm_spend_frame);
 }
 
 void GgafDx9GeometryMorpher::intoTargetAcceStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight) {
@@ -109,7 +109,7 @@ void GgafDx9GeometryMorpher::loopLiner(int prm_target_mesh, DWORD prm_loop_spend
     _method[prm_target_mesh] = LOOP_LINER;
     _halfloop_cnt[prm_target_mesh] = 0;
     _stop_halfloop_num[prm_target_mesh] = (int)(prm_loop_num*2.0f);
-    _velo_weight[prm_target_mesh] = 1.0f / (prm_loop_spend_frame / 2);
+    _velo_weight[prm_target_mesh] = 1.0f / ((int)prm_loop_spend_frame / 2);
 }
 
 void GgafDx9GeometryMorpher::loopTriangleWave(int prm_target_mesh, DWORD prm_loop_spend_frame, DWORD prm_attack_frame, DWORD prm_rest_frame, float prm_loop_num) {
@@ -122,7 +122,7 @@ void GgafDx9GeometryMorpher::loopTriangleWave(int prm_target_mesh, DWORD prm_loo
     _loop_begin_frame[prm_target_mesh] = _pActor->_frame_of_active;
     _loop_spend_frame[prm_target_mesh] = prm_loop_spend_frame;
 
-    _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _pActor->_weight[prm_target_mesh]) / prm_attack_frame;
+    _velo_weight[prm_target_mesh] = (_top_weight[prm_target_mesh] - _pActor->_weight[prm_target_mesh]) / (int)prm_attack_frame;
 }
 void GgafDx9GeometryMorpher::stopImmediately(int prm_target_mesh) {
     _method[prm_target_mesh] = NOMORPH;

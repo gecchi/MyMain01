@@ -112,6 +112,8 @@ public:
      * @param prm_scale スケール値
      */
     void setScale(int prm_axis, int prm_scale) {
+		_TRACE_("setScale ["<<prm_axis<<"]prm_scale="<<prm_scale);
+		_TRACE_("setScale _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
         if (_top_scale[prm_axis] < prm_scale) {
             _scale[prm_axis] = _top_scale[prm_axis];
         } else if (_bottom_scale[prm_axis] > prm_scale) {
@@ -119,6 +121,7 @@ public:
         } else {
             _scale[prm_axis] = prm_scale;
         }
+		_TRACE_("setScale _scale ["<<prm_axis<<"] _scale[prm_axis]="<<prm_scale);
     }
     /**
      * スケールの上限下限を設定（全軸指定） .
@@ -145,6 +148,7 @@ public:
             _bottom_scale[prm_axis] = prm_scale2;
             _top_scale[prm_axis] = prm_scale1;
         }
+		_TRACE_("setScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
     }
     /**
      * スケールをリセット （全軸指定） .

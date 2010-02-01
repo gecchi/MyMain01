@@ -198,6 +198,8 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _veloBottomVxMv = -256 * LEN_UNIT;
     //X軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVxMv = 0;
+    _acceTopVxMv = 256 * LEN_UNIT;
+    _acceBottomVxMv = -256 * LEN_UNIT;
     //Y軸方向移動速度（Y移動座標増分）＝ 0 px/fream
     _veloVyMv = 0;
     //Y軸方向移動速度上限 ＝ 256 px/fream
@@ -206,6 +208,10 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _veloBottomVyMv = -256 * LEN_UNIT;
     //Y軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVyMv = 0;
+
+    _acceTopVyMv = 256 * LEN_UNIT;
+    _acceBottomVyMv = -256 * LEN_UNIT;
+
     //Z軸方向移動速度（Z移動座標増分）＝ 0 px/fream
     _veloVzMv = 0;
     //Z軸方向移動速度上限 ＝ 256 px/fream
@@ -214,7 +220,8 @@ GgafDx9GeometryMover::GgafDx9GeometryMover(GgafDx9GeometricActor* prm_pActor) :
     _veloBottomVzMv = -256 * LEN_UNIT;
     //Z軸方向移動速度の加速度 ＝ 0 px/fream^2  (加速無し)
     _acceVzMv = 0;
-
+    _acceTopVzMv = 256 * LEN_UNIT;
+    _acceBottomVzMv = -256 * LEN_UNIT;
     _progSP = NULL;
 
 }
@@ -471,7 +478,7 @@ void GgafDx9GeometryMover::setFaceAngVeloRenge(int prm_axis,
     setFaceAngVelo(prm_axis, _angveloFace[prm_axis]); //再設定して範囲内に補正
 }
 
-void GgafDx9GeometryMover::setFaceAngVeloAcce(int prm_axis, angacce prm_angacceRot) {
+void GgafDx9GeometryMover::setFaceAngAcce(int prm_axis, angacce prm_angacceRot) {
     _angacceFace[prm_axis] = prm_angacceRot;
 }
 
@@ -645,7 +652,7 @@ void GgafDx9GeometryMover::addMvVelo(int prm_veloMv_Offset) {
     setMvVelo(_veloMv + prm_veloMv_Offset);
 }
 
-void GgafDx9GeometryMover::setMvVeloAcce(int prm_acceMove) {
+void GgafDx9GeometryMover::setMvAcce(int prm_acceMove) {
     _accMv = prm_acceMove;
 }
 
@@ -683,7 +690,7 @@ void GgafDx9GeometryMover::setRzMvAngVelo(angvelo prm_angveloRzMv) {
     }
 }
 
-void GgafDx9GeometryMover::setRzMvAngVeloAcce(angacce prm_angacceRzMv) {
+void GgafDx9GeometryMover::setRzMvAngAcce(angacce prm_angacceRzMv) {
     _angacceRzMv = prm_angacceRzMv;
 }
 
@@ -870,7 +877,7 @@ void GgafDx9GeometryMover::setRyMvAngVelo(angvelo prm_angveloRyMv) {
     }
 }
 
-void GgafDx9GeometryMover::setRyMvAngVeloAcce(angacce prm_angacceRyMv) {
+void GgafDx9GeometryMover::setRyMvAngAcce(angacce prm_angacceRyMv) {
     _angacceRyMv = prm_angacceRyMv;
 }
 
@@ -1258,13 +1265,32 @@ void GgafDx9GeometryMover::addVxMvVelo(velo prm_veloVxMv) {
     }
 }
 
-void GgafDx9GeometryMover::setVxMvVeloAcce(acce prm_acceVxMv) {
-    _acceVxMv = prm_acceVxMv;
+void GgafDx9GeometryMover::setVxMvAcce(acce prm_acceVxMv) {
+    if (prm_acceVxMv > _acceTopVxMv) {
+        _acceVxMv = _acceTopVxMv;
+    } else if (prm_acceVxMv < _acceBottomVxMv) {
+        _acceVxMv = _acceBottomVxMv;
+    } else {
+        _acceVxMv = prm_acceVxMv;
+    }
 }
 
-void GgafDx9GeometryMover::addVxMvVeloAcce(acce prm_acceVxMv) {
-    _acceVxMv += prm_acceVxMv;
+void GgafDx9GeometryMover::addVxMvAcce(acce prm_acceVxMv) {
+    setVxMvAcce(_acceVxMv + prm_acceVxMv);
 }
+
+
+void GgafDx9GeometryMover::setVxMvAcceRenge(acce prm_acceVxMv01, acce prm_acceVxMv02) {
+    if (prm_acceVxMv01 < prm_acceVxMv02) {
+        _acceTopVxMv = prm_acceVxMv02;
+        _acceBottomVxMv = prm_acceVxMv01;
+    } else {
+        _acceTopVxMv = prm_acceVxMv01;
+        _acceBottomVxMv = prm_acceVxMv02;
+    }
+    setVxMvAcce(_acceVxMv); //再設定して範囲内に補正
+}
+
 
 void GgafDx9GeometryMover::setVyMvVeloRenge(velo prm_veloVyMv01, velo prm_veloVyMv02) {
     if (prm_veloVyMv01 < prm_veloVyMv02) {
@@ -1296,12 +1322,30 @@ void GgafDx9GeometryMover::addVyMvVelo(velo prm_veloVyMv) {
     }
 }
 
-void GgafDx9GeometryMover::setVyMvVeloAcce(acce prm_acceVyMv) {
-    _acceVyMv = prm_acceVyMv;
+void GgafDx9GeometryMover::setVyMvAcce(acce prm_acceVyMv) {
+    if (prm_acceVyMv > _acceTopVyMv) {
+        _acceVyMv = _acceTopVyMv;
+    } else if (prm_acceVyMv < _acceBottomVyMv) {
+        _acceVyMv = _acceBottomVyMv;
+    } else {
+        _acceVyMv = prm_acceVyMv;
+    }
 }
 
-void GgafDx9GeometryMover::addVyMvVeloAcce(acce prm_acceVyMv) {
-    _acceVyMv += prm_acceVyMv;
+void GgafDx9GeometryMover::addVyMvAcce(acce prm_acceVyMv) {
+    setVyMvAcce(_acceVyMv + prm_acceVyMv);
+}
+
+
+void GgafDx9GeometryMover::setVyMvAcceRenge(acce prm_acceVyMv01, acce prm_acceVyMv02) {
+    if (prm_acceVyMv01 < prm_acceVyMv02) {
+        _acceTopVyMv = prm_acceVyMv02;
+        _acceBottomVyMv = prm_acceVyMv01;
+    } else {
+        _acceTopVyMv = prm_acceVyMv01;
+        _acceBottomVyMv = prm_acceVyMv02;
+    }
+    setVyMvAcce(_acceVyMv); //再設定して範囲内に補正
 }
 
 void GgafDx9GeometryMover::setVzMvVeloRenge(velo prm_veloVzMv01, velo prm_veloVzMv02) {
@@ -1334,12 +1378,30 @@ void GgafDx9GeometryMover::addVzMvVelo(velo prm_veloVzMv) {
     }
 }
 
-void GgafDx9GeometryMover::setVzMvVeloAcce(acce prm_acceVzMv) {
-    _acceVzMv = prm_acceVzMv;
+void GgafDx9GeometryMover::setVzMvAcce(acce prm_acceVzMv) {
+    if (prm_acceVzMv > _acceTopVzMv) {
+        _acceVzMv = _acceTopVzMv;
+    } else if (prm_acceVzMv < _acceBottomVzMv) {
+        _acceVzMv = _acceBottomVzMv;
+    } else {
+        _acceVzMv = prm_acceVzMv;
+    }
 }
 
-void GgafDx9GeometryMover::addVzMvVeloAcce(acce prm_acceVzMv) {
-    _acceVzMv += prm_acceVzMv;
+void GgafDx9GeometryMover::addVzMvAcce(acce prm_acceVzMv) {
+    setVzMvAcce(_acceVzMv + prm_acceVzMv);
+}
+
+
+void GgafDx9GeometryMover::setVzMvAcceRenge(acce prm_acceVzMv01, acce prm_acceVzMv02) {
+    if (prm_acceVzMv01 < prm_acceVzMv02) {
+        _acceTopVzMv = prm_acceVzMv02;
+        _acceBottomVzMv = prm_acceVzMv01;
+    } else {
+        _acceTopVzMv = prm_acceVzMv01;
+        _acceBottomVzMv = prm_acceVzMv02;
+    }
+    setVzMvAcce(_acceVzMv); //再設定して範囲内に補正
 }
 
 
@@ -1361,17 +1423,17 @@ void GgafDx9GeometryMover::execTagettingFaceAngSequence(angle prm_angRz_Target, 
 
     if (out_d_angRz > 0) {
         setFaceAngVelo(AXIS_Z, prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Z, prm_angAcce);
+        setFaceAngAcce(AXIS_Z, prm_angAcce);
     } else {
         setFaceAngVelo(AXIS_Z, -prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Z, -prm_angAcce);
+        setFaceAngAcce(AXIS_Z, -prm_angAcce);
     }
     if (out_d_angRy > 0) {
         setFaceAngVelo(AXIS_Y, prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Y, prm_angAcce);
+        setFaceAngAcce(AXIS_Y, prm_angAcce);
     } else {
         setFaceAngVelo(AXIS_Y, -prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Y, -prm_angAcce);
+        setFaceAngAcce(AXIS_Y, -prm_angAcce);
     }
 
     setStopTarget_FaceAng(AXIS_Z, prm_angRz_Target);
@@ -1398,10 +1460,10 @@ void GgafDx9GeometryMover::execTagettingRzFaceAngSequence(angle prm_angRz_Target
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Z, prm_angRz_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Z, prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Z, prm_angAcce);
+        setFaceAngAcce(AXIS_Z, prm_angAcce);
     } else {
         setFaceAngVelo(AXIS_Z, -prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Z, -prm_angAcce);
+        setFaceAngAcce(AXIS_Z, -prm_angAcce);
     }
     setStopTarget_FaceAng(AXIS_Z, prm_angRz_Target);
 
@@ -1412,10 +1474,10 @@ void GgafDx9GeometryMover::execTagettingRyFaceAngSequence(angle prm_angRy_Target
                                                           int prm_way) {
     if (getFaceAngDistance(AXIS_Y, prm_angRy_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_Y, prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Y, prm_angAcce);
+        setFaceAngAcce(AXIS_Y, prm_angAcce);
     } else {
         setFaceAngVelo(AXIS_Y, -prm_angVelo);
-        setFaceAngVeloAcce(AXIS_Y, -prm_angAcce);
+        setFaceAngAcce(AXIS_Y, -prm_angAcce);
     }
     setStopTarget_FaceAng(AXIS_Y, prm_angRy_Target);
 }
@@ -1425,10 +1487,10 @@ void GgafDx9GeometryMover::execTagettingRxSpinAngleSequence(angle prm_angRx_Targ
                                                             int prm_way) {
     if (getFaceAngDistance(AXIS_X, prm_angRx_Target, prm_way) > 0) {
         setFaceAngVelo(AXIS_X, prm_angVelo);
-        setFaceAngVeloAcce(AXIS_X, prm_angAcce);
+        setFaceAngAcce(AXIS_X, prm_angAcce);
     } else {
         setFaceAngVelo(AXIS_X, -prm_angVelo);
-        setFaceAngVeloAcce(AXIS_X, -prm_angAcce);
+        setFaceAngAcce(AXIS_X, -prm_angAcce);
     }
     setStopTarget_FaceAng(AXIS_X, prm_angRx_Target);
 }
@@ -1448,17 +1510,17 @@ void GgafDx9GeometryMover::execTagettingMvAngSequence(angle prm_angRz_Target, an
     //_TRACE_("target out_d_angRz="<<out_d_angRz<<" out_d_angRy="<<out_d_angRy);
     if (out_d_angRz > 0) {
         setRzMvAngVelo(prm_angVelo);
-        setRzMvAngVeloAcce(prm_angAcce);
+        setRzMvAngAcce(prm_angAcce);
     } else {
         setRzMvAngVelo(-prm_angVelo);
-        setRzMvAngVeloAcce(-prm_angAcce);
+        setRzMvAngAcce(-prm_angAcce);
     }
     if (out_d_angRy > 0) {
         setRyMvAngVelo(prm_angVelo);
-        setRyMvAngVeloAcce(prm_angAcce);
+        setRyMvAngAcce(prm_angAcce);
     } else {
         setRyMvAngVelo(-prm_angVelo);
-        setRyMvAngVeloAcce(-prm_angAcce);
+        setRyMvAngAcce(-prm_angAcce);
     }
 
     setStopTarget_RzMvAng(prm_angRz_Target);
@@ -1488,10 +1550,10 @@ void GgafDx9GeometryMover::execTagettingRzMvAngSequence(angle prm_angRz_Target,
                                                         int prm_way) {
     if (getRzMvAngDistance(prm_angRz_Target, prm_way) > 0) {
         setRzMvAngVelo(prm_angVelo);
-        setRzMvAngVeloAcce(prm_angAcce);
+        setRzMvAngAcce(prm_angAcce);
     } else {
         setRzMvAngVelo(-prm_angVelo);
-        setRzMvAngVeloAcce(-prm_angAcce);
+        setRzMvAngAcce(-prm_angAcce);
     }
     setStopTarget_RzMvAng(prm_angRz_Target);
 
@@ -1502,10 +1564,10 @@ void GgafDx9GeometryMover::execTagettingRyMvAngSequence(angle prm_angRy_Target,
                                                         int prm_way) {
     if (getRyMvAngDistance(prm_angRy_Target, prm_way) > 0) {
         setRyMvAngVelo(prm_angVelo);
-        setRyMvAngVeloAcce(prm_angAcce);
+        setRyMvAngAcce(prm_angAcce);
     } else {
         setRyMvAngVelo(-prm_angVelo);
-        setRyMvAngVeloAcce(-prm_angAcce);
+        setRyMvAngAcce(-prm_angAcce);
     }
     setStopTarget_RyMvAng(prm_angRy_Target);
 }

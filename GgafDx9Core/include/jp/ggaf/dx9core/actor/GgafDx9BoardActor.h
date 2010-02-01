@@ -20,6 +20,11 @@ private:
 //        float tu, tv; // テクスチャ座標
 //    };
 
+    /** */
+    float _sx;
+    /** */
+    float _sy;
+
     /** 内部アニメパターン用カウンター */
     int _pattno_counter;
     /** 内部アニメフレーム用カウンタ */

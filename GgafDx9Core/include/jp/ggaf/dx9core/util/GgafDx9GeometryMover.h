@@ -155,7 +155,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
                                   angvelo prm_angveloRot01,
                                   angvelo prm_angveloRot02);
 
-    void setFaceAngVeloAcce(int prm_axis, angacce prm_angacceRot);
+    void setFaceAngAcce(int prm_axis, angacce prm_angacceRot);
 
     angle getFaceAngDistance(int prm_axis, int prm_tX, int prm_tY, int prm_way);
 
@@ -235,6 +235,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     velo _veloBottomVxMv;
     /** X軸方向移動加速度 */
     acce _acceVxMv;
+    /** X軸方向移動加速度上限*/
+    acce _acceTopVxMv;
+    /** X軸方向移動加速度下限*/
+    acce _acceBottomVxMv;
     /** Y軸方向移動速度 */
     velo _veloVyMv;
     /** Y軸方向移動速度上限 */
@@ -243,6 +247,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     velo _veloBottomVyMv;
     /** Y軸方向移動加速度 */
     acce _acceVyMv;
+    /** Y軸方向移動加速度上限*/
+    acce _acceTopVyMv;
+    /** Y軸方向移動加速度下限*/
+    acce _acceBottomVyMv;
     /** Z軸方向移動速度 */
     velo _veloVzMv;
     /** Z軸方向移動速度上限 */
@@ -251,6 +259,10 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     velo _veloBottomVzMv;
     /** Z軸方向移動加速度 */
     acce _acceVzMv;
+    /** Z軸方向移動加速度上限*/
+    acce _acceTopVzMv;
+    /** Z軸方向移動加速度下限*/
+    acce _acceBottomVzMv;
 
     /**
      * ActorのZ軸移動スピードを設定<BR>
@@ -262,7 +274,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setMvVeloRenge(velo prm_veloMv01, velo prm_veloMv02);
 
-    void setMvVeloAcce(acce prm_acceMove);
+    void setMvAcce(acce prm_acceMove);
 
 
     /**
@@ -347,7 +359,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRzMvAngVeloRenge(angvelo prm_angveloRzMv01, angvelo prm_angveloRzMv02);
 
-    void setRzMvAngVeloAcce(angacce prm_angacceRzMv);
+    void setRzMvAngAcce(angacce prm_angacceRzMv);
 
     angle getRzMvAngDistance(int prm_tX, int prm_tY, int prm_way);
 
@@ -444,7 +456,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRyMvAngVeloRenge(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
 
-    void setRyMvAngVeloAcce(angacce prm_angacceRyMv);
+    void setRyMvAngAcce(angacce prm_angacceRyMv);
 
     angle getRyMvAngDistance(int prm_tX, int prm_tY, int prm_way);
 
@@ -487,21 +499,21 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
     void setVxMvVelo(velo prm_veloVxMv);
     void addVxMvVelo(velo prm_veloVxMv);
     void setVxMvVeloRenge(velo prm_veloVxMv01, velo prm_veloVxMv02);
-    void setVxMvVeloAcce(acce prm_acceVxMv);
-    void addVxMvVeloAcce(acce prm_acceVxMv);
-
+    void setVxMvAcce(acce prm_acceVxMv);
+    void addVxMvAcce(acce prm_acceVxMv);
+    void setVxMvAcceRenge(acce prm_acceVxMv01, acce prm_acceVxMv02);
     void setVyMvVelo(velo prm_veloVyMv);
     void addVyMvVelo(velo prm_veloVyMv);
     void setVyMvVeloRenge(velo prm_veloVyMv01, velo prm_veloVyMv02);
-    void setVyMvVeloAcce(acce prm_acceVyMv);
-    void addVyMvVeloAcce(acce prm_acceVyMv);
-
+    void setVyMvAcce(acce prm_acceVyMv);
+    void addVyMvAcce(acce prm_acceVyMv);
+    void setVyMvAcceRenge(acce prm_acceVyMv01, acce prm_acceVyMv02);
     void setVzMvVelo(velo prm_veloVzMv);
     void addVzMvVelo(velo prm_veloVzMv);
     void setVzMvVeloRenge(velo prm_veloVzMv01, velo prm_veloVzMv02);
-    void setVzMvVeloAcce(acce prm_acceVzMv);
-    void addVzMvVeloAcce(acce prm_acceVzMv);
-
+    void setVzMvAcce(acce prm_acceVzMv);
+    void addVzMvAcce(acce prm_acceVzMv);
+    void setVzMvAcceRenge(acce prm_acceVzMv01, acce prm_acceVzMv02);
     /**
      * スプラインプログラム実行
      * @param prm_progSP スプラインプログラム

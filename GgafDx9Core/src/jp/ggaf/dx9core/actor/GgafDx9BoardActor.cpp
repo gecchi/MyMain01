@@ -28,6 +28,8 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
 
     _isTransformed = true;
     _pFunc_calcWorldMatrix = NULL;
+    _sx = 1.0f;
+    _sy = 1.0f;
 }
 
 void GgafDx9BoardActor::processDraw() {
@@ -42,7 +44,10 @@ void GgafDx9BoardActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _fAlpha);
     checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, _sx);
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, _sy);
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pBoardModel->draw(this);
 }
 

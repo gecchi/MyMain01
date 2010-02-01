@@ -23,6 +23,12 @@ public:
      * @param prm_effect_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDx9Effect(char* prm_effect_name);
+
+    char* getName() {
+        return _effect_name;
+    }
+
+
     /**
      * デストラクタ<BR>
      * deleteするのはGgafDx9EffectManagerである<BR>

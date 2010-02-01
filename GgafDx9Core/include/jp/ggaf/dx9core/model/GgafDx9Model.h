@@ -30,6 +30,8 @@ public:
     /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
     FLOAT _max_radius;
 
+    FLOAT _blinker;
+
     /** テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
 
@@ -39,7 +41,7 @@ public:
      */
     GgafDx9Model(char* prm_model_name);
 
-    virtual char* getName(){
+    char* getName(){
         return _model_name;
     }
 

@@ -58,12 +58,17 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
+
+        hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinker, (FLOAT)_blinker); //TODO:何単位でするか、周期は？
+        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat("<<_blinker<<") に失敗しました。model="<<getName()<<"/effect="<<pMeshEffect->getName()<<"/actor="<<pTargetActor->getName());
+
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
+            //本モデル描画初回
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
-				TRACE4("前回_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
+                TRACE4("前回_pEffect_Active != pMeshEffect (" <<(GgafDx9EffectManager::_pEffect_Active->_effect_name)<<"!="<<(pMeshEffect->_effect_name)<<")");
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
                 checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() EndPass() に失敗しました。");
@@ -81,8 +86,7 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->BeginPass(0);
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() BeginPass(0) に失敗しました。");
         } else {
-            //マテリアルが２個以上ならば、ここを通り、仕方なくCommitChanges()を実行。
-            //つまり、マテリアルが１個の場合は、CommitChanges() すら省略して、DrawIndexedPrimitive() だけ実行しまくりの高速化を目論む。
+            //前回描画と同じモデル
             hr = pID3DXEffect->CommitChanges();
             checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() CommitChanges() に失敗しました。");
         }
@@ -117,13 +121,13 @@ void GgafDx9MeshModel::release() {
     TRACE3("GgafDx9MeshModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-	if (_papTextureCon) {
-		for (DWORD i = 0; i < _dwNumMaterials; i++) {
-			if (_papTextureCon[i] != NULL) {
-				_papTextureCon[i]->close();
-			}
-		}
-	}
+    if (_papTextureCon) {
+        for (DWORD i = 0; i < _dwNumMaterials; i++) {
+            if (_papTextureCon[i] != NULL) {
+                _papTextureCon[i]->close();
+            }
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
