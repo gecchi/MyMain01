@@ -21,7 +21,7 @@ void EffectExplosion001::initialize() {
 void EffectExplosion001::onActive() {
     resetActivAnimationPattern();
     _fAlpha = 0.99;
-    _SX = _SY = _SZ = 10*1000;
+    _SX = _SY = _SZ = 1000;
 }
 
 void EffectExplosion001::processBehavior() {

@@ -6,7 +6,8 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
-    orderActorToFactory(22222, EnemyTamago01, "gyoku");
+    orderActorToFactory(100000001, EnemyTamago01, "gyoku");
+    orderActorToFactory(100000002, EffectLockOn001, "lockon");
 }
 
 void TamagoScene::reset() {
@@ -19,7 +20,10 @@ void TamagoScene::initialize() {
 
 void TamagoScene::processBehavior() {
     if (_frame_of_active == 1) {
-        getLordActor()->addSubGroup(obtainActorFromFactory(22222));
+        getLordActor()->addSubGroup(obtainActorFromFactory(100000001));
+        GgafMainActor* pActor = obtainActorFromFactory(100000002);
+        pActor->activate();
+        getLordActor()->addSubGroup(pActor);
     }
 }
 

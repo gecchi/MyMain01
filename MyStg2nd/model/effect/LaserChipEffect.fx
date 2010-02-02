@@ -5,6 +5,8 @@
 // date:2009/04/23
 ////////////////////////////////////////////////////////////////////////////////
 float g_Blinker; 
+float g_zf;
+
 //int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
 int g_kind001;
 int g_kind002;
@@ -60,6 +62,7 @@ struct OUT_VS
 {
     float4 pos    : POSITION;
 	float2 uv     : TEXCOORD0;
+	float4 col    : COLOR0;
 };
 
 
@@ -186,13 +189,23 @@ OUT_VS GgafDx9VS_LaserChip(
 		out_vs.uv.x = 0;
 		out_vs.uv.y = 1;
 	}
+
+	//簡易フォグ
+	//out_vs.col.a = 1.0/(g_zf - (g_zf*0.5))*out_vs.pos.z - 1.0; // 1/2 より奥の場合徐々に透明に
+	out_vs.col.a = 1.0/(g_zf - (g_zf*0.75))*out_vs.pos.z - 3.0;  // 3/4 より奥の場合徐々に透明に
+
 	return out_vs;
 }
 
 float4 GgafDx9PS_LaserChip( 
-	float2 prm_uv	  : TEXCOORD0
+	float2 prm_uv	  : TEXCOORD0,
+	float4 prm_col    : COLOR0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv);
+
+	float4 out_color = tex2D( MyTextureSampler, prm_uv);
+	out_color.a -= prm_col.a;         
+	return out_color;
+	//return tex2D( MyTextureSampler, prm_uv);
 }
 
 

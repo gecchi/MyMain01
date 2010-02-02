@@ -7,28 +7,37 @@ using namespace MyStg2nd;
 
 EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "8/LockOn001") {
     _class_name = "EffectLockOn001";
-    setTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     inactivateImmediately();
-    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv);
+    setTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    //defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
+    setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
 void EffectLockOn001::initialize() {
-    setAnimationMethod(ORDER_LOOP, 3);
-    setAnimationPatternRenge(0, 15);
-    setHitAble(false);
-    _pScaler->setScaleRange(100000, 5000);
+    setAnimationPatternRenge(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    setAnimationMethod(ORDER_LOOP, 3); //ƒAƒjƒ‡˜
+
 }
 
 void EffectLockOn001::onActive() {
     resetActivAnimationPattern();
-    setAlpha(1.0);
-    _pScaler->setScale(100000);
-    _pScaler->intoTargetScaleLinerUntil(10000, 100);
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);
+    setAlpha(0.01);
+    _pScaler->setScaleRange(5000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
+    _pScaler->setScale(5000);
+    _pScaler->intoTargetScaleLinerUntil(1000, 60);//ƒXƒP[ƒŠƒ“ƒOE60F”ï‚â‚µ‚Ä1000‚Ék¬
+    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void EffectLockOn001::processBehavior() {
+    if (getAlpha() < 1.0) {
+        addAlpha(0.05);
+    }
 
+    if (_pScaler->_method[0] == NOSCALE) {
+        //k¬Š®—¹ŒãABeat
+        _pScaler->setScaleRange(1000, 3000);
+        _pScaler->beat(30, 2, 2, -1); //–³ŒÀƒ‹[ƒv
+    }
     addNextAnimationFrame();
     _pMover->behave();
     _pScaler->behave();

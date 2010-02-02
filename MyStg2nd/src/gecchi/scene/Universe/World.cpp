@@ -389,7 +389,7 @@ void World::processBehavior() {
                 pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);//”wŒã‚É‰ñ‚éŽž
             } else {
 
-				pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);
+                pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);
             }
         }
 

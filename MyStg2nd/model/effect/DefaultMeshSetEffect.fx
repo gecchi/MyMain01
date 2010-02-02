@@ -12,6 +12,7 @@
 
 
 int g_nVertexs;
+float g_zf;
 
 // ƒ‰ƒCƒg‚Ì•ûŒü
 float3 g_LightDirection;
