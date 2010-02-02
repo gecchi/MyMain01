@@ -25,7 +25,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyCurveLaserChip001* pChip;
-    for (int i = 0; i < 60; i++) { //レーザーストック
+    for (int i = 0; i < 80; i++) { //レーザーストック
         Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
@@ -105,9 +105,9 @@ void MyDummyOption::processBehavior() {
         _TRACE_("isDoublePushedDown");
         _is_flapping = true;
         _iflappingSeq = 0;
-        _angveloExpanse = 500;
+        _angveloExpanse = 100;
         _angacceExpanse = 100;
-        _range_angveloExpanse = 5000;
+        _range_angveloExpanse = 3000;
     } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
         _is_flapping = false;
     }

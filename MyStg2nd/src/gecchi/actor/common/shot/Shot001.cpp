@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/ball_2") {
+Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/Flora") {
     _class_name = "Shot001";
     MyStgUtil::resetShot001Status(_pStatus);
 }
@@ -13,7 +13,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "16/ball_
 void Shot001::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
-    _pScaler->setScale(1000);
+    _pScaler->setScale(100);
     _pScaler->setScaleRange(300, 2000);
     useSe1("break_glass01");
 }

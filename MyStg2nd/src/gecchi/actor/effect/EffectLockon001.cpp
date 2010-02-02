@@ -9,7 +9,7 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     _class_name = "EffectLockOn001";
     inactivateImmediately();
     setTechnique("DestBlendOne"); //加算合成
-    //defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ビルボードRz回転
+    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 
@@ -35,7 +35,7 @@ void EffectLockOn001::processBehavior() {
 
     if (_pScaler->_method[0] == NOSCALE) {
         //縮小完了後、Beat
-        _pScaler->setScaleRange(1000, 3000);
+        _pScaler->setScaleRange(1000, 2000);
         _pScaler->beat(30, 2, 2, -1); //無限ループ
     }
     addNextAnimationFrame();

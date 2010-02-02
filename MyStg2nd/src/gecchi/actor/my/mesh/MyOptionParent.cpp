@@ -17,7 +17,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption01 = NEW MyDummyOption("MY_OPTION01", 0, this);
     pMyDummyOption01->_radiusPosition = 80000;
-    pMyDummyOption01->_veloMv = 4000;
+    pMyDummyOption01->_veloMv = 3000;
     pMyDummyOption01->_angExpanse = 0;
     pMyDummyOption01->_angveloExpanse = 0;
     pMyDummyOption01->_angPosition = 0;
@@ -26,7 +26,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption02 = NEW MyDummyOption("MY_OPTION02", 1, this);
     pMyDummyOption02->_radiusPosition = 80000;
-    pMyDummyOption02->_veloMv = 4000;
+    pMyDummyOption02->_veloMv = 3000;
     pMyDummyOption02->_angExpanse = 0;
     pMyDummyOption02->_angveloExpanse = 0;
     pMyDummyOption02->_angPosition = ANGLE90;
@@ -35,7 +35,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption03 = NEW MyDummyOption("MY_OPTION03", 2, this);
     pMyDummyOption03->_radiusPosition = 80000;
-    pMyDummyOption03->_veloMv = 4000;
+    pMyDummyOption03->_veloMv = 3000;
     pMyDummyOption03->_angExpanse = 0;
     pMyDummyOption03->_angveloExpanse = 0;
     pMyDummyOption03->_angPosition = ANGLE180;
@@ -44,7 +44,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     MyDummyOption* pMyDummyOption04 = NEW MyDummyOption("MY_OPTION04", 4, this);
     pMyDummyOption04->_radiusPosition = 80000;
-    pMyDummyOption04->_veloMv = 4000;
+    pMyDummyOption04->_veloMv = 3000;
     pMyDummyOption04->_angExpanse = 0;
     pMyDummyOption04->_angveloExpanse = 0;
     pMyDummyOption04->_angPosition = ANGLE270;

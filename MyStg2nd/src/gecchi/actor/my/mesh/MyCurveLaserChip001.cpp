@@ -21,7 +21,7 @@ void MyCurveLaserChip001::initialize() {
     registHitAreaCube(60000);
 
     setHitAble(true);
-    _SX = _SY = _SZ = 80*1000;
+    _SX = _SY = _SZ = 100*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;
     int renge = 100000;
