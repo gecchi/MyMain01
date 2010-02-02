@@ -78,6 +78,10 @@ public:
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
 
+
+    float _zn;
+    float _zf;
+
     /** ’‹“_ **/
     GgafDx9CameraViewPoint* _pViewPoint;
 

@@ -8,6 +8,10 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
 
     //シェーダー共通のグローバル変数設定
     HRESULT hr;
+
+    hr = _pID3DXEffect->SetFloat("g_zf", pCAM->_zf );
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteEffect::GgafDx9SpriteEffect SetFloat(g_zf) に失敗しました。");
+
     //射影変換行列
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshSetEffect SetMatrix() に失敗しました。");

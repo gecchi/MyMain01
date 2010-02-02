@@ -5,7 +5,7 @@ namespace GgafDx9Core {
 /**
  * 球アクター.
  * GgafDx9GeometricActor を継承し、球を表示するためのアクターです。<BR>
- * Xファイルは、直径１の球(中心は(0,0,0))のメッシュを読み込ませてください。
+ * Xファイルは、直径１px相当の球(中心は(0,0,0))のメッシュを読み込ませてください。
  * @version 1.00
  * @since 2010/10/21
  * @author Masatoshi Tsuge

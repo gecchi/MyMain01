@@ -30,7 +30,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     _tan_half_fovX = tan(_rad_fovX/2.0);
     //初期カメラ位置は視点(0,0,Z)、注視点(0,0,0)
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
-    _cameraZ = -1.0f * (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT / 2.0f) / _tan_half_fovY;
+    _cameraZ = -1.0f * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
     _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
@@ -46,12 +46,14 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     );
 
     // 射影変換行列作成（３Ｄ→平面）
+    _zn = 0.01;
+    _zf = -_cameraZ_org*8.0;
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
             _rad_fovY,        //y方向視野角ラディアン(0～π)
             _screen_aspect,   //アスペクト比  640×480 の場合  640/480
-            0.01,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-            -_cameraZ_org*12.0 //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn (20.0は適当)
+            _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
+            _zf //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn (8.0は適当)
             //(FLOAT)(-1.0f*dCam*4)
             //(-1.0f*fCam)-30,
             //(-1.0f*fCam)+30
