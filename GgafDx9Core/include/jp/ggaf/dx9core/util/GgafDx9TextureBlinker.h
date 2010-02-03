@@ -4,19 +4,19 @@ namespace GgafDx9Core {
 
 /**
  * 点滅支援クラス.
- * GgafDx9GeometricActor のメンバの<BR>
- * _SX , _SY, _SZ  ･･･ アクターのスケール<BR>
+ * GgafDx9Model のメンバの<BR>
+ * _SX , _SY, _SZ  ･･･ アクターの色強度<BR>
  * を、簡単に操作するために設計した。<BR>
- * 点滅1.0倍（スケール無し）は、本クラスでのスケール値1000に
+ * 点滅1.0倍（色強度無し）は、本クラスでの色強度値1000に
  * 相当する。以下例
- * [日本語]     → [本クラスのスケール値]
+ * [日本語]     → [本クラスの色強度値]
  * 等倍         → 1000
  * 拡大率2.5倍  → 2500
  * 半分の大きさ → 500
  * 縮小率80%    → 800
- * 本クラスでは、スケールとスケーリングという単語を次の意味で使用している箇所がある。
- * スケール･･･現在（のフレーム）の点滅状態
- * スケーリング･･･フレーム間の点滅状態の遷移
+ * 本クラスでは、色強度と点滅という単語を次の意味で使用している箇所がある。
+ * 色強度･･･現在（のフレーム）の点滅状態
+ * 点滅･･･フレーム間の点滅状態の遷移
  * 2009/05/22 GgafDx9GeometryMover から分割した。
  * @version 1.00
  * @since 2009/05/22
@@ -26,230 +26,136 @@ class GgafDx9TextureBlinker : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 対象アクター */
-    GgafDx9GeometricActor* _pActor;
+    GgafDx9Model* _pModel;
 
-    /** スケール(1000 で 1倍) */
-    int _scale[3]; //[0]:X軸、[1]:Y軸、[2]:Z軸。以降同様に  [3]･･･X軸、Y軸、Z軸の意
-    /** 目標のスケール */
-    int _target_scale[3];
-    /** スケール上限 */
-    int _top_scale[3];
-    /** スケール下限 */
-    int _bottom_scale[3];
-    /** 毎フレームのスケールの増分 */
-    int _velo_scale[3];
-    /** 毎フレームのスケールの増分の増分 */
-    int _acce_scale[3];
-    /** 三角波の波形でスケーリングのアタックフレーム */
-    DWORD _beat_attack_frame[3];
-    /** 三角波の波形でスケーリングのレストフレーム */
-    DWORD _beat_rest_frame[3];
-    /** スケーリングに費やすフレーム数 */
-    DWORD _beat_spend_frame[3];
-    /** スケーリングを開始したフレーム */
-    DWORD _beat_begin_frame[3];
+    /** 色強度(0.0 ～ 100.0) */
+    float _fPowerBlink;
+    /** 目標の色強度 */
+    float _target_fPowerBlink;
+    /** 色強度上限 */
+    float _top_fPowerBlink;
+    /** 色強度下限 */
+    float _bottom_fPowerBlink;
+    /** 毎フレームの色強度の増分 */
+    float _velo_fPowerBlink;
+    /** 毎フレームの色強度の増分の増分 */
+    float _acce_fPowerBlink;
+    /** 三角波の波形で点滅のアタックフレーム */
+    DWORD _beat_attack_frame;
+    /** 三角波の波形で点滅のレストフレーム */
+    DWORD _beat_rest_frame;
+    /** 点滅に費やすフレーム数 */
+    DWORD _beat_spend_frame;
+    /** 点滅を開始したフレーム */
+    DWORD _beat_begin_frame;
     /** ループカウント（2で点滅ワンセット、1ならば拡大or縮小の片道） */
-    int _one_way_cnt[3];
+    int _one_way_cnt;
     /** ストップする予定のループカウント */
-    int _stop_one_way_num[3];
-    /** スケーリング方法 */
-    GgafDx9BlinkerMethod _method[3];
+    int _stop_one_way_num;
+    /** 点滅方法 */
+    GgafDx9BlinkerMethod _method;
 
 public:
     /**
      * コンストラクタ<BR>
-     * @param   prm_pActor  適用対象のActor
+     * @param   prm_pModel  適用対象のModel
      */
-    GgafDx9TextureBlinker(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9TextureBlinker(GgafDx9Model* prm_pModel);
 
     /**
-     * スケールを相対指定（全軸指定）
-     * @param prm_scale_diff スケール値増分
+     * 色強度を相対指定
+     * @param prm_fPowerBlink_diff 色強度値増分
      */
-    void addScale(int prm_scale_diff) {
-        for (int axis = 0; axis < 3; axis++) {
-            addScale(axis, prm_scale_diff);
-        }
-    }
-    /**
-     * スケールを相対指定（軸単位で指定）
-     * @param prm_axis 軸
-     * @param prm_scale_diff スケール値増分
-     */
-    void addScale(int prm_axis, int prm_scale_diff) {
-        setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
+    void addBlink(float prm_fPowerBlink_diff) {
+        setBlink(_fPowerBlink + prm_fPowerBlink_diff);
     }
 
     /**
-     * スケールを絶対指定（全軸指定）
-     * @param prm_scale スケール値
+     * 色強度を絶対指定
+     * @param prm_fPowerBlink 色強度値
      */
-    void setScale(int prm_scale) {
-        for (int axis = 0; axis < 3; axis++) {
-            setScale(axis, prm_scale);
-        }
-    }
-
-    /**
-     * スケールを絶対指定（軸単位で指定）
-     * @param prm_axis 軸
-     * @param prm_scale スケール値
-     */
-    void setScale(int prm_axis, int prm_scale) {
-        //_TRACE_("setScale ["<<prm_axis<<"]prm_scale="<<prm_scale);
-        //_TRACE_("setScale _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
-        if (_top_scale[prm_axis] < prm_scale) {
-            _scale[prm_axis] = _top_scale[prm_axis];
-        } else if (_bottom_scale[prm_axis] > prm_scale) {
-            _scale[prm_axis] = _bottom_scale[prm_axis];
+    void setBlink(float prm_fPowerBlink) {
+        //_TRACE_("setBlink ["<<prm_<<"]prm_fPowerBlink="<<prm_fPowerBlink);
+        //_TRACE_("setBlink _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
+        if (_top_fPowerBlink < prm_fPowerBlink) {
+            _fPowerBlink = _top_fPowerBlink;
+        } else if (_bottom_fPowerBlink > prm_fPowerBlink) {
+            _fPowerBlink = _bottom_fPowerBlink;
         } else {
-            _scale[prm_axis] = prm_scale;
+            _fPowerBlink = prm_fPowerBlink;
         }
-        //_TRACE_("setScale _scale ["<<prm_axis<<"] _scale[prm_axis]="<<prm_scale);
+        //_TRACE_("setBlink _fPowerBlink ["<<prm_<<"] _fPowerBlink="<<prm_fPowerBlink);
     }
     /**
-     * スケールの上限下限を設定（全軸指定） .
-     * 引数の大小は気にせず渡して(内部で自動判別)
-     * @param prm_scale1 スケール値1
-     * @param prm_scale2 スケール値2
+     * 色強度の上限下限を設定
+     * @param prm_fPowerBlink1 色強度値1
+     * @param prm_fPowerBlink2 色強度値2
      */
-    void setScaleRange(int prm_scale1, int prm_scale2) {
-        for (int axis = 0; axis < 3; axis++) {
-            setScaleRange(axis, prm_scale1, prm_scale2);
-        }
-    }
-    /**
-     * スケールの上限下限を設定（軸単位で指定）
-     * @param prm_axis 軸
-     * @param prm_scale1 スケール値1
-     * @param prm_scale2 スケール値2
-     */
-    void setScaleRange(int prm_axis, int prm_scale1, int prm_scale2) {
-        if (prm_scale1 < prm_scale2) {
-            _bottom_scale[prm_axis] = prm_scale1;
-            _top_scale[prm_axis] = prm_scale2;
+    void setBlinkRange(float prm_fPowerBlink1, float prm_fPowerBlink2) {
+        if (prm_fPowerBlink1 < prm_fPowerBlink2) {
+            _bottom_fPowerBlink = prm_fPowerBlink1;
+            _top_fPowerBlink = prm_fPowerBlink2;
         } else {
-            _bottom_scale[prm_axis] = prm_scale2;
-            _top_scale[prm_axis] = prm_scale1;
+            _bottom_fPowerBlink = prm_fPowerBlink2;
+            _top_fPowerBlink = prm_fPowerBlink1;
         }
-        //_TRACE_("setScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
+        //_TRACE_("setBlinkRange _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
     }
     /**
-     * スケールをリセット （全軸指定） .
+     * 色強度をリセット
      * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
      * 初期の大きさに戻す。
      */
-    void resetScale() {
-        for (int axis = 0; axis < 3; axis++) {
-            resetScale(axis);
-        }
-    }
-    /**
-     * スケールをリセット （軸単位で指定）
-     * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
-     * 初期の大きさに戻す。
-     * @param prm_axis 軸
-     */
-    void resetScale(int prm_axis) {
-        _scale[prm_axis] = _bottom_scale[prm_axis];
+    void resetBlink() {
+        _fPowerBlink = _bottom_fPowerBlink;
     }
 
-    void resetScaleTop() {
-        for (int axis = 0; axis < 3; axis++) {
-            resetScaleTop(axis);
-        }
-    }
-    void resetScaleTop(int prm_axis) {
-        _scale[prm_axis] = _top_scale[prm_axis];
+    void resetBlinkTop() {
+        _fPowerBlink = _top_fPowerBlink;
     }
 
     /**
-     * スケーリングを停止させる。 （全軸指定） .
+     * 点滅を停止させる。  .
      */
     void stopImmediately();
-    /**
-     * スケーリングを停止させる。 （軸単位で指定）.
-     * @param prm_axis
-     */
-    void stopImmediately(int prm_axis);
 
     /**
-     * 片道等速スケーリング（全軸・持続フレーム数指定） .
-     * 目標のスケールへ一定速度でスケーリングする
-     * @param prm_target_scale 目標スケール
+     * 片道等速点滅（全軸・持続フレーム数指定） .
+     * 目標の色強度へ一定速度で点滅する
+     * @param prm_target_fPowerBlink 目標色強度
      * @param prm_spend_frame 費やすフレーム数
      */
-    void intoTargetScaleLinerUntil(int prm_target_scale, DWORD prm_spend_frame);
+    void intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, DWORD prm_spend_frame);
 
     /**
-     * 片道等速スケーリング（軸単位・持続フレーム数指定） .
-     * 目標のスケールへ一定速度でスケーリングする。
-     * @param prm_axis 軸
-     * @param prm_target_scale 目標スケール
-     * @param prm_spend_frame 費やすフレーム数
+     * 片道等速点滅（全軸・色強度速度指定） .
+     * 目標の色強度へ一定速度で点滅する
+     * @param prm_target_fPowerBlink 目標色強度
+     * @param prm_velo_fPowerBlink 毎フレーム加算する色強度差分(>0.0)。正の色強度を指定する事。加算か減算かは自動判断する。
      */
-    void intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, DWORD prm_spend_frame);
+    void intoTargetBlinkLinerStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink);
 
     /**
-     * 片道等速スケーリング（全軸・スケール速度指定） .
-     * 目標のスケールへ一定速度でスケーリングする
-     * @param prm_target_scale 目標スケール
-     * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
+     * 片道加速点滅（全軸・色強度速度・色強度加速度指定） .
+     * 目標の色強度へ加速指定で点滅する
+     * 色強度加速度を0に指定すると intoTargetBlinkLinerStep とほぼ同じ意味になる。
+     * intoTargetBlinkLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * @param prm_target_fPowerBlink 目標色強度
+     * @param prm_velo_fPowerBlink 初期色強度速度
+     * @param prm_acce_fPowerBlink 色強度加速度
      */
-    void intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale);
+    void intoTargetBlinkAcceStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink, float prm_acce_fPowerBlink);
 
     /**
-     * 片道等速スケーリング（軸単位・スケール速度指定） .
-     * 目標のスケールへ一定速度でスケーリングする（スケール差分指定） .
-     * @param prm_axis 軸
-     * @param prm_target_scale 目標スケール
-     * @param prm_velo_scale 毎フレーム加算するスケール差分(>0.0)。正のスケールを指定する事。加算か減算かは自動判断する。
-     */
-    void intoTargetScaleLinerStep(int prm_axis, int prm_target_scale, int prm_velo_scale);
-
-    /**
-     * 片道加速スケーリング（全軸・スケール速度・スケール加速度指定） .
-     * 目標のスケールへ加速指定でスケーリングする
-     * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
-     * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
-     * @param prm_target_scale 目標スケール
-     * @param prm_velo_scale 初期スケール速度
-     * @param prm_acce_scale スケール加速度
-     */
-    void intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
-
-    /**
-     * 片道加速スケーリング（軸単位・スケール速度・スケール加速度指定） .
-     * 目標のスケールへ加速指定でスケーリングする（スケール速度、スケール加速度差指定） .
-     * スケール加速度を0に指定すると intoTargetScaleLinerStep とほぼ同じ意味になる。
-     * intoTargetScaleLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
-     * @param prm_axis 軸
-     * @param prm_target_scale 目標スケール
-     * @param prm_velo_scale 初期スケール速度
-     * @param prm_acce_scale スケール加速度
-     */
-    void intoTargetScaleAcceStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
-
-    /**
-     * 反復等速スケーリング（全軸・フレーム数指定） .
-     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
+     * 反復等速点滅（全軸・フレーム数指定） .
+     * 目標の色強度へ一定速度で点滅し、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
     void loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * 反復等速スケーリング（軸単位・フレーム数指定）
-     * 目標のスケールへ一定速度でスケーリングし、一定速度で元に戻る。
-     * これをループ指定する。（１ループのフレーム数指定） .
-     * @param prm_axis 軸
-     * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
-     * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
-     */
-    void loopLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num);
-
-    /**
-     * 三角波の波形でスケーリングする。（全軸指定）.
+     * 三角波の波形で点滅する。.
      * <PRE>
      * ④  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
      *            /＼                     /＼
@@ -266,8 +172,8 @@ public:
      * ① １ループのフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 休憩フレーム数<BR>
-     * ④ スケール上限(_top_scale[軸] 配列が保持)<BR>
-     * ⑤ スケール下限(_bottom_scale[軸] 配列が保持)<BR>
+     * ④ 色強度上限(_top_fPowerBlink[軸] 配列が保持)<BR>
+     * ⑤ 色強度下限(_bottom_fPowerBlink[軸] 配列が保持)<BR>
      * <BR>
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数
@@ -278,19 +184,7 @@ public:
               DWORD prm_attack_frame,
               DWORD prm_rest_frame,
               float prm_beat_num);
-    /**
-     * 三角波の波形でスケーリングする。（軸指定）.
-     * @param prm_axis 軸
-     * @param prm_beat_spend_frame 上図で①のフレーム数
-     * @param prm_attack_frame 上図で②のフレーム数
-     * @param prm_rest_frame 上図で③のフレーム数
-     * @param prm_beat_num ループ数(-1で無限)
-     */
-    void beat(int prm_axis,
-              DWORD prm_beat_spend_frame,
-              DWORD prm_attack_frame,
-              DWORD prm_rest_frame,
-              float prm_beat_num);
+
 
     /**
      * 毎フレームの振る舞いメソッド。<BR>
