@@ -5,8 +5,8 @@
 
 namespace GgafDx9Core {
 
-#define MAX_DRAW_DEPTH_LEVEL 1000
-
+//#define MAX_DRAW_DEPTH_LEVEL 1000
+#define MAX_DRAW_DEPTH_LEVEL 500
 /**
  * GgafDx9Core名前空間のこの世クラス.
  * GgafDx9Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>

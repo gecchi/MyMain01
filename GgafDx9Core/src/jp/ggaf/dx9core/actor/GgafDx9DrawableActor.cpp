@@ -144,37 +144,50 @@ void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
     //TODO:要検証
     if (_is_active_flg && _can_live_flg) {
-        if (getAlpha() < 1.0f) {
-            if (_isTransformed) {
-                GgafDx9Universe::setDrawDepthLevel(
-                                    (int)(_z * MAX_DRAW_DEPTH_LEVEL),
-                                    this
-                                 );
-            } else {
-                if (isOffscreen()) {
-
-                } else {
-                    //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1*PX_UNIT, this);
-                    //↑これで1px間隔段階レンダリング
-                    //GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
-                    //↑ということはこれで10px間隔段階レンダリング
-                    //今は20px間隔段階レンダリング
-                    GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
-                }
-            }
+        if (_isTransformed) {
+            GgafDx9Universe::setDrawDepthLevel(
+                                (int)(_z * MAX_DRAW_DEPTH_LEVEL),
+                                this
+                             );
         } else {
-            if (_isTransformed) {
-                //GgafDx9Universe::setDrawDepthMaxLevel(this);
-                GgafDx9Universe::setDrawDepthLevel(
-                                    (int)(_z * MAX_DRAW_DEPTH_LEVEL),
-                                    this
-                                 );
+            if (isOffscreen()) {
+                //描画しないので登録なし
             } else {
-                if (isOffscreen()) {
 
+                //表示範囲奥行きは、_zf = -_cameraZ_org*10.0; と定義。「参照：GgafDx9Camera::GgafDx9Camera()」
+                //現在初期カメラ位置 _cameraZ_org = -57.1259 で 表示範囲(奥行き:_zf)までの距離は10倍で約 571 になる
+                //一方 MAX_DRAW_DEPTH_LEVEL は(現在1000)と対応させるか
+                //本ライブラリはDIRECTX座標の1は画面上で10px相当という計算を行っている。よって
+                //次の文は10px間隔相当の奥からの段階レンダリングの設定となる
+                //
+                //  GgafDx9Universe::setDrawDepthLevel(-1.0*_fDistance_plnFront, this);
+                //  (※_fDistance_plnFrontは視錐台手前面からオブジェクトまでの距離の負数)
+                //
+                //上記は実際は 571 段階となる。また、
+                //
+                //  GgafDx9Universe::setDrawDepthLevel(-1.0*_fDistance_plnFront*10.0, this);
+                //
+                //これは1px間隔相当で約 5710 段階となるが、MAX_DRAW_DEPTH_LEVELが1000ならば
+                //4710～5710段階目は全て最深のとして同一深度で扱われてしまう。
+                //
+                //はるか遠いオブジェクト達を細かい段階描画してもあまり意味が無い
+                //カメラに近いほど精密に、遠いほどアバウトに段階レンダリングしたい。
+                //
+                //     |-+-+-+-+-+-+-+-+-+-+-+-+-+--+---+----+-----+------+------+-------+-----
+                //     ^      ------> 奥         ^            ------> 奥                      ^
+                // カメラ                  アバウト開始深度                               最深部
+                //
+                //上図のようなイメージで設定することとする
+                int dep = (int)(-_fDistance_plnFront);
+                static int roughly_dep_point1 = (int)(-(pCAM->_cameraZ_org) * 4.0); //(228)
+                static int roughly_dep_point2 = (int)(-(pCAM->_cameraZ_org) * 8.0); //(456)
+                if (dep <= roughly_dep_point1) {
+                    GgafDx9Universe::setDrawDepthLevel(dep, this);
+                } else if (dep <= roughly_dep_point2) {
+                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 2), this);
                 } else {
-                    //GgafDx9Universe::setDrawDepthMaxLevel(this);
-                    GgafDx9Universe::setDrawDepthLevel(_fDistance_plnFront*-1, this);
+                    //roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2)=342
+                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2) + ((dep - roughly_dep_point2) / 4), this);
                 }
             }
         }
