@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "8/Iris") {
+EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris") {
     _class_name = "EnemyIris";
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     _iMovePatternNo = 0;

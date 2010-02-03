@@ -3,7 +3,7 @@
 namespace MyStg2nd {
 
 //ƒ”ƒFƒXƒ^
-class EnemyMetis : public GgafDx9LibStg::DefaultMeshActor {
+class EnemyMetis : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     int _iMovePatternNo;
