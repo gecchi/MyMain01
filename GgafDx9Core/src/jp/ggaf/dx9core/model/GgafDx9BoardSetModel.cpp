@@ -72,6 +72,12 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9BoardSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_hPowerBlink, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetFloat(pBoardSetEffect->_hBlinkThreshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetActor::draw() SetFloat(_hBlinkThreshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardSetEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );

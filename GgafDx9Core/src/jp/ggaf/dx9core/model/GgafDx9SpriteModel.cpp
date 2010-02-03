@@ -60,6 +60,12 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
         checkDxException(hr, S_OK, "GgafDx9SpriteActor::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_hPowerBlink, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() SetFloat(_hPowerBlink) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pSpriteEffect->_hBlinkThreshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteActor::draw() SetFloat(_hBlinkThreshold) に失敗しました。");
+
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
@@ -97,9 +103,9 @@ void GgafDx9SpriteModel::onDeviceLost() {
 void GgafDx9SpriteModel::release() {
     TRACE3("GgafDx9SpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-	if (_papTextureCon) {
-		_papTextureCon[0]->close();
-	}
+    if (_papTextureCon) {
+        _papTextureCon[0]->close();
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか

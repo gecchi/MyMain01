@@ -12,7 +12,8 @@ class GgafDx9MeshEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
-    D3DXHANDLE _hBlinker;
+    D3DXHANDLE _hPowerBlink;
+    D3DXHANDLE _hBlinkThreshold;
     D3DXHANDLE _hMatView;
     D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hMaterialDiffuse;

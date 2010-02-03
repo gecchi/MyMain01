@@ -29,8 +29,13 @@ public:
 
     /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
     FLOAT _max_radius;
-
-    FLOAT _blinker;
+    /** 点滅強度 (0.0 <= _fblink <= 1.0) */
+    FLOAT _fPowerBlink;
+    /** 点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0) */
+    FLOAT _fBlinkThreshold;
+    //_fBlinkThreshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
+    //r,g,b 何れか >= 1.0 の の場合、_fPowerBlink倍数の色(rgb)を加算
+    //ゼビウスの地上物破壊後の赤い点滅のようなことをしたかった。
 
     /** テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;

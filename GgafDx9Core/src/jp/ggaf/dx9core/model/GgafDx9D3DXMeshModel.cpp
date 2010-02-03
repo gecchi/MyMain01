@@ -57,6 +57,12 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9D3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
+
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_hPowerBlink, _fPowerBlink);
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hPowerBlink) に失敗しました。");
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hBlinkThreshold) に失敗しました。");
+
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
@@ -111,13 +117,13 @@ void GgafDx9D3DXMeshModel::release() {
         throwGgafCriticalException("[GgafDx9D3DXMeshModel::release] Error! _pID3DXMeshが オブジェクトになっていないため release できません！");
     }
     //テクスチャを解放
-	if (_papTextureCon) {
-		for (DWORD i = 0; i < _dwNumMaterials; i++) {
-			if (_papTextureCon[i] != NULL) {
-				_papTextureCon[i]->close();
-			}
-		}
-	}
+    if (_papTextureCon) {
+        for (DWORD i = 0; i < _dwNumMaterials; i++) {
+            if (_papTextureCon[i] != NULL) {
+                _papTextureCon[i]->close();
+            }
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
 

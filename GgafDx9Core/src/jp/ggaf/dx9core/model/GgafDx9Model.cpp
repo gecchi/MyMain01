@@ -13,7 +13,8 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _dwNumMaterials = 0;
     _papTextureCon = NULL;
     _max_radius = 0;
-    _blinker = 1.0f;
+    _fPowerBlink = -1.0f;
+    _fBlinkThreshold = 1.1f;
     TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
 }
 

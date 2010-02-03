@@ -34,7 +34,7 @@ public:
     unsigned int _frame_ani_interval;
     /** アニメ方式 */
     GgafDx9AnimationMethod _animation_method;
-    /** OSCILLATE_LOOP用の現在のアニメ方向 */
+    /** ANIMATE_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
 

@@ -107,26 +107,66 @@ typedef int angacce;
 typedef int angjerk;
 
 enum GgafDx9AnimationMethod {
-    ORDER_LOOP,
-    REVERSE_LOOP,
-    OSCILLATE_LOOP,
-    ORDER_NOLOOP,
-    REVERSE_NOLOOP,
+    ANIMATE_ORDER_LOOP,
+    ANIMATE_REVERSE_LOOP,
+    ANIMATE_OSCILLATE_LOOP,
+    ANIMATE_ORDER_NOLOOP,
+    ANIMATE_REVERSE_NOLOOP,
     NOT_ANIMATED
 };
 
+enum GgafDx9ScaleMethod {
+    NOSCALE,                  //!< NOSCALE
+    TARGET_SCALE_LINER,       //!< TARGET_SCALE_LINER
+    BEAT_SCALE_LINER,         //!< BEAT_SCALE_LINER
+    BEAT_SCALE_TRIANGLEWAVE,  //!< BEAT_SCALE_TRIANGLEWAVE
+    TARGET_SCALE_SIN,         //!< TARGET_SCALE_SIN
+    BEAT_SCALE_SIN,           //!< BEAT_SCALE_SIN
+    TARGET_SCALE_ACCELERATION,//!< TARGET_SCALE_ACCELERATION
+    BEAT_SCALE_PARABOLA,      //!< BEAT_SCALE_PARABOLA
+    TARGET_SCALE_PARABOLA_REV,//!< TARGET_SCALE_PARABOLA_REV
+    BEAT_SCALE_PARABOLA_REV   //!< BEAT_SCALE_PARABOLA_REV
+};
+
+enum GgafDx9MorphMethod {
+    NOMORPH,
+    TARGET_MORPH_LINER,
+    LOOP_MORPH_LINER,
+    LOOP_MORPH_TRIANGLEWAVE,
+    TARGET_MORPH_SIN,
+    LOOP_MORPH_SIN,
+    TARGET_MORPH_ACCELERATION,
+    LOOP_MORPH_PARABOLA,
+    TARGET_MORPH_PARABOLA_REV,
+    LOOP_MORPH_PARABOLA_REV
+};
+
+enum GgafDx9BlinkerMethod {
+    NOBLINK,                  //!< NOBLINK
+    TARGET_BLINK_LINER,       //!< TARGET_BLINK_LINER
+    BEAT_BLINK_LINER,         //!< BEAT_BLINK_LINER
+    BEAT_BLINK_TRIANGLEWAVE,  //!< BEAT_BLINK_TRIANGLEWAVE
+    TARGET_BLINK_SIN,         //!< TARGET_BLINK_SIN
+    BEAT_BLINK_SIN,           //!< BEAT_BLINK_SIN
+    TARGET_BLINK_ACCELERATION,//!< TARGET_BLINK_ACCELERATION
+    BEAT_BLINK_PARABOLA,      //!< BEAT_BLINK_PARABOLA
+    TARGET_BLINK_PARABOLA_REV,//!< TARGET_BLINK_PARABOLA_REV
+    BEAT_BLINK_PARABOLA_REV   //!< BEAT_BLINK_PARABOLA_REV
+};
 namespace GgafDx9Core {
 
 class GgafDx9CriticalException;
 class GgafDx9God;
 class GgafDx9Input;
 class GgafDx9Sound;
+
 class GgafDx9TextureConnection;
 class GgafDx9TextureManager;
 class GgafDx9ModelConnection;
 class GgafDx9ModelManager;
 class GgafDx9EffectConnection;
 class GgafDx9EffectManager;
+
 class GgafDx9Spline3D;
 class GgafDx9SplineProgram;
 class GgafDx9FixedFrameSplineProgram;
@@ -191,6 +231,7 @@ class GgafDx9GeometryMover;
 class GgafDx9Checker;
 class GgafDx9GeometryScaler;
 class GgafDx9GeometryMorpher;
+class GgafDx9TextureBlinker;
 class GgafDx9RectUV;
 
 class GgafDx9Se;
@@ -291,7 +332,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryScaler.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
-
+#include "jp/ggaf/dx9core/util/GgafDx9TextureBlinker.h"
 
 
 

@@ -58,10 +58,6 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
-
-        hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinker, (FLOAT)_blinker); //TODO:âΩíPà Ç≈Ç∑ÇÈÇ©ÅAé¸ä˙ÇÕÅH
-        checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat("<<_blinker<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅBmodel="<<getName()<<"/effect="<<pMeshEffect->getName()<<"/actor="<<pTargetActor->getName());
-
         hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
         checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
@@ -79,6 +75,12 @@ HRESULT GgafDx9MeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_hPowerBlink, _fPowerBlink);
+            checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
+            checkDxException(hr, D3D_OK, "GgafDx9MeshModel::draw() SetFloat(_hBlinkThreshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );

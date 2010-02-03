@@ -106,6 +106,12 @@ HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MeshSetModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
+            hr = pID3DXEffect->SetFloat(pMeshSetEffect->_hPowerBlink, _fPowerBlink);
+            checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            hr = pID3DXEffect->SetFloat(pMeshSetEffect->_hBlinkThreshold, _fBlinkThreshold);
+            checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetFloat(_hBlinkThreshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshSetEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );

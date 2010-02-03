@@ -2,19 +2,6 @@
 #define GGAFDX9GEOMETRYMORPHER_H_
 namespace GgafDx9Core {
 
-enum GgafDx9MorphMethod {
-    NOMORPH,
-    TARGET_LINER,
-    LOOP_LINER,
-    LOOP_TRIANGLEWAVE,
-    TARGET_SIN,
-    LOOP_SIN,
-    TARGET_ACCELERATION,
-    LOOP_PARABOLA,
-    TARGET_PARABOLA_REV,
-    LOOP_PARABOLA_REV
-};
-
 
 /**
  * モーフ支援クラス .

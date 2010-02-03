@@ -26,7 +26,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _pattno_ani_bottom = _pSpriteSetModel->_pattno_ani_Max;
     _pattno_ani_now = 0;
     _frame_ani_interval = 0;
-    _animation_method = ORDER_LOOP;
+    _animation_method = ANIMATE_ORDER_LOOP;
     _aniframe_counter = 0;
     _is_reverse_order_in_oscillate_animation_flg = false;
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
@@ -128,33 +128,33 @@ void GgafDx9SpriteSetActor::addNextAnimationFrame() {
 
     _aniframe_counter++;
     if (_frame_ani_interval < _aniframe_counter) {
-        if (_animation_method == ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
+        if (_animation_method == ANIMATE_ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
             if (_pattno_ani_bottom > _pattno_ani_now) {
                 _pattno_ani_now++;
             } else {
                 _pattno_ani_now = _pattno_ani_top;
             }
-        } else if (_animation_method == REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+        } else if (_animation_method == ANIMATE_REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
             if (_pattno_ani_top < _pattno_ani_now) {
                 _pattno_ani_now--;
             } else {
                 _pattno_ani_now = _pattno_ani_bottom;
             }
-        } else if (_animation_method == ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
+        } else if (_animation_method == ANIMATE_ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
             if (_pattno_ani_bottom > _pattno_ani_now) {
                 _pattno_ani_now++;
             } else {
                 processHappen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_bottom;
             }
-        } else if (_animation_method == REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
+        } else if (_animation_method == ANIMATE_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
             if (_pattno_ani_top < _pattno_ani_now) {
                 _pattno_ani_now--;
             } else {
                 processHappen(GGAF_EVENT_NOLOOP_ANIMATION_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_ani_now = _pattno_ani_top;
             }
-        } else if (_animation_method == OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+        } else if (_animation_method == ANIMATE_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
             if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
                 if (_pattno_ani_top < _pattno_ani_now) {
                     _pattno_ani_now--;

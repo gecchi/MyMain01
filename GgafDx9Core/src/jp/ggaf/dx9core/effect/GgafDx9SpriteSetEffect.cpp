@@ -114,6 +114,9 @@ GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9E
 //    _ahAlpha[21] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha022" );
 //    _ahAlpha[22] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha023" );
 //    _ahAlpha[23] = _pID3DXEffect->GetParameterByName( NULL, "g_alpha024" );
+
+    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
+    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
 }
 
 GgafDx9SpriteSetEffect::~GgafDx9SpriteSetEffect() {

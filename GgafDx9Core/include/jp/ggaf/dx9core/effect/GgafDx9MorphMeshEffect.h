@@ -12,6 +12,8 @@ class GgafDx9MorphMeshEffect : public GgafDx9Effect {
     friend class GgafDx9EffectManager;
 
 public:
+    D3DXHANDLE _hPowerBlink;
+    D3DXHANDLE _hBlinkThreshold;
     D3DXHANDLE _hMorphTargetnum;
     D3DXHANDLE _hWeight[MAX_MORPH_TARGET+1];
     D3DXHANDLE _hMatView;

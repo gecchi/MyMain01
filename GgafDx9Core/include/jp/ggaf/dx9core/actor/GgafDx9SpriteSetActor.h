@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 //enum GgafDx9AnimationMethod {
-//    ORDER_LOOP, REVERSE_LOOP, OSCILLATE_LOOP, ORDER_NOLOOP, REVERSE_NOLOOP, NOT_ANIMATED
+//    ANIMATE_ORDER_LOOP, ANIMATE_REVERSE_LOOP, ANIMATE_OSCILLATE_LOOP, ANIMATE_ORDER_NOLOOP, ANIMATE_REVERSE_NOLOOP, NOT_ANIMATED
 //};
 
 /**
@@ -43,7 +43,7 @@ public:
     unsigned int _frame_ani_interval;
     /** アニメ方式 */
     GgafDx9AnimationMethod _animation_method;
-    /** OSCILLATE_LOOP用の現在のアニメ方向 */
+    /** ANIMATE_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
     GgafDx9SpriteSetActor(const char* prm_name,

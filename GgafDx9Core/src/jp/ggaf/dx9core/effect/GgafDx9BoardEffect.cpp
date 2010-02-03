@@ -24,6 +24,8 @@ GgafDx9BoardEffect::GgafDx9BoardEffect(char* prm_effect_name) : GgafDx9Effect(pr
     _hDepthZ = _pID3DXEffect->GetParameterByName( NULL, "g_depthZ" );
     _hSx = _pID3DXEffect->GetParameterByName( NULL, "g_sx" );
     _hSy = _pID3DXEffect->GetParameterByName( NULL, "g_sy" );
+    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
+    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
 }
 
 

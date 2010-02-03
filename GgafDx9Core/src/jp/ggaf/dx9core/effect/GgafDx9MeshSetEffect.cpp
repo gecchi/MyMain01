@@ -61,7 +61,8 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMaterialDiffuse[15] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse016" );
 
     _h_nVertexs = _pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
-
+    _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
+    _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
 }
 
 

@@ -1,18 +1,13 @@
-#ifndef GGAFDX9GEOMETRYSCALER_H_
-#define GGAFDX9GEOMETRYSCALER_H_
+#ifndef GGAFDX9TEXTUREBLINKER_H_
+#define GGAFDX9TEXTUREBLINKER_H_
 namespace GgafDx9Core {
 
 /**
- * スケーリング方法
- */
-
-
-/**
- * 拡大縮小支援クラス.
+ * 点滅支援クラス.
  * GgafDx9GeometricActor のメンバの<BR>
  * _SX , _SY, _SZ  ･･･ アクターのスケール<BR>
  * を、簡単に操作するために設計した。<BR>
- * 拡大縮小1.0倍（スケール無し）は、本クラスでのスケール値1000に
+ * 点滅1.0倍（スケール無し）は、本クラスでのスケール値1000に
  * 相当する。以下例
  * [日本語]     → [本クラスのスケール値]
  * 等倍         → 1000
@@ -20,14 +15,14 @@ namespace GgafDx9Core {
  * 半分の大きさ → 500
  * 縮小率80%    → 800
  * 本クラスでは、スケールとスケーリングという単語を次の意味で使用している箇所がある。
- * スケール･･･現在（のフレーム）の拡大縮小状態
- * スケーリング･･･フレーム間の拡大縮小状態の遷移
+ * スケール･･･現在（のフレーム）の点滅状態
+ * スケーリング･･･フレーム間の点滅状態の遷移
  * 2009/05/22 GgafDx9GeometryMover から分割した。
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
-class GgafDx9GeometryScaler : public GgafCore::GgafObject {
+class GgafDx9TextureBlinker : public GgafCore::GgafObject {
 
 public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     /** 対象アクター */
@@ -53,19 +48,19 @@ public: //_SX , _SY, _SZ 操作関連 //////////////////////////////////////////////
     DWORD _beat_spend_frame[3];
     /** スケーリングを開始したフレーム */
     DWORD _beat_begin_frame[3];
-    /** ループカウント（2で拡大縮小ワンセット、1ならば拡大or縮小の片道） */
+    /** ループカウント（2で点滅ワンセット、1ならば拡大or縮小の片道） */
     int _one_way_cnt[3];
     /** ストップする予定のループカウント */
     int _stop_one_way_num[3];
     /** スケーリング方法 */
-    GgafDx9ScaleMethod _method[3];
+    GgafDx9BlinkerMethod _method[3];
 
 public:
     /**
      * コンストラクタ<BR>
      * @param   prm_pActor  適用対象のActor
      */
-    GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9TextureBlinker(GgafDx9GeometricActor* prm_pActor);
 
     /**
      * スケールを相対指定（全軸指定）
@@ -141,7 +136,7 @@ public:
     }
     /**
      * スケールをリセット （全軸指定） .
-     * 本オブジェクト(GgafDx9GeometryScaler)によって変化さえる前の
+     * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
      * 初期の大きさに戻す。
      */
     void resetScale() {
@@ -151,7 +146,7 @@ public:
     }
     /**
      * スケールをリセット （軸単位で指定）
-     * 本オブジェクト(GgafDx9GeometryScaler)によって変化さえる前の
+     * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
      * 初期の大きさに戻す。
      * @param prm_axis 軸
      */
@@ -304,9 +299,9 @@ public:
      */
     virtual void behave();
 
-    virtual ~GgafDx9GeometryScaler();
+    virtual ~GgafDx9TextureBlinker();
 };
 
 }
-#endif /*GGAFDX9GEOMETRYSCALER_H_*/
+#endif /*GGAFDX9TEXTUREBLINKER_H_*/
 
