@@ -21,7 +21,7 @@ void MyCurveLaserChip001::initialize() {
     registHitAreaCube(60000);
 
     setHitAble(true);
-    _SX = _SY = _SZ = 100*1000;
+    _SX = _SY = _SZ = 200*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;
     int renge = 100000;
@@ -46,7 +46,11 @@ void MyCurveLaserChip001::onActive() {
     _veloCurve = 1000;
 
     if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-        _is_lockon = true;
+        if (_pChip_front == NULL) {
+            _is_lockon = true;
+        } else {
+            _is_lockon = ((MyCurveLaserChip001*)_pChip_front)->_is_lockon;
+        }
 //        _pMover->execTagettingMvAngSequence(_pOrg->_pLockOnTarget,
 //                                                   1000, 0,
 //                                                   TURN_CLOSE_TO);
@@ -98,9 +102,9 @@ void MyCurveLaserChip001:: processBehavior() {
                     _pMover->setVzMvAcce(dz/200);
                 }
 
-                asobiX = asobiX * 0.5;
-                asobiY = asobiY * 0.5;
-                asobiZ = asobiZ * 0.5;
+                asobiX = asobiX * 0.7;
+                asobiY = asobiY * 0.7;
+                asobiZ = asobiZ * 0.7;
 
             } else {
                 _is_lockon = false;
@@ -111,12 +115,14 @@ void MyCurveLaserChip001:: processBehavior() {
         }
     } else {
         //非ロックオン
-        if (1 < _dwActiveFrame && _dwActiveFrame < 180) {
-            //出だし
+        if (1 < _dwActiveFrame && _dwActiveFrame < 60) {
+            asobiX = asobiX * 0.9;
+            asobiY = asobiY * 0.9;
+            asobiZ = asobiZ * 0.9;
         } else {
-            asobiX = asobiX * 0.5;
-            asobiY = asobiY * 0.5;
-            asobiZ = asobiZ * 0.5;
+            asobiX = asobiX * 0.7;
+            asobiY = asobiY * 0.7;
+            asobiZ = asobiZ * 0.7;
         }
         //_pMover->setMvVelo(80000);
     }

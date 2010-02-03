@@ -26,7 +26,6 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyCurveLaserChip001* pChip;
     for (int i = 0; i < 80; i++) { //レーザーストック
-        Sleep(2); //工場に気を使う。
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();

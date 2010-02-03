@@ -45,7 +45,7 @@ public:
 
     void onInactive() override;
 
-    int isOutOfGameSpace() override;
+    bool isOutOfGameSpace() override;
 
     virtual ~EnemyAstraea();
 };

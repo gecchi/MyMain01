@@ -42,7 +42,7 @@ public:
         return false;
     }
 
-    int isOutOfGameSpace() override {
+    bool isOutOfGameSpace() override {
         return false;
     }
 

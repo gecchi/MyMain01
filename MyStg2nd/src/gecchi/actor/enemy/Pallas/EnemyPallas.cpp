@@ -54,7 +54,7 @@ void EnemyPallas::onHit(GgafActor* prm_pOtherActor) {
     adios();
 }
 
-int EnemyPallas::isOutOfGameSpace() {
+bool EnemyPallas::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 100000) {
         return true;
     } else {

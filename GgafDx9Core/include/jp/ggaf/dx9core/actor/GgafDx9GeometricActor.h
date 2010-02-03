@@ -137,7 +137,7 @@ public:
      */
     virtual int isOffscreen();
 
-    virtual int isOutOfGameSpace();
+    virtual bool isOutOfGameSpace();
 
     virtual void setGeometry(int X, int Y, int Z) {
         _X = X;

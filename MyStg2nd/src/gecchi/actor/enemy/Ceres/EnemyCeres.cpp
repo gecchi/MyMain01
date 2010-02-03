@@ -155,7 +155,7 @@ void EnemyCeres::onInactive() {
     adios();
 }
 
-int EnemyCeres::isOutOfGameSpace() {
+bool EnemyCeres::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 20000000) {
         return true;
     } else {

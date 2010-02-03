@@ -20,7 +20,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
-    int isOutOfGameSpace() override;
+    bool isOutOfGameSpace() override;
 
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ

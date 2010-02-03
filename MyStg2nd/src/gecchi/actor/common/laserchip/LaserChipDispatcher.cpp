@@ -22,7 +22,7 @@ void LaserChipDispatcher::processBehavior() {
 }
 
 LaserChip* LaserChipDispatcher::employ() {
-    if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、5フレーム弾切れにする。
+    if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
         _frame_of_active_prev_employ = 0;

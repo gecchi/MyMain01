@@ -18,7 +18,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    int isOutOfGameSpace() override;
+    bool isOutOfGameSpace() override;
 
     virtual ~EnemyJuno();
 };

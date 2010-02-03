@@ -248,7 +248,7 @@ void EnemyAstraea::onInactive() {
 }
 
 
-int EnemyAstraea::isOutOfGameSpace() {
+bool EnemyAstraea::isOutOfGameSpace() {
     if (_X < GgafDx9Camera::_X_ScreenLeft - 300000) {
         return true;
     } else {

@@ -47,7 +47,7 @@ void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     adios();
 }
 
-int EnemyJuno::isOutOfGameSpace() {
+bool EnemyJuno::isOutOfGameSpace() {
     if (_Z < -1000000) {
         return true;
     } else {
