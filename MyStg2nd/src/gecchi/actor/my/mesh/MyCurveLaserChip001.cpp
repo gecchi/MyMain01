@@ -64,46 +64,60 @@ void MyCurveLaserChip001::onActive() {
 void MyCurveLaserChip001:: processBehavior() {
     int asobiX,asobiY,asobiZ;
     if (_pChip_front) {
-        asobiX = abs(_pChip_front->_pMover->_veloVxMv -_pMover->_veloVxMv) / 2;
-        asobiY = abs(_pChip_front->_pMover->_veloVyMv -_pMover->_veloVyMv) / 2;
-        asobiZ = abs(_pChip_front->_pMover->_veloVzMv -_pMover->_veloVzMv) / 2;
+        asobiX = abs(_pChip_front->_pMover->_veloVxMv -_pMover->_veloVxMv);
+        asobiY = abs(_pChip_front->_pMover->_veloVyMv -_pMover->_veloVyMv);
+        asobiZ = abs(_pChip_front->_pMover->_veloVzMv -_pMover->_veloVzMv);
     }
 
-    if (_is_lockon && 1 < _dwActiveFrame && _dwActiveFrame < 300) {
-        if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
+    if (_is_lockon) {
+        if (1 < _dwActiveFrame && _dwActiveFrame < 180) {
+            if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
 
-            int dx = _pOrg->_pLockOnTarget->_X - _X;
-            int dy = _pOrg->_pLockOnTarget->_Y - _Y;
-            int dz = _pOrg->_pLockOnTarget->_Z - _Z;
+                int dx = _pOrg->_pLockOnTarget->_X - _X;
+                int dy = _pOrg->_pLockOnTarget->_Y - _Y;
+                int dz = _pOrg->_pLockOnTarget->_Z - _Z;
+                if (-_slow_renge < dx && dx < _slow_renge) {
+                    _pMover->setVxMvAcce(dx/1000); //速度を0にしない為の措置
+                    _pMover->_veloVxMv *= 0.6;
+                } else {
+                    _pMover->setVxMvAcce(dx/200);
+                    //_TRACE_("dx="<<dx);
+                }
 
-            if (-_slow_renge < dx && dx < _slow_renge) {
-                _pMover->setVxMvAcce(0);
-                _pMover->_veloVxMv *= 0.6;
+                if (-_slow_renge < dy && dy < _slow_renge) {
+                    _pMover->setVyMvAcce(dy/1000);
+                    _pMover->_veloVyMv *= 0.6;
+                } else {
+                    _pMover->setVyMvAcce(dy/200);
+                }
+
+                if (-_slow_renge < dz && dz < _slow_renge) {
+                    _pMover->setVzMvAcce(dz/1000);
+                    _pMover->_veloVzMv *= 0.6;
+                } else {
+                    _pMover->setVzMvAcce(dz/200);
+                }
+
+                asobiX = asobiX * 0.5;
+                asobiY = asobiY * 0.5;
+                asobiZ = asobiZ * 0.5;
+
             } else {
-                _pMover->setVxMvAcce(dx/200);
-                //_TRACE_("dx="<<dx);
+                _is_lockon = false;
+                _pOrg->_pLockOnTarget = NULL;
             }
-
-            if (-_slow_renge < dy && dy < _slow_renge) {
-                _pMover->setVyMvAcce(0);
-                _pMover->_veloVyMv *= 0.6;
-            } else {
-                _pMover->setVyMvAcce(dy/200);
-            }
-
-            if (-_slow_renge < dz && dz < _slow_renge) {
-                _pMover->setVzMvAcce(0);
-                _pMover->_veloVzMv *= 0.6;
-            } else {
-                _pMover->setVzMvAcce(dz/200);
-            }
-
-
-
         } else {
-            _pOrg->_pLockOnTarget = NULL;
+
         }
     } else {
+        //非ロックオン
+        if (1 < _dwActiveFrame && _dwActiveFrame < 180) {
+            //出だし
+        } else {
+            asobiX = asobiX * 0.5;
+            asobiY = asobiY * 0.5;
+            asobiZ = asobiZ * 0.5;
+        }
         //_pMover->setMvVelo(80000);
     }
 

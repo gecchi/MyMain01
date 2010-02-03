@@ -14,8 +14,9 @@ float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
-float g_Blinker;   
 
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 //texture g_diffuseMap;
 //sampler MyTextureSampler = sampler_state {

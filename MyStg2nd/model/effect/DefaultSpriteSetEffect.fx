@@ -7,6 +7,8 @@
 
 float4x4 g_matView;   //View•ÏŠ·s—ñ
 float4x4 g_matProj;   //Ë‰e•ÏŠ·s—ñ
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 
 float4x4 g_matWorld001;

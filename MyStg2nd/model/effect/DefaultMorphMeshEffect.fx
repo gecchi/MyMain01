@@ -21,6 +21,8 @@ float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

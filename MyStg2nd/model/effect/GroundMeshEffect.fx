@@ -8,7 +8,8 @@ float4 g_LightDiffuse;
 
 float4 g_MaterialDiffuse;
 
-float g_Blinker;   
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 sampler MyTextureSampler : register(s0);
 

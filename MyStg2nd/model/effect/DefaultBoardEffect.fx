@@ -15,6 +15,8 @@ float g_view_width; //画面幅(px)
 float g_view_height; //画面高さ(px)
 float g_sx;
 float g_sy;
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

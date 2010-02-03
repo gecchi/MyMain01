@@ -11,7 +11,7 @@ EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name
 }
 
 void EnemyShot001::initialize() {
-    setAnimationMethod(ORDER_LOOP, 1);
+    setAnimationMethod(ANIMATE_ORDER_LOOP, 1);
     _pMover->setMvVelo(3000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);

@@ -11,7 +11,7 @@ MyShot001::MyShot001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "mo
 }
 
 void MyShot001::initialize() {
-    setAnimationMethod(OSCILLATE_LOOP, 2);
+    setAnimationMethod(ANIMATE_OSCILLATE_LOOP, 2);
 
     _pMover->setRzMvAngVelo(0);
     //_pMover->setFaceAngVelo(AXIS_Z, 2 * 1000);

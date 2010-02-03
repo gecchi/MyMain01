@@ -13,7 +13,7 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm
 }
 
 void EnemyShotSpriteActor::initialize() {
-    setAnimationMethod(ORDER_LOOP, 1);
+    setAnimationMethod(ANIMATE_ORDER_LOOP, 1);
     setHitAble(true);
 }
 

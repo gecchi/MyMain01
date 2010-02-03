@@ -15,7 +15,7 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 
 void EffectLockOn001::initialize() {
     setAnimationPatternRenge(0, 15);   //アニメ範囲を０～１５
-    setAnimationMethod(ORDER_LOOP, 3); //アニメ順序
+    setAnimationMethod(ANIMATE_ORDER_LOOP, 3); //アニメ順序
 
 }
 

@@ -11,6 +11,8 @@ float4x4 g_matProj;   //射影変換行列
 float g_hAlpha; //α
 float g_offsetU; //テクスチャU座標増分
 float g_offsetV; //テクスチャV座標増分
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);

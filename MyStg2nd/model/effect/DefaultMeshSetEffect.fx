@@ -13,6 +13,8 @@
 
 int g_nVertexs;
 float g_zf;
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 // ライトの方向
 float3 g_LightDirection;
@@ -164,8 +166,8 @@ float4 GgafDx9PS_DefaultMeshSet(
 	out_color =  g_LightDiffuse * prm_col * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
-	if (tex_color.r == 1.0f || tex_color.g == 1.0f || tex_color.b == 1.0f) {
-		out_color = tex_color + out_color;// * g_Blinker; //g_Blinkerは-1.0～1.0のCOS波。アンビエントが0.3なので大体で４ぐらいに
+	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
+		out_color = out_color + (tex_color * g_PowerBlink);
 	}
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα

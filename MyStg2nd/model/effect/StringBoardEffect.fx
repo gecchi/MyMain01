@@ -6,6 +6,8 @@
 ////////////////////////////////////////////////////////////////////////////////
 float g_view_width; //画面幅(px)
 float g_view_height; //画面高さ(px)
+float g_PowerBlink;   
+float g_BlinkThreshold;
 
 //float g_offsetU; //テクスチャU座標増分
 //float g_offsetV; //テクスチャV座標増分
