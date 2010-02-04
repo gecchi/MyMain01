@@ -102,7 +102,11 @@ void GgafDx9BoardModel::restore() {
 void GgafDx9BoardModel::release() {
     TRACE3("GgafDx9BoardModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
-    _papTextureCon[0]->close();
+    if (_papTextureCon) {
+        if (_papTextureCon[0]) {
+            _papTextureCon[0]->close();
+        }
+    }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか

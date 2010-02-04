@@ -160,7 +160,7 @@ void GgafDx9MorphMeshModel::release() {
     //テクスチャを解放
     if (_papTextureCon) {
         for (DWORD i = 0; i < _dwNumMaterials; i++) {
-            if (_papTextureCon[i] != NULL) {
+            if (_papTextureCon[i]) {
                 _papTextureCon[i]->close();
             }
         }

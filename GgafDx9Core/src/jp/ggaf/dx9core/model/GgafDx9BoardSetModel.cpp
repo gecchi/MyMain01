@@ -122,7 +122,9 @@ void GgafDx9BoardSetModel::release() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DIndexBuffer9);
     if (_papTextureCon) {
-        _papTextureCon[0]->close();
+        if (_papTextureCon[0]) {
+            _papTextureCon[0]->close();
+        }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);

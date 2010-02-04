@@ -118,8 +118,9 @@ void GgafDx9D3DXMeshModel::release() {
     }
     //テクスチャを解放
     if (_papTextureCon) {
-        for (DWORD i = 0; i < _dwNumMaterials; i++) {
-            if (_papTextureCon[i] != NULL) {
+        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+            if (_papTextureCon[i]) {
+                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
                 _papTextureCon[i]->close();
             }
         }

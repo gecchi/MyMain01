@@ -212,13 +212,14 @@ void GgafDx9D3DXAniMeshModel::release() {
 //    if (_pID3DXAniMesh == NULL) {
 //        throwGgafCriticalException("[GgafDx9D3DXAniMeshModel::release] Error! _pID3DXAniMeshが オブジェクトになっていないため release できません！");
 //    }
-    //テクスチャを解放
-    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        if (_papTextureCon[i] != NULL) {
-            _papTextureCon[i]->close();
+    if (_papTextureCon) {
+        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+            if (_papTextureCon[i]) {
+                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
+                _papTextureCon[i]->close();
+            }
         }
     }
-
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //テクスチャの配列
 //    RELEASE_IMPOSSIBLE_NULL(_pID3DXAniMesh);
 

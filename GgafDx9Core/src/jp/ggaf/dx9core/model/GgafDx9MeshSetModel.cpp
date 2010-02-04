@@ -154,9 +154,10 @@ void GgafDx9MeshSetModel::release() {
     TRACE3("GgafDx9MeshSetModel::release() " << _model_name << " start");
 
     //テクスチャを解放
-    for (DWORD i = 0; i < _dwNumMaterials; i++) {
-        if (_papTextureCon) {
-            if (_papTextureCon[i] != NULL) {
+    if (_papTextureCon) {
+        for (int i = 0; i < (int)_dwNumMaterials; i++) {
+            if (_papTextureCon[i]) {
+                TRACE3("close() _papTextureCon["<<i<<"]->"<<(_papTextureCon[i]->getIdStr()));
                 _papTextureCon[i]->close();
             }
         }
