@@ -20,8 +20,10 @@ class GgafResourceManager : public GgafObject {
     friend class GgafResourceConnection<T>;
 
 private:
-    static volatile bool _is_finding_resource;
-
+    /** connect中はtrueの排他フラグ */
+    static volatile bool _is_connecting_resource;
+    /** connectするために待っているフラグ */
+    static volatile bool _is_waiting_to_connect;
 
     /**
      * GgafResourceConnectionオブジェクトをリストに追加。<BR>
@@ -127,34 +129,31 @@ public:
 
 
 template<class T>
-volatile bool GgafResourceManager<T>::_is_finding_resource = false;
+volatile bool GgafResourceManager<T>::_is_connecting_resource = false;
+
+template<class T>
+volatile bool GgafResourceManager<T>::_is_waiting_to_connect = false;
 
 template<class T>
 GgafResourceManager<T>::GgafResourceManager(const char* prm_manager_name) : GgafObject(),
       _manager_name(prm_manager_name) {
     TRACE3("GgafResourceManager<T>::GgafResourceManager(" << prm_manager_name << ")");
     _pFirstConnection = NULL;
-    _is_finding_resource = false;
+    _is_connecting_resource = false;
+    _is_waiting_to_connect = false;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::find(char* prm_idstr) {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
 
-    //TODO:簡易的な排他。完全ではない。
-    while(GgafResourceConnection<T>::_is_closeing_resource) {
-        Sleep(1);
-    }
-    _is_finding_resource = true;
     while (pCurrent != NULL) {
         //_TRACE_("pCurrent->_idstr -> "<<(pCurrent->_idstr)<<" prm_idstr="<<prm_idstr);
         if (GgafUtil::strcmp_ascii(pCurrent->_idstr, prm_idstr) == 0) {
-            _is_finding_resource = false;
             return pCurrent;
         }
         pCurrent = pCurrent->_pNext;
     }
-    _is_finding_resource = false;
     return NULL;
 }
 
@@ -175,10 +174,29 @@ void GgafResourceManager<T>::add(GgafResourceConnection<T>* prm_pResource_New) {
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
+
     if (prm_idstr == NULL) {
         TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
-    GgafResourceConnection<T>* pObj = find(prm_idstr);
+    if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
+        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本に子て下さい。")
+    }
+
+    //TODO:簡易的な排他。完全ではない。
+    GgafResourceConnection<T>* pObj = NULL;
+    while(GgafResourceConnection<T>::_is_closing_resource) {
+        _is_waiting_to_connect = true;
+        Sleep(1);
+        _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect() 待機中・・・");
+    }
+    //TODO:
+    //close()中に、別スレッドでconnect()すると。
+    //困った事に、非常にシビアなタイミングでメモリを破壊する恐れが残っている。
+    //完全対応すは後回し。
+
+    _is_waiting_to_connect = false;
+    _is_connecting_resource = true;
+    pObj = find(prm_idstr);
     if (pObj == NULL) {
         //未生成ならば生成。接続カウンタを１
         T* pResource = createResource(prm_idstr);
@@ -186,11 +204,13 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         pObj->_num_connection = 1;
         add(pObj);
         TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "は無いので、新規作成して保持に決定");
+        _is_connecting_resource = false;
         return pObj;
     } else {
         //生成済みならそれを返す。接続カウンタを＋１
         pObj->_num_connection++;
         TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "はあるので接続カウント＋１." << pObj->_num_connection);
+        _is_connecting_resource = false;
         return pObj;
     }
 }

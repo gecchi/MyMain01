@@ -30,8 +30,9 @@ private:
     int _num_connection;
     /** 使いまわす大事な資源 */
     T* _pResource;
+    /** close中はtrueの排他フラグ */
+    static volatile bool _is_closing_resource;
 
-    static volatile bool _is_closeing_resource;
 protected:
     /** 資源マネジャー */
     GgafResourceManager<T>* _pManager;
@@ -46,10 +47,9 @@ protected:
      */
     GgafResourceConnection(char* prm_idstr, T* prm_pResource);
 
-
     /**
      * デストラクタ<BR>
-     * protected である理由は、delete を this->Release() のみでに限定したため<BR>
+     * protected である理由は、new と delete の強制。開放を close() 使用を強制<BR>
      */
     virtual ~GgafResourceConnection() {
     }
@@ -94,7 +94,7 @@ public:
 
 /////////////////////////////////// 実装部 /////
 template<class T>
-volatile bool GgafResourceConnection<T>::_is_closeing_resource = false;
+volatile bool GgafResourceConnection<T>::_is_closing_resource = false;
 
 template<class T>
 char* GgafResourceConnection<T>::getIdStr() {
@@ -110,7 +110,7 @@ GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
     TRACE3("GgafResourceConnection::GgafResourceConnection(prm_idstr = " <<  prm_idstr << ")");
-    _is_closeing_resource = false;
+    _is_closing_resource = false;
     _pResource = prm_pResource;
     _pNext = NULL;
     _pManager = NULL;
@@ -126,21 +126,31 @@ T* GgafResourceConnection<T>::view() {
 
 template<class T>
 int GgafResourceConnection<T>::close() {
+    if (_is_closing_resource == true) {
+        throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
+                                   "現在close()中にもかかわらず、close()しました。connectのスレッドを１本に子て下さい。")
+    }
+
     if (_num_connection <= 0) {
-        TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
+        TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection] ＜警告＞既にコネクションは無いにもかかわらず、close() しようとしてます。");
         TRACE3("何も行なわずreturnしますが、意図的でない場合は何かがおかしいでしょう。リークの可能\性が大。調査すべし！");
         return _num_connection;
     }
+
+
+
 
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
 
     //TODO:簡易的な排他。完全ではない。
-    while(GgafResourceManager<T>::_is_finding_resource) {
+    while(GgafResourceManager<T>::_is_connecting_resource) {
         Sleep(1);
+        _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()しようとして、待機中・・・");
     }
+    _is_closing_resource = true;
 
-    _is_closeing_resource = true;
+
     pCurrent = _pManager->_pFirstConnection;
     pPrev = NULL;
     while (pCurrent != NULL) {
@@ -186,7 +196,7 @@ int GgafResourceConnection<T>::close() {
             pCurrent = pCurrent->_pNext;
         }
     }
-    _is_closeing_resource = false;
+
 
     if (_num_connection == 0) {
         T* r = pCurrent->view();
@@ -194,10 +204,24 @@ int GgafResourceConnection<T>::close() {
             TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //本当の解放 processReleaseResource[" << _idstr << "←" << _num_connection <<"]");
             pCurrent->processReleaseResource(r); //本当の解放
         }
-        delete[] _idstr;
-        delete this;
-        return 0;
+
+
+        if (GgafResourceManager<T>::_is_waiting_to_connect) {
+            //別スレッドでconnet()待ち状態に入っていれば開放しない。
+            _is_closing_resource = false;
+            return 0;
+        } else {
+            //別スレッドでconnet()待ち状態ではないので開放しよう。
+            delete[] _idstr;
+            delete this;
+            if (GgafResourceManager<T>::_is_waiting_to_connect) {
+                _TRACE_("＜どうしようも無い警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか！");
+            }
+            _is_closing_resource = false;
+            return 0;
+        }
     } else {
+        _is_closing_resource = false;
         return _num_connection;
     }
 }
