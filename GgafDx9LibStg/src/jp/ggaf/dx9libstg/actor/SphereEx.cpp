@@ -11,15 +11,15 @@ SphereEx::SphereEx(const char* prm_name) : GgafDx9SphereEx(prm_name) {
 }
 
 SphereEx* SphereEx::get() {
-    if (_pObj == NULL) {
-        _pObj = NEW SphereEx("HITAREA");
+    if (SphereEx::_pObj == NULL) {
+        SphereEx::_pObj = NEW SphereEx("HITAREA");
     }
-    return _pObj;
+    return SphereEx::_pObj;
 }
 
 void SphereEx::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとNULLかもしれない
-    DELETE_POSSIBLE_NULL(_pObj);
+    DELETE_POSSIBLE_NULL(SphereEx::_pObj);
 }
 
 void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {

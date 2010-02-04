@@ -6,6 +6,11 @@ using namespace GgafDx9LibStg;
 
 DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
     _class_name = "DefaultUniverse";
+#ifdef MY_DEBUG
+    CubeEx::get();   //当たり判定領域表示用直方体、プリロード
+    SphereEx::get(); //当たり判定領域表示用球、プリロード
+#endif
+
     _pLinearOctree = NEW LinearOctreeForActor(6);
     _pLinearOctree->setRootSpace(-8000000 ,-8000000 ,-8000000 ,8000000 ,8000000 ,8000000);
 //
@@ -115,6 +120,9 @@ void DefaultUniverse::processFinal() {
 DefaultUniverse::~DefaultUniverse() {
 #ifdef MY_DEBUG
     _pLinearOctree->putTree();
+
+    CubeEx::release();
+    SphereEx::release();
 #endif
     DELETE_IMPOSSIBLE_NULL(_pLinearOctree);
 

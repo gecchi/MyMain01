@@ -11,15 +11,15 @@ CubeEx::CubeEx(const char* prm_name) : GgafDx9CubeEx(prm_name) {
 }
 
 CubeEx* CubeEx::get() {
-    if (_pObj == NULL) {
-        _pObj = NEW CubeEx("HITAREA");
+    if (CubeEx::_pObj == NULL) {
+        CubeEx::_pObj = NEW CubeEx("HITAREA");
     }
-    return _pObj;
+    return CubeEx::_pObj;
 }
 
 void CubeEx::release() {
     //あたり判定を持つオブジェクトが一度も使用されないとNULLかもしれない
-    DELETE_POSSIBLE_NULL(_pObj);
+    DELETE_POSSIBLE_NULL(CubeEx::_pObj);
 }
 
 void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
