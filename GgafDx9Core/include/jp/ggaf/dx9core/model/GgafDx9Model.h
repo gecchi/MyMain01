@@ -42,6 +42,8 @@ public:
     /** 点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
     DWORD _frame_blinker;
+    /** モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
+    bool _is_init_model;
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。

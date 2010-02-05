@@ -41,6 +41,11 @@ GgafDx9BoardSetModel::GgafDx9BoardSetModel(char* prm_model_name) : GgafDx9Model(
 //•`‰æ
 HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9BoardSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        _is_init_model = true;
+    }
+
     //‘ÎÛActor
     static GgafDx9BoardSetActor* pTargetActor;
     pTargetActor = (GgafDx9BoardSetActor*)prm_pActor_Target;

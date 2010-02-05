@@ -15,6 +15,9 @@ public:
 
     GgafDx9CubeEx(const char* prm_name);
 
+    virtual void onCreateModel() override {
+    }
+
     virtual void initialize() override {
     }
 

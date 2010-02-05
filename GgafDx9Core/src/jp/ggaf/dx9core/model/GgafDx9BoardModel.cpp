@@ -22,6 +22,11 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_model_name) :
 }
 
 HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        _is_init_model = true;
+    }
+
     TRACE4("GgafDx9BoardModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     //TODO ƒNƒŠƒA‚·‚é‚©‚Ç‚¤‚©
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);

@@ -42,6 +42,10 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
 //•`‰æ
 HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9SpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        _is_init_model = true;
+    }
     //‘ÎÛActor
     static GgafDx9SpriteSetActor* pTargetActor;
     pTargetActor = (GgafDx9SpriteSetActor*)prm_pActor_Target;

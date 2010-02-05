@@ -197,6 +197,12 @@ public:
 
     void playSe2();
 
+    /**
+     * モデルが生成された時の処理 .
+     * モデルオブジェクトが new された場合に１回だけ呼び出します。
+     * モデル単位で設定したい処理をオーバーライドして下さい。
+     */
+    virtual void onCreateModel() = 0;
 
     virtual ~GgafDx9DrawableActor(); //デストラクタ
 };

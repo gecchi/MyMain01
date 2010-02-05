@@ -46,7 +46,10 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
 //描画
 HRESULT GgafDx9MeshSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MeshSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
+        _is_init_model = true;
+    }
     //対象アクター
     static GgafDx9MeshSetActor* pTargetActor;
     pTargetActor = (GgafDx9MeshSetActor*)prm_pActor_Target;

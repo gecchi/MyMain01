@@ -53,6 +53,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pSeCon = NULL;
     _pSe = NULL;
+
 }
 
 
@@ -132,7 +133,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
         _papSeCon[i] = NULL;
         _papSe[i] = NULL;
     }
-
 
     _pSeCon = NULL;
     _pSe = NULL;

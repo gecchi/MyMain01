@@ -53,7 +53,10 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
 
 HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
+        _is_init_model = true;
+    }
     //対象アクター
     static GgafDx9MorphMeshActor* pTargetActor;
     pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;

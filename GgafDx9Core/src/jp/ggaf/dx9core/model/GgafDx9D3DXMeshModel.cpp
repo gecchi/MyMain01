@@ -16,6 +16,10 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
 
 HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
+    if (_is_init_model == false) {
+        prm_pActor_Target->onCreateModel(); //モデル作成時の初期処理
+        _is_init_model = true;
+    }
     GgafDx9D3DXMeshActor* pTargetActor;
     //対象アクター
     pTargetActor = (GgafDx9D3DXMeshActor*)prm_pActor_Target;
