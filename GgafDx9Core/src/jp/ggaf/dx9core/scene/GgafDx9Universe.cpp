@@ -36,6 +36,13 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 }
 
 void GgafDx9Universe::draw() {
+    GgafDx9ModelConnection* pModelCon = GgafDx9God::_pModelManager->getFirstConnection();
+    while (pModelCon != NULL) {
+        pModelCon->view()->_pTextureBlinker->behave();
+        pModelCon = (GgafDx9ModelConnection*)(pModelCon->getNext());
+    }
+
+
     //段階レンダリング不要（最深部等、背景、最善面の文字等）の描画。
     //※TODO:本来は手前から描画のほうが効率良い。が、その内最適化
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;

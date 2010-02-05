@@ -131,7 +131,8 @@ public:
      * 片道等速点滅（全軸・色強度速度指定） .
      * 目標の色強度へ一定速度で点滅する
      * @param prm_target_fPowerBlink 目標色強度
-     * @param prm_velo_fPowerBlink 毎フレーム加算する色強度差分(>0.0)。正の色強度を指定する事。加算か減算かは自動判断する。
+     * @param prm_velo_fPowerBlink 毎フレーム加算する色強度差分(>0.0)。正の色強度差分を指定する事。
+     *                             色強度の加算か減算かは現在の色強度より目標色強度が高いか低いかで自動判断する。
      */
     void intoTargetBlinkLinerStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink);
 
@@ -139,7 +140,7 @@ public:
      * 片道加速点滅（全軸・色強度速度・色強度加速度指定） .
      * 目標の色強度へ加速指定で点滅する
      * 色強度加速度を0に指定すると intoTargetBlinkLinerStep とほぼ同じ意味になる。
-     * intoTargetBlinkLinerStep の第３引数は正負を気にすること無いが、本メソッドは正負の自動判定はしない（できない）。
+     * intoTargetBlinkLinerStep の第２引数は正負を気にすること無いが、本メソッドは正負の自動判定はしないので注意して設定せよ。
      * @param prm_target_fPowerBlink 目標色強度
      * @param prm_velo_fPowerBlink 初期色強度速度
      * @param prm_acce_fPowerBlink 色強度加速度
@@ -147,8 +148,9 @@ public:
     void intoTargetBlinkAcceStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink, float prm_acce_fPowerBlink);
 
     /**
-     * 反復等速点滅（全軸・フレーム数指定） .
-     * 目標の色強度へ一定速度で点滅し、一定速度で元に戻る。これをループ指定する。（１ループのフレーム数指定） .
+     * 反復等速点滅 .
+     * 目標の色強度上限（_top_fPowerBlink）へ一定速度で光り、一定速度で色強度下限（_bottom_fPowerBlink）元に戻る。
+     * これを１ループとし、費やすフレーム数を指定する。
      * @param prm_beat_spend_frame １ループ(変化して元に戻るまで)に費やすフレーム
      * @param prm_beat_num ループする回数(0.5 回単位で指定可能)
      */
@@ -172,8 +174,8 @@ public:
      * ① １ループのフレーム数<BR>
      * ② アタックまでのフレーム数<BR>
      * ③ 休憩フレーム数<BR>
-     * ④ 色強度上限(_top_fPowerBlink[軸] 配列が保持)<BR>
-     * ⑤ 色強度下限(_bottom_fPowerBlink[軸] 配列が保持)<BR>
+     * ④ 色強度上限(_top_fPowerBlinkが保持)<BR>
+     * ⑤ 色強度下限(_bottom_fPowerBlinkが保持)<BR>
      * <BR>
      * @param prm_beat_spend_frame 上図で①のフレーム数
      * @param prm_attack_frame 上図で②のフレーム数

@@ -15,6 +15,9 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _max_radius = 0;
     _fPowerBlink = -1.0f;
     _fBlinkThreshold = 1.1f;
+    _frame_blinker = 0;
+    _pTextureBlinker = NEW GgafDx9TextureBlinker(this);
+
     TRACE3("GgafDx9Model::GgafDx9Model(" << prm_model_name << ") _id="<<_id);
 }
 

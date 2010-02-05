@@ -158,6 +158,10 @@ public:
 
     virtual ~GgafDx9ModelManager();
 
+
+    GgafDx9ModelConnection* getFirstConnection() {
+        return (GgafDx9ModelConnection*)_pFirstConnection;
+    }
     //
     //	/**
     //	 * GgafDx9Modelオブジェクトのリストをすべて delete を行う。<BR>

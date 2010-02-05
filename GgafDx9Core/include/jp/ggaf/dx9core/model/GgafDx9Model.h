@@ -29,7 +29,7 @@ public:
 
     /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
     FLOAT _max_radius;
-    /** 点滅強度 (0.0 <= _fblink <= 1.0) */
+    /** 点滅強度 (0.0 <= _fblink <= 1.0)、GgafDx9TextureBlinkerにより操作出来る */
     FLOAT _fPowerBlink;
     /** 点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0) */
     FLOAT _fBlinkThreshold;
@@ -39,7 +39,9 @@ public:
 
     /** テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
-
+    /** 点滅操作支援オブジェクト */
+    GgafDx9TextureBlinker* _pTextureBlinker;
+    DWORD _frame_blinker;
     /**
      * コンストラクタ<BR>
      * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
