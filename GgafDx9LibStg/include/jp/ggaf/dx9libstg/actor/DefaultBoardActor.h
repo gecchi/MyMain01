@@ -14,6 +14,9 @@ class DefaultBoardActor : public GgafDx9Core::GgafDx9BoardActor {
 public:
     DefaultBoardActor(const char* prm_name, const char* prm_model);
 
+    virtual void onCreateModel() override {
+    }
+
     virtual void initialize() override {
     }
 

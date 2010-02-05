@@ -22,6 +22,9 @@ public:
 
     DefaultD3DXAniMeshActor(const char* prm_name, const char* prm_model);
 
+    virtual void onCreateModel() override {
+    }
+
     virtual void initialize() override {
     }
 
