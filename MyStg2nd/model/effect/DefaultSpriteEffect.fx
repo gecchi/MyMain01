@@ -51,10 +51,20 @@ OUT_VS GgafDx9VS_DefaultSprite(
 float4 GgafDx9PS_DefaultSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv) * g_hAlpha;
+	//テクスチャをサンプリングして色取得（原色を取得）
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
+	//求める色
+	float4 out_color; 
+	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
+		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	} else {
+		out_color = tex_color;
+	}               
+	out_color.a = tex_color.a * g_hAlpha;
+	return out_color;
 }
 
-float4 GgafDx9PS_DefaultSprite(
+float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	return tex2D( MyTextureSampler, prm_uv) * g_hAlpha * float4(7.0, 7.0, 7.0, 1.0);

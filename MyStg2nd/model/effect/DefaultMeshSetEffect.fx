@@ -167,7 +167,7 @@ float4 GgafDx9PS_DefaultMeshSet(
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color = out_color + (tex_color * g_PowerBlink);
+		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	}
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
 	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα

@@ -11,6 +11,8 @@ namespace MyStg2nd {
 class EnemyTamago01 : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
+    /** 初期処理(同クラスで全体で１回実行)フラグ */
+    static bool _is_init_class;
     /** 行動パターン番号 */
     int _iMovePatternNo;
     /** 移動スプラインプログラム */
@@ -20,6 +22,8 @@ public:
     /** 弾発射効果エフェクト */
     GgafDx9LibStg::ActorDispatcher* _pDispatcher_ShotEffect;
 
+
+
     /**
      * コンストラクタ
      * @param prm_name
@@ -27,8 +31,10 @@ public:
      */
     EnemyTamago01(const char* prm_name);
 
+
+    void initEnemyTamago01Class();
     /**
-     * イリスのが初期処理（インスタンス生成後保証）
+     * イリスの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 

@@ -5,6 +5,8 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+bool EnemyTamago01::_is_init_class = false;
+
 EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, "Flora") {
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
@@ -14,7 +16,18 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, 
     _pDispatcher_ShotEffect = NULL;
 }
 
+void EnemyTamago01::initEnemyTamago01Class() {
+    _pGgafDx9Model->_pTextureBlinker->setBlinkRange(0.1, 1.0);
+    _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
+    _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
+    _pGgafDx9Model->_fBlinkThreshold = 0.9;
+}
+
 void EnemyTamago01::initialize() {
+    if (EnemyTamago01::_is_init_class == false) {
+        initEnemyTamago01Class();
+        EnemyTamago01::_is_init_class = true;
+    }
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
     //_pMover->setFaceAngVelo(AXIS_X, 5000);
@@ -25,7 +38,7 @@ void EnemyTamago01::initialize() {
     _X = 300000;
     _Y = 300000;
     _Z = 300000;
-    _pScaler->setScale(1000);
+    _pScaler->setScale(5000);
 }
 
 void EnemyTamago01::onActive() {

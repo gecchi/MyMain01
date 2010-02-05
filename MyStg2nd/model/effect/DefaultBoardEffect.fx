@@ -57,9 +57,16 @@ float4 GgafDx9PS_DefaultBoard(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	float4 tex_color = tex2D( MyTextureSampler, prm_uv); 
+	//求める色
+	float4 out_color; 
+	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
+		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
+	} else {
+		out_color = tex_color;
+	}               
 	//α考慮
-	out_color.a = out_color.a * prm_col.a; 
+	out_color.a = out_color.a * g_alpha; 
 	return out_color;
 }
 
