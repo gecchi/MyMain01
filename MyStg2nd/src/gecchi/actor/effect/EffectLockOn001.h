@@ -23,9 +23,9 @@ public:
      */
     void processBehavior() override;
 
-
     void onActive() override;
 
+    void onInactive() override;
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */

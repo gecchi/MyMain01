@@ -93,7 +93,7 @@ void World::processBehavior() {
 
     //TODO:止めてもframeは進む＿？
     if (VB::isPushedDown(VB_PAUSE)) {
-        if (getSubFirst()->isBehaving()) {
+        if (getSubFirst()->canBehave()) {
             _TRACE_("PAUSE!");
 //            //カメラ注視方向設定
 //            pCAM->_pMover->setMvAng(
@@ -298,7 +298,7 @@ void World::processBehavior() {
     dY_VP = move_target_Y_VP - pVP->_Y;
     dZ_VP = move_target_Z_VP - pVP->_Z;
 
-    if ( getSubFirst()->isBehaving() ) {
+    if ( getSubFirst()->canBehave() ) {
 
         int cam_MvVeloRenge;//カメラ移動スピード
         int moveway_num = 0; //自機移動方向数
@@ -440,7 +440,7 @@ void World::processBehavior() {
     }
 
     //サブシーンが一時停止していれば、カメラ操作できる。
-    if ( getSubFirst()->isBehaving() ) {
+    if ( getSubFirst()->canBehave() ) {
         //スルー
     } else {
         pCAM->_pMover->_mv_ang_rz_target_flg = true;
@@ -500,7 +500,7 @@ void World::processBehavior() {
         _TRACE_("GgafDx9Universe Camera=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<")");
     }
 
-//    if ( getSubFirst()->isBehaving() ) {
+//    if ( getSubFirst()->canBehave() ) {
 //        //スルー
 //    } else {
 //        //カメラ注視方向設定

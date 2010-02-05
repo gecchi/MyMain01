@@ -27,7 +27,6 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshEnemyAct
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     _iMoveAcce_2nd = 100;
 
-    _frame_on_change_to_active_flg = 0;
     useSe1("break_glass01");
 }
 
@@ -47,7 +46,6 @@ void EnemyCeresShot001::onActive() {
     _pMover->setMvVelo(_iMvVelo_1st);
     _pMover->setMvAcce(_iMoveAcce_1st);
 
-    _frame_on_change_to_active_flg = 0;
     setHitAble(true);
 }
 
@@ -55,9 +53,8 @@ void EnemyCeresShot001::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    _frame_on_change_to_active_flg++;
     //方向転換開始
-    if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
+    if (getPartFrame() == _dwFrame_TurnBegin) {
 
         _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
                                                    _angVelo_Turn, 0,
@@ -66,7 +63,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //方向転換終了
-    if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
+    if (getPartFrame() == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
         _pMover->setRzMvAngVelo(0);
         _pMover->setRyMvAngVelo(0);
         _pMover->_mv_ang_ry_target_flg = false;
@@ -103,8 +100,8 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCeresShot001::onInactive() {
-    //ディスパッチャに戻るだけなのでadios不要？
-    //adios();
+    //ディスパッチャに戻るだけなのでsayonara不要？
+    //sayonara();
 }
 
 EnemyCeresShot001::~EnemyCeresShot001() {

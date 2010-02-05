@@ -39,13 +39,12 @@ void StraightLaserChip::onInactive() {
 void StraightLaserChip::processBehavior() {
     LaserChip::processBehavior();
 
-    _dwActiveFrame++;
     _RX = (*_pSource_RX);
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);
-    _X = (*_pSource_X) + ((*_pSource_vX) * 1.0f * _veloMv * (_dwActiveFrame-1));
-    _Y = (*_pSource_Y) + ((*_pSource_vY) * 1.0f * _veloMv * (_dwActiveFrame-1));
-    _Z = (*_pSource_Z) + ((*_pSource_vZ) * 1.0f * _veloMv * (_dwActiveFrame-1));
+    _X = (*_pSource_X) + ((*_pSource_vX) * 1.0f * _veloMv * (getPartFrame()-1));
+    _Y = (*_pSource_Y) + ((*_pSource_vY) * 1.0f * _veloMv * (getPartFrame()-1));
+    _Z = (*_pSource_Z) + ((*_pSource_vZ) * 1.0f * _veloMv * (getPartFrame()-1));
 
     //À•W‚É”½‰f
     //_pMover->behave();

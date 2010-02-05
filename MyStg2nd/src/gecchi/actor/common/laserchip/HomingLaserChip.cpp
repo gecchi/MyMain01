@@ -91,10 +91,9 @@ void HomingLaserChip::processBehavior() {
 
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
-    _dwActiveFrame++;
     //座標に反映
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
-    if (_dwActiveFrame > 1) {
+    if (getPartFrame() > 1) {
         //ActorDispatcher::employ() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると

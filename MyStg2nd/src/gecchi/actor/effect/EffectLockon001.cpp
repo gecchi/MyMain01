@@ -49,5 +49,8 @@ void EffectLockOn001::processJudgement() {
 //    }
 }
 
+void EffectLockOn001::onInactive() {
+}
+
 EffectLockOn001::~EffectLockOn001() {
 }

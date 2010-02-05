@@ -18,7 +18,6 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _pChip_behind = NULL;
     _pDispatcher = NULL; //LaserChipDispatcherの new 時に設定される。
     _chip_kind = 1;
-    _dwActiveFrame = 0;
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
     _harf_hitarea_edge_length = 0;
@@ -72,8 +71,7 @@ void LaserChip::onActive() {
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
 //            "/_is_active_flg="<<_is_active_flg);
-//    _TRACE_("LaserChip::onActive() _dwActiveFrame = 0;!!!"<<getName()<<"");
-    _dwActiveFrame = 0;
+//    _TRACE_("LaserChip::onActive() _frame_of_behaving_from_onActive = 0;!!!"<<getName()<<"");
     //出現時
     _chip_kind = 1;
     if (_pChip_front == NULL) {
@@ -154,7 +152,7 @@ void LaserChip::processPreJudgement() {
 void LaserChip::processJudgement() {
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfGameSpace()) {
-        //レーザーチップはDisprcher登録前提のため、ゲーム画面外は adios() ではなくてinactivate() にする。
+        //レーザーチップはDisprcher登録前提のため、ゲーム画面外は sayonara() ではなくてinactivate() にする。
         inactivate();
     }
     //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）

@@ -288,12 +288,12 @@ void MyDummyOption::processBehavior() {
 
 
     if (_pLockOnTarget) {
-		if (_pLockOnTarget->isOffscreen()) {
-			_pLockOnTarget = NULL;
-		} else {
-			_pEffectLockOn->setGeometry(_pLockOnTarget);
-			_pEffectLockOn->activate();
-		}
+        if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) {
+            _pLockOnTarget = NULL;
+        } else {
+            _pEffectLockOn->setGeometry(_pLockOnTarget);
+            _pEffectLockOn->activate();
+        }
 
     } else {
        _pEffectLockOn->inactivate();
@@ -306,7 +306,7 @@ void MyDummyOption::processJudgement() {
 }
 
 void MyDummyOption::onHit(GgafActor* prm_pOtherActor) {
-    adios();
+    sayonara();
 }
 
 

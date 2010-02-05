@@ -102,7 +102,7 @@ void GameScene::processBehavior() {
 void GameScene::processJudgement() {
     //配下のシーンに所属アクターの当たり判定処理実行
     //詳細は シーンCreater.xls の 種別相関 シート
-    if (_frame_of_active >= 120) {
+    if (getBehaveingFrame() >= 120) {
         CollisionChecker::_num_check = 0;
 
         if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
@@ -185,7 +185,7 @@ void GameScene::processJudgement() {
 
 void GameScene::processFinal() {
 
-    if (_frame_of_active == 120) {
+    if (getBehaveingFrame() == 120) {
         //デモ開始
         _pScene_GameDemo->activate();
     }

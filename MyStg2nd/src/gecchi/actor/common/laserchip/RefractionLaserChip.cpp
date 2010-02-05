@@ -49,7 +49,7 @@ void RefractionLaserChip::onActive() {
         _begining_RY = _RY;
         _begining_RZ = _RZ;
         _cnt_refraction = 0;
-        _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
+        _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
     } else {
         _is_leader = false;
@@ -104,10 +104,9 @@ void RefractionLaserChip::processBehavior() {
     //レーザーチップ消失時処理
     //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
-    _dwActiveFrame++;
     //座標に反映
     RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
-    if (_dwActiveFrame > 1) {
+    if (getPartFrame() > 1) {
         //ActorDispatcher::employ() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
@@ -121,24 +120,24 @@ void RefractionLaserChip::processBehavior() {
             _prev_RY = _RY;
             _prev_RZ = _RZ;
 
-		    if (_isRefracting) {
-		        if (_frame_of_active >= _frame_refraction_outer) {
-		            _cnt_refraction++;
-		            RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
-		            if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
-		                onRefraction(_cnt_refraction);
-                        _frame_refraction_enter = _frame_of_active + _frame_refraction_interval;
+            if (_isRefracting) {
+                if (_frame_of_behaving >= _frame_refraction_outer) {
+                    _cnt_refraction++;
+                    RefractionLaserChip* pChip_front =  (RefractionLaserChip*)_pChip_front;
+                    if (_cnt_refraction <= _num_refraction && pChip_front == NULL) {
+                        onRefraction(_cnt_refraction);
+                        _frame_refraction_enter = getBehaveingFrame() + _frame_refraction_interval;
                         _frame_refraction_outer = _frame_refraction_enter + _frame_standstill;
-		            } else {
-		                _cnt_refraction = INT_MAX;
-		                _frame_refraction_enter = INT_MAX;
-		                _frame_refraction_outer = INT_MAX;
-		            }
-		            _isRefracting = false;
+                    } else {
+                        _cnt_refraction = INT_MAX;
+                        _frame_refraction_enter = INT_MAX;
+                        _frame_refraction_outer = INT_MAX;
+                    }
+                    _isRefracting = false;
                 } else {
                     return;
                 }
-		    }
+            }
             _pMover->behave();
         } else {
             _prev_X  = _X;
@@ -155,7 +154,7 @@ void RefractionLaserChip::processBehavior() {
             _RZ = pChip_front->_prev_RZ;
         }
     }
-    if (_frame_of_active >= _frame_refraction_enter) {
+    if (getBehaveingFrame() >= _frame_refraction_enter) {
         _isRefracting = true;
     }
 }

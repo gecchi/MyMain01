@@ -18,7 +18,7 @@ void TamagoScene::initialize() {
 }
 
 void TamagoScene::processBehavior() {
-    if (_frame_of_active == 1) {
+    if (getBehaveingFrame() == 1) {
         getLordActor()->addSubGroup(obtainActorFromFactory(100000001));
     }
 }

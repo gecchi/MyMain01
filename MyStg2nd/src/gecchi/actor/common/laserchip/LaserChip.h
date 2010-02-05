@@ -33,8 +33,8 @@ public:
     bool _is_regist_hitarea;
     int _hitarea_edge_length;
     int _harf_hitarea_edge_length;
-
-    DWORD _dwActiveFrame;
+    /** onAcive() でリセットされる振る舞い時フレーム数 */
+    DWORD _frame_of_behaving_from_onActive;
 
     LaserChip(const char* prm_name, const char* prm_model);
 

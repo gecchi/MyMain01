@@ -38,13 +38,13 @@ void EnemyJuno::processBehavior() {
 void EnemyJuno::processJudgement() {
     if (isOutOfGameSpace()) {
         setHitAble(false);
-        adios();
+        sayonara();
     }
 }
 
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     setHitAble(false);
-    adios();
+    sayonara();
 }
 
 bool EnemyJuno::isOutOfGameSpace() {

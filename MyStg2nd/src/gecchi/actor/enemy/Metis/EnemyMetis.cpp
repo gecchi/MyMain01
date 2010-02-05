@@ -39,7 +39,7 @@ void EnemyMetis::onActive() {
     _pMover->setFaceAngVelo(AXIS_Z, 1000);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_active);
+    pRndGen->changeSeed(GameGlobal::_pSceneGame->_frame_of_behaving);
     DWORD appearances_renge_Z = (MyShip::_lim_zleft - MyShip::_lim_zright) * 3;
     DWORD appearances_renge_Y = (MyShip::_lim_top - MyShip::_lim_bottom) * 3;
     _X = GgafDx9Universe::_X_goneRight - 1000;
@@ -57,7 +57,7 @@ void EnemyMetis::processBehavior() {
 
 void EnemyMetis::processJudgement() {
     if (isOutOfGameSpace()) {
-        adios();
+        sayonara();
     }
 }
 
@@ -85,7 +85,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyMetis::onInactive() {
-    adios();
+    sayonara();
 }
 EnemyMetis::~EnemyMetis() {
 }

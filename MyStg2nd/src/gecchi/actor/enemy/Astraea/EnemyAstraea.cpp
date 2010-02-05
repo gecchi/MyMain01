@@ -124,7 +124,7 @@ void EnemyAstraea::processBehavior() {
 
 
     _X = _X - 5000;
-    if (_frame_of_active % _shot_interval == 0) {
+    if (getBehaveingFrame() % _shot_interval == 0) {
 
         _pMover->setStopTarget_RzRyMvAng(GameGlobal::_pMyShip);
         _pMover->setRzMvAngVelo(
@@ -186,7 +186,7 @@ void EnemyAstraea::processJudgement() {
 //        for (int i = 0; i < _laser_way; i++) {
 //            for (int j = 0; j < _laser_way; j++) {
 //                if (_papapLaserChipDispatcher[i][j]) { //’e‰ð•ú—\–ñ
-//                    _papapLaserChipDispatcher[i][j]->adios(60 * 5);
+//                    _papapLaserChipDispatcher[i][j]->sayonara(60 * 5);
 //                }
 //            }
 //        }
@@ -215,19 +215,19 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 //    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
 //        GameGlobal::_dwScore += _pCollisionChecker->_iScorePoint;
 //    }
-//    _TRACE_(" EnemyAstraea::EnemyAstraea::onHit()  "<<getName()<<" "<<_frame_of_active);
+//    _TRACE_(" EnemyAstraea::EnemyAstraea::onHit()  "<<getName()<<" "<<_frame_of_behaving);
 //
 //    //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
 //    GgafGroupActor* pGroup = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//‰ð•ú—\–ñ
-//    pGroup->adios(60 * 5);
+//    pGroup->sayonara(60 * 5);
 //    getLordActor()->addSubLast(pGroup->extract());
 //
-//    adios(); //‚³‚æ‚È‚ç
+//    sayonara(); //‚³‚æ‚È‚ç
 
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {
 //            if (_papapLaserChipDispatcher[i][j]) { //’e‰ð•ú—\–ñ
-//                _papapLaserChipDispatcher[i][j]->adios(60 * 5);
+//                _papapLaserChipDispatcher[i][j]->sayonara(60 * 5);
 //            }
 //        }
 //    }
@@ -242,9 +242,9 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 void EnemyAstraea::onInactive() {
     //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
     GgafGroupActor* pGroup = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
-    pGroup->adios(60 * 5);//‰ð•ú—\–ñ
+    pGroup->sayonara(60 * 5);//‰ð•ú—\–ñ
     getLordActor()->addSubLast(pGroup->extract());
-    adios();
+    sayonara();
 }
 
 

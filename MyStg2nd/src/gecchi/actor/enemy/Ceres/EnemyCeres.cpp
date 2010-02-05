@@ -150,9 +150,9 @@ void EnemyCeres::onInactive() {
     if (_createActorDispatcher) {
         //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
         getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
-       _pDispatcher_EnemyCeresShots001->adios(60 * 5);//‰ð•ú—\–ñ
+       _pDispatcher_EnemyCeresShots001->sayonara(60 * 5);//‰ð•ú—\–ñ
     }
-    adios();
+    sayonara();
 }
 
 bool EnemyCeres::isOutOfGameSpace() {

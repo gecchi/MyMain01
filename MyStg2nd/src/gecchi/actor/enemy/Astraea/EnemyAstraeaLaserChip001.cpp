@@ -33,7 +33,7 @@ void EnemyAstraeaLaserChip001::onActive() {
 }
 
 void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
-    if (_dwActiveFrame == 40) {
+    if (getPartFrame() == 40) {
         _pMover->execTagettingMvAngSequence(
                     GameGlobal::_pMyShip,
                     8000, 0,
@@ -48,7 +48,7 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
                     TURN_CLOSE_TO);
     }
 //
-//    if (_dwActiveFrame == 35) {
+//    if (_frame_of_behaving_from_onActive == 35) {
 //        _pMover->execTagettingMvAngSequence(
 //                    GameGlobal::_pMyShip,
 //                    20000, TURN_ANTICLOSE_TO);

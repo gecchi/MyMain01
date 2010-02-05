@@ -29,8 +29,6 @@ public:
     angle _angVelo_Turn;
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     int _iMoveAcce_2nd;
-    /** 出現してからのフレーム数 */
-    DWORD _frame_on_change_to_active_flg;
     //<--- 本Actorのカスタムプロパティ
 
 public:

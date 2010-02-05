@@ -34,9 +34,9 @@ void BackGroundStar::initialize() {
 
 void BackGroundStar::processBehavior() {
     //フェードイン
-//    if (0 < _frame_of_active && _frame_of_active <= 255) {
+//    if (0 < getBehaveingFrame() && getBehaveingFrame() <= 255) {
 //        for (int i = 0; i < 4; i++) {
-//            _papBackGroundStar001[i]->setAlpha(float(_frame_of_active / 255.0));
+//            _papBackGroundStar001[i]->setAlpha(float(getBehaveingFrame() / 255.0));
 //        }
 //    }
 

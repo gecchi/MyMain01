@@ -11,7 +11,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
     _is_lockon = false;
-    _slow_renge = 80000;
+    _slow_renge = 70000;
     _cnt_rev = 0;
 }
 
@@ -24,14 +24,14 @@ void MyCurveLaserChip001::initialize() {
     _SX = _SY = _SZ = 200*1000;
     _fAlpha = 0.99f;
     _max_radius = 20.0f;
-    int renge = 100000;
-    _pMover->setVxMvVeloRenge(-renge, renge);
-    _pMover->setVyMvVeloRenge(-renge, renge);
-    _pMover->setVzMvVeloRenge(-renge, renge);
+    _renge = 100000;
+    _pMover->setVxMvVeloRenge(-_renge, _renge);
+    _pMover->setVyMvVeloRenge(-_renge, _renge);
+    _pMover->setVzMvVeloRenge(-_renge, _renge);
 
-    _pMover->setVxMvAcceRenge(-renge/10, renge/10);
-    _pMover->setVyMvAcceRenge(-renge/10, renge/10);
-    _pMover->setVzMvAcceRenge(-renge/10, renge/10);
+    _pMover->setVxMvAcceRenge(-_renge/10, _renge/10);
+    _pMover->setVyMvAcceRenge(-_renge/10, _renge/10);
+    _pMover->setVzMvAcceRenge(-_renge/10, _renge/10);
 
 }
 
@@ -74,30 +74,52 @@ void MyCurveLaserChip001:: processBehavior() {
     }
 
     if (_is_lockon) {
-        if (1 < _dwActiveFrame && _dwActiveFrame < 180) {
+        if (0 < getPartFrame() && getPartFrame() <= 5) {
+            _pMover->setVxMvAcceRenge(-_renge/30, _renge/20);
+            _pMover->setVyMvAcceRenge(-_renge/30, _renge/20);
+            _pMover->setVzMvAcceRenge(-_renge/30, _renge/20);
+        } else if (5 < getPartFrame() && getPartFrame() <= 10) {
+            _pMover->setVxMvAcceRenge(-_renge/20, _renge/20);
+            _pMover->setVyMvAcceRenge(-_renge/20, _renge/20);
+            _pMover->setVzMvAcceRenge(-_renge/20, _renge/20);
+        } else {
+            _pMover->setVxMvAcceRenge(-_renge/10, _renge/10);
+            _pMover->setVyMvAcceRenge(-_renge/10, _renge/10);
+            _pMover->setVzMvAcceRenge(-_renge/10, _renge/10);
+        }
+        if (1 < getPartFrame() && getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
 
                 int dx = _pOrg->_pLockOnTarget->_X - _X;
                 int dy = _pOrg->_pLockOnTarget->_Y - _Y;
                 int dz = _pOrg->_pLockOnTarget->_Z - _Z;
-                if (-_slow_renge < dx && dx < _slow_renge) {
+                if (-_slow_renge*2 < dx && dx < _slow_renge*2) {
+                    _pMover->setVxMvAcce(dx/500); //速度を0にしない為の措置
+                    _pMover->_veloVxMv *= 0.9;
+                } else if (-_slow_renge < dx && dx < _slow_renge) {
                     _pMover->setVxMvAcce(dx/1000); //速度を0にしない為の措置
-                    _pMover->_veloVxMv *= 0.6;
+                    _pMover->_veloVxMv *= 0.7;
                 } else {
                     _pMover->setVxMvAcce(dx/200);
                     //_TRACE_("dx="<<dx);
                 }
 
-                if (-_slow_renge < dy && dy < _slow_renge) {
+                if (-_slow_renge*2 < dy && dy < _slow_renge*2) {
+                    _pMover->setVyMvAcce(dy/500);
+                    _pMover->_veloVyMv *= 0.9;
+                } else if (-_slow_renge < dy && dy < _slow_renge) {
                     _pMover->setVyMvAcce(dy/1000);
-                    _pMover->_veloVyMv *= 0.6;
+                    _pMover->_veloVyMv *= 0.7;
                 } else {
                     _pMover->setVyMvAcce(dy/200);
                 }
 
                 if (-_slow_renge < dz && dz < _slow_renge) {
+                    _pMover->setVzMvAcce(dz/500);
+                    _pMover->_veloVzMv *= 0.9;
+                } else if (-_slow_renge < dz && dz < _slow_renge) {
                     _pMover->setVzMvAcce(dz/1000);
-                    _pMover->_veloVzMv *= 0.6;
+                    _pMover->_veloVzMv *= 0.7;
                 } else {
                     _pMover->setVzMvAcce(dz/200);
                 }
@@ -115,7 +137,7 @@ void MyCurveLaserChip001:: processBehavior() {
         }
     } else {
         //非ロックオン
-        if (1 < _dwActiveFrame && _dwActiveFrame < 60) {
+        if (1 < getPartFrame() && getPartFrame() < 60) {
             asobiX = asobiX * 0.9;
             asobiY = asobiY * 0.9;
             asobiZ = asobiZ * 0.9;

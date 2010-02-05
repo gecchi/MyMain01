@@ -80,13 +80,13 @@ void EnemyMeshShot001::processBehavior() {
 void EnemyMeshShot001::processJudgement() {
     if (isOutOfGameSpace()) {
         inactivateTree();
-        //adios();
+        //sayonara();
     }
 }
 
 void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
-    //adios();
+    //sayonara();
     playSe1();
     setHitAble(false);
     inactivateTree();

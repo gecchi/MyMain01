@@ -9,7 +9,7 @@ public:
     MyDummyOption* _pOrg;
     velo _veloCurve;
     int _slow_renge;
-
+    int _renge;
     int _cnt_rev;
 
     MyCurveLaserChip001(const char* prm_name);
@@ -24,7 +24,7 @@ public:
 
     void processFinal();
 
-	bool isOutOfGameSpace() override {
+    bool isOutOfGameSpace() override {
         if (isOffscreen() == 0) {
             return false;
         } else {

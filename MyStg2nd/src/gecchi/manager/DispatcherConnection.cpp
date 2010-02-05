@@ -11,7 +11,7 @@ DispatcherConnection::DispatcherConnection(char* prm_idstr, ActorDispatcher* prm
 
 void DispatcherConnection::processReleaseResource(ActorDispatcher* prm_pResource) {
     _TRACE_("DispatcherConnection::processReleaseResourceで開放");
-	prm_pResource->adios(); //ActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
+	prm_pResource->sayonara(); //ActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
 	// DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

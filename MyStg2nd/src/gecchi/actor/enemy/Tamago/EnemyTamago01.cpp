@@ -50,6 +50,33 @@ void EnemyTamago01::onActive() {
 }
 
 void EnemyTamago01::processBehavior() {
+
+//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
+//        _pGgafDx9Model->_pTextureBlinker->->addScale(2000);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
+//        _pGgafDx9Model->_pTextureBlinker->->addScale(-2000);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
+//        _pGgafDx9Model->_pTextureBlinker->->intoTargetScaleAcceStep(3000, 0, 3);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
+//        _pGgafDx9Model->_pTextureBlinker->->loopLiner(20, -1);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
+//        _pGgafDx9Model->_pTextureBlinker->->loopLiner(10, 5);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
+//        _pGgafDx9Model->_pTextureBlinker->->beat(20, 2 ,5, -1);
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
+//        _pGgafDx9Model->_pTextureBlinker->->stopImmediately();
+//    }
+//    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
+//        _pGgafDx9Model->_pTextureBlinker->->resetScale();
+//    }
+
+
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
@@ -92,7 +119,7 @@ void EnemyTamago01::processBehavior() {
     if (_iMovePatternNo == 3) {
 
     }
-    if (_frame_of_active % 180 == 0) {
+    if (getBehaveingFrame() % 180 == 0) {
         _pMover->execTagettingMvAngSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
     }
 
@@ -124,7 +151,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyTamago01::onInactive() {
-    //adios();
+    //sayonara();
 }
 
 EnemyTamago01::~EnemyTamago01() {
