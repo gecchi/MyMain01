@@ -163,7 +163,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     useSe1("se-020");
 
-
     char rankstr[80] = {0} ;// ‘S‚Ä0‚Å‰Šú‰»
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);

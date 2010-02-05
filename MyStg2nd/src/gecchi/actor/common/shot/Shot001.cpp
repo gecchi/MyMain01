@@ -8,6 +8,7 @@ using namespace MyStg2nd;
 Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") {
     _class_name = "Shot001";
     MyStgUtil::resetShot001Status(_pStatus);
+    useSe1("break_glass01");
 }
 
 void Shot001::initialize() {
@@ -15,7 +16,6 @@ void Shot001::initialize() {
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     _pScaler->setScale(100);
     _pScaler->setScaleRange(300, 2000);
-    useSe1("break_glass01");
 }
 
 void Shot001::onActive() {

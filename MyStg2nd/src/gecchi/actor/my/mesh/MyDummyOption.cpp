@@ -119,7 +119,7 @@ void MyDummyOption::processBehavior() {
             }
         } else if (_iflappingSeq == 1) {
             if (ANGLE270 <_angExpanse && _angExpanse < ANGLE315) {
-                _iflappingSeq == 0;
+                _iflappingSeq = 0;
                 _angveloExpanse = -_angveloExpanse;
                 _angacceExpanse = -_angacceExpanse;
             }
@@ -131,7 +131,7 @@ void MyDummyOption::processBehavior() {
             _angveloExpanse = -_range_angveloExpanse;
         }
         _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse+_angveloExpanse);
-        _TRACE_("_angExpanse="<<_angExpanse);
+
     }
 
     _X = _Xorg;

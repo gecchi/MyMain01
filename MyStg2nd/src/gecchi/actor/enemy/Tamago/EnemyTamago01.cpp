@@ -14,6 +14,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : DefaultMeshActor(prm_name, 
     _pProgram_Tamago01Move = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
+    useSe2("bomb1");     //”š”­
 }
 
 void EnemyTamago01::initEnemyTamago01Class() {
@@ -34,7 +35,6 @@ void EnemyTamago01::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    useSe2("bomb1");     //”š”­
     _X = 300000;
     _Y = 300000;
     _Z = 300000;

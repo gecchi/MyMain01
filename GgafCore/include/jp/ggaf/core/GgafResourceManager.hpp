@@ -179,7 +179,7 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
-        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本に子て下さい。")
+        throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。")
     }
 
     //TODO:簡易的な排他。完全ではない。

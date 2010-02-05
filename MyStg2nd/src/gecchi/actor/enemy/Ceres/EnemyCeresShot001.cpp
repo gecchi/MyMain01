@@ -28,6 +28,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshEnemyAct
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
+    useSe1("break_glass01");
 }
 
 void EnemyCeresShot001::initialize() {
@@ -37,7 +38,6 @@ void EnemyCeresShot001::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
-    useSe1("break_glass01");
 }
 
 void EnemyCeresShot001::onActive() {

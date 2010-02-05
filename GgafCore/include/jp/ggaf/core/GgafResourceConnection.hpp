@@ -128,7 +128,7 @@ template<class T>
 int GgafResourceConnection<T>::close() {
     if (_is_closing_resource == true) {
         throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
-                                   "現在close()中にもかかわらず、close()しました。connectのスレッドを１本に子て下さい。")
+                                   "現在close()中にもかかわらず、close()しました。connectのスレッドを１本にして下さい。")
     }
 
     if (_num_connection <= 0) {

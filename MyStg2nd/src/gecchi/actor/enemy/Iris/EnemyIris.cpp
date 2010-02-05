@@ -14,6 +14,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
+    useSe2("bomb1");     //”š”­
 }
 
 void EnemyIris::initEnemyIrisClass() {
@@ -33,7 +34,6 @@ void EnemyIris::initialize() {
     _pMover->setFaceAngVelo(AXIS_X, 5000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    useSe2("bomb1");     //”š”­
 }
 
 void EnemyIris::onActive() {

@@ -12,6 +12,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
+    useSe1("yume_shototsu");
+    useSe2("bomb1");     //”š”­
 }
 
 void EnemyMetis::initialize() {
@@ -26,8 +28,6 @@ void EnemyMetis::initialize() {
                                        false, false, true
                                    );
     }
-    useSe1("yume_shototsu");
-    useSe2("bomb1");     //”š”­
 }
 
 void EnemyMetis::onActive() {
@@ -49,6 +49,8 @@ void EnemyMetis::onActive() {
 }
 
 void EnemyMetis::processBehavior() {
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     //À•W‚É”½‰f
     _pMover->behave();
 }

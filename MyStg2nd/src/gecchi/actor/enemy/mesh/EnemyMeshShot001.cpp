@@ -28,6 +28,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
+    useSe1("bomb1");
 }
 
 void EnemyMeshShot001::initialize() {
@@ -37,7 +38,6 @@ void EnemyMeshShot001::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     setHitAble(true);
-    useSe1("bomb1");
 }
 
 void EnemyMeshShot001::processBehavior() {

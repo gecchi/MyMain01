@@ -25,5 +25,6 @@ GgafDx9Model::~GgafDx9Model() {
     TRACE3("GgafDx9Model::~GgafDx9Model() " << _model_name << " start-->");
     DELETEARR_POSSIBLE_NULL(_model_name);
     DELETEARR_POSSIBLE_NULL(_paD3DMaterial9_default);
+    DELETE_IMPOSSIBLE_NULL(_pTextureBlinker);
 }
 
