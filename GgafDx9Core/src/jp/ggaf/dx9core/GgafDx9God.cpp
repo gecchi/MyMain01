@@ -574,8 +574,8 @@ GgafDx9God::~GgafDx9God() {
      //___BeginSynchronized; // ----->”r‘¼ŠJŽn
         GgafFactory::clean();
         //ƒSƒ~” 
-        GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
-        GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+        GgafFactory::_pGarbageBox->_pSayonaraScene->dump();
+        GgafFactory::_pGarbageBox->_pSayonaraActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
      //___EndSynchronized; // <----- ”r‘¼I—¹
 

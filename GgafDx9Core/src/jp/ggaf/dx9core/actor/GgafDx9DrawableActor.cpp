@@ -195,7 +195,7 @@ void GgafDx9DrawableActor::processPreDraw() {
 
     //一時テクニック期間チェック
     if (_is_temp_technique) {
-        if (_frame_temp_technique <= _frame_of_active) {
+        if (_frame_temp_technique <= _frame_of_behaving) {
             //一時テクニック期間満了。元に戻す
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);

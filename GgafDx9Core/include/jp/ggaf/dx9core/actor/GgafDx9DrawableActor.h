@@ -102,7 +102,7 @@ public:
             _hash_technique_temp = _hash_technique;
             strcpy(_technique_temp, _technique);
             //テクニック変更
-            _frame_temp_technique = _frame_of_active + prm_frame; //変更満期フレーム
+            _frame_temp_technique = _frame_of_behaving + prm_frame; //変更満期フレーム
             _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
             strcpy(_technique, prm_technique);
             _is_temp_technique = true;
