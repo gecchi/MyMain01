@@ -40,6 +40,7 @@ public:
     /**
      * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
+
     void initialize() override;
 
     void processJudgement() override {

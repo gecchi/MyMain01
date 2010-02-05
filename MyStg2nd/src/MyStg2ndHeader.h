@@ -3,7 +3,9 @@
 
 //「俺DirectX9ライブラリ」を利用する場合（自分だけだけど；）
 //次の"GgafDx9LibStgHeader.h"ヘッダをインクルードします。
+
 #include "GgafDx9LibStgHeader.h"
+
 
 //#define KIND_EFFECT            (0x0)
 //#define KIND_MY_BODY           (0x1)

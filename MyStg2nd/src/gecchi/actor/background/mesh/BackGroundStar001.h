@@ -17,6 +17,9 @@ public:
      */
     BackGroundStar001(const char* prm_name);
 
+    void onCreateModel() override {
+    }
+
     void initialize() override;
 
     void processBehavior() override;

@@ -9,7 +9,6 @@ namespace MyStg2nd {
 class God : public GgafDx9LibStg::DefaultGod {
 
 public:
-
     static DispatcherManager _dispatcherManager;
 
     God(HINSTANCE prm_hInstance, HWND prm_hWnd);
@@ -24,4 +23,5 @@ public:
 };
 
 }
+
 #endif /*GOD_H_*/

@@ -9,6 +9,8 @@ class BackGroundStar : public GgafDx9Core::GgafDx9GeometricActor {
 public:
     BackGroundStar(const char* prm_name);
 
+
+
     /**
      * ŽÀ‘•‚µ‚Ä‚Ü‚·
      */

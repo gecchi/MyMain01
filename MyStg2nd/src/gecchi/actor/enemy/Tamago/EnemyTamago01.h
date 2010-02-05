@@ -11,8 +11,6 @@ namespace MyStg2nd {
 class EnemyTamago01 : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-    /** 初期処理(同クラスで全体で１回実行)フラグ */
-    static bool _is_init_class;
     /** 行動パターン番号 */
     int _iMovePatternNo;
     /** 移動スプラインプログラム */
@@ -31,30 +29,32 @@ public:
      */
     EnemyTamago01(const char* prm_name);
 
-
-    void initEnemyTamago01Class();
     /**
-     * イリスの初期処理（インスタンス生成後保証）
+     * たまごモデルが生成された際に１回だけ実行される処理
+     */
+    void onCreateModel() override;
+    /**
+     * たまごの初期処理（インスタンス生成後保証）
      */
     void initialize() override;
 
     /**
-     * イリスのがアクティブになった瞬間の処理 .
+     * たまごのがアクティブになった瞬間の処理 .
      */
     void onActive() override;
 
     /**
-     * イリスの振る舞い .
+     * たまごの振る舞い .
      */
     void processBehavior() override;
 
     /**
-     * イリスの振る舞い後の判定処理 .
+     * たまごの振る舞い後の判定処理 .
      */
     void processJudgement() override;
 
     /**
-     * イリスの衝突時処理 .
+     * たまごの衝突時処理 .
      * @param prm_pOtherActor 衝突対象
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;

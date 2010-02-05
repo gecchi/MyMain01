@@ -58,6 +58,9 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
 
 }
 
+void LaserChip::onCreateModel() {
+}
+
 void LaserChip::initialize() {
     //_TRACE_("LaserChip::initialize() "<<getName()<<" bump="<<canHit());
     _pMover->setMvVelo(40000);
