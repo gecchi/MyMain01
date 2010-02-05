@@ -129,7 +129,7 @@ public:
      */
     virtual void setProgress(int prm_progress) {
         _progress_nextframe = prm_progress;
-        _aFrame_ProgressChange[prm_progress] = _frame_of_active+1;
+        _aFrame_ProgressChange[prm_progress] = _frame_of_behaving+1;
     }
 
     bool onChangeProgressAt(int prm_progress) {
@@ -215,7 +215,7 @@ public:
      * 自ツリーシーンをnフレーム後にゴミ箱へ移動 .
      * @param prm_frame_offset ゴミ箱へ移動タイミング残りフレーム数(デフォルト=0)
      */
-    virtual void adios(DWORD prm_frame_offset = 0);
+    virtual void sayonara(DWORD prm_frame_offset = 0);
 
     /**
      * 自ツリーを末端から開放する。 .

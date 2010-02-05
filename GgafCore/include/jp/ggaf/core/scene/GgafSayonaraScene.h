@@ -1,19 +1,19 @@
-#ifndef GGAFGARBAGEROOTACTOR_H_
-#define GGAFGARBAGEROOTACTOR_H_
+#ifndef GGAFSAYONARASCENE_H_
+#define GGAFSAYONARASCENE_H_
 namespace GgafCore {
 
 /**
- * お疲れルートアクター.
- * このアクターに所属したアクターは、遅かれ早かれdeleteされます。<BR>
+ * さよならルートシーン .
+ * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
  * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  * @version 1.00
  * @since 2008/12/17
  * @author Masatoshi Tsuge
  */
-class GgafGarbageRootActor : public GgafActor {
+class GgafSayonaraScene : public GgafScene {
 public:
-    GgafGarbageRootActor() :
-        GgafActor("GarbageRootActor") {
+    GgafSayonaraScene() :
+        GgafScene("SayonaraScene") {
     }
     void initialize() override {
     }
@@ -31,17 +31,9 @@ public:
     }
     void processFinal() override {
     }
-    bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
-        return false;
-    }
-    void onHit(GgafActor* prm_pOtherActor) override {
-    }
-    GgafGod* askGod() {
-        return NULL;
-    }
-    virtual ~GgafGarbageRootActor() {
+    virtual ~GgafSayonaraScene() {
     }
 };
 
 }
-#endif /*GGAFGARBAGEROOTACTOR_H_*/
+#endif /*GGAFSAYONARASCENE_H_*/

@@ -283,10 +283,10 @@ class GgafFactory;
 class GgafGarbageBox;
 
 class GgafScene;
-class GgafGarbageRootScene;
+class GgafSayonaraScene;
 class GgafActor;
 class GgafStatus;
-class GgafGarbageRootActor;
+class GgafSayonaraActor;
 class GgafMainActor;
 class GgafDummyActor;
 class GgafUniverse;
@@ -330,11 +330,11 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/GgafElement.hpp"
 #include "jp/ggaf/core/GgafLinkedListRing.hpp"
 #include "jp/ggaf/core/scene/GgafScene.h"
-#include "jp/ggaf/core/scene/GgafGarbageRootScene.h"
+#include "jp/ggaf/core/scene/GgafSayonaraScene.h"
 #include "jp/ggaf/core/scene/GgafMainScene.h"
 #include "jp/ggaf/core/actor/GgafActor.h"
 
-#include "jp/ggaf/core/actor/GgafGarbageRootActor.h"
+#include "jp/ggaf/core/actor/GgafSayonaraActor.h"
 #include "jp/ggaf/core/actor/GgafMainActor.h"
 #include "jp/ggaf/core/actor/GgafDummyActor.h"
 #include "jp/ggaf/core/scene/GgafUniverse.h"

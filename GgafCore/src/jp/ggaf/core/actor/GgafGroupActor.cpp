@@ -20,7 +20,7 @@ GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("HEAD") {
 void GgafGroupActor::processJudgement() {
     //ƒTƒu‚ª–³‚¯‚ê‚ÎŽ©ŽE
     if (getSubFirst() == NULL) {
-        adios();
+        sayonara();
     }
 }
 

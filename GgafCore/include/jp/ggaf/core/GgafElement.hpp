@@ -34,7 +34,7 @@ public:
     bool _was_initialize_flg;
 
     /** 余命 */
-    DWORD _frame_of_life_when_adios;
+    DWORD _frame_of_life_when_sayonara;
     /** 相対フレーム計算用 */
     DWORD _frame_relative;
     /** ノード活動フラグ */
@@ -58,12 +58,12 @@ public:
 
     /** あとで活動予約フラグ */
     bool _will_activate_after_flg;
-    /** あとで活動までの残フレーム数 */
+    /** 活動開始フレーム */
     DWORD _frame_of_life_when_activation;
 
     /** あとで非活動予約フラグ */
     bool _will_inactivate_after_flg;
-    /** あとで停止の残フレーム数 */
+    /** 活動終了フレーム */
     DWORD _frame_of_life_when_inactivation;
 
     /** ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
@@ -73,10 +73,13 @@ public:
 
 
 
-    /** ノードが誕生(addSubされた）時からのフレーム */
+    /** ノードが誕生(addSubされた）時からのフレーム数総計 */
     DWORD _frame_of_life;
-    /** ノードが誕生(addSubされた）時から、アクティブだったフレーム総計 */
-    DWORD _frame_of_active;
+    /** ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
+    DWORD _frame_of_behaving;
+    /** ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
+    DWORD _frame_of_behaving_since_onActive;
+
 
     /**
      * コンストラクタ
@@ -468,7 +471,7 @@ public:
     /**
      * さよならします。(自ツリー) .
      * 自ノードを次フレームから「生存終了」状態にすることを宣言する。 <BR>
-     * 自ツリーノード全てに生存終了(adios())がお知らせが届く。<BR>
+     * 自ツリーノード全てに生存終了(sayonara())がお知らせが届く。<BR>
      * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
      * 次フレームからアンセットする事である。<BR>
      * _can_live_flg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより
@@ -476,10 +479,10 @@ public:
      * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれない。
      * インスタンスがすぐに解放されないことに注意。今はさよならするだけ。<BR>
      * 注意：さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
-     * これは本メソッドで、GgafGarbageRootActorに所属するためです。<BR>
+     * これは本メソッドで、GgafSayonaraActorに所属するためです。<BR>
      * @param prm_frame_offset 予約猶予フレーム
      */
-    void adios(DWORD prm_frame_offset = 0);
+    void sayonara(DWORD prm_frame_offset = 0);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -538,23 +541,24 @@ public:
     bool isActive();
 
     /**
-     * 振る舞いは行なわれているか（＝一時停止されていないか）
-     * @return  bool true:振る舞い可能（一時停止では無い）／false:振る舞い不可（一時停止中）
+     * 振る舞い可能か調べる（＝一時停止されていないか）
+     * @return  bool true:振る舞い可能（活動中で一時停止では無い）／false:振る舞い不可
      */
-    bool isBehaving();
+    bool canBehave();
 
     /**
-     * 描画中かどうか調べる（非表示でないかどうか）
-     * @return  bool true:描画できる(表示対象)／false:描画はしない(非表示対象)
+     * 振る舞い状態に加算されるフレーム数を取得する .
+     * 何もセットしない場合、次のような値を返す。
+     * 1 Frame ～ からの値になる。0 Frame状態は基本存在しない。但し例外的に
+     * 生成時コンストラクタ内、および、最初の initialize() 内では 0 Frame を返す。
+     * 初回実行の onActive()、processBehavior()、processJudgement() 等の中で 1 になっている。
+     * 以降、振る舞い態時にフレーム加算される。
+     * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。
      */
-    bool isVisible();
+    DWORD getBehaveingFrame();
 
-    /**
-     * ノードの現在の経過フレームを取得する
-     */
-    DWORD getSurvivalFrame() {
-        return _frame_of_active;
-    }
+    DWORD getPartFrame();
+
 
     /**
      * 相対経過フレームの判定。
@@ -571,8 +575,8 @@ public:
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
-            _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_adios(MAXDWORD), _frame_of_life(0), _frame_of_active(0),
-            _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
+            _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_sayonara(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
+            _frame_of_behaving_since_onActive(0), _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
             _can_live_flg_in_next_frame(true), _will_mv_first_in_next_frame_flg(false), _will_mv_last_in_next_frame_flg(false),
             _will_activate_after_flg(false), _frame_of_life_when_activation(0), _will_inactivate_after_flg(false), _frame_of_life_when_inactivation(0),
@@ -581,7 +585,7 @@ GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
 
 template<class T>
 void GgafElement<T>::nextFrame() {
-    TRACE("GgafElement::nextFrame BEGIN _frame_of_active=" << _frame_of_active << " name=" << GgafNode<T>::_name << " class="
+    TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
     _was_paused_flg  = _was_paused_flg_in_next_frame;
     DWORD godframe = askGod()->_godframe;
@@ -590,7 +594,7 @@ void GgafElement<T>::nextFrame() {
     }
 
     //死の時か
-    if (_frame_of_life_when_adios == _frame_of_life+1) {
+    if (_frame_of_life_when_sayonara == _frame_of_life+1) {
         _is_active_flg_in_next_frame = false;
         _can_live_flg_in_next_frame = false;
     }
@@ -626,7 +630,8 @@ void GgafElement<T>::nextFrame() {
                 }
             }
             if (_is_active_flg) {
-                _frame_of_active++;
+                _frame_of_behaving++;
+                _frame_of_behaving_since_onActive++;
             }
         }
 
@@ -639,10 +644,12 @@ void GgafElement<T>::nextFrame() {
         //活動、非活動の状態変化時
         if (_is_active_flg == false && _is_active_flg_in_next_frame) {
             _on_change_to_active_flg = true;
+            _frame_of_behaving_since_onActive = 0;
             onActive(); //コールバック
         } else if (_is_active_flg && _frame_of_life == 1) {
             //生まれてそのままならば、いきなり一回だけonActive()。
             _on_change_to_active_flg = true;
+            _frame_of_behaving_since_onActive = 0;
             onActive(); //コールバック
         }
 
@@ -677,7 +684,7 @@ void GgafElement<T>::nextFrame() {
         }
 
     }
-    TRACE("GgafElement::nextFrame END _frame_of_active="<<_frame_of_active<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
+    TRACE("GgafElement::nextFrame END _frame_of_behaving="<<_frame_of_behaving<<" name="<<GgafNode<T>::_name<<" class="<<GgafNode<T>::_class_name);
 }
 
 template<class T>
@@ -909,12 +916,6 @@ void GgafElement<T>::activateTree() {
 template<class T>
 void GgafElement<T>::activateImmediately() {
     if (_can_live_flg) {
-//        if (_is_active_flg == false) {
-//            _on_change_to_active_flg = true;
-//            onActive(); //コールバック
-//        } else {
-//            _on_change_to_active_flg = false;
-//        }
         _is_active_flg = true;
         _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
@@ -925,11 +926,6 @@ void GgafElement<T>::activateImmediately() {
 template<class T>
 void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
-//        if (_is_active_flg == false) {
-//            _on_change_to_active_flg = true;
-//        } else {
-//            _on_change_to_active_flg = false;
-//        }
         _is_active_flg = true;
         _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
@@ -988,11 +984,6 @@ void GgafElement<T>::inactivateAfter(DWORD prm_frame_offset) {
 template<class T>
 void GgafElement<T>::inactivateImmediately() {
     if (_can_live_flg) {
-//        if (_is_active_flg) {
-//            _on_change_to_inactive_flg = true;
-//        } else {
-//            _on_change_to_inactive_flg = false;
-//        }
         _is_active_flg = false;
         _is_active_flg_in_next_frame = false;
     }
@@ -1001,11 +992,6 @@ void GgafElement<T>::inactivateImmediately() {
 template<class T>
 void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
-//        if (_is_active_flg) {
-//            _on_change_to_inactive_flg = true;
-//        } else {
-//            _on_change_to_inactive_flg = false;
-//        }
         _is_active_flg = false;
         _is_active_flg_in_next_frame = false;
         if (SUPER::_pSubFirst != NULL) {
@@ -1127,13 +1113,13 @@ void GgafElement<T>::unpauseImmediately() {
     }
 }
 template<class T>
-void GgafElement<T>::adios(DWORD prm_frame_offset) {
+void GgafElement<T>::sayonara(DWORD prm_frame_offset) {
 
-    _frame_of_life_when_adios = _frame_of_life + prm_frame_offset + 1;
+    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + 1;
     if (SUPER::_pSubFirst != NULL) {
         T* pElementTemp = SUPER::_pSubFirst;
         while(true) {
-            pElementTemp->adios(prm_frame_offset);
+            pElementTemp->sayonara(prm_frame_offset);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
@@ -1172,16 +1158,7 @@ bool GgafElement<T>::onChangeToInactive() {
 }
 
 template<class T>
-bool GgafElement<T>::isVisible() {
-    if (_can_live_flg && _is_active_flg) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-template<class T>
-bool GgafElement<T>::isBehaving() {
+bool GgafElement<T>::canBehave() {
     if (_can_live_flg && _is_active_flg && !_was_paused_flg) {
         return true;
     } else {
@@ -1192,7 +1169,7 @@ bool GgafElement<T>::isBehaving() {
 template<class T>
 bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
     _frame_relative += prm_frame_relative;
-    if (_frame_of_active == _frame_relative) {
+    if (_frame_of_behaving == _frame_relative) {
         return true;
     } else {
         return false;
@@ -1257,6 +1234,17 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
             }
         }
     }
+}
+
+
+template<class T>
+DWORD GgafElement<T>::getBehaveingFrame() {
+   return _frame_of_behaving;
+}
+
+template<class T>
+DWORD GgafElement<T>::getPartFrame() {
+   return _frame_of_behaving_since_onActive;
 }
 
 template<class T>

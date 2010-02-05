@@ -77,7 +77,7 @@ GgafScene* GgafActor::getPlatformScene() {
 }
 
 void GgafActor::dump() {
-    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
+    _TRACE_("\t\t\t\t\t\t\t\t"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<
                                                                                ","<<
                                                                                _can_hit_flg<<
                                                                                ","<<
@@ -111,7 +111,7 @@ void GgafActor::dump() {
 }
 
 void GgafActor::dump(string prm_parent) {
-    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_active<<
+    _TRACE_(prm_parent << _class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<
                                                                          ","<<
                                                                          _can_hit_flg<<
                                                                          ","<<

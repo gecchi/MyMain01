@@ -15,8 +15,8 @@ class GgafGarbageBox : public GgafObject {
 
 public:
 
-    GgafGarbageRootActor* _pGarbageRootActor;
-    GgafGarbageRootScene* _pGarbageRootScene;
+    GgafSayonaraActor* _pSayonaraActor;
+    GgafSayonaraScene* _pSayonaraScene;
 
     GgafGarbageBox();
 

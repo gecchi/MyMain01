@@ -187,8 +187,8 @@ GgafGod::~GgafGod() {
         _TRACE_("GgafFactory::clean()");
     //___EndSynchronized; // <----- îrëºèIóπ
         //ÉSÉ~î†
-        //GgafFactory::_pGarbageBox->_pGarbageRootScene->dump();
-        //GgafFactory::_pGarbageBox->_pGarbageRootActor->dump();
+        //GgafFactory::_pGarbageBox->_pSayonaraScene->dump();
+        //GgafFactory::_pGarbageBox->_pSayonaraActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
         //Ç±ÇÃê¢Ç≈ê∂Ç´ÇƒÇ¢ÇÈï®Ç‡ë|èú
         Sleep(20);
