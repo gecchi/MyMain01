@@ -4,11 +4,11 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
-FormationActor::FormationActor(const char* prm_name, DWORD prm_frame_offset_adios) :
+FormationActor::FormationActor(const char* prm_name, DWORD prm_frame_offset_sayonara) :
     GgafDx9GeometricActor(prm_name, NULL)
 {
     _class_name = "FormationsActor";
-    _frame_offset_adios = prm_frame_offset_adios;
+    _frame_offset_sayonara = prm_frame_offset_sayonara;
     setHitAble(false);
 }
 

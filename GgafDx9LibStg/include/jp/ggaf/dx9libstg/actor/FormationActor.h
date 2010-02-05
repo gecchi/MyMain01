@@ -18,17 +18,17 @@ private:
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
-            _TRACE_("FormationActor["<<getName()<<" adios(5*60)!!!!!!!!!!!!");
+            _TRACE_("FormationActor["<<getName()<<" sayonara(5*60)!!!!!!!!!!!!");
             inactivate();
-            adios(20*60);//20•bŒãŠJ•ú
+            sayonara(20*60);//20•bŒãŠJ•ú
         }
     }
 
 public:
 
-    DWORD _frame_offset_adios;
+    DWORD _frame_offset_sayonara;
 
-    FormationActor(const char* prm_name, DWORD prm_frame_offset_adios = 5*60);
+    FormationActor(const char* prm_name, DWORD prm_frame_offset_sayonara = 5*60);
 
     virtual void initialize() override {
     }

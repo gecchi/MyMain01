@@ -23,15 +23,15 @@ public:
     }
 
     virtual void processBehavior() override {
-        TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_active);
+        TRACE("DefaultScene::processBehavior " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void processJudgement() override {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_active);
+        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void processDraw() {
-        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_active);
+        TRACE("DefaultScene::processJudgement " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual void processHappen(int prm_no) override {
@@ -39,7 +39,7 @@ public:
     }
 
     virtual void processFinal() override {
-        TRACE("DefaultScene::processFinally " << getName() << "frame:" << _frame_of_active);
+        TRACE("DefaultScene::processFinally " << getName() << "frame:" << _frame_of_behaving);
     }
 
     virtual ~DefaultScene();
