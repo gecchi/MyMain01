@@ -5,13 +5,13 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-
-MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) : CurveLaserChip(prm_name, "12/laser_chip") {
+MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
+    CurveLaserChip(prm_name, "12/laser_chip") {
     _class_name = "MyCurveLaserChip001";
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
     _is_lockon = false;
-    _slow_renge = 70000;
+    _slow_renge = 10000;
     _cnt_rev = 0;
 }
 
@@ -21,17 +21,17 @@ void MyCurveLaserChip001::initialize() {
     registHitAreaCube(60000);
 
     setHitAble(true);
-    _SX = _SY = _SZ = 200*1000;
+    _SX = _SY = _SZ = 200 * 1000;
     _fAlpha = 0.99f;
-    _max_radius = 20.0f;
+    _max_radius = 50.0f;
     _renge = 100000;
     _pMover->setVxMvVeloRenge(-_renge, _renge);
     _pMover->setVyMvVeloRenge(-_renge, _renge);
     _pMover->setVzMvVeloRenge(-_renge, _renge);
 
-    _pMover->setVxMvAcceRenge(-_renge/10, _renge/10);
-    _pMover->setVyMvAcceRenge(-_renge/10, _renge/10);
-    _pMover->setVzMvAcceRenge(-_renge/10, _renge/10);
+    _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
+    _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
+    _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
 
 }
 
@@ -49,90 +49,116 @@ void MyCurveLaserChip001::onActive() {
         if (_pChip_front == NULL) {
             _is_lockon = true;
         } else {
-            _is_lockon = ((MyCurveLaserChip001*)_pChip_front)->_is_lockon;
+            _is_lockon = ((MyCurveLaserChip001*) _pChip_front)->_is_lockon;
         }
-//        _pMover->execTagettingMvAngSequence(_pOrg->_pLockOnTarget,
-//                                                   1000, 0,
-//                                                   TURN_CLOSE_TO);
+        //        _pMover->execTagettingMvAngSequence(_pOrg->_pLockOnTarget,
+        //                                                   1000, 0,
+        //                                                   TURN_CLOSE_TO);
     } else {
         _is_lockon = false;
         _pOrg->_pLockOnTarget = NULL;
-//        _pMover->stopTagettingMvAngSequence();
-//        _pMover->setRzMvAngVelo(0);
-//        _pMover->setRyMvAngVelo(0);
-//        _pMover->setRzMvAngAcce(0);
-//        _pMover->setRyMvAngAcce(0);
+        //        _pMover->stopTagettingMvAngSequence();
+        //        _pMover->setRzMvAngVelo(0);
+        //        _pMover->setRyMvAngVelo(0);
+        //        _pMover->setRzMvAngAcce(0);
+        //        _pMover->setRyMvAngAcce(0);
     }
 }
 
-void MyCurveLaserChip001:: processBehavior() {
-    int asobiX,asobiY,asobiZ;
+void MyCurveLaserChip001::processBehavior() {
+    int asobiX, asobiY, asobiZ;
     if (_pChip_front) {
-        asobiX = abs(_pChip_front->_pMover->_veloVxMv -_pMover->_veloVxMv);
-        asobiY = abs(_pChip_front->_pMover->_veloVyMv -_pMover->_veloVyMv);
-        asobiZ = abs(_pChip_front->_pMover->_veloVzMv -_pMover->_veloVzMv);
+        asobiX = abs(_pChip_front->_pMover->_veloVxMv - _pMover->_veloVxMv);
+        asobiY = abs(_pChip_front->_pMover->_veloVyMv - _pMover->_veloVyMv);
+        asobiZ = abs(_pChip_front->_pMover->_veloVzMv - _pMover->_veloVzMv);
     }
 
     if (_is_lockon) {
-        if (0 < getPartFrame() && getPartFrame() <= 5) {
-            _pMover->setVxMvAcceRenge(-_renge/30, _renge/20);
-            _pMover->setVyMvAcceRenge(-_renge/30, _renge/20);
-            _pMover->setVzMvAcceRenge(-_renge/30, _renge/20);
-        } else if (5 < getPartFrame() && getPartFrame() <= 10) {
-            _pMover->setVxMvAcceRenge(-_renge/20, _renge/20);
-            _pMover->setVyMvAcceRenge(-_renge/20, _renge/20);
-            _pMover->setVzMvAcceRenge(-_renge/20, _renge/20);
+        if (0 < getPartFrame() && getPartFrame() <= 3) {
+            _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
+            _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
+            _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
+        } else if (5 < getPartFrame() && getPartFrame() <= 6) {
+            _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
+            _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
+            _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
         } else {
-            _pMover->setVxMvAcceRenge(-_renge/10, _renge/10);
-            _pMover->setVyMvAcceRenge(-_renge/10, _renge/10);
-            _pMover->setVzMvAcceRenge(-_renge/10, _renge/10);
+            _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
+            _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
+            _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
         }
-        if (1 < getPartFrame() && getPartFrame() < 180) {
+        if (1 < getPartFrame() && getPartFrame() < 120) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
 
                 int dx = _pOrg->_pLockOnTarget->_X - _X;
                 int dy = _pOrg->_pLockOnTarget->_Y - _Y;
                 int dz = _pOrg->_pLockOnTarget->_Z - _Z;
-                if (-_slow_renge*2 < dx && dx < _slow_renge*2) {
-                    _pMover->setVxMvAcce(dx/500); //速度を0にしない為の措置
-                    _pMover->_veloVxMv *= 0.9;
-                } else if (-_slow_renge < dx && dx < _slow_renge) {
-                    _pMover->setVxMvAcce(dx/1000); //速度を0にしない為の措置
-                    _pMover->_veloVxMv *= 0.7;
+                if (-_slow_renge < dx && dx < _slow_renge) {
+                    _pMover->_veloVxMv *= 0.2;
+                    _pMover->setVxMvAcce(dx);
+                    asobiX = asobiX * 0.7;
+                } else if (-_slow_renge * 2 < dx && dx < _slow_renge * 2) {
+                    _pMover->_veloVxMv *= 0.4;
+                    _pMover->setVxMvAcce(dx / 1000);
+                    asobiX = asobiX * 0.6;
+                } else if (-_slow_renge * 4 < dx && dx < _slow_renge * 4) {
+                    _pMover->_veloVxMv *= 0.6;
+                    _pMover->setVxMvAcce(dx / 500);
+                    asobiX = asobiX * 0.5;
                 } else {
-                    _pMover->setVxMvAcce(dx/200);
-                    //_TRACE_("dx="<<dx);
+                    _pMover->setVxMvAcce(dx / 200);
+                    asobiX = asobiX * 0.4;
                 }
 
-                if (-_slow_renge*2 < dy && dy < _slow_renge*2) {
-                    _pMover->setVyMvAcce(dy/500);
-                    _pMover->_veloVyMv *= 0.9;
-                } else if (-_slow_renge < dy && dy < _slow_renge) {
-                    _pMover->setVyMvAcce(dy/1000);
-                    _pMover->_veloVyMv *= 0.7;
+                if (-_slow_renge < dy && dy < _slow_renge) {
+                    _pMover->_veloVyMv *= 0.2;
+                    _pMover->setVyMvAcce(dy);
+                    asobiY = asobiY * 0.7;
+                } else if (-_slow_renge * 2 < dy && dy < _slow_renge * 2) {
+                    _pMover->_veloVyMv *= 0.4;
+                    _pMover->setVyMvAcce(dy / 1000);
+                    asobiY = asobiY * 0.6;
+                } else if (-_slow_renge * 4 < dy && dy < _slow_renge * 4) {
+                    _pMover->_veloVyMv *= 0.6;
+                    _pMover->setVyMvAcce(dy / 500);
+                    asobiY = asobiY * 0.5;
                 } else {
-                    _pMover->setVyMvAcce(dy/200);
+                    _pMover->setVyMvAcce(dy / 200);
+                    asobiY = asobiY * 0.4;
                 }
 
                 if (-_slow_renge < dz && dz < _slow_renge) {
-                    _pMover->setVzMvAcce(dz/500);
-                    _pMover->_veloVzMv *= 0.9;
-                } else if (-_slow_renge < dz && dz < _slow_renge) {
-                    _pMover->setVzMvAcce(dz/1000);
-                    _pMover->_veloVzMv *= 0.7;
+                    _pMover->_veloVzMv *= 0.2;
+                    _pMover->setVzMvAcce(dz);
+                    asobiZ = asobiZ * 0.7;
+                } else if (-_slow_renge * 2 < dz && dz < _slow_renge * 2) {
+                    _pMover->_veloVzMv *= 0.4;
+                    _pMover->setVzMvAcce(dz / 1000);
+                    asobiZ = asobiZ * 0.6;
+                } else if (-_slow_renge * 4 < dz && dz < _slow_renge * 4) {
+                    _pMover->_veloVzMv *= 0.6;
+                    _pMover->setVzMvAcce(dz / 500);
+                    asobiZ = asobiZ * 0.5;
                 } else {
-                    _pMover->setVzMvAcce(dz/200);
+                    _pMover->setVzMvAcce(dz / 200);
+                    asobiZ = asobiZ * 0.4;
                 }
 
-                asobiX = asobiX * 0.7;
-                asobiY = asobiY * 0.7;
-                asobiZ = asobiZ * 0.7;
+//                asobiX = asobiX * 0.7;
+//                asobiY = asobiY * 0.7;
+//                asobiZ = asobiZ * 0.7;
 
             } else {
                 _is_lockon = false;
                 _pOrg->_pLockOnTarget = NULL;
             }
         } else {
+            _pMover->setVxMvAcceRenge(-_renge / 50, _renge / 50);
+            _pMover->setVyMvAcceRenge(-_renge / 50, _renge / 50);
+            _pMover->setVzMvAcceRenge(-_renge / 50, _renge / 50);
+            asobiX = asobiX * 0.5;
+            asobiY = asobiY * 0.5;
+            asobiZ = asobiZ * 0.5;
 
         }
     } else {
@@ -149,36 +175,67 @@ void MyCurveLaserChip001:: processBehavior() {
         //_pMover->setMvVelo(80000);
     }
 
-    if (_pChip_front) {
+//    if (_pChip_front) {
+//
+//        if (_pChip_front->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
+//            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv + asobiX;
+//        }
+//        if (_pChip_front->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
+//            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv - asobiX;
+//        }
+//
+//        if (_pChip_front->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
+//            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv + asobiY;
+//        }
+//        if (_pChip_front->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
+//            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv - asobiY;
+//        }
+//
+//        if (_pChip_front->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
+//            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv + asobiZ;
+//        }
+//        if (_pChip_front->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
+//            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv - asobiZ;
+//        }
+//        //_pMover->setFaceAng(_pMover->_veloVxMv, _pMover->_veloVyMv, _pMover->_veloVzMv);
+//    }
+    if (_pChip_behind) {
 
-        if (_pChip_front->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
-            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv + asobiX;
+        if (_pChip_behind->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
+            _pMover->_veloVxMv = _pChip_behind->_pMover->_veloVxMv + asobiX;
         }
-        if (_pChip_front->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
-            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv - asobiX;
-        }
-
-        if (_pChip_front->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
-            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv + asobiY;
-        }
-        if (_pChip_front->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
-            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv - asobiY;
+        if (_pChip_behind->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
+            _pMover->_veloVxMv = _pChip_behind->_pMover->_veloVxMv - asobiX;
         }
 
-        if (_pChip_front->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
-            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv + asobiZ;
+        if (_pChip_behind->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
+            _pMover->_veloVyMv = _pChip_behind->_pMover->_veloVyMv + asobiY;
         }
-        if (_pChip_front->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
-            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv - asobiZ;
+        if (_pChip_behind->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
+            _pMover->_veloVyMv = _pChip_behind->_pMover->_veloVyMv - asobiY;
+        }
+
+        if (_pChip_behind->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
+            _pMover->_veloVzMv = _pChip_behind->_pMover->_veloVzMv + asobiZ;
+        }
+        if (_pChip_behind->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
+            _pMover->_veloVzMv = _pChip_behind->_pMover->_veloVzMv - asobiZ;
         }
         //_pMover->setFaceAng(_pMover->_veloVxMv, _pMover->_veloVyMv, _pMover->_veloVzMv);
     }
+    if (_pChip_behind && _pChip_front) {
+        _pMover->_veloVxMv = (_pChip_front->_pMover->_veloVxMv + _pChip_behind->_pMover->_veloVxMv) / 2;
+        _pMover->_veloVyMv = (_pChip_front->_pMover->_veloVyMv + _pChip_behind->_pMover->_veloVyMv) / 2;
+        _pMover->_veloVzMv = (_pChip_front->_pMover->_veloVzMv + _pChip_behind->_pMover->_veloVzMv) / 2;
+    }
+
+
     CurveLaserChip::processBehavior();
 
 }
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
-    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
     if (_pOrg->_pLockOnTarget) {
         if (pOther == _pOrg->_pLockOnTarget) {
             _is_lockon = false; //一回ヒットしたらロックオンは外す
