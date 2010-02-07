@@ -11,7 +11,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
     _is_lockon = false;
-    _slow_renge = 10000;
+
     _cnt_rev = 0;
 }
 
@@ -24,14 +24,7 @@ void MyCurveLaserChip001::initialize() {
     _SX = _SY = _SZ = 200 * 1000;
     _fAlpha = 0.99f;
     _max_radius = 50.0f;
-    _renge = 100000;
-    _pMover->setVxMvVeloRenge(-_renge, _renge);
-    _pMover->setVyMvVeloRenge(-_renge, _renge);
-    _pMover->setVzMvVeloRenge(-_renge, _renge);
 
-    _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
-    _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
-    _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
 
 }
 
@@ -63,30 +56,32 @@ void MyCurveLaserChip001::onActive() {
         //        _pMover->setRzMvAngAcce(0);
         //        _pMover->setRyMvAngAcce(0);
     }
+
+    _slow_renge = 10000;
+    _renge = 100000;
+    _pMover->setVxMvVeloRenge(-_renge, _renge);
+    _pMover->setVyMvVeloRenge(-_renge, _renge);
+    _pMover->setVzMvVeloRenge(-_renge, _renge);
+
+    _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
+    _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
+    _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
 }
 
 void MyCurveLaserChip001::processBehavior() {
     int asobiX, asobiY, asobiZ;
-    if (_pChip_front) {
-        asobiX = abs(_pChip_front->_pMover->_veloVxMv - _pMover->_veloVxMv);
-        asobiY = abs(_pChip_front->_pMover->_veloVyMv - _pMover->_veloVyMv);
-        asobiZ = abs(_pChip_front->_pMover->_veloVzMv - _pMover->_veloVzMv);
-    }
+//    if (_pChip_front) {
+//        asobiX = abs(_pChip_front->_pMover->_veloVxMv - _pMover->_veloVxMv);
+//        asobiY = abs(_pChip_front->_pMover->_veloVyMv - _pMover->_veloVyMv);
+//        asobiZ = abs(_pChip_front->_pMover->_veloVzMv - _pMover->_veloVzMv);
+//    } else {
+//        asobiX = 0;
+//        asobiY = 0;
+//        asobiZ = 0;
+//    }
 
     if (_is_lockon) {
-        if (0 < getPartFrame() && getPartFrame() <= 3) {
-            _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
-            _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
-            _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
-        } else if (5 < getPartFrame() && getPartFrame() <= 6) {
-            _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
-            _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
-            _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
-        } else {
-            _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
-            _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
-            _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
-        }
+
         if (1 < getPartFrame() && getPartFrame() < 120) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
 
@@ -94,141 +89,52 @@ void MyCurveLaserChip001::processBehavior() {
                 int dy = _pOrg->_pLockOnTarget->_Y - _Y;
                 int dz = _pOrg->_pLockOnTarget->_Z - _Z;
                 if (-_slow_renge < dx && dx < _slow_renge) {
-                    _pMover->_veloVxMv *= 0.2;
-                    _pMover->setVxMvAcce(dx);
-                    asobiX = asobiX * 0.7;
-                } else if (-_slow_renge * 2 < dx && dx < _slow_renge * 2) {
                     _pMover->_veloVxMv *= 0.4;
-                    _pMover->setVxMvAcce(dx / 1000);
-                    asobiX = asobiX * 0.6;
-                } else if (-_slow_renge * 4 < dx && dx < _slow_renge * 4) {
-                    _pMover->_veloVxMv *= 0.6;
-                    _pMover->setVxMvAcce(dx / 500);
-                    asobiX = asobiX * 0.5;
                 } else {
-                    _pMover->setVxMvAcce(dx / 200);
-                    asobiX = asobiX * 0.4;
                 }
+                _pMover->setVxMvAcce(dx);
 
                 if (-_slow_renge < dy && dy < _slow_renge) {
-                    _pMover->_veloVyMv *= 0.2;
-                    _pMover->setVyMvAcce(dy);
-                    asobiY = asobiY * 0.7;
-                } else if (-_slow_renge * 2 < dy && dy < _slow_renge * 2) {
                     _pMover->_veloVyMv *= 0.4;
-                    _pMover->setVyMvAcce(dy / 1000);
-                    asobiY = asobiY * 0.6;
-                } else if (-_slow_renge * 4 < dy && dy < _slow_renge * 4) {
-                    _pMover->_veloVyMv *= 0.6;
-                    _pMover->setVyMvAcce(dy / 500);
-                    asobiY = asobiY * 0.5;
                 } else {
-                    _pMover->setVyMvAcce(dy / 200);
-                    asobiY = asobiY * 0.4;
                 }
+                _pMover->setVyMvAcce(dy);
 
                 if (-_slow_renge < dz && dz < _slow_renge) {
-                    _pMover->_veloVzMv *= 0.2;
-                    _pMover->setVzMvAcce(dz);
-                    asobiZ = asobiZ * 0.7;
-                } else if (-_slow_renge * 2 < dz && dz < _slow_renge * 2) {
                     _pMover->_veloVzMv *= 0.4;
-                    _pMover->setVzMvAcce(dz / 1000);
-                    asobiZ = asobiZ * 0.6;
-                } else if (-_slow_renge * 4 < dz && dz < _slow_renge * 4) {
-                    _pMover->_veloVzMv *= 0.6;
-                    _pMover->setVzMvAcce(dz / 500);
-                    asobiZ = asobiZ * 0.5;
                 } else {
-                    _pMover->setVzMvAcce(dz / 200);
-                    asobiZ = asobiZ * 0.4;
                 }
-
-//                asobiX = asobiX * 0.7;
-//                asobiY = asobiY * 0.7;
-//                asobiZ = asobiZ * 0.7;
+                _pMover->setVzMvAcce(dz);
 
             } else {
                 _is_lockon = false;
                 _pOrg->_pLockOnTarget = NULL;
             }
         } else {
-            _pMover->setVxMvAcceRenge(-_renge / 50, _renge / 50);
-            _pMover->setVyMvAcceRenge(-_renge / 50, _renge / 50);
-            _pMover->setVzMvAcceRenge(-_renge / 50, _renge / 50);
-            asobiX = asobiX * 0.5;
-            asobiY = asobiY * 0.5;
-            asobiZ = asobiZ * 0.5;
 
         }
     } else {
-        //îÒÉçÉbÉNÉIÉì
-        if (1 < getPartFrame() && getPartFrame() < 60) {
-            asobiX = asobiX * 0.9;
-            asobiY = asobiY * 0.9;
-            asobiZ = asobiZ * 0.9;
-        } else {
-            asobiX = asobiX * 0.7;
-            asobiY = asobiY * 0.7;
-            asobiZ = asobiZ * 0.7;
-        }
-        //_pMover->setMvVelo(80000);
     }
 
-//    if (_pChip_front) {
-//
-//        if (_pChip_front->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
-//            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv + asobiX;
-//        }
-//        if (_pChip_front->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
-//            _pMover->_veloVxMv = _pChip_front->_pMover->_veloVxMv - asobiX;
-//        }
-//
-//        if (_pChip_front->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
-//            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv + asobiY;
-//        }
-//        if (_pChip_front->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
-//            _pMover->_veloVyMv = _pChip_front->_pMover->_veloVyMv - asobiY;
-//        }
-//
-//        if (_pChip_front->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
-//            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv + asobiZ;
-//        }
-//        if (_pChip_front->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
-//            _pMover->_veloVzMv = _pChip_front->_pMover->_veloVzMv - asobiZ;
-//        }
-//        //_pMover->setFaceAng(_pMover->_veloVxMv, _pMover->_veloVyMv, _pMover->_veloVzMv);
+//    if (_pChip_front && _pChip_front->_pChip_front) {
+//        _pChip_front->_pMover->_veloVxMv = (_pMover->_veloVxMv + _pChip_front->_pChip_front->_pMover->_veloVxMv) / 2;
+//        _pChip_front->_pMover->_veloVyMv = (_pMover->_veloVyMv + _pChip_front->_pChip_front->_pMover->_veloVyMv) / 2;
+//        _pChip_front->_pMover->_veloVzMv = (_pMover->_veloVzMv + _pChip_front->_pChip_front->_pMover->_veloVzMv) / 2;
 //    }
-    if (_pChip_behind) {
 
-        if (_pChip_behind->_pMover->_veloVxMv + asobiX < _pMover->_veloVxMv) {
-            _pMover->_veloVxMv = _pChip_behind->_pMover->_veloVxMv + asobiX;
-        }
-        if (_pChip_behind->_pMover->_veloVxMv - asobiX > _pMover->_veloVxMv) {
-            _pMover->_veloVxMv = _pChip_behind->_pMover->_veloVxMv - asobiX;
-        }
-
-        if (_pChip_behind->_pMover->_veloVyMv + asobiY < _pMover->_veloVyMv) {
-            _pMover->_veloVyMv = _pChip_behind->_pMover->_veloVyMv + asobiY;
-        }
-        if (_pChip_behind->_pMover->_veloVyMv - asobiY > _pMover->_veloVyMv) {
-            _pMover->_veloVyMv = _pChip_behind->_pMover->_veloVyMv - asobiY;
-        }
-
-        if (_pChip_behind->_pMover->_veloVzMv + asobiZ < _pMover->_veloVzMv) {
-            _pMover->_veloVzMv = _pChip_behind->_pMover->_veloVzMv + asobiZ;
-        }
-        if (_pChip_behind->_pMover->_veloVzMv - asobiZ > _pMover->_veloVzMv) {
-            _pMover->_veloVzMv = _pChip_behind->_pMover->_veloVzMv - asobiZ;
-        }
-        //_pMover->setFaceAng(_pMover->_veloVxMv, _pMover->_veloVyMv, _pMover->_veloVzMv);
-    }
-    if (_pChip_behind && _pChip_front) {
-        _pMover->_veloVxMv = (_pChip_front->_pMover->_veloVxMv + _pChip_behind->_pMover->_veloVxMv) / 2;
-        _pMover->_veloVyMv = (_pChip_front->_pMover->_veloVyMv + _pChip_behind->_pMover->_veloVyMv) / 2;
-        _pMover->_veloVzMv = (_pChip_front->_pMover->_veloVzMv + _pChip_behind->_pMover->_veloVzMv) / 2;
-    }
-
+//    if (0 < getPartFrame() && getPartFrame() <= 3) {
+//        _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
+//        _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
+//        _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
+//    } else if (5 < getPartFrame() && getPartFrame() <= 6) {
+//        _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
+//        _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
+//        _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
+//    } else {
+//        _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
+//        _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
+//        _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
+//    }
 
     CurveLaserChip::processBehavior();
 
