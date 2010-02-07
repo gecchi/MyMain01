@@ -60,7 +60,7 @@ void GgafGod::be() {
      ___BeginSynchronized; // ----->”r‘¼ŠJŽn
         _godframe++;
         presentUniversalMoment();
-        enforcementUniversalJudge();
+        executeUniversalJudge();
      ___EndSynchronized; // <----- ”r‘¼I—¹
         //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
         //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
@@ -147,7 +147,7 @@ void GgafGod::presentUniversalMoment() {
     _pUniverse->behave();
 }
 
-void GgafGod::enforcementUniversalJudge() {
+void GgafGod::executeUniversalJudge() {
     _pUniverse->preJudge();
     _pUniverse->judge();
 }

@@ -49,7 +49,7 @@ void EnemyAstraea::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
 //    for (int i = 0; i < _laser_way; i++) {
 //        for (int j = 0; j < _laser_way; j++) {
-//            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->extract()); //–{Š‘®
+//            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->becomeIndependent()); //–{Š‘®
 //        }
 //    }
 }
@@ -220,7 +220,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 //    //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
 //    GgafGroupActor* pGroup = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//‰ð•ú—\–ñ
 //    pGroup->sayonara(60 * 5);
-//    getLordActor()->addSubLast(pGroup->extract());
+//    getLordActor()->addSubLast(pGroup->becomeIndependent());
 //
 //    sayonara(); //‚³‚æ‚È‚ç
 
@@ -243,7 +243,7 @@ void EnemyAstraea::onInactive() {
     //ƒŒ[ƒU[‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ðŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
     GgafGroupActor* pGroup = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
     pGroup->sayonara(60 * 5);//‰ð•ú—\–ñ
-    getLordActor()->addSubLast(pGroup->extract());
+    getLordActor()->addSubLast(pGroup->becomeIndependent());
     sayonara();
 }
 

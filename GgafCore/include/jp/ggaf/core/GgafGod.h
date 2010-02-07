@@ -7,11 +7,11 @@ namespace GgafCore {
 
 /**
  * 神クラス.
- * 主にこの世を管理し操作することを目的とするクラスです。一番えらい。<BR>
- * 本クラスの be() メソッドを呼び続けることで、この余は動きます。<BR>
+ * 主にこの世(GgafUniverse)を管理し操作することを目的とするクラスです。一番えらい。<BR>
+ * 本クラスの be() メソッドを呼び続けることで、この世は動きことになる設計。<BR>
  * 基本的にインスタンスは１個です。<BR>
  * その他、アプリ内でグローバルな参照が在ったり便利屋クラスでもある。<BR>
- * TODO:最終的には 神を２個 new して、交互に be() を実行すれば、ゲームが２個平行動作するようにしよう。
+ * TODO:最終的には 神を２個 new して、交互に be() を実行すれば、ゲームが２個平行動作するようにしようかな。
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
@@ -80,17 +80,17 @@ public:
     virtual void presentUniversalMoment();
 
     /**
-     * この世の瞬間を審判する<BR>
+     * この世を審判する<BR>
      */
-    virtual void enforcementUniversalJudge();
+    virtual void executeUniversalJudge();
 
     /**
-     * この世の瞬間の具現的なものを作成<BR>
+     * この世の具現的なものを作成<BR>
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * この世の瞬間の状態を映像化<BR>
+     * この世の状態を視覚化<BR>
      */
     virtual void presentUniversalVisualize();
 
@@ -101,7 +101,7 @@ public:
 
     /**
      * この世を取得<BR>
-     * 下位でオーバーライドしてください。<BR>
+     * 下位でオーバーライド可能。<BR>
      * @return この世
      */
     virtual GgafUniverse* getUniverse() {
@@ -110,6 +110,7 @@ public:
 
     /**
      * この世を創造<BR>
+     * 下位でこの世の生成方法を実装してください。<BR>
      * @return この世
      */
     virtual GgafUniverse* createUniverse() = 0;

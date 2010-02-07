@@ -12,13 +12,19 @@ public:
     int _renge;
     int _cnt_rev;
 
+    int _tmpX, _tmpY, _tmpZ;
+
     MyCurveLaserChip001(const char* prm_name);
 
     void initialize() override;
 
     void onActive() override;
 
+    void onInactive() override;
+
     void processBehavior() override;
+
+    void processPreJudgement() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

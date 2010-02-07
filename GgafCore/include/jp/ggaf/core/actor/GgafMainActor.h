@@ -55,11 +55,10 @@ public:
      * 自ツリーノードを連結リストから切り離し、独立する。 .
      * 切り離され穴が開いた部分は、周りのノードが穴を埋めます（再連結します）<BR>
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
-     * ＜OverRide です＞
      * @return	自ノードのポインタ
      */
-    virtual GgafMainActor* extract() override {
-        return (GgafMainActor*)GgafActor::extract();
+    virtual GgafMainActor* becomeIndependent() override {
+        return (GgafMainActor*)GgafActor::becomeIndependent();
     }
 
     /**
@@ -85,7 +84,8 @@ public:
     virtual GgafGroupActor* getGroupActor();
 
     /**
-     * 新たに種別を設定したアクターを配下に追加する。
+     * 新たに種別を設定し、アクターを配下に追加する。
+     * 種別はアクターが保持する種別を無視し、引数の種別を優先する。
      * 配下に団長(GgafGroupActor)を挟んでその配下に引数のアクターを追加します。
      * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
      * @param prm_kind 種別
@@ -94,6 +94,14 @@ public:
      */
     GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
+    /**
+     * 新たに種別を設定し、アクターを配下に追加する。 .
+     * ただし、種別はアクターが保持する種別を採用する。
+     * 配下に団長(GgafGroupActor)を挟んでその配下に引数のアクターを追加します。
+     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) の説明を参照して下さい。
+     * @param prm_pMainActor 種別と共に追加したいアクター
+     * @return 挟み込まれている配下の団長(GgafGroupActor)
+     */
     GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
@@ -101,7 +109,6 @@ public:
      * @param prm_kind 探したい団長の種別
      * @return 団長、或いは存在しなければ NULL
      */
-
     GgafGroupActor* getSubGroupActor(actorkind prm_kind);
 
     /**

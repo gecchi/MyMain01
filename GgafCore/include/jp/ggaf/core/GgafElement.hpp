@@ -6,12 +6,12 @@ namespace GgafCore {
 
 /**
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
- * 毎フレーム、を神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
+ * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
  * nextFrame() > behave() > preJudge() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
  * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
  * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
- * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合<BR>
- * 実行される。次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
+ * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合実行される。<BR>
+ * 次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
  * 上記の nextFrame() ～ finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
  * initialize() は、上記の nextFrame() ～ finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
  * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() ～ finally() は全て実行されない。<BR>
@@ -125,7 +125,7 @@ public:
      * （ _is_active_flg && !_was_paused_flg && _can_live_flg ）の場合 <BR>
      * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、judge()を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、preJudge()を実行する。<BR>
      */
     virtual void behave();
 
@@ -150,9 +150,9 @@ public:
      * ノードのフレーム毎の判定事前処理(自ツリー) .
      * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
-     * processJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
+     * processPreJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 無ければ finally() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、judge()を実行する。<BR>
      */
     virtual void preJudge();
 
@@ -251,7 +251,7 @@ public:
     virtual void processPreDraw() {};
 
     /**
-     * ノードのフレーム毎の個別描画本処理を実装。(単体) .
+     * ノードのフレーム毎の個別描画本処理を実装。(フレームワーク実装用／ユーザー実装用、単体) .
      * draw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
      * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
      * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
@@ -269,7 +269,7 @@ public:
     virtual void processAfterDraw() {};
 
     /**
-     * ノードのフレーム毎の個別終端処理を実装。(単体) .
+     * ノードのフレーム毎の個別終端処理を実装。(ユーザー実装用、単体) .
      * finally() 時の処理先頭でコールバックされる。<BR>
      * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装する。<BR>
      * 終端処理とは、フラグ管理の実行などである。<BR>
@@ -300,10 +300,19 @@ public:
      * 自身と配下ノード全てについて再帰的に activateTree() が実行される。<BR>
      * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
      * 自ノードの processBehavior() で本メソッドを呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
-     * 実行されることは無いので、他ノードから実行したり、processFinal() などでの使用を想定。<BR>
+     * processBehavior()は活動状態に実行されることになるので意味が無い。<BR>
+     * 他ノードへ実行したり、processFinal() などでの使用を想定。<BR>
      * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
      */
     void activateTree();
+
+    /**
+     * 活動状態にする(単体・コールバック有り) .
+     * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
+     * 配下ノードには何も影響がありません。
+     * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
+     */
+    void activate();
 
     /**
      * 活動状態にする(単体・コールバック有り).
@@ -316,19 +325,11 @@ public:
     void activateAfter(DWORD prm_frame_offset);
 
     /**
-     * 活動状態にする(単体・コールバック有り) .
-     * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     */
-    void activate();
-
-    /**
      * 活動状態にする(単体・即時・コールバック無し) .
      * 自ノードについて、即座に活動状態にする。通常、初期化以外で本メソッドの使用は非推奨。<BR>
      * onActive() コールバックは実行されない。<BR>
      * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
+     * 『同一フレーム内』の残りの未処理のノードに対しては有効になってしまう。つまり、<BR>
      * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
      * 他ノードのロジックが、「このノードが活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
      * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
@@ -354,6 +355,14 @@ public:
     void inactivateTree();
 
     /**
+     * 非活動状態にする(単体・コールバック有り) .
+     * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
+     * 配下ノードには何も影響がありません。
+     * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+     */
+    void inactivate();
+
+    /**
      * 非活動予約する(自ツリー・コールバック有り) .
      * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
      * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
@@ -363,13 +372,6 @@ public:
      */
     void inactivateAfter(DWORD prm_frame_offset);
 
-    /**
-     * 非活動状態にする(単体・コールバック有り) .
-     * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
-     */
-    void inactivate();
 
     /**
      * 非活動状態にする(単体・即時・コールバック無し)  .
@@ -470,16 +472,20 @@ public:
 
     /**
      * さよならします。(自ツリー) .
-     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。 <BR>
-     * 自ツリーノード全てに生存終了(sayonara())がお知らせが届く。<BR>
+     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。（削除フラグを立てる） <BR>
+     * 自ツリーノード全て道連れで生存終了(sayonara())がお知らせが届く。<br>
+     * 親ノードがさよならならすれば、子ノードもさよならせざるをえない。<BR>
      * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
-     * 次フレームからアンセットする事である。<BR>
-     * _can_live_flg がアンセットされることにより、神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより
-     * delete の対象となる。<BR>
-     * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれない。
-     * インスタンスがすぐに解放されないことに注意。今はさよならするだけ。<BR>
-     * 注意：さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
-     * これは本メソッドで、GgafSayonaraActorに所属するためです。<BR>
+     * 次フレームからアンセットする予約フラグを立てること事である。<BR>
+     * _can_live_flg がアンセットされることにより、GgafSayonaraActor に所属することになる。<BR>
+     * 神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより、GgafSayonaraActor 配下ノードを<BR>
+     * delete することとなる。<BR>
+     * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれず、<BR>
+     * GgafSayonaraActor 配下に移るだけ。（タスクからは除外されている）。<BR>
+     * 次フレーム以降でも直ぐには deleteされないかもしれない。<BR>
+     * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
+     * さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
+     * これは本メソッドで、GgafSayonaraActorに所属してしまうためです。<BR>
      * @param prm_frame_offset 予約猶予フレーム
      */
     void sayonara(DWORD prm_frame_offset = 0);
@@ -504,10 +510,10 @@ public:
 
     /**
      * 所属ツリーから独立する(単体)
+     * extract() のラッパーで、生存確認のチェック付き。通常はこちらを使用する。
      * @return  T* 脱退し独立した自ノードのポインタ
-     *
      */
-    T* becomeIndependent();
+    virtual T* becomeIndependent();
 
 
     /**
@@ -548,23 +554,32 @@ public:
 
     /**
      * 振る舞い状態に加算されるフレーム数を取得する .
-     * 何もセットしない場合、次のような値を返す。
-     * 1 Frame ～ からの値になる。0 Frame状態は基本存在しない。但し例外的に
-     * 生成時コンストラクタ内、および、最初の initialize() 内では 0 Frame を返す。
-     * 初回実行の onActive()、processBehavior()、processJudgement() 等の中で 1 になっている。
-     * 以降、振る舞い態時にフレーム加算される。
-     * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。
+     * 何もセットしない場合、次のような値を返す。<BR>
+     * 1 Frame ～ からの値になる。0 Frame状態は基本存在しない。但し例外的に<BR>
+     * 生成時コンストラクタ内、および、最初の initialize() 内では 0 Frame を返す。<BR>
+     * 初回実行の onActive()、processBehavior()、processJudgement() 等の中で 1 になっている。<BR>
+     * 以降、振る舞い態時にフレーム加算される。<BR>
+     * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。<BR>
+     * @return 振る舞いフレーム数総計
      */
     DWORD getBehaveingFrame();
 
+    /**
+     * onActive()からの振る舞い状態に加算されるフレーム数を取得する .
+     * 汎用オブジェクトなど、一度生成して使いまわす(deleteしない)場合、<BR>
+     * 消失時に inactivate() 、 出現時 activate() を繰り返すことを想定。<BR>
+     * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
+     * @return onActive()からの振る舞いフレーム数
+     */
     DWORD getPartFrame();
 
 
     /**
-     * 相対経過フレームの判定。
+     * 相対経過振る舞いフレームの判定。
      * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
+     * 初回呼び出しは、getBehaveingFrame() == ０からの相対フレーム数となるため、１度は空呼び出しを行う（なんとかしたい）事になるかもしれない。
      * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
-     * @param   prm_frame_relative    経過フレーム数
+     * @param   prm_frame_relative    相対振る舞いフレーム数
      * @return  bool    true:経過フレーム数に達した/false:達していない
      */
     bool relativeFrame(DWORD prm_frame_relative);

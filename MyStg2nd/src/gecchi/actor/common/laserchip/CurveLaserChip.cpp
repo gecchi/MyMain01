@@ -39,9 +39,7 @@ void CurveLaserChip::onInactive() {
 void CurveLaserChip::processBehavior() {
     LaserChip::processBehavior();
     //À•W‚É”½‰f
-    if (getPartFrame() > 0) {
-        _pMover->behave();
-    }
+    _pMover->behave();
 }
 
 void CurveLaserChip::processJudgement() {

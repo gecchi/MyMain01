@@ -25,7 +25,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
     _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
     MyCurveLaserChip001* pChip;
-    for (int i = 0; i < 80; i++) { //レーザーストック
+    for (int i = 0; i < 90; i++) { //レーザーストック
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
@@ -71,7 +71,7 @@ void MyDummyOption::initialize() {
 //    _RYorg = _RY;
 //    _RZorg = _RZ;
 
-    GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
+    GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->becomeIndependent());
 
 }
 
@@ -113,7 +113,7 @@ void MyDummyOption::processBehavior() {
     if (_is_flapping) {
         if (_iflappingSeq == 0) {
             if (ANGLE225 < _angExpanse && _angExpanse <= ANGLE270) {
-                _iflappingSeq == 1;
+                _iflappingSeq = 1;
                 _angveloExpanse = -_angveloExpanse;
                 _angacceExpanse = -_angacceExpanse;
             }
@@ -273,7 +273,9 @@ void MyDummyOption::processBehavior() {
             pLaserChip->_pMover->setVxMvVelo(_Q._x*80000);
             pLaserChip->_pMover->setVyMvVelo(_Q._y*80000);
             pLaserChip->_pMover->setVzMvVelo(_Q._z*80000);
-
+            pLaserChip->_pMover->setVxMvAcce(0);
+            pLaserChip->_pMover->setVyMvAcce(0);
+            pLaserChip->_pMover->setVzMvAcce(0);
             pLaserChip->_pMover->behave();
             pLaserChip->_X = _X;
             pLaserChip->_Y = _Y;
