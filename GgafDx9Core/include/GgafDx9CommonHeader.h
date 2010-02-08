@@ -291,6 +291,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9CubeEx.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereActor.h"
 #include "jp/ggaf/dx9core/actor/ex/GgafDx9SphereEx.h"
+#include "jp/ggaf/dx9core/actor/ex/GgafDx9SpriteMeshActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9SpriteSetActor.h"
 #include "jp/ggaf/dx9core/actor/GgafDx9Camera.h"
