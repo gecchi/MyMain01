@@ -65,9 +65,9 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVyMvVeloRenge(-_renge, _renge);
     _pMover->setVzMvVeloRenge(-_renge, _renge);
 
-    _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
-    _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
-    _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
+    _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
+    _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
+    _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
     _cnt_curve = 0;
 }
 
@@ -76,9 +76,9 @@ void MyCurveLaserChip001::processBehavior() {
 
         if (1 < getPartFrame() && getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-                int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*8);
+                int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*10);
                 int dy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*7);
-                int dz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*8);
+                int dz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*10);
                 _pMover->setVxMvAcce(dx);
                 _pMover->setVyMvAcce(dy);
                 _pMover->setVzMvAcce(dz);
