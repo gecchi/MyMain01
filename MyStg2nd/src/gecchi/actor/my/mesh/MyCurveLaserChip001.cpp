@@ -10,7 +10,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
     _class_name = "MyCurveLaserChip001";
     MyStgUtil::resetMyCurveLaserChip001Status(_pStatus);
     _pOrg = NULL;
-    _is_lockon = false;
+    _lockon = 0;
 
     _cnt_rev = 0;
 
@@ -39,29 +39,27 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
-    //_pMover->setMvAcce(300);
     _veloCurve = 1000;
 
     if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
-            _is_lockon = true;
+            //先頭チップ
+            _lockon = 1;
         } else {
-            _is_lockon = ((MyCurveLaserChip001*) _pChip_front)->_is_lockon;//一つ前のロックオン情報を引き継ぐ
+            //先頭以外
+            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
-        //        _pMover->execTagettingMvAngSequence(_pOrg->_pLockOnTarget,
-        //                                                   1000, 0,
-        //                                                   TURN_CLOSE_TO);
     } else {
-        _is_lockon = false;
+        if (_pChip_front == NULL) {
+            //先頭チップ
+            _lockon = 0;
+        } else {
+            //先頭以外
+            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+        }
         _pOrg->_pLockOnTarget = NULL;
-        //        _pMover->stopTagettingMvAngSequence();
-        //        _pMover->setRzMvAngVelo(0);
-        //        _pMover->setRyMvAngVelo(0);
-        //        _pMover->setRzMvAngAcce(0);
-        //        _pMover->setRyMvAngAcce(0);
     }
 
-    _slow_renge = 10000;
     _renge = 120000;
     _pMover->setVxMvVeloRenge(-_renge, _renge);
     _pMover->setVyMvVeloRenge(-_renge, _renge);
@@ -70,79 +68,51 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
     _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
     _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
+    _cnt_curve = 0;
 }
 
 void MyCurveLaserChip001::processBehavior() {
-    int asobiX, asobiY, asobiZ;
-//    if (getPartFrame() == 0) {
-//        return;
-//    }
-//    if (_pChip_front) {
-//        asobiX = abs(_pChip_front->_pMover->_veloVxMv - _pMover->_veloVxMv);
-//        asobiY = abs(_pChip_front->_pMover->_veloVyMv - _pMover->_veloVyMv);
-//        asobiZ = abs(_pChip_front->_pMover->_veloVzMv - _pMover->_veloVzMv);
-//    } else {
-//        asobiX = 0;
-//        asobiY = 0;
-//        asobiZ = 0;
-//    }
+    if (_lockon == 1) {
 
-    if (_is_lockon) {
-
-        if (1 < getPartFrame() && getPartFrame() < 10000) {
+        if (1 < getPartFrame() && getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
-
                 int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*8);
                 int dy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*7);
                 int dz = _pOrg->_pLockOnTarget->_Z - (_Z + _pMover->_veloVzMv*8);
-
-                if (-_slow_renge < dx && dx < _slow_renge) {
-                    //_pMover->_veloVxMv *= 0.4;
-                } else {
-                }
                 _pMover->setVxMvAcce(dx);
-
-                if (-_slow_renge < dy && dy < _slow_renge) {
-                   // _pMover->_veloVyMv *= 0.4;
-                } else {
-                }
                 _pMover->setVyMvAcce(dy);
-
-                if (-_slow_renge < dz && dz < _slow_renge) {
-                    //_pMover->_veloVzMv *= 0.4;
-                } else {
-                }
                 _pMover->setVzMvAcce(dz);
-
             } else {
-                _is_lockon = false;
+                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
                 _pOrg->_pLockOnTarget = NULL;
             }
         } else {
 
         }
-    } else {
+    } else if (_lockon == 2) {
+        if (_pChip_front == NULL) {
+            _pMover->addVxMvAcce(_pMover->_acceVxMv);
+            _pMover->addVyMvAcce(_pMover->_acceVyMv);
+            _pMover->addVzMvAcce(_pMover->_acceVzMv);
+        } else if (_pChip_front->_pChip_front == NULL) {
+            //新たなターゲットを作成
+            int dx = _pChip_front->_X - (_X + _pMover->_veloVxMv*3);
+            int dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
+            int dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
+            _pMover->setVxMvAcce(dx);
+            _pMover->setVyMvAcce(dy);
+            _pMover->setVzMvAcce(dz);
+        } else {
+            int dx = _pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
+            int dy = _pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
+            int dz = _pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
+            _pMover->setVxMvAcce(dx);
+            _pMover->setVyMvAcce(dy);
+            _pMover->setVzMvAcce(dz);
+        }
     }
 
-//    if (_pChip_front && _pChip_front->_pChip_front) {
-//        _pChip_front->_pMover->_veloVxMv = (_pMover->_veloVxMv + _pChip_front->_pChip_front->_pMover->_veloVxMv) / 2;
-//        _pChip_front->_pMover->_veloVyMv = (_pMover->_veloVyMv + _pChip_front->_pChip_front->_pMover->_veloVyMv) / 2;
-//        _pChip_front->_pMover->_veloVzMv = (_pMover->_veloVzMv + _pChip_front->_pChip_front->_pMover->_veloVzMv) / 2;
-//    }
-
-//    if (0 < getPartFrame() && getPartFrame() <= 3) {
-//        _pMover->setVxMvAcceRenge(-_renge / 30, _renge / 30);
-//        _pMover->setVyMvAcceRenge(-_renge / 30, _renge / 30);
-//        _pMover->setVzMvAcceRenge(-_renge / 30, _renge / 30);
-//    } else if (5 < getPartFrame() && getPartFrame() <= 6) {
-//        _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
-//        _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
-//        _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
-//    } else {
-//        _pMover->setVxMvAcceRenge(-_renge / 10, _renge / 10);
-//        _pMover->setVyMvAcceRenge(-_renge / 10, _renge / 10);
-//        _pMover->setVzMvAcceRenge(-_renge / 10, _renge / 10);
-//    }
+    //これにより発射元の根元から表示される
     if (getPartFrame() > 0) {
         CurveLaserChip::processBehavior();
     }
@@ -158,7 +128,7 @@ void MyCurveLaserChip001::processPreJudgement() {
     } else if (_pChip_behind == NULL) {
         //末尾
     } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
-        //_pChip_behind == NULL の判定だけではだめ_pChip_behind->isActive()と判定すること
+        //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
         //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
         //_X,_Y,_Z にはまだ変な値が入っている。
         MyCurveLaserChip001* pF = (MyCurveLaserChip001*)_pChip_front;
@@ -177,7 +147,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
     if (_pOrg->_pLockOnTarget) {
         if (pOther == _pOrg->_pLockOnTarget) {
-            _is_lockon = false; //一回ヒットしたらロックオンは外す
+            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
         }
     } else {
         _pOrg->_pLockOnTarget = pOther;
@@ -197,14 +167,14 @@ void MyCurveLaserChip001::processFinal() {
     if (_pOrg->_pLockOnTarget) {
         if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
             _pOrg->_pLockOnTarget = NULL;
-            _is_lockon = false;
+            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
         }
     }
 }
 
 void MyCurveLaserChip001::onInactive() {
     CurveLaserChip::onInactive();
-    _is_lockon = false;
+    _lockon = 0;
 }
 
 MyCurveLaserChip001::~MyCurveLaserChip001() {

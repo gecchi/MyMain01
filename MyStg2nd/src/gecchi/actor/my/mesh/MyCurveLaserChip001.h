@@ -5,14 +5,15 @@ namespace MyStg2nd {
 class MyCurveLaserChip001 : public CurveLaserChip {
 
 public:
-    bool _is_lockon;
+    /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
+    int _lockon;
     MyDummyOption* _pOrg;
     velo _veloCurve;
-    int _slow_renge;
     int _renge;
     int _cnt_rev;
-
+    int _tmp_dx, _tmp_dy, _tmp_dz;
     int _tmpX, _tmpY, _tmpZ;
+    int _cnt_curve;
 
     MyCurveLaserChip001(const char* prm_name);
 

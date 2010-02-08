@@ -19,7 +19,7 @@ public:
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
-    /** 一つ後方のレーザーチップ */
+    /** 一つ後方のレーザーチップ（注意：末尾判定は、_pChip_behind == NULL && _pChip_behind->isActive() とするコト */
     LaserChip* _pChip_behind;
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;
@@ -29,9 +29,11 @@ public:
     D3DXMATRIX _matWorld_front;
     /** 自身を管理してるアクター発送者 */
     LaserChipDispatcher* _pDispatcher;
-
+    /** registHitAreaCube() メソッドにより登録されているかどうか。trueならば、中間当たり判定自動生成昨日が使える */
     bool _is_regist_hitarea;
+    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さ */
     int _hitarea_edge_length;
+    /** registHitAreaCube() メソッドにより登録時の当たり判定立方体の１辺の長さの半分 */
     int _harf_hitarea_edge_length;
     /** onAcive() でリセットされる振る舞い時フレーム数 */
     DWORD _frame_of_behaving_from_onActive;
