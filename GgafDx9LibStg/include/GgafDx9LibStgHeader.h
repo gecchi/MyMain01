@@ -59,6 +59,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/actor/ActorDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"
 #include "jp/ggaf/dx9libstg/actor/SphereEx.h"
+#include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
 #include "jp/ggaf/dx9libstg/util/FontSpriteString.h"
 #include "jp/ggaf/dx9libstg/util/ColliBox.h"
 #include "jp/ggaf/dx9libstg/util/ColliSphere.h"
