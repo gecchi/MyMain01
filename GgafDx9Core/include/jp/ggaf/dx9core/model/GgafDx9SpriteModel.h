@@ -41,7 +41,7 @@ public:
 
 public:
     /** 全アニメパターン数(0～) */
-    int _pattno_ani_Max;
+    int _pattno_uvflip_Max;
     float _fSize_SpriteModelWidthPx;
     float _fSize_SpriteModelHeightPx;
     int _row_texture_split;

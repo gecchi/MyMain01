@@ -12,7 +12,7 @@ GgafDx9SpriteModel::GgafDx9SpriteModel(char* prm_model_name) : GgafDx9Model(prm_
     _fSize_SpriteModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_ani_Max = 0;
+    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
 
@@ -40,7 +40,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     //¡‰ñ•`‰æ‚ÌUV
     static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pattno_ani_now);
+    pRectUV_Active = _paRectUV + (pTargetActor->_pattno_uvflip_now);
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {

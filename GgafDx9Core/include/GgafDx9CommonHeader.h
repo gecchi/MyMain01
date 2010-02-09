@@ -54,7 +54,7 @@
 //ÉmÅ[ÉhÇÃ happen à¯êî
 #define GGAF_EVENT_ON_DEVICE_LOST 101
 #define GGAF_EVENT_DEVICE_LOST_RESTORE 102
-#define GGAF_EVENT_NOLOOP_ANIMATION_FINISHED 201
+#define GGAF_EVENT_NOLOOP_UVFLIP_FINISHED 201
 
 
 
@@ -106,12 +106,12 @@ typedef int angvelo;
 typedef int angacce;
 typedef int angjerk;
 
-enum GgafDx9AnimationMethod {
-    ANIMATE_ORDER_LOOP,
-    ANIMATE_REVERSE_LOOP,
-    ANIMATE_OSCILLATE_LOOP,
-    ANIMATE_ORDER_NOLOOP,
-    ANIMATE_REVERSE_NOLOOP,
+enum GgafDx9UvFlipMethod {
+    FLIP_ORDER_LOOP,
+    FLIP_REVERSE_LOOP,
+    FLIP_OSCILLATE_LOOP,
+    FLIP_ORDER_NOLOOP,
+    FLIP_REVERSE_NOLOOP,
     NOT_ANIMATED
 };
 

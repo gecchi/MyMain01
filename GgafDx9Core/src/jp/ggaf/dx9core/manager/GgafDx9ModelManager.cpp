@@ -1698,22 +1698,22 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
         for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
 
-            model_paRectUV[pattno_ani]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
 
-            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_ani]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
 
-            model_paRectUV[pattno_ani]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_ani]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
         }
     }
     prm_pSpriteModel->_paRectUV = model_paRectUV;
-    prm_pSpriteModel->_pattno_ani_Max=pattnum-1;
+    prm_pSpriteModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9;
     model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteModel->_dwNumMaterials];
@@ -1975,22 +1975,22 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
         for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
 
-            model_paRectUV[pattno_ani]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
+            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f/(*pInt_RowNum_TextureSplit)*row);
 
-            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
-            model_paRectUV[pattno_ani]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f/(*pInt_ColNum_TextureSplit)*col);
+            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
 
-            model_paRectUV[pattno_ani]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
-            model_paRectUV[pattno_ani]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
+            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)((1.0f/(*pInt_ColNum_TextureSplit)*(col+1)));
+            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)((1.0f/(*pInt_RowNum_TextureSplit)*(row+1)));
         }
     }
     prm_pSpriteSetModel->_paRectUV = model_paRectUV;
-    prm_pSpriteSetModel->_pattno_ani_Max=pattnum-1;
+    prm_pSpriteSetModel->_pattno_uvflip_Max=pattnum-1;
     prm_pSpriteSetModel->_dwNumMaterials = 1;
     D3DMATERIAL9* model_paD3DMaterial9;
     model_paD3DMaterial9 = NEW D3DMATERIAL9[prm_pSpriteSetModel->_dwNumMaterials];
@@ -2131,18 +2131,18 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
         for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
         }
     }
     prm_pBoardModel->_paRectUV = model_paRectUV;
@@ -2373,18 +2373,18 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
         for (int col = 0; col < *pInt_ColNum_TextureSplit; col++) {
-            int pattno_ani = row*(*pInt_ColNum_TextureSplit)+col;
-            model_paRectUV[pattno_ani]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+            int pattno_uvflip = row*(*pInt_ColNum_TextureSplit)+col;
+            model_paRectUV[pattno_uvflip]._aUV[0].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[0].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[1].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[1].tv = (float)(1.0f*row/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[2].tu = (float)(1.0f*col/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[2].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
 
-            model_paRectUV[pattno_ani]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
-            model_paRectUV[pattno_ani]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[3].tu = (float)(1.0f*(col+1)/(*pInt_ColNum_TextureSplit));
+            model_paRectUV[pattno_uvflip]._aUV[3].tv = (float)(1.0f*(row+1)/(*pInt_RowNum_TextureSplit));
         }
     }
     prm_pBoardSetModel->_paRectUV = model_paRectUV;

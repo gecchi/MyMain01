@@ -2,8 +2,8 @@
 #define GGAFDX9SPRITESETACTOR_H_
 namespace GgafDx9Core {
 
-//enum GgafDx9AnimationMethod {
-//    ANIMATE_ORDER_LOOP, ANIMATE_REVERSE_LOOP, ANIMATE_OSCILLATE_LOOP, ANIMATE_ORDER_NOLOOP, ANIMATE_REVERSE_NOLOOP, NOT_ANIMATED
+//enum GgafDx9UvFlipMethod {
+//    FLIP_ORDER_LOOP, FLIP_REVERSE_LOOP, FLIP_OSCILLATE_LOOP, FLIP_ORDER_NOLOOP, FLIP_REVERSE_NOLOOP, NOT_ANIMATED
 //};
 
 /**
@@ -34,16 +34,16 @@ public:
     GgafDx9SpriteSetEffect* _pSpriteSetEffect;
 
     /** アニメパターン番号の上限番号 */
-    unsigned int _pattno_ani_top;
+    unsigned int _pattno_uvflip_top;
     /** 現在表示中のアニメパターン番号 */
-    unsigned int _pattno_ani_bottom;
+    unsigned int _pattno_uvflip_bottom;
     /** 現在表示中のアニメパターン番号(0～) */
-    unsigned int _pattno_ani_now;
+    unsigned int _pattno_uvflip_now;
     /** パターンとパターンの間隔フレーム数 */
-    unsigned int _frame_ani_interval;
+    unsigned int _frame_uvflip_interval;
     /** アニメ方式 */
-    GgafDx9AnimationMethod _animation_method;
-    /** ANIMATE_OSCILLATE_LOOP用の現在のアニメ方向 */
+    GgafDx9UvFlipMethod _uvflip_method;
+    /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
     GgafDx9SpriteSetActor(const char* prm_name,
@@ -63,32 +63,32 @@ public:
      * アニメーションを次のコマへ進める .
      * アニメーションを行いたい場合メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
      */
-    void addNextAnimationFrame();
+    void behaveUvFlip();
 
     /**
      * アニメーションパターンを設定する .
-     * @param prm_pattno_ani アニメーションパターン番号
+     * @param prm_pattno_uvflip アニメーションパターン番号
      */
-    void setActivAnimationPattern(int prm_pattno_ani);
+    void setUvFlipPtnNo(int prm_pattno_uvflip);
 
     /**
      * アニメーションパターンを上限のアニメーションパターン番号に設定する .
      */
-    void resetActivAnimationPattern();
+    void resetUvFlipPtnNo();
 
     /**
      * アニメーションパターンの範囲を制限する .
      * @param prm_top 上限のアニメーションパターン番号
      * @param prm_bottom 下限のアニメーションパターン番号
      */
-    void setAnimationPatternRenge(int prm_top, int prm_bottom);
+    void setUvFlipPtnRenge(int prm_top, int prm_bottom);
 
     /**
      * アニメーション方法を設定する.
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)
      */
-    void setAnimationMethod(GgafDx9AnimationMethod prm_method, int prm_interval);
+    void setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval);
 
     /**
      * α設定.

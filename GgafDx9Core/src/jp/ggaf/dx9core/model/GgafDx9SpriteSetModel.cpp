@@ -12,7 +12,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     _fSize_SpriteSetModelHeightPx = 32.0f;
     _row_texture_split = 1;
     _col_texture_split = 1;
-    _pattno_ani_Max = 0;
+    _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
     _pIDirect3DIndexBuffer9 = NULL;
     _paRectUV = NULL;
