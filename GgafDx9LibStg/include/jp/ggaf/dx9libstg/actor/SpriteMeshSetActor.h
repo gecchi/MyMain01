@@ -1,15 +1,15 @@
-#ifndef SPRITEMESHACTOR_H_
-#define SPRITEMESHACTOR_H_
+#ifndef SPRITEMESHSETACTOR_H_
+#define SPRITEMESHSETACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
  * メッシュアクターの具象クラス.
- * GgafDx9Core::GgafDx9SpriteMeshActor を空実装した具象アクターです。
+ * GgafDx9Core::GgafDx9SpriteMeshSetActor を空実装した具象アクターです。
  * @version 1.00
  * @since 2010/02/09
  * @author Masatoshi Tsuge
  */
-class SpriteMeshActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
+class SpriteMeshSetActor : public GgafDx9Core::GgafDx9SpriteMeshSetActor {
 
 public:
     /** 拡大縮小支援オブジェクト */
@@ -19,7 +19,7 @@ public:
 
     CollisionChecker* _pCollisionChecker;
 
-    SpriteMeshActor(const char* prm_name, const char* prm_model);
+    SpriteMeshSetActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
     }
@@ -45,8 +45,8 @@ public:
     virtual void drawHitArea() override;
 
 
-    virtual ~SpriteMeshActor();
+    virtual ~SpriteMeshSetActor();
 };
 
 }
-#endif /*SPRITEMESHACTOR_H_*/
+#endif /*SPRITEMESHSETACTOR_H_*/
