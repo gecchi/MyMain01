@@ -18,6 +18,8 @@ public:
     //D3DXHANDLE _hMatWorld;
     D3DXHANDLE _ahMatWorld[16];
     D3DXHANDLE _ahMaterialDiffuse[16];
+    D3DXHANDLE _ahOffsetU[16];
+    D3DXHANDLE _ahOffsetV[16];
     D3DXHANDLE _h_nVertexs;
 
 public:

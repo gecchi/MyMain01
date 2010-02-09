@@ -26,9 +26,6 @@ GgafDx9SpriteMeshActor::GgafDx9SpriteMeshActor(const char* prm_name,
     _tex_width = 1.0f;
     _tex_height = 1.0f;
     _tex_col_num = 1;
-    _h_offset_u = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
-    _h_offset_v = _pMeshEffect->_pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
-
 }
 
 
@@ -46,9 +43,9 @@ void GgafDx9SpriteMeshActor::processDraw() {
     float u = (int)(_pattno_uvflip_now % _tex_col_num) * _tex_height;
     float v = (int)(_pattno_uvflip_now / _tex_col_num) * _tex_width;
     //_TRACE_("_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_tex_col_num="<<_tex_col_num<<"/_tex_width="<<_tex_width<<"/_tex_height="<<_tex_height<<"/u="<<u<<"/v="<<v<<"");
-    hr = pID3DXEffect->SetFloat(_h_offset_u, u);
+    hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_u, u);
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    hr = pID3DXEffect->SetFloat(_h_offset_v, v);
+    hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_v, v);
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(_h_offset_v) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     _pMeshModel->draw(this);
 

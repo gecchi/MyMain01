@@ -26,6 +26,9 @@ GgafDx9MeshEffect::GgafDx9MeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_
     _hMaterialDiffuse = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse" );
     _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
     _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
+    _h_offset_u = _pID3DXEffect->GetParameterByName( NULL, "g_offset_u" );
+    _h_offset_v = _pID3DXEffect->GetParameterByName( NULL, "g_offset_v" );
+
 }
 
 

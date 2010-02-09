@@ -23,7 +23,7 @@ GgafDx9MeshSetModel::GgafDx9MeshSetModel(char* prm_model_name) : GgafDx9Model(pr
     pT = strtok(NULL, "/");
     if (pT == NULL) {
         _TRACE_("GgafDx9MeshSetModel("<<prm_model_name<<") のセット数省略。最大の16セットが設定されます。");
-        _set_num = 1;
+        _set_num = 16;
     } else {
         _set_num = num;
         if (_set_num > 16) {

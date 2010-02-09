@@ -60,6 +60,40 @@ GgafDx9MeshSetEffect::GgafDx9MeshSetEffect(char* prm_effect_name) : GgafDx9Effec
     _ahMaterialDiffuse[14] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse015" );
     _ahMaterialDiffuse[15] = _pID3DXEffect->GetParameterByName( NULL, "g_MaterialDiffuse016" );
 
+    _ahOffsetU[0] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU001" );
+    _ahOffsetU[1] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU002" );
+    _ahOffsetU[2] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU003" );
+    _ahOffsetU[3] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU004" );
+    _ahOffsetU[4] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU005" );
+    _ahOffsetU[5] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU006" );
+    _ahOffsetU[6] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU007" );
+    _ahOffsetU[7] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU008" );
+    _ahOffsetU[8] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU009" );
+    _ahOffsetU[9] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU010" );
+    _ahOffsetU[10] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU011" );
+    _ahOffsetU[11] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU012" );
+    _ahOffsetU[12] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU013" );
+    _ahOffsetU[13] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU014" );
+    _ahOffsetU[14] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU015" );
+    _ahOffsetU[15] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU016" );
+
+    _ahOffsetV[0] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV001" );
+    _ahOffsetV[1] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV002" );
+    _ahOffsetV[2] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV003" );
+    _ahOffsetV[3] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV004" );
+    _ahOffsetV[4] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV005" );
+    _ahOffsetV[5] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV006" );
+    _ahOffsetV[6] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV007" );
+    _ahOffsetV[7] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV008" );
+    _ahOffsetV[8] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV009" );
+    _ahOffsetV[9] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV010" );
+    _ahOffsetV[10] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV011" );
+    _ahOffsetV[11] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV012" );
+    _ahOffsetV[12] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV013" );
+    _ahOffsetV[13] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV014" );
+    _ahOffsetV[14] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV015" );
+    _ahOffsetV[15] = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV016" );
+
     _h_nVertexs = _pID3DXEffect->GetParameterByName( NULL, "g_nVertexs" );
     _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
     _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );

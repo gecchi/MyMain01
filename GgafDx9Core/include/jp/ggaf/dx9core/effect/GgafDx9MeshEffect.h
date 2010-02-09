@@ -17,6 +17,8 @@ public:
     D3DXHANDLE _hMatView;
     D3DXHANDLE _hMatWorld;
     D3DXHANDLE _hMaterialDiffuse;
+    D3DXHANDLE _h_offset_u;
+    D3DXHANDLE _h_offset_v;
 
 public:
     /**

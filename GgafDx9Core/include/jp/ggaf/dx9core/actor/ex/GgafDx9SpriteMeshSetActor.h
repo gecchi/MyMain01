@@ -1,5 +1,5 @@
-#ifndef GGAFDX9SPRITEMESHACTOR_H_
-#define GGAFDX9SPRITEMESHACTOR_H_
+#ifndef GGAFDX9SPRITEMESHSETACTOR_H_
+#define GGAFDX9SPRITEMESHSETACTOR_H_
 namespace GgafDx9Core {
 
 /**
@@ -10,7 +10,7 @@ namespace GgafDx9Core {
  * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
-class GgafDx9SpriteMeshActor : public GgafDx9MeshActor {
+class GgafDx9SpriteMeshSetActor : public GgafDx9MeshSetActor {
 
 private:
 
@@ -19,7 +19,6 @@ private:
 
 
 public:
-
     float _tex_width;
     float _tex_height;
     int _tex_col_num;
@@ -39,13 +38,13 @@ public:
     bool _is_reverse_order_in_oscillate_animation_flg;
 
 
-    GgafDx9SpriteMeshActor(const char* prm_name,
+    GgafDx9SpriteMeshSetActor(const char* prm_name,
                           const char* prm_model,
                           GgafDx9Checker* prm_pChecker );
 
     virtual void processDraw() override;
 
-    virtual ~GgafDx9SpriteMeshActor();
+    virtual ~GgafDx9SpriteMeshSetActor();
 
     /**
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。
@@ -121,4 +120,4 @@ public:
 };
 
 }
-#endif /*GGAFDX9SPRITEMESHACTOR_H_*/
+#endif /*GGAFDX9SPRITEMESHSETACTOR_H_*/
