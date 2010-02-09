@@ -60,7 +60,7 @@ void MyCurveLaserChip001::onActive() {
         _pOrg->_pLockOnTarget = NULL;
     }
 
-    _renge = 120000;
+    _renge = 150000;
     _pMover->setVxMvVeloRenge(-_renge, _renge);
     _pMover->setVyMvVeloRenge(-_renge, _renge);
     _pMover->setVzMvVeloRenge(-_renge, _renge);
@@ -96,9 +96,16 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->addVzMvAcce(_pMover->_acceVzMv);
         } else if (_pChip_front->_pChip_front == NULL) {
             //新たなターゲットを作成
-            int dx = _pChip_front->_X - (_X + _pMover->_veloVxMv*3);
-            int dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
-            int dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
+            int dx = _pChip_front->_X - (_X + _pMover->_veloVxMv);
+            int dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv);
+            int dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv);
+            _pMover->setVxMvAcce(dx);
+            _pMover->setVyMvAcce(dy);
+            _pMover->setVzMvAcce(dz);
+        } else if (_pChip_front->_pChip_front == NULL) {
+            int dx = _pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*2);
+            int dy = _pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*2);
+            int dz = _pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*2);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
@@ -155,7 +162,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     //ここにMyのヒットエフェクト
     if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここにMyの消滅エフェクト
-        inactivate();
+        //inactivate();
     } else {
 
     }

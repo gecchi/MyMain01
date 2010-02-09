@@ -270,9 +270,9 @@ void MyDummyOption::processBehavior() {
 //            pLaserChip->_pMover->_angFace[AXIS_X] = angWk;
             pLaserChip->_pMover->_angFace[AXIS_Z] = _RZ;
             pLaserChip->_pMover->_angFace[AXIS_Y] = _RY;
-            pLaserChip->_pMover->setVxMvVelo(_Q._x*80000);
-            pLaserChip->_pMover->setVyMvVelo(_Q._y*80000);
-            pLaserChip->_pMover->setVzMvVelo(_Q._z*80000);
+            pLaserChip->_pMover->setVxMvVelo(_Q._x*150000);
+            pLaserChip->_pMover->setVyMvVelo(_Q._y*150000);
+            pLaserChip->_pMover->setVzMvVelo(_Q._z*150000);
             pLaserChip->_pMover->setVxMvAcce(0);
             pLaserChip->_pMover->setVyMvAcce(0);
             pLaserChip->_pMover->setVzMvAcce(0);
