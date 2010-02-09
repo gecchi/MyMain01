@@ -24,7 +24,7 @@ void EnemyTamago01::onCreateModel() {
 
 void EnemyTamago01::initialize() {
 
-    setHitAble(true);
+    setHitAble(false);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setFaceAngVelo(AXIS_X, 1000);
     _pMover->setMvAng(900000, 300000, 300000);
