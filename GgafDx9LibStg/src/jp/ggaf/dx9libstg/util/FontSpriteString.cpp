@@ -28,9 +28,9 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 //				continue;
 //			} else {
 //				if (paChar[i] - ' ' < 0) {
-//					_papFontSpriteActor[i]->_pattno_ani_now = (' ' - ' '); //”ÍˆÍŠO‚Í‹ó”’
+//					_papFontSpriteActor[i]->_pattno_uvflip_now = (' ' - ' '); //”ÍˆÍŠO‚Í‹ó”’
 //				}
-//				_papFontSpriteActor[i]->_pattno_ani_now = (paChar[i] - ' '); //’Êí•¶š—ñ
+//				_papFontSpriteActor[i]->_pattno_uvflip_now = (paChar[i] - ' '); //’Êí•¶š—ñ
 //			}
 //		} else {
 //			break;
