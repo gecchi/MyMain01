@@ -27,16 +27,19 @@ int GgafProperties::read(string prm_properties_filename) {
     int r = 0;
     try {
         if (!pChar_Filename) {
+            _TRACE_("!pChar_Filename");
             throw -1;
         }
         //errno_t e = fopen_s(&pFile, pChar_Filename, "r"); //WIN32
         pFile = fopen(pChar_Filename, "r");
         if (!pFile) {
+            _TRACE_("fopen(\""<<pChar_Filename<<"\", \"r\"); error:");
             perror("fopen error:");
             throw -2;
         }
         struct stat status;
         if (stat(pChar_Filename, &status)) {
+            _TRACE_("stat(pChar_Filename, &status) error:");
             perror("stat error:");
             throw -3;
         }
