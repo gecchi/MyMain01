@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshActor(prm_name, "Flora") {
+EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "Flora") {
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -26,7 +26,9 @@ void EnemyTamago01::initialize() {
 
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    //_pMover->setFaceAngVelo(AXIS_X, 5000);
+    _pMover->setFaceAngVelo(AXIS_X, 1000);
+    _pMover->setMvAng(900000, 300000, 300000);
+    _pMover->setMvVelo(0);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
