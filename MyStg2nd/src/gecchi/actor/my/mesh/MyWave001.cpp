@@ -10,7 +10,7 @@ MyWave001::MyWave001(const char* prm_name) : DefaultMeshActor(prm_name, "wave") 
 }
 
 void MyWave001::initialize() {
-    //setAnimationMethod(ANIMATE_OSCILLATE_LOOP, 2);
+    //setUvFlipMethod(FLIP_OSCILLATE_LOOP, 2);
 
     _pMover->setRzMvAngVelo(0);
     //_pMover->setFaceAngVelo(AXIS_Z, 2*1000);
@@ -59,7 +59,7 @@ void MyWave001::processBehavior() {
         //		_Z = GameGlobal::_pMyShip->_Z;
     } else {
         //’Êíˆ—
-        //addNextAnimationFrame();
+        //behaveUvFlip();
         //À•W‚É”½‰f
         _pScaler->behave();
         _pMover->behave();

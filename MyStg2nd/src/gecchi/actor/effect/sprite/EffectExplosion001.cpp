@@ -12,14 +12,14 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetA
 }
 
 void EffectExplosion001::initialize() {
-    setAnimationMethod(ANIMATE_ORDER_NOLOOP, 1);
-    setAnimationPatternRenge(0, 15);
+    setUvFlipMethod(FLIP_ORDER_NOLOOP, 1);
+    setUvFlipPtnRenge(0, 15);
     setHitAble(false);
 
 }
 
 void EffectExplosion001::onActive() {
-    resetActivAnimationPattern();
+    resetUvFlipPtnNo();
     _fAlpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }
@@ -28,7 +28,7 @@ void EffectExplosion001::processBehavior() {
     _fAlpha -= 0.03;
     _SX+= 100;
     _SY+= 100;
-    addNextAnimationFrame();
+    behaveUvFlip();
     _pMover->behave();
 }
 

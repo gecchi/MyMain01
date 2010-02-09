@@ -41,11 +41,22 @@ void EnemyTamago01::onActive() {
     if (_pProgram_Tamago01Move) {
         _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //スプライン移動をプログラムしておく
     }
+
+    setRotationUV(16, 1/16.0, 1/16.0);
+    setUvFlipMethod(FLIP_ORDER_LOOP, 5);
+    setUvFlipPtnRenge(0, 16*16-1);
+    setUvFlipPtnNo(0);
     _iMovePatternNo = 0;
 }
 
 void EnemyTamago01::processBehavior() {
 
+    if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
+        _pScaler->addScale(500);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_W)) {
+        _pScaler->addScale(-500);
+    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
 //        _pGgafDx9Model->_pTextureBlinker->->addScale(2000);
 //    }
@@ -120,6 +131,7 @@ void EnemyTamago01::processBehavior() {
 
     _pMover->behave();
     _pScaler->behave();
+    behaveUvFlip();
 
 }
 

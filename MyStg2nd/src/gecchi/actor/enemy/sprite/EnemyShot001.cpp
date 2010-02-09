@@ -11,7 +11,7 @@ EnemyShot001::EnemyShot001(const char* prm_name) : EnemyShotSpriteActor(prm_name
 }
 
 void EnemyShot001::initialize() {
-    setAnimationMethod(ANIMATE_ORDER_LOOP, 1);
+    setUvFlipMethod(FLIP_ORDER_LOOP, 1);
     _pMover->setMvVelo(3000);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, 10000, 10000);
@@ -23,7 +23,7 @@ void EnemyShot001::processBehavior() {
         //oŒ»
         setHitAble(true);
     }
-    addNextAnimationFrame();
+    behaveUvFlip();
     //À•W‚É”½‰f
     _pMover->behave();
 

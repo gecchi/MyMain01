@@ -13,7 +13,7 @@ DefaultSpriteEffectActor::DefaultSpriteEffectActor(const char* prm_name, const c
 //オーバーライド
 void DefaultSpriteEffectActor::processHappen(int prm_event) {
     switch (prm_event) {
-        case GGAF_EVENT_NOLOOP_ANIMATION_FINISHED:
+        case GGAF_EVENT_NOLOOP_UVFLIP_FINISHED:
             //繰り返さないアニメーション終了時、共通処理
             inactivate();
             moveFirst();

@@ -70,7 +70,7 @@ void EnemyCeresShot001::processBehavior() {
         _pMover->_mv_ang_rz_target_flg = false;
     }
 
-    //addNextAnimationFrame();
+    //behaveUvFlip();
     //À•W‚É”½‰f
     _pMover->behave();
 

@@ -71,7 +71,7 @@ void EnemyMeshShot001::processBehavior() {
 
     }
 
-    //addNextAnimationFrame();
+    //behaveUvFlip();
     //À•W‚É”½‰f
     _pMover->behave();
 

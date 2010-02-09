@@ -13,13 +13,13 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm
 }
 
 void EnemyShotSpriteActor::initialize() {
-    setAnimationMethod(ANIMATE_ORDER_LOOP, 1);
+    setUvFlipMethod(FLIP_ORDER_LOOP, 1);
     setHitAble(true);
 }
 
 void EnemyShotSpriteActor::processBehavior() {
     //標準処理（たぶんオーバーライドされるだろうけども)
-    addNextAnimationFrame();
+    behaveUvFlip();
     _pMover->behave();
 }
 
