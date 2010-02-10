@@ -12,23 +12,15 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
     _pOrg = NULL;
     _lockon = 0;
 
-    _cnt_rev = 0;
-
-    _tmpX = 0;
-    _tmpY = 0;
-    _tmpZ = 0;
 }
 
 void MyCurveLaserChip001::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
-
     registHitAreaCube(60000);
-
     setHitAble(true);
     _SX = _SY = _SZ = 200 * 1000;
     _fAlpha = 0.99f;
     _max_radius = 50.0f;
-
 
 }
 
@@ -39,8 +31,6 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
-    _veloCurve = 1000;
-
     if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
             //先端チップ
@@ -59,7 +49,6 @@ void MyCurveLaserChip001::onActive() {
         }
         _pOrg->_pLockOnTarget = NULL;
     }
-
     _renge = 150000;
     _pMover->setVxMvVeloRenge(-_renge, _renge);
     _pMover->setVyMvVeloRenge(-_renge, _renge);
@@ -68,17 +57,10 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
     _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
     _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
-    _cnt_curve = 0;
-
-    if (_pChip_front == NULL) {
-        _TRACE_(getPartFrame() << " onActive() "<<getName()<<" _lockon="<<_lockon);
-    }
-
 }
 
 void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
-
         if (getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
                 int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*10);
@@ -124,37 +106,8 @@ void MyCurveLaserChip001::processBehavior() {
         }
     }
 
-    //これにより発射元の根元から表示される
-    if (getPartFrame() > 0) {
-        CurveLaserChip::processBehavior();
-    }
-    _tmpX = _X;
-    _tmpY = _Y;
-    _tmpZ = _Z;
-
+    CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 }
-
-void MyCurveLaserChip001::processPreJudgement() {
-
-    if (_pChip_front == NULL) {
-        //先端は何もなし
-    } else if (_pChip_behind == NULL) {
-        //末端
-    } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
-        //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
-        //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
-        //_X,_Y,_Z にはまだ変な値が入っている。
-        MyCurveLaserChip001* pF = (MyCurveLaserChip001*)_pChip_front;
-        MyCurveLaserChip001* pB = (MyCurveLaserChip001*)_pChip_behind;
-        //中間
-        _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
-        _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
-        _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;
-    }
-
-    CurveLaserChip::processPreJudgement();
-}
-
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
@@ -180,6 +133,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
                 pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
                 pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
+                //ターゲットに向かっている最中であるため、殆どの場合減速中である。
+                //そのま加速度を設定すると、いずれ逆方向に向かうことになってしまう。。
+                //本来向かうべき方向に近似するため、正負逆を設定する。
                 pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
                 pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                 pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
@@ -191,7 +147,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     //ここにMyのヒットエフェクト
     if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここにMyの消滅エフェクト
-        //inactivate();
+    //  //inactivate();
     } else {
 
     }

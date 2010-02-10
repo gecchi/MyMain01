@@ -10,10 +10,6 @@ public:
     MyDummyOption* _pOrg;
     velo _veloCurve;
     int _renge;
-    int _cnt_rev;
-    int _tmp_dx, _tmp_dy, _tmp_dz;
-    int _tmpX, _tmpY, _tmpZ;
-    int _cnt_curve;
 
     MyCurveLaserChip001(const char* prm_name);
 
@@ -24,8 +20,6 @@ public:
     void onInactive() override;
 
     void processBehavior() override;
-
-    void processPreJudgement() override;
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

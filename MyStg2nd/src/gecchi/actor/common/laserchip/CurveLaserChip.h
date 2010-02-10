@@ -14,6 +14,7 @@ namespace MyStg2nd {
 class CurveLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 public:
+    int _tmpX, _tmpY, _tmpZ;
     CurveLaserChip(const char* prm_name, const char* prm_model);
 
     virtual void initialize() override;
@@ -24,6 +25,9 @@ public:
      * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
      */
     virtual void processBehavior() override;
+
+
+    virtual void processPreJudgement() override;
 
     /**
      * レーザーチップ判定等処理 .
