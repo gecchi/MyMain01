@@ -17,14 +17,14 @@ private:
 
 public:
     /** 弾ストック */
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyCeresShots001;
+    GgafCore::GgafActorDispatcher* _pDispatcher_EnemyCeresShots001;
     /** Ceres共通スプライン */
     static GgafDx9Core::GgafDx9Spline3D _spline;
     /** スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
 
-    /** ActorDispatcherをコンストラクタで生成したか否か */
-    bool _createActorDispatcher;
+    /** GgafActorDispatcherをコンストラクタで生成したか否か */
+    bool _createGgafActorDispatcher;
 
     int _X_turn; // 折り返すX座標
     int _Y_turn; // 折り返すY座標
@@ -49,7 +49,7 @@ public:
      * @param prm_pDispatcher_EnemyCeresShots001 発射弾ストックのアクター発送者
      * @return
      */
-    EnemyCeres(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher_EnemyCeresShots001 = NULL);
+    EnemyCeres(const char* prm_name, GgafCore::GgafActorDispatcher* prm_pDispatcher_EnemyCeresShots001 = NULL);
 
     void initialize() override;
 

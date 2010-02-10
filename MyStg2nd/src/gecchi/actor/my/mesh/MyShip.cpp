@@ -53,7 +53,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
     addSubLast(pMyOptionParent);
 
-    _pDispatcher_MyShots001 = NEW ActorDispatcher("RotShot001");
+    _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pShot = NEW MyShot001("MY_MyShot001");
@@ -62,7 +62,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     }
     addSubLast(_pDispatcher_MyShots001); //仮サブ
 
-    _pDispatcher_MyWaves001 = NEW ActorDispatcher("RotWave001");
+    _pDispatcher_MyWaves001 = NEW GgafActorDispatcher("RotWave001");
     MyWave001* pWave;
     for (int i = 0; i < 10; i++) { //自弾ストック
         pWave = NEW MyWave001("MY_Wave001");
@@ -408,7 +408,7 @@ void MyShip::processJudgement() {
     //ショット関連処理
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
 
-        //ActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
+        //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->activate();

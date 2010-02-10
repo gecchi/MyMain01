@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * @since 2008/09/08
  * @author Masatoshi Tsuge
  */
-class DispatcherManager : public GgafCore::GgafResourceManager<GgafDx9LibStg::ActorDispatcher> {
+class DispatcherManager : public GgafCore::GgafResourceManager<GgafCore::GgafActorDispatcher> {
 
 public:
 
@@ -25,9 +25,9 @@ public:
      * @param prm_idstr
      * @return ディスパッチャー
      */
-    GgafDx9LibStg::ActorDispatcher* processCreateResource(char* prm_idstr);
+    GgafCore::GgafActorDispatcher* processCreateResource(char* prm_idstr);
 
-    GgafCore::GgafResourceConnection<GgafDx9LibStg::ActorDispatcher>* processCreateConnection(char* prm_idstr, GgafDx9LibStg::ActorDispatcher* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafCore::GgafActorDispatcher>* processCreateConnection(char* prm_idstr, GgafCore::GgafActorDispatcher* prm_pResource);
 
     virtual ~DispatcherManager() {
     }

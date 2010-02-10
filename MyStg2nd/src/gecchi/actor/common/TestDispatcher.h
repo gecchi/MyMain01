@@ -2,7 +2,7 @@
 #define TESTDISPATCHER_H_
 namespace MyStg2nd {
 
-class TestDispatcher : public GgafDx9LibStg::ActorDispatcher {
+class TestDispatcher : public GgafCore::GgafActorDispatcher {
 
 public:
     TestDispatcher(const char* prm_name);

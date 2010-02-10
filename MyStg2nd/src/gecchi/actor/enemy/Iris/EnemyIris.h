@@ -18,9 +18,9 @@ public:
     /** 移動スプラインプログラム */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMove;
     /** 弾ストック */
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_Shot;
+    GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
     /** 弾発射効果エフェクト */
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_ShotEffect;
+    GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
 
     /**
      * コンストラクタ
@@ -64,7 +64,7 @@ public:
      * 発射弾設定 .
      * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
      */
-    void setDispatcher_Shot(GgafDx9LibStg::ActorDispatcher* prm_pDispatcher) {
+    void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_Shot = prm_pDispatcher;
     }
 
@@ -72,7 +72,7 @@ public:
      * 効果エフェクト設定 .
      * @param prm_pDispatcher (GgafDx9DrawableActor*)にキャスト可能なアクターをサブに持つディスパッチャーのポインタ
      */
-    void setDispatcher_ShotEffect(GgafDx9LibStg::ActorDispatcher* prm_pDispatcher) {
+    void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_ShotEffect = prm_pDispatcher;
     }
 

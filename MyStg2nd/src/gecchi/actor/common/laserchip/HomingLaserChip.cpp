@@ -94,7 +94,7 @@ void HomingLaserChip::processBehavior() {
     //座標に反映
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
     if (getPartFrame() > 1) {
-        //ActorDispatcher::employ() は
+        //GgafActorDispatcher::employ() は
         //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
         //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
         //数珠繋ぎになる。

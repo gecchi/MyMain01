@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 GgafDx9Spline3D EnemyCeres::_spline;
 
-EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
+EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatcher_EnemyCeresShots001) :
     DefaultMeshEnemyActor(prm_name, "Ceres") {
     _class_name = "EnemyCeres";
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
@@ -24,7 +24,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
     if (prm_pDispatcher_EnemyCeresShots001 == NULL) {
         //共有の弾が引数に未指定の場合
         //弾ストック作成
-        _pDispatcher_EnemyCeresShots001 = NEW ActorDispatcher("RotEnemyMeshS001");
+        _pDispatcher_EnemyCeresShots001 = NEW GgafActorDispatcher("RotEnemyMeshS001");
         EnemyCeresShot001* pCeresShot001;
         for (int i = 0; i < 32; i++) {
             pCeresShot001 = NEW EnemyCeresShot001("EnemyMeshShot");
@@ -32,11 +32,11 @@ EnemyCeres::EnemyCeres(const char* prm_name, ActorDispatcher* prm_pDispatcher_En
             _pDispatcher_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
         addSubGroup(_pDispatcher_EnemyCeresShots001);
-        _createActorDispatcher = true;
+        _createGgafActorDispatcher = true;
     } else {
         //共有の弾が指定されてるの場合
         _pDispatcher_EnemyCeresShots001 = prm_pDispatcher_EnemyCeresShots001;
-        _createActorDispatcher = false;
+        _createGgafActorDispatcher = false;
     }
 
     //ケレス用スプライン移動の定義
@@ -147,7 +147,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCeres::onInactive() {
-    if (_createActorDispatcher) {
+    if (_createGgafActorDispatcher) {
         //弾は遅れて開放させるように、動きを継続させるため移動
         getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->becomeIndependent());
        _pDispatcher_EnemyCeresShots001->sayonara(60 * 5);//解放予約

@@ -6,14 +6,14 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 DispatcherManager::DispatcherManager(const char* prm_manager_name) :
-    GgafResourceManager<ActorDispatcher> (prm_manager_name) {
+    GgafResourceManager<GgafActorDispatcher> (prm_manager_name) {
 }
 
-ActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
-    ActorDispatcher* pResource = NULL;
+GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
+    GgafActorDispatcher* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
-        pResource = NEW ActorDispatcher("DP_Shot001");
+        pResource = NEW GgafActorDispatcher("DP_Shot001");
         Shot001* pShot001;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot001 = NEW Shot001("Shot001");
@@ -24,7 +24,7 @@ ActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
-        pResource = NEW ActorDispatcher("DP_Shot002");
+        pResource = NEW GgafActorDispatcher("DP_Shot002");
         Shot002* pShot002;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot002 = NEW Shot002("Shot002");
@@ -37,7 +37,7 @@ ActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     return pResource;
 }
 
-GgafResourceConnection<ActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, ActorDispatcher* prm_pResource) {
+GgafResourceConnection<GgafActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) {
     TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" を生成開始。");
     DispatcherConnection* pConnection = NEW DispatcherConnection(prm_idstr, prm_pResource);
     TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" を生成終了。");

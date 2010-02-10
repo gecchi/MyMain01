@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 Stage01MainScene::Stage01MainScene(const char* prm_name) : DefaultScene(prm_name) {
 
-    _pDispatcher = NEW ActorDispatcher("RotEnemyMeshS001");
+    _pDispatcher = NEW GgafActorDispatcher("RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 100; i++) {
         Sleep(1);

@@ -7,7 +7,7 @@ class Stage01MainScene : public GgafDx9LibStg::DefaultScene {
     GgafDx9Core::GgafDx9Bgm* _bgm_st1;
 
 public:
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher;
+    GgafCore::GgafActorDispatcher* _pDispatcher;
 
     Stage01MainScene(const char* prm_name);
     /**

@@ -9,7 +9,7 @@ namespace MyStg2nd {
  * ・_num_chip_interval ･･･弾切れフレーム数（デフォルト:20）<BR>
  * ・_pSeCon_Laser ･･･ レーザーチップ発射時SE（デフォルト:NULL）<BR>
  */
-class LaserChipDispatcher : public GgafDx9LibStg::ActorDispatcher {
+class LaserChipDispatcher : public GgafCore::GgafActorDispatcher {
     friend class LaserChip;
 public:
     /** 保持するレーザーチップ数(読み取り専用) */

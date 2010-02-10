@@ -10,7 +10,7 @@ class FormationCeres002 : public GgafDx9LibStg::FormationActor {
 
     EnemyCeres* _pEnemyCeres[NUM_CERES_FORMATION002];
 public:
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyMeshShots001;
+    GgafCore::GgafActorDispatcher* _pDispatcher_EnemyMeshShots001;
 
     FormationCeres002(const char* prm_name);
 

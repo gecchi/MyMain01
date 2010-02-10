@@ -5,13 +5,13 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-DispatcherConnection::DispatcherConnection(char* prm_idstr, ActorDispatcher* prm_pResource) :
-    GgafResourceConnection<ActorDispatcher> (prm_idstr, prm_pResource) {
+DispatcherConnection::DispatcherConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) :
+    GgafResourceConnection<GgafActorDispatcher> (prm_idstr, prm_pResource) {
 }
 
-void DispatcherConnection::processReleaseResource(ActorDispatcher* prm_pResource) {
+void DispatcherConnection::processReleaseResource(GgafActorDispatcher* prm_pResource) {
     _TRACE_("DispatcherConnection::processReleaseResourceで開放");
-	prm_pResource->sayonara(); //ActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
+	prm_pResource->sayonara(); //GgafActorDispatcherはゴミ箱で削除するためここでかいほうは行わない
 	// DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

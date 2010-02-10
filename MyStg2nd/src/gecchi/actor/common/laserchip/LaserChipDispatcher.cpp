@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : ActorDispatcher(prm_name) {
+LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispatcher(prm_name) {
     _class_name = "LaserChipDispatcher";
     _num_continual_employ_count = 0;
     _num_chip_active = 0;
@@ -40,7 +40,7 @@ LaserChip* LaserChipDispatcher::employ() {
         _num_interval_frame_count++;
         return NULL;
     } else {
-        LaserChip* pChip = (LaserChip*)ActorDispatcher::employ();
+        LaserChip* pChip = (LaserChip*)GgafActorDispatcher::employ();
         if (pChip != NULL) {
             pChip->activate();
             if (_pChip_prev_employ != NULL) {
@@ -79,7 +79,7 @@ LaserChip* LaserChipDispatcher::employ() {
 void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
     prm_pLaserChip->_pDispatcher = this;
-    ActorDispatcher::addSubLast(prm_pLaserChip);
+    GgafActorDispatcher::addSubLast(prm_pLaserChip);
 }
 
 LaserChipDispatcher::~LaserChipDispatcher() {

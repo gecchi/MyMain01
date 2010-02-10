@@ -25,7 +25,7 @@ public:
     static X* createActorWithDp(void* p1, void* p2, void* p3) {
         //p1 : 識別名称
         //p2 : アクター発送者
-        X* p = NEW X((char*)p1, (GgafDx9LibStg::ActorDispatcher*)p2);
+        X* p = NEW X((char*)p1, (GgafCore::GgafActorDispatcher*)p2);
         return p;
     }
 
@@ -34,7 +34,7 @@ public:
         //p1 : 識別名称
         //p2 : モデル識別文字列
         //p3 : アクター発送者
-        X* p = NEW X((char*)p1, (char*)p2, (GgafDx9LibStg::ActorDispatcher*)p3);
+        X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDispatcher*)p3);
         return p;
     }
 

@@ -10,8 +10,8 @@ class CommonScene : public GgafDx9LibStg::DefaultScene {
 public:
     MyShip* _pMyShip;
 
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EnemyShots001;
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher_EffectExplosion001;
+    GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
+    GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
 
 
     CommonScene(const char* prm_name);

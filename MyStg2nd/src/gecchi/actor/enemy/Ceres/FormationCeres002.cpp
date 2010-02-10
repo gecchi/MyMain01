@@ -18,7 +18,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
         addSubLast(_pEnemyCeres[i] );
     }
 
-    _pDispatcher_EnemyMeshShots001 = NEW ActorDispatcher("FmtCeres002_RotEnemyMeshS001");
+    _pDispatcher_EnemyMeshShots001 = NEW GgafActorDispatcher("FmtCeres002_RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
     for (int i = 0; i < 30; i++) { //弾ストック
         Sleep(1);

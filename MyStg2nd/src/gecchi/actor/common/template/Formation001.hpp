@@ -9,10 +9,10 @@ namespace MyStg2nd {
 template<class T>
 class Formation001 : public GgafDx9LibStg::FormationActor {
 
-    GgafDx9LibStg::ActorDispatcher* _pDispatcher;
+    GgafCore::GgafActorDispatcher* _pDispatcher;
     bool _was_create_dispatcher;
 public:
-    Formation001(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher = NULL);
+    Formation001(const char* prm_name, GgafCore::GgafActorDispatcher* prm_pDispatcher = NULL);
 
     virtual void initialize() override;
 
@@ -21,11 +21,11 @@ public:
 
 
 template<class T>
-Formation001<T>::Formation001(const char* prm_name, GgafDx9LibStg::ActorDispatcher* prm_pDispatcher) : GgafDx9LibStg::FormationActor(prm_name) {
+Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDispatcher* prm_pDispatcher) : GgafDx9LibStg::FormationActor(prm_name) {
     _class_name = "Formation001";
     if (prm_pDispatcher == NULL) {
         _was_create_dispatcher = true;
-        _pDispatcher = NEW GgafDx9LibStg::ActorDispatcher("Dispatcher_Formation001");
+        _pDispatcher = NEW GgafCore::GgafActorDispatcher("Dispatcher_Formation001");
         T* _paActor = NEW T[ACTOR_NUM_FORMATION001];
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
