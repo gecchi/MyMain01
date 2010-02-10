@@ -33,9 +33,9 @@ void EnemyMetis::initialize() {
 void EnemyMetis::onActive() {
     MyStgUtil::resetEnemyMetisStatus(_pStatus);
     _iMovePatternNo = 0;
-
+    setAlpha(0.6);
     _pMover->setMvVelo(0);
-    _pMover->setVxMvVelo(-5000);
+    _pMover->setVxMvVelo(-3000);
     _pMover->setFaceAngVelo(AXIS_Z, 1000);
 
     CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
@@ -73,7 +73,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->activate();
     }
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-		_TRACE_(getName()<<" METISっ脂肪!!!!!!!!!!!!!!!!!!!!!!!!");
+        _TRACE_(getName()<<" METISっ脂肪!!!!!!!!!!!!!!!!!!!!!!!!");
         //ここに消滅エフェクト
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         playSe2();

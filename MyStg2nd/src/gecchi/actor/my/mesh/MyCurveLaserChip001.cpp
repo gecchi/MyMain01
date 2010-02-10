@@ -43,18 +43,18 @@ void MyCurveLaserChip001::onActive() {
 
     if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
-            //先頭チップ
+            //先端チップ
             _lockon = 1;
         } else {
-            //先頭以外
+            //先端以外
             _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
     } else {
         if (_pChip_front == NULL) {
-            //先頭チップ
+            //先端チップ
             _lockon = 0;
         } else {
-            //先頭以外
+            //先端以外
             _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
         }
         _pOrg->_pLockOnTarget = NULL;
@@ -69,12 +69,17 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
     _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
     _cnt_curve = 0;
+
+    if (_pChip_front == NULL) {
+        _TRACE_(getPartFrame() << " onActive() "<<getName()<<" _lockon="<<_lockon);
+    }
+
 }
 
 void MyCurveLaserChip001::processBehavior() {
     if (_lockon == 1) {
 
-        if (1 < getPartFrame() && getPartFrame() < 180) {
+        if (getPartFrame() < 180) {
             if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
                 int dx = _pOrg->_pLockOnTarget->_X - (_X + _pMover->_veloVxMv*10);
                 int dy = _pOrg->_pLockOnTarget->_Y - (_Y + _pMover->_veloVyMv*7);
@@ -84,35 +89,35 @@ void MyCurveLaserChip001::processBehavior() {
                 _pMover->setVzMvAcce(dz);
             } else {
                 _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
-                _pOrg->_pLockOnTarget = NULL;
             }
         } else {
-
+            _lockon = 2;
         }
     } else if (_lockon == 2) {
+        int dx, dy, dz;
         if (_pChip_front == NULL) {
-            _pMover->addVxMvAcce(_pMover->_acceVxMv);
-            _pMover->addVyMvAcce(_pMover->_acceVyMv);
-            _pMover->addVzMvAcce(_pMover->_acceVzMv);
+//            _pMover->addVxMvAcce(_pMover->_acceVxMv);
+//            _pMover->addVyMvAcce(_pMover->_acceVyMv);
+//            _pMover->addVzMvAcce(_pMover->_acceVzMv);
         } else if (_pChip_front->_pChip_front == NULL) {
             //新たなターゲットを作成
-            int dx = _pChip_front->_X - (_X + _pMover->_veloVxMv);
-            int dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv);
-            int dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv);
+            dx = _pChip_front->_X - (_X + _pMover->_veloVxMv);
+            dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv);
+            dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-        } else if (_pChip_front->_pChip_front == NULL) {
-            int dx = _pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*2);
-            int dy = _pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*2);
-            int dz = _pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*2);
+        } else if (_pChip_front->_pChip_front->_pChip_front == NULL) {
+            dx = _pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*2);
+            dy = _pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*2);
+            dz = _pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*2);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
         } else {
-            int dx = _pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
-            int dy = _pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
-            int dz = _pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
+            dx = _pChip_front->_pChip_front->_pChip_front->_X - (_X + _pMover->_veloVxMv*3);
+            dy = _pChip_front->_pChip_front->_pChip_front->_Y - (_Y + _pMover->_veloVyMv*3);
+            dz = _pChip_front->_pChip_front->_pChip_front->_Z - (_Z + _pMover->_veloVzMv*3);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
@@ -126,14 +131,15 @@ void MyCurveLaserChip001::processBehavior() {
     _tmpX = _X;
     _tmpY = _Y;
     _tmpZ = _Z;
+
 }
 
 void MyCurveLaserChip001::processPreJudgement() {
 
     if (_pChip_front == NULL) {
-        //先頭は何もなし
+        //先端は何もなし
     } else if (_pChip_behind == NULL) {
-        //末尾
+        //末端
     } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
         //_pChip_behind == NULL の判定だけではだめ。_pChip_behind->isActive()と判定すること
         //なぜならemployの瞬間に_pChip_behind != NULL となるが、active()により有効になるのは次フレームだから
@@ -155,6 +161,29 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     if (_pOrg->_pLockOnTarget) {
         if (pOther == _pOrg->_pLockOnTarget) {
             _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+
+            //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
+            if (_pChip_front && _pChip_front->_pChip_front == NULL) {
+                //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
+                MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //先端チップ
+                pTip->_lockon = 2; //先端に伝える
+                //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
+                //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
+                LaserChip* pChipPrev = this;
+                for (int i = 0; i < 3; i++) { //最高3つ後方まで在れば採用
+                    if (pChipPrev->_pChip_behind) {
+                        pChipPrev = pChipPrev->_pChip_behind;
+                    } else {
+                        break;
+                    }
+                }
+                pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
+                pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
+                pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
+                pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
+                pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
+                pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
+            }
         }
     } else {
         _pOrg->_pLockOnTarget = pOther;

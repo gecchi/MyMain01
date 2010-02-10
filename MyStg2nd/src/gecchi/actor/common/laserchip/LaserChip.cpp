@@ -158,24 +158,37 @@ void LaserChip::processJudgement() {
         //レーザーチップはDisprcher登録前提のため、ゲーム画面外は sayonara() ではなくてinactivate() にする。
         inactivate();
     }
-    //レーザー種別  1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
+    //レーザーチップ種別 設定。
+    //シェーダーのパラメータとなります。
+    //
+    //    | -=|===|===|===|<> ||     (※左図はレーザーをオブジェクトで区切ったつもりの図)
+    //
+    //    <--><--><--><--><--><>
+    //      ^   ^   ^   ^   ^  ^
+    //      |   |   |   |   |  |
+    //      |   |   |   |   |   `----- 4:先端チップ(非表示)
+    //      |   |   |   |    `----- 3:中間先頭チップ
+    //      |   |   |    `----- 2:中間チップ
+    //      |   |    `----- 2:中間チップ
+    //      |    `----- 2:中間チップ
+    //       `----- 1:末尾チップ
     setHitAble(true);
     if (_pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActive()) {
                 if (_pChip_front->_pChip_front) {
-                    _chip_kind = 2; //中間テクスチャ
+                    _chip_kind = 2; //中間テクスチャチップ
                 } else {
-                    _chip_kind = 3; //先頭テクスチャ
+                    _chip_kind = 3; //先頭テクスチャチップ
                 }
             } else {
-                _chip_kind = 1; //発射元の末尾テクスチャ
+                _chip_kind = 1; //発射元の末端テクスチャチップ
             }
         } else {
-            _chip_kind = 1; //末尾テクスチャ
+            _chip_kind = 1; //普通の末端テクスチャ
         }
     } else {
-        _chip_kind = 4; //何も描画したくない
+        _chip_kind = 4; //先端チップ。何も描画したくない
         setHitAble(false);
     }
 
