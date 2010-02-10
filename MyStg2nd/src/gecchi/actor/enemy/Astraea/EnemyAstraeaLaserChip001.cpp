@@ -17,7 +17,7 @@ void EnemyAstraeaLaserChip001::initialize() {
     setHitAble(true);
     _SX = _SY = _SZ = 100*1000;
     _fAlpha = 0.9f;
-    _max_radius = 5.0f;
+    _bounding_sphere_radius = 5.0f;
     _paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0.0, 0.0, 1.0);
 
 }

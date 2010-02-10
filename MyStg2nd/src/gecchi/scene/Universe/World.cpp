@@ -144,8 +144,6 @@ void World::processBehavior() {
 
     static int Dx = (int)(_dZ_camera_init / 4);
     static int Dd = (int)(_dZ_camera_init / 100);
-    static int X_screen_left = (int)(-1 * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT / 2);
-    static int Y_screen_top = (int)(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT / 2);
     static int slow_range_CAM = 50000;
     static int slow_range02_CAM = slow_range_CAM * 1.1;
     static int slow_range_VP = 50000;

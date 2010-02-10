@@ -20,7 +20,7 @@ void MyCurveLaserChip001::initialize() {
     setHitAble(true);
     _SX = _SY = _SZ = 200 * 1000;
     _fAlpha = 0.99f;
-    _max_radius = 50.0f;
+    _bounding_sphere_radius = 50.0f;
 
 }
 
