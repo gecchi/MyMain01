@@ -343,7 +343,6 @@ void World::processBehavior() {
 //            cam_MvVeloRenge = cam_MvVeloRenge * 2;
 //        }
 
-
         //カメラがスロー範囲（ちょっと広め）時とそうでない時の処理
         if (-slow_range02_CAM > dX_CAM && dX_CAM > slow_range02_CAM) {
             pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
