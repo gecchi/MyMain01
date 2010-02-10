@@ -20,7 +20,7 @@ void FormationActor::addSubLast(GgafActor* prm_pSub) {
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
     } else {
         if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("ActorDispatcher::addSubLast 異なる種別のアクターを登録しようとしています。 \n"<<
+            throwGgafCriticalException("GgafActorDispatcher::addSubLast 異なる種別のアクターを登録しようとしています。 \n"<<
                                        "想定="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
                                        "引数="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }

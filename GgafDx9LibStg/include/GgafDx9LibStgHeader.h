@@ -24,7 +24,6 @@ class DefaultBoardActor;
 class DefaultBoardSetActor;
 class FontSpriteActor;
 class FormationActor;
-class ActorDispatcher;
 //class FontSpriteString;
 class CubeEx;
 class SphereEx;
@@ -58,7 +57,6 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
-#include "jp/ggaf/dx9libstg/actor/ActorDispatcher.h"
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"
 #include "jp/ggaf/dx9libstg/actor/SphereEx.h"
 #include "jp/ggaf/dx9libstg/actor/SpriteMeshActor.h"
