@@ -20,6 +20,7 @@ void GgafActorDispatcher::addSubLast(GgafActor* prm_pSub) {
                                        "à¯êî="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
     }
+    prm_pSub->_pDependenceDispcher = this;
     prm_pSub->inactivateImmediately();
     GgafDummyActor::addSubLast(prm_pSub);
 }

@@ -61,6 +61,7 @@ private:
     GgafActor* _pActor_tmp3;
     GgafActor* _pActor_tmp4;
 
+
     bool _use_octree;
     /**
      * 所属シーンを設定する。 .
@@ -101,6 +102,8 @@ public:
     /** アクターの階級 */
     int _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:その他
 
+    /** 所属ディスパッチャー */
+    GgafActorDispatcher* _pDependenceDispcher;
 
     /** アクター開始システム時刻 */
     DWORD _start_system_time;
@@ -324,6 +327,15 @@ public:
      * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
      */
     virtual void onHit(GgafActor* prm_pOtherActor) {}
+
+    /**
+     * Dispcherに所属している場合、それを返す。
+     * 未所属の場合NULL
+     * @return 所属Dispcher
+     */
+    GgafActorDispatcher* getDependenceDispcher() {
+        return _pDependenceDispcher;
+    }
 
     /**
      * デバッグ用：ツリー構造を表示<BR>

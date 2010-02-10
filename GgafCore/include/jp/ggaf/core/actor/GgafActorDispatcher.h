@@ -4,10 +4,12 @@ namespace GgafCore {
 
 /**
  * アクター発送者クラス .
- * 子に予めアクターを登録(enter メソッド)しておき（アクター発送者メンバーと呼ぶ）、空いているメンバーを取得する。<BR>
- * 取得したアクターを、アクター発送者戻す（再度使いまわしをしたい）たい時は inactivate() して下さい。本クラスが自動的に拾います。<BR>
+ * 子に予めアクターを登録(addSubLast メソッド)しておく。<BR>
+ * employ() 空いているアクターを取得する。<BR>
+ * アクターは使い終わったらinactivate()する。<BR>
  * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
- * また連続employ()の場合、次のemploy()のアクターは必ず隣同士となっています。<BR>
+ * もともとポリラインのような連続して連結された固まりを管理したかった。<BR>
+ * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっています。<BR>
  * (旧RotationActor)
  * @version 1.00
  * @since 2008/08/11
@@ -16,8 +18,6 @@ namespace GgafCore {
 class GgafActorDispatcher : public GgafDummyActor {
 
 public:
-    //CollisionChecker* _pCollisionChecker;
-
     GgafActorDispatcher(const char* prm_name);
 
 //    /**
@@ -47,7 +47,7 @@ public:
      * 最初に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をaddSubLastしてください。
      * @param prm_pSub 登録アクター
      */
-    virtual void addSubLast(GgafCore::GgafActor* prm_pSub);
+    virtual void addSubLast(GgafActor* prm_pSub);
 
 
     /**

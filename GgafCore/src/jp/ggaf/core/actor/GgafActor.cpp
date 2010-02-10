@@ -13,6 +13,7 @@ GgafActor::GgafActor(const char* prm_name) :
     setHitAble(false);
     _use_octree = false;
     _actor_class = 0;
+    _pDependenceDispcher = NULL;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");
 #else
