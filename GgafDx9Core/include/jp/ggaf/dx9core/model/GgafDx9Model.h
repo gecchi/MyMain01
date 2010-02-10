@@ -28,7 +28,7 @@ public:
     DWORD _dwNumMaterials;
 
     /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
-    FLOAT _max_radius;
+    FLOAT _bounding_sphere_radius;
     /** 点滅強度 (0.0 <= _fblink <= 1.0)、GgafDx9TextureBlinkerにより操作出来る */
     FLOAT _fPowerBlink;
     /** 点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0) */

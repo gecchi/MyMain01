@@ -351,7 +351,8 @@ public:
      * @param ry1
      */
     static void anotherRzRy(angle& rz1, angle& ry1) {
-        int rz2, ry2;
+        int rz2 = 0;
+        int ry2 = 0;
         if (0 <= rz1 && rz1 < ANGLE90) {
             rz2 = ANGLE180 - rz1;
 

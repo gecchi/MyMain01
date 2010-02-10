@@ -13,7 +13,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _SX = _SY = _SZ = LEN_UNIT;
     _x = _y = _z = 0.0f;
 
-    _max_radius = 0;
+    _bounding_sphere_radius = 0;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
 
@@ -93,14 +93,14 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
 
 int GgafDx9GeometricActor::isOffscreen() {
-    //_TRACE_("name="<<getName()<<" _max_radius="<<_max_radius);
+    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
     if (_offscreenkind == -1) {
-        if ( _fDistance_plnTop <= _max_radius) {
-            if ( _fDistance_plnBottom <= _max_radius) {
-                if ( _fDistance_plnLeft <= _max_radius) {
-                    if ( _fDistance_plnRight <= _max_radius) {
-                        if ( _fDistance_plnFront <= _max_radius) {
-                            if ( _fDistance_plnBack <= _max_radius) {
+        if ( _fDistance_plnTop <= _bounding_sphere_radius) {
+            if ( _fDistance_plnBottom <= _bounding_sphere_radius) {
+                if ( _fDistance_plnLeft <= _bounding_sphere_radius) {
+                    if ( _fDistance_plnRight <= _bounding_sphere_radius) {
+                        if ( _fDistance_plnFront <= _bounding_sphere_radius) {
+                            if ( _fDistance_plnBack <= _bounding_sphere_radius) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
                             } else {

@@ -42,7 +42,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     }
     _fAlpha = 1.0f;
     //Å‘å‹——£’¸“_
-    _max_radius = _pGgafDx9Model->_max_radius;
+    _bounding_sphere_radius = _pGgafDx9Model->_bounding_sphere_radius;
 
     _papSeCon = NEW GgafDx9SeConnection*[10];
     _papSe    = NEW GgafDx9Se*[10];
@@ -121,7 +121,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _fAlpha = 1.0f;
 
     //Å‘å‹——£’¸“_
-    _max_radius = _pGgafDx9Model->_max_radius;
+    _bounding_sphere_radius = _pGgafDx9Model->_bounding_sphere_radius;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
