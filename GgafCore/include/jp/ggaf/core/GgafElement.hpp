@@ -603,7 +603,6 @@ void GgafElement<T>::nextFrame() {
     TRACE("GgafElement::nextFrame BEGIN _frame_of_behaving=" << _frame_of_behaving << " name=" << GgafNode<T>::_name << " class="
             << GgafNode<T>::_class_name);
     _was_paused_flg  = _was_paused_flg_in_next_frame;
-    DWORD godframe = askGod()->_godframe;
     if (_was_paused_flg) {
         return;
     }

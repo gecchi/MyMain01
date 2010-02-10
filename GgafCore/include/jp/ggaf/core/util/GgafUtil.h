@@ -82,7 +82,7 @@ public:
     static unsigned int easy_hash(const char* str) {
         unsigned long hash = 5381;
         char c;
-        while (c = *str++) {
+        while (c = *str++) { //strの\0までループ
             hash = ((hash << 5) + hash) + c; // hash * 33 + c
         }
         return hash;
@@ -126,8 +126,8 @@ public:
      * 平方根の近似を求める .
      * 標準sqrtよりも計算が速いが、アバウト。
      * @param a 平方根を求めたい値
-     * @param s 精度（計算ループ回数。省略時11）
-     * @return 引数aの平方根
+     * @param s 精度（計算ループ回数。回数が多いほど正確。省略時11）
+     * @return 引数aの平方根近似値
      */
     static float sqrt_fast(float a, int s = 11) {
         double ret = 1;
