@@ -46,6 +46,8 @@ public:
     int _lim_VP_zleft;
     int _lim_VP_zright;
 
+    int _correction_width;
+    int _correction_height;
     int _pos_camera;
 
     DWORD _frame_pushdown_zmove;

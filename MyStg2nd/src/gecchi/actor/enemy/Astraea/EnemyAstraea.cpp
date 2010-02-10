@@ -23,15 +23,15 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     }
     _paWayRz = NEW angle[_laser_way];
     _paWayRy = NEW angle[_laser_way];
-    EnemyAstraeaLaserChip002* pChip;
+    EnemyAstraeaLaserChip001* pChip;
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
             for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
                 stringstream name;
-                name <<  getName() << "'s EnemyAstraeaLaserChip002["<<i<<"]["<<j<<"]-"<<k<<"";
-                pChip = NEW EnemyAstraeaLaserChip002(name.str().c_str());
+                name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
+                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
                 _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
             }
             addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
@@ -141,7 +141,7 @@ void EnemyAstraea::processBehavior() {
 
     if (_pMover->_angveloRzMv == 0 && _pMover->_angveloRyMv == 0 && _cnt_laserchip < _laser_length) {
 
-        static EnemyAstraeaLaserChip002* pLaserChip;
+        static EnemyAstraeaLaserChip001* pLaserChip;
 
         angle angClearance = 150000;//開き具合
 
@@ -154,7 +154,7 @@ void EnemyAstraea::processBehavior() {
                 if (i == 0 && j == 0) {
                     playSe1(); //発射音
                 }
-                pLaserChip = (EnemyAstraeaLaserChip002*)_papapLaserChipDispatcher[i][j]->employ();
+                pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
                     pLaserChip->activate();
 //                    _TRACE_("Dispatcher employ()!!"<<(pLaserChip->getName())<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<

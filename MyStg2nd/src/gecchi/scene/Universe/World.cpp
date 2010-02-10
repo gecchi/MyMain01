@@ -41,6 +41,9 @@ void World::initialize() {
     _lim_VP_zleft   = MyShip::_lim_zleft   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2);
     _lim_VP_zright  = MyShip::_lim_zright  + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2);
 
+    _correction_width = (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)/2;
+    _correction_height = (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2)/2;
+
     _pos_camera = CAM_POS_RIGHT;
 
     pCAM->_X = _dZ_camera_init / 10; //少し斜めめから見てる
@@ -142,7 +145,7 @@ void World::processBehavior() {
     //ビューポイント（終点）の目標地点までの距離（座標差分）
     int dX_VP, dY_VP, dZ_VP;
 
-    static int Dx = (int)(_dZ_camera_init / 4);
+    static int Dx = (int)(_dZ_camera_init / 2);
     static int Dd = (int)(_dZ_camera_init / 100);
     static int slow_range_CAM = 50000;
     static int slow_range02_CAM = slow_range_CAM * 1.1;
@@ -180,10 +183,10 @@ void World::processBehavior() {
             move_target_Z_VP = pMYSHIP->_Z;
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        move_target_X_CAM = pMYSHIP->_X - _dZ_camera_init;
+        move_target_X_CAM = pMYSHIP->_X - (_dZ_camera_init/2);
         move_target_Y_CAM = pMYSHIP->_Y;
         move_target_Z_CAM = pMYSHIP->_Z;
-        move_target_X_VP = pMYSHIP->_X + _dZ_camera_init;
+        move_target_X_VP = pMYSHIP->_X + (_dZ_camera_init);
         move_target_Y_VP = pMYSHIP->_Y;
         move_target_Z_VP = pMYSHIP->_Z;
         if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
@@ -228,17 +231,20 @@ void World::processBehavior() {
             }
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        if (move_target_Y_CAM > _lim_CAM_top) {
-            move_target_Y_CAM = _lim_CAM_top;
+        if (move_target_Y_CAM > _lim_CAM_top + _correction_height) {
+            //(_lim_CAM_top/2) は
+            //move_target_X_CAM = pMYSHIP->_X - (_dZ_camera_init/2);
+            //により近づいたため
+            move_target_Y_CAM = _lim_CAM_top + _correction_height;
         }
-        if (move_target_Y_CAM < _lim_CAM_bottom ) {
-            move_target_Y_CAM = _lim_CAM_bottom;
+        if (move_target_Y_CAM < _lim_CAM_bottom - _correction_height) {
+            move_target_Y_CAM = _lim_CAM_bottom - _correction_height;
         }
-        if (move_target_Z_CAM > _lim_CAM_zleft) {
-            move_target_Z_CAM = _lim_CAM_zleft;
+        if (move_target_Z_CAM > _lim_CAM_zleft + _correction_width) {
+            move_target_Z_CAM = _lim_CAM_zleft + _correction_width;
         }
-        if (move_target_Z_CAM < _lim_CAM_zright) {
-            move_target_Z_CAM = _lim_CAM_zright;
+        if (move_target_Z_CAM < _lim_CAM_zright + _correction_width) {
+            move_target_Z_CAM = _lim_CAM_zright + _correction_width;
         }
     }
     if (_pos_camera < CAM_POS_TO_BEHIND) {
@@ -272,20 +278,19 @@ void World::processBehavior() {
             }
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        if (move_target_Y_VP > _lim_VP_top) {
-            move_target_Y_VP = _lim_VP_top;
+        if (move_target_Y_VP > _lim_VP_top + _correction_height) {
+            move_target_Y_VP = _lim_VP_top + _correction_height;
         }
-        if (move_target_Y_VP < _lim_VP_bottom ) {
-            move_target_Y_VP = _lim_VP_bottom;
+        if (move_target_Y_VP < _lim_VP_bottom - _correction_height) {
+            move_target_Y_VP = _lim_VP_bottom - _correction_height;
         }
-        if (move_target_Z_VP > _lim_VP_zleft) {
-            move_target_Z_VP = _lim_VP_zleft;
+        if (move_target_Z_VP > _lim_VP_zleft + _correction_width) {
+            move_target_Z_VP = _lim_VP_zleft + _correction_width;
         }
-        if (move_target_Z_VP < _lim_VP_zright) {
-            move_target_Z_VP = _lim_VP_zright;
+        if (move_target_Z_VP < _lim_VP_zright + _correction_width) {
+            move_target_Z_VP = _lim_VP_zright + _correction_width;
         }
     }
-
 
 
     //目標地点までの各軸距離
