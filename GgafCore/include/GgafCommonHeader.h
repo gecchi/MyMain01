@@ -293,6 +293,8 @@ class GgafUniverse;
 class GgafMainScene;
 class GgafLordActor;
 class GgafGroupActor;
+class GgafActorDispatcher;
+
 class GgafOrder;
 
 class GgafProperties;
@@ -340,6 +342,7 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/scene/GgafUniverse.h"
 #include "jp/ggaf/core/actor/GgafLordActor.h"
 #include "jp/ggaf/core/actor/GgafGroupActor.h"
+#include "jp/ggaf/core/actor/GgafActorDispatcher.h"
 #include "jp/ggaf/core/GgafOrder.h"
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
