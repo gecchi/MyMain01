@@ -92,7 +92,7 @@ void GameMainScene::processBehavior() {
     }
 
     //SCORE•\Ž¦
-    sprintf(_buf, "Scr:%07u", _SCORE_);
+    sprintf(_buf, "SCR:%07u", _SCORE_);
     _pStringBoard_SCORE->update(600, 0, _buf);
     sprintf(_buf, "R:%.7f", _RANK_);
     _pStringBoard_RANK->update(500, 20, _buf);

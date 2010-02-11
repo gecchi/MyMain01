@@ -47,7 +47,7 @@ void GameDemoScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_BEGIN)) {
-        _pStringBoard01->update(100, 100, "GameDemoScene BEGIN");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE BEGIN");
         _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
@@ -64,7 +64,7 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_TITLE)) {
          //タイトル開始
-        _pStringBoard01->update(100, 100, "GameDemoScene TITLE");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE TITLE");
         _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
         _dwFrame_Title = 0;
     } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
@@ -83,7 +83,7 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
         //デモプレイ開始
-        _pStringBoard01->update(100, 100, "GameDemoScene DEMOPLAY");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DEMOPLAY");
         _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
         _dwFrame_Demoplay = 0;
@@ -101,8 +101,8 @@ void GameDemoScene::processBehavior() {
 
     if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
         //ランキング表示
-        _pStringBoard01->update(100, 100, "GameDemoScene RANKING");
-        _pStringBoard02->update(100, 150, "1st GecchiraQ");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
+        _pStringBoard02->update(100, 150, "1ST GECCHIRAQ ");
         _dwFrame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
         //ランキング活動ループ
@@ -127,7 +127,7 @@ void GameDemoScene::processBehavior() {
 
     //ゲームスタート
     if (onChangeProgressAt(GAMEDEMO_PROG_DECIDE)) {
-        _pStringBoard01->update(100, 100, "GameDemoScene DECIDE");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DECIDE");
         _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
@@ -140,7 +140,7 @@ void GameDemoScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_END)) {
-        _pStringBoard01->update(100, 100, "GameDemoScene END");
+        _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE END");
         _pStringBoard02->update(100, 150, "SRABA");
         inactivateAfter(200);
     }

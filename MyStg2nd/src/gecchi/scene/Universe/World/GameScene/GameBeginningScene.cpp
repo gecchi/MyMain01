@@ -32,7 +32,7 @@ void GameBeginningScene::processBehavior() {
 
     //ゲーム開始直前の自機選択等、導入部
     if (onChangeProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
-        _pStringBoard01->update(200, 200, "GameBeginningScene BEGIN");
+        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
         _pStringBoard02->update(200, 250, "YOKUKITANA!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_BEGIN) {
@@ -46,8 +46,8 @@ void GameBeginningScene::processBehavior() {
 
     //ゲーム開始直前の自機選択等
     if (onChangeProgressAt(GAMEBEGINNING_PROG_OPE)) {
-        _pStringBoard01->update(200, 200, "GameBeginningScene OPE");
-        _pStringBoard02->update(200, 250, "SELECT YOUR HOGEHOGE!");
+        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE OPE");
+        _pStringBoard02->update(200, 250, "SELECT YOUR EQ!");
         _dwFrame_Ope = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_OPE) {
         //活動ループ
@@ -61,8 +61,8 @@ void GameBeginningScene::processBehavior() {
 
     //ゲーム開始直前の自機選択等、決定後のフェードアウト部
     if (onChangeProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
-        _pStringBoard01->update(200, 200, "GameBeginningScene DECIDE");
-        _pStringBoard02->update(200, 250, "OK . ARE YOU READY!");
+        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE DECIDE");
+        _pStringBoard02->update(200, 250, "OK. ARE YOU READY!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_DECIDE) {
         //活動ループ
@@ -74,8 +74,8 @@ void GameBeginningScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEBEGINNING_PROG_END)) {
-        _pStringBoard01->update(200, 200, "GameBeginningScene END");
-        _pStringBoard02->update(200, 250, "KENTO WO INORU");
+        _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE END");
+        _pStringBoard02->update(200, 250, "GOOD LUCK");
         inactivateAfter(140);
     }
 }
