@@ -95,7 +95,7 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     try {
         MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-        MessageBox(NULL, "config.properties が見つかりません。","Error", MB_OK|MB_ICONSTOP);
+		MessageBox(NULL, (string("config.properties のロードの失敗。\n理由：")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
         MyStg2nd::Properties::clean();
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         return EXIT_FAILURE;

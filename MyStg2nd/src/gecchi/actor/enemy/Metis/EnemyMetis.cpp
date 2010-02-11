@@ -62,7 +62,11 @@ void EnemyMetis::processJudgement() {
 }
 
 void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
+    if (_pStatus->get(STAT_Stamina) < 0) {
+        return;
+    }
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
+
     //ここにヒットエフェクト
     setTechniqueTemporarily("Flush", 2); //フラッシュ
     playSe1();

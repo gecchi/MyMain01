@@ -202,15 +202,15 @@ void World::processBehavior() {
         move_target_X_VP = pMYSHIP->_X + (_dZ_camera_init);
         move_target_Y_VP = pMYSHIP->_Y;
         move_target_Z_VP = pMYSHIP->_Z;
-        if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
-            move_target_Z_CAM -= Dd;
-        } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
-            move_target_Z_CAM += Dd;
-        } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
-            move_target_Y_CAM -= Dd;
-        } else if (_pos_camera > CAM_POS_BEHIND_BOTTOM) {
-            move_target_Y_CAM += Dd;
-        }
+//        if (_pos_camera == CAM_POS_BEHIND_RIGHT) {
+//            move_target_Z_CAM -= Dd;
+//        } else if (_pos_camera == CAM_POS_BEHIND_LEFT) {
+//            move_target_Z_CAM += Dd;
+//        } else if (_pos_camera == CAM_POS_BEHIND_TOP) {
+//            move_target_Y_CAM -= Dd;
+//        } else if (_pos_camera > CAM_POS_BEHIND_BOTTOM) {
+//            move_target_Y_CAM += Dd;
+//        }
     }
     //ƒJƒƒ‰‚Æ‹“_‚ÌˆÚ“®–Ú•W•â³
     if (_pos_camera < CAM_POS_TO_BEHIND) {
@@ -312,14 +312,44 @@ void World::processBehavior() {
     dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*10);
 
     if ( getSubFirst()->canBehave() ) {
-
-
         pCAM->_pMover->setVxMvAcce(dX_CAM);
         pCAM->_pMover->setVyMvAcce(dY_CAM);
         pCAM->_pMover->setVzMvAcce(dZ_CAM);
         pVP->_pMover->setVxMvAcce(dX_VP);
         pVP->_pMover->setVyMvAcce(dY_VP);
         pVP->_pMover->setVzMvAcce(dZ_VP);
+
+        int stop_renge = 10000;
+        if (-stop_renge < dX_CAM && dX_CAM < stop_renge) {
+            pCAM->_pMover->setVxMvAcce(0);
+            pCAM->_pMover->setVxMvVelo(0);
+        }
+
+        if (-stop_renge < dY_CAM && dY_CAM < stop_renge) {
+            pCAM->_pMover->setVyMvAcce(0);
+            pCAM->_pMover->setVyMvVelo(0);
+        }
+
+        if (-stop_renge < dZ_CAM && dZ_CAM < stop_renge) {
+            pCAM->_pMover->setVzMvAcce(0);
+            pCAM->_pMover->setVzMvVelo(0);
+        }
+
+        if (-stop_renge < dX_VP && dX_VP < stop_renge) {
+            pVP->_pMover->setVxMvAcce(0);
+            pVP->_pMover->setVxMvVelo(0);
+        }
+
+        if (-stop_renge < dY_VP && dY_VP < stop_renge) {
+            pVP->_pMover->setVyMvAcce(0);
+            pVP->_pMover->setVyMvVelo(0);
+        }
+
+        if (-stop_renge < dZ_VP && dZ_VP < stop_renge) {
+            pVP->_pMover->setVzMvAcce(0);
+            pVP->_pMover->setVzMvVelo(0);
+        }
+
 
 
 
