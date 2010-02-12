@@ -86,20 +86,20 @@ void World::initialize() {
 //    pVP->_pMover->setVzMvAcce(0);
 
 
-    int renge = 80000;
-    pCAM->_pMover->setVxMvVeloRenge(-renge, renge);
-    pCAM->_pMover->setVyMvVeloRenge(-renge, renge);
-    pCAM->_pMover->setVzMvVeloRenge(-renge, renge);
-    pCAM->_pMover->setVxMvAcceRenge(-renge / 20, renge / 20);
-    pCAM->_pMover->setVyMvAcceRenge(-renge / 20, renge / 20);
-    pCAM->_pMover->setVzMvAcceRenge(-renge / 20, renge / 20);
+    _renge = 80000;
+    pCAM->_pMover->setVxMvVeloRenge(-_renge, _renge);
+    pCAM->_pMover->setVyMvVeloRenge(-_renge, _renge);
+    pCAM->_pMover->setVzMvVeloRenge(-_renge, _renge);
+    pCAM->_pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
+    pCAM->_pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
+    pCAM->_pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
 
-    pVP->_pMover->setVxMvVeloRenge(-renge, renge);
-    pVP->_pMover->setVyMvVeloRenge(-renge, renge);
-    pVP->_pMover->setVzMvVeloRenge(-renge, renge);
-    pVP->_pMover->setVxMvAcceRenge(-renge / 20, renge / 20);
-    pVP->_pMover->setVyMvAcceRenge(-renge / 20, renge / 20);
-    pVP->_pMover->setVzMvAcceRenge(-renge / 20, renge / 20);
+    pVP->_pMover->setVxMvVeloRenge(-_renge, _renge);
+    pVP->_pMover->setVyMvVeloRenge(-_renge, _renge);
+    pVP->_pMover->setVzMvVeloRenge(-_renge, _renge);
+    pVP->_pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
+    pVP->_pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
+    pVP->_pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
 
 }
 
@@ -129,6 +129,7 @@ void World::processBehavior() {
 
     //カメラ位置を行ったり来たり
     if (VB::isPushedDown(VB_ZMOVE)) {
+        _TRACE_("VB_ZMOVE!! now _pos_camera="<<_pos_camera);
         if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
             _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
         } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
@@ -146,6 +147,7 @@ void World::processBehavior() {
                 _pos_camera -= CAM_POS_TO_BEHIND;
             }
         }
+        _TRACE_("VB_ZMOVE!!  -> _pos_camera="<<_pos_camera);
 
     }
 
@@ -311,59 +313,115 @@ void World::processBehavior() {
     dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*10);
     dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*10);
 
-    if ( getSubFirst()->canBehave() ) {
-        pCAM->_pMover->setVxMvAcce(dX_CAM);
-        pCAM->_pMover->setVyMvAcce(dY_CAM);
-        pCAM->_pMover->setVzMvAcce(dZ_CAM);
-        pVP->_pMover->setVxMvAcce(dX_VP);
-        pVP->_pMover->setVyMvAcce(dY_VP);
-        pVP->_pMover->setVzMvAcce(dZ_VP);
+    _TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
+    _TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
 
-        int stop_renge = 10000;
+
+    if ( getSubFirst()->canBehave() ) {
+
+//        pCAM->_pMover->setVxMvAcce(dX_CAM);
+//        pCAM->_pMover->setVyMvAcce(dY_CAM);
+//        pCAM->_pMover->setVzMvAcce(dZ_CAM);
+//        pVP->_pMover->setVxMvAcce(dX_VP);
+//        pVP->_pMover->setVyMvAcce(dY_VP);
+//        pVP->_pMover->setVzMvAcce(dZ_VP);
+
+
+        int stop_renge = 30000;
         if (-stop_renge < dX_CAM && dX_CAM < stop_renge) {
-            pCAM->_pMover->setVxMvAcce(0);
-            pCAM->_pMover->setVxMvVelo(0);
+            pCAM->_pMover->setVxMvAcce(pCAM->_pMover->_acceVxMv * 0.5);
+            pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dX_CAM && dX_CAM < (stop_renge+adhesion_renge)) {
+//                pCAM->_pMover->setVxMvVeloRenge(-veloVxMv_MyShip, veloVxMv_MyShip);
+//            } else {
+//                pCAM->_pMover->setVxMvVeloRenge(-_renge, _renge);
+//            }
+            pCAM->_pMover->setVxMvAcce(dX_CAM);
         }
 
+
         if (-stop_renge < dY_CAM && dY_CAM < stop_renge) {
-            pCAM->_pMover->setVyMvAcce(0);
-            pCAM->_pMover->setVyMvVelo(0);
+            pCAM->_pMover->setVyMvAcce(pCAM->_pMover->_acceVyMv * 0.5);
+            pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dY_CAM && dY_CAM < (stop_renge+adhesion_renge)) {
+//                pCAM->_pMover->setVyMvVeloRenge(-veloVyMv_MyShip, veloVyMv_MyShip);
+//            } else {
+//                pCAM->_pMover->setVyMvVeloRenge(-_renge, _renge);
+//            }
+            pCAM->_pMover->setVyMvAcce(dY_CAM);
         }
 
         if (-stop_renge < dZ_CAM && dZ_CAM < stop_renge) {
-            pCAM->_pMover->setVzMvAcce(0);
-            pCAM->_pMover->setVzMvVelo(0);
+            pCAM->_pMover->setVzMvAcce(pCAM->_pMover->_acceVzMv * 0.5);
+            pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dZ_CAM && dZ_CAM < (stop_renge+adhesion_renge)) {
+//                pCAM->_pMover->setVzMvVeloRenge(-veloVzMv_MyShip, veloVzMv_MyShip);
+//            } else {
+//                pCAM->_pMover->setVzMvVeloRenge(-_renge, _renge);
+//            }
+            pCAM->_pMover->setVzMvAcce(dZ_CAM);
         }
 
+
+
         if (-stop_renge < dX_VP && dX_VP < stop_renge) {
-            pVP->_pMover->setVxMvAcce(0);
-            pVP->_pMover->setVxMvVelo(0);
+            pVP->_pMover->setVxMvAcce(pVP->_pMover->_acceVxMv * 0.5);
+            pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dX_VP && dX_VP < (stop_renge+adhesion_renge)) {
+//                pVP->_pMover->setVxMvVeloRenge(-veloVxMv_MyShip, veloVxMv_MyShip);
+//            } else {
+//                pVP->_pMover->setVxMvVeloRenge(-_renge, _renge);
+//            }
+            pVP->_pMover->setVxMvAcce(dX_VP);
         }
 
         if (-stop_renge < dY_VP && dY_VP < stop_renge) {
-            pVP->_pMover->setVyMvAcce(0);
-            pVP->_pMover->setVyMvVelo(0);
+            pVP->_pMover->setVyMvAcce(pVP->_pMover->_acceVyMv * 0.5);
+            pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dY_VP && dY_VP < (stop_renge+adhesion_renge)) {
+//                pVP->_pMover->setVyMvVeloRenge(-veloVyMv_MyShip, veloVyMv_MyShip);
+//            } else {
+//                pVP->_pMover->setVyMvVeloRenge(-_renge, _renge);
+//            }
+            pVP->_pMover->setVyMvAcce(dY_VP);
         }
 
         if (-stop_renge < dZ_VP && dZ_VP < stop_renge) {
-            pVP->_pMover->setVzMvAcce(0);
-            pVP->_pMover->setVzMvVelo(0);
+            pVP->_pMover->setVzMvAcce(pVP->_pMover->_acceVzMv * 0.5);
+            pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.5);
+        } else {
+//            if (-(stop_renge+adhesion_renge) < dZ_VP && dZ_VP < (stop_renge+adhesion_renge)) {
+//                pVP->_pMover->setVzMvVeloRenge(-veloVzMv_MyShip, veloVzMv_MyShip);
+//            } else {
+//                pVP->_pMover->setVzMvVeloRenge(-_renge, _renge);
+//            }
+            pVP->_pMover->setVzMvAcce(dZ_VP);
         }
 
+        GeoElement* pGeo_MyShip = pMYSHIP->_pRing_GeoHistory->get();
+        GeoElement* pGeo_PrevMyShip = pMYSHIP->_pRing_GeoHistory->getPrev();
+        int veloVxMv_MyShip = pGeo_MyShip->_X - pGeo_PrevMyShip->_X;
+        int veloVyMv_MyShip = pGeo_MyShip->_Y - pGeo_PrevMyShip->_Y;
+        int veloVzMv_MyShip = pGeo_MyShip->_Z - pGeo_PrevMyShip->_Z;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        //吸着
+        if (-abs(veloVxMv_MyShip/2) < pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv < abs(veloVxMv_MyShip/2) ) {
+            pCAM->_pMover->setVxMvAcce(veloVxMv_MyShip);
+            pVP->_pMover->setVxMvAcce(veloVxMv_MyShip);
+        }
+        if (-abs(veloVyMv_MyShip/2) < pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv < abs(veloVyMv_MyShip/2) ) {
+            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
+            pVP->_pMover->setVyMvAcce(veloVyMv_MyShip);
+        }
+        if (-abs(veloVzMv_MyShip/2) < pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv < abs(veloVzMv_MyShip/2) ) {
+            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
+            pVP->_pMover->setVzMvAcce(veloVzMv_MyShip);
+        }
 
 
 
@@ -505,6 +563,10 @@ void World::processBehavior() {
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
+        _TRACE_("XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
+        _TRACE_("veloXYZ=("<<pCAM->_pMover->_veloVxMv<<","<<pCAM->_pMover->_veloVyMv<<","<<pCAM->_pMover->_veloVzMv<<") -> ("<<pVP->_pMover->_veloVxMv<<","<<pVP->_pMover->_veloVyMv<<","<<pVP->_pMover->_veloVzMv<<")");
+        _TRACE_("acceXYZ=("<<pCAM->_pMover->_acceVxMv<<","<<pCAM->_pMover->_acceVyMv<<","<<pCAM->_pMover->_acceVzMv<<") -> ("<<pVP->_pMover->_acceVxMv<<","<<pVP->_pMover->_acceVyMv<<","<<pVP->_pMover->_acceVzMv<<")");
+
     }
 
     //サブシーンが一時停止していれば、カメラ操作できる。

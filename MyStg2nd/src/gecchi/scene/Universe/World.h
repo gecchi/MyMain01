@@ -49,7 +49,7 @@ public:
     int _correction_width;
     int _correction_height;
     int _pos_camera;
-
+    int _renge;
     DWORD _frame_pushdown_zmove;
 
     World(const char* prm_name);

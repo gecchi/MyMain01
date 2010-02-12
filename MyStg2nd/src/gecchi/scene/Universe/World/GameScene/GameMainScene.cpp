@@ -72,7 +72,7 @@ void GameMainScene::processBehavior() {
     }
 
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
-        _pStringBoard01->update(300, 300, "GameMainScene BEGIN");
+        _pStringBoard01->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pStringBoard02->update(300, 350, "DESTOROY ALL!");
         addSubLast(obtainSceneFromFactory(11)); //ステージシーン追加
         _dwFrame_Begin = 0;
