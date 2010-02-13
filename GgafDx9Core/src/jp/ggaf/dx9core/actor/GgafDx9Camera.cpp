@@ -10,7 +10,7 @@ int GgafDx9Camera::_Y_ScreenBottom = 0;
 
 
 
-GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9GeometricActor(prm_name, NULL) {
+GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm_dep) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
 
     //全ての基準はfovXから考える
@@ -23,6 +23,9 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     float xzRatio = tan( _rad_fovX/2 );
     float yRatio = xzRatio / _screen_aspect;
     _rad_fovY = atan( yRatio )*2.0f;
+    _TRACE_("GgafDx9Camera::GgafDx9Camera 画面アスペクト："<<_screen_aspect);
+    _TRACE_("GgafDx9Camera::GgafDx9Camera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
+
     //半分を保持
     _rad_half_fovY = _rad_fovY / 2.0f;
     //tan値も保持
@@ -32,7 +35,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
     //Zは、キャラがZ=0のXY平面で丁度キャラが値ピクセル幅と一致するような所にカメラを引く
     _cameraZ = -1.0f * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
-    _TRACE_("カメラの位置(0,0,"<<_cameraZ<<")");
+    _TRACE_("GgafDx9Camera::GgafDx9Camera カメラの位置(0,0,"<<_cameraZ<<")");
     _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //位置
     _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //注視する方向
     _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //上方向
@@ -47,7 +50,8 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX) : GgafDx9
 
     // 射影変換行列作成（３Ｄ→平面）
     _zn = 0.01;
-    _zf = -_cameraZ_org*10.0;
+    _zf = -_cameraZ_org*(prm_dep+1.0f);
+    _TRACE_("GgafDx9Camera::GgafDx9Camera 表示範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
             _rad_fovY,        //y方向視野角ラディアン(0～π)

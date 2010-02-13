@@ -20,17 +20,19 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
-    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 7.0f / 18.0f );
+    //æ‚ÉƒJƒƒ‰‚ÍNEW‚µ‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢B
+    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, 15.0);    //FovXŽ‹–ìŠp80“xA[‚³~15.0
     getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
-
+    //ƒJƒƒ‰‚ÌŽÊ‚·‚¿‚å‚Á‚Æ—]—T‚ð‚à‚Á‚½”ÍˆÍB
     _X_goneLeft   = GgafDx9Camera::_X_ScreenLeft * 4;
-    _X_goneRight  = GgafDx9Camera::_X_ScreenRight * 20;
-    _Y_goneTop    = GgafDx9Camera::_Y_ScreenTop * 10;
-    _Y_goneBottom = GgafDx9Camera::_Y_ScreenBottom * 10;
-    _Z_goneBack   = GgafDx9Camera::_X_ScreenRight * 10;
-    _Z_goneFront  = GgafDx9Camera::_X_ScreenLeft * 10;
+    _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Z_goneBack   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Z_goneFront  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _TRACE_("Gone=X ("<<_X_goneLeft<<" - "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" - "<<_Y_goneTop<<") Z("<<_Z_goneBack<<" - "<<_Z_goneFront<<")");
 
 
 }

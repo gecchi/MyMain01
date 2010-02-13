@@ -246,14 +246,14 @@ void World::processBehavior() {
             }
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        if (move_target_Y_CAM > _lim_CAM_top + _correction_height) {
-            move_target_Y_CAM = _lim_CAM_top + _correction_height;
+        if (move_target_Y_CAM > _lim_CAM_top - _correction_height) {
+            move_target_Y_CAM = _lim_CAM_top - _correction_height;
         }
-        if (move_target_Y_CAM < _lim_CAM_bottom - _correction_height) {
-            move_target_Y_CAM = _lim_CAM_bottom - _correction_height;
+        if (move_target_Y_CAM < _lim_CAM_bottom + _correction_height) {
+            move_target_Y_CAM = _lim_CAM_bottom + _correction_height;
         }
-        if (move_target_Z_CAM > _lim_CAM_zleft + _correction_width) {
-            move_target_Z_CAM = _lim_CAM_zleft + _correction_width;
+        if (move_target_Z_CAM > _lim_CAM_zleft - _correction_width) {
+            move_target_Z_CAM = _lim_CAM_zleft - _correction_width;
         }
         if (move_target_Z_CAM < _lim_CAM_zright + _correction_width) {
             move_target_Z_CAM = _lim_CAM_zright + _correction_width;
@@ -290,14 +290,14 @@ void World::processBehavior() {
             }
         }
     } else if (_pos_camera > CAM_POS_TO_BEHIND) {
-        if (move_target_Y_VP > _lim_VP_top + _correction_height) {
-            move_target_Y_VP = _lim_VP_top + _correction_height;
+        if (move_target_Y_VP > _lim_VP_top - _correction_height) {
+            move_target_Y_VP = _lim_VP_top - _correction_height;
         }
-        if (move_target_Y_VP < _lim_VP_bottom - _correction_height) {
-            move_target_Y_VP = _lim_VP_bottom - _correction_height;
+        if (move_target_Y_VP < _lim_VP_bottom + _correction_height) {
+            move_target_Y_VP = _lim_VP_bottom + _correction_height;
         }
-        if (move_target_Z_VP > _lim_VP_zleft + _correction_width) {
-            move_target_Z_VP = _lim_VP_zleft + _correction_width;
+        if (move_target_Z_VP > _lim_VP_zleft - _correction_width) {
+            move_target_Z_VP = _lim_VP_zleft - _correction_width;
         }
         if (move_target_Z_VP < _lim_VP_zright + _correction_width) {
             move_target_Z_VP = _lim_VP_zright + _correction_width;
@@ -313,8 +313,8 @@ void World::processBehavior() {
     dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*10);
     dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*10);
 
-    _TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
-    _TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
+    //_TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
+    //_TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
 
 
     if ( getSubFirst()->canBehave() ) {
@@ -410,20 +410,25 @@ void World::processBehavior() {
         int veloVzMv_MyShip = pGeo_MyShip->_Z - pGeo_PrevMyShip->_Z;
 
         //‹z’…
-        if (-abs(veloVxMv_MyShip/2) < pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv < abs(veloVxMv_MyShip/2) ) {
+        if (-abs(veloVxMv_MyShip) <= pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv <= abs(veloVxMv_MyShip) ) {
             pCAM->_pMover->setVxMvAcce(veloVxMv_MyShip);
+        }
+        if (-abs(veloVyMv_MyShip) <= pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv <= abs(veloVyMv_MyShip) ) {
+            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
+        }
+        if (-abs(veloVzMv_MyShip) <= pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv <= abs(veloVzMv_MyShip) ) {
+            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
+        }
+
+        if (-abs(veloVxMv_MyShip) <= pVP->_pMover->_veloVxMv && pVP->_pMover->_veloVxMv <= abs(veloVxMv_MyShip) ) {
             pVP->_pMover->setVxMvAcce(veloVxMv_MyShip);
         }
-        if (-abs(veloVyMv_MyShip/2) < pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv < abs(veloVyMv_MyShip/2) ) {
-            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
+        if (-abs(veloVyMv_MyShip) <= pVP->_pMover->_veloVyMv && pVP->_pMover->_veloVyMv <= abs(veloVyMv_MyShip) ) {
             pVP->_pMover->setVyMvAcce(veloVyMv_MyShip);
         }
-        if (-abs(veloVzMv_MyShip/2) < pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv < abs(veloVzMv_MyShip/2) ) {
-            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
+        if (-abs(veloVzMv_MyShip) <= pVP->_pMover->_veloVzMv && pVP->_pMover->_veloVzMv <= abs(veloVzMv_MyShip) ) {
             pVP->_pMover->setVzMvAcce(veloVzMv_MyShip);
         }
-
-
 
 
 
@@ -563,9 +568,9 @@ void World::processBehavior() {
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
-        _TRACE_("XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
-        _TRACE_("veloXYZ=("<<pCAM->_pMover->_veloVxMv<<","<<pCAM->_pMover->_veloVyMv<<","<<pCAM->_pMover->_veloVzMv<<") -> ("<<pVP->_pMover->_veloVxMv<<","<<pVP->_pMover->_veloVyMv<<","<<pVP->_pMover->_veloVzMv<<")");
-        _TRACE_("acceXYZ=("<<pCAM->_pMover->_acceVxMv<<","<<pCAM->_pMover->_acceVyMv<<","<<pCAM->_pMover->_acceVzMv<<") -> ("<<pVP->_pMover->_acceVxMv<<","<<pVP->_pMover->_acceVyMv<<","<<pVP->_pMover->_acceVzMv<<")");
+        //_TRACE_("XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
+        //_TRACE_("veloXYZ=("<<pCAM->_pMover->_veloVxMv<<","<<pCAM->_pMover->_veloVyMv<<","<<pCAM->_pMover->_veloVzMv<<") -> ("<<pVP->_pMover->_veloVxMv<<","<<pVP->_pMover->_veloVyMv<<","<<pVP->_pMover->_veloVzMv<<")");
+        //_TRACE_("acceXYZ=("<<pCAM->_pMover->_acceVxMv<<","<<pCAM->_pMover->_acceVyMv<<","<<pCAM->_pMover->_acceVzMv<<") -> ("<<pVP->_pMover->_acceVxMv<<","<<pVP->_pMover->_acceVyMv<<","<<pVP->_pMover->_acceVzMv<<")");
 
     }
 
