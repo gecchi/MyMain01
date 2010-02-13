@@ -147,7 +147,7 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     //ここにMyのヒットエフェクト
     if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここにMyの消滅エフェクト
-        inactivate();
+        //inactivate();
     } else {
 
     }

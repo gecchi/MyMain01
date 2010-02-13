@@ -403,32 +403,32 @@ void World::processBehavior() {
             pVP->_pMover->setVzMvAcce(dZ_VP);
         }
 
-        GeoElement* pGeo_MyShip = pMYSHIP->_pRing_GeoHistory->get();
-        GeoElement* pGeo_PrevMyShip = pMYSHIP->_pRing_GeoHistory->getPrev();
-        int veloVxMv_MyShip = pGeo_MyShip->_X - pGeo_PrevMyShip->_X;
-        int veloVyMv_MyShip = pGeo_MyShip->_Y - pGeo_PrevMyShip->_Y;
-        int veloVzMv_MyShip = pGeo_MyShip->_Z - pGeo_PrevMyShip->_Z;
-
-        //‹z’…
-        if (-abs(veloVxMv_MyShip) <= pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv <= abs(veloVxMv_MyShip) ) {
-            pCAM->_pMover->setVxMvAcce(veloVxMv_MyShip);
-        }
-        if (-abs(veloVyMv_MyShip) <= pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv <= abs(veloVyMv_MyShip) ) {
-            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
-        }
-        if (-abs(veloVzMv_MyShip) <= pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv <= abs(veloVzMv_MyShip) ) {
-            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
-        }
-
-        if (-abs(veloVxMv_MyShip) <= pVP->_pMover->_veloVxMv && pVP->_pMover->_veloVxMv <= abs(veloVxMv_MyShip) ) {
-            pVP->_pMover->setVxMvAcce(veloVxMv_MyShip);
-        }
-        if (-abs(veloVyMv_MyShip) <= pVP->_pMover->_veloVyMv && pVP->_pMover->_veloVyMv <= abs(veloVyMv_MyShip) ) {
-            pVP->_pMover->setVyMvAcce(veloVyMv_MyShip);
-        }
-        if (-abs(veloVzMv_MyShip) <= pVP->_pMover->_veloVzMv && pVP->_pMover->_veloVzMv <= abs(veloVzMv_MyShip) ) {
-            pVP->_pMover->setVzMvAcce(veloVzMv_MyShip);
-        }
+//        GeoElement* pGeo_MyShip = pMYSHIP->_pRing_GeoHistory->get();
+//        GeoElement* pGeo_PrevMyShip = pMYSHIP->_pRing_GeoHistory->getPrev();
+//        int veloVxMv_MyShip = pGeo_MyShip->_X - pGeo_PrevMyShip->_X;
+//        int veloVyMv_MyShip = pGeo_MyShip->_Y - pGeo_PrevMyShip->_Y;
+//        int veloVzMv_MyShip = pGeo_MyShip->_Z - pGeo_PrevMyShip->_Z;
+//
+//        //‹z’…
+//        if (-abs(veloVxMv_MyShip/2) <= pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv <= abs(veloVxMv_MyShip/2) ) {
+//            pCAM->_pMover->setVxMvAcce(veloVxMv_MyShip);
+//        }
+//        if (-abs(veloVyMv_MyShip/2) <= pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv <= abs(veloVyMv_MyShip/2) ) {
+//            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
+//        }
+//        if (-abs(veloVzMv_MyShip/2) <= pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv <= abs(veloVzMv_MyShip/2) ) {
+//            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
+//        }
+//
+//        if (-abs(veloVxMv_MyShip/2) <= pVP->_pMover->_veloVxMv && pVP->_pMover->_veloVxMv <= abs(veloVxMv_MyShip/2) ) {
+//            pVP->_pMover->setVxMvAcce(veloVxMv_MyShip);
+//        }
+//        if (-abs(veloVyMv_MyShip/2) <= pVP->_pMover->_veloVyMv && pVP->_pMover->_veloVyMv <= abs(veloVyMv_MyShip/2) ) {
+//            pVP->_pMover->setVyMvAcce(veloVyMv_MyShip);
+//        }
+//        if (-abs(veloVzMv_MyShip/2) <= pVP->_pMover->_veloVzMv && pVP->_pMover->_veloVzMv <= abs(veloVzMv_MyShip/2) ) {
+//            pVP->_pMover->setVzMvAcce(veloVzMv_MyShip);
+//        }
 
 
 
