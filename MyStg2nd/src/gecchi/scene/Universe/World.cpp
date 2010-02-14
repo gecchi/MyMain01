@@ -62,16 +62,16 @@ void World::initialize() {
     pCAM->_pMover->setVxMvVeloRenge(-_renge, _renge);
     pCAM->_pMover->setVyMvVeloRenge(-_renge, _renge);
     pCAM->_pMover->setVzMvVeloRenge(-_renge, _renge);
-    pCAM->_pMover->setVxMvAcceRenge(-_renge / 40, _renge / 40);
-    pCAM->_pMover->setVyMvAcceRenge(-_renge / 40, _renge / 40);
-    pCAM->_pMover->setVzMvAcceRenge(-_renge / 40, _renge / 40);
+    pCAM->_pMover->setVxMvAcceRenge(-_renge / 100, _renge / 100);
+    pCAM->_pMover->setVyMvAcceRenge(-_renge / 100, _renge / 100);
+    pCAM->_pMover->setVzMvAcceRenge(-_renge / 100, _renge / 100);
 
     pVP->_pMover->setVxMvVeloRenge(-_renge, _renge);
     pVP->_pMover->setVyMvVeloRenge(-_renge, _renge);
     pVP->_pMover->setVzMvVeloRenge(-_renge, _renge);
-    pVP->_pMover->setVxMvAcceRenge(-_renge / 40, _renge / 40);
-    pVP->_pMover->setVyMvAcceRenge(-_renge / 40, _renge / 40);
-    pVP->_pMover->setVzMvAcceRenge(-_renge / 40, _renge / 40);
+    pVP->_pMover->setVxMvAcceRenge(-_renge / 100, _renge / 100);
+    pVP->_pMover->setVyMvAcceRenge(-_renge / 100, _renge / 100);
+    pVP->_pMover->setVzMvAcceRenge(-_renge / 100, _renge / 100);
 
 }
 
@@ -281,13 +281,13 @@ void World::processBehavior() {
     dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*2);
     dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*2);
 
-    //_TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
-    //_TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
+    _TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
+    _TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
 
 
     if ( getSubFirst()->canBehave() ) {
 
-        int stop_renge = 30000;
+        int stop_renge = 50000;
         if (-stop_renge < dX_CAM && dX_CAM < stop_renge) {
             pCAM->_pMover->setVxMvAcce(pCAM->_pMover->_acceVxMv * 0.5);
             pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.5);
@@ -333,29 +333,34 @@ void World::processBehavior() {
         } else {
             pVP->_pMover->setVzMvAcce(dZ_VP);
         }
- 
 
 
-		int kyuchaku = pMYSHIP->_iMoveSpeed/4;
-        int camveloZ = pCAM->_pMover->_veloVzMv;
-        int vpveloZ = pVP->_pMover->_veloVzMv;
-		if (pMYSHIP->_iMoveSpeed-kyuchaku < camveloZ && camveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
-        	pCAM->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
-		} else if (-pMYSHIP->_iMoveSpeed-kyuchaku < camveloZ && camveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
-			pCAM->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
-		} 
-		if (pMYSHIP->_iMoveSpeed-kyuchaku < vpveloZ && vpveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
-        	pVP->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
-		} else if (-pMYSHIP->_iMoveSpeed-kyuchaku < vpveloZ && vpveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
-			pVP->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
-		} 
 
+//		int kyuchaku = pMYSHIP->_iMoveSpeed;
+//        int camveloZ = pCAM->_pMover->_veloVzMv;
+//        int vpveloZ = pVP->_pMover->_veloVzMv;
+//        _TRACE_("kyuchaku="<<kyuchaku<<" pMYSHIP->_iMoveSpeed="<<pMYSHIP->_iMoveSpeed);
+//		if (camveloZ > 0 && pMYSHIP->_iMoveSpeed <= camveloZ && camveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
+//	        _TRACE_("pMYSHIP->_iMoveSpeed="<<pMYSHIP->_iMoveSpeed<<" camveloZ="<<camveloZ<<" pMYSHIP->_iMoveSpeed+kyuchaku="<<pMYSHIP->_iMoveSpeed+kyuchaku);
+//        	pCAM->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
+//		} else if (camveloZ < 0 &&  -(pMYSHIP->_iMoveSpeed) <= camveloZ && camveloZ < -(pMYSHIP->_iMoveSpeed)+kyuchaku) {
+//	        _TRACE_("-(pMYSHIP->_iMoveSpeed)="<<-(pMYSHIP->_iMoveSpeed)<<" camveloZ="<<camveloZ<<" -(pMYSHIP->_iMoveSpeed)+kyuchaku="<<-(pMYSHIP->_iMoveSpeed)+kyuchaku);
+//		    pCAM->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
+//		}
+//		if (vpveloZ > 0 && pMYSHIP->_iMoveSpeed <= vpveloZ && vpveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
+//        	pVP->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
+//		} else if (vpveloZ < 0 && -pMYSHIP->_iMoveSpeed <= vpveloZ && vpveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
+//			pVP->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
+//		}
+
+        _TRACE_("behave()pre XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
 
         pCAM->_pMover->behave();
         pVP->_pMover->behave();
-        //_TRACE_("XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
-        //_TRACE_("veloXYZ=("<<pCAM->_pMover->_veloVxMv<<","<<pCAM->_pMover->_veloVyMv<<","<<pCAM->_pMover->_veloVzMv<<") -> ("<<pVP->_pMover->_veloVxMv<<","<<pVP->_pMover->_veloVyMv<<","<<pVP->_pMover->_veloVzMv<<")");
-        //_TRACE_("acceXYZ=("<<pCAM->_pMover->_acceVxMv<<","<<pCAM->_pMover->_acceVyMv<<","<<pCAM->_pMover->_acceVzMv<<") -> ("<<pVP->_pMover->_acceVxMv<<","<<pVP->_pMover->_acceVyMv<<","<<pVP->_pMover->_acceVzMv<<")");
+        _TRACE_("behave()aft XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
+
+        _TRACE_("veloXYZ=("<<pCAM->_pMover->_veloVxMv<<","<<pCAM->_pMover->_veloVyMv<<","<<pCAM->_pMover->_veloVzMv<<") -> ("<<pVP->_pMover->_veloVxMv<<","<<pVP->_pMover->_veloVyMv<<","<<pVP->_pMover->_veloVzMv<<")");
+        _TRACE_("acceXYZ=("<<pCAM->_pMover->_acceVxMv<<","<<pCAM->_pMover->_acceVyMv<<","<<pCAM->_pMover->_acceVzMv<<") -> ("<<pVP->_pMover->_acceVxMv<<","<<pVP->_pMover->_acceVyMv<<","<<pVP->_pMover->_acceVzMv<<")");
 
     }
 
