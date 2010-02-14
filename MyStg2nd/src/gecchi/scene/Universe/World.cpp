@@ -53,53 +53,25 @@ void World::initialize() {
     pCAM->setViewPoint(0,0,0);
     pCAM->_pMover->setMvAng(0,0,0);
 
-
-//    pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pCAM->_pMover->setVxMvVelo(0);
-//    pCAM->_pMover->setVxMvAcce(0);
-//
-//    pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pCAM->_pMover->setVyMvVelo(0);
-//    pCAM->_pMover->setVyMvAcce(0);
-//
-//    pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pCAM->_pMover->setVzMvVelo(0);
-//    pCAM->_pMover->setVzMvAcce(0);
-
     pVP->_X = 0;
     pVP->_Y = 0;
     pVP->_Z = pMYSHIP->_Z;
-
-
-//    pVP->_pMover->setMvAng(0,0,0);
-//
-//    pVP->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pVP->_pMover->setVxMvVelo(0);
-//    pVP->_pMover->setVxMvAcce(0);
-//
-//    pVP->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pVP->_pMover->setVyMvVelo(0);
-//    pVP->_pMover->setVyMvAcce(0);
-//
-//    pVP->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//    pVP->_pMover->setVzMvVelo(0);
-//    pVP->_pMover->setVzMvAcce(0);
 
 
     _renge = 80000;
     pCAM->_pMover->setVxMvVeloRenge(-_renge, _renge);
     pCAM->_pMover->setVyMvVeloRenge(-_renge, _renge);
     pCAM->_pMover->setVzMvVeloRenge(-_renge, _renge);
-    pCAM->_pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
-    pCAM->_pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
-    pCAM->_pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
+    pCAM->_pMover->setVxMvAcceRenge(-_renge / 40, _renge / 40);
+    pCAM->_pMover->setVyMvAcceRenge(-_renge / 40, _renge / 40);
+    pCAM->_pMover->setVzMvAcceRenge(-_renge / 40, _renge / 40);
 
     pVP->_pMover->setVxMvVeloRenge(-_renge, _renge);
     pVP->_pMover->setVyMvVeloRenge(-_renge, _renge);
     pVP->_pMover->setVzMvVeloRenge(-_renge, _renge);
-    pVP->_pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
-    pVP->_pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
-    pVP->_pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
+    pVP->_pMover->setVxMvAcceRenge(-_renge / 40, _renge / 40);
+    pVP->_pMover->setVyMvAcceRenge(-_renge / 40, _renge / 40);
+    pVP->_pMover->setVzMvAcceRenge(-_renge / 40, _renge / 40);
 
 }
 
@@ -160,12 +132,8 @@ void World::processBehavior() {
     //ビューポイント（終点）の目標地点までの距離（座標差分）
     int dX_VP, dY_VP, dZ_VP;
 
-    static int Dx = (int)(_dZ_camera_init / 2);
+    static int Dx = (int)((GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)/2);
     static int Dd = (int)(_dZ_camera_init / 100);
-//    static int slow_range_CAM = 50000;
-//    static int slow_range02_CAM = slow_range_CAM * 1.1;
-//    static int slow_range_VP = 50000;
-//    static int slow_range02_VP = slow_range_VP * 1.1;
     //カメラと視点の移動目標設定
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
@@ -306,12 +274,12 @@ void World::processBehavior() {
 
 
     //目標地点までの各軸距離
-    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*10);
-    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*10);
-    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*10);
-    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*10);
-    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*10);
-    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*10);
+    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*2);
+    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*2);
+    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*2);
+    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*2);
+    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*2);
+    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*2);
 
     //_TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
     //_TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
@@ -319,24 +287,11 @@ void World::processBehavior() {
 
     if ( getSubFirst()->canBehave() ) {
 
-//        pCAM->_pMover->setVxMvAcce(dX_CAM);
-//        pCAM->_pMover->setVyMvAcce(dY_CAM);
-//        pCAM->_pMover->setVzMvAcce(dZ_CAM);
-//        pVP->_pMover->setVxMvAcce(dX_VP);
-//        pVP->_pMover->setVyMvAcce(dY_VP);
-//        pVP->_pMover->setVzMvAcce(dZ_VP);
-
-
         int stop_renge = 30000;
         if (-stop_renge < dX_CAM && dX_CAM < stop_renge) {
             pCAM->_pMover->setVxMvAcce(pCAM->_pMover->_acceVxMv * 0.5);
             pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dX_CAM && dX_CAM < (stop_renge+adhesion_renge)) {
-//                pCAM->_pMover->setVxMvVeloRenge(-veloVxMv_MyShip, veloVxMv_MyShip);
-//            } else {
-//                pCAM->_pMover->setVxMvVeloRenge(-_renge, _renge);
-//            }
             pCAM->_pMover->setVxMvAcce(dX_CAM);
         }
 
@@ -345,11 +300,6 @@ void World::processBehavior() {
             pCAM->_pMover->setVyMvAcce(pCAM->_pMover->_acceVyMv * 0.5);
             pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dY_CAM && dY_CAM < (stop_renge+adhesion_renge)) {
-//                pCAM->_pMover->setVyMvVeloRenge(-veloVyMv_MyShip, veloVyMv_MyShip);
-//            } else {
-//                pCAM->_pMover->setVyMvVeloRenge(-_renge, _renge);
-//            }
             pCAM->_pMover->setVyMvAcce(dY_CAM);
         }
 
@@ -357,13 +307,9 @@ void World::processBehavior() {
             pCAM->_pMover->setVzMvAcce(pCAM->_pMover->_acceVzMv * 0.5);
             pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dZ_CAM && dZ_CAM < (stop_renge+adhesion_renge)) {
-//                pCAM->_pMover->setVzMvVeloRenge(-veloVzMv_MyShip, veloVzMv_MyShip);
-//            } else {
-//                pCAM->_pMover->setVzMvVeloRenge(-_renge, _renge);
-//            }
             pCAM->_pMover->setVzMvAcce(dZ_CAM);
         }
+
 
 
 
@@ -371,11 +317,6 @@ void World::processBehavior() {
             pVP->_pMover->setVxMvAcce(pVP->_pMover->_acceVxMv * 0.5);
             pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dX_VP && dX_VP < (stop_renge+adhesion_renge)) {
-//                pVP->_pMover->setVxMvVeloRenge(-veloVxMv_MyShip, veloVxMv_MyShip);
-//            } else {
-//                pVP->_pMover->setVxMvVeloRenge(-_renge, _renge);
-//            }
             pVP->_pMover->setVxMvAcce(dX_VP);
         }
 
@@ -383,11 +324,6 @@ void World::processBehavior() {
             pVP->_pMover->setVyMvAcce(pVP->_pMover->_acceVyMv * 0.5);
             pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dY_VP && dY_VP < (stop_renge+adhesion_renge)) {
-//                pVP->_pMover->setVyMvVeloRenge(-veloVyMv_MyShip, veloVyMv_MyShip);
-//            } else {
-//                pVP->_pMover->setVyMvVeloRenge(-_renge, _renge);
-//            }
             pVP->_pMover->setVyMvAcce(dY_VP);
         }
 
@@ -395,175 +331,24 @@ void World::processBehavior() {
             pVP->_pMover->setVzMvAcce(pVP->_pMover->_acceVzMv * 0.5);
             pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.5);
         } else {
-//            if (-(stop_renge+adhesion_renge) < dZ_VP && dZ_VP < (stop_renge+adhesion_renge)) {
-//                pVP->_pMover->setVzMvVeloRenge(-veloVzMv_MyShip, veloVzMv_MyShip);
-//            } else {
-//                pVP->_pMover->setVzMvVeloRenge(-_renge, _renge);
-//            }
             pVP->_pMover->setVzMvAcce(dZ_VP);
         }
-
-//        GeoElement* pGeo_MyShip = pMYSHIP->_pRing_GeoHistory->get();
-//        GeoElement* pGeo_PrevMyShip = pMYSHIP->_pRing_GeoHistory->getPrev();
-//        int veloVxMv_MyShip = pGeo_MyShip->_X - pGeo_PrevMyShip->_X;
-//        int veloVyMv_MyShip = pGeo_MyShip->_Y - pGeo_PrevMyShip->_Y;
-//        int veloVzMv_MyShip = pGeo_MyShip->_Z - pGeo_PrevMyShip->_Z;
-//
-//        //吸着
-//        if (-abs(veloVxMv_MyShip/2) <= pCAM->_pMover->_veloVxMv && pCAM->_pMover->_veloVxMv <= abs(veloVxMv_MyShip/2) ) {
-//            pCAM->_pMover->setVxMvAcce(veloVxMv_MyShip);
-//        }
-//        if (-abs(veloVyMv_MyShip/2) <= pCAM->_pMover->_veloVyMv && pCAM->_pMover->_veloVyMv <= abs(veloVyMv_MyShip/2) ) {
-//            pCAM->_pMover->setVyMvAcce(veloVyMv_MyShip);
-//        }
-//        if (-abs(veloVzMv_MyShip/2) <= pCAM->_pMover->_veloVzMv && pCAM->_pMover->_veloVzMv <= abs(veloVzMv_MyShip/2) ) {
-//            pCAM->_pMover->setVzMvAcce(veloVzMv_MyShip);
-//        }
-//
-//        if (-abs(veloVxMv_MyShip/2) <= pVP->_pMover->_veloVxMv && pVP->_pMover->_veloVxMv <= abs(veloVxMv_MyShip/2) ) {
-//            pVP->_pMover->setVxMvAcce(veloVxMv_MyShip);
-//        }
-//        if (-abs(veloVyMv_MyShip/2) <= pVP->_pMover->_veloVyMv && pVP->_pMover->_veloVyMv <= abs(veloVyMv_MyShip/2) ) {
-//            pVP->_pMover->setVyMvAcce(veloVyMv_MyShip);
-//        }
-//        if (-abs(veloVzMv_MyShip/2) <= pVP->_pMover->_veloVzMv && pVP->_pMover->_veloVzMv <= abs(veloVzMv_MyShip/2) ) {
-//            pVP->_pMover->setVzMvAcce(veloVzMv_MyShip);
-//        }
+ 
 
 
-
-//        int cam_MvVeloRenge;//カメラ移動スピード
-//        int moveway_num = 0; //自機移動方向数
-//        if (VB::isBeingPressed(VB_LEFT)) {
-//            moveway_num++;
-//        }
-//        if (VB::isBeingPressed(VB_UP)) {
-//            moveway_num++;
-//        }
-//        if (VB::isBeingPressed(VB_RIGHT)) {
-//            moveway_num++;
-//        }
-//        if (VB::isBeingPressed(VB_DOWN)) {
-//            moveway_num++;
-//        }
-//        if (moveway_num >= 2) {
-//            cam_MvVeloRenge = pMYSHIP->_iMoveSpeed*NANAME +
-//                                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
-//                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
-//                                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)*1.5  ); //カメラ移動スピード（自機斜め移動時）
-//
-//        } else {
-//            cam_MvVeloRenge = pMYSHIP->_iMoveSpeed +
-//                                    ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
-//                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
-//                                      GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)*1.5  ); //カメラ移動スピード（標準）
-//        }
-//
-////                +
-////                  ( GgafDx9Util::abs(pMYSHIP->_pMover->_veloVxMv) +
-////                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVyMv) +
-////                    GgafDx9Util::abs(pMYSHIP->_pMover->_veloVzMv)
-////                  )
-////                 ) * 0.7;//どうするか????0.7; //0.7の意味は 1/√2 よりわずかに小さい
-//                          //これは自機が斜め移動時カメラがわずかに追いつかないようにするため
-////        if (GgafDx9Util::abs(dX_CAM) > slow_range_CAM*1.2 ||
-////            GgafDx9Util::abs(dY_CAM) > slow_range_CAM*1.2 ||
-////            GgafDx9Util::abs(dZ_CAM) > slow_range_CAM*1.2) {
-////            cam_MvVeloRenge = cam_MvVeloRenge * 2;
-////        }
-//
-//        //カメラがスロー範囲（ちょっと広め）時とそうでない時の処理
-//        if (-slow_range02_CAM > dX_CAM && dX_CAM > slow_range02_CAM) {
-//            pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pCAM->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//        if (-slow_range02_CAM > dY_CAM && dY_CAM > slow_range02_CAM) {
-//            pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pCAM->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//        if (-slow_range02_CAM > dZ_CAM && dZ_CAM > slow_range02_CAM) {
-//            pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pCAM->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//
-//
-//        //カメラがスロー範囲時とそうでない時の処理
-//        static double acc_rate = 500.0;
-//        if (-slow_range_CAM < dX_CAM && dX_CAM < slow_range_CAM) {
-//            pCAM->_pMover->_veloVxMv *= 0.9;
-//            pCAM->_pMover->setVxMvAcce(0);
-//        } else {
-//            if (_pos_camera > CAM_POS_TO_BEHIND) {
-//                pCAM->_pMover->setVxMvAcce(dX_CAM/acc_rate);//背後に回る時
-//            } else {
-//                pCAM->_pMover->setVxMvAcce(dX_CAM/acc_rate);
-//            }
-//        }
-//        if (-slow_range_CAM < dY_CAM && dY_CAM < slow_range_CAM) {
-//            pCAM->_pMover->_veloVyMv *= 0.9;
-//            pCAM->_pMover->setVyMvAcce(0);
-//        } else {
-//            if (_pos_camera > CAM_POS_TO_BEHIND) {
-//                pCAM->_pMover->setVyMvAcce(dY_CAM/acc_rate);//背後に回る時
-//            } else {
-//                pCAM->_pMover->setVyMvAcce(dY_CAM/acc_rate);
-//            }
-//        }
-//        if (-slow_range_CAM < dZ_CAM && dZ_CAM < slow_range_CAM) {
-//            pCAM->_pMover->_veloVzMv *= 0.9;
-//            pCAM->_pMover->setVzMvAcce(0);
-//        } else {
-//            if (_pos_camera > CAM_POS_TO_BEHIND) {
-//                pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);//背後に回る時
-//            } else {
-//
-//                pCAM->_pMover->setVzMvAcce(dZ_CAM/acc_rate);
-//            }
-//        }
-//
-//
-//
-//
-//
-//
-//        if (-slow_range02_VP > dX_VP && dX_VP > slow_range02_VP) {
-//            pVP->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pVP->_pMover->setVxMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//        if (-slow_range02_VP > dY_VP && dY_VP > slow_range02_VP) {
-//            pVP->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pVP->_pMover->setVyMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//        if (-slow_range02_VP > dZ_VP && dZ_VP > slow_range02_VP) {
-//            pVP->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge*10, cam_MvVeloRenge*10);
-//        } else {
-//            pVP->_pMover->setVzMvVeloRenge(-cam_MvVeloRenge, cam_MvVeloRenge);
-//        }
-//
-//        if (-slow_range_VP < dX_VP && dX_VP < slow_range_VP) {
-//            pVP->_pMover->_veloVxMv *= 0.9;
-//            pVP->_pMover->setVxMvAcce(0);
-//        } else {
-//            pVP->_pMover->setVxMvAcce(dX_VP/acc_rate);
-//        }
-//        if (-slow_range_VP < dY_VP && dY_VP < slow_range_VP) {
-//            pVP->_pMover->_veloVyMv *= 0.9;
-//            pVP->_pMover->setVyMvAcce(0);
-//        } else {
-//            pVP->_pMover->setVyMvAcce(dY_VP/acc_rate);
-//        }
-//        if (-slow_range_VP < dZ_VP && dZ_VP < slow_range_VP) {
-//            pVP->_pMover->_veloVzMv *= 0.9;
-//            pVP->_pMover->setVzMvAcce(0);
-//        } else {
-//            pVP->_pMover->setVzMvAcce(dZ_VP/acc_rate);
-//        }
-
+		int kyuchaku = pMYSHIP->_iMoveSpeed/4;
+        int camveloZ = pCAM->_pMover->_veloVzMv;
+        int vpveloZ = pVP->_pMover->_veloVzMv;
+		if (pMYSHIP->_iMoveSpeed-kyuchaku < camveloZ && camveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
+        	pCAM->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
+		} else if (-pMYSHIP->_iMoveSpeed-kyuchaku < camveloZ && camveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
+			pCAM->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
+		} 
+		if (pMYSHIP->_iMoveSpeed-kyuchaku < vpveloZ && vpveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
+        	pVP->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
+		} else if (-pMYSHIP->_iMoveSpeed-kyuchaku < vpveloZ && vpveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
+			pVP->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
+		} 
 
 
         pCAM->_pMover->behave();
