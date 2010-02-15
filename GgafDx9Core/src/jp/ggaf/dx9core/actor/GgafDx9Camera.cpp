@@ -51,7 +51,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
     // 射影変換行列作成（３Ｄ→平面）
     _zn = 0.01;
     _zf = -_cameraZ_org*(prm_dep+1.0f);
-    _TRACE_("GgafDx9Camera::GgafDx9Camera 表示範囲 ["<<_zn<<" ~ "<<_zf<<"]");
+    _TRACE_("GgafDx9Camera::GgafDx9Camera 範囲 ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
             _rad_fovY,        //y方向視野角ラディアン(0～π)
