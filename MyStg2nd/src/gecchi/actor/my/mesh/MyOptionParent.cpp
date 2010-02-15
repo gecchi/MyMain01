@@ -88,37 +88,37 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     pMyDummyOption08->setAlpha(0.3);
     addSubLast(pMyDummyOption08);
 
-    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
-    pMyDummyOption09->_radiusPosition = 180000;
-    pMyDummyOption09->_angPosition = 0;
-    pMyDummyOption09->_angExpanse = 0;
-    pMyDummyOption09->_angveloExpanse = 0;
-    pMyDummyOption09->_veloMv = 4000;
-    addSubLast(pMyDummyOption09);
-
-    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
-    pMyDummyOption10->_radiusPosition = 180000;
-    pMyDummyOption10->_angPosition = ANGLE90;
-    pMyDummyOption10->_angExpanse = 0;
-    pMyDummyOption10->_angveloExpanse = 0;
-    pMyDummyOption10->_veloMv = 4000;
-    addSubLast(pMyDummyOption10);
-
-    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
-    pMyDummyOption11->_radiusPosition = 180000;
-    pMyDummyOption11->_angPosition = ANGLE180;
-    pMyDummyOption11->_angExpanse = 0;
-    pMyDummyOption11->_angveloExpanse = 0;
-    pMyDummyOption11->_veloMv = 4000;
-    addSubLast(pMyDummyOption11);
-
-    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
-    pMyDummyOption12->_radiusPosition = 180000;
-    pMyDummyOption12->_angPosition = ANGLE270;
-    pMyDummyOption12->_angExpanse = 0;
-    pMyDummyOption12->_angveloExpanse = 0;
-    pMyDummyOption12->_veloMv = 4000;
-    addSubLast(pMyDummyOption12);
+//    MyDummyOption* pMyDummyOption09 = NEW MyDummyOption("MY_OPTION09", 9, this);
+//    pMyDummyOption09->_radiusPosition = 180000;
+//    pMyDummyOption09->_angPosition = 0;
+//    pMyDummyOption09->_angExpanse = 0;
+//    pMyDummyOption09->_angveloExpanse = 0;
+//    pMyDummyOption09->_veloMv = 4000;
+//    addSubLast(pMyDummyOption09);
+//
+//    MyDummyOption* pMyDummyOption10 = NEW MyDummyOption("MY_OPTION10",10, this);
+//    pMyDummyOption10->_radiusPosition = 180000;
+//    pMyDummyOption10->_angPosition = ANGLE90;
+//    pMyDummyOption10->_angExpanse = 0;
+//    pMyDummyOption10->_angveloExpanse = 0;
+//    pMyDummyOption10->_veloMv = 4000;
+//    addSubLast(pMyDummyOption10);
+//
+//    MyDummyOption* pMyDummyOption11 = NEW MyDummyOption("MY_OPTION11",11, this);
+//    pMyDummyOption11->_radiusPosition = 180000;
+//    pMyDummyOption11->_angPosition = ANGLE180;
+//    pMyDummyOption11->_angExpanse = 0;
+//    pMyDummyOption11->_angveloExpanse = 0;
+//    pMyDummyOption11->_veloMv = 4000;
+//    addSubLast(pMyDummyOption11);
+//
+//    MyDummyOption* pMyDummyOption12 = NEW MyDummyOption("MY_OPTION12",12, this);
+//    pMyDummyOption12->_radiusPosition = 180000;
+//    pMyDummyOption12->_angPosition = ANGLE270;
+//    pMyDummyOption12->_angExpanse = 0;
+//    pMyDummyOption12->_angveloExpanse = 0;
+//    pMyDummyOption12->_veloMv = 4000;
+//    addSubLast(pMyDummyOption12);
 
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
