@@ -62,7 +62,7 @@
 #define MY_DEBUG 1
 
 
-#ifdef MY_DEBUG
+//#ifdef MY_DEBUG
 //自分用デバッグビルドの場合
 
     #ifdef _MSC_VER
