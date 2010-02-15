@@ -352,7 +352,7 @@ void World::processBehavior() {
         if (pMYSHIP->_iMoveVelo != 0) {
             //カメラがブルブル震えるので、震えない差分を加えている。
             //TODO:もっと良い方法があるかもしれない。後で考えよう。
-            int kyuchaku = pMYSHIP->_iMoveVelo/3; //吸着範囲
+            int kyuchaku = pMYSHIP->_iMoveVelo/2; //吸着範囲
             int camveloX = pCAM->_pMover->_veloVxMv;
             int vpveloX = pVP->_pMover->_veloVxMv;
             if (camveloX > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloX && camveloX < pMYSHIP->_iMoveVelo+kyuchaku) {
