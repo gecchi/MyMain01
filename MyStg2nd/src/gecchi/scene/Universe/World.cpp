@@ -69,7 +69,7 @@ void World::initialize() {
     pVP->_pMover->setVyMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
     pVP->_pMover->setVzMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
 
-    _stop_renge = 30000;
+    _stop_renge = 35000;
 }
 
 
@@ -303,47 +303,47 @@ void World::processBehavior() {
 
     //目標地点までの各軸距離
     //速度＊３を加算するのは、ぶるんぶるんしなようにするため
-    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*3);
-    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*3);
-    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*3);
-    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*3);
-    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*3);
-    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*3);
+    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*4);
+    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*4);
+    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*4);
+    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*4);
+    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*4);
+    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*4);
 
     if ( getSubFirst()->canBehave() ) {
         if (-_stop_renge < dX_CAM && dX_CAM < _stop_renge) {
             pCAM->_pMover->setVxMvAcce(0);
-            pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.5);
+            pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.8);
         } else {
             pCAM->_pMover->setVxMvAcce(dX_CAM);
         }
         if (-_stop_renge < dY_CAM && dY_CAM < _stop_renge) {
             pCAM->_pMover->setVyMvAcce(0);
-            pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.5);
+            pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.8);
         } else {
             pCAM->_pMover->setVyMvAcce(dY_CAM);
         }
         if (-_stop_renge < dZ_CAM && dZ_CAM < _stop_renge) {
             pCAM->_pMover->setVzMvAcce(0);
-            pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.5);
+            pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.8);
         } else {
             pCAM->_pMover->setVzMvAcce(dZ_CAM);
         }
         if (-_stop_renge < dX_VP && dX_VP < _stop_renge) {
             pVP->_pMover->setVxMvAcce(0);
-            pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.5);
+            pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.8);
         } else {
             pVP->_pMover->setVxMvAcce(dX_VP);
         }
         if (-_stop_renge < dY_VP && dY_VP < _stop_renge) {
             pVP->_pMover->setVyMvAcce(0);
-            pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.5);
+            pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.8);
         } else {
             pVP->_pMover->setVyMvAcce(dY_VP);
         }
         if (-_stop_renge < dZ_VP && dZ_VP < _stop_renge) {
             pVP->_pMover->setVzMvAcce(0);
-            pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.5);
+            pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.8);
         } else {
             pVP->_pMover->setVzMvAcce(dZ_VP);
         }
