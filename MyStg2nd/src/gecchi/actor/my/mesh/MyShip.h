@@ -238,8 +238,6 @@ public:
     angle _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
     //上の場合は正、下の場合はこれに -1 を乗ずる
 
-
-
     State _state;
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
@@ -250,6 +248,11 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyShots001;
     GgafCore::GgafActorDispatcher* _pDispatcher_EffectExplosion001;
     LaserChipDispatcher* _pLaserChipDispatcher;
+
+
+    EffectTurbo001* _pEffectTurbo001;
+    EffectTurbo002* _pEffectTurbo002;
+
 
     MyShip(const char* prm_name);
 
@@ -588,8 +591,7 @@ public:
     void turbo_WAY_ZLEFT() {
         _pMover->addVzMvVelo(_iMvVelo_BeginMT);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
-        _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT); //勢いよく回転開始
     }
     /**
      * 前方斜め左ターボ開始
@@ -599,8 +601,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
-        _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 後方斜め左ターボ開始
@@ -610,8 +611,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
-        _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 前方斜め右ターボ開始
@@ -621,8 +621,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 右ターボ開始
@@ -631,8 +630,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE90);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
-        _pMover->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT); //勢いよく回転開始
     }
     /**
      * 後方斜め右
@@ -642,8 +640,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 左斜め上ターボ開始
@@ -653,8 +650,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
-        _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 左斜め下ターボ開始
@@ -664,8 +660,7 @@ public:
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
-        _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 右斜め上ターボ開始
@@ -675,8 +670,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 右斜め下ターボ開始
@@ -686,8 +680,7 @@ public:
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
         //旋廻
-        _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
-        _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //勢いよく回転開始
     }
     /**
      * 前方左斜め上ターボ開始

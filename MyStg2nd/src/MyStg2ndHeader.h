@@ -162,6 +162,9 @@ class MyShot001;
 class MyWave001;
 class EffectExplosion001;
 class EffectLockOn001;
+class EffectTurbo001;
+class EffectTurbo002;
+
 class TamagoActor;
 class EnemyTamago01Actor;
 class MyUtil;
@@ -257,6 +260,8 @@ class Formation001;
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/sprite/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectLockOn001.h"
+#include "gecchi/actor/effect/EffectTurbo001.h"
+#include "gecchi/actor/effect/EffectTurbo002.h"
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"
@@ -266,6 +271,7 @@ class Formation001;
 #include "gecchi/actor/background/board/BackGroundChipBoard.h"
 #include "gecchi/actor/background/BackGroundStar.h"
 #include "gecchi/actor/background/mesh/BackGroundStar001.h"
+#include "gecchi/actor/background/board/TurboMeter.h"
 
 #include "gecchi/GameGlobal.h"
 

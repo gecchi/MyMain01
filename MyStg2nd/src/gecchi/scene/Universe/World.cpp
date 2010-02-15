@@ -182,7 +182,34 @@ void World::processBehavior() {
     } else {
         throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
     }
-
+    if (VB::isBeingPressed(VB_ZMOVE)) {
+        int cam_slow_velo_renge = _cam_velo_renge / 200;
+        pCAM->_pMover->setVxMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pCAM->_pMover->setVyMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pCAM->_pMover->setVzMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pCAM->_pMover->setVxMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+        pCAM->_pMover->setVyMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+        pCAM->_pMover->setVzMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+        pVP->_pMover->setVxMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pVP->_pMover->setVyMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pVP->_pMover->setVzMvVeloRenge(-cam_slow_velo_renge, cam_slow_velo_renge);
+        pVP->_pMover->setVxMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+        pVP->_pMover->setVyMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+        pVP->_pMover->setVzMvAcceRenge(-cam_slow_velo_renge / 50, cam_slow_velo_renge / 50);
+    } else {
+        pCAM->_pMover->setVxMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pCAM->_pMover->setVyMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pCAM->_pMover->setVzMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pCAM->_pMover->setVxMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+        pCAM->_pMover->setVyMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+        pCAM->_pMover->setVzMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+        pVP->_pMover->setVxMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pVP->_pMover->setVyMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pVP->_pMover->setVzMvVeloRenge(-_cam_velo_renge, _cam_velo_renge);
+        pVP->_pMover->setVxMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+        pVP->_pMover->setVyMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+        pVP->_pMover->setVzMvAcceRenge(-_cam_velo_renge / 50, _cam_velo_renge / 50);
+    }
     //カメラと視点の移動目標を自機移動範囲を考慮して制限
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
@@ -329,40 +356,40 @@ void World::processBehavior() {
             int camveloX = pCAM->_pMover->_veloVxMv;
             int vpveloX = pVP->_pMover->_veloVxMv;
             if (camveloX > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloX && camveloX < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pCAM->_X += ((pCAM->_X + pMYSHIP->_iMoveVelo) - (pCAM->_X + camveloX+pCAM->_pMover->_acceVxMv));
+                pCAM->_X += ((pCAM->_X + pMYSHIP->_iMoveVelo) - (pCAM->_X + camveloX + pCAM->_pMover->_acceVxMv));
             } else if (camveloX < 0 &&  -(pMYSHIP->_iMoveVelo)-kyuchaku <= camveloX && camveloX < -(pMYSHIP->_iMoveVelo)+kyuchaku) {
-                pCAM->_X += ((pCAM->_X - pMYSHIP->_iMoveVelo) - (pCAM->_X + camveloX+pCAM->_pMover->_acceVxMv));
+                pCAM->_X += ((pCAM->_X - pMYSHIP->_iMoveVelo) - (pCAM->_X + camveloX + pCAM->_pMover->_acceVxMv));
             }
             if (vpveloX > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= vpveloX && vpveloX < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_X += ((pVP->_X + pMYSHIP->_iMoveVelo) - (pVP->_X + vpveloX+pVP->_pMover->_acceVxMv));
+                pVP->_X += ((pVP->_X + pMYSHIP->_iMoveVelo) - (pVP->_X + vpveloX + pVP->_pMover->_acceVxMv));
             } else if (vpveloX < 0 && -pMYSHIP->_iMoveVelo-kyuchaku <= vpveloX && vpveloX < -pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_X += ((pVP->_X - pMYSHIP->_iMoveVelo) - (pVP->_X + vpveloX+pVP->_pMover->_acceVxMv));
+                pVP->_X += ((pVP->_X - pMYSHIP->_iMoveVelo) - (pVP->_X + vpveloX + pVP->_pMover->_acceVxMv));
             }
 
             int camveloY = pCAM->_pMover->_veloVyMv;
             int vpveloY = pVP->_pMover->_veloVyMv;
             if (camveloY > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloY && camveloY < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pCAM->_Y += ((pCAM->_Y + pMYSHIP->_iMoveVelo) - (pCAM->_Y + camveloY+pCAM->_pMover->_acceVyMv));
+                pCAM->_Y += ((pCAM->_Y + pMYSHIP->_iMoveVelo) - (pCAM->_Y + camveloY + pCAM->_pMover->_acceVyMv));
             } else if (camveloY < 0 &&  -(pMYSHIP->_iMoveVelo)-kyuchaku <= camveloY && camveloY < -(pMYSHIP->_iMoveVelo)+kyuchaku) {
-                pCAM->_Y += ((pCAM->_Y - pMYSHIP->_iMoveVelo) - (pCAM->_Y + camveloY+pCAM->_pMover->_acceVyMv));
+                pCAM->_Y += ((pCAM->_Y - pMYSHIP->_iMoveVelo) - (pCAM->_Y + camveloY + pCAM->_pMover->_acceVyMv));
             }
             if (vpveloY > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= vpveloY && vpveloY < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_Y += ((pVP->_Y + pMYSHIP->_iMoveVelo) - (pVP->_Y + vpveloY+pVP->_pMover->_acceVyMv));
+                pVP->_Y += ((pVP->_Y + pMYSHIP->_iMoveVelo) - (pVP->_Y + vpveloY + pVP->_pMover->_acceVyMv));
             } else if (vpveloY < 0 && -pMYSHIP->_iMoveVelo-kyuchaku <= vpveloY && vpveloY < -pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_Y += ((pVP->_Y - pMYSHIP->_iMoveVelo) - (pVP->_Y + vpveloY+pVP->_pMover->_acceVyMv));
+                pVP->_Y += ((pVP->_Y - pMYSHIP->_iMoveVelo) - (pVP->_Y + vpveloY + pVP->_pMover->_acceVyMv));
             }
 
             int camveloZ = pCAM->_pMover->_veloVzMv;
             int vpveloZ = pVP->_pMover->_veloVzMv;
             if (camveloZ > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloZ && camveloZ < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pCAM->_Z += ((pCAM->_Z + pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ+pCAM->_pMover->_acceVzMv));
+                pCAM->_Z += ((pCAM->_Z + pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ + pCAM->_pMover->_acceVzMv));
             } else if (camveloZ < 0 &&  -(pMYSHIP->_iMoveVelo)-kyuchaku <= camveloZ && camveloZ < -(pMYSHIP->_iMoveVelo)+kyuchaku) {
-                pCAM->_Z += ((pCAM->_Z - pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ+pCAM->_pMover->_acceVzMv));
+                pCAM->_Z += ((pCAM->_Z - pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ + pCAM->_pMover->_acceVzMv));
             }
             if (vpveloZ > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= vpveloZ && vpveloZ < pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_Z += ((pVP->_Z + pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ+pVP->_pMover->_acceVzMv));
+                pVP->_Z += ((pVP->_Z + pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ + pVP->_pMover->_acceVzMv));
             } else if (vpveloZ < 0 && -pMYSHIP->_iMoveVelo-kyuchaku <= vpveloZ && vpveloZ < -pMYSHIP->_iMoveVelo+kyuchaku) {
-                pVP->_Z += ((pVP->_Z - pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ+pVP->_pMover->_acceVzMv));
+                pVP->_Z += ((pVP->_Z - pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ + pVP->_pMover->_acceVzMv));
             }
         }
 

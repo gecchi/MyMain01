@@ -44,10 +44,11 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
     _angRXStop_MZ = 90000; //奥又は手前へ通常Z移動中のX軸回転角の目標停止角度
 
-    _angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
+    //_angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
+    _angRXVelo_BeginMZT = 40000;
 
     _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
-    _iMvVelo_BeginMT = _iMoveSpeed * 5; //Turbo移動開始時の移動速度の初速度
+    _iMvVelo_BeginMT = 10000; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
     _way = WAY_FRONT;
@@ -87,6 +88,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     addSubGroup(_pLaserChipDispatcher);
 
 
+    _pEffectTurbo001 = NEW EffectTurbo001("EffectTurbo001");
+    addSubLast(_pEffectTurbo001);
+    _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
+    addSubLast(_pEffectTurbo002);
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
@@ -94,7 +99,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     }
 
     _iMoveVelo = 0;
-
 
     //     X   Y   Z
     //    -----------
@@ -336,8 +340,21 @@ void MyShip::processBehavior() {
 //        _pMover->_veloVyMv *= 0.95;
 //        _pMover->_veloVzMv *= 0.95;
 //    }
-    if (VB::isPushedDown(VB_TURBO)) { //ターボ
+    if (VB::isBeingPressed(VB_TURBO)) { //ターボ
+        _pEffectTurbo001->activate();
+        _pEffectTurbo001->setGeometry(this);
+        if (_iMvVelo_BeginMT < 30000) {
+            _iMvVelo_BeginMT = _iMvVelo_BeginMT + 1000;
+        }
+    }
+
+    if (VB::isReleasedUp(VB_TURBO)) { //ターボ
+
+        _pEffectTurbo002->activate();
+        _pEffectTurbo002->setGeometry(this);
+
         (this->*fpaTurboFunc[_way])();
+        _iMvVelo_BeginMT = 10000;
     } else {
         _pMover->_veloVxMv *= 0.95;
         _pMover->_veloVyMv *= 0.95;
@@ -346,12 +363,12 @@ void MyShip::processBehavior() {
 
 
     //スピンが勢いよく回っているならば速度を弱める
-    angvelo MZ = _angRXTopVelo_MZ-2000; //2000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
+    angvelo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
     if (_pMover->_angveloFace[AXIS_X] >= MZ) {
-        _pMover->_angveloFace[AXIS_X] *= 0.90;
+        _pMover->_angveloFace[AXIS_X] *= 0.93;
         //_pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
     } else if (_pMover->_angveloFace[AXIS_X] <= -MZ) {
-        _pMover->_angveloFace[AXIS_X] *= 0.90;
+        _pMover->_angveloFace[AXIS_X] *= 0.93;
         //_pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 

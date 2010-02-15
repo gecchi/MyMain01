@@ -30,6 +30,7 @@ void EffectExplosion001::processBehavior() {
     _SY+= 100;
     behaveUvFlip();
     _pMover->behave();
+    _pScaler->behave();
 }
 
 void EffectExplosion001::processJudgement() {

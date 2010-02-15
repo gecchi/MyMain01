@@ -1,0 +1,9 @@
+xof 0303txt 0032
+
+SpriteDef Turbo001 {
+   64.0;
+   64.0;
+   "SPRITE.dds";
+   6;
+   6;
+} 
