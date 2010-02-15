@@ -59,10 +59,10 @@
 #include "sal.h"
 #endif
 //自分用デバッグビルド(コメントを外せば使用可能)
-#define MY_DEBUG 1
+//#define MY_DEBUG 1
 
 
-//#ifdef MY_DEBUG
+#ifdef MY_DEBUG
 //自分用デバッグビルドの場合
 
     #ifdef _MSC_VER
