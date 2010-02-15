@@ -2,7 +2,6 @@
 #define GGAFDX9UNIVERSE_H_
 
 #define pCAM (GgafDx9Universe::_pCamera)
-#define pVP (GgafDx9Universe::_pCamera->_pViewPoint)
 
 namespace GgafDx9Core {
 
