@@ -47,7 +47,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _angRXVelo_BeginMZT = 23000; //奥又は手前へTurbo移動開始時のX軸回転角速度の初速度
 
     _iMvBtmVelo_MT = 0; //Turbo移動中の移動速度の最低速度
-    _iMvVelo_BeginMT = _iMoveSpeed * 2; //Turbo移動開始時の移動速度の初速度
+    _iMvVelo_BeginMT = _iMoveSpeed * 5; //Turbo移動開始時の移動速度の初速度
     _iMvAcce_MT = -200; //Turbo移動中の移動速度の加速度
 
     _way = WAY_FRONT;
@@ -328,14 +328,22 @@ void MyShip::processBehavior() {
     }
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
     (this->*fpaMoveFunc[_way])();             //方向値に応じた移動処理メソッドを呼び出す
-    vbsta turbo_stc = VB::isDoublePushedDownStick();
-    if (turbo_stc) { //ターボ
+//    vbsta turbo_stc = VB::isDoublePushedDownStick();
+//    if (turbo_stc) { //ターボ
+//        (this->*fpaTurboFunc[_way])();
+//    } else {
+//        _pMover->_veloVxMv *= 0.95;
+//        _pMover->_veloVyMv *= 0.95;
+//        _pMover->_veloVzMv *= 0.95;
+//    }
+    if (VB::isPushedDown(VB_TURBO)) { //ターボ
         (this->*fpaTurboFunc[_way])();
     } else {
         _pMover->_veloVxMv *= 0.95;
         _pMover->_veloVyMv *= 0.95;
         _pMover->_veloVzMv *= 0.95;
     }
+
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = _angRXTopVelo_MZ-2000; //2000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
