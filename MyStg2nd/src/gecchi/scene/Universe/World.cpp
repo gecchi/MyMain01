@@ -274,12 +274,12 @@ void World::processBehavior() {
 
 
     //目標地点までの各軸距離
-    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*2);
-    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*2);
-    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*2);
-    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*2);
-    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*2);
-    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*2);
+    dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*3);
+    dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*3);
+    dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*3);
+    dX_VP = move_target_X_VP - (pVP->_X + pVP->_pMover->_veloVxMv*3);
+    dY_VP = move_target_Y_VP - (pVP->_Y + pVP->_pMover->_veloVyMv*3);
+    dZ_VP = move_target_Z_VP - (pVP->_Z + pVP->_pMover->_veloVzMv*3);
 
     _TRACE_("TARGETXYZ("<<move_target_X_CAM<<","<<move_target_Y_CAM<<","<<move_target_Z_CAM<<")");
     _TRACE_("dXYZ("<<dX_CAM<<","<<dY_CAM<<","<<dZ_CAM<<")");
@@ -289,7 +289,7 @@ void World::processBehavior() {
 
         int stop_renge = 50000;
         if (-stop_renge < dX_CAM && dX_CAM < stop_renge) {
-            pCAM->_pMover->setVxMvAcce(pCAM->_pMover->_acceVxMv * 0.5);
+            pCAM->_pMover->setVxMvAcce(0);
             pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.5);
         } else {
             pCAM->_pMover->setVxMvAcce(dX_CAM);
@@ -297,14 +297,14 @@ void World::processBehavior() {
 
 
         if (-stop_renge < dY_CAM && dY_CAM < stop_renge) {
-            pCAM->_pMover->setVyMvAcce(pCAM->_pMover->_acceVyMv * 0.5);
+            pCAM->_pMover->setVyMvAcce(0);
             pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.5);
         } else {
             pCAM->_pMover->setVyMvAcce(dY_CAM);
         }
 
         if (-stop_renge < dZ_CAM && dZ_CAM < stop_renge) {
-            pCAM->_pMover->setVzMvAcce(pCAM->_pMover->_acceVzMv * 0.5);
+            pCAM->_pMover->setVzMvAcce(0);
             pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.5);
         } else {
             pCAM->_pMover->setVzMvAcce(dZ_CAM);
@@ -314,21 +314,21 @@ void World::processBehavior() {
 
 
         if (-stop_renge < dX_VP && dX_VP < stop_renge) {
-            pVP->_pMover->setVxMvAcce(pVP->_pMover->_acceVxMv * 0.5);
+            pVP->_pMover->setVxMvAcce(0);
             pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.5);
         } else {
             pVP->_pMover->setVxMvAcce(dX_VP);
         }
 
         if (-stop_renge < dY_VP && dY_VP < stop_renge) {
-            pVP->_pMover->setVyMvAcce(pVP->_pMover->_acceVyMv * 0.5);
+            pVP->_pMover->setVyMvAcce(0);
             pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.5);
         } else {
             pVP->_pMover->setVyMvAcce(dY_VP);
         }
 
         if (-stop_renge < dZ_VP && dZ_VP < stop_renge) {
-            pVP->_pMover->setVzMvAcce(pVP->_pMover->_acceVzMv * 0.5);
+            pVP->_pMover->setVzMvAcce(0);
             pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.5);
         } else {
             pVP->_pMover->setVzMvAcce(dZ_VP);
@@ -336,23 +336,24 @@ void World::processBehavior() {
 
 
 
-//		int kyuchaku = pMYSHIP->_iMoveSpeed;
-//        int camveloZ = pCAM->_pMover->_veloVzMv;
-//        int vpveloZ = pVP->_pMover->_veloVzMv;
-//        _TRACE_("kyuchaku="<<kyuchaku<<" pMYSHIP->_iMoveSpeed="<<pMYSHIP->_iMoveSpeed);
-//		if (camveloZ > 0 && pMYSHIP->_iMoveSpeed <= camveloZ && camveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
-//	        _TRACE_("pMYSHIP->_iMoveSpeed="<<pMYSHIP->_iMoveSpeed<<" camveloZ="<<camveloZ<<" pMYSHIP->_iMoveSpeed+kyuchaku="<<pMYSHIP->_iMoveSpeed+kyuchaku);
-//        	pCAM->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
-//		} else if (camveloZ < 0 &&  -(pMYSHIP->_iMoveSpeed) <= camveloZ && camveloZ < -(pMYSHIP->_iMoveSpeed)+kyuchaku) {
-//	        _TRACE_("-(pMYSHIP->_iMoveSpeed)="<<-(pMYSHIP->_iMoveSpeed)<<" camveloZ="<<camveloZ<<" -(pMYSHIP->_iMoveSpeed)+kyuchaku="<<-(pMYSHIP->_iMoveSpeed)+kyuchaku);
-//		    pCAM->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
-//		}
-//		if (vpveloZ > 0 && pMYSHIP->_iMoveSpeed <= vpveloZ && vpveloZ < pMYSHIP->_iMoveSpeed+kyuchaku) {
-//        	pVP->_pMover->_veloVzMv = pMYSHIP->_iMoveSpeed;
-//		} else if (vpveloZ < 0 && -pMYSHIP->_iMoveSpeed <= vpveloZ && vpveloZ < -pMYSHIP->_iMoveSpeed+kyuchaku) {
-//			pVP->_pMover->_veloVzMv = -pMYSHIP->_iMoveSpeed;
-//		}
-
+        int kyuchaku = pMYSHIP->_iMoveVelo/2;
+        int camveloZ = pCAM->_pMover->_veloVzMv;
+        int camacceZ = pCAM->_pMover->_acceVzMv;
+        int vpveloZ = pVP->_pMover->_veloVzMv;
+        int vpacceZ = pVP->_pMover->_acceVzMv;
+        _TRACE_("kyuchaku="<<kyuchaku<<" pMYSHIP->_iMoveVelo="<<pMYSHIP->_iMoveVelo);
+        if (camveloZ > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloZ && camveloZ < pMYSHIP->_iMoveVelo+kyuchaku) {
+            _TRACE_("pMYSHIP->_iMoveVelo-kyuchaku="<<pMYSHIP->_iMoveVelo-kyuchaku<<" camveloZ="<<camveloZ<<" pMYSHIP->_iMoveVelo+kyuchaku="<<pMYSHIP->_iMoveVelo+kyuchaku);
+            pCAM->_Z += ((pCAM->_Z + pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ+camacceZ));
+        } else if (camveloZ < 0 &&  -(pMYSHIP->_iMoveVelo)-kyuchaku <= camveloZ && camveloZ < -(pMYSHIP->_iMoveVelo)+kyuchaku) {
+            _TRACE_("-(pMYSHIP->_iMoveVelo)-kyuchaku="<<-(pMYSHIP->_iMoveVelo)-kyuchaku<<" camveloZ="<<camveloZ<<" -(pMYSHIP->_iMoveVelo)+kyuchaku="<<-(pMYSHIP->_iMoveVelo)+kyuchaku);
+            pCAM->_Z += ((pCAM->_Z - pMYSHIP->_iMoveVelo) - (pCAM->_Z + camveloZ+camacceZ));
+        }
+        if (vpveloZ > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= vpveloZ && vpveloZ < pMYSHIP->_iMoveVelo+kyuchaku) {
+            pVP->_Z += ((pVP->_Z + pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ+vpacceZ));
+        } else if (vpveloZ < 0 && -pMYSHIP->_iMoveVelo-kyuchaku <= vpveloZ && vpveloZ < -pMYSHIP->_iMoveVelo+kyuchaku) {
+            pVP->_Z += ((pVP->_Z - pMYSHIP->_iMoveVelo) - (pVP->_Z + vpveloZ+vpacceZ));
+        }
         _TRACE_("behave()pre XYZ=("<<pCAM->_X<<","<<pCAM->_Y<<","<<pCAM->_Z<<") -> ("<<pVP->_X<<","<<pVP->_Y<<","<<pVP->_Z<<")");
 
         pCAM->_pMover->behave();

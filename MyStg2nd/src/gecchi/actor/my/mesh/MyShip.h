@@ -197,6 +197,8 @@ public:
     /** 移動スピードレベルに相応する移動スピード */
     int _iMoveSpeed;
 
+    int _iMoveVelo;
+
     /** Turbo移動開始時の移動速度の初速度 */
     int _iMvVelo_BeginMT; //Move Velo when I Begin To Move with Turbo
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）
@@ -288,6 +290,7 @@ public:
     static angle wk_dist, wk_angRx;
     void move_WAY_NONE() {
         //_way = WAY_NONE;
+        _iMoveVelo = 0;
     }
     /**
      * 上移動
@@ -295,6 +298,7 @@ public:
     void move_WAY_UP() {
         _pMover->setRzRyMvAng(ANGLE90, 0);
         _Y += _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
     }
     /**
      * 前方斜め上移動
@@ -303,6 +307,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE45, 0);
         _Y += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
      * 後方斜め上移動
@@ -311,6 +316,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE135, 0);
         _Y += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
      * 前移動
@@ -318,6 +324,7 @@ public:
     void move_WAY_FRONT() {
         _pMover->setRzRyMvAng(0, 0);
         _X += _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
     }
     /**
      * 後ろ移動
@@ -325,6 +332,7 @@ public:
     void move_WAY_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE180, 0);
         _X -= _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
     }
     /**
      * 下移動
@@ -332,6 +340,7 @@ public:
     void move_WAY_DOWN() {
         _pMover->setRzRyMvAng(ANGLE270, 0);
         _Y -= _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
     }
     /**
      * 後方斜め下移動
@@ -340,6 +349,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE225, 0);
         _Y -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
      * 前方斜め下移動
@@ -348,6 +358,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE315, 0);
         _Y -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
      * 左移動
@@ -355,6 +366,7 @@ public:
     void move_WAY_ZLEFT() {
         _pMover->setRzRyMvAng(0, ANGLE270);
         _Z += _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
@@ -366,6 +378,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE315);
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //反時計回り
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
@@ -377,6 +390,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE180, ANGLE45);
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
@@ -388,6 +402,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE180, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
@@ -398,6 +413,7 @@ public:
     void move_WAY_ZRIGHT() {
         _pMover->setRzRyMvAng(0, ANGLE90);
         _Z -= _iMoveSpeed;
+        _iMoveVelo = _iMoveSpeed;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
@@ -409,6 +425,7 @@ public:
         _pMover->setRzRyMvAng(0, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
@@ -420,6 +437,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE45, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
@@ -431,6 +449,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE315, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
@@ -442,6 +461,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE45, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
@@ -453,6 +473,7 @@ public:
         _pMover->setRzRyMvAng(ANGLE315, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
+        _iMoveVelo = _iMoveSpeed * NANAME;
         //旋廻
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);

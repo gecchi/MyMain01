@@ -92,7 +92,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
 
-
+    _iMoveVelo = 0;
 
 
     //     X   Y   Z
