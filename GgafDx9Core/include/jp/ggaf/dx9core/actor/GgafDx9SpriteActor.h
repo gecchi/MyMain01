@@ -19,7 +19,7 @@ public:
     /** エフェクト */
     GgafDx9SpriteEffect* _pSpriteEffect;
     /** UVフリッパー(パラパラアニメ) */
-    GgafDx9UvFliper* _pUvFliper;
+    GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteActor(const char* prm_name,
                        const char* prm_model_id,

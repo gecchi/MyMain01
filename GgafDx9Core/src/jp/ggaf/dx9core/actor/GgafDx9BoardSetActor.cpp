@@ -19,12 +19,15 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
 
     _pBoardSetModel = (GgafDx9BoardSetModel*)_pGgafDx9Model;
     _pBoardSetEffect = (GgafDx9BoardSetEffect*)_pGgafDx9Effect;
-
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, _pBoardSetModel->_pattno_max);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
     _fAlpha = 1.0f;
 
-    _pattno_top = 0;
-    _pattno_bottom = _pBoardSetModel->_pattno_max;
-    _patteno_now = 0;
+//    _pattno_top = 0;
+//    _pattno_bottom = _pBoardSetModel->_pattno_max;
+//    _patteno_now = 0;
 
     _isTransformed = true;
     _pFunc_calcWorldMatrix = NULL;
@@ -71,7 +74,7 @@ void GgafDx9BoardSetActor::processDraw() {
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[i], pDrawActor->_fAlpha);
         checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
 
-        pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_patteno_now);
+        pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
         checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
@@ -85,17 +88,19 @@ void GgafDx9BoardSetActor::processDraw() {
     _pBoardSetModel->draw(this);
 }
 
-void GgafDx9BoardSetActor::setPatternNo(int prm_pattno) {
-    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
-        _patteno_now = prm_pattno;
-    } else if (prm_pattno < _pattno_top) {
-        _patteno_now = _pattno_top;
-    } else if (prm_pattno > _pattno_bottom) {
-        _patteno_now = _pattno_bottom;
-    }
-}
+//void GgafDx9BoardSetActor::setPatternNo(int prm_pattno) {
+//    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
+//        _patteno_now = prm_pattno;
+//    } else if (prm_pattno < _pattno_top) {
+//        _patteno_now = _pattno_top;
+//    } else if (prm_pattno > _pattno_bottom) {
+//        _patteno_now = _pattno_bottom;
+//    }
+//}
 
 GgafDx9BoardSetActor::~GgafDx9BoardSetActor() {
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+
 //    DELETEARR_IMPOSSIBLE_NULL(_technique);
 //    _pModelCon->close();
 //    _pEffectCon->close();

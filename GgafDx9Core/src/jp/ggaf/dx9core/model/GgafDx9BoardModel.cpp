@@ -43,7 +43,7 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     pID3DXEffect = pBoardEffect->_pID3DXEffect;
     //¡‰ñ•`‰æ‚ÌUV
     static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_patteno_now);
+    pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {

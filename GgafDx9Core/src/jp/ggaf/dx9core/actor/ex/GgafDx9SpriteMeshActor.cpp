@@ -14,10 +14,10 @@ GgafDx9SpriteMeshActor::GgafDx9SpriteMeshActor(const char* prm_name,
                                                          prm_pChecker) {
 
     _class_name = "GgafDx9SpriteMeshActor";
-    _pUvFliper = NEW GgafDx9UvFliper(this);
-    _pUvFliper->forceUvFlipPtnRange(0, 1);
-    _pUvFliper->setUvFlipPtnNo(0);
-    _pUvFliper->setUvFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, 1);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
 }
 
 
@@ -32,7 +32,7 @@ void GgafDx9SpriteMeshActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     float u = 0;
     float v = 0;
-    _pUvFliper->getUV(u, v);
+    _pUvFlipper->getUV(u, v);
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_u, u);
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(_h_offset_u) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pMeshEffect->_h_offset_v, v);
@@ -43,5 +43,5 @@ void GgafDx9SpriteMeshActor::processDraw() {
 
 
 GgafDx9SpriteMeshActor::~GgafDx9SpriteMeshActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFliper);
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

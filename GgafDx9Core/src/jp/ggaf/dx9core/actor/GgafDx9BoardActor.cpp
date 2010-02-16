@@ -19,12 +19,15 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
 
     _pBoardModel = (GgafDx9BoardModel*)_pGgafDx9Model;
     _pBoardEffect = (GgafDx9BoardEffect*)_pGgafDx9Effect;
-
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, _pBoardModel->_pattno_max);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
     _fAlpha = 1.0f;
 
-    _pattno_top = 0;
-    _pattno_bottom = _pBoardModel->_pattno_max;
-    _patteno_now = 0;
+//    _pattno_top = 0;
+//    _pattno_bottom = _pBoardModel->_pattno_max;
+//    _patteno_now = 0;
 
     _isTransformed = true;
     _pFunc_calcWorldMatrix = NULL;
@@ -51,17 +54,19 @@ void GgafDx9BoardActor::processDraw() {
     _pBoardModel->draw(this);
 }
 
-void GgafDx9BoardActor::setPatternNo(int prm_pattno) {
-    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
-        _patteno_now = prm_pattno;
-    } else if (prm_pattno < _pattno_top) {
-        _patteno_now = _pattno_top;
-    } else if (prm_pattno > _pattno_bottom) {
-        _patteno_now = _pattno_bottom;
-    }
-}
+//void GgafDx9BoardActor::setPatternNo(int prm_pattno) {
+//    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
+//        _patteno_now = prm_pattno;
+//    } else if (prm_pattno < _pattno_top) {
+//        _patteno_now = _pattno_top;
+//    } else if (prm_pattno > _pattno_bottom) {
+//        _patteno_now = _pattno_bottom;
+//    }
+//}
 
 GgafDx9BoardActor::~GgafDx9BoardActor() {
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
+
 //    DELETEARR_IMPOSSIBLE_NULL(_technique);
 //    _pModelCon->close();
 //    _pEffectCon->close();

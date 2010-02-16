@@ -1,5 +1,5 @@
-#ifndef GGAFDX9UVFLIPER_H_
-#define GGAFDX9UVFLIPER_H_
+#ifndef GGAFDX9UVFLIPPER_H_
+#define GGAFDX9UVFLIPPER_H_
 namespace GgafDx9Core {
 
 /**
@@ -10,7 +10,7 @@ namespace GgafDx9Core {
  * @since 2010/02/16
  * @author Masatoshi Tsuge
  */
-class GgafDx9UvFliper : public GgafCore::GgafObject {
+class GgafDx9UvFlipper : public GgafCore::GgafObject {
 private:
 
     /** 内部アニメフレーム用カウンタ */
@@ -39,10 +39,10 @@ public:
     bool _is_reverse_order_in_oscillate_animation_flg;
 
 
-    GgafDx9UvFliper(GgafDx9GeometricActor* prm_pActor);
+    GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor);
 
 
-    virtual ~GgafDx9UvFliper();
+    virtual ~GgafDx9UvFlipper();
 
     /**
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。

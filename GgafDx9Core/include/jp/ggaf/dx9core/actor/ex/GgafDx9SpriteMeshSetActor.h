@@ -14,7 +14,7 @@ class GgafDx9SpriteMeshSetActor : public GgafDx9MeshSetActor {
 
 public:
     /** UVフリッパー(パラパラアニメ) */
-    GgafDx9UvFliper* _pUvFliper;
+    GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteMeshSetActor(const char* prm_name,
                           const char* prm_model,

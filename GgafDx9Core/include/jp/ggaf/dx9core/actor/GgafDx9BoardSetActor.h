@@ -20,10 +20,10 @@ private:
 //        float tu, tv; // テクスチャ座標
 //    };
 
-    /** 内部アニメパターン用カウンター */
-    int _pattno_counter;
-    /** 内部アニメフレーム用カウンタ */
-    int _frame_counter_uvflip;
+//    /** 内部アニメパターン用カウンター */
+//    int _pattno_counter;
+//    /** 内部アニメフレーム用カウンタ */
+//    int _frame_counter_uvflip;
 
 public:
     int _draw_set_num;
@@ -31,7 +31,8 @@ public:
     GgafDx9BoardSetModel* _pBoardSetModel;
     /** エフェクト */
     GgafDx9BoardSetEffect* _pBoardSetEffect;
-
+    /** UVフリッパー(パラパラアニメ) */
+    GgafDx9UvFlipper* _pUvFlipper;
 //    /** 矩形の頂点情報 */
 //    VERTEX* _paVertex;
 //    /** 矩形の頂点合計のサイズ */
@@ -39,12 +40,12 @@ public:
 //    /** 1頂点のサイズ */
 //    UINT _size_vertex_unit;
 
-    /** パターン番号の上限 */
-    int _pattno_top;
-    /** パターン番号の下限 */
-    int _pattno_bottom;
-    /** 現在表示中のアニメパターン番号 */
-    int _patteno_now;
+//    /** パターン番号の上限 */
+//    int _pattno_top;
+//    /** パターン番号の下限 */
+//    int _pattno_bottom;
+//    /** 現在表示中のアニメパターン番号 */
+//    int _patteno_now;
 
     GgafDx9BoardSetActor(const char* prm_name,
                          const char* prm_model_id,
@@ -56,7 +57,7 @@ public:
      */
     virtual void processDraw() override;
 
-    virtual void setPatternNo(int prm_patteno);
+//    virtual void setPatternNo(int prm_patteno);
 
 //    void setAlpha(float prm_fAlpha) {
 //        _fAlpha = prm_fAlpha;

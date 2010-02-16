@@ -14,10 +14,10 @@ GgafDx9SpriteMeshSetActor::GgafDx9SpriteMeshSetActor(const char* prm_name,
                                                            prm_pChecker) {
 
     _class_name = "GgafDx9SpriteMeshSetActor";
-    _pUvFliper = NEW GgafDx9UvFliper(this);
-    _pUvFliper->forceUvFlipPtnRange(0, 1);
-    _pUvFliper->setUvFlipPtnNo(0);
-    _pUvFliper->setUvFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, 1);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
 }
 
 
@@ -78,7 +78,7 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
         //TODO:重複しないようにする仕組みを組み込もう
 
         //UVオフセット設定
-        pA->_pUvFliper->getUV(u, v);
+        pA->_pUvFlipper->getUV(u, v);
         hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ahOffsetU[i], u);
         checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(_h_offset_u) に失敗しました。");
         hr = pID3DXEffect->SetFloat(_pMeshSetEffect->_ahOffsetV[i], v);
@@ -94,5 +94,5 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
 
 
 GgafDx9SpriteMeshSetActor::~GgafDx9SpriteMeshSetActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFliper);
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

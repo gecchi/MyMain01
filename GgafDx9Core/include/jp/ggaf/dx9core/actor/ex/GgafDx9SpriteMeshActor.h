@@ -15,7 +15,7 @@ class GgafDx9SpriteMeshActor : public GgafDx9MeshActor {
 public:
 
     /** UVフリッパー(パラパラアニメ) */
-    GgafDx9UvFliper* _pUvFliper;
+    GgafDx9UvFlipper* _pUvFlipper;
 
     /**
      * コンストラクタ.

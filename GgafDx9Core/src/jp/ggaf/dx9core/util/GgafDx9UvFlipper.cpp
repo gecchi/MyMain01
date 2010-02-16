@@ -3,7 +3,7 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9UvFliper::GgafDx9UvFliper(GgafDx9GeometricActor* prm_pActor) : GgafObject() {
+GgafDx9UvFlipper::GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor) : GgafObject() {
     _pActor = prm_pActor;
     _pattno_uvflip_top = 0;
     _pattno_uvflip_bottom = 0;
@@ -17,42 +17,48 @@ GgafDx9UvFliper::GgafDx9UvFliper(GgafDx9GeometricActor* prm_pActor) : GgafObject
     _tex_col_num = 1;
 }
 
-void GgafDx9UvFliper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
+void GgafDx9UvFlipper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
     if (prm_tex_col_num < 0) {
-        throwGgafCriticalException("GgafDx9UvFliper::setTextureUvRotation prm_tex_col_numは0以上の整数で設定して下さい。");
+        throwGgafCriticalException("GgafDx9UvFlipper::setTextureUvRotation prm_tex_col_numは0以上の整数で設定して下さい。");
     }
     _tex_width = prm_tex_width;
     _tex_height = prm_tex_height;
     _tex_col_num = prm_tex_col_num;
 }
 
-void GgafDx9UvFliper::setUvFlipPtnNo(int prm_pattno_uvflip) {
-    _pattno_uvflip_now = prm_pattno_uvflip;
+void GgafDx9UvFlipper::setUvFlipPtnNo(int prm_pattno_uvflip) {
+    if (_pattno_uvflip_top <= prm_pattno_uvflip && prm_pattno_uvflip <= _pattno_uvflip_bottom) {
+        _pattno_uvflip_now = prm_pattno_uvflip;
+    } else if (prm_pattno_uvflip < _pattno_uvflip_top) {
+        _pattno_uvflip_now = _pattno_uvflip_top;
+    } else if (prm_pattno_uvflip > _pattno_uvflip_bottom) {
+        _pattno_uvflip_now = _pattno_uvflip_bottom;
+    }
 }
 
-void GgafDx9UvFliper::resetUvFlipPtnNo() {
+void GgafDx9UvFlipper::resetUvFlipPtnNo() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDx9UvFliper::forceUvFlipPtnRange(int prm_top, int prm_bottom) {
+void GgafDx9UvFlipper::forceUvFlipPtnRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _TRACE_("GgafDx9UvFliper::forceUvFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
+        _TRACE_("GgafDx9UvFlipper::forceUvFlipPtnRange prm_top="<<prm_top<<" TOPが負です。意図してますか？");
     }
     if (prm_top > prm_bottom) {
-        throwGgafCriticalException("GgafDx9UvFliper::forceUvFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです");
+        throwGgafCriticalException("GgafDx9UvFlipper::forceUvFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" 大小がおかしいです");
     }
 #endif
     _pattno_uvflip_top = prm_top;
     _pattno_uvflip_bottom = prm_bottom;
 }
 
-void GgafDx9UvFliper::setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
+void GgafDx9UvFlipper::setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
     _uvflip_method = prm_method;
     _frame_uvflip_interval = prm_interval;
 }
 
-void GgafDx9UvFliper::behave() {
+void GgafDx9UvFlipper::behave() {
 //    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
 
     _frame_counter_uvflip++;
@@ -108,15 +114,15 @@ void GgafDx9UvFliper::behave() {
 
 }
 
-void GgafDx9UvFliper::getUV(float& out_u, float& out_v) {
+void GgafDx9UvFlipper::getUV(float& out_u, float& out_v) {
 #ifdef MY_DEBUG
     if (_tex_col_num == 0) {
-        throwGgafCriticalException("GgafDx9UvFliper::getUV ゼロ割り算になってしまいます。_tex_col_numの値が不正です。");
+        throwGgafCriticalException("GgafDx9UvFlipper::getUV ゼロ割り算になってしまいます。_tex_col_numの値が不正です。");
     }
 #endif
     out_u = ((int)(_pattno_uvflip_now % _tex_col_num)) * _tex_height;
     out_v = ((int)(_pattno_uvflip_now / _tex_col_num)) * _tex_width;
 }
 
-GgafDx9UvFliper::~GgafDx9UvFliper() {
+GgafDx9UvFlipper::~GgafDx9UvFlipper() {
 }

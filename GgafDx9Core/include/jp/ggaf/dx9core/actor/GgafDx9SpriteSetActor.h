@@ -23,7 +23,7 @@ public:
     GgafDx9SpriteSetEffect* _pSpriteSetEffect;
 
     /** UVフリッパー(パラパラアニメ) */
-    GgafDx9UvFliper* _pUvFliper;
+    GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteSetActor(const char* prm_name,
                           const char* prm_model_id,

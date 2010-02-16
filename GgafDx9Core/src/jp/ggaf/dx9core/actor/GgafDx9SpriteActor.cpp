@@ -20,10 +20,10 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
 
     _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
-    _pUvFliper = NEW GgafDx9UvFliper(this);
-    _pUvFliper->forceUvFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
-    _pUvFliper->setUvFlipPtnNo(0);
-    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
@@ -61,5 +61,5 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFliper);
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

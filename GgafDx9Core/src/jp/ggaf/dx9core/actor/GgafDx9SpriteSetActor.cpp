@@ -21,10 +21,10 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     //ÉÇÉfÉãéÊìæ
     _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
     _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
-    _pUvFliper = NEW GgafDx9UvFliper(this);
-    _pUvFliper->forceUvFlipPtnRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
-    _pUvFliper->setUvFlipPtnNo(0);
-    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _pUvFlipper->forceUvFlipPtnRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
+    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
@@ -64,7 +64,7 @@ void GgafDx9SpriteSetActor::processDraw() {
         checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         //ç°âÒï`âÊÇÃUV
 
-        pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFliper->_pattno_uvflip_now);
+        pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
         checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetU) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
@@ -101,5 +101,5 @@ void GgafDx9SpriteSetActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteSetActor::~GgafDx9SpriteSetActor() {
-    DELETE_IMPOSSIBLE_NULL(_pUvFliper);
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }
