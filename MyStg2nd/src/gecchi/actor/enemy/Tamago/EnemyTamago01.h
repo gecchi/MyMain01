@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2009/01/22
  * @author Masatoshi Tsuge
  */
-class EnemyTamago01 : public GgafDx9LibStg::SpriteMeshSetActor {
+class EnemyTamago01 : public GgafDx9LibStg::SpriteMeshActor {
 
 public:
     /** 行動パターン番号 */

@@ -11,7 +11,7 @@ MyShot001::MyShot001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "mo
 }
 
 void MyShot001::initialize() {
-    setUvFlipMethod(FLIP_OSCILLATE_LOOP, 2);
+    _pUvFliper->setUvFlipMethod(FLIP_OSCILLATE_LOOP, 2);
 
     _pMover->setRzMvAngVelo(0);
     //_pMover->setFaceAngVelo(AXIS_Z, 2 * 1000);
@@ -56,7 +56,7 @@ void MyShot001::processBehavior() {
         _Z = GameGlobal::_pMyShip->_Z;
     } else {
         //’Êíˆ—
-        behaveUvFlip();
+        _pUvFliper->behave();
         //À•W‚É”½‰f
         _pMover->behave();
     }

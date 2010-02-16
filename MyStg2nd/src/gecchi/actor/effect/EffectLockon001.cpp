@@ -14,13 +14,13 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 }
 
 void EffectLockOn001::initialize() {
-    forceUvFlipPtnRange(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
-    setUvFlipMethod(FLIP_ORDER_LOOP, 3); //ƒAƒjƒ‡˜
+    _pUvFliper->forceUvFlipPtnRange(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 3); //ƒAƒjƒ‡˜
 
 }
 
 void EffectLockOn001::onActive() {
-    resetUvFlipPtnNo();
+    _pUvFliper->resetUvFlipPtnNo();
     setAlpha(0.01);
     _pScaler->forceScaleRange(5000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(5000);
@@ -38,7 +38,7 @@ void EffectLockOn001::processBehavior() {
         _pScaler->forceScaleRange(1000, 2000);
         _pScaler->beat(30, 2, 2, -1); //–³ŒÀƒ‹[ƒv
     }
-    behaveUvFlip();
+    _pUvFliper->behave();
     _pMover->behave();
     _pScaler->behave();
 }

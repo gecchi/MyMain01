@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "Flora") {
+EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshActor(prm_name, "Flora") {
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -32,9 +32,9 @@ void EnemyTamago01::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
-    _X = 300000;
-    _Y = 300000;
-    _Z = 300000;
+//    _X = 300000;
+//    _Y = 300000;
+//    _Z = 300000;
     _pScaler->setScale(5000);
 }
 
@@ -44,10 +44,10 @@ void EnemyTamago01::onActive() {
         _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //スプライン移動をプログラムしておく
     }
 
-    setRotationUV(16, 1/16.0, 1/16.0);
-    setUvFlipMethod(FLIP_ORDER_LOOP, 5);
-    forceUvFlipPtnRange(0, 16*16-1);
-    setUvFlipPtnNo(0);
+    _pUvFliper->setTextureUvRotation(16, 1/16.0, 1/16.0);
+    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 5);
+    _pUvFliper->forceUvFlipPtnRange(0, 16*16-1);
+    _pUvFliper->setUvFlipPtnNo(0);
     _iMovePatternNo = 0;
 }
 
@@ -133,8 +133,7 @@ void EnemyTamago01::processBehavior() {
 
     _pMover->behave();
     _pScaler->behave();
-    behaveUvFlip();
-
+    _pUvFliper->behave();
 }
 
 void EnemyTamago01::processJudgement() {

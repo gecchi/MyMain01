@@ -13,7 +13,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     GgafActorDispatcher* pResource = NULL;
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
-        pResource = NEW GgafActorDispatcher("DP_Shot001");
+        pResource = NEW GgafActorDispatcher("DP_Shot001_Stock");
         Shot001* pShot001;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot001 = NEW Shot001("Shot001");
@@ -24,7 +24,7 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
-        pResource = NEW GgafActorDispatcher("DP_Shot002");
+        pResource = NEW GgafActorDispatcher("DP_Shot002_Stock");
         Shot002* pShot002;
         for (int i = 0; i < 100; i++) { //ストック100個
             pShot002 = NEW Shot002("Shot002");
