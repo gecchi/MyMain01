@@ -23,6 +23,13 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(100000015, EnemyTamago01, "gyoku15");
     orderActorToFactory(100000016, EnemyTamago01, "gyoku16");
 
+    _pTurboMeter001 = NEW TurboMeter("TurboMeter001");
+    _pTurboMeter001->setGeometry(50, 50);
+    getLordActor()->addSubGroup(_pTurboMeter001);
+    _pTurboMeter002 = NEW TurboMeter("TurboMeter002");
+    _pTurboMeter002->setGeometry(200, 200);
+    _pTurboMeter002->_pUvFlipper->setUvFlipPtnNo(15);
+    getLordActor()->addSubGroup(_pTurboMeter002);
 }
 
 void TamagoScene::reset() {

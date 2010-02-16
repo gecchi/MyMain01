@@ -164,6 +164,7 @@ class EffectExplosion001;
 class EffectLockOn001;
 class EffectTurbo001;
 class EffectTurbo002;
+class TurboMeter;
 
 class TamagoActor;
 class EnemyTamago01Actor;

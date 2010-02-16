@@ -6,6 +6,8 @@ namespace MyStg2nd {
 class TamagoScene : public GgafDx9LibStg::DefaultScene {
 
 public:
+    TurboMeter* _pTurboMeter001;
+    TurboMeter* _pTurboMeter002;
 
     TamagoScene(const char* prm_name);
     void reset();

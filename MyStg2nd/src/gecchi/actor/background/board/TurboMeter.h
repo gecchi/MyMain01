@@ -1,13 +1,13 @@
-#ifndef TRUBOMETER_H_
-#define TRUBOMETER_H_
+#ifndef TURBOMETER_H_
+#define TURBOMETER_H_
 namespace MyStg2nd {
 
-class TruboMeter : public GgafDx9LibStg::DefaultBoardSetActor {
+class TurboMeter : public GgafDx9LibStg::DefaultBoardSetActor {
 
 public:
-    TruboMeter(const char* prm_name, const char* prm_model);
+    TurboMeter(const char* prm_name);
 
-    virtual ~TruboMeter();
+    virtual ~TurboMeter();
 };
 
 }
