@@ -4,6 +4,8 @@ namespace GgafDx9Core {
 
 /**
  * テクスチャUVフリッパー.
+ * テクスチャをパラパラアニメが如く切り替える事を簡単に行うために
+ * 作成したクラス。
  * @version 1.00
  * @since 2010/02/16
  * @author Masatoshi Tsuge
@@ -12,7 +14,7 @@ class GgafDx9UvFliper : public GgafCore::GgafObject {
 private:
 
     /** 内部アニメフレーム用カウンタ */
-    unsigned int _frame_counter_uvflip;
+    int _frame_counter_uvflip;
 
 
 public:
@@ -22,14 +24,15 @@ public:
     float _tex_height;
     int _tex_col_num;
 
-    /** アニメパターン番号の上限番号 */
-    unsigned int _pattno_uvflip_top;
-    /** 現在表示中のアニメパターン番号 */
-    unsigned int _pattno_uvflip_bottom;
     /** 現在表示中のアニメパターン番号(0～) */
-    unsigned int _pattno_uvflip_now;
+    int _pattno_uvflip_now;
+
+    /** アニメパターン番号の上限番号 */
+    int _pattno_uvflip_top;
+    /** 現在表示中のアニメパターン番号 */
+    int _pattno_uvflip_bottom;
     /** パターンとパターンの間隔フレーム数 */
-    unsigned int _frame_uvflip_interval;
+    DWORD _frame_uvflip_interval;
     /** アニメ方式 */
     GgafDx9UvFlipMethod _uvflip_method;
     /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
@@ -79,8 +82,6 @@ public:
      */
     virtual void setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height);
 
-
-
     /**
      * アニメーションを進行させる .
      * 本メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
@@ -89,7 +90,11 @@ public:
      */
     virtual void behave();
 
-
+    /**
+     * UV座標を取得する。
+     * @param out_u [out] 座標U
+     * @param out_v [out] 座標V
+     */
     virtual void getUV(float& out_u, float& out_v);
 
 
@@ -100,14 +105,14 @@ public:
     void setUvFlipPtnNo(int prm_pattno_uvflip);
 
     /**
-     * アニメーションパターンを上限のアニメーションパターン番号に設定する .
+     * アニメーションパターンを上限のアニメーションパターン番号(一番若い方の番号)に設定する .
      */
     void resetUvFlipPtnNo();
 
     /**
      * アニメーションパターンの範囲を制限する .
-     * @param prm_top 上限のアニメーションパターン番号
-     * @param prm_bottom 下限のアニメーションパターン番号
+     * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
+     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか；)
      */
     void forceUvFlipPtnRange(int prm_top, int prm_bottom);
 
