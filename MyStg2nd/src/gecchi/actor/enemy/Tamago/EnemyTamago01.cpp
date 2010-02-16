@@ -44,10 +44,10 @@ void EnemyTamago01::onActive() {
         _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //スプライン移動をプログラムしておく
     }
 
-    _pUvFliper->setTextureUvRotation(16, 1/16.0, 1/16.0);
-    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 5);
-    _pUvFliper->forceUvFlipPtnRange(0, 16*16-1);
-    _pUvFliper->setUvFlipPtnNo(0);
+    _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
+    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 5);
+    _pUvFlipper->forceUvFlipPtnRange(0, 16*16-1);
+    _pUvFlipper->setUvFlipPtnNo(0);
     _iMovePatternNo = 0;
 }
 
@@ -133,7 +133,7 @@ void EnemyTamago01::processBehavior() {
 
     _pMover->behave();
     _pScaler->behave();
-    _pUvFliper->behave();
+    _pUvFlipper->behave();
 }
 
 void EnemyTamago01::processJudgement() {
