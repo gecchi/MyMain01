@@ -118,9 +118,9 @@ public:
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
      */
-    void setScaleRange(int prm_scale1, int prm_scale2) {
+    void forceScaleRange(int prm_scale1, int prm_scale2) {
         for (int axis = 0; axis < 3; axis++) {
-            setScaleRange(axis, prm_scale1, prm_scale2);
+            forceScaleRange(axis, prm_scale1, prm_scale2);
         }
     }
     /**
@@ -129,7 +129,7 @@ public:
      * @param prm_scale1 スケール値1
      * @param prm_scale2 スケール値2
      */
-    void setScaleRange(int prm_axis, int prm_scale1, int prm_scale2) {
+    void forceScaleRange(int prm_axis, int prm_scale1, int prm_scale2) {
         if (prm_scale1 < prm_scale2) {
             _bottom_scale[prm_axis] = prm_scale1;
             _top_scale[prm_axis] = prm_scale2;
@@ -137,7 +137,7 @@ public:
             _bottom_scale[prm_axis] = prm_scale2;
             _top_scale[prm_axis] = prm_scale1;
         }
-        //_TRACE_("setScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
+        //_TRACE_("forceScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
     }
     /**
      * スケールをリセット （全軸指定） .

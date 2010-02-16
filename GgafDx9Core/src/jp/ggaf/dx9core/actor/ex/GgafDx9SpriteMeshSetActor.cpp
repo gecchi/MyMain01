@@ -75,13 +75,8 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ahMaterialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
-        //【GgafDx9MeshSetActorのマテリアルカラーについて考え方】備忘録メモ
-        //本来はマテリアル１オブジェクトに複数保持し、マテリアルリストのグループ毎に設定するものだが、実行速度最適化と使用レジスタ数削減の為、各セットの[0]のマテリアルを全体のマテリアルとする。
-        //したがってGgafDx9MeshSetActorはマテリアル色は8セット全てそれぞれ１色しか不可能。
-        //もともと本クラスは、同一モデル複数オブジェクトを、最大8セット同時に一回で描画しスピードアップを図ることを目的としたクラスで、たくさんマテリアルグループがあるオブジェクトには不向というか無意味である。
-        //１枚テクスチャで頑張れば問題ない･･･という方針。マテリアル色で色分けしたい場合は GgafDx9MeshActor を使うしかない。
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) に失敗しました。");
-
+        //UVオフセット算出
         pA = (GgafDx9SpriteMeshSetActor*)pDrawActor;
         float u = (int)(pA->_pattno_uvflip_now % pA->_tex_col_num) * pA->_tex_height;
         float v = (int)(pA->_pattno_uvflip_now / pA->_tex_col_num) * pA->_tex_width;
@@ -119,7 +114,7 @@ void GgafDx9SpriteMeshSetActor::resetUvFlipPtnNo() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDx9SpriteMeshSetActor::setUvFlipPtnRenge(int prm_top, int prm_bottom = 1) {
+void GgafDx9SpriteMeshSetActor::forceUvFlipPtnRange(int prm_top, int prm_bottom = 1) {
     _pattno_uvflip_top = prm_top;
     _pattno_uvflip_bottom = prm_bottom;
 }

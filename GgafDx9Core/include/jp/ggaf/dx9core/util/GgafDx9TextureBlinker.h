@@ -83,7 +83,7 @@ public:
      * @param prm_fPowerBlink1 色強度値1
      * @param prm_fPowerBlink2 色強度値2
      */
-    void setBlinkRange(float prm_fPowerBlink1, float prm_fPowerBlink2) {
+    void forceBlinkRange(float prm_fPowerBlink1, float prm_fPowerBlink2) {
         if (prm_fPowerBlink1 < prm_fPowerBlink2) {
             _bottom_fPowerBlink = prm_fPowerBlink1;
             _top_fPowerBlink = prm_fPowerBlink2;
@@ -91,7 +91,7 @@ public:
             _bottom_fPowerBlink = prm_fPowerBlink2;
             _top_fPowerBlink = prm_fPowerBlink1;
         }
-        //_TRACE_("setBlinkRange _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
+        //_TRACE_("forceBlinkRange _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
     }
     /**
      * 色強度をリセット

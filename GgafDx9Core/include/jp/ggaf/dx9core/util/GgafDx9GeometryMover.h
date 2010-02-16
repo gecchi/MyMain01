@@ -151,7 +151,7 @@ public: //_RX , _RY, _RZ 操作関連 //////////////////////////////////////////////
 
     void setFaceAngVelo(int prm_axis, angvelo prm_angveloRot);
 
-    void setFaceAngVeloRenge(int prm_axis,
+    void forceFaceAngVeloRange(int prm_axis,
                                   angvelo prm_angveloRot01,
                                   angvelo prm_angveloRot02);
 
@@ -272,7 +272,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void addMvVelo(velo prm_veloMv_Offset);
 
-    void setMvVeloRenge(velo prm_veloMv01, velo prm_veloMv02);
+    void forceMvVeloRange(velo prm_veloMv01, velo prm_veloMv02);
 
     void setMvAcce(acce prm_acceMove);
 
@@ -357,7 +357,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRzMvAngVelo(angvelo prm_angveloRzMv);
 
-    void setRzMvAngVeloRenge(angvelo prm_angveloRzMv01, angvelo prm_angveloRzMv02);
+    void forceRzMvAngVeloRange(angvelo prm_angveloRzMv01, angvelo prm_angveloRzMv02);
 
     void setRzMvAngAcce(angacce prm_angacceRzMv);
 
@@ -454,7 +454,7 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setRyMvAngVelo(angvelo prm_angveloRyMv);
 
-    void setRyMvAngVeloRenge(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
+    void forceRyMvAngVeloRange(angvelo prm_angveloRyMv01, angvelo prm_angveloRyMv02);
 
     void setRyMvAngAcce(angacce prm_angacceRyMv);
 
@@ -498,22 +498,22 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
 
     void setVxMvVelo(velo prm_veloVxMv);
     void addVxMvVelo(velo prm_veloVxMv);
-    void setVxMvVeloRenge(velo prm_veloVxMv01, velo prm_veloVxMv02);
+    void forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02);
     void setVxMvAcce(acce prm_acceVxMv);
     void addVxMvAcce(acce prm_acceVxMv);
-    void setVxMvAcceRenge(acce prm_acceVxMv01, acce prm_acceVxMv02);
+    void forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02);
     void setVyMvVelo(velo prm_veloVyMv);
     void addVyMvVelo(velo prm_veloVyMv);
-    void setVyMvVeloRenge(velo prm_veloVyMv01, velo prm_veloVyMv02);
+    void forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02);
     void setVyMvAcce(acce prm_acceVyMv);
     void addVyMvAcce(acce prm_acceVyMv);
-    void setVyMvAcceRenge(acce prm_acceVyMv01, acce prm_acceVyMv02);
+    void forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02);
     void setVzMvVelo(velo prm_veloVzMv);
     void addVzMvVelo(velo prm_veloVzMv);
-    void setVzMvVeloRenge(velo prm_veloVzMv01, velo prm_veloVzMv02);
+    void forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02);
     void setVzMvAcce(acce prm_acceVzMv);
     void addVzMvAcce(acce prm_acceVzMv);
-    void setVzMvAcceRenge(acce prm_acceVzMv01, acce prm_acceVzMv02);
+    void forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02);
     /**
      * スプラインプログラム実行
      * @param prm_progSP スプラインプログラム

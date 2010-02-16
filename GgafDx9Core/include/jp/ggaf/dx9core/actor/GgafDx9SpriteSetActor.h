@@ -81,7 +81,7 @@ public:
      * @param prm_top 上限のアニメーションパターン番号
      * @param prm_bottom 下限のアニメーションパターン番号
      */
-    void setUvFlipPtnRenge(int prm_top, int prm_bottom);
+    void forceUvFlipPtnRange(int prm_top, int prm_bottom);
 
     /**
      * アニメーション方法を設定する.

@@ -50,7 +50,7 @@ public:
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。
      * ＜例＞
      * setRotationUV(3, 1.0/5, 1.0/4);
-     * setUvFlipPtnRenge(0,9);
+     * forceUvFlipPtnRange(0,9);
      * setUvFlipPtnNo(5);
      *
      * を実行時の概念図
@@ -108,7 +108,7 @@ public:
      * @param prm_top 上限のアニメーションパターン番号
      * @param prm_bottom 下限のアニメーションパターン番号
      */
-    void setUvFlipPtnRenge(int prm_top, int prm_bottom);
+    void forceUvFlipPtnRange(int prm_top, int prm_bottom);
 
     /**
      * アニメーション方法を設定する.

@@ -465,7 +465,7 @@ void GgafDx9GeometryMover::setFaceAngVelo(int prm_axis, angvelo prm_angveloRot) 
     }
 }
 
-void GgafDx9GeometryMover::setFaceAngVeloRenge(int prm_axis,
+void GgafDx9GeometryMover::forceFaceAngVeloRange(int prm_axis,
                                                angvelo prm_angveloRot01,
                                                angvelo prm_angveloRot02) {
     if (prm_angveloRot01 < prm_angveloRot02) {
@@ -627,7 +627,7 @@ angle GgafDx9GeometryMover::getFaceAngDistance(int prm_axis, angle prm_angTarget
 }
 
 
-void GgafDx9GeometryMover::setMvVeloRenge(int prm_veloMv01, int prm_veloMv02) {
+void GgafDx9GeometryMover::forceMvVeloRange(int prm_veloMv01, int prm_veloMv02) {
     if (prm_veloMv01 < prm_veloMv02) {
         _veloTopMv = prm_veloMv02;
         _veloBottomMv = prm_veloMv01;
@@ -694,7 +694,7 @@ void GgafDx9GeometryMover::setRzMvAngAcce(angacce prm_angacceRzMv) {
     _angacceRzMv = prm_angacceRzMv;
 }
 
-void GgafDx9GeometryMover::setRzMvAngVeloRenge(angvelo prm_angveloRzMv01,
+void GgafDx9GeometryMover::forceRzMvAngVeloRange(angvelo prm_angveloRzMv01,
                                                        angvelo prm_angveloRzMv02) {
     if (prm_angveloRzMv01 < prm_angveloRzMv02) {
         _angveloRzTopMv = prm_angveloRzMv02;
@@ -881,7 +881,7 @@ void GgafDx9GeometryMover::setRyMvAngAcce(angacce prm_angacceRyMv) {
     _angacceRyMv = prm_angacceRyMv;
 }
 
-void GgafDx9GeometryMover::setRyMvAngVeloRenge(angvelo prm_angveloRyMv01,
+void GgafDx9GeometryMover::forceRyMvAngVeloRange(angvelo prm_angveloRyMv01,
                                                angvelo prm_angveloRyMv02) {
     if (prm_angveloRyMv01 < prm_angveloRyMv02) {
         _angveloRyTopMv = prm_angveloRyMv02;
@@ -1235,7 +1235,7 @@ void GgafDx9GeometryMover::setStopTarget_RzRyMvAng(int prm_tX, int prm_tY, int p
     setStopTarget_RyMvAng(angRy_Target);
 }
 
-void GgafDx9GeometryMover::setVxMvVeloRenge(velo prm_veloVxMv01, velo prm_veloVxMv02) {
+void GgafDx9GeometryMover::forceVxMvVeloRange(velo prm_veloVxMv01, velo prm_veloVxMv02) {
     if (prm_veloVxMv01 < prm_veloVxMv02) {
         _veloTopVxMv = prm_veloVxMv02;
         _veloBottomVxMv = prm_veloVxMv01;
@@ -1280,7 +1280,7 @@ void GgafDx9GeometryMover::addVxMvAcce(acce prm_acceVxMv) {
 }
 
 
-void GgafDx9GeometryMover::setVxMvAcceRenge(acce prm_acceVxMv01, acce prm_acceVxMv02) {
+void GgafDx9GeometryMover::forceVxMvAcceRange(acce prm_acceVxMv01, acce prm_acceVxMv02) {
     if (prm_acceVxMv01 < prm_acceVxMv02) {
         _acceTopVxMv = prm_acceVxMv02;
         _acceBottomVxMv = prm_acceVxMv01;
@@ -1292,7 +1292,7 @@ void GgafDx9GeometryMover::setVxMvAcceRenge(acce prm_acceVxMv01, acce prm_acceVx
 }
 
 
-void GgafDx9GeometryMover::setVyMvVeloRenge(velo prm_veloVyMv01, velo prm_veloVyMv02) {
+void GgafDx9GeometryMover::forceVyMvVeloRange(velo prm_veloVyMv01, velo prm_veloVyMv02) {
     if (prm_veloVyMv01 < prm_veloVyMv02) {
         _veloTopVyMv = prm_veloVyMv02;
         _veloBottomVyMv = prm_veloVyMv01;
@@ -1337,7 +1337,7 @@ void GgafDx9GeometryMover::addVyMvAcce(acce prm_acceVyMv) {
 }
 
 
-void GgafDx9GeometryMover::setVyMvAcceRenge(acce prm_acceVyMv01, acce prm_acceVyMv02) {
+void GgafDx9GeometryMover::forceVyMvAcceRange(acce prm_acceVyMv01, acce prm_acceVyMv02) {
     if (prm_acceVyMv01 < prm_acceVyMv02) {
         _acceTopVyMv = prm_acceVyMv02;
         _acceBottomVyMv = prm_acceVyMv01;
@@ -1348,7 +1348,7 @@ void GgafDx9GeometryMover::setVyMvAcceRenge(acce prm_acceVyMv01, acce prm_acceVy
     setVyMvAcce(_acceVyMv); //�Đݒ肵�Ĕ͈͓��ɕ␳
 }
 
-void GgafDx9GeometryMover::setVzMvVeloRenge(velo prm_veloVzMv01, velo prm_veloVzMv02) {
+void GgafDx9GeometryMover::forceVzMvVeloRange(velo prm_veloVzMv01, velo prm_veloVzMv02) {
     if (prm_veloVzMv01 < prm_veloVzMv02) {
         _veloTopVzMv = prm_veloVzMv02;
         _veloBottomVzMv = prm_veloVzMv01;
@@ -1393,7 +1393,7 @@ void GgafDx9GeometryMover::addVzMvAcce(acce prm_acceVzMv) {
 }
 
 
-void GgafDx9GeometryMover::setVzMvAcceRenge(acce prm_acceVzMv01, acce prm_acceVzMv02) {
+void GgafDx9GeometryMover::forceVzMvAcceRange(acce prm_acceVzMv01, acce prm_acceVzMv02) {
     if (prm_acceVzMv01 < prm_acceVzMv02) {
         _acceTopVzMv = prm_acceVzMv02;
         _acceBottomVzMv = prm_acceVzMv01;

@@ -70,9 +70,9 @@ void GgafDx9SpriteActor::resetUvFlipPtnNo() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDx9SpriteActor::setUvFlipPtnRenge(int prm_top, int prm_bottom = 1) {
+void GgafDx9SpriteActor::forceUvFlipPtnRange(int prm_top, int prm_bottom = 1) {
     if (prm_top < 0 || prm_bottom > (_pSpriteModel->_pattno_uvflip_Max)) {
-        throwGgafCriticalException("GgafDx9SpriteActor::setUvFlipPtnRenge アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
+        throwGgafCriticalException("GgafDx9SpriteActor::forceUvFlipPtnRange アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
     } else {
         _pattno_uvflip_top = prm_top;
         _pattno_uvflip_bottom = prm_bottom;

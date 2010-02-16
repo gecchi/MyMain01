@@ -91,12 +91,12 @@ public:
      * 随時可能。
      * @param prm_technique テクニック名
      */
-    void setTechnique(char* prm_technique) {
+    void chengeEffectTechnique(char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
 
-    void setTechniqueTemporarily(char* prm_technique, DWORD prm_frame) {
+    void chengeEffectTechniqueTemporarily(char* prm_technique, DWORD prm_frame) {
         if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
             //元々のテクニックを退避
             _hash_technique_temp = _hash_technique;

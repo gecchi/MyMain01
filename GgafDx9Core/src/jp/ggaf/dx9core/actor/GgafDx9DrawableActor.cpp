@@ -154,9 +154,9 @@ void GgafDx9DrawableActor::processPreDraw() {
                 //描画しないので登録なし
             } else {
 
-                //表示範囲奥行きは、_zf = -_cameraZ_org*10.0; と定義。「参照：GgafDx9Camera::GgafDx9Camera()」
-                //現在初期カメラ位置 _cameraZ_org = -57.1259 で 表示範囲(奥行き:_zf)までの距離は10倍で約 571 になる
-                //一方 MAX_DRAW_DEPTH_LEVEL は(現在1000)と対応させるか
+                //表示範囲奥行きは、_zf = -_cameraZ_org*10.0; とした場合の例。「参照：GgafDx9Camera::GgafDx9Camera()」
+                //現在初期カメラ位置 _cameraZ_org = -57.1259 で 表示範囲(奥行き:_zf)までの距離は10倍で約 571 になる（5710px相当）。
+                //さて MAX_DRAW_DEPTH_LEVEL は(現在1000)と対応させるか
                 //本ライブラリはDIRECTX座標の1は画面上で10px相当という計算を行っている。よって
                 //次の文は10px間隔相当の奥からの段階レンダリングの設定となる
                 //
@@ -182,12 +182,12 @@ void GgafDx9DrawableActor::processPreDraw() {
                 static int roughly_dep_point1 = (int)(-(pCAM->_cameraZ_org) * 4.0); //(228)
                 static int roughly_dep_point2 = (int)(-(pCAM->_cameraZ_org) * 8.0); //(456)
                 if (dep <= roughly_dep_point1) {
-                    GgafDx9Universe::setDrawDepthLevel(dep, this);
+                    GgafDx9Universe::setDrawDepthLevel(dep, this); //intに丸め込んでる。つまりDirectXの距離1が深さ1。よって10px間隔
                 } else if (dep <= roughly_dep_point2) {
-                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 2), this);
+                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 3), this);  //3で割る。つまりDirectXの距離2が深さ1。よって20px間隔
                 } else {
                     //roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2)=342
-                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2) + ((dep - roughly_dep_point2) / 4), this);
+                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/10) + ((dep - roughly_dep_point2) / 6), this);
                 }
             }
         }

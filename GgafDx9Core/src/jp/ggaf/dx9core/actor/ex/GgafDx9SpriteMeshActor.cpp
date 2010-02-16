@@ -68,7 +68,7 @@ void GgafDx9SpriteMeshActor::resetUvFlipPtnNo() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDx9SpriteMeshActor::setUvFlipPtnRenge(int prm_top, int prm_bottom = 1) {
+void GgafDx9SpriteMeshActor::forceUvFlipPtnRange(int prm_top, int prm_bottom = 1) {
     _pattno_uvflip_top = prm_top;
     _pattno_uvflip_bottom = prm_bottom;
 }

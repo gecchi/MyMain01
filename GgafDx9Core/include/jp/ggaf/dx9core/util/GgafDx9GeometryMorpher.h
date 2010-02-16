@@ -38,7 +38,7 @@ public:
      */
     GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor);
 
-    void setWeightRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
+    void forceScaleRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
         if (prm_weight1 < prm_weight2) {
             _top_weight[prm_target_mesh] = prm_weight2;
             _bottom_weight[prm_target_mesh] = prm_weight1;
