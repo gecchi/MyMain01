@@ -16,7 +16,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
 }
 
 void EnemyTamago01::onCreateModel() {
-    _pGgafDx9Model->_pTextureBlinker->setBlinkRange(0.1, 1.0);
+    _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.1, 1.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
     _pGgafDx9Model->_pTextureBlinker->beat(120, 60, 1, -1);
     _pGgafDx9Model->_fBlinkThreshold = 0.9;
@@ -46,7 +46,7 @@ void EnemyTamago01::onActive() {
 
     setRotationUV(16, 1/16.0, 1/16.0);
     setUvFlipMethod(FLIP_ORDER_LOOP, 5);
-    setUvFlipPtnRenge(0, 16*16-1);
+    forceUvFlipPtnRange(0, 16*16-1);
     setUvFlipPtnNo(0);
     _iMovePatternNo = 0;
 }

@@ -8,12 +8,12 @@ using namespace MyStg2nd;
 EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
     _class_name = "EffectTurbo002";
     inactivateImmediately();
-    setTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
 void EffectTurbo002::initialize() {
-    setUvFlipPtnRenge(0, 1);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    forceUvFlipPtnRange(0, 1);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
     setUvFlipMethod(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
 
 }
@@ -21,7 +21,7 @@ void EffectTurbo002::initialize() {
 void EffectTurbo002::onActive() {
     resetUvFlipPtnNo();
     setAlpha(0.99);
-    _pScaler->setScaleRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
+    _pScaler->forceScaleRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(1000);
     _pScaler->intoTargetScaleLinerUntil(100000, 60);//ƒXƒP[ƒŠƒ“ƒOE60F”ï‚â‚µ‚Ä1000‚Ék¬
     _pMover->setFaceAng(AXIS_Y, ANGLE90);

@@ -7,13 +7,13 @@ using namespace MyStg2nd;
 
 EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion001") {
     _class_name = "EffectExplosion001";
-    setTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
+    chengeEffectTechnique("DestBlendOne"); //â¡éZçáê¨TechniqueéwíË
     defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv);
 }
 
 void EffectExplosion001::initialize() {
     setUvFlipMethod(FLIP_ORDER_NOLOOP, 1);
-    setUvFlipPtnRenge(0, 15);
+    forceUvFlipPtnRange(0, 15);
     setHitAble(false);
 
 }

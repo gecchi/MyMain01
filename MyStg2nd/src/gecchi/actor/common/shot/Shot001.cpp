@@ -15,7 +15,7 @@ void Shot001::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
     _pScaler->setScale(100);
-    _pScaler->setScaleRange(300, 2000);
+    _pScaler->forceScaleRange(300, 2000);
 }
 
 void Shot001::onActive() {

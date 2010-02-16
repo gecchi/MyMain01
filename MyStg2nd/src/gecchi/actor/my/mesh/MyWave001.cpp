@@ -34,7 +34,7 @@ void MyWave001::initialize() {
     //	_pCollisionChecker->_pHitAreaBoxs->setLine(4, 30000, 30000, -30000, -30000, true);
     //	_pCollisionChecker->_pHitAreaBoxs->setLine(5, -30000, 30000, 30000, -30000, true);
     //
-    _pScaler->setScaleRange(1000,20000);
+    _pScaler->forceScaleRange(1000,20000);
     //setAlpha(0.2);
 
     setHitAble(true);

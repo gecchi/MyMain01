@@ -20,7 +20,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
-    //setTechnique("DestBlendOne"); //‰ÁŽZ‡¬TechniqueŽw’è
+    //chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬TechniqueŽw’è
 
     GameGlobal::init();
     GameGlobal::_pMyShip = this;
@@ -199,17 +199,17 @@ void MyShip::initialize() {
 
     _pMover->setMvVelo(0);
     _pScaler->setScale(1000);
-    _pScaler->setScaleRange(1000, 7000);
+    _pScaler->forceScaleRange(1000, 7000);
 
-    _pMover->setVxMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->setVyMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->setVzMvVeloRenge(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->forceVxMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->forceVyMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->forceVzMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
 
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
 
-    //        _pMover->setMvVeloRenge(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
+    //        _pMover->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //‘¬“x’Ç‰Á
     //        _pMover->setMvAcce(_iMvAcce_MT);
 }

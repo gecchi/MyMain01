@@ -50,13 +50,13 @@ void MyCurveLaserChip001::onActive() {
         _pOrg->_pLockOnTarget = NULL;
     }
     _renge = 150000;
-    _pMover->setVxMvVeloRenge(-_renge, _renge);
-    _pMover->setVyMvVeloRenge(-_renge, _renge);
-    _pMover->setVzMvVeloRenge(-_renge, _renge);
+    _pMover->forceVxMvVeloRange(-_renge, _renge);
+    _pMover->forceVyMvVeloRange(-_renge, _renge);
+    _pMover->forceVzMvVeloRange(-_renge, _renge);
 
-    _pMover->setVxMvAcceRenge(-_renge / 20, _renge / 20);
-    _pMover->setVyMvAcceRenge(-_renge / 20, _renge / 20);
-    _pMover->setVzMvAcceRenge(-_renge / 20, _renge / 20);
+    _pMover->forceVxMvAcceRange(-_renge / 20, _renge / 20);
+    _pMover->forceVyMvAcceRange(-_renge / 20, _renge / 20);
+    _pMover->forceVzMvAcceRange(-_renge / 20, _renge / 20);
 }
 
 void MyCurveLaserChip001::processBehavior() {

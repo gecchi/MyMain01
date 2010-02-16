@@ -130,8 +130,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
 void MyOptionParent::initialize() {
     _pMover->setMvVelo(0);
-    _pMover->setRyMvAngVeloRenge(-1*_angVelo_Turn, _angVelo_Turn);
-    _pMover->setRzMvAngVeloRenge(-1*_angVelo_Turn, _angVelo_Turn);
+    _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
+    _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->setRzRyMvAng(0,0);
     _way_myship_prev = GameGlobal::_pMyShip->_way;
     _pMover->relateRzRyFaceAngToMvAng(true);

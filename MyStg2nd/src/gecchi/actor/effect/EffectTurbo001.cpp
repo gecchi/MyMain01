@@ -8,13 +8,13 @@ using namespace MyStg2nd;
 EffectTurbo001::EffectTurbo001(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo001") {
     _class_name = "EffectTurbo001";
     inactivateImmediately();
-    setTechnique("DestBlendOne"); //‰ÁZ‡¬
+    chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
     defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
 void EffectTurbo001::initialize() {
-    setUvFlipPtnRenge(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    forceUvFlipPtnRange(0, 15);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
     setUvFlipMethod(FLIP_ORDER_LOOP, 1); //ƒAƒjƒ‡˜
     setAlpha(0.99);
 }

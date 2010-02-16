@@ -195,7 +195,7 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    setTechniqueTemporarily("Flush", 2); //フラッシュ
+    chengeEffectTechniqueTemporarily("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合

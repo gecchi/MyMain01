@@ -32,7 +32,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
 }
 
 void EnemyMeshShot001::initialize() {
-    _pMover->setVxMvVeloRenge(_iMvVelo_Top, _iMvVelo_Bottom);
+    _pMover->forceVxMvVeloRange(_iMvVelo_Top, _iMvVelo_Bottom);
     _pMover->relateRzRyFaceAngToMvAng(true);
 
     _pCollisionChecker->makeCollision(1);

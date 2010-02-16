@@ -16,12 +16,12 @@ void EnemyPallas::initialize() {
     _X = GgafDx9Camera::_X_ScreenRight + 100;
     _Y = 0;
     _Z = 0;
-    _pMover->setMvVeloRenge(-8000, 8000);
+    _pMover->forceMvVeloRange(-8000, 8000);
     _pMover->setMvVelo(8000);
     _pMover->setMvAcce(-500);
     _pMover->setRzMvAng(ANGLE90);
 
-    _pMover->setFaceAngVeloRenge(AXIS_X, 0, 5000);
+    _pMover->forceFaceAngVeloRange(AXIS_X, 0, 5000);
     _pMover->setFaceAngVelo(AXIS_X, 5000);
     _pMover->setFaceAngAcce(AXIS_X, 0);
 
