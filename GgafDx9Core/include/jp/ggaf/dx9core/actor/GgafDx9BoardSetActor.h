@@ -25,6 +25,15 @@ private:
 //    /** 内部アニメフレーム用カウンタ */
 //    int _frame_counter_uvflip;
 
+    virtual int isOffscreen() {
+        _offscreenkind = 0;
+        return _offscreenkind;
+    }
+    virtual bool isOutOfGameSpace() {
+        return false;
+    }
+
+
 public:
     int _draw_set_num;
     /** モデルオブジェクトへのポインタ */
@@ -66,6 +75,29 @@ public:
 //    float getAlpha() {
 //        return _fAlpha;
 //    }
+
+    virtual void setGeometry(int x, int y) {
+        _x = x;
+        _y = y;
+    }
+
+    virtual void setGeometry(int x, int y, int z) {
+        _x = x;
+        _y = y;
+        _z = z;
+    }
+
+    virtual void setGeometry(float x, float y, float z) {
+        _x = x;
+        _y = y;
+        _z = z;
+    }
+
+    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
+        _z = prm_pActor->_z;
+        _y = prm_pActor->_y;
+        _x = prm_pActor->_x;
+    }
 
     virtual ~GgafDx9BoardSetActor(); //デストラクタ
 

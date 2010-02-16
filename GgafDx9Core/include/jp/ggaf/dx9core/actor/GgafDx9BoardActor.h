@@ -20,6 +20,14 @@ private:
 //        float tu, tv; // テクスチャ座標
 //    };
 
+    virtual int isOffscreen() {
+        _offscreenkind = 0;
+        return _offscreenkind;
+    }
+    virtual bool isOutOfGameSpace() {
+        return false;
+    }
+
     /** */
     float _sx;
     /** */
@@ -62,6 +70,28 @@ public:
      */
     virtual void processDraw() override;;
 
+    virtual void setGeometry(int x, int y) {
+        _x = x;
+        _y = y;
+    }
+
+    virtual void setGeometry(int x, int y, int z) {
+        _x = x;
+        _y = y;
+        _z = z;
+    }
+
+    virtual void setGeometry(float x, float y, float z) {
+        _x = x;
+        _y = y;
+        _z = z;
+    }
+
+    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
+        _z = prm_pActor->_z;
+        _y = prm_pActor->_y;
+        _x = prm_pActor->_x;
+    }
 //    virtual void setPatternNo(int prm_patteno);
 
 //    void setAlpha(float prm_fAlpha) {
