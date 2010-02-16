@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshActor(prm_name, "Flora") {
+EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "8/Flora") { //8/ÇÇ¢ÇÍÇ∆Ç©Ç»Ç¢Ç∆ÉÜÉjÅ[ÉNÇ…Ç»ÇÁÇ»Ç¢
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;

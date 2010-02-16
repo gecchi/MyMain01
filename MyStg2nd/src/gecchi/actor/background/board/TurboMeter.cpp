@@ -12,5 +12,23 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "5
     _z = 0.00000001f;
 }
 
+void TurboMeter::initialize() {
+    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1); //ƒAƒjƒ‡˜
+}
+
+void TurboMeter::onActive() {
+}
+
+void TurboMeter::processBehavior() {
+    _x = _x + 1.0f;
+    _pUvFlipper->behave();
+}
+
+void TurboMeter::processJudgement() {
+}
+
+void TurboMeter::onInactive() {
+}
+
 TurboMeter::~TurboMeter() {
 }

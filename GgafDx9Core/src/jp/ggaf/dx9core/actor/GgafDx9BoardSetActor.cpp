@@ -25,10 +25,6 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
     _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
     _fAlpha = 1.0f;
 
-//    _pattno_top = 0;
-//    _pattno_bottom = _pBoardSetModel->_pattno_max;
-//    _patteno_now = 0;
-
     _isTransformed = true;
     _pFunc_calcWorldMatrix = NULL;
 }
@@ -88,23 +84,7 @@ void GgafDx9BoardSetActor::processDraw() {
     _pBoardSetModel->draw(this);
 }
 
-//void GgafDx9BoardSetActor::setPatternNo(int prm_pattno) {
-//    if (_pattno_top <= prm_pattno && prm_pattno <= _pattno_bottom) {
-//        _patteno_now = prm_pattno;
-//    } else if (prm_pattno < _pattno_top) {
-//        _patteno_now = _pattno_top;
-//    } else if (prm_pattno > _pattno_bottom) {
-//        _patteno_now = _pattno_bottom;
-//    }
-//}
 
 GgafDx9BoardSetActor::~GgafDx9BoardSetActor() {
     DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
-
-//    DELETEARR_IMPOSSIBLE_NULL(_technique);
-//    _pModelCon->close();
-//    _pEffectCon->close();
-//
-//    DELETEARR_POSSIBLE_NULL(_paD3DMaterial9);
-    //GgafDx9BoardSetActorはマテリアルを使わないので_paD3DMaterial9はNULLのままである
 }

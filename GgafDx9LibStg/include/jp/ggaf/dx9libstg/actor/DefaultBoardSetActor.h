@@ -20,6 +20,9 @@ public:
     virtual void initialize() override {
     }
 
+    virtual void onActive() override {
+    }
+
     virtual void processBehavior() override {
     }
 
@@ -30,6 +33,9 @@ public:
     }
 
     virtual void processFinal() override {
+    }
+
+    virtual void onInactive() override {
     }
 
     virtual bool processHitChkLogic(GgafCore::GgafActor* prm_pOtherActor) override {

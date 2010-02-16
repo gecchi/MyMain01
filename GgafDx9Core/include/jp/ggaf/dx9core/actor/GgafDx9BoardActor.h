@@ -14,17 +14,20 @@ namespace GgafDx9Core {
  */
 class GgafDx9BoardActor : public GgafDx9DrawableActor {
 private:
-
-//    struct VERTEX {
-//        float x, y, z; // 頂点座標
-//        float tu, tv; // テクスチャ座標
-//    };
-
-    virtual int isOffscreen() {
+    /**
+     * 使えなくするためにprivateでoverride
+     * @return
+     */
+    int isOffscreen() override {
         _offscreenkind = 0;
         return _offscreenkind;
     }
-    virtual bool isOutOfGameSpace() {
+
+    /**
+     * 使えなくするためにprivateでoverride
+     * @return
+     */
+    bool isOutOfGameSpace() override {
         return false;
     }
 
@@ -32,11 +35,6 @@ private:
     float _sx;
     /** */
     float _sy;
-
-//    /** 内部アニメパターン用カウンター */
-//    int _pattno_counter;
-//    /** 内部アニメフレーム用カウンタ */
-//    int _frame_counter_uvflip;
 
 public:
     /** モデルオブジェクトへのポインタ */
@@ -46,36 +44,19 @@ public:
     /** UVフリッパー(パラパラアニメ) */
     GgafDx9UvFlipper* _pUvFlipper;
 
-//    /** 矩形の頂点情報 */
-//    VERTEX* _paVertex;
-//    /** 矩形の頂点合計のサイズ */
-//    UINT _size_vertices;
-//    /** 1頂点のサイズ */
-//    UINT _size_vertex_unit;
-//
-//    /** パターン番号の上限 */
-//    int _pattno_top;
-//    /** パターン番号の下限 */
-//    int _pattno_bottom;
-//    /** 現在表示中のアニメパターン番号 */
-//    int _patteno_now;
-
     GgafDx9BoardActor(const char* prm_name,
                       const char* prm_model_id,
                       const char* prm_effect_id,
                       const char* prm_technique );
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
-    virtual void processDraw() override;;
+    virtual void processDraw() override;
 
     virtual void setGeometry(int x, int y) {
         _x = x;
         _y = y;
     }
 
-    virtual void setGeometry(int x, int y, int z) {
+    virtual void setGeometry(int x, int y, int z) override {
         _x = x;
         _y = y;
         _z = z;
@@ -87,25 +68,13 @@ public:
         _z = z;
     }
 
-    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
+    virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) override {
         _z = prm_pActor->_z;
         _y = prm_pActor->_y;
         _x = prm_pActor->_x;
     }
-//    virtual void setPatternNo(int prm_patteno);
-
-//    void setAlpha(float prm_fAlpha) {
-//        _fAlpha = prm_fAlpha;
-//    }
-//
-//    float getAlpha() {
-//        return _fAlpha;
-//    }
 
     virtual ~GgafDx9BoardActor(); //デストラクタ
-
-    //virtual void setCoordinates(float prm_x, float prm_y, float prm_z);
-
 
 };
 
