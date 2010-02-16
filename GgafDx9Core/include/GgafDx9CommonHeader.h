@@ -221,6 +221,7 @@ class GgafDx9BoardEffect;
 class GgafDx9BoardSetEffect;
 class GgafDx9StringBoardActor;
 
+
 class GgafDx9Scene;
 class GgafDx9Universe;
 class GgafDx9Util;
@@ -234,6 +235,7 @@ class GgafDx9Checker;
 class GgafDx9GeometryScaler;
 class GgafDx9GeometryMorpher;
 class GgafDx9TextureBlinker;
+class GgafDx9UvFliper;
 class GgafDx9RectUV;
 
 class GgafDx9Se;
@@ -337,7 +339,7 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryScaler.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
 #include "jp/ggaf/dx9core/util/GgafDx9TextureBlinker.h"
-
+#include "jp/ggaf/dx9core/util/GgafDx9UvFliper.h"
 
 
 #include "jp/ggaf/dx9core/model/GgafDx9RectUV.h"

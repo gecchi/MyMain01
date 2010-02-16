@@ -28,7 +28,7 @@ private:
     /** 内部アニメパターン用カウンター */
     int _pattno_counter;
     /** 内部アニメフレーム用カウンタ */
-    int _aniframe_counter;
+    int _frame_counter_uvflip;
 
 public:
     /** モデルオブジェクトへのポインタ */

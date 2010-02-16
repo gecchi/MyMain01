@@ -40,7 +40,7 @@ HRESULT GgafDx9SpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
     //¡‰ñ•`‰æ‚ÌUV
     static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pattno_uvflip_now);
+    pRectUV_Active = _paRectUV + (pTargetActor->_pUvFliper->_pattno_uvflip_now);
 
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {

@@ -21,14 +21,17 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     //モデル取得
     _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
-
-    _pattno_uvflip_top = 0;
-    _pattno_uvflip_bottom = _pSpriteModel->_pattno_uvflip_Max;
-    _pattno_uvflip_now = 0;
-    _frame_uvflip_interval = 0;
-    _uvflip_method = FLIP_ORDER_LOOP;
-    _aniframe_counter = 0;
-    _is_reverse_order_in_oscillate_animation_flg = false;
+    _pUvFliper = NEW GgafDx9UvFliper(this);
+    _pUvFliper->forceUvFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
+    _pUvFliper->setUvFlipPtnNo(0);
+    _pUvFliper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+//    _pattno_uvflip_top = 0;
+//    _pattno_uvflip_bottom = _pSpriteModel->_pattno_uvflip_Max;
+//    _pattno_uvflip_now = 0;
+//    _frame_uvflip_interval = 0;
+//    _uvflip_method = FLIP_ORDER_LOOP;
+//    _frame_counter_uvflip = 0;
+//    _is_reverse_order_in_oscillate_animation_flg = false;
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
@@ -58,87 +61,87 @@ void GgafDx9SpriteActor::processDraw() {
 
 }
 
-void GgafDx9SpriteActor::setUvFlipPtnNo(int prm_pattno_uvflip) {
-    if (0 > prm_pattno_uvflip || prm_pattno_uvflip > (_pSpriteModel->_pattno_uvflip_Max)) {
-        throwGgafCriticalException("GgafDx9SpriteActor::setUvFlipPtnNo アニメーションパターン番号が範囲外です。引数="<<prm_pattno_uvflip);
-    } else {
-        _pattno_uvflip_now = prm_pattno_uvflip;
-    }
-}
-
-void GgafDx9SpriteActor::resetUvFlipPtnNo() {
-    _pattno_uvflip_now = _pattno_uvflip_top;
-}
-
-void GgafDx9SpriteActor::forceUvFlipPtnRange(int prm_top, int prm_bottom = 1) {
-    if (prm_top < 0 || prm_bottom > (_pSpriteModel->_pattno_uvflip_Max)) {
-        throwGgafCriticalException("GgafDx9SpriteActor::forceUvFlipPtnRange アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
-    } else {
-        _pattno_uvflip_top = prm_top;
-        _pattno_uvflip_bottom = prm_bottom;
-    }
-}
-
-void GgafDx9SpriteActor::setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
-    _uvflip_method = prm_method;
-    _frame_uvflip_interval = prm_interval;
-}
-
-void GgafDx9SpriteActor::behaveUvFlip() {
-//    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
-
-    _aniframe_counter++;
-    if (_frame_uvflip_interval < _aniframe_counter) {
-        if (_uvflip_method == FLIP_ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
-            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
-                _pattno_uvflip_now++;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_top;
-            }
-        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
-            if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                _pattno_uvflip_now--;
-            } else {
-                _pattno_uvflip_now = _pattno_uvflip_bottom;
-            }
-        } else if (_uvflip_method == FLIP_ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
-            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
-                _pattno_uvflip_now++;
-            } else {
-                processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
-                _pattno_uvflip_now = _pattno_uvflip_bottom;
-            }
-        } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
-            if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                _pattno_uvflip_now--;
-            } else {
-                processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
-                _pattno_uvflip_now = _pattno_uvflip_top;
-            }
-        } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
-                if (_pattno_uvflip_top < _pattno_uvflip_now) {
-                    _pattno_uvflip_now--;
-                } else {
-                    _pattno_uvflip_now++;
-                    _is_reverse_order_in_oscillate_animation_flg = false;
-                }
-            } else {                                            //正順序時
-                if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
-                    _pattno_uvflip_now++;
-                } else {
-                    _pattno_uvflip_now--;
-                    _is_reverse_order_in_oscillate_animation_flg = true;
-                }
-
-            }
-        } else if (_uvflip_method == NOT_ANIMATED) {
-            //何もしない
-        }
-        _aniframe_counter = 0;
-    }
-
-}
+//void GgafDx9SpriteActor::setUvFlipPtnNo(int prm_pattno_uvflip) {
+//    if (0 > prm_pattno_uvflip || prm_pattno_uvflip > (_pSpriteModel->_pattno_uvflip_Max)) {
+//        throwGgafCriticalException("GgafDx9SpriteActor::setUvFlipPtnNo アニメーションパターン番号が範囲外です。引数="<<prm_pattno_uvflip);
+//    } else {
+//        _pattno_uvflip_now = prm_pattno_uvflip;
+//    }
+//}
+//
+//void GgafDx9SpriteActor::resetUvFlipPtnNo() {
+//    _pattno_uvflip_now = _pattno_uvflip_top;
+//}
+//
+//void GgafDx9SpriteActor::forceUvFlipPtnRange(int prm_top, int prm_bottom = 1) {
+//    if (prm_top < 0 || prm_bottom > (_pSpriteModel->_pattno_uvflip_Max)) {
+//        throwGgafCriticalException("GgafDx9SpriteActor::forceUvFlipPtnRange アニメーションパターン番号が範囲外です。引数("<<prm_top<<","<<prm_bottom<<")");
+//    } else {
+//        _pattno_uvflip_top = prm_top;
+//        _pattno_uvflip_bottom = prm_bottom;
+//    }
+//}
+//
+//void GgafDx9SpriteActor::setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
+//    _uvflip_method = prm_method;
+//    _frame_uvflip_interval = prm_interval;
+//}
+//
+//void GgafDx9SpriteActor::behaveUvFlip() {
+////    _TRACE_(getName()<<":_pattno_uvflip_now="<<_pattno_uvflip_now<<"/_pattno_uvflip_bottom="<<_pattno_uvflip_bottom<<"/_pattno_uvflip_top="<<_pattno_uvflip_top<<"/_is_reverse_order_in_oscillate_animation_flg="<<_is_reverse_order_in_oscillate_animation_flg<<"");
+//
+//    _frame_counter_uvflip++;
+//    if (_frame_uvflip_interval < _frame_counter_uvflip) {
+//        if (_uvflip_method == FLIP_ORDER_LOOP) { //例：0,1,2,3,4,5,0,1,2,3,4,5,...
+//            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
+//                _pattno_uvflip_now++;
+//            } else {
+//                _pattno_uvflip_now = _pattno_uvflip_top;
+//            }
+//        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+//            if (_pattno_uvflip_top < _pattno_uvflip_now) {
+//                _pattno_uvflip_now--;
+//            } else {
+//                _pattno_uvflip_now = _pattno_uvflip_bottom;
+//            }
+//        } else if (_uvflip_method == FLIP_ORDER_NOLOOP) { //例：0,1,2,3,4,5,5,5,5,5,5,5...
+//            if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
+//                _pattno_uvflip_now++;
+//            } else {
+//                processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+//                _pattno_uvflip_now = _pattno_uvflip_bottom;
+//            }
+//        } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
+//            if (_pattno_uvflip_top < _pattno_uvflip_now) {
+//                _pattno_uvflip_now--;
+//            } else {
+//                processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+//                _pattno_uvflip_now = _pattno_uvflip_top;
+//            }
+//        } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+//            if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
+//                if (_pattno_uvflip_top < _pattno_uvflip_now) {
+//                    _pattno_uvflip_now--;
+//                } else {
+//                    _pattno_uvflip_now++;
+//                    _is_reverse_order_in_oscillate_animation_flg = false;
+//                }
+//            } else {                                            //正順序時
+//                if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
+//                    _pattno_uvflip_now++;
+//                } else {
+//                    _pattno_uvflip_now--;
+//                    _is_reverse_order_in_oscillate_animation_flg = true;
+//                }
+//
+//            }
+//        } else if (_uvflip_method == NOT_ANIMATED) {
+//            //何もしない
+//        }
+//        _frame_counter_uvflip = 0;
+//    }
+//
+//}
 
 void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
@@ -148,4 +151,5 @@ void GgafDx9SpriteActor::setAlpha(float prm_fAlpha) {
 }
 
 GgafDx9SpriteActor::~GgafDx9SpriteActor() {
+    DELETE_IMPOSSIBLE_NULL(_pUvFliper);
 }
