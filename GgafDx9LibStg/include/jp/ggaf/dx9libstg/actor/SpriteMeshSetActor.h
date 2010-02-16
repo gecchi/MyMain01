@@ -18,7 +18,13 @@ public:
     DWORD _frame_offset;
 
     CollisionChecker* _pCollisionChecker;
-
+    /**
+     * コンストラクタ
+     * DefaultMeshSetActor で使用するモデルIDは避けて下さい。
+     * @param prm_name
+     * @param prm_model
+     * @return
+     */
     SpriteMeshSetActor(const char* prm_name, const char* prm_model);
 
     virtual void onCreateModel() override {
