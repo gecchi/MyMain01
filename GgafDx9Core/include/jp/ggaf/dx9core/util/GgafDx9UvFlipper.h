@@ -14,7 +14,7 @@ class GgafDx9UvFlipper : public GgafCore::GgafObject {
 private:
 
     /** 内部アニメフレーム用カウンタ */
-    int _frame_counter_uvflip;
+    DWORD _frame_counter_uvflip;
 
 
 public:
@@ -48,8 +48,8 @@ public:
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。
      * ＜例＞
      * setTextureUvRotation(3, 1.0/5, 1.0/4);
-     * forceUvFlipPtnRange(0,9);
-     * setUvFlipPtnNo(5);
+     * forcePtnNoRange(0,9);
+     * setPtnNo(5);
      *
      * を実行時の概念図
      *
@@ -76,16 +76,16 @@ public:
      * 描画時、頂点バッファの各頂点のUV座標に、
      * アクティブなパターンの左上のUV座標がオフセットとして加算されることになる。
      * 上の図の例では、パターン番号5がアクティブなので全頂点のUV座標は(+0.4, +0.25)加算される。
-     * @param prm_tex_col_num UV座標を改行するパターン数(自然数)
+     * @param prm_tex_col_num パターンのカラム数。UV座標を改行するために使用される(自然数)
      * @param prm_tex_width １パターンの幅(0.0f～1.0f)
      * @param prm_tex_height １パターンの高さ(0.0f～1.0f)
      */
     virtual void setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height);
 
     /**
-     * アニメーションを進行させる .
+     * アニメーションを1フレーム分進行させる .
      * 本メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
-     * 呼び出すことで、setUvFlipMethod()で設定した方法に応じて<BR>
+     * 呼び出すことで、setFlipMethod()で設定した方法に応じて<BR>
      * アクティブなパターンが内部で切り替わります。<BR>
      */
     virtual void behave();
@@ -102,26 +102,26 @@ public:
      * 現在のアニメーションパターンを設定する .
      * @param prm_pattno_uvflip アニメーションパターン番号
      */
-    void setUvFlipPtnNo(int prm_pattno_uvflip);
+    void setPtnNo(int prm_pattno_uvflip);
 
     /**
-     * アニメーションパターンを上限のアニメーションパターン番号(一番若い方の番号)に設定する .
+     * アニメーションパターンを上限のアニメーションパターン番号(一番若い番号)に設定する .
      */
-    void resetUvFlipPtnNo();
+    void resetPtnNo();
 
     /**
      * アニメーションパターンの範囲を制限する .
      * @param prm_top 上限のアニメーションパターン番号(若い方の番号)
-     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか；)
+     * @param prm_bottom 下限のアニメーションパターン番号(古い方の番号。若いの反対語ってないのか)
      */
-    void forceUvFlipPtnRange(int prm_top, int prm_bottom);
+    void forcePtnNoRange(int prm_top, int prm_bottom);
 
     /**
      * アニメーション方法を設定する.
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)
      */
-    void setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval = 1);
+    void setFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval = 1);
 
 };
 

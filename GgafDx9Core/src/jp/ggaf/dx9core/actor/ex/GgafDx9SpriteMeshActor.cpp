@@ -15,9 +15,9 @@ GgafDx9SpriteMeshActor::GgafDx9SpriteMeshActor(const char* prm_name,
 
     _class_name = "GgafDx9SpriteMeshActor";
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forceUvFlipPtnRange(0, 1);
-    _pUvFlipper->setUvFlipPtnNo(0);
-    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->forcePtnNoRange(0, 1);
+    _pUvFlipper->setPtnNo(0);
+    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
 }
 
 

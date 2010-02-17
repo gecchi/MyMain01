@@ -87,16 +87,28 @@ public:
     }
 
     /**
-     * テクニックを変更する .
+     * シェーダーのテクニックを変更する .
      * 随時可能。
      * @param prm_technique テクニック名
      */
-    void chengeEffectTechnique(char* prm_technique) {
+    void chengeEffectTechnique(const char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
         strcpy(_technique, prm_technique);
     }
 
-    void chengeEffectTechniqueTemporarily(char* prm_technique, DWORD prm_frame) {
+    /**
+     * シェーダーのテクニックを一時的に変更する .
+     * 既に一時テクニック使用時は無視される。但し、
+     * 既に一時テクニック使用中に強制的に一時テクニックを変更したい場合次のようにできる。
+     * <code>
+     * if (_is_temp_technique == false) {
+     *     chengeEffectTechnique("変更したいテクニック名");
+     * }
+     * </code>
+     * @param prm_technique テクニック名
+     * @param prm_frame 変更テクニックの継続フレーム数
+     */
+    void chengeEffectTechniqueInterim(const char* prm_technique, DWORD prm_frame) {
         if (_is_temp_technique == false) { //すでに一時テクニック使用時は無視
             //元々のテクニックを退避
             _hash_technique_temp = _hash_technique;
@@ -157,17 +169,19 @@ public:
     }
 
     /**
-     * マテリアルカラーを設定。
-     * キャラクタ全体に色を重ねる。
-     * 本メソッドによるマテリアルカラーとは、いわゆる「DirectXのマテリアル」の意味とは範囲が異なる。
-     * @param r
-     * @param g
-     * @param b
+     * アクターのマテリアルカラーを設定。 .
+     * キャラクタ全体に色を重ねる効果を得る。<br>
+     * 実装方法は、下位に依存。<br>
+     * したがって本メソッドによる「マテリアルカラー」の意味は、<br>
+     * 「DirectXのマテリアルカラー」と一致しないかもしれない。<br>
+     * @param r Red強度(0.0 ～ 1.0)
+     * @param g Green強度(0.0 ～ 1.0)
+     * @param b Blue強度(0.0 ～ 1.0)
      */
     virtual void setMaterialColor(float r, float g, float b);
 
     /**
-     * マテリアルカラーを初期状態にリセット。
+     * マテリアルカラーをモデル読み込み時の状態にリセット。
      */
     virtual void resetMaterialColor();
 
@@ -175,7 +189,6 @@ public:
     GgafDx9SeConnection** _papSeCon;
     /** SE資源 */
     GgafDx9Se** _papSe;
-
     /** SE資源接続 */
     GgafDx9SeConnection* _pSeCon;
     /** SE資源 */
@@ -185,16 +198,11 @@ public:
     /** SE資源 */
     GgafDx9Se* _pSe2;
 
-    void useSe(int prm_id, char* prm_se_name, int prm_cannel = 1) ;
-
+    void prepareSe(int prm_id, char* prm_se_name, int prm_cannel = 1) ;
     void playSe(int prm_id);
-
-    void useSe1(char* prm_se_name, int prm_cannel = 0);
-
+    void prepareSe1(char* prm_se_name, int prm_cannel = 0);
     void playSe1();
-
-    void useSe2(char* prm_se_name, int prm_cannel = 0);
-
+    void prepareSe2(char* prm_se_name, int prm_cannel = 0);
     void playSe2();
 
     /**

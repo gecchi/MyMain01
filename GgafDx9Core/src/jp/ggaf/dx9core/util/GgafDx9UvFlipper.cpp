@@ -26,7 +26,7 @@ void GgafDx9UvFlipper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_w
     _tex_col_num = prm_tex_col_num;
 }
 
-void GgafDx9UvFlipper::setUvFlipPtnNo(int prm_pattno_uvflip) {
+void GgafDx9UvFlipper::setPtnNo(int prm_pattno_uvflip) {
     if (_pattno_uvflip_top <= prm_pattno_uvflip && prm_pattno_uvflip <= _pattno_uvflip_bottom) {
         _pattno_uvflip_now = prm_pattno_uvflip;
     } else if (prm_pattno_uvflip < _pattno_uvflip_top) {
@@ -36,24 +36,24 @@ void GgafDx9UvFlipper::setUvFlipPtnNo(int prm_pattno_uvflip) {
     }
 }
 
-void GgafDx9UvFlipper::resetUvFlipPtnNo() {
+void GgafDx9UvFlipper::resetPtnNo() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 
-void GgafDx9UvFlipper::forceUvFlipPtnRange(int prm_top, int prm_bottom) {
+void GgafDx9UvFlipper::forcePtnNoRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _TRACE_("GgafDx9UvFlipper::forceUvFlipPtnRange prm_top="<<prm_top<<" TOP‚ª•‰‚Å‚·BˆÓ}‚µ‚Ä‚Ü‚·‚©H");
+        _TRACE_("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<" TOP‚ª•‰‚Å‚·BˆÓ}‚µ‚Ä‚Ü‚·‚©H");
     }
     if (prm_top > prm_bottom) {
-        throwGgafCriticalException("GgafDx9UvFlipper::forceUvFlipPtnRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" ‘å¬‚ª‚¨‚©‚µ‚¢‚Å‚·");
+        throwGgafCriticalException("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" ‘å¬‚ª‚¨‚©‚µ‚¢‚Å‚·");
     }
 #endif
     _pattno_uvflip_top = prm_top;
     _pattno_uvflip_bottom = prm_bottom;
 }
 
-void GgafDx9UvFlipper::setUvFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
+void GgafDx9UvFlipper::setFlipMethod(GgafDx9UvFlipMethod prm_method, int prm_interval) {
     _uvflip_method = prm_method;
     _frame_uvflip_interval = prm_interval;
 }

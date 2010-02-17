@@ -20,9 +20,9 @@ GgafDx9BoardActor::GgafDx9BoardActor(const char* prm_name,
     _pBoardModel = (GgafDx9BoardModel*)_pGgafDx9Model;
     _pBoardEffect = (GgafDx9BoardEffect*)_pGgafDx9Effect;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forceUvFlipPtnRange(0, _pBoardModel->_pattno_max);
-    _pUvFlipper->setUvFlipPtnNo(0);
-    _pUvFlipper->setUvFlipMethod(NOT_ANIMATED, 1);
+    _pUvFlipper->forcePtnNoRange(0, _pBoardModel->_pattno_max);
+    _pUvFlipper->setPtnNo(0);
+    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
     _fAlpha = 1.0f;
 
     _isTransformed = true;

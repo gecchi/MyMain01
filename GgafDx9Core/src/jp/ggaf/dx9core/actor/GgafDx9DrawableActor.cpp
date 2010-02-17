@@ -200,7 +200,7 @@ void GgafDx9DrawableActor::processPreDraw() {
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);
             _is_temp_technique = false;
-            //これはダメ。配列領域がどっかにいくため。_technique_temp = "";
+            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
             _hash_technique_temp = 0;
         }
     }
@@ -249,7 +249,7 @@ void GgafDx9DrawableActor::resetMaterialColor() {
     }
 }
 
-void GgafDx9DrawableActor::useSe(int prm_id, char* prm_se_name, int prm_cannel) {
+void GgafDx9DrawableActor::prepareSe(int prm_id, char* prm_se_name, int prm_cannel) {
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
@@ -261,7 +261,7 @@ void GgafDx9DrawableActor::playSe(int prm_id) {
 }
 
 
-void GgafDx9DrawableActor::useSe1(char* prm_se_name, int prm_cannel) {
+void GgafDx9DrawableActor::prepareSe1(char* prm_se_name, int prm_cannel) {
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _pSeCon = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
@@ -272,7 +272,7 @@ void GgafDx9DrawableActor::playSe1() {
     _pSe->play();
 }
 
-void GgafDx9DrawableActor::useSe2(char* prm_se_name, int prm_cannel) {
+void GgafDx9DrawableActor::prepareSe2(char* prm_se_name, int prm_cannel) {
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _pSeCon2 = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);

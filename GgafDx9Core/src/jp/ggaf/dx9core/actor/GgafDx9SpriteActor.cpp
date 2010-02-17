@@ -21,9 +21,9 @@ GgafDx9SpriteActor::GgafDx9SpriteActor(const char* prm_name,
     _pSpriteModel = (GgafDx9SpriteModel*)_pGgafDx9Model;
     _pSpriteEffect = (GgafDx9SpriteEffect*)_pGgafDx9Effect;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forceUvFlipPtnRange(0, _pSpriteModel->_pattno_uvflip_Max);
-    _pUvFlipper->setUvFlipPtnNo(0);
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->forcePtnNoRange(0, _pSpriteModel->_pattno_uvflip_Max);
+    _pUvFlipper->setPtnNo(0);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 

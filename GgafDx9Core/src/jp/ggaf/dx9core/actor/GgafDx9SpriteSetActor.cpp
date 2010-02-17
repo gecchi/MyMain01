@@ -22,9 +22,9 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
     _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
     _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->forceUvFlipPtnRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
-    _pUvFlipper->setUvFlipPtnNo(0);
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->forcePtnNoRange(0, _pSpriteSetModel->_pattno_uvflip_Max);
+    _pUvFlipper->setPtnNo(0);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
     _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
 }
 
