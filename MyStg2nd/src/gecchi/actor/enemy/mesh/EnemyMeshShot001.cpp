@@ -28,7 +28,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
-    useSe1("bomb1");
+    prepareSe1("bomb1");
 }
 
 void EnemyMeshShot001::initialize() {

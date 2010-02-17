@@ -67,7 +67,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 
-    useSe1("a_shot");
+    prepareSe1("a_shot");
 }
 
 void EnemyCeres::initialize() {

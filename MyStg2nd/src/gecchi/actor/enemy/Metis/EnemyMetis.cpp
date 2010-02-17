@@ -12,8 +12,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
-    useSe1("yume_shototsu");
-    useSe2("bomb1");     //爆発
+    prepareSe1("yume_shototsu");
+    prepareSe2("bomb1");     //爆発
 }
 
 void EnemyMetis::initialize() {
@@ -68,7 +68,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
     //ここにヒットエフェクト
-    chengeEffectTechniqueTemporarily("Flush", 2); //フラッシュ
+    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
     playSe1();
         //ここに消滅エフェクト
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

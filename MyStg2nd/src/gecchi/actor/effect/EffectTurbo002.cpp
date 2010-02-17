@@ -13,13 +13,13 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_na
 }
 
 void EffectTurbo002::initialize() {
-    _pUvFlipper->forceUvFlipPtnRange(0, 1);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
+    _pUvFlipper->forcePtnNoRange(0, 1);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
 
 }
 
 void EffectTurbo002::onActive() {
-    _pUvFlipper->resetUvFlipPtnNo();
+    _pUvFlipper->resetPtnNo();
     setAlpha(0.99);
     _pScaler->forceScaleRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(1000);

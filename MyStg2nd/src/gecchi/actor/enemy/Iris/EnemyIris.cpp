@@ -14,7 +14,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    useSe2("bomb1");     //”š”­
+    prepareSe2("bomb1");     //”š”­
 }
 
 void EnemyIris::initEnemyIrisClass() {

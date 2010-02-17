@@ -13,7 +13,7 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardSetActor(prm_name, "5
 }
 
 void TurboMeter::initialize() {
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1); //アニメ順序
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //アニメ順序
 }
 
 void TurboMeter::onActive() {

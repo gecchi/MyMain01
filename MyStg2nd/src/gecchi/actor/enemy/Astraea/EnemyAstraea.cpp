@@ -37,8 +37,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
         }
     }
-    useSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
-    useSe2("bomb1");     //爆発
+    prepareSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
+    prepareSe2("bomb1");     //爆発
 }
 
 void EnemyAstraea::initialize() {
@@ -195,7 +195,7 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    chengeEffectTechniqueTemporarily("Flush", 2); //フラッシュ
+    chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
     //・・・ココにヒットされたエフェクト
     if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合

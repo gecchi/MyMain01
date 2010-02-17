@@ -13,7 +13,7 @@ EnemyShotSpriteActor::EnemyShotSpriteActor(const char* prm_name, const char* prm
 }
 
 void EnemyShotSpriteActor::initialize() {
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 1);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
     setHitAble(true);
 }
 

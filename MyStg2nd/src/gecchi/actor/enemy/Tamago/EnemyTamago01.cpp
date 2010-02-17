@@ -12,7 +12,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pProgram_Tamago01Move = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    useSe2("bomb1");     //”š”­
+    prepareSe2("bomb1");     //”š”­
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -45,9 +45,9 @@ void EnemyTamago01::onActive() {
     }
 
     _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
-    _pUvFlipper->setUvFlipMethod(FLIP_ORDER_LOOP, 5);
-    _pUvFlipper->forceUvFlipPtnRange(0, 16*16-1);
-    _pUvFlipper->setUvFlipPtnNo(0);
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5);
+    _pUvFlipper->forcePtnNoRange(0, 16*16-1);
+    _pUvFlipper->setPtnNo(0);
     _iMovePatternNo = 0;
 }
 

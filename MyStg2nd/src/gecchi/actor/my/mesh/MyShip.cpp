@@ -166,7 +166,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     fpaTurboFunc[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
 
-    useSe1("se-020");
+    prepareSe1("se-020");
 
     char rankstr[80] = {0} ;// ‘S‚Ä0‚Å‰Šú‰»
     MyStgUtil::getRankStr(99999, rankstr);
