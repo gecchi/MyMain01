@@ -309,6 +309,7 @@ class GgafLinearOctreeElem;
 #ifdef _MSC_VER
 
 #else
+//GCC‚Ìê‡sal.h‚Å‰½ŒÌ‚©NULL ‚ª __null ‚Å –¢’è‹`‚Ì‚½‚ß‹­§“I‚ÉÄ’è‹`(ÅİÉº¯Á¬)
 #define NULL 0
 #endif
 
