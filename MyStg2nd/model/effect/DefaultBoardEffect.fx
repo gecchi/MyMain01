@@ -78,7 +78,7 @@ float4 PS_Flush(
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
 	//α考慮
-	out_color.a = out_color.a * prm_col.a; 
+	out_color.a = out_color.a * g_alpha; 
 	return out_color * float4(7.0, 7.0, 7.0, 1.0);
 }
 

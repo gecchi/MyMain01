@@ -199,6 +199,10 @@ public:
 
     int _iMoveVelo;
 
+
+    int _iMvVelo_TurboTop;
+    int _iMvVelo_TurboBottom;
+
     /** Turbo移動開始時の移動速度の初速度 */
     int _iMvVelo_BeginMT; //Move Velo when I Begin To Move with Turbo
     //Z軸が絡む場合、うまくこの値から計算しよう（Z軸の移動速度は正負で管理してるため）

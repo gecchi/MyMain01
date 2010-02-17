@@ -171,6 +171,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
+
+
+    _iMvVelo_TurboTop = 100000;
+    _iMvVelo_TurboBottom = 10000;
 }
 
 void MyShip::onActive() {
@@ -343,8 +347,10 @@ void MyShip::processBehavior() {
     if (VB::isBeingPressed(VB_TURBO)) { //ターボ
         _pEffectTurbo001->activate();
         _pEffectTurbo001->setGeometry(this);
-        if (_iMvVelo_BeginMT < 30000) {
+        if (_iMvVelo_BeginMT < _iMvVelo_TurboTop) {
             _iMvVelo_BeginMT = _iMvVelo_BeginMT + 1000;
+        } else {
+            _iMvVelo_BeginMT = _iMvVelo_TurboTop;
         }
     }
 
@@ -354,7 +360,7 @@ void MyShip::processBehavior() {
         _pEffectTurbo002->setGeometry(this);
 
         (this->*fpaTurboFunc[_way])();
-        _iMvVelo_BeginMT = 10000;
+        _iMvVelo_BeginMT = _iMvVelo_TurboBottom;
     } else {
         _pMover->_veloVxMv *= 0.95;
         _pMover->_veloVyMv *= 0.95;

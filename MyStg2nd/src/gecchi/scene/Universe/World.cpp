@@ -183,7 +183,7 @@ void World::processBehavior() {
         throwGgafCriticalException("World::processBehavior() ïsê≥Ç»_pos_camera="<<_pos_camera);
     }
     if (VB::isBeingPressed(VB_ZMOVE)) {
-        int cam_slow_velo_renge = _cam_velo_renge / 200;
+        int cam_slow_velo_renge = _cam_velo_renge / 100;
         pCAM->_pMover->forceVxMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
         pCAM->_pMover->forceVyMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
         pCAM->_pMover->forceVzMvVeloRange(-cam_slow_velo_renge, cam_slow_velo_renge);
