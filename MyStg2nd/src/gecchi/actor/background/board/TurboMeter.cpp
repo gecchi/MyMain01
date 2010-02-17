@@ -17,21 +17,22 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
 }
 
 void TurboMeter::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //アニメ順序
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //アニメ順序
 }
 
 void TurboMeter::onActive() {
+    _sx =8.0;_sy=8.0;
 }
 
 void TurboMeter::processBehavior() {
-
-    _val = pMYSHIP->_iMvVelo_BeginMT;
-    float length_px = _unit_px * _val;
-    if (length_px == 0) {
-        _sx = 0.0f;
-    } else {
-        _sx = length_px / _pBoardModel->_fSize_BoardModelWidthPx;
-    }
+    //_sx += 0.01;
+//    _val = pMYSHIP->_iMvVelo_BeginMT;
+//    float length_px = _unit_px * _val;
+//    if (length_px == 0) {
+//        _sx = 0.0f;
+//    } else {
+//        _sx = length_px / _pBoardModel->_fSize_BoardModelWidthPx;
+//    }
     _pUvFlipper->behave();
 }
 

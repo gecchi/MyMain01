@@ -3,7 +3,7 @@ xof 0303txt 0032
 SpriteDef TurboMeter {
    32.0;
    32.0;
-   "SPRITE.dds";
+   "SPRITE.png";
    6;
    6;
 } 
