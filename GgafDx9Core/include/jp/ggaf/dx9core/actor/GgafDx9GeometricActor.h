@@ -141,12 +141,22 @@ public:
 
     virtual bool isOutOfGameSpace();
 
+    /**
+     * 未変換座標を設定 .
+     * @param X
+     * @param Y
+     * @param Z
+     */
     virtual void setGeometry(int X, int Y, int Z) {
         _X = X;
         _Y = Y;
         _Z = Z;
     }
 
+    /**
+     * 未変換座標をコピーして設定 .
+     * @param prm_pActor
+     */
     virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;

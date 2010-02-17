@@ -31,10 +31,6 @@ private:
         return false;
     }
 
-    /** */
-    float _sx;
-    /** */
-    float _sy;
 
 public:
     /** モデルオブジェクトへのポインタ */
@@ -43,6 +39,10 @@ public:
     GgafDx9BoardEffect* _pBoardEffect;
     /** UVフリッパー(パラパラアニメ) */
     GgafDx9UvFlipper* _pUvFlipper;
+    /** 変換済み座標X軸拡大率(1.0で等倍) */
+    float _sx;
+    /** 変換済み座標Y軸拡大率(1.0で等倍) */
+    float _sy;
 
     GgafDx9BoardActor(const char* prm_name,
                       const char* prm_model_id,
@@ -51,23 +51,46 @@ public:
 
     virtual void processDraw() override;
 
-    virtual void setGeometry(int x, int y) {
+    /**
+     * アクターの変換済み座標(左上の点)を設定 .
+     * z は変化なし
+     * @param x
+     * @param y
+     */
+    virtual void setGeometry(float x, float y) {
         _x = x;
         _y = y;
     }
 
+
+    /**
+     * アクターの変換済み座標(左上の点)を設定 .
+     * @param x
+     * @param y
+     * @param z 深度
+     */
     virtual void setGeometry(int x, int y, int z) override {
         _x = x;
         _y = y;
         _z = z;
     }
 
+    /**
+     * アクターの変換済み座標(左上の点)を設定 .
+     * @param x
+     * @param y
+     * @param z 深度
+     */
     virtual void setGeometry(float x, float y, float z) {
         _x = x;
         _y = y;
         _z = z;
     }
 
+    /**
+     * アクターの変換済み座標をコピーして設定 .
+     * @param prm_pActor
+     */
     virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) override {
         _z = prm_pActor->_z;
         _y = prm_pActor->_y;
