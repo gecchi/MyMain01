@@ -154,7 +154,7 @@ void GgafFactory::clean() {
 }
 
 unsigned __stdcall GgafFactory::work(void* prm_arg) {
-	//_CrtSetBreakAlloc(95299);
+    //_CrtSetBreakAlloc(95299);
 
     try {
         static GgafObject* (*func)(void*, void*, void*);
@@ -182,7 +182,23 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                     void* arg3 = CREATING_ORDER->_pArg3;
                     TRACE2("GgafFactory::work ＜工場＞ 製造開始！["<<CREATING_ORDER->_id<<"] (σ ｀・ω・´)σ ");
                  ___EndSynchronized; // <----- 排他終了
+//#ifdef MY_DEBUG
+//try {
+//#endif
                     pObject = (*func)(arg1, arg2, arg3); //製品の製造！
+//#ifdef MY_DEBUG
+//} catch (GgafCriticalException& e) {
+//    _TRACE_("＜工場例外＞ 製造中エラー；"<<e.getMsg());
+//    string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能\性があります。\n誠に申\し訳ございません。\n";
+//    string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
+//    MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
+//    _is_working_flg = false;
+//    _was_finished_flg = true;
+//    GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());
+//    return 0;
+//}
+//#endif
+
                  ___BeginSynchronized; // ----->排他開始
                     TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] v(^_^)v");
                     if (CREATING_ORDER == NULL) {
