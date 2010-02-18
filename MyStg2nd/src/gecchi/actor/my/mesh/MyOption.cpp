@@ -5,11 +5,11 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-//MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
-MyDummyOption::MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "myvic") {
+//MyOption::MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMorphMeshActor(prm_name, "4/Ceres") {
+MyOption::MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent) : DefaultMeshSetActor(prm_name, "myvic") {
 
-_TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
-    _class_name = "MyDummyOption";
+_TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
+    _class_name = "MyOption";
     _pMyOptionParent = prm_pMyOptionParent;
     _no = prm_no;
     _angveloMove = 0;//旋廻移動角速度（読み出し専用）
@@ -46,7 +46,7 @@ _TRACE_("MyDummyOption::MyDummyOption("<<prm_name<<","<<prm_no<<")");
     _pLockOnTarget = NULL;
 }
 
-void MyDummyOption::initialize() {
+void MyOption::initialize() {
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setMvVelo(_veloMv);
     _pMover->setRzMvAng(_angPosition+ANGLE90);
@@ -75,7 +75,7 @@ void MyDummyOption::initialize() {
 
 }
 
-void MyDummyOption::processBehavior() {
+void MyOption::processBehavior() {
 //    /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->loopTriangleWave(1, 30, 3, 22);
@@ -303,16 +303,16 @@ void MyDummyOption::processBehavior() {
 
 }
 
-void MyDummyOption::processJudgement() {
+void MyOption::processJudgement() {
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
 }
 
-void MyDummyOption::onHit(GgafActor* prm_pOtherActor) {
+void MyOption::onHit(GgafActor* prm_pOtherActor) {
     sayonara();
 }
 
 
-MyDummyOption::~MyDummyOption() {
+MyOption::~MyOption() {
     _pSeCon_Laser->close();
     //DELETE_IMPOSSIBLE_NULL(_pRing);
 }

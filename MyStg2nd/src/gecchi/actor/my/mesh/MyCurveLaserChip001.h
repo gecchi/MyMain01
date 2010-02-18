@@ -7,7 +7,7 @@ class MyCurveLaserChip001 : public CurveLaserChip {
 public:
     /** 0:非ロックオン（はじめから） 1:ロックオン 2:非ロックオン（ロックオン→非ロックオン） */
     int _lockon;
-    MyDummyOption* _pOrg;
+    MyOption* _pOrg;
     velo _veloCurve;
     int _renge;
 

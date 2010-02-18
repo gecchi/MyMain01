@@ -2,8 +2,8 @@
 #define MYDUMMYOPTION_H_
 namespace MyStg2nd {
 
-//class MyDummyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
-class MyDummyOption : public GgafDx9LibStg::DefaultMeshSetActor {
+//class MyOption : public GgafDx9LibStg::DefaultMorphMeshActor {
+class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 
     /** 親アクター */
@@ -53,7 +53,7 @@ public:
     bool _is_flapping;
     bool _iflappingSeq;
 
-    MyDummyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
+    MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
     void initialize() override;
 
@@ -63,7 +63,7 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    virtual ~MyDummyOption();
+    virtual ~MyOption();
 };
 
 }
