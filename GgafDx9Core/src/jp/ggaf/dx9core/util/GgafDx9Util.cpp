@@ -267,33 +267,59 @@ void GgafDx9Util::init() {
 
 void GgafDx9Util::getWayAngle2D(int prm_vx_Center,
                                 int prm_vy_Center,
-                                int prm_way,
+                                int prm_nWay,
                                 angle prm_angClearance,
                                 angle* out_paAngle) {
-    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_way, prm_angClearance, out_paAngle);
+    return getWayAngle2D(getAngle2D(prm_vx_Center, prm_vy_Center), prm_nWay, prm_angClearance, out_paAngle);
 }
 
-void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle) {
-    int angstart = addAng(prm_angCenter, ((prm_way - 1) * prm_angClearance) / -2);
+void GgafDx9Util::getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle) {
+    int angstart = addAng(prm_angCenter, ((prm_nWay - 1) * prm_angClearance) / -2);
 
-    for (int i = 0; i < prm_way; i++) {
+    for (int i = 0; i < prm_nWay; i++) {
         out_paAngle[i] = addAng(angstart, prm_angClearance * i);
     }
 }
 
-void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle) {
-    for (int i = 0; i < prm_way; i++) {
-        out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * ANGLE360 / prm_way * i));
+void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle) {
+    for (int i = 0; i < prm_nWay; i++) {
+        out_paAngle[i] = addAng(prm_angStart, (angle)(1.0f * ANGLE360 / prm_nWay * i));
     }
 }
 
-//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_way, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
+void GgafDx9Util::convRyRzToRzRy(angle prm_Ry, angle prm_Rz, angle& out_Rz, angle& out_Ry) {
+    angle rz = prm_Ry;
+    angle ry = prm_Rz;
+    float vx,vy,vz;
+    getNormalizeVectorZY(rz, ry, vx, vy, vz);
+    getRzRyAng(vx, -vz, vy, out_Rz, out_Ry); //‚X‚O“xXŽ²‰ñ“]
+    //TODO:ŒŸØ
+}
+
+
+
+//void GgafDx9Util::getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
+//                                              int prm_nWay, angle prm_angClearance,
+//                                              angle* out_paAngleRz, angle* out_paAngleRy) {
+//    float vx,vy,vz;
+//    getNormalizeVectorZY(prm_angCenterRz, prm_angCenterRy, vx, vy, vz);
+//    float vx2,vy2,vz2;
+//    //XŽ²‚X‚O“x‰ñ“]
+//    vx2 = vx;
+//    vy2 = -vz;
+//    vz2 = vy;
+//
+//    getWayAngle2D(prm_angCenterRz, prm_nWay, prm_angClearance, out_paAngleRz);
+//
+//}
+
+//void GgafDx9Util::getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
 //                                          angle& out_angFaceZ, angle* out_paAngRotY) {
 //    angle tRz, tRy;
 //    getRzRyAng(prm_tX, prm_tY, prm_tZ, tRy, tRy);
 //
-//    angle angStart = addAng(tRy, ((prm_way - 1) * prm_angClearance) / -2);
-//    for (int i = 0; i < prm_way; i++) {
+//    angle angStart = addAng(tRy, ((prm_nWay - 1) * prm_angClearance) / -2);
+//    for (int i = 0; i < prm_nWay; i++) {
 //        out_paAngRotY[i] = addAng(angstart, prm_angClearance * i);
 //    }
 //}

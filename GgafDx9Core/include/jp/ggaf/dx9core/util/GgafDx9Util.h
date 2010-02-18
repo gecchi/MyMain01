@@ -11,6 +11,11 @@ namespace GgafDx9Core {
  */
 class GgafDx9Util: public GgafCore::GgafUtil {
 
+    struct AngleSet {
+        angle RZ[S_ANG360+1];
+        angle RY[S_ANG360+1];
+    };
+
 public:
     static int COS_UNITLEN[];
     static int SIN_UNITLEN[];
@@ -25,6 +30,7 @@ public:
     static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
     static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
 
+    static AngleSet ROTY_ANGLE[S_ANG360+1];
 
     static GgafDx9SphereRadiusVectors _srv;
 
@@ -146,27 +152,32 @@ public:
      * 平面上において、'N'way弾(N=整数)のアングル値を取得 .
      * @param prm_vx_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルX要素
      * @param prm_vy_Center [in] 'N'way弾の全体として向いている方向の、方向ベクトルY要素
-     * @param prm_way	[in] 'N'way弾の N
+     * @param prm_nWay	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
-                              int prm_way,
+                              int prm_nWay,
                               angle prm_angClearance,
                               int* out_paAngle);
 
     /**
      * 平面上において、'N'way弾(N=整数)のアングル値の配列を取得 .
      * @param prm_angCenter	[in]'N'way弾の全体として向いている方向のアングル値
-     * @param prm_way	[in] 'N'way弾の N
+     * @param prm_nWay	[in] 'N'way弾の N
      * @param prm_angClearance	[in] 'N'way弾の弾と弾との成す角をアングル値で指定
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getWayAngle2D(angle prm_angCenter, int prm_way, angle prm_angClearance, angle* out_paAngle);
+    static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
 
+    static void convRyRzToRzRy(angle prm_Ry, angle prm_Rz, angle& out_Rz, angle& out_Ry);
 
-//    static void getMoveRzRyWayShot3D_XZ(int prm_way, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
+//    static void getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
+//                                           int prm_nWay, angle prm_angClearance,
+//                                           angle* out_paAngleRz, angle* out_paAngleRy);
+
+//    static void getMoveRzRyWayShot3D_XZ(int prm_nWay, angle prm_angClearance, int prm_tX, int prm_tY, int prm_tZ,
 //                                        angle& out_angFaceZ, angle* out_paAngRotY);
 
 
@@ -174,10 +185,10 @@ public:
      * 平面上において、円の放射状全方向の'N'way弾(N=整数)のアングル値を配列で取得 .
      * 弾と弾との成す角は 均等になる。例えば全方向4way弾の場合、弾と弾との成す角は直角である。
      * @param prm_angStart	放射状の全方向'N'way弾の１つ目の弾のアングル値
-     * @param prm_way	[in] 'N'way弾の N。
+     * @param prm_nWay	[in] 'N'way弾の N。
      * @param out_paAngle	[out] 得られる'N'way弾 のアングル値配列のポインタ
      */
-    static void getRadiationAngle2D(angle prm_angStart, int prm_way, angle* out_paAngle);
+    static void getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
 
     /**
      *
