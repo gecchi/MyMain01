@@ -127,6 +127,7 @@ T* GgafResourceConnection<T>::view() {
 template<class T>
 int GgafResourceConnection<T>::close() {
     if (_is_closing_resource == true) {
+        //close() は複数スレッドから受付ない仕様とする。
         throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << _num_connection << "Connection]\n"<<
                                    "現在close()中にもかかわらず、close()しました。connectのスレッドを１本にして下さい。")
     }
@@ -144,9 +145,13 @@ int GgafResourceConnection<T>::close() {
     GgafResourceConnection<T>* pPrev;
 
     //TODO:簡易的な排他。完全ではない。
-    while(GgafResourceManager<T>::_is_connecting_resource) {
+    for(int i = 0; GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(1);
-        _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()しようとして、待機中・・・");
+        if (i > 1000*60) {
+            //１分以上無応答時
+            _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()しようとして、１分待機・・・");
+            throwGgafCriticalException("GgafResourceConnection<T>::close() タイムアウト。_idstr="<<getIdStr()<<" close()しようとして、１分以上待機しました。排他処理が崩壊しているか、処理が遅すぎます。")
+        }
     }
     _is_closing_resource = true;
 
@@ -185,8 +190,9 @@ int GgafResourceConnection<T>::close() {
                 TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum << "Connection] まだ残ってます");
                 _num_connection--;
             } else if (rnum < 0) {
-                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
-                        << "Connection] 解放しすぎ(><)。作者のアホー。どないするのん。ありえません。");
+                //通常ココは通らない
+                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "←" << rnum
+                        << "Connection] 解放しすぎ！。どないやねん。もうアホー(>_<)。とりあえずスルー。");
                 _num_connection = 0; //とりあえず解放
             }
             break;
@@ -207,15 +213,20 @@ int GgafResourceConnection<T>::close() {
 
 
         if (GgafResourceManager<T>::_is_waiting_to_connect) {
-            //別スレッドでconnet()待ち状態に入っていれば開放しない。
+            //別スレッドで既にconnet()待ち状態に入っていれば開放しない。
+            //これは、いずれ次の瞬間 new されることが確定しているので、無駄なdelete を行わないようにするといった意図。
+            //むしろこのようにしないと、一瞬無効ポインタ状態になるので、connet()側で処理に寄っては落ちてしまう（と思う）。
             _is_closing_resource = false;
             return 0;
         } else {
-            //別スレッドでconnet()待ち状態ではないので開放しよう。
+            //別スレッドでconnet()待ち状態では無いので安心して開放するとしよう。
             delete[] _idstr;
             delete this;
             if (GgafResourceManager<T>::_is_waiting_to_connect) {
-                _TRACE_("＜どうしようも無い警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか！");
+                //ここに来て、connet()待ちに変わっていたら、もう諦める。
+                //現在の排他が完全ではないと考えるのは、このあたりの処理も含む
+                //TODO:完全対応には、connect()を却下する機構を作らねばならぬ。
+                _TRACE_("＜警告＞GgafResourceConnection<T>::close() delete this 中に connect() しようとしました。大丈夫でしょうか。・・・もはやどうしようも無いのですが！");
             }
             _is_closing_resource = false;
             return 0;

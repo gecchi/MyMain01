@@ -179,21 +179,28 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
         TRACE3("警告 GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
+        //connect() は複数スレッドから受付ない仕様とする。
         throwGgafCriticalException("GgafResourceManager<T>::connect() 現在connect()中にもかかわらず、connect("<<prm_idstr<<")しました。connectのスレッドを１本にして下さい。")
     }
 
     //TODO:簡易的な排他。完全ではない。
     GgafResourceConnection<T>* pObj = NULL;
-    while(GgafResourceConnection<T>::_is_closing_resource) {
+    for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
         Sleep(1);
-        _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect() 待機中・・・");
+        if (i > 1000*60) {
+            //１分以上無応答時
+            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機・・・");
+            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()しようとして、１分待機。排他処理が崩壊しているか、処理が遅すぎます。")
+        }
     }
     //TODO:
     //close()中に、別スレッドでconnect()すると。
-    //困った事に、非常にシビアなタイミングでメモリを破壊する恐れが残っている。
-    //完全対応すは後回し。
-
+    //シビアなタイミングでメモリを破壊する恐れが残っている！９９％大丈夫と思うのだけども。
+    //スレッドセーフ完全対応しようとすると、かなりめんどくさい処理になりそうだ。
+    //たぶん全ての connect() 呼び出し元で connect() 失敗時の処理を定義しなくてはいけなくなる。
+    //templateにしたのは失敗だったのか；（void*にすべきだったか）。困った・・・。
+    //時間のあるときにちゃんとやろう。
     _is_waiting_to_connect = false;
     _is_connecting_resource = true;
     pObj = find(prm_idstr);
