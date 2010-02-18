@@ -26,10 +26,6 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pTurboMeter001 = NEW TurboMeter("TurboMeter001");
     _pTurboMeter001->setGeometry(16 , GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 64);
     getLordActor()->addSubGroup(_pTurboMeter001);
-    _pTurboMeter002 = NEW TurboMeter("TurboMeter002");
-    _pTurboMeter002->setGeometry(200, 200);
-    _pTurboMeter002->_pUvFlipper->setPtnNo(15);
-    getLordActor()->addSubGroup(_pTurboMeter002);
 }
 
 void TamagoScene::reset() {

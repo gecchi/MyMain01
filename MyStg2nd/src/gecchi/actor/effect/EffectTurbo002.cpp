@@ -13,7 +13,7 @@ EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_na
 }
 
 void EffectTurbo002::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 1);   //アニメ範囲を０～１５
+    _pUvFlipper->forcePtnNoRange(0, 0);   //アニメ範囲を０～１５
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //アニメ順序
 
 }

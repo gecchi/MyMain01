@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
-SpriteDef Turbo001 {
+SpriteDef Turbo002 {
    64.0;
    64.0;
-   "SPRITE.dds";
-   6;
-   6;
+   "Turbo002.png";
+   1;
+   1;
 } 
