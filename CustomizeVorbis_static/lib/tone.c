@@ -1,3 +1,4 @@
+// tsuge add MSVCÇÃÇΩÇﬂÇ… _USE_MATH_DEFINES Çí«â¡ÅB
 #define _USE_MATH_DEFINES
 
 #include <stdlib.h>
@@ -46,10 +47,10 @@ int main (int argc,char *argv[]){
     if(ival<-32768.f)ival=-32768.f;
 
     fprintf(stdout,"%c%c%c%c",
-	    (char)(ival&0xff),
-	    (char)((ival>>8)&0xff),
-	    (char)(ival&0xff),
-	    (char)((ival>>8)&0xff));
+            (char)(ival&0xff),
+            (char)((ival>>8)&0xff),
+            (char)(ival&0xff),
+            (char)((ival>>8)&0xff));
   }
   return(0);
 }
