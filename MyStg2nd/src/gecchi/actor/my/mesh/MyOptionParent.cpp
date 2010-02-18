@@ -151,27 +151,26 @@ void MyOptionParent::processBehavior() {
         _is_rotate = false;
     }
 
-//    if (_is_rotate) {
-//        _pMover->execTagettingMvAngSequence(
-//                        GameGlobal::_pMyShip->_pMover->_angRzMv,
-//                        GameGlobal::_pMyShip->_pMover->_angRyMv,
-//                        3000, 0,
-//                        TURN_CLOSE_TO
-//                 );
-//    } else {
-//        _pMover->execTagettingMvAngSequence(
-//                        0,
-//                        0,
-//                        200, 0,
-//                        TURN_CLOSE_TO
-//                 );
-//    }
+    if (_is_rotate) {
+        _pMover->execTagettingMvAngSequence(
+                        GameGlobal::_pMyShip->_pMover->_angRzMv,
+                        GameGlobal::_pMyShip->_pMover->_angRyMv,
+                        3000, 0,
+                        TURN_CLOSE_TO
+                 );
+    } else {
+        _pMover->execTagettingMvAngSequence(
+                        0,
+                        0,
+                        300, 0,
+                        TURN_CLOSE_TO
+                 );
+    }
 
     if (pMYSHIP->_way != WAY_NONE && VB::isBeingPressed(VB_OPTION)) {
         _pMover->behave();
     } else {
-
-
+        _pMover->behave();
     }
 //
 //
