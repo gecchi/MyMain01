@@ -24,7 +24,7 @@ public:
     void graduateScale(float prm_max_px, float prm_max_val) {
         _max_px = prm_max_px;
         _max_val = prm_max_val;
-        _unit_px = _max_val / _max_px;
+        _unit_px = _max_px / _max_val;
     }
 
     void initialize() override;

@@ -36,7 +36,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     /** 移動スピードレベル */
     _lv_MoveSpeed = 2;
     /** 移動スピードレベルに相応する移動スピード */
-    _iMoveSpeed = 7000;
+    _iMoveSpeed = 5000;
     //CommonSceneがnewの場合設定
 
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
@@ -205,9 +205,9 @@ void MyShip::initialize() {
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
 
-    _pMover->forceVxMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->forceVyMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
-    _pMover->forceVzMvVeloRange(-_iMvVelo_BeginMT, _iMvVelo_BeginMT);
+    _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pMover->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
+    _pMover->forceVzMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
 
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);

@@ -10,29 +10,26 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
     //_z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
     //_z = 0.9999999f;
     _z = 0.00000001f;
-    _max_px = 100.0f;
-    _max_val = 100.0f;
-    _unit_px = _max_px /_max_val;
+    _max_px = 1000.0f;
+    _max_val = 1000.0f;
+    _unit_px = _max_px / _max_val;
     _val = 1.0f;
+    _sx = _sy = 1.0f;
 }
 
 void TurboMeter::initialize() {
+    graduateScale(400, 100000);
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //ÉAÉjÉÅèáèò
 }
 
 void TurboMeter::onActive() {
-    _sx =8.0;_sy=8.0;
 }
 
 void TurboMeter::processBehavior() {
     //_sx += 0.01;
-//    _val = pMYSHIP->_iMvVelo_BeginMT;
-//    float length_px = _unit_px * _val;
-//    if (length_px == 0) {
-//        _sx = 0.0f;
-//    } else {
-//        _sx = length_px / _pBoardModel->_fSize_BoardModelWidthPx;
-//    }
+    _val = pMYSHIP->_iMvVelo_BeginMT;
+    float length_px = _unit_px * _val;
+    _sx = length_px / _pBoardModel->_fSize_BoardModelWidthPx;
     _pUvFlipper->behave();
 }
 
