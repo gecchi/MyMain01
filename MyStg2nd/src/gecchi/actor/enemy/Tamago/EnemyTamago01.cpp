@@ -10,6 +10,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
     _pProgram_Tamago01Move = NULL;
+    _pDispatcherCon = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
     prepareSe2("bomb1");     //爆発
@@ -31,6 +32,9 @@ void EnemyTamago01::initialize() {
     _pMover->setMvVelo(0);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
+
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
+    _pDispatcher_Shot = _pDispatcherCon->view();
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _X = 300000;
 //    _Y = 300000;
@@ -100,23 +104,6 @@ void EnemyTamago01::processBehavior() {
         _pMover->execTagettingMvAngSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
-        if (_pDispatcher_Shot) {
-            //放射状ショット発射
-            GgafDx9DrawableActor* pActor;
-            pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-            if (pActor) {
-                pActor->setGeometry(this);
-                pActor->activate();
-            }
-            //ショット発射エフェクト
-            if (_pDispatcher_ShotEffect) {
-                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
-                if (pActor) {
-                    pActor->setGeometry(_X, _Y, _Z);
-                }
-            }
-
-        }
         _iMovePatternNo++; //次の行動パターンへ
     }
 
@@ -127,8 +114,38 @@ void EnemyTamago01::processBehavior() {
     if (_iMovePatternNo == 3) {
 
     }
-    if (getBehaveingFrame() % 180 == 0) {
+    if (getBehaveingFrame() % 30 == 0) {
         _pMover->execTagettingMvAngSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
+
+        if (_pDispatcher_Shot) {
+            //放射状ショット発射
+            int way = 8;
+            angle* paAngWay = new angle[way];
+            angle target_RzRy_Rz, target_RzRy_Ry;
+            GgafDx9Util::getRzRyAng(pMYSHIP->_X - _X, pMYSHIP->_Y - _Y, pMYSHIP->_Z - _Z, target_RzRy_Rz, target_RzRy_Ry);
+            angle target_RyRz_Ry, target_RyRz_Rz;
+            GgafDx9Util::convRzRyToRyRz(target_RzRy_Rz, target_RzRy_Ry, target_RyRz_Ry, target_RyRz_Rz);
+            GgafDx9Util::getWayAngle2D(target_RyRz_Ry, way, 10000, paAngWay);
+            GgafDx9DrawableActor* pActor;
+            for (int i = 0; i < way; i++) {
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng_by_RyRz(paAngWay[i], target_RyRz_Rz);
+                    pActor->setGeometry(this);
+                    pActor->activate();
+                }
+            }
+            DELETEARR_IMPOSSIBLE_NULL(paAngWay);
+            //ショット発射エフェクト
+            if (_pDispatcher_ShotEffect) {
+                pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
+                if (pActor) {
+                    pActor->setGeometry(_X, _Y, _Z);
+                }
+            }
+        }
+
     }
 
     _pMover->behave();
@@ -163,5 +180,6 @@ void EnemyTamago01::onInactive() {
 }
 
 EnemyTamago01::~EnemyTamago01() {
+    _pDispatcherCon->close();
     DELETE_POSSIBLE_NULL(_pProgram_Tamago01Move);
 }

@@ -20,6 +20,7 @@ public:
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
 
+    DispatcherConnection* _pDispatcherCon;
 
 
     /**

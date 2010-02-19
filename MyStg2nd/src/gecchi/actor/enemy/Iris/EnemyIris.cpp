@@ -63,18 +63,19 @@ void EnemyIris::processBehavior() {
         if (_pDispatcher_Shot) {
             //放射状ショット発射
             int way = 5+5*_RANK_;
-            angle* aAngWay = new angle[way];
-            GgafDx9Util::getRadiationAngle2D(0, way, aAngWay);
+            angle* paAngWay = new angle[way];
+            GgafDx9Util::getRadiationAngle2D(0, way, paAngWay);
             GgafDx9DrawableActor* pActor;
             for (int i = 0; i < way; i++) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    pActor->_pMover->setRzRyMvAng(-ANGLE180 + aAngWay[i], ANGLE90);
+                    pActor->_pMover->setRzRyMvAng(-ANGLE180 + paAngWay[i], ANGLE90);
                     pActor->activate();
                 }
             }
+            DELETEARR_IMPOSSIBLE_NULL(paAngWay);
             //ショット発射エフェクト
             if (_pDispatcher_ShotEffect) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
