@@ -473,11 +473,18 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
                                 angle& out_d_angRz, angle& out_d_angRy,
                                 angle& out_target_angRz, angle& out_target_angRy);
     /**
-     * 緯度経度指定で移動方向を設定。.
+     * 移動方向(RzRy)を設定。.
      * @param prm_angRz
      * @param prm_angRy
      */
     void setRzRyMvAng(angle prm_angRz, angle prm_angRy);
+
+    /**
+     *  移動方向(RzRy)を、RyRzで設定。
+     * @param prm_angRy
+     * @param prm_angRz
+     */
+    void setRzRyMvAng_by_RyRz(angle prm_angRy, angle prm_angRz);
 
     /**
      * 目標座標指定で移動方角を設定。.

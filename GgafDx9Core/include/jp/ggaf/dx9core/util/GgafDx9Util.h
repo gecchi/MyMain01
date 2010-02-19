@@ -171,7 +171,7 @@ public:
      */
     static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
 
-    static void convRyRzToRzRy(angle prm_Ry, angle prm_Rz, angle& out_Rz, angle& out_Ry);
+    static void convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz);
 
 //    static void getWayAngle_LinedRzLongitude(angle prm_angCenterRz, angle prm_angCenterRy,
 //                                           int prm_nWay, angle prm_angClearance,

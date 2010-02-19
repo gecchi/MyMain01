@@ -287,13 +287,11 @@ void GgafDx9Util::getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* o
     }
 }
 
-void GgafDx9Util::convRyRzToRzRy(angle prm_Ry, angle prm_Rz, angle& out_Rz, angle& out_Ry) {
-    angle rz = prm_Ry;
-    angle ry = prm_Rz;
+void GgafDx9Util::convRzRyToRyRz(angle prm_Rz, angle prm_Ry, angle& out_Ry, angle& out_Rz) {
     float vx,vy,vz;
-    getNormalizeVectorZY(rz, ry, vx, vy, vz);
-    getRzRyAng(vx, -vz, vy, out_Rz, out_Ry); //‚X‚O“xX²‰ñ“]
-    //TODO:ŒŸØ
+    getNormalizeVectorZY(prm_Rz, prm_Ry , vx, vy, vz);
+    getRzRyAng(vx, vz, -1.0f*vy, out_Ry, out_Rz ); //-‚X‚O“xX²‰ñ“]RzRy“ü‚ê‘Ö‚¦
+    out_Rz = ANGLE360-out_Rz; //Y²‚ğZ²l‚¦‚é‚½‚ßA³•‰‚ª•Ï‚í‚é‹t‰ñ“]360‚©‚çˆø‚­
 }
 
 
