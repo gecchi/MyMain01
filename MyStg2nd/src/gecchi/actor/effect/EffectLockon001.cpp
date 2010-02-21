@@ -14,18 +14,18 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
 }
 
 void EffectLockOn001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 15);   //アニメ範囲を０～１５
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 3); //アニメ順序
+    _pUvFlipper->forcePtnNoRange(0, 3);   //アニメ範囲を０～１５
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //アニメ順序
 
 }
 
 void EffectLockOn001::onActive() {
     _pUvFlipper->resetPtnNo();
     setAlpha(0.01);
-    _pScaler->forceScaleRange(5000, 1000); //スケーリング・範囲
-    _pScaler->setScale(5000);
-    _pScaler->intoTargetScaleLinerUntil(1000, 60);//スケーリング・60F費やして1000に縮小
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
+    _pScaler->forceScaleRange(20000, 1000); //スケーリング・範囲
+    _pScaler->setScale(20000);
+    _pScaler->intoTargetScaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
+    _pMover->setFaceAngVelo(AXIS_Z, 2000);        //回転
 }
 
 void EffectLockOn001::processBehavior() {

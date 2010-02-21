@@ -1,9 +1,9 @@
 xof 0303txt 0032
 
 SpriteDef LockOn001 {
-   64.0;
-   64.0;
-   "SPRITE.dds";
-   6;
-   6;
+   128.0;
+   128.0;
+   "LockOn001.png";
+   2;
+   2;
 } 
