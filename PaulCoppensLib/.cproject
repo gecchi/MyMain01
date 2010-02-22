@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?fileVersion 4.0.0?>
 
 <cproject storage_type_id="org.eclipse.cdt.core.XmlProjectDescriptionStorage">
@@ -18,7 +18,7 @@
 </extensions>
 </storageModule>
 <storageModule moduleId="cdtBuildSystem" version="4.0.0">
-<configuration artifactExtension="a" artifactName="PaulCoppensLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug,org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.lib.debug.747441517" name="DebugCdt" parent="cdt.managedbuild.config.gnu.mingw.lib.debug">
+<configuration artifactExtension="a" artifactName="PaulCoppensLib" buildArtefactType="org.eclipse.cdt.build.core.buildArtefactType.staticLib" buildProperties="org.eclipse.cdt.build.core.buildArtefactType=org.eclipse.cdt.build.core.buildArtefactType.staticLib,org.eclipse.cdt.build.core.buildType=org.eclipse.cdt.build.core.buildType.debug" cleanCommand="rm -rf" description="" id="cdt.managedbuild.config.gnu.mingw.lib.debug.747441517" name="DebugCdt" parent="cdt.managedbuild.config.gnu.mingw.lib.debug">
 <folderInfo id="cdt.managedbuild.config.gnu.mingw.lib.debug.747441517." name="/" resourcePath="">
 <toolChain id="cdt.managedbuild.toolchain.gnu.mingw.lib.debug.1807367144" name="MinGW GCC" superClass="cdt.managedbuild.toolchain.gnu.mingw.lib.debug">
 <targetPlatform id="cdt.managedbuild.target.gnu.platform.mingw.lib.debug.1221829158" name="デバッグ・プラットフォーム" superClass="cdt.managedbuild.target.gnu.platform.mingw.lib.debug"/>
@@ -33,6 +33,7 @@
 <option id="gnu.cpp.compiler.option.include.paths.1504785282" name="インクルード・パス (-I)" superClass="gnu.cpp.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 </option>
 <option id="gnu.cpp.compiler.option.warnings.allwarn.629469671" name="すべての警告 (-Wall)" superClass="gnu.cpp.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
 <option id="gnu.cpp.compiler.option.warnings.nowarn.1358352091" name="すべての警告を禁止 (-w)" superClass="gnu.cpp.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
@@ -44,6 +45,7 @@
 <option id="gnu.c.compiler.option.include.paths.283448818" name="インクルード・パス (-I)" superClass="gnu.c.compiler.option.include.paths" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 </option>
 <option id="gnu.c.compiler.option.warnings.nowarn.1948337406" name="すべての警告を禁止 (-w)" superClass="gnu.c.compiler.option.warnings.nowarn" value="true" valueType="boolean"/>
 <option id="gnu.c.compiler.option.warnings.allwarn.988805975" name="すべての警告 (-Wall)" superClass="gnu.c.compiler.option.warnings.allwarn" value="false" valueType="boolean"/>
