@@ -21,6 +21,7 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
     EffectLockOn001* _pEffectLockOn;
+    EffectLockOn001_Release* _pEffectLockOn_Release;
 
     LaserChipDispatcher* _pLaserChipDispatcher;
     GgafDx9Core::GgafDx9SeConnection* _pSeCon_Laser;

@@ -41,6 +41,8 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
     _pEffectLockOn = NEW EffectLockOn001("EffectLockOn001");
     addSubGroup(_pEffectLockOn);
+    _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
+    addSubGroup(_pEffectLockOn_Release);
 
     _is_flapping = false;
     _pLockOnTarget = NULL;
@@ -298,6 +300,10 @@ void MyOption::processBehavior() {
         }
 
     } else {
+        if (_pEffectLockOn->isActive()) {
+            _pEffectLockOn_Release->setGeometry(_pEffectLockOn);
+            _pEffectLockOn_Release->activate();
+        }
        _pEffectLockOn->inactivate();
     }
 
