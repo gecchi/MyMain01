@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <?fileVersion 4.0.0?>
 
 <cproject>
@@ -34,6 +34,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/CustomizeVorbis_static/lib}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/MyStg2nd}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
@@ -57,6 +58,7 @@
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/PaulCoppensLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/IkdLib/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9Core/include}&quot;"/>
+<listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafCore/MSVC_include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/GgafDx9LibStg/include}&quot;"/>
 <listOptionValue builtIn="false" value="&quot;${DXSDK_DIR}Include&quot;"/>
 </option>
