@@ -58,6 +58,7 @@
 #else
 #include "sal.h"
 #endif
+
 //自分用デバッグビルド(コメントを外せば使用可能)
 #define MY_DEBUG 1
 
