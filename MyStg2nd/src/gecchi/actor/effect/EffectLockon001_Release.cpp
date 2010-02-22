@@ -21,16 +21,16 @@ void EffectLockOn001_Release::initialize() {
 void EffectLockOn001_Release::onActive() {
     setAlpha(_pEffectLockOn001->getAlpha());
     _pUvFlipper->copyStatesFrom(_pEffectLockOn001->_pUvFlipper);
-    _pScaler->forceScaleRange(20000, 1000); //スケーリング・範囲
+    _pScaler->forceScaleRange(4000, 1000); //スケーリング・範囲
     _pScaler->setScale(_pEffectLockOn001->_pScaler->_scale[0]);
-    _pScaler->intoTargetScaleLinerUntil(20000, 60);//スケーリング
+    _pScaler->intoTargetScaleLinerUntil(4000, 50);//スケーリング
     _pMover->setFaceAng(AXIS_Z, _pEffectLockOn001->_pMover->_angFace[AXIS_Z]);
-    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockOn001->_pMover->_angveloFace[AXIS_Z]);        //回転
+    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockOn001->_pMover->_angveloFace[AXIS_Z]*-3);        //回転
 }
 
 void EffectLockOn001_Release::processBehavior() {
-    addAlpha(-0.01);
-    if (_pScaler->_method[0] == NOSCALE) {
+    addAlpha(-0.03);
+    if (_fAlpha < 0.0f || getPartFrame() > 60) {
         inactivate();
     }
     _pUvFlipper->behave();

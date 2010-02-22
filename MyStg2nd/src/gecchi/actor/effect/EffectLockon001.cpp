@@ -22,8 +22,8 @@ void EffectLockOn001::initialize() {
 void EffectLockOn001::onActive() {
     _pUvFlipper->resetPtnNo();
     setAlpha(0.01);
-    _pScaler->forceScaleRange(20000, 1000); //スケーリング・範囲
-    _pScaler->setScale(20000);
+    _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
+    _pScaler->setScale(30000);
     _pScaler->intoTargetScaleLinerUntil(1000, 30);//スケーリング・60F費やして1000に縮小
     _pMover->setFaceAngVelo(AXIS_Z, 1000);        //回転
 }
