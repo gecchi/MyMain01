@@ -44,6 +44,19 @@ public:
 
     virtual ~GgafDx9UvFlipper();
 
+
+    void copyStatesFrom(GgafDx9UvFlipper* prm_pUvFlipper_Other) {
+        _tex_width             = prm_pUvFlipper_Other->_tex_width;
+        _tex_height            = prm_pUvFlipper_Other->_tex_height;
+        _tex_col_num           = prm_pUvFlipper_Other->_tex_col_num;
+        _pattno_uvflip_now     = prm_pUvFlipper_Other->_pattno_uvflip_now;
+        _pattno_uvflip_top     = prm_pUvFlipper_Other->_pattno_uvflip_top;
+        _pattno_uvflip_bottom  = prm_pUvFlipper_Other->_pattno_uvflip_bottom;
+        _frame_uvflip_interval = prm_pUvFlipper_Other->_frame_uvflip_interval;
+        _uvflip_method         = prm_pUvFlipper_Other->_uvflip_method;
+        _is_reverse_order_in_oscillate_animation_flg =
+                prm_pUvFlipper_Other->_is_reverse_order_in_oscillate_animation_flg;
+    }
     /**
      * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。
      * ＜例＞
