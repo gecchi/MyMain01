@@ -27,7 +27,8 @@ public:
     /** レーザーチップ連続未取得カウント(読み取り専用) */
     int _num_interval_frame_count;
 
-
+    /** 弾切れに移行するチップの連続取得数。（読み書き可／デフォルト：addSubLast()完了後 _num_chip_max と同じになっている。 */
+    int _num_continual_employ_max;
     /** 弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
     /** レーザーチップ発射時SE（読み書き可／デフォルト=NULL） */

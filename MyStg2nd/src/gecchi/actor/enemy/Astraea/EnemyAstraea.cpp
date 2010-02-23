@@ -23,18 +23,19 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     }
     _paWayRz = NEW angle[_laser_way];
     _paWayRy = NEW angle[_laser_way];
-    EnemyAstraeaLaserChip001* pChip;
+//    EnemyAstraeaLaserChip001* pChip;
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
-            _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
-            for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
-                stringstream name;
-                name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
-                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
-                _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
-            }
-            addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
+            _papapLaserChipDispatcher[i][j] = NULL;
+//            _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
+//            for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
+//                stringstream name;
+//                name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
+//                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
+//                _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
+//            }
+//            addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
         }
     }
     prepareSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
@@ -154,6 +155,21 @@ void EnemyAstraea::processBehavior() {
                 if (i == 0 && j == 0) {
                     playSe1(); //発射音
                 }
+
+                if (_papapLaserChipDispatcher[i][j] == NULL) {
+                    GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
+                    if (p != NULL) {
+                        _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
+                    }
+                }
+                if (_papapLaserChipDispatcher[i][j] == NULL) {
+                    continue;
+                } else {
+                    _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
+                    _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
+                    _papapLaserChipDispatcher[i][j]->activate();
+
+                }
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
                     pLaserChip->activate();
@@ -170,7 +186,6 @@ void EnemyAstraea::processBehavior() {
 //                                                               0,0, TURN_CLOSE_TO);
 
                     pLaserChip->_pMover->behave();
-
                 }
             }
         }
@@ -240,10 +255,17 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-    //レーザーは遅れて開放させるように、動きを継続させるため移動
-    GgafGroupActor* pGroup = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
-    pGroup->sayonara(60 * 5);//解放予約
-    getLordActor()->addSubLast(pGroup->becomeIndependent());
+//    //レーザーは遅れて開放させるように、動きを継続させるため移動
+//    GgafGroupActor* pGroup = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
+//    pGroup->sayonara(60 * 5);//解放予約
+//    getLordActor()->addSubLast(pGroup->becomeIndependent());
+    for (int i = 0; i < _laser_way; i++) {
+        for (int j = 0; j < _laser_way; j++) {
+            if (_papapLaserChipDispatcher[i][j]) {
+                _papapLaserChipDispatcher[i][j]->inactivateAfter(60);
+            }
+        }
+    }
     sayonara();
 }
 

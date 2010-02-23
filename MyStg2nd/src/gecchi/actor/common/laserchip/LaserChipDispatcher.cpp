@@ -16,13 +16,14 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
     _frame_of_behaving_prev_employ = 0;
     _pSeConnection = NULL;
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
+    _num_continual_employ_max = _num_chip_max;
 }
 
 void LaserChipDispatcher::processBehavior() {
 }
 
 LaserChip* LaserChipDispatcher::employ() {
-    if (_num_continual_employ_count > _num_chip_max) { //_num_chip_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
+    if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_max連続発射時、弾切れにする(_num_interval_frame_countをリセット)。
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
         _frame_of_behaving_prev_employ = 0;
@@ -78,6 +79,7 @@ LaserChip* LaserChipDispatcher::employ() {
 
 void LaserChipDispatcher::addSubLast(LaserChip* prm_pLaserChip) {
     _num_chip_max ++;
+    _num_continual_employ_max++;
     prm_pLaserChip->_pDispatcher = this;
     GgafActorDispatcher::addSubLast(prm_pLaserChip);
 }

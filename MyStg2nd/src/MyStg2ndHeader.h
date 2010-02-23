@@ -150,6 +150,7 @@ class HomingLaserChip;
 class StraightLaserChip;
 class RefractionLaserChip;
 class LaserChipDispatcher;
+class LaserChipDispatcherDispatcher;
 class Shot001;
 class Shot002;
 class MyCurveLaserChip001;
@@ -250,6 +251,7 @@ class Formation001;
 #include "gecchi/actor/common/laserchip/StraightLaserChip.h"
 #include "gecchi/actor/common/laserchip/RefractionLaserChip.h"
 #include "gecchi/actor/common/laserchip/LaserChipDispatcher.h"
+#include "gecchi/actor/common/laserchip/LaserChipDispatcherDispatcher.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
 

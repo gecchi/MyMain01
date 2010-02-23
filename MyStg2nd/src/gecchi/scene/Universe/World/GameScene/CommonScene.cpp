@@ -29,12 +29,33 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //Effect EffectExplosion001
         _pDispatcher_EffectExplosion001 = NEW GgafActorDispatcher("RotExplo001");
         EffectExplosion001* pEffectExplosion;
-        for (int i = 0; i < 512; i++) { //ストック100個
+        for (int i = 0; i < 256; i++) { //ストック100個
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
             pEffectExplosion->inactivateTreeImmediately(); //最初非表示
             _pDispatcher_EffectExplosion001->addSubLast(pEffectExplosion);
         }
-        getLordActor()->addSubGroup(KIND_EFFECT, _pDispatcher_EffectExplosion001);
+        getLordActor()->addSubGroup(_pDispatcher_EffectExplosion001);
+    }
+
+    {
+        _pDispatcher_LaserChipDispatcher = NEW GgafActorDispatcher("LCDD");
+        LaserChipDispatcher* pLaserChipDispatcher;
+        EnemyAstraeaLaserChip001* pChip;
+        for (int nLaser = 0; nLaser < 6; nLaser++) {
+            stringstream name;
+            name <<  "LaserChipDispatcher["<<nLaser<<"]";
+            pLaserChipDispatcher = NEW LaserChipDispatcher(name.str().c_str());
+            for (int nChip = 0; nChip < 30; nChip++) {
+                stringstream name;
+                name <<  "EnemyAstraeaLaserChip001["<<nLaser<<"]["<<nChip<<"]";
+                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
+                pChip->inactivateImmediately();
+                pLaserChipDispatcher->addSubLast(pChip);
+            }
+            pLaserChipDispatcher->inactivateImmediately();
+            _pDispatcher_LaserChipDispatcher->addSubLast(pLaserChipDispatcher);
+        }
+        getLordActor()->addSubGroup(_pDispatcher_LaserChipDispatcher);
     }
 
 }
