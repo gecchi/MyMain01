@@ -905,7 +905,6 @@ template<class T>
 void GgafElement<T>::activate() {
     if (_can_live_flg) {
         _is_active_flg_in_next_frame = true;
-        _was_paused_flg_in_next_frame = false;
     }
 }
 
@@ -913,7 +912,6 @@ template<class T>
 void GgafElement<T>::activateTree() {
     if (_can_live_flg) {
         _is_active_flg_in_next_frame = true;
-        _was_paused_flg_in_next_frame = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {
@@ -932,9 +930,7 @@ template<class T>
 void GgafElement<T>::activateImmediately() {
     if (_can_live_flg) {
         _is_active_flg = true;
-        _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
-        _was_paused_flg_in_next_frame = false;
     }
 }
 
@@ -942,9 +938,7 @@ template<class T>
 void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
         _is_active_flg = true;
-        _was_paused_flg = false;
         _is_active_flg_in_next_frame = true;
-        _was_paused_flg_in_next_frame = false;
         if (SUPER::_pSubFirst != NULL) {
             T* pElementTemp = SUPER::_pSubFirst;
             while(true) {

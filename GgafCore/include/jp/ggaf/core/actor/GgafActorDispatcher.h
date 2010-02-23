@@ -66,20 +66,34 @@ public:
      * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
      * 暇なメンバーが居ない場合 NULL が返ります。<BR>
      * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
+     * ＜使用例＞
+     * <code>
+     * GgafMainActor* pActor = pDispatcher->employForce();
+     * if (pActor != NULL) {
+     *     //アクターの初期処理
+     *     //・・・
+     *
+     *     pActor->active();
+     * }
+     *
+     * </code>
      * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorDispatcher::getFreeOne() 子がありません");
+            throwGgafCriticalException("GgafActorDispatcher::employ() 子がありません");
         }
 #endif
         static GgafMainActor* pActor;
         pActor = getSubFirst();
 
         while(true) {
-            if (pActor->isActive() || pActor->_is_active_flg_in_next_frame || pActor->_on_change_to_inactive_flg) {
-                //今活動中、或いは、次フレーム活動予定の場合は見送る
+            if (pActor->_is_active_flg == false &&  pActor->_is_active_flg_in_next_frame == false &&  pActor->_on_change_to_inactive_flg == false) {
+                //pActor->activate(); //activateは呼び元で明示的に行うようにした
+                pActor->moveLast(); //お尻に回す
+                break;//取得！
+            } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
@@ -87,13 +101,37 @@ public:
                     pActor = pActor->getNext();
                     continue;
                 }
-            } else {
-                //pActor->activate(); //activateは呼び元で明示的に行うようにした
-                pActor->moveLast(); //取得！
-                break;
             }
         }
         return pActor;
+    }
+
+    /**
+     * 強制的にアクター取り出し .
+     * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。
+     * 注意：取り出し後、アクターに active() としても、そのアクターが既に
+     * isActive() == true の状態もありうるため、onActive() コールバックは
+     * 呼ばれない可能性がある。
+     * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
+     * しなければいけないかも知れない。
+     * <code>
+     * GgafMainActor* pActor = pDispatcher->employForce();
+     * if (pActor->isActive()) {
+     *     pActor->inactivateImmediately();
+     *     pActor->onInactive();
+     * }
+     * pActor->active();
+     * </code>
+     *
+     * @return
+     */
+    virtual GgafCore::GgafMainActor* employForce() {
+        GgafMainActor* pActor = employ();
+        if (pActor == NULL) {
+            pActor = pActor = getSubFirst();
+        }
+        return pActor;
+
     }
 
     virtual ~GgafActorDispatcher() {
