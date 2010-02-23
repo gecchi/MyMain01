@@ -198,11 +198,11 @@ public:
     /** SEŽ‘Œ¹ */
     GgafDx9Se* _pSe2;
 
-    void prepareSe(int prm_id, char* prm_se_name, int prm_cannel = 1) ;
+    void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
     void playSe(int prm_id);
-    void prepareSe1(char* prm_se_name, int prm_cannel = 0);
+    void prepareSe1(const char* prm_se_name, int prm_cannel = 0);
     void playSe1();
-    void prepareSe2(char* prm_se_name, int prm_cannel = 0);
+    void prepareSe2(const char* prm_se_name, int prm_cannel = 0);
     void playSe2();
 
     /**
