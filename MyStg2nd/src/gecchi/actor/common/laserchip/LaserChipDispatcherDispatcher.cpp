@@ -43,7 +43,7 @@ LaserChipDispatcher* LaserChipDispatcherDispatcher::employ() {
 }
 
 void LaserChipDispatcherDispatcher::addSubLast(LaserChipDispatcher* prm_pDispatcher_LaserChip) {
-    GgafActorDispatcher::addSubLast(prm_pLaserChip);
+    GgafActorDispatcher::addSubLast(prm_pDispatcher_LaserChip);
 }
 
 LaserChipDispatcherDispatcher::~LaserChipDispatcherDispatcher() {

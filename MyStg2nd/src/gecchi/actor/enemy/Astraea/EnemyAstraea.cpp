@@ -23,19 +23,10 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
     }
     _paWayRz = NEW angle[_laser_way];
     _paWayRy = NEW angle[_laser_way];
-//    EnemyAstraeaLaserChip001* pChip;
 
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             _papapLaserChipDispatcher[i][j] = NULL;
-//            _papapLaserChipDispatcher[i][j] = NEW LaserChipDispatcher("RotLaser");
-//            for (int k = 0; k < _laser_length*2; k++) { //_laser_length の２倍分ストック
-//                stringstream name;
-//                name <<  getName() << "'s EnemyAstraeaLaserChip001["<<i<<"]["<<j<<"]-"<<k<<"";
-//                pChip = NEW EnemyAstraeaLaserChip001(name.str().c_str());
-//                _papapLaserChipDispatcher[i][j]->addSubLast(pChip);
-//            }
-//            addSubGroup(_papapLaserChipDispatcher[i][j]); //仮所属
         }
     }
     prepareSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
@@ -48,11 +39,6 @@ void EnemyAstraea::initialize() {
     _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
     _pMover->setMvVelo(0);
     _pMover->relateRzRyFaceAngToMvAng(true);
-//    for (int i = 0; i < _laser_way; i++) {
-//        for (int j = 0; j < _laser_way; j++) {
-//            getLordActor()->addSubGroup(KIND_ENEMY_SHOT_NOMAL, _papapLaserChipDispatcher[i][j]->becomeIndependent()); //本所属
-//        }
-//    }
 }
 
 
@@ -152,39 +138,32 @@ void EnemyAstraea::processBehavior() {
         for (int i = 0; i < _laser_way; i++) {
 
             for (int j = 0; j < _laser_way; j++) {
-                if (i == 0 && j == 0) {
-                    playSe1(); //発射音
-                }
+
 
                 if (_papapLaserChipDispatcher[i][j] == NULL) {
                     GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
-                    if (p != NULL) {
+                    if (p == NULL) {
+                        //レーザーセットは借入出来ない
+                        continue;
+                    } else {
                         _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
+                        _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
+                        _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
+                        _papapLaserChipDispatcher[i][j]->activate();
+                    }
+                } else {
+                    if (i == 0 && j == 0) {
+                        playSe1(); //発射音
                     }
                 }
-                if (_papapLaserChipDispatcher[i][j] == NULL) {
-                    continue;
-                } else {
-                    _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
-                    _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
-                    _papapLaserChipDispatcher[i][j]->activate();
 
-                }
                 pLaserChip = (EnemyAstraeaLaserChip001*)_papapLaserChipDispatcher[i][j]->employ();
                 if (pLaserChip != NULL) {
                     pLaserChip->activate();
-//                    _TRACE_("Dispatcher employ()!!"<<(pLaserChip->getName())<<"/_is_active_flg_in_next_frame="<<_is_active_flg_in_next_frame<<
-//                                                                              "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
-//                                                                              "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
-//                                                                              "/_is_active_flg="<<_is_active_flg);
                     pLaserChip->setGeometry(this);
                     pLaserChip->_pMover->setRzRyMvAng(_paWayRz[i], _paWayRy[j]);
                     pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
                     pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
-//                    //とりあえずまっすぐ飛ばす、しかし、ターゲットは保存したいのでここで角速度０でたーげっと。
-//                    pLaserChip->_pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
-//                                                               0,0, TURN_CLOSE_TO);
-
                     pLaserChip->_pMover->behave();
                 }
             }
@@ -196,15 +175,7 @@ void EnemyAstraea::processBehavior() {
 
 void EnemyAstraea::processJudgement() {
     if (isOutOfGameSpace()) {
-
         inactivate();
-//        for (int i = 0; i < _laser_way; i++) {
-//            for (int j = 0; j < _laser_way; j++) {
-//                if (_papapLaserChipDispatcher[i][j]) { //弾解放予約
-//                    _papapLaserChipDispatcher[i][j]->sayonara(60 * 5);
-//                }
-//            }
-//        }
     }
 }
 
@@ -221,31 +192,6 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     } else {
 
     }
-
-
-
-//    GgafDx9GeometricActor* pOtherActor = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    setHitAble(false);
-//    playSe2();
-//    if (pOtherActor->getGroupActor()->_kind & KIND_MY) {
-//        GameGlobal::_dwScore += _pCollisionChecker->_iScorePoint;
-//    }
-//    _TRACE_(" EnemyAstraea::EnemyAstraea::onHit()  "<<getName()<<" "<<_frame_of_behaving);
-//
-//    //レーザーは遅れて開放させるように、動きを継続させるため移動
-//    GgafGroupActor* pGroup = getSubGroupActor(KIND_ENEMY_SHOT_NOMAL);//解放予約
-//    pGroup->sayonara(60 * 5);
-//    getLordActor()->addSubLast(pGroup->becomeIndependent());
-//
-//    sayonara(); //さよなら
-
-//    for (int i = 0; i < _laser_way; i++) {
-//        for (int j = 0; j < _laser_way; j++) {
-//            if (_papapLaserChipDispatcher[i][j]) { //弾解放予約
-//                _papapLaserChipDispatcher[i][j]->sayonara(60 * 5);
-//            }
-//        }
-//    }
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->activate();
@@ -255,10 +201,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-//    //レーザーは遅れて開放させるように、動きを継続させるため移動
-//    GgafGroupActor* pGroup = getSubGroupActor(_papapLaserChipDispatcher[0][0]->getKind()); //
-//    pGroup->sayonara(60 * 5);//解放予約
-//    getLordActor()->addSubLast(pGroup->becomeIndependent());
+//    //レーザーは遅れてからディスパッチャーに戻す
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipDispatcher[i][j]) {
