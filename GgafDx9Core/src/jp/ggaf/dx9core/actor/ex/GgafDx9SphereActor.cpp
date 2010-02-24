@@ -29,7 +29,9 @@ void GgafDx9SphereActor::drawSphere(int prm_x, int prm_y, int prm_z, int prm_r) 
     _X = prm_x;
     _Y = prm_y;
     _Z = prm_z;
-    processPreJudgement();
+    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
     processDraw();
 }
 

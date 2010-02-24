@@ -22,7 +22,7 @@ public:
      */
     GgafDx9Checker(GgafDx9GeometricActor* prm_pActor);
 
-    virtual void updateHitArea()=0;
+    virtual void updateHitArea() = 0;
 
     //virtual void draw();
 
@@ -33,9 +33,7 @@ public:
         return _pActor;
     }
 
-    virtual bool isHit(GgafDx9Checker* prm_pOtherChecker) {
-        return false;
-    }
+    virtual bool isHit(GgafDx9Checker* prm_pOtherChecker) = 0;
 
     virtual ~GgafDx9Checker();
 };

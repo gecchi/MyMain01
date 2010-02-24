@@ -12,7 +12,7 @@ GgafDx9Model::GgafDx9Model(char* prm_model_name) : GgafObject() {
     _paD3DMaterial9_default = NULL;
     _dwNumMaterials = 0;
     _papTextureCon = NULL;
-    _bounding_sphere_radius = 0;
+    _fBoundingSphereRadius = 0;
     _fPowerBlink = -1.0f;
     _fBlinkThreshold = 1.1f;
     _frame_blinker = 0;

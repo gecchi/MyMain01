@@ -19,8 +19,7 @@ private:
      * @return
      */
     int isOffscreen() override {
-        _offscreenkind = 0;
-        return _offscreenkind;
+        return 0;
     }
 
     /**

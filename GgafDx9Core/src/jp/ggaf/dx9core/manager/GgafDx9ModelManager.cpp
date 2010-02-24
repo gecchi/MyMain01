@@ -226,8 +226,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
                                                  model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
-            if (prm_pMeshModel->_bounding_sphere_radius < dis) {
-                prm_pMeshModel->_bounding_sphere_radius = dis;
+            if (prm_pMeshModel->_fBoundingSphereRadius < dis) {
+                prm_pMeshModel->_fBoundingSphereRadius = dis;
             }
         }
 
@@ -804,8 +804,8 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
                                                          model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
                                                          model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
-                    if (prm_pMorphMeshModel->_bounding_sphere_radius < dis) {
-                        prm_pMorphMeshModel->_bounding_sphere_radius = dis;
+                    if (prm_pMorphMeshModel->_fBoundingSphereRadius < dis) {
+                        prm_pMorphMeshModel->_fBoundingSphereRadius = dis;
                     }
                 }
             } else {
@@ -1665,7 +1665,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     FLOAT dis = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                paVertex[0].y * paVertex[0].y +
                                                paVertex[0].z * paVertex[0].z));
-    prm_pSpriteModel->_bounding_sphere_radius = dis;
+    prm_pSpriteModel->_fBoundingSphereRadius = dis;
 
 
     //バッファ作成
@@ -1877,7 +1877,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         FLOAT dis = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                    paVertex[0].y * paVertex[0].y +
                                                    paVertex[0].z * paVertex[0].z));
-        prm_pSpriteSetModel->_bounding_sphere_radius = dis;
+        prm_pSpriteSetModel->_fBoundingSphereRadius = dis;
 
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -2499,8 +2499,8 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             dis = (FLOAT)(GgafDx9Util::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
                                                  unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
                                                  unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
-            if (prm_pMeshSetModel->_bounding_sphere_radius < dis) {
-                prm_pMeshSetModel->_bounding_sphere_radius = dis;
+            if (prm_pMeshSetModel->_fBoundingSphereRadius < dis) {
+                prm_pMeshSetModel->_fBoundingSphereRadius = dis;
             }
         }
 

@@ -14,32 +14,32 @@ class GgafDx9DrawableActor : public GgafDx9GeometricActor {
 
 private:
 
-public:
-    /** 同一描画レベルの次のアクター */
-    GgafDx9DrawableActor* _pNext_TheSameDrawDepthLevel;
-
-
-    /** α (0.0 <= _fAlpha <= 1.0) */
-    float _fAlpha;
-
-    char* _technique;
     char* _technique_temp;
     DWORD _frame_temp_technique;
-    unsigned int _hash_technique;
     unsigned int _hash_technique_temp;
     bool _is_temp_technique;
-
-    static unsigned int _hash_technique_last_draw;
-
-    /** マテリアル配列 */
-    D3DMATERIAL9* _paD3DMaterial9;
     /** モデル資源接続 */
     GgafDx9ModelConnection* _pGgafDx9ModelCon;
-    /** モデル資源 */
-    GgafDx9Model* _pGgafDx9Model;
     /** エフェクト資源接続 */
     GgafDx9EffectConnection* _pGgafDx9EffectCon;
-    /** エフェクト資源 */
+
+public:
+    /** 直近の描画時に使用されたテクニック名のハッシュコード */
+    static unsigned int _hash_technique_last_draw;
+
+    /** 同一描画レベルの次のアクター */
+    GgafDx9DrawableActor* _pNext_TheSameDrawDepthLevel;
+    /** [r]現在のマテリアルのα値 (0.0 <= _fAlpha <= 1.0) */
+    float _fAlpha;
+    /** [r]現在描画に使用しているシェーダーテクニック名 */
+    char* _technique;
+    /** [r]現在描画に使用しているのシェーダーテクニックのハッシュコード */
+    unsigned int _hash_technique;
+    /** [r]現在のマテリアルカラー */
+    D3DMATERIAL9* _paD3DMaterial9;
+    /** [r]モデル資源 */
+    GgafDx9Model* _pGgafDx9Model;
+    /** [r]エフェクト資源 */
     GgafDx9Effect* _pGgafDx9Effect;
 
 

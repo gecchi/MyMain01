@@ -20,8 +20,7 @@ private:
      * @return
      */
     virtual int isOffscreen() {
-        _offscreenkind = 0;
-        return _offscreenkind;
+        return 0;
     }
     /**
      * Žg‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride

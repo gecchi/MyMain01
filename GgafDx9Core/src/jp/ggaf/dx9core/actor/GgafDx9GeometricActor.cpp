@@ -13,7 +13,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _SX = _SY = _SZ = LEN_UNIT;
     _x = _y = _z = 0.0f;
 
-    _bounding_sphere_radius = 0;
+    _fBoundingSphereRadius = 0;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
 
@@ -28,37 +28,39 @@ void GgafDx9GeometricActor::processPreJudgement() {
         _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
         _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
 
-        _fDistance_plnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnTop.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnTop.d;
+        _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnTop.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnTop.d;
 
-        _fDistance_plnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnBottom.d;
+        _fDist_VpPlnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnBottom.d;
 
-        _fDistance_plnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnLeft.d;
+        _fDist_VpPlnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnLeft.d;
 
-        _fDistance_plnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnRight.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnRight.d;
+        _fDist_VpPlnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnRight.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnRight.d;
 
-        _fDistance_plnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnFront.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnFront.d;
+        _fDist_VpPlnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnFront.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnFront.d;
 
-        _fDistance_plnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
-                               GgafDx9Universe::_pCamera->_plnBack.b*_fY +
-                               GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
-                               GgafDx9Universe::_pCamera->_plnBack.d;
+        _fDist_VpPlnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnBack.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnBack.d;
         _offscreenkind = -1;
     }
+
+    //８分木登録
     if (_pChecker) {
         _pChecker->updateHitArea();
     }
@@ -80,9 +82,9 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 
         //本来は↑のようにdynamic_castするのが汎用的かつ安全。しかし、速度UPのため（dynamic_castを省きたいがため）に、
         //GgafDx9GeometricActorに決め打ちキャストしています。危険です。
-        //一応_can_hit_flg を忘れずにfalseにすることによって、ここの引数にGgafDx9GeometricActorに
-        //キャストできないポインタは来ないよう なっています。
-        //万が一来たら・・・その時にまた考える。
+        //座標を持たないアクターの_can_hit_flg を忘れずにfalseにすることによって、ここの引数にGgafDx9GeometricActorに
+        //キャストできないポインタは来ないハズである。
+        //もし、万が一来たら・・・たぶん落ちる。その時にまた考える。
         //何かおかしいとおもったらここが怪しいかもしれない。潜在的なバグの可能性あり。
         //TODO:考える。
         return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
@@ -90,17 +92,15 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 }
 
 
-
-
 int GgafDx9GeometricActor::isOffscreen() {
-    //_TRACE_("name="<<getName()<<" _bounding_sphere_radius="<<_bounding_sphere_radius);
+    //_TRACE_("name="<<getName()<<" _fBoundingSphereRadius="<<_fBoundingSphereRadius);
     if (_offscreenkind == -1) {
-        if ( _fDistance_plnTop <= _bounding_sphere_radius) {
-            if ( _fDistance_plnBottom <= _bounding_sphere_radius) {
-                if ( _fDistance_plnLeft <= _bounding_sphere_radius) {
-                    if ( _fDistance_plnRight <= _bounding_sphere_radius) {
-                        if ( _fDistance_plnFront <= _bounding_sphere_radius) {
-                            if ( _fDistance_plnBack <= _bounding_sphere_radius) {
+        if ( _fDist_VpPlnTop <= _fBoundingSphereRadius) {
+            if ( _fDist_VpPlnBottom <= _fBoundingSphereRadius) {
+                if ( _fDist_VpPlnLeft <= _fBoundingSphereRadius) {
+                    if ( _fDist_VpPlnRight <= _fBoundingSphereRadius) {
+                        if ( _fDist_VpPlnFront <= _fBoundingSphereRadius) {
+                            if ( _fDist_VpPlnBack <= _fBoundingSphereRadius) {
                                 //Viewport範囲内
                                 _offscreenkind = 0;
                             } else {
@@ -150,14 +150,9 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
 }
 
 
-
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
-    //if (_pChecker) {
-    //    DELETE_IMPOSSIBLE_NULL(_pChecker);
-    //}
     DELETE_IMPOSSIBLE_NULL(_pMover);
 }
-
 
 
 void GgafDx9GeometricActor::dump() {
@@ -200,6 +195,4 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
         }
     }
 }
-
-
 
