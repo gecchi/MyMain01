@@ -475,7 +475,7 @@ void MyShip::processJudgement() {
         }
     }
     //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
-    //_TRACE_("dep="<< (_fDistance_plnFront)<<"");
+    //_TRACE_("dep="<< (_fDist_VpPlnFront)<<"");
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
