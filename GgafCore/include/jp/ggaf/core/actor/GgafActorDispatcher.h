@@ -128,7 +128,7 @@ public:
     virtual GgafCore::GgafMainActor* employForce() {
         GgafMainActor* pActor = employ();
         if (pActor == NULL) {
-            pActor = pActor = getSubFirst();
+            pActor = getSubFirst();
         }
         return pActor;
 

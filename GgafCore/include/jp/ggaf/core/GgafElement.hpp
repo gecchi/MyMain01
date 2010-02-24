@@ -35,6 +35,12 @@ public:
 
     /** 余命 */
     DWORD _frame_of_life_when_sayonara;
+    /** ノードが誕生(addSubされた）時からのフレーム数総計 */
+    DWORD _frame_of_life;
+    /** ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
+    DWORD _frame_of_behaving;
+    /** ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
+    DWORD _frame_of_behaving_since_onActive;
     /** 相対フレーム計算用 */
     DWORD _frame_relative;
     /** ノード活動フラグ */
@@ -73,12 +79,6 @@ public:
 
 
 
-    /** ノードが誕生(addSubされた）時からのフレーム数総計 */
-    DWORD _frame_of_life;
-    /** ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
-    DWORD _frame_of_behaving;
-    /** ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
-    DWORD _frame_of_behaving_since_onActive;
 
 
     /**
@@ -590,7 +590,7 @@ public:
 ///////////////////////////////////////////////////////////////// ここからは実装部
 
 template<class T>
-GgafElement<T>::GgafElement(const char* prm_name) : SUPER(prm_name),
+GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
             _pGod(NULL), _was_initialize_flg(false), _frame_of_life_when_sayonara(MAXDWORD), _frame_of_life(0), _frame_of_behaving(0),
             _frame_of_behaving_since_onActive(0), _frame_relative(0), _is_active_flg(true), _was_paused_flg(false), _can_live_flg(true),
             _is_active_flg_in_next_frame(true), _was_paused_flg_in_next_frame(false),
