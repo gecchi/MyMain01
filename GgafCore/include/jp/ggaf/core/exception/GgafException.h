@@ -5,7 +5,7 @@ namespace GgafCore {
 /**
  * 本ライブラリ例外
  * @version 1.00
- * @since 2007/11/29
+ * @since 2007/11/14
  * @author Masatoshi Tsuge
  */
 class GgafException : public GgafObject {
