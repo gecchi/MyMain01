@@ -7302,7 +7302,7 @@ void Stage01MainScene::processBehavior() {
 
         _TRACE_("Stage01MainScene::processBehavior はいはいDemoさんありがとう、私も起動しましたよ");
         // 共通シーンを配下に移動
-        addSubLast(GameGlobal::_pSceneCommon->becomeIndependent());
+        addSubLast(GameGlobal::_pSceneCommon->extract());
 
     }
 

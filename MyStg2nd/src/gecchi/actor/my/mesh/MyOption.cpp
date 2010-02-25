@@ -73,7 +73,7 @@ void MyOption::initialize() {
 //    _RYorg = _RY;
 //    _RZorg = _RZ;
 
-    GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->becomeIndependent());
+    GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 
 }
 
