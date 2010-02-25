@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion001") {
     _class_name = "EffectExplosion001";
     chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬TechniqueŽw’è
-    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv);
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScRzBxyzMv);
 }
 
 void EffectExplosion001::initialize() {
@@ -19,7 +19,7 @@ void EffectExplosion001::initialize() {
 }
 
 void EffectExplosion001::onActive() {
-    _pUvFlipper->resetPtnNo();
+    _pUvFlipper->setPtnNoToTop();
     _fAlpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }

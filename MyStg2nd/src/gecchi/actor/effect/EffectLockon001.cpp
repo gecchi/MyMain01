@@ -9,7 +9,7 @@ EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(p
     _class_name = "EffectLockOn001";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
-    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ビルボードRz回転
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScRzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 
@@ -20,7 +20,7 @@ void EffectLockOn001::initialize() {
 }
 
 void EffectLockOn001::onActive() {
-    _pUvFlipper->resetPtnNo();
+    _pUvFlipper->setPtnNoToTop();
     setAlpha(0.01);
     _pScaler->forceScaleRange(30000, 1000); //スケーリング・範囲
     _pScaler->setScale(30000);

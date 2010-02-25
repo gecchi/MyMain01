@@ -9,7 +9,7 @@ EffectLockOn001_Release::EffectLockOn001_Release(const char* prm_name, EffectLoc
     _class_name = "EffectLockOn001_Release";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
-    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ビルボードRz回転
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScRzBxyzMv); //ビルボードRz回転
     _pEffectLockOn001 = prm_pEffectLockOn001;
     setHitAble(false); //当たり判定無し
 }

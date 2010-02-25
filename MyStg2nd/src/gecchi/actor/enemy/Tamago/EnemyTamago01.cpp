@@ -14,6 +14,8 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
     prepareSe2("bomb1");     //”š”­
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
+    _pDispatcher_Shot = _pDispatcherCon->view();
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -33,8 +35,7 @@ void EnemyTamago01::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliSphere(0, 90000);
 
-    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
-    _pDispatcher_Shot = _pDispatcherCon->view();
+
     //_pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
 //    _X = 300000;
 //    _Y = 300000;
@@ -85,7 +86,7 @@ void EnemyTamago01::processBehavior() {
 //        _pGgafDx9Model->_pTextureBlinker->->stopImmediately();
 //    }
 //    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-//        _pGgafDx9Model->_pTextureBlinker->->resetScale();
+//        _pGgafDx9Model->_pTextureBlinker->->setScaleToBottom();
 //    }
 
 

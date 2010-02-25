@@ -243,7 +243,7 @@ void MyShip::processBehavior() {
         _pScaler->stopImmediately();
     }
     if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-        _pScaler->resetScale();
+        _pScaler->setScaleToBottom();
     }
     _pScaler->behave();
 ///////////スケーリングテスト////////////////

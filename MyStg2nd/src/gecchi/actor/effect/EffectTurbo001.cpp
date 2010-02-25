@@ -9,7 +9,7 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) : DefaultSpriteActor(prm_na
     _class_name = "EffectTurbo001";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
-    defineWorldMatrix(GgafDx9Util::calcWorldMatrix_ScRzBBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScRzBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
     setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
@@ -20,7 +20,7 @@ void EffectTurbo001::initialize() {
 }
 
 void EffectTurbo001::onActive() {
-    _pUvFlipper->resetPtnNo();
+    _pUvFlipper->setPtnNoToTop();
     _pMover->setFaceAngVelo(AXIS_Z, 3000);        //‰ñ“]
 }
 

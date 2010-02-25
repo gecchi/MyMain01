@@ -19,7 +19,7 @@ void EffectTurbo002::initialize() {
 }
 
 void EffectTurbo002::onActive() {
-    _pUvFlipper->resetPtnNo();
+    _pUvFlipper->setPtnNoToTop();
     setAlpha(0.99);
     _pScaler->forceScaleRange(100000, 1000); //スケーリング・範囲
     _pScaler->setScale(1000);

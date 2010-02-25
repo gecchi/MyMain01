@@ -89,7 +89,7 @@ void LaserChip::onActive() {
     _pDispatcher->_num_chip_active++;
     //レーザーは、真っ直ぐ飛ぶだけなので、ココで行列をつくり後でdx,dy,dzだけ更新する。
     //計算回数を節約。
-    GgafDx9Util::calcWorldMatrix_RxRzRyScMv(this, _matWorld);
+    GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld);
 //    //??
 //    //TODO: 何でこれを追加したんだっけ？・・・調べる
 //    if (_pChip_front != NULL) {
