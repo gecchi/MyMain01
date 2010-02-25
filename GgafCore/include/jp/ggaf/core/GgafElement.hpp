@@ -2,7 +2,7 @@
 #define GGAFELEMENT_H_
 namespace GgafCore {
 
-#define SUPER GgafCore::GgafNode<T>
+#define GGAF_NODE GgafCore::GgafNode<T>
 
 /**
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
@@ -28,57 +28,54 @@ private:
 protected:
 
 public:
-    /** 神への近道 */
+    /** [r]神への近道 */
     GgafGod* _pGod;
-    /** initializeが行われたどうかのフラグ(true=行われた) */
+    /** [r]initializeが行われたどうかのフラグ(true=行われた) */
     bool _was_initialize_flg;
 
-    /** 余命 */
+    /** [r]余命 */
     DWORD _frame_of_life_when_sayonara;
-    /** ノードが誕生(addSubされた）時からのフレーム数総計 */
+    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計 */
     DWORD _frame_of_life;
-    /** ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
+    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
     DWORD _frame_of_behaving;
-    /** ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
+    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
     DWORD _frame_of_behaving_since_onActive;
-    /** 相対フレーム計算用 */
+    /** [r]相対フレーム計算用 */
     DWORD _frame_relative;
-    /** ノード活動フラグ */
+    /** [r]ノード活動フラグ */
     bool _is_active_flg;
-    /** 一時停止フラグ */
+    /** [r]一時停止フラグ */
     bool _was_paused_flg;
-    /** ノード生存フラグ */
+    /** [r]ノード生存フラグ */
     bool _can_live_flg;
 
-    /** 次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
+    /** [r]次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
     bool _is_active_flg_in_next_frame;
-    /** 次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
+    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
     bool _was_paused_flg_in_next_frame;
-    /** 次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
+    /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
     bool _can_live_flg_in_next_frame;
 
-    /** 先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
+    /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
     bool _will_mv_first_in_next_frame_flg;
-    /** 末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
+    /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
     bool _will_mv_last_in_next_frame_flg;
 
-    /** あとで活動予約フラグ */
+    /** [r]あとで活動予約フラグ */
     bool _will_activate_after_flg;
-    /** 活動開始フレーム */
+    /** [r]活動開始フレーム */
     DWORD _frame_of_life_when_activation;
 
-    /** あとで非活動予約フラグ */
+    /** [r]あとで非活動予約フラグ */
     bool _will_inactivate_after_flg;
-    /** 活動終了フレーム */
+    /** [r]活動終了フレーム */
     DWORD _frame_of_life_when_inactivation;
 
-    /** ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
+    /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
     bool _on_change_to_active_flg;
-    /** ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
+    /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
     bool _on_change_to_inactive_flg;
-
-
-
 
 
     /**
@@ -514,7 +511,7 @@ public:
      * extract() のラッパーで、生存確認のチェック付き。通常はこちらを使用する。
      * @return  T* 脱退し独立した自ノードのポインタ
      */
-    virtual T* becomeIndependent();
+    virtual T* extract() override;
 
 
     /**
@@ -617,7 +614,7 @@ void GgafElement<T>::nextFrame() {
 
     if (_will_mv_last_in_next_frame_flg) {
         _will_mv_last_in_next_frame_flg = false;
-        SUPER::moveLast();
+        GGAF_NODE::moveLast();
     } else {
 
         if(_was_initialize_flg == false) {
@@ -674,8 +671,8 @@ void GgafElement<T>::nextFrame() {
         _is_active_flg   = _is_active_flg_in_next_frame;
         _can_live_flg    = _can_live_flg_in_next_frame;
 
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 if (pElementTemp->_is_last_flg) {
                     pElementTemp->nextFrame();
@@ -684,10 +681,10 @@ void GgafElement<T>::nextFrame() {
                     }
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
-                    pElementTemp->SUPER::_pPrev->nextFrame();
-                    if (pElementTemp->SUPER::_pPrev->_can_live_flg == false) {
-                        GgafFactory::_pGarbageBox->add(pElementTemp->SUPER::_pPrev);
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
+                    pElementTemp->GGAF_NODE::_pPrev->nextFrame();
+                    if (pElementTemp->GGAF_NODE::_pPrev->_can_live_flg == false) {
+                        GgafFactory::_pGarbageBox->add(pElementTemp->GGAF_NODE::_pPrev);
                     }
                 }
             }
@@ -695,7 +692,7 @@ void GgafElement<T>::nextFrame() {
 
         if (_will_mv_first_in_next_frame_flg) {
             _will_mv_first_in_next_frame_flg = false;
-            SUPER::moveFirst();
+            GGAF_NODE::moveFirst();
         }
 
     }
@@ -714,14 +711,14 @@ void GgafElement<T>::behave() {
             _frame_relative = 0;
             processBehavior();    //ユーザー実装用
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->behave();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -740,14 +737,14 @@ void GgafElement<T>::preJudge() {
             _frame_relative = 0;
             processPreJudgement(); //フレームワーク用
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->preJudge();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -767,14 +764,14 @@ void GgafElement<T>::judge() {
             _frame_relative = 0;
             processJudgement();    //ユーザー実装用
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->judge();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -793,14 +790,14 @@ void GgafElement<T>::preDraw() {
             _frame_relative = 0;
             processPreDraw();
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->preDraw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -814,14 +811,14 @@ void GgafElement<T>::draw() {
             _frame_relative = 0;
             //processDraw();
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->draw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -835,14 +832,14 @@ void GgafElement<T>::afterDraw() {
             _frame_relative = 0;
             processAfterDraw();
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->afterDraw();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -861,14 +858,14 @@ void GgafElement<T>::happen(int prm_no) {
             _frame_relative = 0;
             processHappen(prm_no);
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->happen(prm_no);
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -887,14 +884,14 @@ void GgafElement<T>::finally() {
             _frame_relative = 0;
             processFinal();
         }
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->finally();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -912,14 +909,14 @@ template<class T>
 void GgafElement<T>::activateTree() {
     if (_can_live_flg) {
         _is_active_flg_in_next_frame = true;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->activateTree();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -939,14 +936,14 @@ void GgafElement<T>::activateTreeImmediately() {
     if (_can_live_flg) {
         _is_active_flg = true;
         _is_active_flg_in_next_frame = true;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->activateTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -970,14 +967,14 @@ template<class T>
 void GgafElement<T>::inactivateTree() {
     if (_can_live_flg) {
         _is_active_flg_in_next_frame = false;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTree();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1003,14 +1000,14 @@ void GgafElement<T>::inactivateTreeImmediately() {
     if (_can_live_flg) {
         _is_active_flg = false;
         _is_active_flg_in_next_frame = false;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->inactivateTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1022,14 +1019,14 @@ void GgafElement<T>::pauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = true;
         //_is_active_flg = false;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->pauseTree();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1048,14 +1045,14 @@ void GgafElement<T>::pauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = true;
         _was_paused_flg_in_next_frame = true;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->pauseTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1074,14 +1071,14 @@ template<class T>
 void GgafElement<T>::unpauseTree() {
     if (_can_live_flg) {
         _was_paused_flg_in_next_frame = false;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->unpauseTree();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1100,14 +1097,14 @@ void GgafElement<T>::unpauseTreeImmediately() {
     if (_can_live_flg) {
         _was_paused_flg = false;
         _was_paused_flg_in_next_frame = false;
-        if (SUPER::_pSubFirst != NULL) {
-            T* pElementTemp = SUPER::_pSubFirst;
+        if (GGAF_NODE::_pSubFirst != NULL) {
+            T* pElementTemp = GGAF_NODE::_pSubFirst;
             while(true) {
                 pElementTemp->unpauseTreeImmediately();
                 if (pElementTemp->_is_last_flg) {
                     break;
                 } else {
-                    pElementTemp = pElementTemp->SUPER::_pNext;
+                    pElementTemp = pElementTemp->GGAF_NODE::_pNext;
                 }
             }
         }
@@ -1125,14 +1122,14 @@ template<class T>
 void GgafElement<T>::sayonara(DWORD prm_frame_offset) {
 
     _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + 1;
-    if (SUPER::_pSubFirst != NULL) {
-        T* pElementTemp = SUPER::_pSubFirst;
+    if (GGAF_NODE::_pSubFirst != NULL) {
+        T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
             pElementTemp->sayonara(prm_frame_offset);
             if (pElementTemp->_is_last_flg) {
                 break;
             } else {
-                pElementTemp = pElementTemp->SUPER::_pNext;
+                pElementTemp = pElementTemp->GGAF_NODE::_pNext;
             }
         }
     }
@@ -1187,21 +1184,21 @@ bool GgafElement<T>::relativeFrame(DWORD prm_frame_relative) {
 
 
 template<class T>
-T* GgafElement<T>::becomeIndependent() {
+T* GgafElement<T>::extract() {
     if (_can_live_flg) {
-        return SUPER::extract();
+        return GGAF_NODE::extract();
     } else {
-        throwGgafCriticalException("[GgafTreeNode<"<<SUPER::_class_name<<">::becomeIndependent()] ＜警告＞ "<<SUPER::getName()<<"は、いずれ死に行く運命である。");
+        throwGgafCriticalException("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ＜警告＞ "<<GGAF_NODE::getName()<<"は、いずれ死に行く運命である。");
     }
 }
 
 template<class T>
 void GgafElement<T>::cleane(int prm_num_cleaning) {
-    if (SUPER::_pSubFirst == NULL) {
+    if (GGAF_NODE::_pSubFirst == NULL) {
         return;
     }
 
-    T* pElementTemp = SUPER::_pSubFirst->_pPrev;
+    T* pElementTemp = GGAF_NODE::_pSubFirst->_pPrev;
     T* pWk;
 
     while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {

@@ -57,8 +57,8 @@ public:
      * 自ノードに子がぶら下がっていた場合、それらも切り離されたことになります。<BR>
      * @return	自ノードのポインタ
      */
-    virtual GgafMainActor* becomeIndependent() override {
-        return (GgafMainActor*)GgafActor::becomeIndependent();
+    virtual GgafMainActor* extract() override {
+        return (GgafMainActor*)GgafActor::extract();
     }
 
     /**
