@@ -1188,7 +1188,8 @@ T* GgafElement<T>::extract() {
     if (_can_live_flg) {
         return GGAF_NODE::extract();
     } else {
-        throwGgafCriticalException("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ＜警告＞ "<<GGAF_NODE::getName()<<"は、いずれ死に行く運命である。");
+        _TRACE_("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ＜警告＞ "<<GGAF_NODE::getName()<<"は、死んでいます。");
+        return GGAF_NODE::extract();
     }
 }
 
