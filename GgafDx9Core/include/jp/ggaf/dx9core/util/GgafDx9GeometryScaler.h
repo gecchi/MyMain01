@@ -144,9 +144,9 @@ public:
      * 本オブジェクト(GgafDx9GeometryScaler)によって変化さえる前の
      * 初期の大きさに戻す。
      */
-    void resetScale() {
+    void setScaleToBottom() {
         for (int axis = 0; axis < 3; axis++) {
-            resetScale(axis);
+            setScaleToBottom(axis);
         }
     }
     /**
@@ -155,16 +155,16 @@ public:
      * 初期の大きさに戻す。
      * @param prm_axis 軸
      */
-    void resetScale(int prm_axis) {
+    void setScaleToBottom(int prm_axis) {
         _scale[prm_axis] = _bottom_scale[prm_axis];
     }
 
-    void resetScaleTop() {
+    void setScaleToTop() {
         for (int axis = 0; axis < 3; axis++) {
-            resetScaleTop(axis);
+            setScaleToTop(axis);
         }
     }
-    void resetScaleTop(int prm_axis) {
+    void setScaleToTop(int prm_axis) {
         _scale[prm_axis] = _top_scale[prm_axis];
     }
 

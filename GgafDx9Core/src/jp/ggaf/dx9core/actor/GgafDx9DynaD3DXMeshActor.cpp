@@ -22,7 +22,7 @@ GgafDx9DynaD3DXMeshActor::GgafDx9DynaD3DXMeshActor(const char* prm_name,
 
     _pD3DXMeshModel = (GgafDx9D3DXMeshModel*)_pGgafDx9Model;
     _pMeshEffect = (GgafDx9MeshEffect*)_pGgafDx9Effect;
-    _pFunc_calcWorldMatrix = GgafDx9Util::calcWorldMatrix_ScRxRzRyMv;
+    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
 }
 
 void GgafDx9DynaD3DXMeshActor::processDraw() {

@@ -17,7 +17,7 @@ class GgafDx9GeometryMorpher : public GgafCore::GgafObject {
 public:
     /** 対象アクター */
     GgafDx9MorphMeshActor* _pActor;
-
+    float _weight[MAX_MORPH_TARGET+1];
     float _target_weight[MAX_MORPH_TARGET+1];
     float _top_weight[MAX_MORPH_TARGET+1];
     float _bottom_weight[MAX_MORPH_TARGET+1];
@@ -38,7 +38,7 @@ public:
      */
     GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor);
 
-    void forceScaleRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
+    void forceWeightRange(int prm_target_mesh, float prm_weight1, float prm_weight2) {
         if (prm_weight1 < prm_weight2) {
             _top_weight[prm_target_mesh] = prm_weight2;
             _bottom_weight[prm_target_mesh] = prm_weight1;
@@ -47,12 +47,20 @@ public:
             _bottom_weight[prm_target_mesh] = prm_weight2;
         }
     }
-
-    void resetWeight(int prm_target_mesh) {
-        _pActor->_weight[prm_target_mesh] = _bottom_weight[prm_target_mesh];
+    void setWeight(int prm_target_mesh, float prm_weight) {
+        if (_top_weight[prm_target_mesh] < prm_weight) {
+            _weight[prm_target_mesh] = _top_weight[prm_target_mesh];
+        } else if (_bottom_weight[prm_target_mesh] > prm_weight) {
+            _weight[prm_target_mesh] = _bottom_weight[prm_target_mesh];
+        } else {
+            _weight[prm_target_mesh] = prm_weight;
+        }
     }
-    void resetTopWeight(int prm_target_mesh) {
-        _pActor->_weight[prm_target_mesh] = _top_weight[prm_target_mesh];
+    void setWeightToBottom(int prm_target_mesh) {
+        _weight[prm_target_mesh] = _bottom_weight[prm_target_mesh];
+    }
+    void setWeightToTop(int prm_target_mesh) {
+        _weight[prm_target_mesh] = _top_weight[prm_target_mesh];
     }
 
 

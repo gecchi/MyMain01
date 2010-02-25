@@ -36,7 +36,7 @@ void GgafDx9UvFlipper::setPtnNo(int prm_pattno_uvflip) {
     }
 }
 
-void GgafDx9UvFlipper::resetPtnNo() {
+void GgafDx9UvFlipper::setPtnNoToTop() {
     _pattno_uvflip_now = _pattno_uvflip_top;
 }
 

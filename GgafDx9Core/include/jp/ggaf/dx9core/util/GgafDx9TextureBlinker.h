@@ -98,11 +98,11 @@ public:
      * 本オブジェクト(GgafDx9TextureBlinker)によって変化さえる前の
      * 初期の大きさに戻す。
      */
-    void resetBlink() {
+    void setBlinkToBottom() {
         _fPowerBlink = _bottom_fPowerBlink;
     }
 
-    void resetBlinkTop() {
+    void setBlinkToTop() {
         _fPowerBlink = _top_fPowerBlink;
     }
 

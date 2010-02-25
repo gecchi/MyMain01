@@ -421,10 +421,10 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
-    static void calcWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -433,7 +433,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -441,7 +441,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -450,7 +450,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 
     static void updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
@@ -461,7 +461,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -469,7 +469,7 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
      * world変換行列設定 .
@@ -477,9 +477,9 @@ public:
      * @param prm_pActor [in]対象アクター
      * @param out_matWorld [out]world変換行列
      */
-    static void calcWorldMatrix_BBxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
-    static void calcWorldMatrix_ScRzBBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
-    static void calcWorldMatrix_ScMvRxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_ScRzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
+    static void setWorldMatrix_ScMvRxRzRy(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
 };
 
