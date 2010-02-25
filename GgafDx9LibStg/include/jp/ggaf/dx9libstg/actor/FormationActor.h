@@ -14,13 +14,12 @@ class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 private:
     /**
      * サブが無ければ死
-     * ＜OverRide です＞<BR>
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
-            _TRACE_("FormationActor["<<getName()<<" sayonara(5*60)!!!!!!!!!!!!");
+            _TRACE_("FormationActor["<<getName()<<" sayonara("<<_frame_offset_sayonara<<")!!!!!!!!!!!!");
             inactivate();
-            sayonara(20*60);//20秒後開放
+            sayonara(_frame_offset_sayonara);//20秒後開放
         }
     }
 
