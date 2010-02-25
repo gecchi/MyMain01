@@ -2,9 +2,6 @@
 #define ENEMYVESTA_H_
 namespace MyStg2nd {
 
-#define MORPHTARGET_VESTA_HATCH_OPENED 1
-#define VESTA_HATCH_CLOSED      0
-#define VESTA_HATCH_OPENED      4
 /**
  * テスト用 .
  * @version 1.00

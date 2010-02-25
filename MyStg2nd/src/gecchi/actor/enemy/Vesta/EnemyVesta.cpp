@@ -5,6 +5,10 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
+#define MORPHTARGET_VESTA_HATCH_OPENED 1
+#define VESTA_HATCH_CLOSED      0
+#define VESTA_HATCH_OPENED      1
+
 EnemyVesta::EnemyVesta(const char* prm_name)
                        : DefaultMorphMeshActor(prm_name, "1/donatu") {
     _class_name = "EnemyVesta";
