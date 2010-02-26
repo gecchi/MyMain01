@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * モデルインスタンス管理.
- * 主に、モデルをリストにより保持し、モデルを要求された時に<BR>
+ * 主に、モデルをリストにより保持し、モデルが要求された時に<BR>
  * 生成するか、あるいは生成済を返すかを判断します。<BR>
  * TODO:中核とも言えるクラスで肥大化はしかたないが、分割したなぁ。
  * @version 1.00
@@ -15,48 +15,30 @@ class GgafDx9ModelManager : public GgafCore::GgafResourceManager<GgafDx9Model> {
 
 private:
     /** カスタムテンプレートXファイル読み込み用の IDirectXFile のポインタ */
-    IDirectXFile* _pIDirectXFile;
+    IDirectXFile* _pIDirectXFile_sprx;
+    IDirectXFile* _pIDirectXFile_psprx;
     GgafDx9TextureManager* _pTextureManager;
 
-    /**
-     * GgafDx9D3DXMeshModel オブジェクトを生成。 .
-     * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
-     * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
-     */
-    GgafDx9D3DXMeshModel* createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
-
+    GgafDx9D3DXMeshModel*    createD3DXMeshModel(char* prm_model_name, DWORD prm_dwOptions);
     GgafDx9D3DXAniMeshModel* createD3DXAniMeshModel(char* prm_model_name);
+    GgafDx9D3DXMeshModel*    createDynaMeshModel(char* prm_model_name);
+    GgafDx9SpriteModel*      createSpriteModel(char* prm_model_name);
+    GgafDx9SpriteSetModel*   createSpriteSetModel(char* prm_model_name);
+    GgafDx9BoardModel*       createBoardModel(char* prm_model_name);
+    GgafDx9BoardSetModel*    createBoardSetModel(char* prm_model_name);
+    GgafDx9MeshModel*        createMeshModel(char* prm_model_name);
+    GgafDx9MeshSetModel*     createMeshSetModel(char* prm_model_name);
+    GgafDx9MorphMeshModel*   createMorphMeshModel(char* prm_model_name);
+    GgafDx9PointSpriteModel* createPointSpriteModel(char* prm_model_name);
 
     /**
-     * GgafDx9D3DXMeshModel オブジェクトを生成。 .
-     * @param prm_model_name モデル定義の識別名。".x"を追加するとメッシュ定義のXファイル名になる。
-     * @param prm_dwOptions オプション（D3DXLoadMeshFromXの引数になる）
+     * 空間の3点v0 v1 v2 より、直線 v0v1 と v1v2 の成す角(角v1)を求める
+     * @param v0
+     * @param v1
+     * @param v2
+     * @return 成す角(ラディアン)
      */
-    GgafDx9D3DXMeshModel* createDynaMeshModel(char* prm_model_name);
-
-    /**
-     * GgafDx9SpriteModel オブジェクトを生成。 .
-     * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
-     * @param prm_model_name モデル定義の識別名。".sprx"を追加するとスプライト定義のXファイル名になる。
-     */
-    GgafDx9SpriteModel* createSpriteModel(char* prm_model_name);
-
-    GgafDx9SpriteSetModel* createSpriteSetModel(char* prm_model_name);
-
-
-    /**
-     * GgafDx9BoardModel オブジェクトを生成。 .
-     * Xファイルのフォーマットは、カスタムテンプレートXファイルの ggaf_spritemodel_define.x の内容がが使用される<BR>
-     * @param prm_model_name モデル定義の識別名。".sprx"を追加するとスプライト定義のXファイル名になる。
-     */
-    GgafDx9BoardModel* createBoardModel(char* prm_model_name);
-    GgafDx9BoardSetModel* createBoardSetModel(char* prm_model_name);
-
-    GgafDx9MeshModel* createMeshModel(char* prm_model_name);
-    GgafDx9MeshSetModel* createMeshSetModel(char* prm_model_name);
-
-    GgafDx9MorphMeshModel* createMorphMeshModel(char* prm_model_name);
-
+    float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 public:
 
     /**
@@ -70,20 +52,22 @@ public:
      * <pre>
      * ＜モデル識別IDの形式＞メモ
      * 『モデルタイプ  + "/" + モデル定義名』となっている。
-     *  "D/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"
-     *  "d/MyShip"   --> D3DXMeshModel の モデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
-     *  "A/MyShip"   --> D3DXAniMeshModel の モデル。読み込むファイルは "MyShip.x"
-     *  "X/MyShip"   --> MeshModel の モデル。読み込むファイルは "MyShip.x"
-     *  "x/MyShip"   --> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は8
-     *  "x/12/MyShip"--> MeshSetModel の モデル。読み込むファイルは "MyShip.x"。同時描画セット数は12
-     *  "M/3/MyShip" --> MorphMeshModel の モデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
+     *  "D/MyShip"   --> GgafDx9D3DXMeshModel のモデル。読み込むファイルは "MyShip.x"
+     *  "d/MyShip"   --> GgafDx9D3DXMeshModel のモデル。読み込むファイルは "MyShip.x"（D3DXMESH_DYNAMIC オプションだけ異なる）
+     *  "A/Hone"     --> GgafDx9D3DXAniMeshModel のモデル。読み込むファイルは "Hone.x"
+     *  "X/Enemy"    --> GgafDx9MeshModel のモデル。読み込むファイルは "Enemy.x"
+     *  "x/12/Enemy"- -> GgafDx9MeshSetModel のモデル。読み込むファイルは "Enemy"。同時描画オブジェクト数は 12 セット
+     *  "x/Enemy"    --> GgafDx9MeshSetModel のモデル。読み込むファイルは "Enemy.x"。セット数省略時は最大の 16 セット
+     *  "M/3/MyShip" --> GgafDx9MorphMeshModel のモデル。読み込むファイルは "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"。数値部分省略不可。
      *                   プライマリモデルは"MyShip_0.x"、モーフターゲット1～3が"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
-     *  "S/Bomb"     --> SpriteModel の モデル。読み込むファイルは "Bomb.sprx"。
-     *  "s/Bomb"     --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は8
-     *  "s/16/Bomb"  --> SpriteSetModelの モデル。読み込むファイルは "Bomb.sprx"。同時描画セット数は16
-     *  "B/Font"     --> BoardModelの モデル。読み込むファイルは "Font.sprx"。
-     *  "b/Font"     --> BoardSetModelの モデル。読み込むファイルは "Font.sprx"。同時描画セット数は8
-     *  "C"          --> D3DXMeshModel の モデル。読み込むファイルは "cube.x"
+     *  "S/Bomb"     --> GgafDx9SpriteModel のモデル。読み込むファイルは "Bomb.sprx"。
+     *  "s/5/Bomb"   --> GgafDx9SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。同時描画オブジェクト数は 5 セット
+     *  "s/Bomb"     --> GgafDx9SpriteSetModel のモデル。読み込むファイルは "Bomb.sprx"。セット数省略時は最大の 18 セット
+     *  "B/Font"     --> GgafDx9BoardModel のモデル。読み込むファイルは "Font.sprx"。
+     *  "b/10/Font"  --> GgafDx9BoardSetModel のモデル。読み込むファイルは "Font.sprx"。同時描画オブジェクト数は 10 セット
+     *  "b/Font"     --> GgafDx9BoardSetModel のモデル。読み込むファイルは "Font.sprx"。セット数省略時は最大の 28 セット
+     *  "P/Star"     --> GgafDx9PointSpriteModel のモデル。読み込むファイルは "Star.x"。同時描画セット数は8
+     *  "C"          --> GgafDx9D3DXMeshModel のモデル。読み込むファイルは "cube.x"
      *  </pre>
      * @param prm_idstr モデル識別ID
      * @return モデルオブジェクト
@@ -120,6 +104,9 @@ public:
     void restoreMeshSetModel(GgafDx9MeshSetModel* prm_pD3DXMeshSetModel);
 
     void restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pModel);
+
+    void restorePointSpriteModel(GgafDx9PointSpriteModel* prm_pPointSpriteModel);
+
     /**
      * オーバーライド
      */
@@ -148,20 +135,16 @@ public:
     static GgafDx9Model* _pModelLastDraw;
 
     /**
-     * 空間の3点v0 v1 v2 より、直線 v0v1 と v1v2 の成す角(角v1)を求める
-     * @param v0
-     * @param v1
-     * @param v2
-     * @return 成す角(ラディアン)
+     * モデルマネージャーが管理するモデルリストの先頭を取得
+     * @return 先頭のモデル
      */
-    float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
+    GgafDx9ModelConnection* getFirstConnection() {
+        return (GgafDx9ModelConnection*)_pFirstConnection;
+    }
 
     virtual ~GgafDx9ModelManager();
 
 
-    GgafDx9ModelConnection* getFirstConnection() {
-        return (GgafDx9ModelConnection*)_pFirstConnection;
-    }
     //
     //	/**
     //	 * GgafDx9Modelオブジェクトのリストをすべて delete を行う。<BR>

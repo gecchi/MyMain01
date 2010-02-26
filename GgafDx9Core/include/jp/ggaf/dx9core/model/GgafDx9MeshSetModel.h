@@ -42,10 +42,9 @@ public:
     struct VERTEX {
         float x, y, z;    // 頂点座標
         float nx, ny, nz; // 法線
-        float index;      // psizeではなくてはなくて頂点番号を埋め込む。シェーダー側で何セット目かを判断するために使用。
-        DWORD color;      // 頂点の色（現在未使用）
+        float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
+        DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
         float tu, tv;     // テクスチャ座標
-
     };
 
     /** 前回表示の同時描画したセット数（キャラクタ数）*/
@@ -55,9 +54,9 @@ public:
 
     /** 頂点のFVF */
     static DWORD FVF;
-    /** 頂点バッファ（８キャラ分） */
+    /** 頂点バッファ（ｎキャラ分） */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** インデックスバッファ（８キャラ分） */
+    /** インデックスバッファ（ｎキャラ分） */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
 
