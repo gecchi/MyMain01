@@ -3006,6 +3006,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float* pFloat_SquareSize;
     int* pInt_TextureSplitNum;
     int* pInt_VerticesNum;
+    D3DVECTOR* ppaD3DVECTOR_Vertices;
 
     // 1セットだけ読込み
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
@@ -3022,245 +3023,41 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         pIDirectXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("TextureSplitNum", &Size, (void**)&pInt_TextureSplitNum);
         pIDirectXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
-
-        pIDirectXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
-        prm_pPointSpriteModel->_fSquareSize = *pFloat_SquareSize;
-        prm_pPointSpriteModel->_texture_split_num = *pInt_TextureSplitNum;
-        prm_pPointSpriteModel->_vertices_num = *pInt_VerticesNum;
+        pIDirectXFileData->GetData("Vertices"       , &Size, (void**)&ppaD3DVECTOR_Vertices);
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
+    //退避
+    float model_fSquareSize = *pFloat_SquareSize;
+    int model_texture_split_num = *pInt_TextureSplitNum;
+    int model_vertices_num = *pInt_VerticesNum;
+
+    UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*4;
+    UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
-    //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
-    GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
-    //テクスチャの参照を保持させる。
-    prm_pPointSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
-    prm_pPointSpriteModel->_papTextureCon[0] = model_pTextureCon;
+    GgafDx9TextureConnection** model_papTextureCon = NULL;
+    model_papTextureCon = NEW GgafDx9TextureConnection*[1];
+    model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
 
-    GgafDx9PointSpriteModel::VERTEX* paVertex = NEW GgafDx9PointSpriteModel::VERTEX[prm_pPointSpriteModel->_vertices_num];
-    prm_pPointSpriteModel->_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*4;
-    prm_pPointSpriteModel->_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
-
-
-//    //1pxあたりのuvの大きさを求める
-//     D3DSURFACE_DESC d3dsurface_desc;
-//     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-//     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-//     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    TRACE3("GgafDx9ModelManager::restorePointSpriteModel(" << prm_pPointSpriteModel->_model_name << ")");
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".x"; //モデル名＋".x"でXファイル名になる
-    HRESULT hr;
-
-    //流し込む頂点バッファデータ作成
-    ToolBox::IO_Model_X iox;
-
-    Frm::Model3D* model_pModel3D = NULL;
-    Frm::Mesh*    model_pMeshesFront = NULL;
-
-    GgafDx9PointSpriteModel::VERTEX*     model_paVtxBuffer_org = NULL;
-    D3DMATERIAL9*                 model_paD3DMaterial9 = NULL;
-    GgafDx9TextureConnection**    model_papTextureCon = NULL;
-    int nVertices = 0;
-
-    if (prm_pPointSpriteModel->_pModel3D == NULL) {
-        model_pModel3D = NEW Frm::Model3D();
-
-        bool r = iox.Load(xfile_name, model_pModel3D);
-        if (r == false) {
-            throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] Xファイルの読込み失敗。対象="<<xfile_name);
-        }
-        //メッシュを結合する前に、情報を確保しておく
-        int nMesh = (int)model_pModel3D->_Meshes.size();
-        uint16* paNumVertices = NEW uint16[nMesh];
-        int index_Mesh = 0;
-        for (list<Frm::Mesh*>::iterator iteMeshes = model_pModel3D->_Meshes.begin();
-                iteMeshes != model_pModel3D->_Meshes.end(); iteMeshes++) {
-            paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
-            index_Mesh++;
-        }
-
-        model_pModel3D->ConcatenateMeshes(); //メッシュを繋げる
-
-        model_pMeshesFront = model_pModel3D->_Meshes.front();
-        nVertices = model_pMeshesFront->_nVertices;
-        model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[nVertices];
-        prm_pPointSpriteModel->_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX) * nVertices;
-        prm_pPointSpriteModel->_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
-        int nTextureCoords = model_pMeshesFront->_nTextureCoords;
-        if (nVertices < nTextureCoords) {
-            TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            TRACE3("UV座標数が、頂点バッファ数を越えてます。頂点数までしか設定されません。対象="<<xfile_name);
-        }
-
-        //頂点設定
-        FLOAT dis;
-        for (int i = 0; i < nVertices; i++) {
-            model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
-            model_paVtxBuffer_org[i].y = model_pMeshesFront->_Vertices[i].data[1];
-            model_paVtxBuffer_org[i].z = model_pMeshesFront->_Vertices[i].data[2];
-            model_paVtxBuffer_org[i].psize = 1.0f;
-            model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //頂点カラーは今の所使っていない
-            if (i < nTextureCoords) {
-                model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //出来る限りUV座標設定
-                model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
-            } else {
-                model_paVtxBuffer_org[i].tu = 0.0f;
-                model_paVtxBuffer_org[i].tv = 0.0f;
-            }
-
-            //距離
-            dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
-                                                 model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
-                                                 model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
-            if (prm_pPointSpriteModel->_fBoundingSphereRadius < dis) {
-                prm_pPointSpriteModel->_fBoundingSphereRadius = dis;
-            }
-        }
-
-        int n = 0;
-        int nVertices_begin = 0;
-        int nVertices_end = 0;
-        for (std::list<Frm::Bone*>::iterator iteBone = model_pModel3D->_toplevel_Skelettons.begin() ;
-                iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
-
-            _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-
-            //XファイルのFrameTransformMatrixを考慮
-            if ((*iteBone) != NULL) {
-                Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
-                if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                    //FrameTransformMatrix は単位行列
-                    _TRACE_("FrameTransformMatrix is Identity");
-                } else {
-                    _TRACE_("Execute FrameTransform!");
-                    static D3DXMATRIX FrameTransformMatrix;
-                    FrameTransformMatrix._11 = pMatPos->data[0];
-                    FrameTransformMatrix._12 = pMatPos->data[1];
-                    FrameTransformMatrix._13 = pMatPos->data[2];
-                    FrameTransformMatrix._14 = pMatPos->data[3];
-                    FrameTransformMatrix._21 = pMatPos->data[4];
-                    FrameTransformMatrix._22 = pMatPos->data[5];
-                    FrameTransformMatrix._23 = pMatPos->data[6];
-                    FrameTransformMatrix._24 = pMatPos->data[7];
-                    FrameTransformMatrix._31 = pMatPos->data[8];
-                    FrameTransformMatrix._32 = pMatPos->data[9];
-                    FrameTransformMatrix._33 = pMatPos->data[10];
-                    FrameTransformMatrix._34 = pMatPos->data[11];
-                    FrameTransformMatrix._41 = pMatPos->data[12];
-                    FrameTransformMatrix._42 = pMatPos->data[13];
-                    FrameTransformMatrix._43 = pMatPos->data[14];
-                    FrameTransformMatrix._44 = pMatPos->data[15];
-
-                    if (n == 0) {
-                        nVertices_begin = 0;
-                        nVertices_end = paNumVertices[n];
-                    } else {
-                        nVertices_begin += paNumVertices[n-1];
-                        nVertices_end += paNumVertices[n];
-                    }
-
-                    static D3DXVECTOR3 vecVertex;
-                    static D3DXVECTOR3 vecNormal;
-                    for (int i = nVertices_begin; i < nVertices_end; i++) {
-                        vecVertex.x = model_paVtxBuffer_org[i].x;
-                        vecVertex.y = model_paVtxBuffer_org[i].y;
-                        vecVertex.z = model_paVtxBuffer_org[i].z;
-                        D3DXVec3TransformCoord(&vecVertex, &vecVertex, &FrameTransformMatrix);
-
-                        model_paVtxBuffer_org[i].x = vecVertex.x;
-                        model_paVtxBuffer_org[i].y = vecVertex.y;
-                        model_paVtxBuffer_org[i].z = vecVertex.z;
-                    }
-                }
-            }
-            n++;
-        }
-        DELETE_IMPOSSIBLE_NULL(paNumVertices);
-        //マテリアルリスト
-//        UINT aMaterialsGrp = UINT[nMeshs];
-//        for (int i = 0; i < nMeshs; i++) {
-//            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
-//        }
-
-        //描画時（DrawIndexedPrimitive）のパラメータリスト作成
-        GgafDx9PointSpriteModel::VARTEXPARAM* paParam = NEW GgafDx9PointSpriteModel::VARTEXPARAM[nVertex];//最高にマテリアルがバラバラだった場合nVertex必要
-
-        int prev_materialno = -1;
-        int materialno = 0;
-        int paramno = 0;
-        int pointNoCnt_break = 0;
-        int prev_pointNoCnt_break = -1;
-        UINT max_num_vertices = 0;
-        UINT min_num_vertices = INT_MAX;
-
-        int pointNoCnt;
-        for (pointNoCnt = 0; pointNoCnt < nVertex; pointNoCnt++) {
-            materialno = model_pMeshesFront->_FaceMaterials[pointNoCnt];
-            if (prev_materialno != materialno) { //マテリアル番号でブレイク
-                //TRACE3("BREAK! paramno="<<paramno);
-                prev_pointNoCnt_break = pointNoCnt_break;
-                pointNoCnt_break = pointNoCnt;
-
-                paParam[paramno].MaterialNo = materialno;
-                paParam[paramno].StartVertex = pointNoCnt;
-                paParam[paramno].PrimitiveCount = INT_MAX; //次回ブレイク時に設定
-
-                if (pointNoCnt > 0) {
-                    paParam[paramno-1].PrimitiveCount = (UINT)(pointNoCnt_break - prev_pointNoCnt_break);
-                    //リセット
-                    max_num_vertices = 0;
-                    min_num_vertices = INT_MAX;
-                }
-                paramno++;
-            }
-            prev_materialno = materialno;
-        }
-        if (nMeshs > 0) {
-            paParam[paramno-1].PrimitiveCount = (UINT)(pointNoCnt - pointNoCnt_break);
-        }
-
-        model_paVartexParam = NEW GgafDx9PointSpriteModel::VARTEXPARAM[paramno];
-        for (int i = 0; i < paramno; i++) {
-            model_paVartexParam[i].MaterialNo = paParam[i].MaterialNo;
-            model_paVartexParam[i].StartVertex = paParam[i].StartVertex;
-            model_paVartexParam[i].PrimitiveCount = paParam[i].PrimitiveCount;
-        }
-        prm_pPointSpriteModel->_nMaterialListGrp = paramno;
-        delete[] paRad;
-        delete[] paRadSum_Vtx;
-        delete[] paParam;
+    GgafDx9PointSpriteModel::VERTEX* model_paVertex_org = NEW GgafDx9PointSpriteModel::VERTEX[prm_pPointSpriteModel->_vertices_num];
+    for (int i = 0; i < prm_pPointSpriteModel->_vertices_num; i++) {
+        model_paVertex_org[i].x = (*ppaD3DVECTOR_Vertices)[i].x;
+        model_paVertex_org[i].y = (*ppaD3DVECTOR_Vertices)[i].y;
+        model_paVertex_org[i].z = (*ppaD3DVECTOR_Vertices)[i].z;
+        model_paVertex_org[i].psize = 1.0f; //とりあえず1.0
+        model_paVertex_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
+        model_paVertex_org[i].tu = 0.0f; //初期UV値には意味はないかな？
+        model_paVertex_org[i].tv = 0.0f; //
     }
+    D3DMATERIAL9*   model_paD3DMaterial9 = NULL;
+            FLOAT dis;
 
     if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         //頂点バッファ作成
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
-                prm_pPointSpriteModel->_size_vertices,
+                model_size_vertices,
                 D3DUSAGE_WRITEONLY,
                 GgafDx9PointSpriteModel::FVF,
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
@@ -3270,63 +3067,29 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
         //バッファへ作成済み頂点データを流し込む
         void *pVertexBuffer;
-        hr = prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pPointSpriteModel->_size_vertices, (void**)&pVertexBuffer, 0);
+        hr = prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, model_size_vertices, (void**)&pVertexBuffer, 0);
         checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] 頂点バッファのロック取得に失敗 model="<<prm_pPointSpriteModel->_model_name);
-        memcpy(pVertexBuffer, model_paVtxBuffer_org, prm_pPointSpriteModel->_size_vertices); //pVertexBuffer ← paVertex
+        memcpy(pVertexBuffer, model_paVertex_org, model_size_vertices); //pVertexBuffer ← paVertex
         prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
-    //マテリアル数カウント
-    int model_nMaterials = 0;
-    for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_nMaterials++;
-    }
-
-    model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
-    model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
-
-    char* texture_filename;
-    int n = 0;
-    for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
-        model_paD3DMaterial9[n].Diffuse.r = (*material)->_PointColor.data[0];
-        model_paD3DMaterial9[n].Diffuse.g = (*material)->_PointColor.data[1];
-        model_paD3DMaterial9[n].Diffuse.b = (*material)->_PointColor.data[2];
-        model_paD3DMaterial9[n].Diffuse.a = (*material)->_PointColor.data[3];
-
-        model_paD3DMaterial9[n].Ambient.r = (*material)->_PointColor.data[0];
-        model_paD3DMaterial9[n].Ambient.g = (*material)->_PointColor.data[1];
-        model_paD3DMaterial9[n].Ambient.b = (*material)->_PointColor.data[2];
-        model_paD3DMaterial9[n].Ambient.a = (*material)->_PointColor.data[3];
-
-        model_paD3DMaterial9[n].Specular.r = (*material)->_SpecularColor.data[0];
-        model_paD3DMaterial9[n].Specular.g = (*material)->_SpecularColor.data[1];
-        model_paD3DMaterial9[n].Specular.b = (*material)->_SpecularColor.data[2];
-        model_paD3DMaterial9[n].Specular.a = 1.000000f;
-        model_paD3DMaterial9[n].Power =  (*material)->_power;
-
-        model_paD3DMaterial9[n].Emissive.r = (*material)->_EmissiveColor.data[0];
-        model_paD3DMaterial9[n].Emissive.g = (*material)->_EmissiveColor.data[1];
-        model_paD3DMaterial9[n].Emissive.b = (*material)->_EmissiveColor.data[2];
-        model_paD3DMaterial9[n].Emissive.a = 1.000000f;
-
-        texture_filename = (char*)((*material)->_TextureName.c_str());
-        if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
-        } else {
-            //テクスチャ無し時は真っ白なテクスチャに置き換え
-            model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
-        }
-        n++;
-    }
+    model_paD3DMaterial9 = NEW D3DMATERIAL9[1];
+    model_paD3DMaterial9[0].Diffuse.r = 1.0f;
+    model_paD3DMaterial9[0].Diffuse.g = 1.0f;
+    model_paD3DMaterial9[0].Diffuse.b = 1.0f;
+    model_paD3DMaterial9[0].Diffuse.a = 1.0f;
 
     //モデルに保持させる
-    prm_pPointSpriteModel->_pModel3D = model_pModel3D;
-    prm_pPointSpriteModel->_pMeshesFront = model_pMeshesFront;
-    prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
     prm_pPointSpriteModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
-    prm_pPointSpriteModel->_dwNumMaterials = model_nMaterials;
-    prm_pPointSpriteModel->_paVartexParam = model_paVartexParam;
+    prm_pPointSpriteModel->_dwNumMaterials = 1;
+    prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
+    prm_pPointSpriteModel->_texture_split_num = model_texture_split_num;
+    prm_pPointSpriteModel->_vertices_num = model_vertices_num
+    prm_pPointSpriteModel->_size_vertices = model_size_vertices;
+    prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
+    prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
+
 
 }
 
