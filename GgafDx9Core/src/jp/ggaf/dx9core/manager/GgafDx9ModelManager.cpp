@@ -3006,7 +3006,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float* pFloat_SquareSize;
     int* pInt_TextureSplitNum;
     int* pInt_VerticesNum;
-    D3DVECTOR** ppaD3DVECTOR_Vertices;
+    D3DVECTOR* paD3DVECTOR_Vertices;
 
     // 1セットだけ読込み
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
@@ -3023,7 +3023,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         pIDirectXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("TextureSplitNum", &Size, (void**)&pInt_TextureSplitNum);
         pIDirectXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
-        pIDirectXFileData->GetData("Vertices"       , &Size, (void**)&ppaD3DVECTOR_Vertices);
+        pIDirectXFileData->GetData("Vertices"       , &Size, (void**)&paD3DVECTOR_Vertices);
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
@@ -3043,7 +3043,6 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
 
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
-D3DVECTOR* paD3DVECTOR_Vertices = *ppaD3DVECTOR_Vertices;
 
     for (int i = 0; i < model_vertices_num; i++) {
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
