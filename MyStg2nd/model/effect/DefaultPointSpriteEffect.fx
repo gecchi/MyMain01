@@ -49,9 +49,9 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 
 	//頂点計算
 	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
-	out_vs.psize = 256.0;
+	out_vs.psize = 128.0;
 	out_vs.col = prm_col;
-	out_vs.uv = float2(1.0, 1.0);
+	out_vs.uv = float2(0.5, 0.5);
 	return out_vs;
 }
 
@@ -60,7 +60,8 @@ float4 GgafDx9PS_DefaultPointSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
+	float2 uv = prm_uv * 0.5;
+	float4 tex_color = tex2D( MyTextureSampler, uv);        
 	return tex_color;
 }
 
