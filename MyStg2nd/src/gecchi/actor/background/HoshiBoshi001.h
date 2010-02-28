@@ -8,7 +8,7 @@ namespace MyStg2nd {
  * @since 2006/01/10
  * @author Masatoshi Tsuge
  */
-class HoshiBoshi001 : public GgafDx9LibStg::DefaultSpriteSetActor {
+class HoshiBoshi001 : public GgafDx9LibStg::DefaultPointSpriteActor {
 
 public:
     HoshiBoshi001(const char* prm_name);

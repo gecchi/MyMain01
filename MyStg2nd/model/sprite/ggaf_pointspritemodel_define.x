@@ -13,6 +13,6 @@ template PointSpriteDef {
   STRING TextureFile;
   DWORD  TextureSplitNum;
   DWORD  VerticesNum;
-  array  Vector Vertices[nVertices];
+  array  Vector Vertices[VerticesNum];
 }
 
