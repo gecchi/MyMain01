@@ -22,6 +22,7 @@ class DefaultSpriteActor;
 class DefaultSpriteSetActor;
 class DefaultBoardActor;
 class DefaultBoardSetActor;
+class DefaultPointSpriteActor;
 class FontSpriteActor;
 class FormationActor;
 //class FontSpriteString;
@@ -55,6 +56,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/actor/DefaultSpriteSetActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardActor.h"
 #include "jp/ggaf/dx9libstg/actor/DefaultBoardSetActor.h"
+#include "jp/ggaf/dx9libstg/actor/DefaultSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FontSpriteActor.h"
 #include "jp/ggaf/dx9libstg/actor/FormationActor.h"
 #include "jp/ggaf/dx9libstg/actor/CubeEx.h"

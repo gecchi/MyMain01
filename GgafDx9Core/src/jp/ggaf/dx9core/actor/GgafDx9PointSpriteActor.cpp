@@ -12,9 +12,9 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
 
                                        GgafDx9DrawableActor(prm_name,
                                                             prm_model_id,
-                                                            "X",
+                                                            "P",
                                                             prm_effect_id,
-                                                            "X",
+                                                            "P",
                                                             prm_technique,
                                                             prm_pChecker) {
     _class_name = "GgafDx9PointSpriteActor";
@@ -27,10 +27,8 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
 void GgafDx9PointSpriteActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
     //GgafDx9PointSpriteActorはメッシュαも設定（シェーダーで参照するため）
-    for (DWORD i = 0; i < _pPointSpriteModel->_dwNumMaterials; i++) {
-        _paD3DMaterial9[i].Ambient.a = _fAlpha;
-        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
-    }
+    _paD3DMaterial9[0].Ambient.a = _fAlpha;
+    _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
 
 
@@ -43,9 +41,15 @@ void GgafDx9PointSpriteActor::processDraw() {
     (*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matWorld) に失敗しました。");
-
+    //ポイントスプライトON
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
+    //ポイントスケールON
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
     _pPointSpriteModel->draw(this);
-
+    //ポイントスプライトOFF
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
+    //ポイントスケールOFF
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
 }
 
 GgafDx9PointSpriteActor::~GgafDx9PointSpriteActor() {

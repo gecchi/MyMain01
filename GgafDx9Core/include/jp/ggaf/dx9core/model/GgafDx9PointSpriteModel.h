@@ -35,14 +35,18 @@ public:
 
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    VERTEX* _paVtxBuffer_org;
+
     /** 頂点のFVF */
     static DWORD FVF;
-    /** アニメーショーンのためのテクスチャの座標の配列（要素数はアニメーション数） */
-    GgafDx9RectUV* _paRectUV;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
+
+    float _fSquareSize;
+    int _texture_split_num;
+    int _vertices_num;
 
     /**
      * コンストラクタ<BR>

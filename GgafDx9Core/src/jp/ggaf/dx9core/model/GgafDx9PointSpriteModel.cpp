@@ -14,7 +14,7 @@ GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(char* prm_model_name) : GgafDx9
     _col_texture_split = 1;
     _pattno_uvflip_Max = 0;
     _pIDirect3DVertexBuffer9 = NULL;
-    _paRectUV = NULL;
+
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel*)
@@ -39,19 +39,12 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     pID3DXEffect = pPointSpriteEffect->_pID3DXEffect;
 
     //今回描画のUV
-    static GgafDx9RectUV* pRectUV_Active;
-    pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
-
     static HRESULT hr;
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PointSpriteModel::FVF);
         GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
     }
-    hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteModel::draw() SetFloat(_hOffsetU) に失敗しました。");
-    hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteModel::draw() SetFloat(_hOffsetV) に失敗しました。");
 
     if (GgafDx9EffectManager::_pEffect_Active != pPointSpriteEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
@@ -81,7 +74,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteModel::draw() CommitChanges() に失敗しました。");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
-    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
+    GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_POINTLIST, 0, _vertices_num);
 
     //前回描画モデル保持
     GgafDx9ModelManager::_pModelLastDraw = this;
@@ -113,7 +106,6 @@ void GgafDx9PointSpriteModel::release() {
         }
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
-    DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     //TODO:親クラスメンバをDELETEするのはややきたないか
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9PointSpriteModel::release() " << _model_name << " end");
