@@ -100,6 +100,7 @@ void GgafDx9PointSpriteModel::onDeviceLost() {
 void GgafDx9PointSpriteModel::release() {
     TRACE3("GgafDx9PointSpriteModel::release() " << _model_name << " start");
     RELEASE_IMPOSSIBLE_NULL(_pIDirect3DVertexBuffer9);
+    DELETEARR_IMPOSSIBLE_NULL(_paVtxBuffer_org);
     if (_papTextureCon) {
         if (_papTextureCon[0]) {
             _papTextureCon[0]->close();
