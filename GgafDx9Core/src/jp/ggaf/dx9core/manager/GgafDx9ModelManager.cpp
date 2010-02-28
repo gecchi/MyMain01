@@ -28,14 +28,14 @@ GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     //板ポリゴン定義ファイル読込み
     DirectXFileCreate( &_pIDirectXFile_psprx );
     char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
-    if (paChar_SpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ポイントスプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" が開けません。");
+    if (paChar_PointSpriteModelineTemplate == NULL) {
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ポイントスプライト情報読込みテンプレート\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" が開けません。");
     }
-    hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
+    hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"を確認して下さい。");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesに失敗しました。\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"を確認して下さい。");
     }
-    DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
+    DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
 
 }
 
@@ -3031,7 +3031,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_num = *pInt_TextureSplitNum;
     int model_vertices_num = *pInt_VerticesNum;
-
+    _TRACE_("model_fSquareSize="<<model_fSquareSize);
+    _TRACE_("model_texture_split_num="<<model_texture_split_num);
+    _TRACE_("model_vertices_num="<<model_vertices_num);
     UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*4;
     UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 
@@ -3041,10 +3043,12 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
 
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
+D3DVECTOR* paD3DVECTOR_Vertices = *ppaD3DVECTOR_Vertices;
+
     for (int i = 0; i < model_vertices_num; i++) {
-        model_paVtxBuffer_org[i].x = (*ppaD3DVECTOR_Vertices)[i].x;
-        model_paVtxBuffer_org[i].y = (*ppaD3DVECTOR_Vertices)[i].y;
-        model_paVtxBuffer_org[i].z = (*ppaD3DVECTOR_Vertices)[i].z;
+        model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
+        model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
+        model_paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;
         model_paVtxBuffer_org[i].psize = 1.0f; //とりあえず1.0
         model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
         model_paVtxBuffer_org[i].tu = 0.0f; //初期UV値には意味はないかな？
