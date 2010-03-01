@@ -20,6 +20,7 @@ public:
     D3DXHANDLE _hOffsetV;
     D3DXHANDLE _hAlpha;
     D3DXHANDLE _hDist_VpPlnFront;
+    D3DXHANDLE _hTexSize;
 public:
     /**
      * コンストラクタ<BR>

@@ -18,7 +18,6 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     hr = _pID3DXEffect->SetFloat("g_zn", pCAM->_zn);
     //_TRACE_("GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect g_default_DcamZ="<<pCAM->_zn<<" g_default_DcamZ="<<( -(pCAM->_cameraZ_org))<<"");
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect SetFloat(g_zn) に失敗しました。");
-
     //シェーダーハンドル
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
@@ -28,6 +27,7 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
     _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
     _hDist_VpPlnFront = _pID3DXEffect->GetParameterByName( NULL, "g_Dist_VpPlnFront" );
+    _hTexSize = _pID3DXEffect->GetParameterByName( NULL, "g_TexSize" );
 }
 
 GgafDx9PointSpriteEffect::~GgafDx9PointSpriteEffect() {

@@ -44,8 +44,12 @@ public:
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
 
+    /** オブジェクトの１辺のサイズ(px) */
     float _fSquareSize;
-    int _texture_split_num;
+    /** テクスチャの１辺の長さ(px) */
+    float _fTexSize;
+    /** テクスチャ分割数(１で分割無し。２で４パターン、３で９パターン) */
+    int _texture_split_rowcol;
     int _vertices_num;
 
     /**
@@ -56,11 +60,11 @@ public:
 
 public:
     /** 全アニメパターン数(0～) */
-    int _pattno_uvflip_Max;
-    float _fSize_PointSpriteModelWidthPx;
-    float _fSize_PointSpriteModelHeightPx;
-    int _row_texture_split;
-    int _col_texture_split;
+//    int _pattno_uvflip_Max;
+//    float _fSize_PointSpriteModelWidthPx;
+//    float _fSize_PointSpriteModelHeightPx;
+//    int _row_texture_split;
+//    int _col_texture_split;
 
     /**
      * GgafDx9PointSpriteModelオブジェクトの描画<BR>
