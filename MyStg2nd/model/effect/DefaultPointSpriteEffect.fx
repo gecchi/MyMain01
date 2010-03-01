@@ -9,6 +9,10 @@ float4x4 g_matWorld;  //World変換行列
 float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 
+float g_default_DcamZ;
+float g_Dist_VpPlnFront; //ほぼ視点からの距離
+float g_zn;
+
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
@@ -48,10 +52,15 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
-	out_vs.pos = mul( mul( mul(prm_pos, g_matWorld), g_matView), g_matProj);  //World*View*射影変換
-	out_vs.psize = 128.0;
+	out_vs.pos = mul(prm_pos    , g_matWorld);  //World
+	out_vs.pos = mul(out_vs.pos , g_matView);  //View
+	float dep = out_vs.pos.z;
+    //float dep = g_zn + g_Dist_VpPlnFront;//(0,0,0)の距離
+	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
+
+	out_vs.psize = 128 * (g_default_DcamZ / dep);
 	out_vs.col = prm_col;
-	out_vs.uv = float2(0.5, 0.5);
+	out_vs.uv = prm_uv;//何でも同じfloat2(0.5, 0.5);
 	return out_vs;
 }
 
@@ -60,7 +69,7 @@ float4 GgafDx9PS_DefaultPointSprite(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float2 uv = prm_uv * 0.5;
+	float2 uv = prm_uv; // * 0.5;//左上1/4
 	float4 tex_color = tex2D( MyTextureSampler, uv);        
 	return tex_color;
 }
