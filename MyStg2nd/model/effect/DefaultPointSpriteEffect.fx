@@ -54,7 +54,9 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 	//頂点計算
 	out_vs.pos = mul(prm_pos    , g_matWorld);  //World
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
-	float dep = out_vs.pos.z;
+	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
+                                    //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
+                                    //距離に加える。
     //float dep = g_zn + g_Dist_VpPlnFront;//(0,0,0)の距離
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 

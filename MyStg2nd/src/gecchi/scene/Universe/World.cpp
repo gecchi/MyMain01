@@ -135,12 +135,19 @@ void World::processBehavior() {
     //ƒJƒƒ‰‚Æ‹“_‚ÌˆÚ“®–Ú•Wİ’è
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
-            move_target_X_CAM = -Dx;
-            move_target_Y_CAM = pMYSHIP->_Y;
-            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
-            move_target_X_VP = Dx;
-            move_target_Y_VP = pMYSHIP->_Y;
-            move_target_Z_VP = pMYSHIP->_Z;
+            move_target_X_CAM = 0;
+            move_target_Y_CAM = 0;
+            move_target_Z_CAM = -_dZ_camera_init;
+            move_target_X_VP = 0;
+            move_target_Y_VP = 0;
+            move_target_Z_VP = 0;
+
+//            move_target_X_CAM = -Dx;
+//            move_target_Y_CAM = pMYSHIP->_Y;
+//            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
+//            move_target_X_VP = Dx;
+//            move_target_Y_VP = pMYSHIP->_Y;
+//            move_target_Z_VP = pMYSHIP->_Z;
         } else if (_pos_camera == CAM_POS_LEFT) {
             move_target_X_CAM = -Dx;
             move_target_Y_CAM = pMYSHIP->_Y;
