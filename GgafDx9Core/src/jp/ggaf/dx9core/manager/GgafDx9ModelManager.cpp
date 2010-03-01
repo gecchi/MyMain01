@@ -3031,7 +3031,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_num = *pInt_TextureSplitNum;
     int model_vertices_num = *pInt_VerticesNum;
-    UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*4;
+    UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*model_vertices_num;
     UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 
     //テクスチャ取得しモデルに保持させる
@@ -3041,6 +3041,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
 
+    _TRACE_("restorePointSpriteModel model_vertices_num = "<<model_vertices_num);
     for (int i = 0; i < model_vertices_num; i++) {
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
@@ -3050,8 +3051,17 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         model_paVtxBuffer_org[i].tu = 0.0f; //初期UV値には意味はないかな？
         model_paVtxBuffer_org[i].tv = 0.0f; //
     }
+
+    for (int i = 0; i < model_vertices_num; i++) {
+        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].x = "<<(model_paVtxBuffer_org[i].x));
+        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].y = "<<(model_paVtxBuffer_org[i].y));
+        _TRACE_("rmodel_paVtxBuffer_org["<<i<<"].z = "<<(model_paVtxBuffer_org[i].z));
+    }
+
+
     D3DMATERIAL9*   model_paD3DMaterial9 = NULL;
-            FLOAT dis;
+    FLOAT dis;
+    dis = 1000; //TODO!
 
     if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
@@ -3089,7 +3099,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_size_vertices = model_size_vertices;
     prm_pPointSpriteModel->_size_vertex_unit = model_size_vertex_unit;
     prm_pPointSpriteModel->_paVtxBuffer_org = model_paVtxBuffer_org;
-
+    prm_pPointSpriteModel->_fBoundingSphereRadius = dis;
 
 }
 
