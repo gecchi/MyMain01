@@ -1,7 +1,7 @@
 xof 0303txt 0032
 
 PointSpriteDef mogera {
-   16.0;
+   128.0;
    "ANONYMOUS_KAI.png";
    8;
    9;

@@ -12,6 +12,7 @@ float4x4 g_matProj;   //射影変換行列
 float g_default_DcamZ;
 float g_Dist_VpPlnFront; //ほぼ視点からの距離
 float g_zn;
+float g_TexSize;
 
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
@@ -60,7 +61,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
     //float dep = g_zn + g_Dist_VpPlnFront;//(0,0,0)の距離
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
-	out_vs.psize = 128 * (g_default_DcamZ / dep);
+	out_vs.psize = g_TexSize * (g_default_DcamZ / dep) * prm_psize;
 	out_vs.col = prm_col;
 	out_vs.uv = prm_uv;//何でも同じfloat2(0.5, 0.5);
 	return out_vs;

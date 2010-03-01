@@ -11,7 +11,7 @@ template PointSpriteDef {
   <E4EECE4C-E106-11DC-9B62-346D55D89593>
   FLOAT  SquareSize;
   STRING TextureFile;
-  DWORD  TextureSplitNum;
+  DWORD  TextureSplitRowCol;
   DWORD  VerticesNum;
   array  Vector Vertices[VerticesNum];
 }
