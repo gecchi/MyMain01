@@ -1663,7 +1663,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[1].ny = 0.0f;
     paVertex[1].nz = -1.0f;
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
     paVertex[1].tv = 0.0f;
     //左下
     paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
@@ -1674,7 +1674,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[2].nz = -1.0f;
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
     //右下
     paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
@@ -1683,8 +1683,8 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].ny = 0.0f;
     paVertex[3].nz = -1.0f;
     paVertex[3].color = D3DCOLOR_ARGB(255,255,255,255);
-    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
+    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
 
 
     //距離
@@ -1850,7 +1850,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 1].nx = 0.0f;
             paVertex[i*4 + 1].ny = 0.0f;
             paVertex[i*4 + 1].nz = -1.0f;
-            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
+            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
             paVertex[i*4 + 1].tv = 0.0f;
             paVertex[i*4 + 1].index = i;
             //左下
@@ -1861,7 +1861,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 2].ny = 0.0f;
             paVertex[i*4 + 2].nz = -1.0f;
             paVertex[i*4 + 2].tu = 0.0f;
-            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
             paVertex[i*4 + 2].index = i;
             //右下
             paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
@@ -1870,8 +1870,8 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 3].nx = 0.0f;
             paVertex[i*4 + 3].ny = 0.0f;
             paVertex[i*4 + 3].nz = -1.0f;
-            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// + (pxU/2);
-            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// + (pxV/2);
+            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
+            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
             paVertex[i*4 + 3].index = i;
 
 //            _TRACE_("paVertex["<<(i*4 + 0)<<"].x ="<<paVertex[i*4 + 0].x );
@@ -2099,26 +2099,26 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     paVertex[0].x = 0.0f;
     paVertex[0].y = 0.0f;
     paVertex[0].z = 0.0f;
-    paVertex[0].tu = 0.0f;
-    paVertex[0].tv = 0.0f;
+    paVertex[0].tu = (pxU/100);
+    paVertex[0].tv = (pxV/100);
     //右上
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) + (pxU/10); //僅かに小さく(1/10px)取る
-    paVertex[1].tv = 0.0f;
+    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100); //僅かに小さく取る
+    paVertex[1].tv = (pxV/100);
     //左下
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
-    paVertex[2].tu = 0.0f;
-    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) + (pxV/10); //僅かに小さく(1/10px)取る
+    paVertex[2].tu = (pxU/100);
+    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100); //僅かに小さく取る
     //右下
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
-    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) + (pxU/10);
-    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) + (pxV/10);
+    paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
+    paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
 
     //バッファ作成
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
@@ -2267,29 +2267,29 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
             paVertex[i*4 + 0].x = 0.0f;
             paVertex[i*4 + 0].y = 0.0f;
             paVertex[i*4 + 0].z = 0.0f;
-            paVertex[i*4 + 0].tu = 0.0f;
-            paVertex[i*4 + 0].tv = 0.0f;
+            paVertex[i*4 + 0].tu = (pxU/100);
+            paVertex[i*4 + 0].tv = (pxV/100);
             paVertex[i*4 + 0].index = i;
             //右上
             paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 1].y = 0.0f;
             paVertex[i*4 + 1].z = 0.0f;
-            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) + (pxU/10); //僅かに小さく(1/10px)取る
-            paVertex[i*4 + 1].tv = 0.0f;
+            paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
+            paVertex[i*4 + 1].tv = (pxV/100);
             paVertex[i*4 + 1].index = i;
             //左下
             paVertex[i*4 + 2].x = 0.0f;
             paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 2].z = 0.0f;
-            paVertex[i*4 + 2].tu = 0.0f;
-            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) + (pxV/10); //僅かに小さく(1/10px)取る
+            paVertex[i*4 + 2].tu = (pxU/100);
+            paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
             paVertex[i*4 + 2].index = i;
             //右下
             paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 3].z = 0.0f;
-            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) + (pxU/10);
-            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) + (pxV/10);
+            paVertex[i*4 + 3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
+            paVertex[i*4 + 3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
             paVertex[i*4 + 3].index = i;
          }
 
@@ -3052,8 +3052,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     GgafDx9UvFlipper uvflipper(NULL);
     uvflipper.setTextureUvRotation(model_texture_split_rowcol,
-                                   texWidth / model_texture_split_rowcol,
-                                   texWidth / model_texture_split_rowcol);
+                                   1.0 / model_texture_split_rowcol,
+                                   1.0 / model_texture_split_rowcol );
     uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol);
     _TRACE_("restorePointSpriteModel model_vertices_num = "<<model_vertices_num);
     float u = 0;
