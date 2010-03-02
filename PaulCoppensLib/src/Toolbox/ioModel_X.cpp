@@ -155,11 +155,12 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
 
         fin >> Text;
         size_t len = Text.size();
+        // add tsuge
         //_TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
             if (c == '{') { //最終文字
-                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコアXファイル用）
+                // ブロック区切り文字はホワイトスペースの他に'{'も区切りと見なしたい（メタセコアXファイルがそんなふうになっている）
                 // "Header {" でも "Header{" でも両方OKとするため。
                 Text = string(Text, 0, len-1);
                 token_next = c;
@@ -323,7 +324,7 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         token_next = 0;
     }
     //if (Token != '{')
-    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
+    if (Token != '{' && Token != ' ')  //modify by tsuge 2009/3/5
         fin >> cBone->_Name;
     else
         cBone->_Name = SetUID('B');
@@ -390,6 +391,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     _LoadMesh = NEW Frm::Mesh;
     if (!_Object->_Meshes.empty()) {
         Frm::Mesh* LastMesh = _Object->_Meshes.back();
+        //add tsuge エラーチェックを追加。
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
         if (65535 < ((int)LastMesh->_FirstVertex + (int)LastMesh->_nVertices)) {
             throwGgafCriticalException("Xファイル'"<<active_load_filename<<"'読み込み中、_FirstVertex が 65535を超えたかもしれません。\n頂点数が多いので何とかしてください。");
@@ -425,7 +427,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 
     Token = fin.peek();
     //if (Token != '{')
-    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
+    if (Token != '{' && Token != ' ')  //modify by tsuge 2009/3/5
         fin >> _LoadMesh->_Name;
     else
         _LoadMesh->_Name = SetUID('M');
@@ -489,7 +491,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
             _LoadMesh->_Faces[n].data[2] = (uint16) TextToNum(Data);
             fin.get(); //eats either the comma or the semicolon at the end of each face description
             _LoadMesh->_Faces[n].data[3] = FACE3;
-        } else if (face_vtx_num == 4) {
+        } else if (face_vtx_num == 4) { //add tsuge begin
             fin.getline(Data, TEXT_BUFFER, ',');
             _LoadMesh->_Faces[n].data[0] = (uint16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
@@ -508,7 +510,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
             _LoadMesh->_nFaces = _LoadMesh->_nFaces + 1;
         } else {
             _TRACE_("おかしい face_vtx_num = "<<face_vtx_num);
-        }
+        }                               //add tsuge end
         n++;
     }
 
@@ -645,7 +647,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
             fin.getline(Data, TEXT_BUFFER, ';');
             _LoadMesh->_FaceNormals[n].data[2] = (uint16) TextToNum(Data);
             fin.get(); //eats either the comma or the semicolon at the end of each face description
-        } else if (face_vtx_num == 4) {
+        } else if (face_vtx_num == 4) {  //add tsuge
             fin.getline(Data, TEXT_BUFFER, ',');
             _LoadMesh->_FaceNormals[n].data[0] = (uint16) TextToNum(Data);
             fin.getline(Data, TEXT_BUFFER, ',');
@@ -728,7 +730,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
     if (_LoadMesh->_Faces[n].data[3] == FACE3) {
         _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
 
-    } else if (_LoadMesh->_Faces[n].data[3] == FACE4) {
+    } else if (_LoadMesh->_Faces[n].data[3] == FACE4) { //add tsuge
         _LoadMesh->_FaceMaterials[n] = (uint16) TextToNum(Data);
         _LoadMesh->_FaceMaterials[n+1] = (uint16) TextToNum(Data);
         n++;
@@ -894,7 +896,7 @@ void ToolBox::IO_Model_X::ProcessAnimationSets(void) {
 
     Token = fin.peek();
     //if (Token != '{')
-    if (Token != '{' && Token != ' ')  //modify by gecchi 2009/3/5
+    if (Token != '{' && Token != ' ')  //modify by tsuge 2009/3/5
         fin >> _LoadAnimationSet->_Name;
     else
         _LoadAnimationSet->_Name = SetUID('A');
