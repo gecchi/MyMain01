@@ -1640,14 +1640,6 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_size_vertices = sizeof(GgafDx9SpriteModel::VERTEX)*4;
     prm_pSpriteModel->_size_vertex_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 
-
-//    //1pxあたりのuvの大きさを求める
-//     D3DSURFACE_DESC d3dsurface_desc;
-//     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-//     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-//     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
-
-
     //頂点配列情報をモデルに保持させる
     //UVは左上の１つ分（アニメパターン０）をデフォルトで設定する。
     //シェーダーが描画時にアニメパターン番号をみてUV座標をずらす仕様としよっと。
@@ -1830,12 +1822,6 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     //テクスチャの参照を保持させる。
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
-
-    //    //1pxあたりのuvの大きさを求める
-    //     D3DSURFACE_DESC d3dsurface_desc;
-    //     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-    //     float pxU = 1.0 / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-    //     float pxV = 1.0 / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
     //バッファ作成
     if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
         prm_pSpriteSetModel->_size_vertices = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
@@ -2104,10 +2090,10 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
     //1pxあたりのuvの大きさを求める
-     D3DSURFACE_DESC d3dsurface_desc;
-     model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-     float pxU = 1.0f / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-     float pxV = 1.0f / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+    float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
+    float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)
+     float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
+     float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
     //左上
     paVertex[0].x = 0.0f;
@@ -2271,12 +2257,12 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
         //1pxあたりのuvの大きさを求める
-         D3DSURFACE_DESC d3dsurface_desc;
-         model_pTextureCon->view()->GetLevelDesc(0, &d3dsurface_desc);
-         float pxU = 1.0f / d3dsurface_desc.Width; //テクスチャの幅(px)で割る
-         float pxV = 1.0f / d3dsurface_desc.Height; //テクスチャの高さ(px)で割る
+        float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
+        float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)
+        float pxU = 1.0f / texWidth; //テクスチャの幅(px)で割る
+        float pxV = 1.0f / texHeight; //テクスチャの高さ(px)で割る
 
-         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
+        for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
             //左上
             paVertex[i*4 + 0].x = 0.0f;
             paVertex[i*4 + 0].y = 0.0f;
@@ -3056,11 +3042,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     model_papTextureCon = NEW GgafDx9TextureConnection*[1];
     model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
 
-    D3DSURFACE_DESC d3dsurface_desc;
-    model_papTextureCon[0]->view()->GetLevelDesc(0, &d3dsurface_desc);
-    float texWidth =  d3dsurface_desc.Width; //テクスチャの幅(px)
-    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!texWidth="<<(texWidth));
-    float texHeight = d3dsurface_desc.Height; //テクスチャの高さ(px)幅と同じになる
+    float texWidth  = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Width; //テクスチャの幅(px)
+    float texHeight = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Height; //テクスチャの高さ(px)幅と同じになる
     FLOAT model_fBoundingSphereRadius = 0;
 
     //頂点バッファ作成
@@ -3141,9 +3124,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
     prm_pPointSpriteModel->_dwNumMaterials = 1;
     prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
-    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!texWidth="<<(texWidth));
     prm_pPointSpriteModel->_fTexSize = texWidth;
-    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!prm_pPointSpriteModel->_fTexSize="<<(prm_pPointSpriteModel->_fTexSize));
     prm_pPointSpriteModel->_texture_split_rowcol = model_texture_split_rowcol;
     prm_pPointSpriteModel->_vertices_num = model_vertices_num;
     prm_pPointSpriteModel->_size_vertices = model_size_vertices;

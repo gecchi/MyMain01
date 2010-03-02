@@ -4,38 +4,63 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 
-GgafDx9Texture::GgafDx9Texture(char* prm_effect_name) : GgafObject() {
-    TRACE("GgafDx9Texture::GgafDx9Texture(" << prm_effect_name << ")");
-    _effect_name = NEW char[51];
-    strcpy(_effect_name, prm_effect_name);
+GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
+    TRACE("GgafDx9Texture::GgafDx9Texture(" << prm_texture_name << ")");
+    _pIDirect3DTexture9 = NULL;
+    _pD3DXIMAGE_INFO = NEW D3DXIMAGE_INFO();
 
-    ID3DXBuffer* pError;
-#ifdef MY_DEBUG
-    DWORD dwFlags = D3DXSHADER_DEBUG;
-#else
-    DWORD dwFlags = D3DXSHADER_SKIPVALIDATION;
-#endif
-    string effect_file_name = GGAFDX9_PROPERTY(DIR_EFFECT) + string(prm_effect_name) + ".fx";
-    HRESULT hr = D3DXCreateTextureFromFile(
-                     GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice
-                     effect_file_name.c_str(),  // [in] LPCTSTR pSrcFile
-                     0,                         // [in] CONST D3DXMACRO* pDefines
-                     0,                         // [in] LPD3DXINCLUDE pInclude
-                     dwFlags,                   // [in] DWORD Flags
-                     0,                         // [in] LPD3DXEFFECTPOOL pPool
-                     &_pID3DXTexture,         // [out] LPD3DXEFFECT* ppTexture
-                     &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
+    _texture_name = NEW char[51];
+    strcpy(_texture_name, prm_texture_name);
+
+    string texture_file_name = GGAFDX9_PROPERTY(DIR_TEXTURE) + string(_texture_name);
+    HRESULT hr = D3DXCreateTextureFromFileEx(
+                     GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
+                     texture_file_name.c_str(), // [in] LPCTSTR pSrcFile,
+                     D3DX_DEFAULT,              // [in] UINT Width,
+                     D3DX_DEFAULT,              // [in] UINT Height,
+                     D3DX_DEFAULT,              // [in] UINT MipLevels,
+                     0,                         // [in] DWORD Usage,
+                     D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
+                     D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+                     D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ
+                     D3DX_DEFAULT,              // [in] DWORD MipFilter,
+                     0,                         // [in] D3DCOLOR ColorKey,
+                     _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
+                     NULL,                      // [in] PALETTEENTRY *pPalette,
+                     &_pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
                 );
-    if (hr != D3D_OK && pError == NULL) {
-        throwGgafCriticalException("GgafDx9Texture::GgafDx9Texture "<<effect_file_name<<" が存在しないのではないだろうか・・・");
+    if (hr != D3D_OK) {
+        _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
+        //失敗用テクスチャを設定
+        string texture_file_name2 = GGAFDX9_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
+        HRESULT hr2 = D3DXCreateTextureFromFileEx(
+                         GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
+                         texture_file_name2.c_str(),// [in] LPCTSTR pSrcFile,
+                         D3DX_DEFAULT,              // [in] UINT Width,
+                         D3DX_DEFAULT,              // [in] UINT Height,
+                         D3DX_DEFAULT,              // [in] UINT MipLevels,
+                         0,                         // [in] DWORD Usage,
+                         D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
+                         D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
+                         D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTでボヤケナイ
+                         D3DX_DEFAULT,              // [in] DWORD MipFilter,
+                         0,                         // [in] D3DCOLOR ColorKey,
+                         _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
+                         NULL,                      // [in] PALETTEENTRY *pPalette,
+                         &_pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
+                      );
+        checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileEx失敗。対象="<<prm_texture_name);
     }
-    checkDxException(hr, D3D_OK, "GgafDx9Texture::GgafDx9Texture ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
-    TRACE3(" GgafDx9Texture::GgafDx9Texture "<<prm_effect_name<<" のエフェクトを生成しました。");
+
+    Sleep(2); //工場に気を使う。
+    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" のテクスチャ生成しました。");
+
 }
 
 GgafDx9Texture::~GgafDx9Texture() {
-    TRACE3("GgafDx9Texture::~GgafDx9Texture() " << _effect_name << " start-->");
-    DELETEARR_IMPOSSIBLE_NULL(_effect_name);
-    RELEASE_IMPOSSIBLE_NULL(_pID3DXTexture);
+    TRACE3("GgafDx9Texture::~GgafDx9Texture() " << _texture_name << " start-->");
+    DELETEARR_IMPOSSIBLE_NULL(_texture_name);
+    DELETE_IMPOSSIBLE_NULL(_pD3DXIMAGE_INFO);
+    RELEASE_IMPOSSIBLE_NULL(_pIDirect3DTexture9);
 }
 

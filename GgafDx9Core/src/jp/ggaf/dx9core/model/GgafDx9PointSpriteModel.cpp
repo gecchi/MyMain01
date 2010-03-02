@@ -43,7 +43,7 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9PointSpriteModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view()->_pIDirect3DTexture9);
     }
 
     if (GgafDx9EffectManager::_pEffect_Active != pPointSpriteEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {

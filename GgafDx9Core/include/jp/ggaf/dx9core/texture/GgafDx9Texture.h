@@ -3,8 +3,8 @@
 namespace GgafDx9Core {
 
 /**
- * エフェクト基底クラス.
- * キャラ(アクター)のエフェクトを保持するクラスです。<BR>
+ * テクスチャ基底クラス.
+ * キャラ(アクター)のテクスチャを保持するクラスです。<BR>
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge
@@ -16,16 +16,17 @@ protected:
 public:
 
     /** モデル定義の識別名。(50文字まで) */
-    char* _effect_name;
-    ID3DXTexture* _pID3DXTexture;
+    char* _texture_name;
+    D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
+    LPDIRECT3DTEXTURE9 _pIDirect3DTexture9;
     /**
      * コンストラクタ<BR>
-     * @param prm_effect_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * @param prm_texture_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
-    GgafDx9Texture(char* prm_effect_name);
+    GgafDx9Texture(char* prm_texture_name);
 
     char* getName() {
-        return _effect_name;
+        return _texture_name;
     }
 
 

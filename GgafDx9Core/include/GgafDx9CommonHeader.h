@@ -224,6 +224,8 @@ class GgafDx9BoardSetEffect;
 class GgafDx9StringBoardActor;
 class GgafDx9PointSpriteEffect;
 
+class GgafDx9Texture;
+
 class GgafDx9Scene;
 class GgafDx9Universe;
 class GgafDx9Util;
@@ -330,6 +332,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9BoardSetEffect.h"
 #include "jp/ggaf/dx9core/effect/GgafDx9PointSpriteEffect.h"
+
+#include "jp/ggaf/dx9core/texture/GgafDx9Texture.h"
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9Universe.h"

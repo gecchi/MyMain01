@@ -9,7 +9,7 @@ namespace GgafDx9Core {
  * @since 2009/01/26
  * @author Masatoshi Tsuge
  */
-class GgafDx9TextureManager : public GgafCore::GgafResourceManager<IDirect3DTexture9> {
+class GgafDx9TextureManager : public GgafCore::GgafResourceManager<GgafDx9Texture> {
 
 public:
 
@@ -22,12 +22,12 @@ public:
     /**
      * オーバーライド
      */
-    IDirect3DTexture9* processCreateResource(char* prm_idstr);
+    GgafDx9Texture* processCreateResource(char* prm_idstr);
 
     /**
      * オーバーライド
      */
-    GgafCore::GgafResourceConnection<IDirect3DTexture9>* processCreateConnection(char* prm_idstr, IDirect3DTexture9* prm_pResource);
+    GgafCore::GgafResourceConnection<GgafDx9Texture>* processCreateConnection(char* prm_idstr, GgafDx9Texture* prm_pResource);
 
     virtual ~GgafDx9TextureManager() {
     }

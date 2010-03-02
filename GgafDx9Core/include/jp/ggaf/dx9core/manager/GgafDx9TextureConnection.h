@@ -8,7 +8,7 @@ namespace GgafDx9Core {
  * @since 2009/01/27
  * @author Masatoshi Tsuge
  */
-class GgafDx9TextureConnection : public GgafCore::GgafResourceConnection<IDirect3DTexture9> {
+class GgafDx9TextureConnection : public GgafCore::GgafResourceConnection<GgafDx9Texture> {
 
 public:
 
@@ -17,9 +17,9 @@ public:
      * @param prm_idstr テクスチャ識別名
      * @param prm_pIDirect3DTexture9 テクスチャ
      */
-    GgafDx9TextureConnection(char* prm_idstr, IDirect3DTexture9* prm_pIDirect3DTexture9);
+    GgafDx9TextureConnection(char* prm_idstr, GgafDx9Texture* prm_pResource);
 
-    void processReleaseResource(IDirect3DTexture9* prm_pResource);
+    void processReleaseResource(GgafDx9Texture* prm_pResource);
 
     virtual ~GgafDx9TextureConnection() {
     }

@@ -62,7 +62,7 @@ HRESULT GgafDx9BoardSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9BoardSetModel::FVF);
-        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view());
+        GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[0]->view()->_pIDirect3DTexture9);
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
     }
 
