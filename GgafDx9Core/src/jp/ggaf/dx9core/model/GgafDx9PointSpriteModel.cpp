@@ -18,7 +18,7 @@ GgafDx9PointSpriteModel::GgafDx9PointSpriteModel(char* prm_model_name) : GgafDx9
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel*)
-    //で行っている。
+    //で行うようにした。
 }
 
 //描画
@@ -65,7 +65,9 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTexSize, _fTexSize);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTexSize) に失敗しました。");
-
+        hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
+        _TRACE_("_texture_split_rowcol="<<_texture_split_rowcol);
+        checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTextureSplitRowcol) に失敗しました。");
 
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
         UINT numPass;

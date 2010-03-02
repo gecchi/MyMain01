@@ -104,7 +104,7 @@ public:
     virtual void behave();
 
     /**
-     * UV座標を取得する。
+     * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応するUV座標を取得する。
      * @param out_u [out] 座標U
      * @param out_v [out] 座標V
      */

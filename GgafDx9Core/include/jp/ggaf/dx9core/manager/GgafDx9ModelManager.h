@@ -1,5 +1,7 @@
 #ifndef GGAFDX9MODELMANAGER_H_
 #define GGAFDX9MODELMANAGER_H_
+
+
 namespace GgafDx9Core {
 
 /**

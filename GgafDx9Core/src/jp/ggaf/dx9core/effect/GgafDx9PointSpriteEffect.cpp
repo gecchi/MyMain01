@@ -28,6 +28,7 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
     _hDist_VpPlnFront = _pID3DXEffect->GetParameterByName( NULL, "g_Dist_VpPlnFront" );
     _hTexSize = _pID3DXEffect->GetParameterByName( NULL, "g_TexSize" );
+    _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( NULL, "g_TextureSplitRowcol" );
 }
 
 GgafDx9PointSpriteEffect::~GgafDx9PointSpriteEffect() {

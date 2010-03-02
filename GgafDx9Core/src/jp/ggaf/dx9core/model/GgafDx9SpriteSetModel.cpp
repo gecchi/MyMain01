@@ -36,7 +36,7 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
 
     //デバイイスロスト対応と共通にするため、テクスチャ、頂点、マテリアルなどの初期化は
     //void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel*)
-    //で行っている。
+    //で行うようにした。
 }
 
 //描画

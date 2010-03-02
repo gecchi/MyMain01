@@ -21,6 +21,7 @@ public:
     D3DXHANDLE _hAlpha;
     D3DXHANDLE _hDist_VpPlnFront;
     D3DXHANDLE _hTexSize;
+    D3DXHANDLE _hTextureSplitRowcol;
 public:
     /**
      * コンストラクタ<BR>

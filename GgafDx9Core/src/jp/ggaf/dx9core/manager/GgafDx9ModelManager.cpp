@@ -1,3 +1,16 @@
+
+// 本プログラムは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
+// を元に、独自に改良修正（やデバッグ）したクラスを使用しています。
+// ありがとう Paulさん。
+//
+// 【対象】
+// Frm 名前空間のクラス
+//
+// 【Loading and displaying .X files without DirectX 】
+// http://www.gamedev.net/reference/programming/features/xfilepc/
+//
+//                                         2009/03/06 Masatoshi Tsuge
+
 #include "stdafx.h"
 
 using namespace std;
@@ -169,7 +182,7 @@ GgafDx9PointSpriteModel* GgafDx9ModelManager::createPointSpriteModel(char* prm_m
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
     //【GgafDx9MeshModel再構築（＝初期化）処理概要】
-    //１）頂点バッファ、頂点インデックスバッファ を作成
+    //１）頂点バッファ、頂点インデックスバッファ を new
     //２）Xファイルから、独自に次の情報を読み込み、頂点バッファ、頂点インデックスバッファ に流し込む。
     //３）２）を行なう過程で、同時に GgafDx9MeshModel に次のメンバを作成。
     //　　　　・頂点バッファの写し
@@ -261,7 +274,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         //法線設定。
         //共有頂点の法線は平均化を試みる！
         //【2009/03/04の脳みそによるアイディア】
-        //共有頂点に、面が同方面に集中した場合、単純に平均化（加算して割る）すると法線は偏ってしまう。
+        //共有頂点に、面が同じような方面に集中した場合、単純に加算して面数で割る平均化をすると法線は偏ってしまう。
         //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
         //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
         //とした。最後に正規化する。
@@ -1462,8 +1475,9 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 
     //マテリアルのDiffuse反射をAmbient反射にコピーする
     //理由：Ambientライトを使用したかった。そのためには当然Ambient反射値をマテリアルに設定しなければいけないが
-    //xファイルのマテリアルにAmbient反射値が設定されてない（生成ツールのせい？）。まぁほとんどDiffuse=Ambientで問題ないハズと考えた。
-    //そこでデフォルトで、Diffuse反射値でAmbient反射値を設定することにする、とりあえず。後で好きに変えて。
+    //エクスポートされたxファイルのマテリアルにAmbient反射値が設定されてない（生成ツールのせい？）。
+    //まぁほとんどDiffuse=Ambientで問題ないハズと考えた。
+    //そこでデフォルトで、Diffuse反射値でAmbient反射値を設定することにする、とりあえず。
     //＜2009/3/13＞
     //固定パイプラインはもう使わなくなった。それに伴いマテリアルDiffuseはシェーダーのパラメータのみで利用している。
     //TODO:現在マテリアルAmbientは参照されない。今後もそうする？
@@ -2195,7 +2209,8 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
 
     HRESULT hr;
     string xfile_name; //読み込むスプライト定義ファイル名（Xファイル形式）
-    //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得
+    //"12/Moji" or "8/Moji" or "Moji" から "Moji" だけ取とりだしてフルパス名取得。
+    //TODO:数値3桁("123/Moji"とか)が来たら困る。
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
@@ -2430,6 +2445,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
     string xfile_name; //読み込むXファイル名
     //"12/Ceres" or "8/Celes" or "Celes" から "Celes" だけ取とりだしてフルパス名取得
+    //TODO:数値３桁以上の時
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
@@ -2524,13 +2540,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
 
         //法線設定。
-        //共有頂点の法線は平均化を試みる！
-        //【2009/03/04の脳みそによるアイディア】
-        //共有頂点に、面が同方面に集中した場合、単純に平均化（加算して割る）すると法線は偏ってしまう。
-        //そこで、共有頂点法線への影響度割合（率）を、その面法線が所属する面の頂点角の大きさで決めるようにした。
-        //法線の影響度割合 ＝ その法線が所属する頂点の成す角 ／ その頂点にぶら下がる全faceの成す角合計
-        //とした。最後に正規化する。
-
+        //処理方法は restoreMeshModel と同じ。要参照。
         float* paRad = NEW float[nFaces*3];
         float* paRadSum_Vtx = NEW float[nVertices];
         for (int i = 0; i < nVertices; i++) {
@@ -3007,6 +3017,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     int* pInt_TextureSplitRowCol;
     int* pInt_VerticesNum;
     D3DVECTOR* paD3DVECTOR_Vertices;
+    D3DCOLORVALUE* paD3DVECTOR_VertexColors;
+    int* paInt_InitUvPtnNo;
+    float* paFLOAT_InitScale;
 
     // 1セットだけ読込み
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
@@ -3024,6 +3037,10 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         pIDirectXFileData->GetData("TextureSplitRowCol", &Size, (void**)&pInt_TextureSplitRowCol);
         pIDirectXFileData->GetData("VerticesNum"    , &Size, (void**)&pInt_VerticesNum);
         pIDirectXFileData->GetData("Vertices"       , &Size, (void**)&paD3DVECTOR_Vertices);
+        pIDirectXFileData->GetData("VertexColors"   , &Size, (void**)&paD3DVECTOR_VertexColors);
+        pIDirectXFileData->GetData("InitUvPtnNo"    , &Size, (void**)&paInt_InitUvPtnNo);
+        pIDirectXFileData->GetData("InitScale"      , &Size, (void**)&paFLOAT_InitScale);
+
     } else {
         throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" のGUIDが一致しません。");
     }
@@ -3042,20 +3059,47 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     D3DSURFACE_DESC d3dsurface_desc;
     model_papTextureCon[0]->view()->GetLevelDesc(0, &d3dsurface_desc);
     float texWidth =  d3dsurface_desc.Width; //テクスチャの幅(px)
-    float texHeight = d3dsurface_desc.Height; //テクスチャの高さ(px)
-    FLOAT model_fBoundingSphereRadius = model_fSquareSize * 1.41421356 * PX_UNIT; //
+    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!texWidth="<<(texWidth));
+    float texHeight = d3dsurface_desc.Height; //テクスチャの高さ(px)幅と同じになる
+    FLOAT model_fBoundingSphereRadius = 0;
 
+    //頂点バッファ作成
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
 
+
+    GgafDx9UvFlipper uvflipper(NULL);
+    uvflipper.setTextureUvRotation(model_texture_split_rowcol,
+                                   texWidth / model_texture_split_rowcol,
+                                   texWidth / model_texture_split_rowcol);
+    uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol);
     _TRACE_("restorePointSpriteModel model_vertices_num = "<<model_vertices_num);
+    float u = 0;
+    float v = 0;
+    float dis;
     for (int i = 0; i < model_vertices_num; i++) {
+        uvflipper.setPtnNo(paInt_InitUvPtnNo[i]);
+        uvflipper.getUV(u, v);
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
         model_paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;
-        model_paVtxBuffer_org[i].psize = model_fSquareSize / texWidth;
-        model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255);
-        model_paVtxBuffer_org[i].tu = 0.0f; //初期UV値には意味はないかな？
-        model_paVtxBuffer_org[i].tv = 0.0f; //
+        model_paVtxBuffer_org[i].psize = (model_fSquareSize*model_texture_split_rowcol / texWidth) * paFLOAT_InitScale[i]; //PSIZEにはピクセルサイズではなく倍率を埋め込む。
+                                                                                                //シェーダーで拡大縮小ピクセルを計算
+        model_paVtxBuffer_org[i].color = D3DCOLOR_COLORVALUE(paD3DVECTOR_VertexColors[i].r,
+                                                             paD3DVECTOR_VertexColors[i].g,
+                                                             paD3DVECTOR_VertexColors[i].b,
+                                                             paD3DVECTOR_VertexColors[i].a );
+        model_paVtxBuffer_org[i].tu = u;
+        model_paVtxBuffer_org[i].tv = v;
+
+        dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
+                                             model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
+                                             model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z  )
+                       + (((model_fSquareSize/PX_UNIT) * 1.41421356 ) / 2.0)
+                     );
+
+         if (model_fBoundingSphereRadius < dis) {
+             model_fBoundingSphereRadius = dis;
+         }
     }
 
 //    for (int i = 0; i < model_vertices_num; i++) {
@@ -3097,7 +3141,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
     prm_pPointSpriteModel->_dwNumMaterials = 1;
     prm_pPointSpriteModel->_fSquareSize = model_fSquareSize;
+    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!texWidth="<<(texWidth));
     prm_pPointSpriteModel->_fTexSize = texWidth;
+    _TRACE_("!!!!!!!!!!!!!!!!!!!!!!!prm_pPointSpriteModel->_fTexSize="<<(prm_pPointSpriteModel->_fTexSize));
     prm_pPointSpriteModel->_texture_split_rowcol = model_texture_split_rowcol;
     prm_pPointSpriteModel->_vertices_num = model_vertices_num;
     prm_pPointSpriteModel->_size_vertices = model_size_vertices;

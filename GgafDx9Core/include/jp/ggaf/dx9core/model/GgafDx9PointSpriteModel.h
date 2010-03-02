@@ -14,17 +14,17 @@ class GgafDx9PointSpriteModel : public GgafDx9Model {
 protected:
 public:
 
-    struct VARTEXPARAM {
-        UINT MaterialNo;
-        UINT StartVertex;
-        UINT PrimitiveCount;
-
-//        INT BaseVertexIndex;
-//        UINT MinIndex;
-//        UINT NumVertices;
-//        UINT StartIndex;
+//    struct VARTEXPARAM {
+//        UINT MaterialNo;
+//        UINT StartVertex;
 //        UINT PrimitiveCount;
-    };
+//
+////        INT BaseVertexIndex;
+////        UINT MinIndex;
+////        UINT NumVertices;
+////        UINT StartIndex;
+////        UINT PrimitiveCount;
+//    };
 
     struct VERTEX {
         float x, y, z;    // 頂点座標
@@ -35,22 +35,23 @@ public:
 
     /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
+    /** 頂点情報配列 */
     VERTEX* _paVtxBuffer_org;
-
+    /** 頂点数(=スプライト数) */
+    int _vertices_num;
     /** 頂点のFVF */
     static DWORD FVF;
     /** 矩形の頂点合計のサイズ */
     UINT _size_vertices;
     /** 1頂点のサイズ */
     UINT _size_vertex_unit;
-
     /** オブジェクトの１辺のサイズ(px) */
     float _fSquareSize;
     /** テクスチャの１辺の長さ(px) */
     float _fTexSize;
     /** テクスチャ分割数(１で分割無し。２で４パターン、３で９パターン) */
     int _texture_split_rowcol;
-    int _vertices_num;
+
 
     /**
      * コンストラクタ<BR>

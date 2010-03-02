@@ -18,6 +18,8 @@ public:
     GgafDx9PointSpriteModel* _pPointSpriteModel;
     /** エフェクト資源 */
     GgafDx9PointSpriteEffect* _pPointSpriteEffect;
+    /** UVフリッパー(パラパラアニメ) */
+    GgafDx9UvFlipper* _pUvFlipper;
 
     /**
      * コンストラクタ

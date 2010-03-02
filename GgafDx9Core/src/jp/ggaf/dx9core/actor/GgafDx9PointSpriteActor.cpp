@@ -21,6 +21,18 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pGgafDx9Model;
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
     _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
+    _pUvFlipper = NEW GgafDx9UvFlipper(this);
+    _TRACE_("_pPointSpriteModel->_texture_split_rowcol ="<<_pPointSpriteModel->_texture_split_rowcol);
+    _TRACE_("_pPointSpriteModel->_fTexSize = "<<_pPointSpriteModel->_fTexSize);
+    _TRACE_("_pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol = "<<(_pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol));
+    _pUvFlipper->setTextureUvRotation(_pPointSpriteModel->_texture_split_rowcol,
+                                      _pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol,
+                                      _pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol);
+    _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
+    _pUvFlipper->setPtnNo(0);
+    _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
+
 }
 
 
@@ -44,7 +56,14 @@ void GgafDx9PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hDist_VpPlnFront, -_fDist_VpPlnFront);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_hDist_VpPlnFront) に失敗しました。");
 //_TRACE_(getName() << "_fDist_VpPlnFront = "<<(-(pCAM->_fDist_VpPlnFront)));
-
+    float u = 0;
+    float v = 0;
+    _pUvFlipper->getUV(u, v);
+    _TRACE_("U="<<u<<" V="<<v);
+    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetU, u);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_u) に失敗しました。");
+    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetV, v);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_v) に失敗しました。");
     //ポイントスプライトON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //ポイントスケールON
