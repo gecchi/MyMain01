@@ -59,11 +59,13 @@ void GgafDx9PointSpriteActor::processDraw() {
     float u = 0;
     float v = 0;
     _pUvFlipper->getUV(u, v);
-    _TRACE_("U="<<u<<" V="<<v);
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetU, u);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_u) に失敗しました。");
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetV, v);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_v) に失敗しました。");
+    hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_hUvFlipPtnNo) に失敗しました。");
+
     //ポイントスプライトON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
     //ポイントスケールON

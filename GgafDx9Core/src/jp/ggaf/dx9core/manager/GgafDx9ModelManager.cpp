@@ -3071,8 +3071,10 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                                                              paD3DVECTOR_VertexColors[i].g,
                                                              paD3DVECTOR_VertexColors[i].b,
                                                              paD3DVECTOR_VertexColors[i].a );
-        model_paVtxBuffer_org[i].tu = u;
-        model_paVtxBuffer_org[i].tv = v;
+//        model_paVtxBuffer_org[i].tu = u;
+//        model_paVtxBuffer_org[i].tv = v;
+        model_paVtxBuffer_org[i].tu = (float)(paInt_InitUvPtnNo[i]);
+        model_paVtxBuffer_org[i].tv = 0;
 
         dis = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                              model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +

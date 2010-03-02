@@ -29,6 +29,7 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     _hDist_VpPlnFront = _pID3DXEffect->GetParameterByName( NULL, "g_Dist_VpPlnFront" );
     _hTexSize = _pID3DXEffect->GetParameterByName( NULL, "g_TexSize" );
     _hTextureSplitRowcol = _pID3DXEffect->GetParameterByName( NULL, "g_TextureSplitRowcol" );
+    _hUvFlipPtnNo = _pID3DXEffect->GetParameterByName( NULL, "g_UvFlipPtnNo" );
 }
 
 GgafDx9PointSpriteEffect::~GgafDx9PointSpriteEffect() {

@@ -65,8 +65,8 @@ HRESULT GgafDx9PointSpriteModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
 
         hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTexSize, _fTexSize);
         checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTexSize) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-        hr = pID3DXEffect->SetFloat(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
-        checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetFloat(_hTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+        hr = pID3DXEffect->SetInt(pPointSpriteEffect->_hTextureSplitRowcol, _texture_split_rowcol);
+        checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::draw() SetInt(_hTextureSplitRowcol) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pPointSpriteEffect->_effect_name);
         UINT numPass;

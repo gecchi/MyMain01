@@ -13,12 +13,13 @@ float g_default_DcamZ;
 float g_Dist_VpPlnFront; //ほぼ視点からの距離
 float g_zn;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
-float g_TextureSplitRowcol; //テクスチャの縦横分割数。
+int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
                             //2：縦横２分割＝４個のアニメパターン
                             //3：縦横３分割＝９個のアニメパターン
 float g_offsetU; //テクスチャU座標増分
 float g_offsetV; //テクスチャV座標増分
+float g_UvFlipPtnNo;
 
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
@@ -68,20 +69,48 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
 
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize;
-	out_vs.col = prm_col;
-	out_vs.uv = prm_uv;//何でも同じfloat2(0.5, 0.5);
+
+
+    int ptnno = ((int)(prm_uv.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
+    float u = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+    float v = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+
+
+	// colorに、uv座標を無理やり埋め込む（ポイントスプライトはUV固定になるため）
+	out_vs.col.r = u;
+	out_vs.col.g = v;
+
+    int rg = (int)(prm_col.r*255) + ((int)(prm_col.g*255))*1000;
+    int ba = (int)(prm_col.b*255) + ((int)(prm_col.a*255))*1000;
+	out_vs.col.b = rg;
+	out_vs.col.a = ba;
+	//out_vs.uv = prm_uv;//何でも同じfloat2(0.5, 0.5);
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultPointSprite(
-	float2 prm_uv	  : TEXCOORD0
+	float2 prm_uv	  : TEXCOORD0,     
+	float4 prm_col    : COLOR0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float2 uv = (float2)0; // * 0.5;//左上1/4
-	uv.x = prm_uv.x * (1.0 / g_TextureSplitRowcol) + g_offsetU;
-	uv.y = prm_uv.y * (1.0 / g_TextureSplitRowcol) + g_offsetV;
-	return tex2D( MyTextureSampler, uv);        
+
+
+	uv.x = prm_uv.x * (1.0 / g_TextureSplitRowcol) + prm_col.r;
+	uv.y = prm_uv.y * (1.0 / g_TextureSplitRowcol) + prm_col.g;
+	int rg = (int)prm_col.b;
+	int ba = (int)prm_col.a;
+	//float4 color = float4((float)((rg%1000) / 255.0), (float)(((int)(rg/1000)) / 255.0), (float)((ba%1000) / 255.0), (float)(((int)(ba/1000)) / 255.0));        
+
+    float4 out_color =  tex2D( MyTextureSampler, uv);
+	out_color.r = out_color.r * (float)((rg%1000) / 255.0);
+	out_color.g = out_color.g * (float)(((int)(rg/1000)) / 255.0);
+	out_color.b = out_color.b * (float)((ba%1000) / 255.0);
+	out_color.a = out_color.a * (float)(((int)(ba/1000)) / 255.0);
+//	uv.x = prm_uv.x * (1.0 / g_TextureSplitRowcol) + prm_col.x + g_offsetU;
+//	uv.y = prm_uv.y * (1.0 / g_TextureSplitRowcol) + prm_col.y + g_offsetV;
+	return out_color;
 }
 
 float4 PS_DestBlendOne( 
