@@ -22,8 +22,6 @@ GgafDx9PointSpriteEffect::GgafDx9PointSpriteEffect(char* prm_effect_name) : Ggaf
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _hMatWorld = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld" );
     _hAlpha    = _pID3DXEffect->GetParameterByName( NULL, "g_hAlpha" );
-    _hOffsetU  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU" );
-    _hOffsetV  = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );
     _hPowerBlink = _pID3DXEffect->GetParameterByName( NULL, "g_PowerBlink" );
     _hBlinkThreshold = _pID3DXEffect->GetParameterByName( NULL, "g_BlinkThreshold" );
     _hDist_VpPlnFront = _pID3DXEffect->GetParameterByName( NULL, "g_Dist_VpPlnFront" );

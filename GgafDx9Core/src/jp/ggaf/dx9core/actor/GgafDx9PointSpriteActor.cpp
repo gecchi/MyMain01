@@ -22,9 +22,6 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
     _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _TRACE_("_pPointSpriteModel->_texture_split_rowcol ="<<_pPointSpriteModel->_texture_split_rowcol);
-    _TRACE_("_pPointSpriteModel->_fTexSize = "<<_pPointSpriteModel->_fTexSize);
-    _TRACE_("_pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol = "<<(_pPointSpriteModel->_fTexSize / _pPointSpriteModel->_texture_split_rowcol));
     _pUvFlipper->setTextureUvRotation(_pPointSpriteModel->_texture_split_rowcol,
                                       1.0 / _pPointSpriteModel->_texture_split_rowcol,
                                       1.0 / _pPointSpriteModel->_texture_split_rowcol );
@@ -56,13 +53,6 @@ void GgafDx9PointSpriteActor::processDraw() {
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hDist_VpPlnFront, -_fDist_VpPlnFront);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_hDist_VpPlnFront) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 //_TRACE_(getName() << "_fDist_VpPlnFront = "<<(-(pCAM->_fDist_VpPlnFront)));
-    float u = 0;
-    float v = 0;
-    _pUvFlipper->getUV(u, v);
-    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetU, u);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_u) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hOffsetV, v);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_h_offset_v) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_hUvFlipPtnNo) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
