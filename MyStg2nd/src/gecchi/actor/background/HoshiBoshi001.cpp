@@ -48,7 +48,7 @@ void HoshiBoshi001::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
-        _X -= 10000;
+        _X -= 20000;
     }
 
     _pUvFlipper->behave();
@@ -68,7 +68,7 @@ void HoshiBoshi001::processJudgement() {
 void HoshiBoshi001::processPreDraw() {
     //画面外判定無しに伴ない処理簡略化
     //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL ,this); //最深部
+    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - MAX_DRAW_DEPTH_LEVEL/100 ,this); //最深部
 
 //    //一時テクニック期間チェック
 //    if (_is_temp_technique) {

@@ -78,6 +78,11 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         }
         //インデックスバッファ設定
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
+
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hPowerBlink, _fPowerBlink);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hPowerBlink) に失敗しました。");
+        hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hBlinkThreshold) に失敗しました。");
     }
 
     //描画
@@ -109,10 +114,6 @@ HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
             checkDxException(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") に失敗しました。");
 
-            hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hPowerBlink, _fPowerBlink);
-            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hPowerBlink) に失敗しました。");
-            hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
-            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hBlinkThreshold) に失敗しました。");
 
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             UINT numPass;

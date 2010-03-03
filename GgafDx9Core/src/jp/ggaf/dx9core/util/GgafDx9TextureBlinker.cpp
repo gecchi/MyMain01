@@ -115,7 +115,7 @@ void GgafDx9TextureBlinker::intoTargetBlinkLinerUntil(float prm_target_fPowerBli
     //_TRACE_("intoTargetBlinkLinerUntil prm_target_fPowerBlink="<<prm_target_fPowerBlink<<"/ _fPowerBlink["<<prm_<<"]="<<_fPowerBlink);
     //_TRACE_("intoTargetBlinkLinerUntil _velo_fPowerBlink["<<prm_<<"]="<<_velo_fPowerBlink);
     if (_velo_fPowerBlink == 0.0f) {
-        _method == NOBLINK;
+        _method = NOBLINK;
     }
 }
 
