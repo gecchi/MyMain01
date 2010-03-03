@@ -6,9 +6,22 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
-DefaultPointSpriteActor(prm_name, "hoshitest") {
+        GgafDx9PointSpriteActor(prm_name,
+                               "hoshitest",
+                               "HoshiBoshiEffect",
+                               "HoshiBoshiTechnique",
+                               NULL ) {
     _class_name = "HoshiBoshi001";
-    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    _hMyShip_fX  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fX" );
+    _hMyShip_fY  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fY" );
+    _hMyShip_fZ  = _pPointSpriteEffect->_pID3DXEffect->GetParameterByName( NULL, "g_MyShip_fZ" );
+
+
+    _frame_offset = 0;
+    _pScaler = NEW GgafDx9GeometryScaler(this);
+
+
+    //chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
@@ -70,6 +83,25 @@ void HoshiBoshi001::processPreDraw() {
 //    }
 }
 
+void HoshiBoshi001::processDraw() {
+    ID3DXEffect* pID3DXEffect;
+    pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
+    HRESULT hr;
+    hr = pID3DXEffect->SetFloat(_hMyShip_fX, pMYSHIP->_fX);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_hMyShip_fY, pMYSHIP->_fY);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    hr = pID3DXEffect->SetFloat(_hMyShip_fZ, pMYSHIP->_fZ);
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    GgafDx9PointSpriteActor::processDraw();
+}
+
+
+void HoshiBoshi001::drawHitArea() {
+    //CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+}
+
 
 HoshiBoshi001::~HoshiBoshi001() {
+    DELETE_IMPOSSIBLE_NULL(_pScaler);
 }
