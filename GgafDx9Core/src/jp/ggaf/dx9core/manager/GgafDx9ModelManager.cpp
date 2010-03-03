@@ -3055,7 +3055,6 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                                    1.0 / model_texture_split_rowcol,
                                    1.0 / model_texture_split_rowcol );
     uvflipper.forcePtnNoRange(0, model_texture_split_rowcol * model_texture_split_rowcol);
-    _TRACE_("restorePointSpriteModel model_vertices_num = "<<model_vertices_num);
     float u = 0;
     float v = 0;
     float dis;
