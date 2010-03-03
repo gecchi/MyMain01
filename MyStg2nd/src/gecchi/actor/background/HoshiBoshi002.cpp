@@ -5,33 +5,33 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
+HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
 DefaultPointSpriteActor(prm_name, "hoshitest") {
-    _class_name = "HoshiBoshi001";
+    _class_name = "HoshiBoshi002";
     chengeEffectTechnique("DestBlendOne"); //加算合成
     setHitAble(false);
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
-    _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
+    _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
 
-int HoshiBoshi001::isOffscreen() {
+int HoshiBoshi002::isOffscreen() {
     //画面外判定無し
     return 0;
 }
 
-bool HoshiBoshi001::isOutOfGameSpace() {
+bool HoshiBoshi002::isOutOfGameSpace() {
     //ゲーム座標範囲外判定無し
     return false;
 }
-void HoshiBoshi001::initialize() {
+void HoshiBoshi002::initialize() {
 
 }
 
-void HoshiBoshi001::onActive() {
+void HoshiBoshi002::onActive() {
     _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1);
 }
 
-void HoshiBoshi001::processBehavior() {
+void HoshiBoshi002::processBehavior() {
     if (_X < -_CAM_ZF) {
         _X += (_CAM_ZF*2);
     } else {
@@ -41,7 +41,7 @@ void HoshiBoshi001::processBehavior() {
     _pUvFlipper->behave();
 }
 
-void HoshiBoshi001::processPreJudgement() {
+void HoshiBoshi002::processPreJudgement() {
     //画面外判定無しに伴ない処理簡略化
     //GgafDx9GeometricActor::processPreJudgement() と同期を取る事！
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
@@ -49,10 +49,10 @@ void HoshiBoshi001::processPreJudgement() {
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
 }
 
-void HoshiBoshi001::processJudgement() {
+void HoshiBoshi002::processJudgement() {
 }
 
-void HoshiBoshi001::processPreDraw() {
+void HoshiBoshi002::processPreDraw() {
     //画面外判定無しに伴ない処理簡略化
     //GgafDx9DrawableActor::processPreDraw() と同期を取る事！
     GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL ,this); //最深部
@@ -71,5 +71,5 @@ void HoshiBoshi001::processPreDraw() {
 }
 
 
-HoshiBoshi001::~HoshiBoshi001() {
+HoshiBoshi002::~HoshiBoshi002() {
 }

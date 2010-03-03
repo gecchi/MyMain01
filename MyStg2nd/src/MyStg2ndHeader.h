@@ -167,6 +167,7 @@ class EffectLockOn001_Release;
 class EffectTurbo001;
 class EffectTurbo002;
 class HoshiBoshi001;
+class HoshiBoshi002;
 class TurboMeter;
 
 class TamagoActor;
@@ -281,6 +282,7 @@ class Formation001;
 #include "gecchi/actor/background/mesh/BackGroundStar001.h"
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
+#include "gecchi/actor/background/HoshiBoshi002.h"
 #include "gecchi/GameGlobal.h"
 
 #include "gecchi/actor/enemy/Ceres/EnemyCeres.h"

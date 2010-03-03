@@ -12,6 +12,7 @@ float4x4 g_matProj;   //射影変換行列
 float g_default_DcamZ;
 float g_Dist_VpPlnFront; //ほぼ視点からの距離
 float g_zn;
+float g_zf;
 float g_TexSize;  //読み込んだテクスチャ（正方形が前提）の幅テクセル数
 int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
@@ -43,7 +44,7 @@ struct OUT_VS
     float4 pos    : POSITION;
 	float  psize  : PSIZE;
 	float4 col    : COLOR0;
-	float4 uv_ps  : COLOR1;
+	float4 uv_ps  : COLOR1;  //スペキュラを潰して表示したいUV座標左上の情報をPSに渡す
 };
 
 
@@ -71,28 +72,45 @@ struct OUT_VS
 
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDx9VS_DefaultPointSprite(
-      float4 prm_pos    : POSITION,      // モデルの頂点
-      float  prm_psize  : PSIZE,
-      float2 prm_uv     : TEXCOORD0,
-      float4 prm_col    : COLOR0
+      float4 prm_pos         : POSITION,  //ポイントスプライトのポイント群
+      float  prm_psize_rate  : PSIZE,     //PSIZEでは無くて、スケールの率(0.0～N (1.0=等倍)) が入ってくる
+      float2 prm_ptn_no      : TEXCOORD0, //UVでは無くて、prm_ptn_no.xには、表示したいアニメーションパターン番号が埋め込んである
+      float4 prm_col         : COLOR0     //オブジェクトのカラー
 
 ) {
 	OUT_VS out_vs = (OUT_VS)0;
 
 	//頂点計算
 	out_vs.pos = mul(prm_pos    , g_matWorld);  //World
+	if (out_vs.pos.x > g_zf) {
+		out_vs.pos.x = out_vs.pos.x - (g_zf*2);
+	}
+	if (out_vs.pos.x < -g_zf) {
+		out_vs.pos.x = out_vs.pos.x + (g_zf*2);
+	}
+	if (out_vs.pos.y > g_zf) {
+		out_vs.pos.y = out_vs.pos.y - (g_zf*2);
+	}
+	if (out_vs.pos.y < -g_zf) {
+		out_vs.pos.y = out_vs.pos.y + (g_zf*2);
+	}
+	if (out_vs.pos.z > g_zf) {
+		out_vs.pos.z = out_vs.pos.z - (g_zf*2);
+	}
+	if (out_vs.pos.z < -g_zf) {
+		out_vs.pos.z = out_vs.pos.z + (g_zf*2);
+	}
 	out_vs.pos = mul(out_vs.pos , g_matView);  //View
 	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize;
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;
 
-    int ptnno = ((int)(prm_uv.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
-    float u = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-    float v = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-	out_vs.uv_ps.x = u;
-	out_vs.uv_ps.y = v;
+    int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
+	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す
+	out_vs.uv_ps.x = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
+	out_vs.uv_ps.y = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
 	out_vs.col = prm_col;
 	return out_vs;
 }
@@ -101,7 +119,7 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 float4 GgafDx9PS_DefaultPointSprite(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,     
 	float4 prm_col                : COLOR0,
-	float4 prm_uv_ps              : COLOR1
+	float4 prm_uv_ps              : COLOR1  //スペキュラでは無くて、表示したいUV座標左上の情報が入っている
 ) : COLOR  {
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
@@ -109,16 +127,6 @@ float4 GgafDx9PS_DefaultPointSprite(
 	return tex2D( MyTextureSampler, uv) * prm_col;// * g_MaterialDiffuse;
 }
 
-float4 PS_DestBlendOne(
-	float2 prm_uv_pointsprite	  : TEXCOORD0,     
-	float4 prm_col                : COLOR0,
-	float4 prm_uv_ps              : COLOR1
-) : COLOR  {
-	float2 uv = (float2)0;
-	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
-	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	return tex2D( MyTextureSampler, uv) * prm_col * g_MaterialDiffuse;
-}
 
 float4 PS_Flush(
 	float2 prm_uv_pointsprite	  : TEXCOORD0,     
@@ -128,35 +136,11 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	return tex2D( MyTextureSampler, uv) * prm_col * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
+	return tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_MaterialDiffuse;
 }
 
 technique DefaultPointSpriteTechnique
 {
-	//pass P0「メッシュ標準シェーダー」
-	//メッシュを描画する
-	//【考慮される要素】
-	//--- VS ---
-	//・頂点を World、View、射影 変換
-	//・法線を World変換
-	//--- PS ---
-	//・Diffuseライト色
-	//・Ambientライト色
-	//・ライト方向
-	//・オブジェクトのマテリアルのDiffuse反射（色はAmbient反射と共通）
-	//・オブジェクトのテクスチャ
-	//・半透明α（Diffuse反射αとテクスチャαの乗算）
-	//【使用条件】
-	//・テクスチャが存在しs0レジスタにバインドされていること。
-	//【設定パラメータ】
-	// float4x4 g_matWorld		:	World変換行列
-	// float4x4 g_matView		:	View変換行列
-	// float4x4 g_matProj		:	射影変換行列   
-	// float3 g_LightDirection	:	ライトの方向
-	// float4 g_LightAmbient	:	Ambienライト色（入射色）
-	// float4 g_LightDiffuse	:	Diffuseライト色（入射色）
-	// float4 g_MaterialDiffuse	:	マテリアルのDiffuse反射（Ambient反射と共通）
-	// s0レジスタ				:	2Dテクスチャ
 	pass P0 {
 		AlphaBlendEnable = true;
 		SrcBlend  = SrcAlpha;
@@ -174,7 +158,7 @@ technique DestBlendOne
 		SrcBlend  = SrcAlpha;   
 		DestBlend = One; //加算合成
 		VertexShader = compile vs_2_0 GgafDx9VS_DefaultPointSprite();
-		PixelShader  = compile ps_2_0 PS_DestBlendOne();
+		PixelShader  = compile ps_2_0 GgafDx9PS_DefaultPointSprite();
 	}
 }
 

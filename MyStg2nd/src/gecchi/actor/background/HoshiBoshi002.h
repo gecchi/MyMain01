@@ -1,19 +1,19 @@
-#ifndef HOSHIBOSHI001_H_
-#define HOSHIBOSHI001_H_
+#ifndef HOSHIBOSHI002_H_
+#define HOSHIBOSHI002_H_
 namespace MyStg2nd {
 
 /**
- * 爆発エフェクトスプライト001
+ * 爆発エフェクトスプライト002
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge
  */
-class HoshiBoshi001 : public GgafDx9LibStg::DefaultPointSpriteActor {
+class HoshiBoshi002 : public GgafDx9LibStg::DefaultPointSpriteActor {
 
 public:
     int _CAM_ZF;
 
-    HoshiBoshi001(const char* prm_name);
+    HoshiBoshi002(const char* prm_name);
 
     /**
      * ＜OverRide です＞
@@ -34,9 +34,9 @@ public:
 
     bool isOutOfGameSpace() override;
 
-    virtual ~HoshiBoshi001();
+    virtual ~HoshiBoshi002();
 };
 
 }
-#endif /*HOSHIBOSHI001_H_*/
+#endif /*HOSHIBOSHI002_H_*/
 

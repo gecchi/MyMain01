@@ -13,9 +13,13 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _pBackGround01 = NEW BackGround01("BACKGOROUND01", "");
     _pBackGround01->inactivateTree();
     getLordActor()->addSubGroup(KIND_EFFECT, _pBackGround01);
-    _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
-    _pBackGroundStar->inactivateTree();
-    getLordActor()->addSubGroup(KIND_EFFECT, _pBackGroundStar);
+//    _pBackGroundStar =  NEW BackGroundStar("BackGroundStarP");
+//    _pBackGroundStar->inactivateTree();
+//    getLordActor()->addSubGroup(KIND_EFFECT, _pBackGroundStar);
+
+    _pHoshiBoshi001 = NEW HoshiBoshi001("HoshiBoshi001");
+    getLordActor()->addSubGroup(KIND_EFFECT, _pHoshiBoshi001);
+
     _angCamZX_prev = 0;
     _angCamXY_prev = 0;
 
@@ -46,8 +50,8 @@ void Stage01Scene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) { //ステージ１開始！
-            _pBackGround01->activateTree();
-            _pBackGroundStar->activateTree();
+//            _pBackGround01->activateTree();
+//            _pBackGroundStar->activateTree();
             _pScene_Stage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
         }
