@@ -127,8 +127,6 @@ class CommonScene;
 class DispFpsActor;
 class BackGround01;
 class BackGroundChipBoard;
-class BackGroundStar;
-class BackGroundStar001;
 
 class GameScene;
 class GameDemoScene;
@@ -278,8 +276,6 @@ class Formation001;
 #include "gecchi/actor/_debug/DispFpsActor.h"
 #include "gecchi/actor/background/BackGround01.h"
 #include "gecchi/actor/background/board/BackGroundChipBoard.h"
-#include "gecchi/actor/background/BackGroundStar.h"
-#include "gecchi/actor/background/mesh/BackGroundStar001.h"
 #include "gecchi/actor/background/board/TurboMeter.h"
 #include "gecchi/actor/background/HoshiBoshi001.h"
 #include "gecchi/actor/background/HoshiBoshi002.h"
