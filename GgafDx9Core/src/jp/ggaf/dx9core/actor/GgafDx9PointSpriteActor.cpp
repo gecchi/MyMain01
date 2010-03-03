@@ -42,7 +42,7 @@ void GgafDx9PointSpriteActor::setAlpha(float prm_fAlpha) {
 
 
 void GgafDx9PointSpriteActor::processDraw() {
-    static ID3DXEffect* pID3DXEffect;
+    ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatView, &pCAM->_vMatrixView );
@@ -54,7 +54,7 @@ void GgafDx9PointSpriteActor::processDraw() {
     checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_hDist_VpPlnFront) に失敗しました。");
 //_TRACE_(getName() << "_fDist_VpPlnFront = "<<(-(pCAM->_fDist_VpPlnFront)));
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(_hUvFlipPtnNo) に失敗しました。");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) に失敗しました。");
     // Zバッファを無効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
     // Zバッファ書き込み不可
