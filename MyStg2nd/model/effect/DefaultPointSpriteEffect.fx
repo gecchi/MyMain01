@@ -17,8 +17,8 @@ int g_TextureSplitRowcol; //テクスチャの縦横分割数。
                             //1：縦横１分割＝分割無し。
                             //2：縦横２分割＝４個のアニメパターン
                             //3：縦横３分割＝９個のアニメパターン
-float g_offsetU; //テクスチャU座標増分
-float g_offsetV; //テクスチャV座標増分
+float g_offsetU;        //テクスチャU座標増分
+float g_offsetV;         //テクスチャV座標増分
 float g_UvFlipPtnNo;
 
 float3 g_LightDirection; // ライトの方向
@@ -43,11 +43,31 @@ struct OUT_VS
     float4 pos    : POSITION;
 	float  psize  : PSIZE;
 	float4 col    : COLOR0;
-	float2 uv     : TEXCOORD0;
+	float4 uv_ps  : COLOR1;
 };
 
 
 ///////////////////////////////////////////////////////////////////////////
+////http://wlog.flatlib.jp/?blogid=1&query=dxgi
+//// パックされたカラーを展開する
+//float3 pf_to_float3( float pf )
+//{
+//    uint    data= asint( pf );
+//    float3  rcol;
+//    const float tof= 1.0f/255.0f;
+//    rcol.x= ( data      & 255) * tof;
+//    rcol.y= ((data>> 8) & 255) * tof;
+//    rcol.z= ((data>>16) & 255) * tof;
+//    return  rcol;
+//}
+//
+//// カラーを float1 に圧縮する
+//float float3_to_pf( float3 color )
+//{
+//    uint3   bcol= (uint3)( color * 255.0f ) & 255;
+//    return  asfloat( (bcol.z << 16) + (bcol.y << 8) + bcol.x );
+//}
+
 
 //メッシュ標準頂点シェーダー
 OUT_VS GgafDx9VS_DefaultPointSprite(
@@ -65,64 +85,50 @@ OUT_VS GgafDx9VS_DefaultPointSprite(
 	float dep = out_vs.pos.z + 1.0; //+1.0の意味は
                                     //VIEW変換は(0.0, 0.0, -1.0) から (0.0, 0.0, 0.0) を見ているため、
                                     //距離に加える。
-    //float dep = g_zn + g_Dist_VpPlnFront;//(0,0,0)の距離
 	out_vs.pos = mul(out_vs.pos , g_matProj);  //射影変換
-
 	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize;
-
 
     int ptnno = ((int)(prm_uv.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
     float u = ((int)(ptnno % g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
     float v = ((int)(ptnno / g_TextureSplitRowcol)) * (1.0 / g_TextureSplitRowcol);
-
-
-	// colorに、uv座標を無理やり埋め込む（ポイントスプライトはUV固定になるため）
-	out_vs.col.r = u;
-	out_vs.col.g = v;
-
-    int rg = (int)(prm_col.r*255) + ((int)(prm_col.g*255))*1000;
-    int ba = (int)(prm_col.b*255) + ((int)(prm_col.a*255))*1000;
-	out_vs.col.b = rg;
-	out_vs.col.a = ba;
-	//out_vs.uv = prm_uv;//何でも同じfloat2(0.5, 0.5);
+	out_vs.uv_ps.x = u;
+	out_vs.uv_ps.y = v;
+	out_vs.col = prm_col;
 	return out_vs;
 }
 
 //メッシュ標準ピクセルシェーダー（テクスチャ有り）
 float4 GgafDx9PS_DefaultPointSprite(
-	float2 prm_uv	  : TEXCOORD0,     
-	float4 prm_col    : COLOR0
+	float2 prm_uv_pointsprite	  : TEXCOORD0,     
+	float4 prm_col                : COLOR0,
+	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
-	//テクスチャをサンプリングして色取得（原色を取得）
-	float2 uv = (float2)0; // * 0.5;//左上1/4
-
-
-	uv.x = prm_uv.x * (1.0 / g_TextureSplitRowcol) + prm_col.r;
-	uv.y = prm_uv.y * (1.0 / g_TextureSplitRowcol) + prm_col.g;
-	int rg = (int)prm_col.b;
-	int ba = (int)prm_col.a;
-	//float4 color = float4((float)((rg%1000) / 255.0), (float)(((int)(rg/1000)) / 255.0), (float)((ba%1000) / 255.0), (float)(((int)(ba/1000)) / 255.0));        
-
-    float4 out_color =  tex2D( MyTextureSampler, uv);
-	out_color.r = out_color.r * (float)((rg%1000) / 255.0);
-	out_color.g = out_color.g * (float)(((int)(rg/1000)) / 255.0);
-	out_color.b = out_color.b * (float)((ba%1000) / 255.0);
-	out_color.a = out_color.a * (float)(((int)(ba/1000)) / 255.0);
-//	uv.x = prm_uv.x * (1.0 / g_TextureSplitRowcol) + prm_col.x + g_offsetU;
-//	uv.y = prm_uv.y * (1.0 / g_TextureSplitRowcol) + prm_col.y + g_offsetV;
-	return out_color;
+	float2 uv = (float2)0;
+	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
+	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	return tex2D( MyTextureSampler, uv) * prm_col;// * g_MaterialDiffuse;
 }
 
-float4 PS_DestBlendOne( 
-	float2 prm_uv	  : TEXCOORD0
+float4 PS_DestBlendOne(
+	float2 prm_uv_pointsprite	  : TEXCOORD0,     
+	float4 prm_col                : COLOR0,
+	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse;
+	float2 uv = (float2)0;
+	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
+	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	return tex2D( MyTextureSampler, uv) * prm_col * g_MaterialDiffuse;
 }
 
-float4 PS_Flush( 
-	float2 prm_uv	  : TEXCOORD0
+float4 PS_Flush(
+	float2 prm_uv_pointsprite	  : TEXCOORD0,     
+	float4 prm_col                : COLOR0,
+	float4 prm_uv_ps              : COLOR1
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
+	float2 uv = (float2)0;
+	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
+	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
+	return tex2D( MyTextureSampler, uv) * prm_col * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
 }
 
 technique DefaultPointSpriteTechnique
