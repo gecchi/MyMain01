@@ -50,7 +50,7 @@ void Stage01Scene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) { //ステージ１開始！
-//            _pBackGround01->activateTree();
+            _pBackGround01->activateTree();
 //            _pBackGroundStar->activateTree();
             _pScene_Stage01Main->activate();
             setProgress(STAGE01_PROG_PLAY);
