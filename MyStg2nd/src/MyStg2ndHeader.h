@@ -176,7 +176,6 @@ class GameGlobal;
 class DefaultSpriteMyActor;
 class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;
-class DefaultSpriteEffectActor;
 
 class EnemyMeshShot001;
 class EnemyLaserChip001;
@@ -245,7 +244,6 @@ class Formation001;
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
 #include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
-#include "gecchi/actor/effect/sprite/DefaultSpriteEffectActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/laserchip/LaserChip.h"
 #include "gecchi/actor/common/laserchip/CurveLaserChip.h"

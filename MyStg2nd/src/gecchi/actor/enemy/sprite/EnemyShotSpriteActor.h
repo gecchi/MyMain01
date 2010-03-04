@@ -4,8 +4,8 @@ namespace MyStg2nd {
 
 class EnemyShotSpriteActor : public DefaultSpriteEnemyActor {
 
-    DefaultSpriteEffectActor* _pEffectBegin;
-    DefaultSpriteEffectActor* _pEffectFinish;
+//    DefaultSpriteEffectActor* _pEffectBegin;
+//    DefaultSpriteEffectActor* _pEffectFinish;
     int _iProgress; //êiÇ›ãÔçá
 
 public:
