@@ -262,7 +262,7 @@ class Formation001;
 #include "gecchi/actor/my/mesh/MyWave001.h"
 #include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
-#include "gecchi/actor/effect/sprite/EffectExplosion001.h"
+#include "gecchi/actor/effect/EffectExplosion001.h"
 #include "gecchi/actor/effect/EffectLockOn001.h"
 #include "gecchi/actor/effect/EffectLockOn001_Release.h"
 #include "gecchi/actor/effect/EffectTurbo001.h"
