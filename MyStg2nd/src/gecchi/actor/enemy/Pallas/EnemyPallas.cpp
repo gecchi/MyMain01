@@ -37,6 +37,7 @@ void EnemyPallas::processBehavior() {
     } else if (_pMover->_veloMv >= +8000) {
         _pMover->setMvAcce(-500);
     }
+
     _X -= 2000;
 
     //ç¿ïWÇ…îΩâf
