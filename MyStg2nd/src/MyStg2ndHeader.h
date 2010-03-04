@@ -174,7 +174,6 @@ class MyUtil;
 class GameGlobal;
 
 class DefaultSpriteMyActor;
-class DefaultMeshEnemyActor;
 class DefaultSpriteEnemyActor;
 
 class EnemyMeshShot001;
@@ -242,7 +241,6 @@ class Formation001;
 #include "gecchi/scene/Universe/World/GameScene/TamagoScene.h"
 
 #include "gecchi/actor/my/sprite/DefaultSpriteMyActor.h"
-#include "gecchi/actor/enemy/mesh/DefaultMeshEnemyActor.h"
 #include "gecchi/actor/enemy/sprite/DefaultSpriteEnemyActor.h"
 #include "gecchi/actor/common/mesh/GroundMeshActor.h"
 #include "gecchi/actor/common/laserchip/LaserChip.h"

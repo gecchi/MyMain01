@@ -5,7 +5,7 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshEnemyActor(prm_name, "vic2") {
+EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "vic2") {
     _class_name = "EnemyMeshShot001";
 
     inactivateTree();

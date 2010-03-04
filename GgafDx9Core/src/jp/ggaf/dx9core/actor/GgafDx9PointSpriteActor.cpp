@@ -75,4 +75,5 @@ void GgafDx9PointSpriteActor::processDraw() {
 }
 
 GgafDx9PointSpriteActor::~GgafDx9PointSpriteActor() {
+    DELETE_IMPOSSIBLE_NULL(_pUvFlipper);
 }

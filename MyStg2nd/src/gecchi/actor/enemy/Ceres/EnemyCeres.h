@@ -11,7 +11,7 @@ namespace MyStg2nd {
  * ・_veloBegin 折り返し地点に行くまでの加速度<BR>
  *
  */
-class EnemyCeres : public DefaultMeshEnemyActor {
+class EnemyCeres : public GgafDx9LibStg::DefaultMeshSetActor {
 
 private:
 

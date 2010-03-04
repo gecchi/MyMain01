@@ -23,6 +23,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
     prepareSe2("bomb1");     //爆発
     _pDispatcher_Fired = NULL;
+    defineWorldMatrix(GgafDx9Util::mulWorldMatrix_ScRxRzRyMv);
 }
 
 void EnemyVesta::onCreateModel() {
@@ -74,14 +75,40 @@ void EnemyVesta::processBehavior() {
     }
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+
+
+    if (_iMovePatternNo == VESTA_HATCH_OPENED) {
+        int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
+        //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
+        if (openningFrame % (int)(10/_RANK_) == 0) {
+            if (_pDispatcher_Fired) {
+                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
+                if (pActor) {
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+                    pActor->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
+                    pActor->activate();
+                }
+            }
+        }
+    }
+
+
+
     _pMorpher->behave();
     _pMover->behave();
 }
 
 void EnemyVesta::processJudgement() {
-    if (isOutOfGameSpace()) {
+    if (_pActor_Foundation == NULL || (_pActor_Foundation != NULL && !_pActor_Foundation->isActive())) {
         inactivate();
+    } else {
+
+        (*(_pActor_Foundation->_pFunc_calcWorldMatrix))(this, _matWorld);
     }
+//    if (isOutOfGameSpace()) {
+//        inactivate();
+//    }
 }
 
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
