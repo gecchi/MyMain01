@@ -6,12 +6,12 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-//MyOptionParent::MyOptionParent(const char* prm_name) :
-//    DefaultMeshActor(prm_name, "vic2") {
-
 MyOptionParent::MyOptionParent(const char* prm_name) :
-  GgafDx9GeometricActor(prm_name,
-                            NULL) {
+    DefaultMeshActor(prm_name, "vic2") {
+
+//MyOptionParent::MyOptionParent(const char* prm_name) :
+//  GgafDx9GeometricActor(prm_name,
+//                            NULL) {
 
     _angVelo_Turn = 8000;
 
@@ -130,8 +130,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     int d = 4;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Rz  = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Ry  = 0;
-    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Rz         = ANGLE315;
-    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Ry         = ANGLE180 - (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Rz         = ANGLE225;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Ry         = ANGLE0 + (d*2);
     angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_BEHIND].Rz   = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_BEHIND].Ry   = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_BEHIND].Rz       = 0;
@@ -166,8 +166,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP].Ry            = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_FRONT].Rz   = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_FRONT].Ry   = 0;
-    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Rz          = ANGLE315;
-    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Ry          = ANGLE360 - (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Rz          = ANGLE225;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Ry          = ANGLE180 - (d*2);
     angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_FRONT].Rz    = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_FRONT].Ry    = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_FRONT].Rz        = 0;
@@ -191,8 +191,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_BEHIND].Ry    = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_BEHIND].Rz        = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_BEHIND].Ry        = 0;
-    angtarget[CAM_POS_LEFT][WAY_BEHIND].Rz               = 0;
-    angtarget[CAM_POS_LEFT][WAY_BEHIND].Ry               = 0;
+    angtarget[CAM_POS_LEFT][WAY_BEHIND].Rz               = ANGLE0 + 2;
+    angtarget[CAM_POS_LEFT][WAY_BEHIND].Ry               = ANGLE180 - d;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_BEHIND].Rz         = 0;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_BEHIND].Ry         = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_BEHIND].Rz     = 0;
@@ -203,8 +203,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP_BEHIND].Ry      = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN].Rz          = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN].Ry          = 0;
-    angtarget[CAM_POS_LEFT][WAY_DOWN].Rz                 = 0;
-    angtarget[CAM_POS_LEFT][WAY_DOWN].Ry                 = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN].Rz                 = ANGLE270 - d;
+    angtarget[CAM_POS_LEFT][WAY_DOWN].Ry                 = ANGLE270;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN].Rz           = 0;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN].Ry           = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT].Rz               = 0;
@@ -215,8 +215,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     angtarget[CAM_POS_LEFT][WAY_ZLEFT].Ry                = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP].Rz            = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP].Ry            = 0;
-    angtarget[CAM_POS_LEFT][WAY_UP].Rz                   = 0;
-    angtarget[CAM_POS_LEFT][WAY_UP].Ry                   = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP].Rz                   = ANGLE90 - d;
+    angtarget[CAM_POS_LEFT][WAY_UP].Ry                   = ANGLE90;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP].Rz             = 0;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP].Ry             = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN_FRONT].Rz    = 0;
@@ -227,8 +227,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_FRONT].Ry     = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_FRONT].Rz         = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_FRONT].Ry         = 0;
-    angtarget[CAM_POS_LEFT][WAY_FRONT].Rz                = 0;
-    angtarget[CAM_POS_LEFT][WAY_FRONT].Ry                = 0;
+    angtarget[CAM_POS_LEFT][WAY_FRONT].Rz                = ANGLE0;
+    angtarget[CAM_POS_LEFT][WAY_FRONT].Ry                = ANGLE0 + d;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_FRONT].Rz          = 0;
     angtarget[CAM_POS_LEFT][WAY_ZLEFT_FRONT].Ry          = 0;
     angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_FRONT].Rz      = 0;
@@ -447,16 +447,16 @@ void MyOptionParent::processBehavior() {
                 targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
             } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
                 //左サイドビュー(左から右へスクロール)
-                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+                targetRz = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Ry;
             } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
                 //トップビュー(上から下へスクロール)
-                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+                targetRz = angtarget[CAM_POS_TOP][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_TOP][pMYSHIP->_way].Ry;
             } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
                 //ボトムビュー(下から上へスクロール)
-                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+                targetRz = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Ry;
             } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
                 //背後ビュー（奥から手前にスクロール）
                 targetRz = angtarget[0][pMYSHIP->_way].Rz;

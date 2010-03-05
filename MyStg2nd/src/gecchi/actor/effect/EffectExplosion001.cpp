@@ -12,7 +12,6 @@ EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetA
 }
 
 void EffectExplosion001::initialize() {
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
     _pUvFlipper->forcePtnNoRange(0, 15);
     setHitAble(false);
 
@@ -20,6 +19,7 @@ void EffectExplosion001::initialize() {
 
 void EffectExplosion001::onActive() {
     _pUvFlipper->setPtnNoToTop();
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1);
     _fAlpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }

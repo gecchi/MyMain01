@@ -2,8 +2,9 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
-class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
-//class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+//class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
+
 
     struct AngRzRy {
         angle Rz;
@@ -34,7 +35,8 @@ public:
 
     virtual void processJudgement() override {}
 
-    virtual void processDraw() override {}
+//DefaultMeshActorÇ≈ï\é¶ÇµÇΩÇ¢èÍçáÇÕÉRÉÅÉìÉgÇ…Ç∑ÇÈÇ±Ç∆
+//    virtual void processDraw() override {}
 
     virtual void processHappen(int prm_no) override {}
 
