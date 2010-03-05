@@ -38,7 +38,9 @@ public:
     /** FLIP_OSCILLATE_LOOP用の現在のアニメ方向 */
     bool _is_reverse_order_in_oscillate_animation_flg;
 
-
+    int* _paInt_PtnOffset_Customized;
+    int _nPtn_Customized;
+    int _cnt_Customized;
     GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor);
 
 
@@ -57,14 +59,17 @@ public:
         _is_reverse_order_in_oscillate_animation_flg =
                 prm_pUvFlipper_Other->_is_reverse_order_in_oscillate_animation_flg;
     }
+
     /**
-     * テクスチャのフリッピングパターンの番号に対応するUV座標のズレを定義する。
+     * テクスチャのフリッピングパターンの番号に対応するUV座標のズレるオフセットを定義する。 .
+     * <pre>
      * ＜例＞
-     * setTextureUvRotation(3, 1.0/5, 1.0/4);
-     * forcePtnNoRange(0,9);
-     * setPtnNo(5);
      *
-     * を実行時の概念図
+     *   setTextureUvRotation(3, 1.0/5, 1.0/4);
+     *   forcePtnNoRange(0,9);
+     *   setPtnNo(5);
+     *
+     * を実行時のパターン概念図
      *
      *          3 = prm_tex_col_num
      *     <-------->
@@ -85,10 +90,67 @@ public:
      *
      * (※"!" は現在アクティブなパターン番号)
      *
-     * ０～９はパターン番号と呼ばれる。
+     * ０～９はパターン番号と呼ぶこととする。
      * 描画時、頂点バッファの各頂点のUV座標に、
-     * アクティブなパターンの左上のUV座標がオフセットとして加算されることになる。
-     * 上の図の例では、パターン番号5がアクティブなので全頂点のUV座標は(+0.4, +0.25)加算される。
+     * アクティブなパターンの左上のUV座標がオフセットとして加算されることを想定して本メソッドを作成。
+     * 上の図の例では、パターン番号5がアクティブなのでこの状態で
+     *
+     *   float u, v;
+     *   getUV(u, v);
+     *
+     * を実行するとパターン番号5番の左上のUV座標の
+     *
+     *   u = 0.4, v = 0.25
+     *
+     * が得られる。
+     * 本メソッドによるパターン設定は、この getUV() メソッドの結果にのみ影響を与える。
+     * getUV()を使用しないのでれば、本メソッドによる設定は無意味である。
+     *
+     * 【補足】
+     * GgafDx9UvFlipper はフレームワークの描画処理に埋め込まれているアクタークラスが存在する。
+     * メンバ _pUvFlipper が存在しているクラスがそれである。
+     * 描画時にどのように作用しているかここにメモを残す。
+     *
+     * ・GgafDx9SpriteActor
+     *   GgafDx9SpriteSetActor
+     *   GgafDx9BoardActor
+     *   GgafDx9BoardSetActor
+     *   GgafDx9PointSpriteActor について・・・
+     *       描画時、現在パターン番号(_pattno_uvflip_now) のみ参照されている。getUV() は内部で使用していない。
+     *       したがって、setTextureUvRotation() の呼び出しはフレームワークの描画処理では無意味。
+     *       アニメーションのUV座標のオフセット情報は、定義Xファイル(拡張子.sprx)から読み取られて、モデルで保持している。
+     *       上記アクター実装者は _pattno_uvflip_now の操作だけで良い。実装者は俺。
+     *       コンストラクタで以下の初期処理を実行している。
+     *       ----------------------------------------------------------
+     *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
+     *       _pUvFlipper->forcePtnNoRange(0, 最大アニメーションパターン番号);
+     *       _pUvFlipper->setPtnNo(0);
+     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       ----------------------------------------------------------
+     *
+     * ・GgafDx9SpriteMeshActor
+     *   GgafDx9SpriteSetMeshActor  について・・・
+     *       内部で getUV() を使用している。よって setTextureUvRotation() による設定が必須。
+     *       描画時シェーダー内部で頂点バッファのUV座標に getUV() で得たUVオフセット値を加算している。
+     *       しかし『setTextureUvRotation() は内部で実行していない』ため、継承クラス側の初期処理などで、
+     *       事前に１回は setTextureUvRotation() を呼び出して、パターンの番号とUV座標（オフセット値）の
+     *       対応を定義しておく事が前提な作りになっている。
+     *       （TODO:事前呼び出しを強制させる仕組みは現在無い。いずれ作りたい。が、とりあえず今は自分で気を付ける）
+     *       具体的にはコンストラクタで以下の初期処理を実行している。
+     *       ----------------------------------------------------------
+     *       _pUvFlipper = NEW GgafDx9UvFlipper(this);
+     *       _pUvFlipper->forcePtnNoRange(0, 最大アニメーションパターン番号);
+     *       _pUvFlipper->setPtnNo(0);
+     *       _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
+     *       ----------------------------------------------------------
+     *
+     * ・その他のアクタークラスについて・・・
+     *       クラス内部に GgafDx9UvFlipper は組み込まれていない。
+     *
+     * 【まとめ】
+     * 要は GgafDx9SpriteMeshActor, GgafDx9SpriteSetMeshActor 利用時は
+     * setTextureUvRotation() を実行が必要、他は不要。
+     * </pre>
      * @param prm_tex_col_num パターンのカラム数。UV座標を改行するために使用される(自然数)
      * @param prm_tex_width １パターンの幅(0.0f～1.0f)
      * @param prm_tex_height １パターンの高さ(0.0f～1.0f)
@@ -99,12 +161,13 @@ public:
      * アニメーションを1フレーム分進行させる .
      * 本メソッドを、processBehavior() 等で毎フレーム呼び出す必要があります。<BR>
      * 呼び出すことで、setFlipMethod()で設定した方法に応じて<BR>
-     * アクティブなパターンが内部で切り替わります。<BR>
+     * アクティブなパターン番号(_pattno_uvflip_now)が内部で切り替わります。<BR>
      */
     virtual void behave();
 
     /**
-     * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応するUV座標を取得する。
+     * 現在のアニメーションパターン番号(_pattno_uvflip_now)に対応するUV座標を取得する。 .
+     * 事前に setTextureUvRotation() の呼び出を行ってく必要がある。
      * @param out_u [out] 座標U
      * @param out_v [out] 座標V
      */
@@ -129,8 +192,19 @@ public:
      */
     void forcePtnNoRange(int prm_top, int prm_bottom);
 
+    void customizePtnOrder(int prm_aPtnOffset[], int prm_num);
+
     /**
-     * アニメーション方法を設定する.
+     * アニメーション方法を設定する .
+     * <pre>
+     * ＜例＞forcePtnNoRange(0,5) が設定済みとした場合。
+     * FLIP_ORDER_LOOP     : 0,1,2,3,4,5,0,1,2,3,4,5,...
+     * FLIP_REVERSE_LOOP   : 5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+     * FLIP_ORDER_NOLOOP   : 0,1,2,3,4,5,5,5,5,5,5,5...
+     * FLIP_REVERSE_NOLOOP : 5,4,3,2,1,0,0,0,0,0,0...
+     * FLIP_OSCILLATE_LOOP : 0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+     * NOT_ANIMATED        : 3,3,3,3,3,3,3... （何もしない）
+     * </pre>
      * @param prm_method アニメーション方法定数
      * @param prm_interval アニメーション間隔フレーム（default=1)
      */

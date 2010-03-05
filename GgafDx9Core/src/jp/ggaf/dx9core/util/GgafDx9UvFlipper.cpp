@@ -15,6 +15,9 @@ GgafDx9UvFlipper::GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor) : GgafObje
     _tex_width = 1.0f;
     _tex_height = 1.0f;
     _tex_col_num = 1;
+    _paInt_PtnOffset_Customized = NULL;
+    _nPtn_Customized = 0;
+    _cnt_Customized = 0;
 }
 
 void GgafDx9UvFlipper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
@@ -69,7 +72,7 @@ void GgafDx9UvFlipper::behave() {
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_top;
             }
-        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //例：0,5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //例：5,4,3,2,1,0,5,4,3,2,1,0,5,4...
             if (_pattno_uvflip_top < _pattno_uvflip_now) {
                 _pattno_uvflip_now--;
             } else {
@@ -79,15 +82,17 @@ void GgafDx9UvFlipper::behave() {
             if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
                 _pattno_uvflip_now++;
             } else {
-                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_uvflip_now = _pattno_uvflip_bottom;
+                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //例：5,4,3,2,1,0,0,0,0,0,0...
             if (_pattno_uvflip_top < _pattno_uvflip_now) {
                 _pattno_uvflip_now--;
             } else {
-                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
                 _pattno_uvflip_now = _pattno_uvflip_top;
+                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                _uvflip_method = NOT_ANIMATED;
             }
         } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //例：0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
             if (_is_reverse_order_in_oscillate_animation_flg) { //逆順序時
@@ -104,7 +109,24 @@ void GgafDx9UvFlipper::behave() {
                     _pattno_uvflip_now--;
                     _is_reverse_order_in_oscillate_animation_flg = true;
                 }
-
+            }
+        } else if (_uvflip_method == FLIP_CUSTOMIZED_LOOP) {
+            if (_paInt_PtnOffset_Customized) {
+                _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
+                _cnt_Customized ++;
+                if (_cnt_Customized == _nPtn_Customized) {
+                    _cnt_Customized = 0;
+                }
+            }
+        } else if (_uvflip_method == FLIP_CUSTOMIZED_NOLOOP) {
+            if (_paInt_PtnOffset_Customized) {
+                _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
+                _cnt_Customized ++;
+                if (_cnt_Customized == _nPtn_Customized) {
+                    _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //もうアニメーションは進まないことを通知
+                    _cnt_Customized = 0;
+                    _uvflip_method = NOT_ANIMATED;
+                }
             }
         } else if (_uvflip_method == NOT_ANIMATED) {
             //何もしない
@@ -113,6 +135,15 @@ void GgafDx9UvFlipper::behave() {
     }
 
 }
+
+void GgafDx9UvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
+    _paInt_PtnOffset_Customized = NEW int[prm_num];
+    _nPtn_Customized = prm_num;
+    for (int i = 0; i < prm_num; i++) {
+        _paInt_PtnOffset_Customized[i] = prm_aPtnOffset[i];
+    }
+}
+
 
 void GgafDx9UvFlipper::getUV(float& out_u, float& out_v) {
 #ifdef MY_DEBUG

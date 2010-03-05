@@ -22,9 +22,9 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;
     _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
-    _pUvFlipper->setTextureUvRotation(_pPointSpriteModel->_texture_split_rowcol,
-                                      1.0 / _pPointSpriteModel->_texture_split_rowcol,
-                                      1.0 / _pPointSpriteModel->_texture_split_rowcol );
+//    _pUvFlipper->setTextureUvRotation(_pPointSpriteModel->_texture_split_rowcol,
+//                                      1.0 / _pPointSpriteModel->_texture_split_rowcol,
+//                                      1.0 / _pPointSpriteModel->_texture_split_rowcol );
     _pUvFlipper->forcePtnNoRange(0, _pPointSpriteModel->_texture_split_rowcol * _pPointSpriteModel->_texture_split_rowcol - 1);
     _pUvFlipper->setPtnNo(0);
     _pUvFlipper->setFlipMethod(NOT_ANIMATED, 1);
