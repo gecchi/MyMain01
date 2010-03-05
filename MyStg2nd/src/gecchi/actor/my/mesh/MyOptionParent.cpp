@@ -126,6 +126,285 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
     }
     _is_rotate = false;
+
+    int d = 4;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Rz  = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Ry  = 0;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Rz         = ANGLE315;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Ry         = ANGLE180 - (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_BEHIND].Rz   = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_BEHIND].Ry   = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_BEHIND].Rz       = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_BEHIND].Ry       = 0;
+    angtarget[CAM_POS_RIGHT][WAY_BEHIND].Rz              = ANGLE360-2;
+    angtarget[CAM_POS_RIGHT][WAY_BEHIND].Ry              = ANGLE180 + d;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_BEHIND].Rz        = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_BEHIND].Ry        = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP_BEHIND].Rz    = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP_BEHIND].Ry    = 0;
+    angtarget[CAM_POS_RIGHT][WAY_UP_BEHIND].Rz           = ANGLE45;
+    angtarget[CAM_POS_RIGHT][WAY_UP_BEHIND].Ry           = ANGLE180 + (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP_BEHIND].Rz     = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP_BEHIND].Ry     = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN].Rz         = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN].Ry         = 0;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN].Rz                = ANGLE270 - d;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN].Ry                = ANGLE90;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN].Rz          = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN].Ry          = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT].Rz              = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT].Ry              = 0;
+    angtarget[CAM_POS_RIGHT][WAY_NONE].Rz                = 0;
+    angtarget[CAM_POS_RIGHT][WAY_NONE].Ry                = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT].Rz               = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT].Ry               = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP].Rz           = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP].Ry           = 0;
+    angtarget[CAM_POS_RIGHT][WAY_UP].Rz                  = ANGLE90 - d;
+    angtarget[CAM_POS_RIGHT][WAY_UP].Ry                  = ANGLE270;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP].Rz            = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP].Ry            = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_FRONT].Rz   = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_FRONT].Ry   = 0;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Rz          = ANGLE315;
+    angtarget[CAM_POS_RIGHT][WAY_DOWN_FRONT].Ry          = ANGLE360 - (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_FRONT].Rz    = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_DOWN_FRONT].Ry    = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_FRONT].Rz        = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_FRONT].Ry        = 0;
+    angtarget[CAM_POS_RIGHT][WAY_FRONT].Rz               = ANGLE0;
+    angtarget[CAM_POS_RIGHT][WAY_FRONT].Ry               = ANGLE360 - d;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_FRONT].Rz         = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_FRONT].Ry         = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP_FRONT].Rz     = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_UP_FRONT].Ry     = 0;
+    angtarget[CAM_POS_RIGHT][WAY_UP_FRONT].Rz            = ANGLE45;
+    angtarget[CAM_POS_RIGHT][WAY_UP_FRONT].Ry            = ANGLE360 - (d*2);
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP_FRONT].Rz      = 0;
+    angtarget[CAM_POS_RIGHT][WAY_ZLEFT_UP_FRONT].Ry      = 0;
+
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN_BEHIND].Rz   = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN_BEHIND].Ry   = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN_BEHIND].Rz          = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN_BEHIND].Ry          = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_BEHIND].Rz    = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_BEHIND].Ry    = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_BEHIND].Rz        = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_BEHIND].Ry        = 0;
+    angtarget[CAM_POS_LEFT][WAY_BEHIND].Rz               = 0;
+    angtarget[CAM_POS_LEFT][WAY_BEHIND].Ry               = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_BEHIND].Rz         = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_BEHIND].Ry         = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_BEHIND].Rz     = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_BEHIND].Ry     = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP_BEHIND].Rz            = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP_BEHIND].Ry            = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP_BEHIND].Rz      = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP_BEHIND].Ry      = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN].Rz          = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN].Ry          = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN].Rz                 = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN].Ry                 = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN].Rz           = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN].Ry           = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT].Rz               = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT].Ry               = 0;
+    angtarget[CAM_POS_LEFT][WAY_NONE].Rz                 = 0;
+    angtarget[CAM_POS_LEFT][WAY_NONE].Ry                 = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT].Rz                = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT].Ry                = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP].Rz            = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP].Ry            = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP].Rz                   = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP].Ry                   = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP].Rz             = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP].Ry             = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN_FRONT].Rz    = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_DOWN_FRONT].Ry    = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN_FRONT].Rz           = 0;
+    angtarget[CAM_POS_LEFT][WAY_DOWN_FRONT].Ry           = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_FRONT].Rz     = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_DOWN_FRONT].Ry     = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_FRONT].Rz         = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_FRONT].Ry         = 0;
+    angtarget[CAM_POS_LEFT][WAY_FRONT].Rz                = 0;
+    angtarget[CAM_POS_LEFT][WAY_FRONT].Ry                = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_FRONT].Rz          = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_FRONT].Ry          = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_FRONT].Rz      = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZRIGHT_UP_FRONT].Ry      = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP_FRONT].Rz             = 0;
+    angtarget[CAM_POS_LEFT][WAY_UP_FRONT].Ry             = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP_FRONT].Rz       = 0;
+    angtarget[CAM_POS_LEFT][WAY_ZLEFT_UP_FRONT].Ry       = 0;
+
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN_BEHIND].Rz    = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN_BEHIND].Ry    = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN_BEHIND].Rz           = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN_BEHIND].Ry           = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN_BEHIND].Rz     = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN_BEHIND].Ry     = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_BEHIND].Rz         = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_BEHIND].Ry         = 0;
+    angtarget[CAM_POS_TOP][WAY_BEHIND].Rz                = 0;
+    angtarget[CAM_POS_TOP][WAY_BEHIND].Ry                = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_BEHIND].Rz          = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_BEHIND].Ry          = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP_BEHIND].Rz      = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP_BEHIND].Ry      = 0;
+    angtarget[CAM_POS_TOP][WAY_UP_BEHIND].Rz             = 0;
+    angtarget[CAM_POS_TOP][WAY_UP_BEHIND].Ry             = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP_BEHIND].Rz       = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP_BEHIND].Ry       = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN].Rz           = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN].Ry           = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN].Rz                  = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN].Ry                  = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN].Rz            = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN].Ry            = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT].Rz                = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT].Ry                = 0;
+    angtarget[CAM_POS_TOP][WAY_NONE].Rz                  = 0;
+    angtarget[CAM_POS_TOP][WAY_NONE].Ry                  = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT].Rz                 = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT].Ry                 = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP].Rz             = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP].Ry             = 0;
+    angtarget[CAM_POS_TOP][WAY_UP].Rz                    = 0;
+    angtarget[CAM_POS_TOP][WAY_UP].Ry                    = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP].Rz              = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP].Ry              = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN_FRONT].Rz     = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_DOWN_FRONT].Ry     = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN_FRONT].Rz            = 0;
+    angtarget[CAM_POS_TOP][WAY_DOWN_FRONT].Ry            = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN_FRONT].Rz      = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_DOWN_FRONT].Ry      = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_FRONT].Rz          = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_FRONT].Ry          = 0;
+    angtarget[CAM_POS_TOP][WAY_FRONT].Rz                 = 0;
+    angtarget[CAM_POS_TOP][WAY_FRONT].Ry                 = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_FRONT].Rz           = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_FRONT].Ry           = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP_FRONT].Rz       = 0;
+    angtarget[CAM_POS_TOP][WAY_ZRIGHT_UP_FRONT].Ry       = 0;
+    angtarget[CAM_POS_TOP][WAY_UP_FRONT].Rz              = 0;
+    angtarget[CAM_POS_TOP][WAY_UP_FRONT].Ry              = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP_FRONT].Rz        = 0;
+    angtarget[CAM_POS_TOP][WAY_ZLEFT_UP_FRONT].Ry        = 0;
+
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN_BEHIND].Rz = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN_BEHIND].Ry = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN_BEHIND].Rz        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN_BEHIND].Ry        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN_BEHIND].Rz  = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN_BEHIND].Ry  = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_BEHIND].Rz      = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_BEHIND].Ry      = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_BEHIND].Rz             = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_BEHIND].Ry             = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_BEHIND].Rz       = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_BEHIND].Ry       = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP_BEHIND].Rz   = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP_BEHIND].Ry   = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP_BEHIND].Rz          = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP_BEHIND].Ry          = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP_BEHIND].Rz    = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP_BEHIND].Ry    = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN].Rz        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN].Ry        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN].Rz               = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN].Ry               = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN].Rz         = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN].Ry         = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT].Rz             = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT].Ry             = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_NONE].Rz               = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_NONE].Ry               = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT].Rz              = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT].Ry              = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP].Rz          = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP].Ry          = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP].Rz                 = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP].Ry                 = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP].Rz           = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP].Ry           = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN_FRONT].Rz  = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_DOWN_FRONT].Ry  = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN_FRONT].Rz         = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_DOWN_FRONT].Ry         = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN_FRONT].Rz   = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_DOWN_FRONT].Ry   = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_FRONT].Rz       = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_FRONT].Ry       = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_FRONT].Rz              = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_FRONT].Ry              = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_FRONT].Rz        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_FRONT].Ry        = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP_FRONT].Rz    = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZRIGHT_UP_FRONT].Ry    = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP_FRONT].Rz           = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_UP_FRONT].Ry           = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP_FRONT].Rz     = 0;
+    angtarget[CAM_POS_BOTTOM][WAY_ZLEFT_UP_FRONT].Ry     = 0;
+
+    int CAM_POS_BEHIND = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN_BEHIND].Rz = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN_BEHIND].Ry = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN_BEHIND].Rz        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN_BEHIND].Ry        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN_BEHIND].Rz  = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN_BEHIND].Ry  = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_BEHIND].Rz      = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_BEHIND].Ry      = 0;
+    angtarget[CAM_POS_BEHIND][WAY_BEHIND].Rz             = 0;
+    angtarget[CAM_POS_BEHIND][WAY_BEHIND].Ry             = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_BEHIND].Rz       = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_BEHIND].Ry       = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP_BEHIND].Rz   = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP_BEHIND].Ry   = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP_BEHIND].Rz          = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP_BEHIND].Ry          = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP_BEHIND].Rz    = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP_BEHIND].Ry    = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN].Rz        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN].Ry        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN].Rz               = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN].Ry               = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN].Rz         = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN].Ry         = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT].Rz             = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT].Ry             = 0;
+    angtarget[CAM_POS_BEHIND][WAY_NONE].Rz               = 0;
+    angtarget[CAM_POS_BEHIND][WAY_NONE].Ry               = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT].Rz              = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT].Ry              = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP].Rz          = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP].Ry          = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP].Rz                 = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP].Ry                 = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP].Rz           = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP].Ry           = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN_FRONT].Rz  = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_DOWN_FRONT].Ry  = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN_FRONT].Rz         = 0;
+    angtarget[CAM_POS_BEHIND][WAY_DOWN_FRONT].Ry         = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN_FRONT].Rz   = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_DOWN_FRONT].Ry   = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_FRONT].Rz       = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_FRONT].Ry       = 0;
+    angtarget[CAM_POS_BEHIND][WAY_FRONT].Rz              = 0;
+    angtarget[CAM_POS_BEHIND][WAY_FRONT].Ry              = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_FRONT].Rz        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_FRONT].Ry        = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP_FRONT].Rz    = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZRIGHT_UP_FRONT].Ry    = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP_FRONT].Rz           = 0;
+    angtarget[CAM_POS_BEHIND][WAY_UP_FRONT].Ry           = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP_FRONT].Rz     = 0;
+    angtarget[CAM_POS_BEHIND][WAY_ZLEFT_UP_FRONT].Ry     = 0;
+
+
 }
 
 void MyOptionParent::initialize() {
@@ -144,33 +423,66 @@ void MyOptionParent::processBehavior() {
 //    _Z = GameGlobal::_pMyShip->_Z;
 
     //方向が変わった
-
-    if (VB::isBeingPressed(VB_OPTION)) {
+    if (VB::isDoublePushedDown(VB_OPTION,7,7) && pMYSHIP->_way == WAY_NONE) {
+        _pMover->execTagettingMvAngSequence(
+                        0,
+                        0,
+                        5000, 0,
+                        TURN_CLOSE_TO
+                 );
         _is_rotate = true;
     } else {
-        _is_rotate = false;
+        if (VB::isBeingPressed(VB_OPTION) && pMYSHIP->_way != WAY_NONE) {
+            _is_rotate = true;
+        } else {
+            _is_rotate = false;
+        }
+
+        if (_is_rotate) {
+            angle targetRz, targetRy;
+            angle d = 10;
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
+                //右サイドビュー(右から左へスクロール)
+                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+            } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
+                //左サイドビュー(左から右へスクロール)
+                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+            } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                //トップビュー(上から下へスクロール)
+                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+            } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+                //ボトムビュー(下から上へスクロール)
+                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
+                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+            } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
+                //背後ビュー（奥から手前にスクロール）
+                targetRz = angtarget[0][pMYSHIP->_way].Rz;
+                targetRy = angtarget[0][pMYSHIP->_way].Ry;
+            }
+
+            _pMover->execTagettingMvAngSequence(
+                            targetRz,
+                            targetRy,
+                            3000, 0,
+                            TURN_CLOSE_TO
+                     );
+        } else {
+    //        _pMover->execTagettingMvAngSequence(
+    //                        0,
+    //                        0,
+    //                        300, 0,
+    //                        TURN_CLOSE_TO
+    //                 );
+        }
     }
 
     if (_is_rotate) {
-        _pMover->execTagettingMvAngSequence(
-                        GameGlobal::_pMyShip->_pMover->_angRzMv,
-                        GameGlobal::_pMyShip->_pMover->_angRyMv,
-                        3000, 0,
-                        TURN_CLOSE_TO
-                 );
-    } else {
-        _pMover->execTagettingMvAngSequence(
-                        0,
-                        0,
-                        300, 0,
-                        TURN_CLOSE_TO
-                 );
-    }
-
-    if (pMYSHIP->_way != WAY_NONE && VB::isBeingPressed(VB_OPTION)) {
         _pMover->behave();
     } else {
-        _pMover->behave();
+        //_pMover->behave();
     }
 //
 //

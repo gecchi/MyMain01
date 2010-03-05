@@ -5,7 +5,15 @@ namespace MyStg2nd {
 class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 //class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
+    struct AngRzRy {
+        angle Rz;
+        angle Ry;
+    };
+
+
 public:
+
+    AngRzRy angtarget[5][27];
 
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
