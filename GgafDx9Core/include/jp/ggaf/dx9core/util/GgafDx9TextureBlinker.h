@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * 点滅支援クラス.
+ * 特定カラー点滅支援クラス.
  * GgafDx9Model のメンバの _fPowerBlink <BR>
  * を、簡単に操作するために設計した。<BR>
  * 最終的にピクセルシェーダーで色(float4)に乗ずる値となる。

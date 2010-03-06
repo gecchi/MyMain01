@@ -6,7 +6,7 @@
 namespace GgafDx9Core {
 
 //本クラスはIshida So 氏作成のサンプルを参考に作成しました。
-//素晴らしいサンプルを作成されたIshida So氏に感謝いたします。
+//機能的なサンプルを作成されたIshida So氏に感謝いたします。
 //参考サイト
 //「Samayou Oharikui」
 //http://www5d.biglobe.ne.jp/~stssk/

@@ -3,7 +3,7 @@
 namespace GgafDx9Core {
 
 /**
- * スプライン曲線、なめらかなフレーム指定移動のための情報セット
+ * 定時間スプライン曲線、なめらかなフレーム数指定移動のための情報セット
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge

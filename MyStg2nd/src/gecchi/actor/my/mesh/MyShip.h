@@ -175,8 +175,8 @@ public:
     static int _lim_zright;
 
     WaySwitch _way_switch;
-    void (MyShip::*fpaMoveFunc[3*3*3])();
-    void (MyShip::*fpaTurboFunc[3*3*3])();
+    void (MyShip::*paFuncMove[3*3*3])();
+    void (MyShip::*paFuncTurbo[3*3*3])();
 
 //    void (MyShip::*fpaFunc[])() =  {
 //          move_WAY_UP,

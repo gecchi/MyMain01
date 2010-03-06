@@ -4,7 +4,7 @@ namespace GgafDx9Core {
 
 /**
  * テクスチャ基底クラス.
- * キャラ(アクター)のテクスチャを保持するクラスです。<BR>
+ * キャラ(アクター)のテクスチャをラップするクラスです。<BR>
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge
