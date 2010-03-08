@@ -81,8 +81,8 @@ float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
 angle GgafDx9Util::SLANT2ANG[10000 + 1];
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90*10+1][S_ANG90*10+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90*10+1][S_ANG90*10+1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -207,12 +207,12 @@ void GgafDx9Util::init() {
     s_ang rz, ry_rev;
 
     vx = 1.0;
-    for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90; prj_ang_xy++) {
-        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*S_ANG360);
+    for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90*10; prj_ang_xy++) {
+        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*S_ANG360*10);
         vy = tan(prj_rad_xy);
 
-        for (s_ang prj_ang_xz = 0; prj_ang_xz <= S_ANG90; prj_ang_xz++) {
-            prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*S_ANG360);
+        for (s_ang prj_ang_xz = 0; prj_ang_xz <= S_ANG90*10; prj_ang_xz++) {
+            prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*S_ANG360*10);
             //ï˚å¸ÉxÉNÉgÉãÇçÏê¨
             //vxÇæÇØÇÉGÉCÉÑÇ∆åàÇﬂÇÈ
 
@@ -239,7 +239,7 @@ void GgafDx9Util::init() {
                     (unsigned __int16) (nvz*10000),
                     rz,
                     ry_rev,
-                    30
+                    50
             );
             PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz] = rz*ANGLE_RATE;
             PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*ANGLE_RATE;
@@ -384,10 +384,20 @@ void GgafDx9Util::getRzRyAng(int vx,
                                    int vz,
                                    angle& out_angFaceZ,
                                    angle& out_angFaceY ) {
+    //âΩÇÍÇ©ÇÃóvëfÇ™0ÇÃèÍçáÅAgetAngle2DÇÃåãâ Ç™ëÂÇ´Ç≠Ç∏ÇÍÇƒÇµÇ‹Ç§ÅB
+    //Ç∆ÇËÇ†Ç¶Ç∏ÇPÇê›íËÇµÇƒãﬂéóÇ≥ÇπÇƒÇ®Ç±Ç§ÅB
+    //TODO:0 Ç™óàÇƒÇ‡ëÂè‰ïvÇ…Ç∑ÇÈÅB                                  
+    vx = (vx == 0 ? 1 : vx);
+    vy = (vy == 0 ? 1 : vy);
+    vz = (vz == 0 ? 1 : vz);
+
+//_TRACE_("GgafDx9Util::getRzRyAng "<<vx<<","<<vy<<","<<vz);
     angle prj_rXY = getAngle2D(abs(vx), abs(vy));
     angle prj_rXZ = getAngle2D(abs(vx), abs(vz)); //ZXïΩñ Ç∂Ç·Ç»Ç≠ÇƒXZïΩñ ÇÊÅIâÒì]ï˚å¸Ç™Yé≤âÒì]Ç∆ãtÇÊÅI
-    angle rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-    angle rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
+//_TRACE_("prj_rXY,prj_rXZ="<<prj_rXY<<","<<prj_rXZ);
+    angle rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/10.0)][(int)(prj_rXZ/10.0)];
+    angle rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/10.0)][(int)(prj_rXZ/10.0)];
+//_TRACE_("rotZ,rotY_rev="<<rotZ<<","<<rotY_rev);
     //è€å¿Ç…ÇÊÇ¡ÇƒâÒì]äpÇï‚ê≥
     if (vx >= 0 && vy >= 0 && vz >= 0) { //ëÊàÍè€å¿
         out_angFaceZ = rotZ;
@@ -446,7 +456,7 @@ void GgafDx9Util::getRzRyAng(int vx,
 }
 
 void GgafDx9Util::getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
-    getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
+    getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT*100),
                       (int)(nvy*LEN_UNIT*PX_UNIT),
                       (int)(nvz*LEN_UNIT*PX_UNIT),
                       out_angFaceZ,
