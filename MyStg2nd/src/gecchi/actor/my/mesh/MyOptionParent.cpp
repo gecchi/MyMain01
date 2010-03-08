@@ -15,75 +15,75 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 
     _angVelo_Turn = 8000;
 
-    MyOption* pMyOption01 = NEW MyOption("MY_OPTION01", 0, this);
-    pMyOption01->_radiusPosition = 60000;
-    pMyOption01->_veloMv = 2000;
-    pMyOption01->_angExpanse = 0;
-    pMyOption01->_angveloExpanse = 0;
-    pMyOption01->_angPosition = 0;
-    pMyOption01->setMaterialColor(1.0, 1.0, 1.0);
-    addSubLast(pMyOption01);
+    //MyOption* pMyOption01 = NEW MyOption("MY_OPTION01", 0, this);
+    //pMyOption01->_radiusPosition = 60000;
+    //pMyOption01->_veloMv = 2000;
+    //pMyOption01->_angExpanse = 0;
+    //pMyOption01->_angveloExpanse = 0;
+    //pMyOption01->_angPosition = 0;
+    //pMyOption01->setMaterialColor(1.0, 1.0, 1.0);
+    //addSubLast(pMyOption01);
 
-    MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, this);
-    pMyOption02->_radiusPosition = 60000;
-    pMyOption02->_veloMv = 2000;
-    pMyOption02->_angExpanse = 0;
-    pMyOption02->_angveloExpanse = 0;
-    pMyOption02->_angPosition = ANGLE90;
-    pMyOption02->setMaterialColor(0.0, 1.0, 1.0);
-    addSubLast(pMyOption02);
+    //MyOption* pMyOption02 = NEW MyOption("MY_OPTION02", 1, this);
+    //pMyOption02->_radiusPosition = 60000;
+    //pMyOption02->_veloMv = 2000;
+    //pMyOption02->_angExpanse = 0;
+    //pMyOption02->_angveloExpanse = 0;
+    //pMyOption02->_angPosition = ANGLE90;
+    //pMyOption02->setMaterialColor(0.0, 1.0, 1.0);
+    //addSubLast(pMyOption02);
 
-    MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, this);
-    pMyOption03->_radiusPosition = 60000;
-    pMyOption03->_veloMv = 2000;
-    pMyOption03->_angExpanse = 0;
-    pMyOption03->_angveloExpanse = 0;
-    pMyOption03->_angPosition = ANGLE180;
-    pMyOption03->setMaterialColor(1.0, 0, 1.0);
-    addSubLast(pMyOption03);
+    //MyOption* pMyOption03 = NEW MyOption("MY_OPTION03", 2, this);
+    //pMyOption03->_radiusPosition = 60000;
+    //pMyOption03->_veloMv = 2000;
+    //pMyOption03->_angExpanse = 0;
+    //pMyOption03->_angveloExpanse = 0;
+    //pMyOption03->_angPosition = ANGLE180;
+    //pMyOption03->setMaterialColor(1.0, 0, 1.0);
+    //addSubLast(pMyOption03);
 
-    MyOption* pMyOption04 = NEW MyOption("MY_OPTION04", 4, this);
-    pMyOption04->_radiusPosition = 60000;
-    pMyOption04->_veloMv = 2000;
-    pMyOption04->_angExpanse = 0;
-    pMyOption04->_angveloExpanse = 0;
-    pMyOption04->_angPosition = ANGLE270;
-    pMyOption04->setMaterialColor(0, 1.0, 0);
-    addSubLast(pMyOption04);
+    //MyOption* pMyOption04 = NEW MyOption("MY_OPTION04", 4, this);
+    //pMyOption04->_radiusPosition = 60000;
+    //pMyOption04->_veloMv = 2000;
+    //pMyOption04->_angExpanse = 0;
+    //pMyOption04->_angveloExpanse = 0;
+    //pMyOption04->_angPosition = ANGLE270;
+    //pMyOption04->setMaterialColor(0, 1.0, 0);
+    //addSubLast(pMyOption04);
 
-    MyOption* pMyOption05 = NEW MyOption("MY_OPTION05", 5, this);
-    pMyOption05->_radiusPosition = 120000;
-    pMyOption05->_angPosition = 0;
-    pMyOption05->_angExpanse = 0;
-    pMyOption05->_angveloExpanse = 0;
-    pMyOption05->_veloMv = -3000;
-    pMyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
-    addSubLast(pMyOption05);
+    //MyOption* pMyOption05 = NEW MyOption("MY_OPTION05", 5, this);
+    //pMyOption05->_radiusPosition = 120000;
+    //pMyOption05->_angPosition = 0;
+    //pMyOption05->_angExpanse = 0;
+    //pMyOption05->_angveloExpanse = 0;
+    //pMyOption05->_veloMv = -3000;
+    //pMyOption05->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
+    //addSubLast(pMyOption05);
 
-    MyOption* pMyOption06 = NEW MyOption("MY_OPTION06", 6, this);
-    pMyOption06->_radiusPosition = 120000;
-    pMyOption06->_angPosition = ANGLE90;
-    pMyOption06->_angExpanse = 0;
-    pMyOption06->_angveloExpanse = 0;
-    pMyOption06->_veloMv = -3000;
-    pMyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
-    addSubLast(pMyOption06);
+    //MyOption* pMyOption06 = NEW MyOption("MY_OPTION06", 6, this);
+    //pMyOption06->_radiusPosition = 120000;
+    //pMyOption06->_angPosition = ANGLE90;
+    //pMyOption06->_angExpanse = 0;
+    //pMyOption06->_angveloExpanse = 0;
+    //pMyOption06->_veloMv = -3000;
+    //pMyOption06->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
+    //addSubLast(pMyOption06);
 
-    MyOption* pMyOption07 = NEW MyOption("MY_OPTION07", 7, this);
-    pMyOption07->_radiusPosition = 120000;
-    pMyOption07->_angPosition = ANGLE180;
-    pMyOption07->_angExpanse = 0;
-    pMyOption07->_angveloExpanse = 0;
-    pMyOption07->_veloMv = -3000;
-    pMyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
-    addSubLast(pMyOption07);
+    //MyOption* pMyOption07 = NEW MyOption("MY_OPTION07", 7, this);
+    //pMyOption07->_radiusPosition = 120000;
+    //pMyOption07->_angPosition = ANGLE180;
+    //pMyOption07->_angExpanse = 0;
+    //pMyOption07->_angveloExpanse = 0;
+    //pMyOption07->_veloMv = -3000;
+    //pMyOption07->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
+    //addSubLast(pMyOption07);
 
     MyOption* pMyOption08 = NEW MyOption("MY_OPTION08", 8, this);
     pMyOption08->_radiusPosition = 120000;
     pMyOption08->_angPosition = ANGLE270;
     pMyOption08->_angExpanse = 0;
     pMyOption08->_angveloExpanse = 0;
-    pMyOption08->_veloMv = -3000;
+    pMyOption08->_veloMv = 0;//-3000;
     pMyOption08->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     pMyOption08->setAlpha(0.3);
     addSubLast(pMyOption08);
@@ -127,7 +127,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     }
     _is_rotate = false;
 
-    int d = 4;
+    int d = 100;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Rz  = 0;
     angtarget[CAM_POS_RIGHT][WAY_ZRIGHT_DOWN_BEHIND].Ry  = 0;
     angtarget[CAM_POS_RIGHT][WAY_DOWN_BEHIND].Rz         = ANGLE225;
@@ -408,6 +408,8 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 }
 
 void MyOptionParent::initialize() {
+    _RX = _RZ = _RY = 300;
+
     _pMover->setMvVelo(0);
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
@@ -440,7 +442,6 @@ void MyOptionParent::processBehavior() {
 
         if (_is_rotate) {
             angle targetRz, targetRy;
-            angle d = 10;
             if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 //右サイドビュー(右から左へスクロール)
                 targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;

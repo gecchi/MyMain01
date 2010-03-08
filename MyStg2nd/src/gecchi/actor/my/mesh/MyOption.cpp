@@ -188,7 +188,7 @@ void MyOption::processBehavior() {
     //_TRACE_(_pMyOptionParent->_pMover->_angFace[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angFace[AXIS_Y]);
 
 
-
+_TRACE_("ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Y]));
 
     //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
         //Y²‰ñ“] „ Z²‰ñ“]
@@ -238,6 +238,9 @@ void MyOption::processBehavior() {
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
     //_Q._x, _Q._y, _Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
     //Z²‰ñ“]AY²‰ñ“]Šp“x‚ğŒvZ
+
+    //_TRACE_("Q vX,vY,vZ="<<_Q._x<<","<<_Q._y<<","<<_Q._z);
+
     GgafDx9Util::getRzRyAng(
         _Q._x,
         _Q._y,
@@ -245,6 +248,9 @@ void MyOption::processBehavior() {
         _RZ,
         _RY
      );
+
+     //_TRACE_("Q RzRy="<<_RZ<<" > "<<_RY);
+
 
     _RZ = GgafDx9GeometryMover::simplifyAng(_RZ);
     _RY = GgafDx9GeometryMover::simplifyAng(_RY);
