@@ -27,8 +27,8 @@ public:
     static float RAD[];
 
     static angle SLANT2ANG[];
-    static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90*10+1][S_ANG90*10+1];
-    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90*10+1][S_ANG90*10+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
 
     static AngleSet ROTY_ANGLE[S_ANG360+1];
 

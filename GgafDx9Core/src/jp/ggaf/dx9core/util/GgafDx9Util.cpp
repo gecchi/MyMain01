@@ -81,8 +81,8 @@ float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
 angle GgafDx9Util::SLANT2ANG[10000 + 1];
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90*10+1][S_ANG90*10+1];
-angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90*10+1][S_ANG90*10+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
 
 GgafDx9SphereRadiusVectors GgafDx9Util::_srv = GgafDx9SphereRadiusVectors();
 
@@ -207,12 +207,12 @@ void GgafDx9Util::init() {
     s_ang rz, ry_rev;
 
     vx = 1.0;
-    for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90*10; prj_ang_xy++) {
-        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*S_ANG360*10);
+    for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90; prj_ang_xy++) {
+        prj_rad_xy = (PI * 2.0 * prj_ang_xy) / (1.0*S_ANG360);
         vy = tan(prj_rad_xy);
 
-        for (s_ang prj_ang_xz = 0; prj_ang_xz <= S_ANG90*10; prj_ang_xz++) {
-            prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*S_ANG360*10);
+        for (s_ang prj_ang_xz = 0; prj_ang_xz <= S_ANG90; prj_ang_xz++) {
+            prj_rad_xz = (PI * 2.0 * prj_ang_xz) / (1.0*S_ANG360);
             //方向ベクトルを作成
             //vxだけをエイヤと決める
 
@@ -386,7 +386,7 @@ void GgafDx9Util::getRzRyAng(int vx,
                                    angle& out_angFaceY ) {
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
-    //TODO:0 が来ても大丈夫にする。                                  
+    //TODO:0 が来ても大丈夫にする。
     vx = (vx == 0 ? 1 : vx);
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
@@ -395,8 +395,8 @@ void GgafDx9Util::getRzRyAng(int vx,
     angle prj_rXY = getAngle2D(abs(vx), abs(vy));
     angle prj_rXZ = getAngle2D(abs(vx), abs(vz)); //ZX平面じゃなくてXZ平面よ！回転方向がY軸回転と逆よ！
 //_TRACE_("prj_rXY,prj_rXZ="<<prj_rXY<<","<<prj_rXZ);
-    angle rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/10.0)][(int)(prj_rXZ/10.0)];
-    angle rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/10.0)][(int)(prj_rXZ/10.0)];
+    angle rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
+    angle rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
 //_TRACE_("rotZ,rotY_rev="<<rotZ<<","<<rotY_rev);
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
