@@ -4,15 +4,15 @@ namespace GgafDx9Core {
 
 /**
  * 方向ベクトル構造体.
- * 各要素の単位は、10000倍の整数で保持されます。<BR>
+ * 各要素の単位は、1000000倍の整数で保持されます。<BR>
  * ＜例＞<BR>
- * 単位ベクトル(0.6583, 0.1132, 0.744) は<BR>
- * SR_VECTORでは、(6583, 1132, 7440) です<BR>
+ * 単位ベクトル(0.658301, 0.1132, 0.744) は<BR>
+ * SR_VECTORでは、(658301, 113200, 744000) です<BR>
  */
 struct SR_VECTOR {
-    unsigned __int16 x;
-    unsigned __int16 z;
-    unsigned __int16 y;
+    DWORD x;
+    DWORD z;
+    DWORD y;
 };
 
 /**
@@ -22,23 +22,26 @@ struct SR_VECTOR {
  */
 class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
 public:
-    unsigned __int64 num_yzx;
+    DWORDLONG num_yzx;
     SR_VECTOR vec;
     COMPARE_ABLE_SR_VECTOR() : GgafObject() {
     }
     /**
      * 単位ベクトルを設定する。<BR>
-     * @param prm_x 単位方向ベクトルX要素（長さ1 が 10000)
-     * @param prm_y 単位方向ベクトルY要素（長さ1 が 10000)
-     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 10000)
+     * @param prm_x 単位方向ベクトルX要素（長さ1 が 1000000)
+     * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000)
+     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000)
      */
-    void set(unsigned __int16 prm_x, unsigned __int16 prm_y, unsigned __int16 prm_z) {
+    void set(DWORD prm_x, DWORD prm_y, DWORD prm_z) {
         vec.x = prm_x;
         vec.y = prm_y;
         vec.z = prm_z;
-        num_yzx = (prm_y * 65536LL * 65536LL ) +
-        (prm_z * 65536LL ) +
+        num_yzx = (prm_y * 1000000LL * 1000000LL ) +
+        (prm_z * 1000000LL ) +
         (prm_x );
+
+        //_TRACE_(prm_x<<","<<prm_y<<","<<prm_z<<"  num_yzx="<<(num_yzx));
+        //1048575LL = &b11111111111111111111 (20bit)
     }
 };
 
@@ -60,34 +63,35 @@ public:
     /**
      * 引数のX,Y,Z方向ベクトルから、相当するZ軸回転とY軸回転の近時を求める。
      * 但し、X,Y,Z は全て正でなくてはならない
-     * @param prm_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
-     * @param prm_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
-     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0
+     * @param prm_x 単位方向ベクトルX要素（長さ1 が 1000000) > 0
+     * @param prm_y 単位方向ベクトルY要素（長さ1 が 1000000) > 0
+     * @param prm_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
      * @param out_angFaceZ Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
      * @param out_angFaceY_rev 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
      * @param s 計算回数（精度）。回数が多いほど正確になる。
      */
-    void getFaceAngClosely(unsigned __int16 prm_x,
-                            unsigned __int16 prm_y,
-                            unsigned __int16 prm_z,
-                            s_ang& out_angFaceZ,
-                            s_ang& out_angFaceY_rev,
-                            int s = 25);
+    void getFaceAngClosely(DWORD prm_x,
+                           DWORD prm_y,
+                           DWORD prm_z,
+                           s_ang& out_angFaceZ,
+                           s_ang& out_angFaceY_rev,
+                           int s = 25);
 
     /**
-     * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める。
-     * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。
+     * 引数のZ軸回転とY軸回転の値から、相当する単位方向ベクトルの近時を求める .
+     * 但し、結果の方向ベクトルの各要素(X,Y,Z)が正の値になるような引数しか受け付けない。<BR>
+     * 戻り値はDWORDで符号無しのため、intと演算する時は気をつけよ<BR>
      * @param prm_angFaceY_rev Z軸回転値（ 回転値0は、方向ベクトル(1,0,0)。方向ベクトル(0,0,1)を向いて反時計回り。）（単位s_ang）
      * @param prm_angFaceZ 時計周りY軸回転値（回転値0は、同じく方向ベクトル(1,0,0)。方向ベクトル(0,1,0)を向いて時計回り）（単位s_ang）
-     * @param out_x 単位方向ベクトルX要素（長さ1 が 10000) > 0
-     * @param out_y 単位方向ベクトルY要素（長さ1 が 10000) > 0
-     * @param out_z 単位方向ベクトルZ要素（長さ1 が 10000) > 0
+     * @param out_x 単位方向ベクトルX要素（長さ1 が 1000000) > 0
+     * @param out_y 単位方向ベクトルY要素（長さ1 が 1000000) > 0
+     * @param out_z 単位方向ベクトルZ要素（長さ1 が 1000000) > 0
      */
     void getVectorClosely(s_ang prm_angFaceY_rev,
                           s_ang prm_angFaceZ,
-                          unsigned __int16& out_x,
-                          unsigned __int16& out_y,
-                          unsigned __int16& out_z
+                          DWORD& out_x,
+                          DWORD& out_y,
+                          DWORD& out_z
                           );
 
 

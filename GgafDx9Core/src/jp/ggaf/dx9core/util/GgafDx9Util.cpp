@@ -80,7 +80,12 @@ float GgafDx9Util::COS[S_ANG360];
 float GgafDx9Util::SIN[S_ANG360];
 float GgafDx9Util::RAD[S_ANG360];
 
-angle GgafDx9Util::SLANT2ANG[10000 + 1];
+angle GgafDx9Util::SLANT2ANG[100000 + 1];
+
+//こんなんいるのでは！
+//angle GgafDx9Util::PROJANG_XY_ZX_YZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
+
+
 angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
 angle GgafDx9Util::PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
 
@@ -165,8 +170,11 @@ void GgafDx9Util::init() {
     //ang=4500   slant=1 vx,vy=0.707107,0.707107         <--このあたりまで求める
     //ang=4501   slant=1.00035   vx,vy=0.706983,0.70723
     //ang=4502   slant=1.0007    vx,vy=0.70686,0.707354
-    for (int ang = 0; ang <= 4500; ang++) {
-        rad = (PI * 2.0f * ang) / 36000;
+
+    //2010/03/09 SLANT2ANGの精度10倍にアップ
+    //現在は要素番号は、傾き*100000
+    for (int ang = 0; ang <= 45000; ang++) {
+        rad = (PI * 2.0f * ang) / 360000;
         vx = cos(rad);
         vy = sin(rad);
         if (vx == 0) {
@@ -174,23 +182,23 @@ void GgafDx9Util::init() {
         } else {
             slant = (float)(vy / vx);
         }
-        index_slant = (int)(slant * 10000);
+        index_slant = (int)(slant * 100000);
         d_index_slant = index_slant - index_slant_prev;
         for (int i = index_slant_prev+1, d = 1; i <= index_slant; i++, d++) {
-            if (i > 10000) {
+            if (i > 100000) {
                 _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(ang*10));
             }
             //等分する（ここがアバウトのもと）
-            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*10.0 );
+            SLANT2ANG[i] = (angle)( ((ang-1) + (1.0*d)/(1.0*d_index_slant))*1.0);
         }
         index_slant_prev = index_slant;
     }
-    d_index_slant = 10000 - index_slant_prev;
-    for (int i = index_slant_prev+1, d = 1; i <= 10000; i++, d++) {
-        if (i > 10000) {
-            _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(45000));
+    d_index_slant = 100000 - index_slant_prev;
+    for (int i = index_slant_prev+1, d = 1; i <= 100000; i++, d++) {
+        if (i > 100000) {
+            _TRACE_("＜警告＞想定範囲以上の傾き配列INDEXを設定。メモリが破壊されます。SLANT2ANG["<<i<<"]<="<<(450000));
         }
-        SLANT2ANG[i] = (angle)( (4500-1) + (1.0*d)/(1.0*d_index_slant) );
+        SLANT2ANG[i] = (angle)( (450000-1) + (1.0*d)/(1.0*d_index_slant) );
     }
 
     //<PROJ_ANG2ROT_ANG> （2009/10/20 経緯・・・速くするためなら何でもやってみよう）
@@ -234,12 +242,12 @@ void GgafDx9Util::init() {
 //
 //            //単位ベクトルからRxRyを求める
             _srv.getFaceAngClosely(
-                    (unsigned __int16) (nvx*10000),
-                    (unsigned __int16) (nvy*10000),
-                    (unsigned __int16) (nvz*10000),
+                    (DWORD)(nvx*1000000),
+                    (DWORD)(nvy*1000000),
+                    (DWORD)(nvz*1000000),
                     rz,
                     ry_rev,
-                    50
+                    9999
             );
             PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz] = rz*ANGLE_RATE;
             PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz] = ry_rev*ANGLE_RATE;
@@ -380,10 +388,10 @@ int GgafDx9Util::getDistance(int x1, int y1, int x2, int y2) {
 }
 
 void GgafDx9Util::getRzRyAng(int vx,
-                                   int vy,
-                                   int vz,
-                                   angle& out_angFaceZ,
-                                   angle& out_angFaceY ) {
+                             int vy,
+                             int vz,
+                             angle& out_angFaceZ,
+                             angle& out_angFaceY ) {
     //何れかの要素が0の場合、getAngle2Dの結果が大きくずれてしまう。
     //とりあえず１を設定して近似させておこう。
     //TODO:0 が来ても大丈夫にする。
@@ -391,13 +399,19 @@ void GgafDx9Util::getRzRyAng(int vx,
     vy = (vy == 0 ? 1 : vy);
     vz = (vz == 0 ? 1 : vz);
 
-//_TRACE_("GgafDx9Util::getRzRyAng "<<vx<<","<<vy<<","<<vz);
-    angle prj_rXY = getAngle2D(abs(vx), abs(vy));
-    angle prj_rXZ = getAngle2D(abs(vx), abs(vz)); //ZX平面じゃなくてXZ平面よ！回転方向がY軸回転と逆よ！
-//_TRACE_("prj_rXY,prj_rXZ="<<prj_rXY<<","<<prj_rXZ);
+_TRACE_("GgafDx9Util::getRzRyAng "<<vx<<","<<vy<<","<<vz);
+
+    angle prj_rXY = getAngle2D(abs(vx), abs(vy)); //Rz
+    angle prj_rXZ = getAngle2D(abs(vx), abs(vz)); //revRy ZX平面じゃなくてXZ平面よ！回転方向がY軸回転と逆よ！
+    angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz予備
+
+_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vy)<<")=prj_rXY="<<prj_rXY);
+_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vz)<<")=prj_rXZ="<<prj_rXZ);
+
     angle rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
     angle rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-//_TRACE_("rotZ,rotY_rev="<<rotZ<<","<<rotY_rev);
+_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Z["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotZ="<<rotZ);
+_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Y_REV["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotY_rev="<<rotY_rev);
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
         out_angFaceZ = rotZ;
@@ -442,25 +456,25 @@ void GgafDx9Util::getRzRyAng(int vx,
                           angle& out_angFaceY) {
 
     getRzRyAng(vx,
-                       vy,
-                       vz,
-                       out_angFaceZ,
-                       out_angFaceY );
+               vy,
+               vz,
+               out_angFaceZ,
+               out_angFaceY );
 
     getNormalizeVectorZY(out_angFaceZ,
                          out_angFaceY,
-                       out_nvx,
-                       out_nvy,
-                       out_nvz);
+                         out_nvx,
+                         out_nvy,
+                         out_nvz);
 
 }
 
 void GgafDx9Util::getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY) {
-    getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT*100),
-                      (int)(nvy*LEN_UNIT*PX_UNIT),
-                      (int)(nvz*LEN_UNIT*PX_UNIT),
-                      out_angFaceZ,
-                      out_angFaceY );
+    getRzRyAng((int)(nvx*LEN_UNIT*PX_UNIT),
+               (int)(nvy*LEN_UNIT*PX_UNIT),
+               (int)(nvz*LEN_UNIT*PX_UNIT),
+               out_angFaceZ,
+               out_angFaceY );
 
 
 }
@@ -497,11 +511,12 @@ void GgafDx9Util::getRzRyAngle_old(int x,
 
     static s_ang rZ, rY;
     _srv.getFaceAngClosely(
-            (unsigned __int16) abs(out_nvx*10000),
-            (unsigned __int16) abs(out_nvy*10000),
-            (unsigned __int16) abs(out_nvz*10000),
+            (DWORD) abs(out_nvx*1000000),
+            (DWORD) abs(out_nvy*1000000),
+            (DWORD) abs(out_nvz*1000000),
             rZ,
-            rY
+            rY,
+            10000
     );
 
     //x > 0; y > 0; z > 0 の領域を第一象限とする
@@ -554,9 +569,9 @@ void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angFaceZ, ang
     static s_ang rZ, rY;
 
     _srv.getFaceAngClosely(
-            (unsigned __int16) abs(t*vx*10000),
-            (unsigned __int16) abs(t*vy*10000),
-            (unsigned __int16) abs(t*vz*10000),
+            (DWORD) abs(t*vx*1000000),
+            (DWORD) abs(t*vy*1000000),
+            (DWORD) abs(t*vz*1000000),
             rZ,
             rY,
             s
@@ -594,9 +609,9 @@ void GgafDx9Util::getRzRyAngle_old(int x, int y, int z, angle& out_angFaceZ, ang
 void GgafDx9Util::getRzRyAngle_old(float vx, float vy, float vz, angle& out_angFaceZ, angle& out_angFaceY, int s) {
     static s_ang rZ, rY;
     _srv.getFaceAngClosely(
-            (unsigned __int16) abs(vx*10000),
-            (unsigned __int16) abs(vy*10000),
-            (unsigned __int16) abs(vz*10000),
+            (DWORD) abs(vx*1000000),
+            (DWORD) abs(vy*1000000),
+            (DWORD) abs(vz*1000000),
             rZ,
             rY,
             s
@@ -769,13 +784,13 @@ void GgafDx9Util::getNormalizeVectorZY(angle prm_angFaceZ,
     } else {
         _TRACE_("getNormalizeVectorZY: なんかおかしいですぜ prm_angFaceZ="<<prm_angFaceZ<<" prm_angFaceY="<<prm_angFaceY);
     }
-    static unsigned __int16 vx, vy, vz;
+    DWORD vx, vy, vz;
     //  _TRACE_("prm_angFaceZ="<<prm_angFaceZ<<"/prm_angFaceY="<<prm_angFaceY<<" rY="<<rY<<"/rZ="<<rZ<<")");
     //  _TRACE_("("<<Xsign<<","<<Ysign<<","<<Zsign<<")");
     _srv.getVectorClosely(rY_rev, rZ, vx, vy, vz);
-    out_nvx = Xsign * vx / 10000.0f;
-    out_nvy = Ysign * vy / 10000.0f;
-    out_nvz = Zsign * vz / 10000.0f;
+    out_nvx = Xsign * (int)vx / 1000000.0f;
+    out_nvy = Ysign * (int)vy / 1000000.0f;
+    out_nvz = Zsign * (int)vz / 1000000.0f;
 }
 
 
