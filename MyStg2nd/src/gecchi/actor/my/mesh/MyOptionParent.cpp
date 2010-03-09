@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 MyOptionParent::MyOptionParent(const char* prm_name) :
-    DefaultMeshActor(prm_name, "vic2") {
+    DefaultMeshActor(prm_name, "myvic") {
 
 //MyOptionParent::MyOptionParent(const char* prm_name) :
 //  GgafDx9GeometricActor(prm_name,
@@ -408,7 +408,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 }
 
 void MyOptionParent::initialize() {
-    _RX = _RZ = _RY = 300;
 
     _pMover->setMvVelo(0);
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);

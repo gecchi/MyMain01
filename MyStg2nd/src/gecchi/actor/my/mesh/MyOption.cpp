@@ -184,11 +184,11 @@ void MyOption::processBehavior() {
     cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    //自機を中心にVIEW変換のような旋廻
+    //自機を中心にWORLD変換のような旋廻
     //_TRACE_(_pMyOptionParent->_pMover->_angFace[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angFace[AXIS_Y]);
 
-
-_TRACE_("ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Y]));
+    _TRACE_("MyOption -----");
+_TRACE_("MyOption ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Y]));
 
     //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
         //Y軸回転 ＞ Z軸回転
@@ -204,7 +204,7 @@ _TRACE_("ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > 
 
 
 
-    //懐広電灯の照射角が広がるような回転（Quaternionで実現）
+    //懐中電灯の照射角が広がるような回転（Quaternionで実現）
     static float vX_axis,vY_axis,vZ_axis; //回転させたい軸ベクトル
 //_TRACE_("_pMover->_angFace[AXIS_Z],_pMover->_angFace[AXIS_Y]="<<(_pMover->_angFace[AXIS_Z])<<","<<(_pMover->_angFace[AXIS_Y]));
 //    angle zz = _pMyOptionParent->_pMover->_angFace[AXIS_Z] + _pMover->_angRzMv;
@@ -239,7 +239,7 @@ _TRACE_("ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > 
     //_Q._x, _Q._y, _Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
 
-    //_TRACE_("Q vX,vY,vZ="<<_Q._x<<","<<_Q._y<<","<<_Q._z);
+    _TRACE_("MyOption Q vX,vY,vZ="<<_Q._x<<","<<_Q._y<<","<<_Q._z);
 
     GgafDx9Util::getRzRyAng(
         _Q._x,
@@ -249,12 +249,14 @@ _TRACE_("ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > 
         _RY
      );
 
-     //_TRACE_("Q RzRy="<<_RZ<<" > "<<_RY);
+     _TRACE_("MyOption Q RzRy="<<_RZ<<" > "<<_RY);
 
 
     _RZ = GgafDx9GeometryMover::simplifyAng(_RZ);
     _RY = GgafDx9GeometryMover::simplifyAng(_RY);
-    GgafDx9Util::anotherRzRy(_RZ,_RY);
+    //GgafDx9Util::anotherRzRy(_RZ,_RY);
+
+    _TRACE_("MyOption SAIGO RzRy="<<_RZ<<" > "<<_RY);
     _X += GameGlobal::_pMyShip->_X;
     _Y += GameGlobal::_pMyShip->_Y;
     _Z += GameGlobal::_pMyShip->_Z;
