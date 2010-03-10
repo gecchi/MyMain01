@@ -29,8 +29,8 @@ public:
     static angle SLANT2ANG[];
     static angle PROJANG_XY_XZ_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
     static angle PROJANG_XY_XZ_TO_ROTANG_Y_REV[S_ANG90+1][S_ANG90+1];
-    static angle PROJANG_ZY_ZX_TO_ROTANG_Z[S_ANG90+1][S_ANG90+1];
-    static angle PROJANG_ZY_ZX_TO_ROTANG_90minusY[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_X_REV[S_ANG90+1][S_ANG90+1];
+    static angle PROJANG_ZY_ZX_TO_ROTANG_Y[S_ANG90+1][S_ANG90+1];
 
     static AngleSet ROTY_ANGLE[S_ANG360+1];
 
@@ -64,10 +64,10 @@ public:
         }
         if (prm_vx >= 0 && prm_vy >= 0) { //ëÊ1è€å¿
             if (prm_vx >= prm_vy) {
-                _TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE0+SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
+                //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE0+SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
                 return ANGLE0  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
             } else {
-                _TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT2ANG["<<(int)(1.0*prm_vx/prm_vy*100000)<<"]="<<(ANGLE90-SLANT2ANG[(int)(1.0*prm_vx/prm_vy*10000)]));
+                //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT2ANG["<<(int)(1.0*prm_vx/prm_vy*100000)<<"]="<<(ANGLE90-SLANT2ANG[(int)(1.0*prm_vx/prm_vy*10000)]));
                 return ANGLE90 - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
             }
         } else if (prm_vx <= 0 && prm_vy >= 0) { //ëÊ2è€å¿
