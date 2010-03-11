@@ -1052,43 +1052,43 @@ void GgafDx9GeometryMover::getRzRyMvAngDistance(int prm_way,
                                                 angle& out_d_angRz, angle& out_d_angRy,
                                                 angle& out_target_angRz, angle& out_target_angRy) {
 
-_TRACE_("getRzRyMvAngDistance ---->");
-_TRACE_("this: angMvRz="<<_angRzMv<<" _angRyMv="<<_angRyMv);
-_TRACE_("prm_target_angRz="<<prm_target_angRz<<" prm_target_angRy="<<prm_target_angRy);
+//_TRACE_("getRzRyMvAngDistance ---->");
+//_TRACE_("this: angMvRz="<<_angRzMv<<" _angRyMv="<<_angRyMv);
+//_TRACE_("prm_target_angRz="<<prm_target_angRz<<" prm_target_angRy="<<prm_target_angRy);
     angle target_angRz = prm_target_angRz;
     angle target_angRy = prm_target_angRy;
     if (prm_way == TURN_CLOSE_TO) { //近いほう回転
         //目標に到達するためには、回り方が常に２パターンある。
         //それぞれ球面上の２点の距離を簡易近似値（速度優先のため）で比較し、近いと思われるほうを採用する。
 
-        _TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
+        //_TRACE_("1 target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO); //Rzの差
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
-        _TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
+        //_TRACE_("1 d1_angRz="<<d1_angRz<<" d1_angRy="<<d1_angRy);
         angle d1 = abs(d1_angRz) > abs(d1_angRy) ? abs(d1_angRz) : abs(d1_angRy);
-        _TRACE_("1  d1="<<((float)d1));
+        //_TRACE_("1  d1="<<((float)d1));
 
         GgafDx9Util::anotherRzRy(target_angRz, target_angRy);
-        _TRACE_("2 anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
+        //_TRACE_("2 anotherRzRy target_angRz="<<target_angRz<<" target_angRy="<<target_angRy);
         angle d2_angRz = getRzMvAngDistance(target_angRz, TURN_CLOSE_TO);
         angle d2_angRy = getRyMvAngDistance(target_angRy, TURN_CLOSE_TO);
-        _TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
+        //_TRACE_("2 d2_angRz="<<d2_angRz<<" d2_angRy="<<d2_angRy);
         angle d2 = abs(d2_angRz) > abs(d2_angRy) ? abs(d2_angRz) : abs(d2_angRy);
-        _TRACE_("2  d2="<<((float)d2));
+        //_TRACE_("2  d2="<<((float)d2));
         if (d1 <= d2) {
-            _TRACE_("d1 <= d2 d1が採用されました");
+            //_TRACE_("d1 <= d2 d1が採用されました");
             out_d_angRz = d1_angRz;
             out_d_angRy = d1_angRy;
             out_target_angRz = prm_target_angRz;
             out_target_angRy = prm_target_angRy;
         } else {
-            _TRACE_("d1 > d2  d2が採用されました");
+            //_TRACE_("d1 > d2  d2が採用されました");
             out_d_angRz = d2_angRz;
             out_d_angRy = d2_angRy;
             out_target_angRz = target_angRz;
             out_target_angRy = target_angRy;
         }
-        _TRACE_("<--- getRzRyMvAngDistance");
+        //_TRACE_("<--- getRzRyMvAngDistance");
     } else if (prm_way == TURN_ANTICLOSE_TO) { //遠い方の回転
         angle d1_angRz = getRzMvAngDistance(target_angRz, TURN_ANTICLOSE_TO);
         angle d1_angRy = getRyMvAngDistance(target_angRy, TURN_ANTICLOSE_TO);
