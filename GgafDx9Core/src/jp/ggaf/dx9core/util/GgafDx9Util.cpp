@@ -265,7 +265,7 @@ void GgafDx9Util::init() {
         vy = tan(prj_rad_zy);
 
         for (s_ang prj_ang_zx = 0; prj_ang_zx <= S_ANG90; prj_ang_zx++) {
-            prj_rad_zx = (prj_ang_zx) / (1.0*S_ANG360);
+            prj_rad_zx = (PI * 2.0 * prj_ang_zx) / (1.0*S_ANG360);
             //方向ベクトルを作成
             vx = tan(prj_rad_zx);
 
@@ -292,7 +292,7 @@ void GgafDx9Util::init() {
             //これは上で求めたry_revをANGLE90から引いた値である。
             PROJANG_ZY_ZX_TO_ROTANG_X_REV[prj_ang_zy][prj_ang_zx] = rx_rev*ANGLE_RATE;
             PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx] = ANGLE90 - ry_rev*ANGLE_RATE;
-
+            //_TRACE_("PROJANG_ZY_ZX_TO_ROTANG_Y["<<prj_ang_zy<<"]["<<prj_ang_zx<<"] = ANGLE90 - "<<ry_rev<<"*ANGLE_RATE = "<<PROJANG_ZY_ZX_TO_ROTANG_Y[prj_ang_zy][prj_ang_zx]);
 
            //_TRACE_("["<<prj_ang_xy<<"]["<<prj_ang_xz<<"]=("<<PROJANG_XY_XZ_TO_ROTANG_Z[prj_ang_xy][prj_ang_xz]<<","<<PROJANG_XY_XZ_TO_ROTANG_Y_REV[prj_ang_xy][prj_ang_xz]<<")");
 
@@ -446,14 +446,26 @@ void GgafDx9Util::getRzRyAng(int vx,
     angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz
     angle prj_rZX = getAngle2D(abs(vz), abs(vx));
 
+//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vy)<<")=prj_rXY="<<prj_rXY);
+//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vz)<<")=prj_rXZ="<<prj_rXZ);
+//_TRACE_("getAngle2D("<<abs(vz)<<","<<abs(vy)<<")=prj_rZY="<<prj_rZY);
+//_TRACE_("getAngle2D("<<abs(vz)<<","<<abs(vy)<<")=prj_rZX="<<prj_rZX);
+
     angle rotZ, rotY_rev, rotY;
     if (0 <= prj_rXZ && prj_rXZ <= ANGLE45) {
+//_TRACE_("prj_rXZはANGLE0~ANGLE45");
         rotZ = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
         rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
+//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Z["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotZ="<<rotZ);
+//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Y_REV["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotY_rev="<<rotY_rev);
     } else if (ANGLE45 <= prj_rXZ && prj_rXZ <= ANGLE90) {
+//_TRACE_("prj_rXZはANGLE45~ANGLE90");
         rotZ = PROJANG_ZY_ZX_TO_ROTANG_X_REV[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
         rotY = PROJANG_ZY_ZX_TO_ROTANG_Y[(int)(prj_rZY/100.0)][(int)(prj_rZX/100.0)];
         rotY_rev = ANGLE90 - rotY;
+//_TRACE_("GgafDx9Util PROJANG_ZY_ZX_TO_ROTANG_X_REV["<<(int)(prj_rZY/100.0)<<"]["<<(int)(prj_rZX/100.0)<<"]=rotZ="<<rotZ);
+//_TRACE_("GgafDx9Util PROJANG_ZY_ZX_TO_ROTANG_Y["<<(int)(prj_rZY/100.0)<<"]["<<(int)(prj_rZX/100.0)<<"]=rotY="<<rotY);
+//_TRACE_("rotY_rev = ANGLE90 - rotY = "<<rotY_rev);
     } else {
         _TRACE_("GgafDx9Util::getRzRyAng おかしいですぜ！1");
     }
@@ -465,27 +477,6 @@ void GgafDx9Util::getRzRyAng(int vx,
     } else {
         _TRACE_("GgafDx9Util::getRzRyAng おかしいですぜ！2");
     }
-
-//
-//
-//
-//
-//    angle prj_rXZ = getAngle2D(abs(vx), abs(vz)); //revRy ZX平面じゃなくてXZ平面よ！回転方向がY軸回転と逆よ！
-//    angle prj_rZY = getAngle2D(abs(vz), abs(vy)); //Rz予備
-//
-//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vy)<<")=prj_rXY="<<prj_rXY);
-//_TRACE_("getAngle2D("<<abs(vx)<<","<<abs(vz)<<")=prj_rXZ="<<prj_rXZ);
-//    angle rotZ, rotY_rev;
-//    if (0 <= prj_rXZ && prj_rXZ < ANGLE45) {
-//        rotZ     = PROJANG_XY_XZ_TO_ROTANG_Z[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-//        rotY_rev = PROJANG_XY_XZ_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0)][(int)(prj_rXZ/100.0)];
-//    } else if (ANGLE45 <= prj_rXZ && prj_rXZ <= ANGLE90) {
-//        rotZ     = PROJANG_XY_ZY_TO_ROTANG_Z[(int)(prj_rXY/100.0) - S_ANG45][(int)(prj_rXZ/100.0)];
-//        rotY_rev = PROJANG_XY_ZY_TO_ROTANG_Y_REV[(int)(prj_rXY/100.0) - S_ANG45][(int)(prj_rXZ/100.0)];
-//    }
-//
-//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Z["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotZ="<<rotZ);
-//_TRACE_("GgafDx9Util PROJANG_XY_XZ_TO_ROTANG_Y_REV["<<(int)(prj_rXY/100.0)<<"]["<<(int)(prj_rXZ/100.0)<<"]=rotY_rev="<<rotY_rev);
     //象限によって回転角を補正
     if (vx >= 0 && vy >= 0 && vz >= 0) { //第一象限
         out_angFaceZ = rotZ;

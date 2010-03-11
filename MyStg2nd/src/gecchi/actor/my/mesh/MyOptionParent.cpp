@@ -127,7 +127,7 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     }
     _is_rotate = false;
 
-    int d = 100;
+    int d = 1000;
     int CAM_POS_BEHIND = 0;
 
     //「方向とアングル値.xls」から作成

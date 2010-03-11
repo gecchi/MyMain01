@@ -185,9 +185,8 @@ void MyOption::processBehavior() {
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     //自機を中心にWORLD変換のような旋廻
-    //_TRACE_(_pMyOptionParent->_pMover->_angFace[AXIS_Z]<<" "<<_pMyOptionParent->_pMover->_angFace[AXIS_Y]);
 
-    //_TRACE_("MyOption -----");
+//_TRACE_("MyOption -----");
 //_TRACE_("MyOption ParentFaceRzRy = "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Z])<<" > "<<(_pMyOptionParent->_pMover->_angFace[AXIS_Y]));
 
     //if (pCAM->_pos_camera == 1 || pCAM->_pos_camera == 2) {
@@ -239,24 +238,24 @@ void MyOption::processBehavior() {
     //_Q._x, _Q._y, _Q._z が回転後の座標となる
     //Z軸回転、Y軸回転角度を計算
 
-    //_TRACE_("MyOption Q vX,vY,vZ="<<_Q._x<<","<<_Q._y<<","<<_Q._z);
+//_TRACE_("MyOption Q vX,vY,vZ="<<_Q._x<<","<<_Q._y<<","<<_Q._z);
 
     GgafDx9Util::getRzRyAng(
-        _Q._x,
-        _Q._y,
-        _Q._z,
+        (float)_Q._x,
+        (float)_Q._y,
+        (float)_Q._z,
         _RZ,
         _RY
      );
 
-     //_TRACE_("MyOption Q RzRy="<<_RZ<<" > "<<_RY);
+//_TRACE_("MyOption Q RzRy="<<_RZ<<" > "<<_RY);
 
 
     _RZ = GgafDx9GeometryMover::simplifyAng(_RZ);
     _RY = GgafDx9GeometryMover::simplifyAng(_RY);
     //GgafDx9Util::anotherRzRy(_RZ,_RY);
 
-    //_TRACE_("MyOption SAIGO RzRy="<<_RZ<<" > "<<_RY);
+//_TRACE_("MyOption SAIGO RzRy="<<_RZ<<" > "<<_RY);
     _X += GameGlobal::_pMyShip->_X;
     _Y += GameGlobal::_pMyShip->_Y;
     _Z += GameGlobal::_pMyShip->_Z;
