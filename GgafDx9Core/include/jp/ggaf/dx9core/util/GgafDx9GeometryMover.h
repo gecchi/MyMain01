@@ -539,10 +539,17 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingFaceAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way);
+                                      int prm_way, bool prm_optimize_ang = true);
 
     /**
      * 軸回転方角を目標にターゲットするシークエンスを実行 .
@@ -553,10 +560,17 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingFaceAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                       angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way);
+                                      int prm_way, bool prm_optimize_ang = true);
 
 
     /**
@@ -566,17 +580,25 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingFaceAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                       angvelo prm_angVelo, angacce prm_angAcce,
-                                      int prm_way = TURN_CLOSE_TO) {
+                                      int prm_way, bool prm_optimize_ang = true) {
         execTagettingFaceAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
                 prm_angVelo,
                 prm_angAcce,
-                prm_way
+                prm_way,
+                prm_optimize_ang
         );
     }
 
@@ -625,10 +647,17 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingMvAngSequence(angle prm_angRz_Target, angle prm_angRy_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way);
+                                    int prm_way, bool prm_optimize_ang = true);
 
     /**
      * 移動方角を目標にターゲットするシークエンスを実行 .
@@ -639,10 +668,17 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingMvAngSequence(int prm_tX, int prm_tY, int prm_tZ,
                                     angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way);
+                                    int prm_way, bool prm_optimize_ang = true);
 
 
     /**
@@ -652,17 +688,25 @@ public: //_X , _Y, _Z 操作関連 //////////////////////////////////////////////
      * @param prm_angAcce 角加速度（正負自動判定）
      * @param prm_way ターゲットするための、回転方向指示。次のいずれかを指定。
      *                TURN_COUNTERCLOCKWISE/TURN_CLOCKWISE/TURN_CLOSE_TO/TURN_ANTICLOSE_TO
+     * @param prm_optimize_ang ターゲットアングル値を距離で最適化するかどうかを指定。
+     *                         true: 引数の prm_angRz_Target, prm_angRy_Target までの距離と、
+     *                               同じ方向を意味するもう一組の RzRy までの距離を割り出し、
+     *                               到達フレーム数の少ない方の RzRy の組み合わせを自動採用する。
+     *                               所望の方向に最短フレームでターゲットするが、内部の _angMvRz, _angMvRy は
+     *                               引数のターゲットアングル値と一致しないかもしれない。
+     *                         false:引数の prm_angRz_Target, prm_angRy_Target をそのままターゲートとする。
      */
     void execTagettingMvAngSequence(GgafDx9GeometricActor* prm_pActor_Target,
                                     angvelo prm_angVelo, angacce prm_angAcce,
-                                    int prm_way) {
+                                    int prm_way, bool prm_optimize_ang = true) {
         execTagettingMvAngSequence(
                 prm_pActor_Target->_X,
                 prm_pActor_Target->_Y,
                 prm_pActor_Target->_Z,
                 prm_angVelo,
                 prm_angAcce,
-                prm_way
+                prm_way,
+                prm_optimize_ang
         );
     }
 
