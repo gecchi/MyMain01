@@ -459,6 +459,8 @@ void World::processBehavior() {
                 pCAM->_pMover->setMvVelo(0);
             }
         }
+        pCAM->_pMover->behave();
+        pVP->_pMover->behave();
     }
 
     if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
