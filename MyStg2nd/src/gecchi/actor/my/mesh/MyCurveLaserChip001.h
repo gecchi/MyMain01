@@ -25,13 +25,14 @@ public:
 
     void processFinal();
 
-    bool isOutOfGameSpace() override {
-        if (isOffscreen() == 0) {
-            return false;
-        } else {
-            return true;
-        }
-    }
+//    bool isOutOfGameSpace() override {
+//        if (isOffscreen() == 0) {
+//            return false;
+//        } else {
+//            return true;
+//        }
+//    }
+
     virtual ~MyCurveLaserChip001();
 
 };

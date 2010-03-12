@@ -161,7 +161,7 @@ void MyOption::processBehavior() {
     //
     //
     //              YZ平面に平行でぐるぐる回ってる。
-    //       ←○
+    //        ←○
     //
     //
     //                    ↑
@@ -169,7 +169,7 @@ void MyOption::processBehavior() {
     //↓     (0,0,0)      (-50000, 0, _radiusPosition)
     //
     //
-    //         ○→
+    //          ○→
     //          (-50000, -1*_radiusPosition, 0)
     //
     //しかしまだ色々と回転したいため。あとは普通に計算（力技）で、座標回転、向き回転を行なう。

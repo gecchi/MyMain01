@@ -54,7 +54,7 @@ void World::initialize() {
     pCAM->setViewPoint(0,0,0);
     pCAM->_pMover->setMvAng(0,0,0);
 
-    _cam_velo_renge = 50000;
+    _cam_velo_renge = 30000;
     pCAM->_pMover->forceVxMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCAM->_pMover->forceVyMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
     pCAM->_pMover->forceVzMvVeloRange(-_cam_velo_renge, _cam_velo_renge);
@@ -135,19 +135,19 @@ void World::processBehavior() {
     //ƒJƒƒ‰‚Æ‹“_‚ÌˆÚ“®–Ú•Wİ’è
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
-            move_target_X_CAM = 0;
-            move_target_Y_CAM = 0;
-            move_target_Z_CAM = -_dZ_camera_init;
-            move_target_X_VP = 0;
-            move_target_Y_VP = 0;
-            move_target_Z_VP = 0;
+//            move_target_X_CAM = 0;
+//            move_target_Y_CAM = 0;
+//            move_target_Z_CAM = -_dZ_camera_init;
+//            move_target_X_VP = 0;
+//            move_target_Y_VP = 0;
+//            move_target_Z_VP = 0;
 
-//            move_target_X_CAM = -Dx;
-//            move_target_Y_CAM = pMYSHIP->_Y;
-//            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
-//            move_target_X_VP = Dx;
-//            move_target_Y_VP = pMYSHIP->_Y;
-//            move_target_Z_VP = pMYSHIP->_Z;
+            move_target_X_CAM = -Dx;
+            move_target_Y_CAM = pMYSHIP->_Y;
+            move_target_Z_CAM = pMYSHIP->_Z - _dZ_camera_init;
+            move_target_X_VP = Dx;
+            move_target_Y_VP = pMYSHIP->_Y;
+            move_target_Z_VP = pMYSHIP->_Z;
         } else if (_pos_camera == CAM_POS_LEFT) {
             move_target_X_CAM = -Dx;
             move_target_Y_CAM = pMYSHIP->_Y;
@@ -320,37 +320,37 @@ void World::processBehavior() {
     if ( getSubFirst()->canBehave() ) {
         if (-_stop_renge < dX_CAM && dX_CAM < _stop_renge) {
             pCAM->_pMover->setVxMvAcce(0);
-            pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.9);
+            pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.8);
         } else {
             pCAM->_pMover->setVxMvAcce(dX_CAM);
         }
         if (-_stop_renge < dY_CAM && dY_CAM < _stop_renge) {
             pCAM->_pMover->setVyMvAcce(0);
-            pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.9);
+            pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.8);
         } else {
             pCAM->_pMover->setVyMvAcce(dY_CAM);
         }
         if (-_stop_renge < dZ_CAM && dZ_CAM < _stop_renge) {
             pCAM->_pMover->setVzMvAcce(0);
-            pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.9);
+            pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.8);
         } else {
             pCAM->_pMover->setVzMvAcce(dZ_CAM);
         }
         if (-_stop_renge < dX_VP && dX_VP < _stop_renge) {
             pVP->_pMover->setVxMvAcce(0);
-            pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.9);
+            pVP->_pMover->setVxMvVelo(pVP->_pMover->_veloVxMv * 0.8);
         } else {
             pVP->_pMover->setVxMvAcce(dX_VP);
         }
         if (-_stop_renge < dY_VP && dY_VP < _stop_renge) {
             pVP->_pMover->setVyMvAcce(0);
-            pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.9);
+            pVP->_pMover->setVyMvVelo(pVP->_pMover->_veloVyMv * 0.8);
         } else {
             pVP->_pMover->setVyMvAcce(dY_VP);
         }
         if (-_stop_renge < dZ_VP && dZ_VP < _stop_renge) {
             pVP->_pMover->setVzMvAcce(0);
-            pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.9);
+            pVP->_pMover->setVzMvVelo(pVP->_pMover->_veloVzMv * 0.8);
         } else {
             pVP->_pMover->setVzMvAcce(dZ_VP);
         }
