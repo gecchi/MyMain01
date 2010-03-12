@@ -1354,7 +1354,7 @@ void GgafDx9GeometryMover::setRzRyMvAng_by_RyRz(angle prm_angRyRz_Ry, angle prm_
     angle RyRz_Ry = simplifyAng(prm_angRyRz_Ry);
     angle RyRz_Rz = simplifyAng(prm_angRyRz_Rz);
     float out_vY, out_vZ;
-    GgafDx9Util::getNormalizeVectorZY(prm_angRyRz_Ry, ANGLE360-RyRz_Rz, _vX, out_vY, out_vZ);
+    GgafDx9Util::getNormalizeVectorZY(RyRz_Ry, ANGLE360-RyRz_Rz, _vX, out_vY, out_vZ);
     _vY = -1.0f*out_vZ;
     _vZ = out_vY;
     GgafDx9Util::getRzRyAng(_vX, _vZ, _vY, _angRzMv, _angRyMv);
@@ -1690,14 +1690,18 @@ void GgafDx9GeometryMover::execTagettingMvAngSequence(angle prm_angRz_Target, an
                                                       int prm_way, bool prm_optimize_ang) {
     angle out_d_angRz;
     angle out_d_angRy;
+    angle out_target_angRz;
+    angle out_target_angRy;
     if (prm_optimize_ang) {
         getRzRyMvAngDistance(prm_way,
                              prm_angRz_Target, prm_angRy_Target,
                              out_d_angRz, out_d_angRy,
-                             prm_angRz_Target, prm_angRy_Target);
+                             out_target_angRz, out_target_angRy);
     } else {
         out_d_angRz = getRzMvAngDistance(prm_angRz_Target, prm_way);
         out_d_angRy = getRyMvAngDistance(prm_angRy_Target, prm_way);
+        out_target_angRz = prm_angRz_Target;
+        out_target_angRy = prm_angRy_Target;
     }
     if (out_d_angRz > 0) {
         setRzMvAngVelo(prm_angVelo);
@@ -1714,8 +1718,8 @@ void GgafDx9GeometryMover::execTagettingMvAngSequence(angle prm_angRz_Target, an
         setRyMvAngAcce(-prm_angAcce);
     }
 
-    setStopTarget_RzMvAng(prm_angRz_Target);
-    setStopTarget_RyMvAng(prm_angRy_Target);
+    setStopTarget_RzMvAng(out_target_angRz);
+    setStopTarget_RyMvAng(out_target_angRy);
 
 }
 

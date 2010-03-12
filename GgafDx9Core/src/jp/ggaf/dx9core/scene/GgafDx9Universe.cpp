@@ -62,8 +62,8 @@ void GgafDx9Universe::draw() {
     _pActors_DrawMaxDrawDepth = NULL; //次回のためにリセット
 
     //段階レンダリングが必要なオブジェクトを描画
-    float tmpAlpah;
-    int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
+    //float tmpAlpah;
+    //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {

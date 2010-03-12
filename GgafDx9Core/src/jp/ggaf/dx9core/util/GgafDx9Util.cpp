@@ -214,7 +214,7 @@ void GgafDx9Util::init() {
 
     double nvx,nvy,nvz;
     double prj_rad_xy,prj_rad_xz, prj_rad_zy, prj_rad_zx;
-    s_ang rz, ry_rev, rx_rev, ry;
+    s_ang rz, ry_rev;
 
     vx = 1.0;
     for (s_ang prj_ang_xy = 0; prj_ang_xy <= S_ANG90; prj_ang_xy++) {
