@@ -137,8 +137,8 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
         if (_X < GgafDx9Universe::_X_goneRight) {
             if (GgafDx9Universe::_Y_goneBottom < _Y) {
                  if (_Y < GgafDx9Universe::_Y_goneTop) {
-                     if (GgafDx9Universe::_Z_goneFront < _Z) {
-                          if (_Z < GgafDx9Universe::_Z_goneBack) {
+                     if (GgafDx9Universe::_Z_goneNear < _Z) {
+                          if (_Z < GgafDx9Universe::_Z_goneFar) {
                               return false;
                           }
                      }

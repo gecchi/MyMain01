@@ -40,8 +40,8 @@ public:
     static int _X_goneRight;
     static int _Y_goneTop;
     static int _Y_goneBottom;
-    static int _Z_goneBack;
-    static int _Z_goneFront;
+    static int _Z_goneFar;
+    static int _Z_goneNear;
 
 
     GgafDx9Universe(const char* prm_name);

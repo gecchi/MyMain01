@@ -12,8 +12,8 @@ int GgafDx9Universe::_X_goneLeft   = 0;
 int GgafDx9Universe::_X_goneRight  = 0;
 int GgafDx9Universe::_Y_goneTop    = 0;
 int GgafDx9Universe::_Y_goneBottom = 0;
-int GgafDx9Universe::_Z_goneBack   = 0;
-int GgafDx9Universe::_Z_goneFront  = 0;
+int GgafDx9Universe::_Z_goneFar   = 0;
+int GgafDx9Universe::_Z_goneNear  = 0;
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
     _class_name = "GgafDx9Universe";
@@ -30,9 +30,9 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Y_goneBottom = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Z_goneBack   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _Z_goneFront  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
-    _TRACE_("Gone=X ("<<_X_goneLeft<<" - "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" - "<<_Y_goneTop<<") Z("<<_Z_goneBack<<" - "<<_Z_goneFront<<")");
+    _Z_goneFar   = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
+    _TRACE_("Gone=X ("<<_X_goneLeft<<" - "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" - "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" - "<<_Z_goneNear<<")");
 
 
 }
