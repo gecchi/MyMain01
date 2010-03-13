@@ -85,7 +85,8 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {
+    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {  //Ž‹–ìŠO‚Í“o˜^‚µ‚È‚¢
+    if (_pActor->_can_hit_flg && _pActor->isActive() ) {  //Ž‹–ìŠO‚à“o˜^
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG
@@ -135,8 +136,11 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
 
     pOtherActor = prm_pOtherChecker->getTargetActor();
     pOtherCollisionArea = ((CollisionChecker*)prm_pOtherChecker)->_pCollisionArea;
-    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL ||
-        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {
+
+//    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL ||
+//        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {  //Ž‹–ìŠO‚Í”»’è‚µ‚È‚¢
+
+    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL) {    //Ž‹–ìŠO‚à”»’è‚·‚é
         return false;
     } else {
         GgafDx9CollisionPart* pColliPart;
@@ -153,7 +157,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             //AABB ‚Æ  AABB
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
-                            //Ž²‚ªˆê’v‚µ‚È‚¢Šm—¦‚ª‚‚»‚¤‚È‡”Ô‚É”»’è
+                            //Ž²‚ªˆê’v‚µ‚È‚¢Šm—¦‚ª‚‚»‚¤‚È‡”Ô(“K“–)‚É”»’è
                             if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
                                 if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
                                     if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {

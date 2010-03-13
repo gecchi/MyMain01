@@ -299,7 +299,8 @@ void MyOption::processBehavior() {
 
 
     if (_pLockOnTarget) {
-        if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) {
+        //if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) { //非アクティブのみと視野外はロックオン解除
+        if (_pLockOnTarget->isActive() == false) {  //非アクティブのみ解除（視野外でもロックオン維持）
             _pLockOnTarget = NULL;
         } else {
             _pEffectLockOn->setGeometry(_pLockOnTarget);

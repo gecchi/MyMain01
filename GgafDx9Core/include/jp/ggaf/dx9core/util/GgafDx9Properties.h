@@ -10,6 +10,7 @@ public:
     static bool* FULL_SCREEN;
     static int* GAME_SCREEN_WIDTH;
     static int* GAME_SCREEN_HEIGHT;
+    static float* GAME_SPACE_DEPTH;
     static int* VIEW_SCREEN_WIDTH;
     static int* VIEW_SCREEN_HEIGHT;
     static bool* FIXED_VIEW_ASPECT;

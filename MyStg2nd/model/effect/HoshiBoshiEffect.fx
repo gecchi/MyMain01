@@ -131,7 +131,7 @@ OUT_VS VS_HoshiBoshi(
 
 
 
-	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;
+	out_vs.psize = (g_TexSize / g_TextureSplitRowcol) * (g_default_DcamZ / dep) * prm_psize_rate;  //通常の奥行きの縮小率
 
     int ptnno = ((int)(prm_ptn_no.x + g_UvFlipPtnNo)) % (g_TextureSplitRowcol*g_TextureSplitRowcol);
 	//スペキュラ(COLOR1)を潰して表示したいUV座標左上の情報をPSに渡す

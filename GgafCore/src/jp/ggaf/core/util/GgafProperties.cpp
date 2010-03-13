@@ -101,7 +101,15 @@ string* GgafProperties::getStr(string prm_key) {
         throwGgafCriticalException("GgafProperties::getStr() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
     }
 }
+float* GgafProperties::getFloat(string prm_key) {
+    if (isExistKey(prm_key)) {
+        float* ret = NEW float(atof((*_pMapProperties)[prm_key].c_str()));
+        return ret;
+    } else {
+        throwGgafCriticalException("GgafProperties::getInt() Error! プロパティに、キー("<<prm_key<<")が存在しません。");
+    }
 
+}
 int* GgafProperties::getInt(string prm_key) {
     if (isExistKey(prm_key)) {
         int* ret = NEW int(atoi((*_pMapProperties)[prm_key].c_str()));

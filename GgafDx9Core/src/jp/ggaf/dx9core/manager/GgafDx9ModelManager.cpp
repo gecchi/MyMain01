@@ -3034,6 +3034,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_rowcol = *pInt_TextureSplitRowCol;
     int model_vertices_num = *pInt_VerticesNum;
+	TRACE3("GgafDx9ModelManager::restorePointSpriteModel model_vertices_num="<<model_vertices_num);
     UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*model_vertices_num;
     UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 

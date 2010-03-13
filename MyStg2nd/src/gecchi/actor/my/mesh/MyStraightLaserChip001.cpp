@@ -16,7 +16,7 @@ void MyStraightLaserChip001::initialize() {
     _pMover->setRzRyMvAng(0,0);
     registHitAreaCube(60000);
     setHitAble(true);
-    _SX = _SY = _SZ = 200 * 1000;
+    _SX = _SY = _SZ = 100 * 1000;
     _fAlpha = 0.99;
     _fBoundingSphereRadius = 20.0;
 }

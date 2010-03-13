@@ -21,7 +21,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
     //æ‚ÉƒJƒƒ‰‚ÍNEW‚µ‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢B
-    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, 15.0);    //FovXŽ‹–ìŠp80“xA[‚³~15.0
+    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovXŽ‹–ìŠp80“xA[‚³~15.0
     getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 

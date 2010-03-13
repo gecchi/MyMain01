@@ -19,7 +19,7 @@ public:
 
     /** 一つ前方のレーザーチップ */
     LaserChip* _pChip_front;
-    /** 一つ後方のレーザーチップ（注意：末尾判定は、_pChip_behind == NULL && _pChip_behind->isActive() とするコト */
+    /** 一つ後方のレーザーチップ */
     LaserChip* _pChip_behind;
     /** レーザーテクスチャ種別  1:末尾 2:中間 3:先頭から２番目で先頭のテクスチャ （末尾かつ先頭は末尾が優先） 4:本当の先頭(但し描画できない) */
     int _chip_kind;

@@ -38,17 +38,17 @@ void DefaultUniverse::nextFrame() {
 
 
 void DefaultUniverse::processFinal() {
-    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _TRACE_(" DefaultUniverse::processFinal() befor");
-        _pLinearOctree->putTree();
-    }
-
+//    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//        _TRACE_(" DefaultUniverse::processFinal() befor");
+//        _pLinearOctree->putTree();
+//    }
 
     _pLinearOctree->clearElem();
-    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
-        _TRACE_(" DefaultUniverse::processFinal() _pLinearOctree->clearElem(); after");
-        _pLinearOctree->putTree();
-    }
+
+//    if (GgafDx9Input::isBeingPressedKey(DIK_I)) {
+//        _TRACE_(" DefaultUniverse::processFinal() _pLinearOctree->clearElem(); after");
+//        _pLinearOctree->putTree();
+//    }
 
 //    //ルートシーンを更新
 //    float x1,y1,z1,x2,y2,z2;
