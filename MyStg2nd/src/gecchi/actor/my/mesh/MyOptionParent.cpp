@@ -427,11 +427,13 @@ void MyOptionParent::processBehavior() {
 
     //方向が変わった
     if (VB::isDoublePushedDown(VB_OPTION,7,7) && pMYSHIP->_way == WAY_NONE) {
+        //もとに戻す
         _pMover->execTagettingMvAngSequence(
                         0,
                         0,
-                        5000, 0,
-                        TURN_CLOSE_TO
+                        8000, 0,
+                        TURN_CLOSE_TO,
+                        false
                  );
         _is_rotate = true;
     } else {
@@ -442,35 +444,48 @@ void MyOptionParent::processBehavior() {
         }
 
         if (_is_rotate) {
-            angle targetRz, targetRy;
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                //右サイドビュー(右から左へスクロール)
-                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
-            } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-                //左サイドビュー(左から右へスクロール)
-                targetRz = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Ry;
-            } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                //トップビュー(上から下へスクロール)
-                targetRz = angtarget[CAM_POS_TOP][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_TOP][pMYSHIP->_way].Ry;
-            } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-                //ボトムビュー(下から上へスクロール)
-                targetRz = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Rz;
-                targetRy = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Ry;
-            } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-                //背後ビュー（奥から手前にスクロール）
-                targetRz = angtarget[0][pMYSHIP->_way].Rz;
-                targetRy = angtarget[0][pMYSHIP->_way].Ry;
+            if (VB::isBeingPressed(VB_UP)) {
+                _pMover->addRzMvAng(3000);
+            }
+            if (VB::isBeingPressed(VB_DOWN)) {
+                _pMover->addRzMvAng(-3000);
+            }
+            if (VB::isBeingPressed(VB_RIGHT)) {
+                _pMover->addRyMvAng(3000);
+            }
+            if (VB::isBeingPressed(VB_LEFT)) {
+                _pMover->addRyMvAng(-3000);
             }
 
-            _pMover->execTagettingMvAngSequence(
-                            targetRz,
-                            targetRy,
-                            3000, 0,
-                            TURN_CLOSE_TO
-                     );
+//            angle targetRz, targetRy;
+//            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
+//                //右サイドビュー(右から左へスクロール)
+//                targetRz = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Rz;
+//                targetRy = angtarget[CAM_POS_RIGHT][pMYSHIP->_way].Ry;
+//            } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
+//                //左サイドビュー(左から右へスクロール)
+//                targetRz = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Rz;
+//                targetRy = angtarget[CAM_POS_LEFT][pMYSHIP->_way].Ry;
+//            } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
+//                //トップビュー(上から下へスクロール)
+//                targetRz = angtarget[CAM_POS_TOP][pMYSHIP->_way].Rz;
+//                targetRy = angtarget[CAM_POS_TOP][pMYSHIP->_way].Ry;
+//            } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+//                //ボトムビュー(下から上へスクロール)
+//                targetRz = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Rz;
+//                targetRy = angtarget[CAM_POS_BOTTOM][pMYSHIP->_way].Ry;
+//            } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
+//                //背後ビュー（奥から手前にスクロール）
+//                targetRz = angtarget[0][pMYSHIP->_way].Rz;
+//                targetRy = angtarget[0][pMYSHIP->_way].Ry;
+//            }
+//
+//            _pMover->execTagettingMvAngSequence(
+//                            targetRz,
+//                            targetRy,
+//                            3000, 0,
+//                            TURN_CLOSE_TO
+//                     );
         } else {
     //        _pMover->execTagettingMvAngSequence(
     //                        0,
@@ -480,12 +495,12 @@ void MyOptionParent::processBehavior() {
     //                 );
         }
     }
-
-    if (_is_rotate) {
-        _pMover->behave();
-    } else {
-        //_pMover->behave();
-    }
+    _pMover->behave();
+//    if (_is_rotate) {
+//        _pMover->behave();
+//    } else {
+//        //_pMover->behave();
+//    }
 //
 //
 //    if (VB::isBeingPressed(VB_OPTION)) {

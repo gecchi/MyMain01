@@ -60,6 +60,10 @@ public:
     bool isOutOfGameSpace() override;
 
     virtual ~HoshiBoshi001();
+
+
+
+    static void setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 };
 
 }

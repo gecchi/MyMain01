@@ -335,8 +335,17 @@ void MyShip::processBehavior() {
         _way_switch.OFF_DOWN();  // ↓ を離す
     }
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
-    (this->*paFuncMove[_way])();             //方向値に応じた移動処理メソッドを呼び出す
-//    vbsta turbo_stc = VB::isDoublePushedDownStick();
+
+    if (VB::isBeingPressed(VB_OPTION)) { //オプション操作中は移動しない
+        int tmp = _iMoveSpeed;
+        _iMoveSpeed = _iMoveSpeed / 8;
+        (this->*paFuncMove[_way])();
+        _iMoveSpeed = tmp;
+    } else {
+        (this->*paFuncMove[_way])();             //方向値に応じた移動処理メソッドを呼び出す
+    }
+
+        //    vbsta turbo_stc = VB::isDoublePushedDownStick();
 //    if (turbo_stc) { //ターボ
 //        (this->*paFuncTurbo[_way])();
 //    } else {

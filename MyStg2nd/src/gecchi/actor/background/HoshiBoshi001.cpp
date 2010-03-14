@@ -25,6 +25,9 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     setHitAble(false);
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
+    //“ÆŽ©ƒ[ƒ‹ƒh•ÏŠ·
+    defineWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
+
 }
 
 int HoshiBoshi001::isOffscreen() {
@@ -104,4 +107,43 @@ void HoshiBoshi001::drawHitArea() {
 
 HoshiBoshi001::~HoshiBoshi001() {
     DELETE_IMPOSSIBLE_NULL(_pScaler);
+}
+
+
+
+void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
+    //World•ÏŠ·
+    //Šg‘åk¬ ~ XŽ²‰ñ“] ~ 2”{ZŽ²‰ñ“] ~ 2”{YŽ²‰ñ“] ~ 1/2”{•½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ðÝ’è<BR>
+    static float sinRx, cosRx, sinRy, cosRy, sinRz, cosRz;
+    static float fRateScale = 1.0f * LEN_UNIT;
+    static float Sx, Sy, Sz;
+    sinRx = GgafDx9Util::SIN[prm_pActor->_RX / ANGLE_RATE];
+    cosRx = GgafDx9Util::COS[prm_pActor->_RX / ANGLE_RATE];
+    sinRy = GgafDx9Util::SIN[prm_pActor->_RY / ANGLE_RATE];
+    cosRy = GgafDx9Util::COS[prm_pActor->_RY / ANGLE_RATE];
+    sinRz = GgafDx9Util::SIN[prm_pActor->_RZ / ANGLE_RATE];
+    cosRz = GgafDx9Util::COS[prm_pActor->_RZ / ANGLE_RATE];
+    Sx = prm_pActor->_SX / fRateScale;
+    Sy = prm_pActor->_SY / fRateScale;
+    Sz = prm_pActor->_SZ / fRateScale;
+
+    out_matWorld._11 = Sx * cosRz *cosRy;
+    out_matWorld._12 = Sx * sinRz;
+    out_matWorld._13 = Sx * cosRz * -sinRy;
+    out_matWorld._14 = 0.0f;
+
+    out_matWorld._21 = (Sy * cosRx * -sinRz *  cosRy) + (Sy * sinRx * sinRy);
+    out_matWorld._22 = Sy * cosRx *  cosRz;
+    out_matWorld._23 = (Sy * cosRx * -sinRz * -sinRy) + (Sy * sinRx * cosRy);
+    out_matWorld._24 = 0.0f;
+
+    out_matWorld._31 = (Sz * -sinRx * -sinRz *  cosRy) + (Sz * cosRx * sinRy);
+    out_matWorld._32 = Sz * -sinRx *  cosRz;
+    out_matWorld._33 = (Sz * -sinRx * -sinRz * -sinRy) + (Sz * cosRx * cosRy);
+    out_matWorld._34 = 0.0f;
+
+    out_matWorld._41 = prm_pActor->_fX;
+    out_matWorld._42 = prm_pActor->_fY;
+    out_matWorld._43 = prm_pActor->_fZ;
+    out_matWorld._44 = 1.0f;
 }

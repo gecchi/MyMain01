@@ -102,39 +102,41 @@ void MyOption::processBehavior() {
 //    _pMorpher->behave();
 //    /////////////モーフテスト////////////////
 
-    if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
-        _TRACE_("isDoublePushedDown");
-        _is_flapping = true;
-        _iflappingSeq = 0;
-        _angveloExpanse = 100;
-        _angacceExpanse = 100;
-        _range_angveloExpanse = 3000;
-    } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
-        _is_flapping = false;
-    }
-    if (_is_flapping) {
-        if (_iflappingSeq == 0) {
-            if (ANGLE225 < _angExpanse && _angExpanse <= ANGLE270) {
-                _iflappingSeq = 1;
-                _angveloExpanse = -_angveloExpanse;
-                _angacceExpanse = -_angacceExpanse;
-            }
-        } else if (_iflappingSeq == 1) {
-            if (ANGLE270 <_angExpanse && _angExpanse < ANGLE315) {
-                _iflappingSeq = 0;
-                _angveloExpanse = -_angveloExpanse;
-                _angacceExpanse = -_angacceExpanse;
-            }
-        }
-        _angveloExpanse += _angacceExpanse;
-        if (_angveloExpanse >= _range_angveloExpanse) {
-            _angveloExpanse = _range_angveloExpanse;
-        } else if (_angveloExpanse <= -_range_angveloExpanse) {
-            _angveloExpanse = -_range_angveloExpanse;
-        }
-        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse+_angveloExpanse);
 
-    }
+    //広がる
+
+//    if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
+//        _TRACE_("isDoublePushedDown");
+//        _is_flapping = true;
+//        _iflappingSeq = 0;
+//        _angveloExpanse = 100;
+//        _angacceExpanse = 100;
+//        _range_angveloExpanse = 3000;
+//    } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
+//        _is_flapping = false;
+//    }
+//    if (_is_flapping) {
+//        if (_iflappingSeq == 0) {
+//            if (ANGLE225 < _angExpanse && _angExpanse <= ANGLE270) {
+//                _iflappingSeq = 1;
+//                _angveloExpanse = -_angveloExpanse;
+//                _angacceExpanse = -_angacceExpanse;
+//            }
+//        } else if (_iflappingSeq == 1) {
+//            if (ANGLE270 <_angExpanse && _angExpanse < ANGLE315) {
+//                _iflappingSeq = 0;
+//                _angveloExpanse = -_angveloExpanse;
+//                _angacceExpanse = -_angacceExpanse;
+//            }
+//        }
+//        _angveloExpanse += _angacceExpanse;
+//        if (_angveloExpanse >= _range_angveloExpanse) {
+//            _angveloExpanse = _range_angveloExpanse;
+//        } else if (_angveloExpanse <= -_range_angveloExpanse) {
+//            _angveloExpanse = -_range_angveloExpanse;
+//        }
+//        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse+_angveloExpanse);
+//    }
 
     _X = _Xorg;
     _Y = _Yorg;
