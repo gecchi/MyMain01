@@ -592,9 +592,12 @@ GgafDx9God::~GgafDx9God() {
     DELETE_IMPOSSIBLE_NULL(_pEffectManager);
     //DirectInput解放
     GgafDx9Input::release();
-    //DirectSound解放
-    GgafDx9Sound::release();
+
     //デバイス解放
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+
+	//DirectSound解放
+	//TODO:稀に落ちる。
+	GgafDx9Sound::release();
 }
