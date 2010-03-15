@@ -1,5 +1,9 @@
 #ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
+
+typedef map<string, int> keymap;
+typedef unsigned long int vbsta;
+
 namespace GgafDx9LibStg {
 
 #define VB_BUTTON1 (0x1)
@@ -40,8 +44,7 @@ namespace GgafDx9LibStg {
 #define VB_NUM 29
 
 #define VB VirtualButton
-typedef map<string, int> keymap;
-typedef unsigned long int vbsta;
+
 
 
 /**
