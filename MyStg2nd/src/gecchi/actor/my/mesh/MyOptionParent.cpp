@@ -256,8 +256,8 @@ void MyOptionParent::processBehavior() {
 
         }
     }
-    _X = _X + 1000;
-    //setGeometory(pMYSHIP);
+    //_X = _X + 1000;
+    setGeometory(pMYSHIP);
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
 }
@@ -309,7 +309,7 @@ bool MyOptionParent::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
 
 
 
-    }
+
 
 
 

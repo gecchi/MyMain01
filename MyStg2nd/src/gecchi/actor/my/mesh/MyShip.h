@@ -733,7 +733,7 @@ public:
 
     virtual ~MyShip();
 
-    static bool isDoublePushedDown(GgafDx9LibStg::vbsta prm_VB);
+    static bool isDoublePushedDown(vbsta prm_VB);
 
 
 
