@@ -78,72 +78,9 @@ void MyOption::initialize() {
 }
 
 void MyOption::processBehavior() {
-//    /////////////モーフテスト(DefaultMorphMeshActor継承要)////////////////
-//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-//        _pMorpher->loopTriangleWave(1, 30, 3, 22);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-//        _pMorpher->stopImmediately(1);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//        _pMorpher->intoTargetAcceStep(2, 1.0f, 0, 0.002f);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_8)) {
-//        _pMorpher->intoTargetAcceStep(2, 0, 0, -0.004f);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-//        _pMorpher->loopTriangleWave(3, 20, 13, 2);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_9)) {
-//        _pMorpher->stopImmediately(3);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-//        _pMorpher->loopTriangleWave(4, 60, 3, 20);
-//    } else if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-//        _pMorpher->stopImmediately(4);
-//    }
-//    _pMorpher->behave();
-//    /////////////モーフテスト////////////////
-
-
-    //広がる
-
-//    if (VB::isDoublePushedDown(VB_OPTION, 6, 6)) {
-//        _TRACE_("isDoublePushedDown");
-//        _is_flapping = true;
-//        _iflappingSeq = 0;
-//        _angveloExpanse = 100;
-//        _angacceExpanse = 100;
-//        _range_angveloExpanse = 3000;
-//    } else if (_is_flapping && VB::isPushedDown(VB_OPTION)) {
-//        _is_flapping = false;
-//    }
-//    if (_is_flapping) {
-//        if (_iflappingSeq == 0) {
-//            if (ANGLE225 < _angExpanse && _angExpanse <= ANGLE270) {
-//                _iflappingSeq = 1;
-//                _angveloExpanse = -_angveloExpanse;
-//                _angacceExpanse = -_angacceExpanse;
-//            }
-//        } else if (_iflappingSeq == 1) {
-//            if (ANGLE270 <_angExpanse && _angExpanse < ANGLE315) {
-//                _iflappingSeq = 0;
-//                _angveloExpanse = -_angveloExpanse;
-//                _angacceExpanse = -_angacceExpanse;
-//            }
-//        }
-//        _angveloExpanse += _angacceExpanse;
-//        if (_angveloExpanse >= _range_angveloExpanse) {
-//            _angveloExpanse = _range_angveloExpanse;
-//        } else if (_angveloExpanse <= -_range_angveloExpanse) {
-//            _angveloExpanse = -_range_angveloExpanse;
-//        }
-//        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse+_angveloExpanse);
-//    }
-
     _X = _Xorg;
     _Y = _Yorg;
     _Z = _Zorg;
-//    _RX = _RXorg;
-//    _RY = _RYorg;
-//    _RZ = _RZorg;
 
     _pMover->setMvVelo(_veloMv);
     _pMover->behave();
@@ -151,9 +88,6 @@ void MyOption::processBehavior() {
     _Xorg = _X;
     _Yorg = _Y;
     _Zorg = _Z;
-//    _RXorg = _RX;
-//    _RYorg = _RY;
-//    _RZorg = _RZ;
 
     //＜メモ＞
     //ここまでで、GgafDx9GeometryMoverのメソッドのみで、

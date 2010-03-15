@@ -256,7 +256,8 @@ void MyOptionParent::processBehavior() {
 
         }
     }
-    setGeometory(pMYSHIP);
+    _X = _X + 1000;
+    //setGeometory(pMYSHIP);
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
 }
@@ -265,4 +266,51 @@ void MyOptionParent::processBehavior() {
 
 MyOptionParent::~MyOptionParent() {
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
+}
+
+
+
+bool MyOptionParent::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
+    if (VB::isPushedDown(prm_VB)) {
+
+        VB::VBMap* pVBMap;
+        pVBMap = VB::_pVBMap_Active;
+        bool up = false;
+        bool down = false;
+        bool left = false;
+        bool right = false;
+        for (DWORD i = 0; i < prm_frame_delay; i++) {
+            pVBMap = pVBMap->_prev;
+            if (pVBMap->_state & VB_UP) {
+                up = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_RIGHT) {
+                right = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_DOWN) {
+                down = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_LEFT) {
+                up = left;
+                continue;
+            }
+        }
+        if (up && down && left && right) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+
+
+
+    }
+
+
+
 }

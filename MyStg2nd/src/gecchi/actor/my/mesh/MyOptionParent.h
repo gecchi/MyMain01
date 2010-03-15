@@ -52,6 +52,7 @@ public:
     virtual ~MyOptionParent();
 
 
+    static bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay);
 };
 
 }
