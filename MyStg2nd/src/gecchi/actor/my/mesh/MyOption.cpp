@@ -258,9 +258,9 @@ void MyOption::processBehavior() {
     //GgafDx9Util::anotherRzRy(_RZ,_RY);
 
 //_TRACE_("MyOption SAIGO RzRy="<<_RZ<<" > "<<_RY);
-    _X += GameGlobal::_pMyShip->_X;
-    _Y += GameGlobal::_pMyShip->_Y;
-    _Z += GameGlobal::_pMyShip->_Z;
+    _X += _pMyOptionParent->_X;
+    _Y += _pMyOptionParent->_Y;
+    _Z += _pMyOptionParent->_Z;
 
     //TODO
     //ç≈ìKâª

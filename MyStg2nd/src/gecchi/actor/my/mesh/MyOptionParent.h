@@ -13,9 +13,11 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 
 public:
-
-    AngRzRy angtarget[5][27];
-
+    int _angMyOptionExpanse;
+    angvelo _angveloMyOptionExpanseNomal;
+    angvelo _angveloMyOptionExpanseSlow;
+    MyOption* _paMyOption[8];
+    int _stateMyOption[8];
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
 
     MoveWay _way_myship_prev;
