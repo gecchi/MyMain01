@@ -257,7 +257,7 @@ void MyOptionParent::processBehavior() {
         }
     }
     //_X = _X + 1000;
-    setGeometory(pMYSHIP);
+    setGeometry(pMYSHIP);
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
 }
