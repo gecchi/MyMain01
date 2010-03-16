@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 
 MyOptionParent::MyOptionParent(const char* prm_name) :
-    DefaultMeshActor(prm_name, "myvic") {
+    DefaultMeshActor(prm_name, "Gizmo") {
 
 //MyOptionParent::MyOptionParent(const char* prm_name) :
 //  GgafDx9GeometricActor(prm_name,
