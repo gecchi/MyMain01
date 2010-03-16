@@ -77,13 +77,36 @@ void MyOption::initialize() {
 
 }
 
+
+void MyOption::addRadiusPosition(int prm_len) {
+    _radiusPosition += prm_len;
+    angle angZY_ROTANG_X_REV = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
+    //rzから単位方向ベクトル
+    float vx,vy,vz;
+    vx = 0;
+    vy = GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X_REV)/ANGLE_RATE];
+    vz = -GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X_REV)/ANGLE_RATE];
+    _Z = _radiusPosition * vz;
+    _Y = _radiusPosition * vy;
+
+    _pMover->setRzMvAng(ANGLE180 - angZY_ROTANG_X_REV + ANGLE90);
+    _pMover->setRyMvAng(-ANGLE90);
+    _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
+}
+
 void MyOption::processBehavior() {
+
     _X = _Xorg;
     _Y = _Yorg;
     _Z = _Zorg;
 
+    //_radiusPosition += 100;
+    addRadiusPosition(0);
+
+
     _pMover->setMvVelo(_veloMv);
     _pMover->behave();
+
 
     _Xorg = _X;
     _Yorg = _Y;

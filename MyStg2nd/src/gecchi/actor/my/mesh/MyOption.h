@@ -65,6 +65,8 @@ public:
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~MyOption();
+
+    void addRadiusPosition(int prm_len);
 };
 
 }
