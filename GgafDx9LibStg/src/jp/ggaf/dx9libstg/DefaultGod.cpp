@@ -9,5 +9,6 @@ DefaultGod::DefaultGod(HINSTANCE prm_hInstance, HWND _hWnd) : GgafDx9God(prm_hIn
 }
 
 DefaultGod::~DefaultGod() {
+    _TRACE_("DefaultGod::~DefaultGod()");
 
 }
