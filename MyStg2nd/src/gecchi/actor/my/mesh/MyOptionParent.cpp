@@ -160,8 +160,8 @@ void MyOptionParent::processBehavior() {
 
     }
 
-    //if (VB::isRoundPush(VB_OPTION)) {
-    if (VB::isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+    if (VB::isRoundPush(VB_OPTION)) {
+    //if (VB::isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
         if (_paMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
@@ -181,15 +181,23 @@ void MyOptionParent::processBehavior() {
     } else {
         if (_return_to_default_position_seq) {
             //Œ³‚ÌˆÊ’u‚Ö
-            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*7);
-            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*7);
-            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*7);
+            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*3);
+            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*3);
+            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*3);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-            if (abs(_X - pMYSHIP->_X) < 2000 &&
-                abs(_Y - pMYSHIP->_Y) < 2000 &&
-                abs(_Z - pMYSHIP->_Z) < 2000    ) {
+            if (abs(_X - pMYSHIP->_X) < 5000 &&
+                abs(_Y - pMYSHIP->_Y) < 5000 &&
+                abs(_Z - pMYSHIP->_Z) < 5000    ) {
+
+                _TRACE_("‚à‚Ç‚Á‚½I");
+                _pMover->setVxMvVelo(0);
+                _pMover->setVyMvVelo(0);
+                _pMover->setVzMvVelo(0);
+                _pMover->setVxMvAcce(0);
+                _pMover->setVyMvAcce(0);
+                _pMover->setVzMvAcce(0);
                 setGeometry(pMYSHIP);
                 _return_to_default_position_seq = false;
             }

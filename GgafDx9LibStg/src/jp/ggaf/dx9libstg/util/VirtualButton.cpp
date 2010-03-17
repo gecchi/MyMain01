@@ -308,7 +308,7 @@ bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
                 continue;
             }
             if (pVBMap->_state & VB_LEFT) {
-                up = left;
+                left = true;
                 continue;
             }
         }

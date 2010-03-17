@@ -596,10 +596,22 @@ GgafDx9God::~GgafDx9God() {
 	//DirectSound解放
 	//TODO:稀に落ちる。
 	GgafDx9Sound::release();
-_TRACE_("_pID3DDevice9");
-    //デバイス解放
-	RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
-	RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 
+    //デバイス解放
+	if (GGAFDX9_PROPERTY(FULL_SCREEN)) {
+	    //2010/03/18
+	    //フルスクリーン時解放を見送るように変更
+	    //本来はここでReleaseするべきなのだが、ここにReleasesを記述すると
+	    //VISTAで場合でDIRECTXのあるバージョン以降、フルスクリーン後ALT+F4により終了後デバイスリリース
+	    //しようとすると、なぜか落ちることがある。
+	    //以前は落ちなかったと思うし、XPでもここでReleaseしても問題ない。
+	    //原因は色々調べたが不明。とりあえずフルスクリーン時は解放しないようにしておく。（嫌だけど）
+	    //COMの参照カウンタ数が、VISTAでフルスクリーンの場合この時点で既に0になってるっぽい。
+	    //なぜだろう・・・。
+	    //TODO:原因究明。
+	} else {
+        RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+        RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+	}
 
 }
