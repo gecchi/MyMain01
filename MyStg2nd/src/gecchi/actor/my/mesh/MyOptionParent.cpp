@@ -12,17 +12,19 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //MyOptionParent::MyOptionParent(const char* prm_name) :
 //  GgafDx9GeometricActor(prm_name,
 //                            NULL) {
-
+    _is_handle_move_mode = false;
+    _is_free_from_myship_mode = false;
     _angVelo_Turn = 3000;
-    _angMyOptionExpanse = 0;
-    _angveloMyOptionExpanseNomal = 3000;
-    _angveloMyOptionExpanseSlow = 1000;
+    _veloOptionsMv = 5000;
+    for (int i = 0; i < 8; i++) {
+        _paMyOption[i] = NULL;
+    }
+
 
     _paMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
     _paMyOption[0]->_radiusPosition = 60000;
     _paMyOption[0]->_veloMv = 1000;
     _paMyOption[0]->_angExpanse = 0;
-    _paMyOption[0]->_angveloExpanse = 0;
     _paMyOption[0]->_angPosition = 0;
     _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
     addSubLast(_paMyOption[0]);
@@ -31,7 +33,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[1]->_radiusPosition = 60000;
     _paMyOption[1]->_veloMv = 1000;
     _paMyOption[1]->_angExpanse = 0;
-    _paMyOption[1]->_angveloExpanse = 0;
     _paMyOption[1]->_angPosition = ANGLE90;
     _paMyOption[1]->setMaterialColor(0.0, 1.0, 1.0);
     addSubLast(_paMyOption[1]);
@@ -40,7 +41,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[2]->_radiusPosition = 60000;
     _paMyOption[2]->_veloMv = 1000;
     _paMyOption[2]->_angExpanse = 0;
-    _paMyOption[2]->_angveloExpanse = 0;
     _paMyOption[2]->_angPosition = ANGLE180;
     _paMyOption[2]->setMaterialColor(1.0, 0, 1.0);
     addSubLast(_paMyOption[2]);
@@ -49,7 +49,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[3]->_radiusPosition = 60000;
     _paMyOption[3]->_veloMv = 1000;
     _paMyOption[3]->_angExpanse = 0;
-    _paMyOption[3]->_angveloExpanse = 0;
     _paMyOption[3]->_angPosition = ANGLE270;
     _paMyOption[3]->setMaterialColor(0, 1.0, 0);
     addSubLast(_paMyOption[3]);
@@ -58,7 +57,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[4]->_radiusPosition = 120000;
     _paMyOption[4]->_angPosition = 0;
     _paMyOption[4]->_angExpanse = 0;
-    _paMyOption[4]->_angveloExpanse = 0;
     _paMyOption[4]->_veloMv = -1000;
     _paMyOption[4]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
     addSubLast(_paMyOption[4]);
@@ -67,7 +65,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[5]->_radiusPosition = 120000;
     _paMyOption[5]->_angPosition = ANGLE90;
     _paMyOption[5]->_angExpanse = 0;
-    _paMyOption[5]->_angveloExpanse = 0;
     _paMyOption[5]->_veloMv = -1000;
     _paMyOption[5]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
     addSubLast(_paMyOption[5]);
@@ -76,7 +73,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[6]->_radiusPosition = 120000;
     _paMyOption[6]->_angPosition = ANGLE180;
     _paMyOption[6]->_angExpanse = 0;
-    _paMyOption[6]->_angveloExpanse = 0;
     _paMyOption[6]->_veloMv = -1000;
     _paMyOption[6]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
     addSubLast(_paMyOption[6]);
@@ -85,7 +81,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _paMyOption[7]->_radiusPosition = 120000;
     _paMyOption[7]->_angPosition = ANGLE270;
     _paMyOption[7]->_angExpanse = 0;
-    _paMyOption[7]->_angveloExpanse = 0;
     _paMyOption[7]->_veloMv = -1000;
     _paMyOption[7]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     _paMyOption[7]->setAlpha(0.3);
@@ -103,7 +98,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    _paMyOption[9]->_radiusPosition = 180000;
 //    _paMyOption[9]->_angPosition = ANGLE90;
 //    _paMyOption[9]->_angExpanse = 0;
-//    _paMyOption[9]->_angveloExpanse = 0;
 //    _paMyOption[9]->_veloMv = 4000;
 //    addSubLast(_paMyOption[9]);
 //
@@ -111,7 +105,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    _paMyOption[10]->_radiusPosition = 180000;
 //    _paMyOption[10]->_angPosition = ANGLE180;
 //    _paMyOption[10]->_angExpanse = 0;
-//    _paMyOption[10]->_angveloExpanse = 0;
 //    _paMyOption[10]->_veloMv = 4000;
 //    addSubLast(_paMyOption[10]);
 //
@@ -119,7 +112,6 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //    _paMyOption[11]->_radiusPosition = 180000;
 //    _paMyOption[11]->_angPosition = ANGLE270;
 //    _paMyOption[11]->_angExpanse = 0;
-//    _paMyOption[11]->_angveloExpanse = 0;
 //    _paMyOption[11]->_veloMv = 4000;
 //    addSubLast(_paMyOption[11]);
 
@@ -131,12 +123,9 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     //トレース用履歴
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
-        _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
+        _pRing_GeoHistory->addLast(NEW GeoElement(pMYSHIP));
     }
-    _is_rotate = false;
 
-    int d = 1000;
-    int CAM_POS_BEHIND = 0;
 }
 
 void MyOptionParent::initialize() {
@@ -145,119 +134,63 @@ void MyOptionParent::initialize() {
     _pMover->forceRyMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->forceRzMvAngVeloRange(-1*_angVelo_Turn, _angVelo_Turn);
     _pMover->setRzRyMvAng(0,0);
-    _way_myship_prev = GameGlobal::_pMyShip->_way;
+    _way_myship_prev = pMYSHIP->_way;
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->behave();
 }
 
 void MyOptionParent::processBehavior() {
-    //方向が変わった
 
+    if (VB::isDoublePushedDown(VB_OPTION,8,8)) {
+        //もとに戻す
+        _pMover->execTagettingMvAngSequence(
+                        0,
+                        0,
+                        5000, 0,
+                        TURN_CLOSE_TO,
+                        false
+                 );
+        _is_free_from_myship_mode = false;
+        _is_handle_move_mode = false;
 
-    if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {
-        //オプション広がり
-        if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseSlow;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseSlow;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseNomal;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseNomal;
-            }
-        } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angMyOptionExpanse += _angveloMyOptionExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angMyOptionExpanse -= _angveloMyOptionExpanseNomal;
-            }
-        }
-        _angMyOptionExpanse = GgafDx9GeometryMover::simplifyAng(_angMyOptionExpanse);
-        for (int i = 0; i < 8; i++) {
-            _paMyOption[i]->_angExpanse = _angMyOptionExpanse;
-        }
-    } else {
-
+    } else if (VB::isBeingPressed(VB_OPTION) && !VB::isBeingPressed(VB_TURBO)) {
         //オプション向き操作
-        if (VB::isDoublePushedDown(VB_OPTION,8,8)) {
-            //もとに戻す
-            _pMover->execTagettingMvAngSequence(
-                            0,
-                            0,
-                            5000, 0,
-                            TURN_CLOSE_TO,
-                            false
-                     );
-            _is_rotate = true;
-        } else if (VB::isBeingPressed(VB_OPTION)) {
+        if (VB::isBeingPressed(VB_UP)) {
+            _pMover->addRzMvAng(_angVelo_Turn);
+        }
+        if (VB::isBeingPressed(VB_DOWN)) {
+            _pMover->addRzMvAng(-_angVelo_Turn);
+        }
+        if (VB::isBeingPressed(VB_RIGHT)) {
+            _pMover->addRyMvAng(_angVelo_Turn);
+        }
+        if (VB::isBeingPressed(VB_LEFT)) {
+            _pMover->addRyMvAng(-_angVelo_Turn);
+        }
 
-            if (VB::isBeingPressed(VB_UP)) {
-                _pMover->addRzMvAng(_angVelo_Turn);
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _pMover->addRzMvAng(-_angVelo_Turn);
-            }
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _pMover->addRyMvAng(_angVelo_Turn);
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _pMover->addRyMvAng(-_angVelo_Turn);
-            }
+    }
 
+    //if (VB::isRoundPush(VB_OPTION)) {
+    if (VB::isPushedDown(VB_OPTION) && GgafDx9Input::isBeingPressedKey(DIK_S)) {
+        if (_paMyOption[0]) {
+            _is_free_from_myship_mode = true;
+            _is_handle_move_mode = true;
         }
     }
-    //_X = _X + 1000;
-    setGeometry(pMYSHIP);
+
+    if (_is_free_from_myship_mode) {
+        if (VB::isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
+            //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
+            //そのうちのオプション移動速度のみを設定。
+            _pMover->setMvVelo(GgafDx9Util::COS[_paMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
+            //旋回半径増加速度の処理はMyOptionクラスで行う。
+        } else {
+            _is_handle_move_mode = false;
+            _pMover->setMvVelo(0);
+        }
+    } else {
+        setGeometry(pMYSHIP);
+    }
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
 }
@@ -268,49 +201,3 @@ MyOptionParent::~MyOptionParent() {
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 }
 
-
-
-bool MyOptionParent::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
-    if (VB::isPushedDown(prm_VB)) {
-
-        VB::VBMap* pVBMap;
-        pVBMap = VB::_pVBMap_Active;
-        bool up = false;
-        bool down = false;
-        bool left = false;
-        bool right = false;
-        for (DWORD i = 0; i < prm_frame_delay; i++) {
-            pVBMap = pVBMap->_prev;
-            if (pVBMap->_state & VB_UP) {
-                up = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_RIGHT) {
-                right = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_DOWN) {
-                down = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_LEFT) {
-                up = left;
-                continue;
-            }
-        }
-        if (up && down && left && right) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-
-
-
-
-
-
-
-}

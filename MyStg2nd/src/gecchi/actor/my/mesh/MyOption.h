@@ -18,6 +18,9 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     float _vXwk,_vYwk,_vZwk;
     GgafDx9Core::GgafDx9Quaternion _Q;
 
+private:
+    void addRadiusPosition(int prm_len);
+
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
     EffectLockOn001* _pEffectLockOn;
@@ -42,11 +45,10 @@ public:
     velo _veloMv;
     /** オプションの広がり回転角（随時変更可／デフォルト=0 MyOptionParentと同じ方向（前方）を向いている） */
     angle _angExpanse;
-    /** オプションの広がり回転角速度 （随時変更可／デフォルト=100）*/
-    angvelo _angveloExpanse;
-
-    /** オプションの広がり回転角加速度 */
-    angacce _angacceExpanse;
+    /** オプションの広がり回転角速度（通常時） */
+    angvelo _angveloExpanseNomal;
+    /** オプションの広がり回転角速度（微調整時） */
+    angvelo _angveloExpanseSlow;
 
 
     angvelo _range_angveloExpanse;
@@ -66,7 +68,7 @@ public:
 
     virtual ~MyOption();
 
-    void addRadiusPosition(int prm_len);
+
 };
 
 }

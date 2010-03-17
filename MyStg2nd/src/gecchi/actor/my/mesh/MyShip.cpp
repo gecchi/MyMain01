@@ -38,7 +38,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     /** 移動スピードレベルに相応する移動スピード */
     _iMoveSpeed = 5000;
     //CommonSceneがnewの場合設定
-
     _angRXVelo_BeginMZ = 1000; //奥又は手前へ通常Z通常移動開始時のX軸回転角速度の初速度
     _angRXAcce_MZ = 300; //奥又は手前へ通常Z移動中のX軸回転角速度の初角加速度
     _angRXTopVelo_MZ = 5000; //奥又は手前へ通常Z移動中のX軸回転角速度の上限角速度
@@ -173,7 +172,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _TRACE_("RANKSTR:"<<rankstr);
 
 
-    _iMvVelo_TurboTop = 100000;
+    _iMvVelo_TurboTop = 30000;
     _iMvVelo_TurboBottom = 10000;
 }
 
@@ -212,41 +211,12 @@ void MyShip::initialize() {
     _pMover->setVxMvAcce(0);
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
-
     //        _pMover->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
     //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //速度追加
     //        _pMover->setMvAcce(_iMvAcce_MT);
 }
 
 void MyShip::processBehavior() {
-
-///////////スケーリングテスト////////////////
-//    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
-//        _pScaler->addScale(2000);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
-//        _pScaler->addScale(-2000);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_3)) {
-//        _pScaler->intoTargetScaleAcceStep(3000, 0, 3);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_4)) {
-//        _pScaler->loopLiner(20, -1);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_5)) {
-//        _pScaler->loopLiner(10, 5);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_6)) {
-//        _pScaler->beat(20, 2 ,5, -1);
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
-//        _pScaler->stopImmediately();
-//    }
-//    if (GgafDx9Input::isBeingPressedKey(DIK_0)) {
-//        _pScaler->setScaleToBottom();
-//    }
-//    _pScaler->behave();
-///////////スケーリングテスト////////////////
 
     //オリジナルシステム VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
@@ -336,46 +306,33 @@ void MyShip::processBehavior() {
     }
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
 
-    if (VB::isBeingPressed(VB_OPTION)) { //オプション操作中は移動しない
+    if (VB::isBeingPressed(VB_OPTION)) {
         int tmp = _iMoveSpeed;
-        _iMoveSpeed = _iMoveSpeed / 8;
-        (this->*paFuncMove[_way])();
+        _iMoveSpeed = _iMoveSpeed / 8; //オプション操作中移動は遅い
+        (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
         _iMoveSpeed = tmp;
     } else {
-        (this->*paFuncMove[_way])();             //方向値に応じた移動処理メソッドを呼び出す
+        (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
     }
 
-        //    vbsta turbo_stc = VB::isDoublePushedDownStick();
-//    if (turbo_stc) { //ターボ
-//        (this->*paFuncTurbo[_way])();
-//    } else {
-//        _pMover->_veloVxMv *= 0.95;
-//        _pMover->_veloVyMv *= 0.95;
-//        _pMover->_veloVzMv *= 0.95;
-//    }
-    if (VB::isBeingPressed(VB_TURBO)) { //ターボ
-        _pEffectTurbo001->activate();
-        _pEffectTurbo001->setGeometry(this);
-        if (_iMvVelo_BeginMT < _iMvVelo_TurboTop) {
-            _iMvVelo_BeginMT = _iMvVelo_BeginMT + 1000;
-        } else {
-            _iMvVelo_BeginMT = _iMvVelo_TurboTop;
-        }
-    }
-
-    if (VB::isReleasedUp(VB_TURBO)) { //ターボ
-
+    if (VB::isPushedDown(VB_TURBO)) {
+        //ターボ開始時
         _pEffectTurbo002->activate();
         _pEffectTurbo002->setGeometry(this);
-
         (this->*paFuncTurbo[_way])();
-        _iMvVelo_BeginMT = _iMvVelo_TurboBottom;
     } else {
-        _pMover->_veloVxMv *= 0.95;
-        _pMover->_veloVyMv *= 0.95;
-        _pMover->_veloVzMv *= 0.95;
+        //Notターボ開始時
+        if (VB::isBeingPressed(VB_TURBO)) {
+            //ターボを押し続けることで、移動距離を伸ばす
+            _pMover->_veloVxMv *= 0.95;
+            _pMover->_veloVyMv *= 0.95;
+            _pMover->_veloVzMv *= 0.95;
+        } else {
+            _pMover->_veloVxMv *= 0.9;
+            _pMover->_veloVyMv *= 0.9;
+            _pMover->_veloVzMv *= 0.9;
+        }
     }
-
 
     //スピンが勢いよく回っているならば速度を弱める
     angvelo MZ = _angRXTopVelo_MZ-3000; //3000は通常旋回時に速度を弱めて_angRXTopVelo_MZを超えないようにするため、やや手前で減速すると言う意味（TODO:要調整）。
@@ -415,7 +372,6 @@ void MyShip::processBehavior() {
     _pMover->behave();
 
 
-
     if (_Y > MyShip::_lim_top) {
         _Y = MyShip::_lim_top;
     }
@@ -436,13 +392,7 @@ void MyShip::processBehavior() {
     if (_Z < MyShip::_lim_zright) {
         _Z = MyShip::_lim_zright;
     }
-
     _pRing_GeoHistory->next()->set(this);
-
-    if (isOffscreen()) {
-        _TRACE_("MyShip is Offscreen! = ("<<_X<<","<<_Y<<","<<_Z<<")");
-    }
-    //_TRACE_("_S = "<<_SX<<","<<_SY<<","<<_SZ);
 }
 
 void MyShip::processJudgement() {
@@ -483,8 +433,6 @@ void MyShip::processJudgement() {
             }
         }
     }
-    //TRACE("DefaultActor::processJudgement " << getName() << "frame:" << prm_dwFrame);
-    //_TRACE_("dep="<< (_fDist_VpPlnFront)<<"");
 }
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
@@ -584,25 +532,4 @@ MyShip::~MyShip() {
     DELETE_IMPOSSIBLE_NULL(_pRing_GeoHistory);
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-//////////////////////////////////////////////未使用？
-
-
-
-
-
-
-
-
 

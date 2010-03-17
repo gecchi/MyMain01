@@ -13,16 +13,14 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 
 public:
-    int _angMyOptionExpanse;
-    angvelo _angveloMyOptionExpanseNomal;
-    angvelo _angveloMyOptionExpanseSlow;
     MyOption* _paMyOption[8];
     int _stateMyOption[8];
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
-
+    velo _veloOptionsMv;
     MoveWay _way_myship_prev;
 
-    bool _is_rotate;
+    bool _is_handle_move_mode;
+    bool _is_free_from_myship_mode;
 
     /** 対象アクター */
 
@@ -52,7 +50,6 @@ public:
     virtual ~MyOptionParent();
 
 
-    static bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay);
 };
 
 }
