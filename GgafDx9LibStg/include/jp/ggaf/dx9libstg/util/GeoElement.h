@@ -28,6 +28,16 @@ public:
         _next = NULL;
     }
 
+    GeoElement(int prm_X, int prm_Y, int prm_Z) {
+        _X = prm_X;
+        _Y = prm_Y;
+        _Z = prm_Z;
+        _RX = 0;
+        _RY = 0;
+        _RZ = 0;
+        _next = NULL;
+    }
+
     GeoElement(int prm_X, int prm_Y, int prm_Z, int prm_RX, int prm_RY, int prm_RZ) {
         _X = prm_X;
         _Y = prm_Y;
@@ -56,6 +66,13 @@ public:
         _RY = prm_RY;
         _RZ = prm_RZ;
     }
+
+    void set(int prm_X, int prm_Y, int prm_Z) {
+        _X = prm_X;
+        _Y = prm_Y;
+        _Z = prm_Z;
+    }
+
     void set(GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
         _Y = prm_pActor->_Y;

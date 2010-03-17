@@ -198,6 +198,9 @@ public:
 
     static vbsta isDoublePushedDownStick(DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
 
+
+    static bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay=30);
+
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。
 //     * @return 次の何れか

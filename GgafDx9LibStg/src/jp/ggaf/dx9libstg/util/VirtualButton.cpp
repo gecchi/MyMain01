@@ -285,6 +285,45 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
 }
 
 
+bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
+    if (isPushedDown(prm_VB)) {
+        VBMap* pVBMap;
+        pVBMap = _pVBMap_Active;
+        bool up = false;
+        bool down = false;
+        bool left = false;
+        bool right = false;
+        for (DWORD i = 0; i < prm_frame_delay; i++) {
+            pVBMap = pVBMap->_prev;
+            if (pVBMap->_state & VB_UP) {
+                up = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_RIGHT) {
+                right = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_DOWN) {
+                down = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_LEFT) {
+                up = left;
+                continue;
+            }
+        }
+        if (up && down && left && right) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+
 //vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
 //    if (isBeingPressed(prm_VB)) {
 //        static bool prev1Flg, prev2Flg, prev3Flg;
