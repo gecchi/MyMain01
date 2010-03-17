@@ -22,11 +22,12 @@ public:
     bool _is_handle_move_mode;
     bool _is_free_from_myship_mode;
 
+    bool _return_to_default_position_seq;
     /** 対象アクター */
 
     /** 方向転換角速度 */
     angle _angVelo_Turn;
-
+    int _renge;
     MyOptionParent(const char* prm_name);
 
     virtual void initialize() override;

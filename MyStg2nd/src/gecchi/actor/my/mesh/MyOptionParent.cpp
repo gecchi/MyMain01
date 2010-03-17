@@ -14,8 +14,22 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
 //                            NULL) {
     _is_handle_move_mode = false;
     _is_free_from_myship_mode = false;
+    _return_to_default_position_seq = false;
     _angVelo_Turn = 3000;
     _veloOptionsMv = 5000;
+
+
+
+    _renge = 100000;
+    _pMover->forceVxMvVeloRange(-_renge, _renge);
+    _pMover->forceVyMvVeloRange(-_renge, _renge);
+    _pMover->forceVzMvVeloRange(-_renge, _renge);
+
+    _pMover->forceVxMvAcceRange(-_renge / 40, _renge / 40);
+    _pMover->forceVyMvAcceRange(-_renge / 40, _renge / 40);
+    _pMover->forceVzMvAcceRange(-_renge / 40, _renge / 40);
+
+
     for (int i = 0; i < 8; i++) {
         _paMyOption[i] = NULL;
     }
@@ -127,6 +141,7 @@ void MyOptionParent::processBehavior() {
                  );
         _is_free_from_myship_mode = false;
         _is_handle_move_mode = false;
+        _return_to_default_position_seq = true;
 
     } else if (VB::isBeingPressed(VB_OPTION) && !VB::isBeingPressed(VB_TURBO)) {
         //オプション向き操作
@@ -164,7 +179,24 @@ void MyOptionParent::processBehavior() {
             _pMover->setMvVelo(0);
         }
     } else {
-        setGeometry(pMYSHIP);
+        if (_return_to_default_position_seq) {
+            //元の位置へ
+            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*7);
+            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*7);
+            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*7);
+            _pMover->setVxMvAcce(dx);
+            _pMover->setVyMvAcce(dy);
+            _pMover->setVzMvAcce(dz);
+            if (abs(_X - pMYSHIP->_X) < 2000 &&
+                abs(_Y - pMYSHIP->_Y) < 2000 &&
+                abs(_Z - pMYSHIP->_Z) < 2000    ) {
+                setGeometry(pMYSHIP);
+                _return_to_default_position_seq = false;
+            }
+
+        } else {
+            setGeometry(pMYSHIP);
+        }
     }
     _pMover->behave();
     _pRing_GeoHistory->next()->set(this);
