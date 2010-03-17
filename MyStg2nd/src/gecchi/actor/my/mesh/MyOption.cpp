@@ -24,6 +24,9 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angExpanse_default = _angExpanse;
     _veloMv_default = _veloMv;
 
+    _return_to_default_radiusPosition_seq = false;
+    _return_to_default_angExpanse_seq = false;
+
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
@@ -83,9 +86,15 @@ void MyOption::addRadiusPosition(int prm_len) {
 //    _Zorg = _Z;
 //より前
 //でしか呼び出してはいけません。
-    _radiusPosition += prm_len;
-    if (_radiusPosition < 10000) {
-        _radiusPosition = 10000;
+
+    if (_radiusPosition == -1 * prm_len) {
+        if (_radiusPosition > 0) {
+            _radiusPosition = -10;
+        } else {
+            _radiusPosition = 10;
+        }
+    } else {
+        _radiusPosition += prm_len;
     }
     angle angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
     _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
@@ -93,83 +102,14 @@ void MyOption::addRadiusPosition(int prm_len) {
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。
-    _pMover->setRzMvAng(angZY_ROTANG_X + ANGLE90);
+    _pMover->setRzMvAng(GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setRzMvAngVelo(_angveloMove);
 }
 
 void MyOption::processBehavior() {
 
-    //オプション広がり制御
-    if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {
-        if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angExpanse += _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angExpanse -= _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angExpanse += _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angExpanse -= _angveloExpanseSlow;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angExpanse -= _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angExpanse += _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angExpanse += _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angExpanse -= _angveloExpanseSlow;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angExpanse += _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angExpanse -= _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angExpanse += _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angExpanse -= _angveloExpanseNomal;
-            }
-        } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angExpanse -= _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angExpanse += _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angExpanse -= _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angExpanse += _angveloExpanseNomal;
-            }
-        } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-            if (VB::isBeingPressed(VB_RIGHT)) {
-                _angExpanse += _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_LEFT)) {
-                _angExpanse -= _angveloExpanseSlow;
-            }
-            if (VB::isBeingPressed(VB_UP)) {
-                _angExpanse += _angveloExpanseNomal;
-            }
-            if (VB::isBeingPressed(VB_DOWN)) {
-                _angExpanse -= _angveloExpanseNomal;
-            }
-        }
-        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
-    }
+
 
 
     //処理メイン
@@ -178,12 +118,102 @@ void MyOption::processBehavior() {
     _Z = _Zorg;
 
 
+    if (_return_to_default_radiusPosition_seq) {
+        //自動戻り
 
-    if (VB::isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
-        addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * 6000);
+
+    } else {
+        //オプション独立移動制御時
+        if (VB::isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
+            //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
+            //そのうちの旋回半径増加速度のみを設定。
+            addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * 6000);
+            //オプション移動速度の処理はMyOptionクラスで行う。
+        }
     }
 
-    //_radiusPosition += 100;
+
+    if (_return_to_default_angExpanse_seq) {
+        //自動戻り
+    } else {
+        //オプション広がり制御
+        if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {
+            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    _angExpanse += _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_LEFT)) {
+                    _angExpanse -= _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_UP)) {
+                    _angExpanse += _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_DOWN)) {
+                    _angExpanse -= _angveloExpanseSlow;
+                }
+            } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    _angExpanse -= _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_LEFT)) {
+                    _angExpanse += _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_UP)) {
+                    _angExpanse += _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_DOWN)) {
+                    _angExpanse -= _angveloExpanseSlow;
+                }
+            } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    _angExpanse += _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_LEFT)) {
+                    _angExpanse -= _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_UP)) {
+                    _angExpanse += _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_DOWN)) {
+                    _angExpanse -= _angveloExpanseNomal;
+                }
+            } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    _angExpanse -= _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_LEFT)) {
+                    _angExpanse += _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_UP)) {
+                    _angExpanse -= _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_DOWN)) {
+                    _angExpanse += _angveloExpanseNomal;
+                }
+            } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
+                if (VB::isBeingPressed(VB_RIGHT)) {
+                    _angExpanse += _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_LEFT)) {
+                    _angExpanse -= _angveloExpanseSlow;
+                }
+                if (VB::isBeingPressed(VB_UP)) {
+                    _angExpanse += _angveloExpanseNomal;
+                }
+                if (VB::isBeingPressed(VB_DOWN)) {
+                    _angExpanse -= _angveloExpanseNomal;
+                }
+            }
+            _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
+        }
+    }
+
+
+
+
+
+
+
     if (GgafDx9Input::isBeingPressedKey(DIK_Q)) {
         addRadiusPosition(1000);
     }

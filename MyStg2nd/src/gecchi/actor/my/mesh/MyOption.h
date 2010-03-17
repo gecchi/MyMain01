@@ -55,6 +55,10 @@ public:
     angvelo _angveloExpanseSlow;
 
 
+    bool _return_to_default_radiusPosition_seq;
+    bool _return_to_default_angExpanse_seq;
+
+
     MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
     void setProperty(angle prm_radiusPosition, angle prm_angPosition, angle prm_angExpanse, velo prm_veloMv) {
