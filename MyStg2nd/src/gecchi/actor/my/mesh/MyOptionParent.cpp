@@ -20,68 +20,43 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
         _paMyOption[i] = NULL;
     }
 
-
     _paMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
-    _paMyOption[0]->_radiusPosition = 60000;
-    _paMyOption[0]->_veloMv = 1000;
-    _paMyOption[0]->_angExpanse = 0;
-    _paMyOption[0]->_angPosition = 0;
+    _paMyOption[0]->setProperty(60000, ANGLE0, 0, 1000);
     _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
     addSubLast(_paMyOption[0]);
 
     _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
-    _paMyOption[1]->_radiusPosition = 60000;
-    _paMyOption[1]->_veloMv = 1000;
-    _paMyOption[1]->_angExpanse = 0;
-    _paMyOption[1]->_angPosition = ANGLE90;
+    _paMyOption[1]->setProperty(60000, ANGLE90, 0, 1000);
     _paMyOption[1]->setMaterialColor(0.0, 1.0, 1.0);
     addSubLast(_paMyOption[1]);
 
     _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
-    _paMyOption[2]->_radiusPosition = 60000;
-    _paMyOption[2]->_veloMv = 1000;
-    _paMyOption[2]->_angExpanse = 0;
-    _paMyOption[2]->_angPosition = ANGLE180;
+    _paMyOption[2]->setProperty(60000, ANGLE180, 0, 1000);
     _paMyOption[2]->setMaterialColor(1.0, 0, 1.0);
     addSubLast(_paMyOption[2]);
 
     _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
-    _paMyOption[3]->_radiusPosition = 60000;
-    _paMyOption[3]->_veloMv = 1000;
-    _paMyOption[3]->_angExpanse = 0;
-    _paMyOption[3]->_angPosition = ANGLE270;
+    _paMyOption[3]->setProperty(60000, ANGLE270, 0, 1000);
     _paMyOption[3]->setMaterialColor(0, 1.0, 0);
     addSubLast(_paMyOption[3]);
 
     _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
-    _paMyOption[4]->_radiusPosition = 120000;
-    _paMyOption[4]->_angPosition = 0;
-    _paMyOption[4]->_angExpanse = 0;
-    _paMyOption[4]->_veloMv = -1000;
+    _paMyOption[4]->setProperty(120000, ANGLE0, 0, -1000);
     _paMyOption[4]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
     addSubLast(_paMyOption[4]);
 
     _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
-    _paMyOption[5]->_radiusPosition = 120000;
-    _paMyOption[5]->_angPosition = ANGLE90;
-    _paMyOption[5]->_angExpanse = 0;
-    _paMyOption[5]->_veloMv = -1000;
+    _paMyOption[5]->setProperty(120000, ANGLE90, 0, -1000);
     _paMyOption[5]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
     addSubLast(_paMyOption[5]);
 
     _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
-    _paMyOption[6]->_radiusPosition = 120000;
-    _paMyOption[6]->_angPosition = ANGLE180;
-    _paMyOption[6]->_angExpanse = 0;
-    _paMyOption[6]->_veloMv = -1000;
+    _paMyOption[6]->setProperty(120000, ANGLE180, 0, -1000);
     _paMyOption[6]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
     addSubLast(_paMyOption[6]);
 
     _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
-    _paMyOption[7]->_radiusPosition = 120000;
-    _paMyOption[7]->_angPosition = ANGLE270;
-    _paMyOption[7]->_angExpanse = 0;
-    _paMyOption[7]->_veloMv = -1000;
+    _paMyOption[7]->setProperty(120000, ANGLE270, 0, -1000);
     _paMyOption[7]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     _paMyOption[7]->setAlpha(0.3);
     addSubLast(_paMyOption[7]);

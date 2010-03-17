@@ -18,6 +18,12 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _radiusPosition = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
     _veloMv = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
     _angExpanse = 0;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
+
+    _angPosition_default = _angPosition;
+    _radiusPosition_default = _radiusPosition;
+    _angExpanse_default = _angExpanse;
+    _veloMv_default = _veloMv;
+
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
@@ -45,7 +51,6 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _pEffectLockOn_Release = NEW EffectLockOn001_Release("EffectLockOn001_R", _pEffectLockOn);
     addSubGroup(_pEffectLockOn_Release);
 
-    _is_flapping = false;
     _pLockOnTarget = NULL;
 }
 
