@@ -19,7 +19,19 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
     GgafDx9Core::GgafDx9Quaternion _Q;
 
 private:
-    void addRadiusPosition(int prm_len);
+    /**
+     * ù‰ô‰~ü”¼Œa‚ğÄİ’è‚·‚é .
+     * “Á’è‚ÌğŒ‰º‚Å‚Ì‚İŒÄ‚Ño‚µ‰Â”\B
+     * @param prm_radius ”¼Œa
+     */
+    void setRadiusPosition(int prm_radius);
+
+    /**
+     * ù‰ô‰~ü”¼Œa‚ğ·•ª‚ÅÄİ’è‚·‚é .
+     * “Á’è‚ÌğŒ‰º‚Å‚Ì‚İŒÄ‚Ño‚µ‰Â”\B
+     * @param prm_radius_offset ”¼Œa·•ª
+     */
+    void addRadiusPosition(int prm_radius_offset);
 
 public:
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;

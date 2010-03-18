@@ -75,8 +75,32 @@ void MyOption::initialize() {
     GameGlobal::_pSceneCommon->getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
 }
 
+void MyOption::addRadiusPosition(int prm_radius_offset) {
+    //    _X = _Xorg;
+    //    _Y = _Yorg;
+    //    _Z = _Zorg;
+    //より後
+    //    _Xorg = _X;
+    //    _Yorg = _Y;
+    //    _Zorg = _Z;
+    //より前
+    //でしか呼び出してはいけません。
+    int radius;
+    if (_radiusPosition == -1 * prm_radius_offset) { //差分を加えると0になる場合
+        //半径は0にしてはいけない。0割り算を避けるため
+        if (_radiusPosition > 0) {
+            radius = -100;
+        } else {
+            radius = 100;
+        }
+    } else {
+        radius = _radiusPosition + prm_radius_offset;
+    }
+    setRadiusPosition(radius);
+}
 
-void MyOption::addRadiusPosition(int prm_len) {
+
+void MyOption::setRadiusPosition(int prm_radius) {
 //    _X = _Xorg;
 //    _Y = _Yorg;
 //    _Z = _Zorg;
@@ -87,15 +111,17 @@ void MyOption::addRadiusPosition(int prm_len) {
 //より前
 //でしか呼び出してはいけません。
 
-    if (_radiusPosition == -1 * prm_len) {
+    if (_radiusPosition == -1 * prm_radius) {
         if (_radiusPosition > 0) {
             _radiusPosition = -10;
         } else {
             _radiusPosition = 10;
         }
     } else {
-        _radiusPosition += prm_len;
+        _radiusPosition += prm_radius;
     }
+
+    _radiusPosition = prm_radius;
     angle angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
     _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
     _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
@@ -120,7 +146,16 @@ void MyOption::processBehavior() {
 
     if (_return_to_default_radiusPosition_seq) {
         //自動戻り
-
+        if (_radiusPosition > _radiusPosition_default) {
+            addRadiusPosition(-20000);
+        }
+        if (_radiusPosition < _radiusPosition_default) {
+            addRadiusPosition(20000);
+        }
+        if (-20000 < abs(_radiusPosition_default-_radiusPosition) && abs(_radiusPosition_default-_radiusPosition) < 2000) {
+            setRadiusPosition(_radiusPosition_default);
+            _return_to_default_radiusPosition_seq = false;
+        }
 
     } else {
         //オプション独立移動制御時
@@ -135,6 +170,17 @@ void MyOption::processBehavior() {
 
     if (_return_to_default_angExpanse_seq) {
         //自動戻り
+        if (_angExpanse > _angExpanse_default) {
+            _angExpanse -= 10000;
+        }
+        if (_angExpanse < _angExpanse_default) {
+            _angExpanse += 10000;
+        }
+        if (-10000 < abs(_angExpanse_default-_angExpanse) && abs(_angExpanse_default-_angExpanse) < 10000) {
+            _angExpanse = _angExpanse_default;
+            _return_to_default_angExpanse_seq = false;
+        }
+        _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
     } else {
         //オプション広がり制御
         if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {

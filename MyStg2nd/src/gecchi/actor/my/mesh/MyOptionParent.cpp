@@ -143,6 +143,13 @@ void MyOptionParent::processBehavior() {
         _is_handle_move_mode = false;
         _return_to_default_position_seq = true;
 
+        for (int i = 0; i < 8; i++) {
+            //オプションの半径位置を元に戻す指示
+            _paMyOption[i]->_return_to_default_radiusPosition_seq = true;
+            _paMyOption[i]->_return_to_default_angExpanse_seq= true;
+        }
+
+
     } else if (VB::isBeingPressed(VB_OPTION) && !VB::isBeingPressed(VB_TURBO)) {
         //オプション向き操作
         if (VB::isBeingPressed(VB_UP)) {
