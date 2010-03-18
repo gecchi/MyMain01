@@ -156,6 +156,8 @@ class MyStraightLaserChip001;
 class Stage01MainScene;
 class MyShip;
 class MyOptionParent;
+class MyOptionParentGizmo;
+class MyOptionParentDirectionVector;
 class MyOption;
 class MyShot001;
 class MyWave001;
@@ -255,6 +257,8 @@ class Formation001;
 
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"
+#include "gecchi/actor/my/mesh/MyOptionParentGizmo.h"
+#include "gecchi/actor/my/mesh/MyOptionParentDirectionVector.h"
 #include "gecchi/actor/my/mesh/MyOption.h"
 #include "gecchi/actor/my/sprite/MyShot001.h"
 #include "gecchi/actor/my/mesh/MyWave001.h"

@@ -14,7 +14,9 @@ class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
     MyOption* _paMyOption[8];
-    int _stateMyOption[8];
+    MyOptionParentGizmo* _pGizmo;
+    MyOptionParentDirectionVector* _pDirectionVector;
+
     GgafCore::GgafLinkedListRing<GgafDx9LibStg::GeoElement>* _pRing_GeoHistory;
     velo _veloOptionsMv;
     MoveWay _way_myship_prev;
