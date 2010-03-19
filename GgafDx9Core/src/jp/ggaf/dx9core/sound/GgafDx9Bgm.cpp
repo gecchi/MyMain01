@@ -52,6 +52,7 @@ GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
     pPcmPlayer->stop();
     pPcmPlayer->stop();
-    delete pPcmPlayer;
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
+    delete pPcmPlayer;
+
 }
