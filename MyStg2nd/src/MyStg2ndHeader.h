@@ -162,10 +162,12 @@ class MyOption;
 class MyShot001;
 class MyWave001;
 class EffectExplosion001;
+class EffectExplosion002;
 class EffectLockOn001;
 class EffectLockOn001_Release;
 class EffectTurbo001;
 class EffectTurbo002;
+class EffectCondensation001;
 class HoshiBoshi001;
 class HoshiBoshi002;
 class TurboMeter;
@@ -265,10 +267,13 @@ class Formation001;
 #include "gecchi/actor/my/mesh/MyCurveLaserChip001.h"
 #include "gecchi/actor/my/mesh/MyStraightLaserChip001.h"
 #include "gecchi/actor/effect/EffectExplosion001.h"
+#include "gecchi/actor/effect/EffectExplosion002.h"
 #include "gecchi/actor/effect/EffectLockOn001.h"
 #include "gecchi/actor/effect/EffectLockOn001_Release.h"
 #include "gecchi/actor/effect/EffectTurbo001.h"
 #include "gecchi/actor/effect/EffectTurbo002.h"
+#include "gecchi/actor/effect/EffectCondensation001.h"
+
 #include "gecchi/actor/enemy/Tamago/TamagoActor.h"
 #include "gecchi/actor/enemy/Tamago/EnemyTamago01.h"
 #include "gecchi/actor/enemy/sprite/EnemyShotSpriteActor.h"

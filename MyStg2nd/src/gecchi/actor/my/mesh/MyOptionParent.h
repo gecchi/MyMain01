@@ -2,6 +2,12 @@
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
+/**
+ * オプションの纏め役クラス .
+ * @version 1.00
+ * @since 2006/06/22
+ * @author Masatoshi Tsuge
+ */
 class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
 //class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 

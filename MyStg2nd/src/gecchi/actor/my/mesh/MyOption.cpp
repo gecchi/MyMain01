@@ -113,18 +113,25 @@ void MyOption::setRadiusPosition(int prm_radius) {
 
     if (_radiusPosition == -1 * prm_radius) {
         if (_radiusPosition > 0) {
-            _radiusPosition = -10;
+            _radiusPosition = -100;
         } else {
-            _radiusPosition = 10;
+            _radiusPosition = 100;
         }
     } else {
         _radiusPosition += prm_radius;
     }
 
     _radiusPosition = prm_radius;
-    angle angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
-    _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
-    _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+    angle angZY_ROTANG_X;
+    if (_radiusPosition > 0) {
+        angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //自分の位置
+        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+    } else {
+        angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //自分の位置
+        _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+        _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
+    }
     //もしprm_lenが0の場合、理論的には元の位置に戻るはずなのだが、
     //誤差丸め込みのため、微妙に位置が変わる。
     //よって、移動方角、移動角速度を現在の位置(_Z,_Y)で再設定しなければズレる。

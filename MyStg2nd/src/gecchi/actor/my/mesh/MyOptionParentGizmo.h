@@ -2,6 +2,12 @@
 #define MYOPTIONPARENTGIZMO_H_
 namespace MyStg2nd {
 
+/**
+ * オプションの纏め役クラスのギズモ表示クラス .
+ * @version 1.00
+ * @since 2010/03/16
+ * @author Masatoshi Tsuge
+ */
 class MyOptionParentGizmo : public GgafDx9LibStg::DefaultMeshActor {
 
 public:

@@ -25,18 +25,7 @@ void MyOptionParentDirectionVector::processBehavior() {
 void MyOptionParentDirectionVector::processJudgement() {
 }
 
-int MyOptionParentDirectionVector::isOffscreen() {
-    //画面外判定無し
-    return 0;
-}
-
-bool MyOptionParentDirectionVector::isOutOfGameSpace() {
-    //ゲーム座標範囲外判定無し
-    return false;
-}
-
-void MyOptionParentDirectionVector::drawHitArea() {
-    //CubeEx::get()->drawHitarea(_pCollisionChecker); SphereEx::get()->drawHitarea(_pCollisionChecker);
+void MyOptionParentDirectionVector::onInactive() {
 }
 
 MyOptionParentDirectionVector::~MyOptionParentDirectionVector() {

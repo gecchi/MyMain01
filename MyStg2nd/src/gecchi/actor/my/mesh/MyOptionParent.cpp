@@ -35,74 +35,47 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     }
 
     _paMyOption[0] = NEW MyOption("MY_OPTION01", 0, this);
-    _paMyOption[0]->setProperty(60000, ANGLE0, 0, 1000);
+    _paMyOption[0]->setProperty(60000, ANGLE0, 0, 500);
     _paMyOption[0]->setMaterialColor(1.0, 1.0, 1.0);
     addSubGroup(_paMyOption[0]);
 
     _paMyOption[1] = NEW MyOption("MY_OPTION02", 1, this);
-    _paMyOption[1]->setProperty(60000, ANGLE90, 0, 1000);
+    _paMyOption[1]->setProperty(60000, ANGLE90, 0, 500);
     _paMyOption[1]->setMaterialColor(0.0, 1.0, 1.0);
     addSubGroup(_paMyOption[1]);
 
     _paMyOption[2] = NEW MyOption("MY_OPTION03", 2, this);
-    _paMyOption[2]->setProperty(60000, ANGLE180, 0, 1000);
+    _paMyOption[2]->setProperty(60000, ANGLE180, 0, 500);
     _paMyOption[2]->setMaterialColor(1.0, 0, 1.0);
     addSubGroup(_paMyOption[2]);
 
     _paMyOption[3] = NEW MyOption("MY_OPTION04", 4, this);
-    _paMyOption[3]->setProperty(60000, ANGLE270, 0, 1000);
+    _paMyOption[3]->setProperty(60000, ANGLE270, 0, 500);
     _paMyOption[3]->setMaterialColor(0, 1.0, 0);
     addSubGroup(_paMyOption[3]);
 
     _paMyOption[4] = NEW MyOption("MY_OPTION05", 5, this);
-    _paMyOption[4]->setProperty(120000, ANGLE0, 0, -1000);
+    _paMyOption[4]->setProperty(120000, ANGLE0, 0, -500);
     _paMyOption[4]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 0, 1.0, 1.0);
     addSubGroup(_paMyOption[4]);
 
     _paMyOption[5] = NEW MyOption("MY_OPTION06", 6, this);
-    _paMyOption[5]->setProperty(120000, ANGLE90, 0, -1000);
+    _paMyOption[5]->setProperty(120000, ANGLE90, 0, -500);
     _paMyOption[5]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(0, 1.0, 0, 1.0);
     addSubGroup(_paMyOption[5]);
 
     _paMyOption[6] = NEW MyOption("MY_OPTION07", 7, this);
-    _paMyOption[6]->setProperty(120000, ANGLE180, 0, -1000);
+    _paMyOption[6]->setProperty(120000, ANGLE180, 0, -500);
     _paMyOption[6]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 0, 0, 1.0);
     addSubGroup(_paMyOption[6]);
 
     _paMyOption[7] = NEW MyOption("MY_OPTION08", 8, this);
-    _paMyOption[7]->setProperty(120000, ANGLE270, 0, -1000);
+    _paMyOption[7]->setProperty(120000, ANGLE270, 0, -500);
     _paMyOption[7]->_paD3DMaterial9[0].Diffuse = D3DXCOLOR(1.0, 1.0, 1.0, 1.0);
     _paMyOption[7]->setAlpha(0.3);
     addSubGroup(_paMyOption[7]);
 
-//    MyOption* _paMyOption[8] = NEW MyOption("MY_OPTION09", 9, this);
-//    _paMyOption[8]->_radiusPosition = 180000;
-//    _paMyOption[8]->_angPosition = 0;
-//    _paMyOption[8]->_angExpanse = 0;
-//    _paMyOption[8]->_angveloExpanse = 0;
-//    _paMyOption[8]->_veloMv = 4000;
-//    addSubGroup(_paMyOption[8]);
-//
-//    MyOption* _paMyOption[9] = NEW MyOption("MY_OPTION10",10, this);
-//    _paMyOption[9]->_radiusPosition = 180000;
-//    _paMyOption[9]->_angPosition = ANGLE90;
-//    _paMyOption[9]->_angExpanse = 0;
-//    _paMyOption[9]->_veloMv = 4000;
-//    addSubGroup(_paMyOption[9]);
-//
-//    MyOption* _paMyOption[10] = NEW MyOption("MY_OPTION11",11, this);
-//    _paMyOption[10]->_radiusPosition = 180000;
-//    _paMyOption[10]->_angPosition = ANGLE180;
-//    _paMyOption[10]->_angExpanse = 0;
-//    _paMyOption[10]->_veloMv = 4000;
-//    addSubGroup(_paMyOption[10]);
-//
-//    MyOption* _paMyOption[11] = NEW MyOption("MY_OPTION12",12, this);
-//    _paMyOption[11]->_radiusPosition = 180000;
-//    _paMyOption[11]->_angPosition = ANGLE270;
-//    _paMyOption[11]->_angExpanse = 0;
-//    _paMyOption[11]->_veloMv = 4000;
-//    addSubGroup(_paMyOption[11]);
+
 
     for (int i = 0; i < 8; i++) {
         _paMyOption[i]->activate();
@@ -194,15 +167,15 @@ void MyOptionParent::processBehavior() {
     } else {
         if (_return_to_default_position_seq) {
             //Œ³‚ÌˆÊ’u‚Ö
-            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*3);
-            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*3);
-            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*3);
+            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*5);
+            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*5);
+            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*5);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-            if (abs(_X - pMYSHIP->_X) < 5000 &&
-                abs(_Y - pMYSHIP->_Y) < 5000 &&
-                abs(_Z - pMYSHIP->_Z) < 5000    ) {
+            if (abs(_pMover->_veloVxMv) < 5000 &&
+                abs(_pMover->_veloVyMv) < 5000 &&
+                abs(_pMover->_veloVzMv) < 5000    ) {
 
                 _TRACE_("‚à‚Ç‚Á‚½I");
                 _pMover->setVxMvVelo(0);

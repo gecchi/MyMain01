@@ -1,19 +1,18 @@
-#ifndef MYOPTIONPARENTDIRECTIONVECTOR_H_
-#define MYOPTIONPARENTDIRECTIONVECTOR_H_
+#ifndef EFFECTEXPLOSION002_H_
+#define EFFECTEXPLOSION002_H_
 namespace MyStg2nd {
 
 /**
- * オプションの纏め役クラスの方向ベクトル表示 .
+ * 爆発エフェクトその２ .
+ * 輪っかが広がる
  * @version 1.00
- * @since 2010/03/18
+ * @since 2010/03/19
  * @author Masatoshi Tsuge
  */
-class MyOptionParentDirectionVector : public GgafDx9LibStg::DefaultMeshActor {
+class EffectExplosion002 : public GgafDx9LibStg::DefaultSpriteSetActor {
 
 public:
-    int _ptn_no;
-
-    MyOptionParentDirectionVector(const char* prm_name);
+    EffectExplosion002(const char* prm_name);
 
     void onCreateModel() override {
     }
@@ -41,10 +40,9 @@ public:
         return false;
     }
 
-
-    virtual ~MyOptionParentDirectionVector();
+    virtual ~EffectExplosion002();
 };
 
 }
-#endif /*MYOPTIONPARENTDIRECTIONVECTOR_H_*/
+#endif /*EFFECTEXPLOSION002_H_*/
 
