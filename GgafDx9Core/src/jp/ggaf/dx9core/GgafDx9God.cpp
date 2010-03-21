@@ -55,9 +55,9 @@ HRESULT GgafDx9God::init() {
         throwGgafCriticalException("Direct3DCreate9 に失敗しました");
         return E_FAIL; //失敗
     }
-    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-    GgafDx9God::_pID3D9->AddRef();
-    GgafDx9God::_pID3D9->AddRef();
+//    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
+//    GgafDx9God::_pID3D9->AddRef();
+//    GgafDx9God::_pID3D9->AddRef();
 
     //デスプレイモードの取得
     D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
@@ -229,9 +229,9 @@ HRESULT GgafDx9God::init() {
     } else {
         _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
     }
-    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-    GgafDx9God::_pID3DDevice9->AddRef();
-    GgafDx9God::_pID3DDevice9->AddRef();
+//    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
+//    GgafDx9God::_pID3DDevice9->AddRef();
+//    GgafDx9God::_pID3DDevice9->AddRef();
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
@@ -603,26 +603,30 @@ GgafDx9God::~GgafDx9God() {
     //TODO:稀に落ちる。
     GgafDx9Sound::release();
 
-    //デバイス解放処理(2010/03/19メモ)
-    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
-    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
-    //たしかDirectX10は参照カウンタのカウント方法が変わったというリリースノートを読んだ記憶があるが、
-    //関係あるのだろうか。
-    //いろいろ試行錯誤したが結局誰のせいなのかはっきり分からない.
-    //そこで、カッコ悪いけども余分に参照カウンタを２つ増やし、開放時は0になるまで解放するという措置を行う。
-    //TODO:ちゃんと解放する方法。
-    while (true) {
-        ULONG rc = _pID3DDevice9->Release();
-        if (rc == 0) {
-            break;
-        }
-    }
-    while (true) {
-        ULONG rc = _pID3D9->Release();
-        if (rc == 0) {
-            break;
-        }
-    }
+    RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
+    RELEASE_IMPOSSIBLE_NULL(_pID3D9);
+
+//    //デバイス解放処理(2010/03/19メモ)
+//    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
+//    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
+//    //たしかDirectX10は参照カウンタのカウント方法が変わったというリリースノートを読んだ記憶があるが、
+//    //関係あるのだろうか。
+//    //いろいろ試行錯誤したが結局誰のせいなのかはっきり分からない.
+//    //そこで、カッコ悪いけども余分に参照カウンタを２つ増やし、開放時は0になるまで解放するという措置を行う。
+//    //TODO:ちゃんと解放する方法。
+//    while (true) {
+//        ULONG rc = _pID3DDevice9->Release();
+//		_TRACE_("_pID3DDevice9 rc="<<rc);
+//        if (rc == 0) {
+//            break;
+//        }
+//    }
+//    while (true) {
+//        ULONG rc = _pID3D9->Release();
+//        if (rc == 0) {
+//            break;
+//        }
+//    }
 
 
 }

@@ -7,7 +7,7 @@
 #include "vorbis/vorbisfile.h"
 #include "PCMDecoder.h"
 #include "OggVorbisResource.h"
-#include "DixSmartPtr.h"
+#include "DixSmartPtr.hpp"
 
 namespace Dix {
 	class OggDecoder : public PCMDecoder {

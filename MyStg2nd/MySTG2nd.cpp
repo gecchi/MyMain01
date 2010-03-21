@@ -190,10 +190,10 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
                     if (msg.message == WM_QUIT) {
                         can_be_god = false;
-                        SetActiveWindow(hWnd);
-                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
-                        //優先度上げる理由。
-                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
+//                        SetActiveWindow(hWnd);
+//                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
+//                        //優先度上げる理由。
+//                        //非アクティブになると解放が著しく遅くなってしまうのを回避しようとした。
 
                         delete pGod; //神さようなら
                         MyStg2nd::Properties::clean();

@@ -4,8 +4,8 @@
 #ifndef IKD_DIX_PCMPLAYER_H
 #define IKD_DIX_PCMPLAYER_H
 
-#include "DixSmartPtr.h"
-#include "DixComPtr.h"
+#include "DixSmartPtr.hpp"
+//#include "DixComPtr.h"
 #include "PCMDecoder.h"
 #include "dsound.h"
 
@@ -25,7 +25,7 @@ namespace Dix {
         PCMPlayer( IDirectSound8* pDS8 );
         PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder );
 
-        ~PCMPlayer();
+        virtual ~PCMPlayer(); //tsuge virtual 追加
 
         //! デバイス設定
         void setDevice(IDirectSound8* pDS8 );

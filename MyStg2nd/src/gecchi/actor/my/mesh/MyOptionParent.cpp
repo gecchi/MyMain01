@@ -16,18 +16,18 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
     _is_free_from_myship_mode = false;
     _return_to_default_position_seq = false;
     _angVelo_Turn = 3000;
-    _veloOptionsMv = 5000;
+    _veloOptionsMv = 20000;
 
 
 
-    _renge = 100000;
+    _renge = 80000;
     _pMover->forceVxMvVeloRange(-_renge, _renge);
     _pMover->forceVyMvVeloRange(-_renge, _renge);
     _pMover->forceVzMvVeloRange(-_renge, _renge);
 
-    _pMover->forceVxMvAcceRange(-_renge / 40, _renge / 40);
-    _pMover->forceVyMvAcceRange(-_renge / 40, _renge / 40);
-    _pMover->forceVzMvAcceRange(-_renge / 40, _renge / 40);
+    _pMover->forceVxMvAcceRange(-_renge / 30, _renge / 30);
+    _pMover->forceVyMvAcceRange(-_renge / 30, _renge / 30);
+    _pMover->forceVzMvAcceRange(-_renge / 30, _renge / 30);
 
 
     for (int i = 0; i < 8; i++) {
@@ -114,7 +114,7 @@ void MyOptionParent::processBehavior() {
         _pMover->execTagettingMvAngSequence(
                         0,
                         0,
-                        5000, 0,
+                        20000, 0,
                         TURN_CLOSE_TO,
                         false
                  );
@@ -151,6 +151,13 @@ void MyOptionParent::processBehavior() {
         if (_paMyOption[0]) {
             _is_free_from_myship_mode = true;
             _is_handle_move_mode = true;
+            _pMover->setVxMvAcce(0);
+            _pMover->setVyMvAcce(0);
+            _pMover->setVzMvAcce(0);
+            _pMover->setVxMvVelo(0);
+            _pMover->setVyMvVelo(0);
+            _pMover->setVzMvVelo(0);
+
         }
     }
 
@@ -167,15 +174,18 @@ void MyOptionParent::processBehavior() {
     } else {
         if (_return_to_default_position_seq) {
             //Œ³‚ÌˆÊ’u‚Ö
-            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*5);
-            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*5);
-            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*5);
+            int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*6);
+            int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*6);
+            int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*6);
             _pMover->setVxMvAcce(dx);
             _pMover->setVyMvAcce(dy);
             _pMover->setVzMvAcce(dz);
-            if (abs(_pMover->_veloVxMv) < 5000 &&
-                abs(_pMover->_veloVyMv) < 5000 &&
-                abs(_pMover->_veloVzMv) < 5000    ) {
+            if (abs(_X - pMYSHIP->_X) < 10000 &&
+                abs(_Y - pMYSHIP->_Y) < 10000 &&
+                abs(_Z - pMYSHIP->_Z) < 10000 &&
+                abs(_pMover->_veloVxMv) < 20000 &&
+                abs(_pMover->_veloVyMv) < 20000 &&
+                abs(_pMover->_veloVzMv) < 20000    ) {
 
                 _TRACE_("‚à‚Ç‚Á‚½I");
                 _pMover->setVxMvVelo(0);

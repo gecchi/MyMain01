@@ -6,7 +6,7 @@
 
 #include <windows.h>
 #include <mmsystem.h>
-#include "DixSmartPtr.h"
+#include "DixSmartPtr.hpp"
 
 namespace Dix
 {

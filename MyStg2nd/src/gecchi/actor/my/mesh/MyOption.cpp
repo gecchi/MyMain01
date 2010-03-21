@@ -154,22 +154,23 @@ void MyOption::processBehavior() {
     if (_return_to_default_radiusPosition_seq) {
         //自動戻り
         if (_radiusPosition > _radiusPosition_default) {
-            addRadiusPosition(-20000);
+            addRadiusPosition(-10000);
         }
         if (_radiusPosition < _radiusPosition_default) {
-            addRadiusPosition(20000);
+            addRadiusPosition(10000);
         }
-        if (-20000 < abs(_radiusPosition_default-_radiusPosition) && abs(_radiusPosition_default-_radiusPosition) < 2000) {
+        if (-10000 < _radiusPosition_default-_radiusPosition && _radiusPosition_default-_radiusPosition < 10000) {
             setRadiusPosition(_radiusPosition_default);
             _return_to_default_radiusPosition_seq = false;
         }
 
     } else {
+
         //オプション独立移動制御時
         if (VB::isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
-            addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * 6000);
+            addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionParent->_veloOptionsMv);
             //オプション移動速度の処理はMyOptionクラスで行う。
         }
     }
@@ -178,12 +179,12 @@ void MyOption::processBehavior() {
     if (_return_to_default_angExpanse_seq) {
         //自動戻り
         if (_angExpanse > _angExpanse_default) {
-            _angExpanse -= 10000;
+            _angExpanse -= 3000;
         }
         if (_angExpanse < _angExpanse_default) {
-            _angExpanse += 10000;
+            _angExpanse += 3000;
         }
-        if (-10000 < abs(_angExpanse_default-_angExpanse) && abs(_angExpanse_default-_angExpanse) < 10000) {
+        if (-3000 <= _angExpanse_default-_angExpanse && _angExpanse_default-_angExpanse <= 3000) {
             _angExpanse = _angExpanse_default;
             _return_to_default_angExpanse_seq = false;
         }

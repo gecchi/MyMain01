@@ -5,7 +5,7 @@
 #define IKD_DIX_OGGVORBISRESOURCE_H
 
 #include "vorbis/vorbisfile.h"
-#include "DixSmartPtr.h"
+#include "DixSmartPtr.hpp"
 #include "memory.h"
 
 namespace Dix {
