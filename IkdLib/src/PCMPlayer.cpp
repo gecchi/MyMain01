@@ -251,7 +251,8 @@ namespace Dix {
                 player->pDSBuffer_->GetCurrentPosition( &curPlayPos, 0 );
                 if ( curPlayPos < prePlayPos ) {
                     // バッファをループした瞬間
-                    if ( prePlayPos <= finishPos ) {
+                    //if ( prePlayPos <= finishPos ) {
+                    if ( prePlayPos <= finishPos || finishPos <= curPlayPos ) {
                         // 終了宣言
                         player->stop();
                     }
