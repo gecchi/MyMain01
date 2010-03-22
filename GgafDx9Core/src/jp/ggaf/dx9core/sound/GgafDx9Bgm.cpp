@@ -50,7 +50,7 @@ bool GgafDx9Bgm::isActive() {
 
 GgafDx9Bgm::~GgafDx9Bgm() {
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() begin");
-    pPcmPlayer->stop();
+    pPcmPlayer->terminateThread();
     pPcmPlayer->stop();
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
     delete pPcmPlayer;
