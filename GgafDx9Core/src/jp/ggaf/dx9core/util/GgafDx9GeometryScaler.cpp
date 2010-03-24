@@ -12,7 +12,7 @@ GgafDx9GeometryScaler::GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor) 
         _velo_scale[axis] = 0;
         _target_scale[axis] = LEN_UNIT;
         _top_scale[axis] = INT_MAX;
-        _bottom_scale[axis] = LEN_UNIT;
+        _bottom_scale[axis] = 1;
         _one_way_cnt[axis] = 0;
         _beat_attack_frame[axis] = 0;
         _beat_rest_frame[axis] = 0;
