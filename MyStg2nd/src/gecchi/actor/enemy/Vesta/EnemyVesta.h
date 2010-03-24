@@ -29,7 +29,7 @@ public:
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Foundation;
     /** 発射されるアクターをメンバーに持つディスパッチャー */
     GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
-
+    DispatcherConnection* _pDpcon;
 
     /**
      * コンストラクタ

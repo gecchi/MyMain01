@@ -26,6 +26,9 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     _pTurboMeter001 = NEW TurboMeter("TurboMeter001");
     _pTurboMeter001->setGeometry(16 , GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT) - 64);
     getLordActor()->addSubGroup(_pTurboMeter001);
+
+
+    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta");
 }
 
 void TamagoScene::reset() {
@@ -37,9 +40,11 @@ void TamagoScene::initialize() {
 }
 
 void TamagoScene::processBehavior() {
-//    if (getBehaveingFrame() == 1) {
-//        orderActorToFactory(100000001, EnemyTamago01, "gyoku");
-//    }
+    if (getPartFrame() == 60) {
+        EnemyVesta* p = (EnemyVesta*)obtainActorFromFactory(100000001);
+        p->setGeometry(300000,100000,400000);
+        getLordActor()->addSubGroup(p);
+    }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {
 //            HoshiBoshi001* p = (HoshiBoshi001*)(obtainActorFromFactory(100000000+i));
@@ -47,6 +52,9 @@ void TamagoScene::processBehavior() {
 //            getLordActor()->addSubGroup(p);
 //        }
 //    }
+
+
+
 }
 
 void TamagoScene::processFinal() {
