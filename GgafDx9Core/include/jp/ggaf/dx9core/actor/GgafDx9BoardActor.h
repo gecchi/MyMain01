@@ -32,15 +32,15 @@ private:
 
 
 public:
-    /** モデルオブジェクトへのポインタ */
+    /** [r]モデルオブジェクトへのポインタ */
     GgafDx9BoardModel* _pBoardModel;
-    /** エフェクト */
+    /** [r]エフェクト */
     GgafDx9BoardEffect* _pBoardEffect;
-    /** UVフリッパー(パラパラアニメ) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDx9UvFlipper* _pUvFlipper;
-    /** 変換済み座標X軸拡大率(1.0で等倍) */
+    /** [r/w]変換済み座標X軸拡大率(1.0で等倍) */
     float _sx;
-    /** 変換済み座標Y軸拡大率(1.0で等倍) */
+    /** [r/w]変換済み座標Y軸拡大率(1.0で等倍) */
     float _sy;
 
     GgafDx9BoardActor(const char* prm_name,
@@ -60,7 +60,6 @@ public:
         _x = x;
         _y = y;
     }
-
 
     /**
      * アクターの変換済み座標(左上の点)を設定 .
