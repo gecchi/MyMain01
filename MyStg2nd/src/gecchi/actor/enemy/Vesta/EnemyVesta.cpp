@@ -36,6 +36,9 @@ void EnemyVesta::onCreateModel() {
 
 void EnemyVesta::initialize() {
     setHitAble(false);
+    _pMover->setRzMvAngVelo(2300);
+    _pMover->setRyMvAngVelo(1000);
+    _pMover->relateRzRyFaceAngToMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
@@ -84,7 +87,7 @@ void EnemyVesta::processBehavior() {
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
         int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
-        if (openningFrame % (int)(20/_RANK_) == 0) {
+        if (openningFrame % (int)(20/_RANK_+5) == 0) {
             if (_pDispatcher_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {

@@ -10,7 +10,7 @@ GgafDx9Spline3D FormationIris001::_sp;
 FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationIris001";
     _num_Iris       = 7*_RANK_;    //編隊数
-    _frame_interval = 25/_RANK_;   //イリスの間隔(frame)
+    _frame_interval = 25/_RANK_+5;   //イリスの間隔(frame)
     _mv_velo  = 8000*_RANK_; //速度
     //スプライン移動の定義
     if (FormationIris001::_sp._num_basepoint == 0) {

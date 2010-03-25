@@ -73,7 +73,21 @@ public:
 
     MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
-    void setProperty(angle prm_radiusPosition, angle prm_angPosition, angle prm_angExpanse, velo prm_veloMv) {
+    /**
+     * 初期設定パラメーター .
+     * 生成直後からinitialize()までに設定することができる、
+     * オブジェクト固有パラメータです。
+     * @param prm_radiusPosition
+     * @param prm_angPosition
+     * @param prm_angExpanse
+     * @param prm_veloMv
+     */
+    void setInitializeProperty(
+            angle prm_radiusPosition,
+            angle prm_angPosition,
+            angle prm_angExpanse,
+            velo prm_veloMv)
+    {
         _angPosition = prm_angPosition;
         _radiusPosition = prm_radiusPosition;
         _angExpanse = prm_angExpanse;
