@@ -17,14 +17,6 @@ GgafGroupActor::GgafGroupActor(actorkind prm_kind) : GgafActor("HEAD") {
     _actor_class = GROUPACTOR;
 }
 
-void GgafGroupActor::processJudgement() {
-    //ƒTƒu‚ª–³‚¯‚ê‚ÎŽ©ŽE
-    if (getSubFirst() == NULL) {
-        sayonara();
-    }
-}
-
-
 GgafLordActor* GgafGroupActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {

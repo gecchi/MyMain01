@@ -68,8 +68,6 @@ void GgafActor::setHitAbleTree(bool prm_can_hit_flg) {
 }
 
 
-
-
 GgafScene* GgafActor::getPlatformScene() {
     if (_pScene_Platform == NULL) {
         _pScene_Platform = getParent()->getPlatformScene();

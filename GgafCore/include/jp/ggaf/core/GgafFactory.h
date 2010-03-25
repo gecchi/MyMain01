@@ -18,8 +18,6 @@ class GgafFactory {
     friend class GgafGod;
 
 private:
-
-
     /** 先頭の注文 */
     static GgafOrder* ROOT_ORDER;
     /** 現在製造中の注文 */
@@ -53,19 +51,19 @@ private:
     static void* obtain(unsigned long prm_id);
 
 public:
-    /** ゴミ箱(不要なアクター置き場) */
+    /** [r]ゴミ箱(不要なアクター置き場) */
     static GgafGarbageBox* _pGarbageBox;
 
-    /** 掃除オブジェクト数 */
+    /** [r]掃除オブジェクト数 */
     static int _cnt_cleaned;
 
-    /** 活動フラグ(神が操作する) */
+    /** [r]活動フラグ(神が操作する) */
     static bool _is_working_flg;
-    /** 休むフラグ */
+    /** [r]休むフラグ */
     static bool _have_to_rest_flg;
-    /** 休でいるフラグ */
+    /** [r]休でいるフラグ */
     static bool _is_resting_flg;
-    /** 完全店終い */
+    /** [r]完全店終い */
     static bool _was_finished_flg;
 
     /**

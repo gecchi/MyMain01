@@ -92,46 +92,48 @@ protected:
     /** このシーンの管理者 */
     GgafLordActor* _pLordActor;
 
-    //static GgafGroupActor* _apGroupActor01[];
-    //static GgafGroupActor* _apGroupActor02[];
-
 public:
-    /** 進捗具合 */
+    /** [r]進捗ID具合(1～99) */
     int _progress;
-    /** １フレーム前進捗 */
+    /** [r]１フレーム前進捗ID(1～99) */
     int _progress_prev;
-    /** 次フレーム設定する進捗具合 */
+    /** [r]次フレーム設定する進捗ID具合(1～99) */
     int _progress_nextframe;
-
-    /** 進捗イベント時フレームストック */
+    /** [r]進捗IDイベント時フレームストック */
     DWORD _aFrame_ProgressChange[100];
 
     /**
-     * 現在の進捗取得 .
-     * @return 進捗(1～99)
+     * 現在の進捗ID取得 .
+     * @return 進捗ID(1～99)
      */
     virtual int getProgress() {
         return _progress;
     }
 
     /**
-     * 進捗が起こった時のフレーム取得 .
-     * @param prm_progress 進捗(1～99)
-     * @return 引数の直近の進捗が起こったときのフレーム
+     * 進捗IDが起こった時のフレーム取得 .
+     * @param prm_progress 進捗ID(1～99)
+     * @return 引数の直近の進捗IDが起こったときのフレーム
      */
     virtual DWORD getFrameAtProgress(int prm_progress) {
         return _aFrame_ProgressChange[prm_progress];
     }
 
     /**
-     * 進捗を設定 .
-     * @param prm_progress 進捗(1～99)
+     * 進捗IDを設定 .
+     * @param prm_progress 進捗ID(1～99)
      */
     virtual void setProgress(int prm_progress) {
         _progress_nextframe = prm_progress;
         _aFrame_ProgressChange[prm_progress] = _frame_of_behaving+1;
     }
 
+    /**
+     * 引数の進捗IDに切り替わったかどうか調べる。.
+     * 切り替わった瞬間1フレームだけtrueになります。
+     * @param prm_progress 切り替わったかどうか調べたい進捗ID
+     * @return true:引数の進捗IDに切り替わった／false:それ以外
+     */
     bool onChangeProgressAt(int prm_progress) {
         if (_progress != _progress_prev) {
             if (prm_progress == _progress) {
@@ -145,8 +147,10 @@ public:
     }
 
     /**
-     * 進捗が変化したか調べる .
-     * @return 0 又は 進捗(0=変化していない/0以外=変化があった新しい進捗)
+     * 進捗IDが変化したか（前回と同じかどうか）調べる .
+     * @return 0 又は 進捗ID
+     *         0    ：変化していない
+     *         0以外：変化が有りで、その新しい進捗ID
      */
     int getProgressOnChange() {
         if (_progress != _progress_prev) {
@@ -169,10 +173,7 @@ public:
      */
     virtual ~GgafScene();
 
-    /**
-     * オーバーライド
-     */
-    virtual void addSubLast(GgafScene* prm_pScene) {
+    virtual void addSubLast(GgafScene* prm_pScene) override {
         GgafElement<GgafScene>::addSubLast(prm_pScene);
         if(prm_pScene->_was_initialize_flg == false) {
             prm_pScene->initialize();
@@ -194,7 +195,6 @@ public:
     virtual void activate();
     virtual void activateTreeImmediately();
     virtual void activateImmediately();
-
     virtual void inactivateTree();
     virtual void inactivateAfter(DWORD prm_frame_offset);
     virtual void inactivate();

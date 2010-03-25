@@ -16,16 +16,15 @@ class GgafMainActor : public GgafActor {
 protected:
 
 public:
-    /** シーン管理者 */
+    /** [r]シーン管理者 */
     GgafLordActor* _pLordActor;
-    /** 種別（グループ）を司る直近の団長 */
+    /** [r]グループを司る直近の団長 */
     GgafGroupActor* _pGroupActor;
 
     GgafMainActor(const char* prm_name);
 
     /**
      * 次のノード取得する。 .
-     * ＜OverRide です＞
      * @return	次ノード
      */
     virtual GgafMainActor* getNext() override {
@@ -34,7 +33,6 @@ public:
 
     /**
      * 前のノード取得する。 .
-     * ＜OverRide です＞
      * @return	前ノード
      */
     virtual GgafMainActor* getPrev() override {
@@ -44,7 +42,6 @@ public:
     /**
      * 子ノードのグループの先頭ノードを取得する .
      * 子ノードが存在しない場合はエラー。
-     * ＜OverRide です＞
      * @return	子ノードの先頭ノード
      */
     virtual GgafMainActor* getSubFirst() override {
@@ -117,7 +114,11 @@ public:
      */
     virtual GgafGod* askGod();
 
-
+    /**
+     * 種別を取得する .
+     * 下位の実装で自由に使用することを想定。
+     * @return
+     */
     actorkind getKind();
 
     virtual ~GgafMainActor();

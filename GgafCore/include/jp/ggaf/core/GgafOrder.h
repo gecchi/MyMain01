@@ -37,7 +37,6 @@ private:
     void* _pArg3;
     /** i’»‹ï‡i0:–¢’…è/1:»‘¢’†/2:»‘¢Ï‚İj */
     int _progress;
-
 public:
     GgafOrder(unsigned long prm_id);
     virtual ~GgafOrder();

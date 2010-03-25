@@ -25,56 +25,36 @@ public:
     void initialize() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processBehavior() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processJudgement() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processPreDraw() override {
     }
-    /**
-     * ＜OverRide です＞<BR>
-     */
+
     void processDraw() override {
     }
-    /**
-     * ＜OverRide です＞<BR>
-     */
+
     void processAfterDraw() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processHappen(int prm_no) override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
-    virtual void processFinal() override {
+    void processFinal() override {
     }
 
     /**
-     * ＜OverRide です＞<BR>
+     * 当たり判定不要のため常にfalseを返す .
+     * @param prm_pOtherActor
+     * @return false
      */
     bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void onHit(GgafActor* prm_pOtherActor) override {
     }
 
@@ -140,7 +120,7 @@ public:
      * 神に謁見 .
      * @return	呼ばれて出てきた神
      */
-    virtual GgafGod* askGod();
+    GgafGod* askGod();
 
     virtual ~GgafLordActor();
 };

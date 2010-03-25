@@ -13,7 +13,7 @@ namespace GgafCore {
  * また、団長配下のアクターに、さらに団長が存在することも可能です。（但し団長の直接配下に団長は置けません）
  * この場合、末端のアクター種別は、直近の団長の種別が優先されます。<BR>
  * ＜補足：団長クラス(GgafGroupActor)のオブジェクトイメージ図＞<BR>
- * <PRE STYLE="font-size:18px">
+ * <PRE STYLE="font-size:12px">
  * 　　　　･･･⇔ GgafScene ⇔ GgafScene ⇔･･･
  * 　　　　　　　　　｜
  * 　　　　　　　　　↓メンバー
@@ -34,84 +34,77 @@ namespace GgafCore {
 class GgafGroupActor : public GgafActor {
 
 public:
-    /** 管理者 */
+    /** [r]管理者 */
     GgafLordActor* _pLordActor;
-
+    /** [r/w]種別 */
     actorkind _kind;
 
     GgafGroupActor(actorkind prm_kind);
 
     /**
-     * 初期処理<BR>
+     * 初期処理 .
      */
     void initialize() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processBehavior() override {
     }
 
     /**
-     * ＜OverRide です＞<BR>
+     * 毎フレームのGgafGroupActor判定処理 .
+     * サブが無ければ自動的に死亡する処理になっている。
      */
-    void processJudgement() override;
+    void processJudgement() override {
+        //サブが無ければ自殺
+        if (getSubFirst() == NULL) {
+            sayonara();
+        }
+    }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processPreDraw() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processDraw() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processAfterDraw() override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void processHappen(int prm_no) override {
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
-    virtual void processFinal() override {
+    void processFinal() override {
     }
 
     /**
-     * ＜OverRide です＞<BR>
+     * 当たり判定不要のため常にfalseを返す .
+     * @param prm_pOtherActor
+     * @return false
      */
     bool processHitChkLogic(GgafActor* prm_pOtherActor) override {
         return false;
     }
 
-    /**
-     * ＜OverRide です＞<BR>
-     */
     void onHit(GgafActor* prm_pOtherActor) override {
     }
 
+    /**
+     * 管理者(GgafLordActor)を取得 .
+     * @return 自身が管理されている管理者
+     */
     GgafLordActor* getLordActor();
 
-	void setLordActor(GgafLordActor* prm_pLordActor);
-
-
+    /**
+     * 管理者(GgafLordActor)を設定 .
+     * @param prm_pLordActor 管理者
+     */
+    void setLordActor(GgafLordActor* prm_pLordActor);
 
     /**
      * 神に謁見 .
      * @return	呼ばれて出てきた神
      */
-    virtual GgafGod* askGod();
+    GgafGod* askGod();
 
     virtual ~GgafGroupActor();
 };

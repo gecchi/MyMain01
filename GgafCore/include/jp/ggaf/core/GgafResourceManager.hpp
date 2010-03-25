@@ -58,9 +58,9 @@ private:
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
 protected:
-    /** マネージャ名称 */
+    /** [r]マネージャ名称 */
     const char* _manager_name;
-    /** GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
+    /** [r]GgafResourceConnectionオブジェクトのリストの先頭のポインタ。終端はNULL */
     GgafResourceConnection<T>* _pFirstConnection;
 
 

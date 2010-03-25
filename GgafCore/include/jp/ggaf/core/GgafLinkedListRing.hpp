@@ -4,10 +4,9 @@ namespace GgafCore {
 
 /**
  * 要素（同一型インスタンス）の環状双方向連結リストを構築するテンプレートです。.
- *
  * <B>【解説】</B><BR>
  * 連結リストの先頭と末尾が繋がっているということで、『環状』と表現しています。<BR>
- * <PRE STYLE="font-size:18px">
+ * <PRE STYLE="font-size:12px">
  * 【例】
  * (Ｅ)⇔Ａ⇔Ｂ⇔Ｃ*⇔Ｄ⇔Ｅ⇔(Ａ)
  * </PRE>
@@ -17,7 +16,7 @@ namespace GgafCore {
  * ロジック中、addLast() にて一番最初に追加した要素が先頭要素で、最後に追加した要素が末尾要素となります。<BR>
  * 両端の「(Ｅ)」と「(Ａ)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。(環状になっている)<BR>
  * addLast()で１要素だけ追加した場合は次のようになります。<BR>
- * <PRE STYLE="font-size:18px">
+ * <PRE STYLE="font-size:12px">
  * 【例】
  * (Ａ)⇔Ａ*⇔(Ａ)
  * </PRE>
@@ -33,7 +32,8 @@ class GgafLinkedListRing : public GgafObject {
 private:
 
     /**
-     * 実際の要素値をラッピングし、ポインタを追加
+     * 専用の要素クラス .
+     * 実際の要素値をラッピング、前後のポインタを保持
      */
     class Elem {
     public:
@@ -115,13 +115,13 @@ private:
     };
 
 protected:
-    /** 先頭要素 */
+    /** [r]先頭要素 */
     Elem* _pElemFirst;
 
-    /** アクティブ要素 */
+    /** [r]アクティブ要素 */
     Elem* _pElemActive;
 
-    /** 要素数 */
+    /** [r]要素数 */
     int _num_elem;
 
 public:
@@ -171,13 +171,12 @@ public:
      */
     T* prev();
 
-
-
     /**
      * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
      * @return 前の要素の値
      */
     T* getPrev();
+
     /**
      * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
      * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
@@ -208,7 +207,7 @@ public:
     /**
      * 引数要素を、末尾(_is_last_flg が true)として追加する .
      * 追加される場所は以下の図のようになります。<BR>
-     *<PRE STYLE="font-size:18px">
+     *<PRE STYLE="font-size:12px">
      * ----------------「実行前」
      * (Ｋ)⇔Ｉ*⇔Ｊ⇔Ｋ⇔(Ｉ)
      * -----------------------

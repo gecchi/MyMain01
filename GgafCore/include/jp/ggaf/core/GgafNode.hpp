@@ -6,7 +6,7 @@ namespace GgafCore {
  * 要素同士を環状双方向連結リストのツリー構造を作ることができるテンプレートです。.
  *
  * <B>【解説】</B><BR>
- * <PRE STYLE="font-size:18px">
+ * <PRE STYLE="font-size:12px">
  * 　･･⇔Ｐ⇔･･･
  * 　　　↓
  * (Ｅ)⇔Ａ⇔Ｂ⇔Ｃ⇔Ｄ⇔Ｅ⇔(Ａ)

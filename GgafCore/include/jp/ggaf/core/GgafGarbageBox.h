@@ -14,16 +14,39 @@ namespace GgafCore {
 class GgafGarbageBox : public GgafObject {
 
 public:
-
+    /** [r]まもなくdeleteされるアクターのツリートップのノード */
     GgafSayonaraActor* _pSayonaraActor;
+    /** [r]まもなくdeleteされるシーンのツリートップのノード */
     GgafSayonaraScene* _pSayonaraScene;
 
+    /**
+     * コンストラクタ .
+     */
     GgafGarbageBox();
 
+    /**
+     * ゴミ箱にアクターを追加 .
+     * 他のツリーに所属していても、
+     * メソッド内で連結を切り離してから追加するため、
+     * いきなりaddしても構わない。
+     * @param prm_pActor 追加するアクター
+     */
     void add(GgafActor* prm_pActor);
 
+    /**
+     * ゴミ箱にシーンを追加 .
+     * 他のツリーに所属していても、
+     * メソッド内で連結を切り離してから追加するため、
+     * いきなりaddしても構わない。
+     * @param prm_pScene 追加するシーン
+     */
     void add(GgafScene* prm_pScene);
 
+    /**
+     * ゴミ箱に溜まっているオブジェクトをdeleteする .
+     * 通常、神(GgafGod)がこれを行います。
+     * @param prm_num_cleaning deleteするオブジェクト数
+     */
     void cleane(int prm_num_cleaning);
 
     virtual ~GgafGarbageBox();

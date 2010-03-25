@@ -4,12 +4,13 @@ namespace GgafCore {
 
 /**
  * アクター発送者クラス .
- * 子に予めアクターを登録(addSubLast メソッド)しておく。<BR>
- * employ() 空いているアクターを取得する。<BR>
- * アクターは使い終わったらinactivate()する。<BR>
- * 敵弾など、何度も使いまわし、かつオブジェクト数制限したい場合等に有効。ストックと考えても良い。<BR>
- * もともとポリラインのような連続して連結された固まりを管理したかった。<BR>
- * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっています。<BR>
+ * ツリーの子に予め幾つかアクターを登録(addSubLast)してストックする。<BR>
+ * employ() メソッドで、ストックの活動していないアクター探して提供する。<BR>
+ * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
+ * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
+ * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっているという法則がある。<BR>
+ * これは、employ()したアクターは、ストック並びの一番最後に回されるため。<BR>
+ * ポリライン（レーザー）のひと纏まりの単位として使用できるかもしれない、と目論む。<BR>
  * (旧RotationActor)
  * @version 1.00
  * @since 2008/08/11
@@ -19,27 +20,6 @@ class GgafActorDispatcher : public GgafDummyActor {
 
 public:
     GgafActorDispatcher(const char* prm_name);
-
-//    /**
-//     * 暇そうなアクター発送者メンバー（play中、またはplay予約されていない）が居れば、
-//     * アクター発送者の一番先頭に移動させます。<BR>
-//     * TODO:これは負荷がかかるのであまりやりたくない、Laser以外はなんでもいいはず
-//     * ＜OverRide です＞<BR>
-//     */
-//    virtual void processBehavior() override {
-//        static GgafMainActor* pActor;
-//        pActor = getSubFirst();
-//        while (true) {
-//            if (pActor->onChangeToInactive()) {
-//                pActor->moveFirst();
-//            }
-//            if (pActor->isLast()) {
-//                break;
-//            } else {
-//                pActor = pActor->getNext();
-//            }
-//        }
-//    }
 
     /**
      * メンバーを登録します.

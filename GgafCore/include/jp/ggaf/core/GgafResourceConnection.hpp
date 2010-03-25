@@ -34,9 +34,9 @@ private:
     static volatile bool _is_closing_resource;
 
 protected:
-    /** 資源マネジャー */
+    /** [r]資源マネジャー */
     GgafResourceManager<T>* _pManager;
-    /** 次のGgafResourceConnectionへのポインタ。終端はNULL */
+    /** [r]次のGgafResourceConnectionへのポインタ。終端はNULL */
     GgafResourceConnection<T>* _pNext;
 
     /**
@@ -105,7 +105,6 @@ template<class T>
 GgafResourceConnection<T>* GgafResourceConnection<T>::getNext() {
     return _pNext;
 }
-
 
 template<class T>
 GgafResourceConnection<T>::GgafResourceConnection(char* prm_idstr, T* prm_pResource) : GgafObject() {
