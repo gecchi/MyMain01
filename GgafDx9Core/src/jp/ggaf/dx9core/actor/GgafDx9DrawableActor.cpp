@@ -53,6 +53,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pSeCon = NULL;
     _pSe = NULL;
+    _now_drawdepth = 0;
 
 }
 
@@ -136,6 +137,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     _pSeCon = NULL;
     _pSe = NULL;
+    _now_drawdepth = 0;
 }
 
 
@@ -145,7 +147,7 @@ void GgafDx9DrawableActor::processPreDraw() {
     //TODO:—vŒŸØ
     if (_is_active_flg && _can_live_flg) {
         if (_isTransformed) {
-            GgafDx9Universe::setDrawDepthLevel(
+            _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
                                 (int)(_z * MAX_DRAW_DEPTH_LEVEL),
                                 this
                              );
@@ -181,15 +183,15 @@ void GgafDx9DrawableActor::processPreDraw() {
                 //
                 //ã}‚Ì‚æ‚¤‚ÈƒCƒ[ƒW‚ÅÝ’è‚·‚é‚±‚Æ‚Æ‚·‚é
                 int dep = (int)(-_fDist_VpPlnFront);
-                static int roughly_dep_point1 = (int)(-(pCAM->_cameraZ_org) * 4.0); //(228)
-                static int roughly_dep_point2 = (int)(-(pCAM->_cameraZ_org) * 8.0); //(456)
+                int roughly_dep_point1 = (int)(-(pCAM->_cameraZ_org) * 4.0); //(228)
+                int roughly_dep_point2 = (int)(-(pCAM->_cameraZ_org) * 8.0); //(456)
                 if (dep <= roughly_dep_point1) {
-                    GgafDx9Universe::setDrawDepthLevel(dep, this); //int‚ÉŠÛ‚ßž‚ñ‚Å‚éB‚Â‚Ü‚èDirectX‚Ì‹——£1‚ª[‚³1B‚æ‚Á‚Ä10pxŠÔŠu
+                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(dep, this); //int‚ÉŠÛ‚ßž‚ñ‚Å‚éB‚Â‚Ü‚èDirectX‚Ì‹——£1‚ª[‚³1B‚æ‚Á‚Ä10pxŠÔŠu
                 } else if (dep <= roughly_dep_point2) {
-                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 3), this);  //3‚ÅŠ„‚éB‚Â‚Ü‚èDirectX‚Ì‹——£2‚ª[‚³1B‚æ‚Á‚Ä20pxŠÔŠu
+                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 3), this);  //3‚ÅŠ„‚éB‚Â‚Ü‚èDirectX‚Ì‹——£2‚ª[‚³1B‚æ‚Á‚Ä20pxŠÔŠu
                 } else {
                     //roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2)=342
-                    GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/10) + ((dep - roughly_dep_point2) / 6), this);
+                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/10) + ((dep - roughly_dep_point2) / 6), this);
                 }
             }
         }

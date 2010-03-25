@@ -56,14 +56,14 @@ public:
      * @param prm_draw_depth_level レベル
      * @param prm_pActor アクター
      */
-    static void setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
+    static int setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
 
-    /**
-     * 描画レベル（順序）を最遠で登録.
-     * 不透明なオブジェクトは極力こちらで登録する
-     * @param prm_pActor アクター
-     */
-    static void setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor);
+//    /**
+//     * 描画レベル（順序）を最遠で登録.
+//     * 不透明なオブジェクトは極力こちらで登録する
+//     * @param prm_pActor アクター
+//     */
+//    static void setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor);
 };
 
 }

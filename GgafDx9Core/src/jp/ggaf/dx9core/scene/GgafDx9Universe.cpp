@@ -101,23 +101,23 @@ void GgafDx9Universe::draw() {
     }
 }
 
-void GgafDx9Universe::setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor) {
-    static GgafDx9DrawableActor* pActorTmp;
-    if (_pActors_DrawMaxDrawDepth == NULL) {
-        //最初のアクターの場合
-        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
-        _pActors_DrawMaxDrawDepth = prm_pActor;
-        return;
-    } else {
-        //既にアクター登録済みだった場合
-        pActorTmp = _pActors_DrawMaxDrawDepth;
-        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
-        _pActors_DrawMaxDrawDepth = prm_pActor;
-        return;
-    }
-}
-void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor) {
-    static int draw_depth_level;
+//void GgafDx9Universe::setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor) {
+//    static GgafDx9DrawableActor* pActorTmp;
+//    if (_pActors_DrawMaxDrawDepth == NULL) {
+//        //最初のアクターの場合
+//        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
+//        _pActors_DrawMaxDrawDepth = prm_pActor;
+//        return;
+//    } else {
+//        //既にアクター登録済みだった場合
+//        pActorTmp = _pActors_DrawMaxDrawDepth;
+//        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
+//        _pActors_DrawMaxDrawDepth = prm_pActor;
+//        return;
+//    }
+//}
+int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor) {
+    int draw_depth_level;
     static GgafDx9DrawableActor* pActorTmp;
     //上限下限カット
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
@@ -152,6 +152,7 @@ void GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawabl
             prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
         }
     }
+    return draw_depth_level;
 
 }
 

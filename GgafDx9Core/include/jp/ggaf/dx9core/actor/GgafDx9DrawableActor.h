@@ -42,6 +42,8 @@ public:
     /** [r]エフェクト資源 */
     GgafDx9Effect* _pGgafDx9Effect;
 
+    int _now_drawdepth;
+
 
     /**
      * コンストラクタ .
