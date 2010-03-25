@@ -29,6 +29,7 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
     orderActorToFactory(100000001, EnemyVesta, "EnemyVesta");
+    orderActorToFactory(100000002, EnemyCirce, "EnemyCirce");
 }
 
 void TamagoScene::reset() {
@@ -41,9 +42,16 @@ void TamagoScene::initialize() {
 
 void TamagoScene::processBehavior() {
     if (getPartFrame() == 60) {
-        EnemyVesta* p = (EnemyVesta*)obtainActorFromFactory(100000001);
-        p->setGeometry(300000,100000,400000);
-        getLordActor()->addSubGroup(p);
+
+        EnemyCirce* p1 = (EnemyCirce*)obtainActorFromFactory(100000002);
+        p1->setGeometry(400000,100000,400000);
+        getLordActor()->addSubGroup(p1);
+
+        EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000001);
+        p2->setGeometry(50000,50000,50000);
+        p2->_pActor_Foundation = p1;
+        getLordActor()->addSubGroup(p2);
+
     }
 //    for (int i = 1; i <= 1; i++) {
 //        if (getBehaveingFrame() == (i*8)) {

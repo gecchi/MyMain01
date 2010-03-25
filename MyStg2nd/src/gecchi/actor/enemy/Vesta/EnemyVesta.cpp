@@ -23,7 +23,6 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
     prepareSe2("bomb1");     //”š”­
     _pDispatcher_Fired = NULL;
-    //defineWorldMatrix(GgafDx9Util::mulWorldMatrix_ScRxRzRyMv);
     _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot002");
 }
 
@@ -107,13 +106,14 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-    if (_pActor_Foundation == NULL || (_pActor_Foundation != NULL && !_pActor_Foundation->isActive())) {
-        //“y‘ä‚ª‚È‚¯‚ê‚Î©•ª‚à€‚Ê
-        //inactivate();
+    if (_pActor_Foundation != NULL && _pActor_Foundation->isActive()) {
+        (*(_pActor_Foundation->_pFunc_calcWorldMatrix))(_pActor_Foundation, _matWorld);
+        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_ScRxRzRyMv);
     } else {
-
-        //(*(_pActor_Foundation->_pFunc_calcWorldMatrix))(this, _matWorld);
+        //“y‘ä‚ª‚È‚¯‚ê‚Î©•ª‚à€‚Ê
+        inactivate();
     }
+
 
 //    if (isOutOfGameSpace()) {
 //        inactivate();
@@ -129,7 +129,7 @@ void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
 //        pExplo001->setGeometry(this);
 //    }
 //
-//    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        inactivate();
 //    }
 }

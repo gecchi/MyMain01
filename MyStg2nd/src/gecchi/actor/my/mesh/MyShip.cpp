@@ -444,7 +444,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->setGeometry(pOther);
         pExplo001->activate();
     }
-    if (MyStgUtil::calcMyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
 
 

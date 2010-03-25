@@ -206,6 +206,8 @@ class FormationIris002;
 
 class EnemyVesta;
 
+class EnemyCirce;
+
 class DispatcherManager;
 class DispatcherConnection;
 
@@ -304,7 +306,7 @@ class Formation001;
 #include "gecchi/actor/enemy/Iris/FormationIris001.h"
 #include "gecchi/actor/enemy/Iris/FormationIris002.h"
 #include "gecchi/actor/enemy/Vesta/EnemyVesta.h"
-
+#include "gecchi/actor/enemy/Circe/EnemyCirce.h"
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/magic/OptionMagic.h"

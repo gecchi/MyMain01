@@ -76,7 +76,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
         pExplo001->activate();
     }
-    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         _TRACE_(getName()<<" METISっ脂肪!!!!!!!!!!!!!!!!!!!!!!!!");
         //ここに消滅エフェクト
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();

@@ -9,27 +9,28 @@ namespace MyStg2nd {
  * @author Masatoshi Tsuge
  */
 class EnemyVesta : public GgafDx9LibStg::DefaultMorphMeshActor {
-
-public:
-    /** 行動パターン番号 */
-    int _iMovePatternNo;
-    /** 状況 */
-    bool _is_open_hatch;
-    /** ハッチが開いているフレーム間隔 */
-    DWORD _frame_of_open_interval;
-    /** ハッチが閉じていているフレーム間隔 */
-    DWORD _frame_of_close_interval;
-    /** 次回ハッチが開くフレーム */
+private:
+    /** [r]次回ハッチが開くフレーム */
     DWORD _frame_of_moment_nextopen;
-    /** 次回ハッチが閉じるフレーム */
+    /** [r]次回ハッチが閉じるフレーム */
     DWORD _frame_of_moment_nextclose;
-    /** ハッチ開閉モーションに費やすフレーム数 */
+public:
+    /** [r]行動パターン番号 */
+    int _iMovePatternNo;
+    /** [r]状況 */
+    bool _is_open_hatch;
+    /** [r/w]ハッチが開いているフレーム間隔 */
+    DWORD _frame_of_open_interval;
+    /** [r/w]ハッチが閉じていているフレーム間隔 */
+    DWORD _frame_of_close_interval;
+    /** [r/w]ハッチ開＞閉 或いは、閉＞開 のモーフアニメーションフレーム数 */
     DWORD _frame_of_morph_interval;
-    /** 土台となってるアクター */
+    /** [r/w]ハッチの土台となってるアクター */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Foundation;
-    /** 発射されるアクターをメンバーに持つディスパッチャー */
+    /** [r/w]ハッチから発射されるアクターをメンバーに持つディスパッチャー */
     GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
     DispatcherConnection* _pDpcon;
+
 
     /**
      * コンストラクタ

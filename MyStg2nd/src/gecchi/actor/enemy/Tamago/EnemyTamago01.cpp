@@ -169,7 +169,7 @@ void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->setGeometry(this);
     }
 
-    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
 
         //inactivate();

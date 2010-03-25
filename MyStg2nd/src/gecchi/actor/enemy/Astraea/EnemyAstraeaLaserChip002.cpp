@@ -56,7 +56,7 @@ void EnemyAstraeaLaserChip002::onHit(GgafActor* prm_pOtherActor) {
 //    //ƒqƒbƒg
 //
 //    //‘Ì—ÍŒvZ
-//    if (MyStgUtil::calcEnemyStamina(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 //        //ƒqƒbƒg‚µ‚ÄÁ–Å
 //        inactivate();
 //    } else {
