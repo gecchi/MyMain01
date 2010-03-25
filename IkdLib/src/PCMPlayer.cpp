@@ -64,6 +64,7 @@ namespace Dix {
         memset( &waveFormat_, 0, sizeof( waveFormat_ ) );
         if (pDSBuffer_ != NULL) {
             delete pDSBuffer_;
+            pDSBuffer_ = NULL;
         }
         isReady_ = false;
         state_ = STATE_NONE;
@@ -75,7 +76,7 @@ namespace Dix {
         if ( threadHandle_ != 0 ) {
             bool end = false;
             while( !end ) {
-                DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 10 );
+                DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 100 );
                 switch( flag ) {
                 case WAIT_OBJECT_0:
                     // スレッドが終わった
@@ -89,7 +90,7 @@ namespace Dix {
                     end = true;
                     break;
                 }
-                Sleep(1);
+                //Sleep(1);
             }
         }
         isTerminate_ = false;
@@ -117,7 +118,7 @@ namespace Dix {
 
         DSBufferDesc_.dwSize = sizeof( DSBUFFERDESC );
         DSBufferDesc_.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_CTRLPOSITIONNOTIFY;
-        DSBufferDesc_.dwBufferBytes = (DWORD)(waveFormat_.nAvgBytesPerSec * playTime_g);
+        DSBufferDesc_.dwBufferBytes = waveFormat_.nAvgBytesPerSec * playTime_g;
         DSBufferDesc_.dwReserved = 0;
         DSBufferDesc_.lpwfxFormat = &waveFormat_;
         DSBufferDesc_.guid3DAlgorithm = GUID_NULL;
@@ -265,7 +266,7 @@ namespace Dix {
                 prePlayPos = curPlayPos;
             }
 
-            Sleep( 10 );
+            Sleep( 100 );
         }
     }
 
