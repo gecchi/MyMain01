@@ -242,6 +242,7 @@ public:
             _RX = _RX_local;
             _RY = _RY_local;
             _RZ = _RZ_local;
+            _is_local = true;
         }
     }
     virtual void chengeGeoFinal() {
@@ -258,6 +259,7 @@ public:
             _RX = _RX_final;
             _RY = _RY_final;
             _RZ = _RZ_final;
+			_is_local = false;
         } else {
             return;
 

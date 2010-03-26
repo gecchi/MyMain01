@@ -93,14 +93,14 @@ void GgafDx9GeometricActor::processPreJudgement() {
     if (_pActor_Foundation) {
         D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Foundation->_matWorld_RM)); //çáê¨
         D3DXMatrixMultiply(&_matWorld_RM, &_matWorld_RM, &(_pActor_Foundation->_matWorld_RM)); //çáê¨
-
         chengeGeoFinal();
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
         _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
-        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+        _fX = _matWorld._41;
+        _fY = _matWorld._42;
+        _fZ = _matWorld._43;
+
     }
 
     //ÇWï™äÚ
