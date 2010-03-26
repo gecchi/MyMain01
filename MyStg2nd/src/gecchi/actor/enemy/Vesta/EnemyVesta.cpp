@@ -34,17 +34,19 @@ void EnemyVesta::onCreateModel() {
 }
 
 void EnemyVesta::initialize() {
-    setHitAble(false);
-    _pMover->setRzMvAngVelo(2300);
-    _pMover->setRyMvAngVelo(1000);
+    setHitAble(true);
+    _pMover->setRzMvAngVelo(2000);
+    //_pMover->setRyMvAngVelo(1000);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliSphere(0, 90000);
-    _pScaler->setScale(300);
+    _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
+    _pScaler->setScale(100);
 
     _pDispatcher_Fired = _pDpcon->view();
+
+    //_pFunc_calcWorldMatrix = NULL;//ワールド変換は独自に行う
 }
 
 void EnemyVesta::onActive() {
@@ -56,6 +58,7 @@ void EnemyVesta::onActive() {
 }
 
 void EnemyVesta::processBehavior() {
+
     switch (_iMovePatternNo) {
         case VESTA_HATCH_CLOSED:
             if (getPartFrame() == _frame_of_moment_nextopen-(_frame_of_morph_interval/2)) {
@@ -88,13 +91,13 @@ void EnemyVesta::processBehavior() {
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(20/_RANK_+5) == 0) {
             if (_pDispatcher_Fired) {
-                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
-                if (pActor) {
-                    pActor->setGeometry(this);
-                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    pActor->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
-                    pActor->activate();
-                }
+//                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
+//                if (pActor) {
+//                    pActor->setGeometry(this);
+//                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+//                    pActor->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
+//                    pActor->activate();
+//                }
             }
         }
     }
@@ -103,12 +106,13 @@ void EnemyVesta::processBehavior() {
     _pScaler->behave();
     _pMorpher->behave();
     _pMover->behave();
+
 }
 
 void EnemyVesta::processJudgement() {
     if (_pActor_Foundation != NULL && _pActor_Foundation->isActive()) {
-        (*(_pActor_Foundation->_pFunc_calcWorldMatrix))(_pActor_Foundation, _matWorld);
-        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_ScRxRzRyMv);
+//        (*(_pActor_Foundation->_pFunc_calcWorldMatrix))(_pActor_Foundation, _matWorld);
+//        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_RxRzRyMv);
     } else {
         //土台がなければ自分も死ぬ
         inactivate();

@@ -21,10 +21,11 @@ void EnemyCirce::onCreateModel() {
 
 void EnemyCirce::initialize() {
     setHitAble(true);
+    _pScaler->setScale(100);
     _pMover->relateRzRyFaceAngToMvAng(true);
-    _pMover->setMvVelo(100);
+    _pMover->setMvVelo(400);
     _pCollisionChecker->makeCollision(1);
-    _pCollisionChecker->setColliBox(0, -30000, -30000, -30000, 30000, 30000, 30000);
+    _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
 }
 
 void EnemyCirce::onActive() {
@@ -35,15 +36,16 @@ void EnemyCirce::onActive() {
 void EnemyCirce::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    _pMover->execTagettingMvAngSequence(pMYSHIP,100, 0, TURN_CLOSE_TO);
+    _pMover->execTagettingMvAngSequence(pMYSHIP,200, 0, TURN_CLOSE_TO);
     _pMover->behave();
-    //_pScaler->behave();
+    _pScaler->behave();
 }
 
+
 void EnemyCirce::processJudgement() {
-    if (isOutOfGameSpace()) {
-        inactivate();
-    }
+//    if (isOutOfGameSpace()) {
+//        inactivate();
+//    }
 }
 
 void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
@@ -56,9 +58,9 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->setGeometry(this);
     }
 
-    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        inactivate();
-    }
+//    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
+//        inactivate();
+//    }
 }
 
 void EnemyCirce::onInactive() {

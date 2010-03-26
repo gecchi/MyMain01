@@ -26,11 +26,14 @@ public:
     /** [r/w]ハッチ開＞閉 或いは、閉＞開 のモーフアニメーションフレーム数 */
     DWORD _frame_of_morph_interval;
     /** [r/w]ハッチの土台となってるアクター */
-    GgafDx9Core::GgafDx9GeometricActor* _pActor_Foundation;
+
     /** [r/w]ハッチから発射されるアクターをメンバーに持つディスパッチャー */
     GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
     DispatcherConnection* _pDpcon;
 
+    angle _RX_local;
+    angle _RY_local;
+    angle _RZ_local;
 
     /**
      * コンストラクタ
@@ -57,7 +60,6 @@ public:
      * たまごの振る舞い .
      */
     void processBehavior() override;
-
     /**
      * たまごの振る舞い後の判定処理 .
      */

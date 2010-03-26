@@ -43,7 +43,7 @@ void StraightLaserChip::processBehavior() {
     _RY = (*_pSource_RY);
     _RZ = (*_pSource_RZ);
     _X = (*_pSource_X) + ((*_pSource_vX) * _veloMv * (int)getPartFrame());
-	//_TRACE_("(*_pSource_X)="<<(*_pSource_X)<<" (*_pSource_vX)="<<(*_pSource_vX)<<" _veloMv="<<_veloMv<<" getPartFrame()="<<getPartFrame()<<" _X="<<_X);
+    //_TRACE_("(*_pSource_X)="<<(*_pSource_X)<<" (*_pSource_vX)="<<(*_pSource_vX)<<" _veloMv="<<_veloMv<<" getPartFrame()="<<getPartFrame()<<" _X="<<_X);
     _Y = (*_pSource_Y) + ((*_pSource_vY) * _veloMv * (int)getPartFrame());
     _Z = (*_pSource_Z) + ((*_pSource_vZ) * _veloMv * (int)getPartFrame());
 
@@ -82,7 +82,8 @@ void StraightLaserChip::processBehavior() {
 
 void StraightLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    GgafDx9Util::setWorldMatrix_ScRxRzRyMv(this, _matWorld);
+    //ƒRƒƒ“ƒgOK?
+    //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(this, _matWorld);
 }
 
 

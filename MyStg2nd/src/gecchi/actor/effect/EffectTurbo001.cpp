@@ -9,7 +9,7 @@ EffectTurbo001::EffectTurbo001(const char* prm_name) : DefaultSpriteActor(prm_na
     _class_name = "EffectTurbo001";
     inactivateImmediately();
     chengeEffectTechnique("DestBlendOne"); //加算合成
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_ScRzBxyzMv); //ビルボードRz回転
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ビルボードRz回転
     setHitAble(false); //当たり判定無し
 }
 
