@@ -14,7 +14,7 @@ Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
 void Shot001::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -30000, -30000, 30000, 30000);
-    _pScaler->setScale(100);
+    _pScaler->setScale(1000);
     _pScaler->forceScaleRange(300, 2000);
 }
 

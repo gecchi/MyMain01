@@ -29,9 +29,9 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
 
 
 
-//    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
+    orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
     orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
-//    orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
+    orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
     orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
 }
 
@@ -46,28 +46,29 @@ void TamagoScene::initialize() {
 void TamagoScene::processBehavior() {
     if (getPartFrame() == 60) {
 
-//        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
-//        p1->chengeGeoLocal();
-//        p1->setGeometry(-100000,10000,-100000);
-//        p1->chengeGeoFinal();
+        EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
+        p1->chengeGeoLocal();
+        p1->setGeometry(100000,10000,100000);
+        p1->chengeGeoFinal();
         EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);
         p2->chengeGeoLocal();
         p2->setGeometry(100000,100000,100000);
         p2->chengeGeoFinal();
-//        EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
-//        p3->chengeGeoLocal();
-//        p3->setGeometry(-100000,10000,+100000);
-//        p3->chengeGeoFinal();
-
+        EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
+        p3->chengeGeoLocal();
+        p3->setGeometry(100000,10000,100000);
+        p3->chengeGeoFinal();
 
         EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
         p9->setGeometry(80000,50000,50000);
-//        p1->_pActor_Foundation = p9;
-        p2->_pActor_Foundation = p9;
-//        p3->_pActor_Foundation = p9;
-//        p9->addSubGroup(p1);
-        p9->addSubGroup(p2);
-//        p9->addSubGroup(p3);
+
+
+        p1->_pActor_Foundation = p2;
+        p2->addSubGroup(p1);
+        p2->_pActor_Foundation = p3;
+        p3->addSubGroup(p2);
+        p3->_pActor_Foundation = p9;
+        p9->addSubGroup(p3);
         getLordActor()->addSubGroup(p9);
 
     }

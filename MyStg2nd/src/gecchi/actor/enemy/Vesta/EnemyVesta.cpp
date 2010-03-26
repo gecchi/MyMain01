@@ -10,7 +10,7 @@ using namespace MyStg2nd;
 #define VESTA_HATCH_OPENED      1
 
 EnemyVesta::EnemyVesta(const char* prm_name)
-                       : DefaultMorphMeshActor(prm_name, "1/donatu") {
+                       : DefaultMorphMeshActor(prm_name, "1/hachi") {
     _class_name = "EnemyVesta";
     MyStgUtil::resetEnemyVestaStatus(_pStatus);
     _pActor_Foundation = NULL;
@@ -23,7 +23,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_morph_interval   = 60;
     prepareSe2("bomb1");     //”š”­
     _pDispatcher_Fired = NULL;
-    _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot002");
+    _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
 }
 
 void EnemyVesta::onCreateModel() {
@@ -42,7 +42,7 @@ void EnemyVesta::initialize() {
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
-    _pScaler->setScale(100);
+    _pScaler->setScale(1000);
 
     _pDispatcher_Fired = _pDpcon->view();
 
