@@ -35,8 +35,8 @@ void EnemyVesta::onCreateModel() {
 
 void EnemyVesta::initialize() {
     setHitAble(true);
-    _pMover->setRzMvAngVelo(2000);
-    //_pMover->setRyMvAngVelo(1000);
+    _pMover->setRzMvAngVelo(1000);
+    _pMover->setRyMvAngVelo(500);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
@@ -91,13 +91,20 @@ void EnemyVesta::processBehavior() {
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
         if (openningFrame % (int)(20/_RANK_+5) == 0) {
             if (_pDispatcher_Fired) {
-//                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
-//                if (pActor) {
-//                    pActor->setGeometry(this);
-//                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-//                    pActor->_pMover->setRzRyMvAng(_pMover->_angRzMv, _pMover->_angRyMv);
-//                    pActor->activate();
-//                }
+                GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
+                if (pActor) {
+                    pActor->setGeometry(this);
+                    pActor->_pMover->relateRzRyFaceAngToMvAng(true);
+               		float vX, vY, vZ;
+					angle rz, ry;
+					vX = _matWorld_RM._11;//*_pMover->_vX + _matWorld_RM._21*_pMover->_vY + _matWorld_RM._31*_pMover->_vZ;
+					vY = _matWorld_RM._12;//*_pMover->_vX + _matWorld_RM._22*_pMover->_vY + _matWorld_RM._32*_pMover->_vZ;
+					vZ = _matWorld_RM._13;//*_pMover->_vX + _matWorld_RM._23*_pMover->_vY + _matWorld_RM._33*_pMover->_vZ;
+					GgafDx9Util::getRzRyAng(vX, vY, vZ,
+                                            rz, ry);
+					pActor->_pMover->setRzRyMvAng(rz, ry);
+                    pActor->activate();
+                }
             }
         }
     }
