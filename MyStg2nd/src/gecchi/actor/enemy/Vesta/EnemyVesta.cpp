@@ -105,7 +105,10 @@ void EnemyVesta::processBehavior() {
 
     _pScaler->behave();
     _pMorpher->behave();
+
+    chengeGeoLocal();
     _pMover->behave();
+    chengeGeoFinal();
 
 }
 
