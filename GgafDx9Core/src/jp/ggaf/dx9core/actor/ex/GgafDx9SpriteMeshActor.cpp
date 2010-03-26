@@ -27,7 +27,7 @@ void GgafDx9SpriteMeshActor::processDraw() {
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatView, &pCAM->_vMatrixView );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matView) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
-    (*_pFunc_calcWorldMatrix)(this, _matWorld);
+    //(*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
     checkDxException(hr, D3D_OK, "GgafDx9MeshActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     float u = 0;

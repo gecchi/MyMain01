@@ -61,7 +61,7 @@ void GgafDx9SpriteMeshSetActor::processDraw() {
     float u = 0;
     float v = 0;
     for (int i = 0; i < _draw_set_num; i++) {
-        (*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
+        //(*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ahMaterialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );

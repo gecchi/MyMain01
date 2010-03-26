@@ -18,7 +18,7 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
     _class_name = "GgafDx9MeshSetActor";
     _pMeshSetModel = (GgafDx9MeshSetModel*)_pGgafDx9Model;
     _pMeshSetEffect = (GgafDx9MeshSetEffect*)_pGgafDx9Effect;
-    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_ScRxRzRyMv;
+    _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
 }
 
 
@@ -68,7 +68,7 @@ void GgafDx9MeshSetActor::processDraw() {
     GgafDx9DrawableActor *pDrawActor;
     pDrawActor = this;
     for (int i = 0; i < _draw_set_num; i++) {
-        (*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
+        //(*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
         //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
         checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");

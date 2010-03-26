@@ -64,9 +64,19 @@ public:
     FLOAT _fDist_VpPlnBack;
     /** [r/w]WORLD変換行列計算関数 */
     void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
+
+    /** [r/w]自身の現在のWorld変換行列(回転と移動のみ) */
+    D3DXMATRIX _matWorld_RM;
     /** [r/w]自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;
-
+    /** 土台となるアクター */
+    GgafDx9Core::GgafDx9GeometricActor* _pActor_Foundation;
+    int _X_local;
+    int _Y_local;
+    int _Z_local;
+    int _X_final;
+    int _Y_final;
+    int _Z_final;
 
     /** [r/w]変換済みの場合のX座標(-1.0 <= _x < 1.0) */
     float _x;
@@ -134,14 +144,16 @@ public:
      *     _fDist_VpPlnRight <BR>
      *     _fDist_VpPlnFront <BR>
      *     _fDist_VpPlnBack <BR>
-     * ② processJudgement() を呼び出すのため準備処理として、 <BR>
+     * ② ワールド変換行列を作成し_matWorldに保持
+     * ③ processJudgement() を呼び出すのため準備処理として、 <BR>
      *    アクターの線形８分木配列への登録を行う。 <BR>
+     *
      * <B>[注意]</B> <BR>
      * 本メソッドはオーバーライド可能とするが、フレームワークの描画や判定に関わる
      * 重要な事前処理のため、オーバーライドは推奨できない。<BR>
      * どうしてもオーバーライドが必要な場合は、オーバーライド先で、 <BR>
      * GgafDx9GeometricActor::processPreJudgement() を呼び出すか、 <BR>
-     * 同等の処理を行うようにすべきと思われる。 <BR>
+     * 同等の処理を行うようにすべきである。 <BR>
      */
     virtual void processPreJudgement() override;
 
