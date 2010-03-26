@@ -20,17 +20,42 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _offscreenkind = -1;
     _pFunc_calcWorldMatrix = NULL;
     _pActor_Foundation = NULL;
+
+
+    _X_local  = 0;
+    _Y_local  = 0;
+    _Z_local  = 0;
+    _RX_local = 0;
+    _RY_local = 0;
+    _RZ_local = 0;
+    _X_final  = 0;
+    _Y_final  = 0;
+    _Z_final  = 0;
+    _RX_final = 0;
+    _RY_final = 0;
+    _RZ_final = 0;
+
+
+    _X_offset  = 0;
+    _Y_offset  = 0;
+    _Z_offset  = 0;
+    _RX_offset = 0;
+    _RY_offset = 0;
+    _RZ_offset = 0;
+    _is_local = false;
 }
 
 
 void GgafDx9GeometricActor::processPreJudgement() {
-
-    if (_isTransformed == false) {
-        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    if (_pActor_Foundation) {
+        chengeGeoLocal();
     }
+
+
+    //土台あり
+    _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+    _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+    _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcWorldMatrix) {
         (*_pFunc_calcWorldMatrix)(this, _matWorld_RM);
@@ -63,31 +88,63 @@ void GgafDx9GeometricActor::processPreJudgement() {
         } else {
            _matWorld = _matWorld_RM;
         }
-        if (_pActor_Foundation) {
-            D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Foundation->_matWorld_RM)); //合成
-            D3DXMatrixMultiply(&_matWorld_RM, &_matWorld_RM, &(_pActor_Foundation->_matWorld_RM)); //合成
+    }
 
-            _X_local = _X;
-            _Y_local = _Y;
-            _Z_local = _Z;
-//            _X = _matWorld_RM._11*_X_local + _matWorld_RM._21*_Y_local + _matWorld_RM._31*_Z_local;
-//            _Y = _matWorld_RM._12*_X_local + _matWorld_RM._22*_Y_local + _matWorld_RM._32*_Z_local;
-//            _Z = _matWorld_RM._13*_X_local + _matWorld_RM._23*_Y_local + _matWorld_RM._33*_Z_local;
-            _X = _matWorld._41*PX_UNIT*LEN_UNIT;
-            _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
-            _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
+    if (_pActor_Foundation) {
+        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Foundation->_matWorld_RM)); //合成
+        D3DXMatrixMultiply(&_matWorld_RM, &_matWorld_RM, &(_pActor_Foundation->_matWorld_RM)); //合成
 
-            _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-            _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-            _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-            _X_final = _X;
-            _Y_final = _Y;
-            _Z_final = _Z;
+        chengeGeoFinal();
+        _X = _matWorld._41*PX_UNIT*LEN_UNIT;
+        _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
+        _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
+        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    }
 
-        } else {
+    //８分岐
+    if (_pChecker) {
+        _pChecker->updateHitArea();
+    }
 
+    //メンバー更新
+    if (_isTransformed == false) {
+        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
+//        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+//        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+//        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+        //視錐台
+        _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnTop.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnTop.d;
 
-        }
+        _fDist_VpPlnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnBottom.d;
+
+        _fDist_VpPlnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnLeft.d;
+
+        _fDist_VpPlnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnRight.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnRight.d;
+
+        _fDist_VpPlnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnFront.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnFront.d;
+
+        _fDist_VpPlnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
+                             GgafDx9Universe::_pCamera->_plnBack.b*_fY +
+                             GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
+                             GgafDx9Universe::_pCamera->_plnBack.d;
+        _offscreenkind = -1;
     }
 
 
@@ -97,6 +154,83 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
 
+
+
+
+//
+//
+//    if (_isTransformed == false) {
+//        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
+//        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+//        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+//        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+//    }
+//    //World変換行列（_matWorld）を更新
+//    if (_pFunc_calcWorldMatrix) {
+//        (*_pFunc_calcWorldMatrix)(this, _matWorld_RM);
+//        //スケールを考慮
+//        if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
+//           static float fRateScale = 1.0f * LEN_UNIT;
+//           float Sx = _SX / fRateScale;
+//           float Sy = _SY / fRateScale;
+//           float Sz = _SZ / fRateScale;
+//
+//           _matWorld._11 = Sx * _matWorld_RM._11;
+//           _matWorld._12 = Sx * _matWorld_RM._12;
+//           _matWorld._13 = Sx * _matWorld_RM._13;
+//           _matWorld._14 = _matWorld_RM._14;
+//
+//           _matWorld._21 = Sy * _matWorld_RM._21;
+//           _matWorld._22 = Sy * _matWorld_RM._22;
+//           _matWorld._23 = Sy * _matWorld_RM._23;
+//           _matWorld._24 = _matWorld_RM._24;
+//
+//           _matWorld._31 = Sz * _matWorld_RM._31;
+//           _matWorld._32 = Sz * _matWorld_RM._32;
+//           _matWorld._33 = Sz * _matWorld_RM._33;
+//           _matWorld._34 = _matWorld_RM._34;
+//
+//           _matWorld._41 = _matWorld_RM._41;
+//           _matWorld._42 = _matWorld_RM._42;
+//           _matWorld._43 = _matWorld_RM._43;
+//           _matWorld._44 = _matWorld_RM._44;
+//        } else {
+//           _matWorld = _matWorld_RM;
+//        }
+//        if (_pActor_Foundation) {
+//            D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Foundation->_matWorld_RM)); //合成
+//            D3DXMatrixMultiply(&_matWorld_RM, &_matWorld_RM, &(_pActor_Foundation->_matWorld_RM)); //合成
+//
+//            _X_local = _X;
+//            _Y_local = _Y;
+//            _Z_local = _Z;
+////            _X = _matWorld_RM._11*_X_local + _matWorld_RM._21*_Y_local + _matWorld_RM._31*_Z_local;
+////            _Y = _matWorld_RM._12*_X_local + _matWorld_RM._22*_Y_local + _matWorld_RM._32*_Z_local;
+////            _Z = _matWorld_RM._13*_X_local + _matWorld_RM._23*_Y_local + _matWorld_RM._33*_Z_local;
+//            _X = _matWorld._41*PX_UNIT*LEN_UNIT;
+//            _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
+//            _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
+//
+//            _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
+//            _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
+//            _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+//            _X_final = _X;
+//            _Y_final = _Y;
+//            _Z_final = _Z;
+//
+//        } else {
+//
+//
+//        }
+//    }
+//
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -152,73 +286,31 @@ void GgafDx9GeometricActor::processPreJudgement() {
 //        }
 //    }
 
-    if (_pFunc_calcWorldMatrix) {
-        if (_pActor_Foundation) {
-//            _X_local = _X;
-//            _Y_local = _Y;
-//            _Z_local = _Z;
-//            _X = _matWorld_RM._11*_X_local + _matWorld_RM._21*_Y_local + _matWorld_RM._31*_Z_local;
-//            _Y = _matWorld_RM._12*_X_local + _matWorld_RM._22*_Y_local + _matWorld_RM._32*_Z_local;
-//            _Z = _matWorld_RM._13*_X_local + _matWorld_RM._23*_Y_local + _matWorld_RM._33*_Z_local;
-//            _X_final = _X;
-//            _Y_final = _Y;
-//            _Z_final = _Z;
-        }
-    }
-
-
-    //８分木に登録
-    if (_pChecker) {
-        _pChecker->updateHitArea();
-    }
-
-
-    //メンバー更新
-    if (_isTransformed == false) {
-        //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
-        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
-        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
-        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-        //視錐台
-        _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnTop.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnTop.d;
-
-        _fDist_VpPlnBottom = GgafDx9Universe::_pCamera->_plnBottom.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnBottom.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnBottom.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnBottom.d;
-
-        _fDist_VpPlnLeft   = GgafDx9Universe::_pCamera->_plnLeft.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnLeft.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnLeft.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnLeft.d;
-
-        _fDist_VpPlnRight  = GgafDx9Universe::_pCamera->_plnRight.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnRight.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnRight.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnRight.d;
-
-        _fDist_VpPlnFront  = GgafDx9Universe::_pCamera->_plnFront.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnFront.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnFront.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnFront.d;
-
-        _fDist_VpPlnBack   = GgafDx9Universe::_pCamera->_plnBack.a*_fX +
-                             GgafDx9Universe::_pCamera->_plnBack.b*_fY +
-                             GgafDx9Universe::_pCamera->_plnBack.c*_fZ +
-                             GgafDx9Universe::_pCamera->_plnBack.d;
-        _offscreenkind = -1;
-    }
-
-    if (_pFunc_calcWorldMatrix) {
-        if (_pActor_Foundation) {
-            _X = _X_local;
-            _Y = _Y_local;
-            _Z = _Z_local;
-        }
-    }
+//    if (_pFunc_calcWorldMatrix) {
+//        if (_pActor_Foundation) {
+////            _X_local = _X;
+////            _Y_local = _Y;
+////            _Z_local = _Z;
+////            _X = _matWorld_RM._11*_X_local + _matWorld_RM._21*_Y_local + _matWorld_RM._31*_Z_local;
+////            _Y = _matWorld_RM._12*_X_local + _matWorld_RM._22*_Y_local + _matWorld_RM._32*_Z_local;
+////            _Z = _matWorld_RM._13*_X_local + _matWorld_RM._23*_Y_local + _matWorld_RM._33*_Z_local;
+////            _X_final = _X;
+////            _Y_final = _Y;
+////            _Z_final = _Z;
+//        }
+//    }
+//
+//
+//    //８分木に登録
+//
+//
+//    if (_pFunc_calcWorldMatrix) {
+//        if (_pActor_Foundation) {
+//            _X = _X_local;
+//            _Y = _Y_local;
+//            _Z = _Z_local;
+//        }
+//    }
 }
 
 

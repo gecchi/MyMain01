@@ -74,9 +74,25 @@ public:
     int _X_local;
     int _Y_local;
     int _Z_local;
+    angle _RX_local;
+    angle _RY_local;
+    angle _RZ_local;
     int _X_final;
     int _Y_final;
     int _Z_final;
+    angle _RX_final;
+    angle _RY_final;
+    angle _RZ_final;
+
+    int _X_offset;
+    int _Y_offset;
+    int _Z_offset;
+    angle _RX_offset;
+    angle _RY_offset;
+    angle _RZ_offset;
+
+
+    bool _is_local;
 
     /** [r/w]変換済みの場合のX座標(-1.0 <= _x < 1.0) */
     float _x;
@@ -209,6 +225,48 @@ public:
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
     }
+
+    virtual void chengeGeoLocal() {
+        if (_is_local) {
+            return;
+        } else {
+            _X_final  = _X;
+            _Y_final  = _Y;
+            _Z_final  = _Z;
+            _RX_final = _RX;
+            _RY_final = _RY;
+            _RZ_final = _RZ;
+            _X  = _X_local;
+            _Y  = _Y_local;
+            _Z  = _Z_local;
+            _RX = _RX_local;
+            _RY = _RY_local;
+            _RZ = _RZ_local;
+        }
+    }
+    virtual void chengeGeoFinal() {
+        if (_is_local) {
+            _X_local = _X;
+            _Y_local = _Y;
+            _Z_local = _Z;
+            _RX_local = _RX;
+            _RY_local = _RY;
+            _RZ_local = _RZ;
+            _X  = _X_final;
+            _Y  = _Y_final;
+            _Z  = _Z_final;
+            _RX = _RX_final;
+            _RY = _RY_final;
+            _RZ = _RZ_final;
+        } else {
+            return;
+
+        }
+    }
+
+
+
+
 
     /**
      * ワールド変換行列を計算する関数を定義 .

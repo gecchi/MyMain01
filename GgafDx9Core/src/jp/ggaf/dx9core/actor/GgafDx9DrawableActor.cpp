@@ -218,24 +218,7 @@ void GgafDx9DrawableActor::processAfterDraw() {
     //“–‚½‚è”»’è—Ìˆæ•\Ž¦
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
-
-        if (_pFunc_calcWorldMatrix) {
-            if (_pActor_Foundation) {
-                _X = _X_final;
-                _Y = _Y_final;
-                _Z = _Z_final;
-            }
-        }
-
         drawHitArea();
-
-        if (_pFunc_calcWorldMatrix) {
-            if (_pActor_Foundation) {
-                _X = _X_local;
-                _Y = _Y_local;
-                _Z = _Z_local;
-            }
-        }
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, GgafDx9God::_d3dfillmode);
     }
 }
