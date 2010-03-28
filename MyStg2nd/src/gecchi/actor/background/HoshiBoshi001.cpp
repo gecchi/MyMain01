@@ -63,6 +63,8 @@ void HoshiBoshi001::processPreJudgement() {
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
+    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ÉèÅ[ÉãÉhïœä∑çsóÒ
+
 }
 
 void HoshiBoshi001::processJudgement() {
