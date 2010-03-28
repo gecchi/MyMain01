@@ -74,16 +74,10 @@ void StraightLaserChip::processBehavior() {
 
 }
 
-//void StraightLaserChip::processDraw() {
-//    _TRACE_("> StraightLaserChip,(RZ,RY)=("<<_RZ<<","<<_RY<<")");
-//    LaserChip::processDraw();
-//    _TRACE_("< StraightLaserChip,(RZ,RY)=("<<_RZ<<","<<_RY<<")");
-//}
 
 void StraightLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    //ƒRƒƒ“ƒgOK?
-    //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(this, _matWorld);
+
 }
 
 

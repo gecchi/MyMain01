@@ -161,7 +161,8 @@ void RefractionLaserChip::processBehavior() {
 
 void RefractionLaserChip::processJudgement() {
     LaserChip::processJudgement();
-    GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld);
+    //TODO:ƒRƒƒ“ƒg–¢ŒŸØ@‚½‚Ô‚ñ–â‘è‚È‚µ
+    //GgafDx9Util::setWorldMatrix_RxRzRyScMv(this, _matWorld);
 }
 
 RefractionLaserChip::~RefractionLaserChip() {
