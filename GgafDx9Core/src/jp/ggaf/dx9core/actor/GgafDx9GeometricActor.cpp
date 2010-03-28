@@ -315,6 +315,48 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
 
+GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
+                                                  GgafDx9GeometricActor* prm_pGeoActor,
+                                                  int prm_X_init_local,
+                                                  int prm_Y_init_local,
+                                                  int prm_Z_init_local,
+                                                  int prm_RX_init_local,
+                                                  int prm_RZ_init_local,
+                                                  int prm_RY_init_local) {
+    GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
+    prm_pGeoActor->_pActor_Foundation = this;
+    prm_pGeoActor->chengeGeoLocal();
+    prm_pGeoActor->_X = prm_X_init_local;
+    prm_pGeoActor->_Y = prm_Y_init_local;
+    prm_pGeoActor->_Z = prm_Z_init_local;
+    prm_pGeoActor->_pMover->_angFace[AXIS_X]  = prm_RX_init_local;
+    prm_pGeoActor->_pMover->_angFace[AXIS_Z]  = prm_RZ_init_local;
+    prm_pGeoActor->_pMover->_angFace[AXIS_Y]  = prm_RY_init_local;
+    prm_pGeoActor->_pMover->_angRzMv = prm_RZ_init_local;
+    prm_pGeoActor->_pMover->_angRyMv = prm_RY_init_local;
+    prm_pGeoActor->_RX = prm_RX_init_local;
+    prm_pGeoActor->_RZ = prm_RZ_init_local;
+    prm_pGeoActor->_RY = prm_RY_init_local;
+    prm_pGeoActor->chengeGeoFinal();
+    return pGroupActor;
+}
+GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+                                                  int prm_X_init_local,
+                                                  int prm_Y_init_local,
+                                                  int prm_Z_init_local,
+                                                  int prm_RX_init_local,
+                                                  int prm_RZ_init_local,
+                                                  int prm_RY_init_local) {
+    return addSubBone(prm_pGeoActor->_pStatus->get(STAT_DEFAULT_ACTOR_KIND),
+                      prm_pGeoActor,
+                      prm_X_init_local,
+                      prm_Y_init_local,
+                      prm_Z_init_local,
+                      prm_RX_init_local,
+                      prm_RZ_init_local,
+                      prm_RY_init_local);
+}
+
 bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
     if (_pChecker == NULL || _actor_class != MAINACTOR) {
         return false;

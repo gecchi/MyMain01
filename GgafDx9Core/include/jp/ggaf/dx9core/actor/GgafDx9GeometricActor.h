@@ -226,6 +226,23 @@ public:
         _Z = prm_pActor->_Z;
     }
 
+    virtual GgafCore::GgafGroupActor* addSubBone(actorkind prm_kind,
+                                                 GgafDx9GeometricActor* prm_pGeoActor,
+                                                 int prm_X_init_local,
+                                                 int prm_Y_init_local,
+                                                 int prm_Z_init_local,
+                                                 int prm_RX_init_local,
+                                                 int prm_RZ_init_local,
+                                                 int prm_RY_init_local);
+
+    virtual GgafCore::GgafGroupActor* addSubBone(GgafDx9GeometricActor* prm_pGeoActor,
+                                                 int prm_X_init_local,
+                                                 int prm_Y_init_local,
+                                                 int prm_Z_init_local,
+                                                 int prm_RX_init_local,
+                                                 int prm_RZ_init_local,
+                                                 int prm_RY_init_local);
+
     virtual void chengeGeoLocal() {
         if (_is_local) {
             return;
@@ -259,7 +276,7 @@ public:
             _RX = _RX_final;
             _RY = _RY_final;
             _RZ = _RZ_final;
-			_is_local = false;
+            _is_local = false;
         } else {
             return;
 
