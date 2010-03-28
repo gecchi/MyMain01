@@ -35,8 +35,8 @@ void EnemyVesta::onCreateModel() {
 
 void EnemyVesta::initialize() {
     setHitAble(true);
-    _pMover->setRzMvAngVelo(1000);
-    _pMover->setRyMvAngVelo(500);
+    //_pMover->setRzMvAngVelo(1000);
+    //_pMover->setRyMvAngVelo(500);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMorpher->forceWeightRange(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f, 1.0f);
     _pMorpher->setWeight(MORPHTARGET_VESTA_HATCH_OPENED, 0.0f);
