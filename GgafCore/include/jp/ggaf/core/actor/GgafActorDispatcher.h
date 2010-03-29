@@ -68,7 +68,7 @@ public:
         static GgafMainActor* pActor;
         pActor = getSubFirst();
 
-        while(true) {
+        for (int i = 0; i <= 100000; i++) {
             if (pActor->_is_active_flg == false &&  pActor->_is_active_flg_in_next_frame == false &&  pActor->_on_change_to_inactive_flg == false) {
                 //pActor->activate(); //activateは呼び元で明示的に行うようにした
                 pActor->moveLast(); //お尻に回す
@@ -82,6 +82,11 @@ public:
                     continue;
                 }
             }
+#ifdef MY_DEBUG
+            if (i == 100000) {
+                throwGgafCriticalException("GgafActorDispatcher::employ() 末尾フラグが見つかりません。循環ループしている可能性があります。");
+            }
+#endif
         }
         return pActor;
     }

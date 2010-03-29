@@ -174,8 +174,11 @@ GgafGod::~GgafGod() {
         //工場を止める
         Sleep(1);
         GgafFactory::_is_working_flg = false;
-        while (GgafFactory::_was_finished_flg == false) {
-            Sleep(1); //工場が落ち着くまで待つ
+        for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
+            Sleep(60); //工場が落ち着くまで待つ
+            if (i > 2000) {
+                _TRACE_("GgafGod::~GgafGod() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+            }
         }
         //排他の解除
         CloseHandle(_handleFactory01);
