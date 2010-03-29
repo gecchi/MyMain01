@@ -55,9 +55,9 @@ HRESULT GgafDx9God::init() {
         throwGgafCriticalException("Direct3DCreate9 に失敗しました");
         return E_FAIL; //失敗
     }
-//    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-//    GgafDx9God::_pID3D9->AddRef();
-//    GgafDx9God::_pID3D9->AddRef();
+    //    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
+    //    GgafDx9God::_pID3D9->AddRef();
+    //    GgafDx9God::_pID3D9->AddRef();
 
     //デスプレイモードの取得
     D3DDISPLAYMODE structD3DDisplayMode; //結果が格納される構造体
@@ -151,7 +151,9 @@ HRESULT GgafDx9God::init() {
             for (int i = 0; i < cc; i++) {
                 GgafDx9God::_pID3D9->EnumAdapterModes(D3DADAPTER_DEFAULT,
                                                       _structD3dPresent_Parameters.BackBufferFormat, i, &adp);
-                if (adp.Format == _structD3dPresent_Parameters.BackBufferFormat && adp.Width == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) && adp.Height == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)) {
+                if (adp.Format == _structD3dPresent_Parameters.BackBufferFormat && adp.Width
+                        == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH) && adp.Height
+                        == (UINT)GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)) {
                     //OK
                     break;
                 }
@@ -167,8 +169,7 @@ HRESULT GgafDx9God::init() {
         }
     }
 
-
-// NVIDIA PerfHUD 用 begin --------------------------------------------->
+    // NVIDIA PerfHUD 用 begin --------------------------------------------->
 
     //default
     UINT AdapterToUse = D3DADAPTER_DEFAULT;
@@ -194,8 +195,7 @@ HRESULT GgafDx9God::init() {
 #endif
 
 #endif
-// <------------------------------------------------ NVIDIA PerfHUD 用 end
-
+    // <------------------------------------------------ NVIDIA PerfHUD 用 end
 
 
     //デバイス作成を試み GgafDx9God::_pID3DDevice9 へ設定する。
@@ -229,23 +229,23 @@ HRESULT GgafDx9God::init() {
     } else {
         _TRACE_("GgafDx9God::init デバイスは HAL(pure vp) で初期化できました。");
     }
-//    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
-//    GgafDx9God::_pID3DDevice9->AddRef();
-//    GgafDx9God::_pID3DDevice9->AddRef();
+    //    //参照カウンタを余分増やす。理由はデストラクタのデバイス解放処理参照。
+    //    GgafDx9God::_pID3DDevice9->AddRef();
+    //    GgafDx9God::_pID3DDevice9->AddRef();
 
     //ピクセルシェーダー、頂点シェーダーバージョンチェック
     D3DCAPS9 caps;
-    GgafDx9God::_pID3D9->GetDeviceCaps( D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
-                                                            //      D3DADAPTER_DEFAULT は常に
-                                                            //      プライマリ ディスプレイ アダプタ
-                                        D3DDEVTYPE_HAL,     // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
-                                        &caps );            // [out] デバイスの能力が格納される
+    GgafDx9God::_pID3D9->GetDeviceCaps(D3DADAPTER_DEFAULT, // [in] ディスプレイ アダプタを示す序数。
+                                       //      D3DADAPTER_DEFAULT は常に
+                                       //      プライマリ ディスプレイ アダプタ
+                                       D3DDEVTYPE_HAL, // [in] デバイスの種類。 D3DDEVTYPE列挙型のメンバ
+                                       &caps); // [out] デバイスの能力が格納される
 
     DWORD vs_v = caps.VertexShaderVersion;
     DWORD ps_v = caps.PixelShaderVersion;
     _TRACE_("Hardware Vertex Shader Version = "<<D3DSHADER_VERSION_MAJOR(vs_v)<<"_"<<D3DSHADER_VERSION_MINOR(vs_v));
     _TRACE_("Hardware Pixel Shader Version  = "<<D3DSHADER_VERSION_MAJOR(ps_v)<<"_"<<D3DSHADER_VERSION_MINOR(ps_v));
-    if( vs_v < D3DVS_VERSION(2, 0) || ps_v < D3DPS_VERSION(2, 0)) {
+    if (vs_v < D3DVS_VERSION(2, 0) || ps_v < D3DPS_VERSION(2, 0)) {
         _TRACE_("ビデオカードハードの頂点シェーダーとピンクセルシェーダーは、共にバージョン 2_0 以上でなければいけません。");
         _TRACE_("ご使用のビデオカードでは、正しく動作しない恐れがあります。");
     }
@@ -276,7 +276,7 @@ HRESULT GgafDx9God::initDx9Device() {
 
     //ライト構造体は、シェーダーのパラメータになる時があるため必要。
     D3DXVECTOR3 vecDirection(1.0f, -1.0f, 1.0f);
-    D3DXVec3Normalize( &vecDirection, &vecDirection);
+    D3DXVec3Normalize(&vecDirection, &vecDirection);
     ZeroMemory(&_d3dlight9_default, sizeof(D3DLIGHT9));
     GgafDx9God::_d3dlight9_default.Direction = vecDirection;
     GgafDx9God::_d3dlight9_default.Type = D3DLIGHT_DIRECTIONAL;
@@ -290,21 +290,20 @@ HRESULT GgafDx9God::initDx9Device() {
     GgafDx9God::_d3dlight9_default.Ambient.g = 0.3f;
     GgafDx9God::_d3dlight9_default.Ambient.b = 0.3f;
 
-
     //GgafDx9God::_d3dlight9_default.Range = 1000.0f;
 
 
     //ライトをセット
-//    GgafDx9God::_pID3DDevice9->SetLight(0, &GgafDx9God::_d3dlight9_default);
+    //    GgafDx9God::_pID3DDevice9->SetLight(0, &GgafDx9God::_d3dlight9_default);
     //ライトスイッチON
-//    GgafDx9God::_pID3DDevice9->LightEnable(0, TRUE);
+    //    GgafDx9God::_pID3DDevice9->LightEnable(0, TRUE);
     //GgafDx9God::_pID3DDevice9->LightEnable(0, FALSE);
     //レンダ時にライトの影響（陰影）を有効
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, TRUE);
     //レンダ時にライトの影響（陰影）を無効 (ピクセルシェーダーで行なうため）
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_LIGHTING, FALSE);
     //レンダ時、世界に共通のアンビエントライトを有効にしたように描く
-//   GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
+    //   GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENT, _dwAmbientBrightness_default);
 
     // Zバッファを有効に
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
@@ -318,11 +317,11 @@ HRESULT GgafDx9God::initDx9Device() {
     //D3DRENDERSTATE_ZFUNC
 
     //ステンシルテストの方法
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS);    //常にテストをパス
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFUNC, D3DCMP_ALWAYS); //常にテストをパス
     //画に失敗した時にステンシルの値をどう変化させるか
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILFAIL, D3DSTENCILOP_KEEP); //変化なし
     //Zテストで失敗した場合のステンシル値の変化
-    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP);  //変化なし
+    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_STENCILZFAIL, D3DSTENCILOP_KEEP); //変化なし
 
 
     //左（反時計回り）回りにカリング ∵左手座標系
@@ -339,37 +338,35 @@ HRESULT GgafDx9God::initDx9Device() {
     //ピクセル単位のアルファテストを有効
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHATESTENABLE, TRUE);
 
-//α設定はシェーダーに書く事にしたのでコメント
+    //α設定はシェーダーに書く事にしたのでコメント
     // アルファブレンドＯＮ
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ALPHABLENDENABLE, TRUE);
     //2段階目、半透明テクスチャを貼り付けたポリゴンとバックバッファ（レンダーターゲット）との合成
     //色の算出方法の設定
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_BLENDOPALPHA, D3DBLENDOP_ADD); //D3DBLENDOP_ADD=転送元に転送先が加算
     //合成係数
-//    //上に書く画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
-//    //下地の画像の合成法(シェーダーに影響)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
-
-
+    //    //上に書く画像の合成法(シェーダーに影響)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SRCBLEND, D3DBLEND_SRCALPHA); //SRC,D3DBLEND_SRCALPHA=普通に描く。ポリゴンのアルファ値の濃さで描く。アルファ値の値が高ければ高いほど、濃く描く。
+    //    //下地の画像の合成法(シェーダーに影響)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DESTBLEND, D3DBLEND_INVSRCALPHA); //DIST,D3DBLEND_INVSRCALPHA=上に描くポリゴンのアルファ値の濃さによって、下地の描画を薄くする。
 
 
     //頂点カラーを無効にする
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, FALSE );
-   // GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE );
-//    //面のアンビエント反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
-//    //面のデフューズ反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
-//    //面のエミッシブ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
-//    //面のスペキュラ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
-//    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
+    // GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_COLORVERTEX, TRUE );
+    //    //面のアンビエント反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_AMBIENTMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    //面のデフューズ反射は、マテリアルを参照するように設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    //面のエミッシブ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_EMISSIVEMATERIALSOURCE, D3DMCS_MATERIAL);
+    //    //面のスペキュラ反射は、マテリアルを参照する設定する。（頂点カラーを参照する場合は D3DMCS_COLOR1)
+    //    GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_SPECULARMATERIALSOURCE, D3DMCS_MATERIAL);
 
     //頂点αを使用するとき
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_DIFFUSEMATERIALSOURCE , D3DMCS_COLOR1);
 
-   //
+    //
     //
     // アンチエイリアスの指定
     //GgafDx9God::_pID3DDevice9->SetSamplerState(0, D3DSAMP_MAGFILTER, D3DTEXF_LINEAR);
@@ -405,13 +402,12 @@ HRESULT GgafDx9God::initDx9Device() {
     //    GgafDx9God::_pID3DDevice9->SetTextureStageState(0, D3DTSS_ALPHAARG2, D3DTA_DIFFUSE);
 
 
-
     // VIEW変換（カメラ位置）設定
     //D3DXMATRIX _vMatrixView; // ビュー変換行列
 
-//    DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
-//    DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
-//    DELETE_POSSIBLE_NULL(_pVecCamUp);
+    //    DELETE_POSSIBLE_NULL(_pVecCamFromPoint);
+    //    DELETE_POSSIBLE_NULL(_pVecCamLookatPoint);
+    //    DELETE_POSSIBLE_NULL(_pVecCamUp);
 
 
     // 射影変換（３Ｄ→平面）
@@ -444,11 +440,17 @@ void GgafDx9God::makeUniversalMaterialize() {
         if (GgafDx9God::_pID3DDevice9->TestCooperativeLevel() == D3DERR_DEVICENOTRESET) {
             //工場休止
             GgafFactory::beginRest();
-         ___EndSynchronized; // <----- 排他終了
-            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-                Sleep(10);
+            ___EndSynchronized; // <----- 排他終了
+            for (int i = 0; GgafFactory::isResting() == false; i++) {
+                Sleep(60); //工場が落ち着くまで待つ
+                if (i > 2000) {
+                    _TRACE_("GgafDx9God::makeUniversalMaterialize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+                }
             }
-         ___BeginSynchronized; // ----->排他開始
+            //            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
+            //                Sleep(10);
+            //            }
+            ___BeginSynchronized; // ----->排他開始
             _TRACE_("正常デバイスロスト処理。Begin");
             //エフェクト、デバイスロスト処理
             GgafDx9God::_pEffectManager->onDeviceLostAll();
@@ -503,22 +505,21 @@ void GgafDx9God::makeUniversalMaterialize() {
         hr = GgafDx9God::_pID3DDevice9->EndScene();
         checkDxException(hr, D3D_OK, "GgafDx9God::_pID3DDevice9->EndScene() に失敗しました。");
 
-    }
-    TRACE("GgafDx9God::makeUniversalMaterialize() end");
+    } TRACE("GgafDx9God::makeUniversalMaterialize() end");
 }
 
 void GgafDx9God::presentUniversalVisualize() {
     if (_is_device_lost_flg != true) {
         //バックバッファをプライマリバッファに転送
         //if (GgafDx9God::_pID3DDevice9->Present(NULL,&_rectPresentDest,NULL,NULL) == D3DERR_DEVICELOST) {
-//        static D3DRASTER_STATUS rs;
-//        while (SUCCEEDED(GgafDx9God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
-//            if(rs.InVBlank) {
-//                break; //垂直帰線期間ではない
-//            } else {
-//                Sleep(1);
-//            }
-//        }
+        //        static D3DRASTER_STATUS rs;
+        //        while (SUCCEEDED(GgafDx9God::_pID3DDevice9->GetRasterStatus(0, &rs)) ) {
+        //            if(rs.InVBlank) {
+        //                break; //垂直帰線期間ではない
+        //            } else {
+        //                Sleep(1);
+        //            }
+        //        }
         HRESULT hr = GgafDx9God::_pID3DDevice9->Present(NULL, NULL, NULL, NULL);
 
         if (hr == D3DERR_DEVICELOST) {
@@ -530,11 +531,14 @@ void GgafDx9God::presentUniversalVisualize() {
             _TRACE_("Present() == D3DERR_DRIVERINTERNALERROR!! Reset()を試みます。（駄目かもしれません）");
             //工場休止
             GgafFactory::beginRest();
-         ___EndSynchronized; // <----- 排他終了
-            while (GgafFactory::isResting() == false) { //工場が落ち着くまで待つ
-                Sleep(10);
+            ___EndSynchronized; // <----- 排他終了
+            for (int i = 0; GgafFactory::isResting() == false; i++) {
+                Sleep(60); //工場が落ち着くまで待つ
+                if (i > 2000) {
+                    _TRACE_("GgafDx9God::presentUniversalVisualize() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+                }
             }
-         ___BeginSynchronized; // ----->排他開始
+            ___BeginSynchronized; // ----->排他開始
             _TRACE_("D3DERR_DRIVERINTERNALERROR！ 処理Begin");
             //エフェクト、デバイスロスト処理
             GgafDx9God::_pEffectManager->onDeviceLostAll();
@@ -569,27 +573,30 @@ GgafDx9God::~GgafDx9God() {
         //工場を止める
         Sleep(1);
         GgafFactory::_is_working_flg = false;
-        while (GgafFactory::_was_finished_flg == false) {
-            Sleep(1); //工場が落ち着くまで待つ
+        for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
+            Sleep(60); //工場が落ち着くまで待つ
+            if (i > 2000) {
+                _TRACE_("GgafDx9God::~GgafDx9God() ２分待機しましたが、工場から反応がありません。breakします。要調査");
+            }
         }
         //排他の解除
         CloseHandle(_handleFactory01);
         DeleteCriticalSection(&(GgafGod::CS2));
         DeleteCriticalSection(&(GgafGod::CS1));
         //工場掃除
-     //___BeginSynchronized; // ----->排他開始
+        //___BeginSynchronized; // ----->排他開始
         GgafFactory::clean();
         //ゴミ箱
         GgafFactory::_pGarbageBox->_pSayonaraScene->dump();
         GgafFactory::_pGarbageBox->_pSayonaraActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-     //___EndSynchronized; // <----- 排他終了
+        //___EndSynchronized; // <----- 排他終了
 
         //この世で生きている物も掃除
         Sleep(20);
-     //___BeginSynchronized; // ----->排他開始
+        //___BeginSynchronized; // ----->排他開始
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
-     //___EndSynchronized; // <----- 排他終了
+        //___EndSynchronized; // <----- 排他終了
     }
 
     CmRandomNumberGenerator::getInstance()->release();
@@ -606,27 +613,27 @@ GgafDx9God::~GgafDx9God() {
     RELEASE_IMPOSSIBLE_NULL(_pID3DDevice9);
     RELEASE_IMPOSSIBLE_NULL(_pID3D9);
 
-//    //デバイス解放処理(2010/03/19メモ)
-//    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
-//    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
-//    //たしかDirectX10は参照カウンタのカウント方法が変わったというリリースノートを読んだ記憶があるが、
-//    //関係あるのだろうか。
-//    //いろいろ試行錯誤したが結局誰のせいなのかはっきり分からない.
-//    //そこで、カッコ悪いけども余分に参照カウンタを２つ増やし、開放時は0になるまで解放するという措置を行う。
-//    //TODO:ちゃんと解放する方法。
-//    while (true) {
-//        ULONG rc = _pID3DDevice9->Release();
-//		_TRACE_("_pID3DDevice9 rc="<<rc);
-//        if (rc == 0) {
-//            break;
-//        }
-//    }
-//    while (true) {
-//        ULONG rc = _pID3D9->Release();
-//        if (rc == 0) {
-//            break;
-//        }
-//    }
+    //    //デバイス解放処理(2010/03/19メモ)
+    //    //デバイス解放時、ある時期からたまにVISTAのフルスクリーンモード時に落ちる現象が発生した。
+    //    //等色々調べた結果VISTAの参照カウンタが「なんか知らんけど違う」と言う結論になった。
+    //    //たしかDirectX10は参照カウンタのカウント方法が変わったというリリースノートを読んだ記憶があるが、
+    //    //関係あるのだろうか。
+    //    //いろいろ試行錯誤したが結局誰のせいなのかはっきり分からない.
+    //    //そこで、カッコ悪いけども余分に参照カウンタを２つ増やし、開放時は0になるまで解放するという措置を行う。
+    //    //TODO:ちゃんと解放する方法。
+    //    while (true) {
+    //        ULONG rc = _pID3DDevice9->Release();
+    //		_TRACE_("_pID3DDevice9 rc="<<rc);
+    //        if (rc == 0) {
+    //            break;
+    //        }
+    //    }
+    //    while (true) {
+    //        ULONG rc = _pID3D9->Release();
+    //        if (rc == 0) {
+    //            break;
+    //        }
+    //    }
 
 
 }
