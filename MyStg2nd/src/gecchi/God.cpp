@@ -49,11 +49,14 @@ GgafUniverse* God::createUniverse() {
 
 God::~God() {
     GgafFactory::_is_working_flg = false;
-    while (GgafFactory::_was_finished_flg == false) {
-        Sleep(30); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
-        _TRACE_("Hê‰Ò“®’â~‘Ò‚¿");
+    for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
+        Sleep(60); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
+        _TRACE_("God::~God() Hê‰Ò“®’â~‘Ò‚¿");
+        if (i > 2000) {
+            _TRACE_("God::~God() ‚Q•ª‘Ò‹@‚µ‚Ü‚µ‚½‚ªAHê‚©‚ç”½‰‚ª‚ ‚è‚Ü‚¹‚ñBbreak‚µ‚Ü‚·B—v’²¸");
+        }
     }
-    _TRACE_("Hê’â~");
+    _TRACE_("God::~God() Hê’â~");
 
     VB::clear();
     _pUniverse->dump();

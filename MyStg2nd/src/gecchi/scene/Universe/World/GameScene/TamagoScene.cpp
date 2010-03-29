@@ -52,9 +52,9 @@ void TamagoScene::processBehavior() {
 
         EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
         p9->setGeometry(80000,50000,50000);
-        p9->addSubBone(p1, 0     , 0,  100000, ANGLE0, ANGLE0, ANGLE270);
-        p9->addSubBone(p2, 100000, 0,       0, ANGLE0, ANGLE0, ANGLE0);
-        p9->addSubBone(p3, 0,      0, -100000, ANGLE0, ANGLE0, ANGLE90);
+        p9->addSubBone(p1, 0     , 0,  300000, ANGLE0, ANGLE45, ANGLE270);
+        p9->addSubBone(p2, 300000, 0,       0, ANGLE0, ANGLE0, ANGLE0);
+        p9->addSubBone(p3, 0,      0, -300000, ANGLE0, ANGLE45, ANGLE90);
         getLordActor()->addSubGroup(p9);
 
     }

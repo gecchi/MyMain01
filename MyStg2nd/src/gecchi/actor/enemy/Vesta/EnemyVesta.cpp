@@ -95,18 +95,109 @@ void EnemyVesta::processBehavior() {
                 if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-               		float vX, vY, vZ;
-					angle rz, ry;
-					vX = _matWorld_RM._11;//*_pMover->_vX + _matWorld_RM._21*_pMover->_vY + _matWorld_RM._31*_pMover->_vZ;
-					vY = _matWorld_RM._12;//*_pMover->_vX + _matWorld_RM._22*_pMover->_vY + _matWorld_RM._32*_pMover->_vZ;
-					vZ = _matWorld_RM._13;//*_pMover->_vX + _matWorld_RM._23*_pMover->_vY + _matWorld_RM._33*_pMover->_vZ;
-					GgafDx9Util::getRzRyAng(vX, vY, vZ,
+                    //向きのベクトルは_matWorld_RMで変換される。
+                    //_matWorld_RM の成分を mat_xx とすると
+                    //
+                    //                      | mat_11 mat_12 mat_13 |
+                    //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
+                    //                      | mat_31 mat_32 mat_33 |
+                    //
+                    //vX = _Xorg*mat_11 + _Yorg*mat_21 + _Zorg*mat_31
+                    //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
+                    //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
+                    //
+                    //さてここで、モデルの前方である単位方向ベクトル(1,0,0)はどうなるか考えると
+                    //
+                    //vX = _Xorg*mat_11
+                    //vY = _Xorg*mat_12
+                    //vZ = _Xorg*mat_13
+
+                    float vX, vY, vZ;
+                    angle rz, ry;
+                    vX = _matWorld_RM._11;
+                    vY = _matWorld_RM._12;
+                    vZ = _matWorld_RM._13;
+                    GgafDx9Util::getRzRyAng(vX, vY, vZ,
                                             rz, ry);
-					pActor->_pMover->setRzRyMvAng(rz, ry);
+                    pActor->_pMover->setRzRyMvAng(rz, ry);
                     pActor->activate();
                 }
             }
         }
+    }
+
+
+    if (getPartFrame() % 120 == 0) {
+        //_matWorld_RM の成分を mat_xx とし、
+        //自機への向きのベクトルを、(MvX, MvY, MvZ) とすると
+        //
+        //             | mat_11 mat_12 mat_13 |
+        //| vX vY vZ | | mat_21 mat_22 mat_23 | = | MvX MvY MvZ |
+        //             | mat_31 mat_32 mat_33 |
+        //
+        //となるような(vX, vY, vZ) を求めたいのだから、
+        //
+        //                | mat_11 mat_12 mat_13 | -1
+        //| MvX MvY MvZ | | mat_21 mat_22 mat_23 |    = | vX vY vZ |
+        //                | mat_31 mat_32 mat_33 |
+        //
+
+        //MvX MvY MvZ を求める
+        float MvX, MvY, MvZ;
+        GgafDx9Util::getNormalizeVector(pMYSHIP->_X - _X,
+                                        pMYSHIP->_Y - _Y,
+                                        pMYSHIP->_Z - _Z,
+                                        MvX,
+                                        MvY,
+                                        MvZ);
+        D3DXMATRIX matInvRM;
+        D3DXMatrixInverse(&matInvRM, NULL, &_matWorld_RM);
+        float vX, vY, vZ;
+        vX = MvX*matInvRM._11 + MvY*matInvRM._21 + MvZ*matInvRM._31;
+        vY = MvX*matInvRM._12 + MvY*matInvRM._22 + MvZ*matInvRM._32;
+        vZ = MvX*matInvRM._13 + MvY*matInvRM._23 + MvZ*matInvRM._33;
+        angle angRz_Target, angRy_Target;
+        GgafDx9Util::getRzRyAng(vX, vY, vZ,
+                                angRz_Target, angRy_Target);
+        _pMover->execTagettingMvAngSequence(angRz_Target, angRy_Target,
+                                           2000, 0,
+                                           TURN_CLOSE_TO);
+
+//        //逆行列を求める。
+//        double det = (
+//                         (_matWorld_RM._11 * (_matWorld_RM._22*_matWorld_RM._33 - _matWorld_RM._23*_matWorld_RM._32))
+//                       + (_matWorld_RM._21 * (_matWorld_RM._32*_matWorld_RM._13 - _matWorld_RM._33*_matWorld_RM._12))
+//                       + (_matWorld_RM._31 * (_matWorld_RM._12*_matWorld_RM._23 - _matWorld_RM._13*_matWorld_RM._22))
+//                     );
+//        double inv[3][3];
+//        inv[0][0] = (_matWorld_RM._22*_matWorld_RM._33 - _matWorld_RM._23*_matWorld_RM._32)/det;
+//        inv[0][1] = (_matWorld_RM._32*_matWorld_RM._13 - _matWorld_RM._33*_matWorld_RM._12)/det;
+//        inv[0][2] = (_matWorld_RM._12*_matWorld_RM._23 - _matWorld_RM._13*_matWorld_RM._22)/det;
+//
+//        inv[1][0] = (_matWorld_RM._23*_matWorld_RM._31 - _matWorld_RM._21*_matWorld_RM._33)/det;
+//        inv[1][1] = (_matWorld_RM._33*_matWorld_RM._11 - _matWorld_RM._31*_matWorld_RM._13)/det;
+//        inv[1][2] = (_matWorld_RM._13*_matWorld_RM._21 - _matWorld_RM._11*_matWorld_RM._23)/det;
+//
+//        inv[2][0] = (_matWorld_RM._21*_matWorld_RM._32 - _matWorld_RM._22*_matWorld_RM._31)/det;
+//        inv[2][1] = (_matWorld_RM._31*_matWorld_RM._12 - _matWorld_RM._32*_matWorld_RM._11)/det;
+//        inv[2][2] = (_matWorld_RM._11*_matWorld_RM._22 - _matWorld_RM._12*_matWorld_RM._21)/det;
+//
+//        //ローカルの方向を求める
+//        float vX, vY, vZ;
+//        vX = inv[0][0]*MvX + inv[1][0]*MvY + inv[2][0]*MvZ;
+//        vY = inv[0][1]*MvX + inv[1][1]*MvY + inv[2][1]*MvZ;
+//        vZ = inv[0][2]*MvX + inv[1][2]*MvY + inv[2][2]*MvZ;
+//
+//        float vX2, vY2, vZ2;
+//        vX2 = vX*_matWorld_RM._11 + vY*_matWorld_RM._21 + vZ*_matWorld_RM._31;
+//        vY2 = vX*_matWorld_RM._12 + vY*_matWorld_RM._22 + vZ*_matWorld_RM._32;
+//        vZ2 = vX*_matWorld_RM._13 + vY*_matWorld_RM._23 + vZ*_matWorld_RM._33;
+//        angle angRz_Target, angRy_Target;
+//        GgafDx9Util::getRzRyAng(vX2, vY2, vZ2,
+//                                angRz_Target, angRy_Target);
+//        _pMover->execTagettingMvAngSequence(angRz_Target, angRy_Target,
+//                                           3000, 0,
+//                                           TURN_CLOSE_TO);
     }
 
 
