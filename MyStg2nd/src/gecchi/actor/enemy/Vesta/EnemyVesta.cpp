@@ -13,7 +13,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
                        : DefaultMorphMeshActor(prm_name, "1/hachi") {
     _class_name = "EnemyVesta";
     MyStgUtil::resetEnemyVestaStatus(_pStatus);
-    _pActor_Ground = NULL;
+    _pActor_Base = NULL;
     _iMovePatternNo = 0;
     _is_open_hatch = false;
     _frame_of_open_interval  = 3*60;
@@ -148,10 +148,10 @@ void EnemyVesta::processBehavior() {
         int MvX = pMYSHIP->_X - _X;
         int MvY = pMYSHIP->_Y - _Y;
         int MvZ = pMYSHIP->_Z - _Z;
-        D3DXMATRIX* pGroundMatInvRM = _pActor_Ground->gatMatInvWorldRotMv();
-        int vX = MvX*pGroundMatInvRM->_11 + MvY*pGroundMatInvRM->_21 + MvZ * pGroundMatInvRM->_31;
-        int vY = MvX*pGroundMatInvRM->_12 + MvY*pGroundMatInvRM->_22 + MvZ * pGroundMatInvRM->_32;
-        int vZ = MvX*pGroundMatInvRM->_13 + MvY*pGroundMatInvRM->_23 + MvZ * pGroundMatInvRM->_33;
+        D3DXMATRIX* pBaseInvMatRM = _pActor_Base->gatInvMatWorldRotMv();
+        int vX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
+        int vY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
+        int vZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
         angle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(vX, vY, vZ,
                                 angRz_Target, angRy_Target);
@@ -172,8 +172,8 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-    if (_pActor_Ground != NULL && _pActor_Ground->isActive()) {
-//        (*(_pActor_Ground->_pFunc_calcWorldMatrix))(_pActor_Ground, _matWorld);
+    if (_pActor_Base != NULL && _pActor_Base->isActive()) {
+//        (*(_pActor_Base->_pFunc_calcWorldMatrix))(_pActor_Base, _matWorld);
 //        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_RxRzRyMv);
     } else {
         //“y‘ä‚ª‚È‚¯‚ê‚ÎŽ©•ª‚àŽ€‚Ê

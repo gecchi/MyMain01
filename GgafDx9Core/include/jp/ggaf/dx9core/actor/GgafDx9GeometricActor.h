@@ -76,7 +76,7 @@ public:
     bool _wasCalc_matInvWorldRotMv;
 
     /** 土台となるアクター */
-    GgafDx9Core::GgafDx9GeometricActor* _pActor_Ground;
+    GgafDx9Core::GgafDx9GeometricActor* _pActor_Base;
     int _X_local;
     int _Y_local;
     int _Z_local;
@@ -238,7 +238,7 @@ public:
      * 未計算なら計算してそれを返す
      * @return
      */
-    D3DXMATRIX* gatMatInvWorldRotMv() {
+    D3DXMATRIX* gatInvMatWorldRotMv() {
         if (_wasCalc_matInvWorldRotMv) {
             return &_matInvWorldRotMv;
         } else {

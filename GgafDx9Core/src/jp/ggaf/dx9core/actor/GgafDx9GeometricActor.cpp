@@ -19,7 +19,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 
     _offscreenkind = -1;
     _pFunc_calcWorldMatrix = NULL;
-    _pActor_Ground = NULL;
+    _pActor_Base = NULL;
 
 
     _X_local  = 0;
@@ -50,7 +50,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 void GgafDx9GeometricActor::processPreJudgement() {
     _wasCalc_matInvWorldRotMv = false;
 
-    if (_pActor_Ground) {
+    if (_pActor_Base) {
         chengeGeoLocal();
     }
 
@@ -94,9 +94,9 @@ void GgafDx9GeometricActor::processPreJudgement() {
     }
 
 
-    if (_pActor_Ground) {
-        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Ground->_matWorldRotMv)); //‡¬
-        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Ground->_matWorldRotMv)); //‡¬
+    if (_pActor_Base) {
+        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //‡¬
+        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //‡¬
         chengeGeoFinal();
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
@@ -163,7 +163,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   int prm_RZ_init_local,
                                                   int prm_RY_init_local) {
     GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
-    prm_pGeoActor->_pActor_Ground = this;
+    prm_pGeoActor->_pActor_Base = this;
     prm_pGeoActor->chengeGeoLocal();
     prm_pGeoActor->_X = prm_X_init_local;
     prm_pGeoActor->_Y = prm_Y_init_local;
