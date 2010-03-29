@@ -65,12 +65,18 @@ public:
     /** [r/w]WORLD変換行列計算関数 */
     void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
-    /** [r/w]自身の現在のWorld変換行列(回転と移動のみ) */
-    D3DXMATRIX _matWorld_RM;
-    /** [r/w]自身の現在のWorld変換行列 */
+
+    /** [r]自身の現在のWorld変換行列 */
     D3DXMATRIX _matWorld;
+    /** [r]自身の現在のWorld変換行列(回転と移動のみ) */
+    D3DXMATRIX _matWorldRotMv;
+    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    D3DXMATRIX _matInvWorldRotMv;
+    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    bool _wasCalc_matInvWorldRotMv;
+
     /** 土台となるアクター */
-    GgafDx9Core::GgafDx9GeometricActor* _pActor_Foundation;
+    GgafDx9Core::GgafDx9GeometricActor* _pActor_Ground;
     int _X_local;
     int _Y_local;
     int _Z_local;
@@ -225,6 +231,23 @@ public:
         _Y = prm_pActor->_Y;
         _Z = prm_pActor->_Z;
     }
+
+    /**
+     * _matInvWorldRotMvの逆行列を返す。
+     * 計算済みならばそれを返す。
+     * 未計算なら計算してそれを返す
+     * @return
+     */
+    D3DXMATRIX* gatMatInvWorldRotMv() {
+        if (_wasCalc_matInvWorldRotMv) {
+            return &_matInvWorldRotMv;
+        } else {
+            D3DXMatrixInverse(&_matInvWorldRotMv, NULL, &_matWorldRotMv);
+            _wasCalc_matInvWorldRotMv = true;
+            return &_matInvWorldRotMv;
+        }
+    }
+
 
     virtual GgafCore::GgafGroupActor* addSubBone(actorkind prm_kind,
                                                  GgafDx9GeometricActor* prm_pGeoActor,

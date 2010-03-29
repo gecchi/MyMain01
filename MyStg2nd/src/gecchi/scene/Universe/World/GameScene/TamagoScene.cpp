@@ -32,6 +32,9 @@ TamagoScene::TamagoScene(const char* prm_name) : DefaultScene(prm_name) {
     orderActorToFactory(100000001, EnemyVesta, "EnemyVesta1");
     orderActorToFactory(100000002, EnemyVesta, "EnemyVesta2");
     orderActorToFactory(100000003, EnemyVesta, "EnemyVesta3");
+    orderActorToFactory(100000004, EnemyVesta, "EnemyVesta4");
+    orderActorToFactory(100000005, EnemyVesta, "EnemyVesta5");
+    orderActorToFactory(100000006, EnemyVesta, "EnemyVesta6");
     orderActorToFactory(100000009, EnemyCirce, "EnemyCirce");
 }
 
@@ -49,12 +52,25 @@ void TamagoScene::processBehavior() {
         EnemyVesta* p1 = (EnemyVesta*)obtainActorFromFactory(100000001);
         EnemyVesta* p2 = (EnemyVesta*)obtainActorFromFactory(100000002);
         EnemyVesta* p3 = (EnemyVesta*)obtainActorFromFactory(100000003);
+        EnemyVesta* p4 = (EnemyVesta*)obtainActorFromFactory(100000004);
+        EnemyVesta* p5 = (EnemyVesta*)obtainActorFromFactory(100000005);
+        EnemyVesta* p6 = (EnemyVesta*)obtainActorFromFactory(100000006);
 
         EnemyCirce* p9 = (EnemyCirce*)obtainActorFromFactory(100000009);
         p9->setGeometry(80000,50000,50000);
-        p9->addSubBone(p1, 0     , 0,  300000, ANGLE0, ANGLE45, ANGLE270);
-        p9->addSubBone(p2, 300000, 0,       0, ANGLE0, ANGLE0, ANGLE0);
-        p9->addSubBone(p3, 0,      0, -300000, ANGLE0, ANGLE45, ANGLE90);
+        p9->addSubBone(p1,       0,       0,  300000, ANGLE0,   ANGLE0, ANGLE270);
+        p9->addSubBone(p2,  300000,       0,       0, ANGLE0,   ANGLE0, ANGLE0);
+        p9->addSubBone(p3,       0,       0, -300000, ANGLE0,   ANGLE0, ANGLE90);
+        p9->addSubBone(p4, -300000,       0,       0, ANGLE0,   ANGLE0, ANGLE180);
+        p9->addSubBone(p5,       0,  300000,       0, ANGLE0,  ANGLE90, ANGLE0);
+        p9->addSubBone(p6,       0, -300000,       0, ANGLE0, ANGLE270, ANGLE0);
+
+//        p2->addSubBone(p1,  200000,       0,       0, ANGLE0,   ANGLE0, ANGLE270);
+//        p3->addSubBone(p2,  200000,       0,       0, ANGLE0,   ANGLE0, ANGLE0);
+//        p4->addSubBone(p3,  200000,       0,       0, ANGLE0,   ANGLE0, ANGLE90);
+//        p5->addSubBone(p4,  200000,       0,       0, ANGLE0,   ANGLE0, ANGLE180);
+//        p6->addSubBone(p5,  200000,       0,       0, ANGLE0,  ANGLE90, ANGLE0);
+//        p9->addSubBone(p6,  200000,       0,       0, ANGLE0, ANGLE270, ANGLE0);
         getLordActor()->addSubGroup(p9);
 
     }

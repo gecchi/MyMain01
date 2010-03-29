@@ -19,7 +19,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
 
     _offscreenkind = -1;
     _pFunc_calcWorldMatrix = NULL;
-    _pActor_Foundation = NULL;
+    _pActor_Ground = NULL;
 
 
     _X_local  = 0;
@@ -43,11 +43,14 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _RY_offset = 0;
     _RZ_offset = 0;
     _is_local = false;
+    _wasCalc_matInvWorldRotMv = false;
 }
 
 
 void GgafDx9GeometricActor::processPreJudgement() {
-    if (_pActor_Foundation) {
+    _wasCalc_matInvWorldRotMv = false;
+
+    if (_pActor_Ground) {
         chengeGeoLocal();
     }
 
@@ -58,7 +61,7 @@ void GgafDx9GeometricActor::processPreJudgement() {
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
     //World変換行列（_matWorld）を更新
     if (_pFunc_calcWorldMatrix) {
-        (*_pFunc_calcWorldMatrix)(this, _matWorld_RM);
+        (*_pFunc_calcWorldMatrix)(this, _matWorldRotMv);
         //スケールを考慮
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
            static float fRateScale = 1.0f * LEN_UNIT;
@@ -66,33 +69,34 @@ void GgafDx9GeometricActor::processPreJudgement() {
            float Sy = _SY / fRateScale;
            float Sz = _SZ / fRateScale;
 
-           _matWorld._11 = Sx * _matWorld_RM._11;
-           _matWorld._12 = Sx * _matWorld_RM._12;
-           _matWorld._13 = Sx * _matWorld_RM._13;
-           _matWorld._14 = _matWorld_RM._14;
+           _matWorld._11 = Sx * _matWorldRotMv._11;
+           _matWorld._12 = Sx * _matWorldRotMv._12;
+           _matWorld._13 = Sx * _matWorldRotMv._13;
+           _matWorld._14 = _matWorldRotMv._14;
 
-           _matWorld._21 = Sy * _matWorld_RM._21;
-           _matWorld._22 = Sy * _matWorld_RM._22;
-           _matWorld._23 = Sy * _matWorld_RM._23;
-           _matWorld._24 = _matWorld_RM._24;
+           _matWorld._21 = Sy * _matWorldRotMv._21;
+           _matWorld._22 = Sy * _matWorldRotMv._22;
+           _matWorld._23 = Sy * _matWorldRotMv._23;
+           _matWorld._24 = _matWorldRotMv._24;
 
-           _matWorld._31 = Sz * _matWorld_RM._31;
-           _matWorld._32 = Sz * _matWorld_RM._32;
-           _matWorld._33 = Sz * _matWorld_RM._33;
-           _matWorld._34 = _matWorld_RM._34;
+           _matWorld._31 = Sz * _matWorldRotMv._31;
+           _matWorld._32 = Sz * _matWorldRotMv._32;
+           _matWorld._33 = Sz * _matWorldRotMv._33;
+           _matWorld._34 = _matWorldRotMv._34;
 
-           _matWorld._41 = _matWorld_RM._41;
-           _matWorld._42 = _matWorld_RM._42;
-           _matWorld._43 = _matWorld_RM._43;
-           _matWorld._44 = _matWorld_RM._44;
+           _matWorld._41 = _matWorldRotMv._41;
+           _matWorld._42 = _matWorldRotMv._42;
+           _matWorld._43 = _matWorldRotMv._43;
+           _matWorld._44 = _matWorldRotMv._44;
         } else {
-           _matWorld = _matWorld_RM;
+           _matWorld = _matWorldRotMv;
         }
     }
 
-    if (_pActor_Foundation) {
-        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Foundation->_matWorld_RM)); //合成
-        D3DXMatrixMultiply(&_matWorld_RM, &_matWorld_RM, &(_pActor_Foundation->_matWorld_RM)); //合成
+
+    if (_pActor_Ground) {
+        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Ground->_matWorldRotMv)); //合成
+        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Ground->_matWorldRotMv)); //合成
         chengeGeoFinal();
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
@@ -150,7 +154,6 @@ void GgafDx9GeometricActor::processPreJudgement() {
 }
 
 
-
 GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   GgafDx9GeometricActor* prm_pGeoActor,
                                                   int prm_X_init_local,
@@ -160,7 +163,7 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(actorkind prm_kind,
                                                   int prm_RZ_init_local,
                                                   int prm_RY_init_local) {
     GgafGroupActor* pGroupActor = addSubGroup(prm_kind, prm_pGeoActor);
-    prm_pGeoActor->_pActor_Foundation = this;
+    prm_pGeoActor->_pActor_Ground = this;
     prm_pGeoActor->chengeGeoLocal();
     prm_pGeoActor->_X = prm_X_init_local;
     prm_pGeoActor->_Y = prm_Y_init_local;

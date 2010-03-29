@@ -13,7 +13,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
                        : DefaultMorphMeshActor(prm_name, "1/hachi") {
     _class_name = "EnemyVesta";
     MyStgUtil::resetEnemyVestaStatus(_pStatus);
-    _pActor_Foundation = NULL;
+    _pActor_Ground = NULL;
     _iMovePatternNo = 0;
     _is_open_hatch = false;
     _frame_of_open_interval  = 3*60;
@@ -95,8 +95,8 @@ void EnemyVesta::processBehavior() {
                 if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    //向きのベクトルは_matWorld_RMで変換される。
-                    //_matWorld_RM の成分を mat_xx とすると
+                    //向きのベクトルは_matWorldRotMvで変換される。
+                    //_matWorldRotMv の成分を mat_xx とすると
                     //
                     //                      | mat_11 mat_12 mat_13 |
                     //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
@@ -114,9 +114,9 @@ void EnemyVesta::processBehavior() {
 
                     float vX, vY, vZ;
                     angle rz, ry;
-                    vX = _matWorld_RM._11;
-                    vY = _matWorld_RM._12;
-                    vZ = _matWorld_RM._13;
+                    vX = _matWorldRotMv._11;
+                    vY = _matWorldRotMv._12;
+                    vZ = _matWorldRotMv._13;
                     GgafDx9Util::getRzRyAng(vX, vY, vZ,
                                             rz, ry);
                     pActor->_pMover->setRzRyMvAng(rz, ry);
@@ -127,8 +127,10 @@ void EnemyVesta::processBehavior() {
     }
 
 
-    if (getPartFrame() % 120 == 0) {
-        //_matWorld_RM の成分を mat_xx とし、
+    if (getPartFrame() % 10 == 0) {
+        //自機へ方向を向ける
+
+        //土台の_matWorldRotMv の成分を mat_xx とし、
         //自機への向きのベクトルを、(MvX, MvY, MvZ) とすると
         //
         //             | mat_11 mat_12 mat_13 |
@@ -143,61 +145,20 @@ void EnemyVesta::processBehavior() {
         //
 
         //MvX MvY MvZ を求める
-        float MvX, MvY, MvZ;
-        GgafDx9Util::getNormalizeVector(pMYSHIP->_X - _X,
-                                        pMYSHIP->_Y - _Y,
-                                        pMYSHIP->_Z - _Z,
-                                        MvX,
-                                        MvY,
-                                        MvZ);
-        D3DXMATRIX matInvRM;
-        D3DXMatrixInverse(&matInvRM, NULL, &_matWorld_RM);
-        float vX, vY, vZ;
-        vX = MvX*matInvRM._11 + MvY*matInvRM._21 + MvZ*matInvRM._31;
-        vY = MvX*matInvRM._12 + MvY*matInvRM._22 + MvZ*matInvRM._32;
-        vZ = MvX*matInvRM._13 + MvY*matInvRM._23 + MvZ*matInvRM._33;
+        int MvX = pMYSHIP->_X - _X;
+        int MvY = pMYSHIP->_Y - _Y;
+        int MvZ = pMYSHIP->_Z - _Z;
+        D3DXMATRIX* pGroundMatInvRM = _pActor_Ground->gatMatInvWorldRotMv();
+        int vX = MvX*pGroundMatInvRM->_11 + MvY*pGroundMatInvRM->_21 + MvZ * pGroundMatInvRM->_31;
+        int vY = MvX*pGroundMatInvRM->_12 + MvY*pGroundMatInvRM->_22 + MvZ * pGroundMatInvRM->_32;
+        int vZ = MvX*pGroundMatInvRM->_13 + MvY*pGroundMatInvRM->_23 + MvZ * pGroundMatInvRM->_33;
         angle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(vX, vY, vZ,
                                 angRz_Target, angRy_Target);
         _pMover->execTagettingMvAngSequence(angRz_Target, angRy_Target,
-                                           2000, 0,
+                                           1000, 0,
                                            TURN_CLOSE_TO);
 
-//        //逆行列を求める。
-//        double det = (
-//                         (_matWorld_RM._11 * (_matWorld_RM._22*_matWorld_RM._33 - _matWorld_RM._23*_matWorld_RM._32))
-//                       + (_matWorld_RM._21 * (_matWorld_RM._32*_matWorld_RM._13 - _matWorld_RM._33*_matWorld_RM._12))
-//                       + (_matWorld_RM._31 * (_matWorld_RM._12*_matWorld_RM._23 - _matWorld_RM._13*_matWorld_RM._22))
-//                     );
-//        double inv[3][3];
-//        inv[0][0] = (_matWorld_RM._22*_matWorld_RM._33 - _matWorld_RM._23*_matWorld_RM._32)/det;
-//        inv[0][1] = (_matWorld_RM._32*_matWorld_RM._13 - _matWorld_RM._33*_matWorld_RM._12)/det;
-//        inv[0][2] = (_matWorld_RM._12*_matWorld_RM._23 - _matWorld_RM._13*_matWorld_RM._22)/det;
-//
-//        inv[1][0] = (_matWorld_RM._23*_matWorld_RM._31 - _matWorld_RM._21*_matWorld_RM._33)/det;
-//        inv[1][1] = (_matWorld_RM._33*_matWorld_RM._11 - _matWorld_RM._31*_matWorld_RM._13)/det;
-//        inv[1][2] = (_matWorld_RM._13*_matWorld_RM._21 - _matWorld_RM._11*_matWorld_RM._23)/det;
-//
-//        inv[2][0] = (_matWorld_RM._21*_matWorld_RM._32 - _matWorld_RM._22*_matWorld_RM._31)/det;
-//        inv[2][1] = (_matWorld_RM._31*_matWorld_RM._12 - _matWorld_RM._32*_matWorld_RM._11)/det;
-//        inv[2][2] = (_matWorld_RM._11*_matWorld_RM._22 - _matWorld_RM._12*_matWorld_RM._21)/det;
-//
-//        //ローカルの方向を求める
-//        float vX, vY, vZ;
-//        vX = inv[0][0]*MvX + inv[1][0]*MvY + inv[2][0]*MvZ;
-//        vY = inv[0][1]*MvX + inv[1][1]*MvY + inv[2][1]*MvZ;
-//        vZ = inv[0][2]*MvX + inv[1][2]*MvY + inv[2][2]*MvZ;
-//
-//        float vX2, vY2, vZ2;
-//        vX2 = vX*_matWorld_RM._11 + vY*_matWorld_RM._21 + vZ*_matWorld_RM._31;
-//        vY2 = vX*_matWorld_RM._12 + vY*_matWorld_RM._22 + vZ*_matWorld_RM._32;
-//        vZ2 = vX*_matWorld_RM._13 + vY*_matWorld_RM._23 + vZ*_matWorld_RM._33;
-//        angle angRz_Target, angRy_Target;
-//        GgafDx9Util::getRzRyAng(vX2, vY2, vZ2,
-//                                angRz_Target, angRy_Target);
-//        _pMover->execTagettingMvAngSequence(angRz_Target, angRy_Target,
-//                                           3000, 0,
-//                                           TURN_CLOSE_TO);
     }
 
 
@@ -211,8 +172,8 @@ void EnemyVesta::processBehavior() {
 }
 
 void EnemyVesta::processJudgement() {
-    if (_pActor_Foundation != NULL && _pActor_Foundation->isActive()) {
-//        (*(_pActor_Foundation->_pFunc_calcWorldMatrix))(_pActor_Foundation, _matWorld);
+    if (_pActor_Ground != NULL && _pActor_Ground->isActive()) {
+//        (*(_pActor_Ground->_pFunc_calcWorldMatrix))(_pActor_Ground, _matWorld);
 //        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_RxRzRyMv);
     } else {
         //土台がなければ自分も死ぬ
