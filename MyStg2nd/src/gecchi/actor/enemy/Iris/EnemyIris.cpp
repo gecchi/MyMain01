@@ -57,9 +57,9 @@ void EnemyIris::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->execTagettingMvAngSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
-                                                   2000, 0,
-                                                   TURN_CLOSE_TO);
+        _pMover->execTagettingMvAngSequence(pMYSHIP, pMYSHIP->_Y, pMYSHIP->_Z,
+                                            3000, 0,
+                                            TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
             //放射状ショット発射
             int way = 5+5*_RANK_;

@@ -43,10 +43,7 @@ void EnemyVesta::initialize() {
     _pCollisionChecker->makeCollision(1);
     _pCollisionChecker->setColliBox(0, -10000, -10000, -10000, 10000, 10000, 10000);
     _pScaler->setScale(1000);
-
     _pDispatcher_Fired = _pDpcon->view();
-
-    //_pFunc_calcWorldMatrix = NULL;//ƒ[ƒ‹ƒh•ÏŠ·‚Í“Æ©‚És‚¤
 }
 
 void EnemyVesta::onActive() {
