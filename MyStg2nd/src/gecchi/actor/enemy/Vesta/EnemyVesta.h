@@ -31,10 +31,6 @@ public:
     GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
     DispatcherConnection* _pDpcon;
 
-    angle _RX_local;
-    angle _RY_local;
-    angle _RZ_local;
-
     /**
      * コンストラクタ
      * @param prm_name

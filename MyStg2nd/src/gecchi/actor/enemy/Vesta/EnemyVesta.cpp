@@ -58,6 +58,21 @@ void EnemyVesta::onActive() {
 }
 
 void EnemyVesta::processBehavior() {
+    //ボーンにあたるアクターのメモ
+    //＜chengeGeoFinal(); 時＞
+    //・_X, _Y, _Z は最終的なワールド座標
+    //・_RX, _RY, _RZ は不定。
+    //・GgafDx9GeometryMover の値は常にローカル座標なのでbehave()を呼び出してはいけない。
+    //※RX,RY,RZ は最終的なワールド回転値・・・にしようとしたが、
+    //毎フレーム計算するのは無駄であるため設定されていない。
+    //必要なときに求めることとする。
+    //＜chengeGeoLocal(); 時＞
+    //・_X, _Y, _Z はローカル座標
+    //・_RX, _RY, _RZ  はローカル回転値
+    //・GgafDx9GeometryMover の値はローカル座標
+    //
+    //基本的にchengeGeoFinal()の状態である。
+    //TODO:混在感をもっとなくす。
 
     switch (_iMovePatternNo) {
         case VESTA_HATCH_CLOSED:
@@ -85,7 +100,6 @@ void EnemyVesta::processBehavior() {
     //加算ランクポイントを減少
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
         int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //開いてからのフレーム数。
         //_frame_of_moment_nextopenは、ここの処理の時点では直近でオープンしたフレームとなる。
@@ -95,8 +109,11 @@ void EnemyVesta::processBehavior() {
                 if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    //向きのベクトルは_matWorldRotMvで変換される。
-                    //_matWorldRotMv の成分を mat_xx とすると
+                    //＜現在の最終的な向きを、RzRyで取得する＞
+                    //方向ベクトルはワールド変換行列の積（_matWorldRotMv)で変換され、現在の最終的な向きに向く。
+                    //元の方向ベクトルを(_Xorg,_Yorg,_Zorg)、
+                    //ワールド変換行列の積（_matWorldRotMv)の成分を mat_xx、
+                    //最終的な方向ベクトルを(vX, vY, vZ) とすると
                     //
                     //                      | mat_11 mat_12 mat_13 |
                     //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
@@ -106,65 +123,68 @@ void EnemyVesta::processBehavior() {
                     //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                     //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
                     //
-                    //さてここで、モデルの前方である単位方向ベクトル(1,0,0)はどうなるか考えると
+                    //さてここで、元々が前方の単位方向ベクトル(1,0,0)の場合はどうなるか考えると
                     //
                     //vX = _Xorg*mat_11
                     //vY = _Xorg*mat_12
                     //vZ = _Xorg*mat_13
-
-                    float vX, vY, vZ;
-                    angle rz, ry;
-                    vX = _matWorldRotMv._11;
-                    vY = _matWorldRotMv._12;
-                    vZ = _matWorldRotMv._13;
-                    GgafDx9Util::getRzRyAng(vX, vY, vZ,
-                                            rz, ry);
-                    pActor->_pMover->setRzRyMvAng(rz, ry);
+                    //
+                    //となる。本アプリでは、モデルは全て(1,0,0)を前方としているため
+                    //最終的な方向ベクトルは（_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) である。
+                    angle Rz, Ry;
+                    GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
+                                            Rz, Ry);
+                    pActor->_pMover->setRzRyMvAng(Rz, Ry);
                     pActor->activate();
                 }
             }
         }
     }
 
-
     if (getPartFrame() % 10 == 0) {
         //自機へ方向を向ける
-
-        //土台の_matWorldRotMv の成分を mat_xx とし、
-        //自機への向きのベクトルを、(MvX, MvY, MvZ) とすると
+        //考え方：ローカルでどの方向に向いておけば、最終的に時機に向くことになるかを求める
         //
-        //             | mat_11 mat_12 mat_13 |
-        //| vX vY vZ | | mat_21 mat_22 mat_23 | = | MvX MvY MvZ |
-        //             | mat_31 mat_32 mat_33 |
+        //自機への向くための変換前状態でのターゲット位置を(TvX, TvY, TvZ) とおき、
+        //「土台まで」の行列の積（_pActor_Base->_matWorldRotMv) を b_mat_xx とする。
+        //現在の最終座標から自機への向きのベクトルを、(MvX, MvY, MvZ) とすると、
         //
-        //となるような(vX, vY, vZ) を求めたいのだから、
+        //                | b_mat_11 b_mat_12 b_mat_13 |
+        //| TvX TvY TvZ | | b_mat_21 b_mat_22 b_mat_23 | = | MvX MvY MvZ |
+        //                | b_mat_31 b_mat_32 b_mat_33 |
         //
-        //                | mat_11 mat_12 mat_13 | -1
-        //| MvX MvY MvZ | | mat_21 mat_22 mat_23 |    = | vX vY vZ |
-        //                | mat_31 mat_32 mat_33 |
+        //となる。ローカル座標で(TvX, TvY, TvZ) の方向を向けると、
+        //最終的に自機に向くことになる。
+        //逆行列を掛けて(TvX, TvY, TvZ) を求めれば良い
+        //
+        //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
+        // | TvX TvY TvZ | = | MvX MvY MvZ | | b_mat_21 b_mat_22 b_mat_23 |
+        //                                   | b_mat_31 b_mat_32 b_mat_33 |
         //
 
         //MvX MvY MvZ を求める
         int MvX = pMYSHIP->_X - _X;
         int MvY = pMYSHIP->_Y - _Y;
         int MvZ = pMYSHIP->_Z - _Z;
+        //逆行列取得
         D3DXMATRIX* pBaseInvMatRM = _pActor_Base->gatInvMatWorldRotMv();
-        int vX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
-        int vY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
-        int vZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
+        //ローカル座標でのターゲットとなる方向ベクトル計算
+        int TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
+        int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
+        int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
+        //自動方向向きシークエンス開始
         angle angRz_Target, angRy_Target;
-        GgafDx9Util::getRzRyAng(vX, vY, vZ,
+        GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
         _pMover->execTagettingMvAngSequence(angRz_Target, angRy_Target,
                                            1000, 0,
                                            TURN_CLOSE_TO);
-
     }
-
 
     _pScaler->behave();
     _pMorpher->behave();
 
+    //_pMoverの計算はローカルで行う
     chengeGeoLocal();
     _pMover->behave();
     chengeGeoFinal();
@@ -174,7 +194,6 @@ void EnemyVesta::processBehavior() {
 void EnemyVesta::processJudgement() {
     if (_pActor_Base != NULL && _pActor_Base->isActive()) {
 //        (*(_pActor_Base->_pFunc_calcWorldMatrix))(_pActor_Base, _matWorld);
-//        defineWorldMatrix(GgafDx9Util::mulWorldMatrix_RxRzRyMv);
     } else {
         //土台がなければ自分も死ぬ
         inactivate();
