@@ -1,4 +1,4 @@
-// DixSmartPtr.hpp
+// DixSmartPtr.h
 
 // スマートポインタテンプレート  v2.24
 //  Created by IKD (2010. 3. 18)
@@ -40,6 +40,8 @@
 // あるアドレスを確保していたスマートポインタを一度消した後、内部で同じアドレスが確保された場合に
 // ウィークポインタにそのスマートポインタが代入されないバグを修正
 
+// 2010, 3. 30( v2.25 )
+// NULL比較演算子を正しく動くようにした
 
 
 // ・ 登録されたオブジェクトポインタの使用者がいなくなったら自動的にdelete
@@ -59,22 +61,25 @@ namespace Dix {
     template <class T>
     class sp
     {
-//tsuge コメントにした
-//C++0xからはできるが、GCC4でこれはできないため泣く泣くpublic化
-//    protected:
-//        template<class T>
-//        friend class wp;
-    //private
-    public:
-        unsigned int*   m_pRefCnt;      // 参照カウンタへのポインタ
-        unsigned int*   m_pWeakCnt;     // ウィークカウンタへのポインタ
-        T**             m_ppPtr;        // T型のオブジェクトのダブルポインタ
-        static T*       m_NullPtr;      // NULLポインタ値
-        bool                m_isAry;        // 配列か？
 
 
-    //private:
+
+//	protected:
+//		template<class T> friend class wp;
+
+//上の書き方がGCCでは出来ない。とりあえずpublicで回避。
+//TODO:テンプレートフレンドクラスの勉強
+
     public:
+//	private:
+        unsigned int*	m_pRefCnt;		// 参照カウンタへのポインタ
+        unsigned int*	m_pWeakCnt;		// ウィークカウンタへのポインタ
+        T**				m_ppPtr;		// T型のオブジェクトのダブルポインタ
+        static T*		m_NullPtr;		// NULLポインタ値
+        bool				m_isAry;		// 配列か？
+
+
+//	private:
         /////////////////
         // 参照カウンタ増加
         /////
@@ -94,9 +99,9 @@ namespace Dix {
             if( m_pRefCnt != 0 && ( *m_pRefCnt == 0 || --(*m_pRefCnt) == 0 ) ) {
 
                 if ( m_isAry )
-                    delete[] *m_ppPtr;  // 配列メモリ削除
+                    delete[] *m_ppPtr;	// 配列メモリ削除
                 else
-                    delete *m_ppPtr;    // 単位メモリ削除
+                    delete *m_ppPtr;	// 単位メモリ削除
 
                 delete m_ppPtr;
             }
@@ -109,14 +114,14 @@ namespace Dix {
         }
 
 
-
+    public:
        ///////////////////////
        // デフォルトコンストラクタ
        /////
         explicit sp( T* src=0, int add=0 ) :
-            m_pRefCnt   ( 0 ),
-            m_pWeakCnt  ( 0 ),
-            m_ppPtr     ( 0 )
+            m_pRefCnt	( 0 ),
+            m_pWeakCnt	( 0 ),
+            m_ppPtr		( 0 )
         {
             SetPtr( src, add );
         }
@@ -125,9 +130,9 @@ namespace Dix {
         // 配列フラグ付きデフォルトコンストラクタ
         /////
         sp(T* src, bool isAry, int add=0) :
-            m_pRefCnt   ( 0 ),
-            m_pWeakCnt  ( 0 ),
-            m_ppPtr     ( 0 )
+            m_pRefCnt	( 0 ),
+            m_pWeakCnt	( 0 ),
+            m_ppPtr		( 0 )
         {
             SetPtr( src, isAry, add );
         }
@@ -136,9 +141,9 @@ namespace Dix {
         // コピーコンストラクタ（同型コピー）
         /////
         sp( const sp<T> &src ) :
-            m_pRefCnt   ( 0 ),
-            m_pWeakCnt  ( 0 ),
-            m_ppPtr     ( 0 )
+            m_pRefCnt	( 0 ),
+            m_pWeakCnt	( 0 ),
+            m_ppPtr		( 0 )
         {
             // 相手がNULLポインタの場合は
             // 自分自身を空にする
@@ -159,9 +164,9 @@ namespace Dix {
         // コピーコンストラクタ（暗黙的アップキャスト）
         /////
         template<class T2> sp(sp<T2> &src) :
-            m_pRefCnt   ( 0 ),
-            m_pWeakCnt  ( 0 ),
-            m_ppPtr     ( 0 )
+            m_pRefCnt	( 0 ),
+            m_pWeakCnt	( 0 ),
+            m_ppPtr		( 0 )
         {
             // 相手がNULLポインタの場合は
             // 自分自身を空にする
@@ -186,10 +191,10 @@ namespace Dix {
         // コピーコンストラクタ（NULL代入代用）
         /////
         sp(const int nullval) :
-            m_pRefCnt   ( 0 ),
-            m_pWeakCnt  ( 0 ),
-            m_ppPtr     ( 0 ),
-            m_isAry     ( false )
+            m_pRefCnt	( 0 ),
+            m_pWeakCnt	( 0 ),
+            m_ppPtr		( 0 ),
+            m_isAry		( false )
         {
             // 空っぽにする
         }
@@ -323,6 +328,12 @@ namespace Dix {
             return false;
         }
 
+        bool operator ==( const int nul ) const {	// NULLとの比較専用
+            if ( m_ppPtr == 0 || *m_ppPtr == 0 )
+                return true;
+            return false;
+        }
+
         /////////////////
         // !=比較演算子
         /////
@@ -336,6 +347,12 @@ namespace Dix {
             if( m_ppPtr != 0 && *m_ppPtr != val )
                 return true;
             return false;
+        }
+
+        bool operator !=( const int nul ) const {	// NULLとの比較専用
+            if ( m_ppPtr == 0 || *m_ppPtr == 0 )
+                return false;
+            return true;
         }
 
         ///////////////////
@@ -359,8 +376,7 @@ namespace Dix {
         //////////////////////////
         // ポインタの明示的な登録
         /////
-        //void SetPtr( T* src = NULL, int add = 0 )
-        void SetPtr( T* src = 0, int add = 0 )
+        void SetPtr( T* src = NULL, int add = 0 )
         {
             // 参照カウンタを減らした後に再初期化
             Release();
@@ -516,14 +532,14 @@ namespace Dix {
                 return false;
 
             // ポインタの交換
-            T* pTmp      = src.GetPtr();
+            T* pTmp		 = src.GetPtr();
             *src.m_ppPtr = *m_ppPtr;
-            *m_ppPtr     = pTmp;
+            *m_ppPtr	 = pTmp;
 
             // 配列フラグの交換
-            bool tmp     = src.IsAry();
+            bool tmp	 = src.IsAry();
             src.m_isAry  = m_isAry;
-            m_isAry      = tmp;
+            m_isAry		 = tmp;
 
             return true;
         }
@@ -547,11 +563,11 @@ namespace Dix {
     class wp
     {
     private:
-        unsigned int*   m_pRefCnt;      // 参照カウンタへのポインタ
-        unsigned int*   m_pWeakCnt;     // ウィークカウンタへのポインタ
-        T**             m_ppPtr;        // オブジェクトへのダブルポインタ
-        static T*       m_NullPtr;      // NULLポインタ値
-        bool            m_isAry;        // 配列か？
+        unsigned int*	m_pRefCnt;		// 参照カウンタへのポインタ
+        unsigned int*	m_pWeakCnt;		// ウィークカウンタへのポインタ
+        T**				m_ppPtr;		// オブジェクトへのダブルポインタ
+        static T*		m_NullPtr;		// NULLポインタ値
+        bool			m_isAry;		// 配列か？
 
 
     private:
@@ -588,7 +604,7 @@ namespace Dix {
             m_ppPtr     ( 0 ),
             m_pRefCnt   ( 0 ),
             m_pWeakCnt  ( 0 ),
-            m_isAry     ( false )
+            m_isAry		( false )
         {
         }
 
@@ -607,8 +623,8 @@ namespace Dix {
         wp( const wp<T> &src )
         {
             // 相手のポインタをすべてコピー
-            m_pRefCnt  = src.m_pRefCnt;     // 参照カウンタポインタ
-            m_pWeakCnt = src.m_pWeakCnt;    // ウィークカウンタポインタ
+            m_pRefCnt  = src.m_pRefCnt;		// 参照カウンタポインタ
+            m_pWeakCnt = src.m_pWeakCnt;	// ウィークカウンタポインタ
             m_ppPtr    = src.m_ppPtr;       // T型ダブルポインタ
             m_isAry    = src.IsAry();
 
@@ -624,7 +640,7 @@ namespace Dix {
             // 相手のポインタをコピー
             m_pRefCnt  = src.GetRefPtr();
             m_pWeakCnt = src.GetWeakCntPtr();
-            m_ppPtr    = (T**)src.GetPtrPtr();
+            m_ppPtr	   = (T**)src.GetPtrPtr();
 
             // 型チェックコピー
             if ( m_ppPtr )
@@ -643,7 +659,7 @@ namespace Dix {
             m_ppPtr     ( 0 ),
             m_pRefCnt   ( 0 ),
             m_pWeakCnt  ( 0 ),
-            m_isAry     ( false )
+            m_isAry		( false )
         {
             // 相手がNULLポインタだった場合は
             // 無条件で自分もNULLポインタになる
@@ -672,7 +688,7 @@ namespace Dix {
             m_ppPtr     ( 0 ),
             m_pRefCnt   ( 0 ),
             m_pWeakCnt  ( 0 ),
-            m_isAry     ( false )
+            m_isAry		( false )
         {
         }
 
@@ -859,6 +875,12 @@ namespace Dix {
             return false;
         }
 
+        bool operator ==( const int nul ) const {	// NULLとの比較専用
+            if ( m_ppPtr == 0 || *m_ppPtr == 0 )
+                return true;
+            return false;
+        }
+
         /////////////////
         // !=比較演算子
         /////
@@ -872,6 +894,12 @@ namespace Dix {
             if( m_ppPtr != 0 && *m_ppPtr != val.GetPtr() )
                 return true;
             return false;
+        }
+
+        bool operator !=( const int nul ) const {	// NULLとの比較専用
+            if ( m_ppPtr == 0 || *m_ppPtr == 0 )
+                return false;
+            return true;
         }
 
         ///////////////////
