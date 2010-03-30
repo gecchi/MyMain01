@@ -376,7 +376,8 @@ namespace Dix {
         //////////////////////////
         // ポインタの明示的な登録
         /////
-        void SetPtr( T* src = NULL, int add = 0 )
+        void SetPtr( T* src = 0, int add = 0 )
+        //void SetPtr( T* src = NULL, int add = 0 )
         {
             // 参照カウンタを減らした後に再初期化
             Release();
