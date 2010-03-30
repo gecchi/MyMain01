@@ -51,11 +51,11 @@ void GgafDx9GeometricActor::processPreJudgement() {
     _wasCalc_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
+        //土台あり時ローカル座標に一旦戻す
         chengeGeoLocal();
     }
 
-
-    //土台あり
+    //DirectXの単位に座標を変換しておく（World変換行列作成時にも使用されます）
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
@@ -95,9 +95,11 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
     if (_pActor_Base) {
+        //絶対座標に変換
         D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //合成
         D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //合成
         chengeGeoFinal();
+        //ワールド変換行列から飛行移動を取り出し最終的な座標とする
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
         _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
