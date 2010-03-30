@@ -57,7 +57,7 @@ void EnemyIris::processBehavior() {
 
     if (_iMovePatternNo == 1) {
         //スプライン移動終了時
-        _pMover->execTagettingMvAngSequence(pMYSHIP, pMYSHIP->_Y, pMYSHIP->_Z,
+        _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
                                             3000, 0,
                                             TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
