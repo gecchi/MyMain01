@@ -15,6 +15,9 @@ namespace MyStg2nd {
 /**
  * ゲームデモシーンクラス .
  * ゲームが行なわれている場面と言っても、ゲームデモが行なわれている場合もありました。
+ * @version 1.00
+ * @since 2007/11/16
+ * @author Masatoshi Tsuge
  */
 class GameDemoScene : public GgafDx9LibStg::DefaultScene {
 
