@@ -12,8 +12,9 @@ namespace GgafCore {
  * 基本的にインスタンスは１個です。<BR>
  * その他、アプリ内でグローバルな参照が在ったり便利屋クラスでもある。<BR>
  * TODO:最終的には 神を２個 new して、交互に be() を実行すれば、ゲームが２個平行動作するようにしようかな。
+ * (旧名:GdxfwWorldクラス)
  * @version 1.00
- * @since 2007/11/29
+ * @since 2007/11/26
  * @author Masatoshi Tsuge
  */
 class GgafGod : public GgafObject {

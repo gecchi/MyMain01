@@ -143,7 +143,7 @@ int GgafResourceConnection<T>::close() {
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
 
-    //TODO:簡易的な排他。完全ではない。
+    //TODO:完全ではない。
     for(int i = 0; GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(1);
         if (i > 1000*60) {

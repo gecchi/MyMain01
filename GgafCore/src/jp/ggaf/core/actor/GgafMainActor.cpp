@@ -48,8 +48,24 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
             }
         }
     }
-
 }
+//ƒsetGroupActorÅ“K‰»ˆÄƒƒ‚„
+//ˆÈ‰º‚Ì‚æ‚¤‚È\‘¢‚Ìê‡AGgafGroupActor‚Í“‡‚Å‚«‚éB
+//TODO:‚¤‚Ü‚­‚µ‚ÄAGgafGroupActor(088C6D48)‚Ì”rœ‚Í‚Å‚«‚È‚¢‚©
+//
+//   bGgafGroupActor(088C6EA0)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
+//   bbEnemyCirce(088C5E50)[EnemyCirce](-66856,-154236,26350)@13883,1,101,101,0(0)
+//   bbbGgafGroupActor(088C6D48)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
+//   bbbbEnemyVesta(08826070)[EnemyVesta1](-197896,-154236,296217)@13883,1,101,101,0(0)
+//   bbbbEnemyVesta(088C2610)[EnemyVesta2](203010,-154759,157390)@13883,1,101,101,0(0)
+//   bbbbEnemyVesta(088C3150)[EnemyVesta3](64184,-154236,-243517)@13883,1,101,101,0(0)
+//   bbbbEnemyVesta(088C3C90)[EnemyVesta4](-336722,-153712,-104690)@13883,1,101,101,0(0)
+//   bbbbEnemyVesta(088C47D0)[EnemyVesta5](-66384,145763,26578)@13883,1,101,101,0(0)
+//   bbbbEnemyVesta(088C5310)[EnemyVesta6](-67327,-454235,26121)@13883,1,101,101,0(0)
+//   bbb„¤„Ÿ
+//   bb„¤„Ÿ
+//   b„¤„Ÿ
+
 
 GgafGroupActor* GgafMainActor::getGroupActor() {
     if (_pGroupActor == NULL) {
@@ -66,6 +82,7 @@ GgafGroupActor* GgafMainActor::getGroupActor() {
     }
     return _pGroupActor;
 }
+
 
 GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
