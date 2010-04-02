@@ -13,13 +13,6 @@ class FormationJuno001 : public GgafDx9LibStg::FormationActor {
 public:
     /** 出現範囲幅BOX */
     int _X1_app, _Y1_app, _Z1_app, _X2_app, _Y2_app, _Z2_app;
-    /** 全体（出現範囲とJunoの移動方向差分 */
-    angle _incX, _incY, _incZ;
-    /** 全体のX */
-    static int _X_FormationWhole;
-    /** 全体のX増分 */
-    static int _incX;
-
 
     FormationJuno001(const char* prm_name);
 
