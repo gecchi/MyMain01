@@ -16,14 +16,14 @@ public:
 
     FormationJuno001(const char* prm_name);
 
-    void setInitializeProperty(
-            prm_X1_app, prm_Y1_app, prm_Z1_app, prm_X2_app, prm_Y2_app, prm_Z2_app,
-            prm_X, prm_Y, prm_Z,
-            prm_veloMv_App,
-            prm_angRzMv_AppBox, prm_angRyMv_AppBox,
-            prm_veloMv_Juno,
-            prm_angRzMv_JunoMv, prm_angRyMv_Juno,
-            prm_frame_app_interval
+//    void setInitializeProperty(
+//            prm_X1_app, prm_Y1_app, prm_Z1_app, prm_X2_app, prm_Y2_app, prm_Z2_app,
+//            prm_X, prm_Y, prm_Z,
+//            prm_veloMv_App,
+//            prm_angRzMv_AppBox, prm_angRyMv_AppBox,
+//            prm_veloMv_Juno,
+//            prm_angRzMv_JunoMv, prm_angRyMv_Juno,
+//            prm_frame_app_interval);
 
     virtual void initialize() override;
 

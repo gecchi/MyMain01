@@ -224,12 +224,12 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 int GgafDx9GeometricActor::isOffscreen() {
     //_TRACE_("name="<<getName()<<" _fBoundingSphereRadius="<<_fBoundingSphereRadius);
     if (_offscreenkind == -1) {
-        if ( _fDist_VpPlnTop <= _fBoundingSphereRadius) {
-            if ( _fDist_VpPlnBottom <= _fBoundingSphereRadius) {
-                if ( _fDist_VpPlnLeft <= _fBoundingSphereRadius) {
-                    if ( _fDist_VpPlnRight <= _fBoundingSphereRadius) {
-                        if ( _fDist_VpPlnFront <= _fBoundingSphereRadius) {
-                            if ( _fDist_VpPlnBack <= _fBoundingSphereRadius) {
+        if (_fDist_VpPlnTop <= _fBoundingSphereRadius) {
+            if (_fDist_VpPlnBottom <= _fBoundingSphereRadius) {
+                if (_fDist_VpPlnLeft <= _fBoundingSphereRadius) {
+                    if (_fDist_VpPlnRight <= _fBoundingSphereRadius) {
+                        if (_fDist_VpPlnFront <= _fBoundingSphereRadius) {
+                            if (_fDist_VpPlnBack <= _fBoundingSphereRadius) {
                                 //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
                             } else {
@@ -265,13 +265,13 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
     if (GgafDx9Universe::_X_goneLeft < _X) {
         if (_X < GgafDx9Universe::_X_goneRight) {
             if (GgafDx9Universe::_Y_goneBottom < _Y) {
-                 if (_Y < GgafDx9Universe::_Y_goneTop) {
-                     if (GgafDx9Universe::_Z_goneNear < _Z) {
-                          if (_Z < GgafDx9Universe::_Z_goneFar) {
-                              return false;
-                          }
-                     }
-                 }
+                if (_Y < GgafDx9Universe::_Y_goneTop) {
+                    if (GgafDx9Universe::_Z_goneNear < _Z) {
+                        if (_Z < GgafDx9Universe::_Z_goneFar) {
+                            return false;
+                        }
+                    }
+                }
             }
         }
     }

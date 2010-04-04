@@ -24,13 +24,13 @@ void EnemyJuno::initialize() {
 }
 
 void EnemyJuno::processBehavior() {
-    if (onChangeToActive()) {
-        //oŒ»ˆ—
-        setHitAble(true);
-        _X += FormationJuno001::_X_FormationWhole;
-    }
-
-    _X += FormationJuno001::_incX;
+//    if (onChangeToActive()) {
+//        //oŒ»ˆ—
+//        setHitAble(true);
+//        _X += FormationJuno001::_X_FormationWhole;
+//    }
+//
+//    _X += FormationJuno001::_incX;
     //À•W‚É”½‰f
     _pMover->behave();
 }
