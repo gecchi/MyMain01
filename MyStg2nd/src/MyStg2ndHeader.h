@@ -191,6 +191,7 @@ class FormationCeres002;
 class EnemyPallas;
 
 class EnemyJuno;
+class FormationJuno;
 class FormationJuno001;
 
 class EnemyMetis;
@@ -294,6 +295,7 @@ class Formation001;
 #include "gecchi/actor/enemy/Ceres/FormationCeres002.h"
 #include "gecchi/actor/enemy/Pallas/EnemyPallas.h"
 #include "gecchi/actor/enemy/Juno/EnemyJuno.h"
+#include "gecchi/actor/enemy/Juno/FormationJuno.h"
 #include "gecchi/actor/enemy/Juno/FormationJuno001.h"
 #include "gecchi/actor/enemy/Metis/EnemyMetis.h"
 #include "gecchi/actor/enemy/Metis/FormationMetis001.h"

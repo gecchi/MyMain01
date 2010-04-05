@@ -12,13 +12,15 @@ public:
 
     void initialize() override;
 
+    void onActive() override;
+
     void processBehavior() override;
 
     void processJudgement() override;
 
-    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
+    void onInactive() override;
 
-    bool isOutOfGameSpace() override;
+    void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     virtual ~EnemyJuno();
 };

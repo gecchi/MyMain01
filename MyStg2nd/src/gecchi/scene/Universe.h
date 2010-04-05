@@ -11,6 +11,7 @@ namespace MyStg2nd {
 #define getSubActor(X) ((X##Actor*)getSub(#X))
 
 #define pWORLD (((Universe*)(GgafGod::_pGod->_pUniverse))->_pWorld)
+#define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
 /**
  * ‚±‚Ì¢ƒV[ƒ“ .
  * ‚Ü‚¸‚±‚Ì¢‚ª‚ ‚è‚Ü‚µ‚½B<BR>

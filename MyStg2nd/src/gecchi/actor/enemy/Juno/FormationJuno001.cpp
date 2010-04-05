@@ -5,37 +5,26 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-//int FormationJuno001::_X_FormationWhole = 0;
-//int FormationJuno001::_incX = -2000;
-
-FormationJuno001::FormationJuno001(const char* prm_name) : FormationActor(prm_name) {
+FormationJuno001::FormationJuno001(const char* prm_name) :
+    FormationJuno(prm_name,
+                  -800000, -800000, -1,
+                   800000,  800000,  1,
+                   GgafDx9Universe::_X_goneRight - 300000, 0, GgafDx9Universe::_Z_goneFar - 1000,
+//                   0, 0, 0,
+                   1000,
+                   ANGLE0, ANGLE180,
+                   60000,
+                   ANGLE0, ANGLE90,
+                   200,
+                   5) {
     _class_name = "FormationJuno001";
-    CmRandomNumberGenerator* pRndGen = CmRandomNumberGenerator::getInstance();
-    pRndGen->changeSeed(GameGlobal::_pMyShip->_X);
-
-    int iScreenWidth = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * LEN_UNIT;
-    int iScreenHeight = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * LEN_UNIT;
-    for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-        _pEnemyJuno[i] = NEW EnemyJuno("Juno01");
-        _pEnemyJuno[i]->inactivateImmediately();
-        _pEnemyJuno[i]->_X = (pRndGen->genrand_int32() % (iScreenWidth)) - (iScreenHeight/2);
-        _pEnemyJuno[i]->_Y = (pRndGen->genrand_int32() % (iScreenHeight)) - (iScreenHeight/2);
-        addSubLast(_pEnemyJuno[i] );
-        Sleep(1);
-    }
-
 }
 
-void FormationJuno001::initialize() {
-    for (int i = 0; i < NUM_JUNO_FORMATION001; i++) {
-        _pEnemyJuno[i]->activateAfter(i * 3 + 1);
+void FormationJuno001::processJudgement() {
+    if (_X < GgafDx9Universe::_X_goneLeft - 300000) {
+        _TRACE_("FormationJuno001::processJudgement() ‚³‚æ‚È‚ç");
+        sayonara();
     }
-}
-
-void FormationJuno001::processBehavior() {
-//    if (isFirst()) {
-//        _X_FormationWhole += _incX; //‘S‘Ì‚ÌX
-//    }
 }
 
 FormationJuno001::~FormationJuno001() {
