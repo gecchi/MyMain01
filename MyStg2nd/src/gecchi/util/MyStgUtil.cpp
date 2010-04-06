@@ -240,6 +240,17 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«Žž‚Ì–hŒä—¦
 		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«Žž‚Ì–hŒä—¦
 	}
+	void MyStgUtil::resetEnemyJunoStatus(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 20 );  //‰ÁŽZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁŽZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁŽZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«Žž‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«Žž‚Ì–hŒä—¦
+	}
 	void MyStgUtil::resetShot001Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)
 		p->set(STAT_AddScorePoint, 2 );  //‰ÁŽZ“¾“_
@@ -276,6 +287,17 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetEnemyCirceStatus(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_BODY_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)
 		p->set(STAT_AddScorePoint, 100 );  //‰ÁŽZ“¾“_
+		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁŽZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁŽZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_Stamina, 100 );  //‘Ì—Í
+		p->set(STAT_Attack, 100 );  //UŒ‚—Í
+		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦
+		p->set(STAT_DominantDefenceRate, 0.50000 );  //—D«Žž‚Ì–hŒä—¦
+		p->set(STAT_RecessiveDefenceRate, 2.00000 );  //—ò«Žž‚Ì–hŒä—¦
+	}
+	void MyStgUtil::resetShot003Status(GgafStatus* p) {
+		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //Ží•Ê(ƒfƒtƒHƒ‹ƒg)
+		p->set(STAT_AddScorePoint, 0 );  //‰ÁŽZ“¾“_
 		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁŽZƒ‰ƒ“ƒN
 		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁŽZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í

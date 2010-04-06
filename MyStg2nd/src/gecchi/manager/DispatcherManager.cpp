@@ -34,6 +34,17 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
         pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
     }
 
+    if (GgafUtil::strcmp_ascii("DpCon_Shot003", prm_idstr) == 0) {
+        pResource = NEW GgafActorDispatcher("DP_Shot003_Stock");
+        Shot003* pShot003;
+        for (int i = 0; i < 300; i++) {
+            pShot003 = NEW Shot003("Shot003");
+            pShot003->inactivateImmediately();
+            pResource->addSubLast(pShot003);
+        }
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource);
+    }
+
     return pResource;
 }
 

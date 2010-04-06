@@ -151,6 +151,7 @@ class LaserChipDispatcher;
 class LaserChipDispatcherDispatcher;
 class Shot001;
 class Shot002;
+class Shot003;
 class MyCurveLaserChip001;
 class MyStraightLaserChip001;
 class Stage01MainScene;
@@ -259,6 +260,7 @@ class Formation001;
 #include "gecchi/actor/common/laserchip/LaserChipDispatcherDispatcher.h"
 #include "gecchi/actor/common/shot/Shot001.h"
 #include "gecchi/actor/common/shot/Shot002.h"
+#include "gecchi/actor/common/shot/Shot003.h"
 
 #include "gecchi/actor/my/mesh/MyShip.h"
 #include "gecchi/actor/my/mesh/MyOptionParent.h"

@@ -3,14 +3,15 @@
 namespace MyStg2nd {
 
 /**
- * 汎用敵弾001(小) .
- * 等速直線移動<BR>
+ * 汎用弾002(小) .
+ * 破壊可能で等速直線移動後、自機へ方向転換<BR>
  * @version 1.00
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
 class Shot002 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
+    /** 自機へ方向転換開始フレーム */
     DWORD _my_frame;
 
     Shot002(const char* prm_name);

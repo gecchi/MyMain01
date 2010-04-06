@@ -1,17 +1,17 @@
-#ifndef SHOT001_H_
-#define SHOT001_H_
+#ifndef SHOT003_H_
+#define SHOT003_H_
 namespace MyStg2nd {
 
 /**
- * ”Ä—p’e001(¬) .
- * ”j‰ó‰Â”\‚Å“™‘¬’¼üˆÚ“®<BR>
+ * ”Ä—p’e003(¬) .
+ * ”j‰ó•s‰Â”\‚Å“™‘¬’¼üˆÚ“®<BR>
  * @version 1.00
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
-class Shot001 : public GgafDx9LibStg::DefaultMeshSetActor {
+class Shot003 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
-    Shot001(const char* prm_name);
+    Shot003(const char* prm_name);
 
     void initialize() override;
 
@@ -23,9 +23,9 @@ public:
 
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
-    virtual ~Shot001();
+    virtual ~Shot003();
 };
 
 }
-#endif /*SHOT001_H_*/
+#endif /*SHOT003_H_*/
 

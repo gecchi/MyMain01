@@ -10,6 +10,8 @@ class FormationJuno : public GgafDx9LibStg::FormationActor {
     /** ジュノーストック */
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyJuno;
     CmRandomNumberGenerator* _pRndGen;
+    DispatcherConnection* _pDispatcherCon;
+
 public:
     /** 出現範囲幅BOX */
     int _X1_app, _Y1_app, _Z1_app, _X2_app, _Y2_app, _Z2_app;

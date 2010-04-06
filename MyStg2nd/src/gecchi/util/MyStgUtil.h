@@ -178,36 +178,40 @@ public:
     // 以下の gen01 start ～ end はExcelマクロにより自動生成されたコードです。
     // コード変更は「シーンCreater.xls」から行っていただきたい。
     // gen01 start
-    //自機レーザー
-    static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-    //オプションレーザー
-    static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
-    //自機
-    static void resetMyShipStatus(GgafCore::GgafStatus* p);
-    //ケレス
-    static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
-    //ケレスショット001
-    static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
-    //アストラエア
-    static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
-    //アストラエアレーザー
-    static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
-    //アストラエアレーザー
-    static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
-    //ヴェスタ
-    static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
-    //メティス
-    static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
-    //イリス
-    static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
-    //汎用ショット001
-    static void resetShot001Status(GgafCore::GgafStatus* p);
-    //汎用ショット002
-    static void resetShot002Status(GgafCore::GgafStatus* p);
-    //たまご１
-    static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
-    //キルケ
-    static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
+	//自機レーザー
+	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
+	//オプションレーザー
+	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
+	//自機
+	static void resetMyShipStatus(GgafCore::GgafStatus* p);
+	//ケレス
+	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
+	//ケレスショット001
+	static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
+	//アストラエア
+	static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
+	//アストラエアレーザー
+	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
+	//アストラエアレーザー
+	static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
+	//ヴェスタ
+	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
+	//メティス
+	static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
+	//イリス
+	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
+	//ジュノー
+	static void resetEnemyJunoStatus(GgafCore::GgafStatus* p);
+	//汎用ショット001
+	static void resetShot001Status(GgafCore::GgafStatus* p);
+	//汎用ショット002
+	static void resetShot002Status(GgafCore::GgafStatus* p);
+	//たまご１
+	static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
+	//キルケ
+	static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
+	//汎用ショット003ミニレーザー
+	static void resetShot003Status(GgafCore::GgafStatus* p);
     // gen01 end
 };
 
