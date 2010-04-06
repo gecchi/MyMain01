@@ -8,6 +8,7 @@ GgafActor::GgafActor(const char* prm_name) :
     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
     _pStatus = NEW GgafStatus(10);
+    _pStatus->set(0, 0);
     _pScene_Platform = NULL;
     _pGod = NULL;
     setHitAble(false);
