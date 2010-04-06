@@ -29,6 +29,7 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
     LOFA_Elem* pElem = ((LOFA_Elem*)(_paSpace[prm_index]._pElemFirst));
     if (pElem != NULL) {
         GgafActor* pActor_ElemValue = pElem->_pActor;
+        TRACE5("pActor_ElemValue="<<pActor_ElemValue->getName());
         while(true) {
             if ((pElem->_kindbit & _kind_groupA) > 0) {
                 _stackCurrentSpaceActor_GroupA.push(pActor_ElemValue);
