@@ -12,6 +12,7 @@ public:
     /** 弾発射効果エフェクト */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
     bool _do_Shot;
+    bool _can_Shot;
     DWORD _frame_when_shot;
     int _nMaxShot;
     int _nShot;

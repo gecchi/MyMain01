@@ -21,7 +21,7 @@ void Shot003::initialize() {
 
 void Shot003::onActive() {
     setHitAble(true);
-    _pMover->setMvVelo(10000);             //ˆÚ“®‘¬“x
+    _pMover->setMvVelo(20000);             //ˆÚ“®‘¬“x
 
 }
 

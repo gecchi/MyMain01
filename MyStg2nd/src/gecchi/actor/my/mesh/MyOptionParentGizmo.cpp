@@ -13,6 +13,7 @@ MyOptionParentGizmo::MyOptionParentGizmo(const char* prm_name) : DefaultMeshActo
 
 void MyOptionParentGizmo::initialize() {
     setHitAble(false);
+    setAlpha(0.5);
 }
 
 void MyOptionParentGizmo::onActive() {

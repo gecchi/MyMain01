@@ -6,12 +6,12 @@ using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
 
-MyOptionParent::MyOptionParent(const char* prm_name) :
-    DefaultMeshActor(prm_name, "Gizmo") {
-
 //MyOptionParent::MyOptionParent(const char* prm_name) :
-//  GgafDx9GeometricActor(prm_name,
-//                            NULL) {
+//    DefaultMeshActor(prm_name, "Gizmo") {
+
+MyOptionParent::MyOptionParent(const char* prm_name) :
+  GgafDx9GeometricActor(prm_name,
+                            NULL) {
     _is_handle_move_mode = false;
     _is_free_from_myship_mode = false;
     _return_to_default_position_seq = false;

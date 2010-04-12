@@ -8,8 +8,8 @@ namespace MyStg2nd {
  * @since 2006/06/22
  * @author Masatoshi Tsuge
  */
-class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
-//class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
+//class MyOptionParent : public GgafDx9LibStg::DefaultMeshActor {
+class MyOptionParent : public GgafDx9Core::GgafDx9GeometricActor {
 
 
     struct AngRzRy {
@@ -44,8 +44,9 @@ public:
 
     virtual void processJudgement() override {}
 
-//DefaultMeshActorで表示したい場合はコメントにすること
-//    virtual void processDraw() override {}
+//DefaultMeshActor等で表示したい場合はコメントにすること
+//GgafDx9GeometricActorの場合はコメントを外すこと
+    virtual void processDraw() override {}
 
     virtual void processHappen(int prm_no) override {}
 

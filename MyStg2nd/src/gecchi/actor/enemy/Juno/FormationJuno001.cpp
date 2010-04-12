@@ -7,15 +7,15 @@ using namespace MyStg2nd;
 
 FormationJuno001::FormationJuno001(const char* prm_name) :
     FormationJuno(prm_name,
-                  -800000, -800000, -1,
-                   800000,  800000,  1,
+                  -800000, -400000, -1,
+                   400000,  800000,  1,
                    GgafDx9Universe::_X_goneRight - 300000, 0, GgafDx9Universe::_Z_goneFar - 1000,
-                   3000,
+                   4000,
                    ANGLE0, ANGLE180,
-                   60000,
+                   30000,
                    ANGLE0, ANGLE90,
-                   200,
-                   5) {
+                   300,
+                   4) {
     _class_name = "FormationJuno001";
 }
 

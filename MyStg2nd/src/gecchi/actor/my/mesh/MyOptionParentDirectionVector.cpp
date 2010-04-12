@@ -12,6 +12,7 @@ MyOptionParentDirectionVector::MyOptionParentDirectionVector(const char* prm_nam
 }
 
 void MyOptionParentDirectionVector::initialize() {
+    setAlpha(0.3);
     setHitAble(false);
 }
 
