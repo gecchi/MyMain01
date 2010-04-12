@@ -14,6 +14,9 @@ public:
     static int* VIEW_SCREEN_WIDTH;
     static int* VIEW_SCREEN_HEIGHT;
     static bool* FIXED_VIEW_ASPECT;
+    static int* MASTER_VOLUME;
+    static int* BGM_VOLUME;
+    static int* SE_VOLUME;
     static std::string* DIR_MESH_MODEL;
     static std::string* DIR_SPRITE_MODEL;
     static std::string* DIR_TEXTURE;

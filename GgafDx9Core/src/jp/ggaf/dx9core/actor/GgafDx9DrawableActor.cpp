@@ -44,15 +44,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     //Å‘å‹——£’¸“_
     _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
 
-    _papSeCon = NEW GgafDx9SeConnection*[10];
-    _papSe    = NEW GgafDx9Se*[10];
-    for (int i = 0; i < 10; i++) {
-        _papSeCon[i] = NULL;
-        _papSe[i] = NULL;
-    }
-
-    _pSeCon = NULL;
-    _pSe = NULL;
     _now_drawdepth = 0;
 
 }
@@ -126,18 +117,6 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
     DELETEARR_IMPOSSIBLE_NULL(effelct_name);
-
-
-    _papSeCon = NEW GgafDx9SeConnection*[10];
-    _papSe    = NEW GgafDx9Se*[10];
-    for (int i = 0; i < 10; i++) {
-        _papSeCon[i] = NULL;
-        _papSe[i] = NULL;
-    }
-
-    _pSeCon = NULL;
-    _pSe = NULL;
-    _now_drawdepth = 0;
 }
 
 
@@ -255,39 +234,6 @@ void GgafDx9DrawableActor::resetMaterialColor() {
     }
 }
 
-void GgafDx9DrawableActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
-    _papSe[prm_id] = _papSeCon[prm_id]->view();
-}
-
-void GgafDx9DrawableActor::playSe(int prm_id) {
-    _papSe[prm_id]->play();
-}
-
-
-void GgafDx9DrawableActor::prepareSe1(const char* prm_se_name, int prm_cannel) {
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _pSeCon = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
-    _pSe = _pSeCon->view();
-}
-
-void GgafDx9DrawableActor::playSe1() {
-    _pSe->play();
-}
-
-void GgafDx9DrawableActor::prepareSe2(const char* prm_se_name, int prm_cannel) {
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _pSeCon2 = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
-    _pSe2 = _pSeCon2->view();
-}
-
-void GgafDx9DrawableActor::playSe2() {
-    _pSe2->play();
-}
 
 GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     DELETEARR_IMPOSSIBLE_NULL(_technique);
@@ -295,14 +241,4 @@ GgafDx9DrawableActor::~GgafDx9DrawableActor() {
     _pGgafDx9ModelCon->close();
     _pGgafDx9EffectCon->close();
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9);
-    if (_pSeCon) {
-        _pSeCon->close();
-    }
-    for (int i = 0; i < 10; i++) {
-        if (_papSeCon[i]) {
-            _papSeCon[i]->close();
-        }
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_papSeCon);
-    DELETEARR_IMPOSSIBLE_NULL(_papSe);
 }

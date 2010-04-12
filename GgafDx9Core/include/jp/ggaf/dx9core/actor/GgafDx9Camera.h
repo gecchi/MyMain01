@@ -78,8 +78,9 @@ public:
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
 
-
+    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
     float _zn;
+    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
     float _zf;
 
     /** 注視点 **/

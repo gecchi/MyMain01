@@ -25,8 +25,7 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     DSBUFFERDESC dsbdesc;
     ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
     dsbdesc.dwSize = sizeof(DSBUFFERDESC);
-    dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS
-            | DSBCAPS_LOCSOFTWARE; //DSBCAPS_LOCSOFTWAREを付け足した
+    dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_LOCSOFTWARE; //TODO:DSBCAPS_LOCSOFTWARE or DSBCAPS_LOCDEFERかどっち？
     dsbdesc.dwBufferBytes = WaveFile.GetWaveSize();
     dsbdesc.lpwfxFormat = WaveFile.GetWaveFormat();
 
@@ -37,8 +36,8 @@ GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     if (!writeBuffer(WaveFile)) {
         _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ＜警告＞GgafDx9Se::writeBuffer()が失敗しています。");
     }
-    _iVolume = 0;
-    _iPan = 0;
+    hr = _pIDirectSoundBuffer->GetFrequency(&_dwDefaultFrequency);
+    checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") GetFrequency に失敗しました。サウンドカードは有効ですか？");
 
 }
 
@@ -84,7 +83,55 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
     return true;
 }
 
+void GgafDx9Se::play(GgafDx9GeometricActor* prm_pActor) {
+//    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnTop;
+//    /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnBottom;
+//    /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnLeft;
+//    /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnRight;
+//    /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnFront;
+//    /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+//    FLOAT _fDist_VpPlnBack;
+//#define DSBPAN_LEFT                 -10000
+//#define DSBPAN_CENTER               0
+//#define DSBPAN_RIGHT                10000
+//
+//#define DSBVOLUME_MIN               -10000
+//#define DSBVOLUME_MAX               0
+//    int GgafDx9Sound::_master_volume = 100;
+//    int GgafDx9Sound::_bgm_volume = 100;
+//    int GgafDx9Sound::_se_volume = 100;
 
+//    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
+//    float _zn;
+//    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
+//    float _zf;
+
+//    まず、同じバッファの音が同時再生できなかった問題は、DuplicateSoundBuffer()関数を使ってバッファの外枠のみのコピーを作っておくことで解決です。例えば、これで8個作っておくと同じバッファの音が8個まで同時再生できます。
+//    ただ、小さな破片は1秒間に数百個も爆発したりするので、さすがに100個くらい同時再生しようとすると音が途切れます…。
+//
+//    後は、再生直前に
+//
+//        lpDSBuf->SetVolume(LONG); //音量設定 減衰するdb 0～-10000
+//        lpDSBuf->SetPan(LONG); //パン設定 -10000～+10000
+//        lpDSBuf->SetFrequency(DWORD); //再生周波数設定
+//
+//    _dwDefaultFrequency
+//    こういう設定が出来ることが分かりました。最後の再生周波数設定は、例えばサンプリングレート44.1KHzのバッファの場合はここへ44100を指定すると通常通りの再生になり、22050を指定すると半分の速度（音程も半分）で再生されるという具合です。
+//    これ、敵の爆破した位置に合わせて設定してやるとすごく立体的でリアル。とくに、遠くの爆発は再生周波数下げるようにすると、爆発音がくぐもった音になってまるで映画みたい。最初は遊び心でいじってたけど、ここまで上手くハマるとは思わなかったな。
+//
+//    ただ、注意点もあって、バッファ初期化時にDSBUFFERDESC構造体の設定で、
+//
+//        DSBufferDesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
+//
+//    のようなフラグを設定して、各パラメータをコントロールすることを伝えておく必要がある。MSDN見ても、SetVolume()の解説のところなんかにこのフラグの事が書いて無くて、しばらくネットを探し回ってしまった。あと、SetVolumeの値もMSDNだと正の値だと書いてあるけど、実際は負の値を入れないといけない。MSDNってどっか抜けてる…？？
+
+
+}
 /**
  @brief		SEを鳴らす
  @param		prm_iVolume		ボリューム(min:-9600 max:0)

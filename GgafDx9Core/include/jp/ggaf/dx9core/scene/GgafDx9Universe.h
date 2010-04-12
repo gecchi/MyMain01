@@ -50,6 +50,11 @@ public:
 
 
 
+    /** SE資源接続 */
+    GgafDx9SeConnection** _papSeCon;
+    /** SE資源 */
+    GgafDx9Se** _papSe;
+
     /**
      * 描画レベル（順序）を登録 .
      * αなど半透明はこちらに登録した方が、ある程度前後関係が正しく表示される。
@@ -57,6 +62,10 @@ public:
      * @param prm_pActor アクター
      */
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
+
+
+    void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
+    void playSe(int prm_id);
 
 //    /**
 //     * 描画レベル（順序）を最遠で登録.

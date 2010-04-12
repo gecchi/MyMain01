@@ -50,17 +50,17 @@ public:
     FLOAT _fY;
     /** [r]DirectZのワールドZ座標(_fZ : _Z = 0.1 : 1000) */
     FLOAT _fZ;
-    /** [r]視野外の自身の座標から視錐台上面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnTop;
-    /** [r]視野外の自身の座標から視錐台下面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnBottom;
-    /** [r]視野外の自身の座標から視錐台左面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnLeft;
-    /** [r]視野外の自身の座標から視錐台右面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnRight;
-    /** [r]視野外の自身の座標から視錐台手前面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnFront;
-    /** [r]視野外の自身の座標から視錐台奥面までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     FLOAT _fDist_VpPlnBack;
     /** [r/w]WORLD変換行列計算関数 */
     void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);

@@ -57,7 +57,7 @@ GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm
             _rad_fovY,        //y方向視野角ラディアン(0～π)
             _screen_aspect,   //アスペクト比  640×480 の場合  640/480
             _zn,             //zn:カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0
-            _zf //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn (8.0は適当)
+            _zf              //zf:カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn
             //(FLOAT)(-1.0f*dCam*4)
             //(-1.0f*fCam)-30,
             //(-1.0f*fCam)+30

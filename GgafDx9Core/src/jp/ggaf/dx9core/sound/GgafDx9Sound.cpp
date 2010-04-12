@@ -11,7 +11,10 @@ GgafDx9SeManager* GgafDx9Sound::_pSeManager = NULL;
 
 DSCAPS GgafDx9Sound::_dsCaps;
 
-int GgafDx9Sound::_master_volume = 0; //マスターボリューム (TODO:未実装)
+int GgafDx9Sound::_master_volume = 100;
+int GgafDx9Sound::_bgm_volume = 100;
+int GgafDx9Sound::_se_volume = 100;
+
 
 void GgafDx9Sound::init() {
     HRESULT hr;

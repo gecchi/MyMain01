@@ -18,6 +18,26 @@ public:
     static GgafDx9SeManager* _pSeManager;
     static GgafDx9BgmManager* _pBgmManager;
     static int _master_volume;
+    static int _bgm_volume;
+    static int _se_volume;
+
+    /**
+     * マスタボリューム設定(現在未実装).
+     * TODO:マスターボリューム処理をする！
+     * @param prm_master_volume
+     */
+    static void setMasterVolume(int prm_master_volume) {
+        GgafDx9Sound::_master_volume = prm_master_volume;
+    }
+
+    static void setBgmVolume(int prm_bgm_volume) {
+        GgafDx9Sound::_bgm_volume = prm_bgm_volume;
+    }
+
+    static void setSeVolume(int prm_se_volume) {
+        GgafDx9Sound::_se_volume = prm_se_volume;
+    }
+
 };
 
 }

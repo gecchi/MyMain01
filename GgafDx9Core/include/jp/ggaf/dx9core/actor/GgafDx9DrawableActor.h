@@ -187,26 +187,6 @@ public:
      */
     virtual void resetMaterialColor();
 
-    /** SE資源接続 */
-    GgafDx9SeConnection** _papSeCon;
-    /** SE資源 */
-    GgafDx9Se** _papSe;
-    /** SE資源接続 */
-    GgafDx9SeConnection* _pSeCon;
-    /** SE資源 */
-    GgafDx9Se* _pSe;
-    /** SE資源接続 */
-    GgafDx9SeConnection* _pSeCon2;
-    /** SE資源 */
-    GgafDx9Se* _pSe2;
-
-    void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
-    void playSe(int prm_id);
-    void prepareSe1(const char* prm_se_name, int prm_cannel = 0);
-    void playSe1();
-    void prepareSe2(const char* prm_se_name, int prm_cannel = 0);
-    void playSe2();
-
     /**
      * モデルが生成された時の処理 .
      * モデルオブジェクトが new された場合に１回だけ呼び出します。
