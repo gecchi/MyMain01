@@ -130,13 +130,14 @@ public:
      * @param s 精度（計算ループ回数。回数が多いほど正確。省略時11）
      * @return 引数aの平方根近似値
      */
-    static float sqrt_fast(float a, int s = 11) {
+    static double sqrt_fast(double a, int s = 11) {
         double ret = 1;
         for (int i = 1; i <= s; i++) {
             ret = 0.5 * (ret + a / ret);
         }
-        return (float)ret;
+        return ret;
     }
+
     //static DWORD max3(DWORD a, DWORD b, DWORD c);
 
 };
