@@ -7,6 +7,7 @@ namespace GgafDx9Core {
 
 //#define MAX_DRAW_DEPTH_LEVEL 1000
 #define MAX_DRAW_DEPTH_LEVEL 500
+#define MAX_SE_AT_ONCE 10
 /**
  * GgafDx9Core名前空間のこの世クラス.
  * GgafDx9Core名前空間内では、このクラスを基底のこの世クラスとします。<BR>
@@ -16,6 +17,7 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9Universe : public GgafCore::GgafUniverse {
+
 private:
     /**
      * フレーム毎の描画処理 .
@@ -24,6 +26,29 @@ private:
      * void GgafElement<T>::draw() が呼ばれることも無いでしょう。<BR>
      */
     virtual void draw() override;
+
+public:
+    class SeArray {
+    public:
+        int _p;
+        GgafDx9Se* _apSe[MAX_SE_AT_ONCE];
+
+        SeArray() {
+            _p = 0;
+            for (int i = 0; i < MAX_SE_AT_ONCE; i++) {
+                _apSe[i] = NULL;
+            }
+        }
+
+        void add(GgafDx9Se* prm_pSe) {
+            if (_p < MAX_SE_AT_ONCE) {
+                _apSe[_p] = prm_pSe;
+                _p++;
+            }
+        }
+    };
+    GgafCore::GgafLinkedListRing<SeArray>* _pRing_pSeArray;
+
 public:
 
     /** カメラ */
@@ -44,16 +69,14 @@ public:
     static int _Z_goneNear;
 
 
+
     GgafDx9Universe(const char* prm_name);
+
+    virtual void processPreJudgement() override;
 
     virtual ~GgafDx9Universe();
 
 
-
-    /** SE資源接続 */
-    GgafDx9SeConnection** _papSeCon;
-    /** SE資源 */
-    GgafDx9Se** _papSe;
 
     /**
      * 描画レベル（順序）を登録 .
@@ -64,8 +87,7 @@ public:
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
 
 
-    void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
-    void playSe(int prm_id);
+    void registSe(GgafDx9Se* prm_pSe, DWORD prm_delay = 0);
 
 //    /**
 //     * 描画レベル（順序）を最遠で登録.

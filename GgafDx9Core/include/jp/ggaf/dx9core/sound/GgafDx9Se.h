@@ -55,6 +55,11 @@ public:
      */
     virtual void play(int prm_iVolume, int prm_iPan);
 
+    virtual void play() {
+        play(DSBPAN_CENTER, DSBPAN_CENTER);
+    }
+
+
     virtual ~GgafDx9Se();
 };
 

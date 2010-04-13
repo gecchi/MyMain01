@@ -127,6 +127,13 @@ public:
     //　1000が１倍のスケール意味する。したがってデフォルトは1000になっている。
     //　描画の直前に 1000 で除算され、拡大縮小の変換に使用される。
 
+
+
+    /** SE資源接続 */
+    GgafDx9SeConnection** _papSeCon;
+    /** SE資源 */
+    GgafDx9Se** _papSe;
+
 public:
     /**
      * コンストラクタ .
@@ -318,6 +325,8 @@ public:
         _pFunc_calcWorldMatrix = prm_pFunc;
     }
 
+    void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
+    void playSe(int prm_id, DWORD prm_delay = 0);
     /**
      * デストラクタ
      */

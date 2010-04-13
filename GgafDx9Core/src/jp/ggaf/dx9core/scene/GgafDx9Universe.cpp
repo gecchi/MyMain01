@@ -34,11 +34,26 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _Z_goneNear  = -_pCamera->_zf*PX_UNIT*LEN_UNIT - (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
-    _papSeCon = NEW GgafDx9SeConnection*[10];
-    _papSe    = NEW GgafDx9Se*[10];
-    for (int i = 0; i < 10; i++) {
-        _papSeCon[i] = NULL;
-        _papSe[i] = NULL;
+    _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
+    for (int i = 0; i < GGAF_SAYONARA_DELAY; i++) { //GGAF_SAYONARA_DELAY = 180
+        _pRing_pSeArray->addLast(NEW SeArray(), true);
+    }
+
+}
+
+void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, DWORD prm_delay) {
+    _pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe);
+}
+
+void GgafDx9Universe::processPreJudgement() {
+    GgafUniverse::processPreJudgement();
+    //SEを鳴らす
+    SeArray* pSeArray = _pRing_pSeArray->next(); //一つ進めてSE配列取得
+    if (pSeArray->_p > 0) {
+        for (int p = 0; p > pSeArray->_p; p++) {
+            pSeArray->_apSe[p]->play(DSBPAN_CENTER, DSBPAN_CENTER);
+        }
+        pSeArray->_p = 0; //リセット
     }
 }
 
@@ -161,83 +176,8 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
 
 }
 
-void GgafDx9DrawableActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
-    _papSe[prm_id] = _papSeCon[prm_id]->view();
-}
-
-void GgafDx9DrawableActor::playSe(int prm_id) {
-
-    //    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnTop;
-    //    /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnBottom;
-    //    /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnLeft;
-    //    /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnRight;
-    //    /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnFront;
-    //    /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnBack;
-    //#define DSBPAN_LEFT                 -10000
-    //#define DSBPAN_CENTER               0
-    //#define DSBPAN_RIGHT                10000
-    //
-    //#define DSBVOLUME_MIN               -10000
-    //#define DSBVOLUME_MAX               0
-    //    int GgafDx9Sound::_master_volume = 100;
-    //    int GgafDx9Sound::_bgm_volume = 100;
-    //    int GgafDx9Sound::_se_volume = 100;
-
-    //    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
-    //    float _zn;
-    //    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
-    //    float _zf;
-
-    //    まず、同じバッファの音が同時再生できなかった問題は、DuplicateSoundBuffer()関数を使ってバッファの外枠のみのコピーを作っておくことで解決です。例えば、これで8個作っておくと同じバッファの音が8個まで同時再生できます。
-    //    ただ、小さな破片は1秒間に数百個も爆発したりするので、さすがに100個くらい同時再生しようとすると音が途切れます…。
-    //
-    //    後は、再生直前に
-    //
-    //        lpDSBuf->SetVolume(LONG); //音量設定 減衰するdb 0～-10000
-    //        lpDSBuf->SetPan(LONG); //パン設定 -10000～+10000
-    //        lpDSBuf->SetFrequency(DWORD); //再生周波数設定
-    //
-    //    _dwDefaultFrequency
-    //    こういう設定が出来ることが分かりました。最後の再生周波数設定は、例えばサンプリングレート44.1KHzのバッファの場合はここへ44100を指定すると通常通りの再生になり、22050を指定すると半分の速度（音程も半分）で再生されるという具合です。
-    //    これ、敵の爆破した位置に合わせて設定してやるとすごく立体的でリアル。とくに、遠くの爆発は再生周波数下げるようにすると、爆発音がくぐもった音になってまるで映画みたい。最初は遊び心でいじってたけど、ここまで上手くハマるとは思わなかったな。
-    //
-    //    ただ、注意点もあって、バッファ初期化時にDSBUFFERDESC構造体の設定で、
-    //
-    //        DSBufferDesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
-    //
-    //    のようなフラグを設定して、各パラメータをコントロールすることを伝えておく必要がある。MSDN見ても、SetVolume()の解説のところなんかにこのフラグの事が書いて無くて、しばらくネットを探し回ってしまった。あと、SetVolumeの値もMSDNだと正の値だと書いてあるけど、実際は負の値を入れないといけない。MSDNってどっか抜けてる…？？
-
-
-    //距離計算
-    //遅延なし、音量100％の場所をpCAMの場所とする
-    //自身とpCAMの距離
-    double dX = pCAM->_X - _X;
-    double dY = pCAM->_Y - _Y;
-    double dZ = pCAM->_Z - _Z;
-    double D = GgafUtil::sqrt_fast(dX*dX + dY*dY + dZ*dZ);
-    _TRACE_("GgafDx9DrawableActor::playSe 距離 = D");
-
-    _papSe[prm_id]->play();
-}
 
 GgafDx9Universe::~GgafDx9Universe() {
-    if (_pSeCon) {
-        _pSeCon->close();
-    }
-    for (int i = 0; i < 10; i++) {
-        if (_papSeCon[i]) {
-            _papSeCon[i]->close();
-        }
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_papSeCon);
-    DELETEARR_IMPOSSIBLE_NULL(_papSe);
+
+    DELETE_IMPOSSIBLE_NULL(_pRing_pSeArray);
 }
