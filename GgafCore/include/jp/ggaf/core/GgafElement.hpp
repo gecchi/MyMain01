@@ -3,7 +3,7 @@
 namespace GgafCore {
 
 #define GGAF_NODE GgafCore::GgafNode<T>
-
+#define GGAF_SAYONARA_DELAY 180
 /**
  * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
  * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
@@ -1120,8 +1120,8 @@ void GgafElement<T>::unpauseImmediately() {
 }
 template<class T>
 void GgafElement<T>::sayonara(DWORD prm_frame_offset) {
-
-    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + 1;
+    inactivateAfter(prm_frame_offset);
+    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY + 1;
     if (GGAF_NODE::_pSubFirst != NULL) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {

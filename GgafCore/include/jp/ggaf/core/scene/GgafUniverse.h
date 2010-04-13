@@ -30,7 +30,8 @@ public:
      */
     virtual void processBehavior() override {
     }
-
+    virtual void processPreJudgement() override {
+    }
     /**
      * ƒtƒŒ[ƒ€–ˆ‚Ì”»’èˆ—<BR>
      */

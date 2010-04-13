@@ -186,6 +186,12 @@ public:
     T* getPrev(int n);
 
     /**
+     * アクティブ要素を先頭に戻す。 .
+     * @return アクティブ要素を先頭に戻した後の、その要素の値
+     */
+    T* first();
+
+    /**
      * アクティブ要素がリストの末尾であるか判定する .
      * @return true:末尾である／false:そうでは無い
      */
@@ -287,6 +293,13 @@ T* GgafLinkedListRing<T>::getPrev(int n) {
     }
     return pElem_return->_pValue;
 }
+
+template<class T>
+T* GgafLinkedListRing<T>::first() {
+    _pElemActive = _pElemFirst;
+    return _pElemActive->_pValue;
+}
+
 
 template<class T>
 bool GgafLinkedListRing<T>::isLast() {

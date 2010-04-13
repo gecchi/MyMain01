@@ -83,6 +83,11 @@ public:
      */
     virtual T* view();
 
+
+    int getNumConnection();
+
+
+
     /**
      * 資源接続を解除 .
      * 解除といってもマネージャの接続カウンタを1減らすだけです。<BR>
@@ -122,6 +127,11 @@ template<class T>
 T* GgafResourceConnection<T>::view() {
     return _pResource;
 }
+template<class T>
+int GgafResourceConnection<T>::getNumConnection() {
+    return _num_connection;
+}
+
 
 template<class T>
 int GgafResourceConnection<T>::close() {
