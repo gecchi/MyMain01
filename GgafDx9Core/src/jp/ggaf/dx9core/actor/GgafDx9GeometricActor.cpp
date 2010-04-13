@@ -294,7 +294,7 @@ void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int p
 
 void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), prm_delay);
+
 
     //    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
     //    FLOAT _fDist_VpPlnTop;
@@ -346,11 +346,16 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     //距離計算
     //遅延なし、音量100％の場所をpCAMの場所とする
     //自身とpCAMの距離
-    double DX = pCAM->_X - _X;
-    double DY = pCAM->_Y - _Y;
-    double DZ = pCAM->_Z - _Z;
-    double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ) / LEN_UNIT / PX_UNIT;
-    double vol = 1.0 - (d / pCAM->_zf);
+    int DX = (pCAM->_X - _X) / LEN_UNIT;
+    int DY = (pCAM->_Y - _Y) / LEN_UNIT;
+    int DZ = (pCAM->_Z - _Z) / LEN_UNIT;
+    double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
+    LONG vol =  GgafDx9Se::VOLUME_MIN + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * GgafDx9Se::VOLUME_RANGE);
+//    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
+//    _TRACE_(getName()<<" : DX = "<< DX <<", DY="<<DY<<", DZ="<<DZ);
+//    _TRACE_(getName()<<" : pCAM->_zf = "<< pCAM->_zf <<", (1.0 - (d / pCAM->_zf))="<<(1.0 - (d / pCAM->_zf)));
+//    _TRACE_(getName()<<"(DSBVOLUME_MAX - DSBVOLUME_MIN)="<<(DSBVOLUME_MAX - DSBVOLUME_MIN));
+
 
     float fDist_VpVerticalCenter  =
          GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_fX +
@@ -360,7 +365,10 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
 
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_fDist_VpPlnFront );
 
+    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
+//    _TRACE_(getName()<<" : ang = "<< ang <<", pan="<<pan);
 
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, prm_delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);

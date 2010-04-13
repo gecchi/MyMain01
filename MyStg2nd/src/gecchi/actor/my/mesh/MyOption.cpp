@@ -30,10 +30,11 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-    _pSeCon_Laser = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect("laser001");
+    prepareSe(0,"laser001",_no);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
-    _pLaserChipDispatcher->_pSeConnection = _pSeCon_Laser;
+
+
     MyCurveLaserChip001* pChip;
     for (int i = 0; i < 90; i++) { //レーザーストック
         stringstream name;
@@ -379,6 +380,9 @@ void MyOption::processBehavior() {
             pLaserChip->_Z = _Z;
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
+            if (pLaserChip->_pChip_front == NULL) {
+                playSe(0);
+            }
         }
     } else {
         _pLockOnTarget = NULL;
@@ -413,7 +417,7 @@ void MyOption::onHit(GgafActor* prm_pOtherActor) {
 
 
 MyOption::~MyOption() {
-    _pSeCon_Laser->close();
+
     //DELETE_IMPOSSIBLE_NULL(_pRing);
 }
 

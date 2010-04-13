@@ -14,7 +14,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
     _num_chip_interval = 20;
     _pChip_prev_employ = NULL;
     _frame_of_behaving_prev_employ = 0;
-    _pSeConnection = NULL;
+
     _num_interval_frame_count = _num_chip_interval; //生成直後はインターバルなど無し
     _num_continual_employ_max = _num_chip_max;
 }

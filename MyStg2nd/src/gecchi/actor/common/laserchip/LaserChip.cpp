@@ -78,10 +78,10 @@ void LaserChip::onActive() {
     //oŒ»Žž
     _chip_kind = 1;
     if (_pChip_front == NULL) {
-        if (_pDispatcher->_pSeConnection) {
-            _pDispatcher->_pSeConnection->view()->play();
-            //_TRACE_("LaserChip::onActive() _pChip_front == NULL!!");
-        }
+//        if (_pDispatcher->_pSeConnection) {
+//            _pDispatcher->_pSeConnection->view()->play();
+//            //_TRACE_("LaserChip::onActive() _pChip_front == NULL!!");
+//        }
     } else {
         //_TRACE_("LaserChip::onActive() _pChip_front == "<<(_pChip_front->getName())<<"");
     }

@@ -31,8 +31,6 @@ public:
     int _num_continual_employ_max;
     /** 弾切れフレーム数（読み書き可／デフォルト=20） */
     int _num_chip_interval;
-    /** レーザーチップ発射時SE（読み書き可／デフォルト=NULL） */
-    GgafDx9Core::GgafDx9SeConnection* _pSeConnection;
 
     LaserChipDispatcher(const char* prm_name);
 

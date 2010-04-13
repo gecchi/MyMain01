@@ -15,6 +15,35 @@ int GgafDx9Universe::_Y_goneBottom = 0;
 int GgafDx9Universe::_Z_goneFar   = 0;
 int GgafDx9Universe::_Z_goneNear  = 0;
 
+
+GgafDx9Universe::SeArray::SeArray() {
+    _p = 0;
+    for (int i = 0; i < MAX_SE_AT_ONCE; i++) {
+        _apSe[i] = NULL;
+    }
+}
+
+void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan) {
+    if (_p < MAX_SE_AT_ONCE) {
+        _apSe[_p] = prm_pSe;
+        if (GgafDx9Se::VOLUME_MAX < prm_volume) {
+            _volume[_p] = GgafDx9Se::VOLUME_MAX;
+        } else if (GgafDx9Se::VOLUME_MIN > prm_volume) {
+            _volume[_p] = GgafDx9Se::VOLUME_MIN;
+        } else {
+            _volume[_p] = prm_volume;
+        }
+        if (DSBPAN_LEFT > prm_pan) {
+            _pan[_p] = DSBPAN_LEFT;
+        } else if (DSBPAN_RIGHT < prm_pan) {
+            _pan[_p] = DSBPAN_RIGHT;
+        } else {
+            _pan[_p] = prm_pan;
+        }
+        _p++;
+    }
+}
+
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
     _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
@@ -35,14 +64,20 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     _TRACE_("Gone=X ("<<_X_goneLeft<<" ~ "<<_X_goneRight<<") Y("<<_Y_goneBottom<<" ~ "<<_Y_goneTop<<") Z("<<_Z_goneFar<<" ~ "<<_Z_goneNear<<")");
 
     _pRing_pSeArray = NEW GgafLinkedListRing<SeArray>();
-    for (int i = 0; i < GGAF_SAYONARA_DELAY; i++) { //GGAF_SAYONARA_DELAY = 180
+    for (int i = 0; i < GGAF_SAYONARA_DELAY+1; i++) { //GGAF_SAYONARA_DELAY
         _pRing_pSeArray->addLast(NEW SeArray(), true);
     }
 
 }
 
-void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, DWORD prm_delay) {
-    _pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe);
+void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay) {
+    DWORD delay;
+    if (prm_delay < 0) {
+        delay = 0;
+    } else if (prm_delay > GGAF_SAYONARA_DELAY) {
+        delay = GGAF_SAYONARA_DELAY;
+    }
+    _pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan);
 }
 
 void GgafDx9Universe::processPreJudgement() {
@@ -50,8 +85,8 @@ void GgafDx9Universe::processPreJudgement() {
     //SEを鳴らす
     SeArray* pSeArray = _pRing_pSeArray->next(); //一つ進めてSE配列取得
     if (pSeArray->_p > 0) {
-        for (int p = 0; p > pSeArray->_p; p++) {
-            pSeArray->_apSe[p]->play(DSBPAN_CENTER, DSBPAN_CENTER);
+        for (int p = 0; p < pSeArray->_p; p++) {
+            pSeArray->_apSe[p]->play(pSeArray->_volume[p], pSeArray->_pan[p]);
         }
         pSeArray->_p = 0; //リセット
     }

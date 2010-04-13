@@ -4,7 +4,6 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 
-
 GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     if (GgafDx9Sound::_pIDirectSound8 == NULL) {
         throwGgafCriticalException("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");

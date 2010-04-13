@@ -21,7 +21,9 @@ public:
     char* _wave_name;
 
     DWORD _dwDefaultFrequency;
-
+    static const int VOLUME_MAX = DSBVOLUME_MAX;
+    static const int VOLUME_MIN = DSBVOLUME_MIN / 2;
+    static const int VOLUME_RANGE = GgafDx9Se::VOLUME_MAX - GgafDx9Se::VOLUME_MIN;
     /**
      * コンストラクタ
      * @param prm_wave_name
