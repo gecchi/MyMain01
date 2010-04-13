@@ -484,9 +484,9 @@ public:
      * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
      * さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
      * これは本メソッドで、GgafSayonaraActorに所属してしまうためです。<BR>
-     * @param prm_frame_offset 予約猶予フレーム
+     * @param prm_frame_offset 予約猶予フレーム(1～)
      */
-    void sayonara(DWORD prm_frame_offset = 0);
+    void sayonara(DWORD prm_frame_offset = 1);
 
     /**
      * 自ツリーノードを最終ノードに移動する(単体) .
@@ -1121,7 +1121,7 @@ void GgafElement<T>::unpauseImmediately() {
 template<class T>
 void GgafElement<T>::sayonara(DWORD prm_frame_offset) {
     inactivateAfter(prm_frame_offset);
-    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY + 1;
+    _frame_of_life_when_sayonara = _frame_of_life + prm_frame_offset + GGAF_SAYONARA_DELAY;
     if (GGAF_NODE::_pSubFirst != NULL) {
         T* pElementTemp = GGAF_NODE::_pSubFirst;
         while(true) {
