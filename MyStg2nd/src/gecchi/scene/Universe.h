@@ -20,7 +20,6 @@ namespace MyStg2nd {
 class Universe : public GgafDx9LibStg::DefaultUniverse {
 
 public:
-
     World* _pWorld;
 
     Universe(const char* prm_name);

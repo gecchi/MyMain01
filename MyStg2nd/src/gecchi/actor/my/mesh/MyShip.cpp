@@ -165,7 +165,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
 
-    prepareSe1("se-020");
+    prepareSe(0, "se-020");
 
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
@@ -438,7 +438,7 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    playSe1();
+    playSe(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(pOther);

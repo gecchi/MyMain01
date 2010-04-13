@@ -29,8 +29,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             _papapLaserChipDispatcher[i][j] = NULL;
         }
     }
-    prepareSe1("yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
-    prepareSe2("bomb1");     //爆発
+    prepareSe(0, "yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
+    prepareSe(1, "bomb1");     //爆発
 }
 
 void EnemyAstraea::initialize() {
@@ -153,7 +153,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 } else {
                     if (i == 0 && j == 0) {
-                        playSe1(); //発射音
+                        playSe(0); //発射音
                     }
                 }
 
@@ -186,7 +186,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        playSe2();
+        playSe(1);
         inactivate(); //さよなら
         //消滅エフェクト
     } else {

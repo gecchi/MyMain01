@@ -27,7 +27,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     _iMoveAcce_2nd = 100;
 
-    prepareSe1("break_glass01");
+    prepareSe(0, "break_glass01");
 }
 
 void EnemyCeresShot001::initialize() {
@@ -87,7 +87,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-        playSe1();
+        playSe(0);
         setHitAble(false);
         inactivate();
         EffectExplosion001* pExplo001 =

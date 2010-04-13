@@ -67,7 +67,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
     //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
     _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 
-    prepareSe1("a_shot");
+    prepareSe(0, "a_shot");
 }
 
 void EnemyCeres::initialize() {
@@ -136,7 +136,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
-        playSe1();
+        playSe(0);
         inactivate(); //TODO:‚³‚æ‚È‚ç
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {

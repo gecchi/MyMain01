@@ -13,7 +13,7 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcherCon = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    prepareSe2("bomb1");     //”š”­
+    prepareSe(0, "bomb1");     //”š”­
     _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
     _pDispatcher_Shot = _pDispatcherCon->view();
 }
@@ -163,7 +163,7 @@ void EnemyTamago01::processJudgement() {
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe2();
+    playSe(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);

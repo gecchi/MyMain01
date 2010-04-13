@@ -12,8 +12,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
-    prepareSe1("yume_shototsu", GgafRepeatSeq::getNext(5));
-    prepareSe2("bomb1", GgafRepeatSeq::getNext(5));     //爆発
+    prepareSe(0, "yume_shototsu", GgafRepeatSeq::getNext(5));
+    prepareSe(1, "bomb1", GgafRepeatSeq::getNext(5));     //爆発
 }
 
 void EnemyMetis::initialize() {
@@ -69,7 +69,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
     //ここにヒットエフェクト
     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
-    playSe1();
+    playSe(0);
         //ここに消滅エフェクト
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
@@ -79,7 +79,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe2();
+        playSe(1);
         if (pExplo001_2 != NULL) {
             pExplo001_2->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001_2->activate();

@@ -28,7 +28,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshSetActor(p
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
-    prepareSe1("bomb1");
+    prepareSe(0, "bomb1");
 }
 
 void EnemyMeshShot001::initialize() {
@@ -87,7 +87,7 @@ void EnemyMeshShot001::processJudgement() {
 void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //sayonara();
-    playSe1();
+    playSe(0);
     setHitAble(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

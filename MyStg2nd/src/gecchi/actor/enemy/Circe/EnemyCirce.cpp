@@ -9,7 +9,7 @@ EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi")
     _class_name = "EnemyCirce";
     MyStgUtil::resetEnemyCirceStatus(_pStatus);
     _iMovePatternNo = 0;
-    prepareSe2("bomb1");     //”š”­
+    prepareSe(0, "bomb1");     //”š”­
 }
 
 void EnemyCirce::onCreateModel() {
@@ -52,7 +52,7 @@ void EnemyCirce::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 =
             (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe2();
+    playSe(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);
