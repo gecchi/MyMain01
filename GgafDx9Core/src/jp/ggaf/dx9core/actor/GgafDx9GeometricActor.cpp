@@ -346,11 +346,35 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     //距離計算
     //遅延なし、音量100％の場所をpCAMの場所とする
     //自身とpCAMの距離
-//    double dX = pCAM->_X - _X;
-//    double dY = pCAM->_Y - _Y;
-//    double dZ = pCAM->_Z - _Z;
-//    double D = GgafUtil::sqrt_fast(dX*dX + dY*dY + dZ*dZ);
-//    _TRACE_("GgafDx9DrawableActor::playSe 距離 = D");
+    double DX = pCAM->_X - _X;
+    double DY = pCAM->_Y - _Y;
+    double DZ = pCAM->_Z - _Z;
+    double d = GgafUtil::sqrt_fast(DX*DX + DY*DY + DZ*DZ) / LEN_UNIT / PX_UNIT;
+    double vol = 1.0 - (d / pCAM->_zf);
+
+    float fDist_VpVerticalCenter  =
+         GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_fX +
+         GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_fY +
+         GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_fZ +
+         GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
+
+    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_fDist_VpPlnFront );
+
+
+    //真ん中からの距離
+   //                float dPlnLeft = abs(_fDist_VpPlnLeft);
+   //                float dPlnRight = abs(_fDist_VpPlnRight);
+   //                if (dPlnLeft < dPlnRight) {
+   //                    //sinθ = dPlnLeft/d;
+   //                    //θ = asin(dPlnLeft/d)
+   //                    //X = (_rad_half_fovY - θ)
+   //                    //tan X = 距離 / d
+   //                    //d * tan X = 距離
+   //                    //d * tan (_rad_half_fovY - θ) = 距離
+   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = 距離
+   //                    //本当にこうしなければいけない？
+
+
 
    // _papSe[prm_id]->play();
 }

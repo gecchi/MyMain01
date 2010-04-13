@@ -124,6 +124,9 @@ void GgafDx9Camera::processBehavior() {
     _vecFar[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // 左上 (変換後)
     _vecFar[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // 右上 (変換後)
 
+
+
+
     // 視錐台の８点の計算
     static D3DXMATRIX mat_world;
     D3DXMatrixIdentity( &mat_world );
@@ -194,6 +197,29 @@ void GgafDx9Camera::processBehavior() {
     D3DXPlaneNormalize(
         &_plnBack,
         D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
+    );
+    // 右 ( F右下、N右上、N右下 )
+    //になぞって作成
+    _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0,
+                                         (_vecFar[1].y + _vecFar[0].y)/2.0,
+                                         (_vecFar[1].z + _vecFar[0].z)/2.0
+                                       );
+    _vecVerticalCenter[1] = D3DXVECTOR3( (_vecNear[3].x + _vecNear[2].x)/2.0,
+                                         (_vecNear[3].y + _vecNear[2].y)/2.0,
+                                         (_vecNear[3].z + _vecNear[2].z)/2.0
+                                       );
+    _vecVerticalCenter[2] = D3DXVECTOR3( (_vecNear[1].x + _vecNear[0].x)/2.0,
+                                         (_vecNear[1].y + _vecNear[0].y)/2.0,
+                                         (_vecNear[1].z + _vecNear[0].z)/2.0
+                                       );
+    // 右 ( F右下、N右上、N右下 )
+    //になぞって作成
+    D3DXPlaneNormalize(
+        &_plnVerticalCenter,
+        D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),
+                                                 &(_vecVerticalCenter[1]),
+                                                 &(_vecVerticalCenter[2])
+                            )
     );
 
     //}

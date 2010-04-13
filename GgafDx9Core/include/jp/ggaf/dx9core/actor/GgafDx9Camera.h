@@ -31,6 +31,8 @@ public:
     /** 視錐台面、奥の四角形の頂点(読み込み専用、毎フレーム更新) */
     D3DXVECTOR3 _vecFar[4];
 
+    D3DXVECTOR3 _vecVerticalCenter[4];
+
     // 視錐台の6つの面
     /** 視錐台面、上(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnTop;
@@ -45,6 +47,7 @@ public:
     /** 視錐台面、奥(読み込み専用、毎フレーム更新) */
     D3DXPLANE _plnBack;
 
+    D3DXPLANE _plnVerticalCenter;
 
     /** 射影変換魚売れる */
     D3DXMATRIX _vMatrixProj;

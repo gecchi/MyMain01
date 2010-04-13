@@ -32,6 +32,9 @@ public:
     public:
         int _p;
         GgafDx9Se* _apSe[MAX_SE_AT_ONCE];
+        LONG _volume;
+        LONG _pan;
+        DWORD _frequency;
 
         SeArray() {
             _p = 0;
