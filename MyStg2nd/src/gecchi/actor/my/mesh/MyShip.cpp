@@ -409,6 +409,16 @@ void MyShip::processJudgement() {
     //ショットボタン
     if (VB::isPushedDown(VB_SHOT1)) {
 
+        float fDist_VpVerticalCenter  =
+             GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_fX +
+             GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_fY +
+             GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_fZ +
+             GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
+
+        angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_fDist_VpPlnFront);
+        _TRACE_("カメラからの角度="<<ang);
+
+
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activate();
