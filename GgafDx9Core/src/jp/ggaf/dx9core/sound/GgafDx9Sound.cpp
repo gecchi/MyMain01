@@ -33,6 +33,10 @@ void GgafDx9Sound::init() {
     }
     _pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
     _pSeManager = NEW GgafDx9SeManager("SoundEffectManager");
+
+    GgafDx9Sound::setBgmVolume(GGAFDX9_PROPERTY(BGM_VOLUME));
+    GgafDx9Sound::setSeVolume(GGAFDX9_PROPERTY(SE_VOLUME));
+    GgafDx9Sound::setMasterVolume(GGAFDX9_PROPERTY(MASTER_VOLUME));
 }
 
 void GgafDx9Sound::release() {

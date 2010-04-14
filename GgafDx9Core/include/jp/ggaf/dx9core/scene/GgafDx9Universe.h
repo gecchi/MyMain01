@@ -34,11 +34,13 @@ public:
         GgafDx9Se* _apSe[MAX_SE_AT_ONCE];
         LONG _volume[MAX_SE_AT_ONCE];
         LONG _pan[MAX_SE_AT_ONCE];
-        DWORD _frequency[MAX_SE_AT_ONCE];
+        float _rate_frequency[MAX_SE_AT_ONCE];
 
         SeArray();
 
-        void add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan);
+        void add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, float prm_rate_frequency);
+
+        void play(int index);
     };
     GgafCore::GgafLinkedListRing<SeArray>* _pRing_pSeArray;
 
@@ -80,7 +82,7 @@ public:
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
 
 
-    void registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay = 0);
+    void registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency);
 
 //    /**
 //     * •`‰æƒŒƒxƒ‹i‡˜j‚ğÅ‰“‚Å“o˜^.

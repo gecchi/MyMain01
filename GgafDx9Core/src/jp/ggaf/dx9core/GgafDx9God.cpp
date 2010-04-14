@@ -256,10 +256,6 @@ HRESULT GgafDx9God::init() {
     GgafDx9Util::init(); //ユーティリティ準備
     GgafDx9Input::init(); //DirectInput準備
     GgafDx9Sound::init(); //DirectSound準備
-    GgafDx9Sound::setBgmVolume(GGAFDX9_PROPERTY(BGM_VOLUME));
-    GgafDx9Sound::setSeVolume(GGAFDX9_PROPERTY(SE_VOLUME));
-    GgafDx9Sound::setMasterVolume(GGAFDX9_PROPERTY(MASTER_VOLUME));
-
     return initDx9Device();
 
 }

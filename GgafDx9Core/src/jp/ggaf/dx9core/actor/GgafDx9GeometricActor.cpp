@@ -292,7 +292,7 @@ void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int p
     _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
 }
 
-void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
+void GgafDx9GeometricActor::playSe3D(int prm_id) {
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
 
 
@@ -341,7 +341,9 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     //        DSBufferDesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
     //
     //    のようなフラグを設定して、各パラメータをコントロールすることを伝えておく必要がある。MSDN見ても、SetVolume()の解説のところなんかにこのフラグの事が書いて無くて、しばらくネットを探し回ってしまった。あと、SetVolumeの値もMSDNだと正の値だと書いてあるけど、実際は負の値を入れないといけない。MSDNってどっか抜けてる…？？
-
+    static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
+    static const int VOLUME_MIN_3D = DSBVOLUME_MIN / 2;
+    static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
     //距離計算
     //遅延なし、音量100％の場所をpCAMの場所とする
@@ -350,7 +352,9 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     int DY = (pCAM->_Y - _Y) / LEN_UNIT;
     int DZ = (pCAM->_Z - _Z) / LEN_UNIT;
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  GgafDx9Se::VOLUME_MIN + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * GgafDx9Se::VOLUME_RANGE);
+    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
+
+    int delay = (d / (pCAM->_zf*PX_UNIT))*MAX_SE_AT_ONCE - 30; //３０フレーム底上げ
 //    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
 //    _TRACE_(getName()<<" : DX = "<< DX <<", DY="<<DY<<", DZ="<<DZ);
 //    _TRACE_(getName()<<" : pCAM->_zf = "<< pCAM->_zf <<", (1.0 - (d / pCAM->_zf))="<<(1.0 - (d / pCAM->_zf)));
@@ -368,7 +372,7 @@ void GgafDx9GeometricActor::playSe(int prm_id, DWORD prm_delay) {
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
 //    _TRACE_(getName()<<" : ang = "<< ang <<", pan="<<pan);
 
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, prm_delay); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);

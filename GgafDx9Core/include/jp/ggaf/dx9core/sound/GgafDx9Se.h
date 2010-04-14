@@ -21,9 +21,6 @@ public:
     char* _wave_name;
 
     DWORD _dwDefaultFrequency;
-    static const int VOLUME_MAX = DSBVOLUME_MAX;
-    static const int VOLUME_MIN = DSBVOLUME_MIN / 2;
-    static const int VOLUME_RANGE = GgafDx9Se::VOLUME_MAX - GgafDx9Se::VOLUME_MIN;
     /**
      * コンストラクタ
      * @param prm_wave_name
@@ -45,15 +42,17 @@ public:
     int restore(void);
 
     /**
-     * ボリュームとパンをアクターの位置で計算してSEを再生
-     * @param prm_pActor SE発生源アクター
+     * ボリュームとパンと周波数の率を指定してSEを再生
+     * @param prm_iVolume ボリューム(min:-9600 max:0)
+     * @param prm_iPan    パン(left:-10000 right:10000)
+     * @param prm_fRate_Frequency 元の周波数に乗ずる率
      */
-    virtual void play(GgafDx9GeometricActor* prm_pActor);
+    virtual void play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency);
 
     /**
-     * 一時的にボリュームとパンを指定してSEを再生
-     * @param prm_iVolume
-     * @param prm_iPan
+     * ボリュームとパンを指定してSEを再生
+     * @param prm_iVolume ボリューム(min:-9600 max:0)
+     * @param prm_iPan    パン(left:-10000 right:10000)
      */
     virtual void play(int prm_iVolume, int prm_iPan);
 
