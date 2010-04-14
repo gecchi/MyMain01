@@ -354,7 +354,9 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
     LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*MAX_SE_AT_ONCE - 30; //３０フレーム底上げ
+    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY - 30; //３０フレーム底上げ
+//    _TRACE_(getName()<<" : d = "<< d <<", (pCAM->_zf*PX_UNIT)="<<(pCAM->_zf*PX_UNIT));
+//    _TRACE_(getName()<<" : (d / (pCAM->_zf*PX_UNIT)) = "<< (d / (pCAM->_zf*PX_UNIT)) <<", delay="<<delay);
 //    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
 //    _TRACE_(getName()<<" : DX = "<< DX <<", DY="<<DY<<", DZ="<<DZ);
 //    _TRACE_(getName()<<" : pCAM->_zf = "<< pCAM->_zf <<", (1.0 - (d / pCAM->_zf))="<<(1.0 - (d / pCAM->_zf)));
@@ -371,8 +373,18 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
 
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
 //    _TRACE_(getName()<<" : ang = "<< ang <<", pan="<<pan);
-
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    if (VOLUME_MAX_3D < vol) {
+        vol = VOLUME_MAX_3D;
+    } else if (VOLUME_MIN_3D > vol) {
+        vol = VOLUME_MIN_3D;
+    }
+    if (delay < 0) {
+        delay = 0;
+    } else if (delay > GGAF_SAYONARA_DELAY) {
+        delay = GGAF_SAYONARA_DELAY;
+	}
+//    _TRACE_("delay="<<delay);
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 0.5); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);

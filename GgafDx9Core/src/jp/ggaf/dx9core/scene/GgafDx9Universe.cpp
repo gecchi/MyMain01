@@ -27,20 +27,8 @@ void GgafDx9Universe::SeArray::add(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm
     if (_p < MAX_SE_AT_ONCE) {
         _apSe[_p] = prm_pSe;
         _rate_frequency[_p] = prm_rate_frequency;
-        if (GgafDx9Se::VOLUME_MAX < prm_volume) {
-            _volume[_p] = GgafDx9Se::VOLUME_MAX;
-        } else if (GgafDx9Se::VOLUME_MIN > prm_volume) {
-            _volume[_p] = GgafDx9Se::VOLUME_MIN;
-        } else {
-            _volume[_p] = prm_volume;
-        }
-        if (DSBPAN_LEFT > prm_pan) {
-            _pan[_p] = DSBPAN_LEFT;
-        } else if (DSBPAN_RIGHT < prm_pan) {
-            _pan[_p] = DSBPAN_RIGHT;
-        } else {
-            _pan[_p] = prm_pan;
-        }
+        _volume[_p] = prm_volume;
+        _pan[_p] = prm_pan;
         _p++;
     }
 }
@@ -76,13 +64,7 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
 }
 
 void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency) {
-    DWORD delay;
-    if (prm_delay < 0) {
-        delay = 0;
-    } else if (prm_delay > GGAF_SAYONARA_DELAY) {
-        delay = GGAF_SAYONARA_DELAY;
-    }
-    _pRing_pSeArray->getNext(delay)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
+    _pRing_pSeArray->getNext(prm_delay+1)->add(prm_pSe, prm_volume, prm_pan, prm_rate_frequency);
 }
 
 void GgafDx9Universe::processPreJudgement() {
