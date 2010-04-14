@@ -381,7 +381,7 @@ void MyOption::processBehavior() {
             pLaserChip->_pOrg = this;
             pLaserChip->activate();
             if (pLaserChip->_pChip_front == NULL) {
-                playSe(0);
+                playSe3D(0);
             }
         }
     } else {

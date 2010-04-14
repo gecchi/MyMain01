@@ -87,7 +87,7 @@ void EnemyMeshShot001::processJudgement() {
 void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
     //sayonara();
-    playSe(0);
+    playSe3D(0);
     setHitAble(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

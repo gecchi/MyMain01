@@ -153,7 +153,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 } else {
                     if (i == 0 && j == 0) {
-                        playSe(0); //発射音
+                        playSe3D(0); //発射音
                     }
                 }
 
@@ -186,7 +186,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        playSe(1);
+        playSe3D(1);
         inactivate(); //さよなら
         //消滅エフェクト
     } else {

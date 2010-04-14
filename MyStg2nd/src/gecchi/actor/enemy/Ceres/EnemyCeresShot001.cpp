@@ -87,7 +87,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-        playSe(0);
+        playSe3D(0);
         setHitAble(false);
         inactivate();
         EffectExplosion001* pExplo001 =

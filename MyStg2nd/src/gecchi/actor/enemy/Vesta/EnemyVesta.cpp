@@ -205,7 +205,7 @@ void EnemyVesta::processJudgement() {
 void EnemyVesta::onHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 //    EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-//    playSe2();
+//    playSe3D2();
 //    if (pExplo001 != NULL) {
 //        pExplo001->activate();
 //        pExplo001->setGeometry(this);

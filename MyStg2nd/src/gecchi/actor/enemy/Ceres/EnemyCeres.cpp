@@ -136,7 +136,7 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
-        playSe(0);
+        playSe3D(0);
         inactivate(); //TODO:‚³‚æ‚È‚ç
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {

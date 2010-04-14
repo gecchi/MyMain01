@@ -44,7 +44,7 @@ void Shot003::onHit(GgafActor* prm_pOtherActor) {
 //        //破壊された場合
 //        //・・・ココに破壊されたエフェクト
 //        EffectExplosion003* pExplo003 = (EffectExplosion003*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion003->employ();
-//        playSe1();
+//        playSe3D1();
 //        if (pExplo003 != NULL) {
 //            pExplo003->activate();
 //            pExplo003->setGeometry(this);

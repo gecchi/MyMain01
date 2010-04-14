@@ -69,7 +69,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
 
     //ここにヒットエフェクト
     chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
-    playSe(0);
+    playSe3D(0);
         //ここに消滅エフェクト
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
@@ -79,7 +79,7 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe(1);
+        playSe3D(1);
         if (pExplo001_2 != NULL) {
             pExplo001_2->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
             pExplo001_2->activate();
