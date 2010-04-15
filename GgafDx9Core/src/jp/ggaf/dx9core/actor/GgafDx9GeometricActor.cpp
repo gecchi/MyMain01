@@ -355,7 +355,7 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
     //
     //    のようなフラグを設定して、各パラメータをコントロールすることを伝えておく必要がある。MSDN見ても、SetVolume()の解説のところなんかにこのフラグの事が書いて無くて、しばらくネットを探し回ってしまった。あと、SetVolumeの値もMSDNだと正の値だと書いてあるけど、実際は負の値を入れないといけない。MSDNってどっか抜けてる…？？
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
-    static const int VOLUME_MIN_3D = DSBVOLUME_MIN / 2;
+    static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
     //距離計算
@@ -367,7 +367,7 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
     LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY - 30; //３０フレーム底上げ
+    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10フレーム底上げ
 //    _TRACE_(getName()<<" : d = "<< d <<", (pCAM->_zf*PX_UNIT)="<<(pCAM->_zf*PX_UNIT));
 //    _TRACE_(getName()<<" : (d / (pCAM->_zf*PX_UNIT)) = "<< (d / (pCAM->_zf*PX_UNIT)) <<", delay="<<delay);
 //    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
@@ -397,7 +397,7 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
         delay = GGAF_SAYONARA_DELAY;
     }
 //    _TRACE_("delay="<<delay);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 0.5); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);

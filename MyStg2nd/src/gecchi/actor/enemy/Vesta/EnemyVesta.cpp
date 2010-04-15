@@ -21,7 +21,7 @@ EnemyVesta::EnemyVesta(const char* prm_name)
     _frame_of_moment_nextopen = 0;
     _frame_of_moment_nextclose = 0;
     _frame_of_morph_interval   = 60;
-    prepareSe(0, "bomb1");     //”š”­
+    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));
     _pDispatcher_Fired = NULL;
     _pDpcon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
 }

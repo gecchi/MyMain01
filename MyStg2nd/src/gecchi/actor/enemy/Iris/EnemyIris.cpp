@@ -12,7 +12,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    prepareSe(0, "bomb1");     //”š”­
+    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));     //”š”­
 }
 
 void EnemyIris::onCreateModel() {

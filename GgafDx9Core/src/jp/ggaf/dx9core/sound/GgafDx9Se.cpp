@@ -110,7 +110,7 @@ void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
 
 void GgafDx9Se::setVolume(int prm_iVolume) {
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(
-                     prm_iVolume * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_se_volume_rate
+                    DSBVOLUME_MIN + ((prm_iVolume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_se_volume_rate)
                   );
     checkDxException(hr, DS_OK, "GgafDx9Se::setVolume() SetVolume("<<prm_iVolume<<") ‚ªŽ¸”s‚µ‚Ü‚µ‚½B");
 }
