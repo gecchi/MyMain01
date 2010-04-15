@@ -83,27 +83,10 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
 }
 
 void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
-    DWORD frequency;
-    HRESULT hr;
-    hr = _pIDirectSoundBuffer->GetFrequency(&frequency);
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() GetFrequency() が失敗しました。");
-    hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(frequency*prm_fRate_Frequency)); //再生周波数設定
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() SetFrequency((DWORD)"<<(frequency*prm_fRate_Frequency)<<") が失敗しました。");
-    play(prm_iVolume, prm_iPan);
-    hr = _pIDirectSoundBuffer->SetFrequency(frequency); //再生周波戻し
-}
-
-/**
- @brief		SEを鳴らす
- @param		prm_iVolume		ボリューム(min:-9600 max:0)
- @param		prm_iPan		パン(left:-10000 right:10000)
- */
-void GgafDx9Se::play(int prm_iVolume, int prm_iPan) {
     if (_pIDirectSoundBuffer == NULL) {
         _TRACE_("_pIDirectSoundBuffer==NULL;!");
     }
     DWORD dwStatus;
-
     if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {
         _TRACE_("GgafDx9Se::play() GetStatus() 失敗");
     }
@@ -115,17 +98,31 @@ void GgafDx9Se::play(int prm_iVolume, int prm_iPan) {
             _TRACE_("GgafDx9Se::play() restore() 失敗");
         }
     }
-    //マスターボリュームTODO
-    //_pIDirectSoundBuffer->SetVolume(GgafDx9Sound::_master_volume と prm_iVolumeで計算));
+    setVolume(prm_iVolume);
+    setPan(prm_iPan);
+    setFrequencyRate(prm_fRate_Frequency);
     HRESULT hr;
-    hr = _pIDirectSoundBuffer->SetVolume(prm_iVolume);
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() SetVolume("<<prm_iVolume<<") が失敗しました。");
-    hr = _pIDirectSoundBuffer->SetPan(prm_iPan);
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() SetPan("<<prm_iPan<<") が失敗しました。");
     hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //バッファ頭だし
     checkDxException(hr, DS_OK, "GgafDx9Se::play() SetCurrentPosition(0) が失敗しました。");
     hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
     checkDxException(hr, DS_OK, "GgafDx9Se::play() Play(0, 0, 0x00000000) が失敗しました。");
+}
+
+void GgafDx9Se::setVolume(int prm_iVolume) {
+    HRESULT hr = _pIDirectSoundBuffer->SetVolume(
+                     prm_iVolume * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_se_volume_rate
+                  );
+    checkDxException(hr, DS_OK, "GgafDx9Se::setVolume() SetVolume("<<prm_iVolume<<") が失敗しました。");
+}
+
+void GgafDx9Se::setPan(int prm_iPan) {
+    HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_iPan);
+    checkDxException(hr, DS_OK, "GgafDx9Se::setPan() SetPan("<<prm_iPan<<") が失敗しました。");
+}
+
+void GgafDx9Se::setFrequencyRate(float prm_fRate_Frequency) {
+    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_dwDefaultFrequency*prm_fRate_Frequency)); //再生周波数設定
+    checkDxException(hr, DS_OK, "GgafDx9Se::setFrequencyRate() SetFrequency((DWORD)"<<(_dwDefaultFrequency*prm_fRate_Frequency)<<") が失敗しました。");
 }
 
 int GgafDx9Se::restore(void) {

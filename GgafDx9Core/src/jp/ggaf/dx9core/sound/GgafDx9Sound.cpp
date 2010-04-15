@@ -11,9 +11,9 @@ GgafDx9SeManager* GgafDx9Sound::_pSeManager = NULL;
 
 DSCAPS GgafDx9Sound::_dsCaps;
 
-int GgafDx9Sound::_master_volume = 100;
-int GgafDx9Sound::_bgm_volume = 100;
-int GgafDx9Sound::_se_volume = 100;
+float GgafDx9Sound::_master_volume_rate = 1.0;
+float GgafDx9Sound::_bgm_volume_rate = 1.0;
+float GgafDx9Sound::_se_volume_rate = 1.0;
 
 
 void GgafDx9Sound::init() {
@@ -34,9 +34,9 @@ void GgafDx9Sound::init() {
     _pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
     _pSeManager = NEW GgafDx9SeManager("SoundEffectManager");
 
-    GgafDx9Sound::setBgmVolume(GGAFDX9_PROPERTY(BGM_VOLUME));
-    GgafDx9Sound::setSeVolume(GGAFDX9_PROPERTY(SE_VOLUME));
-    GgafDx9Sound::setMasterVolume(GGAFDX9_PROPERTY(MASTER_VOLUME));
+    GgafDx9Sound::setBgmVolume(GGAFDX9_PROPERTY(BGM_VOLUME)/100.0);
+    GgafDx9Sound::setSeVolume(GGAFDX9_PROPERTY(SE_VOLUME)/100.0);
+    GgafDx9Sound::setMasterVolume(GGAFDX9_PROPERTY(MASTER_VOLUME)/100.0);
 }
 
 void GgafDx9Sound::release() {

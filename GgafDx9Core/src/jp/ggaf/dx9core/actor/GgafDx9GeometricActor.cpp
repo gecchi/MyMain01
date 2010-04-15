@@ -314,9 +314,9 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
     //
     //#define DSBVOLUME_MIN               -10000
     //#define DSBVOLUME_MAX               0
-    //    int GgafDx9Sound::_master_volume = 100;
-    //    int GgafDx9Sound::_bgm_volume = 100;
-    //    int GgafDx9Sound::_se_volume = 100;
+    //    int GgafDx9Sound::_master_volume_rate = 100;
+    //    int GgafDx9Sound::_bgm_volume_rate = 100;
+    //    int GgafDx9Sound::_se_volume_rate = 100;
 
     //    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
     //    float _zn;

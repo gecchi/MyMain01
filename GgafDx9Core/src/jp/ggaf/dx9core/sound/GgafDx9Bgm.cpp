@@ -16,7 +16,9 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
     pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
 }
 
-void GgafDx9Bgm::play(bool prm_isLoop) {
+void GgafDx9Bgm::play(int prm_volume, int prm_pan, bool prm_isLoop) {
+    setVolume(prm_volume);
+    setPan(prm_pan);
     pPcmPlayer->play(prm_isLoop);
 }
 
@@ -29,7 +31,7 @@ void GgafDx9Bgm::stop() {
 }
 
 void GgafDx9Bgm::setVolume(int prm_volume) {
-    pPcmPlayer->setVolume(prm_volume);
+    pPcmPlayer->setVolume(prm_volume * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate);
 }
 
 void GgafDx9Bgm::setPan(int prm_pan) {

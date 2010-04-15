@@ -17,25 +17,25 @@ public:
     static void release();
     static GgafDx9SeManager* _pSeManager;
     static GgafDx9BgmManager* _pBgmManager;
-    static int _master_volume;
-    static int _bgm_volume;
-    static int _se_volume;
+    static float _master_volume_rate;
+    static float _bgm_volume_rate;
+    static float _se_volume_rate;
 
     /**
      * マスタボリューム設定(現在未実装).
      * TODO:マスターボリューム処理をする！
-     * @param prm_master_volume
+     * @param prm_master_volume_rate
      */
-    static void setMasterVolume(int prm_master_volume) {
-        GgafDx9Sound::_master_volume = prm_master_volume;
+    static void setMasterVolume(float prm_master_volume_rate) {
+        GgafDx9Sound::_master_volume_rate = prm_master_volume_rate;
     }
 
-    static void setBgmVolume(int prm_bgm_volume) {
-        GgafDx9Sound::_bgm_volume = prm_bgm_volume;
+    static void setBgmVolume(float prm_bgm_volume_rate) {
+        GgafDx9Sound::_bgm_volume_rate = prm_bgm_volume_rate;
     }
 
-    static void setSeVolume(int prm_se_volume) {
-        GgafDx9Sound::_se_volume = prm_se_volume;
+    static void setSeVolume(float prm_se_volume_rate) {
+        GgafDx9Sound::_se_volume_rate = prm_se_volume_rate;
     }
 
 };

@@ -25,8 +25,10 @@ public:
     //TODO: virtual void behave();実装でフェードインフェードアウトを実装するぞ！
 
     //! 活動
-    void play(bool isLoop);
-
+    void play(int prm_volume, int prm_pan, bool prm_isLoop);
+    void play(bool prm_isLoop) {
+        play(DSBVOLUME_MAX, DSBPAN_CENTER, prm_isLoop);
+    }
     //! 一時停止
     void pause();
 
