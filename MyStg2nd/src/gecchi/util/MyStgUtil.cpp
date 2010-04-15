@@ -298,8 +298,8 @@ void MyStgUtil::getRankStr(int prm_rank, char* out) {
 	void MyStgUtil::resetShot003Status(GgafStatus* p) {
 		p->set(STAT_DEFAULT_ACTOR_KIND, KIND_ENEMY_SHOT_NOMAL);  //í•Ê(ƒfƒtƒHƒ‹ƒg)
 		p->set(STAT_AddScorePoint, 0 );  //‰ÁZ“¾“_
-		p->set(STAT_AddRankPoint, 0.10000 );  //‰ÁZƒ‰ƒ“ƒN
-		p->set(STAT_AddRankPoint_Reduction, 0.90000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
+		p->set(STAT_AddRankPoint, 0.00000 );  //‰ÁZƒ‰ƒ“ƒN
+		p->set(STAT_AddRankPoint_Reduction, 0.00000 );  //‰ÁZƒ‰ƒ“ƒNŒ¸­—¦
 		p->set(STAT_Stamina, 100 );  //‘Ì—Í
 		p->set(STAT_Attack, 100 );  //UŒ‚—Í
 		p->set(STAT_DefaultDefenceRate, 1.00000 );  //Šî€–hŒä—¦

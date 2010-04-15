@@ -30,7 +30,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-    prepareSe(0,"laser001",_no);
+    prepareSe(0,"bse5",_no);
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
 

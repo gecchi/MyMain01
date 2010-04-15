@@ -397,7 +397,7 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
         delay = GGAF_SAYONARA_DELAY;
     }
 //    _TRACE_("delay="<<delay);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 0.5); // + (GgafDx9Se::VOLUME_RANGE / 6) ÇÕâπó íÍè„Ç∞
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) ÇÕâπó íÍè„Ç∞
     //ê^ÇÒíÜÇ©ÇÁÇÃãóó£
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
