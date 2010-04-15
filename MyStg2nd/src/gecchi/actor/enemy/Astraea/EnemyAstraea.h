@@ -28,6 +28,8 @@ public:
 
     EnemyAstraea(const char* prm_name);
 
+    void onCreateModel() override;
+
     void initialize() override;
 
     void onActive() override;

@@ -5,8 +5,6 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-bool EnemyIris::_is_init_class = false;
-
 EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris") {
     _class_name = "EnemyIris";
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
@@ -17,7 +15,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     prepareSe(0, "bomb1");     //”š”­
 }
 
-void EnemyIris::initEnemyIrisClass() {
+void EnemyIris::onCreateModel() {
     _pGgafDx9Model->_pTextureBlinker->forceBlinkRange(0.5, 1.0);
     _pGgafDx9Model->_pTextureBlinker->setBlink(0.1);
     _pGgafDx9Model->_pTextureBlinker->beat(30, 3, 1, -1);
@@ -25,10 +23,6 @@ void EnemyIris::initEnemyIrisClass() {
 }
 
 void EnemyIris::initialize() {
-    if (EnemyIris::_is_init_class == false) {
-        initEnemyIrisClass();
-        EnemyIris::_is_init_class = true;
-    }
     setHitAble(true);
     _pMover->relateRzRyFaceAngToMvAng(true);
     _pMover->setFaceAngVelo(AXIS_X, 5000);

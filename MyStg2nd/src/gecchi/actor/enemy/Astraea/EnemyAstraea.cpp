@@ -29,10 +29,13 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
             _papapLaserChipDispatcher[i][j] = NULL;
         }
     }
-    prepareSe(0, "yume_Sbend", GgafRepeatSeq::getNext(5)); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
-    prepareSe(1, "bomb1");     //爆発
+
+    prepareSe(0, "yume_Sbend", GgafRepeatSeq::nextVal("CANNEL_yume_Sbend")); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
+    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));     //爆発
 }
 
+void EnemyAstraea::onCreateModel() {
+}
 void EnemyAstraea::initialize() {
     setHitAble(true);
     _pCollisionChecker->makeCollision(1);

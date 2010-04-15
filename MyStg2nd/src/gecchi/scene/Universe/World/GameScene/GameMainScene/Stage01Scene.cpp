@@ -72,13 +72,13 @@ void Stage01Scene::processBehavior() {
         _angCamXY_prev = angCamXY;
 
         if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-            _pBackGround01->_x -= 0.1; //”wŒiƒXƒNƒ[ƒ‹
+            _pBackGround01->_x -= 0.05; //”wŒiƒXƒNƒ[ƒ‹
         } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-            _pBackGround01->_x += 0.1;
+            _pBackGround01->_x += 0.05;
         } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-            _pBackGround01->_y += 0.1;
+            _pBackGround01->_y += 0.05;
         } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-            _pBackGround01->_y -= 0.1;
+            _pBackGround01->_y -= 0.05;
         }
 
 

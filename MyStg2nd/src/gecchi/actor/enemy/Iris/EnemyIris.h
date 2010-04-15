@@ -11,8 +11,6 @@ namespace MyStg2nd {
 class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
-    /** 初期処理(同クラスで全体で１回実行)フラグ */
-    static bool _is_init_class;
     /** 行動パターン番号 */
     int _iMovePatternNo;
     /** 移動スプラインプログラム */
@@ -29,7 +27,7 @@ public:
      */
     EnemyIris(const char* prm_name);
 
-    void initEnemyIrisClass();
+    void onCreateModel() override;
 
     /**
      * イリスのが初期処理（インスタンス生成後保証）
