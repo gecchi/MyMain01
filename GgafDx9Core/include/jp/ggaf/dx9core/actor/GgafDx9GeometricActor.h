@@ -326,6 +326,7 @@ public:
     }
 
     void prepareSe(int prm_id, const char* prm_se_name, int prm_cannel = 1) ;
+    void playSe(int prm_id);
     void playSe3D(int prm_id);
     /**
      * デストラクタ

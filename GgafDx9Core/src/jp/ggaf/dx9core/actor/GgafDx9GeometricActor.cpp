@@ -287,12 +287,25 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
 
 
 void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
+    if (prm_id < 0 || prm_id >= 10) {
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
     _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
 }
 
+void GgafDx9GeometricActor::playSe(int prm_id) {
+    if (prm_id < 0 || prm_id >= 10) {
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    }
+    GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
+    pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
+}
 void GgafDx9GeometricActor::playSe3D(int prm_id) {
+    if (prm_id < 0 || prm_id >= 10) {
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
 
 
@@ -382,9 +395,9 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
         delay = 0;
     } else if (delay > GGAF_SAYONARA_DELAY) {
         delay = GGAF_SAYONARA_DELAY;
-	}
+    }
 //    _TRACE_("delay="<<delay);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 0.5); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
     //真ん中からの距離
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
