@@ -112,7 +112,7 @@ public:
      * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
      * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、behave()を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
      */
     virtual void nextFrame();
 
@@ -122,7 +122,7 @@ public:
      * （ _is_active_flg && !_was_paused_flg && _can_live_flg ）の場合 <BR>
      * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、preJudge()を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は preJudge() を実行することになる。<BR>
      */
     virtual void behave();
 
@@ -150,7 +150,7 @@ public:
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
      * processPreJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、judge()を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して preJudge() 数実行後、次に judge() を実行することになる。<BR>
      */
     virtual void preJudge();
 
@@ -161,8 +161,8 @@ public:
      * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
      * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば preDraw()
-     * 無ければ finally() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
+     * 次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
      */
     virtual void judge();
 
@@ -172,7 +172,7 @@ public:
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
      * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、draw() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
      */
     virtual void preDraw();
 
@@ -182,7 +182,7 @@ public:
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
      * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、afterDraw() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
      */
     virtual void draw();
 
@@ -192,7 +192,7 @@ public:
      * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
      * processTerminate() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、finally() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に finally() を実行することになる。<BR>
      */
     virtual void afterDraw();
 
@@ -202,7 +202,8 @@ public:
      * （_is_active_flg && !_was_paused_flg && _can_live_flg）の場合 <BR>
      * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
      * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して本メンバ関数実行後、次フレームまでの残時間に余裕があれば cleane() を実行する。<BR>
+     * 神(GgafGod)は、この世(GgafUniverse)に対して finally() 実行後、<BR>
+     * 次フレームまでの残時間に余裕があれば cleane() を実行することになる。<BR>
      */
     virtual void finally();
 
