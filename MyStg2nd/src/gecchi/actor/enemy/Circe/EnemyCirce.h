@@ -1,9 +1,9 @@
-#ifndef ENEMYCIRCE_H_
+ï»¿#ifndef ENEMYCIRCE_H_
 #define ENEMYCIRCE_H_
 namespace MyStg2nd {
 
 /**
- * ƒLƒ‹ƒP .
+ * ã‚­ãƒ«ã‚± .
  * @version 1.00
  * @since 2010/03/25
  * @author Masatoshi Tsuge
@@ -11,44 +11,44 @@ namespace MyStg2nd {
 class EnemyCirce : public GgafDx9LibStg::DefaultMeshActor {
 
 public:
-    /** s“®ƒpƒ^[ƒ“”Ô† */
+    /** è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå· */
     int _iMovePatternNo;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
      * @param prm_name
      * @return
      */
     EnemyCirce(const char* prm_name);
 
     /**
-     * ƒLƒ‹ƒPƒ‚ƒfƒ‹‚ª¶¬‚³‚ê‚½Û‚É‚P‰ñ‚¾‚¯Às‚³‚ê‚éˆ—
+     * ã‚­ãƒ«ã‚±ãƒ¢ãƒ‡ãƒ«ãŒç”Ÿæˆã•ã‚ŒãŸéš›ã«ï¼‘å›ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹å‡¦ç†
      */
     void onCreateModel() override;
     /**
-     * ƒLƒ‹ƒP‚Ì‰Šúˆ—iƒCƒ“ƒXƒ^ƒ“ƒX¶¬Œã•ÛØj
+     * ã‚­ãƒ«ã‚±ã®åˆæœŸå‡¦ç†ï¼ˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆå¾Œä¿è¨¼ï¼‰
      */
     void initialize() override;
 
     /**
-     * ƒLƒ‹ƒP‚Ì‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½uŠÔ‚Ìˆ— .
+     * ã‚­ãƒ«ã‚±ã®ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ãŸç¬é–“ã®å‡¦ç† .
      */
     void onActive() override;
 
     /**
-     * ƒLƒ‹ƒP‚ÌU‚é•‘‚¢ .
+     * ã‚­ãƒ«ã‚±ã®æŒ¯ã‚‹èˆã„ .
      */
     void processBehavior() override;
 
 
     /**
-     * ƒLƒ‹ƒP‚ÌU‚é•‘‚¢Œã‚Ì”»’èˆ— .
+     * ã‚­ãƒ«ã‚±ã®æŒ¯ã‚‹èˆã„å¾Œã®åˆ¤å®šå‡¦ç† .
      */
     void processJudgement() override;
 
     /**
-     * ƒLƒ‹ƒP‚ÌÕ“Ëˆ— .
-     * @param prm_pOtherActor Õ“Ë‘ÎÛ
+     * ã‚­ãƒ«ã‚±ã®è¡çªæ™‚å‡¦ç† .
+     * @param prm_pOtherActor è¡çªå¯¾è±¡
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

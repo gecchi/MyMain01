@@ -1,6 +1,6 @@
-#pragma once
-//–³—‚â‚èƒŠƒ“ƒNƒGƒ‰[‰ñ”ðI
-//—Ç‚¢•û–@‚ª‚È‚¢‚à‚Ì‚©EEE
+ï»¿#pragma once
+//ç„¡ç†ã‚„ã‚Šãƒªãƒ³ã‚¯ã‚¨ãƒ©ãƒ¼å›žé¿ï¼
+//è‰¯ã„æ–¹æ³•ãŒãªã„ã‚‚ã®ã‹ãƒ»ãƒ»ãƒ»
 #ifdef  __cplusplus
 extern "C" {
 #endif

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "TurboMeter") {
     _class_name = "TurboMeter";
-    //_z = 0.99;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
+    //_z = 0.99;//„Åü„Å∂„ÇìÊúÄËÉåÈù¢ Ôºà0 <= _z < 1.0ÔºâZ=(0„Äú+1)
     //_z = 0.9999999f;
     _z = 0.00000001f;
     _max_px = 1000.0f;
@@ -19,7 +19,7 @@ TurboMeter::TurboMeter(const char* prm_name) : DefaultBoardActor(prm_name, "Turb
 
 void TurboMeter::initialize() {
     graduateScale(400, 100000);
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //ÉAÉjÉÅèáèò
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 10); //„Ç¢„Éã„É°È†ÜÂ∫è
 }
 
 void TurboMeter::onActive() {

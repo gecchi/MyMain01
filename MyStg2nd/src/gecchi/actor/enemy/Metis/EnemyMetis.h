@@ -1,8 +1,8 @@
-#ifndef ENEMYMETIS_H_
+ï»¿#ifndef ENEMYMETIS_H_
 #define ENEMYMETIS_H_
 namespace MyStg2nd {
 
-//ƒ”ƒFƒXƒ^
+//ãƒ´ã‚§ã‚¹ã‚¿
 class EnemyMetis : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:

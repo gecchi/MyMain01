@@ -1,9 +1,9 @@
-#ifndef HOSHIBOSHI001_H_
+ï»¿#ifndef HOSHIBOSHI001_H_
 #define HOSHIBOSHI001_H_
 namespace MyStg2nd {
 
 /**
- * ”š”­ƒGƒtƒFƒNƒgƒXƒvƒ‰ƒCƒg001
+ * çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ001
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge
@@ -13,7 +13,7 @@ class HoshiBoshi001 : public GgafDx9Core::GgafDx9PointSpriteActor {
 public:
     DWORD _frame_offset;
 
-    /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
+    /** æ‹¡å¤§ç¸®å°æ”¯æ´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
 

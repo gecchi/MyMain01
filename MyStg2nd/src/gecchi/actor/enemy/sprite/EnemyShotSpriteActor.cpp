@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -18,7 +18,7 @@ void EnemyShotSpriteActor::initialize() {
 }
 
 void EnemyShotSpriteActor::processBehavior() {
-    //ïWèÄèàóùÅiÇΩÇ‘ÇÒÉIÅ[ÉoÅ[ÉâÉCÉhÇ≥ÇÍÇÈÇæÇÎÇ§ÇØÇ«Ç‡)
+    //Ê®ôÊ∫ñÂá¶ÁêÜÔºà„Åü„Å∂„Çì„Ç™„Éº„Éê„Éº„É©„Ç§„Éâ„Åï„Çå„Çã„Å†„Çç„ÅÜ„Åë„Å©„ÇÇ)
     _pUvFlipper->behave();
     _pMover->behave();
 }
@@ -31,7 +31,7 @@ void EnemyShotSpriteActor::processJudgement() {
 }
 
 void EnemyShotSpriteActor::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyShotSpriteActorÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
+    //_TRACE_("EnemyShotSpriteActor„Éí„ÉÉ„Éà„Åó„Åæ„Åó„Åü„ÄÇ("<<_X<<","<<_Y<<")");
     inactivateTree();
 }
 

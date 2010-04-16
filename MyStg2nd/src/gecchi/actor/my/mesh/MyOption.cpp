@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -12,12 +12,12 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _class_name = "MyOption";
     _pMyOptionParent = prm_pMyOptionParent;
     _no = prm_no;
-    _angveloMove = 0;//ù‰ôˆÚ“®Šp‘¬“xi“Ç‚Ýo‚µê—pj
+    _angveloMove = 0;//æ—‹å»»ç§»å‹•è§’é€Ÿåº¦ï¼ˆèª­ã¿å‡ºã—å°‚ç”¨ï¼‰
 
-    _angPosition = 0;     //‰~Žüã‰ŠúˆÊ’uŠp“xiŽüˆÍŠpjiã‘‚«‰ŠúÝ’è‰Âj
-    _radiusPosition = 150000;     //ù‰ô”¼Œa‹——£iã‘‚«‰ŠúÝ’è‰Âj
-    _veloMv = 5000;     //ù‰ôˆÚ“®‘¬“xiã‘‚«‰ŠúÝ’è‰Âj
-    _angExpanse = 0;      //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚Ì‰ñ“]Špiã‘‚«‰ŠúÝ’è‰Âj
+    _angPosition = 0;     //å††å‘¨ä¸ŠåˆæœŸä½ç½®è§’åº¦ï¼ˆå‘¨å›²è§’ï¼‰ï¼ˆä¸Šæ›¸ãåˆæœŸè¨­å®šå¯ï¼‰
+    _radiusPosition = 150000;     //æ—‹å»»åŠå¾„è·é›¢ï¼ˆä¸Šæ›¸ãåˆæœŸè¨­å®šå¯ï¼‰
+    _veloMv = 5000;     //æ—‹å»»ç§»å‹•é€Ÿåº¦ï¼ˆä¸Šæ›¸ãåˆæœŸè¨­å®šå¯ï¼‰
+    _angExpanse = 0;      //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šè§’ã®å›žè»¢è§’ï¼ˆä¸Šæ›¸ãåˆæœŸè¨­å®šå¯ï¼‰
 
     _angPosition_default = _angPosition;
     _radiusPosition_default = _radiusPosition;
@@ -36,7 +36,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
 
 
     MyCurveLaserChip001* pChip;
-    for (int i = 0; i < 90; i++) { //ƒŒ[ƒU[ƒXƒgƒbƒN
+    for (int i = 0; i < 90; i++) { //ãƒ¬ãƒ¼ã‚¶ãƒ¼ã‚¹ãƒˆãƒƒã‚¯
         stringstream name;
         name <<  getName() << "'s MYS_LaserChip" << i;
         string name2 = name.str();
@@ -63,11 +63,11 @@ void MyOption::initialize() {
     _pMover->setMvVelo(_veloMv);
     _pMover->setRzMvAng(_angPosition+ANGLE90);
     _pMover->setRyMvAng(-ANGLE90);
-    _pMover->setRzMvAngVelo(_angveloMove);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _pMover->setRyMvAngVelo(0);//æ”¼Œa‚q‘¬“x‚u^Šp‘¬“xƒÖ
-    _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²’†S‰ñ“]‚È‚Ì‚ÅXY‚Å‚Í‚È‚­‚ÄZY
-    _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition; //XŽ²‚Ì³‚Ì•ûŒü‚ðŒü‚¢‚ÄŽžŒv‰ñ‚è‚É”z’u
-                                                                    //ƒ[ƒ‹ƒh•ÏŠ·‚Ìi¶Žè–@j‚ÌXŽ²‰ñ“]‚Æ‚Í‚Æ‹t‚Ì‰ñ“]‚È‚Ì‚Å’ˆÓ
+    _pMover->setRzMvAngVelo(_angveloMove);//âˆµåŠå¾„ï¼²ï¼é€Ÿåº¦ï¼¶ï¼è§’é€Ÿåº¦Ï‰
+    _pMover->setRyMvAngVelo(0);//âˆµåŠå¾„ï¼²ï¼é€Ÿåº¦ï¼¶ï¼è§’é€Ÿåº¦Ï‰
+    _Z = GgafDx9Util::COS[_angPosition/ANGLE_RATE]*_radiusPosition; //Xè»¸ä¸­å¿ƒå›žè»¢ãªã®ã§XYã§ã¯ãªãã¦ZY
+    _Y = GgafDx9Util::SIN[_angPosition/ANGLE_RATE]*_radiusPosition; //Xè»¸ã®æ­£ã®æ–¹å‘ã‚’å‘ã„ã¦æ™‚è¨ˆå›žã‚Šã«é…ç½®
+                                                                    //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›ã®ï¼ˆå·¦æ‰‹æ³•ï¼‰ã®Xè»¸å›žè»¢ã¨ã¯ã¨é€†ã®å›žè»¢ãªã®ã§æ³¨æ„
     _X = 0;
     _pMover->setFaceAngVelo(AXIS_X, 8000);
     _Xorg = _X;
@@ -80,15 +80,15 @@ void MyOption::addRadiusPosition(int prm_radius_offset) {
     //    _X = _Xorg;
     //    _Y = _Yorg;
     //    _Z = _Zorg;
-    //‚æ‚èŒã
+    //ã‚ˆã‚Šå¾Œ
     //    _Xorg = _X;
     //    _Yorg = _Y;
     //    _Zorg = _Z;
-    //‚æ‚è‘O
-    //‚Å‚µ‚©ŒÄ‚Ño‚µ‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñB
+    //ã‚ˆã‚Šå‰
+    //ã§ã—ã‹å‘¼ã³å‡ºã—ã¦ã¯ã„ã‘ã¾ã›ã‚“ã€‚
     int radius;
-    if (_radiusPosition == -1 * prm_radius_offset) { //·•ª‚ð‰Á‚¦‚é‚Æ0‚É‚È‚éê‡
-        //”¼Œa‚Í0‚É‚µ‚Ä‚Í‚¢‚¯‚È‚¢B0Š„‚èŽZ‚ð”ð‚¯‚é‚½‚ß
+    if (_radiusPosition == -1 * prm_radius_offset) { //å·®åˆ†ã‚’åŠ ãˆã‚‹ã¨0ã«ãªã‚‹å ´åˆ
+        //åŠå¾„ã¯0ã«ã—ã¦ã¯ã„ã‘ãªã„ã€‚0å‰²ã‚Šç®—ã‚’é¿ã‘ã‚‹ãŸã‚
         if (_radiusPosition > 0) {
             radius = -100;
         } else {
@@ -105,12 +105,12 @@ void MyOption::setRadiusPosition(int prm_radius) {
 //    _X = _Xorg;
 //    _Y = _Yorg;
 //    _Z = _Zorg;
-//‚æ‚èŒã
+//ã‚ˆã‚Šå¾Œ
 //    _Xorg = _X;
 //    _Yorg = _Y;
 //    _Zorg = _Z;
-//‚æ‚è‘O
-//‚Å‚µ‚©ŒÄ‚Ño‚µ‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñB
+//ã‚ˆã‚Šå‰
+//ã§ã—ã‹å‘¼ã³å‡ºã—ã¦ã¯ã„ã‘ã¾ã›ã‚“ã€‚
 
     if (_radiusPosition == -1 * prm_radius) {
         if (_radiusPosition > 0) {
@@ -125,17 +125,17 @@ void MyOption::setRadiusPosition(int prm_radius) {
     _radiusPosition = prm_radius;
     angle angZY_ROTANG_X;
     if (_radiusPosition > 0) {
-        angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //Ž©•ª‚ÌˆÊ’u
+        angZY_ROTANG_X = MyStgUtil::getAngle2D(_Z, _Y); //è‡ªåˆ†ã®ä½ç½®
         _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
         _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
     } else {
-        angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //Ž©•ª‚ÌˆÊ’u
+        angZY_ROTANG_X = MyStgUtil::getAngle2D(-_Z, -_Y); //è‡ªåˆ†ã®ä½ç½®
         _Z = _radiusPosition * GgafDx9Util::COS[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
         _Y = _radiusPosition * GgafDx9Util::SIN[GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X)/ANGLE_RATE];
     }
-    //‚à‚µprm_len‚ª0‚Ìê‡A—˜_“I‚É‚ÍŒ³‚ÌˆÊ’u‚É–ß‚é‚Í‚¸‚È‚Ì‚¾‚ªA
-    //Œë·ŠÛ‚ßž‚Ý‚Ì‚½‚ßA”÷–­‚ÉˆÊ’u‚ª•Ï‚í‚éB
-    //‚æ‚Á‚ÄAˆÚ“®•ûŠpAˆÚ“®Šp‘¬“x‚ðŒ»Ý‚ÌˆÊ’u(_Z,_Y)‚ÅÄÝ’è‚µ‚È‚¯‚ê‚ÎƒYƒŒ‚éB
+    //ã‚‚ã—prm_lenãŒ0ã®å ´åˆã€ç†è«–çš„ã«ã¯å…ƒã®ä½ç½®ã«æˆ»ã‚‹ã¯ãšãªã®ã ãŒã€
+    //èª¤å·®ä¸¸ã‚è¾¼ã¿ã®ãŸã‚ã€å¾®å¦™ã«ä½ç½®ãŒå¤‰ã‚ã‚‹ã€‚
+    //ã‚ˆã£ã¦ã€ç§»å‹•æ–¹è§’ã€ç§»å‹•è§’é€Ÿåº¦ã‚’ç¾åœ¨ã®ä½ç½®(_Z,_Y)ã§å†è¨­å®šã—ãªã‘ã‚Œã°ã‚ºãƒ¬ã‚‹ã€‚
     _pMover->setRzMvAng(GgafDx9GeometryMover::simplifyAng(angZY_ROTANG_X + ANGLE90));
     _angveloMove = ((1.0f*_veloMv / _radiusPosition)*(float)ANGLE180)/PI;
     _pMover->setRzMvAngVelo(_angveloMove);
@@ -146,14 +146,14 @@ void MyOption::processBehavior() {
 
 
 
-    //ˆ—ƒƒCƒ“
+    //å‡¦ç†ãƒ¡ã‚¤ãƒ³
     _X = _Xorg;
     _Y = _Yorg;
     _Z = _Zorg;
 
 
     if (_return_to_default_radiusPosition_seq) {
-        //Ž©“®–ß‚è
+        //è‡ªå‹•æˆ»ã‚Š
         if (_radiusPosition > _radiusPosition_default) {
             addRadiusPosition(-10000);
         }
@@ -167,18 +167,18 @@ void MyOption::processBehavior() {
 
     } else {
 
-        //ƒIƒvƒVƒ‡ƒ““Æ—§ˆÚ“®§ŒäŽž
+        //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç‹¬ç«‹ç§»å‹•åˆ¶å¾¡æ™‚
         if (VB::isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
-            //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚æ‚èAƒIƒvƒVƒ‡ƒ“ˆÚ“®‘¬“x‚ÆAù‰ñ”¼Œa‘‰Á‘¬“x‚ÉƒxƒNƒgƒ‹•ª‰ðB
-            //‚»‚Ì‚¤‚¿‚Ìù‰ñ”¼Œa‘‰Á‘¬“x‚Ì‚Ý‚ðÝ’èB
+            //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šè§’ã‚ˆã‚Šã€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç§»å‹•é€Ÿåº¦ã¨ã€æ—‹å›žåŠå¾„å¢—åŠ é€Ÿåº¦ã«ãƒ™ã‚¯ãƒˆãƒ«åˆ†è§£ã€‚
+            //ãã®ã†ã¡ã®æ—‹å›žåŠå¾„å¢—åŠ é€Ÿåº¦ã®ã¿ã‚’è¨­å®šã€‚
             addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionParent->_veloOptionsMv);
-            //ƒIƒvƒVƒ‡ƒ“ˆÚ“®‘¬“x‚Ìˆ—‚ÍMyOptionƒNƒ‰ƒX‚Ås‚¤B
+            //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç§»å‹•é€Ÿåº¦ã®å‡¦ç†ã¯MyOptionã‚¯ãƒ©ã‚¹ã§è¡Œã†ã€‚
         }
     }
 
 
     if (_return_to_default_angExpanse_seq) {
-        //Ž©“®–ß‚è
+        //è‡ªå‹•æˆ»ã‚Š
         if (_angExpanse > _angExpanse_default) {
             _angExpanse -= 3000;
         }
@@ -191,7 +191,7 @@ void MyOption::processBehavior() {
         }
         _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
     } else {
-        //ƒIƒvƒVƒ‡ƒ“L‚ª‚è§Œä
+        //ã‚ªãƒ—ã‚·ãƒ§ãƒ³åºƒãŒã‚Šåˆ¶å¾¡
         if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {
             if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
                 if (VB::isBeingPressed(VB_RIGHT)) {
@@ -283,28 +283,28 @@ void MyOption::processBehavior() {
     _Yorg = _Y;
     _Zorg = _Z;
 
-    //ƒƒƒ‚„
-    //‚±‚±‚Ü‚Å‚ÅAGgafDx9GeometryMover‚Ì‹@”\‚Ì‚Ý‚ÅA
-    //ˆÈ‰º‚Ì‚æ‚¤‚Èó‘Ô‚Ü‚Å‚à‚Á‚Ä‚¢‚­B
-    //(100,0,0) ‚©‚çŒ´“_‚ðŒ©‚½ƒCƒ[ƒWAŽ©‚ÍŒ´“_
-    //ªyŽ²  ¨zŽ²  ExŽ²
+    //ï¼œãƒ¡ãƒ¢ï¼ž
+    //ã“ã“ã¾ã§ã§ã€GgafDx9GeometryMoverã®æ©Ÿèƒ½ã®ã¿ã§ã€
+    //ä»¥ä¸‹ã®ã‚ˆã†ãªçŠ¶æ…‹ã¾ã§ã‚‚ã£ã¦ã„ãã€‚
+    //(100,0,0) ã‹ã‚‰åŽŸç‚¹ã‚’è¦‹ãŸã‚¤ãƒ¡ãƒ¼ã‚¸ã€è‡ªã¯åŽŸç‚¹
+    //â†‘yè»¸  â†’zè»¸  ãƒ»xè»¸
     //
     //
-    //              YZ•½–Ê‚É•½s‚Å‚®‚é‚®‚é‰ñ‚Á‚Ä‚éB
-    //        ©›
+    //              YZå¹³é¢ã«å¹³è¡Œã§ãã‚‹ãã‚‹å›žã£ã¦ã‚‹ã€‚
+    //        â†â—‹
     //
     //
-    //                    ª
-    //›        Ž©        ›
-    //«     (0,0,0)      (-50000, 0, _radiusPosition)
+    //                    â†‘
+    //â—‹        è‡ª        â—‹
+    //â†“     (0,0,0)      (-50000, 0, _radiusPosition)
     //
     //
-    //          ›¨
+    //          â—‹â†’
     //          (-50000, -1*_radiusPosition, 0)
     //
-    //‚µ‚©‚µ‚Ü‚¾FX‚Æ‰ñ“]‚µ‚½‚¢‚½‚ßB‚ ‚Æ‚Í•’Ê‚ÉŒvŽZi—Í‹Zj‚ÅAÀ•W‰ñ“]AŒü‚«‰ñ“]‚ðs‚È‚¤B
-    //ƒ_ƒ~[‚ÌƒAƒNƒ^[‚ð˜AŒ‹‚µ‚æ‚¤‚Æ‚µ‚½‚ª‚¢‚ë‚¢‚ë“ï‚µ‚¢AQuaternion ‚ðŽg‚í‚´‚é‚ð“¾‚È‚¢i‚Ì‚Å‚Í‚È‚¢‚©GjB
-    //TODO:Å“K‰»‚·‚×‚µAQuaternion‚Í•Ö—˜‚¾‚ª”ð‚¯‚½‚¢B‚¢‚Â‚©”Ä—p‰»
+    //ã—ã‹ã—ã¾ã è‰²ã€…ã¨å›žè»¢ã—ãŸã„ãŸã‚ã€‚ã‚ã¨ã¯æ™®é€šã«è¨ˆç®—ï¼ˆåŠ›æŠ€ï¼‰ã§ã€åº§æ¨™å›žè»¢ã€å‘ãå›žè»¢ã‚’è¡Œãªã†ã€‚
+    //ãƒ€ãƒŸãƒ¼ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’é€£çµã—ã‚ˆã†ã¨ã—ãŸãŒã„ã‚ã„ã‚é›£ã—ã„ã€Quaternion ã‚’ä½¿ã‚ã–ã‚‹ã‚’å¾—ãªã„ï¼ˆã®ã§ã¯ãªã„ã‹ï¼›ï¼‰ã€‚
+    //TODO:æœ€é©åŒ–ã™ã¹ã—ã€Quaternionã¯ä¾¿åˆ©ã ãŒé¿ã‘ãŸã„ã€‚ã„ã¤ã‹æ±Žç”¨åŒ–
 
     static float sinRX, cosRX, sinRY, cosRY, sinRZ, cosRZ;
 
@@ -312,32 +312,32 @@ void MyOption::processBehavior() {
     cosRZ = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Z] / ANGLE_RATE];
     sinRY = GgafDx9Util::SIN[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
     cosRY = GgafDx9Util::COS[_pMyOptionParent->_pMover->_angFace[AXIS_Y] / ANGLE_RATE];
-    //‘SƒIƒvƒVƒ‡ƒ“‚ðˆê‚Â‚Ì‰ò‚Æ‚µ‚ÄOptionParent‚ð’†S‚ÉWORLD•ÏŠ·‚Ì‚æ‚¤‚Èù‰ô
+    //å…¨ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä¸€ã¤ã®å¡Šã¨ã—ã¦OptionParentã‚’ä¸­å¿ƒã«WORLDå¤‰æ›ã®ã‚ˆã†ãªæ—‹å»»
     _X = cosRY*cosRZ*_Xorg + cosRY*-sinRZ*_Yorg + sinRY*_Zorg;
     _Y = sinRZ*_Xorg + cosRZ*_Yorg;
     _Z = -sinRY*cosRZ*_Xorg + -sinRY*-sinRZ*_Yorg + cosRY*_Zorg;
 
 
 
-    //‰ù’†“d“”‚ÌÆŽËŠp‚ªL‚ª‚é‚æ‚¤‚È‰ñ“]iQuaternion‚ÅŽÀŒ»j
-    static float vX_axis,vY_axis,vZ_axis; //‰ñ“]‚³‚¹‚½‚¢Ž²ƒxƒNƒgƒ‹
+    //æ‡ä¸­é›»ç¯ã®ç…§å°„è§’ãŒåºƒãŒã‚‹ã‚ˆã†ãªå›žè»¢ï¼ˆQuaternionã§å®Ÿç¾ï¼‰
+    static float vX_axis,vY_axis,vZ_axis; //å›žè»¢ã•ã›ãŸã„è»¸ãƒ™ã‚¯ãƒˆãƒ«
     vX_axis = cosRY*cosRZ*_pMover->_vX + cosRY*-sinRZ*_pMover->_vY + sinRY*_pMover->_vZ;
     vY_axis = sinRZ*_pMover->_vX + cosRZ*_pMover->_vY;
     vZ_axis = -sinRY*cosRZ*_pMover->_vX + -sinRY*-sinRZ*_pMover->_vY + cosRY*_pMover->_vZ;
     static float sinHalf, cosHalf;
 
-    sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=‰ñ“]‚³‚¹‚½‚¢Šp“x
+    sinHalf = GgafDx9Util::SIN[_angExpanse/ANGLE_RATE/2]; //_angExpanse=å›žè»¢ã•ã›ãŸã„è§’åº¦
     cosHalf = GgafDx9Util::COS[_angExpanse/ANGLE_RATE/2];
 
-    //ŒvŽZ
+    //è¨ˆç®—
     _Q.set( cosHalf, -vX_axis*sinHalf, -vY_axis*sinHalf, -vZ_axis*sinHalf);  //R
     _Q.mul(0,
            _pMyOptionParent->_pMover->_vX,
            _pMyOptionParent->_pMover->_vY,
-           _pMyOptionParent->_pMover->_vZ); //R*P ‰ñ“]Ž²‚ªŒ»Ý‚Ìis•ûŒüƒxƒNƒgƒ‹‚Æ‚È‚é
+           _pMyOptionParent->_pMover->_vZ); //R*P å›žè»¢è»¸ãŒç¾åœ¨ã®é€²è¡Œæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã¨ãªã‚‹
     _Q.mul(cosHalf, vX_axis*sinHalf, vY_axis*sinHalf, vZ_axis*sinHalf); //R*P*Q
-    //_Q._x, _Q._y, _Q._z ‚ª‰ñ“]Œã‚ÌÀ•W‚Æ‚È‚é
-    //ZŽ²‰ñ“]AYŽ²‰ñ“]Šp“x‚ðŒvŽZ
+    //_Q._x, _Q._y, _Q._z ãŒå›žè»¢å¾Œã®åº§æ¨™ã¨ãªã‚‹
+    //Zè»¸å›žè»¢ã€Yè»¸å›žè»¢è§’åº¦ã‚’è¨ˆç®—
     GgafDx9Util::getRzRyAng(
         (float)_Q._x,
         (float)_Q._y,
@@ -353,7 +353,7 @@ void MyOption::processBehavior() {
     _Z += _pMyOptionParent->_Z;
 
     //TODO
-    //Å“K‰»
+    //æœ€é©åŒ–
     _pMover->setVxMvVelo(0);
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
@@ -389,8 +389,8 @@ void MyOption::processBehavior() {
     }
 
     if (_pLockOnTarget) {
-        //if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) { //”ñƒAƒNƒeƒBƒu‚Ì‚Ý‚ÆŽ‹–ìŠO‚ÍƒƒbƒNƒIƒ“‰ðœ
-        if (_pLockOnTarget->isActive() == false) {  //”ñƒAƒNƒeƒBƒu‚Ì‚Ý‰ðœiŽ‹–ìŠO‚Å‚àƒƒbƒNƒIƒ“ˆÛŽj
+        //if (_pLockOnTarget->isOffscreen() || _pLockOnTarget->isActive() == false) { //éžã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®ã¿ã¨è¦–é‡Žå¤–ã¯ãƒ­ãƒƒã‚¯ã‚ªãƒ³è§£é™¤
+        if (_pLockOnTarget->isActive() == false) {  //éžã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã®ã¿è§£é™¤ï¼ˆè¦–é‡Žå¤–ã§ã‚‚ãƒ­ãƒƒã‚¯ã‚ªãƒ³ç¶­æŒï¼‰
             _pLockOnTarget = NULL;
         } else {
             _pEffectLockOn->setGeometry(_pLockOnTarget);

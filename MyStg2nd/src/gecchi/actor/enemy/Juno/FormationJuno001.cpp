@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -21,7 +21,7 @@ FormationJuno001::FormationJuno001(const char* prm_name) :
 
 void FormationJuno001::processJudgement() {
     if (_X < GgafDx9Universe::_X_goneLeft - 300000) {
-        _TRACE_("FormationJuno001::processJudgement() ‚³‚æ‚È‚ç");
+        _TRACE_("FormationJuno001::processJudgement() ã•ã‚ˆãªã‚‰");
         sayonara();
     }
 }

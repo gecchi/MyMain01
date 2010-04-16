@@ -1,4 +1,4 @@
-#ifndef GAMEGLOBAL_H_
+Ôªø#ifndef GAMEGLOBAL_H_
 #define GAMEGLOBAL_H_
 namespace MyStg2nd {
 #define _RANK_ (GameGlobal::_rank)
@@ -10,15 +10,15 @@ namespace MyStg2nd {
 class GameGlobal {
 public:
     static boolean _isInit;
-    /** ÉXÉRÉA */
+    /** „Çπ„Ç≥„Ç¢ */
     static DWORD _dwScore;
 
-    /** ÉXÉeÅ[ÉW */
+    /** „Çπ„ÉÜ„Éº„Ç∏ */
     static int _iScene;
-    /** ÉâÉìÉN */
+    /** „É©„É≥„ÇØ */
     static double _rank;
 
-    /** é©ã@Ç÷ÇÃÉ|ÉCÉìÉ^ */
+    /** Ëá™Ê©ü„Å∏„ÅÆ„Éù„Ç§„É≥„Çø */
     static MyShip* _pMyShip;
     /** */
 

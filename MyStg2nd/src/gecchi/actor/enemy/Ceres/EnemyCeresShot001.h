@@ -1,35 +1,35 @@
-#ifndef ENEMYCELESSHOT001_H_
+ï»¿#ifndef ENEMYCELESSHOT001_H_
 #define ENEMYCELESSHOT001_H_
 namespace MyStg2nd {
 
 /**
- * 3D“G’e001 .
- * 1)¨‚¢‚æ‚­Ý’è•ûŒü‚É”ò‚Ño‚·<BR>
- * 2)™X‚É¨‚¢‚Í’x‚­‚È‚èAŽž‹@‚Ì•ûŒü‚É•ûŒü“]Š·<BR>
- * 3)‚»‚ÌŒãŽž‹@‚ð‚ß‚ª‚¯‚Ä’¼üˆÚ“®BÄ‰Á‘¬‚µ‚Ä‚¢‚­<BR>
- * yã‘‚«‰Â”\‚Èƒƒ“ƒo[z
+ * 3Dæ•µå¼¾001 .
+ * 1)å‹¢ã„ã‚ˆãè¨­å®šæ–¹å‘ã«é£›ã³å‡ºã™<BR>
+ * 2)å¾ã€…ã«å‹¢ã„ã¯é…ããªã‚Šã€æ™‚æ©Ÿã®æ–¹å‘ã«æ–¹å‘è»¢æ›<BR>
+ * 3)ãã®å¾Œæ™‚æ©Ÿã‚’ã‚ãŒã‘ã¦ç›´ç·šç§»å‹•ã€‚å†åŠ é€Ÿã—ã¦ã„ã<BR>
+ * ã€ä¸Šæ›¸ãå¯èƒ½ãªãƒ¡ãƒ³ãƒãƒ¼ã€‘
  *
  */
 class EnemyCeresShot001 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
-    //–{Actor‚ÌƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB --->
-    /** oŒ»Žž‚Ì‰‘¬ */
+    //æœ¬Actorã®ã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ --->
+    /** å‡ºç¾æ™‚ã®åˆé€Ÿ */
     int _iMvVelo_1st;
-    /** oŒ»Žž‚Ì‰Á‘¬“xi•‰‚Å’x‚­‚È‚é */
+    /** å‡ºç¾æ™‚ã®åŠ é€Ÿåº¦ï¼ˆè² ã§é…ããªã‚‹ */
     int _iMoveAcce_1st;
-    /** Ž©g‚ªoŒ»‚µ‚Ä‚©‚çAŽž‹@‚Ì•ûŒü‚É•ûŒü“]Š·‚ðŠJŽn‚·‚éƒtƒŒ[ƒ€ */
+    /** è‡ªèº«ãŒå‡ºç¾ã—ã¦ã‹ã‚‰ã€æ™‚æ©Ÿã®æ–¹å‘ã«æ–¹å‘è»¢æ›ã‚’é–‹å§‹ã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ  */
     DWORD _dwFrame_TurnBegin;
-    /** ˆÚ“®‘¬“xãŒÀ */
+    /** ç§»å‹•é€Ÿåº¦ä¸Šé™ */
     int _iMvVelo_Top;
-    /** Å’á•ÛØˆÚ“®‘¬“x */
+    /** æœ€ä½Žä¿è¨¼ç§»å‹•é€Ÿåº¦ */
     int _iMvVelo_Bottom;
-    /** •ûŒü“]Š·‚É”ï‚â‚·‚±‚Æ‚ª‚Å‚«‚éƒtƒŒ[ƒ€” */
+    /** æ–¹å‘è»¢æ›ã«è²»ã‚„ã™ã“ã¨ãŒã§ãã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
     DWORD _dwFrameInterval_Turn;
-    /** •ûŒü“]Š·’†‚ÌŠp‘¬“xƒAƒ“ƒOƒ‹’l */
+    /** æ–¹å‘è»¢æ›ä¸­ã®è§’é€Ÿåº¦ã‚¢ãƒ³ã‚°ãƒ«å€¤ */
     angle _angVelo_Turn;
-    /** •ûŒü“]Š·‚ðŠJŽni_dwFrame_TurnBeginj‚©‚çÄÝ’è‚³‚ê‚é‰Á‘¬“x */
+    /** æ–¹å‘è»¢æ›ã‚’é–‹å§‹ï¼ˆ_dwFrame_TurnBeginï¼‰ã‹ã‚‰å†è¨­å®šã•ã‚Œã‚‹åŠ é€Ÿåº¦ */
     int _iMoveAcce_2nd;
-    //<--- –{Actor‚ÌƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB
+    //<--- æœ¬Actorã®ã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
 
 public:
     EnemyCeresShot001(const char* prm_name);

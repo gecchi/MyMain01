@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,20 +8,20 @@ using namespace MyStg2nd;
 EffectTurbo001::EffectTurbo001(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo001") {
     _class_name = "EffectTurbo001";
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //â¡éZçáê¨
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ÉrÉãÉ{Å[ÉhRzâÒì]
-    setHitAble(false); //ìñÇΩÇËîªíËñ≥Çµ
+    chengeEffectTechnique("DestBlendOne"); //Âä†ÁÆóÂêàÊàê
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //„Éì„É´„Éú„Éº„ÉâRzÂõûËª¢
+    setHitAble(false); //ÂΩì„Åü„ÇäÂà§ÂÆöÁÑ°„Åó
 }
 
 void EffectTurbo001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 15);   //ÉAÉjÉÅîÕàÕÇÇOÅ`ÇPÇT
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //ÉAÉjÉÅèáèò
+    _pUvFlipper->forcePtnNoRange(0, 15);   //„Ç¢„Éã„É°ÁØÑÂõ≤„ÇíÔºê„ÄúÔºëÔºï
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 1); //„Ç¢„Éã„É°È†ÜÂ∫è
     setAlpha(0.99);
 }
 
 void EffectTurbo001::onActive() {
     _pUvFlipper->setPtnNoToTop();
-    _pMover->setFaceAngVelo(AXIS_Z, 3000);        //âÒì]
+    _pMover->setFaceAngVelo(AXIS_Z, 3000);        //ÂõûËª¢
 }
 
 void EffectTurbo001::processBehavior() {
@@ -31,7 +31,7 @@ void EffectTurbo001::processBehavior() {
 }
 
 void EffectTurbo001::processJudgement() {
-    if (VB::isBeingPressed(VB_TURBO)) { //É^Å[É{
+    if (VB::isBeingPressed(VB_TURBO)) { //„Çø„Éº„Éú
 
     } else {
         inactivate();

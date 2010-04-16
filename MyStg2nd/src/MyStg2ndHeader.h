@@ -1,8 +1,8 @@
-#ifndef MYSTG2NDHEADER_H_
+ï»¿#ifndef MYSTG2NDHEADER_H_
 #define MYSTG2NDHEADER_H_
 
-//u‰´DirectX9ƒ‰ƒCƒuƒ‰ƒŠv‚ğ—˜—p‚·‚éê‡i©•ª‚¾‚¯‚¾‚¯‚ÇGj
-//Ÿ‚Ì"GgafDx9LibStgHeader.h"ƒwƒbƒ_‚ğƒCƒ“ƒNƒ‹[ƒh‚µ‚Ü‚·B
+//ã€Œä¿ºDirectX9ãƒ©ã‚¤ãƒ–ãƒ©ãƒªã€ã‚’åˆ©ç”¨ã™ã‚‹å ´åˆï¼ˆè‡ªåˆ†ã ã‘ã ã‘ã©ï¼›ï¼‰
+//æ¬¡ã®"GgafDx9LibStgHeader.h"ãƒ˜ãƒƒãƒ€ã‚’ã‚¤ãƒ³ã‚¯ãƒ«ãƒ¼ãƒ‰ã—ã¾ã™ã€‚
 
 #include "GgafDx9LibStgHeader.h"
 
@@ -70,7 +70,7 @@
 #define VB_TURBO    VB_BUTTON5
 #define VB_SHOT1_R  VB_BUTTON6
 
-//STAT_DEFAULT_ACTOR_KIND‚Í0
+//STAT_DEFAULT_ACTOR_KINDã¯0
 #define STAT_AddScorePoint          1
 #define STAT_AddRankPoint           2
 #define STAT_AddRankPoint_Reduction 3
@@ -80,7 +80,7 @@
 #define STAT_DominantDefenceRate    7
 #define STAT_RecessiveDefenceRate   8
 
-//1/ã2
+//1/âˆš2
 #define NANAME 0.70710
 
 enum MoveWay {
@@ -115,7 +115,7 @@ enum MoveWay {
 
 namespace MyStg2nd {
 
-//‚»‚Ì‘¼‚Ìƒwƒbƒ_ƒtƒ@ƒCƒ‹‚Í‚±‚±‚É‹Lq
+//ãã®ä»–ã®ãƒ˜ãƒƒãƒ€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ã“ã“ã«è¨˜è¿°
 template<class P>
 class GameActor;
 

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,11 +20,11 @@ void EnemyShot001::initialize() {
 
 void EnemyShot001::processBehavior() {
     if (onChangeToActive()) {
-        //èoåªéû
+        //Âá∫ÁèæÊôÇ
         setHitAble(true);
     }
     _pUvFlipper->behave();
-    //ç¿ïWÇ…îΩâf
+    //Â∫ßÊ®ô„Å´ÂèçÊò†
     _pMover->behave();
 
 }
@@ -50,7 +50,7 @@ bool EnemyShot001::isOutOfGameSpace() {
 }
 
 void EnemyShot001::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
+    //_TRACE_("EnemyShot001„Éí„ÉÉ„Éà„Åó„Åæ„Åó„Åü„ÄÇ("<<_X<<","<<_Y<<")");
     //sayonara();
     setHitAble(false);
     inactivateTree();

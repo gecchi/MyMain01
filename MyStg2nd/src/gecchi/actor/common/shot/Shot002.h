@@ -1,17 +1,17 @@
-#ifndef SHOT002_H_
+ï»¿#ifndef SHOT002_H_
 #define SHOT002_H_
 namespace MyStg2nd {
 
 /**
- * ”Ä—p’e002(¬) .
- * ”j‰ó‰Â”\‚Å“™‘¬’¼üˆÚ“®ŒãA©‹@‚Ö•ûŒü“]Š·<BR>
+ * æ±ç”¨å¼¾002(å°) .
+ * ç ´å£Šå¯èƒ½ã§ç­‰é€Ÿç›´ç·šç§»å‹•å¾Œã€è‡ªæ©Ÿã¸æ–¹å‘è»¢æ›<BR>
  * @version 1.00
  * @since 2009/12/28
  * @author Masatoshi Tsuge
  */
 class Shot002 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
-    /** ©‹@‚Ö•ûŒü“]Š·ŠJnƒtƒŒ[ƒ€ */
+    /** è‡ªæ©Ÿã¸æ–¹å‘è»¢æ›é–‹å§‹ãƒ•ãƒ¬ãƒ¼ãƒ  */
     DWORD _my_frame;
 
     Shot002(const char* prm_name);

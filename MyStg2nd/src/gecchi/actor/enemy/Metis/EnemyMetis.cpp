@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,7 +13,7 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
     prepareSe(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //çˆ†ç™º
 }
 
 void EnemyMetis::initialize() {
@@ -49,9 +49,9 @@ void EnemyMetis::onActive() {
 }
 
 void EnemyMetis::processBehavior() {
-    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
+    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    //À•W‚É”½‰f
+    //åº§æ¨™ã«åæ˜ 
     _pMover->behave();
 }
 
@@ -67,17 +67,17 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     }
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-    //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
-    chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
+    //ã“ã“ã«ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    chengeEffectTechniqueInterim("Flush", 2); //ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
     playSe3D(0);
-        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
+        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
         pExplo001->activate();
     }
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
+        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         playSe3D(1);
         if (pExplo001_2 != NULL) {

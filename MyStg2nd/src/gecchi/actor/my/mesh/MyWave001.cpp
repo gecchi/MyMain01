@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -44,7 +44,7 @@ void MyWave001::initialize() {
 
 void MyWave001::processBehavior() {
     if (onChangeToActive()) {
-        //oŒ»‹¤’Êˆ—
+        //å‡ºç¾æ™‚å…±é€šå‡¦ç†
         _pScaler->setScale(1000);
         _pScaler->intoTargetScaleLinerStep(100000,100);
         _pScaler->behave();
@@ -58,9 +58,9 @@ void MyWave001::processBehavior() {
         //		_Y = GameGlobal::_pMyShip->_Y;
         //		_Z = GameGlobal::_pMyShip->_Z;
     } else {
-        //’Êíˆ—
+        //é€šå¸¸å‡¦ç†
         //behaveUvFlip();
-        //À•W‚É”½‰f
+        //åº§æ¨™ã«åæ˜ 
         _pScaler->behave();
         _pMover->behave();
     }
@@ -76,20 +76,20 @@ void MyWave001::processJudgement() {
 
 /*
  bool MyWave001::processHitChkLogic(GgafDx9GeometricActor* prm_pOtherActor) {
- //TRACE("MyWave001::processHitChkLogic "+getPlatformScene()->getName()+"."+getName()+"‚˜"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
+ //TRACE("MyWave001::processHitChkLogic "+getPlatformScene()->getName()+"."+getName()+"ï½˜"+prm_pOtherActor->getPlatformScene()->getName()+"."+prm_pOtherActor->getName());
  return false;
  }
  */
 
 void MyWave001::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("MyWave001::onHit ƒVƒ‡ƒbƒg‚ªƒqƒbƒg‚µ‚Ü‚µ‚½");
-    //_TRACE_("MyWave001ƒqƒbƒg‚µ‚Ü‚µ‚½B("<<_X<<","<<_Y<<")");
+    //_TRACE_("MyWave001::onHit ã‚·ãƒ§ãƒƒãƒˆãŒãƒ’ãƒƒãƒˆã—ã¾ã—ãŸ");
+    //_TRACE_("MyWave001ãƒ’ãƒƒãƒˆã—ã¾ã—ãŸã€‚("<<_X<<","<<_Y<<")");
     //sayonara();
     inactivateTree();
 }
 
 void MyWave001::onInactive() {
-    //Á¸ˆ—
+    //æ¶ˆå¤±æ™‚å‡¦ç†
     setHitAble(false);
     moveFirst();
 }

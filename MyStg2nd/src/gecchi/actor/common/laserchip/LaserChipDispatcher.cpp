@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -15,7 +15,7 @@ LaserChipDispatcher::LaserChipDispatcher(const char* prm_name) : GgafActorDispat
     _pChip_prev_employ = NULL;
     _frame_of_behaving_prev_employ = 0;
 
-    _num_interval_frame_count = _num_chip_interval; //¶¬’¼Œã‚ÍƒCƒ“ƒ^[ƒoƒ‹‚È‚Ç–³‚µ
+    _num_interval_frame_count = _num_chip_interval; //ç”Ÿæˆç›´å¾Œã¯ã‚¤ãƒ³ã‚¿ãƒ¼ãƒãƒ«ãªã©ç„¡ã—
     _num_continual_employ_max = _num_chip_max;
 }
 
@@ -23,17 +23,17 @@ void LaserChipDispatcher::processBehavior() {
 }
 
 LaserChip* LaserChipDispatcher::employ() {
-    if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_max˜A‘±”­ËA’eØ‚ê‚É‚·‚é(_num_interval_frame_count‚ğƒŠƒZƒbƒg)B
+    if (_num_continual_employ_count > _num_continual_employ_max) { //_num_continual_employ_maxé€£ç¶šç™ºå°„æ™‚ã€å¼¾åˆ‡ã‚Œã«ã™ã‚‹(_num_interval_frame_countã‚’ãƒªã‚»ãƒƒãƒˆ)ã€‚
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
         _frame_of_behaving_prev_employ = 0;
         _num_continual_employ_count = 0;
         _num_interval_frame_count = 0;
         return NULL;
-    } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalƒtƒŒ[ƒ€ˆÈ“à‚È‚Ì‚Å’eØ‚ê‚É‚·‚éB
+    } else if (_num_interval_frame_count < _num_chip_interval) { //_num_chip_intervalãƒ•ãƒ¬ãƒ¼ãƒ ä»¥å†…ãªã®ã§å¼¾åˆ‡ã‚Œã«ã™ã‚‹ã€‚
         _num_interval_frame_count++;
         return NULL;
-    } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //’eØ‚ê‚Ì _num_chip_max/4 —­‚Ü‚Á‚Ä‚©‚ç”­Ë
+    } else if (_is_tear_laser && _num_chip_max - _num_chip_active < _num_chip_max/4) { //å¼¾åˆ‡ã‚Œã®æ™‚ _num_chip_max/4 æºœã¾ã£ã¦ã‹ã‚‰ç™ºå°„
         _is_tear_laser = true;
         _pChip_prev_employ = NULL;
         _frame_of_behaving_prev_employ = 0;
@@ -45,14 +45,14 @@ LaserChip* LaserChipDispatcher::employ() {
         if (pChip != NULL) {
             pChip->activate();
             if (_pChip_prev_employ != NULL) {
-                if (_frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) { //ƒAƒNƒeƒBƒu‚É‚È‚Á‚ÄƒtƒŒ[ƒ€‚ª‰ÁZ‚³‚ê‚é‚Ì‚Í‚PƒtƒŒ[ƒ€Ÿ‚Å‚ ‚é‚½‚ß
-                    //2ƒtƒŒ[ƒ€˜A‘±‚Åemploy‚Ìê‡˜AŒ‹‚Æ‚İ‚È‚·
+                if (_frame_of_behaving_prev_employ == _pChip_prev_employ->getBehaveingFrame()) { //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ã¦ãƒ•ãƒ¬ãƒ¼ãƒ ãŒåŠ ç®—ã•ã‚Œã‚‹ã®ã¯ï¼‘ãƒ•ãƒ¬ãƒ¼ãƒ æ¬¡ã§ã‚ã‚‹ãŸã‚
+                    //2ãƒ•ãƒ¬ãƒ¼ãƒ é€£ç¶šã§employã®å ´åˆé€£çµã¨ã¿ãªã™
                     _num_continual_employ_count++;
                     pChip->_pChip_front = _pChip_prev_employ;
                     _pChip_prev_employ->_pChip_behind = pChip;
                     _is_tear_laser = false;
                 } else {
-                    //2ƒtƒŒ[ƒ€˜A‘±‚Åemployo—ˆ‚Ä‚È‚¢ê‡˜AŒ‹‚ÍØ‚ê‚Ä‚é
+                    //2ãƒ•ãƒ¬ãƒ¼ãƒ é€£ç¶šã§employå‡ºæ¥ã¦ãªã„å ´åˆé€£çµã¯åˆ‡ã‚Œã¦ã‚‹
                     _num_continual_employ_count = 0;
                     pChip->_pChip_front = NULL;
                     _pChip_prev_employ->_pChip_behind = NULL;

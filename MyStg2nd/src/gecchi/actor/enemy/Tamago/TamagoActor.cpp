@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -50,7 +50,7 @@ void TamagoActor::processBehavior() {
     if (GgafDx9Input::isBeingPressedKey(DIK_2)) {
         _pScaler->addScale(-200000);
     }
-    //À•W‚É”½‰f
+    //åº§æ¨™ã«åæ˜ 
     _pMover->behave();
     _pScaler->behave();
 }
@@ -59,7 +59,7 @@ void TamagoActor::processJudgement() {
 }
 
 void TamagoActor::onHit(GgafActor* prm_pOtherActor) {
-    _TRACE_("TamagoActorƒqƒbƒg‚µ‚Ü‚µ‚½B("<<_X<<","<<_Y<<","<<_Z<<")");
+    _TRACE_("TamagoActorãƒ’ãƒƒãƒˆã—ã¾ã—ãŸã€‚("<<_X<<","<<_Y<<","<<_Z<<")");
 }
 
 TamagoActor::~TamagoActor() {

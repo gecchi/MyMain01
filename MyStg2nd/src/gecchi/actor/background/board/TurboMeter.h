@@ -1,25 +1,25 @@
-#ifndef TURBOMETER_H_
+ï»¿#ifndef TURBOMETER_H_
 #define TURBOMETER_H_
 namespace MyStg2nd {
 
 class TurboMeter : public GgafDx9LibStg::DefaultBoardActor {
 
 public:
-    /** 100%‚Ìƒ[ƒ^[‚Ì’·‚³(px) */
+    /** 100%ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®é•·ã•(px) */
     float _max_px;
-    /** 100%‚Ìƒ[ƒ^[‚Ì’l */
+    /** 100%ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®å€¤ */
     float _max_val;
-    /** Œ»İ‚Ìƒ[ƒ^[’l */
+    /** ç¾åœ¨ã®ãƒ¡ãƒ¼ã‚¿ãƒ¼å€¤ */
     float _val;
-    /** ƒ[ƒ^[’l 1 ‚Ì ƒsƒNƒZƒ‹’l     */
+    /** ãƒ¡ãƒ¼ã‚¿ãƒ¼å€¤ 1 ã® ãƒ”ã‚¯ã‚»ãƒ«å€¤     */
     float _unit_px;
 
     TurboMeter(const char* prm_name);
 
     /**
-     * ƒ[ƒ^[‚Ì–Ú·‚è‚ğ’è‹`
-     * @param prm_max_px ƒ[ƒ^[’l‚ª100%‚Ì•ƒsƒNƒZƒ‹
-     * @param prm_max_val ƒ[ƒ^[’l‚ª100%‚Æ‚·‚éÀÛ‚Ì’l
+     * ãƒ¡ãƒ¼ã‚¿ãƒ¼ã®ç›®ç››ã‚Šã‚’å®šç¾©
+     * @param prm_max_px ãƒ¡ãƒ¼ã‚¿ãƒ¼å€¤ãŒ100%æ™‚ã®å¹…ãƒ”ã‚¯ã‚»ãƒ«
+     * @param prm_max_val ãƒ¡ãƒ¼ã‚¿ãƒ¼å€¤ãŒ100%ã¨ã™ã‚‹å®Ÿéš›ã®å€¤
      */
     void graduateScale(float prm_max_px, float prm_max_val) {
         _max_px = prm_max_px;

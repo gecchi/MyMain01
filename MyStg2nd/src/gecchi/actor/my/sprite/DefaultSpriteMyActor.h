@@ -1,4 +1,4 @@
-#ifndef DEFAULTSPRITEMYACTOR_H_
+﻿#ifndef DEFAULTSPRITEMYACTOR_H_
 #define DEFAULTSPRITEMYACTOR_H_
 namespace MyStg2nd {
 

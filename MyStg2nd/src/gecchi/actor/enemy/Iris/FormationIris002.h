@@ -1,29 +1,29 @@
-#ifndef FORMATIONIRIS002_H_
+ï»¿#ifndef FORMATIONIRIS002_H_
 #define FORMATIONIRIS002_H_
 namespace MyStg2nd {
 
 /**
- * “G‹@ƒCƒŠƒX—pƒtƒH[ƒ[ƒVƒ‡ƒ“‚»‚Ì‚P .
+ * æ•µæ©Ÿã‚¤ãƒªã‚¹ç”¨ãƒ•ã‚©ãƒ¼ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãã®ï¼‘ .
  * @version 1.00
  * @since 2009/12/25
  * @author Masatoshi Tsuge
  */
 class FormationIris002 : public GgafDx9LibStg::FormationActor {
 
-    /** ˆÚ“®—pƒXƒvƒ‰ƒCƒ“ */
+    /** ç§»å‹•ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ */
     static GgafDx9Core::GgafDx9Spline3D _sp;
 
     /** */
     DispatcherConnection* _pDispatcherCon;
 
 public:
-    /** •Ò‘à”(RANK•Ï“®) */
+    /** ç·¨éšŠæ•°(RANKå¤‰å‹•) */
     int _num_Iris;
-    /** ƒCƒŠƒX‚Ì”z—ñ(RANK•Ï“®) */
+    /** ã‚¤ãƒªã‚¹ã®é…åˆ—(RANKå¤‰å‹•) */
     EnemyIris** _papIris;
-    /** •Ò‘àŠÔŠuƒtƒŒ[ƒ€(RANK•Ï“®) */
+    /** ç·¨éšŠé–“éš”ãƒ•ãƒ¬ãƒ¼ãƒ (RANKå¤‰å‹•) */
     DWORD _frame_interval;
-    /** ˆÚ“®‘¬“x(RANK•Ï“®) */
+    /** ç§»å‹•é€Ÿåº¦(RANKå¤‰å‹•) */
     velo _mv_velo;
 
     FormationIris002(const char* prm_name);

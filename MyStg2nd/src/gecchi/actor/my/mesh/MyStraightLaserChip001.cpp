@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -30,11 +30,11 @@ void MyStraightLaserChip001::onActive() {
 
 void MyStraightLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
+    //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ãƒ’ãƒƒãƒˆã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     //playSe3D1();
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //”j‰ó‚³‚ê‚½ê‡
-        //EEEƒRƒR‚É”j‰ó‚³‚ê‚½ƒGƒtƒFƒNƒg
+        //ç ´å£Šã•ã‚ŒãŸå ´åˆ
+        //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ç ´å£Šã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
         inactivate();
     }
 

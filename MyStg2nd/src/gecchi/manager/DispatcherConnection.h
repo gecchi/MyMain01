@@ -1,9 +1,9 @@
-#ifndef DISPATCHERCONNECTION_H_
+ï»¿#ifndef DISPATCHERCONNECTION_H_
 #define DISPATCHERCONNECTION_H_
 namespace MyStg2nd {
 
 /**
- * DispatcherƒRƒlƒNƒVƒ‡ƒ“.
+ * Dispatcherã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³.
  * @version 1.00
  * @since 2009/01/30
  * @author Masatoshi Tsuge
@@ -13,9 +13,9 @@ class DispatcherConnection : public GgafCore::GgafResourceConnection<GgafCore::G
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_idstr ¯•Ê–¼
-     * @param prm_pDispatcher ƒfƒBƒXƒpƒbƒ`ƒƒ[
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_idstr è­˜åˆ¥å
+     * @param prm_pDispatcher ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼
      */
     DispatcherConnection(char* prm_idstr, GgafCore::GgafActorDispatcher* prm_pDispatcher);
 

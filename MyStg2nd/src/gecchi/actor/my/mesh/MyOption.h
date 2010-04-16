@@ -1,4 +1,4 @@
-#ifndef MYDUMMYOPTION_H_
+ï»¿#ifndef MYDUMMYOPTION_H_
 #define MYDUMMYOPTION_H_
 namespace MyStg2nd {
 
@@ -6,13 +6,13 @@ namespace MyStg2nd {
 class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 
-    /** eƒAƒNƒ^[ */
+    /** è¦ªã‚¢ã‚¯ã‚¿ãƒ¼ */
     MyOptionParent* _pMyOptionParent;
 
-    /** ƒIƒvƒVƒ‡ƒ“”Ô† */
+    /** ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç•ªå· */
     int _no;
 
-    //ˆê•Ï”’B
+    //ä¸€æ™‚å¤‰æ•°é”
     int _Xorg,_Yorg,_Zorg;
     //angle _RXorg,_RYorg,_RZorg;
     float _vXwk,_vYwk,_vZwk;
@@ -20,16 +20,16 @@ class MyOption : public GgafDx9LibStg::DefaultMeshSetActor {
 
 private:
     /**
-     * ù‰ô‰~ü”¼Œa‚ğÄİ’è‚·‚é .
-     * “Á’è‚ÌğŒ‰º‚Å‚Ì‚İŒÄ‚Ño‚µ‰Â”\B
-     * @param prm_radius ”¼Œa
+     * æ—‹å»»å††å‘¨åŠå¾„ã‚’å†è¨­å®šã™ã‚‹ .
+     * ç‰¹å®šã®æ¡ä»¶ä¸‹ã§ã®ã¿å‘¼ã³å‡ºã—å¯èƒ½ã€‚
+     * @param prm_radius åŠå¾„
      */
     void setRadiusPosition(int prm_radius);
 
     /**
-     * ù‰ô‰~ü”¼Œa‚ğ·•ª‚ÅÄİ’è‚·‚é .
-     * “Á’è‚ÌğŒ‰º‚Å‚Ì‚İŒÄ‚Ño‚µ‰Â”\B
-     * @param prm_radius_offset ”¼Œa·•ª
+     * æ—‹å»»å††å‘¨åŠå¾„ã‚’å·®åˆ†ã§å†è¨­å®šã™ã‚‹ .
+     * ç‰¹å®šã®æ¡ä»¶ä¸‹ã§ã®ã¿å‘¼ã³å‡ºã—å¯èƒ½ã€‚
+     * @param prm_radius_offset åŠå¾„å·®åˆ†
      */
     void addRadiusPosition(int prm_radius_offset);
 
@@ -40,29 +40,29 @@ public:
 
     LaserChipDispatcher* _pLaserChipDispatcher;
 
-    /** ŒvZ‚³‚ê‚½Œ»İ‚Ìù‰ô‰~üˆÚ“®Šp‘¬“xi“Ç‚İo‚µê—pj */
+    /** è¨ˆç®—ã•ã‚ŒãŸç¾åœ¨ã®æ—‹å»»å††å‘¨ç§»å‹•è§’é€Ÿåº¦ï¼ˆèª­ã¿å‡ºã—å°‚ç”¨ï¼‰ */
     angvelo _angveloMove;
-    /** ‰~üã‰ŠúˆÊ’uŠp“xiüˆÍŠpjiinitialize()‚Ü‚Å‚É•ÏX‰Â^ƒfƒtƒHƒ‹ƒg=0j */
+    /** å††å‘¨ä¸ŠåˆæœŸä½ç½®è§’åº¦ï¼ˆå‘¨å›²è§’ï¼‰ï¼ˆinitialize()ã¾ã§ã«å¤‰æ›´å¯ï¼ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ=0ï¼‰ */
     angle _angPosition;
-    /** ù‰ô‰~ü”¼Œaiinitialize()‚Ü‚Å‚É•ÏX‰Â^ƒfƒtƒHƒ‹ƒg=200000j */
+    /** æ—‹å»»å††å‘¨åŠå¾„ï¼ˆinitialize()ã¾ã§ã«å¤‰æ›´å¯ï¼ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ=200000ï¼‰ */
     int _radiusPosition;
-    /** ù‰ô‰~üˆÚ“®‘¬“xi•ÏX‰Â^ƒfƒtƒHƒ‹ƒg=1000j */
+    /** æ—‹å»»å††å‘¨ç§»å‹•é€Ÿåº¦ï¼ˆéšæ™‚å¤‰æ›´å¯ï¼ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ=1000ï¼‰ */
     velo _veloMv;
-    /** ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚è‰ñ“]Špi•ÏX‰Â^ƒfƒtƒHƒ‹ƒg=0 MyOptionParent‚Æ“¯‚¶•ûŒüi‘O•ûj‚ğŒü‚¢‚Ä‚¢‚éj */
+    /** ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šå›è»¢è§’ï¼ˆéšæ™‚å¤‰æ›´å¯ï¼ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆ=0 MyOptionParentã¨åŒã˜æ–¹å‘ï¼ˆå‰æ–¹ï¼‰ã‚’å‘ã„ã¦ã„ã‚‹ï¼‰ */
     angle _angExpanse;
 
-    /** ‰Šú‰~üã‰ŠúˆÊ’uŠp“x */
+    /** åˆæœŸå††å‘¨ä¸ŠåˆæœŸä½ç½®è§’åº¦ */
     angle _angPosition_default;
-    /** ‰Šúù‰ô‰~ü”¼Œa */
+    /** åˆæœŸæ—‹å»»å††å‘¨åŠå¾„ */
     int _radiusPosition_default;
-    /** ‰Šúù‰ô‰~üˆÚ“®‘¬“x */
+    /** åˆæœŸæ—‹å»»å††å‘¨ç§»å‹•é€Ÿåº¦ */
     velo _veloMv_default;
-    /** ‰ŠúƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚è‰ñ“]Šp */
+    /** åˆæœŸã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šå›è»¢è§’ */
     angle _angExpanse_default;
 
-    /** ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚è‰ñ“]Šp‘¬“xi’Êíj */
+    /** ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šå›è»¢è§’é€Ÿåº¦ï¼ˆé€šå¸¸æ™‚ï¼‰ */
     angvelo _angveloExpanseNomal;
-    /** ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚è‰ñ“]Šp‘¬“xi”÷’²®j */
+    /** ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šå›è»¢è§’é€Ÿåº¦ï¼ˆå¾®èª¿æ•´æ™‚ï¼‰ */
     angvelo _angveloExpanseSlow;
 
 
@@ -73,9 +73,9 @@ public:
     MyOption(const char* prm_name, int prm_no, MyOptionParent* prm_pMyOptionParent);
 
     /**
-     * ‰Šúİ’èƒpƒ‰ƒ[ƒ^[ .
-     * ¶¬’¼Œã‚©‚çinitialize()‚Ü‚Å‚Éİ’è‚·‚é‚±‚Æ‚ª‚Å‚«‚éA
-     * ƒIƒuƒWƒFƒNƒgŒÅ—Lƒpƒ‰ƒ[ƒ^‚Å‚·B
+     * åˆæœŸè¨­å®šãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ .
+     * ç”Ÿæˆç›´å¾Œã‹ã‚‰initialize()ã¾ã§ã«è¨­å®šã™ã‚‹ã“ã¨ãŒã§ãã‚‹ã€
+     * ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå›ºæœ‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã§ã™ã€‚
      * @param prm_radiusPosition
      * @param prm_angPosition
      * @param prm_angExpanse

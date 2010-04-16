@@ -1,10 +1,10 @@
-#ifndef FORMATIONJUNO001_H_
+ï»¿#ifndef FORMATIONJUNO001_H_
 #define FORMATIONJUNO001_H_
 namespace MyStg2nd {
 
 /**
- * ƒtƒH[ƒ[ƒVƒ‡ƒ“ƒAƒNƒ^[ƒNƒ‰ƒX .
- * Ž©g‚ÍoŒ»ƒ|ƒCƒ“ƒg‚Ì’†S
+ * ãƒ•ã‚©ãƒ¼ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ .
+ * è‡ªèº«ã¯å‡ºç¾ãƒã‚¤ãƒ³ãƒˆã®ä¸­å¿ƒ
  */
 class FormationJuno001 : public FormationJuno {
 

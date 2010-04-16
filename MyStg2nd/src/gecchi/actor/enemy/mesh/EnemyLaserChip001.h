@@ -1,4 +1,4 @@
-#ifndef ENEMYLASERCHIP001_H_
+Ôªø#ifndef ENEMYLASERCHIP001_H_
 #define ENEMYLASERCHIP001_H_
 namespace MyStg2nd {
 
@@ -9,7 +9,7 @@ public:
     EnemyLaserChip001(const char* prm_name);
 
     /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     * ÔºúOverRide „Åß„ÅôÔºû
      */
     void initialize() override;
 
@@ -26,7 +26,7 @@ public:
     }
 
     /**
-     * ÅÉOverRide Ç≈Ç∑ÅÑ
+     * ÔºúOverRide „Åß„ÅôÔºû
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

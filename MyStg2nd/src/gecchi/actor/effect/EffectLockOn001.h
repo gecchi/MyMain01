@@ -1,9 +1,9 @@
-#ifndef EFFECTLOCKON001_H_
+ï»¿#ifndef EFFECTLOCKON001_H_
 #define EFFECTLOCKON001_H_
 namespace MyStg2nd {
 
 /**
- * ƒƒbƒNƒIƒ“
+ * ãƒ­ãƒƒã‚¯ã‚ªãƒ³
  * @version 1.00
  * @since 2010/01/28
  * @author Masatoshi Tsuge
@@ -14,12 +14,12 @@ public:
     EffectLockOn001(const char* prm_name);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
@@ -27,7 +27,7 @@ public:
 
     void onInactive() override;
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processJudgement() override;
 

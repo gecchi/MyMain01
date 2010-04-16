@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EffectExplosion002::EffectExplosion002(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion002") {
     _class_name = "EffectExplosion002";
-    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬‚·‚éTechniqueŽw’è
+    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆã™ã‚‹TechniqueæŒ‡å®š
 }
 
 void EffectExplosion002::initialize() {
@@ -18,7 +18,7 @@ void EffectExplosion002::initialize() {
 
 void EffectExplosion002::onActive() {
     _pUvFlipper->setPtnNoToTop();
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1); //ƒpƒ‰ƒpƒ‰ƒAƒjƒ–³‚µ
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_NOLOOP, 1); //ãƒ‘ãƒ©ãƒ‘ãƒ©ã‚¢ãƒ‹ãƒ¡ç„¡ã—
     _fAlpha = 0.99;
     _SX = _SY = _SZ = 1000;
 }

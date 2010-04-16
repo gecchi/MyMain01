@@ -1,12 +1,12 @@
-#ifndef LASERCHIPDISPATCHERDISPATCHER_H_
+﻿#ifndef LASERCHIPDISPATCHERDISPATCHER_H_
 #define LASERCHIPDISPATCHERDISPATCHER_H_
 namespace MyStg2nd {
 
 /**
- * �i���ݖ��g�p�B���ʂ�Dispatcher �łł������j
- * ���[�U�[�`�b�v�f�B�p�b�`���[�g���܂킵�Ǘ��N���X .
- * new ������ addSubLast ���\�b�h�� LaserChip�C���X�^���X���D���Ȍ��o�^���Ă��������B<BR>
- * new ���� initialize()�܂ŁA���͐����ύX���L���ȃp�����[�^<BR>
+ * （現在未使用。普通のDispatcher でできたし）
+ * レーザーチップディパッチャー使いまわし管理クラス .
+ * new した後 addSubLast メソッドで LaserChipインスタンスを好きな個数登録してください。<BR>
+ * new から initialize()まで、又は随時変更が有効なパラメータ<BR>
  */
 class LaserChipDispatcherDispatcher : public GgafCore::GgafActorDispatcher {
     friend class LaserChip;
@@ -16,18 +16,18 @@ public:
     virtual void processBehavior() override;
 
     /**
-     * ���[�U�[�`�b�v�f�B�p�b�`���[�̎؂��������݂� .
-     * �X�g�b�N�؂�̏ꍇ�� NULL ���Ԃ�B�K���`�F�b�N���邱�ƁB
-     * �g���I���� inactivate() �����s���Ă��������B�����I�ɃX�g�b�N�ɖ߂�܂��B
-     * @return �؂���ꂵ�����[�U�[�`�b�v�f�B�p�b�`���[�B�؂����ł��Ȃ��ꍇ��NULL
+     * レーザーチップディパッチャーの借り入れを試みる .
+     * ストック切れの場合は NULL が返る。必ずチェックすること。
+     * 使い終われば inactivate() を実行してください。自動的にストックに戻ります。
+     * @return 借り入れしたレーザーチップディパッチャー。借り入れできない場合はNULL
      */
     virtual LaserChipDispatcher* employ() override;
 
     /**
-     * ���[�U�[�`�b�v�f�B�p�b�`���[�X�g�b�N�̒ǉ� .
-     * �D���Ȃ����ǉ����ĉ������B
-     * �ǉ�����΂���قǋʐ؂ꂪ�����ɂ���
-     * @param prm_pDispatcher_LaserChip ���[�U�[�`�b�v�f�B�p�b�`���[
+     * レーザーチップディパッチャーストックの追加 .
+     * 好きなだけ追加して下さい。
+     * 追加すればするほど玉切れがおきにくい
+     * @param prm_pDispatcher_LaserChip レーザーチップディパッチャー
      */
     void addSubLast(LaserChipDispatcher* prm_pDispatcher_LaserChip);
 

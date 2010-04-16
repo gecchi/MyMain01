@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -15,7 +15,7 @@ void LaserChipDispatcherDispatcher::processBehavior() {
 LaserChipDispatcher* LaserChipDispatcherDispatcher::employ() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("LaserChipDispatcherDispatcher::employ() Žq‚ª‚ ‚è‚Ü‚¹‚ñ");
+            throwGgafCriticalException("LaserChipDispatcherDispatcher::employ() å­ãŒã‚ã‚Šã¾ã›ã‚“");
         }
 #endif
         LaserChipDispatcher* pDispatcher = (LaserChipDispatcher*)getSubFirst();
@@ -25,10 +25,10 @@ LaserChipDispatcher* LaserChipDispatcherDispatcher::employ() {
                 pDispatcher->_is_active_flg_in_next_frame == false &&
                 pDispatcher->_on_change_to_inactive_flg == false)
             {
-                //pActor->activate(); //activate‚ÍŒÄ‚ÑŒ³‚Å–¾Ž¦“I‚És‚¤‚æ‚¤‚É‚µ‚½
-                pDispatcher->moveLast(); //‚¨K‚É‰ñ‚·
-                break;//Žæ“¾I
-            } else {   //¡Šˆ“®’†Aˆ½‚¢‚ÍAŽŸƒtƒŒ[ƒ€Šˆ“®—\’è‚Ìê‡‚ÍŒ©‘—‚é
+                //pActor->activate(); //activateã¯å‘¼ã³å…ƒã§æ˜Žç¤ºçš„ã«è¡Œã†ã‚ˆã†ã«ã—ãŸ
+                pDispatcher->moveLast(); //ãŠå°»ã«å›žã™
+                break;//å–å¾—ï¼
+            } else {   //ä»Šæ´»å‹•ä¸­ã€æˆ–ã„ã¯ã€æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ æ´»å‹•äºˆå®šã®å ´åˆã¯è¦‹é€ã‚‹
                 if (pDispatcher->isLast()) {
                     pDispatcher = NULL;
                     break;

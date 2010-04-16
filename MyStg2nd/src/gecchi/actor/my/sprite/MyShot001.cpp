@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -49,15 +49,15 @@ void MyShot001::initialize() {
 
 void MyShot001::processBehavior() {
     if (onChangeToActive()) {
-        //oŒ»‹¤’Êˆ—
+        //å‡ºç¾æ™‚å…±é€šå‡¦ç†
         setHitAble(true);
         _X = GameGlobal::_pMyShip->_X;
         _Y = GameGlobal::_pMyShip->_Y;
         _Z = GameGlobal::_pMyShip->_Z;
     } else {
-        //’Êíˆ—
+        //é€šå¸¸å‡¦ç†
         _pUvFlipper->behave();
-        //À•W‚É”½‰f
+        //åº§æ¨™ã«åæ˜ 
         _pMover->behave();
     }
 }
@@ -75,7 +75,7 @@ void MyShot001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void MyShot001::onInactive() {
-    //Á¸ˆ—
+    //æ¶ˆå¤±æ™‚å‡¦ç†
     setHitAble(false);
     moveFirst();
 }

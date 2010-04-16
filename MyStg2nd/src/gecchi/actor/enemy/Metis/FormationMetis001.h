@@ -1,10 +1,10 @@
-#ifndef FORMATIONMETIS001_H_
+Ôªø#ifndef FORMATIONMETIS001_H_
 #define FORMATIONMETIS001_H_
 namespace MyStg2nd {
 
 #define NUM_METIS_FORMATION001 10
 /**
- * ÉtÉHÅ[ÉÅÅ[ÉVÉáÉìÉAÉNÉ^Å[ÉNÉâÉX .
+ * „Éï„Ç©„Éº„É°„Éº„Ç∑„Éß„É≥„Ç¢„ÇØ„Çø„Éº„ÇØ„É©„Çπ .
  */
 class FormationMetis001 : public GgafDx9LibStg::FormationActor {
 

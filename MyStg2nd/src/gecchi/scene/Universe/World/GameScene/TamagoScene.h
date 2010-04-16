@@ -1,4 +1,4 @@
-#ifndef TAMAGOSCENE_H_
+﻿#ifndef TAMAGOSCENE_H_
 #define TAMAGOSCENE_H_
 
 namespace MyStg2nd {

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,7 +20,7 @@ FormationJuno::FormationJuno(
             int prm_nJunoStock,
             int prm_frame_app_interval) : FormationActor(prm_name) {
     _class_name = "FormationJuno";
-    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot003"); //Juno�̒e
+    _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot003"); //Junoの弾
 
     _pRndGen = CmRandomNumberGenerator::getInstance();
     _pRndGen->changeSeed(pMYSHIP->_Z);
@@ -46,7 +46,7 @@ FormationJuno::FormationJuno(
     _pDispatcher_EnemyJuno = NEW GgafActorDispatcher("RotEnemyJuno");
     for (int i = 0; i < prm_nJunoStock; i++) {
         EnemyJuno* pEnemyJuno = NEW EnemyJuno("Juno01");
-        pEnemyJuno->setDispatcher_Shot(_pDispatcherCon->view()); //�e�ݒ�
+        pEnemyJuno->setDispatcher_Shot(_pDispatcherCon->view()); //弾設定
         pEnemyJuno->_pMover->relateRzRyFaceAngToMvAng(true);
         pEnemyJuno->_pMover->setMvVelo(prm_veloMv_Juno);
         pEnemyJuno->_pMover->setRzRyMvAng(prm_angRzMv_JunoMv, prm_angRyMv_JunoMv);

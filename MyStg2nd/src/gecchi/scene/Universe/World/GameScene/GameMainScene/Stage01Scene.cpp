@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -24,7 +24,7 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     _angCamXY_prev = 0;
     prepareBgm(0, "VIRTUAL_ON_11");
     prepareBgm(1, "VIRTUAL_ON_09");
-    //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
+    //GameMainSceneãŒè§£é™¤ã—ã¦ãã‚Œã‚‹
     setProgress(STAGE01_PROG_INIT);
 }
 
@@ -47,10 +47,10 @@ void Stage01Scene::processBehavior() {
         fadeinBgm(0, 300);
         _dwFrame_Begin = 0;
     } else if (getProgress() == STAGE01_PROG_BEGIN) {
-        //ƒ^ƒCƒgƒ‹Šˆ“®ƒ‹[ƒv
+        //ã‚¿ã‚¤ãƒˆãƒ«æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Begin++;
 
-        if (_dwFrame_Begin == 180) { //ƒXƒe[ƒW‚PŠJŽnI
+        if (_dwFrame_Begin == 180) { //ã‚¹ãƒ†ãƒ¼ã‚¸ï¼‘é–‹å§‹ï¼
             _pBackGround01->activateTree();
 //            _pBackGroundStar->activateTree();
             _pScene_Stage01Main->activate();
@@ -67,13 +67,13 @@ void Stage01Scene::processBehavior() {
                          );
         _pBackGround01->_inc_x = GgafDx9Util::getDiffAng(_angCamZX_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
         _pBackGround01->_inc_y = GgafDx9Util::getDiffAng(_angCamXY_prev, angCamXY) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)/(ANGLE90*0.5));
-        //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ‚Å 90“xƒJƒƒ‰‚ð‰ñ‚·‚Æ”wŒi‚ª‚PT‚·‚éŒvŽZ(1‰æ–Ê•ª“®‚­jB
-        //ŽÀÛ‚É‚Í2‰æ–Ê‚Ù‚Ç”wŒi‚Í“®‚­‚ÆŽv‚¤‚Ì‚Å~0.5
+        //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 ã§ 90åº¦ã‚«ãƒ¡ãƒ©ã‚’å›žã™ã¨èƒŒæ™¯ãŒï¼‘é€±ã™ã‚‹è¨ˆç®—(1ç”»é¢åˆ†å‹•ãï¼‰ã€‚
+        //å®Ÿéš›ã«ã¯2ç”»é¢ã»ã©èƒŒæ™¯ã¯å‹•ãã¨æ€ã†ã®ã§Ã—0.5
         _angCamZX_prev = angCamXZ;
         _angCamXY_prev = angCamXY;
 
         if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-            _pBackGround01->_x -= 0.05; //”wŒiƒXƒNƒ[ƒ‹
+            _pBackGround01->_x -= 0.05; //èƒŒæ™¯ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«
         } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
             _pBackGround01->_x += 0.05;
         } else if (pWORLD->_pos_camera == CAM_POS_TOP) {

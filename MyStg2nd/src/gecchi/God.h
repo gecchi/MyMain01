@@ -1,4 +1,4 @@
-#ifndef GOD_H_
+ï»¿#ifndef GOD_H_
 #define GOD_H_
 
 namespace MyStg2nd {
@@ -14,8 +14,8 @@ public:
     God(HINSTANCE prm_hInstance, HWND prm_hWnd);
 
     /**
-     * WorldƒV[ƒ“‚ğì¬B‚ğÀ‘•
-     * ƒOverRide ‚Å‚·„
+     * Worldã‚·ãƒ¼ãƒ³ã‚’ä½œæˆã€‚ã‚’å®Ÿè£…
+     * ï¼œOverRide ã§ã™ï¼
      */
     GgafCore::GgafUniverse* createUniverse();
 

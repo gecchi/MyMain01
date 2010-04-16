@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,7 +11,7 @@ DispFpsActor::DispFpsActor(const char* prm_name, const char* prm_model) : GgafDx
 
 void DispFpsActor::initialize() {
     GgafDx9StringBoardActor::initialize();
-    _z = 0.01f; //Å‘O–Ê
+    _z = 0.01f; //æœ€å‰é¢
     //0.999;
 }
 

@@ -1,4 +1,4 @@
-#ifndef BACKGROUND01_H_
+ï»¿#ifndef BACKGROUND01_H_
 #define BACKGROUND01_H_
 namespace MyStg2nd {
 
@@ -38,7 +38,7 @@ public:
     }
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
 
     void initialize() override;
@@ -47,12 +47,12 @@ public:
     }
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processDraw() override {
     }

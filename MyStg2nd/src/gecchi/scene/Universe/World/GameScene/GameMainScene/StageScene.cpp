@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,7 +20,7 @@ StageScene::StageScene(const char* prm_name) : DefaultScene(prm_name) {
 //}
 //
 //void StageScene::processFinal() {
-//    //�ꎞ��~
+//    //一時停止
 //    if (VB::isPushedDown(VB_UI_CANCEL)) {
 //        if (_pause) {
 //            pauseTree();

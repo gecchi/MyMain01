@@ -1,11 +1,11 @@
-#ifndef MYLASERCHIP001_H_
+ï»¿#ifndef MYLASERCHIP001_H_
 #define MYLASERCHIP001_H_
 namespace MyStg2nd {
 
 class MyCurveLaserChip001 : public CurveLaserChip {
 
 public:
-    /** 0:”ñƒƒbƒNƒIƒ“i‚Í‚¶‚ß‚©‚çj 1:ƒƒbƒNƒIƒ“ 2:”ñƒƒbƒNƒIƒ“iƒƒbƒNƒIƒ“¨”ñƒƒbƒNƒIƒ“j */
+    /** 0:éãƒ­ãƒƒã‚¯ã‚ªãƒ³ï¼ˆã¯ã˜ã‚ã‹ã‚‰ï¼‰ 1:ãƒ­ãƒƒã‚¯ã‚ªãƒ³ 2:éãƒ­ãƒƒã‚¯ã‚ªãƒ³ï¼ˆãƒ­ãƒƒã‚¯ã‚ªãƒ³â†’éãƒ­ãƒƒã‚¯ã‚ªãƒ³ï¼‰ */
     int _lockon;
     MyOption* _pOrg;
     velo _veloCurve;

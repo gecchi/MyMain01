@@ -1,10 +1,10 @@
-#ifndef SHOT001_H_
+ï»¿#ifndef SHOT001_H_
 #define SHOT001_H_
 namespace MyStg2nd {
 
 /**
- * ”Ä—p’e001(¬) .
- * ”j‰ó‰Â”\‚Å“™‘¬’¼üˆÚ“®<BR>
+ * æ±ç”¨å¼¾001(å°) .
+ * ç ´å£Šå¯èƒ½ã§ç­‰é€Ÿç›´ç·šç§»å‹•<BR>
  * @version 1.00
  * @since 2009/12/28
  * @author Masatoshi Tsuge

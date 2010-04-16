@@ -1,9 +1,9 @@
-#ifndef MYOPTIONPARENT_H_
+ï»¿#ifndef MYOPTIONPARENT_H_
 #define MYOPTIONPARENT_H_
 namespace MyStg2nd {
 
 /**
- * ƒIƒvƒVƒ‡ƒ“‚Ì“Z‚ß–ğƒNƒ‰ƒX .
+ * ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®çºã‚å½¹ã‚¯ãƒ©ã‚¹ .
  * @version 1.00
  * @since 2006/06/22
  * @author Masatoshi Tsuge
@@ -31,9 +31,9 @@ public:
     bool _is_free_from_myship_mode;
 
     bool _return_to_default_position_seq;
-    /** ‘ÎÛƒAƒNƒ^[ */
+    /** å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ */
 
-    /** •ûŒü“]Š·Šp‘¬“x */
+    /** æ–¹å‘è»¢æ›è§’é€Ÿåº¦ */
     angle _angVelo_Turn;
     int _renge;
     MyOptionParent(const char* prm_name);
@@ -44,8 +44,8 @@ public:
 
     virtual void processJudgement() override {}
 
-//DefaultMeshActor“™‚Å•\¦‚µ‚½‚¢ê‡‚ÍƒRƒƒ“ƒg‚É‚·‚é‚±‚Æ
-//GgafDx9GeometricActor‚Ìê‡‚ÍƒRƒƒ“ƒg‚ğŠO‚·‚±‚Æ
+//DefaultMeshActorç­‰ã§è¡¨ç¤ºã—ãŸã„å ´åˆã¯ã‚³ãƒ¡ãƒ³ãƒˆã«ã™ã‚‹ã“ã¨
+//GgafDx9GeometricActorã®å ´åˆã¯ã‚³ãƒ¡ãƒ³ãƒˆã‚’å¤–ã™ã“ã¨
     virtual void processDraw() override {}
 
     virtual void processHappen(int prm_no) override {}

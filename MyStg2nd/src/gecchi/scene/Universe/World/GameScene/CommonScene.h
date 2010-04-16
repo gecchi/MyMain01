@@ -1,9 +1,9 @@
-#ifndef MYSHIPSCENE_H_
+ï»¿#ifndef MYSHIPSCENE_H_
 #define MYSHIPSCENE_H_
 namespace MyStg2nd {
 
 /**
- * ƒQ[ƒ€ƒV[ƒ“‚Ì‹¤’ÊƒV[ƒ“ƒNƒ‰ƒX .
+ * ã‚²ãƒ¼ãƒ ã‚·ãƒ¼ãƒ³ã®å…±é€šã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ .
  */
 class CommonScene : public GgafDx9LibStg::DefaultScene {
 
@@ -16,7 +16,7 @@ public:
 
     CommonScene(const char* prm_name);
     /**
-     * ‰Šúˆ—
+     * åˆæœŸå‡¦ç†
      */
     void initialize() override;
 

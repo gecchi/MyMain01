@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -15,18 +15,18 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_Shot001_Stock");
         Shot001* pShot001;
-        for (int i = 0; i < 100; i++) { //ƒXƒgƒbƒN100ŒÂ
+        for (int i = 0; i < 100; i++) { //ã‚¹ãƒˆãƒƒã‚¯100å€‹
             pShot001 = NEW Shot001("Shot001");
             pShot001->inactivateImmediately();
             pResource->addSubLast(pShot001);
         }
-        pCOMMONSCENE->getLordActor()->addSubGroup(pResource); //ÅŒã‚ÉaddSubGroup‚·‚×‚µi‚³‚à‚È‚¢‚Æ’¼‚®‚Éíœ‘ÎÛ‚É‚È‚éj
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource); //æœ€å¾Œã«addSubGroupã™ã¹ã—ï¼ˆã•ã‚‚ãªã„ã¨ç›´ãã«å‰Šé™¤å¯¾è±¡ã«ãªã‚‹ï¼‰
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_Shot002_Stock");
         Shot002* pShot002;
-        for (int i = 0; i < 100; i++) { //ƒXƒgƒbƒN100ŒÂ
+        for (int i = 0; i < 100; i++) { //ã‚¹ãƒˆãƒƒã‚¯100å€‹
             pShot002 = NEW Shot002("Shot002");
             pShot002->inactivateImmediately();
             pResource->addSubLast(pShot002);
@@ -49,8 +49,8 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
 }
 
 GgafResourceConnection<GgafActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) {
-    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬ŠJnB");
+    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
     DispatcherConnection* pConnection = NEW DispatcherConnection(prm_idstr, prm_pResource);
-    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬I—¹B");
+    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
     return pConnection;
 }

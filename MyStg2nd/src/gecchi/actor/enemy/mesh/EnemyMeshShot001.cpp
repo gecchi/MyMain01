@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -10,21 +10,21 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshSetActor(p
 
     inactivateTree();
 
-    /** èoåªéûÇÃèâë¨ */
+    /** Âá∫ÁèæÊôÇ„ÅÆÂàùÈÄü */
     _iMvVelo_1st = 10000;
-    /** èoåªéûÇÃâ¡ë¨ìxÅiïâÇ≈íxÇ≠Ç»ÇÈÅj */
+    /** Âá∫ÁèæÊôÇ„ÅÆÂä†ÈÄüÂ∫¶ÔºàË≤†„ÅßÈÅÖ„Åè„Å™„ÇãÔºâ */
     _iMoveAcce_1st = -150;
-    /** é©êgÇ™èoåªÇµÇƒÇ©ÇÁÅAéûã@ÇÃï˚å¸Ç…ï˚å¸ì]ä∑ÇäJénÇ∑ÇÈÉtÉåÅ[ÉÄ */
+    /** Ëá™Ë∫´„ÅåÂá∫Áèæ„Åó„Å¶„Åã„Çâ„ÄÅÊôÇÊ©ü„ÅÆÊñπÂêë„Å´ÊñπÂêëËª¢Êèõ„ÇíÈñãÂßã„Åô„Çã„Éï„É¨„Éº„É† */
     _dwFrame_TurnBegin = 50;
-    /** à⁄ìÆë¨ìxè„å¿ */
+    /** ÁßªÂãïÈÄüÂ∫¶‰∏äÈôê */
     _iMvVelo_Top = 30000;
-    /** ç≈í·ï€èÿà⁄ìÆë¨ìx */
+    /** ÊúÄ‰Ωé‰øùË®ºÁßªÂãïÈÄüÂ∫¶ */
     _iMvVelo_Bottom = 0;
-    /** ï˚å¸ì]ä∑Ç…îÔÇ‚Ç∑Ç±Ç∆Ç™Ç≈Ç´ÇÈÉtÉåÅ[ÉÄêî */
+    /** ÊñπÂêëËª¢Êèõ„Å´Ë≤ª„ÇÑ„Åô„Åì„Å®„Åå„Åß„Åç„Çã„Éï„É¨„Éº„É†Êï∞ */
     _dwFrameInterval_Turn = 400;
-    /** ï˚å¸ì]ä∑íÜÇÃäpë¨ìxÉAÉìÉOÉãíl(ê≥ÇÃíl) */
+    /** ÊñπÂêëËª¢Êèõ‰∏≠„ÅÆËßíÈÄüÂ∫¶„Ç¢„É≥„Ç∞„É´ÂÄ§(Ê≠£„ÅÆÂÄ§) */
     _angVelo_Turn = 7000;
-    /** ï˚å¸ì]ä∑ÇäJénÅi_dwFrame_TurnBeginÅjÇ©ÇÁçƒê›íËÇ≥ÇÍÇÈâ¡ë¨ìx */
+    /** ÊñπÂêëËª¢Êèõ„ÇíÈñãÂßãÔºà_dwFrame_TurnBeginÔºâ„Åã„ÇâÂÜçË®≠ÂÆö„Åï„Çå„ÇãÂä†ÈÄüÂ∫¶ */
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
@@ -42,7 +42,7 @@ void EnemyMeshShot001::initialize() {
 
 void EnemyMeshShot001::processBehavior() {
     if (onChangeToActive()) {
-        //èoåªéû
+        //Âá∫ÁèæÊôÇ
         _pMover->setMvVelo(_iMvVelo_1st);
         _pMover->setMvAcce(_iMoveAcce_1st);
 
@@ -52,7 +52,7 @@ void EnemyMeshShot001::processBehavior() {
 
 
         _frame_on_change_to_active_flg++;
-        //ï˚å¸ì]ä∑äJén
+        //ÊñπÂêëËª¢ÊèõÈñãÂßã
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin) {
 
             _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
@@ -61,7 +61,7 @@ void EnemyMeshShot001::processBehavior() {
             _pMover->setMvAcce(_iMoveAcce_2nd);
         }
 
-        //ï˚å¸ì]ä∑èIóπ
+        //ÊñπÂêëËª¢ÊèõÁµÇ‰∫Ü
         if (_frame_on_change_to_active_flg == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
             _pMover->setRzMvAngVelo(0);
             _pMover->setRyMvAngVelo(0);
@@ -72,7 +72,7 @@ void EnemyMeshShot001::processBehavior() {
     }
 
     //behaveUvFlip();
-    //ç¿ïWÇ…îΩâf
+    //Â∫ßÊ®ô„Å´ÂèçÊò†
     _pMover->behave();
 
 }
@@ -85,7 +85,7 @@ void EnemyMeshShot001::processJudgement() {
 }
 
 void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
-    //_TRACE_("EnemyMeshShot001ÉqÉbÉgÇµÇ‹ÇµÇΩÅB("<<_X<<","<<_Y<<")");
+    //_TRACE_("EnemyMeshShot001„Éí„ÉÉ„Éà„Åó„Åæ„Åó„Åü„ÄÇ("<<_X<<","<<_Y<<")");
     //sayonara();
     playSe3D(0);
     setHitAble(false);

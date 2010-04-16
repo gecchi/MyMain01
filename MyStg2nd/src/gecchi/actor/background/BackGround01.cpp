@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -42,10 +42,10 @@ BackGround01::BackGround01(const char* prm_name, const char* prm_dummy) : GgafDx
 void BackGround01::initialize() {
     for (int i = 0; i < 4; i++) {
         for (int j = 0; j < 4; j++) {
-            addSubLast(_papapChipBoard[j][i]); //[j][i]Ç…Ç∑ÇÈÇ±Ç∆Ç…ÇÊÇËìØÉÇÉfÉãÇ™ÇSÇ¬Ç≈ÉOÉãÅ[ÉsÉìÉOï\é¶ÇÇ≥ÇπÇÈÅB
+            addSubLast(_papapChipBoard[j][i]); //[j][i]„Å´„Åô„Çã„Åì„Å®„Å´„Çà„ÇäÂêå„É¢„Éá„É´„ÅåÔºî„Å§„Åß„Ç∞„É´„Éº„Éî„É≥„Ç∞Ë°®Á§∫„Çí„Åï„Åõ„Çã„ÄÇ
         }
     }
-    _z = 0.999999f;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
+    _z = 0.999999f;//„Åü„Å∂„ÇìÊúÄËÉåÈù¢ Ôºà0 <= _z < 1.0ÔºâZ=(0„Äú+1)
 
    _base_x[0] = 0;
    _base_y[0] = 0;
@@ -57,7 +57,7 @@ void BackGround01::initialize() {
    _base_y[3] = _chip_height*2;
 
     for (int i = 0; i < 4; i++) {
-        //baseÇ™Ç»Ç»ÇﬂÇ¡ÇƒÇÈ
+        //base„Åå„Å™„Å™„ÇÅ„Å£„Å¶„Çã
         _papapChipBoard[i][0]->_x = _base_x[i] + _x;
         _papapChipBoard[i][0]->_y = _base_y[i] + _y;
         _papapChipBoard[i][0]->_z = _z;
@@ -75,8 +75,8 @@ void BackGround01::initialize() {
 //
 //    _x = 0;
 //    _y = -216;
-//    _z = 0.999;//ÇΩÇ‘ÇÒç≈îwñ  Åi0 <= _z < 1.0ÅjZ=(0Å`+1)
-//    //_z = 0.001;//ÇΩÇ‘ÇÒç≈ëSñ  Åi0 <= _z < 1.0Åj
+//    _z = 0.999;//„Åü„Å∂„ÇìÊúÄËÉåÈù¢ Ôºà0 <= _z < 1.0ÔºâZ=(0„Äú+1)
+//    //_z = 0.001;//„Åü„Å∂„ÇìÊúÄÂÖ®Èù¢ Ôºà0 <= _z < 1.0Ôºâ
 //    for (int i = 0; i < 4; i++) {
 //        _papapChipBoard[i]->setAlpha(0);
 //        _papapChipBoard[i]->_z = _z;
@@ -84,7 +84,7 @@ void BackGround01::initialize() {
 }
 
 void BackGround01::processBehavior() {
-    //ÉtÉFÅ[ÉhÉCÉì
+    //„Éï„Çß„Éº„Éâ„Ç§„É≥
     //	if (0 < _frame_of_behaving && _frame_of_behaving <= 255) {
     //		for (int i = 0; i < 4; i++) {
     //			for (int j = 0; j < 4; j++) {
@@ -92,7 +92,7 @@ void BackGround01::processBehavior() {
     //			}
     //		}
     //	}
-    //ÉtÉFÅ[ÉhÉCÉì
+    //„Éï„Çß„Éº„Éâ„Ç§„É≥
 //    if (0 < getBehaveingFrame() && getBehaveingFrame() <= 255) {
 //        for (int i = 0; i < 4; i++) {
 //            _papapChipBoard[i]->setAlpha(float(getBehaveingFrame() / 255.0));
@@ -152,7 +152,7 @@ void BackGround01::processPreDraw() {
 ////        for (int i = 0; i < 4; i++) {
 ////           GgafDx9Universe::setDrawDepthMaxLevel(_papapChipBoard[i]);
 ////
-////           //é©ï™é©êgÇ™ this Ç™íiäKÉåÉìÉ_Ç…ìoò^Ç≥ÇÍñ≥Ç¢Ç∆processDrawÇ™ÇÊÇŒÇÍÇÒÅI
+////           //Ëá™ÂàÜËá™Ë∫´„Åå this „ÅåÊÆµÈöé„É¨„É≥„ÉÄ„Å´ÁôªÈå≤„Åï„ÇåÁÑ°„ÅÑ„Å®processDraw„Åå„Çà„Å∞„Çå„ÇìÔºÅ
 ////        }
 ////    }
 }

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -27,12 +27,12 @@ void MyOptionParentGizmo::processJudgement() {
 }
 
 int MyOptionParentGizmo::isOffscreen() {
-    //‰æ–ÊŠO”»’è–³‚µ
+    //ç”»é¢å¤–åˆ¤å®šç„¡ã—
     return 0;
 }
 
 bool MyOptionParentGizmo::isOutOfGameSpace() {
-    //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
+    //ã‚²ãƒ¼ãƒ åº§æ¨™ç¯„å›²å¤–åˆ¤å®šç„¡ã—
     return false;
 }
 

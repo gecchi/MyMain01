@@ -1,9 +1,9 @@
-#ifndef HOSHIBOSHI002_H_
+ï»¿#ifndef HOSHIBOSHI002_H_
 #define HOSHIBOSHI002_H_
 namespace MyStg2nd {
 
 /**
- * ”š”­ƒGƒtƒFƒNƒgƒXƒvƒ‰ƒCƒg002
+ * çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ002
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge
@@ -16,7 +16,7 @@ public:
     HoshiBoshi002(const char* prm_name);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
 

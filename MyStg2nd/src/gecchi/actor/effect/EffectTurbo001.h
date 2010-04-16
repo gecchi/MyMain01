@@ -1,9 +1,9 @@
-#ifndef EFFECTTURBO001_H_
+ï»¿#ifndef EFFECTTURBO001_H_
 #define EFFECTTURBO001_H_
 namespace MyStg2nd {
 
 /**
- * ƒ^[ƒ{—­ƒGƒtƒFƒNƒg
+ * ã‚¿ãƒ¼ãƒœæºœã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
  * @version 1.00
  * @since 2010/02/15
  * @author Masatoshi Tsuge
@@ -14,12 +14,12 @@ public:
     EffectTurbo001(const char* prm_name);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
@@ -27,7 +27,7 @@ public:
 
     void onInactive() override;
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processJudgement() override;
 

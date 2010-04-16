@@ -1,9 +1,9 @@
-#ifndef EFFECTLOCKON001_RELEASE_H_
+ï»¿#ifndef EFFECTLOCKON001_RELEASE_H_
 #define EFFECTLOCKON001_RELEASE_H_
 namespace MyStg2nd {
 
 /**
- * ƒƒbƒNƒIƒ“‰ğ•úƒGƒtƒFƒNƒg
+ * ãƒ­ãƒƒã‚¯ã‚ªãƒ³è§£æ”¾ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
  * @version 1.00
  * @since 2010/02/22
  * @author Masatoshi Tsuge
@@ -16,12 +16,12 @@ public:
     EffectLockOn001_Release(const char* prm_name, EffectLockOn001* prm_pEffectLockOn001);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
@@ -29,7 +29,7 @@ public:
 
     void onInactive() override;
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processJudgement() override;
 

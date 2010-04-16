@@ -1,12 +1,12 @@
-#ifndef HOMINGLASERCHIP_H_
+﻿#ifndef HOMINGLASERCHIP_H_
 #define HOMINGLASERCHIP_H_
 namespace MyStg2nd {
 
 /**
- * �z�[�~���O���[�U�[�p�|�����C���̃`�b�v .
- * �z�[�~���O���[�U�[�ƕ\�����Ă��邪�A
- * ���m�ɂ͔��ˍ��W�Œ�A�ړ������͐擪�`�b�v�����߂�A�����o���`���[�U�[�Ƃ����ׂ����B
- * �Ƃ���Ă�������[�U�[�ƌ����ׂ����A����Ȋ����B
+ * ホーミングレーザー用ポリラインのチップ .
+ * ホーミングレーザーと表現しているが、
+ * 正確には発射座標固定、移動方向は先頭チップが決める、押し出し形レーザーというべきか。
+ * ところてん方式レーザーと言うべきか、そんな感じ。
  * @version 1.00
  * @since 2009/11/04
  * @author Masatoshi Tsuge
@@ -17,8 +17,8 @@ class HomingLaserChip : public LaserChip {
 
 
 public:
-    /** �擱�`�b�v�i�{���̐擪�`�b�v�j�t���O */
-    bool _is_leader; //�{���̐擪�`�b�v�Ƃ́A���[�U�[�ړ����ɂ�����Ĕ�������ɂ킩�擪�`�b�v�ł͖����Ƃ����Ӗ��B
+    /** 先導チップ（本当の先頭チップ）フラグ */
+    bool _is_leader; //本当の先頭チップとは、レーザー移動中にちぎれて発生するにわか先頭チップでは無いという意味。
     int _begining_X;
     int _begining_Y;
     int _begining_Z;
@@ -37,40 +37,40 @@ public:
     virtual void initialize() override;
 
     /**
-     * ���[�U�[�`�b�v���W�v�Z������ .
-     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-     * ���̍� �́A�{�N���X�� processBehavior() ���\�b�h���Ăяo���Ă��������B
+     * レーザーチップ座標計算等処理 .
+     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
      */
     virtual void processBehavior() override;
 
     /**
-     * �z�[�~���O���[�U�[�̐擪�`�b�v�̓������������� .
-     * �{���̐擪�`�b�v�̏ꍇ�͂������R�[���o�b�N����邪�A
-     * �ɂ킩�擪�`�b�v�i������ċ}�ɐ擪�ɂȂ����`�b�v�j�̏ꍇ���R�[���o�b�N����܂��B
+     * ホーミングレーザーの先頭チップの動きを実装する .
+     * 本当の先頭チップの場合はもちろんコールバックされるが、
+     * にわか先頭チップ（ちぎれて急に先頭になったチップ）の場合もコールバックされます。
      */
     virtual void processBehaviorHeadChip() {}
 
     /**
-     * ���[�U�[�`�b�v���蓙���� .
-     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-     * ���̍� �́A�{�N���X�� processJudgement() ���\�b�h���Ăяo���Ă��������B
-     * ���͖{���\�b�h�ŁAGgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) ���Ăяo���Ă���A
-     * ���̃^�C�~���O�Ń��[���h�ϊ��s�񂪊m�肵�܂��̂ŁA�I�[�o�[���C�h�̍ۂ͍Ō�� HomingLaserChip::processJudgement(); ��
-     * �����ق����ǂ��ł��傤�B
+     * レーザーチップ判定等処理 .
+     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+     * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
+     * 実は本メソッドで、GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
+     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に HomingLaserChip::processJudgement(); と
+     * したほうが良いでしょう。
      */
     virtual void processJudgement() override;
 
     /**
-     * ���[�U�[�`�b�v�o�������� .
-     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-     * ���̍� �́A�{�N���X�� onActive() ���\�b�h���Ăяo���Ă��������B
+     * レーザーチップ出現時処理 .
+     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+     * その際 は、本クラスの onActive() メソッドも呼び出してください。
      */
     virtual void onActive() override;
 
     /**
-     * ���[�U�[�`�b�v���������� .
-     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-     * ���̍� �́A�{�N���X�� onInactive() ���\�b�h���Ăяo���Ă��������B
+     * レーザーチップ消失時処理 .
+     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+     * その際 は、本クラスの onInactive() メソッドも呼び出してください。
      */
     virtual void onInactive() override;
 

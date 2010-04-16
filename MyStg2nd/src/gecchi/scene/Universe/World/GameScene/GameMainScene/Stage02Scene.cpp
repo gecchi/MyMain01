@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,8 +16,8 @@ void Stage02Scene::processBehavior() {
 
 void Stage02Scene::processFinal() {
     if (getBehaveingFrame() == 1) {
-        _TRACE_("Stage02Scene::Finally „‚Í‚¢‚«‚È‚è©•ª’â~BGameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é‚Ü‚Å‘Ò‚Â‚·");
-        this->inactivateTree(); //GameMainScene‚ª‰ğœ‚µ‚Ä‚­‚ê‚é
+        _TRACE_("Stage02Scene::Finally ç§ã¯ã„ããªã‚Šè‡ªåˆ†åœæ­¢ã€‚GameMainSceneãŒè§£é™¤ã—ã¦ãã‚Œã‚‹ã¾ã§å¾…ã¤ã™");
+        this->inactivateTree(); //GameMainSceneãŒè§£é™¤ã—ã¦ãã‚Œã‚‹
     }
 }
 

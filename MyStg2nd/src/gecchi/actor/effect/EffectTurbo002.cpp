@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,22 +8,22 @@ using namespace MyStg2nd;
 EffectTurbo002::EffectTurbo002(const char* prm_name) : DefaultSpriteActor(prm_name, "Turbo002") {
     _class_name = "EffectTurbo002";
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
-    setHitAble(false); //“–‚½‚è”»’è–³‚µ
+    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆ
+    setHitAble(false); //å½“ãŸã‚Šåˆ¤å®šç„¡ã—
 }
 
 void EffectTurbo002::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 0);   //ƒAƒjƒ”ÍˆÍ‚ð‚O`‚P‚T
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //ƒAƒjƒ‡˜
+    _pUvFlipper->forcePtnNoRange(0, 0);   //ã‚¢ãƒ‹ãƒ¡ç¯„å›²ã‚’ï¼ã€œï¼‘ï¼•
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 2); //ã‚¢ãƒ‹ãƒ¡é †åº
 
 }
 
 void EffectTurbo002::onActive() {
     _pUvFlipper->setPtnNoToTop();
     setAlpha(0.99);
-    _pScaler->forceScaleRange(100000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
+    _pScaler->forceScaleRange(100000, 1000); //ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»ç¯„å›²
     _pScaler->setScale(1000);
-    _pScaler->intoTargetScaleLinerUntil(100000, 60);//ƒXƒP[ƒŠƒ“ƒOE60F”ï‚â‚µ‚Ä1000‚Ék¬
+    _pScaler->intoTargetScaleLinerUntil(100000, 60);//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»60Fè²»ã‚„ã—ã¦1000ã«ç¸®å°
     _pMover->setFaceAng(AXIS_Y, ANGLE90);
     _pMover->setFaceAngVelo(AXIS_Z, 2000);
 }

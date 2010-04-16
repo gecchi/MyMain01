@@ -1,4 +1,4 @@
-#ifndef MYWAVE001_H_
+ï»¿#ifndef MYWAVE001_H_
 #define MYWAVE001_H_
 namespace MyStg2nd {
 
@@ -8,27 +8,27 @@ public:
     MyWave001(const char* prm_name);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processJudgement() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void onInactive() override;
 

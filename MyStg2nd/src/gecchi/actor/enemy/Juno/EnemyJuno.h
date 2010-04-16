@@ -1,15 +1,15 @@
-#ifndef ENEMYJUNO_H_
+ï»¿#ifndef ENEMYJUNO_H_
 #define ENEMYJUNO_H_
 namespace MyStg2nd {
 
-//ƒWƒ…ƒm[
+//ã‚¸ãƒ¥ãƒãƒ¼
 class EnemyJuno : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
     int _iMovePatternNo;
-    /** ’eƒXƒgƒbƒN */
+    /** å¼¾ã‚¹ãƒˆãƒƒã‚¯ */
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
-    /** ’e”­ËŒø‰ÊƒGƒtƒFƒNƒg */
+    /** å¼¾ç™ºå°„åŠ¹æœã‚¨ãƒ•ã‚§ã‚¯ãƒˆ */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
     bool _do_Shot;
     bool _can_Shot;
@@ -34,8 +34,8 @@ public:
     virtual ~EnemyJuno();
 
     /**
-     * ”­Ë’eİ’è .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)‚ÉƒLƒƒƒXƒg‰Â”\‚ÈƒAƒNƒ^[‚ğƒTƒu‚É‚ÂƒfƒBƒXƒpƒbƒ`ƒƒ[‚Ìƒ|ƒCƒ“ƒ^
+     * ç™ºå°„å¼¾è¨­å®š .
+     * @param prm_pDispatcher (GgafDx9DrawableActor*)ã«ã‚­ãƒ£ã‚¹ãƒˆå¯èƒ½ãªã‚¢ã‚¯ã‚¿ãƒ¼ã‚’ã‚µãƒ–ã«æŒã¤ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã®ãƒã‚¤ãƒ³ã‚¿
      */
     void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_Shot = prm_pDispatcher;

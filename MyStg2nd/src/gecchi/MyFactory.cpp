@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -21,9 +21,9 @@ using namespace MyStg2nd;
 //}
 
 //GgafMainScene* MyFactory::createStage01Scene(void* pArg1, void* pArg2) {
-//_TRACE_("HêFStage01Scene ì‚Á‚Ä‚Ü‚·");
+//_TRACE_("å·¥å ´ï¼šStage01Scene ä½œã£ã¦ã¾ã™");
 //	Stage01Scene* pScene_Stage01Scene = NEW Stage01Scene("Stage01");
-//_TRACE_("HêFStage01Scene Š´“®‚Ì‘åŠ®¬");
+//_TRACE_("å·¥å ´ï¼šStage01Scene æ„Ÿå‹•ã®å¤§å®Œæˆ");
 //	return pScene_Stage01Scene;
 //}
 //

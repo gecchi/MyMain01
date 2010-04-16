@@ -1,4 +1,4 @@
-#ifndef MYSHIP_H_
+ï»¿#ifndef MYSHIP_H_
 #define MYSHIP_H_
 namespace MyStg2nd {
 
@@ -7,7 +7,7 @@ namespace MyStg2nd {
 
 #define MAX_LEVEL_MOVE_SPEED 5
 #define MIN_LEVEL_MOVE_SPEED 0
-//Ternary numeral -1,0.1 ‚Ì3”‚Ì3i–@ ‚ğ ”z—ñ—v‘f‚Ì‚½‚ß³‚Ì10i”‚É•ÏŠ·‚·‚éƒ}ƒNƒ
+//Ternary numeral -1,0.1 ã®3æ•°ã®3é€²æ³• ã‚’ é…åˆ—è¦ç´ ã®ãŸã‚æ­£ã®10é€²æ•°ã«å¤‰æ›ã™ã‚‹ãƒã‚¯ãƒ­
 #define TN(X,Y,Z) (((3*3)*(X+1)) + ((3)*(Y+1)) + (Z+1))
 
 #define EQ_OPTION 1
@@ -22,7 +22,7 @@ enum Switch {
 };
 
 /**
- * ©‹@ƒNƒ‰ƒX
+ * è‡ªæ©Ÿã‚¯ãƒ©ã‚¹
  * @version 1.00
  * @since 2006/06/22
  * @author Masatoshi Tsuge
@@ -46,10 +46,10 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
     };
 
     struct VERTEX {
-        float x, y, z; // ’¸“_À•W
-        float nx, ny, nz; // –@ü
-        DWORD color; // ’¸“_‚ÌF
-        float tu, tv; // ƒeƒNƒXƒ`ƒƒÀ•W
+        float x, y, z; // é ‚ç‚¹åº§æ¨™
+        float nx, ny, nz; // æ³•ç·š
+        DWORD color; // é ‚ç‚¹ã®è‰²
+        float tu, tv; // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
     };
 
 
@@ -67,7 +67,7 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
         bool _sw_UP, _sw_LEFT, _sw_RIGHT, _sw_DOWN;
         SW _on_UP, _on_LEFT, _on_RIGHT, _on_DOWN;
 
-        /** Œ»İ‚Ì•ûŒü */
+        /** ç¾åœ¨ã®æ–¹å‘ */
         SW _way;
 
 
@@ -155,23 +155,23 @@ class MyShip : public GgafDx9LibStg::DefaultMeshActor {
             }
         }
         int getIndex() {
-            //3i”¨10i”•ÏŠ·
+            //3é€²æ•°â†’10é€²æ•°å¤‰æ›
             //_TRACE_("_way.X, _way.Y, _way.Z="<<_way.X<<","<<_way.Y<<","<< _way.Z);
             return (3*3*(sgn(_way.X)+1)) + (3*(sgn(_way.Y)+1)) + (sgn(_way.Z)+1);
         }
     };
 public:
-    /** ˆÚ“®YÀ•WãŒÀ */
+    /** ç§»å‹•Yåº§æ¨™ä¸Šé™ */
     static int _lim_top;
-    /** ˆÚ“®YÀ•W‰ºŒÀ */
+    /** ç§»å‹•Yåº§æ¨™ä¸‹é™ */
     static int _lim_bottom;
-    /** ˆÚ“®XÀ•WãŒÀ */
+    /** ç§»å‹•Xåº§æ¨™ä¸Šé™ */
     static int _lim_front;
-    /** ˆÚ“®XÀ•W‰ºŒÀ */
+    /** ç§»å‹•Xåº§æ¨™ä¸‹é™ */
     static int _lim_behaind;
-    /** ˆÚ“®ZÀ•WãŒÀ */
+    /** ç§»å‹•Zåº§æ¨™ä¸Šé™ */
     static int _lim_zleft;
-    /** ˆÚ“®ZÀ•W‰ºŒÀ */
+    /** ç§»å‹•Zåº§æ¨™ä¸‹é™ */
     static int _lim_zright;
 
     WaySwitch _way_switch;
@@ -186,15 +186,15 @@ public:
 
 
 
-    /** •ûŒü“ü—Í’l */
+    /** æ–¹å‘å…¥åŠ›å€¤ */
     int _stc;
 
-    /** ƒ^[ƒ{’†AˆÚ“®•ûŠp */
+    /** ã‚¿ãƒ¼ãƒœä¸­ã€ç§»å‹•æ–¹è§’ */
     MoveWay _way;
 
-    /** ˆÚ“®ƒXƒs[ƒhƒŒƒxƒ‹ */
+    /** ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ãƒ¬ãƒ™ãƒ« */
     int _lv_MoveSpeed;
-    /** ˆÚ“®ƒXƒs[ƒhƒŒƒxƒ‹‚É‘Š‰‚·‚éˆÚ“®ƒXƒs[ƒh */
+    /** ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ãƒ¬ãƒ™ãƒ«ã«ç›¸å¿œã™ã‚‹ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ */
     int _iMoveSpeed;
 
     int _iMoveVelo;
@@ -203,44 +203,44 @@ public:
     int _iMvVelo_TurboTop;
     int _iMvVelo_TurboBottom;
 
-    /** TurboˆÚ“®ŠJn‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x */
+    /** Turboç§»å‹•é–‹å§‹æ™‚ã®ç§»å‹•é€Ÿåº¦ã®åˆé€Ÿåº¦ */
     int _iMvVelo_BeginMT; //Move Velo when I Begin To Move with Turbo
-    //Z²‚ª—‚Şê‡A‚¤‚Ü‚­‚±‚Ì’l‚©‚çŒvZ‚µ‚æ‚¤iZ²‚ÌˆÚ“®‘¬“x‚Í³•‰‚ÅŠÇ—‚µ‚Ä‚é‚½‚ßj
+    //Zè»¸ãŒçµ¡ã‚€å ´åˆã€ã†ã¾ãã“ã®å€¤ã‹ã‚‰è¨ˆç®—ã—ã‚ˆã†ï¼ˆZè»¸ã®ç§»å‹•é€Ÿåº¦ã¯æ­£è² ã§ç®¡ç†ã—ã¦ã‚‹ãŸã‚ï¼‰
 
-    /** TurboˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x */
+    /** Turboç§»å‹•ä¸­ã®ç§»å‹•é€Ÿåº¦ã®åŠ é€Ÿåº¦ */
     int _iMvAcce_MT; //Move Acce while I Move with Turbo
-    //’A‚µ ’l < 0 ‚Å‚ ‚é‚±‚ÆB æ‚¾‚ñ‚¾‚ñ’x‚­‚È‚é‚æ‚¤‚É‚µ‚½‚¢‚©‚ç
-    //‚±‚ê‚àZ²‚ª—‚Şê‡A‚¤‚Ü‚­‚±‚Ì’l‚©‚çŒvZ‚µ‚æ‚¤
+    //ä½†ã— å€¤ < 0 ã§ã‚ã‚‹ã“ã¨ã€‚ âˆµã ã‚“ã ã‚“é…ããªã‚‹ã‚ˆã†ã«ã—ãŸã„ã‹ã‚‰
+    //ã“ã‚Œã‚‚Zè»¸ãŒçµ¡ã‚€å ´åˆã€ã†ã¾ãã“ã®å€¤ã‹ã‚‰è¨ˆç®—ã—ã‚ˆã†
 
-    /** TurboˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x */
+    /** Turboç§»å‹•ä¸­ã®ç§»å‹•é€Ÿåº¦ã®æœ€ä½é€Ÿåº¦ */
     int _iMvBtmVelo_MT; //Move Bottom Velo while I Move with Turbo
-    //’A‚µ ’l < 0 ‚Å‚ ‚é‚±‚ÆB
-    //‚±‚ê‚àZ²‚ª—‚Şê‡A‚¤‚Ü‚­‚±‚Ì’l‚©‚çŒvZ‚µ‚æ‚¤
+    //ä½†ã— å€¤ < 0 ã§ã‚ã‚‹ã“ã¨ã€‚
+    //ã“ã‚Œã‚‚Zè»¸ãŒçµ¡ã‚€å ´åˆã€ã†ã¾ãã“ã®å€¤ã‹ã‚‰è¨ˆç®—ã—ã‚ˆã†
 
-    /** TurboˆÚ“®‚ªI—¹‚Æ”»’f‚³‚ê‚éˆÚ“®‘¬“x */
+    /** Turboç§»å‹•ãŒçµ‚äº†ã¨åˆ¤æ–­ã•ã‚Œã‚‹ç§»å‹•é€Ÿåº¦ */
     int _iMvVelo_FMT; //Rotation axisX angle Velo when I Finish Moveing with Turbo
-    //’A‚µ ’l < 0 ‚Å‚ ‚é‚±‚ÆB
-    //‚±‚ê‚àZ²‚ª—‚Şê‡A‚¤‚Ü‚­‚±‚Ì’l‚©‚çŒvZ‚µ‚æ‚¤
+    //ä½†ã— å€¤ < 0 ã§ã‚ã‚‹ã“ã¨ã€‚
+    //ã“ã‚Œã‚‚Zè»¸ãŒçµ¡ã‚€å ´åˆã€ã†ã¾ãã“ã®å€¤ã‹ã‚‰è¨ˆç®—ã—ã‚ˆã†
 
-    /** ‰œ–”‚Íè‘O‚Ö’ÊíˆÚ“®ŠJn‚ÌX²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x */
+    /** å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸ç§»å‹•é–‹å§‹æ™‚ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®åˆé€Ÿåº¦ */
     angle _angRXVelo_BeginMZ; //Rotation axisX angle Velo when I Begin To Move Z
-    //‰œ‚Ìê‡‚Í³Aè‘O‚Ìê‡‚Í‚±‚ê‚É -1 ‚ğæ‚¸‚é
+    //å¥¥ã®å ´åˆã¯æ­£ã€æ‰‹å‰ã®å ´åˆã¯ã“ã‚Œã« -1 ã‚’ä¹—ãšã‚‹
 
-    /** ‰œ–”‚Íè‘O‚Ö’ÊíˆÚ“®’†‚ÌX²‰ñ“]Šp‘¬“x‚ÌŠp‰Á‘¬“x */
+    /** å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸ç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®è§’åŠ é€Ÿåº¦ */
     angle _angRXAcce_MZ; //Rotation axisX angle Acce while I Move Z
-    //‰œ‚Ìê‡‚Í³Aè‘O‚Ìê‡‚Í‚±‚ê‚É -1 ‚ğæ‚¸‚é
+    //å¥¥ã®å ´åˆã¯æ­£ã€æ‰‹å‰ã®å ´åˆã¯ã“ã‚Œã« -1 ã‚’ä¹—ãšã‚‹
 
-    /** ‰œ–”‚Íè‘O‚ÖˆÚ“®’†‚ÌX²‰ñ“]Šp‘¬“x‚ÌãŒÀŠp‘¬“x */
+    /** å¥¥åˆã¯æ‰‹å‰ã¸ç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®ä¸Šé™è§’é€Ÿåº¦ */
     angle _angRXTopVelo_MZ; //Rotation axisX Top angle Velo while I Move Z
-    //‰ºŒÀŠp‘¬“x‚Í‚±‚ê‚É -1 ‚ğæ‚¸‚é
+    //ä¸‹é™è§’é€Ÿåº¦ã¯ã“ã‚Œã« -1 ã‚’ä¹—ãšã‚‹
 
-    /** ‰œ–”‚Íè‘O‚Ö’ÊíZˆÚ“®’†‚ÌX²‰ñ“]Šp‚Ì’â~Šp“x */
+    /** å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸Zç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’ã®åœæ­¢è§’åº¦ */
     angle _angRXStop_MZ; //Rotation axisX Stop angle while I Move Z
 
 
-    /** ã–”‚Í‰º‚ÖTurboˆÚ“®ŠJn‚ÌZ²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x */
+    /** ä¸Šåˆã¯ä¸‹ã¸Turboç§»å‹•é–‹å§‹æ™‚ã®Zè»¸å›è»¢è§’é€Ÿåº¦ã®åˆé€Ÿåº¦ */
     angle _angRXVelo_BeginMZT; //Rotation axisX angle Velo when I Begin To Move Z with Turbo
-    //ã‚Ìê‡‚Í³A‰º‚Ìê‡‚Í‚±‚ê‚É -1 ‚ğæ‚¸‚é
+    //ä¸Šã®å ´åˆã¯æ­£ã€ä¸‹ã®å ´åˆã¯ã“ã‚Œã« -1 ã‚’ä¹—ãšã‚‹
 
     State _state;
 
@@ -261,27 +261,27 @@ public:
     MyShip(const char* prm_name);
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void initialize() override;
     /**
      *
-     * ©‹@‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½uŠÔ‚Ìˆ— .
+     * è‡ªæ©ŸãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ãŸç¬é–“ã®å‡¦ç† .
      */
     void onActive() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processBehavior() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void processJudgement() override;
 
     /**
-     * ƒOverRide ‚Å‚·„
+     * ï¼œOverRide ã§ã™ï¼
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
@@ -290,7 +290,7 @@ public:
         _iMoveSpeed = _lv_MoveSpeed * 1000;
     }
 
-    //‰æ–Êè‘O‚ÖˆÚ“®‰‚ßX²‰ñ“]ˆ—
+    //ç”»é¢æ‰‹å‰ã¸ç§»å‹•åˆã‚Xè»¸å›è»¢å‡¦ç†
 
     void doNotingMoveInput();
 
@@ -300,7 +300,7 @@ public:
         _iMoveVelo = 0;
     }
     /**
-     * ãˆÚ“®
+     * ä¸Šç§»å‹•
      */
     void move_WAY_UP() {
         _pMover->setRzRyMvAng(ANGLE90, 0);
@@ -308,7 +308,7 @@ public:
         _iMoveVelo = _iMoveSpeed;
     }
     /**
-     * ‘O•ûÎ‚ßãˆÚ“®
+     * å‰æ–¹æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_UP_FRONT() {
         _pMover->setRzRyMvAng(ANGLE45, 0);
@@ -317,7 +317,7 @@ public:
         _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
-     * Œã•ûÎ‚ßãˆÚ“®
+     * å¾Œæ–¹æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_UP_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE135, 0);
@@ -326,7 +326,7 @@ public:
         _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
-     * ‘OˆÚ“®
+     * å‰ç§»å‹•
      */
     void move_WAY_FRONT() {
         _pMover->setRzRyMvAng(0, 0);
@@ -334,7 +334,7 @@ public:
         _iMoveVelo = _iMoveSpeed;
     }
     /**
-     * Œã‚ëˆÚ“®
+     * å¾Œã‚ç§»å‹•
      */
     void move_WAY_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE180, 0);
@@ -342,7 +342,7 @@ public:
         _iMoveVelo = _iMoveSpeed;
     }
     /**
-     * ‰ºˆÚ“®
+     * ä¸‹ç§»å‹•
      */
     void move_WAY_DOWN() {
         _pMover->setRzRyMvAng(ANGLE270, 0);
@@ -350,7 +350,7 @@ public:
         _iMoveVelo = _iMoveSpeed;
     }
     /**
-     * Œã•ûÎ‚ß‰ºˆÚ“®
+     * å¾Œæ–¹æ–œã‚ä¸‹ç§»å‹•
      */
     void move_WAY_DOWN_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE225, 0);
@@ -359,7 +359,7 @@ public:
         _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
-     * ‘O•ûÎ‚ß‰ºˆÚ“®
+     * å‰æ–¹æ–œã‚ä¸‹ç§»å‹•
      */
     void move_WAY_DOWN_FRONT() {
         _pMover->setRzRyMvAng(ANGLE315, 0);
@@ -368,131 +368,131 @@ public:
         _iMoveVelo = _iMoveSpeed * NANAME;
     }
     /**
-     * ¶ˆÚ“®
+     * å·¦ç§»å‹•
      */
     void move_WAY_ZLEFT() {
         _pMover->setRzRyMvAng(0, ANGLE270);
         _Z += _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ, TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‘O•ûÎ‚ß¶ˆÚ“®
+     * å‰æ–¹æ–œã‚å·¦ç§»å‹•
      */
     void move_WAY_ZLEFT_FRONT() {
         _pMover->setRzRyMvAng(0, ANGLE315);
         _Z += _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
-        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //”½Œv‰ñ‚è
+        //æ—‹å»»
+        _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2)); //åæ™‚è¨ˆå›ã‚Š
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * Œã•ûÎ‚ß¶ˆÚ“®
+     * å¾Œæ–¹æ–œã‚å·¦ç§»å‹•
      */
     void move_WAY_ZLEFT_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE180, ANGLE45);
         _Z += _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, (_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‘O•ûÎ‚ß‰EˆÚ“®
+     * å‰æ–¹æ–œã‚å³ç§»å‹•
      */
     void move_WAY_ZRIGHT_FRONT() {
         _pMover->setRzRyMvAng(ANGLE180, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‰EˆÚ“®
+     * å³ç§»å‹•
      */
     void move_WAY_ZRIGHT() {
         _pMover->setRzRyMvAng(0, ANGLE90);
         _Z -= _iMoveSpeed;
         _iMoveVelo = _iMoveSpeed;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*_angRXStop_MZ, TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * Œã•ûÎ‚ß‰E
+     * å¾Œæ–¹æ–œã‚å³
      */
     void move_WAY_ZRIGHT_BEHIND() {
         _pMover->setRzRyMvAng(0, ANGLE135);
         _Z -= _iMoveSpeed * NANAME;
         _X -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ¶Î‚ßãˆÚ“®
+     * å·¦æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_ZLEFT_UP() {
         _pMover->setRzRyMvAng(ANGLE45, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ - (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ¶Î‚ß‰ºˆÚ“®
+     * å·¦æ–œã‚ä¸‹ç§»å‹•
      */
     void move_WAY_ZLEFT_DOWN() {
         _pMover->setRzRyMvAng(ANGLE315, ANGLE270);
         _Z += _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ/2);
         _pMover->setStopTarget_FaceAng(AXIS_X, _angRXStop_MZ + (_angRXStop_MZ/2), TURN_COUNTERCLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‰EÎ‚ßãˆÚ“®
+     * å³æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_ZRIGHT_UP() {
         _pMover->setRzRyMvAng(ANGLE45, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y += _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ - (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‰EÎ‚ß‰ºˆÚ“®
+     * å³æ–œã‚ä¸‹ç§»å‹•
      */
     void move_WAY_ZRIGHT_DOWN() {
         _pMover->setRzRyMvAng(ANGLE315, ANGLE90);
         _Z -= _iMoveSpeed * NANAME;
         _Y -= _iMoveSpeed * NANAME;
         _iMoveVelo = _iMoveSpeed * NANAME;
-        //ù‰ô
+        //æ—‹å»»
         _pMover->setFaceAngAcce(AXIS_X, -1*(_angRXAcce_MZ/2));
         _pMover->setStopTarget_FaceAng(AXIS_X, -1*(_angRXStop_MZ + (_angRXStop_MZ/2)), TURN_CLOCKWISE, _angRXTopVelo_MZ);
     }
     /**
-     * ‘O•û¶Î‚ßãˆÚ“®
+     * å‰æ–¹å·¦æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_ZLEFT_UP_FRONT() {
         _TRACE_("move_WAY_ZLEFT_UP_FRONTLEFT() came!");
     }
     /**
-     * Œã•û¶Î‚ßãˆÚ“®
+     * å¾Œæ–¹å·¦æ–œã‚ä¸Šç§»å‹•
      */
     void move_WAY_ZLEFT_UP_BEHIND() {
         _TRACE_("move_WAY_ZLEFT_UP_BEHINDLEFT() came!");
@@ -530,14 +530,14 @@ public:
     }
 
     /**
-     * ãƒ^[ƒ{ŠJn
+     * ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_UP() {
         _pMover->setRzRyMvAng(ANGLE90, 0);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT);
     }
     /**
-     * ‘O•ûÎ‚ßãƒ^[ƒ{ŠJn
+     * å‰æ–¹æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_UP_FRONT() {
         _pMover->setRzRyMvAng(ANGLE45, 0);
@@ -545,7 +545,7 @@ public:
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
     }
     /**
-     * Œã•ûÎ‚ßãƒ^[ƒ{ŠJn
+     * å¾Œæ–¹æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_UP_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE135, 0);
@@ -553,28 +553,28 @@ public:
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
     }
     /**
-     * ‘Oƒ^[ƒ{ŠJn
+     * å‰ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_FRONT() {
         _pMover->setRzRyMvAng(0, 0);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT);
     }
     /**
-     * Œã‚ëƒ^[ƒ{ŠJn
+     * å¾Œã‚ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE180, 0);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT);
     }
     /**
-     * ‰ºƒ^[ƒ{ŠJn
+     * ä¸‹ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_DOWN() {
         _pMover->setRzRyMvAng(ANGLE270, 0);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT);
     }
     /**
-     * Œã•ûÎ‚ß‰ºƒ^[ƒ{ŠJn
+     * å¾Œæ–¹æ–œã‚ä¸‹ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_DOWN_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE225, 0);
@@ -582,7 +582,7 @@ public:
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
     }
     /**
-     * ‘O•ûÎ‚ß‰ºƒ^[ƒ{ŠJn
+     * å‰æ–¹æ–œã‚ä¸‹ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_DOWN_FRONT() {
         _pMover->setRzRyMvAng(ANGLE315, 0);
@@ -590,110 +590,110 @@ public:
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
     }
     /**
-     * ¶ƒ^[ƒ{ŠJn
+     * å·¦ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT() {
         _pMover->addVzMvVelo(_iMvVelo_BeginMT);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‘O•ûÎ‚ß¶ƒ^[ƒ{ŠJn
+     * å‰æ–¹æ–œã‚å·¦ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_FRONT() {
         _pMover->setRzRyMvAng(0, ANGLE270);
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * Œã•ûÎ‚ß¶ƒ^[ƒ{ŠJn
+     * å¾Œæ–¹æ–œã‚å·¦ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_BEHIND() {
         _pMover->setRzRyMvAng(ANGLE180, ANGLE45);
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‘O•ûÎ‚ß‰Eƒ^[ƒ{ŠJn
+     * å‰æ–¹æ–œã‚å³ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZRIGHT_FRONT() {
         _pMover->setRzRyMvAng(ANGLE180, ANGLE135);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‰Eƒ^[ƒ{ŠJn
+     * å³ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZRIGHT() {
         _pMover->setRzRyMvAng(0, ANGLE90);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * Œã•ûÎ‚ß‰E
+     * å¾Œæ–¹æ–œã‚å³
      */
     void turbo_WAY_ZRIGHT_BEHIND() {
         _pMover->setRzRyMvAng(0, ANGLE135);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVxMvVelo(-_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ¶Î‚ßãƒ^[ƒ{ŠJn
+     * å·¦æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_UP() {
         _pMover->setRzRyMvAng(ANGLE45, ANGLE270);
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ¶Î‚ß‰ºƒ^[ƒ{ŠJn
+     * å·¦æ–œã‚ä¸‹ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_DOWN() {
         _pMover->setRzRyMvAng(ANGLE315, ANGLE270);
         _pMover->addVzMvVelo(_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, _angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‰EÎ‚ßãƒ^[ƒ{ŠJn
+     * å³æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZRIGHT_UP() {
         _pMover->setRzRyMvAng(ANGLE45, ANGLE90);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‰EÎ‚ß‰ºƒ^[ƒ{ŠJn
+     * å³æ–œã‚ä¸‹ã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZRIGHT_DOWN() {
         _pMover->setRzRyMvAng(ANGLE315, ANGLE90);
         _pMover->addVzMvVelo(-_iMvVelo_BeginMT * NANAME);
         _pMover->addVyMvVelo(-_iMvVelo_BeginMT * NANAME);
-        //ù‰ô
-        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //¨‚¢‚æ‚­‰ñ“]ŠJn
+        //æ—‹å»»
+        _pMover->setFaceAngVelo(AXIS_X, -_angRXVelo_BeginMZT*NANAME); //å‹¢ã„ã‚ˆãå›è»¢é–‹å§‹
     }
     /**
-     * ‘O•û¶Î‚ßãƒ^[ƒ{ŠJn
+     * å‰æ–¹å·¦æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_UP_FRONT() {
         _TRACE_("turbo_WAY_ZLEFT_UP_FRONTLEFT() came!");
     }
     /**
-     * Œã•û¶Î‚ßãƒ^[ƒ{ŠJn
+     * å¾Œæ–¹å·¦æ–œã‚ä¸Šã‚¿ãƒ¼ãƒœé–‹å§‹
      */
     void turbo_WAY_ZLEFT_UP_BEHIND() {
         _TRACE_("turbo_WAY_ZLEFT_UP_BEHINDLEFT() came!");
@@ -728,7 +728,7 @@ public:
 
     static void transactShot(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
-    /**ƒIƒvƒVƒ‡ƒ“’Ç‰Á*/
+    /**ã‚ªãƒ—ã‚·ãƒ§ãƒ³è¿½åŠ */
     void equipOption();
 
     virtual ~MyShip();

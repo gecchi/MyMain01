@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -30,27 +30,27 @@ void GameBeginningScene::processBehavior() {
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 
-    //ƒQ[ƒ€ŠJŽn’¼‘O‚ÌŽ©‹@‘I‘ð“™A“±“ü•”
+    //ã‚²ãƒ¼ãƒ é–‹å§‹ç›´å‰ã®è‡ªæ©Ÿé¸æŠžç­‰ã€å°Žå…¥éƒ¨
     if (onChangeProgressAt(GAMEBEGINNING_PROG_BEGIN)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE BEGIN");
         _pStringBoard02->update(200, 250, "YOKUKITANA!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_BEGIN) {
-        //Šˆ“®ƒ‹[ƒv
+        //æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
-            setProgress(GAMEBEGINNING_PROG_OPE); //ƒ^ƒCƒgƒ‹‚Ö
+            setProgress(GAMEBEGINNING_PROG_OPE); //ã‚¿ã‚¤ãƒˆãƒ«ã¸
         }
     }
 
-    //ƒQ[ƒ€ŠJŽn’¼‘O‚ÌŽ©‹@‘I‘ð“™
+    //ã‚²ãƒ¼ãƒ é–‹å§‹ç›´å‰ã®è‡ªæ©Ÿé¸æŠžç­‰
     if (onChangeProgressAt(GAMEBEGINNING_PROG_OPE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE OPE");
         _pStringBoard02->update(200, 250, "SELECT YOUR EQ!");
         _dwFrame_Ope = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_OPE) {
-        //Šˆ“®ƒ‹[ƒv
+        //æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Ope++;
 
         if (VB::isPushedDown(VB_UI_EXECUTE)) {
@@ -59,17 +59,17 @@ void GameBeginningScene::processBehavior() {
         }
     }
 
-    //ƒQ[ƒ€ŠJŽn’¼‘O‚ÌŽ©‹@‘I‘ð“™AŒˆ’èŒã‚ÌƒtƒF[ƒhƒAƒEƒg•”
+    //ã‚²ãƒ¼ãƒ é–‹å§‹ç›´å‰ã®è‡ªæ©Ÿé¸æŠžç­‰ã€æ±ºå®šå¾Œã®ãƒ•ã‚§ãƒ¼ãƒ‰ã‚¢ã‚¦ãƒˆéƒ¨
     if (onChangeProgressAt(GAMEBEGINNING_PROG_DECIDE)) {
         _pStringBoard01->update(200, 200, "GAME_BEGINNING_SCENE DECIDE");
         _pStringBoard02->update(200, 250, "OK. ARE YOU READY!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEBEGINNING_PROG_DECIDE) {
-        //Šˆ“®ƒ‹[ƒv
+        //æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Decide++;
 
-        if (_dwFrame_Decide == 60*5) { //5•bi‚±‚±‚ÅƒXƒe[ƒW‚ðì‚Á‚Ä‚é‚Í‚¸
-            setProgress(GAMEBEGINNING_PROG_END); //‚¨I‚¢
+        if (_dwFrame_Decide == 60*5) { //5ç§’ï¼ˆã“ã“ã§ã‚¹ãƒ†ãƒ¼ã‚¸ã‚’ä½œã£ã¦ã‚‹ã¯ãš
+            setProgress(GAMEBEGINNING_PROG_END); //ãŠçµ‚ã„
         }
     }
 

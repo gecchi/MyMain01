@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -81,14 +81,14 @@ MyOptionParent::MyOptionParent(const char* prm_name) :
         _paMyOption[i]->activate();
     }
 
-    //ƒMƒYƒ‚
+    //ã‚®ã‚ºãƒ¢
     _pGizmo = NEW MyOptionParentGizmo("MyPGizmo");
     addSubGroup(_pGizmo);
-    //•ûŒüƒxƒNƒgƒ‹
+    //æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«
     _pDirectionVector = NEW MyOptionParentDirectionVector("MyPDirectionVector");
     addSubGroup(_pDirectionVector);
 
-    //ƒgƒŒ[ƒX—p—š—ğ
+    //ãƒˆãƒ¬ãƒ¼ã‚¹ç”¨å±¥æ­´
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(pMYSHIP));
@@ -110,7 +110,7 @@ void MyOptionParent::initialize() {
 void MyOptionParent::processBehavior() {
 
     if (VB::isDoublePushedDown(VB_OPTION,8,8)) {
-        //‚à‚Æ‚É–ß‚·
+        //ã‚‚ã¨ã«æˆ»ã™
         _pMover->execTagettingMvAngSequence(
                         0,
                         0,
@@ -123,14 +123,14 @@ void MyOptionParent::processBehavior() {
         _return_to_default_position_seq = true;
 
         for (int i = 0; i < 8; i++) {
-            //ƒIƒvƒVƒ‡ƒ“‚Ì”¼ŒaˆÊ’u‚ğŒ³‚É–ß‚·w¦
+            //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åŠå¾„ä½ç½®ã‚’å…ƒã«æˆ»ã™æŒ‡ç¤º
             _paMyOption[i]->_return_to_default_radiusPosition_seq = true;
             _paMyOption[i]->_return_to_default_angExpanse_seq= true;
         }
 
 
     } else if (VB::isBeingPressed(VB_OPTION) && !VB::isBeingPressed(VB_TURBO)) {
-        //ƒIƒvƒVƒ‡ƒ“Œü‚«‘€ì
+        //ã‚ªãƒ—ã‚·ãƒ§ãƒ³å‘ãæ“ä½œ
         if (VB::isBeingPressed(VB_UP)) {
             _pMover->addRzMvAng(_angVelo_Turn);
         }
@@ -163,17 +163,17 @@ void MyOptionParent::processBehavior() {
 
     if (_is_free_from_myship_mode) {
         if (VB::isBeingPressed(VB_OPTION) && _is_handle_move_mode) {
-            //ƒIƒvƒVƒ‡ƒ“‚ÌL‚ª‚èŠp‚æ‚èAƒIƒvƒVƒ‡ƒ“ˆÚ“®‘¬“x‚ÆAù‰ñ”¼Œa‘‰Á‘¬“x‚ÉƒxƒNƒgƒ‹•ª‰ğB
-            //‚»‚Ì‚¤‚¿‚ÌƒIƒvƒVƒ‡ƒ“ˆÚ“®‘¬“x‚Ì‚İ‚ğİ’èB
+            //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®åºƒãŒã‚Šè§’ã‚ˆã‚Šã€ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç§»å‹•é€Ÿåº¦ã¨ã€æ—‹å›åŠå¾„å¢—åŠ é€Ÿåº¦ã«ãƒ™ã‚¯ãƒˆãƒ«åˆ†è§£ã€‚
+            //ãã®ã†ã¡ã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç§»å‹•é€Ÿåº¦ã®ã¿ã‚’è¨­å®šã€‚
             _pMover->setMvVelo(GgafDx9Util::COS[_paMyOption[0]->_angExpanse/ ANGLE_RATE] * _veloOptionsMv);
-            //ù‰ñ”¼Œa‘‰Á‘¬“x‚Ìˆ—‚ÍMyOptionƒNƒ‰ƒX‚Ås‚¤B
+            //æ—‹å›åŠå¾„å¢—åŠ é€Ÿåº¦ã®å‡¦ç†ã¯MyOptionã‚¯ãƒ©ã‚¹ã§è¡Œã†ã€‚
         } else {
             _is_handle_move_mode = false;
             _pMover->setMvVelo(0);
         }
     } else {
         if (_return_to_default_position_seq) {
-            //Œ³‚ÌˆÊ’u‚Ö
+            //å…ƒã®ä½ç½®ã¸
             int dx = pMYSHIP->_X - (_X + _pMover->_veloVxMv*6);
             int dy = pMYSHIP->_Y - (_Y + _pMover->_veloVyMv*6);
             int dz = pMYSHIP->_Z - (_Z + _pMover->_veloVzMv*6);
@@ -187,7 +187,7 @@ void MyOptionParent::processBehavior() {
                 abs(_pMover->_veloVyMv) < 20000 &&
                 abs(_pMover->_veloVzMv) < 20000    ) {
 
-                _TRACE_("‚à‚Ç‚Á‚½I");
+                _TRACE_("ã‚‚ã©ã£ãŸï¼");
                 _pMover->setVxMvVelo(0);
                 _pMover->setVyMvVelo(0);
                 _pMover->setVzMvVelo(0);
@@ -203,7 +203,7 @@ void MyOptionParent::processBehavior() {
         }
     }
 
-    //ƒMƒYƒ‚
+    //ã‚®ã‚ºãƒ¢
     _pGizmo->setGeometry(this);
 
     _pMover->behave();

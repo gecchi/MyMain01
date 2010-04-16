@@ -1,4 +1,4 @@
-#ifndef GAMEBEGINNINGSCENE_H_
+﻿#ifndef GAMEBEGINNINGSCENE_H_
 #define GAMEBEGINNINGSCENE_H_
 
 
@@ -11,8 +11,8 @@
 namespace MyStg2nd {
 
 /**
- * �Q�[���J�n�V�[���N���X .
- * �Q�[�����s�Ȃ��Ă����ʂƌ����Ă��A�Q�[���J�n���̏�ʂ�����܂����B
+ * ゲーム開始シーンクラス .
+ * ゲームが行なわれている場面と言っても、ゲーム開始中の場面もありました。
  */
 class GameBeginningScene : public GgafDx9LibStg::DefaultScene {
 

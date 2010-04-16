@@ -1,9 +1,9 @@
-// stdafx.h : �W���̃V�X�e�� �C���N���[�h �t�@�C���̃C���N���[�h �t�@�C���A�܂���
-// �Q�Ɖ񐔂������A�����܂�ύX����Ȃ��A�v���W�F�N�g��p�̃C���N���[�h �t�@�C��
-// ���L�q���܂��B
+﻿// stdafx.h : 標準のシステム インクルード ファイルのインクルード ファイル、または
+// 参照回数が多く、かつあまり変更されない、プロジェクト専用のインクルード ファイル
+// を記述します。
 //
 
 #pragma once
 /////////////////////////////////////////////////////////////////////////
-//MyStg2nd.cpp���R���p�C�����邽�߂ɕK�v�ȃw�b�_�[
+//MyStg2nd.cppをコンパイルするために必要なヘッダー
 #include "src/MyStg2ndHeader.h"

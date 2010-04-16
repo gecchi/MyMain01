@@ -1,4 +1,4 @@
-#ifndef MYFACTORY_H_
+ï»¿#ifndef MYFACTORY_H_
 #define MYFACTORY_H_
 namespace MyStg2nd {
 
@@ -8,40 +8,40 @@ public:
 
     template<class X>
     static X* createActor(void* p1, void* p2, void* p3) {
-        //p1 : –¼Ì
+        //p1 : åç§°
         X* p = NEW X((char*)p1);
         return p;
     }
 
     template<class X>
     static X* createActorWithModel(void* p1, void* p2, void* p3) {
-        //p1 : ¯•Ê–¼Ì
-        //p2 : ƒ‚ƒfƒ‹¯•Ê•¶š—ñ
+        //p1 : è­˜åˆ¥åç§°
+        //p2 : ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥æ–‡å­—åˆ—
         X* p = NEW X((char*)p1, (char*)p2);
         return p;
     }
 
     template<class X>
     static X* createActorWithDp(void* p1, void* p2, void* p3) {
-        //p1 : ¯•Ê–¼Ì
-        //p2 : ƒAƒNƒ^[”­‘—Ò
+        //p1 : è­˜åˆ¥åç§°
+        //p2 : ã‚¢ã‚¯ã‚¿ãƒ¼ç™ºé€è€…
         X* p = NEW X((char*)p1, (GgafCore::GgafActorDispatcher*)p2);
         return p;
     }
 
     template<class X>
     static X* createActorWithModelDp(void* p1, void* p2, void* p3) {
-        //p1 : ¯•Ê–¼Ì
-        //p2 : ƒ‚ƒfƒ‹¯•Ê•¶š—ñ
-        //p3 : ƒAƒNƒ^[”­‘—Ò
+        //p1 : è­˜åˆ¥åç§°
+        //p2 : ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥æ–‡å­—åˆ—
+        //p3 : ã‚¢ã‚¯ã‚¿ãƒ¼ç™ºé€è€…
         X* p = NEW X((char*)p1, (char*)p2, (GgafCore::GgafActorDispatcher*)p3);
         return p;
     }
 
     template<class X>
     static X* createScene(void* p1, void* p2, void* p3) {
-        //Scene¶¬‚Åˆê”Ô‘½‚¢Œ`‚Ìˆø”B
-        //p1 : ¯•Ê–¼Ì
+        //Sceneç”Ÿæˆã§ä¸€ç•ªå¤šã„å½¢ã®å¼•æ•°ã€‚
+        //p1 : è­˜åˆ¥åç§°
         X* p = NEW X((char*)p1);
         return p;
     }

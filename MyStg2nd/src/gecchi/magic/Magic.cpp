@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -41,7 +41,7 @@ void Magic::processBehavior() {
                 processExpiringBehavior();
                 break;
             default :
-                _TRACE_("Magic::processBehavior ‚¨‚©‚µ‚¢‚Å‚·‚º _state="<<_state);
+                _TRACE_("Magic::processBehavior ãŠã‹ã—ã„ã§ã™ãœ _state="<<_state);
                 break;
         }
     } else {

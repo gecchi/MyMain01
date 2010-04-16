@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,27 +13,27 @@ HomingLaserChip::HomingLaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void HomingLaserChip::initialize() {
-    //�����ݒ�ł��B
-    //30px/frame �̈ړ����x
-    //�����蔻�肠��B
-    //����0.99
-    //�Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
+    //初期設定です。
+    //30px/frame の移動速度
+    //当たり判定あり。
+    //α＝0.99
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
     _pMover->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
 
 void HomingLaserChip::onActive() {
-    //�Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-    //���̍� �́A�{�N���X�� onActive() ���\�b�h���Ăяo���Ă��������B
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの onActive() メソッドも呼び出してください。
     LaserChip::onActive();
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
 
-    //���[�U�[�`�b�v�o��������
+    //レーザーチップ出現時処理
     if (pChip_front == NULL) {
         //_TRACE_("HomingLaserChip::onActive() "<<getName()<<" pChip_front == NULL");
         _is_leader = true;
-        //���g���擪�̏ꍇ
+        //自身が先頭の場合
         _begining_X = _X;
         _begining_Y = _Y;
         _begining_Z = _Z;
@@ -64,13 +64,13 @@ void HomingLaserChip::onActive() {
 }
 
 void HomingLaserChip::onInactive() {
-    //���[�U�[�`�b�v����������
+    //レーザーチップ消失時処理
 
-    //�����̃`�b�v������΁A�����̈ӎv�i�ړ��Ȃǁj�������p������
-    //����́A���[�U�[�������ꂽ�ꍇ�A�ȉ��̃p�����[�^�[�݈̂����p�����A�ړ����p�������邽�߁B
-    //�����x�Ȃ�A�ړ��\��Ȃǈ����p����Ȃ����̂���������̂ŁA���G�Ȉړ�������ۂ́A�R�R�ɒ��ӂ𕥂����ƁI
-    //���[�U�[���Q�[���̈�O�ɂ��������Ƃ����A�擪�`�b�v���珇�ɘA���ň��p�����������邱�ƂɂȂ�B
-    //������Ɩ��ʂ��ۂ����ǁA�����Ȃΐ擪�̎��̃`�b�v���̈�O�Ɍ������Ĉړ�����Ƃ͌���Ȃ��̂ŁA��͂�K�v�B
+    //一つ後方のチップがあれば、自分の意思（移動など）を引き継がせる
+    //これは、レーザーがちぎれた場合、以下のパラメーターのみ引き継がせ、移動を継続させるため。
+    //加速度なや、移動予約など引き継がれないものが多数あるので、複雑な移動をする際は、ココに注意を払うこと！
+    //レーザーがゲーム領域外にたっしたときも、先頭チップから順に連続で引継ぎが発生することになる。
+    //ちょっと無駄っぽいけど、さもなば先頭の次のチップが領域外に向かって移動するとは限らないので、やはり必要。
     if (_pChip_behind) {
         _pChip_behind->_pMover->_vX = _pMover->_vX;
         _pChip_behind->_pMover->_vY = _pMover->_vY;
@@ -83,23 +83,23 @@ void HomingLaserChip::onInactive() {
         _pChip_behind->_pMover->_angFace[AXIS_Z] = _pMover->_angFace[AXIS_Z];
     }
 
-    LaserChip::onInactive(); //�Ȃ����ؒf����
+    LaserChip::onInactive(); //つながりを切断処理
 }
 
 void HomingLaserChip::processBehavior() {
     LaserChip::processBehavior();
 
-    //�Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
-    //���̍� �́A�{�N���X�� processBehavior() ���\�b�h���Ăяo���Ă��������B
-    //���W�ɔ��f
+    //独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
+    //その際 は、本クラスの processBehavior() メソッドも呼び出してください。
+    //座標に反映
     HomingLaserChip* pChip_front =  (HomingLaserChip*)_pChip_front;
     if (getPartFrame() > 1) {
-        //GgafActorDispatcher::employ() ��
-        //�擾�ł���ꍇ�A�|�C���^��Ԃ��Ƌ��ɁA���̃A�N�^�[�̓A�N�^�[�����҂̃T�u�̈�Ԍ��Ɉړ������B
-        //���������āA���[�U�[�̐擪���珇�Ԃ�processBehavior() ���Ă΂�邽�߁A�ȉ��̂悤�ɂ����
-        //����q���ɂȂ�B
+        //GgafActorDispatcher::employ() は
+        //取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動される。
+        //したがって、レーザーの先頭から順番にprocessBehavior() が呼ばれるため、以下のようにすると
+        //数珠繋ぎになる。
         if (pChip_front == NULL) {
-            //�{���̐擪�`�b�v���A�����͂ɂ킩�擪�`�b�v�̏ꍇ�̋��ʏ���
+            //本当の先頭チップか、或いはにわか先頭チップの場合の共通処理
             _prev_X  = _X;
             _prev_Y  = _Y;
             _prev_Z  = _Z;

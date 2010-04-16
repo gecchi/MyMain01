@@ -1,14 +1,14 @@
-#ifndef ENEMYCERES_H_
+ï»¿#ifndef ENEMYCERES_H_
 #define ENEMYCERES_H_
 namespace MyStg2nd {
 
 /**
- * ƒPƒŒƒX .
- * ‰æ–Ê‰E’[‚ÅÜ‚è•Ô‚µ‚Ä¶‚É’¼i‚µ‚Ü‚·B<BR>
- * initialize()‚Ü‚Å‚Éã‘‚«‰Â”\‚Èİ’è‰Â”\‚Èƒpƒ‰ƒ[ƒ^<BR>
- * E_X,_Y,_Z ‰ŠúˆÊ’uA’A‚µ _Z<0 ‚Å‚ ‚é‚±‚ÆBiÜ‚è•Ô‚µ‚ª‹t‚É‚È‚Á‚Ä•Ï‚¾‚©‚çj<BR>
- * E_X_turn, _Y_turn Ü‚è•Ô‚µ–Ú•WXYÀ•WB‰ŠúˆÊ’u‚©‚ç‚±‚Ì‚±‚Ì’n“_‚ğ–Úw‚·ƒbƒXB<BR>
- * E_veloBegin Ü‚è•Ô‚µ’n“_‚És‚­‚Ü‚Å‚Ì‰Á‘¬“x<BR>
+ * ã‚±ãƒ¬ã‚¹ .
+ * ç”»é¢å³ç«¯ã§æŠ˜ã‚Šè¿”ã—ã¦å·¦ã«ç›´é€²ã—ã¾ã™ã€‚<BR>
+ * initialize()ã¾ã§ã«ä¸Šæ›¸ãå¯èƒ½ãªè¨­å®šå¯èƒ½ãªãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿<BR>
+ * ãƒ»_X,_Y,_Z åˆæœŸä½ç½®ã€ä½†ã— _Z<0 ã§ã‚ã‚‹ã“ã¨ã€‚ï¼ˆæŠ˜ã‚Šè¿”ã—ãŒé€†ã«ãªã£ã¦å¤‰ã ã‹ã‚‰ï¼‰<BR>
+ * ãƒ»_X_turn, _Y_turn æŠ˜ã‚Šè¿”ã—ç›®æ¨™XYåº§æ¨™ã€‚åˆæœŸä½ç½®ã‹ã‚‰ã“ã®ã“ã®åœ°ç‚¹ã‚’ç›®æŒ‡ã™ãƒƒã‚¹ã€‚<BR>
+ * ãƒ»_veloBegin æŠ˜ã‚Šè¿”ã—åœ°ç‚¹ã«è¡Œãã¾ã§ã®åŠ é€Ÿåº¦<BR>
  *
  */
 class EnemyCeres : public GgafDx9LibStg::DefaultMeshSetActor {
@@ -16,19 +16,19 @@ class EnemyCeres : public GgafDx9LibStg::DefaultMeshSetActor {
 private:
 
 public:
-    /** ’eƒXƒgƒbƒN */
+    /** å¼¾ã‚¹ãƒˆãƒƒã‚¯ */
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyCeresShots001;
-    /** Ceres‹¤’ÊƒXƒvƒ‰ƒCƒ“ */
+    /** Cereså…±é€šã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ */
     static GgafDx9Core::GgafDx9Spline3D _spline;
-    /** ƒXƒvƒ‰ƒCƒ“ƒvƒƒOƒ‰ƒ€ */
+    /** ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ãƒ—ãƒ­ã‚°ãƒ©ãƒ  */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_CeresMove;
 
-    /** GgafActorDispatcher‚ğƒRƒ“ƒXƒgƒ‰ƒNƒ^‚Å¶¬‚µ‚½‚©”Û‚© */
+    /** GgafActorDispatcherã‚’ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã§ç”Ÿæˆã—ãŸã‹å¦ã‹ */
     bool _createGgafActorDispatcher;
 
-    int _X_turn; // Ü‚è•Ô‚·XÀ•W
-    int _Y_turn; // Ü‚è•Ô‚·YÀ•W
-    int _Z_turn; // Ü‚è•Ô‚·ZÀ•W
+    int _X_turn; // æŠ˜ã‚Šè¿”ã™Xåº§æ¨™
+    int _Y_turn; // æŠ˜ã‚Šè¿”ã™Yåº§æ¨™
+    int _Z_turn; // æŠ˜ã‚Šè¿”ã™Zåº§æ¨™
     int _veloBegin;
     int _incZ;
 
@@ -37,16 +37,16 @@ public:
 
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * @param prm_name ƒIƒuƒWƒFƒNƒg–¼
-     * @param prm_model ƒ‚ƒfƒ‹–¼
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * @param prm_name ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆå
+     * @param prm_model ãƒ¢ãƒ‡ãƒ«å
      */
     //EnemyCeres(const char* prm_name);
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * @param prm_name ƒIƒuƒWƒFƒNƒg
-     * @param prm_pDispatcher_EnemyCeresShots001 ”­Ë’eƒXƒgƒbƒN‚ÌƒAƒNƒ^[”­‘—Ò
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * @param prm_name ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param prm_pDispatcher_EnemyCeresShots001 ç™ºå°„å¼¾ã‚¹ãƒˆãƒƒã‚¯ã®ã‚¢ã‚¯ã‚¿ãƒ¼ç™ºé€è€…
      * @return
      */
     EnemyCeres(const char* prm_name, GgafCore::GgafActorDispatcher* prm_pDispatcher_EnemyCeresShots001 = NULL);

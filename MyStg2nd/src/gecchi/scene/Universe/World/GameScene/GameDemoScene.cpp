@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -25,7 +25,7 @@ void GameDemoScene::ready() {
 void GameDemoScene::initialize() {
     setProgress(GAMEDEMO_PROG_INIT);
     //TODO:kesu
-    //ƒeƒXƒg
+    //ãƒ†ã‚¹ãƒˆ
     //orderActorToFactory(1111, TamagoActor, "TEST_TamagoActor");
 }
 
@@ -35,11 +35,11 @@ void GameDemoScene::processBehavior() {
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);
 
-        //©‹@•\¦
-        GameGlobal::_pSceneCommon->_pMyShip->activate(); //‰ºˆÊ‚ÉƒIƒvƒVƒ‡ƒ““™‚ª‚ ‚é‚µ
+        //è‡ªæ©Ÿè¡¨ç¤º
+        GameGlobal::_pSceneCommon->_pMyShip->activate(); //ä¸‹ä½ã«ã‚ªãƒ—ã‚·ãƒ§ãƒ³ç­‰ãŒã‚ã‚‹ã—
 
         //TODO:kesu
-        //ƒeƒXƒg
+        //ãƒ†ã‚¹ãƒˆ
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(1111);
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY,  pActor);
 
@@ -51,91 +51,91 @@ void GameDemoScene::processBehavior() {
         _pStringBoard02->update(100, 150, "HAJIMARI HAJIMARI!");
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
-        //ƒ^ƒCƒgƒ‹Šˆ“®ƒ‹[ƒv
+        //ã‚¿ã‚¤ãƒˆãƒ«æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
-            setProgress(GAMEDEMO_PROG_TITLE); //ƒ^ƒCƒgƒ‹‚Ö
+            setProgress(GAMEDEMO_PROG_TITLE); //ã‚¿ã‚¤ãƒˆãƒ«ã¸
         }
     }
 
 
-    //ƒ‹[ƒv----->
+    //ãƒ«ãƒ¼ãƒ—----->
 
     if (onChangeProgressAt(GAMEDEMO_PROG_TITLE)) {
-         //ƒ^ƒCƒgƒ‹ŠJn
+         //ã‚¿ã‚¤ãƒˆãƒ«é–‹å§‹
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE TITLE");
         _pStringBoard02->update(100, 150, "PUSH A UI_EXECUTE BUTTON");
         _dwFrame_Title = 0;
     } else if (getProgress() == GAMEDEMO_PROG_TITLE) {
-        //ƒ^ƒCƒgƒ‹Šˆ“®ƒ‹[ƒv
+        //ã‚¿ã‚¤ãƒˆãƒ«æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Title++;
 
-        //‚±‚±‚Éˆ—
+        //ã“ã“ã«å‡¦ç†
         if (VB::isPushedDown(VB_UI_EXECUTE)) {
             setProgress(GAMEDEMO_PROG_DECIDE);
         }
 
         if (_dwFrame_Title == 300) {
-            setProgress(GAMEDEMO_PROG_DEMOPLAY); //ƒfƒ‚‚Ö
+            setProgress(GAMEDEMO_PROG_DEMOPLAY); //ãƒ‡ãƒ¢ã¸
         }
     }
 
     if (onChangeProgressAt(GAMEDEMO_PROG_DEMOPLAY)) {
-        //ƒfƒ‚ƒvƒŒƒCŠJn
+        //ãƒ‡ãƒ¢ãƒ—ãƒ¬ã‚¤é–‹å§‹
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DEMOPLAY");
         _pStringBoard02->update(100, 150, "GAME OVER");
        setProgress(GAMEDEMO_PROG_DEMOPLAY);
         _dwFrame_Demoplay = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DEMOPLAY) {
-        //ƒfƒ‚ƒvƒŒƒCŠˆ“®ƒ‹[ƒv
+        //ãƒ‡ãƒ¢ãƒ—ãƒ¬ã‚¤æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Demoplay++;
 
-        //‚±‚±‚Éˆ—
+        //ã“ã“ã«å‡¦ç†
         if (_dwFrame_Demoplay == 300) {
-            setProgress(GAMEDEMO_PROG_RANKING); //ƒ‰ƒ“ƒLƒ“ƒO‚Ö
+            setProgress(GAMEDEMO_PROG_RANKING); //ãƒ©ãƒ³ã‚­ãƒ³ã‚°ã¸
         }
     }
 
 
 
     if (onChangeProgressAt(GAMEDEMO_PROG_RANKING)) {
-        //ƒ‰ƒ“ƒLƒ“ƒO•\¦
+        //ãƒ©ãƒ³ã‚­ãƒ³ã‚°è¡¨ç¤º
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE RANKING");
         _pStringBoard02->update(100, 150, "1ST GECCHIRAQ ");
         _dwFrame_Ranking = 0;
     } else if (getProgress() == GAMEDEMO_PROG_RANKING) {
-        //ƒ‰ƒ“ƒLƒ“ƒOŠˆ“®ƒ‹[ƒv
+        //ãƒ©ãƒ³ã‚­ãƒ³ã‚°æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Ranking++;
 
-        //‚±‚±‚Éˆ—
+        //ã“ã“ã«å‡¦ç†
 
 
         if (_dwFrame_Ranking == 300) {
-            setProgress(GAMEDEMO_PROG_TITLE); //ƒ^ƒCƒgƒ‹‚Ö
+            setProgress(GAMEDEMO_PROG_TITLE); //ã‚¿ã‚¤ãƒˆãƒ«ã¸
         }
     }
 
-    //<-----ƒ‹[ƒv
-    //ƒfƒ‚ƒvƒŒƒC‚©ƒ‰ƒ“ƒLƒ“ƒO
+    //<-----ãƒ«ãƒ¼ãƒ—
+    //ãƒ‡ãƒ¢ãƒ—ãƒ¬ã‚¤ã‹ãƒ©ãƒ³ã‚­ãƒ³ã‚°æ™‚
     if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() && getProgress() <= GAMEDEMO_PROG_RANKING) {
-        if (VB::isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTE‚Åƒ^ƒCƒgƒ‹‚Ö
+        if (VB::isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEã§ã‚¿ã‚¤ãƒˆãƒ«ã¸
             setProgress(GAMEDEMO_PROG_TITLE);
         }
     }
 
 
-    //ƒQ[ƒ€ƒXƒ^[ƒg
+    //ã‚²ãƒ¼ãƒ ã‚¹ã‚¿ãƒ¼ãƒˆ
     if (onChangeProgressAt(GAMEDEMO_PROG_DECIDE)) {
         _pStringBoard01->update(100, 100, "GAME_DEMO_SCENE DECIDE");
         _pStringBoard02->update(100, 150, "OK HJIMARIMASU!");
         _dwFrame_Decide = 0;
     } else if (getProgress() == GAMEDEMO_PROG_DECIDE) {
-        //Šˆ“®ƒ‹[ƒv
+        //æ´»å‹•ãƒ«ãƒ¼ãƒ—
         _dwFrame_Decide++;
 
         if (_dwFrame_Decide == 120) {
-            setProgress(GAMEDEMO_PROG_END); //‚¨I‚¢
+            setProgress(GAMEDEMO_PROG_END); //ãŠçµ‚ã„
         }
     }
 

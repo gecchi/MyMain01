@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_name, "4/8box") {
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 
-    //ƒŒ[ƒU[ƒXƒgƒbƒN
+    //ãƒ¬ãƒ¼ã‚¶ãƒ¼ã‚¹ãƒˆãƒƒã‚¯
     _laser_way = 2;
     _X = 0;
     _Y = 0;
@@ -30,8 +30,8 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-    prepareSe(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend")); //ƒŒ[ƒU[”­Ë(ƒ`ƒƒƒ“ƒlƒ‹‚Í0,1,2,3,4,0,1,2,3,4 ‚Æ‚È‚é)
-    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
+    prepareSe(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend")); //ãƒ¬ãƒ¼ã‚¶ãƒ¼ç™ºå°„(ãƒãƒ£ãƒ³ãƒãƒ«ã¯0,1,2,3,4,0,1,2,3,4 ã¨ãªã‚‹)
+    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //çˆ†ç™º
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -46,15 +46,15 @@ void EnemyAstraea::initialize() {
 
 
 void EnemyAstraea::onActive() {
-    //ƒXƒe[ƒ^ƒXƒŠƒZƒbƒg
+    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒªã‚»ãƒƒãƒˆ
     MyStgUtil::resetEnemyAstraeaStatus(_pStatus);
 }
 
 void EnemyAstraea::processBehavior() {
-    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
+    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    /////////////ƒ‚[ƒtƒeƒXƒg(DefaultMorphMeshActorŒp³—v)////////////////
+    /////////////ãƒ¢ãƒ¼ãƒ•ãƒ†ã‚¹ãƒˆ(DefaultMorphMeshActorç¶™æ‰¿è¦)////////////////
 //    if (GgafDx9Input::isBeingPressedKey(DIK_1)) {
 //        _pMorpher->loopTriangleWave(1, 30, 3, 22);
 //    } else if (GgafDx9Input::isBeingPressedKey(DIK_7)) {
@@ -110,7 +110,7 @@ void EnemyAstraea::processBehavior() {
         _pMorpher->intoTargetLinerUntil(4, 0, 30);
     }
     _pMorpher->behave();
-    /////////////ƒ‚[ƒtƒeƒXƒg////////////////
+    /////////////ãƒ¢ãƒ¼ãƒ•ãƒ†ã‚¹ãƒˆ////////////////
 
 
     _X = _X - 5000;
@@ -133,7 +133,7 @@ void EnemyAstraea::processBehavior() {
 
         static EnemyAstraeaLaserChip001* pLaserChip;
 
-        angle angClearance = 150000;//ŠJ‚«‹ï‡
+        angle angClearance = 150000;//é–‹ãå…·åˆ
 
         GgafDx9Util::getWayAngle2D(_RY, _laser_way, angClearance, _paWayRy);
         GgafDx9Util::getWayAngle2D(_RZ, _laser_way, angClearance, _paWayRz);
@@ -146,7 +146,7 @@ void EnemyAstraea::processBehavior() {
                 if (_papapLaserChipDispatcher[i][j] == NULL) {
                     GgafMainActor* p = pCOMMONSCENE->_pDispatcher_LaserChipDispatcher->employ();
                     if (p == NULL) {
-                        //ƒŒ[ƒU[ƒZƒbƒg‚ÍØ“üo—ˆ‚È‚¢
+                        //ãƒ¬ãƒ¼ã‚¶ãƒ¼ã‚»ãƒƒãƒˆã¯å€Ÿå…¥å‡ºæ¥ãªã„
                         continue;
                     } else {
                         _papapLaserChipDispatcher[i][j] = (LaserChipDispatcher*)p;
@@ -156,7 +156,7 @@ void EnemyAstraea::processBehavior() {
                     }
                 } else {
                     if (i == 0 && j == 0) {
-                        playSe3D(0); //”­Ë‰¹
+                        playSe3D(0); //ç™ºå°„éŸ³
                     }
                 }
 
@@ -184,14 +184,14 @@ void EnemyAstraea::processJudgement() {
 
 void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
-    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
+    chengeEffectTechniqueInterim("Flush", 2); //ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+    //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ãƒ’ãƒƒãƒˆã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //”j‰ó‚³‚ê‚½ê‡
-        //EEEƒRƒR‚É”j‰ó‚³‚ê‚½ƒGƒtƒFƒNƒg
+        //ç ´å£Šã•ã‚ŒãŸå ´åˆ
+        //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ç ´å£Šã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
         playSe3D(1);
-        inactivate(); //‚³‚æ‚È‚ç
-        //Á–ÅƒGƒtƒFƒNƒg
+        inactivate(); //ã•ã‚ˆãªã‚‰
+        //æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     } else {
 
     }
@@ -204,7 +204,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
 
 
 void EnemyAstraea::onInactive() {
-//    //ƒŒ[ƒU[‚Í’x‚ê‚Ä‚©‚çƒfƒBƒXƒpƒbƒ`ƒƒ[‚É–ß‚·
+//    //ãƒ¬ãƒ¼ã‚¶ãƒ¼ã¯é…ã‚Œã¦ã‹ã‚‰ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã«æˆ»ã™
     for (int i = 0; i < _laser_way; i++) {
         for (int j = 0; j < _laser_way; j++) {
             if (_papapLaserChipDispatcher[i][j]) {
