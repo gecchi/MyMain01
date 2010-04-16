@@ -2,6 +2,8 @@
 #define GGAFDX9GEOMETRICACTOR_H_
 namespace GgafDx9Core {
 
+#define MAX_SE_PER_ACTOR 10
+
 /**
  * 座標を持ったのアクター.
  * ワールド座標、或いは変換済み座標の何れかを持ち、<BR>
@@ -133,6 +135,8 @@ public:
     GgafDx9SeConnection** _papSeCon;
     /** SE資源 */
     GgafDx9Se** _papSe;
+
+
 
 public:
     /**

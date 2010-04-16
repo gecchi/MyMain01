@@ -45,9 +45,8 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
 
-
-    _papSeCon = NEW GgafDx9SeConnection*[10];
-    for (int i = 0; i < 10; i++) {
+    _papSeCon = NEW GgafDx9SeConnection*[MAX_SE_PER_ACTOR];
+    for (int i = 0; i < MAX_SE_PER_ACTOR; i++) {
         _papSeCon[i] = NULL;
     }
 }
@@ -285,10 +284,9 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
 }
 
 
-
 void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
-    if (prm_id < 0 || prm_id >= 10) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
     }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
@@ -296,15 +294,15 @@ void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int p
 }
 
 void GgafDx9GeometricActor::playSe(int prm_id) {
-    if (prm_id < 0 || prm_id >= 10) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
     pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9GeometricActor::playSe3D(int prm_id) {
-    if (prm_id < 0 || prm_id >= 10) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~9でお願いします。prm_id="<<prm_id);
+    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe3D() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
 
@@ -418,7 +416,7 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
 
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pMover);
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < MAX_SE_PER_ACTOR; i++) {
         if (_papSeCon[i]) {
             _papSeCon[i]->close();
         }

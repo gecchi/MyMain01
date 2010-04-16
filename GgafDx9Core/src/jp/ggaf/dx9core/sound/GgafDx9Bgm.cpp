@@ -14,9 +14,35 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
     spOggResource.SetPtr(NEW OggVorbisFile( ogg_filename.c_str() ));
     spOggDecoder.SetPtr( NEW OggDecoder( spOggResource ) );
     pPcmPlayer = NEW PCMPlayer(GgafDx9Sound::_pIDirectSound8 , spOggDecoder);
+    _is_fade = false;
+    _now_volume = DSBVOLUME_MAX;
+    _target_volume = DSBVOLUME_MAX;
+    _inc_volume = 0;
+}
+
+void GgafDx9Bgm::behave() {
+    if (_is_fade) {
+        setVolume(_now_volume+_inc_volume);
+        if (_inc_volume > 0 && _now_volume > _target_volume) {
+            //ëùâπó éû
+            setVolume((int)_target_volume);
+            _is_fade = false;
+        } else if (_inc_volume < 0 && _now_volume < _target_volume) {
+            //å∏âπó éû
+            setVolume((int)_target_volume);
+            _is_fade = false;
+        }
+    }
+}
+
+void GgafDx9Bgm::fade(DWORD prm_frame, int prm_target_volume) {
+    _is_fade = true;
+    _target_volume = prm_target_volume;
+    _inc_volume = (prm_target_volume - _now_volume) / (int)prm_frame;
 }
 
 void GgafDx9Bgm::play(int prm_volume, int prm_pan, bool prm_isLoop) {
+    _is_fade = false;
     setVolume(prm_volume);
     setPan(prm_pan);
     pPcmPlayer->play(prm_isLoop);
@@ -31,8 +57,7 @@ void GgafDx9Bgm::stop() {
 }
 
 void GgafDx9Bgm::setVolume(int prm_volume) {
-    int V = DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate);
-    _TRACE_("GgafDx9Bgm::setVolume V="<<V);
+    _now_volume = prm_volume;
     pPcmPlayer->setVolume(DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate));
 }
 
