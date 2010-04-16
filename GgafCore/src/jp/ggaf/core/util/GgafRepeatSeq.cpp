@@ -6,7 +6,7 @@ std::map<std::string, int> GgafRepeatSeq::mapNowval;
 std::map<std::string, int> GgafRepeatSeq::mapMaxval;
 std::map<std::string, int> GgafRepeatSeq::mapMinval;
 
-int GgafRepeatSeq::create(string ID, int min, int max) {
+void GgafRepeatSeq::create(string ID, int min, int max) {
     if (isExist(ID)) {
         throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"は既に存在します");
     } else {

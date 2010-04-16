@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////
+ï»¿/////////////////////////////////////////////////////////
 // Frm_Mesh.cpp
 //
 //
@@ -151,8 +151,8 @@ Model3D::~Model3D(void) {
     //if (_Skeletton != 0)
     //    delete _Skeletton;
 
-    //_toplevel_Skelettons‚ÌƒŠƒXƒg‰ğ•ú‚·‚é‚Ì‚ÅAã‚Ì
-    //delete ‚Í•s—v‚É‚È‚Á‚½B
+    //_toplevel_Skelettonsã®ãƒªã‚¹ãƒˆè§£æ”¾ã™ã‚‹ã®ã§ã€ä¸Šã®
+    //delete ã¯ä¸è¦ã«ãªã£ãŸã€‚
     while (!_toplevel_Skelettons.empty()) {
         delete _toplevel_Skelettons.back();
         _toplevel_Skelettons.pop_back();
@@ -274,7 +274,7 @@ void Model3D::ConcatenateMeshes(void) {
     _TRACE_("Adapting the Bone hierarchy ...");
     if (_Skeletton != 0)
         UpdateBoneIndices(_Skeletton);
-    //TODO: ‚±‚±‚Í•¡”B_toplevel_Skelettons‚Å‚Ü‚í‚·H
+    //TODO: ã“ã“ã¯è¤‡æ•°ã€‚_toplevel_Skelettonsã§ã¾ã‚ã™ï¼Ÿ
 
     _TRACE_("Bone hierarchy adapted.");
 

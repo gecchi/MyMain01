@@ -1,4 +1,4 @@
-// PCMPlayer.cpp
+ï»¿// PCMPlayer.cpp
 //
 
 #include "PCMPlayer.h"
@@ -57,7 +57,7 @@ namespace Dix {
         terminateThread();
     }
 
-    //! ƒNƒŠƒA
+    //! ã‚¯ãƒªã‚¢
     void PCMPlayer::clear() {
         terminateThread();
         memset( &DSBufferDesc_, 0, sizeof( DSBufferDesc_ ) );
@@ -70,7 +70,7 @@ namespace Dix {
         state_ = STATE_NONE;
     }
 
-    //! Ä¶’†‚ÌƒXƒŒƒbƒh‚ğ’â~
+    //! å†ç”Ÿä¸­ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’åœæ­¢
     void PCMPlayer::terminateThread() {
         isTerminate_ = true;
         if ( threadHandle_ != 0 ) {
@@ -79,14 +79,14 @@ namespace Dix {
                 DWORD flag = WaitForSingleObject( (HANDLE)(__int64)threadHandle_, 100 );
                 switch( flag ) {
                 case WAIT_OBJECT_0:
-                    // ƒXƒŒƒbƒh‚ªI‚í‚Á‚½
+                    // ã‚¹ãƒ¬ãƒƒãƒ‰ãŒçµ‚ã‚ã£ãŸ
                     end = true;
                     break;
                 case WAIT_TIMEOUT:
-                    // ‚Ü‚¾I—¹‚µ‚Ä‚¢‚È‚¢‚Ì‚Å‘Ò‹@
+                    // ã¾ã çµ‚äº†ã—ã¦ã„ãªã„ã®ã§å¾…æ©Ÿ
                     break;
                 case WAIT_FAILED:
-                    // ¸”s‚µ‚Ä‚¢‚é‚æ‚¤‚Å‚·
+                    // å¤±æ•—ã—ã¦ã„ã‚‹ã‚ˆã†ã§ã™
                     end = true;
                     break;
                 }
@@ -97,13 +97,13 @@ namespace Dix {
         threadHandle_ = 0;
     }
 
-    //! ƒfƒoƒCƒXİ’è
+    //! ãƒ‡ãƒã‚¤ã‚¹è¨­å®š
     void PCMPlayer::setDevice(IDirectSound8* pDS8 ) {
         pDS8_ = pDS8;
     }
 
 
-    //! PCMƒfƒR[ƒ_‚ğİ’è
+    //! PCMãƒ‡ã‚³ãƒ¼ãƒ€ã‚’è¨­å®š
     bool PCMPlayer::setDecoder( sp< PCMDecoder > pcmDecoder ) {
         if ( pDS8_ == NULL || pcmDecoder.GetPtr() == 0 || pcmDecoder->isReady() == false ) {
             isReady_ = false;
@@ -123,10 +123,10 @@ namespace Dix {
         DSBufferDesc_.lpwfxFormat = &waveFormat_;
         DSBufferDesc_.guid3DAlgorithm = GUID_NULL;
 
-        // ƒNƒ[ƒ“‚ğ•Û‘¶
+        // ã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä¿å­˜
         spPCMDecoder_ = pcmDecoder->createClone();
 
-        // ƒZƒJƒ“ƒ_ƒŠƒoƒbƒtƒ@‚ª‚Ü‚¾–³‚¢ê‡‚Íì¬
+        // ã‚»ã‚«ãƒ³ãƒ€ãƒªãƒãƒƒãƒ•ã‚¡ãŒã¾ã ç„¡ã„å ´åˆã¯ä½œæˆ
         if ( pDSBuffer_ == NULL ) {
             IDirectSoundBuffer*	 ptmpBuf = 0;
             if ( SUCCEEDED( pDS8_->CreateSoundBuffer( &DSBufferDesc_, &ptmpBuf, NULL ) ) ) {
@@ -139,12 +139,12 @@ namespace Dix {
             ptmpBuf->Release();
         }
 
-        // ƒoƒbƒtƒ@‚ğ‰Šú‰»
+        // ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–
         if ( initializeBuffer() == false ) {
             return false;
         }
 
-        // ƒoƒbƒtƒ@ƒRƒs[ƒXƒŒƒbƒh¶¬
+        // ãƒãƒƒãƒ•ã‚¡ã‚³ãƒ”ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰ç”Ÿæˆ
         if ( threadHandle_ == 0 ) {
             threadHandle_ = (unsigned int)_beginthread( PCMPlayer::streamThread, 0, (void*)this );
         }
@@ -154,16 +154,16 @@ namespace Dix {
         return true;
     }
 
-    //! ƒoƒbƒtƒ@‚ğ‰Šú‰»‚·‚é
+    //! ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–ã™ã‚‹
     bool PCMPlayer::initializeBuffer() {
         if ( spPCMDecoder_.GetPtr() == 0 ) {
             return false;
         }
 
-        spPCMDecoder_->setHead();	// “ªo‚µ
+        spPCMDecoder_->setHead();	// é ­å‡ºã—
         pDSBuffer_->SetCurrentPosition( 0 );
 
-        // ƒoƒbƒtƒ@‚ğƒƒbƒN‚µ‚Ä‰Šúƒf[ƒ^‘‚«‚İ
+        // ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ­ãƒƒã‚¯ã—ã¦åˆæœŸãƒ‡ãƒ¼ã‚¿æ›¸ãè¾¼ã¿
         void* AP1 = 0, *AP2 = 0;
         DWORD AB1 = 0, AB2  = 0;
         if ( SUCCEEDED( pDSBuffer_->Lock( 0, 0, &AP1, &AB1, &AP2, &AB2, DSBLOCK_ENTIREBUFFER ) ) ) {
@@ -178,7 +178,7 @@ namespace Dix {
         return true;
     }
 
-    //! ƒXƒgƒŠ[ƒ€Ä¶ƒXƒŒƒbƒh¶¬
+    //! ã‚¹ãƒˆãƒªãƒ¼ãƒ å†ç”Ÿã‚¹ãƒ¬ãƒƒãƒ‰ç”Ÿæˆ
     void PCMPlayer::streamThread( void* playerPtr ) {
         PCMPlayer* player = (PCMPlayer*)playerPtr;
         unsigned int size = player->DSBufferDesc_.dwBufferBytes / 2;
@@ -196,19 +196,19 @@ namespace Dix {
 
         while( player->isTerminate_ == false ) {
             switch ( player->getState() ) {
-            case STATE_PLAY:	// Ä¶’†
-                // ƒXƒgƒŠ[ƒ€Ä¶
-                // Œ»İˆÊ’u‚ğƒ`ƒFƒbƒN
+            case STATE_PLAY:	// å†ç”Ÿä¸­
+                // ã‚¹ãƒˆãƒªãƒ¼ãƒ å†ç”Ÿ
+                // ç¾åœ¨ä½ç½®ã‚’ãƒã‚§ãƒƒã‚¯
                 player->pDSBuffer_->GetCurrentPosition( &point, 0 );
                 if ( flag == 0 && point >= size ) {
-                    // ‘O”¼‚É‘‚«‚İ
+                    // å‰åŠã«æ›¸ãè¾¼ã¿
                     if ( SUCCEEDED( player->pDSBuffer_->Lock( 0, size, &AP1, &AB1, &AP2, &AB2, 0 ) ) ) {
                         player->spPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
                         player->pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
                         flag = 1;
                     }
 
-                    // ÅI‘‚«‚İ‚Ìê‡‚ÍI—¹ˆÊ’u‚ğ“Á’è
+                    // æœ€çµ‚æ›¸ãè¾¼ã¿ã®å ´åˆã¯çµ‚äº†ä½ç½®ã‚’ç‰¹å®š
                     if ( isEnd == true && waitFinish == false ) {
                         finishPos = writeSize;
                         player->pDSBuffer_->GetCurrentPosition( &prePlayPos, 0 );
@@ -216,14 +216,14 @@ namespace Dix {
                     }
                 }
                 else if ( flag == 1 && point < size ) {
-                    // Œã”¼‚É‘‚«‚İ
+                    // å¾ŒåŠã«æ›¸ãè¾¼ã¿
                     if ( SUCCEEDED( player->pDSBuffer_->Lock( size, size * 2, &AP1, &AB1, &AP2, &AB2, 0 ) ) ) {
                         player->spPCMDecoder_->getSegment( (char*)AP1, AB1, &writeSize, &isEnd );
                         player->pDSBuffer_->Unlock( AP1, AB1, AP2, AB2 );
                         flag = 0;
                     }
 
-                    // ÅI‘‚«‚İ‚Ìê‡‚ÍNorify‚ğİ’è
+                    // æœ€çµ‚æ›¸ãè¾¼ã¿ã®å ´åˆã¯Norifyã‚’è¨­å®š
                     if ( isEnd == true && waitFinish == false ) {
                         finishPos = size + writeSize;
                         player->pDSBuffer_->GetCurrentPosition( &prePlayPos, 0 );
@@ -233,7 +233,7 @@ namespace Dix {
                 break;
 
             case STATE_STOP:
-                flag = 0;	// ~‚ß‚é‚Æ‘O”¼‘‚«‚İ‚©‚çn‚Ü‚é‚½‚ß
+                flag = 0;	// æ­¢ã‚ã‚‹ã¨å‰åŠæ›¸ãè¾¼ã¿ã‹ã‚‰å§‹ã¾ã‚‹ãŸã‚
                 isEnd = false;
                 finishPos = 0;
                 prePlayPos = 0;
@@ -246,20 +246,20 @@ namespace Dix {
                 break;
             }
 
-            // I—¹ˆÊ’u”»’èƒ`ƒFƒbƒN
+            // çµ‚äº†ä½ç½®åˆ¤å®šãƒã‚§ãƒƒã‚¯
             if ( isEnd == true ) {
                 DWORD curPlayPos;
                 player->pDSBuffer_->GetCurrentPosition( &curPlayPos, 0 );
                 if ( curPlayPos < prePlayPos ) {
-                    // ƒoƒbƒtƒ@‚ğƒ‹[ƒv‚µ‚½uŠÔ
+                    // ãƒãƒƒãƒ•ã‚¡ã‚’ãƒ«ãƒ¼ãƒ—ã—ãŸç¬é–“
                     //if ( prePlayPos <= finishPos ) {
                     if ( prePlayPos <= finishPos || finishPos <= curPlayPos ) {
-                        // I—¹éŒ¾
+                        // çµ‚äº†å®£è¨€
                         player->stop();
                     }
                 } else {
                     if ( prePlayPos <= finishPos && finishPos <= curPlayPos ) {
-                        // I—¹éŒ¾
+                        // çµ‚äº†å®£è¨€
                         player->stop();
                     }
                 }
@@ -270,7 +270,7 @@ namespace Dix {
         }
     }
 
-    //! Ä¶
+    //! å†ç”Ÿ
     bool PCMPlayer::play( bool isLoop ) {
         if ( isReady() == false ) {
             return false;
@@ -282,20 +282,20 @@ namespace Dix {
         return true;
     }
 
-    //! ˆê’â~
+    //! ä¸€æ™‚åœæ­¢
     void PCMPlayer::pause() {
         if ( state_ == STATE_PLAY ) {
-            // “®‚¢‚Ä‚¢‚½‚ç~‚ß‚é
+            // å‹•ã„ã¦ã„ãŸã‚‰æ­¢ã‚ã‚‹
             pDSBuffer_->Stop();
             state_ = STATE_PAUSE;
         }
         else {
-            // ~‚Ü‚Á‚Ä‚¢‚½‚çÄ¶
+            // æ­¢ã¾ã£ã¦ã„ãŸã‚‰å†ç”Ÿ
             play( isLoop_ );
         }
     }
 
-    //! ’â~
+    //! åœæ­¢
     void PCMPlayer::stop() {
         if ( isReady() == false ) {
             return;
@@ -303,35 +303,35 @@ namespace Dix {
         state_ = STATE_STOP;
         pDSBuffer_->Stop();
 
-        // ƒoƒbƒtƒ@‚Ì“ªo‚µ
+        // ãƒãƒƒãƒ•ã‚¡ã®é ­å‡ºã—
         initializeBuffer();
     }
 
-    //! ‰¹—Ê‚ğ•Ï‚¦‚é
+    //! éŸ³é‡ã‚’å¤‰ãˆã‚‹
     void PCMPlayer::setVolume( int volume ) {
         if ( isReady() == true ) {
             pDSBuffer_->SetVolume( volume );
         }
     }
 
-    //! ƒpƒ“‚ÌˆÊ’u‚ğ•Ï‚¦‚é
+    //! ãƒ‘ãƒ³ã®ä½ç½®ã‚’å¤‰ãˆã‚‹
     void PCMPlayer::setPan( int pan ) {
         if ( isReady() == true ) {
             pDSBuffer_->SetPan( pan );
         }
     }
 
-    //! €”õ‚Å‚«‚½H
+    //! æº–å‚™ã§ããŸï¼Ÿ
     bool PCMPlayer::isReady() {
         return isReady_;
     }
 
-    //! Ä¶’†H
+    //! å†ç”Ÿä¸­ï¼Ÿ
     bool PCMPlayer::isPlaying() {
         return ( state_ == STATE_PLAY );
     }
 
-    //! ó‘Ô‚ğæ“¾
+    //! çŠ¶æ…‹ã‚’å–å¾—
     PCMPlayer::STATE PCMPlayer::getState() {
         return state_;
     }

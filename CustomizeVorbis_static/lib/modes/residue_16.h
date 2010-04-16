@@ -1,4 +1,4 @@
-/********************************************************************
+﻿/********************************************************************
  *                                                                  *
  * This FILE IS PART OF THE OggVorbis SOFTWARE CODEC SOURCE CODE.   *
  * USE, DISTRIBUTION AND REPRODUCTION OF THIS LIBRARY SOURCE IS     *

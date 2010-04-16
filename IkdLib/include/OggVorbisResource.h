@@ -1,4 +1,4 @@
-// OggVorbisResource.h
+ï»¿// OggVorbisResource.h
 //
 
 #ifndef IKD_DIX_OGGVORBISRESOURCE_H
@@ -19,29 +19,29 @@ namespace Dix {
 			clear();
 		}
 
-		// ƒNƒŠƒA
+		// ã‚¯ãƒªã‚¢
 		virtual void clear() {
 		    ov_clear( &oggVorbisFile_ );
 			memset( &oggVorbisFile_, 0, sizeof( OggVorbis_File ) );
 			isReady_ = false;
 		}
 
-		// OggVorbis_File\‘¢‘Ì‚ğæ“¾
+		// OggVorbis_Fileæ§‹é€ ä½“ã‚’å–å¾—
 		virtual OggVorbis_File& getOggVorbisFile() {
 			return oggVorbisFile_;
 		}
 
-		// ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
+		// å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä½œæˆ
 		virtual sp< OggVorbisResource > createClone() = 0;
 
-		// €”õ‚Å‚«‚½H
+		// æº–å‚™ã§ããŸï¼Ÿ
 		bool isReady() {
 			return isReady_;
 		}
 
 	protected:
-		OggVorbis_File	oggVorbisFile_;	// OggVorbis_File\‘¢‘Ì
-		bool			isReady_;		// €”õ‚Å‚«‚½H
+		OggVorbis_File	oggVorbisFile_;	// OggVorbis_Fileæ§‹é€ ä½“
+		bool			isReady_;		// æº–å‚™ã§ããŸï¼Ÿ
 	};
 }
 

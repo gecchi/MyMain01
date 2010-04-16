@@ -15,7 +15,7 @@ public:
     static std::map<std::string, int> mapMaxval;
     static std::map<std::string, int> mapMinval;
     static bool isExist(std::string ID);
-    static int create(std::string ID, int min, int max);
+    static void create(std::string ID, int min, int max);
     static int nextVal(std::string ID);
 };
 

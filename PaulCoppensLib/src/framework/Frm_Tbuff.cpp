@@ -1,4 +1,4 @@
-#include "framework\Frm_Tbuff.h"
+﻿#include "framework\Frm_Tbuff.h"
 
 TBuff* TBuff::_Instance = 0;
 

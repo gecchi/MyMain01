@@ -74,9 +74,10 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             TRACE2("GgafFactory::obtain ＜客＞ こんにちは、["<<prm_id<<"]を取りに来ましたよっと。");
             while (_is_working_flg) {
                 if (pOrder->_progress != 2) {
-                    TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]の製造まだ〜？、2ミリ秒だけ待ったげよう。pOrder->_progress="<<(pOrder->_progress));
-                 ___EndSynchronized; // <----- 排他終了
-                    Sleep(2);
+                    TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]の製造まだ〜？、5ミリ秒だけ待ったげよう。pOrder->_progress="<<(pOrder->_progress));
+                    TEXT("+");
+                    ___EndSynchronized; // <----- 排他終了
+                    Sleep(5);
                  ___BeginSynchronized; // ----->排他開始
                     continue;
                 } else {
@@ -200,7 +201,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //#endif
 
                  ___BeginSynchronized; // ----->排他開始
-                    TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] v(^_^)v");
+                    TRACE2("GgafFactory::work ＜工場＞ 製造完了！["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == NULL) {
                         TRACE2("GgafFactory::work ＜工場＞ ガーン！。せっかく作ったのにキャンセルっすか （´・ω・｀）。破棄します。pObjectをdelete!");
                         DELETE_IMPOSSIBLE_NULL(pObject);

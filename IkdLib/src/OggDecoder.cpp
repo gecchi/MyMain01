@@ -1,4 +1,4 @@
-// OggDecoder.cpp
+ï»¿// OggDecoder.cpp
 //
 
 //#pragma comment ( lib, "ogg_static.lib" )
@@ -10,11 +10,11 @@
 //#include <crtdbg.h>
 
 namespace {
-	const unsigned int requestSize_g = 4096;	// “Ç‚İ‚İ’PˆÊ
+	const unsigned int requestSize_g = 4096;	// èª­ã¿è¾¼ã¿å˜ä½
 }
 
 namespace Dix {
-	//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+	//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	OggDecoder::OggDecoder() {
 	}
 
@@ -22,17 +22,17 @@ namespace Dix {
 		setResource( oggVorbisResource );
 	}
 
-	//! ƒfƒXƒgƒ‰ƒNƒ^
+	//! ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	OggDecoder::~OggDecoder() {
 		clear();
 	}
 
-	//! ƒNƒŠƒA
+	//! ã‚¯ãƒªã‚¢
 	void OggDecoder::clear() {
 		PCMDecoder::clear();
 	}
 
-	//! ƒZƒOƒƒ“ƒgæ“¾
+	//! ã‚»ã‚°ãƒ¡ãƒ³ãƒˆå–å¾—
 	bool OggDecoder::getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd ) {
 		if ( isReady() == false ) {
 			return false;
@@ -57,19 +57,19 @@ namespace Dix {
 
 		if ( size < requestSize ) {
 			requestSize = size;
-			isAdjust = true;	// ’²®’iŠK
+			isAdjust = true;	// èª¿æ•´æ®µéš
 		}
 
 		while( 1 ) {
 			readSize = ov_read( &ovf_, (char*)( buffer + comSize ), requestSize, 0, 2, 1, &bitstream );
 			if ( readSize == 0 ) {
-				// ƒtƒ@ƒCƒ‹ƒGƒ“ƒh‚É’B‚µ‚½
+				// ãƒ•ã‚¡ã‚¤ãƒ«ã‚¨ãƒ³ãƒ‰ã«é”ã—ãŸ
 				if ( isLoop() == true ) {
-					// ƒ‹[ƒv‚·‚éê‡“Ç‚İ‚İˆÊ’u‚ğÅ‰‚É–ß‚·
+					// ãƒ«ãƒ¼ãƒ—ã™ã‚‹å ´åˆèª­ã¿è¾¼ã¿ä½ç½®ã‚’æœ€åˆã«æˆ»ã™
 					ov_time_seek( &ovf_, 0.0 );
 				}
 				else {
-					// ƒ‹[ƒv‚µ‚È‚¢ê‡ƒtƒ@ƒCƒ‹ƒGƒ“ƒh‚É’B‚µ‚½‚çI—¹
+					// ãƒ«ãƒ¼ãƒ—ã—ãªã„å ´åˆãƒ•ã‚¡ã‚¤ãƒ«ã‚¨ãƒ³ãƒ‰ã«é”ã—ãŸã‚‰çµ‚äº†
 					if ( isEnd ) *isEnd = true;
 					if ( writeSize )
 						*writeSize = comSize;
@@ -80,38 +80,38 @@ namespace Dix {
 			comSize += readSize;
 
 //			if (comSize <= size) {
-//				_TRACE_("ƒoƒbƒtƒ@ƒI[ƒo[");
+//				_TRACE_("ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ¼ãƒãƒ¼");
 //			}
-			//_ASSERT( comSize <= size );	// ƒoƒbƒtƒ@ƒI[ƒo[
+			//_ASSERT( comSize <= size );	// ãƒãƒƒãƒ•ã‚¡ã‚ªãƒ¼ãƒãƒ¼
 
 			if ( comSize  >= size ) {
-				// ƒoƒbƒtƒ@‚ğ–„‚ßs‚­‚µ‚½‚Ì‚ÅI—¹
+				// ãƒãƒƒãƒ•ã‚¡ã‚’åŸ‹ã‚å°½ãã—ãŸã®ã§çµ‚äº†
 				if ( writeSize ) *writeSize = comSize;
 				return true;
 			}
 
 			if ( size - comSize < requestSize_g ) {
-				isAdjust = true;	// ’²®’iŠK
+				isAdjust = true;	// èª¿æ•´æ®µéš
 				requestSize = size - comSize;
 			}
 		}
 
 		if ( writeSize ) *writeSize = 0;
-		return false;	// —Ç‚­‚í‚©‚ç‚È‚¢ƒGƒ‰[
+		return false;	// è‰¯ãã‚ã‹ã‚‰ãªã„ã‚¨ãƒ©ãƒ¼
 	}
 
-	//! “ªo‚µ
+	//! é ­å‡ºã—
 	void OggDecoder::setHead() {
 		if ( isReady() == true ) {
 			ov_time_seek( &oggVorbisResource_->getOggVorbisFile(), 0.0 );
 		}
 	}
 
-	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğ¶¬
+	//! å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
 	sp< PCMDecoder > OggDecoder::createClone() {
 		sp< OggDecoder > spObj( new OggDecoder );
 		if ( oggVorbisResource_->isReady() == false ) {
-			return spObj;  // ‹ó‚ğ•Ô‚·
+			return spObj;  // ç©ºã‚’è¿”ã™
 		}
 
 		spObj->setResource( oggVorbisResource_ );
@@ -119,7 +119,7 @@ namespace Dix {
 		return spObj;
 	}
 
-	//! ƒTƒEƒ“ƒh‚ğƒZƒbƒg
+	//! ã‚µã‚¦ãƒ³ãƒ‰ã‚’ã‚»ãƒƒãƒˆ
 	bool OggDecoder::setResource( sp< OggVorbisResource > oggVorbisResource ) {
 
 		clear();
@@ -130,11 +130,11 @@ namespace Dix {
 
 		oggVorbisResource_ = oggVorbisResource->createClone();
 		if ( oggVorbisResource_.GetPtr() == 0 ) {
-			// ƒNƒ[ƒ“ì¬¸”s
+			// ã‚¯ãƒ­ãƒ¼ãƒ³ä½œæˆå¤±æ•—
 			return false;
 		}
 
-		// Ogg‚©‚çŠî–{î•ñ‚ğŠi”[
+		// Oggã‹ã‚‰åŸºæœ¬æƒ…å ±ã‚’æ ¼ç´
 		vorbis_info *info = ov_info( &oggVorbisResource_->getOggVorbisFile(), -1 );
 		setChannelNum( info->channels );
 		setBitRate( 16 );

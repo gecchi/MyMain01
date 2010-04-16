@@ -1,4 +1,4 @@
-// OggVorbisFile.h
+ï»¿// OggVorbisFile.h
 //
 
 #ifndef IKD_DIX_OGGVORBISFILE_H
@@ -16,17 +16,17 @@ namespace Dix {
 
 		virtual ~OggVorbisFile();
 
-		//! ƒNƒŠƒA
+		//! ã‚¯ãƒªã‚¢
 		virtual void clear();
 
-		//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
+		//! å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä½œæˆ
 		virtual sp< OggVorbisResource > createClone();
 
-		//! Oggƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
+		//! Oggãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
 		bool open( const char* filePath );
 
 	protected:
-		char filePath_[ 256 ];	// ƒtƒ@ƒCƒ‹–¼
+		char filePath_[ 256 ];	// ãƒ•ã‚¡ã‚¤ãƒ«å
 	};
 }
 

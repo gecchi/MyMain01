@@ -1,4 +1,4 @@
-// OggVorbisMemory.h
+ï»¿// OggVorbisMemory.h
 //
 
 #ifndef IKD_DIX_OGGVORBISMEMORY_H
@@ -13,33 +13,33 @@ namespace Dix {
 		OggVorbisMemory( const char* filePath );
 		virtual ~OggVorbisMemory();
 
-		//! Oggƒoƒbƒtƒ@‚ğì¬
+		//! Oggãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
 		bool createBuffer( const char* filePath );
 
-		// ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
+		// å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä½œæˆ
 		virtual sp< OggVorbisResource > createClone();
 
-		//! ƒNƒŠƒA
+		//! ã‚¯ãƒªã‚¢
 		virtual void clear();
 
 	protected:
-		//! ƒƒ‚ƒŠ“Ç‚İ‚İ
+		//! ãƒ¡ãƒ¢ãƒªèª­ã¿è¾¼ã¿
 		static size_t read( void* buffer, size_t size, size_t maxCount, void* stream );
 
-		//! ƒƒ‚ƒŠƒV[ƒN
+		//! ãƒ¡ãƒ¢ãƒªã‚·ãƒ¼ã‚¯
 		static int seek( void* buffer, ogg_int64_t offset, int flag );
 
-		//! ƒƒ‚ƒŠƒNƒ[ƒY
+		//! ãƒ¡ãƒ¢ãƒªã‚¯ãƒ­ãƒ¼ã‚º
 		static int close( void* buffer );
 
-		//! ƒƒ‚ƒŠˆÊ’u’Ê’B
+		//! ãƒ¡ãƒ¢ãƒªä½ç½®é€šé”
 		static long tell( void* buffer );
 
 	protected:
-		char		filePath_[ 256 ];	// ƒtƒ@ƒCƒ‹ƒpƒX
-		sp< char >	spBuffer_;			// Oggƒtƒ@ƒCƒ‹ƒoƒbƒtƒ@
-		int			size_;				// ƒoƒbƒtƒ@ƒTƒCƒY
-		long		curPos_;			// Œ»İ‚ÌˆÊ’u
+		char		filePath_[ 256 ];	// ãƒ•ã‚¡ã‚¤ãƒ«ãƒ‘ã‚¹
+		sp< char >	spBuffer_;			// Oggãƒ•ã‚¡ã‚¤ãƒ«ãƒãƒƒãƒ•ã‚¡
+		int			size_;				// ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚º
+		long		curPos_;			// ç¾åœ¨ã®ä½ç½®
 	};
 }
 

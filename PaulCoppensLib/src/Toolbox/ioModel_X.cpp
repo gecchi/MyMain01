@@ -1,4 +1,4 @@
-/////////////////////////////////////////////////////////
+ï»¿/////////////////////////////////////////////////////////
 // IOModel_X.cpp
 // load/save Frame descriptions
 //
@@ -46,29 +46,29 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
 
     fin.read((char*) &XHeader, 16);
 
-    //add tsuge “ú–{ŒêƒGƒ‰[ƒƒbƒZ[ƒW’Ç‰Á
+    //add tsuge æ—¥æœ¬èªã‚¨ãƒ©ãƒ¼ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸è¿½åŠ 
 
     if (XHeader.Magic != XOFFILE_FORMAT_MAGIC) {
         _TRACE_("Not a .X model file or Cant find "<<pFilename<<". Aborted...");
-        throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ"); //add tsuge
+        throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“"); //add tsuge
         return false;
     }
 
     if (XHeader.Major_Version != XOFFILE_FORMAT_VERSION03) {
         _TRACE_("Major version greater than 03. Aborted...");
-        throwGgafCriticalException("–{ƒAƒvƒŠ‚ÍAXƒtƒ@ƒCƒ‹‚ÌƒƒWƒƒ[ƒo[ƒWƒ‡ƒ“‚ª3‚ğ‘z’è‚µ‚Ä‚¢‚Ü‚·B\n‚µ‚©‚µA'"<<active_load_filename<<"'‚Ìƒo[ƒWƒ‡ƒ“‚Í"<<XHeader.Major_Version<<"‚Å‚µ‚½B"); //add tsuge
+        throwGgafCriticalException("æœ¬ã‚¢ãƒ—ãƒªã¯ã€Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ¡ã‚¸ãƒ£ãƒ¼ãƒãƒ¼ã‚¸ãƒ§ãƒ³ãŒ3ã‚’æƒ³å®šã—ã¦ã„ã¾ã™ã€‚\nã—ã‹ã—ã€'"<<active_load_filename<<"'ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯"<<XHeader.Major_Version<<"ã§ã—ãŸã€‚"); //add tsuge
         return false;
     }
 
     if ((XHeader.Minor_Version != XOFFILE_FORMAT_VERSION03)
             && (XHeader.Minor_Version != XOFFILE_FORMAT_VERSION02)) {
         _TRACE_("Minor version greater than 03. Aborted...");
-        throwGgafCriticalException("–{ƒAƒvƒŠ‚ÍAXƒtƒ@ƒCƒ‹‚Ìƒ}ƒCƒi[[ƒWƒ‡ƒ“‚ª 2 or 3 ‚ğ‘z’è‚µ‚Ä‚¢‚Ü‚·B\n‚µ‚©‚µA'"<<active_load_filename<<"'‚Ìƒo[ƒWƒ‡ƒ“‚Í"<<XHeader.Minor_Version<<"‚Å‚µ‚½B"); //add tsuge
+        throwGgafCriticalException("æœ¬ã‚¢ãƒ—ãƒªã¯ã€Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒã‚¤ãƒŠãƒ¼ãƒ¼ã‚¸ãƒ§ãƒ³ãŒ 2 or 3 ã‚’æƒ³å®šã—ã¦ã„ã¾ã™ã€‚\nã—ã‹ã—ã€'"<<active_load_filename<<"'ã®ãƒãƒ¼ã‚¸ãƒ§ãƒ³ã¯"<<XHeader.Minor_Version<<"ã§ã—ãŸã€‚"); //add tsuge
         return false;
     }
 
     if (XHeader.Format != XOFFILE_FORMAT_TEXT) {
-        throwGgafCriticalException("Xƒtƒ@ƒCƒ‹‚Ìƒwƒbƒ_•¶š—ñ‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñB\n‘ÎÛƒtƒ@ƒCƒ‹='"<<active_load_filename<<"'"); //add tsuge
+        throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ˜ãƒƒãƒ€æ–‡å­—åˆ—ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã€‚\nå¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«='"<<active_load_filename<<"'"); //add tsuge
         _TRACE_("Not a text format. Aborted...");
         return false;
     }
@@ -80,7 +80,7 @@ bool ToolBox::IO_Model_X::Load(std::string pFilename, Frm::Model3D* &pT) {
         //_TRACE_("blockid="<<blockid);
         switch (blockid) {
         case X_ERROR:
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹‚ğ³‚µ‚­“Ç‚İ‚ß‚Ü‚¹‚ñ‚Å‚µ‚½B\n‘ÎÛƒtƒ@ƒCƒ‹='"<<active_load_filename<<"'"); //add tsuge
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«ã‚’æ­£ã—ãèª­ã¿è¾¼ã‚ã¾ã›ã‚“ã§ã—ãŸã€‚\nå¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«='"<<active_load_filename<<"'"); //add tsuge
             _TRACE_("Stopped processing the file ...");
             return false;
         case X_COMMENT:
@@ -159,9 +159,9 @@ int16 ToolBox::IO_Model_X::ProcessBlock(void) {
         //_TRACE_("1Text="<<Text<<" len="<<len);
         if (len > 0) {
             char c = Text[len-1];
-            if (c == '{') { //ÅI•¶š
-                // ƒuƒƒbƒN‹æØ‚è•¶š‚ÍƒzƒƒCƒgƒXƒy[ƒX‚Ì‘¼‚É'{'‚à‹æØ‚è‚ÆŒ©‚È‚µ‚½‚¢iƒƒ^ƒZƒRƒAXƒtƒ@ƒCƒ‹‚ª‚»‚ñ‚È‚Ó‚¤‚É‚È‚Á‚Ä‚¢‚éj
-                // "Header {" ‚Å‚à "Header{" ‚Å‚à—¼•ûOK‚Æ‚·‚é‚½‚ßB
+            if (c == '{') { //æœ€çµ‚æ–‡å­—
+                // ãƒ–ãƒ­ãƒƒã‚¯åŒºåˆ‡ã‚Šæ–‡å­—ã¯ãƒ›ãƒ¯ã‚¤ãƒˆã‚¹ãƒšãƒ¼ã‚¹ã®ä»–ã«'{'ã‚‚åŒºåˆ‡ã‚Šã¨è¦‹ãªã—ãŸã„ï¼ˆãƒ¡ã‚¿ã‚»ã‚³ã‚¢Xãƒ•ã‚¡ã‚¤ãƒ«ãŒãã‚“ãªãµã†ã«ãªã£ã¦ã„ã‚‹ï¼‰
+                // "Header {" ã§ã‚‚ "Header{" ã§ã‚‚ä¸¡æ–¹OKã¨ã™ã‚‹ãŸã‚ã€‚
                 Text = string(Text, 0, len-1);
                 token_next = c;
             }
@@ -179,7 +179,7 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
 
     if (pText.empty()) {
         _TRACE_("Error, no block read !");
-        throwGgafCriticalException("Xƒtƒ@ƒCƒ‹‚Ì“Ç‚İ‚İƒuƒƒbƒN‚ª‚ ‚è‚Ü‚¹‚ñB\n‘ÎÛƒtƒ@ƒCƒ‹='"<<active_load_filename<<"'"); //add tsuge
+        throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«ã®èª­ã¿è¾¼ã¿ãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Šã¾ã›ã‚“ã€‚\nå¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«='"<<active_load_filename<<"'"); //add tsuge
         //return X_ERROR;
     }
 
@@ -191,7 +191,7 @@ int16 ToolBox::IO_Model_X::BlockID(std::string &pText) {
         }
     }
     _TRACE_("Unknown Block:" << pText);
-    _TRACE_("Xƒtƒ@ƒCƒ‹‚É‘z’è‚µ‚È‚¢•s–¾‚ÈƒuƒƒbƒN‚ª‚ ‚è‚Ü‚·B–³‹‚³‚ê‚Ü‚·B‘ÎÛƒtƒ@ƒCƒ‹='"<<active_load_filename<<"'\nŠY“–ƒf[ƒ^='"<<pText<<"'"); //add tsuge
+    _TRACE_("Xãƒ•ã‚¡ã‚¤ãƒ«ã«æƒ³å®šã—ãªã„ä¸æ˜ãªãƒ–ãƒ­ãƒƒã‚¯ãŒã‚ã‚Šã¾ã™ã€‚ç„¡è¦–ã•ã‚Œã¾ã™ã€‚å¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«='"<<active_load_filename<<"'\nè©²å½“ãƒ‡ãƒ¼ã‚¿='"<<pText<<"'"); //add tsuge
     return X_UNKNOWN;
 }
 
@@ -245,13 +245,13 @@ char* ToolBox::IO_Model_X::SetUID(char pType) {
 
     _X_UID.Integer = GetTickCount(); //This function return a 4 byte wide number
     _X_UID.Text[4] = pType; //We set the 5th byte with a significant character
-    _X_UID.Text[5] = '\0'; //add tsuge ƒfƒoƒbƒO•\¦—p‚Ì‚½‚ß
+    _X_UID.Text[5] = '\0'; //add tsuge ãƒ‡ãƒãƒƒã‚°è¡¨ç¤ºç”¨ã®ãŸã‚
 
     //If any of the first 4 bytes are under 32 we add 32
     //We want to avoid the occurrence of the char '\0' within
     //the first 4 bytes since this would truncate the text returned.
 
-//tsuge add begin •\¦‰Â”\•¶š‚É
+//tsuge add begin è¡¨ç¤ºå¯èƒ½æ–‡å­—ã«
     _X_UID.Text[0] %= 92;
     _X_UID.Text[1] %= 92;
     _X_UID.Text[2] %= 92;
@@ -335,9 +335,9 @@ void ToolBox::IO_Model_X::ProcessBone(Frm::Bone* pBone) {
         _Object->_Skeletton = _LoadSkeletton;
 
         //add tsuge begin
-        //ìÒ‚ÌƒoƒO‚¾‚Æv‚í‚ê‚éB
-        //_LoadSkeletton‚ªã‘‚«‚³‚ê‚Ä‚¢‚­‚æ‚¤‚Èd‘g‚İ‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚é‚Ì‚ğC³B
-        //‚Æ‚è‚ ‚¦‚¸ list‚É‘Ş”ğ‚·‚éBEEEC³‘O‚Íƒƒ‚ƒŠ[ƒŠ[ƒN‚É‚È‚Á‚Ä‚½‚µB
+        //ä½œè€…ã®ãƒã‚°ã ã¨æ€ã‚ã‚Œã‚‹ã€‚
+        //_LoadSkelettonãŒä¸Šæ›¸ãã•ã‚Œã¦ã„ãã‚ˆã†ãªä»•çµ„ã¿ã«ãªã£ã¦ã—ã¾ã£ã¦ã„ã‚‹ã®ã‚’ä¿®æ­£ã€‚
+        //ã¨ã‚Šã‚ãˆãš listã«é€€é¿ã™ã‚‹ã€‚ãƒ»ãƒ»ãƒ»ä¿®æ­£å‰ã¯ãƒ¡ãƒ¢ãƒªãƒ¼ãƒªãƒ¼ã‚¯ã«ãªã£ã¦ãŸã—ã€‚
         _Object->_toplevel_Skelettons.push_back(cBone);
         //add tsuge end
 
@@ -391,30 +391,30 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
     _LoadMesh = NEW Frm::Mesh;
     if (!_Object->_Meshes.empty()) {
         Frm::Mesh* LastMesh = _Object->_Meshes.back();
-        //add tsuge ƒGƒ‰[ƒ`ƒFƒbƒN‚ğ’Ç‰ÁB
+        //add tsuge ã‚¨ãƒ©ãƒ¼ãƒã‚§ãƒƒã‚¯ã‚’è¿½åŠ ã€‚
         _LoadMesh->_FirstVertex = LastMesh->_FirstVertex + LastMesh->_nVertices;
         if (65535 < ((int)LastMesh->_FirstVertex + (int)LastMesh->_nVertices)) {
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'“Ç‚İ‚İ’†A_FirstVertex ‚ª 65535‚ğ’´‚¦‚½‚©‚à‚µ‚ê‚Ü‚¹‚ñB\n’¸“_”‚ª‘½‚¢‚Ì‚Å‰½‚Æ‚©‚µ‚Ä‚­‚¾‚³‚¢B");
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'èª­ã¿è¾¼ã¿ä¸­ã€_FirstVertex ãŒ 65535ã‚’è¶…ãˆãŸã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚\né ‚ç‚¹æ•°ãŒå¤šã„ã®ã§ä½•ã¨ã‹ã—ã¦ãã ã•ã„ã€‚");
         }
         _LoadMesh->_FirstFace = LastMesh->_FirstFace + LastMesh->_nFaces;
         if (65535 < ((int)LastMesh->_FirstFace + (int)LastMesh->_nFaces)) {
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'“Ç‚İ‚İ’†A_FirstFace ‚ª 65535‚ğ’´‚¦‚½‚©‚à‚µ‚ê‚Ü‚¹‚ñB\n’¸“_ƒCƒ“ƒfƒbƒNƒXi–Êj”‚ª‘½‚¢‚Ì‚Å‰½‚Æ‚©‚µ‚Ä‚­‚¾‚³‚¢B");
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'èª­ã¿è¾¼ã¿ä¸­ã€_FirstFace ãŒ 65535ã‚’è¶…ãˆãŸã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚\né ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼ˆé¢ï¼‰æ•°ãŒå¤šã„ã®ã§ä½•ã¨ã‹ã—ã¦ãã ã•ã„ã€‚");
         }
         _LoadMesh->_FirstTextureCoord = LastMesh->_FirstTextureCoord
                 + LastMesh->_nTextureCoords;
         if (65535 < ((int)LastMesh->_FirstTextureCoord + (int)LastMesh->_nTextureCoords)) {
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'“Ç‚İ‚İ’†A_FirstTextureCoord ‚ª 65535‚ğ’´‚¦‚½‚©‚à‚µ‚ê‚Ü‚¹‚ñB\nƒeƒNƒXƒ`ƒƒUVÀ•W”‚ª‘½‚¢‚Ì‚Å‰½‚Æ‚©‚µ‚Ä‚­‚¾‚³‚¢B");
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'èª­ã¿è¾¼ã¿ä¸­ã€_FirstTextureCoord ãŒ 65535ã‚’è¶…ãˆãŸã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚\nãƒ†ã‚¯ã‚¹ãƒãƒ£UVåº§æ¨™æ•°ãŒå¤šã„ã®ã§ä½•ã¨ã‹ã—ã¦ãã ã•ã„ã€‚");
         }
         _LoadMesh->_FirstMaterial = LastMesh->_FirstMaterial
                 + LastMesh->_nMaterials;
         if (65535 < ((int)LastMesh->_FirstMaterial + (int)LastMesh->_nMaterials)) {
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'“Ç‚İ‚İ’†A_FirstMaterial ‚ª 65535‚ğ’´‚¦‚½‚©‚à‚µ‚ê‚Ü‚¹‚ñB\nƒ}ƒeƒŠƒAƒ‹”‚ª‘½‚¢‚Ì‚Å‰½‚Æ‚©‚µ‚Ä‚­‚¾‚³‚¢B");
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'èª­ã¿è¾¼ã¿ä¸­ã€_FirstMaterial ãŒ 65535ã‚’è¶…ãˆãŸã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚\nãƒãƒ†ãƒªã‚¢ãƒ«æ•°ãŒå¤šã„ã®ã§ä½•ã¨ã‹ã—ã¦ãã ã•ã„ã€‚");
         }
         if (_LoadMesh->_FirstTextureCoord < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstTextureCoord = _LoadMesh->_FirstVertex;
         _LoadMesh->_FirstNormal = LastMesh->_FirstNormal + LastMesh->_nNormals;
         if (65535 < ((int)LastMesh->_FirstNormal + (int)LastMesh->_nNormals)) {
-            throwGgafCriticalException("Xƒtƒ@ƒCƒ‹'"<<active_load_filename<<"'“Ç‚İ‚İ’†A_FirstNormal ‚ª 65535‚ğ’´‚¦‚½‚©‚à‚µ‚ê‚Ü‚¹‚ñB\n–@ü”‚ª‘½‚¢‚Ì‚Å‰½‚Æ‚©‚µ‚Ä‚­‚¾‚³‚¢B");
+            throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«'"<<active_load_filename<<"'èª­ã¿è¾¼ã¿ä¸­ã€_FirstNormal ãŒ 65535ã‚’è¶…ãˆãŸã‹ã‚‚ã—ã‚Œã¾ã›ã‚“ã€‚\næ³•ç·šæ•°ãŒå¤šã„ã®ã§ä½•ã¨ã‹ã—ã¦ãã ã•ã„ã€‚");
         }
         if (_LoadMesh->_FirstNormal < _LoadMesh->_FirstVertex)
             _LoadMesh->_FirstNormal = _LoadMesh->_FirstVertex;
@@ -433,7 +433,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
         _LoadMesh->_Name = SetUID('M');
 
     Find('{');
-    _TRACE_("Mesh:u" << _LoadMesh->_Name<<"v");
+    _TRACE_("Mesh:ã€Œ" << _LoadMesh->_Name<<"ã€");
 
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nVertices = (uint16) TextToNum(Data);
@@ -469,9 +469,9 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
 //    }
 
 //add tsuge
-//4’¸“_ƒCƒ“ƒfƒbƒNƒX‚É‚æ‚éFacew’è‚É‘Î‰
+//4é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«ã‚ˆã‚‹FaceæŒ‡å®šã«å¯¾å¿œ
 //4;0,1,2,3;
-//‚Ìê‡‚ÍA0,1,2 ‚Æ 0,2,3 ‚É•ªŠ„
+//ã®å ´åˆã¯ã€0,1,2 ã¨ 0,2,3 ã«åˆ†å‰²
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaces = (uint16) TextToNum(Data);
     _TRACE_("Before Number of Faces:" << _LoadMesh->_nFaces);
@@ -509,7 +509,7 @@ void ToolBox::IO_Model_X::ProcessMesh(void) {
             n++;
             _LoadMesh->_nFaces = _LoadMesh->_nFaces + 1;
         } else {
-            _TRACE_("‚¨‚©‚µ‚¢ face_vtx_num = "<<face_vtx_num);
+            _TRACE_("ãŠã‹ã—ã„ face_vtx_num = "<<face_vtx_num);
         }                               //add tsuge end
         n++;
     }
@@ -599,7 +599,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //        fin.get();//eats the comma or the semicolon at the end
 //    }
 //
-//    Find(';'); //add gecchi 2009/03/01 face”‚ğ“Ç‚İ”ò‚Î‚·‚½‚ß‚É’Ç‰ÁB‹°‚ç‚­ìÒ‚ÌƒoƒOB
+//    Find(';'); //add gecchi 2009/03/01 faceæ•°ã‚’èª­ã¿é£›ã°ã™ãŸã‚ã«è¿½åŠ ã€‚æã‚‰ãä½œè€…ã®ãƒã‚°ã€‚
 //
 //    _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces];
 //    for (int i = 0; i < _LoadMesh->_nFaces; i++) {
@@ -615,7 +615,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
 //    }
 
     //add tsuge
-    //4’¸“_‚É‚æ‚é–@üƒCƒ“ƒfƒbƒNƒX‚É‘Î‰
+    //4é ‚ç‚¹ã«ã‚ˆã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã«å¯¾å¿œ
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nNormals = (uint16) TextToNum(Data);
     _TRACE_("Number of normals :" << _LoadMesh->_nNormals);
@@ -633,7 +633,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nFaceNormals = TextToNum(Data);
     _TRACE_("Before Number of normals index :" << _LoadMesh->_nFaceNormals);
-    _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces]; //NEW Frm::Face[_LoadMesh->_nFaceNormals] ‚ÆŠÔˆá‚¦‚Ä‚Í‚¢‚È‚¢B
+    _LoadMesh->_FaceNormals = NEW Frm::Face[_LoadMesh->_nFaces]; //NEW Frm::Face[_LoadMesh->_nFaceNormals] ã¨é–“é•ãˆã¦ã¯ã„ãªã„ã€‚
     int face_vtx_num;
     int n = 0;
     for (int i = 0; i < _LoadMesh->_nFaceNormals; i++) {
@@ -661,7 +661,7 @@ void ToolBox::IO_Model_X::ProcessMeshNormals(void) {
             fin.get(); //eats either the comma or the semicolon at the end of each face description
             n++;
         } else {
-            _TRACE_("‚¨‚©‚µ‚¢ face_vtx_num = "<<face_vtx_num);
+            _TRACE_("ãŠã‹ã—ã„ face_vtx_num = "<<face_vtx_num);
         }
         n++;
     }
@@ -704,7 +704,7 @@ void ToolBox::IO_Model_X::ProcessMeshMaterials(void) {
 //    fin.get(); //eats the last semicolon
 
 //add tsuge
-//4’¸“_ƒCƒ“ƒfƒbƒNƒX‚ÌFacew’è‘Î‰‚É‚æ‚éAƒ}ƒeƒŠƒAƒ‹ƒOƒ‹[ƒvƒŠƒXƒg‚Ì‚¸‚ê‚ğ•â³
+//4é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ã®FaceæŒ‡å®šå¯¾å¿œã«ã‚ˆã‚‹ã€ãƒãƒ†ãƒªã‚¢ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ãƒªã‚¹ãƒˆã®ãšã‚Œã‚’è£œæ­£
     fin.getline(Data, TEXT_BUFFER, ';');
     _LoadMesh->_nMaterials = (uint16) TextToNum(Data);
 
@@ -1077,7 +1077,7 @@ void ToolBox::IO_Model_X::ProcessAnimationKeys(Frm::Animation* &pA) {
         break;
     default:
         _TRACE_("Unknown Type" << Type << " ...");
-        throwGgafCriticalException("Xƒtƒ@ƒCƒ‹‚É‘z’è‚µ‚È‚¢•s–¾‚È ANIMATION KEY ‚Ìƒ^ƒCƒv‚ª‚ ‚è‚Ü‚·B\n‘ÎÛƒtƒ@ƒCƒ‹='"<<active_load_filename<<"'\nŠY“–ƒf[ƒ^='"<<Type<<"'"); //add tsuge
+        throwGgafCriticalException("Xãƒ•ã‚¡ã‚¤ãƒ«ã«æƒ³å®šã—ãªã„ä¸æ˜ãª ANIMATION KEY ã®ã‚¿ã‚¤ãƒ—ãŒã‚ã‚Šã¾ã™ã€‚\nå¯¾è±¡ãƒ•ã‚¡ã‚¤ãƒ«='"<<active_load_filename<<"'\nè©²å½“ãƒ‡ãƒ¼ã‚¿='"<<Type<<"'"); //add tsuge
         break;
     }
 
