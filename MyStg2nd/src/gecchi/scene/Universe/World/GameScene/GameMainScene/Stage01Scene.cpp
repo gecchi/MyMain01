@@ -22,8 +22,8 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 
     _angCamZX_prev = 0;
     _angCamXY_prev = 0;
-
-    _pBgmCon_st1 = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect("VIRTUAL_ON_11");
+    prepareBgm(0, "VIRTUAL_ON_11");
+    prepareBgm(1, "VIRTUAL_ON_09");
     //GameMainSceneが解除してくれる
     setProgress(STAGE01_PROG_INIT);
 }
@@ -43,13 +43,14 @@ void Stage01Scene::processBehavior() {
     }
     if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
 
-        _pBgmCon_st1->view()->play(true);
+        playBgm(0, DSBVOLUME_MIN, true);
+        fadeinBgm(0, 300);
         _dwFrame_Begin = 0;
-    } else if (getProgress() == GAMEDEMO_PROG_BEGIN) {
+    } else if (getProgress() == STAGE01_PROG_BEGIN) {
         //タイトル活動ループ
         _dwFrame_Begin++;
 
-        if (_dwFrame_Begin == 120) { //ステージ１開始！
+        if (_dwFrame_Begin == 180) { //ステージ１開始！
             _pBackGround01->activateTree();
 //            _pBackGroundStar->activateTree();
             _pScene_Stage01Main->activate();
@@ -83,7 +84,12 @@ void Stage01Scene::processBehavior() {
 
 
     }
+    if (getPartFrame() == 60*60) {
+        fadeoutBgm(0, 300);
 
+        playBgm(1, DSBVOLUME_MIN, true);
+        fadeinBgm(1, 300);
+    }
 
 
 }
@@ -96,5 +102,4 @@ void Stage01Scene::processFinal() {
 }
 
 Stage01Scene::~Stage01Scene() {
-    _pBgmCon_st1->close();
 }
