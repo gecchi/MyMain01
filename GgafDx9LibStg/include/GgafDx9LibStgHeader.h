@@ -1,4 +1,4 @@
-#ifndef GGAFDX9LIBSTGHEADER_H_
+﻿#ifndef GGAFDX9LIBSTGHEADER_H_
 #define GGAFDX9LIBSTGHEADER_H_
 #include "GgafDx9CommonHeader.h"
 

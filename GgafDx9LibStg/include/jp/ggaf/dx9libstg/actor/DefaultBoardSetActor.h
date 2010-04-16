@@ -1,10 +1,10 @@
-#ifndef DEFAULTBOARDSETACTOR_H_
+﻿#ifndef DEFAULTBOARDSETACTOR_H_
 #define DEFAULTBOARDSETACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ���W�ϊ��ς݃X�v���C�g�A�N�^�[�̋�ۃN���X.
- * GgafDx9Core::GgafDx9BoardSetActor �������������ۃA�N�^�[�ł��B
+ * 座標変換済みスプライトアクターの具象クラス.
+ * GgafDx9Core::GgafDx9BoardSetActor を空実装した具象アクターです。
  * @version 1.00
  * @since 2009/07/21
  * @author Masatoshi Tsuge

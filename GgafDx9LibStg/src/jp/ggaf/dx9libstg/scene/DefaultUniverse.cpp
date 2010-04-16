@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,8 +7,8 @@ using namespace GgafDx9LibStg;
 DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_name) {
     _class_name = "DefaultUniverse";
 #ifdef MY_DEBUG
-    CubeEx::get();   //“–‚½‚è”»’è—Ìˆæ•\¦—p’¼•û‘ÌAƒvƒŠƒ[ƒh
-    SphereEx::get(); //“–‚½‚è”»’è—Ìˆæ•\¦—p‹…AƒvƒŠƒ[ƒh
+    CubeEx::get();   //å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè¡¨ç¤ºç”¨ç›´æ–¹ä½“ã€ãƒ—ãƒªãƒ­ãƒ¼ãƒ‰
+    SphereEx::get(); //å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè¡¨ç¤ºç”¨çƒã€ãƒ—ãƒªãƒ­ãƒ¼ãƒ‰
 #endif
 
     _pLinearOctree = NEW LinearOctreeForActor(6);
@@ -28,7 +28,7 @@ DefaultUniverse::DefaultUniverse(const char* prm_name) : GgafDx9Universe(prm_nam
 //    GgafLinearOctree<GgafDx9GeometricActor>::Elem* pElem = NEW GgafLinearOctree<GgafDx9GeometricActor>::Elem(this);
 //    pLinearOctree->registElem(pElem, 1000,1000,1000,1500,1500,1500);
 //
-//    _TRACE_("----------------------------------------------------------------”ª•ª–Ø")
+//    _TRACE_("----------------------------------------------------------------å…«åˆ†æœ¨")
 //    pLinearOctree->putTree();
 }
 
@@ -50,7 +50,7 @@ void DefaultUniverse::processFinal() {
 //        _pLinearOctree->putTree();
 //    }
 
-//    //ƒ‹[ƒgƒV[ƒ“‚ğXV
+//    //ãƒ«ãƒ¼ãƒˆã‚·ãƒ¼ãƒ³ã‚’æ›´æ–°
 //    float x1,y1,z1,x2,y2,z2;
 //    x1 = y1 = z1 = x2 = y2 = z2 = 0.0f;
 //    D3DXVECTOR3* pVecNear;

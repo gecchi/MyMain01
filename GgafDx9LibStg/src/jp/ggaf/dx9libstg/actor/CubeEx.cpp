@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -18,7 +18,7 @@ CubeEx* CubeEx::get() {
 }
 
 void CubeEx::release() {
-    //‚ ‚½‚è”»’è‚ðŽ‚ÂƒIƒuƒWƒFƒNƒg‚ªˆê“x‚àŽg—p‚³‚ê‚È‚¢‚ÆNULL‚©‚à‚µ‚ê‚È‚¢
+    //ã‚ãŸã‚Šåˆ¤å®šã‚’æŒã¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒä¸€åº¦ã‚‚ä½¿ç”¨ã•ã‚Œãªã„ã¨NULLã‹ã‚‚ã—ã‚Œãªã„
     DELETE_POSSIBLE_NULL(CubeEx::_pObj);
 }
 
@@ -44,7 +44,7 @@ void CubeEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
                             pActor->_X + box->_x2,
                             pActor->_Y + box->_y2,
                             pActor->_Z + box->_z2);
-                    GgafGod::_num_actor_drawing--; //“–‚½‚è”»’è•\Ž¦‚Í•\Ž¦ƒIƒuƒWƒFƒNƒg”‚ÉƒJƒEƒ“ƒg‚µ‚È‚¢
+                    GgafGod::_num_actor_drawing--; //å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºã¯è¡¨ç¤ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã«ã‚«ã‚¦ãƒ³ãƒˆã—ãªã„
                 }
             }
         }

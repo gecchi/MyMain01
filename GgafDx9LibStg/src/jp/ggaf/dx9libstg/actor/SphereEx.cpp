@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -18,7 +18,7 @@ SphereEx* SphereEx::get() {
 }
 
 void SphereEx::release() {
-    //‚ ‚½‚è”»’è‚ðŽ‚ÂƒIƒuƒWƒFƒNƒg‚ªˆê“x‚àŽg—p‚³‚ê‚È‚¢‚ÆNULL‚©‚à‚µ‚ê‚È‚¢
+    //ã‚ãŸã‚Šåˆ¤å®šã‚’æŒã¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒä¸€åº¦ã‚‚ä½¿ç”¨ã•ã‚Œãªã„ã¨NULLã‹ã‚‚ã—ã‚Œãªã„
     DELETE_POSSIBLE_NULL(SphereEx::_pObj);
 }
 
@@ -41,7 +41,7 @@ void SphereEx::drawHitarea(CollisionChecker* prm_pCollisionChecker) {
                                 pActor->_Y + sphere->_y,
                                 pActor->_Z + sphere->_z,
                                 sphere->_r);
-                    GgafGod::_num_actor_drawing--; //“–‚½‚è”»’è•\Ž¦‚Í•\Ž¦ƒIƒuƒWƒFƒNƒg”‚ÉƒJƒEƒ“ƒg‚µ‚È‚¢
+                    GgafGod::_num_actor_drawing--; //å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºã¯è¡¨ç¤ºã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã«ã‚«ã‚¦ãƒ³ãƒˆã—ãªã„
                 }
             }
         }

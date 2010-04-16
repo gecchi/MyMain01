@@ -1,22 +1,22 @@
-#ifndef COLLISPHERE_H_
+ï»¿#ifndef COLLISPHERE_H_
 #define COLLISPHERE_H_
 namespace GgafDx9LibStg {
 
 /**
- * ‹…“–‚½‚è”»’è—v‘fƒNƒ‰ƒX
+ * çƒå½“ãŸã‚Šåˆ¤å®šè¦ç´ ã‚¯ãƒ©ã‚¹
  * @version 1.00
  * @since 2010/01/17
  * @author Masatoshi Tsuge
  */
 class ColliSphere : public GgafDx9Core::GgafDx9CollisionPart {
 public:
-    /** xÀ•W */
+    /** xåº§æ¨™ */
     int _x;
-    /** yÀ•W */
+    /** yåº§æ¨™ */
     int _y;
-    /** zÀ•W */
+    /** zåº§æ¨™ */
     int _z;
-    /** ”¼Œa */
+    /** åŠå¾„ */
     int _r;
 
     ColliSphere();

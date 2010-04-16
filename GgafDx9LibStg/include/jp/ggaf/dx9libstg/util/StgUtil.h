@@ -1,4 +1,4 @@
-#ifndef STGUTIL_H_
+﻿#ifndef STGUTIL_H_
 #define STGUTIL_H_
 namespace GgafDx9LibStg {
 

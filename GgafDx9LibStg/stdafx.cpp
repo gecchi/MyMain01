@@ -1,7 +1,7 @@
-// stdafx.cpp : �W���C���N���[�h MySTG2nd.pch �݂̂�
-// �܂ރ\�[�X �t�@�C���́A�v���R���p�C���ς݃w�b�_�[�ɂȂ�܂��B
-// stdafx.obj �ɂ̓v���R���p�C���ς݌^��񂪊܂܂�܂��B
+﻿// stdafx.cpp : 標準インクルード MySTG2nd.pch のみを
+// 含むソース ファイルは、プリコンパイル済みヘッダーになります。
+// stdafx.obj にはプリコンパイル済み型情報が含まれます。
 
 #include "stdafx.h"
 
-// �ǉ��w�b�_�[���Q�Ƃ��Ă��������B
+// 追加ヘッダーを参照してください。

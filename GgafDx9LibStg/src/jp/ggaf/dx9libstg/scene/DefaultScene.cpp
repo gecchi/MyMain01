@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,6 +11,6 @@ DefaultScene::DefaultScene(const char* prm_name) : GgafDx9Scene(prm_name) {
 }
 
 DefaultScene::~DefaultScene() {
-    //ƒV[ƒ“‚ÉƒCƒxƒ“ƒg‚ª–³‚¢‚©‚à‚µ‚ê‚È‚¢
+    //ã‚·ãƒ¼ãƒ³ã«ã‚¤ãƒ™ãƒ³ãƒˆãŒç„¡ã„ã‹ã‚‚ã—ã‚Œãªã„
     DELETEARR_POSSIBLE_NULL(_paFrame_NextEvent);
 }

@@ -1,10 +1,10 @@
-#ifndef SPRITEMESHSETACTOR_H_
+ï»¿#ifndef SPRITEMESHSETACTOR_H_
 #define SPRITEMESHSETACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ƒƒbƒVƒ…ƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
- * GgafDx9Core::GgafDx9SpriteMeshSetActor ‚ğ‹óÀ‘•‚µ‚½‹ïÛƒAƒNƒ^[‚Å‚·B
+ * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
+ * GgafDx9Core::GgafDx9SpriteMeshSetActor ã‚’ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
  * @version 1.00
  * @since 2010/02/09
  * @author Masatoshi Tsuge
@@ -12,15 +12,15 @@ namespace GgafDx9LibStg {
 class SpriteMeshSetActor : public GgafDx9Core::GgafDx9SpriteMeshSetActor {
 
 public:
-    /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
+    /** æ‹¡å¤§ç¸®å°æ”¯æ´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
     DWORD _frame_offset;
 
     CollisionChecker* _pCollisionChecker;
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * DefaultMeshSetActor ‚Åg—p‚·‚éƒ‚ƒfƒ‹ID‚Í”ğ‚¯‚Ä‰º‚³‚¢B
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * DefaultMeshSetActor ã§ä½¿ç”¨ã™ã‚‹ãƒ¢ãƒ‡ãƒ«IDã¯é¿ã‘ã¦ä¸‹ã•ã„ã€‚
      * @param prm_name
      * @param prm_model
      * @return

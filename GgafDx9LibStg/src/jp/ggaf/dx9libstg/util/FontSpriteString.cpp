@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -28,9 +28,9 @@ void FontSpriteString::draw(int prm_X, int prm_Y, int prm_Z, string prm_string) 
 //				continue;
 //			} else {
 //				if (paChar[i] - ' ' < 0) {
-//					_papFontSpriteActor[i]->_pattno_uvflip_now = (' ' - ' '); //�͈͊O�͋�
+//					_papFontSpriteActor[i]->_pattno_uvflip_now = (' ' - ' '); //範囲外は空白
 //				}
-//				_papFontSpriteActor[i]->_pattno_uvflip_now = (paChar[i] - ' '); //�ʏ핶����
+//				_papFontSpriteActor[i]->_pattno_uvflip_now = (paChar[i] - ' '); //通常文字列
 //			}
 //		} else {
 //			break;

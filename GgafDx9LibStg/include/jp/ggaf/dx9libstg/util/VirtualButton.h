@@ -1,4 +1,4 @@
-#ifndef VBRTUALBUTTON_H_
+ï»¿#ifndef VBRTUALBUTTON_H_
 #define VBRTUALBUTTON_H_
 
 typedef map<string, int> keymap;
@@ -48,7 +48,7 @@ namespace GgafDx9LibStg {
 
 
 /**
- * ‰¼‘zƒ{ƒ^ƒ“ .
+ * ä»®æƒ³ãƒœã‚¿ãƒ³ .
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
@@ -95,8 +95,8 @@ public:
 
     class VBMap {
     public :
-        VBMap* _next; //Œn—ñ‚ÅŸ‚ÌƒtƒŒ[ƒ€‚Ì“ü—Íó‘Ô
-        VBMap* _prev; //Œn—ñ‚Å‘O‚ÌƒtƒŒ[ƒ€‚Ì“ü—Íó‘Ô
+        VBMap* _next; //æ™‚ç³»åˆ—ã§æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®å…¥åŠ›çŠ¶æ…‹
+        VBMap* _prev; //æ™‚ç³»åˆ—ã§å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã®å…¥åŠ›çŠ¶æ…‹
 
         vbsta _state;
 
@@ -112,9 +112,9 @@ public:
 
     static keymap _mapDIK;
 
-    static VBMap* _pVBMap_Active; //Œ»İƒtƒŒ[ƒ€‚Ì“ü—Íó‘Ô
+    static VBMap* _pVBMap_Active; //ç¾åœ¨ãƒ•ãƒ¬ãƒ¼ãƒ ã®å…¥åŠ›çŠ¶æ…‹
 
-    static VBMap* _pVBMap_Reset; //“ü—Íó‘Ô‚ğƒŠƒZƒbƒg‚·‚éˆÊ’u
+    static VBMap* _pVBMap_Reset; //å…¥åŠ›çŠ¶æ…‹ã‚’ãƒªã‚»ãƒƒãƒˆã™ã‚‹ä½ç½®
 
     static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
@@ -166,8 +166,8 @@ public:
     }
 
     /**
-     * Œ»İ‰Ÿ‚µ‚Á‚Ï‚È‚µ‚ÌƒXƒeƒBƒbƒN‚Ì”Ô†‚ğ•Ô‚·B
-     * @return Ÿ‚Ì‰½‚ê‚©
+     * ç¾åœ¨æŠ¼ã—ã£ã±ãªã—ã®ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ç•ªå·ã‚’è¿”ã™ã€‚
+     * @return æ¬¡ã®ä½•ã‚Œã‹
      * VB_UP_STC
      * VB_UP_RIGHT_STC
      * VB_RIGHT_STC
@@ -181,8 +181,8 @@ public:
     static vbsta getBeingPressedStick();
 
     /**
-     * ¡PushedDownƒXƒeƒBƒbƒN‚Ì”Ô†‚ğ•Ô‚·B
-     * @return Ÿ‚Ì‰½‚ê‚©
+     * ä»ŠPushedDownã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ç•ªå·ã‚’è¿”ã™ã€‚
+     * @return æ¬¡ã®ä½•ã‚Œã‹
      * VB_UP_STC
      * VB_UP_RIGHT_STC
      * VB_RIGHT_STC
@@ -202,8 +202,8 @@ public:
     static bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay=30);
 
 //    /**
-//     * ¡Aprm_VB1‚Æ“¯‚ÉPushedDown‚³‚ê‚½ƒXƒeƒBƒbƒN‚Ì”Ô†‚ğ•Ô‚·B
-//     * @return Ÿ‚Ì‰½‚ê‚©
+//     * ä»Šã€prm_VB1ã¨åŒæ™‚ã«PushedDownã•ã‚ŒãŸã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ç•ªå·ã‚’è¿”ã™ã€‚
+//     * @return æ¬¡ã®ä½•ã‚Œã‹
 //     * VB_UP_STC
 //     * VB_UP_RIGHT_STC
 //     * VB_RIGHT_STC

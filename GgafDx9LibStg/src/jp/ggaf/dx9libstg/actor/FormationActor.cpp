@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,13 +16,13 @@ FormationActor::FormationActor(const char* prm_name, DWORD prm_frame_offset_sayo
 void FormationActor::addSubLast(GgafActor* prm_pSub) {
 
     if (_pSubFirst == NULL) {
-        //éÌï Çà¯Ç´åpÇÆ
+        //Á®ÆÂà•„ÇíÂºï„ÅçÁ∂ô„Åê
         _pStatus->set(STAT_DEFAULT_ACTOR_KIND, prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND));
     } else {
         if (_pStatus->get(STAT_DEFAULT_ACTOR_KIND) != prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)) {
-            throwGgafCriticalException("GgafActorDispatcher::addSubLast àŸÇ»ÇÈéÌï ÇÃÉAÉNÉ^Å[Çìoò^ÇµÇÊÇ§Ç∆ÇµÇƒÇ¢Ç‹Ç∑ÅB \n"<<
-                                       "ëzíË="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
-                                       "à¯êî="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
+            throwGgafCriticalException("GgafActorDispatcher::addSubLast Áï∞„Å™„ÇãÁ®ÆÂà•„ÅÆ„Ç¢„ÇØ„Çø„Éº„ÇíÁôªÈå≤„Åó„Çà„ÅÜ„Å®„Åó„Å¶„ÅÑ„Åæ„Åô„ÄÇ \n"<<
+                                       "ÊÉ≥ÂÆö="<<_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"[_pSubFirst="<<_pSubFirst->getName()<<"] \n"<<
+                                       "ÂºïÊï∞="<<prm_pSub->_pStatus->get(STAT_DEFAULT_ACTOR_KIND)<<"["<<prm_pSub->getName()<<"]");
         }
     }
     GgafDx9GeometricActor::addSubLast(prm_pSub);

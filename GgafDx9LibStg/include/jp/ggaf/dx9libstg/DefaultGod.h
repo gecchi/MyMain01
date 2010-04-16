@@ -1,4 +1,4 @@
-#ifndef DEFAULTGOD_H_
+﻿#ifndef DEFAULTGOD_H_
 #define DEFAULTGOD_H_
 namespace GgafDx9LibStg {
 

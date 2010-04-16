@@ -1,10 +1,10 @@
-#ifndef FONTSPRITEACTOR_H_
+ï»¿#ifndef FONTSPRITEACTOR_H_
 #define FONTSPRITEACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * FontSpriteString —pƒXƒvƒ‰ƒCƒgƒNƒ‰ƒX.
- * FontSpriteString ‚ª“à•”‚Å—˜—p‚·‚éƒNƒ‰ƒX‚Å‚·B<BR>
+ * FontSpriteString ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¯ãƒ©ã‚¹.
+ * FontSpriteString ãŒå†…éƒ¨ã§åˆ©ç”¨ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR>
  * @version 1.00
  * @since 2008/04/09
  * @author Masatoshi Tsuge

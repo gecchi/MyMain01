@@ -1,10 +1,10 @@
-#ifndef SPRITEMESHACTOR_H_
+ï»¿#ifndef SPRITEMESHACTOR_H_
 #define SPRITEMESHACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ƒƒbƒVƒ…ƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
- * GgafDx9Core::GgafDx9SpriteMeshActor ‚ğ‹óÀ‘•‚µ‚½‹ïÛƒAƒNƒ^[‚Å‚·B
+ * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
+ * GgafDx9Core::GgafDx9SpriteMeshActor ã‚’ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
  * @version 1.00
  * @since 2010/02/09
  * @author Masatoshi Tsuge
@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class SpriteMeshActor : public GgafDx9Core::GgafDx9SpriteMeshActor {
 
 public:
-    /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
+    /** æ‹¡å¤§ç¸®å°æ”¯æ´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
     DWORD _frame_offset;

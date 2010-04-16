@@ -1,9 +1,9 @@
-#ifndef GEOMETRYCHAIN_H_
+ï»¿#ifndef GEOMETRYCHAIN_H_
 #define GEOMETRYCHAIN_H_
 namespace GgafDx9LibStg {
 
 /**
- * À•WƒRƒ“ƒeƒi˜AŒ‹ƒŠƒXƒgƒNƒ‰ƒX
+ * åº§æ¨™ã‚³ãƒ³ãƒ†ãƒŠé€£çµãƒªã‚¹ãƒˆã‚¯ãƒ©ã‚¹
  * @version 1.00
  * @since 2008/12/19
  * @author Masatoshi Tsuge
@@ -15,7 +15,7 @@ public:
     GeoElement* _pGeoChainRingActive;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
      */
     GeometryChain(int prm_num, GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {
         static GeoElement* pWork;

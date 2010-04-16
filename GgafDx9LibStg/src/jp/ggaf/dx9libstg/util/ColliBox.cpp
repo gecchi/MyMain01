@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -37,7 +37,7 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
         _z2 = z1;
     }
 
-    //Šî’êƒNƒ‰ƒXƒƒ“ƒo‚ÌXV
+    //åŸºåº•ã‚¯ãƒ©ã‚¹ãƒ¡ãƒ³ãƒã®æ›´æ–°
     _dx = (_x2 - _x1);
     _dy = (_y2 - _y1);
     _dz = (_z2 - _z1);
@@ -53,7 +53,7 @@ void ColliBox::set(int x1, int y1, int z1, int x2, int y2, int z2, bool rotX, bo
     _rotX = rotX;
     _rotY = rotY;
     _rotZ = rotZ;
-    //‹«ŠE—Ìˆæ‚Í‘S‚­“¯‚¶
+    //å¢ƒç•Œé ˜åŸŸã¯å…¨ãåŒã˜
     _aabb_x1 = _x1;
     _aabb_y1 = _y1;
     _aabb_z1 = _z1;
@@ -68,7 +68,7 @@ bool ColliBox::rotate(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
-        //“–‚½‚è”»’è—Ìˆæ²‰ñ“]
+        //å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè»¸å›è»¢
         s_RX = rX / ANGLE_RATE;
         s_RY = rY / ANGLE_RATE;
         s_RZ = rZ / ANGLE_RATE;
@@ -103,7 +103,7 @@ bool ColliBox::rotate(angle rX, angle rY, angle rZ) {
         _x2 = wk_cx + _hdx;
         _y2 = wk_cy + _hdy;
         _z2 = wk_cz + _hdz;
-        //‹«ŠE—Ìˆæ‚àXV
+        //å¢ƒç•Œé ˜åŸŸã‚‚æ›´æ–°
         _aabb_x1 = _x1;
         _aabb_y1 = _y1;
         _aabb_z1 = _z1;

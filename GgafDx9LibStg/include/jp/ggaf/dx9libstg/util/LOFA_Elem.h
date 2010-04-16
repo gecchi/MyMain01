@@ -1,10 +1,10 @@
-#ifndef LOFA_ELEM_H_
+ï»¿#ifndef LOFA_ELEM_H_
 #define LOFA_ELEM_H_
 namespace GgafDx9LibStg {
 
 /**
- * GgafLinearOctreeElem—p‚Ì—v‘fƒNƒ‰ƒX .
- * GgafActor‚ğ—v‘f‚·‚é‚±‚Æ‚É“Á‰»‚µ‚Ä‚¢‚Ü‚·
+ * GgafLinearOctreeElemç”¨ã®è¦ç´ ã‚¯ãƒ©ã‚¹ .
+ * GgafActorã‚’è¦ç´ ã™ã‚‹ã“ã¨ã«ç‰¹åŒ–ã—ã¦ã„ã¾ã™
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
