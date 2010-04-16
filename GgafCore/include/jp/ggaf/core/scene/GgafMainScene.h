@@ -1,10 +1,10 @@
-#ifndef GGAFMAINSCENE_H_
+ï»¿#ifndef GGAFMAINSCENE_H_
 #define GGAFMAINSCENE_H_
 namespace GgafCore {
 
 /**
- * ‰ºˆÊƒV[ƒ“ƒNƒ‰ƒX‚Ö‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX .
- * GgafCoreƒ‰ƒCƒuƒ‰ƒŠ‚Ì—˜—pŽÒ‚Í–{ƒNƒ‰ƒX‚ðŒp³‚µi‚ÄƒV[ƒ“jƒNƒ‰ƒX‚ðì‚éB<BR>
+ * ä¸‹ä½ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ã¸ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ .
+ * GgafCoreãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆ©ç”¨è€…ã¯æœ¬ã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ï¼ˆã¦ã‚·ãƒ¼ãƒ³ï¼‰ã‚¯ãƒ©ã‚¹ã‚’ä½œã‚‹ã€‚<BR>
  * @version 1.00
  * @since 2008/06/20
  * @author Masatoshi Tsuge

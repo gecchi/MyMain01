@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -95,15 +95,15 @@ void GgafActor::dump() {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump("\t\t\t\t\t\t\t\tÅb");
+            pActor_tmp->dump("\t\t\t\t\t\t\t\tÔΩú");
             if (pActor_tmp->_pNext != NULL) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("„ÄêË≠¶Âëä„Äë"<<_class_name<<"("<<this<<")["<<getName()<<"]„ÅÆnext„ÅåNULL„Å´„Å£„Å¶„ÅÑ„Åæ„Åô");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {
-                _TRACE_("\t\t\t\t\t\t\t\tÑ§Ñü");
+                _TRACE_("\t\t\t\t\t\t\t\t‚îî‚îÄ");
                 break;
             }
         }
@@ -127,15 +127,15 @@ void GgafActor::dump(string prm_parent) {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump(prm_parent + "Åb");
+            pActor_tmp->dump(prm_parent + "ÔΩú");
             if (pActor_tmp->_pNext != NULL) {
                 pActor_tmp = pActor_tmp->_pNext;
             } else {
-                _TRACE_("ÅyåxçêÅz"<<_class_name<<"("<<this<<")["<<getName()<<"]ÇÃnextÇ™NULLÇ…Ç¡ÇƒÇ¢Ç‹Ç∑");
+                _TRACE_("„ÄêË≠¶Âëä„Äë"<<_class_name<<"("<<this<<")["<<getName()<<"]„ÅÆnext„ÅåNULL„Å´„Å£„Å¶„ÅÑ„Åæ„Åô");
                 break;
             }
             if (pActor_tmp->_is_first_flg) {
-                _TRACE_(prm_parent+"Ñ§Ñü");
+                _TRACE_(prm_parent+"‚îî‚îÄ");
                 break;
             }
         }

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -8,7 +8,7 @@ std::map<std::string, int> GgafRepeatSeq::mapMinval;
 
 int GgafRepeatSeq::create(string ID, int min, int max) {
     if (isExist(ID)) {
-        throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"‚ÍŠù‚É‘¶Ý‚µ‚Ü‚·");
+        throwGgafCriticalException("GgafRepeatSeq::create() ID="<<ID<<"ã¯æ—¢ã«å­˜åœ¨ã—ã¾ã™");
     } else {
         mapNowval[ID] = min;
         mapMaxval[ID] = max;
@@ -34,6 +34,6 @@ int GgafRepeatSeq::nextVal(string ID) {
         }
         return mapNowval[ID];
     } else {
-        throwGgafCriticalException("GgafRepeatSeq::nextVal() ID="<<ID<<"‚Í‘¶Ý‚µ‚Ü‚¹‚ñ");
+        throwGgafCriticalException("GgafRepeatSeq::nextVal() ID="<<ID<<"ã¯å­˜åœ¨ã—ã¾ã›ã‚“");
     }
 }

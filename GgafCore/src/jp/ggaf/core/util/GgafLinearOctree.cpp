@@ -1,18 +1,18 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 
 
 GgafLinearOctree::GgafLinearOctree(int prm_level) {
     _top_space_level = prm_level;
-    //‚×‚«æì¬
+    //ã¹ãä¹—ä½œæˆ
     _paPow = NEW DWORD[SPACE_MAXLEVEL+1];
     _paPow[0] = 1;
     for(int i = 1; i < SPACE_MAXLEVEL + 1; i++) {
         _paPow[i] = _paPow[i-1] * 8;
     }
-    //üŒ`‚W•ª–Ø”z—ñì¬
-    _num_space = (_paPow[_top_space_level+1] -1) / 7; //‹óŠÔ”
+    //ç·šå½¢ï¼˜åˆ†æœ¨é…åˆ—ä½œæˆ
+    _num_space = (_paPow[_top_space_level+1] -1) / 7; //ç©ºé–“æ•°
     _TRACE_("_num_space="<<_num_space);
     _paSpace = NEW GgafLinearOctreeSpace[_num_space];
     for (DWORD i = 0; i < _num_space; i++) {
@@ -36,7 +36,7 @@ void GgafLinearOctree::setRootSpace(int X1 ,int Y1 ,int Z1 ,int X2 ,int Y2 ,int 
 
 void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
     if (prm_pElem->_pSpace_Current == NULL) {
-        //“o˜^ElemƒŠƒXƒg‚É’Ç‰Á
+        //ç™»éŒ²Elemãƒªã‚¹ãƒˆã«è¿½åŠ 
         if (_pRegElemFirst == NULL) {
             prm_pElem->_pRegLinkNext = NULL;
             _pRegElemFirst = prm_pElem;
@@ -46,10 +46,10 @@ void GgafLinearOctree::registElem(GgafLinearOctreeElem* prm_pElem, int tX1 ,int 
         }
     }
 
-    //‹óŠÔÀ•WƒCƒ“ƒfƒbƒNƒX
+    //ç©ºé–“åº§æ¨™ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹
     prm_pElem->_pLinearOctree = this;
     DWORD index = getSpatialIndex(tX1, tY1, tZ1, tX2, tY2, tZ2);
-    if (index > _num_space-1) { //Root‹óŠÔ‚ğXV‚µ‚½Û‚É‹N‚±‚è‚¤‚é‚½‚ßA‚±‚Ì”»’è‚Í•K—vB
+    if (index > _num_space-1) { //Rootç©ºé–“ã‚’æ›´æ–°ã—ãŸéš›ã«èµ·ã“ã‚Šã†ã‚‹ãŸã‚ã€ã“ã®åˆ¤å®šã¯å¿…è¦ã€‚
         return;
     } else {
         prm_pElem->addElem(&(_paSpace[index]));
@@ -81,19 +81,19 @@ void GgafLinearOctree::clearElem() {
 }
 
 DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int tY2 ,int tZ2) {
-    //TODO: –{—ˆ‚ÍAtX1 - _root_X1 ‚È‚Ç‚ª•‰‚É‚È‚Á‚½ê‡‚Ì‘Î‰‚ğ‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢‚ªA‚Ç‚¤‚µ‚½‚à‚Ì‚©
+    //TODO: æœ¬æ¥ã¯ã€tX1 - _root_X1 ãªã©ãŒè² ã«ãªã£ãŸå ´åˆã®å¯¾å¿œã‚’ã—ãªã‘ã‚Œã°ã„ã‘ãªã„ãŒã€ã©ã†ã—ãŸã‚‚ã®ã‹
 
 
-    //‚Ü‚¸ABOX‚ÌŠ‘®‹óŠÔ Level ‚ÆA‚»‚Ì‹óŠÔLevel‚Ìƒ‚[ƒgƒ“‡˜’Ê‚µ‹óŠÔ”Ô†‚ğ‹‚ß‚é
+    //ã¾ãšã€BOXã®æ‰€å±ç©ºé–“ Level ã¨ã€ãã®ç©ºé–“Levelã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºé€šã—ç©ºé–“ç•ªå·ã‚’æ±‚ã‚ã‚‹
 
-    //BOX‚Ì¶ãè‘O‚ÌXYZÀ•W“_‚ªŠ‘®‚·‚é‹óŠÔ‚ÍAÅ‘åƒŒƒxƒ‹‹óŠÔ‚Åƒ‚[ƒgƒ“‡˜’Ê‚µ‹óŠÔ”Ô†‚Í‰½”Ô‚©‚ğæ“¾
+    //BOXã®å·¦ä¸Šæ‰‹å‰ã®XYZåº§æ¨™ç‚¹ãŒæ‰€å±ã™ã‚‹ç©ºé–“ã¯ã€æœ€å¤§ãƒ¬ãƒ™ãƒ«ç©ºé–“ã§ãƒ¢ãƒ¼ãƒˆãƒ³é †åºé€šã—ç©ºé–“ç•ªå·ã¯ä½•ç•ªã‹ã‚’å–å¾—
     DWORD minnum_in_toplevel = getMortonOrderNumFromXYZindex(
                                   (DWORD)((tX1 - _root_X1) / _top_level_dX),
                                   (DWORD)((tY1 - _root_Y1) / _top_level_dY),
                                   (DWORD)((tZ1 - _root_Z1) / _top_level_dZ)
                                 );
 
-    //BOX‚Ì‰E‰º‰œ‚ÌXYZÀ•W“_‚ªŠ‘®‚·‚é‹óŠÔ‚ÍAÅ‘åƒŒƒxƒ‹‹óŠÔ‚Åƒ‚[ƒgƒ“‡˜’Ê‚µ‹óŠÔ”Ô†‚Í‰½”Ô‚©‚ğæ“¾
+    //BOXã®å³ä¸‹å¥¥ã®XYZåº§æ¨™ç‚¹ãŒæ‰€å±ã™ã‚‹ç©ºé–“ã¯ã€æœ€å¤§ãƒ¬ãƒ™ãƒ«ç©ºé–“ã§ãƒ¢ãƒ¼ãƒˆãƒ³é †åºé€šã—ç©ºé–“ç•ªå·ã¯ä½•ç•ªã‹ã‚’å–å¾—
     DWORD maxnum_in_toplevel = getMortonOrderNumFromXYZindex(
                                   (DWORD)((tX2 - _root_X1) / _top_level_dX),
                                   (DWORD)((tY2 - _root_Y1) / _top_level_dY),
@@ -101,7 +101,7 @@ DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int 
                                 );
 
 
-    //ˆø”‚ÌBOX‚ÍA‚Ç‚ÌƒŒƒxƒ‹‚Ì‹óŠÔ‚ÉŠ‘®‚µ‚Ä‚¢‚é‚Ì‚©æ“¾
+    //å¼•æ•°ã®BOXã¯ã€ã©ã®ãƒ¬ãƒ™ãƒ«ã®ç©ºé–“ã«æ‰€å±ã—ã¦ã„ã‚‹ã®ã‹å–å¾—
     DWORD differ_bit_pos = maxnum_in_toplevel ^ minnum_in_toplevel;
     DWORD shift_num = 0;
     for(DWORD i = 0; i < _top_space_level; i++) {
@@ -109,13 +109,13 @@ DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int 
             shift_num = i+1;
         }
     }
-    //xor‚µ‚½differ_bit_pos ‚ğ ‰E‚É3ƒrƒbƒgƒVƒtƒg‚µ‚Â‚ÂAƒ}ƒXƒN &B111(&H7) ‚ÅAND‚ğæ‚èA&B000 ‚Å‚È‚­‚È‚Á‚Ä‚¢‚éˆÊ’u‚ğ‚µ‚ç‚×‚éB
-    //‚±‚ê‚Í differ_bit_pos ‚ğ ‚Rƒrƒbƒg‚É‹æØ‚èA‚»‚Ì3ƒrƒbƒg‚ªH‚¢ˆá‚Á‚Ä‚¢‚é‰ÓŠ‚ğ‚µ‚ç‚×‚Ä‚¢‚é
-    //H‚¢ˆá‚¤3ƒrƒbƒg‚ÌˆÊ’u‚ÍA‚»‚ÌƒŒƒxƒ‹‚Ìƒ‚ƒg[ƒ“‡˜ˆÊ’u‚ªH‚¢ˆá‚Á‚Ä‚¢‚é‚±‚Æ‚ğˆÓ–¡‚·‚éB
-    //Å‚à‰“‚¢3ƒrƒbƒg‚ªH‚¢ˆá‚Á‚Ä‚¢‚é‰ÓŠ(ƒVƒtƒg‰ñ”shift_num)‚æ‚èŠ‘®‹óŠÔƒŒƒxƒ‹‚ª‚í‚©‚é
-    //Å‘å‹óŠÔ•ªŠ„Level = 5‚Æ‚µ‚ÄA¶ãè‘O‚ª6001”ÔA‰E‰º‰œ‚ğ6041”Ô‚ÉŠ‘®‚µ‚Ä‚¢‚½BOX‚ğ—á‚É‚·‚é‚Æ
+    //xorã—ãŸdiffer_bit_pos ã‚’ å³ã«3ãƒ“ãƒƒãƒˆã‚·ãƒ•ãƒˆã—ã¤ã¤ã€ãƒã‚¹ã‚¯ &B111(&H7) ã§ANDã‚’å–ã‚Šã€&B000 ã§ãªããªã£ã¦ã„ã‚‹ä½ç½®ã‚’ã—ã‚‰ã¹ã‚‹ã€‚
+    //ã“ã‚Œã¯ differ_bit_pos ã‚’ ï¼“ãƒ“ãƒƒãƒˆã«åŒºåˆ‡ã‚Šã€ãã®3ãƒ“ãƒƒãƒˆãŒé£Ÿã„é•ã£ã¦ã„ã‚‹ç®‡æ‰€ã‚’ã—ã‚‰ã¹ã¦ã„ã‚‹
+    //é£Ÿã„é•ã†3ãƒ“ãƒƒãƒˆã®ä½ç½®ã¯ã€ãã®ãƒ¬ãƒ™ãƒ«ã®ãƒ¢ãƒˆãƒ¼ãƒ³é †åºä½ç½®ãŒé£Ÿã„é•ã£ã¦ã„ã‚‹ã“ã¨ã‚’æ„å‘³ã™ã‚‹ã€‚
+    //æœ€ã‚‚é ã„3ãƒ“ãƒƒãƒˆãŒé£Ÿã„é•ã£ã¦ã„ã‚‹ç®‡æ‰€(ã‚·ãƒ•ãƒˆå›æ•°ï¼shift_num)ã‚ˆã‚Šæ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ãŒã‚ã‹ã‚‹
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level = 5ã¨ã—ã¦ã€å·¦ä¸Šæ‰‹å‰ãŒ6001ç•ªã€å³ä¸‹å¥¥ã‚’6041ç•ªã«æ‰€å±ã—ã¦ã„ãŸBOXã‚’ä¾‹ã«ã™ã‚‹ã¨
     //
-    //ŠeƒŒƒxƒ‹‹óŠÔ‚Ìƒ‚[ƒgƒ“‡˜ˆÊ’u lv0 lv1 lv2 lv3 lv4 lv5
+    //å„ãƒ¬ãƒ™ãƒ«ç©ºé–“ã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºä½ç½® lv0 lv1 lv2 lv3 lv4 lv5
     //     6001 = 00 000 000 000 000 000 001 011 101 110 001
     // XOR)6041 = 00 000 000 000 000 000 001 011 110 011 001
     // -----------------------------------------------------
@@ -125,82 +125,82 @@ DWORD GgafLinearOctree::getSpatialIndex(int tX1 ,int tY1 ,int tZ1 ,int tX2 ,int 
     //                                               111
     //                                           111
     //                                       111
-    //  AND)                             111     <--- ‚±‚±‚Ü‚Ås‚Á‚ÄAÅ‚à‰“‚¢3ƒrƒbƒg‚ªH‚¢ˆá‚Á‚Ä‚¢‚é‰ÓŠ‚ª3‰ñ–Ú‚¾‚Á‚½‚±‚Æ‚ª‰ğ‚é
+    //  AND)                             111     <--- ã“ã“ã¾ã§è¡Œã£ã¦ã€æœ€ã‚‚é ã„3ãƒ“ãƒƒãƒˆãŒé£Ÿã„é•ã£ã¦ã„ã‚‹ç®‡æ‰€ãŒ3å›ç›®ã ã£ãŸã“ã¨ãŒè§£ã‚‹
     // ------------------------------------------------------
     //                                   000 000 011 101 000
-    //                                    o   o   x   x   o      if (differ_bit_pos>>(i*3)) & 0x7 != 0 ) ‚Ì”»’è
-    //                                    5   4   3   2   1   0   shift_num(ƒVƒtƒg‰ñ”)
+    //                                    o   o   x   x   o      if (differ_bit_pos>>(i*3)) & 0x7 != 0 ) ã®åˆ¤å®š
+    //                                    5   4   3   2   1   0   shift_num(ã‚·ãƒ•ãƒˆå›æ•°)
     //
-    //   ã‹L‚æ‚èA6001”Ô‚Æ6041”Ô‚Í‹óŠÔƒŒƒxƒ‹1AƒŒƒxƒ‹2 ‚Ü‚Å‚Í“¯‚¶‹óŠÔƒŒƒxƒ‹‚É‘®‚µ‚Ä‚¢‚½‚ª
-    //   ‹óŠÔƒŒƒxƒ‹3‚©‚çƒ‚[ƒgƒ“‡˜ˆÊ’u‚ªˆÙ‚È‚Á‚Ä‚µ‚Ü‚¤‚±‚Æ‚ª‰ğ‚éB‚µ‚½‚ª‚Á‚ÄA
-    //   uŠ‘®‹óŠÔƒŒƒxƒ‹v‚ÍLv2‹óŠÔ‚Å‚ ‚é‚Æ‚í‚©‚éB‚±‚ê‚ğ’²‚×‚é‚½‚ß‚É
-    //   XOR‚ª0ˆÈŠO‚É‚È‚éÅ‚‚ÌƒVƒtƒg‰ñ”  shift_num = 3‰ñ ‚ğ‹‚ß‚éB
-    //   ‹‚ß‚é‚½‚ß‚É‚ÍA‰E‚É3ƒrƒbƒgƒVƒtƒg‚µ‚Ä 0x7 ‚Å AND‚ğ’²‚×‚é‚±‚Æ‚ğŒJ‚è•Ô‚·•K—v‚ª‚ ‚é‚Æ‚¢‚¤‚±‚Æ‚¾B
-    //   shift_num ‚ÌƒVƒtƒg‰ñ”‚ğ’²‚×‚ê‚ÎAŠ‘®‹óŠÔƒŒƒxƒ‹‚ª‰ğ‚éI
+    //   ä¸Šè¨˜ã‚ˆã‚Šã€6001ç•ªã¨6041ç•ªã¯ç©ºé–“ãƒ¬ãƒ™ãƒ«1ã€ãƒ¬ãƒ™ãƒ«2 ã¾ã§ã¯åŒã˜ç©ºé–“ãƒ¬ãƒ™ãƒ«ã«å±ã—ã¦ã„ãŸãŒ
+    //   ç©ºé–“ãƒ¬ãƒ™ãƒ«3ã‹ã‚‰ãƒ¢ãƒ¼ãƒˆãƒ³é †åºä½ç½®ãŒç•°ãªã£ã¦ã—ã¾ã†ã“ã¨ãŒè§£ã‚‹ã€‚ã—ãŸãŒã£ã¦ã€
+    //   ã€Œæ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã€ã¯Lv2ç©ºé–“ã§ã‚ã‚‹ã¨ã‚ã‹ã‚‹ã€‚ã“ã‚Œã‚’èª¿ã¹ã‚‹ãŸã‚ã«
+    //   XORãŒ0ä»¥å¤–ã«ãªã‚‹æœ€é«˜ã®ã‚·ãƒ•ãƒˆå›æ•°  shift_num = 3å› ã‚’æ±‚ã‚ã‚‹ã€‚
+    //   æ±‚ã‚ã‚‹ãŸã‚ã«ã¯ã€å³ã«3ãƒ“ãƒƒãƒˆã‚·ãƒ•ãƒˆã—ã¦ 0x7 ã§ ANDã‚’èª¿ã¹ã‚‹ã“ã¨ã‚’ç¹°ã‚Šè¿”ã™å¿…è¦ãŒã‚ã‚‹ã¨ã„ã†ã“ã¨ã ã€‚
+    //   shift_num ã®ã‚·ãƒ•ãƒˆå›æ•°ã‚’èª¿ã¹ã‚Œã°ã€æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ãŒè§£ã‚‹ï¼
 
-    //‚à‚µXORŒ‹‰Ê‚ª
-    // 000 000 000 000 000 000 000 111 ‚Ìê‡‚È‚ç‚Î shift_num=1
-    //‚±‚ê‚Í
-    //Å‘å‹óŠÔ•ªŠ„Level=5 ‚Ìê‡‚ÍŠ‘®‹óŠÔƒŒƒxƒ‹‚Í4(=‹óŠÔƒŒƒxƒ‹5‚ÅH‚¢ˆá‚¤)
-    //Å‘å‹óŠÔ•ªŠ„Level=8 ‚Ìê‡‚ÍŠ‘®‹óŠÔƒŒƒxƒ‹‚Í7(=‹óŠÔƒŒƒxƒ‹8‚ÅH‚¢ˆá‚¤)
+    //ã‚‚ã—XORçµæœãŒ
+    // 000 000 000 000 000 000 000 111 ã®å ´åˆãªã‚‰ã° shift_num=1
+    //ã“ã‚Œã¯
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level=5 ã®å ´åˆã¯æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯4(=ç©ºé–“ãƒ¬ãƒ™ãƒ«5ã§é£Ÿã„é•ã†)
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level=8 ã®å ´åˆã¯æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯7(=ç©ºé–“ãƒ¬ãƒ™ãƒ«8ã§é£Ÿã„é•ã†)
 
-    // 000 000 000 111 110 000 101 111 ‚È‚Ç‚Ìê‡‚Í shift_num=5
-    //‚±‚ê‚Í
-    //Å‘å‹óŠÔ•ªŠ„Level=5 ‚Ìê‡‚ÍŠ‘®‹óŠÔƒŒƒxƒ‹‚Í0 ‚Â‚Ü‚èƒ‹[ƒg‹óŠÔƒŒƒxƒ‹Š‘®
-    //Å‘å‹óŠÔ•ªŠ„Level=8 ‚Ìê‡‚ÍŠ‘®‹óŠÔƒŒƒxƒ‹‚Í4
+    // 000 000 000 111 110 000 101 111 ãªã©ã®å ´åˆã¯ shift_num=5
+    //ã“ã‚Œã¯
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level=5 ã®å ´åˆã¯æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯0 ã¤ã¾ã‚Šãƒ«ãƒ¼ãƒˆç©ºé–“ãƒ¬ãƒ™ãƒ«æ‰€å±
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level=8 ã®å ´åˆã¯æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯4
 
-    //‚Ü‚Æ‚ß‚é‚Æ
-    //Å‘å‹óŠÔ•ªŠ„Level = 5 ‚Ìê‡
+    //ã¾ã¨ã‚ã‚‹ã¨
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level = 5 ã®å ´åˆ
     //shift_num   = 0 1 2 3 4 5
-    //Š‘®‹óŠÔLevel = 5 4 3 2 1 0
-    //Å‘å‹óŠÔ•ªŠ„Level=8 ‚Ìê‡
+    //æ‰€å±ç©ºé–“Level = 5 4 3 2 1 0
+    //æœ€å¤§ç©ºé–“åˆ†å‰²Level=8 ã®å ´åˆ
     //shift_num   = 0 1 2 3 4 5 6 7 8
-    //Š‘®‹óŠÔLevel = 8 7 6 5 4 3 2 1 0
+    //æ‰€å±ç©ºé–“Level = 8 7 6 5 4 3 2 1 0
 
-    //Š‘®‹óŠÔ‚Ìƒ‚[ƒgƒ“‡˜‚Ì’Ê‚µ‹óŠÔ”Ô†‚ğ‹‚ß‚é
+    //æ‰€å±ç©ºé–“ã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºã®é€šã—ç©ºé–“ç•ªå·ã‚’æ±‚ã‚ã‚‹
     DWORD morton_order_space_num = minnum_in_toplevel>>(shift_num*3);
-    //•s‘µ‚¢‚Ì‰ºˆÊ‚Ìƒrƒbƒg‚ğ3ƒrƒbƒg’PˆÊ‚Åœ‹‚µAŠ‘®‚Ìƒ‚[ƒgƒ“‡˜”Ô†‚ğ‹‚ß‚é
+    //ä¸æƒã„ã®ä¸‹ä½ã®ãƒ“ãƒƒãƒˆã‚’3ãƒ“ãƒƒãƒˆå˜ä½ã§é™¤å»ã—ã€æ‰€å±ã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºç•ªå·ã‚’æ±‚ã‚ã‚‹
     //
-    // minnum_in_toplevel>>(shift_num*3); ‚É‚Â‚¢‚ÄA
-    // minnum_in_toplevel=6001 ‚Å‚à 6041‚Å‚à‚Ç‚¿‚ç‚Å‚à‚æ‚­
+    // minnum_in_toplevel>>(shift_num*3); ã«ã¤ã„ã¦ã€
+    // minnum_in_toplevel=6001 ã§ã‚‚ 6041ã§ã‚‚ã©ã¡ã‚‰ã§ã‚‚ã‚ˆã
     //        lv0 lv1 lv2 lv3 lv4 lv5          lv0 lv1 lv2
     // 6001 = 000 001 011 101 110 001   -->    000 001 011 = 11
     // 6041 = 000 001 011 110 011 001   -->    000 001 011 = 11
     //                    ^^^ ^^^ ^^^
-    //                  (shift_num*3 ƒrƒbƒgœ‹)
+    //                  (shift_num*3 ãƒ“ãƒƒãƒˆé™¤å»)
     //
-    // ‚Ì‚æ‚¤‚É•s‘µ‚¢‚Ìƒrƒbƒg‚ğ‰E‚ÖƒVƒtƒg‚µ‚Ä‚¢‚é
-    // ‚±‚ê‚ÅA¶ãè‘O‚ª6001”ÔA‰E‰º‰œ‚ğ6041”Ô‚Æ‚µ‚½BOX‚ÍAŠ‘®‹óŠÔLv2‚Ìê‡‚ÍAƒ‚[ƒgƒ“‡˜’Ê‚µ‹óŠÔ”Ô†11”Ô‚Å‚ ‚Á‚½‚±‚Æ‚ª‚í‚©‚éB
-    // ‚ ‚Æ‚Í‚±‚ê‚ğ”z—ñIndex‚É•ÏŠ·‚·‚é‚Ì‚İ
+    // ã®ã‚ˆã†ã«ä¸æƒã„ã®ãƒ“ãƒƒãƒˆã‚’å³ã¸ã‚·ãƒ•ãƒˆã—ã¦ã„ã‚‹
+    // ã“ã‚Œã§ã€å·¦ä¸Šæ‰‹å‰ãŒ6001ç•ªã€å³ä¸‹å¥¥ã‚’6041ç•ªã¨ã—ãŸBOXã¯ã€æ‰€å±ç©ºé–“Lv2ã®å ´åˆã¯ã€ãƒ¢ãƒ¼ãƒˆãƒ³é †åºé€šã—ç©ºé–“ç•ªå·11ç•ªã§ã‚ã£ãŸã“ã¨ãŒã‚ã‹ã‚‹ã€‚
+    // ã‚ã¨ã¯ã“ã‚Œã‚’é…åˆ—Indexã«å¤‰æ›ã™ã‚‹ã®ã¿
 
-    //Š‘®‹óŠÔ(ƒVƒtƒg‰ñ”)‚Æ‚»‚Ì‹óŠÔ‚Ìƒ‚[ƒgƒ“‡˜’Ê‚µ‹óŠÔ”Ô†‚©‚çüŒ`”ª•ª–Ø”z—ñ‚Ì—v‘f”Ô†‚ğ‹‚ß‚é
+    //æ‰€å±ç©ºé–“(ã‚·ãƒ•ãƒˆå›æ•°)ã¨ãã®ç©ºé–“ã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºé€šã—ç©ºé–“ç•ªå·ã‹ã‚‰ç·šå½¢å…«åˆ†æœ¨é…åˆ—ã®è¦ç´ ç•ªå·ã‚’æ±‚ã‚ã‚‹
     DWORD index = morton_order_space_num + (_paPow[_top_space_level-shift_num]-1)/7;
     //(_paPow[_top_space_level-shift_num]-1)/7;
-    //‚ÍAüŒ`”ª•ª–Ø‹óŠÔ”z—ñ‚ÌAŠ‘®‹óŠÔƒŒƒxƒ‹‚ÌÅ‰‚Ì‹óŠÔ‚Ì—v‘f”Ô†‚ğ‚ ‚ç‚í‚·B
-    //“™”ä”—ñ‚Ì˜a
-    //     ƒ°r^k = r^0 + r^1 + r^2 + ... + r^n
-    //(1-r)ƒ°r^k = (1-r)(r^0 + r^1 + r^2 + ... + r^n)
+    //ã¯ã€ç·šå½¢å…«åˆ†æœ¨ç©ºé–“é…åˆ—ã®ã€æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã®æœ€åˆã®ç©ºé–“ã®è¦ç´ ç•ªå·ã‚’ã‚ã‚‰ã‚ã™ã€‚
+    //ç­‰æ¯”æ•°åˆ—ã®å’Œ
+    //     Î£r^k = r^0 + r^1 + r^2 + ... + r^n
+    //(1-r)Î£r^k = (1-r)(r^0 + r^1 + r^2 + ... + r^n)
     //          = (r^0 + r^1 + r^2 + ... + r^n) - (r^1 + r^2 + ... + r^n + r^(n+1))
     //          = 1 - r^(n+1)
-    //‚Å‚ ‚é‚Ì‚Å
-    //ƒ°r^k = (1 - r^(n+1)) / (1 - r)
+    //ã§ã‚ã‚‹ã®ã§
+    //Î£r^k = (1 - r^(n+1)) / (1 - r)
     //
-    //üŒ`8•ª–Ø‚Ì”z—ñ—v‘f‚Ì‹óŠÔƒŒƒxƒ‹‚‚Ü‚Å‚Ì‡Œv‹óŠÖ”‚Í r=8 ‚Å
-    //(1 - 8^(n+1)) / (1-8)  =  (1-8^(n+1)) / -7  =  (8^(n+1) - 1) / 7 ‚Æ‚È‚é
-    //‚±‚±‚ÅAŠ‘®‹óŠÔ‚ÌÅ‰‚Ì‹óŠÔ—v‘f‚ğ‹‚ß‚é‚½‚ßA n = Š‘®‹óŠÔƒŒƒxƒ‹-1 ‚ÌŒvZ’lie‹óŠÔƒŒƒxƒ‹‚Ü‚Å‚Ì—v‘f”j‚ÌA
-    //‚»‚ÌŸ‚Ì—v‘f‚ªŠ‘®‹óŠÔƒŒƒxƒ‹‚Ìæ“ª‚Ì—v‘f‚É‚È‚é‚Í‚¸‚¾IB‚Æ‚¢‚¤‹‚ß•û‚ğ‚·‚éB
-    //‚µ‚½‚ª‚Á‚ÄÅŒã‚É’l‚ğ +1 ‚µ‚½‚à‚Ì‚ª‚Ù‚µ‚¢’l‚Å‚ ‚é‚ªA”z—ñ‚Í0”Ô‚©‚çn‚Ü‚é‚½‚ß +1 ‚ğÈ—ª‚µ‚Ä‚µ‚Ü‚¨‚¤B
-    //æ‚Ì—á‚Å‚¢‚¤‚Æ shift_num = 3 ‚ÅAÅ‘å‹óŠÔ•ªŠ„Level(_top_space_level) = 5 ‚Å‚ ‚é‚Ì‚Å
-    // 5 - 3 = 2 ‚ÅŠ‘®‹óŠÔƒŒƒxƒ‹‚Í 2
-    // n = 2 - 1 = 1 ‚ğ‘ã“ü‚µ‚Ä  (8^(1+1) - 1) / 7 = 9 ‚Å
-    //Š‘®‹óŠÔ‚ÌƒŒƒxƒ‹2‚æ‚èˆê‚Âe‚Ì‹óŠÔƒŒƒxƒ‹‚Å‚ ‚éA‹óŠÔƒŒƒxƒ‹1‚Ü‚Å‚Ì”z—ñ—v‘f”‡Œv‚Í9ŒÂ‚Æ‚í‚©‚éB
-    //Š–]‚ÌŠ‘®‹óŠÔƒŒƒxƒ‹‚Í 2‚ÌÅ‰‚Ì‹óŠÔ‚Í”z—ñ‚Í 9+1 ‚Ì10”Ô–Ú‚©‚çn‚Ü‚éB
-    //”z—ñ‚Ì10”Ô–Ú‚Æ‚ÍA”z—ñ—v‘f”Ô†‚Í-1‚µ‚Ä9‚É‚È‚éB
-    //+1 ‚µ‚Ä -1 ‚·‚é‚Ì‚ÅŒ‹‹ÇAŠ‘®‹óŠÔƒŒƒxƒ‹x‚ÌÅ‰‚Ì”z—ñ—v‘f”Ô†‚Í  (8^x - 1) / 7 ‚Æ‚È‚é
+    //ç·šå½¢8åˆ†æœ¨ã®é…åˆ—è¦ç´ ã®ç©ºé–“ãƒ¬ãƒ™ãƒ«ï½ã¾ã§ã®åˆè¨ˆç©ºé–¢æ•°ã¯ r=8 ã§
+    //(1 - 8^(n+1)) / (1-8)  =  (1-8^(n+1)) / -7  =  (8^(n+1) - 1) / 7 ã¨ãªã‚‹
+    //ã“ã“ã§ã€æ‰€å±ç©ºé–“ã®æœ€åˆã®ç©ºé–“è¦ç´ ã‚’æ±‚ã‚ã‚‹ãŸã‚ã€ n = æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«-1 ã®è¨ˆç®—å€¤ï¼ˆè¦ªç©ºé–“ãƒ¬ãƒ™ãƒ«ã¾ã§ã®è¦ç´ æ•°ï¼‰ã®ã€
+    //ãã®æ¬¡ã®è¦ç´ ãŒæ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã®å…ˆé ­ã®è¦ç´ ã«ãªã‚‹ã¯ãšã ï¼ã€‚ã¨ã„ã†æ±‚ã‚æ–¹ã‚’ã™ã‚‹ã€‚
+    //ã—ãŸãŒã£ã¦æœ€å¾Œã«å€¤ã‚’ +1 ã—ãŸã‚‚ã®ãŒã»ã—ã„å€¤ã§ã‚ã‚‹ãŒã€é…åˆ—ã¯0ç•ªã‹ã‚‰å§‹ã¾ã‚‹ãŸã‚ +1 ã‚’çœç•¥ã—ã¦ã—ã¾ãŠã†ã€‚
+    //å…ˆã®ä¾‹ã§ã„ã†ã¨ shift_num = 3 ã§ã€æœ€å¤§ç©ºé–“åˆ†å‰²Level(_top_space_level) = 5 ã§ã‚ã‚‹ã®ã§
+    // 5 - 3 = 2 ã§æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯ 2
+    // n = 2 - 1 = 1 ã‚’ä»£å…¥ã—ã¦  (8^(1+1) - 1) / 7 = 9 ã§
+    //æ‰€å±ç©ºé–“ã®ãƒ¬ãƒ™ãƒ«2ã‚ˆã‚Šä¸€ã¤è¦ªã®ç©ºé–“ãƒ¬ãƒ™ãƒ«ã§ã‚ã‚‹ã€ç©ºé–“ãƒ¬ãƒ™ãƒ«1ã¾ã§ã®é…åˆ—è¦ç´ æ•°åˆè¨ˆã¯9å€‹ã¨ã‚ã‹ã‚‹ã€‚
+    //æ‰€æœ›ã®æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«ã¯ 2ã®æœ€åˆã®ç©ºé–“ã¯é…åˆ—ã¯ 9+1 ã®10ç•ªç›®ã‹ã‚‰å§‹ã¾ã‚‹ã€‚
+    //é…åˆ—ã®10ç•ªç›®ã¨ã¯ã€é…åˆ—è¦ç´ ç•ªå·ã¯-1ã—ã¦9ã«ãªã‚‹ã€‚
+    //+1 ã—ã¦ -1 ã™ã‚‹ã®ã§çµå±€ã€æ‰€å±ç©ºé–“ãƒ¬ãƒ™ãƒ«xã®æœ€åˆã®é…åˆ—è¦ç´ ç•ªå·ã¯  (8^x - 1) / 7 ã¨ãªã‚‹
 
 #ifdef MY_DEBUG
     if(index > _num_space-1) {
-//        _TRACE_("index > _num_space ‚Å‚¨‚©‚µ‚¢‚Å‚·Bminnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
+//        _TRACE_("index > _num_space ã§ãŠã‹ã—ã„ã§ã™ã€‚minnum_in_toplevel="<<minnum_in_toplevel<<"/maxnum_in_toplevel="<<maxnum_in_toplevel<<
 //                "differ_bit_pos="<<differ_bit_pos<<"/shift_num="<<shift_num<<"/morton_order_space_num="<<morton_order_space_num<<
 //                "index="<<index);
     }
@@ -241,7 +241,7 @@ void GgafLinearOctree::putTree() {
 
 
     if (_paSpace[0]._kindinfobit == 0) {
-        _TRACE_("8•ª–Ø‚É‰½‚à–³‚µI");
+        _TRACE_("8åˆ†æœ¨ã«ä½•ã‚‚ç„¡ã—ï¼");
     } else {
         GgafUtil::strbin(_paSpace[LV0]._kindinfobit, aChar_strbit);
         _TEXT_("LV0."<<lv0_order_num<<"(POS:"<<lv0_order_pos<<")["<<LV0<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
@@ -260,64 +260,64 @@ void GgafLinearOctree::putTree() {
         _TEXT_("\n");
         ////
         DWORD index_lv2_begin = LV1*8 + 1;
-        if (index_lv2_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+        if (index_lv2_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
 
         for (DWORD LV2 = index_lv2_begin, lv2_order_pos = 0; LV2 < index_lv2_begin+8; LV2++, lv2_order_num++, lv2_order_pos++) {
-            if (_paSpace[LV2]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+            if (_paSpace[LV2]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
             _TEXT_("    LV2-"<<lv2_order_num<<"(POS:"<<lv2_order_pos<<")["<<LV2<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
             _paSpace[LV2].dump();
             _TEXT_("\n");
             ///
             DWORD index_lv3_begin = LV2*8 + 1;
-            if (index_lv3_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+            if (index_lv3_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
             for (DWORD LV3 = index_lv3_begin, lv3_order_pos = 0; LV3 < index_lv3_begin+8; LV3++, lv3_order_num++, lv3_order_pos++) {
-                if (_paSpace[LV3]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                if (_paSpace[LV3]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                 _TEXT_("      LV3-"<<lv3_order_num<<"(POS:"<<lv3_order_pos<<")["<<LV3<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                 _paSpace[LV3].dump();
                 _TEXT_("\n");
                 ///
                 DWORD index_lv4_begin = LV3*8 + 1;
-                if (index_lv4_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+                if (index_lv4_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
                 for (DWORD LV4 = index_lv4_begin, lv4_order_pos = 0; LV4 < index_lv4_begin+8; LV4++, lv4_order_num++, lv4_order_pos++) {
-                    if (_paSpace[LV4]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                    if (_paSpace[LV4]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                     _TEXT_("        LV4-"<<lv4_order_num<<"(POS:"<<lv4_order_pos<<")["<<LV4<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                     _paSpace[LV4].dump();
                     _TEXT_("\n");
                     ///
                     DWORD index_lv5_begin = LV4*8 + 1;
-                    if (index_lv5_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+                    if (index_lv5_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
                     for (DWORD LV5 = index_lv5_begin, lv5_order_pos = 0; LV5 < index_lv5_begin+8; LV5++, lv5_order_num++, lv5_order_pos++) {
-                        if (_paSpace[LV5]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                        if (_paSpace[LV5]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                         GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                         _TEXT_("          LV5-"<<lv5_order_num<<"(POS:"<<lv5_order_pos<<")["<<LV5<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                         _paSpace[LV5].dump();
                         _TEXT_("\n");
                         ///
                         DWORD index_lv6_begin = LV5*8 + 1;
-                        if (index_lv6_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+                        if (index_lv6_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
                         for (DWORD LV6 = index_lv6_begin, lv6_order_pos = 0; LV6 < index_lv6_begin+8; LV6++, lv6_order_num++, lv6_order_pos++) {
-                            if (_paSpace[LV6]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                            if (_paSpace[LV6]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                             GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                             _TEXT_("            LV6-"<<lv6_order_num<<"(POS:"<<lv6_order_pos<<")["<<LV6<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                             _paSpace[LV6].dump();
                             _TEXT_("\n");
                             ///
                             DWORD index_lv7_begin = LV6*8 + 1;
-                            if (index_lv7_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+                            if (index_lv7_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
                             for (DWORD LV7 = index_lv7_begin, lv7_order_pos = 0; LV7 < index_lv7_begin+8; LV7++, lv7_order_num++, lv7_order_pos++) {
-                                if (_paSpace[LV7]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                                if (_paSpace[LV7]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                                 GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                                 _TEXT_("              LV7-"<<lv7_order_num<<"(POS:"<<lv7_order_pos<<")["<<LV7<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                 _paSpace[LV7].dump();
                                 _TEXT_("\n");
                                 ///
                                 DWORD index_lv8_begin = LV7*8 + 1;
-                                if (index_lv8_begin > _num_space-1) { continue; } //Ÿ‚ÌŠK‘w‚É‚à‚®‚ê‚é‚©Lvƒ`ƒFƒbƒN
+                                if (index_lv8_begin > _num_space-1) { continue; } //æ¬¡ã®éšå±¤ã«ã‚‚ãã‚Œã‚‹ã‹Lvãƒã‚§ãƒƒã‚¯
                                 for (DWORD LV8 = index_lv8_begin, lv8_order_pos = 0; LV8 < index_lv8_begin+8; LV8++, lv8_order_num++, lv8_order_pos++) {
-                                    if (_paSpace[LV8]._kindinfobit == 0) { continue; }  //‰½‚à–³‚¢‚Ì‚Å‰ºˆÊ•\¦‚ğ”ò‚Î‚µ
+                                    if (_paSpace[LV8]._kindinfobit == 0) { continue; }  //ä½•ã‚‚ç„¡ã„ã®ã§ä¸‹ä½è¡¨ç¤ºã‚’é£›ã°ã—
                                     GgafUtil::strbin(_paSpace[LV1]._kindinfobit, aChar_strbit);
                                     _TEXT_("                LV8-"<<lv8_order_num<<"(POS:"<<lv8_order_pos<<")["<<LV8<<"]="<<aChar_strbit<<" /GgafLinearOctreeElem->");
                                     _paSpace[LV8].dump();

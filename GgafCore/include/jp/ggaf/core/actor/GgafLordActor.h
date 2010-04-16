@@ -1,16 +1,16 @@
-#ifndef GGAFLORDACTOR_H_
+﻿#ifndef GGAFLORDACTOR_H_
 #define GGAFLORDACTOR_H_
 namespace GgafCore {
 
 /**
- * �Ǘ��҃N���X .
- * �c��(GgafGroupActor)�̐e�K�w�̃A�N�^�[�ŁA�c���B���Ǘ����܂��B<BR>
- * �܂��A�V�[���N���X�Ƃ̋��n�����s�����ʂȃA�N�^�[�ł�����܂��B<BR>
- * �V�[���N���X�ƊǗ��҂͕��ʂ�hasA�̊֌W�ł��B�i�Ǘ��҂ƒc���͊K�w�֌W�ɂȂ��Ă��܂��j<BR>
- * �S�ẴV�[��(GgafSceane�I�u�W�F�N�g)�ɕK���P�l�Ǘ��҂̃C���^���X������܂��B<BR>
- * �Ǘ��҂́A�K���A�N�^�[�B�c���[�̍ł����_�Ɉʒu���܂��B<BR>
- * �Ǘ���(GgafLordActor)�̃T�u�A�N�^�[�͕K���c��(GgafGroupActor)�ɂȂ��Ă��܂��B<BR>
- * �c��(GgafGroupActor)�̉�������킹�ĎQ�Ƃ��ĉ������B
+ * 管理者クラス .
+ * 団長(GgafGroupActor)の親階層のアクターで、団長達を管理します。<BR>
+ * また、シーンクラスとの橋渡しを行う特別なアクターでもあります。<BR>
+ * シーンクラスと管理者は普通のhasAの関係です。（管理者と団長は階層関係になっています）<BR>
+ * 全てのシーン(GgafSceaneオブジェクト)に必ず１人つ管理者のインタンスがあります。<BR>
+ * 管理者は、必ずアクター達ツリーの最も頂点に位置します。<BR>
+ * 管理者(GgafLordActor)のサブアクターは必ず団長(GgafGroupActor)になっています。<BR>
+ * 団長(GgafGroupActor)の解説もあわせて参照して下さい。
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
@@ -20,7 +20,7 @@ public:
     GgafLordActor(GgafScene* prm_pScene_Platform);
 
     /**
-     * ��������<BR>
+     * 初期処理<BR>
      */
     void initialize() override {
     }
@@ -50,7 +50,7 @@ public:
     }
 
     /**
-     * �����蔻��s�v�̂��ߏ��false��Ԃ� .
+     * 当たり判定不要のため常にfalseを返す .
      * @param prm_pOtherActor
      * @return false
      */
@@ -64,18 +64,18 @@ public:
     void remove();
 
     /**
-     * �O���[�v�Ƃ��Ĉ����̃A�N�^�[���T�u�A�N�^�[�ɒǉ����܂� .
-     * ����͎�����GgafGroupActor�I�u�W�F�N�g���Ԃɑ}������܂��B<BR>
-     * ���������ăO���[�v��ʂƋ��ɓo�^���K�v�ł��B<BR>
-     * ��ʂƂ́A�����Ő�������� GgafGroupActor�� �ɂ��g�p����܂��B<BR>
-     * GgafGroupActor�I�u�W�F�N�g �͏����ʓo�^��������������A�Q��ڈȍ~�̓����ʓo�^�́A<BR>
-     * ������ GgafGroupActor�I�u�W�F�N�g�̃T�u�ɒǉ�����܂��B<BR>
+     * グループとして引数のアクターをサブアクターに追加します .
+     * これは自動でGgafGroupActorオブジェクトが間に挿入されます。<BR>
+     * したがってグループ種別と共に登録が必要です。<BR>
+     * 種別とは、内部で生成される GgafGroupActor名 にも使用されます。<BR>
+     * GgafGroupActorオブジェクト は初回種別登録時だけ生成され、２回目以降の同一種別登録は、<BR>
+     * 既存の GgafGroupActorオブジェクトのサブに追加されます。<BR>
      * <pre>
-     * ���g�p��P��
+     * ＜使用例１＞
      *
      *  addSubGroup(KIND_XXX, pActor);
      *
-     *  �Ƃ����ꍇ�A�K�w�\���͎��̂悤�ɂȂ�B
+     *  とした場合、階層構造は次のようになる。
      *
      *  this
      *    |
@@ -84,13 +84,13 @@ public:
      *         +- pActor
      *
      *
-     * ���g�p��Q��
+     * ＜使用例２＞
      *
      * addSubGroup(KIND_AAA, pActor01);
      * addSubGroup(KIND_BBB, pActor02);
      * addSubGroup(KIND_AAA, pActor03);
      *
-     * �Ƃ����ꍇ�A�K�w�\���͎��̂悤�ɂȂ�B
+     * とした場合、階層構造は次のようになる。
      *
      *  this
      *    |
@@ -98,21 +98,21 @@ public:
      *         |                                    |
      *         +- pActor01 -- pActor03              + pActor02
      * </pre>
-     * @param   prm_kind    ��ʖ��i��GgafGroupActor���j
-     * @param   prm_pMainActor   �o�^����A�N�^�[
+     * @param   prm_kind    種別名（＝GgafGroupActor名）
+     * @param   prm_pMainActor   登録するアクター
      */
     GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
-     * �P��GgafActor�A������GgafDummyActor���P�Ɛe�ƂȂ�GgafActor�A���̂�<BR>
-     * ��ʂ�0(����)�œo�^�����
-     * �{�֐��͂̕��I������ prm_pActor �� GgafGroupActor �̎q�A�N�^�[�Ƃ��Ă��邾���ł���B<BR>
-     * @param   prm_pMainActor   �o�^����A�N�^�[
+     * 単独GgafActor、或いはGgafDummyActorが単独親となるGgafActor連続体を<BR>
+     * 種別は0(無し)で登録される
+     * 本関数はの部的処理は prm_pActor を GgafGroupActor の子アクターとしているだけである。<BR>
+     * @param   prm_pMainActor   登録するアクター
      */
     GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
-     * �T�u�̒c���A�N�^�[���擾�A�������NULL���A��
+     * サブの団長アクターを取得、無ければNULLを帰す
      * @param prm_kind
      * @return
      */
@@ -120,8 +120,8 @@ public:
 
 
     /**
-     * �_�ɉy�� .
-     * @return	�Ă΂�ďo�Ă����_
+     * 神に謁見 .
+     * @return	呼ばれて出てきた神
      */
     GgafGod* askGod();
 

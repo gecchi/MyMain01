@@ -1,11 +1,11 @@
-#ifndef GGAFSAYONARASCENE_H_
+﻿#ifndef GGAFSAYONARASCENE_H_
 #define GGAFSAYONARASCENE_H_
 namespace GgafCore {
 
 /**
- * ����Ȃ烋�[�g�V�[�� .
- * ���̃V�[���ɏ��������V�[���́A�x���ꑁ����delete����܂��B<BR>
- * �x���ꑁ����Ƃ����̂́A�_(GgafGod)���AFps�̗]�T������Ƃ��� delete ����Ƃ����Ӗ��ł�<BR>
+ * さよならルートシーン .
+ * このシーンに所属したシーンは、遅かれ早かれdeleteされます。<BR>
+ * 遅かれ早かれというのは、神(GgafGod)が、Fpsの余裕があるときに delete するという意味です<BR>
  * @version 1.00
  * @since 2008/12/17
  * @author Masatoshi Tsuge

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 
@@ -9,8 +9,8 @@ GgafObject::GgafObject() {
 }
 
 string GgafObject::toString() {
-    //TODO:java‚Ì‚æ‚¤‚É‚µ‚½‚¢‚Ì‚©
-    return "‚¿‚å‚Á‚Æ‚Ü‚Á‚Ä‚æ";
+    //TODO:javaã®ã‚ˆã†ã«ã—ãŸã„ã®ã‹
+    return "ã¡ã‚‡ã£ã¨ã¾ã£ã¦ã‚ˆ";
 }
 
 GgafObject::~GgafObject() {

@@ -1,12 +1,12 @@
-#ifndef GGAFMAINACTOR_H_
+ï»¿#ifndef GGAFMAINACTOR_H_
 #define GGAFMAINACTOR_H_
 
 namespace GgafCore {
 
 /**
- * •’Ê‚ÌƒAƒNƒ^[(‰‰Ò).
- * ‰ºˆÊƒAƒNƒ^[ƒNƒ‰ƒX‚Ö‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX‚Å‚ ‚èA<BR>
- * V‚½‚ÉƒAƒNƒ^[ƒNƒ‰ƒX‚ğì‚éê‡–{ƒNƒ‰ƒX‚ğŒp³‚µ‚ÄƒAƒNƒ^[ƒNƒ‰ƒX‚ğì‚é‚±‚Æ‚Æ‚·‚éB<BR>
+ * æ™®é€šã®ã‚¢ã‚¯ã‚¿ãƒ¼(æ¼”è€…).
+ * ä¸‹ä½ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ã¸ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã§ã‚ã‚Šã€<BR>
+ * æ–°ãŸã«ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ã‚’ä½œã‚‹å ´åˆæœ¬ã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ã¦ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ã‚’ä½œã‚‹ã“ã¨ã¨ã™ã‚‹ã€‚<BR>
  * @version 1.00
  * @since 2008/03/24
  * @author Masatoshi Tsuge
@@ -16,107 +16,107 @@ class GgafMainActor : public GgafActor {
 protected:
 
 public:
-    /** [r]ƒV[ƒ“ŠÇ—Ò */
+    /** [r]ã‚·ãƒ¼ãƒ³ç®¡ç†è€… */
     GgafLordActor* _pLordActor;
-    /** [r]ƒOƒ‹[ƒv‚ği‚é’¼‹ß‚Ì’c’· */
+    /** [r]ã‚°ãƒ«ãƒ¼ãƒ—ã‚’å¸ã‚‹ç›´è¿‘ã®å›£é•· */
     GgafGroupActor* _pGroupActor;
 
     GgafMainActor(const char* prm_name);
 
     /**
-     * Ÿ‚Ìƒm[ƒhæ“¾‚·‚éB .
-     * @return	Ÿƒm[ƒh
+     * æ¬¡ã®ãƒãƒ¼ãƒ‰å–å¾—ã™ã‚‹ã€‚ .
+     * @return	æ¬¡ãƒãƒ¼ãƒ‰
      */
     virtual GgafMainActor* getNext() override {
         return (GgafMainActor*)GgafActor::getNext();
     }
 
     /**
-     * ‘O‚Ìƒm[ƒhæ“¾‚·‚éB .
-     * @return	‘Oƒm[ƒh
+     * å‰ã®ãƒãƒ¼ãƒ‰å–å¾—ã™ã‚‹ã€‚ .
+     * @return	å‰ãƒãƒ¼ãƒ‰
      */
     virtual GgafMainActor* getPrev() override {
         return (GgafMainActor*)GgafActor::getPrev();
     }
 
     /**
-     * qƒm[ƒh‚ÌƒOƒ‹[ƒv‚Ìæ“ªƒm[ƒh‚ğæ“¾‚·‚é .
-     * qƒm[ƒh‚ª‘¶İ‚µ‚È‚¢ê‡‚ÍƒGƒ‰[B
-     * @return	qƒm[ƒh‚Ìæ“ªƒm[ƒh
+     * å­ãƒãƒ¼ãƒ‰ã®ã‚°ãƒ«ãƒ¼ãƒ—ã®å…ˆé ­ãƒãƒ¼ãƒ‰ã‚’å–å¾—ã™ã‚‹ .
+     * å­ãƒãƒ¼ãƒ‰ãŒå­˜åœ¨ã—ãªã„å ´åˆã¯ã‚¨ãƒ©ãƒ¼ã€‚
+     * @return	å­ãƒãƒ¼ãƒ‰ã®å…ˆé ­ãƒãƒ¼ãƒ‰
      */
     virtual GgafMainActor* getSubFirst() override {
         return (GgafMainActor*)GgafActor::getSubFirst();
     }
 
     /**
-     * ©ƒcƒŠ[ƒm[ƒh‚ğ˜AŒ‹ƒŠƒXƒg‚©‚çØ‚è—£‚µA“Æ—§‚·‚éB .
-     * Ø‚è—£‚³‚êŒŠ‚ªŠJ‚¢‚½•”•ª‚ÍAü‚è‚Ìƒm[ƒh‚ªŒŠ‚ğ–„‚ß‚Ü‚·iÄ˜AŒ‹‚µ‚Ü‚·j<BR>
-     * ©ƒm[ƒh‚Éq‚ª‚Ô‚ç‰º‚ª‚Á‚Ä‚¢‚½ê‡A‚»‚ê‚ç‚àØ‚è—£‚³‚ê‚½‚±‚Æ‚É‚È‚è‚Ü‚·B<BR>
-     * @return	©ƒm[ƒh‚Ìƒ|ƒCƒ“ƒ^
+     * è‡ªãƒ„ãƒªãƒ¼ãƒãƒ¼ãƒ‰ã‚’é€£çµãƒªã‚¹ãƒˆã‹ã‚‰åˆ‡ã‚Šé›¢ã—ã€ç‹¬ç«‹ã™ã‚‹ã€‚ .
+     * åˆ‡ã‚Šé›¢ã•ã‚Œç©´ãŒé–‹ã„ãŸéƒ¨åˆ†ã¯ã€å‘¨ã‚Šã®ãƒãƒ¼ãƒ‰ãŒç©´ã‚’åŸ‹ã‚ã¾ã™ï¼ˆå†é€£çµã—ã¾ã™ï¼‰<BR>
+     * è‡ªãƒãƒ¼ãƒ‰ã«å­ãŒã¶ã‚‰ä¸‹ãŒã£ã¦ã„ãŸå ´åˆã€ãã‚Œã‚‰ã‚‚åˆ‡ã‚Šé›¢ã•ã‚ŒãŸã“ã¨ã«ãªã‚Šã¾ã™ã€‚<BR>
+     * @return	è‡ªãƒãƒ¼ãƒ‰ã®ãƒã‚¤ãƒ³ã‚¿
      */
     virtual GgafMainActor* extract() override {
         return (GgafMainActor*)GgafActor::extract();
     }
 
     /**
-     * ƒV[ƒ“ŠÇ—Ò‚ğİ’è‚·‚éB .
+     * ã‚·ãƒ¼ãƒ³ç®¡ç†è€…ã‚’è¨­å®šã™ã‚‹ã€‚ .
      */
     virtual void setLordActor(GgafLordActor* prm_pLordActor);
 
     /**
-     * ’c’·‚ğİ’è‚·‚éB<BR>
+     * å›£é•·ã‚’è¨­å®šã™ã‚‹ã€‚<BR>
      */
     virtual void setGroupActor(GgafGroupActor* prm_pGroupActor);
 
     /**
-     * ƒV[ƒ“ŠÇ—Òæ“¾B .
-     * @return ŠÇ—Ò
+     * ã‚·ãƒ¼ãƒ³ç®¡ç†è€…å–å¾—ã€‚ .
+     * @return ç®¡ç†è€…
      */
     virtual GgafLordActor* getLordActor();
 
     /**
-     * ƒV[ƒ“’c’·‚ğæ“¾‚·‚éB .
-     * @return ’c’·
+     * ã‚·ãƒ¼ãƒ³å›£é•·ã‚’å–å¾—ã™ã‚‹ã€‚ .
+     * @return å›£é•·
      */
     virtual GgafGroupActor* getGroupActor();
 
     /**
-     * V‚½‚Éí•Ê‚ğİ’è‚µAƒAƒNƒ^[‚ğ”z‰º‚É’Ç‰Á‚·‚éB
-     * í•Ê‚ÍƒAƒNƒ^[‚ª•Û‚·‚éí•Ê‚ğ–³‹‚µAˆø”‚Ìí•Ê‚ğ—Dæ‚·‚éB
-     * ”z‰º‚É’c’·(GgafGroupActor)‚ğ‹²‚ñ‚Å‚»‚Ì”z‰º‚Éˆø”‚ÌƒAƒNƒ^[‚ğ’Ç‰Á‚µ‚Ü‚·B
-     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) ‚Ìà–¾‚ğQÆ‚µ‚Ä‰º‚³‚¢B
-     * @param prm_kind í•Ê
-     * @param prm_pMainActor í•Ê‚Æ‹¤‚É’Ç‰Á‚µ‚½‚¢ƒAƒNƒ^[
-     * @return ‹²‚İ‚Ü‚ê‚Ä‚¢‚é”z‰º‚Ì’c’·(GgafGroupActor)
+     * æ–°ãŸã«ç¨®åˆ¥ã‚’è¨­å®šã—ã€ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’é…ä¸‹ã«è¿½åŠ ã™ã‚‹ã€‚
+     * ç¨®åˆ¥ã¯ã‚¢ã‚¯ã‚¿ãƒ¼ãŒä¿æŒã™ã‚‹ç¨®åˆ¥ã‚’ç„¡è¦–ã—ã€å¼•æ•°ã®ç¨®åˆ¥ã‚’å„ªå…ˆã™ã‚‹ã€‚
+     * é…ä¸‹ã«å›£é•·(GgafGroupActor)ã‚’æŒŸã‚“ã§ãã®é…ä¸‹ã«å¼•æ•°ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ã€‚
+     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) ã®èª¬æ˜ã‚’å‚ç…§ã—ã¦ä¸‹ã•ã„ã€‚
+     * @param prm_kind ç¨®åˆ¥
+     * @param prm_pMainActor ç¨®åˆ¥ã¨å…±ã«è¿½åŠ ã—ãŸã„ã‚¢ã‚¯ã‚¿ãƒ¼
+     * @return æŒŸã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹é…ä¸‹ã®å›£é•·(GgafGroupActor)
      */
     GgafGroupActor* addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor);
 
     /**
-     * V‚½‚Éí•Ê‚ğİ’è‚µAƒAƒNƒ^[‚ğ”z‰º‚É’Ç‰Á‚·‚éB .
-     * ‚½‚¾‚µAí•Ê‚ÍƒAƒNƒ^[‚ª•Û‚·‚éí•Ê‚ğÌ—p‚·‚éB
-     * ”z‰º‚É’c’·(GgafGroupActor)‚ğ‹²‚ñ‚Å‚»‚Ì”z‰º‚Éˆø”‚ÌƒAƒNƒ^[‚ğ’Ç‰Á‚µ‚Ü‚·B
-     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) ‚Ìà–¾‚ğQÆ‚µ‚Ä‰º‚³‚¢B
-     * @param prm_pMainActor í•Ê‚Æ‹¤‚É’Ç‰Á‚µ‚½‚¢ƒAƒNƒ^[
-     * @return ‹²‚İ‚Ü‚ê‚Ä‚¢‚é”z‰º‚Ì’c’·(GgafGroupActor)
+     * æ–°ãŸã«ç¨®åˆ¥ã‚’è¨­å®šã—ã€ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’é…ä¸‹ã«è¿½åŠ ã™ã‚‹ã€‚ .
+     * ãŸã ã—ã€ç¨®åˆ¥ã¯ã‚¢ã‚¯ã‚¿ãƒ¼ãŒä¿æŒã™ã‚‹ç¨®åˆ¥ã‚’æ¡ç”¨ã™ã‚‹ã€‚
+     * é…ä¸‹ã«å›£é•·(GgafGroupActor)ã‚’æŒŸã‚“ã§ãã®é…ä¸‹ã«å¼•æ•°ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’è¿½åŠ ã—ã¾ã™ã€‚
+     * GgafLordActor::addSubGroup(actorkind, GgafMainActor) ã®èª¬æ˜ã‚’å‚ç…§ã—ã¦ä¸‹ã•ã„ã€‚
+     * @param prm_pMainActor ç¨®åˆ¥ã¨å…±ã«è¿½åŠ ã—ãŸã„ã‚¢ã‚¯ã‚¿ãƒ¼
+     * @return æŒŸã¿è¾¼ã¾ã‚Œã¦ã„ã‚‹é…ä¸‹ã®å›£é•·(GgafGroupActor)
      */
     GgafGroupActor* addSubGroup(GgafMainActor* prm_pMainActor);
 
     /**
-     * ”z‰º‚Ì’c’·‚ğ’T‚·B
-     * @param prm_kind ’T‚µ‚½‚¢’c’·‚Ìí•Ê
-     * @return ’c’·Aˆ½‚¢‚Í‘¶İ‚µ‚È‚¯‚ê‚Î NULL
+     * é…ä¸‹ã®å›£é•·ã‚’æ¢ã™ã€‚
+     * @param prm_kind æ¢ã—ãŸã„å›£é•·ã®ç¨®åˆ¥
+     * @return å›£é•·ã€æˆ–ã„ã¯å­˜åœ¨ã—ãªã‘ã‚Œã° NULL
      */
     GgafGroupActor* getSubGroupActor(actorkind prm_kind);
 
     /**
-     * _‚É‰yŒ© .
-     * @return	ŒÄ‚Î‚ê‚Äo‚Ä‚«‚½_
+     * ç¥ã«è¬è¦‹ .
+     * @return	å‘¼ã°ã‚Œã¦å‡ºã¦ããŸç¥
      */
     virtual GgafGod* askGod();
 
     /**
-     * í•Ê‚ğæ“¾‚·‚é .
-     * ‰ºˆÊ‚ÌÀ‘•‚Å©—R‚Ég—p‚·‚é‚±‚Æ‚ğ‘z’èB
+     * ç¨®åˆ¥ã‚’å–å¾—ã™ã‚‹ .
+     * ä¸‹ä½ã®å®Ÿè£…ã§è‡ªç”±ã«ä½¿ç”¨ã™ã‚‹ã“ã¨ã‚’æƒ³å®šã€‚
      * @return
      */
     actorkind getKind();

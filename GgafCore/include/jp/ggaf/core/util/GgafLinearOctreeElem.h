@@ -1,52 +1,52 @@
-#ifndef GGAFLINEAROCTREEELEM_H_
+ï»¿#ifndef GGAFLINEAROCTREEELEM_H_
 #define GGAFLINEAROCTREEELEM_H_
 namespace GgafCore {
 
 
 /**
- * üŒ`”ª•ª–Ø”z—ñ—p‹óŠÔ‚Ì—v‘fƒNƒ‰ƒX .
+ * ç·šå½¢å…«åˆ†æœ¨é…åˆ—ç”¨ç©ºé–“ã®è¦ç´ ã‚¯ãƒ©ã‚¹ .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
 class GgafLinearOctreeElem {
 public:
-    /** Š‘®ƒcƒŠ[ */
+    /** æ‰€å±ãƒ„ãƒªãƒ¼ */
     GgafLinearOctree* _pLinearOctree;
-    /** Š‘®‹óŠÔ */
+    /** æ‰€å±ç©ºé–“ */
     GgafLinearOctreeSpace* _pSpace_Current;
-    /** Ÿ—v‘f */
+    /** æ¬¡è¦ç´  */
     GgafLinearOctreeElem* _pNext;
-    /** ‘O—v‘f */
+    /** å‰è¦ç´  */
     GgafLinearOctreeElem* _pPrev;
-    /** ‘ÎÛƒIƒuƒWƒFƒNƒg */
+    /** å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
     GgafObject* _pObject;
-    /** ‘ÎÛƒIƒuƒWƒFƒNƒgí•Ê */
+    /** å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆç¨®åˆ¥ */
     DWORD _kindbit;
-    /** “o˜^ƒŠƒXƒg—pƒŠƒ“ƒN */
+    /** ç™»éŒ²ãƒªã‚¹ãƒˆç”¨ãƒªãƒ³ã‚¯ */
     GgafLinearOctreeElem* _pRegLinkNext;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * @param prm_pObject ‘ÎÛƒIƒuƒWƒFƒNƒg(ƒLƒƒƒ‰ƒNƒ^‚È‚Ç”ª•ª–Ø‚ÅŠÇ—‚µ‚½‚¢ÀÛ‚Ì’l)
-     * @param prm_kindbit ‚»‚Ì‘ÎÛƒIƒuƒWƒFƒN‚Ìí•ÊAí—Ş•ª‚¯•s—v‚Èê‡‚ÍA”CˆÓ‚Ì”’l‚Å‚æ‚¢B
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * @param prm_pObject å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(ã‚­ãƒ£ãƒ©ã‚¯ã‚¿ãªã©å…«åˆ†æœ¨ã§ç®¡ç†ã—ãŸã„å®Ÿéš›ã®å€¤)
+     * @param prm_kindbit ãã®å¯¾è±¡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ã®ç¨®åˆ¥ã€ç¨®é¡åˆ†ã‘ä¸è¦ãªå ´åˆã¯ã€ä»»æ„ã®æ•°å€¤ã§ã‚ˆã„ã€‚
      * @return
      */
     GgafLinearOctreeElem(GgafObject* prm_pObject, DWORD prm_kindbit);
 
     /**
-     * ©g‚ª©‚ç—£’E
+     * è‡ªèº«ãŒè‡ªã‚‰é›¢è„±
      */
     void extract();
 
     /**
-     * ©g‚ª©‚ç‹óŠÔ‚Ì––”ö‚É’Ç‰Á
+     * è‡ªèº«ãŒè‡ªã‚‰ç©ºé–“ã®æœ«å°¾ã«è¿½åŠ 
      */
     void addElem(GgafLinearOctreeSpace* prm_pSpace_target);
 
 //    /**
-//     * ©g‚ª©‚ç‘¼‹óŠÔ‚ÖˆÚ“®
-//     * extract()‚µ‚ÄaddElem()‚µ‚Ü‚·.
+//     * è‡ªèº«ãŒè‡ªã‚‰ä»–ç©ºé–“ã¸ç§»å‹•
+//     * extract()ã—ã¦addElem()ã—ã¾ã™.
 //     * @param prm_pSpace_target
 //     */
 //void moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target);

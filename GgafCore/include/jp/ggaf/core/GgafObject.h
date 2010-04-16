@@ -1,11 +1,11 @@
-#ifndef GGAFOBJECT_H_
+ï»¿#ifndef GGAFOBJECT_H_
 #define GGAFOBJECT_H_
 namespace GgafCore {
 
 /**
- * Šî’êƒNƒ‰ƒX
+ * åŸºåº•ã‚¯ãƒ©ã‚¹
  * @version 1.00
- * @since 2007/12/24 ƒCƒuI
+ * @since 2007/12/24 ã‚¤ãƒ–ï¼
  * @author Masatoshi Tsuge
  */
 class GgafObject {

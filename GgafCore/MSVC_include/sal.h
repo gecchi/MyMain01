@@ -1,29 +1,29 @@
-//�{�t�@�C���� VC++2008 �� sal.h �� �R�s�[�ł��B
+﻿//本ファイルは VC++2008 の sal.h の コピーです。
 //
-//[sal.h ���Ȃ�����ȂƂ���ɂ���̂ł����Y���^����]
-//�O��Ƃ��āA�{�v���O������GCC(MINGW��GCC4.4)�AVC++2008�AVC++2005�ŃR���p�C���o����悤�ɖڎw���Ă���B
-//VC++2008�AVC++2005�ł͖��Ȃ����AGCC�ŃR���p�C������ۂɁA�{�w�b�_�t�@�C���͕K�v�ƂȂ�B
+//[sal.h がなぜこんなところにあるのですか忘備録メモ]
+//前提として、本プログラムはGCC(MINGWのGCC4.4)、VC++2008、VC++2005でコンパイル出来るように目指している。
+//VC++2008、VC++2005では問題ないが、GCCでコンパイルする際に、本ヘッダファイルは必要となる。
 //
-//DirectX SDK August 2009 �ȍ~�A�Ȃ��SDK�̃w�b�_�[�R�[�h���ŁA����VC�p�w�b�_�t�@�C��("sal.h"��)��include���Ă���R�[�h�����ꂽ�I�B
-//�w�b�_�[�p�X�̗D�揇�ʂ𒲐����Ă��A�ǂ��ɂ������ɂ�����ł����A���͂� DirectX SDK + MINGW �݂̂ŃR���p�C���o���Ȃ��Ȃ����i�Ǝv���j�B
-//���������ׂĂ������ɁA�u�K�v��VC�̃w�b�_�� sal.h ������łȂ�Ƃ��Ȃ�񂶂�Ȃ����E�E�E�H�B�v�ƁA
-//�^�S�ËS�ɂ�����A���s����̌��ʁAsal.h �݂̂̃R�s�[�����ŁAGCC�ł��R���p�C���o����悤�ɂȂ����B
-//�P�t�@�C���Ƃ͂����A�ˑ����̍�������ȉ����@�̓J�b�R�����E�E�E�A�܂���ōl���悤�B�i���Ԃ񂱂̂܂܁G�j
+//DirectX SDK August 2009 以降、なんとSDKのヘッダーコード内で、直接VC用ヘッダファイル("sal.h"等)をincludeしているコードが現れた！。
+//ヘッダーパスの優先順位を調整しても、どうにもこうにも回避できず、もはや DirectX SDK + MINGW のみでコンパイル出来なくなった（と思う）。
+//しかし調べていく内に、「必要なVCのヘッダは sal.h 一つだけでなんとかなるんじゃないか・・・？。」と、
+//疑心暗鬼にかかり、試行錯誤の結果、sal.h のみのコピーだけで、GCCでもコンパイル出来るようになった。
+//１ファイルとはいえ、依存性の高いこんな回避方法はカッコ悪い・・・、また後で考えよう。（たぶんこのまま；）
 //
-//VC�ŃR���p�C������ꍇ�A�{�t�@�C�����Q�Ƃ���Ȃ��悤�ɃC���N���[�h�p�X�𒲐�����B
-//GCC�ŃR���p�C������ꍇ�A�{�t�@�C�����Q�Ƃ���悤�ɃC���N���[�h�p�X��ʂ��B
-//�Ƃ���ŁA�{ sal.h ��include ����� NULL �� __null �� #define �����悤�ɂȂ��Ă���B
-//���������Ƃ�GCC�ŒP��include�����ꍇ __null �͉�����`����Ȃ��B
-//sal.h �ŁANULL ����������`�����悤�ɁA#define �����`�����O�ǉ����Ă����ƁA���x�� "sourceannotations.h"
-//�Ƃ������ʂ� VC++ �w�b�_�t�@�C�����K�v�ɂȂ��Ă��܂��E�E�E�B�܂��R�s�[���Ď����Ă���΂����̂��낤���ǁA�L�����Ȃ��B
-//������VC�ȊO�ł̃R���p�C������ NULL �� 0 �ɋ����I�ɍĒ�`����悤�ɂ����B�悵�A���܂��������I�B
+//VCでコンパイルする場合、本ファイルが参照されないようにインクルードパスを調整する。
+//GCCでコンパイルする場合、本ファイルが参照さるようにインクルードパスを通す。
+//ところで、本 sal.h をinclude すると NULL に __null が #define されるようになっている。
+//困ったことにGCCで単にincludeした場合 __null は何も定義されない。
+//sal.h で、NULL が正しく定義されるように、#define 等を定義を事前追加していくと、今度は "sourceannotations.h"
+//とかいう別の VC++ ヘッダファイルが必要になってしまう・・・。またコピーして持ってくればいいのだろうけど、キリがない。
+//そこでVC以外でのコンパイル時は NULL を 0 に強制的に再定義するようにした。よし、うまくいった！。
 //
-//TODO:����ł����̂��I�I �_(T_T)�^
+//TODO:これでいいのか！！ ＼(T_T)／
 //
 
 #ifndef COPY_OF_SAL_H_
 #define COPY_OF_SAL_H_
-//------------------------��������I���W�i���\�[�X�̃R�s�[
+//------------------------ここからオリジナルソースのコピー
 
 /***
 *sal.h - markers for documenting the semantics of APIs

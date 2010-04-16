@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -21,7 +21,7 @@ GgafGod::GgafGod() : GgafObject(),
     _handleFactory01 = (HANDLE)::_beginthreadex(NULL, 0, GgafFactory::work, NULL, CREATE_SUSPENDED, &_thID01);
 
     if (_handleFactory01 == 0) {
-        throwGgafCriticalException("GgafGod::GgafGod() Error! ƒXƒŒƒbƒhì¬Ž¸”sI");
+        throwGgafCriticalException("GgafGod::GgafGod() Error! ã‚¹ãƒ¬ãƒƒãƒ‰ä½œæˆå¤±æ•—ï¼");
     }
     ::InitializeCriticalSection(&(GgafGod::CS1));
     ::InitializeCriticalSection(&(GgafGod::CS2));
@@ -29,7 +29,7 @@ GgafGod::GgafGod() : GgafObject(),
     ::SetThreadPriority(_handleFactory01, THREAD_PRIORITY_IDLE);
     GgafGod::_pGod = this;
     _time_at_beginning_frame = timeGetTime();
-    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 3000); //3•b¼
+    _expected_time_of_next_frame = (DWORD)(_time_at_beginning_frame + 3000); //3ç§’æ¾
     _time_prev = _time_at_beginning_frame;
     _frame_of_visualize = 0;
     _frame_of_prev_visualize = 0;
@@ -44,26 +44,26 @@ void GgafGod::be() {
         _pUniverse = createUniverse();
 #ifdef MY_DEBUG
         if (_pUniverse == NULL) {
-            throwGgafCriticalException("GgafGod::be() Error! ‚±‚Ì¢‚ðŽÀ‘•‚µ‚Ä‰º‚³‚¢I");
+            throwGgafCriticalException("GgafGod::be() Error! ã“ã®ä¸–ã‚’å®Ÿè£…ã—ã¦ä¸‹ã•ã„ï¼");
         }
 #endif
         _pUniverse->_pGod = this;
     }
 
-    //Hêi•ÊƒXƒŒƒbƒhj—áŠO‚ðƒ`ƒFƒbƒN
+    //å·¥å ´ï¼ˆåˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ï¼‰ä¾‹å¤–ã‚’ãƒã‚§ãƒƒã‚¯
     if (_pException_Factory != NULL) {
         throw *_pException_Factory;
     }
 
     if (_is_behaved_flg == false) {
         _is_behaved_flg = true;
-     ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+     ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
         _godframe++;
         presentUniversalMoment();
         executeUniversalJudge();
-     ___EndSynchronized; // <----- ”r‘¼I—¹
-        //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‰ÁŽZ
-        //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //—\’è‚Í•Ï‚í‚ç‚È‚¢
+     ___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
+        //æç”»ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—
+        //_expected_time_of_next_frame += _aTime_OffsetOfNextFrame[_godframe % 60]; //äºˆå®šã¯å¤‰ã‚ã‚‰ãªã„
         if (_num_actor_drawing > 500) {
             _expected_time_of_next_frame += (DWORD)(_aTime_OffsetOfNextFrame[_godframe % 60] * 2);
         } else if (_num_actor_drawing > 400) {
@@ -73,10 +73,10 @@ void GgafGod::be() {
         }
 
 
-        if (_expected_time_of_next_frame <= timeGetTime()) { //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
-            //makeUniversalMaterialize ‚ÍƒpƒX
+        if (_expected_time_of_next_frame <= timeGetTime()) { //æç”»ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãªã£ãŸã€æˆ–ã„ã¯éŽãŽã¦ã„ã‚‹å ´åˆ
+            //makeUniversalMaterialize ã¯ãƒ‘ã‚¹
         } else {
-            //—]—T—L‚è
+            //ä½™è£•æœ‰ã‚Š
             _is_materialized_flg = true;
             makeUniversalMaterialize();
         }
@@ -84,7 +84,7 @@ void GgafGod::be() {
 
     _time_at_beginning_frame = timeGetTime(); //
 
-    //fpsŒvŽZ
+    //fpsè¨ˆç®—
     if (_time_at_beginning_frame - _time_prev >= 1000) {
         _fps = (float)(_frame_of_visualize - _frame_of_prev_visualize) / (float)((_time_at_beginning_frame - _time_prev) / 1000.0f);
         _TRACE_(_godframe<<"Frame "<<_num_actor_drawing<<"Actor "<<_fps<<"Fps");
@@ -92,16 +92,16 @@ void GgafGod::be() {
         _frame_of_prev_visualize = _frame_of_visualize;
     }
 
-    if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚½Aˆ½‚¢‚Í‰ß‚¬‚Ä‚¢‚éê‡
+    if (_expected_time_of_next_frame <= _time_at_beginning_frame) { //æç”»ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãªã£ãŸã€æˆ–ã„ã¯éŽãŽã¦ã„ã‚‹å ´åˆ
 
         if (_time_at_beginning_frame > _expected_time_of_next_frame + _aTime_OffsetOfNextFrame[_godframe % 60]) {
-            //‘å•‚É‰ß‚¬‚Ä‚¢‚½‚ç(ŽŸ‚ÌƒtƒŒ[ƒ€‚Ü‚ÅH‚¢ž‚ñ‚Å‚¢‚½‚ç)ƒXƒLƒbƒv
+            //å¤§å¹…ã«éŽãŽã¦ã„ãŸã‚‰(æ¬¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã¾ã§é£Ÿã„è¾¼ã‚“ã§ã„ãŸã‚‰)ã‚¹ã‚­ãƒƒãƒ—
             _skip_count_of_frame++;
             if (_skip_count_of_frame >= GGAF_PROPERTY(MAX_SKIP_FRAME)) {
-                //ƒXƒLƒbƒv‚·‚é‚Æ‚¢‚Á‚Ä‚àMAX_SKIP_FRAMEƒtƒŒ[ƒ€‚É‚P‰ñ‚Í•`‰æ‚Í‚·‚éB
+                //ã‚¹ã‚­ãƒƒãƒ—ã™ã‚‹ã¨ã„ã£ã¦ã‚‚MAX_SKIP_FRAMEãƒ•ãƒ¬ãƒ¼ãƒ ã«ï¼‘å›žã¯æç”»ã¯ã™ã‚‹ã€‚
                 _skip_count_of_frame = 0;
                 _frame_of_visualize++;
-             ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+             ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
                 if (_is_materialized_flg) {
                     presentUniversalVisualize();
                     finalizeUniversal();
@@ -111,17 +111,17 @@ void GgafGod::be() {
                     finalizeUniversal();
                 }
                 //getUniverse()->cleane(10);
-             ___EndSynchronized; // <----- ”r‘¼I—¹
+             ___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
             } else {
-                //ƒXƒLƒbƒvŽž‚ÍfinalizeUniversal()‚¾‚¯
-             ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+                //ã‚¹ã‚­ãƒƒãƒ—æ™‚ã¯finalizeUniversal()ã ã‘
+             ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
                 finalizeUniversal();
-             ___EndSynchronized; // <----- ”r‘¼I—¹
+             ___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
             }
         } else {
-            //’ÊíŽž•`‰æiƒXƒLƒbƒv‚È‚µj
+            //é€šå¸¸æ™‚æç”»ï¼ˆã‚¹ã‚­ãƒƒãƒ—ãªã—ï¼‰
             _frame_of_visualize++;
-         ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+         ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
             if (_is_materialized_flg) {
                 presentUniversalVisualize();
                 finalizeUniversal();
@@ -131,12 +131,12 @@ void GgafGod::be() {
                 finalizeUniversal();
 
             }
-         ___EndSynchronized; // <----- ”r‘¼I—¹
+         ___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
         }
         _is_behaved_flg = false;
         _is_materialized_flg = false;
-    } else {//•`‰æƒ^ƒCƒ~ƒ“ƒOƒtƒŒ[ƒ€‚É‚È‚Á‚Ä‚È‚¢(—]—T‚ª‚ ‚é)
-        Sleep(2); //Hêi•ÊƒXƒŒƒbƒhj‚É‰ñ‚·
+    } else {//æç”»ã‚¿ã‚¤ãƒŸãƒ³ã‚°ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãªã£ã¦ãªã„(ä½™è£•ãŒã‚ã‚‹)
+        Sleep(2); //å·¥å ´ï¼ˆåˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ï¼‰ã«å›žã™
     }
 
     return;
@@ -171,36 +171,36 @@ GgafGod::~GgafGod() {
     _TRACE_("GgafGod::~GgafGod start");
     if (_pUniverse != NULL) {
         _TRACE_("_pUniverse != NULL");
-        //Hê‚ðŽ~‚ß‚é
+        //å·¥å ´ã‚’æ­¢ã‚ã‚‹
         Sleep(1);
         GgafFactory::_is_working_flg = false;
         for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-            Sleep(60); //Hê‚ª—Ž‚¿’…‚­‚Ü‚Å‘Ò‚Â
+            Sleep(60); //å·¥å ´ãŒè½ã¡ç€ãã¾ã§å¾…ã¤
             if (i > 2000) {
-                _TRACE_("GgafGod::~GgafGod() ‚Q•ª‘Ò‹@‚µ‚Ü‚µ‚½‚ªAHê‚©‚ç”½‰ž‚ª‚ ‚è‚Ü‚¹‚ñBbreak‚µ‚Ü‚·B—v’²¸");
+                _TRACE_("GgafGod::~GgafGod() ï¼’åˆ†å¾…æ©Ÿã—ã¾ã—ãŸãŒã€å·¥å ´ã‹ã‚‰åå¿œãŒã‚ã‚Šã¾ã›ã‚“ã€‚breakã—ã¾ã™ã€‚è¦èª¿æŸ»");
             }
         }
-        //”r‘¼‚Ì‰ðœ
+        //æŽ’ä»–ã®è§£é™¤
         CloseHandle(_handleFactory01);
         DeleteCriticalSection(&(GgafGod::CS2));
         DeleteCriticalSection(&(GgafGod::CS1));
-        //Hê‘|œ
-    // ___BeginSynchronized; // ----->”r‘¼ŠJŽn
+        //å·¥å ´æŽƒé™¤
+    // ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
         GgafFactory::clean();
         _TRACE_("GgafFactory::clean()");
-    //___EndSynchronized; // <----- ”r‘¼I—¹
-        //ƒSƒ~” 
+    //___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
+        //ã‚´ãƒŸç®±
         //GgafFactory::_pGarbageBox->_pSayonaraScene->dump();
         //GgafFactory::_pGarbageBox->_pSayonaraActor->dump();
         DELETE_IMPOSSIBLE_NULL(GgafFactory::_pGarbageBox);
-        //‚±‚Ì¢‚Å¶‚«‚Ä‚¢‚é•¨‚à‘|œ
+        //ã“ã®ä¸–ã§ç”Ÿãã¦ã„ã‚‹ç‰©ã‚‚æŽƒé™¤
         Sleep(20);
-     //___BeginSynchronized; // ----->”r‘¼ŠJŽn
+     //___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹
         DELETE_IMPOSSIBLE_NULL(_pUniverse);
-     //___EndSynchronized; // <----- ”r‘¼I—¹
+     //___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†
     }
 
-    //Hê—áŠO _pException_Factory ‚ª‹N‚±‚Á‚Ä‚¢‚é‚©‚à‚µ‚ê‚È‚¢B
+    //å·¥å ´ä¾‹å¤– _pException_Factory ãŒèµ·ã“ã£ã¦ã„ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã€‚
     DELETE_POSSIBLE_NULL(_pException_Factory);
     _TRACE_("GgafGod::~GgafGod end");
 }

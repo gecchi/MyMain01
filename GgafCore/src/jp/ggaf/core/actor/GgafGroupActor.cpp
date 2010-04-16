@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -21,7 +21,7 @@ GgafLordActor* GgafGroupActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("yŒxzGgafGroupActor::getLordActor Š‘®‚µ‚Ä‚¢‚È‚¢‚½‚ßALordActor‚ª‚Æ‚ê‚Ü‚¹‚ñI("<<getName()<<")B‚»‚±‚ÅŸè‚É‚±‚Ì¢(GgafUniverse)Š‘®‚ÌLordActor‚ğ•Ô‚µ‚Ü‚µ‚½");
+            _TRACE_("ã€è­¦å‘Šã€‘GgafGroupActor::getLordActor æ‰€å±ã—ã¦ã„ãªã„ãŸã‚ã€LordActorãŒã¨ã‚Œã¾ã›ã‚“ï¼("<<getName()<<")ã€‚ãã“ã§å‹æ‰‹ã«ã“ã®ä¸–(GgafUniverse)æ‰€å±ã®LordActorã‚’è¿”ã—ã¾ã—ãŸ");
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
@@ -31,7 +31,7 @@ GgafLordActor* GgafGroupActor::getLordActor() {
                 return (GgafLordActor*)_pParent;
             }
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("yŒxzGgafMainActor::getLordActor ‚±‚ÌƒcƒŠ[‚É‚ÍLordActor‚ª‚¢‚Ü‚¹‚ñI("<<getName()<<")B‚»‚±‚ÅŸè‚É‚±‚Ì¢(GgafUniverse)Š‘®‚ÌLordActor‚ğ•Ô‚µ‚Ü‚µ‚½");
+            _TRACE_("ã€è­¦å‘Šã€‘GgafMainActor::getLordActor ã“ã®ãƒ„ãƒªãƒ¼ã«ã¯LordActorãŒã„ã¾ã›ã‚“ï¼("<<getName()<<")ã€‚ãã“ã§å‹æ‰‹ã«ã“ã®ä¸–(GgafUniverse)æ‰€å±ã®LordActorã‚’è¿”ã—ã¾ã—ãŸ");
         }
     }
     return _pLordActor;
@@ -60,7 +60,7 @@ GgafGod* GgafGroupActor::askGod() {
     if (_pGod == NULL) {
 #ifdef MY_DEBUG
         if (getParent() == NULL) {
-            throwGgafCriticalException("GgafGroupActor::askGod _‚Í‚±‚Ì¢‚É‘¶İ‚·‚é•¨‚©‚ç‚Ì‚İ‰yŒ©‚Å‚«‚Ü‚·B‚Ü‚¸‚Í‚±‚Ì¢‚É‘®‚µ‚È‚³‚¢II("<<getName()<<")");
+            throwGgafCriticalException("GgafGroupActor::askGod ç¥ã¯ã“ã®ä¸–ã«å­˜åœ¨ã™ã‚‹ç‰©ã‹ã‚‰ã®ã¿è¬è¦‹ã§ãã¾ã™ã€‚ã¾ãšã¯ã“ã®ä¸–ã«å±ã—ãªã•ã„ï¼ï¼("<<getName()<<")");
         }
 #endif
         _pGod = getParent()->askGod();

@@ -1,11 +1,11 @@
-#ifndef GGAFSTATUS_H_
+ï»¿#ifndef GGAFSTATUS_H_
 #define GGAFSTATUS_H_
 namespace GgafCore {
 
 /**
- * ƒXƒe[ƒXƒNƒ‰ƒX.
+ * ã‚¹ãƒ†ãƒ¼ã‚¹ã‚¯ãƒ©ã‚¹.
  * @version 1.00
- * @since 2009/07/22 ’a¶“ú
+ * @since 2009/07/22 èª•ç”Ÿæ—¥
  * @author Masatoshi Tsuge
  */
 class GgafStatus {

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -12,7 +12,7 @@ void GgafProperties::load(string prm_properties_filename) {
         _pMapProperties = NEW map<string, string>();
         int ret = read(prm_properties_filename);
         if (ret != 0) {
-            throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"‚Ìread()‚ÉŽ¸”sBƒXƒe[ƒg¨"<<ret);
+            throwGgafCriticalException("GgafProperties::load() Error! "<<prm_properties_filename<<"ã®read()ã«å¤±æ•—ã€‚ã‚¹ãƒ†ãƒ¼ãƒˆâ†’"<<ret);
         }
     }
 
@@ -64,7 +64,7 @@ void GgafProperties::parse(char* p) {
     for (; *p != '\0'; p++) {
         if (*p == '#') {
             while (*p++ != '\n') {
-            } //‹ó“Ç‚Ý
+            } //ç©ºèª­ã¿
             p--;
             pChar_Token = NULL;
         } else if (*p == '\n' || *p == '\r') {
@@ -98,7 +98,7 @@ string* GgafProperties::getStr(string prm_key) {
         string* ret = NEW string((*_pMapProperties)[prm_key].c_str());
         return ret;
     } else {
-        throwGgafCriticalException("GgafProperties::getStr() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getStr() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 }
 float* GgafProperties::getFloat(string prm_key) {
@@ -106,7 +106,7 @@ float* GgafProperties::getFloat(string prm_key) {
         float* ret = NEW float(atof((*_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
-        throwGgafCriticalException("GgafProperties::getInt() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getInt() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 
 }
@@ -115,7 +115,7 @@ int* GgafProperties::getInt(string prm_key) {
         int* ret = NEW int(atoi((*_pMapProperties)[prm_key].c_str()));
         return ret;
     } else {
-        throwGgafCriticalException("GgafProperties::getInt() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getInt() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 }
 
@@ -124,7 +124,7 @@ DWORD* GgafProperties::getDWORD(string prm_key) {
         DWORD* dwRet = NEW DWORD((DWORD)(atoi((*_pMapProperties)[prm_key].c_str())));
         return dwRet;
     } else {
-        throwGgafCriticalException("GgafProperties::getDWORD() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getDWORD() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 }
 
@@ -138,7 +138,7 @@ bool* GgafProperties::getBool(string prm_key) {
         }
         return bRet;
     } else {
-        throwGgafCriticalException("GgafProperties::getBool() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getBool() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 }
 
@@ -147,7 +147,7 @@ double* GgafProperties::getDouble(string prm_key) {
         double* dRet = NEW double(atof((*_pMapProperties)[prm_key].c_str()));
         return dRet;
     } else {
-        throwGgafCriticalException("GgafProperties::getDouble() Error! ƒvƒƒpƒeƒB‚ÉAƒL[("<<prm_key<<")‚ª‘¶Ý‚µ‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafProperties::getDouble() Error! ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ã«ã€ã‚­ãƒ¼("<<prm_key<<")ãŒå­˜åœ¨ã—ã¾ã›ã‚“ã€‚");
     }
 }
 

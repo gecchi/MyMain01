@@ -1,17 +1,17 @@
-#ifndef ACTORDISPATCHER_H_
+﻿#ifndef ACTORDISPATCHER_H_
 #define ACTORDISPATCHER_H_
 namespace GgafCore {
 
 /**
- * �A�N�^�[�����҃N���X .
- * �c���[�̎q�ɗ\�ߊ���A�N�^�[��o�^(addSubLast)���ăX�g�b�N����B<BR>
- * employ() ���\�b�h�ŁA�X�g�b�N�̊������Ă��Ȃ��A�N�^�[�T���Ē񋟂���B<BR>
- * �A�N�^�[�͎g���I�������inactivate()����ƁA�X�g�b�N�ɖ߂������ƂɂȂ�B<BR>
- * �e�Ȃǉ��x���g���܂킵�����A�N�^�[��A�o���������������ꍇ���ɗL���ƂȂ�n�Y�ł���B<BR>
- * �A��employ()�̏ꍇ�A����employ()�̃A�N�^�[�͕K���ד��m�ƂȂ��Ă���Ƃ����@��������B<BR>
- * ����́Aemploy()�����A�N�^�[�́A�X�g�b�N���т̈�ԍŌ�ɉ񂳂�邽�߁B<BR>
- * �|�����C���i���[�U�[�j�̂ЂƓZ�܂�̒P�ʂƂ��Ďg�p�ł��邩������Ȃ��A�Ɩژ_�ށB<BR>
- * (��RotationActor)
+ * アクター発送者クラス .
+ * ツリーの子に予め幾つかアクターを登録(addSubLast)してストックする。<BR>
+ * employ() メソッドで、ストックの活動していないアクター探して提供する。<BR>
+ * アクターは使い終わったらinactivate()すると、ストックに戻ったことになる。<BR>
+ * 弾など何度も使いまわしたいアクターや、出現数制限したい場合等に有効となるハズである。<BR>
+ * 連続employ()の場合、次のemploy()のアクターは必ず隣同士となっているという法則がある。<BR>
+ * これは、employ()したアクターは、ストック並びの一番最後に回されるため。<BR>
+ * ポリライン（レーザー）のひと纏まりの単位として使用できるかもしれない、と目論む。<BR>
+ * (旧RotationActor)
  * @version 1.00
  * @since 2008/08/11
  * @author Masatoshi Tsuge
@@ -22,16 +22,16 @@ public:
     GgafActorDispatcher(const char* prm_name);
 
     /**
-     * �����o�[��o�^���܂�.
-     * ��̓I�ɂ́AaddSubLast() ���Ăяo���A��ʂ������p���܂��B
-     * �ŏ��ɓo�^�����A�N�^�[���A�{�f�B�X�p�b�`���[�̎�ʂƂȂ邽�߁A������ʂ�addSubLast���Ă��������B
-     * @param prm_pSub �o�^�A�N�^�[
+     * メンバーを登録します.
+     * 具体的には、addSubLast() を呼び出し、種別を引き継ぎます。
+     * 最初に登録したアクターが、本ディスパッチャーの種別となるため、同じ種別をaddSubLastしてください。
+     * @param prm_pSub 登録アクター
      */
     virtual void addSubLast(GgafActor* prm_pSub);
 
 
     /**
-     * �q�A�N�^�[�ւ͉e�������Ȃ�
+     * 子アクターへは影響させない
      */
     virtual void activateTree() {
         activate();
@@ -42,27 +42,27 @@ public:
     }
 
     /**
-     * �A�N�^�[���o�� .
-     * �A�N�^�[�����҂̉ɂ����ȃ����o�[�iactive���A�܂���active�\�񂳂�Ă��Ȃ��j������Ύ擾����B<BR>
-     * �ɂȃ����o�[�����Ȃ��ꍇ NULL ���Ԃ�܂��B<BR>
-     * �擾�ł���ꍇ�A�|�C���^��Ԃ��Ƌ��ɁA���̃A�N�^�[�̓A�N�^�[�����҂̃T�u�̈�Ԍ��Ɉړ�����܂��B<BR>
-     * ���g�p�၄
+     * アクター取り出し .
+     * アクター発送者の暇そうなメンバー（active中、またはactive予約されていない）がいれば取得する。<BR>
+     * 暇なメンバーが居ない場合 NULL が返ります。<BR>
+     * 取得できる場合、ポインタを返すと共に、そのアクターはアクター発送者のサブの一番後ろに移動されます。<BR>
+     * ＜使用例＞
      * <code>
      * GgafMainActor* pActor = pDispatcher->employForce();
      * if (pActor != NULL) {
-     *     //�A�N�^�[�̏�������
-     *     //�E�E�E
+     *     //アクターの初期処理
+     *     //・・・
      *
      *     pActor->active();
      * }
      *
      * </code>
-     * @return �A�N�^�[�����҂̉ɂ����ȃ����o�[�A�N�^�[
+     * @return アクター発送者の暇そうなメンバーアクター
      */
     virtual GgafCore::GgafMainActor* employ() {
 #ifdef MY_DEBUG
         if (_pSubFirst == NULL) {
-            throwGgafCriticalException("GgafActorDispatcher::employ() �q������܂���");
+            throwGgafCriticalException("GgafActorDispatcher::employ() 子がありません");
         }
 #endif
         static GgafMainActor* pActor;
@@ -70,10 +70,10 @@ public:
 
         for (int i = 0; i <= 100000; i++) {
             if (pActor->_is_active_flg == false &&  pActor->_is_active_flg_in_next_frame == false &&  pActor->_on_change_to_inactive_flg == false) {
-                //pActor->activate(); //activate�͌Ăь��Ŗ����I�ɍs���悤�ɂ���
-                pActor->moveLast(); //���K�ɉ�
-                break;//�擾�I
-            } else {   //���������A�����́A���t���[�������\��̏ꍇ�͌�����
+                //pActor->activate(); //activateは呼び元で明示的に行うようにした
+                pActor->moveLast(); //お尻に回す
+                break;//取得！
+            } else {   //今活動中、或いは、次フレーム活動予定の場合は見送る
                 if (pActor->isLast()) {
                     pActor = NULL;
                     break;
@@ -84,7 +84,7 @@ public:
             }
 #ifdef MY_DEBUG
             if (i == 100000) {
-                throwGgafCriticalException("GgafActorDispatcher::employ() �����t���O��������܂���B�z���[�v���Ă���\��������܂��B");
+                throwGgafCriticalException("GgafActorDispatcher::employ() 末尾フラグが見つかりません。循環ループしている可能性があります。");
             }
 #endif
         }
@@ -92,13 +92,13 @@ public:
     }
 
     /**
-     * �����I�ɃA�N�^�[���o�� .
-     * employ() �����݂Ď��o���Ȃ��ꍇ�A�����I�ɐ擪�̃A�N�^�[��Ԃ��܂��B
-     * ���ӁF���o����A�A�N�^�[�� active() �Ƃ��Ă��A���̃A�N�^�[������
-     * isActive() == true �̏�Ԃ����肤�邽�߁AonActive() �R�[���o�b�N��
-     * �Ă΂�Ȃ��\��������B
-     * �����I��onActive() �R�[���o�b�N���Ăяo�������ꍇ�Ɏ��̂悤�ȃR�[�h��
-     * ���Ȃ���΂����Ȃ������m��Ȃ��B
+     * 強制的にアクター取り出し .
+     * employ() を試みて取り出せない場合、強制的に先頭のアクターを返します。
+     * 注意：取り出し後、アクターに active() としても、そのアクターが既に
+     * isActive() == true の状態もありうるため、onActive() コールバックは
+     * 呼ばれない可能性がある。
+     * 強制的にonActive() コールバックを呼び出したい場合に次のようなコードに
+     * しなければいけないかも知れない。
      * <code>
      * GgafMainActor* pActor = pDispatcher->employForce();
      * if (pActor->isActive()) {

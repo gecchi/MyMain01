@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 
@@ -15,14 +15,14 @@ GgafLinearOctreeElem::GgafLinearOctreeElem(GgafObject* prm_pObject, DWORD prm_ki
 
 void GgafLinearOctreeElem::extract() {
     if(_pSpace_Current == NULL) {
-        //_TRACE_("GgafLinearOctreeElem::extract() ‚Å‚«‚Ü‚¹‚ñBˆÓ}‚µ‚Ä‚Ü‚·‚©H");
+        //_TRACE_("GgafLinearOctreeElem::extract() ã§ãã¾ã›ã‚“ã€‚æ„å›³ã—ã¦ã¾ã™ã‹ï¼Ÿ");
         return;
     }
-    //î•ñƒŠƒZƒbƒg
+    //æƒ…å ±ãƒªã‚»ãƒƒãƒˆ
     int index = _pSpace_Current->_my_index;
     while(true) {
-        //ˆê‚Â‚Å‚àextract()‚·‚é‚Æî•ñ‚Í•ö‚ê‚é‚±‚Æ‚ğ’ˆÓAƒAƒvƒŠƒP[ƒVƒ‡ƒ“ƒƒWƒbƒN‚©‚çextract() ‚Íg—p‚µ‚È‚¢‚±‚ÆB
-        //Šî–{ƒcƒŠ[‚ÍA“o˜^‚ÆAƒNƒŠƒAˆù‚İs‚¤‚Æ‚¢‚¤İŒv
+        //ä¸€ã¤ã§ã‚‚extract()ã™ã‚‹ã¨æƒ…å ±ã¯å´©ã‚Œã‚‹ã“ã¨ã‚’æ³¨æ„ã€ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãƒ­ã‚¸ãƒƒã‚¯ã‹ã‚‰extract() ã¯ä½¿ç”¨ã—ãªã„ã“ã¨ã€‚
+        //åŸºæœ¬ãƒ„ãƒªãƒ¼ã¯ã€ç™»éŒ²ã¨ã€ã‚¯ãƒªã‚¢é£²ã¿è¡Œã†ã¨ã„ã†è¨­è¨ˆ
         if (_pLinearOctree->_paSpace[index]._kindinfobit == 0 ) {
             break;
         } else {
@@ -34,7 +34,7 @@ void GgafLinearOctreeElem::extract() {
         if (index == 0) {
             break;
         }
-        // e‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
+        // è¦ªç©ºé–“è¦ç´ ç•ªå·ã§ç¹°ã‚Šè¿”ã™
         index = (index-1)>>3;
     }
     _pNext = NULL;
@@ -42,24 +42,24 @@ void GgafLinearOctreeElem::extract() {
     _pSpace_Current = NULL;
 
 //    if (this == _pSpace_Current->_pElemFirst && this == _pSpace_Current->_pElemLast) {
-//        //æ“ª‚©‚Â––”ö‚Ìê‡
+//        //å…ˆé ­ã‹ã¤æœ«å°¾ã®å ´åˆ
 //        _pSpace_Current->_pElemFirst = NULL;
 //        _pSpace_Current->_pElemLast = NULL;
 //        _pSpace_Current = NULL;
 //    } else if (this == _pSpace_Current->_pElemFirst) {
-//        //æ“ª‚¾‚Á‚½ê‡
+//        //å…ˆé ­ã ã£ãŸå ´åˆ
 //        _pSpace_Current->_pElemFirst = _pNext;
 //        _pSpace_Current->_pElemFirst->_pPrev = NULL;
 //        _pNext = NULL;
 //        _pSpace_Current = NULL;
 //    } else if (this == _pSpace_Current->_pElemLast) {
-//        //––”ö‚¾‚Á‚½ê‡
+//        //æœ«å°¾ã ã£ãŸå ´åˆ
 //        _pSpace_Current->_pElemLast = _pPrev;
 //        _pSpace_Current->_pElemLast->_pNext = NULL;
 //        _pPrev = NULL;
 //        _pSpace_Current = NULL;
 //    } else {
-//        //’†ŠÔ‚¾‚Á‚½ê‡
+//        //ä¸­é–“ã ã£ãŸå ´åˆ
 //        _pPrev->_pNext = _pNext;
 //        _pNext->_pPrev = _pPrev;
 //        _pNext = NULL;
@@ -70,18 +70,18 @@ void GgafLinearOctreeElem::extract() {
 
 void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
     if (_pSpace_Current == prm_pSpace_target) {
-        //_TRACE_("addElem‚¹‚ñ‚Å‚¢‚¢");
+        //_TRACE_("addElemã›ã‚“ã§ã„ã„");
         return;
     } else {
         if (prm_pSpace_target->_pElemFirst == NULL) {
-            //‚P”Ô–Ú‚É’Ç‰Á‚Ìê‡
+            //ï¼‘ç•ªç›®ã«è¿½åŠ ã®å ´åˆ
             prm_pSpace_target->_pElemFirst = this;
             prm_pSpace_target->_pElemLast = this;
             _pNext = NULL;
             _pPrev = NULL;
             _pSpace_Current = prm_pSpace_target;
         } else {
-            //––”ö‚É’Ç‰Á‚Ìê‡
+            //æœ«å°¾ã«è¿½åŠ ã®å ´åˆ
             prm_pSpace_target->_pElemLast->_pNext = this;
             _pPrev = prm_pSpace_target->_pElemLast;
             _pNext = NULL;
@@ -89,28 +89,28 @@ void GgafLinearOctreeElem::addElem(GgafLinearOctreeSpace* prm_pSpace_target) {
             _pSpace_Current = prm_pSpace_target;
         }
     }
-    //ˆø”‚Ì—v‘f”Ô†
+    //å¼•æ•°ã®è¦ç´ ç•ªå·
     int index = prm_pSpace_target->_my_index;
-    //e‹óŠÔ‚·‚×‚Ä‚É—v‘fí•Êî•ñ‚ğ—¬‚·
+    //è¦ªç©ºé–“ã™ã¹ã¦ã«è¦ç´ ç¨®åˆ¥æƒ…å ±ã‚’æµã™
     while(true) {
         _pLinearOctree->_paSpace[index]._kindinfobit =
                 _pLinearOctree->_paSpace[index]._kindinfobit | this->_kindbit;
         if (index == 0) {
             break;
         }
-        //ˆê‚Âã‚Ìe‹óŠÔ—v‘f”Ô†‚ÅŒJ‚è•Ô‚·
+        //ä¸€ã¤ä¸Šã®è¦ªç©ºé–“è¦ç´ ç•ªå·ã§ç¹°ã‚Šè¿”ã™
         index = (index-1)>>3;
     }
 }
 
 //void GgafLinearOctreeElem::moveToSpace(GgafLinearOctreeSpace* prm_pSpace_target) {
 //    if (prm_pSpace_target == _pSpace_Current) {
-//        return; //ˆÚ“®‚¹‚ñ‚Å‚¢‚¢
+//        return; //ç§»å‹•ã›ã‚“ã§ã„ã„
 //    } else {
 //        if(_pSpace_Current) {
-//            extract(); //”²‚¯‚Ü‚·‚æ
+//            extract(); //æŠœã‘ã¾ã™ã‚ˆ
 //        }
-//        addElem(prm_pSpace_target); //“ü‚è‚Ü‚·‚æ
+//        addElem(prm_pSpace_target); //å…¥ã‚Šã¾ã™ã‚ˆ
 //        return;
 //    }
 //}

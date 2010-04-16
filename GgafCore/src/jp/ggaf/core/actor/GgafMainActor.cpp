@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -38,8 +38,8 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
             if (pActor->_actor_class == MAINACTOR) {
                 ((GgafMainActor*)(pActor))->setGroupActor(prm_pGroupActor);
             } else if (pActor->_actor_class == GROUPACTOR) {
-                //ƒXƒ‹[‚·‚é
-                //‰ºˆÊƒcƒŠ[‚ÉGgafGroupActor‚ª‚ ‚ê‚ÎA‚»‚ÌƒcƒŠ[‚É‚Í‰e‹¿‚³‚¹‚È‚¢‚±‚Æ‚Æ‚·‚é
+                //ã‚¹ãƒ«ãƒ¼ã™ã‚‹
+                //ä¸‹ä½ãƒ„ãƒªãƒ¼ã«GgafGroupActorãŒã‚ã‚Œã°ã€ãã®ãƒ„ãƒªãƒ¼ã«ã¯å½±éŸ¿ã•ã›ãªã„ã“ã¨ã¨ã™ã‚‹
             }
             if (pActor->_is_last_flg) {
                 break;
@@ -49,29 +49,29 @@ void GgafMainActor::setGroupActor(GgafGroupActor* prm_pGroupActor) {
         }
     }
 }
-//ƒsetGroupActorÅ“K‰»ˆÄƒƒ‚„
-//ˆÈ‰º‚Ì‚æ‚¤‚È\‘¢‚Ìê‡AGgafGroupActor‚Í“‡‚Å‚«‚éB
-//TODO:‚¤‚Ü‚­‚µ‚ÄAGgafGroupActor(088C6D48)‚Ì”rœ‚Í‚Å‚«‚È‚¢‚©
+//ï¼œsetGroupActoræœ€é©åŒ–æ¡ˆãƒ¡ãƒ¢ï¼
+//ä»¥ä¸‹ã®ã‚ˆã†ãªæ§‹é€ ã®å ´åˆã€GgafGroupActorã¯çµ±åˆã§ãã‚‹ã€‚
+//TODO:ã†ã¾ãã—ã¦ã€GgafGroupActor(088C6D48)ã®æ’é™¤ã¯ã§ããªã„ã‹
 //
-//   bGgafGroupActor(088C6EA0)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
-//   bbEnemyCirce(088C5E50)[EnemyCirce](-66856,-154236,26350)@13883,1,101,101,0(0)
-//   bbbGgafGroupActor(088C6D48)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
-//   bbbbEnemyVesta(08826070)[EnemyVesta1](-197896,-154236,296217)@13883,1,101,101,0(0)
-//   bbbbEnemyVesta(088C2610)[EnemyVesta2](203010,-154759,157390)@13883,1,101,101,0(0)
-//   bbbbEnemyVesta(088C3150)[EnemyVesta3](64184,-154236,-243517)@13883,1,101,101,0(0)
-//   bbbbEnemyVesta(088C3C90)[EnemyVesta4](-336722,-153712,-104690)@13883,1,101,101,0(0)
-//   bbbbEnemyVesta(088C47D0)[EnemyVesta5](-66384,145763,26578)@13883,1,101,101,0(0)
-//   bbbbEnemyVesta(088C5310)[EnemyVesta6](-67327,-454235,26121)@13883,1,101,101,0(0)
-//   bbb„¤„Ÿ
-//   bb„¤„Ÿ
-//   b„¤„Ÿ
+//   ï½œGgafGroupActor(088C6EA0)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
+//   ï½œï½œEnemyCirce(088C5E50)[EnemyCirce](-66856,-154236,26350)@13883,1,101,101,0(0)
+//   ï½œï½œï½œGgafGroupActor(088C6D48)[kind=00000000000000000100000000000000]@13883,0,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(08826070)[EnemyVesta1](-197896,-154236,296217)@13883,1,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(088C2610)[EnemyVesta2](203010,-154759,157390)@13883,1,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(088C3150)[EnemyVesta3](64184,-154236,-243517)@13883,1,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(088C3C90)[EnemyVesta4](-336722,-153712,-104690)@13883,1,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(088C47D0)[EnemyVesta5](-66384,145763,26578)@13883,1,101,101,0(0)
+//   ï½œï½œï½œï½œEnemyVesta(088C5310)[EnemyVesta6](-67327,-454235,26121)@13883,1,101,101,0(0)
+//   ï½œï½œï½œâ””â”€
+//   ï½œï½œâ””â”€
+//   ï½œâ””â”€
 
 
 GgafGroupActor* GgafMainActor::getGroupActor() {
     if (_pGroupActor == NULL) {
 #ifdef MY_DEBUG
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::getGroupActor Š‘®‚µ‚Ä‚¢‚È‚¢‚½‚ßAGroupActor‚ª‚Æ‚ê‚Ü‚¹‚ñI("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::getGroupActor æ‰€å±ã—ã¦ã„ãªã„ãŸã‚ã€GroupActorãŒã¨ã‚Œã¾ã›ã‚“ï¼("<<getName()<<")");
         }
 #endif
         if (_pParent->_actor_class == MAINACTOR) {
@@ -88,7 +88,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("yŒxzGgafMainActor::getLordActor Š‘®‚µ‚Ä‚¢‚È‚¢‚½‚ßALordActor‚ª‚Æ‚ê‚Ü‚¹‚ñI("<<getName()<<")B‚»‚±‚ÅŸè‚É‚±‚Ì¢(Universe)‚ÌLordActor‚ğ•Ô‚µ‚Ü‚µ‚½");
+            _TRACE_("ã€è­¦å‘Šã€‘GgafMainActor::getLordActor æ‰€å±ã—ã¦ã„ãªã„ãŸã‚ã€LordActorãŒã¨ã‚Œã¾ã›ã‚“ï¼("<<getName()<<")ã€‚ãã“ã§å‹æ‰‹ã«ã“ã®ä¸–(Universe)ã®LordActorã‚’è¿”ã—ã¾ã—ãŸ");
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
@@ -98,7 +98,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
                 return (GgafLordActor*)_pParent;
             }
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("yŒxzGgafMainActor::getLordActor ‚±‚ÌƒcƒŠ[‚É‚ÍLordActor‚ª‚¢‚Ü‚¹‚ñI("<<getName()<<")B‚»‚±‚ÅŸè‚É‚±‚Ì¢(Universe)‚ÌLordActor‚ğ•Ô‚µ‚Ü‚µ‚½");
+            _TRACE_("ã€è­¦å‘Šã€‘GgafMainActor::getLordActor ã“ã®ãƒ„ãƒªãƒ¼ã«ã¯LordActorãŒã„ã¾ã›ã‚“ï¼("<<getName()<<")ã€‚ãã“ã§å‹æ‰‹ã«ã“ã®ä¸–(Universe)ã®LordActorã‚’è¿”ã—ã¾ã—ãŸ");
             return _pLordActor;
         }
     }
@@ -109,7 +109,7 @@ GgafLordActor* GgafMainActor::getLordActor() {
 
 GgafGroupActor* GgafMainActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pLordActor != NULL) {
-        //_TRACE_("yŒxzGgafLordActor::addSubGroup("<<getName()<<") ‚·‚Å‚É"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"ƒV[ƒ“‚ÌŠÇ—Ò‚ÉŠ‘®‚µ‚Ä‚¢‚Ü‚·B‚ªA"<<_pScene_Platform->getName()<<"ƒV[ƒ“‚ÌŠÇ—Ò‚Éæ‚èŠ·‚¦‚Ü‚·");
+        //_TRACE_("ã€è­¦å‘Šã€‘GgafLordActor::addSubGroup("<<getName()<<") ã™ã§ã«"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"ã‚·ãƒ¼ãƒ³ã®ç®¡ç†è€…ã«æ‰€å±ã—ã¦ã„ã¾ã™ã€‚ãŒã€"<<_pScene_Platform->getName()<<"ã‚·ãƒ¼ãƒ³ã®ç®¡ç†è€…ã«ä¹—ã‚Šæ›ãˆã¾ã™");
         prm_pMainActor->extract();
     }
     GgafGroupActor* pSubGroupActor = getSubGroupActor(prm_kind);
@@ -156,7 +156,7 @@ GgafGod* GgafMainActor::askGod() {
     if (_pGod == NULL) {
 #ifdef MY_DEBUG
         if (_pParent == NULL) {
-            throwGgafCriticalException("GgafMainActor::askGod _‚Í‚±‚Ì¢‚É‘¶İ‚·‚é•¨‚©‚ç‚Ì‚İ‰yŒ©‚Å‚«‚Ü‚·B‚Ü‚¸‚Í‚±‚Ì¢‚É‘®‚µ‚È‚³‚¢II("<<getName()<<")");
+            throwGgafCriticalException("GgafMainActor::askGod ç¥ã¯ã“ã®ä¸–ã«å­˜åœ¨ã™ã‚‹ç‰©ã‹ã‚‰ã®ã¿è¬è¦‹ã§ãã¾ã™ã€‚ã¾ãšã¯ã“ã®ä¸–ã«å±ã—ãªã•ã„ï¼ï¼("<<getName()<<")");
         }
 #endif
         _pGod = getParent()->askGod();

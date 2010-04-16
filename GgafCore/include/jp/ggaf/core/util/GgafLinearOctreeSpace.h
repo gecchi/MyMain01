@@ -1,33 +1,33 @@
-#ifndef GGAFLINEAROCTREESPACE_H_
+ï»¿#ifndef GGAFLINEAROCTREESPACE_H_
 #define GGAFLINEAROCTREESPACE_H_
 namespace GgafCore {
 
 /**
- * üŒ`”ª•ª–Ø”z—ñ—p‹óŠÔƒNƒ‰ƒX .
+ * ç·šå½¢å…«åˆ†æœ¨é…åˆ—ç”¨ç©ºé–“ã‚¯ãƒ©ã‚¹ .
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
  */
 class GgafLinearOctreeSpace {
 public:
-    /** üŒ`”ª•ª–Ø”z—ñ‚Ì©g‚Ì—v‘f”Ô† */
+    /** ç·šå½¢å…«åˆ†æœ¨é…åˆ—ã®è‡ªèº«ã®è¦ç´ ç•ªå· */
     int _my_index;
-    /** Š‘®‚µ‚Ä‚é—v‘f‚Ìí•Êî•ñ */
+    /** æ‰€å±ã—ã¦ã‚‹è¦ç´ ã®ç¨®åˆ¥æƒ…å ± */
     DWORD _kindinfobit;
-    /** ‚Ô‚ç‰º‚ª‚é—v‘f‚Ìæ“ª */
+    /** ã¶ã‚‰ä¸‹ãŒã‚‹è¦ç´ ã®å…ˆé ­ */
     GgafLinearOctreeElem* _pElemFirst;
-    /** ‚Ô‚ç‰º‚ª‚é—v‘f‚Ì––”ö */
+    /** ã¶ã‚‰ä¸‹ãŒã‚‹è¦ç´ ã®æœ«å°¾ */
     GgafLinearOctreeElem* _pElemLast;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
      * @return
      */
     GgafLinearOctreeSpace() {
         _pElemFirst = NULL;
         _pElemLast = NULL;
         _kindinfobit = 0;
-        _my_index = -1; //‚ ‚è‚¦‚È‚¢-1‚ğ“ü‚ê‚Ä‚¨‚­
+        _my_index = -1; //ã‚ã‚Šãˆãªã„-1ã‚’å…¥ã‚Œã¦ãŠã
     }
 
     void dump();

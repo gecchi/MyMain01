@@ -1,11 +1,11 @@
-#ifndef GGAFDUMMYACTOR_H_
+﻿#ifndef GGAFDUMMYACTOR_H_
 #define GGAFDUMMYACTOR_H_
 namespace GgafCore {
 
 /**
- * �_�~�[�A�N�^�[�N���X .
- * �q�A�N�^�[�������Ȃ�Ύ����I�Ɏ��E����߂����ꎞ�I�ȃA�N�^�[�ł��B<BR>
- * �c�̍s�����̂�Ƃ��ɁA�e�A�N�^�[�ɂ���Ɖ����ƕ֗���������Ȃ��B<BR>
+ * ダミーアクタークラス .
+ * 子アクターが無くなれば自動的に自殺する悲しい一時的なアクターです。<BR>
+ * 団体行動を採るときに、親アクターにすると何かと便利かもしれない。<BR>
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge
@@ -16,7 +16,7 @@ public:
     GgafDummyActor(const char* prm_name);
 
     /**
-     * ��������<BR>
+     * 初期処理<BR>
      */
     virtual void initialize() override {
     }
@@ -25,12 +25,12 @@ public:
     }
 
     /**
-     * ���t���[����GgafDummyActor���菈��
-     * �T�u��������Ύ����I�Ɏ��S���鏈���ɂȂ��Ă���B
+     * 毎フレームのGgafDummyActor判定処理
+     * サブが無ければ自動的に死亡する処理になっている。
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
-            sayonara(1); //1�t���[����
+            sayonara(1); //1フレーム後
         }
     }
 
@@ -50,7 +50,7 @@ public:
     }
 
     /**
-     * �����蔻��s�v�̂��ߏ��false��Ԃ� .
+     * 当たり判定不要のため常にfalseを返す .
      * @param prm_pOtherActor
      * @return false
      */
