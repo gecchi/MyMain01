@@ -8,7 +8,7 @@ using namespace MyStg2nd;
 Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") {
     _class_name = "Shot001";
     MyStgUtil::resetShot001Status(_pStatus);
-    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CANNEL_break_glass01"));
+    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot001::initialize() {

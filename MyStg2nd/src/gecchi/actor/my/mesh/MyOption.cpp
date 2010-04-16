@@ -30,7 +30,7 @@ _TRACE_("MyOption::MyOption("<<prm_name<<","<<prm_no<<")");
     _angveloExpanseNomal = 3000;
     _angveloExpanseSlow = 1000;
 
-    prepareSe(0,"bse5",_no);
+    prepareSe(0,"bse5", GgafRepeatSeq::nextVal("CH_bse5"));
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("ROTLaser");
 

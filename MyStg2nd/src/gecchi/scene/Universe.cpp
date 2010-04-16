@@ -8,11 +8,12 @@ using namespace MyStg2nd;
 Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     _TRACE_("Universe::Universe()");
 
-    GgafRepeatSeq::create("CANNEL_bomb1", 0, 20);
-    GgafRepeatSeq::create("CANNEL_yume_Sbend", 0, 5);
-    GgafRepeatSeq::create("CANNEL_yume_shototsu", 0, 5);
-    GgafRepeatSeq::create("CANNEL_break_glass01", 0, 20);
-    GgafRepeatSeq::create("CANNEL_a_shot", 0, 3);
+    GgafRepeatSeq::create("CH_bomb1", 0, 5);
+    GgafRepeatSeq::create("CH_yume_Sbend", 0, 2);
+    GgafRepeatSeq::create("CH_yume_shototsu", 0, 2);
+    GgafRepeatSeq::create("CH_break_glass01", 0, 5);
+    GgafRepeatSeq::create("CH_a_shot", 0, 3);
+    GgafRepeatSeq::create("CH_bse5", 0, 1); //オプションレーザー
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。

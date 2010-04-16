@@ -9,7 +9,7 @@ EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi")
     _class_name = "EnemyCirce";
     MyStgUtil::resetEnemyCirceStatus(_pStatus);
     _iMovePatternNo = 0;
-    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));
+    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyCirce::onCreateModel() {

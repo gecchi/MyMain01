@@ -28,7 +28,7 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshSetActor(p
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
-    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));
+    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyMeshShot001::initialize() {

@@ -27,7 +27,7 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     _iMoveAcce_2nd = 100;
 
-    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CANNEL_break_glass01"));
+    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void EnemyCeresShot001::initialize() {

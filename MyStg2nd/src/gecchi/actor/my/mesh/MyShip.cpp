@@ -166,6 +166,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
 
     prepareSe(0, "se-020");
+    prepareSe(1,"bse5", 99);
 
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
@@ -403,22 +404,14 @@ void MyShip::processJudgement() {
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->activate();
+            if (pLaserChip->_pChip_front == NULL) {
+                playSe3D(1);
+            }
         }
     }
 
     //ショットボタン
     if (VB::isPushedDown(VB_SHOT1)) {
-
-        float fDist_VpVerticalCenter  =
-             GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_fX +
-             GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_fY +
-             GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_fZ +
-             GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
-
-        angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_fDist_VpPlnFront);
-        _TRACE_("カメラからの角度="<<ang);
-
-
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activate();

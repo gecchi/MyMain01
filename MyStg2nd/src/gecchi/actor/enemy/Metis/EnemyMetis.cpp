@@ -12,8 +12,8 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _height_Z = 220*2*LEN_UNIT;
     _depth_Y = 36*2*LEN_UNIT;
     _iMovePatternNo = 0;
-    prepareSe(0, "yume_shototsu", GgafRepeatSeq::nextVal("CANNEL_yume_shototsu"));
-    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CANNEL_bomb1"));     //”š”­
+    prepareSe(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
+    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyMetis::initialize() {
