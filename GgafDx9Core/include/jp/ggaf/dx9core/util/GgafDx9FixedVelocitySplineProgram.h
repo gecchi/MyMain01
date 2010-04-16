@@ -1,9 +1,9 @@
-#ifndef GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_
+﻿#ifndef GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_
 #define GGAFDX9FIXEDVELOCITYSPLINEPROGRAM_H_
 namespace GgafDx9Core {
 
 /**
- * �����ړ��X�v���C���Ȑ��A�Ȃ߂炩�ȓ����ړ��̂��߂̏��Z�b�g
+ * 等速移動スプライン曲線、なめらかな等速移動のための情報セット
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -14,14 +14,14 @@ public:
 
     int* _paDistace_to;
     float* _paFrame_need_at;
-    velo _veloMvUnit; //�P�ʑ��x
+    velo _veloMvUnit; //単位速度
     angvelo _angFaceMove;
     float _fFrame_executing;
     float _fFrame_next_point;
     //float _fSPPointFrame;
     int _point_index;
 
-    /** �I�v�V���� 0:��΍��W�ړ��A1:�n�_��Actor�̌����W�Ƃ݂Ȃ��A��������̑��΍��W�ړ� */
+    /** オプション 0:絶対座標移動、1:始点をActorの現座標とみなし、そこからの相対座標移動 */
     int _option;
 
     int _X_relative;
@@ -32,16 +32,16 @@ public:
 
 
     /**
-     * �R���X�g���N�^ .
-     * �����ړ��̂��߂̕K�v�ȏ������O�v�Z���A�I�u�W�F�N�g�ɗ��ߍ��݂܂��B
-     * @param prm_paaCriteriaPoint ��_�z��
-     * @param prm_point_num  ��_�z��̗v�f��
-     * @param prm_accuracy  1��_�̐��x�i�r�� 1.0 �` 0.0 �ׂ���)�A
-     *                      ��_�Ɗ�_�̊Ԃ�1�Ƃ����ꍇ�́A�⊮�_�̓����i�ׂ₩���j���w��B
-     *                      1�̏ꍇ��_���玟��_�܂ŉ��������i�����j�B
-     *                      0.5 �Ƃ���Ɗ�_���玟��_�܂łɕ⊮�_��1����B
-     *                      0.1 �Ƃ���Ɗ�_�Ɗ�_�̊Ԃɕ⊮�_��9�B
-     * @param prm_angFaceMove ����\��1�t���[��������̉�]�p (1000 �� 1�x)
+     * コンストラクタ .
+     * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
+     * @param prm_paaCriteriaPoint 基点配列
+     * @param prm_point_num  基点配列の要素数
+     * @param prm_accuracy  1基点の精度（荒い 1.0 〜 0.0 細かい)、
+     *                      基点と基点の間を1とした場合の、補完点の入り具合（細やかさ）を指定。
+     *                      1の場合基点から次基点まで何も無い（直線）。
+     *                      0.5 とすると基点から次基点までに補完点は1つ入る。
+     *                      0.1 とすると基点と基点の間に補完点は9つ。
+     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      */
     GgafDx9FixedVelocitySplineProgram(double prm_paaCriteriaPoint[][3],
                                       int prm_point_num,
@@ -49,31 +49,31 @@ public:
                                       angvelo prm_angFaceMove);
 
     /**
-     * �R���X�g���N�^ .
-     * �����ړ��̂��߂̕K�v�ȏ������O�v�Z���A�I�u�W�F�N�g�ɗ��ߍ��݂܂��B
-     * @param prm_sp �v�Z�ς݃X�v���C���I�u�W�F�N�g
-     * @param prm_angFaceMove ����\��1�t���[��������̉�]�p (1000 �� 1�x)
+     * コンストラクタ .
+     * 等速移動のための必要な情報を事前計算し、オブジェクトに溜め込みます。
+     * @param prm_sp 計算済みスプラインオブジェクト
+     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
      * @return
      */
     GgafDx9FixedVelocitySplineProgram(GgafDx9Spline3D* prm_sp,
                                       angvelo prm_angFaceMove);
 
     /**
-     * �������i�v�Z�j����.
-     * �R���X�g���N�^���Ăяo����܂��B
+     * 初期化（計算）処理.
+     * コンストラクタより呼び出されます。
      */
     void init();
 
     /**
-     * �X�v���C���Ȑ����p�̃t���[�����w��ړ��v���O�����J�n
-     * @param prm_pActor �Ώۂ̃A�N�^�[
-     * @param prm_option �I�v�V���� 0:��΍��W�ړ��^1:�n�_��Actor�̌����W�Ƃ݂Ȃ��A��������̑��΍��W�ړ�
+     * スプライン曲線利用のフレーム数指定移動プログラム開始
+     * @param prm_pActor 対象のアクター
+     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
      */
     void begin(GgafDx9GeometricActor* prm_pActor, int prm_option = 0);
 
     /**
-     * ���t���[���̐U�镑�����\�b�h .
-     * ���p�҂͖��t���[�����̃��\�b�h���Ăяo���K�v������܂��B
+     * 毎フレームの振る舞いメソッド .
+     * 利用者は毎フレームこのメソッドを呼び出す必要があります。
      */
     void behave();
 

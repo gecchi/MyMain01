@@ -1,9 +1,9 @@
-#ifndef GGAFDX9COLLISIONAREA_H_
+ï»¿#ifndef GGAFDX9COLLISIONAREA_H_
 #define GGAFDX9COLLISIONAREA_H_
 namespace GgafDx9Core {
 
 /**
- * “–‚½‚è”»’è—ÌˆæƒCƒ“ƒ^[ƒtƒFƒCƒXƒNƒ‰ƒX(V)
+ * å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã‚¯ãƒ©ã‚¹(æ–°)
  * @version 1.00
  * @since 2010/01/21
  * @author Masatoshi Tsuge
@@ -11,12 +11,12 @@ namespace GgafDx9Core {
 class GgafDx9CollisionArea : public GgafCore::GgafObject {
 
 public:
-    /** ‘S‘Ì‚Ì‹«ŠEBOX(8•ª–Ø“o˜^‚Ì‚½‚ß) */
+    /** å…¨ä½“ã®å¢ƒç•ŒBOX(8åˆ†æœ¨ç™»éŒ²ã®ãŸã‚) */
     int _AABB_X1, _AABB_Y1, _AABB_Z1, _AABB_X2, _AABB_Y2, _AABB_Z2;
 
-    /** “–‚½‚è”»’è—v‘f‚Ì”z—ñ */
+    /** å½“ãŸã‚Šåˆ¤å®šè¦ç´ ã®é…åˆ— */
     GgafDx9CollisionPart** _papColliPart;
-    /** “–‚½‚è”»’è—v‘f” */
+    /** å½“ãŸã‚Šåˆ¤å®šè¦ç´ æ•° */
     int _nColliPart;
 
 

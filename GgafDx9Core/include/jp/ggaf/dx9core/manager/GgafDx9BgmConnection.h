@@ -1,9 +1,9 @@
-#ifndef GGAFDX9BGMCONNECTION_H_
+ï»¿#ifndef GGAFDX9BGMCONNECTION_H_
 #define GGAFDX9BGMCONNECTION_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9BgmƒRƒlƒNƒVƒ‡ƒ“.
+ * GgafDx9Bgmã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³.
  * @version 1.00
  * @since 2009/01/30
  * @author Masatoshi Tsuge
@@ -13,8 +13,8 @@ class GgafDx9BgmConnection : public GgafCore::GgafResourceConnection<GgafDx9Bgm>
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_idstr OGG¯•Ê–¼(ƒtƒ@ƒCƒ‹–¼)
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_idstr OGGè­˜åˆ¥å(ï¼ãƒ•ã‚¡ã‚¤ãƒ«å)
      * @param prm_pGgafDx9Bgm OGG
      */
     GgafDx9BgmConnection(char* prm_idstr, GgafDx9Bgm* prm_pGgafDx9Bgm);

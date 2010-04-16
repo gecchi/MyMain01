@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -30,7 +30,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
 }
 
 void GgafDx9BoardSetActor::processDraw() {
-    _draw_set_num = 1; //“¯ˆê•`‰æ[“x‚ÉAGgafDx9BoardSetActor‚Ì“¯‚¶ƒ‚ƒfƒ‹‚ª˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”
+    _draw_set_num = 1; //åŒä¸€æç”»æ·±åº¦ã«ã€GgafDx9BoardSetActorã®åŒã˜ãƒ¢ãƒ‡ãƒ«ãŒé€£ç¶šã—ã¦ã„ã‚‹ã‚«ã‚¦ãƒ³ãƒˆæ•°
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -62,22 +62,22 @@ void GgafDx9BoardSetActor::processDraw() {
     for (int i = 0; i < _draw_set_num; i++) {
 
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedX[i], pDrawActor->_x);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedX) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahTransformedY[i], pDrawActor->_y);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahTransformedY) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahDepthZ[i], pDrawActor->_z);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahDepthZ) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahAlpha[i], pDrawActor->_fAlpha);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardSetModel::draw SetFloat(_ahAlpha) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
         pRectUV_Active = _pBoardSetModel->_paRectUV + (((GgafDx9BoardSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetFloat(_pBoardSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
         if (i > 0) {
-            //ƒAƒNƒeƒBƒu‚ği‚ß‚é
+            //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚’é€²ã‚ã‚‹
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }

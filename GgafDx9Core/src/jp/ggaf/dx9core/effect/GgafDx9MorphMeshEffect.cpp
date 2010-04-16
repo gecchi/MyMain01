@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 using namespace std;
 using namespace GgafCore;
@@ -6,21 +6,21 @@ using namespace GgafDx9Core;
 
 GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9Effect(prm_effect_name) {
 
-    //ƒVƒF[ƒ_[‹¤’Ê‚ÌƒOƒ[ƒoƒ‹•Ï”Ý’è
+    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å…±é€šã®ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°è¨­å®š
     HRESULT hr;
-    //ŽË‰e•ÏŠ·s—ñ
+    //å°„å½±å¤‰æ›è¡Œåˆ—
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
-    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //ƒ‰ƒCƒg•ûŒü
+    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MorphMeshEffect SetMatrix() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //ãƒ©ã‚¤ãƒˆæ–¹å‘
     hr = _pID3DXEffect->SetValue("g_LightDirection", &(GgafDx9God::_d3dlight9_default.Direction), sizeof(D3DVECTOR) );
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDirection) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //Diffuse”½ŽË
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDirection) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //Diffuseåå°„
     hr = _pID3DXEffect->SetValue("g_LightDiffuse", &(GgafDx9God::_d3dlight9_default.Diffuse), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDiffuse) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //Ambient”½ŽË
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightDiffuse) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //Ambientåå°„
     hr = _pID3DXEffect->SetValue("g_LightAmbient", &(GgafDx9God::_d3dlight9_default.Ambient), sizeof(D3DCOLORVALUE));
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
-    //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect SetValue(g_LightAmbient) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒ³ãƒ‰ãƒ«
     _hMorphTargetnum = _pID3DXEffect->GetParameterByName(NULL, "g_morph_target_num");
     _hWeight[1] = _pID3DXEffect->GetParameterByName(NULL, "g_weight1");
     _hWeight[2] = _pID3DXEffect->GetParameterByName(NULL, "g_weight2");
@@ -31,7 +31,7 @@ GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect(char* prm_effect_name) : GgafDx9E
 
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         hr = _pID3DXEffect->SetFloat(_hWeight[i], 0.0f);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshEffect::GgafDx9MorphMeshEffect() SetFloat(_hWeight["<<i<<"]) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     }
     _hMatView = _pID3DXEffect->GetParameterByName(NULL, "g_matView");
     _hMatWorld = _pID3DXEffect->GetParameterByName(NULL, "g_matWorld");

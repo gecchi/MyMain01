@@ -1,14 +1,14 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
 /****************************************************************
- *			waveƒfƒR[ƒ_§ŒäƒNƒ‰ƒX
+ *			waveãƒ‡ã‚³ãƒ¼ãƒ€åˆ¶å¾¡ã‚¯ãƒ©ã‚¹
  *	@author		Ander/Echigo-ya koubou
  ****************************************************************/
 /**
- @brief		MM I/O‚Ì“Ç‚İ‚İ
+ @brief		MM I/Oã®èª­ã¿è¾¼ã¿
  */
 int CWaveDecorder::readMMIO(void) {
     MMCKINFO ckIn; // chunk info. for general use.
@@ -92,7 +92,7 @@ CWaveDecorder::CWaveDecorder(void) :
 }
 
 /**
- @brief		Waveƒtƒ@ƒCƒ‹‚ğŠJ‚­
+ @brief		Waveãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
  */
 int CWaveDecorder::Open(LPSTR lpszFilename) {
     if (NULL == (m_hmmioIn = mmioOpen(lpszFilename, NULL, MMIO_ALLOCBUF | MMIO_READ))) {
@@ -112,7 +112,7 @@ int CWaveDecorder::Open(LPSTR lpszFilename) {
     return true;
 }
 /**
- @brief		Waveƒtƒ@ƒCƒ‹‚ğ•Â‚¶‚é
+ @brief		Waveãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‰ã˜ã‚‹
  */
 void CWaveDecorder::Close(void) {
     if (m_pwfx) {
@@ -122,8 +122,8 @@ void CWaveDecorder::Close(void) {
 }
 
 /**
- @brief		ƒoƒbƒtƒ@“Ç‚İo‚µˆÊ’u‚ğw’è
- @param		lPosition		ƒoƒbƒtƒ@“Ç‚İo‚µˆÊ’u(offset‚Åw’è)
+ @brief		ãƒãƒƒãƒ•ã‚¡èª­ã¿å‡ºã—ä½ç½®ã‚’æŒ‡å®š
+ @param		lPosition		ãƒãƒƒãƒ•ã‚¡èª­ã¿å‡ºã—ä½ç½®(offsetã§æŒ‡å®š)
  */
 int CWaveDecorder::SetPosition(long lPosition) {
     // Seek to the data
@@ -141,8 +141,8 @@ int CWaveDecorder::SetPosition(long lPosition) {
 }
 
 /**
- @brief		Waveƒf[ƒ^‚Ì“]‘—
- @return		0ˆÈãF“]‘—‚³‚ê‚½ƒoƒCƒg”^•‰”FNG
+ @brief		Waveãƒ‡ãƒ¼ã‚¿ã®è»¢é€
+ @return		0ä»¥ä¸Šï¼šè»¢é€ã•ã‚ŒãŸãƒã‚¤ãƒˆæ•°ï¼è² æ•°ï¼šNG
  */
 long CWaveDecorder::GetWave(LPBYTE lpDest, long lSize) {
     long lReadSize = 0;
@@ -186,14 +186,14 @@ long CWaveDecorder::GetWave(LPBYTE lpDest, long lSize) {
 }
 
 /**
- @brief		Waveƒf[ƒ^‚ÌƒTƒCƒY‚ğæ“¾
+ @brief		Waveãƒ‡ãƒ¼ã‚¿ã®ã‚µã‚¤ã‚ºã‚’å–å¾—
  */
 DWORD CWaveDecorder::GetWaveSize(void) {
     return m_ckIn.cksize;
 }
 
 /**
- @brief		WaveFormat‚Ìæ“¾
+ @brief		WaveFormatã®å–å¾—
  */
 WAVEFORMATEX* CWaveDecorder::GetWaveFormat(void) {
     return m_pwfx;

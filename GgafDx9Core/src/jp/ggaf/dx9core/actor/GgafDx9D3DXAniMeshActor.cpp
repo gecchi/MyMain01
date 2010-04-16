@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -25,7 +25,7 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
 
 void GgafDx9D3DXAniMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9D3DXAniMeshActor‚ÍƒƒbƒVƒ…ƒ¿‚àİ’èiƒVƒF[ƒ_[‚ÅQÆ‚·‚é‚½‚ßj
+    //GgafDx9D3DXAniMeshActorã¯ãƒ¡ãƒƒã‚·ãƒ¥Î±ã‚‚è¨­å®šï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§å‚ç…§ã™ã‚‹ãŸã‚ï¼‰
 //    for (DWORD i = 0; i < _pD3DXAniMeshModel->_dwNumMaterials; i++) {
 //        _paD3DMaterial9[i].Ambient.a = _fAlpha;
 //        _paD3DMaterial9[i].Diffuse.a = _fAlpha;
@@ -36,25 +36,25 @@ void GgafDx9D3DXAniMeshActor::processDraw() {
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = _pD3DXAniMeshEffect->_pID3DXEffect;
     HRESULT hr;
-    //ƒrƒ…[•ÏŠ·s—ñ
+    //ãƒ“ãƒ¥ãƒ¼å¤‰æ›è¡Œåˆ—
     hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     //(*_pFunc_calcWorldMatrix)(this, _matWorld);
 
     //hr = pID3DXEffect->SetMatrix(_pD3DXAniMeshEffect->_hMatWorld, &_matWorld );
-    //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
-    //SetMatrix‚Íƒ‚ƒfƒ‹‚Å‚¹‚´‚é‚ğ‚¦‚È‚¢
+    //checkDxException(hr, D3D_OK, "GgafDx9D3DXAniMeshActor::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //SetMatrixã¯ãƒ¢ãƒ‡ãƒ«ã§ã›ã–ã‚‹ã‚’ãˆãªã„
 
-    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É
+    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zƒoƒbƒtƒ@‘‚«‚İ‰Â
+    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
     _pD3DXAniMeshModel->draw(this);
 
-    // Zƒoƒbƒtƒ@‚ğ–³Œø‚É
+    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zƒoƒbƒtƒ@‘‚«‚İ•s‰Â
+    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
 }

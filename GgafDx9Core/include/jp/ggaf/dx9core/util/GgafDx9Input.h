@@ -1,9 +1,9 @@
-#ifndef GGAFDX9INPUT_H_
+ï»¿#ifndef GGAFDX9INPUT_H_
 #define GGAFDX9INPUT_H_
 namespace GgafDx9Core {
 
 /**
- * “ü—ÍƒNƒ‰ƒX .
+ * å…¥åŠ›ã‚¯ãƒ©ã‚¹ .
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge
@@ -11,29 +11,29 @@ namespace GgafDx9Core {
 class GgafDx9Input {
 
 public:
-    /** IDirectInput8ƒCƒ“ƒ^[ƒtƒFƒCƒX */
+    /** IDirectInput8ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ */
     static LPDIRECTINPUT8 _pIDirectInput8;
-    /** ƒL[ƒ{[ƒhƒCƒ“ƒvƒbƒgƒfƒoƒCƒX */
+    /** ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ‡ãƒã‚¤ã‚¹ */
     static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Keyboard;
-    /** ƒWƒ‡ƒCƒXƒeƒBƒbƒNƒCƒ“ƒvƒbƒgƒfƒoƒCƒX */
+    /** ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã‚¤ãƒ³ãƒ—ãƒƒãƒˆãƒ‡ãƒã‚¤ã‚¹ */
     static LPDIRECTINPUTDEVICE8 _pIDirectInputDevice8_Joystick;
-    /** ƒWƒ‡ƒCƒXƒeƒBƒbƒN‚Ì«”\ */
+    /** ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®æ€§èƒ½ */
     static DIDEVCAPS _didevcap;
 
     static const int BUFFER_SIZE;
 
-    /** ƒL[ƒ{[ƒh‚Ìó‘Ô */
+    /** ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®çŠ¶æ…‹ */
     static char _caKeyboardState[256];
-    /** ƒWƒ‡ƒCƒXƒeƒBƒbƒN‚Ìó‘Ô */
+    /** ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®çŠ¶æ…‹ */
     static DIJOYSTATE _dijoystate;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
      */
     GgafDx9Input();
 
     /**
-     * ‰Šú‰»<BR>
+     * åˆæœŸåŒ–<BR>
      */
     static HRESULT init();
 

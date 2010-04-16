@@ -1,9 +1,9 @@
-#ifndef GGAFDX9COLLISIONPART_H_
+ï»¿#ifndef GGAFDX9COLLISIONPART_H_
 #define GGAFDX9COLLISIONPART_H_
 namespace GgafDx9Core {
 
 /**
- * “–‚½‚è”»’è•”•i
+ * å½“ãŸã‚Šåˆ¤å®šéƒ¨å“
  * @version 1.00
  * @since 2010/01/21
  * @author Masatoshi Tsuge
@@ -11,52 +11,52 @@ namespace GgafDx9Core {
 class GgafDx9CollisionPart : public GgafCore::GgafObject {
 
 public:
-    /** Ží•Ê */
+    /** ç¨®åˆ¥ */
     int _shape_kind;
-    /** —LŒøƒtƒ‰ƒO */
+    /** æœ‰åŠ¹ãƒ•ãƒ©ã‚° */
     bool _is_valid_flg;
 
 
-    /** ‹«ŠEBOX(8•ª–Ø“o˜^‚Ì‚½‚ß) */
+    /** å¢ƒç•ŒBOX(8åˆ†æœ¨ç™»éŒ²ã®ãŸã‚) */
     int _aabb_x1, _aabb_y1, _aabb_z1, _aabb_x2, _aabb_y2, _aabb_z2;
 
-    /** ‹«ŠEBOX‚Ìx• */
+    /** å¢ƒç•ŒBOXã®xå¹… */
     int _dx;
-    /** ‹«ŠEBOX‚Ìy• */
+    /** å¢ƒç•ŒBOXã®yå¹… */
     int _dy;
-    /** ‹«ŠEBOX‚Ìz• */
+    /** å¢ƒç•ŒBOXã®zå¹… */
     int _dz;
-    /** ‰Šú‹«ŠEBOX’†S‚ÌXÀ•W */
+    /** åˆæœŸå¢ƒç•ŒBOXä¸­å¿ƒã®Xåº§æ¨™ */
     int _base_cx;
-    /** ‰Šú‹«ŠEBOX’†S‚ÌYÀ•W */
+    /** åˆæœŸå¢ƒç•ŒBOXä¸­å¿ƒã®Yåº§æ¨™ */
     int _base_cy;
-    /** ‰Šú‹«ŠEBOX’†S‚ÌZÀ•W */
+    /** åˆæœŸå¢ƒç•ŒBOXä¸­å¿ƒã®Zåº§æ¨™ */
     int _base_cz;
-    /** ‹«ŠEBOX’†S‚ÌXÀ•W */
+    /** å¢ƒç•ŒBOXä¸­å¿ƒã®Xåº§æ¨™ */
     int _cx;
-    /** ‹«ŠEBOX’†S‚ÌYÀ•W  */
+    /** å¢ƒç•ŒBOXä¸­å¿ƒã®Yåº§æ¨™  */
     int _cy;
-    /** ‹«ŠEBOX’†S‚ÌZÀ•W  */
+    /** å¢ƒç•ŒBOXä¸­å¿ƒã®Zåº§æ¨™  */
     int _cz;
 
-    /** x•‚Ì”¼•ª */
+    /** xå¹…ã®åŠåˆ† */
     int _hdx;
-    /** y•‚Ì”¼•ª */
+    /** yå¹…ã®åŠåˆ† */
     int _hdy;
-    /** z•‚Ì”¼•ª */
+    /** zå¹…ã®åŠåˆ† */
     int _hdz;
-    /** ’†S“_‚ðAƒIƒuƒWƒFƒNƒg‚Ì(0,0)‚ð’†S‚ÉXŽ²‰ñ“]‚ÌˆÚ“®‚ð‚³‚¹‚é‚©‚Ç‚¤‚©i” ‚ªŽ²‰ñ“]‚·‚é‚Ì‚Å‚Í‚È‚¢j */
+    /** ä¸­å¿ƒç‚¹ã‚’ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®(0,0)ã‚’ä¸­å¿ƒã«Xè»¸å›žè»¢ã®ç§»å‹•ã‚’ã•ã›ã‚‹ã‹ã©ã†ã‹ï¼ˆç®±ãŒè»¸å›žè»¢ã™ã‚‹ã®ã§ã¯ãªã„ï¼‰ */
     bool _rotX;
-    /** ’†S“_‚ðAƒIƒuƒWƒFƒNƒg‚Ì(0,0)‚ð’†S‚ÉYŽ²‰ñ“]‚ÌˆÚ“®‚ð‚³‚¹‚é‚©‚Ç‚¤‚©i” ‚ªŽ²‰ñ“]‚·‚é‚Ì‚Å‚Í‚È‚¢j */
+    /** ä¸­å¿ƒç‚¹ã‚’ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®(0,0)ã‚’ä¸­å¿ƒã«Yè»¸å›žè»¢ã®ç§»å‹•ã‚’ã•ã›ã‚‹ã‹ã©ã†ã‹ï¼ˆç®±ãŒè»¸å›žè»¢ã™ã‚‹ã®ã§ã¯ãªã„ï¼‰ */
     bool _rotY;
-    /** ’†S“_‚ðAƒIƒuƒWƒFƒNƒg‚Ì(0,0)‚ð’†S‚ÉZŽ²‰ñ“]‚ÌˆÚ“®‚ð‚³‚¹‚é‚©‚Ç‚¤‚©i” ‚ªŽ²‰ñ“]‚·‚é‚Ì‚Å‚Í‚È‚¢j */
+    /** ä¸­å¿ƒç‚¹ã‚’ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®(0,0)ã‚’ä¸­å¿ƒã«Zè»¸å›žè»¢ã®ç§»å‹•ã‚’ã•ã›ã‚‹ã‹ã©ã†ã‹ï¼ˆç®±ãŒè»¸å›žè»¢ã™ã‚‹ã®ã§ã¯ãªã„ï¼‰ */
     bool _rotZ;
 
 
     GgafDx9CollisionPart();
 
     /**
-     * ”»’è—Ìˆæ‚ÌŽ²‰ñ“]ˆÚ“®‚ðs‚¤B
+     * åˆ¤å®šé ˜åŸŸã®è»¸å›žè»¢ç§»å‹•ã‚’è¡Œã†ã€‚
      * @param rX
      * @param rY
      * @param rZ

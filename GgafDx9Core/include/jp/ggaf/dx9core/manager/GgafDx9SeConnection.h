@@ -1,9 +1,9 @@
-#ifndef GGAFDX9SECONNECTION_H_
+ï»¿#ifndef GGAFDX9SECONNECTION_H_
 #define GGAFDX9SECONNECTION_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9SeƒRƒlƒNƒVƒ‡ƒ“.
+ * GgafDx9Seã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³.
  * @version 1.00
  * @since 2009/01/30
  * @author Masatoshi Tsuge
@@ -13,9 +13,9 @@ class GgafDx9SeConnection : public GgafCore::GgafResourceConnection<GgafDx9Se> {
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_idstr ƒTƒEƒ“ƒhƒGƒtƒFƒNƒg¯•Ê–¼
-     * @param prm_pGgafDx9Se ƒTƒEƒ“ƒhƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒgiÀ’l‚Ìƒ|ƒCƒ“ƒ^j
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_idstr ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥å
+     * @param prm_pGgafDx9Se ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆå®Ÿå€¤ã®ãƒã‚¤ãƒ³ã‚¿ï¼‰
      */
     GgafDx9SeConnection(char* prm_idstr, GgafDx9Se* prm_pGgafDx9Se);
 

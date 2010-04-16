@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -22,7 +22,7 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                      0,                         // [in] DWORD Usage,
                      D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
                      D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-                     D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTÇ≈É{ÉÑÉPÉiÉC
+                     D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINT„Åß„Éú„É§„Ç±„Éä„Ç§
                      D3DX_DEFAULT,              // [in] DWORD MipFilter,
                      0,                         // [in] D3DCOLOR ColorKey,
                      _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
@@ -30,8 +30,8 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                      &_pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
                 );
     if (hr != D3D_OK) {
-        _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_texture_name);
-        //é∏îsópÉeÉNÉXÉ`ÉÉÇê›íË
+        _TRACE_("[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExÂ§±Êïó„ÄÇÂØæË±°="<<prm_texture_name);
+        //Â§±ÊïóÁî®„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÇíË®≠ÂÆö
         string texture_file_name2 = GGAFDX9_PROPERTY(DIR_TEXTURE) + "GgafDx9IlligalTexture.png";
         HRESULT hr2 = D3DXCreateTextureFromFileEx(
                          GgafDx9God::_pID3DDevice9, // [in] LPDIRECT3DDEVICE9 pDevice,
@@ -42,18 +42,18 @@ GgafDx9Texture::GgafDx9Texture(char* prm_texture_name) : GgafObject() {
                          0,                         // [in] DWORD Usage,
                          D3DFMT_UNKNOWN,            // [in] D3DFORMAT Format,
                          D3DPOOL_MANAGED,           // [in] D3DPOOL Pool, //D3DPOOL_DEFAULT
-                         D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINTÇ≈É{ÉÑÉPÉiÉC
+                         D3DX_FILTER_POINT,         // [in] DWORD Filter, D3DX_FILTER_POINT„Åß„Éú„É§„Ç±„Éä„Ç§
                          D3DX_DEFAULT,              // [in] DWORD MipFilter,
                          0,                         // [in] D3DCOLOR ColorKey,
                          _pD3DXIMAGE_INFO,                      // [in] D3DXIMAGE_INFO *pSrcInfo,
                          NULL,                      // [in] PALETTEENTRY *pPalette,
                          &_pIDirect3DTexture9    // [out] GgafDx9TextureConnection* *ppTextureCon
                       );
-        checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExé∏îsÅBëŒè€="<<prm_texture_name);
+        checkDxException(hr2, D3D_OK, "[GgafDx9TextureManager::createResource] D3DXCreateTextureFromFileExÂ§±Êïó„ÄÇÂØæË±°="<<prm_texture_name);
     }
 
-    Sleep(2); //çHèÍÇ…ãCÇégÇ§ÅB
-    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" ÇÃÉeÉNÉXÉ`ÉÉê∂ê¨ÇµÇ‹ÇµÇΩÅB");
+    Sleep(2); //Â∑•Â†¥„Å´Ê∞ó„Çí‰Ωø„ÅÜ„ÄÇ
+    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" „ÅÆ„ÉÜ„ÇØ„Çπ„ÉÅ„É£ÁîüÊàê„Åó„Åæ„Åó„Åü„ÄÇ");
 
 }
 

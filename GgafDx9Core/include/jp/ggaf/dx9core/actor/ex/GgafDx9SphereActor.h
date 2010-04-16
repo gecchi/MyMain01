@@ -1,11 +1,11 @@
-#ifndef GGAFDX9SPHEREACTOR_H_
+ï»¿#ifndef GGAFDX9SPHEREACTOR_H_
 #define GGAFDX9SPHEREACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ‹…ƒAƒNƒ^[.
- * GgafDx9GeometricActor ‚ğŒp³‚µA‹…‚ğ•\¦‚·‚é‚½‚ß‚ÌƒAƒNƒ^[‚Å‚·B<BR>
- * Xƒtƒ@ƒCƒ‹‚ÍA’¼Œa‚Ppx‘Š“–‚Ì‹…(’†S‚Í(0,0,0))‚ÌƒƒbƒVƒ…‚ğ“Ç‚İ‚Ü‚¹‚Ä‚­‚¾‚³‚¢B
+ * çƒã‚¢ã‚¯ã‚¿ãƒ¼.
+ * GgafDx9GeometricActor ã‚’ç¶™æ‰¿ã—ã€çƒã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚<BR>
+ * Xãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€ç›´å¾„ï¼‘pxç›¸å½“ã®çƒ(ä¸­å¿ƒã¯(0,0,0))ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚’èª­ã¿è¾¼ã¾ã›ã¦ãã ã•ã„ã€‚
  * @version 1.00
  * @since 2010/10/21
  * @author Masatoshi Tsuge
@@ -17,13 +17,13 @@ public:
                      GgafDx9Checker* prm_pChecker);
 
 ///**
-//     * ƒOverRide ‚Å‚·„<BR>
+//     * ï¼œOverRide ã§ã™ï¼<BR>
 //     */
 //    virtual void processDraw();
 //
     void drawSphere(int prm_x, int prm_y, int prm_z, int prm_r);
 
-    virtual ~GgafDx9SphereActor(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9SphereActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 };
 
 }

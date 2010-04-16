@@ -1,10 +1,10 @@
-#ifndef GGAFDX9MODEL_H_
+﻿#ifndef GGAFDX9MODEL_H_
 #define GGAFDX9MODEL_H_
 namespace GgafDx9Core {
 
 /**
- * ���f�����N���X.
- * �L����(�A�N�^�[)�̌`���F�Ȃǂ�ێ�����N���X�ł��B<BR>
+ * モデル基底クラス.
+ * キャラ(アクター)の形状や色などを保持するクラスです。<BR>
  * @version 1.00
  * @since 2008/02/21
  * @author Masatoshi Tsuge
@@ -17,36 +17,36 @@ public:
     /** ID */
     int _id;
 
-    /** ���f����`�̎��ʖ��B(50�����܂�) */
+    /** モデル定義の識別名。(50文字まで) */
     char* _model_name;
-    /** ����GgafDx9Model�ւ̃|�C���^�B�I�[��NULL */
+    /** 次のGgafDx9Modelへのポインタ。終端はNULL */
     //GgafDx9Model*	_pModel_Next;
 
-    /** �}�e���A���z�� */
+    /** マテリアル配列 */
     D3DMATERIAL9* _paD3DMaterial9_default;
-    /** �}�e���A���� */
+    /** マテリアル数 */
     DWORD _dwNumMaterials;
 
-    /** ���̃��f���̃��[�J�����W�̌��_����S���_�̋����ōő�̒��� */
+    /** このモデルのローカル座標の原点から全頂点の距離で最大の長さ */
     FLOAT _fBoundingSphereRadius;
-    /** �_�ŋ��x (0.0 <= _fblink <= 1.0)�AGgafDx9TextureBlinker�ɂ�葀��o���� */
+    /** 点滅強度 (0.0 <= _fblink <= 1.0)、GgafDx9TextureBlinkerにより操作出来る */
     FLOAT _fPowerBlink;
-    /** �_�őΏ�RGB�l(0.0 <= tex2D()��rgb�̉��ꂩ <= 1.0) */
+    /** 点滅対象RGB値(0.0 <= tex2D()のrgbの何れか <= 1.0) */
     FLOAT _fBlinkThreshold;
-    //_fBlinkThreshold = 1.0 �Ǝw�肵���ꍇ�APS��tex2D()�̃T���v�����O�J���[��
-    //r,g,b ���ꂩ >= 1.0 �� �̏ꍇ�A_fPowerBlink�{���̐F(rgb)�����Z
-    //�[�r�E�X�̒n�㕨�j���̐Ԃ��_�ł̂悤�Ȃ��Ƃ������������B
+    //_fBlinkThreshold = 1.0 と指定した場合、PSでtex2D()のサンプリングカラーの
+    //r,g,b 何れか >= 1.0 の の場合、_fPowerBlink倍数の色(rgb)を加算
+    //ゼビウスの地上物破壊後の赤い点滅のようなことをしたかった。
 
-    /** �e�N�X�`�������R�l�N�V�����z�� */
+    /** テクスチャ資源コネクション配列 */
     GgafDx9TextureConnection** _papTextureCon;
-    /** �_�ő���x���I�u�W�F�N�g */
+    /** 点滅操作支援オブジェクト */
     GgafDx9TextureBlinker* _pTextureBlinker;
     DWORD _frame_blinker;
-    /** ���f���P�ʂ̏������������s�ς݂��ǂ���(draw���`�F�b�N���ύX) */
+    /** モデル単位の初期処理が実行済みかどうか(draw時チェック＆変更) */
     bool _is_init_model;
     /**
-     * �R���X�g���N�^<BR>
-     * @param prm_model_name ���f����`�̎��ʖ��B".x"��ǉ�����ƒ�`X�t�@�C�����ɂȂ�B
+     * コンストラクタ<BR>
+     * @param prm_model_name モデル定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDx9Model(char* prm_model_name);
 
@@ -55,32 +55,32 @@ public:
     }
 
     /**
-     * ���f����`�悵�܂�.
-     * @param prm_pActor_Target �`�悷�郂�f���̃A�N�^�[
+     * モデルを描画します.
+     * @param prm_pActor_Target 描画するモデルのアクター
      * @return HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) = 0;
 
     /**
-     * ���f�����č\�z���܂�.
+     * モデルを再構築します.
      */
     virtual void restore() = 0;
 
     /**
-     * ���f����������܂�.
+     * モデルを解放します.
      */
     virtual void release() = 0;
 
     /**
-     * �f�o�C�X���X�g���R�[���o�b�N
+     * デバイスロスト時コールバック
      */
     virtual void onDeviceLost() = 0;
 
     /**
-     * �f�X�g���N�^<BR>
-     * delete����̂�GgafDx9ModelManager�ł���<BR>
+     * デストラクタ<BR>
+     * deleteするのはGgafDx9ModelManagerである<BR>
      */
-    virtual ~GgafDx9Model(); //�f�X�g���N�^
+    virtual ~GgafDx9Model(); //デストラクタ
 };
 
 }

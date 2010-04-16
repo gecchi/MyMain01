@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -21,7 +21,7 @@ GgafDx9SphereActor::GgafDx9SphereActor(const char* prm_name,
 
 void GgafDx9SphereActor::drawSphere(int prm_x, int prm_y, int prm_z, int prm_r) {
     //_TRACE_("drawBox ("<<prm_x1<<","<<prm_y1<<","<<prm_z1<<","<<prm_x2<<","<<prm_y2<<","<<prm_z2<<")");
-    //’¼Œa‚ª1‚Ì‹…ƒ‚ƒfƒ‹‚Å‚ ‚é‚½‚ßƒXƒP[ƒ‹‚Í‚Q”{‚µ‚Ä‚¨‚­
+    //ç›´å¾„ãŒ1ã®çƒãƒ¢ãƒ‡ãƒ«ã§ã‚ã‚‹ãŸã‚ã‚¹ã‚±ãƒ¼ãƒ«ã¯ï¼’å€ã—ã¦ãŠã
     _SX = prm_r*2;
     _SY = prm_r*2;
     _SZ = prm_r*2;

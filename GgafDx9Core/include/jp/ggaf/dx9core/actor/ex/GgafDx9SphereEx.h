@@ -1,10 +1,10 @@
-#ifndef GGAFDX9SPHEREEX_H_
+ï»¿#ifndef GGAFDX9SPHEREEX_H_
 #define GGAFDX9SPHEREEX_H_
 namespace GgafDx9Core {
 
 /**
- * “–‚½‚è”»’è•\¦—p‹…ƒNƒ‰ƒX
- * DefaultSphereActor ‚ğŒp³‚µA“–‚½‚è”»’è—Ìˆæ•\¦‹@”\‚ğ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·B
+ * å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºç”¨çƒã‚¯ãƒ©ã‚¹
+ * DefaultSphereActor ã‚’ç¶™æ‰¿ã—ã€å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè¡¨ç¤ºæ©Ÿèƒ½ã‚’è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
  * @version 1.00
  * @since 2010/01/17
  * @author Masatoshi Tsuge
@@ -40,7 +40,7 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    //void processDraw() {} //ƒI[ƒo[ƒ‰ƒCƒh–¢À‘•‚É‚·‚éB
+    //void processDraw() {} //ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰æœªå®Ÿè£…ã«ã™ã‚‹ã€‚
 
     virtual ~GgafDx9SphereEx();
 

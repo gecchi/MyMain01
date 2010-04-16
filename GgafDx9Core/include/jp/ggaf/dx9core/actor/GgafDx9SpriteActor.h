@@ -1,12 +1,12 @@
-#ifndef GGAFDX9SPRITEACTORD_H_
+ï»¿#ifndef GGAFDX9SPRITEACTORD_H_
 #define GGAFDX9SPRITEACTORD_H_
 namespace GgafDx9Core {
 
 /**
- * ƒXƒvƒ‰ƒCƒgƒAƒNƒ^[.
- * GgafDx9GeometricActor ‚ğŒp³‚µA”Âƒ|ƒŠƒSƒ“‚ÉƒeƒNƒXƒ`ƒƒ‚ğ“\‚è•t‚¯‚½<BR>
- * ‹[—ƒXƒvƒ‰ƒCƒg‹@”\‚ğ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·B<BR>
- * ‚¢‚í‚ä‚é”Âƒ|ƒŠ<BR>
+ * ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¢ã‚¯ã‚¿ãƒ¼.
+ * GgafDx9GeometricActor ã‚’ç¶™æ‰¿ã—ã€æ¿ãƒãƒªã‚´ãƒ³ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è²¼ã‚Šä»˜ã‘ãŸ<BR>
+ * æ“¬ä¼¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ©Ÿèƒ½ã‚’è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚<BR>
+ * ã„ã‚ã‚†ã‚‹æ¿ãƒãƒª<BR>
  * @version 1.00
  * @since 2007/11/14
  * @author Masatoshi Tsuge
@@ -14,11 +14,11 @@ namespace GgafDx9Core {
 class GgafDx9SpriteActor : public GgafDx9DrawableActor {
 
 public:
-    /** ƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^ */
+    /** ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿ */
     GgafDx9SpriteModel* _pSpriteModel;
-    /** ƒGƒtƒFƒNƒg */
+    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ */
     GgafDx9SpriteEffect* _pSpriteEffect;
-    /** UVƒtƒŠƒbƒp[(ƒpƒ‰ƒpƒ‰ƒAƒjƒ) */
+    /** UVãƒ•ãƒªãƒƒãƒ‘ãƒ¼(ãƒ‘ãƒ©ãƒ‘ãƒ©ã‚¢ãƒ‹ãƒ¡) */
     GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteActor(const char* prm_name,
@@ -32,8 +32,8 @@ public:
     virtual ~GgafDx9SpriteActor();
 
     /**
-     * ƒ¿İ’è.
-     * ƒƒI[ƒo[ƒ‰ƒCƒg„
+     * Î±è¨­å®š.
+     * ï¼œã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆï¼
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha);

@@ -1,22 +1,22 @@
-#ifndef GGAFDX9MORPHMESHMODEL_H_
+ï»¿#ifndef GGAFDX9MORPHMESHMODEL_H_
 #define GGAFDX9MORPHMESHMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9MorphMeshModel—p‚Ìƒ‚ƒfƒ‹ƒNƒ‰ƒX.
- * GgafDx9MorphMeshModel ‚Í GgafDx9MeshModel ‚Ì•`‰æ‚·‚é‹@”\‚É‰Á‚¦Aƒ‚[ƒtƒAƒjƒ[ƒVƒ‡ƒ“‹@”\‚ð—L‚·‚éƒ‚ƒfƒ‹‚Å‚·B<BR>
- * <b>ˆø”‚Ìƒ‚ƒfƒ‹–¼ ( prm_model_name ) ‚Ì—^‚¦‚©‚½‚Æ“Ç‚Ýž‚Ü‚ê‚éXƒtƒ@ƒCƒ‹‚É‚Â‚¢‚Ä</b><BR>
- * ƒ—á„<BR>
+ * GgafDx9MorphMeshModelç”¨ã®ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹.
+ * GgafDx9MorphMeshModel ã¯ GgafDx9MeshModel ã®æç”»ã™ã‚‹æ©Ÿèƒ½ã«åŠ ãˆã€ãƒ¢ãƒ¼ãƒ•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ©Ÿèƒ½ã‚’æœ‰ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ã§ã™ã€‚<BR>
+ * <b>å¼•æ•°ã®ãƒ¢ãƒ‡ãƒ«å ( prm_model_name ) ã®ä¸Žãˆã‹ãŸã¨èª­ã¿è¾¼ã¾ã‚Œã‚‹Xãƒ•ã‚¡ã‚¤ãƒ«ã«ã¤ã„ã¦</b><BR>
+ * ï¼œä¾‹ï¼ž<BR>
  * <table border=1>
  * <tr>
  * <th>prm_model_name</th>
- * <th>ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ… Xƒtƒ@ƒCƒ‹</th>
- * <th>ƒ‚[ƒtƒ^[ƒQƒbƒg Xƒtƒ@ƒCƒ‹</th>
+ * <th>ãƒ—ãƒ©ã‚¤ãƒžãƒªãƒ¡ãƒƒã‚·ãƒ¥ Xãƒ•ã‚¡ã‚¤ãƒ«</th>
+ * <th>ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ Xãƒ•ã‚¡ã‚¤ãƒ«</th>
  * </tr>
  * <tr>
  * <td>"M/0/ball"</td>
  * <td>ball_0.x</td>
- * <td>–³‚µ</td>
+ * <td>ç„¡ã—</td>
  * </tr>
  * <tr>
  * <td>"M/1/ball"</td>
@@ -36,7 +36,7 @@ namespace GgafDx9Core {
  * <tr>
  * <td>"M/6/ball"</td>
  * <td>ball_0.x</td>
- * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>EEE<BR>ball_6.x</td>
+ * <td>ball_1.x<BR>ball_2.x<BR>ball_3.x<BR>ãƒ»ãƒ»ãƒ»<BR>ball_6.x</td>
  * </tr>
  * </table>
  * @version 1.00
@@ -57,70 +57,70 @@ public:
         UINT PrimitiveCount;
     };
 
-    /** ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ì’¸“_ƒtƒH[ƒ}ƒbƒg’è‹` */
+    /** ãƒ—ãƒ©ã‚¤ãƒžãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆå®šç¾© */
     struct VERTEX_PRIMARY {
-        float x, y, z;    // ’¸“_À•W
-        float nx, ny, nz; // –@ü
-        DWORD color;      // ’¸“_‚ÌFiŒ»Ý–¢Žg—pj
-        float tu, tv;     // ƒeƒNƒXƒ`ƒƒÀ•W
+        float x, y, z;    // é ‚ç‚¹åº§æ¨™
+        float nx, ny, nz; // æ³•ç·š
+        DWORD color;      // é ‚ç‚¹ã®è‰²ï¼ˆç¾åœ¨æœªä½¿ç”¨ï¼‰
+        float tu, tv;     // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
     };
 
-    /** ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…‚Ì’¸“_ƒtƒH[ƒ}ƒbƒg’è‹` */
+    /** ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆå®šç¾© */
     struct VERTEX_MORPH {
-        float x, y, z;    // ’¸“_À•W
-        float nx, ny, nz; // –@ü
+        float x, y, z;    // é ‚ç‚¹åº§æ¨™
+        float nx, ny, nz; // æ³•ç·š
     };
 
-    /** ƒ‚[ƒtƒ^[ƒQƒbƒg” */
+    /** ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•° */
     int _morph_target_num;
-    /** ƒVƒF[ƒ_[“ü—Í’¸“_ƒtƒH[ƒ}ƒbƒg */
+    /** ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å…¥åŠ›é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒžãƒƒãƒˆ */
     LPDIRECT3DVERTEXDECLARATION9 _pIDirect3DVertexDeclaration9;
-    /** ’¸“_ƒoƒbƒtƒ@iƒvƒ‰ƒCƒ}ƒŠj */
+    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‰ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9_primary;
-    /** ’¸“_ƒoƒbƒtƒ@‚Ì”z—ñi—v‘f”ƒ‚[ƒtƒ^[ƒQƒbƒg”j */
+    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®é…åˆ—ï¼ˆè¦ç´ æ•°ï¼ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•°ï¼‰ */
     LPDIRECT3DVERTEXBUFFER9* _paIDirect3DVertexBuffer9_morph;
 
-    /** ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@iƒvƒ‰ƒCƒ}ƒŠ‚Ì‚Ýj */
+    /** ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªã®ã¿ï¼‰ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
 
-    /** ’¸“_‚ÌƒTƒCƒYiƒvƒ‰ƒCƒ}ƒŠj */
+    /** é ‚ç‚¹ã®ã‚µã‚¤ã‚ºï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‰ */
     UINT _size_vertices_primary;
-    /** 1’¸“_‚ÌƒTƒCƒYiƒvƒ‰ƒCƒ}ƒŠj */
+    /** 1é ‚ç‚¹ã®ã‚µã‚¤ã‚ºï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‰ */
     UINT _size_vertex_unit_primary;
-    /** ’¸“_‚ÌƒTƒCƒYiƒ‚[ƒtƒ^[ƒQƒbƒgj */
+    /** é ‚ç‚¹ã®ã‚µã‚¤ã‚ºï¼ˆãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï¼‰ */
     UINT _size_vertices_morph;
-    /** 1’¸“_‚ÌƒTƒCƒYiƒ‚[ƒtƒ^[ƒQƒbƒgj */
+    /** 1é ‚ç‚¹ã®ã‚µã‚¤ã‚ºï¼ˆãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï¼‰ */
     UINT _size_vertex_unit_morph;
 
-    /** DrawIndexedPrimitive•`‰æƒpƒ‰ƒ[ƒ^[iƒvƒ‰ƒCƒ}ƒŠ‚Ì‚Ýj */
+    /** DrawIndexedPrimitiveæç”»ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªã®ã¿ï¼‰ */
     INDEXPARAM* _paIndexParam;
-    /** ƒ}ƒeƒŠƒAƒ‹Ží—Þ”iƒvƒ‰ƒCƒ}ƒŠ‚Ì‚Ýj */
+    /** ãƒžãƒ†ãƒªã‚¢ãƒ«ç¨®é¡žæ•°ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªã®ã¿ï¼‰ */
     UINT _nMaterialListGrp;
 
-    /** ’¸“_ƒoƒbƒtƒ@‚ÌŽÊ‚µƒRƒs[‚Ì’¸“_”z—ñiƒvƒ‰ƒCƒ}ƒŠj */
+    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—ã‚³ãƒ”ãƒ¼ã®é ‚ç‚¹é…åˆ—ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‰ */
     VERTEX_PRIMARY* _paVtxBuffer_org_primary;
-    /** ’¸“_ƒoƒbƒtƒ@‚ÌŽÊ‚µƒRƒs[‚Ì’¸“_”z—ñ‚Ìƒ‚[ƒtƒ^[ƒQƒbƒg””z—ñ */
+    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—ã‚³ãƒ”ãƒ¼ã®é ‚ç‚¹é…åˆ—ã®ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•°é…åˆ— */
     VERTEX_MORPH**  _papaVtxBuffer_org_morph;
-    /** ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌŽÊ‚µƒRƒs[iƒvƒ‰ƒCƒ}ƒŠ‚Ì‚Ýj */
+    /** ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—ã‚³ãƒ”ãƒ¼ï¼ˆãƒ—ãƒ©ã‚¤ãƒžãƒªã®ã¿ï¼‰ */
     WORD* _paIdxBuffer_org;
 
-    /** Paul‚³‚ñƒ‚ƒfƒ‹i—v‘f”ƒvƒ‰ƒCƒ}ƒŠ{ƒ‚[ƒtƒ^[ƒQƒbƒg”j */
+    /** Paulã•ã‚“ãƒ¢ãƒ‡ãƒ«ï¼ˆè¦ç´ æ•°ï¼ãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‹ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•°ï¼‰ */
     Frm::Model3D** _papModel3D;
-    /** Paul‚³‚ñƒƒbƒVƒ…i—v‘f”ƒvƒ‰ƒCƒ}ƒŠ{ƒ‚[ƒtƒ^[ƒQƒbƒg”j */
+    /** Paulã•ã‚“ãƒ¡ãƒƒã‚·ãƒ¥ï¼ˆè¦ç´ æ•°ï¼ãƒ—ãƒ©ã‚¤ãƒžãƒªï¼‹ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•°ï¼‰ */
     Frm::Mesh** _papMeshesFront;
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_model_name ƒ‚ƒfƒ‹’è‹`‚ÌŽ¯•Ê–¼
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_model_name ãƒ¢ãƒ‡ãƒ«å®šç¾©ã®è­˜åˆ¥å
      */
     GgafDx9MorphMeshModel(char* prm_model_name);
 
 public:
 
     /**
-     * GgafDx9MorphMeshModelƒIƒuƒWƒFƒNƒg‚Ì•`‰æ<BR>
-     * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9MorphMeshModel
+     * GgafDx9MorphMeshModelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»<BR>
+     * @param	prm_pActor_Target æç”»ã™ã‚‹GgafDx9MorphMeshModel
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -134,9 +134,9 @@ public:
     void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
-     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
      */
-    virtual ~GgafDx9MorphMeshModel(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9MorphMeshModel(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 };
 
 }

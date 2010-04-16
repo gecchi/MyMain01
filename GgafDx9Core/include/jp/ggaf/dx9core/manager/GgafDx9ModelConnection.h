@@ -1,9 +1,9 @@
-#ifndef GGAFDX9MODELCONNECTION_H_
+ï»¿#ifndef GGAFDX9MODELCONNECTION_H_
 #define GGAFDX9MODELCONNECTION_H_
 namespace GgafDx9Core {
 
 /**
- * ƒ‚ƒfƒ‹‘Œ¹‚ÌƒRƒlƒNƒVƒ‡ƒ“.
+ * ãƒ¢ãƒ‡ãƒ«è³‡æºã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³.
  * @version 1.00
  * @since 2009/02/01
  * @author Masatoshi Tsuge
@@ -12,9 +12,9 @@ class GgafDx9ModelConnection : public GgafCore::GgafResourceConnection<GgafDx9Mo
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_idstr ƒ‚ƒfƒ‹¯•Ê–¼
-     * @param prm_pModel ƒŠƒ\[ƒX‚Æ‚È‚éƒ‚ƒfƒ‹
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_idstr ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥å
+     * @param prm_pModel ãƒªã‚½ãƒ¼ã‚¹ã¨ãªã‚‹ãƒ¢ãƒ‡ãƒ«
      */
     GgafDx9ModelConnection(char* prm_idstr, GgafDx9Model* prm_pModel);
 

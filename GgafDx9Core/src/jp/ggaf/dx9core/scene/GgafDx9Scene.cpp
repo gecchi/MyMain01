@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -17,7 +17,7 @@ void GgafDx9Scene::fadeoutBgm(int prm_id, int prm_frame) {
 }
 void GgafDx9Scene::prepareBgm(int prm_id, const char* prm_bgm_name, int prm_cannel) {
     if (prm_id < 0 || prm_id >= MAX_BGM_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareBGM() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(MAX_BGM_PER_ACTOR-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareBGM() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(MAX_BGM_PER_ACTOR-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
     }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_bgm_name);
@@ -26,7 +26,7 @@ void GgafDx9Scene::prepareBgm(int prm_id, const char* prm_bgm_name, int prm_cann
 
 void GgafDx9Scene::playBgm(int prm_id,  int prm_volume, bool prm_is_loop) {
     if (prm_id < 0 || prm_id >= MAX_BGM_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(MAX_BGM_PER_ACTOR-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(MAX_BGM_PER_ACTOR-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
     _papBgmCon[prm_id]->view()->setVolume(prm_volume);

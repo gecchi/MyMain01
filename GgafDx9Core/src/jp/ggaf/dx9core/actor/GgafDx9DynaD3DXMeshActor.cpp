@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -31,26 +31,26 @@ void GgafDx9DynaD3DXMeshActor::processDraw() {
     //(*_pFunc_calcWorldMatrix)(this, _matWorld);
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix( _pMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetMatrix(_pMeshEffect->_hMatWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9DynaD3DXMeshActor::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
-    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É
+    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zƒoƒbƒtƒ@‘‚«‚İ‰Â
+    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
     _pD3DXMeshModel->draw(this);
 
-    // Zƒoƒbƒtƒ@‚ğ–³Œø‚É
+    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zƒoƒbƒtƒ@‘‚«‚İ•s‰Â
+    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 }
 
 void GgafDx9DynaD3DXMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9DynaD3DXMeshActor‚ÍƒƒbƒVƒ…ƒ¿‚àİ’èiƒVƒF[ƒ_[‚ÅQÆ‚·‚é‚½‚ßj
+    //GgafDx9DynaD3DXMeshActorã¯ãƒ¡ãƒƒã‚·ãƒ¥Î±ã‚‚è¨­å®šï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§å‚ç…§ã™ã‚‹ãŸã‚ï¼‰
     for (DWORD i = 0; i < _pD3DXMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
         _paD3DMaterial9[i].Diffuse.a = _fAlpha;

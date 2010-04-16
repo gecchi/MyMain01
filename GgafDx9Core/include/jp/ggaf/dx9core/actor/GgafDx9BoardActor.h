@@ -1,13 +1,13 @@
-#ifndef GGAFDX9BOARDACTORD_H_
+﻿#ifndef GGAFDX9BOARDACTORD_H_
 #define GGAFDX9BOARDACTORD_H_
 namespace GgafDx9Core {
 
 /**
- * ���W�ϊ��ς݃X�v���C�g�A�N�^�[.
- * GgafDx9TransformedActor ���p�����A�|���S���Ƀe�N�X�`����\��t����<BR>
- * �[���X�v���C�g�@�\��ǉ������A�N�^�[�B<BR>
- * �P���\���i��]�g�喳���j�̂��ߍ����B�X�R�A�\����A�w�i���Ɏg�p���悤�B<BR>
- * �Q�c�Q�[�������Ȃ�A�I�u�W�F�N�g�͂��̃N���X��{�ł�����B<BR>
+ * 座標変換済みスプライトアクター.
+ * GgafDx9TransformedActor を継承し、板ポリゴンにテクスチャを貼り付けた<BR>
+ * 擬似スプライト機能を追加したアクター。<BR>
+ * 単純表示（回転拡大無し）のため高速。スコア表示や、背景等に使用しよう。<BR>
+ * ２Ｄゲームだけなら、オブジェクトはこのクラス一本でいける。<BR>
  * @version 1.00
  * @since 2008/02/27
  * @author Masatoshi Tsuge
@@ -15,7 +15,7 @@ namespace GgafDx9Core {
 class GgafDx9BoardActor : public GgafDx9DrawableActor {
 private:
     /**
-     * �g���Ȃ����邽�߂�private��override
+     * 使えなくするためにprivateでoverride
      * @return
      */
     int isOffscreen() override {
@@ -23,7 +23,7 @@ private:
     }
 
     /**
-     * �g���Ȃ����邽�߂�private��override
+     * 使えなくするためにprivateでoverride
      * @return
      */
     bool isOutOfGameSpace() override {
@@ -32,15 +32,15 @@ private:
 
 
 public:
-    /** [r]���f���I�u�W�F�N�g�ւ̃|�C���^ */
+    /** [r]モデルオブジェクトへのポインタ */
     GgafDx9BoardModel* _pBoardModel;
-    /** [r]�G�t�F�N�g */
+    /** [r]エフェクト */
     GgafDx9BoardEffect* _pBoardEffect;
-    /** [r]UV�t���b�p�[(�p���p���A�j��) */
+    /** [r]UVフリッパー(パラパラアニメ) */
     GgafDx9UvFlipper* _pUvFlipper;
-    /** [r/w]�ϊ��ςݍ��WX���g�嗦(1.0�œ��{) */
+    /** [r/w]変換済み座標X軸拡大率(1.0で等倍) */
     float _sx;
-    /** [r/w]�ϊ��ςݍ��WY���g�嗦(1.0�œ��{) */
+    /** [r/w]変換済み座標Y軸拡大率(1.0で等倍) */
     float _sy;
 
     GgafDx9BoardActor(const char* prm_name,
@@ -51,8 +51,8 @@ public:
     virtual void processDraw() override;
 
     /**
-     * �A�N�^�[�̕ϊ��ςݍ��W(����̓_)��ݒ� .
-     * z �͕ω��Ȃ�
+     * アクターの変換済み座標(左上の点)を設定 .
+     * z は変化なし
      * @param x
      * @param y
      */
@@ -62,10 +62,10 @@ public:
     }
 
     /**
-     * �A�N�^�[�̕ϊ��ςݍ��W(����̓_)��ݒ� .
+     * アクターの変換済み座標(左上の点)を設定 .
      * @param x
      * @param y
-     * @param z �[�x
+     * @param z 深度
      */
     virtual void setGeometry(int x, int y, int z) override {
         _x = x;
@@ -74,10 +74,10 @@ public:
     }
 
     /**
-     * �A�N�^�[�̕ϊ��ςݍ��W(����̓_)��ݒ� .
+     * アクターの変換済み座標(左上の点)を設定 .
      * @param x
      * @param y
-     * @param z �[�x
+     * @param z 深度
      */
     virtual void setGeometry(float x, float y, float z) {
         _x = x;
@@ -86,7 +86,7 @@ public:
     }
 
     /**
-     * �A�N�^�[�̕ϊ��ςݍ��W���R�s�[���Đݒ� .
+     * アクターの変換済み座標をコピーして設定 .
      * @param prm_pActor
      */
     virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) override {
@@ -95,7 +95,7 @@ public:
         _x = prm_pActor->_x;
     }
 
-    virtual ~GgafDx9BoardActor(); //�f�X�g���N�^
+    virtual ~GgafDx9BoardActor(); //デストラクタ
 
 };
 

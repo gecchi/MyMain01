@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -9,24 +9,24 @@ GgafDx9D3DXMeshModel::GgafDx9D3DXMeshModel(char* prm_model_name, DWORD prm_dwOpt
     _dwNumMaterials = 0L;
     _dwOptions = prm_dwOptions;
 
-    //ƒfƒoƒCƒCƒXƒƒXƒg‘Î‰‚Æ‹¤’Ê‚É‚·‚é‚½‚ßAƒeƒNƒXƒ`ƒƒA’¸“_Aƒ}ƒeƒŠƒAƒ‹‚È‚Ç‚Ì‰Šú‰»‚Í
+    //ãƒ‡ãƒã‚¤ã‚¤ã‚¹ãƒ­ã‚¹ãƒˆå¯¾å¿œã¨å…±é€šã«ã™ã‚‹ãŸã‚ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã€é ‚ç‚¹ã€ãƒãƒ†ãƒªã‚¢ãƒ«ãªã©ã®åˆæœŸåŒ–ã¯
     //void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel*)
-    //‚Ås‚¤‚æ‚¤‚É‚µ‚½B
+    //ã§è¡Œã†ã‚ˆã†ã«ã—ãŸã€‚
 }
 
 HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<")");
     if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        prm_pActor_Target->onCreateModel(); //ãƒ¢ãƒ‡ãƒ«ä½œæˆæ™‚ã®åˆæœŸå‡¦ç†
         _is_init_model = true;
     }
     GgafDx9D3DXMeshActor* pTargetActor;
-    //‘ÎÛƒAƒNƒ^[
+    //å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
     pTargetActor = (GgafDx9D3DXMeshActor*)prm_pActor_Target;
-    //‘ÎÛMeshActor‚ÌƒGƒtƒFƒNƒgƒ‰ƒbƒp
+    //å¯¾è±¡MeshActorã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ©ãƒƒãƒ‘
     GgafDx9MeshEffect* pMeshEffect;
     pMeshEffect = pTargetActor->_pMeshEffect;
-    //‘ÎÛƒGƒtƒFƒNƒg
+    //å¯¾è±¡ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMeshEffect->_pID3DXEffect;
     GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9D3DXMeshActor::FVF);
@@ -37,53 +37,53 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     for (DWORD i = 0; i < _dwNumMaterials; i++) {
         if (GgafDx9ModelManager::_pModelLastDraw != this || _dwNumMaterials != 1) {
             if (_papTextureCon[i] != NULL) {
-                //ƒeƒNƒXƒ`ƒƒ‚ÌƒZƒbƒg
+                //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚»ãƒƒãƒˆ
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[i]->view()->_pIDirect3DTexture9);
             } else {
-                _TRACE_("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") ƒeƒNƒXƒ`ƒƒ‚ª‚ ‚è‚Ü‚¹‚ñBwhite.png‚ªİ’è‚³‚ê‚é‚×‚«‚Å‚·B‚¨‚©‚µ‚¢‚Å‚·");
-                //–³‚¯‚ê‚ÎƒeƒNƒXƒ`ƒƒ–³‚µ
+                _TRACE_("GgafDx9D3DXMeshModel::draw("<<prm_pActor_Target->getName()<<") ãƒ†ã‚¯ã‚¹ãƒãƒ£ãŒã‚ã‚Šã¾ã›ã‚“ã€‚white.pngãŒè¨­å®šã•ã‚Œã‚‹ã¹ãã§ã™ã€‚ãŠã‹ã—ã„ã§ã™");
+                //ç„¡ã‘ã‚Œã°ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
-            //ƒ}ƒeƒŠƒAƒ‹‚ÌƒZƒbƒg
+            //ãƒãƒ†ãƒªã‚¢ãƒ«ã®ã‚»ãƒƒãƒˆ
             //GgafDx9God::_pID3DDevice9->SetMaterial(&(pTargetActor->_paD3DMaterial9[i]));
             hr = pID3DXEffect->SetValue(pMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[i].Diffuse), sizeof(D3DCOLORVALUE) );
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetValue(g_MaterialDiffuse) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetValue(g_MaterialDiffuse) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
 
             hr = pID3DXEffect->SetFloat(pMeshEffect->_hPowerBlink, _fPowerBlink);
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hPowerBlink) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hPowerBlink) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
             hr = pID3DXEffect->SetFloat(pMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hBlinkThreshold) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() SetFloat(_hBlinkThreshold) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         }
 
-        //•`‰æ
+        //æç”»
         if ((GgafDx9EffectManager::_pEffect_Active != pMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() EndPass() ‚É¸”s‚µ‚Ü‚µ‚½B");
+                checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() EndPass() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() End() ‚É¸”s‚µ‚Ü‚µ‚½B");
+                checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() End() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
             }
 
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDx9D3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, S_OK, "GgafDx9D3DXMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() Begin() ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() Begin() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
             hr = pID3DXEffect->BeginPass(0);
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() BeginPass(0) ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() BeginPass(0) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() CommitChanges() ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9D3DXMeshModel::draw() CommitChanges() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         }
         TRACE4("DrawSubset: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMeshEffect->_effect_name);
         hr = _pID3DXMesh->DrawSubset(i);
     }
-    //‘O‰ñ•`‰æƒ‚ƒfƒ‹–¼”½‰f
+    //å‰å›æç”»ãƒ¢ãƒ‡ãƒ«ååæ˜ 
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pMeshEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
@@ -91,16 +91,16 @@ HRESULT GgafDx9D3DXMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     return D3D_OK;
 }
 
-//ƒVƒF[ƒ_[À‘•‘O
+//ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å®Ÿè£…å‰
 //        if (pTargetActor->_SX == LEN_UNIT &&
 //            pTargetActor->_SY == LEN_UNIT &&
 //            pTargetActor->_SZ == LEN_UNIT)
 //        {
-//            hr = _pID3DXMesh->DrawSubset(i); //‚È‚ñ‚Ä•Ö—˜‚Èƒƒ\ƒbƒhI
+//            hr = _pID3DXMesh->DrawSubset(i); //ãªã‚“ã¦ä¾¿åˆ©ãªãƒ¡ã‚½ãƒƒãƒ‰ï¼
 //        } else {
-//            //Šg‘åk¬‚ª‚È‚³‚ê‚Ä‚¢‚é‚½‚ßAƒJƒƒ‰‹óŠÔ‚Éƒgƒ‰ƒ“ƒXƒtƒH[ƒ€‚³‚ê‚½Œã‚Å’¸“_–@ü‚Ì³‹K‰»‚·‚é‚æ‚¤‚Éİ’èi•‰‰×‚j
+//            //æ‹¡å¤§ç¸®å°ãŒãªã•ã‚Œã¦ã„ã‚‹ãŸã‚ã€ã‚«ãƒ¡ãƒ©ç©ºé–“ã«ãƒˆãƒ©ãƒ³ã‚¹ãƒ•ã‚©ãƒ¼ãƒ ã•ã‚ŒãŸå¾Œã§é ‚ç‚¹æ³•ç·šã®æ­£è¦åŒ–ã™ã‚‹ã‚ˆã†ã«è¨­å®šï¼ˆè² è·é«˜ï¼‰
 //            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, TRUE);
-//            hr = _pID3DXMesh->DrawSubset(i); //‚È‚ñ‚Ä•Ö—˜‚Èƒƒ\ƒbƒhI
+//            hr = _pID3DXMesh->DrawSubset(i); //ãªã‚“ã¦ä¾¿åˆ©ãªãƒ¡ã‚½ãƒƒãƒ‰ï¼
 //            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_NORMALIZENORMALS, FALSE);
 //        }
 
@@ -113,7 +113,7 @@ void GgafDx9D3DXMeshModel::restore() {
 
 void GgafDx9D3DXMeshModel::onDeviceLost() {
     TRACE3("GgafDx9D3DXMeshModel::onDeviceLost() " << _model_name << " start");
-    //ƒfƒoƒCƒXƒƒXƒg‚Í‰ğ•ú‚µ‚Ü‚·B
+    //ãƒ‡ãƒã‚¤ã‚¹ãƒ­ã‚¹ãƒˆæ™‚ã¯è§£æ”¾ã—ã¾ã™ã€‚
     release();
     TRACE3("GgafDx9D3DXMeshModel::onDeviceLost() " << _model_name << " end");
 }
@@ -121,9 +121,9 @@ void GgafDx9D3DXMeshModel::onDeviceLost() {
 void GgafDx9D3DXMeshModel::release() {
     TRACE3("GgafDx9D3DXMeshModel::release() " << _model_name << " start");
     if (_pID3DXMesh == NULL) {
-        throwGgafCriticalException("[GgafDx9D3DXMeshModel::release] Error! _pID3DXMesh‚ª ƒIƒuƒWƒFƒNƒg‚É‚È‚Á‚Ä‚¢‚È‚¢‚½‚ß release ‚Å‚«‚Ü‚¹‚ñI");
+        throwGgafCriticalException("[GgafDx9D3DXMeshModel::release] Error! _pID3DXMeshãŒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ãªã£ã¦ã„ãªã„ãŸã‚ release ã§ãã¾ã›ã‚“ï¼");
     }
-    //ƒeƒNƒXƒ`ƒƒ‚ğ‰ğ•ú
+    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è§£æ”¾
     if (_papTextureCon) {
         for (int i = 0; i < (int)_dwNumMaterials; i++) {
             if (_papTextureCon[i]) {
@@ -132,10 +132,10 @@ void GgafDx9D3DXMeshModel::release() {
             }
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //ƒeƒNƒXƒ`ƒƒ‚Ì”z—ñ
+    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é…åˆ—
     RELEASE_IMPOSSIBLE_NULL(_pID3DXMesh);
 
-    //TODO:eƒNƒ‰ƒXƒƒ“ƒo‚ğDELETE‚·‚é‚Ì‚Í‚â‚â‚«‚½‚È‚¢‚©
+    //TODO:è¦ªã‚¯ãƒ©ã‚¹ãƒ¡ãƒ³ãƒã‚’DELETEã™ã‚‹ã®ã¯ã‚„ã‚„ããŸãªã„ã‹
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
 
     TRACE3("GgafDx9D3DXMeshModel::release() " << _model_name << " end");

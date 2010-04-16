@@ -1,21 +1,21 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9BoardEffect::GgafDx9BoardEffect(char* prm_effect_name) : GgafDx9Effect(prm_effect_name) {
-    //ƒVƒF[ƒ_[‹¤’Ê‚ÌƒOƒ[ƒoƒ‹•Ï”Ý’è
+    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å…±é€šã®ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°è¨­å®š
     HRESULT hr;
     static float view_width = (float)(GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH));
     static float view_height = (float)(GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT));
 
     hr = _pID3DXEffect->SetFloat("g_view_width", view_width);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_width) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_width) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = _pID3DXEffect->SetFloat("g_view_height", view_height);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_height) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardEffect::GgafDx9BoardEffect SetFloat(g_view_height) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
-    //ƒnƒ“ƒhƒ‹
+    //ãƒãƒ³ãƒ‰ãƒ«
     _hAlpha = _pID3DXEffect->GetParameterByName( NULL, "g_alpha" );
     _hOffsetU = _pID3DXEffect->GetParameterByName( NULL, "g_offsetU" );
     _hOffsetV = _pID3DXEffect->GetParameterByName( NULL, "g_offsetV" );

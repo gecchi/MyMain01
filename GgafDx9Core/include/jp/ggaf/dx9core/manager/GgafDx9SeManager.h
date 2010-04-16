@@ -1,10 +1,10 @@
-#ifndef GGAFDX9SEMANAGER_H_
+ï»¿#ifndef GGAFDX9SEMANAGER_H_
 #define GGAFDX9SEMANAGER_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Se ŠÇ—ƒNƒ‰ƒX .
- * ¶¬Ï‚İ GgafDx9Se ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚µ‚Ä‚¨‚«Ag‚¢‚Ü‚í‚µ‚Ü‚·B
+ * GgafDx9Se ç®¡ç†ã‚¯ãƒ©ã‚¹ .
+ * ç”Ÿæˆæ¸ˆã¿ GgafDx9Se ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™»éŒ²ã—ã¦ãŠãã€ä½¿ã„ã¾ã‚ã—ã¾ã™ã€‚
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
@@ -14,8 +14,8 @@ class GgafDx9SeManager : public GgafCore::GgafResourceManager<GgafDx9Se> {
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * @param prm_manager_name ƒ}ƒl[ƒWƒƒ–¼Ì(ƒŠƒeƒ‰ƒ‹•K{)
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * @param prm_manager_name ãƒãƒãƒ¼ã‚¸ãƒ£åç§°(ãƒªãƒ†ãƒ©ãƒ«å¿…é ˆ)
      */
     GgafDx9SeManager(const char* prm_manager_name);
 

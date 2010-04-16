@@ -1,13 +1,13 @@
-#ifndef GGAFDX9BOARDSETACTORD_H_
+ï»¿#ifndef GGAFDX9BOARDSETACTORD_H_
 #define GGAFDX9BOARDSETACTORD_H_
 namespace GgafDx9Core {
 
 /**
- * À•W•ÏŠ·Ï‚İƒXƒvƒ‰ƒCƒgƒAƒNƒ^[.
- * GgafDx9TransformedActor ‚ğŒp³‚µA”Âƒ|ƒŠƒSƒ“‚ÉƒeƒNƒXƒ`ƒƒ‚ğ“\‚è•t‚¯‚½<BR>
- * ‹[—ƒXƒvƒ‰ƒCƒg‹@”\‚ğ’Ç‰Á‚µA‚³‚ç‚É‘å—Ê•\¦‚ÉÅ“K‰»‚µ‚½‚½ƒAƒNƒ^[B<BR>
- * ’Pƒ•\¦i‰ñ“]Šg‘å–³‚µj‚Ì‚½‚ß‚‘¬BƒXƒRƒA•\¦‚âA”wŒi“™‚Ég—p‚µ‚æ‚¤B<BR>
- * ‚Q‚cƒQ[ƒ€‚¾‚¯‚È‚çAƒIƒuƒWƒFƒNƒg‚Í‚±‚ÌƒNƒ‰ƒXˆê–{‚Å‚¢‚¯‚éB<BR>
+ * åº§æ¨™å¤‰æ›æ¸ˆã¿ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¢ã‚¯ã‚¿ãƒ¼.
+ * GgafDx9TransformedActor ã‚’ç¶™æ‰¿ã—ã€æ¿ãƒãƒªã‚´ãƒ³ã«ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’è²¼ã‚Šä»˜ã‘ãŸ<BR>
+ * æ“¬ä¼¼ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ©Ÿèƒ½ã‚’è¿½åŠ ã—ã€ã•ã‚‰ã«å¤§é‡è¡¨ç¤ºã«æœ€é©åŒ–ã—ãŸãŸã‚¢ã‚¯ã‚¿ãƒ¼ã€‚<BR>
+ * å˜ç´”è¡¨ç¤ºï¼ˆå›è»¢æ‹¡å¤§ç„¡ã—ï¼‰ã®ãŸã‚é«˜é€Ÿã€‚ã‚¹ã‚³ã‚¢è¡¨ç¤ºã‚„ã€èƒŒæ™¯ç­‰ã«ä½¿ç”¨ã—ã‚ˆã†ã€‚<BR>
+ * ï¼’ï¼¤ã‚²ãƒ¼ãƒ ã ã‘ãªã‚‰ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯ã“ã®ã‚¯ãƒ©ã‚¹ä¸€æœ¬ã§ã„ã‘ã‚‹ã€‚<BR>
  * @version 1.00
  * @since 2009/07/21
  * @author Masatoshi Tsuge
@@ -16,14 +16,14 @@ class GgafDx9BoardSetActor : public GgafDx9DrawableActor {
 private:
 
     /**
-     * g‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
+     * ä½¿ãˆãªãã™ã‚‹ãŸã‚ã«privateã§override
      * @return
      */
     virtual int isOffscreen() {
         return 0;
     }
     /**
-     * g‚¦‚È‚­‚·‚é‚½‚ß‚Éprivate‚Åoverride
+     * ä½¿ãˆãªãã™ã‚‹ãŸã‚ã«privateã§override
      * @return
      */
     virtual bool isOutOfGameSpace() {
@@ -33,11 +33,11 @@ private:
 
 public:
     int _draw_set_num;
-    /** ƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚Ö‚Ìƒ|ƒCƒ“ƒ^ */
+    /** ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¸ã®ãƒã‚¤ãƒ³ã‚¿ */
     GgafDx9BoardSetModel* _pBoardSetModel;
-    /** ƒGƒtƒFƒNƒg */
+    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ */
     GgafDx9BoardSetEffect* _pBoardSetEffect;
-    /** UVƒtƒŠƒbƒp[(ƒpƒ‰ƒpƒ‰ƒAƒjƒ) */
+    /** UVãƒ•ãƒªãƒƒãƒ‘ãƒ¼(ãƒ‘ãƒ©ãƒ‘ãƒ©ã‚¢ãƒ‹ãƒ¡) */
     GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9BoardSetActor(const char* prm_name,
@@ -46,7 +46,7 @@ public:
                          const char* prm_technique );
 
     /**
-     * ƒOverRide ‚Å‚·„<BR>
+     * ï¼œOverRide ã§ã™ï¼<BR>
      */
     virtual void processDraw() override;
 
@@ -73,7 +73,7 @@ public:
         _x = prm_pActor->_x;
     }
 
-    virtual ~GgafDx9BoardSetActor(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9BoardSetActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 };
 

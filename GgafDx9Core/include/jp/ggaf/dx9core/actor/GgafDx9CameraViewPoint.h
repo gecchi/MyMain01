@@ -1,9 +1,9 @@
-#ifndef GGAFDX9CAMERAVIEWPOINT_H_
+ï»¿#ifndef GGAFDX9CAMERAVIEWPOINT_H_
 #define GGAFDX9CAMERAVIEWPOINT_H_
 namespace GgafDx9Core {
 
 /**
- * ƒJƒƒ‰‚Ì‹“_‚Ì–Ú•W“_ƒNƒ‰ƒX.
+ * ã‚«ãƒ¡ãƒ©ã®è¦–ç‚¹ã®ç›®æ¨™ç‚¹ã‚¯ãƒ©ã‚¹.
  * @version 1.00
  * @since 2009/10/14
  * @author Masatoshi Tsuge

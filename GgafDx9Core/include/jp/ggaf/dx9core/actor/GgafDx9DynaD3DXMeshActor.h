@@ -1,17 +1,17 @@
-#ifndef GGAFDX9DYNAD3DXMESHACTOR_H_
+ï»¿#ifndef GGAFDX9DYNAD3DXMESHACTOR_H_
 #define GGAFDX9DYNAD3DXMESHACTOR_H_
 namespace GgafDx9Core {
 
-//’ˆÓF‚±‚ÌƒNƒ‰ƒX‚ÍŒ»Ý–¢Žg—p‚Å‚·Bíœ—\’èB
-//     ŒÅ’è‹@”\ƒpƒCƒvƒ‰ƒCƒ“Žž‚ÉŽg—p‚µ‚Ä‚¢‚½‚ªA¡‚Í‚à‚¤Žg‚í‚È‚¢B
-//     GgafDx9MeshActor‚ðŽg‚Á‚Ä‰º‚³‚¢B
+//æ³¨æ„ï¼šã“ã®ã‚¯ãƒ©ã‚¹ã¯ç¾åœ¨æœªä½¿ç”¨ã§ã™ã€‚å‰Šé™¤äºˆå®šã€‚
+//     å›ºå®šæ©Ÿèƒ½ãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³æ™‚ã«ä½¿ç”¨ã—ã¦ã„ãŸãŒã€ä»Šã¯ã‚‚ã†ä½¿ã‚ãªã„ã€‚
+//     GgafDx9MeshActorã‚’ä½¿ã£ã¦ä¸‹ã•ã„ã€‚
 /**
- * ƒƒbƒVƒ…ƒAƒNƒ^[.
- * GgafDx9DrawableActor ‚ðŒp³‚µAXƒtƒ@ƒCƒ‹’è‹`‚ÌƒƒbƒVƒ…•\Ž¦‹@”\‚ð<BR>
- * ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·B<BR>
- * GgafDx9D3DXMeshActor ‚Æ‚Ìˆá‚¢‚ÍA’¸“_ƒoƒbƒtƒ@‚É’¼ÚƒAƒNƒZƒX‚ð‚±‚Æ‚Él—¶‚µ‚ÄA<BR>
- * D3DXMESH_DYNAMIC ƒIƒvƒVƒ‡ƒ“‚ðŽg—p‚µ‚Ä‚¢‚é‚Æ‚±‚ë‚¾‚¯‚Å‚·B<BR>
- * ’¸“_‚ðƒƒbƒN‚·‚éê‡‚ÍGgafDx9D3DXMeshActor‚Å‚Í‚È‚­A‚±‚¿‚ç‚ðŒp³‚µ‚Ä‚­‚¾‚³‚¢B<BR>
+ * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼.
+ * GgafDx9DrawableActor ã‚’ç¶™æ‰¿ã—ã€Xãƒ•ã‚¡ã‚¤ãƒ«å®šç¾©ã®ãƒ¡ãƒƒã‚·ãƒ¥è¡¨ç¤ºæ©Ÿèƒ½ã‚’<BR>
+ * è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚<BR>
+ * GgafDx9D3DXMeshActor ã¨ã®é•ã„ã¯ã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã«ç›´æŽ¥ã‚¢ã‚¯ã‚»ã‚¹ã‚’ã“ã¨ã«è€ƒæ…®ã—ã¦ã€<BR>
+ * D3DXMESH_DYNAMIC ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã¨ã“ã‚ã ã‘ã§ã™ã€‚<BR>
+ * é ‚ç‚¹ã‚’ãƒ­ãƒƒã‚¯ã™ã‚‹å ´åˆã¯GgafDx9D3DXMeshActorã§ã¯ãªãã€ã“ã¡ã‚‰ã‚’ç¶™æ‰¿ã—ã¦ãã ã•ã„ã€‚<BR>
  * @version 1.00
  * @since 2008/11/17
  * @author Masatoshi Tsuge
@@ -23,7 +23,7 @@ public:
 
     static DWORD FVF;
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
-    /** ƒGƒtƒFƒNƒgŽ‘Œ¹ */
+    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æº */
     GgafDx9MeshEffect* _pMeshEffect;
 
     GgafDx9DynaD3DXMeshActor(const char* prm_name,
@@ -33,18 +33,18 @@ public:
                              GgafDx9Checker* prm_pChecker );
 
     /**
-     * ƒOverRide ‚Å‚·„<BR>
+     * ï¼œOverRide ã§ã™ï¼ž<BR>
      */
     virtual void processDraw() override;
 
     /**
-     * ƒ¿Ý’è.
-     * ƒƒI[ƒo[ƒ‰ƒCƒg„
+     * Î±è¨­å®š.
+     * ï¼œã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆï¼ž
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
 
-    virtual ~GgafDx9DynaD3DXMeshActor(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9DynaD3DXMeshActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 };
 
 }

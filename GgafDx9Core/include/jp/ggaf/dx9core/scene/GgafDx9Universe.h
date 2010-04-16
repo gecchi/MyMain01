@@ -1,4 +1,4 @@
-#ifndef GGAFDX9UNIVERSE_H_
+ï»¿#ifndef GGAFDX9UNIVERSE_H_
 #define GGAFDX9UNIVERSE_H_
 
 #define pCAM (GgafDx9Universe::_pCamera)
@@ -9,9 +9,9 @@ namespace GgafDx9Core {
 #define MAX_DRAW_DEPTH_LEVEL 500
 #define MAX_SE_AT_ONCE 10
 /**
- * GgafDx9Core–¼‘O‹óŠÔ‚Ì‚±‚Ì¢ƒNƒ‰ƒX.
- * GgafDx9Core–¼‘O‹óŠÔ“à‚Å‚ÍA‚±‚ÌƒNƒ‰ƒX‚ğŠî’ê‚Ì‚±‚Ì¢ƒNƒ‰ƒX‚Æ‚µ‚Ü‚·B<BR>
- * (‹ŒGgafDx9World)
+ * GgafDx9Coreåå‰ç©ºé–“ã®ã“ã®ä¸–ã‚¯ãƒ©ã‚¹.
+ * GgafDx9Coreåå‰ç©ºé–“å†…ã§ã¯ã€ã“ã®ã‚¯ãƒ©ã‚¹ã‚’åŸºåº•ã®ã“ã®ä¸–ã‚¯ãƒ©ã‚¹ã¨ã—ã¾ã™ã€‚<BR>
+ * (æ—§GgafDx9World)
  * @version 1.00
  * @since 2008/07/30
  * @author Masatoshi Tsuge
@@ -20,10 +20,10 @@ class GgafDx9Universe : public GgafCore::GgafUniverse {
 
 private:
     /**
-     * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æˆ— .
-     * ’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ğs‚È‚¤‚½‚ß void GgafElement<T>::draw() ‚ğƒI[ƒo[ƒ‰ƒCƒhB<BR>
-     * –{ƒNƒ‰ƒX(GgafUniverse)‚Í’¸“_‚ÌƒV[ƒ“‚Å‚ ‚é‚½‚ßA‚»‚Ì‘¼‚ÌƒAƒNƒ^[‚âƒV[ƒ“‚Ì‘S‚Ä‚ÌA<BR>
-     * void GgafElement<T>::draw() ‚ªŒÄ‚Î‚ê‚é‚±‚Æ‚à–³‚¢‚Å‚µ‚å‚¤B<BR>
+     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æç”»å‡¦ç† .
+     * æ®µéšãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚’è¡Œãªã†ãŸã‚ void GgafElement<T>::draw() ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã€‚<BR>
+     * æœ¬ã‚¯ãƒ©ã‚¹(GgafUniverse)ã¯é ‚ç‚¹ã®ã‚·ãƒ¼ãƒ³ã§ã‚ã‚‹ãŸã‚ã€ãã®ä»–ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã‚„ã‚·ãƒ¼ãƒ³ã®å…¨ã¦ã®ã€<BR>
+     * void GgafElement<T>::draw() ãŒå‘¼ã°ã‚Œã‚‹ã“ã¨ã‚‚ç„¡ã„ã§ã—ã‚‡ã†ã€‚<BR>
      */
     virtual void draw() override;
 
@@ -46,12 +46,12 @@ public:
 
 public:
 
-    /** ƒJƒƒ‰ */
+    /** ã‚«ãƒ¡ãƒ© */
     static GgafDx9Camera* _pCamera;
 
-    /** ƒAƒNƒ^[‡˜ƒŒƒ“ƒ_ƒŠƒ“ƒO‚Ì‚½‚ß‚Ì‰“‚³•Ê‚ÌƒOƒ‹[ƒv */
+    /** ã‚¢ã‚¯ã‚¿ãƒ¼é †åºãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã®ãŸã‚ã®é ã•åˆ¥ã®ã‚°ãƒ«ãƒ¼ãƒ— */
     static GgafDx9DrawableActor* _apAlphaActorList_DrawDepthLevel[];
-    /** ƒAƒNƒ^[‡˜ƒŒƒ“ƒ_ƒŠƒ“ƒOÅ‰“ƒOƒ‹[ƒv(ˆê”ÔÅ‰‚ÉƒŒƒ“ƒ_ƒŠƒ“ƒO) */
+    /** ã‚¢ã‚¯ã‚¿ãƒ¼é †åºãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°æœ€é ã‚°ãƒ«ãƒ¼ãƒ—(ä¸€ç•ªæœ€åˆã«ãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°) */
     static GgafDx9DrawableActor* _pActors_DrawMaxDrawDepth;
     static GgafDx9DrawableActor* _pActor_DrawActive;
 
@@ -74,10 +74,10 @@ public:
 
 
     /**
-     * •`‰æƒŒƒxƒ‹i‡˜j‚ğ“o˜^ .
-     * ƒ¿‚È‚Ç”¼“§–¾‚Í‚±‚¿‚ç‚É“o˜^‚µ‚½•û‚ªA‚ ‚é’ö“x‘OŒãŠÖŒW‚ª³‚µ‚­•\¦‚³‚ê‚éB
-     * @param prm_draw_depth_level ƒŒƒxƒ‹
-     * @param prm_pActor ƒAƒNƒ^[
+     * æç”»ãƒ¬ãƒ™ãƒ«ï¼ˆé †åºï¼‰ã‚’ç™»éŒ² .
+     * Î±ãªã©åŠé€æ˜ã¯ã“ã¡ã‚‰ã«ç™»éŒ²ã—ãŸæ–¹ãŒã€ã‚ã‚‹ç¨‹åº¦å‰å¾Œé–¢ä¿‚ãŒæ­£ã—ãè¡¨ç¤ºã•ã‚Œã‚‹ã€‚
+     * @param prm_draw_depth_level ãƒ¬ãƒ™ãƒ«
+     * @param prm_pActor ã‚¢ã‚¯ã‚¿ãƒ¼
      */
     static int setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor);
 
@@ -85,9 +85,9 @@ public:
     void registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan, int prm_delay, float prm_rate_frequency);
 
 //    /**
-//     * •`‰æƒŒƒxƒ‹i‡˜j‚ğÅ‰“‚Å“o˜^.
-//     * •s“§–¾‚ÈƒIƒuƒWƒFƒNƒg‚Í‹É—Í‚±‚¿‚ç‚Å“o˜^‚·‚é
-//     * @param prm_pActor ƒAƒNƒ^[
+//     * æç”»ãƒ¬ãƒ™ãƒ«ï¼ˆé †åºï¼‰ã‚’æœ€é ã§ç™»éŒ².
+//     * ä¸é€æ˜ãªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã¯æ¥µåŠ›ã“ã¡ã‚‰ã§ç™»éŒ²ã™ã‚‹
+//     * @param prm_pActor ã‚¢ã‚¯ã‚¿ãƒ¼
 //     */
 //    static void setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor);
 };

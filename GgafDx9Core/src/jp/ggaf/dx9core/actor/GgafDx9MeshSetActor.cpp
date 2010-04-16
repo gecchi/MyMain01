@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -24,7 +24,7 @@ GgafDx9MeshSetActor::GgafDx9MeshSetActor(const char* prm_name,
 
 void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9MeshSetActor‚ÍƒƒbƒVƒ…ƒ¿‚àİ’èiƒVƒF[ƒ_[‚ÅQÆ‚·‚é‚½‚ßj
+    //GgafDx9MeshSetActorã¯ãƒ¡ãƒƒã‚·ãƒ¥Î±ã‚‚è¨­å®šï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§å‚ç…§ã™ã‚‹ãŸã‚ï¼‰
     for (DWORD i = 0; i < _pMeshSetModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
         _paD3DMaterial9[i].Diffuse.a = _fAlpha;
@@ -33,7 +33,7 @@ void GgafDx9MeshSetActor::setAlpha(float prm_fAlpha) {
 
 
 void GgafDx9MeshSetActor::processDraw() {
-    _draw_set_num = 1; //GgafDx9MeshSetActor‚Ì“¯‚¶ƒ‚ƒfƒ‹‚ª˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”B“¯ˆê•`‰æ[“x‚Íˆê“x‚É•`‰æ‚·‚éB
+    _draw_set_num = 1; //GgafDx9MeshSetActorã®åŒã˜ãƒ¢ãƒ‡ãƒ«ãŒé€£ç¶šã—ã¦ã„ã‚‹ã‚«ã‚¦ãƒ³ãƒˆæ•°ã€‚åŒä¸€æç”»æ·±åº¦ã¯ä¸€åº¦ã«æç”»ã™ã‚‹ã€‚
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -58,12 +58,12 @@ void GgafDx9MeshSetActor::processDraw() {
 
     HRESULT hr;
 
-    //VIEW•ÏŠ·s—ñ
+    //VIEWå¤‰æ›è¡Œåˆ—
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
-    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_hMatView) ‚É¸”s‚µ‚Ü‚µ‚½B");
-    //Šî–{ƒ‚ƒfƒ‹’¸“_”
+    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(_hMatView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    //åŸºæœ¬ãƒ¢ãƒ‡ãƒ«é ‚ç‚¹æ•°
     hr = pID3DXEffect->SetInt(_pMeshSetEffect->_h_nVertexs, _pMeshSetModel->_nVertices);
-    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetInt(_h_nVertexs) ‚É¸”s‚µ‚Ü‚µ‚½B2");
+    checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetInt(_h_nVertexs) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚2");
 
     GgafDx9DrawableActor *pDrawActor;
     pDrawActor = this;
@@ -71,17 +71,17 @@ void GgafDx9MeshSetActor::processDraw() {
         //(*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
         //GgafDx9Util::setWorldMatrix_ScRxRzRyMv(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld));
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9MeshSetActor::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetValue(_pMeshSetEffect->_ahMaterialDiffuse[i], &(pDrawActor->_paD3DMaterial9[0].Diffuse), sizeof(D3DCOLORVALUE) );
-        //yGgafDx9MeshSetActor‚Ìƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[‚É‚Â‚¢‚Äl‚¦•ûz”õ–Y˜^ƒƒ‚
-        //–{—ˆ‚Íƒ}ƒeƒŠƒAƒ‹‚PƒIƒuƒWƒFƒNƒg‚É•¡”•Û‚µAƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg‚ÌƒOƒ‹[ƒv–ˆ‚Éİ’è‚·‚é‚à‚Ì‚¾‚ªAÀs‘¬“xÅ“K‰»‚Æg—pƒŒƒWƒXƒ^”íŒ¸‚Ìˆ×AŠeƒZƒbƒg‚Ì[0]‚Ìƒ}ƒeƒŠƒAƒ‹‚ğ‘S‘Ì‚Ìƒ}ƒeƒŠƒAƒ‹‚Æ‚·‚éB
-        //‚µ‚½‚ª‚Á‚ÄGgafDx9MeshSetActor‚Íƒ}ƒeƒŠƒAƒ‹F‚Í8ƒZƒbƒg‘S‚Ä‚»‚ê‚¼‚ê‚PF‚µ‚©•s‰Â”\B
-        //‚à‚Æ‚à‚Æ–{ƒNƒ‰ƒX‚ÍA“¯ˆêƒ‚ƒfƒ‹•¡”ƒIƒuƒWƒFƒNƒg‚ğAÅ‘å8ƒZƒbƒg“¯‚Éˆê‰ñ‚Å•`‰æ‚µƒXƒs[ƒhƒAƒbƒv‚ğ}‚é‚±‚Æ‚ğ–Ú“I‚Æ‚µ‚½ƒNƒ‰ƒX‚ÅA‚½‚­‚³‚ñƒ}ƒeƒŠƒAƒ‹ƒOƒ‹[ƒv‚ª‚ ‚éƒIƒuƒWƒFƒNƒg‚É‚Í•sŒü‚Æ‚¢‚¤‚©–³ˆÓ–¡‚Å‚ ‚éB
-        //‚P–‡ƒeƒNƒXƒ`ƒƒ‚ÅŠæ’£‚ê‚Î–â‘è‚È‚¢¥¥¥‚Æ‚¢‚¤•ûjBƒ}ƒeƒŠƒAƒ‹F‚ÅF•ª‚¯‚µ‚½‚¢ê‡‚Í GgafDx9MeshActor ‚ğg‚¤‚µ‚©‚È‚¢B
-        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        //ã€GgafDx9MeshSetActorã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ã«ã¤ã„ã¦è€ƒãˆæ–¹ã€‘å‚™å¿˜éŒ²ãƒ¡ãƒ¢
+        //æœ¬æ¥ã¯ãƒãƒ†ãƒªã‚¢ãƒ«ï¼‘ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«è¤‡æ•°ä¿æŒã—ã€ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆã®ã‚°ãƒ«ãƒ¼ãƒ—æ¯ã«è¨­å®šã™ã‚‹ã‚‚ã®ã ãŒã€å®Ÿè¡Œé€Ÿåº¦æœ€é©åŒ–ã¨ä½¿ç”¨ãƒ¬ã‚¸ã‚¹ã‚¿æ•°å‰Šæ¸›ã®ç‚ºã€å„ã‚»ãƒƒãƒˆã®[0]ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å…¨ä½“ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã¨ã™ã‚‹ã€‚
+        //ã—ãŸãŒã£ã¦GgafDx9MeshSetActorã¯ãƒãƒ†ãƒªã‚¢ãƒ«è‰²ã¯8ã‚»ãƒƒãƒˆå…¨ã¦ãã‚Œãã‚Œï¼‘è‰²ã—ã‹ä¸å¯èƒ½ã€‚
+        //ã‚‚ã¨ã‚‚ã¨æœ¬ã‚¯ãƒ©ã‚¹ã¯ã€åŒä¸€ãƒ¢ãƒ‡ãƒ«è¤‡æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ã€æœ€å¤§8ã‚»ãƒƒãƒˆåŒæ™‚ã«ä¸€å›ã§æç”»ã—ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚¢ãƒƒãƒ—ã‚’å›³ã‚‹ã“ã¨ã‚’ç›®çš„ã¨ã—ãŸã‚¯ãƒ©ã‚¹ã§ã€ãŸãã•ã‚“ãƒãƒ†ãƒªã‚¢ãƒ«ã‚°ãƒ«ãƒ¼ãƒ—ãŒã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ã¯ä¸å‘ã¨ã„ã†ã‹ç„¡æ„å‘³ã§ã‚ã‚‹ã€‚
+        //ï¼‘æšãƒ†ã‚¯ã‚¹ãƒãƒ£ã§é ‘å¼µã‚Œã°å•é¡Œãªã„ãƒ»ãƒ»ãƒ»ã¨ã„ã†æ–¹é‡ã€‚ãƒãƒ†ãƒªã‚¢ãƒ«è‰²ã§è‰²åˆ†ã‘ã—ãŸã„å ´åˆã¯ GgafDx9MeshActor ã‚’ä½¿ã†ã—ã‹ãªã„ã€‚
+        checkDxException(hr, D3D_OK, "GgafDx9MeshSetModel::draw() SetValue(g_MaterialDiffuse) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
         if (i > 0) {
-            //ƒAƒNƒeƒBƒu‚ği‚ß‚é
+            //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚’é€²ã‚ã‚‹
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }

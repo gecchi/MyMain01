@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -71,17 +71,17 @@ void GgafDx9GeometryScaler::behave() {
 
         } else if (_method[axis] == BEAT_SCALE_TRIANGLEWAVE) {
             _scale[axis] += _velo_scale[axis];
-            if (_beat_begin_frame[axis] + _beat_attack_frame[axis] == _pActor->_frame_of_behaving) { //ƒAƒ^ƒbƒN’¸“_Žž
+            if (_beat_begin_frame[axis] + _beat_attack_frame[axis] == _pActor->_frame_of_behaving) { //ã‚¢ã‚¿ãƒƒã‚¯é ‚ç‚¹æ™‚
                 _scale[axis] = _top_scale[axis];
                 _velo_scale[axis] = (_bottom_scale[axis] - _top_scale[axis]) / ((int)_beat_spend_frame[axis] - (int)_beat_attack_frame[axis] - (int)_beat_rest_frame[axis]);
                 _one_way_cnt[axis]++;
                 if (_one_way_cnt[axis] == _stop_one_way_num[axis]) {
                     _method[axis] = NOSCALE;
                 }
-            } else if (_bottom_scale[axis] > _scale[axis]) {  //if (_bottom_scale[axis] >= _scale[axis]) ‚Å‚ÍŽŸ‚És‚©‚È‚¢‚Ì‚Å‘Ê–Ú‚Å‚·‚æI
+            } else if (_bottom_scale[axis] > _scale[axis]) {  //if (_bottom_scale[axis] >= _scale[axis]) ã§ã¯æ¬¡ã«è¡Œã‹ãªã„ã®ã§é§„ç›®ã§ã™ã‚ˆï¼
                 _scale[axis] = _bottom_scale[axis];
                 _velo_scale[axis] = 0;
-            } else if (_beat_begin_frame[axis] + _beat_spend_frame[axis] == _pActor->_frame_of_behaving) { //ƒ‹[ƒvI—¹Žž
+            } else if (_beat_begin_frame[axis] + _beat_spend_frame[axis] == _pActor->_frame_of_behaving) { //ãƒ«ãƒ¼ãƒ—çµ‚äº†æ™‚
                 _beat_begin_frame[axis] = _pActor->_frame_of_behaving;
                 _velo_scale[axis] = (_top_scale[axis] - _bottom_scale[axis]) / (int)_beat_attack_frame[axis];
                 _one_way_cnt[axis]++;
@@ -91,14 +91,14 @@ void GgafDx9GeometryScaler::behave() {
             }
         }
     }
-    //Actor‚É”½‰f
+    //Actorã«åæ˜ 
     _pActor->_SX = _scale[AXIS_X];
     _pActor->_SY = _scale[AXIS_Y];
     _pActor->_SZ = _scale[AXIS_Z];
 }
 
-//‚¢‚Â‚©‚Ü‚½Žg‚¤‚Å‚µ‚å‚¤
-//            _TRACE_("---ŽÀs‘O");
+//ã„ã¤ã‹ã¾ãŸä½¿ã†ã§ã—ã‚‡ã†
+//            _TRACE_("---å®Ÿè¡Œå‰");
 //            _TRACE_("_pActor->_frame_of_behaving="<<_pActor->_frame_of_behaving);
 //            _TRACE_("_bottom_scale["<<axis<<"]="<<_bottom_scale[axis]);
 //            _TRACE_("_top_scale["<<axis<<"]="<<_top_scale[axis]);

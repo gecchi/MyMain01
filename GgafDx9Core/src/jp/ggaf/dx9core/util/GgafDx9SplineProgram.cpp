@@ -1,4 +1,4 @@
-#include "stdafx.h"
+Ôªø#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -39,10 +39,10 @@ void GgafDx9SplineProgram::begin(GgafDx9GeometricActor* prm_pActor_target, int p
 void GgafDx9SplineProgram::behave() {
 
     if (_is_executing) {
-        //åªç›ÇÃì_INDEX
+        //ÁèæÂú®„ÅÆÁÇπINDEX
         int SPPointIndex = _SPframe;
         if ( SPPointIndex == _sp->_rnum) {
-            //èIóπ
+            //ÁµÇ‰∫Ü
             _is_executing = false;
             return;
         }

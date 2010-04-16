@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -22,7 +22,7 @@ GgafDx9UvFlipper::GgafDx9UvFlipper(GgafDx9GeometricActor* prm_pActor) : GgafObje
 
 void GgafDx9UvFlipper::setTextureUvRotation(int prm_tex_col_num, float prm_tex_width, float prm_tex_height)  {
     if (prm_tex_col_num < 0) {
-        throwGgafCriticalException("GgafDx9UvFlipper::setTextureUvRotation prm_tex_col_num‚Í0ˆÈã‚Ì®”‚Åİ’è‚µ‚Ä‰º‚³‚¢B");
+        throwGgafCriticalException("GgafDx9UvFlipper::setTextureUvRotation prm_tex_col_numã¯0ä»¥ä¸Šã®æ•´æ•°ã§è¨­å®šã—ã¦ä¸‹ã•ã„ã€‚");
     }
     _tex_width = prm_tex_width;
     _tex_height = prm_tex_height;
@@ -46,10 +46,10 @@ void GgafDx9UvFlipper::setPtnNoToTop() {
 void GgafDx9UvFlipper::forcePtnNoRange(int prm_top, int prm_bottom) {
 #ifdef MY_DEBUG
     if (prm_top < 0) {
-        _TRACE_("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<" TOP‚ª•‰‚Å‚·BˆÓ}‚µ‚Ä‚Ü‚·‚©H");
+        _TRACE_("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<" TOPãŒè² ã§ã™ã€‚æ„å›³ã—ã¦ã¾ã™ã‹ï¼Ÿ");
     }
     if (prm_top > prm_bottom) {
-        throwGgafCriticalException("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" ‘å¬‚ª‚¨‚©‚µ‚¢‚Å‚·");
+        throwGgafCriticalException("GgafDx9UvFlipper::forcePtnNoRange prm_top="<<prm_top<<",prm_bottom="<<prm_bottom<<" å¤§å°ãŒãŠã‹ã—ã„ã§ã™");
     }
 #endif
     _pattno_uvflip_top = prm_top;
@@ -66,43 +66,43 @@ void GgafDx9UvFlipper::behave() {
 
     _frame_counter_uvflip++;
     if (_frame_uvflip_interval < _frame_counter_uvflip) {
-        if (_uvflip_method == FLIP_ORDER_LOOP) { //—áF0,1,2,3,4,5,0,1,2,3,4,5,...
+        if (_uvflip_method == FLIP_ORDER_LOOP) { //ä¾‹ï¼š0,1,2,3,4,5,0,1,2,3,4,5,...
             if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
                 _pattno_uvflip_now++;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_top;
             }
-        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //—áF5,4,3,2,1,0,5,4,3,2,1,0,5,4...
+        } else if (_uvflip_method == FLIP_REVERSE_LOOP) { //ä¾‹ï¼š5,4,3,2,1,0,5,4,3,2,1,0,5,4...
             if (_pattno_uvflip_top < _pattno_uvflip_now) {
                 _pattno_uvflip_now--;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_bottom;
             }
-        } else if (_uvflip_method == FLIP_ORDER_NOLOOP) { //—áF0,1,2,3,4,5,5,5,5,5,5,5...
+        } else if (_uvflip_method == FLIP_ORDER_NOLOOP) { //ä¾‹ï¼š0,1,2,3,4,5,5,5,5,5,5,5...
             if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
                 _pattno_uvflip_now++;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_bottom;
-                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //‚à‚¤ƒAƒjƒ[ƒVƒ‡ƒ“‚Íi‚Ü‚È‚¢‚±‚Æ‚ğ’Ê’m
+                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //ã‚‚ã†ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¯é€²ã¾ãªã„ã“ã¨ã‚’é€šçŸ¥
                 _uvflip_method = NOT_ANIMATED;
             }
-        } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //—áF5,4,3,2,1,0,0,0,0,0,0...
+        } else if (_uvflip_method == FLIP_REVERSE_NOLOOP) { //ä¾‹ï¼š5,4,3,2,1,0,0,0,0,0,0...
             if (_pattno_uvflip_top < _pattno_uvflip_now) {
                 _pattno_uvflip_now--;
             } else {
                 _pattno_uvflip_now = _pattno_uvflip_top;
-                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //‚à‚¤ƒAƒjƒ[ƒVƒ‡ƒ“‚Íi‚Ü‚È‚¢‚±‚Æ‚ğ’Ê’m
+                _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //ã‚‚ã†ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¯é€²ã¾ãªã„ã“ã¨ã‚’é€šçŸ¥
                 _uvflip_method = NOT_ANIMATED;
             }
-        } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //—áF0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
-            if (_is_reverse_order_in_oscillate_animation_flg) { //‹t‡˜
+        } else if (_uvflip_method == FLIP_OSCILLATE_LOOP) { //ä¾‹ï¼š0,1,2,3,4,5,4,3,2,1,0,1,2,3,4,5,...
+            if (_is_reverse_order_in_oscillate_animation_flg) { //é€†é †åºæ™‚
                 if (_pattno_uvflip_top < _pattno_uvflip_now) {
                     _pattno_uvflip_now--;
                 } else {
                     _pattno_uvflip_now++;
                     _is_reverse_order_in_oscillate_animation_flg = false;
                 }
-            } else {                                            //³‡˜
+            } else {                                            //æ­£é †åºæ™‚
                 if (_pattno_uvflip_bottom > _pattno_uvflip_now) {
                     _pattno_uvflip_now++;
                 } else {
@@ -123,13 +123,13 @@ void GgafDx9UvFlipper::behave() {
                 _pattno_uvflip_now = _paInt_PtnOffset_Customized[_cnt_Customized];
                 _cnt_Customized ++;
                 if (_cnt_Customized == _nPtn_Customized) {
-                    _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //‚à‚¤ƒAƒjƒ[ƒVƒ‡ƒ“‚Íi‚Ü‚È‚¢‚±‚Æ‚ğ’Ê’m
+                    _pActor->processHappen(GGAF_EVENT_NOLOOP_UVFLIP_FINISHED); //ã‚‚ã†ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã¯é€²ã¾ãªã„ã“ã¨ã‚’é€šçŸ¥
                     _cnt_Customized = 0;
                     _uvflip_method = NOT_ANIMATED;
                 }
             }
         } else if (_uvflip_method == NOT_ANIMATED) {
-            //‰½‚à‚µ‚È‚¢
+            //ä½•ã‚‚ã—ãªã„
         }
         _frame_counter_uvflip = 0;
     }
@@ -148,7 +148,7 @@ void GgafDx9UvFlipper::customizePtnOrder(int prm_aPtnOffset[], int prm_num) {
 void GgafDx9UvFlipper::getUV(float& out_u, float& out_v) {
 #ifdef MY_DEBUG
     if (_tex_col_num == 0) {
-        throwGgafCriticalException("GgafDx9UvFlipper::getUV ƒ[ƒŠ„‚èZ‚É‚È‚Á‚Ä‚µ‚Ü‚¢‚Ü‚·B_tex_col_num‚Ì’l‚ª•s³‚Å‚·B");
+        throwGgafCriticalException("GgafDx9UvFlipper::getUV ã‚¼ãƒ­å‰²ã‚Šç®—ã«ãªã£ã¦ã—ã¾ã„ã¾ã™ã€‚_tex_col_numã®å€¤ãŒä¸æ­£ã§ã™ã€‚");
     }
 #endif
     out_u = ((int)(_pattno_uvflip_now % _tex_col_num)) * _tex_height;

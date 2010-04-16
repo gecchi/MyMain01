@@ -1,17 +1,17 @@
-#ifndef GGAFDX9QUATERNION_H_
+ï»¿#ifndef GGAFDX9QUATERNION_H_
 #define GGAFDX9QUATERNION_H_
 namespace GgafDx9Core {
 
 /**
- * ƒNƒH[ƒ^ƒjƒIƒ“ƒNƒ‰ƒX .
- * TODO:‚à‚Á‚Æ”Ä—p‰»
+ * ã‚¯ã‚©ãƒ¼ã‚¿ãƒ‹ã‚ªãƒ³ã‚¯ãƒ©ã‚¹ .
+ * TODO:ã‚‚ã£ã¨æ±ç”¨åŒ–
  * @version 1.00
  * @since 2009/04/07
  * @author Masatoshi Tsuge
  */
 class GgafDx9Quaternion : public GgafCore::GgafObject {
 public:
-    double   _t; //‹••”
+    double   _t; //è™šéƒ¨
     double   _x;
     double   _y;
     double   _z;

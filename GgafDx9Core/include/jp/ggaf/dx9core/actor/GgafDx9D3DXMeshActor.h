@@ -1,11 +1,11 @@
-#ifndef GGAFDX9D3DXMESHACTOR_H_
+ï»¿#ifndef GGAFDX9D3DXMESHACTOR_H_
 #define GGAFDX9D3DXMESHACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ƒƒbƒVƒ…ƒAƒNƒ^[.
- * GgafDx9DrawableActor ‚ğŒp³‚µAXƒtƒ@ƒCƒ‹’è‹`‚ÌƒƒbƒVƒ…•\¦‹@”\‚ğ<BR>
- * ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·<BR>
+ * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼.
+ * GgafDx9DrawableActor ã‚’ç¶™æ‰¿ã—ã€Xãƒ•ã‚¡ã‚¤ãƒ«å®šç¾©ã®ãƒ¡ãƒƒã‚·ãƒ¥è¡¨ç¤ºæ©Ÿèƒ½ã‚’<BR>
+ * è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™<BR>
  * @version 1.00
  * @since 2008/01/28
  * @author Masatoshi Tsuge
@@ -15,9 +15,9 @@ private:
 
 public:
     static DWORD FVF;
-    /** ƒ‚ƒfƒ‹ */
+    /** ãƒ¢ãƒ‡ãƒ« */
     GgafDx9D3DXMeshModel* _pD3DXMeshModel;
-    /** ƒGƒtƒFƒNƒg‘Œ¹ */
+    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æº */
     GgafDx9MeshEffect* _pMeshEffect;
 
     GgafDx9D3DXMeshActor(const char* prm_name,
@@ -27,18 +27,18 @@ public:
                          GgafDx9Checker* prm_pChecker);
 
     /**
-     * ƒOverRide ‚Å‚·„<BR>
+     * ï¼œOverRide ã§ã™ï¼<BR>
      */
     virtual void processDraw() override;
 
     /**
-     * ƒ¿İ’è.
-     * ƒƒI[ƒo[ƒ‰ƒCƒg„
+     * Î±è¨­å®š.
+     * ï¼œã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆï¼
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
 
-    virtual ~GgafDx9D3DXMeshActor(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9D3DXMeshActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 };
 
 }

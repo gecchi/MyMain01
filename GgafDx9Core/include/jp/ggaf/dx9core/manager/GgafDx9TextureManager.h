@@ -1,10 +1,10 @@
-#ifndef GGAFDX9TEXTUREMANAGER_H_
+ï»¿#ifndef GGAFDX9TEXTUREMANAGER_H_
 #define GGAFDX9TEXTUREMANAGER_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9TextureConnection ŠÇ—ƒNƒ‰ƒX .
- * ¶¬Ï‚İ GgafDx9TextureConnection ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚µ‚Ä‚¨‚«Ag‚¢‚Ü‚í‚µ‚Ü‚·B
+ * GgafDx9TextureConnection ç®¡ç†ã‚¯ãƒ©ã‚¹ .
+ * ç”Ÿæˆæ¸ˆã¿ GgafDx9TextureConnection ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™»éŒ²ã—ã¦ãŠãã€ä½¿ã„ã¾ã‚ã—ã¾ã™ã€‚
  * @version 1.00
  * @since 2009/01/26
  * @author Masatoshi Tsuge
@@ -14,18 +14,18 @@ class GgafDx9TextureManager : public GgafCore::GgafResourceManager<GgafDx9Textur
 public:
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
-     * @param prm_manager_name ƒ}ƒl[ƒWƒƒ–¼Ì(ƒŠƒeƒ‰ƒ‹•K{)
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * @param prm_manager_name ãƒãƒãƒ¼ã‚¸ãƒ£åç§°(ãƒªãƒ†ãƒ©ãƒ«å¿…é ˆ)
      */
     GgafDx9TextureManager(const char* prm_manager_name);
 
     /**
-     * ƒI[ƒo[ƒ‰ƒCƒh
+     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
      */
     GgafDx9Texture* processCreateResource(char* prm_idstr);
 
     /**
-     * ƒI[ƒo[ƒ‰ƒCƒh
+     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
      */
     GgafCore::GgafResourceConnection<GgafDx9Texture>* processCreateConnection(char* prm_idstr, GgafDx9Texture* prm_pResource);
 

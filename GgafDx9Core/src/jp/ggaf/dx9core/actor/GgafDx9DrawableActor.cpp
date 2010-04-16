@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -29,19 +29,19 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     _is_temp_technique = false;
 
     _pNext_TheSameDrawDepthLevel = NULL;
-    //���f���擾
+    //モデル取得
     _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(prm_model);
     _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
-    //�G�t�F�N�g�擾
+    //エフェクト取得
     _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(prm_effect);
     _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
-    //�}�e���A�����R�s�[
+    //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
     for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
     }
     _fAlpha = 1.0f;
-    //�ő勗�����_
+    //最大距離頂点
     _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
 
     _now_drawdepth = 0;
@@ -83,9 +83,9 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     strcat(model_name, prm_model_id);
     // prm_model_id   = "Ceres"
     // prm_model_type = "X"
-    // �̏ꍇ�Amodel_name �Ƃ���
+    // の場合、model_name として
     // model_name     = "X/Ceres"
-    // �Ƃ�����������쐬�B
+    // という文字列を作成。
 
     char* effelct_name = NEW char[51];
     effelct_name[0] = '\0';
@@ -94,25 +94,25 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
     strcat(effelct_name, prm_effect_id);
     // prm_effect_id   = "DefaultMeshEffect"
     // prm_effect_type = "X"
-    // �̏ꍇ�Aeffelct_name �Ƃ���
+    // の場合、effelct_name として
     // effelct_name     = "X/DefaultMeshEffect"
-    // �Ƃ�����������쐬�B
+    // という文字列を作成。
 
     _pNext_TheSameDrawDepthLevel = NULL;
-    //���f���擾
+    //モデル取得
     _pGgafDx9ModelCon = (GgafDx9ModelConnection*)GgafDx9God::_pModelManager->connect(model_name);
     _pGgafDx9Model = (GgafDx9Model*)_pGgafDx9ModelCon->view();
-    //�G�t�F�N�g�擾
+    //エフェクト取得
     _pGgafDx9EffectCon = (GgafDx9EffectConnection*)GgafDx9God::_pEffectManager->connect(effelct_name);
     _pGgafDx9Effect = (GgafDx9Effect*)_pGgafDx9EffectCon->view();
-    //�}�e���A�����R�s�[
+    //マテリアルをコピー
     _paD3DMaterial9 = NEW D3DMATERIAL9[_pGgafDx9Model->_dwNumMaterials];
     for (DWORD i = 0; i < _pGgafDx9Model->_dwNumMaterials; i++){
         _paD3DMaterial9[i] = _pGgafDx9Model->_paD3DMaterial9_default[i];
     }
     _fAlpha = 1.0f;
 
-    //�ő勗�����_
+    //最大距離頂点
     _fBoundingSphereRadius = _pGgafDx9Model->_fBoundingSphereRadius;
 
     DELETEARR_IMPOSSIBLE_NULL(model_name);
@@ -123,7 +123,7 @@ GgafDx9DrawableActor::GgafDx9DrawableActor(const char* prm_name,
 
 void GgafDx9DrawableActor::processPreDraw() {
     _pNext_TheSameDrawDepthLevel = NULL;
-    //TODO:�v����
+    //TODO:要検証
     if (_is_active_flg && _can_live_flg) {
         if (_isTransformed) {
             _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(
@@ -132,44 +132,44 @@ void GgafDx9DrawableActor::processPreDraw() {
                              );
         } else {
             if (isOffscreen()) {
-                //�`�悵�Ȃ��̂œo�^�Ȃ�
+                //描画しないので登録なし
             } else {
 
-                //�����J�����ʒu _cameraZ_org = -57.1259�A�\���͈͉��s���́A_zf = -_cameraZ_org*10.0; �Ƃ����ꍇ�̗�B
-                //�u�Q�ƁFGgafDx9Camera::GgafDx9Camera()�v
-                //�\���͈�(���s��:_zf)�̋����͏����J�����̈����ʒu������10�{�Ŗ� 571.0 �ɂȂ�i���ꂪ _zf = -_cameraZ_org*10.0 �̈Ӗ��j
-                //���� MAX_DRAW_DEPTH_LEVEL (����1000)�Ƃǂ̂悤�ɑΉ������邩
-                //�{���C�u������DIRECTX���W��1�͉�ʏ㌴�_�t�߂̂Ŗ�10px�����Ƃ����v�Z���s���Ă���B�����
-                //���̕��͖�10px�Ԋu�����̉�����̒i�K�����_�����O�̐ݒ�ƂȂ�
+                //初期カメラ位置 _cameraZ_org = -57.1259、表示範囲奥行きは、_zf = -_cameraZ_org*10.0; とした場合の例。
+                //「参照：GgafDx9Camera::GgafDx9Camera()」
+                //表示範囲(奥行き:_zf)の距離は初期カメラの引き位置距離の10倍で約 571.0 になる（これが _zf = -_cameraZ_org*10.0 の意味）
+                //さて MAX_DRAW_DEPTH_LEVEL (現在1000)とどのように対応させるか
+                //本ライブラリはDIRECTX座標の1は画面上原点付近ので約10px相当という計算を行っている。よって
+                //次の文は約10px間隔相当の奥からの段階レンダリングの設定となる
                 //
                 //  GgafDx9Universe::setDrawDepthLevel(-1.0*_fDist_VpPlnFront, this);
                 //
-                //�Ƃ����΂����A571 �i�K�̐[�x����ƂȂ�B
-                //(��_fDist_VpPlnFront�͎������O�ʂ���I�u�W�F�N�g�܂ł̋����̕���)
-                //�܂��A
+                //としたばあい、571 段階の深度判定となる。
+                //(※_fDist_VpPlnFrontは視錐台手前面からオブジェクトまでの距離の負数)
+                //また、
                 //
                 //  GgafDx9Universe::setDrawDepthLevel(-1.0*_fDist_VpPlnFront*10.0, this);
                 //
-                //�����1px�Ԋu�����Ŗ� 5710 �i�K�ƂȂ邪�AMAX_DRAW_DEPTH_LEVEL��1000�Ȃ��
-                //4710�`5710�i�K�ڂ͑S�čŐ[�̂Ƃ��ē���[�x�ň����Ă��܂��B
-                //MAX_DRAW_DEPTH_LEVEL�𑝂₹�Ζ��Ȃ����A1000�i�K���炢�������̖��p�t�H�[�}���X�I�ɂ��傤�ǂ悳���B
-                //�Ȃ�Ƃ�1000�i�K���炢�őΉ����悤�ƍl�����B
+                //これは1px間隔相当で約 5710 段階となるが、MAX_DRAW_DEPTH_LEVELが1000ならば
+                //4710〜5710段階目は全て最深のとして同一深度で扱われてしまう。
+                //MAX_DRAW_DEPTH_LEVELを増やせば問題ないが、1000段階ぐらいが研究の末パフォーマンス的にちょうどよさげ。
+                //なんとか1000段階ぐらいで対応しようと考えた。
                 //
-                //�����ŁA�͂邩�����I�u�W�F�N�g�B���ׂ����i�K�`�悵�Ă����܂����Ȃ��Ǝv�������߁A
-                //�J�����ɋ߂��قǐ����ɁA�����قǃA�o�E�g�ɒi�K�����_�����O�������ƍl�����B
+                //ここで、はるか遠いオブジェクト達を細かい段階描画してもあまり報われないと思ったため、
+                //カメラに近いほど精密に、遠いほどアバウトに段階レンダリングしたいと考えた。
                 //
                 //  <o   |-+-+-+-+-+-+-+-+-+-+-+-+-+--+---+----+-----+------+------+-------+-----
-                //              ------> ��         ^            ------> ��                        ^
-                // �J����                   �A�o�E�g�Ԋu�J�n�[�x                                 �Ő[��
+                //              ------> 奥         ^            ------> 奥                        ^
+                // カメラ                   アバウト間隔開始深度                                 最深部
                 //
-                //��}�̂悤�ȃC���[�W�i�K�I�ɍr�����Ă������I
+                //上図のようなイメージ段階的に荒くしていこう！
                 int dep = (int)(-_fDist_VpPlnFront);
                 int roughly_dep_point1 = (int)(-(pCAM->_cameraZ_org) * 4.0); //(228)
                 int roughly_dep_point2 = (int)(-(pCAM->_cameraZ_org) * 8.0); //(456)
                 if (dep <= roughly_dep_point1) {
-                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(dep, this); //int�Ɋۂߍ���ł�B�܂�DirectX�̋���1���[��1�B�����10px�Ԋu
+                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(dep, this); //intに丸め込んでる。つまりDirectXの距離1が深さ1。よって10px間隔
                 } else if (dep <= roughly_dep_point2) {
-                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 3), this);  //3�Ŋ���B�܂�DirectX�̋���2���[��1�B�����20px�Ԋu
+                    _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1 + ((dep - roughly_dep_point1) / 3), this);  //3で割る。つまりDirectXの距離2が深さ1。よって20px間隔
                 } else {
                     //roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/2)=342
                     _now_drawdepth = GgafDx9Universe::setDrawDepthLevel(roughly_dep_point1+((roughly_dep_point2-roughly_dep_point1)/10) + ((dep - roughly_dep_point2) / 6), this);
@@ -178,14 +178,14 @@ void GgafDx9DrawableActor::processPreDraw() {
         }
     }
 
-    //�ꎞ�e�N�j�b�N���ԃ`�F�b�N
+    //一時テクニック期間チェック
     if (_is_temp_technique) {
         if (_frame_temp_technique <= _frame_of_behaving) {
-            //�ꎞ�e�N�j�b�N���Ԗ����B���ɖ߂�
+            //一時テクニック期間満了。元に戻す
             _hash_technique = _hash_technique_temp;
             strcpy(_technique, _technique_temp);
             _is_temp_technique = false;
-            //����̓_���B�z��̈悪�ǂ����ɂ������߁B_technique_temp = "";
+            //これはダメ。配列領域がどこかにいくため。_technique_temp = "";
             _hash_technique_temp = 0;
         }
     }
@@ -196,7 +196,7 @@ void GgafDx9DrawableActor::processPreDraw() {
 #ifdef MY_DEBUG
 
 void GgafDx9DrawableActor::processAfterDraw() {
-    //�����蔻��̈�\��
+    //当たり判定領域表示
     if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
         GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
         drawHitArea();

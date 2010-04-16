@@ -1,4 +1,4 @@
-#ifndef GGAFDX9PROPERTIES_H_
+﻿#ifndef GGAFDX9PROPERTIES_H_
 #define GGAFDX9PROPERTIES_H_
 
 #define GGAFDX9_PROPERTY(X) (*GgafDx9Core::GgafDx9Properties::X)

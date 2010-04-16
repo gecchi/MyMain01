@@ -1,4 +1,4 @@
-#ifndef GGAFDX9ALLOCHIERARCHY_H_
+ï»¿#ifndef GGAFDX9ALLOCHIERARCHY_H_
 #define GGAFDX9ALLOCHIERARCHY_H_
 
 namespace GgafDx9Core {
@@ -7,21 +7,21 @@ namespace GgafDx9Core {
 
 //http://www36.atwiki.jp/directx/m/pages/33.html?guid=on
 //
-////ŠK‘wŠ„‚è“–‚ÄƒNƒ‰ƒX
+////éšå±¤å‰²ã‚Šå½“ã¦ã‚¯ãƒ©ã‚¹
 //class CAllocateHierarchy: public ID3DXAllocateHierarchy {
 //public:
-//    STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame);//ƒtƒŒ[ƒ€ì¬
-//    STDMETHOD(CreateMeshContainer)(THIS_ //ƒƒbƒVƒ…ƒRƒ“ƒeƒiì¬
-//            LPCSTR Name, //–¼‘O
-//            CONST D3DXMESHDATA *pMeshData,//ƒƒbƒVƒ…ƒf[ƒ^
-//            CONST D3DXMATERIAL *pMaterials, //ƒ}ƒeƒŠƒAƒ‹
-//            CONST D3DXEFFECTINSTANCE *pEffectInstances, //ƒGƒtƒFƒNƒg‚ÌÀ‘Ì
-//            DWORD NumMaterials, //ƒ}ƒeƒŠƒAƒ‹”
-//            CONST DWORD *pAdjacency, //—×ÚŠÖŒW
-//            LPD3DXSKININFO pSkinInfo, //ƒXƒLƒ“î•ñ
-//            LPD3DXMESHCONTAINER *ppNewMeshContainer);//ƒƒbƒVƒ…ƒRƒ“ƒeƒi‚Ìƒ|ƒCƒ“ƒ^
-//    STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME pFrameToFree);//ƒtƒŒ[ƒ€íœ
-//    STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER pMeshContainerBase);//ƒƒbƒVƒ…ƒRƒ“ƒeƒiíœ
+//    STDMETHOD(CreateFrame)(THIS_ LPCSTR Name, LPD3DXFRAME *ppNewFrame);//ãƒ•ãƒ¬ãƒ¼ãƒ ä½œæˆ
+//    STDMETHOD(CreateMeshContainer)(THIS_ //ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠä½œæˆ
+//            LPCSTR Name, //åå‰
+//            CONST D3DXMESHDATA *pMeshData,//ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿
+//            CONST D3DXMATERIAL *pMaterials, //ãƒãƒ†ãƒªã‚¢ãƒ«
+//            CONST D3DXEFFECTINSTANCE *pEffectInstances, //ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®å®Ÿä½“
+//            DWORD NumMaterials, //ãƒãƒ†ãƒªã‚¢ãƒ«æ•°
+//            CONST DWORD *pAdjacency, //éš£æ¥é–¢ä¿‚
+//            LPD3DXSKININFO pSkinInfo, //ã‚¹ã‚­ãƒ³æƒ…å ±
+//            LPD3DXMESHCONTAINER *ppNewMeshContainer);//ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠã®ãƒã‚¤ãƒ³ã‚¿
+//    STDMETHOD(DestroyFrame)(THIS_ LPD3DXFRAME pFrameToFree);//ãƒ•ãƒ¬ãƒ¼ãƒ å‰Šé™¤
+//    STDMETHOD(DestroyMeshContainer)(THIS_ LPD3DXMESHCONTAINER pMeshContainerBase);//ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠå‰Šé™¤
 //
 //    CAllocateHierarchy() {
 //    }
@@ -42,7 +42,7 @@ namespace GgafDx9Core {
 class GgafDx9AllocHierarchy : public ID3DXAllocateHierarchy
 {
 protected:
-    // íœl
+    // å‰Šé™¤äºº
     class deleterBase {
     public:
         virtual ~deleterBase() {}
@@ -67,20 +67,20 @@ protected:
     };
 
 protected:
-    list<deleterBase*> m_DelList;   // Á‹ƒŠƒXƒg
-    list<IUnknown*> m_ReleaseList;   // ƒŠƒŠ[ƒXƒŠƒXƒg
+    list<deleterBase*> m_DelList;   // æ¶ˆå»ãƒªã‚¹ãƒˆ
+    list<IUnknown*> m_ReleaseList;   // ãƒªãƒªãƒ¼ã‚¹ãƒªã‚¹ãƒˆ
 
 public:
     GgafDx9AllocHierarchy(void);
     virtual ~GgafDx9AllocHierarchy(void);
 
-    // ƒtƒŒ[ƒ€‚ğ¶¬‚·‚é
+    // ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ç”Ÿæˆã™ã‚‹
     STDMETHOD(CreateFrame)(THIS_
         LPCSTR Name,
         LPD3DXFRAME *ppNewFrame
     );
 
-    // ƒRƒ“ƒeƒi‚ğ¶¬‚·‚é
+    // ã‚³ãƒ³ãƒ†ãƒŠã‚’ç”Ÿæˆã™ã‚‹
     STDMETHOD(CreateMeshContainer)(THIS_
         LPCSTR Name,
         CONST D3DXMESHDATA *pMeshData,
@@ -92,46 +92,46 @@ public:
         LPD3DXMESHCONTAINER *ppNewMeshContainer
     );
 
-    // ƒtƒŒ[ƒ€‚ğíœ‚·‚é
+    // ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’å‰Šé™¤ã™ã‚‹
     STDMETHOD(DestroyFrame)(THIS_
         LPD3DXFRAME pFrameToFree
     );
 
-    // ƒRƒ“ƒeƒi‚ğíœ‚·‚é
+    // ã‚³ãƒ³ãƒ†ãƒŠã‚’å‰Šé™¤ã™ã‚‹
     STDMETHOD(DestroyMeshContainer)(THIS_
         LPD3DXMESHCONTAINER pMeshContainerToFree
     );
 
 
 protected:
-    // Á‹ƒŠƒXƒg‚É“o˜^‚·‚é
+    // æ¶ˆå»ãƒªã‚¹ãƒˆã«ç™»éŒ²ã™ã‚‹
     virtual void AddDelList( deleterBase* ptr, bool isAry = false );
 
-    // •¶š—ñ‚ğƒRƒs[‚·‚é
+    // æ–‡å­—åˆ—ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
     virtual LPSTR CopyStr(LPCSTR name);
 
-    // ƒtƒŒ[ƒ€\‘¢‘Ì‚ğ¶¬‚·‚é
+    // ãƒ•ãƒ¬ãƒ¼ãƒ æ§‹é€ ä½“ã‚’ç”Ÿæˆã™ã‚‹
     virtual D3DXFRAME* CreateNewFrame();
 
-    // ƒƒbƒVƒ…ƒRƒ“ƒeƒi\‘¢‘Ì‚ğ¶¬‚·‚é
+    // ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠæ§‹é€ ä½“ã‚’ç”Ÿæˆã™ã‚‹
     virtual D3DXMESHCONTAINER* CreateNewMeshContainer();
 
-    // ƒƒbƒVƒ…ƒf[ƒ^‚ğ“o˜^
+    // ãƒ¡ãƒƒã‚·ãƒ¥ãƒ‡ãƒ¼ã‚¿ã‚’ç™»éŒ²
     virtual void RegistMeshData(CONST D3DXMESHDATA *pSrc, D3DXMESHDATA *pDest);
 
-    // ƒŠƒŠ[ƒXƒŠƒXƒg‚É“o˜^
+    // ãƒªãƒªãƒ¼ã‚¹ãƒªã‚¹ãƒˆã«ç™»éŒ²
     virtual void AddReleaseList( IUnknown *comptr);
 
-    // ƒ}ƒeƒŠƒAƒ‹“o˜^
+    // ãƒãƒ†ãƒªã‚¢ãƒ«ç™»éŒ²
     virtual void RegistMaterial(CONST D3DXMATERIAL *pSrc, DWORD num, D3DXMATERIAL **pDest);
 
-    // ƒGƒtƒFƒNƒg“o˜^
+    // ã‚¨ãƒ•ã‚§ã‚¯ãƒˆç™»éŒ²
     virtual void RegistEffect(CONST D3DXEFFECTINSTANCE *pSrc, D3DXEFFECTINSTANCE **ppDest);
 
-    // —×Úƒ|ƒŠƒSƒ““o˜^
+    // éš£æ¥ãƒãƒªã‚´ãƒ³ç™»éŒ²
     virtual void RegistAdjacency(CONST DWORD *Src, DWORD polynum, DWORD **Dest);
 
-    // ƒXƒLƒ““o˜^
+    // ã‚¹ã‚­ãƒ³ç™»éŒ²
     virtual void RegistSkin( CONST LPD3DXSKININFO Src, LPD3DXSKININFO *Dest);
 };
 

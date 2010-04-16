@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,57 +13,57 @@ int GgafDx9Camera::_Y_ScreenBottom = 0;
 GgafDx9Camera::GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm_dep) : GgafDx9GeometricActor(prm_name, NULL) {
     _class_name = "GgafDx9Camera";
 
-    //‘S‚Ä‚ÌŠî€‚ÍfovX‚©‚çl‚¦‚é
+    //å…¨ã¦ã®åŸºæº–ã¯fovXã‹ã‚‰è€ƒãˆã‚‹
     _rad_fovX = prm_rad_fovX;
-    //”¼•ª‚ğ•Û
+    //åŠåˆ†ã‚’ä¿æŒ
     _rad_half_fovX = _rad_fovX / 2.0f;
-    //‰æ–ÊƒAƒXƒyƒNƒg”ä(w/h)
+    //ç”»é¢ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”(w/h)
     _screen_aspect = (FLOAT)(1.0f * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT));
-    //fovX‚ÆƒAƒXƒyƒNƒg”ä‚©‚çfovY‚ğŒvZ‚µ‚Ä‹‚ß‚é
+    //fovXã¨ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”ã‹ã‚‰fovYã‚’è¨ˆç®—ã—ã¦æ±‚ã‚ã‚‹
     float xzRatio = tan( _rad_fovX/2 );
     float yRatio = xzRatio / _screen_aspect;
     _rad_fovY = atan( yRatio )*2.0f;
-    _TRACE_("GgafDx9Camera::GgafDx9Camera ‰æ–ÊƒAƒXƒyƒNƒgF"<<_screen_aspect);
+    _TRACE_("GgafDx9Camera::GgafDx9Camera ç”»é¢ã‚¢ã‚¹ãƒšã‚¯ãƒˆï¼š"<<_screen_aspect);
     _TRACE_("GgafDx9Camera::GgafDx9Camera FovX="<<prm_rad_fovX<<" FovY="<<_rad_fovY);
 
-    //”¼•ª‚ğ•Û
+    //åŠåˆ†ã‚’ä¿æŒ
     _rad_half_fovY = _rad_fovY / 2.0f;
-    //tan’l‚à•Û
+    //tanå€¤ã‚‚ä¿æŒ
     _tan_half_fovY = tan(_rad_fovY/2.0);
     _tan_half_fovX = tan(_rad_fovX/2.0);
-    //‰ŠúƒJƒƒ‰ˆÊ’u‚Í‹“_(0,0,Z)A’‹“_(0,0,0)
-    //Z‚ÍAƒLƒƒƒ‰‚ªZ=0‚ÌXY•½–Ê‚Å’š“xƒLƒƒƒ‰‚ª’lƒsƒNƒZƒ‹•‚Æˆê’v‚·‚é‚æ‚¤‚ÈŠ‚ÉƒJƒƒ‰‚ğˆø‚­
+    //åˆæœŸã‚«ãƒ¡ãƒ©ä½ç½®ã¯è¦–ç‚¹(0,0,Z)ã€æ³¨è¦–ç‚¹(0,0,0)
+    //Zã¯ã€ã‚­ãƒ£ãƒ©ãŒZ=0ã®XYå¹³é¢ã§ä¸åº¦ã‚­ãƒ£ãƒ©ãŒå€¤ãƒ”ã‚¯ã‚»ãƒ«å¹…ã¨ä¸€è‡´ã™ã‚‹ã‚ˆã†ãªæ‰€ã«ã‚«ãƒ¡ãƒ©ã‚’å¼•ã
     _cameraZ = -1.0f * ((GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) / PX_UNIT) / 2.0f) / _tan_half_fovY;
     _cameraZ_org = _cameraZ;
-    _TRACE_("GgafDx9Camera::GgafDx9Camera ƒJƒƒ‰‚ÌˆÊ’u(0,0,"<<_cameraZ<<")");
-    _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //ˆÊ’u
-    _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //’‹‚·‚é•ûŒü
-    _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //ã•ûŒü
+    _TRACE_("GgafDx9Camera::GgafDx9Camera ã‚«ãƒ¡ãƒ©ã®ä½ç½®(0,0,"<<_cameraZ<<")");
+    _pVecCamFromPoint   = NEW D3DXVECTOR3( 0.0f, 0.0f, (FLOAT)_cameraZ); //ä½ç½®
+    _pVecCamLookatPoint = NEW D3DXVECTOR3( 0.0f, 0.0f, 0.0f ); //æ³¨è¦–ã™ã‚‹æ–¹å‘
+    _pVecCamUp          = NEW D3DXVECTOR3( 0.0f, 1.0f, 0.0f ); //ä¸Šæ–¹å‘
 
-    // VIEW•ÏŠ·s—ñì¬
+    // VIEWå¤‰æ›è¡Œåˆ—ä½œæˆ
     D3DXMatrixLookAtLH(
-       &_vMatrixView,         // pOut [in, out] ‰‰ZŒ‹‰Ê‚Å‚ ‚é D3DXMATRIX \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-        _pVecCamFromPoint,    // pEye [in] ‹“_‚ğ’è‹`‚·‚é D3DXVECTOR3 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B‚±‚Ì’l‚ÍA•½sˆÚ“®‚Ég—p‚³‚ê‚éB
-        _pVecCamLookatPoint,  // pAt  [in] ƒJƒƒ‰‚Ì’‹‘ÎÛ‚ğ’è‹`‚·‚é D3DXVECTOR3 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-        _pVecCamUp            // pUp  [in] ƒJƒŒƒ“ƒg ƒ[ƒ‹ƒh‚Ìã•ûAˆê”Ê‚É‚Í [0, 1, 0] ‚ğ’è‹`‚·‚é D3DXVECTOR3 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
+       &_vMatrixView,         // pOut [in, out] æ¼”ç®—çµæœã§ã‚ã‚‹ D3DXMATRIX æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+        _pVecCamFromPoint,    // pEye [in] è¦–ç‚¹ã‚’å®šç¾©ã™ã‚‹ D3DXVECTOR3 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚ã“ã®å€¤ã¯ã€å¹³è¡Œç§»å‹•ã«ä½¿ç”¨ã•ã‚Œã‚‹ã€‚
+        _pVecCamLookatPoint,  // pAt  [in] ã‚«ãƒ¡ãƒ©ã®æ³¨è¦–å¯¾è±¡ã‚’å®šç¾©ã™ã‚‹ D3DXVECTOR3 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+        _pVecCamUp            // pUp  [in] ã‚«ãƒ¬ãƒ³ãƒˆ ãƒ¯ãƒ¼ãƒ«ãƒ‰ã®ä¸Šæ–¹ã€ä¸€èˆ¬ã«ã¯ [0, 1, 0] ã‚’å®šç¾©ã™ã‚‹ D3DXVECTOR3 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
     );
 
-    // Ë‰e•ÏŠ·s—ñì¬i‚R‚c¨•½–Êj
+    // å°„å½±å¤‰æ›è¡Œåˆ—ä½œæˆï¼ˆï¼“ï¼¤â†’å¹³é¢ï¼‰
     _zn = 0.01;
     _zf = -_cameraZ_org*(prm_dep+1.0f);
-    _TRACE_("GgafDx9Camera::GgafDx9Camera ”ÍˆÍ ["<<_zn<<" ~ "<<_zf<<"]");
+    _TRACE_("GgafDx9Camera::GgafDx9Camera ç¯„å›² ["<<_zn<<" ~ "<<_zf<<"]");
     D3DXMatrixPerspectiveFovLH(
             &_vMatrixProj,
-            _rad_fovY,        //y•ûŒü‹–ìŠpƒ‰ƒfƒBƒAƒ“(0`ƒÎ)
-            _screen_aspect,   //ƒAƒXƒyƒNƒg”ä  640~480 ‚Ìê‡  640/480
-            _zn,             //zn:ƒJƒƒ‰‚©‚ç‹ß‚­‚ÌƒNƒŠƒbƒv–Ê‚Ü‚Å‚Ì‹——£(‚Ç‚±‚©‚ç‚Ì‹——£‚ª•\¦‘ÎÛ‚©j‚0
-            _zf              //zf:ƒJƒƒ‰‚©‚ç‰“‚­‚ÌƒNƒŠƒbƒv–Ê‚Ü‚Å‚Ì‹——£(‚Ç‚±‚Ü‚Å‚Ì‹——£‚ª•\¦‘ÎÛ‚©j> zn
+            _rad_fovY,        //yæ–¹å‘è¦–é‡è§’ãƒ©ãƒ‡ã‚£ã‚¢ãƒ³(0ã€œÏ€)
+            _screen_aspect,   //ã‚¢ã‚¹ãƒšã‚¯ãƒˆæ¯”  640Ã—480 ã®å ´åˆ  640/480
+            _zn,             //zn:ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¿‘ãã®ã‚¯ãƒªãƒƒãƒ—é¢ã¾ã§ã®è·é›¢(ã©ã“ã‹ã‚‰ã®è·é›¢ãŒè¡¨ç¤ºå¯¾è±¡ã‹ï¼‰â‰ 0
+            _zf              //zf:ã‚«ãƒ¡ãƒ©ã‹ã‚‰é ãã®ã‚¯ãƒªãƒƒãƒ—é¢ã¾ã§ã®è·é›¢(ã©ã“ã¾ã§ã®è·é›¢ãŒè¡¨ç¤ºå¯¾è±¡ã‹ï¼‰> zn
             //(FLOAT)(-1.0f*dCam*4)
             //(-1.0f*fCam)-30,
             //(-1.0f*fCam)+30
     );
     /*
-     //¶èÀ•WŒn³Ë‰e
+     //å·¦æ‰‹åº§æ¨™ç³»æ­£å°„å½±
      D3DXMatrixOrthoLH(
      &_vMatrixProj,
      GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH),
@@ -101,45 +101,45 @@ void GgafDx9Camera::initialize() {
 }
 
 void GgafDx9Camera::processBehavior() {
-    //if (_frame_of_behaving % 2 == 0) { //10ƒtƒŒ[ƒ€‚É‚P‰ñ‚¾‚¯ŒvZ
+    //if (_frame_of_behaving % 2 == 0) { //10ãƒ•ãƒ¬ãƒ¼ãƒ ã«ï¼‘å›ã ã‘è¨ˆç®—
     HRESULT hr;
-    static D3DVIEWPORT9 viewport;       //ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‘S‘Ì‚Ì•Û
-    //ƒXƒNƒŠ[ƒ“‘S‘Ì‚ÌƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚ğ•ÛB
+    static D3DVIEWPORT9 viewport;       //ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸå…¨ä½“ã®ä¿æŒ
+    //ã‚¹ã‚¯ãƒªãƒ¼ãƒ³å…¨ä½“ã®ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã‚’ä¿æŒã€‚
     hr = GgafDx9God::_pID3DDevice9->GetViewport(&viewport);
 
-    // viewport.MinZ / MaxZ ‚ÍA’Êí‚»‚ê‚¼‚ê 0 / 1
+    // viewport.MinZ / MaxZ ã¯ã€é€šå¸¸ãã‚Œãã‚Œ 0 / 1
     float x1 = (float)viewport.X;
     float y1 = (float)viewport.Y;
     float x2 = (float)viewport.X + (float)viewport.Width;
     float y2 = (float)viewport.Y + (float)viewport.Height;
 
-    // ‹‘ä‚Ì‚W“_‚ªŠi”[‚³‚ê‚éƒCƒ“ƒXƒ^ƒ“ƒX
-    _vecNear[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // ¶‰º (•ÏŠ·Œã)
-    _vecNear[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // ‰E‰º (•ÏŠ·Œã)
-    _vecNear[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // ¶ã (•ÏŠ·Œã)
-    _vecNear[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // ‰Eã (•ÏŠ·Œã)
+    // è¦–éŒå°ã®ï¼˜ç‚¹ãŒæ ¼ç´ã•ã‚Œã‚‹ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹
+    _vecNear[0] = D3DXVECTOR3( x1, y1, viewport.MinZ ); // å·¦ä¸‹ (å¤‰æ›å¾Œ)
+    _vecNear[1] = D3DXVECTOR3( x2, y1, viewport.MinZ ); // å³ä¸‹ (å¤‰æ›å¾Œ)
+    _vecNear[2] = D3DXVECTOR3( x1, y2, viewport.MinZ ); // å·¦ä¸Š (å¤‰æ›å¾Œ)
+    _vecNear[3] = D3DXVECTOR3( x2, y2, viewport.MinZ ); // å³ä¸Š (å¤‰æ›å¾Œ)
 
-    _vecFar[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // ¶‰º (•ÏŠ·Œã)
-    _vecFar[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // ‰E‰º (•ÏŠ·Œã)
-    _vecFar[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // ¶ã (•ÏŠ·Œã)
-    _vecFar[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // ‰Eã (•ÏŠ·Œã)
-
-
+    _vecFar[0]  = D3DXVECTOR3( x1, y1, viewport.MaxZ ); // å·¦ä¸‹ (å¤‰æ›å¾Œ)
+    _vecFar[1]  = D3DXVECTOR3( x2, y1, viewport.MaxZ ); // å³ä¸‹ (å¤‰æ›å¾Œ)
+    _vecFar[2]  = D3DXVECTOR3( x1, y2, viewport.MaxZ ); // å·¦ä¸Š (å¤‰æ›å¾Œ)
+    _vecFar[3]  = D3DXVECTOR3( x2, y2, viewport.MaxZ ); // å³ä¸Š (å¤‰æ›å¾Œ)
 
 
-    // ‹‘ä‚Ì‚W“_‚ÌŒvZ
+
+
+    // è¦–éŒå°ã®ï¼˜ç‚¹ã®è¨ˆç®—
     static D3DXMATRIX mat_world;
     D3DXMatrixIdentity( &mat_world );
     D3DVIEWPORT9* pViewport = (D3DVIEWPORT9*)(&viewport);
-    // ƒ[ƒ‹ƒh ¨ ƒrƒ…[ ¨ Ë‰e ¨ ƒXƒNƒŠ[ƒ“•ÏŠ· ‚Ì‹t‚ğs‚¤
+    // ãƒ¯ãƒ¼ãƒ«ãƒ‰ â†’ ãƒ“ãƒ¥ãƒ¼ â†’ å°„å½± â†’ ã‚¹ã‚¯ãƒªãƒ¼ãƒ³å¤‰æ› ã®é€†ã‚’è¡Œã†
     for( int i = 0; i < 4; ++i ) {
         D3DXVec3Unproject(
-            &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] ‰‰ZŒ‹‰Ê‚Å‚ ‚é D3DXVECTOR3 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-            &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] ˆ—‚ÌŠî‚É‚È‚é D3DXVECTOR3 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-            pViewport,      //CONST D3DVIEWPORT9 *pViewport,  [in] ƒrƒ…[ƒ|[ƒg‚ğ•\‚· D3DVIEWPORT9 \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-            &_vMatrixProj,  //CONST D3DXMATRIX *pProjection,  [in] Ë‰es—ñ‚ğ•\‚· D3DXMATRIX \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-            &_vMatrixView,  //CONST D3DXMATRIX *pView,        [in] ƒrƒ…[s—ñ‚ğ•\‚· D3DXMATRIX \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
-            &mat_world      //CONST D3DXMATRIX *pWorld        [in] ƒ[ƒ‹ƒhs—ñ‚ğ•\‚· D3DXMATRIX \‘¢‘Ì‚Ö‚Ìƒ|ƒCƒ“ƒ^B
+            &_vecNear[i],   //D3DXVECTOR3 *pOut,              [in, out] æ¼”ç®—çµæœã§ã‚ã‚‹ D3DXVECTOR3 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+            &_vecNear[i],   //CONST D3DXVECTOR3 *pV,          [in] å‡¦ç†ã®åŸºã«ãªã‚‹ D3DXVECTOR3 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+            pViewport,      //CONST D3DVIEWPORT9 *pViewport,  [in] ãƒ“ãƒ¥ãƒ¼ãƒãƒ¼ãƒˆã‚’è¡¨ã™ D3DVIEWPORT9 æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+            &_vMatrixProj,  //CONST D3DXMATRIX *pProjection,  [in] å°„å½±è¡Œåˆ—ã‚’è¡¨ã™ D3DXMATRIX æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+            &_vMatrixView,  //CONST D3DXMATRIX *pView,        [in] ãƒ“ãƒ¥ãƒ¼è¡Œåˆ—ã‚’è¡¨ã™ D3DXMATRIX æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
+            &mat_world      //CONST D3DXMATRIX *pWorld        [in] ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ã‚’è¡¨ã™ D3DXMATRIX æ§‹é€ ä½“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚
         );
         D3DXVec3Unproject(
             &_vecFar[i],
@@ -151,55 +151,55 @@ void GgafDx9Camera::processBehavior() {
         );
     }
     //-------------------------------------------------
-    //  •½–Ê•û’ö®Fax+by+cz+d
-    //  •½–Ê‚Ì–@üƒxƒNƒgƒ‹Fn = (a, b, c)
-    //  •½–Êã‚Ì1“_‚ğAp = (x0, y0, z0) ‚Æ‚·‚é‚ÆA
-    //  •½–Ê‚Ì–@üƒxƒNƒgƒ‹‚Æ•½–Êó‚Ì1“_‚Ì“àÏFd = n*p
+    //  å¹³é¢æ–¹ç¨‹å¼ï¼šax+by+cz+d
+    //  å¹³é¢ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ï¼šn = (a, b, c)
+    //  å¹³é¢ä¸Šã®1ç‚¹ã‚’ã€p = (x0, y0, z0) ã¨ã™ã‚‹ã¨ã€
+    //  å¹³é¢ã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã¨å¹³é¢çŠ¶ã®1ç‚¹ã®å†…ç©ï¼šd = n*p
     //
-    //  •\— ”»’è‚ğ‚·‚é‚Æ‚«‚ÍA“_ p = (x0, y0, z0)‚ğA
-    //  p = (x0, y0, z0, 1) ‚Æ‚İ‚È‚µA
-    //  •½–Ê‚Æ‚Ì“àÏFa*x0 + b*y0 + c*z0 + d*1 = ans
-    //  ans > 0 ‚È‚ç•\Aans < 0 ‚È‚ç— Aans == 0 ‚È‚ç–ÊãA‚Æ‚È‚éB
-    //  DXPlaneDotCoord() ‚ÍA‚±‚Ìˆ—‚ğs‚Á‚Ä‚¢‚é
+    //  è¡¨è£åˆ¤å®šã‚’ã™ã‚‹ã¨ãã¯ã€ç‚¹ p = (x0, y0, z0)ã‚’ã€
+    //  p = (x0, y0, z0, 1) ã¨ã¿ãªã—ã€
+    //  å¹³é¢ã¨ã®å†…ç©ï¼ša*x0 + b*y0 + c*z0 + d*1 = ans
+    //  ans > 0 ãªã‚‰è¡¨ã€ans < 0 ãªã‚‰è£ã€ans == 0 ãªã‚‰é¢ä¸Šã€ã¨ãªã‚‹ã€‚
+    //  DXPlaneDotCoord() ã¯ã€ã“ã®å‡¦ç†ã‚’è¡Œã£ã¦ã„ã‚‹
     //
-    //  ‚Ü‚½Ap = (x0, y0, z0, 0) ‚Æ‚İ‚È‚µ‚Ä“àÏ‚ÌŒvZ‚ğs‚¤‚ÆA
-    //  Šp“x‚ÌŠÖŒW‚ğ’²‚×‚é‚±‚Æ‚ª‚Å‚«‚éB
-    //  ¨ D3DXPlaneDotNormal()
+    //  ã¾ãŸã€p = (x0, y0, z0, 0) ã¨ã¿ãªã—ã¦å†…ç©ã®è¨ˆç®—ã‚’è¡Œã†ã¨ã€
+    //  è§’åº¦ã®é–¢ä¿‚ã‚’èª¿ã¹ã‚‹ã“ã¨ãŒã§ãã‚‹ã€‚
+    //  â†’ D3DXPlaneDotNormal()
     //-------------------------------------------------
 
 
-     // ã ( F¶ãAN¶ãAN‰Eã )
+     // ä¸Š ( Få·¦ä¸Šã€Nå·¦ä¸Šã€Nå³ä¸Š )
     D3DXPlaneNormalize(
         &_plnTop,
         D3DXPlaneFromPoints(&_plnTop, &(_vecFar[2]), &(_vecNear[2]), &(_vecNear[3]))
     );
-    // ‰º ( F¶‰ºAN‰E‰ºAN¶‰º )
+    // ä¸‹ ( Få·¦ä¸‹ã€Nå³ä¸‹ã€Nå·¦ä¸‹ )
     D3DXPlaneNormalize(
         &_plnBottom,
         D3DXPlaneFromPoints(&_plnBottom, &(_vecFar[0]), &(_vecNear[1]), &(_vecNear[0]))
     );
-    // ¶ ( F¶‰ºAN¶‰ºAN¶ã )
+    // å·¦ ( Få·¦ä¸‹ã€Nå·¦ä¸‹ã€Nå·¦ä¸Š )
     D3DXPlaneNormalize(
         &_plnLeft,
         D3DXPlaneFromPoints(&_plnLeft, &(_vecFar[0]), &(_vecNear[0]), &(_vecNear[2]))
     );
-    // ‰E ( F‰E‰ºAN‰EãAN‰E‰º )
+    // å³ ( Få³ä¸‹ã€Nå³ä¸Šã€Nå³ä¸‹ )
     D3DXPlaneNormalize(
         &_plnRight,
         D3DXPlaneFromPoints(&_plnRight, &(_vecFar[1]), &(_vecNear[3]), &(_vecNear[1]))
     );
-    // è‘O ( N¶ãAN¶‰ºAN‰Eã)
+    // æ‰‹å‰ ( Nå·¦ä¸Šã€Nå·¦ä¸‹ã€Nå³ä¸Š)
     D3DXPlaneNormalize(
         &_plnFront,
         D3DXPlaneFromPoints(&_plnFront, &(_vecNear[2]), &(_vecNear[0]), &(_vecNear[3]))
     );
-    // ‰œ ( F‰EãAF¶‰ºAF¶ã)
+    // å¥¥ ( Få³ä¸Šã€Få·¦ä¸‹ã€Få·¦ä¸Š)
     D3DXPlaneNormalize(
         &_plnBack,
         D3DXPlaneFromPoints(&_plnBack, &(_vecFar[3]), &(_vecFar[0]), &(_vecFar[2]))
     );
-    // ‰E ( F‰E‰ºAN‰EãAN‰E‰º )
-    //‚É‚È‚¼‚Á‚Äì¬
+    // å³ ( Få³ä¸‹ã€Nå³ä¸Šã€Nå³ä¸‹ )
+    //ã«ãªãã£ã¦ä½œæˆ
     _vecVerticalCenter[0] = D3DXVECTOR3( (_vecFar[1].x + _vecFar[0].x)/2.0,
                                          (_vecFar[1].y + _vecFar[0].y)/2.0,
                                          (_vecFar[1].z + _vecFar[0].z)/2.0
@@ -212,8 +212,8 @@ void GgafDx9Camera::processBehavior() {
                                          (_vecNear[1].y + _vecNear[0].y)/2.0,
                                          (_vecNear[1].z + _vecNear[0].z)/2.0
                                        );
-    // ‰E ( F‰E‰ºAN‰EãAN‰E‰º )
-    //‚É‚È‚¼‚Á‚Äì¬
+    // å³ ( Få³ä¸‹ã€Nå³ä¸Šã€Nå³ä¸‹ )
+    //ã«ãªãã£ã¦ä½œæˆ
     D3DXPlaneNormalize(
         &_plnVerticalCenter,
         D3DXPlaneFromPoints(&_plnVerticalCenter, &(_vecVerticalCenter[0]),

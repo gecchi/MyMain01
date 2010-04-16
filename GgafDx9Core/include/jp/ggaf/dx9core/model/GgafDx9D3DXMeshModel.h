@@ -1,15 +1,15 @@
-#ifndef GGAFDX9D3DXMESHMODEL_H_
+ï»¿#ifndef GGAFDX9D3DXMESHMODEL_H_
 #define GGAFDX9D3DXMESHMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * ƒƒbƒVƒ…ƒ‚ƒfƒ‹ƒNƒ‰ƒX(GgafDx9D3DXActor—p).
- * GgafDx9D3DXMeshModel ‚Í D3DXLoadMeshFromX ‚ğg—p‚µ‚ÄAXƒtƒ@ƒCƒ‹‚©‚çƒ‚ƒfƒ‹ƒf[ƒ^‚ğ“Ç‚İ‚İA<BR>
- * •`‰æ‚·‚é‹@”\‚ğ‚Á‚½Ã“Iƒ‚ƒfƒ‹—p‚ÌƒNƒ‰ƒX‚Å‚·B
- * ƒ’·Š„
- * ED3DXLoadMeshFromX ‚ğg—p‚µ‚Ä“Ç‚İ‚Ş‚½‚ßA•¡G‚ÈXƒtƒ@ƒCƒ‹‚Å‚à–â‘è‚È‚­“Ç‚İ‚±‚İ•`‰æ‚Å‚«‚éB
- * ƒ’ZŠ„
- * E‘¼‚Ìƒ‚ƒfƒ‹ƒNƒ‰ƒXŒS‚É”ä‚×‚ÄA•`‰æ‚ÌÅ“K‰»‚Æ‚¢‚¤–Ê‚Å‚Í—ò‚éB“Ç‚İ‚ñ‚Å DrawSubset() ‚·‚é‚¾‚¯B
+ * ãƒ¡ãƒƒã‚·ãƒ¥ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹(GgafDx9D3DXActorç”¨).
+ * GgafDx9D3DXMeshModel ã¯ D3DXLoadMeshFromX ã‚’ä½¿ç”¨ã—ã¦ã€Xãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿ã€<BR>
+ * æç”»ã™ã‚‹æ©Ÿèƒ½ã‚’æŒã£ãŸé™çš„ãƒ¢ãƒ‡ãƒ«ç”¨ã®ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
+ * ï¼œé•·æ‰€ï¼
+ * ãƒ»D3DXLoadMeshFromX ã‚’ä½¿ç”¨ã—ã¦èª­ã¿è¾¼ã‚€ãŸã‚ã€è¤‡é›‘ãªXãƒ•ã‚¡ã‚¤ãƒ«ã§ã‚‚å•é¡Œãªãèª­ã¿ã“ã¿æç”»ã§ãã‚‹ã€‚
+ * ï¼œçŸ­æ‰€ï¼
+ * ãƒ»ä»–ã®ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹éƒ¡ã«æ¯”ã¹ã¦ã€æç”»ã®æœ€é©åŒ–ã¨ã„ã†é¢ã§ã¯åŠ£ã‚‹ã€‚èª­ã¿è¾¼ã‚“ã§ DrawSubset() ã™ã‚‹ã ã‘ã€‚
  * @version 1.00
  * @since 2008/02/22
  * @author Masatoshi Tsuge
@@ -18,26 +18,26 @@ class GgafDx9D3DXMeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 public:
-    /** ƒƒbƒVƒ…(ƒCƒ“ƒXƒ^ƒ“ƒX‚Íƒ‚ƒfƒ‹–ˆj */
+    /** ãƒ¡ãƒƒã‚·ãƒ¥(ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ãƒ¢ãƒ‡ãƒ«æ¯ï¼‰ */
     LPD3DXMESH _pID3DXMesh;
-    /** D3DXLoadMeshFromX‚ÌƒIƒvƒVƒ‡ƒ“ */
+    /** D3DXLoadMeshFromXã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ */
     DWORD _dwOptions;
 
-    /** ƒƒbƒVƒ…‚ÉŠÜ‚Ü‚ê‚éŠe–Ê‚Ì—×Ú–Ê‚ğŠi”[‚·‚éƒ|ƒCƒ“ƒ^ */
+    /** ãƒ¡ãƒƒã‚·ãƒ¥ã«å«ã¾ã‚Œã‚‹å„é¢ã®éš£æ¥é¢ã‚’æ ¼ç´ã™ã‚‹ãƒã‚¤ãƒ³ã‚¿ */
     //	LPD3DXBUFFER	_pAdjacency;
 
 public:
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_model ƒ‚ƒfƒ‹‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
-     * @param prm_dwOptions D3DXLoadMeshFromX‚ÌƒIƒvƒVƒ‡ƒ“
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_model ãƒ¢ãƒ‡ãƒ«ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * @param prm_dwOptions D3DXLoadMeshFromXã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³
      * @return
      */
     GgafDx9D3DXMeshModel(char* prm_model, DWORD prm_dwOptions);
 
     /**
-     * GgafDx9D3DXMeshModelƒIƒuƒWƒFƒNƒg‚Ì•`‰æ<BR>
-     * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9D3DXMeshActor
+     * GgafDx9D3DXMeshModelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»<BR>
+     * @param	prm_pActor_Target æç”»ã™ã‚‹GgafDx9D3DXMeshActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -49,10 +49,10 @@ public:
     virtual void release() override;
 
     /**
-     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
-     * delete‚·‚é‚Ì‚ÍGgafDx9D3DXMeshModelManager‚Å‚ ‚é<BR>
+     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * deleteã™ã‚‹ã®ã¯GgafDx9D3DXMeshModelManagerã§ã‚ã‚‹<BR>
      */
-    virtual ~GgafDx9D3DXMeshModel(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9D3DXMeshModel(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 };
 

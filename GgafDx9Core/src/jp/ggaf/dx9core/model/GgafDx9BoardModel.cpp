@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,32 +16,32 @@ GgafDx9BoardModel::GgafDx9BoardModel(char* prm_model_name) :
     _pIDirect3DVertexBuffer9 = NULL;
     _paRectUV = NULL;
 
-    //ƒfƒoƒCƒCƒXƒƒXƒg‘Î‰‚Æ‹¤’Ê‚É‚·‚é‚½‚ßAƒeƒNƒXƒ`ƒƒA’¸“_Aƒ}ƒeƒŠƒAƒ‹‚È‚Ç‚Ì‰Šú‰»‚Í
+    //ãƒ‡ãƒã‚¤ã‚¤ã‚¹ãƒ­ã‚¹ãƒˆå¯¾å¿œã¨å…±é€šã«ã™ã‚‹ãŸã‚ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã€é ‚ç‚¹ã€ãƒãƒ†ãƒªã‚¢ãƒ«ãªã©ã®åˆæœŸåŒ–ã¯
     //void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel*)
-    //‚Ås‚Á‚Ä‚¢‚éB
+    //ã§è¡Œã£ã¦ã„ã‚‹ã€‚
 }
 
 HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
+        prm_pActor_Target->onCreateModel(); //ãƒ¢ãƒ‡ãƒ«ä½œæˆæ™‚ã®åˆæœŸå‡¦ç†
         _is_init_model = true;
     }
 
     TRACE4("GgafDx9BoardModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
-    //TODO ƒNƒŠƒA‚·‚é‚©‚Ç‚¤‚©
+    //TODO ã‚¯ãƒªã‚¢ã™ã‚‹ã‹ã©ã†ã‹
     //GgafDx9God::_pID3DDevice9->Clear(0, NULL, D3DCLEAR_ZBUFFER, 0x000000, 1.0, 0);
-    //ªTODO ‚È‚º‚±‚±‚ÅƒNƒŠƒA‚µ‚æ‚¤‚Æl‚¦‚ª—N‚¢‚½‚Ì‚©‚í‚©‚ç‚È‚­‚È‚Á‚½B
+    //â†‘TODO ãªãœã“ã“ã§ã‚¯ãƒªã‚¢ã—ã‚ˆã†ã¨è€ƒãˆãŒæ¹§ã„ãŸã®ã‹ã‚ã‹ã‚‰ãªããªã£ãŸã€‚
 
-    //‘ÎÛActor
+    //å¯¾è±¡Actor
     static GgafDx9BoardActor* pTargetActor;
     pTargetActor = (GgafDx9BoardActor*)prm_pActor_Target;
-    //‘ÎÛBoardActor‚ÌƒGƒtƒFƒNƒgƒ‰ƒbƒp
+    //å¯¾è±¡BoardActorã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ©ãƒƒãƒ‘
     static GgafDx9BoardEffect* pBoardEffect;
     pBoardEffect = pTargetActor->_pBoardEffect;
-    //‘ÎÛƒGƒtƒFƒNƒg
+    //å¯¾è±¡ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pBoardEffect->_pID3DXEffect;
-    //¡‰ñ•`‰æ‚ÌUV
+    //ä»Šå›æç”»ã®UV
     static GgafDx9RectUV* pRectUV_Active;
     pRectUV_Active = _paRectUV + (pTargetActor->_pUvFlipper->_pattno_uvflip_now);
 
@@ -53,46 +53,46 @@ HRESULT GgafDx9BoardModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetTexture(1, _papTextureCon[0]->view()->_pIDirect3DTexture9);
 
         hr = pID3DXEffect->SetFloat(pBoardEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hPowerBlink) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hPowerBlink) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->SetFloat(pBoardEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hBlinkThreshold) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hBlinkThreshold) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     }
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetU, pRectUV_Active->_aUV[0].tu);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetU) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(pBoardEffect->_hOffsetV, pRectUV_Active->_aUV[0].tv);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() SetFloat(_hOffsetV) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
 
     if (GgafDx9EffectManager::_pEffect_Active != pBoardEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() EndPass() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() End() ‚É¸”s‚µ‚Ü‚µ‚½B");
+            checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() End() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         }
 
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-        checkDxException(hr, S_OK, "GgafDx9BoardModel::draw() SetTechnique("<<pTargetActor->_technique<<") ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, S_OK, "GgafDx9BoardModel::draw() SetTechnique("<<pTargetActor->_technique<<") ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
 
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() Begin() ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() Begin() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() BeginPass(0) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() BeginPass(0) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() CommitChanges() ‚É¸”s‚µ‚Ü‚µ‚½B");
+        checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw() CommitChanges() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pBoardEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawPrimitive(D3DPT_TRIANGLESTRIP, 0, 2);
-    //‘O‰ñ•`‰æƒ‚ƒfƒ‹•Û
+    //å‰å›æç”»ãƒ¢ãƒ‡ãƒ«ä¿æŒ
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9EffectManager::_pEffect_Active = pBoardEffect;
     GgafDx9DrawableActor::_hash_technique_last_draw = prm_pActor_Target->_hash_technique;
-    //‘O‰ñ•`‰æUVÀ•Wi‚Ö‚Ìƒ|ƒCƒ“ƒ^j‚ğ•Û‘¶
+    //å‰å›æç”»UVåº§æ¨™ï¼ˆã¸ã®ãƒã‚¤ãƒ³ã‚¿ï¼‰ã‚’ä¿å­˜
     GgafGod::_num_actor_drawing++;
     return D3D_OK;
 
@@ -114,7 +114,7 @@ void GgafDx9BoardModel::release() {
     }
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
-    //TODO:eƒNƒ‰ƒXƒƒ“ƒo‚ğDELETE‚·‚é‚Ì‚Í‚â‚â‚«‚½‚È‚¢‚©
+    //TODO:è¦ªã‚¯ãƒ©ã‚¹ãƒ¡ãƒ³ãƒã‚’DELETEã™ã‚‹ã®ã¯ã‚„ã‚„ããŸãªã„ã‹
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9BoardModel::release() " << _model_name << " end");
 }

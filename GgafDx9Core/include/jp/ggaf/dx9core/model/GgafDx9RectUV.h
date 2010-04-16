@@ -1,9 +1,9 @@
-#ifndef GGAFDX9UV_H_
+ï»¿#ifndef GGAFDX9UV_H_
 #define GGAFDX9UV_H_
 namespace GgafDx9Core {
 
 /**
- * ƒeƒNƒXƒ`ƒƒ[‚ÌU,VÀ•WƒRƒ“ƒeƒi.
+ * ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã®U,Våº§æ¨™ã‚³ãƒ³ãƒ†ãƒŠ.
  * @version 1.00
  * @since 2008/02/19
  * @author Masatoshi Tsuge
@@ -16,7 +16,7 @@ class GgafDx9RectUV : public GgafCore::GgafObject {
     };
 
 public:
-    /** ƒeƒNƒXƒ`ƒƒ[À•W‚PƒZƒbƒg‚Ì”z—ñ */
+    /** ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼åº§æ¨™ï¼‘ã‚»ãƒƒãƒˆã®é…åˆ— */
     UV _aUV[4];
 
     GgafDx9RectUV();

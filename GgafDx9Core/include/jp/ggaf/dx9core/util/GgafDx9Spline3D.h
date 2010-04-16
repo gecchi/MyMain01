@@ -1,23 +1,23 @@
-#ifndef GGAFDX9SPLINE3D_H_
+ï»¿#ifndef GGAFDX9SPLINE3D_H_
 #define GGAFDX9SPLINE3D_H_
 
 #define MaxSplineSize 100
 
 namespace GgafDx9Core {
 
-//–{ƒNƒ‰ƒX‚ÍIshida So ì¬‚ÌƒTƒ“ƒvƒ‹‚ğQl‚Éì¬‚µ‚Ü‚µ‚½B
-//‹@”\“I‚ÈƒTƒ“ƒvƒ‹‚ğì¬‚³‚ê‚½Ishida So‚ÉŠ´Ó‚¢‚½‚µ‚Ü‚·B
-//QlƒTƒCƒg
-//uSamayou Oharikuiv
+//æœ¬ã‚¯ãƒ©ã‚¹ã¯Ishida So æ°ä½œæˆã®ã‚µãƒ³ãƒ—ãƒ«ã‚’å‚è€ƒã«ä½œæˆã—ã¾ã—ãŸã€‚
+//æ©Ÿèƒ½çš„ãªã‚µãƒ³ãƒ—ãƒ«ã‚’ä½œæˆã•ã‚ŒãŸIshida Soæ°ã«æ„Ÿè¬ã„ãŸã—ã¾ã™ã€‚
+//å‚è€ƒã‚µã‚¤ãƒˆ
+//ã€ŒSamayou Oharikuiã€
 //http://www5d.biglobe.ne.jp/~stssk/
-//“à‚ÌƒRƒ“ƒeƒ“ƒc
-//uŠÈ—ª‰»‚µ‚½‚RŸƒXƒvƒ‰ƒCƒ“‹Èü‚Ì¶¬•û–@v
+//å†…ã®ã‚³ãƒ³ãƒ†ãƒ³ãƒ„
+//ã€Œç°¡ç•¥åŒ–ã—ãŸï¼“æ¬¡ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šã®ç”Ÿæˆæ–¹æ³•ã€
 //http://www5d.biglobe.ne.jp/~stssk/maze/spline.html
 //
 //                                2009/10/16 Masatoshi Tsuge
 
 /**
- * 3ŸŒ³ƒXƒvƒ‰ƒCƒ“‹Èü¶¬ƒNƒ‰ƒX .
+ * 3æ¬¡å…ƒã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šç”Ÿæˆã‚¯ãƒ©ã‚¹ .
  * @version 1.00
  * @since 2009/10/16
  * @author Masatoshi Tsuge
@@ -27,7 +27,7 @@ class GgafDx9Spline3D {
 public:
 
     /**
-     * ‚PŸŒ³ƒXƒvƒ‰ƒCƒ“¶¬
+     * ï¼‘æ¬¡å…ƒã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç”Ÿæˆ
      */
     class GgafDx9Spline {
     public:
@@ -40,29 +40,29 @@ public:
             double tmp, w[MaxSplineSize + 1];
             int i;
             num = spnum - 1;
-            // ‚RŸ‘½€®‚Ì0ŸŒW”(a)‚ğİ’è
+            // ï¼“æ¬¡å¤šé …å¼ã®0æ¬¡ä¿‚æ•°(a)ã‚’è¨­å®š
             for (i = 0; i <= num; i++) {
                 a[i] = sp[i];
             }
-            // ‚RŸ‘½€®‚Ì2ŸŒW”(c)‚ğŒvZ
-            // ˜A—§•û’ö®‚ğ‰ğ‚­B
-            // ’A‚µAˆê”Ê‰ğ–@‚Å‚È‚­ƒXƒvƒ‰ƒCƒ“ŒvZ‚Éƒ`ƒ…[ƒjƒ“ƒO‚µ‚½•û–@
+            // ï¼“æ¬¡å¤šé …å¼ã®2æ¬¡ä¿‚æ•°(c)ã‚’è¨ˆç®—
+            // é€£ç«‹æ–¹ç¨‹å¼ã‚’è§£ãã€‚
+            // ä½†ã—ã€ä¸€èˆ¬è§£æ³•ã§ãªãã‚¹ãƒ—ãƒ©ã‚¤ãƒ³è¨ˆç®—ã«ãƒãƒ¥ãƒ¼ãƒ‹ãƒ³ã‚°ã—ãŸæ–¹æ³•
             c[0] = c[num] = 0.0;
             for (i = 1; i < num; i++) {
                 c[i] = 3.0 * (a[i - 1] - 2.0 * a[i] + a[i + 1]);
             }
-            // ¶‰º‚ğÁ‚·
+            // å·¦ä¸‹ã‚’æ¶ˆã™
             w[0] = 0.0;
             for (i = 1; i < num; i++) {
                 tmp = 4.0 - w[i - 1];
                 c[i] = (c[i] - c[i - 1]) / tmp;
                 w[i] = 1.0 / tmp;
             }
-            // ‰Eã‚ğÁ‚·
+            // å³ä¸Šã‚’æ¶ˆã™
             for (i = num - 1; i > 0; i--) {
                 c[i] = c[i] - c[i + 1] * w[i];
             }
-            // ‚RŸ‘½€®‚Ì1ŸŒW”(b)‚Æ3ŸŒW”(b)‚ğŒvZ
+            // ï¼“æ¬¡å¤šé …å¼ã®1æ¬¡ä¿‚æ•°(b)ã¨3æ¬¡ä¿‚æ•°(b)ã‚’è¨ˆç®—
             b[num] = d[num] = 0.0;
             for (i = 0; i < num; i++) {
                 d[i] = (c[i + 1] - c[i]) / 3.0;
@@ -72,9 +72,9 @@ public:
         double compute(double t) {
             int j;
             double dt;
-            j = (int)floor(t); // ¬”“_ˆÈ‰ºØÌ‚Ä
+            j = (int)floor(t); // å°æ•°ç‚¹ä»¥ä¸‹åˆ‡æ¨ã¦
             if (j < 0) j = 0;
-            else if (j >= num) j = num - 1; // ŠÛ‚ßŒë·‚ğl—¶
+            else if (j >= num) j = num - 1; // ä¸¸ã‚èª¤å·®ã‚’è€ƒæ…®
 
             dt = t - (double)j;
             return a[j] + (b[j] + (c[j] + d[j] * dt) * dt) * dt;
@@ -82,15 +82,15 @@ public:
     };
 
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ .
-     * Œã‚Å init() ‚ğŒÄ‚Ño‚µ‚Ä‰º‚³‚¢B
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ .
+     * å¾Œã§ init() ã‚’å‘¼ã³å‡ºã—ã¦ä¸‹ã•ã„ã€‚
      */
     GgafDx9Spline3D();
 
     GgafDx9Spline3D(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
-     * ‰Šú‰»‚µ•âŠ®“_‚µAg—p‚Å‚«‚éó‘Ô‚É‚µ‚Ü‚· .
+     * åˆæœŸåŒ–ã—è£œå®Œç‚¹ã—ã€ä½¿ç”¨ã§ãã‚‹çŠ¶æ…‹ã«ã—ã¾ã™ .
      * @param prm_paaBase
      * @param num
      * @param prm_accuracy
@@ -98,8 +98,8 @@ public:
     void init(double prm_paaBase[][3], int num, double prm_accuracy);
 
     /**
-     * •âŠ®“_ŒvZ
-     * @param prm_accuracy ¸“x 0.0 ` 1.0 (1.0‚Å•âŠ®‚È‚µA0.5‚Å’†“_‚ªˆê‚Â’Ç‰ÁA0.1‚¾‚Æ10“_•âŠ®)
+     * è£œå®Œç‚¹è¨ˆç®—
+     * @param prm_accuracy ç²¾åº¦ 0.0 ã€œ 1.0 (1.0ã§è£œå®Œãªã—ã€0.5ã§ä¸­ç‚¹ãŒä¸€ã¤è¿½åŠ ã€0.1ã ã¨10ç‚¹è£œå®Œ)
      */
     void compute(double prm_accuracy);
 

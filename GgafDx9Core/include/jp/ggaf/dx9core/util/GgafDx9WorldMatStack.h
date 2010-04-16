@@ -1,4 +1,4 @@
-#ifndef GGAFDX9WORLDMATSTACK_H_
+ï»¿#ifndef GGAFDX9WORLDMATSTACK_H_
 #define GGAFDX9WORLDMATSTACK_H_
 
 namespace GgafDx9Core {
@@ -18,7 +18,7 @@ public:
    list< D3DXFRAME_WORLD*>  *GetDrawList();
 
 protected:
-   void CalcFrameWorldMatrix( D3DXFRAME_WORLD* frame );   // ƒtƒŒ[ƒ€ƒ[ƒ‹ƒhs—ñZoÄ‹AŠÖ”
+   void CalcFrameWorldMatrix( D3DXFRAME_WORLD* frame );   // ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ãƒ«ãƒ‰è¡Œåˆ—ç®—å‡ºå†å¸°é–¢æ•°
 };
 
 }

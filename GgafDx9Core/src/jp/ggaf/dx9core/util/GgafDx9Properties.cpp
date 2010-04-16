@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -58,7 +58,7 @@ void GgafDx9Properties::load(string prm_ini_filename) {
     _TRACE_("GGAFDX9_PROPERTY(DIR_EFFECT)="<<GGAFDX9_PROPERTY(DIR_EFFECT));
     _TRACE_("GGAFDX9_PROPERTY(DIR_OGG)="<<GGAFDX9_PROPERTY(DIR_OGG));
     _TRACE_("GGAFDX9_PROPERTY(DIR_WAVE)="<<GGAFDX9_PROPERTY(DIR_WAVE));
-    //‘±‚«
+    //ç¶šã
 }
 
 void GgafDx9Properties::clean() {

@@ -1,4 +1,4 @@
-/******************************************************************************
+ï»¿/******************************************************************************
  * @file	CmRandomNumberGenerator.h
  * @brief	Random Number Generator H file
  * @author  Takayuki HARUKI (University of Toyama, Japan)
@@ -6,20 +6,20 @@
  *
  ******************************************************************************/
 
-// ‚±‚ÌƒvƒƒOƒ‰ƒ€‚Í¼–{áÁA¼‘º‘ñm‚ç‚É‚æ‚Á‚ÄŠJ”­‚³‚ê‚½
-// Mersenne Twister–@‚ÌCƒvƒƒOƒ‰ƒ€‚ªƒIƒŠƒWƒiƒ‹‚Å‚·B
-// CmRandomNumberGenerator ƒNƒ‰ƒX‚ÍATakayuki HARUKI ‚É‚æ‚è
-// Singletonƒpƒ^[ƒ“‚É‘‚«’¼‚³‚ê‚½ƒR[ƒh‚Å‚·B
-// –{ƒR[ƒh“à—e‚ÍACmRandomNumberGenerator ‚ğA‚Ù‚Ú‚»‚Ì‚Ü‚Ü‚É—¬—p‚µ‚Ä‚¨‚è‚Ü‚·B
+// ã“ã®ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯æ¾æœ¬çœæ°ã€è¥¿æ‘æ‹“å£«æ°ã‚‰ã«ã‚ˆã£ã¦é–‹ç™ºã•ã‚ŒãŸ
+// Mersenne Twisteræ³•ã®Cãƒ—ãƒ­ã‚°ãƒ©ãƒ ãŒã‚ªãƒªã‚¸ãƒŠãƒ«ã§ã™ã€‚
+// CmRandomNumberGenerator ã‚¯ãƒ©ã‚¹ã¯ã€Takayuki HARUKI ã«ã‚ˆã‚Š
+// Singletonãƒ‘ã‚¿ãƒ¼ãƒ³ã«æ›¸ãç›´ã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ã§ã™ã€‚
+// æœ¬ã‚³ãƒ¼ãƒ‰å†…å®¹ã¯ã€CmRandomNumberGenerator ã‚’ã€ã»ã¼ãã®ã¾ã¾ã«æµç”¨ã—ã¦ãŠã‚Šã¾ã™ã€‚
 //
-// ‘½‘å‚È“w—Í‚ÆŠÔ‚ğ”ï‚â‚µŒ¤‹†‚³‚ê‚½AŠJ”­Ò‚ÌŠF—l‚ÉŒhˆÓ‚ğ•\‚µ‚Ü‚µ‚ÄA—˜—p‚³‚¹‚Ä‚¢‚½‚¾‚«‚Ü‚·B
-// —Ç¿‚Ì—”‚ğ‚±‚Ì‚æ‚¤‚ÉèŒy‚É—˜—p‚Å‚«‚é–‚ÉŠ´ÓB
+// å¤šå¤§ãªåŠªåŠ›ã¨æ™‚é–“ã‚’è²»ã‚„ã—ç ”ç©¶ã•ã‚ŒãŸã€é–‹ç™ºè€…ã®çš†æ§˜ã«æ•¬æ„ã‚’è¡¨ã—ã¾ã—ã¦ã€åˆ©ç”¨ã•ã›ã¦ã„ãŸã ãã¾ã™ã€‚
+// è‰¯è³ªã®ä¹±æ•°ã‚’ã“ã®ã‚ˆã†ã«æ‰‹è»½ã«åˆ©ç”¨ã§ãã‚‹äº‹ã«æ„Ÿè¬ã€‚
 //
 //                                         2008/09/09 Masatoshi Tsuge
 //
-// yMersenne Twister Home Pagez
+// ã€Mersenne Twister Home Pageã€‘
 // http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/mt.html
-// yCmRandomNumberGenerator‚Ìƒ_ƒEƒ“ƒ[ƒhz
+// ã€CmRandomNumberGeneratorã®ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã€‘
 // http://www.math.sci.hiroshima-u.ac.jp/~m-mat/MT/VERSIONS/C-LANG/Singleton.zip
 
 

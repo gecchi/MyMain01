@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -36,17 +36,17 @@ void GgafDx9BoardActor::processDraw() {
     pID3DXEffect = _pBoardEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedX, _x);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedX) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hTransformedY, _y);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hTransformedY) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hDepthZ, _z);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hDepthZ) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hAlpha, _fAlpha);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_hAlpha) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSx, _sx);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sx) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sx) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     hr = pID3DXEffect->SetFloat(_pBoardEffect->_hSy, _sy);
-    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sy) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    checkDxException(hr, D3D_OK, "GgafDx9BoardModel::draw SetFloat(_sy) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
     _pBoardModel->draw(this);
 }
 

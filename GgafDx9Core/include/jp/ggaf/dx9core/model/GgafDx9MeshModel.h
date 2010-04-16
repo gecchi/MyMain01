@@ -1,49 +1,49 @@
-#ifndef GGAFDX9MESHMODEL_H_
+﻿#ifndef GGAFDX9MESHMODEL_H_
 #define GGAFDX9MESHMODEL_H_
 namespace GgafDx9Core {
 
 
-// �{�v���O������ Paul Coppens ����̍쐬���ꂽ�AX�t�@�C����ǂݍ��ރT���v��
-// �����ɁA�Ǝ��ɉ��ǏC���i��f�o�b�O�j�����N���X���g�p���Ă��܂��B
-// ���肪�Ƃ� Paul����B
+// 本プログラムは Paul Coppens さんの作成された、Xファイルを読み込むサンプル
+// を元に、独自に改良修正（やデバッグ）したクラスを使用しています。
+// ありがとう Paulさん。
 //
-// �y�Ώہz
-// Frm ���O��Ԃ̃N���X
+// 【対象】
+// Frm 名前空間のクラス
 //
-// �yLoading and displaying .X files without DirectX �z
+// 【Loading and displaying .X files without DirectX 】
 // http://www.gamedev.net/reference/programming/features/xfilepc/
 //
 //                                         2009/03/06 Masatoshi Tsuge
 
 /**
- * ���b�V�����f���N���X(GgafDx9MeshActor�p).
- * GgafDx9MeshModel �͓Ǝ���X�t�@�C�����烂�f���f�[�^��ǂݍ��݁A<BR>
- * �I�u�W�F�N�g��`�悷��@�\���������ÓI���f���p�̃N���X�ł��B <BR>
- * <b>��������</b>  <BR>
- * �EX�t�@�C���̒��_����ۏ؁B <BR>
- * �EGgafDx9D3DXMeshModel ���ǂݍ��݂������itemplate�Ƃ����ĂȂ��j�B <BR>
- * �EX�t�@�C���ɕ������b�V���o�^����Ă���ꍇ�A�����A�����Ĉ�̒��_�o�b�t�@�A�C���f�b�N�X�o�b�t�@�ƈ�������
- *   �`�悪��荂���ɂȂ�B <BR>
- * <b>���Z����</b> <BR>
- * �ED3DXLoadMeshFromX���g�p���Ă��炸�AX�t�@�C���� template �錾�͌��Ă��Ȃ����߁A�f�[�^�\�����̃w�b�_��
- *  ("Mesh"��"TextureFilename"���j�� �n�[�h�R�[�f�B���O����Ă���B���^�Z�R�A�A3DSMAX����X�t�@�C���̃G�N�X�|�[�g��
- *  �ǂݍ��߂�Ηǂ��Ƃ����݌v�ŁA�\�����Ȃ����G��X�t�@�C���͂܂��ǂ߂Ȃ��B<BR>
- * �E����ɋ��L���_�̖@���𕽋ω����� <BR>
+ * メッシュモデルクラス(GgafDx9MeshActor用).
+ * GgafDx9MeshModel は独自にXファイルからモデルデータを読み込み、<BR>
+ * オブジェクトを描画する機能を持った静的モデル用のクラスです。 <BR>
+ * <b>＜長所＞</b>  <BR>
+ * ・Xファイルの頂点数を保証。 <BR>
+ * ・GgafDx9D3DXMeshModel より読み込みが高速（templateとか見てない）。 <BR>
+ * ・Xファイルに複数メッシュ登録されている場合、これを連結して一つの頂点バッファ、インデックスバッファと扱うため
+ *   描画がより高速になる。 <BR>
+ * <b>＜短所＞</b> <BR>
+ * ・D3DXLoadMeshFromXを使用しておらず、Xファイルの template 宣言は見ていないため、データ構造名のヘッダ名
+ *  ("Mesh"や"TextureFilename"等）は ハードコーディングされている。メタセコア、3DSMAX等のXファイルのエクスポートを
+ *  読み込めれば良いという設計で、予測しない複雑なXファイルはまず読めない。<BR>
+ * ・勝手に共有頂点の法線を平均化する <BR>
  * <BR>
- * <b>�u�o�܁v</b><BR>
- * �Ⴆ�Η����̂̏ꍇ�A���ʂ́A���_��8�A�@���x�N�g��6�A���_�C���f�b�N�X32�A�@���C���f�b�N�X32�ƂȂ邪�A
- * ���̂悤��X�t�@�C���� D3DXLoadMeshFromX�œǂݍ��ނƁA����ɒ��_��������B<BR>
- * ����͐e�؂ɂ��A�G�b�W���N�b�L�������邽�߂ɖ@�����D�悳��ď�������邽�߂��Ǝv���B<BR>
- * �������A�V�F�[�_�[�Ń��[�t����A�����I�u�W�F�N�g��DrawIndexedPrimitive�ł킯�ĕ\�����鎞���A
- * ����ɒ��_�̐����ς���Ă��܂��̂͒v���I�ȏꍇ������B<BR>
- * �uX�t�@�C���ɏ������ʂ�̒��_�Œ��_�o�b�t�@����肽���v<BR>
- * ���_������������͑z���ł��邪�A���_�̕�����œK���A���S���Y���̏ڍׂȎd�l���T���Ă������i�Ǝv���j�B<BR>
- * D3DXLoadMeshFromX�̃\�[�X�R�[�h��������Ή��������A����Ȃ̌��J����Ė����B<BR>
- * ����Ȃ킯�ŁAD3DXLoadMeshFromX�͎g���Ȃ��Ƃ������_�ɂȂ�A�Ǝ���X�t�@�C����ǂݍ��ނ悤�ɂ����B<BR>
- * �g���Ȃ��ƌ��f����܂Ŕ�풷�������B���A��X�t�@�C���}�X�^�[�ɂȂ�܂����B<BR>
- * ���_����ۏ؂��邽�߁A�@��������Ȃ��Ȃ��Ă��܂��ꍇ������B�����ŋ��L���_�̖@���͕��ω����s�����Ƃɂ��Ă���B<BR>
- * �����G�b�W���N�b�L���o�������ꍇ�́AX�t�@�C�����ōŏ����炿���Ɨ����̂Ȃ�Β��_��32�����΂悢�B<BR>
- * �܂��A�@���̖���X�t�@�C���ł����_�C���f�b�N�X���玩���Ŗ@�����v�Z����������B<BR>
+ * <b>「経緯」</b><BR>
+ * 例えば立方体の場合、普通は、頂点は8個、法線ベクトル6個、頂点インデックス32、法線インデックス32となるが、
+ * このようなXファイルを D3DXLoadMeshFromXで読み込むと、勝手に頂点が増える。<BR>
+ * これは親切にも、エッジをクッキリ見せるために法線が優先されて処理されるためだと思う。<BR>
+ * しかし、シェーダーでモーフ時や、複数オブジェクトをDrawIndexedPrimitiveでわけて表示する時等、
+ * 勝手に頂点の数が変わってしまうのは致命的な場合がある。<BR>
+ * 「Xファイルに書いた通りの頂点で頂点バッファを作りたい」<BR>
+ * 頂点が増える条件は想像できるが、頂点の分割や最適化アルゴリズムの詳細な仕様が探しても無い（と思う）。<BR>
+ * D3DXLoadMeshFromXのソースコードさえあれば解決だが、そんなの公開されて無い。<BR>
+ * そんなわけで、D3DXLoadMeshFromXは使えないという結論になり、独自にXファイルを読み込むようにした。<BR>
+ * 使えないと決断するまで非常長かった。お陰でXファイルマスターになりました。<BR>
+ * 頂点数を保証するため、法線が足りなくなってしまう場合がある。そこで共有頂点の法線は平均化を行うことにしている。<BR>
+ * もしエッジをクッキリ出したい場合は、Xファイル側で最初からちゃんと立方体ならば頂点を32個書けばよい。<BR>
+ * また、法線の無いXファイルでも頂点インデックスから自動で法線を計算し生成する。<BR>
  *
  * @version 1.00
  * @since 2009/03/10
@@ -65,21 +65,21 @@ public:
     };
 
     struct VERTEX {
-        float x, y, z; // ���_���W
-        float nx, ny, nz; // �@��
-        DWORD color; // ���_�̐F�i���ݖ��g�p�j
-        float tu, tv; // �e�N�X�`�����W
+        float x, y, z; // 頂点座標
+        float nx, ny, nz; // 法線
+        DWORD color; // 頂点の色（現在未使用）
+        float tu, tv; // テクスチャ座標
     };
 
-    /** ���_��FVF */
+    /** 頂点のFVF */
     static DWORD FVF;
-    /** ���_�o�b�t�@ */
+    /** 頂点バッファ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** �C���f�b�N�X�o�b�t�@ */
+    /** インデックスバッファ */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
     UINT _size_vertices;
-    /** 1���_�̃T�C�Y */
+    /** 1頂点のサイズ */
     UINT _size_vertex_unit;
     INDEXPARAM* _paIndexParam;
 
@@ -88,25 +88,25 @@ public:
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
 
-    /** Paul���񃂃f�� */
+    /** Paulさんモデル */
     Frm::Model3D* _pModel3D;
-    /** Paul���񃁃b�V�� */
+    /** Paulさんメッシュ */
     Frm::Mesh* _pMeshesFront;
 
 
 
 
     /**
-     * �R���X�g���N�^<BR>
-     * @param prm_model_name �X�v���C�g��`�̎��ʖ��B".x"��ǉ�����ƒ�`X�t�@�C�����ɂȂ�B
+     * コンストラクタ<BR>
+     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
      */
     GgafDx9MeshModel(char* prm_model_name);
 
 public:
 
     /**
-     * GgafDx9MeshModel�I�u�W�F�N�g�̕`��<BR>
-     * @param	prm_pActor_Target �`�悷��GgafDx9MeshActor
+     * GgafDx9MeshModelオブジェクトの描画<BR>
+     * @param	prm_pActor_Target 描画するGgafDx9MeshActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -120,9 +120,9 @@ public:
     void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
-     * �f�X�g���N�^<BR>
+     * デストラクタ<BR>
      */
-    virtual ~GgafDx9MeshModel(); //�f�X�g���N�^
+    virtual ~GgafDx9MeshModel(); //デストラクタ
 };
 
 }

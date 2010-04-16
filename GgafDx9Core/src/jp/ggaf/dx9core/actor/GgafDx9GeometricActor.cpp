@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -56,18 +56,18 @@ void GgafDx9GeometricActor::processPreJudgement() {
     _wasCalc_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
-        //“y‘ä‚ ‚èƒ[ƒJƒ‹À•W‚Éˆê’U–ß‚·
+        //åœŸå°ã‚ã‚Šæ™‚ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã«ä¸€æ—¦æˆ»ã™
         chengeGeoLocal();
     }
 
-    //DirectX‚Ì’PˆÊ‚ÉÀ•W‚ğ•ÏŠ·‚µ‚Ä‚¨‚­iWorld•ÏŠ·s—ñì¬‚É‚àg—p‚³‚ê‚Ü‚·j
+    //DirectXã®å˜ä½ã«åº§æ¨™ã‚’å¤‰æ›ã—ã¦ãŠãï¼ˆWorldå¤‰æ›è¡Œåˆ—ä½œæˆæ™‚ã«ã‚‚ä½¿ç”¨ã•ã‚Œã¾ã™ï¼‰
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    //World•ÏŠ·s—ñi_matWorldj‚ğXV
+    //Worldå¤‰æ›è¡Œåˆ—ï¼ˆ_matWorldï¼‰ã‚’æ›´æ–°
     if (_pFunc_calcWorldMatrix) {
         (*_pFunc_calcWorldMatrix)(this, _matWorldRotMv);
-        //ƒXƒP[ƒ‹‚ğl—¶
+        //ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è€ƒæ…®
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
            static float fRateScale = 1.0f * LEN_UNIT;
            float Sx = _SX / fRateScale;
@@ -100,11 +100,11 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
     if (_pActor_Base) {
-        //â‘ÎÀ•W‚É•ÏŠ·
-        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //‡¬
-        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //‡¬
+        //çµ¶å¯¾åº§æ¨™ã«å¤‰æ›
+        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //åˆæˆ
+        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //åˆæˆ
         chengeGeoFinal();
-        //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚©‚ç”òsˆÚ“®‚ğæ‚èo‚µÅI“I‚ÈÀ•W‚Æ‚·‚é
+        //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‹ã‚‰é£›è¡Œç§»å‹•ã‚’å–ã‚Šå‡ºã—æœ€çµ‚çš„ãªåº§æ¨™ã¨ã™ã‚‹
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
         _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
@@ -114,18 +114,18 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
     }
 
-    //‚W•ªŠò
+    //ï¼˜åˆ†å²
     if (_pChecker) {
         _pChecker->updateHitArea();
     }
 
-    //ƒƒ“ƒo[XV
+    //ãƒ¡ãƒ³ãƒãƒ¼æ›´æ–°
     if (_isTransformed == false) {
-        //DirectX‚Ì’PˆÊ‚ÉÀ•W‚ğ•ÏŠ·‚µ‚Ä‚¨‚­iWorld•ÏŠ·s—ñì¬‚É‚àg—p‚³‚ê‚Ü‚·j
+        //DirectXã®å˜ä½ã«åº§æ¨™ã‚’å¤‰æ›ã—ã¦ãŠãï¼ˆWorldå¤‰æ›è¡Œåˆ—ä½œæˆæ™‚ã«ã‚‚ä½¿ç”¨ã•ã‚Œã¾ã™ï¼‰
 //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
 //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-        //‹‘ä
+        //è¦–éŒå°
         _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
                              GgafDx9Universe::_pCamera->_plnTop.b*_fY +
                              GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
@@ -215,12 +215,12 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 //            return false;
 //        }
 
-        //–{—ˆ‚Íª‚Ì‚æ‚¤‚Édynamic_cast‚·‚é‚Ì‚ª”Ä—p“I‚©‚ÂˆÀ‘SB‚µ‚©‚µA‘¬“xUP‚Ì‚½‚ßidynamic_cast‚ğÈ‚«‚½‚¢‚ª‚½‚ßj‚ÉA
-        //GgafDx9GeometricActor‚ÉŒˆ‚ß‘Å‚¿ƒLƒƒƒXƒg‚µ‚Ä‚¢‚Ü‚·BŠëŒ¯‚Å‚·B
-        //À•W‚ğ‚½‚È‚¢ƒAƒNƒ^[‚Ì_can_hit_flg ‚ğ–Y‚ê‚¸‚Éfalse‚É‚·‚é‚±‚Æ‚É‚æ‚Á‚ÄA‚±‚±‚Ìˆø”‚ÉGgafDx9GeometricActor‚É
-        //ƒLƒƒƒXƒg‚Å‚«‚È‚¢ƒ|ƒCƒ“ƒ^‚Í—ˆ‚È‚¢ƒnƒY‚Å‚ ‚éB
-        //‚à‚µA–œ‚ªˆê—ˆ‚½‚çEEE‚½‚Ô‚ñ—‚¿‚éB‚»‚Ì‚É‚Ü‚½l‚¦‚éB
-        //TODO:l‚¦‚éB
+        //æœ¬æ¥ã¯â†‘ã®ã‚ˆã†ã«dynamic_castã™ã‚‹ã®ãŒæ±ç”¨çš„ã‹ã¤å®‰å…¨ã€‚ã—ã‹ã—ã€é€Ÿåº¦UPã®ãŸã‚ï¼ˆdynamic_castã‚’çœããŸã„ãŒãŸã‚ï¼‰ã«ã€
+        //GgafDx9GeometricActorã«æ±ºã‚æ‰“ã¡ã‚­ãƒ£ã‚¹ãƒˆã—ã¦ã„ã¾ã™ã€‚å±é™ºã§ã™ã€‚
+        //åº§æ¨™ã‚’æŒãŸãªã„ã‚¢ã‚¯ã‚¿ãƒ¼ã®_can_hit_flg ã‚’å¿˜ã‚Œãšã«falseã«ã™ã‚‹ã“ã¨ã«ã‚ˆã£ã¦ã€ã“ã“ã®å¼•æ•°ã«GgafDx9GeometricActorã«
+        //ã‚­ãƒ£ã‚¹ãƒˆã§ããªã„ãƒã‚¤ãƒ³ã‚¿ã¯æ¥ãªã„ãƒã‚ºã§ã‚ã‚‹ã€‚
+        //ã‚‚ã—ã€ä¸‡ãŒä¸€æ¥ãŸã‚‰ãƒ»ãƒ»ãƒ»ãŸã¶ã‚“è½ã¡ã‚‹ã€‚ãã®æ™‚ã«ã¾ãŸè€ƒãˆã‚‹ã€‚
+        //TODO:è€ƒãˆã‚‹ã€‚
         return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
     }
 }
@@ -235,30 +235,30 @@ int GgafDx9GeometricActor::isOffscreen() {
                     if (_fDist_VpPlnRight <= _fBoundingSphereRadius) {
                         if (_fDist_VpPlnFront <= _fBoundingSphereRadius) {
                             if (_fDist_VpPlnBack <= _fBoundingSphereRadius) {
-                                //Viewport”ÍˆÍ“à
+                                //Viewportç¯„å›²å†…
                                 _offscreenkind = 0;
                             } else {
-                                //‰œ•½–Ê‚æ‚è‰œ‚Å”ÍˆÍŠO
+                                //å¥¥å¹³é¢ã‚ˆã‚Šå¥¥ã§ç¯„å›²å¤–
                                 _offscreenkind = 6;
                             }
                         } else {
-                            //è‘O•½–Ê‚æ‚èè‘O‚Å”ÍˆÍŠO
+                            //æ‰‹å‰å¹³é¢ã‚ˆã‚Šæ‰‹å‰ã§ç¯„å›²å¤–
                             _offscreenkind = 5;
                         }
                     } else {
-                        //‰E•½–Ê‚æ‚è‰E‚Å”ÍˆÍŠO
+                        //å³å¹³é¢ã‚ˆã‚Šå³ã§ç¯„å›²å¤–
                         _offscreenkind = 4;
                     }
                 } else {
-                    //¶•½–Ê‚æ‚è¶‚Å”ÍˆÍŠO
+                    //å·¦å¹³é¢ã‚ˆã‚Šå·¦ã§ç¯„å›²å¤–
                     _offscreenkind = 3;
                 }
             } else {
-                //‰º•½–Ê‚æ‚è‰º‚Å”ÍˆÍŠO
+                //ä¸‹å¹³é¢ã‚ˆã‚Šä¸‹ã§ç¯„å›²å¤–
                 _offscreenkind = 2;
             }
         } else {
-            //ã•½–Ê‚æ‚èã‚Å”ÍˆÍŠO
+            //ä¸Šå¹³é¢ã‚ˆã‚Šä¸Šã§ç¯„å›²å¤–
             _offscreenkind = 1;
         }
         //return (pCAM->canView(this) > 0);
@@ -286,7 +286,7 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
 
 void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
     if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(MAX_SE_PER_ACTOR-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(MAX_SE_PER_ACTOR-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
     }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
@@ -295,29 +295,29 @@ void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int p
 
 void GgafDx9GeometricActor::playSe(int prm_id) {
     if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(MAX_SE_PER_ACTOR-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(MAX_SE_PER_ACTOR-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
     pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9GeometricActor::playSe3D(int prm_id) {
     if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe3D() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(MAX_SE_PER_ACTOR-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe3D() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(MAX_SE_PER_ACTOR-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
 
 
-    //    /** [r]‹‘äã–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°ä¸Šé¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnTop;
-    //    /** [r]‹‘ä‰º–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°ä¸‹é¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnBottom;
-    //    /** [r]‹‘ä¶–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°å·¦é¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnLeft;
-    //    /** [r]‹‘ä‰E–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°å³é¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnRight;
-    //    /** [r]‹‘äè‘O–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°æ‰‹å‰é¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnFront;
-    //    /** [r]‹‘ä‰œ–Ê‚©‚ç‹–ìŠO‚ÉŒü‚©‚Á‚Ä‚Ì©g‚ÌÀ•W‚Ü‚Å‚ÌDirectX‚Ì‹——£A‹–ì“à‚Ì‹——£‚Í•‰‚Ì’l‚É‚È‚é */
+    //    /** [r]è¦–éŒå°å¥¥é¢ã‹ã‚‰è¦–é‡å¤–ã«å‘ã‹ã£ã¦ã®è‡ªèº«ã®åº§æ¨™ã¾ã§ã®DirectXã®è·é›¢ã€è¦–é‡å†…ã®è·é›¢ã¯è² ã®å€¤ã«ãªã‚‹ */
     //    FLOAT _fDist_VpPlnBack;
     //#define DSBPAN_LEFT                 -10000
     //#define DSBPAN_CENTER               0
@@ -329,43 +329,43 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
     //    int GgafDx9Sound::_bgm_volume_rate = 100;
     //    int GgafDx9Sound::_se_volume_rate = 100;
 
-    //    /** ƒJƒƒ‰‚©‚ç‹ß‚­‚ÌƒNƒŠƒbƒv–Ê‚Ü‚Å‚Ì‹——£(‚Ç‚±‚©‚ç‚Ì‹——£‚ª•\¦‘ÎÛ‚©j‚0 */
+    //    /** ã‚«ãƒ¡ãƒ©ã‹ã‚‰è¿‘ãã®ã‚¯ãƒªãƒƒãƒ—é¢ã¾ã§ã®è·é›¢(ã©ã“ã‹ã‚‰ã®è·é›¢ãŒè¡¨ç¤ºå¯¾è±¡ã‹ï¼‰â‰ 0 */
     //    float _zn;
-    //    /** ƒJƒƒ‰‚©‚ç‰“‚­‚ÌƒNƒŠƒbƒv–Ê‚Ü‚Å‚Ì‹——£(‚Ç‚±‚Ü‚Å‚Ì‹——£‚ª•\¦‘ÎÛ‚©j> zn  */
+    //    /** ã‚«ãƒ¡ãƒ©ã‹ã‚‰é ãã®ã‚¯ãƒªãƒƒãƒ—é¢ã¾ã§ã®è·é›¢(ã©ã“ã¾ã§ã®è·é›¢ãŒè¡¨ç¤ºå¯¾è±¡ã‹ï¼‰> zn  */
     //    float _zf;
 
-    //    ‚Ü‚¸A“¯‚¶ƒoƒbƒtƒ@‚Ì‰¹‚ª“¯Ä¶‚Å‚«‚È‚©‚Á‚½–â‘è‚ÍADuplicateSoundBuffer()ŠÖ”‚ğg‚Á‚Äƒoƒbƒtƒ@‚ÌŠO˜g‚Ì‚İ‚ÌƒRƒs[‚ğì‚Á‚Ä‚¨‚­‚±‚Æ‚Å‰ğŒˆ‚Å‚·B—á‚¦‚ÎA‚±‚ê‚Å8ŒÂì‚Á‚Ä‚¨‚­‚Æ“¯‚¶ƒoƒbƒtƒ@‚Ì‰¹‚ª8ŒÂ‚Ü‚Å“¯Ä¶‚Å‚«‚Ü‚·B
-    //    ‚½‚¾A¬‚³‚È”j•Ğ‚Í1•bŠÔ‚É”•SŒÂ‚à”š”­‚µ‚½‚è‚·‚é‚Ì‚ÅA‚³‚·‚ª‚É100ŒÂ‚­‚ç‚¢“¯Ä¶‚µ‚æ‚¤‚Æ‚·‚é‚Æ‰¹‚ª“rØ‚ê‚Ü‚·cB
+    //    ã¾ãšã€åŒã˜ãƒãƒƒãƒ•ã‚¡ã®éŸ³ãŒåŒæ™‚å†ç”Ÿã§ããªã‹ã£ãŸå•é¡Œã¯ã€DuplicateSoundBuffer()é–¢æ•°ã‚’ä½¿ã£ã¦ãƒãƒƒãƒ•ã‚¡ã®å¤–æ ã®ã¿ã®ã‚³ãƒ”ãƒ¼ã‚’ä½œã£ã¦ãŠãã“ã¨ã§è§£æ±ºã§ã™ã€‚ä¾‹ãˆã°ã€ã“ã‚Œã§8å€‹ä½œã£ã¦ãŠãã¨åŒã˜ãƒãƒƒãƒ•ã‚¡ã®éŸ³ãŒ8å€‹ã¾ã§åŒæ™‚å†ç”Ÿã§ãã¾ã™ã€‚
+    //    ãŸã ã€å°ã•ãªç ´ç‰‡ã¯1ç§’é–“ã«æ•°ç™¾å€‹ã‚‚çˆ†ç™ºã—ãŸã‚Šã™ã‚‹ã®ã§ã€ã•ã™ãŒã«100å€‹ãã‚‰ã„åŒæ™‚å†ç”Ÿã—ã‚ˆã†ã¨ã™ã‚‹ã¨éŸ³ãŒé€”åˆ‡ã‚Œã¾ã™â€¦ã€‚
     //
-    //    Œã‚ÍAÄ¶’¼‘O‚É
+    //    å¾Œã¯ã€å†ç”Ÿç›´å‰ã«
     //
-    //        lpDSBuf->SetVolume(LONG); //‰¹—Êİ’è Œ¸Š‚·‚édb 0`-10000
-    //        lpDSBuf->SetPan(LONG); //ƒpƒ“İ’è -10000`+10000
-    //        lpDSBuf->SetFrequency(DWORD); //Ä¶ü”g”İ’è
+    //        lpDSBuf->SetVolume(LONG); //éŸ³é‡è¨­å®š æ¸›è¡°ã™ã‚‹db 0ã€œ-10000
+    //        lpDSBuf->SetPan(LONG); //ãƒ‘ãƒ³è¨­å®š -10000ã€œ+10000
+    //        lpDSBuf->SetFrequency(DWORD); //å†ç”Ÿå‘¨æ³¢æ•°è¨­å®š
     //
     //    _dwDefaultFrequency
-    //    ‚±‚¤‚¢‚¤İ’è‚ªo—ˆ‚é‚±‚Æ‚ª•ª‚©‚è‚Ü‚µ‚½BÅŒã‚ÌÄ¶ü”g”İ’è‚ÍA—á‚¦‚ÎƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg44.1KHz‚Ìƒoƒbƒtƒ@‚Ìê‡‚Í‚±‚±‚Ö44100‚ğw’è‚·‚é‚Æ’Êí’Ê‚è‚ÌÄ¶‚É‚È‚èA22050‚ğw’è‚·‚é‚Æ”¼•ª‚Ì‘¬“xi‰¹’ö‚à”¼•ªj‚ÅÄ¶‚³‚ê‚é‚Æ‚¢‚¤‹ï‡‚Å‚·B
-    //    ‚±‚êA“G‚Ì”š”j‚µ‚½ˆÊ’u‚É‡‚í‚¹‚Äİ’è‚µ‚Ä‚â‚é‚Æ‚·‚²‚­—§‘Ì“I‚ÅƒŠƒAƒ‹B‚Æ‚­‚ÉA‰“‚­‚Ì”š”­‚ÍÄ¶ü”g”‰º‚°‚é‚æ‚¤‚É‚·‚é‚ÆA”š”­‰¹‚ª‚­‚®‚à‚Á‚½‰¹‚É‚È‚Á‚Ä‚Ü‚é‚Å‰f‰æ‚İ‚½‚¢BÅ‰‚Í—V‚ÑS‚Å‚¢‚¶‚Á‚Ä‚½‚¯‚ÇA‚±‚±‚Ü‚Åãè‚­ƒnƒ}‚é‚Æ‚Ív‚í‚È‚©‚Á‚½‚ÈB
+    //    ã“ã†ã„ã†è¨­å®šãŒå‡ºæ¥ã‚‹ã“ã¨ãŒåˆ†ã‹ã‚Šã¾ã—ãŸã€‚æœ€å¾Œã®å†ç”Ÿå‘¨æ³¢æ•°è¨­å®šã¯ã€ä¾‹ãˆã°ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ44.1KHzã®ãƒãƒƒãƒ•ã‚¡ã®å ´åˆã¯ã“ã“ã¸44100ã‚’æŒ‡å®šã™ã‚‹ã¨é€šå¸¸é€šã‚Šã®å†ç”Ÿã«ãªã‚Šã€22050ã‚’æŒ‡å®šã™ã‚‹ã¨åŠåˆ†ã®é€Ÿåº¦ï¼ˆéŸ³ç¨‹ã‚‚åŠåˆ†ï¼‰ã§å†ç”Ÿã•ã‚Œã‚‹ã¨ã„ã†å…·åˆã§ã™ã€‚
+    //    ã“ã‚Œã€æ•µã®çˆ†ç ´ã—ãŸä½ç½®ã«åˆã‚ã›ã¦è¨­å®šã—ã¦ã‚„ã‚‹ã¨ã™ã”ãç«‹ä½“çš„ã§ãƒªã‚¢ãƒ«ã€‚ã¨ãã«ã€é ãã®çˆ†ç™ºã¯å†ç”Ÿå‘¨æ³¢æ•°ä¸‹ã’ã‚‹ã‚ˆã†ã«ã™ã‚‹ã¨ã€çˆ†ç™ºéŸ³ãŒããã‚‚ã£ãŸéŸ³ã«ãªã£ã¦ã¾ã‚‹ã§æ˜ ç”»ã¿ãŸã„ã€‚æœ€åˆã¯éŠã³å¿ƒã§ã„ã˜ã£ã¦ãŸã‘ã©ã€ã“ã“ã¾ã§ä¸Šæ‰‹ããƒãƒã‚‹ã¨ã¯æ€ã‚ãªã‹ã£ãŸãªã€‚
     //
-    //    ‚½‚¾A’ˆÓ“_‚à‚ ‚Á‚ÄAƒoƒbƒtƒ@‰Šú‰»‚ÉDSBUFFERDESC\‘¢‘Ì‚Ìİ’è‚ÅA
+    //    ãŸã ã€æ³¨æ„ç‚¹ã‚‚ã‚ã£ã¦ã€ãƒãƒƒãƒ•ã‚¡åˆæœŸåŒ–æ™‚ã«DSBUFFERDESCæ§‹é€ ä½“ã®è¨­å®šã§ã€
     //
     //        DSBufferDesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
     //
-    //    ‚Ì‚æ‚¤‚Èƒtƒ‰ƒO‚ğİ’è‚µ‚ÄAŠeƒpƒ‰ƒ[ƒ^‚ğƒRƒ“ƒgƒ[ƒ‹‚·‚é‚±‚Æ‚ğ“`‚¦‚Ä‚¨‚­•K—v‚ª‚ ‚éBMSDNŒ©‚Ä‚àASetVolume()‚Ì‰ğà‚Ì‚Æ‚±‚ë‚È‚ñ‚©‚É‚±‚Ìƒtƒ‰ƒO‚Ì–‚ª‘‚¢‚Ä–³‚­‚ÄA‚µ‚Î‚ç‚­ƒlƒbƒg‚ğ’T‚µ‰ñ‚Á‚Ä‚µ‚Ü‚Á‚½B‚ ‚ÆASetVolume‚Ì’l‚àMSDN‚¾‚Æ³‚Ì’l‚¾‚Æ‘‚¢‚Ä‚ ‚é‚¯‚ÇAÀÛ‚Í•‰‚Ì’l‚ğ“ü‚ê‚È‚¢‚Æ‚¢‚¯‚È‚¢BMSDN‚Á‚Ä‚Ç‚Á‚©”²‚¯‚Ä‚écHH
+    //    ã®ã‚ˆã†ãªãƒ•ãƒ©ã‚°ã‚’è¨­å®šã—ã¦ã€å„ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã‚’ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ«ã™ã‚‹ã“ã¨ã‚’ä¼ãˆã¦ãŠãå¿…è¦ãŒã‚ã‚‹ã€‚MSDNè¦‹ã¦ã‚‚ã€SetVolume()ã®è§£èª¬ã®ã¨ã“ã‚ãªã‚“ã‹ã«ã“ã®ãƒ•ãƒ©ã‚°ã®äº‹ãŒæ›¸ã„ã¦ç„¡ãã¦ã€ã—ã°ã‚‰ããƒãƒƒãƒˆã‚’æ¢ã—å›ã£ã¦ã—ã¾ã£ãŸã€‚ã‚ã¨ã€SetVolumeã®å€¤ã‚‚MSDNã ã¨æ­£ã®å€¤ã ã¨æ›¸ã„ã¦ã‚ã‚‹ã‘ã©ã€å®Ÿéš›ã¯è² ã®å€¤ã‚’å…¥ã‚Œãªã„ã¨ã„ã‘ãªã„ã€‚MSDNã£ã¦ã©ã£ã‹æŠœã‘ã¦ã‚‹â€¦ï¼Ÿï¼Ÿ
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
-    //‹——£ŒvZ
-    //’x‰„‚È‚µA‰¹—Ê100“‚ÌêŠ‚ğpCAM‚ÌêŠ‚Æ‚·‚é
-    //©g‚ÆpCAM‚Ì‹——£
+    //è·é›¢è¨ˆç®—
+    //é…å»¶ãªã—ã€éŸ³é‡100ï¼…ã®å ´æ‰€ã‚’pCAMã®å ´æ‰€ã¨ã™ã‚‹
+    //è‡ªèº«ã¨pCAMã®è·é›¢
     int DX = (pCAM->_X - _X) / LEN_UNIT;
     int DY = (pCAM->_Y - _Y) / LEN_UNIT;
     int DZ = (pCAM->_Z - _Z) / LEN_UNIT;
     double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
     LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10ƒtƒŒ[ƒ€’êã‚°
+    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10ãƒ•ãƒ¬ãƒ¼ãƒ åº•ä¸Šã’
 //    _TRACE_(getName()<<" : d = "<< d <<", (pCAM->_zf*PX_UNIT)="<<(pCAM->_zf*PX_UNIT));
 //    _TRACE_(getName()<<" : (d / (pCAM->_zf*PX_UNIT)) = "<< (d / (pCAM->_zf*PX_UNIT)) <<", delay="<<delay);
 //    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
@@ -395,19 +395,19 @@ void GgafDx9GeometricActor::playSe3D(int prm_id) {
         delay = GGAF_SAYONARA_DELAY;
     }
 //    _TRACE_("delay="<<delay);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
-    //^‚ñ’†‚©‚ç‚Ì‹——£
+    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) ã¯éŸ³é‡åº•ä¸Šã’
+    //çœŸã‚“ä¸­ã‹ã‚‰ã®è·é›¢
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
    //                if (dPlnLeft < dPlnRight) {
-   //                    //sinƒÆ = dPlnLeft/d;
-   //                    //ƒÆ = asin(dPlnLeft/d)
-   //                    //X = (_rad_half_fovY - ƒÆ)
-   //                    //tan X = ‹——£ / d
-   //                    //d * tan X = ‹——£
-   //                    //d * tan (_rad_half_fovY - ƒÆ) = ‹——£
-   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = ‹——£
-   //                    //–{“–‚É‚±‚¤‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢H
+   //                    //sinÎ¸ = dPlnLeft/d;
+   //                    //Î¸ = asin(dPlnLeft/d)
+   //                    //X = (_rad_half_fovY - Î¸)
+   //                    //tan X = è·é›¢ / d
+   //                    //d * tan X = è·é›¢
+   //                    //d * tan (_rad_half_fovY - Î¸) = è·é›¢
+   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = è·é›¢
+   //                    //æœ¬å½“ã«ã“ã†ã—ãªã‘ã‚Œã°ã„ã‘ãªã„ï¼Ÿ
 
 
 
@@ -431,15 +431,15 @@ void GgafDx9GeometricActor::dump() {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump("\t\t\t\t\t\t\t\tb");
+            pActor_tmp->dump("\t\t\t\t\t\t\t\tï½œ");
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚Á‚Ä‚Ü‚·");
+                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã£ã¦ã¾ã™");
                 break;
             }
             if (pActor_tmp->isFirst()) {
-                _TRACE_("\t\t\t\t\t\t\t\t„¤„Ÿ");
+                _TRACE_("\t\t\t\t\t\t\t\tâ””â”€");
                 break;
             }
         }
@@ -451,15 +451,15 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump(prm_parent + "b");
+            pActor_tmp->dump(prm_parent + "ï½œ");
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚Á‚Ä‚Ü‚·");
+                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã£ã¦ã¾ã™");
                 break;
             }
             if (pActor_tmp->isFirst()) {
-                _TRACE_(prm_parent+"„¤„Ÿ");
+                _TRACE_(prm_parent+"â””â”€");
                 break;
             }
         }

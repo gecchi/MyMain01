@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace Dix;
 GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
     _TRACE_("GgafDx9Bgm::GgafDx9Bgm "<<prm_ogg_name);
     if (GgafDx9Sound::_pIDirectSound8 == NULL) {
-        throwGgafCriticalException("GgafDx9Bgm::GgafDx9Bgm("<<prm_ogg_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
+        throwGgafCriticalException("GgafDx9Bgm::GgafDx9Bgm("<<prm_ogg_name<<") DirectSound ãŒã€ã¾ã åˆæœŸåŒ–ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
     }
     _ogg_name = prm_ogg_name;
     string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + string(prm_ogg_name) + ".ogg";
@@ -24,11 +24,11 @@ void GgafDx9Bgm::behave() {
     if (_is_fade) {
         setVolume(_now_volume+_inc_volume);
         if (_inc_volume > 0 && _now_volume > _target_volume) {
-            //‘‰¹—Ê
+            //å¢—éŸ³é‡æ™‚
             setVolume((int)_target_volume);
             _is_fade = false;
         } else if (_inc_volume < 0 && _now_volume < _target_volume) {
-            //Œ¸‰¹—Ê
+            //æ¸›éŸ³é‡æ™‚
             setVolume((int)_target_volume);
             _is_fade = false;
         }

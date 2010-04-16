@@ -1,4 +1,4 @@
-#include "stdafx.h"
+ï»¿#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -23,7 +23,7 @@ GgafDx9Spline3D::GgafDx9Spline3D(double prm_paaEstablish[][3], int prm_num, doub
 
 void GgafDx9Spline3D::init(double prm_paaEstablish[][3], int prm_num, double prm_accuracy) {
     _num_basepoint = prm_num;
-    _X_basepoint = new double[prm_num]; //–{ƒNƒ‰ƒX‚Í staticéŒ¾‚Åg—p‚³‚ê‚é‚½‚ßANEWƒ}ƒNƒ‚Åƒ`ƒFƒbƒN•s‰ÂBNEWƒ}ƒNƒ‚Íg‚í‚È‚¢B
+    _X_basepoint = new double[prm_num]; //æœ¬ã‚¯ãƒ©ã‚¹ã¯ staticå®£è¨€ã§ä½¿ç”¨ã•ã‚Œã‚‹ãŸã‚ã€NEWãƒã‚¯ãƒ­ã§ãƒã‚§ãƒƒã‚¯ä¸å¯ã€‚NEWãƒã‚¯ãƒ­ã¯ä½¿ã‚ãªã„ã€‚
     _Y_basepoint = new double[prm_num];
     _Z_basepoint = new double[prm_num];
     for (int i = 0; i < prm_num; i++) {
@@ -66,7 +66,7 @@ GgafDx9Spline3D::~GgafDx9Spline3D() {
     DELETEARR_IMPOSSIBLE_NULL(_X_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Y_basepoint);
     DELETEARR_IMPOSSIBLE_NULL(_Z_basepoint);
-    //ƒCƒjƒVƒƒƒ‰ƒCƒY‚³‚ê‚é‘O‚É‰ğ•ú‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢
+    //ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚ºã•ã‚Œã‚‹å‰ã«è§£æ”¾ã•ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œãªã„
     DELETEARR_POSSIBLE_NULL(_X_compute);
     DELETEARR_POSSIBLE_NULL(_Y_compute);
     DELETEARR_POSSIBLE_NULL(_Z_compute);

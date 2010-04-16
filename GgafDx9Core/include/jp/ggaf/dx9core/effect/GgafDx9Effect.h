@@ -1,10 +1,10 @@
-#ifndef GGAFDX9EFFECT_H_
+ï»¿#ifndef GGAFDX9EFFECT_H_
 #define GGAFDX9EFFECT_H_
 namespace GgafDx9Core {
 
 /**
- * ƒGƒtƒFƒNƒgŠî’êƒNƒ‰ƒX.
- * ƒLƒƒƒ‰(ƒAƒNƒ^[)‚ÌƒGƒtƒFƒNƒg‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B<BR>
+ * ã‚¨ãƒ•ã‚§ã‚¯ãƒˆåŸºåº•ã‚¯ãƒ©ã‚¹.
+ * ã‚­ãƒ£ãƒ©(ã‚¢ã‚¯ã‚¿ãƒ¼)ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR>
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge
@@ -15,12 +15,12 @@ class GgafDx9Effect : public GgafCore::GgafObject {
 protected:
 public:
 
-    /** ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B(50•¶š‚Ü‚Å) */
+    /** ãƒ¢ãƒ‡ãƒ«å®šç¾©ã®è­˜åˆ¥åã€‚(50æ–‡å­—ã¾ã§) */
     char* _effect_name;
     ID3DXEffect* _pID3DXEffect;
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_effect_name ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_effect_name ãƒ¢ãƒ‡ãƒ«å®šç¾©ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
      */
     GgafDx9Effect(char* prm_effect_name);
 
@@ -30,10 +30,10 @@ public:
 
 
     /**
-     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
-     * delete‚·‚é‚Ì‚ÍGgafDx9EffectManager‚Å‚ ‚é<BR>
+     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * deleteã™ã‚‹ã®ã¯GgafDx9EffectManagerã§ã‚ã‚‹<BR>
      */
-    virtual ~GgafDx9Effect(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9Effect(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 };
 
 }

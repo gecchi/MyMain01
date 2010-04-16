@@ -1,10 +1,10 @@
-#ifndef GGAFDX9D3DXANIMESHMODEL_H_
+ï»¿#ifndef GGAFDX9D3DXANIMESHMODEL_H_
 #define GGAFDX9D3DXANIMESHMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9D3DXActor—pƒ‚ƒfƒ‹ƒNƒ‰ƒX.(Œ»İ–¢g—pH)
- * GgafDx9D3DXAniMeshModel ‚Í D3DXLoadMeshFromX ‚ğg—p‚µ‚ÄAXƒtƒ@ƒCƒ‹‚©‚çƒ‚ƒfƒ‹ƒf[ƒ^‚ğ“Ç‚İ‚İİ’è‚·‚éB<BR>
+ * GgafDx9D3DXActorç”¨ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹.(ç¾åœ¨æœªä½¿ç”¨ï¼Ÿ)
+ * GgafDx9D3DXAniMeshModel ã¯ D3DXLoadMeshFromX ã‚’ä½¿ç”¨ã—ã¦ã€Xãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ãƒ¢ãƒ‡ãƒ«ãƒ‡ãƒ¼ã‚¿ã‚’èª­ã¿è¾¼ã¿è¨­å®šã™ã‚‹ã€‚<BR>
  * @version 1.00
  * @since 2009/11/25
  * @author Masatoshi Tsuge
@@ -13,30 +13,30 @@ class GgafDx9D3DXAniMeshModel : public GgafDx9Model {
     friend class GgafDx9ModelManager;
 
 public:
-    /** ƒƒbƒVƒ…(ƒCƒ“ƒXƒ^ƒ“ƒX‚Íƒ‚ƒfƒ‹–ˆj */
+    /** ãƒ¡ãƒƒã‚·ãƒ¥(ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ãƒ¢ãƒ‡ãƒ«æ¯ï¼‰ */
     GgafDx9AllocHierarchyWorldFrame* _pAH;
     D3DXFRAME_WORLD* _pFR;
     ID3DXAnimationController* _pAC;
     FLOAT _Ang;
 
-    /** 60ƒtƒŒ[ƒ€(1•b)‚Å1ƒ‹[ƒv‚·‚éê‡‚Ì1ƒtƒŒ[ƒ€•Ó‚è‚ÌŠÔ */
-    double _advanceTimePerFrame;//60ƒtƒŒ[ƒ€(1•b)‚Å1ƒ‹[ƒv‚·‚é‚±‚Æ‚ğ•W€İ’è‚Æ‚·‚éB
+    /** 60ãƒ•ãƒ¬ãƒ¼ãƒ (1ç§’)ã§1ãƒ«ãƒ¼ãƒ—ã™ã‚‹å ´åˆã®1ãƒ•ãƒ¬ãƒ¼ãƒ è¾ºã‚Šã®æ™‚é–“ */
+    double _advanceTimePerFrame;//60ãƒ•ãƒ¬ãƒ¼ãƒ (1ç§’)ã§1ãƒ«ãƒ¼ãƒ—ã™ã‚‹ã“ã¨ã‚’æ¨™æº–è¨­å®šã¨ã™ã‚‹ã€‚
 
     GgafDx9WorldMatStack WTMStack;
-    ///** D3DXLoadMeshFromX‚ÌƒIƒvƒVƒ‡ƒ“ */
+    ///** D3DXLoadMeshFromXã®ã‚ªãƒ—ã‚·ãƒ§ãƒ³ */
     //	LPD3DXBUFFER	_pAdjacency;
 
 public:
     /**
-     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
-     * @param prm_model ƒ‚ƒfƒ‹‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
+     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * @param prm_model ãƒ¢ãƒ‡ãƒ«ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
      * @return
      */
     GgafDx9D3DXAniMeshModel(char* prm_model);
 
     /**
-     * GgafDx9D3DXAniMeshModelƒIƒuƒWƒFƒNƒg‚Ì•`‰æ<BR>
-     * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9D3DXAniMeshActor
+     * GgafDx9D3DXAniMeshModelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»<BR>
+     * @param	prm_pActor_Target æç”»ã™ã‚‹GgafDx9D3DXAniMeshActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -57,10 +57,10 @@ public:
     };
 
     /**
-     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
-     * delete‚·‚é‚Ì‚ÍGgafDx9D3DXAniMeshModelManager‚Å‚ ‚é<BR>
+     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * deleteã™ã‚‹ã®ã¯GgafDx9D3DXAniMeshModelManagerã§ã‚ã‚‹<BR>
      */
-    virtual ~GgafDx9D3DXAniMeshModel(); //ƒfƒXƒgƒ‰ƒNƒ^
+    virtual ~GgafDx9D3DXAniMeshModel(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 
 };
 
