@@ -22,6 +22,8 @@ GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id) {
     return (GgafMainScene*)obtain(prm_id);
 }
 
+//注文
+//このメソッドはメインスレッドが実行する。
 void GgafFactory::order(unsigned long prm_id,
                         GgafObject* (*prm_pFunc)(void*, void*, void*),
                         void* prm_pArg1,
@@ -128,6 +130,8 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     return NULL;
 }
 
+//工場にため込んでいる全てのインスタンスを破棄
+//神(GgafGod)がアプリ終了時等に実行する予定。
 void GgafFactory::clean() {
     TRACE2("GgafFactory::clean ＜神＞ 工場を掃除開始");
     GgafOrder* pOrder = ROOT_ORDER;
@@ -190,7 +194,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //#ifdef MY_DEBUG
 //} catch (GgafCriticalException& e) {
 //    _TRACE_("＜工場例外＞ 製造中エラー；"<<e.getMsg());
-//    string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能\性があります。\n誠に申\し訳ございません。\n";
+//    string message = "\n・"+e.getMsg()+"  \n\nお心あたりが無いメッセージの場合、当方のバグの可能性があります。\n誠に申し訳ございません。\n";
 //    string message_dialog = message + "(※「Shift + Ctrl + C」でメッセージはコピーできます。)";
 //    MessageBox(NULL, message_dialog.c_str(),"下記のエラーが発生してしまいました", MB_OK|MB_ICONSTOP);
 //    _is_working_flg = false;

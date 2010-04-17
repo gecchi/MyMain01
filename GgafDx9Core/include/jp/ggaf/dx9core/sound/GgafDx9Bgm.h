@@ -21,9 +21,9 @@ public:
     Dix::sp< Dix::OggDecoder> spOggDecoder;
 
     bool _is_fade;
-    float _now_volume;
-    float _target_volume;
-    float _inc_volume;
+    double _now_volume;
+    double _target_volume;
+    double _inc_volume;
 
     GgafDx9Bgm(char* _ogg_name);
 

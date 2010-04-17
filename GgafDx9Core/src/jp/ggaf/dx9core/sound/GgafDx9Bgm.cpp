@@ -22,12 +22,14 @@ GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
 
 void GgafDx9Bgm::behave() {
     if (_is_fade) {
-        setVolume(_now_volume+_inc_volume);
-        if (_inc_volume > 0 && _now_volume > _target_volume) {
+		_now_volume += _inc_volume;
+	    pPcmPlayer->setVolume((int)(DSBVOLUME_MIN + ((_now_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate)));
+		//ここでsetVolumeで呼び出すと、_now_volumeが丸め込まれて、永遠に_target_volumeにならない場合がある
+        if (_inc_volume > 0 && _now_volume >= _target_volume) {
             //増音量時
             setVolume((int)_target_volume);
             _is_fade = false;
-        } else if (_inc_volume < 0 && _now_volume < _target_volume) {
+        } else if (_inc_volume < 0 && _now_volume <= _target_volume) {
             //減音量時
             setVolume((int)_target_volume);
             _is_fade = false;
@@ -37,8 +39,8 @@ void GgafDx9Bgm::behave() {
 
 void GgafDx9Bgm::fade(DWORD prm_frame, int prm_target_volume) {
     _is_fade = true;
-    _target_volume = prm_target_volume;
-    _inc_volume = (prm_target_volume - _now_volume) / (int)prm_frame;
+    _target_volume = (double)prm_target_volume;
+    _inc_volume = (prm_target_volume - _now_volume) / (double)prm_frame;
 }
 
 void GgafDx9Bgm::play(int prm_volume, int prm_pan, bool prm_isLoop) {
@@ -57,8 +59,10 @@ void GgafDx9Bgm::stop() {
 }
 
 void GgafDx9Bgm::setVolume(int prm_volume) {
-    _now_volume = prm_volume;
+    _now_volume = (double)prm_volume;
+	_TRACE_("GgafDx9Bgm::setVolume("<<_now_volume<<") 実値="<<(int)(DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate))<<" _ogg_name="<<_ogg_name);
     pPcmPlayer->setVolume(DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate));
+	
 }
 
 void GgafDx9Bgm::setPan(int prm_pan) {

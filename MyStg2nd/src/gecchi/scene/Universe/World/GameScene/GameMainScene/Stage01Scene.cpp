@@ -43,8 +43,8 @@ void Stage01Scene::processBehavior() {
     }
     if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
 
-        playBgm(0, DSBVOLUME_MIN, true);
-        fadeinBgm(0, 300);
+        playBgm(0, DSBVOLUME_MIN, true); //音量無し
+        fadeinBgm(0, 420);               //フェードイン
         _dwFrame_Begin = 0;
     } else if (getProgress() == STAGE01_PROG_BEGIN) {
         //タイトル活動ループ
@@ -85,10 +85,10 @@ void Stage01Scene::processBehavior() {
 
     }
     if (getPartFrame() == 60*60) {
-        fadeoutBgm(0, 300);
+        fadeoutBgm(0, 420);
 
         playBgm(1, DSBVOLUME_MIN, true);
-        fadeinBgm(1, 300);
+        fadeinBgm(1, 420);
     }
 
 
