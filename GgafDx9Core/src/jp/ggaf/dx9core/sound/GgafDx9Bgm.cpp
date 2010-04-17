@@ -60,9 +60,7 @@ void GgafDx9Bgm::stop() {
 
 void GgafDx9Bgm::setVolume(int prm_volume) {
     _now_volume = (double)prm_volume;
-	_TRACE_("GgafDx9Bgm::setVolume("<<_now_volume<<") 実値="<<(int)(DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate))<<" _ogg_name="<<_ogg_name);
     pPcmPlayer->setVolume(DSBVOLUME_MIN + ((prm_volume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_bgm_volume_rate));
-	
 }
 
 void GgafDx9Bgm::setPan(int prm_pan) {
@@ -87,5 +85,4 @@ GgafDx9Bgm::~GgafDx9Bgm() {
     pPcmPlayer->stop();
     _TRACE_("GgafDx9Bgm::~GgafDx9Bgm() end");
     delete pPcmPlayer;
-
 }

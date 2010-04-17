@@ -67,7 +67,7 @@ void Stage01Scene::processBehavior() {
                          );
         _pBackGround01->_inc_x = GgafDx9Util::getDiffAng(_angCamZX_prev, angCamXZ) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/(ANGLE90*0.5));
         _pBackGround01->_inc_y = GgafDx9Util::getDiffAng(_angCamXY_prev, angCamXY) * (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT)/(ANGLE90*0.5));
-        //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 で 90度カメラを回すと背景が１週する計算(1画面分動く）。
+        //* (1.0*GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH)/ANGLE90 で 90度カメラを回すと背景が１周する計算(1画面分動く）。
         //実際には2画面ほど背景は動くと思うので×0.5
         _angCamZX_prev = angCamXZ;
         _angCamXY_prev = angCamXY;
