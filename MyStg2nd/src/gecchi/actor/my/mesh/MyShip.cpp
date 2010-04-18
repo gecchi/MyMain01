@@ -16,7 +16,7 @@ int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "Flora") {
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "core2") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
@@ -179,7 +179,6 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
 void MyShip::onActive() {
     MyStgUtil::resetMyShipStatus(_pStatus);
-
 }
 
 
@@ -204,6 +203,11 @@ void MyShip::initialize() {
     _pMover->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
+
+
+
+_pMover->setFaceAngVelo(AXIS_Y, 100);
+
 
     _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
     _pMover->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);

@@ -181,12 +181,11 @@ public:
      * ③ processJudgement() を呼び出すのため準備処理として、 <BR>
      *    アクターの線形８分木配列への登録を行う。 <BR>
      *
-     * <B>[注意]</B> <BR>
      * 本メソッドはオーバーライド可能とするが、フレームワークの描画や判定に関わる
      * 重要な事前処理のため、オーバーライドは推奨できない。<BR>
      * どうしてもオーバーライドが必要な場合は、オーバーライド先で、 <BR>
      * GgafDx9GeometricActor::processPreJudgement() を呼び出すか、 <BR>
-     * 同等の処理を行うようにすべきである。 <BR>
+     * 上記①②③と同等の処理を行うようにすべきである。 <BR>
      */
     virtual void processPreJudgement() override;
 
