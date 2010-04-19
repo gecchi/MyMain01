@@ -22,10 +22,18 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
 
     _angCamZX_prev = 0;
     _angCamXY_prev = 0;
-    prepareBgm(0, "VIRTUAL_ON_11");
-    prepareBgm(1, "VIRTUAL_ON_09");
+
     //GameMainSceneが解除してくれる
     setProgress(STAGE01_PROG_INIT);
+
+
+    _pBgmPerformer = NEW GgafDx9BgmPerformer(this);
+    _pBgmPerformer->useBgm(0, "VIRTUAL_ON_11");
+    _pBgmPerformer->useBgm(1, "VIRTUAL_ON_09");
+
+//    prepareBgm(0, "VIRTUAL_ON_11");
+//    prepareBgm(1, "VIRTUAL_ON_09");
+
 }
 
 void Stage01Scene::initialize() {
@@ -42,9 +50,11 @@ void Stage01Scene::processBehavior() {
         setProgress(STAGE01_PROG_BEGIN);
     }
     if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
+        _pBgmPerformer->play(0, DSBVOLUME_MIN, true); //音量無し
+        _pBgmPerformer->fadein(0, 420);
 
-        playBgm(0, DSBVOLUME_MIN, true); //音量無し
-        fadeinBgm(0, 420);               //フェードイン
+        //playBgm(0, DSBVOLUME_MIN, true); //音量無し
+        //fadeinBgm(0, 420);               //フェードイン
         _dwFrame_Begin = 0;
     } else if (getProgress() == STAGE01_PROG_BEGIN) {
         //タイトル活動ループ
@@ -85,11 +95,15 @@ void Stage01Scene::processBehavior() {
 
     }
     if (getPartFrame() == 60*60) {
-        fadeoutBgm(0, 420);
 
-        playBgm(1, DSBVOLUME_MIN, true);
-        fadeinBgm(1, 420);
+        _pBgmPerformer->fadeout(0, 420);
+        //fadeoutBgm(0, 420);
+
+        _pBgmPerformer->play(1, DSBVOLUME_MIN, true);
+        _pBgmPerformer->fadein(1, 420);
     }
+
+    _pBgmPerformer->behave();
 
 
 }
@@ -102,4 +116,7 @@ void Stage01Scene::processFinal() {
 }
 
 Stage01Scene::~Stage01Scene() {
+
+    DELETE_IMPOSIBLE_NULL(_pBgmPerformer);
+
 }
