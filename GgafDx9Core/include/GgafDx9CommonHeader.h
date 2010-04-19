@@ -240,6 +240,8 @@ class GgafDx9GeometryMover;
 class GgafDx9Checker;
 class GgafDx9GeometryScaler;
 class GgafDx9GeometryMorpher;
+class GgafDx9SeReflector;
+class GgafDx9BgmPerformer;
 class GgafDx9TextureBlinker;
 class GgafDx9UvFlipper;
 class GgafDx9RectUV;
@@ -349,6 +351,8 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9Checker.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryScaler.h"
 #include "jp/ggaf/dx9core/util/GgafDx9GeometryMorpher.h"
+#include "jp/ggaf/dx9core/util/GgafDx9SeReflector.h"
+#include "jp/ggaf/dx9core/util/GgafDx9BgmPerformer.h"
 #include "jp/ggaf/dx9core/util/GgafDx9TextureBlinker.h"
 #include "jp/ggaf/dx9core/util/GgafDx9UvFlipper.h"
 

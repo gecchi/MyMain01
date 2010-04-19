@@ -20,15 +20,7 @@ public:
     Dix::sp< Dix::OggVorbisFile> spOggResource;
     Dix::sp< Dix::OggDecoder> spOggDecoder;
 
-    bool _is_fade;
-    double _now_volume;
-    double _target_volume;
-    double _inc_volume;
-
     GgafDx9Bgm(char* _ogg_name);
-
-    virtual void behave();
-    virtual void fade(DWORD prm_frame, int prm_target_volume );
 
     //! 活動
     void play(int prm_volume, int prm_pan, bool prm_isLoop);
