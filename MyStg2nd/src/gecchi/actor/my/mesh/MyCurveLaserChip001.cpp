@@ -112,7 +112,9 @@ void MyCurveLaserChip001::processBehavior() {
             _pMover->setVzMvAcce(dz);
         }
     }
-
+    if (_pChip_front == NULL) {
+        _pSeReflector->behave();
+    }
     CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
 }
 

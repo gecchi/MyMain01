@@ -9,7 +9,8 @@ Shot002::Shot002(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") 
     _class_name = "Shot002";
     MyStgUtil::resetShot002Status(_pStatus);
     _my_frame = 0;
-    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+	_pSeReflector->useSe(1);
+	_pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot002::initialize() {
@@ -48,6 +49,7 @@ void Shot002::processBehavior() {
     //座標に反映
     _pMover->behave();
     _pScaler->behave();
+	_pSeReflector->behave();
     _my_frame++;
 }
 
@@ -63,7 +65,7 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe3D(0);
+        _pSeReflector->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);

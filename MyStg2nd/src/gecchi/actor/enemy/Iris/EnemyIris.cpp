@@ -12,7 +12,8 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _pProgram_IrisMove = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
 void EnemyIris::onCreateModel() {
@@ -98,7 +99,7 @@ void EnemyIris::processBehavior() {
     }
 
     _pMover->behave();
-
+    //_pSeReflector->behave();
 }
 
 void EnemyIris::processJudgement() {
@@ -114,7 +115,7 @@ void EnemyIris::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
 
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe3D(0);
+        _pSeReflector->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);

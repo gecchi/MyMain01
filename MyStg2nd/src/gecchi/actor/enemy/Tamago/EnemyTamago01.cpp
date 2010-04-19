@@ -13,9 +13,12 @@ EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name
     _pDispatcherCon = NULL;
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
-    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+
     _pDispatcherCon = (DispatcherConnection*)God::_dispatcherManager.connect("DpCon_Shot001");
     _pDispatcher_Shot = _pDispatcherCon->view();
+
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyTamago01::onCreateModel() {
@@ -152,6 +155,7 @@ void EnemyTamago01::processBehavior() {
     _pMover->behave();
     _pScaler->behave();
     _pUvFlipper->behave();
+    //_pSeReflector->behave();
 }
 
 void EnemyTamago01::processJudgement() {
@@ -163,7 +167,7 @@ void EnemyTamago01::processJudgement() {
 void EnemyTamago01::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-    playSe3D(0);
+    _pSeReflector->play3D(0);
     if (pExplo001 != NULL) {
         pExplo001->activate();
         pExplo001->setGeometry(this);

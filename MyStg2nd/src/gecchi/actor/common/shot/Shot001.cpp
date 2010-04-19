@@ -8,7 +8,8 @@ using namespace MyStg2nd;
 Shot001::Shot001(const char* prm_name) : DefaultMeshSetActor(prm_name, "Flora") {
     _class_name = "Shot001";
     MyStgUtil::resetShot001Status(_pStatus);
-    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void Shot001::initialize() {
@@ -47,13 +48,15 @@ void Shot001::onHit(GgafActor* prm_pOtherActor) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
-        playSe3D(0);
+        _pSeReflector->play3D(0);
         if (pExplo001 != NULL) {
             pExplo001->activate();
             pExplo001->setGeometry(this);
         }
         inactivate();
     }
+
+    //_pSeReflector->behave();
 }
 
 Shot001::~Shot001() {

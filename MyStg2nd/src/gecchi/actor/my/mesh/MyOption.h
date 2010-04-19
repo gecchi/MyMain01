@@ -34,6 +34,8 @@ private:
     void addRadiusPosition(int prm_radius_offset);
 
 public:
+
+
     GgafDx9Core::GgafDx9GeometricActor* _pLockOnTarget;
     EffectLockOn001* _pEffectLockOn;
     EffectLockOn001_Release* _pEffectLockOn_Release;

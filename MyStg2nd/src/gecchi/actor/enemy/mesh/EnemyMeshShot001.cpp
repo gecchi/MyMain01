@@ -28,7 +28,8 @@ EnemyMeshShot001::EnemyMeshShot001(const char* prm_name) : DefaultMeshSetActor(p
     _iMoveAcce_2nd = 100;
 
     _frame_on_change_to_active_flg = 0;
-    prepareSe(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyMeshShot001::initialize() {
@@ -74,7 +75,7 @@ void EnemyMeshShot001::processBehavior() {
     //behaveUvFlip();
     //座標に反映
     _pMover->behave();
-
+    _pSeReflector->behave();
 }
 
 void EnemyMeshShot001::processJudgement() {
@@ -87,7 +88,7 @@ void EnemyMeshShot001::processJudgement() {
 void EnemyMeshShot001::onHit(GgafActor* prm_pOtherActor) {
     //_TRACE_("EnemyMeshShot001ヒットしました。("<<_X<<","<<_Y<<")");
     //sayonara();
-    playSe3D(0);
+    _pSeReflector->play3D(0);
     setHitAble(false);
     inactivateTree();
     EffectExplosion001* pExplo001 =

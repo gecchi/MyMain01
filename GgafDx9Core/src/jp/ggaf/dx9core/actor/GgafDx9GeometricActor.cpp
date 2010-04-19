@@ -16,6 +16,7 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _fBoundingSphereRadius = 0;
     _pChecker = prm_pChecker;
     _pMover = NEW GgafDx9GeometryMover(this);
+    _pSeReflector = NEW GgafDx9SeReflector(this);
 
     _offscreenkind = -1;
     _pFunc_calcWorldMatrix = NULL;
@@ -45,10 +46,6 @@ GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
     _is_local = false;
     _wasCalc_matInvWorldRotMv = false;
 
-    _papSeCon = NEW GgafDx9SeConnection*[MAX_SE_PER_ACTOR];
-    for (int i = 0; i < MAX_SE_PER_ACTOR; i++) {
-        _papSeCon[i] = NULL;
-    }
 }
 
 
@@ -283,145 +280,9 @@ bool GgafDx9GeometricActor::isOutOfGameSpace() {
     return true;
 }
 
-
-void GgafDx9GeometricActor::prepareSe(int prm_id, const char* prm_se_name, int prm_cannel) {
-    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareSe() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
-    }
-    char idstr[129];
-    sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
-    _papSeCon[prm_id] = (GgafDx9SeConnection*)GgafDx9Sound::_pSeManager->connect(idstr);
-}
-
-void GgafDx9GeometricActor::playSe(int prm_id) {
-    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
-    }
-    GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
-}
-void GgafDx9GeometricActor::playSe3D(int prm_id) {
-    if (prm_id < 0 || prm_id >= MAX_SE_PER_ACTOR) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe3D() IDが範囲外です。0~"<<(MAX_SE_PER_ACTOR-1)<<"でお願いします。prm_id="<<prm_id);
-    }
-    GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
-
-
-    //    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnTop;
-    //    /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnBottom;
-    //    /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnLeft;
-    //    /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnRight;
-    //    /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnFront;
-    //    /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
-    //    FLOAT _fDist_VpPlnBack;
-    //#define DSBPAN_LEFT                 -10000
-    //#define DSBPAN_CENTER               0
-    //#define DSBPAN_RIGHT                10000
-    //
-    //#define DSBVOLUME_MIN               -10000
-    //#define DSBVOLUME_MAX               0
-    //    int GgafDx9Sound::_master_volume_rate = 100;
-    //    int GgafDx9Sound::_bgm_volume_rate = 100;
-    //    int GgafDx9Sound::_se_volume_rate = 100;
-
-    //    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
-    //    float _zn;
-    //    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
-    //    float _zf;
-
-    //    まず、同じバッファの音が同時再生できなかった問題は、DuplicateSoundBuffer()関数を使ってバッファの外枠のみのコピーを作っておくことで解決です。例えば、これで8個作っておくと同じバッファの音が8個まで同時再生できます。
-    //    ただ、小さな破片は1秒間に数百個も爆発したりするので、さすがに100個くらい同時再生しようとすると音が途切れます…。
-    //
-    //    後は、再生直前に
-    //
-    //        lpDSBuf->SetVolume(LONG); //音量設定 減衰するdb 0〜-10000
-    //        lpDSBuf->SetPan(LONG); //パン設定 -10000〜+10000
-    //        lpDSBuf->SetFrequency(DWORD); //再生周波数設定
-    //
-    //    _dwDefaultFrequency
-    //    こういう設定が出来ることが分かりました。最後の再生周波数設定は、例えばサンプリングレート44.1KHzのバッファの場合はここへ44100を指定すると通常通りの再生になり、22050を指定すると半分の速度（音程も半分）で再生されるという具合です。
-    //    これ、敵の爆破した位置に合わせて設定してやるとすごく立体的でリアル。とくに、遠くの爆発は再生周波数下げるようにすると、爆発音がくぐもった音になってまるで映画みたい。最初は遊び心でいじってたけど、ここまで上手くハマるとは思わなかったな。
-    //
-    //    ただ、注意点もあって、バッファ初期化時にDSBUFFERDESC構造体の設定で、
-    //
-    //        DSBufferDesc.dwFlags = DSBCAPS_LOCDEFER | DSBCAPS_CTRLPAN | DSBCAPS_CTRLFREQUENCY | DSBCAPS_CTRLVOLUME;
-    //
-    //    のようなフラグを設定して、各パラメータをコントロールすることを伝えておく必要がある。MSDN見ても、SetVolume()の解説のところなんかにこのフラグの事が書いて無くて、しばらくネットを探し回ってしまった。あと、SetVolumeの値もMSDNだと正の値だと書いてあるけど、実際は負の値を入れないといけない。MSDNってどっか抜けてる…？？
-    static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
-    static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
-    static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
-
-    //距離計算
-    //遅延なし、音量100％の場所をpCAMの場所とする
-    //自身とpCAMの距離
-    int DX = (pCAM->_X - _X) / LEN_UNIT;
-    int DY = (pCAM->_Y - _Y) / LEN_UNIT;
-    int DZ = (pCAM->_Z - _Z) / LEN_UNIT;
-    double d = GgafUtil::sqrt_fast(double(DX*DX + DY*DY + DZ*DZ));
-    LONG vol =  VOLUME_MIN_3D + ((1.0 - (d / (pCAM->_zf*PX_UNIT))) * VOLUME_RANGE_3D);
-
-    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10フレーム底上げ
-//    _TRACE_(getName()<<" : d = "<< d <<", (pCAM->_zf*PX_UNIT)="<<(pCAM->_zf*PX_UNIT));
-//    _TRACE_(getName()<<" : (d / (pCAM->_zf*PX_UNIT)) = "<< (d / (pCAM->_zf*PX_UNIT)) <<", delay="<<delay);
-//    _TRACE_(getName()<<" : d = "<< d <<", vol="<<vol);
-//    _TRACE_(getName()<<" : DX = "<< DX <<", DY="<<DY<<", DZ="<<DZ);
-//    _TRACE_(getName()<<" : pCAM->_zf = "<< pCAM->_zf <<", (1.0 - (d / pCAM->_zf))="<<(1.0 - (d / pCAM->_zf)));
-//    _TRACE_(getName()<<"(DSBVOLUME_MAX - DSBVOLUME_MIN)="<<(DSBVOLUME_MAX - DSBVOLUME_MIN));
-
-
-    float fDist_VpVerticalCenter  =
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.a*_fX +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.b*_fY +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.c*_fZ +
-         GgafDx9Universe::_pCamera->_plnVerticalCenter.d;
-
-    angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_fDist_VpPlnFront );
-
-    LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
-//    _TRACE_(getName()<<" : ang = "<< ang <<", pan="<<pan);
-    if (VOLUME_MAX_3D < vol) {
-        vol = VOLUME_MAX_3D;
-    } else if (VOLUME_MIN_3D > vol) {
-        vol = VOLUME_MIN_3D;
-    }
-    if (delay < 0) {
-        delay = 0;
-    } else if (delay > GGAF_SAYONARA_DELAY) {
-        delay = GGAF_SAYONARA_DELAY;
-    }
-//    _TRACE_("delay="<<delay);
-    pUniverse->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) は音量底上げ
-    //真ん中からの距離
-   //                float dPlnLeft = abs(_fDist_VpPlnLeft);
-   //                float dPlnRight = abs(_fDist_VpPlnRight);
-   //                if (dPlnLeft < dPlnRight) {
-   //                    //sinθ = dPlnLeft/d;
-   //                    //θ = asin(dPlnLeft/d)
-   //                    //X = (_rad_half_fovY - θ)
-   //                    //tan X = 距離 / d
-   //                    //d * tan X = 距離
-   //                    //d * tan (_rad_half_fovY - θ) = 距離
-   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = 距離
-   //                    //本当にこうしなければいけない？
-
-
-
-   // _papSe[prm_id]->play();
-}
-
 GgafDx9GeometricActor::~GgafDx9GeometricActor() {
     DELETE_IMPOSSIBLE_NULL(_pMover);
-    for (int i = 0; i < MAX_SE_PER_ACTOR; i++) {
-        if (_papSeCon[i]) {
-            _papSeCon[i]->close();
-        }
-    }
-    DELETEARR_IMPOSSIBLE_NULL(_papSeCon);
+    DELETE_IMPOSSIBLE_NULL(_pSeReflector);
 }
 
 

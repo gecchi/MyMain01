@@ -24,9 +24,10 @@ public:
     int _bgm_num;
     /** Bgm資源接続 */
     GgafDx9BgmConnection** _papBgmCon;
-    GgafDx9GeometricActor* _pActor;
-    GgafDx9BgmPerformer(GgafDx9GeometricActor* prm_pActor);
+
+    GgafDx9BgmPerformer();
     void useBgm(int prm_bgm_num);
+	void set(int prm_id, const char* prm_bgm_name);
     void behave();
     void fade(int prm_id, DWORD prm_frame, int prm_target_volume);
 
@@ -36,7 +37,7 @@ public:
     void fadeout(int prm_id, int prm_frame) {
         fade(prm_id, prm_frame, DSBVOLUME_MIN);
     }
-    void fadeout(int prm_id, int prm_frame);
+
     void prepare(int prm_id, const char* prm_se_name) ;
     void setVolume(int prm_id, int prm_volume);
     void play(int prm_id, bool prm_is_loop) {

@@ -13,21 +13,8 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9Scene : public GgafCore::GgafMainScene {
-private:
-    void processPreJudgement() override;
-
 public:
-    /** Bgm資源接続 */
-    GgafDx9BgmConnection** _papBgmCon;
-
     GgafDx9Scene(const char* prm_name);
-    void fadeinBgm(int prm_id, int prm_frame);
-    void fadeoutBgm(int prm_id, int prm_frame);
-    void prepareBgm(int prm_id, const char* prm_se_name) ;
-    void playBgm(int prm_id, bool prm_is_loop) {
-        playBgm(prm_id, DSBVOLUME_MAX, prm_is_loop);
-    }
-    void playBgm(int prm_id, int prm_volume, bool prm_is_loop);
     virtual ~GgafDx9Scene();
 };
 

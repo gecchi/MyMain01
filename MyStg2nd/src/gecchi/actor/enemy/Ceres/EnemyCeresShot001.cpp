@@ -26,8 +26,8 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     _angVelo_Turn = 7000;
     /** 方向転換を開始（_dwFrame_TurnBegin）から再設定される加速度 */
     _iMoveAcce_2nd = 100;
-
-    prepareSe(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
+	_pSeReflector->useSe(1);
+	_pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
 }
 
 void EnemyCeresShot001::initialize() {
@@ -73,7 +73,7 @@ void EnemyCeresShot001::processBehavior() {
     //behaveUvFlip();
     //座標に反映
     _pMover->behave();
-
+	//_pSeReflector->behave();
 }
 
 void EnemyCeresShot001::processJudgement() {
@@ -87,7 +87,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     //ここにヒットエフェクト
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //ここに消滅エフェクト
-        playSe3D(0);
+        _pSeReflector->play3D(0);
         setHitAble(false);
         inactivate();
         EffectExplosion001* pExplo001 =

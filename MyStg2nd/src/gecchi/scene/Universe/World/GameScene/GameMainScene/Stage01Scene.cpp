@@ -27,9 +27,10 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     setProgress(STAGE01_PROG_INIT);
 
 
-    _pBgmPerformer = NEW GgafDx9BgmPerformer(this);
-    _pBgmPerformer->useBgm(0, "VIRTUAL_ON_11");
-    _pBgmPerformer->useBgm(1, "VIRTUAL_ON_09");
+    _pBgmPerformer = NEW GgafDx9BgmPerformer();
+	_pBgmPerformer->useBgm(2);
+    _pBgmPerformer->set(0, "VIRTUAL_ON_11");
+    _pBgmPerformer->set(1, "VIRTUAL_ON_09");
 
 //    prepareBgm(0, "VIRTUAL_ON_11");
 //    prepareBgm(1, "VIRTUAL_ON_09");
@@ -52,7 +53,6 @@ void Stage01Scene::processBehavior() {
     if (onChangeProgressAt(STAGE01_PROG_BEGIN)) {
         _pBgmPerformer->play(0, DSBVOLUME_MIN, true); //音量無し
         _pBgmPerformer->fadein(0, 420);
-
         //playBgm(0, DSBVOLUME_MIN, true); //音量無し
         //fadeinBgm(0, 420);               //フェードイン
         _dwFrame_Begin = 0;
@@ -117,6 +117,6 @@ void Stage01Scene::processFinal() {
 
 Stage01Scene::~Stage01Scene() {
 
-    DELETE_IMPOSIBLE_NULL(_pBgmPerformer);
+    DELETE_IMPOSSIBLE_NULL(_pBgmPerformer);
 
 }

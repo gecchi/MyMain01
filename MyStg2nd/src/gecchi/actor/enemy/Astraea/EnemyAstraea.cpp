@@ -30,8 +30,9 @@ EnemyAstraea::EnemyAstraea(const char* prm_name) : DefaultMorphMeshActor(prm_nam
         }
     }
 
-    prepareSe(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend")); //レーザー発射(チャンネルは0,1,2,3,4,0,1,2,3,4 となる)
-    prepareSe(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
+    _pSeReflector->useSe(2);
+    _pSeReflector->set(0, "yume_Sbend", GgafRepeatSeq::nextVal("CH_yume_Sbend"));
+    _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));
 }
 
 void EnemyAstraea::onCreateModel() {
@@ -153,10 +154,7 @@ void EnemyAstraea::processBehavior() {
                         _papapLaserChipDispatcher[i][j]->_num_continual_employ_max = _laser_length;
                         _papapLaserChipDispatcher[i][j]->_num_chip_interval = 0;
                         _papapLaserChipDispatcher[i][j]->activate();
-                    }
-                } else {
-                    if (i == 0 && j == 0) {
-                        playSe3D(0); //発射音
+
                     }
                 }
 
@@ -168,11 +166,17 @@ void EnemyAstraea::processBehavior() {
                     pLaserChip->_pMover->_angFace[AXIS_Z] = _paWayRz[i];
                     pLaserChip->_pMover->_angFace[AXIS_Y] = _paWayRy[j];
                     pLaserChip->_pMover->behave();
+
+                    if (i == 0 && j == 0 && pLaserChip->_pChip_front == NULL) {
+                        _pSeReflector->play3D(0); //発射音
+                    }
                 }
             }
         }
         _cnt_laserchip++;
     }
+
+    _pSeReflector->behave();
 
 }
 
@@ -189,7 +193,7 @@ void EnemyAstraea::onHit(GgafActor* prm_pOtherActor) {
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
         //破壊された場合
         //・・・ココに破壊されたエフェクト
-        playSe3D(1);
+        _pSeReflector->play3D(1);
         inactivate(); //さよなら
         //消滅エフェクト
     } else {

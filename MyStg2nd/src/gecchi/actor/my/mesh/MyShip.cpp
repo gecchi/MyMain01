@@ -16,7 +16,7 @@ int MyShip::_lim_zleft   =  0;
 int MyShip::_lim_zright  =  0;
 
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXMeshActor(prm_name, "Flora") {
-MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "core2") {
+MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
@@ -164,9 +164,9 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "core2") {
     paFuncTurbo[TN( 1, 1, 0)] = &MyShip::turbo_WAY_UP_FRONT;             //TN( 1, 1, 0) =  WAY_UP_FRONT            = 25
     paFuncTurbo[TN( 1, 1, 1)] = &MyShip::turbo_WAY_ZLEFT_UP_FRONT;       //TN( 1, 1, 1) =  WAY_ZLEFT_UP_FRONT      = 26
 
-
-    prepareSe(0, "se-020");
-    prepareSe(1,"bse5", 99);
+    _pSeReflector->useSe(2);
+    _pSeReflector->set(0, "se-020");
+    _pSeReflector->set(1,"laser001", 99);
 
     char rankstr[80] = {0} ;// 全て0で初期化
     MyStgUtil::getRankStr(99999, rankstr);
@@ -203,11 +203,6 @@ void MyShip::initialize() {
     _pMover->setMvVelo(0);
     _pScaler->setScale(1000);
     _pScaler->forceScaleRange(1000, 7000);
-
-
-
-_pMover->setFaceAngVelo(AXIS_Y, 100);
-
 
     _pMover->forceVxMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
     _pMover->forceVyMvVeloRange(-_iMvVelo_TurboTop, _iMvVelo_TurboTop);
@@ -375,7 +370,7 @@ void MyShip::processBehavior() {
 
     //座標に反映
     _pMover->behave();
-
+    _pSeReflector->behave();
 
     if (_Y > MyShip::_lim_top) {
         _Y = MyShip::_lim_top;
@@ -408,9 +403,9 @@ void MyShip::processJudgement() {
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->activate();
-//            if (pLaserChip->_pChip_front == NULL) {
- //               playSe3D(1);
-   //         }
+            if (pLaser->_pChip_front == NULL) {
+                _pSeReflector->play3D(1);
+            }
         }
     }
 
@@ -445,7 +440,7 @@ void MyShip::processJudgement() {
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     //ここにヒットエフェクト
-    playSe3D(0);
+    _pSeReflector->play3D(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry(pOther);

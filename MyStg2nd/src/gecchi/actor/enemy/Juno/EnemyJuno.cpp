@@ -15,6 +15,8 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Cere
     _nShot = 0;
     _can_Shot = false;
     _do_Shot = false;
+    _pSeReflector->useSe(1);
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //爆発
 }
 
 
@@ -36,8 +38,11 @@ void EnemyJuno::onActive() {
 }
 
 void EnemyJuno::processBehavior() {
+    //加算ランクポイントを減少
+    _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
+
     if (_do_Shot) {
-        if (getPartFrame() == _frame_when_shot - 10) {
+        if (getPartFrame() == _frame_when_shot - 30) {
             _pMover->setMvVelo(0); //減速
             chengeEffectTechniqueInterim("Flush", 2); //フラッシュ
         } else if (getPartFrame() == _frame_when_shot) {
@@ -60,8 +65,8 @@ void EnemyJuno::processBehavior() {
         }
     } else {
         if (_can_Shot) {
-            if (pMYSHIP->_Z - 300000 < _Z && _Z < pMYSHIP->_Z + 300000 &&
-                pMYSHIP->_Y - 300000 < _Y && _Y < pMYSHIP->_Y + 300000 &&
+            if (pMYSHIP->_Z - 500000 < _Z && _Z < pMYSHIP->_Z + 500000 &&
+                pMYSHIP->_Y - 500000 < _Y && _Y < pMYSHIP->_Y + 500000 &&
                 _nMaxShot > _nShot
             ) {
                 _frame_when_shot = getPartFrame() + (CmRandomNumberGenerator::getInstance()->genrand_int32() % 60);
@@ -90,7 +95,7 @@ void EnemyJuno::onInactive() {
 void EnemyJuno::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-
+        _pSeReflector->play3D(0);
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->activate();

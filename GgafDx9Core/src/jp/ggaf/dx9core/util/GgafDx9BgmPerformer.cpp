@@ -3,8 +3,8 @@ using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
-GgafDx9BgmPerformer::GgafDx9BgmPerformer(GgafDx9GeometricActor* prm_pActor) : GgafObject() {
-    _pActor = prm_pActor;
+GgafDx9BgmPerformer::GgafDx9BgmPerformer() : GgafObject() {
+
     _bgm_num = 0;
     _papBgmCon = NULL;
     _pa_is_fade = NULL;
@@ -33,7 +33,7 @@ void GgafDx9BgmPerformer::fade(int prm_id, DWORD prm_frame, int prm_target_volum
     _pa_inc_volume[prm_id] = (prm_target_volume - _pa_now_volume[prm_id]) / (double)prm_frame;
 }
 
-void GgafDx9BgmPerformer::prepare(int prm_id, const char* prm_bgm_name) {
+void GgafDx9BgmPerformer::set(int prm_id, const char* prm_bgm_name) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDx9GeometricActor::prepareBGM() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
@@ -41,11 +41,11 @@ void GgafDx9BgmPerformer::prepare(int prm_id, const char* prm_bgm_name) {
 }
 
 void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
-    _pa_is_fade[prm_id] = false;
-    _TRACE_("prm_volume="<<prm_volume);
     if (prm_id < 0 || prm_id >= _bgm_num) {
         throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDが範囲外です。0~"<<(_bgm_num-1)<<"でお願いします。prm_id="<<prm_id);
     }
+    _pa_now_volume[prm_id] = (double)prm_volume;
+    _pa_is_fade[prm_id] = false;
     _papBgmCon[prm_id]->view()->play(prm_volume, DSBPAN_CENTER, prm_is_loop);
 }
 void GgafDx9BgmPerformer::behave() {
