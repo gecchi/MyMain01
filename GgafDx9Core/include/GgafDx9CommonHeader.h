@@ -347,14 +347,14 @@ class CWaveDecorder;
 #include "jp/ggaf/dx9core/util/GgafDx9CollisionArea.h"
 #include "jp/ggaf/dx9core/util/GgafDx9CollisionPart.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Properties.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9GeometryMover.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9Checker.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9GeometryScaler.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9GeometryMorpher.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9SeReflector.h"
-#include "jp/ggaf/dx9core/supporter/for_actor/GgafDx9UvFlipper.h"
-#include "jp/ggaf/dx9core/supporter/for_scene/GgafDx9BgmPerformer.h"
-#include "jp/ggaf/dx9core/supporter/for_model/GgafDx9TextureBlinker.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryMover.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9Checker.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryScaler.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9GeometryMorpher.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9SeReflector.h"
+#include "jp/ggaf/dx9core/actor/supporter/GgafDx9UvFlipper.h"
+#include "jp/ggaf/dx9core/scene/supporter/GgafDx9BgmPerformer.h"
+#include "jp/ggaf/dx9core/model/supporter/GgafDx9TextureBlinker.h"
 
 
 
