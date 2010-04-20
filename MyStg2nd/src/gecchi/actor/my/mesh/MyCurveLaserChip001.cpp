@@ -16,7 +16,7 @@ MyCurveLaserChip001::MyCurveLaserChip001(const char* prm_name) :
 
 void MyCurveLaserChip001::initialize() {
     _pMover->relateRzRyFaceAngToMvAng(true);
-    registHitAreaCube(100000);
+    registHitAreaCube(80000);
     setHitAble(true);
     _SX = _SY = _SZ = 100 * 1000;
     _fAlpha = 0.99f;
