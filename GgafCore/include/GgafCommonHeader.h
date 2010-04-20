@@ -321,7 +321,7 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/exception/GgafCriticalException.h"
 #include "jp/ggaf/core/util/GgafStatus.h"
 #include "jp/ggaf/core/util/GgafLogger.h"
-#include "jp/ggaf/core/util/GgafProperties.h"
+#include "jp/ggaf/core/GgafProperties.h"
 #include "jp/ggaf/core/GgafGod.h"
 
 #include "jp/ggaf/core/GgafResourceConnection.hpp"
