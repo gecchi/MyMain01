@@ -2,8 +2,6 @@
 #define GGAFDX9BGMPERFORMER_H_
 namespace GgafDx9Core {
 
-#define MAX_BGM_PER_ACTOR 3
-
 /**
  * GgafDx9Core名前空間、基底シーンクラス.
  * GgafMainScene を継承しただけです。<BR>
@@ -27,7 +25,7 @@ public:
 
     GgafDx9BgmPerformer();
     void useBgm(int prm_bgm_num);
-	void set(int prm_id, const char* prm_bgm_name);
+    void set(int prm_id, const char* prm_bgm_name);
     void behave();
     void fade(int prm_id, DWORD prm_frame, int prm_target_volume);
 
