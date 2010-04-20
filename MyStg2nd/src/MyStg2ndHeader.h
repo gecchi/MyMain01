@@ -314,7 +314,7 @@ class Formation001;
 #include "gecchi/magic/Magic.h"
 #include "gecchi/magic/DefaultMagic.h"
 #include "gecchi/magic/OptionMagic.h"
-#include "gecchi/util/Properties.h"
+#include "gecchi/Properties.h"
 #include "gecchi/util/MyStgUtil.h"
 #include "gecchi/MyFactory.h"
 #include "gecchi/manager/DispatcherManager.h"
