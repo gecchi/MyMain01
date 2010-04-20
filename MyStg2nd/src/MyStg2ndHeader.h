@@ -127,7 +127,7 @@ class CommonScene;
 class DispFpsActor;
 class BackGround01;
 class BackGroundChipBoard;
-
+class PreDrawScene;
 class GameScene;
 class GameDemoScene;
 class GameBeginningScene;
@@ -226,13 +226,15 @@ template<class T>
 class Formation001;
 
 
+class LaserChipEffectActor;
+
 }
 #include "gecchi/actor/GameActor.h"
 
 #include "gecchi/God.h"
 #include "gecchi/scene/Universe.h"
 #include "gecchi/scene/Universe/World.h"
-
+#include "gecchi/scene/Universe/World/PreDrawScene.h"
 #include "gecchi/scene/Universe/World/GameScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameDemoScene.h"
 #include "gecchi/scene/Universe/World/GameScene/GameBeginningScene.h"
@@ -320,6 +322,8 @@ class Formation001;
 #include "gecchi/manager/DispatcherManager.h"
 #include "gecchi/manager/DispatcherConnection.h"
 #include "gecchi/actor/common/template/Formation001.hpp"
+
+#include "gecchi/actor/_predrawer/LaserChipEffectActor.h"
 
 #include "gecchi/actor/common/TestDispatcher.h"
 

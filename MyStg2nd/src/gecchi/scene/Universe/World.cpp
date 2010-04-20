@@ -9,20 +9,30 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
     _pos_camera = 0;
     _frame_pushdown_zmove = 0;
-
     //【めも】
     //ここでActorやSceneのNEWをはしてはならない。
     //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
 }
 
 void World::initialize() {
-        _TRACE_("World::initialize()");
-    GameScene* pGameScene = NEW GameScene("Game");
-    addSubLast(pGameScene);
+    _TRACE_("World::initialize()");
+    orderSceneToFactory(1, PreDrawScene, "PreDraw");
+    orderSceneToFactory(2, GameScene, "Game");
 #ifdef MY_DEBUG
-    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
+    orderActorWithModelToFactory(3, DispFpsActor, "FPS_STRING", "28/moji");
+#endif
+    PreDrawScene* pPreDrawScene = (PreDrawScene*)obtainSceneFromFactory(1);
+    addSubLast(pPreDrawScene);
+#ifdef MY_DEBUG
+    DispFpsActor* pDispFpsActor = (DispFpsActor*)obtainActorFromFactory(3);
     getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 #endif
+    //GameScene* pGameScene = NEW GameScene("Game");
+    //addSubLast(pGameScene);
+//#ifdef MY_DEBUG
+//    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
+//    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
+//#endif
     //初期カメラ位置
     int cam_MvVeloRange = pMYSHIP->_iMoveSpeed * 0.99;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
@@ -72,10 +82,14 @@ void World::initialize() {
     _stop_renge = 60000;
 }
 
-
-
 void World::processBehavior() {
-    VB::update(); //入力情報更新
+    if ( getPartFrame() == 180 ) {
+        GameScene* pGameScene = (GameScene*)obtainSceneFromFactory(2);
+        addSubLast(pGameScene);
+    }
+    if ( getSubFirst()->canBehave() ) {
+        VB::update(); //入力情報更新
+    }
 
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
     //TODO:止めてもframeは進む＿？
