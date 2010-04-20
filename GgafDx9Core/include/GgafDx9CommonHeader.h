@@ -341,7 +341,7 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9Universe.h"
-#include "jp/ggaf/dx9core/util/GgafDx9Util.h"
+#include "jp/ggaf/dx9core/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"
 #include "jp/ggaf/dx9core/util/GgafDx9CollisionArea.h"
