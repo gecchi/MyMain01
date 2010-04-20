@@ -3,11 +3,9 @@
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Core名前空間、基底シーンクラス.
- * GgafMainScene を継承しただけです。<BR>
- * GgafDx9Core名前空間内では、このクラスを基底シーンとします。<BR>
+ * BGM演奏支援クラス .
  * @version 1.00
- * @since 2008/01/24
+ * @since 2010/04/19
  * @author Masatoshi Tsuge
  */
 class GgafDx9BgmPerformer : public GgafCore::GgafObject {
