@@ -110,6 +110,7 @@ public:
         }
     };
 
+
     static keymap _mapDIK;
 
     static VBMap* _pVBMap_Active; //現在フレームの入力状態

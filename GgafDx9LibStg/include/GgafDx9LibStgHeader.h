@@ -8,6 +8,7 @@ class DefaultGod;
 class DefaultUniverse;
 class StgUtil;
 class VirtualButton;
+class VBRecorder;
 class GeoElement;
 class GeometryChain;
 class DefaultScene;
@@ -41,6 +42,7 @@ class CollisionChecker;
 #include "jp/ggaf/dx9libstg/util/StgUtil.h"
 
 #include "jp/ggaf/dx9libstg/util/VirtualButton.h"
+#include "jp/ggaf/dx9libstg/util/VBRecorder.h"
 #include "jp/ggaf/dx9libstg/util/GeoElement.h"
 #include "jp/ggaf/dx9libstg/util/GeometryChain.h"
 #include "jp/ggaf/dx9libstg/scene/DefaultScene.h"
