@@ -77,7 +77,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             while (_is_working_flg) {
                 if (pOrder->_progress != 2) {
                     TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]の製造まだ〜？、5ミリ秒だけ待ったげよう。pOrder->_progress="<<(pOrder->_progress));
-                    TEXT("+");
+                    _TEXT_("…");
                     ___EndSynchronized; // <----- 排他終了
                     Sleep(5);
                  ___BeginSynchronized; // ----->排他開始
