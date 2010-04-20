@@ -1,10 +1,10 @@
-ï»¿#ifndef GGAFDX9CUBEEX_H_
+#ifndef GGAFDX9CUBEEX_H_
 #define GGAFDX9CUBEEX_H_
 namespace GgafDx9Core {
 
 /**
- * å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºç”¨ã‚­ãƒ¥ãƒ¼ãƒ–ã‚¯ãƒ©ã‚¹
- * DefaultCubeActor ã‚’ç¶™æ‰¿ã—ã€å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè¡¨ç¤ºæ©Ÿèƒ½ã‚’è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
+ * “–‚½‚è”»’è•\¦—pƒLƒ…[ƒuƒNƒ‰ƒX
+ * DefaultCubeActor ‚ğŒp³‚µA“–‚½‚è”»’è—Ìˆæ•\¦‹@”\‚ğ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·B
  * @version 1.00
  * @since 2009/08/25
  * @author Masatoshi Tsuge
@@ -40,7 +40,7 @@ public:
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override {
     }
 
-    //void processDraw() {} //ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰æœªå®Ÿè£…ã«ã™ã‚‹ã€‚
+    //void processDraw() {} //ƒI[ƒo[ƒ‰ƒCƒh–¢À‘•‚É‚·‚éB
 
     virtual ~GgafDx9CubeEx();
 

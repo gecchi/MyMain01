@@ -1,4 +1,4 @@
-ï»¿#ifndef STAGE01SCENE_H_
+#ifndef STAGE01SCENE_H_
 #define STAGE01SCENE_H_
 
 
@@ -29,7 +29,7 @@ public:
 
     Stage01Scene(const char* prm_name);
     /**
-     * åˆæœŸå‡¦ç†
+     * ‰Šúˆ—
      */
     void initialize() override;
 

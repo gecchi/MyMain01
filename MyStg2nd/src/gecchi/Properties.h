@@ -1,4 +1,4 @@
-﻿#ifndef PROPERTIES_H_
+#ifndef PROPERTIES_H_
 #define PROPERTIES_H_
 
 #define PROPERTY(X) (*MyStg2nd::Properties::X)

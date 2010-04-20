@@ -1,10 +1,10 @@
-ï»¿#ifndef GGAFDX9TEXTURE_H_
+#ifndef GGAFDX9TEXTURE_H_
 #define GGAFDX9TEXTURE_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒ†ã‚¯ã‚¹ãƒãƒ£åŸºåº•ã‚¯ãƒ©ã‚¹.
- * ã‚­ãƒ£ãƒ©(ã‚¢ã‚¯ã‚¿ãƒ¼)ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’ãƒ©ãƒƒãƒ—ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR>
+ * ƒeƒNƒXƒ`ƒƒŠî’êƒNƒ‰ƒX.
+ * ƒLƒƒƒ‰(ƒAƒNƒ^[)‚ÌƒeƒNƒXƒ`ƒƒ‚ğƒ‰ƒbƒv‚·‚éƒNƒ‰ƒX‚Å‚·B<BR>
  * @version 1.00
  * @since 2009/03/09
  * @author Masatoshi Tsuge
@@ -15,13 +15,13 @@ class GgafDx9Texture : public GgafCore::GgafObject {
 protected:
 public:
 
-    /** ãƒ¢ãƒ‡ãƒ«å®šç¾©ã®è­˜åˆ¥åã€‚(50æ–‡å­—ã¾ã§) */
+    /** ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B(50•¶š‚Ü‚Å) */
     char* _texture_name;
     D3DXIMAGE_INFO* _pD3DXIMAGE_INFO;
     LPDIRECT3DTEXTURE9 _pIDirect3DTexture9;
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_texture_name ãƒ¢ãƒ‡ãƒ«å®šç¾©ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_texture_name ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
      */
     GgafDx9Texture(char* prm_texture_name);
 
@@ -31,10 +31,10 @@ public:
 
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * deleteã™ã‚‹ã®ã¯GgafDx9TextureManagerã§ã‚ã‚‹<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * delete‚·‚é‚Ì‚ÍGgafDx9TextureManager‚Å‚ ‚é<BR>
      */
-    virtual ~GgafDx9Texture(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9Texture(); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -74,10 +74,10 @@ void GameMainScene::processBehavior() {
     if (onChangeProgressAt(GAMEMAIN_PROG_BEGIN)) {
         _pStringBoard01->update(300, 300, "GAME_MAIN_SCENE BEGIN");
         _pStringBoard02->update(300, 350, "DESTOROY ALL!");
-        addSubLast(obtainSceneFromFactory(11)); //ã‚¹ãƒ†ãƒ¼ã‚¸ã‚·ãƒ¼ãƒ³è¿½åŠ 
+        addSubLast(obtainSceneFromFactory(11)); //ƒXƒe[ƒWƒV[ƒ“’Ç‰Á
         _dwFrame_Begin = 0;
     } else if (getProgress() == GAMEMAIN_PROG_BEGIN) {
-        //æ´»å‹•ãƒ«ãƒ¼ãƒ—
+        //Šˆ“®ƒ‹[ƒv
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 180) {
@@ -91,7 +91,7 @@ void GameMainScene::processBehavior() {
 
     }
 
-    //SCOREè¡¨ç¤º
+    //SCORE•\Ž¦
     sprintf(_buf, "SCR:%07u", _SCORE_);
     _pStringBoard_SCORE->update(600, 0, _buf);
     sprintf(_buf, "R:%.7f", _RANK_);

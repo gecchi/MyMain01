@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9SPRITESETEFFECT_H_
+#ifndef GGAFDX9SPRITESETEFFECT_H_
 #define GGAFDX9SPRITESETEFFECT_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9SpriteSetç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¯ãƒ©ã‚¹ .
+ * GgafDx9SpriteSet—pƒGƒtƒFƒNƒgƒNƒ‰ƒX .
  * @version 1.00
  * @since 2009/07/14
  * @author Masatoshi Tsuge
@@ -22,18 +22,18 @@ public:
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_effect_name ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥åã€‚".fx"ã‚’è¿½åŠ ã™ã‚‹ã¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_effect_name ƒGƒtƒFƒNƒg¯•Ê–¼B".fx"‚ğ’Ç‰Á‚·‚é‚ÆƒGƒtƒFƒNƒgƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
      * @return
      */
     GgafDx9SpriteSetEffect(char* prm_effect_name);
 
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * deleteã™ã‚‹ã®ã¯GgafDx9EffectManagerã§ã‚ã‚‹<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * delete‚·‚é‚Ì‚ÍGgafDx9EffectManager‚Å‚ ‚é<BR>
      */
-    virtual ~GgafDx9SpriteSetEffect(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9SpriteSetEffect(); //ƒfƒXƒgƒ‰ƒNƒ^
 
 };
 

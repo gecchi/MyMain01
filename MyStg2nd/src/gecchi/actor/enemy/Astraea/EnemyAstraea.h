@@ -1,27 +1,27 @@
-ï»¿#ifndef ENEMYASTRAEA_H_
+#ifndef ENEMYASTRAEA_H_
 #define ENEMYASTRAEA_H_
 namespace MyStg2nd {
 
 /**
- * ã‚¢ã‚¹ãƒˆãƒ©ã‚¨ã‚¢ .
+ * ƒAƒXƒgƒ‰ƒGƒA .
  */
 class EnemyAstraea : public GgafDx9LibStg::DefaultMorphMeshActor {
 
 private:
-    /** ç™ºå°„æ¸ˆã¿ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—æ•° */
+    /** ”­ËÏ‚İƒŒ[ƒU[ƒ`ƒbƒv” */
     int _cnt_laserchip;
 
 public:
-    /** æ–¹å‘è»¢æ›é–“éš”(frame) */
+    /** •ûŒü“]Š·ŠÔŠu(frame) */
     int _shot_interval;
-    /** ç™ºå°„ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—ã®æ•° */
+    /** ”­ËƒŒ[ƒU[ƒ`ƒbƒv‚Ì” */
     int _laser_length;
-    /** Wayæ•°     */
+    /** Way”     */
     int _laser_way;
 
     angle* _paWayRz;
     angle* _paWayRy;
-    /** æ–¹å‘è»¢æ›è§’é€Ÿåº¦ */
+    /** •ûŒü“]Š·Šp‘¬“x */
     angvelo _angveloTurn;
 
     LaserChipDispatcher*** _papapLaserChipDispatcher;

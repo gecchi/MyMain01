@@ -1,69 +1,69 @@
-ï»¿#ifndef ENEMYVESTA_H_
+#ifndef ENEMYVESTA_H_
 #define ENEMYVESTA_H_
 namespace MyStg2nd {
 
 /**
- * ãƒ†ã‚¹ãƒˆç”¨ .
+ * ƒeƒXƒg—p .
  * @version 1.00
  * @since 2009/01/22
  * @author Masatoshi Tsuge
  */
 class EnemyVesta : public GgafDx9LibStg::DefaultMorphMeshActor {
 private:
-    /** [r]æ¬¡å›ãƒãƒƒãƒãŒé–‹ããƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** [r]Ÿ‰ñƒnƒbƒ`‚ªŠJ‚­ƒtƒŒ[ƒ€ */
     DWORD _frame_of_moment_nextopen;
-    /** [r]æ¬¡å›ãƒãƒƒãƒãŒé–‰ã˜ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** [r]Ÿ‰ñƒnƒbƒ`‚ª•Â‚¶‚éƒtƒŒ[ƒ€ */
     DWORD _frame_of_moment_nextclose;
 public:
-    /** [r]è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå· */
+    /** [r]s“®ƒpƒ^[ƒ“”Ô† */
     int _iMovePatternNo;
-    /** [r]çŠ¶æ³ */
+    /** [r]ó‹µ */
     bool _is_open_hatch;
-    /** [r/w]ãƒãƒƒãƒãŒé–‹ã„ã¦ã„ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ é–“éš” */
+    /** [r/w]ƒnƒbƒ`‚ªŠJ‚¢‚Ä‚¢‚éƒtƒŒ[ƒ€ŠÔŠu */
     DWORD _frame_of_open_interval;
-    /** [r/w]ãƒãƒƒãƒãŒé–‰ã˜ã¦ã„ã¦ã„ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ é–“éš” */
+    /** [r/w]ƒnƒbƒ`‚ª•Â‚¶‚Ä‚¢‚Ä‚¢‚éƒtƒŒ[ƒ€ŠÔŠu */
     DWORD _frame_of_close_interval;
-    /** [r/w]ãƒãƒƒãƒé–‹ï¼é–‰ æˆ–ã„ã¯ã€é–‰ï¼é–‹ ã®ãƒ¢ãƒ¼ãƒ•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** [r/w]ƒnƒbƒ`ŠJ„•Â ˆ½‚¢‚ÍA•Â„ŠJ ‚Ìƒ‚[ƒtƒAƒjƒ[ƒVƒ‡ƒ“ƒtƒŒ[ƒ€” */
     DWORD _frame_of_morph_interval;
-    /** [r/w]ãƒãƒƒãƒã®åœŸå°ã¨ãªã£ã¦ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ */
+    /** [r/w]ƒnƒbƒ`‚Ì“y‘ä‚Æ‚È‚Á‚Ä‚éƒAƒNƒ^[ */
 
-    /** [r/w]ãƒãƒƒãƒã‹ã‚‰ç™ºå°„ã•ã‚Œã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã‚’ãƒ¡ãƒ³ãƒãƒ¼ã«æŒã¤ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ */
+    /** [r/w]ƒnƒbƒ`‚©‚ç”­Ë‚³‚ê‚éƒAƒNƒ^[‚ğƒƒ“ƒo[‚É‚ÂƒfƒBƒXƒpƒbƒ`ƒƒ[ */
     GgafCore::GgafActorDispatcher* _pDispatcher_Fired;
     DispatcherConnection* _pDpcon;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
      * @param prm_name
      * @return
      */
     EnemyVesta(const char* prm_name);
 
     /**
-     * ãŸã¾ã”ãƒ¢ãƒ‡ãƒ«ãŒç”Ÿæˆã•ã‚ŒãŸéš›ã«ï¼‘å›ã ã‘å®Ÿè¡Œã•ã‚Œã‚‹å‡¦ç†
+     * ‚½‚Ü‚²ƒ‚ƒfƒ‹‚ª¶¬‚³‚ê‚½Û‚É‚P‰ñ‚¾‚¯Às‚³‚ê‚éˆ—
      */
     void onCreateModel() override;
     /**
-     * ãŸã¾ã”ã®åˆæœŸå‡¦ç†ï¼ˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆå¾Œä¿è¨¼ï¼‰
+     * ‚½‚Ü‚²‚Ì‰Šúˆ—iƒCƒ“ƒXƒ^ƒ“ƒX¶¬Œã•ÛØj
      */
     void initialize() override;
 
     /**
-     * ãŸã¾ã”ã®ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ãŸç¬é–“ã®å‡¦ç† .
+     * ‚½‚Ü‚²‚Ì‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½uŠÔ‚Ìˆ— .
      */
     void onActive() override;
 
     /**
-     * ãŸã¾ã”ã®æŒ¯ã‚‹èˆã„ .
+     * ‚½‚Ü‚²‚ÌU‚é•‘‚¢ .
      */
     void processBehavior() override;
     /**
-     * ãŸã¾ã”ã®æŒ¯ã‚‹èˆã„å¾Œã®åˆ¤å®šå‡¦ç† .
+     * ‚½‚Ü‚²‚ÌU‚é•‘‚¢Œã‚Ì”»’èˆ— .
      */
     void processJudgement() override;
 
     /**
-     * ãŸã¾ã”ã®è¡çªæ™‚å‡¦ç† .
-     * @param prm_pOtherActor è¡çªå¯¾è±¡
+     * ‚½‚Ü‚²‚ÌÕ“Ëˆ— .
+     * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

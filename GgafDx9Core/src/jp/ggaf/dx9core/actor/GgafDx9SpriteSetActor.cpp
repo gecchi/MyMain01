@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -18,7 +18,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
                                                                 prm_pChecker) {
     _class_name = "GgafDx9SpriteSetActor";
 
-    //ãƒ¢ãƒ‡ãƒ«å–å¾—
+    //ƒ‚ƒfƒ‹æ“¾
     _pSpriteSetModel = (GgafDx9SpriteSetModel*)_pGgafDx9Model;
     _pSpriteSetEffect = (GgafDx9SpriteSetEffect*)_pGgafDx9Effect;
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
@@ -29,7 +29,7 @@ GgafDx9SpriteSetActor::GgafDx9SpriteSetActor(const char* prm_name,
 }
 
 void GgafDx9SpriteSetActor::processDraw() {
-    _draw_set_num = 1; //åŒä¸€æç”»æ·±åº¦ã«ã€GgafDx9SpriteSetActorã®åŒã˜ãƒ¢ãƒ‡ãƒ«ãŒé€£ç¶šã—ã¦ã„ã‚‹ã‚«ã‚¦ãƒ³ãƒˆæ•°
+    _draw_set_num = 1; //“¯ˆê•`‰æ[“x‚ÉAGgafDx9SpriteSetActor‚Ì“¯‚¶ƒ‚ƒfƒ‹‚ª˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”
     GgafDx9DrawableActor* _pNextDrawActor;
     _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
@@ -53,7 +53,7 @@ void GgafDx9SpriteSetActor::processDraw() {
     pID3DXEffect = _pSpriteSetEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_hMatView, &pCAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9MeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
     GgafDx9DrawableActor *pDrawActor;
     GgafDx9RectUV* pRectUV_Active;
@@ -61,42 +61,42 @@ void GgafDx9SpriteSetActor::processDraw() {
     for (int i = 0; i < _draw_set_num; i++) {
         //(*_pFunc_calcWorldMatrix)(pDrawActor, pDrawActor->_matWorld);
         hr = pID3DXEffect->SetMatrix(_pSpriteSetEffect->_ahMatWorld[i], &(pDrawActor->_matWorld) );
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
-        //ä»Šå›æç”»ã®UV
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetMatrix(_hMatWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
+        //¡‰ñ•`‰æ‚ÌUV
 
         pRectUV_Active = _pSpriteSetModel->_paRectUV + (((GgafDx9SpriteSetActor*)(pDrawActor))->_pUvFlipper->_pattno_uvflip_now);
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetU[i], pRectUV_Active->_aUV[0].tu);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetU) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetU) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahOffsetV[i], pRectUV_Active->_aUV[0].tv);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetV) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw() SetFloat(_hOffsetV) ‚É¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(_pSpriteSetEffect->_ahAlpha[i], pDrawActor->_fAlpha);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetFloat(_fAlpha) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::processDraw SetFloat(_fAlpha) ‚É¸”s‚µ‚Ü‚µ‚½B");
         pDrawActor = pDrawActor -> _pNext_TheSameDrawDepthLevel;
         if (i > 0) {
-            //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚’é€²ã‚ã‚‹
+            //ƒAƒNƒeƒBƒu‚ği‚ß‚é
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ–³Œø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ•s‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pSpriteSetModel->draw(this);
 
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
 }
 
 void GgafDx9SpriteSetActor::setAlpha(float prm_fAlpha) {
     _fAlpha = prm_fAlpha;
-    //Î±è¨­å®šã€ç¾åœ¨ãƒãƒ†ãƒªã‚¢ãƒ«ã¯Diffuseä»¥å¤–é–¢ä¿‚ãªã„
-    _paD3DMaterial9[0].Ambient.a = _fAlpha; //ï¼œä»Šã®ã¨ã“ã‚ç„¡æ„å‘³
+    //ƒ¿İ’èAŒ»İƒ}ƒeƒŠƒAƒ‹‚ÍDiffuseˆÈŠOŠÖŒW‚È‚¢
+    _paD3DMaterial9[0].Ambient.a = _fAlpha; //ƒ¡‚Ì‚Æ‚±‚ë–³ˆÓ–¡
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
 

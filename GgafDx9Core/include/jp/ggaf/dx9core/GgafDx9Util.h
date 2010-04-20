@@ -1,4 +1,4 @@
-ï»¿#ifndef GGAFDX9UTIL_H_
+#ifndef GGAFDX9UTIL_H_
 #define GGAFDX9UTIL_H_
 namespace GgafDx9Core {
 
@@ -6,8 +6,8 @@ namespace GgafDx9Core {
 #define max3(A,B,C) (GgafDx9Core::GgafDx9Util::max3(A,B,C))
 
 /**
- * ãƒ¦ãƒ¼ãƒ†ã‚£ãƒªãƒ†ã‚£.
- * ç‹¬ç«‹ã—ãŸé™çš„ãªåº§æ¨™é–¢é€£é–¢æ•°ã¯ã‚³ã‚³ã«é›†ç´„ã€‚
+ * ƒ†[ƒeƒBƒŠƒeƒB.
+ * “Æ—§‚µ‚½Ã“I‚ÈÀ•WŠÖ˜AŠÖ”‚ÍƒRƒR‚ÉW–ñB
  */
 class GgafDx9Util: public GgafCore::GgafUtil {
 
@@ -48,7 +48,7 @@ public:
             } else if (prm_vy < 0) {
                 return ANGLE270;
             } else {
-                //åŸç‚¹ã§ã‚ã‚‹ã€ä¸å®šã€‚
+                //Œ´“_‚Å‚ ‚éA•s’èB
                 return 0;
             }
         }
@@ -58,11 +58,11 @@ public:
             } else if (prm_vx < 0) {
                 return ANGLE180;
             } else {
-                //åŸç‚¹ã§ã‚ã‚‹ã€ä¸å®šã€‚
+                //Œ´“_‚Å‚ ‚éA•s’èB
                 return 0;
             }
         }
-        if (prm_vx >= 0 && prm_vy >= 0) { //ç¬¬1è±¡é™
+        if (prm_vx >= 0 && prm_vy >= 0) { //‘æ1ÛŒÀ
             if (prm_vx >= prm_vy) {
                 //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE0+SLANT2ANG["<<(int)(1.0*prm_vy/prm_vx*100000)<<"]="<<(ANGLE0+SLANT2ANG[(int)(1.0*prm_vy/prm_vx*10000)]));
                 return ANGLE0  + SLANT2ANG[(int)(1.0*prm_vy/prm_vx*100000)];
@@ -70,7 +70,7 @@ public:
                 //_TRACE_("getAngle2D prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90-SLANT2ANG["<<(int)(1.0*prm_vx/prm_vy*100000)<<"]="<<(ANGLE90-SLANT2ANG[(int)(1.0*prm_vx/prm_vy*10000)]));
                 return ANGLE90 - SLANT2ANG[(int)(1.0*prm_vx/prm_vy*100000)];
             }
-        } else if (prm_vx <= 0 && prm_vy >= 0) { //ç¬¬2è±¡é™
+        } else if (prm_vx <= 0 && prm_vy >= 0) { //‘æ2ÛŒÀ
             if (-prm_vx <= prm_vy) {
                 //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE90+SLANT2ANG["<<(int)(1.0*-prm_vx/prm_vy*100000)<<"]="<<(ANGLE90+SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*10000)]));
                 return ANGLE90 + SLANT2ANG[(int)(1.0*-prm_vx/prm_vy*100000)];
@@ -78,7 +78,7 @@ public:
                 //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180-SLANT2ANG["<<(int)(1.0*prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180-SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*10000)]));
                 return ANGLE180 - SLANT2ANG[(int)(1.0*prm_vy/-prm_vx*100000)];
             }
-        } else if (prm_vx <= 0 && prm_vy <= 0) { //ç¬¬3è±¡é™
+        } else if (prm_vx <= 0 && prm_vy <= 0) { //‘æ3ÛŒÀ
             if (-prm_vx >= -prm_vy) {
                 //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE180+SLANT2ANG["<<(int)(1.0*-prm_vy/-prm_vx*100000)<<"]="<<(ANGLE180+SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*10000)]));
                 return ANGLE180 + SLANT2ANG[(int)(1.0*-prm_vy/-prm_vx*100000)];
@@ -86,7 +86,7 @@ public:
                 //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270-SLANT2ANG["<<(int)(1.0*-prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270-SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*10000)]));
                 return ANGLE270 - SLANT2ANG[(int)(1.0*-prm_vx/-prm_vy*100000)];
             }
-        } else if (prm_vx >= 0 && prm_vy <= 0) { //ç¬¬4è±¡é™
+        } else if (prm_vx >= 0 && prm_vy <= 0) { //‘æ4ÛŒÀ
             if (prm_vx <= -prm_vy) {
                 //_TRACE_("prm_vx,prm_vy="<<prm_vx<<","<<prm_vy<<" "<<"ANGLE270+SLANT2ANG["<<(int)(1.0*prm_vx/-prm_vy*100000)<<"]="<<(ANGLE270+SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*10000)]));
                 return ANGLE270 + SLANT2ANG[(int)(1.0*prm_vx/-prm_vy*100000)];
@@ -99,64 +99,64 @@ public:
     }
 
     /**
-     * è¿‘ã„ã»ã†ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã®å·®ã‚’å–ã‚‹
+     * ‹ß‚¢‚Ù‚¤‚ÌƒAƒ“ƒOƒ‹’l‚Ì·‚ğæ‚é
      * @param angFrom
      * @param angTo
-     * @return ã‚¢ãƒ³ã‚°ãƒ«å€¤ã®å·®ï¼ˆæ­£è² ã‚ã‚Š)
+     * @return ƒAƒ“ƒOƒ‹’l‚Ì·i³•‰‚ ‚è)
      */
     static angle getDiffAng(angle angFrom, angle angTo) {
             if (0 <= angFrom && angFrom < ANGLE180) {
                 if (0 <= angTo && angTo < angFrom) {
                     return -1 * (angFrom - angTo);
                 } else if (angTo == angFrom) {
-                    //é‡ãªã£ã¦ã‚‹å ´åˆ
+                    //d‚È‚Á‚Ä‚éê‡
                     return 0;
                 } else if (angFrom < angTo && angTo < angFrom + ANGLE180) {
                     return angTo - angFrom;
                 } else if (angTo == angFrom + ANGLE180) {
-                    //æ­£åå¯¾ã‚’å‘ã„ã¦ã„ã‚‹ï¼ˆï¼è·é›¢ã¯ç­‰ã—ã„ï¼‰
-                    //ä»•æ–¹ãªã„ã®ã§æ­£ã®å€¤ã¨ã™ã‚‹ã€‚(æ­£ç¢ºã«ã¯ -ANGLE180 or ANGLE180)
+                    //³”½‘Î‚ğŒü‚¢‚Ä‚¢‚éi‹——£‚Í“™‚µ‚¢j
+                    //d•û‚È‚¢‚Ì‚Å³‚Ì’l‚Æ‚·‚éB(³Šm‚É‚Í -ANGLE180 or ANGLE180)
                     return ANGLE180;
                 } else if (angFrom + ANGLE180 < angTo && angTo <= ANGLE360) {
                     return -1 * (angFrom + (ANGLE360 - angTo));
                 } else {
-                    //ãŠã‹ã—ã„
+                    //‚¨‚©‚µ‚¢
                     _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-                    throwGgafCriticalException("GgafDx9Util::getDiffAngle ã‚¢ãƒ³ã‚°ãƒ«å€¤ãŒç¯„å›²å¤–ã§ã™(1)ã€‚");
+                    throwGgafCriticalException("GgafDx9Util::getDiffAngle ƒAƒ“ƒOƒ‹’l‚ª”ÍˆÍŠO‚Å‚·(1)B");
                 }
             } else if (ANGLE180 <= angFrom && angFrom <= ANGLE360) {
                 if (0 <= angTo && angTo < angFrom - ANGLE180) {
                     return ANGLE360 - angFrom + angTo;
                 } else if (angTo == angFrom - ANGLE180) {
-                    //æ­£åå¯¾ã‚’å‘ã„ã¦ã„ã‚‹ï¼ˆï¼è·é›¢ã¯ç­‰ã—ã„ï¼‰
-                    //ä»•æ–¹ãªã„ã®ã§æ­£ã®å€¤ã¨ã™ã‚‹ã€‚(æ­£ç¢ºã«ã¯ -ANGLE180 or ANGLE180)
+                    //³”½‘Î‚ğŒü‚¢‚Ä‚¢‚éi‹——£‚Í“™‚µ‚¢j
+                    //d•û‚È‚¢‚Ì‚Å³‚Ì’l‚Æ‚·‚éB(³Šm‚É‚Í -ANGLE180 or ANGLE180)
                     return ANGLE180;
                 } else if (angFrom - ANGLE180 < angTo && angTo < angFrom) {
                     return -1 * (angFrom - angTo);
                 } else if (angFrom == angTo) {
-                    //é‡ãªã£ã¦ã‚‹å ´åˆ
+                    //d‚È‚Á‚Ä‚éê‡
                     return 0;
                 } else if (angFrom < angTo && angTo <= ANGLE360) {
                     return angTo - angFrom;
                 } else {
-                    //ãŠã‹ã—ã„
+                    //‚¨‚©‚µ‚¢
                     _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-                    throwGgafCriticalException("GgafDx9Util::getDiffAngle ã‚¢ãƒ³ã‚°ãƒ«å€¤ãŒç¯„å›²å¤–ã§ã™(2)ã€‚");
+                    throwGgafCriticalException("GgafDx9Util::getDiffAngle ƒAƒ“ƒOƒ‹’l‚ª”ÍˆÍŠO‚Å‚·(2)B");
                 }
             }
 
         _TRACE_("bad angFrom=" << angFrom << "/angTo=" << angTo);
-        throwGgafCriticalException("GgafDx9Util::getDiffAngle  ä½•æ•…ã‹ã—ã‚‰è§’ã®è·é›¢ãŒæ±‚ã‚ã‚Œã¾ã›ã‚“ã€‚(1)");
+        throwGgafCriticalException("GgafDx9Util::getDiffAngle  ‰½ŒÌ‚©‚µ‚çŠp‚Ì‹——£‚ª‹‚ß‚ê‚Ü‚¹‚ñB(1)");
     }
 
 
     /**
-     * å¹³é¢ä¸Šã«ãŠã„ã¦ã€'N'wayå¼¾(N=æ•´æ•°)ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã‚’å–å¾— .
-     * @param prm_vx_Center [in] 'N'wayå¼¾ã®å…¨ä½“ã¨ã—ã¦å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®ã€æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ 
-     * @param prm_vy_Center [in] 'N'wayå¼¾ã®å…¨ä½“ã¨ã—ã¦å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®ã€æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ 
-     * @param prm_nWay	[in] 'N'wayå¼¾ã® N
-     * @param prm_angClearance	[in] 'N'wayå¼¾ã®å¼¾ã¨å¼¾ã¨ã®æˆã™è§’ã‚’ã‚¢ãƒ³ã‚°ãƒ«å€¤ã§æŒ‡å®š
-     * @param out_paAngle	[out] å¾—ã‚‰ã‚Œã‚‹'N'wayå¼¾ ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+     * •½–Êã‚É‚¨‚¢‚ÄA'N'way’e(N=®”)‚ÌƒAƒ“ƒOƒ‹’l‚ğæ“¾ .
+     * @param prm_vx_Center [in] 'N'way’e‚Ì‘S‘Ì‚Æ‚µ‚ÄŒü‚¢‚Ä‚¢‚é•ûŒü‚ÌA•ûŒüƒxƒNƒgƒ‹X—v‘f
+     * @param prm_vy_Center [in] 'N'way’e‚Ì‘S‘Ì‚Æ‚µ‚ÄŒü‚¢‚Ä‚¢‚é•ûŒü‚ÌA•ûŒüƒxƒNƒgƒ‹Y—v‘f
+     * @param prm_nWay	[in] 'N'way’e‚Ì N
+     * @param prm_angClearance	[in] 'N'way’e‚Ì’e‚Æ’e‚Æ‚Ì¬‚·Šp‚ğƒAƒ“ƒOƒ‹’l‚Åw’è
+     * @param out_paAngle	[out] “¾‚ç‚ê‚é'N'way’e ‚ÌƒAƒ“ƒOƒ‹’l”z—ñ‚Ìƒ|ƒCƒ“ƒ^
      */
     static void getWayAngle2D(int prm_vx_Center,
                               int prm_vy_Center,
@@ -165,11 +165,11 @@ public:
                               int* out_paAngle);
 
     /**
-     * å¹³é¢ä¸Šã«ãŠã„ã¦ã€'N'wayå¼¾(N=æ•´æ•°)ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã®é…åˆ—ã‚’å–å¾— .
-     * @param prm_angCenter	[in]'N'wayå¼¾ã®å…¨ä½“ã¨ã—ã¦å‘ã„ã¦ã„ã‚‹æ–¹å‘ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param prm_nWay	[in] 'N'wayå¼¾ã® N
-     * @param prm_angClearance	[in] 'N'wayå¼¾ã®å¼¾ã¨å¼¾ã¨ã®æˆã™è§’ã‚’ã‚¢ãƒ³ã‚°ãƒ«å€¤ã§æŒ‡å®š
-     * @param out_paAngle	[out] å¾—ã‚‰ã‚Œã‚‹'N'wayå¼¾ ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+     * •½–Êã‚É‚¨‚¢‚ÄA'N'way’e(N=®”)‚ÌƒAƒ“ƒOƒ‹’l‚Ì”z—ñ‚ğæ“¾ .
+     * @param prm_angCenter	[in]'N'way’e‚Ì‘S‘Ì‚Æ‚µ‚ÄŒü‚¢‚Ä‚¢‚é•ûŒü‚ÌƒAƒ“ƒOƒ‹’l
+     * @param prm_nWay	[in] 'N'way’e‚Ì N
+     * @param prm_angClearance	[in] 'N'way’e‚Ì’e‚Æ’e‚Æ‚Ì¬‚·Šp‚ğƒAƒ“ƒOƒ‹’l‚Åw’è
+     * @param out_paAngle	[out] “¾‚ç‚ê‚é'N'way’e ‚ÌƒAƒ“ƒOƒ‹’l”z—ñ‚Ìƒ|ƒCƒ“ƒ^
      */
     static void getWayAngle2D(angle prm_angCenter, int prm_nWay, angle prm_angClearance, angle* out_paAngle);
 
@@ -184,11 +184,11 @@ public:
 
 
     /**
-     * å¹³é¢ä¸Šã«ãŠã„ã¦ã€å††ã®æ”¾å°„çŠ¶å…¨æ–¹å‘ã®'N'wayå¼¾(N=æ•´æ•°)ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã‚’é…åˆ—ã§å–å¾— .
-     * å¼¾ã¨å¼¾ã¨ã®æˆã™è§’ã¯ å‡ç­‰ã«ãªã‚‹ã€‚ä¾‹ãˆã°å…¨æ–¹å‘4wayå¼¾ã®å ´åˆã€å¼¾ã¨å¼¾ã¨ã®æˆã™è§’ã¯ç›´è§’ã§ã‚ã‚‹ã€‚
-     * @param prm_angStart	æ”¾å°„çŠ¶ã®å…¨æ–¹å‘'N'wayå¼¾ã®ï¼‘ã¤ç›®ã®å¼¾ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param prm_nWay	[in] 'N'wayå¼¾ã® Nã€‚
-     * @param out_paAngle	[out] å¾—ã‚‰ã‚Œã‚‹'N'wayå¼¾ ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤é…åˆ—ã®ãƒã‚¤ãƒ³ã‚¿
+     * •½–Êã‚É‚¨‚¢‚ÄA‰~‚Ì•úËó‘S•ûŒü‚Ì'N'way’e(N=®”)‚ÌƒAƒ“ƒOƒ‹’l‚ğ”z—ñ‚Åæ“¾ .
+     * ’e‚Æ’e‚Æ‚Ì¬‚·Šp‚Í ‹Ï“™‚É‚È‚éB—á‚¦‚Î‘S•ûŒü4way’e‚Ìê‡A’e‚Æ’e‚Æ‚Ì¬‚·Šp‚Í’¼Šp‚Å‚ ‚éB
+     * @param prm_angStart	•úËó‚Ì‘S•ûŒü'N'way’e‚Ì‚P‚Â–Ú‚Ì’e‚ÌƒAƒ“ƒOƒ‹’l
+     * @param prm_nWay	[in] 'N'way’e‚Ì NB
+     * @param out_paAngle	[out] “¾‚ç‚ê‚é'N'way’e ‚ÌƒAƒ“ƒOƒ‹’l”z—ñ‚Ìƒ|ƒCƒ“ƒ^
      */
     static void getRadiationAngle2D(angle prm_angStart, int prm_nWay, angle* out_paAngle);
 
@@ -221,7 +221,7 @@ public:
     static int getDistance(int x1, int y1, int x2, int y2);
 
     /**
-     * è·é›¢è¨ˆç®— .
+     * ‹——£ŒvZ .
      * @param x1
      * @param y1
      * @param z1
@@ -245,7 +245,7 @@ public:
     }
 
     /**
-     * @deprecated ç¾åœ¨æœªä½¿ç”¨ã€‚ã‚ˆã‚Šé«˜é€ŸãªgetRzRyAng()ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã€‚
+     * @deprecated Œ»İ–¢g—pB‚æ‚è‚‘¬‚ÈgetRzRyAng()‚ğg—p‚µ‚Ä‚¢‚éB
      * @param vx
      * @param vy
      * @param vz
@@ -261,7 +261,7 @@ public:
                                    int s = 25);
 
     /**
-     * @deprecated ç¾åœ¨æœªä½¿ç”¨ã€‚ã‚ˆã‚Šé«˜é€ŸãªgetRzRyAng()ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã€‚
+     * @deprecated Œ»İ–¢g—pB‚æ‚è‚‘¬‚ÈgetRzRyAng()‚ğg—p‚µ‚Ä‚¢‚éB
      * @param x
      * @param y
      * @param z
@@ -280,9 +280,9 @@ public:
                               angle& out_angFaceZ,
                               angle& out_angFaceY);
 
-    //ç¾åœ¨æœªä½¿ç”¨ã€‚ã‚ˆã‚Šé«˜é€ŸãªgetRzRyAngleã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã€‚
+    //Œ»İ–¢g—pB‚æ‚è‚‘¬‚ÈgetRzRyAngle‚ğg—p‚µ‚Ä‚¢‚éB
     /**
-     * @deprecated ã‚ˆã‚Šé«˜é€ŸãªgetRzRyAng() ã‚’ä½¿ç”¨ã—ã¦ã„ã‚‹ã€‚
+     * @deprecated ‚æ‚è‚‘¬‚ÈgetRzRyAng() ‚ğg—p‚µ‚Ä‚¢‚éB
      * @param nvx
      * @param nvy
      * @param nvz
@@ -293,18 +293,18 @@ public:
     static void getRzRyAngle_old(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY, int s = 25);
 
     /**
-     * åŸç‚¹ã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åº§æ¨™ã‚’å‘ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®ã€Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤ã¨Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤ã‚’å–å¾— .
-     * ãŠã¾ã‘ã§å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚‚ã‚²ãƒƒãƒˆã§ãã‚‹ã€‚<BR>
-     * Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤ã¨Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤ã‚’å–å¾—ã™ã‚‹éç¨‹ã§ã€<BR>
-     * æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®æ­£è¦åŒ–ã‚’è¡Œãªã‚ãªã‘ã‚Œã°ãªã‚‰ãªã„ãŸã‚ã€ã‚‚ã£ãŸã„ãªã„ã®ã§æˆ»ã‚Šå€¤ã«ã€‚<BR>
-     * @param x [in]Xåº§æ¨™
-     * @param y [in]Yåº§æ¨™
-     * @param z [in]Zåº§æ¨™
-     * @param out_nvx [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ 
-     * @param out_nvy [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ 
-     * @param out_nvz [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ 
-     * @param out_angFaceZ [out]Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param out_angFaceY [out]Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
+     * Œ´“_‚©‚çƒpƒ‰ƒ[ƒ^À•W‚ğŒü‚­•ûŒüƒxƒNƒgƒ‹‚ÌAZ²‰ñ“]ƒAƒ“ƒOƒ‹’l‚ÆY²‰ñ“]ƒAƒ“ƒOƒ‹’l‚ğæ“¾ .
+     * ‚¨‚Ü‚¯‚Å’PˆÊ•ûŒüƒxƒNƒgƒ‹‚àƒQƒbƒg‚Å‚«‚éB<BR>
+     * Z²‰ñ“]ƒAƒ“ƒOƒ‹’l‚ÆY²‰ñ“]ƒAƒ“ƒOƒ‹’l‚ğæ“¾‚·‚é‰ß’ö‚ÅA<BR>
+     * •ûŒüƒxƒNƒgƒ‹‚Ì³‹K‰»‚ğs‚È‚í‚È‚¯‚ê‚Î‚È‚ç‚È‚¢‚½‚ßA‚à‚Á‚½‚¢‚È‚¢‚Ì‚Å–ß‚è’l‚ÉB<BR>
+     * @param x [in]XÀ•W
+     * @param y [in]YÀ•W
+     * @param z [in]ZÀ•W
+     * @param out_nvx [out]’PˆÊƒxƒNƒgƒ‹X—v‘f
+     * @param out_nvy [out]’PˆÊƒxƒNƒgƒ‹Y—v‘f
+     * @param out_nvz [out]’PˆÊƒxƒNƒgƒ‹Z—v‘f
+     * @param out_angFaceZ [out]Z²‰ñ“]ƒAƒ“ƒOƒ‹’l
+     * @param out_angFaceY [out]Y²‰ñ“]ƒAƒ“ƒOƒ‹’l
      */
     static void getRzRyAng(int x,
                               int y,
@@ -316,42 +316,42 @@ public:
                               angle& out_angFaceY);
 
     /**
-     * åŸç‚¹ã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åº§æ¨™ã‚’å‘ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã«å¯¾å¿œã™ã‚‹ã€ŒZè»¸å›è»¢ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã€ã¨ã€ŒYè»¸å›è»¢ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã€ã‚’å–å¾— .
-     * æœ¬ã‚¯ãƒ©ã‚¹ã®ä¸­æ ¸ã¨ã‚‚è¨€ã†ã¹ããƒ¡ã‚½ãƒƒãƒ‰ãã®ï¼‘<BR>
-     * æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ« -> Zè»¸Yè»¸å›è»¢æ–¹è§’ ã®å¤‰æ›<BR>
-     * @param x [in]Xåº§æ¨™
-     * @param y [in]Yåº§æ¨™
-     * @param z [in]Zåº§æ¨™
-     * @param out_angFaceZ [out]Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param out_angFaceY [out]Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
+     * Œ´“_‚©‚çƒpƒ‰ƒ[ƒ^À•W‚ğŒü‚­•ûŒüƒxƒNƒgƒ‹‚É‘Î‰‚·‚éuZ²‰ñ“]‚ÌƒAƒ“ƒOƒ‹’lv‚ÆuY²‰ñ“]‚ÌƒAƒ“ƒOƒ‹’lv‚ğæ“¾ .
+     * –{ƒNƒ‰ƒX‚Ì’†Šj‚Æ‚àŒ¾‚¤‚×‚«ƒƒ\ƒbƒh‚»‚Ì‚P<BR>
+     * •ûŒüƒxƒNƒgƒ‹ -> Z²Y²‰ñ“]•ûŠp ‚Ì•ÏŠ·<BR>
+     * @param x [in]XÀ•W
+     * @param y [in]YÀ•W
+     * @param z [in]ZÀ•W
+     * @param out_angFaceZ [out]Z²‰ñ“]ƒAƒ“ƒOƒ‹’l
+     * @param out_angFaceY [out]Y²‰ñ“]ƒAƒ“ƒOƒ‹’l
      */
     static void getRzRyAng(int x, int y, int z, angle& out_angFaceZ, angle& out_angFaceY);
 
     /**
-     * åŸç‚¹ã‹ã‚‰ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿åº§æ¨™ã‚’å‘ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(å˜ä½ãƒ™ã‚¯ãƒˆãƒ«)ã«å¯¾å¿œã™ã‚‹ã€ŒZè»¸å›è»¢ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã€ã¨ã€ŒYè»¸å›è»¢ã®ã‚¢ãƒ³ã‚°ãƒ«å€¤ã€ã‚’å–å¾— .
-     * æœ¬ã‚¯ãƒ©ã‚¹ã®ä¸­æ ¸ã¨ã‚‚è¨€ã†ã¹ããƒ¡ã‚½ãƒƒãƒ‰ãã®ï¼‘<BR>
-     * æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ« -> Zè»¸Yè»¸å›è»¢æ–¹è§’ ã®å¤‰æ›<BR>
-     * å‡¦ç†ä¸­ã§ã€æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®æ­£è¦åŒ–ã‚’è¡Œã‚ãªã„ã®ã§ <BR>
+     * Œ´“_‚©‚çƒpƒ‰ƒ[ƒ^À•W‚ğŒü‚­•ûŒüƒxƒNƒgƒ‹(’PˆÊƒxƒNƒgƒ‹)‚É‘Î‰‚·‚éuZ²‰ñ“]‚ÌƒAƒ“ƒOƒ‹’lv‚ÆuY²‰ñ“]‚ÌƒAƒ“ƒOƒ‹’lv‚ğæ“¾ .
+     * –{ƒNƒ‰ƒX‚Ì’†Šj‚Æ‚àŒ¾‚¤‚×‚«ƒƒ\ƒbƒh‚»‚Ì‚P<BR>
+     * •ûŒüƒxƒNƒgƒ‹ -> Z²Y²‰ñ“]•ûŠp ‚Ì•ÏŠ·<BR>
+     * ˆ—’†‚ÅA•ûŒüƒxƒNƒgƒ‹‚Ì³‹K‰»‚ğs‚í‚È‚¢‚Ì‚Å <BR>
      * getRzRyAng(int, int, int , angle&, angle&);
-     * ã‚ˆã‚Šã‚„ã‚„é«˜é€Ÿã€‚å˜ä½ãƒ™ã‚¯ãƒˆãƒ«ãŒæ±‚ã¾ã£ã¦ã„ã‚‹ã¨ãã¯ã“ã¡ã‚‰ã‚’ä½¿ç”¨ã—ã¾ã—ã‚‡ã†ã€‚<BR>
-     * @param nvx [in]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ 
-     * @param nvy [in]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ 
-     * @param nvz [in]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ 
-     * @param out_angFaceZ [out]Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param out_angFaceY [out]Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
+     * ‚æ‚è‚â‚â‚‘¬B’PˆÊƒxƒNƒgƒ‹‚ª‹‚Ü‚Á‚Ä‚¢‚é‚Æ‚«‚Í‚±‚¿‚ç‚ğg—p‚µ‚Ü‚µ‚å‚¤B<BR>
+     * @param nvx [in]’PˆÊƒxƒNƒgƒ‹X—v‘f
+     * @param nvy [in]’PˆÊƒxƒNƒgƒ‹Y—v‘f
+     * @param nvz [in]’PˆÊƒxƒNƒgƒ‹Z—v‘f
+     * @param out_angFaceZ [out]Z²‰ñ“]ƒAƒ“ƒOƒ‹’l
+     * @param out_angFaceY [out]Y²‰ñ“]ƒAƒ“ƒOƒ‹’l
      */
     static void getRzRyAng(float nvx, float nvy, float nvz, angle& out_angFaceZ, angle& out_angFaceY);
 
 
     /**
-     * Zè»¸å›è»¢+Yè»¸å›è»¢å€¤ã‹ã‚‰å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’å–å¾—
-     * æœ¬ã‚¯ãƒ©ã‚¹ã®ä¸­æ ¸ã¨ã‚‚è¨€ã†ã¹ããƒ¡ã‚½ãƒƒãƒ‰ãã®2<BR>
-     * Zè»¸Yè»¸å›è»¢æ–¹è§’ -> æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ« ã®å¤‰æ›<BR>
-     * @param prm_angFaceZ [in]Zè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param prm_angFaceY [in]Yè»¸å›è»¢ã‚¢ãƒ³ã‚°ãƒ«å€¤
-     * @param out_nvx [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ 
-     * @param out_nvy [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ 
-     * @param out_nvz [out]å˜ä½ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ 
+     * Z²‰ñ“]+Y²‰ñ“]’l‚©‚ç’PˆÊ•ûŒüƒxƒNƒgƒ‹‚ğæ“¾
+     * –{ƒNƒ‰ƒX‚Ì’†Šj‚Æ‚àŒ¾‚¤‚×‚«ƒƒ\ƒbƒh‚»‚Ì2<BR>
+     * Z²Y²‰ñ“]•ûŠp -> •ûŒüƒxƒNƒgƒ‹ ‚Ì•ÏŠ·<BR>
+     * @param prm_angFaceZ [in]Z²‰ñ“]ƒAƒ“ƒOƒ‹’l
+     * @param prm_angFaceY [in]Y²‰ñ“]ƒAƒ“ƒOƒ‹’l
+     * @param out_nvx [out]’PˆÊƒxƒNƒgƒ‹X—v‘f
+     * @param out_nvy [out]’PˆÊƒxƒNƒgƒ‹Y—v‘f
+     * @param out_nvz [out]’PˆÊƒxƒNƒgƒ‹Z—v‘f
      */
     static void getNormalizeVectorZY(angle prm_angFaceZ,
                                      angle prm_angFaceY,
@@ -367,7 +367,7 @@ public:
                                    float& out_nvz);
 
     /**
-     * æ–¹å‘ã‚’å¤‰ãˆãšã€Zè»¸å›è»¢+Yè»¸å›è»¢ã®åˆè¨ˆãŒå°ã•ããªã‚‹ã‚ˆã†ã«æœ€é©åŒ–ã‚’è©¦ã¿ã‚‹ã€‚
+     * •ûŒü‚ğ•Ï‚¦‚¸AZ²‰ñ“]+Y²‰ñ“]‚Ì‡Œv‚ª¬‚³‚­‚È‚é‚æ‚¤‚ÉÅ“K‰»‚ğ‚İ‚éB
      * @param rz1
      * @param ry1
      */
@@ -409,7 +409,7 @@ public:
     }
 
     /**
-     * ç·šåˆ†ã®å½“ãŸã‚Šåˆ¤å®š<BR>
+     * ü•ª‚Ì“–‚½‚è”»’è<BR>
      * @param x11
      * @param y11
      * @param x12
@@ -418,18 +418,18 @@ public:
      * @param y21
      * @param x22
      * @param y22
-     * @return true:ãƒ’ãƒƒãƒˆ/false:ãƒ’ãƒƒãƒˆã—ã¦ãªã„
+     * @return true:ƒqƒbƒg/false:ƒqƒbƒg‚µ‚Ä‚È‚¢
      */
     static bool chk2DLineCrossing(int x11, int y11, int x12, int y12, int x21, int y21, int x22, int y22);
 
 
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * æ‹¡å¤§ç¸®å° Ã— Xè»¸å›è»¢ Ã— Zè»¸å›è»¢ Ã— Yè»¸å›è»¢ Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * â€»XYZã®é †ã§ãªã„ã“ã¨ã«æ³¨æ„<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * Šg‘åk¬ ~ X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * ¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_ScRxRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
@@ -439,28 +439,28 @@ public:
     static void setWorldMatrix_ScRzRyMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * Xè»¸å›è»¢ Ã— Zè»¸å›è»¢ Ã— Yè»¸å›è»¢ Ã— æ‹¡å¤§ç¸®å° Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * â€»XYZã®é †ã§ãªã„ã“ã¨ã«æ³¨æ„<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * X²‰ñ“] ~ Z²‰ñ“] ~ Y²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * ¦XYZ‚Ì‡‚Å‚È‚¢‚±‚Æ‚É’ˆÓ<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_RxRzRyScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * Xè»¸å›è»¢ Ã— Yè»¸å›è»¢ Ã— Zè»¸å›è»¢ Ã— æ‹¡å¤§ç¸®å° Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * X²‰ñ“] ~ Y²‰ñ“] ~ Z²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_RxRyRzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * Xè»¸å›è»¢ Ã— Yè»¸å›è»¢ Ã— Xè»¸å›è»¢ Ã— æ‹¡å¤§ç¸®å° Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * â€»Yè»¸å›è»¢ãŒã‚ã‚Šã¾ã›ã‚“ã€‚_RYãŒï¼’å›ç›®ã®Xè»¸å›è»¢ã¨ãªã‚‹<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * X²‰ñ“] ~ Y²‰ñ“] ~ X²‰ñ“] ~ Šg‘åk¬ ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * ¦Y²‰ñ“]‚ª‚ ‚è‚Ü‚¹‚ñB_RY‚ª‚Q‰ñ–Ú‚ÌX²‰ñ“]‚Æ‚È‚é<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_RxRzRxScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
@@ -468,26 +468,26 @@ public:
     static void updateWorldMatrix_Mv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * å˜ä½è¡Œåˆ— Ã— Zè»¸å›è»¢ Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * ’PˆÊs—ñ ~ Z²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_RzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * å˜ä½è¡Œåˆ— Ã— æ‹¡å¤§ç¸®å° Ã— Zè»¸å›è»¢ Ã— å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * ’PˆÊs—ñ ~ Šg‘åk¬ ~ Z²‰ñ“] ~ •½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_ScRzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
 
     /**
-     * worldå¤‰æ›è¡Œåˆ—è¨­å®š .
-     * ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰Xè»¸å›è»¢ Ã— ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰Yè»¸å›è»¢ Ã— ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰Zè»¸å›è»¢  Ã— æ‹¡å¤§ç¸®å° Ã— å¹³è¡Œç§»å‹•ã€€ã®å¤‰æ›è¡Œåˆ—ã‚’ä½œæˆï¼†ãƒ‡ãƒã‚¤ã‚¹ã«è¨­å®š <BR>
-     * @param prm_pActor [in]å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
-     * @param out_matWorld [out]worldå¤‰æ›è¡Œåˆ—
+     * world•ÏŠ·s—ñİ’è .
+     * ƒrƒ‹ƒ{[ƒhX²‰ñ“] ~ ƒrƒ‹ƒ{[ƒhY²‰ñ“] ~ ƒrƒ‹ƒ{[ƒhZ²‰ñ“]  ~ Šg‘åk¬ ~ •½sˆÚ“®@‚Ì•ÏŠ·s—ñ‚ğì¬•ƒfƒoƒCƒX‚Éİ’è <BR>
+     * @param prm_pActor [in]‘ÎÛƒAƒNƒ^[
+     * @param out_matWorld [out]world•ÏŠ·s—ñ
      */
     static void setWorldMatrix_BxyzScMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);
     static void setWorldMatrix_ScRzBxyzMv(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld);

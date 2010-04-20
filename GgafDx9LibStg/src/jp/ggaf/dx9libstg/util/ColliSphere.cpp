@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -18,7 +18,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _z = z;
     _r = r;
 
-    //åŸºåº•ã‚¯ãƒ©ã‚¹ãƒ¡ãƒ³ãƒã®æ›´æ–°
+    //Šî’êƒNƒ‰ƒXƒƒ“ƒo‚ÌXV
     _dx = _r*2;
     _dy = _r*2;
     _dz = _r*2;
@@ -34,7 +34,7 @@ void ColliSphere::set(int x, int y, int z, int r, bool rotX, bool rotY, bool rot
     _rotX = rotX;
     _rotY = rotY;
     _rotZ = rotZ;
-    //å¢ƒç•Œé ˜åŸŸ
+    //‹«ŠE—Ìˆæ
     _aabb_x1 = _x - _r;
     _aabb_y1 = _y - _r;
     _aabb_z1 = _z - _r;
@@ -49,7 +49,7 @@ bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
     if (_rotX || _rotY || _rotZ) {
         s_ang s_RX, s_RY, s_RZ;
         int wk_cx, wk_cy, wk_cz;
-        //å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸè»¸å›è»¢
+        //“–‚½‚è”»’è—Ìˆæ²‰ñ“]
         s_RX = rX / ANGLE_RATE;
         s_RY = rY / ANGLE_RATE;
         s_RZ = rZ / ANGLE_RATE;
@@ -82,7 +82,7 @@ bool ColliSphere::rotate(angle rX, angle rY, angle rZ) {
         _y = wk_cy;
         _z = wk_cz;
         //_r = r;
-        //å¢ƒç•Œé ˜åŸŸã‚‚æ›´æ–°
+        //‹«ŠE—Ìˆæ‚àXV
         _aabb_x1 = _x - _r;
         _aabb_y1 = _y - _r;
         _aabb_z1 = _z - _r;

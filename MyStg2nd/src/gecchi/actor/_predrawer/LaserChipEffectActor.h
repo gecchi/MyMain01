@@ -1,4 +1,4 @@
-﻿#ifndef LASERCHIPEFFECTACTOR_H_
+#ifndef LASERCHIPEFFECTACTOR_H_
 #define LASERCHIPEFFECTACTOR_H_
 namespace MyStg2nd {
 

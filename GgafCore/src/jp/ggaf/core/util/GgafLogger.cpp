@@ -1,9 +1,9 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
 
-// 出力関数
+// �o�͊֐�
 void GgafLogger::writeln(string prm_msg) {
     std::stringstream ss;
     ss << timeGetTime() << " <DEBUG> " << prm_msg << "\n";

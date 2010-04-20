@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,35 +20,35 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 //MyShip::MyShip(const char* prm_name) : DefaultD3DXAniMeshActor(prm_name, "AnimatedSkelton") {
     _class_name = "MyShip";
     MyStgUtil::resetMyShipStatus(_pStatus);
-    //chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆTechniqueæŒ‡å®š
+    //chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬Techniquew’è
 
     GameGlobal::init();
     GameGlobal::_pMyShip = this;
-    //ç”»é¢ã®å¤§ãã•ã«ä¼´ã£ã¦ã€ç§»å‹•ç¯„å›²ã‚’æ±ºå®š
-    //ã“ã®ã‚ãŸã‚Šã¯FovXã«ä¾å­˜ã™ã‚‹ã®ã§å¾®èª¿æ•´ã€‚
-    _lim_top     = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*4*LEN_UNIT / 2;      //ä¸Šä¸‹ã¯ç”»é¢é«˜ã•ã®å¤§ä½“ï¼”ç”»é¢åˆ†
+    //‰æ–Ê‚Ì‘å‚«‚³‚É”º‚Á‚ÄAˆÚ“®”ÍˆÍ‚ğŒˆ’è
+    //‚±‚Ì‚ ‚½‚è‚ÍFovX‚ÉˆË‘¶‚·‚é‚Ì‚Å”÷’²®B
+    _lim_top     = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*4*LEN_UNIT / 2;      //ã‰º‚Í‰æ–Ê‚‚³‚Ì‘å‘Ì‚S‰æ–Ê•ª
     _lim_bottom  = -(GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*4*LEN_UNIT / 2);
-    _lim_front   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*2.55*LEN_UNIT / 2 ;    //å‰å¾Œã¯ç”»é¢å¹…ã®å¤§ä½“ï¼“ç”»é¢åˆ†
+    _lim_front   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*2.55*LEN_UNIT / 2 ;    //‘OŒã‚Í‰æ–Ê•‚Ì‘å‘Ì‚R‰æ–Ê•ª
     _lim_behaind = -(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*0.45*LEN_UNIT / 2 );
-    _lim_zleft   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*4*LEN_UNIT / 2;       //å¥¥æ‰‹å‰ã¯ç”»é¢å¹…ã®å¤§ä½“ï¼”ç”»é¢åˆ†
+    _lim_zleft   = GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*4*LEN_UNIT / 2;       //‰œè‘O‚Í‰æ–Ê•‚Ì‘å‘Ì‚S‰æ–Ê•ª
     _lim_zright  = -(GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*4*LEN_UNIT / 2);
 
-    /** ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ãƒ¬ãƒ™ãƒ« */
+    /** ˆÚ“®ƒXƒs[ƒhƒŒƒxƒ‹ */
     _lv_MoveSpeed = 2;
-    /** ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ãƒ¬ãƒ™ãƒ«ã«ç›¸å¿œã™ã‚‹ç§»å‹•ã‚¹ãƒ”ãƒ¼ãƒ‰ */
+    /** ˆÚ“®ƒXƒs[ƒhƒŒƒxƒ‹‚É‘Š‰‚·‚éˆÚ“®ƒXƒs[ƒh */
     _iMoveSpeed = 5000;
-    //CommonSceneãŒnewã®å ´åˆè¨­å®š
-    _angRXVelo_BeginMZ = 1000; //å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸Zé€šå¸¸ç§»å‹•é–‹å§‹æ™‚ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®åˆé€Ÿåº¦
-    _angRXAcce_MZ = 300; //å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸Zç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®åˆè§’åŠ é€Ÿåº¦
-    _angRXTopVelo_MZ = 5000; //å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸Zç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®ä¸Šé™è§’é€Ÿåº¦
-    _angRXStop_MZ = 90000; //å¥¥åˆã¯æ‰‹å‰ã¸é€šå¸¸Zç§»å‹•ä¸­ã®Xè»¸å›è»¢è§’ã®ç›®æ¨™åœæ­¢è§’åº¦
+    //CommonScene‚ªnew‚Ìê‡İ’è
+    _angRXVelo_BeginMZ = 1000; //‰œ–”‚Íè‘O‚Ö’ÊíZ’ÊíˆÚ“®ŠJn‚ÌX²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
+    _angRXAcce_MZ = 300; //‰œ–”‚Íè‘O‚Ö’ÊíZˆÚ“®’†‚ÌX²‰ñ“]Šp‘¬“x‚Ì‰Šp‰Á‘¬“x
+    _angRXTopVelo_MZ = 5000; //‰œ–”‚Íè‘O‚Ö’ÊíZˆÚ“®’†‚ÌX²‰ñ“]Šp‘¬“x‚ÌãŒÀŠp‘¬“x
+    _angRXStop_MZ = 90000; //‰œ–”‚Íè‘O‚Ö’ÊíZˆÚ“®’†‚ÌX²‰ñ“]Šp‚Ì–Ú•W’â~Šp“x
 
-    //_angRXVelo_BeginMZT = 23000; //å¥¥åˆã¯æ‰‹å‰ã¸Turboç§»å‹•é–‹å§‹æ™‚ã®Xè»¸å›è»¢è§’é€Ÿåº¦ã®åˆé€Ÿåº¦
+    //_angRXVelo_BeginMZT = 23000; //‰œ–”‚Íè‘O‚ÖTurboˆÚ“®ŠJn‚ÌX²‰ñ“]Šp‘¬“x‚Ì‰‘¬“x
     _angRXVelo_BeginMZT = 40000;
 
-    _iMvBtmVelo_MT = 0; //Turboç§»å‹•ä¸­ã®ç§»å‹•é€Ÿåº¦ã®æœ€ä½é€Ÿåº¦
-    _iMvVelo_BeginMT = 10000; //Turboç§»å‹•é–‹å§‹æ™‚ã®ç§»å‹•é€Ÿåº¦ã®åˆé€Ÿåº¦
-    _iMvAcce_MT = -200; //Turboç§»å‹•ä¸­ã®ç§»å‹•é€Ÿåº¦ã®åŠ é€Ÿåº¦
+    _iMvBtmVelo_MT = 0; //TurboˆÚ“®’†‚ÌˆÚ“®‘¬“x‚ÌÅ’á‘¬“x
+    _iMvVelo_BeginMT = 10000; //TurboˆÚ“®ŠJn‚ÌˆÚ“®‘¬“x‚Ì‰‘¬“x
+    _iMvAcce_MT = -200; //TurboˆÚ“®’†‚ÌˆÚ“®‘¬“x‚Ì‰Á‘¬“x
 
     _way = WAY_FRONT;
     MyOptionParent* pMyOptionParent = NEW MyOptionParent("MY_OPTION_PARENT");
@@ -56,31 +56,31 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
 
     _pDispatcher_MyShots001 = NEW GgafActorDispatcher("RotShot001");
     MyShot001* pShot;
-    for (int i = 0; i < 10; i++) { //è‡ªå¼¾ã‚¹ãƒˆãƒƒã‚¯
+    for (int i = 0; i < 10; i++) { //©’eƒXƒgƒbƒN
         pShot = NEW MyShot001("MY_MyShot001");
         pShot->inactivateImmediately();
         _pDispatcher_MyShots001->addSubLast(pShot);
     }
-    addSubLast(_pDispatcher_MyShots001); //ä»®ã‚µãƒ–
+    addSubLast(_pDispatcher_MyShots001); //‰¼ƒTƒu
 
     _pDispatcher_MyWaves001 = NEW GgafActorDispatcher("RotWave001");
     MyWave001* pWave;
-    for (int i = 0; i < 10; i++) { //è‡ªå¼¾ã‚¹ãƒˆãƒƒã‚¯
+    for (int i = 0; i < 10; i++) { //©’eƒXƒgƒbƒN
         pWave = NEW MyWave001("MY_Wave001");
         pWave->inactivateImmediately();
         _pDispatcher_MyWaves001->addSubLast(pWave);
     }
-    addSubLast(_pDispatcher_MyWaves001); //ä»®ã‚µãƒ–
+    addSubLast(_pDispatcher_MyWaves001); //‰¼ƒTƒu
 
     _pLaserChipDispatcher = NEW LaserChipDispatcher("MyRotLaser");
     MyStraightLaserChip001* pChip;
-    for (int i = 0; i < 60; i++) { //ãƒ¬ãƒ¼ã‚¶ãƒ¼ã‚¹ãƒˆãƒƒã‚¯
-        Sleep(2); //å·¥å ´ã«æ°—ã‚’ä½¿ã†ã€‚
+    for (int i = 0; i < 60; i++) { //ƒŒ[ƒU[ƒXƒgƒbƒN
+        Sleep(2); //Hê‚É‹C‚ğg‚¤B
         stringstream name;
         name <<  "MyStraightLaserChip001_" << i;
         string name2 = name.str();
         pChip = NEW MyStraightLaserChip001(name2.c_str());
-        pChip->setPositionSource(this); //ä½ç½®ã ã‘åŒæœŸ
+        pChip->setPositionSource(this); //ˆÊ’u‚¾‚¯“¯Šú
         pChip->inactivateImmediately();
         _pLaserChipDispatcher->addSubLast(pChip);
     }
@@ -91,7 +91,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     addSubGroup(_pEffectTurbo001);
     _pEffectTurbo002 = NEW EffectTurbo002("EffectTurbo002");
     addSubGroup(_pEffectTurbo002);
-    //ãƒˆãƒ¬ãƒ¼ã‚¹ç”¨å±¥æ­´
+    //ƒgƒŒ[ƒX—p—š—ğ
     _pRing_GeoHistory = NEW GgafLinkedListRing<GeoElement>();
     for (DWORD i = 0; i < 100; i++) {
         _pRing_GeoHistory->addLast(NEW GeoElement(GameGlobal::_pMyShip));
@@ -102,10 +102,10 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     //     X   Y   Z
     //    -----------
     //    -1  -1  -1
-    //     0   0   0    ã®å…¨ä½“ã‚’+1ã—ã¦3é€²æ•°ã§æ‰±ã†
+    //     0   0   0    ‚Ì‘S‘Ì‚ğ+1‚µ‚Ä3i”‚Åˆµ‚¤
     //    +1  +1  +1
 
-    //ãã‚Œãã‚Œã®ã‚¹ã‚¤ãƒƒãƒã®çŠ¶æ…‹ã«å¿œã˜ãŸå‡¦ç†ã®é–¢æ•°ãƒ†ãƒ¼ãƒ–ãƒ«é…åˆ—ã€‚
+    //‚»‚ê‚¼‚ê‚ÌƒXƒCƒbƒ`‚Ìó‘Ô‚É‰‚¶‚½ˆ—‚ÌŠÖ”ƒe[ƒuƒ‹”z—ñB
     /////////////// X  Y  Z
     paFuncMove[TN(-1,-1,-1)] = &MyShip::move_WAY_ZRIGHT_DOWN_BEHIND;   //TN(-1,-1,-1) =  WAY_ZRIGHT_DOWN_BEHIND  = 0
     paFuncMove[TN(-1,-1, 0)] = &MyShip::move_WAY_DOWN_BEHIND;          //TN(-1,-1, 0) =  WAY_DOWN_BEHIND         = 1
@@ -168,7 +168,7 @@ MyShip::MyShip(const char* prm_name) : DefaultMeshActor(prm_name, "jiki") {
     _pSeReflector->set(0, "se-020");
     _pSeReflector->set(1,"laser001", 99);
 
-    char rankstr[80] = {0} ;// å…¨ã¦0ã§åˆæœŸåŒ–
+    char rankstr[80] = {0} ;// ‘S‚Ä0‚Å‰Šú‰»
     MyStgUtil::getRankStr(99999, rankstr);
     _TRACE_("RANKSTR:"<<rankstr);
 
@@ -186,7 +186,7 @@ void MyShip::initialize() {
 
 
 
-    //ç¨®åˆ¥ã«æŒ¯ã‚Šåˆ†ã‘
+    //í•Ê‚ÉU‚è•ª‚¯
     getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyShots001->extract());
     getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pDispatcher_MyWaves001->extract());
     //getLordActor()->addSubGroup(KIND_MY_SHOT_NOMAL, _pLaserChipDispatcher->extract());
@@ -212,118 +212,118 @@ void MyShip::initialize() {
     _pMover->setVyMvAcce(0);
     _pMover->setVzMvAcce(0);
     //        _pMover->forceMvVeloRange(_iMvBtmVelo_MT, _iMvVelo_BeginMT);
-    //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //é€Ÿåº¦è¿½åŠ 
+    //        _pMover->addMvVelo(_iMvVelo_BeginMT);  //‘¬“x’Ç‰Á
     //        _pMover->setMvAcce(_iMvAcce_MT);
 }
 
 void MyShip::processBehavior() {
 
-    //ã‚ªãƒªã‚¸ãƒŠãƒ«ã‚·ã‚¹ãƒ†ãƒ  VAMSystemã®å®Ÿè£…
-    // (Viewpoint Adaptive Moving System è¦–ç‚¹é©å¿œå‹ç§»å‹•ã‚·ã‚¹ãƒ†ãƒ )
+    //ƒIƒŠƒWƒiƒ‹ƒVƒXƒeƒ€ VAMSystem‚ÌÀ‘•
+    // (Viewpoint Adaptive Moving System ‹“_“K‰Œ^ˆÚ“®ƒVƒXƒeƒ€)
     _stc = VB::getBeingPressedStick();
     if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-        //å³ã‚µã‚¤ãƒ‰ãƒ“ãƒ¥ãƒ¼(å³ã‹ã‚‰å·¦ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«)
-        if (VB::isPushedDown(VB_UP)) {     // â†‘
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ä¸Š
+        //‰EƒTƒCƒhƒrƒ…[(‰E‚©‚ç¶‚ÖƒXƒNƒ[ƒ‹)
+        if (VB::isPushedDown(VB_UP)) {     // ª
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ã
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // â†’
-            _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //å‰æ–¹
+        if (VB::isPushedDown(VB_RIGHT)) {  // ¨
+            _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //‘O•û
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // â†
-            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //å¾Œæ–¹
+        if (VB::isPushedDown(VB_LEFT)) {   // ©
+            _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //Œã•û
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // â†“
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //ä¸‹
+        if (VB::isPushedDown(VB_DOWN)) {   // «
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //‰º
         }
     } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-        //å·¦ã‚µã‚¤ãƒ‰ãƒ“ãƒ¥ãƒ¼(å·¦ã‹ã‚‰å³ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«)
-        if (VB::isPushedDown(VB_UP)) {     // â†‘
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ä¸Š
+        //¶ƒTƒCƒhƒrƒ…[(¶‚©‚ç‰E‚ÖƒXƒNƒ[ƒ‹)
+        if (VB::isPushedDown(VB_UP)) {     // ª
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ã
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // â†’
-            _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //å¾Œæ–¹
+        if (VB::isPushedDown(VB_RIGHT)) {  // ¨
+            _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //Œã•û
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // â†
-            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //å‰æ–¹
+        if (VB::isPushedDown(VB_LEFT)) {   // ©
+            _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //‘O•û
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // â†“
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //ä¸‹
+        if (VB::isPushedDown(VB_DOWN)) {   // «
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //‰º
         }
     } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-        //ãƒˆãƒƒãƒ—ãƒ“ãƒ¥ãƒ¼(ä¸Šã‹ã‚‰ä¸‹ã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«)
-        if (VB::isPushedDown(VB_UP)) {     // â†‘
-            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //å‰æ–¹
+        //ƒgƒbƒvƒrƒ…[(ã‚©‚ç‰º‚ÖƒXƒNƒ[ƒ‹)
+        if (VB::isPushedDown(VB_UP)) {     // ª
+            _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //‘O•û
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // â†’
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //å³
+        if (VB::isPushedDown(VB_RIGHT)) {  // ¨
+            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //‰E
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // â†
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //å·¦
+        if (VB::isPushedDown(VB_LEFT)) {   // ©
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //¶
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // â†“
-            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //å¾Œæ–¹
+        if (VB::isPushedDown(VB_DOWN)) {   // «
+            _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //Œã•û
         }
     } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-        //ãƒœãƒˆãƒ ãƒ“ãƒ¥ãƒ¼(ä¸‹ã‹ã‚‰ä¸Šã¸ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«)
-        if (VB::isPushedDown(VB_UP)) {     // â†‘
-            _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //å¾Œæ–¹
+        //ƒ{ƒgƒ€ƒrƒ…[(‰º‚©‚çã‚ÖƒXƒNƒ[ƒ‹)
+        if (VB::isPushedDown(VB_UP)) {     // ª
+            _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //Œã•û
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // â†’
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //å³
+        if (VB::isPushedDown(VB_RIGHT)) {  // ¨
+            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //‰E
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // â†
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //å·¦
+        if (VB::isPushedDown(VB_LEFT)) {   // ©
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //¶
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // â†“
-            _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //å‰æ–¹
+        if (VB::isPushedDown(VB_DOWN)) {   // «
+            _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //‘O•û
         }
     } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-        //èƒŒå¾Œãƒ“ãƒ¥ãƒ¼ï¼ˆå¥¥ã‹ã‚‰æ‰‹å‰ã«ã‚¹ã‚¯ãƒ­ãƒ¼ãƒ«ï¼‰
-        if (VB::isPushedDown(VB_UP)) {     // â†‘
-            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ä¸Š
+        //”wŒãƒrƒ…[i‰œ‚©‚çè‘O‚ÉƒXƒNƒ[ƒ‹j
+        if (VB::isPushedDown(VB_UP)) {     // ª
+            _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //ã
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // â†’
-            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //å³
+        if (VB::isPushedDown(VB_RIGHT)) {  // ¨
+            _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //‰E
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // â†
-            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //å·¦
+        if (VB::isPushedDown(VB_LEFT)) {   // ©
+            _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //¶
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // â†“
-            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //ä¸‹
+        if (VB::isPushedDown(VB_DOWN)) {   // «
+            _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //‰º
         }
     }
     if (VB::isReleasedUp(VB_UP)) {
-        _way_switch.OFF_UP();    // â†‘ ã‚’é›¢ã™
+        _way_switch.OFF_UP();    // ª ‚ğ—£‚·
     }
     if (VB::isReleasedUp(VB_RIGHT)) {
-        _way_switch.OFF_RIGHT(); // â†’ ã‚’é›¢ã™
+        _way_switch.OFF_RIGHT(); // ¨ ‚ğ—£‚·
     }
     if (VB::isReleasedUp(VB_LEFT)) {
-        _way_switch.OFF_LEFT();  // â† ã‚’é›¢ã™
+        _way_switch.OFF_LEFT();  // © ‚ğ—£‚·
     }
     if (VB::isReleasedUp(VB_DOWN)) {
-        _way_switch.OFF_DOWN();  // â†“ ã‚’é›¢ã™
+        _way_switch.OFF_DOWN();  // « ‚ğ—£‚·
     }
-    _way = (MoveWay)(_way_switch.getIndex()); //ä¸Šè¨˜ã‚’è€ƒæ…®ã•ã‚ŒãŸæ–¹å‘å€¤ãŒå…¥ã‚‹
+    _way = (MoveWay)(_way_switch.getIndex()); //ã‹L‚ğl—¶‚³‚ê‚½•ûŒü’l‚ª“ü‚é
 
     if (VB::isBeingPressed(VB_OPTION)) {
         int tmp = _iMoveSpeed;
-        _iMoveSpeed = _iMoveSpeed / 8; //ã‚ªãƒ—ã‚·ãƒ§ãƒ³æ“ä½œä¸­ç§»å‹•ã¯é…ã„
-        (this->*paFuncMove[_way])();   //æ–¹å‘å€¤ã«å¿œã˜ãŸç§»å‹•å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
+        _iMoveSpeed = _iMoveSpeed / 8; //ƒIƒvƒVƒ‡ƒ“‘€ì’†ˆÚ“®‚Í’x‚¢
+        (this->*paFuncMove[_way])();   //•ûŒü’l‚É‰‚¶‚½ˆÚ“®ˆ—ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·
         _iMoveSpeed = tmp;
     } else {
-        (this->*paFuncMove[_way])();   //æ–¹å‘å€¤ã«å¿œã˜ãŸç§»å‹•å‡¦ç†ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³å‡ºã™
+        (this->*paFuncMove[_way])();   //•ûŒü’l‚É‰‚¶‚½ˆÚ“®ˆ—ƒƒ\ƒbƒh‚ğŒÄ‚Ño‚·
     }
 
     if (VB::isPushedDown(VB_TURBO)) {
-        //ã‚¿ãƒ¼ãƒœé–‹å§‹æ™‚
+        //ƒ^[ƒ{ŠJn
         _pEffectTurbo002->activate();
         _pEffectTurbo002->setGeometry(this);
         (this->*paFuncTurbo[_way])();
     } else {
-        //Notã‚¿ãƒ¼ãƒœé–‹å§‹æ™‚
+        //Notƒ^[ƒ{ŠJn
         if (VB::isBeingPressed(VB_TURBO)) {
-            //ã‚¿ãƒ¼ãƒœã‚’æŠ¼ã—ç¶šã‘ã‚‹ã“ã¨ã§ã€ç§»å‹•è·é›¢ã‚’ä¼¸ã°ã™
+            //ƒ^[ƒ{‚ğ‰Ÿ‚µ‘±‚¯‚é‚±‚Æ‚ÅAˆÚ“®‹——£‚ğL‚Î‚·
             _pMover->_veloVxMv *= 0.95;
             _pMover->_veloVyMv *= 0.95;
             _pMover->_veloVzMv *= 0.95;
@@ -334,8 +334,8 @@ void MyShip::processBehavior() {
         }
     }
 
-    //ã‚¹ãƒ”ãƒ³ãŒå‹¢ã„ã‚ˆãå›ã£ã¦ã„ã‚‹ãªã‚‰ã°é€Ÿåº¦ã‚’å¼±ã‚ã‚‹
-    angvelo MZ = _angRXTopVelo_MZ-3000; //3000ã¯é€šå¸¸æ—‹å›æ™‚ã«é€Ÿåº¦ã‚’å¼±ã‚ã¦_angRXTopVelo_MZã‚’è¶…ãˆãªã„ã‚ˆã†ã«ã™ã‚‹ãŸã‚ã€ã‚„ã‚„æ‰‹å‰ã§æ¸›é€Ÿã™ã‚‹ã¨è¨€ã†æ„å‘³ï¼ˆTODO:è¦èª¿æ•´ï¼‰ã€‚
+    //ƒXƒsƒ“‚ª¨‚¢‚æ‚­‰ñ‚Á‚Ä‚¢‚é‚È‚ç‚Î‘¬“x‚ğã‚ß‚é
+    angvelo MZ = _angRXTopVelo_MZ-3000; //3000‚Í’Êíù‰ñ‚É‘¬“x‚ğã‚ß‚Ä_angRXTopVelo_MZ‚ğ’´‚¦‚È‚¢‚æ‚¤‚É‚·‚é‚½‚ßA‚â‚âè‘O‚ÅŒ¸‘¬‚·‚é‚ÆŒ¾‚¤ˆÓ–¡iTODO:—v’²®jB
     if (_pMover->_angveloFace[AXIS_X] >= MZ) {
         _pMover->_angveloFace[AXIS_X] *= 0.93;
         //_pMover->setFaceAngAcce(AXIS_X, -1*_angRXAcce_MZ*2);
@@ -344,7 +344,7 @@ void MyShip::processBehavior() {
         //_pMover->setFaceAngAcce(AXIS_X, _angRXAcce_MZ*2);
     }
 
-    //å·¦å³ãŒæœªå…¥åŠ›ãªã‚‰ã€æ©Ÿä½“ã‚’æ°´å¹³ã«ã™ã‚‹ï¼ˆä½†ã—å‹¢ã„ã‚ˆãå›ã£ã¦ã„ãªã„å ´åˆã«é™ã‚‹ã€‚setStopTarget_FaceAngã®ç¬¬4å¼•æ•°ã‚ˆã‚Šè§’é€Ÿåº¦ãŒã‚†ã‚‹ã„å ´åˆå—ã‘å…¥ã‚Œï¼‰
+    //¶‰E‚ª–¢“ü—Í‚È‚çA‹@‘Ì‚ğ…•½‚É‚·‚éi’A‚µ¨‚¢‚æ‚­‰ñ‚Á‚Ä‚¢‚È‚¢ê‡‚ÉŒÀ‚éBsetStopTarget_FaceAng‚Ì‘æ4ˆø”‚æ‚èŠp‘¬“x‚ª‚ä‚é‚¢ê‡ó‚¯“ü‚êj
     if (VB::isBeingPressed(VB_LEFT) || VB::isBeingPressed(VB_RIGHT)) {
 
     } else {
@@ -368,7 +368,7 @@ void MyShip::processBehavior() {
     }
 
 
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
     _pSeReflector->behave();
 
@@ -396,10 +396,10 @@ void MyShip::processBehavior() {
 }
 
 void MyShip::processJudgement() {
-    //ã‚·ãƒ§ãƒƒãƒˆé–¢é€£å‡¦ç†
+    //ƒVƒ‡ƒbƒgŠÖ˜Aˆ—
     if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
 
-        //GgafActorDispatcherã®æ€§è³ªä¸Šã€æœ«å°¾ã‚¢ã‚¯ã‚¿ãƒ¼ãŒ play ã—ã¦ã„ãªã‘ã‚Œã°ã€å…¨ã¦ã®è¦ç´ ãŒ play ã—ã¦ã„ãªã„ã“ã¨ã«ãªã‚‹?ã€‚
+        //GgafActorDispatcher‚Ì«¿ãA––”öƒAƒNƒ^[‚ª play ‚µ‚Ä‚¢‚È‚¯‚ê‚ÎA‘S‚Ä‚Ì—v‘f‚ª play ‚µ‚Ä‚¢‚È‚¢‚±‚Æ‚É‚È‚é?B
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaser != NULL) {
             pLaser->activate();
@@ -409,7 +409,7 @@ void MyShip::processJudgement() {
         }
     }
 
-    //ã‚·ãƒ§ãƒƒãƒˆãƒœã‚¿ãƒ³
+    //ƒVƒ‡ƒbƒgƒ{ƒ^ƒ“
     if (VB::isPushedDown(VB_SHOT1)) {
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
@@ -439,7 +439,7 @@ void MyShip::processJudgement() {
 
 void MyShip::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ã“ã“ã«ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
     _pSeReflector->play3D(0);
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
@@ -447,7 +447,7 @@ void MyShip::onHit(GgafActor* prm_pOtherActor) {
         pExplo001->activate();
     }
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
 
 
     }
@@ -488,17 +488,17 @@ void MyShip::equipOption() {
 
 
 bool MyShip::isDoublePushedDown(vbsta prm_VB) {
-    //éå»ã«é¡ã‚ŠãªãŒã‚‰æ¤œè¨¼
+    //‰ß‹‚É‘k‚è‚È‚ª‚çŒŸØ
     static VB::VBMap* pVBMap;
     DWORD dwFrameApply;
     DWORD dwFrameAgo = 1;
     pVBMap = VB::getPastVBMap(dwFrameAgo);
-    //ç›´å‰ã¯å¿…ãšæŠ¼ã•ã‚Œã¦ã„ã¦ã¯é§„ç›®ã€ãƒ‹ãƒ¥ãƒ¼ãƒˆãƒ©ãƒ«ã§ãªã‘ã‚Œã°ã ã‚
+    //’¼‘O‚Í•K‚¸‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í‘Ê–ÚAƒjƒ…[ƒgƒ‰ƒ‹‚Å‚È‚¯‚ê‚Î‚¾‚ß
     if ((pVBMap->_state & prm_VB) == 0) {
 
         dwFrameAgo++;
-        //ãã®å‰ã®5ãƒ•ãƒ¬ãƒ¼ãƒ ä»¥å†…ã®ã©ã“ã‹ã§æŠ¼ã—ã¦ã„ãªã‘ã‚Œã°ãªã‚‰ãªã„
-        dwFrameApply = dwFrameAgo + 7;//è¨±å®¹ãƒ•ãƒ¬ãƒ¼ãƒ 
+        //‚»‚Ì‘O‚Ì5ƒtƒŒ[ƒ€ˆÈ“à‚Ì‚Ç‚±‚©‚Å‰Ÿ‚µ‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
+        dwFrameApply = dwFrameAgo + 7;//‹–—eƒtƒŒ[ƒ€
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
             if (pVBMap->_state & prm_VB) {
@@ -506,11 +506,11 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
             }
         }
         if (dwFrameAgo >= dwFrameApply) {
-            return false; //ä¸åˆæ ¼
+            return false; //•s‡Ši
         }
 
-        //ã•ã‚‰ã«ãã“ã‹ã‚‰ä»¥å‰5ãƒ•ãƒ¬ãƒ¼ãƒ ä»¥å†…ã®ã©ã“ã‹ã§æŠ¼ã•ã‚Œã¦ã„ã¦ã¯é§„ç›®
-        dwFrameApply = dwFrameAgo + 7;//è¨±å®¹ãƒ•ãƒ¬ãƒ¼ãƒ 
+        //‚³‚ç‚É‚»‚±‚©‚çˆÈ‘O5ƒtƒŒ[ƒ€ˆÈ“à‚Ì‚Ç‚±‚©‚Å‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í‘Ê–Ú
+        dwFrameApply = dwFrameAgo + 7;//‹–—eƒtƒŒ[ƒ€
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
             pVBMap = VB::getPastVBMap(dwFrameAgo);
             if ((pVBMap->_state & prm_VB) == 0) {
@@ -519,7 +519,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
             }
         }
         if (dwFrameAgo >= dwFrameApply) {
-            return false; //ä¸åˆæ ¼
+            return false; //•s‡Ši
         }
         return true;
 

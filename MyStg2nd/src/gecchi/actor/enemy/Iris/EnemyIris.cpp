@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,7 +13,7 @@ EnemyIris::EnemyIris(const char* prm_name) : DefaultMeshSetActor(prm_name, "Iris
     _pDispatcher_Shot = NULL;
     _pDispatcher_ShotEffect = NULL;
     _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //çˆ†ç™º
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyIris::onCreateModel() {
@@ -34,29 +34,29 @@ void EnemyIris::initialize() {
 void EnemyIris::onActive() {
     MyStgUtil::resetEnemyIrisStatus(_pStatus);
     if (_pProgram_IrisMove) {
-        _pMover->executeSplineMoveProgram(_pProgram_IrisMove, 0); //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ã‚’ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã—ã¦ãŠã
+        _pMover->executeSplineMoveProgram(_pProgram_IrisMove, 0); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğƒvƒƒOƒ‰ƒ€‚µ‚Ä‚¨‚­
     }
     _iMovePatternNo = 0;
 }
 
 void EnemyIris::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
-        //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ä¸­
+        //ƒXƒvƒ‰ƒCƒ“ˆÚ“®’†
         if (!(_pProgram_IrisMove->isExecuting())) {
-            _iMovePatternNo++; //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ãŒçµ‚äº†ã—ãŸã‚‰æ¬¡ã®è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã¸
+            _iMovePatternNo++; //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ªI—¹‚µ‚½‚çŸ‚Ìs“®ƒpƒ^[ƒ“‚Ö
         }
     }
 
     if (_iMovePatternNo == 1) {
-        //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•çµ‚äº†æ™‚
+        //ƒXƒvƒ‰ƒCƒ“ˆÚ“®I—¹
         _pMover->execTagettingMvAngSequence(pMYSHIP->_X, pMYSHIP->_Y, pMYSHIP->_Z,
                                             3000, 0,
                                             TURN_CLOSE_TO);
         if (_pDispatcher_Shot) {
-            //æ”¾å°„çŠ¶ã‚·ãƒ§ãƒƒãƒˆç™ºå°„
+            //•úËóƒVƒ‡ƒbƒg”­Ë
             int way = 5+5*_RANK_;
             angle* paAngWay = new angle[way];
             GgafDx9Util::getRadiationAngle2D(0, way, paAngWay);
@@ -71,7 +71,7 @@ void EnemyIris::processBehavior() {
                 }
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-            //ã‚·ãƒ§ãƒƒãƒˆç™ºå°„ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+            //ƒVƒ‡ƒbƒg”­ËƒGƒtƒFƒNƒg
             if (_pDispatcher_ShotEffect) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {
@@ -80,12 +80,12 @@ void EnemyIris::processBehavior() {
             }
 
         }
-        _iMovePatternNo++; //æ¬¡ã®è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã¸
+        _iMovePatternNo++; //Ÿ‚Ìs“®ƒpƒ^[ƒ“‚Ö
     }
 
     if (_iMovePatternNo == 2) {
         if (_Z-10000 < pMYSHIP->_Z && pMYSHIP->_Z < _Z+10000) {
-            //è‡ªæ©Ÿã¨Zè»¸ãŒæ¥è¿‘
+            //©‹@‚ÆZ²‚ªÚ‹ß
             _pMover->execTagettingMvAngSequence(MyShip::_lim_behaind - 500000 , _Y, _Z,
                                                        2000, 0,
                                                        TURN_CLOSE_TO);

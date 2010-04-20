@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -10,21 +10,21 @@ EnemyCeresShot001::EnemyCeresShot001(const char* prm_name) : DefaultMeshSetActor
     MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
     inactivateTree();
 
-    /** å‡ºç¾æ™‚ã®åˆé€Ÿ */
+    /** oŒ»‚Ì‰‘¬ */
     _iMvVelo_1st = 13000;
-    /** å‡ºç¾æ™‚ã®åŠ é€Ÿåº¦ï¼ˆè² ã§é…ããªã‚‹ï¼‰ */
+    /** oŒ»‚Ì‰Á‘¬“xi•‰‚Å’x‚­‚È‚éj */
     _iMoveAcce_1st = -150;
-    /** è‡ªèº«ãŒå‡ºç¾ã—ã¦ã‹ã‚‰ã€æ™‚æ©Ÿã®æ–¹å‘ã«æ–¹å‘è»¢æ›ã‚’é–‹å§‹ã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** ©g‚ªoŒ»‚µ‚Ä‚©‚çA‹@‚Ì•ûŒü‚É•ûŒü“]Š·‚ğŠJn‚·‚éƒtƒŒ[ƒ€ */
     _dwFrame_TurnBegin = 60;
-    /** ç§»å‹•é€Ÿåº¦ä¸Šé™ */
+    /** ˆÚ“®‘¬“xãŒÀ */
     _iMvVelo_Top = 30000;
-    /** æœ€ä½ä¿è¨¼ç§»å‹•é€Ÿåº¦ */
+    /** Å’á•ÛØˆÚ“®‘¬“x */
     _iMvVelo_Bottom = 0;
-    /** æ–¹å‘è»¢æ›ã«è²»ã‚„ã™ã“ã¨ãŒã§ãã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** •ûŒü“]Š·‚É”ï‚â‚·‚±‚Æ‚ª‚Å‚«‚éƒtƒŒ[ƒ€” */
     _dwFrameInterval_Turn = 400;
-    /** æ–¹å‘è»¢æ›ä¸­ã®è§’é€Ÿåº¦ã‚¢ãƒ³ã‚°ãƒ«å€¤(æ­£ã®å€¤) */
+    /** •ûŒü“]Š·’†‚ÌŠp‘¬“xƒAƒ“ƒOƒ‹’l(³‚Ì’l) */
     _angVelo_Turn = 7000;
-    /** æ–¹å‘è»¢æ›ã‚’é–‹å§‹ï¼ˆ_dwFrame_TurnBeginï¼‰ã‹ã‚‰å†è¨­å®šã•ã‚Œã‚‹åŠ é€Ÿåº¦ */
+    /** •ûŒü“]Š·‚ğŠJni_dwFrame_TurnBeginj‚©‚çÄİ’è‚³‚ê‚é‰Á‘¬“x */
     _iMoveAcce_2nd = 100;
 	_pSeReflector->useSe(1);
 	_pSeReflector->set(0, "break_glass01", GgafRepeatSeq::nextVal("CH_break_glass01"));
@@ -42,7 +42,7 @@ void EnemyCeresShot001::initialize() {
 void EnemyCeresShot001::onActive() {
     MyStgUtil::resetEnemyCeresShot001Status(_pStatus);
 
-    //å‡ºç¾æ™‚
+    //oŒ»
     _pMover->setMvVelo(_iMvVelo_1st);
     _pMover->setMvAcce(_iMoveAcce_1st);
 
@@ -50,10 +50,10 @@ void EnemyCeresShot001::onActive() {
 }
 
 void EnemyCeresShot001::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    //æ–¹å‘è»¢æ›é–‹å§‹
+    //•ûŒü“]Š·ŠJn
     if (getPartFrame() == _dwFrame_TurnBegin) {
 
         _pMover->execTagettingMvAngSequence(GameGlobal::_pMyShip,
@@ -62,7 +62,7 @@ void EnemyCeresShot001::processBehavior() {
         _pMover->setMvAcce(_iMoveAcce_2nd);
     }
 
-    //æ–¹å‘è»¢æ›çµ‚äº†
+    //•ûŒü“]Š·I—¹
     if (getPartFrame() == _dwFrame_TurnBegin + _dwFrameInterval_Turn) {
         _pMover->setRzMvAngVelo(0);
         _pMover->setRyMvAngVelo(0);
@@ -71,7 +71,7 @@ void EnemyCeresShot001::processBehavior() {
     }
 
     //behaveUvFlip();
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
 	//_pSeReflector->behave();
 }
@@ -84,9 +84,9 @@ void EnemyCeresShot001::processJudgement() {
 
 void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ã“ã“ã«ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
         _pSeReflector->play3D(0);
         setHitAble(false);
         inactivate();
@@ -100,7 +100,7 @@ void EnemyCeresShot001::onHit(GgafActor* prm_pOtherActor) {
 }
 
 void EnemyCeresShot001::onInactive() {
-    //ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ã«æˆ»ã‚‹ã ã‘ãªã®ã§sayonaraä¸è¦ï¼Ÿ
+    //ƒfƒBƒXƒpƒbƒ`ƒƒ‚É–ß‚é‚¾‚¯‚È‚Ì‚Åsayonara•s—vH
     //sayonara();
 }
 

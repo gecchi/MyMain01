@@ -1,4 +1,4 @@
-Ôªø#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,10 +20,10 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
 
     _pDispatcher_EnemyMeshShots001 = NEW GgafActorDispatcher("FmtCeres002_RotEnemyMeshS001");
     EnemyMeshShot001* pEnemyMeshShot;
-    for (int i = 0; i < 30; i++) { //Âºæ„Çπ„Éà„ÉÉ„ÇØ
+    for (int i = 0; i < 30; i++) { //íeÉXÉgÉbÉN
         Sleep(1);
         pEnemyMeshShot = NEW EnemyMeshShot001("EnemyMeshShot");
-        pEnemyMeshShot->inactivate(); //ÊúÄÂàùÈùûË°®Á§∫
+        pEnemyMeshShot->inactivate(); //ç≈èâîÒï\é¶
         _pDispatcher_EnemyMeshShots001->addSubLast(pEnemyMeshShot);
     }
 
@@ -31,7 +31,7 @@ FormationCeres002::FormationCeres002(const char* prm_name) : FormationActor(prm_
 }
 
 void FormationCeres002::initialize() {
-    //Âá∫Áèæ‰∫àÁ¥Ñ
+    //èoåªó\ñÒ
     for (int i = 0; i < NUM_CERES_FORMATION002; i++) {
         _pEnemyCeres[i]->activateAfter(i * 80 + 1);
     }

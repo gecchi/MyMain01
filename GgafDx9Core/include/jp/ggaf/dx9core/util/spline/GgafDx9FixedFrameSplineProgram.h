@@ -1,9 +1,9 @@
-﻿#ifndef GGAFDX9FIXEDFRAMESPLINEPROGRAM_H_
+#ifndef GGAFDX9FIXEDFRAMESPLINEPROGRAM_H_
 #define GGAFDX9FIXEDFRAMESPLINEPROGRAM_H_
 namespace GgafDx9Core {
 
 /**
- * 定時間スプライン曲線、なめらかなフレーム数指定移動のための情報セット
+ * �莞�ԃX�v���C���Ȑ��A�Ȃ߂炩�ȃt���[�����w��ړ��̂��߂̏��Z�b�g
  * @version 1.00
  * @since 2009/10/28
  * @author Masatoshi Tsuge
@@ -11,42 +11,42 @@ namespace GgafDx9Core {
 class GgafDx9FixedFrameSplineProgram : public GgafDx9SplineProgram {
 
 public:
-    /** １区間の使用可能フレーム */
+    /** �P��Ԃ̎g�p�\�t���[�� */
     DWORD _SPframe_segment;
-    /** 次の補完点までの距離のテーブル */
+    /** ���̕⊮�_�܂ł̋����̃e�[�u�� */
     int* _paDistace_to;
-    /** 次の補完点到達に必要な移動速度のテーブル */
+    /** ���̕⊮�_���B�ɕK�v�Ȉړ����x�̃e�[�u�� */
     velo* _paSPMvVeloTo;
-    /** 方向転換に許されるRzRyの軸転速度 */
+    /** �����]���ɋ������RzRy�̎��]���x */
     angvelo _angFaceMove;
-    /** 目標地点に到着までに設定されたフレーム数 */
+    /** �ڕW�n�_�ɓ����܂łɐݒ肳�ꂽ�t���[���� */
     DWORD _spent_frame;
 
-    /** オプション 0:絶対座標移動、1:始点をActorの現座標とみなし、そこからの相対座標移動 */
+    /** �I�v�V���� 0:��΍��W�ړ��A1:�n�_��Actor�̌����W�Ƃ݂Ȃ��A��������̑��΍��W�ړ� */
     int _option;
     int _X_relative;
     int _Y_relative;
     int _Z_relative;
 
     /**
-     * コンストラクタ
+     * �R���X�g���N�^
      */
     GgafDx9FixedFrameSplineProgram();
 
 
     /**
-     * コンストラクタ.
-     * 引数から内部でGgafDx9Spline3Dを生成しスプライン曲線補完点を計算します。
-     * GgafDx9Spline3Dオブジェクトの解放も内部で行われます。
-     * @param prm_paaCriteriaPoint 基点配列
-     * @param prm_point_num  基点配列の要素数
-     * @param prm_accuracy  1基点の精度（荒い 1.0 〜 0.0 細かい)、
-     *                      基点と基点の間を1とした場合の、補完点の入り具合（細やかさ）を指定。
-     *                      1の場合基点から次基点まで何も無い（直線）。
-     *                      0.5 とすると基点から次基点までに補完点は1つ入る。
-     *                      0.1 とすると基点と基点の間に補完点は9つ。
-     * @param prm_spent_frame 始点〜終点へ移動するのに費やすフレーム数
-     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
+     * �R���X�g���N�^.
+     * �������������GgafDx9Spline3D�𐶐����X�v���C���Ȑ��⊮�_���v�Z���܂��B
+     * GgafDx9Spline3D�I�u�W�F�N�g�̉���������ōs���܂��B
+     * @param prm_paaCriteriaPoint ��_�z��
+     * @param prm_point_num  ��_�z��̗v�f��
+     * @param prm_accuracy  1��_�̐��x�i�r�� 1.0 �` 0.0 �ׂ���)�A
+     *                      ��_�Ɗ�_�̊Ԃ�1�Ƃ����ꍇ�́A�⊮�_�̓����i�ׂ₩���j���w��B
+     *                      1�̏ꍇ��_���玟��_�܂ŉ��������i�����j�B
+     *                      0.5 �Ƃ���Ɗ�_���玟��_�܂łɕ⊮�_��1����B
+     *                      0.1 �Ƃ���Ɗ�_�Ɗ�_�̊Ԃɕ⊮�_��9�B
+     * @param prm_spent_frame �n�_�`�I�_�ֈړ�����̂ɔ�₷�t���[����
+     * @param prm_angFaceMove ����\��1�t���[��������̉�]�p (1000 �� 1�x)
      */
     GgafDx9FixedFrameSplineProgram(double prm_paaCriteriaPoint[][3],
                                    int prm_point_num,
@@ -54,12 +54,12 @@ public:
                                    DWORD prm_spent_frame,
                                    angvelo prm_angFaceMove);
     /**
-     * コンストラクタ.
-     * 引数のGgafDx9Spline3Dを利用します。GgafDx9Spline3Dの解放は、呼び出し元で行ってください。
-     * たくさんのオブジェクトに同じ動きをさせる場合は、こちらのコンストラクタで生成すべきです。
-     * @param prm_sp スプライン曲線の補完点生成、保持クラスのインスタンス
-     * @param prm_spent_frame 始点〜終点へ移動するのに許されるフレーム数
-     * @param prm_angFaceMove 旋回可能な1フレームあたりの回転角 (1000 が 1度)
+     * �R���X�g���N�^.
+     * ������GgafDx9Spline3D�𗘗p���܂��BGgafDx9Spline3D�̉���́A�Ăяo�����ōs���Ă��������B
+     * ��������̃I�u�W�F�N�g�ɓ���������������ꍇ�́A������̃R���X�g���N�^�Ő������ׂ��ł��B
+     * @param prm_sp �X�v���C���Ȑ��̕⊮�_�����A�ێ��N���X�̃C���X�^���X
+     * @param prm_spent_frame �n�_�`�I�_�ֈړ�����̂ɋ������t���[����
+     * @param prm_angFaceMove ����\��1�t���[��������̉�]�p (1000 �� 1�x)
      * @return
      */
     GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* prm_sp,
@@ -67,21 +67,21 @@ public:
                                    angvelo prm_angFaceMove);
 
     /**
-     * 初期化関数 .
-     * コンストラクタが利用。
+     * �������֐� .
+     * �R���X�g���N�^�����p�B
      */
     void init();
 
     /**
-     * スプライン曲線利用のフレーム数指定移動プログラム開始
-     * @param prm_pActor 対象のアクター
-     * @param prm_option オプション 0:絶対座標移動／1:始点をActorの現座標とみなし、そこからの相対座標移動
+     * �X�v���C���Ȑ����p�̃t���[�����w��ړ��v���O�����J�n
+     * @param prm_pActor �Ώۂ̃A�N�^�[
+     * @param prm_option �I�v�V���� 0:��΍��W�ړ��^1:�n�_��Actor�̌����W�Ƃ݂Ȃ��A��������̑��΍��W�ړ�
      */
     void begin(GgafDx9GeometricActor* prm_pActor, int prm_option = 0);
 
     /**
-     * 移動実行メソッド .
-     * 移動のために毎フレームこのメソッドを呼び出す必要があります。
+     * �ړ����s���\�b�h .
+     * �ړ��̂��߂ɖ��t���[�����̃��\�b�h���Ăяo���K�v������܂��B
      */
     void behave();
 

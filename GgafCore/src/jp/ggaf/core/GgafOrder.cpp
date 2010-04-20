@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -18,7 +18,7 @@ GgafOrder::GgafOrder(unsigned long prm_id) {
 }
 
 GgafOrder::~GgafOrder() {
-    //å•†å“ _pObject_Creation ã¯å·¥å ´ãŒç”Ÿæˆã™ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã€‚
+    //¤•i _pObject_Creation ‚ÍHê‚ª¶¬‚·‚é‚©‚à‚µ‚ê‚È‚¢B
     DELETE_POSSIBLE_NULL(_pObject_Creation);
 }
 

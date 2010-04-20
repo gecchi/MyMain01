@@ -1,10 +1,10 @@
-ï»¿#ifndef GROUNDMESHACTOR_H_
+#ifndef GROUNDMESHACTOR_H_
 #define GROUNDMESHACTOR_H_
 namespace MyStg2nd {
 
 /**
- * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
- * GgafDx9Core::GgafDx9MeshActor ã‚’ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
+ * ƒƒbƒVƒ…ƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
+ * GgafDx9Core::GgafDx9MeshActor ‚ğ‹óÀ‘•‚µ‚½‹ïÛƒAƒNƒ^[‚Å‚·B
  */
 class GroundMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 
@@ -27,7 +27,7 @@ public:
     }
 
 //    /**
-//     * ãƒ•ãƒ¬ãƒ¼ãƒ ãƒ¯ãƒ¼ã‚¯ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+//     * ƒtƒŒ[ƒ€ƒ[ƒNƒI[ƒo[ƒ‰ƒCƒh
 //     */
 //    virtual void processPreDraw() override;
     virtual void processDraw() override;

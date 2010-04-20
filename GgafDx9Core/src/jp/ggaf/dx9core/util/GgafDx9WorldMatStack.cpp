@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -9,43 +9,43 @@ GgafDx9WorldMatStack::GgafDx9WorldMatStack(void) {
 GgafDx9WorldMatStack::~GgafDx9WorldMatStack(void) {
 }
 
-// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã®è¨­å®š
+// ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚Ìİ’è
 void GgafDx9WorldMatStack::SetWorldMatrix(D3DXMATRIX* worldmat) {
     m_WorldTransMatrix = *worldmat;
 }
 
 void GgafDx9WorldMatStack::UpdateFrame(D3DXFRAME_WORLD* frame) {
-    // ã‚¹ã‚¿ãƒƒã‚¯ã®åˆæœŸåŒ–
+    // ƒXƒ^ƒbƒN‚Ì‰Šú‰»
     while (!m_MatrixStack.empty())
         m_MatrixStack.pop();
 
-    // æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ãƒªã‚¹ãƒˆã®åˆæœŸåŒ–
+    // •`‰æƒtƒŒ[ƒ€ƒŠƒXƒg‚Ì‰Šú‰»
     m_DrawFrameList.clear();
 
-    // ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’ã‚¹ã‚¿ãƒƒã‚¯ã«ç©ã‚€
+    // ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğƒXƒ^ƒbƒN‚ÉÏ‚Ş
     m_MatrixStack.push(&m_WorldTransMatrix);
 
-    // ãƒ«ãƒ¼ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ ã‹ã‚‰ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’é€£ç¶šè¨ˆç®—
+    // ƒ‹[ƒgƒtƒŒ[ƒ€‚©‚çƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğ˜A‘±ŒvZ
     CalcFrameWorldMatrix(frame);
 }
 
 void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
-    // ç¾åœ¨ã®ã‚¹ã‚¿ãƒƒã‚¯ã®å…ˆé ­ã«ã‚ã‚‹ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’å‚ç…§
+    // Œ»İ‚ÌƒXƒ^ƒbƒN‚Ìæ“ª‚É‚ ‚éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğQÆ
     D3DXMATRIX *pStackMat = m_MatrixStack.top();
 
     D3DXMatrixMultiply(&(frame->WorldTransMatrix), &(frame->TransformationMatrix), pStackMat);
 
     if (frame->pMeshContainer != NULL) {
-        //_TRACE_("ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠãŒã‚ã‚Š");
-        // å¼•æ•°ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«å¯¾å¿œã™ã‚‹ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’è¨ˆç®—
+        //_TRACE_("ƒtƒŒ[ƒ€‚ÉƒƒbƒVƒ…ƒRƒ“ƒeƒi‚ª‚ ‚è");
+        // ˆø”‚ÌƒtƒŒ[ƒ€‚É‘Î‰‚·‚éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğŒvZ
         m_DrawFrameList.push_back(frame);
     }
 
 
-//    // ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠãŒã‚ã‚Œã°ã€ã“ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ ã™ã‚‹
+//    // ƒtƒŒ[ƒ€‚ÉƒƒbƒVƒ…ƒRƒ“ƒeƒi‚ª‚ ‚ê‚ÎA‚±‚ÌƒtƒŒ[ƒ€‚ğƒŠƒXƒg‚É’Ç‰Á‚·‚é
 //    if (frame->pMeshContainer != NULL) {
-//        _TRACE_("ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãƒ¡ãƒƒã‚·ãƒ¥ã‚³ãƒ³ãƒ†ãƒŠãŒã‚ã‚Š");
-//        // å¼•æ•°ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã«å¯¾å¿œã™ã‚‹ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‚’è¨ˆç®—
+//        _TRACE_("ƒtƒŒ[ƒ€‚ÉƒƒbƒVƒ…ƒRƒ“ƒeƒi‚ª‚ ‚è");
+//        // ˆø”‚ÌƒtƒŒ[ƒ€‚É‘Î‰‚·‚éƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ğŒvZ
 //        D3DXMatrixMultiply(&frame->WorldTransMatrix, &frame->TransformationMatrix, pStackMat);
 //        m_DrawFrameList.push_back(frame);
 //    } else {
@@ -53,21 +53,21 @@ void GgafDx9WorldMatStack::CalcFrameWorldMatrix(D3DXFRAME_WORLD* frame) {
 //        m_DrawFrameList.push_back(frame);
 //    }
 
-    // å­ãƒ•ãƒ¬ãƒ¼ãƒ ãŒã‚ã‚Œã°ã‚¹ã‚¿ãƒƒã‚¯ã‚’ç©ã‚“ã§ã€å­ãƒ•ãƒ¬ãƒ¼ãƒ ã®ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›åº§æ¨™ã®è¨ˆç®—ã¸
+    // qƒtƒŒ[ƒ€‚ª‚ ‚ê‚ÎƒXƒ^ƒbƒN‚ğÏ‚ñ‚ÅAqƒtƒŒ[ƒ€‚Ìƒ[ƒ‹ƒh•ÏŠ·À•W‚ÌŒvZ‚Ö
     if (frame->pFrameFirstChild != NULL) {
         m_MatrixStack.push(&(frame->WorldTransMatrix));
         CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame->pFrameFirstChild);
-        m_MatrixStack.pop(); // å­ãƒ•ãƒ¬ãƒ¼ãƒ ãŒã‚‚ã†çµ‚ã‚ã£ãŸã®ã§ã‚¹ã‚¿ãƒƒã‚¯ã‚’1ã¤å¤–ã™
+        m_MatrixStack.pop(); // qƒtƒŒ[ƒ€‚ª‚à‚¤I‚í‚Á‚½‚Ì‚ÅƒXƒ^ƒbƒN‚ğ1‚ÂŠO‚·
     }
 
-    // å…„å¼Ÿãƒ•ãƒ¬ãƒ¼ãƒ ãŒã‚ã‚Œã°ã€Œç¾åœ¨ã®ã€ã‚¹ã‚¿ãƒƒã‚¯ã‚’åˆ©ç”¨
+    // ŒZ’íƒtƒŒ[ƒ€‚ª‚ ‚ê‚ÎuŒ»İ‚ÌvƒXƒ^ƒbƒN‚ğ—˜—p
     if (frame->pFrameSibling != NULL) {
-        //_TRACE_("å…„å¼Ÿãƒ•ãƒ¬ãƒ¼ãƒ ã¸ã„ãã¾ã™");
+        //_TRACE_("ŒZ’íƒtƒŒ[ƒ€‚Ö‚¢‚«‚Ü‚·");
         CalcFrameWorldMatrix((D3DXFRAME_WORLD*)frame->pFrameSibling);
     }
 }
 
-// æç”»ãƒªã‚¹ãƒˆã‚’å–å¾—
+// •`‰æƒŠƒXƒg‚ğæ“¾
 list<D3DXFRAME_WORLD*> *GgafDx9WorldMatStack::GetDrawList() {
     return &m_DrawFrameList;
 }

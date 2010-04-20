@@ -1,9 +1,9 @@
-ï»¿#ifndef GEOELEMENT_H_
+#ifndef GEOELEMENT_H_
 #define GEOELEMENT_H_
 namespace GgafDx9LibStg {
 
 /**
- * åº§æ¨™ã‚³ãƒ³ãƒ†ãƒŠ
+ * À•WƒRƒ“ƒeƒi
  * @version 1.00
  * @since 2008/12/19
  * @author Masatoshi Tsuge

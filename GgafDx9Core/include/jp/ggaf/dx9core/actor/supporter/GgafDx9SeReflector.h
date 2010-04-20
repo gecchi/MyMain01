@@ -1,16 +1,16 @@
-ï»¿#ifndef GGAFDX9SEREFLECTOR_H_
+#ifndef GGAFDX9SEREFLECTOR_H_
 #define GGAFDX9SEREFLECTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ã‚µã‚¦ãƒ³ãƒ‰ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå‡ºåŠ›æ”¯æ´ã‚¯ãƒ©ã‚¹ .
+ * ƒTƒEƒ“ƒhƒGƒtƒFƒNƒgo—Íx‰‡ƒNƒ‰ƒX .
  * @version 1.00
  * @since 2010/04/19
  * @author Masatoshi Tsuge
  */
 class GgafDx9SeReflector : public GgafCore::GgafObject {
 
-    /** SEè³‡æºæ¥ç¶š */
+    /** SE‘Œ¹Ú‘± */
     GgafDx9SeConnection** _papSeCon;
 
 
@@ -18,7 +18,7 @@ public:
     int _se_num;
     GgafDx9GeometricActor* _pActor;
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ .
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ .
      */
     GgafDx9SeReflector(GgafDx9GeometricActor* prm_pActor);
 
@@ -29,7 +29,7 @@ public:
     void updatePanVolume3D();
     void behave();
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * ƒfƒXƒgƒ‰ƒNƒ^
      */
     virtual ~GgafDx9SeReflector();
 };

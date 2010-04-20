@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -33,19 +33,19 @@ void MyCurveLaserChip001::onActive() {
     _pMover->setVzMvAcce(0);
     if (_pOrg->_pLockOnTarget && _pOrg->_pLockOnTarget->isActive()) {
         if (_pChip_front == NULL) {
-            //先端チップ
+            //��[�`�b�v
             _lockon = 1;
         } else {
-            //先端以外
-            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            //��[�ȊO
+            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//��O�̃��b�N�I�����������p��
         }
     } else {
         if (_pChip_front == NULL) {
-            //先端チップ
+            //��[�`�b�v
             _lockon = 0;
         } else {
-            //先端以外
-            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//一つ前のロックオン情報を引き継ぐ
+            //��[�ȊO
+            _lockon = ((MyCurveLaserChip001*) _pChip_front)->_lockon;//��O�̃��b�N�I�����������p��
         }
         _pOrg->_pLockOnTarget = NULL;
     }
@@ -70,7 +70,7 @@ void MyCurveLaserChip001::processBehavior() {
                 _pMover->setVyMvAcce(dy);
                 _pMover->setVzMvAcce(dz);
             } else {
-                _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+                _lockon = 2; //�񃍃b�N�I���i���b�N�I�����񃍃b�N�I���j
             }
         } else {
             _lockon = 2;
@@ -82,7 +82,7 @@ void MyCurveLaserChip001::processBehavior() {
 //            _pMover->addVyMvAcce(_pMover->_acceVyMv);
 //            _pMover->addVzMvAcce(_pMover->_acceVzMv);
         } else if (_pChip_front->_pChip_front == NULL) {
-            //新たなターゲットを作成
+            //�V���ȃ^�[�Q�b�g���쐬
             dx = _pChip_front->_X - (_X + _pMover->_veloVxMv);
             dy = _pChip_front->_Y - (_Y + _pMover->_veloVyMv);
             dz = _pChip_front->_Z - (_Z + _pMover->_veloVzMv);
@@ -115,24 +115,24 @@ void MyCurveLaserChip001::processBehavior() {
     if (_pChip_front == NULL) {
         _pSeReflector->behave();
     }
-    CurveLaserChip::processBehavior();//座標を移動させてから呼び出すこと
+    CurveLaserChip::processBehavior();//���W���ړ������Ă���Ăяo������
 }
 
 void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*) prm_pOtherActor;
     if (_pOrg->_pLockOnTarget) {
         if (pOther == _pOrg->_pLockOnTarget) {
-            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+            _lockon = 2; //�񃍃b�N�I���i���b�N�I�����񃍃b�N�I���j
 
-            //中間先頭チップがヒットした場合の処理。(_chip_kind=3の場合)
+            //���Ԑ擪�`�b�v���q�b�g�����ꍇ�̏����B(_chip_kind=3�̏ꍇ)
             if (_pChip_front && _pChip_front->_pChip_front == NULL) {
-                //先端チップへ今後の方針を伝える。（先端チップは当たり判定がないため）
-                MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //先端チップ
-                pTip->_lockon = 2; //先端に伝える
-                //今後の移動方角(加速度)を伝えるのだが、先端チップや自身や移動方向は、急激な角度に曲がっている可能性が極めて高く
-                //不自然な角度のカーブを描きかねないので、やや後方のチップが存在するならば、そちらの移動方向をコピーする。
+                //��[�`�b�v�֍���̕��j��`����B�i��[�`�b�v�͓����蔻�肪�Ȃ����߁j
+                MyCurveLaserChip001* pTip = (MyCurveLaserChip001*)_pChip_front; //��[�`�b�v
+                pTip->_lockon = 2; //��[�ɓ`����
+                //����̈ړ����p(�����x)��`����̂����A��[�`�b�v�⎩�g��ړ������́A�}���Ȋp�x�ɋȂ����Ă���\�����ɂ߂č���
+                //�s���R�Ȋp�x�̃J�[�u��`�����˂Ȃ��̂ŁA������̃`�b�v�����݂���Ȃ�΁A������̈ړ��������R�s�[����B
                 LaserChip* pChipPrev = this;
-                for (int i = 0; i < 3; i++) { //最高3つ後方まで在れば採用
+                for (int i = 0; i < 3; i++) { //�ō�3����܂ō݂�΍̗p
                     if (pChipPrev->_pChip_behind) {
                         pChipPrev = pChipPrev->_pChip_behind;
                     } else {
@@ -142,9 +142,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
                 pTip->_pMover->setVxMvVelo(pChipPrev->_pMover->_veloVxMv*2);
                 pTip->_pMover->setVyMvVelo(pChipPrev->_pMover->_veloVyMv*2);
                 pTip->_pMover->setVzMvVelo(pChipPrev->_pMover->_veloVzMv*2);
-                //ターゲットに向かっている最中であるため、殆どの場合減速中である。
-                //そのま加速度を設定すると、いずれ逆方向に向かうことになってしまう。。
-                //本来向かうべき方向に近似するため、正負逆を設定する。
+                //�^�[�Q�b�g�Ɍ������Ă���Œ��ł��邽�߁A�w�ǂ̏ꍇ�������ł���B
+                //���̂܉����x��ݒ肷��ƁA������t�����Ɍ��������ƂɂȂ��Ă��܂��B�B
+                //�{���������ׂ������ɋߎ����邽�߁A�����t��ݒ肷��B
                 pTip->_pMover->setVxMvAcce(-(pChipPrev->_pMover->_acceVxMv));
                 pTip->_pMover->setVyMvAcce(-(pChipPrev->_pMover->_acceVyMv));
                 pTip->_pMover->setVzMvAcce(-(pChipPrev->_pMover->_acceVzMv));
@@ -153,9 +153,9 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
     } else {
         _pOrg->_pLockOnTarget = pOther;
     }
-    //ここにMyのヒットエフェクト
+    //������My�̃q�b�g�G�t�F�N�g
     if (MyStgUtil::calcMyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ここにMyの消滅エフェクト
+        //������My�̏��ŃG�t�F�N�g
         inactivate();
     } else {
 
@@ -164,11 +164,11 @@ void MyCurveLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 }
 void MyCurveLaserChip001::processFinal() {
     CurveLaserChip::processFinal();
-    //ロックオンが消滅ならば、切る
+    //���b�N�I�������łȂ�΁A�؂�
     if (_pOrg->_pLockOnTarget) {
         if (_pOrg->_pLockOnTarget->_pStatus->get(STAT_Stamina) <= 0) {
             _pOrg->_pLockOnTarget = NULL;
-            _lockon = 2; //非ロックオン（ロックオン→非ロックオン）
+            _lockon = 2; //�񃍃b�N�I���i���b�N�I�����񃍃b�N�I���j
         }
     }
 }

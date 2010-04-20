@@ -1,12 +1,12 @@
-﻿#ifndef STRAIGHTLASERCHIP_H_
+#ifndef STRAIGHTLASERCHIP_H_
 #define STRAIGHTLASERCHIP_H_
 namespace MyStg2nd {
 
 /**
- * ストレートレーザー用ポリラインのチップ .
- * ストレートレーザーと表現しているが、
- * 正確には発射座標任意、移動方向は発射元座標と向きに追従するレーザーというべきか。
- * グラディウス方式レーザーと言うべきか、そんな感じ。
+ * �X�g���[�g���[�U�[�p�|�����C���̃`�b�v .
+ * �X�g���[�g���[�U�[�ƕ\�����Ă��邪�A
+ * ���m�ɂ͔��ˍ��W�C�ӁA�ړ������͔��ˌ����W�ƌ����ɒǏ]���郌�[�U�[�Ƃ����ׂ����B
+ * �O���f�B�E�X�������[�U�[�ƌ����ׂ����A����Ȋ����B
  * @version 1.00
  * @since 2009/08/25
  * @author Masatoshi Tsuge
@@ -15,25 +15,25 @@ class StraightLaserChip : public LaserChip {
     friend class LaserChipDispatcher;
 
 public:
-    /** レーザーの位置を同期するための、X座標変数場所 */
+    /** ���[�U�[�̈ʒu�𓯊����邽�߂́AX���W�ϐ��ꏊ */
     int* _pSource_X;
-    /** レーザーの位置を同期するための、Y座標変数場所 */
+    /** ���[�U�[�̈ʒu�𓯊����邽�߂́AY���W�ϐ��ꏊ */
     int* _pSource_Y;
-    /** レーザーの位置を同期するための、Z座標変数場所 */
+    /** ���[�U�[�̈ʒu�𓯊����邽�߂́AZ���W�ϐ��ꏊ */
     int* _pSource_Z;
-    /** レーザーの向き方向のを同期するための、X軸回転アングル値変数場所 */
+    /** ���[�U�[�̌��������̂𓯊����邽�߂́AX����]�A���O���l�ϐ��ꏊ */
     angle* _pSource_RX;
-    /** レーザーの向き方向のを同期するための、Y軸回転アングル値変数場所 */
+    /** ���[�U�[�̌��������̂𓯊����邽�߂́AY����]�A���O���l�ϐ��ꏊ */
     angle* _pSource_RY;
-    /** レーザーの向き方向のを同期するための、Z軸回転アングル値変数場所 */
+    /** ���[�U�[�̌��������̂𓯊����邽�߂́AZ����]�A���O���l�ϐ��ꏊ */
     angle* _pSource_RZ;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルX成分変数場所 */
+    /** ���[�U�[�̈ړ������𓯊����邽�߂́A�P�ʕ����x�N�g��X�����ϐ��ꏊ */
     float* _pSource_vX;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルY成分変数場所 */
+    /** ���[�U�[�̈ړ������𓯊����邽�߂́A�P�ʕ����x�N�g��Y�����ϐ��ꏊ */
     float* _pSource_vY;
-    /** レーザーの移動方向を同期するための、単位方向ベクトルZ成分変数場所 */
+    /** ���[�U�[�̈ړ������𓯊����邽�߂́A�P�ʕ����x�N�g��Z�����ϐ��ꏊ */
     float* _pSource_vZ;
-    /** 移動速度 */
+    /** �ړ����x */
     int _veloMv;
 
 

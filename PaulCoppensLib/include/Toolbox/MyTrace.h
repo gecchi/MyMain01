@@ -1,4 +1,4 @@
-﻿#ifndef MYTRACE_H
+#ifndef MYTRACE_H
 #define MYTRACE_H
 
 #include "..\framework\Frm_TBuff.h"

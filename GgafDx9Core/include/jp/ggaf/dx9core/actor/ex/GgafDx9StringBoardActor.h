@@ -1,16 +1,16 @@
-ï»¿#ifndef GGAFDX9STRINGBOARDACTOR_H_
+#ifndef GGAFDX9STRINGBOARDACTOR_H_
 #define GGAFDX9STRINGBOARDACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * æ–‡å­—è¡¨ç¤ºã‚¯ãƒ©ã‚¹(åº§æ¨™å¤‰æ›æ¸ˆã¿).
- * GgafDx9BoardActor ã‚’ç¶™æ‰¿ã—ã€æ–‡å­—ã‚»ãƒƒãƒˆãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ¼ã‹ã‚‰æ–‡å­—è¡¨ç¤ºæ©Ÿèƒ½ã‚’è¿½åŠ ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
+ * •¶š•\¦ƒNƒ‰ƒX(À•W•ÏŠ·Ï‚İ).
+ * GgafDx9BoardActor ‚ğŒp³‚µA•¶šƒZƒbƒgƒeƒNƒXƒ`ƒƒ[‚©‚ç•¶š•\¦‹@”\‚ğ’Ç‰Á‚µ‚½ƒAƒNƒ^[‚Å‚·B
  * @version 1.00
  * @since 2009/04/09
  * @author Masatoshi Tsuge
  */
 class GgafDx9StringBoardActor : public GgafDx9BoardSetActor {
-    /** æ–‡å­—æ•°50æ–‡å­—ã¾ã§ */
+    /** •¶š”50•¶š‚Ü‚Å */
     char* _buf;
     char* _draw_string;
     int _len;
@@ -18,7 +18,7 @@ public:
     /**
      *
      * @param prm_name
-     * @param prm_model æ–‡å­—ã‚»ãƒƒãƒˆãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ãƒ¢ãƒ‡ãƒ«
+     * @param prm_model •¶šƒZƒbƒgƒeƒNƒXƒ`ƒƒ‚Ìƒ‚ƒfƒ‹
      * @return
      */
     GgafDx9StringBoardActor(const char* prm_name, const char* prm_model);
@@ -35,7 +35,7 @@ public:
     virtual void processJudgement() override {
     }
 
-    virtual void processDraw() override; //ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+    virtual void processDraw() override; //ƒI[ƒo[ƒ‰ƒCƒh
 
     virtual void processAfterDraw() override {
     }

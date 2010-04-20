@@ -1,4 +1,4 @@
-ï»¿#ifndef GGAFCRITICALEXCEPTION_H_
+#ifndef GGAFCRITICALEXCEPTION_H_
 #define GGAFCRITICALEXCEPTION_H_
 namespace GgafCore {
 
@@ -10,8 +10,8 @@ namespace GgafCore {
 
 
 /**
- * GgafCoreãƒ©ã‚¤ãƒ–ãƒ©ãƒªå°‚ç”¨ã€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªæ¥­å‹™ä¾‹å¤– .
- * GgafCoreãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆ©ç”¨è€…ï¼ˆç§ã ã‘?ï¼‰ã¯æœ¬ã‚¯ãƒ©ã‚¹ã‚’ã‚­ãƒ£ãƒƒãƒã—ã¦ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ã‚¹ãƒˆãƒƒãƒ—ã—ã¦ä¸‹ã•ã„ã€‚
+ * GgafCoreƒ‰ƒCƒuƒ‰ƒŠê—pAƒ‰ƒCƒuƒ‰ƒŠ‹Æ–±—áŠO .
+ * GgafCoreƒ‰ƒCƒuƒ‰ƒŠ‚Ì—˜—pŽÒiŽ„‚¾‚¯?j‚Í–{ƒNƒ‰ƒX‚ðƒLƒƒƒbƒ`‚µ‚ÄƒvƒƒOƒ‰ƒ€‚ðƒXƒgƒbƒv‚µ‚Ä‰º‚³‚¢B
  * @version 1.00
  * @since 2007/12/03
  * @author Masatoshi Tsuge

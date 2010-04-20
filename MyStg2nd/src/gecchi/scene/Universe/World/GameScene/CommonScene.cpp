@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -10,7 +10,7 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
 
     { //MyShip
         _pMyShip = NEW MyShip("MYSHIP");
-        _pMyShip->inactivateImmediately(); //é…ä¸‹ã«ä»®ç™»éŒ²ã®ã‚¢ã‚¯ã‚¿ãƒ¼ç™ºé€è€…ã¨ã‹ã‚ã‚‹ã—
+        _pMyShip->inactivateImmediately(); //”z‰º‚É‰¼“o˜^‚ÌƒAƒNƒ^[”­‘—ŽÒ‚Æ‚©‚ ‚é‚µ
         getLordActor()->addSubGroup(KIND_MY_BODY_NOMAL, _pMyShip);
     }
 
@@ -18,9 +18,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //EnemyShot001
         _pDispatcher_EnemyShots001 = NEW GgafActorDispatcher("TAMAS001");
         EnemyCeresShot001* pEnemyShot;
-        for (int i = 0; i < 36*7; i++) { //ã‚¹ãƒˆãƒƒã‚¯256å€‹
+        for (int i = 0; i < 36*7; i++) { //ƒXƒgƒbƒN256ŒÂ
             pEnemyShot = NEW EnemyCeresShot001("EnemyCeresShot001");
-            pEnemyShot->inactivateTreeImmediately(); //æœ€åˆéžè¡¨ç¤º
+            pEnemyShot->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
             _pDispatcher_EnemyShots001->addSubLast(pEnemyShot);
         }
         getLordActor()->addSubGroup(_pDispatcher_EnemyShots001);
@@ -29,9 +29,9 @@ CommonScene::CommonScene(const char* prm_name) : DefaultScene(prm_name) {
     { //Effect EffectExplosion001
         _pDispatcher_EffectExplosion001 = NEW GgafActorDispatcher("RotExplo001");
         EffectExplosion001* pEffectExplosion;
-        for (int i = 0; i < 256; i++) { //ã‚¹ãƒˆãƒƒã‚¯100å€‹
+        for (int i = 0; i < 256; i++) { //ƒXƒgƒbƒN100ŒÂ
             pEffectExplosion = NEW EffectExplosion001("EffectExplosion001");
-            pEffectExplosion->inactivateTreeImmediately(); //æœ€åˆéžè¡¨ç¤º
+            pEffectExplosion->inactivateTreeImmediately(); //Å‰”ñ•\Ž¦
             _pDispatcher_EffectExplosion001->addSubLast(pEffectExplosion);
         }
         getLordActor()->addSubGroup(_pDispatcher_EffectExplosion001);

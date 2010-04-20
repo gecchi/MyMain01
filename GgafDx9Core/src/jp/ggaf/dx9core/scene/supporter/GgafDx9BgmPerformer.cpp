@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -35,14 +35,14 @@ void GgafDx9BgmPerformer::fade(int prm_id, DWORD prm_frame, int prm_target_volum
 
 void GgafDx9BgmPerformer::set(int prm_id, const char* prm_bgm_name) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
-        throwGgafCriticalException("GgafDx9GeometricActor::prepareBGM() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(_bgm_num-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::prepareBGM() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_bgm_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
     }
     _papBgmCon[prm_id] = (GgafDx9BgmConnection*)GgafDx9Sound::_pBgmManager->connect(prm_bgm_name);
 }
 
 void GgafDx9BgmPerformer::play(int prm_id, int prm_volume, bool prm_is_loop) {
     if (prm_id < 0 || prm_id >= _bgm_num) {
-        throwGgafCriticalException("GgafDx9GeometricActor::playSe() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(_bgm_num-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9GeometricActor::playSe() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_bgm_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·Bprm_id="<<prm_id);
     }
     _pa_now_volume[prm_id] = (double)prm_volume;
     _pa_is_fade[prm_id] = false;
@@ -55,11 +55,11 @@ void GgafDx9BgmPerformer::behave() {
             _pa_now_volume[id] += _pa_inc_volume[id];
             _papBgmCon[id]->view()->setVolume(_pa_now_volume[id]);
             if (_pa_inc_volume[id] > 0 && _pa_now_volume[id] >= _pa_target_volume[id]) {
-                //å¢—éŸ³é‡æ™‚
+                //‘‰¹—Ê
                 setVolume(id, (int)_pa_target_volume[id]);
                 _pa_is_fade[id] = false;
             } else if (_pa_inc_volume[id] < 0 && _pa_now_volume[id] <= _pa_target_volume[id]) {
-                //æ¸›éŸ³é‡æ™‚
+                //Œ¸‰¹—Ê
                 setVolume(id, (int)_pa_target_volume[id]);
                 _pa_is_fade[id] = false;
             }

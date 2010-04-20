@@ -1,26 +1,26 @@
-﻿#ifndef COLIAABB_H_
+#ifndef COLIAABB_H_
 #define COLIAABB_H_
 namespace GgafDx9LibStg {
 
 /**
- * AABB当たり判定要素クラス
+ * AABB�����蔻��v�f�N���X
  * @version 1.00
  * @since 2008/03/13
  * @author Masatoshi Tsuge
  */
 class ColliBox : public GgafDx9Core::GgafDx9CollisionPart {
 public:
-    /** AABBのx座標の小さい方 */
+    /** AABB��x���W�̏������� */
     int _x1;
-    /** AABBのy座標の小さい方 */
+    /** AABB��y���W�̏������� */
     int _y1;
-    /** AABBのz座標の小さい方 */
+    /** AABB��z���W�̏������� */
     int _z1;
-    /** AABBの対角の頂点となるx座標大きい方 */
+    /** AABB�̑Ίp�̒��_�ƂȂ�x���W�傫���� */
     int _x2;
-    /** AABBの対角の頂点となるy座標大きい方 */
+    /** AABB�̑Ίp�̒��_�ƂȂ�y���W�傫���� */
     int _y2;
-    /** AABBの対角の頂点となるz座標大きい方 */
+    /** AABB�̑Ίp�̒��_�ƂȂ�z���W�傫���� */
     int _z2;
 
 

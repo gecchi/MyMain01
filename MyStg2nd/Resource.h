@@ -1,4 +1,4 @@
-ï»¿//{{NO_DEPENDENCIES}}
+//{{NO_DEPENDENCIES}}
 // Microsoft Visual C++ generated include file.
 // Used by MySTG2nd.rc
 //
@@ -17,7 +17,7 @@
 #ifndef IDC_STATIC
 #define IDC_STATIC				-1
 #endif
-// æ–°ã—ã„ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æ¬¡ã®æ—¢å®šå€¤
+// V‚µ‚¢ƒIƒuƒWƒFƒNƒg‚ÌŸ‚ÌŠù’è’l
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS

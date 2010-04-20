@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -19,17 +19,17 @@ void CollisionChecker::makeCollision(int prm_nColliPart) {
     if (_pCollisionArea == NULL) {
         _pCollisionArea = NEW GgafDx9CollisionArea(prm_nColliPart);
     } else {
-        throwGgafCriticalException("CollisionChecker::makeCollision æ—¢ã« makeCollision ã•ã‚Œã¦ã„ã¾ã™ã€‚");
+        throwGgafCriticalException("CollisionChecker::makeCollision Šù‚É makeCollision ‚³‚ê‚Ä‚¢‚Ü‚·B");
     }
 }
 
 void CollisionChecker::setColliSphere(int prm_index, int x, int y, int z, int r, bool rotX, bool rotY, bool rotZ) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == NULL) {
-        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  ã¾ãš makeCollision ã‚’å®Ÿè¡Œã—ã¦ã€è¦ç´ æ•°ã‚’å®£è¨€ã—ã¦ãã ã•ã„ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  ‚Ü‚¸ makeCollision ‚ğÀs‚µ‚ÄA—v‘f”‚ğéŒ¾‚µ‚Ä‚­‚¾‚³‚¢B");
     }
     if (prm_index > _pCollisionArea->_nColliPart) {
-        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  è¦ç´ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹"<<prm_index<<"ã¯ç¯„å›²å¤–ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  —v‘fƒCƒ“ƒfƒbƒNƒX"<<prm_index<<"‚Í”ÍˆÍŠOB");
     }
 #endif
     if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
@@ -37,7 +37,7 @@ void CollisionChecker::setColliSphere(int prm_index, int x, int y, int z, int r,
     }
 #ifdef MY_DEBUG
     if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_SPHERE) {
-        throwGgafCriticalException("CollisionChecker::setColliSphere()["<<getTargetActor()->getName()<<"]  è¦ç´ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹"<<prm_index<<"ã¯SPHEREã§ãªã‹ã£ãŸãŸã‚ã€æ›´æ–°ã¯ã§ãã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColliSphere()["<<getTargetActor()->getName()<<"]  —v‘fƒCƒ“ƒfƒbƒNƒX"<<prm_index<<"‚ÍSPHERE‚Å‚È‚©‚Á‚½‚½‚ßAXV‚Í‚Å‚«‚Ü‚¹‚ñB");
     }
 #endif
     ColliSphere* pSphere = (ColliSphere*)_pCollisionArea->_papColliPart[prm_index];
@@ -60,10 +60,10 @@ void CollisionChecker::setColliBox(int prm_index,
                                    bool rotZ) {
 #ifdef MY_DEBUG
     if (_pCollisionArea == NULL) {
-        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  ã¾ãš makeCollision ã‚’å®Ÿè¡Œã—ã¦ã€è¦ç´ æ•°ã‚’å®£è¨€ã—ã¦ãã ã•ã„ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  ‚Ü‚¸ makeCollision ‚ğÀs‚µ‚ÄA—v‘f”‚ğéŒ¾‚µ‚Ä‚­‚¾‚³‚¢B");
     }
     if (prm_index > _pCollisionArea->_nColliPart) {
-        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  è¦ç´ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹"<<prm_index<<"ã¯ç¯„å›²å¤–ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  —v‘fƒCƒ“ƒfƒbƒNƒX"<<prm_index<<"‚Í”ÍˆÍŠOB");
     }
 #endif
     if (_pCollisionArea->_papColliPart[prm_index] == NULL) {
@@ -71,7 +71,7 @@ void CollisionChecker::setColliBox(int prm_index,
     }
 #ifdef MY_DEBUG
     if (_pCollisionArea->_papColliPart[prm_index]->_shape_kind != COLLI_AABB) {
-        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  è¦ç´ ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹"<<prm_index<<"ã¯AABBã§ãªã‹ã£ãŸãŸã‚ã€æ›´æ–°ã¯ã§ãã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("CollisionChecker::setColli_AABB()["<<getTargetActor()->getName()<<"]  —v‘fƒCƒ“ƒfƒbƒNƒX"<<prm_index<<"‚ÍAABB‚Å‚È‚©‚Á‚½‚½‚ßAXV‚Í‚Å‚«‚Ü‚¹‚ñB");
     }
 #endif
     ColliBox* pBox = (ColliBox*)_pCollisionArea->_papColliPart[prm_index];
@@ -85,13 +85,13 @@ void CollisionChecker::updateHitArea() {
     if (_pActor == NULL || _pCollisionArea == NULL) {
         return;
     }
-    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {  //è¦–é‡å¤–ã¯ç™»éŒ²ã—ãªã„
-    if (_pActor->_can_hit_flg && _pActor->isActive() ) {  //è¦–é‡å¤–ã‚‚ç™»éŒ²
+    //if (_pActor->_can_hit_flg && _pActor->isActive() && _pActor->isOffscreen() == 0 ) {  //‹–ìŠO‚Í“o˜^‚µ‚È‚¢
+    if (_pActor->_can_hit_flg && _pActor->isActive() ) {  //‹–ìŠO‚à“o˜^
         GgafDx9CollisionPart* pColliPart;
         for (int i = 0; i < _pCollisionArea->_nColliPart; i++) {
 #ifdef MY_DEBUG
             if (_pCollisionArea->_papColliPart[i] == NULL) {
-                throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]ãŒNULLã§ã™ã€‚");
+                throwGgafCriticalException("CollisionChecker::updateHitArea()["<<getTargetActor()->getName()<<"]  _papColliPart["<<i<<"]‚ªNULL‚Å‚·B");
             }
 #endif
             pColliPart = _pCollisionArea->_papColliPart[i];
@@ -100,11 +100,11 @@ void CollisionChecker::updateHitArea() {
             }
         }
         if (_need_update_aabb) {
-            //æœ€å¤–åŸŸã®AABBæ›´æ–°
+            //ÅŠOˆæ‚ÌAABBXV
             _pCollisionArea->updateAABB();
         }
 
-        //ï¼˜åˆ†æœ¨ã«ç™»éŒ²ï¼
+        //‚W•ª–Ø‚É“o˜^I
         _pElem->_kindbit = _pActor->getGroupActor()->_kind;
         _pLinearOctree->registElem(_pElem, _pActor->_X + _pCollisionArea->_AABB_X1,
                                            _pActor->_Y + _pCollisionArea->_AABB_Y1,
@@ -138,9 +138,9 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
     pOtherCollisionArea = ((CollisionChecker*)prm_pOtherChecker)->_pCollisionArea;
 
 //    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL ||
-//        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {  //è¦–é‡å¤–ã¯åˆ¤å®šã—ãªã„
+//        _pActor->isOffscreen() > 0 || pOtherActor->isOffscreen() > 0 ) {  //‹–ìŠO‚Í”»’è‚µ‚È‚¢
 
-    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL) {    //è¦–é‡å¤–ã‚‚åˆ¤å®šã™ã‚‹
+    if (_pCollisionArea == NULL || pOtherCollisionArea == NULL) {    //‹–ìŠO‚à”»’è‚·‚é
         return false;
     } else {
         GgafDx9CollisionPart* pColliPart;
@@ -154,10 +154,10 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                         CollisionChecker::_num_check++;
 
                         if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_AABB) {
-                            //AABB ã¨  AABB
+                            //AABB ‚Æ  AABB
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
-                            //è»¸ãŒä¸€è‡´ã—ãªã„ç¢ºç‡ãŒé«˜ãã†ãªé †ç•ª(é©å½“)ã«åˆ¤å®š
+                            //²‚ªˆê’v‚µ‚È‚¢Šm—¦‚ª‚‚»‚¤‚È‡”Ô(“K“–)‚É”»’è
                             if (_pActor->_Z + pBox->_z2 >= pOtherActor->_Z + pOtherBox->_z1) {
                                 if (_pActor->_Z + pBox->_z1 <= pOtherActor->_Z + pOtherBox->_z2) {
                                     if (_pActor->_Y + pBox->_y2 >= pOtherActor->_Y + pOtherBox->_y1) {
@@ -173,11 +173,11 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             }
 
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOtherColliPart->_shape_kind == COLLI_SPHERE) {
-                            //çƒã¨çƒ
+                            //‹…‚Æ‹…
                             ColliSphere* pSphere = (ColliSphere*)pColliPart;
                             ColliSphere* pOtherSphere = (ColliSphere*)pOtherColliPart;
-                            //çƒ1 ï¼š ä¸­å¿ƒç‚¹ã®åº§æ¨™P1(x1, y1, z1), åŠå¾„r1
-                            //çƒ2 ï¼š ä¸­å¿ƒç‚¹ã®åº§æ¨™P2(x2, y2, z2), åŠå¾„r2
+                            //‹…1 F ’†S“_‚ÌÀ•WP1(x1, y1, z1), ”¼Œar1
+                            //‹…2 F ’†S“_‚ÌÀ•WP2(x2, y2, z2), ”¼Œar2
                             //(x2-x1)^2 + (y2-y1)^2 + (z2-z1)^2 <= (r1+r2)^2
                             if (
                                 (double)((pOtherActor->_X+pOtherSphere->_x) - (_pActor->_X+pSphere->_x)) * ((pOtherActor->_X+pOtherSphere->_x) - (_pActor->_X+pSphere->_x)) +
@@ -190,7 +190,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             }
 
                         } else if (pColliPart->_shape_kind == COLLI_AABB && pOtherColliPart->_shape_kind == COLLI_SPHERE) {
-                            //AABB ã¨ çƒ
+                            //AABB ‚Æ ‹…
                             ColliBox* pBox = (ColliBox*)pColliPart;
                             ColliSphere* pOtherSphere = (ColliSphere*)pOtherColliPart;
                             int o_scx =  pOtherActor->_X+pOtherSphere->_cx;
@@ -205,7 +205,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
 //							_TRACE_("pOtherSphere->_r="<<pOtherSphere->_r);
 //							_TRACE_("o_scx,o_scy,o_scz="<<o_scx<<","<<o_scy<<","<<o_scz);
 //							_TRACE_("bx1,by1,bz1 - bx2,by2,bz2 ="<<bx1<<","<<by1<<","<<bz1<<" - "<<bx2<<","<<by2<<","<<bz2);
-                            double square_length = 0; //çƒã®ä¸­å¿ƒã¨AABBã®æœ€çŸ­è·é›¢ã‚’äºŒä¹—ã—ãŸå€¤
+                            double square_length = 0; //‹…‚Ì’†S‚ÆAABB‚ÌÅ’Z‹——£‚ğ“ñæ‚µ‚½’l
 
                             if(o_scx < bx1) {
                                 square_length += (double)(o_scx - bx1) * (o_scx - bx1);
@@ -232,12 +232,12 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                                 //_TRACE_("6(o_scz > bz2) square_length="<<square_length);
                             }
                             //_TRACE_("square_length="<<square_length<<" pOtherSphere->_r * pOtherSphere->_r="<<((double)pOtherSphere->_r * pOtherSphere->_r));
-                            //square_lengthãŒçƒã®åŠå¾„ï¼ˆã®äºŒä¹—ï¼‰ã‚ˆã‚Šã‚‚çŸ­ã‘ã‚Œã°è¡çªã—ã¦ã„ã‚‹
+                            //square_length‚ª‹…‚Ì”¼Œai‚Ì“ñæj‚æ‚è‚à’Z‚¯‚ê‚ÎÕ“Ë‚µ‚Ä‚¢‚é
                             if (square_length <= (double)pOtherSphere->_r * pOtherSphere->_r) {
                                 return true;
                             }
                         } else if (pColliPart->_shape_kind == COLLI_SPHERE && pOtherColliPart->_shape_kind == COLLI_AABB) {
-                            //çƒ ã¨ AABB
+                            //‹… ‚Æ AABB
                             ColliSphere* pSphere = (ColliSphere*)pColliPart;
                             ColliBox* pOtherBox = (ColliBox*)pOtherColliPart;
                             int scx =  _pActor->_X+pSphere->_cx;
@@ -249,7 +249,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             int o_by2 = pOtherActor->_Y+pOtherBox->_y2;
                             int o_bz1 = pOtherActor->_Z+pOtherBox->_z1;
                             int o_bz2 = pOtherActor->_Z+pOtherBox->_z2;
-                            double square_length = 0; //çƒã®ä¸­å¿ƒã¨AABBã®æœ€çŸ­è·é›¢ã‚’äºŒä¹—ã—ãŸå€¤
+                            double square_length = 0; //‹…‚Ì’†S‚ÆAABB‚ÌÅ’Z‹——£‚ğ“ñæ‚µ‚½’l
 
                             if(scx < o_bx1) {
                                 square_length += (double)(scx - o_bx1) * (scx - o_bx1);
@@ -269,7 +269,7 @@ bool CollisionChecker::isHit(GgafDx9Core::GgafDx9Checker* prm_pOtherChecker) {
                             if(scz > o_bz2) {
                                 square_length += (double)(scz - o_bz2) * (scz - o_bz2);
                             }
-                            //square_lengthãŒçƒã®åŠå¾„ï¼ˆã®äºŒä¹—ï¼‰ã‚ˆã‚Šã‚‚çŸ­ã‘ã‚Œã°è¡çªã—ã¦ã„ã‚‹
+                            //square_length‚ª‹…‚Ì”¼Œai‚Ì“ñæj‚æ‚è‚à’Z‚¯‚ê‚ÎÕ“Ë‚µ‚Ä‚¢‚é
                             if (square_length <= (double)pSphere->_r * pSphere->_r) {
                                 return true;
                             }
@@ -289,5 +289,5 @@ CollisionChecker::~CollisionChecker() {
     TRACE("CollisionChecker::~CollisionChecker() _pActor="<<_pActor->getName());
     DELETE_IMPOSSIBLE_NULL(_pElem);
     DELETE_POSSIBLE_NULL(_pCollisionArea);
-    //å½“ãŸã‚Šåˆ¤å®šã¯ãªã„ã‹ã‚‚ã—ã‚Œãªã„ã€‚ã“ã®å ´åˆ_pElemã¯ç„¡é§„ãªç”Ÿæˆã¨è§£æ”¾ã‚’ã™ã‚‹ã“ã¨ã«ãªã‚‹ã€‚ã€‚
+    //“–‚½‚è”»’è‚Í‚È‚¢‚©‚à‚µ‚ê‚È‚¢B‚±‚Ìê‡_pElem‚Í–³‘Ê‚È¶¬‚Æ‰ğ•ú‚ğ‚·‚é‚±‚Æ‚É‚È‚éBB
 }

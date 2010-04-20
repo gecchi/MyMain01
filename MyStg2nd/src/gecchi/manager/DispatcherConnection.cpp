@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -10,8 +10,8 @@ DispatcherConnection::DispatcherConnection(char* prm_idstr, GgafActorDispatcher*
 }
 
 void DispatcherConnection::processReleaseResource(GgafActorDispatcher* prm_pResource) {
-    _TRACE_("DispatcherConnection::processReleaseResourceã§é–‹æ”¾");
-	prm_pResource->sayonara(); //GgafActorDispatcherã¯ã‚´ãƒŸç®±ã§å‰Šé™¤ã™ã‚‹ãŸã‚ã“ã“ã§ã‹ã„ã»ã†ã¯è¡Œã‚ãªã„
+    _TRACE_("DispatcherConnection::processReleaseResource‚ÅŠJ•ú");
+	prm_pResource->sayonara(); //GgafActorDispatcher‚ÍƒSƒ~” ‚Åíœ‚·‚é‚½‚ß‚±‚±‚Å‚©‚¢‚Ù‚¤‚Ís‚í‚È‚¢
 	// DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9BOARDMODEL_H_
+#ifndef GGAFDX9BOARDMODEL_H_
 #define GGAFDX9BOARDMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9BoardActorç”¨ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹.
+ * GgafDx9BoardActor—pƒ‚ƒfƒ‹ƒNƒ‰ƒX.
  * @version 1.00
  * @since 2009/03/10
  * @author Masatoshi Tsuge
@@ -13,30 +13,30 @@ class GgafDx9BoardModel : public GgafDx9Model {
     friend class GgafDx9BoardActor;
 protected:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_model_name ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå®šç¾©ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_model_name ƒXƒvƒ‰ƒCƒg’è‹`‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
      */
     GgafDx9BoardModel(char* prm_model_name);
 
 public:
     struct VERTEX {
-        float x, y, z; // é ‚ç‚¹åº§æ¨™
-        float tu, tv; // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
+        float x, y, z; // ’¸“_À•W
+        float tu, tv; // ƒeƒNƒXƒ`ƒƒÀ•W
     };
 
-    /** é ‚ç‚¹ã®FVF */
+    /** ’¸“_‚ÌFVF */
     static DWORD FVF;
-    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ */
+    /** ’¸“_ƒoƒbƒtƒ@ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** çŸ©å½¢ã®é ‚ç‚¹åˆè¨ˆã®ã‚µã‚¤ã‚º */
+    /** ‹éŒ`‚Ì’¸“_‡Œv‚ÌƒTƒCƒY */
     UINT _size_vertices;
-    /** 1é ‚ç‚¹ã®ã‚µã‚¤ã‚º */
+    /** 1’¸“_‚ÌƒTƒCƒY */
     UINT _size_vertex_unit;
 
-    /** ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ¼ãƒ³ã®ãŸã‚ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®åº§æ¨™ã®é…åˆ—ï¼ˆè¦ç´ æ•°ã¯ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ•°ï¼‰ */
+    /** ƒAƒjƒ[ƒVƒ‡[ƒ“‚Ì‚½‚ß‚ÌƒeƒNƒXƒ`ƒƒ‚ÌÀ•W‚Ì”z—ñi—v‘f”‚ÍƒAƒjƒ[ƒVƒ‡ƒ“”j */
     GgafDx9RectUV* _paRectUV;
 
-    /** å…¨ã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³æ•° */
+    /** ‘SƒAƒjƒƒpƒ^[ƒ“” */
     int _pattno_max;
     float _fSize_BoardModelWidthPx;
     float _fSize_BoardModelHeightPx;
@@ -44,8 +44,8 @@ public:
     int _col_texture_split;
 
     /**
-     * GgafDx9BoardModelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»<BR>
-     * @param	prm_pActor_Target æç”»ã™ã‚‹GgafDx9BoardActor
+     * GgafDx9BoardModelƒIƒuƒWƒFƒNƒg‚Ì•`‰æ<BR>
+     * @param	prm_pActor_Target •`‰æ‚·‚éGgafDx9BoardActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -57,10 +57,10 @@ public:
     virtual void release() override;
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * deleteã™ã‚‹ã®ã¯GgafDx9BoardModelManagerã§ã‚ã‚‹<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * delete‚·‚é‚Ì‚ÍGgafDx9BoardModelManager‚Å‚ ‚é<BR>
      */
-    virtual ~GgafDx9BoardModel(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9BoardModel(); //ƒfƒXƒgƒ‰ƒNƒ^
 
 };
 

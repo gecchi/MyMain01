@@ -1,9 +1,9 @@
-ï»¿#ifndef MYOPTIONPARENTDIRECTIONVECTOR_H_
+#ifndef MYOPTIONPARENTDIRECTIONVECTOR_H_
 #define MYOPTIONPARENTDIRECTIONVECTOR_H_
 namespace MyStg2nd {
 
 /**
- * ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®çºã‚å½¹ã‚¯ãƒ©ã‚¹ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«è¡¨ç¤º .
+ * ƒIƒvƒVƒ‡ƒ“‚Ì“Z‚ß–ğƒNƒ‰ƒX‚Ì•ûŒüƒxƒNƒgƒ‹•\¦ .
  * @version 1.00
  * @since 2010/03/18
  * @author Masatoshi Tsuge
@@ -32,12 +32,12 @@ public:
     void onInactive() override;
 
     int isOffscreen() override {
-        //ç”»é¢å¤–åˆ¤å®šç„¡ã—
+        //‰æ–ÊŠO”»’è–³‚µ
         return 0;
     }
 
     bool isOutOfGameSpace() override {
-        //ã‚²ãƒ¼ãƒ åº§æ¨™ç¯„å›²å¤–åˆ¤å®šç„¡ã—
+        //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
         return false;
     }
 

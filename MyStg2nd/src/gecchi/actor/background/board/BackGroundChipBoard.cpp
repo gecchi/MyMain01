@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 BackGroundChipBoard::BackGroundChipBoard(const char* prm_name, const char* prm_model) : DefaultBoardSetActor(prm_name, prm_model) {
     _class_name = "BackGroundChipBoard";
-    //_z = 0.99;//ãŸã¶ã‚“æœ€èƒŒé¢ ï¼ˆ0 <= _z < 1.0ï¼‰Z=(0ã€œ+1)
+    //_z = 0.99;//‚½‚Ô‚ñÅ”w–Ê i0 <= _z < 1.0jZ=(0`+1)
     _z = 0.9999999f;
 }
 

@@ -1,12 +1,12 @@
-ï»¿
-// æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ Paul Coppens ã•ã‚“ã®ä½œæˆã•ã‚ŒãŸã€Xãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€ã‚µãƒ³ãƒ—ãƒ«
-// ã‚’å…ƒã«ã€ç‹¬è‡ªã«æ”¹è‰¯ä¿®æ­£ï¼ˆã‚„ãƒ‡ãƒãƒƒã‚°ï¼‰ã—ãŸã‚¯ãƒ©ã‚¹ã‚’ä½¿ç”¨ã—ã¦ã„ã¾ã™ã€‚
-// ã‚ã‚ŠãŒã¨ã† Paulã•ã‚“ã€‚
+
+// –{ƒvƒƒOƒ‰ƒ€‚Í Paul Coppens ‚³‚ñ‚Ìì¬‚³‚ê‚½AXƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚ŞƒTƒ“ƒvƒ‹
+// ‚ğŒ³‚ÉA“Æ©‚É‰ü—ÇC³i‚âƒfƒoƒbƒOj‚µ‚½ƒNƒ‰ƒX‚ğg—p‚µ‚Ä‚¢‚Ü‚·B
+// ‚ ‚è‚ª‚Æ‚¤ Paul‚³‚ñB
 //
-// ã€å¯¾è±¡ã€‘
-// Frm åå‰ç©ºé–“ã®ã‚¯ãƒ©ã‚¹
+// y‘ÎÛz
+// Frm –¼‘O‹óŠÔ‚ÌƒNƒ‰ƒX
 //
-// ã€Loading and displaying .X files without DirectX ã€‘
+// yLoading and displaying .X files without DirectX z
 // http://www.gamedev.net/reference/programming/features/xfilepc/
 //
 //                                         2009/03/06 Masatoshi Tsuge
@@ -23,39 +23,39 @@ GgafDx9Model* GgafDx9ModelManager::_pModelLastDraw = NULL;
 GgafDx9ModelManager::GgafDx9ModelManager(const char* prm_manager_name) :
     GgafResourceManager<GgafDx9Model> (prm_manager_name) {
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒã‚¸ãƒ£ãƒ¼
+    //ƒeƒNƒXƒ`ƒƒƒ}ƒlƒWƒƒ[
     _pTextureManager = NEW GgafDx9TextureManager("GgafDx9TextureManager");
-    //æ¿ãƒãƒªã‚´ãƒ³å®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼ã¿
+    //”Âƒ|ƒŠƒSƒ“’è‹`ƒtƒ@ƒCƒ‹“Ç‚İ
     HRESULT hr;
     DirectXFileCreate( &_pIDirectXFile_sprx );
     char* paChar_SpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_spritemodel_define.x");
     if (paChar_SpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" ãŒé–‹ã‘ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\" ‚ªŠJ‚¯‚Ü‚¹‚ñB");
     }
     hr = _pIDirectXFile_sprx->RegisterTemplates(paChar_SpriteModelineTemplate, (DWORD)(strlen(paChar_SpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesã«å¤±æ•—ã—ã¾ã—ãŸã€‚\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"ã‚’ç¢ºèªã—ã¦ä¸‹ã•ã„ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplates‚É¸”s‚µ‚Ü‚µ‚½B\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_spritemodel_define.x\"‚ğŠm”F‚µ‚Ä‰º‚³‚¢B");
     }
     DELETE_IMPOSSIBLE_NULL(paChar_SpriteModelineTemplate);
 
-    //æ¿ãƒãƒªã‚´ãƒ³å®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼ã¿
+    //”Âƒ|ƒŠƒSƒ“’è‹`ƒtƒ@ƒCƒ‹“Ç‚İ
     DirectXFileCreate( &_pIDirectXFile_psprx );
     char* paChar_PointSpriteModelineTemplate = GgafUtil::getFileText(GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + "ggaf_pointspritemodel_define.x");
     if (paChar_PointSpriteModelineTemplate == NULL) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆ\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" ãŒé–‹ã‘ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] ƒ|ƒCƒ“ƒgƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\" ‚ªŠJ‚¯‚Ü‚¹‚ñB");
     }
     hr = _pIDirectXFile_psprx->RegisterTemplates(paChar_PointSpriteModelineTemplate, (DWORD)(strlen(paChar_PointSpriteModelineTemplate)));
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplatesã«å¤±æ•—ã—ã¾ã—ãŸã€‚\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"ã‚’ç¢ºèªã—ã¦ä¸‹ã•ã„ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::GgafDx9ModelManager] RegisterTemplates‚É¸”s‚µ‚Ü‚µ‚½B\""<<GGAFDX9_PROPERTY(DIR_SPRITE_MODEL)<<"ggaf_pointspritemodel_define.x\"‚ğŠm”F‚µ‚Ä‰º‚³‚¢B");
     }
     DELETE_IMPOSSIBLE_NULL(paChar_PointSpriteModelineTemplate);
 
 }
 
 GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
-    //æŒ¯ã‚Šåˆ†ã‘
-    char model_type = *prm_idstr; //é ­ä¸€æ–‡å­—
-    char* model_name = prm_idstr + 2; //ï¼“æ–‡å­—ç›®ä»¥é™
+    //U‚è•ª‚¯
+    char model_type = *prm_idstr; //“ªˆê•¶š
+    char* model_name = prm_idstr + 2; //‚R•¶š–ÚˆÈ~
     GgafDx9Model* pResourceModel;
     switch (model_type) {
         case 'D':
@@ -80,7 +80,7 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             break;
 
         case 'M':
-            //MorphMeshModel "M/4/xxxxx" ã®å ´åˆã€ãƒ—ãƒ©ã‚¤ãƒãƒªã®ãƒ¡ãƒƒã‚·ãƒ¥ãŒ1ã€ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ¡ãƒƒã‚·ãƒ¥ãŒ4ã¤ã¨ã„ã†æ„å‘³
+            //MorphMeshModel "M/4/xxxxx" ‚Ìê‡Aƒvƒ‰ƒCƒ}ƒŠ‚ÌƒƒbƒVƒ…‚ª1Aƒ‚[ƒtƒ^[ƒQƒbƒg‚ÌƒƒbƒVƒ…‚ª4‚Â‚Æ‚¢‚¤ˆÓ–¡
             pResourceModel = createMorphMeshModel(model_name);
             break;
         case 'S':
@@ -108,8 +108,8 @@ GgafDx9Model* GgafDx9ModelManager::processCreateResource(char* prm_idstr) {
             pResourceModel = createPointSpriteModel(model_name);
             break;
         default:
-            TRACE3("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ãã‚“ãªç¨®åˆ¥ã¯ã‚ã‚Šã¾ã›ã‚“");
-            throwGgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ãã‚“ãªãƒ¢ãƒ‡ãƒ«ç¨®åˆ¥ã¯çŸ¥ã‚Šã¾ã›ã‚“");
+            TRACE3("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ‚»‚ñ‚Èí•Ê‚Í‚ ‚è‚Ü‚¹‚ñ");
+            throwGgafCriticalException("GgafDx9ModelManager::processCreateResource("<<prm_idstr<<") ‚»‚ñ‚Èƒ‚ƒfƒ‹í•Ê‚Í’m‚è‚Ü‚¹‚ñ");
             pResourceModel = NULL;
             break;
     }
@@ -165,9 +165,9 @@ GgafDx9MeshSetModel* GgafDx9ModelManager::createMeshSetModel(char* prm_model_nam
 }
 
 GgafDx9MorphMeshModel* GgafDx9ModelManager::createMorphMeshModel(char* prm_model_name) {
-    // "M/4/xxxxx" ã®å ´åˆã€ãƒ—ãƒ©ã‚¤ãƒãƒªã®ãƒ¡ãƒƒã‚·ãƒ¥ãŒ1ã€ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒ¡ãƒƒã‚·ãƒ¥ãŒ4ã¤ã¨ã„ã†æ„å‘³
-    // ã“ã“ã§prm_model_name ã¯ "4/xxxxx" ã¨ã„ã†æ–‡å­—åˆ—ã«ãªã£ã¦ã„ã‚‹ã€‚
-    // ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆæ•°ãŒé•ã†ãƒ¢ãƒ‡ãƒ«ã¯ã€åˆ¥ãƒ¢ãƒ‡ãƒ«ã¨ã„ã†æ‰±ã„ã«ã™ã‚‹ãŸã‚ã€ãƒ¢ãƒ‡ãƒ«åã«æ•°å€¤ã‚’æ®‹ã™ã€‚
+    // "M/4/xxxxx" ‚Ìê‡Aƒvƒ‰ƒCƒ}ƒŠ‚ÌƒƒbƒVƒ…‚ª1Aƒ‚[ƒtƒ^[ƒQƒbƒg‚ÌƒƒbƒVƒ…‚ª4‚Â‚Æ‚¢‚¤ˆÓ–¡
+    // ‚±‚±‚Åprm_model_name ‚Í "4/xxxxx" ‚Æ‚¢‚¤•¶š—ñ‚É‚È‚Á‚Ä‚¢‚éB
+    // ƒ‚[ƒtƒ^[ƒQƒbƒg”‚ªˆá‚¤ƒ‚ƒfƒ‹‚ÍA•Êƒ‚ƒfƒ‹‚Æ‚¢‚¤ˆµ‚¢‚É‚·‚é‚½‚ßAƒ‚ƒfƒ‹–¼‚É”’l‚ğc‚·B
     GgafDx9MorphMeshModel* pMorphMeshModel_New = NEW GgafDx9MorphMeshModel(prm_model_name);
     restoreMorphMeshModel(pMorphMeshModel_New);
     return pMorphMeshModel_New;
@@ -181,21 +181,21 @@ GgafDx9PointSpriteModel* GgafDx9ModelManager::createPointSpriteModel(char* prm_m
 
 void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshModel(" << prm_pMeshModel->_model_name << ")");
-    //ã€GgafDx9MeshModelå†æ§‹ç¯‰ï¼ˆï¼åˆæœŸåŒ–ï¼‰å‡¦ç†æ¦‚è¦ã€‘
-    //ï¼‘ï¼‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ ã‚’ new
-    //ï¼’ï¼‰Xãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã€ç‹¬è‡ªã«æ¬¡ã®æƒ…å ±ã‚’èª­ã¿è¾¼ã¿ã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ ã«æµã—è¾¼ã‚€ã€‚
-    //ï¼“ï¼‰ï¼’ï¼‰ã‚’è¡Œãªã†éç¨‹ã§ã€åŒæ™‚ã« GgafDx9MeshModel ã«æ¬¡ã®ãƒ¡ãƒ³ãƒã‚’ä½œæˆã€‚
-    //ã€€ã€€ã€€ã€€ãƒ»é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—
-    //ã€€ã€€ã€€ã€€ãƒ»é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒãƒ†ãƒªã‚¢ãƒ«é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«æ•°)
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒ†ã‚¯ã‚¹ãƒãƒ£é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«æ•°)
-    //ã€€ã€€ã€€ã€€ãƒ»DrawIndexedPrimitiveç”¨å¼•æ•°é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆãŒå¤‰åŒ–ã—ãŸæ•°)
+    //yGgafDx9MeshModelÄ\’zi‰Šú‰»jˆ—ŠT—vz
+    //‚Pj’¸“_ƒoƒbƒtƒ@A’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ ‚ğ new
+    //‚QjXƒtƒ@ƒCƒ‹‚©‚çA“Æ©‚ÉŸ‚Ìî•ñ‚ğ“Ç‚İ‚İA’¸“_ƒoƒbƒtƒ@A’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ ‚É—¬‚µ‚ŞB
+    //‚Rj‚Qj‚ğs‚È‚¤‰ß’ö‚ÅA“¯‚É GgafDx9MeshModel ‚ÉŸ‚Ìƒƒ“ƒo‚ğì¬B
+    //@@@@E’¸“_ƒoƒbƒtƒ@‚ÌÊ‚µ
+    //@@@@E’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌÊ‚µ
+    //@@@@Eƒ}ƒeƒŠƒAƒ‹”z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹”)
+    //@@@@EƒeƒNƒXƒ`ƒƒ”z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹”)
+    //@@@@EDrawIndexedPrimitive—pˆø””z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg‚ª•Ï‰»‚µ‚½”)
 
 
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //ãƒ¢ãƒ‡ãƒ«åï¼‹".x"ã§Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshModel->_model_name) + ".x"; //ƒ‚ƒfƒ‹–¼{".x"‚ÅXƒtƒ@ƒCƒ‹–¼‚É‚È‚é
     HRESULT hr;
 
-    //æµã—è¾¼ã‚€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆ
+    //—¬‚µ‚Ş’¸“_ƒoƒbƒtƒ@ƒf[ƒ^ì¬
     ToolBox::IO_Model_X iox;
 
     Frm::Model3D* model_pModel3D = NULL;
@@ -215,9 +215,9 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
         bool r = iox.Load(xfile_name, model_pModel3D);
         if (r == false) {
-            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshModel] Xãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿å¤±æ•—ã€‚å¯¾è±¡="<<xfile_name);
+            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshModel] Xƒtƒ@ƒCƒ‹‚Ì“Ç‚İ¸”sB‘ÎÛ="<<xfile_name);
         }
-        //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’çµåˆã™ã‚‹å‰ã«ã€æƒ…å ±ã‚’ç¢ºä¿ã—ã¦ãŠã
+        //ƒƒbƒVƒ…‚ğŒ‹‡‚·‚é‘O‚ÉAî•ñ‚ğŠm•Û‚µ‚Ä‚¨‚­
         int nMesh = (int)model_pModel3D->_Meshes.size();
         uint16* paNumVertices = NEW uint16[nMesh];
         int index_Mesh = 0;
@@ -227,22 +227,22 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             index_Mesh++;
         }
 
-        model_pModel3D->ConcatenateMeshes(); //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ç¹‹ã’ã‚‹
+        model_pModel3D->ConcatenateMeshes(); //ƒƒbƒVƒ…‚ğŒq‚°‚é
 
         model_pMeshesFront = model_pModel3D->_Meshes.front();
-        nVertices = model_pMeshesFront->_nVertices; //ãƒ¡ãƒƒã‚·ãƒ¥é€£çµå¾Œã®ç·é ‚ç‚¹æ•°
-        nFaces = model_pMeshesFront->_nFaces;       //ãƒ¡ãƒƒã‚·ãƒ¥é€£çµå¾Œã®ç·é¢æ•°
-        nFaceNormals = model_pMeshesFront->_nFaceNormals; //ãƒ¡ãƒƒã‚·ãƒ¥é€£çµå¾Œã®ç·æ³•ç·šæ•°
+        nVertices = model_pMeshesFront->_nVertices; //ƒƒbƒVƒ…˜AŒ‹Œã‚Ì‘’¸“_”
+        nFaces = model_pMeshesFront->_nFaces;       //ƒƒbƒVƒ…˜AŒ‹Œã‚Ì‘–Ê”
+        nFaceNormals = model_pMeshesFront->_nFaceNormals; //ƒƒbƒVƒ…˜AŒ‹Œã‚Ì‘–@ü”
         model_paVtxBuffer_org = NEW GgafDx9MeshModel::VERTEX[nVertices];
         prm_pMeshModel->_size_vertices = sizeof(GgafDx9MeshModel::VERTEX) * nVertices;
         prm_pMeshModel->_size_vertex_unit = sizeof(GgafDx9MeshModel::VERTEX);
         int nTextureCoords = model_pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
             TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            TRACE3("UVåº§æ¨™æ•°ãŒã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡æ•°ã‚’è¶Šãˆã¦ã¾ã™ã€‚é ‚ç‚¹æ•°ã¾ã§ã—ã‹è¨­å®šã•ã‚Œã¾ã›ã‚“ã€‚å¯¾è±¡="<<xfile_name);
+            TRACE3("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B’¸“_”‚Ü‚Å‚µ‚©İ’è‚³‚ê‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
         }
 
-        //æ³•ç·šä»¥å¤–è¨­å®š
+        //–@üˆÈŠOİ’è
         FLOAT model_fBoundingSphereRadius;
         for (int i = 0; i < nVertices; i++) {
             model_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
@@ -251,16 +251,16 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             model_paVtxBuffer_org[i].nx = 0.0f;
             model_paVtxBuffer_org[i].ny = 0.0f;
             model_paVtxBuffer_org[i].nz = 0.0f;
-            model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //é ‚ç‚¹ã‚«ãƒ©ãƒ¼ã¯ä»Šã®æ‰€ä½¿ã£ã¦ã„ãªã„
+            model_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //’¸“_ƒJƒ‰[‚Í¡‚ÌŠg‚Á‚Ä‚¢‚È‚¢
             if (i < nTextureCoords) {
-                model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //å‡ºæ¥ã‚‹é™ã‚ŠUVåº§æ¨™è¨­å®š
+                model_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //o—ˆ‚éŒÀ‚èUVÀ•Wİ’è
                 model_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
             } else {
                 model_paVtxBuffer_org[i].tu = 0.0f;
                 model_paVtxBuffer_org[i].tv = 0.0f;
             }
 
-            //è·é›¢
+            //‹——£
             model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org[i].x * model_paVtxBuffer_org[i].x +
                                                  model_paVtxBuffer_org[i].y * model_paVtxBuffer_org[i].y +
                                                  model_paVtxBuffer_org[i].z * model_paVtxBuffer_org[i].z));
@@ -271,13 +271,13 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 
 
-        //æ³•ç·šè¨­å®šã€‚
-        //å…±æœ‰é ‚ç‚¹ã®æ³•ç·šã¯å¹³å‡åŒ–ã‚’è©¦ã¿ã‚‹ï¼
-        //ã€2009/03/04ã®è„³ã¿ãã«ã‚ˆã‚‹ã‚¢ã‚¤ãƒ‡ã‚£ã‚¢ã€‘
-        //å…±æœ‰é ‚ç‚¹ã«ã€é¢ãŒåŒã˜ã‚ˆã†ãªæ–¹é¢ã«é›†ä¸­ã—ãŸå ´åˆã€å˜ç´”ã«åŠ ç®—ã—ã¦é¢æ•°ã§å‰²ã‚‹å¹³å‡åŒ–ã‚’ã™ã‚‹ã¨æ³•ç·šã¯åã£ã¦ã—ã¾ã†ã€‚
-        //ãã“ã§ã€å…±æœ‰é ‚ç‚¹æ³•ç·šã¸ã®å½±éŸ¿åº¦å‰²åˆï¼ˆç‡ï¼‰ã‚’ã€ãã®é¢æ³•ç·šãŒæ‰€å±ã™ã‚‹é¢ã®é ‚ç‚¹è§’ã®å¤§ãã•ã§æ±ºã‚ã‚‹ã‚ˆã†ã«ã—ãŸã€‚
-        //æ³•ç·šã®å½±éŸ¿åº¦å‰²åˆ ï¼ ãã®æ³•ç·šãŒæ‰€å±ã™ã‚‹é ‚ç‚¹ã®æˆã™è§’ ï¼ ãã®é ‚ç‚¹ã«ã¶ã‚‰ä¸‹ãŒã‚‹å…¨faceã®æˆã™è§’åˆè¨ˆ
-        //ã¨ã—ãŸã€‚æœ€å¾Œã«æ­£è¦åŒ–ã™ã‚‹ã€‚
+        //–@üİ’èB
+        //‹¤—L’¸“_‚Ì–@ü‚Í•½‹Ï‰»‚ğ‚İ‚éI
+        //y2009/03/04‚Ì”]‚İ‚»‚É‚æ‚éƒAƒCƒfƒBƒAz
+        //‹¤—L’¸“_‚ÉA–Ê‚ª“¯‚¶‚æ‚¤‚È•û–Ê‚ÉW’†‚µ‚½ê‡A’Pƒ‚É‰ÁZ‚µ‚Ä–Ê”‚ÅŠ„‚é•½‹Ï‰»‚ğ‚·‚é‚Æ–@ü‚Í•Î‚Á‚Ä‚µ‚Ü‚¤B
+        //‚»‚±‚ÅA‹¤—L’¸“_–@ü‚Ö‚Ì‰e‹¿“xŠ„‡i—¦j‚ğA‚»‚Ì–Ê–@ü‚ªŠ‘®‚·‚é–Ê‚Ì’¸“_Šp‚Ì‘å‚«‚³‚ÅŒˆ‚ß‚é‚æ‚¤‚É‚µ‚½B
+        //–@ü‚Ì‰e‹¿“xŠ„‡  ‚»‚Ì–@ü‚ªŠ‘®‚·‚é’¸“_‚Ì¬‚·Šp ^ ‚»‚Ì’¸“_‚É‚Ô‚ç‰º‚ª‚é‘Sface‚Ì¬‚·Šp‡Œv
+        //‚Æ‚µ‚½BÅŒã‚É³‹K‰»‚·‚éB
 
         float* paRad = NEW float[nFaces*3];
         float* paRadSum_Vtx = NEW float[nVertices];
@@ -289,49 +289,49 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         static unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
-                //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤(A,B,Cã¨ã™ã‚‹)
+                //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â(A,B,C‚Æ‚·‚é)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
-                //é¢ã«å¯¾ã™ã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
-                    //æ³•ç·šãŒç„¡ã„å ´åˆ
+                    //–@ü‚ª–³‚¢ê‡
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
             }
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ A ã®è§’(âˆ CAB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX A ‚ÌŠp(ÚCAB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+0] = getRadv1_v0v1v2(
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
                            );
-            //A ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //A ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ B ã®è§’(âˆ ABC)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX B ‚ÌŠp(ÚABC)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+1] = getRadv1_v0v1v2(
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
                            );
-            //B ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //B ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ C ã®è§’(âˆ ACB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX C ‚ÌŠp(ÚACB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
-            //C ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //C ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
-        static float rate; //ãã®æ³•ç·šã®å‡ºã¦ã„ã‚‹é ‚ç‚¹ã®æˆã™è§’ã®ç‡ã€‚ã¤ã¾ã‚Šæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã«æ›ã‘ã‚‹ç‡ã€‚ãã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã®å½±éŸ¿ã®å¼·ã•ã€‚
+        static float rate; //‚»‚Ì–@ü‚Ìo‚Ä‚¢‚é’¸“_‚Ì¬‚·Šp‚Ì—¦B‚Â‚Ü‚è–@üƒxƒNƒgƒ‹‚ÉŠ|‚¯‚é—¦B‚»‚Ì–@üƒxƒNƒgƒ‹‚Ì‰e‹¿‚Ì‹­‚³B
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
-                    //æ³•ç·šãŒç„¡ã„å ´åˆ
+                    //–@ü‚ª–³‚¢ê‡
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
 
@@ -350,13 +350,13 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[indexVertices_per_Face[2]].ny += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].y * rate);
                 model_paVtxBuffer_org[indexVertices_per_Face[2]].nz += (model_pMeshesFront->_Normals[indexNormals_per_Face[2]].z * rate);
             } else {
-                //æ³•ç·šãŒç„¡ã„å ´åˆã€æ³•ç·šã‚’è¨ˆç®—ã—ã¦ä½œã‚Šã ã™ã€‚
+                //–@ü‚ª–³‚¢ê‡A–@ü‚ğŒvZ‚µ‚Äì‚è‚¾‚·B
 
-                //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
                 int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
                 int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
-                //é¢ã®é ‚ç‚¹ï¼“ã¤
+                //–Ê‚Ì’¸“_‚R‚Â
                 D3DXVECTOR3 v1 = D3DXVECTOR3(
                     model_pMeshesFront->_Vertices[indexVertices1].data[0],
                     model_pMeshesFront->_Vertices[indexVertices1].data[1],
@@ -374,9 +374,9 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 );
 
                 D3DXPLANE Plane;
-                // 3 ã¤ã®ç‚¹ã‹ã‚‰å¹³é¢ã‚’ä½œæˆ
+                // 3 ‚Â‚Ì“_‚©‚ç•½–Ê‚ğì¬
                 D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                //æ­£è¦åŒ–ã—ãŸå¹³é¢(æ³•ç·š)ã‚’ç®—å‡º
+                //³‹K‰»‚µ‚½•½–Ê(–@ü)‚ğZo
                 D3DXPlaneNormalize(&Plane, &Plane);
 
                 rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
@@ -403,11 +403,11 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
 
-            //Xãƒ•ã‚¡ã‚¤ãƒ«ã®FrameTransformMatrix(ãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³)ã‚’è€ƒæ…®
+            //Xƒtƒ@ƒCƒ‹‚ÌFrameTransformMatrix(ƒtƒŒ[ƒ€‚ÌƒAƒjƒ[ƒVƒ‡ƒ“)‚ğl—¶
             if ((*iteBone) != NULL) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                    //FrameTransformMatrix ã¯å˜ä½è¡Œåˆ—
+                    //FrameTransformMatrix ‚Í’PˆÊs—ñ
                     _TRACE_("FrameTransformMatrix is Identity");
                 } else {
                     _TRACE_("Execute FrameTransform!");
@@ -462,7 +462,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         }
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
-        //æœ€å¾Œã«æ³•ç·šæ­£è¦åŒ–ã—ã¦è¨­å®š
+        //ÅŒã‚É–@ü³‹K‰»‚µ‚Äİ’è
         static D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
             vec.x = model_paVtxBuffer_org[i].nx;
@@ -479,13 +479,13 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 model_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-//        TRACE3("æ³•ç·šæ­£è¦åŒ–å¾Œ----------------------------");
+//        TRACE3("–@ü³‹K‰»Œã----------------------------");
 //        for (int i = 0; i < nVertices; i++) {
 //            TRACE3("["<<i<<"]=" << model_paVtxBuffer_org[i].x << "\t, " << model_paVtxBuffer_org[i].y << "\t, " << model_paVtxBuffer_org[i].z << "\t, " << model_paVtxBuffer_org[i].nx << "\t, " << model_paVtxBuffer_org[i].ny << "\t, " << model_paVtxBuffer_org[i].nz << "\t, " << model_paVtxBuffer_org[i].tu << "\t, " << model_paVtxBuffer_org[i].tv);
 //        }
 //        TRACE3("--------------------------------------");
 
-        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ç™»éŒ²
+        //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@“o˜^
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
             model_paIdxBuffer_org[i*3 + 0] = model_pMeshesFront->_Faces[i].data[0];
@@ -493,14 +493,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
             model_paIdxBuffer_org[i*3 + 2] = model_pMeshesFront->_Faces[i].data[2];
         }
 
-        //ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆ
+        //ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg
 //        UINT aMaterialsGrp = UINT[nFaces];
 //        for (int i = 0; i < nFaces; i++) {
 //            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
 //        }
 
-        //æç”»æ™‚ï¼ˆDrawIndexedPrimitiveï¼‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆä½œæˆ
-        GgafDx9MeshModel::INDEXPARAM* paParam = NEW GgafDx9MeshModel::INDEXPARAM[nFaces]; //æœ€é«˜ã«ãƒãƒ†ãƒªã‚¢ãƒ«ãŒãƒãƒ©ãƒãƒ©ã ã£ãŸå ´åˆnFaceså¿…è¦
+        //•`‰æiDrawIndexedPrimitivej‚Ìƒpƒ‰ƒ[ƒ^ƒŠƒXƒgì¬
+        GgafDx9MeshModel::INDEXPARAM* paParam = NEW GgafDx9MeshModel::INDEXPARAM[nFaces]; //Å‚‚Éƒ}ƒeƒŠƒAƒ‹‚ªƒoƒ‰ƒoƒ‰‚¾‚Á‚½ê‡nFaces•K—v
 
         int prev_materialno = -1;
         int materialno = 0;
@@ -520,16 +520,16 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
                 paParam[paramno].MaterialNo = materialno;
                 paParam[paramno].BaseVertexIndex = 0;
-                paParam[paramno].MinIndex = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®šã€å¿…ãšãƒ–ãƒ¬ã‚¤ã‚¯ã—ãŸã„ãŸã‚å¤‰ãªå€¤ã«ã—ã¨ã
-                paParam[paramno].NumVertices = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                paParam[paramno].MinIndex = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’èA•K‚¸ƒuƒŒƒCƒN‚µ‚½‚¢‚½‚ß•Ï‚È’l‚É‚µ‚Æ‚­
+                paParam[paramno].NumVertices = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
                 paParam[paramno].StartIndex = faceNoCnt*3;
-                paParam[paramno].PrimitiveCount = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                paParam[paramno].PrimitiveCount = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
 
                 if (faceNoCnt > 0) {
                     paParam[paramno-1].MinIndex = min_num_vertices;
                     paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
                     paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
-                    //ãƒªã‚»ãƒƒãƒˆ
+                    //ƒŠƒZƒbƒg
                     max_num_vertices = 0;
                     min_num_vertices = INT_MAX;
                 }
@@ -579,7 +579,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
     if (prm_pMeshModel->_pIDirect3DVertexBuffer9 == NULL) {
 
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+        //’¸“_ƒoƒbƒtƒ@ì¬
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pMeshModel->_size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -587,18 +587,18 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pMeshModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pMeshModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pMeshModel->_model_name));
 
-        //ãƒãƒƒãƒ•ã‚¡ã¸ä½œæˆæ¸ˆã¿é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’æµã—è¾¼ã‚€
+        //ƒoƒbƒtƒ@‚Öì¬Ï‚İ’¸“_ƒf[ƒ^‚ğ—¬‚µ‚Ş
         void *pVertexBuffer;
         hr = prm_pMeshModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pMeshModel->_size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pMeshModel->_model_name);
-        memcpy(pVertexBuffer, model_paVtxBuffer_org, prm_pMeshModel->_size_vertices); //pVertexBuffer â† paVertex
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pMeshModel->_model_name);
+        memcpy(pVertexBuffer, model_paVtxBuffer_org, prm_pMeshModel->_size_vertices); //pVertexBuffer © paVertex
         prm_pMeshModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
 
-    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆ
+    //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒf[ƒ^ì¬
     if (prm_pMeshModel->_pIDirect3DIndexBuffer9 == NULL) {
         int nFaces = model_pMeshesFront->_nFaces;
 
@@ -609,14 +609,14 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
                                 D3DPOOL_MANAGED,
                                 &(prm_pMeshModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer å¤±æ•— model="<<(prm_pMeshModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshModel] _pID3DDevice9->CreateIndexBuffer ¸”s model="<<(prm_pMeshModel->_model_name));
         void* pIndexBuffer;
         prm_pMeshModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , model_paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
         prm_pMeshModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã‚«ã‚¦ãƒ³ãƒˆ
+    //ƒ}ƒeƒŠƒAƒ‹”ƒJƒEƒ“ƒg
     int model_nMaterials = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
         model_nMaterials++;
@@ -653,13 +653,13 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
         } else {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—æ™‚ã¯çœŸã£ç™½ãªãƒ†ã‚¯ã‚¹ãƒãƒ£ã«ç½®ãæ›ãˆ
+            //ƒeƒNƒXƒ`ƒƒ–³‚µ‚Í^‚Á”’‚ÈƒeƒNƒXƒ`ƒƒ‚É’u‚«Š·‚¦
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
         }
         n++;
     }
 
-    //ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     prm_pMeshModel->_pModel3D = model_pModel3D;
     prm_pMeshModel->_pMeshesFront = model_pMeshesFront;
 
@@ -671,8 +671,8 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
     prm_pMeshModel->_dwNumMaterials = model_nMaterials;
 
 //    {
-//        //ãƒ‡ãƒãƒƒã‚°
-//        _TRACE_("#é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ nVertices="<<nVertices);
+//        //ƒfƒoƒbƒO
+//        _TRACE_("#’¸“_ƒoƒbƒtƒ@ nVertices="<<nVertices);
 //        float x,y,z,nx,ny,nz,tu,tv;
 //        for (int i = 0; i < nVertices; i++) {
 //            x = model_paVtxBuffer_org[i].x;
@@ -684,20 +684,20 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 //            tu = model_paVtxBuffer_org[i].tu;
 //            tv = model_paVtxBuffer_org[i].tv;
 //
-//            _TRACE_("é ‚ç‚¹["<<i<<"] "<<x<<";"<<y<<";"<<z<<";,\t"<<nx<<";"<<ny<<";"<<nz<<";,\t"<<tu<<";"<<tv<<";,");
+//            _TRACE_("’¸“_["<<i<<"] "<<x<<";"<<y<<";"<<z<<";,\t"<<nx<<";"<<ny<<";"<<nz<<";,\t"<<tu<<";"<<tv<<";,");
 //        }
 //
 //
-//        _TRACE_("#ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ nFaces="<<nFaces);
+//        _TRACE_("#ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ nFaces="<<nFaces);
 //        WORD vtx1,vtx2,vtx3;
 //        for (int face = 0; face < nFaces; face++) {
 //            vtx1 = model_paIdxBuffer_org[face*3 + 0];
 //            vtx2 = model_paIdxBuffer_org[face*3 + 1];
 //            vtx3 = model_paIdxBuffer_org[face*3 + 2];
-//            _TRACE_("é¢["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
+//            _TRACE_("–Ê["<<face<<"] 3;"<<vtx1<<","<<vtx2<<","<<vtx3<<";,");
 //        }
 //
-//        _TRACE_("ãƒãƒ†ãƒªã‚¢ãƒ«  model_nMaterials="<<model_nMaterials);
+//        _TRACE_("ƒ}ƒeƒŠƒAƒ‹  model_nMaterials="<<model_nMaterials);
 //        float a,r,g,b;
 //        for (int i = 0; i < model_nMaterials; i++) {
 //            a = model_paD3DMaterial9[i].Diffuse.a;
@@ -712,7 +712,7 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 //            _TRACE_("nMaterial["<<i<<"] Ambient(rgba)=("<<r<<","<<g<<","<<b<<","<<a<<")");
 //        }
 //
-//        _TRACE_("#ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆ _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
+//        _TRACE_("#ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg _nMaterialListGrp="<< prm_pMeshModel->_nMaterialListGrp);
 //        for (UINT i = 0; i < prm_pMeshModel->_nMaterialListGrp; i++) {
 //            int material_no = prm_pMeshModel->_paIndexParam[i].MaterialNo;
 //            _TRACE_("MaterialGrp["<<i<<"] "<<material_no<<",");
@@ -745,26 +745,26 @@ void GgafDx9ModelManager::restoreMeshModel(GgafDx9MeshModel* prm_pMeshModel) {
 
 void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorphMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreMorphMeshModel(" << prm_pMorphMeshModel->_model_name << ")");
-    //ã€GgafDx9MorphMeshModelå†æ§‹ç¯‰ï¼ˆï¼åˆæœŸåŒ–ï¼‰å‡¦ç†æ¦‚è¦ã€‘
-    //åŸºæœ¬çš„ã«ã¯restoreMeshModelã®å‡¦ç†ã‚’ä¸€ã¤æ¬¡å…ƒï¼ˆé…åˆ—ï¼‰ã‚’å¢—ã‚„ã—ãŸã‚ˆã†ãªã‚‚ã®
-    //ï¼‘ï¼‰ãƒ—ãƒ©ã‚¤ãƒãƒªï¼‹ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï½˜N ã®ã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ ã‚’ä½œæˆ
-    //ï¼’ï¼‰ãã‚Œãã‚Œã®Xãƒ•ã‚¡ã‚¤ãƒ«ã‹ã‚‰ã€ç‹¬è‡ªã«æ¬¡ã®æƒ…å ±ã‚’èª­ã¿è¾¼ã¿ã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã€é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ ã«æµã—è¾¼ã‚€ã€‚
-    //ï¼“ï¼‰ï¼’ï¼‰ã‚’è¡Œãªã†éç¨‹ã§ã€åŒæ™‚ã« GgafDx9MeshModel ã«æ¬¡ã®ãƒ¡ãƒ³ãƒã‚’ä½œæˆã€‚
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆï½˜N ã®é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—
-    //ã€€ã€€ã€€ã€€ãƒ»é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã®å†™ã—ï¼ˆãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®ã¿ï¼‰
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒãƒ†ãƒªã‚¢ãƒ«é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã€‚ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®ã¿)
-    //ã€€ã€€ã€€ã€€ãƒ»ãƒ†ã‚¯ã‚¹ãƒãƒ£é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã€‚ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®ã¿)
-    //ã€€ã€€ã€€ã€€ãƒ»DrawIndexedPrimitiveç”¨å¼•æ•°é…åˆ—(è¦ç´ æ•°ï¼ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆãŒå¤‰åŒ–ã—ãŸæ•°ã€‚ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®ã¿)
+    //yGgafDx9MorphMeshModelÄ\’zi‰Šú‰»jˆ—ŠT—vz
+    //Šî–{“I‚É‚ÍrestoreMeshModel‚Ìˆ—‚ğˆê‚ÂŸŒ³i”z—ñj‚ğ‘‚â‚µ‚½‚æ‚¤‚È‚à‚Ì
+    //‚Pjƒvƒ‰ƒCƒ}ƒŠ{ƒ‚[ƒtƒ^[ƒQƒbƒg‚˜N ‚ÌA’¸“_ƒoƒbƒtƒ@A’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ ‚ğì¬
+    //‚Qj‚»‚ê‚¼‚ê‚ÌXƒtƒ@ƒCƒ‹‚©‚çA“Æ©‚ÉŸ‚Ìî•ñ‚ğ“Ç‚İ‚İA’¸“_ƒoƒbƒtƒ@A’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ ‚É—¬‚µ‚ŞB
+    //‚Rj‚Qj‚ğs‚È‚¤‰ß’ö‚ÅA“¯‚É GgafDx9MeshModel ‚ÉŸ‚Ìƒƒ“ƒo‚ğì¬B
+    //@@@@Eƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…’¸“_ƒoƒbƒtƒ@‚ÌÊ‚µ
+    //@@@@Eƒ‚[ƒtƒ^[ƒQƒbƒg‚˜N ‚Ì’¸“_ƒoƒbƒtƒ@‚ÌÊ‚µ
+    //@@@@E’¸“_ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@‚ÌÊ‚µiƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ì‚İj
+    //@@@@Eƒ}ƒeƒŠƒAƒ‹”z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹”Bƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ì‚İ)
+    //@@@@EƒeƒNƒXƒ`ƒƒ”z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹”Bƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ì‚İ)
+    //@@@@EDrawIndexedPrimitive—pˆø””z—ñ(—v‘f”ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg‚ª•Ï‰»‚µ‚½”Bƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ì‚İ)
     int morph_target_num = prm_pMorphMeshModel->_morph_target_num;
     string* paXfileName = NEW string[morph_target_num+1];
 
     for(int i = 0; i < morph_target_num+1; i++) {
-        char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //ï¼’æ–‡å­—ç›®ä»¥é™  "2/ceres" â†’ "ceres"
-        paXfileName[i] = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"ã¨ãªã‚‹
+        char* xfilename_base = prm_pMorphMeshModel->_model_name + 2; //‚Q•¶š–ÚˆÈ~  "2/ceres" ¨ "ceres"
+        paXfileName[i] = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(xfilename_base) + "_" + (char)('0'+i) + ".x"; //"ceres_0.x"‚Æ‚È‚é
     }
     HRESULT hr;
-    //æµã—è¾¼ã‚€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆ
+    //—¬‚µ‚Ş’¸“_ƒoƒbƒtƒ@ƒf[ƒ^ì¬
     ToolBox::IO_Model_X* paIOX = NULL;
     Frm::Model3D**                         model_papModel3D = NULL;
     Frm::Mesh**                            model_papMeshesFront = NULL;
@@ -791,9 +791,9 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             model_papModel3D[pattern] = NEW Frm::Model3D();
             bool r = paIOX[pattern].Load(paXfileName[pattern], model_papModel3D[pattern]);
             if (r == false) {
-                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] Xãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿å¤±æ•—ã€‚å¯¾è±¡="<<paXfileName[pattern]);
+                throwGgafCriticalException("[GgafDx9ModelManager::restoreMorphMeshModel] Xƒtƒ@ƒCƒ‹‚Ì“Ç‚İ¸”sB‘ÎÛ="<<paXfileName[pattern]);
             }
-            //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’çµåˆã™ã‚‹å‰ã«ã€æƒ…å ±ã‚’ç¢ºä¿ã—ã¦ãŠã
+            //ƒƒbƒVƒ…‚ğŒ‹‡‚·‚é‘O‚ÉAî•ñ‚ğŠm•Û‚µ‚Ä‚¨‚­
             int nMesh = (int)model_papModel3D[pattern]->_Meshes.size();
             uint16* paNumVertices = NEW uint16[nMesh];
             int index_Mesh = 0;
@@ -802,7 +802,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
                 index_Mesh++;
             }
-            model_papModel3D[pattern]->ConcatenateMeshes(); //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ç¹‹ã’ã‚‹
+            model_papModel3D[pattern]->ConcatenateMeshes(); //ƒƒbƒVƒ…‚ğŒq‚°‚é
             model_papMeshesFront[pattern] = model_papModel3D[pattern]->_Meshes.front();
 //            _TRACE_("---");
             nVertices = model_papMeshesFront[pattern]->_nVertices;
@@ -814,11 +814,11 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             nFaceNormals = model_papMeshesFront[pattern]->_nFaceNormals;
 //            _TRACE_("pattern="<<pattern<<"/nFaceNormals="<<nFaceNormals);
             if (pattern == 0) {
-                //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                 model_paVtxBuffer_org_primary = NEW GgafDx9MorphMeshModel::VERTEX_PRIMARY[nVertices];
                 prm_pMorphMeshModel->_size_vertices_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY) * nVertices;
                 prm_pMorphMeshModel->_size_vertex_unit_primary = sizeof(GgafDx9MorphMeshModel::VERTEX_PRIMARY);
-                //æ³•ç·šä»¥å¤–è¨­å®š
+                //–@üˆÈŠOİ’è
                 for (int i = 0; i < nVertices; i++) {
                     model_paVtxBuffer_org_primary[i].x = model_papMeshesFront[pattern]->_Vertices[i].data[0];
                     model_paVtxBuffer_org_primary[i].y = model_papMeshesFront[pattern]->_Vertices[i].data[1];
@@ -828,14 +828,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     model_paVtxBuffer_org_primary[i].nz = 0.0f;
                     model_paVtxBuffer_org_primary[i].color = D3DCOLOR_ARGB(255,255,255,255);
                     if (i < nTextureCoords) {
-                        model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //å‡ºæ¥ã‚‹é™ã‚ŠUVåº§æ¨™è¨­å®š
+                        model_paVtxBuffer_org_primary[i].tu = model_papMeshesFront[pattern]->_TextureCoords[i].data[0];  //o—ˆ‚éŒÀ‚èUVÀ•Wİ’è
                         model_paVtxBuffer_org_primary[i].tv = model_papMeshesFront[pattern]->_TextureCoords[i].data[1];
                     } else {
                         model_paVtxBuffer_org_primary[i].tu = 0.0f;
                         model_paVtxBuffer_org_primary[i].tv = 0.0f;
                     }
 
-                    //è·é›¢
+                    //‹——£
                     model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(model_paVtxBuffer_org_primary[i].x * model_paVtxBuffer_org_primary[i].x +
                                                          model_paVtxBuffer_org_primary[i].y * model_paVtxBuffer_org_primary[i].y +
                                                          model_paVtxBuffer_org_primary[i].z * model_paVtxBuffer_org_primary[i].z));
@@ -844,11 +844,11 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     }
                 }
             } else {
-                //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                 model_papaVtxBuffer_org_morph[pattern-1] = NEW GgafDx9MorphMeshModel::VERTEX_MORPH[nVertices];
                 prm_pMorphMeshModel->_size_vertices_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH) * nVertices;
                 prm_pMorphMeshModel->_size_vertex_unit_morph = sizeof(GgafDx9MorphMeshModel::VERTEX_MORPH);
-                //æ³•ç·šä»¥å¤–è¨­å®š
+                //–@üˆÈŠOİ’è
                 for (int i = 0; i < nVertices; i++) {
                     model_papaVtxBuffer_org_morph[pattern-1][i].x = model_papMeshesFront[pattern]->_Vertices[i].data[0];
                     model_papaVtxBuffer_org_morph[pattern-1][i].y = model_papMeshesFront[pattern]->_Vertices[i].data[1];
@@ -862,11 +862,11 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             int nTextureCoords = model_papMeshesFront[pattern]->_nTextureCoords;
             if (nVertices < nTextureCoords) {
                 TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-                TRACE3("UVåº§æ¨™æ•°ãŒã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡æ•°ã‚’è¶Šãˆã¦ã¾ã™ã€‚é ‚ç‚¹æ•°ã¾ã§ã—ã‹è¨­å®šã•ã‚Œã¾ã›ã‚“ã€‚å¯¾è±¡="<<paXfileName[pattern]);
+                TRACE3("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B’¸“_”‚Ü‚Å‚µ‚©İ’è‚³‚ê‚Ü‚¹‚ñB‘ÎÛ="<<paXfileName[pattern]);
             }
 
-            //æ³•ç·šè¨­å®šã€‚
-            //restoreMeshModelã®èª¬æ˜ã¨åŒæ§˜
+            //–@üİ’èB
+            //restoreMeshModel‚Ìà–¾‚Æ“¯—l
             float* paRad = NEW float[nFaces*3];
             float* paRadSum_Vtx = NEW float[nVertices];
             for (int i = 0; i < nVertices; i++) {
@@ -877,85 +877,85 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             static unsigned short indexNormals_per_Face[3];
             for (int i = 0; i < nFaces; i++) {
                 for (int j = 0; j < 3; j++) {
-                    //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤(A,B,Cã¨ã™ã‚‹)
+                    //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â(A,B,C‚Æ‚·‚é)
                     indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];
-                    //é¢ã«å¯¾ã™ã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                    //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
                     if (nFaceNormals > i) {
                         indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];
                     } else {
-                        //æ³•ç·šãŒç„¡ã„å ´åˆ
+                        //–@ü‚ª–³‚¢ê‡
                         indexNormals_per_Face[j] = (unsigned short)0;
                     }
                 }
 
-                //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ A ã®è§’(âˆ CAB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+                //’¸“_ƒCƒ“ƒfƒbƒNƒX A ‚ÌŠp(ÚCAB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
                 paRad[i*3+0] = getRadv1_v0v1v2(
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[2]],
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[0]],
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[1]]
                                );
-                //A ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+                //A ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
                 paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
 
-                //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ B ã®è§’(âˆ ABC)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+                //’¸“_ƒCƒ“ƒfƒbƒNƒX B ‚ÌŠp(ÚABC)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
                 paRad[i*3+1] = getRadv1_v0v1v2(
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[0]],
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[1]],
                                  model_papMeshesFront[pattern]->_Vertices[indexVertices_per_Face[2]]
                                );
-                //B ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+                //B ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
                 paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
-                //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ C ã®è§’(âˆ ACB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+                //’¸“_ƒCƒ“ƒfƒbƒNƒX C ‚ÌŠp(ÚACB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
                 paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
-                //C ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+                //C ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
                 paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
             }
 
-            static float rate; //ãã®æ³•ç·šã®å‡ºã¦ã„ã‚‹é ‚ç‚¹ã®æˆã™è§’ã®ç‡ã€‚ã¤ã¾ã‚Šæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã«æ›ã‘ã‚‹ç‡ã€‚ãã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã®å½±éŸ¿ã®å¼·ã•ã€‚
+            static float rate; //‚»‚Ì–@ü‚Ìo‚Ä‚¢‚é’¸“_‚Ì¬‚·Šp‚Ì—¦B‚Â‚Ü‚è–@üƒxƒNƒgƒ‹‚ÉŠ|‚¯‚é—¦B‚»‚Ì–@üƒxƒNƒgƒ‹‚Ì‰e‹¿‚Ì‹­‚³B
             for (int i = 0; i < nFaces; i++) {
                 for (int j = 0; j < 3; j++) {
-                    indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                    indexVertices_per_Face[j] = model_papMeshesFront[pattern]->_Faces[i].data[j];       //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â
                     if (nFaceNormals > i) {
-                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //é¢ã«å¯¾ã™ã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                        indexNormals_per_Face[j] = model_papMeshesFront[pattern]->_FaceNormals[i].data[j];  //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
                     } else {
-                        //æ³•ç·šãŒç„¡ã„å ´åˆ
+                        //–@ü‚ª–³‚¢ê‡
                         indexNormals_per_Face[j] = (unsigned short)0;
                     }
                 }
                 if (nFaceNormals > i) {
                     rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
-                    if (pattern == 0) { //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                    if (pattern == 0) { //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
-                    } else {            //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                    } else {            //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].x * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].y * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[0]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[0]].z * rate);
                     }
                     rate = (paRad[i*3+1] / paRadSum_Vtx[indexVertices_per_Face[1]]);
-                    if (pattern == 0) { //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                    if (pattern == 0) { //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
-                    } else {            //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                    } else {            //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].x * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].y * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[1]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[1]].z * rate);
                     }
                     rate = (paRad[i*3+2] / paRadSum_Vtx[indexVertices_per_Face[2]]);
-                    if (pattern == 0) { //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                    if (pattern == 0) { //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
-                    } else {            //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                    } else {            //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nx += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].x * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].ny += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].y * rate);
                         model_papaVtxBuffer_org_morph[pattern-1][indexVertices_per_Face[2]].nz += (model_papMeshesFront[pattern]->_Normals[indexNormals_per_Face[2]].z * rate);
                     }
                 } else {
-                    //æ³•ç·šãŒç„¡ã„å ´åˆ
+                    //–@ü‚ª–³‚¢ê‡
                     int indexVertices1 = model_papMeshesFront[pattern]->_Faces[i].data[0];
                     int indexVertices2 = model_papMeshesFront[pattern]->_Faces[i].data[1];
                     int indexVertices3 = model_papMeshesFront[pattern]->_Faces[i].data[2];
@@ -976,12 +976,12 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     );
 
                     D3DXPLANE Plane;
-                    // 3 ã¤ã®ç‚¹ã‹ã‚‰å¹³é¢ã‚’ä½œæˆ
+                    // 3 ‚Â‚Ì“_‚©‚ç•½–Ê‚ğì¬
                     D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                    //æ­£è¦åŒ–ã—ãŸå¹³é¢(æ³•ç·š)ã‚’ç®—å‡º
+                    //³‹K‰»‚µ‚½•½–Ê(–@ü)‚ğZo
                     D3DXPlaneNormalize(&Plane, &Plane);
 
-                    if (pattern == 0) { //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                    if (pattern == 0) { //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                         rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].nx += (Plane.a * rate);
                         model_paVtxBuffer_org_primary[indexVertices_per_Face[0]].ny += (Plane.b * rate);
@@ -1010,7 +1010,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                     }
                 }
             }
-            //Xãƒ•ã‚¡ã‚¤ãƒ«ã®FrameTransformMatrixã‚’è€ƒæ…®
+            //Xƒtƒ@ƒCƒ‹‚ÌFrameTransformMatrix‚ğl—¶
             int n = 0;
             int nVertices_begin = 0;
             int nVertices_end = 0;
@@ -1023,7 +1023,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                 if ((*iteBone) != NULL) {
                     Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                     if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                        //FrameTransformMatrix ã¯å˜ä½è¡Œåˆ—
+                        //FrameTransformMatrix ‚Í’PˆÊs—ñ
                         _TRACE_("pattern=["<<pattern<<"] FrameTransformMatrix is Identity");
                     } else {
                         _TRACE_("pattern=["<<pattern<<"] Execute FrameTransform!");
@@ -1098,10 +1098,10 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             }
             DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
-            //æœ€å¾Œã«æ³•ç·šæ­£è¦åŒ–ã—ã¦è¨­å®š
+            //ÅŒã‚É–@ü³‹K‰»‚µ‚Äİ’è
             static D3DXVECTOR3 vec;
             for (int i = 0; i < nVertices; i++) {
-                if (pattern == 0) { //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
+                if (pattern == 0) { //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
                     vec.x = model_paVtxBuffer_org_primary[i].nx;
                     vec.y = model_paVtxBuffer_org_primary[i].ny;
                     vec.z = model_paVtxBuffer_org_primary[i].nz;
@@ -1115,7 +1115,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         model_paVtxBuffer_org_primary[i].ny = vec.y;
                         model_paVtxBuffer_org_primary[i].nz = vec.z;
                     }
-                } else {           //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                } else {           //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                     vec.x = model_papaVtxBuffer_org_morph[pattern-1][i].nx;
                     vec.y = model_papaVtxBuffer_org_morph[pattern-1][i].ny;
                     vec.z = model_papaVtxBuffer_org_morph[pattern-1][i].nz;
@@ -1136,7 +1136,7 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         } //for (int pattern = 0; pattern < 2; pattern++)
 
 
-        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡å–å¾—
+        //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@æ“¾
         model_paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
             model_paIdxBuffer_org[i*3 + 0] = model_papMeshesFront[0]->_Faces[i].data[0];
@@ -1144,13 +1144,13 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
             model_paIdxBuffer_org[i*3 + 2] = model_papMeshesFront[0]->_Faces[i].data[2];
         }
 
-        //ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆ
+        //ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒg
 //        UINT aMaterialsGrp = UINT[nFaces];
 //        for (int i = 0; i < nFaces; i++) {
 //            aMaterialsGrp[i] =  model_pMeshesFront->_FaceMaterials[i];
 //        }
 
-        //æç”»æ™‚ï¼ˆDrawIndexedPrimitiveï¼‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒªã‚¹ãƒˆä½œæˆ
+        //•`‰æiDrawIndexedPrimitivej‚Ìƒpƒ‰ƒ[ƒ^ƒŠƒXƒgì¬
         GgafDx9MeshModel::INDEXPARAM* paParam = NEW GgafDx9MeshModel::INDEXPARAM[nFaces];
 
         int prev_materialno = -1;
@@ -1171,16 +1171,16 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
                 paParam[paramno].MaterialNo = materialno;
                 paParam[paramno].BaseVertexIndex = 0;
-                paParam[paramno].MinIndex = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®šã€å¤‰ãªå€¤ã«ã—ã¨ã
-                paParam[paramno].NumVertices = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                paParam[paramno].MinIndex = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’èA•Ï‚È’l‚É‚µ‚Æ‚­
+                paParam[paramno].NumVertices = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
                 paParam[paramno].StartIndex = faceNoCnt*3;
-                paParam[paramno].PrimitiveCount = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                paParam[paramno].PrimitiveCount = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
 
                 if (faceNoCnt > 0) {
                     paParam[paramno-1].MinIndex = min_num_vertices;
                     paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
                     paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
-                    //ãƒªã‚»ãƒƒãƒˆ
+                    //ƒŠƒZƒbƒg
                     max_num_vertices = 0;
                     min_num_vertices = INT_MAX;
                 }
@@ -1229,53 +1229,53 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
     if (prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9 == NULL) {
 
-        int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 æ§‹é€ ä½“ã®é…åˆ—è¦ç´ æ•°
+        int elemnum = (4+(2*morph_target_num))+1; //D3DVERTEXELEMENT9 \‘¢‘Ì‚Ì”z—ñ—v‘f”
         D3DVERTEXELEMENT9* paDecl = NEW D3DVERTEXELEMENT9[elemnum];
-                                                         // 4 = ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥
-                                                         // (2*morph_target_num) = ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥
+                                                         // 4 = ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…
+                                                         // (2*morph_target_num) = ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…
                                                          // 1 = D3DDECL_END()
-        //ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥éƒ¨é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
-        //FVFã¯ä½¿ãˆãªã„ã®ã§ã€CreateVertexDeclarationã§
-        //TODO:é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã‚’æ¯å›æ§‹ç¯‰ã§ã¯ãªãã¦ã€ãƒ¢ãƒ‡ãƒ«å´ã«ä¿æ™‚ã•ã›ãŸã„ã€‚
-        //ãƒ—ãƒ©ã‚¤ãƒãƒªéƒ¨é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
-        //float x, y, z; // é ‚ç‚¹åº§æ¨™
+        //ƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…•”’¸“_ƒtƒH[ƒ}ƒbƒg
+        //FVF‚Íg‚¦‚È‚¢‚Ì‚ÅACreateVertexDeclaration‚Å
+        //TODO:’¸“_ƒtƒH[ƒ}ƒbƒg‚ğ–ˆ‰ñ\’z‚Å‚Í‚È‚­‚ÄAƒ‚ƒfƒ‹‘¤‚É•Û‚³‚¹‚½‚¢B
+        //ƒvƒ‰ƒCƒ}ƒŠ•”’¸“_ƒtƒH[ƒ}ƒbƒg
+        //float x, y, z; // ’¸“_À•W
         paDecl[0].Stream = 0;
         paDecl[0].Offset = 0;
         paDecl[0].Type = D3DDECLTYPE_FLOAT3;
         paDecl[0].Method = D3DDECLMETHOD_DEFAULT;
         paDecl[0].Usage = D3DDECLUSAGE_POSITION;
         paDecl[0].UsageIndex = 0;
-        //float nx, ny, nz; // æ³•ç·š
+        //float nx, ny, nz; // –@ü
         paDecl[1].Stream = 0;
         paDecl[1].Offset = sizeof(float)*3;
         paDecl[1].Type = D3DDECLTYPE_FLOAT3;
         paDecl[1].Method = D3DDECLMETHOD_DEFAULT;
         paDecl[1].Usage = D3DDECLUSAGE_NORMAL;
         paDecl[1].UsageIndex = 0;
-        //DWORD color; // é ‚ç‚¹ã‚«ãƒ©ãƒ¼
+        //DWORD color; // ’¸“_ƒJƒ‰[
         paDecl[2].Stream = 0;
         paDecl[2].Offset = sizeof(float)*6;
         paDecl[2].Type = D3DDECLTYPE_D3DCOLOR;
         paDecl[2].Method = D3DDECLMETHOD_DEFAULT;
         paDecl[2].Usage = D3DDECLUSAGE_COLOR;
         paDecl[2].UsageIndex = 0;
-        //float tu, tv; // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
+        //float tu, tv; // ƒeƒNƒXƒ`ƒƒÀ•W
         paDecl[3].Stream = 0;
         paDecl[3].Offset = sizeof(float)*6+sizeof(DWORD);
         paDecl[3].Type = D3DDECLTYPE_FLOAT2;
         paDecl[3].Method = D3DDECLMETHOD_DEFAULT;
         paDecl[3].Usage = D3DDECLUSAGE_TEXCOORD;
         paDecl[3].UsageIndex = 0;
-        //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥éƒ¨é ‚ç‚¹ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆ
+        //ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…•”’¸“_ƒtƒH[ƒ}ƒbƒg
         for (int i = 4, s = 1; i < elemnum-1; i+=2, s++) {
-            //float x, y, z; // é ‚ç‚¹åº§æ¨™
+            //float x, y, z; // ’¸“_À•W
             paDecl[i].Stream = s;
             paDecl[i].Offset = 0;
             paDecl[i].Type = D3DDECLTYPE_FLOAT3;
             paDecl[i].Method = D3DDECLMETHOD_DEFAULT;
             paDecl[i].Usage = D3DDECLUSAGE_POSITION;
             paDecl[i].UsageIndex = s;
-            //float nx, ny, nz; // æ³•ç·š
+            //float nx, ny, nz; // –@ü
             paDecl[i+1].Stream = s;
             paDecl[i+1].Offset = sizeof(float)*3;
             paDecl[i+1].Type = D3DDECLTYPE_FLOAT3;
@@ -1292,19 +1292,19 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         paDecl[elemnum-1].UsageIndex = 0;
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexDeclaration( paDecl, &(prm_pMorphMeshModel->_pIDirect3DVertexDeclaration9) );
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] GgafDx9God::_pID3DDevice9->CreateVertexDeclaration å¤±æ•— model="<<(prm_pMorphMeshModel->_model_name));
-        //ã‚¹ãƒˆãƒªãƒ¼ãƒ æ•°å–å¾—        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] GgafDx9God::_pID3DDevice9->CreateVertexDeclaration ¸”s model="<<(prm_pMorphMeshModel->_model_name));
+        //ƒXƒgƒŠ[ƒ€”æ“¾        hr = m_pDecl->GetDeclaration( m_pElement, &m_numElements);
 
         DELETEARR_IMPOSSIBLE_NULL(paDecl);
     }
 
-    //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //’¸“_ƒoƒbƒtƒ@ì¬
     if (prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary == NULL) {
         prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph = NEW LPDIRECT3DVERTEXBUFFER9[morph_target_num];
         for (int pattern = 0; pattern < morph_target_num+1; pattern++) {
 
             if (pattern == 0) {
-                //ãƒ—ãƒ©ã‚¤ãƒãƒªé ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+                //ƒvƒ‰ƒCƒ}ƒŠ’¸“_ƒoƒbƒtƒ@
                 hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                         prm_pMorphMeshModel->_size_vertices_primary,
                         D3DUSAGE_WRITEONLY,
@@ -1312,14 +1312,14 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary),
                         NULL);
-                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•—ï¼ˆãƒ—ãƒ©ã‚¤ãƒãƒªï¼‰ model="<<(prm_pMorphMeshModel->_model_name));
+                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer ¸”siƒvƒ‰ƒCƒ}ƒŠj model="<<(prm_pMorphMeshModel->_model_name));
                 void *pVertexBuffer;
                 hr = prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Lock(0, prm_pMorphMeshModel->_size_vertices_primary, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•—ï¼ˆãƒ—ãƒ©ã‚¤ãƒãƒªï¼‰ model="<<prm_pMorphMeshModel->_model_name);
-                memcpy(pVertexBuffer, model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertices_primary); //pVertexBuffer â† paVertex
+                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”siƒvƒ‰ƒCƒ}ƒŠj model="<<prm_pMorphMeshModel->_model_name);
+                memcpy(pVertexBuffer, model_paVtxBuffer_org_primary, prm_pMorphMeshModel->_size_vertices_primary); //pVertexBuffer © paVertex
                 prm_pMorphMeshModel->_pIDirect3DVertexBuffer9_primary->Unlock();
             } else {
-                //ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆé ‚ç‚¹ãƒãƒƒãƒ•ã‚¡
+                //ƒ‚[ƒtƒ^[ƒQƒbƒg’¸“_ƒoƒbƒtƒ@
                 hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                         prm_pMorphMeshModel->_size_vertices_morph,
                         D3DUSAGE_WRITEONLY,
@@ -1327,18 +1327,18 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                         D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                         &(prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]),
                         NULL);
-                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•—ï¼ˆãƒ¢ãƒ¼ãƒ•:"<<pattern-1<<"ï¼‰ model="<<(prm_pMorphMeshModel->_model_name));
+                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateVertexBuffer ¸”siƒ‚[ƒt:"<<pattern-1<<"j model="<<(prm_pMorphMeshModel->_model_name));
                 void *pVertexBuffer;
                 hr = prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Lock(0, prm_pMorphMeshModel->_size_vertices_morph, (void**)&pVertexBuffer, 0);
-                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•—ï¼ˆãƒ¢ãƒ¼ãƒ•:"<<pattern-1<<"ï¼‰ model="<<prm_pMorphMeshModel->_model_name);
-                memcpy(pVertexBuffer, model_papaVtxBuffer_org_morph[pattern-1], prm_pMorphMeshModel->_size_vertices_morph); //pVertexBuffer â† paVertex
+                checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”siƒ‚[ƒt:"<<pattern-1<<"j model="<<prm_pMorphMeshModel->_model_name);
+                memcpy(pVertexBuffer, model_papaVtxBuffer_org_morph[pattern-1], prm_pMorphMeshModel->_size_vertices_morph); //pVertexBuffer © paVertex
                 prm_pMorphMeshModel->_paIDirect3DVertexBuffer9_morph[pattern-1]->Unlock();
             }
         }
     }
 
 
-    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆï¼ˆãƒ—ãƒ©ã‚¤ãƒãƒªã€ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆå…±ã«åŒã˜ï¼‰
+    //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒf[ƒ^ì¬iƒvƒ‰ƒCƒ}ƒŠAƒ‚[ƒtƒ^[ƒQƒbƒg‹¤‚É“¯‚¶j
     if (prm_pMorphMeshModel->_pIDirect3DIndexBuffer9 == NULL) {
         int nFaces = model_papMeshesFront[0]->_nFaces;
 
@@ -1349,18 +1349,18 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
                                 D3DPOOL_MANAGED,
                                 &(prm_pMorphMeshModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateIndexBuffer å¤±æ•— model="<<(prm_pMorphMeshModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMorphMeshModel] _pID3DDevice9->CreateIndexBuffer ¸”s model="<<(prm_pMorphMeshModel->_model_name));
         void* pIndexBuffer;
         prm_pMorphMeshModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
         memcpy(pIndexBuffer , model_paIdxBuffer_org , sizeof(WORD) * nFaces * 3);
         prm_pMorphMeshModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«
-    //ãƒãƒ†ãƒªã‚¢ãƒ«ã¯ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¡ãƒƒã‚·ãƒ¥ã®ãƒãƒ†ãƒªã‚¢ãƒ«æƒ…å ±ã‚’ã€
-    //ãƒ—ãƒ©ã‚¤ãƒãƒªåŠã³å…¨ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®ãƒãƒ†ãƒªã‚¢ãƒ«ã¨ã™ã‚‹ã€‚
-    //ã‚ˆã£ã¦model_papMeshesFront[0]ã ã‘ä½¿ã†ã€æ®‹ã‚Šã¯ä½¿ã‚ãªã„ã€‚
-    //TODO:å°†æ¥çš„ã«ã¯ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆåˆ¥ã«ãƒãƒ†ãƒªã‚¢ãƒ«è¨­å®šã§ãã‚Œã°è¡¨ç¾ãŒå¢—ã™ã€‚ã„ã¤ã‹ã—ã‚ˆã†ã‹ã€‚
+    //ƒ}ƒeƒŠƒAƒ‹
+    //ƒ}ƒeƒŠƒAƒ‹‚Íƒvƒ‰ƒCƒ}ƒŠƒƒbƒVƒ…‚Ìƒ}ƒeƒŠƒAƒ‹î•ñ‚ğA
+    //ƒvƒ‰ƒCƒ}ƒŠ‹y‚Ñ‘Sƒ‚[ƒtƒ^[ƒQƒbƒg‚Ìƒ}ƒeƒŠƒAƒ‹‚Æ‚·‚éB
+    //‚æ‚Á‚Ämodel_papMeshesFront[0]‚¾‚¯g‚¤Ac‚è‚Íg‚í‚È‚¢B
+    //TODO:«—ˆ“I‚É‚Íƒ‚[ƒtƒ^[ƒQƒbƒg•Ê‚Éƒ}ƒeƒŠƒAƒ‹İ’è‚Å‚«‚ê‚Î•\Œ»‚ª‘‚·B‚¢‚Â‚©‚µ‚æ‚¤‚©B
     int model_nMaterials = 0;
     for (list<Frm::Material*>::iterator material =  model_papMeshesFront[0]->_Materials.begin();
             material !=  model_papMeshesFront[0]->_Materials.end(); material++) {
@@ -1398,20 +1398,20 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
         } else {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—æ™‚ã¯çœŸã£ç™½ãªãƒ†ã‚¯ã‚¹ãƒãƒ£ã«ç½®ãæ›ãˆ
+            //ƒeƒNƒXƒ`ƒƒ–³‚µ‚Í^‚Á”’‚ÈƒeƒNƒXƒ`ƒƒ‚É’u‚«Š·‚¦
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
         }
         n++;
     }
 
     if (model_nMaterials != n) {
-        TRACE3("GgafDx9ModelManager::restoreMorphMeshModel(" << prm_pMorphMeshModel->_model_name << ") ã¡ãªã¿ã«ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ãŒãŠã‹ã—ã„ã§ã™ã€‚model_nMaterials="<<model_nMaterials<<"/n="<<n);
+        TRACE3("GgafDx9ModelManager::restoreMorphMeshModel(" << prm_pMorphMeshModel->_model_name << ") ‚¿‚È‚İ‚Éƒ}ƒeƒŠƒAƒ‹”‚ª‚¨‚©‚µ‚¢‚Å‚·Bmodel_nMaterials="<<model_nMaterials<<"/n="<<n);
     }
 
     DELETEARR_IMPOSSIBLE_NULL(paIOX);
     DELETEARR_IMPOSSIBLE_NULL(paXfileName);
 
-    //ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     prm_pMorphMeshModel->_papModel3D = model_papModel3D;
     prm_pMorphMeshModel->_papMeshesFront = model_papMeshesFront;
     prm_pMorphMeshModel->_paIdxBuffer_org = model_paIdxBuffer_org;
@@ -1425,21 +1425,21 @@ void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel* prm_pMorp
 
 void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreD3DXMeshModel(" << prm_pD3DXMeshModel->_model_name << ")");
-    //ã€restoreD3DXMeshModelå†æ§‹ç¯‰ï¼ˆï¼åˆæœŸåŒ–ï¼‰å‡¦ç†æ¦‚è¦ã€‘
-    //1)D3DXLoadMeshFromXã‚’ä½¿ç”¨ã—ã¦Xãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
-    //2)GgafDx9D3DXMeshModelã®ãƒ¡ãƒ³ãƒã«ã‚»ãƒƒãƒˆ
-    //TODO:GgafDx9D3DXMeshModelã¯ã‚‚ã†å¿…è¦ç„¡ã„ã®ã‹ã‚‚ã—ã‚Œãªã„ã€‚
+    //yrestoreD3DXMeshModelÄ\’zi‰Šú‰»jˆ—ŠT—vz
+    //1)D3DXLoadMeshFromX‚ğg—p‚µ‚ÄXƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+    //2)GgafDx9D3DXMeshModel‚Ìƒƒ“ƒo‚ÉƒZƒbƒg
+    //TODO:GgafDx9D3DXMeshModel‚Í‚à‚¤•K—v–³‚¢‚Ì‚©‚à‚µ‚ê‚È‚¢B
 
-    //Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰ã—ã¦å¿…è¦ãªå†…å®¹ã‚’GgafDx9D3DXMeshModelãƒ¡ãƒ³ãƒã«è¨­å®šã—ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦å®Œæˆã•ã›ãŸã„
-    LPD3DXMESH pID3DXMesh; //ãƒ¡ãƒƒã‚·ãƒ¥(ID3DXMeshã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ï¼‰
-    D3DMATERIAL9* model_paD3DMaterial9; //ãƒãƒ†ãƒªã‚¢ãƒ«(D3DXMATERIALæ§‹é€ ä½“ã®é…åˆ—ã®å…ˆé ­è¦ç´ ã‚’æŒ‡ã™ãƒã‚¤ãƒ³ã‚¿ï¼‰
-    GgafDx9TextureConnection** model_papTextureCon; //ãƒ†ã‚¯ã‚¹ãƒãƒ£é…åˆ—(IDirect3DTexture9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ä¿æŒã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰
+    //Xƒtƒ@ƒCƒ‹‚Ìƒ[ƒh‚µ‚Ä•K—v‚È“à—e‚ğGgafDx9D3DXMeshModelƒƒ“ƒo‚Éİ’è‚µƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚ÄŠ®¬‚³‚¹‚½‚¢
+    LPD3DXMESH pID3DXMesh; //ƒƒbƒVƒ…(ID3DXMeshƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^j
+    D3DMATERIAL9* model_paD3DMaterial9; //ƒ}ƒeƒŠƒAƒ‹(D3DXMATERIAL\‘¢‘Ì‚Ì”z—ñ‚Ìæ“ª—v‘f‚ğw‚·ƒ|ƒCƒ“ƒ^j
+    GgafDx9TextureConnection** model_papTextureCon; //ƒeƒNƒXƒ`ƒƒ”z—ñ(IDirect3DTexture9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ•Û‚·‚éƒIƒuƒWƒFƒNƒgj
     DWORD dwNumMaterials;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //ãƒ¢ãƒ‡ãƒ«åï¼‹".x"ã§Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXMeshModel->_model_name) + ".x"; //ƒ‚ƒfƒ‹–¼{".x"‚ÅXƒtƒ@ƒCƒ‹–¼‚É‚È‚é
 
-    LPD3DXBUFFER pID3DXBuffer; //å—ã‘å–ã‚Šç”¨ãƒãƒƒãƒ•ã‚¡ï¼ˆãƒãƒ†ãƒªã‚¢ãƒ«ç”¨ï¼‰
+    LPD3DXBUFFER pID3DXBuffer; //ó‚¯æ‚è—pƒoƒbƒtƒ@iƒ}ƒeƒŠƒAƒ‹—pj
     HRESULT hr;
-    //Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒ¼ãƒ‰
+    //Xƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒ[ƒh
     hr = D3DXLoadMeshFromX(
            xfile_name.c_str(),         //[in]  LPCTSTR pFilename
            prm_pD3DXMeshModel->_dwOptions, //[in]  DWORD Options  D3DXMESH_SYSTEMMEM D3DXMESH_VB_DYNAMIC
@@ -1450,42 +1450,42 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
            &dwNumMaterials,            //[out] DWORD* pNumMaterials
            &pID3DXMesh                 //[out] LPD3DXMESH* pMesh
          );
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromXã«ã‚ˆã‚‹ãƒ­ãƒ¼ãƒ‰ãŒå¤±æ•—ã€‚å¯¾è±¡="<<xfile_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXLoadMeshFromX‚É‚æ‚éƒ[ƒh‚ª¸”sB‘ÎÛ="<<xfile_name);
 
-    //æœ€é©åŒ–
+    //Å“K‰»
     DWORD *pAdjacency = NEW DWORD [ pID3DXMesh->GetNumFaces() * 3 ];
     hr = pID3DXMesh->GenerateAdjacency( 1e-6f, pAdjacency );
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] GenerateAdjacencyãŒã¤ãã‚Œã¾ã›ã‚“ã€‚å¯¾è±¡="<<xfile_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] GenerateAdjacency‚ª‚Â‚­‚ê‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_ATTRSORT, pAdjacency, NULL, NULL, NULL );
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORTã§ãã¾ã›ã‚“ã€‚å¯¾è±¡="<<xfile_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_ATTRSORT‚Å‚«‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
     hr = pID3DXMesh->OptimizeInplace( D3DXMESHOPT_VERTEXCACHE, pAdjacency, NULL, NULL, NULL );
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHEã§ãã¾ã›ã‚“ã€‚å¯¾è±¡="<<xfile_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel] D3DXMESHOPT_VERTEXCACHE‚Å‚«‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
     DELETEARR_IMPOSSIBLE_NULL(pAdjacency);
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«ã‚’å–ã‚Šå‡ºã™
+    //ƒ}ƒeƒŠƒAƒ‹‚ğæ‚èo‚·
     D3DXMATERIAL* paD3DMaterial9_tmp = (D3DXMATERIAL*)(pID3DXBuffer->GetBufferPointer());
-    //ï¼œ2008/02/02 ã®è„³ã¿ãï¼
-    // ã‚„ã£ã¦ã„ã‚‹ã“ã¨ãƒ¡ãƒ¢
-    // GetBufferPointer()ã§å–å¾—ã§ãã‚‹ D3DXMATERIALæ§‹é€ ä½“é…åˆ—ã®ãƒ¡ãƒ³ãƒã®MatD3D (D3DMATERIAL9æ§‹é€ ä½“) ãŒæ¬²ã—ã„ã€‚
-    //æ§‹é€ ä½“ã‚’ç‰©ç†ã‚³ãƒ”ãƒ¼ã‚’ã—ã¦ä¿å­˜ã™ã‚‹ã“ã¨ã«ã—ã¾ã—ã‚‡ã€œã€ã¨ã‚Šã‚ãˆãšãã€œã—ã¾ã—ã‚‡ã†ã€‚
+    //ƒ2008/02/02 ‚Ì”]‚İ‚»„
+    // ‚â‚Á‚Ä‚¢‚é‚±‚Æƒƒ‚
+    // GetBufferPointer()‚Åæ“¾‚Å‚«‚é D3DXMATERIAL\‘¢‘Ì”z—ñ‚Ìƒƒ“ƒo‚ÌMatD3D (D3DMATERIAL9\‘¢‘Ì) ‚ª—~‚µ‚¢B
+    //\‘¢‘Ì‚ğ•¨—ƒRƒs[‚ğ‚µ‚Ä•Û‘¶‚·‚é‚±‚Æ‚É‚µ‚Ü‚µ‚å`A‚Æ‚è‚ ‚¦‚¸‚»`‚µ‚Ü‚µ‚å‚¤B
     model_paD3DMaterial9 = NEW D3DMATERIAL9[dwNumMaterials];
     for( DWORD i = 0; i < dwNumMaterials; i++){
         model_paD3DMaterial9[i] = paD3DMaterial9_tmp[i].MatD3D;
     }
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«ã®Diffuseåå°„ã‚’Ambientåå°„ã«ã‚³ãƒ”ãƒ¼ã™ã‚‹
-    //ç†ç”±ï¼šAmbientãƒ©ã‚¤ãƒˆã‚’ä½¿ç”¨ã—ãŸã‹ã£ãŸã€‚ãã®ãŸã‚ã«ã¯å½“ç„¶Ambientåå°„å€¤ã‚’ãƒãƒ†ãƒªã‚¢ãƒ«ã«è¨­å®šã—ãªã‘ã‚Œã°ã„ã‘ãªã„ãŒ
-    //ã‚¨ã‚¯ã‚¹ãƒãƒ¼ãƒˆã•ã‚ŒãŸxãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã«Ambientåå°„å€¤ãŒè¨­å®šã•ã‚Œã¦ãªã„ï¼ˆç”Ÿæˆãƒ„ãƒ¼ãƒ«ã®ã›ã„ï¼Ÿï¼‰ã€‚
-    //ã¾ãã»ã¨ã‚“ã©Diffuse=Ambientã§å•é¡Œãªã„ãƒã‚ºã¨è€ƒãˆãŸã€‚
-    //ãã“ã§ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã€Diffuseåå°„å€¤ã§Ambientåå°„å€¤ã‚’è¨­å®šã™ã‚‹ã“ã¨ã«ã™ã‚‹ã€ã¨ã‚Šã‚ãˆãšã€‚
-    //ï¼œ2009/3/13ï¼
-    //å›ºå®šãƒ‘ã‚¤ãƒ—ãƒ©ã‚¤ãƒ³ã¯ã‚‚ã†ä½¿ã‚ãªããªã£ãŸã€‚ãã‚Œã«ä¼´ã„ãƒãƒ†ãƒªã‚¢ãƒ«Diffuseã¯ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã®ã¿ã§åˆ©ç”¨ã—ã¦ã„ã‚‹ã€‚
-    //TODO:ç¾åœ¨ãƒãƒ†ãƒªã‚¢ãƒ«Ambientã¯å‚ç…§ã•ã‚Œãªã„ã€‚ä»Šå¾Œã‚‚ãã†ã™ã‚‹ï¼Ÿ
+    //ƒ}ƒeƒŠƒAƒ‹‚ÌDiffuse”½Ë‚ğAmbient”½Ë‚ÉƒRƒs[‚·‚é
+    //——RFAmbientƒ‰ƒCƒg‚ğg—p‚µ‚½‚©‚Á‚½B‚»‚Ì‚½‚ß‚É‚Í“–‘RAmbient”½Ë’l‚ğƒ}ƒeƒŠƒAƒ‹‚Éİ’è‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢‚ª
+    //ƒGƒNƒXƒ|[ƒg‚³‚ê‚½xƒtƒ@ƒCƒ‹‚Ìƒ}ƒeƒŠƒAƒ‹‚ÉAmbient”½Ë’l‚ªİ’è‚³‚ê‚Ä‚È‚¢i¶¬ƒc[ƒ‹‚Ì‚¹‚¢HjB
+    //‚Ü‚Ÿ‚Ù‚Æ‚ñ‚ÇDiffuse=Ambient‚Å–â‘è‚È‚¢ƒnƒY‚Æl‚¦‚½B
+    //‚»‚±‚ÅƒfƒtƒHƒ‹ƒg‚ÅADiffuse”½Ë’l‚ÅAmbient”½Ë’l‚ğİ’è‚·‚é‚±‚Æ‚É‚·‚éA‚Æ‚è‚ ‚¦‚¸B
+    //ƒ2009/3/13„
+    //ŒÅ’èƒpƒCƒvƒ‰ƒCƒ“‚Í‚à‚¤g‚í‚È‚­‚È‚Á‚½B‚»‚ê‚É”º‚¢ƒ}ƒeƒŠƒAƒ‹Diffuse‚ÍƒVƒF[ƒ_[‚Ìƒpƒ‰ƒ[ƒ^‚Ì‚İ‚Å—˜—p‚µ‚Ä‚¢‚éB
+    //TODO:Œ»İƒ}ƒeƒŠƒAƒ‹Ambient‚ÍQÆ‚³‚ê‚È‚¢B¡Œã‚à‚»‚¤‚·‚éH
     for( DWORD i = 0; i < dwNumMaterials; i++) {
         model_paD3DMaterial9[i].Ambient = model_paD3DMaterial9[i].Diffuse;
     }
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã‚’å–ã‚Šå‡ºã™
+    //ƒeƒNƒXƒ`ƒƒ‚ğæ‚èo‚·
     model_papTextureCon = NEW GgafDx9TextureConnection*[dwNumMaterials];
     char* texture_filename;
     for( DWORD i = 0; i < dwNumMaterials; i++) {
@@ -1493,13 +1493,13 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
         } else {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—
+            //ƒeƒNƒXƒ`ƒƒ–³‚µ
             model_papTextureCon[i] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
         }
     }
-    RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒ•ã‚¡ã‚¤ãƒ«åã¯ã‚‚ã†ã„ã‚‰ãªã„ã®ã§ãƒãƒƒãƒ•ã‚¡è§£æ”¾
+    RELEASE_IMPOSSIBLE_NULL(pID3DXBuffer);//ƒeƒNƒXƒ`ƒƒƒtƒ@ƒCƒ‹–¼‚Í‚à‚¤‚¢‚ç‚È‚¢‚Ì‚Åƒoƒbƒtƒ@‰ğ•ú
 
-    //Xãƒ•ã‚¡ã‚¤ãƒ«ã«æ³•ç·šãŒãªã„å ´åˆã€FVFã«æ³•ç·šã‚’è¿½åŠ ã—ã€æ³•ç·šã‚’è¨ˆç®—ã—ã¦ã‚’è¨­å®šã€‚
+    //Xƒtƒ@ƒCƒ‹‚É–@ü‚ª‚È‚¢ê‡AFVF‚É–@ü‚ğ’Ç‰Á‚µA–@ü‚ğŒvZ‚µ‚Ä‚ğİ’èB
     if(pID3DXMesh->GetFVF() != (D3DFVF_XYZ|D3DFVF_NORMAL|D3DFVF_TEX1)) {
         LPD3DXMESH pID3DXMesh_tmp = NULL;
         hr = pID3DXMesh->CloneMeshFVF(
@@ -1508,13 +1508,13 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
                            GgafDx9God::_pID3DDevice9,            // [in]  LPDIRECT3DDEVICE9 pDevice,
                            &pID3DXMesh_tmp                       // [out] LPD3DXMESH *ppCloneMesh
                          );
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()å¤±æ•—ã€‚å¯¾è±¡="<<xfile_name);
-        D3DXComputeNormals(pID3DXMesh_tmp, NULL); //æ³•ç·šè¨ˆç®—ï¼ˆFaceã®è¡¨è£ã©ã£ã¡ã«æ³•ç·šå‘ã‘ã‚‹ã‹ã€ã©ã†ã‚„ã£ã¦åˆ¤å®šã—ã¦ã„ã‚‹ã®ã ã‚ã†ã‹ãƒ»ãƒ»ãƒ»ï¼‰
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreD3DXMeshModel]  pID3DXMesh->CloneMeshFVF()¸”sB‘ÎÛ="<<xfile_name);
+        D3DXComputeNormals(pID3DXMesh_tmp, NULL); //–@üŒvZiFace‚Ì•\— ‚Ç‚Á‚¿‚É–@üŒü‚¯‚é‚©A‚Ç‚¤‚â‚Á‚Ä”»’è‚µ‚Ä‚¢‚é‚Ì‚¾‚ë‚¤‚©EEEj
         RELEASE_IMPOSSIBLE_NULL(pID3DXMesh);
         pID3DXMesh = pID3DXMesh_tmp;
     }
 
-    //ãƒ¡ãƒƒã‚·ãƒ¥ã€ãƒãƒ†ãƒªã‚¢ãƒ«ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã€ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã‚’ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ä¿æŒã•ã›ã‚‹
+    //ƒƒbƒVƒ…Aƒ}ƒeƒŠƒAƒ‹AƒeƒNƒXƒ`ƒƒ‚ÌQÆAƒ}ƒeƒŠƒAƒ‹”‚ğƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚É•Û‚³‚¹‚é
     prm_pD3DXMeshModel->_pID3DXMesh = pID3DXMesh;
     prm_pD3DXMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pD3DXMeshModel->_papTextureCon = model_papTextureCon;
@@ -1523,25 +1523,25 @@ void GgafDx9ModelManager::restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMe
 
 void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel) {
     TRACE3("GgafDx9ModelManager::restoreD3DXAniMeshModel(" << prm_pD3DXAniMeshModel->_model_name << ")");
-    //TODO:ä½œæˆä¸­ï¼ï¼ï¼ï¼ï¼ï¼ï¼ï¼
+    //TODO:ì¬’†IIIIIIII
 
-    //ã€restoreD3DXAniMeshModelå†æ§‹ç¯‰ï¼ˆï¼åˆæœŸåŒ–ï¼‰å‡¦ç†æ¦‚è¦ã€‘
-    //1)D3DXLoadMeshFromXã‚’ä½¿ç”¨ã—ã¦Xãƒ•ã‚¡ã‚¤ãƒ«ã‚’èª­ã¿è¾¼ã‚€
-    //2)GgafDx9D3DXAniMeshModelã®ãƒ¡ãƒ³ãƒã«ã‚»ãƒƒãƒˆ
-    //TODO:GgafDx9D3DXAniMeshModelã¯ã‚‚ã†å¿…è¦ç„¡ã„ã®ã‹ã‚‚ã—ã‚Œãªã„ã€‚
-    //Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ­ãƒ¼ãƒ‰ã—ã¦å¿…è¦ãªå†…å®¹ã‚’GgafDx9D3DXAniMeshModelãƒ¡ãƒ³ãƒã«è¨­å®šã—ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¨ã—ã¦å®Œæˆã•ã›ãŸã„
-    LPD3DXMESH pID3DXAniMesh; //ãƒ¡ãƒƒã‚·ãƒ¥(ID3DXAniMeshã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ï¼‰
-    D3DMATERIAL9* model_paD3DMaterial9; //ãƒãƒ†ãƒªã‚¢ãƒ«(D3DXMATERIALæ§‹é€ ä½“ã®é…åˆ—ã®å…ˆé ­è¦ç´ ã‚’æŒ‡ã™ãƒã‚¤ãƒ³ã‚¿ï¼‰
-    GgafDx9TextureConnection** model_papTextureCon; //ãƒ†ã‚¯ã‚¹ãƒãƒ£é…åˆ—(IDirect3DTexture9ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ã¸ã®ãƒã‚¤ãƒ³ã‚¿ã‚’ä¿æŒã™ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼‰
+    //yrestoreD3DXAniMeshModelÄ\’zi‰Šú‰»jˆ—ŠT—vz
+    //1)D3DXLoadMeshFromX‚ğg—p‚µ‚ÄXƒtƒ@ƒCƒ‹‚ğ“Ç‚İ‚Ş
+    //2)GgafDx9D3DXAniMeshModel‚Ìƒƒ“ƒo‚ÉƒZƒbƒg
+    //TODO:GgafDx9D3DXAniMeshModel‚Í‚à‚¤•K—v–³‚¢‚Ì‚©‚à‚µ‚ê‚È‚¢B
+    //Xƒtƒ@ƒCƒ‹‚Ìƒ[ƒh‚µ‚Ä•K—v‚È“à—e‚ğGgafDx9D3DXAniMeshModelƒƒ“ƒo‚Éİ’è‚µƒCƒ“ƒXƒ^ƒ“ƒX‚Æ‚µ‚ÄŠ®¬‚³‚¹‚½‚¢
+    LPD3DXMESH pID3DXAniMesh; //ƒƒbƒVƒ…(ID3DXAniMeshƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^j
+    D3DMATERIAL9* model_paD3DMaterial9; //ƒ}ƒeƒŠƒAƒ‹(D3DXMATERIAL\‘¢‘Ì‚Ì”z—ñ‚Ìæ“ª—v‘f‚ğw‚·ƒ|ƒCƒ“ƒ^j
+    GgafDx9TextureConnection** model_papTextureCon; //ƒeƒNƒXƒ`ƒƒ”z—ñ(IDirect3DTexture9ƒCƒ“ƒ^[ƒtƒFƒCƒX‚Ö‚Ìƒ|ƒCƒ“ƒ^‚ğ•Û‚·‚éƒIƒuƒWƒFƒNƒgj
     DWORD dwNumMaterials;
-    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //ãƒ¢ãƒ‡ãƒ«åï¼‹".x"ã§Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹
+    string xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pD3DXAniMeshModel->_model_name) + ".x"; //ƒ‚ƒfƒ‹–¼{".x"‚ÅXƒtƒ@ƒCƒ‹–¼‚É‚È‚é
 
-    LPD3DXBUFFER pID3DXBuffer; //å—ã‘å–ã‚Šç”¨ãƒãƒƒãƒ•ã‚¡ï¼ˆãƒãƒ†ãƒªã‚¢ãƒ«ç”¨ï¼‰
+    LPD3DXBUFFER pID3DXBuffer; //ó‚¯æ‚è—pƒoƒbƒtƒ@iƒ}ƒeƒŠƒAƒ‹—pj
     HRESULT hr;
-    //Xãƒ•ã‚¡ã‚¤ãƒ«ã®ãƒ•ã‚¡ã‚¤ãƒ«ãƒ­ãƒ¼ãƒ‰
-    GgafDx9AllocHierarchyWorldFrame* pAH = NEW GgafDx9AllocHierarchyWorldFrame(); // CAllocHierarchyBaseã®æ´¾ç”Ÿã‚¯ãƒ©ã‚¹
-    D3DXFRAME_WORLD* pFR; // ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ä»˜ããƒ•ãƒ¬ãƒ¼ãƒ æ§‹é€ ä½“
-    ID3DXAnimationController* pAC; // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚³ãƒ³ãƒˆãƒ­ãƒ¼ãƒ©
+    //Xƒtƒ@ƒCƒ‹‚Ìƒtƒ@ƒCƒ‹ƒ[ƒh
+    GgafDx9AllocHierarchyWorldFrame* pAH = NEW GgafDx9AllocHierarchyWorldFrame(); // CAllocHierarchyBase‚Ì”h¶ƒNƒ‰ƒX
+    D3DXFRAME_WORLD* pFR; // ƒ[ƒ‹ƒh•ÏŠ·s—ñ•t‚«ƒtƒŒ[ƒ€\‘¢‘Ì
+    ID3DXAnimationController* pAC; // ƒAƒjƒ[ƒVƒ‡ƒ“ƒRƒ“ƒgƒ[ƒ‰
     hr = D3DXLoadMeshHierarchyFromX(
             xfile_name.c_str(),
             D3DXMESH_MANAGED,
@@ -1555,24 +1555,24 @@ void GgafDx9ModelManager::restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_p
 
 
     LPD3DXANIMATIONSET pAnimationSet0;
-    pAC->GetAnimationSet(0, &pAnimationSet0); //ID0ç•ªã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚»ãƒƒãƒˆ
-    pAC->SetTrackAnimationSet(0, pAnimationSet0);//ID0ç•ªã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚»ãƒƒãƒˆã‚’ãƒˆãƒ©ãƒƒã‚¯0ç•ªã«ã‚»ãƒƒãƒˆï¼ˆãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§ã“ã†ãªã‚‹ã¯ãšï¼‰
-    pAC->ResetTime();//ã‚°ãƒ­ãƒ¼ãƒãƒ«æ™‚é–“ã‚’0ã«ã™ã‚‹
-    pAC->SetTrackPosition(0,0);//ãƒˆãƒ©ãƒƒã‚¯0(=ID0ç•ª)ã®ãƒ­ãƒ¼ã‚«ãƒ«æ™‚é–“ã‚’0ã«ã™ã‚‹
-    pAC->AdvanceTime(0,NULL);//ãã‚Œã‚’åæ˜ ã•ã›ã‚‹ã€‚
-    double time_set0 =  pAnimationSet0->GetPeriod(); //ID0ç•ª(=ãƒˆãƒ©ãƒƒã‚¯0)ã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚»ãƒƒãƒˆã®é–‹å§‹ã€œçµ‚äº†ã¾ã§ã®æ™‚é–“
-    double advanceTimePerFrame0 = time_set0 / 60.0 ; //ãƒˆãƒ©ãƒƒã‚¯0ç•ªã®ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’60åˆ†å‰²æ™‚é–“ã‚’æ±‚ã‚ã‚‹ã€ã¤ã¾ã‚Šï¼‘ãƒ«ãƒ¼ãƒ—1ãƒ•ãƒ¬ãƒ¼ãƒ ã«ã™ã‚‹ãŸã‚ã®æ™‚é–“
-    pAC->SetTrackSpeed(0, 0.5f);  //ãƒˆãƒ©ãƒƒã‚¯0(=ID0ç•ª)ã®ã‚¹ãƒ”ãƒ¼ãƒ‰ã‚’è¨­å®šã€‚
-                                  //1.0ã§1ãƒ«ãƒ¼ãƒ—60ãƒ•ãƒ¬ãƒ¼ãƒ 
-                                  //0.5ã§1ãƒ«ãƒ¼ãƒ—60*2ãƒ•ãƒ¬ãƒ¼ãƒ 
-                                  //0.1ã§1ãƒ«ãƒ¼ãƒ—60*10ãƒ•ãƒ¬ãƒ¼ãƒ ã«ãªã‚‹ã¯ãš
+    pAC->GetAnimationSet(0, &pAnimationSet0); //ID0”Ô‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg
+    pAC->SetTrackAnimationSet(0, pAnimationSet0);//ID0”Ô‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg‚ğƒgƒ‰ƒbƒN0”Ô‚ÉƒZƒbƒgiƒfƒtƒHƒ‹ƒg‚Å‚±‚¤‚È‚é‚Í‚¸j
+    pAC->ResetTime();//ƒOƒ[ƒoƒ‹ŠÔ‚ğ0‚É‚·‚é
+    pAC->SetTrackPosition(0,0);//ƒgƒ‰ƒbƒN0(=ID0”Ô)‚Ìƒ[ƒJƒ‹ŠÔ‚ğ0‚É‚·‚é
+    pAC->AdvanceTime(0,NULL);//‚»‚ê‚ğ”½‰f‚³‚¹‚éB
+    double time_set0 =  pAnimationSet0->GetPeriod(); //ID0”Ô(=ƒgƒ‰ƒbƒN0)‚ÌƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg‚ÌŠJn`I—¹‚Ü‚Å‚ÌŠÔ
+    double advanceTimePerFrame0 = time_set0 / 60.0 ; //ƒgƒ‰ƒbƒN0”Ô‚ÌƒAƒjƒ[ƒVƒ‡ƒ“‚ğ60•ªŠ„ŠÔ‚ğ‹‚ß‚éA‚Â‚Ü‚è‚Pƒ‹[ƒv1ƒtƒŒ[ƒ€‚É‚·‚é‚½‚ß‚ÌŠÔ
+    pAC->SetTrackSpeed(0, 0.5f);  //ƒgƒ‰ƒbƒN0(=ID0”Ô)‚ÌƒXƒs[ƒh‚ğİ’èB
+                                  //1.0‚Å1ƒ‹[ƒv60ƒtƒŒ[ƒ€
+                                  //0.5‚Å1ƒ‹[ƒv60*2ƒtƒŒ[ƒ€
+                                  //0.1‚Å1ƒ‹[ƒv60*10ƒtƒŒ[ƒ€‚É‚È‚é‚Í‚¸
 
-    //ãƒ¡ãƒƒã‚·ãƒ¥ã€ãƒãƒ†ãƒªã‚¢ãƒ«ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã€ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã‚’ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã«ä¿æŒã•ã›ã‚‹
+    //ƒƒbƒVƒ…Aƒ}ƒeƒŠƒAƒ‹AƒeƒNƒXƒ`ƒƒ‚ÌQÆAƒ}ƒeƒŠƒAƒ‹”‚ğƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚É•Û‚³‚¹‚é
     prm_pD3DXAniMeshModel->_pAH = pAH;
     prm_pD3DXAniMeshModel->_pFR = pFR;
     prm_pD3DXAniMeshModel->_pAC = pAC;
-    prm_pD3DXAniMeshModel->_advanceTimePerFrame =  advanceTimePerFrame0; //ãƒˆãƒ©ãƒƒã‚¯0ç•ªï¼‘ãƒ«ãƒ¼ãƒ—ã®æ™‚é–“
-    _TRACE_("ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚»ãƒƒãƒˆ0ç•ª_advanceTimePerFrame");
+    prm_pD3DXAniMeshModel->_advanceTimePerFrame =  advanceTimePerFrame0; //ƒgƒ‰ƒbƒN0”Ô‚Pƒ‹[ƒv‚ÌŠÔ
+    _TRACE_("ƒAƒjƒ[ƒVƒ‡ƒ“ƒZƒbƒg0”Ô_advanceTimePerFrame");
 
 //    prm_pD3DXAniMeshModel->_pID3DXAniMesh = pID3DXAniMesh;
 //    prm_pD3DXAniMeshModel->_paD3DMaterial9_default = model_paD3DMaterial9;
@@ -1590,13 +1590,13 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     HRESULT hr;
     string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteModel->_model_name) + ".sprx";
 
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ç™»éŒ²(åˆå›å®Ÿè¡Œæ™‚ã®ã¿)
+    //ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg‚Ì“o˜^(‰‰ñÀs‚Ì‚İ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"ã®CreateEnumObjectã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<"‚ÌCreateEnumObject‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    //TODO:GUIDãªã‚“ã¨ã‹ã™ã‚‹ã€‚ä»Šã¯å®Œå…¨ç„¡è¦–ã€‚
+    //TODO:GUID‚È‚ñ‚Æ‚©‚·‚éB¡‚ÍŠ®‘S–³‹B
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -1605,17 +1605,17 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     int* pInt_RowNum_TextureSplit;
     int* pInt_ColNum_TextureSplit;
 
-    // 1ã‚»ãƒƒãƒˆã ã‘èª­è¾¼ã¿
+    // 1ƒZƒbƒg‚¾‚¯“Ç‚İ
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" ã®èª­è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚é …ç›®åã‚’è¦‹ç›´ã—ã¦");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" ‚Ì“Ç‚İ‚É¸”s‚µ‚Ü‚µ‚½B€–Ú–¼‚ğŒ©’¼‚µ‚Ä");
     }
     const GUID *pGuid;
     pIDirectXFileData->GetType( &pGuid );
     //if( *pGuid == PersonID_GUID ) {
     if(true) {
         DWORD Size;
-        // PersonIDãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+        // PersonIDƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ğæ“¾
         pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_SpriteModelWidth);
         pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_SpriteModelHeight);
@@ -1626,13 +1626,13 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
         prm_pSpriteModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pSpriteModel->_col_texture_split = *pInt_ColNum_TextureSplit;
     } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" ã®GUIDãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteModel] "<<xfile_name<<" ‚ÌGUID‚ªˆê’v‚µ‚Ü‚¹‚ñB");
     }
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—ã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒeƒNƒXƒ`ƒƒæ“¾‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     //string texture_filename = GGAFDX9_PROPERTY(DIR_TEXTURE_MODEL) + string(*ppaChar_TextureFile);
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã‚’ä¿æŒã•ã›ã‚‹ã€‚
+    //ƒeƒNƒXƒ`ƒƒ‚ÌQÆ‚ğ•Û‚³‚¹‚éB
     prm_pSpriteModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteModel->_papTextureCon[0] = model_pTextureCon;
 
@@ -1640,12 +1640,12 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     prm_pSpriteModel->_size_vertices = sizeof(GgafDx9SpriteModel::VERTEX)*4;
     prm_pSpriteModel->_size_vertex_unit = sizeof(GgafDx9SpriteModel::VERTEX);
 
-    //é ‚ç‚¹é…åˆ—æƒ…å ±ã‚’ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-    //UVã¯å·¦ä¸Šã®ï¼‘ã¤åˆ†ï¼ˆã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³ï¼ï¼‰ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è¨­å®šã™ã‚‹ã€‚
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒæç”»æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã‚’ã¿ã¦UVåº§æ¨™ã‚’ãšã‚‰ã™ä»•æ§˜ã¨ã—ã‚ˆã£ã¨ã€‚
-    //x,y ã® Ã·2 ã¨ã¯ã€ãƒ¢ãƒ‡ãƒ«ä¸­å¿ƒã‚’ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã®åŸç‚¹ä¸­å¿ƒã¨ã—ãŸã„ãŸã‚
+    //’¸“_”z—ñî•ñ‚ğƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+    //UV‚Í¶ã‚Ì‚P‚Â•ªiƒAƒjƒƒpƒ^[ƒ“‚Oj‚ğƒfƒtƒHƒ‹ƒg‚Åİ’è‚·‚éB
+    //ƒVƒF[ƒ_[‚ª•`‰æ‚ÉƒAƒjƒƒpƒ^[ƒ“”Ô†‚ğ‚İ‚ÄUVÀ•W‚ğ‚¸‚ç‚·d—l‚Æ‚µ‚æ‚Á‚ÆB
+    //x,y ‚Ì €2 ‚Æ‚ÍAƒ‚ƒfƒ‹’†S‚ğƒ[ƒJƒ‹À•W‚ÌŒ´“_’†S‚Æ‚µ‚½‚¢‚½‚ß
 
-    //å·¦ä¸Š
+    //¶ã
     paVertex[0].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
     paVertex[0].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
     paVertex[0].z = 0.0f;
@@ -1655,7 +1655,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[0].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[0].tu = 0.0f;
     paVertex[0].tv = 0.0f;
-    //å³ä¸Š
+    //‰Eã
     paVertex[1].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[1].y = *pFloat_Size_SpriteModelHeight / 2 / PX_UNIT;
     paVertex[1].z = 0.0f;
@@ -1665,7 +1665,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[1].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
     paVertex[1].tv = 0.0f;
-    //å·¦ä¸‹
+    //¶‰º
     paVertex[2].x = *pFloat_Size_SpriteModelWidth / -2 / PX_UNIT;
     paVertex[2].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
     paVertex[2].z = 0.0f;
@@ -1675,7 +1675,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[2].color = D3DCOLOR_ARGB(255,255,255,255);
     paVertex[2].tu = 0.0f;
     paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
-    //å³ä¸‹
+    //‰E‰º
     paVertex[3].x = *pFloat_Size_SpriteModelWidth / 2 / PX_UNIT;
     paVertex[3].y = *pFloat_Size_SpriteModelHeight / -2 / PX_UNIT;
     paVertex[3].z = 0.0f;
@@ -1687,14 +1687,14 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
     paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
 
 
-    //è·é›¢
+    //‹——£
     FLOAT model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                paVertex[0].y * paVertex[0].y +
                                                paVertex[0].z * paVertex[0].z));
     prm_pSpriteModel->_fBoundingSphereRadius = model_fBoundingSphereRadius;
 
 
-    //ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //ƒoƒbƒtƒ@ì¬
     if (prm_pSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -1704,21 +1704,21 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pSpriteModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pSpriteModel->_model_name));
     }
-    //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
-    //é ‚ç‚¹æƒ…å ±ã‚’ãƒ“ãƒ‡ã‚ªã‚«ãƒ¼ãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¸ãƒ­ãƒ¼ãƒ‰
+    //’¸“_ƒoƒbƒtƒ@ì¬
+    //’¸“_î•ñ‚ğƒrƒfƒIƒJ[ƒh’¸“_ƒoƒbƒtƒ@‚Öƒ[ƒh
     void *pVertexBuffer;
     hr = prm_pSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pSpriteModel->_size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pSpriteModel->_model_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pSpriteModel->_model_name);
 
-    memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertices); //pVertexBuffer â† paVertex
+    memcpy(pVertexBuffer, paVertex, prm_pSpriteModel->_size_vertices); //pVertexBuffer © paVertex
     prm_pSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
 
-    //å…¨ãƒ‘ã‚¿ãƒ¼ãƒ³ã®UVæƒ…å ±ã®é…åˆ—ä½œæˆã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-    //ï¼œ2009/3/13ï¼
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§UVæ“ä½œã™ã‚‹ã‚ˆã†ã«ãªã£ã¦ã‹ã‚‰ã€æç”»æ™‚ã«UVå·¦ä¸Šã®æƒ…å ±(model_paRectUV[n]._aUV[0])ä»¥å¤–ã¯ä½¿ç”¨ã—ãªããªã£ãŸã€‚
-    //TODO:ã—ã°ã‚‰ãã—ãŸã‚‰è¦‹ç›´ã™ã‹æ¶ˆã™ã€‚
+    //‘Sƒpƒ^[ƒ“‚ÌUVî•ñ‚Ì”z—ñì¬‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+    //ƒ2009/3/13„
+    //ƒVƒF[ƒ_[‚ÅUV‘€ì‚·‚é‚æ‚¤‚É‚È‚Á‚Ä‚©‚çA•`‰æ‚ÉUV¶ã‚Ìî•ñ(model_paRectUV[n]._aUV[0])ˆÈŠO‚Íg—p‚µ‚È‚­‚È‚Á‚½B
+    //TODO:‚µ‚Î‚ç‚­‚µ‚½‚çŒ©’¼‚·‚©Á‚·B
 
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
@@ -1755,7 +1755,7 @@ void GgafDx9ModelManager::restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteMode
         model_paD3DMaterial9[i].Ambient.a = 1.0f;
     }
     prm_pSpriteModel->_paD3DMaterial9_default = model_paD3DMaterial9;
-    //å¾Œå§‹æœ«
+    //Œãn––
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
@@ -1769,11 +1769,11 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
 
 
     HRESULT hr;
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ç™»éŒ²(åˆå›å®Ÿè¡Œæ™‚ã®ã¿)
+    //ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg‚Ì“o˜^(‰‰ñÀs‚Ì‚İ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
-    string xfile_name; //èª­ã¿è¾¼ã‚€ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆXãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ï¼‰
-    //"12/Bomb" or "8/Bomb" or "Bomb" ã‹ã‚‰ "Bomb" ã ã‘å–ã¨ã‚Šã ã—ã¦ãƒ•ãƒ«ãƒ‘ã‚¹åå–å¾—
+    string xfile_name; //“Ç‚İ‚ŞƒXƒvƒ‰ƒCƒg’è‹`ƒtƒ@ƒCƒ‹–¼iXƒtƒ@ƒCƒ‹Œ`®j
+    //"12/Bomb" or "8/Bomb" or "Bomb" ‚©‚ç "Bomb" ‚¾‚¯æ‚Æ‚è‚¾‚µ‚Äƒtƒ‹ƒpƒX–¼æ“¾
     if (*(prm_pSpriteSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pSpriteSetModel->_model_name + 2) == '/') {
@@ -1782,9 +1782,9 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pSpriteSetModel->_model_name) + ".sprx";
     }
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<"ã®CreateEnumObjectã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<"‚ÌCreateEnumObject‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    //TODO:GUIDãªã‚“ã¨ã‹ã™ã‚‹ã€‚ä»Šã¯å®Œå…¨ç„¡è¦–ã€‚
+    //TODO:GUID‚È‚ñ‚Æ‚©‚·‚éB¡‚ÍŠ®‘S–³‹B
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -1793,17 +1793,17 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
     int* pInt_RowNum_TextureSplit;
     int* pInt_ColNum_TextureSplit;
 
-    // 1ã‚»ãƒƒãƒˆã ã‘èª­è¾¼ã¿
+    // 1ƒZƒbƒg‚¾‚¯“Ç‚İ
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" ã®èª­è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚é …ç›®åã‚’è¦‹ç›´ã—ã¦");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" ‚Ì“Ç‚İ‚É¸”s‚µ‚Ü‚µ‚½B€–Ú–¼‚ğŒ©’¼‚µ‚Ä");
     }
     const GUID *pGuid;
     pIDirectXFileData->GetType( &pGuid );
     //if( *pGuid == PersonID_GUID ) {
     if(true) {
         DWORD Size;
-        // PersonIDãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+        // PersonIDƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ğæ“¾
         pIDirectXFileData->GetData("TextureFile"     , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("Width"           , &Size, (void**)&pFloat_Size_SpriteSetModelWidth);
         pIDirectXFileData->GetData("Height"          , &Size, (void**)&pFloat_Size_SpriteSetModelHeight);
@@ -1814,24 +1814,24 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         prm_pSpriteSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pSpriteSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
     } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" ã®GUIDãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreSpriteSetModel] "<<xfile_name<<" ‚ÌGUID‚ªˆê’v‚µ‚Ü‚¹‚ñB");
     }
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—ã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒeƒNƒXƒ`ƒƒæ“¾‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã‚’ä¿æŒã•ã›ã‚‹ã€‚
+    //ƒeƒNƒXƒ`ƒƒ‚ÌQÆ‚ğ•Û‚³‚¹‚éB
     prm_pSpriteSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pSpriteSetModel->_papTextureCon[0] = model_pTextureCon;
-    //ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //ƒoƒbƒtƒ@ì¬
     if (prm_pSpriteSetModel->_pIDirect3DVertexBuffer9 == NULL) {
         prm_pSpriteSetModel->_size_vertices = sizeof(GgafDx9SpriteSetModel::VERTEX)*4;
         prm_pSpriteSetModel->_size_vertex_unit = sizeof(GgafDx9SpriteSetModel::VERTEX);
 
         GgafDx9SpriteSetModel::VERTEX* paVertex = NEW GgafDx9SpriteSetModel::VERTEX[4 * prm_pSpriteSetModel->_set_num];
-        //é ‚ç‚¹é…åˆ—æƒ…å ±ã‚’ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-        //UVã¯å·¦ä¸Šã®ï¼‘ã¤åˆ†ï¼ˆã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³ï¼ï¼‰ã‚’ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã§è¨­å®šã™ã‚‹ã€‚
-        //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãŒæç”»æ™‚ã«ã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå·ã‚’ã¿ã¦UVåº§æ¨™ã‚’ãšã‚‰ã™ä»•æ§˜ã¨ã—ã‚ˆã£ã¨ã€‚
-        //x,y ã® Ã·2 ã¨ã¯ã€ãƒ¢ãƒ‡ãƒ«ä¸­å¿ƒã‚’ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã®åŸç‚¹ä¸­å¿ƒã¨ã—ãŸã„ãŸã‚
+        //’¸“_”z—ñî•ñ‚ğƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+        //UV‚Í¶ã‚Ì‚P‚Â•ªiƒAƒjƒƒpƒ^[ƒ“‚Oj‚ğƒfƒtƒHƒ‹ƒg‚Åİ’è‚·‚éB
+        //ƒVƒF[ƒ_[‚ª•`‰æ‚ÉƒAƒjƒƒpƒ^[ƒ“”Ô†‚ğ‚İ‚ÄUVÀ•W‚ğ‚¸‚ç‚·d—l‚Æ‚µ‚æ‚Á‚ÆB
+        //x,y ‚Ì €2 ‚Æ‚ÍAƒ‚ƒfƒ‹’†S‚ğƒ[ƒJƒ‹À•W‚ÌŒ´“_’†S‚Æ‚µ‚½‚¢‚½‚ß
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
 
             paVertex[i*4 + 0].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
@@ -1843,7 +1843,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 0].tu = 0.0f;
             paVertex[i*4 + 0].tv = 0.0f;
             paVertex[i*4 + 0].index = i;
-            //å³ä¸Š
+            //‰Eã
             paVertex[i*4 + 1].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
             paVertex[i*4 + 1].y = *pFloat_Size_SpriteSetModelHeight / 2 / PX_UNIT;
             paVertex[i*4 + 1].z = 0.0f;
@@ -1853,7 +1853,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit);// - (pxU/2);
             paVertex[i*4 + 1].tv = 0.0f;
             paVertex[i*4 + 1].index = i;
-            //å·¦ä¸‹
+            //¶‰º
             paVertex[i*4 + 2].x = *pFloat_Size_SpriteSetModelWidth / -2 / PX_UNIT;
             paVertex[i*4 + 2].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
             paVertex[i*4 + 2].z = 0.0f;
@@ -1863,7 +1863,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
             paVertex[i*4 + 2].tu = 0.0f;
             paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit);// - (pxV/2);
             paVertex[i*4 + 2].index = i;
-            //å³ä¸‹
+            //‰E‰º
             paVertex[i*4 + 3].x = *pFloat_Size_SpriteSetModelWidth / 2 / PX_UNIT;
             paVertex[i*4 + 3].y = *pFloat_Size_SpriteSetModelHeight / -2 / PX_UNIT;
             paVertex[i*4 + 3].z = 0.0f;
@@ -1893,7 +1893,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
 
         }
 
-        //è·é›¢
+        //‹——£
         FLOAT model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(paVertex[0].x * paVertex[0].x +
                                                    paVertex[0].y * paVertex[0].y +
                                                    paVertex[0].z * paVertex[0].z));
@@ -1907,9 +1907,9 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pSpriteSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pSpriteSetModel->_model_name));
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
-        //é ‚ç‚¹æƒ…å ±ã‚’ãƒ“ãƒ‡ã‚ªã‚«ãƒ¼ãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¸ãƒ­ãƒ¼ãƒ‰
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _p1ID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pSpriteSetModel->_model_name));
+        //’¸“_ƒoƒbƒtƒ@ì¬
+        //’¸“_î•ñ‚ğƒrƒfƒIƒJ[ƒh’¸“_ƒoƒbƒtƒ@‚Öƒ[ƒh
         void *pVertexBuffer;
         hr = prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Lock(
                                        0,
@@ -1917,18 +1917,18 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                                        (void**)&pVertexBuffer,
                                        0
                                    );
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pSpriteSetModel->_model_name);
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pSpriteSetModel->_model_name);
 
         memcpy(
             pVertexBuffer,
             paVertex,
             prm_pSpriteSetModel->_size_vertices* prm_pSpriteSetModel->_set_num
-        ); //pVertexBuffer â† paVertex
+        ); //pVertexBuffer © paVertex
         prm_pSpriteSetModel->_pIDirect3DVertexBuffer9->Unlock();
         DELETEARR_IMPOSSIBLE_NULL(paVertex);
     }
 
-    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬
     if (prm_pSpriteSetModel->_pIDirect3DIndexBuffer9 == NULL) {
         int nVertices = 4;
         int nFaces = 2;
@@ -1961,7 +1961,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
                                 D3DPOOL_MANAGED,
                                 &(prm_pSpriteSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer å¤±æ•— model="<<(prm_pSpriteSetModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreSpriteSetModel] _pID3DDevice9->CreateIndexBuffer ¸”s model="<<(prm_pSpriteSetModel->_model_name));
 
         void* pIndexBuffer;
         prm_pSpriteSetModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -1974,7 +1974,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
         DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
 
-        //æç”»æ™‚ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
+        //•`‰æƒpƒ‰ƒ[ƒ^[
         GgafDx9SpriteSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9SpriteSetModel::INDEXPARAM[prm_pSpriteSetModel->_set_num];
         for (int i = 0; i < prm_pSpriteSetModel->_set_num; i++) {
             paIndexParam[i].MaterialNo = 0;
@@ -1987,10 +1987,10 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         prm_pSpriteSetModel->_paIndexParam = paIndexParam;
     }
 
-    //å…¨ãƒ‘ã‚¿ãƒ¼ãƒ³ã®UVæƒ…å ±ã®é…åˆ—ä½œæˆã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-    //ï¼œ2009/3/13ï¼
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§UVæ“ä½œã™ã‚‹ã‚ˆã†ã«ãªã£ã¦ã‹ã‚‰ã€æç”»æ™‚ã«UVå·¦ä¸Šã®æƒ…å ±(model_paRectUV[n]._aUV[0])ä»¥å¤–ã¯ä½¿ç”¨ã—ãªããªã£ãŸã€‚
-    //TODO:ã—ã°ã‚‰ãã—ãŸã‚‰è¦‹ç›´ã™ã‹æ¶ˆã™ã€‚
+    //‘Sƒpƒ^[ƒ“‚ÌUVî•ñ‚Ì”z—ñì¬‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+    //ƒ2009/3/13„
+    //ƒVƒF[ƒ_[‚ÅUV‘€ì‚·‚é‚æ‚¤‚É‚È‚Á‚Ä‚©‚çA•`‰æ‚ÉUV¶ã‚Ìî•ñ(model_paRectUV[n]._aUV[0])ˆÈŠO‚Íg—p‚µ‚È‚­‚È‚Á‚½B
+    //TODO:‚µ‚Î‚ç‚­‚µ‚½‚çŒ©’¼‚·‚©Á‚·B
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
@@ -2026,7 +2026,7 @@ void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel* prm_pSpri
         model_paD3DMaterial9[i].Ambient.a = 1.0f;
     }
     prm_pSpriteSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
-    //å¾Œå§‹æœ«
+    //Œãn––
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
 }
@@ -2040,13 +2040,13 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     HRESULT hr;
     string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardModel->_model_name) + ".sprx";
 
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ç™»éŒ²(åˆå›å®Ÿè¡Œæ™‚ã®ã¿)
+    //ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg‚Ì“o˜^(‰‰ñÀs‚Ì‚İ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<"ã®CreateEnumObjectã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<"‚ÌCreateEnumObject‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    //TODO:GUIDãªã‚“ã¨ã‹ã™ã‚‹ã€‚ä»Šã¯å®Œå…¨ç„¡è¦–ã€‚
+    //TODO:GUID‚È‚ñ‚Æ‚©‚·‚éB¡‚ÍŠ®‘S–³‹B
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -2055,10 +2055,10 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     int* pInt_RowNum_TextureSplit;
     int* pInt_ColNum_TextureSplit;
 
-    // 1ã‚»ãƒƒãƒˆã ã‘èª­è¾¼ã¿
+    // 1ƒZƒbƒg‚¾‚¯“Ç‚İ
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" ã®èª­è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚é …ç›®åã‚’è¦‹ç›´ã—ã¦");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" ‚Ì“Ç‚İ‚É¸”s‚µ‚Ü‚µ‚½B€–Ú–¼‚ğŒ©’¼‚µ‚Ä");
     }
     const GUID *pGuid;
     pIDirectXFileData->GetType( &pGuid );
@@ -2076,12 +2076,12 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
         prm_pBoardModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pBoardModel->_col_texture_split = *pInt_ColNum_TextureSplit;
     } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" ã®GUIDãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardModel] "<<xfile_name<<" ‚ÌGUID‚ªˆê’v‚µ‚Ü‚¹‚ñB");
     }
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—ã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒeƒNƒXƒ`ƒƒæ“¾‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã‚’ä¿æŒã•ã›ã‚‹ã€‚
+    //ƒeƒNƒXƒ`ƒƒ‚ÌQÆ‚ğ•Û‚³‚¹‚éB
     prm_pBoardModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardModel->_papTextureCon[0] = model_pTextureCon;
 
@@ -2089,38 +2089,38 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     prm_pBoardModel->_size_vertices = sizeof(GgafDx9BoardModel::VERTEX)*4;
     prm_pBoardModel->_size_vertex_unit = sizeof(GgafDx9BoardModel::VERTEX);
 
-    //1pxã‚ãŸã‚Šã®uvã®å¤§ãã•ã‚’æ±‚ã‚ã‚‹
-    float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…(px)
-    float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•(px)
-     float pxU = 1.0f / texWidth; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…(px)ã§å‰²ã‚‹
-     float pxV = 1.0f / texHeight; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•(px)ã§å‰²ã‚‹
+    //1px‚ ‚½‚è‚Ìuv‚Ì‘å‚«‚³‚ğ‹‚ß‚é
+    float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //ƒeƒNƒXƒ`ƒƒ‚Ì•(px)
+    float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³(px)
+     float pxU = 1.0f / texWidth; //ƒeƒNƒXƒ`ƒƒ‚Ì•(px)‚ÅŠ„‚é
+     float pxV = 1.0f / texHeight; //ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³(px)‚ÅŠ„‚é
 
-    //å·¦ä¸Š
+    //¶ã
     paVertex[0].x = 0.0f;
     paVertex[0].y = 0.0f;
     paVertex[0].z = 0.0f;
     paVertex[0].tu = (pxU/100);
     paVertex[0].tv = (pxV/100);
-    //å³ä¸Š
+    //‰Eã
     paVertex[1].x = *pFloat_Size_BoardModelWidth;
     paVertex[1].y = 0.0f;
     paVertex[1].z = 0.0f;
-    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100); //åƒ…ã‹ã«å°ã•ãå–ã‚‹
+    paVertex[1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100); //‹Í‚©‚É¬‚³‚­æ‚é
     paVertex[1].tv = (pxV/100);
-    //å·¦ä¸‹
+    //¶‰º
     paVertex[2].x = 0.0f;
     paVertex[2].y = *pFloat_Size_BoardModelHeight;
     paVertex[2].z = 0.0f;
     paVertex[2].tu = (pxU/100);
-    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100); //åƒ…ã‹ã«å°ã•ãå–ã‚‹
-    //å³ä¸‹
+    paVertex[2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100); //‹Í‚©‚É¬‚³‚­æ‚é
+    //‰E‰º
     paVertex[3].x = *pFloat_Size_BoardModelWidth;
     paVertex[3].y = *pFloat_Size_BoardModelHeight;
     paVertex[3].z = 0.0f;
     paVertex[3].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
     paVertex[3].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
 
-    //ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //ƒoƒbƒtƒ@ì¬
     if (prm_pBoardModel->_pIDirect3DVertexBuffer9 == NULL) {
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
@@ -2130,21 +2130,21 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pBoardModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pBoardModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pBoardModel->_model_name));
     }
-    //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
-    //é ‚ç‚¹æƒ…å ±ã‚’ãƒ“ãƒ‡ã‚ªã‚«ãƒ¼ãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¸ãƒ­ãƒ¼ãƒ‰
+    //’¸“_ƒoƒbƒtƒ@ì¬
+    //’¸“_î•ñ‚ğƒrƒfƒIƒJ[ƒh’¸“_ƒoƒbƒtƒ@‚Öƒ[ƒh
     void *pVertexBuffer;
     hr = prm_pBoardModel->_pIDirect3DVertexBuffer9->Lock(0, prm_pBoardModel->_size_vertices, (void**)&pVertexBuffer, 0);
-    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pBoardModel->_model_name);
+    checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pBoardModel->_model_name);
 
-    memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertices); //pVertexBuffer â† paVertex
+    memcpy(pVertexBuffer, paVertex, prm_pBoardModel->_size_vertices); //pVertexBuffer © paVertex
     prm_pBoardModel->_pIDirect3DVertexBuffer9->Unlock();
 
-    //å…¨ãƒ‘ã‚¿ãƒ¼ãƒ³ã®UVæƒ…å ±ã®é…åˆ—ä½œæˆã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-    //ï¼œ2009/3/13ï¼
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§UVæ“ä½œã™ã‚‹ã‚ˆã†ã«ãªã£ã¦ã‹ã‚‰ã€æç”»æ™‚ã«UVå·¦ä¸Šã®æƒ…å ±(model_paRectUV[n]._aUV[0])ä»¥å¤–ã¯ä½¿ç”¨ã—ãªããªã£ãŸã€‚
-    //TODO:ã—ã°ã‚‰ãã—ãŸã‚‰ä½™åˆ†ãªæ‰€ã‚’è¦‹ç›´ã™ã‹æ¶ˆã™ã€‚
+    //‘Sƒpƒ^[ƒ“‚ÌUVî•ñ‚Ì”z—ñì¬‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+    //ƒ2009/3/13„
+    //ƒVƒF[ƒ_[‚ÅUV‘€ì‚·‚é‚æ‚¤‚É‚È‚Á‚Ä‚©‚çA•`‰æ‚ÉUV¶ã‚Ìî•ñ(model_paRectUV[n]._aUV[0])ˆÈŠO‚Íg—p‚µ‚È‚­‚È‚Á‚½B
+    //TODO:‚µ‚Î‚ç‚­‚µ‚½‚ç—]•ª‚ÈŠ‚ğŒ©’¼‚·‚©Á‚·B
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
@@ -2181,7 +2181,7 @@ void GgafDx9ModelManager::restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel) 
     }
     prm_pBoardModel->_paD3DMaterial9_default = model_paD3DMaterial9;
 
-    //å¾Œå§‹æœ«
+    //Œãn––
     DELETEARR_IMPOSSIBLE_NULL(paVertex);
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
@@ -2194,9 +2194,9 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     prm_pBoardSetModel->_paRectUV = NULL;
 
     HRESULT hr;
-    string xfile_name; //èª­ã¿è¾¼ã‚€ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå®šç¾©ãƒ•ã‚¡ã‚¤ãƒ«åï¼ˆXãƒ•ã‚¡ã‚¤ãƒ«å½¢å¼ï¼‰
-    //"12/Moji" or "8/Moji" or "Moji" ã‹ã‚‰ "Moji" ã ã‘å–ã¨ã‚Šã ã—ã¦ãƒ•ãƒ«ãƒ‘ã‚¹åå–å¾—ã€‚
-    //TODO:æ•°å€¤3æ¡("123/Moji"ã¨ã‹)ãŒæ¥ãŸã‚‰å›°ã‚‹ã€‚
+    string xfile_name; //“Ç‚İ‚ŞƒXƒvƒ‰ƒCƒg’è‹`ƒtƒ@ƒCƒ‹–¼iXƒtƒ@ƒCƒ‹Œ`®j
+    //"12/Moji" or "8/Moji" or "Moji" ‚©‚ç "Moji" ‚¾‚¯æ‚Æ‚è‚¾‚µ‚Äƒtƒ‹ƒpƒX–¼æ“¾B
+    //TODO:”’l3Œ…("123/Moji"‚Æ‚©)‚ª—ˆ‚½‚ç¢‚éB
     if (*(prm_pBoardSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name + 2) + ".sprx";
     } else if (*(prm_pBoardSetModel->_model_name + 2) == '/') {
@@ -2204,14 +2204,14 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     } else {
         xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pBoardSetModel->_model_name) + ".sprx";
     }
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ç™»éŒ²(åˆå›å®Ÿè¡Œæ™‚ã®ã¿)
+    //ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg‚Ì“o˜^(‰‰ñÀs‚Ì‚İ)
 
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_sprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<"ã®CreateEnumObjectã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<"‚ÌCreateEnumObject‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    //TODO:GUIDãªã‚“ã¨ã‹ã™ã‚‹ã€‚ä»Šã¯å®Œå…¨ç„¡è¦–ã€‚
+    //TODO:GUID‚È‚ñ‚Æ‚©‚·‚éB¡‚ÍŠ®‘S–³‹B
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -2220,10 +2220,10 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     int* pInt_RowNum_TextureSplit;
     int* pInt_ColNum_TextureSplit;
 
-    // 1ã‚»ãƒƒãƒˆã ã‘èª­è¾¼ã¿
+    // 1ƒZƒbƒg‚¾‚¯“Ç‚İ
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" ã®èª­è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚é …ç›®åã‚’è¦‹ç›´ã—ã¦");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" ‚Ì“Ç‚İ‚É¸”s‚µ‚Ü‚µ‚½B€–Ú–¼‚ğŒ©’¼‚µ‚Ä");
     }
     const GUID *pGuid;
     pIDirectXFileData->GetType( &pGuid );
@@ -2241,12 +2241,12 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         prm_pBoardSetModel->_row_texture_split = *pInt_RowNum_TextureSplit;
         prm_pBoardSetModel->_col_texture_split = *pInt_ColNum_TextureSplit;
     } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" ã®GUIDãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::restoreBoardSetModel] "<<xfile_name<<" ‚ÌGUID‚ªˆê’v‚µ‚Ü‚¹‚ñB");
     }
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—ã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒeƒNƒXƒ`ƒƒæ“¾‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     GgafDx9TextureConnection* model_pTextureCon = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å‚ç…§ã‚’ä¿æŒã•ã›ã‚‹ã€‚
+    //ƒeƒNƒXƒ`ƒƒ‚ÌQÆ‚ğ•Û‚³‚¹‚éB
     prm_pBoardSetModel->_papTextureCon = NEW GgafDx9TextureConnection*[1];
     prm_pBoardSetModel->_papTextureCon[0] = model_pTextureCon;
 
@@ -2256,35 +2256,35 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         prm_pBoardSetModel->_size_vertex_unit = sizeof(GgafDx9BoardSetModel::VERTEX);
         GgafDx9BoardSetModel::VERTEX* paVertex = NEW GgafDx9BoardSetModel::VERTEX[4 * prm_pBoardSetModel->_set_num];
 
-        //1pxã‚ãŸã‚Šã®uvã®å¤§ãã•ã‚’æ±‚ã‚ã‚‹
-        float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…(px)
-        float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•(px)
-        float pxU = 1.0f / texWidth; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…(px)ã§å‰²ã‚‹
-        float pxV = 1.0f / texHeight; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•(px)ã§å‰²ã‚‹
+        //1px‚ ‚½‚è‚Ìuv‚Ì‘å‚«‚³‚ğ‹‚ß‚é
+        float texWidth  = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Width; //ƒeƒNƒXƒ`ƒƒ‚Ì•(px)
+        float texHeight = model_pTextureCon->view()->_pD3DXIMAGE_INFO->Height; //ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³(px)
+        float pxU = 1.0f / texWidth; //ƒeƒNƒXƒ`ƒƒ‚Ì•(px)‚ÅŠ„‚é
+        float pxV = 1.0f / texHeight; //ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³(px)‚ÅŠ„‚é
 
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
-            //å·¦ä¸Š
+            //¶ã
             paVertex[i*4 + 0].x = 0.0f;
             paVertex[i*4 + 0].y = 0.0f;
             paVertex[i*4 + 0].z = 0.0f;
             paVertex[i*4 + 0].tu = (pxU/100);
             paVertex[i*4 + 0].tv = (pxV/100);
             paVertex[i*4 + 0].index = i;
-            //å³ä¸Š
+            //‰Eã
             paVertex[i*4 + 1].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 1].y = 0.0f;
             paVertex[i*4 + 1].z = 0.0f;
             paVertex[i*4 + 1].tu = 1.0f/(float)(*pInt_ColNum_TextureSplit) - (pxU/100);
             paVertex[i*4 + 1].tv = (pxV/100);
             paVertex[i*4 + 1].index = i;
-            //å·¦ä¸‹
+            //¶‰º
             paVertex[i*4 + 2].x = 0.0f;
             paVertex[i*4 + 2].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 2].z = 0.0f;
             paVertex[i*4 + 2].tu = (pxU/100);
             paVertex[i*4 + 2].tv = 1.0f/(float)(*pInt_RowNum_TextureSplit) - (pxV/100);
             paVertex[i*4 + 2].index = i;
-            //å³ä¸‹
+            //‰E‰º
             paVertex[i*4 + 3].x = *pFloat_Size_BoardSetModelWidth;
             paVertex[i*4 + 3].y = *pFloat_Size_BoardSetModelHeight;
             paVertex[i*4 + 3].z = 0.0f;
@@ -2293,7 +2293,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
             paVertex[i*4 + 3].index = i;
          }
 
-        //ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+        //ƒoƒbƒtƒ@ì¬
 
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num,
@@ -2302,9 +2302,9 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pBoardSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pBoardSetModel->_model_name));
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
-        //é ‚ç‚¹æƒ…å ±ã‚’ãƒ“ãƒ‡ã‚ªã‚«ãƒ¼ãƒ‰é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã¸ãƒ­ãƒ¼ãƒ‰
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pBoardSetModel->_model_name));
+        //’¸“_ƒoƒbƒtƒ@ì¬
+        //’¸“_î•ñ‚ğƒrƒfƒIƒJ[ƒh’¸“_ƒoƒbƒtƒ@‚Öƒ[ƒh
         void *pVertexBuffer;
         hr = prm_pBoardSetModel->_pIDirect3DVertexBuffer9->Lock(
                                                              0,
@@ -2312,20 +2312,20 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
                                                              (void**)&pVertexBuffer,
                                                              0
                                                            );
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pBoardSetModel->_model_name);
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pBoardSetModel->_model_name);
 
         memcpy(
           pVertexBuffer,
           paVertex,
           prm_pBoardSetModel->_size_vertices * prm_pBoardSetModel->_set_num
-        ); //pVertexBuffer â† paVertex
+        ); //pVertexBuffer © paVertex
         prm_pBoardSetModel->_pIDirect3DVertexBuffer9->Unlock();
 
         DELETEARR_IMPOSSIBLE_NULL(paVertex);
     }
 
 
-    //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ì¬
     if (prm_pBoardSetModel->_pIDirect3DIndexBuffer9 == NULL) {
         int nVertices = 4;
         int nFaces = 2;
@@ -2354,7 +2354,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
                                 D3DPOOL_MANAGED,
                                 &(prm_pBoardSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateIndexBuffer å¤±æ•— model="<<(prm_pBoardSetModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreBoardSetModel] _pID3DDevice9->CreateIndexBuffer ¸”s model="<<(prm_pBoardSetModel->_model_name));
 
         void* pIndexBuffer;
         prm_pBoardSetModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -2367,7 +2367,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer);
         DELETEARR_IMPOSSIBLE_NULL(paIdxBufferSet);
 
-        //æç”»æ™‚ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ãƒ¼
+        //•`‰æƒpƒ‰ƒ[ƒ^[
         GgafDx9BoardSetModel::INDEXPARAM* paIndexParam = NEW GgafDx9BoardSetModel::INDEXPARAM[prm_pBoardSetModel->_set_num];
         for (int i = 0; i < prm_pBoardSetModel->_set_num; i++) {
             paIndexParam[i].MaterialNo = 0;
@@ -2381,10 +2381,10 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     }
 
 
-    //å…¨ãƒ‘ã‚¿ãƒ¼ãƒ³ã®UVæƒ…å ±ã®é…åˆ—ä½œæˆã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
-    //ï¼œ2009/3/13ï¼
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§UVæ“ä½œã™ã‚‹ã‚ˆã†ã«ãªã£ã¦ã‹ã‚‰ã€æç”»æ™‚ã«UVå·¦ä¸Šã®æƒ…å ±(model_paRectUV[n]._aUV[0])ä»¥å¤–ã¯ä½¿ç”¨ã—ãªããªã£ãŸã€‚
-    //TODO:ã—ã°ã‚‰ãã—ãŸã‚‰ä½™åˆ†ãªæ‰€ã‚’è¦‹ç›´ã™ã‹æ¶ˆã™ã€‚
+    //‘Sƒpƒ^[ƒ“‚ÌUVî•ñ‚Ì”z—ñì¬‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
+    //ƒ2009/3/13„
+    //ƒVƒF[ƒ_[‚ÅUV‘€ì‚·‚é‚æ‚¤‚É‚È‚Á‚Ä‚©‚çA•`‰æ‚ÉUV¶ã‚Ìî•ñ(model_paRectUV[n]._aUV[0])ˆÈŠO‚Íg—p‚µ‚È‚­‚È‚Á‚½B
+    //TODO:‚µ‚Î‚ç‚­‚µ‚½‚ç—]•ª‚ÈŠ‚ğŒ©’¼‚·‚©Á‚·B
     int pattnum = (*pInt_ColNum_TextureSplit) * (*pInt_RowNum_TextureSplit);
     GgafDx9RectUV* model_paRectUV = NEW GgafDx9RectUV[pattnum];
     for (int row = 0; row < *pInt_RowNum_TextureSplit; row++) {
@@ -2421,7 +2421,7 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
     }
     prm_pBoardSetModel->_paD3DMaterial9_default = model_paD3DMaterial9;
 
-    //å¾Œå§‹æœ«
+    //Œãn––
 
     RELEASE_SAFETY(pIDirectXFileData);
     RELEASE_IMPOSSIBLE_NULL(pIDirectXFileEnumObject);
@@ -2429,20 +2429,20 @@ void GgafDx9ModelManager::restoreBoardSetModel(GgafDx9BoardSetModel* prm_pBoardS
 
 void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetModel) {
     TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ")");
-    string xfile_name; //èª­ã¿è¾¼ã‚€Xãƒ•ã‚¡ã‚¤ãƒ«å
-    //"12/Ceres" or "8/Celes" or "Celes" ã‹ã‚‰ "Celes" ã ã‘å–ã¨ã‚Šã ã—ã¦ãƒ•ãƒ«ãƒ‘ã‚¹åå–å¾—
-    //TODO:æ•°å€¤ï¼“æ¡ä»¥ä¸Šã®æ™‚
+    string xfile_name; //“Ç‚İ‚ŞXƒtƒ@ƒCƒ‹–¼
+    //"12/Ceres" or "8/Celes" or "Celes" ‚©‚ç "Celes" ‚¾‚¯æ‚Æ‚è‚¾‚µ‚Äƒtƒ‹ƒpƒX–¼æ“¾
+    //TODO:”’l‚RŒ…ˆÈã‚Ì
     if (*(prm_pMeshSetModel->_model_name + 1) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 2) + ".x";
     } else if (*(prm_pMeshSetModel->_model_name + 2) == '/') {
         xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name + 3) + ".x";
     } else {
-        xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //ãƒ¢ãƒ‡ãƒ«åï¼‹".x"ã§Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹
+        xfile_name = GGAFDX9_PROPERTY(DIR_MESH_MODEL) + string(prm_pMeshSetModel->_model_name) + ".x"; //ƒ‚ƒfƒ‹–¼{".x"‚ÅXƒtƒ@ƒCƒ‹–¼‚É‚È‚é
     }
 
 
     HRESULT hr;
-    //æµã—è¾¼ã‚€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆ
+    //—¬‚µ‚Ş’¸“_ƒoƒbƒtƒ@ƒf[ƒ^ì¬
     ToolBox::IO_Model_X iox;
 
     Frm::Model3D* model_pModel3D = NULL;
@@ -2466,10 +2466,10 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
         bool r = iox.Load(xfile_name, model_pModel3D);
         if (r == false) {
-            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] Xãƒ•ã‚¡ã‚¤ãƒ«ã®èª­è¾¼ã¿å¤±æ•—ã€‚å¯¾è±¡="<<xfile_name);
+            throwGgafCriticalException("[GgafDx9ModelManager::restoreMeshSetModel] Xƒtƒ@ƒCƒ‹‚Ì“Ç‚İ¸”sB‘ÎÛ="<<xfile_name);
         }
 
-        //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’çµåˆã™ã‚‹å‰ã«ã€æƒ…å ±ã‚’ç¢ºä¿ã—ã¦ãŠã
+        //ƒƒbƒVƒ…‚ğŒ‹‡‚·‚é‘O‚ÉAî•ñ‚ğŠm•Û‚µ‚Ä‚¨‚­
         int nMesh = (int)model_pModel3D->_Meshes.size();
         uint16* paNumVertices = NEW uint16[nMesh];
         int index_Mesh = 0;
@@ -2478,7 +2478,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             paNumVertices[index_Mesh] = ((*iteMeshes)->_nVertices);
             index_Mesh++;
         }
-        model_pModel3D->ConcatenateMeshes(); //ãƒ¡ãƒƒã‚·ãƒ¥ã‚’ç¹‹ã’ã‚‹
+        model_pModel3D->ConcatenateMeshes(); //ƒƒbƒVƒ…‚ğŒq‚°‚é
 
         model_pMeshesFront = model_pModel3D->_Meshes.front();
         nVertices = model_pMeshesFront->_nVertices;
@@ -2491,7 +2491,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         prm_pMeshSetModel->_size_vertices = sizeof(GgafDx9MeshSetModel::VERTEX) * nVertices;
         prm_pMeshSetModel->_size_vertex_unit = sizeof(GgafDx9MeshSetModel::VERTEX);
 
-        //æ³•ç·šä»¥å¤–è¨­å®š
+        //–@üˆÈŠOİ’è
         FLOAT model_fBoundingSphereRadius;
         for (int i = 0; i < nVertices; i++) {
             unit_paVtxBuffer_org[i].x = model_pMeshesFront->_Vertices[i].data[0];
@@ -2500,17 +2500,17 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paVtxBuffer_org[i].nx = 0.0f;
             unit_paVtxBuffer_org[i].ny = 0.0f;
             unit_paVtxBuffer_org[i].nz = 0.0f;
-            unit_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //é ‚ç‚¹ã‚«ãƒ©ãƒ¼ã¯ä»Šã®æ‰€ä½¿ã£ã¦ã„ãªã„
+            unit_paVtxBuffer_org[i].color = D3DCOLOR_ARGB(255,255,255,255); //’¸“_ƒJƒ‰[‚Í¡‚ÌŠg‚Á‚Ä‚¢‚È‚¢
             if (i < nTextureCoords) {
-                unit_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //å‡ºæ¥ã‚‹é™ã‚ŠUVåº§æ¨™è¨­å®š
+                unit_paVtxBuffer_org[i].tu = model_pMeshesFront->_TextureCoords[i].data[0];  //o—ˆ‚éŒÀ‚èUVÀ•Wİ’è
                 unit_paVtxBuffer_org[i].tv = model_pMeshesFront->_TextureCoords[i].data[1];
             } else {
                 unit_paVtxBuffer_org[i].tu = 0;
                 unit_paVtxBuffer_org[i].tv = 0;
             }
-            unit_paVtxBuffer_org[i].index = 0; //é ‚ç‚¹ç•ªå·ï¼ˆã‚€ã‚Šã‚„ã‚ŠåŸ‹ã‚è¾¼ã¿ï¼‰
+            unit_paVtxBuffer_org[i].index = 0; //’¸“_”Ô†i‚Ş‚è‚â‚è–„‚ß‚İj
 
-            //è·é›¢
+            //‹——£
             model_fBoundingSphereRadius = (FLOAT)(GgafDx9Util::sqrt_fast(unit_paVtxBuffer_org[i].x * unit_paVtxBuffer_org[i].x +
                                                  unit_paVtxBuffer_org[i].y * unit_paVtxBuffer_org[i].y +
                                                  unit_paVtxBuffer_org[i].z * unit_paVtxBuffer_org[i].z));
@@ -2522,11 +2522,11 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         int nTextureCoords = model_pMeshesFront->_nTextureCoords;
         if (nVertices < nTextureCoords) {
             TRACE3("nTextureCoords="<<nTextureCoords<<"/nVertices="<<nVertices);
-            TRACE3("UVåº§æ¨™æ•°ãŒã€é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡æ•°ã‚’è¶Šãˆã¦ã¾ã™ã€‚é ‚ç‚¹æ•°ã¾ã§ã—ã‹è¨­å®šã•ã‚Œã¾ã›ã‚“ã€‚å¯¾è±¡="<<xfile_name);
+            TRACE3("UVÀ•W”‚ªA’¸“_ƒoƒbƒtƒ@”‚ğ‰z‚¦‚Ä‚Ü‚·B’¸“_”‚Ü‚Å‚µ‚©İ’è‚³‚ê‚Ü‚¹‚ñB‘ÎÛ="<<xfile_name);
         }
 
-        //æ³•ç·šè¨­å®šã€‚
-        //å‡¦ç†æ–¹æ³•ã¯ restoreMeshModel ã¨åŒã˜ã€‚è¦å‚ç…§ã€‚
+        //–@üİ’èB
+        //ˆ—•û–@‚Í restoreMeshModel ‚Æ“¯‚¶B—vQÆB
         float* paRad = NEW float[nFaces*3];
         float* paRadSum_Vtx = NEW float[nVertices];
         for (int i = 0; i < nVertices; i++) {
@@ -2537,49 +2537,49 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         static unsigned short indexNormals_per_Face[3];
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
-                //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤(A,B,Cã¨ã™ã‚‹)
+                //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â(A,B,C‚Æ‚·‚é)
                 indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];
-                //é¢ã«å¯¾ã™ã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 if (nFaceNormals > i) {
                     indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];
                 } else {
-                    //æ³•ç·šãŒç„¡ã„å ´åˆ
+                    //–@ü‚ª–³‚¢ê‡
                     indexNormals_per_Face[j] = (unsigned short)0;
                 }
             }
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ A ã®è§’(âˆ CAB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX A ‚ÌŠp(ÚCAB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+0] = getRadv1_v0v1v2(
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[2]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[1]]
                            );
-            //A ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //A ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[0]] += paRad[i*3+0];
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ B ã®è§’(âˆ ABC)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX B ‚ÌŠp(ÚABC)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+1] = getRadv1_v0v1v2(
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[0]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[1]],
                              model_pMeshesFront->_Vertices[indexVertices_per_Face[2]]
                            );
-            //B ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //B ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[1]] += paRad[i*3+1];
 
-            //é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ C ã®è§’(âˆ ACB)ã‚’æ±‚ã‚ã¦ã€é…åˆ—ã«ä¿æŒ
+            //’¸“_ƒCƒ“ƒfƒbƒNƒX C ‚ÌŠp(ÚACB)‚ğ‹‚ß‚ÄA”z—ñ‚É•Û
             paRad[i*3+2] = 2*PI - (paRad[i*3+0] + paRad[i*3+1]);
-            //C ã®é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ç•ªå·ã«ç´ã¤ã‘ã¦ã€è§’ã‚’åŠ ç®—
+            //C ‚Ì’¸“_ƒCƒ“ƒfƒbƒNƒX”Ô†‚É•R‚Â‚¯‚ÄAŠp‚ğ‰ÁZ
             paRadSum_Vtx[indexVertices_per_Face[2]] += paRad[i*3+2];
         }
 
-        static float rate; //ãã®æ³•ç·šã®å‡ºã¦ã„ã‚‹é ‚ç‚¹ã®æˆã™è§’ã®ç‡ã€‚ã¤ã¾ã‚Šæ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã«æ›ã‘ã‚‹ç‡ã€‚ãã®æ³•ç·šãƒ™ã‚¯ãƒˆãƒ«ã®å½±éŸ¿ã®å¼·ã•ã€‚
+        static float rate; //‚»‚Ì–@ü‚Ìo‚Ä‚¢‚é’¸“_‚Ì¬‚·Šp‚Ì—¦B‚Â‚Ü‚è–@üƒxƒNƒgƒ‹‚ÉŠ|‚¯‚é—¦B‚»‚Ì–@üƒxƒNƒgƒ‹‚Ì‰e‹¿‚Ì‹­‚³B
         for (int i = 0; i < nFaces; i++) {
             for (int j = 0; j < 3; j++) {
-                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                indexVertices_per_Face[j] = model_pMeshesFront->_Faces[i].data[j];       //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 if (nFaceNormals > i) {
-                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //é¢ã«å¯¾ã™ã‚‹æ³•ç·šã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                    indexNormals_per_Face[j] = model_pMeshesFront->_FaceNormals[i].data[j];  //–Ê‚É‘Î‚·‚é–@üƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 } else {
-                    //æ³•ç·šãŒç„¡ã„å ´åˆ
+                    //–@ü‚ª–³‚¢ê‡
                     indexNormals_per_Face[j] = (unsigned short)0;
 
                 }
@@ -2600,13 +2600,13 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             } else {
 
 
-                //æ³•ç·šãŒç„¡ã„å ´åˆã€æ³•ç·šã‚’è¨ˆç®—ã—ã¦ä½œã‚Šã ã™ã€‚
+                //–@ü‚ª–³‚¢ê‡A–@ü‚ğŒvZ‚µ‚Äì‚è‚¾‚·B
 
-                //é¢ã«å¯¾ã™ã‚‹é ‚ç‚¹ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ï¼“ã¤
+                //–Ê‚É‘Î‚·‚é’¸“_ƒCƒ“ƒfƒbƒNƒX‚R‚Â
                 int indexVertices1 = model_pMeshesFront->_Faces[i].data[0];
                 int indexVertices2 = model_pMeshesFront->_Faces[i].data[1];
                 int indexVertices3 = model_pMeshesFront->_Faces[i].data[2];
-                //é¢ã®é ‚ç‚¹ï¼“ã¤
+                //–Ê‚Ì’¸“_‚R‚Â
                 D3DXVECTOR3 v1 = D3DXVECTOR3(
                     model_pMeshesFront->_Vertices[indexVertices1].data[0],
                     model_pMeshesFront->_Vertices[indexVertices1].data[1],
@@ -2624,9 +2624,9 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 );
 
                 D3DXPLANE Plane;
-                // 3 ã¤ã®ç‚¹ã‹ã‚‰å¹³é¢ã‚’ä½œæˆ
+                // 3 ‚Â‚Ì“_‚©‚ç•½–Ê‚ğì¬
                 D3DXPlaneFromPoints(&Plane, &v1, &v2, &v3);
-                //æ­£è¦åŒ–ã—ãŸå¹³é¢(æ³•ç·š)ã‚’ç®—å‡º
+                //³‹K‰»‚µ‚½•½–Ê(–@ü)‚ğZo
                 D3DXPlaneNormalize(&Plane, &Plane);
 
                 rate = (paRad[i*3+0] / paRadSum_Vtx[indexVertices_per_Face[0]]);
@@ -2651,11 +2651,11 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 iteBone != model_pModel3D->_toplevel_Skelettons.end(); iteBone++) {
 
             _TRACE_("(*iteBone)->_Name="<<((*iteBone)->_Name));
-            //Xãƒ•ã‚¡ã‚¤ãƒ«ã®FrameTransformMatrixã‚’è€ƒæ…®
+            //Xƒtƒ@ƒCƒ‹‚ÌFrameTransformMatrix‚ğl—¶
             if ((*iteBone) != NULL) {
                 Frm::Matrix* pMatPos = &((*iteBone)->_MatrixPos);
                 if (pMatPos == 0 || pMatPos== NULL || pMatPos->isIdentity()) {
-                    //FrameTransformMatrix ã¯å˜ä½è¡Œåˆ—
+                    //FrameTransformMatrix ‚Í’PˆÊs—ñ
                     _TRACE_("FrameTransformMatrix is Identity");
                 } else {
                     _TRACE_("Execute FrameTransform!");
@@ -2710,7 +2710,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         DELETE_IMPOSSIBLE_NULL(paNumVertices);
 
-        //æœ€å¾Œã«æ³•ç·šæ­£è¦åŒ–ã—ã¦è¨­å®š
+        //ÅŒã‚É–@ü³‹K‰»‚µ‚Äİ’è
         static D3DXVECTOR3 vec;
         for (int i = 0; i < nVertices; i++) {
             vec.x = unit_paVtxBuffer_org[i].nx;
@@ -2727,14 +2727,14 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 unit_paVtxBuffer_org[i].nz = vec.z;
             }
         }
-//        TRACE3("æ³•ç·šæ­£è¦åŒ–å¾Œ----------------------------");
+//        TRACE3("–@ü³‹K‰»Œã----------------------------");
 //        for (int i = 0; i < nVertices; i++) {
 //            TRACE3("["<<i<<"]=" << unit_paVtxBuffer_org[i].x << "\t, " << unit_paVtxBuffer_org[i].y << "\t, " << unit_paVtxBuffer_org[i].z << "\t, " << unit_paVtxBuffer_org[i].nx << "\t, " << unit_paVtxBuffer_org[i].ny << "\t, " << unit_paVtxBuffer_org[i].nz << "\t, " << unit_paVtxBuffer_org[i].tu << "\t, " << unit_paVtxBuffer_org[i].tv);
 //        }
 //        TRACE3("--------------------------------------");
 
 
-        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ç™»éŒ²
+        //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@“o˜^
         unit_paIdxBuffer_org = NEW WORD[nFaces*3];
         for (int i = 0; i < nFaces; i++) {
             unit_paIdxBuffer_org[i*3 + 0] = model_pMeshesFront->_Faces[i].data[0];
@@ -2742,7 +2742,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             unit_paIdxBuffer_org[i*3 + 2] = model_pMeshesFront->_Faces[i].data[2];
         }
 
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚»ãƒƒãƒˆã‚’ã‚³ãƒ”ãƒ¼ã§ä½œæˆ
+        //’¸“_ƒoƒbƒtƒ@ƒZƒbƒg‚ğƒRƒs[‚Åì¬
         model_paVtxBuffer_org = NEW GgafDx9MeshSetModel::VERTEX[nVertices * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nVertices; j++) {
@@ -2752,7 +2752,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         DELETEARR_IMPOSSIBLE_NULL(unit_paVtxBuffer_org);
 
-        //ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ã‚»ãƒƒãƒˆã‚’ã‚³ãƒ”ãƒ¼ã§ä½œæˆ
+        //ƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒZƒbƒg‚ğƒRƒs[‚Åì¬
         model_paIdxBuffer_org = NEW WORD[(nFaces*3) * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
@@ -2763,7 +2763,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         }
         DELETEARR_IMPOSSIBLE_NULL(unit_paIdxBuffer_org);
 
-        //ãƒãƒ†ãƒªã‚¢ãƒ«ãƒªã‚¹ãƒˆã‚»ãƒƒãƒˆã‚’ã‚³ãƒ”ãƒ¼ã§ä½œæˆ
+        //ƒ}ƒeƒŠƒAƒ‹ƒŠƒXƒgƒZƒbƒg‚ğƒRƒs[‚Åì¬
         uint16* paFaceMaterials = NEW uint16[nFaces * prm_pMeshSetModel->_set_num];
         for (int i = 0; i < prm_pMeshSetModel->_set_num; i++) {
             for (int j = 0; j < nFaces; j++) {
@@ -2771,7 +2771,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
             }
         }
 
-        //ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿
+        //ƒpƒ‰ƒ[ƒ^
         model_papaIndexParam = NEW GgafDx9MeshSetModel::INDEXPARAM*[prm_pMeshSetModel->_set_num];
         prm_pMeshSetModel->_pa_nMaterialListGrp = NEW UINT[prm_pMeshSetModel->_set_num];
         for (int set_index = 0; set_index < prm_pMeshSetModel->_set_num; set_index++) {
@@ -2794,16 +2794,16 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
 
                     paParam[paramno].MaterialNo = materialno;
                     paParam[paramno].BaseVertexIndex = 0;
-                    paParam[paramno].MinIndex = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®šã€å¿…ãšãƒ–ãƒ¬ã‚¤ã‚¯ã—ãŸã„ãŸã‚å¤‰ãªå€¤ã«ã—ã¨ã
-                    paParam[paramno].NumVertices = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                    paParam[paramno].MinIndex = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’èA•K‚¸ƒuƒŒƒCƒN‚µ‚½‚¢‚½‚ß•Ï‚È’l‚É‚µ‚Æ‚­
+                    paParam[paramno].NumVertices = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
                     paParam[paramno].StartIndex = faceNoCnt*3;
-                    paParam[paramno].PrimitiveCount = INT_MAX; //æ¬¡å›ãƒ–ãƒ¬ã‚¤ã‚¯æ™‚ã«è¨­å®š
+                    paParam[paramno].PrimitiveCount = INT_MAX; //Ÿ‰ñƒuƒŒƒCƒN‚Éİ’è
 
                     if (faceNoCnt > 0) {
                         paParam[paramno-1].MinIndex = min_num_vertices;
                         paParam[paramno-1].NumVertices = (UINT)(max_num_vertices - min_num_vertices + 1);
                         paParam[paramno-1].PrimitiveCount = (UINT)(faceNoCnt_break - prev_faceNoCnt_break);
-                        //ãƒªã‚»ãƒƒãƒˆ
+                        //ƒŠƒZƒbƒg
                         max_num_vertices = 0;
                         min_num_vertices = INT_MAX;
                     }
@@ -2864,7 +2864,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
     }
 
     if (prm_pMeshSetModel->_pIDirect3DVertexBuffer9 == NULL) {
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+        //’¸“_ƒoƒbƒtƒ@ì¬
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num,
                 D3DUSAGE_WRITEONLY,
@@ -2872,13 +2872,13 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pMeshSetModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pMeshSetModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pMeshSetModel->_model_name));
 
 //        char str[256];
 //        sprintf (str, "VertexBuffer %s = %p \n",prm_pMeshSetModel->_model_name, prm_pMeshSetModel->_pIDirect3DVertexBuffer9);
-//        MessageBox(GgafDx9God::_hWnd, str, TEXT("æƒ…å ±"), MB_OK );
+//        MessageBox(GgafDx9God::_hWnd, str, TEXT("î•ñ"), MB_OK );
 
-        //ãƒãƒƒãƒ•ã‚¡ã¸ä½œæˆæ¸ˆã¿é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’æµã—è¾¼ã‚€
+        //ƒoƒbƒtƒ@‚Öì¬Ï‚İ’¸“_ƒf[ƒ^‚ğ—¬‚µ‚Ş
         void *pVertexBuffer;
         hr = prm_pMeshSetModel->_pIDirect3DVertexBuffer9->Lock(
                                       0,
@@ -2886,18 +2886,18 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                                       (void**)&pVertexBuffer,
                                       0
                                     );
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pMeshSetModel->_model_name);
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pMeshSetModel->_model_name);
 
         memcpy(
           pVertexBuffer,
           model_paVtxBuffer_org,
           prm_pMeshSetModel->_size_vertices * prm_pMeshSetModel->_set_num
-        ); //pVertexBuffer â† paVertex
+        ); //pVertexBuffer © paVertex
         prm_pMeshSetModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
 
-    //æµã—è¾¼ã‚€ã‚¤ãƒ³ãƒ‡ãƒƒã‚¯ã‚¹ãƒãƒƒãƒ•ã‚¡ãƒ‡ãƒ¼ã‚¿ä½œæˆ
+    //—¬‚µ‚ŞƒCƒ“ƒfƒbƒNƒXƒoƒbƒtƒ@ƒf[ƒ^ì¬
     if (prm_pMeshSetModel->_pIDirect3DIndexBuffer9 == NULL) {
 
         int nFaces = model_pMeshesFront->_nFaces;
@@ -2909,7 +2909,7 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
                                 D3DPOOL_MANAGED,
                                 &(prm_pMeshSetModel->_pIDirect3DIndexBuffer9),
                                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateIndexBuffer å¤±æ•— model="<<(prm_pMeshSetModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restoreMeshSetModel] _pID3DDevice9->CreateIndexBuffer ¸”s model="<<(prm_pMeshSetModel->_model_name));
 
         void* pIndexBuffer;
         prm_pMeshSetModel->_pIDirect3DIndexBuffer9->Lock(0,0,(void**)&pIndexBuffer,0);
@@ -2921,13 +2921,13 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         prm_pMeshSetModel->_pIDirect3DIndexBuffer9->Unlock();
     }
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ã‚«ã‚¦ãƒ³ãƒˆ
+    //ƒ}ƒeƒŠƒAƒ‹”ƒJƒEƒ“ƒg
     int model_nMaterials = 0;
     for (list<Frm::Material*>::iterator material = model_pMeshesFront->_Materials.begin(); material != model_pMeshesFront->_Materials.end(); material++) {
         model_nMaterials++;
     }
 
-    //ãƒãƒ†ãƒªã‚¢ãƒ«
+    //ƒ}ƒeƒŠƒAƒ‹
     model_paD3DMaterial9 = NEW D3DMATERIAL9[model_nMaterials];
     model_papTextureCon = NEW GgafDx9TextureConnection*[model_nMaterials];
 
@@ -2959,17 +2959,17 @@ void GgafDx9ModelManager::restoreMeshSetModel(GgafDx9MeshSetModel* prm_pMeshSetM
         if (texture_filename != NULL && lstrlen(texture_filename) > 0 ) {
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect(texture_filename);
         } else {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç„¡ã—æ™‚ã¯çœŸã£ç™½ãªãƒ†ã‚¯ã‚¹ãƒãƒ£ã«ç½®ãæ›ãˆ
+            //ƒeƒNƒXƒ`ƒƒ–³‚µ‚Í^‚Á”’‚ÈƒeƒNƒXƒ`ƒƒ‚É’u‚«Š·‚¦
             model_papTextureCon[n] = (GgafDx9TextureConnection*)_pTextureManager->connect("white.png");
         }
         n++;
     }
 
     if (model_nMaterials != n) {
-        TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ") ã¡ãªã¿ã«ãƒãƒ†ãƒªã‚¢ãƒ«æ•°ãŒãŠã‹ã—ã„ã§ã™ã€‚model_nMaterials="<<model_nMaterials<<"/n="<<n);
+        TRACE3("GgafDx9ModelManager::restoreMeshSetModel(" << prm_pMeshSetModel->_model_name << ") ‚¿‚È‚İ‚Éƒ}ƒeƒŠƒAƒ‹”‚ª‚¨‚©‚µ‚¢‚Å‚·Bmodel_nMaterials="<<model_nMaterials<<"/n="<<n);
     }
 
-    //ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     prm_pMeshSetModel->_pModel3D = model_pModel3D;
     prm_pMeshSetModel->_pMeshesFront = model_pMeshesFront;
 
@@ -2989,13 +2989,13 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     HRESULT hr;
     string xfile_name = GGAFDX9_PROPERTY(DIR_SPRITE_MODEL) + string(prm_pPointSpriteModel->_model_name) + ".psprx";
 
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæƒ…å ±èª­è¾¼ã¿ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆã®ç™»éŒ²(åˆå›å®Ÿè¡Œæ™‚ã®ã¿)
+    //ƒXƒvƒ‰ƒCƒgî•ñ“Ç‚İƒeƒ“ƒvƒŒ[ƒg‚Ì“o˜^(‰‰ñÀs‚Ì‚İ)
     IDirectXFileEnumObject* pIDirectXFileEnumObject;
     IDirectXFileData* pIDirectXFileData;
     hr = _pIDirectXFile_psprx->CreateEnumObject((void*)xfile_name.c_str(), DXFILELOAD_FROMFILE, &pIDirectXFileEnumObject);
-    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<"ã®CreateEnumObjectã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DXFILE_OK, "[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<"‚ÌCreateEnumObject‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    //TODO:GUIDãªã‚“ã¨ã‹ã™ã‚‹ã€‚ä»Šã¯å®Œå…¨ç„¡è¦–ã€‚
+    //TODO:GUID‚È‚ñ‚Æ‚©‚·‚éB¡‚ÍŠ®‘S–³‹B
     //const GUID PersonID_GUID ={ 0xB2B63407,0x6AA9,0x4618, 0x95, 0x63, 0x63, 0x1E, 0xDC, 0x20, 0x4C, 0xDE};
 
     char** ppaChar_TextureFile;
@@ -3007,17 +3007,17 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     int* paInt_InitUvPtnNo;
     float* paFLOAT_InitScale;
 
-    // 1ã‚»ãƒƒãƒˆã ã‘èª­è¾¼ã¿
+    // 1ƒZƒbƒg‚¾‚¯“Ç‚İ
     hr = pIDirectXFileEnumObject->GetNextDataObject(&pIDirectXFileData);
     if(hr != DXFILE_OK) {
-        throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" ã®èª­è¾¼ã¿ã«å¤±æ•—ã—ã¾ã—ãŸã€‚é …ç›®åã‚’è¦‹ç›´ã—ã¦");
+        throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" ‚Ì“Ç‚İ‚É¸”s‚µ‚Ü‚µ‚½B€–Ú–¼‚ğŒ©’¼‚µ‚Ä");
     }
     const GUID *pGuid;
     pIDirectXFileData->GetType( &pGuid );
     //if( *pGuid == PersonID_GUID ) {
     if(true) {
         DWORD Size;
-        // PersonIDãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆãƒ‡ãƒ¼ã‚¿ã‚’å–å¾—
+        // PersonIDƒeƒ“ƒvƒŒ[ƒgƒf[ƒ^‚ğæ“¾
         pIDirectXFileData->GetData("SquareSize"     , &Size, (void**)&pFloat_SquareSize);
         pIDirectXFileData->GetData("TextureFile"    , &Size, (void**)&ppaChar_TextureFile);
         pIDirectXFileData->GetData("TextureSplitRowCol", &Size, (void**)&pInt_TextureSplitRowCol);
@@ -3028,9 +3028,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         pIDirectXFileData->GetData("InitScale"      , &Size, (void**)&paFLOAT_InitScale);
 
     } else {
-        throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" ã®GUIDãŒä¸€è‡´ã—ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("[GgafDx9ModelManager::restorePointSpriteModel] "<<xfile_name<<" ‚ÌGUID‚ªˆê’v‚µ‚Ü‚¹‚ñB");
     }
-    //é€€é¿
+    //‘Ş”ğ
     float model_fSquareSize = *pFloat_SquareSize;
     int model_texture_split_rowcol = *pInt_TextureSplitRowCol;
     int model_vertices_num = *pInt_VerticesNum;
@@ -3038,16 +3038,16 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     UINT model_size_vertices = sizeof(GgafDx9PointSpriteModel::VERTEX)*model_vertices_num;
     UINT model_size_vertex_unit = sizeof(GgafDx9PointSpriteModel::VERTEX);
 
-    //ãƒ†ã‚¯ã‚¹ãƒãƒ£å–å¾—ã—ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒeƒNƒXƒ`ƒƒæ“¾‚µƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     GgafDx9TextureConnection** model_papTextureCon = NULL;
     model_papTextureCon = NEW GgafDx9TextureConnection*[1];
     model_papTextureCon[0] = (GgafDx9TextureConnection*)_pTextureManager->connect(*ppaChar_TextureFile);
 
-    float texWidth  = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Width; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®å¹…(px)
-    float texHeight = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Height; //ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®é«˜ã•(px)å¹…ã¨åŒã˜ã«ãªã‚‹
+    float texWidth  = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Width; //ƒeƒNƒXƒ`ƒƒ‚Ì•(px)
+    float texHeight = model_papTextureCon[0]->view()->_pD3DXIMAGE_INFO->Height; //ƒeƒNƒXƒ`ƒƒ‚Ì‚‚³(px)•‚Æ“¯‚¶‚É‚È‚é
     FLOAT model_fBoundingSphereRadius = 0;
 
-    //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    //’¸“_ƒoƒbƒtƒ@ì¬
     GgafDx9PointSpriteModel::VERTEX* model_paVtxBuffer_org = NEW GgafDx9PointSpriteModel::VERTEX[model_vertices_num];
 
 
@@ -3065,8 +3065,8 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
         model_paVtxBuffer_org[i].x = paD3DVECTOR_Vertices[i].x;
         model_paVtxBuffer_org[i].y = paD3DVECTOR_Vertices[i].y;
         model_paVtxBuffer_org[i].z = paD3DVECTOR_Vertices[i].z;
-        model_paVtxBuffer_org[i].psize = (model_fSquareSize*model_texture_split_rowcol / texWidth) * paFLOAT_InitScale[i]; //PSIZEã«ã¯ãƒ”ã‚¯ã‚»ãƒ«ã‚µã‚¤ã‚ºã§ã¯ãªãå€ç‡ã‚’åŸ‹ã‚è¾¼ã‚€ã€‚
-                                                                                                //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§æ‹¡å¤§ç¸®å°ãƒ”ã‚¯ã‚»ãƒ«ã‚’è¨ˆç®—
+        model_paVtxBuffer_org[i].psize = (model_fSquareSize*model_texture_split_rowcol / texWidth) * paFLOAT_InitScale[i]; //PSIZE‚É‚ÍƒsƒNƒZƒ‹ƒTƒCƒY‚Å‚Í‚È‚­”{—¦‚ğ–„‚ß‚ŞB
+                                                                                                //ƒVƒF[ƒ_[‚ÅŠg‘åk¬ƒsƒNƒZƒ‹‚ğŒvZ
         model_paVtxBuffer_org[i].color = D3DCOLOR_COLORVALUE(paD3DVECTOR_VertexColors[i].r,
                                                              paD3DVECTOR_VertexColors[i].g,
                                                              paD3DVECTOR_VertexColors[i].b,
@@ -3097,7 +3097,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
     if (prm_pPointSpriteModel->_pIDirect3DVertexBuffer9 == NULL) {
 
-        //é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+        //’¸“_ƒoƒbƒtƒ@ì¬
         hr = GgafDx9God::_pID3DDevice9->CreateVertexBuffer(
                 model_size_vertices,
                 D3DUSAGE_WRITEONLY,
@@ -3105,13 +3105,13 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
                 D3DPOOL_MANAGED, //D3DPOOL_DEFAULT
                 &(prm_pPointSpriteModel->_pIDirect3DVertexBuffer9),
                 NULL);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] _pID3DDevice9->CreateVertexBuffer å¤±æ•— model="<<(prm_pPointSpriteModel->_model_name));
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] _pID3DDevice9->CreateVertexBuffer ¸”s model="<<(prm_pPointSpriteModel->_model_name));
 
-        //ãƒãƒƒãƒ•ã‚¡ã¸ä½œæˆæ¸ˆã¿é ‚ç‚¹ãƒ‡ãƒ¼ã‚¿ã‚’æµã—è¾¼ã‚€
+        //ƒoƒbƒtƒ@‚Öì¬Ï‚İ’¸“_ƒf[ƒ^‚ğ—¬‚µ‚Ş
         void *pVertexBuffer;
         hr = prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Lock(0, model_size_vertices, (void**)&pVertexBuffer, 0);
-        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã®ãƒ­ãƒƒã‚¯å–å¾—ã«å¤±æ•— model="<<prm_pPointSpriteModel->_model_name);
-        memcpy(pVertexBuffer, model_paVtxBuffer_org, model_size_vertices); //pVertexBuffer â† paVertex
+        checkDxException(hr, D3D_OK, "[GgafDx9ModelManager::restorePointSpriteModel] ’¸“_ƒoƒbƒtƒ@‚ÌƒƒbƒNæ“¾‚É¸”s model="<<prm_pPointSpriteModel->_model_name);
+        memcpy(pVertexBuffer, model_paVtxBuffer_org, model_size_vertices); //pVertexBuffer © paVertex
         prm_pPointSpriteModel->_pIDirect3DVertexBuffer9->Unlock();
     }
 
@@ -3121,7 +3121,7 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
     model_paD3DMaterial9[0].Diffuse.b = 1.0f;
     model_paD3DMaterial9[0].Diffuse.a = 1.0f;
 
-    //ãƒ¢ãƒ‡ãƒ«ã«ä¿æŒã•ã›ã‚‹
+    //ƒ‚ƒfƒ‹‚É•Û‚³‚¹‚é
     prm_pPointSpriteModel->_paD3DMaterial9_default = model_paD3DMaterial9;
     prm_pPointSpriteModel->_papTextureCon = model_papTextureCon;
     prm_pPointSpriteModel->_dwNumMaterials = 1;
@@ -3138,9 +3138,9 @@ void GgafDx9ModelManager::restorePointSpriteModel(GgafDx9PointSpriteModel* prm_p
 
 
 GgafResourceConnection<GgafDx9Model>* GgafDx9ModelManager::processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource) {
-    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
+    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬ŠJnB");
     GgafDx9ModelConnection* p = NEW GgafDx9ModelConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
+    TRACE3(" GgafDx9ModelManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬I—¹B");
     return p;
 }
 
@@ -3150,7 +3150,7 @@ GgafDx9ModelManager::~GgafDx9ModelManager() {
     RELEASE_IMPOSSIBLE_NULL(_pIDirectXFile_psprx);
     _pTextureManager->dump();
     DELETE_IMPOSSIBLE_NULL(_pTextureManager);
-    TRACE3("GgafDx9ModelManager::releaseAll() ã™ã‚‹ã‘ã©ã‚‚ã€ã“ã“ã§ã¯æ—¢ã«ä½•ã‚‚è§£æ”¾ã™ã‚‹ã‚‚ã®ãŒãªã„ã¯ãšã§ã™");
+    TRACE3("GgafDx9ModelManager::releaseAll() ‚·‚é‚¯‚Ç‚àA‚±‚±‚Å‚ÍŠù‚É‰½‚à‰ğ•ú‚·‚é‚à‚Ì‚ª‚È‚¢‚Í‚¸‚Å‚·");
     releaseAll();
 }
 
@@ -3197,13 +3197,13 @@ float GgafDx9ModelManager::getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm
     V = V2 - V1;
     static Frm::Vector W;
     W = V0 - V1;
-    //ãƒ™ã‚¯ãƒˆãƒ« V W ã®æˆã™è§’ã‚’æ±‚ã‚ã‚‹
+    //ƒxƒNƒgƒ‹ V W ‚Ì¬‚·Šp‚ğ‹‚ß‚é
     //    V=(vx,vy,vz)=(bx-ax,by-ay,bz-az)
     //    W=(wx,wy,wz)=(cx-ax,cy-ay,cz-az)
-    //    ã¨ã™ã‚‹ã¨Vã€Wãƒ™ã‚¯ãƒˆãƒ«ãŒãªã™è§’ã¯
-    //    cosÎ±=(Vã€Wãƒ™ã‚¯ãƒˆãƒ«ã®å†…ç©ï¼‰Ã·ï¼ˆVã®å¤§ãã•ï¼‰Ã·ï¼ˆWã®å¤§ãã•ï¼‰
+    //    ‚Æ‚·‚é‚ÆVAWƒxƒNƒgƒ‹‚ª‚È‚·Šp‚Í
+    //    cosƒ¿=(VAWƒxƒNƒgƒ‹‚Ì“àÏj€iV‚Ì‘å‚«‚³j€iW‚Ì‘å‚«‚³j
     //        =(vx*wx+vy*wy+vz*wz)
-    //         Ã·ãƒ«ãƒ¼ãƒˆ(vx^2+vy^2+vz^2)Ã·ãƒ«ãƒ¼ãƒˆ(wx^2+wy^2+wz^2)
+    //         €ƒ‹[ƒg(vx^2+vy^2+vz^2)€ƒ‹[ƒg(wx^2+wy^2+wz^2)
     static float DOT, LV, LW, cosV1;
     //TRACE3("V=("<<V.x<<"."<<V.y<<","<<V.z<<")");
     //TRACE3("W=("<<W.x<<"."<<W.y<<","<<W.z<<")");

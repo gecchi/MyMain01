@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9MESHSETEFFECT_H_
+#ifndef GGAFDX9MESHSETEFFECT_H_
 #define GGAFDX9MESHSETEFFECT_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9MeshSetç”¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¯ãƒ©ã‚¹ .
+ * GgafDx9MeshSet—pƒGƒtƒFƒNƒgƒNƒ‰ƒX .
  * @version 1.00
  * @since 2009/06/15
  * @author Masatoshi Tsuge
@@ -24,18 +24,18 @@ public:
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_effect_name ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥åã€‚".fx"ã‚’è¿½åŠ ã™ã‚‹ã¨ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_effect_name ƒGƒtƒFƒNƒg¯•Ê–¼B".fx"‚ğ’Ç‰Á‚·‚é‚ÆƒGƒtƒFƒNƒgƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
      * @return
      */
     GgafDx9MeshSetEffect(char* prm_effect_name);
 
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * deleteã™ã‚‹ã®ã¯GgafDx9MeshSetEffectManagerã§ã‚ã‚‹<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * delete‚·‚é‚Ì‚ÍGgafDx9MeshSetEffectManager‚Å‚ ‚é<BR>
      */
-    virtual ~GgafDx9MeshSetEffect(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9MeshSetEffect(); //ƒfƒXƒgƒ‰ƒNƒ^
 
 };
 

@@ -1,12 +1,12 @@
-ï»¿#ifndef DEFAULTUNIVERSE_H_
+#ifndef DEFAULTUNIVERSE_H_
 #define DEFAULTUNIVERSE_H_
 namespace GgafDx9LibStg {
 
 /**
- * ã€Œã“ã®ä¸–ã€ã‚¯ãƒ©ã‚¹ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹.
- * GgafDx9Core::GgafDx9Universe ã‚’ç¶™æ‰¿ã—ãŸã ã‘ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ãƒ¼ã‚¹ã§ã™ã€‚<BR>
- * Ggafãƒ©ã‚¤ãƒ–ãƒ©ãƒªã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã€æœ¬ã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—å®Ÿè£…ã—ãŸã“ã®ä¸–ã‚¯ãƒ©ã‚¹ãŒå¿…è¦ã§ã™ã€‚<BR>
- * (æ—§DefaultWorld)
+ * u‚±‚Ì¢vƒNƒ‰ƒXƒCƒ“ƒ^[ƒtƒFƒCƒX.
+ * GgafDx9Core::GgafDx9Universe ‚ðŒp³‚µ‚½‚¾‚¯‚ÌƒCƒ“ƒ^[ƒtƒF[ƒX‚Å‚·B<BR>
+ * Ggafƒ‰ƒCƒuƒ‰ƒŠ‚ð—˜—p‚·‚éê‡A–{ƒNƒ‰ƒX‚ðŒp³‚µŽÀ‘•‚µ‚½‚±‚Ì¢ƒNƒ‰ƒX‚ª•K—v‚Å‚·B<BR>
+ * (‹ŒDefaultWorld)
  * @version 1.00
  * @since 2008/07/30
  * @author Masatoshi Tsuge

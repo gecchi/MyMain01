@@ -1,9 +1,9 @@
-ï»¿#ifndef VBRECORD_H_
+#ifndef VBRECORD_H_
 #define VBRECORD_H_
 namespace GgafDx9LibStg {
 
 /**
- * ãƒªãƒ—ãƒ¬ã‚¤ãƒ‡ãƒ¼ã‚¿ã‚¯ãƒ©ã‚¹
+ * ƒŠƒvƒŒƒCƒf[ƒ^ƒNƒ‰ƒX
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge

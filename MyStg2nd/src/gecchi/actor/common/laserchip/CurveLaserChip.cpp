@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,20 +16,20 @@ CurveLaserChip::CurveLaserChip(const char* prm_name, const char* prm_model) :
 }
 
 void CurveLaserChip::initialize() {
-    //åˆæœŸè¨­å®šã§ã™ã€‚
-    //30px/frame ã®ç§»å‹•é€Ÿåº¦
-    //å½“ãŸã‚Šåˆ¤å®šã‚ã‚Šã€‚
-    //Î±ï¼0.99
-    //ç‹¬è‡ªè¨­å®šã—ãŸã„å ´åˆã€ç¶™æ‰¿ã—ã¦åˆ¥ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã—ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ãã ã•ã„ã€‚
+    //‰ŠúÝ’è‚Å‚·B
+    //30px/frame ‚ÌˆÚ“®‘¬“x
+    //“–‚½‚è”»’è‚ ‚èB
+    //ƒ¿0.99
+    //“ÆŽ©Ý’è‚µ‚½‚¢ê‡AŒp³‚µ‚Ä•ÊƒNƒ‰ƒX‚ðì¬‚µAƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‚­‚¾‚³‚¢B
     _pMover->setMvVelo(30000);
     _fAlpha = 0.99;
 }
 
 
 void CurveLaserChip::onActive() {
-    //ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—å‡ºç¾æ™‚å‡¦ç†
-    //ç‹¬è‡ªè¨­å®šã—ãŸã„å ´åˆã€ç¶™æ‰¿ã—ã¦åˆ¥ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã—ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ãã ã•ã„ã€‚
-    //ãã®éš› ã¯ã€æœ¬ã‚¯ãƒ©ã‚¹ã® onActive() ãƒ¡ã‚½ãƒƒãƒ‰ã‚‚å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
+    //ƒŒ[ƒU[ƒ`ƒbƒvoŒ»Žžˆ—
+    //“ÆŽ©Ý’è‚µ‚½‚¢ê‡AŒp³‚µ‚Ä•ÊƒNƒ‰ƒX‚ðì¬‚µAƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‚­‚¾‚³‚¢B
+    //‚»‚ÌÛ ‚ÍA–{ƒNƒ‰ƒX‚Ì onActive() ƒƒ\ƒbƒh‚àŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
     LaserChip::onActive();
 
 //    _tmpX = 0;
@@ -38,44 +38,44 @@ void CurveLaserChip::onActive() {
 }
 
 void CurveLaserChip::onInactive() {
-    //ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—æ¶ˆå¤±æ™‚å‡¦ç†
-    //ç‹¬è‡ªè¨­å®šã—ãŸã„å ´åˆã€ç¶™æ‰¿ã—ã¦åˆ¥ã‚¯ãƒ©ã‚¹ã‚’ä½œæˆã—ã€ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ãã ã•ã„ã€‚
-    //ãã®éš› ã¯ã€æœ¬ã‚¯ãƒ©ã‚¹ã® onInactive() ãƒ¡ã‚½ãƒƒãƒ‰ã‚‚å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
+    //ƒŒ[ƒU[ƒ`ƒbƒvÁŽ¸Žžˆ—
+    //“ÆŽ©Ý’è‚µ‚½‚¢ê‡AŒp³‚µ‚Ä•ÊƒNƒ‰ƒX‚ðì¬‚µAƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‚­‚¾‚³‚¢B
+    //‚»‚ÌÛ ‚ÍA–{ƒNƒ‰ƒX‚Ì onInactive() ƒƒ\ƒbƒh‚àŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
     LaserChip::onInactive();
 }
 
 void CurveLaserChip::processBehavior() {
 
-    //åº§æ¨™ã«åæ˜ 
-    //ã“ã‚Œã«ã‚ˆã‚Šç™ºå°„å…ƒã®æ ¹å…ƒã‹ã‚‰è¡¨ç¤ºã•ã‚Œã‚‹
+    //À•W‚É”½‰f
+    //‚±‚ê‚É‚æ‚è”­ŽËŒ³‚ÌªŒ³‚©‚ç•\Ž¦‚³‚ê‚é
     if (getPartFrame() > 0) {
         LaserChip::processBehavior();
         _pMover->behave();
     }
 
-    //åº§æ¨™ã‚’ã‚³ãƒ”ãƒ¼
+    //À•W‚ðƒRƒs[
     _tmpX = _X;
     _tmpY = _Y;
     _tmpZ = _Z;
 }
 void CurveLaserChip::processPreJudgement() {
-    //å¹³å‡æ›²ç·šåº§æ¨™è¨­å®šã€‚
-    //processPreJudgement() ã®ãƒ¡ã‚½ãƒƒãƒ‰ã®æ„ç¾©ã¨ã¯é›¢ã‚Œã¦åº§æ¨™ã‚’ã„ã˜ã‚Šç§»å‹•ã—ã¦ã„ã‚‹ã€‚
-    //æœ¬æ¥ã¯ processBehaviorAfter() çš„ãªæ„å‘³ã®å‡¦ç†ã§ã‚ã‚‹ãŒã€ä»•æ–¹ãªã„ã®ã§processPreJudgement()ã«
-    //é£Ÿã„è¾¼ã‚“ã§ã„ã¾ã™ã€‚
-    //ã—ãŸãŒã£ã¦æœ¬ã‚¯ãƒ©ã‚¹ã‚’ç¶™æ‰¿ã—ãŸå ´åˆã€ç¶™æ‰¿ã‚¯ãƒ©ã‚¹ã®processPreJudgement()ã§ã¯ã€å…ˆé ­ã§å‘¼ã³å‡ºã—ãŸæ–¹ãŒè‰¯ã„ã€‚
+    //•½‹Ï‹ÈüÀ•WÝ’èB
+    //processPreJudgement() ‚Ìƒƒ\ƒbƒh‚ÌˆÓ‹`‚Æ‚Í—£‚ê‚ÄÀ•W‚ð‚¢‚¶‚èˆÚ“®‚µ‚Ä‚¢‚éB
+    //–{—ˆ‚Í processBehaviorAfter() “I‚ÈˆÓ–¡‚Ìˆ—‚Å‚ ‚é‚ªAŽd•û‚È‚¢‚Ì‚ÅprocessPreJudgement()‚É
+    //H‚¢ž‚ñ‚Å‚¢‚Ü‚·B
+    //‚µ‚½‚ª‚Á‚Ä–{ƒNƒ‰ƒX‚ðŒp³‚µ‚½ê‡AŒp³ƒNƒ‰ƒX‚ÌprocessPreJudgement()‚Å‚ÍAæ“ª‚ÅŒÄ‚Ño‚µ‚½•û‚ª—Ç‚¢B
 
     if (_pChip_front == NULL) {
-        //å…ˆç«¯ã¯ä½•ã‚‚ãªã—
+        //æ’[‚Í‰½‚à‚È‚µ
     } else if (_pChip_behind == NULL) {
-        //æœ«ç«¯
+        //––’[
     } else if (_pChip_front->isActive() && _pChip_behind->isActive()) {
-        //_pChip_behind == NULL ã®åˆ¤å®šã ã‘ã§ã¯ã ã‚ã€‚_pChip_behind->isActive()ã¨åˆ¤å®šã™ã‚‹ã“ã¨
-        //ãªãœãªã‚‰employã®çž¬é–“ã«_pChip_behind != NULL ã¨ãªã‚‹ãŒã€active()ã«ã‚ˆã‚Šæœ‰åŠ¹ã«ãªã‚‹ã®ã¯æ¬¡ãƒ•ãƒ¬ãƒ¼ãƒ ã ã‹ã‚‰
-        //_X,_Y,_Z ã«ã¯ã¾ã å¤‰ãªå€¤ãŒå…¥ã£ã¦ã„ã‚‹ã€‚
+        //_pChip_behind == NULL ‚Ì”»’è‚¾‚¯‚Å‚Í‚¾‚ßB_pChip_behind->isActive()‚Æ”»’è‚·‚é‚±‚Æ
+        //‚È‚º‚È‚çemploy‚ÌuŠÔ‚É_pChip_behind != NULL ‚Æ‚È‚é‚ªAactive()‚É‚æ‚è—LŒø‚É‚È‚é‚Ì‚ÍŽŸƒtƒŒ[ƒ€‚¾‚©‚ç
+        //_X,_Y,_Z ‚É‚Í‚Ü‚¾•Ï‚È’l‚ª“ü‚Á‚Ä‚¢‚éB
         MyCurveLaserChip001* pF = (MyCurveLaserChip001*)_pChip_front;
         MyCurveLaserChip001* pB = (MyCurveLaserChip001*)_pChip_behind;
-        //ä¸­é–“åº§æ¨™ã«å†è¨­å®š
+        //’†ŠÔÀ•W‚ÉÄÝ’è
         _X = (pF->_tmpX + _tmpX + pB->_tmpX) / 3;
         _Y = (pF->_tmpY + _tmpY + pB->_tmpY) / 3;
         _Z = (pF->_tmpZ + _tmpZ + pB->_tmpZ) / 3;

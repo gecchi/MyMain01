@@ -1,17 +1,17 @@
-ï»¿#ifndef GGAFRESOURCEMANAGER_H_
+#ifndef GGAFRESOURCEMANAGER_H_
 #define GGAFRESOURCEMANAGER_H_
 namespace GgafCore {
 
 /**
- * è³‡æºç®¡ç†ã‚¯ãƒ©ã‚¹ã€‚ .
- * è³‡æºç®¡ç†ã‚¯ãƒ©ã‚¹ã¯ã€è³‡æºã‚’ãƒ©ãƒƒãƒ”ãƒ³ã‚°ã™ã‚‹ã€è³‡æºæ¥ç¶šã‚¯ãƒ©ã‚¹(GgafResourceConnection)ã€ã‚’ç®¡ç†ã—ã¾ã™ã€‚<BR>
- * è³‡æº(Resource)ã‚’ç„¡é§„ã«ç”Ÿæˆã‚’è¡Œã‚ãšã€å‚ç…§ã—ã¦ä½¿ã„ã¾ã‚ã—ãŸã„ã€‚ã—ã‹ã— new ã™ã‚‹ã®ã‹ã©ã†ã‹ã‚’æ„è­˜ã—ãŸããªã„ã€‚<BR>
- * ãã‚“ãªã¨ãã«ä½¿ã†ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR>
+ * ‘Œ¹ŠÇ—ƒNƒ‰ƒXB .
+ * ‘Œ¹ŠÇ—ƒNƒ‰ƒX‚ÍA‘Œ¹‚ğƒ‰ƒbƒsƒ“ƒO‚·‚éw‘Œ¹Ú‘±ƒNƒ‰ƒX(GgafResourceConnection)x‚ğŠÇ—‚µ‚Ü‚·B<BR>
+ * ‘Œ¹(Resource)‚ğ–³‘Ê‚É¶¬‚ğs‚í‚¸AQÆ‚µ‚Äg‚¢‚Ü‚í‚µ‚½‚¢B‚µ‚©‚µ new ‚·‚é‚Ì‚©‚Ç‚¤‚©‚ğˆÓ¯‚µ‚½‚­‚È‚¢B<BR>
+ * ‚»‚ñ‚È‚Æ‚«‚Ég‚¤ƒNƒ‰ƒX‚Å‚·B<BR>
  * GgafResourceManager : Resource : GgafResourceConnection  = 1 : N : N <BR>
- * ã®é–¢ä¿‚ã§ã€ã“ã‚Œã§ãƒ¯ãƒ³ã‚»ãƒƒãƒˆã§ã™ã€‚<BR>
- * è³‡æºç®¡ç†ã‚¯ãƒ©ã‚¹ã¯ä¸»ãªæ©Ÿèƒ½ã¯ã€è³‡æºæ¥ç¶šã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚’å†…éƒ¨ã«ãƒªã‚¹ãƒˆã§ä¿æŒã—ã€å–å¾—è¦æ±‚ãŒã‚ã£ãŸå ´åˆã€
- * å†…éƒ¨ä¿æŒã—ã¦ã„ã‚Œã°ãã‚Œã‚’è¿”ã—ã€ä¿æŒã—ã¦ã„ãªã‘ã‚Œã°ç”Ÿæˆã—ã¦ã€ãƒªã‚¹ãƒˆã«è¿½åŠ ã—ãŸå¾Œãã‚Œã‚’è¿”ã—ã¾ã™ã€‚
- * (æ—§GdxfwActorManagerã‹ã‚‰æ±ç”¨åŒ–)
+ * ‚ÌŠÖŒW‚ÅA‚±‚ê‚Åƒƒ“ƒZƒbƒg‚Å‚·B<BR>
+ * ‘Œ¹ŠÇ—ƒNƒ‰ƒX‚Íå‚È‹@”\‚ÍA‘Œ¹Ú‘±ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‚ğ“à•”‚ÉƒŠƒXƒg‚Å•Û‚µAæ“¾—v‹‚ª‚ ‚Á‚½ê‡A
+ * “à•”•Û‚µ‚Ä‚¢‚ê‚Î‚»‚ê‚ğ•Ô‚µA•Û‚µ‚Ä‚¢‚È‚¯‚ê‚Î¶¬‚µ‚ÄAƒŠƒXƒg‚É’Ç‰Á‚µ‚½Œã‚»‚ê‚ğ•Ô‚µ‚Ü‚·B
+ * (‹ŒGdxfwActorManager‚©‚ç”Ä—p‰»)
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge
@@ -21,107 +21,107 @@ class GgafResourceManager : public GgafObject {
     friend class GgafResourceConnection<T>;
 
 private:
-    /** connectä¸­ã¯trueã®æ’ä»–ãƒ•ãƒ©ã‚° */
+    /** connect’†‚Ítrue‚Ì”r‘¼ƒtƒ‰ƒO */
     static volatile bool _is_connecting_resource;
-    /** connectã™ã‚‹ãŸã‚ã«å¾…ã£ã¦ã„ã‚‹ãƒ•ãƒ©ã‚° */
+    /** connect‚·‚é‚½‚ß‚É‘Ò‚Á‚Ä‚¢‚éƒtƒ‰ƒO */
     static volatile bool _is_waiting_to_connect;
 
     /**
-     * GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒªã‚¹ãƒˆã«è¿½åŠ ã€‚<BR>
-     * @param prm_pNew è¿½åŠ ã™ã‚‹GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿
+     * GgafResourceConnectionƒIƒuƒWƒFƒNƒg‚ğƒŠƒXƒg‚É’Ç‰ÁB<BR>
+     * @param prm_pNew ’Ç‰Á‚·‚éGgafResourceConnectionƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^
      */
     virtual void add(GgafResourceConnection<T>* prm_pNew);
 
     /**
-     * GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ãƒªã‚¹ãƒˆã‹ã‚‰æ¤œç´¢ã€‚<BR>
-     * @param prm_idstr è­˜åˆ¥å
-     * @return  æ‰€æœ›ã®GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã€‚ãƒªã‚¹ãƒˆã«å­˜åœ¨ã—ãªã‹ã£ãŸå ´åˆ NULL
+     * GgafResourceConnectionƒIƒuƒWƒFƒNƒg‚ğƒŠƒXƒg‚©‚çŒŸõB<BR>
+     * @param prm_idstr ¯•Ê–¼
+     * @return  Š–]‚ÌGgafResourceConnectionƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^BƒŠƒXƒg‚É‘¶İ‚µ‚È‚©‚Á‚½ê‡ NULL
      */
     virtual GgafResourceConnection<T>* find(char* prm_idstr);
 
     /**
-     * è³‡æºã®ã‚’ç”Ÿæˆã€‚.
-     * @param prm_idstr è­˜åˆ¥å
+     * ‘Œ¹‚Ì‚ğ¶¬B.
+     * @param prm_idstr ¯•Ê–¼
      */
     T* createResource(char* prm_idstr);
 
     /**
-     * è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ.
-     * @param prm_idstr è­˜åˆ¥å
+     * ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ğ¶¬.
+     * @param prm_idstr ¯•Ê–¼
      */
 
     /**
-     * è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆ.
-     * @param prm_idstr è­˜åˆ¥å
-     * @param prm_pResource è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®Valueã€‚ã¤ã¾ã‚Šè³‡æºã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã€‚
-     * @return è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ğ¶¬.
+     * @param prm_idstr ¯•Ê–¼
+     * @param prm_pResource ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ÌValueB‚Â‚Ü‚è‘Œ¹ƒCƒ“ƒXƒ^ƒ“ƒXB
+     * @return ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg
      */
     GgafResourceConnection<T>* createResourceConnection(char* prm_idstr, T* prm_pResource);
 
 protected:
-    /** [r]ãƒãƒãƒ¼ã‚¸ãƒ£åç§° */
+    /** [r]ƒ}ƒl[ƒWƒƒ–¼Ì */
     const char* _manager_name;
-    /** [r]GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã®å…ˆé ­ã®ãƒã‚¤ãƒ³ã‚¿ã€‚çµ‚ç«¯ã¯NULL */
+    /** [r]GgafResourceConnectionƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg‚Ìæ“ª‚Ìƒ|ƒCƒ“ƒ^BI’[‚ÍNULL */
     GgafResourceConnection<T>* _pFirstConnection;
 
 
     /**
-     * è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ç”Ÿæˆã‚’ä¸‹ä½ã§å®Ÿè£…ã—ã¾ã™ã€‚.
-     * ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ createResourceConnection ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã€æœ¬ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆåˆ©ç”¨è€…ãŒå®Ÿè£…ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚<BR>
-     * prm_idstr ã‹ã‚‰ è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ãƒ­ã‚¸ãƒƒã‚¯ã‚’å®Ÿè£…ã—ã¦ãä¸‹ã•ã„ã€‚<BR>
-     * ã»ã¨ã‚“ã©ã¯ã€GgafResourceConnection å®Ÿè£…ã‚¯ãƒ©ã‚¹ã‚’ new ã—ã¦ã€ãã‚Œã‚’è¿”ã™ã ã‘ã§OKã€‚BR>
-     * @param prm_idstr  ã“ã®è­˜åˆ¥åãŒæ¸¡ã•ã‚ŒãŸæ™‚ã€ã©ã†ã„ã†è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ã‹ï¼Ÿ ã¨ã„ã†è­˜åˆ¥å
-     * @param prm_pResource è³‡æºãƒã‚¤ãƒ³ã‚¿
-     * @return GgafResourceConnection è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ï¼ˆï¼GgafResourceConnection å®Ÿè£…ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ï¼‰
+     * ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚Ì¶¬‚ğ‰ºˆÊ‚ÅÀ‘•‚µ‚Ü‚·B.
+     * ‚±‚Ìƒƒ\ƒbƒh‚Í createResourceConnection ‚©‚çŒÄ‚Ño‚³‚êA–{ƒeƒ“ƒvƒŒ[ƒg—˜—pÒ‚ªÀ‘•‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B<BR>
+     * prm_idstr ‚©‚ç ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚éƒƒWƒbƒN‚ğÀ‘•‚µ‚Ä‚­‰º‚³‚¢B<BR>
+     * ‚Ù‚Æ‚ñ‚Ç‚ÍAGgafResourceConnection À‘•ƒNƒ‰ƒX‚ğ new ‚µ‚ÄA‚»‚ê‚ğ•Ô‚·‚¾‚¯‚ÅOKBBR>
+     * @param prm_idstr  ‚±‚Ì¯•Ê–¼‚ª“n‚³‚ê‚½A‚Ç‚¤‚¢‚¤‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é‚©H ‚Æ‚¢‚¤¯•Ê–¼
+     * @param prm_pResource ‘Œ¹ƒ|ƒCƒ“ƒ^
+     * @return GgafResourceConnection ‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ÌƒCƒ“ƒXƒ^ƒ“ƒXiGgafResourceConnection À‘•ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒXj
      */
     virtual GgafResourceConnection<T>* processCreateConnection(char* prm_idstr, T* prm_pResource) = 0;
 
     /**
-     * å®Ÿéš›ã®è³‡æºã®ã‚’ç”Ÿæˆã‚’ä¸‹ä½ã§å®Ÿè£…ã—ã¾ã™ã€‚.
-     * ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ createResource ã‹ã‚‰å‘¼ã³å‡ºã•ã‚Œã€æœ¬ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆåˆ©ç”¨è€…ãŒå®Ÿè£…ã™ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚<BR>
-     * prm_idstr ã‹ã‚‰ è³‡æºã‚’ç”Ÿæˆã™ã‚‹ãƒ­ã‚¸ãƒƒã‚¯ã‚’å®Ÿè£…ã—ã¦ãä¸‹ã•ã„ã€‚<BR>
-     * @param prm_idstr ã“ã®è­˜åˆ¥åãŒæ¸¡ã•ã‚ŒãŸæ™‚ã€ã©ã†ã„ã†è³‡æºã‚’ç”Ÿæˆ(new)ã™ã‚‹ã‹ï¼Ÿ ã¨ã„ã†è­˜åˆ¥å
-     * @return è³‡æºã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®ãƒã‚¤ãƒ³ã‚¿
+     * ÀÛ‚Ì‘Œ¹‚Ì‚ğ¶¬‚ğ‰ºˆÊ‚ÅÀ‘•‚µ‚Ü‚·B.
+     * ‚±‚Ìƒƒ\ƒbƒh‚Í createResource ‚©‚çŒÄ‚Ño‚³‚êA–{ƒeƒ“ƒvƒŒ[ƒg—˜—pÒ‚ªÀ‘•‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B<BR>
+     * prm_idstr ‚©‚ç ‘Œ¹‚ğ¶¬‚·‚éƒƒWƒbƒN‚ğÀ‘•‚µ‚Ä‚­‰º‚³‚¢B<BR>
+     * @param prm_idstr ‚±‚Ì¯•Ê–¼‚ª“n‚³‚ê‚½A‚Ç‚¤‚¢‚¤‘Œ¹‚ğ¶¬(new)‚·‚é‚©H ‚Æ‚¢‚¤¯•Ê–¼
+     * @return ‘Œ¹ƒCƒ“ƒXƒ^ƒ“ƒX‚Ìƒ|ƒCƒ“ƒ^
      */
     virtual T* processCreateResource(char* prm_idstr) = 0;
 
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
      */
     GgafResourceManager(const char* prm_manager_name);
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚ä¿æŒãƒªã‚¹ãƒˆã‚’å¼·åˆ¶è§£æ”¾ã—ã¾ã™ã€‚ .
-     * å…¨ã¦ã®ä¿æŒãƒªã‚¹ãƒˆã® GgafResourceConnectionã«å¯¾ã—ã€GgafResourceConnectionã®release()ã‚’ï¼‘åº¦å®Ÿè¡Œã—ã€<BR>
-     * GgafResourceConnectionã®æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿0ãªã‚‰ã°ã€delete ã—ã¾ã™ã€‚<BR>
-     * GgafResourceConnectionã®æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿0ã§ãªã‘ã‚Œã°ã€ä½¿ç”¨è€…ã®ãƒ­ã‚¸ãƒƒã‚¯ã§è§£æ”¾æ¼ã‚Œã®æã‚ŒãŒã‚ã‚‹ã®ã§
-     * ä¸€è¨€å–‹ã£ã¦ delete ã—ã¾ã™ã€‚<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^B•ÛƒŠƒXƒg‚ğ‹­§‰ğ•ú‚µ‚Ü‚·B .
+     * ‘S‚Ä‚Ì•ÛƒŠƒXƒg‚Ì GgafResourceConnection‚É‘Î‚µAGgafResourceConnection‚Ìrelease()‚ğ‚P“xÀs‚µA<BR>
+     * GgafResourceConnection‚ÌÚ‘±ƒJƒEƒ“ƒ^0‚È‚ç‚ÎAdelete ‚µ‚Ü‚·B<BR>
+     * GgafResourceConnection‚ÌÚ‘±ƒJƒEƒ“ƒ^0‚Å‚È‚¯‚ê‚ÎAg—pÒ‚ÌƒƒWƒbƒN‚Å‰ğ•ú˜R‚ê‚Ì‹°‚ê‚ª‚ ‚é‚Ì‚Å
+     * ˆêŒ¾’‚Á‚Ä delete ‚µ‚Ü‚·B<BR>
      */
     virtual ~GgafResourceManager();
 
     /**
-     * GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã€‚<BR>
-     * ä¿æŒãƒªã‚¹ãƒˆã«å­˜åœ¨ã™ã‚Œã°ãã‚Œã‚’è¿”ã—ã€å­˜åœ¨ã—ãªã‘ã‚Œã° new ã—ã¾ã™ã€‚<BR>
-     * ä¿æŒãƒªã‚¹ãƒˆã‹ã‚‰å–å¾—ã—ãŸå ´åˆã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ãŒå¢—ãˆã¾ã™ã€‚<BR>
-     * new ã—ãŸå ´åˆã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã¯1ã§ã™ã€‚<BR>
-     * @param prm_idstr è­˜åˆ¥å
+     * GgafResourceConnectionƒIƒuƒWƒFƒNƒg‚ğæ“¾B<BR>
+     * •ÛƒŠƒXƒg‚É‘¶İ‚·‚ê‚Î‚»‚ê‚ğ•Ô‚µA‘¶İ‚µ‚È‚¯‚ê‚Î new ‚µ‚Ü‚·B<BR>
+     * •ÛƒŠƒXƒg‚©‚çæ“¾‚µ‚½ê‡AÚ‘±ƒJƒEƒ“ƒ^‚ª‘‚¦‚Ü‚·B<BR>
+     * new ‚µ‚½ê‡AÚ‘±ƒJƒEƒ“ƒ^‚Í1‚Å‚·B<BR>
+     * @param prm_idstr ¯•Ê–¼
      */
     virtual GgafResourceConnection<T>* connect(char* prm_idstr);
 
     /**
-     * GgafResourceConnectionã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å–å¾—ã€‚<BR>
-     * ä¿æŒãƒªã‚¹ãƒˆã«å­˜åœ¨ã™ã‚Œã°ãã‚Œã‚’è¿”ã—ã€å­˜åœ¨ã—ãªã‘ã‚Œã° new ã—ã¾ã™ã€‚<BR>
-     * ä¿æŒãƒªã‚¹ãƒˆã‹ã‚‰å–å¾—ã—ãŸå ´åˆã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ãŒå¢—ãˆã¾ã™ã€‚<BR>
-     * new ã—ãŸå ´åˆã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã¯1ã§ã™ã€‚<BR>
-     * @param prm_idstr è­˜åˆ¥å
+     * GgafResourceConnectionƒIƒuƒWƒFƒNƒg‚ğæ“¾B<BR>
+     * •ÛƒŠƒXƒg‚É‘¶İ‚·‚ê‚Î‚»‚ê‚ğ•Ô‚µA‘¶İ‚µ‚È‚¯‚ê‚Î new ‚µ‚Ü‚·B<BR>
+     * •ÛƒŠƒXƒg‚©‚çæ“¾‚µ‚½ê‡AÚ‘±ƒJƒEƒ“ƒ^‚ª‘‚¦‚Ü‚·B<BR>
+     * new ‚µ‚½ê‡AÚ‘±ƒJƒEƒ“ƒ^‚Í1‚Å‚·B<BR>
+     * @param prm_idstr ¯•Ê–¼
      */
     virtual GgafResourceConnection<T>* connect(const char* prm_idstr);
 
 
     /**
-     * ãƒãƒã‚¸ãƒ£ãƒ¼ãŒä¿æŒã™ã‚‹ãƒªã‚¹ãƒˆã‚’å‡ºåŠ›ã—ã¾ã™ã€‚ï¼ˆãƒ‡ãƒãƒƒã‚°ç”¨ï¼‰ .
+     * ƒ}ƒlƒWƒƒ[‚ª•Û‚·‚éƒŠƒXƒg‚ğo—Í‚µ‚Ü‚·BiƒfƒoƒbƒO—pj .
      */
     virtual void dump();
 };
@@ -177,47 +177,47 @@ template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::connect(char* prm_idstr) {
 
     if (prm_idstr == NULL) {
-        TRACE3("è­¦å‘Š GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
+        TRACE3("Œx GgafResourceManager<T>::connect(NULL) [" << _manager_name << "]");
     }
     if (_is_waiting_to_connect == true || _is_connecting_resource == true) {
-        //connect() ã¯è¤‡æ•°ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰å—ä»˜ãªã„ä»•æ§˜ã¨ã™ã‚‹ã€‚
-        throwGgafCriticalException("GgafResourceManager<T>::connect() ç¾åœ¨connect()ä¸­ã«ã‚‚ã‹ã‹ã‚ã‚‰ãšã€connect("<<prm_idstr<<")ã—ã¾ã—ãŸã€‚connectã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ï¼‘æœ¬ã«ã—ã¦ä¸‹ã•ã„ã€‚")
+        //connect() ‚Í•¡”ƒXƒŒƒbƒh‚©‚çó•t‚È‚¢d—l‚Æ‚·‚éB
+        throwGgafCriticalException("GgafResourceManager<T>::connect() Œ»İconnect()’†‚É‚à‚©‚©‚í‚ç‚¸Aconnect("<<prm_idstr<<")‚µ‚Ü‚µ‚½Bconnect‚ÌƒXƒŒƒbƒh‚ğ‚P–{‚É‚µ‚Ä‰º‚³‚¢B")
     }
 
-    //TODO:ç°¡æ˜“çš„ãªæ’ä»–ã€‚å®Œå…¨ã§ã¯ãªã„ã€‚
+    //TODO:ŠÈˆÕ“I‚È”r‘¼BŠ®‘S‚Å‚Í‚È‚¢B
     GgafResourceConnection<T>* pObj = NULL;
     for(int i = 0; GgafResourceConnection<T>::_is_closing_resource; i++) {
         _is_waiting_to_connect = true;
         Sleep(1);
         if (i > 1000*60) {
-            //ï¼‘åˆ†ä»¥ä¸Šç„¡å¿œç­”æ™‚
-            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()ã—ã‚ˆã†ã¨ã—ã¦ã€ï¼‘åˆ†å¾…æ©Ÿãƒ»ãƒ»ãƒ»");
-            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()ã—ã‚ˆã†ã¨ã—ã¦ã€ï¼‘åˆ†å¾…æ©Ÿã€‚æ’ä»–å‡¦ç†ãŒå´©å£Šã—ã¦ã„ã‚‹ã‹ã€å‡¦ç†ãŒé…ã™ãã¾ã™ã€‚")
+            //‚P•ªˆÈã–³‰“š
+            _TRACE_("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()‚µ‚æ‚¤‚Æ‚µ‚ÄA‚P•ª‘Ò‹@EEE");
+            throwGgafCriticalException("GgafResourceManager<T>::connect() prm_idstr="<<prm_idstr<<" connect()‚µ‚æ‚¤‚Æ‚µ‚ÄA‚P•ª‘Ò‹@B”r‘¼ˆ—‚ª•ö‰ó‚µ‚Ä‚¢‚é‚©Aˆ—‚ª’x‚·‚¬‚Ü‚·B")
         }
     }
     //TODO:
-    //close()ä¸­ã«ã€åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§connect()ã™ã‚‹ã¨ã€‚
-    //ã‚·ãƒ“ã‚¢ãªã‚¿ã‚¤ãƒŸãƒ³ã‚°ã§ãƒ¡ãƒ¢ãƒªã‚’ç ´å£Šã™ã‚‹æã‚ŒãŒæ®‹ã£ã¦ã„ã‚‹ï¼ï¼™ï¼™ï¼…å¤§ä¸ˆå¤«ã¨æ€ã†ã®ã ã‘ã©ã‚‚ã€‚
-    //ã‚¹ãƒ¬ãƒƒãƒ‰ã‚»ãƒ¼ãƒ•å®Œå…¨å¯¾å¿œã—ã‚ˆã†ã¨ã™ã‚‹ã¨ã€ã‹ãªã‚Šã‚ã‚“ã©ãã•ã„å‡¦ç†ã«ãªã‚Šãã†ã ã€‚
-    //ãŸã¶ã‚“å…¨ã¦ã® connect() å‘¼ã³å‡ºã—å…ƒã§ connect() å¤±æ•—æ™‚ã®å‡¦ç†ã‚’å®šç¾©ã—ãªãã¦ã¯ã„ã‘ãªããªã‚‹ã€‚
-    //templateã«ã—ãŸã®ã¯å¤±æ•—ã ã£ãŸã®ã‹ï¼›ï¼ˆvoid*ã«ã™ã¹ãã ã£ãŸã‹ï¼‰ã€‚å›°ã£ãŸãƒ»ãƒ»ãƒ»ã€‚
-    //æ™‚é–“ã®ã‚ã‚‹ã¨ãã«ã¡ã‚ƒã‚“ã¨ã‚„ã‚ã†ã€‚
+    //close()’†‚ÉA•ÊƒXƒŒƒbƒh‚Åconnect()‚·‚é‚ÆB
+    //ƒVƒrƒA‚Èƒ^ƒCƒ~ƒ“ƒO‚Åƒƒ‚ƒŠ‚ğ”j‰ó‚·‚é‹°‚ê‚ªc‚Á‚Ä‚¢‚éI‚X‚X“‘åä•v‚Æv‚¤‚Ì‚¾‚¯‚Ç‚àB
+    //ƒXƒŒƒbƒhƒZ[ƒtŠ®‘S‘Î‰‚µ‚æ‚¤‚Æ‚·‚é‚ÆA‚©‚È‚è‚ß‚ñ‚Ç‚­‚³‚¢ˆ—‚É‚È‚è‚»‚¤‚¾B
+    //‚½‚Ô‚ñ‘S‚Ä‚Ì connect() ŒÄ‚Ño‚µŒ³‚Å connect() ¸”s‚Ìˆ—‚ğ’è‹`‚µ‚È‚­‚Ä‚Í‚¢‚¯‚È‚­‚È‚éB
+    //template‚É‚µ‚½‚Ì‚Í¸”s‚¾‚Á‚½‚Ì‚©Givoid*‚É‚·‚×‚«‚¾‚Á‚½‚©jB¢‚Á‚½EEEB
+    //ŠÔ‚Ì‚ ‚é‚Æ‚«‚É‚¿‚á‚ñ‚Æ‚â‚ë‚¤B
     _is_waiting_to_connect = false;
     _is_connecting_resource = true;
     pObj = find(prm_idstr);
     if (pObj == NULL) {
-        //æœªç”Ÿæˆãªã‚‰ã°ç”Ÿæˆã€‚æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã‚’ï¼‘
+        //–¢¶¬‚È‚ç‚Î¶¬BÚ‘±ƒJƒEƒ“ƒ^‚ğ‚P
         T* pResource = createResource(prm_idstr);
         pObj = createResourceConnection(prm_idstr, pResource);
         pObj->_num_connection = 1;
         add(pObj);
-        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "ã¯ç„¡ã„ã®ã§ã€æ–°è¦ä½œæˆã—ã¦ä¿æŒã«æ±ºå®š");
+        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "‚Í–³‚¢‚Ì‚ÅAV‹Kì¬‚µ‚Ä•Û‚ÉŒˆ’è");
         _is_connecting_resource = false;
         return pObj;
     } else {
-        //ç”Ÿæˆæ¸ˆã¿ãªã‚‰ãã‚Œã‚’è¿”ã™ã€‚æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã‚’ï¼‹ï¼‘
+        //¶¬Ï‚İ‚È‚ç‚»‚ê‚ğ•Ô‚·BÚ‘±ƒJƒEƒ“ƒ^‚ğ{‚P
         pObj->_num_connection++;
-        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "ã¯ã‚ã‚‹ã®ã§æ¥ç¶šã‚«ã‚¦ãƒ³ãƒˆï¼‹ï¼‘." << pObj->_num_connection);
+        TRACE3("GgafResourceManager<T>::connect [" << _manager_name << "]" << prm_idstr << "‚Í‚ ‚é‚Ì‚ÅÚ‘±ƒJƒEƒ“ƒg{‚P." << pObj->_num_connection);
         _is_connecting_resource = false;
         return pObj;
     }
@@ -230,16 +230,16 @@ GgafResourceConnection<T>* GgafResourceManager<T>::connect(const char* prm_idstr
 
 template<class T>
 T* GgafResourceManager<T>::createResource(char* prm_idstr) {
-    TRACE3("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "ã‚’ç”Ÿæˆã—ã¾ã—ã‚‡ã†");
+    TRACE3("GgafResourceManager<T>::createResource [" << _manager_name << "]" << prm_idstr << "‚ğ¶¬‚µ‚Ü‚µ‚å‚¤");
     T* p = processCreateResource(prm_idstr);
     return p;
 }
 
 template<class T>
 GgafResourceConnection<T>* GgafResourceManager<T>::createResourceConnection(char* prm_idstr, T* prm_pResource) {
-    TRACE3("GgafResourceManager<T>::createResourceConnection [" << _manager_name << "]" << prm_idstr << "ã‚’ç”Ÿæˆã—ã¾ã—ã‚‡ã†");
+    TRACE3("GgafResourceManager<T>::createResourceConnection [" << _manager_name << "]" << prm_idstr << "‚ğ¶¬‚µ‚Ü‚µ‚å‚¤");
     GgafResourceConnection<T>* p = processCreateConnection(prm_idstr, prm_pResource);
-    p->_pManager = this; //ãƒãƒãƒ¼ã‚¸ãƒ£ç™»éŒ²
+    p->_pManager = this; //ƒ}ƒl[ƒWƒƒ“o˜^
     return p;
 }
 
@@ -247,11 +247,11 @@ template<class T>
 void GgafResourceManager<T>::dump() {
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     if (_pFirstConnection == NULL) {
-        TRACE3("GgafResourceManager::dump[" << _manager_name << "] ä¿æŒãƒªã‚¹ãƒˆã«ã¯ãªã«ã‚‚ã‚ã‚Šã¾ã›ã‚“ã€‚");
+        TRACE3("GgafResourceManager::dump[" << _manager_name << "] •ÛƒŠƒXƒg‚É‚Í‚È‚É‚à‚ ‚è‚Ü‚¹‚ñB");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
-            TRACE3("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "â†" << pCurrent->_num_connection << "Connection]");
+            TRACE3("GgafResourceManager::dump[" << _manager_name << "] [" << pCurrent->_idstr << "©" << pCurrent->_num_connection << "Connection]");
             pCurrent_Next = pCurrent->_pNext;
             if (pCurrent_Next == NULL) {
                 pCurrent = NULL;
@@ -268,23 +268,23 @@ GgafResourceManager<T>::~GgafResourceManager() {
     TRACE3("GgafResourceManager<T>::~GgafResourceManager[" << _manager_name << "] " << _manager_name << " ");
     GgafResourceConnection<T>* pCurrent = _pFirstConnection;
     if (_pFirstConnection == NULL) {
-        TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] ä¿æŒãƒªã‚¹ãƒˆã«ã¯ãªã«ã‚‚ã‚ã‚Šã¾ã›ã‚“ã€‚");
+        TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] •ÛƒŠƒXƒg‚É‚Í‚È‚É‚à‚ ‚è‚Ü‚¹‚ñB");
     } else {
         GgafResourceConnection<T>* pCurrent_Next;
         while (pCurrent != NULL) {
             int rnum = pCurrent->_num_connection;
-            TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] ä¿æŒãƒªã‚¹ãƒˆã«[" << pCurrent->_idstr << "â†" << rnum
-                    << "Connection]ãŒæ®‹ã£ã¦ã¾ã™ã€‚å¼·åˆ¶å‰Šé™¤ã—ã¾ã™ãŒã€æœ¬æ¥ã‚ã£ã¦ã¯ã„ã‘ã¾ã›ã‚“ã€‚ç‰¹åˆ¥ã«" << rnum << "å› close()ã‚’ç™ºè¡Œã—ã¾ã™");
+            TRACE3("GgafResourceManager::~GgafResourceManager[" << _manager_name << "] •ÛƒŠƒXƒg‚É[" << pCurrent->_idstr << "©" << rnum
+                    << "Connection]‚ªc‚Á‚Ä‚Ü‚·B‹­§íœ‚µ‚Ü‚·‚ªA–{—ˆ‚ ‚Á‚Ä‚Í‚¢‚¯‚Ü‚¹‚ñB“Á•Ê‚É" << rnum << "‰ñ close()‚ğ”­s‚µ‚Ü‚·");
 //            T* r = pCurrent->view();
             pCurrent_Next = pCurrent->_pNext;
 //            if (r != NULL) {
-//                pCurrent->processReleaseResource(r); //ãƒªã‚½ãƒ¼ã‚¹ã®è§£æ”¾
+//                pCurrent->processReleaseResource(r); //ƒŠƒ\[ƒX‚Ì‰ğ•ú
 //            }
             for (int i = 0; i < rnum; i++) {
-                pCurrent->close(); //è‡ªæ®ºã™ã‚‹ã¾ã§è§£æ”¾
+                pCurrent->close(); //©E‚·‚é‚Ü‚Å‰ğ•ú
             }
             if (pCurrent_Next == NULL) {
-                //æœ€å¾Œã®ä¸€ã¤
+                //ÅŒã‚Ìˆê‚Â
                 break;
             } else {
                 pCurrent = pCurrent_Next;

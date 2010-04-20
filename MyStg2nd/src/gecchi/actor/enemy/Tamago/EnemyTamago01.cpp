@@ -1,11 +1,11 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "8/Flora") { //8/ã‚’ã„ã‚Œã¨ã‹ãªã„ã¨ãƒ¦ãƒ‹ãƒ¼ã‚¯ã«ãªã‚‰ãªã„
+EnemyTamago01::EnemyTamago01(const char* prm_name) : SpriteMeshSetActor(prm_name, "8/Flora") { //8/‚ð‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyTamago01";
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     _iMovePatternNo = 0;
@@ -49,7 +49,7 @@ void EnemyTamago01::initialize() {
 void EnemyTamago01::onActive() {
     MyStgUtil::resetEnemyTamago01Status(_pStatus);
     if (_pProgram_Tamago01Move) {
-        _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ã‚’ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã—ã¦ãŠã
+        _pMover->executeSplineMoveProgram(_pProgram_Tamago01Move, 0); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ðƒvƒƒOƒ‰ƒ€‚µ‚Ä‚¨‚­
     }
 
     _pUvFlipper->setTextureUvRotation(16, 1/16.0, 1/16.0);
@@ -93,22 +93,22 @@ void EnemyTamago01::processBehavior() {
 //    }
 
 
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == 0) {
-        //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ä¸­
+        //ƒXƒvƒ‰ƒCƒ“ˆÚ“®’†
         if (_pProgram_Tamago01Move && !(_pProgram_Tamago01Move->isExecuting())) {
-            _iMovePatternNo++; //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ãŒçµ‚äº†ã—ãŸã‚‰æ¬¡ã®è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã¸
+            _iMovePatternNo++; //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ªI—¹‚µ‚½‚çŽŸ‚Ìs“®ƒpƒ^[ƒ“‚Ö
         }
     }
 
     if (_iMovePatternNo == 1) {
-        //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•çµ‚äº†æ™‚
+        //ƒXƒvƒ‰ƒCƒ“ˆÚ“®I—¹Žž
         _pMover->execTagettingMvAngSequence(pMYSHIP->_X+800000, pMYSHIP->_Y, pMYSHIP->_Z,
                                                    2000, 0,
                                                    TURN_CLOSE_TO);
-        _iMovePatternNo++; //æ¬¡ã®è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ã¸
+        _iMovePatternNo++; //ŽŸ‚Ìs“®ƒpƒ^[ƒ“‚Ö
     }
 
     if (_iMovePatternNo == 2) {
@@ -122,7 +122,7 @@ void EnemyTamago01::processBehavior() {
         _pMover->execTagettingMvAngSequence(pMYSHIP, 2000,0,TURN_CLOSE_TO);
 
         if (_pDispatcher_Shot) {
-            //æ”¾å°„çŠ¶ã‚·ãƒ§ãƒƒãƒˆç™ºå°„
+            //•úŽËóƒVƒ‡ƒbƒg”­ŽË
             int way = 8;
             angle* paAngWay = new angle[way];
             angle target_RzRy_Rz, target_RzRy_Ry;
@@ -141,7 +141,7 @@ void EnemyTamago01::processBehavior() {
                 }
             }
             DELETEARR_IMPOSSIBLE_NULL(paAngWay);
-            //ã‚·ãƒ§ãƒƒãƒˆç™ºå°„ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+            //ƒVƒ‡ƒbƒg”­ŽËƒGƒtƒFƒNƒg
             if (_pDispatcher_ShotEffect) {
                 pActor = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
                 if (pActor) {

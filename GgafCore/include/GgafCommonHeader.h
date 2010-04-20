@@ -1,8 +1,8 @@
-ï»¿#ifndef GGAFCOMMONHEADER_H_
+#ifndef GGAFCOMMONHEADER_H_
 #define GGAFCOMMONHEADER_H_
 
 /**
- * Ggafãƒ©ã‚¤ãƒ–ãƒ©ãƒªãƒ˜ãƒƒãƒ€ãƒ¼éƒ¡ãƒ˜ãƒƒãƒ€ãƒ¼
+ * Ggafƒ‰ƒCƒuƒ‰ƒŠƒwƒbƒ_[ŒSƒwƒbƒ_[
  * @version 1.00
  * @since 2007/11/14
  * @author Masatoshi Tsuge
@@ -22,7 +22,7 @@
 
 #define _HAS_ITERATOR_DEBUGGING 0
 
-// Windows ãƒ˜ãƒƒãƒ€ãƒ¼ ãƒ•ã‚¡ã‚¤ãƒ«:
+// Windows ƒwƒbƒ_[ ƒtƒ@ƒCƒ‹:
 #include <windows.h>
 #include <stdio.h>
 
@@ -59,61 +59,61 @@
 #include "sal.h"
 #endif
 
-//è‡ªåˆ†ç”¨ãƒ‡ãƒãƒƒã‚°ãƒ“ãƒ«ãƒ‰(ã‚³ãƒ¡ãƒ³ãƒˆã‚’å¤–ã›ã°ä½¿ç”¨å¯èƒ½)
+//Ž©•ª—pƒfƒoƒbƒOƒrƒ‹ƒh(ƒRƒƒ“ƒg‚ðŠO‚¹‚ÎŽg—p‰Â”\)
 #define MY_DEBUG 1
 
 
 #ifdef MY_DEBUG
-//è‡ªåˆ†ç”¨ãƒ‡ãƒãƒƒã‚°ãƒ“ãƒ«ãƒ‰ã®å ´åˆ
+//Ž©•ª—pƒfƒoƒbƒOƒrƒ‹ƒh‚Ìê‡
 
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //è‡ªåˆ†ç”¨ãƒ‡ãƒãƒƒã‚° ã‹ã¤ VC++ã® ãƒ‡ãƒãƒƒã‚°ãƒ“ãƒ«ãƒ‰æ™‚
-            //VC++ã®ãƒªãƒ¼ã‚¯æ¤œå‡ºã‚’ä»•è¾¼ã‚€
+            //Ž©•ª—pƒfƒoƒbƒO ‚©‚Â VC++‚Ì ƒfƒoƒbƒOƒrƒ‹ƒhŽž
+            //VC++‚ÌƒŠ[ƒNŒŸo‚ðŽdž‚Þ
             #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )
         #else
-            //è‡ªåˆ†ç”¨ãƒ‡ãƒãƒƒã‚° ã‹ã¤ VC++ã®ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚
+            //Ž©•ª—pƒfƒoƒbƒO ‚©‚Â VC++‚ÌƒŠƒŠ[ƒXƒrƒ‹ƒhŽž
             #define NEW new
         #endif
     #else
-        //GCC ã§è‡ªåˆ†ç”¨ãƒ‡ãƒãƒƒã‚°ãƒ“ãƒ«ãƒ‰æ™‚
-        //GCCç”¨ã®ãƒªãƒ¼ã‚¯æ¤œå‡ºã‚’ä»•è¾¼ã‚€
+        //GCC ‚ÅŽ©•ª—pƒfƒoƒbƒOƒrƒ‹ƒhŽž
+        //GCC—p‚ÌƒŠ[ƒNŒŸo‚ðŽdž‚Þ
         #include "DetectMemoryLeaks.h"
         #define NEW new(__FILE__, __LINE__)
     #endif
 
     //#define PFUNC std::cout << __PRETTY_FUNCTION__ << std::endl
 
-    /** ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€ä¸»è¦ãƒ¡ã‚½ãƒƒãƒ‰ã€ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿é–¢é€£ãƒ­ã‚° */
+    /** ƒRƒ“ƒXƒgƒ‰ƒNƒ^AŽå—vƒƒ\ƒbƒhAƒfƒXƒgƒ‰ƒNƒ^ŠÖ˜AƒƒO */
     //#define TRACE(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE(X)
 
-    /** å·¥å ´é–¢é€£é–¢é€£ãƒ­ã‚° */
-    //#define TRACE2(X) {std::stringstream ss; ss << "[åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰]" << X; GgafCore::GgafLogger::writeln(ss.str()); }
+    /** HêŠÖ˜AŠÖ˜AƒƒO */
+    //#define TRACE2(X) {std::stringstream ss; ss << "[•ÊƒXƒŒƒbƒh]" << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE2(X)
 
-    /** è³‡æºãƒžãƒãƒ¼ã‚¸ãƒ£ã€ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³é–¢é€£ãƒ­ã‚° */
+    /** Ž‘Œ¹ƒ}ƒl[ƒWƒƒAƒRƒlƒNƒVƒ‡ƒ“ŠÖ˜AƒƒO */
     //#define TRACE3(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE3(X)
 
-    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã€ãƒ‘ã‚¹ã€Drawé–¢é€£ãƒ­ã‚° */
+    /** ƒGƒtƒFƒNƒgAƒpƒXADrawŠÖ˜AƒƒO */
     //#define TRACE4(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE4(X)
 
-    /** ï¼˜åˆ†æœ¨ã€ã‚ãŸã‚Šåˆ¤å®šé–¢é€£ãƒ­ã‚° */
+    /** ‚W•ª–ØA‚ ‚½‚è”»’èŠÖ˜AƒƒO */
     //#define TRACE5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     #define TRACE5(X)
     //#define TEXT5(X) {std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
     #define TEXT5(X)
 
-    /** ãƒ‡ãƒãƒƒã‚°ç”¨é€šå¸¸ãƒ­ã‚° */
+    /** ƒfƒoƒbƒO—p’ÊíƒƒO */
     #define _TRACE_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::writeln(ss.str()); }
     //#define _TRACE_(X)
     #define _TEXT_(X) { std::stringstream ss; ss << X; GgafCore::GgafLogger::write(ss.str()); }
     //#define _TEXT_(X)
 
-    //ãƒ¡ãƒ¢ãƒªè§£æ”¾ç”¨ãƒžã‚¯ãƒ­
-    /** NULLã‹ã©ã†ã‹ä¸æ˜Žãªdelete */
+    //ƒƒ‚ƒŠ‰ð•ú—pƒ}ƒNƒ
+    /** NULL‚©‚Ç‚¤‚©•s–¾‚Èdelete */
     #define DELETE_POSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             delete (POINTER); \
@@ -122,7 +122,7 @@
             (POINTER) = NULL; \
         } \
     }
-    /** NULLã‹ã©ã†ã‹ä¸æ˜Žãªdelete[] */
+    /** NULL‚©‚Ç‚¤‚©•s–¾‚Èdelete[] */
     #define DELETEARR_POSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             delete[] (POINTER); \
@@ -131,14 +131,14 @@
             (POINTER) = NULL; \
         } \
     }
-    /** NULLã‹ã©ã†ã‹ä¸æ˜ŽãªRelease() */
+    /** NULL‚©‚Ç‚¤‚©•s–¾‚ÈRelease() */
     #define RELEASE_POSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             int rc = (POINTER)->Release(); \
             if (rc > 0) { \
                 std::stringstream ss; \
                 ss << "RELEASE_POSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "ã¯ã€ã¾ã è§£æ”¾ã•ã‚Œã¾ã›ã‚“ã€‚å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿="<<rc; \
+                      #POINTER << "‚ÍA‚Ü‚¾‰ð•ú‚³‚ê‚Ü‚¹‚ñBŽQÆƒJƒEƒ“ƒ^="<<rc; \
                 GgafCore::GgafLogger::writeln(ss.str()); \
             } \
             (POINTER) = NULL; \
@@ -146,52 +146,52 @@
             (POINTER) = NULL; \
         } \
     }
-    /** NULLã¯ã‚ã‚Šãˆãªã„delete */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢delete */
     #define DELETE_IMPOSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             delete (POINTER); \
             (POINTER) = NULL; \
         } else { \
             std::stringstream ss; \
-            ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") æ—¢ã«NULLã§ã‚ã‚‹ãŸã‚ "<< \
-                  #POINTER << " ã®è§£æ”¾ã‚’ã‚„ã‚€ãªãç„¡è¦–ã—ã¾ã—ãŸã€‚æœ¬æ¥ã¯ã€ã“ã“ã§NULLã«ãªã£ã¦ã“ã¨è‡ªä½“ãŠã‹ã—ã„ã€‚èª¿æŸ»ã›ã‚ˆã€‚"; \
+            ss << "DELETE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") Šù‚ÉNULL‚Å‚ ‚é‚½‚ß "<< \
+                  #POINTER << " ‚Ì‰ð•ú‚ð‚â‚Þ‚È‚­–³Ž‹‚µ‚Ü‚µ‚½B–{—ˆ‚ÍA‚±‚±‚ÅNULL‚É‚È‚Á‚Ä‚±‚ÆŽ©‘Ì‚¨‚©‚µ‚¢B’²¸‚¹‚æB"; \
             GgafCore::GgafLogger::writeln(ss.str()); \
             (POINTER) = NULL; \
         } \
     }
-    /** NULLã¯ã‚ã‚Šãˆãªã„delete[] */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢delete[] */
     #define DELETEARR_IMPOSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             delete[] (POINTER); \
             (POINTER) = NULL; \
         } else { \
             std::stringstream ss; \
-            ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") æ—¢ã«NULLã§ã‚ã‚‹ãŸã‚ "<< \
-                  #POINTER << "ã®è§£æ”¾ã‚’ã‚„ã‚€ãªãç„¡è¦–ã—ã¾ã—ãŸã€‚æœ¬æ¥ã¯ã€ã“ã“ã§NULLã«ãªã£ã¦ã“ã¨è‡ªä½“ãŠã‹ã—ã„ã€‚èª¿æŸ»ã›ã‚ˆã€‚"; \
+            ss << "DELETEARR_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") Šù‚ÉNULL‚Å‚ ‚é‚½‚ß "<< \
+                  #POINTER << "‚Ì‰ð•ú‚ð‚â‚Þ‚È‚­–³Ž‹‚µ‚Ü‚µ‚½B–{—ˆ‚ÍA‚±‚±‚ÅNULL‚É‚È‚Á‚Ä‚±‚ÆŽ©‘Ì‚¨‚©‚µ‚¢B’²¸‚¹‚æB"; \
             GgafCore::GgafLogger::writeln(ss.str()); \
             (POINTER) = NULL; \
         } \
     }
-    /** NULLã¯ã‚ã‚Šãˆãªã„Release() */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢Release() */
     #define RELEASE_IMPOSSIBLE_NULL(POINTER) { \
         if (POINTER) { \
             int rc = (POINTER)->Release(); \
             if (rc > 0) { \
                 std::stringstream ss; \
                 ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") "<< \
-                      #POINTER << "ã¯ã€ã¾ã è§£æ”¾ã•ã‚Œã¾ã›ã‚“ã€‚å‚ç…§ã‚«ã‚¦ãƒ³ã‚¿="<<rc; \
+                      #POINTER << "‚ÍA‚Ü‚¾‰ð•ú‚³‚ê‚Ü‚¹‚ñBŽQÆƒJƒEƒ“ƒ^="<<rc; \
                 GgafCore::GgafLogger::writeln(ss.str()); \
             } \
             (POINTER) = NULL; \
         } else { \
             std::stringstream ss; \
-            ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") æ—¢ã«NULLã§ã‚ã‚‹ãŸã‚ "<< \
-                  #POINTER << "ã®ãƒªãƒªãƒ¼ã‚¹ã‚’ã‚„ã‚€ãªãç„¡è¦–ã—ã¾ã—ãŸã€‚æœ¬æ¥ã¯ã€ã“ã“ã§NULLã«ãªã£ã¦ã“ã¨è‡ªä½“ãŠã‹ã—ã„ã€‚èª¿æŸ»ã›ã‚ˆã€‚"; \
+            ss << "RELEASE_IMPOSSIBLE_NULL(file:"<<__FILE__<<" line:"<<__LINE__<<") Šù‚ÉNULL‚Å‚ ‚é‚½‚ß "<< \
+                  #POINTER << "‚ÌƒŠƒŠ[ƒX‚ð‚â‚Þ‚È‚­–³Ž‹‚µ‚Ü‚µ‚½B–{—ˆ‚ÍA‚±‚±‚ÅNULL‚É‚È‚Á‚Ä‚±‚ÆŽ©‘Ì‚¨‚©‚µ‚¢B’²¸‚¹‚æB"; \
             GgafCore::GgafLogger::writeln(ss.str()); \
             (POINTER) = NULL; \
         } \
     }
-    /** è‡ªæ˜Žã§æ¤œæŸ»ä¸è¦ã®ä½•ã‚‚è¨€ã‚ãªã„Release() */
+    /** Ž©–¾‚ÅŒŸ¸•s—v‚Ì‰½‚àŒ¾‚í‚È‚¢Release() */
     #define RELEASE_SAFETY(POINTER) { \
         if (POINTER) { \
             (POINTER)->Release(); \
@@ -202,19 +202,19 @@
     }
 
 #else
-//è‡ªåˆ†ç”¨ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚
+//Ž©•ª—pƒŠƒŠ[ƒXƒrƒ‹ƒhŽž
 
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //è‡ªåˆ†ç”¨ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚ ã‹ã¤ VC++ã® ãƒ‡ãƒãƒƒã‚°ãƒ“ãƒ«ãƒ‰æ™‚
-            //VC++ã®ãƒªãƒ¼ã‚¯æ¤œå‡ºã‚ã‚Šï¼ˆã«ã—ã¦ãŠã“ã†ï¼‰
+            //Ž©•ª—pƒŠƒŠ[ƒXƒrƒ‹ƒhŽž ‚©‚Â VC++‚Ì ƒfƒoƒbƒOƒrƒ‹ƒhŽž
+            //VC++‚ÌƒŠ[ƒNŒŸo‚ ‚èi‚É‚µ‚Ä‚¨‚±‚¤j
             #define NEW  ::new(_NORMAL_BLOCK, __FILE__, __LINE__ )
         #else
-            //è‡ªåˆ†ç”¨ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚ VC++ã® ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚
+            //Ž©•ª—pƒŠƒŠ[ƒXƒrƒ‹ƒhŽž VC++‚Ì ƒŠƒŠ[ƒXƒrƒ‹ƒhŽž
             #define NEW new
         #endif
     #else
-        //GCC ã§è‡ªåˆ†ç”¨ãƒªãƒªãƒ¼ã‚¹ãƒ“ãƒ«ãƒ‰æ™‚
+        //GCC ‚ÅŽ©•ª—pƒŠƒŠ[ƒXƒrƒ‹ƒhŽž
         #define NEW new
     #endif
 
@@ -229,20 +229,20 @@
     #define _TEXT_(X)
     #define _TRACEORE(X)
 
-    //ãƒ¡ãƒ¢ãƒªè§£æ”¾ç”¨ãƒžã‚¯ãƒ­
-    /** NULLã‹ã‚‚ã—ã‚Œãªã„ delete */
+    //ƒƒ‚ƒŠ‰ð•ú—pƒ}ƒNƒ
+    /** NULL‚©‚à‚µ‚ê‚È‚¢ delete */
     #define DELETE_POSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** NULLã‹ã‚‚ã—ã‚Œãªã„ delete[] */
+    /** NULL‚©‚à‚µ‚ê‚È‚¢ delete[] */
     #define DELETEARR_POSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** NULLã‹ã‚‚ã—ã‚Œãªã„ Release() */
+    /** NULL‚©‚à‚µ‚ê‚È‚¢ Release() */
     #define RELEASE_POSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** NULLã¯ã‚ã‚Šãˆãªã„ delete */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢ delete */
     #define DELETE_IMPOSSIBLE_NULL(POINTER)       { if(POINTER) { delete (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** NULLã¯ã‚ã‚Šãˆãªã„ delete[] */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢ delete[] */
     #define DELETEARR_IMPOSSIBLE_NULL(POINTER)    { if(POINTER) { delete[] (POINTER); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** NULLã¯ã‚ã‚Šãˆãªã„ Release() */
+    /** NULL‚Í‚ ‚è‚¦‚È‚¢ Release() */
     #define RELEASE_IMPOSSIBLE_NULL(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
-    /** è‡ªæ˜Žã§æ¤œæŸ»ä¸è¦ã®ä½•ã‚‚è¨€ã‚ãªã„Release() */
+    /** Ž©–¾‚ÅŒŸ¸•s—v‚Ì‰½‚àŒ¾‚í‚È‚¢Release() */
     #define RELEASE_SAFETY(POINTER)      { if(POINTER) { (POINTER)->Release(); (POINTER)=NULL; } else { (POINTER)=NULL; } }
 
 #endif
@@ -310,7 +310,7 @@ class GgafLinearOctreeElem;
 #ifdef _MSC_VER
 
 #else
-//GCCã®å ´åˆsal.hã§ä½•æ•…ã‹NULL ãŒ __null ã§ æœªå®šç¾©ã®ãŸã‚å¼·åˆ¶çš„ã«å†å®šç¾©(ãƒŠãƒ³ãƒŽã‚³ãƒƒãƒãƒ£)
+//GCC‚Ìê‡sal.h‚Å‰½ŒÌ‚©NULL ‚ª __null ‚Å –¢’è‹`‚Ì‚½‚ß‹­§“I‚ÉÄ’è‹`(ƒiƒ“ƒmƒRƒbƒ`ƒƒ)
 #define NULL 0
 #endif
 

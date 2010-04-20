@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9POINTSPRITEMODEL_H_
+#ifndef GGAFDX9POINTSPRITEMODEL_H_
 #define GGAFDX9POINTSPRITEMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9PointSpriteActorç”¨ãƒ¢ãƒ‡ãƒ«ã‚¯ãƒ©ã‚¹.
+ * GgafDx9PointSpriteActor—pƒ‚ƒfƒ‹ƒNƒ‰ƒX.
  * @version 1.00
  * @since 2008/02/22
  * @author Masatoshi Tsuge
@@ -27,40 +27,40 @@ public:
 //    };
 
     struct VERTEX {
-        float x, y, z;    // é ‚ç‚¹åº§æ¨™
-        float psize;      // ãƒã‚¤ãƒ³ãƒˆã‚µã‚¤ã‚º
-        DWORD color;      // é ‚ç‚¹ã®è‰²
-        float tu, tv;     // ãƒ†ã‚¯ã‚¹ãƒãƒ£åº§æ¨™
+        float x, y, z;    // ’¸“_À•W
+        float psize;      // ƒ|ƒCƒ“ƒgƒTƒCƒY
+        DWORD color;      // ’¸“_‚ÌF
+        float tu, tv;     // ƒeƒNƒXƒ`ƒƒÀ•W
     };
 
-    /** é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ */
+    /** ’¸“_ƒoƒbƒtƒ@ */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** é ‚ç‚¹æƒ…å ±é…åˆ— */
+    /** ’¸“_î•ñ”z—ñ */
     VERTEX* _paVtxBuffer_org;
-    /** é ‚ç‚¹æ•°(=ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆæ•°) */
+    /** ’¸“_”(=ƒXƒvƒ‰ƒCƒg”) */
     int _vertices_num;
-    /** é ‚ç‚¹ã®FVF */
+    /** ’¸“_‚ÌFVF */
     static DWORD FVF;
-    /** çŸ©å½¢ã®é ‚ç‚¹åˆè¨ˆã®ã‚µã‚¤ã‚º */
+    /** ‹éŒ`‚Ì’¸“_‡Œv‚ÌƒTƒCƒY */
     UINT _size_vertices;
-    /** 1é ‚ç‚¹ã®ã‚µã‚¤ã‚º */
+    /** 1’¸“_‚ÌƒTƒCƒY */
     UINT _size_vertex_unit;
-    /** ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ï¼‘è¾ºã®ã‚µã‚¤ã‚º(px) */
+    /** ƒIƒuƒWƒFƒNƒg‚Ì‚P•Ó‚ÌƒTƒCƒY(px) */
     float _fSquareSize;
-    /** ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ï¼‘è¾ºã®é•·ã•(px) */
+    /** ƒeƒNƒXƒ`ƒƒ‚Ì‚P•Ó‚Ì’·‚³(px) */
     float _fTexSize;
-    /** ãƒ†ã‚¯ã‚¹ãƒãƒ£åˆ†å‰²æ•°(ï¼‘ã§åˆ†å‰²ç„¡ã—ã€‚ï¼’ã§ï¼”ãƒ‘ã‚¿ãƒ¼ãƒ³ã€ï¼“ã§ï¼™ãƒ‘ã‚¿ãƒ¼ãƒ³) */
+    /** ƒeƒNƒXƒ`ƒƒ•ªŠ„”(‚P‚Å•ªŠ„–³‚µB‚Q‚Å‚Sƒpƒ^[ƒ“A‚R‚Å‚Xƒpƒ^[ƒ“) */
     int _texture_split_rowcol;
 
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_model_name ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆå®šç¾©ã®è­˜åˆ¥åã€‚".x"ã‚’è¿½åŠ ã™ã‚‹ã¨å®šç¾©Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_model_name ƒXƒvƒ‰ƒCƒg’è‹`‚Ì¯•Ê–¼B".x"‚ğ’Ç‰Á‚·‚é‚Æ’è‹`Xƒtƒ@ƒCƒ‹–¼‚É‚È‚éB
      */
     GgafDx9PointSpriteModel(char* prm_model_name);
 
 public:
-    /** å…¨ã‚¢ãƒ‹ãƒ¡ãƒ‘ã‚¿ãƒ¼ãƒ³æ•°(0ã€œ) */
+    /** ‘SƒAƒjƒƒpƒ^[ƒ“”(0`) */
 //    int _pattno_uvflip_Max;
 //    float _fSize_PointSpriteModelWidthPx;
 //    float _fSize_PointSpriteModelHeightPx;
@@ -68,8 +68,8 @@ public:
 //    int _col_texture_split;
 
     /**
-     * GgafDx9PointSpriteModelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®æç”»<BR>
-     * @param   prm_pActor_Target æç”»ã™ã‚‹GgafDx9PointSpriteActor
+     * GgafDx9PointSpriteModelƒIƒuƒWƒFƒNƒg‚Ì•`‰æ<BR>
+     * @param   prm_pActor_Target •`‰æ‚·‚éGgafDx9PointSpriteActor
      * @return  HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -83,9 +83,9 @@ public:
     void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
      */
-    virtual ~GgafDx9PointSpriteModel(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9PointSpriteModel(); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

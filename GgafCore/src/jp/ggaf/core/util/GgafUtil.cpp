@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -17,14 +17,14 @@ char* GgafUtil::getFileText(string prm_filename) {
         return NULL;
     } else {
         DWORD dwSize = 0;
-        // ã‚µã‚¤ã‚ºã‚’å–å¾—
+        // ƒTƒCƒY‚ğæ“¾
         while (!ifs.eof()) {
             ifs.ignore();
             ++dwSize;
         }
         ifs.clear();
         ifs.seekg(0, ios_base::beg);
-        //ã‚µã‚¤ã‚ºã‚’æŒ‡å®šã—ã¦èª­è¾¼ã¿
+        //ƒTƒCƒY‚ğw’è‚µ‚Ä“Ç‚İ
         char* pa_char = NEW char[dwSize];
 		ZeroMemory(pa_char, dwSize);
         ifs.read(pa_char, dwSize-1);

@@ -1,4 +1,4 @@
-﻿#ifndef GAMEDEMOSCENE_H_
+#ifndef GAMEDEMOSCENE_H_
 #define GAMEDEMOSCENE_H_
 
 #define GAMEDEMO_PROG_INIT              1
@@ -13,8 +13,8 @@ namespace MyStg2nd {
 
 
 /**
- * ゲームデモシーンクラス .
- * ゲームが行なわれている場面と言っても、ゲームデモが行なわれている場合もありました。
+ * �Q�[���f���V�[���N���X .
+ * �Q�[�����s�Ȃ��Ă����ʂƌ����Ă��A�Q�[���f�����s�Ȃ��Ă���ꍇ������܂����B
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace Dix;
 GgafDx9Bgm::GgafDx9Bgm(char* prm_ogg_name) : GgafObject() {
     _TRACE_("GgafDx9Bgm::GgafDx9Bgm "<<prm_ogg_name);
     if (GgafDx9Sound::_pIDirectSound8 == NULL) {
-        throwGgafCriticalException("GgafDx9Bgm::GgafDx9Bgm("<<prm_ogg_name<<") DirectSound ãŒã€ã¾ã åˆæœŸåŒ–ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("GgafDx9Bgm::GgafDx9Bgm("<<prm_ogg_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
     _ogg_name = prm_ogg_name;
     string ogg_filename = GGAFDX9_PROPERTY(DIR_OGG) + string(prm_ogg_name) + ".ogg";

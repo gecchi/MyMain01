@@ -1,9 +1,9 @@
-ï»¿#ifndef EFFECTEXPLOSION001_H_
+#ifndef EFFECTEXPLOSION001_H_
 #define EFFECTEXPLOSION001_H_
 namespace MyStg2nd {
 
 /**
- * çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆ001
+ * ”š”­ƒGƒtƒFƒNƒgƒXƒvƒ‰ƒCƒg001
  * @version 1.00
  * @since 2006/01/10
  * @author Masatoshi Tsuge
@@ -14,12 +14,12 @@ public:
     EffectExplosion001(const char* prm_name);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
@@ -27,7 +27,7 @@ public:
     void onActive() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processJudgement() override;
 

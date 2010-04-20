@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -21,10 +21,10 @@ void GgafDx9SeReflector::useSe(int prm_se_num) {
 
 void GgafDx9SeReflector::set(int prm_id, const char* prm_se_name, int prm_cannel) {
     if (_se_num <= 0) {
-        throwGgafCriticalException("GgafDx9SeReflector::set() useSeã§ä½¿ç”¨ã™ã‚‹Seæ•°ã‚’äº‹å‰ã«å®£è¨€ã—ã¦ãã ã•ã„ã€‚_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9SeReflector::set() useSe‚Åg—p‚·‚éSe”‚ğ–‘O‚ÉéŒ¾‚µ‚Ä‚­‚¾‚³‚¢B_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
     if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDx9SeReflector::set() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(_se_num-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9SeReflector::set() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·B_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
     char idstr[129];
     sprintf(idstr, "%d/%s", prm_cannel, prm_se_name);
@@ -33,23 +33,23 @@ void GgafDx9SeReflector::set(int prm_id, const char* prm_se_name, int prm_cannel
 
 void GgafDx9SeReflector::play(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDx9SeReflector::play() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(_se_num-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9SeReflector::play() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·B_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
     GgafDx9Universe* pUniverse = (GgafDx9Universe*)(GgafGod::_pGod->_pUniverse);
     pUniverse->registSe(_papSeCon[prm_id]->view(), DSBVOLUME_MAX, DSBPAN_CENTER, 0, 1.0);
 }
 void GgafDx9SeReflector::play3D(int prm_id) {
     if (prm_id < 0 || prm_id >= _se_num) {
-        throwGgafCriticalException("GgafDx9SeReflector::play3D() IDãŒç¯„å›²å¤–ã§ã™ã€‚0~"<<(_se_num-1)<<"ã§ãŠé¡˜ã„ã—ã¾ã™ã€‚_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
+        throwGgafCriticalException("GgafDx9SeReflector::play3D() ID‚ª”ÍˆÍŠO‚Å‚·B0~"<<(_se_num-1)<<"‚Å‚¨Šè‚¢‚µ‚Ü‚·B_pActor="<<_pActor->getName()<<" prm_id="<<prm_id);
     }
 
     static const int VOLUME_MAX_3D = DSBVOLUME_MAX;
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
-    //è·é›¢è¨ˆç®—
-    //é…å»¶ãªã—ã€éŸ³é‡100ï¼…ã®å ´æ‰€ã‚’pCAMã®å ´æ‰€ã¨ã™ã‚‹
-    //è‡ªèº«ã¨pCAMã®è·é›¢
+    //‹——£ŒvZ
+    //’x‰„‚È‚µA‰¹—Ê100“‚ÌêŠ‚ğpCAM‚ÌêŠ‚Æ‚·‚é
+    //©g‚ÆpCAM‚Ì‹——£
     int DX = (pCAM->_X - _pActor->_X) / LEN_UNIT;
     int DY = (pCAM->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCAM->_Z - _pActor->_Z) / LEN_UNIT;
@@ -70,26 +70,26 @@ void GgafDx9SeReflector::play3D(int prm_id) {
     angle ang = GgafDx9Util::getAngle2D(fDist_VpVerticalCenter, -_pActor->_fDist_VpPlnFront );
     LONG pan = GgafDx9Util::COS[ang/ANGLE_RATE] * DSBPAN_RIGHT;
 
-    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10ãƒ•ãƒ¬ãƒ¼ãƒ åº•ä¸Šã’
+    int delay = (d / (pCAM->_zf*PX_UNIT))*GGAF_SAYONARA_DELAY-10; //10ƒtƒŒ[ƒ€’êã‚°
     if (delay < 0) {
         delay = 0;
     } else if (delay > GGAF_SAYONARA_DELAY) {
         delay = GGAF_SAYONARA_DELAY;
     }
 
-    ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) ã¯éŸ³é‡åº•ä¸Šã’
-    //çœŸã‚“ä¸­ã‹ã‚‰ã®è·é›¢
+    ((GgafDx9Universe*)(GgafGod::_pGod->_pUniverse))->registSe(_papSeCon[prm_id]->view(), vol, pan, delay, 1.0); // + (GgafDx9Se::VOLUME_RANGE / 6) ‚Í‰¹—Ê’êã‚°
+    //^‚ñ’†‚©‚ç‚Ì‹——£
    //                float dPlnLeft = abs(_fDist_VpPlnLeft);
    //                float dPlnRight = abs(_fDist_VpPlnRight);
    //                if (dPlnLeft < dPlnRight) {
-   //                    //sinÎ¸ = dPlnLeft/d;
-   //                    //Î¸ = asin(dPlnLeft/d)
-   //                    //X = (_rad_half_fovY - Î¸)
-   //                    //tan X = è·é›¢ / d
-   //                    //d * tan X = è·é›¢
-   //                    //d * tan (_rad_half_fovY - Î¸) = è·é›¢
-   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = è·é›¢
-   //                    //æœ¬å½“ã«ã“ã†ã—ãªã‘ã‚Œã°ã„ã‘ãªã„ï¼Ÿ
+   //                    //sinƒÆ = dPlnLeft/d;
+   //                    //ƒÆ = asin(dPlnLeft/d)
+   //                    //X = (_rad_half_fovY - ƒÆ)
+   //                    //tan X = ‹——£ / d
+   //                    //d * tan X = ‹——£
+   //                    //d * tan (_rad_half_fovY - ƒÆ) = ‹——£
+   //                    //d * tan (_rad_half_fovY - asin(dPlnLeft/d)) = ‹——£
+   //                    //–{“–‚É‚±‚¤‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢H
 
 
 
@@ -101,9 +101,9 @@ void GgafDx9SeReflector::updatePanVolume3D() {
     static const int VOLUME_MIN_3D = DSBVOLUME_MIN + ((DSBVOLUME_MAX - DSBVOLUME_MIN)*0.7);
     static const int VOLUME_RANGE_3D = VOLUME_MAX_3D - VOLUME_MIN_3D;
 
-    //è·é›¢è¨ˆç®—
-    //é…å»¶ãªã—ã€éŸ³é‡100ï¼…ã®å ´æ‰€ã‚’pCAMã®å ´æ‰€ã¨ã™ã‚‹
-    //è‡ªèº«ã¨pCAMã®è·é›¢
+    //‹——£ŒvZ
+    //’x‰„‚È‚µA‰¹—Ê100“‚ÌêŠ‚ğpCAM‚ÌêŠ‚Æ‚·‚é
+    //©g‚ÆpCAM‚Ì‹——£
     int DX = (pCAM->_X - _pActor->_X) / LEN_UNIT;
     int DY = (pCAM->_Y - _pActor->_Y) / LEN_UNIT;
     int DZ = (pCAM->_Z - _pActor->_Z) / LEN_UNIT;

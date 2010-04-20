@@ -1,4 +1,4 @@
-ï»¿#ifndef STAGE03SCENE_H_
+#ifndef STAGE03SCENE_H_
 #define STAGE03SCENE_H_
 namespace MyStg2nd {
 
@@ -8,7 +8,7 @@ public:
 
     Stage03Scene(const char* prm_name);
     /**
-     * åˆæœŸå‡¦ç†
+     * ‰Šúˆ—
      */
     void initialize() override;
 

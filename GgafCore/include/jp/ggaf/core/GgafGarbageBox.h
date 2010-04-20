@@ -1,12 +1,12 @@
-﻿#ifndef GGAFGARBAGEBOX_H_
+#ifndef GGAFGARBAGEBOX_H_
 #define GGAFGARBAGEBOX_H_
 namespace GgafCore {
 
 /**
- * ゴミ箱 .
- * 不要になったオブジェクトは、とりあえずココに登録。<BR>
- * ココに登録されると、CPUの余裕のあるときに工場(GgafFactory)が勝手にちびちびと delete してゆきます<BR>
- * (旧GgafTrashBox)
+ * �S�~�� .
+ * �s�v�ɂȂ����I�u�W�F�N�g�́A�Ƃ肠�����R�R�ɓo�^�B<BR>
+ * �R�R�ɓo�^�����ƁACPU�̗]�T�̂���Ƃ��ɍH��(GgafFactory)������ɂ��т��т� delete ���Ă䂫�܂�<BR>
+ * (��GgafTrashBox)
  * @version 1.00
  * @since 2008/12/16
  * @author Masatoshi Tsuge
@@ -14,38 +14,38 @@ namespace GgafCore {
 class GgafGarbageBox : public GgafObject {
 
 public:
-    /** [r]まもなくdeleteされるアクターのツリートップのノード */
+    /** [r]�܂��Ȃ�delete�����A�N�^�[�̃c���[�g�b�v�̃m�[�h */
     GgafSayonaraActor* _pSayonaraActor;
-    /** [r]まもなくdeleteされるシーンのツリートップのノード */
+    /** [r]�܂��Ȃ�delete�����V�[���̃c���[�g�b�v�̃m�[�h */
     GgafSayonaraScene* _pSayonaraScene;
 
     /**
-     * コンストラクタ .
+     * �R���X�g���N�^ .
      */
     GgafGarbageBox();
 
     /**
-     * ゴミ箱にアクターを追加 .
-     * 他のツリーに所属していても、
-     * メソッド内で連結を切り離してから追加するため、
-     * いきなりaddしても構わない。
-     * @param prm_pActor 追加するアクター
+     * �S�~���ɃA�N�^�[��ǉ� .
+     * ���̃c���[�ɏ������Ă��Ă��A
+     * ���\�b�h���ŘA����؂藣���Ă���ǉ����邽�߁A
+     * �����Ȃ�add���Ă��\��Ȃ��B
+     * @param prm_pActor �ǉ�����A�N�^�[
      */
     void add(GgafActor* prm_pActor);
 
     /**
-     * ゴミ箱にシーンを追加 .
-     * 他のツリーに所属していても、
-     * メソッド内で連結を切り離してから追加するため、
-     * いきなりaddしても構わない。
-     * @param prm_pScene 追加するシーン
+     * �S�~���ɃV�[����ǉ� .
+     * ���̃c���[�ɏ������Ă��Ă��A
+     * ���\�b�h���ŘA����؂藣���Ă���ǉ����邽�߁A
+     * �����Ȃ�add���Ă��\��Ȃ��B
+     * @param prm_pScene �ǉ�����V�[��
      */
     void add(GgafScene* prm_pScene);
 
     /**
-     * ゴミ箱に溜まっているオブジェクトをdeleteする .
-     * 通常、神(GgafGod)がこれを行います。
-     * @param prm_num_cleaning deleteするオブジェクト数
+     * �S�~���ɗ��܂��Ă���I�u�W�F�N�g��delete���� .
+     * �ʏ�A�_(GgafGod)��������s���܂��B
+     * @param prm_num_cleaning delete����I�u�W�F�N�g��
      */
     void cleane(int prm_num_cleaning);
 

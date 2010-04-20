@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -24,7 +24,7 @@ StraightLaserChip::StraightLaserChip(const char* prm_name, const char* prm_model
 }
 
 void StraightLaserChip::initialize() {
-    //ä¸‹ä½ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ã‚ã‚Š
+    //‰ºˆÊƒŒ[ƒU[ƒ`ƒbƒv‚ÅƒI[ƒo[ƒ‰ƒCƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ ‚è
     _fAlpha = 0.99;
 }
 
@@ -47,10 +47,10 @@ void StraightLaserChip::processBehavior() {
     _Y = (*_pSource_Y) + ((*_pSource_vY) * _veloMv * (int)getPartFrame());
     _Z = (*_pSource_Z) + ((*_pSource_vZ) * _veloMv * (int)getPartFrame());
 
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     //_pMover->behave();
 /*
-    //ä¸­é–“åœ°ç‚¹ã«ã‚‚å½“ãŸã‚Šåˆ¤å®š
+    //’†ŠÔ’n“_‚É‚à“–‚½‚è”»’è
     static int centerX, centerY, centerZ;
     if (_pChip_front != NULL) {
       centerX = (_X - _pChip_front->_X) / 2;
@@ -64,7 +64,7 @@ void StraightLaserChip::processBehavior() {
                       centerX + 30000,
                       centerY + 30000,
                       centerZ + 30000
-                 ); //ä¸­é–“ã®å½“ãŸã‚Šåˆ¤å®š
+                 ); //’†ŠÔ‚Ì“–‚½‚è”»’è
       _pCollisionChecker->getHitAreaBoxs()->enable(1);
     } else {
       _pCollisionChecker->getHitAreaBoxs()->disable(1);

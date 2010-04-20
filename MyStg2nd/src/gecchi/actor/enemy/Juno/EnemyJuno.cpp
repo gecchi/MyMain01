@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,7 +16,7 @@ EnemyJuno::EnemyJuno(const char* prm_name) : DefaultMeshSetActor(prm_name, "Cere
     _can_Shot = false;
     _do_Shot = false;
     _pSeReflector->useSe(1);
-    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //çˆ†ç™º
+    _pSeReflector->set(0, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 
@@ -38,13 +38,13 @@ void EnemyJuno::onActive() {
 }
 
 void EnemyJuno::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_do_Shot) {
         if (getPartFrame() == _frame_when_shot - 30) {
-            _pMover->setMvVelo(0); //æ¸›é€Ÿ
-            chengeEffectTechniqueInterim("Flush", 2); //ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+            _pMover->setMvVelo(0); //Œ¸‘¬
+            chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
         } else if (getPartFrame() == _frame_when_shot) {
             if (_pDispatcher_Shot) {
                 GgafDx9DrawableActor* pShot = (GgafDx9DrawableActor*)_pDispatcher_Shot->employ();
@@ -55,12 +55,12 @@ void EnemyJuno::processBehavior() {
                     pShot->_pMover->setMvAng(pMYSHIP);
                     pShot->activate();
                     _do_Shot = false;
-                    chengeEffectTechniqueInterim("Flush", 2); //ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+                    chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
                 }
-                //ã‚·ãƒ§ãƒƒãƒˆç™ºå°„ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+                //ƒVƒ‡ƒbƒg”­ŽËƒGƒtƒFƒNƒg
                 if (_pDispatcher_ShotEffect) {
                 }
-                _pMover->setMvVelo(1000000); //åŠ é€Ÿ
+                _pMover->setMvVelo(1000000); //‰Á‘¬
             }
         }
     } else {

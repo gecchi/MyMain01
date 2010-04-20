@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -90,7 +90,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
     //       <--><--->
     //         |    `-- prm_frame_delay
     //         `-- prm_frame_push
-    //éå»ã«é¡ã‚ŠãªãŒã‚‰æ¤œè¨¼
+    //‰ß‹‚É‘k‚è‚È‚ª‚çŒŸØ
     VB::VBMap* pVBMap;
     pVBMap = _pVBMap_Active;
     if (pVBMap->_state & prm_VB) {
@@ -99,7 +99,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
         return false;
     }
     pVBMap = pVBMap->_prev;
-    //ç›´å‰ã¯å¿…ãšæŠ¼ã•ã‚Œã¦ã„ã¦ã¯é§„ç›®
+    //’¼‘O‚Í•K‚¸‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í‘Ê–Ú
     if (pVBMap->_state & prm_VB) {
         return false;
     }
@@ -137,7 +137,7 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
 
 
 
-////ä½•æ‰€ã‚‚æŠ¼ã•ã‚Œã¦ã„ãªã„â†’æŠ¼ã—ãŸ
+////‰½Š‚à‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢¨‰Ÿ‚µ‚½
 //bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
 //	if (_pVBMap_Active->_state[prm_VB]) {
 //		for (int i = 0; i < VB_NUM; i++) {
@@ -153,39 +153,39 @@ vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWOR
 
 vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
 
-    //ç¾åœ¨ã¯å…¨ã¦æŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°ãªã‚‰ãªã„
+    //Œ»İ‚Í‘S‚Ä‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Î‚È‚ç‚È‚¢
     for (int i = 0; i < prm_iButtonNum; i++) {
         if (isBeingPressed(prm_aVB[i]) == false) {
             return false;
         }
     }
 
-    //ï¼“ãƒ•ãƒ¬ãƒ¼ãƒ ä½™è£•ã‚’è¦‹ã‚‹
-    //å…¨ãƒœã‚¿ãƒ³ã«ã¤ã„ã¦ã€ãã‚Œãã‚ŒãŒä»¥ä¸‹ã®ã„ã¥ã‚Œã‹ã®å‹•ä½œã«ãªã£ã¦ã„ã‚‹ã‹ãƒã‚§ãƒƒã‚¯ã€‚
-    //â†‘ > â†“ > â†“ > â†“
-    //â†‘ > â†‘ > â†“ > â†“
-    //â†‘ > â†‘ > â†‘ > â†“
-    //â†“ > â†“ > â†‘ > â†“
-    //â†“ > â†‘ > â†‘ > â†“
-    //â†“ > â†‘ > â†“ > â†“
+    //‚RƒtƒŒ[ƒ€—]—T‚ğŒ©‚é
+    //‘Sƒ{ƒ^ƒ“‚É‚Â‚¢‚ÄA‚»‚ê‚¼‚ê‚ªˆÈ‰º‚Ì‚¢‚Ã‚ê‚©‚Ì“®ì‚É‚È‚Á‚Ä‚¢‚é‚©ƒ`ƒFƒbƒNB
+    //ª > « > « > «
+    //ª > ª > « > «
+    //ª > ª > ª > «
+    //« > « > ª > «
+    //« > ª > ª > «
+    //« > ª > « > «
     static bool prev1Flg, prev2Flg, prev3Flg;
     for (int i = 0; i < prm_iButtonNum; i++) {
         prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
         prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
         prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
-        if (prev1Flg) { //ï¼Š > ï¼Š > â†‘ >
+        if (prev1Flg) { //– > – > ª >
             continue;
-        } else if (prev2Flg) { //ï¼Š > â†‘ > ï¼Š >
+        } else if (prev2Flg) { //– > ª > – >
             continue;
-        } else if (prev3Flg) { //â†‘ > ï¼Š > ï¼Š >
+        } else if (prev3Flg) { //ª > – > – >
             continue;
         } else {
             return false;
         }
     }
 
-    //ä½†ã—1ã¤å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã€å…¨ã¦æŠ¼ã•ã‚Œã¦ã„ã¦ã¯æˆç«‹ã—ãªã„ã€‚
-    //ï¼ˆã“ã®æ¡ä»¶å…¥ã‚Œãªã„ã¨ã€ã€ŒåŒæ™‚æŠ¼ã—â†’æŠ¼ã—ã£ã±ãªã—ã€ã®å ´åˆã€ï¼“ãƒ•ãƒ¬ãƒ¼ãƒ é€£ç¶šã§æˆç«‹ã—ã¦ã—ã¾ã†ï¼‰
+    //’A‚µ1‚Â‘O‚ÌƒtƒŒ[ƒ€‚ÅA‘S‚Ä‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í¬—§‚µ‚È‚¢B
+    //i‚±‚ÌğŒ“ü‚ê‚È‚¢‚ÆAu“¯‰Ÿ‚µ¨‰Ÿ‚µ‚Á‚Ï‚È‚µv‚Ìê‡A‚RƒtƒŒ[ƒ€˜A‘±‚Å¬—§‚µ‚Ä‚µ‚Ü‚¤j
     for (int i = 0; i < prm_iButtonNum; i++) {
         if (wasNotBeingPressed(prm_aVB[i], 1)) {
             return true;
@@ -248,10 +248,10 @@ vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_fra
     //       <--><--->
     //         |    `-- prm_frame_delay
     //         `-- prm_frame_push
-    //éå»ã«é¡ã‚ŠãªãŒã‚‰æ¤œè¨¼
+    //‰ß‹‚É‘k‚è‚È‚ª‚çŒŸØ
     VB::VBMap* pVBMap;
     pVBMap = _pVBMap_Active;
-    pVBMap = pVBMap->_prev; //ä¸Šã®getPushedDownStickã§èª¿æŸ»æ¸ˆã¿ãªã®ã§é£›ã°ã™ã€‚
+    pVBMap = pVBMap->_prev; //ã‚ÌgetPushedDownStick‚Å’²¸Ï‚İ‚È‚Ì‚Å”ò‚Î‚·B
     bool ok = false;
     for (DWORD i = 0; i < prm_frame_delay; i++) {
         pVBMap = pVBMap->_prev;
@@ -327,31 +327,31 @@ bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
 //vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
 //    if (isBeingPressed(prm_VB)) {
 //        static bool prev1Flg, prev2Flg, prev3Flg;
-//        //ãƒœã‚¿ãƒ³ã«æŠ¼ã•ã‚Œã¦ã„ãªã„æœŸé–“ãŒç›´å‰ã«ã‚ã£ãŸã‹
+//        //ƒ{ƒ^ƒ“‚É‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢ŠúŠÔ‚ª’¼‘O‚É‚ ‚Á‚½‚©
 //        prev1Flg = wasNotBeingPressed(prm_VB, 1);
 //        prev2Flg = wasNotBeingPressed(prm_VB, 2);
 //        prev3Flg = wasNotBeingPressed(prm_VB, 3);
-//        if (prev1Flg) { //ï¼Š > ï¼Š > â†‘ >
+//        if (prev1Flg) { //– > – > ª >
 //            //OK
-//        } else if (prev2Flg) { //ï¼Š > â†‘ > ï¼Š >
+//        } else if (prev2Flg) { //– > ª > – >
 //            //OK
-//        } else if (prev3Flg) { //â†‘ > ï¼Š > ï¼Š >
+//        } else if (prev3Flg) { //ª > – > – >
 //            //OK
 //        } else {
 //            //NG
 //            return 0;
 //        }
 //
-//        //ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã«æŠ¼ã•ã‚Œã¦ã„ãªã„æœŸé–“ãŒç›´å‰ã«ã‚ã£ãŸã‹
+//        //ƒXƒeƒBƒbƒN‚É‰Ÿ‚³‚ê‚Ä‚¢‚È‚¢ŠúŠÔ‚ª’¼‘O‚É‚ ‚Á‚½‚©
 //        static bool prev1N_Flg, prev2N_Flg, prev3N_Flg;
 //        prev1N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 1);
 //        prev2N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 2);
 //        prev3N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 3);
-//        if (prev1N_Flg) { //ï¼Š > ï¼Š > ï¼® >
+//        if (prev1N_Flg) { //– > – > ‚m >
 //            //OK
-//        } else if (prev2N_Flg) { //ï¼Š > ï¼® > ï¼Š >
+//        } else if (prev2N_Flg) { //– > ‚m > – >
 //            //OK
-//        } else if (prev3N_Flg) { //ï¼® > ï¼Š > ï¼Š >
+//        } else if (prev3N_Flg) { //‚m > – > – >
 //            //OK
 //        } else {
 //            //NG
@@ -359,11 +359,11 @@ bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
 //        }
 //
 //        for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
-//            //ä»Šã¯æŠ¼ã—ã¦ã„ã‚‹
+//            //¡‚Í‰Ÿ‚µ‚Ä‚¢‚é
 //            if (isBeingPressed(i)) {
 //
-//                //ä½†ã—1ã¤å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã€ä¸¡æ–¹æŠ¼ã•ã‚Œã¦ã„ã¦ã¯æˆç«‹ã—ãªã„ã€‚
-//                //ï¼ˆã“ã®æ¡ä»¶å…¥ã‚Œãªã„ã¨ã€ã€ŒåŒæ™‚æŠ¼ã—â†’æŠ¼ã—ã£ã±ãªã—ã€ã®å ´åˆã€æ•°ãƒ•ãƒ¬ãƒ¼ãƒ é€£ç¶šã§æˆç«‹ã—ã¦ã—ã¾ã†ï¼‰
+//                //’A‚µ1‚Â‘O‚ÌƒtƒŒ[ƒ€‚ÅA—¼•û‰Ÿ‚³‚ê‚Ä‚¢‚Ä‚Í¬—§‚µ‚È‚¢B
+//                //i‚±‚ÌğŒ“ü‚ê‚È‚¢‚ÆAu“¯‰Ÿ‚µ¨‰Ÿ‚µ‚Á‚Ï‚È‚µv‚Ìê‡A”ƒtƒŒ[ƒ€˜A‘±‚Å¬—§‚µ‚Ä‚µ‚Ü‚¤j
 //                if (wasBeingPressed(prm_VB, 1) && wasBeingPressed(i, 1)) {
 //                    //NG
 //                    continue;
@@ -393,7 +393,7 @@ void VirtualButton::clear() {
 
 void VirtualButton::init() {
 
-    //ç’°çŠ¶åŒæ–¹å‘é€£çµãƒªã‚¹ãƒˆæ§‹ç¯‰
+    //ŠÂó‘o•ûŒü˜AŒ‹ƒŠƒXƒg\’z
     _pVBMap_Active = NEW VBMap();
     VBMap* pVBMTemp = _pVBMap_Active;
     for (int i = 1; i < VB_MAP_BUFFER - 1; i++) {
@@ -409,7 +409,7 @@ void VirtualButton::init() {
     _pVBMap_Active->_next = pVBMapOldest;
 
     _pVBMap_Reset =  getPastVBMap((VB_MAP_BUFFER - 1) / 2);
-    //ãƒªã‚»ãƒƒãƒˆã™ã‚‹ã‚¿ã‚¤ãƒŸãƒ³ã‚°ã®ãƒã‚¤ãƒ³ã‚¿ã‚’è¨­å®š
+    //ƒŠƒZƒbƒg‚·‚éƒ^ƒCƒ~ƒ“ƒO‚Ìƒ|ƒCƒ“ƒ^‚ğİ’è
     for (int i = 1; i < (VB_MAP_BUFFER - 1)/2; i++) {
 
     }
@@ -590,7 +590,7 @@ void VirtualButton::init() {
 void VirtualButton::update() {
 #ifdef MY_DEBUG
     if (_pVBMap_Active == NULL) {
-        throwGgafCriticalException("VirtualButton::update() åˆ©ç”¨å‰ã«ä¸€åº¦ init() ã‚’å‘¼ã³å‡ºã—ã¦ä¸‹ã•ã„ã€‚");
+        throwGgafCriticalException("VirtualButton::update() —˜—p‘O‚Éˆê“x init() ‚ğŒÄ‚Ño‚µ‚Ä‰º‚³‚¢B");
     }
 #endif
     GgafDx9Input::updateKeyboardState();
@@ -598,7 +598,7 @@ void VirtualButton::update() {
 
     _pVBMap_Active = _pVBMap_Active->_next;
 
-    //é€£çµãƒªãƒ³ã‚°ã®åå¯¾å´ã§ãƒªã‚»ãƒƒãƒˆ
+    //˜AŒ‹ƒŠƒ“ƒO‚Ì”½‘Î‘¤‚ÅƒŠƒZƒbƒg
     _pVBMap_Reset = _pVBMap_Reset->_next;
     _pVBMap_Reset->_state = 0;
 

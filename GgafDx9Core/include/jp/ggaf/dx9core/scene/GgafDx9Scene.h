@@ -1,13 +1,13 @@
-ï»¿#ifndef GGAFDX9SCENE_H_
+#ifndef GGAFDX9SCENE_H_
 #define GGAFDX9SCENE_H_
 namespace GgafDx9Core {
 
 #define MAX_BGM_PER_ACTOR 3
 
 /**
- * GgafDx9Coreåå‰ç©ºé–“ã€åŸºåº•ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹.
- * GgafMainScene ã‚’ç¶™æ‰¿ã—ãŸã ã‘ã§ã™ã€‚<BR>
- * GgafDx9Coreåå‰ç©ºé–“å†…ã§ã¯ã€ã“ã®ã‚¯ãƒ©ã‚¹ã‚’åŸºåº•ã‚·ãƒ¼ãƒ³ã¨ã—ã¾ã™ã€‚<BR>
+ * GgafDx9Core–¼‘O‹óŠÔAŠî’êƒV[ƒ“ƒNƒ‰ƒX.
+ * GgafMainScene ‚ğŒp³‚µ‚½‚¾‚¯‚Å‚·B<BR>
+ * GgafDx9Core–¼‘O‹óŠÔ“à‚Å‚ÍA‚±‚ÌƒNƒ‰ƒX‚ğŠî’êƒV[ƒ“‚Æ‚µ‚Ü‚·B<BR>
  * @version 1.00
  * @since 2008/01/24
  * @author Masatoshi Tsuge

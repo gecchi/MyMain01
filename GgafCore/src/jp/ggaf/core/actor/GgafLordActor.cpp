@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -11,12 +11,12 @@ GgafLordActor::GgafLordActor(GgafScene* prm_pScene_Platform) : GgafActor(prm_pSc
 }
 
 void GgafLordActor::remove() {
-    throwGgafCriticalException("[GgafLordActor::remove] Error! GgafLordActorã¯remove()ã«ã‚ˆã£ã¦å‰Šé™¤ã¯è¡Œãˆã¾ã›ã‚“ï¼");
+    throwGgafCriticalException("[GgafLordActor::remove] Error! GgafLordActor‚Íremove()‚É‚æ‚Á‚Äíœ‚Ís‚¦‚Ü‚¹‚ñI");
 }
 
 GgafGroupActor* GgafLordActor::addSubGroup(actorkind prm_kind, GgafMainActor* prm_pMainActor) {
     if (prm_pMainActor->_pLordActor != NULL) {
-        //_TRACE_("ã€è­¦å‘Šã€‘GgafLordActor::addSubGroup("<<getName()<<") ã™ã§ã«"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"ã‚·ãƒ¼ãƒ³ã®ç®¡ç†è€…ã«æ‰€å±ã—ã¦ã„ã¾ã™ã€‚ãŒã€"<<_pScene_Platform->getName()<<"ã‚·ãƒ¼ãƒ³ã®ç®¡ç†è€…ã«ä¹—ã‚Šæ›ãˆã¾ã™");
+        //_TRACE_("yŒxzGgafLordActor::addSubGroup("<<getName()<<") ‚·‚Å‚É"<<prm_pMainActor->_pLordActor->_pScene_Platform->getName()<<"ƒV[ƒ“‚ÌŠÇ—Ò‚ÉŠ‘®‚µ‚Ä‚¢‚Ü‚·B‚ªA"<<_pScene_Platform->getName()<<"ƒV[ƒ“‚ÌŠÇ—Ò‚Éæ‚èŠ·‚¦‚Ü‚·");
         prm_pMainActor->extract();
     }
     GgafGroupActor* pSubGroupActor = getSubGroupActor(prm_kind);
@@ -71,7 +71,7 @@ GgafGod* GgafLordActor::askGod() {
     if (_pGod == NULL) {
 #ifdef MY_DEBUG
         if (getPlatformScene() == NULL) {
-            throwGgafCriticalException("GgafLordActor::askGod ç¥ã¯ã“ã®ä¸–ã«å­˜åœ¨ã™ã‚‹ç‰©ã‹ã‚‰ã®ã¿è¬è¦‹ã§ãã¾ã™ã€‚ã¾ãšã¯ã“ã®ä¸–ã«å±ã—ãªã•ã„ï¼ï¼("<<getName()<<")");
+            throwGgafCriticalException("GgafLordActor::askGod _‚Í‚±‚Ì¢‚É‘¶İ‚·‚é•¨‚©‚ç‚Ì‚İ‰yŒ©‚Å‚«‚Ü‚·B‚Ü‚¸‚Í‚±‚Ì¢‚É‘®‚µ‚È‚³‚¢II("<<getName()<<")");
         }
 #endif
         _pGod = getPlatformScene()->askGod();

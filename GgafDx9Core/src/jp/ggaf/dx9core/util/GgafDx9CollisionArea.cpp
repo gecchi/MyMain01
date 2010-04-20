@@ -1,4 +1,4 @@
-Ôªø#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,7 +11,7 @@ GgafDx9CollisionArea::GgafDx9CollisionArea(int prm_nColliPart) : GgafObject() {
             _papColliPart[i] = NULL;
         }
     } else {
-        throwGgafCriticalException("GgafDx9CollisionArea::GgafDx9CollisionArea Ë¶ÅÁ¥†Êï∞„Åå‰∏çÊ≠£„ÄÇprm_nColliPart="<<prm_nColliPart);
+        throwGgafCriticalException("GgafDx9CollisionArea::GgafDx9CollisionArea óvëfêîÇ™ïsê≥ÅBprm_nColliPart="<<prm_nColliPart);
     }
     _AABB_X1=_AABB_Y1=_AABB_Z1=_AABB_X2=_AABB_Y2=_AABB_Z2 = 0;
 }

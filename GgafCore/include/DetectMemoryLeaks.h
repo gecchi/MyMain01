@@ -1,9 +1,9 @@
-ï»¿#ifndef DETECT_MEMORY_LEAKS_H
+#ifndef DETECT_MEMORY_LEAKS_H
 #define DETECT_MEMORY_LEAKS_H
 #pragma warning(disable: 4291)
 
 /**
- * ãƒ¡ãƒ¢ãƒªãƒªãƒ¼ã‚¯æ¤œå‡ºç”¨
+ * ƒƒ‚ƒŠƒŠ[ƒNŒŸo—p
  * @version 1.00
  * @since 2008/08/21
  * @author Masatoshi Tsuge

@@ -1,10 +1,10 @@
-ï»¿#ifndef DEFAULTSPRITEACTOR_H_
+#ifndef DEFAULTSPRITEACTOR_H_
 #define DEFAULTSPRITEACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
- * GgafDx9Core::GgafDx9SpriteActor ã‚’ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
+ * ƒXƒvƒ‰ƒCƒgƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
+ * GgafDx9Core::GgafDx9SpriteActor ‚ğ‹óÀ‘•‚µ‚½‹ïÛƒAƒNƒ^[‚Å‚·B
  * @version 1.00
  * @since 2008/02/25
  * @author Masatoshi Tsuge
@@ -15,7 +15,7 @@ public:
     DWORD _frame_offset;
 
     CollisionChecker* _pCollisionChecker;
-    /** æ‹¡å¤§ç¸®å°æ”¯æ´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
 

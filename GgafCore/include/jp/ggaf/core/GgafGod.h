@@ -1,4 +1,4 @@
-ï»¿#ifndef GGAFGOD_H_
+#ifndef GGAFGOD_H_
 #define GGAFGOD_H_
 namespace GgafCore {
 
@@ -6,13 +6,13 @@ namespace GgafCore {
 #define  ___EndSynchronized ::LeaveCriticalSection(&(GgafCore::GgafGod::CS1))
 
 /**
- * ç¥žã‚¯ãƒ©ã‚¹.
- * ä¸»ã«ã“ã®ä¸–(GgafUniverse)ã‚’ç®¡ç†ã—æ“ä½œã™ã‚‹ã“ã¨ã‚’ç›®çš„ã¨ã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚ä¸€ç•ªãˆã‚‰ã„ã€‚<BR>
- * æœ¬ã‚¯ãƒ©ã‚¹ã® be() ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã³ç¶šã‘ã‚‹ã“ã¨ã§ã€ã“ã®ä¸–ã¯å‹•ãã“ã¨ã«ãªã‚‹è¨­è¨ˆã€‚<BR>
- * åŸºæœ¬çš„ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã¯ï¼‘å€‹ã§ã™ã€‚<BR>
- * ãã®ä»–ã€ã‚¢ãƒ—ãƒªå†…ã§ã‚°ãƒ­ãƒ¼ãƒãƒ«ãªå‚ç…§ãŒåœ¨ã£ãŸã‚Šä¾¿åˆ©å±‹ã‚¯ãƒ©ã‚¹ã§ã‚‚ã‚ã‚‹ã€‚<BR>
- * TODO:æœ€çµ‚çš„ã«ã¯ ç¥žã‚’ï¼’å€‹ new ã—ã¦ã€äº¤äº’ã« be() ã‚’å®Ÿè¡Œã™ã‚Œã°ã€ã‚²ãƒ¼ãƒ ãŒï¼’å€‹å¹³è¡Œå‹•ä½œã™ã‚‹ã‚ˆã†ã«ã—ã‚ˆã†ã‹ãªã€‚
- * (æ—§å:GdxfwWorldã‚¯ãƒ©ã‚¹)
+ * _ƒNƒ‰ƒX.
+ * Žå‚É‚±‚Ì¢(GgafUniverse)‚ðŠÇ—‚µ‘€ì‚·‚é‚±‚Æ‚ð–Ú“I‚Æ‚·‚éƒNƒ‰ƒX‚Å‚·Bˆê”Ô‚¦‚ç‚¢B<BR>
+ * –{ƒNƒ‰ƒX‚Ì be() ƒƒ\ƒbƒh‚ðŒÄ‚Ñ‘±‚¯‚é‚±‚Æ‚ÅA‚±‚Ì¢‚Í“®‚«‚±‚Æ‚É‚È‚éÝŒvB<BR>
+ * Šî–{“I‚ÉƒCƒ“ƒXƒ^ƒ“ƒX‚Í‚PŒÂ‚Å‚·B<BR>
+ * ‚»‚Ì‘¼AƒAƒvƒŠ“à‚ÅƒOƒ[ƒoƒ‹‚ÈŽQÆ‚ªÝ‚Á‚½‚è•Ö—˜‰®ƒNƒ‰ƒX‚Å‚à‚ ‚éB<BR>
+ * TODO:ÅI“I‚É‚Í _‚ð‚QŒÂ new ‚µ‚ÄAŒðŒÝ‚É be() ‚ðŽÀs‚·‚ê‚ÎAƒQ[ƒ€‚ª‚QŒÂ•½s“®ì‚·‚é‚æ‚¤‚É‚µ‚æ‚¤‚©‚ÈB
+ * (‹Œ–¼:GdxfwWorldƒNƒ‰ƒX)
  * @version 1.00
  * @since 2007/11/26
  * @author Masatoshi Tsuge
@@ -20,97 +20,97 @@ namespace GgafCore {
 class GgafGod : public GgafObject {
 
 private:
-    /** behaveã‚’è¡Œã£ãŸã‹ãƒ•ãƒ©ã‚° */
+    /** behave‚ðs‚Á‚½‚©ƒtƒ‰ƒO */
     bool _is_behaved_flg;
-    /** materializeã‚’è¡Œã£ãŸã‹ãƒ•ãƒ©ã‚° */
+    /** materialize‚ðs‚Á‚½‚©ƒtƒ‰ƒO */
     bool _is_materialized_flg;
 public:
-    /** [r]è‡ªèº« */
+    /** [r]Ž©g */
     static GgafGod* _pGod;
-    /** [r]ç”Ÿæˆå·¥å ´(åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰)ã®ã‚¨ãƒ©ãƒ¼çŠ¶æ…‹ã€‚NULLï¼æ­£å¸¸ç¨¼åƒä¸­ï¼not NULLï¼ç•°å¸¸ç™ºç”Ÿ */
+    /** [r]¶¬Hê(•ÊƒXƒŒƒbƒh)‚ÌƒGƒ‰[ó‘ÔBNULL³í‰Ò“­’†^not NULLˆÙí”­¶ */
     static GgafCriticalException* _pException_Factory;
-    /** [r]æ¬¡ã«ã“ã®ä¸–ã‚’æ´»å‹•ã•ã›ã‚‹æ™‚é–“ã®ã‚ªãƒ•ã‚»ãƒƒãƒˆ */
+    /** [r]ŽŸ‚É‚±‚Ì¢‚ðŠˆ“®‚³‚¹‚éŽžŠÔ‚ÌƒIƒtƒZƒbƒg */
     static DWORD _aTime_OffsetOfNextFrame[];
-    /** [r]GgafFactory::work ã‚¹ãƒ¬ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«  */
+    /** [r]GgafFactory::work ƒXƒŒƒbƒhƒnƒ“ƒhƒ‹  */
     HANDLE _handleFactory01;
-    /** [r]GgafFactory::work ã‚¹ãƒ¬ãƒƒãƒ‰ID  */
+    /** [r]GgafFactory::work ƒXƒŒƒbƒhID  */
     unsigned int _thID01;
-    /** [r]ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«ã‚»ã‚¯ã‚·ãƒ§ãƒ³ï¼ˆã‚»ãƒžãƒ•ã‚©ï¼‰ */
+    /** [r]ƒNƒŠƒeƒBƒJƒ‹ƒZƒNƒVƒ‡ƒ“iƒZƒ}ƒtƒHj */
     static CRITICAL_SECTION CS1;
-    /** [r]ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«ã‚»ã‚¯ã‚·ãƒ§ãƒ³ï¼ˆã‚»ãƒžãƒ•ã‚©ï¼‰ */
+    /** [r]ƒNƒŠƒeƒBƒJƒ‹ƒZƒNƒVƒ‡ƒ“iƒZƒ}ƒtƒHj */
     static CRITICAL_SECTION CS2;
-    /** [r]ç¥žã®ãƒ•ãƒ¬ãƒ¼ãƒ é–‹å§‹ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ */
+    /** [r]_‚ÌƒtƒŒ[ƒ€ŠJŽnƒVƒXƒeƒ€ŽžŠÔ */
     DWORD _time_at_beginning_frame;
-    /** [r]æ¬¡ã«ã“ã®ä¸–ã‚’æ´»å‹•ã•ã›ã‚‹ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ */
+    /** [r]ŽŸ‚É‚±‚Ì¢‚ðŠˆ“®‚³‚¹‚éƒVƒXƒeƒ€ŽžŠÔ */
     DWORD _expected_time_of_next_frame;
-    /** [r]ç¥žèª•ç”Ÿã‹ã‚‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** [r]_’a¶‚©‚ç‚ÌƒtƒŒ[ƒ€” */
     DWORD _godframe;
-    /** [r]ã“ã®ä¸–ã‚’è¦–è¦šåŒ–ã§ããªã‹ã£ãŸï¼ˆã‚¹ã‚­ãƒƒãƒ—ã—ãŸï¼‰å›žæ•° */
+    /** [r]‚±‚Ì¢‚ðŽ‹Šo‰»‚Å‚«‚È‚©‚Á‚½iƒXƒLƒbƒv‚µ‚½j‰ñ” */
     DWORD _skip_count_of_frame;
-    /** [r]ã“ã®ä¸– */
+    /** [r]‚±‚Ì¢ */
     GgafUniverse* _pUniverse;
-    /** [r]fpså€¤ï¼ˆç´„1000msæ¯Žã«è¨ˆç®—ã•ã‚Œã‚‹ï¼‰ */
+    /** [r]fps’li–ñ1000ms–ˆ‚ÉŒvŽZ‚³‚ê‚éj */
     float _fps;
-    /** [r]å‰å›žfpsè¨ˆç®—æ™‚ã®ã‚·ã‚¹ãƒ†ãƒ æ™‚é–“ */
+    /** [r]‘O‰ñfpsŒvŽZŽž‚ÌƒVƒXƒeƒ€ŽžŠÔ */
     DWORD _time_prev;
-    /** [r]æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ã‚¿ */
+    /** [r]•`‰æƒtƒŒ[ƒ€ƒJƒEƒ“ƒ^ */
     DWORD _frame_of_visualize;
-    /** [r]å‰å›žfpsè¨ˆç®—æ™‚ã®æç”»ãƒ•ãƒ¬ãƒ¼ãƒ ã‚«ã‚¦ãƒ³ãƒˆå€¤ */
+    /** [r]‘O‰ñfpsŒvŽZŽž‚Ì•`‰æƒtƒŒ[ƒ€ƒJƒEƒ“ƒg’l */
     DWORD _frame_of_prev_visualize;
-    /** [r]å…ƒãƒ•ãƒ¬ãƒ¼ãƒ ã®æç”»å›žæ•° */
+    /** [r]Œ³ƒtƒŒ[ƒ€‚Ì•`‰æ‰ñ” */
     static int _num_actor_drawing;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ .
-     * åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§å·¥å ´ã‚’ç¨¼å‹•ã•ã›ã¾ã™ã€‚
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ .
+     * •ÊƒXƒŒƒbƒh‚ÅHê‚ð‰Ò“®‚³‚¹‚Ü‚·B
      */
     GgafGod();
 
     /**
-     * åœ¨ã‚Šã¾ã™ã€‚ã¨ã„ã†ãƒ¡ã‚½ãƒƒãƒ‰ .
-     * ç¥žãŒåœ¨ã‚‹ã™ãªã‚ã¡ã€ã“ã®ä¸–ãŒå‹•ãã€ã‚¢ãƒ—ãƒªãŒé€²è¡Œã—ã¾ã™ã€‚<BR>
-     * OSå´ã§ã€ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’ã²ãŸã™ã‚‰å‘¼ã³ç¶šã‘ã¦ãã ã•ã„ã€‚<BR>
+     * Ý‚è‚Ü‚·B‚Æ‚¢‚¤ƒƒ\ƒbƒh .
+     * _‚ªÝ‚é‚·‚È‚í‚¿A‚±‚Ì¢‚ª“®‚«AƒAƒvƒŠ‚ªis‚µ‚Ü‚·B<BR>
+     * OS‘¤‚ÅA‚±‚Ìƒƒ\ƒbƒh‚ð‚Ð‚½‚·‚çŒÄ‚Ñ‘±‚¯‚Ä‚­‚¾‚³‚¢B<BR>
      */
     void be();
 
     /**
-     * ã“ã®ä¸–ã®çž¬é–“ã‚’å‰µé€  .
+     * ‚±‚Ì¢‚ÌuŠÔ‚ð‘n‘¢ .
      */
     virtual void presentUniversalMoment();
 
     /**
-     * ã“ã®ä¸–ã‚’å¯©åˆ¤ã™ã‚‹ .
+     * ‚±‚Ì¢‚ðR”»‚·‚é .
      */
     virtual void executeUniversalJudge();
 
     /**
-     * ã“ã®ä¸–ã®å…·ç¾çš„ãªã‚‚ã®ã‚’ä½œæˆ .
+     * ‚±‚Ì¢‚Ì‹ïŒ»“I‚È‚à‚Ì‚ðì¬ .
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * ã“ã®ä¸–ã®çŠ¶æ…‹ã‚’è¦–è¦šåŒ– .
+     * ‚±‚Ì¢‚Ìó‘Ô‚ðŽ‹Šo‰» .
      */
     virtual void presentUniversalVisualize();
 
     /**
-     * ã“ã®ä¸–ã®å¾Œå§‹æœ« .
+     * ‚±‚Ì¢‚ÌŒãŽn–– .
      */
     virtual void finalizeUniversal();
 
     /**
-     * ã“ã®ä¸–ã‚’å–å¾— .
-     * ä¸‹ä½ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰å¯èƒ½ã€‚<BR>
-     * @return ã“ã®ä¸–
+     * ‚±‚Ì¢‚ðŽæ“¾ .
+     * ‰ºˆÊ‚ÅƒI[ƒo[ƒ‰ƒCƒh‰Â”\B<BR>
+     * @return ‚±‚Ì¢
      */
     virtual GgafUniverse* getUniverse() {
         return _pUniverse;
     }
 
     /**
-     * ã“ã®ä¸–ã‚’å‰µé€  .
-     * ä¸‹ä½ã§ã“ã®ä¸–ã®ç”Ÿæˆæ–¹æ³•ã‚’å®Ÿè£…ã—ã¦ãã ã•ã„ã€‚<BR>
-     * @return ã“ã®ä¸–
+     * ‚±‚Ì¢‚ð‘n‘¢ .
+     * ‰ºˆÊ‚Å‚±‚Ì¢‚Ì¶¬•û–@‚ðŽÀ‘•‚µ‚Ä‚­‚¾‚³‚¢B<BR>
+     * @return ‚±‚Ì¢
      */
     virtual GgafUniverse* createUniverse() = 0;
 

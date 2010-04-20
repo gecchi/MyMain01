@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,10 +13,10 @@ Universe::Universe(const char* prm_name) : DefaultUniverse(prm_name) {
     GgafRepeatSeq::create("CH_yume_shototsu", 0, 2);
     GgafRepeatSeq::create("CH_break_glass01", 0, 10);
     GgafRepeatSeq::create("CH_a_shot", 0, 3);
-    GgafRepeatSeq::create("CH_laser001", 0, 8); //ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ¬ãƒ¼ã‚¶ãƒ¼
-    //ã€ã‚ã‚‚ã€‘
-    //ã“ã“ã§Actorã‚„Sceneã®NEWã‚’ã¯ã—ã¦ã¯ãªã‚‰ãªã„ã€‚
-    //ã¾ãšã¯ã“ã®ä¸–ã‚’ä½œã‚‹ã“ã¨ã‚’å„ªå…ˆã—ãªã„ã¨ã€ã„ã‚ã„ã‚ã¨ä¸éƒ½åˆãŒã‚ã‚‹ã€‚
+    GgafRepeatSeq::create("CH_laser001", 0, 8); //ƒIƒvƒVƒ‡ƒ“ƒŒ[ƒU[
+    //y‚ß‚àz
+    //‚±‚±‚ÅActor‚âScene‚ÌNEW‚ğ‚Í‚µ‚Ä‚Í‚È‚ç‚È‚¢B
+    //‚Ü‚¸‚Í‚±‚Ì¢‚ğì‚é‚±‚Æ‚ğ—Dæ‚µ‚È‚¢‚ÆA‚¢‚ë‚¢‚ë‚Æ•s“s‡‚ª‚ ‚éB
 }
 
 void Universe::initialize() {

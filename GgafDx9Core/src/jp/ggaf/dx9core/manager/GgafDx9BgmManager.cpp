@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -13,8 +13,8 @@ GgafDx9Bgm* GgafDx9BgmManager::processCreateResource(char* prm_idstr) {
 }
 
 GgafResourceConnection<GgafDx9Bgm>* GgafDx9BgmManager::processCreateConnection(char* prm_idstr, GgafDx9Bgm* prm_pResource) {
-    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
+    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDx9BgmConnection* pConnection = NEW GgafDx9BgmConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
+    TRACE3(" GgafDx9BgmManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬I—¹B");
     return pConnection;
 }

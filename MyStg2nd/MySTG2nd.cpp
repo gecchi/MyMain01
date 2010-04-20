@@ -1,4 +1,4 @@
-ï»¿// MySTG2nd.cpp : ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ã®ã‚¨ãƒ³ãƒˆãƒª ãƒã‚¤ãƒ³ãƒˆã‚’å®šç¾©ã—ã¾ã™ã€‚
+// MySTG2nd.cpp : ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ÌƒGƒ“ƒgƒŠ ƒ|ƒCƒ“ƒg‚ğ’è‹`‚µ‚Ü‚·B
 //
 #include "stdafx.h"
 #include "MySTG2nd.h"
@@ -9,12 +9,12 @@ using namespace std;
 #define MAX_LOADSTRING 100
 //#define WINDOW_TITLE "MyStg2nd"
 
-// ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°:
-HINSTANCE hInst; // ç¾åœ¨ã®ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹
-TCHAR szTitle[MAX_LOADSTRING]; // ã‚¿ã‚¤ãƒˆãƒ« ãƒãƒ¼ã®ãƒ†ã‚­ã‚¹ãƒˆ
-TCHAR szWindowClass[MAX_LOADSTRING]; // ãƒ¡ã‚¤ãƒ³ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ ã‚¯ãƒ©ã‚¹å
+// ƒOƒ[ƒoƒ‹•Ï”:
+HINSTANCE hInst; // Œ»İ‚ÌƒCƒ“ƒ^[ƒtƒFƒCƒX
+TCHAR szTitle[MAX_LOADSTRING]; // ƒ^ƒCƒgƒ‹ ƒo[‚ÌƒeƒLƒXƒg
+TCHAR szWindowClass[MAX_LOADSTRING]; // ƒƒCƒ“ ƒEƒBƒ“ƒhƒE ƒNƒ‰ƒX–¼
 
-// ã“ã®ã‚³ãƒ¼ãƒ‰ ãƒ¢ã‚¸ãƒ¥ãƒ¼ãƒ«ã«å«ã¾ã‚Œã‚‹é–¢æ•°ã®å®£è¨€ã‚’è»¢é€ã—ã¾ã™:
+// ‚±‚ÌƒR[ƒh ƒ‚ƒWƒ…[ƒ‹‚ÉŠÜ‚Ü‚ê‚éŠÖ”‚ÌéŒ¾‚ğ“]‘—‚µ‚Ü‚·:
 ATOM MyRegisterClass(HINSTANCE hInstance);
 //BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
@@ -23,7 +23,7 @@ INT_PTR CALLBACK About(HWND, UINT, WPARAM, LPARAM);
 void adjustGameScreen(HWND);
 
 /**
- * GNU GCC ãªã‚‰ã°ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆ
+ * GNU GCC ‚È‚ç‚ÎƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg
  */
 int main(int argc, char *argv[]) {
     STARTUPINFO StatUpInfo;
@@ -40,15 +40,15 @@ int main(int argc, char *argv[]) {
     hPrevInstance = 0;
     lpCmdLine = GetCommandLine();
     nCmdShow = (StatUpInfo.dwFlags & STARTF_USESHOWWINDOW) ? StatUpInfo.wShowWindow : SW_SHOWNORMAL;
-    /* GetCommandLineã‹ã‚‰ãƒ—ãƒ­ã‚°ãƒ©ãƒ åã‚’æŠœãã¾ã™ã€‚ */
+    /* GetCommandLine‚©‚çƒvƒƒOƒ‰ƒ€–¼‚ğ”²‚«‚Ü‚·B */
     while (*lpCmdLine != ' ' && *lpCmdLine != '\0')
         lpCmdLine++;
     while (*lpCmdLine == ' ')
         lpCmdLine++;
     cout << lpCmdLine << endl;
-    /* ã“ã“ã‹ã‚‰ãŒã€æœ¬æ¥ã®å‡¦ç† */
+    /* ‚±‚±‚©‚ç‚ªA–{—ˆ‚Ìˆ— */
     //wc.lpszClassName = "MySTG2nd";
-    /* äºŒé‡èµ·å‹•é˜²æ­¢ (ãƒã‚°ã‚ã‚Š...)*/
+    /* “ñd‹N“®–h~ (ƒoƒO‚ ‚è...)*/
     //	if((hWnd=FindWindow(WINDOW_CLASS, NULL))!=0) {
     //		if (IsIconic(hWnd)) {
     //			ShowWindow(hWnd, SW_RESTORE);
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     //		return 0;
     //	}
 
-    //æœ¬æ¥ã®WinMainã¸
+    //–{—ˆ‚ÌWinMain‚Ö
     WinMain((HINSTANCE)hInstance, (HINSTANCE)hPrevInstance, lpCmdLine, nCmdShow);
     return 0;
 }
@@ -66,7 +66,7 @@ static MyStg2nd::God* pGod = NULL;
 static bool can_be_god = true;
 
 /**
- * VCãªã‚‰ã°ã‚¨ãƒ³ãƒˆãƒªãƒã‚¤ãƒ³ãƒˆ
+ * VC‚È‚ç‚ÎƒGƒ“ƒgƒŠƒ|ƒCƒ“ƒg
  */
 int APIENTRY _tWinMain(HINSTANCE hInstance,
         HINSTANCE hPrevInstance,
@@ -82,19 +82,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
     MSG msg;
     //	HACCEL hAccelTable;
 
-    // ã‚°ãƒ­ãƒ¼ãƒãƒ«æ–‡å­—åˆ—ã‚’åˆæœŸåŒ–ã—ã¦ã„ã¾ã™ã€‚
+    // ƒOƒ[ƒoƒ‹•¶š—ñ‚ğ‰Šú‰»‚µ‚Ä‚¢‚Ü‚·B
     //	LoadString(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
     //	LoadString(hInstance, IDC_MYSTG2ND, szWindowClass, MAX_LOADSTRING);
-    //LoadStringãŒã§ãã‚“ï¼
-    strcpy(szTitle,"MyStg2nd"); //ç„¡ç†ã‚„ã‚Š
-    strcpy(szWindowClass,"MYSTG2ND"); //ã§ã™ã‚ˆï¼
+    //LoadString‚ª‚Å‚«‚ñI
+    strcpy(szTitle,"MyStg2nd"); //–³—‚â‚è
+    strcpy(szWindowClass,"MYSTG2ND"); //‚Å‚·‚æI
 
 
-    //ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ãƒ•ã‚¡ã‚¤ãƒ«èª­è¾¼ã¿
+    //ƒvƒƒpƒeƒBƒtƒ@ƒCƒ‹“Ç‚İ
     try {
         MyStg2nd::Properties::load(".\\config.properties");
     } catch (GgafCore::GgafCriticalException& e) {
-		MessageBox(NULL, (string("config.properties ã®ãƒ­ãƒ¼ãƒ‰ã®å¤±æ•—ã€‚\nç†ç”±ï¼š")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
+		MessageBox(NULL, (string("config.properties ‚Ìƒ[ƒh‚Ì¸”sB\n——RF")+e.getMsg()).c_str(),"Error", MB_OK|MB_ICONSTOP);
         MyStg2nd::Properties::clean();
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         return EXIT_FAILURE;
@@ -102,19 +102,19 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     MyRegisterClass(hInstance);
     HWND hWnd;
-    hInst = hInstance; // ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‡¦ç†ã‚’æ ¼ç´ã—ã¾ã™ã€‚
+    hInst = hInstance; // ƒOƒ[ƒoƒ‹•Ï”‚ÉƒCƒ“ƒXƒ^ƒ“ƒXˆ—‚ğŠi”[‚µ‚Ü‚·B
     hWnd = CreateWindow(
-            szWindowClass, //WINDOW_CLASS,			// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¯ãƒ©ã‚¹å
-            szTitle,//WINDOW_TITLE,				// ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã®ã‚¿ã‚¤ãƒˆãƒ«å
-            WS_OVERLAPPEDWINDOW, // ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚¹ã‚¿ã‚¤ãƒ«
-            CW_USEDEFAULT, // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºï¼¸åº§æ¨™
-            CW_USEDEFAULT, // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®è¡¨ç¤ºï¼¹åº§æ¨™
-            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¹…
-            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®å¹…
-            NULL, // è¦ªã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦
-            NULL, // ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ãƒ¡ãƒ‹ãƒ¥ãƒ¼
-            hInstance, // ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãƒãƒ³ãƒ‰ãƒ«
-            NULL // WM_CREATEæƒ…å ±
+            szWindowClass, //WINDOW_CLASS,			// ƒEƒCƒ“ƒhƒEƒNƒ‰ƒX–¼
+            szTitle,//WINDOW_TITLE,				// ƒEƒCƒ“ƒhƒE‚Ìƒ^ƒCƒgƒ‹–¼
+            WS_OVERLAPPEDWINDOW, // ƒEƒCƒ“ƒhƒEƒXƒ^ƒCƒ‹
+            CW_USEDEFAULT, // ƒEƒBƒ“ƒhƒE‚Ì•\¦‚wÀ•W
+            CW_USEDEFAULT, // ƒEƒBƒ“ƒhƒE‚Ì•\¦‚xÀ•W
+            GGAFDX9_PROPERTY(VIEW_SCREEN_WIDTH), // ƒEƒBƒ“ƒhƒE‚Ì•
+            GGAFDX9_PROPERTY(VIEW_SCREEN_HEIGHT), // ƒEƒBƒ“ƒhƒE‚Ì•
+            NULL, // eƒEƒCƒ“ƒhƒE
+            NULL, // ƒEƒCƒ“ƒhƒEƒƒjƒ…[
+            hInstance, // ƒCƒ“ƒXƒ^ƒ“ƒXƒnƒ“ƒhƒ‹
+            NULL // WM_CREATEî•ñ
     );
 
     if (!hWnd) {
@@ -124,22 +124,22 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
         return FALSE;
     }
 
-    RECT wRect, cRect; // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å…¨ä½“ã®çŸ©å½¢ã€ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®çŸ©å½¢
-    int ww, wh; // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å…¨ä½“ã®å¹…ã€é«˜ã•
-    int cw, ch; // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®å¹…ã€é«˜ã•
-    int fw, fh; // ãƒ•ãƒ¬ãƒ¼ãƒ ã®å¹…ã€é«˜ã•
-    // ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦å…¨ä½“ã®å¹…ãƒ»é«˜ã•ã‚’è¨ˆç®—
+    RECT wRect, cRect; // ƒEƒBƒ“ƒhƒE‘S‘Ì‚Ì‹éŒ`AƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì‹éŒ`
+    int ww, wh; // ƒEƒBƒ“ƒhƒE‘S‘Ì‚Ì•A‚‚³
+    int cw, ch; // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì•A‚‚³
+    int fw, fh; // ƒtƒŒ[ƒ€‚Ì•A‚‚³
+    // ƒEƒBƒ“ƒhƒE‘S‘Ì‚Ì•E‚‚³‚ğŒvZ
     GetWindowRect(hWnd, &wRect);
     ww = wRect.right - wRect.left;
     wh = wRect.bottom - wRect.top;
-    // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸã®å¹…ãƒ»é«˜ã•ã‚’è¨ˆç®—
+    // ƒNƒ‰ƒCƒAƒ“ƒg—Ìˆæ‚Ì•E‚‚³‚ğŒvZ
     GetClientRect(hWnd, &cRect);
     cw = cRect.right - cRect.left;
     ch = cRect.bottom - cRect.top;
-    // ã‚¯ãƒ©ã‚¤ã‚¢ãƒ³ãƒˆé ˜åŸŸä»¥å¤–ã«å¿…è¦ãªã‚µã‚¤ã‚ºã‚’è¨ˆç®—
+    // ƒNƒ‰ƒCƒAƒ“ƒg—ÌˆæˆÈŠO‚É•K—v‚ÈƒTƒCƒY‚ğŒvZ
     fw = ww - cw;
     fh = wh - ch;
-    // è¨ˆç®—ã—ãŸå¹…ã¨é«˜ã•ã‚’ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã«è¨­å®š
+    // ŒvZ‚µ‚½•‚Æ‚‚³‚ğƒEƒBƒ“ƒhƒE‚Éİ’è
     SetWindowPos(
             hWnd,
             HWND_TOP,
@@ -152,38 +152,38 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 
     ShowWindow(hWnd, nCmdShow);
     UpdateWindow(hWnd);
-    //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ã‚·ãƒ§ãƒ¼ãƒˆã‚«ãƒƒãƒˆãƒ­ãƒ¼ãƒ‰
+    //hAccelTable = LoadAccelerators(hInstance, MAKEINTRESOURCE(IDC_MTSTG17_031));//ƒVƒ‡[ƒgƒJƒbƒgƒ[ƒh
 
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+            //“Á‚É‰½‚à–³‚µ
         #else
-            //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+            //“Á‚É‰½‚à–³‚µ
         #endif
     #else
-        //ãƒ¡ãƒ¢ãƒªãƒ¼ãƒªâˆ’ã‚¯ãƒã‚§ãƒƒã‚¯BEGIN
+        //ƒƒ‚ƒŠ[ƒŠ|ƒNƒ`ƒFƒbƒNBEGIN
         ::detectMemoryLeaksStart(std::cout);
     #endif
 #else
     #ifdef _MSC_VER
         #ifdef _DEBUG
-            //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+            //“Á‚É‰½‚à–³‚µ
         #else
-            //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+            //“Á‚É‰½‚à–³‚µ
         #endif
     #else
-        //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+        //“Á‚É‰½‚à–³‚µ
     #endif
 #endif
 
     try {
-        //ç¥ã®èª•ç”Ÿï¼
+        //_‚Ì’a¶I
         pGod = NEW MyStg2nd::God(hInstance, hWnd);
         if (SUCCEEDED(pGod->init())) {
             adjustGameScreen(hWnd);
 
-            // ãƒ«ãƒ¼ãƒ—ãƒ»ã‚¶ãƒ»ãƒ«ãƒ¼ãƒ—
+            // ƒ‹[ƒvEƒUEƒ‹[ƒv
             ::timeBeginPeriod(1);
             while (true) {
                 if (::PeekMessage(&msg, NULL, 0, 0, PM_REMOVE)) {
@@ -191,9 +191,9 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                         can_be_god = false;
 //                        SetActiveWindow(hWnd);
 //                        SetPriorityClass( GetCurrentProcess(), HIGH_PRIORITY_CLASS );
-//                        //å„ªå…ˆåº¦ä¸Šã’ã‚‹ç†ç”±ã€‚
-//                        //éã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã‚‹ã¨è§£æ”¾ãŒè‘—ã—ãé…ããªã£ã¦ã—ã¾ã†ã®ã‚’å›é¿ã—ã‚ˆã†ã¨ã—ãŸã€‚
-                        delete pGod; //ç¥ã•ã‚ˆã†ãªã‚‰
+//                        //—Dæ“xã‚°‚é——RB
+//                        //”ñƒAƒNƒeƒBƒu‚É‚È‚é‚Æ‰ğ•ú‚ª’˜‚µ‚­’x‚­‚È‚Á‚Ä‚µ‚Ü‚¤‚Ì‚ğ‰ñ”ğ‚µ‚æ‚¤‚Æ‚µ‚½B
+                        delete pGod; //_‚³‚æ‚¤‚È‚ç
                         MyStg2nd::Properties::clean();
 
                         ::timeEndPeriod(1);
@@ -201,27 +201,27 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
 #ifdef MY_DEBUG
     #ifdef _MSC_VER
         #ifdef _DEBUG
-                        //ãƒ€ãƒ³ãƒ—
+                        //ƒ_ƒ“ƒv
                         _CrtDumpMemoryLeaks();
         #else
-                        //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+                        //“Á‚É‰½‚à–³‚µ
         #endif
     #else
-                        //ãƒ¡ãƒ¢ãƒªãƒ¼ãƒªâˆ’ã‚¯ãƒã‚§ãƒƒã‚¯END
+                        //ƒƒ‚ƒŠ[ƒŠ|ƒNƒ`ƒFƒbƒNEND
                         ::detectMemoryLeaksEnd(std::cout);
     #endif
 #else
     #ifdef _MSC_VER
         #ifdef _DEBUG
-                        //ãƒ€ãƒ³ãƒ—
+                        //ƒ_ƒ“ƒv
                         //_CrtDumpMemoryLeaks();
 						_CrtMemDumpAllObjectsSince( NULL );
 
         #else
-                        //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+                        //“Á‚É‰½‚à–³‚µ
         #endif
     #else
-                        //ç‰¹ã«ä½•ã‚‚ç„¡ã—
+                        //“Á‚É‰½‚à–³‚µ
     #endif
 #endif
 
@@ -231,75 +231,75 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                     ::DispatchMessage(&msg);
                 } else {
                     if (can_be_god) {
-                        pGod->be(); //ç¥ãŒå­˜åœ¨ã—ãŸã‚‰ã—ã‚ã‚‹ï¼ˆã“ã®ä¸–ãŒå‹•ãï¼‰
+                        pGod->be(); //_‚ª‘¶İ‚µ‚½‚ç‚µ‚ß‚éi‚±‚Ì¢‚ª“®‚­j
                     }
 
                 }
             }
         }
     } catch (GgafCore::GgafCriticalException& e) {
-        //ç•°å¸¸çµ‚äº†æ™‚
-        _TRACE_("ï¼œä¾‹å¤–ï¼"<<e.getMsg());
-        string message = "\nãƒ»"+e.getMsg()+"  \n\nãŠå¿ƒã‚ãŸã‚ŠãŒç„¡ã„ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å ´åˆã€å½“æ–¹ã®ãƒã‚°ã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚\nèª ã«ç”³ã—è¨³ã”ã–ã„ã¾ã›ã‚“ã€‚\n";
-        string message_dialog = message + "(â€»ã€ŒShift + Ctrl + Cã€ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯ã‚³ãƒ”ãƒ¼ã§ãã¾ã™ã€‚)";
-        MessageBox(NULL, message_dialog.c_str(),"ä¸‹è¨˜ã®ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¦ã—ã¾ã„ã¾ã—ãŸ", MB_OK|MB_ICONSTOP);
+        //ˆÙíI—¹
+        _TRACE_("ƒ—áŠO„"<<e.getMsg());
+        string message = "\nE"+e.getMsg()+"  \n\n‚¨S‚ ‚½‚è‚ª–³‚¢ƒƒbƒZ[ƒW‚Ìê‡A“–•û‚ÌƒoƒO‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·B\n½‚É\‚µ–ó‚²‚´‚¢‚Ü‚¹‚ñB\n";
+        string message_dialog = message + "(¦uShift + Ctrl + Cv‚ÅƒƒbƒZ[ƒW‚ÍƒRƒs[‚Å‚«‚Ü‚·B)";
+        MessageBox(NULL, message_dialog.c_str(),"‰º‹L‚ÌƒGƒ‰[‚ª”­¶‚µ‚Ä‚µ‚Ü‚¢‚Ü‚µ‚½", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[GgafCriticalException]:"+e.getMsg());
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     } catch (exception& e2) {
         string what(e2.what());
-        _TRACE_("ï¼œè‡´å‘½çš„ãªä¾‹å¤–ï¼"<<what);
-        string message = "\nãƒ»"+what+"  \n\næã‚Œå…¥ã‚Šã¾ã™ãŒã€ä½œè€…ã«ã¯äºˆæ¸¬ã§ããªã‹ã£ãŸã‚¨ãƒ©ãƒ¼ã§ã™ã€‚\nèª ã«ç”³ã—è¨³ã”ã–ã„ã¾ã›ã‚“ã€‚\n";
-        string message_dialog = message + "(â€»ã€ŒShift + Ctrl + Cã€ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯ã‚³ãƒ”ãƒ¼ã§ãã¾ã™ã€‚)";
-        MessageBox(NULL, message_dialog.c_str(),"ä¸‹è¨˜ã®è‡´å‘½çš„ãªä¾‹å¤–ãŒç™ºç”Ÿã—ã¦ã—ã¾ã„ã¾ã—ãŸ", MB_OK|MB_ICONSTOP);
+        _TRACE_("ƒ’v–½“I‚È—áŠO„"<<what);
+        string message = "\nE"+what+"  \n\n‹°‚ê“ü‚è‚Ü‚·‚ªAìÒ‚É‚Í—\‘ª‚Å‚«‚È‚©‚Á‚½ƒGƒ‰[‚Å‚·B\n½‚É\‚µ–ó‚²‚´‚¢‚Ü‚¹‚ñB\n";
+        string message_dialog = message + "(¦uShift + Ctrl + Cv‚ÅƒƒbƒZ[ƒW‚ÍƒRƒs[‚Å‚«‚Ü‚·B)";
+        MessageBox(NULL, message_dialog.c_str(),"‰º‹L‚Ì’v–½“I‚È—áŠO‚ª”­¶‚µ‚Ä‚µ‚Ü‚¢‚Ü‚µ‚½", MB_OK|MB_ICONSTOP);
         GgafCore::GgafLogger::write("[exception]:"+what);
         ::timeEndPeriod(1);
         return EXIT_FAILURE;
     }
     /*
      } catch (...) {
-     _TRACE_("ï¼œåŸå› ä¸æ˜ä¾‹å¤–ï¼ãŸã¶ã‚“ã‚¢ã‚¯ã‚»ã‚¹é•å");
-     string message = "åŸå› ä¸æ˜ä¾‹å¤–ãŒç™ºç”Ÿã—ã¾ã—ãŸã€‚å¿ƒã‚ãŸã‚ŠãŒç„¡ã„ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å ´åˆã€å½“æ–¹ã®ãƒã‚°ã¨æ€ã‚ã‚Œã¾ã™ã€‚\nã”è¿·æƒ‘ã‚’ãŠã‹ã‘ã—ã¾ã—ãŸã“ã¨ã‚’ãŠè©«ã³ã„ãŸã—ã¾ã™ã€‚";
-     MessageBox(NULL, message.c_str(),"ä¸‹è¨˜ã®ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¦ã—ã¾ã„ã¾ã—ãŸ", MB_OK|MB_ICONSTOP);
-     GgafCore::GgafLogger::write("ï¼œåŸå› ä¸æ˜ä¾‹å¤–ï¼ãŸã¶ã‚“ã‚¢ã‚¯ã‚»ã‚¹é•å");
+     _TRACE_("ƒŒ´ˆö•s–¾—áŠO„‚½‚Ô‚ñƒAƒNƒZƒXˆá”½");
+     string message = "Œ´ˆö•s–¾—áŠO‚ª”­¶‚µ‚Ü‚µ‚½BS‚ ‚½‚è‚ª–³‚¢ƒƒbƒZ[ƒW‚Ìê‡A“–•û‚ÌƒoƒO‚Æv‚í‚ê‚Ü‚·B\n‚²–À˜f‚ğ‚¨‚©‚¯‚µ‚Ü‚µ‚½‚±‚Æ‚ğ‚¨˜l‚Ñ‚¢‚½‚µ‚Ü‚·B";
+     MessageBox(NULL, message.c_str(),"‰º‹L‚ÌƒGƒ‰[‚ª”­¶‚µ‚Ä‚µ‚Ü‚¢‚Ü‚µ‚½", MB_OK|MB_ICONSTOP);
+     GgafCore::GgafLogger::write("ƒŒ´ˆö•s–¾—áŠO„‚½‚Ô‚ñƒAƒNƒZƒXˆá”½");
      ::timeEndPeriod(1);
-     try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() ä¸å¯"); } //ã‚¨ãƒ©ãƒ¼ç„¡è¦–
-     try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; ä¸å¯"); } //ã‚¨ãƒ©ãƒ¼ç„¡è¦–
-     try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); ä¸å¯"); } //ã‚¨ãƒ©ãƒ¼ç„¡è¦–
+     try { god->_pUniverse->dump();       } catch (...) { GgafCore::GgafLogger::write("god->_pUniverse->dump() •s‰Â"); } //ƒGƒ‰[–³‹
+     try { delete god;                 } catch (...) { GgafCore::GgafLogger::write("delete god; •s‰Â"); } //ƒGƒ‰[–³‹
+     try { GgafDx9Core::MyStg2nd::Properties::clean(); } catch (...) { GgafCore::GgafLogger::write("MyStg2nd::Properties::clean(); •s‰Â"); } //ƒGƒ‰[–³‹
      return EXIT_SUCCESS;
      }
      */
-    //_CrtDumpMemoryLeaks();	// ã“ã®æ™‚ç‚¹ã§è§£æ”¾ã•ã‚Œã¦ã„ãªã„ãƒ¡ãƒ¢ãƒªã®æƒ…å ±ã®è¡¨ç¤º
+    //_CrtDumpMemoryLeaks();	// ‚±‚Ì“_‚Å‰ğ•ú‚³‚ê‚Ä‚¢‚È‚¢ƒƒ‚ƒŠ‚Ìî•ñ‚Ì•\¦
     return (int) msg.wParam;
 }
 
 //
-//  é–¢æ•°: MyRegisterClass()
+//  ŠÖ”: MyRegisterClass()
 //
-//  ç›®çš„: ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ ã‚¯ãƒ©ã‚¹ã‚’ç™»éŒ²ã—ã¾ã™ã€‚
+//  –Ú“I: ƒEƒBƒ“ƒhƒE ƒNƒ‰ƒX‚ğ“o˜^‚µ‚Ü‚·B
 //
-//  ã‚³ãƒ¡ãƒ³ãƒˆ:
+//  ƒRƒƒ“ƒg:
 //
-//    ã“ã®é–¢æ•°ãŠã‚ˆã³ä½¿ã„æ–¹ã¯ã€'RegisterClassEx' é–¢æ•°ãŒè¿½åŠ ã•ã‚ŒãŸ
-//    Windows 95 ã‚ˆã‚Šå‰ã® Win32 ã‚·ã‚¹ãƒ†ãƒ ã¨äº’æ›ã•ã›ã‚‹å ´åˆã«ã®ã¿å¿…è¦ã§ã™ã€‚
-//    ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ãŒã€é–¢é€£ä»˜ã‘ã‚‰ã‚ŒãŸ
-//    æ­£ã—ã„å½¢å¼ã®å°ã•ã„ã‚¢ã‚¤ã‚³ãƒ³ã‚’å–å¾—ã§ãã‚‹ã‚ˆã†ã«ã™ã‚‹ã«ã¯ã€
-//    ã“ã®é–¢æ•°ã‚’å‘¼ã³å‡ºã—ã¦ãã ã•ã„ã€‚
+//    ‚±‚ÌŠÖ”‚¨‚æ‚Ñg‚¢•û‚ÍA'RegisterClassEx' ŠÖ”‚ª’Ç‰Á‚³‚ê‚½
+//    Windows 95 ‚æ‚è‘O‚Ì Win32 ƒVƒXƒeƒ€‚ÆŒİŠ·‚³‚¹‚éê‡‚É‚Ì‚İ•K—v‚Å‚·B
+//    ƒAƒvƒŠƒP[ƒVƒ‡ƒ“‚ªAŠÖ˜A•t‚¯‚ç‚ê‚½
+//    ³‚µ‚¢Œ`®‚Ì¬‚³‚¢ƒAƒCƒRƒ“‚ğæ“¾‚Å‚«‚é‚æ‚¤‚É‚·‚é‚É‚ÍA
+//    ‚±‚ÌŠÖ”‚ğŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢B
 //
 ATOM MyRegisterClass(HINSTANCE hInstance) {
     WNDCLASSEX wcex;
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style = CS_HREDRAW | CS_VREDRAW; //æ°´å¹³ãƒ»å‚ç›´æ–¹å‘ã«ã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚µã‚¤ã‚ºãŒå¤‰æ›´ã•ã‚ŒãŸã¨ãã‚¦ã‚¤ãƒ³ãƒ‰ã‚¦ã‚’å†ä½œç”»ã™ã‚‹ã€‚
-    wcex.lpfnWndProc = WndProc; //ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ãƒ—ãƒ­ã‚·ãƒ¼ã‚¸ãƒ£ã®ã‚¢ãƒ‰ãƒ¬ã‚¹ã‚’æŒ‡å®šã™ã‚‹ã€‚
+    wcex.style = CS_HREDRAW | CS_VREDRAW; //…•½E‚’¼•ûŒü‚ÉƒEƒCƒ“ƒhƒEƒTƒCƒY‚ª•ÏX‚³‚ê‚½‚Æ‚«ƒEƒCƒ“ƒhƒE‚ğÄì‰æ‚·‚éB
+    wcex.lpfnWndProc = WndProc; //ƒEƒBƒ“ƒhƒEƒvƒƒV[ƒWƒƒ‚ÌƒAƒhƒŒƒX‚ğw’è‚·‚éB
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
     wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_MYSTG2ND));
     wcex.hCursor = LoadCursor(NULL, IDC_ARROW);
     wcex.hbrBackground = CreateSolidBrush(RGB(30, 30, 30)); //0~255
-    wcex.lpszMenuName = NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//ãƒ¡ãƒ‹ãƒ¥ãƒ¼ãƒãƒ¼ã¯ãªã—
+    wcex.lpszMenuName = NULL; //MAKEINTRESOURCE(IDC_MTSTG17_031);//ƒƒjƒ…[ƒo[‚Í‚È‚µ
     wcex.lpszClassName = szWindowClass;
     wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
@@ -307,21 +307,21 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
 }
 
 //
-//   é–¢æ•°: InitInstance(HINSTANCE, int)
+//   ŠÖ”: InitInstance(HINSTANCE, int)
 //
-//   ç›®çš„: ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ ãƒãƒ³ãƒ‰ãƒ«ã‚’ä¿å­˜ã—ã¦ã€ãƒ¡ã‚¤ãƒ³ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆã—ã¾ã™ã€‚
+//   –Ú“I: ƒCƒ“ƒXƒ^ƒ“ƒX ƒnƒ“ƒhƒ‹‚ğ•Û‘¶‚µ‚ÄAƒƒCƒ“ ƒEƒBƒ“ƒhƒE‚ğì¬‚µ‚Ü‚·B
 //
-//   ã‚³ãƒ¡ãƒ³ãƒˆ:
+//   ƒRƒƒ“ƒg:
 //
-//        ã“ã®é–¢æ•°ã§ã€ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã§ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ ãƒãƒ³ãƒ‰ãƒ«ã‚’ä¿å­˜ã—ã€
-//        ãƒ¡ã‚¤ãƒ³ ãƒ—ãƒ­ã‚°ãƒ©ãƒ  ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã‚’ä½œæˆãŠã‚ˆã³è¡¨ç¤ºã—ã¾ã™ã€‚
+//        ‚±‚ÌŠÖ”‚ÅAƒOƒ[ƒoƒ‹•Ï”‚ÅƒCƒ“ƒXƒ^ƒ“ƒX ƒnƒ“ƒhƒ‹‚ğ•Û‘¶‚µA
+//        ƒƒCƒ“ ƒvƒƒOƒ‰ƒ€ ƒEƒBƒ“ƒhƒE‚ğì¬‚¨‚æ‚Ñ•\¦‚µ‚Ü‚·B
 //
 /*
  BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
  {
  HWND hWnd;
 
- hInst = hInstance; // ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°ã«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹å‡¦ç†ã‚’æ ¼ç´ã—ã¾ã™ã€‚
+ hInst = hInstance; // ƒOƒ[ƒoƒ‹•Ï”‚ÉƒCƒ“ƒXƒ^ƒ“ƒXˆ—‚ğŠi”[‚µ‚Ü‚·B
 
  hWnd = CreateWindow(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
  CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, NULL, NULL, hInstance, NULL);
@@ -339,13 +339,13 @@ ATOM MyRegisterClass(HINSTANCE hInstance) {
  */
 
 //
-//  é–¢æ•°: WndProc(HWND, UINT, WPARAM, LPARAM)
+//  ŠÖ”: WndProc(HWND, UINT, WPARAM, LPARAM)
 //
-//  ç›®çš„:  ãƒ¡ã‚¤ãƒ³ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’å‡¦ç†ã—ã¾ã™ã€‚
+//  –Ú“I:  ƒƒCƒ“ ƒEƒBƒ“ƒhƒE‚ÌƒƒbƒZ[ƒW‚ğˆ—‚µ‚Ü‚·B
 //
-//  WM_COMMAND	- ã‚¢ãƒ—ãƒªã‚±ãƒ¼ã‚·ãƒ§ãƒ³ ãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®å‡¦ç†
-//  WM_PAINT	- ãƒ¡ã‚¤ãƒ³ ã‚¦ã‚£ãƒ³ãƒ‰ã‚¦ã®æç”»
-//  WM_DESTROY	- ä¸­æ­¢ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã‚’è¡¨ç¤ºã—ã¦æˆ»ã‚‹
+//  WM_COMMAND	- ƒAƒvƒŠƒP[ƒVƒ‡ƒ“ ƒƒjƒ…[‚Ìˆ—
+//  WM_PAINT	- ƒƒCƒ“ ƒEƒBƒ“ƒhƒE‚Ì•`‰æ
+//  WM_DESTROY	- ’†~ƒƒbƒZ[ƒW‚ğ•\¦‚µ‚Ä–ß‚é
 //
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) {
@@ -358,7 +358,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
          case WM_COMMAND:
          wmId    = LOWORD(wParam);
          wmEvent = HIWORD(wParam);
-         // é¸æŠã•ã‚ŒãŸãƒ¡ãƒ‹ãƒ¥ãƒ¼ã®è§£æ:
+         // ‘I‘ğ‚³‚ê‚½ƒƒjƒ…[‚Ì‰ğÍ:
          switch (wmId)
          {
          case IDM_ABOUT:
@@ -376,7 +376,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
             adjustGameScreen(hWnd);
             break;
             //    case WM_KEYDOWN:
-            //        //ã‚¨ã‚¹ã‚±ãƒ¼ãƒ—ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰çµ‚äº†ã•ã›ã‚‹
+            //        //ƒGƒXƒP[ƒvƒL[‚ğ‰Ÿ‚µ‚½‚çI—¹‚³‚¹‚é
             //        case VK_ESCAPE:
             //            PostMessage(hWnd,WM_CLOSE,0,0);
             //            return 0;
@@ -394,7 +394,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
     return 0;
 }
 
-// ãƒãƒ¼ã‚¸ãƒ§ãƒ³æƒ…å ±ãƒœãƒƒã‚¯ã‚¹ã®ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ ãƒãƒ³ãƒ‰ãƒ©ã§ã™ã€‚
+// ƒo[ƒWƒ‡ƒ“î•ñƒ{ƒbƒNƒX‚ÌƒƒbƒZ[ƒW ƒnƒ“ƒhƒ‰‚Å‚·B
 /*
  INT_PTR CALLBACK About(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam)
  {
@@ -419,10 +419,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam) 
 void adjustGameScreen(HWND hWnd) {
     if (GGAFDX9_PROPERTY(FIXED_VIEW_ASPECT)) {
         RECT rect;
-        GetClientRect(hWnd, &rect); //ã‚ã‚‹ã„ã¯ï¼Ÿ
+        GetClientRect(hWnd, &rect); //‚ ‚é‚¢‚ÍH
         if (1.0f * rect.right / rect.bottom > 1.0f * GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)) {
-            //ã‚ˆã‚Šæ¨ªé•·ã«ãªã£ã¦ã—ã¾ã£ã¦ã„ã‚‹
-            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //ç¸®å°ç‡=ç¸¦å¹…ã®æ¯”ç‡
+            //‚æ‚è‰¡’·‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚é
+            float rate = 1.0f * rect.bottom / GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT); //k¬—¦=c•‚Ì”ä—¦
             GgafDx9Core::GgafDx9God::_rectPresentDest.left = (rect.right / 2.0f) - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)
                     * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.top = 0;
@@ -430,8 +430,8 @@ void adjustGameScreen(HWND hWnd) {
                     + (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH) * rate / 2.0f);
             GgafDx9Core::GgafDx9God::_rectPresentDest.bottom = GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate;
         } else {
-            //ã‚ˆã‚Šç¸¦é•·ã«ãªã£ã¦ã—ã¾ã£ã¦ã„ã‚‹
-            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //ç¸®å°ç‡=æ¨ªå¹…ã®æ¯”ç‡
+            //‚æ‚èc’·‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚é
+            float rate = 1.0f * rect.right / GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH); //k¬—¦=‰¡•‚Ì”ä—¦
             GgafDx9Core::GgafDx9God::_rectPresentDest.left = 0;
             GgafDx9Core::GgafDx9God::_rectPresentDest.top = (rect.bottom / 2.0f)
                     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT) * rate / 2.0f);

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -6,56 +6,56 @@ using namespace GgafDx9Core;
 
 GgafDx9Se::GgafDx9Se(char* prm_wave_name) : GgafObject() {
     if (GgafDx9Sound::_pIDirectSound8 == NULL) {
-        throwGgafCriticalException("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") DirectSound ãŒã€ã¾ã åˆæœŸåŒ–ã•ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") DirectSound ‚ªA‚Ü‚¾‰Šú‰»‚³‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
 
     _wave_name = prm_wave_name;
     string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + string(_wave_name) + ".wav";
 
     HRESULT hr;
-    // Waveãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+    // Waveƒtƒ@ƒCƒ‹‚ğŠJ‚­
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {
-        _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ãƒ•ã‚¡ã‚¤ãƒ« "<<wave_filename<<" ãŒé–‹ã‘ã¾ã›ã‚“ã§ã—ãŸã€‚");
+        _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ƒtƒ@ƒCƒ‹ "<<wave_filename<<" ‚ªŠJ‚¯‚Ü‚¹‚ñ‚Å‚µ‚½B");
         //return false;
     }
 
-    // ã‚»ã‚«ãƒ³ãƒ€ãƒªãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    // ƒZƒJƒ“ƒ_ƒŠƒoƒbƒtƒ@ì¬
     DSBUFFERDESC dsbdesc;
     ZeroMemory(&dsbdesc, sizeof(DSBUFFERDESC));
     dsbdesc.dwSize = sizeof(DSBUFFERDESC);
-    dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_LOCSOFTWARE; //TODO:DSBCAPS_LOCSOFTWARE or DSBCAPS_LOCDEFERã‹ã©ã£ã¡ï¼Ÿ
+    dsbdesc.dwFlags = DSBCAPS_CTRLPAN | DSBCAPS_CTRLVOLUME | DSBCAPS_CTRLFREQUENCY | DSBCAPS_GLOBALFOCUS | DSBCAPS_LOCSOFTWARE; //TODO:DSBCAPS_LOCSOFTWARE or DSBCAPS_LOCDEFER‚©‚Ç‚Á‚¿H
     dsbdesc.dwBufferBytes = WaveFile.GetWaveSize();
     dsbdesc.lpwfxFormat = WaveFile.GetWaveFormat();
 
-    // ãƒãƒƒãƒ•ã‚¡ä½œæˆ
+    // ƒoƒbƒtƒ@ì¬
     hr = GgafDx9Sound::_pIDirectSound8->CreateSoundBuffer(&dsbdesc, &_pIDirectSoundBuffer, NULL);
-    checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") CreateSoundBufferã«å¤±æ•—ã—ã¾ã—ãŸã€‚ã‚µã‚¦ãƒ³ãƒ‰ã‚«ãƒ¼ãƒ‰ã¯æœ‰åŠ¹ã§ã™ã‹ï¼Ÿ");
+    checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") CreateSoundBuffer‚É¸”s‚µ‚Ü‚µ‚½BƒTƒEƒ“ƒhƒJ[ƒh‚Í—LŒø‚Å‚·‚©H");
 
     if (!writeBuffer(WaveFile)) {
-        _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ï¼œè­¦å‘Šï¼GgafDx9Se::writeBuffer()ãŒå¤±æ•—ã—ã¦ã„ã¾ã™ã€‚");
+        _TRACE_("GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") ƒŒx„GgafDx9Se::writeBuffer()‚ª¸”s‚µ‚Ä‚¢‚Ü‚·B");
     }
     hr = _pIDirectSoundBuffer->GetFrequency(&_dwDefaultFrequency);
-    checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") GetFrequency ã«å¤±æ•—ã—ã¾ã—ãŸã€‚ã‚µã‚¦ãƒ³ãƒ‰ã‚«ãƒ¼ãƒ‰ã¯æœ‰åŠ¹ã§ã™ã‹ï¼Ÿ");
+    checkDxException(hr, D3D_OK, "GgafDx9Se::GgafDx9Se("<<prm_wave_name<<") GetFrequency ‚É¸”s‚µ‚Ü‚µ‚½BƒTƒEƒ“ƒhƒJ[ƒh‚Í—LŒø‚Å‚·‚©H");
 
 }
 
 
 
 int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
-    // ã‚»ã‚«ãƒ³ãƒ€ãƒªãƒ»ãƒãƒƒãƒ•ã‚¡ã«Waveãƒ‡ãƒ¼ã‚¿ã‚’æ›¸ãè¾¼ã‚€
-    LPVOID lpvPtr1; // æœ€åˆã®ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒã‚¤ãƒ³ã‚¿
-    DWORD dwBytes1; // æœ€åˆã®ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚µã‚¤ã‚º
-    LPVOID lpvPtr2; // ï¼’ç•ªç›®ã®ãƒ–ãƒ­ãƒƒã‚¯ã®ãƒã‚¤ãƒ³ã‚¿
-    DWORD dwBytes2; // ï¼’ç•ªç›®ã®ãƒ–ãƒ­ãƒƒã‚¯ã®ã‚µã‚¤ã‚º
+    // ƒZƒJƒ“ƒ_ƒŠEƒoƒbƒtƒ@‚ÉWaveƒf[ƒ^‚ğ‘‚«‚Ş
+    LPVOID lpvPtr1; // Å‰‚ÌƒuƒƒbƒN‚Ìƒ|ƒCƒ“ƒ^
+    DWORD dwBytes1; // Å‰‚ÌƒuƒƒbƒN‚ÌƒTƒCƒY
+    LPVOID lpvPtr2; // ‚Q”Ô–Ú‚ÌƒuƒƒbƒN‚Ìƒ|ƒCƒ“ƒ^
+    DWORD dwBytes2; // ‚Q”Ô–Ú‚ÌƒuƒƒbƒN‚ÌƒTƒCƒY
 
     HRESULT hr;
 
     hr = _pIDirectSoundBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
 
-    // DSERR_BUFFERLOSTãŒè¿”ã•ã‚ŒãŸå ´åˆï¼ŒRestoreãƒ¡ã‚½ãƒƒãƒ‰ã‚’ä½¿ã£ã¦ãƒãƒƒãƒ•ã‚¡ã‚’å¾©å…ƒã™ã‚‹
+    // DSERR_BUFFERLOST‚ª•Ô‚³‚ê‚½ê‡CRestoreƒƒ\ƒbƒh‚ğg‚Á‚Äƒoƒbƒtƒ@‚ğ•œŒ³‚·‚é
     if (DSERR_BUFFERLOST == hr) {
-        _TRACE_("GgafDx9Se::writeBuffer() DSERR_BUFFERLOST ãŒè¿”ã•ã‚Œã¾ã—ãŸã€‚ãƒãƒƒãƒ•ã‚¡å¾©å…ƒã‚’è©¦ã¿ã¾ã™");
+        _TRACE_("GgafDx9Se::writeBuffer() DSERR_BUFFERLOST ‚ª•Ô‚³‚ê‚Ü‚µ‚½Bƒoƒbƒtƒ@•œŒ³‚ğ‚İ‚Ü‚·");
         _pIDirectSoundBuffer->Restore();
         hr = _pIDirectSoundBuffer->Lock(0, WaveFile.GetWaveSize(), &lpvPtr1, &dwBytes1, &lpvPtr2, &dwBytes2, 0);
     }
@@ -63,16 +63,16 @@ int GgafDx9Se::writeBuffer(CWaveDecorder& WaveFile) {
     if (hr != D3D_OK) {
         return false;
     }
-    // ãƒ­ãƒƒã‚¯æˆåŠŸ
+    // ƒƒbƒN¬Œ÷
 
-    // ã“ã“ã§ï¼Œãƒãƒƒãƒ•ã‚¡ã«æ›¸ãè¾¼ã‚€
-    // ãƒãƒƒãƒ•ã‚¡ã«ãƒ‡ãƒ¼ã‚¿ã‚’ã‚³ãƒ”ãƒ¼ã™ã‚‹
+    // ‚±‚±‚ÅCƒoƒbƒtƒ@‚É‘‚«‚Ş
+    // ƒoƒbƒtƒ@‚Éƒf[ƒ^‚ğƒRƒs[‚·‚é
     long lSize = WaveFile.GetWave(static_cast<LPBYTE> (lpvPtr1), dwBytes1);
     if (lSize > 0 && dwBytes2 != 0) {
         lSize = WaveFile.GetWave(static_cast<LPBYTE> (lpvPtr2), dwBytes2);
     }
 
-    // æ›¸ãè¾¼ã¿ãŒçµ‚ã‚ã£ãŸã‚‰ã™ãã«Unlockã™ã‚‹ï¼
+    // ‘‚«‚İ‚ªI‚í‚Á‚½‚ç‚·‚®‚ÉUnlock‚·‚éD
     _pIDirectSoundBuffer->Unlock(lpvPtr1, dwBytes1, lpvPtr2, dwBytes2);
 
     if (lSize < 0) {
@@ -88,46 +88,46 @@ void GgafDx9Se::play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency) {
     }
     DWORD dwStatus;
     if (FAILED(_pIDirectSoundBuffer->GetStatus(&dwStatus))) {
-        _TRACE_("GgafDx9Se::play() GetStatus() å¤±æ•—");
+        _TRACE_("GgafDx9Se::play() GetStatus() ¸”s");
     }
     if (dwStatus == (DWORD)DSERR_BUFFERLOST) {
         if (FAILED(_pIDirectSoundBuffer->Restore())) {
-            _TRACE_("GgafDx9Se::play() Restore() å¤±æ•—");
+            _TRACE_("GgafDx9Se::play() Restore() ¸”s");
         }
         if (!restore()) {
-            _TRACE_("GgafDx9Se::play() restore() å¤±æ•—");
+            _TRACE_("GgafDx9Se::play() restore() ¸”s");
         }
     }
     setVolume(prm_iVolume);
     setPan(prm_iPan);
     setFrequencyRate(prm_fRate_Frequency);
     HRESULT hr;
-    hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //ãƒãƒƒãƒ•ã‚¡é ­ã ã—
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() SetCurrentPosition(0) ãŒå¤±æ•—ã—ã¾ã—ãŸã€‚");
+    hr = _pIDirectSoundBuffer->SetCurrentPosition(0); //ƒoƒbƒtƒ@“ª‚¾‚µ
+    checkDxException(hr, DS_OK, "GgafDx9Se::play() SetCurrentPosition(0) ‚ª¸”s‚µ‚Ü‚µ‚½B");
     hr = _pIDirectSoundBuffer->Play(0, 0, 0x00000000);
-    checkDxException(hr, DS_OK, "GgafDx9Se::play() Play(0, 0, 0x00000000) ãŒå¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DS_OK, "GgafDx9Se::play() Play(0, 0, 0x00000000) ‚ª¸”s‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDx9Se::setVolume(int prm_iVolume) {
     HRESULT hr = _pIDirectSoundBuffer->SetVolume(
                     DSBVOLUME_MIN + ((prm_iVolume - DSBVOLUME_MIN) * GgafDx9Sound::_master_volume_rate * GgafDx9Sound::_se_volume_rate)
                   );
-    checkDxException(hr, DS_OK, "GgafDx9Se::setVolume() SetVolume("<<prm_iVolume<<") ãŒå¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DS_OK, "GgafDx9Se::setVolume() SetVolume("<<prm_iVolume<<") ‚ª¸”s‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDx9Se::setPan(int prm_iPan) {
     HRESULT hr = _pIDirectSoundBuffer->SetPan(prm_iPan);
-    checkDxException(hr, DS_OK, "GgafDx9Se::setPan() SetPan("<<prm_iPan<<") ãŒå¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, DS_OK, "GgafDx9Se::setPan() SetPan("<<prm_iPan<<") ‚ª¸”s‚µ‚Ü‚µ‚½B");
 }
 
 void GgafDx9Se::setFrequencyRate(float prm_fRate_Frequency) {
-    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_dwDefaultFrequency*prm_fRate_Frequency)); //å†ç”Ÿå‘¨æ³¢æ•°è¨­å®š
-    checkDxException(hr, DS_OK, "GgafDx9Se::setFrequencyRate() SetFrequency((DWORD)"<<(_dwDefaultFrequency*prm_fRate_Frequency)<<") ãŒå¤±æ•—ã—ã¾ã—ãŸã€‚");
+    HRESULT hr = _pIDirectSoundBuffer->SetFrequency((DWORD)(_dwDefaultFrequency*prm_fRate_Frequency)); //Ä¶ü”g”İ’è
+    checkDxException(hr, DS_OK, "GgafDx9Se::setFrequencyRate() SetFrequency((DWORD)"<<(_dwDefaultFrequency*prm_fRate_Frequency)<<") ‚ª¸”s‚µ‚Ü‚µ‚½B");
 }
 
 int GgafDx9Se::restore(void) {
     string wave_filename = GGAFDX9_PROPERTY(DIR_WAVE) + _wave_name + ".wav";
-    // Waveãƒ•ã‚¡ã‚¤ãƒ«ã‚’é–‹ã
+    // Waveƒtƒ@ƒCƒ‹‚ğŠJ‚­
     CWaveDecorder WaveFile;
     if (!WaveFile.Open((LPSTR)wave_filename.c_str())) {
         return false;

@@ -1,59 +1,59 @@
-ï»¿#ifndef ENEMYMESHSHOT001_H_
+#ifndef ENEMYMESHSHOT001_H_
 #define ENEMYMESHSHOT001_H_
 namespace MyStg2nd {
 
 /**
- * 3Dæ•µå¼¾001 .
- * 1)å‹¢ã„ã‚ˆãè¨­å®šæ–¹å‘ã«é£›ã³å‡ºã™<BR>
- * 2)å¾ã€…ã«å‹¢ã„ã¯é…ããªã‚Šã€æ™‚æ©Ÿã®æ–¹å‘ã«æ–¹å‘è»¢æ›<BR>
- * 3)ãã®å¾Œæ™‚æ©Ÿã‚’ã‚ãŒã‘ã¦ç›´ç·šç§»å‹•ã€‚å†åŠ é€Ÿã—ã¦ã„ã<BR>
- * ã€ä¸Šæ›¸ãå¯èƒ½ãªãƒ¡ãƒ³ãƒãƒ¼ã€‘
+ * 3D“G’e001 .
+ * 1)¨‚¢‚æ‚­Ý’è•ûŒü‚É”ò‚Ño‚·<BR>
+ * 2)™X‚É¨‚¢‚Í’x‚­‚È‚èAŽž‹@‚Ì•ûŒü‚É•ûŒü“]Š·<BR>
+ * 3)‚»‚ÌŒãŽž‹@‚ð‚ß‚ª‚¯‚Ä’¼üˆÚ“®BÄ‰Á‘¬‚µ‚Ä‚¢‚­<BR>
+ * yã‘‚«‰Â”\‚Èƒƒ“ƒo[z
  *
  */
 class EnemyMeshShot001 : public GgafDx9LibStg::DefaultMeshSetActor {
 public:
-    //æœ¬Actorã®ã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£ --->
-    /** å‡ºç¾æ™‚ã®åˆé€Ÿ */
+    //–{Actor‚ÌƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB --->
+    /** oŒ»Žž‚Ì‰‘¬ */
     int _iMvVelo_1st;
-    /** å‡ºç¾æ™‚ã®åŠ é€Ÿåº¦ï¼ˆè² ã§é…ããªã‚‹ */
+    /** oŒ»Žž‚Ì‰Á‘¬“xi•‰‚Å’x‚­‚È‚é */
     int _iMoveAcce_1st;
-    /** è‡ªèº«ãŒå‡ºç¾ã—ã¦ã‹ã‚‰ã€æ™‚æ©Ÿã®æ–¹å‘ã«æ–¹å‘è»¢æ›ã‚’é–‹å§‹ã™ã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** Ž©g‚ªoŒ»‚µ‚Ä‚©‚çAŽž‹@‚Ì•ûŒü‚É•ûŒü“]Š·‚ðŠJŽn‚·‚éƒtƒŒ[ƒ€ */
     DWORD _dwFrame_TurnBegin;
-    /** ç§»å‹•é€Ÿåº¦ä¸Šé™ */
+    /** ˆÚ“®‘¬“xãŒÀ */
     int _iMvVelo_Top;
-    /** æœ€ä½Žä¿è¨¼ç§»å‹•é€Ÿåº¦ */
+    /** Å’á•ÛØˆÚ“®‘¬“x */
     int _iMvVelo_Bottom;
-    /** æ–¹å‘è»¢æ›ã«è²»ã‚„ã™ã“ã¨ãŒã§ãã‚‹ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** •ûŒü“]Š·‚É”ï‚â‚·‚±‚Æ‚ª‚Å‚«‚éƒtƒŒ[ƒ€” */
     DWORD _dwFrameInterval_Turn;
-    /** æ–¹å‘è»¢æ›ä¸­ã®è§’é€Ÿåº¦ã‚¢ãƒ³ã‚°ãƒ«å€¤ */
+    /** •ûŒü“]Š·’†‚ÌŠp‘¬“xƒAƒ“ƒOƒ‹’l */
     angle _angVelo_Turn;
-    /** æ–¹å‘è»¢æ›ã‚’é–‹å§‹ï¼ˆ_dwFrame_TurnBeginï¼‰ã‹ã‚‰å†è¨­å®šã•ã‚Œã‚‹åŠ é€Ÿåº¦ */
+    /** •ûŒü“]Š·‚ðŠJŽni_dwFrame_TurnBeginj‚©‚çÄÝ’è‚³‚ê‚é‰Á‘¬“x */
     int _iMoveAcce_2nd;
-    /** å‡ºç¾ã—ã¦ã‹ã‚‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** oŒ»‚µ‚Ä‚©‚ç‚ÌƒtƒŒ[ƒ€” */
     DWORD _frame_on_change_to_active_flg;
-    //<--- æœ¬Actorã®ã‚«ã‚¹ã‚¿ãƒ ãƒ—ãƒ­ãƒ‘ãƒ†ã‚£
+    //<--- –{Actor‚ÌƒJƒXƒ^ƒ€ƒvƒƒpƒeƒB
 
 public:
     EnemyMeshShot001(const char* prm_name);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼ž
+     * ƒOverRide ‚Å‚·„
      */
     virtual void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼ž
+     * ƒOverRide ‚Å‚·„
      */
     virtual void processBehavior() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼ž
+     * ƒOverRide ‚Å‚·„
      */
     virtual void processJudgement() override;
 
 
     /**
-     * ï¼œOverRide ã§ã™ï¼ž
+     * ƒOverRide ‚Å‚·„
      */
     virtual void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 

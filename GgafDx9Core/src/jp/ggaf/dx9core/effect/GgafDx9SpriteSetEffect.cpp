@@ -1,19 +1,19 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect(char* prm_effect_name) : GgafDx9Effect(prm_effect_name) {
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼å…±é€šã®ã‚°ãƒ­ãƒ¼ãƒãƒ«å¤‰æ•°è¨­å®š
+    //ƒVƒF[ƒ_[‹¤’Ê‚ÌƒOƒ[ƒoƒ‹•Ï”Ý’è
     HRESULT hr;
-//    //VIEWå¤‰æ›è¡Œåˆ—
+//    //VIEW•ÏŠ·s—ñ
 //    hr = _pID3DXEffect->SetMatrix( "g_matView", &GgafDx9God::_vMatrixView );
-//    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
-    //å°„å½±å¤‰æ›è¡Œåˆ—
+//    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    //ŽË‰e•ÏŠ·s—ñ
     hr = _pID3DXEffect->SetMatrix("g_matProj", &pCAM->_vMatrixProj );
-    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒãƒ³ãƒ‰ãƒ«
+    checkDxException(hr, D3D_OK, "GgafDx9SpriteSetEffect::GgafDx9SpriteSetEffect SetMatrix() ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    //ƒVƒF[ƒ_[ƒnƒ“ƒhƒ‹
     _hMatView  = _pID3DXEffect->GetParameterByName( NULL, "g_matView" );
     _ahMatWorld[0] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld001" );
     _ahMatWorld[1] = _pID3DXEffect->GetParameterByName( NULL, "g_matWorld002" );

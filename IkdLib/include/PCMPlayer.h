@@ -1,4 +1,4 @@
-ï»¿// PCMPlayer.h
+// PCMPlayer.h
 //
 
 #ifndef IKD_DIX_PCMPLAYER_H
@@ -12,7 +12,7 @@
 namespace Dix {
     class PCMPlayer {
     public:
-        // å†ç”ŸçŠ¶æ…‹
+        // Ä¶ó‘Ô
         enum STATE {
             STATE_NONE,
             STATE_PLAY,
@@ -25,64 +25,64 @@ namespace Dix {
         PCMPlayer( IDirectSound8* pDS8 );
         PCMPlayer( IDirectSound8* pDS8, sp< PCMDecoder > spDecoder );
 
-        virtual ~PCMPlayer(); //tsuge virtual è¿½åŠ 
+        virtual ~PCMPlayer(); //tsuge virtual ’Ç‰Á
 
-        //! ãƒ‡ãƒã‚¤ã‚¹è¨­å®š
+        //! ƒfƒoƒCƒXİ’è
         void setDevice(IDirectSound8* pDS8 );
 
-        //! PCMãƒ‡ã‚³ãƒ¼ãƒ€ã‚’è¨­å®š
+        //! PCMƒfƒR[ƒ_‚ğİ’è
         bool setDecoder( sp< PCMDecoder > pcmDecoder );
 
-        //! å†ç”Ÿ
+        //! Ä¶
         bool play( bool isLoop );
 
-        //! ä¸€æ™‚åœæ­¢
+        //! ˆê’â~
         void pause();
 
-        //! åœæ­¢
+        //! ’â~
         void stop();
 
-        //! éŸ³é‡ã‚’å¤‰ãˆã‚‹
+        //! ‰¹—Ê‚ğ•Ï‚¦‚é
         void setVolume( int volume );
 
-        //! ãƒ‘ãƒ³ã®ä½ç½®ã‚’å¤‰ãˆã‚‹
+        //! ƒpƒ“‚ÌˆÊ’u‚ğ•Ï‚¦‚é
         void setPan( int pan );
 
-        //! ã‚¯ãƒªã‚¢
+        //! ƒNƒŠƒA
         void clear();
 
-        //! çŠ¶æ…‹å–å¾—
+        //! ó‘Ôæ“¾
         STATE getState();
 
 
     public:
-        //! å†ç”Ÿä¸­ã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’åœæ­¢
+        //! Ä¶’†‚ÌƒXƒŒƒbƒh‚ğ’â~
         void terminateThread();
 
-        //! ãƒãƒƒãƒ•ã‚¡ã‚’åˆæœŸåŒ–ã™ã‚‹
+        //! ƒoƒbƒtƒ@‚ğ‰Šú‰»‚·‚é
         bool initializeBuffer();
 
-        //! ãƒãƒƒãƒ•ã‚¡ã‚³ãƒ”ãƒ¼ã‚¹ãƒ¬ãƒƒãƒ‰ç”Ÿæˆ
+        //! ƒoƒbƒtƒ@ƒRƒs[ƒXƒŒƒbƒh¶¬
         static void __cdecl streamThread( void* player );
 
-        //! æº–å‚™ã§ããŸï¼Ÿ
+        //! €”õ‚Å‚«‚½H
         bool isReady();
 
-        //! å†ç”Ÿä¸­ï¼Ÿ
+        //! Ä¶’†H
         bool isPlaying();
 
 
     public:
-        sp< PCMDecoder >				spPCMDecoder_;		//!< å†ç”Ÿå¯¾è±¡ãƒ‡ã‚³ãƒ¼ãƒ‰
-        WAVEFORMATEX					waveFormat_;		//!< WAVEFORMATEXæ§‹é€ ä½“
-        DSBUFFERDESC					DSBufferDesc_;		//!< DSBUFFERDESCæ§‹é€ ä½“
-        IDirectSound8*                  pDS8_;				//!< ã‚µã‚¦ãƒ³ãƒ‰ãƒ‡ãƒã‚¤ã‚¹
-        IDirectSoundBuffer8*            pDSBuffer_;		//!< ã‚»ã‚«ãƒ³ãƒ€ãƒªãƒãƒƒãƒ•ã‚¡
-        bool							isReady_;			//!< æº–å‚™ã§ããŸï¼Ÿ
-        unsigned int					threadHandle_;		//!< ã‚¹ãƒˆãƒªãƒ¼ãƒ å†ç”Ÿã‚¹ãƒ¬ãƒƒãƒ‰ãƒãƒ³ãƒ‰ãƒ«
-        bool							isTerminate_;		//!< ã‚¹ãƒ¬ãƒƒãƒ‰åœæ­¢
-        bool							isLoop_;			//!< ãƒ«ãƒ¼ãƒ—ã™ã‚‹ï¼Ÿ
-        STATE							state_;				//!< å†ç”ŸçŠ¶æ…‹
+        sp< PCMDecoder >				spPCMDecoder_;		//!< Ä¶‘ÎÛƒfƒR[ƒh
+        WAVEFORMATEX					waveFormat_;		//!< WAVEFORMATEX\‘¢‘Ì
+        DSBUFFERDESC					DSBufferDesc_;		//!< DSBUFFERDESC\‘¢‘Ì
+        IDirectSound8*                  pDS8_;				//!< ƒTƒEƒ“ƒhƒfƒoƒCƒX
+        IDirectSoundBuffer8*            pDSBuffer_;		//!< ƒZƒJƒ“ƒ_ƒŠƒoƒbƒtƒ@
+        bool							isReady_;			//!< €”õ‚Å‚«‚½H
+        unsigned int					threadHandle_;		//!< ƒXƒgƒŠ[ƒ€Ä¶ƒXƒŒƒbƒhƒnƒ“ƒhƒ‹
+        bool							isTerminate_;		//!< ƒXƒŒƒbƒh’â~
+        bool							isLoop_;			//!< ƒ‹[ƒv‚·‚éH
+        STATE							state_;				//!< Ä¶ó‘Ô
     };
 }
 

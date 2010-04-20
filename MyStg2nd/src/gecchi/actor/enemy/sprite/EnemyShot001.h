@@ -1,4 +1,4 @@
-ï»¿#ifndef ENEMYSHOT001_H_
+#ifndef ENEMYSHOT001_H_
 #define ENEMYSHOT001_H_
 namespace MyStg2nd {
 
@@ -8,22 +8,22 @@ public:
     EnemyShot001(const char* prm_name);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     bool isOutOfGameSpace() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void onHit(GgafActor* prm_pOtherActor);
 

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -16,7 +16,7 @@ LaserChip::LaserChip(const char* prm_name, const char* prm_model) :
     _class_name = "LaserChip";
     _pChip_front = NULL;
     _pChip_behind = NULL;
-    _pDispatcher = NULL; //LaserChipDispatcherã® new æ™‚ã«è¨­å®šã•ã‚Œã‚‹ã€‚
+    _pDispatcher = NULL; //LaserChipDispatcher‚Ì new ‚Éİ’è‚³‚ê‚éB
     _chip_kind = 1;
     _is_regist_hitarea = false;
     _hitarea_edge_length = 0;
@@ -75,7 +75,7 @@ void LaserChip::onActive() {
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
 //            "/_is_active_flg="<<_is_active_flg);
 //    _TRACE_("LaserChip::onActive() _frame_of_behaving_from_onActive = 0;!!!"<<getName()<<"");
-    //å‡ºç¾æ™‚
+    //oŒ»
     _chip_kind = 1;
     if (_pChip_front == NULL) {
 //        if (_pDispatcher->_pSeConnection) {
@@ -100,18 +100,18 @@ void LaserChip::processBehavior() {
 
 
 void LaserChip::processPreJudgement() {
-    //å‰æ–¹ãƒãƒƒãƒ—ã¨é›¢ã‚Œã™ããŸå ´åˆã«ã€ä¸­é–“ã«å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸã‚’ä¸€æ™‚çš„ã«æœ‰åŠ¹åŒ–
-    //ã“ã®å‡¦ç†ã¯processBehavior()ã§è¡Œãˆãªã„ã€‚ãªãœãªã‚‰ã°ã€_pChip_front ãŒåº§æ¨™ç§»å‹•æ¸ˆã¿ã®ä¿è¨¼ãŒãªã„ãŸã‚ã€‚
+    //‘O•ûƒ`ƒbƒv‚Æ—£‚ê‚·‚¬‚½ê‡‚ÉA’†ŠÔ‚É“–‚½‚è”»’è—Ìˆæ‚ğˆê“I‚É—LŒø‰»
+    //‚±‚Ìˆ—‚ÍprocessBehavior()‚Ås‚¦‚È‚¢B‚È‚º‚È‚ç‚ÎA_pChip_front ‚ªÀ•WˆÚ“®Ï‚İ‚Ì•ÛØ‚ª‚È‚¢‚½‚ßB
 
     static int dX, dY, dZ,cX, cY, cZ,h;
     //_TRACE_("LaserChip::processBehavior()st "<<getName()<<" bump="<<canHit());
-    if (_is_regist_hitarea) { //registHitAreaCubeãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã£ã¦ç™»éŒ²ã•ã‚ŒãŸå ´åˆã€‚
+    if (_is_regist_hitarea) { //registHitAreaCubeƒƒ\ƒbƒh‚É‚æ‚Á‚Ä“o˜^‚³‚ê‚½ê‡B
         if (_pChip_front != NULL && _pChip_front->_pChip_front != NULL) {
             dX = _pChip_front->_X - _X;
             dY = _pChip_front->_Y - _Y;
             dZ = _pChip_front->_Z - _Z;
             if (abs(dX) >= _hitarea_edge_length*3 || abs(dY) >= _hitarea_edge_length*3 || abs(dZ) >= _hitarea_edge_length*3) {
-                //è‡ªèº«ã¨å‰æ–¹ãƒãƒƒãƒ—ã®ä¸­é–“ã«å½“ãŸã‚Šåˆ¤å®šã‚’ä½œã‚Šå‡ºã™
+                //©g‚Æ‘O•ûƒ`ƒbƒv‚Ì’†ŠÔ‚É“–‚½‚è”»’è‚ğì‚èo‚·
                 cX = dX / 2;
                 cY = dY / 2;
                 cZ = dZ / 2;
@@ -129,7 +129,7 @@ void LaserChip::processPreJudgement() {
             } else {
                 _pCollisionChecker->disable(1);
             }
-//            //ä¼¸ã³ã™ããŸã‚‰åˆ‡ã‚Œã‚‹
+//            //L‚Ñ‚·‚¬‚½‚çØ‚ê‚é
 //            if (abs(dX) >= _hitarea_edge_length*5 || abs(dY) >= _hitarea_edge_length*5 || abs(dZ) >= _hitarea_edge_length*5) {
 //                inactivate();
 //            }
@@ -138,54 +138,54 @@ void LaserChip::processPreJudgement() {
         }
     }
 
-    GgafDx9MeshSetActor::processPreJudgement(); //ï¼˜åˆ†æœ¨ç™»éŒ²
-    //å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸã‚’æ›´æ–°ã—ã¦ã‹ã‚‰processPreJudgementã§ï¼˜åˆ†æœ¨ç™»éŒ²ã™ã‚‹ã“ã¨ã€‚
+    GgafDx9MeshSetActor::processPreJudgement(); //‚W•ª–Ø“o˜^
+    //“–‚½‚è”»’è—Ìˆæ‚ğXV‚µ‚Ä‚©‚çprocessPreJudgement‚Å‚W•ª–Ø“o˜^‚·‚é‚±‚ÆB
 
 }
 
 void LaserChip::processJudgement() {
     //_TRACE_("LaserChip::processJudgement()st "<<getName()<<" bump="<<canHit());
     if (isOutOfGameSpace()) {
-        //ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—ã¯Disprcherç™»éŒ²å‰æã®ãŸã‚ã€ã‚²ãƒ¼ãƒ ç”»é¢å¤–ã¯ sayonara() ã§ã¯ãªãã¦inactivate() ã«ã™ã‚‹ã€‚
+        //ƒŒ[ƒU[ƒ`ƒbƒv‚ÍDisprcher“o˜^‘O’ñ‚Ì‚½‚ßAƒQ[ƒ€‰æ–ÊŠO‚Í sayonara() ‚Å‚Í‚È‚­‚Äinactivate() ‚É‚·‚éB
         inactivate();
     }
-    //ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—ç¨®åˆ¥ è¨­å®šã€‚
-    //ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿ã¨ãªã‚Šã¾ã™ã€‚
+    //ƒŒ[ƒU[ƒ`ƒbƒví•Ê İ’èB
+    //ƒVƒF[ƒ_[‚Ìƒpƒ‰ƒ[ƒ^‚Æ‚È‚è‚Ü‚·B
     //
-    //      -==========<>            ãƒ¬ãƒ¼ã‚¶ãƒ¼ã¯
+    //      -==========<>            ƒŒ[ƒU[‚Í
     //
-    //      -= === === === <>        ã“ã‚“ãªãµã†ã«åˆ†æ–­ã•ã‚Œã¦ã„ã¾ã™ã€‚
+    //      -= === === === <>        ‚±‚ñ‚È‚Ó‚¤‚É•ª’f‚³‚ê‚Ä‚¢‚Ü‚·B
     //
-    //    | -=|===|===|===|<> |     å·¦å›³ã¯ãƒ¬ãƒ¼ã‚¶ãƒ¼ã‚’ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã§åŒºåˆ‡ã£ãŸã¤ã‚‚ã‚Šã®å›³
+    //    | -=|===|===|===|<> |     ¶}‚ÍƒŒ[ƒU[‚ğƒIƒuƒWƒFƒNƒg‚Å‹æØ‚Á‚½‚Â‚à‚è‚Ì}
     //
     //    <--><--><--><--><-->^
     //      ^   ^   ^   ^   ^ |
     //      |   |   |   |   | |
-    //      |   |   |   |   |  `----- 4:å…ˆç«¯ãƒãƒƒãƒ—(éè¡¨ç¤ºã§ã€ä¸­é–“å…ˆé ­ãƒãƒƒãƒ—ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã ã‘ã«å­˜åœ¨)
-    //      |   |   |   |    `----- 3:ä¸­é–“å…ˆé ­ãƒãƒƒãƒ—(è¡¨ç¤ºã•ã‚Œã‚‹å®Ÿè³ªã®å…ˆé ­)
-    //      |   |   |    `----- 2:ä¸­é–“ãƒãƒƒãƒ—
-    //      |   |    `----- 2:ä¸­é–“ãƒãƒƒãƒ—
-    //      |    `----- 2:ä¸­é–“ãƒãƒƒãƒ—
-    //       `----- 1:æœ«å°¾ãƒãƒƒãƒ—
+    //      |   |   |   |   |  `----- 4:æ’[ƒ`ƒbƒv(”ñ•\¦‚ÅA’†ŠÔæ“ªƒ`ƒbƒv‚ğ•\¦‚·‚é‚½‚ß‚¾‚¯‚É‘¶İ)
+    //      |   |   |   |    `----- 3:’†ŠÔæ“ªƒ`ƒbƒv(•\¦‚³‚ê‚éÀ¿‚Ìæ“ª)
+    //      |   |   |    `----- 2:’†ŠÔƒ`ƒbƒv
+    //      |   |    `----- 2:’†ŠÔƒ`ƒbƒv
+    //      |    `----- 2:’†ŠÔƒ`ƒbƒv
+    //       `----- 1:––”öƒ`ƒbƒv
     //
-    //å…ˆé ­ã¨å…ˆç«¯ã¨ã„ã†è¨€è‘‰ã§åŒºåˆ¥ã—ã¦ã„ã¾ã™ã€‚
+    //æ“ª‚Ææ’[‚Æ‚¢‚¤Œ¾—t‚Å‹æ•Ê‚µ‚Ä‚¢‚Ü‚·B
     setHitAble(true);
     if (_pChip_front) {
         if (_pChip_behind) {
             if (_pChip_behind->isActive()) {
                 if (_pChip_front->_pChip_front) {
-                    _chip_kind = 2; //ä¸­é–“ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ—
+                    _chip_kind = 2; //’†ŠÔƒeƒNƒXƒ`ƒƒƒ`ƒbƒv
                 } else {
-                    _chip_kind = 3; //å…ˆé ­ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ—
+                    _chip_kind = 3; //æ“ªƒeƒNƒXƒ`ƒƒƒ`ƒbƒv
                 }
             } else {
-                _chip_kind = 1; //ç™ºå°„å…ƒã®æœ«ç«¯ãƒ†ã‚¯ã‚¹ãƒãƒ£ãƒãƒƒãƒ—
+                _chip_kind = 1; //”­ËŒ³‚Ì––’[ƒeƒNƒXƒ`ƒƒƒ`ƒbƒv
             }
         } else {
-            _chip_kind = 1; //æ™®é€šã®æœ«ç«¯ãƒ†ã‚¯ã‚¹ãƒãƒ£
+            _chip_kind = 1; //•’Ê‚Ì––’[ƒeƒNƒXƒ`ƒƒ
         }
     } else {
-        _chip_kind = 4; //å…ˆç«¯ãƒãƒƒãƒ—ã€‚ä½•ã‚‚æç”»ã—ãŸããªã„
+        _chip_kind = 4; //æ’[ƒ`ƒbƒvB‰½‚à•`‰æ‚µ‚½‚­‚È‚¢
         setHitAble(false);
     }
 }
@@ -193,7 +193,7 @@ void LaserChip::processJudgement() {
 
 void LaserChip::processDraw() {
     //_TRACE_("LaserChip::processDraw()st "<<getName()<<" bump="<<canHit());
-    _draw_set_num = 1; //åŒä¸€æç”»æ·±åº¦ã«ã€GgafDx9MeshSetActorã®åŒã˜ãƒ¢ãƒ‡ãƒ«ãŒé€£ç¶šã—ã¦ã„ã‚‹ã‚«ã‚¦ãƒ³ãƒˆæ•°
+    _draw_set_num = 1; //“¯ˆê•`‰æ[“x‚ÉAGgafDx9MeshSetActor‚Ì“¯‚¶ƒ‚ƒfƒ‹‚ª˜A‘±‚µ‚Ä‚¢‚éƒJƒEƒ“ƒg”
     GgafDx9DrawableActor* _pNextDrawActor = _pNext_TheSameDrawDepthLevel;
     while (true) {
         if (_pNextDrawActor != NULL)  {
@@ -215,47 +215,47 @@ void LaserChip::processDraw() {
     pID3DXEffect = _pMeshSetEffect->_pID3DXEffect;
 
     HRESULT hr;
-    //VIEWå¤‰æ›è¡Œåˆ—
+    //VIEW•ÏŠ·s—ñ
     hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_hMatView, &pCAM->_vMatrixView);
-    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatView) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
     LaserChip *pDrawLaserChipActor;
     pDrawLaserChipActor = this;
 
     for (int i = 0; i < _draw_set_num; i++) {
         hr = pID3DXEffect->SetMatrix(_pMeshSetEffect->_ahMatWorld[i], &(pDrawLaserChipActor->_matWorld));
-        checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
         if (pDrawLaserChipActor->_pChip_front != NULL) {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç¨®é¡
+            //ƒeƒNƒXƒ`ƒƒí—Ş
             hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚2");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) ‚É¸”s‚µ‚Ü‚µ‚½B2");
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_pChip_front->_matWorld));
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚1");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) ‚É¸”s‚µ‚Ü‚µ‚½B1");
         } else {
-            //ãƒ†ã‚¯ã‚¹ãƒãƒ£ç¨®é¡
+            //ƒeƒNƒXƒ`ƒƒí—Ş
             hr = pID3DXEffect->SetInt(_ahKind[i], pDrawLaserChipActor->_chip_kind);
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚2");
-            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //å…ˆé ­ãŒãªã„ã®ã§è‡ªä¿¡ã®_matWorld
-            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚2");
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetInt(_hKind) ‚É¸”s‚µ‚Ü‚µ‚½B2");
+            hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //æ“ª‚ª‚È‚¢‚Ì‚Å©M‚Ì_matWorld
+            checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) ‚É¸”s‚µ‚Ü‚µ‚½B2");
         }
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
         if (i > 0) {
-            //ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã‚’é€²ã‚ã‚‹
+            //ƒAƒNƒeƒBƒu‚ği‚ß‚é
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
     }
 
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ–³Œø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ•s‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
     _pMeshSetModel->draw(this);
 
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
     //_TRACE_("LaserChip::processDraw()ed "<<getName()<<" bump="<<canHit());
 }
@@ -275,9 +275,9 @@ void LaserChip::onInactive() {
 //            "/_on_change_to_active_flg="<<_on_change_to_active_flg<<
 //            "/_on_change_to_inactive_flg="<<_on_change_to_inactive_flg<<
 //            "/_is_active_flg="<<_is_active_flg);
-    //æ¶ˆå¤±æ™‚
+    //Á¸
     _pDispatcher->_num_chip_active--;
-    //å‰å¾Œã®ç¹‹ãŒã‚Šã‚’åˆ‡æ–­
+    //‘OŒã‚ÌŒq‚ª‚è‚ğØ’f
     if (_pChip_front) {
         _pChip_front->_pChip_behind = NULL;
     }
@@ -291,7 +291,7 @@ void LaserChip::onInactive() {
 
 void LaserChip::registHitAreaCube(int prm_edge_length) {
     //_TRACE_("LaserChip::registHitAreaCube()st "<<getName()<<" bump="<<canHit());
-    //ä¸‹ä½ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ—ã§ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆã•ã‚Œã¦ã„ã‚‹å¯èƒ½æ€§ã‚ã‚Š
+    //‰ºˆÊƒŒ[ƒU[ƒ`ƒbƒv‚ÅƒI[ƒo[ƒ‰ƒCƒg‚³‚ê‚Ä‚¢‚é‰Â”\«‚ ‚è
     _is_regist_hitarea = true;
     _hitarea_edge_length = prm_edge_length;
     _harf_hitarea_edge_length = _hitarea_edge_length / 2;

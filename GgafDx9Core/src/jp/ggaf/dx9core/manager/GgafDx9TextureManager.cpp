@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -10,14 +10,14 @@ GgafDx9TextureManager::GgafDx9TextureManager(const char* prm_manager_name) :
 GgafDx9Texture* GgafDx9TextureManager::processCreateResource(char* prm_idstr) {
     GgafDx9Texture* pResourceTexture;
     pResourceTexture = NEW GgafDx9Texture(prm_idstr);
-    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ç”Ÿæˆã—ã¾ã—ãŸã€‚");
+    TRACE3(" GgafDx9TextureManager::processCreateResource "<<prm_idstr<<" ‚ÌƒeƒNƒXƒ`ƒƒ¶¬‚µ‚Ü‚µ‚½B");
     return pResourceTexture;
 }
 
 GgafResourceConnection<GgafDx9Texture>* GgafDx9TextureManager::processCreateConnection(char* prm_idstr, GgafDx9Texture* prm_pResource) {
-    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
+    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬ŠJŽnB");
     GgafDx9TextureConnection* pConnection = NEW GgafDx9TextureConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
+    TRACE3(" GgafDx9TextureManager::processCreateConnection "<<prm_idstr<<" ‚ð¶¬I—¹B");
     return pConnection;
 }
 

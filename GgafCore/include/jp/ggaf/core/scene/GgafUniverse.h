@@ -1,12 +1,12 @@
-ï»¿#ifndef GGAFUNIVERSE_H_
+#ifndef GGAFUNIVERSE_H_
 #define GGAFUNIVERSE_H_
 namespace GgafCore {
 
 /**
- * ã“ã®ä¸–ã‚¯ãƒ©ã‚¹ .
- * æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã§è¨€ã†ã€ã“ã®ä¸–ã€ã¨ã¯ã€å…¨ã¦ã®ã‚·ãƒ¼ãƒ³(GgafSceneã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ)ã®é ‚ç‚¹ã«ä½ç½®ã™ã‚‹ç‰¹åˆ¥ãªã‚·ãƒ¼ãƒ³ã§ã™ã€‚<BR>
- * ç¥è‡ªã‚‰ãŒ new ã—ã¦ãã‚Œã¾ã™ã€‚æœ¬ã‚¯ãƒ©ã‚¹ãŒ new ã•ã‚Œã‚‹ã¨ã€èŠ‹ã¥ã‚‹çš„ã«ã‚·ãƒ¼ãƒ³(GgafScene)ãŒ new ã•ã‚Œã¾ã™ã€‚<BR>
- * å°‘ãªãã¨ã‚‚ï¼‘ã¤ã¯ã“ã®ä¸–ã‚’newã—ãªã‘ã‚Œã°ã„ã‘ã¾ã›ã‚“ã€‚<BR>
+ * ‚±‚Ì¢ƒNƒ‰ƒX .
+ * –{ƒvƒƒOƒ‰ƒ€‚ÅŒ¾‚¤w‚±‚Ì¢x‚Æ‚ÍA‘S‚Ä‚ÌƒV[ƒ“(GgafSceneƒIƒuƒWƒFƒNƒg)‚Ì’¸“_‚ÉˆÊ’u‚·‚é“Á•Ê‚ÈƒV[ƒ“‚Å‚·B<BR>
+ * _©‚ç‚ª new ‚µ‚Ä‚­‚ê‚Ü‚·B–{ƒNƒ‰ƒX‚ª new ‚³‚ê‚é‚ÆAˆğ‚Ã‚é“I‚ÉƒV[ƒ“(GgafScene)‚ª new ‚³‚ê‚Ü‚·B<BR>
+ * ­‚È‚­‚Æ‚à‚P‚Â‚Í‚±‚Ì¢‚ğnew‚µ‚È‚¯‚ê‚Î‚¢‚¯‚Ü‚¹‚ñB<BR>
  * @version 1.00
  * @since 2009/07/23
  * @author Masatoshi Tsuge
@@ -20,58 +20,58 @@ public:
     GgafUniverse(const char* prm_name);
 
     /**
-     * åˆæœŸå‡¦ç†<BR>
+     * ‰Šúˆ—<BR>
      */
     void initialize() override {
     }
 
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æŒ¯ã‚‹èˆã„<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚ÌU‚é•‘‚¢<BR>
      */
     virtual void processBehavior() override {
     }
     virtual void processPreJudgement() override {
     }
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®åˆ¤å®šå‡¦ç†<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚Ì”»’èˆ—<BR>
      */
     virtual void processJudgement() override {
 
     }
 
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æç”»äº‹å‰å‡¦ç†<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æ–‘Oˆ—<BR>
      */
     virtual void processPreDraw() override {
     }
 
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æç”»å‡¦ç†<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æˆ—<BR>
      */
     virtual void draw() override {
     }
 
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æç”»å‡¦ç†<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æˆ—<BR>
      */
     virtual void processDraw() override {
     }
 
     /**
-     * ãƒ•ãƒ¬ãƒ¼ãƒ æ¯ã®æç”»äº‹å¾Œå‡¦ç†<BR>
+     * ƒtƒŒ[ƒ€–ˆ‚Ì•`‰æ–Œãˆ—<BR>
      */
     virtual void processAfterDraw() override {
     }
 
     /**
-     * ä½•ã‹ã®å‡¦ç†<BR>
-     * @param prm_no ä½•ã‹ã‚’è¡¨ã™æ•°å€¤
+     * ‰½‚©‚Ìˆ—<BR>
+     * @param prm_no ‰½‚©‚ğ•\‚·”’l
      */
     virtual void processHappen(int prm_no) override {
     }
 
     /**
-     * æœ€çµ‚å‡¦ç†<BR>
+     * ÅIˆ—<BR>
      */
     virtual void processFinal() override {
     }

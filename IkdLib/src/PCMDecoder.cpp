@@ -1,4 +1,4 @@
-ï»¿// PCMDecoder.cpp
+// PCMDecoder.cpp
 //
 
 #include <memory.h>
@@ -6,7 +6,7 @@
 #include <string.h>
 
 namespace Dix {
-	//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	PCMDecoder::PCMDecoder() :
 		isLoop_			( false ),
 		isReady_		( false ),
@@ -16,11 +16,11 @@ namespace Dix {
 	{
 	}
 
-	//! ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	//! ƒfƒXƒgƒ‰ƒNƒ^
 	PCMDecoder::~PCMDecoder() {
 	}
 
-	//! ã‚¯ãƒªã‚¢
+	//! ƒNƒŠƒA
 	void PCMDecoder::clear() {
 		isLoop_ = false;
 		isReady_ = false;
@@ -29,22 +29,22 @@ namespace Dix {
 		bitRate_ = 0;
 	}
 
-	//! ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°å–å¾—
+	//! ƒ‹[ƒvƒtƒ‰ƒOæ“¾
 	bool PCMDecoder::isLoop() {
 		return isLoop_;
 	}
 
-	//! æº–å‚™ã§ããŸï¼Ÿ
+	//! €”õ‚Å‚«‚½H
 	bool PCMDecoder::isReady() {
 		return isReady_;
 	}
 
-	//! ãƒ«ãƒ¼ãƒ—ã‚’è¨­å®š
+	//! ƒ‹[ƒv‚ğİ’è
 	void PCMDecoder::setLoop( bool isLoop ) {
 		isLoop_ = isLoop;
 	}
 
-	//! WAVEFORMATEXæ§‹é€ ä½“ã‚’å–å¾—
+	//! WAVEFORMATEX\‘¢‘Ì‚ğæ“¾
 	bool PCMDecoder::getWaveFormatEx( WAVEFORMATEX& waveFormatEx ) {
 		if ( isReady() == false ) {
 			return false;
@@ -61,22 +61,22 @@ namespace Dix {
 		return true;
 	}
 
-	//! æº–å‚™ãƒ•ãƒ©ã‚°è¨­å®š
+	//! €”õƒtƒ‰ƒOİ’è
 	void PCMDecoder::setReady( bool isReady ) {
 		isReady_ = isReady;
 	}
 
-	//! ãƒãƒ£ãƒ³ãƒãƒ«æ•°è¨­å®š
+	//! ƒ`ƒƒƒ“ƒlƒ‹”İ’è
 	void PCMDecoder::setChannelNum( unsigned int channelNum ) {
 		channelNum_ = channelNum;
 	}
 
-	//! ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆã‚’è¨­å®š
+	//! ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg‚ğİ’è
 	void PCMDecoder::setSamplingRate( unsigned int samplingRate ) {
 		samplingRate_ = samplingRate;
 	}
 
-	//! ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆã‚’è¨­å®š
+	//! ƒrƒbƒgƒŒ[ƒg‚ğİ’è
 	void PCMDecoder::setBitRate( unsigned int bitRate ) {
 		bitRate_ = bitRate;
 	}

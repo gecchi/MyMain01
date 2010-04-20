@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFEXCEPTION_H_
+#ifndef GGAFEXCEPTION_H_
 #define GGAFEXCEPTION_H_
 namespace GgafCore {
 
 /**
- * æœ¬ãƒ©ã‚¤ãƒ–ãƒ©ãƒªä¾‹å¤–
+ * –{ƒ‰ƒCƒuƒ‰ƒŠ—áŠO
  * @version 1.00
  * @since 2007/11/14
  * @author Masatoshi Tsuge

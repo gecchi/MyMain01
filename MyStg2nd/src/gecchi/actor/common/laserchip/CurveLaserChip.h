@@ -1,12 +1,12 @@
-﻿#ifndef CURVELASERCHIP_H_
+#ifndef CURVELASERCHIP_H_
 #define CURVELASERCHIP_H_
 namespace MyStg2nd {
 
 /**
- * カーブレーザー用ポリラインのチップ .
- * カーブレーザーと表現しているが、
- * 正確には発射座標任意、移動方向固定,で隣接チップと手を取り合うレーザーというべきか。
- * 水撒きの時のホースから出る水方式レーザーと言うべきか、そんな感じ。
+ * �J�[�u���[�U�[�p�|�����C���̃`�b�v .
+ * �J�[�u���[�U�[�ƕ\�����Ă��邪�A
+ * ���m�ɂ͔��ˍ��W�C�ӁA�ړ������Œ�,�ŗאڃ`�b�v�Ǝ����荇�����[�U�[�Ƃ����ׂ����B
+ * ���T���̎��̃z�[�X����o�鐅�������[�U�[�ƌ����ׂ����A����Ȋ����B
  * @version 1.00
  * @since 2009/08/27
  * @author Masatoshi Tsuge
@@ -20,9 +20,9 @@ public:
     virtual void initialize() override;
 
     /**
-     * レーザーチップ座標計算等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processBehavior() メソッドも呼び出してください。
+     * ���[�U�[�`�b�v���W�v�Z������ .
+     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
+     * ���̍� �́A�{�N���X�� processBehavior() ���\�b�h���Ăяo���Ă��������B
      */
     virtual void processBehavior() override;
 
@@ -30,26 +30,26 @@ public:
     virtual void processPreJudgement() override;
 
     /**
-     * レーザーチップ判定等処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの processJudgement() メソッドも呼び出してください。
-     * 実は本メソッドで、GgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) を呼び出しており、
-     * このタイミングでワールド変換行列が確定しますので、オーバーライドの際は最後に CurveLaserChip::processJudgement(); と
-     * したほうが良いでしょう。
+     * ���[�U�[�`�b�v���蓙���� .
+     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
+     * ���̍� �́A�{�N���X�� processJudgement() ���\�b�h���Ăяo���Ă��������B
+     * ���͖{���\�b�h�ŁAGgafDx9GeometricActor::updateWorldMatrix_Mv(this, _matWorld) ���Ăяo���Ă���A
+     * ���̃^�C�~���O�Ń��[���h�ϊ��s�񂪊m�肵�܂��̂ŁA�I�[�o�[���C�h�̍ۂ͍Ō�� CurveLaserChip::processJudgement(); ��
+     * �����ق����ǂ��ł��傤�B
      */
     virtual void processJudgement() override;
 
     /**
-     * レーザーチップ出現時処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの onActive() メソッドも呼び出してください。
+     * ���[�U�[�`�b�v�o�������� .
+     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
+     * ���̍� �́A�{�N���X�� onActive() ���\�b�h���Ăяo���Ă��������B
      */
     virtual void onActive() override;
 
     /**
-     * レーザーチップ消失時処理 .
-     * 独自設定したい場合、継承して別クラスを作成し、オーバーライドしてください。
-     * その際 は、本クラスの onInactive() メソッドも呼び出してください。
+     * ���[�U�[�`�b�v���������� .
+     * �Ǝ��ݒ肵�����ꍇ�A�p�����ĕʃN���X���쐬���A�I�[�o�[���C�h���Ă��������B
+     * ���̍� �́A�{�N���X�� onInactive() ���\�b�h���Ăяo���Ă��������B
      */
     virtual void onInactive() override;
 

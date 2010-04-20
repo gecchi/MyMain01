@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -6,11 +6,11 @@ using namespace GgafDx9Core;
 
 GgafDx9TextureConnection::GgafDx9TextureConnection(char* prm_idstr, GgafDx9Texture* prm_pResource)
     :GgafResourceConnection<GgafDx9Texture>(prm_idstr, prm_pResource) {
-    TRACE3("GgafDx9TextureConnectionï¼šã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ prm_idstr="<<prm_idstr);
+    TRACE3("GgafDx9TextureConnectionFƒRƒ“ƒXƒgƒ‰ƒNƒ^ prm_idstr="<<prm_idstr);
 }
 
 void GgafDx9TextureConnection::processReleaseResource(GgafDx9Texture* prm_pResource) {
-    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<getIdStr()<<" é–‹å§‹");
+    TRACE3("GgafDx9TextureConnection::processReleaseResource _idstr="<<getIdStr()<<" ŠJŽn");
     DELETE_IMPOSSIBLE_NULL(prm_pResource);
 }
 

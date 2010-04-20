@@ -1,4 +1,4 @@
-﻿#ifndef TESTDISPATCHER_H_
+#ifndef TESTDISPATCHER_H_
 #define TESTDISPATCHER_H_
 namespace MyStg2nd {
 

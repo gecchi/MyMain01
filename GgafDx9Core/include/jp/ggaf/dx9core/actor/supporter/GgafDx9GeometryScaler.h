@@ -1,75 +1,75 @@
-ï»¿#ifndef GGAFDX9GEOMETRYSCALER_H_
+#ifndef GGAFDX9GEOMETRYSCALER_H_
 #define GGAFDX9GEOMETRYSCALER_H_
 namespace GgafDx9Core {
 
 /**
- * ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°æ–¹æ³•
+ * ƒXƒP[ƒŠƒ“ƒO•û–@
  */
 
 
 /**
- * æ‹¡å¤§ç¸®å°æ”¯æ´ã‚¯ãƒ©ã‚¹.
- * GgafDx9GeometricActor ã®ãƒ¡ãƒ³ãƒã®<BR>
- * _SX , _SY, _SZ  ãƒ»ãƒ»ãƒ» ã‚¢ã‚¯ã‚¿ãƒ¼ã®ã‚¹ã‚±ãƒ¼ãƒ«<BR>
- * ã‚’ã€ç°¡å˜ã«æ“ä½œã™ã‚‹ãŸã‚ã«è¨­è¨ˆã—ãŸã€‚<BR>
- * æ‹¡å¤§ç¸®å°1.0å€ï¼ˆã‚¹ã‚±ãƒ¼ãƒ«ç„¡ã—ï¼‰ã¯ã€æœ¬ã‚¯ãƒ©ã‚¹ã§ã®ã‚¹ã‚±ãƒ¼ãƒ«å€¤1000ã«
- * ç›¸å½“ã™ã‚‹ã€‚ä»¥ä¸‹ä¾‹
- * [æ—¥æœ¬èªž]     â†’ [æœ¬ã‚¯ãƒ©ã‚¹ã®ã‚¹ã‚±ãƒ¼ãƒ«å€¤]
- * ç­‰å€         â†’ 1000
- * æ‹¡å¤§çŽ‡2.5å€  â†’ 2500
- * åŠåˆ†ã®å¤§ãã• â†’ 500
- * ç¸®å°çŽ‡80%    â†’ 800
- * æœ¬ã‚¯ãƒ©ã‚¹ã§ã¯ã€ã‚¹ã‚±ãƒ¼ãƒ«ã¨ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã¨ã„ã†å˜èªžã‚’æ¬¡ã®æ„å‘³ã§ä½¿ç”¨ã—ã¦ã„ã‚‹ç®‡æ‰€ãŒã‚ã‚‹ã€‚
- * ã‚¹ã‚±ãƒ¼ãƒ«ãƒ»ãƒ»ãƒ»ç¾åœ¨ï¼ˆã®ãƒ•ãƒ¬ãƒ¼ãƒ ï¼‰ã®æ‹¡å¤§ç¸®å°çŠ¶æ…‹
- * ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»ãƒ»ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ é–“ã®æ‹¡å¤§ç¸®å°çŠ¶æ…‹ã®é·ç§»
- * 2009/05/22 GgafDx9GeometryMover ã‹ã‚‰åˆ†å‰²ã—ãŸã€‚
+ * Šg‘åk¬Žx‰‡ƒNƒ‰ƒX.
+ * GgafDx9GeometricActor ‚Ìƒƒ“ƒo‚Ì<BR>
+ * _SX , _SY, _SZ  EEE ƒAƒNƒ^[‚ÌƒXƒP[ƒ‹<BR>
+ * ‚ðAŠÈ’P‚É‘€ì‚·‚é‚½‚ß‚ÉÝŒv‚µ‚½B<BR>
+ * Šg‘åk¬1.0”{iƒXƒP[ƒ‹–³‚µj‚ÍA–{ƒNƒ‰ƒX‚Å‚ÌƒXƒP[ƒ‹’l1000‚É
+ * ‘Š“–‚·‚éBˆÈ‰º—á
+ * [“ú–{Œê]     ¨ [–{ƒNƒ‰ƒX‚ÌƒXƒP[ƒ‹’l]
+ * “™”{         ¨ 1000
+ * Šg‘å—¦2.5”{  ¨ 2500
+ * ”¼•ª‚Ì‘å‚«‚³ ¨ 500
+ * k¬—¦80%    ¨ 800
+ * –{ƒNƒ‰ƒX‚Å‚ÍAƒXƒP[ƒ‹‚ÆƒXƒP[ƒŠƒ“ƒO‚Æ‚¢‚¤’PŒê‚ðŽŸ‚ÌˆÓ–¡‚ÅŽg—p‚µ‚Ä‚¢‚é‰ÓŠ‚ª‚ ‚éB
+ * ƒXƒP[ƒ‹EEEŒ»Ýi‚ÌƒtƒŒ[ƒ€j‚ÌŠg‘åk¬ó‘Ô
+ * ƒXƒP[ƒŠƒ“ƒOEEEƒtƒŒ[ƒ€ŠÔ‚ÌŠg‘åk¬ó‘Ô‚Ì‘JˆÚ
+ * 2009/05/22 GgafDx9GeometryMover ‚©‚ç•ªŠ„‚µ‚½B
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
 class GgafDx9GeometryScaler : public GgafCore::GgafObject {
 
-public: //_SX , _SY, _SZ æ“ä½œé–¢é€£ //////////////////////////////////////////////
-    /** å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ */
+public: //_SX , _SY, _SZ ‘€ìŠÖ˜A //////////////////////////////////////////////
+    /** ‘ÎÛƒAƒNƒ^[ */
     GgafDx9GeometricActor* _pActor;
 
-    /** ã‚¹ã‚±ãƒ¼ãƒ«(1000 ã§ 1å€) */
-    int _scale[3]; //[0]:Xè»¸ã€[1]:Yè»¸ã€[2]:Zè»¸ã€‚ä»¥é™åŒæ§˜ã«  [3]ãƒ»ãƒ»ãƒ»Xè»¸ã€Yè»¸ã€Zè»¸ã®æ„
-    /** ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ« */
+    /** ƒXƒP[ƒ‹(1000 ‚Å 1”{) */
+    int _scale[3]; //[0]:XŽ²A[1]:YŽ²A[2]:ZŽ²BˆÈ~“¯—l‚É  [3]EEEXŽ²AYŽ²AZŽ²‚ÌˆÓ
+    /** –Ú•W‚ÌƒXƒP[ƒ‹ */
     int _target_scale[3];
-    /** ã‚¹ã‚±ãƒ¼ãƒ«ä¸Šé™ */
+    /** ƒXƒP[ƒ‹ãŒÀ */
     int _top_scale[3];
-    /** ã‚¹ã‚±ãƒ¼ãƒ«ä¸‹é™ */
+    /** ƒXƒP[ƒ‹‰ºŒÀ */
     int _bottom_scale[3];
-    /** æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¹ã‚±ãƒ¼ãƒ«ã®å¢—åˆ† */
+    /** –ˆƒtƒŒ[ƒ€‚ÌƒXƒP[ƒ‹‚Ì‘•ª */
     int _velo_scale[3];
-    /** æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã®ã‚¹ã‚±ãƒ¼ãƒ«ã®å¢—åˆ†ã®å¢—åˆ† */
+    /** –ˆƒtƒŒ[ƒ€‚ÌƒXƒP[ƒ‹‚Ì‘•ª‚Ì‘•ª */
     int _acce_scale[3];
-    /** ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã®ã‚¢ã‚¿ãƒƒã‚¯ãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** ŽOŠp”g‚Ì”gŒ`‚ÅƒXƒP[ƒŠƒ“ƒO‚ÌƒAƒ^ƒbƒNƒtƒŒ[ƒ€ */
     DWORD _beat_attack_frame[3];
-    /** ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã®ãƒ¬ã‚¹ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** ŽOŠp”g‚Ì”gŒ`‚ÅƒXƒP[ƒŠƒ“ƒO‚ÌƒŒƒXƒgƒtƒŒ[ƒ€ */
     DWORD _beat_rest_frame[3];
-    /** ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** ƒXƒP[ƒŠƒ“ƒO‚É”ï‚â‚·ƒtƒŒ[ƒ€” */
     DWORD _beat_spend_frame[3];
-    /** ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’é–‹å§‹ã—ãŸãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** ƒXƒP[ƒŠƒ“ƒO‚ðŠJŽn‚µ‚½ƒtƒŒ[ƒ€ */
     DWORD _beat_begin_frame[3];
-    /** ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆï¼ˆ2ã§æ‹¡å¤§ç¸®å°ãƒ¯ãƒ³ã‚»ãƒƒãƒˆã€1ãªã‚‰ã°æ‹¡å¤§orç¸®å°ã®ç‰‡é“ï¼‰ */
+    /** ƒ‹[ƒvƒJƒEƒ“ƒgi2‚ÅŠg‘åk¬ƒƒ“ƒZƒbƒgA1‚È‚ç‚ÎŠg‘åork¬‚Ì•Ð“¹j */
     int _one_way_cnt[3];
-    /** ã‚¹ãƒˆãƒƒãƒ—ã™ã‚‹äºˆå®šã®ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆ */
+    /** ƒXƒgƒbƒv‚·‚é—\’è‚Ìƒ‹[ƒvƒJƒEƒ“ƒg */
     int _stop_one_way_num[3];
-    /** ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°æ–¹æ³• */
+    /** ƒXƒP[ƒŠƒ“ƒO•û–@ */
     GgafDx9ScaleMethod _method[3];
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param   prm_pActor  é©ç”¨å¯¾è±¡ã®Actor
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param   prm_pActor  “K—p‘ÎÛ‚ÌActor
      */
     GgafDx9GeometryScaler(GgafDx9GeometricActor* prm_pActor);
 
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ç›¸å¯¾æŒ‡å®šï¼ˆå…¨è»¸æŒ‡å®šï¼‰
-     * @param prm_scale_diff ã‚¹ã‚±ãƒ¼ãƒ«å€¤å¢—åˆ†
+     * ƒXƒP[ƒ‹‚ð‘Š‘ÎŽw’èi‘SŽ²Žw’èj
+     * @param prm_scale_diff ƒXƒP[ƒ‹’l‘•ª
      */
     void addScale(int prm_scale_diff) {
         for (int axis = 0; axis < 3; axis++) {
@@ -77,17 +77,17 @@ public:
         }
     }
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ç›¸å¯¾æŒ‡å®šï¼ˆè»¸å˜ä½ã§æŒ‡å®šï¼‰
-     * @param prm_axis è»¸
-     * @param prm_scale_diff ã‚¹ã‚±ãƒ¼ãƒ«å€¤å¢—åˆ†
+     * ƒXƒP[ƒ‹‚ð‘Š‘ÎŽw’èiŽ²’PˆÊ‚ÅŽw’èj
+     * @param prm_axis Ž²
+     * @param prm_scale_diff ƒXƒP[ƒ‹’l‘•ª
      */
     void addScale(int prm_axis, int prm_scale_diff) {
         setScale(prm_axis, _scale[prm_axis] + prm_scale_diff);
     }
 
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’çµ¶å¯¾æŒ‡å®šï¼ˆå…¨è»¸æŒ‡å®šï¼‰
-     * @param prm_scale ã‚¹ã‚±ãƒ¼ãƒ«å€¤
+     * ƒXƒP[ƒ‹‚ðâ‘ÎŽw’èi‘SŽ²Žw’èj
+     * @param prm_scale ƒXƒP[ƒ‹’l
      */
     void setScale(int prm_scale) {
         for (int axis = 0; axis < 3; axis++) {
@@ -96,9 +96,9 @@ public:
     }
 
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’çµ¶å¯¾æŒ‡å®šï¼ˆè»¸å˜ä½ã§æŒ‡å®šï¼‰
-     * @param prm_axis è»¸
-     * @param prm_scale ã‚¹ã‚±ãƒ¼ãƒ«å€¤
+     * ƒXƒP[ƒ‹‚ðâ‘ÎŽw’èiŽ²’PˆÊ‚ÅŽw’èj
+     * @param prm_axis Ž²
+     * @param prm_scale ƒXƒP[ƒ‹’l
      */
     void setScale(int prm_axis, int prm_scale) {
         //_TRACE_("setScale ["<<prm_axis<<"]prm_scale="<<prm_scale);
@@ -113,10 +113,10 @@ public:
         //_TRACE_("setScale _scale ["<<prm_axis<<"] _scale[prm_axis]="<<prm_scale);
     }
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã®ä¸Šé™ä¸‹é™ã‚’è¨­å®šï¼ˆå…¨è»¸æŒ‡å®šï¼‰ .
-     * å¼•æ•°ã®å¤§å°ã¯æ°—ã«ã›ãšæ¸¡ã—ã¦(å†…éƒ¨ã§è‡ªå‹•åˆ¤åˆ¥)
-     * @param prm_scale1 ã‚¹ã‚±ãƒ¼ãƒ«å€¤1
-     * @param prm_scale2 ã‚¹ã‚±ãƒ¼ãƒ«å€¤2
+     * ƒXƒP[ƒ‹‚ÌãŒÀ‰ºŒÀ‚ðÝ’èi‘SŽ²Žw’èj .
+     * ˆø”‚Ì‘å¬‚Í‹C‚É‚¹‚¸“n‚µ‚Ä(“à•”‚ÅŽ©“®”»•Ê)
+     * @param prm_scale1 ƒXƒP[ƒ‹’l1
+     * @param prm_scale2 ƒXƒP[ƒ‹’l2
      */
     void forceScaleRange(int prm_scale1, int prm_scale2) {
         for (int axis = 0; axis < 3; axis++) {
@@ -124,10 +124,10 @@ public:
         }
     }
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã®ä¸Šé™ä¸‹é™ã‚’è¨­å®šï¼ˆè»¸å˜ä½ã§æŒ‡å®šï¼‰
-     * @param prm_axis è»¸
-     * @param prm_scale1 ã‚¹ã‚±ãƒ¼ãƒ«å€¤1
-     * @param prm_scale2 ã‚¹ã‚±ãƒ¼ãƒ«å€¤2
+     * ƒXƒP[ƒ‹‚ÌãŒÀ‰ºŒÀ‚ðÝ’èiŽ²’PˆÊ‚ÅŽw’èj
+     * @param prm_axis Ž²
+     * @param prm_scale1 ƒXƒP[ƒ‹’l1
+     * @param prm_scale2 ƒXƒP[ƒ‹’l2
      */
     void forceScaleRange(int prm_axis, int prm_scale1, int prm_scale2) {
         if (prm_scale1 < prm_scale2) {
@@ -140,9 +140,9 @@ public:
         //_TRACE_("forceScaleRange _bottom_scale["<<prm_axis<<"]="<<_bottom_scale[prm_axis]<<"/_top_scale["<<prm_axis<<"]="<<_top_scale[prm_axis]<<"");
     }
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ãƒªã‚»ãƒƒãƒˆ ï¼ˆå…¨è»¸æŒ‡å®šï¼‰ .
-     * æœ¬ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(GgafDx9GeometryScaler)ã«ã‚ˆã£ã¦å¤‰åŒ–ã•ãˆã‚‹å‰ã®
-     * åˆæœŸã®å¤§ãã•ã«æˆ»ã™ã€‚
+     * ƒXƒP[ƒ‹‚ðƒŠƒZƒbƒg i‘SŽ²Žw’èj .
+     * –{ƒIƒuƒWƒFƒNƒg(GgafDx9GeometryScaler)‚É‚æ‚Á‚Ä•Ï‰»‚³‚¦‚é‘O‚Ì
+     * ‰Šú‚Ì‘å‚«‚³‚É–ß‚·B
      */
     void setScaleToBottom() {
         for (int axis = 0; axis < 3; axis++) {
@@ -150,10 +150,10 @@ public:
         }
     }
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒ«ã‚’ãƒªã‚»ãƒƒãƒˆ ï¼ˆè»¸å˜ä½ã§æŒ‡å®šï¼‰
-     * æœ¬ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(GgafDx9GeometryScaler)ã«ã‚ˆã£ã¦å¤‰åŒ–ã•ãˆã‚‹å‰ã®
-     * åˆæœŸã®å¤§ãã•ã«æˆ»ã™ã€‚
-     * @param prm_axis è»¸
+     * ƒXƒP[ƒ‹‚ðƒŠƒZƒbƒg iŽ²’PˆÊ‚ÅŽw’èj
+     * –{ƒIƒuƒWƒFƒNƒg(GgafDx9GeometryScaler)‚É‚æ‚Á‚Ä•Ï‰»‚³‚¦‚é‘O‚Ì
+     * ‰Šú‚Ì‘å‚«‚³‚É–ß‚·B
+     * @param prm_axis Ž²
      */
     void setScaleToBottom(int prm_axis) {
         _scale[prm_axis] = _bottom_scale[prm_axis];
@@ -169,127 +169,127 @@ public:
     }
 
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’åœæ­¢ã•ã›ã‚‹ã€‚ ï¼ˆå…¨è»¸æŒ‡å®šï¼‰ .
+     * ƒXƒP[ƒŠƒ“ƒO‚ð’âŽ~‚³‚¹‚éB i‘SŽ²Žw’èj .
      */
     void stopImmediately();
     /**
-     * ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã‚’åœæ­¢ã•ã›ã‚‹ã€‚ ï¼ˆè»¸å˜ä½ã§æŒ‡å®šï¼‰.
+     * ƒXƒP[ƒŠƒ“ƒO‚ð’âŽ~‚³‚¹‚éB iŽ²’PˆÊ‚ÅŽw’èj.
      * @param prm_axis
      */
     void stopImmediately(int prm_axis);
 
     /**
-     * ç‰‡é“ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆå…¨è»¸ãƒ»æŒç¶šãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_spend_frame è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+     * •Ð“¹“™‘¬ƒXƒP[ƒŠƒ“ƒOi‘SŽ²EŽ‘±ƒtƒŒ[ƒ€”Žw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚é
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_spend_frame ”ï‚â‚·ƒtƒŒ[ƒ€”
      */
     void intoTargetScaleLinerUntil(int prm_target_scale, DWORD prm_spend_frame);
 
     /**
-     * ç‰‡é“ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆè»¸å˜ä½ãƒ»æŒç¶šãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹ã€‚
-     * @param prm_axis è»¸
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_spend_frame è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+     * •Ð“¹“™‘¬ƒXƒP[ƒŠƒ“ƒOiŽ²’PˆÊEŽ‘±ƒtƒŒ[ƒ€”Žw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚éB
+     * @param prm_axis Ž²
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_spend_frame ”ï‚â‚·ƒtƒŒ[ƒ€”
      */
     void intoTargetScaleLinerUntil(int prm_axis, int prm_target_scale, DWORD prm_spend_frame);
 
     /**
-     * ç‰‡é“ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆå…¨è»¸ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_velo_scale æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—ã™ã‚‹ã‚¹ã‚±ãƒ¼ãƒ«å·®åˆ†(>0.0)ã€‚æ­£ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æŒ‡å®šã™ã‚‹äº‹ã€‚åŠ ç®—ã‹æ¸›ç®—ã‹ã¯è‡ªå‹•åˆ¤æ–­ã™ã‚‹ã€‚
+     * •Ð“¹“™‘¬ƒXƒP[ƒŠƒ“ƒOi‘SŽ²EƒXƒP[ƒ‹‘¬“xŽw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚é
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_velo_scale –ˆƒtƒŒ[ƒ€‰ÁŽZ‚·‚éƒXƒP[ƒ‹·•ª(>0.0)B³‚ÌƒXƒP[ƒ‹‚ðŽw’è‚·‚éŽ–B‰ÁŽZ‚©Œ¸ŽZ‚©‚ÍŽ©“®”»’f‚·‚éB
      */
     void intoTargetScaleLinerStep(int prm_target_scale, int prm_velo_scale);
 
     /**
-     * ç‰‡é“ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆè»¸å˜ä½ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹ï¼ˆã‚¹ã‚±ãƒ¼ãƒ«å·®åˆ†æŒ‡å®šï¼‰ .
-     * @param prm_axis è»¸
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_velo_scale æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—ã™ã‚‹ã‚¹ã‚±ãƒ¼ãƒ«å·®åˆ†(>0.0)ã€‚æ­£ã®ã‚¹ã‚±ãƒ¼ãƒ«ã‚’æŒ‡å®šã™ã‚‹äº‹ã€‚åŠ ç®—ã‹æ¸›ç®—ã‹ã¯è‡ªå‹•åˆ¤æ–­ã™ã‚‹ã€‚
+     * •Ð“¹“™‘¬ƒXƒP[ƒŠƒ“ƒOiŽ²’PˆÊEƒXƒP[ƒ‹‘¬“xŽw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚éiƒXƒP[ƒ‹·•ªŽw’èj .
+     * @param prm_axis Ž²
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_velo_scale –ˆƒtƒŒ[ƒ€‰ÁŽZ‚·‚éƒXƒP[ƒ‹·•ª(>0.0)B³‚ÌƒXƒP[ƒ‹‚ðŽw’è‚·‚éŽ–B‰ÁŽZ‚©Œ¸ŽZ‚©‚ÍŽ©“®”»’f‚·‚éB
      */
     void intoTargetScaleLinerStep(int prm_axis, int prm_target_scale, int prm_velo_scale);
 
     /**
-     * ç‰‡é“åŠ é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆå…¨è»¸ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸åŠ é€ŸæŒ‡å®šã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹
-     * ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦ã‚’0ã«æŒ‡å®šã™ã‚‹ã¨ intoTargetScaleLinerStep ã¨ã»ã¼åŒã˜æ„å‘³ã«ãªã‚‹ã€‚
-     * intoTargetScaleLinerStep ã®ç¬¬ï¼“å¼•æ•°ã¯æ­£è² ã‚’æ°—ã«ã™ã‚‹ã“ã¨ç„¡ã„ãŒã€æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ­£è² ã®è‡ªå‹•åˆ¤å®šã¯ã—ãªã„ï¼ˆã§ããªã„ï¼‰ã€‚
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_velo_scale åˆæœŸã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦
-     * @param prm_acce_scale ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦
+     * •Ð“¹‰Á‘¬ƒXƒP[ƒŠƒ“ƒOi‘SŽ²EƒXƒP[ƒ‹‘¬“xEƒXƒP[ƒ‹‰Á‘¬“xŽw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Ö‰Á‘¬Žw’è‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚é
+     * ƒXƒP[ƒ‹‰Á‘¬“x‚ð0‚ÉŽw’è‚·‚é‚Æ intoTargetScaleLinerStep ‚Æ‚Ù‚Ú“¯‚¶ˆÓ–¡‚É‚È‚éB
+     * intoTargetScaleLinerStep ‚Ì‘æ‚Rˆø”‚Í³•‰‚ð‹C‚É‚·‚é‚±‚Æ–³‚¢‚ªA–{ƒƒ\ƒbƒh‚Í³•‰‚ÌŽ©“®”»’è‚Í‚µ‚È‚¢i‚Å‚«‚È‚¢jB
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_velo_scale ‰ŠúƒXƒP[ƒ‹‘¬“x
+     * @param prm_acce_scale ƒXƒP[ƒ‹‰Á‘¬“x
      */
     void intoTargetScaleAcceStep(int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
-     * ç‰‡é“åŠ é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆè»¸å˜ä½ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦ãƒ»ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸åŠ é€ŸæŒ‡å®šã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹ï¼ˆã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦ã€ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦å·®æŒ‡å®šï¼‰ .
-     * ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦ã‚’0ã«æŒ‡å®šã™ã‚‹ã¨ intoTargetScaleLinerStep ã¨ã»ã¼åŒã˜æ„å‘³ã«ãªã‚‹ã€‚
-     * intoTargetScaleLinerStep ã®ç¬¬ï¼“å¼•æ•°ã¯æ­£è² ã‚’æ°—ã«ã™ã‚‹ã“ã¨ç„¡ã„ãŒã€æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ­£è² ã®è‡ªå‹•åˆ¤å®šã¯ã—ãªã„ï¼ˆã§ããªã„ï¼‰ã€‚
-     * @param prm_axis è»¸
-     * @param prm_target_scale ç›®æ¨™ã‚¹ã‚±ãƒ¼ãƒ«
-     * @param prm_velo_scale åˆæœŸã‚¹ã‚±ãƒ¼ãƒ«é€Ÿåº¦
-     * @param prm_acce_scale ã‚¹ã‚±ãƒ¼ãƒ«åŠ é€Ÿåº¦
+     * •Ð“¹‰Á‘¬ƒXƒP[ƒŠƒ“ƒOiŽ²’PˆÊEƒXƒP[ƒ‹‘¬“xEƒXƒP[ƒ‹‰Á‘¬“xŽw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Ö‰Á‘¬Žw’è‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚éiƒXƒP[ƒ‹‘¬“xAƒXƒP[ƒ‹‰Á‘¬“x·Žw’èj .
+     * ƒXƒP[ƒ‹‰Á‘¬“x‚ð0‚ÉŽw’è‚·‚é‚Æ intoTargetScaleLinerStep ‚Æ‚Ù‚Ú“¯‚¶ˆÓ–¡‚É‚È‚éB
+     * intoTargetScaleLinerStep ‚Ì‘æ‚Rˆø”‚Í³•‰‚ð‹C‚É‚·‚é‚±‚Æ–³‚¢‚ªA–{ƒƒ\ƒbƒh‚Í³•‰‚ÌŽ©“®”»’è‚Í‚µ‚È‚¢i‚Å‚«‚È‚¢jB
+     * @param prm_axis Ž²
+     * @param prm_target_scale –Ú•WƒXƒP[ƒ‹
+     * @param prm_velo_scale ‰ŠúƒXƒP[ƒ‹‘¬“x
+     * @param prm_acce_scale ƒXƒP[ƒ‹‰Á‘¬“x
      */
     void intoTargetScaleAcceStep(int prm_axis, int prm_target_scale, int prm_velo_scale, int prm_acce_scale);
 
     /**
-     * åå¾©ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆå…¨è»¸ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã—ã€ä¸€å®šé€Ÿåº¦ã§å…ƒã«æˆ»ã‚‹ã€‚ã“ã‚Œã‚’ãƒ«ãƒ¼ãƒ—æŒ‡å®šã™ã‚‹ã€‚ï¼ˆï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * @param prm_beat_spend_frame ï¼‘ãƒ«ãƒ¼ãƒ—(å¤‰åŒ–ã—ã¦å…ƒã«æˆ»ã‚‹ã¾ã§)ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ 
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—ã™ã‚‹å›žæ•°(0.5 å›žå˜ä½ã§æŒ‡å®šå¯èƒ½)
+     * ”½•œ“™‘¬ƒXƒP[ƒŠƒ“ƒOi‘SŽ²EƒtƒŒ[ƒ€”Žw’èj .
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚µAˆê’è‘¬“x‚ÅŒ³‚É–ß‚éB‚±‚ê‚ðƒ‹[ƒvŽw’è‚·‚éBi‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”Žw’èj .
+     * @param prm_beat_spend_frame ‚Pƒ‹[ƒv(•Ï‰»‚µ‚ÄŒ³‚É–ß‚é‚Ü‚Å)‚É”ï‚â‚·ƒtƒŒ[ƒ€
+     * @param prm_beat_num ƒ‹[ƒv‚·‚é‰ñ”(0.5 ‰ñ’PˆÊ‚ÅŽw’è‰Â”\)
      */
     void loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * åå¾©ç­‰é€Ÿã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ï¼ˆè»¸å˜ä½ãƒ»ãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰
-     * ç›®æ¨™ã®ã‚¹ã‚±ãƒ¼ãƒ«ã¸ä¸€å®šé€Ÿåº¦ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã—ã€ä¸€å®šé€Ÿåº¦ã§å…ƒã«æˆ»ã‚‹ã€‚
-     * ã“ã‚Œã‚’ãƒ«ãƒ¼ãƒ—æŒ‡å®šã™ã‚‹ã€‚ï¼ˆï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * @param prm_axis è»¸
-     * @param prm_beat_spend_frame ï¼‘ãƒ«ãƒ¼ãƒ—(å¤‰åŒ–ã—ã¦å…ƒã«æˆ»ã‚‹ã¾ã§)ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ 
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—ã™ã‚‹å›žæ•°(0.5 å›žå˜ä½ã§æŒ‡å®šå¯èƒ½)
+     * ”½•œ“™‘¬ƒXƒP[ƒŠƒ“ƒOiŽ²’PˆÊEƒtƒŒ[ƒ€”Žw’èj
+     * –Ú•W‚ÌƒXƒP[ƒ‹‚Öˆê’è‘¬“x‚ÅƒXƒP[ƒŠƒ“ƒO‚µAˆê’è‘¬“x‚ÅŒ³‚É–ß‚éB
+     * ‚±‚ê‚ðƒ‹[ƒvŽw’è‚·‚éBi‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”Žw’èj .
+     * @param prm_axis Ž²
+     * @param prm_beat_spend_frame ‚Pƒ‹[ƒv(•Ï‰»‚µ‚ÄŒ³‚É–ß‚é‚Ü‚Å)‚É”ï‚â‚·ƒtƒŒ[ƒ€
+     * @param prm_beat_num ƒ‹[ƒv‚·‚é‰ñ”(0.5 ‰ñ’PˆÊ‚ÅŽw’è‰Â”\)
      */
     void loopLiner(int prm_axis, DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹ã€‚ï¼ˆå…¨è»¸æŒ‡å®šï¼‰.
+     * ŽOŠp”g‚Ì”gŒ`‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚éBi‘SŽ²Žw’èj.
      * <PRE>
-     * â‘£  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-     *            /ï¼¼                     /ï¼¼
-     *           /   ï¼¼                  /   ï¼¼
-     *          /      ï¼¼               /      ï¼¼
-     *         /         ï¼¼            /         ï¼¼
-     *        /            ï¼¼         /            ï¼¼
-     * â‘¤  ï¼¿/               ï¼¼ï¼¿ï¼¿ï¼¿/               ï¼¼ï¼¿
+     * ‡C  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+     *            /_                     /_
+     *           /   _                  /   _
+     *          /      _               /      _
+     *         /         _            /         _
+     *        /            _         /            _
+     * ‡D  Q/               _QQQ/               _Q
      *
-     *       â†â‘¡â†’            â†â‘¢â†’
-     *       â†â”€â”€â”€â”€ â‘  â”€â”€â”€â”€â†’
+     *       ©‡A¨            ©‡B¨
+     *       ©„Ÿ„Ÿ„Ÿ„Ÿ ‡@ „Ÿ„Ÿ„Ÿ„Ÿ¨
      * </PRE>
-     * ï¼œå¿…è¦ãªè¨­å®šå€¤ï¼ž<BR>
-     * â‘  ï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¡ ã‚¢ã‚¿ãƒƒã‚¯ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¢ ä¼‘æ†©ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘£ ã‚¹ã‚±ãƒ¼ãƒ«ä¸Šé™(_top_scale[è»¸] é…åˆ—ãŒä¿æŒ)<BR>
-     * â‘¤ ã‚¹ã‚±ãƒ¼ãƒ«ä¸‹é™(_bottom_scale[è»¸] é…åˆ—ãŒä¿æŒ)<BR>
+     * ƒ•K—v‚ÈÝ’è’l„<BR>
+     * ‡@ ‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡A ƒAƒ^ƒbƒN‚Ü‚Å‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡B ‹xŒeƒtƒŒ[ƒ€”<BR>
+     * ‡C ƒXƒP[ƒ‹ãŒÀ(_top_scale[Ž²] ”z—ñ‚ª•ÛŽ)<BR>
+     * ‡D ƒXƒP[ƒ‹‰ºŒÀ(_bottom_scale[Ž²] ”z—ñ‚ª•ÛŽ)<BR>
      * <BR>
-     * @param prm_beat_spend_frame ä¸Šå›³ã§â‘ ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_attack_frame ä¸Šå›³ã§â‘¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_rest_frame ä¸Šå›³ã§â‘¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—æ•°(-1ã§ç„¡é™)
+     * @param prm_beat_spend_frame ã}‚Å‡@‚ÌƒtƒŒ[ƒ€”
+     * @param prm_attack_frame ã}‚Å‡A‚ÌƒtƒŒ[ƒ€”
+     * @param prm_rest_frame ã}‚Å‡B‚ÌƒtƒŒ[ƒ€”
+     * @param prm_beat_num ƒ‹[ƒv”(-1‚Å–³ŒÀ)
      */
     void beat(DWORD prm_beat_spend_frame,
               DWORD prm_attack_frame,
               DWORD prm_rest_frame,
               float prm_beat_num);
     /**
-     * ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ã™ã‚‹ã€‚ï¼ˆè»¸æŒ‡å®šï¼‰.
-     * @param prm_axis è»¸
-     * @param prm_beat_spend_frame ä¸Šå›³ã§â‘ ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_attack_frame ä¸Šå›³ã§â‘¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_rest_frame ä¸Šå›³ã§â‘¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—æ•°(-1ã§ç„¡é™)
+     * ŽOŠp”g‚Ì”gŒ`‚ÅƒXƒP[ƒŠƒ“ƒO‚·‚éBiŽ²Žw’èj.
+     * @param prm_axis Ž²
+     * @param prm_beat_spend_frame ã}‚Å‡@‚ÌƒtƒŒ[ƒ€”
+     * @param prm_attack_frame ã}‚Å‡A‚ÌƒtƒŒ[ƒ€”
+     * @param prm_rest_frame ã}‚Å‡B‚ÌƒtƒŒ[ƒ€”
+     * @param prm_beat_num ƒ‹[ƒv”(-1‚Å–³ŒÀ)
      */
     void beat(int prm_axis,
               DWORD prm_beat_spend_frame,
@@ -298,9 +298,9 @@ public:
               float prm_beat_num);
 
     /**
-     * æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ ã®æŒ¯ã‚‹èˆžã„ãƒ¡ã‚½ãƒƒãƒ‰ã€‚<BR>
-     * æœ¬ã‚¯ãƒ©ã‚¹ã®æ©Ÿèƒ½ã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã¯ã€ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’<BR>
-     * æ¯Žãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œã™ã‚‹ã“ã¨ãŒå¿…è¦ã€‚
+     * –ˆƒtƒŒ[ƒ€‚ÌU‚é•‘‚¢ƒƒ\ƒbƒhB<BR>
+     * –{ƒNƒ‰ƒX‚Ì‹@”\‚ð—˜—p‚·‚éê‡‚ÍA‚±‚Ìƒƒ\ƒbƒh‚ð<BR>
+     * –ˆƒtƒŒ[ƒ€ŽÀs‚·‚é‚±‚Æ‚ª•K—vB
      */
     virtual void behave();
 

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,10 +8,10 @@ GgafDx9SeManager::GgafDx9SeManager(const char* prm_manager_name) :
 }
 
 GgafDx9Se* GgafDx9SeManager::processCreateResource(char* prm_idstr) {
-    // prm_idstr = "1/laser" ã®å ´åˆã€ãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã®ã‚­ãƒ¼ã«ã¯"1/laser"ã§ç™»éŒ²ã—
-    // èª­ã¿è¾¼ã‚€waveãƒ•ã‚¡ã‚¤ãƒ«ã¯"laser.wav"ã¨ã™ã‚‹ã€‚
-    // ã“ã‚Œã¯ã€åŒä¸€waveã‚’è¤‡æ•°ãƒãƒ£ãƒ³ãƒãƒ«ã§é³´ã‚‰ã—ãŸã„å ´åˆç­‰ã€æœ€åˆã®æ•°å€¤ã‚’å¤‰åŒ–ã•ã‚Œã°ã€è³‡æºãŒè¤‡æ•°
-    // ç¢ºä¿ã•ã‚Œã‚‹ã¨äº‹ã‚’æ„å‘³ã™ã‚‹ã€‚
+    // prm_idstr = "1/laser" ‚Ìê‡Aƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[‚ÌƒL[‚É‚Í"1/laser"‚Å“o˜^‚µ
+    // “Ç‚İ‚Şwaveƒtƒ@ƒCƒ‹‚Í"laser.wav"‚Æ‚·‚éB
+    // ‚±‚ê‚ÍA“¯ˆêwave‚ğ•¡”ƒ`ƒƒƒ“ƒlƒ‹‚Å–Â‚ç‚µ‚½‚¢ê‡“™AÅ‰‚Ì”’l‚ğ•Ï‰»‚³‚ê‚ÎA‘Œ¹‚ª•¡”
+    // Šm•Û‚³‚ê‚é‚Æ–‚ğˆÓ–¡‚·‚éB
 
     GgafDx9Se* pResource = NULL;
     char idstr[129];
@@ -28,8 +28,8 @@ GgafDx9Se* GgafDx9SeManager::processCreateResource(char* prm_idstr) {
 }
 
 GgafResourceConnection<GgafDx9Se>* GgafDx9SeManager::processCreateConnection(char* prm_idstr, GgafDx9Se* prm_pResource) {
-    TRACE3(" GgafDx9SeManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
+    TRACE3(" GgafDx9SeManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬ŠJnB");
     GgafDx9SeConnection* pConnection = NEW GgafDx9SeConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDx9SeManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
+    TRACE3(" GgafDx9SeManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬I—¹B");
     return pConnection;
 }

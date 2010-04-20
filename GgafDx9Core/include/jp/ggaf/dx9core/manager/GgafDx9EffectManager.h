@@ -1,10 +1,10 @@
-ï»¿#ifndef GGAFDX9EFFECTMANAGER_H_
+#ifndef GGAFDX9EFFECTMANAGER_H_
 #define GGAFDX9EFFECTMANAGER_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9EffectConnection ç®¡ç†ã‚¯ãƒ©ã‚¹ .
- * ç”Ÿæˆæ¸ˆã¿ GgafDx9EffectConnection ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™»éŒ²ã—ã¦ãŠãã€ä½¿ã„ã¾ã‚ã—ã¾ã™ã€‚
+ * GgafDx9EffectConnection ŠÇ—ƒNƒ‰ƒX .
+ * ¶¬Ï‚İ GgafDx9EffectConnection ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚µ‚Ä‚¨‚«Ag‚¢‚Ü‚í‚µ‚Ü‚·B
  * @version 1.00
  * @since 2009/02/09
  * @author Masatoshi Tsuge
@@ -16,39 +16,39 @@ public:
     static GgafDx9Effect* _pEffect_Active;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-     * @param prm_manager_name ãƒãƒãƒ¼ã‚¸ãƒ£åç§°(ãƒªãƒ†ãƒ©ãƒ«å¿…é ˆ)
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * @param prm_manager_name ƒ}ƒl[ƒWƒƒ–¼Ì(ƒŠƒeƒ‰ƒ‹•K{)
      */
     GgafDx9EffectManager(const char* prm_manager_name);
 
     /**
-     * ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥IDã«ã‚ˆã‚Šã€ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ .
+     * ƒGƒtƒFƒNƒg¯•ÊID‚É‚æ‚èAƒGƒtƒFƒNƒgƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é .
      * <pre>
-     * ï¼œprm_idstrã®å½¢å¼ï¼ãƒ¡ãƒ¢
-     * prm_idstrã¯ã€
-     * ã€ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¿ã‚¤ãƒ—  + "/" + fxãƒ•ã‚¡ã‚¤ãƒ«å(æ‹¡å¼µå­ .fx ã‚’é™¤ã„ãŸã‚‚ã®)ã€
-     * ã¨ã„ã†æ–‡å­—åˆ—ã«ãªã£ã¦ã„ã‚‹ã€‚ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¿ã‚¤ãƒ—ã¯ä»¥ä¸‹ã®é€šã‚Š
-     * 'D': GgafDx9MeshEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'd': GgafDx9MeshEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'X': GgafDx9MeshEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'x': GgafDx9MeshSetEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'A': GgafDx9D3DXAniMeshEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'M': GgafDx9MorphMeshEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'S': GgafDx9SpriteEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 's': GgafDx9SpriteSetEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'B': GgafDx9BoardEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
-     * 'b': GgafDx9BoardSetEffect ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * ƒprm_idstr‚ÌŒ`®„ƒƒ‚
+     * prm_idstr‚ÍA
+     * wƒGƒtƒFƒNƒgƒ^ƒCƒv  + "/" + fxƒtƒ@ƒCƒ‹–¼(Šg’£q .fx ‚ğœ‚¢‚½‚à‚Ì)x
+     * ‚Æ‚¢‚¤•¶š—ñ‚É‚È‚Á‚Ä‚¢‚éBƒGƒtƒFƒNƒgƒ^ƒCƒv‚ÍˆÈ‰º‚Ì’Ê‚è
+     * 'D': GgafDx9MeshEffect ƒIƒuƒWƒFƒNƒg
+     * 'd': GgafDx9MeshEffect ƒIƒuƒWƒFƒNƒg
+     * 'X': GgafDx9MeshEffect ƒIƒuƒWƒFƒNƒg
+     * 'x': GgafDx9MeshSetEffect ƒIƒuƒWƒFƒNƒg
+     * 'A': GgafDx9D3DXAniMeshEffect ƒIƒuƒWƒFƒNƒg
+     * 'M': GgafDx9MorphMeshEffect ƒIƒuƒWƒFƒNƒg
+     * 'S': GgafDx9SpriteEffect ƒIƒuƒWƒFƒNƒg
+     * 's': GgafDx9SpriteSetEffect ƒIƒuƒWƒFƒNƒg
+     * 'B': GgafDx9BoardEffect ƒIƒuƒWƒFƒNƒg
+     * 'b': GgafDx9BoardSetEffect ƒIƒuƒWƒFƒNƒg
      *
-     * ä¾‹ï¼š"x/LaserChipEffect" ã®å ´åˆã€‚
-     * "LaserChipEffect.fx"ã‚’èª­ã¿è¾¼ã‚€ GgafDx9MeshSetEffectã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ ã‚’è¿”ã™ã€‚
+     * —áF"x/LaserChipEffect" ‚Ìê‡B
+     * "LaserChipEffect.fx"‚ğ“Ç‚İ‚Ş GgafDx9MeshSetEffectƒCƒ“ƒXƒ^ƒ“ƒX ‚ğ•Ô‚·B
      * </pre>
-     * @param prm_idstr ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥ID
-     * @return ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param prm_idstr ƒGƒtƒFƒNƒg¯•ÊID
+     * @return ƒGƒtƒFƒNƒgƒIƒuƒWƒFƒNƒg
      */
     GgafDx9Effect* processCreateResource(char* prm_idstr);
 
     /**
-     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+     * ƒI[ƒo[ƒ‰ƒCƒh
      */
     GgafCore::GgafResourceConnection<GgafDx9Effect>* processCreateConnection(char* prm_idstr, GgafDx9Effect* prm_pResource);
 

@@ -1,9 +1,9 @@
-ï»¿#ifndef GAMEACTOR_H_
+#ifndef GAMEACTOR_H_
 #define GAMEACTOR_H_
 namespace MyStg2nd {
 
 /**
- * ã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
+ * ƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
  */
 template<class P>
 class GameActor : public P {

@@ -1,19 +1,19 @@
-ï»¿#ifndef FORMATIONJUNO_H_
+#ifndef FORMATIONJUNO_H_
 #define FORMATIONJUNO_H_
 namespace MyStg2nd {
 
 /**
- * ãƒ•ã‚©ãƒ¼ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ .
- * è‡ªèº«ã¯å‡ºç¾ãƒã‚¤ãƒ³ãƒˆã®ä¸­å¿ƒ
+ * ƒtƒH[ƒ[ƒVƒ‡ƒ“ƒAƒNƒ^[ƒNƒ‰ƒX .
+ * ©g‚ÍoŒ»ƒ|ƒCƒ“ƒg‚Ì’†S
  */
 class FormationJuno : public GgafDx9LibStg::FormationActor {
-    /** ã‚¸ãƒ¥ãƒãƒ¼ã‚¹ãƒˆãƒƒã‚¯ */
+    /** ƒWƒ…ƒm[ƒXƒgƒbƒN */
     GgafCore::GgafActorDispatcher* _pDispatcher_EnemyJuno;
     CmRandomNumberGenerator* _pRndGen;
     DispatcherConnection* _pDispatcherCon;
 
 public:
-    /** å‡ºç¾ç¯„å›²å¹…BOX */
+    /** oŒ»”ÍˆÍ•BOX */
     int _X1_app, _Y1_app, _Z1_app, _X2_app, _Y2_app, _Z2_app;
     int _frame_app_interval;
 

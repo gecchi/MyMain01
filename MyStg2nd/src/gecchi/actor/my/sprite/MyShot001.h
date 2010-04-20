@@ -1,4 +1,4 @@
-ï»¿#ifndef MYSHOT001_H_
+#ifndef MYSHOT001_H_
 #define MYSHOT001_H_
 namespace MyStg2nd {
 
@@ -12,32 +12,32 @@ public:
     MyShot001(const char* prm_name);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processJudgement() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void onInactive() override;
 
     /**
-     * è¦ªå…ƒå¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼
+     * eŒ³‘ÎÛƒAƒNƒ^[
      * @param prm_pActor
      */
     void setRadicalActor(GgafDx9Core::GgafDx9GeometricActor* prm_pActor) {

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -42,12 +42,12 @@ GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) 
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
     }
-    //å…ˆã«ã‚«ãƒ¡ãƒ©ã¯NEWã—ã¦ãŠã‹ãªã„ã¨ã„ã‘ãªã„ã€‚
-    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovXè¦–é‡è§’80åº¦ã€æ·±ã•Ã—15.0
+    //æ‚ÉƒJƒƒ‰‚ÍNEW‚µ‚Ä‚¨‚©‚È‚¢‚Æ‚¢‚¯‚È‚¢B
+    _pCamera = NEW GgafDx9Camera("CAMERA", PI * 80.0f / 180.0f, GGAFDX9_PROPERTY(GAME_SPACE_DEPTH));    //FovX‹–ìŠp80“xA[‚³~15.0
     getLordActor()->addSubGroup(_pCamera);
     _pActor_DrawActive = NULL;
 
-    //ã‚«ãƒ¡ãƒ©ã®å†™ã™ã¡ã‚‡ã£ã¨ä½™è£•ã‚’ã‚‚ã£ãŸç¯„å›²ã€‚
+    //ƒJƒƒ‰‚ÌÊ‚·‚¿‚å‚Á‚Æ—]—T‚ğ‚à‚Á‚½”ÍˆÍB
     _X_goneLeft   = GgafDx9Camera::_X_ScreenLeft * 4;
     _X_goneRight  = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
     _Y_goneTop    = +_pCamera->_zf*PX_UNIT*LEN_UNIT + (abs(_pCamera->_cameraZ)*PX_UNIT*LEN_UNIT);
@@ -69,13 +69,13 @@ void GgafDx9Universe::registSe(GgafDx9Se* prm_pSe, LONG prm_volume, LONG prm_pan
 
 void GgafDx9Universe::processPreJudgement() {
     GgafUniverse::processPreJudgement();
-    //SEã‚’é³´ã‚‰ã™
-    SeArray* pSeArray = _pRing_pSeArray->next(); //ä¸€ã¤é€²ã‚ã¦SEé…åˆ—å–å¾—
+    //SE‚ğ–Â‚ç‚·
+    SeArray* pSeArray = _pRing_pSeArray->next(); //ˆê‚Âi‚ß‚ÄSE”z—ñæ“¾
     if (pSeArray->_p > 0) {
         for (int p = 0; p < pSeArray->_p; p++) {
             pSeArray->play(p);
         }
-        pSeArray->_p = 0; //ãƒªã‚»ãƒƒãƒˆ
+        pSeArray->_p = 0; //ƒŠƒZƒbƒg
     }
 }
 
@@ -87,32 +87,32 @@ void GgafDx9Universe::draw() {
     }
 
 
-    //æ®µéšãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ä¸è¦ï¼ˆæœ€æ·±éƒ¨ç­‰ã€èƒŒæ™¯ã€æœ€å–„é¢ã®æ–‡å­—ç­‰ï¼‰ã®æç”»ã€‚
-    //â€»TODO:æœ¬æ¥ã¯æ‰‹å‰ã‹ã‚‰æç”»ã®ã»ã†ãŒåŠ¹ç‡è‰¯ã„ã€‚ãŒã€ãã®å†…æœ€é©åŒ–
+    //’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO•s—viÅ[•”“™A”wŒiAÅ‘P–Ê‚Ì•¶š“™j‚Ì•`‰æB
+    //¦TODO:–{—ˆ‚Íè‘O‚©‚ç•`‰æ‚Ì‚Ù‚¤‚ªŒø—¦—Ç‚¢B‚ªA‚»‚Ì“àÅ“K‰»
     _pActor_DrawActive = _pActors_DrawMaxDrawDepth;
     while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
         if (_pActor_DrawActive->_fAlpha < 1.0) {
-            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //åŠé€æ˜è¦ç´ ã‚ã‚Šã¨ã„ã†ã“ã¨ã§ã‚«ãƒªãƒ³ã‚°ã‚’ä¸€æ™‚OFF
-            //ä½†ã—ã€æ®µéšãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ä¸è¦ã§ã‚ã‚‹ã«ã‚‚ã‹ã‹ã‚ã‚‰ãšã€åŠé€æ˜è¡¨ç¤ºã¯ã€å‰å¾ŒãŒã†ã¾ãè¡¨ç¤ºã•ã‚Œãªã„ã®ã§é¿ã‘ã‚‹ã¹ãã€‚
+            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //”¼“§–¾—v‘f‚ ‚è‚Æ‚¢‚¤‚±‚Æ‚ÅƒJƒŠƒ“ƒO‚ğˆêOFF
+            //’A‚µA’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO•s—v‚Å‚ ‚é‚É‚à‚©‚©‚í‚ç‚¸A”¼“§–¾•\¦‚ÍA‘OŒã‚ª‚¤‚Ü‚­•\¦‚³‚ê‚È‚¢‚Ì‚Å”ğ‚¯‚é‚×‚«B
         }
         _pActor_DrawActive->processDraw();
         if (_pActor_DrawActive->_fAlpha < 1.0) {
-            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //ã‚«ãƒªãƒ³ã‚°æœ‰ã‚Šã«æˆ»ã™
+            GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //ƒJƒŠƒ“ƒO—L‚è‚É–ß‚·
         }
         _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
     }
-    _pActors_DrawMaxDrawDepth = NULL; //æ¬¡å›ã®ãŸã‚ã«ãƒªã‚»ãƒƒãƒˆ
+    _pActors_DrawMaxDrawDepth = NULL; //Ÿ‰ñ‚Ì‚½‚ß‚ÉƒŠƒZƒbƒg
 
-    //æ®µéšãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ãŒå¿…è¦ãªã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’æç”»
+    //’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ª•K—v‚ÈƒIƒuƒWƒFƒNƒg‚ğ•`‰æ
     //float tmpAlpah;
     //int alphapoint = MAX_DRAW_DEPTH_LEVEL/4*3;
     for (int i = MAX_DRAW_DEPTH_LEVEL - 1; i >= 0; i--) {
         _pActor_DrawActive = _apAlphaActorList_DrawDepthLevel[i];
         while (_pActor_DrawActive != NULL && _pActor_DrawActive->_is_active_flg && _pActor_DrawActive->_can_live_flg) {
             if (_pActor_DrawActive->_fAlpha < 1.0) {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //åŠé€æ˜è¦ç´ ã‚ã‚Šã¨ã„ã†ã“ã¨ã§ã‚«ãƒªãƒ³ã‚°ã‚’ä¸€æ™‚OFF
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //”¼“§–¾—v‘f‚ ‚è‚Æ‚¢‚¤‚±‚Æ‚ÅƒJƒŠƒ“ƒO‚ğˆêOFF
             }
-            //TODO:å¥¥ã¯æš—ã
+            //TODO:‰œ‚ÍˆÃ‚­
 //            if (alphapoint < i) {
 //                tmpAlpah = _pActor_DrawActive->getAlpha();
 //                _pActor_DrawActive->addAlpha((1.0/(MAX_DRAW_DEPTH_LEVEL - alphapoint))*i - 3.0);
@@ -122,21 +122,21 @@ void GgafDx9Universe::draw() {
 //                _pActor_DrawActive->setAlpha(tmpAlpah);
 //            }
             if (_pActor_DrawActive->_fAlpha < 1.0) {
-                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //ã‚«ãƒªãƒ³ã‚°æœ‰ã‚Šã«æˆ»ã™
+                GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //ƒJƒŠƒ“ƒO—L‚è‚É–ß‚·
             }
             _pActor_DrawActive = _pActor_DrawActive->_pNext_TheSameDrawDepthLevel;
         }
-        _apAlphaActorList_DrawDepthLevel[i] = NULL; //æ¬¡å›ã®ãŸã‚ã«ãƒªã‚»ãƒƒãƒˆ
+        _apAlphaActorList_DrawDepthLevel[i] = NULL; //Ÿ‰ñ‚Ì‚½‚ß‚ÉƒŠƒZƒbƒg
     }
 
-    //æœ€å¾Œã®EndPass
+    //ÅŒã‚ÌEndPass
     HRESULT hr;
     if (GgafDx9EffectManager::_pEffect_Active != NULL) {
         TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() EndPass() ‚É¸”s‚µ‚Ü‚µ‚½B");
         hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() End() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9Universe::processDraw() End() ‚É¸”s‚µ‚Ü‚µ‚½B");
         GgafDx9EffectManager::_pEffect_Active = NULL;
         GgafDx9ModelManager::_pModelLastDraw = NULL;
         GgafDx9DrawableActor::_hash_technique_last_draw = 0;
@@ -146,12 +146,12 @@ void GgafDx9Universe::draw() {
 //void GgafDx9Universe::setDrawDepthMaxLevel(GgafDx9DrawableActor* prm_pActor) {
 //    static GgafDx9DrawableActor* pActorTmp;
 //    if (_pActors_DrawMaxDrawDepth == NULL) {
-//        //æœ€åˆã®ã‚¢ã‚¯ã‚¿ãƒ¼ã®å ´åˆ
+//        //Å‰‚ÌƒAƒNƒ^[‚Ìê‡
 //        prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
 //        _pActors_DrawMaxDrawDepth = prm_pActor;
 //        return;
 //    } else {
-//        //æ—¢ã«ã‚¢ã‚¯ã‚¿ãƒ¼ç™»éŒ²æ¸ˆã¿ã ã£ãŸå ´åˆ
+//        //Šù‚ÉƒAƒNƒ^[“o˜^Ï‚İ‚¾‚Á‚½ê‡
 //        pActorTmp = _pActors_DrawMaxDrawDepth;
 //        prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
 //        _pActors_DrawMaxDrawDepth = prm_pActor;
@@ -161,7 +161,7 @@ void GgafDx9Universe::draw() {
 int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9DrawableActor* prm_pActor) {
     int draw_depth_level;
     static GgafDx9DrawableActor* pActorTmp;
-    //ä¸Šé™ä¸‹é™ã‚«ãƒƒãƒˆ
+    //ãŒÀ‰ºŒÀƒJƒbƒg
     if (prm_draw_depth_level > MAX_DRAW_DEPTH_LEVEL - 1) {
         draw_depth_level = MAX_DRAW_DEPTH_LEVEL - 1;
     } else if (prm_draw_depth_level < 0) {
@@ -171,21 +171,21 @@ int GgafDx9Universe::setDrawDepthLevel(int prm_draw_depth_level, GgafDx9Drawable
     }
 
     if (_apAlphaActorList_DrawDepthLevel[draw_depth_level] == NULL) {
-        //ãã®prm_draw_depth_levelã§æœ€åˆã®ã‚¢ã‚¯ã‚¿ãƒ¼ã®å ´åˆ
+        //‚»‚Ìprm_draw_depth_level‚ÅÅ‰‚ÌƒAƒNƒ^[‚Ìê‡
         prm_pActor->_pNext_TheSameDrawDepthLevel = NULL;
         _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
     } else {
-        //ãã®prm_draw_depth_levelã§æ—¢ã«ã‚¢ã‚¯ã‚¿ãƒ¼ç™»éŒ²æ¸ˆã¿ã ã£ãŸå ´åˆ
-        //å›ºã¾ã‚‰ãªã„ã‚ˆã†ã«ã€ãŠå°»ã‹ã‚‰è¿½åŠ (ã‚­ãƒ¥ãƒ¼)ã€æˆ–ã„ã¯ã€å‰ã«ç©ã¿ä¸Šã’(ã‚¹ã‚¿ãƒƒã‚¯)ã‚’ã€ãƒ•ãƒ¬ãƒ¼ãƒ ã‚ˆã£ã¦äº¤äº’ã«è¡Œã†ã€‚
-        //ä½•æ•…ãªã‚‰ã°ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã«åŠé€æ˜ãŒå­˜åœ¨ã™ã‚‹Zãƒãƒƒãƒ•ã‚¡æœ‰ã‚Šã®åŠé€æ˜ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒäº¤å·®ã—ãŸå ´åˆã€
-        //åŒä¸€æ·±åº¦ãªã®ã§ã€æç”»é †ã«ã‚ˆã£ã¦ã¯é€ã‘ãªã„éƒ¨åˆ†ãŒç”Ÿã˜ã€ãŠã‹ã—ãªè¡¨ç¤ºã¨ãªã‚‹ã€‚ã“ã‚Œã‚’é«˜é€Ÿäº¤äº’è¡¨ç¤ºã§è‹¥å¹²ã®ã”ã¾ã‹ã—ã‚’è¡Œã†ã€‚
+        //‚»‚Ìprm_draw_depth_level‚ÅŠù‚ÉƒAƒNƒ^[“o˜^Ï‚İ‚¾‚Á‚½ê‡
+        //ŒÅ‚Ü‚ç‚È‚¢‚æ‚¤‚ÉA‚¨K‚©‚ç’Ç‰Á(ƒLƒ…[)Aˆ½‚¢‚ÍA‘O‚ÉÏ‚İã‚°(ƒXƒ^ƒbƒN)‚ğAƒtƒŒ[ƒ€‚æ‚Á‚ÄŒğŒİ‚És‚¤B
+        //‰½ŒÌ‚È‚ç‚ÎAƒeƒNƒXƒ`ƒƒ‚É”¼“§–¾‚ª‘¶İ‚·‚éZƒoƒbƒtƒ@—L‚è‚Ì”¼“§–¾ƒIƒuƒWƒFƒNƒg‚ªŒğ·‚µ‚½ê‡A
+        //“¯ˆê[“x‚È‚Ì‚ÅA•`‰æ‡‚É‚æ‚Á‚Ä‚Í“§‚¯‚È‚¢•”•ª‚ª¶‚¶A‚¨‚©‚µ‚È•\¦‚Æ‚È‚éB‚±‚ê‚ğ‚‘¬ŒğŒİ•\¦‚ÅáŠ±‚Ì‚²‚Ü‚©‚µ‚ğs‚¤B
         if ((GgafGod::_pGod->_pUniverse->_frame_of_behaving & 1) == 1) {
-            //ãŠå°»ã«è¿½åŠ 
+            //‚¨K‚É’Ç‰Á
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             prm_pActor->_pNext_TheSameDrawDepthLevel = pActorTmp;
             _apAlphaActorList_DrawDepthLevel[draw_depth_level] = prm_pActor;
         } else {
-            //å‰ã«è¿½åŠ 
+            //‘O‚É’Ç‰Á
             pActorTmp = _apAlphaActorList_DrawDepthLevel[draw_depth_level];
             while(pActorTmp->_pNext_TheSameDrawDepthLevel != NULL) {
                 pActorTmp = pActorTmp->_pNext_TheSameDrawDepthLevel;

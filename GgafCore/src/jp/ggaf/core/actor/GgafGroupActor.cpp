@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -21,7 +21,7 @@ GgafLordActor* GgafGroupActor::getLordActor() {
     if (_pLordActor == NULL) {
         if (_pParent == NULL) {
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("【警告】GgafGroupActor::getLordActor 所属していないため、LordActorがとれません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
+            _TRACE_("�y�x���zGgafGroupActor::getLordActor �������Ă��Ȃ����߁ALordActor���Ƃ�܂���I("<<getName()<<")�B�����ŏ���ɂ��̐�(GgafUniverse)������LordActor��Ԃ��܂���");
         } else {
             if (_pParent->_actor_class == MAINACTOR) {
                 _pLordActor = ((GgafMainActor*)(_pParent))->getLordActor();
@@ -31,7 +31,7 @@ GgafLordActor* GgafGroupActor::getLordActor() {
                 return (GgafLordActor*)_pParent;
             }
             _pLordActor = GgafGod::_pGod->_pUniverse->getLordActor();
-            _TRACE_("【警告】GgafMainActor::getLordActor このツリーにはLordActorがいません！("<<getName()<<")。そこで勝手にこの世(GgafUniverse)所属のLordActorを返しました");
+            _TRACE_("�y�x���zGgafMainActor::getLordActor ���̃c���[�ɂ�LordActor�����܂���I("<<getName()<<")�B�����ŏ���ɂ��̐�(GgafUniverse)������LordActor��Ԃ��܂���");
         }
     }
     return _pLordActor;
@@ -60,7 +60,7 @@ GgafGod* GgafGroupActor::askGod() {
     if (_pGod == NULL) {
 #ifdef MY_DEBUG
         if (getParent() == NULL) {
-            throwGgafCriticalException("GgafGroupActor::askGod 神はこの世に存在する物からのみ謁見できます。まずはこの世に属しなさい！！("<<getName()<<")");
+            throwGgafCriticalException("GgafGroupActor::askGod �_�͂��̐��ɑ��݂��镨����̂݉y���ł��܂��B�܂��͂��̐��ɑ����Ȃ����I�I("<<getName()<<")");
         }
 #endif
         _pGod = getParent()->askGod();

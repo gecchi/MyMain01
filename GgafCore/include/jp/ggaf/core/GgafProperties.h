@@ -1,11 +1,11 @@
-﻿#ifndef GGAFPROPERTIES
+#ifndef GGAFPROPERTIES
 #define GGAFPROPERTIES
 
 #define GGAF_PROPERTY(X) (*GgafCore::GgafProperties::X)
 
 /**
- * プロパティクラス .
- * 外部ファイルから読み込こみ、アプリの環境変数を保持します。
+ * �v���p�e�B�N���X .
+ * �O���t�@�C������ǂݍ����݁A�A�v���̊��ϐ���ێ����܂��B
  * @version 1.00
  * @since 2008/07/22
  * @author Masatoshi Tsuge

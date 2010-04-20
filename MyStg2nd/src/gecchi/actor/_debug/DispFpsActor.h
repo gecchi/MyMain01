@@ -1,4 +1,4 @@
-Ôªø#ifndef DISPFPSACTOR_H_
+#ifndef DISPFPSACTOR_H_
 #define DISPFPSACTOR_H_
 namespace MyStg2nd {
 
@@ -9,12 +9,12 @@ public:
     DispFpsActor(const char* prm_name, const char* prm_model);
 
     /**
-     * ÔºúOverRide „Åß„ÅôÔºû
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void initialize() override;
 
     /**
-     * ÔºúOverRide „Åß„ÅôÔºû
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void processBehavior() override;
 

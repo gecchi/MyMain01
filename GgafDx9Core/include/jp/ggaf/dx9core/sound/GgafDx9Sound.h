@@ -1,16 +1,16 @@
-ï»¿#ifndef GGAFDX9SOUND_H_
+#ifndef GGAFDX9SOUND_H_
 #define GGAFDX9SOUND_H_
 namespace GgafDx9Core {
 /**
- * ã‚µã‚¦ãƒ³ãƒ‰ã‚¯ãƒ©ã‚¹.
- * IDirectSound8ã‚’ä¿æŒã—ã€ã‚µã‚¦ãƒ³ãƒ‰ã«é–¢ã™ã‚‹ã‚‚ã‚ã‚‚ã‚ã®æ©Ÿèƒ½ã‚’æŒã£ãŸã‚¯ãƒ©ã‚¹ã§ã™
+ * ƒTƒEƒ“ƒhƒNƒ‰ƒX.
+ * IDirectSound8‚ğ•Û‚µAƒTƒEƒ“ƒh‚ÉŠÖ‚·‚é‚à‚ë‚à‚ë‚Ì‹@”\‚ğ‚Á‚½ƒNƒ‰ƒX‚Å‚·
  * @version 1.00
  * @since 2008/03/04
  * @author Masatoshi Tsuge
  */
 class GgafDx9Sound {
 public:
-    /** IDirectSound8ã‚¤ãƒ³ã‚¿ãƒ¼ãƒ•ã‚§ã‚¤ã‚¹ */
+    /** IDirectSound8ƒCƒ“ƒ^[ƒtƒFƒCƒX */
     static IDirectSound8* _pIDirectSound8;
     static DSCAPS _dsCaps;
     static void init();
@@ -22,8 +22,8 @@ public:
     static float _se_volume_rate;
 
     /**
-     * ãƒã‚¹ã‚¿ãƒœãƒªãƒ¥ãƒ¼ãƒ è¨­å®š(ç¾åœ¨æœªå®Ÿè£…).
-     * TODO:ãƒã‚¹ã‚¿ãƒ¼ãƒœãƒªãƒ¥ãƒ¼ãƒ å‡¦ç†ã‚’ã™ã‚‹ï¼
+     * ƒ}ƒXƒ^ƒ{ƒŠƒ…[ƒ€İ’è(Œ»İ–¢À‘•).
+     * TODO:ƒ}ƒXƒ^[ƒ{ƒŠƒ…[ƒ€ˆ—‚ğ‚·‚éI
      * @param prm_master_volume_rate
      */
     static void setMasterVolume(float prm_master_volume_rate) {

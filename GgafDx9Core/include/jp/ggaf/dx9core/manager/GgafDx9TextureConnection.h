@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9TEXTURECONNECTION_H_
+#ifndef GGAFDX9TEXTURECONNECTION_H_
 #define GGAFDX9TEXTURECONNECTION_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒ†ã‚¯ã‚¹ãƒãƒ£ã®ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³.
+ * ƒeƒNƒXƒ`ƒƒ‚ÌƒRƒlƒNƒVƒ‡ƒ“.
  * @version 1.00
  * @since 2009/01/27
  * @author Masatoshi Tsuge
@@ -13,9 +13,9 @@ class GgafDx9TextureConnection : public GgafCore::GgafResourceConnection<GgafDx9
 public:
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_idstr ãƒ†ã‚¯ã‚¹ãƒãƒ£è­˜åˆ¥å
-     * @param prm_pIDirect3DTexture9 ãƒ†ã‚¯ã‚¹ãƒãƒ£
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_idstr ƒeƒNƒXƒ`ƒƒ¯•Ê–¼
+     * @param prm_pIDirect3DTexture9 ƒeƒNƒXƒ`ƒƒ
      */
     GgafDx9TextureConnection(char* prm_idstr, GgafDx9Texture* prm_pResource);
 

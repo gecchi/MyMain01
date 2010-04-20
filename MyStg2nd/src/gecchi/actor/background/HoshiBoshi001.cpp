@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -21,22 +21,22 @@ HoshiBoshi001::HoshiBoshi001(const char* prm_name) :
     _pScaler = NEW GgafDx9GeometryScaler(this);
 
 
-    //chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆ
+    //chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
     setHitAble(false);
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi001::HoshiBoshi001 _CAM_ZF="<<_CAM_ZF);
-    //ç‹¬è‡ªãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›
+    //“Æ©ƒ[ƒ‹ƒh•ÏŠ·
     defineWorldMatrix(HoshiBoshi001::setWorldMatrix_HoshiBoshi001);
 
 }
 
 int HoshiBoshi001::isOffscreen() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—
+    //‰æ–ÊŠO”»’è–³‚µ
     return 0;
 }
 
 bool HoshiBoshi001::isOutOfGameSpace() {
-    //ã‚²ãƒ¼ãƒ åº§æ¨™ç¯„å›²å¤–åˆ¤å®šç„¡ã—
+    //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }
 void HoshiBoshi001::initialize() {
@@ -58,12 +58,12 @@ void HoshiBoshi001::processBehavior() {
 }
 
 void HoshiBoshi001::processPreJudgement() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—ã«ä¼´ãªã„å‡¦ç†ç°¡ç•¥åŒ–
-    //GgafDx9GeometricActor::processPreJudgement() ã¨åŒæœŸã‚’å–ã‚‹äº‹ï¼
+    //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
+    //GgafDx9GeometricActor::processPreJudgement() ‚Æ“¯Šú‚ğæ‚é–I
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—
+    (*_pFunc_calcWorldMatrix)(this, _matWorld); //ƒ[ƒ‹ƒh•ÏŠ·s—ñ
 
 }
 
@@ -71,18 +71,18 @@ void HoshiBoshi001::processJudgement() {
 }
 
 void HoshiBoshi001::processPreDraw() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—ã«ä¼´ãªã„å‡¦ç†ç°¡ç•¥åŒ–
-    //GgafDx9DrawableActor::processPreDraw() ã¨åŒæœŸã‚’å–ã‚‹äº‹ï¼
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - MAX_DRAW_DEPTH_LEVEL/100 ,this); //æœ€æ·±éƒ¨
+    //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
+    //GgafDx9DrawableActor::processPreDraw() ‚Æ“¯Šú‚ğæ‚é–I
+    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL - MAX_DRAW_DEPTH_LEVEL/100 ,this); //Å[•”
 
-//    //ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯æœŸé–“ãƒã‚§ãƒƒã‚¯
+//    //ˆêƒeƒNƒjƒbƒNŠúŠÔƒ`ƒFƒbƒN
 //    if (_is_temp_technique) {
 //        if (_frame_temp_technique <= _frame_of_behaving) {
-//            //ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯æœŸé–“æº€äº†ã€‚å…ƒã«æˆ»ã™
+//            //ˆêƒeƒNƒjƒbƒNŠúŠÔ–—¹BŒ³‚É–ß‚·
 //            _hash_technique = _hash_technique_temp;
 //            strcpy(_technique, _technique_temp);
 //            _is_temp_technique = false;
-//            //ã“ã‚Œã¯ãƒ€ãƒ¡ã€‚é…åˆ—é ˜åŸŸãŒã©ã“ã‹ã«ã„ããŸã‚ã€‚_technique_temp = "";
+//            //‚±‚ê‚Íƒ_ƒB”z—ñ—Ìˆæ‚ª‚Ç‚±‚©‚É‚¢‚­‚½‚ßB_technique_temp = "";
 //            _hash_technique_temp = 0;
 //        }
 //    }
@@ -93,11 +93,11 @@ void HoshiBoshi001::processDraw() {
     pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetFloat(_hMyShip_fX, pMYSHIP->_fX);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fX) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fX) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_hMyShip_fY, pMYSHIP->_fY);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fY) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fY) ‚É¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_hMyShip_fZ, pMYSHIP->_fZ);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fZ) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(_hMyShip_fZ) ‚É¸”s‚µ‚Ü‚µ‚½B");
     GgafDx9PointSpriteActor::processDraw();
 }
 
@@ -114,8 +114,8 @@ HoshiBoshi001::~HoshiBoshi001() {
 
 
 void HoshiBoshi001::setWorldMatrix_HoshiBoshi001(GgafDx9GeometricActor* prm_pActor, D3DXMATRIX& out_matWorld) {
-    //Worldå¤‰æ›
-    //æ‹¡å¤§ç¸®å° Ã— Xè»¸å›è»¢ Ã— 2å€Zè»¸å›è»¢ Ã— 2å€Yè»¸å›è»¢ Ã— 1/2å€å¹³è¡Œç§»å‹• ã®å¤‰æ›è¡Œåˆ—ã‚’è¨­å®š<BR>
+    //World•ÏŠ·
+    //Šg‘åk¬ ~ X²‰ñ“] ~ 2”{Z²‰ñ“] ~ 2”{Y²‰ñ“] ~ 1/2”{•½sˆÚ“® ‚Ì•ÏŠ·s—ñ‚ğİ’è<BR>
     static float sinRx, cosRx, sinRy, cosRy, sinRz, cosRz;
     static float fRateScale = 1.0f * LEN_UNIT;
     static float Sx, Sy, Sz;

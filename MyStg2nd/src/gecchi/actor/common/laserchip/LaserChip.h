@@ -1,9 +1,9 @@
-ï»¿#ifndef LASERCHIP_H_
+#ifndef LASERCHIP_H_
 #define LASERCHIP_H_
 namespace MyStg2nd {
 
 /**
- * ãƒãƒªãƒ©ã‚¤ãƒ³ãƒ¬ãƒ¼ã‚¶ãƒ¼ã®ãƒãƒƒãƒ—ã®åŸºåº•ã‚¯ãƒ©ã‚¹ .
+ * ƒ|ƒŠƒ‰ƒCƒ“ƒŒ[ƒU[‚Ìƒ`ƒbƒv‚ÌŠî’êƒNƒ‰ƒX .
  * @version 1.00
  * @since 2008/11/24
  * @author Masatoshi Tsuge
@@ -17,21 +17,21 @@ public:
 
     GgafDx9LibStg::CollisionChecker* _pCollisionChecker;
 
-    /** ä¸€ã¤å‰æ–¹ã®ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ— */
+    /** ˆê‚Â‘O•û‚ÌƒŒ[ƒU[ƒ`ƒbƒv */
     LaserChip* _pChip_front;
-    /** ä¸€ã¤å¾Œæ–¹ã®ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒãƒƒãƒ— */
+    /** ˆê‚ÂŒã•û‚ÌƒŒ[ƒU[ƒ`ƒbƒv */
     LaserChip* _pChip_behind;
-    /** ãƒ¬ãƒ¼ã‚¶ãƒ¼ãƒ†ã‚¯ã‚¹ãƒãƒ£ç¨®åˆ¥  1:æœ«å°¾ 2:ä¸­é–“ 3:å…ˆé ­ã‹ã‚‰ï¼’ç•ªç›®ã§å…ˆé ­ã®ãƒ†ã‚¯ã‚¹ãƒãƒ£ ï¼ˆæœ«å°¾ã‹ã¤å…ˆé ­ã¯æœ«å°¾ãŒå„ªå…ˆï¼‰ 4:æœ¬å½“ã®å…ˆé ­(ä½†ã—æç”»ã§ããªã„) */
+    /** ƒŒ[ƒU[ƒeƒNƒXƒ`ƒƒí•Ê  1:––”ö 2:’†ŠÔ 3:æ“ª‚©‚ç‚Q”Ô–Ú‚Åæ“ª‚ÌƒeƒNƒXƒ`ƒƒ i––”ö‚©‚Âæ“ª‚Í––”ö‚ª—Dæj 4:–{“–‚Ìæ“ª(’A‚µ•`‰æ‚Å‚«‚È‚¢) */
     int _chip_kind;
-    /** è‡ªèº«ã‚’ç®¡ç†ã—ã¦ã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ç™ºé€è€… */
+    /** ©g‚ğŠÇ—‚µ‚Ä‚éƒAƒNƒ^[”­‘—Ò */
     LaserChipDispatcher* _pDispatcher;
-    /** registHitAreaCube() ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šç™»éŒ²ã•ã‚Œã¦ã„ã‚‹ã‹ã©ã†ã‹ã€‚trueãªã‚‰ã°ã€ä¸­é–“å½“ãŸã‚Šåˆ¤å®šè‡ªå‹•ç”Ÿæˆæ˜¨æ—¥ãŒä½¿ãˆã‚‹ */
+    /** registHitAreaCube() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©Btrue‚È‚ç‚ÎA’†ŠÔ“–‚½‚è”»’è©“®¶¬ğ“ú‚ªg‚¦‚é */
     bool _is_regist_hitarea;
-    /** registHitAreaCube() ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šç™»éŒ²æ™‚ã®å½“ãŸã‚Šåˆ¤å®šç«‹æ–¹ä½“ã®ï¼‘è¾ºã®é•·ã• */
+    /** registHitAreaCube() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³ */
     int _hitarea_edge_length;
-    /** registHitAreaCube() ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚Šç™»éŒ²æ™‚ã®å½“ãŸã‚Šåˆ¤å®šç«‹æ–¹ä½“ã®ï¼‘è¾ºã®é•·ã•ã®åŠåˆ† */
+    /** registHitAreaCube() ƒƒ\ƒbƒh‚É‚æ‚è“o˜^‚Ì“–‚½‚è”»’è—§•û‘Ì‚Ì‚P•Ó‚Ì’·‚³‚Ì”¼•ª */
     int _harf_hitarea_edge_length;
-    /** onAcive() ã§ãƒªã‚»ãƒƒãƒˆã•ã‚Œã‚‹æŒ¯ã‚‹èˆã„æ™‚ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** onAcive() ‚ÅƒŠƒZƒbƒg‚³‚ê‚éU‚é•‘‚¢ƒtƒŒ[ƒ€” */
     DWORD _frame_of_behaving_from_onActive;
 
     LaserChip(const char* prm_name, const char* prm_model);

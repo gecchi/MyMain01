@@ -1,10 +1,10 @@
-ï»¿#ifndef WORLD_H_
+#ifndef WORLD_H_
 #define WORLD_H_
 namespace MyStg2nd {
 
-//getParent getSub ãã—ã¦ ã‚­ãƒ£ã‚¹ãƒˆãƒã‚¯ãƒ­ã€‚
-//ä¸‹è¨˜ãƒã‚¯ãƒ­ä½¿ç”¨ã™ã‚‹ã«ã¯ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è­˜åˆ¥åãŒã€
-//ã‚¯ãƒ©ã‚¹åã®æœ«å°¾ã®"...Scene"ã¨ã„ã†æ–‡å­—åˆ—ã‚’å–ã‚Šå»ã£ãŸã‚‚ã®ã§ã‚ã‚‹ã“ã¨ãŒå‰ææ¡ä»¶ã§ã™
+//getParent getSub ‚»‚µ‚Ä ƒLƒƒƒXƒgƒ}ƒNƒB
+//‰º‹Lƒ}ƒNƒg—p‚·‚é‚É‚ÍAƒIƒuƒWƒFƒNƒg‚Ì¯•Ê–¼‚ªA
+//ƒNƒ‰ƒX–¼‚Ì––”ö‚Ì"...Scene"‚Æ‚¢‚¤•¶š—ñ‚ğæ‚è‹‚Á‚½‚à‚Ì‚Å‚ ‚é‚±‚Æ‚ª‘O’ñğŒ‚Å‚·
 #define getParentScene(X) ((X##Scene*)getParent(#X))
 #define getSubScene(X) ((X##Scene*)getSub(#X))
 #define getParentActor(X) ((X##Actor*)getParent(#X))
@@ -22,10 +22,10 @@ namespace MyStg2nd {
 #define CAM_POS_BEHIND_BOTTOM 14
 
 /**
- * ä¸–ç•Œã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ .
- * ã“ã®ä¸–ã«ã€ã¨ã‚ã‚‹ä¸–ç•ŒãŒã‚ã‚Šã¾ã—ãŸã€‚<BR>
- * æœ¬ã‚¯ãƒ©ã‚¹ã¯ã€ä¸–ç•Œã®æŒ¯ã‚‹èˆã„ç­‰ã‚’å®Ÿè£…ã—ã¦ã„ã¾ã™ã€‚<BR>
- * ãƒ¡ã‚¤ãƒ³ã®å‡¦ç†ã¯ã‚«ãƒ¡ãƒ©æ“ä½œã«ãªã£ã¦ã—ã¾ã£ã¦ã„ã‚‹ã€‚
+ * ¢ŠEƒV[ƒ“ƒNƒ‰ƒX .
+ * ‚±‚Ì¢‚ÉA‚Æ‚ ‚é¢ŠE‚ª‚ ‚è‚Ü‚µ‚½B<BR>
+ * –{ƒNƒ‰ƒX‚ÍA¢ŠE‚ÌU‚é•‘‚¢“™‚ğÀ‘•‚µ‚Ä‚¢‚Ü‚·B<BR>
+ * ƒƒCƒ“‚Ìˆ—‚ÍƒJƒƒ‰‘€ì‚É‚È‚Á‚Ä‚µ‚Ü‚Á‚Ä‚¢‚éB
  */
 class World : public GgafDx9LibStg::DefaultScene {
 
@@ -56,17 +56,17 @@ public:
     World(const char* prm_name);
 
     /**
-     * åˆæœŸå‡¦ç†
+     * ‰Šúˆ—
      */
     void initialize() override;
 
      /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
      /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processJudgement() override;
 

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -12,7 +12,7 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
     _class_name = "EnemyCeres";
     MyStgUtil::resetEnemyCeresStatus(_pStatus);
     _iMovePatternNo = 0;
-    _X = -356000; //é–‹å§‹åº§æ¨™
+    _X = -356000; //ŠJnÀ•W
     _Y = 0;
     _Z = -680000;
     _X_turn = GgafDx9Camera::_X_ScreenRight - 30000;
@@ -22,25 +22,25 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
 
 
     if (prm_pDispatcher_EnemyCeresShots001 == NULL) {
-        //å…±æœ‰ã®å¼¾ãŒå¼•æ•°ã«æœªæŒ‡å®šã®å ´åˆ
-        //å¼¾ã‚¹ãƒˆãƒƒã‚¯ä½œæˆ
+        //‹¤—L‚Ì’e‚ªˆø”‚É–¢w’è‚Ìê‡
+        //’eƒXƒgƒbƒNì¬
         _pDispatcher_EnemyCeresShots001 = NEW GgafActorDispatcher("RotEnemyMeshS001");
         EnemyCeresShot001* pCeresShot001;
         for (int i = 0; i < 32; i++) {
             pCeresShot001 = NEW EnemyCeresShot001("EnemyMeshShot");
-            pCeresShot001->inactivateTreeImmediately(); //æœ€åˆéè¡¨ç¤º
+            pCeresShot001->inactivateTreeImmediately(); //Å‰”ñ•\¦
             _pDispatcher_EnemyCeresShots001->addSubLast(pCeresShot001);
         }
         addSubGroup(_pDispatcher_EnemyCeresShots001);
         _createGgafActorDispatcher = true;
     } else {
-        //å…±æœ‰ã®å¼¾ãŒæŒ‡å®šã•ã‚Œã¦ã‚‹ã®å ´åˆ
+        //‹¤—L‚Ì’e‚ªw’è‚³‚ê‚Ä‚é‚Ìê‡
         _pDispatcher_EnemyCeresShots001 = prm_pDispatcher_EnemyCeresShots001;
         _createGgafActorDispatcher = false;
     }
 
-    //ã‚±ãƒ¬ã‚¹ç”¨ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ã®å®šç¾©
-    if (EnemyCeres::_spline._num_basepoint == 0) { //ã‚±ãƒ¬ã‚¹ã‚¯ãƒ©ã‚¹ã§ï¼‘å›ã ã‘ä½œæˆ
+    //ƒPƒŒƒX—pƒXƒvƒ‰ƒCƒ“ˆÚ“®‚Ì’è‹`
+    if (EnemyCeres::_spline._num_basepoint == 0) { //ƒPƒŒƒXƒNƒ‰ƒX‚Å‚P‰ñ‚¾‚¯ì¬
         double p[][3] = { //        X ,        Y ,       Z
                            { -1024000 ,  -300000 ,  680000 },
                            {  -800000 ,   300000 ,  480000 },
@@ -63,9 +63,9 @@ EnemyCeres::EnemyCeres(const char* prm_name, GgafActorDispatcher* prm_pDispatche
         EnemyCeres::_spline.init(p, 17, 0.2);
     }
 
-    //Mover ã«æ¸¡ã™ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¦ãŠã
-    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ç§»å‹•é€Ÿåº¦å›ºå®š
-    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ç§»å‹•ãƒ•ãƒ¬ãƒ¼ãƒ æ•°å›ºå®š
+    //Mover ‚É“n‚·ƒvƒƒOƒ‰ƒ€ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚µ‚Ä‚¨‚­
+    //_pProgram_CeresMove = NEW GgafDx9FixedVelocitySplineProgram(&EnemyCeres::_spline, 5000); //ˆÚ“®‘¬“xŒÅ’è
+    _pProgram_CeresMove = NEW GgafDx9FixedFrameSplineProgram(&EnemyCeres::_spline, 600, 5000); //ˆÚ“®ƒtƒŒ[ƒ€”ŒÅ’è
 
     _pSeReflector->useSe(1);
     _pSeReflector->set(0, "a_shot", GgafRepeatSeq::nextVal("CH_a_shot"));
@@ -85,15 +85,15 @@ void EnemyCeres::onActive() {
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setFaceAngVelo(AXIS_X, 6000);
     _pMover->setMvVelo(8000);
-    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ã‚’ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã—ã¦ãŠã
+    _pMover->executeSplineMoveProgram(_pProgram_CeresMove, 0); //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚ğƒvƒƒOƒ‰ƒ€‚µ‚Ä‚¨‚­
     _dwFrame_Active = 0;
 }
 
 void EnemyCeres::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
-    //æ–¹å‘è»¢æ›
+    //•ûŒü“]Š·
     if (_iMovePatternNo == 0 && _X > 400000) {
 
         angle way[32];
@@ -120,7 +120,7 @@ void EnemyCeres::processBehavior() {
         _iMovePatternNo++;
     }
 
-    _pMover->behave(); //æ¬¡ã®åº§æ¨™ã¸ç§»å‹•
+    _pMover->behave(); //Ÿ‚ÌÀ•W‚ÖˆÚ“®
     //_pSeReflector->behave();
     _dwFrame_Active++;
 }
@@ -134,12 +134,12 @@ void EnemyCeres::processJudgement() {
 
 void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ãƒ’ãƒƒãƒˆã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ç ´å£Šã•ã‚ŒãŸå ´åˆ
+        //”j‰ó‚³‚ê‚½ê‡
         setHitAble(false);
         _pSeReflector->play3D(0);
-        inactivate(); //TODO:ã•ã‚ˆãªã‚‰
+        inactivate(); //TODO:‚³‚æ‚È‚ç
         GgafDx9DrawableActor* pExplo001 = (GgafDx9DrawableActor*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         if (pExplo001 != NULL) {
             pExplo001->setGeometry(this);
@@ -150,9 +150,9 @@ void EnemyCeres::onHit(GgafActor* prm_pOtherActor) {
 
 void EnemyCeres::onInactive() {
     if (_createGgafActorDispatcher) {
-        //å¼¾ã¯é…ã‚Œã¦é–‹æ”¾ã•ã›ã‚‹ã‚ˆã†ã«ã€å‹•ãã‚’ç¶™ç¶šã•ã›ã‚‹ãŸã‚ç§»å‹•
+        //’e‚Í’x‚ê‚ÄŠJ•ú‚³‚¹‚é‚æ‚¤‚ÉA“®‚«‚ğŒp‘±‚³‚¹‚é‚½‚ßˆÚ“®
         getLordActor()->addSubLast(_pDispatcher_EnemyCeresShots001->getGroupActor()->extract());
-       _pDispatcher_EnemyCeresShots001->sayonara(60 * 5);//è§£æ”¾äºˆç´„
+       _pDispatcher_EnemyCeresShots001->sayonara(60 * 5);//‰ğ•ú—\–ñ
     }
     sayonara();
 }
@@ -166,6 +166,6 @@ bool EnemyCeres::isOutOfGameSpace() {
 }
 
 EnemyCeres::~EnemyCeres() {
-    //staticãªã®ã§æœ€åˆã®ï¼‘å›ã ã‘è§£æ”¾ã—ãŸã„
+    //static‚È‚Ì‚ÅÅ‰‚Ì‚P‰ñ‚¾‚¯‰ğ•ú‚µ‚½‚¢
     DELETE_POSSIBLE_NULL(_pProgram_CeresMove);
 }

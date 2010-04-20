@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9SPRITEMESHSETACTOR_H_
+#ifndef GGAFDX9SPRITEMESHSETACTOR_H_
 #define GGAFDX9SPRITEMESHSETACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ã‚¹ãƒ—ãƒ©ã‚¤ãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼.
- * GgafDx9MeshSetActor ã‚’ç¶™æ‰¿ã—ã€
- * UVã‚’åˆ‡ã‚Šæ›¿ãˆã‚‹æ©Ÿèƒ½ã‚’æœ‰ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼
+ * ƒXƒvƒ‰ƒCƒgƒƒbƒVƒ…ƒAƒNƒ^[.
+ * GgafDx9MeshSetActor ‚ğŒp³‚µA
+ * UV‚ğØ‚è‘Ö‚¦‚é‹@”\‚ğ—L‚µ‚½ƒAƒNƒ^[
  * @version 1.00
  * @since 2009/02/09
  * @author Masatoshi Tsuge
@@ -13,7 +13,7 @@ namespace GgafDx9Core {
 class GgafDx9SpriteMeshSetActor : public GgafDx9MeshSetActor {
 
 public:
-    /** UVãƒ•ãƒªãƒƒãƒ‘ãƒ¼(ãƒ‘ãƒ©ãƒ‘ãƒ©ã‚¢ãƒ‹ãƒ¡) */
+    /** UVƒtƒŠƒbƒp[(ƒpƒ‰ƒpƒ‰ƒAƒjƒ) */
     GgafDx9UvFlipper* _pUvFlipper;
 
     GgafDx9SpriteMeshSetActor(const char* prm_name,

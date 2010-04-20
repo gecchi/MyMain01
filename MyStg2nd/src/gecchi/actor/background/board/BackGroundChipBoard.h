@@ -1,4 +1,4 @@
-﻿#ifndef BACKGROUNDCHIPBOARD_H_
+#ifndef BACKGROUNDCHIPBOARD_H_
 #define BACKGROUNDCHIPBOARD_H_
 namespace MyStg2nd {
 

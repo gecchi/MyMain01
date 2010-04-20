@@ -1,14 +1,14 @@
-ï»¿#ifndef GGAFDX9MODELMANAGER_H_
+#ifndef GGAFDX9MODELMANAGER_H_
 #define GGAFDX9MODELMANAGER_H_
 
 
 namespace GgafDx9Core {
 
 /**
- * ãƒ¢ãƒ‡ãƒ«ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç®¡ç†.
- * ä¸»ã«ã€ãƒ¢ãƒ‡ãƒ«ã‚’ãƒªã‚¹ãƒˆã«ã‚ˆã‚Šä¿æŒã—ã€ãƒ¢ãƒ‡ãƒ«ãŒè¦æ±‚ã•ã‚ŒãŸæ™‚ã«<BR>
- * ç”Ÿæˆã™ã‚‹ã‹ã€ã‚ã‚‹ã„ã¯ç”Ÿæˆæ¸ˆã‚’è¿”ã™ã‹ã‚’åˆ¤æ–­ã—ã¾ã™ã€‚<BR>
- * TODO:ä¸­æ ¸ã¨ã‚‚è¨€ãˆã‚‹ã‚¯ãƒ©ã‚¹ã§è‚¥å¤§åŒ–ã¯ã—ã‹ãŸãªã„ãŒã€åˆ†å‰²ã—ãŸãªãã€‚
+ * ƒ‚ƒfƒ‹ƒCƒ“ƒXƒ^ƒ“ƒXŠÇ—.
+ * å‚ÉAƒ‚ƒfƒ‹‚ğƒŠƒXƒg‚É‚æ‚è•Û‚µAƒ‚ƒfƒ‹‚ª—v‹‚³‚ê‚½‚É<BR>
+ * ¶¬‚·‚é‚©A‚ ‚é‚¢‚Í¶¬Ï‚ğ•Ô‚·‚©‚ğ”»’f‚µ‚Ü‚·B<BR>
+ * TODO:’†Šj‚Æ‚àŒ¾‚¦‚éƒNƒ‰ƒX‚Å”ì‘å‰»‚Í‚µ‚©‚½‚È‚¢‚ªA•ªŠ„‚µ‚½‚È‚ŸB
  * @version 1.00
  * @since 2009/02/01
  * @author Masatoshi Tsuge
@@ -16,7 +16,7 @@ namespace GgafDx9Core {
 class GgafDx9ModelManager : public GgafCore::GgafResourceManager<GgafDx9Model> {
 
 private:
-    /** ã‚«ã‚¹ã‚¿ãƒ ãƒ†ãƒ³ãƒ—ãƒ¬ãƒ¼ãƒˆXãƒ•ã‚¡ã‚¤ãƒ«èª­ã¿è¾¼ã¿ç”¨ã® IDirectXFile ã®ãƒã‚¤ãƒ³ã‚¿ */
+    /** ƒJƒXƒ^ƒ€ƒeƒ“ƒvƒŒ[ƒgXƒtƒ@ƒCƒ‹“Ç‚İ‚İ—p‚Ì IDirectXFile ‚Ìƒ|ƒCƒ“ƒ^ */
     IDirectXFile* _pIDirectXFile_sprx;
     IDirectXFile* _pIDirectXFile_psprx;
     GgafDx9TextureManager* _pTextureManager;
@@ -34,59 +34,59 @@ private:
     GgafDx9PointSpriteModel* createPointSpriteModel(char* prm_model_name);
 
     /**
-     * ç©ºé–“ã®3ç‚¹v0 v1 v2 ã‚ˆã‚Šã€ç›´ç·š v0v1 ã¨ v1v2 ã®æˆã™è§’(è§’v1)ã‚’æ±‚ã‚ã‚‹
+     * ‹óŠÔ‚Ì3“_v0 v1 v2 ‚æ‚èA’¼ü v0v1 ‚Æ v1v2 ‚Ì¬‚·Šp(Špv1)‚ğ‹‚ß‚é
      * @param v0
      * @param v1
      * @param v2
-     * @return æˆã™è§’(ãƒ©ãƒ‡ã‚£ã‚¢ãƒ³)
+     * @return ¬‚·Šp(ƒ‰ƒfƒBƒAƒ“)
      */
     float getRadv1_v0v1v2(Frm::Vertex& v0, Frm::Vertex& v1, Frm::Vertex& v2);
 public:
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-     * @param prm_manager_name ãƒãƒãƒ¼ã‚¸ãƒ£åç§°(ãƒªãƒ†ãƒ©ãƒ«å¿…é ˆ)
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * @param prm_manager_name ƒ}ƒl[ƒWƒƒ–¼Ì(ƒŠƒeƒ‰ƒ‹•K{)
      */
     GgafDx9ModelManager(const char* prm_manager_name);
 
     /**
-     * ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥IDã«ã‚ˆã‚Šã€ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã™ã‚‹ .
+     * ƒ‚ƒfƒ‹¯•ÊID‚É‚æ‚èAƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚ğ¶¬‚·‚é .
      * <pre>
-     * ï¼œãƒ¢ãƒ‡ãƒ«è­˜åˆ¥IDã®å½¢å¼ï¼ãƒ¡ãƒ¢
-     * ã€ãƒ¢ãƒ‡ãƒ«ã‚¿ã‚¤ãƒ—  + "/" + ãƒ¢ãƒ‡ãƒ«å®šç¾©åã€ã¨ãªã£ã¦ã„ã‚‹ã€‚
-     *  "D/MyShip"   --> GgafDx9D3DXMeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "MyShip.x"
-     *  "d/MyShip"   --> GgafDx9D3DXMeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "MyShip.x"ï¼ˆD3DXMESH_DYNAMIC ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã ã‘ç•°ãªã‚‹ï¼‰
-     *  "A/Hone"     --> GgafDx9D3DXAniMeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Hone.x"
-     *  "X/Enemy"    --> GgafDx9MeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Enemy.x"
-     *  "x/12/Enemy"- -> GgafDx9MeshSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Enemy"ã€‚åŒæ™‚æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã¯ 12 ã‚»ãƒƒãƒˆ
-     *  "x/Enemy"    --> GgafDx9MeshSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Enemy.x"ã€‚ã‚»ãƒƒãƒˆæ•°çœç•¥æ™‚ã¯æœ€å¤§ã® 16 ã‚»ãƒƒãƒˆ
-     *  "M/3/MyShip" --> GgafDx9MorphMeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"ã€‚æ•°å€¤éƒ¨åˆ†çœç•¥ä¸å¯ã€‚
-     *                   ãƒ—ãƒ©ã‚¤ãƒãƒªãƒ¢ãƒ‡ãƒ«ã¯"MyShip_0.x"ã€ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ1ã€œ3ãŒ"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
-     *  "S/Bomb"     --> GgafDx9SpriteModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Bomb.sprx"ã€‚
-     *  "s/5/Bomb"   --> GgafDx9SpriteSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Bomb.sprx"ã€‚åŒæ™‚æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã¯ 5 ã‚»ãƒƒãƒˆ
-     *  "s/Bomb"     --> GgafDx9SpriteSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Bomb.sprx"ã€‚ã‚»ãƒƒãƒˆæ•°çœç•¥æ™‚ã¯æœ€å¤§ã® 18 ã‚»ãƒƒãƒˆ
-     *  "B/Font"     --> GgafDx9BoardModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Font.sprx"ã€‚
-     *  "b/10/Font"  --> GgafDx9BoardSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Font.sprx"ã€‚åŒæ™‚æç”»ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•°ã¯ 10 ã‚»ãƒƒãƒˆ
-     *  "b/Font"     --> GgafDx9BoardSetModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Font.sprx"ã€‚ã‚»ãƒƒãƒˆæ•°çœç•¥æ™‚ã¯æœ€å¤§ã® 28 ã‚»ãƒƒãƒˆ
-     *  "P/Star"     --> GgafDx9PointSpriteModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "Star.x"ã€‚åŒæ™‚æç”»ã‚»ãƒƒãƒˆæ•°ã¯8
-     *  "C"          --> GgafDx9D3DXMeshModel ã®ãƒ¢ãƒ‡ãƒ«ã€‚èª­ã¿è¾¼ã‚€ãƒ•ã‚¡ã‚¤ãƒ«ã¯ "cube.x"
+     * ƒƒ‚ƒfƒ‹¯•ÊID‚ÌŒ`®„ƒƒ‚
+     * wƒ‚ƒfƒ‹ƒ^ƒCƒv  + "/" + ƒ‚ƒfƒ‹’è‹`–¼x‚Æ‚È‚Á‚Ä‚¢‚éB
+     *  "D/MyShip"   --> GgafDx9D3DXMeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "MyShip.x"
+     *  "d/MyShip"   --> GgafDx9D3DXMeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "MyShip.x"iD3DXMESH_DYNAMIC ƒIƒvƒVƒ‡ƒ“‚¾‚¯ˆÙ‚È‚éj
+     *  "A/Hone"     --> GgafDx9D3DXAniMeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Hone.x"
+     *  "X/Enemy"    --> GgafDx9MeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Enemy.x"
+     *  "x/12/Enemy"- -> GgafDx9MeshSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Enemy"B“¯•`‰æƒIƒuƒWƒFƒNƒg”‚Í 12 ƒZƒbƒg
+     *  "x/Enemy"    --> GgafDx9MeshSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Enemy.x"BƒZƒbƒg”È—ª‚ÍÅ‘å‚Ì 16 ƒZƒbƒg
+     *  "M/3/MyShip" --> GgafDx9MorphMeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "MyShip_0.x", "MyShip_1.x", "MyShip_2.x", "MyShip_3.x"B”’l•”•ªÈ—ª•s‰ÂB
+     *                   ƒvƒ‰ƒCƒ}ƒŠƒ‚ƒfƒ‹‚Í"MyShip_0.x"Aƒ‚[ƒtƒ^[ƒQƒbƒg1`3‚ª"MyShip_1.x", "MyShip_2.x", "MyShip_3.x"
+     *  "S/Bomb"     --> GgafDx9SpriteModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Bomb.sprx"B
+     *  "s/5/Bomb"   --> GgafDx9SpriteSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Bomb.sprx"B“¯•`‰æƒIƒuƒWƒFƒNƒg”‚Í 5 ƒZƒbƒg
+     *  "s/Bomb"     --> GgafDx9SpriteSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Bomb.sprx"BƒZƒbƒg”È—ª‚ÍÅ‘å‚Ì 18 ƒZƒbƒg
+     *  "B/Font"     --> GgafDx9BoardModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Font.sprx"B
+     *  "b/10/Font"  --> GgafDx9BoardSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Font.sprx"B“¯•`‰æƒIƒuƒWƒFƒNƒg”‚Í 10 ƒZƒbƒg
+     *  "b/Font"     --> GgafDx9BoardSetModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Font.sprx"BƒZƒbƒg”È—ª‚ÍÅ‘å‚Ì 28 ƒZƒbƒg
+     *  "P/Star"     --> GgafDx9PointSpriteModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "Star.x"B“¯•`‰æƒZƒbƒg”‚Í8
+     *  "C"          --> GgafDx9D3DXMeshModel ‚Ìƒ‚ƒfƒ‹B“Ç‚İ‚Şƒtƒ@ƒCƒ‹‚Í "cube.x"
      *  </pre>
-     * @param prm_idstr ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥ID
-     * @return ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ
+     * @param prm_idstr ƒ‚ƒfƒ‹¯•ÊID
+     * @return ƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg
      */
     GgafDx9Model* processCreateResource(char* prm_idstr);
 
     /**
-     * GgafDx9D3DXMeshModel ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å†æ§‹ç¯‰ã™ã‚‹ã€‚ .
-     * @param prm_pD3DXMeshModel å†æ§‹ç¯‰ã™ã‚‹GgafDx9D3DXMeshModel
+     * GgafDx9D3DXMeshModel ƒIƒuƒWƒFƒNƒg‚ğÄ\’z‚·‚éB .
+     * @param prm_pD3DXMeshModel Ä\’z‚·‚éGgafDx9D3DXMeshModel
      */
     void restoreD3DXMeshModel(GgafDx9D3DXMeshModel* prm_pD3DXMeshModel);
 
     void restoreD3DXAniMeshModel(GgafDx9D3DXAniMeshModel* prm_pD3DXAniMeshModel);
 
     /**
-     * GgafDx9SpriteModel ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å†æ§‹ç¯‰ã™ã‚‹ã€‚ .
-     * @param prm_pSpriteModel å†æ§‹ç¯‰ã™ã‚‹GgafDx9SpriteModel
+     * GgafDx9SpriteModel ƒIƒuƒWƒFƒNƒg‚ğÄ\’z‚·‚éB .
+     * @param prm_pSpriteModel Ä\’z‚·‚éGgafDx9SpriteModel
      */
     void restoreSpriteModel(GgafDx9SpriteModel* prm_pSpriteModel);
 
@@ -94,8 +94,8 @@ public:
 
 
     /**
-     * GgafDx9BoardModel ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’å†æ§‹ç¯‰ã™ã‚‹ã€‚ .
-     * @param prm_pBoardModel å†æ§‹ç¯‰ã™ã‚‹GgafDx9BoardModel
+     * GgafDx9BoardModel ƒIƒuƒWƒFƒNƒg‚ğÄ\’z‚·‚éB .
+     * @param prm_pBoardModel Ä\’z‚·‚éGgafDx9BoardModel
      */
     void restoreBoardModel(GgafDx9BoardModel* prm_pBoardModel);
 
@@ -110,13 +110,13 @@ public:
     void restorePointSpriteModel(GgafDx9PointSpriteModel* prm_pPointSpriteModel);
 
     /**
-     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+     * ƒI[ƒo[ƒ‰ƒCƒh
      */
     GgafCore::GgafResourceConnection<GgafDx9Model>* processCreateConnection(char* prm_idstr, GgafDx9Model* prm_pResource);
 
     /**
-     * ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãƒªã‚¹ãƒˆã®å„ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã®å†…å®¹ã‚’å†æ§‹ç¯‰ã€‚ .
-     * ãƒ‡ãƒã‚¤ã‚¹ãƒ­ã‚¹ãƒˆå¾Œã®å¾©å¸°æ™‚ã«å‘¼ã³å‡ºã•ã‚Œã‚‹<BR>
+     * ƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒgƒŠƒXƒg‚ÌŠeƒCƒ“ƒXƒ^ƒ“ƒX‚Ì“à—e‚ğÄ\’zB .
+     * ƒfƒoƒCƒXƒƒXƒgŒã‚Ì•œ‹A‚ÉŒÄ‚Ño‚³‚ê‚é<BR>
      */
     void restoreAll();
 
@@ -125,20 +125,20 @@ public:
     void releaseAll();
 
 
-    /** ç¾åœ¨ãƒ¢ãƒ‡ãƒ«ID */
+    /** Œ»İƒ‚ƒfƒ‹ID */
     static int _id_max;
 
-    /** ãƒ¢ãƒ‡ãƒ«IDå–å¾— */
+    /** ƒ‚ƒfƒ‹IDæ“¾ */
     static int getNextId() {
         _id_max++;
         return _id_max;
     }
-    /** å‰å›æç”»Model */
+    /** ‘O‰ñ•`‰æModel */
     static GgafDx9Model* _pModelLastDraw;
 
     /**
-     * ãƒ¢ãƒ‡ãƒ«ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ãŒç®¡ç†ã™ã‚‹ãƒ¢ãƒ‡ãƒ«ãƒªã‚¹ãƒˆã®å…ˆé ­ã‚’å–å¾—
-     * @return å…ˆé ­ã®ãƒ¢ãƒ‡ãƒ«
+     * ƒ‚ƒfƒ‹ƒ}ƒl[ƒWƒƒ[‚ªŠÇ—‚·‚éƒ‚ƒfƒ‹ƒŠƒXƒg‚Ìæ“ª‚ğæ“¾
+     * @return æ“ª‚Ìƒ‚ƒfƒ‹
      */
     GgafDx9ModelConnection* getFirstConnection() {
         return (GgafDx9ModelConnection*)_pFirstConnection;
@@ -149,7 +149,7 @@ public:
 
     //
     //	/**
-    //	 * GgafDx9Modelã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒªã‚¹ãƒˆã‚’ã™ã¹ã¦ delete ã‚’è¡Œã†ã€‚<BR>
+    //	 * GgafDx9ModelƒIƒuƒWƒFƒNƒg‚ÌƒŠƒXƒg‚ğ‚·‚×‚Ä delete ‚ğs‚¤B<BR>
     //	 */
     //	static void release();
     //

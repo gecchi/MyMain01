@@ -1,9 +1,9 @@
-ï»¿#ifndef ENEMYIRIS_H_
+#ifndef ENEMYIRIS_H_
 #define ENEMYIRIS_H_
 namespace MyStg2nd {
 
 /**
- * æ•µæ©Ÿã‚¤ãƒªã‚¹ .
+ * “G‹@ƒCƒŠƒX .
  * @version 1.00
  * @since 2009/12/22
  * @author Masatoshi Tsuge
@@ -11,17 +11,17 @@ namespace MyStg2nd {
 class EnemyIris : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:
-    /** è¡Œå‹•ãƒ‘ã‚¿ãƒ¼ãƒ³ç•ªå· */
+    /** s“®ƒpƒ^[ƒ“”Ô† */
     int _iMovePatternNo;
-    /** ç§»å‹•ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ãƒ—ãƒ­ã‚°ãƒ©ãƒ  */
+    /** ˆÚ“®ƒXƒvƒ‰ƒCƒ“ƒvƒƒOƒ‰ƒ€ */
     GgafDx9Core::GgafDx9SplineProgram* _pProgram_IrisMove;
-    /** å¼¾ã‚¹ãƒˆãƒƒã‚¯ */
+    /** ’eƒXƒgƒbƒN */
     GgafCore::GgafActorDispatcher* _pDispatcher_Shot;
-    /** å¼¾ç™ºå°„åŠ¹æœã‚¨ãƒ•ã‚§ã‚¯ãƒˆ */
+    /** ’e”­ËŒø‰ÊƒGƒtƒFƒNƒg */
     GgafCore::GgafActorDispatcher* _pDispatcher_ShotEffect;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
      * @param prm_name
      * @return
      */
@@ -30,28 +30,28 @@ public:
     void onCreateModel() override;
 
     /**
-     * ã‚¤ãƒªã‚¹ã®ãŒåˆæœŸå‡¦ç†ï¼ˆã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆå¾Œä¿è¨¼ï¼‰
+     * ƒCƒŠƒX‚Ì‚ª‰Šúˆ—iƒCƒ“ƒXƒ^ƒ“ƒX¶¬Œã•ÛØj
      */
     void initialize() override;
 
     /**
-     * ã‚¤ãƒªã‚¹ã®ãŒã‚¢ã‚¯ãƒ†ã‚£ãƒ–ã«ãªã£ãŸç¬é–“ã®å‡¦ç† .
+     * ƒCƒŠƒX‚Ì‚ªƒAƒNƒeƒBƒu‚É‚È‚Á‚½uŠÔ‚Ìˆ— .
      */
     void onActive() override;
 
     /**
-     * ã‚¤ãƒªã‚¹ã®æŒ¯ã‚‹èˆã„ .
+     * ƒCƒŠƒX‚ÌU‚é•‘‚¢ .
      */
     void processBehavior() override;
 
     /**
-     * ã‚¤ãƒªã‚¹ã®æŒ¯ã‚‹èˆã„å¾Œã®åˆ¤å®šå‡¦ç† .
+     * ƒCƒŠƒX‚ÌU‚é•‘‚¢Œã‚Ì”»’èˆ— .
      */
     void processJudgement() override;
 
     /**
-     * ã‚¤ãƒªã‚¹ã®è¡çªæ™‚å‡¦ç† .
-     * @param prm_pOtherActor è¡çªå¯¾è±¡
+     * ƒCƒŠƒX‚ÌÕ“Ëˆ— .
+     * @param prm_pOtherActor Õ“Ë‘ÎÛ
      */
     void onHit(GgafCore::GgafActor* prm_pOtherActor) override;
 
@@ -59,16 +59,16 @@ public:
     void onInactive() override;
 
     /**
-     * ç™ºå°„å¼¾è¨­å®š .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)ã«ã‚­ãƒ£ã‚¹ãƒˆå¯èƒ½ãªã‚¢ã‚¯ã‚¿ãƒ¼ã‚’ã‚µãƒ–ã«æŒã¤ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã®ãƒã‚¤ãƒ³ã‚¿
+     * ”­Ë’eİ’è .
+     * @param prm_pDispatcher (GgafDx9DrawableActor*)‚ÉƒLƒƒƒXƒg‰Â”\‚ÈƒAƒNƒ^[‚ğƒTƒu‚É‚ÂƒfƒBƒXƒpƒbƒ`ƒƒ[‚Ìƒ|ƒCƒ“ƒ^
      */
     void setDispatcher_Shot(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_Shot = prm_pDispatcher;
     }
 
     /**
-     * åŠ¹æœã‚¨ãƒ•ã‚§ã‚¯ãƒˆè¨­å®š .
-     * @param prm_pDispatcher (GgafDx9DrawableActor*)ã«ã‚­ãƒ£ã‚¹ãƒˆå¯èƒ½ãªã‚¢ã‚¯ã‚¿ãƒ¼ã‚’ã‚µãƒ–ã«æŒã¤ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã®ãƒã‚¤ãƒ³ã‚¿
+     * Œø‰ÊƒGƒtƒFƒNƒgİ’è .
+     * @param prm_pDispatcher (GgafDx9DrawableActor*)‚ÉƒLƒƒƒXƒg‰Â”\‚ÈƒAƒNƒ^[‚ğƒTƒu‚É‚ÂƒfƒBƒXƒpƒbƒ`ƒƒ[‚Ìƒ|ƒCƒ“ƒ^
      */
     void setDispatcher_ShotEffect(GgafCore::GgafActorDispatcher* prm_pDispatcher) {
         _pDispatcher_ShotEffect = prm_pDispatcher;

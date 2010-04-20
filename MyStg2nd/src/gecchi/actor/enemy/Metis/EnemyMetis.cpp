@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -14,7 +14,7 @@ EnemyMetis::EnemyMetis(const char* prm_name) : DefaultMeshSetActor(prm_name, "Me
     _iMovePatternNo = 0;
     _pSeReflector->useSe(2);
     _pSeReflector->set(0, "yume_shototsu", GgafRepeatSeq::nextVal("CH_yume_shototsu"));
-    _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //çˆ†ç™º
+    _pSeReflector->set(1, "bomb1", GgafRepeatSeq::nextVal("CH_bomb1"));     //”š”­
 }
 
 void EnemyMetis::initialize() {
@@ -50,9 +50,9 @@ void EnemyMetis::onActive() {
 }
 
 void EnemyMetis::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
     //_pSeReflector->behave();
 }
@@ -69,17 +69,17 @@ void EnemyMetis::onHit(GgafActor* prm_pOtherActor) {
     }
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
 
-    //ã“ã“ã«ãƒ’ãƒƒãƒˆã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
-    chengeEffectTechniqueInterim("Flush", 2); //ãƒ•ãƒ©ãƒƒã‚·ãƒ¥
+    //‚±‚±‚ÉƒqƒbƒgƒGƒtƒFƒNƒg
+    chengeEffectTechniqueInterim("Flush", 2); //ƒtƒ‰ƒbƒVƒ…
     _pSeReflector->play3D(0);
-        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
     EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
     if (pExplo001 != NULL) {
         pExplo001->setGeometry((GgafDx9GeometricActor*)prm_pOtherActor);
         pExplo001->activate();
     }
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ã“ã“ã«æ¶ˆæ»…ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+        //‚±‚±‚ÉÁ–ÅƒGƒtƒFƒNƒg
         EffectExplosion001* pExplo001_2 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         _pSeReflector->play3D(1);
         if (pExplo001_2 != NULL) {

@@ -1,58 +1,58 @@
-ï»¿#ifndef GGAFDX9SE_H_
+#ifndef GGAFDX9SE_H_
 #define GGAFDX9SE_H_
 namespace GgafDx9Core {
 
-// æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ã€<BR>
-// ã€Œè¶Šå¾Œå±‹Cyberã€ http://www.e-cyber.org/ <BR>
-// ã®ãƒ¡ãƒ³ãƒãƒ¼ã®ã‚¢ãƒ³ãƒ€ãƒ¼æ°ã®ã‚µãƒ³ãƒ—ãƒ«ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æµç”¨ï¼ˆä¸€éƒ¨å¤‰æ›´ï¼‰ã•ã›ã¦ã„ãŸã ã„ã¦ã€å®Ÿè£…ã—ã¦ã„ã¾ã™ã€‚<BR>
-// å¯¾è±¡ã‚¯ãƒ©ã‚¹ã¯ CWaveDecorder ã§ã™ã€‚
-// ã‚¢ãƒ³ãƒ€ãƒ¼æ°ã‚ã‚ŠãŒã¨ã†ï¼
+// –{ƒvƒƒOƒ‰ƒ€‚ÍA<BR>
+// u‰zŒã‰®Cyberv http://www.e-cyber.org/ <BR>
+// ‚Ìƒƒ“ƒo[‚ÌƒAƒ“ƒ_[‚ÌƒTƒ“ƒvƒ‹ƒvƒƒOƒ‰ƒ€‚ğ—¬—piˆê•”•ÏXj‚³‚¹‚Ä‚¢‚½‚¾‚¢‚ÄAÀ‘•‚µ‚Ä‚¢‚Ü‚·B<BR>
+// ‘ÎÛƒNƒ‰ƒX‚Í CWaveDecorder ‚Å‚·B
+// ƒAƒ“ƒ_[‚ ‚è‚ª‚Æ‚¤I
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
 
 /**
- * Sound Effect(Wave) ã‚¯ãƒ©ã‚¹ .
+ * Sound Effect(Wave) ƒNƒ‰ƒX .
  */
 class GgafDx9Se : public GgafCore::GgafObject {
 public:
-    /** ã‚µã‚¦ãƒ³ãƒ‰ãƒãƒƒãƒ•ã‚¡ */
+    /** ƒTƒEƒ“ƒhƒoƒbƒtƒ@ */
     LPDIRECTSOUNDBUFFER _pIDirectSoundBuffer;
-    /** waveãƒ•ã‚¡ã‚¤ãƒ«å */
+    /** waveƒtƒ@ƒCƒ‹–¼ */
     char* _wave_name;
 
     DWORD _dwDefaultFrequency;
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
      * @param prm_wave_name
      * @return
      */
     GgafDx9Se(char* prm_wave_name);
 
     /**
-     * ãƒãƒƒãƒ•ã‚¡ã¸Waveãƒ‡ãƒ¼ã‚¿ã‚’è»¢é€ .
+     * ƒoƒbƒtƒ@‚ÖWaveƒf[ƒ^‚ğ“]‘— .
      * @param WaveFile
-     * @return (true:æˆåŠŸ / false:å¤±æ•—)
+     * @return (true:¬Œ÷ / false:¸”s)
      */
     int writeBuffer(CWaveDecorder& WaveFile);
 
     /**
-     * SoundBufferã®å¾©å¸° .
-     * @return çµæœ (true:æˆåŠŸ / false:å¤±æ•—)
+     * SoundBuffer‚Ì•œ‹A .
+     * @return Œ‹‰Ê (true:¬Œ÷ / false:¸”s)
      */
     int restore(void);
 
     /**
-     * ãƒœãƒªãƒ¥ãƒ¼ãƒ ã¨ãƒ‘ãƒ³ã¨å‘¨æ³¢æ•°ã®ç‡ã‚’æŒ‡å®šã—ã¦SEã‚’ï¼‘å›å†ç”Ÿ
-     * @param prm_iVolume ãƒœãƒªãƒ¥ãƒ¼ãƒ (min:-9600 max:0)
-     * @param prm_iPan    ãƒ‘ãƒ³(left:-10000 right:10000)
-     * @param prm_fRate_Frequency å…ƒã®å‘¨æ³¢æ•°ã«ä¹—ãšã‚‹ç‡
+     * ƒ{ƒŠƒ…[ƒ€‚Æƒpƒ“‚Æü”g”‚Ì—¦‚ğw’è‚µ‚ÄSE‚ğ‚P‰ñÄ¶
+     * @param prm_iVolume ƒ{ƒŠƒ…[ƒ€(min:-9600 max:0)
+     * @param prm_iPan    ƒpƒ“(left:-10000 right:10000)
+     * @param prm_fRate_Frequency Œ³‚Ìü”g”‚Éæ‚¸‚é—¦
      */
     virtual void play(int prm_iVolume, int prm_iPan, float prm_fRate_Frequency);
 
     /**
-     * ãƒœãƒªãƒ¥ãƒ¼ãƒ ã¨ãƒ‘ãƒ³ã‚’æŒ‡å®šã—ã¦SEã‚’1å›å†ç”Ÿ
-     * @param prm_iVolume ãƒœãƒªãƒ¥ãƒ¼ãƒ (min:-9600 max:0)
-     * @param prm_iPan    ãƒ‘ãƒ³(left:-10000 right:10000)
+     * ƒ{ƒŠƒ…[ƒ€‚Æƒpƒ“‚ğw’è‚µ‚ÄSE‚ğ1‰ñÄ¶
+     * @param prm_iVolume ƒ{ƒŠƒ…[ƒ€(min:-9600 max:0)
+     * @param prm_iPan    ƒpƒ“(left:-10000 right:10000)
      */
     virtual void play(int prm_iVolume, int prm_iPan) {
         play(prm_iVolume, prm_iPan, 1.0);

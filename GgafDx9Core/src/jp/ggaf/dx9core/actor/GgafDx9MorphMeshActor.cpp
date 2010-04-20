@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,7 +20,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
     _pMorphMeshModel = (GgafDx9MorphMeshModel*)_pGgafDx9Model;
     _pMorphMeshEffect = (GgafDx9MorphMeshEffect*)_pGgafDx9Effect;
     _pFunc_calcWorldMatrix = GgafDx9Util::setWorldMatrix_RxRzRyMv;
-    //é‡ã¿åˆæœŸåŒ–
+    //d‚İ‰Šú‰»
     for (int i = 1; i <= MAX_MORPH_TARGET; i++) {
         _weight[i] = 0.0f;
     }
@@ -30,7 +30,7 @@ GgafDx9MorphMeshActor::GgafDx9MorphMeshActor(const char* prm_name,
 
 void GgafDx9MorphMeshActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9MorphMeshActorã¯ãƒ¡ãƒƒã‚·ãƒ¥Î±ã‚‚è¨­å®šï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§å‚ç…§ã™ã‚‹ãŸã‚ï¼‰
+    //GgafDx9MorphMeshActor‚ÍƒƒbƒVƒ…ƒ¿‚àİ’èiƒVƒF[ƒ_[‚ÅQÆ‚·‚é‚½‚ßj
     for (DWORD i = 0; i < _pMorphMeshModel->_dwNumMaterials; i++) {
         _paD3DMaterial9[i].Ambient.a = _fAlpha;
         _paD3DMaterial9[i].Diffuse.a = _fAlpha;
@@ -42,27 +42,27 @@ void GgafDx9MorphMeshActor::processDraw() {
     pID3DXEffect = _pMorphMeshEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatView, &pCAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::GgafDx9MeshEffect SetMatrix(g_matView) ‚É¸”s‚µ‚Ü‚µ‚½B");
     //(*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetInt(_pMorphMeshEffect->_hMorphTargetnum, _pMorphMeshModel->_morph_target_num);
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetInt(_hMorphTargetnum) ‚É¸”s‚µ‚Ü‚µ‚½B");
     for (int pattern = 1; pattern <= _pMorphMeshModel->_morph_target_num; pattern++) {
         hr = pID3DXEffect->SetFloat(_pMorphMeshEffect->_hWeight[pattern], _weight[pattern]);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_hWeight["<<pattern<<"]) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetFloat(_hWeight["<<pattern<<"]) ‚É¸”s‚µ‚Ü‚µ‚½B");
     }
     hr = pID3DXEffect->SetMatrix(_pMorphMeshEffect->_hMatWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9MorphMeshActor::processDraw() SetMatrix(g_matWorld) ‚É¸”s‚µ‚Ü‚µ‚½B");
 
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ—LŒø‚É
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ‰Â
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 
     _pMorphMeshModel->draw(this);
 
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ğ–³Œø‚É
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
+    // Zƒoƒbƒtƒ@‘‚«‚İ•s‰Â
     //GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE );
 
 }

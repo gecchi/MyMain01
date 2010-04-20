@@ -1,4 +1,4 @@
-ï»¿// OggVorbisMemory.cpp
+// OggVorbisMemory.cpp
 //
 
 #pragma warning ( disable : 4267 )
@@ -10,14 +10,14 @@
 #include <string.h>
 
 namespace Dix {
-	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	OggVorbisMemory::OggVorbisMemory() :
 		size_	( 0 ),
 		curPos_	( 0 )
 	{
 	}
 
-	// ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	// ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 	OggVorbisMemory::OggVorbisMemory( const char* filePath ) :
 		size_		( 0 ),
 		curPos_		( 0 )
@@ -25,12 +25,12 @@ namespace Dix {
 		createBuffer( filePath );
 	}
 
-	// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+	// ƒfƒXƒgƒ‰ƒNƒ^
 	OggVorbisMemory::~OggVorbisMemory() {
 		clear();
 	}
 
-	//! ã‚¯ãƒªã‚¢
+	//! ƒNƒŠƒA
 	void OggVorbisMemory::clear() {
 		size_ = 0;
 		curPos_ = 0;
@@ -38,7 +38,7 @@ namespace Dix {
 		OggVorbisResource::clear();
 	}
 
-	// å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä½œæˆ
+	// ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
 	sp< OggVorbisResource > OggVorbisMemory::createClone() {
 		if ( isReady_ == false ) {
 			return 0;
@@ -47,7 +47,7 @@ namespace Dix {
 		*obj = *this;
 		obj->curPos_ = 0;
 
-		// ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ç™»éŒ²
+		// ƒR[ƒ‹ƒoƒbƒN“o˜^
 		ov_callbacks callbacks = {
 			&OggVorbisMemory::read,
 			&OggVorbisMemory::seek,
@@ -55,7 +55,7 @@ namespace Dix {
 			&OggVorbisMemory::tell
 		};
 
-		// Oggã‚ªãƒ¼ãƒ—ãƒ³
+		// OggƒI[ƒvƒ“
 		if ( ov_open_callbacks( obj, &obj->oggVorbisFile_ , 0, 0, callbacks ) != 0 ) {
 			obj->clear();
 			delete obj;
@@ -67,16 +67,16 @@ namespace Dix {
 		return spObj;
 	}
 
-	//! ãƒ¡ãƒ¢ãƒªèª­ã¿è¾¼ã¿
+	//! ƒƒ‚ƒŠ“Ç‚İ‚İ
 	size_t OggVorbisMemory::read( void* buffer, size_t size, size_t maxCount, void* stream ) {
 		if ( buffer == 0 ) {
 			return 0;
 		}
 
-		// ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
+		// ƒXƒgƒŠ[ƒ€‚©‚çƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾
 		OggVorbisMemory *p = (OggVorbisMemory*)stream;
 
-		// å–å¾—å¯èƒ½ã‚«ã‚¦ãƒ³ãƒˆæ•°ã‚’ç®—å‡º
+		// æ“¾‰Â”\ƒJƒEƒ“ƒg”‚ğZo
 		int resSize = p->size_ - p->curPos_;
 		size_t count = resSize / size;
 		if ( count > maxCount ) {
@@ -85,16 +85,16 @@ namespace Dix {
 
 		memcpy( buffer, p->spBuffer_.GetPtr() + p->curPos_, size * count );
 
-		// ãƒã‚¤ãƒ³ã‚¿ä½ç½®ã‚’ç§»å‹•
+		// ƒ|ƒCƒ“ƒ^ˆÊ’u‚ğˆÚ“®
 		p->curPos_ += size * count;
 
 		return count;
 	};
 
-	//! ãƒ¡ãƒ¢ãƒªã‚·ãƒ¼ã‚¯
+	//! ƒƒ‚ƒŠƒV[ƒN
 	int OggVorbisMemory::seek( void* buffer, ogg_int64_t offset, int flag ) {
 
-		// ã‚¹ãƒˆãƒªãƒ¼ãƒ ã‹ã‚‰ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®ãƒã‚¤ãƒ³ã‚¿ã‚’å–å¾—
+		// ƒXƒgƒŠ[ƒ€‚©‚çƒIƒuƒWƒFƒNƒg‚Ìƒ|ƒCƒ“ƒ^‚ğæ“¾
 		OggVorbisMemory *p = (OggVorbisMemory*)buffer;
 
 		switch( flag ) {
@@ -125,28 +125,28 @@ namespace Dix {
 		return 0;
 	}
 
-	//! ãƒ¡ãƒ¢ãƒªã‚¯ãƒ­ãƒ¼ã‚º
+	//! ƒƒ‚ƒŠƒNƒ[ƒY
 	int OggVorbisMemory::close( void* buffer ) {
-		// ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚„ã‚¯ãƒªã‚¢ãŒå…ˆã«å‡¦ç†ã—ã¦ãã‚Œã¦ã„ã‚‹ã®ã§
-		// ã“ã“ã¯ä½•ã‚‚ã—ãªã„
+		// ƒfƒXƒgƒ‰ƒNƒ^‚âƒNƒŠƒA‚ªæ‚Éˆ—‚µ‚Ä‚­‚ê‚Ä‚¢‚é‚Ì‚Å
+		// ‚±‚±‚Í‰½‚à‚µ‚È‚¢
 		return 0;
 	}
 
-	//! ãƒ¡ãƒ¢ãƒªä½ç½®é€šé”
+	//! ƒƒ‚ƒŠˆÊ’u’Ê’B
 	long OggVorbisMemory::tell( void* buffer ) {
 		OggVorbisMemory *p = (OggVorbisMemory*)buffer;
 		return p->curPos_;
 	}
 
-	//! Oggãƒãƒƒãƒ•ã‚¡ã‚’ä½œæˆ
+	//! Oggƒoƒbƒtƒ@‚ğì¬
 	bool OggVorbisMemory::createBuffer( const char* filePath ) {
 
 		clear();
 
-		// ãƒ•ã‚¡ã‚¤ãƒ«ã‚’ãƒãƒƒãƒ•ã‚¡ã«ã‚³ãƒ”ãƒ¼
+		// ƒtƒ@ƒCƒ‹‚ğƒoƒbƒtƒ@‚ÉƒRƒs[
 		FILE *f = fopen( filePath, "rb" );
 		if ( f == 0 ) {
-			return false;  // ã‚ªãƒ¼ãƒ—ãƒ³å¤±æ•—
+			return false;  // ƒI[ƒvƒ“¸”s
 		}
 		fseek( f, 0, SEEK_END );
 		size_ = ftell( f );
@@ -155,12 +155,12 @@ namespace Dix {
 		spBuffer_.SetPtr( new char[ size_ ], true );
 		size_t readSize = fread( spBuffer_.GetPtr(), size_, 1, f );
 		if ( readSize != 1 ) {
-			// ä½•ã‹å¤‰ã§ã™
+			// ‰½‚©•Ï‚Å‚·
 			clear();
 			return false;
 		}
 
-		// ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯ç™»éŒ²
+		// ƒR[ƒ‹ƒoƒbƒN“o˜^
 		ov_callbacks callbacks = {
 			&OggVorbisMemory::read,
 			&OggVorbisMemory::seek,
@@ -168,7 +168,7 @@ namespace Dix {
 			&OggVorbisMemory::tell
 		};
 
-		// Oggã‚ªãƒ¼ãƒ—ãƒ³
+		// OggƒI[ƒvƒ“
 		if ( ov_open_callbacks( this, &oggVorbisFile_ , 0, 0, callbacks ) != 0 ) {
 			clear();
 			return false;

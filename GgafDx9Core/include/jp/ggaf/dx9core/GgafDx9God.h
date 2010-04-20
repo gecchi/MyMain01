@@ -1,8 +1,8 @@
-ï»¿#ifndef GGAFDX9GOD_H_
+#ifndef GGAFDX9GOD_H_
 #define GGAFDX9GOD_H_
 namespace GgafDx9Core {
 /**
- * DirectXã‚’è€ƒæ…®ã—ãŸç¥
+ * DirectX‚ğl—¶‚µ‚½_
  * @version 1.00
  * @since 2009/01/10
  * @author Masatoshi Tsuge
@@ -15,31 +15,31 @@ public:
 
     static D3DFILLMODE _d3dfillmode;
 
-    /** DirectX9ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    /** DirectX9‚ÌƒIƒuƒWƒFƒNƒg */
     static IDirect3D9* _pID3D9;
-    /** ãƒ‡ãƒã‚¤ã‚¹ */
+    /** ƒfƒoƒCƒX */
     static IDirect3DDevice9* _pID3DDevice9;
-    /** ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®ãƒ©ã‚¤ãƒˆ */
+    /** ƒfƒtƒHƒ‹ƒg‚Ìƒ‰ƒCƒg */
     static D3DLIGHT9 _d3dlight9_default;
-    /** ä¸€æ™‚çš„ãªãƒ©ã‚¤ãƒˆï¼ˆç¾åœ¨æœªä½¿ç”¨ï¼‰ */
+    /** ˆê“I‚Èƒ‰ƒCƒgiŒ»İ–¢g—pj */
     static D3DLIGHT9 _d3dlight9_temp;
-    /** ã‚¢ãƒ³ãƒ“ã‚¨ãƒ³ãƒˆãƒ©ã‚¤ãƒˆã®ãƒ‡ãƒ•ã‚©ãƒ«ãƒˆã®æ˜ã‚‹ã• */
+    /** ƒAƒ“ƒrƒGƒ“ƒgƒ‰ƒCƒg‚ÌƒfƒtƒHƒ‹ƒg‚Ì–¾‚é‚³ */
     static DWORD _dwAmbientBrightness_default;
 
-    /** Presenté ˜åŸŸ */
+    /** Present—Ìˆæ */
     static RECT _rectPresentDest;
-    /* ã‚¹ã‚¯ãƒªãƒ¼ãƒ³é«˜ã•ï¼ˆãƒ”ã‚¯ã‚»ãƒ«ï¼‰ */
+    /* ƒXƒNƒŠ[ƒ“‚‚³iƒsƒNƒZƒ‹j */
     //static int const GAME_SCREEN_HEIGHT;
 
     static D3DPRESENT_PARAMETERS _structD3dPresent_Parameters;
 
-    /** ãƒ‡ãƒã‚¤ã‚¹ãƒ­ã‚¹ãƒˆãƒ•ãƒ©ã‚° (true=ãƒ­ã‚¹ãƒˆä¸­) */
+    /** ƒfƒoƒCƒXƒƒXƒgƒtƒ‰ƒO (true=ƒƒXƒg’†) */
     static bool _is_device_lost_flg;
 
 
-//    /** å°„å½±å¤‰æ›é­šå£²ã‚Œã‚‹ */
+//    /** Ë‰e•ÏŠ·‹›”„‚ê‚é */
 //    static D3DXMATRIX _vMatrixProj;
-//    /** æ­£å°„å½±å¤‰æ›é­šå£²ã‚Œã‚‹ */
+//    /** ³Ë‰e•ÏŠ·‹›”„‚ê‚é */
 //    static D3DXMATRIX _vMatrixOrthoProj;
 //
 
@@ -48,30 +48,30 @@ public:
 
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
      */
     GgafDx9God(HINSTANCE prm_hInstance, HWND prm_hWnd);
 
     /**
-     * åˆæœŸåŒ–<BR>
+     * ‰Šú‰»<BR>
      */
     HRESULT init();
     HRESULT initDx9Device();
 
     /**
-     * ï¼œOverRide ã§ã™ï¼<BR>
+     * ƒOverRide ‚Å‚·„<BR>
      */
     virtual void makeUniversalMaterialize();
 
     /**
-     * ï¼œOverRide ã§ã™ï¼<BR>
+     * ƒOverRide ‚Å‚·„<BR>
      */
     virtual void presentUniversalVisualize();
 
     D3DXMATRIX getInvRotateMat();
     //    /**
-    //     * Worldã‚·ãƒ¼ãƒ³ã‚’ä½œæˆã€‚
-    //	 * ï¼œOverRide ã§ã™ï¼<BR>
+    //     * WorldƒV[ƒ“‚ğì¬B
+    //	 * ƒOverRide ‚Å‚·„<BR>
     //	 */
     //	virtual GgafUniverse* createUniverse() {
     //		return (GgafUniverse*)createDx9World();
@@ -79,14 +79,14 @@ public:
     //
     //
     //    /**
-    //     * Worldã‚·ãƒ¼ãƒ³ã‚’ä½œæˆã€‚
-    //	 * ï¼œOverRide ã§ã™ï¼<BR>
+    //     * WorldƒV[ƒ“‚ğì¬B
+    //	 * ƒOverRide ‚Å‚·„<BR>
     //	 */
     //	virtual GgafDx9Universe* createDx9World() = 0;
 
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
      */
     virtual ~GgafDx9God();
 };

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,24 +8,24 @@ using namespace MyStg2nd;
 EffectLockOn001::EffectLockOn001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "8/LockOn001") {
     _class_name = "EffectLockOn001";
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆ
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰Rzå›è»¢
-    setHitAble(false); //å½“ãŸã‚Šåˆ¤å®šç„¡ã—
+    chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
+    setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
 void EffectLockOn001::initialize() {
-    _pUvFlipper->forcePtnNoRange(0, 3);   //ã‚¢ãƒ‹ãƒ¡ç¯„å›²ã‚’ï¼ã€œï¼‘ï¼•
-    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //ã‚¢ãƒ‹ãƒ¡é †åº
+    _pUvFlipper->forcePtnNoRange(0, 3);   //ƒAƒjƒ”ÍˆÍ‚ğ‚O`‚P‚T
+    _pUvFlipper->setFlipMethod(FLIP_ORDER_LOOP, 5); //ƒAƒjƒ‡˜
 
 }
 
 void EffectLockOn001::onActive() {
     _pUvFlipper->setPtnNoToTop();
     setAlpha(0.01);
-    _pScaler->forceScaleRange(30000, 1000); //ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»ç¯„å›²
+    _pScaler->forceScaleRange(30000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(30000);
-    _pScaler->intoTargetScaleLinerUntil(1000, 30);//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»60Fè²»ã‚„ã—ã¦1000ã«ç¸®å°
-    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //å›è»¢
+    _pScaler->intoTargetScaleLinerUntil(1000, 30);//ƒXƒP[ƒŠƒ“ƒOE60F”ï‚â‚µ‚Ä1000‚Ék¬
+    _pMover->setFaceAngVelo(AXIS_Z, 1000);        //‰ñ“]
 }
 
 void EffectLockOn001::processBehavior() {
@@ -34,9 +34,9 @@ void EffectLockOn001::processBehavior() {
     }
 
     if (_pScaler->_method[0] == NOSCALE) {
-        //ç¸®å°å®Œäº†å¾Œã€Beat
+        //k¬Š®—¹ŒãABeat
         _pScaler->forceScaleRange(1000, 2000);
-        _pScaler->beat(30, 2, 2, -1); //ç„¡é™ãƒ«ãƒ¼ãƒ—
+        _pScaler->beat(30, 2, 2, -1); //–³ŒÀƒ‹[ƒv
     }
     _pUvFlipper->behave();
     _pMover->behave();

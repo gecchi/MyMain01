@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9DRAWABLEACTOR_H_
+#ifndef GGAFDX9DRAWABLEACTOR_H_
 #define GGAFDX9DRAWABLEACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ç”»é¢ã«æç”»ã‚’è¡Œã†ã‚¢ã‚¯ã‚¿ãƒ¼ã®æŠ½è±¡ã‚¯ãƒ©ã‚¹ .
- * GgafDx9GeometricActor ã« ãƒ¢ãƒ‡ãƒ«ã€ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã€ãƒãƒ†ãƒªã‚¢ãƒ«ãªã©ã‚’ä¿æŒã—ã€<BR>
- * æç”»é–¢é€£ãƒ¡ã‚½ãƒƒãƒ‰ã‚’è¿½åŠ <BR>
+ * ‰æ–Ê‚É•`‰æ‚ğs‚¤ƒAƒNƒ^[‚Ì’ŠÛƒNƒ‰ƒX .
+ * GgafDx9GeometricActor ‚É ƒ‚ƒfƒ‹AƒGƒtƒFƒNƒgAƒ}ƒeƒŠƒAƒ‹‚È‚Ç‚ğ•Û‚µA<BR>
+ * •`‰æŠÖ˜Aƒƒ\ƒbƒh‚ğ’Ç‰Á<BR>
  * @version 1.00
  * @since 2009/06/10
  * @author Masatoshi Tsuge
@@ -18,40 +18,40 @@ private:
     DWORD _frame_temp_technique;
     unsigned int _hash_technique_temp;
     bool _is_temp_technique;
-    /** ãƒ¢ãƒ‡ãƒ«è³‡æºæ¥ç¶š */
+    /** ƒ‚ƒfƒ‹‘Œ¹Ú‘± */
     GgafDx9ModelConnection* _pGgafDx9ModelCon;
-    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æºæ¥ç¶š */
+    /** ƒGƒtƒFƒNƒg‘Œ¹Ú‘± */
     GgafDx9EffectConnection* _pGgafDx9EffectCon;
 
 public:
-    /** ç›´è¿‘ã®æç”»æ™‚ã«ä½¿ç”¨ã•ã‚ŒãŸãƒ†ã‚¯ãƒ‹ãƒƒã‚¯åã®ãƒãƒƒã‚·ãƒ¥ã‚³ãƒ¼ãƒ‰ */
+    /** ’¼‹ß‚Ì•`‰æ‚Ég—p‚³‚ê‚½ƒeƒNƒjƒbƒN–¼‚ÌƒnƒbƒVƒ…ƒR[ƒh */
     static unsigned int _hash_technique_last_draw;
 
-    /** åŒä¸€æç”»ãƒ¬ãƒ™ãƒ«ã®æ¬¡ã®ã‚¢ã‚¯ã‚¿ãƒ¼ */
+    /** “¯ˆê•`‰æƒŒƒxƒ‹‚ÌŸ‚ÌƒAƒNƒ^[ */
     GgafDx9DrawableActor* _pNext_TheSameDrawDepthLevel;
-    /** [r]ç¾åœ¨ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã®Î±å€¤ (0.0 <= _fAlpha <= 1.0) */
+    /** [r]Œ»İ‚Ìƒ}ƒeƒŠƒAƒ‹‚Ìƒ¿’l (0.0 <= _fAlpha <= 1.0) */
     float _fAlpha;
-    /** [r]ç¾åœ¨æç”»ã«ä½¿ç”¨ã—ã¦ã„ã‚‹ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯å */
+    /** [r]Œ»İ•`‰æ‚Ég—p‚µ‚Ä‚¢‚éƒVƒF[ƒ_[ƒeƒNƒjƒbƒN–¼ */
     char* _technique;
-    /** [r]ç¾åœ¨æç”»ã«ä½¿ç”¨ã—ã¦ã„ã‚‹ã®ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã®ãƒãƒƒã‚·ãƒ¥ã‚³ãƒ¼ãƒ‰ */
+    /** [r]Œ»İ•`‰æ‚Ég—p‚µ‚Ä‚¢‚é‚ÌƒVƒF[ƒ_[ƒeƒNƒjƒbƒN‚ÌƒnƒbƒVƒ…ƒR[ƒh */
     unsigned int _hash_technique;
-    /** [r]ç¾åœ¨ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ */
+    /** [r]Œ»İ‚Ìƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[ */
     D3DMATERIAL9* _paD3DMaterial9;
-    /** [r]ãƒ¢ãƒ‡ãƒ«è³‡æº */
+    /** [r]ƒ‚ƒfƒ‹‘Œ¹ */
     GgafDx9Model* _pGgafDx9Model;
-    /** [r]ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æº */
+    /** [r]ƒGƒtƒFƒNƒg‘Œ¹ */
     GgafDx9Effect* _pGgafDx9Effect;
 
     int _now_drawdepth;
 
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ .
-     * @param prm_name ãƒ¢ãƒ‡ãƒ«åç§°ï¼ˆä»»æ„ï¼‰
-     * @param prm_model ãƒ¢ãƒ‡ãƒ«è­˜åˆ¥ã‚­ãƒ¼æ–‡å­—åˆ—
-     * @param prm_effect ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥ã‚­ãƒ¼æ–‡å­—åˆ—
-     * @param prm_technique ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯
-     * @param prm_pChecker ä½¿ç”¨ã™ã‚‹ãƒã‚§ãƒƒã‚«ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆãƒã‚§ãƒƒã‚«ãƒ¼æœªä½¿ç”¨æ™‚ã¯NULLã§ã‚ˆã„ï¼‰
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ .
+     * @param prm_name ƒ‚ƒfƒ‹–¼Ìi”CˆÓj
+     * @param prm_model ƒ‚ƒfƒ‹¯•ÊƒL[•¶š—ñ
+     * @param prm_effect ƒGƒtƒFƒNƒg¯•ÊƒL[•¶š—ñ
+     * @param prm_technique ƒGƒtƒFƒNƒg‚ÌƒeƒNƒjƒbƒN
+     * @param prm_pChecker g—p‚·‚éƒ`ƒFƒbƒJ[ƒIƒuƒWƒFƒNƒgiƒ`ƒFƒbƒJ[–¢g—p‚ÍNULL‚Å‚æ‚¢j
      */
     GgafDx9DrawableActor(const char* prm_name,
                          const char* prm_model,
@@ -60,17 +60,17 @@ public:
                          GgafDx9Checker* prm_pChecker);
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ .
-     * GgafDx9ModelManager::processCreateResource() åŠã³
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^ .
+     * GgafDx9ModelManager::processCreateResource() ‹y‚Ñ
      * GgafDx9EffectManager::processCreateResource()
-     * ã®èª¬æ˜ã‚‚å‚ç…§ã™ã¹ã—ã€‚
-     * @param prm_name ã‚¢ã‚¯ã‚¿ãƒ¼åç§°ï¼ˆä»»æ„ï¼‰
-     * @param prm_model_id ãƒ¢ãƒ‡ãƒ«å®šç¾©å
-     * @param prm_model_type ãƒ¢ãƒ‡ãƒ«ã‚¿ã‚¤ãƒ—
-     * @param prm_effect_id ã‚¨ãƒ•ã‚§ã‚¯ãƒˆå®šç¾©å
-     * @param prm_effect_type ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚¿ã‚¤ãƒ—
-     * @param prm_technique ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯
-     * @param prm_pChecker ä½¿ç”¨ã™ã‚‹ãƒã‚§ãƒƒã‚«ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆï¼ˆãƒã‚§ãƒƒã‚«ãƒ¼æœªä½¿ç”¨æ™‚ã¯NULLã§ã‚ˆã„ï¼‰
+     * ‚Ìà–¾‚àQÆ‚·‚×‚µB
+     * @param prm_name ƒAƒNƒ^[–¼Ìi”CˆÓj
+     * @param prm_model_id ƒ‚ƒfƒ‹’è‹`–¼
+     * @param prm_model_type ƒ‚ƒfƒ‹ƒ^ƒCƒv
+     * @param prm_effect_id ƒGƒtƒFƒNƒg’è‹`–¼
+     * @param prm_effect_type ƒGƒtƒFƒNƒgƒ^ƒCƒv
+     * @param prm_technique ƒGƒtƒFƒNƒg‚ÌƒeƒNƒjƒbƒN
+     * @param prm_pChecker g—p‚·‚éƒ`ƒFƒbƒJ[ƒIƒuƒWƒFƒNƒgiƒ`ƒFƒbƒJ[–¢g—p‚ÍNULL‚Å‚æ‚¢j
      */
     GgafDx9DrawableActor(const char* prm_name,
                          const char* prm_model_id,
@@ -89,9 +89,9 @@ public:
     }
 
     /**
-     * ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã‚’å¤‰æ›´ã™ã‚‹ .
-     * éšæ™‚å¯èƒ½ã€‚
-     * @param prm_technique ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯å
+     * ƒVƒF[ƒ_[‚ÌƒeƒNƒjƒbƒN‚ğ•ÏX‚·‚é .
+     * ‰Â”\B
+     * @param prm_technique ƒeƒNƒjƒbƒN–¼
      */
     void chengeEffectTechnique(const char* prm_technique) {
         _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
@@ -99,24 +99,24 @@ public:
     }
 
     /**
-     * ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã‚’ä¸€æ™‚çš„ã«å¤‰æ›´ã™ã‚‹ .
-     * æ—¢ã«ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ä½¿ç”¨æ™‚ã¯ç„¡è¦–ã•ã‚Œã‚‹ã€‚ä½†ã—ã€
-     * æ—¢ã«ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ä½¿ç”¨ä¸­ã«å¼·åˆ¶çš„ã«ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã‚’å¤‰æ›´ã—ãŸã„å ´åˆæ¬¡ã®ã‚ˆã†ã«ã§ãã‚‹ã€‚
+     * ƒVƒF[ƒ_[‚ÌƒeƒNƒjƒbƒN‚ğˆê“I‚É•ÏX‚·‚é .
+     * Šù‚ÉˆêƒeƒNƒjƒbƒNg—p‚Í–³‹‚³‚ê‚éB’A‚µA
+     * Šù‚ÉˆêƒeƒNƒjƒbƒNg—p’†‚É‹­§“I‚ÉˆêƒeƒNƒjƒbƒN‚ğ•ÏX‚µ‚½‚¢ê‡Ÿ‚Ì‚æ‚¤‚É‚Å‚«‚éB
      * <code>
      * if (_is_temp_technique == false) {
-     *     chengeEffectTechnique("å¤‰æ›´ã—ãŸã„ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯å");
+     *     chengeEffectTechnique("•ÏX‚µ‚½‚¢ƒeƒNƒjƒbƒN–¼");
      * }
      * </code>
-     * @param prm_technique ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯å
-     * @param prm_frame å¤‰æ›´ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã®ç¶™ç¶šãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+     * @param prm_technique ƒeƒNƒjƒbƒN–¼
+     * @param prm_frame •ÏXƒeƒNƒjƒbƒN‚ÌŒp‘±ƒtƒŒ[ƒ€”
      */
     void chengeEffectTechniqueInterim(const char* prm_technique, DWORD prm_frame) {
-        if (_is_temp_technique == false) { //ã™ã§ã«ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ä½¿ç”¨æ™‚ã¯ç„¡è¦–
-            //å…ƒã€…ã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã‚’é€€é¿
+        if (_is_temp_technique == false) { //‚·‚Å‚ÉˆêƒeƒNƒjƒbƒNg—p‚Í–³‹
+            //Œ³X‚ÌƒeƒNƒjƒbƒN‚ğ‘Ş”ğ
             _hash_technique_temp = _hash_technique;
             strcpy(_technique_temp, _technique);
-            //ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯å¤‰æ›´
-            _frame_temp_technique = _frame_of_behaving + prm_frame; //å¤‰æ›´æº€æœŸãƒ•ãƒ¬ãƒ¼ãƒ 
+            //ƒeƒNƒjƒbƒN•ÏX
+            _frame_temp_technique = _frame_of_behaving + prm_frame; //•ÏX–ŠúƒtƒŒ[ƒ€
             _hash_technique = GgafCore::GgafUtil::easy_hash(prm_technique);
             strcpy(_technique, prm_technique);
             _is_temp_technique = true;
@@ -124,30 +124,30 @@ public:
     }
 
     /**
-     * å…±é€šã®æç”»äº‹å‰å‡¦ç† .
-     * æ®µéšãƒ¬ãƒ³ãƒ€ãƒªãƒ³ã‚°ã‚’å®Ÿç¾ã™ã‚‹ãŸã‚ã«ã€è‡ªèº«ã®æ·±åº¦ã«å¿œã˜ã¦
-     * GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[] ã¾ãŸã¯  GgafDx9Universe::_pActors_DrawMaxDrawDepth ã«
-     * è‡ªèº«ã‚’ç™»éŒ²ã™ã‚‹ã€‚
-     * TODO:private virtual ã«ã™ã‚‹ã¹ãã‹å¦ã‹ï¼Ÿã€‚fainal ãŒæ¬²ã—ã„
+     * ‹¤’Ê‚Ì•`‰æ–‘Oˆ— .
+     * ’iŠKƒŒƒ“ƒ_ƒŠƒ“ƒO‚ğÀŒ»‚·‚é‚½‚ß‚ÉA©g‚Ì[“x‚É‰‚¶‚Ä
+     * GgafDx9Universe::_apAlphaActorList_DrawDepthLevel[] ‚Ü‚½‚Í  GgafDx9Universe::_pActors_DrawMaxDrawDepth ‚É
+     * ©g‚ğ“o˜^‚·‚éB
+     * TODO:private virtual ‚É‚·‚é‚×‚«‚©”Û‚©HBfainal ‚ª—~‚µ‚¢
      */
     virtual void processPreDraw() override;
 
     /**
-     * å…±é€šã®æç”»äº‹å¾Œå‡¦ç† .
-     * ä¿ºãƒ‡ãƒãƒƒã‚°ãƒ¢ãƒ¼ãƒ‰ (<code>#define MY_DEBUG 1</code>)ã®å ´åˆã¯
-     * å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸã‚’æç”»ã™ã‚‹ã€‚
-     * (ã¨ã„ã£ã¦ã‚‚ drawHitArea() ã‚’ã‚³ãƒ¼ãƒ«ã™ã‚‹ã ã‘)
+     * ‹¤’Ê‚Ì•`‰æ–Œãˆ— .
+     * ‰´ƒfƒoƒbƒOƒ‚[ƒh (<code>#define MY_DEBUG 1</code>)‚Ìê‡‚Í
+     * “–‚½‚è”»’è—Ìˆæ‚ğ•`‰æ‚·‚éB
+     * (‚Æ‚¢‚Á‚Ä‚à drawHitArea() ‚ğƒR[ƒ‹‚·‚é‚¾‚¯)
      */
     virtual void processAfterDraw() override;
 
     /**
-     * å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸã‚’æç”» .
-     * å®Ÿéš›ã®å‡¦ç†ã¯ä¸‹ä½ã‚¯ãƒ©ã‚¹ã«ä»»ã›ã‚‹ã€‚
+     * “–‚½‚è”»’è—Ìˆæ‚ğ•`‰æ .
+     * ÀÛ‚Ìˆ—‚Í‰ºˆÊƒNƒ‰ƒX‚É”C‚¹‚éB
      */
     virtual void drawHitArea() {};
 
     /**
-     * ã‚¢ã‚¯ã‚¿ãƒ¼ã®ã‚¢ãƒ«ãƒ•ã‚¡è¨­å®š .
+     * ƒAƒNƒ^[‚ÌƒAƒ‹ƒtƒ@İ’è .
      * @param prm_fAlpha
      */
     virtual void setAlpha(float prm_fAlpha) {
@@ -155,7 +155,7 @@ public:
     }
 
     /**
-     * ã‚¢ã‚¯ã‚¿ãƒ¼ã®ã‚¢ãƒ«ãƒ•ã‚¡åŠ ç®— .
+     * ƒAƒNƒ^[‚ÌƒAƒ‹ƒtƒ@‰ÁZ .
      * @param prm_fAlpha
      */
     virtual void addAlpha(float prm_fAlpha) {
@@ -163,7 +163,7 @@ public:
     }
 
     /**
-     * ã‚¢ã‚¯ã‚¿ãƒ¼ã®ç¾åœ¨ã®ã‚¢ãƒ«ãƒ•ã‚¡å€¤ .
+     * ƒAƒNƒ^[‚ÌŒ»İ‚ÌƒAƒ‹ƒtƒ@’l .
      * @return
      */
     virtual float getAlpha() {
@@ -171,30 +171,30 @@ public:
     }
 
     /**
-     * ã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ã‚’è¨­å®šã€‚ .
-     * ã‚­ãƒ£ãƒ©ã‚¯ã‚¿å…¨ä½“ã«è‰²ã‚’é‡ã­ã‚‹åŠ¹æœã‚’å¾—ã‚‹ã€‚<br>
-     * å®Ÿè£…æ–¹æ³•ã¯ã€ä¸‹ä½ã«ä¾å­˜ã€‚<br>
-     * ã—ãŸãŒã£ã¦æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã«ã‚ˆã‚‹ã€Œãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ã€ã®æ„å‘³ã¯ã€<br>
-     * ã€ŒDirectXã®ãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ã€ã¨ä¸€è‡´ã—ãªã„ã‹ã‚‚ã—ã‚Œãªã„ã€‚<br>
-     * @param r Redå¼·åº¦(0.0 ã€œ 1.0)
-     * @param g Greenå¼·åº¦(0.0 ã€œ 1.0)
-     * @param b Blueå¼·åº¦(0.0 ã€œ 1.0)
+     * ƒAƒNƒ^[‚Ìƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[‚ğİ’èB .
+     * ƒLƒƒƒ‰ƒNƒ^‘S‘Ì‚ÉF‚ğd‚Ë‚éŒø‰Ê‚ğ“¾‚éB<br>
+     * À‘••û–@‚ÍA‰ºˆÊ‚ÉˆË‘¶B<br>
+     * ‚µ‚½‚ª‚Á‚Ä–{ƒƒ\ƒbƒh‚É‚æ‚éuƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[v‚ÌˆÓ–¡‚ÍA<br>
+     * uDirectX‚Ìƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[v‚Æˆê’v‚µ‚È‚¢‚©‚à‚µ‚ê‚È‚¢B<br>
+     * @param r Red‹­“x(0.0 ` 1.0)
+     * @param g Green‹­“x(0.0 ` 1.0)
+     * @param b Blue‹­“x(0.0 ` 1.0)
      */
     virtual void setMaterialColor(float r, float g, float b);
 
     /**
-     * ãƒãƒ†ãƒªã‚¢ãƒ«ã‚«ãƒ©ãƒ¼ã‚’ãƒ¢ãƒ‡ãƒ«èª­ã¿è¾¼ã¿æ™‚ã®çŠ¶æ…‹ã«ãƒªã‚»ãƒƒãƒˆã€‚
+     * ƒ}ƒeƒŠƒAƒ‹ƒJƒ‰[‚ğƒ‚ƒfƒ‹“Ç‚İ‚İ‚Ìó‘Ô‚ÉƒŠƒZƒbƒgB
      */
     virtual void resetMaterialColor();
 
     /**
-     * ãƒ¢ãƒ‡ãƒ«ãŒç”Ÿæˆã•ã‚ŒãŸæ™‚ã®å‡¦ç† .
-     * ãƒ¢ãƒ‡ãƒ«ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆãŒ new ã•ã‚ŒãŸå ´åˆã«ï¼‘å›ã ã‘å‘¼ã³å‡ºã—ã¾ã™ã€‚
-     * ãƒ¢ãƒ‡ãƒ«å˜ä½ã§è¨­å®šã—ãŸã„å‡¦ç†ã‚’ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰ã—ã¦ä¸‹ã•ã„ã€‚
+     * ƒ‚ƒfƒ‹‚ª¶¬‚³‚ê‚½‚Ìˆ— .
+     * ƒ‚ƒfƒ‹ƒIƒuƒWƒFƒNƒg‚ª new ‚³‚ê‚½ê‡‚É‚P‰ñ‚¾‚¯ŒÄ‚Ño‚µ‚Ü‚·B
+     * ƒ‚ƒfƒ‹’PˆÊ‚Åİ’è‚µ‚½‚¢ˆ—‚ğƒI[ƒo[ƒ‰ƒCƒh‚µ‚Ä‰º‚³‚¢B
      */
     virtual void onCreateModel() = 0;
 
-    virtual ~GgafDx9DrawableActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9DrawableActor(); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

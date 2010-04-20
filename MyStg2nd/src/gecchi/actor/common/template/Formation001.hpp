@@ -1,10 +1,10 @@
-Ôªø#ifndef FORMATION001_H_
+#ifndef FORMATION001_H_
 #define FORMATION001_H_
 namespace MyStg2nd {
 
 #define ACTOR_NUM_FORMATION001 32
 /**
- * „Éï„Ç©„Éº„É°„Éº„Ç∑„Éß„É≥„Ç¢„ÇØ„Çø„Éº„ÇØ„É©„Çπ .
+ * ÉtÉHÅ[ÉÅÅ[ÉVÉáÉìÉAÉNÉ^Å[ÉNÉâÉX .
  */
 template<class T>
 class Formation001 : public GgafDx9LibStg::FormationActor {
@@ -30,7 +30,7 @@ Formation001<T>::Formation001(const char* prm_name, GgafCore::GgafActorDispatche
         T* pActor;
         for (int i = 0; i < ACTOR_NUM_FORMATION001; i++) {
             pActor = NEW T("Actor_Formation001");
-            pActor->inactivateImmediately(); //ÊúÄÂàùÈùûË°®Á§∫
+            pActor->inactivateImmediately(); //ç≈èâîÒï\é¶
             _pDispatcher->addSubLast(pActor);
         }
     } else {

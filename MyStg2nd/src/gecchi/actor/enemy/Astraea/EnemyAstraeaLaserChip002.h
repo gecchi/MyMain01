@@ -1,4 +1,4 @@
-Ôªø#ifndef ENEMYASTRAEALASERCHIP002_H_
+#ifndef ENEMYASTRAEALASERCHIP002_H_
 #define ENEMYASTRAEALASERCHIP002_H_
 namespace MyStg2nd {
 
@@ -9,7 +9,7 @@ public:
     EnemyAstraeaLaserChip002(const char* prm_name);
 
     /**
-     * ÔºúOverRide „Åß„ÅôÔºû
+     * ÅÉOverRide Ç≈Ç∑ÅÑ
      */
     void initialize() override;
 

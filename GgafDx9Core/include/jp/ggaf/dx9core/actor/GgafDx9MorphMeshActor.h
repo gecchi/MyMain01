@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9MORPHMESHACTOR_H_
+#ifndef GGAFDX9MORPHMESHACTOR_H_
 #define GGAFDX9MORPHMESHACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒ¢ãƒ¼ãƒ•ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼.
- * GgafDx9DrawableActor ã‚’ç¶™æ‰¿ã—ã€Xãƒ•ã‚¡ã‚¤ãƒ«å®šç¾©ã®ãƒ¡ãƒƒã‚·ãƒ¥è¡¨ç¤ºæ©Ÿèƒ½åŠã³<BR>
- * ãƒ¢ãƒ¼ãƒ•ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³æ©Ÿèƒ½ã‚’å‚™ãˆãŸã‚¢ã‚¯ã‚¿ãƒ¼<BR>
+ * ƒ‚[ƒtƒƒbƒVƒ…ƒAƒNƒ^[.
+ * GgafDx9DrawableActor ‚ğŒp³‚µAXƒtƒ@ƒCƒ‹’è‹`‚ÌƒƒbƒVƒ…•\¦‹@”\‹y‚Ñ<BR>
+ * ƒ‚[ƒtƒAƒjƒ[ƒVƒ‡ƒ“‹@”\‚ğ”õ‚¦‚½ƒAƒNƒ^[<BR>
  * @version 1.00
  * @since 2009/05/08
  * @author Masatoshi Tsuge
@@ -14,19 +14,19 @@ class GgafDx9MorphMeshActor : public GgafDx9DrawableActor {
 private:
 
 public:
-    /** ãƒ¢ãƒ‡ãƒ«è³‡æº */
+    /** ƒ‚ƒfƒ‹‘Œ¹ */
     GgafDx9MorphMeshModel* _pMorphMeshModel;
-    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æº */
+    /** ƒGƒtƒFƒNƒg‘Œ¹ */
     GgafDx9MorphMeshEffect* _pMorphMeshEffect;
-    /** ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã®é‡ã¿(0.0 ã€œ 1.0) */
-    float _weight[MAX_MORPH_TARGET+1]; //[0]ã¯æœªä½¿ç”¨ã€[1]ã€œ[6]ãŒãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ1ã€œ6ã®é‡ã¿
+    /** ƒ‚[ƒtƒ^[ƒQƒbƒg‚Ìd‚İ(0.0 ` 1.0) */
+    float _weight[MAX_MORPH_TARGET+1]; //[0]‚Í–¢g—pA[1]`[6]‚ªƒ‚[ƒtƒ^[ƒQƒbƒg1`6‚Ìd‚İ
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-     * @param prm_name  ãƒ¢ãƒ‡ãƒ«åç§°ï¼ˆãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°ã§è¡¨ç¤ºã€ãªã‚“ã§ã‚‚è‰¯ã„ï¼‰
-     * @param prm_model ãƒ¢ãƒ‡ãƒ«å®šç¾©åã€‚GgafDx9MorphMeshModel ã®èª¬æ˜å‚ç…§ã€‚
-     * @param prm_technique ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ(GgafDx9MeshEffect.fx) ã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã€‚
-     * @param prm_pChecker   æ§˜ã€…ãªåˆ¤å®šã‚’è¡Œãªã†ãƒã‚§ãƒƒã‚«ãƒ¼ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’æ¸¡ã™
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * @param prm_name  ƒ‚ƒfƒ‹–¼ÌiƒfƒoƒbƒOƒƒO‚Å•\¦A‚È‚ñ‚Å‚à—Ç‚¢j
+     * @param prm_model ƒ‚ƒfƒ‹’è‹`–¼BGgafDx9MorphMeshModel ‚Ìà–¾QÆB
+     * @param prm_technique ƒGƒtƒFƒNƒg(GgafDx9MeshEffect.fx) ‚ÌƒeƒNƒjƒbƒNB
+     * @param prm_pChecker   —lX‚È”»’è‚ğs‚È‚¤ƒ`ƒFƒbƒJ[ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ“n‚·
      */
     GgafDx9MorphMeshActor(const char* prm_name,
                           const char* prm_model_id,
@@ -35,24 +35,24 @@ public:
                           GgafDx9Checker* prm_pChecker );
 
     /**
-     * ï¼œOverRide ã§ã™ï¼<BR>
+     * ƒOverRide ‚Å‚·„<BR>
      */
     virtual void processDraw() override;
 
     /**
-     * ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥æ•°å–å¾—
-     * @return ãƒ¢ãƒ¼ãƒ•ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥æ•°
+     * ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…”æ“¾
+     * @return ƒ‚[ƒtƒ^[ƒQƒbƒgƒƒbƒVƒ…”
      */
     int getMorphTergetNum();
 
     /**
-     * Î±è¨­å®š.
-     * ï¼œã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆï¼
+     * ƒ¿İ’è.
+     * ƒƒI[ƒo[ƒ‰ƒCƒg„
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
 
-    virtual ~GgafDx9MorphMeshActor (); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9MorphMeshActor (); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

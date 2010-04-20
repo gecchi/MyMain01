@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -12,39 +12,39 @@ DIDEVCAPS GgafDx9Input::_didevcap;
 DIJOYSTATE GgafDx9Input::_dijoystate;
 
 BOOL CALLBACK EnumGameCtrlCallback(const DIDEVICEINSTANCE *pDIDeviceInstance, VOID *pContext) {
-    _TRACE_("EnumGameCtrlCallback ã“ãƒ¼ã‚‹ã°ã£ãï¼");
+    _TRACE_("EnumGameCtrlCallback ‚±[‚é‚Î‚Á‚­I");
 
     HRESULT hr;
 
-    // ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãƒ‡ãƒã‚¤ã‚¹ã‚’æ¢ã™ã™ã‚‹
+    // ƒQ[ƒ€ƒXƒeƒBƒbƒNƒfƒoƒCƒX‚ğ’T‚·‚·‚é
 
     hr = GgafDx9Input::_pIDirectInput8->CreateDevice(pDIDeviceInstance->guidInstance, &GgafDx9Input::_pIDirectInputDevice8_Joystick, NULL);
     if(hr != D3D_OK) {
-        _TRACE_("EnumGameCtrlCallback ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯CreateDeviceã«å¤±æ•—ã—ã¾ã—ãŸ");
-        // ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆã«å¤±æ•—ã—ãŸã‚‰åˆ—æŒ™ã‚’ç¶šã‘ã‚‹ï¼ˆã•ã‚‰ã«æ¢ã™ï¼‰
+        _TRACE_("EnumGameCtrlCallback ƒWƒ‡ƒCƒXƒeƒBƒbƒNCreateDevice‚É¸”s‚µ‚Ü‚µ‚½");
+        // ƒfƒoƒCƒX‚Ìì¬‚É¸”s‚µ‚½‚ç—ñ‹“‚ğ‘±‚¯‚éi‚³‚ç‚É’T‚·j
         return DIENUM_CONTINUE;
     }
 
-    // ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®èƒ½åŠ›ã‚’å–å¾—
+    // ƒWƒ‡ƒCƒXƒeƒBƒbƒN‚Ì”\—Í‚ğæ“¾
     GgafDx9Input::_didevcap.dwSize = sizeof(DIDEVCAPS);
     hr = GgafDx9Input::_pIDirectInputDevice8_Joystick->GetCapabilities( &GgafDx9Input::_didevcap );
     if( hr != D3D_OK ) {
-        _TRACE_("EnumGameCtrlCallback ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯GetCapabilitiesã«å¤±æ•—ã—ã¾ã—ãŸ");
-        // ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®èƒ½åŠ›ã‚’å–å¾—å‡ºæ¥ãªã„ã‚ˆã†ãªã‚‰ã€å‹˜å¼é¡˜ã†
+        _TRACE_("EnumGameCtrlCallback ƒWƒ‡ƒCƒXƒeƒBƒbƒNGetCapabilities‚É¸”s‚µ‚Ü‚µ‚½");
+        // ƒWƒ‡ƒCƒXƒeƒBƒbƒN‚Ì”\—Í‚ğæ“¾o—ˆ‚È‚¢‚æ‚¤‚È‚çAŠ¨•ÙŠè‚¤
         GgafDx9Input::_pIDirectInputDevice8_Joystick->Release();
         return DIENUM_CONTINUE;
     }
 
-    //ç”Ÿãæ®‹ã‚Œã°ãƒ‡ãƒã‚¤ã‚¹æ¡ç”¨
+    //¶‚«c‚ê‚ÎƒfƒoƒCƒXÌ—p
     return DIENUM_STOP;
 }
 
 /**
- * è»¸ãƒœã‚¿ãƒ³åˆ—æŒ™ã‚³ãƒ¼ãƒ«ãƒãƒƒã‚¯é–¢æ•°
- * å„è»¸ã®æœ€ä½å€¤ã‚’ -255ã€æœ€é«˜å€¤ã‚’ 255 ã«è¨­å®š
+ * ²ƒ{ƒ^ƒ“—ñ‹“ƒR[ƒ‹ƒoƒbƒNŠÖ”
+ * Še²‚ÌÅ’á’l‚ğ -255AÅ‚’l‚ğ 255 ‚Éİ’è
  */
 BOOL CALLBACK EnumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef) {
-    _TRACE_("EnumPadAxisCallback ã“ãƒ¼ã‚‹ã°ã£ãï¼");
+    _TRACE_("EnumPadAxisCallback ‚±[‚é‚Î‚Á‚­I");
     DIPROPRANGE diproprange;
     ZeroMemory( &diproprange, sizeof(diproprange) );
     diproprange.diph.dwSize = sizeof(diproprange);
@@ -56,7 +56,7 @@ BOOL CALLBACK EnumPadAxisCallback(LPCDIDEVICEOBJECTINSTANCE lpddoi, LPVOID pvRef
 
     HRESULT hr = GgafDx9Input::_pIDirectInputDevice8_Joystick->SetProperty(DIPROP_RANGE, &diproprange.diph);
     if(hr != D3D_OK) {
-        _TRACE_("EnumPadAxisCallback ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯SetPropertyã«å¤±æ•—ã—ã¾ã—ãŸ");
+        _TRACE_("EnumPadAxisCallback ƒWƒ‡ƒCƒXƒeƒBƒbƒNSetProperty‚É¸”s‚µ‚Ü‚µ‚½");
         return DIENUM_STOP;
     }
     return DIENUM_CONTINUE;
@@ -69,43 +69,43 @@ GgafDx9Input::GgafDx9Input() {
 HRESULT GgafDx9Input::init() {
 
     HRESULT hr;
-    // DirectInput ã®ä½œæˆ
+    // DirectInput ‚Ìì¬
     hr = DirectInput8Create(GgafDx9God::_hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8,
                             (LPVOID*)&_pIDirectInput8, NULL);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ã„ããªã‚ŠDirectInput8ã®ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸã€‚ã‚‚ã€œã‚„ã‚‹æ°—ã‚‚ãªããªã‚Šã¾ã™ã‚ï¼›"),
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ‚¢‚«‚È‚èDirectInput8‚Ìì¬‚É¸”s‚µ‚Ü‚µ‚½B‚à`‚â‚é‹C‚à‚È‚­‚È‚è‚Ü‚·‚íG"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return hr;
     }
 
-    // ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã®ä½œæˆ
+    // ƒL[ƒ{[ƒhƒfƒoƒCƒX‚Ìì¬
     hr = _pIDirectInput8->CreateDevice(GUID_SysKeyboard, &_pIDirectInputDevice8_Keyboard, NULL);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ä½œæˆã«å¤±æ•—ã—ã¾ã—ãŸ"), TEXT("ERROR"), MB_OK
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ƒL[ƒ{[ƒhƒfƒoƒCƒXì¬‚É¸”s‚µ‚Ü‚µ‚½"), TEXT("ERROR"), MB_OK
                 | MB_ICONSTOP);
         return hr;
     }
 
-    // å–å¾—ãƒ‡ãƒ¼ã‚¿ãƒ•ã‚©ãƒ¼ãƒãƒƒãƒˆã®è¨­å®š
+    // æ“¾ƒf[ƒ^ƒtƒH[ƒ}ƒbƒg‚Ìİ’è
     hr = _pIDirectInputDevice8_Keyboard->SetDataFormat(&c_dfDIKeyboard);
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®SetDataFormat ã«å¤±æ•—ã—ã¾ã—ãŸ"), TEXT("ERROR"),
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ƒL[ƒ{[ƒh‚ÌSetDataFormat ‚É¸”s‚µ‚Ü‚µ‚½"), TEXT("ERROR"),
                    MB_OK | MB_ICONSTOP);
         return hr;
     }
 
-    // å¼·èª¿ãƒ¬ãƒ™ãƒ«è¨­å®š
+    // ‹­’²ƒŒƒxƒ‹İ’è
     hr = _pIDirectInputDevice8_Keyboard->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND
     );
     if (hr != D3D_OK) {
-        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®SetCooperativeLevelã«å¤±æ•—ã—ã¾ã—ãŸ"),
+        MessageBox(GgafDx9God::_hWnd, TEXT("GgafDx9Input::initDx9Input() ƒL[ƒ{[ƒh‚ÌSetCooperativeLevel‚É¸”s‚µ‚Ü‚µ‚½"),
                    TEXT("ERROR"), MB_OK | MB_ICONSTOP);
         return hr;
     }
 
     /*
-     //ã°ãµããªãã„ã‚‰ã‚“ï½—
-     // ãƒãƒƒãƒ•ã‚¡ã‚µã‚¤ã‚ºã®æŒ‡å®š
+     //‚Î‚Ó‚Ÿ‚È‚¼‚¢‚ç‚ñ‚—
+     // ƒoƒbƒtƒ@ƒTƒCƒY‚Ìw’è
      DIPROPDWORD dipropdword;
      dipropdword.diph.dwSize			= sizeof(DIPROPDWORD);
      dipropdword.diph.dwHeaderSize	= sizeof(DIPROPHEADER);
@@ -115,64 +115,64 @@ HRESULT GgafDx9Input::init() {
 
      hr = _pIDirectInputDevice8_Keyboard->SetProperty(DIPROP_BUFFERSIZE, &dipropdword.diph);
      if(hr != D3D_OK) {
-     MessageBox(GgafDx9God::_hWnd,TEXT("GgafDx9Input::initDx9Input() ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã®SetPropertyã«å¤±æ•—ã—ã¾ã—ãŸ"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
+     MessageBox(GgafDx9God::_hWnd,TEXT("GgafDx9Input::initDx9Input() ƒL[ƒ{[ƒh‚ÌSetProperty‚É¸”s‚µ‚Ü‚µ‚½"), TEXT("ERROR"), MB_OK | MB_ICONSTOP);
      return hr;
      }
      */
-    // ã‚¢ã‚¯ã‚»ã‚¹æ¨©å–å¾—
+    // ƒAƒNƒZƒXŒ æ“¾
     if (_pIDirectInputDevice8_Keyboard) {
         _pIDirectInputDevice8_Keyboard->Acquire();
     }
 
-    // ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã‚’åˆ—æŒ™ã—ã¦ãƒ‡ãƒã‚¤ã‚¹ã‚’å¾—ã‚‹
+    // ƒQ[ƒ€ƒXƒeƒBƒbƒN‚ğ—ñ‹“‚µ‚ÄƒfƒoƒCƒX‚ğ“¾‚é
     hr = _pIDirectInput8->EnumDevices(DI8DEVCLASS_GAMECTRL, EnumGameCtrlCallback, NULL, DIEDFL_ATTACHEDONLY
     );
     if (hr != D3D_OK || _pIDirectInputDevice8_Joystick == NULL) {
-        _TRACE_("GgafDx9Input::initDx9Input() EnumDevicesåˆ—æŒ™ã—ã¾ã—ãŸãŒã€ã§ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãŒè¦‹ã¤ã‹ã‚Šã¾ã›ã‚“ã§ã—ãŸ");
+        _TRACE_("GgafDx9Input::initDx9Input() EnumDevices—ñ‹“‚µ‚Ü‚µ‚½‚ªA‚ÅƒWƒ‡ƒCƒXƒeƒBƒbƒN‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ‚Å‚µ‚½");
         _pIDirectInputDevice8_Joystick = NULL;
     } else {
-        _TRACE_("GgafDx9Input::initDx9Input() ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ãƒ‡ãƒã‚¤ã‚¹å–å¾—");
+        _TRACE_("GgafDx9Input::initDx9Input() ƒWƒ‡ƒCƒXƒeƒBƒbƒNƒfƒoƒCƒXæ“¾");
 
-        // ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ãƒ‡ãƒ¼ã‚¿å½¢å¼ã‚’è¨­å®šã™ã‚‹
+        // ƒQ[ƒ€ƒXƒeƒBƒbƒN‚Ìƒf[ƒ^Œ`®‚ğİ’è‚·‚é
         hr = _pIDirectInputDevice8_Joystick->SetDataFormat(&c_dfDIJoystick);
         if (hr != D3D_OK) {
-            _TRACE_("GgafDx9Input::initDx9Input() ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯SetDataFormatã«å¤±æ•—ã—ã¾ã—ãŸ");
+            _TRACE_("GgafDx9Input::initDx9Input() ƒWƒ‡ƒCƒXƒeƒBƒbƒNSetDataFormat‚É¸”s‚µ‚Ü‚µ‚½");
             return FALSE;
         }
 
-        // å”èª¿ãƒ¬ãƒ™ãƒ«ã‚’è¨­å®šã™ã‚‹
+        // ‹¦’²ƒŒƒxƒ‹‚ğİ’è‚·‚é
         hr = _pIDirectInputDevice8_Joystick->SetCooperativeLevel(GgafDx9God::_hWnd, DISCL_FOREGROUND
                 | DISCL_NONEXCLUSIVE );
         if (hr != D3D_OK) {
-            _TRACE_("GgafDx9Input::initDx9Input() ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯SetCooperativeLevelã«å¤±æ•—ã—ã¾ã—ãŸ");
+            _TRACE_("GgafDx9Input::initDx9Input() ƒWƒ‡ƒCƒXƒeƒBƒbƒNSetCooperativeLevel‚É¸”s‚µ‚Ü‚µ‚½");
             return FALSE;
         }
 
-        // ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®è»¸ãƒ‡ãƒ¼ã‚¿ã®ç¯„å›²ã‚’è¨­å®šã™ã‚‹
+        // ƒQ[ƒ€ƒXƒeƒBƒbƒN‚Ì²ƒf[ƒ^‚Ì”ÍˆÍ‚ğİ’è‚·‚é
         hr = _pIDirectInputDevice8_Joystick->EnumObjects(EnumPadAxisCallback, NULL, DIDFT_AXIS);
         if (hr != D3D_OK) {
-            _TRACE_("GgafDx9Input::initDx9Input() ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯EnumObjectsã«å¤±æ•—ã—ã¾ã—ãŸ");
+            _TRACE_("GgafDx9Input::initDx9Input() ƒWƒ‡ƒCƒXƒeƒBƒbƒNEnumObjects‚É¸”s‚µ‚Ü‚µ‚½");
             return FALSE;
         }
 
-        // è»¸ãƒ¢ãƒ¼ãƒ‰ã‚’è¨­å®š
+        // ²ƒ‚[ƒh‚ğİ’è
         DIPROPDWORD dipropword;
         dipropword.diph.dwSize = sizeof(dipropword);
         dipropword.diph.dwHeaderSize = sizeof(dipropword.diph);
         dipropword.diph.dwObj = 0;
         dipropword.diph.dwHow = DIPH_DEVICE;
-        dipropword.dwData = DIPROPAXISMODE_ABS; // çµ¶å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰
-        //  dipropword.dwData       = DIPROPAXISMODE_REL;   // ç›¸å¯¾å€¤ãƒ¢ãƒ¼ãƒ‰
+        dipropword.dwData = DIPROPAXISMODE_ABS; // â‘Î’lƒ‚[ƒh
+        //  dipropword.dwData       = DIPROPAXISMODE_REL;   // ‘Š‘Î’lƒ‚[ƒh
         hr = _pIDirectInputDevice8_Joystick->SetProperty(DIPROP_AXISMODE, &dipropword.diph);
         if (hr != D3D_OK) {
-            _TRACE_( "è»¸ãƒ¢ãƒ¼ãƒ‰ã®è¨­å®šã«å¤±æ•—");
+            _TRACE_( "²ƒ‚[ƒh‚Ìİ’è‚É¸”s");
             return FALSE;
         }
 
-        // ã‚²ãƒ¼ãƒ ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®ã‚¢ã‚¯ã‚»ã‚¹æ¨©ã‚’å–å¾—ã™ã‚‹
+        // ƒQ[ƒ€ƒXƒeƒBƒbƒN‚ÌƒAƒNƒZƒXŒ ‚ğæ“¾‚·‚é
         hr = _pIDirectInputDevice8_Joystick->Poll();
         if (hr != D3D_OK) {
-            _TRACE_("GgafDx9Input::initDx9Input() ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯Pollã«å¤±æ•—ã—ã¾ã—ãŸ");
+            _TRACE_("GgafDx9Input::initDx9Input() ƒWƒ‡ƒCƒXƒeƒBƒbƒNPoll‚É¸”s‚µ‚Ü‚µ‚½");
             do {
                 hr = _pIDirectInputDevice8_Joystick->Acquire();
             } while (hr == DIERR_INPUTLOST);
@@ -183,23 +183,23 @@ HRESULT GgafDx9Input::init() {
 
 void GgafDx9Input::updateKeyboardState() {
     if (_pIDirectInputDevice8_Keyboard == NULL) {
-        _TRACE_("GgafDx9Input::updateKeyboardState() NULLã£ã™");
+        _TRACE_("GgafDx9Input::updateKeyboardState() NULL‚Á‚·");
         return;
     }
 
     static HRESULT hr;
-    again: hr = _pIDirectInputDevice8_Keyboard->Poll(); //ã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã¯é€šå¸¸Pollä¸ç”¨ã¨æ€ã†ãŒã€å¿…è¦ãªã‚­ãƒ¼ãƒœãƒ¼ãƒ‰ã‚‚ã‚ã‚‹ã‹ã‚‚ã—ã‚Œãªã„ã€‚
+    again: hr = _pIDirectInputDevice8_Keyboard->Poll(); //ƒL[ƒ{[ƒh‚Í’ÊíPoll•s—p‚Æv‚¤‚ªA•K—v‚ÈƒL[ƒ{[ƒh‚à‚ ‚é‚©‚à‚µ‚ê‚È‚¢B
     hr = _pIDirectInputDevice8_Keyboard->GetDeviceState(256, (void*)&_caKeyboardState);
     if (FAILED(hr)) {
         //_TRACE_("GetDeviceState is FAILED");
-        //Acquire()ã‚’è©¦ã¿ã‚‹ã€‚
+        //Acquire()‚ğ‚İ‚éB
         hr = _pIDirectInputDevice8_Keyboard->Acquire();
         if (hr == DI_OK) {
             //_TRACE_("Acquire is DI_OK");
             goto again;
         } else {
             //_TRACE_("Acquire is not DI_OK");
-            //ãƒ€ãƒ¡ãªã‚‰ã¾ãŸæ¬¡å›ã¸
+            //ƒ_ƒ‚È‚ç‚Ü‚½Ÿ‰ñ‚Ö
         }
     }
     return;
@@ -207,7 +207,7 @@ void GgafDx9Input::updateKeyboardState() {
 
 bool GgafDx9Input::isBeingPressedKey(int prm_DIK) {
     if (prm_DIK < 0 || 255 < prm_DIK) {
-        _TRACE_("isBeingPressedKey:ç¯„å›²å¤–");
+        _TRACE_("isBeingPressedKey:”ÍˆÍŠO");
         return false;
     } else {
         if (_caKeyboardState[prm_DIK] & 0x80) {
@@ -223,7 +223,7 @@ void GgafDx9Input::updateJoystickState() {
         return;
     }
 
-    // ã‚¸ãƒ§ã‚¤ã‚¹ãƒ†ã‚£ãƒƒã‚¯ã®çŠ¶æ…‹ã‚’å–å¾—
+    // ƒWƒ‡ƒCƒXƒeƒBƒbƒN‚Ìó‘Ô‚ğæ“¾
     static HRESULT hr;
 
     again1:
@@ -251,7 +251,7 @@ void GgafDx9Input::updateJoystickState() {
 
 bool GgafDx9Input::isBeingPressedJoyRgbButton(int prm_iRgbButtonNo) {
     if (prm_iRgbButtonNo < 0 || 31 < prm_iRgbButtonNo) {
-        _TRACE_("isBeingPressedJoyRgbButton:ç¯„å›²å¤–");
+        _TRACE_("isBeingPressedJoyRgbButton:”ÍˆÍŠO");
         return false;
     } else {
         if (_dijoystate.rgbButtons[prm_iRgbButtonNo] & 0x80) {
@@ -330,7 +330,7 @@ bool GgafDx9Input::isBeingPressedJoyDirection(int prm_iDirectionNo) {
 
 void GgafDx9Input::release() {
     TRACE("GgafDx9Input::~GgafDx9Input()");
-    //ãƒ‡ãƒã‚¤ã‚¹è§£æ”¾
+    //ƒfƒoƒCƒX‰ğ•ú
     _pIDirectInputDevice8_Keyboard->Unacquire();
     RELEASE_IMPOSSIBLE_NULL(_pIDirectInputDevice8_Keyboard);
     if (_pIDirectInputDevice8_Joystick != NULL) {

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ GgafDx9GeometryMorpher::GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor
     GgafObject() {
     _pActor = prm_pActor;
     for (int i = 0; i <= MAX_MORPH_TARGET; i++) {
-        //i=0ã¯å®Ÿè³ªæœªä½¿ç”¨ã€‚
+        //i=0‚ÍŽÀŽ¿–¢Žg—pB
         _weight[i] = 0.0f;
         _velo_weight[i] = 0.0f;
         _target_weight[i] = 0.0f;
@@ -63,7 +63,7 @@ void GgafDx9GeometryMorpher::behave() {
             }
         } else if (_method[i] == LOOP_MORPH_TRIANGLEWAVE) {
             _weight[i] += _velo_weight[i];
-            if (_loop_begin_frame[i] + _loop_attack_frame[i] == _pActor->_frame_of_behaving) { //ã‚¢ã‚¿ãƒƒã‚¯é ‚ç‚¹æ™‚
+            if (_loop_begin_frame[i] + _loop_attack_frame[i] == _pActor->_frame_of_behaving) { //ƒAƒ^ƒbƒN’¸“_Žž
                 _weight[i] = _top_weight[i];
                 _velo_weight[i] = (_bottom_weight[i] - _top_weight[i]) / (int)(_loop_spend_frame[i] - _loop_attack_frame[i] - _loop_rest_frame[i]);
                 _halfloop_cnt[i]++;
@@ -75,7 +75,7 @@ void GgafDx9GeometryMorpher::behave() {
                 _weight[i] = _bottom_weight[i];
                 _velo_weight[i] = 0.0f;
 
-            } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_frame_of_behaving) { //ãƒ«ãƒ¼ãƒ—çµ‚äº†æ™‚
+            } else if (_loop_begin_frame[i] + _loop_spend_frame[i] == _pActor->_frame_of_behaving) { //ƒ‹[ƒvI—¹Žž
                 _loop_begin_frame[i] = _pActor->_frame_of_behaving;
                 _velo_weight[i] = (_top_weight[i] - _bottom_weight[i]) / (int)(_loop_attack_frame[i]);
                 _halfloop_cnt[i]++;

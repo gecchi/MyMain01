@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -40,7 +40,7 @@ void EnemyPallas::processBehavior() {
 
     _X -= 2000;
 
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
 }
 

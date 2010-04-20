@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -33,7 +33,7 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
 
 void GgafDx9PointSpriteActor::setAlpha(float prm_fAlpha) {
     GgafDx9DrawableActor::setAlpha(prm_fAlpha);
-    //GgafDx9PointSpriteActorã¯ãƒ¡ãƒƒã‚·ãƒ¥Î±ã‚‚è¨­å®šï¼ˆã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§å‚ç…§ã™ã‚‹ãŸã‚ï¼‰
+    //GgafDx9PointSpriteActor‚ÍƒƒbƒVƒ…ƒ¿‚àÝ’èiƒVƒF[ƒ_[‚ÅŽQÆ‚·‚é‚½‚ßj
     _paD3DMaterial9[0].Ambient.a = _fAlpha;
     _paD3DMaterial9[0].Diffuse.a = _fAlpha;
 }
@@ -43,30 +43,30 @@ void GgafDx9PointSpriteActor::processDraw() {
     ID3DXEffect* pID3DXEffect = _pPointSpriteEffect->_pID3DXEffect;
     HRESULT hr;
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatView, &pCAM->_vMatrixView );
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matView) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matView) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     //(*_pFunc_calcWorldMatrix)(this, _matWorld);
     hr = pID3DXEffect->SetMatrix(_pPointSpriteEffect->_hMatWorld, &_matWorld );
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matWorld) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetMatrix(g_matWorld) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetFloat(_pPointSpriteEffect->_hDist_VpPlnFront, -_fDist_VpPlnFront);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_hDist_VpPlnFront) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetFloat(g_hDist_VpPlnFront) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
     hr = pID3DXEffect->SetInt(_pPointSpriteEffect->_hUvFlipPtnNo, _pUvFlipper->_pattno_uvflip_now);
-    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’ç„¡åŠ¹ã«
+    checkDxException(hr, D3D_OK, "GgafDx9PointSpriteActor::processDraw() SetInt(_hUvFlipPtnNo) ‚ÉŽ¸”s‚µ‚Ü‚µ‚½B");
+    // Zƒoƒbƒtƒ@‚ð–³Œø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_FALSE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿ä¸å¯
+    // Zƒoƒbƒtƒ@‘‚«ž‚Ý•s‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, FALSE);
-    //ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆON
+    //ƒ|ƒCƒ“ƒgƒXƒvƒ‰ƒCƒgON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, TRUE);
-    //ãƒã‚¤ãƒ³ãƒˆã‚¹ã‚±ãƒ¼ãƒ«ON
+    //ƒ|ƒCƒ“ƒgƒXƒP[ƒ‹ON
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, TRUE);
     _pPointSpriteModel->draw(this);
-    //ãƒã‚¤ãƒ³ãƒˆã‚¹ãƒ—ãƒ©ã‚¤ãƒˆOFF
+    //ƒ|ƒCƒ“ƒgƒXƒvƒ‰ƒCƒgOFF
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSPRITEENABLE, FALSE);
-    //ãƒã‚¤ãƒ³ãƒˆã‚¹ã‚±ãƒ¼ãƒ«OFF
+    //ƒ|ƒCƒ“ƒgƒXƒP[ƒ‹OFF
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_POINTSCALEENABLE, FALSE);
-    // Zãƒãƒƒãƒ•ã‚¡ã‚’æœ‰åŠ¹ã«
+    // Zƒoƒbƒtƒ@‚ð—LŒø‚É
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZENABLE, D3DZB_TRUE);
-    // Zãƒãƒƒãƒ•ã‚¡æ›¸ãè¾¼ã¿å¯
+    // Zƒoƒbƒtƒ@‘‚«ž‚Ý‰Â
     GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_ZWRITEENABLE, TRUE);
 }
 

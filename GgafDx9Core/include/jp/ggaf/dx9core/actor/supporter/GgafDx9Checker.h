@@ -1,10 +1,10 @@
-ï»¿#ifndef GGAFDX9CHECKER_H_
+#ifndef GGAFDX9CHECKER_H_
 #define GGAFDX9CHECKER_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒã‚§ãƒƒã‚¯ã«é–¢ã™ã‚‹è‰²ã€…ãªæ©Ÿèƒ½ã‚’æŒã£ãŸã‚¯ãƒ©ã‚¹ .
- * ï¼ˆæ—§GgafDx9GeometryCheckerï¼‰
+ * ƒ`ƒFƒbƒN‚ÉŠÖ‚·‚éFX‚È‹@”\‚ğ‚Á‚½ƒNƒ‰ƒX .
+ * i‹ŒGgafDx9GeometryCheckerj
  * @version 1.00
  * @since 2008/08/20
  * @author Masatoshi Tsuge
@@ -12,13 +12,13 @@ namespace GgafDx9Core {
 class GgafDx9Checker : public GgafCore::GgafObject {
 
 protected:
-    /** å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ */
+    /** ‘ÎÛƒAƒNƒ^[ */
     GgafDx9GeometricActor* _pActor;
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param	prm_pActor	é©ç”¨Actor
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param	prm_pActor	“K—pActor
      */
     GgafDx9Checker(GgafDx9GeometricActor* prm_pActor);
 
@@ -28,7 +28,7 @@ public:
 
     GgafDx9GeometricActor* getTargetActor() {
         if (_pActor == NULL) {
-            _TRACE_("GgafDx9Checker::getTargetActor NULLã§ã‚ã‚‹ãŒã‚ˆã„ã®ã‹ï¼");
+            _TRACE_("GgafDx9Checker::getTargetActor NULL‚Å‚ ‚é‚ª‚æ‚¢‚Ì‚©I");
         }
         return _pActor;
     }

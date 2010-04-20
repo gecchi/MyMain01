@@ -1,15 +1,15 @@
-ï»¿#ifndef GGAFGACTORY_H_
+#ifndef GGAFGACTORY_H_
 #define GGAFGACTORY_H_
 namespace GgafCore {
 
 /**
- * ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ç”Ÿæˆå·¥å ´ã‚¯ãƒ©ã‚¹ .
- * ãƒ¡ã‚¤ãƒ³å‡¦ç†ã‹ã‚‰ã€æ³¨æ–‡(GgafOrder)ã‚’æ¸¡ã•ã‚Œã‚‹ã¨ã€åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã«ãã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç”Ÿæˆ(new)ã•ã›ã¾ã™ã€‚<BR>
- * å‡ºæ¥ä¸ŠãŒã£ãŸã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹(å•†å“ã¨å‘¼ã¶)ã®ãƒã‚¤ãƒ³ã‚¿é”ã¯å·¥å ´ã§ã‚¹ãƒˆãƒƒã‚¯ã•ã‚Œã€ãƒ¡ã‚¤ãƒ³å‡¦ç†ã‹ã‚‰å¿…è¦ã«å¿œã˜ã¦å•†å“ã‚’å–ã‚Šå‡ºã™ã“ã¨ãŒå‡ºæ¥ã¾ã™<BR>
- * ã€è£œè¶³ã€‘<BR>
- * ãªãœã“ã‚“ãªã‚„ã‚„ã“ã—ã„äº‹ã‚’ã™ã‚‹ã®ã‹ã€‚ãã‚Œã¯ã€å¤§é‡ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã‚ã‚‹æ™‚ç‚¹ã§ç”Ÿæˆã—ãªã‘ã‚Œã°ã„ã‘ãªã„ã‚ˆã†ãªå€‹æ‰€ã§ã€æ»‘ã‚‰ã‹ã«å‡¦ç†ã‚’ã—ãŸã„ãŸã‚ã€‚<BR>
- * ã‚¹ãƒ†ãƒ¼ã‚¸ã®ãƒ­ãƒ¼ãƒ‡ã‚£ãƒ³ã‚°ã‚„ã€æ˜”ã‚ˆãã‚ã£ãŸã®ã§ã™ãŒã€ãƒœã‚¹å‰ç­‰ã§ã€ä¸€çž¬ã€Œã‚¦ãƒƒã€ã¨è©°ã¾ã‚‹(ãƒŠãƒ³ãƒŽã‚³ãƒƒãƒãƒ£)ã®ã‚’ç„¡ãã—ãŸã‹ã£ãŸãŸãŸã‚ã§ã™ã€‚<BR>
- * æ³¨æ–‡ã‚’æ—©ã‚ã«ã—ã¦ãŠãã¨ã€ã‚¹ãƒ ãƒ¼ã‚ºã«ã‚²ãƒ¼ãƒ ãŒé€²è¡Œã™ã‚‹ã¯ãšã ã¨ç›®è«–ã‚€ã€‚<BR>
+ * ƒCƒ“ƒXƒ^ƒ“ƒX¶¬HêƒNƒ‰ƒX .
+ * ƒƒCƒ“ˆ—‚©‚çA’•¶(GgafOrder)‚ð“n‚³‚ê‚é‚ÆA•ÊƒXƒŒƒbƒh‚É‚»‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ð¶¬(new)‚³‚¹‚Ü‚·B<BR>
+ * o—ˆã‚ª‚Á‚½ƒCƒ“ƒXƒ^ƒ“ƒX(¤•i‚ÆŒÄ‚Ô)‚Ìƒ|ƒCƒ“ƒ^’B‚ÍHê‚ÅƒXƒgƒbƒN‚³‚êAƒƒCƒ“ˆ—‚©‚ç•K—v‚É‰ž‚¶‚Ä¤•i‚ðŽæ‚èo‚·‚±‚Æ‚ªo—ˆ‚Ü‚·<BR>
+ * y•â‘«z<BR>
+ * ‚È‚º‚±‚ñ‚È‚â‚â‚±‚µ‚¢Ž–‚ð‚·‚é‚Ì‚©B‚»‚ê‚ÍA‘å—ÊƒCƒ“ƒXƒ^ƒ“ƒX‚ð‚ ‚éŽž“_‚Å¶¬‚µ‚È‚¯‚ê‚Î‚¢‚¯‚È‚¢‚æ‚¤‚ÈŒÂŠ‚ÅAŠŠ‚ç‚©‚Éˆ—‚ð‚µ‚½‚¢‚½‚ßB<BR>
+ * ƒXƒe[ƒW‚Ìƒ[ƒfƒBƒ“ƒO‚âAÌ‚æ‚­‚ ‚Á‚½‚Ì‚Å‚·‚ªAƒ{ƒX‘O“™‚ÅAˆêuuƒEƒbv‚Æ‹l‚Ü‚é(ƒiƒ“ƒmƒRƒbƒ`ƒƒ)‚Ì‚ð–³‚­‚µ‚½‚©‚Á‚½‚½‚½‚ß‚Å‚·B<BR>
+ * ’•¶‚ð‘‚ß‚É‚µ‚Ä‚¨‚­‚ÆAƒXƒ€[ƒY‚ÉƒQ[ƒ€‚ªis‚·‚é‚Í‚¸‚¾‚Æ–Ú˜_‚ÞB<BR>
  * @version 1.00
  * @since 2007/12/27
  * @author Masatoshi Tsuge
@@ -18,23 +18,23 @@ class GgafFactory {
     friend class GgafGod;
 
 private:
-    /** å…ˆé ­ã®æ³¨æ–‡ */
+    /** æ“ª‚Ì’•¶ */
     static GgafOrder* ROOT_ORDER;
-    /** ç¾åœ¨è£½é€ ä¸­ã®æ³¨æ–‡ */
+    /** Œ»Ý»‘¢’†‚Ì’•¶ */
     static GgafOrder* CREATING_ORDER;
-    //CREATING_ORDER ã¯ã€å…¨ã¦è£½é€ æ¸ˆã¿ã®å ´åˆã€æœ€çµ‚æ³¨æ–‡ã‚’æŒ‡ã—ã¤ã¥ã‘ã‚‹
-    //å…¨ã¦è£½é€ æ¸ˆã¿ã‹ã¤ã€è£½å“ãŒå…¨ã¦å–å¾—ã•ã‚Œã¦ã—ã¾ã£ãŸå ´åˆã¯ NULL ã«ãªã‚‹ã€‚
-    //_is_last_order_flg == false ã‚’å¸¸ã«åˆ¤å®šã—ã€æœ€çµ‚æ³¨æ–‡ã§ãªããªã£ãŸã‚‰ï¼ˆæ–°è¦æ³¨æ–‡ãŒã‚ã‚Œã°ï¼‰ã€
-    //è£½é€ ã‚’è¡Œã£ã¦æ¬¡ã«é€²ã‚ã‚‹ã€‚ _is_last_order_flg == false ã«ãªã‚‹ã¾ã§è£½é€ ã—ã¤ã¥ã‘ã‚‹
+    //CREATING_ORDER ‚ÍA‘S‚Ä»‘¢Ï‚Ý‚Ìê‡AÅI’•¶‚ðŽw‚µ‚Â‚Ã‚¯‚é
+    //‘S‚Ä»‘¢Ï‚Ý‚©‚ÂA»•i‚ª‘S‚ÄŽæ“¾‚³‚ê‚Ä‚µ‚Ü‚Á‚½ê‡‚Í NULL ‚É‚È‚éB
+    //_is_last_order_flg == false ‚ðí‚É”»’è‚µAÅI’•¶‚Å‚È‚­‚È‚Á‚½‚çiV‹K’•¶‚ª‚ ‚ê‚ÎjA
+    //»‘¢‚ðs‚Á‚ÄŽŸ‚Éi‚ß‚éB _is_last_order_flg == false ‚É‚È‚é‚Ü‚Å»‘¢‚µ‚Â‚Ã‚¯‚é
 
 
     /**
-     * å·¥å ´ã«æ³¨æ–‡ã‚’è¡Œã†<BR>
-     * @param prm_id	æ³¨æ–‡è­˜åˆ¥IDç•ªå·
-     * @param prm_pFunc	å®Ÿéš›ã«è£½é€ å‡¦ç†ã‚’è¡Œã†é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿
-     * @param prm_pArg1	ãã®å¼•æ•°1
-     * @param prm_pArg2	ãã®å¼•æ•°2
-     * @param prm_pArg3	ãã®å¼•æ•°3
+     * Hê‚É’•¶‚ðs‚¤<BR>
+     * @param prm_id	’•¶Ž¯•ÊID”Ô†
+     * @param prm_pFunc	ŽÀÛ‚É»‘¢ˆ—‚ðs‚¤ŠÖ”‚Ìƒ|ƒCƒ“ƒ^
+     * @param prm_pArg1	‚»‚Ìˆø”1
+     * @param prm_pArg2	‚»‚Ìˆø”2
+     * @param prm_pArg3	‚»‚Ìˆø”3
      */
     static void order(unsigned long prm_id,
                       GgafObject* (*prm_pFunc)(void*, void*, void*),
@@ -43,37 +43,37 @@ private:
                       void* prm_pArg3);
 
     /**
-     * æ³¨æ–‡ã—ãŸå•†å“ã‚’å–ã‚Šå‡ºã™ã€‚<BR>
-     * æœªè£½é€ ã ã£ãŸå ´åˆã€è£½é€ ãŒå®Œäº†ã™ã‚‹ã¾ã§å¾…ã¤ã€‚<BR>
-     * @param   prm_id	æ³¨æ–‡è­˜åˆ¥IDç•ªå·
-     * @return	è£½å“ã®ãƒã‚¤ãƒ³ã‚¿
+     * ’•¶‚µ‚½¤•i‚ðŽæ‚èo‚·B<BR>
+     * –¢»‘¢‚¾‚Á‚½ê‡A»‘¢‚ªŠ®—¹‚·‚é‚Ü‚Å‘Ò‚ÂB<BR>
+     * @param   prm_id	’•¶Ž¯•ÊID”Ô†
+     * @return	»•i‚Ìƒ|ƒCƒ“ƒ^
      */
     static void* obtain(unsigned long prm_id);
 
 public:
-    /** [r]ã‚´ãƒŸç®±(ä¸è¦ãªã‚¢ã‚¯ã‚¿ãƒ¼ç½®ãå ´) */
+    /** [r]ƒSƒ~” (•s—v‚ÈƒAƒNƒ^[’u‚«ê) */
     static GgafGarbageBox* _pGarbageBox;
 
-    /** [r]æŽƒé™¤ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•° */
+    /** [r]‘|œƒIƒuƒWƒFƒNƒg” */
     static int _cnt_cleaned;
 
-    /** [r]æ´»å‹•ãƒ•ãƒ©ã‚°(ç¥žãŒæ“ä½œã™ã‚‹) */
+    /** [r]Šˆ“®ƒtƒ‰ƒO(_‚ª‘€ì‚·‚é) */
     static bool _is_working_flg;
-    /** [r]ä¼‘ã‚€ãƒ•ãƒ©ã‚° */
+    /** [r]‹x‚Þƒtƒ‰ƒO */
     static bool _have_to_rest_flg;
-    /** [r]ä¼‘ã§ã„ã‚‹ãƒ•ãƒ©ã‚° */
+    /** [r]‹x‚Å‚¢‚éƒtƒ‰ƒO */
     static bool _is_resting_flg;
-    /** [r]å®Œå…¨åº—çµ‚ã„ */
+    /** [r]Š®‘S“XI‚¢ */
     static bool _was_finished_flg;
 
     /**
-     * å·¥å ´ã«ã‚¢ã‚¯ã‚¿ãƒ¼ä½œæˆã®æ³¨æ–‡ã‚’è¡Œã† .
-     * ãƒ¡ã‚¤ãƒ³å‡¦ç†ãŒå‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
-     * @param prm_id	æ³¨æ–‡è­˜åˆ¥IDç•ªå·
-     * @param prm_pFunc	å®Ÿéš›ã«è£½é€ å‡¦ç†ã‚’è¡Œã†é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿
-     * @param prm_pArg1	ãã®å¼•æ•°1
-     * @param prm_pArg2	ãã®å¼•æ•°2
-     * @param prm_pArg3	ãã®å¼•æ•°3
+     * Hê‚ÉƒAƒNƒ^[ì¬‚Ì’•¶‚ðs‚¤ .
+     * ƒƒCƒ“ˆ—‚ªŒÄ‚Ño‚µ‚Ü‚·B<BR>
+     * @param prm_id	’•¶Ž¯•ÊID”Ô†
+     * @param prm_pFunc	ŽÀÛ‚É»‘¢ˆ—‚ðs‚¤ŠÖ”‚Ìƒ|ƒCƒ“ƒ^
+     * @param prm_pArg1	‚»‚Ìˆø”1
+     * @param prm_pArg2	‚»‚Ìˆø”2
+     * @param prm_pArg3	‚»‚Ìˆø”3
      */
     template<class X>
     static void orderActor(unsigned long prm_id,
@@ -85,13 +85,13 @@ public:
     }
 
     /**
-     * å·¥å ´ã«ã‚·ãƒ¼ãƒ³ä½œæˆã®æ³¨æ–‡ã‚’è¡Œã† .
-     * ãƒ¡ã‚¤ãƒ³å‡¦ç†ãŒå‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
-     * @param prm_id	æ³¨æ–‡è­˜åˆ¥IDç•ªå·
-     * @param prm_pFunc	å®Ÿéš›ã«è£½é€ å‡¦ç†ã‚’è¡Œã†é–¢æ•°ã®ãƒã‚¤ãƒ³ã‚¿
-     * @param prm_pArg1	ãã®å¼•æ•°1
-     * @param prm_pArg2	ãã®å¼•æ•°2
-     * @param prm_pArg3	ãã®å¼•æ•°3
+     * Hê‚ÉƒV[ƒ“ì¬‚Ì’•¶‚ðs‚¤ .
+     * ƒƒCƒ“ˆ—‚ªŒÄ‚Ño‚µ‚Ü‚·B<BR>
+     * @param prm_id	’•¶Ž¯•ÊID”Ô†
+     * @param prm_pFunc	ŽÀÛ‚É»‘¢ˆ—‚ðs‚¤ŠÖ”‚Ìƒ|ƒCƒ“ƒ^
+     * @param prm_pArg1	‚»‚Ìˆø”1
+     * @param prm_pArg2	‚»‚Ìˆø”2
+     * @param prm_pArg3	‚»‚Ìˆø”3
      */
     template<class X>
     static void orderScene(unsigned long prm_id,
@@ -103,70 +103,70 @@ public:
     }
 
     /**
-     * æ³¨æ–‡ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã‚’å–ã‚Šå‡ºã™ã€‚ .
-     * ãƒ¡ã‚¤ãƒ³å‡¦ç†ãŒå‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
-     * æœªè£½é€ ã ã£ãŸå ´åˆã€è£½é€ ãŒå®Œäº†ã™ã‚‹ã¾ã§å¾…ã¤ã€‚<BR>
-     * @param   prm_id	æ³¨æ–‡è­˜åˆ¥ID
-     * @return	ç”Ÿæˆã•ã‚ŒãŸã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒã‚¤ãƒ³ã‚¿
+     * ’•¶‚µ‚½ƒAƒNƒ^[‚ðŽæ‚èo‚·B .
+     * ƒƒCƒ“ˆ—‚ªŒÄ‚Ño‚µ‚Ü‚·B<BR>
+     * –¢»‘¢‚¾‚Á‚½ê‡A»‘¢‚ªŠ®—¹‚·‚é‚Ü‚Å‘Ò‚ÂB<BR>
+     * @param   prm_id	’•¶Ž¯•ÊID
+     * @return	¶¬‚³‚ê‚½ƒAƒNƒ^[‚Ìƒ|ƒCƒ“ƒ^
      */
     static GgafMainActor* obtainActor(unsigned long prm_id);
 
     /**
-     * æ³¨æ–‡ã—ãŸã‚·ãƒ¼ãƒ³ã‚’å–ã‚Šå‡ºã™ã€‚ .
-     * ãƒ¡ã‚¤ãƒ³å‡¦ç†ãŒå‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
-     * æœªè£½é€ ã ã£ãŸå ´åˆã€è£½é€ ãŒå®Œäº†ã™ã‚‹ã¾ã§å¾…ã¤ã€‚<BR>
-     * @param   prm_id	æ³¨æ–‡è­˜åˆ¥ID
-     * @return	ç”Ÿæˆã•ã‚ŒãŸã‚·ãƒ¼ãƒ³ã®ãƒã‚¤ãƒ³ã‚¿
+     * ’•¶‚µ‚½ƒV[ƒ“‚ðŽæ‚èo‚·B .
+     * ƒƒCƒ“ˆ—‚ªŒÄ‚Ño‚µ‚Ü‚·B<BR>
+     * –¢»‘¢‚¾‚Á‚½ê‡A»‘¢‚ªŠ®—¹‚·‚é‚Ü‚Å‘Ò‚ÂB<BR>
+     * @param   prm_id	’•¶Ž¯•ÊID
+     * @return	¶¬‚³‚ê‚½ƒV[ƒ“‚Ìƒ|ƒCƒ“ƒ^
      */
     static GgafMainScene* obtainScene(unsigned long prm_id);
 
     /**
-     * å·¥å ´ã‚’æŽƒé™¤ã™ã‚‹<BR>
-     * ãƒ¡ã‚¤ãƒ³å‡¦ç†ã®ç¥žãŒå‘¼ã³å‡ºã—ã¾ã™ã€‚<BR>
-     * ROOT_ORDER ãŒæŒ‡ã—ã¦ã„ã‚‹è£½å“ã®é€£çµãƒªã‚¹ãƒˆã‚’å…¨ã¦è§£æ”¾ã™ã‚‹<BR>
-     * æ³¨æ„ï¼šå¿…ãšä»¥ä¸‹ã®ã‚ˆã†ã«ã‚¯ãƒªãƒ†ã‚£ã‚«ãƒ«ã‚»ã‚¯ã‚·ãƒ§ãƒ³ã§å›²ã‚“ã§å‘¼ã³å‡ºã—ã¦ãã ã•ã„ï¼ã€‚<BR>
-     * ï¼œã‚³ãƒ¼ãƒ‰ä¾‹ï¼ž <BR>
-     *  ___BeginSynchronized; // ----->æŽ’ä»–é–‹å§‹<BR>
+     * Hê‚ð‘|œ‚·‚é<BR>
+     * ƒƒCƒ“ˆ—‚Ì_‚ªŒÄ‚Ño‚µ‚Ü‚·B<BR>
+     * ROOT_ORDER ‚ªŽw‚µ‚Ä‚¢‚é»•i‚Ì˜AŒ‹ƒŠƒXƒg‚ð‘S‚Ä‰ð•ú‚·‚é<BR>
+     * ’ˆÓF•K‚¸ˆÈ‰º‚Ì‚æ‚¤‚ÉƒNƒŠƒeƒBƒJƒ‹ƒZƒNƒVƒ‡ƒ“‚ÅˆÍ‚ñ‚ÅŒÄ‚Ño‚µ‚Ä‚­‚¾‚³‚¢IB<BR>
+     * ƒƒR[ƒh—á„ <BR>
+     *  ___BeginSynchronized; // ----->”r‘¼ŠJŽn<BR>
      * GgafFactory::clean();<BR>
-     *  ___EndSynchronized; // <----- æŽ’ä»–çµ‚äº†<BR>
+     *  ___EndSynchronized; // <----- ”r‘¼I—¹<BR>
      */
     static void clean();
 
     /**
-     * ç¨¼å‹•ã™ã‚‹ã€‚<BR>
-     * åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§ç„¡é™ãƒ«ãƒ¼ãƒ—ã—ã¦ã¾ã™ã€‚æ³¨æ–‡ãŒã‚ã‚Œã°ä½œæˆã—ã€ã‚¹ãƒˆãƒƒã‚¯ã—ã¾ã™ã€‚<BR>
-     * ç¥žãŒåˆæœŸè¨­å®šæ™‚ã«åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§ä¸€åº¦å®Ÿè¡Œã™ã‚‹ã€‚ç¥žãŒæ­»ã¬ã¾ã§ï¼ˆã‚¢ãƒ—ãƒªçµ‚äº†ã¾ã§ï¼‰æ°¸é ã«ç¨¼å‹•ã—ã£æ”¾ã—ã§ã‚ã‚‹ã€‚<BR>
+     * ‰Ò“®‚·‚éB<BR>
+     * •ÊƒXƒŒƒbƒh‚Å–³ŒÀƒ‹[ƒv‚µ‚Ä‚Ü‚·B’•¶‚ª‚ ‚ê‚Îì¬‚µAƒXƒgƒbƒN‚µ‚Ü‚·B<BR>
+     * _‚ª‰ŠúÝ’èŽž‚É•ÊƒXƒŒƒbƒh‚Åˆê“xŽÀs‚·‚éB_‚ªŽ€‚Ê‚Ü‚ÅiƒAƒvƒŠI—¹‚Ü‚Åj‰i‰“‚É‰Ò“®‚µ‚Á•ú‚µ‚Å‚ ‚éB<BR>
      */
     static unsigned __stdcall work(void* prm_arg);
 
     /**
-     * ä¸€æ™‚ä¼‘æ­¢ã‚’æŒ‡ç¤º .
-     * ã—ã‹ã—å‘¼ã³å‡ºã—ã¦ã‚‚ç›´ãã«ä¼‘æ­¢çŠ¶æ…‹ã«ãªã‚‹ã¨ã¯é™ã‚Šã¾ã›ã‚“ã€‚<BR>
-     * isResting() ã§èª¿ã¹ã‚‹å¿…è¦ãŒã‚ã‚Šã¾ã™ã€‚<BR>
+     * ˆêŽž‹xŽ~‚ðŽwŽ¦ .
+     * ‚µ‚©‚µŒÄ‚Ño‚µ‚Ä‚à’¼‚®‚É‹xŽ~ó‘Ô‚É‚È‚é‚Æ‚ÍŒÀ‚è‚Ü‚¹‚ñB<BR>
+     * isResting() ‚Å’²‚×‚é•K—v‚ª‚ ‚è‚Ü‚·B<BR>
      */
     static void beginRest() {
-        _TRACE_("GgafFactory::beginRest() ï¼œç¥žï¼žå·¥å ´ã€ä¼‘æ†©ã—ãªã•ã„");
+        _TRACE_("GgafFactory::beginRest() ƒ_„HêA‹xŒe‚µ‚È‚³‚¢");
         _have_to_rest_flg = true;
     }
 
     /**
-     * å·¥å ´ã®çŠ¶æ…‹ã‚’å–å¾—<BR>
-     * @return true=ä¼‘æ­¢çŠ¶æ…‹/false=ç¨¼å‹•çŠ¶æ…‹
+     * Hê‚Ìó‘Ô‚ðŽæ“¾<BR>
+     * @return true=‹xŽ~ó‘Ô/false=‰Ò“®ó‘Ô
      */
     static bool isResting() {
         if (_is_resting_flg) {
-            _TRACE_("GgafFactory::isResting() å·¥å ´ä¼‘æ­¢çŠ¶æ…‹");
+            _TRACE_("GgafFactory::isResting() Hê‹xŽ~ó‘Ô");
         } else {
-            _TRACE_("GgafFactory::isResting() å·¥å ´ç¨¼åƒçŠ¶æ…‹");
+            _TRACE_("GgafFactory::isResting() Hê‰Ò“­ó‘Ô");
         }
         return _is_resting_flg;
     }
 
     /**
-     * ä¼‘æ­¢ã®è§£é™¤ã‚’æŒ‡ç¤º .
+     * ‹xŽ~‚Ì‰ðœ‚ðŽwŽ¦ .
      */
     static void finishRest() {
-        _TRACE_("GgafFactory::beginRest() ï¼œç¥žï¼žå·¥å ´ã€ä¼‘æ†©ã¯ãŠã—ã¾ã„ã€‚ã•ã‚å‹•ã‘ï¼");
+        _TRACE_("GgafFactory::beginRest() ƒ_„HêA‹xŒe‚Í‚¨‚µ‚Ü‚¢B‚³‚ “®‚¯I");
         _have_to_rest_flg = false;
     }
 };

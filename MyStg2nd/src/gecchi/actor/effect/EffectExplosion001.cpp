@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -7,7 +7,7 @@ using namespace MyStg2nd;
 
 EffectExplosion001::EffectExplosion001(const char* prm_name) : DefaultSpriteSetActor(prm_name, "18/EffectExplosion001") {
     _class_name = "EffectExplosion001";
-    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆTechniqueæŒ‡å®š
+    chengeEffectTechnique("DestBlendOne"); //‰ÁZ‡¬Techniquew’è
     defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv);
 }
 

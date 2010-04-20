@@ -1,4 +1,4 @@
-﻿#ifndef PREDRAWSCENE_H_
+#ifndef PREDRAWSCENE_H_
 #define PREDRAWSCENE_H_
 
 namespace MyStg2nd {

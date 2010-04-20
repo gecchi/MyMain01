@@ -1,25 +1,25 @@
-﻿#ifndef GGAFDX9MESHSETMODEL_H_
+#ifndef GGAFDX9MESHSETMODEL_H_
 #define GGAFDX9MESHSETMODEL_H_
 namespace GgafDx9Core {
 
 /**
- * メッシュモデルクラス(GgafDx9MeshActor用) .
- * GgafDx9MeshSetModel は独自にXファイルからモデルデータを読み込み、<BR>
- * オブジェクトを描画する機能を持った静的モデル用のクラスです。 <BR>
- * 読み込み時、モデルの頂点バッファを、複数個コピーして連結し、一つの頂点バッファとしてセットします。<BR>
- * 複数のオブジェクトを1回で描画し、高速化を目指すクラス。 <BR>
- * 編隊を組む敵や、弾、などに使用することを想定する。 <BR>
- * ＜長所＞  <BR>
- * ・GgafDx9MeshModel の長所と同じ長所。
- * ・複数オブジェクトを描画する場合は、GgafDx9MeshModel よりさらに高速描画。  <BR>
- * ＜短所＞  <BR>
- * ・GgafDx9MeshModel の短所と同じ短所。
- * ・描画キャラ分の頂点のコピー連結して頂点バッファに持つため、1キャラクタの頂点数が、 65536/同時描画数 個<BR>
- *  を超えると駄目である。<BR>
- * ・さらに、マテリアルは1種類が望ましい。これは全体で1種類ではなく、<BR>
- *  各キャラごとにそれぞれマテリアル色が1種類しか割り当てれないという意味。しかし、テクスチャは全体で1種類しか駄目。<BR>
- *  ※複数マテリアルのXファイルを指定してもエラーにはならないが、複数マテリアルの場合、マテリアル毎にシェーダーのレジスタを更新
- *  （CommitChangesが発生）してしまうため、オブジェクトそれぞれ描画していることになり、やや高速化の意味が薄くなる。<BR>
+ * ���b�V�����f���N���X(GgafDx9MeshActor�p) .
+ * GgafDx9MeshSetModel �͓Ǝ���X�t�@�C�����烂�f���f�[�^��ǂݍ��݁A<BR>
+ * �I�u�W�F�N�g��`�悷��@�\���������ÓI���f���p�̃N���X�ł��B <BR>
+ * �ǂݍ��ݎ��A���f���̒��_�o�b�t�@���A�����R�s�[���ĘA�����A��̒��_�o�b�t�@�Ƃ��ăZ�b�g���܂��B<BR>
+ * �����̃I�u�W�F�N�g��1��ŕ`�悵�A��������ڎw���N���X�B <BR>
+ * �ґ���g�ޓG��A�e�A�ȂǂɎg�p���邱�Ƃ�z�肷��B <BR>
+ * ��������  <BR>
+ * �EGgafDx9MeshModel �̒����Ɠ��������B
+ * �E�����I�u�W�F�N�g��`�悷��ꍇ�́AGgafDx9MeshModel ��肳��ɍ����`��B  <BR>
+ * ���Z����  <BR>
+ * �EGgafDx9MeshModel �̒Z���Ɠ����Z���B
+ * �E�`��L�������̒��_�̃R�s�[�A�����Ē��_�o�b�t�@�Ɏ����߁A1�L�����N�^�̒��_�����A 65536/�����`�搔 ��<BR>
+ *  �𒴂���Ƒʖڂł���B<BR>
+ * �E����ɁA�}�e���A����1��ނ��]�܂����B����͑S�̂�1��ނł͂Ȃ��A<BR>
+ *  �e�L�������Ƃɂ��ꂼ��}�e���A���F��1��ނ������蓖�Ă�Ȃ��Ƃ����Ӗ��B�������A�e�N�X�`���͑S�̂�1��ނ����ʖځB<BR>
+ *  �������}�e���A����X�t�@�C�����w�肵�Ă��G���[�ɂ͂Ȃ�Ȃ����A�����}�e���A���̏ꍇ�A�}�e���A�����ɃV�F�[�_�[�̃��W�X�^���X�V
+ *  �iCommitChanges�������j���Ă��܂����߁A�I�u�W�F�N�g���ꂼ��`�悵�Ă��邱�ƂɂȂ�A��⍂�����̈Ӗ��������Ȃ�B<BR>
  * @version 1.00
  * @since 2009/06/15
  * @author Masatoshi Tsuge
@@ -40,62 +40,62 @@ public:
     };
 
     struct VERTEX {
-        float x, y, z;    // 頂点座標
-        float nx, ny, nz; // 法線
-        float index;      // psizeではなくてはなくて頂点番号として使用。シェーダー側で何セット目かを判断するために使用。
-        DWORD color;      // 頂点の色（オブジェクトのマテリアルカラーとして使用）
-        float tu, tv;     // テクスチャ座標
+        float x, y, z;    // ���_���W
+        float nx, ny, nz; // �@��
+        float index;      // psize�ł͂Ȃ��Ă͂Ȃ��Ē��_�ԍ��Ƃ��Ďg�p�B�V�F�[�_�[���ŉ��Z�b�g�ڂ��𔻒f���邽�߂Ɏg�p�B
+        DWORD color;      // ���_�̐F�i�I�u�W�F�N�g�̃}�e���A���J���[�Ƃ��Ďg�p�j
+        float tu, tv;     // �e�N�X�`�����W
     };
 
-    /** 前回表示の同時描画したセット数（キャラクタ数）*/
+    /** �O��\���̓����`�悵���Z�b�g���i�L�����N�^���j*/
     static int _draw_set_num_LastDraw;
-    /** 最大同時描画セット数（キャラクタ数）、現在は16キャラ同時描画可能 */
+    /** �ő哯���`��Z�b�g���i�L�����N�^���j�A���݂�16�L���������`��\ */
     int _set_num;
 
-    /** 頂点のFVF */
+    /** ���_��FVF */
     static DWORD FVF;
-    /** 頂点バッファ（ｎキャラ分） */
+    /** ���_�o�b�t�@�i���L�������j */
     LPDIRECT3DVERTEXBUFFER9 _pIDirect3DVertexBuffer9;
-    /** インデックスバッファ（ｎキャラ分） */
+    /** �C���f�b�N�X�o�b�t�@�i���L�������j */
     LPDIRECT3DINDEXBUFFER9 _pIDirect3DIndexBuffer9;
 
 
-    /** １頂点のサイズ */
+    /** �P���_�̃T�C�Y */
     UINT _size_vertex_unit;
-    /** 基本モデル（１キャラ分）頂点サイズ計 */
+    /** ��{���f���i�P�L�������j���_�T�C�Y�v */
     UINT _size_vertices;
-    /** 基本モデル（１キャラ分）頂点数 */
+    /** ��{���f���i�P�L�������j���_�� */
     UINT _nVertices;
-    /** 基本モデル（１キャラ分）の面の数 */
+    /** ��{���f���i�P�L�������j�̖ʂ̐� */
     UINT _nFaces;
 
     INDEXPARAM** _papaIndexParam;
 
-    /** マテリアルリストの連続で同一のマテリアル番号の塊（グループ）が幾つあるか */
+    /** �}�e���A�����X�g�̘A���œ���̃}�e���A���ԍ��̉�i�O���[�v�j������邩 */
     UINT* _pa_nMaterialListGrp;
 
     VERTEX* _paVtxBuffer_org;
     WORD* _paIdxBuffer_org;
 
-    /** Paulさんモデル */
+    /** Paul���񃂃f�� */
     Frm::Model3D* _pModel3D;
-    /** Paulさんメッシュ */
+    /** Paul���񃁃b�V�� */
     Frm::Mesh* _pMeshesFront;
 
 
 
 
     /**
-     * コンストラクタ<BR>
-     * @param prm_model_name スプライト定義の識別名。".x"を追加すると定義Xファイル名になる。
+     * �R���X�g���N�^<BR>
+     * @param prm_model_name �X�v���C�g��`�̎��ʖ��B".x"��ǉ�����ƒ�`X�t�@�C�����ɂȂ�B
      */
     GgafDx9MeshSetModel(char* prm_model_name);
 
 public:
 
     /**
-     * GgafDx9MeshSetModelオブジェクトの描画<BR>
-     * @param	prm_pActor_Target 描画するGgafDx9MeshSetActor
+     * GgafDx9MeshSetModel�I�u�W�F�N�g�̕`��<BR>
+     * @param	prm_pActor_Target �`�悷��GgafDx9MeshSetActor
      * @return	HRESULT
      */
     virtual HRESULT draw(GgafDx9DrawableActor* prm_pActor_Target) override;
@@ -109,9 +109,9 @@ public:
     void changeVertexAlpha(int prm_vertex_alpha);
 
     /**
-     * デストラクタ<BR>
+     * �f�X�g���N�^<BR>
      */
-    virtual ~GgafDx9MeshSetModel(); //デストラクタ
+    virtual ~GgafDx9MeshSetModel(); //�f�X�g���N�^
 };
 
 }

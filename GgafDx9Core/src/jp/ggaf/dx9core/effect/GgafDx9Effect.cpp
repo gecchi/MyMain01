@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -27,10 +27,10 @@ GgafDx9Effect::GgafDx9Effect(char* prm_effect_name) : GgafObject() {
                      &pError                    // [out] LPD3DXBUFFER *ppCompilationxErrors
                 );
 	if (hr != D3D_OK && pError == NULL) {
-		throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" ãŒå­˜åœ¨ã—ãªã„ã®ã§ã¯ãªã„ã ã‚ã†ã‹ãƒ»ãƒ»ãƒ»");
+		throwGgafCriticalException("GgafDx9Effect::GgafDx9Effect "<<effect_file_name<<" ‚ª‘¶Ý‚µ‚È‚¢‚Ì‚Å‚Í‚È‚¢‚¾‚ë‚¤‚©EEE");
 	}
 	checkDxException(hr, D3D_OK, "GgafDx9Effect::GgafDx9Effect ["<<effect_file_name<<"]\n"<<(const char*)(pError->GetBufferPointer()));
-    TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" ã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆã‚’ç”Ÿæˆã—ã¾ã—ãŸã€‚");
+    TRACE3(" GgafDx9Effect::GgafDx9Effect "<<prm_effect_name<<" ‚ÌƒGƒtƒFƒNƒg‚ð¶¬‚µ‚Ü‚µ‚½B");
 }
 
 GgafDx9Effect::~GgafDx9Effect() {

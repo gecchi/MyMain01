@@ -1,10 +1,10 @@
-ï»¿#ifndef COLLISIONCHECKER_H_
+#ifndef COLLISIONCHECKER_H_
 #define COLLISIONCHECKER_H_
 namespace GgafDx9LibStg {
 
 /**
- * ãƒã‚§ãƒƒã‚«ãƒ¼ã‚¯ãƒ©ã‚¹.
- * ã‚¢ã‚¯ã‚¿ãƒ¼ã«å½“ãŸã‚Šåˆ¤å®šãƒã‚§ãƒƒã‚¯ç­‰æ§˜ã€…ãªãƒã‚§ãƒƒã‚¯æ©Ÿèƒ½ã‚’è¿½åŠ ã§ãã‚‹ã€‚
+ * ƒ`ƒFƒbƒJ[ƒNƒ‰ƒX.
+ * ƒAƒNƒ^[‚É“–‚½‚è”»’èƒ`ƒFƒbƒN“™—lX‚Èƒ`ƒFƒbƒN‹@”\‚ğ’Ç‰Á‚Å‚«‚éB
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class CollisionChecker : public GgafDx9Core::GgafDx9Checker {
 
 public:
-    /** å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸ */
+    /** “–‚½‚è”»’è—Ìˆæ */
     GgafDx9Core::GgafDx9CollisionArea* _pCollisionArea;
 
     bool _need_update_aabb;
@@ -23,14 +23,14 @@ public:
     static int _num_check;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param	prm_pActor	é©ç”¨Actor
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param	prm_pActor	“K—pActor
      */
     CollisionChecker(GgafDx9Core::GgafDx9GeometricActor* prm_pActor);
 
     /**
-     * å½“ãŸã‚Šåˆ¤å®šé ˜åŸŸBOXã®å›è»¢å¹³è¡Œç§»å‹•ã¨ã€ï¼˜åˆ†æœ¨ç™»éŒ²ã‚’è¡Œã„ã¾ã™ã€‚ .
-     * ç¾åœ¨ã¯ GgafDx9GeometricActor::processPreJudgement ã‹ã‚‰ã‚³ãƒ¼ãƒ«ã•ã‚Œã¦ã„ã‚‹ã€‚
+     * “–‚½‚è”»’è—ÌˆæBOX‚Ì‰ñ“]•½sˆÚ“®‚ÆA‚W•ª–Ø“o˜^‚ğs‚¢‚Ü‚·B .
+     * Œ»İ‚Í GgafDx9GeometricActor::processPreJudgement ‚©‚çƒR[ƒ‹‚³‚ê‚Ä‚¢‚éB
      */
     virtual void updateHitArea();
 
@@ -85,7 +85,7 @@ public:
     //virtual void draw();
 
     /**
-     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+     * ƒI[ƒo[ƒ‰ƒCƒh
      * @param prm_pOtherChecker
      * @return
      */

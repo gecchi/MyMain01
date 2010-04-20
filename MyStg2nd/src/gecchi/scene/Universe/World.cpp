@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -9,9 +9,9 @@ World::World(const char* prm_name) : DefaultScene(prm_name) {
     _TRACE_("World::World");
     _pos_camera = 0;
     _frame_pushdown_zmove = 0;
-    //【めも】
-    //ここでActorやSceneのNEWをはしてはならない。
-    //まずはこの世を作ることを優先しないと、いろいろと不都合がある。
+    //�y�߂��z
+    //������Actor��Scene��NEW���͂��Ă͂Ȃ�Ȃ��B
+    //�܂��͂��̐�����邱�Ƃ�D�悵�Ȃ��ƁA���낢��ƕs�s��������B
 }
 
 void World::initialize() {
@@ -33,11 +33,11 @@ void World::initialize() {
 //    DispFpsActor* pDispFpsActor = NEW DispFpsActor("FPS_STRING", "28/moji");
 //    getLordActor()->addSubGroup(KIND_EFFECT, pDispFpsActor);
 //#endif
-    //初期カメラ位置
+    //�����J�����ʒu
     int cam_MvVeloRange = pMYSHIP->_iMoveSpeed * 0.99;
     _dZ_camera_init = -1 * pCAM->_cameraZ_org * LEN_UNIT * PX_UNIT;
-    //初期カメラ移動範囲制限
-    float revise = 0.8; //斜めから見るので補正値を掛ける。1.0の場合は原点からでドンピシャ。これは微調整を繰り返した
+    //�����J�����ړ��͈͐���
+    float revise = 0.8; //�΂߂��猩��̂ŕ␳�l���|����B1.0�̏ꍇ�͌��_����Ńh���s�V���B����͔��������J��Ԃ���
     _lim_CAM_top     = MyShip::_lim_top     - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2)*revise;
     _lim_CAM_bottom  = MyShip::_lim_bottom  + (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2)*revise;
     _lim_CAM_front   = MyShip::_lim_front   - (GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)*revise;
@@ -88,35 +88,35 @@ void World::processBehavior() {
         addSubLast(pGameScene);
     }
     if ( getSubFirst()->canBehave() ) {
-        VB::update(); //入力情報更新
+        VB::update(); //���͏��X�V
     }
 
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
-    //TODO:止めてもframeは進む＿？
+    //TODO:�~�߂Ă�frame�͐i�ށQ�H
     if (VB::isPushedDown(VB_PAUSE)) {
         if (getSubFirst()->canBehave()) {
             _TRACE_("PAUSE!");
-//            //カメラ注視方向設定
+//            //�J�������������ݒ�
 //            pCAM->_pMover->setMvAng(
 //                                pCAM->_gazeX,
 //                                pCAM->_gazeY,
 //                                pCAM->_gazeZ
 //                           );
 
-            getSubFirst()->pause();     //一時停止
+            getSubFirst()->pause();     //�ꎞ��~
         } else {
             _TRACE_("UNPAUSE!");
-            getSubFirst()->unpause();   //一時停止解除
+            getSubFirst()->unpause();   //�ꎞ��~����
         }
     }
 
-    //カメラ位置を行ったり来たり
+    //�J�����ʒu���s�����藈����
     if (VB::isPushedDown(VB_ZMOVE)) {
         _TRACE_("VB_ZMOVE!! now _pos_camera="<<_pos_camera);
-        if (_pos_camera < CAM_POS_TO_BEHIND) { //背面視点ではない場合、
-            _pos_camera += CAM_POS_TO_BEHIND;  //それぞれの対応背面視点へ
-        } else if (_pos_camera > CAM_POS_TO_BEHIND) {//背面視点の場合
-            //方向入力により新たな視点へ
+        if (_pos_camera < CAM_POS_TO_BEHIND) { //�w�ʎ��_�ł͂Ȃ��ꍇ�A
+            _pos_camera += CAM_POS_TO_BEHIND;  //���ꂼ��̑Ή��w�ʎ��_��
+        } else if (_pos_camera > CAM_POS_TO_BEHIND) {//�w�ʎ��_�̏ꍇ
+            //�������͂ɂ��V���Ȏ��_��
             if (VB::isBeingPressed(VB_RIGHT)) {
                 _pos_camera = CAM_POS_LEFT;
             } else if (VB::isBeingPressed(VB_LEFT)) {
@@ -126,27 +126,27 @@ void World::processBehavior() {
             } else if (VB::isBeingPressed(VB_DOWN)) {
                 _pos_camera = CAM_POS_TOP;
             } else {
-                //方向未入力の場合、元の視点へ
+                //���������͂̏ꍇ�A���̎��_��
                 _pos_camera -= CAM_POS_TO_BEHIND;
             }
         }
         _TRACE_("VB_ZMOVE!!  -> _pos_camera="<<_pos_camera);
     }
 
-    //カメラの移動目標点
+    //�J�����̈ړ��ڕW�_
     int move_target_X_CAM, move_target_Y_CAM, move_target_Z_CAM;
-    //カメラの注視点の移動目標点
+    //�J�����̒����_�̈ړ��ڕW�_
     int move_target_X_VP, move_target_Y_VP, move_target_Z_VP;
-    //カメラ（始点）の目標地点までの距離（座標差分）
+    //�J�����i�n�_�j�̖ڕW�n�_�܂ł̋����i���W�����j
     int dX_CAM, dY_CAM, dZ_CAM;
-    //ビューポイント（終点）の目標地点までの距離（座標差分）
+    //�r���[�|�C���g�i�I�_�j�̖ڕW�n�_�܂ł̋����i���W�����j
     int dX_VP, dY_VP, dZ_VP;
 
     static int Dx = (int)((GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)/5*2);
     static int Ddx_hw = (int)((GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2) - (GGAFDX9_PROPERTY(GAME_SCREEN_HEIGHT)*LEN_UNIT/2));
     //int Dx = (int)((GGAFDX9_PROPERTY(GAME_SCREEN_WIDTH)*LEN_UNIT/2)/2);
 
-    //カメラと視点の移動目標設定
+    //�J�����Ǝ��_�̈ړ��ڕW�ݒ�
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
 //            move_target_X_CAM = 0;
@@ -201,7 +201,7 @@ void World::processBehavior() {
 //            move_target_Y_CAM += Dd;
 //        }
     } else {
-        throwGgafCriticalException("World::processBehavior() 不正な_pos_camera="<<_pos_camera);
+        throwGgafCriticalException("World::processBehavior() �s����_pos_camera="<<_pos_camera);
     }
 
     int cam_slow_velo_renge;
@@ -224,7 +224,7 @@ void World::processBehavior() {
     pVP->_pMover->forceVyMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
     pVP->_pMover->forceVzMvAcceRange(-cam_slow_velo_renge / 40, cam_slow_velo_renge / 40);
 
-    //カメラと視点の移動目標を自機移動範囲を考慮して制限
+    //�J�����Ǝ��_�̈ړ��ڕW�����@�ړ��͈͂��l�����Đ���
     if (_pos_camera < CAM_POS_TO_BEHIND) {
         if (_pos_camera == CAM_POS_RIGHT) {
             if (move_target_Y_CAM > _lim_CAM_top) {
@@ -315,8 +315,8 @@ void World::processBehavior() {
     }
 
 
-    //目標地点までの各軸距離
-    //速度＊３を加算するのは、ぶるんぶるんしなようにするため
+    //�ڕW�n�_�܂ł̊e������
+    //���x���R�����Z����̂́A�Ԃ��Ԃ�񂵂Ȃ悤�ɂ��邽��
     dX_CAM = move_target_X_CAM - (pCAM->_X + pCAM->_pMover->_veloVxMv*3);
     dY_CAM = move_target_Y_CAM - (pCAM->_Y + pCAM->_pMover->_veloVyMv*3);
     dZ_CAM = move_target_Z_CAM - (pCAM->_Z + pCAM->_pMover->_veloVzMv*3);
@@ -327,7 +327,7 @@ void World::processBehavior() {
     if ( getSubFirst()->canBehave() ) {
         if (_pos_camera == CAM_POS_RIGHT || _pos_camera == CAM_POS_LEFT ||
             _pos_camera == CAM_POS_TOP   || _pos_camera == CAM_POS_BOTTOM  ) {
-            //背後視点以外は前後（X軸）は遊びを少なくする
+            //�w�㎋�_�ȊO�͑O��iX���j�͗V�т����Ȃ�����
             if (-_stop_renge/4 < dX_CAM && dX_CAM < _stop_renge/4) {
                 pCAM->_pMover->setVxMvAcce(0);
                 pCAM->_pMover->setVxMvVelo(pCAM->_pMover->_veloVxMv * 0.6);
@@ -358,7 +358,7 @@ void World::processBehavior() {
 
 
         if (_pos_camera == CAM_POS_TOP   || _pos_camera == CAM_POS_BOTTOM) {
-            //TOP,BOTTOM視点の場合は上下（Y軸）は遊びを少なくする
+            //TOP,BOTTOM���_�̏ꍇ�͏㉺�iY���j�͗V�т����Ȃ�����
             if (-_stop_renge/4 < dY_CAM && dY_CAM < _stop_renge/4) {
                 pCAM->_pMover->setVyMvAcce(0);
                 pCAM->_pMover->setVyMvVelo(pCAM->_pMover->_veloVyMv * 0.6);
@@ -387,7 +387,7 @@ void World::processBehavior() {
         }
 
         if (_pos_camera == CAM_POS_RIGHT || _pos_camera == CAM_POS_LEFT) {
-            //横視点の場合は奥行（Z軸）は遊びを少なくする
+            //�����_�̏ꍇ�͉��s�iZ���j�͗V�т����Ȃ�����
             if (-_stop_renge/4 < dZ_CAM && dZ_CAM < _stop_renge/4) {
                 pCAM->_pMover->setVzMvAcce(0);
                 pCAM->_pMover->setVzMvVelo(pCAM->_pMover->_veloVzMv * 0.6);
@@ -415,11 +415,11 @@ void World::processBehavior() {
             }
         }
 
-        //自機通常移動に吸着
+        //���@�ʏ�ړ��ɋz��
         if (pMYSHIP->_iMoveVelo != 0) {
-            //カメラがブルブル震えるので、震えない差分を加えている。
-            //TODO:もっと良い方法があるかもしれない。後で考えよう。
-            int kyuchaku = pMYSHIP->_iMoveVelo/2; //吸着範囲
+            //�J�������u���u���k����̂ŁA�k���Ȃ������������Ă���B
+            //TODO:�����Ɨǂ����@�����邩������Ȃ��B��ōl���悤�B
+            int kyuchaku = pMYSHIP->_iMoveVelo/2; //�z���͈�
             int camveloX = pCAM->_pMover->_veloVxMv;
             int vpveloX = pVP->_pMover->_veloVxMv;
             if (camveloX > 0 && pMYSHIP->_iMoveVelo-kyuchaku <= camveloX && camveloX < pMYSHIP->_iMoveVelo+kyuchaku) {
@@ -465,9 +465,9 @@ void World::processBehavior() {
         pVP->_pMover->behave();
     }
 
-    //サブシーンが一時停止していれば、カメラ操作できる。
+    //�T�u�V�[�����ꎞ��~���Ă���΁A�J��������ł���B
     if ( getSubFirst()->canBehave() ) {
-        //スルー
+        //�X���[
     } else {
         pCAM->_pMover->_mv_ang_rz_target_flg = true;
         pCAM->_pMover->_mv_ang_ry_target_flg = true;
@@ -529,9 +529,9 @@ void World::processBehavior() {
     }
 
 //    if ( getSubFirst()->canBehave() ) {
-//        //スルー
+//        //�X���[
 //    } else {
-//        //カメラ注視方向設定
+//        //�J�������������ݒ�
 //        pCAM->setViewPoint (
 //                   pCAM->_X + (pCAM->_pMover->_vX * LEN_UNIT * PX_UNIT),
 //                   pCAM->_Y + (pCAM->_pMover->_vY * LEN_UNIT * PX_UNIT),

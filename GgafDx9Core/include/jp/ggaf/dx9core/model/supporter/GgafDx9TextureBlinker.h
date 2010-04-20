@@ -1,70 +1,70 @@
-ï»¿#ifndef GGAFDX9TEXTUREBLINKER_H_
+#ifndef GGAFDX9TEXTUREBLINKER_H_
 #define GGAFDX9TEXTUREBLINKER_H_
 namespace GgafDx9Core {
 
 /**
- * ç‰¹å®šã‚«ãƒ©ãƒ¼ç‚¹æ»…æ”¯æ´ã‚¯ãƒ©ã‚¹.
- * GgafDx9Model ã®ãƒ¡ãƒ³ãƒã® _fPowerBlink <BR>
- * ã‚’ã€ç°¡å˜ã«æ“ä½œã™ã‚‹ãŸã‚ã«è¨­è¨ˆã—ãŸã€‚<BR>
- * æœ€çµ‚çš„ã«ãƒ”ã‚¯ã‚»ãƒ«ã‚·ã‚§ãƒ¼ãƒ€ãƒ¼ã§è‰²(float4)ã«ä¹—ãšã‚‹å€¤ã¨ãªã‚‹ã€‚
- * è‰²å¼·åº¦ 1.0 ã¯è‰²å¼·åº¦ç„¡ã—ã€
- * è‰²å¼·åº¦ 2.0 ã¯è‰²å¼·åº¦ï¼’å€ã€‚æ˜ã‚‹ããªã‚‹ã€‚
- * è‰²å¼·åº¦ 0.5 ã¯è‰²å¼·åº¦1/ï¼’å€ã€‚æš—ããªã‚‹ã€‚
+ * “Á’èƒJƒ‰[“_–Åx‰‡ƒNƒ‰ƒX.
+ * GgafDx9Model ‚Ìƒƒ“ƒo‚Ì _fPowerBlink <BR>
+ * ‚ğAŠÈ’P‚É‘€ì‚·‚é‚½‚ß‚ÉİŒv‚µ‚½B<BR>
+ * ÅI“I‚ÉƒsƒNƒZƒ‹ƒVƒF[ƒ_[‚ÅF(float4)‚Éæ‚¸‚é’l‚Æ‚È‚éB
+ * F‹­“x 1.0 ‚ÍF‹­“x–³‚µA
+ * F‹­“x 2.0 ‚ÍF‹­“x‚Q”{B–¾‚é‚­‚È‚éB
+ * F‹­“x 0.5 ‚ÍF‹­“x1/‚Q”{BˆÃ‚­‚È‚éB
  * @version 1.00
  * @since 2009/05/22
  * @author Masatoshi Tsuge
  */
 class GgafDx9TextureBlinker : public GgafCore::GgafObject {
 
-public: //_SX , _SY, _SZ æ“ä½œé–¢é€£ //////////////////////////////////////////////
-    /** å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ */
+public: //_SX , _SY, _SZ ‘€ìŠÖ˜A //////////////////////////////////////////////
+    /** ‘ÎÛƒAƒNƒ^[ */
     GgafDx9Model* _pModel;
 
-    /** è‰²å¼·åº¦(0.0 ã€œ 100.0) */
+    /** F‹­“x(0.0 ` 100.0) */
     float _fPowerBlink;
-    /** ç›®æ¨™ã®è‰²å¼·åº¦ */
+    /** –Ú•W‚ÌF‹­“x */
     float _target_fPowerBlink;
-    /** è‰²å¼·åº¦ä¸Šé™ */
+    /** F‹­“xãŒÀ */
     float _top_fPowerBlink;
-    /** è‰²å¼·åº¦ä¸‹é™ */
+    /** F‹­“x‰ºŒÀ */
     float _bottom_fPowerBlink;
-    /** æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã®è‰²å¼·åº¦ã®å¢—åˆ† */
+    /** –ˆƒtƒŒ[ƒ€‚ÌF‹­“x‚Ì‘•ª */
     float _velo_fPowerBlink;
-    /** æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã®è‰²å¼·åº¦ã®å¢—åˆ†ã®å¢—åˆ† */
+    /** –ˆƒtƒŒ[ƒ€‚ÌF‹­“x‚Ì‘•ª‚Ì‘•ª */
     float _acce_fPowerBlink;
-    /** ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ç‚¹æ»…ã®ã‚¢ã‚¿ãƒƒã‚¯ãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** OŠp”g‚Ì”gŒ`‚Å“_–Å‚ÌƒAƒ^ƒbƒNƒtƒŒ[ƒ€ */
     DWORD _beat_attack_frame;
-    /** ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ç‚¹æ»…ã®ãƒ¬ã‚¹ãƒˆãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** OŠp”g‚Ì”gŒ`‚Å“_–Å‚ÌƒŒƒXƒgƒtƒŒ[ƒ€ */
     DWORD _beat_rest_frame;
-    /** ç‚¹æ»…ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•° */
+    /** “_–Å‚É”ï‚â‚·ƒtƒŒ[ƒ€” */
     DWORD _beat_spend_frame;
-    /** ç‚¹æ»…ã‚’é–‹å§‹ã—ãŸãƒ•ãƒ¬ãƒ¼ãƒ  */
+    /** “_–Å‚ğŠJn‚µ‚½ƒtƒŒ[ƒ€ */
     DWORD _beat_begin_frame;
-    /** ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆï¼ˆ2ã§ç‚¹æ»…ãƒ¯ãƒ³ã‚»ãƒƒãƒˆã€1ãªã‚‰ã°æ‹¡å¤§orç¸®å°ã®ç‰‡é“ï¼‰ */
+    /** ƒ‹[ƒvƒJƒEƒ“ƒgi2‚Å“_–Åƒƒ“ƒZƒbƒgA1‚È‚ç‚ÎŠg‘åork¬‚Ì•Ğ“¹j */
     int _one_way_cnt;
-    /** ã‚¹ãƒˆãƒƒãƒ—ã™ã‚‹äºˆå®šã®ãƒ«ãƒ¼ãƒ—ã‚«ã‚¦ãƒ³ãƒˆ */
+    /** ƒXƒgƒbƒv‚·‚é—\’è‚Ìƒ‹[ƒvƒJƒEƒ“ƒg */
     int _stop_one_way_num;
-    /** ç‚¹æ»…æ–¹æ³• */
+    /** “_–Å•û–@ */
     GgafDx9BlinkerMethod _method;
 
 public:
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param   prm_pModel  é©ç”¨å¯¾è±¡ã®Model
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param   prm_pModel  “K—p‘ÎÛ‚ÌModel
      */
     GgafDx9TextureBlinker(GgafDx9Model* prm_pModel);
 
     /**
-     * è‰²å¼·åº¦ã‚’ç›¸å¯¾æŒ‡å®š
-     * @param prm_fPowerBlink_diff è‰²å¼·åº¦å€¤å¢—åˆ†
+     * F‹­“x‚ğ‘Š‘Îw’è
+     * @param prm_fPowerBlink_diff F‹­“x’l‘•ª
      */
     void addBlink(float prm_fPowerBlink_diff) {
         setBlink(_fPowerBlink + prm_fPowerBlink_diff);
     }
 
     /**
-     * è‰²å¼·åº¦ã‚’çµ¶å¯¾æŒ‡å®š
-     * @param prm_fPowerBlink è‰²å¼·åº¦å€¤
+     * F‹­“x‚ğâ‘Îw’è
+     * @param prm_fPowerBlink F‹­“x’l
      */
     void setBlink(float prm_fPowerBlink) {
         //_TRACE_("setBlink ["<<prm_<<"]prm_fPowerBlink="<<prm_fPowerBlink);
@@ -79,9 +79,9 @@ public:
         //_TRACE_("setBlink _fPowerBlink ["<<prm_<<"] _fPowerBlink="<<prm_fPowerBlink);
     }
     /**
-     * è‰²å¼·åº¦ã®ä¸Šé™ä¸‹é™ã‚’è¨­å®š
-     * @param prm_fPowerBlink1 è‰²å¼·åº¦å€¤1
-     * @param prm_fPowerBlink2 è‰²å¼·åº¦å€¤2
+     * F‹­“x‚ÌãŒÀ‰ºŒÀ‚ğİ’è
+     * @param prm_fPowerBlink1 F‹­“x’l1
+     * @param prm_fPowerBlink2 F‹­“x’l2
      */
     void forceBlinkRange(float prm_fPowerBlink1, float prm_fPowerBlink2) {
         if (prm_fPowerBlink1 < prm_fPowerBlink2) {
@@ -94,9 +94,9 @@ public:
         //_TRACE_("forceBlinkRange _bottom_fPowerBlink["<<prm_<<"]="<<_bottom_fPowerBlink<<"/_top_fPowerBlink["<<prm_<<"]="<<_top_fPowerBlink<<"");
     }
     /**
-     * è‰²å¼·åº¦ã‚’ãƒªã‚»ãƒƒãƒˆ
-     * æœ¬ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ(GgafDx9TextureBlinker)ã«ã‚ˆã£ã¦å¤‰åŒ–ã•ãˆã‚‹å‰ã®
-     * åˆæœŸã®å¤§ãã•ã«æˆ»ã™ã€‚
+     * F‹­“x‚ğƒŠƒZƒbƒg
+     * –{ƒIƒuƒWƒFƒNƒg(GgafDx9TextureBlinker)‚É‚æ‚Á‚Ä•Ï‰»‚³‚¦‚é‘O‚Ì
+     * ‰Šú‚Ì‘å‚«‚³‚É–ß‚·B
      */
     void setBlinkToBottom() {
         _fPowerBlink = _bottom_fPowerBlink;
@@ -107,72 +107,72 @@ public:
     }
 
     /**
-     * ç‚¹æ»…ã‚’åœæ­¢ã•ã›ã‚‹ã€‚  .
+     * “_–Å‚ğ’â~‚³‚¹‚éB  .
      */
     void stopImmediately();
 
     /**
-     * ç‰‡é“ç­‰é€Ÿç‚¹æ»…ï¼ˆå…¨è»¸ãƒ»æŒç¶šãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®è‰²å¼·åº¦ã¸ä¸€å®šé€Ÿåº¦ã§ç‚¹æ»…ã™ã‚‹
-     * @param prm_target_fPowerBlink ç›®æ¨™è‰²å¼·åº¦
-     * @param prm_spend_frame è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+     * •Ğ“¹“™‘¬“_–Åi‘S²E‘±ƒtƒŒ[ƒ€”w’èj .
+     * –Ú•W‚ÌF‹­“x‚Öˆê’è‘¬“x‚Å“_–Å‚·‚é
+     * @param prm_target_fPowerBlink –Ú•WF‹­“x
+     * @param prm_spend_frame ”ï‚â‚·ƒtƒŒ[ƒ€”
      */
     void intoTargetBlinkLinerUntil(float prm_target_fPowerBlink, DWORD prm_spend_frame);
 
     /**
-     * ç‰‡é“ç­‰é€Ÿç‚¹æ»…ï¼ˆå…¨è»¸ãƒ»è‰²å¼·åº¦é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®è‰²å¼·åº¦ã¸ä¸€å®šé€Ÿåº¦ã§ç‚¹æ»…ã™ã‚‹
-     * @param prm_target_fPowerBlink ç›®æ¨™è‰²å¼·åº¦
-     * @param prm_velo_fPowerBlink æ¯ãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—ã™ã‚‹è‰²å¼·åº¦å·®åˆ†(>0.0)ã€‚æ­£ã®è‰²å¼·åº¦å·®åˆ†ã‚’æŒ‡å®šã™ã‚‹äº‹ã€‚
-     *                             è‰²å¼·åº¦ã®åŠ ç®—ã‹æ¸›ç®—ã‹ã¯ç¾åœ¨ã®è‰²å¼·åº¦ã‚ˆã‚Šç›®æ¨™è‰²å¼·åº¦ãŒé«˜ã„ã‹ä½ã„ã‹ã§è‡ªå‹•åˆ¤æ–­ã™ã‚‹ã€‚
+     * •Ğ“¹“™‘¬“_–Åi‘S²EF‹­“x‘¬“xw’èj .
+     * –Ú•W‚ÌF‹­“x‚Öˆê’è‘¬“x‚Å“_–Å‚·‚é
+     * @param prm_target_fPowerBlink –Ú•WF‹­“x
+     * @param prm_velo_fPowerBlink –ˆƒtƒŒ[ƒ€‰ÁZ‚·‚éF‹­“x·•ª(>0.0)B³‚ÌF‹­“x·•ª‚ğw’è‚·‚é–B
+     *                             F‹­“x‚Ì‰ÁZ‚©Œ¸Z‚©‚ÍŒ»İ‚ÌF‹­“x‚æ‚è–Ú•WF‹­“x‚ª‚‚¢‚©’á‚¢‚©‚Å©“®”»’f‚·‚éB
      */
     void intoTargetBlinkLinerStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink);
 
     /**
-     * ç‰‡é“åŠ é€Ÿç‚¹æ»…ï¼ˆå…¨è»¸ãƒ»è‰²å¼·åº¦é€Ÿåº¦ãƒ»è‰²å¼·åº¦åŠ é€Ÿåº¦æŒ‡å®šï¼‰ .
-     * ç›®æ¨™ã®è‰²å¼·åº¦ã¸åŠ é€ŸæŒ‡å®šã§ç‚¹æ»…ã™ã‚‹
-     * è‰²å¼·åº¦åŠ é€Ÿåº¦ã‚’0ã«æŒ‡å®šã™ã‚‹ã¨ intoTargetBlinkLinerStep ã¨ã»ã¼åŒã˜æ„å‘³ã«ãªã‚‹ã€‚
-     * intoTargetBlinkLinerStep ã®ç¬¬ï¼’å¼•æ•°ã¯æ­£è² ã‚’æ°—ã«ã™ã‚‹ã“ã¨ç„¡ã„ãŒã€æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ­£è² ã®è‡ªå‹•åˆ¤å®šã¯ã—ãªã„ã®ã§æ³¨æ„ã—ã¦è¨­å®šã›ã‚ˆã€‚
-     * @param prm_target_fPowerBlink ç›®æ¨™è‰²å¼·åº¦
-     * @param prm_velo_fPowerBlink åˆæœŸè‰²å¼·åº¦é€Ÿåº¦
-     * @param prm_acce_fPowerBlink è‰²å¼·åº¦åŠ é€Ÿåº¦
+     * •Ğ“¹‰Á‘¬“_–Åi‘S²EF‹­“x‘¬“xEF‹­“x‰Á‘¬“xw’èj .
+     * –Ú•W‚ÌF‹­“x‚Ö‰Á‘¬w’è‚Å“_–Å‚·‚é
+     * F‹­“x‰Á‘¬“x‚ğ0‚Éw’è‚·‚é‚Æ intoTargetBlinkLinerStep ‚Æ‚Ù‚Ú“¯‚¶ˆÓ–¡‚É‚È‚éB
+     * intoTargetBlinkLinerStep ‚Ì‘æ‚Qˆø”‚Í³•‰‚ğ‹C‚É‚·‚é‚±‚Æ–³‚¢‚ªA–{ƒƒ\ƒbƒh‚Í³•‰‚Ì©“®”»’è‚Í‚µ‚È‚¢‚Ì‚Å’ˆÓ‚µ‚Äİ’è‚¹‚æB
+     * @param prm_target_fPowerBlink –Ú•WF‹­“x
+     * @param prm_velo_fPowerBlink ‰ŠúF‹­“x‘¬“x
+     * @param prm_acce_fPowerBlink F‹­“x‰Á‘¬“x
      */
     void intoTargetBlinkAcceStep(float prm_target_fPowerBlink, float prm_velo_fPowerBlink, float prm_acce_fPowerBlink);
 
     /**
-     * åå¾©ç­‰é€Ÿç‚¹æ»… .
-     * ç›®æ¨™ã®è‰²å¼·åº¦ä¸Šé™ï¼ˆ_top_fPowerBlinkï¼‰ã¸ä¸€å®šé€Ÿåº¦ã§å…‰ã‚Šã€ä¸€å®šé€Ÿåº¦ã§è‰²å¼·åº¦ä¸‹é™ï¼ˆ_bottom_fPowerBlinkï¼‰å…ƒã«æˆ»ã‚‹ã€‚
-     * ã“ã‚Œã‚’ï¼‘ãƒ«ãƒ¼ãƒ—ã¨ã—ã€è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æŒ‡å®šã™ã‚‹ã€‚
-     * @param prm_beat_spend_frame ï¼‘ãƒ«ãƒ¼ãƒ—(å¤‰åŒ–ã—ã¦å…ƒã«æˆ»ã‚‹ã¾ã§)ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ 
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—ã™ã‚‹å›æ•°(0.5 å›å˜ä½ã§æŒ‡å®šå¯èƒ½)
+     * ”½•œ“™‘¬“_–Å .
+     * –Ú•W‚ÌF‹­“xãŒÀi_top_fPowerBlinkj‚Öˆê’è‘¬“x‚ÅŒõ‚èAˆê’è‘¬“x‚ÅF‹­“x‰ºŒÀi_bottom_fPowerBlinkjŒ³‚É–ß‚éB
+     * ‚±‚ê‚ğ‚Pƒ‹[ƒv‚Æ‚µA”ï‚â‚·ƒtƒŒ[ƒ€”‚ğw’è‚·‚éB
+     * @param prm_beat_spend_frame ‚Pƒ‹[ƒv(•Ï‰»‚µ‚ÄŒ³‚É–ß‚é‚Ü‚Å)‚É”ï‚â‚·ƒtƒŒ[ƒ€
+     * @param prm_beat_num ƒ‹[ƒv‚·‚é‰ñ”(0.5 ‰ñ’PˆÊ‚Åw’è‰Â”\)
      */
     void loopLiner(DWORD prm_beat_spend_frame, float prm_beat_num);
 
     /**
-     * ä¸‰è§’æ³¢ã®æ³¢å½¢ã§ç‚¹æ»…ã™ã‚‹ã€‚.
+     * OŠp”g‚Ì”gŒ`‚Å“_–Å‚·‚éB.
      * <PRE>
-     * â‘£  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-     *            /ï¼¼                     /ï¼¼
-     *           /   ï¼¼                  /   ï¼¼
-     *          /      ï¼¼               /      ï¼¼
-     *         /         ï¼¼            /         ï¼¼
-     *        /            ï¼¼         /            ï¼¼
-     * â‘¤  ï¼¿/               ï¼¼ï¼¿ï¼¿ï¼¿/               ï¼¼ï¼¿
+     * ‡C  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+     *            /_                     /_
+     *           /   _                  /   _
+     *          /      _               /      _
+     *         /         _            /         _
+     *        /            _         /            _
+     * ‡D  Q/               _QQQ/               _Q
      *
-     *       â†â‘¡â†’            â†â‘¢â†’
-     *       â†â”€â”€â”€â”€ â‘  â”€â”€â”€â”€â†’
+     *       ©‡A¨            ©‡B¨
+     *       ©„Ÿ„Ÿ„Ÿ„Ÿ ‡@ „Ÿ„Ÿ„Ÿ„Ÿ¨
      * </PRE>
-     * ï¼œå¿…è¦ãªè¨­å®šå€¤ï¼<BR>
-     * â‘  ï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¡ ã‚¢ã‚¿ãƒƒã‚¯ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¢ ä¼‘æ†©ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘£ è‰²å¼·åº¦ä¸Šé™(_top_fPowerBlinkãŒä¿æŒ)<BR>
-     * â‘¤ è‰²å¼·åº¦ä¸‹é™(_bottom_fPowerBlinkãŒä¿æŒ)<BR>
+     * ƒ•K—v‚Èİ’è’l„<BR>
+     * ‡@ ‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡A ƒAƒ^ƒbƒN‚Ü‚Å‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡B ‹xŒeƒtƒŒ[ƒ€”<BR>
+     * ‡C F‹­“xãŒÀ(_top_fPowerBlink‚ª•Û)<BR>
+     * ‡D F‹­“x‰ºŒÀ(_bottom_fPowerBlink‚ª•Û)<BR>
      * <BR>
-     * @param prm_beat_spend_frame ä¸Šå›³ã§â‘ ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_attack_frame ä¸Šå›³ã§â‘¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_rest_frame ä¸Šå›³ã§â‘¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_beat_num ãƒ«ãƒ¼ãƒ—æ•°(-1ã§ç„¡é™)
+     * @param prm_beat_spend_frame ã}‚Å‡@‚ÌƒtƒŒ[ƒ€”
+     * @param prm_attack_frame ã}‚Å‡A‚ÌƒtƒŒ[ƒ€”
+     * @param prm_rest_frame ã}‚Å‡B‚ÌƒtƒŒ[ƒ€”
+     * @param prm_beat_num ƒ‹[ƒv”(-1‚Å–³ŒÀ)
      */
     void beat(DWORD prm_beat_spend_frame,
               DWORD prm_attack_frame,
@@ -181,9 +181,9 @@ public:
 
 
     /**
-     * æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã®æŒ¯ã‚‹èˆã„ãƒ¡ã‚½ãƒƒãƒ‰ã€‚<BR>
-     * æœ¬ã‚¯ãƒ©ã‚¹ã®æ©Ÿèƒ½ã‚’åˆ©ç”¨ã™ã‚‹å ´åˆã¯ã€ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’<BR>
-     * æ¯ãƒ•ãƒ¬ãƒ¼ãƒ å®Ÿè¡Œã™ã‚‹ã“ã¨ãŒå¿…è¦ã€‚
+     * –ˆƒtƒŒ[ƒ€‚ÌU‚é•‘‚¢ƒƒ\ƒbƒhB<BR>
+     * –{ƒNƒ‰ƒX‚Ì‹@”\‚ğ—˜—p‚·‚éê‡‚ÍA‚±‚Ìƒƒ\ƒbƒh‚ğ<BR>
+     * –ˆƒtƒŒ[ƒ€Às‚·‚é‚±‚Æ‚ª•K—vB
      */
     virtual void behave();
 

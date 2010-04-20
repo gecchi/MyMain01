@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9ALLOCHIERARCHYWORLDFRAME_H_
+#ifndef GGAFDX9ALLOCHIERARCHYWORLDFRAME_H_
 #define GGAFDX9ALLOCHIERARCHYWORLDFRAME_H_
 
 namespace GgafDx9Core {
 
-// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ä»˜ããƒ•ãƒ¬ãƒ¼ãƒ æ§‹é€ ä½“
+// ƒ[ƒ‹ƒh•ÏŠ·s—ñ•t‚«ƒtƒŒ[ƒ€\‘¢‘Ì
 class D3DXFRAME_WORLD : public D3DXFRAME
 {
 public:
@@ -11,7 +11,7 @@ public:
 };
 
 
-// D3DXFRAME_WORLDå–ã‚Šæ‰±ã„AllocateHierarchyã‚¯ãƒ©ã‚¹
+// D3DXFRAME_WORLDæ‚èˆµ‚¢AllocateHierarchyƒNƒ‰ƒX
 class GgafDx9AllocHierarchyWorldFrame: public GgafDx9AllocHierarchy {
 public:
     GgafDx9AllocHierarchyWorldFrame(void);
@@ -19,7 +19,7 @@ public:
     virtual ~GgafDx9AllocHierarchyWorldFrame(void);
 
 protected:
-    // ãƒ•ãƒ¬ãƒ¼ãƒ æ§‹é€ ä½“ã‚’ç”Ÿæˆã™ã‚‹
+    // ƒtƒŒ[ƒ€\‘¢‘Ì‚ğ¶¬‚·‚é
     virtual D3DXFRAME* CreateNewFrame();
 };
 

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -29,7 +29,7 @@ void Shot002::onActive() {
 }
 
 void Shot002::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
 
@@ -46,7 +46,7 @@ void Shot002::processBehavior() {
                     100, 0,
                     TURN_CLOSE_TO);
     }
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
     _pScaler->behave();
 	_pSeReflector->behave();
@@ -61,9 +61,9 @@ void Shot002::processJudgement() {
 
 void Shot002::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ãƒ’ãƒƒãƒˆã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ç ´å£Šã•ã‚ŒãŸå ´åˆ
+        //”j‰ó‚³‚ê‚½ê‡
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         _pSeReflector->play3D(0);
         if (pExplo001 != NULL) {
@@ -75,4 +75,5 @@ void Shot002::onHit(GgafActor* prm_pOtherActor) {
 }
 
 Shot002::~Shot002() {
+
 }

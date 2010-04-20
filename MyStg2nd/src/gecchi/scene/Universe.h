@@ -1,10 +1,10 @@
-ï»¿#ifndef UNIVERSE_H_
+#ifndef UNIVERSE_H_
 #define UNIVERSE_H_
 namespace MyStg2nd {
 
-//getParent getSub ãã—ã¦ ã‚­ãƒ£ã‚¹ãƒˆãƒã‚¯ãƒ­ã€‚
-//ä¸‹è¨˜ãƒã‚¯ãƒ­ä½¿ç”¨ã™ã‚‹ã«ã¯ã€ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®è­˜åˆ¥åãŒã€
-//ã‚¯ãƒ©ã‚¹åã®æœ«å°¾ã®"...Scene"ã¨ã„ã†æ–‡å­—åˆ—ã‚’å–ã‚Šå»ã£ãŸã‚‚ã®ã§ã‚ã‚‹ã“ã¨ãŒå‰ææ¡ä»¶ã§ã™
+//getParent getSub ‚»‚µ‚Ä ƒLƒƒƒXƒgƒ}ƒNƒB
+//‰º‹Lƒ}ƒNƒg—p‚·‚é‚É‚ÍAƒIƒuƒWƒFƒNƒg‚Ì¯•Ê–¼‚ªA
+//ƒNƒ‰ƒX–¼‚Ì––”ö‚Ì"...Scene"‚Æ‚¢‚¤•¶š—ñ‚ğæ‚è‹‚Á‚½‚à‚Ì‚Å‚ ‚é‚±‚Æ‚ª‘O’ñğŒ‚Å‚·
 #define getParentScene(X) ((X##Scene*)getParent(#X))
 #define getSubScene(X) ((X##Scene*)getSub(#X))
 #define getParentActor(X) ((X##Actor*)getParent(#X))
@@ -13,9 +13,9 @@ namespace MyStg2nd {
 #define pWORLD (((Universe*)(GgafGod::_pGod->_pUniverse))->_pWorld)
 #define pUNIVERSE ((Universe*)(GgafGod::_pGod->_pUniverse))
 /**
- * ã“ã®ä¸–ã‚·ãƒ¼ãƒ³ .
- * ã¾ãšã“ã®ä¸–ãŒã‚ã‚Šã¾ã—ãŸã€‚<BR>
- * æœ¬ã‚¯ãƒ©ã‚¹ã¯ã€ã“ã®ä¸–ã®æŒ¯ã‚‹èˆã„ç­‰ã‚’å®Ÿè£…ã—ã¦ã„ã¾ã™ã€‚<BR>
+ * ‚±‚Ì¢ƒV[ƒ“ .
+ * ‚Ü‚¸‚±‚Ì¢‚ª‚ ‚è‚Ü‚µ‚½B<BR>
+ * –{ƒNƒ‰ƒX‚ÍA‚±‚Ì¢‚ÌU‚é•‘‚¢“™‚ğÀ‘•‚µ‚Ä‚¢‚Ü‚·B<BR>
  */
 class Universe : public GgafDx9LibStg::DefaultUniverse {
 
@@ -25,17 +25,17 @@ public:
     Universe(const char* prm_name);
 
     /**
-     * åˆæœŸå‡¦ç†
+     * ‰Šúˆ—
      */
     void initialize() override;
 
      /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
      /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processJudgement() override;
 

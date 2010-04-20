@@ -1,13 +1,13 @@
-ï»¿#ifndef GGAFDX9GEOMETRYMORPHER_H_
+#ifndef GGAFDX9GEOMETRYMORPHER_H_
 #define GGAFDX9GEOMETRYMORPHER_H_
 namespace GgafDx9Core {
 
 
 /**
- * ãƒ¢ãƒ¼ãƒ•æ”¯æ´ã‚¯ãƒ©ã‚¹ .
- * GgafDx9MorphMeshActor ã®ãƒ¡ãƒ³ãƒã®<BR>
+ * ƒ‚[ƒtx‰‡ƒNƒ‰ƒX .
+ * GgafDx9MorphMeshActor ‚Ìƒƒ“ƒo‚Ì<BR>
  * _weight[] <BR>
- * ã‚’ç°¡å˜ã«æ“ä½œã™ã‚‹ãŸã‚ã«è¨­è¨ˆã€‚<BR>
+ * ‚ğŠÈ’P‚É‘€ì‚·‚é‚½‚ß‚ÉİŒvB<BR>
  * @version 1.00
  * @since 2009/05/11
  * @author Masatoshi Tsuge
@@ -15,7 +15,7 @@ namespace GgafDx9Core {
 class GgafDx9GeometryMorpher : public GgafCore::GgafObject {
 
 public:
-    /** å¯¾è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ */
+    /** ‘ÎÛƒAƒNƒ^[ */
     GgafDx9MorphMeshActor* _pActor;
     float _weight[MAX_MORPH_TARGET+1];
     float _target_weight[MAX_MORPH_TARGET+1];
@@ -33,8 +33,8 @@ public:
     GgafDx9MorphMethod _method[MAX_MORPH_TARGET+1];
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param	prm_pActor	é©ç”¨Actor
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param	prm_pActor	“K—pActor
      */
     GgafDx9GeometryMorpher(GgafDx9MorphMeshActor* prm_pActor);
 
@@ -67,66 +67,66 @@ public:
     void stopImmediately(int prm_target_mesh);
 
     /**
-     * ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ä¸€å®šé€Ÿåº¦ã§ãƒ¢ãƒ¼ãƒ•ã™ã‚‹ï¼ˆãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * @param prm_target_mesh ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥NO
-     * @param prm_target_weight ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®ç›®æ¨™é‡ã¿(0.0ã€œ1.0)
-     * @param prm_spend_frame è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+     * ƒ^[ƒQƒbƒg‚Öˆê’è‘¬“x‚Åƒ‚[ƒt‚·‚éiƒtƒŒ[ƒ€”w’èj .
+     * @param prm_target_mesh ƒ^[ƒQƒbƒgƒƒbƒVƒ…NO
+     * @param prm_target_weight ƒ^[ƒQƒbƒgƒƒbƒVƒ…‚Ì–Ú•Wd‚İ(0.0`1.0)
+     * @param prm_spend_frame ”ï‚â‚·ƒtƒŒ[ƒ€”
      */
     void intoTargetLinerUntil(int prm_target_mesh, float prm_target_weight, DWORD prm_spend_frame);
 
     /**
-     * ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ä¸€å®šé€Ÿåº¦ã§ãƒ¢ãƒ¼ãƒ•ã™ã‚‹ï¼ˆé‡ã¿å·®åˆ†æŒ‡å®šï¼‰ .
-     * @param prm_target_mesh ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥NO
-     * @param prm_target_weight ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®ç›®æ¨™é‡ã¿(0.0ã€œ1.0)
-     * @param prm_velo_weight æ¯ãƒ•ãƒ¬ãƒ¼ãƒ åŠ ç®—ã™ã‚‹é‡ã¿å·®åˆ†(>0.0)ã€‚æ­£ã®é‡ã¿ã‚’æŒ‡å®šã™ã‚‹äº‹ã€‚åŠ ç®—ã‹æ¸›ç®—ã‹ã¯è‡ªå‹•åˆ¤æ–­ã™ã‚‹ã€‚
+     * ƒ^[ƒQƒbƒg‚Öˆê’è‘¬“x‚Åƒ‚[ƒt‚·‚éid‚İ·•ªw’èj .
+     * @param prm_target_mesh ƒ^[ƒQƒbƒgƒƒbƒVƒ…NO
+     * @param prm_target_weight ƒ^[ƒQƒbƒgƒƒbƒVƒ…‚Ì–Ú•Wd‚İ(0.0`1.0)
+     * @param prm_velo_weight –ˆƒtƒŒ[ƒ€‰ÁZ‚·‚éd‚İ·•ª(>0.0)B³‚Ìd‚İ‚ğw’è‚·‚é–B‰ÁZ‚©Œ¸Z‚©‚Í©“®”»’f‚·‚éB
      */
     void intoTargetLinerStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight);
 
     /**
-     * ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸åŠ é€ŸæŒ‡å®šã§ãƒ¢ãƒ¼ãƒ•ã™ã‚‹ï¼ˆé‡ã¿é€Ÿåº¦ã€é‡ã¿åŠ é€Ÿåº¦å·®æŒ‡å®šï¼‰ .
-     * é‡ã¿åŠ é€Ÿåº¦ã‚’0ã«æŒ‡å®šã™ã‚‹ã¨ intoTargetLinerStep ã¨ã»ã¼åŒã˜æ„å‘³ã«ãªã‚‹ã€‚
-     * intoTargetLinerStep ã®ç¬¬ï¼“å¼•æ•°ã¯æ­£è² ã‚’æ°—ã«ã™ã‚‹ã“ã¨ç„¡ã„ãŒã€æœ¬ãƒ¡ã‚½ãƒƒãƒ‰ã¯æ­£è² ã®è‡ªå‹•åˆ¤å®šã¯ã—ãªã„ï¼ˆã§ããªã„ï¼‰ã€‚
-     * @param prm_target_mesh ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥NO
-     * @param prm_target_weight ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥ã®ç›®æ¨™é‡ã¿(0.0ã€œ1.0)
-     * @param prm_velo_weight åˆæœŸé‡ã¿é€Ÿåº¦
-     * @param prm_acce_weight é‡ã¿åŠ é€Ÿåº¦
+     * ƒ^[ƒQƒbƒg‚Ö‰Á‘¬w’è‚Åƒ‚[ƒt‚·‚éid‚İ‘¬“xAd‚İ‰Á‘¬“x·w’èj .
+     * d‚İ‰Á‘¬“x‚ğ0‚Éw’è‚·‚é‚Æ intoTargetLinerStep ‚Æ‚Ù‚Ú“¯‚¶ˆÓ–¡‚É‚È‚éB
+     * intoTargetLinerStep ‚Ì‘æ‚Rˆø”‚Í³•‰‚ğ‹C‚É‚·‚é‚±‚Æ–³‚¢‚ªA–{ƒƒ\ƒbƒh‚Í³•‰‚Ì©“®”»’è‚Í‚µ‚È‚¢i‚Å‚«‚È‚¢jB
+     * @param prm_target_mesh ƒ^[ƒQƒbƒgƒƒbƒVƒ…NO
+     * @param prm_target_weight ƒ^[ƒQƒbƒgƒƒbƒVƒ…‚Ì–Ú•Wd‚İ(0.0`1.0)
+     * @param prm_velo_weight ‰Šúd‚İ‘¬“x
+     * @param prm_acce_weight d‚İ‰Á‘¬“x
      */
     void intoTargetAcceStep(int prm_target_mesh, float prm_target_weight, float prm_velo_weight, float prm_acce_weight);
 
     /**
-     * ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¸ä¸€å®šé€Ÿåº¦ã§ãƒ¢ãƒ¼ãƒ•ã—ã€ä¸€å®šé€Ÿåº¦ã§å…ƒã«æˆ»ã‚‹ã€‚ã“ã‚Œã‚’ãƒ«ãƒ¼ãƒ—æŒ‡å®šã™ã‚‹ã€‚ï¼ˆï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°æŒ‡å®šï¼‰ .
-     * @param prm_target_mesh ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥NO
-     * @param prm_loop_spend_frame ï¼‘ãƒ«ãƒ¼ãƒ—(å¤‰åŒ–ã—ã¦å…ƒã«æˆ»ã‚‹ã¾ã§)ã«è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ 
-     * @param prm_loop_num ãƒ«ãƒ¼ãƒ—ã™ã‚‹å›æ•°(0.5 å›å˜ä½ã§æŒ‡å®šå¯èƒ½)
+     * ƒ^[ƒQƒbƒg‚Öˆê’è‘¬“x‚Åƒ‚[ƒt‚µAˆê’è‘¬“x‚ÅŒ³‚É–ß‚éB‚±‚ê‚ğƒ‹[ƒvw’è‚·‚éBi‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”w’èj .
+     * @param prm_target_mesh ƒ^[ƒQƒbƒgƒƒbƒVƒ…NO
+     * @param prm_loop_spend_frame ‚Pƒ‹[ƒv(•Ï‰»‚µ‚ÄŒ³‚É–ß‚é‚Ü‚Å)‚É”ï‚â‚·ƒtƒŒ[ƒ€
+     * @param prm_loop_num ƒ‹[ƒv‚·‚é‰ñ”(0.5 ‰ñ’PˆÊ‚Åw’è‰Â”\)
      */
     void loopLiner(int prm_target_mesh, DWORD prm_loop_spend_frame, float prm_loop_num = -1);
 
     /**
-     * ä¸‰è§’æ³¢ã®æ³¢å½¢ã‚’é‡ã¿ã¨ã—ã¦ãƒ¢ãƒ¼ãƒ•ã™ã‚‹ã€‚.
+     * OŠp”g‚Ì”gŒ`‚ğd‚İ‚Æ‚µ‚Äƒ‚[ƒt‚·‚éB.
      * <PRE>
-     * â‘£  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
-     *            /ï¼¼                     /ï¼¼
-     *           /   ï¼¼                  /   ï¼¼
-     *          /      ï¼¼               /      ï¼¼
-     *         /         ï¼¼            /         ï¼¼
-     *        /            ï¼¼         /            ï¼¼
-     * â‘¤  ï¼¿/               ï¼¼ï¼¿ï¼¿ï¼¿/               ï¼¼ï¼¿
+     * ‡C  _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+     *            /_                     /_
+     *           /   _                  /   _
+     *          /      _               /      _
+     *         /         _            /         _
+     *        /            _         /            _
+     * ‡D  Q/               _QQQ/               _Q
      *
-     *       â†â‘¡â†’            â†â‘¢â†’
-     *       â†â”€â”€â”€â”€ â‘  â”€â”€â”€â”€â†’
+     *       ©‡A¨            ©‡B¨
+     *       ©„Ÿ„Ÿ„Ÿ„Ÿ ‡@ „Ÿ„Ÿ„Ÿ„Ÿ¨
      * </PRE>
-     * ï¼œå¿…è¦ãªè¨­å®šå€¤ï¼<BR>
-     * â‘  ï¼‘ãƒ«ãƒ¼ãƒ—ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¡ ã‚¢ã‚¿ãƒƒã‚¯ã¾ã§ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘¢ ä¼‘æ†©ãƒ•ãƒ¬ãƒ¼ãƒ æ•°<BR>
-     * â‘£ é‡ã¿ä¸Šé™(_top_weight[prm_target_mesh] ãŒä¿æŒ)<BR>
-     * â‘¤ é‡ã¿ä¸‹é™(_bottom_weight[prm_target_mesh] ãŒä¿æŒ)<BR>
+     * ƒ•K—v‚Èİ’è’l„<BR>
+     * ‡@ ‚Pƒ‹[ƒv‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡A ƒAƒ^ƒbƒN‚Ü‚Å‚ÌƒtƒŒ[ƒ€”<BR>
+     * ‡B ‹xŒeƒtƒŒ[ƒ€”<BR>
+     * ‡C d‚İãŒÀ(_top_weight[prm_target_mesh] ‚ª•Û)<BR>
+     * ‡D d‚İ‰ºŒÀ(_bottom_weight[prm_target_mesh] ‚ª•Û)<BR>
      * <BR>
-     * @param prm_target_mesh ã‚¿ãƒ¼ã‚²ãƒƒãƒˆãƒ¡ãƒƒã‚·ãƒ¥NO
-     * @param prm_loop_spend_frame ä¸Šå›³ã§â‘ ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_attack_frame ä¸Šå›³ã§â‘¡ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_rest_frame ä¸Šå›³ã§â‘¢ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°
-     * @param prm_loop_num ãƒ«ãƒ¼ãƒ—æ•°(-1ã§ç„¡é™)
+     * @param prm_target_mesh ƒ^[ƒQƒbƒgƒƒbƒVƒ…NO
+     * @param prm_loop_spend_frame ã}‚Å‡@‚ÌƒtƒŒ[ƒ€”
+     * @param prm_attack_frame ã}‚Å‡A‚ÌƒtƒŒ[ƒ€”
+     * @param prm_rest_frame ã}‚Å‡B‚ÌƒtƒŒ[ƒ€”
+     * @param prm_loop_num ƒ‹[ƒv”(-1‚Å–³ŒÀ)
      */
     void loopTriangleWave(int prm_target_mesh,
                           DWORD prm_loop_spend_frame,
@@ -135,7 +135,7 @@ public:
                           float prm_loop_num = -1);
 
     /**
-     * æ¯ãƒ•ãƒ¬ãƒ¼ãƒ ã®Actorã®æŒ¯ã‚‹èˆã„ã€‚<BR>
+     * –ˆƒtƒŒ[ƒ€‚ÌActor‚ÌU‚é•‘‚¢B<BR>
      */
     virtual void behave();
 

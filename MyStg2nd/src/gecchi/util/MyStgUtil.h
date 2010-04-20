@@ -1,4 +1,4 @@
-ï»¿#ifndef MYSTGUTIL_H_
+#ifndef MYSTGUTIL_H_
 #define MYSTGUTIL_H_
 namespace MyStg2nd {
 
@@ -13,22 +13,22 @@ public:
     static char RANK_INF[7];
 
     /**
-     * ãƒ©ãƒ³ã‚¯æ•°å€¤ã‹ã‚‰æ–‡å­—åˆ—å¤‰æ›
-     * @param prm_rank ãƒ©ãƒ³ã‚¯æ•°å€¤(1ã€œ100000)
-     * @param out çµæœå‡ºåŠ›[80]å¿…è¦
+     * ƒ‰ƒ“ƒN”’l‚©‚ç•¶š—ñ•ÏŠ·
+     * @param prm_rank ƒ‰ƒ“ƒN”’l(1`100000)
+     * @param out Œ‹‰Êo—Í[80]•K—v
      * @return
      */
     static void getRankStr(int prm_rank, char* out);
 
     /**
-     * å„ªä½æ€§ã‚’èª¿ã¹ã‚‹
+     * —DˆÊ«‚ğ’²‚×‚é
      * @param kind_my
      * @param kind_enemy
-     * @return ä»¥ä¸‹ã®è¡¨å‚ç…§ã€‚
+     * @return ˆÈ‰º‚Ì•\QÆB
      * <table>
-     * <tr><th>0ã‚ˆã‚Šå°ã•ã„                        </th><th>0  </th><th>0ã‚ˆã‚Šå¤§ãã„                  </th></tr>
-     * <tr><td>kind_myã®æ–¹ãŒåŠ£æ€§       </td><td>åŒæ ¼</td><td>kind_myã®æ–¹ãŒå„ªæ€§</td></tr>
-     * <tr><td>kind_enemyã®æ–¹ãŒå„ªæ€§</td><td>åŒæ ¼</td><td>kind_enemyã®æ–¹ãŒåŠ£æ€§</td></tr>
+     * <tr><th>0‚æ‚è¬‚³‚¢                        </th><th>0  </th><th>0‚æ‚è‘å‚«‚¢                  </th></tr>
+     * <tr><td>kind_my‚Ì•û‚ª—ò«       </td><td>“¯Ši</td><td>kind_my‚Ì•û‚ª—D«</td></tr>
+     * <tr><td>kind_enemy‚Ì•û‚ª—D«</td><td>“¯Ši</td><td>kind_enemy‚Ì•û‚ª—ò«</td></tr>
      * <table>
      */
     static int judgeMyDominant(actorkind kind_my, actorkind kind_enemy) {
@@ -95,7 +95,7 @@ public:
     }
 
     /**
-     * è‡ªåˆ†ã®ä½“åŠ›è¨ˆç®—
+     * ©•ª‚Ì‘Ì—ÍŒvZ
      * @param pMy
      * @param pEnemy
      * @return
@@ -104,21 +104,21 @@ public:
                              actorkind kind_my,
                              GgafCore::GgafStatus* pStatEnemy,
                              actorkind kind_enemy) {
-        //å„ªæ€§åŠ£æ€§åˆ¤å®š
+        //—D«—ò«”»’è
         int my_domi = MyStgUtil::judgeMyDominant(kind_my, kind_enemy);
-        //ç›¸æ‰‹æ”»æ’ƒåŠ›
+        //‘ŠèUŒ‚—Í
         int enemy_attack = pStatEnemy->get(STAT_Attack);
-        //å„ªæ€§åŠ£æ€§ã«å¿œã˜ã¦é˜²å¾¡ç‡ã‚’ä¹—ãšã‚‹
+        //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
         if (my_domi > 0) {
-            //è‡ªåˆ†ãŒå„ªæ€§æ™‚
+            //©•ª‚ª—D«
             return pStatMy->minus(STAT_Stamina,
                                   (int)(enemy_attack * pStatMy->getDouble(STAT_DominantDefenceRate)));
         } else if (my_domi < 0) {
-            //è‡ªåˆ†ãŒåŠ£æ€§æ™‚
+            //©•ª‚ª—ò«
             return pStatMy->minus(STAT_Stamina,
                                   (int)(enemy_attack * pStatMy->getDouble(STAT_RecessiveDefenceRate)));
         } else {
-            //ç›¸æ‰‹ã¨åŒæ ¼æ™‚
+            //‘Šè‚Æ“¯Ši
             return pStatMy->minus(STAT_Stamina,
                                   (int)(enemy_attack * pStatMy->getDouble(STAT_DefaultDefenceRate)));
         }
@@ -128,23 +128,23 @@ public:
                                 actorkind kind_enemy,
                                 GgafCore::GgafStatus* pStatMy,
                                 actorkind kind_my) {
-        //å„ªæ€§åŠ£æ€§åˆ¤å®š
+        //—D«—ò«”»’è
         int enemy_domi = MyStgUtil::judgeEnemyDominant(kind_enemy, kind_my);
         //_TRACE_("enemy_domi="<<enemy_domi);
-        //ç›¸æ‰‹(è‡ªæ©Ÿé–¢é€£)æ”»æ’ƒåŠ›
+        //‘Šè(©‹@ŠÖ˜A)UŒ‚—Í
         int my_attack = pStatMy->get(STAT_Attack);
         //_TRACE_("my_attack="<<my_attack);
-        //å„ªæ€§åŠ£æ€§ã«å¿œã˜ã¦é˜²å¾¡ç‡ã‚’ä¹—ãšã‚‹
+        //—D«—ò«‚É‰‚¶‚Ä–hŒä—¦‚ğæ‚¸‚é
         int enemy_stamina;
         if (enemy_domi > 0) {
-            //è‡ªåˆ†ï¼ˆæ•µé–¢é€£ï¼‰ãŒå„ªæ€§æ™‚
+            //©•ªi“GŠÖ˜Aj‚ª—D«
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->get(STAT_DominantDefenceRate));
 
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->getDouble(STAT_DominantDefenceRate)));
         //_TRACE_("enemy_stamina="<<enemy_stamina);
         } else if (enemy_domi < 0) {
-            //è‡ªåˆ†ï¼ˆæ•µé–¢é€£ï¼‰ãŒåŠ£æ€§æ™‚
+            //©•ªi“GŠÖ˜Aj‚ª—ò«
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_RecessiveDefenceRate));
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->get(STAT_RecessiveDefenceRate)));
@@ -153,14 +153,14 @@ public:
         } else {
 //_TRACE_("pStatEnemy->get(STAT_DominantDefenceRate)="<<pStatEnemy->getDouble(STAT_DefaultDefenceRate));
 
-            //ç›¸æ‰‹(è‡ªæ©Ÿé–¢é€£)ã¨åŒæ ¼æ™‚
+            //‘Šè(©‹@ŠÖ˜A)‚Æ“¯Ši
             enemy_stamina = pStatEnemy->minus(STAT_Stamina,
                                               (int)(my_attack * pStatEnemy->getDouble(STAT_DefaultDefenceRate)));
         //_TRACE_("enemy_stamina="<<enemy_stamina);
         }
 //_TRACE_("enemy_stamina="<<enemy_stamina);
         if (enemy_stamina <= 0) {
-            //å¾—ç‚¹åŠ ç®—
+            //“¾“_‰ÁZ
             _SCORE_ += pStatEnemy->get(STAT_AddScorePoint);
             _RANK_  += pStatEnemy->getDouble(STAT_AddRankPoint);
         }
@@ -175,42 +175,42 @@ public:
 
 
 
-    // ä»¥ä¸‹ã® gen01 start ã€œ end ã¯Excelãƒã‚¯ãƒ­ã«ã‚ˆã‚Šè‡ªå‹•ç”Ÿæˆã•ã‚ŒãŸã‚³ãƒ¼ãƒ‰ã§ã™ã€‚
-    // ã‚³ãƒ¼ãƒ‰å¤‰æ›´ã¯ã€Œã‚·ãƒ¼ãƒ³Creater.xlsã€ã‹ã‚‰è¡Œã£ã¦ã„ãŸã ããŸã„ã€‚
+    // ˆÈ‰º‚Ì gen01 start ` end ‚ÍExcelƒ}ƒNƒ‚É‚æ‚è©“®¶¬‚³‚ê‚½ƒR[ƒh‚Å‚·B
+    // ƒR[ƒh•ÏX‚ÍuƒV[ƒ“Creater.xlsv‚©‚çs‚Á‚Ä‚¢‚½‚¾‚«‚½‚¢B
     // gen01 start
-	//è‡ªæ©Ÿãƒ¬ãƒ¼ã‚¶ãƒ¼
+	//©‹@ƒŒ[ƒU[
 	static void resetMyStraightLaserChip001Status(GgafCore::GgafStatus* p);
-	//ã‚ªãƒ—ã‚·ãƒ§ãƒ³ãƒ¬ãƒ¼ã‚¶ãƒ¼
+	//ƒIƒvƒVƒ‡ƒ“ƒŒ[ƒU[
 	static void resetMyCurveLaserChip001Status(GgafCore::GgafStatus* p);
-	//è‡ªæ©Ÿ
+	//©‹@
 	static void resetMyShipStatus(GgafCore::GgafStatus* p);
-	//ã‚±ãƒ¬ã‚¹
+	//ƒPƒŒƒX
 	static void resetEnemyCeresStatus(GgafCore::GgafStatus* p);
-	//ã‚±ãƒ¬ã‚¹ã‚·ãƒ§ãƒƒãƒˆ001
+	//ƒPƒŒƒXƒVƒ‡ƒbƒg001
 	static void resetEnemyCeresShot001Status(GgafCore::GgafStatus* p);
-	//ã‚¢ã‚¹ãƒˆãƒ©ã‚¨ã‚¢
+	//ƒAƒXƒgƒ‰ƒGƒA
 	static void resetEnemyAstraeaStatus(GgafCore::GgafStatus* p);
-	//ã‚¢ã‚¹ãƒˆãƒ©ã‚¨ã‚¢ãƒ¬ãƒ¼ã‚¶ãƒ¼
+	//ƒAƒXƒgƒ‰ƒGƒAƒŒ[ƒU[
 	static void resetEnemyAstraeaLaserChip001Status(GgafCore::GgafStatus* p);
-	//ã‚¢ã‚¹ãƒˆãƒ©ã‚¨ã‚¢ãƒ¬ãƒ¼ã‚¶ãƒ¼
+	//ƒAƒXƒgƒ‰ƒGƒAƒŒ[ƒU[
 	static void resetEnemyAstraeaLaserChip002Status(GgafCore::GgafStatus* p);
-	//ãƒ´ã‚§ã‚¹ã‚¿
+	//ƒ”ƒFƒXƒ^
 	static void resetEnemyVestaStatus(GgafCore::GgafStatus* p);
-	//ãƒ¡ãƒ†ã‚£ã‚¹
+	//ƒƒeƒBƒX
 	static void resetEnemyMetisStatus(GgafCore::GgafStatus* p);
-	//ã‚¤ãƒªã‚¹
+	//ƒCƒŠƒX
 	static void resetEnemyIrisStatus(GgafCore::GgafStatus* p);
-	//ã‚¸ãƒ¥ãƒãƒ¼
+	//ƒWƒ…ƒm[
 	static void resetEnemyJunoStatus(GgafCore::GgafStatus* p);
-	//æ±ç”¨ã‚·ãƒ§ãƒƒãƒˆ001
+	//”Ä—pƒVƒ‡ƒbƒg001
 	static void resetShot001Status(GgafCore::GgafStatus* p);
-	//æ±ç”¨ã‚·ãƒ§ãƒƒãƒˆ002
+	//”Ä—pƒVƒ‡ƒbƒg002
 	static void resetShot002Status(GgafCore::GgafStatus* p);
-	//ãŸã¾ã”ï¼‘
+	//‚½‚Ü‚²‚P
 	static void resetEnemyTamago01Status(GgafCore::GgafStatus* p);
-	//ã‚­ãƒ«ã‚±
+	//ƒLƒ‹ƒP
 	static void resetEnemyCirceStatus(GgafCore::GgafStatus* p);
-	//æ±ç”¨ã‚·ãƒ§ãƒƒãƒˆ003ãƒŸãƒ‹ãƒ¬ãƒ¼ã‚¶ãƒ¼
+	//”Ä—pƒVƒ‡ƒbƒg003ƒ~ƒjƒŒ[ƒU[
 	static void resetShot003Status(GgafCore::GgafStatus* p);
     // gen01 end
 };

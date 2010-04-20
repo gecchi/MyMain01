@@ -1,4 +1,4 @@
-ï»¿// OggVorbisFile.cpp
+// OggVorbisFile.cpp
 //
 
 #include "OggVorbisFile.h"
@@ -20,13 +20,13 @@ namespace Dix {
 	OggVorbisFile::~OggVorbisFile() {
 	}
 
-	//! ã‚¯ãƒªã‚¢
+	//! ƒNƒŠƒA
 	void OggVorbisFile::clear() {
 		memset( filePath_, 0, sizeof( filePath_ ) );
 		OggVorbisResource::clear();
 	}
 
-	//! å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ä½œæˆ
+	//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğì¬
 	sp< OggVorbisResource > OggVorbisFile::createClone() {
 		OggVorbisFile* obj = new OggVorbisFile;
 		if ( obj->open( filePath_ ) == false ) {
@@ -37,14 +37,14 @@ namespace Dix {
 		return spObj;
 	}
 
-	//! Oggãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
+	//! Oggƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
 	bool OggVorbisFile::open( const char* filePath ) {
 
 		clear();
 
-		// Oggãƒ•ã‚¡ã‚¤ãƒ«ã‚ªãƒ¼ãƒ—ãƒ³
+		// Oggƒtƒ@ƒCƒ‹ƒI[ƒvƒ“
 		if ( ov_fopen( (char*)filePath, &oggVorbisFile_ ) != 0 ) {
-			// å¤±æ•—
+			// ¸”s
 			clear();
 			return false;
 		}

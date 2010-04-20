@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -20,16 +20,16 @@ void GgafDx9Sound::init() {
     HRESULT hr;
     hr = DirectSoundCreate8(NULL, &_pIDirectSound8, NULL);
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDx9Sound::init() GgafDx9SoundãŒåˆæœŸåŒ–ã§ãã¾ã›ã‚“ã€‚ã‚µã‚¦ãƒ³ãƒ‰ã‚«ãƒ¼ãƒ‰ãƒ‡ãƒã‚¤ã‚¹ã«å•é¡Œãªã„ã‹ç¢ºèªã—ã¦ãã ã•ã„ã€‚");
+        throwGgafCriticalException("GgafDx9Sound::init() GgafDx9Sound‚ª‰Šú‰»‚Å‚«‚Ü‚¹‚ñBƒTƒEƒ“ƒhƒJ[ƒhƒfƒoƒCƒX‚É–â‘è‚È‚¢‚©Šm”F‚µ‚Ä‚­‚¾‚³‚¢B");
     }
     hr = _pIDirectSound8->SetCooperativeLevel(GgafDx9God::_hWnd, DSSCL_PRIORITY );
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDx9Sound::init() SetCooperativeLevelå¤±æ•—ã€‚");
+        throwGgafCriticalException("GgafDx9Sound::init() SetCooperativeLevel¸”sB");
     }
     _dsCaps.dwSize = sizeof(_dsCaps);
     hr = GgafDx9Sound::_pIDirectSound8->GetCaps(&_dsCaps);
     if (hr != D3D_OK) {
-        throwGgafCriticalException("GgafDx9Sound::init() GetCapså¤±æ•—ã€‚");
+        throwGgafCriticalException("GgafDx9Sound::init() GetCaps¸”sB");
     }
     _pBgmManager = NEW GgafDx9BgmManager("OggBgmManager");
     _pSeManager = NEW GgafDx9SeManager("SoundEffectManager");

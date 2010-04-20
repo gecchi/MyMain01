@@ -1,9 +1,9 @@
-Ôªø#ifndef GGAFLOGGER_H_
+#ifndef GGAFLOGGER_H_
 #define GGAFLOGGER_H_
 namespace GgafCore {
 
 /**
- * „É≠„Ç∞„ÇØ„É©„Çπ
+ * ÉçÉOÉNÉâÉX
  * @version 1.00
  * @since 2007/11/29
  * @author Masatoshi Tsuge

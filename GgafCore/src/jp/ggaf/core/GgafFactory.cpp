@@ -1,9 +1,9 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
 
-//åˆæœŸåŒ–
+//‰Šú‰»
 GgafOrder* GgafFactory::ROOT_ORDER = NULL;
 GgafOrder* GgafFactory::CREATING_ORDER = NULL;
 bool GgafFactory::_is_working_flg = true;
@@ -22,14 +22,14 @@ GgafMainScene* GgafFactory::obtainScene(unsigned long prm_id) {
     return (GgafMainScene*)obtain(prm_id);
 }
 
-//æ³¨æ–‡
-//ã“ã®ãƒ¡ã‚½ãƒƒãƒ‰ã¯ãƒ¡ã‚¤ãƒ³ã‚¹ãƒ¬ãƒƒãƒ‰ãŒå®Ÿè¡Œã™ã‚‹ã€‚
+//’•¶
+//‚±‚Ìƒƒ\ƒbƒh‚ÍƒƒCƒ“ƒXƒŒƒbƒh‚ªÀs‚·‚éB
 void GgafFactory::order(unsigned long prm_id,
                         GgafObject* (*prm_pFunc)(void*, void*, void*),
                         void* prm_pArg1,
                         void* prm_pArg2,
                         void* prm_pArg3) {
-    TRACE2("GgafFactory::order ï¼œå®¢ï¼ åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã®å·¥å ´ã•ã‚“ã€[" << prm_id << "]ã‚’ä½œã£ã¨ã„ã¦ã€œã€‚");
+    TRACE2("GgafFactory::order ƒ‹q„ •ÊƒXƒŒƒbƒh‚ÌHê‚³‚ñA[" << prm_id << "]‚ğì‚Á‚Æ‚¢‚Ä`B");
     static GgafOrder* pOrder_New;
     pOrder_New = NEW GgafOrder(prm_id);
     pOrder_New->_pObject_Creation=NULL;
@@ -39,7 +39,7 @@ void GgafFactory::order(unsigned long prm_id,
     pOrder_New->_pArg3 = prm_pArg3;
     pOrder_New->_progress = 0;
     if (ROOT_ORDER == NULL) {
-        TRACE2("GgafFactory::order ï¼œå®¢ï¼ ã‚ãã€å·¥å ´ã¯ç©ºã£ãã—ã§ã™ã­ã€‚æ³¨æ–‡ã€ã™ãã§ãã‚‹ã‚ˆã­ï¼Ÿã€‚");
+        TRACE2("GgafFactory::order ƒ‹q„ ‚ ‚ŸAHê‚Í‹ó‚Á‚«‚µ‚Å‚·‚ËB’•¶A‚·‚®‚Å‚«‚é‚æ‚ËHB");
         pOrder_New->_is_first_order_flg = true;
         pOrder_New->_is_last_order_flg = true;
         pOrder_New->_pOrder_Next = pOrder_New;
@@ -47,7 +47,7 @@ void GgafFactory::order(unsigned long prm_id,
         ROOT_ORDER = pOrder_New;
         CREATING_ORDER = pOrder_New;
     } else {
-        TRACE2("GgafFactory::order ï¼œå®¢ï¼ æ³¨æ–‡ãŸã¾ã£ã¦ã¾ã™ã­ã€æ¬¡ã€…æ³¨æ–‡æã‚Œå…¥ã‚Šã¾ã™ã€‚");
+        TRACE2("GgafFactory::order ƒ‹q„ ’•¶‚½‚Ü‚Á‚Ä‚Ü‚·‚ËAŸX’•¶‹°‚ê“ü‚è‚Ü‚·B");
         pOrder_New->_is_first_order_flg = false;
         pOrder_New->_is_last_order_flg = true;
         static GgafOrder* pOrder_Last;
@@ -68,22 +68,22 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     pOrder = ROOT_ORDER;
     void* objectCreation;
     if (pOrder == NULL) {
-        throwGgafCriticalException("GgafFactory::obtain Error! æ³¨æ–‡ã¯NULLã§ã™ã€‚orederã¨obtainã®å¯¾å¿œãŒå–ã‚Œã¦ã„ã¾ã›ã‚“ã€‚");
+        throwGgafCriticalException("GgafFactory::obtain Error! ’•¶‚ÍNULL‚Å‚·Boreder‚Æobtain‚Ì‘Î‰‚ªæ‚ê‚Ä‚¢‚Ü‚¹‚ñB");
     }
     while (_is_working_flg) {
 
         if (pOrder->_id == prm_id) {
-            TRACE2("GgafFactory::obtain ï¼œå®¢ï¼ ã“ã‚“ã«ã¡ã¯ã€["<<prm_id<<"]ã‚’å–ã‚Šã«æ¥ã¾ã—ãŸã‚ˆã£ã¨ã€‚");
+            TRACE2("GgafFactory::obtain ƒ‹q„ ‚±‚ñ‚É‚¿‚ÍA["<<prm_id<<"]‚ğæ‚è‚É—ˆ‚Ü‚µ‚½‚æ‚Á‚ÆB");
             while (_is_working_flg) {
                 if (pOrder->_progress != 2) {
-                    TRACE2("GgafFactory::obtain ï¼œå®¢ï¼ åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰å·¥å ´ã•ã‚“ã€["<<prm_id<<"]ã®è£½é€ ã¾ã ã€œï¼Ÿã€5ãƒŸãƒªç§’ã ã‘å¾…ã£ãŸã’ã‚ˆã†ã€‚pOrder->_progress="<<(pOrder->_progress));
-                    _TEXT_("â€¦");
-                    ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                    TRACE2("GgafFactory::obtain ƒ‹q„ •ÊƒXƒŒƒbƒhHê‚³‚ñA["<<prm_id<<"]‚Ì»‘¢‚Ü‚¾`HA5ƒ~ƒŠ•b‚¾‚¯‘Ò‚Á‚½‚°‚æ‚¤BpOrder->_progress="<<(pOrder->_progress));
+                    _TEXT_("c");
+                    ___EndSynchronized; // <----- ”r‘¼I—¹
                     Sleep(5);
-                 ___BeginSynchronized; // ----->æ’ä»–é–‹å§‹
+                 ___BeginSynchronized; // ----->”r‘¼ŠJn
                     continue;
                 } else {
-                    TRACE2("GgafFactory::obtain ï¼œå®¢ï¼ ãŠã‰ã€["<<prm_id<<"]ã¯è£½é€ æ¸ˆã¿ã§ã™ã­ã€ã•ã™ãŒï¼ã€‚ã‚ã–ãƒ¼ã™ï¼");
+                    TRACE2("GgafFactory::obtain ƒ‹q„ ‚¨‚§A["<<prm_id<<"]‚Í»‘¢Ï‚İ‚Å‚·‚ËA‚³‚·‚ªIB‚ ‚´[‚·I");
                     if (pOrder->_is_first_order_flg && pOrder->_is_last_order_flg) {
                         objectCreation = pOrder->_pObject_Creation;
                         pOrder->_pObject_Creation = NULL;
@@ -91,7 +91,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
                         pOrder = NULL;
                         ROOT_ORDER = NULL;
                         CREATING_ORDER = NULL;
-                        TRACE2("GgafFactory::obtain ï¼œå®¢ï¼ è£½å“["<<prm_id<<"]é ‚ãã¾ã—ãŸã€‚ã‚ã€ã‚‚ã†å·¥å ´ã¯ç©ºã§ã™ã­ã€‚æš‡ã«ãªã£ãŸï¼Ÿã­ã‡ï¼Ÿ");
+                        TRACE2("GgafFactory::obtain ƒ‹q„ »•i["<<prm_id<<"]’¸‚«‚Ü‚µ‚½B‚ A‚à‚¤Hê‚Í‹ó‚Å‚·‚ËB‰É‚É‚È‚Á‚½H‚Ë‚¥H");
                         return (void*)objectCreation;
                     } else {
                         pOrder_MyNext = pOrder->_pOrder_Next;
@@ -118,7 +118,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             }
         } else {
             if (pOrder->_is_last_order_flg) {
-                throwGgafCriticalException("GgafFactory::obtain Error! ï¼œå·¥å ´ï¼å…¨éƒ¨æ¢ã—ã¾ã—ãŸã‘ã©ã€ãã‚“ãªæ³¨æ–‡(prm_id="<<prm_id<<")ã¯ã€ã‚ã‚Šã¾ã›ã‚“ã€‚\n oreder() ã¨ obtain() ã®å¯¾å¿œãŒå–ã‚Œã¦ã„ã¾ã›ã‚“ã€‚ã‚ã‚Šãˆãªã„ã€ãŠã‹ã—ã„ãªã€œ");
+                throwGgafCriticalException("GgafFactory::obtain Error! ƒHê„‘S•”’T‚µ‚Ü‚µ‚½‚¯‚ÇA‚»‚ñ‚È’•¶(prm_id="<<prm_id<<")‚ÍA‚ ‚è‚Ü‚¹‚ñB\n oreder() ‚Æ obtain() ‚Ì‘Î‰‚ªæ‚ê‚Ä‚¢‚Ü‚¹‚ñB‚ ‚è‚¦‚È‚¢A‚¨‚©‚µ‚¢‚È`");
             } else {
                 pOrder = pOrder->_pOrder_Next;
             }
@@ -130,31 +130,31 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     return NULL;
 }
 
-//å·¥å ´ã«ãŸã‚è¾¼ã‚“ã§ã„ã‚‹å…¨ã¦ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ç ´æ£„
-//ç¥(GgafGod)ãŒã‚¢ãƒ—ãƒªçµ‚äº†æ™‚ç­‰ã«å®Ÿè¡Œã™ã‚‹äºˆå®šã€‚
+//Hê‚É‚½‚ß‚ñ‚Å‚¢‚é‘S‚Ä‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ”jŠü
+//_(GgafGod)‚ªƒAƒvƒŠI—¹“™‚ÉÀs‚·‚é—\’èB
 void GgafFactory::clean() {
-    TRACE2("GgafFactory::clean ï¼œç¥ï¼ å·¥å ´ã‚’æƒé™¤é–‹å§‹");
+    TRACE2("GgafFactory::clean ƒ_„ Hê‚ğ‘|œŠJn");
     GgafOrder* pOrder = ROOT_ORDER;
     if (pOrder == NULL) {
-        TRACE2("GgafFactory::clean ï¼œç¥ï¼ ã—ã‹ã—å·¥å ´ã«ä½•ã‚‚ç„¡ã„ï¼ï¼");
+        TRACE2("GgafFactory::clean ƒ_„ ‚µ‚©‚µHê‚É‰½‚à–³‚¢II");
         return;
     }
     while (true) {
         if (pOrder->_is_last_order_flg) {
-            TRACE2("GgafFactory::clean ï¼œç¥ï¼ è£½å“å‰Šé™¤["<<pOrder->_id<<"]ã€æœ€å¾Œã®ã‚¹ãƒˆãƒƒã‚¯");
+            TRACE2("GgafFactory::clean ƒ_„ »•iíœ["<<pOrder->_id<<"]AÅŒã‚ÌƒXƒgƒbƒN");
             DELETE_IMPOSSIBLE_NULL(pOrder);
             pOrder = NULL;
             ROOT_ORDER = NULL;
             CREATING_ORDER = NULL;
             break;
         } else {
-            TRACE2("GgafFactory::clean ï¼œç¥ï¼ è£½å“å‰Šé™¤["<<pOrder->_id<<"]");
+            TRACE2("GgafFactory::clean ƒ_„ »•iíœ["<<pOrder->_id<<"]");
             GgafOrder* pOrder_MyNext = pOrder->_pOrder_Next;
             DELETE_IMPOSSIBLE_NULL(pOrder);
             pOrder = pOrder_MyNext;
         }
     }
-    TRACE2("GgafFactory::clean ï¼œç¥ï¼ å·¥å ´ã‚’æƒé™¤å®Œäº†");
+    TRACE2("GgafFactory::clean ƒ_„ Hê‚ğ‘|œŠ®—¹");
     return;
 }
 
@@ -165,7 +165,7 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
         static GgafObject* (*func)(void*, void*, void*);
         static GgafObject* pObject;
         static GgafOrder* pOrder_InManufacturing_save;
-        Sleep(1000); //god ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ãŒå®Œæˆã™ã‚‹ã¾ã§ã»ã‚“ã®ã¡ã‚‡ã£ã¨å¾…ã¤å¿…è¦ãŒã‚ã‚‹ã‹ã‚‚ã—ã‚Œãªã„
+        Sleep(1000); //god ‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ªŠ®¬‚·‚é‚Ü‚Å‚Ù‚ñ‚Ì‚¿‚å‚Á‚Æ‘Ò‚Â•K—v‚ª‚ ‚é‚©‚à‚µ‚ê‚È‚¢
         while (_is_working_flg) {
             if (_have_to_rest_flg) {
                 _is_resting_flg = true;
@@ -175,28 +175,28 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
                 _is_resting_flg = false;
             }
 
-         ___BeginSynchronized; // ----->æ’ä»–é–‹å§‹
+         ___BeginSynchronized; // ----->”r‘¼ŠJn
             if (CREATING_ORDER != NULL) {
-                if (CREATING_ORDER->_progress == 0) { //æœªç€æ‰‹ãªã‚‰ã¾ãšä½œã‚‹
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ã‚ˆã—ã€æ³¨æ–‡["<<CREATING_ORDER->_id<<"]ã¯æœªç€æ‰‹(_progress == "<<CREATING_ORDER->_progress<<")ã ãªã€‚ã‚†ãˆã«ä»Šã‹ã‚‰ä½œã‚Šã¾ã™ï¼");
-                    CREATING_ORDER->_progress = 1; //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è£½é€ ä¸­ã¸
+                if (CREATING_ORDER->_progress == 0) { //–¢’…è‚È‚ç‚Ü‚¸ì‚é
+                    TRACE2("GgafFactory::work ƒHê„ ‚æ‚µA’•¶["<<CREATING_ORDER->_id<<"]‚Í–¢’…è(_progress == "<<CREATING_ORDER->_progress<<")‚¾‚ÈB‚ä‚¦‚É¡‚©‚çì‚è‚Ü‚·I");
+                    CREATING_ORDER->_progress = 1; //ƒXƒe[ƒ^ƒX‚ğ»‘¢’†‚Ö
                     func = CREATING_ORDER->_pFunc;
-                    pOrder_InManufacturing_save = CREATING_ORDER; //ãƒã‚¤ãƒ³ã‚¿ä¸€æ™‚é€€é¿
+                    pOrder_InManufacturing_save = CREATING_ORDER; //ƒ|ƒCƒ“ƒ^ˆê‘Ş”ğ
                     void* arg1 = CREATING_ORDER->_pArg1;
                     void* arg2 = CREATING_ORDER->_pArg2;
                     void* arg3 = CREATING_ORDER->_pArg3;
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ è£½é€ é–‹å§‹ï¼["<<CREATING_ORDER->_id<<"] (Ïƒ ï½€ãƒ»Ï‰ãƒ»Â´)Ïƒ ");
-                 ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                    TRACE2("GgafFactory::work ƒHê„ »‘¢ŠJnI["<<CREATING_ORDER->_id<<"] (ƒĞ MEƒÖEL)ƒĞ ");
+                 ___EndSynchronized; // <----- ”r‘¼I—¹
 //#ifdef MY_DEBUG
 //try {
 //#endif
-                    pObject = (*func)(arg1, arg2, arg3); //è£½å“ã®è£½é€ ï¼
+                    pObject = (*func)(arg1, arg2, arg3); //»•i‚Ì»‘¢I
 //#ifdef MY_DEBUG
 //} catch (GgafCriticalException& e) {
-//    _TRACE_("ï¼œå·¥å ´ä¾‹å¤–ï¼ è£½é€ ä¸­ã‚¨ãƒ©ãƒ¼ï¼›"<<e.getMsg());
-//    string message = "\nãƒ»"+e.getMsg()+"  \n\nãŠå¿ƒã‚ãŸã‚ŠãŒç„¡ã„ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã®å ´åˆã€å½“æ–¹ã®ãƒã‚°ã®å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚\nèª ã«ç”³ã—è¨³ã”ã–ã„ã¾ã›ã‚“ã€‚\n";
-//    string message_dialog = message + "(â€»ã€ŒShift + Ctrl + Cã€ã§ãƒ¡ãƒƒã‚»ãƒ¼ã‚¸ã¯ã‚³ãƒ”ãƒ¼ã§ãã¾ã™ã€‚)";
-//    MessageBox(NULL, message_dialog.c_str(),"ä¸‹è¨˜ã®ã‚¨ãƒ©ãƒ¼ãŒç™ºç”Ÿã—ã¦ã—ã¾ã„ã¾ã—ãŸ", MB_OK|MB_ICONSTOP);
+//    _TRACE_("ƒHê—áŠO„ »‘¢’†ƒGƒ‰[G"<<e.getMsg());
+//    string message = "\nE"+e.getMsg()+"  \n\n‚¨S‚ ‚½‚è‚ª–³‚¢ƒƒbƒZ[ƒW‚Ìê‡A“–•û‚ÌƒoƒO‚Ì‰Â”\«‚ª‚ ‚è‚Ü‚·B\n½‚É\‚µ–ó‚²‚´‚¢‚Ü‚¹‚ñB\n";
+//    string message_dialog = message + "(¦uShift + Ctrl + Cv‚ÅƒƒbƒZ[ƒW‚ÍƒRƒs[‚Å‚«‚Ü‚·B)";
+//    MessageBox(NULL, message_dialog.c_str(),"‰º‹L‚ÌƒGƒ‰[‚ª”­¶‚µ‚Ä‚µ‚Ü‚¢‚Ü‚µ‚½", MB_OK|MB_ICONSTOP);
 //    _is_working_flg = false;
 //    _was_finished_flg = true;
 //    GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());
@@ -204,55 +204,55 @@ unsigned __stdcall GgafFactory::work(void* prm_arg) {
 //}
 //#endif
 
-                 ___BeginSynchronized; // ----->æ’ä»–é–‹å§‹
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ è£½é€ å®Œäº†ï¼["<<CREATING_ORDER->_id<<"] (^_^)v");
+                 ___BeginSynchronized; // ----->”r‘¼ŠJn
+                    TRACE2("GgafFactory::work ƒHê„ »‘¢Š®—¹I["<<CREATING_ORDER->_id<<"] (^_^)v");
                     if (CREATING_ORDER == NULL) {
-                        TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ã‚¬ãƒ¼ãƒ³ï¼ã€‚ã›ã£ã‹ãä½œã£ãŸã®ã«ã‚­ãƒ£ãƒ³ã‚»ãƒ«ã£ã™ã‹ ï¼ˆÂ´ãƒ»Ï‰ãƒ»ï½€ï¼‰ã€‚ç ´æ£„ã—ã¾ã™ã€‚pObjectã‚’delete!");
+                        TRACE2("GgafFactory::work ƒHê„ ƒK[ƒ“IB‚¹‚Á‚©‚­ì‚Á‚½‚Ì‚ÉƒLƒƒƒ“ƒZƒ‹‚Á‚·‚© iLEƒÖEMjB”jŠü‚µ‚Ü‚·BpObject‚ğdelete!");
                         DELETE_IMPOSSIBLE_NULL(pObject);
-                     ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                     ___EndSynchronized; // <----- ”r‘¼I—¹
                         continue;
                     } else {
-                        CREATING_ORDER = pOrder_InManufacturing_save; //ãƒã‚¤ãƒ³ã‚¿å¾©å¸°
-                        CREATING_ORDER->_pObject_Creation = pObject; //è£½å“ç™»éŒ²
-                        CREATING_ORDER->_progress = 2; //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ã‚’è£½é€ æ¸ˆã¿ã¸
-                        TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ è£½é€ ã—ãŸæ³¨æ–‡ã®å“["<<(CREATING_ORDER->_id)<<"]ã‚’ã€æ£šã«ç½®ã„ã¨ãã¾ã™ã€‚");
+                        CREATING_ORDER = pOrder_InManufacturing_save; //ƒ|ƒCƒ“ƒ^•œ‹A
+                        CREATING_ORDER->_pObject_Creation = pObject; //»•i“o˜^
+                        CREATING_ORDER->_progress = 2; //ƒXƒe[ƒ^ƒX‚ğ»‘¢Ï‚İ‚Ö
+                        TRACE2("GgafFactory::work ƒHê„ »‘¢‚µ‚½’•¶‚Ì•i["<<(CREATING_ORDER->_id)<<"]‚ğA’I‚É’u‚¢‚Æ‚«‚Ü‚·B");
                     }
                 } else {
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ æ³¨æ–‡["<<CREATING_ORDER->_id<<"]ã¯æ—¢ã«æ£šã«ç½®ã„ã¦ã‚ã‚‹(_progress == "<<CREATING_ORDER->_progress<<")ã€‚ã‚†ãˆã«é£›ã°ã™");
+                    TRACE2("GgafFactory::work ƒHê„ ’•¶["<<CREATING_ORDER->_id<<"]‚ÍŠù‚É’I‚É’u‚¢‚Ä‚ ‚é(_progress == "<<CREATING_ORDER->_progress<<")B‚ä‚¦‚É”ò‚Î‚·");
                 }
             }
             if (ROOT_ORDER == NULL) {
-                //ç„¡æ¡ä»¶å¾…æ©Ÿ
-                TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ å·¥å ´ã«ã¯ä½•ã€œã‚“ã‚‚ã‚ã‚Šã¾ã›ã‚“ã€‚ã•ããªã‚“ã§ã‚‚æ³¨æ–‡æ¥ã„æ¥ã„ï¼ï¼ãƒ»ãƒ»ãƒ»ãªã„ã®ã‚“ï¼Ÿã€‚æš‡ãªã®ã§ã‚´ãƒŸç®±æƒé™¤ã§ã‚‚ã‚„ã£ã¨ãã¾ã™ã€‚ï¼ˆå¾…æ©Ÿï¼‰");
-             ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                //–³ğŒ‘Ò‹@
+                TRACE2("GgafFactory::work ƒHê„ Hê‚É‚Í‰½`‚ñ‚à‚ ‚è‚Ü‚¹‚ñB‚³‚Ÿ‚È‚ñ‚Å‚à’•¶—ˆ‚¢—ˆ‚¢IIEEE‚È‚¢‚Ì‚ñHB‰É‚È‚Ì‚ÅƒSƒ~” ‘|œ‚Å‚à‚â‚Á‚Æ‚«‚Ü‚·Bi‘Ò‹@j");
+             ___EndSynchronized; // <----- ”r‘¼I—¹
                 if (GgafGod::_pGod->_fps > 55.0f) {
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ç¥ã•ã‚“ã‚‚ä½™è£•ã‚ã‚‹ã—FPSã¯é«˜ã„ã‚ˆãªãã€ãã®é–“ã‚’åˆ©ç”¨ã—ã¦ã‚´ãƒŸç®±æƒé™¤ã§ã‚‚ã‚„ã£ã¨ãã¾ã™ã€‚1");
-                    _pGarbageBox->cleane(40); //æš‡ãªã®ã§ã€ã‚´ãƒŸç®±æƒé™¤
+                    TRACE2("GgafFactory::work ƒHê„ _‚³‚ñ‚à—]—T‚ ‚é‚µFPS‚Í‚‚¢‚æ‚È‚ŸA‚»‚ÌŠÔ‚ğ—˜—p‚µ‚ÄƒSƒ~” ‘|œ‚Å‚à‚â‚Á‚Æ‚«‚Ü‚·B1");
+                    _pGarbageBox->cleane(40); //‰É‚È‚Ì‚ÅAƒSƒ~” ‘|œ
                     _cnt_cleaned = 0;
                 }
             } else {
                 if (ROOT_ORDER != NULL && ROOT_ORDER->_pOrder_Prev->_progress == 0) {
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ãƒ»ãƒ»ãƒ»ã‚€ã€æ—¢ã«æ¬¡ã«æœªè£½é€ ã®æ³¨æ–‡["<<CREATING_ORDER->_pOrder_Next->_id<<"]ãŒã‚ã‚Šã‚“ã™ã€‚æ€¥ã„ã§ä½œã‚‰ã­ã°ã€‚");
+                    TRACE2("GgafFactory::work ƒHê„ EEE‚ŞAŠù‚ÉŸ‚É–¢»‘¢‚Ì’•¶["<<CREATING_ORDER->_pOrder_Next->_id<<"]‚ª‚ ‚è‚ñ‚·B‹}‚¢‚Åì‚ç‚Ë‚ÎB");
                     CREATING_ORDER = CREATING_ORDER->_pOrder_Next;
-                 ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                 ___EndSynchronized; // <----- ”r‘¼I—¹
                     continue;
                 } else {
-                    TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ã•ã¦ã€æœªè£½é€ æ³¨æ–‡ã¯ç„¡ã—ã€‚ã‚ã€œæ£šã«è£½é€ æ¸ˆã®ãŒãŸã¾ã£ã¦ã‚‹ã™ã€æ—©ãå–ã«æ¥ã‚„ãŒã‚Œï¼ã€‚ï¼ˆå¾…æ©Ÿï¼‰");
-                 ___EndSynchronized; // <----- æ’ä»–çµ‚äº†
+                    TRACE2("GgafFactory::work ƒHê„ ‚³‚ÄA–¢»‘¢’•¶‚Í–³‚µB‚ `’I‚É»‘¢Ï‚Ì‚ª‚½‚Ü‚Á‚Ä‚é‚·A‘‚­æ‚É—ˆ‚â‚ª‚êIBi‘Ò‹@j");
+                 ___EndSynchronized; // <----- ”r‘¼I—¹
                     if (GgafGod::_pGod->_fps > 55.0f) {
-                        TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ ç¥ã•ã‚“ã‚‚ä½™è£•ã‚ã‚‹ã—FPSã¯é«˜ã„ãªãã€ãã®é–“ã‚’åˆ©ç”¨ã—ã¦ã‚´ãƒŸç®±æƒé™¤ã§ã‚‚ã‚„ã£ã¨ãã¾ã™ã€‚2");
-                        _pGarbageBox->cleane(40); //æš‡ãªã®ã§ã€ã‚´ãƒŸç®±æƒé™¤
+                        TRACE2("GgafFactory::work ƒHê„ _‚³‚ñ‚à—]—T‚ ‚é‚µFPS‚Í‚‚¢‚È‚ŸA‚»‚ÌŠÔ‚ğ—˜—p‚µ‚ÄƒSƒ~” ‘|œ‚Å‚à‚â‚Á‚Æ‚«‚Ü‚·B2");
+                        _pGarbageBox->cleane(40); //‰É‚È‚Ì‚ÅAƒSƒ~” ‘|œ
                         _cnt_cleaned = 0;
                     }
                 }
             }
             Sleep(1);
         }
-        TRACE2("GgafFactory::work ï¼œå·¥å ´ï¼ å·¥å ´ã¯ã“ã‚Œã«ã¦åº—ã˜ã¾ã„ã§ã™ã€‚ã•ã‚ˆã†ãªã‚‰ã€ã¾ãŸä¼šã„ã¾ã—ã‚‡ã†ã€‚");
+        TRACE2("GgafFactory::work ƒHê„ Hê‚Í‚±‚ê‚É‚Ä“X‚¶‚Ü‚¢‚Å‚·B‚³‚æ‚¤‚È‚çA‚Ü‚½‰ï‚¢‚Ü‚µ‚å‚¤B");
         _was_finished_flg = true;
         return 0;
     } catch (GgafCriticalException& e) {
-        _TRACE_("ï¼œå·¥å ´ä¾‹å¤–ï¼ ç§ã¨ã—ãŸã“ã¨ãŒã™ã¿ã¾ã›ã‚“ï¼›"<<e.getMsg());
+        _TRACE_("ƒHê—áŠO„ „‚Æ‚µ‚½‚±‚Æ‚ª‚·‚İ‚Ü‚¹‚ñG"<<e.getMsg());
         _is_working_flg = false;
         _was_finished_flg = true;
         GgafGod::_pException_Factory = NEW GgafCriticalException(e.getMsg());

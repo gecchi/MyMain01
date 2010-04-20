@@ -1,4 +1,4 @@
-ï»¿#ifndef GAMEMAINSCENE_H_
+#ifndef GAMEMAINSCENE_H_
 #define GAMEMAINSCENE_H_
 
 #define GAMEMAIN_PROG_INIT     1
@@ -9,7 +9,7 @@
 namespace MyStg2nd {
 
 /**
- * ã‚²ãƒ¼ãƒ ãƒ¡ã‚¤ãƒ³ã‚·ãƒ¼ãƒ³ã‚¯ãƒ©ã‚¹ .
+ * ƒQ[ƒ€ƒƒCƒ“ƒV[ƒ“ƒNƒ‰ƒX .
  */
 class GameMainScene : public GgafDx9LibStg::DefaultScene {
 

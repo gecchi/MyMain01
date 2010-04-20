@@ -1,4 +1,4 @@
-﻿#ifndef OPTIONMAGIC_H_
+#ifndef OPTIONMAGIC_H_
 #define OPTIONMAGIC_H_
 namespace MyStg2nd {
 

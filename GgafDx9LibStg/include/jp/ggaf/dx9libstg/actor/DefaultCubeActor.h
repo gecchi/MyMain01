@@ -1,9 +1,9 @@
-ï»¿#ifndef DEFAULTCUBEACTOR_H_
+#ifndef DEFAULTCUBEACTOR_H_
 #define DEFAULTCUBEACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * å½“ãŸã‚Šåˆ¤å®šè¡¨ç¤ºç”¨ã‚­ãƒ¥ãƒ¼ãƒ– .
+ * “–‚½‚è”»’è•\¦—pƒLƒ…[ƒu .
  * @version 1.00
  * @since 2008/10/10
  * @author Masatoshi Tsuge
@@ -34,7 +34,7 @@ public:
     }
 
     /**
-     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+     * ƒI[ƒo[ƒ‰ƒCƒh
      * @param prm_pOtherActor
      * @return
      */

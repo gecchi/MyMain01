@@ -1,4 +1,4 @@
-﻿#ifndef GAMESCENE_H_
+#ifndef GAMESCENE_H_
 #define GAMESCENE_H_
 
 #define GAME_PROG_INIT      1
@@ -11,9 +11,9 @@ namespace MyStg2nd {
 
 
 /**
- * ゲームシーンクラス .
- * この世にとある世界で、ゲームが行なわれている場面がありました。<BR>
- * 本クラスは、ゲームの全体的な振る舞いを実装しています。<BR>
+ * �Q�[���V�[���N���X .
+ * ���̐��ɂƂ��鐢�E�ŁA�Q�[�����s�Ȃ��Ă����ʂ�����܂����B<BR>
+ * �{�N���X�́A�Q�[���̑S�̓I�ȐU�镑�����������Ă��܂��B<BR>
  * @version 1.00
  * @since 2007/11/16
  * @author Masatoshi Tsuge

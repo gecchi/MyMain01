@@ -1,10 +1,10 @@
-﻿#ifndef LINEAROCTREEFORACTOR_H_
+#ifndef LINEAROCTREEFORACTOR_H_
 #define LINEAROCTREEFORACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * GgafActorを要素とし当たり判定機能を追加した線形八分木配列クラス .
- * 種別Aグループ 対 種別Bグループの2グループ間の当たり判定を行う
+ * GgafActor��v�f�Ƃ������蔻��@�\��ǉ��������`�����ؔz��N���X .
+ * ���A�O���[�v �� ���B�O���[�v��2�O���[�v�Ԃ̓����蔻����s��
  * @version 1.00
  * @since 2009/11/23
  * @author Masatoshi Tsuge
@@ -14,39 +14,39 @@ class LinearOctreeForActor : public GgafCore::GgafLinearOctree {
 public:
 
     /**
-     * 当たり判定アクターを保持するスタック .
-     * 速さの事しか考えてない危険なスタック
+     * �����蔻��A�N�^�[��ێ�����X�^�b�N .
+     * �����̎������l���ĂȂ��댯�ȃX�^�b�N
      */
     class CollisionStack {
     public:
-        /** 一つの空間に 3000 もキャラが集まらないだろうという安易な見積もり */
+        /** ��̋�Ԃ� 3000 ���L�������W�܂�Ȃ����낤�Ƃ������ՂȌ��ς��� */
         GgafCore::GgafActor* _apActor[3000];
-        /** カーソルポインタ  */
+        /** �J�[�\���|�C���^  */
         DWORD _p;
         /**
-         * コンストラクタ
+         * �R���X�g���N�^
          * @return
          */
         CollisionStack() {
             _p = 0;
         }
         /**
-         * スタックに積む .
-         * @param prm_pActor 積むアクター
+         * �X�^�b�N�ɐς� .
+         * @param prm_pActor �ςރA�N�^�[
          */
         void push(GgafCore::GgafActor* prm_pActor) {
             _apActor[_p] = prm_pActor;
             _p++;
 #ifdef MY_DEBUG
             if (_p > 3000) {
-                _TRACE_("スタックを使い切りました、このままではメモリを破壊し異常終了するでしょう。_p-- やっときます。");
+                _TRACE_("�X�^�b�N���g���؂�܂����A���̂܂܂ł̓�������j�󂵈ُ�I������ł��傤�B_p-- ����Ƃ��܂��B");
                 _p--;
             }
 #endif
         }
         /**
-         * スタックから取り出す .
-         * @return 取り出されたアクター
+         * �X�^�b�N������o�� .
+         * @return ���o���ꂽ�A�N�^�[
          */
         GgafCore::GgafActor* pop() {
             if (_p == 0) {
@@ -57,7 +57,7 @@ public:
             }
         }
         /**
-         * 積んだスタックをなかった事にする。 .
+         * �ς񂾃X�^�b�N���Ȃ��������ɂ���B .
          */
         void clear() {
             _p = 0;
@@ -74,48 +74,48 @@ public:
         }
     };
 
-    /** 全空間の当たり判定時、現在の空間に所属するアクター種別Aグループのスタック */
+    /** �S��Ԃ̓����蔻�莞�A���݂̋�Ԃɏ�������A�N�^�[���A�O���[�v�̃X�^�b�N */
     CollisionStack _stackCurrentSpaceActor_GroupA;
-    /** 全空間の当たり判定時、現在の空間に所属するアクター種別Bグループのスタック */
+    /** �S��Ԃ̓����蔻�莞�A���݂̋�Ԃɏ�������A�N�^�[���B�O���[�v�̃X�^�b�N */
     CollisionStack _stackCurrentSpaceActor_GroupB;
 
-    /** ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Aグループのスタック */
+    /** �����Ԃ̓����蔻�莞�A��������e��Ԃɏ��������S�A�N�^�[���A�O���[�v�̃X�^�b�N */
     CollisionStack _stackParentSpaceActor_GroupA;
-    /** ある空間の当たり判定時、それよりも親空間に所属した全アクター種別Bグループのスタック */
+    /** �����Ԃ̓����蔻�莞�A��������e��Ԃɏ��������S�A�N�^�[���B�O���[�v�̃X�^�b�N */
     CollisionStack _stackParentSpaceActor_GroupB;
 
-    /** 今回当たり判定を行うアクター種別A */
+    /** ���񓖂��蔻����s���A�N�^�[���A */
     actorkind _kind_groupA;
-    /** 今回当たり判定を行うアクター種別B */
+    /** ���񓖂��蔻����s���A�N�^�[���B */
     actorkind _kind_groupB;
 
 
     /**
-     * コンストラクタ
-     * @param prm_level 作成する八分木空間レベル
+     * �R���X�g���N�^
+     * @param prm_level �쐬���锪���؋�ԃ��x��
      */
     LinearOctreeForActor(int prm_level);
 
     /**
-     * 八分木所属の「アクター種別Aグループ 対 アクター種別Bグループ」を行う  .
-     * アプリ側は本メソッドを呼ぶだけでよい。
-     * @param prm_groupA アクター種別Aグループ
-     * @param prm_groupB アクター種別Bグループ
+     * �����؏����́u�A�N�^�[���A�O���[�v �� �A�N�^�[���B�O���[�v�v���s��  .
+     * �A�v�����͖{���\�b�h���ĂԂ����ł悢�B
+     * @param prm_groupA �A�N�^�[���A�O���[�v
+     * @param prm_groupB �A�N�^�[���B�O���[�v
      */
     void executeAllHitChk(actorkind prm_groupA, actorkind prm_groupB);
 
     /**
-     * 引数の空間の当たり判定を行う  .
-     * executeAllHitChk から使用される。
-     * @param prm_index 線形八分木配列の配列要素番号
+     * �����̋�Ԃ̓����蔻����s��  .
+     * executeAllHitChk ����g�p�����B
+     * @param prm_index ���`�����ؔz��̔z��v�f�ԍ�
      */
     void executeHitChk(DWORD prm_index);
 
     /**
-     * アクター種別Aグループのスタックと、アクター種別Bグループのスタックの総当りの当たり判定を行う  .
-     * executeHitChk から使用される。
-     * @param prm_pStackA アクター種別Aグループのスタック
-     * @param prm_pStackB アクター種別Bグループのスタック
+     * �A�N�^�[���A�O���[�v�̃X�^�b�N�ƁA�A�N�^�[���B�O���[�v�̃X�^�b�N�̑�����̓����蔻����s��  .
+     * executeHitChk ����g�p�����B
+     * @param prm_pStackA �A�N�^�[���A�O���[�v�̃X�^�b�N
+     * @param prm_pStackB �A�N�^�[���B�O���[�v�̃X�^�b�N
      */
     void executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB);
 

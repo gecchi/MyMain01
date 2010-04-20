@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -59,21 +59,21 @@ void EnemyVesta::onActive() {
 }
 
 void EnemyVesta::processBehavior() {
-    //ãƒœãƒ¼ãƒ³ã«ã‚ãŸã‚‹ã‚¢ã‚¯ã‚¿ãƒ¼ã®ãƒ¡ãƒ¢
-    //ï¼œchengeGeoFinal(); æ™‚ï¼
-    //ãƒ»_X, _Y, _Z ã¯æœ€çµ‚çš„ãªãƒ¯ãƒ¼ãƒ«ãƒ‰åº§æ¨™
-    //ãƒ»_RX, _RY, _RZ ã¯ä¸å®šã€‚
-    //ãƒ»GgafDx9GeometryMover ã®å€¤ã¯å¸¸ã«ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ãªã®ã§behave()ã‚’å‘¼ã³å‡ºã—ã¦ã¯ã„ã‘ãªã„ã€‚
-    //â€»RX,RY,RZ ã¯æœ€çµ‚çš„ãªãƒ¯ãƒ¼ãƒ«ãƒ‰å›è»¢å€¤ãƒ»ãƒ»ãƒ»ã«ã—ã‚ˆã†ã¨ã—ãŸãŒã€
-    //æ¯ãƒ•ãƒ¬ãƒ¼ãƒ è¨ˆç®—ã™ã‚‹ã®ã¯ç„¡é§„ã§ã‚ã‚‹ãŸã‚è¨­å®šã•ã‚Œã¦ã„ãªã„ã€‚
-    //å¿…è¦ãªã¨ãã«æ±‚ã‚ã‚‹ã“ã¨ã¨ã™ã‚‹ã€‚
-    //ï¼œchengeGeoLocal(); æ™‚ï¼
-    //ãƒ»_X, _Y, _Z ã¯ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
-    //ãƒ»_RX, _RY, _RZ  ã¯ãƒ­ãƒ¼ã‚«ãƒ«å›è»¢å€¤
-    //ãƒ»GgafDx9GeometryMover ã®å€¤ã¯ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™
+    //ƒ{[ƒ“‚É‚ ‚½‚éƒAƒNƒ^[‚Ìƒƒ‚
+    //ƒchengeGeoFinal(); „
+    //E_X, _Y, _Z ‚ÍÅI“I‚Èƒ[ƒ‹ƒhÀ•W
+    //E_RX, _RY, _RZ ‚Í•s’èB
+    //EGgafDx9GeometryMover ‚Ì’l‚Íí‚Éƒ[ƒJƒ‹À•W‚È‚Ì‚Åbehave()‚ğŒÄ‚Ño‚µ‚Ä‚Í‚¢‚¯‚È‚¢B
+    //¦RX,RY,RZ ‚ÍÅI“I‚Èƒ[ƒ‹ƒh‰ñ“]’lEEE‚É‚µ‚æ‚¤‚Æ‚µ‚½‚ªA
+    //–ˆƒtƒŒ[ƒ€ŒvZ‚·‚é‚Ì‚Í–³‘Ê‚Å‚ ‚é‚½‚ßİ’è‚³‚ê‚Ä‚¢‚È‚¢B
+    //•K—v‚È‚Æ‚«‚É‹‚ß‚é‚±‚Æ‚Æ‚·‚éB
+    //ƒchengeGeoLocal(); „
+    //E_X, _Y, _Z ‚Íƒ[ƒJƒ‹À•W
+    //E_RX, _RY, _RZ  ‚Íƒ[ƒJƒ‹‰ñ“]’l
+    //EGgafDx9GeometryMover ‚Ì’l‚Íƒ[ƒJƒ‹À•W
     //
-    //åŸºæœ¬çš„ã«chengeGeoFinal()ã®çŠ¶æ…‹ã§ã‚ã‚‹ã€‚
-    //TODO:æ··åœ¨æ„Ÿã‚’ã‚‚ã£ã¨ãªãã™ã€‚
+    //Šî–{“I‚ÉchengeGeoFinal()‚Ìó‘Ô‚Å‚ ‚éB
+    //TODO:¬İŠ´‚ğ‚à‚Á‚Æ‚È‚­‚·B
 
     switch (_iMovePatternNo) {
         case VESTA_HATCH_CLOSED:
@@ -98,23 +98,23 @@ void EnemyVesta::processBehavior() {
         default :
             break;
     }
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
 
     if (_iMovePatternNo == VESTA_HATCH_OPENED) {
-        int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //é–‹ã„ã¦ã‹ã‚‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã€‚
-        //_frame_of_moment_nextopenã¯ã€ã“ã“ã®å‡¦ç†ã®æ™‚ç‚¹ã§ã¯ç›´è¿‘ã§ã‚ªãƒ¼ãƒ—ãƒ³ã—ãŸãƒ•ãƒ¬ãƒ¼ãƒ ã¨ãªã‚‹ã€‚
+        int openningFrame = getPartFrame() - _frame_of_moment_nextopen; //ŠJ‚¢‚Ä‚©‚ç‚ÌƒtƒŒ[ƒ€”B
+        //_frame_of_moment_nextopen‚ÍA‚±‚±‚Ìˆ—‚Ì“_‚Å‚Í’¼‹ß‚ÅƒI[ƒvƒ“‚µ‚½ƒtƒŒ[ƒ€‚Æ‚È‚éB
         if (openningFrame % (int)(20/_RANK_+5) == 0) {
             if (_pDispatcher_Fired) {
                 GgafDx9DrawableActor* pActor = (GgafDx9DrawableActor*)_pDispatcher_Fired->employ();
                 if (pActor) {
                     pActor->setGeometry(this);
                     pActor->_pMover->relateRzRyFaceAngToMvAng(true);
-                    //ï¼œç¾åœ¨ã®æœ€çµ‚çš„ãªå‘ãã‚’ã€RzRyã§å–å¾—ã™ã‚‹ï¼
-                    //æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã¯ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã®ç©ï¼ˆ_matWorldRotMv)ã§å¤‰æ›ã•ã‚Œã€ç¾åœ¨ã®æœ€çµ‚çš„ãªå‘ãã«å‘ãã€‚
-                    //å…ƒã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’(_Xorg,_Yorg,_Zorg)ã€
-                    //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã®ç©ï¼ˆ_matWorldRotMv)ã®æˆåˆ†ã‚’ mat_xxã€
-                    //æœ€çµ‚çš„ãªæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚’(vX, vY, vZ) ã¨ã™ã‚‹ã¨
+                    //ƒŒ»İ‚ÌÅI“I‚ÈŒü‚«‚ğARzRy‚Åæ“¾‚·‚é„
+                    //•ûŒüƒxƒNƒgƒ‹‚Íƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌÏi_matWorldRotMv)‚Å•ÏŠ·‚³‚êAŒ»İ‚ÌÅI“I‚ÈŒü‚«‚ÉŒü‚­B
+                    //Œ³‚Ì•ûŒüƒxƒNƒgƒ‹‚ğ(_Xorg,_Yorg,_Zorg)A
+                    //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚ÌÏi_matWorldRotMv)‚Ì¬•ª‚ğ mat_xxA
+                    //ÅI“I‚È•ûŒüƒxƒNƒgƒ‹‚ğ(vX, vY, vZ) ‚Æ‚·‚é‚Æ
                     //
                     //                      | mat_11 mat_12 mat_13 |
                     //| _Xorg _Yorg _Zorg | | mat_21 mat_22 mat_23 | = | vX vY vZ |
@@ -124,14 +124,14 @@ void EnemyVesta::processBehavior() {
                     //vY = _Xorg*mat_12 + _Yorg*mat_22 + _Zorg*mat_32
                     //vZ = _Xorg*mat_13 + _Yorg*mat_23 + _Zorg*mat_33
                     //
-                    //ã•ã¦ã“ã“ã§ã€å…ƒã€…ãŒå‰æ–¹ã®å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(1,0,0)ã®å ´åˆã¯ã©ã†ãªã‚‹ã‹è€ƒãˆã‚‹ã¨
+                    //‚³‚Ä‚±‚±‚ÅAŒ³X‚ª‘O•û‚Ì’PˆÊ•ûŒüƒxƒNƒgƒ‹(1,0,0)‚Ìê‡‚Í‚Ç‚¤‚È‚é‚©l‚¦‚é‚Æ
                     //
                     //vX = _Xorg*mat_11
                     //vY = _Xorg*mat_12
                     //vZ = _Xorg*mat_13
                     //
-                    //ã¨ãªã‚‹ã€‚æœ¬ã‚¢ãƒ—ãƒªã§ã¯ã€ãƒ¢ãƒ‡ãƒ«ã¯å…¨ã¦(1,0,0)ã‚’å‰æ–¹ã¨ã—ã¦ã„ã‚‹ãŸã‚
-                    //æœ€çµ‚çš„ãªæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã¯ï¼ˆ_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) ã§ã‚ã‚‹ã€‚
+                    //‚Æ‚È‚éB–{ƒAƒvƒŠ‚Å‚ÍAƒ‚ƒfƒ‹‚Í‘S‚Ä(1,0,0)‚ğ‘O•û‚Æ‚µ‚Ä‚¢‚é‚½‚ß
+                    //ÅI“I‚È•ûŒüƒxƒNƒgƒ‹‚Íi_Xorg*mat_11, _Xorg*mat_12, _Xorg*mat_13) ‚Å‚ ‚éB
                     angle Rz, Ry;
                     GgafDx9Util::getRzRyAng(_matWorldRotMv._11, _matWorldRotMv._12, _matWorldRotMv._13,
                                             Rz, Ry);
@@ -143,37 +143,37 @@ void EnemyVesta::processBehavior() {
     }
 
     if (getPartFrame() % 10 == 0) {
-        //è‡ªæ©Ÿã¸æ–¹å‘ã‚’å‘ã‘ã‚‹
-        //è€ƒãˆæ–¹ï¼šãƒ­ãƒ¼ã‚«ãƒ«ã§ã©ã®æ–¹å‘ã«å‘ã„ã¦ãŠã‘ã°ã€æœ€çµ‚çš„ã«è‡ªæ©Ÿã«å‘ãã“ã¨ã«ãªã‚‹ã‹ã‚’æ±‚ã‚ã‚‹
+        //©‹@‚Ö•ûŒü‚ğŒü‚¯‚é
+        //l‚¦•ûFƒ[ƒJƒ‹‚Å‚Ç‚Ì•ûŒü‚ÉŒü‚¢‚Ä‚¨‚¯‚ÎAÅI“I‚É©‹@‚ÉŒü‚­‚±‚Æ‚É‚È‚é‚©‚ğ‹‚ß‚é
         //
-        //è‡ªæ©Ÿã¸ã®å‘ããŸã‚ã®å¤‰æ›å‰çŠ¶æ…‹ã§ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆä½ç½®ã‚’(TvX, TvY, TvZ) ã¨ãŠãã€
-        //ã€ŒåœŸå°ã¾ã§ã€ã®è¡Œåˆ—ã®ç©ï¼ˆ_pActor_Base->_matWorldRotMv) ã‚’ b_mat_xx ã¨ã™ã‚‹ã€‚
-        //ç¾åœ¨ã®æœ€çµ‚åº§æ¨™ã‹ã‚‰è‡ªæ©Ÿã¸ã®å‘ãã®ãƒ™ã‚¯ãƒˆãƒ«ã‚’ã€(MvX, MvY, MvZ) ã¨ã™ã‚‹ã¨ã€
+        //©‹@‚Ö‚ÌŒü‚­‚½‚ß‚Ì•ÏŠ·‘Oó‘Ô‚Å‚Ìƒ^[ƒQƒbƒgˆÊ’u‚ğ(TvX, TvY, TvZ) ‚Æ‚¨‚«A
+        //u“y‘ä‚Ü‚Åv‚Ìs—ñ‚ÌÏi_pActor_Base->_matWorldRotMv) ‚ğ b_mat_xx ‚Æ‚·‚éB
+        //Œ»İ‚ÌÅIÀ•W‚©‚ç©‹@‚Ö‚ÌŒü‚«‚ÌƒxƒNƒgƒ‹‚ğA(MvX, MvY, MvZ) ‚Æ‚·‚é‚ÆA
         //
         //                | b_mat_11 b_mat_12 b_mat_13 |
         //| TvX TvY TvZ | | b_mat_21 b_mat_22 b_mat_23 | = | MvX MvY MvZ |
         //                | b_mat_31 b_mat_32 b_mat_33 |
         //
-        //ã¨ãªã‚‹ã€‚ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã§(TvX, TvY, TvZ) ã®æ–¹å‘ã‚’å‘ã‘ã‚‹ã¨ã€
-        //æœ€çµ‚çš„ã«è‡ªæ©Ÿã«å‘ãã“ã¨ã«ãªã‚‹ã€‚
-        //é€†è¡Œåˆ—ã‚’æ›ã‘ã¦(TvX, TvY, TvZ) ã‚’æ±‚ã‚ã‚Œã°è‰¯ã„
+        //‚Æ‚È‚éBƒ[ƒJƒ‹À•W‚Å(TvX, TvY, TvZ) ‚Ì•ûŒü‚ğŒü‚¯‚é‚ÆA
+        //ÅI“I‚É©‹@‚ÉŒü‚­‚±‚Æ‚É‚È‚éB
+        //‹ts—ñ‚ğŠ|‚¯‚Ä(TvX, TvY, TvZ) ‚ğ‹‚ß‚ê‚Î—Ç‚¢
         //
         //                                   | b_mat_11 b_mat_12 b_mat_13 | -1
         // | TvX TvY TvZ | = | MvX MvY MvZ | | b_mat_21 b_mat_22 b_mat_23 |
         //                                   | b_mat_31 b_mat_32 b_mat_33 |
         //
 
-        //MvX MvY MvZ ã‚’æ±‚ã‚ã‚‹
+        //MvX MvY MvZ ‚ğ‹‚ß‚é
         int MvX = pMYSHIP->_X - _X;
         int MvY = pMYSHIP->_Y - _Y;
         int MvZ = pMYSHIP->_Z - _Z;
-        //é€†è¡Œåˆ—å–å¾—
+        //‹ts—ñæ“¾
         D3DXMATRIX* pBaseInvMatRM = _pActor_Base->gatInvMatWorldRotMv();
-        //ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã§ã®ã‚¿ãƒ¼ã‚²ãƒƒãƒˆã¨ãªã‚‹æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«è¨ˆç®—
+        //ƒ[ƒJƒ‹À•W‚Å‚Ìƒ^[ƒQƒbƒg‚Æ‚È‚é•ûŒüƒxƒNƒgƒ‹ŒvZ
         int TvX = MvX*pBaseInvMatRM->_11 + MvY*pBaseInvMatRM->_21 + MvZ * pBaseInvMatRM->_31;
         int TvY = MvX*pBaseInvMatRM->_12 + MvY*pBaseInvMatRM->_22 + MvZ * pBaseInvMatRM->_32;
         int TvZ = MvX*pBaseInvMatRM->_13 + MvY*pBaseInvMatRM->_23 + MvZ * pBaseInvMatRM->_33;
-        //è‡ªå‹•æ–¹å‘å‘ãã‚·ãƒ¼ã‚¯ã‚¨ãƒ³ã‚¹é–‹å§‹
+        //©“®•ûŒüŒü‚«ƒV[ƒNƒGƒ“ƒXŠJn
         angle angRz_Target, angRy_Target;
         GgafDx9Util::getRzRyAng(TvX, TvY, TvZ,
                                 angRz_Target, angRy_Target);
@@ -186,7 +186,7 @@ void EnemyVesta::processBehavior() {
     _pMorpher->behave();
     //_pSeReflector->behave();
 
-    //_pMoverã®è¨ˆç®—ã¯ãƒ­ãƒ¼ã‚«ãƒ«ã§è¡Œã†
+    //_pMover‚ÌŒvZ‚Íƒ[ƒJƒ‹‚Ås‚¤
     chengeGeoLocal();
     _pMover->behave();
     chengeGeoFinal();
@@ -197,7 +197,7 @@ void EnemyVesta::processJudgement() {
     if (_pActor_Base != NULL && _pActor_Base->isActive()) {
 //        (*(_pActor_Base->_pFunc_calcWorldMatrix))(_pActor_Base, _matWorld);
     } else {
-        //åœŸå°ãŒãªã‘ã‚Œã°è‡ªåˆ†ã‚‚æ­»ã¬
+        //“y‘ä‚ª‚È‚¯‚ê‚Î©•ª‚à€‚Ê
         inactivate();
     }
 

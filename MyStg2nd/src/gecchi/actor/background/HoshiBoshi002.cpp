@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,19 +8,19 @@ using namespace MyStg2nd;
 HoshiBoshi002::HoshiBoshi002(const char* prm_name) :
 DefaultPointSpriteActor(prm_name, "hoshitest") {
     _class_name = "HoshiBoshi002";
-    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆ
+    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
     setHitAble(false);
     _CAM_ZF = abs(pCAM->_zf * PX_UNIT * LEN_UNIT);
     _TRACE_("HoshiBoshi002::HoshiBoshi002 _CAM_ZF="<<_CAM_ZF);
 }
 
 int HoshiBoshi002::isOffscreen() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—
+    //‰æ–ÊŠO”»’è–³‚µ
     return 0;
 }
 
 bool HoshiBoshi002::isOutOfGameSpace() {
-    //ã‚²ãƒ¼ãƒ åº§æ¨™ç¯„å›²å¤–åˆ¤å®šç„¡ã—
+    //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
     return false;
 }
 void HoshiBoshi002::initialize() {
@@ -42,8 +42,8 @@ void HoshiBoshi002::processBehavior() {
 }
 
 void HoshiBoshi002::processPreJudgement() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—ã«ä¼´ãªã„å‡¦ç†ç°¡ç•¥åŒ–
-    //GgafDx9GeometricActor::processPreJudgement() ã¨åŒæœŸã‚’å–ã‚‹äº‹ï¼
+    //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
+    //GgafDx9GeometricActor::processPreJudgement() ‚Æ“¯Šú‚ðŽæ‚éŽ–I
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
@@ -53,18 +53,18 @@ void HoshiBoshi002::processJudgement() {
 }
 
 void HoshiBoshi002::processPreDraw() {
-    //ç”»é¢å¤–åˆ¤å®šç„¡ã—ã«ä¼´ãªã„å‡¦ç†ç°¡ç•¥åŒ–
-    //GgafDx9DrawableActor::processPreDraw() ã¨åŒæœŸã‚’å–ã‚‹äº‹ï¼
-    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL ,this); //æœ€æ·±éƒ¨
+    //‰æ–ÊŠO”»’è–³‚µ‚É”º‚È‚¢ˆ—ŠÈ—ª‰»
+    //GgafDx9DrawableActor::processPreDraw() ‚Æ“¯Šú‚ðŽæ‚éŽ–I
+    GgafDx9Universe::setDrawDepthLevel(MAX_DRAW_DEPTH_LEVEL ,this); //Å[•”
 
-//    //ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯æœŸé–“ãƒã‚§ãƒƒã‚¯
+//    //ˆêŽžƒeƒNƒjƒbƒNŠúŠÔƒ`ƒFƒbƒN
 //    if (_is_temp_technique) {
 //        if (_frame_temp_technique <= _frame_of_behaving) {
-//            //ä¸€æ™‚ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯æœŸé–“æº€äº†ã€‚å…ƒã«æˆ»ã™
+//            //ˆêŽžƒeƒNƒjƒbƒNŠúŠÔ–ž—¹BŒ³‚É–ß‚·
 //            _hash_technique = _hash_technique_temp;
 //            strcpy(_technique, _technique_temp);
 //            _is_temp_technique = false;
-//            //ã“ã‚Œã¯ãƒ€ãƒ¡ã€‚é…åˆ—é ˜åŸŸãŒã©ã“ã‹ã«ã„ããŸã‚ã€‚_technique_temp = "";
+//            //‚±‚ê‚Íƒ_ƒB”z—ñ—Ìˆæ‚ª‚Ç‚±‚©‚É‚¢‚­‚½‚ßB_technique_temp = "";
 //            _hash_technique_temp = 0;
 //        }
 //    }

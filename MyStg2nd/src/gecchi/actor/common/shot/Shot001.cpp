@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -22,15 +22,15 @@ void Shot001::initialize() {
 void Shot001::onActive() {
     MyStgUtil::resetShot001Status(_pStatus);
     setHitAble(true);
-    _pMover->setMvVelo(10000*_RANK_);             //ç§»å‹•é€Ÿåº¦
-    _pMover->setFaceAngVelo(AXIS_X, 6000*_RANK_); //ãã‚Šã‚‚ã¿å…·åˆ
+    _pMover->setMvVelo(10000*_RANK_);             //ˆÚ“®‘¬“x
+    _pMover->setFaceAngVelo(AXIS_X, 6000*_RANK_); //‚«‚è‚à‚Ý‹ï‡
     _pScaler->beat(30,5,2,-1);
 }
 
 void Shot001::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁŽZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ðŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
-    //åº§æ¨™ã«åæ˜ 
+    //À•W‚É”½‰f
     _pMover->behave();
     _pScaler->behave();
 }
@@ -43,10 +43,10 @@ void Shot001::processJudgement() {
 
 void Shot001::onHit(GgafActor* prm_pOtherActor) {
     GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-    //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ãƒ’ãƒƒãƒˆã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //EEEƒRƒR‚Éƒqƒbƒg‚³‚ê‚½ƒGƒtƒFƒNƒg
     if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-        //ç ´å£Šã•ã‚ŒãŸå ´åˆ
-        //ãƒ»ãƒ»ãƒ»ã‚³ã‚³ã«ç ´å£Šã•ã‚ŒãŸã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+        //”j‰ó‚³‚ê‚½ê‡
+        //EEEƒRƒR‚É”j‰ó‚³‚ê‚½ƒGƒtƒFƒNƒg
         EffectExplosion001* pExplo001 = (EffectExplosion001*)GameGlobal::_pSceneCommon->_pDispatcher_EffectExplosion001->employ();
         _pSeReflector->play3D(0);
         if (pExplo001 != NULL) {

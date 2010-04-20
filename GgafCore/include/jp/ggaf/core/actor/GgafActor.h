@@ -1,4 +1,4 @@
-﻿#ifndef GGAFACTOR_H_
+#ifndef GGAFACTOR_H_
 #define GGAFACTOR_H_
 
 #define LORDACTOR  1
@@ -12,28 +12,28 @@ namespace GgafCore {
 
 
 /**
- * アクターの基底クラス .
- * 本プログラムで言う『アクター』とは、主にキャラクターを表現する。<BR>
- * 各シーン(GgafScene)に所属し、活躍するイメージ。<BR>
- * GgafElement に当たり判定を実現する仕組みを加えたクラスになっている。<BR>
- * 本クラスは抽象クラスでそのまま new はできない。<BR>
- * 全てのアクタークラスは、本クラスを継承し少なくとも以下の純粋仮想関数を実装する必要がある。<BR>
+ * �A�N�^�[�̊��N���X .
+ * �{�v���O�����Ō����w�A�N�^�[�x�Ƃ́A��ɃL�����N�^�[��\������B<BR>
+ * �e�V�[��(GgafScene)�ɏ������A���􂷂�C���[�W�B<BR>
+ * GgafElement �ɓ����蔻�����������d�g�݂��������N���X�ɂȂ��Ă���B<BR>
+ * �{�N���X�͒��ۃN���X�ł��̂܂� new �͂ł��Ȃ��B<BR>
+ * �S�ẴA�N�^�[�N���X�́A�{�N���X���p�������Ȃ��Ƃ��ȉ��̏������z�֐�����������K�v������B<BR>
  * <BR>
- * ＜１度だけ呼び出される純粋仮想関数＞<BR>
- * void initialize() ・・・初期処理 <BR>
- * ＜通常、毎フレーム呼び出される純粋仮想関数＞<BR>
- * void processBehavior() ・・・フレーム毎の振る舞い処理（座標移動等） <BR>
- * void processJudgement() ・・・フレーム毎の様々な判定処理（全アクター振る舞い処理後の処理） <BR>
- * void processPreDraw() ・・・フレーム毎の描画事前処理 <BR>
- * void processDraw() ・・・フレーム毎の描画本処理 <BR>
- * void processAfterDraw() ・・・フレーム毎の描画事後処理 <BR>
- * void processFinal() ・・・フレーム毎の終端処理 <BR>
- * ＜毎フレーム呼び出されるわけではない純粋仮想関数＞<BR>
- * void processHappen(int prm_no) ・・・その他のイベント時の処理 <BR>
- * bool processHitChkLogic(GgafActor* prm_pOtherActor) ・・・衝突判定ロジック <BR>
- * void onHit(GgafActor* prm_pOtherActor) ・・・衝突判定ロジックがtrueの場合の処理 <BR>
+ * ���P�x�����Ăяo����鏃�����z�֐���<BR>
+ * void initialize() �E�E�E�������� <BR>
+ * ���ʏ�A���t���[���Ăяo����鏃�����z�֐���<BR>
+ * void processBehavior() �E�E�E�t���[�����̐U�镑�������i���W�ړ����j <BR>
+ * void processJudgement() �E�E�E�t���[�����̗l�X�Ȕ��菈���i�S�A�N�^�[�U�镑��������̏����j <BR>
+ * void processPreDraw() �E�E�E�t���[�����̕`�掖�O���� <BR>
+ * void processDraw() �E�E�E�t���[�����̕`��{���� <BR>
+ * void processAfterDraw() �E�E�E�t���[�����̕`�掖�㏈�� <BR>
+ * void processFinal() �E�E�E�t���[�����̏I�[���� <BR>
+ * �����t���[���Ăяo�����킯�ł͂Ȃ��������z�֐���<BR>
+ * void processHappen(int prm_no) �E�E�E���̑��̃C�x���g���̏��� <BR>
+ * bool processHitChkLogic(GgafActor* prm_pOtherActor) �E�E�E�Փ˔��胍�W�b�N <BR>
+ * void onHit(GgafActor* prm_pOtherActor) �E�E�E�Փ˔��胍�W�b�N��true�̏ꍇ�̏��� <BR>
  * <BR>
- * 基底テンプレートクラスの GgafNode と、GgafElement の説明も参照のこと。<BR>
+ * ���e���v���[�g�N���X�� GgafNode �ƁAGgafElement �̐������Q�Ƃ̂��ƁB<BR>
  * @version 1.00
  * @since 2007/11/14
  * @author Masatoshi Tsuge
@@ -50,59 +50,59 @@ class GgafActor : public GgafElement<GgafActor> {
 
 private:
 
-    /** 現在の所属シーン */
+    /** ���݂̏����V�[�� */
     GgafScene* _pScene_Platform;
 
-    /** ループ用 */
+    /** ���[�v�p */
     GgafActor* _pActor_tmp;
-    /** ８分木登録を行うかどうかのフラグ */
+    /** �W���ؓo�^���s�����ǂ����̃t���O */
     bool _use_octree;
 
     /**
-     * 所属シーンを設定する。 .
+     * �����V�[����ݒ肷��B .
      */
     void setScenePlatform(GgafScene* prm_pScene_Platform);
 
 public:
-    /** [r]アクターの階級(LORDACTOR/GROUPACTOR/MAINACTOR/0:その他) */
-    int _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:その他
-    /** [r]所属ディスパッチャー(NULLは未所属) */
+    /** [r]�A�N�^�[�̊K��(LORDACTOR/GROUPACTOR/MAINACTOR/0:���̑�) */
+    int _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:���̑�
+    /** [r]�����f�B�X�p�b�`���[(NULL�͖�����) */
     GgafActorDispatcher* _pDependenceDispcher;
-    /** [r]アクター開始システム時刻 */
+    /** [r]�A�N�^�[�J�n�V�X�e������ */
     DWORD _start_system_time;
-    /** [r]アクター衝突判定有無フラグ */
+    /** [r]�A�N�^�[�Փ˔���L���t���O */
     bool _can_hit_flg;
-    /** [r]自由ステータス */
+    /** [r]���R�X�e�[�^�X */
     GgafStatus* _pStatus;
 
     /**
-     * コンストラクタ .
-     * @param prm_name アクターの名前
+     * �R���X�g���N�^ .
+     * @param prm_name �A�N�^�[�̖��O
      */
     GgafActor(const char* prm_name);
 
     /**
-     * デストラクタ .
-     * 自ツリーアクターの解放を行います。
+     * �f�X�g���N�^ .
+     * ���c���[�A�N�^�[�̉�����s���܂��B
      */
     virtual ~GgafActor();
 
     /**
-     * 自アクターの衝突判定有無を設定する。 .
-     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * ���A�N�^�[�̏Փ˔���L����ݒ肷��B .
+     * @param	prm_can_hit_flg  �Փ˔���L��(true:�Փ˔���L��^false:�Փ˔��薳��)
      */
     void setHitAble(bool prm_can_hit_flg);
 
     /**
-     * 自ツリーアクターの衝突判定有無を設定する。 .
-     * @param	prm_can_hit_flg  衝突判定有無(true:衝突判定有り／false:衝突判定無し)
+     * ���c���[�A�N�^�[�̏Փ˔���L����ݒ肷��B .
+     * @param	prm_can_hit_flg  �Փ˔���L��(true:�Փ˔���L��^false:�Փ˔��薳��)
      */
     void setHitAbleTree(bool prm_can_hit_flg);
 
     /**
-     * 現在衝突できる状況かどうか判定 .
-     * 注意：衝突能力があるかどうかでは無い。
-     * @return	bool true:衝突可能状況／false:衝突不可能状況
+     * ���ݏՓ˂ł���󋵂��ǂ������� .
+     * ���ӁF�Փ˔\�͂����邩�ǂ����ł͖����B
+     * @return	bool true:�Փˉ\�󋵁^false:�Փ˕s�\��
      */
     inline bool canHit() {
         if (isActive() && _can_hit_flg) {
@@ -113,14 +113,14 @@ public:
     }
 
     /**
-     * 所属しているシーンを取得。 .
-     * @return	GgafScene*	所属しているシーン
+     * �������Ă���V�[�����擾�B .
+     * @return	GgafScene*	�������Ă���V�[��
      */
     virtual GgafScene* getPlatformScene();
 
     /**
-     * 自アクターと他アクターの１対１の当たり判定処理を行う。
-     * @param prm_pOtherActor 他アクター
+     * ���A�N�^�[�Ƒ��A�N�^�[�̂P�΂P�̓����蔻�菈�����s���B
+     * @param prm_pOtherActor ���A�N�^�[
      */
     inline void executeHitChk_MeAnd(GgafActor* prm_pOtherActor) {
         if (prm_pOtherActor == this) {
@@ -133,9 +133,9 @@ public:
                 _is_active_flg &&
                 prm_pOtherActor->_is_active_flg)
             {
-                if (processHitChkLogic(prm_pOtherActor)) { //自身のヒットチェック
-                    onHit(prm_pOtherActor); //自分のヒット時の振る舞い
-                    prm_pOtherActor->onHit(this); //相手のヒット時の振る舞い
+                if (processHitChkLogic(prm_pOtherActor)) { //���g�̃q�b�g�`�F�b�N
+                    onHit(prm_pOtherActor); //�����̃q�b�g���̐U�镑��
+                    prm_pOtherActor->onHit(this); //����̃q�b�g���̐U�镑��
                 }
             }
         }
@@ -143,45 +143,45 @@ public:
 
 
     /**
-     * 自アクターと何かのアクターと衝突したかどうか判定するロジック。 .
-     * executeHitChk_MeAnd(GgafActor*) が実行された場合に呼び出されることになる。<BR>
-     * 下位クラスで独自に衝突判定ロジックを実装する。<BR>
-     * このメソッドは何時呼び出されるかは決まっていない。呼び出しタイミングも下位クラス依存。<BR>
-     * 想定としては、processJudgement() メソッドを実装したクラスが、その中で本メソッドを呼び出すものとしている。<BR>
-     * もしそのように実装した場合、相手アクターも processJudgement() でこちらのアクターとの衝突判定を行うことになれば、<BR>
-     * 衝突判定処理重複することになる。どーしたらよいか考えること。<BR>
-     * @param	prm_pOtherActor	相手アクター
-     * @retval	true	衝突しているを返す事
-     * @retval	false	衝突していないを返す事
+     * ���A�N�^�[�Ɖ����̃A�N�^�[�ƏՓ˂������ǂ������肷�郍�W�b�N�B .
+     * executeHitChk_MeAnd(GgafActor*) �����s���ꂽ�ꍇ�ɌĂяo����邱�ƂɂȂ�B<BR>
+     * ���ʃN���X�œƎ��ɏՓ˔��胍�W�b�N����������B<BR>
+     * ���̃��\�b�h�͉����Ăяo����邩�͌��܂��Ă��Ȃ��B�Ăяo���^�C�~���O�����ʃN���X�ˑ��B<BR>
+     * �z��Ƃ��ẮAprocessJudgement() ���\�b�h�����������N���X���A���̒��Ŗ{���\�b�h���Ăяo�����̂Ƃ��Ă���B<BR>
+     * �������̂悤�Ɏ��������ꍇ�A����A�N�^�[�� processJudgement() �ł�����̃A�N�^�[�Ƃ̏Փ˔�����s�����ƂɂȂ�΁A<BR>
+     * �Փ˔��菈���d�����邱�ƂɂȂ�B�ǁ[������悢���l���邱�ƁB<BR>
+     * @param	prm_pOtherActor	����A�N�^�[
+     * @retval	true	�Փ˂��Ă����Ԃ���
+     * @retval	false	�Փ˂��Ă��Ȃ���Ԃ���
      */
     virtual bool processHitChkLogic(GgafActor* prm_pOtherActor) {
         return false;
     }
 
     /**
-     * アクターと衝突した時の処理 .
-     * processHitChkLogic(GgafActor*) が true の場合に呼び出されることになります。<BR>
-     * 衝突判定の結果、衝突した場合の処理を下位クラス実装してください。<BR>
-     * @param	prm_pOtherActor	衝突している相手のアクター（１つ）
+     * �A�N�^�[�ƏՓ˂������̏��� .
+     * processHitChkLogic(GgafActor*) �� true �̏ꍇ�ɌĂяo����邱�ƂɂȂ�܂��B<BR>
+     * �Փ˔���̌��ʁA�Փ˂����ꍇ�̏��������ʃN���X�������Ă��������B<BR>
+     * @param	prm_pOtherActor	�Փ˂��Ă��鑊��̃A�N�^�[�i�P�j
      */
     virtual void onHit(GgafActor* prm_pOtherActor) {}
 
     /**
-     * Dispcherに所属している場合、それを返す。
-     * 未所属の場合NULL
-     * @return 所属Dispcher
+     * Dispcher�ɏ������Ă���ꍇ�A�����Ԃ��B
+     * �������̏ꍇNULL
+     * @return ����Dispcher
      */
     GgafActorDispatcher* getDependenceDispcher() {
         return _pDependenceDispcher;
     }
 
     /**
-     * デバッグ用：ツリー構造を表示<BR>
+     * �f�o�b�O�p�F�c���[�\����\��<BR>
      */
     virtual void dump();
 
     /**
-     * デバッグ用：dump()から使用される<BR>
+     * �f�o�b�O�p�Fdump()����g�p�����<BR>
      */
     virtual void dump(std::string prm_parent);
 

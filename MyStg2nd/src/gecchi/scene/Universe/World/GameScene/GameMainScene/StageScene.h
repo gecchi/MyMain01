@@ -1,4 +1,4 @@
-ï»¿#ifndef STAGESCENE_H_
+#ifndef STAGESCENE_H_
 #define STAGESCENE_H_
 
 #define STAGE_PROG_INIT       1
@@ -17,7 +17,7 @@ public:
 public:
     StageScene(const char* prm_name);
     /**
-     * åˆæœŸå‡¦ç†
+     * ‰Šúˆ—
      */
     //virtual void orderStageMain() = 0;
 

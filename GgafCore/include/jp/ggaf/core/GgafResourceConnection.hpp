@@ -1,20 +1,20 @@
-ï»¿#ifndef GGAFRESOURCECONNECTION_H_
+#ifndef GGAFRESOURCECONNECTION_H_
 #define GGAFRESOURCECONNECTION_H_
 namespace GgafCore {
 
 /**
- * è³‡æºæ¥ç¶šã‚¯ãƒ©ã‚¹ .
- * è³‡æº(Resource)ã‚’ç„¡é§„ã«ç”Ÿæˆã‚’è¡Œã‚ãšã€å‚ç…§ã—ã¦ä½¿ã„ã¾ã‚ã—ãŸã„ã€‚ã—ã‹ã— new ã™ã‚‹ã®ã‹ã©ã†ã‹ã‚’æ„è­˜ã—ãŸããªã„ã€‚<BR>
- * ãã‚“ãªã¨ãã«ä½¿ã†ã‚¯ãƒ©ã‚¹ã€‚<BR>
- * GgafResourceManager : è³‡æº(Resource) : GgafResourceConnection  = 1 : N : N
- * ã®é–¢ä¿‚ã§ã€ã“ã‚Œã§ãƒ¯ãƒ³ã‚»ãƒƒãƒˆã§ã™ã€‚GgafResourceConnection ã¯è¨€ã‚ã° è³‡æº(Resource)ã®ãƒ©ãƒƒãƒ‘ãƒ¼ã‚¯ãƒ©ã‚¹ã§ã™ã€‚
- * GgafResourceConnectionå®Ÿè£…ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’ã€ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã‚¯ãƒ©ã‚¹(GgafResourceManagerå®Ÿè£…ã‚¯ãƒ©ã‚¹)
- * ã‹ã‚‰å–å¾—(getConnection ãƒ¡ã‚½ãƒƒãƒ‰)ã™ã‚‹ã“ã¨ã¨ã—ã¾ã™ã€‚<BR>
- * ãƒãƒãƒ¼ã‚¸ãƒ£ãƒ¼ã¸ã®æ¥ç¶š GgafResourceManager<T>::getConnection ã§ã€Œæ¥ç¶šã‚«ã‚¦ãƒ³ãƒˆã€ãŒ+1ã€
- * æœ¬ã‚¯ãƒ©ã‚¹ã®close()ã§ã€Œæ¥ç¶šã‚«ã‚¦ãƒ³ãƒˆã€ãŒ-1ã•ã‚Œã¾ã™ã€‚<BR>
- * close() ã‚’å‘¼ã³å‡ºã™ã¨ã€å†…éƒ¨ã§ã€Œæ¥ç¶šã‚«ã‚¦ãƒ³ãƒˆã€ã«ã‚ˆã‚Šæœ¬å½“ã«è§£æ”¾ã‹å¦ã‹ã‚’åˆ¤æ–­ã—ã¾ã™ã€‚<BR>
- * æ¥ç¶šã‚«ã‚¦ãƒ³ãƒˆãŒ0ã«ãªã£ãŸå ´åˆã€è³‡æº(Resource)ã¯è§£æ”¾ã•ã‚Œã¾ã™ã€‚
- * T ã«ã¯è³‡æºã®å‹ã‚’æŒ‡å®šã—ã¦ãã ã•ã„ã€‚<BR>
+ * ‘Œ¹Ú‘±ƒNƒ‰ƒX .
+ * ‘Œ¹(Resource)‚ğ–³‘Ê‚É¶¬‚ğs‚í‚¸AQÆ‚µ‚Äg‚¢‚Ü‚í‚µ‚½‚¢B‚µ‚©‚µ new ‚·‚é‚Ì‚©‚Ç‚¤‚©‚ğˆÓ¯‚µ‚½‚­‚È‚¢B<BR>
+ * ‚»‚ñ‚È‚Æ‚«‚Ég‚¤ƒNƒ‰ƒXB<BR>
+ * GgafResourceManager : ‘Œ¹(Resource) : GgafResourceConnection  = 1 : N : N
+ * ‚ÌŠÖŒW‚ÅA‚±‚ê‚Åƒƒ“ƒZƒbƒg‚Å‚·BGgafResourceConnection ‚ÍŒ¾‚í‚Î ‘Œ¹(Resource)‚Ìƒ‰ƒbƒp[ƒNƒ‰ƒX‚Å‚·B
+ * GgafResourceConnectionÀ‘•ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğAƒ}ƒl[ƒWƒƒ[ƒNƒ‰ƒX(GgafResourceManagerÀ‘•ƒNƒ‰ƒX)
+ * ‚©‚çæ“¾(getConnection ƒƒ\ƒbƒh)‚·‚é‚±‚Æ‚Æ‚µ‚Ü‚·B<BR>
+ * ƒ}ƒl[ƒWƒƒ[‚Ö‚ÌÚ‘± GgafResourceManager<T>::getConnection ‚ÅuÚ‘±ƒJƒEƒ“ƒgv‚ª+1A
+ * –{ƒNƒ‰ƒX‚Ìclose()‚ÅuÚ‘±ƒJƒEƒ“ƒgv‚ª-1‚³‚ê‚Ü‚·B<BR>
+ * close() ‚ğŒÄ‚Ño‚·‚ÆA“à•”‚ÅuÚ‘±ƒJƒEƒ“ƒgv‚É‚æ‚è–{“–‚É‰ğ•ú‚©”Û‚©‚ğ”»’f‚µ‚Ü‚·B<BR>
+ * Ú‘±ƒJƒEƒ“ƒg‚ª0‚É‚È‚Á‚½ê‡A‘Œ¹(Resource)‚Í‰ğ•ú‚³‚ê‚Ü‚·B
+ * T ‚É‚Í‘Œ¹‚ÌŒ^‚ğw’è‚µ‚Ä‚­‚¾‚³‚¢B<BR>
  * @version 1.00
  * @since 2008/01/28
  * @author Masatoshi Tsuge
@@ -24,39 +24,39 @@ class GgafResourceConnection : public GgafObject {
     friend class GgafResourceManager<T>;
 
 private:
-    /** è­˜åˆ¥å(50æ–‡å­—ã¾ã§) */
+    /** ¯•Ê–¼(50•¶š‚Ü‚Å) */
     char* _idstr;
-    /** ç¾åœ¨ã®è³‡æºãƒãƒã‚¸ãƒ£ãƒ¼ã®è³‡æºã«æ¥ç¶šã—ã¦ã„ã‚‹ãƒã‚¤ãƒ³ã‚¿æ•° */
+    /** Œ»İ‚Ì‘Œ¹ƒ}ƒlƒWƒƒ[‚Ì‘Œ¹‚ÉÚ‘±‚µ‚Ä‚¢‚éƒ|ƒCƒ“ƒ^” */
     int _num_connection;
-    /** ä½¿ã„ã¾ã‚ã™å¤§äº‹ãªè³‡æº */
+    /** g‚¢‚Ü‚í‚·‘å–‚È‘Œ¹ */
     T* _pResource;
-    /** closeä¸­ã¯trueã®æ’ä»–ãƒ•ãƒ©ã‚° */
+    /** close’†‚Ítrue‚Ì”r‘¼ƒtƒ‰ƒO */
     static volatile bool _is_closing_resource;
 
 protected:
-    /** [r]è³‡æºãƒãƒã‚¸ãƒ£ãƒ¼ */
+    /** [r]‘Œ¹ƒ}ƒlƒWƒƒ[ */
     GgafResourceManager<T>* _pManager;
-    /** [r]æ¬¡ã®GgafResourceConnectionã¸ã®ãƒã‚¤ãƒ³ã‚¿ã€‚çµ‚ç«¯ã¯NULL */
+    /** [r]Ÿ‚ÌGgafResourceConnection‚Ö‚Ìƒ|ƒCƒ“ƒ^BI’[‚ÍNULL */
     GgafResourceConnection<T>* _pNext;
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * protected ã§ã‚ã‚‹ç†ç”±ã¯ã€ãƒãƒã‚¸ãƒ£ãƒ¼(GgafResourceManager<T>) ãŒç”Ÿæˆã™ã‚‹ãŸã‚ã€‚<BR>
-     * @param prm_idstr è­˜åˆ¥å(29æ–‡å­—ã¾ã§)
-     * @param prm_pResource ä½¿ã„ã¾ã‚ã™è³‡æº
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * protected ‚Å‚ ‚é——R‚ÍAƒ}ƒlƒWƒƒ[(GgafResourceManager<T>) ‚ª¶¬‚·‚é‚½‚ßB<BR>
+     * @param prm_idstr ¯•Ê–¼(29•¶š‚Ü‚Å)
+     * @param prm_pResource g‚¢‚Ü‚í‚·‘Œ¹
      */
     GgafResourceConnection(char* prm_idstr, T* prm_pResource);
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * protected ã§ã‚ã‚‹ç†ç”±ã¯ã€new ã¨ delete ã®å¼·åˆ¶ã€‚é–‹æ”¾ã‚’ close() ä½¿ç”¨ã‚’å¼·åˆ¶<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
+     * protected ‚Å‚ ‚é——R‚ÍAnew ‚Æ delete ‚Ì‹­§BŠJ•ú‚ğ close() g—p‚ğ‹­§<BR>
      */
     virtual ~GgafResourceConnection() {
     }
 
     /**
-     * è³‡æºã®å®Ÿéš›ã®è§£æ”¾å‡¦ç†ã€‚
-     * delete ã‚„ Release ãªã©ã€ãã®è³‡æºã«å¿œã˜ãŸå®Ÿéš›ã®è§£æ”¾ã‚’å®Ÿè£…ã—ã¦ä¸‹ã•ã„ã€‚
+     * ‘Œ¹‚ÌÀÛ‚Ì‰ğ•úˆ—B
+     * delete ‚â Release ‚È‚ÇA‚»‚Ì‘Œ¹‚É‰‚¶‚½ÀÛ‚Ì‰ğ•ú‚ğÀ‘•‚µ‚Ä‰º‚³‚¢B
      * @param prm_pResource
      */
     virtual void processReleaseResource(T* prm_pResource)= 0;
@@ -64,22 +64,22 @@ protected:
 public:
 
     /**
-     * è­˜åˆ¥åã‚’è¿”ã™ .
-     * @return è­˜åˆ¥å
+     * ¯•Ê–¼‚ğ•Ô‚· .
+     * @return ¯•Ê–¼
      */
     char* getIdStr();
 
     /**
-     * ãƒªã‚¹ãƒˆé€£çµã•ã‚Œã¦ã„ã‚‹æ¬¡ã®è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’è¿”ã™ .
-     * çµ‚ç«¯ã§ã‚ã£ãŸå ´åˆã¯ NULL ãŒè¿”ã‚‹ã€‚
-     * @return æ¬¡ã®è³‡æºæ¥ç¶šã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ åˆã¯ã€NULL
+     * ƒŠƒXƒg˜AŒ‹‚³‚ê‚Ä‚¢‚éŸ‚Ì‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg‚ğ•Ô‚· .
+     * I’[‚Å‚ ‚Á‚½ê‡‚Í NULL ‚ª•Ô‚éB
+     * @return Ÿ‚Ì‘Œ¹Ú‘±ƒIƒuƒWƒFƒNƒg –”‚ÍANULL
      */
     GgafResourceConnection<T>* getNext();
 
     /**
-     * è³‡æºã‚’å‚ç…§ã€‚ .
-     * æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã¯å¢—ãˆã¾ã›ã‚“<BR>
-     * @return è³‡æºã¸ã®ãƒã‚¤ãƒ³ã‚¿
+     * ‘Œ¹‚ğQÆB .
+     * Ú‘±ƒJƒEƒ“ƒ^‚Í‘‚¦‚Ü‚¹‚ñ<BR>
+     * @return ‘Œ¹‚Ö‚Ìƒ|ƒCƒ“ƒ^
      */
     virtual T* view();
 
@@ -89,15 +89,15 @@ public:
 
 
     /**
-     * è³‡æºæ¥ç¶šã‚’è§£é™¤ .
-     * è§£é™¤ã¨ã„ã£ã¦ã‚‚ãƒãƒãƒ¼ã‚¸ãƒ£ã®æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ã‚’1æ¸›ã‚‰ã™ã ã‘ã§ã™ã€‚<BR>
-     * ä½†ã—ã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿ãŒ 0 ã«ãªã‚Œã°ã€processReleaseResourceã‚’å‘¼ã³å‡ºã—ã€æœ¬å½“ã«è§£æ”¾ã—ã¾ã™ã€‚<BR>
-     * @return è³‡æºæ¥ç¶šã‚’è§£é™¤ã—ãŸå¾Œã®ã€æ¥ç¶šã‚«ã‚¦ãƒ³ã‚¿
+     * ‘Œ¹Ú‘±‚ğ‰ğœ .
+     * ‰ğœ‚Æ‚¢‚Á‚Ä‚àƒ}ƒl[ƒWƒƒ‚ÌÚ‘±ƒJƒEƒ“ƒ^‚ğ1Œ¸‚ç‚·‚¾‚¯‚Å‚·B<BR>
+     * ’A‚µAÚ‘±ƒJƒEƒ“ƒ^‚ª 0 ‚É‚È‚ê‚ÎAprocessReleaseResource‚ğŒÄ‚Ño‚µA–{“–‚É‰ğ•ú‚µ‚Ü‚·B<BR>
+     * @return ‘Œ¹Ú‘±‚ğ‰ğœ‚µ‚½Œã‚ÌAÚ‘±ƒJƒEƒ“ƒ^
      */
     int close();
 };
 
-/////////////////////////////////// å®Ÿè£…éƒ¨ /////
+/////////////////////////////////// À‘••” /////
 template<class T>
 volatile bool GgafResourceConnection<T>::_is_closing_resource = false;
 
@@ -136,14 +136,14 @@ int GgafResourceConnection<T>::getNumConnection() {
 template<class T>
 int GgafResourceConnection<T>::close() {
     if (_is_closing_resource == true) {
-        //close() ã¯è¤‡æ•°ã‚¹ãƒ¬ãƒƒãƒ‰ã‹ã‚‰å—ä»˜ãªã„ä»•æ§˜ã¨ã™ã‚‹ã€‚
-        throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << _num_connection << "Connection]\n"<<
-                                   "ç¾åœ¨close()ä¸­ã«ã‚‚ã‹ã‹ã‚ã‚‰ãšã€close()ã—ã¾ã—ãŸã€‚connectã®ã‚¹ãƒ¬ãƒƒãƒ‰ã‚’ï¼‘æœ¬ã«ã—ã¦ä¸‹ã•ã„ã€‚")
+        //close() ‚Í•¡”ƒXƒŒƒbƒh‚©‚çó•t‚È‚¢d—l‚Æ‚·‚éB
+        throwGgafCriticalException("GgafResourceConnection<T>::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << _num_connection << "Connection]\n"<<
+                                   "Œ»İclose()’†‚É‚à‚©‚©‚í‚ç‚¸Aclose()‚µ‚Ü‚µ‚½Bconnect‚ÌƒXƒŒƒbƒh‚ğ‚P–{‚É‚µ‚Ä‰º‚³‚¢B")
     }
 
     if (_num_connection <= 0) {
-        TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << _num_connection << "Connection] ï¼œè­¦å‘Šï¼æ—¢ã«ã‚³ãƒã‚¯ã‚·ãƒ§ãƒ³ã¯ç„¡ã„ã«ã‚‚ã‹ã‹ã‚ã‚‰ãšã€close() ã—ã‚ˆã†ã¨ã—ã¦ã¾ã™ã€‚");
-        TRACE3("ä½•ã‚‚è¡Œãªã‚ãšreturnã—ã¾ã™ãŒã€æ„å›³çš„ã§ãªã„å ´åˆã¯ä½•ã‹ãŒãŠã‹ã—ã„ã§ã—ã‚‡ã†ã€‚ãƒªãƒ¼ã‚¯ã®å¯èƒ½\æ€§ãŒå¤§ã€‚èª¿æŸ»ã™ã¹ã—ï¼");
+        TRACE3("GgafResourceManager::close() [" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << _num_connection << "Connection] ƒŒx„Šù‚ÉƒRƒlƒNƒVƒ‡ƒ“‚Í–³‚¢‚É‚à‚©‚©‚í‚ç‚¸Aclose() ‚µ‚æ‚¤‚Æ‚µ‚Ä‚Ü‚·B");
+        TRACE3("‰½‚às‚È‚í‚¸return‚µ‚Ü‚·‚ªAˆÓ}“I‚Å‚È‚¢ê‡‚Í‰½‚©‚ª‚¨‚©‚µ‚¢‚Å‚µ‚å‚¤BƒŠ[ƒN‚Ì‰Â”\\«‚ª‘åB’²¸‚·‚×‚µI");
         return _num_connection;
     }
 
@@ -153,13 +153,13 @@ int GgafResourceConnection<T>::close() {
     GgafResourceConnection<T>* pCurrent;
     GgafResourceConnection<T>* pPrev;
 
-    //TODO:å®Œå…¨ã§ã¯ãªã„ã€‚
+    //TODO:Š®‘S‚Å‚Í‚È‚¢B
     for(int i = 0; GgafResourceManager<T>::_is_connecting_resource; i++) {
         Sleep(1);
         if (i > 1000*60) {
-            //ï¼‘åˆ†ä»¥ä¸Šç„¡å¿œç­”æ™‚
-            _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()ã—ã‚ˆã†ã¨ã—ã¦ã€ï¼‘åˆ†å¾…æ©Ÿãƒ»ãƒ»ãƒ»");
-            throwGgafCriticalException("GgafResourceConnection<T>::close() ã‚¿ã‚¤ãƒ ã‚¢ã‚¦ãƒˆã€‚_idstr="<<getIdStr()<<" close()ã—ã‚ˆã†ã¨ã—ã¦ã€ï¼‘åˆ†ä»¥ä¸Šå¾…æ©Ÿã—ã¾ã—ãŸã€‚æ’ä»–å‡¦ç†ãŒå´©å£Šã—ã¦ã„ã‚‹ã‹ã€å‡¦ç†ãŒé…ã™ãã¾ã™ã€‚")
+            //‚P•ªˆÈã–³‰“š
+            _TRACE_("GgafResourceConnection<T>::close() _idstr="<<getIdStr()<<" close()‚µ‚æ‚¤‚Æ‚µ‚ÄA‚P•ª‘Ò‹@EEE");
+            throwGgafCriticalException("GgafResourceConnection<T>::close() ƒ^ƒCƒ€ƒAƒEƒgB_idstr="<<getIdStr()<<" close()‚µ‚æ‚¤‚Æ‚µ‚ÄA‚P•ªˆÈã‘Ò‹@‚µ‚Ü‚µ‚½B”r‘¼ˆ—‚ª•ö‰ó‚µ‚Ä‚¢‚é‚©Aˆ—‚ª’x‚·‚¬‚Ü‚·B")
         }
     }
     _is_closing_resource = true;
@@ -169,44 +169,44 @@ int GgafResourceConnection<T>::close() {
     pPrev = NULL;
     while (pCurrent != NULL) {
         if (pCurrent == this) {
-            //ç™ºè¦‹ã—ãŸå ´åˆ
+            //”­Œ©‚µ‚½ê‡
             int rnum = _num_connection;
-            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << rnum << "Connection] ç™ºè¦‹ã—ãŸã®ã§é–‹å§‹");
-            if (rnum == 1) {//æœ€å¾Œã®æ¥ç¶šã ã£ãŸå ´åˆ
-                //æ­»ã«è¡Œãå®¿ã‚ã§ã‚ã‚‹ã®ã§ã€ä¿æŒãƒªã‚¹ãƒˆã‹ã‚‰é›¢è„±ã‚’è¡Œãªã†
+            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << rnum << "Connection] ”­Œ©‚µ‚½‚Ì‚ÅŠJn");
+            if (rnum == 1) {//ÅŒã‚ÌÚ‘±‚¾‚Á‚½ê‡
+                //€‚És‚­h‚ß‚Å‚ ‚é‚Ì‚ÅA•ÛƒŠƒXƒg‚©‚ç—£’E‚ğs‚È‚¤
                 if (pCurrent->_pNext == NULL) {
-                    //æœ«å°¾ã ã£ãŸ
+                    //––”ö‚¾‚Á‚½
                     if (pPrev == NULL) {
-                        //æœ«å°¾ã§å…ˆé ­ã ã£ãŸï¼ˆï¼æœ€å¾Œã®ä¸€ã¤ï¼‰
+                        //––”ö‚Åæ“ª‚¾‚Á‚½iÅŒã‚Ìˆê‚Âj
                         _pManager->_pFirstConnection = NULL;
                     } else {
-                        //æœ«å°¾ã§å…ˆé ­ã§ãªã‹ã£ãŸ
+                        //––”ö‚Åæ“ª‚Å‚È‚©‚Á‚½
                         pPrev->_pNext = NULL;
                     }
                 } else {
-                    //æœ«å°¾ã§ãªã„
+                    //––”ö‚Å‚È‚¢
                     if (pPrev == NULL) {
-                        //å…ˆé ­ã ã£ãŸ
-                        _pManager->_pFirstConnection = pCurrent->_pNext; //å…ˆé ­ã‚’æ¬¡ã«ãšã‚‰ã™
+                        //æ“ª‚¾‚Á‚½
+                        _pManager->_pFirstConnection = pCurrent->_pNext; //æ“ª‚ğŸ‚É‚¸‚ç‚·
                     } else {
-                        //æœ«å°¾ã§ã‚‚å…ˆé ­ã§ã‚‚ãªã„ï¼ˆä¸­é–“ï¼‰
-                        pPrev->_pNext = pCurrent->_pNext; //ä¸¡éš£ã‚’ç¹‹ã’ã‚‹
+                        //––”ö‚Å‚àæ“ª‚Å‚à‚È‚¢i’†ŠÔj
+                        pPrev->_pNext = pCurrent->_pNext; //—¼—×‚ğŒq‚°‚é
                     }
                 }
-                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << rnum << "Connection] æœ€å¾Œã®å‚ç…§ã®ãŸã‚è§£æ”¾ã—ã¾ã™ã€‚");
+                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << rnum << "Connection] ÅŒã‚ÌQÆ‚Ì‚½‚ß‰ğ•ú‚µ‚Ü‚·B");
                 _num_connection = 0;
             } else if (rnum > 0) {
-                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << rnum << "Connection] ã¾ã æ®‹ã£ã¦ã¾ã™");
+                TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << rnum << "Connection] ‚Ü‚¾c‚Á‚Ä‚Ü‚·");
                 _num_connection--;
             } else if (rnum < 0) {
-                //é€šå¸¸ã‚³ã‚³ã¯é€šã‚‰ãªã„
-                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "â†" << rnum
-                        << "Connection] è§£æ”¾ã—ã™ãï¼ã€‚ã©ãªã„ã‚„ã­ã‚“ã€‚ã‚‚ã†ã‚¢ãƒ›ãƒ¼(>_<)ã€‚ã¨ã‚Šã‚ãˆãšã‚¹ãƒ«ãƒ¼ã€‚");
-                _num_connection = 0; //ã¨ã‚Šã‚ãˆãšè§£æ”¾
+                //’ÊíƒRƒR‚Í’Ê‚ç‚È‚¢
+                _TRACE_("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "][" << _idstr << "©" << rnum
+                        << "Connection] ‰ğ•ú‚µ‚·‚¬IB‚Ç‚È‚¢‚â‚Ë‚ñB‚à‚¤ƒAƒz[(>_<)B‚Æ‚è‚ ‚¦‚¸ƒXƒ‹[B");
+                _num_connection = 0; //‚Æ‚è‚ ‚¦‚¸‰ğ•ú
             }
             break;
         } else {
-            //é•ã£ãŸå ´åˆ
+            //ˆá‚Á‚½ê‡
             pPrev = pCurrent;
             pCurrent = pCurrent->_pNext;
         }
@@ -216,26 +216,26 @@ int GgafResourceConnection<T>::close() {
     if (_num_connection == 0) {
         T* r = pCurrent->view();
         if (r != NULL) {
-            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //æœ¬å½“ã®è§£æ”¾ processReleaseResource[" << _idstr << "â†" << _num_connection <<"]");
-            pCurrent->processReleaseResource(r); //æœ¬å½“ã®è§£æ”¾
+            TRACE3("GgafResourceManager::releaseResourceConnection[" << _pManager->_manager_name << "." << _idstr << "] //–{“–‚Ì‰ğ•ú processReleaseResource[" << _idstr << "©" << _num_connection <<"]");
+            pCurrent->processReleaseResource(r); //–{“–‚Ì‰ğ•ú
         }
 
 
         if (GgafResourceManager<T>::_is_waiting_to_connect) {
-            //åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§æ—¢ã«connet()å¾…ã¡çŠ¶æ…‹ã«å…¥ã£ã¦ã„ã‚Œã°é–‹æ”¾ã—ãªã„ã€‚
-            //ã“ã‚Œã¯ã€ã„ãšã‚Œæ¬¡ã®ç¬é–“ new ã•ã‚Œã‚‹ã“ã¨ãŒç¢ºå®šã—ã¦ã„ã‚‹ã®ã§ã€ç„¡é§„ãªdelete ã‚’è¡Œã‚ãªã„ã‚ˆã†ã«ã™ã‚‹ã¨ã„ã£ãŸæ„å›³ã€‚
-            //ã‚€ã—ã‚ã“ã®ã‚ˆã†ã«ã—ãªã„ã¨ã€ä¸€ç¬ç„¡åŠ¹ãƒã‚¤ãƒ³ã‚¿çŠ¶æ…‹ã«ãªã‚‹ã®ã§ã€connet()å´ã§å‡¦ç†ã«å¯„ã£ã¦ã¯è½ã¡ã¦ã—ã¾ã†ï¼ˆã¨æ€ã†ï¼‰ã€‚
+            //•ÊƒXƒŒƒbƒh‚ÅŠù‚Éconnet()‘Ò‚¿ó‘Ô‚É“ü‚Á‚Ä‚¢‚ê‚ÎŠJ•ú‚µ‚È‚¢B
+            //‚±‚ê‚ÍA‚¢‚¸‚êŸ‚ÌuŠÔ new ‚³‚ê‚é‚±‚Æ‚ªŠm’è‚µ‚Ä‚¢‚é‚Ì‚ÅA–³‘Ê‚Èdelete ‚ğs‚í‚È‚¢‚æ‚¤‚É‚·‚é‚Æ‚¢‚Á‚½ˆÓ}B
+            //‚Ş‚µ‚ë‚±‚Ì‚æ‚¤‚É‚µ‚È‚¢‚ÆAˆêu–³Œøƒ|ƒCƒ“ƒ^ó‘Ô‚É‚È‚é‚Ì‚ÅAconnet()‘¤‚Åˆ—‚ÉŠñ‚Á‚Ä‚Í—‚¿‚Ä‚µ‚Ü‚¤i‚Æv‚¤jB
             _is_closing_resource = false;
             return 0;
         } else {
-            //åˆ¥ã‚¹ãƒ¬ãƒƒãƒ‰ã§connet()å¾…ã¡çŠ¶æ…‹ã§ã¯ç„¡ã„ã®ã§å®‰å¿ƒã—ã¦é–‹æ”¾ã™ã‚‹ã¨ã—ã‚ˆã†ã€‚
+            //•ÊƒXƒŒƒbƒh‚Åconnet()‘Ò‚¿ó‘Ô‚Å‚Í–³‚¢‚Ì‚ÅˆÀS‚µ‚ÄŠJ•ú‚·‚é‚Æ‚µ‚æ‚¤B
             delete[] _idstr;
             delete this;
             if (GgafResourceManager<T>::_is_waiting_to_connect) {
-                //ã“ã“ã«æ¥ã¦ã€connet()å¾…ã¡ã«å¤‰ã‚ã£ã¦ã„ãŸã‚‰ã€ã‚‚ã†è«¦ã‚ã‚‹ã€‚
-                //ç¾åœ¨ã®æ’ä»–ãŒå®Œå…¨ã§ã¯ãªã„ã¨è€ƒãˆã‚‹ã®ã¯ã€ã“ã®ã‚ãŸã‚Šã®å‡¦ç†ã‚‚å«ã‚€
-                //TODO:å®Œå…¨å¯¾å¿œã«ã¯ã€connect()ã‚’å´ä¸‹ã™ã‚‹æ©Ÿæ§‹ã‚’ä½œã‚‰ã­ã°ãªã‚‰ã¬ã€‚
-                _TRACE_("ï¼œè­¦å‘Šï¼GgafResourceConnection<T>::close() delete this ä¸­ã« connect() ã—ã‚ˆã†ã¨ã—ã¾ã—ãŸã€‚å¤§ä¸ˆå¤«ã§ã—ã‚‡ã†ã‹ã€‚ãƒ»ãƒ»ãƒ»ã‚‚ã¯ã‚„ã©ã†ã—ã‚ˆã†ã‚‚ç„¡ã„ã®ã§ã™ãŒï¼");
+                //‚±‚±‚É—ˆ‚ÄAconnet()‘Ò‚¿‚É•Ï‚í‚Á‚Ä‚¢‚½‚çA‚à‚¤’ú‚ß‚éB
+                //Œ»İ‚Ì”r‘¼‚ªŠ®‘S‚Å‚Í‚È‚¢‚Æl‚¦‚é‚Ì‚ÍA‚±‚Ì‚ ‚½‚è‚Ìˆ—‚àŠÜ‚Ş
+                //TODO:Š®‘S‘Î‰‚É‚ÍAconnect()‚ğ‹p‰º‚·‚é‹@\‚ğì‚ç‚Ë‚Î‚È‚ç‚ÊB
+                _TRACE_("ƒŒx„GgafResourceConnection<T>::close() delete this ’†‚É connect() ‚µ‚æ‚¤‚Æ‚µ‚Ü‚µ‚½B‘åä•v‚Å‚µ‚å‚¤‚©BEEE‚à‚Í‚â‚Ç‚¤‚µ‚æ‚¤‚à–³‚¢‚Ì‚Å‚·‚ªI");
             }
             _is_closing_resource = false;
             return 0;

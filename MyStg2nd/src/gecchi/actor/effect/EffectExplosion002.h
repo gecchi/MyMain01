@@ -1,10 +1,10 @@
-ï»¿#ifndef EFFECTEXPLOSION002_H_
+#ifndef EFFECTEXPLOSION002_H_
 #define EFFECTEXPLOSION002_H_
 namespace MyStg2nd {
 
 /**
- * çˆ†ç™ºã‚¨ãƒ•ã‚§ã‚¯ãƒˆãã®ï¼’ .
- * è¼ªã£ã‹ãŒåºƒãŒã‚‹
+ * ”š”­ƒGƒtƒFƒNƒg‚»‚Ì‚Q .
+ * —Ö‚Á‚©‚ªL‚ª‚é
  * @version 1.00
  * @since 2010/03/19
  * @author Masatoshi Tsuge
@@ -31,12 +31,12 @@ public:
     void onInactive() override;
 
     int isOffscreen() override {
-        //ç”»é¢å¤–åˆ¤å®šç„¡ã—
+        //‰æ–ÊŠO”»’è–³‚µ
         return 0;
     }
 
     bool isOutOfGameSpace() override {
-        //ã‚²ãƒ¼ãƒ åº§æ¨™ç¯„å›²å¤–åˆ¤å®šç„¡ã—
+        //ƒQ[ƒ€À•W”ÍˆÍŠO”»’è–³‚µ
         return false;
     }
 

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -12,7 +12,7 @@ GgafDx9AllocHierarchyWorldFrame::~GgafDx9AllocHierarchyWorldFrame(void)
 }
 
 
-// ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ä»˜ãã®ãƒ•ãƒ¬ãƒ¼ãƒ æ§‹é€ ä½“ã‚’ç”Ÿæˆ
+// ƒ[ƒ‹ƒh•ÏŠ·s—ñ•t‚«‚ÌƒtƒŒ[ƒ€\‘¢‘Ì‚ğ¶¬
 D3DXFRAME* GgafDx9AllocHierarchyWorldFrame::CreateNewFrame()
 {
     D3DXFRAME_WORLD* tmp = NEW D3DXFRAME_WORLD;

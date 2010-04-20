@@ -1,17 +1,17 @@
-ï»¿#ifndef GGAFDX9BGM_H_
+#ifndef GGAFDX9BGM_H_
 #define GGAFDX9BGM_H_
 namespace GgafDx9Core {
 
-// æœ¬ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã¯ã€<BR>
-// ã€Œâ—‹Ã—ï¼ˆã¾ã‚‹ãºã‘ï¼‰ã¤ãã‚ãƒ¼ã©ã£ã¨ã‚³ãƒ ã€ http://marupeke296.com/index.html <BR>
-// ã‚µã‚¤ãƒˆå†…ã‚³ãƒ³ãƒ†ãƒ³ãƒ„ã® ã€ŒOgg Vorbiså…¥é–€ç·¨ã€ http://marupeke296.com/OGG_main.html <BR>
-// ã®ã‚µãƒ³ãƒ—ãƒ«ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’æµç”¨ï¼ˆä¸€éƒ¨å¤‰æ›´ï¼‰ã•ã›ã¦ã„ãŸã ã„ã¦ã€å®Ÿè£…ã—ã¦ã„ã¾ã™ã€‚<BR>
-// è£½ä½œè€…IKDæ°ã®æƒœã—ã¿ãªã„çŸ¥è­˜å…±æœ‰ã®å¿ƒã«æ„Ÿè¬ã€‚<BR>
+// –{ƒvƒƒOƒ‰ƒ€‚ÍA<BR>
+// u›~i‚Ü‚é‚Ø‚¯j‚Â‚­‚ë[‚Ç‚Á‚ÆƒRƒ€v http://marupeke296.com/index.html <BR>
+// ƒTƒCƒg“àƒRƒ“ƒeƒ“ƒc‚Ì uOgg Vorbis“ü–å•Òv http://marupeke296.com/OGG_main.html <BR>
+// ‚ÌƒTƒ“ƒvƒ‹ƒvƒƒOƒ‰ƒ€‚ğ—¬—piˆê•”•ÏXj‚³‚¹‚Ä‚¢‚½‚¾‚¢‚ÄAÀ‘•‚µ‚Ä‚¢‚Ü‚·B<BR>
+// »ìÒIKD‚ÌÉ‚µ‚İ‚È‚¢’m¯‹¤—L‚ÌS‚ÉŠ´ÓB<BR>
 //
 //                                            2009/01/13 Masatoshi Tsuge<BR>
 
 /**
- * Bgm(Ogg ã‚¹ãƒˆãƒªãƒ¼ãƒ )ã‚¯ãƒ©ã‚¹ .
+ * Bgm(Ogg ƒXƒgƒŠ[ƒ€)ƒNƒ‰ƒX .
  */
 class GgafDx9Bgm : public GgafCore::GgafObject {
 public:
@@ -22,23 +22,23 @@ public:
 
     GgafDx9Bgm(char* _ogg_name);
 
-    //! æ´»å‹•
+    //! Šˆ“®
     void play(int prm_volume, int prm_pan, bool prm_isLoop);
     void play(bool prm_isLoop) {
         play(DSBVOLUME_MAX, DSBPAN_CENTER, prm_isLoop);
     }
-    //! ä¸€æ™‚åœæ­¢
+    //! ˆê’â~
     void pause();
 
-    //! åœæ­¢
+    //! ’â~
     void stop();
 
-    //! éŸ³é‡ã‚’å¤‰ãˆã‚‹
+    //! ‰¹—Ê‚ğ•Ï‚¦‚é
     void setVolume(int volume);
 
-    //! ãƒ‘ãƒ³ã®ä½ç½®ã‚’å¤‰ãˆã‚‹
+    //! ƒpƒ“‚ÌˆÊ’u‚ğ•Ï‚¦‚é
     void setPan(int pan);
-    //! åœæ­¢
+    //! ’â~
     void clear();
 
     bool isActive();

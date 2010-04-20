@@ -1,4 +1,4 @@
-Ôªø#include "stdafx.h"
+#include "stdafx.h"
 
 using namespace std;
 using namespace GgafCore;
@@ -10,12 +10,12 @@ using namespace GgafDx9Core;
 GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Model(prm_model_name) {
     TRACE3("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ")");
     _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ") Begin");
-    // ‰∏ã‰ΩçÂÆüË£Ö„ÇØ„É©„Çπ„ÅåÊåáÂÆö„Åô„Çã„É¢„Éá„É´Âêç„ÅØ"M/4/xxxxx"„Å®„ÅÑ„ÅÜÂΩ¢Âºè„Åß„ÄÅGgafDx9ModelManager„ÅØ
-    // "M"„Åã„ÇâGgafDx9MorphMeshModel„Å®Âà§Êñ≠„Åó„ÄÅ"M"„ÇíÂèñ„ÇäÈô§„ÅÑ„Åü"4/XXXX"„Çí„É¢„Éá„É´Âêç„Å®„Åó„Å¶Êâ±„ÅÜ„ÄÇ
-    // prm_model_name „Å´„ÅØ "4/XXXX" „Åå„ÄÅÊ∏°„Å£„Å¶„Åè„Çã„ÄÇ
-    // „Éó„É©„Ç§„Éû„É™„ÅÆ„É°„ÉÉ„Ç∑„É•„Åå1„ÄÅ„É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„Éà„ÅÆ„É°„ÉÉ„Ç∑„É•„Åå4„Å§„Å®„ÅÑ„ÅÜÊÑèÂë≥
-    // „É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„ÉàÊï∞„ÅåÈÅï„ÅÜ„É¢„Éá„É´„ÅØ„ÄÅÂà•„É¢„Éá„É´„Å®„ÅÑ„ÅÜÊâ±„ÅÑ„Å´„Åô„Çã„Åü„ÇÅ„ÄÅ„É¢„Éá„É´Âêç„Å´Êï∞ÂÄ§„ÇíÊÆã„Åù„ÅÜ
-    // „É¢„Éá„É´Âêç„Åã„Çâ„Éï„Çø„Éº„Ç≤„ÉÉ„ÉàÊï∞„ÇíÂèñÂæó
+    // â∫à é¿ëïÉNÉâÉXÇ™éwíËÇ∑ÇÈÉÇÉfÉãñºÇÕ"M/4/xxxxx"Ç∆Ç¢Ç§å`éÆÇ≈ÅAGgafDx9ModelManagerÇÕ
+    // "M"Ç©ÇÁGgafDx9MorphMeshModelÇ∆îªífÇµÅA"M"ÇéÊÇËèúÇ¢ÇΩ"4/XXXX"ÇÉÇÉfÉãñºÇ∆ÇµÇƒàµÇ§ÅB
+    // prm_model_name Ç…ÇÕ "4/XXXX" Ç™ÅAìnÇ¡ÇƒÇ≠ÇÈÅB
+    // ÉvÉâÉCÉ}ÉäÇÃÉÅÉbÉVÉÖÇ™1ÅAÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÇÃÉÅÉbÉVÉÖÇ™4Ç¬Ç∆Ç¢Ç§à”ñ°
+    // ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgêîÇ™à·Ç§ÉÇÉfÉãÇÕÅAï ÉÇÉfÉãÇ∆Ç¢Ç§àµÇ¢Ç…Ç∑ÇÈÇΩÇﬂÅAÉÇÉfÉãñºÇ…êîílÇécÇªÇ§
+    // ÉÇÉfÉãñºÇ©ÇÁÉtÉ^Å[ÉQÉbÉgêîÇéÊìæ
     _TRACE_("GgafDx9MorphMeshModel prm_model_name="<<prm_model_name);
     char nm[51];
     strcpy(nm, prm_model_name);
@@ -23,15 +23,15 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _TRACE_("GgafDx9MorphMeshModel „É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„ÉàÊï∞„ÅØÊåáÂÆö„Å™„Åó„ÄÅ„Çà„Å£„Å¶0ÂÄã„Å®„Åó„Åæ„Åô");
+        _TRACE_("GgafDx9MorphMeshModel ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgêîÇÕéwíËÇ»ÇµÅAÇÊÇ¡Çƒ0å¬Ç∆ÇµÇ‹Ç∑");
         _morph_target_num = 0;
     } else {
         _morph_target_num = num;
-        _TRACE_("GgafDx9MorphMeshModel „É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„ÉàÊï∞„ÅØÊåáÂÆö„ÅÇ„Çä„ÄÅ_morph_target_num="<<_morph_target_num);
+        _TRACE_("GgafDx9MorphMeshModel ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgêîÇÕéwíËÇ†ÇËÅA_morph_target_num="<<_morph_target_num);
     }
-    //_morph_target_num = (int)(*prm_model_name - '0'); //È†≠‰∏ÄÊñáÂ≠ó„ÅÆÂçäËßíÊï∞Â≠óÊñáÂ≠ó„ÇíÊï∞ÂÄ§„Å´
+    //_morph_target_num = (int)(*prm_model_name - '0'); //ì™àÍï∂éöÇÃîºäpêîéöï∂éöÇêîílÇ…
     if (_morph_target_num > 6) {
-        _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel „É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„ÉàÊï∞„ÅØÊúÄÂ§ß6ÂÄã„Åæ„Åß„Åß„Åô„ÄÇ_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
+        _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgêîÇÕç≈ëÂ6å¬Ç‹Ç≈Ç≈Ç∑ÅB_morph_target_num="<<_morph_target_num<<"/_model_name="<<_model_name);
         _morph_target_num = 6;
     }
     _papModel3D = NULL;
@@ -45,90 +45,90 @@ GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(char* prm_model_name) : GgafDx9Mode
     _papaVtxBuffer_org_morph = NULL;
     _paIdxBuffer_org = NULL;
     _paIndexParam = NULL;
-    //„Éá„Éê„Ç§„Ç§„Çπ„É≠„Çπ„ÉàÂØæÂøú„Å®ÂÖ±ÈÄö„Å´„Åô„Çã„Åü„ÇÅ„ÄÅ„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÄÅÈ†ÇÁÇπ„ÄÅ„Éû„ÉÜ„É™„Ç¢„É´„Å™„Å©„ÅÆÂàùÊúüÂåñ„ÅØ
+    //ÉfÉoÉCÉCÉXÉçÉXÉgëŒâûÇ∆ã§í Ç…Ç∑ÇÈÇΩÇﬂÅAÉeÉNÉXÉ`ÉÉÅAí∏ì_ÅAÉ}ÉeÉäÉAÉãÇ»Ç«ÇÃèâä˙âªÇÕ
     //void GgafDx9ModelManager::restoreMorphMeshModel(GgafDx9MorphMeshModel*)
-    //„ÅßË°å„ÅÜ„Çà„ÅÜ„Å´„Åó„Åü„ÄÇ
+    //Ç≈çsÇ§ÇÊÇ§Ç…ÇµÇΩÅB
     _TRACE_("GgafDx9MorphMeshModel::GgafDx9MorphMeshModel(" << _model_name << ") End");
 }
 
 HRESULT GgafDx9MorphMeshModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //„É¢„Éá„É´‰ΩúÊàêÊôÇ„ÅÆÂàùÊúüÂá¶ÁêÜ
+        prm_pActor_Target->onCreateModel(); //ÉÇÉfÉãçÏê¨éûÇÃèâä˙èàóù
         _is_init_model = true;
     }
-    //ÂØæË±°„Ç¢„ÇØ„Çø„Éº
+    //ëŒè€ÉAÉNÉ^Å[
     static GgafDx9MorphMeshActor* pTargetActor;
     pTargetActor = (GgafDx9MorphMeshActor*)prm_pActor_Target;
-    //ÂØæË±°„Ç¢„ÇØ„Çø„Éº„ÅÆ„Ç®„Éï„Çß„ÇØ„Éà„É©„ÉÉ„Éë
+    //ëŒè€ÉAÉNÉ^Å[ÇÃÉGÉtÉFÉNÉgÉâÉbÉp
     static GgafDx9MorphMeshEffect* pMorphMeshEffect;
     pMorphMeshEffect = pTargetActor->_pMorphMeshEffect;
-    //ÂØæË±°„Ç®„Éï„Çß„ÇØ„Éà
+    //ëŒè€ÉGÉtÉFÉNÉg
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pMorphMeshEffect->_pID3DXEffect;
 
     HRESULT hr;
     UINT material_no;
-    //È†ÇÁÇπ„Éê„ÉÉ„Éï„Ç°Ë®≠ÂÆö
+    //í∏ì_ÉoÉbÉtÉ@ê›íË
     if (GgafDx9ModelManager::_pModelLastDraw != this) {
-        GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //È†ÇÁÇπ„Éï„Ç©„Éº„Éû„ÉÉ„Éà
+        GgafDx9God::_pID3DDevice9->SetVertexDeclaration( _pIDirect3DVertexDeclaration9); //í∏ì_ÉtÉHÅ[É}ÉbÉg
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9_primary, 0, _size_vertex_unit_primary);
         for (int i = 1; i <= _morph_target_num; i++) {
             GgafDx9God::_pID3DDevice9->SetStreamSource(i, _paIDirect3DVertexBuffer9_morph[i-1], 0, _size_vertex_unit_morph);
         }
-        //„Ç§„É≥„Éá„ÉÉ„ÇØ„Çπ„Éê„ÉÉ„Éï„Ç°Ë®≠ÂÆö
+        //ÉCÉìÉfÉbÉNÉXÉoÉbÉtÉ@ê›íË
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hPowerBlink) „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hPowerBlink) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         hr = pID3DXEffect->SetFloat(pMorphMeshEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hBlinkThreshold) „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() SetFloat(_hBlinkThreshold) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
     }
 
-    //ÊèèÁîª
+    //ï`âÊ
     for (UINT i = 0; i < _nMaterialListGrp; i++) {
         material_no = _paIndexParam[i].MaterialNo;
         if (GgafDx9ModelManager::_pModelLastDraw != this || _nMaterialListGrp != 1) {
             if (_papTextureCon[material_no] != NULL) {
-                //„ÉÜ„ÇØ„Çπ„ÉÅ„É£„Çís0„É¨„Ç∏„Çπ„Çø„Å´„Çª„ÉÉ„Éà
+                //ÉeÉNÉXÉ`ÉÉÇs0ÉåÉWÉXÉ^Ç…ÉZÉbÉg
                 GgafDx9God::_pID3DDevice9->SetTexture(0, _papTextureCon[material_no]->view()->_pIDirect3DTexture9);
             } else {
-                _TRACE_("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") „ÉÜ„ÇØ„Çπ„ÉÅ„É£„Åå„ÅÇ„Çä„Åæ„Åõ„Çì„ÄÇwhite.png„ÅåË®≠ÂÆö„Åï„Çå„Çã„Åπ„Åç„Åß„Åô„ÄÇ„Åä„Åã„Åó„ÅÑ„Åß„Åô");
-                //ÁÑ°„Åë„Çå„Å∞„ÉÜ„ÇØ„Çπ„ÉÅ„É£ÁÑ°„Åó
+                _TRACE_("GgafDx9MorphMeshModel::draw("<<prm_pActor_Target->getName()<<") ÉeÉNÉXÉ`ÉÉÇ™Ç†ÇËÇ‹ÇπÇÒÅBwhite.pngÇ™ê›íËÇ≥ÇÍÇÈÇ◊Ç´Ç≈Ç∑ÅBÇ®Ç©ÇµÇ¢Ç≈Ç∑");
+                //ñ≥ÇØÇÍÇŒÉeÉNÉXÉ`ÉÉñ≥Çµ
                 GgafDx9God::_pID3DDevice9->SetTexture(0, NULL);
             }
         }
         hr = pID3DXEffect->SetValue(pMorphMeshEffect->_hMaterialDiffuse, &(pTargetActor->_paD3DMaterial9[material_no].Diffuse), sizeof(D3DCOLORVALUE) );
-        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+        checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()SetValue(g_MaterialDiffuse) Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
         if ((GgafDx9EffectManager::_pEffect_Active != pMorphMeshEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique) && i == 0) {
             if (GgafDx9EffectManager::_pEffect_Active != NULL) {
                 TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-                checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() EndPass() „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+                checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() EndPass() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
                 hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-                checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() End() „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+                checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() End() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
             }
 
             TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-            checkDxException(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+            checkDxException(hr, S_OK, "GgafDx9MorphMeshModel::draw() SetTechnique("<<pTargetActor->_technique<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
 
 
             TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
             UINT numPass;
             hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() Begin() „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
-            //„É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„Éà„ÅÆÊï∞„Å´„Çà„Çä pass „ÇíÂàá„ÇäÊõø„Åà„Å¶„ÅÑ„Çã
-            //„Éó„É™„Éû„É™„É°„ÉÉ„Ç∑„É•„ÅÆ„Åø                             = pass0
-            //„Éó„É©„Ç§„Éû„É™„É°„ÉÉ„Ç∑„É•Ôºã„É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„Éà„É°„ÉÉ„Ç∑„É•Ôºë„Å§ = pass1
-            //„Éó„É©„Ç§„Éû„É™„É°„ÉÉ„Ç∑„É•Ôºã„É¢„Éº„Éï„Çø„Éº„Ç≤„ÉÉ„Éà„É°„ÉÉ„Ç∑„É•Ôºí„Å§ = pass2
-            //‰ª•‰∏ãÊúÄÂ§ßÔºô„Åæ„Åß
+            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() Begin() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
+            //ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÇÃêîÇ…ÇÊÇË pass ÇêÿÇËë÷Ç¶ÇƒÇ¢ÇÈ
+            //ÉvÉäÉ}ÉäÉÅÉbÉVÉÖÇÃÇ›                             = pass0
+            //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇPÇ¬ = pass1
+            //ÉvÉâÉCÉ}ÉäÉÅÉbÉVÉÖÅ{ÉÇÅ[ÉtÉ^Å[ÉQÉbÉgÉÅÉbÉVÉÖÇQÇ¬ = pass2
+            //à»â∫ç≈ëÂÇXÇ‹Ç≈
             hr = pID3DXEffect->BeginPass(_morph_target_num);
-            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() BeginPass("<<_morph_target_num<<") „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw() BeginPass("<<_morph_target_num<<") Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         } else {
             hr = pID3DXEffect->CommitChanges();
-            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()CommitChanges() „Å´Â§±Êïó„Åó„Åæ„Åó„Åü„ÄÇ");
+            checkDxException(hr, D3D_OK, "GgafDx9MorphMeshModel::draw()CommitChanges() Ç…é∏îsÇµÇ‹ÇµÇΩÅB");
         }
 
         TRACE4("DrawIndexedPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pMorphMeshEffect->_effect_name);
@@ -161,7 +161,7 @@ void GgafDx9MorphMeshModel::onDeviceLost() {
 void GgafDx9MorphMeshModel::release() {
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " start");
 
-    //„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÇíËß£Êîæ
+    //ÉeÉNÉXÉ`ÉÉÇâï˙
     if (_papTextureCon) {
         for (DWORD i = 0; i < _dwNumMaterials; i++) {
             if (_papTextureCon[i]) {
@@ -169,7 +169,7 @@ void GgafDx9MorphMeshModel::release() {
             }
         }
     }
-    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //„ÉÜ„ÇØ„Çπ„ÉÅ„É£„ÅÆÈÖçÂàó
+    DELETEARR_IMPOSSIBLE_NULL(_papTextureCon); //ÉeÉNÉXÉ`ÉÉÇÃîzóÒ
 
     for (int pattern = 0; pattern <= _morph_target_num; pattern++) {
         if (pattern == 0) {
@@ -184,7 +184,7 @@ void GgafDx9MorphMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIDirect3DVertexBuffer9_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papaVtxBuffer_org_morph);
     DELETEARR_IMPOSSIBLE_NULL(_papModel3D);
-    //_papMeshesFront[0],_papMeshesFront[1] „ÅØ _papModel3D „ÇíDELETE„Åó„Å¶„ÅÑ„Çã„ÅÆ„Åß„Åô„ÇãÂøÖË¶Å„ÅØÁÑ°„ÅÑ
+    //_papMeshesFront[0],_papMeshesFront[1] ÇÕ _papModel3D ÇDELETEÇµÇƒÇ¢ÇÈÇÃÇ≈Ç∑ÇÈïKóvÇÕñ≥Ç¢
     DELETEARR_IMPOSSIBLE_NULL(_papMeshesFront);
     _papMeshesFront = NULL;
 
@@ -193,7 +193,7 @@ void GgafDx9MorphMeshModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_paIdxBuffer_org);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
 
-    //TODO:Ë¶™„ÇØ„É©„Çπ„É°„É≥„Éê„ÇíDELETE„Åô„Çã„ÅÆ„ÅØ„ÇÑ„ÇÑ„Åç„Åü„Å™„ÅÑ„Åã
+    //TODO:êeÉNÉâÉXÉÅÉìÉoÇDELETEÇ∑ÇÈÇÃÇÕÇ‚Ç‚Ç´ÇΩÇ»Ç¢Ç©
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9MorphMeshModel::release() " << _model_name << " end");
 

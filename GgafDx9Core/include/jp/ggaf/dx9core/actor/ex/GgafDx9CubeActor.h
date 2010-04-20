@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9CUBEACTORD_H_
+#ifndef GGAFDX9CUBEACTORD_H_
 #define GGAFDX9CUBEACTORD_H_
 namespace GgafDx9Core {
 
 /**
- * ã‚­ãƒ¥ãƒ¼ãƒ–ã‚¢ã‚¯ã‚¿ãƒ¼.
- * GgafDx9GeometricActor ã‚’ç¶™æ‰¿ã—ã€ã‚­ãƒ¥ãƒ¼ãƒ–ï¼ˆç›´æ–¹ä½“ï¼‰ã‚’è¡¨ç¤ºã™ã‚‹ãŸã‚ã®ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚<BR>
- * Xãƒ•ã‚¡ã‚¤ãƒ«ã¯ã€é•·ã•ï¼‘pxç›¸å½“ã®ç«‹æ–¹ä½“(ä¸­å¿ƒã¯(0,0,0))ã®ãƒ¡ãƒƒã‚·ãƒ¥ã‚’èª­ã¿è¾¼ã¾ã›ã¦ãã ã•ã„ã€‚
+ * ƒLƒ…[ƒuƒAƒNƒ^[.
+ * GgafDx9GeometricActor ‚ğŒp³‚µAƒLƒ…[ƒui’¼•û‘Ìj‚ğ•\¦‚·‚é‚½‚ß‚ÌƒAƒNƒ^[‚Å‚·B<BR>
+ * Xƒtƒ@ƒCƒ‹‚ÍA’·‚³‚Ppx‘Š“–‚Ì—§•û‘Ì(’†S‚Í(0,0,0))‚ÌƒƒbƒVƒ…‚ğ“Ç‚İ‚Ü‚¹‚Ä‚­‚¾‚³‚¢B
  * @version 1.00
  * @since 2008/10/10
  * @author Masatoshi Tsuge
@@ -17,13 +17,13 @@ public:
                      GgafDx9Checker* prm_pChecker);
 
 ///**
-//     * ï¼œOverRide ã§ã™ï¼<BR>
+//     * ƒOverRide ‚Å‚·„<BR>
 //     */
 //    virtual void processDraw();
 //
     void drawBox(int prm_x1, int prm_y1, int prm_z1, int prm_x2, int prm_y2, int prm_z2);
 
-    virtual ~GgafDx9CubeActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9CubeActor(); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

@@ -1,11 +1,11 @@
-ï»¿#ifndef FORMATIONACTOR_H_
+#ifndef FORMATIONACTOR_H_
 #define FORMATIONACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ãƒ•ã‚©ãƒ¼ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹ .
- * processJudgement()ã‚’å®Ÿè£…æ¸ˆã¿ã®ãŸã‚ã€
- * ç¶™æ‰¿ã‚¯ãƒ©ã‚¹ã¯processJudgement()ä½¿ç”¨æ™‚æ³¨æ„ã™ã‚‹ã“ã¨ã€‚
+ * ƒtƒH[ƒ[ƒVƒ‡ƒ“ƒAƒNƒ^[ƒNƒ‰ƒX .
+ * processJudgement()‚ğÀ‘•Ï‚İ‚Ì‚½‚ßA
+ * Œp³ƒNƒ‰ƒX‚ÍprocessJudgement()g—p’ˆÓ‚·‚é‚±‚ÆB
  * @version 1.00
  * @since 2008/08/08
  * @author Masatoshi Tsuge
@@ -13,13 +13,13 @@ namespace GgafDx9LibStg {
 class FormationActor : public GgafDx9Core::GgafDx9GeometricActor {
 private:
     /**
-     * ã‚µãƒ–ãŒç„¡ã‘ã‚Œã°æ­»
+     * ƒTƒu‚ª–³‚¯‚ê‚Î€
      */
     virtual void processJudgement() override {
         if (getSubFirst() == NULL) {
             _TRACE_("FormationActor["<<getName()<<" sayonara("<<_frame_offset_sayonara<<")!!!!!!!!!!!!");
             inactivate();
-            sayonara(_frame_offset_sayonara);//20ç§’å¾Œé–‹æ”¾
+            sayonara(_frame_offset_sayonara);//20•bŒãŠJ•ú
         }
     }
 
@@ -48,10 +48,10 @@ public:
     }
 
     /**
-     * ãƒ¡ãƒ³ãƒãƒ¼ã®ç™»éŒ²ã—ã¾ã™.
-     * å…·ä½“çš„ã«ã¯ã€addSubLast() ã‚’å‘¼ã³å‡ºã—ã€ç¨®åˆ¥ã‚’å¼•ãç¶™ãã¾ã™ã€‚
-     * æœ€åˆã«ç™»éŒ²ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ãŒã€ãƒ•ã‚©ãƒ¼ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã®ç¨®åˆ¥ã¨ãªã‚‹ãŸã‚ã€åŒã˜ç¨®åˆ¥ã‚’addSubLastã—ã¦ãã ã•ã„ã€‚
-     * @param prm_pSub ç™»éŒ²ã‚¢ã‚¯ã‚¿ãƒ¼
+     * ƒƒ“ƒo[‚Ì“o˜^‚µ‚Ü‚·.
+     * ‹ï‘Ì“I‚É‚ÍAaddSubLast() ‚ğŒÄ‚Ño‚µAí•Ê‚ğˆø‚«Œp‚¬‚Ü‚·B
+     * Å‰‚É“o˜^‚µ‚½ƒAƒNƒ^[‚ªAƒtƒH[ƒ[ƒVƒ‡ƒ“‚Ìí•Ê‚Æ‚È‚é‚½‚ßA“¯‚¶í•Ê‚ğaddSubLast‚µ‚Ä‚­‚¾‚³‚¢B
+     * @param prm_pSub “o˜^ƒAƒNƒ^[
      */
     virtual void addSubLast(GgafCore::GgafActor* prm_pSub);
 

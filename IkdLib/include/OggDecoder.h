@@ -1,4 +1,4 @@
-ï»¿// OggDecoder.h
+// OggDecoder.h
 //
 
 #ifndef IKD_DIX_OGGDECODER_H
@@ -16,19 +16,19 @@ namespace Dix {
 		OggDecoder( sp< OggVorbisResource > oggVorbisResource );
 		virtual ~OggDecoder();
 
-		//! ã‚¯ãƒªã‚¢
+		//! ƒNƒŠƒA
 		virtual void clear();
 
-		//! ã‚»ã‚°ãƒ¡ãƒ³ãƒˆå–å¾—
+		//! ƒZƒOƒƒ“ƒgæ“¾
 		virtual bool getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd );
 
-		//! é ­å‡ºã—
+		//! “ªo‚µ
 		virtual void setHead();
 
-		//! å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
+		//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğ¶¬
 		virtual sp< PCMDecoder > createClone();
 
-		//! ã‚µã‚¦ãƒ³ãƒ‰ã‚’ã‚»ãƒƒãƒˆ
+		//! ƒTƒEƒ“ƒh‚ğƒZƒbƒg
 		virtual bool setResource( sp< OggVorbisResource > oggVorbisResource );
 
 	protected:

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -41,27 +41,27 @@ GgafDx9FixedVelocitySplineProgram::GgafDx9FixedVelocitySplineProgram(double prm_
 
 void GgafDx9FixedVelocitySplineProgram::init() {
 
-    //å„ç‚¹ã®æ™‚ç‚¹ã®ã€è·é›¢ã¨å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’äºˆã‚å…¨éƒ¨æ±‚ã‚ã¦ãŠã
+    //Še“_‚Ì“_‚ÌA‹——£‚Æ•K—v‚ÈƒtƒŒ[ƒ€”‚ğ—\‚ß‘S•”‹‚ß‚Ä‚¨‚­
 
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
-    // prm_point_num = 3          //åŸºç‚¹ã®æ•°
-    // prm_accuracy = 0.25(=1/4)  //è£œå®Œç‚¹ç²¾åº¦
+    // prm_point_num = 3          //Šî“_‚Ì”
+    // prm_accuracy = 0.25(=1/4)  //•âŠ®“_¸“x
     //
-    // ã®å ´åˆã€ä¸‹å›³ã®ã‚ˆã†ã«ãªã‚Šã¾ã™ã€‚
+    // ‚Ìê‡A‰º}‚Ì‚æ‚¤‚É‚È‚è‚Ü‚·B
     //
-    // X:åŸºç‚¹
-    // o:åŸºç‚¹é–“ã®è£œå®Œç‚¹ï¼ˆã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šé€šéç‚¹ï¼‰
-    // X--o: ç§»å‹•äºˆå®šã®åº§æ¨™ç·š
-    // _paDistace_to[] : ç¾åœ¨ã®è£œå®Œç‚¹ã‹ã‚‰ã€æ¬¡ã®è£œå®Œç‚¹ã¾ã§ã®è·é›¢
-    // _paFrame_need_at[] : å§‹ç‚¹ã‹ã‚‰è£œå®Œç‚¹åˆ°é”ã«å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã®é…åˆ—
+    // X:Šî“_
+    // o:Šî“_ŠÔ‚Ì•âŠ®“_iƒXƒvƒ‰ƒCƒ“‹Èü’Ê‰ß“_j
+    // X--o: ˆÚ“®—\’è‚ÌÀ•Wü
+    // _paDistace_to[] : Œ»İ‚Ì•âŠ®“_‚©‚çAŸ‚Ì•âŠ®“_‚Ü‚Å‚Ì‹——£
+    // _paFrame_need_at[] : n“_‚©‚ç•âŠ®“_“’B‚É•K—v‚ÈƒtƒŒ[ƒ€”‚Ì”z—ñ
     //
-    // sp._rnum ã¯åˆè¨ˆã®ç‚¹ã®æ•°ã‚’è¿”ã™ã€‚ã—ãŸãŒã£ã¦ sp._rnum = 9 ã«ãªã‚‹ã€‚
-    // prm_accuracy ãŒç¶ºéº—ãªåˆ†æ•°ã«ãªã‚‰ãªã„å ´åˆã€åŸºç‚¹ä¸Šã«è£œå®Œç‚¹ãŒç¹°ã‚‹ã‹ã¨ã‹ã€å…¨ç„¶ã‚ã‹ã‚‰ãªã„ã®ã§ã€sp._rnumã‚’å¿…ãšä½¿ç”¨ã›ã‚ˆ
-    // ä¸‹å›³ã¯ç¶ºéº—ã«é‡ãªã£ãŸå ´åˆã®å›³ã§ã‚ã‚‹ã€‚
+    // sp._rnum ‚Í‡Œv‚Ì“_‚Ì”‚ğ•Ô‚·B‚µ‚½‚ª‚Á‚Ä sp._rnum = 9 ‚É‚È‚éB
+    // prm_accuracy ‚ªãY—í‚È•ª”‚É‚È‚ç‚È‚¢ê‡AŠî“_ã‚É•âŠ®“_‚ªŒJ‚é‚©‚Æ‚©A‘S‘R‚í‚©‚ç‚È‚¢‚Ì‚ÅAsp._rnum‚ğ•K‚¸g—p‚¹‚æ
+    // ‰º}‚ÍãY—í‚Éd‚È‚Á‚½ê‡‚Ì}‚Å‚ ‚éB
     //
-    //                           ï¼œé€Ÿã•ã¯  _veloMvUnit = 1000ï¼
+    //                           ƒ‘¬‚³‚Í  _veloMvUnit = 1000„
     //
-    //               _paFrame_need_at[1] å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°
+    //               _paFrame_need_at[1] •K—v‚ÈƒtƒŒ[ƒ€”
     //                     ||              _paFrame_need_at[5]
     //                   <--->                      ||                 _paFrame_need_at[8]
     //                   <----------------------------->                      ||
@@ -83,11 +83,11 @@ void GgafDx9FixedVelocitySplineProgram::init() {
     //   = (1000,2000,3000)             = (2000,1000,0)                    = (3900, 0, 1000)
     //
     //                 <--------------------------------------------------------->
-    //                         ãšã£ã¨ veloMoveUnit ã®é€Ÿåº¦ã§ç§»å‹•ã¨ã—ãŸå ´åˆã‚’è¨ˆç®—
+    //                         ‚¸‚Á‚Æ veloMoveUnit ‚Ì‘¬“x‚ÅˆÚ“®‚Æ‚µ‚½ê‡‚ğŒvZ
     //
 
 
-    _veloMvUnit = LEN_UNIT; //é€Ÿåº¦1000ã¨ã—ãŸå ´åˆã®ã€å„åŒºé–“ã®ãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ±‚ã‚ã‚‹
+    _veloMvUnit = LEN_UNIT; //‘¬“x1000‚Æ‚µ‚½ê‡‚ÌAŠe‹æŠÔ‚ÌƒtƒŒ[ƒ€”‚ğ‹‚ß‚é
     _paDistace_to = NEW int[_sp->_rnum];
     _paFrame_need_at = NEW float[_sp->_rnum];
 
@@ -116,8 +116,8 @@ void GgafDx9FixedVelocitySplineProgram::init() {
                                     z_to
                                  );
 
-        //è·é›¢ paDistaceTo[t] ã‚’ã€é€Ÿåº¦ _veloMvUnit(=1000) ã§ç§»å‹•ã™ã‚‹ã®ã«å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ±‚ã‚ã‚‹ã€‚
-        //æ™‚é–“ï¼è·é›¢Ã·é€Ÿã•
+        //‹——£ paDistaceTo[t] ‚ğA‘¬“x _veloMvUnit(=1000) ‚ÅˆÚ“®‚·‚é‚Ì‚É•K—v‚ÈƒtƒŒ[ƒ€”‚ğ‹‚ß‚éB
+        //ŠÔ‹——£€‘¬‚³
         _paFrame_need_at[t] = _paFrame_need_at[t-1] + (float)(1.0*_paDistace_to[t] / _veloMvUnit);
 
     }
@@ -149,17 +149,17 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
         GgafDx9GeometryMover* _pActorMover = _pActor_target->_pMover;
 
 
-        //å¤‰ã‚ã‚Šç›®
+        //•Ï‚í‚è–Ú
         if (_fFrame_executing >= _fFrame_next_point) {
 
 
             if (_option == 1) {
-                //ç›¸å¯¾åº§æ¨™ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+                //‘Š‘ÎÀ•Wƒ^[ƒQƒbƒg
                 _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index] - _X_relative,
                                                             _sp->_Y_compute[_point_index] - _Y_relative,
                                                             _sp->_Z_compute[_point_index] - _Z_relative);
             } else {
-                //çµ¶å¯¾åº§æ¨™ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+                //â‘ÎÀ•Wƒ^[ƒQƒbƒg
                 _pActorMover->setStopTarget_RzRyMvAng(_sp->_X_compute[_point_index],
                                                             _sp->_Y_compute[_point_index],
                                                             _sp->_Z_compute[_point_index]);
@@ -177,7 +177,7 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
 
 
             if (_point_index == 0) {
-                //å§‹ç‚¹ã¸è¡Œãï¼
+                //n“_‚Ös‚­I
                 _paDistace_to[0] = GgafDx9Util::getDistance(
                                         (double)_pActor_target->_X,
                                         (double)_pActor_target->_Y,
@@ -186,25 +186,25 @@ void GgafDx9FixedVelocitySplineProgram::behave() {
                                         _sp->_Y_compute[0],
                                         _sp->_Z_compute[0]
                                      );
-                //å§‹ç‚¹ã¾ã§ã«å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°å–å¾—
+                //n“_‚Ü‚Å‚É•K—v‚ÈƒtƒŒ[ƒ€”æ“¾
                 _paFrame_need_at[0] =  (float)(1.0*_paDistace_to[0] / _veloMvUnit);
                 _fFrame_next_point = _paFrame_need_at[0];
             } else {
-                //æ¬¡ã®è£œå®Œç‚¹ã¾ã§ã«å¿…è¦ãªãƒ•ãƒ¬ãƒ¼ãƒ æ•°ã‚’æ›´æ–°
+                //Ÿ‚Ì•âŠ®“_‚Ü‚Å‚É•K—v‚ÈƒtƒŒ[ƒ€”‚ğXV
                 _fFrame_next_point = _paFrame_need_at[0] + _paFrame_need_at[_point_index];
             }
 
             _point_index++;
             if ( _point_index == _sp->_rnum) {
-                //çµ‚äº†
+                //I—¹
                 _is_executing = false;
                 return;
             }
         }
 
-        //ã‚­ãƒ£ãƒ©ã®é€Ÿåº¦ãŒ1000ãªã‚‰ã°ã€_fFrame_executing ++;
-        //ã‚­ãƒ£ãƒ©ã®é€Ÿåº¦ãŒ2000ãªã‚‰ã°  _fFrame_executing += 2.0;
-        //ã‚­ãƒ£ãƒ©ã®é€Ÿåº¦ãŒ500ãªã‚‰ã°ã€ _fFrame_executing += 0.5
+        //ƒLƒƒƒ‰‚Ì‘¬“x‚ª1000‚È‚ç‚ÎA_fFrame_executing ++;
+        //ƒLƒƒƒ‰‚Ì‘¬“x‚ª2000‚È‚ç‚Î  _fFrame_executing += 2.0;
+        //ƒLƒƒƒ‰‚Ì‘¬“x‚ª500‚È‚ç‚ÎA _fFrame_executing += 0.5
         _fFrame_executing = _fFrame_executing +  (1.0*_pActorMover->_veloMv / LEN_UNIT);
     }
 

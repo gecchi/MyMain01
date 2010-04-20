@@ -1,4 +1,4 @@
-ï»¿#ifndef ENEMYSHOTSPRITEACTOR_H_
+#ifndef ENEMYSHOTSPRITEACTOR_H_
 #define ENEMYSHOTSPRITEACTOR_H_
 namespace MyStg2nd {
 
@@ -6,28 +6,28 @@ class EnemyShotSpriteActor : public DefaultSpriteEnemyActor {
 
 //    DefaultSpriteEffectActor* _pEffectBegin;
 //    DefaultSpriteEffectActor* _pEffectFinish;
-    int _iProgress; //é€²ã¿å…·åˆ
+    int _iProgress; //i‚İ‹ï‡
 
 public:
     EnemyShotSpriteActor(const char* prm_name, const char* prm_model);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     virtual void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     virtual void processBehavior() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     virtual void processJudgement() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     virtual void onHit(GgafActor* prm_pOtherActor);
 

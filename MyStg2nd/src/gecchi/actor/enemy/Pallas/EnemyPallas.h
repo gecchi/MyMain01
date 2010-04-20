@@ -1,8 +1,8 @@
-ï»¿#ifndef ENEMYPALLAS_H_
+#ifndef ENEMYPALLAS_H_
 #define ENEMYPALLAS_H_
 namespace MyStg2nd {
 
-//ãƒ‘ãƒ©ã‚¹
+//ƒpƒ‰ƒX
 class EnemyPallas : public GgafDx9LibStg::DefaultMeshSetActor {
 
 public:

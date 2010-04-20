@@ -1,4 +1,4 @@
-ï»¿#ifndef GGAFDX9CRITICALEXCEPTION_H_
+#ifndef GGAFDX9CRITICALEXCEPTION_H_
 #define GGAFDX9CRITICALEXCEPTION_H_
 namespace GgafDx9Core {
 
@@ -16,8 +16,8 @@ namespace GgafDx9Core {
 
 
 /**
- * GgafDxCoreãƒ©ã‚¤ãƒ–ãƒ©ãƒªå°‚ç”¨ã€ãƒ©ã‚¤ãƒ–ãƒ©ãƒªæ¥­å‹™ä¾‹å¤– .
- * GgafDxCoreãƒ©ã‚¤ãƒ–ãƒ©ãƒªã®åˆ©ç”¨è€…ï¼ˆç§ã ã‘?ï¼‰ã¯æœ¬ã‚¯ãƒ©ã‚¹ã‚’ã‚­ãƒ£ãƒƒãƒã—ã¦ãƒ—ãƒ­ã‚°ãƒ©ãƒ ã‚’ã‚¹ãƒˆãƒƒãƒ—ã—ã¦ä¸‹ã•ã„ã€‚
+ * GgafDxCoreƒ‰ƒCƒuƒ‰ƒŠê—pAƒ‰ƒCƒuƒ‰ƒŠ‹Æ–±—áŠO .
+ * GgafDxCoreƒ‰ƒCƒuƒ‰ƒŠ‚Ì—˜—pÒi„‚¾‚¯?j‚Í–{ƒNƒ‰ƒX‚ğƒLƒƒƒbƒ`‚µ‚ÄƒvƒƒOƒ‰ƒ€‚ğƒXƒgƒbƒv‚µ‚Ä‰º‚³‚¢B
  * @version 1.00
  * @since 2008/11/12
  * @author Masatoshi Tsuge
@@ -26,7 +26,7 @@ class GgafDx9CriticalException : public GgafCore::GgafCriticalException {
 public:
     HRESULT _hr;
     GgafDx9CriticalException(std::string prm_message, HRESULT prm_hr);
-    //ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+    //ƒI[ƒo[ƒ‰ƒCƒh
     virtual std::string getMsg();
     virtual ~GgafDx9CriticalException();
 };

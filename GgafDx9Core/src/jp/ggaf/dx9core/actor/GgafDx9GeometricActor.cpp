@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -53,18 +53,18 @@ void GgafDx9GeometricActor::processPreJudgement() {
     _wasCalc_matInvWorldRotMv = false;
 
     if (_pActor_Base) {
-        //åœŸå°ã‚ã‚Šæ™‚ãƒ­ãƒ¼ã‚«ãƒ«åº§æ¨™ã«ä¸€æ—¦æˆ»ã™
+        //“y‘ä‚ ‚èƒ[ƒJƒ‹À•W‚Éˆê’U–ß‚·
         chengeGeoLocal();
     }
 
-    //DirectXã®å˜ä½ã«åº§æ¨™ã‚’å¤‰æ›ã—ã¦ãŠãï¼ˆWorldå¤‰æ›è¡Œåˆ—ä½œæˆæ™‚ã«ã‚‚ä½¿ç”¨ã•ã‚Œã¾ã™ï¼‰
+    //DirectX‚Ì’PˆÊ‚ÉÀ•W‚ğ•ÏŠ·‚µ‚Ä‚¨‚­iWorld•ÏŠ·s—ñì¬‚É‚àg—p‚³‚ê‚Ü‚·j
     _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
     _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
     _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-    //Worldå¤‰æ›è¡Œåˆ—ï¼ˆ_matWorldï¼‰ã‚’æ›´æ–°
+    //World•ÏŠ·s—ñi_matWorldj‚ğXV
     if (_pFunc_calcWorldMatrix) {
         (*_pFunc_calcWorldMatrix)(this, _matWorldRotMv);
-        //ã‚¹ã‚±ãƒ¼ãƒ«ã‚’è€ƒæ…®
+        //ƒXƒP[ƒ‹‚ğl—¶
         if (_SX != LEN_UNIT || _SY != LEN_UNIT || _SZ != LEN_UNIT) {
            static float fRateScale = 1.0f * LEN_UNIT;
            float Sx = _SX / fRateScale;
@@ -97,11 +97,11 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
 
     if (_pActor_Base) {
-        //çµ¶å¯¾åº§æ¨™ã«å¤‰æ›
-        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //åˆæˆ
-        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //åˆæˆ
+        //â‘ÎÀ•W‚É•ÏŠ·
+        D3DXMatrixMultiply(&_matWorld, &_matWorld, &(_pActor_Base->_matWorldRotMv)); //‡¬
+        D3DXMatrixMultiply(&_matWorldRotMv, &_matWorldRotMv, &(_pActor_Base->_matWorldRotMv)); //‡¬
         chengeGeoFinal();
-        //ãƒ¯ãƒ¼ãƒ«ãƒ‰å¤‰æ›è¡Œåˆ—ã‹ã‚‰é£›è¡Œç§»å‹•ã‚’å–ã‚Šå‡ºã—æœ€çµ‚çš„ãªåº§æ¨™ã¨ã™ã‚‹
+        //ƒ[ƒ‹ƒh•ÏŠ·s—ñ‚©‚ç”òsˆÚ“®‚ğæ‚èo‚µÅI“I‚ÈÀ•W‚Æ‚·‚é
         _X = _matWorld._41*PX_UNIT*LEN_UNIT;
         _Y = _matWorld._42*PX_UNIT*LEN_UNIT;
         _Z = _matWorld._43*PX_UNIT*LEN_UNIT;
@@ -111,18 +111,18 @@ void GgafDx9GeometricActor::processPreJudgement() {
 
     }
 
-    //ï¼˜åˆ†å²
+    //‚W•ªŠò
     if (_pChecker) {
         _pChecker->updateHitArea();
     }
 
-    //ãƒ¡ãƒ³ãƒãƒ¼æ›´æ–°
+    //ƒƒ“ƒo[XV
     if (_isTransformed == false) {
-        //DirectXã®å˜ä½ã«åº§æ¨™ã‚’å¤‰æ›ã—ã¦ãŠãï¼ˆWorldå¤‰æ›è¡Œåˆ—ä½œæˆæ™‚ã«ã‚‚ä½¿ç”¨ã•ã‚Œã¾ã™ï¼‰
+        //DirectX‚Ì’PˆÊ‚ÉÀ•W‚ğ•ÏŠ·‚µ‚Ä‚¨‚­iWorld•ÏŠ·s—ñì¬‚É‚àg—p‚³‚ê‚Ü‚·j
 //        _fX = (FLOAT)(1.0f * _X / LEN_UNIT / PX_UNIT);
 //        _fY = (FLOAT)(1.0f * _Y / LEN_UNIT / PX_UNIT);
 //        _fZ = (FLOAT)(1.0f * _Z / LEN_UNIT / PX_UNIT);
-        //è¦–éŒå°
+        //‹‘ä
         _fDist_VpPlnTop    = GgafDx9Universe::_pCamera->_plnTop.a*_fX +
                              GgafDx9Universe::_pCamera->_plnTop.b*_fY +
                              GgafDx9Universe::_pCamera->_plnTop.c*_fZ +
@@ -212,12 +212,12 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 //            return false;
 //        }
 
-        //æœ¬æ¥ã¯â†‘ã®ã‚ˆã†ã«dynamic_castã™ã‚‹ã®ãŒæ±ç”¨çš„ã‹ã¤å®‰å…¨ã€‚ã—ã‹ã—ã€é€Ÿåº¦UPã®ãŸã‚ï¼ˆdynamic_castã‚’çœããŸã„ãŒãŸã‚ï¼‰ã«ã€
-        //GgafDx9GeometricActorã«æ±ºã‚æ‰“ã¡ã‚­ãƒ£ã‚¹ãƒˆã—ã¦ã„ã¾ã™ã€‚å±é™ºã§ã™ã€‚
-        //åº§æ¨™ã‚’æŒãŸãªã„ã‚¢ã‚¯ã‚¿ãƒ¼ã®_can_hit_flg ã‚’å¿˜ã‚Œãšã«falseã«ã™ã‚‹ã“ã¨ã«ã‚ˆã£ã¦ã€ã“ã“ã®å¼•æ•°ã«GgafDx9GeometricActorã«
-        //ã‚­ãƒ£ã‚¹ãƒˆã§ããªã„ãƒã‚¤ãƒ³ã‚¿ã¯æ¥ãªã„ãƒã‚ºã§ã‚ã‚‹ã€‚
-        //ã‚‚ã—ã€ä¸‡ãŒä¸€æ¥ãŸã‚‰ãƒ»ãƒ»ãƒ»ãŸã¶ã‚“è½ã¡ã‚‹ã€‚ãã®æ™‚ã«ã¾ãŸè€ƒãˆã‚‹ã€‚
-        //TODO:è€ƒãˆã‚‹ã€‚
+        //–{—ˆ‚Íª‚Ì‚æ‚¤‚Édynamic_cast‚·‚é‚Ì‚ª”Ä—p“I‚©‚ÂˆÀ‘SB‚µ‚©‚µA‘¬“xUP‚Ì‚½‚ßidynamic_cast‚ğÈ‚«‚½‚¢‚ª‚½‚ßj‚ÉA
+        //GgafDx9GeometricActor‚ÉŒˆ‚ß‘Å‚¿ƒLƒƒƒXƒg‚µ‚Ä‚¢‚Ü‚·BŠëŒ¯‚Å‚·B
+        //À•W‚ğ‚½‚È‚¢ƒAƒNƒ^[‚Ì_can_hit_flg ‚ğ–Y‚ê‚¸‚Éfalse‚É‚·‚é‚±‚Æ‚É‚æ‚Á‚ÄA‚±‚±‚Ìˆø”‚ÉGgafDx9GeometricActor‚É
+        //ƒLƒƒƒXƒg‚Å‚«‚È‚¢ƒ|ƒCƒ“ƒ^‚Í—ˆ‚È‚¢ƒnƒY‚Å‚ ‚éB
+        //‚à‚µA–œ‚ªˆê—ˆ‚½‚çEEE‚½‚Ô‚ñ—‚¿‚éB‚»‚Ì‚É‚Ü‚½l‚¦‚éB
+        //TODO:l‚¦‚éB
         return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
     }
 }
@@ -232,30 +232,30 @@ int GgafDx9GeometricActor::isOffscreen() {
                     if (_fDist_VpPlnRight <= _fBoundingSphereRadius) {
                         if (_fDist_VpPlnFront <= _fBoundingSphereRadius) {
                             if (_fDist_VpPlnBack <= _fBoundingSphereRadius) {
-                                //Viewportç¯„å›²å†…
+                                //Viewport”ÍˆÍ“à
                                 _offscreenkind = 0;
                             } else {
-                                //å¥¥å¹³é¢ã‚ˆã‚Šå¥¥ã§ç¯„å›²å¤–
+                                //‰œ•½–Ê‚æ‚è‰œ‚Å”ÍˆÍŠO
                                 _offscreenkind = 6;
                             }
                         } else {
-                            //æ‰‹å‰å¹³é¢ã‚ˆã‚Šæ‰‹å‰ã§ç¯„å›²å¤–
+                            //è‘O•½–Ê‚æ‚èè‘O‚Å”ÍˆÍŠO
                             _offscreenkind = 5;
                         }
                     } else {
-                        //å³å¹³é¢ã‚ˆã‚Šå³ã§ç¯„å›²å¤–
+                        //‰E•½–Ê‚æ‚è‰E‚Å”ÍˆÍŠO
                         _offscreenkind = 4;
                     }
                 } else {
-                    //å·¦å¹³é¢ã‚ˆã‚Šå·¦ã§ç¯„å›²å¤–
+                    //¶•½–Ê‚æ‚è¶‚Å”ÍˆÍŠO
                     _offscreenkind = 3;
                 }
             } else {
-                //ä¸‹å¹³é¢ã‚ˆã‚Šä¸‹ã§ç¯„å›²å¤–
+                //‰º•½–Ê‚æ‚è‰º‚Å”ÍˆÍŠO
                 _offscreenkind = 2;
             }
         } else {
-            //ä¸Šå¹³é¢ã‚ˆã‚Šä¸Šã§ç¯„å›²å¤–
+            //ã•½–Ê‚æ‚èã‚Å”ÍˆÍŠO
             _offscreenkind = 1;
         }
         //return (pCAM->canView(this) > 0);
@@ -292,15 +292,15 @@ void GgafDx9GeometricActor::dump() {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump("\t\t\t\t\t\t\t\tï½œ");
+            pActor_tmp->dump("\t\t\t\t\t\t\t\tb");
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã£ã¦ã¾ã™");
+                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚Á‚Ä‚Ü‚·");
                 break;
             }
             if (pActor_tmp->isFirst()) {
-                _TRACE_("\t\t\t\t\t\t\t\tâ””â”€");
+                _TRACE_("\t\t\t\t\t\t\t\t„¤„Ÿ");
                 break;
             }
         }
@@ -312,15 +312,15 @@ void GgafDx9GeometricActor::dump(string prm_parent) {
     GgafActor* pActor_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
         while (true) {
-            pActor_tmp->dump(prm_parent + "ï½œ");
+            pActor_tmp->dump(prm_parent + "b");
             if (pActor_tmp->getNext() != NULL) {
                 pActor_tmp = pActor_tmp->getNext();
             } else {
-                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã£ã¦ã¾ã™");
+                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚Á‚Ä‚Ü‚·");
                 break;
             }
             if (pActor_tmp->isFirst()) {
-                _TRACE_(prm_parent+"â””â”€");
+                _TRACE_(prm_parent+"„¤„Ÿ");
                 break;
             }
         }

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -23,7 +23,7 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
     _pScene_GameEnding = NEW GameEndingScene("GameEnding");
     addSubLast(_pScene_GameEnding);
 
-    _pScene_GameDemo->inactivate();        //æœ€åˆã®ã‚¢ã‚¯ãƒ†ã‚£ãƒ–ãªã‚µãƒ–ã‚·ãƒ¼ãƒ³ã¯ãƒ‡ãƒ¢ã‚·ãƒ¼ãƒ³
+    _pScene_GameDemo->inactivate();        //Å‰‚ÌƒAƒNƒeƒBƒu‚ÈƒTƒuƒV[ƒ“‚Íƒfƒ‚ƒV[ƒ“
     _pScene_GameBeginning->inactivate();
     _pScene_GameMain->inactivate();
     _pScene_GameEnding->inactivate();
@@ -33,14 +33,14 @@ GameScene::GameScene(const char* prm_name) : DefaultScene(prm_name) {
 }
 
 void GameScene::initialize() {
-    _TRACE_("GameScene::initialize() ã„ãã¾ã™ã‚ˆDemoSceneã•ã‚“");
+    _TRACE_("GameScene::initialize() ‚¢‚«‚Ü‚·‚æDemoScene‚³‚ñ");
     _pScene_GameDemo->reset();
     _pSceneCannel = _pScene_GameDemo;
 }
 
 void GameScene::processBehavior() {
 #ifdef MY_DEBUG
-    //ãƒ¯ã‚¤ãƒ¤ãƒ•ãƒ¬ãƒ¼ãƒ è¡¨ç¤ºåˆ‡æ›¿
+    //ƒƒCƒ„ƒtƒŒ[ƒ€•\Ž¦Ø‘Ö
     if (VB::isPushedDown(VB_UI_DEBUG)) {
         if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
@@ -50,7 +50,7 @@ void GameScene::processBehavior() {
     }
 #endif
 
-    //ã‚µãƒ–ã‚·ãƒ¼ãƒ³ã®åˆ‡æ›¿ãˆã‚„å¹³è¡Œå®Ÿè¡Œã®ãŸã‚ã®ã€åˆæœŸåŒ–ã€äº‹å‰å‡¦ç†ã€ãƒ•ãƒ©ã‚°å‡¦ç†ç­‰
+    //ƒTƒuƒV[ƒ“‚ÌØ‘Ö‚¦‚â•½sŽÀs‚Ì‚½‚ß‚ÌA‰Šú‰»AŽ–‘Oˆ—Aƒtƒ‰ƒOˆ—“™
     if (_pSceneCannel == _pScene_GameDemo) {
         if (_pScene_GameDemo->getProgressOnChange() == GAMEDEMO_PROG_BEGIN) {
             _pScene_GameBeginning->reset();
@@ -100,8 +100,8 @@ void GameScene::processBehavior() {
 }
 
 void GameScene::processJudgement() {
-    //é…ä¸‹ã®ã‚·ãƒ¼ãƒ³ã«æ‰€å±žã‚¢ã‚¯ã‚¿ãƒ¼ã®å½“ãŸã‚Šåˆ¤å®šå‡¦ç†å®Ÿè¡Œ
-    //è©³ç´°ã¯ ã‚·ãƒ¼ãƒ³Creater.xls ã® ç¨®åˆ¥ç›¸é–¢ ã‚·ãƒ¼ãƒˆ
+    //”z‰º‚ÌƒV[ƒ“‚ÉŠ‘®ƒAƒNƒ^[‚Ì“–‚½‚è”»’èˆ—ŽÀs
+    //Ú×‚Í ƒV[ƒ“Creater.xls ‚Ì Ží•Ê‘ŠŠÖ ƒV[ƒg
     if (getBehaveingFrame() >= 120) {
         CollisionChecker::_num_check = 0;
 
@@ -109,7 +109,7 @@ void GameScene::processJudgement() {
             CollisionChecker::_pLinearOctree->putTree();
         }
 
-        //å…«åˆ†æœ¨ã‚¢ãƒ«ã‚´ãƒªã‚ºãƒ ã§ãƒ’ãƒƒãƒˆãƒã‚§ãƒƒã‚¯
+        //”ª•ª–ØƒAƒ‹ƒSƒŠƒYƒ€‚Åƒqƒbƒgƒ`ƒFƒbƒN
         CollisionChecker::_pLinearOctree->executeAllHitChk(
                 KIND_MY_SHOT|KIND_MY_BODY,
                 KIND_ENEMY_BODY|KIND_OTHER|KIND_CHIKEI
@@ -151,9 +151,9 @@ void GameScene::processJudgement() {
 //              );
 
 
-//        ãƒœãƒˆãƒ«ãƒãƒƒã‚¯ã‚‚ã„ã„ã¨ã“ã‚
-//        ãªã‚“ã¨ã‹ã—ãªã‘ã‚Œã°
-//        æ˜”ã®ç›¸å½“ãŸã‚Šæ³•
+//        ƒ{ƒgƒ‹ƒlƒbƒN‚à‚¢‚¢‚Æ‚±‚ë
+//        ‚È‚ñ‚Æ‚©‚µ‚È‚¯‚ê‚Î
+//        Ì‚Ì‘Š“–‚½‚è–@
 //
 //        executeHitChkGroupActors(
 //          KIND_CHIKEI,
@@ -186,7 +186,7 @@ void GameScene::processJudgement() {
 void GameScene::processFinal() {
 
     if (getBehaveingFrame() == 120) {
-        //ãƒ‡ãƒ¢é–‹å§‹
+        //ƒfƒ‚ŠJŽn
         _pScene_GameDemo->activate();
     }
 

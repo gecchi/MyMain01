@@ -1,14 +1,14 @@
-﻿#ifndef GGAFDX9GEOMETRICACTOR_H_
+#ifndef GGAFDX9GEOMETRICACTOR_H_
 #define GGAFDX9GEOMETRICACTOR_H_
 namespace GgafDx9Core {
 
 #define MAX_SE_PER_ACTOR 10
 
 /**
- * 座標を持ったのアクター.
- * ワールド座標、或いは変換済み座標の何れかを持ち、<BR>
- * 座標関連メソッドを備えたアクターです。<BR>
- * (旧GgafDx9UntranceformedActor とGgafDx9TranceformedActor を統合)
+ * ���W���������̃A�N�^�[.
+ * ���[���h���W�A�����͕ϊ��ςݍ��W�̉��ꂩ�������A<BR>
+ * ���W�֘A���\�b�h��������A�N�^�[�ł��B<BR>
+ * (��GgafDx9UntranceformedActor ��GgafDx9TranceformedActor �𓝍�)
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
@@ -16,71 +16,71 @@ namespace GgafDx9Core {
 class GgafDx9GeometricActor : public GgafDx9BaseActor {
 
 private:
-    /** 画面外種別。isOffscreen()が内部で使用。未計算時は -1 */
+    /** ��ʊO��ʁBisOffscreen()�������Ŏg�p�B���v�Z���� -1 */
     int _offscreenkind;
 
 public:
-    /** [r] 変換済み座標であるか(true:本アクターは変換済み座標/false:本アクターはワールド座標) */
+    /** [r] �ϊ��ςݍ��W�ł��邩(true:�{�A�N�^�[�͕ϊ��ςݍ��W/false:�{�A�N�^�[�̓��[���h���W) */
     bool _isTransformed;
-    /** [r/w]ワールドX座標(画面ピクセル : _X  = 1px : 1000) */
+    /** [r/w]���[���hX���W(��ʃs�N�Z�� : _X  = 1px : 1000) */
     int _X;
-    /** [r/w]ワールドY座標(画面ピクセル : _Y  = 1px : 1000) */
+    /** [r/w]���[���hY���W(��ʃs�N�Z�� : _Y  = 1px : 1000) */
     int _Y;
-    /** [r/w]ワールドZ座標(画面ピクセル : _Z  = 1px : 1000) */
+    /** [r/w]���[���hZ���W(��ʃs�N�Z�� : _Z  = 1px : 1000) */
     int _Z;
-    /** [r/w]ワールドX軸回転角(Degree : _RX = 1度 : 1000) */
+    /** [r/w]���[���hX����]�p(Degree : _RX = 1�x : 1000) */
     angle _RX;
-    /** [r/w]ワールドY軸回転角(Degree : _RY = 1度 : 1000) */
+    /** [r/w]���[���hY����]�p(Degree : _RY = 1�x : 1000) */
     angle _RY;
-    /** [r/w]ワールドZ軸回転角(Degree : _RZ = 1度 : 1000) */
+    /** [r/w]���[���hZ����]�p(Degree : _RZ = 1�x : 1000) */
     angle _RZ;
-    /** [r/w]ワールドX軸方向スケール(倍率 : _SX = 1.0倍 : 1000) */
+    /** [r/w]���[���hX�������X�P�[��(�{�� : _SX = 1.0�{ : 1000) */
     int _SX;
-    /** [r/w]ワールドY軸方向スケール(倍率 : _SY = 1.0倍 : 1000) */
+    /** [r/w]���[���hY�������X�P�[��(�{�� : _SY = 1.0�{ : 1000) */
     int _SY;
-    /** [r/w]ワールドZ軸方向スケール(倍率 : _SZ = 1.0倍 : 1000) */
+    /** [r/w]���[���hZ�������X�P�[��(�{�� : _SZ = 1.0�{ : 1000) */
     int _SZ;
-    /** [r]ワールド座標計算支援オブジェクト */
+    /** [r]���[���h���W�v�Z�x���I�u�W�F�N�g */
     GgafDx9GeometryMover* _pMover;
-    /** [r]チェッカーオブジェクト */
+    /** [r]�`�F�b�J�[�I�u�W�F�N�g */
     GgafDx9Checker* _pChecker;
     /** [r] */
     GgafDx9SeReflector* _pSeReflector;
 
-    /** [r/w]境界球の半径(DirectXのt単位)。画面外判定に使用される */
+    /** [r/w]���E���̔��a(DirectX��t�P��)�B��ʊO����Ɏg�p����� */
     FLOAT _fBoundingSphereRadius;
-    /** [r]DirectXのワールドX座標(_fX : _X = 0.1 : 1000) */
+    /** [r]DirectX�̃��[���hX���W(_fX : _X = 0.1 : 1000) */
     FLOAT _fX;
-    /** [r]DirectYのワールドY座標(_fY : _Y = 0.1 : 1000) */
+    /** [r]DirectY�̃��[���hY���W(_fY : _Y = 0.1 : 1000) */
     FLOAT _fY;
-    /** [r]DirectZのワールドZ座標(_fZ : _Z = 0.1 : 1000) */
+    /** [r]DirectZ�̃��[���hZ���W(_fZ : _Z = 0.1 : 1000) */
     FLOAT _fZ;
-    /** [r]視錐台上面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]�������ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnTop;
-    /** [r]視錐台下面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]�����䉺�ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnBottom;
-    /** [r]視錐台左面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]�����䍶�ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnLeft;
-    /** [r]視錐台右面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]������E�ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnRight;
-    /** [r]視錐台手前面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]�������O�ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnFront;
-    /** [r]視錐台奥面から視野外に向かっての自身の座標までのDirectXの距離、視野内の距離は負の値になる */
+    /** [r]�����䉜�ʂ��王��O�Ɍ������Ă̎��g�̍��W�܂ł�DirectX�̋����A������̋����͕��̒l�ɂȂ� */
     FLOAT _fDist_VpPlnBack;
-    /** [r/w]WORLD変換行列計算関数 */
+    /** [r/w]WORLD�ϊ��s��v�Z�֐� */
     void (*_pFunc_calcWorldMatrix)(GgafDx9GeometricActor*, D3DXMATRIX&);
 
 
-    /** [r]自身の現在のWorld変換行列 */
+    /** [r]���g�̌��݂�World�ϊ��s�� */
     D3DXMATRIX _matWorld;
-    /** [r]自身の現在のWorld変換行列(回転と移動のみ) */
+    /** [r]���g�̌��݂�World�ϊ��s��(��]�ƈړ��̂�) */
     D3DXMATRIX _matWorldRotMv;
-    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    /** [r]���g�̌��݂�World�ϊ��s��̋t�s��(��]�ƈړ��̂�) */
     D3DXMATRIX _matInvWorldRotMv;
-    /** [r]自身の現在のWorld変換行列の逆行列(回転と移動のみ) */
+    /** [r]���g�̌��݂�World�ϊ��s��̋t�s��(��]�ƈړ��̂�) */
     bool _wasCalc_matInvWorldRotMv;
 
-    /** 土台となるアクター */
+    /** �y��ƂȂ�A�N�^�[ */
     GgafDx9Core::GgafDx9GeometricActor* _pActor_Base;
     int _X_local;
     int _Y_local;
@@ -105,64 +105,64 @@ public:
 
     bool _is_local;
 
-    /** [r/w]変換済みの場合のX座標(-1.0 <= _x < 1.0) */
+    /** [r/w]�ϊ��ς݂̏ꍇ��X���W(-1.0 <= _x < 1.0) */
     float _x;
-    /** [r/w]変換済みの場合のY座標(-1.0 <= _y < 1.0) */
+    /** [r/w]�ϊ��ς݂̏ꍇ��Y���W(-1.0 <= _y < 1.0) */
     float _y;
-    /** [r/w]変換済みの場合の深度 (0.0 <= _z < 1.0) */
+    /** [r/w]�ϊ��ς݂̏ꍇ�̐[�x (0.0 <= _z < 1.0) */
     float _z;
 
-    //補足
-    //【_X, _Y, _Z の単位について】
-    //　採り得る値は DirectX座標(float)の LEN_UNIT(=1000)倍のPX_UNIT(=10)倍の整数値である。つまり10000倍。
-    //　DirectX座標単位の1は、ゲーム画面上で10px相当の大きさになる（ようにカメラを引いている）。
-    //　例えば、_X = 5000 は、画面では5pxの位置、DirectX座標では50になる（ように設計）。
-    //　_X,_Y,_Z をピクセルで考えたい場合は、LEN_UNIT(=1000)で割る。
-    //　DirectX座標単位をピクセルで考えたい場合は、PX_UNIT(=10)を掛け算する。
-    //　描画の直前に_X,_Y,_Z は (LEN_UNIT*PX_UNIT) で除算されワールド変換に使用される。
-    //　なぜこんなややこしいことをするかというと、座標計算をすべて整数で行い、少しでも速くしたかった。
-    //　floatのままだと、掛け算割り算の時に、「あぁ、いちいちdoubleにせんでもいいのに」と毎回思うのが、体に悪い・・・。
-    //　全部整数で計算してやろう、というのが発端。
-    //　昔(BASICの時)は良く使った手法なのだが、もはやfloatでもかなり速いので、良いのかどうか微妙。
-    //【_RX, _RY, _RZ の単位について】
-    //　独自単位の「アングル値」を採る。「アングル値」とは 0~3600000 の値で、1000倍の精度の角度値である。
-    //　1度は1000、0.5度は500。直角の値は90000、水平は180000である。
-    //　中心角と同じく3時の方向を0とし、反時計回りにアングル値は増えるものとする。
-    //【_SX, _SY, _SZ の単位について】
-    //　1000が１倍のスケール意味する。したがってデフォルトは1000になっている。
-    //　描画の直前に 1000 で除算され、拡大縮小の変換に使用される。
+    //�⑫
+    //�y_X, _Y, _Z �̒P�ʂɂ��āz
+    //�@�̂蓾��l�� DirectX���W(float)�� LEN_UNIT(=1000)�{��PX_UNIT(=10)�{�̐����l�ł���B�܂�10000�{�B
+    //�@DirectX���W�P�ʂ�1�́A�Q�[����ʏ��10px�����̑傫���ɂȂ�i�悤�ɃJ�����������Ă���j�B
+    //�@�Ⴆ�΁A_X = 5000 �́A��ʂł�5px�̈ʒu�ADirectX���W�ł�50�ɂȂ�i�悤�ɐ݌v�j�B
+    //�@_X,_Y,_Z ���s�N�Z���ōl�������ꍇ�́ALEN_UNIT(=1000)�Ŋ���B
+    //�@DirectX���W�P�ʂ��s�N�Z���ōl�������ꍇ�́APX_UNIT(=10)���|���Z����B
+    //�@�`��̒��O��_X,_Y,_Z �� (LEN_UNIT*PX_UNIT) �ŏ��Z���ꃏ�[���h�ϊ��Ɏg�p�����B
+    //�@�Ȃ�����Ȃ�₱�������Ƃ����邩�Ƃ����ƁA���W�v�Z�����ׂĐ����ōs���A�����ł����������������B
+    //�@float�̂܂܂��ƁA�|���Z����Z�̎��ɁA�u�����A��������double�ɂ���ł������̂Ɂv�Ɩ���v���̂��A�̂Ɉ����E�E�E�B
+    //�@�S�������Ōv�Z���Ă�낤�A�Ƃ����̂����[�B
+    //�@��(BASIC�̎�)�͗ǂ��g������@�Ȃ̂����A���͂�float�ł����Ȃ葬���̂ŁA�ǂ��̂��ǂ��������B
+    //�y_RX, _RY, _RZ �̒P�ʂɂ��āz
+    //�@�Ǝ��P�ʂ́u�A���O���l�v���̂�B�u�A���O���l�v�Ƃ� 0~3600000 �̒l�ŁA1000�{�̐��x�̊p�x�l�ł���B
+    //�@1�x��1000�A0.5�x��500�B���p�̒l��90000�A������180000�ł���B
+    //�@���S�p�Ɠ�����3���̕�����0�Ƃ��A�����v���ɃA���O���l�͑�������̂Ƃ���B
+    //�y_SX, _SY, _SZ �̒P�ʂɂ��āz
+    //�@1000���P�{�̃X�P�[���Ӗ�����B���������ăf�t�H���g��1000�ɂȂ��Ă���B
+    //�@�`��̒��O�� 1000 �ŏ��Z����A�g��k���̕ϊ��Ɏg�p�����B
 
 
 public:
     /**
-     * コンストラクタ .
-     * @param prm_name アクター名
-     * @param prm_pChecker チェッカー(使用しない時 NULL)
+     * �R���X�g���N�^ .
+     * @param prm_name �A�N�^�[��
+     * @param prm_pChecker �`�F�b�J�[(�g�p���Ȃ��� NULL)
      * @return
      */
     GgafDx9GeometricActor(const char* prm_name,
                               GgafDx9Checker* prm_pChecker);
 
     /**
-     * 次のアクターを取得
-     * @return 次のアクター
+     * ���̃A�N�^�[���擾
+     * @return ���̃A�N�^�[
      */
     virtual GgafDx9GeometricActor* getPrev() override {
         return (GgafDx9GeometricActor*)GgafActor::getPrev();
     }
 
     /**
-     * 前のアクターを取得
-     * @return 前のアクター
+     * �O�̃A�N�^�[���擾
+     * @return �O�̃A�N�^�[
      */
     virtual GgafDx9GeometricActor* getNext() override {
         return (GgafDx9GeometricActor*)GgafActor::getNext();
     }
 
     /**
-     * 判定処理事前処理 .
-     * ① processBehavior() 後、座標計算事後処理として <BR>
-     *    以下のメンバの更新を行う。 <BR>
+     * ���菈�����O���� .
+     * �@ processBehavior() ��A���W�v�Z���㏈���Ƃ��� <BR>
+     *    �ȉ��̃����o�̍X�V���s���B <BR>
      *     _fX <BR>
      *     _fY <BR>
      *     _fZ <BR>
@@ -172,51 +172,51 @@ public:
      *     _fDist_VpPlnRight <BR>
      *     _fDist_VpPlnFront <BR>
      *     _fDist_VpPlnBack <BR>
-     * ② ワールド変換行列を作成し_matWorldに保持
-     * ③ processJudgement() を呼び出すのため準備処理として、 <BR>
-     *    アクターの線形８分木配列への登録を行う。 <BR>
+     * �A ���[���h�ϊ��s����쐬��_matWorld�ɕێ�
+     * �B processJudgement() ���Ăяo���̂��ߏ��������Ƃ��āA <BR>
+     *    �A�N�^�[�̐��`�W���ؔz��ւ̓o�^���s���B <BR>
      *
-     * 本メソッドはオーバーライド可能とするが、フレームワークの描画や判定に関わる
-     * 重要な事前処理のため、オーバーライドは推奨できない。<BR>
-     * どうしてもオーバーライドが必要な場合は、オーバーライド先で、 <BR>
-     * GgafDx9GeometricActor::processPreJudgement() を呼び出すか、 <BR>
-     * 上記①②③と同等の処理を行うようにすべきである。 <BR>
+     * �{���\�b�h�̓I�[�o�[���C�h�\�Ƃ��邪�A�t���[�����[�N�̕`��┻��Ɋւ��
+     * �d�v�Ȏ��O�����̂��߁A�I�[�o�[���C�h�͐����ł��Ȃ��B<BR>
+     * �ǂ����Ă��I�[�o�[���C�h���K�v�ȏꍇ�́A�I�[�o�[���C�h��ŁA <BR>
+     * GgafDx9GeometricActor::processPreJudgement() ���Ăяo�����A <BR>
+     * ��L�@�A�B�Ɠ����̏������s���悤�ɂ��ׂ��ł���B <BR>
      */
     virtual void processPreJudgement() override;
 
     /**
-     * 当たり判定ロジック .
-     * 当たり判定ロジックを実装している。<BR>
-     * チェッカーオブジェクトがある場合、<BR>
-     * GgafDx9Checker::isHit() で判定する。<BR>
-     * チェッカーオブジェクトが無い場合、<BR>
-     * ヒットしていないこととする。<BR>
-     * @param prm_pOtherActor 相手のアクター
-     * @return true：ヒットしている／false：ヒットしていない
+     * �����蔻�胍�W�b�N .
+     * �����蔻�胍�W�b�N���������Ă���B<BR>
+     * �`�F�b�J�[�I�u�W�F�N�g������ꍇ�A<BR>
+     * GgafDx9Checker::isHit() �Ŕ��肷��B<BR>
+     * �`�F�b�J�[�I�u�W�F�N�g�������ꍇ�A<BR>
+     * �q�b�g���Ă��Ȃ����ƂƂ���B<BR>
+     * @param prm_pOtherActor ����̃A�N�^�[
+     * @return true�F�q�b�g���Ă���^false�F�q�b�g���Ă��Ȃ�
      */
     virtual bool processHitChkLogic(GgafActor* prm_pOtherActor) override;
 
     /**
-     * 画面内に表示されているか判定 .
-     * @return 0:Viewport範囲内
-     *         6:Viewport視錐台の奥平面より奥で範囲外
-     *         5:Viewport視錐台の手前平面より手前で範囲外
-     *         4:Viewport視錐台の右平面より右で範囲外
-     *         3:Viewport視錐台の左平面より左で範囲外
-     *         2:Viewport視錐台の下平面より下で範囲外
-     *         1:Viewport視錐台の上平面より上で範囲外
+     * ��ʓ��ɕ\������Ă��邩���� .
+     * @return 0:Viewport�͈͓�
+     *         6:Viewport������̉����ʂ�艜�Ŕ͈͊O
+     *         5:Viewport������̎�O���ʂ���O�Ŕ͈͊O
+     *         4:Viewport������̉E���ʂ��E�Ŕ͈͊O
+     *         3:Viewport������̍����ʂ�荶�Ŕ͈͊O
+     *         2:Viewport������̉����ʂ�艺�Ŕ͈͊O
+     *         1:Viewport������̏㕽�ʂ���Ŕ͈͊O
      */
     virtual int isOffscreen();
 
     /**
-     * 現在の座標がゲーム活動範囲内かどうか判定 .
-     * 画面内、画面外とは無関係
-     * @return true:活動範囲外/false:活動範囲内
+     * ���݂̍��W���Q�[�������͈͓����ǂ������� .
+     * ��ʓ��A��ʊO�Ƃ͖��֌W
+     * @return true:�����͈͊O/false:�����͈͓�
      */
     virtual bool isOutOfGameSpace();
 
     /**
-     * 未変換ワールド座標を設定 .
+     * ���ϊ����[���h���W��ݒ� .
      * @param X
      * @param Y
      * @param Z
@@ -228,8 +228,8 @@ public:
     }
 
     /**
-     * 未変換座標をコピーして設定 .
-     * @param prm_pActor コピー元アクター
+     * ���ϊ����W���R�s�[���Đݒ� .
+     * @param prm_pActor �R�s�[���A�N�^�[
      */
     virtual void setGeometry(GgafDx9GeometricActor* prm_pActor) {
         _X = prm_pActor->_X;
@@ -238,9 +238,9 @@ public:
     }
 
     /**
-     * _matInvWorldRotMvの逆行列を返す。
-     * 計算済みならばそれを返す。
-     * 未計算なら計算してそれを返す
+     * _matInvWorldRotMv�̋t�s���Ԃ��B
+     * �v�Z�ς݂Ȃ�΂����Ԃ��B
+     * ���v�Z�Ȃ�v�Z���Ă����Ԃ�
      * @return
      */
     D3DXMATRIX* gatInvMatWorldRotMv() {
@@ -316,25 +316,25 @@ public:
 
 
     /**
-     * ワールド変換行列を計算する関数を定義 .
-     * @param prm_pFunc 関数へのポインタ
+     * ���[���h�ϊ��s����v�Z����֐����` .
+     * @param prm_pFunc �֐��ւ̃|�C���^
      */
     void defineWorldMatrix(void (*prm_pFunc)(GgafDx9GeometricActor*, D3DXMATRIX&)) {
         _pFunc_calcWorldMatrix = prm_pFunc;
     }
 
     /**
-     * デストラクタ
+     * �f�X�g���N�^
      */
     virtual ~GgafDx9GeometricActor();
 
     /**
-     * デバッグ用：ツリー構造を表示<BR>
+     * �f�o�b�O�p�F�c���[�\����\��<BR>
      */
     virtual void dump();
 
     /**
-     * デバッグ用：dump()から使用される<BR>
+     * �f�o�b�O�p�Fdump()����g�p�����<BR>
      */
     virtual void dump(std::string prm_parent);
 

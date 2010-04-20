@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -42,23 +42,23 @@ GgafDx9FixedFrameSplineProgram::GgafDx9FixedFrameSplineProgram(GgafDx9Spline3D* 
 
 
 void GgafDx9FixedFrameSplineProgram::init() {
-    //å„ç‚¹ã®æ™‚ç‚¹ã®ã€è·é›¢ã¨é€Ÿåº¦ã‚’äºˆã‚å…¨éƒ¨æ±‚ã‚ã¦ãŠã
+    //Še“_‚Ì“_‚ÌA‹——£‚Æ‘¬“x‚ğ—\‚ß‘S•”‹‚ß‚Ä‚¨‚­
 
     // prm_paaCriteriaPoints[2][3] = { {1000,2000,3000}, {2000,1000,0}, {3900, 0, 1000} }
-    // prm_point_num = 3          //åŸºç‚¹ã®æ•°
-    // prm_accuracy = 0.25(=1/4)  //è£œå®Œç‚¹ç²¾åº¦
-    // prm_spent_frame = 120      //è²»ã‚„ã™ãƒ•ãƒ¬ãƒ¼ãƒ 
-    // ã®å ´åˆã€ä¸‹å›³ã®ã‚ˆã†ã«ãªã‚Šã¾ã™ã€‚
+    // prm_point_num = 3          //Šî“_‚Ì”
+    // prm_accuracy = 0.25(=1/4)  //•âŠ®“_¸“x
+    // prm_spent_frame = 120      //”ï‚â‚·ƒtƒŒ[ƒ€
+    // ‚Ìê‡A‰º}‚Ì‚æ‚¤‚É‚È‚è‚Ü‚·B
     //
-    // X:åŸºç‚¹
-    // o:åŸºç‚¹é–“ã®è£œå®Œç‚¹ï¼ˆã‚¹ãƒ—ãƒ©ã‚¤ãƒ³æ›²ç·šé€šéç‚¹ï¼‰
-    // X--o: ç§»å‹•äºˆå®šã®åº§æ¨™ç·š
-    // _paDistace_to[] : æ¬¡ã®è£œå®Œç‚¹ã¾ã§ã®è·é›¢
-    // paSPMvVeloTo[] : æ¬¡ã®è£œå®Œç‚¹åˆ°é”ã«å¿…è¦ãªé€Ÿåº¦
+    // X:Šî“_
+    // o:Šî“_ŠÔ‚Ì•âŠ®“_iƒXƒvƒ‰ƒCƒ“‹Èü’Ê‰ß“_j
+    // X--o: ˆÚ“®—\’è‚ÌÀ•Wü
+    // _paDistace_to[] : Ÿ‚Ì•âŠ®“_‚Ü‚Å‚Ì‹——£
+    // paSPMvVeloTo[] : Ÿ‚Ì•âŠ®“_“’B‚É•K—v‚È‘¬“x
     //
-    // sp._rnum ã¯åˆè¨ˆã®ç‚¹ã®æ•°ã‚’è¿”ã™ã€‚ã—ãŸãŒã£ã¦ sp._rnum = 9 ã«ãªã‚‹ã€‚
-    // prm_accuracy ãŒç¶ºéº—ãªåˆ†æ•°ã«ãªã‚‰ãªã„å ´åˆã€åŸºç‚¹ä¸Šã«è£œå®Œç‚¹ãŒç¹°ã‚‹ã‹ã¨ã‹ã€å…¨ç„¶ã‚ã‹ã‚‰ãªã„ã®ã§ã€sp._rnumã‚’å¿…ãšä½¿ç”¨ã›ã‚ˆ
-    // ä¸‹å›³ã¯ç¶ºéº—ã«é‡ãªã£ãŸå ´åˆã®å›³ã§ã‚ã‚‹ã€‚
+    // sp._rnum ‚Í‡Œv‚Ì“_‚Ì”‚ğ•Ô‚·B‚µ‚½‚ª‚Á‚Ä sp._rnum = 9 ‚É‚È‚éB
+    // prm_accuracy ‚ªãY—í‚È•ª”‚É‚È‚ç‚È‚¢ê‡AŠî“_ã‚É•âŠ®“_‚ªŒJ‚é‚©‚Æ‚©A‘S‘R‚í‚©‚ç‚È‚¢‚Ì‚ÅAsp._rnum‚ğ•K‚¸g—p‚¹‚æ
+    // ‰º}‚ÍãY—í‚Éd‚È‚Á‚½ê‡‚Ì}‚Å‚ ‚éB
     //
     //      v = paSPMvVeloTo[1]                              v = paSPMvVeloTo[8]
     //               paSPDistaceTo[1]     paSPDistaceTo[5]          paSPDistaceTo[8]
@@ -77,11 +77,11 @@ void GgafDx9FixedFrameSplineProgram::init() {
     //   = (1000,2000,3000)             = (2000,1000,0)                    = (3900, 0, 1000)
     //
     //                 <--------------------------------------------------------->
-    //                                 120Frameè²»ã‚„ã—ã¦ç§»å‹•(=prm_spent_frame)
+    //                                 120Frame”ï‚â‚µ‚ÄˆÚ“®(=prm_spent_frame)
     //                  <-->
-    //                  frm_segment = ï¼‘åŒºé–“ã¯ 120/8 Frame = prm_spent_frame / (sp._rnum-1);
+    //                  frm_segment = ‚P‹æŠÔ‚Í 120/8 Frame = prm_spent_frame / (sp._rnum-1);
 
-    //ï¼‘åŒºé–“ã®ä½¿ç”¨å¯èƒ½ãƒ•ãƒ¬ãƒ¼ãƒ 
+    //‚P‹æŠÔ‚Ìg—p‰Â”\ƒtƒŒ[ƒ€
     _SPframe_segment = 1.0*_spent_frame / (_sp->_rnum-1);
     if (_SPframe_segment < 1) {
         _SPframe_segment = 1;
@@ -110,8 +110,8 @@ void GgafDx9FixedFrameSplineProgram::init() {
                                     z_to
                                  );
 
-        //è·é›¢ paDistaceTo[t] ã‚’ã€æ™‚é–“frm_segment ã§ç§»å‹•ã™ã‚‹ãŸã‚ã«å¿…è¦ãªé€Ÿåº¦ã‚’æ±‚ã‚ã‚‹ã€‚
-        //é€Ÿã•ï¼è·é›¢Ã·æ™‚é–“
+        //‹——£ paDistaceTo[t] ‚ğAŠÔfrm_segment ‚ÅˆÚ“®‚·‚é‚½‚ß‚É•K—v‚È‘¬“x‚ğ‹‚ß‚éB
+        //‘¬‚³‹——£€ŠÔ
         _paSPMvVeloTo[t] = (velo)(_paDistace_to[t] / _SPframe_segment);
 
 
@@ -151,23 +151,23 @@ void GgafDx9FixedFrameSplineProgram::begin(GgafDx9GeometricActor* prm_pActor, in
 void GgafDx9FixedFrameSplineProgram::behave() {
 
     if (_is_executing) {
-        //ç¾åœ¨ã®ç‚¹INDEX
+        //Œ»İ‚Ì“_INDEX
         int SPPointIndex = _SPframe/_SPframe_segment;
         if ( SPPointIndex == _sp->_rnum) {
-            //çµ‚äº†
+            //I—¹
             _is_executing = false;
             return;
         }
 
-        //å¤‰ã‚ã‚Šç›®
+        //•Ï‚í‚è–Ú
         if (_SPframe % _SPframe_segment == 0) {
             if (_option == 1) {
-                //ç›¸å¯¾åº§æ¨™ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+                //‘Š‘ÎÀ•Wƒ^[ƒQƒbƒg
                 _pActor_target->_pMover->setStopTarget_RzRyMvAng(_sp->_X_compute[SPPointIndex] - _X_relative,
                                                                    _sp->_Y_compute[SPPointIndex] - _Y_relative,
                                                                    _sp->_Z_compute[SPPointIndex] - _Z_relative);
             } else {
-                //çµ¶å¯¾åº§æ¨™ã‚¿ãƒ¼ã‚²ãƒƒãƒˆ
+                //â‘ÎÀ•Wƒ^[ƒQƒbƒg
                 _pActor_target->_pMover->setStopTarget_RzRyMvAng(_sp->_X_compute[SPPointIndex],
                                                                    _sp->_Y_compute[SPPointIndex],
                                                                    _sp->_Z_compute[SPPointIndex]);
@@ -195,8 +195,8 @@ void GgafDx9FixedFrameSplineProgram::behave() {
 
 }
 GgafDx9FixedFrameSplineProgram::~GgafDx9FixedFrameSplineProgram() {
-    //ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚ºã•ã‚Œã‚‹å‰ã«è§£æ”¾ã•ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œãªã„
+    //ƒCƒjƒVƒƒƒ‰ƒCƒY‚³‚ê‚é‘O‚É‰ğ•ú‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢
     DELETEARR_POSSIBLE_NULL(_paDistace_to);
-    //ã‚¤ãƒ‹ã‚·ãƒ£ãƒ©ã‚¤ã‚ºã•ã‚Œã‚‹å‰ã«è§£æ”¾ã•ã‚Œã‚‹ã‹ã‚‚ã—ã‚Œãªã„
+    //ƒCƒjƒVƒƒƒ‰ƒCƒY‚³‚ê‚é‘O‚É‰ğ•ú‚³‚ê‚é‚©‚à‚µ‚ê‚È‚¢
     DELETEARR_POSSIBLE_NULL(_paSPMvVeloTo);
 }

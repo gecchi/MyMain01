@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -23,42 +23,42 @@ GgafDx9SpriteSetModel::GgafDx9SpriteSetModel(char* prm_model_name) : GgafDx9Mode
     int num = (int)strtol(pT, NULL, 10);
     pT = strtok(NULL, "/");
     if (pT == NULL) {
-        _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") ã®åŒæ™‚æç”»ã‚»ãƒƒãƒˆæ•°çœç•¥ã€‚æœ€å¤§ã®18ã‚»ãƒƒãƒˆãŒè¨­å®šã•ã‚Œã¾ã™ã€‚");
+        _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") ‚Ì“¯•`‰æƒZƒbƒg”È—ªBÅ‘å‚Ì18ƒZƒbƒg‚ªİ’è‚³‚ê‚Ü‚·B");
         _set_num = 18;
     } else {
         _set_num = num;
         if (_set_num > 18) {
-            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") ã®åŒæ™‚æç”»ã‚»ãƒƒãƒˆæ•°ã‚ªãƒ¼ãƒãƒ¼ã€‚_set_num="<<_set_num<<"ã€‚æœ€å¤§ã®18ã‚»ãƒƒãƒˆãŒè¨­å®šã•ã‚Œã¾ã™ã€‚");
+            _TRACE_("GgafDx9SpriteSetModel("<<prm_model_name<<") ‚Ì“¯•`‰æƒZƒbƒg”ƒI[ƒo[B_set_num="<<_set_num<<"BÅ‘å‚Ì18ƒZƒbƒg‚ªİ’è‚³‚ê‚Ü‚·B");
             _set_num = 18;
         }
     }
 
 
-    //ãƒ‡ãƒã‚¤ã‚¤ã‚¹ãƒ­ã‚¹ãƒˆå¯¾å¿œã¨å…±é€šã«ã™ã‚‹ãŸã‚ã€ãƒ†ã‚¯ã‚¹ãƒãƒ£ã€é ‚ç‚¹ã€ãƒãƒ†ãƒªã‚¢ãƒ«ãªã©ã®åˆæœŸåŒ–ã¯
+    //ƒfƒoƒCƒCƒXƒƒXƒg‘Î‰‚Æ‹¤’Ê‚É‚·‚é‚½‚ßAƒeƒNƒXƒ`ƒƒA’¸“_Aƒ}ƒeƒŠƒAƒ‹‚È‚Ç‚Ì‰Šú‰»‚Í
     //void GgafDx9ModelManager::restoreSpriteSetModel(GgafDx9SpriteSetModel*)
-    //ã§è¡Œã†ã‚ˆã†ã«ã—ãŸã€‚
+    //‚Ås‚¤‚æ‚¤‚É‚µ‚½B
 }
 
-//æç”»
+//•`‰æ
 HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
     TRACE4("GgafDx9SpriteSetModel::draw("<<prm_pActor_Target->getName()<<") this="<<getName());
     if (_is_init_model == false) {
-        prm_pActor_Target->onCreateModel(); //ãƒ¢ãƒ‡ãƒ«ä½œæˆæ™‚ã®åˆæœŸå‡¦ç†
+        prm_pActor_Target->onCreateModel(); //ƒ‚ƒfƒ‹ì¬‚Ì‰Šúˆ—
         _is_init_model = true;
     }
-    //å¯¾è±¡Actor
+    //‘ÎÛActor
     static GgafDx9SpriteSetActor* pTargetActor;
     pTargetActor = (GgafDx9SpriteSetActor*)prm_pActor_Target;
-    //å¯¾è±¡SpriteSetActorã®ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãƒ©ãƒƒãƒ‘
+    //‘ÎÛSpriteSetActor‚ÌƒGƒtƒFƒNƒgƒ‰ƒbƒp
     static GgafDx9SpriteSetEffect* pSpriteSetEffect;
     pSpriteSetEffect = pTargetActor->_pSpriteSetEffect;
-    //å¯¾è±¡ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+    //‘ÎÛƒGƒtƒFƒNƒg
     static ID3DXEffect* pID3DXEffect;
     pID3DXEffect = pSpriteSetEffect->_pID3DXEffect;
     int draw_set_num = pTargetActor->_draw_set_num;
 
     static HRESULT hr;
-    //ãƒ¢ãƒ‡ãƒ«ãŒåŒã˜ãªã‚‰ã°é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ç­‰ã€ã®è¨­å®šã¯ã‚¹ã‚­ãƒƒãƒ—ã§ãã‚‹
+    //ƒ‚ƒfƒ‹‚ª“¯‚¶‚È‚ç‚Î’¸“_ƒoƒbƒtƒ@“™A‚Ìİ’è‚ÍƒXƒLƒbƒv‚Å‚«‚é
     if (GgafDx9ModelManager::_pModelLastDraw  != this) {
         GgafDx9God::_pID3DDevice9->SetStreamSource(0, _pIDirect3DVertexBuffer9, 0, _size_vertex_unit);
         GgafDx9God::_pID3DDevice9->SetFVF(GgafDx9SpriteSetModel::FVF);
@@ -66,33 +66,33 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
         GgafDx9God::_pID3DDevice9->SetIndices(_pIDirect3DIndexBuffer9);
 
         hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_hPowerBlink, _fPowerBlink);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() SetFloat(_hPowerBlink) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() SetFloat(_hPowerBlink) ‚É¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->SetFloat(pSpriteSetEffect->_hBlinkThreshold, _fBlinkThreshold);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() SetFloat(_hBlinkThreshold) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() SetFloat(_hBlinkThreshold) ‚É¸”s‚µ‚Ü‚µ‚½B");
     }
 
     if (GgafDx9EffectManager::_pEffect_Active != pSpriteSetEffect || GgafDx9DrawableActor::_hash_technique_last_draw != prm_pActor_Target->_hash_technique)  {
         if (GgafDx9EffectManager::_pEffect_Active != NULL) {
             TRACE4("EndPass: /_pEffect_Active="<<GgafDx9EffectManager::_pEffect_Active->_effect_name);
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->EndPass();
-            checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() EndPass() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+            checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() EndPass() ‚É¸”s‚µ‚Ü‚µ‚½B");
             hr = GgafDx9EffectManager::_pEffect_Active->_pID3DXEffect->End();
-            checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() End() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+            checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() End() ‚É¸”s‚µ‚Ü‚µ‚½B");
         }
 
         TRACE4("SetTechnique("<<pTargetActor->_technique<<"): /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
         hr = pID3DXEffect->SetTechnique(pTargetActor->_technique);
-        checkDxException(hr, S_OK, "GgafDx9SpriteSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, S_OK, "GgafDx9SpriteSetActor::draw() SetTechnique("<<pTargetActor->_technique<<") ‚É¸”s‚µ‚Ü‚µ‚½B");
 
         TRACE4("BeginPass: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
         UINT numPass;
         hr = pID3DXEffect->Begin( &numPass, D3DXFX_DONOTSAVESTATE );
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() Begin() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() Begin() ‚É¸”s‚µ‚Ü‚µ‚½B");
         hr = pID3DXEffect->BeginPass(0);
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() BeginPass(0) ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetActor::draw() BeginPass(0) ‚É¸”s‚µ‚Ü‚µ‚½B");
     } else {
         hr = pID3DXEffect->CommitChanges();
-        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() CommitChanges() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9SpriteSetModel::draw() CommitChanges() ‚É¸”s‚µ‚Ü‚µ‚½B");
     }
     TRACE4("DrawPrimitive: /actor="<<pTargetActor->getName()<<"/model="<<_model_name<<" effect="<<pSpriteSetEffect->_effect_name);
     GgafDx9God::_pID3DDevice9->DrawIndexedPrimitive(D3DPT_TRIANGLELIST,
@@ -102,7 +102,7 @@ HRESULT GgafDx9SpriteSetModel::draw(GgafDx9DrawableActor* prm_pActor_Target) {
                                                     _paIndexParam[draw_set_num - 1].StartIndex,
                                                     _paIndexParam[draw_set_num - 1].PrimitiveCount);
 
-    //å‰å›æç”»ãƒ¢ãƒ‡ãƒ«ä¿æŒ
+    //‘O‰ñ•`‰æƒ‚ƒfƒ‹•Û
     GgafDx9ModelManager::_pModelLastDraw = this;
     GgafDx9SpriteSetModel::_draw_set_num_LastDraw = draw_set_num;
     GgafDx9EffectManager::_pEffect_Active = pSpriteSetEffect;
@@ -135,7 +135,7 @@ void GgafDx9SpriteSetModel::release() {
     DELETEARR_IMPOSSIBLE_NULL(_papTextureCon);
     DELETEARR_IMPOSSIBLE_NULL(_paRectUV);
     DELETEARR_IMPOSSIBLE_NULL(_paIndexParam);
-    //TODO:è¦ªã‚¯ãƒ©ã‚¹ãƒ¡ãƒ³ãƒã‚’DELETEã™ã‚‹ã®ã¯ã‚„ã‚„ããŸãªã„ã‹
+    //TODO:eƒNƒ‰ƒXƒƒ“ƒo‚ğDELETE‚·‚é‚Ì‚Í‚â‚â‚«‚½‚È‚¢‚©
     DELETEARR_IMPOSSIBLE_NULL(_paD3DMaterial9_default);
     TRACE3("GgafDx9SpriteSetModel::release() " << _model_name << " end");
 }

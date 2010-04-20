@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -15,9 +15,9 @@ void LinearOctreeForActor::executeAllHitChk(actorkind prm_groupA, actorkind prm_
     TRACE5("_kind_groupA="<<_kind_groupA);
     TRACE5("_kind_groupB="<<_kind_groupB);
     if (((_paSpace[0]._kindinfobit & _kind_groupA) > 0) && ((_paSpace[0]._kindinfobit & _kind_groupB) > 0)) {
-        //ã§ã¯å…«åˆ†æœ¨ã‚’å·¡ã‚‹æ—…ã¸è¡Œã£ã¦ã‚‰ã£ã—ã‚ƒã„
-        executeHitChk(0); //ãƒ«ãƒ¼ãƒˆç©ºé–“ã®ãƒã‚§ãƒƒã‚¯
-        //ãŠå¸°ã‚Šãªã•ã„ã€‚
+        //‚Å‚Í”ª•ª–Ø‚ğ„‚é—·‚Ös‚Á‚Ä‚ç‚Á‚µ‚á‚¢
+        executeHitChk(0); //ƒ‹[ƒg‹óŠÔ‚Ìƒ`ƒFƒbƒN
+        //‚¨‹A‚è‚È‚³‚¢B
         _stackParentSpaceActor_GroupA.clear();
         _stackParentSpaceActor_GroupB.clear();
     }
@@ -43,26 +43,26 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
             pElem = (LOFA_Elem*)(pElem -> _pNext);
             pActor_ElemValue = pElem->_pActor;
         }
-        //ç¾åœ¨ã®ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—Aã¨ã‚°ãƒ«ãƒ¼ãƒ—Bç·å½“ã‚Š
+        //Œ»İ‚Ì‹óŠÔ‚ÌƒOƒ‹[ƒvA‚ÆƒOƒ‹[ƒvB‘“–‚è
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackCurrentSpaceActor_GroupB);
 
-        //ç¾åœ¨ã®ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—Aã¨è¦ªç©ºé–“æ‰€å±ã®ã‚°ãƒ«ãƒ¼ãƒ—Bç·å½“ã‚Š
+        //Œ»İ‚Ì‹óŠÔ‚ÌƒOƒ‹[ƒvA‚Æe‹óŠÔŠ‘®‚ÌƒOƒ‹[ƒvB‘“–‚è
         executeHitChk_RoundRobin(&_stackCurrentSpaceActor_GroupA, &_stackParentSpaceActor_GroupB );
 
-        //è¦ªç©ºé–“æ‰€å±ã®ã‚°ãƒ«ãƒ¼ãƒ—Aã¨ç¾åœ¨ã®ç©ºé–“ã®ã‚°ãƒ«ãƒ¼ãƒ—Bç·å½“ã‚Š
+        //e‹óŠÔŠ‘®‚ÌƒOƒ‹[ƒvA‚ÆŒ»İ‚Ì‹óŠÔ‚ÌƒOƒ‹[ƒvB‘“–‚è
         executeHitChk_RoundRobin(&_stackParentSpaceActor_GroupA , &_stackCurrentSpaceActor_GroupB);
     }
 
-    DWORD next_level_index = prm_index*8 + 1; //_papSpace[prm_index] ç©ºé–“ã®å­ç©ºé–“ã®ãƒ¢ãƒ¼ãƒˆãƒ³é †åºä½ç½®0ç•ªã®é…åˆ—è¦ç´ ç•ªå·
+    DWORD next_level_index = prm_index*8 + 1; //_papSpace[prm_index] ‹óŠÔ‚Ìq‹óŠÔ‚Ìƒ‚[ƒgƒ“‡˜ˆÊ’u0”Ô‚Ì”z—ñ—v‘f”Ô†
     TRACE5("next_level_index="<<next_level_index);
     if ( next_level_index > _num_space-1) {
-        //è¦ç´ æ•°ã‚ªãƒ¼ãƒãƒ¼ã€ã¤ã¾ã‚Šãƒªãƒ¼ãƒ•
-        TRACE5("æœ«ç«¯Space");
+        //—v‘f”ƒI[ƒo[A‚Â‚Ü‚èƒŠ[ƒt
+        TRACE5("––’[Space");
         _stackCurrentSpaceActor_GroupA.clear();
         _stackCurrentSpaceActor_GroupB.clear();
-        return; //è¦ªç©ºé–“ã¸æˆ»ã‚‹
+        return; //e‹óŠÔ‚Ö–ß‚é
     } else {
-        //ã‚‚ãã‚‹ã€‚ãã®å‰ã«ã€è¦ªç©ºé–“ã‚¢ã‚¯ã‚¿ãƒ¼ã®ã‚¹ã‚¿ãƒƒã‚¯ã¸è¿½åŠ (ç¾ç©ºé–“ã‚¹ã‚¿ãƒƒã‚¯ã‚‚é–‹æ”¾)
+        //‚à‚®‚éB‚»‚Ì‘O‚ÉAe‹óŠÔƒAƒNƒ^[‚ÌƒXƒ^ƒbƒN‚Ö’Ç‰Á(Œ»‹óŠÔƒXƒ^ƒbƒN‚àŠJ•ú)
         int add_num_GroupA, add_num_GroupB;
         add_num_GroupA = add_num_GroupB = 0;
         GgafActor* pActor;
@@ -85,21 +85,21 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
             }
         }
 
-        //å­ç©ºé–“ã¸ã‚‚ãã‚‹ãŒè‰¯ã„
+        //q‹óŠÔ‚Ö‚à‚®‚é‚ª—Ç‚¢
         for(DWORD i = next_level_index; i < next_level_index+8; i++) {
             if (((_paSpace[i]._kindinfobit & _kind_groupA) > 0) || ((_paSpace[i]._kindinfobit & _kind_groupB) > 0)) {
                 executeHitChk(i);
             }
         }
 
-        //ãŠå¸°ã‚Šãªã•ã„
+        //‚¨‹A‚è‚È‚³‚¢
         for (int i = 0; i < add_num_GroupA; i ++) {
             _stackParentSpaceActor_GroupA.pop();
         }
         for (int i = 0; i < add_num_GroupB; i ++) {
             _stackParentSpaceActor_GroupB.pop();
         }
-        return; //è¦ªç©ºé–“ã¸æˆ»ã‚‹
+        return; //e‹óŠÔ‚Ö–ß‚é
     }
 
 
@@ -108,7 +108,7 @@ void LinearOctreeForActor::executeHitChk(DWORD prm_index) {
 void LinearOctreeForActor::executeHitChk_RoundRobin(CollisionStack* prm_pStackA, CollisionStack* prm_pStackB) {
     //TEXT5("prm_pStackA:"); prm_pStackA->dump(); TEXT5("\n");
     //TEXT5("prm_pStackB:"); prm_pStackB->dump(); TEXT5("\n");
-    //ä¸¡æ–¹ç„¡ã‘ã‚Œã°çµ‚äº†
+    //—¼•û–³‚¯‚ê‚ÎI—¹
     if (prm_pStackA->_p == 0 || prm_pStackB->_p == 0) {
         return;
     }

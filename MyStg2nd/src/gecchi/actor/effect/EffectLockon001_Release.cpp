@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -8,10 +8,10 @@ using namespace MyStg2nd;
 EffectLockOn001_Release::EffectLockOn001_Release(const char* prm_name, EffectLockOn001* prm_pEffectLockOn001) : DefaultSpriteSetActor(prm_name, "8/LockOn001") {
     _class_name = "EffectLockOn001_Release";
     inactivateImmediately();
-    chengeEffectTechnique("DestBlendOne"); //åŠ ç®—åˆæˆ
-    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ãƒ“ãƒ«ãƒœãƒ¼ãƒ‰Rzå›žè»¢
+    chengeEffectTechnique("DestBlendOne"); //‰ÁŽZ‡¬
+    defineWorldMatrix(GgafDx9Util::setWorldMatrix_RzBxyzMv); //ƒrƒ‹ƒ{[ƒhRz‰ñ“]
     _pEffectLockOn001 = prm_pEffectLockOn001;
-    setHitAble(false); //å½“ãŸã‚Šåˆ¤å®šç„¡ã—
+    setHitAble(false); //“–‚½‚è”»’è–³‚µ
 }
 
 void EffectLockOn001_Release::initialize() {
@@ -21,11 +21,11 @@ void EffectLockOn001_Release::initialize() {
 void EffectLockOn001_Release::onActive() {
     setAlpha(_pEffectLockOn001->getAlpha());
     _pUvFlipper->copyStatesFrom(_pEffectLockOn001->_pUvFlipper);
-    _pScaler->forceScaleRange(4000, 1000); //ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°ãƒ»ç¯„å›²
+    _pScaler->forceScaleRange(4000, 1000); //ƒXƒP[ƒŠƒ“ƒOE”ÍˆÍ
     _pScaler->setScale(_pEffectLockOn001->_pScaler->_scale[0]);
-    _pScaler->intoTargetScaleLinerUntil(4000, 50);//ã‚¹ã‚±ãƒ¼ãƒªãƒ³ã‚°
+    _pScaler->intoTargetScaleLinerUntil(4000, 50);//ƒXƒP[ƒŠƒ“ƒO
     _pMover->setFaceAng(AXIS_Z, _pEffectLockOn001->_pMover->_angFace[AXIS_Z]);
-    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockOn001->_pMover->_angveloFace[AXIS_Z]*-3);        //å›žè»¢
+    _pMover->setFaceAngVelo(AXIS_Z, _pEffectLockOn001->_pMover->_angveloFace[AXIS_Z]*-3);        //‰ñ“]
 }
 
 void EffectLockOn001_Release::processBehavior() {

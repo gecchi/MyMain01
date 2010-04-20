@@ -1,9 +1,9 @@
-ï»¿#ifndef EFFECTCONDENSATION001_H_
+#ifndef EFFECTCONDENSATION001_H_
 #define EFFECTCONDENSATION001_H_
 namespace MyStg2nd {
 
 /**
- * ç™ºå°„å‰ã®æºœè¡¨ç¾ã‚¨ãƒ•ã‚§ã‚¯ãƒˆãã®ï¼‘ .
+ * ”­Ë‘O‚Ì—­•\Œ»ƒGƒtƒFƒNƒg‚»‚Ì‚P .
  * @version 1.00
  * @since 2010/03/19
  * @author Masatoshi Tsuge
@@ -14,12 +14,12 @@ public:
     EffectCondensation001(const char* prm_name);
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void initialize() override;
 
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processBehavior() override;
 
@@ -27,7 +27,7 @@ public:
 
     void onInactive() override;
     /**
-     * ï¼œOverRide ã§ã™ï¼
+     * ƒOverRide ‚Å‚·„
      */
     void processJudgement() override;
 

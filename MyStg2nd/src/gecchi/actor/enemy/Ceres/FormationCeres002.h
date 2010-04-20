@@ -1,10 +1,10 @@
-Ôªø#ifndef FORMATIONCERES002_H_
+#ifndef FORMATIONCERES002_H_
 #define FORMATIONCERES002_H_
 namespace MyStg2nd {
 
 #define NUM_CERES_FORMATION002 30
 /**
- * „Éï„Ç©„Éº„É°„Éº„Ç∑„Éß„É≥„Ç¢„ÇØ„Çø„Éº„ÇØ„É©„Çπ .
+ * ÉtÉHÅ[ÉÅÅ[ÉVÉáÉìÉAÉNÉ^Å[ÉNÉâÉX .
  */
 class FormationCeres002 : public GgafDx9LibStg::FormationActor {
 

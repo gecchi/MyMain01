@@ -1,4 +1,4 @@
-ï»¿
+
 #include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
@@ -24,7 +24,7 @@ void EnemyAstraeaLaserChip001::initialize() {
 
 void EnemyAstraeaLaserChip001::onActive() {
     HomingLaserChip::onActive();
-    //ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹ãƒªã‚»ãƒƒãƒˆ
+    //ƒXƒe[ƒ^ƒXƒŠƒZƒbƒg
     MyStgUtil::resetEnemyAstraeaLaserChip001Status(_pStatus);
 
     _pMover->setMvVelo(5000);
@@ -59,14 +59,14 @@ void EnemyAstraeaLaserChip001::processBehaviorHeadChip() {
 
 void EnemyAstraeaLaserChip001::onHit(GgafActor* prm_pOtherActor) {
 //    GgafDx9GeometricActor* pOther = (GgafDx9GeometricActor*)prm_pOtherActor;
-//    //ãƒ’ãƒƒãƒˆæ™‚
+//    //ƒqƒbƒg
 //
-//    //ä½“åŠ›è¨ˆç®—
+//    //‘Ì—ÍŒvZ
 //    if (MyStgUtil::calcEnemyStatus(_pStatus, getKind(), pOther->_pStatus, pOther->getKind()) <= 0) {
-//        //ãƒ’ãƒƒãƒˆã—ã¦æ¶ˆæ»…æ™‚
+//        //ƒqƒbƒg‚µ‚ÄÁ–Å
 //        inactivate();
 //    } else {
-//        //ãƒ’ãƒƒãƒˆã—ã¦ç”Ÿå­˜æ™‚
+//        //ƒqƒbƒg‚µ‚Ä¶‘¶
 //    }
 }
 

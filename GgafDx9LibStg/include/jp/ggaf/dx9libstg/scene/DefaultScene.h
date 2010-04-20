@@ -1,10 +1,10 @@
-ï»¿#ifndef DEFAULTSCENE_H_
+#ifndef DEFAULTSCENE_H_
 #define DEFAULTSCENE_H_
 namespace GgafDx9LibStg {
 
 /**
- * ã‚·ãƒ¼ãƒ³ã®å…·è±¡ã‚¯ãƒ©ã‚¹ .
- * GgafDx9Core::GgafDx9Scene ã‚’ç¶™æ‰¿ã—ã€ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚·ãƒ¼ãƒ³ã§ã™ã€‚
+ * ƒV[ƒ“‚Ì‹ïÛƒNƒ‰ƒX .
+ * GgafDx9Core::GgafDx9Scene ‚ğŒp³‚µA‹óÀ‘•‚µ‚½‹ïÛƒV[ƒ“‚Å‚·B
  * @version 1.00
  * @since 2007/12/06
  * @author Masatoshi Tsuge
@@ -12,9 +12,9 @@ namespace GgafDx9LibStg {
 class DefaultScene : public GgafDx9Core::GgafDx9Scene {
 public:
 
-    /** ã‚·ãƒ¼ãƒ³ã‚¤ãƒ™ãƒ³ãƒˆç”¨ã®ãƒ•ãƒ¬ãƒ¼ãƒ å€¤ã®é…åˆ— */
+    /** ƒV[ƒ“ƒCƒxƒ“ƒg—p‚ÌƒtƒŒ[ƒ€’l‚Ì”z—ñ */
     DWORD* _paFrame_NextEvent;
-    /** ã‚·ãƒ¼ãƒ³ã®ã‚¤ãƒ™ãƒ³ãƒˆæ•°ï¼ˆ_paFrame_NextEventã®è¦ç´ æ•°ï¼‰ */
+    /** ƒV[ƒ“‚ÌƒCƒxƒ“ƒg”i_paFrame_NextEvent‚Ì—v‘f”j */
     int _iCnt_Event;
 
     DefaultScene(const char* prm_name);

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,13 +11,13 @@ GgafDx9SphereRadiusVectors::GgafDx9SphereRadiusVectors() : GgafObject() {
     DWORD xXY, yXY, xXZ, zXZ;
     double radRotAxisZ, radRotAxisY;
     for (s_ang angFaceAxisZ = 0; angFaceAxisZ <= S_ANG90; angFaceAxisZ++) {
-        //XYå¹³é¢ä¸Šã®çƒè¡¨é¢ã®ç‚¹ã‚’æ±‚ã‚ã‚‹ã€‚
+        //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ð‹‚ß‚éB
         radRotAxisZ = s_angRad * angFaceAxisZ;
         xXY = cos(radRotAxisZ) * 1000000.0;
         yXY = sin(radRotAxisZ) * 1000000.0;
         for (s_ang angFaceAxisY = 0; angFaceAxisY <= S_ANG90; angFaceAxisY++) {
-            //XYå¹³é¢ä¸Šã®çƒè¡¨é¢ã®ç‚¹ã‚’ã€Yè»¸å›žè»¢ã™ã‚‹ã€‚
-            //æ³¨æ„ï¼šã“ã®Yè»¸å›žè»¢ã¨ã¯ã€è¨ˆç®—ã®éƒ½åˆä¸Šã€å·¦æ‰‹ç³»Yè»¸å›žè»¢ã®é€†å›žè»¢ã«ãªã‚Šã¾ã™ã€‚
+            //XY•½–Êã‚Ì‹…•\–Ê‚Ì“_‚ðAYŽ²‰ñ“]‚·‚éB
+            //’ˆÓF‚±‚ÌYŽ²‰ñ“]‚Æ‚ÍAŒvŽZ‚Ì“s‡ãA¶ŽèŒnYŽ²‰ñ“]‚Ì‹t‰ñ“]‚É‚È‚è‚Ü‚·B
             radRotAxisY = s_angRad * angFaceAxisY;
             xXZ = xXY * cos(radRotAxisY);
             zXZ = xXY * sin(radRotAxisY);
@@ -36,13 +36,13 @@ void GgafDx9SphereRadiusVectors::getFaceAngClosely(DWORD prm_x,
     static class COMPARE_ABLE_SR_VECTOR target;
     target.set(0, prm_y, 0);
 
-    //rZ(yè¦ç´ )ã®ãƒã‚¤ãƒŠãƒªã‚µãƒ¼ãƒ
+    //rZ(y—v‘f)‚ÌƒoƒCƒiƒŠƒT[ƒ`
     static int top, bottom, center, center_prev;
     top = 0;
     bottom = (S_ANG90+1)*(S_ANG90+1) - 1;
 
     center_prev = -1;
-    for(int i = 0; i < s; i++) { //æœ€é«˜25å›žã¾ã§æ¤œç´¢
+    for(int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;
@@ -57,12 +57,12 @@ void GgafDx9SphereRadiusVectors::getFaceAngClosely(DWORD prm_x,
         }
     }
 
-    //xzã®ã‚µãƒ¼ãƒ
+    //xz‚ÌƒT[ƒ`
     target.set(prm_x, _sr[top].vec.y, prm_z);
     top = (top / (S_ANG90+1)) * (S_ANG90+1);
     bottom = top + (S_ANG90+1)-1;
     center_prev = -1;
-    for(int i = 0; i < s; i++) { //æœ€é«˜25å›žã¾ã§æ¤œç´¢
+    for(int i = 0; i < s; i++) { //Å‚25‰ñ‚Ü‚ÅŒŸõ
         center = (top + bottom) / 2;
         if (_sr[center].num_yzx < target.num_yzx) {
             top = center;

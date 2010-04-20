@@ -1,9 +1,9 @@
-ï»¿#ifndef MYOPTIONPARENTGIZMO_H_
+#ifndef MYOPTIONPARENTGIZMO_H_
 #define MYOPTIONPARENTGIZMO_H_
 namespace MyStg2nd {
 
 /**
- * ã‚ªãƒ—ã‚·ãƒ§ãƒ³ã®çºã‚å½¹ã‚¯ãƒ©ã‚¹ã®ã‚®ã‚ºãƒ¢è¡¨ç¤ºã‚¯ãƒ©ã‚¹ .
+ * ƒIƒvƒVƒ‡ƒ“‚Ì“Z‚ß–ðƒNƒ‰ƒX‚ÌƒMƒYƒ‚•\Ž¦ƒNƒ‰ƒX .
  * @version 1.00
  * @since 2010/03/16
  * @author Masatoshi Tsuge

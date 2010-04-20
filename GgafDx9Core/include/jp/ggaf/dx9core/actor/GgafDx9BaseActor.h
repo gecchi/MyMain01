@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9BASEACTOR_H_
+#ifndef GGAFDX9BASEACTOR_H_
 #define GGAFDX9BASEACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * GgafDx9Coreåå‰ç©ºé–“ã®åŸºåº•ã‚¢ã‚¯ã‚¿ãƒ¼ã‚¯ãƒ©ã‚¹.
- * GgafMainActorã‚’ç¶™æ‰¿ã—ãŸã ã‘ã§ã™ã€‚<BR>
- * GgafDx9Coreåå‰ç©ºé–“å†…ã§ã¯ã€ã“ã®ã‚¯ãƒ©ã‚¹ã‚’åŸºåº•ã‚¢ã‚¯ã‚¿ãƒ¼ã¨ã—ã¾ã™ã€‚<BR>
+ * GgafDx9Core–¼‘O‹óŠÔ‚ÌŠî’êƒAƒNƒ^[ƒNƒ‰ƒX.
+ * GgafMainActor‚ğŒp³‚µ‚½‚¾‚¯‚Å‚·B<BR>
+ * GgafDx9Core–¼‘O‹óŠÔ“à‚Å‚ÍA‚±‚ÌƒNƒ‰ƒX‚ğŠî’êƒAƒNƒ^[‚Æ‚µ‚Ü‚·B<BR>
  * @version 1.00
  * @since 2009/09/08
  * @author Masatoshi Tsuge
@@ -16,7 +16,7 @@ public:
 
     GgafDx9BaseActor(const char* prm_name);
 
-    virtual ~GgafDx9BaseActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9BaseActor(); //ƒfƒXƒgƒ‰ƒNƒ^
 
 };
 

@@ -1,11 +1,11 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 using namespace MyStg2nd;
 
-EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") { //8/ã‚’ã„ã‚Œã¨ã‹ãªã„ã¨ãƒ¦ãƒ‹ãƒ¼ã‚¯ã«ãªã‚‰ãªã„
+EnemyCirce::EnemyCirce(const char* prm_name) : DefaultMeshActor(prm_name, "ebi") { //8/‚ğ‚¢‚ê‚Æ‚©‚È‚¢‚Æƒ†ƒj[ƒN‚É‚È‚ç‚È‚¢
     _class_name = "EnemyCirce";
     MyStgUtil::resetEnemyCirceStatus(_pStatus);
     _iMovePatternNo = 0;
@@ -35,7 +35,7 @@ void EnemyCirce::onActive() {
 }
 
 void EnemyCirce::processBehavior() {
-    //åŠ ç®—ãƒ©ãƒ³ã‚¯ãƒã‚¤ãƒ³ãƒˆã‚’æ¸›å°‘
+    //‰ÁZƒ‰ƒ“ƒNƒ|ƒCƒ“ƒg‚ğŒ¸­
     _pStatus->mul(STAT_AddRankPoint, _pStatus->getDouble(STAT_AddRankPoint_Reduction));
     _pMover->execTagettingMvAngSequence(pMYSHIP, 50, 0, TURN_CLOSE_TO);
     _pMover->behave();

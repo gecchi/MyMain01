@@ -1,4 +1,4 @@
-ï»¿#ifndef MAGIC_H_
+#ifndef MAGIC_H_
 #define MAGIC_H_
 namespace MyStg2nd {
 
@@ -13,13 +13,13 @@ public:
     GgafDx9Core::GgafDx9GeometricActor* _pCaster;
     GgafDx9Core::GgafDx9GeometricActor* _pReceiver;
 
-    /** ç¾åœ¨ã®ã‚³ã‚¹ãƒˆ */
+    /** Œ»İ‚ÌƒRƒXƒg */
     int _cost;
-    /** è© å”±é€Ÿåº¦ */
+    /** ‰r¥‘¬“x */
     int _cast_speed;
-    /** æŒç¶šæœŸé–“ */
+    /** ‘±ŠúŠÔ */
     int _duration;
-    /** çŠ¶æ…‹ */
+    /** ó‘Ô */
     int _state;
 
     int _dec_cost;

@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,7 +11,7 @@ DispatcherManager God::_dispatcherManager = DispatcherManager("DispatcherManager
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
     VB::init();
 
-    //ä»®æƒ³ãƒœã‚¿ãƒ³å†å®šç¾©
+    //‰¼‘zƒ{ƒ^ƒ“Ä’è‹`
     VB::_tagKeymap.BUTTON1    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT1)      ];
     VB::_tagKeymap.BUTTON2    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT2)      ];
     VB::_tagKeymap.BUTTON3    = VB::_mapDIK[ PROPERTY(MY_KEY_OPTION)     ];
@@ -50,13 +50,13 @@ GgafUniverse* God::createUniverse() {
 God::~God() {
     GgafFactory::_is_working_flg = false;
     for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
-        Sleep(60); //å·¥å ´ãŒè½ã¡ç€ãã¾ã§å¾…ã¤
-        _TRACE_("God::~God() å·¥å ´ç¨¼å‹•åœæ­¢å¾…ã¡");
+        Sleep(60); //Hê‚ª—‚¿’…‚­‚Ü‚Å‘Ò‚Â
+        _TRACE_("God::~God() Hê‰Ò“®’â~‘Ò‚¿");
         if (i > 2000) {
-            _TRACE_("God::~God() ï¼’åˆ†å¾…æ©Ÿã—ã¾ã—ãŸãŒã€å·¥å ´ã‹ã‚‰åå¿œãŒã‚ã‚Šã¾ã›ã‚“ã€‚breakã—ã¾ã™ã€‚è¦èª¿æŸ»");
+            _TRACE_("God::~God() ‚Q•ª‘Ò‹@‚µ‚Ü‚µ‚½‚ªAHê‚©‚ç”½‰‚ª‚ ‚è‚Ü‚¹‚ñBbreak‚µ‚Ü‚·B—v’²¸");
         }
     }
-    _TRACE_("God::~God() å·¥å ´åœæ­¢");
+    _TRACE_("God::~God() Hê’â~");
 
     VB::clear();
     _pUniverse->dump();

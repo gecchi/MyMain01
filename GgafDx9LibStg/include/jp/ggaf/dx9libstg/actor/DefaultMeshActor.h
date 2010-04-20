@@ -1,10 +1,10 @@
-ï»¿#ifndef DEFAULTMESHACTOR_H_
+#ifndef DEFAULTMESHACTOR_H_
 #define DEFAULTMESHACTOR_H_
 namespace GgafDx9LibStg {
 
 /**
- * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼ã®å…·è±¡ã‚¯ãƒ©ã‚¹.
- * GgafDx9Core::GgafDx9MeshActor ã‚’ç©ºå®Ÿè£…ã—ãŸå…·è±¡ã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™ã€‚
+ * ƒƒbƒVƒ…ƒAƒNƒ^[‚Ì‹ïÛƒNƒ‰ƒX.
+ * GgafDx9Core::GgafDx9MeshActor ‚ğ‹óÀ‘•‚µ‚½‹ïÛƒAƒNƒ^[‚Å‚·B
  * @version 1.00
  * @since 2009/02/19
  * @author Masatoshi Tsuge
@@ -12,7 +12,7 @@ namespace GgafDx9LibStg {
 class DefaultMeshActor : public GgafDx9Core::GgafDx9MeshActor {
 
 public:
-    /** æ‹¡å¤§ç¸®å°æ”¯æ´ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ */
+    /** Šg‘åk¬x‰‡ƒIƒuƒWƒFƒNƒg */
     GgafDx9Core::GgafDx9GeometryScaler* _pScaler;
 
     DWORD _frame_offset;

@@ -1,4 +1,4 @@
-ï»¿// PCMDecoder.h
+// PCMDecoder.h
 //
 
 #ifndef IKD_DIX_PCMDECODER_H
@@ -12,56 +12,56 @@ namespace Dix
 {
 	class PCMDecoder {
 	public:
-		//! ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+		//! ƒRƒ“ƒXƒgƒ‰ƒNƒ^
 		PCMDecoder();
 
-		//! ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+		//! ƒfƒXƒgƒ‰ƒNƒ^
 		virtual ~PCMDecoder();
 
-		//! ã‚»ã‚°ãƒ¡ãƒ³ãƒˆå–å¾—
+		//! ƒZƒOƒƒ“ƒgæ“¾
 		virtual bool getSegment( char* buffer, unsigned int size, unsigned int* writeSize, bool* isEnd ) = 0;
 
-		//! é ­å‡ºã—
+		//! “ªo‚µ
 		virtual void setHead() = 0;
 
-		//! å®‰å…¨ãªã‚¯ãƒ­ãƒ¼ãƒ³ã‚’ç”Ÿæˆ
+		//! ˆÀ‘S‚ÈƒNƒ[ƒ“‚ğ¶¬
 		virtual sp< PCMDecoder > createClone() = 0;
 
 	public:
-		//! ã‚¯ãƒªã‚¢
+		//! ƒNƒŠƒA
 		virtual void clear();
 
-		//! ãƒ«ãƒ¼ãƒ—ãƒ•ãƒ©ã‚°å–å¾—
+		//! ƒ‹[ƒvƒtƒ‰ƒOæ“¾
 		bool isLoop();
 
-		//! æº–å‚™ã§ããŸï¼Ÿ
+		//! €”õ‚Å‚«‚½H
 		bool isReady();
 
-		//! ãƒ«ãƒ¼ãƒ—ã‚’è¨­å®š
+		//! ƒ‹[ƒv‚ğİ’è
 		void setLoop( bool isLoop );
 
-		//! WAVEFORMATEXæ§‹é€ ä½“ã‚’å–å¾—
+		//! WAVEFORMATEX\‘¢‘Ì‚ğæ“¾
 		bool getWaveFormatEx( WAVEFORMATEX& waveFormatEx );
 
 	protected:
-		//! æº–å‚™ãƒ•ãƒ©ã‚°è¨­å®š
+		//! €”õƒtƒ‰ƒOİ’è
 		void setReady( bool isReady );
 
-		//! ãƒãƒ£ãƒ³ãƒãƒ«æ•°è¨­å®š
+		//! ƒ`ƒƒƒ“ƒlƒ‹”İ’è
 		void setChannelNum( unsigned int channeNum );
 
-		//! ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆã‚’è¨­å®š
+		//! ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg‚ğİ’è
 		void setSamplingRate( unsigned int samplingRate );
 
-		//! ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆã‚’è¨­å®š
+		//! ƒrƒbƒgƒŒ[ƒg‚ğİ’è
 		void setBitRate( unsigned int bitRate );
 
 	protected:
-		bool isLoop_;				//!< ãƒ«ãƒ¼ãƒ—ã™ã‚‹ï¼Ÿ
-		bool isReady_;				//!< æº–å‚™ã§ããŸï¼Ÿ
-		unsigned int channelNum_;	//!< ãƒãƒ£ãƒ³ãƒãƒ«æ•°
-		unsigned int samplingRate_;	//!< ã‚µãƒ³ãƒ—ãƒªãƒ³ã‚°ãƒ¬ãƒ¼ãƒˆ
-		unsigned int bitRate_;		//!< ãƒ“ãƒƒãƒˆãƒ¬ãƒ¼ãƒˆ
+		bool isLoop_;				//!< ƒ‹[ƒv‚·‚éH
+		bool isReady_;				//!< €”õ‚Å‚«‚½H
+		unsigned int channelNum_;	//!< ƒ`ƒƒƒ“ƒlƒ‹”
+		unsigned int samplingRate_;	//!< ƒTƒ“ƒvƒŠƒ“ƒOƒŒ[ƒg
+		unsigned int bitRate_;		//!< ƒrƒbƒgƒŒ[ƒg
 	};
 }
 

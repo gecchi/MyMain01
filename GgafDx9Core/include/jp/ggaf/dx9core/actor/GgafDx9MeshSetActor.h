@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFDX9MESHSETACTOR_H_
+#ifndef GGAFDX9MESHSETACTOR_H_
 #define GGAFDX9MESHSETACTOR_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒ¡ãƒƒã‚·ãƒ¥ã‚¢ã‚¯ã‚¿ãƒ¼.
- * GgafDx9DrawableActor ã‚’ç¶™æ‰¿ã—ã€Xãƒ•ã‚¡ã‚¤ãƒ«å®šç¾©ã®ãƒ¡ãƒƒã‚·ãƒ¥è¡¨ç¤ºæ©Ÿèƒ½ã‚’<BR>
- * è¿½åŠ ã€ã•ã‚‰ã«åŒä¸€ãƒ¢ãƒ‡ãƒ«è¤‡æ•°ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã®é ‚ç‚¹ãƒãƒƒãƒ•ã‚¡ã‚’æŒã¡ã€å¤§é‡è¡¨ç¤ºã«æœ€é©åŒ–ã—ãŸã‚¢ã‚¯ã‚¿ãƒ¼ã§ã™<BR>
+ * ƒƒbƒVƒ…ƒAƒNƒ^[.
+ * GgafDx9DrawableActor ‚ğŒp³‚µAXƒtƒ@ƒCƒ‹’è‹`‚ÌƒƒbƒVƒ…•\¦‹@”\‚ğ<BR>
+ * ’Ç‰ÁA‚³‚ç‚É“¯ˆêƒ‚ƒfƒ‹•¡”ƒIƒuƒWƒFƒNƒg‚Ì’¸“_ƒoƒbƒtƒ@‚ğ‚¿A‘å—Ê•\¦‚ÉÅ“K‰»‚µ‚½ƒAƒNƒ^[‚Å‚·<BR>
  * @version 1.00
  * @since 2009/06/16
  * @author Masatoshi Tsuge
@@ -15,22 +15,22 @@ private:
 
 public:
 
-    /** ãƒ¢ãƒ‡ãƒ«è³‡æº */
+    /** ƒ‚ƒfƒ‹‘Œ¹ */
     GgafDx9MeshSetModel* _pMeshSetModel;
-    /** ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè³‡æº */
+    /** ƒGƒtƒFƒNƒg‘Œ¹ */
     GgafDx9MeshSetEffect* _pMeshSetEffect;
 
-    /** æç”»æ™‚ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆæ•° */
+    /** •`‰æ‚ÌƒIƒuƒWƒFƒNƒg” */
     int _draw_set_num;
     //int _draw_object_num;
 
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-     * @param prm_name  ãƒ¢ãƒ‡ãƒ«åç§°ï¼ˆãƒ‡ãƒãƒƒã‚°ãƒ­ã‚°ã§è¡¨ç¤ºã€ãªã‚“ã§ã‚‚è‰¯ã„ï¼‰
-     * @param prm_model ãƒ¢ãƒ‡ãƒ«å®šç¾©åã€æœ«å°¾ã« ".x" ã‚’ã¤ã‘ã¦Xãƒ•ã‚¡ã‚¤ãƒ«åã«ãªã‚‹ã“ã¨ã€‚
-     * @param prm_technique ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ(GgafDx9MeshSetEffect.fx) ã®ãƒ†ã‚¯ãƒ‹ãƒƒã‚¯ã€‚
-     * @param prm_pChecker   æ§˜ã€…ãªåˆ¤å®šã‚’è¡Œãªã†ãƒã‚§ãƒƒã‚«ãƒ¼ã‚¯ãƒ©ã‚¹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’æ¸¡ã™
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * @param prm_name  ƒ‚ƒfƒ‹–¼ÌiƒfƒoƒbƒOƒƒO‚Å•\¦A‚È‚ñ‚Å‚à—Ç‚¢j
+     * @param prm_model ƒ‚ƒfƒ‹’è‹`–¼A––”ö‚É ".x" ‚ğ‚Â‚¯‚ÄXƒtƒ@ƒCƒ‹–¼‚É‚È‚é‚±‚ÆB
+     * @param prm_technique ƒGƒtƒFƒNƒg(GgafDx9MeshSetEffect.fx) ‚ÌƒeƒNƒjƒbƒNB
+     * @param prm_pChecker   —lX‚È”»’è‚ğs‚È‚¤ƒ`ƒFƒbƒJ[ƒNƒ‰ƒX‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ“n‚·
      */
     GgafDx9MeshSetActor(const char* prm_name,
                         const char* prm_model_id,
@@ -39,13 +39,13 @@ public:
                         GgafDx9Checker* prm_pChecker );
 
     /**
-     * ï¼œOverRide ã§ã™ï¼<BR>
+     * ƒOverRide ‚Å‚·„<BR>
      */
     virtual void processDraw() override;
 
     /**
-     * Î±è¨­å®š.
-     * ï¼œã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒˆï¼
+     * ƒ¿İ’è.
+     * ƒƒI[ƒo[ƒ‰ƒCƒg„
      * @param prm_fAlpha
      */
     void setAlpha(float prm_fAlpha) override;
@@ -56,7 +56,7 @@ public:
 //
 //    }
 
-    virtual ~GgafDx9MeshSetActor(); //ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
+    virtual ~GgafDx9MeshSetActor(); //ƒfƒXƒgƒ‰ƒNƒ^
 };
 
 }

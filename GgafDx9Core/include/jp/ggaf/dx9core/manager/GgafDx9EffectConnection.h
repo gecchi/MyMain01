@@ -1,10 +1,10 @@
-ï»¿#ifndef GGAFDX9EFFECTCONNECTION_H_
+#ifndef GGAFDX9EFFECTCONNECTION_H_
 #define GGAFDX9EFFECTCONNECTION_H_
 namespace GgafDx9Core {
 
 /**
- * ãƒ¢ãƒ‡ãƒ«åŸºåº•ã‚¯ãƒ©ã‚¹.
- * ã‚­ãƒ£ãƒ©(ã‚¢ã‚¯ã‚¿ãƒ¼)ã®å½¢çŠ¶ã‚„è‰²ãªã©ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚<BR>
+ * ƒ‚ƒfƒ‹Šî’êƒNƒ‰ƒX.
+ * ƒLƒƒƒ‰(ƒAƒNƒ^[)‚ÌŒ`ó‚âF‚È‚Ç‚ğ•Û‚·‚éƒNƒ‰ƒX‚Å‚·B<BR>
  * @version 1.00
  * @since 2009/02/09
  * @author Masatoshi Tsuge
@@ -14,19 +14,19 @@ class GgafDx9EffectConnection : public GgafCore::GgafResourceConnection<GgafDx9E
 public:
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
-     * @param prm_idstr ã‚¨ãƒ•ã‚§ã‚¯ãƒˆè­˜åˆ¥å(ï¼ãƒ•ã‚¡ã‚¤ãƒ«å)
-     * @param prm_pEffect ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^<BR>
+     * @param prm_idstr ƒGƒtƒFƒNƒg¯•Ê–¼(ƒtƒ@ƒCƒ‹–¼)
+     * @param prm_pEffect ƒGƒtƒFƒNƒg
      */
     GgafDx9EffectConnection(char* prm_idstr, GgafDx9Effect* prm_pEffect);
 
     /**
-     * ã‚ªãƒ¼ãƒãƒ¼ãƒ©ã‚¤ãƒ‰
+     * ƒI[ƒo[ƒ‰ƒCƒh
      */
     void processReleaseResource(GgafDx9Effect* prm_pResource);
 
     /**
-     * ãƒ‡ã‚¹ãƒˆãƒ©ã‚¯ã‚¿<BR>
+     * ƒfƒXƒgƒ‰ƒNƒ^<BR>
      */
     virtual ~GgafDx9EffectConnection() {
     }

@@ -1,9 +1,9 @@
-ï»¿#ifndef FONTSPRITESTRING_H_
+#ifndef FONTSPRITESTRING_H_
 #define FONTSPRITESTRING_H_
 namespace GgafDx9LibStg {
 
 /**
- * FontSpriteActorè¡¨ç¤ºã‚¯ãƒ©ã‚¹
+ * FontSpriteActor•\Ž¦ƒNƒ‰ƒX
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge

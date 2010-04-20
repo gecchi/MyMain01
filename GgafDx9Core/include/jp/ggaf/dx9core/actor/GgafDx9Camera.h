@@ -1,21 +1,21 @@
-﻿#ifndef GGAFDX9CAMERAACTOR_H_
+#ifndef GGAFDX9CAMERAACTOR_H_
 #define GGAFDX9CAMERAACTOR_H_
 namespace GgafDx9Core {
 
-// (2009/2/12 の脳みそ)
-// ２〜３個 new して、１カメ、２カメみたいな切り替え操作ができたら良いかもな
+// (2009/2/12 �̔]�݂�)
+// �Q�`�R�� new ���āA�P�J���A�Q�J���݂����Ȑ؂�ւ����삪�ł�����ǂ�������
 
 
 /**
- * カメラアクター.
- * GgafDx9GeometricActor を継承し、カメラを表したアクターです。<BR>
- * 本クラスは神(GgafDx9God)と連動ています。メンバを操作すると、その通りにカメラの位置と注視点が操作できます。<BR>
- * processPreDraw メソッドが実装されており、その中で神(GgafDx9God)のカメラに座標情報を上書きします。<BR>
+ * �J�����A�N�^�[.
+ * GgafDx9GeometricActor ���p�����A�J������\�����A�N�^�[�ł��B<BR>
+ * �{�N���X�͐_(GgafDx9God)�ƘA���Ă��܂��B�����o�𑀍삷��ƁA���̒ʂ�ɃJ�����̈ʒu�ƒ����_������ł��܂��B<BR>
+ * processPreDraw ���\�b�h����������Ă���A���̒��Ő_(GgafDx9God)�̃J�����ɍ��W�����㏑�����܂��B<BR>
  * <BR>
- * _X,_Y,_Z             ・・・ カメラの位置 <BR>
+ * _X,_Y,_Z             �E�E�E �J�����̈ʒu <BR>
  * <BR>
- * ＜使い方＞<BR>
- * 継承し、processBehavior() 等を オーバーライドして好きに座標を動かすだけで良い<BR>
+ * ���g������<BR>
+ * �p�����AprocessBehavior() ���� �I�[�o�[���C�h���čD���ɍ��W�𓮂��������ŗǂ�<BR>
  * <BR>
  * @version 1.00
  * @since 2009/02/12
@@ -25,68 +25,68 @@ class GgafDx9Camera : public GgafDx9GeometricActor {
 private:
 
 public:
-    // 視錐台の6つの面の頂点座標
-    /** 視錐台面、手前の四角形の頂点(読み込み専用、毎フレーム更新) */
+    // �������6�̖ʂ̒��_���W
+    /** ������ʁA��O�̎l�p�`�̒��_(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXVECTOR3 _vecNear[4];
-    /** 視錐台面、奥の四角形の頂点(読み込み専用、毎フレーム更新) */
+    /** ������ʁA���̎l�p�`�̒��_(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXVECTOR3 _vecFar[4];
 
     D3DXVECTOR3 _vecVerticalCenter[4];
 
-    // 視錐台の6つの面
-    /** 視錐台面、上(読み込み専用、毎フレーム更新) */
+    // �������6�̖�
+    /** ������ʁA��(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnTop;
-    /** 視錐台面、下(読み込み専用、毎フレーム更新) */
+    /** ������ʁA��(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnBottom;
-    /** 視錐台面、左(読み込み専用、毎フレーム更新) */
+    /** ������ʁA��(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnLeft;
-    /** 視錐台面、右(読み込み専用、毎フレーム更新) */
+    /** ������ʁA�E(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnRight;
-    /** 視錐台面、手前(読み込み専用、毎フレーム更新) */
+    /** ������ʁA��O(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnFront;
-    /** 視錐台面、奥(読み込み専用、毎フレーム更新) */
+    /** ������ʁA��(�ǂݍ��ݐ�p�A���t���[���X�V) */
     D3DXPLANE _plnBack;
 
     D3DXPLANE _plnVerticalCenter;
 
-    /** 射影変換魚売れる */
+    /** �ˉe�ϊ�������� */
     D3DXMATRIX _vMatrixProj;
-    /** 正射影変換魚売れる */
+    /** ���ˉe�ϊ�������� */
     D3DXMATRIX _vMatrixOrthoProj;
 
-    /** カメラの位置(読み込み専用、フレーム毎更新) */
+    /** �J�����̈ʒu(�ǂݍ��ݐ�p�A�t���[�����X�V) */
     D3DXVECTOR3* _pVecCamFromPoint;
-    /** カメラの注視点(読み込み専用、フレーム毎更新) */
+    /** �J�����̒����_(�ǂݍ��ݐ�p�A�t���[�����X�V) */
     D3DXVECTOR3* _pVecCamLookatPoint;
-    /** カメラの上ベクトル(読み込み専用、生成後不変) */
+    /** �J�����̏�x�N�g��(�ǂݍ��ݐ�p�A������s��) */
     D3DXVECTOR3* _pVecCamUp;
-    /** VIEW変換行列(読み込み専用、フレーム毎更新) */
+    /** VIEW�ϊ��s��(�ǂݍ��ݐ�p�A�t���[�����X�V) */
     D3DXMATRIX _vMatrixView;
-    /** 視野角X(読み込み専用、生成後不変) */
+    /** ����pX(�ǂݍ��ݐ�p�A������s��) */
     float _rad_fovX;
-    /** 視野角Xの半分(読み込み専用、生成後不変) */
+    /** ����pX�̔���(�ǂݍ��ݐ�p�A������s��) */
     float _rad_half_fovX;
-    /** 視野角Y(読み込み専用、生成後不変) */
+    /** ����pY(�ǂݍ��ݐ�p�A������s��) */
     float _rad_fovY;
-    /** 視野角Yの半分(読み込み専用、生成後不変) */
+    /** ����pY�̔���(�ǂݍ��ݐ�p�A������s��) */
     float _rad_half_fovY;
-    /** カメラのZ座標(読み込み専用) */
+    /** �J������Z���W(�ǂݍ��ݐ�p) */
     float _cameraZ;
-    /** カメラのZ座標初期位置(読み込み専用、生成後不変) */
+    /** �J������Z���W�����ʒu(�ǂݍ��ݐ�p�A������s��) */
     float _cameraZ_org;
-    /** アスペクト比(読み込み専用、生成後不変) */
+    /** �A�X�y�N�g��(�ǂݍ��ݐ�p�A������s��) */
     float _screen_aspect;
 
     float _tan_half_fovY;
     float _tan_half_fovX;
     float _dCamHarfXfovTan;
 
-    /** カメラから近くのクリップ面までの距離(どこからの距離が表示対象か）≠0 */
+    /** �J��������߂��̃N���b�v�ʂ܂ł̋���(�ǂ�����̋������\���Ώۂ��j��0 */
     float _zn;
-    /** カメラから遠くのクリップ面までの距離(どこまでの距離が表示対象か）> zn  */
+    /** �J�������牓���̃N���b�v�ʂ܂ł̋���(�ǂ��܂ł̋������\���Ώۂ��j> zn  */
     float _zf;
 
-    /** 注視点 **/
+    /** �����_ **/
     GgafDx9CameraViewPoint* _pViewPoint;
 
 
@@ -97,24 +97,24 @@ public:
 
 
     /**
-     * コンストラクタ .
-     * 視野角と表示深さを設定する。
-     * 視野角によって、カメラの初期Z位置が決定する。
-     * このカメラの初期Z位置は、原点付近ででDirctXの長さ1（のオブジェクト）を
-     * 画面上10ピクセルで表示する位置へカメラを引くように自動計算される。（_cameraZ_orgに保持)
-     * この原点から、初期のカメラZ位置までを1.0として、表示範囲の深さの倍数を引数で設定する。
-     * prm_dep=1.0とした場合。表示範囲は 原点を中心とし、半径を初期カメラZ位置の距離の球とする。
-     * また、表示範囲＋αが、アクター達のゲーム内での可動範囲となるように設計しため、カメラの初期設定値は
-     * 非常に重要である。
-     * 通常視野角を狭めればズームアップの効果が得られるが、本ライブラリでは、
-     * 上記の初期Z位置までカメラを自動で引くため、視野角を変更してもアクターの表示の大きさは画面上変わらない。
-     * ただし視野角を狭くすれば、初期のカメラを引く距離も伸びることになり、結果として
-     * 表示範囲を拡大する効果をえることができる。
-     * 逆に視野角が広ければ、カメラの初期Z位置は原点に近くなり、実は表示範囲は狭くなる。
+     * �R���X�g���N�^ .
+     * ����p�ƕ\���[����ݒ肷��B
+     * ����p�ɂ���āA�J�����̏���Z�ʒu�����肷��B
+     * ���̃J�����̏���Z�ʒu�́A���_�t�߂ł�DirctX�̒���1�i�̃I�u�W�F�N�g�j��
+     * ��ʏ�10�s�N�Z���ŕ\������ʒu�փJ�����������悤�Ɏ����v�Z�����B�i_cameraZ_org�ɕێ�)
+     * ���̌��_����A�����̃J����Z�ʒu�܂ł�1.0�Ƃ��āA�\���͈͂̐[���̔{���������Őݒ肷��B
+     * prm_dep=1.0�Ƃ����ꍇ�B�\���͈͂� ���_�𒆐S�Ƃ��A���a�������J����Z�ʒu�̋����̋��Ƃ���B
+     * �܂��A�\���͈́{�����A�A�N�^�[�B�̃Q�[�����ł̉��͈͂ƂȂ�悤�ɐ݌v�����߁A�J�����̏����ݒ�l��
+     * ���ɏd�v�ł���B
+     * �ʏ펋��p�����߂�΃Y�[���A�b�v�̌��ʂ������邪�A�{���C�u�����ł́A
+     * ��L�̏���Z�ʒu�܂ŃJ�����������ň������߁A����p��ύX���Ă��A�N�^�[�̕\���̑傫���͉�ʏ�ς��Ȃ��B
+     * ����������p����������΁A�����̃J�����������������L�т邱�ƂɂȂ�A���ʂƂ���
+     * �\���͈͂��g�傷����ʂ����邱�Ƃ��ł���B
+     * �t�Ɏ���p���L����΁A�J�����̏���Z�ʒu�͌��_�ɋ߂��Ȃ�A���͕\���͈͂͋����Ȃ�B
      *
-     * @param prm_name 名前(デバックで表示。何でもよい)
-     * @param prm_rad_fovX 左右の視野角（ラジアン）
-     * @param prm_dep 深さの割合
+     * @param prm_name ���O(�f�o�b�N�ŕ\���B���ł��悢)
+     * @param prm_rad_fovX ���E�̎���p�i���W�A���j
+     * @param prm_dep �[���̊���
      * @return
      */
     GgafDx9Camera(const char* prm_name, float prm_rad_fovX, float prm_dep);
@@ -145,21 +145,21 @@ public:
 
 
     /**
-     * カメラの注視点を設定 .
-     * @param prm_tX 注視点X座標
-     * @param prm_tY 注視点Y座標
-     * @param prm_tZ 注視点Z座標
+     * �J�����̒����_��ݒ� .
+     * @param prm_tX �����_X���W
+     * @param prm_tY �����_Y���W
+     * @param prm_tZ �����_Z���W
      */
     void setViewPoint(int prm_tX, int prm_tY, int prm_tZ);
 
     /**
-     * カメラの注視点を設定 .
-     * 引数のアクターのXYZ座標(_X, _Y, _Z)がsetViewPointされるだけです。
-     * @param prm_pActor 注視するアクター
+     * �J�����̒����_��ݒ� .
+     * �����̃A�N�^�[��XYZ���W(_X, _Y, _Z)��setViewPoint����邾���ł��B
+     * @param prm_pActor ��������A�N�^�[
      */
     void setViewPoint(GgafDx9GeometricActor* prm_pActor);
 
-    virtual ~GgafDx9Camera(); //デストラクタ
+    virtual ~GgafDx9Camera(); //�f�X�g���N�^
 };
 
 }

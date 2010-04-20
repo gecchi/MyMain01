@@ -1,9 +1,9 @@
-ï»¿#ifndef GGAFDX9BGMPERFORMER_H_
+#ifndef GGAFDX9BGMPERFORMER_H_
 #define GGAFDX9BGMPERFORMER_H_
 namespace GgafDx9Core {
 
 /**
- * BGMæ¼”å¥æ”¯æ´ã‚¯ãƒ©ã‚¹ .
+ * BGM‰‰‘tx‰‡ƒNƒ‰ƒX .
  * @version 1.00
  * @since 2010/04/19
  * @author Masatoshi Tsuge
@@ -18,7 +18,7 @@ public:
     double* _pa_target_volume;
     double* _pa_inc_volume;
     int _bgm_num;
-    /** Bgmè³‡æºæ¥ç¶š */
+    /** Bgm‘Œ¹Ú‘± */
     GgafDx9BgmConnection** _papBgmCon;
 
     GgafDx9BgmPerformer();

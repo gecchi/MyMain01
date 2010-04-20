@@ -1,26 +1,26 @@
-﻿#ifndef GGAFLINKEDLISTRING_H_
+#ifndef GGAFLINKEDLISTRING_H_
 #define GGAFLINKEDLISTRING_H_
 namespace GgafCore {
 
 /**
- * 要素（同一型インスタンス）の環状双方向連結リストを構築するテンプレートです。.
- * <B>【解説】</B><BR>
- * 連結リストの先頭と末尾が繋がっているということで、『環状』と表現しています。<BR>
+ * �v�f�i����^�C���X�^���X�j�̊�o�����A�����X�g���\�z����e���v���[�g�ł��B.
+ * <B>�y����z</B><BR>
+ * �A�����X�g�̐擪�Ɩ������q�����Ă���Ƃ������ƂŁA�w��x�ƕ\�����Ă��܂��B<BR>
  * <PRE STYLE="font-size:12px">
- * 【例】
- * (Ｅ)⇔Ａ⇔Ｂ⇔Ｃ*⇔Ｄ⇔Ｅ⇔(Ａ)
+ * �y��z
+ * (�d)�̂`�̂a�̂b*�̂c�̂d��(�`)
  * </PRE>
- * 例えば、５つの要素で上図のような構造を採る事が出来ます。<BR>
- * 『⇔』は、要素（インスタンス）同士がお互いポインタを指しあっている事を示しています。<BR>
- * Ａを先頭要素、Ｅを末尾要素、*はアクティブ要素(カーソルが指しているようなもの)と呼ぶこととします。<BR>
- * ロジック中、addLast() にて一番最初に追加した要素が先頭要素で、最後に追加した要素が末尾要素となります。<BR>
- * 両端の「(Ｅ)」と「(Ａ)」という表記は、連結リストの先頭と末尾も、お互い連結している事を示しています。(環状になっている)<BR>
- * addLast()で１要素だけ追加した場合は次のようになります。<BR>
+ * �Ⴆ�΁A�T�̗v�f�ŏ�}�̂悤�ȍ\�����̂鎖���o���܂��B<BR>
+ * �w�́x�́A�v�f�i�C���X�^���X�j���m�����݂��|�C���^���w�������Ă��鎖�������Ă��܂��B<BR>
+ * �`��擪�v�f�A�d�𖖔��v�f�A*�̓A�N�e�B�u�v�f(�J�[�\�����w���Ă���悤�Ȃ���)�ƌĂԂ��ƂƂ��܂��B<BR>
+ * ���W�b�N���AaddLast() �ɂĈ�ԍŏ��ɒǉ������v�f���擪�v�f�ŁA�Ō�ɒǉ������v�f�������v�f�ƂȂ�܂��B<BR>
+ * ���[�́u(�d)�v�Ɓu(�`)�v�Ƃ����\�L�́A�A�����X�g�̐擪�Ɩ������A���݂��A�����Ă��鎖�������Ă��܂��B(��ɂȂ��Ă���)<BR>
+ * addLast()�łP�v�f�����ǉ������ꍇ�͎��̂悤�ɂȂ�܂��B<BR>
  * <PRE STYLE="font-size:12px">
- * 【例】
- * (Ａ)⇔Ａ*⇔(Ａ)
+ * �y��z
+ * (�`)�̂`*��(�`)
  * </PRE>
- * イテレータのような使い方を想定していますが、上図から解るように、hasNext() による判定は存在しません。<BR>
+ * �C�e���[�^�̂悤�Ȏg������z�肵�Ă��܂����A��}�������悤�ɁAhasNext() �ɂ�锻��͑��݂��܂���B<BR>
  * <BR>
  * @version 1.00
  * @since 2008/12/19
@@ -32,28 +32,28 @@ class GgafLinkedListRing : public GgafObject {
 private:
 
     /**
-     * 専用の要素クラス .
-     * 実際の要素値をラッピング、前後のポインタを保持
+     * ��p�̗v�f�N���X .
+     * ���ۂ̗v�f�l�����b�s���O�A�O��̃|�C���^��ێ�
      */
     class Elem {
     public:
-        /** 実際の要素の値 */
+        /** ���ۂ̗v�f�̒l */
         T* _pValue;
-        /** 次要素 */
+        /** ���v�f */
         Elem* _pNext;
-        /** 前要素 */
+        /** �O�v�f */
         Elem* _pPrev;
-        /** 先頭要素フラグ (自要素が先頭要素の場合 true)*/
+        /** �擪�v�f�t���O (���v�f���擪�v�f�̏ꍇ true)*/
         bool _is_first_flg;
-        /** 末尾要素フラグ (自要素が末尾要素の場合 true)*/
+        /** �����v�f�t���O (���v�f�������v�f�̏ꍇ true)*/
         bool _is_last_flg;
-        /** delete時に_pValueもdeleteするかどうかのフラグ */
+        /** delete����_pValue��delete���邩�ǂ����̃t���O */
         bool _is_delete_value;
 
         /**
-         * コンストラクタ
-         * @param prm_pValue 値ポインタ
-         * @param prm_is_delete_value true:GgafLinkedListRingインスタンスdelete時に、要素(_pValue)もdeleteする。/false:要素(_pValue)をdeleteしない。
+         * �R���X�g���N�^
+         * @param prm_pValue �l�|�C���^
+         * @param prm_is_delete_value true:GgafLinkedListRing�C���X�^���Xdelete���ɁA�v�f(_pValue)��delete����B/false:�v�f(_pValue)��delete���Ȃ��B
          */
         Elem(T* prm_pValue, bool prm_is_delete_value = true) {
             _pValue = prm_pValue;
@@ -63,48 +63,48 @@ private:
         }
 
         /**
-         * 要素の値を取得
-         * @return 要素の値
+         * �v�f�̒l���擾
+         * @return �v�f�̒l
          */
         T* getVal() {
             return _pValue;
         }
 
         /**
-         * 次の要素を取得
-         * @return 次の要素
+         * ���̗v�f���擾
+         * @return ���̗v�f
          */
         Elem* getNext() {
             return _pNext;
         }
 
         /**
-         * 前の要素を取得
-         * @return 前の要素
+         * �O�̗v�f���擾
+         * @return �O�̗v�f
          */
         Elem* getPrev() {
             return _pPrev;
         }
 
         /**
-         * 要素が先頭要素か調べる .
-         * @return	bool true:先頭要素／false:先頭要素ではない
+         * �v�f���擪�v�f�����ׂ� .
+         * @return	bool true:�擪�v�f�^false:�擪�v�f�ł͂Ȃ�
          */
         bool isFirst() {
             return _is_first_flg;
         }
 
         /**
-         * 要素が末尾要素か調べる .
-         * @return	bool true:末尾要素／false:末尾要素ではない
+         * �v�f�������v�f�����ׂ� .
+         * @return	bool true:�����v�f�^false:�����v�f�ł͂Ȃ�
          */
         bool isLast() {
             return _is_last_flg;
         }
 
         /**
-         * デストラクタ.
-         * 内部保持する要素の値もdeleteされます。<BR>
+         * �f�X�g���N�^.
+         * �����ێ�����v�f�̒l��delete����܂��B<BR>
          */
         ~Elem() {
             if (_is_delete_value) {
@@ -115,120 +115,120 @@ private:
     };
 
 protected:
-    /** [r]先頭要素 */
+    /** [r]�擪�v�f */
     Elem* _pElemFirst;
 
-    /** [r]アクティブ要素 */
+    /** [r]�A�N�e�B�u�v�f */
     Elem* _pElemActive;
 
-    /** [r]要素数 */
+    /** [r]�v�f�� */
     int _num_elem;
 
 public:
     /**
-     * コンストラクタ
+     * �R���X�g���N�^
      */
     GgafLinkedListRing();
 
     /**
-     * デストラクタ.
-     * 内部保持する要素の値は、NULLで無い場合、それぞれ delete により解放されます。<BR>
-     * TODO:デストラクタ時、要素も delete するかしないか指定できるようにしたい。
-     * TODO:delete[] やその他の解放方法に対応
+     * �f�X�g���N�^.
+     * �����ێ�����v�f�̒l�́ANULL�Ŗ����ꍇ�A���ꂼ�� delete �ɂ��������܂��B<BR>
+     * TODO:�f�X�g���N�^���A�v�f�� delete ���邩���Ȃ����w��ł���悤�ɂ������B
+     * TODO:delete[] �₻�̑��̉�����@�ɑΉ�
      */
     virtual ~GgafLinkedListRing();
 
 
     /**
-     * アクティブ要素の値（保持している内容）を取得する .
-     * @return	アクティブ要素の値
+     * �A�N�e�B�u�v�f�̒l�i�ێ����Ă�����e�j���擾���� .
+     * @return	�A�N�e�B�u�v�f�̒l
      */
     T* get();
 
     /**
-     * アクティブ要素を一つ進める。 .
-     * @return アクティブ要素を一つ進めた後の、その要素の値。
+     * �A�N�e�B�u�v�f����i�߂�B .
+     * @return �A�N�e�B�u�v�f����i�߂���́A���̗v�f�̒l�B
      */
     T* next();
 
     /**
-     * アクティブ要素の次の要素の値を取得する。アクティブ要素は変化しない .
-     * @return 次の要素の値
+     * �A�N�e�B�u�v�f�̎��̗v�f�̒l���擾����B�A�N�e�B�u�v�f�͕ω����Ȃ� .
+     * @return ���̗v�f�̒l
      */
     T* getNext();
 
     /**
-     * アクティブ要素のｎ番目の要素の値を取得する。アクティブ要素は変化しない .
-     * getNext(1) は、getNext() と同じです。getNext(0) は get()と同じです。
-     * @param n インデックス
-     * @return アクティブ要素からｎ番目の要素
+     * �A�N�e�B�u�v�f�̂��Ԗڂ̗v�f�̒l���擾����B�A�N�e�B�u�v�f�͕ω����Ȃ� .
+     * getNext(1) �́AgetNext() �Ɠ����ł��BgetNext(0) �� get()�Ɠ����ł��B
+     * @param n �C���f�b�N�X
+     * @return �A�N�e�B�u�v�f���炎�Ԗڂ̗v�f
      */
     T* getNext(int n);
 
     /**
-     * アクティブ要素を一つ戻す。 .
-     * @return アクティブ要素を一つ戻した後の、その要素の値
+     * �A�N�e�B�u�v�f����߂��B .
+     * @return �A�N�e�B�u�v�f����߂�����́A���̗v�f�̒l
      */
     T* prev();
 
     /**
-     * アクティブ要素をの１つ前の要素の値を取得する。アクティブ要素は変化しない .
-     * @return 前の要素の値
+     * �A�N�e�B�u�v�f���̂P�O�̗v�f�̒l���擾����B�A�N�e�B�u�v�f�͕ω����Ȃ� .
+     * @return �O�̗v�f�̒l
      */
     T* getPrev();
 
     /**
-     * アクティブ要素のｎ番目前の要素の値を取得する。アクティブ要素は変化しない .
-     * getPrev(1) は、getPrev() と同じです。getPrev(0) は get()と同じです。
-     * @param n インデックス
-     * @return アクティブ要素からｎ番目前の要素
+     * �A�N�e�B�u�v�f�̂��ԖڑO�̗v�f�̒l���擾����B�A�N�e�B�u�v�f�͕ω����Ȃ� .
+     * getPrev(1) �́AgetPrev() �Ɠ����ł��BgetPrev(0) �� get()�Ɠ����ł��B
+     * @param n �C���f�b�N�X
+     * @return �A�N�e�B�u�v�f���炎�ԖڑO�̗v�f
      */
     T* getPrev(int n);
 
     /**
-     * アクティブ要素を先頭に戻す。 .
-     * @return アクティブ要素を先頭に戻した後の、その要素の値
+     * �A�N�e�B�u�v�f��擪�ɖ߂��B .
+     * @return �A�N�e�B�u�v�f��擪�ɖ߂�����́A���̗v�f�̒l
      */
     T* first();
 
     /**
-     * アクティブ要素がリストの末尾であるか判定する .
-     * @return true:末尾である／false:そうでは無い
+     * �A�N�e�B�u�v�f�����X�g�̖����ł��邩���肷�� .
+     * @return true:�����ł���^false:�����ł͖���
      */
     bool isLast();
 
     /**
-     * アクティブ要素がリストの先頭であるか判定する .
-     * @return true:末尾である／false:そうでは無い
+     * �A�N�e�B�u�v�f�����X�g�̐擪�ł��邩���肷�� .
+     * @return true:�����ł���^false:�����ł͖���
      */
     bool isFirst();
 
     /**
-     * アクティブ要素に値を上書き設定する。 .
-     * 元の要素の値の解放等は、戻り値を使用して呼び元で行って下さい。
-     * @return 上書きされる前の要素の値
+     * �A�N�e�B�u�v�f�ɒl���㏑���ݒ肷��B .
+     * ���̗v�f�̒l�̉�����́A�߂�l���g�p���ČĂь��ōs���ĉ������B
+     * @return �㏑�������O�̗v�f�̒l
      */
     virtual T* set(T* prm_pVal);
 
     /**
-     * 引数要素を、末尾(_is_last_flg が true)として追加する .
-     * 追加される場所は以下の図のようになります。<BR>
+     * �����v�f���A����(_is_last_flg �� true)�Ƃ��Ēǉ����� .
+     * �ǉ������ꏊ�͈ȉ��̐}�̂悤�ɂȂ�܂��B<BR>
      *<PRE STYLE="font-size:12px">
-     * ----------------「実行前」
-     * (Ｋ)⇔Ｉ*⇔Ｊ⇔Ｋ⇔(Ｉ)
+     * ----------------�u���s�O�v
+     * (�j)�̂h*�̂i�̂j��(�h)
      * -----------------------
-     * 　　　　↓ 上図は３要素からなる環状リストです。「Ｋ」が末尾要素です。
-     * 　　　　↓ ここに要素「Ｘ」addLast すると下図のような状態になり、
-     * 　　　　↓ 要素「Ｘ」が新たな末尾要素になります。
-     * ----------------「実行後」
-     * (Ｘ)⇔Ｉ*⇔Ｊ⇔Ｋ⇔Ｘ⇔(Ｉ)
+     * �@�@�@�@�� ��}�͂R�v�f����Ȃ�󃊃X�g�ł��B�u�j�v�������v�f�ł��B
+     * �@�@�@�@�� �����ɗv�f�u�w�vaddLast ����Ɖ��}�̂悤�ȏ�ԂɂȂ�A
+     * �@�@�@�@�� �v�f�u�w�v���V���Ȗ����v�f�ɂȂ�܂��B
+     * ----------------�u���s��v
+     * (�w)�̂h*�̂i�̂j�̂w��(�h)
      * -----------------------
      * </PRE>
-     * 初めてのaddLastは、引数のオブジェクトはにアクティブ要素なり、<BR>
-     * ２回目以降addLastを行なってもにアクティブ要素は影響されません。<BR>
+     * ���߂Ă�addLast�́A�����̃I�u�W�F�N�g�͂ɃA�N�e�B�u�v�f�Ȃ�A<BR>
+     * �Q��ڈȍ~addLast���s�Ȃ��Ă��ɃA�N�e�B�u�v�f�͉e������܂���B<BR>
      *
-     * @param prm_pSub インスタンス生成済み要素のポインタ
-     * @param prm_is_delete_value true:本インスタンスdelete時に、引数の追加要素もdeleteする。/false:delete時に、引数の追加要素をdeleteしない。
+     * @param prm_pSub �C���X�^���X�����ςݗv�f�̃|�C���^
+     * @param prm_is_delete_value true:�{�C���X�^���Xdelete���ɁA�����̒ǉ��v�f��delete����B/false:delete���ɁA�����̒ǉ��v�f��delete���Ȃ��B
      */
     virtual void addLast(T* prm_pSub, bool prm_is_delete_value = true);
 
@@ -237,7 +237,7 @@ public:
 //////////////////////////////////////////////////////////////////
 
 /**
- * ここからは実装部
+ * ��������͎�����
  */
 
 template<class T>
@@ -321,21 +321,21 @@ T* GgafLinkedListRing<T>::set(T* prm_pVal) {
 template<class T>
 void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
     if (prm_pSub == NULL) {
-        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! 引数がNULLです");
+        throwGgafCriticalException("[GgafLinkedListRing::addLast()] Error! ������NULL�ł�");
     }
     static Elem* pElem;
     static Elem* pLastElem;
     pElem = NEW Elem(prm_pSub, prm_is_delete_value);
     pElem->_is_last_flg = true;
     if (_pElemFirst == NULL) {
-        //最初の１つ
+        //�ŏ��̂P��
         pElem->_is_first_flg = true;
         pElem->_pNext = pElem;
         pElem->_pPrev = pElem;
         _pElemActive = pElem;
         _pElemFirst = pElem;
     } else {
-        //２つ目以降
+        //�Q�ڈȍ~
         pElem->_is_first_flg = false;
         pLastElem = _pElemFirst->_pPrev;
         pLastElem->_is_last_flg = false;
@@ -350,24 +350,24 @@ void GgafLinkedListRing<T>::addLast(T* prm_pSub, bool prm_is_delete_value) {
 
 template<class T>
 GgafLinkedListRing<T>::~GgafLinkedListRing() {
-    //自分に子がある場合
+    //�����Ɏq������ꍇ
     if (_pElemFirst) {
-        //まず子をdelete
+        //�܂��q��delete
         if (_num_elem == 1) {
-            //子要素は１つの場合
+            //�q�v�f�͂P�̏ꍇ
             DELETE_IMPOSSIBLE_NULL(_pElemFirst);
             _pElemFirst = NULL;
             _pElemActive = NULL;
             _num_elem = 0;
 
         } else {
-            //子要素は２つ以上の場合
+            //�q�v�f�͂Q�ȏ�̏ꍇ
             Elem* pLast = _pElemFirst->_pPrev;
             Elem* pLastPrev = pLast->_pPrev;
             while (true) {
-                DELETE_IMPOSSIBLE_NULL(pLast); //末尾からdelete
+                DELETE_IMPOSSIBLE_NULL(pLast); //��������delete
                 if (pLastPrev->_is_first_flg) {
-                    DELETE_IMPOSSIBLE_NULL(_pElemFirst); //pSubLastPrev == _pSubFirst である
+                    DELETE_IMPOSSIBLE_NULL(_pElemFirst); //pSubLastPrev == _pSubFirst �ł���
                     _pElemFirst = NULL;
                     _pElemActive = NULL;
                     _num_elem = 0;

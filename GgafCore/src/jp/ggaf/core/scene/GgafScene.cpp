@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 
 using namespace GgafCore;
@@ -14,7 +14,7 @@ GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     _progress_prev = -2;
     DWORD x = UINT_MAX/2;
     for (int i = 0; i < 100; i++) {
-        _aFrame_ProgressChange[i] = x; //æœ‰ã‚Šãˆãªã„ãƒ•ãƒ¬ãƒ¼ãƒ ãªã‚‰è‰¯ã„
+        _aFrame_ProgressChange[i] = x; //—L‚è‚¦‚È‚¢ƒtƒŒ[ƒ€‚È‚ç—Ç‚¢
     }
 }
 
@@ -28,7 +28,7 @@ void GgafScene::nextFrame() {
     TRACE("GgafScene::nextFrame() " << getName());
     GgafElement<GgafScene>::nextFrame();
     _pLordActor->nextFrame();
-    //é€²æ—ã‚’æ›´æ–°
+    //i’»‚ğXV
     _progress_prev = _progress;
     _progress = _progress_nextframe;
 }
@@ -256,7 +256,7 @@ GgafGod* GgafScene::askGod() {
 }
 
 void GgafScene::dump() {
-    _TRACE_("â—"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
+    _TRACE_("œ"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
     _pLordActor->dump();
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -265,7 +265,7 @@ void GgafScene::dump() {
             if (pScene_tmp->_pNext) {
                 pScene_tmp = pScene_tmp->_pNext;
             } else {
-                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã«ã£ã¦ã„ã¾ã™");
+                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚É‚Á‚Ä‚¢‚Ü‚·");
                 break;
             }
             if (pScene_tmp->_is_first_flg) {
@@ -276,7 +276,7 @@ void GgafScene::dump() {
 }
 
 void GgafScene::dump(string prm_parent) {
-    _TRACE_(prm_parent+"â—"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
+    _TRACE_(prm_parent+"œ"<<_class_name<<"("<<this<<")["<<getName()<<"]@"<<_frame_of_behaving<<","<<_is_active_flg<<_was_paused_flg<<_can_live_flg<<","<<_is_active_flg_in_next_frame<<_was_paused_flg_in_next_frame<<_can_live_flg_in_next_frame<<","<<_will_activate_after_flg<<"("<<_frame_of_life_when_activation<<")");
     _pLordActor->dump(prm_parent + "\t\t\t\t\t\t\t\t");
     GgafScene* pScene_tmp = _pSubFirst;
     if (_pSubFirst != NULL) {
@@ -285,7 +285,7 @@ void GgafScene::dump(string prm_parent) {
             if (pScene_tmp->_pNext) {
                 pScene_tmp = pScene_tmp->_pNext;
             } else {
-                _TRACE_("ã€è­¦å‘Šã€‘"<<_class_name<<"("<<this<<")["<<getName()<<"]ã®nextãŒNULLã«ã£ã¦ã„ã¾ã™");
+                _TRACE_("yŒxz"<<_class_name<<"("<<this<<")["<<getName()<<"]‚Ìnext‚ªNULL‚É‚Á‚Ä‚¢‚Ü‚·");
                 break;
             }
             if (pScene_tmp->_is_first_flg) {

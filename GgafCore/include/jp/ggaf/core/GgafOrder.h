@@ -1,11 +1,11 @@
-ï»¿#ifndef GGAFORDER_H_
+#ifndef GGAFORDER_H_
 #define GGAFORDER_H_
 namespace GgafCore {
 
 /**
- * å•†å“ï¼ˆä½•ã‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ï¼‰ã®æ³¨æ–‡ã‚¯ãƒ©ã‚¹ .
- * å·¥å ´(GgafFactory)ã«æ¸¡ã™æ³¨æ–‡ã‚’è¡¨ã—ãŸã‚¯ãƒ©ã‚¹ã§ã€ å•†å“ï¼ˆä½•ã‹ã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ï¼‰ï¼‘ã¤ã‚’å†…éƒ¨ä¿æŒã—ã¾ã™ã€‚<BR>
- * ã¾ãŸæ³¨æ–‡ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆåŒå£«ã§é€£çµãƒªã‚¹ãƒˆã‚’ä½œæˆã§ãã€ãã®ãƒªã‚¹ãƒˆã¯å·¥å ´(GgafFactory)ãŒæ“ä½œã™ã‚‹ã“ã¨ã«ãªã‚Šã¾ã™ã€‚<BR>
+ * ¤•ii‰½‚©‚ÌƒCƒ“ƒXƒ^ƒ“ƒXj‚Ì’•¶ƒNƒ‰ƒX .
+ * Hê(GgafFactory)‚É“n‚·’•¶‚ð•\‚µ‚½ƒNƒ‰ƒX‚ÅA ¤•ii‰½‚©‚ÌƒCƒ“ƒXƒ^ƒ“ƒXj‚P‚Â‚ð“à•”•ÛŽ‚µ‚Ü‚·B<BR>
+ * ‚Ü‚½’•¶ƒIƒuƒWƒFƒNƒg“¯Žm‚Å˜AŒ‹ƒŠƒXƒg‚ðì¬‚Å‚«A‚»‚ÌƒŠƒXƒg‚ÍHê(GgafFactory)‚ª‘€ì‚·‚é‚±‚Æ‚É‚È‚è‚Ü‚·B<BR>
  * @version 1.00
  * @since 2007/12/17
  * @author Masatoshi Tsuge
@@ -15,27 +15,27 @@ class GgafOrder : public GgafObject {
     friend class GgafFactory;
 
 private:
-    /** æ³¨æ–‡è­˜åˆ¥ID */
+    /** ’•¶Ž¯•ÊID */
     unsigned long _id;
-    /** ä¸€ã¤æ¬¡ã®æ³¨æ–‡ */
+    /** ˆê‚ÂŽŸ‚Ì’•¶ */
     GgafOrder* _pOrder_Next;
-    /** ä¸€ã¤å‰ã®æ³¨æ–‡ */
+    /** ˆê‚Â‘O‚Ì’•¶ */
     GgafOrder* _pOrder_Prev;
-    /** å…ˆé ­ã®æ³¨æ–‡ãƒ•ãƒ©ã‚° */
+    /** æ“ª‚Ì’•¶ƒtƒ‰ƒO */
     bool _is_first_order_flg;
-    /** æœ€å¾Œã®æ³¨æ–‡ãƒ•ãƒ©ã‚° */
+    /** ÅŒã‚Ì’•¶ƒtƒ‰ƒO */
     bool _is_last_order_flg;
-    /** å•†å“ã¸ã®ãƒã‚¤ãƒ³ã‚¿ */
+    /** ¤•i‚Ö‚Ìƒ|ƒCƒ“ƒ^ */
     GgafObject* _pObject_Creation;
-    /** å•†å“è£½é€ ãƒ¡ã‚½ãƒƒãƒ‰ */
+    /** ¤•i»‘¢ƒƒ\ƒbƒh */
     GgafObject* (*_pFunc)(void*, void*, void*);
-    /** å•†å“è£½é€ ãƒ¡ã‚½ãƒƒãƒ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿1 */
+    /** ¤•i»‘¢ƒƒ\ƒbƒh‚Ìƒpƒ‰ƒ[ƒ^1 */
     void* _pArg1;
-    /** å•†å“è£½é€ ãƒ¡ã‚½ãƒƒãƒ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿2 */
+    /** ¤•i»‘¢ƒƒ\ƒbƒh‚Ìƒpƒ‰ƒ[ƒ^2 */
     void* _pArg2;
-    /** å•†å“è£½é€ ãƒ¡ã‚½ãƒƒãƒ‰ã®ãƒ‘ãƒ©ãƒ¡ãƒ¼ã‚¿3 */
+    /** ¤•i»‘¢ƒƒ\ƒbƒh‚Ìƒpƒ‰ƒ[ƒ^3 */
     void* _pArg3;
-    /** é€²æ—å…·åˆï¼ˆ0:æœªç€æ‰‹/1:è£½é€ ä¸­/2:è£½é€ æ¸ˆã¿ï¼‰ */
+    /** i’»‹ï‡i0:–¢’…Žè/1:»‘¢’†/2:»‘¢Ï‚Ýj */
     int _progress;
 public:
     GgafOrder(unsigned long prm_id);

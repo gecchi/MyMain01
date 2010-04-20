@@ -1,10 +1,10 @@
-ï»¿#ifndef DISPATCHERMANAGER_H_
+#ifndef DISPATCHERMANAGER_H_
 #define DISPATCHERMANAGER_H_
 namespace MyStg2nd {
 
 /**
- * Dispatcher ç®¡ç†ã‚¯ãƒ©ã‚¹ .
- * ç”Ÿæˆæ¸ˆã¿ Dispatcher ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆã‚’ç™»éŒ²ã—ã¦ãŠãã€ä½¿ã„ã¾ã‚ã—ã¾ã™ã€‚
+ * Dispatcher ŠÇ—ƒNƒ‰ƒX .
+ * ¶¬Ï‚İ Dispatcher ƒIƒuƒWƒFƒNƒg‚ğ“o˜^‚µ‚Ä‚¨‚«Ag‚¢‚Ü‚í‚µ‚Ü‚·B
  * @version 1.00
  * @since 2008/09/08
  * @author Masatoshi Tsuge
@@ -14,16 +14,16 @@ class DispatcherManager : public GgafCore::GgafResourceManager<GgafCore::GgafAct
 public:
 
     /**
-     * ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
-     * @param prm_manager_name ãƒãƒãƒ¼ã‚¸ãƒ£åç§°(ãƒªãƒ†ãƒ©ãƒ«å¿…é ˆ)
+     * ƒRƒ“ƒXƒgƒ‰ƒNƒ^
+     * @param prm_manager_name ƒ}ƒl[ƒWƒƒ–¼Ì(ƒŠƒeƒ‰ƒ‹•K{)
      */
     DispatcherManager(const char* prm_manager_name);
 
     /**
-     * ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã‚’è­˜åˆ¥æ–‡å­—åˆ—ã‹ã‚‰ç”Ÿæˆã€‚
-     * æœ¬ã‚¢ãƒ—ãƒªã®ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼ã¯ã‚³ã‚³ã«é›†ç´„ã—ã‚ˆã†ã¨æ€ã£ã¦ã„ã‚‹ã€‚
+     * ƒfƒBƒXƒpƒbƒ`ƒƒ[‚ğ¯•Ê•¶š—ñ‚©‚ç¶¬B
+     * –{ƒAƒvƒŠ‚ÌƒfƒBƒXƒpƒbƒ`ƒƒ[‚ÍƒRƒR‚ÉW–ñ‚µ‚æ‚¤‚Æv‚Á‚Ä‚¢‚éB
      * @param prm_idstr
-     * @return ãƒ‡ã‚£ã‚¹ãƒ‘ãƒƒãƒãƒ£ãƒ¼
+     * @return ƒfƒBƒXƒpƒbƒ`ƒƒ[
      */
     GgafCore::GgafActorDispatcher* processCreateResource(char* prm_idstr);
 

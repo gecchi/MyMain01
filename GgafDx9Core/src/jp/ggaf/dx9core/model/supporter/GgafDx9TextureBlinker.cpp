@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -70,17 +70,17 @@ void GgafDx9TextureBlinker::behave() {
     } else if (_method == BEAT_BLINK_TRIANGLEWAVE) {
         _fPowerBlink += _velo_fPowerBlink;
         //_TRACE_("_beat_begin_frame="<<_beat_begin_frame<<" _beat_attack_frame="<<_beat_attack_frame<<" _pModel->_frame_blinker="<<_pModel->_frame_blinker<<" | _fPowerBlink="<<_fPowerBlink<<" _velo_fPowerBlink="<<_velo_fPowerBlink<<"");
-        if (_beat_begin_frame + _beat_attack_frame == _pModel->_frame_blinker) { //ã‚¢ã‚¿ãƒƒã‚¯é ‚ç‚¹æ™‚
+        if (_beat_begin_frame + _beat_attack_frame == _pModel->_frame_blinker) { //ƒAƒ^ƒbƒN’¸“_Žž
             _fPowerBlink = _top_fPowerBlink;
             _velo_fPowerBlink = (_bottom_fPowerBlink - _top_fPowerBlink) / ((int)_beat_spend_frame - (int)_beat_attack_frame - (int)_beat_rest_frame);
             _one_way_cnt++;
             if (_one_way_cnt == _stop_one_way_num) {
                 _method = NOBLINK;
             }
-        } else if (_bottom_fPowerBlink > _fPowerBlink) {  //if (_bottom_fPowerBlink >= _fPowerBlink) ã§ã¯æ¬¡ã«è¡Œã‹ãªã„ã®ã§é§„ç›®ã§ã™ã‚ˆï¼
+        } else if (_bottom_fPowerBlink > _fPowerBlink) {  //if (_bottom_fPowerBlink >= _fPowerBlink) ‚Å‚ÍŽŸ‚És‚©‚È‚¢‚Ì‚Å‘Ê–Ú‚Å‚·‚æI
             _fPowerBlink = _bottom_fPowerBlink;
             _velo_fPowerBlink = 0;
-        } else if (_beat_begin_frame + _beat_spend_frame == _pModel->_frame_blinker) { //ãƒ«ãƒ¼ãƒ—çµ‚äº†æ™‚
+        } else if (_beat_begin_frame + _beat_spend_frame == _pModel->_frame_blinker) { //ƒ‹[ƒvI—¹Žž
             _beat_begin_frame = _pModel->_frame_blinker;
             _velo_fPowerBlink = (_top_fPowerBlink - _bottom_fPowerBlink) / (int)_beat_attack_frame;
             _one_way_cnt++;
@@ -89,13 +89,13 @@ void GgafDx9TextureBlinker::behave() {
             }
         }
     }
-    //Modelã«åæ˜ 
+    //Model‚É”½‰f
     _pModel->_fPowerBlink = _fPowerBlink;
     _pModel->_frame_blinker++;
 }
 
-//ã„ã¤ã‹ã¾ãŸä½¿ã†ã§ã—ã‚‡ã†
-//            _TRACE_("---å®Ÿè¡Œå‰");
+//‚¢‚Â‚©‚Ü‚½Žg‚¤‚Å‚µ‚å‚¤
+//            _TRACE_("---ŽÀs‘O");
 //            _TRACE_("_pModel->_frame_blinker="<<_pModel->_frame_blinker);
 //            _TRACE_("_bottom_fPowerBlink["<<<<"]="<<_bottom_fPowerBlink);
 //            _TRACE_("_top_fPowerBlink["<<<<"]="<<_top_fPowerBlink);
@@ -139,7 +139,7 @@ void GgafDx9TextureBlinker::loopLiner(DWORD prm_beat_spend_frame, float prm_beat
     _beat_spend_frame = prm_beat_spend_frame;
     _velo_fPowerBlink = (_top_fPowerBlink - _fPowerBlink) / ((int)prm_beat_spend_frame / 2);
     if (_velo_fPowerBlink == 0.0f) {
-        _velo_fPowerBlink = 0.1f; //0ã¯å›°ã‚‹
+        _velo_fPowerBlink = 0.1f; //0‚Í¢‚é
     }
 }
 

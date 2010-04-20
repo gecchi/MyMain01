@@ -1,13 +1,13 @@
-ï»¿#ifndef GGAFDX9SPHERERADIUSVECTORS_H_
+#ifndef GGAFDX9SPHERERADIUSVECTORS_H_
 #define GGAFDX9SPHERERADIUSVECTORS_H_
 namespace GgafDx9Core {
 
 /**
- * æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«æ§‹é€ ä½“.
- * å„è¦ç´ ã®å˜ä½ã¯ã€1000000å€ã®æ•´æ•°ã§ä¿æŒã•ã‚Œã¾ã™ã€‚<BR>
- * ï¼œä¾‹ï¼ž<BR>
- * å˜ä½ãƒ™ã‚¯ãƒˆãƒ«(0.658301, 0.1132, 0.744) ã¯<BR>
- * SR_VECTORã§ã¯ã€(658301, 113200, 744000) ã§ã™<BR>
+ * •ûŒüƒxƒNƒgƒ‹\‘¢‘Ì.
+ * Še—v‘f‚Ì’PˆÊ‚ÍA1000000”{‚Ì®”‚Å•ÛŽ‚³‚ê‚Ü‚·B<BR>
+ * ƒ—á„<BR>
+ * ’PˆÊƒxƒNƒgƒ‹(0.658301, 0.1132, 0.744) ‚Í<BR>
+ * SR_VECTOR‚Å‚ÍA(658301, 113200, 744000) ‚Å‚·<BR>
  */
 struct SR_VECTOR {
     DWORD x;
@@ -16,9 +16,9 @@ struct SR_VECTOR {
 };
 
 /**
- * ã‚½ãƒ¼ãƒˆå¯èƒ½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‚¯ãƒ©ã‚¹.
- * SR_VECTOR(æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«)ã«å¤§å°ã®å€¤ã‚’ã¤ã‘ã€æ¯”è¼ƒã‚’å¯èƒ½ã«ã—ãŸãƒ¡ãƒ³ãƒã‚’ã‚‚ã¤ã‚¯ãƒ©ã‚¹ã€‚<BR>
- * å¤§å°ã®å€¤ã®å¼·ã•ã¯ã€yè¦ç´  ï¼ž zè¦ç´  ï¼ž xè¦ç´  ã®é †ã§ã™ã€‚<BR>
+ * ƒ\[ƒg‰Â”\•ûŒüƒxƒNƒgƒ‹ƒNƒ‰ƒX.
+ * SR_VECTOR(•ûŒüƒxƒNƒgƒ‹)‚É‘å¬‚Ì’l‚ð‚Â‚¯A”äŠr‚ð‰Â”\‚É‚µ‚½ƒƒ“ƒo‚ð‚à‚ÂƒNƒ‰ƒXB<BR>
+ * ‘å¬‚Ì’l‚Ì‹­‚³‚ÍAy—v‘f „ z—v‘f „ x—v‘f ‚Ì‡‚Å‚·B<BR>
  */
 class COMPARE_ABLE_SR_VECTOR : public GgafCore::GgafObject {
 public:
@@ -27,10 +27,10 @@ public:
     COMPARE_ABLE_SR_VECTOR() : GgafObject() {
     }
     /**
-     * å˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã‚’è¨­å®šã™ã‚‹ã€‚<BR>
-     * @param prm_x å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000)
-     * @param prm_y å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000)
-     * @param prm_z å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000)
+     * ’PˆÊƒxƒNƒgƒ‹‚ðÝ’è‚·‚éB<BR>
+     * @param prm_x ’PˆÊ•ûŒüƒxƒNƒgƒ‹X—v‘fi’·‚³1 ‚ª 1000000)
+     * @param prm_y ’PˆÊ•ûŒüƒxƒNƒgƒ‹Y—v‘fi’·‚³1 ‚ª 1000000)
+     * @param prm_z ’PˆÊ•ûŒüƒxƒNƒgƒ‹Z—v‘fi’·‚³1 ‚ª 1000000)
      */
     void set(DWORD prm_x, DWORD prm_y, DWORD prm_z) {
         vec.x = prm_x;
@@ -46,29 +46,29 @@ public:
 };
 
 /**
- * å˜ä½çƒã¨ã€å˜ä½ãƒ™ã‚¯ãƒˆãƒ«ã®é–¢ä¿‚ã‚’ä¿æŒã™ã‚‹ã‚¯ãƒ©ã‚¹ã§ã™ã€‚ .
- * æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‹ã‚‰Zè»¸å›žè»¢è§’ã¨Yè»¸å›žè»¢è§’ã€é€†ã«Zè»¸å›žè»¢è§’ã¨Yè»¸å›žè»¢è§’ã‹ã‚‰æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®ç›¸äº’å¤‰æ›ã‚’å¯èƒ½ã¨ã™ã‚‹ãŸã‚ã«è¨­è¨ˆã€‚<BR>
- * ä½†ã—ä¿æŒã•ã‚Œã¦ã„ã‚‹ç¯„å›²ã¯å˜ä½çƒã®ã€xâ‰§0 yâ‰§0 zâ‰§0 ã®ç¯„å›²ã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã ã‘ã§ã™ã€‚ï¼ˆ1/8çƒåˆ†ã®ã¿ï¼‰<BR>
- * ã€è£œè¶³ã€‘<BR>
- * ä¿æŒã—ã¦ã„ã‚‹ãƒ™ã‚¯ãƒˆãƒ«ã®å„è¦(X,Y,Z)ã®å˜ä½(unsigned __int16)ã¯ã€é•·ã•1 ãŒ 10000 ã«ç›¸å½“ã™ã‚‹æ•´æ•°ã«ãªã£ã¦ã„ã¾ã™ã€‚<BR>
- * è§’åº¦ã®å˜ä½ï¼ˆs_angï¼‰ã¯ã€1åº¦ ãŒ 10 ã«ç›¸å½“ã—ã¾ã™ã€‚ç›´è§’ã¯ 900 ã«ãªã‚Šã¾ã™ã€‚angleå€¤(1åº¦ãŒ1000)ã¨æ··åœ¨ã—ãªã„ã‚ˆã†ã«æ³¨æ„<BR>
+ * ’PˆÊ‹…‚ÆA’PˆÊƒxƒNƒgƒ‹‚ÌŠÖŒW‚ð•ÛŽ‚·‚éƒNƒ‰ƒX‚Å‚·B .
+ * •ûŒüƒxƒNƒgƒ‹‚©‚çZŽ²‰ñ“]Šp‚ÆYŽ²‰ñ“]ŠpA‹t‚ÉZŽ²‰ñ“]Šp‚ÆYŽ²‰ñ“]Šp‚©‚ç•ûŒüƒxƒNƒgƒ‹‚Ì‘ŠŒÝ•ÏŠ·‚ð‰Â”\‚Æ‚·‚é‚½‚ß‚ÉÝŒvB<BR>
+ * ’A‚µ•ÛŽ‚³‚ê‚Ä‚¢‚é”ÍˆÍ‚Í’PˆÊ‹…‚ÌAx†0 y†0 z†0 ‚Ì”ÍˆÍ‚Ì•ûŒüƒxƒNƒgƒ‹‚¾‚¯‚Å‚·Bi1/8‹…•ª‚Ì‚Ýj<BR>
+ * y•â‘«z<BR>
+ * •ÛŽ‚µ‚Ä‚¢‚éƒxƒNƒgƒ‹‚ÌŠe—v(X,Y,Z)‚Ì’PˆÊ(unsigned __int16)‚ÍA’·‚³1 ‚ª 10000 ‚É‘Š“–‚·‚é®”‚É‚È‚Á‚Ä‚¢‚Ü‚·B<BR>
+ * Šp“x‚Ì’PˆÊis_angj‚ÍA1“x ‚ª 10 ‚É‘Š“–‚µ‚Ü‚·B’¼Šp‚Í 900 ‚É‚È‚è‚Ü‚·Bangle’l(1“x‚ª1000)‚Æ¬Ý‚µ‚È‚¢‚æ‚¤‚É’ˆÓ<BR>
  */
 class GgafDx9SphereRadiusVectors : public GgafCore::GgafObject {
 public:
-    /** 1/8çƒåˆ†ã®ã‚½ãƒ¼ãƒˆå¯èƒ½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«é…åˆ—(è¦ç´ æ•°ã¯900*900) */
+    /** 1/8‹…•ª‚Ìƒ\[ƒg‰Â”\•ûŒüƒxƒNƒgƒ‹”z—ñ(—v‘f”‚Í900*900) */
     static COMPARE_ABLE_SR_VECTOR _sr[];
 
     GgafDx9SphereRadiusVectors();
 
     /**
-     * å¼•æ•°ã®X,Y,Zæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã‹ã‚‰ã€ç›¸å½“ã™ã‚‹Zè»¸å›žè»¢ã¨Yè»¸å›žè»¢ã®è¿‘æ™‚ã‚’æ±‚ã‚ã‚‹ã€‚
-     * ä½†ã—ã€X,Y,Z ã¯å…¨ã¦æ­£ã§ãªãã¦ã¯ãªã‚‰ãªã„
-     * @param prm_x å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
-     * @param prm_y å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
-     * @param prm_z å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
-     * @param out_angFaceZ Zè»¸å›žè»¢å€¤ï¼ˆ å›žè»¢å€¤0ã¯ã€æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(1,0,0)ã€‚æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(0,0,1)ã‚’å‘ã„ã¦åæ™‚è¨ˆå›žã‚Šã€‚ï¼‰ï¼ˆå˜ä½s_angï¼‰
-     * @param out_angFaceY_rev æ™‚è¨ˆå‘¨ã‚ŠYè»¸å›žè»¢å€¤ï¼ˆå›žè»¢å€¤0ã¯ã€åŒã˜ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(1,0,0)ã€‚æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(0,1,0)ã‚’å‘ã„ã¦æ™‚è¨ˆå›žã‚Šï¼‰ï¼ˆå˜ä½s_angï¼‰
-     * @param s è¨ˆç®—å›žæ•°ï¼ˆç²¾åº¦ï¼‰ã€‚å›žæ•°ãŒå¤šã„ã»ã©æ­£ç¢ºã«ãªã‚‹ã€‚
+     * ˆø”‚ÌX,Y,Z•ûŒüƒxƒNƒgƒ‹‚©‚çA‘Š“–‚·‚éZŽ²‰ñ“]‚ÆYŽ²‰ñ“]‚Ì‹ßŽž‚ð‹‚ß‚éB
+     * ’A‚µAX,Y,Z ‚Í‘S‚Ä³‚Å‚È‚­‚Ä‚Í‚È‚ç‚È‚¢
+     * @param prm_x ’PˆÊ•ûŒüƒxƒNƒgƒ‹X—v‘fi’·‚³1 ‚ª 1000000) > 0
+     * @param prm_y ’PˆÊ•ûŒüƒxƒNƒgƒ‹Y—v‘fi’·‚³1 ‚ª 1000000) > 0
+     * @param prm_z ’PˆÊ•ûŒüƒxƒNƒgƒ‹Z—v‘fi’·‚³1 ‚ª 1000000) > 0
+     * @param out_angFaceZ ZŽ²‰ñ“]’li ‰ñ“]’l0‚ÍA•ûŒüƒxƒNƒgƒ‹(1,0,0)B•ûŒüƒxƒNƒgƒ‹(0,0,1)‚ðŒü‚¢‚Ä”½ŽžŒv‰ñ‚èBji’PˆÊs_angj
+     * @param out_angFaceY_rev ŽžŒvŽü‚èYŽ²‰ñ“]’li‰ñ“]’l0‚ÍA“¯‚¶‚­•ûŒüƒxƒNƒgƒ‹(1,0,0)B•ûŒüƒxƒNƒgƒ‹(0,1,0)‚ðŒü‚¢‚ÄŽžŒv‰ñ‚èji’PˆÊs_angj
+     * @param s ŒvŽZ‰ñ”i¸“xjB‰ñ”‚ª‘½‚¢‚Ù‚Ç³Šm‚É‚È‚éB
      */
     void getFaceAngClosely(DWORD prm_x,
                            DWORD prm_y,
@@ -78,14 +78,14 @@ public:
                            int s = 25);
 
     /**
-     * å¼•æ•°ã®Zè»¸å›žè»¢ã¨Yè»¸å›žè»¢ã®å€¤ã‹ã‚‰ã€ç›¸å½“ã™ã‚‹å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®è¿‘æ™‚ã‚’æ±‚ã‚ã‚‹ .
-     * ä½†ã—ã€çµæžœã®æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«ã®å„è¦ç´ (X,Y,Z)ãŒæ­£ã®å€¤ã«ãªã‚‹ã‚ˆã†ãªå¼•æ•°ã—ã‹å—ã‘ä»˜ã‘ãªã„ã€‚<BR>
-     * æˆ»ã‚Šå€¤ã¯DWORDã§ç¬¦å·ç„¡ã—ã®ãŸã‚ã€intã¨æ¼”ç®—ã™ã‚‹æ™‚ã¯æ°—ã‚’ã¤ã‘ã‚ˆ<BR>
-     * @param prm_angFaceY_rev Zè»¸å›žè»¢å€¤ï¼ˆ å›žè»¢å€¤0ã¯ã€æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(1,0,0)ã€‚æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(0,0,1)ã‚’å‘ã„ã¦åæ™‚è¨ˆå›žã‚Šã€‚ï¼‰ï¼ˆå˜ä½s_angï¼‰
-     * @param prm_angFaceZ æ™‚è¨ˆå‘¨ã‚ŠYè»¸å›žè»¢å€¤ï¼ˆå›žè»¢å€¤0ã¯ã€åŒã˜ãæ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(1,0,0)ã€‚æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«(0,1,0)ã‚’å‘ã„ã¦æ™‚è¨ˆå›žã‚Šï¼‰ï¼ˆå˜ä½s_angï¼‰
-     * @param out_x å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Xè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
-     * @param out_y å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Yè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
-     * @param out_z å˜ä½æ–¹å‘ãƒ™ã‚¯ãƒˆãƒ«Zè¦ç´ ï¼ˆé•·ã•1 ãŒ 1000000) > 0
+     * ˆø”‚ÌZŽ²‰ñ“]‚ÆYŽ²‰ñ“]‚Ì’l‚©‚çA‘Š“–‚·‚é’PˆÊ•ûŒüƒxƒNƒgƒ‹‚Ì‹ßŽž‚ð‹‚ß‚é .
+     * ’A‚µAŒ‹‰Ê‚Ì•ûŒüƒxƒNƒgƒ‹‚ÌŠe—v‘f(X,Y,Z)‚ª³‚Ì’l‚É‚È‚é‚æ‚¤‚Èˆø”‚µ‚©Žó‚¯•t‚¯‚È‚¢B<BR>
+     * –ß‚è’l‚ÍDWORD‚Å•„†–³‚µ‚Ì‚½‚ßAint‚Æ‰‰ŽZ‚·‚éŽž‚Í‹C‚ð‚Â‚¯‚æ<BR>
+     * @param prm_angFaceY_rev ZŽ²‰ñ“]’li ‰ñ“]’l0‚ÍA•ûŒüƒxƒNƒgƒ‹(1,0,0)B•ûŒüƒxƒNƒgƒ‹(0,0,1)‚ðŒü‚¢‚Ä”½ŽžŒv‰ñ‚èBji’PˆÊs_angj
+     * @param prm_angFaceZ ŽžŒvŽü‚èYŽ²‰ñ“]’li‰ñ“]’l0‚ÍA“¯‚¶‚­•ûŒüƒxƒNƒgƒ‹(1,0,0)B•ûŒüƒxƒNƒgƒ‹(0,1,0)‚ðŒü‚¢‚ÄŽžŒv‰ñ‚èji’PˆÊs_angj
+     * @param out_x ’PˆÊ•ûŒüƒxƒNƒgƒ‹X—v‘fi’·‚³1 ‚ª 1000000) > 0
+     * @param out_y ’PˆÊ•ûŒüƒxƒNƒgƒ‹Y—v‘fi’·‚³1 ‚ª 1000000) > 0
+     * @param out_z ’PˆÊ•ûŒüƒxƒNƒgƒ‹Z—v‘fi’·‚³1 ‚ª 1000000) > 0
      */
     void getVectorClosely(s_ang prm_angFaceY_rev,
                           s_ang prm_angFaceZ,

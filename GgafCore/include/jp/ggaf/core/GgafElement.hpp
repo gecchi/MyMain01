@@ -1,21 +1,21 @@
-﻿#ifndef GGAFELEMENT_H_
+#ifndef GGAFELEMENT_H_
 #define GGAFELEMENT_H_
 namespace GgafCore {
 
 #define GGAF_NODE GgafCore::GgafNode<T>
 #define GGAF_SAYONARA_DELAY 120
 /**
- * GgafNodeに、タスクシステム及び様々な状態管理（フラグ管理）を追加。 .
- * 毎フレーム、神(GgafGod)はこの世(GgafUniverse)に、次のメソッド順で呼び出す仕組みになっている。この世(GgafUniverse)も本templateを実装している。<BR>
+ * GgafNode�ɁA�^�X�N�V�X�e���y�їl�X�ȏ�ԊǗ��i�t���O�Ǘ��j��ǉ��B .
+ * ���t���[���A�_(GgafGod)�͂��̐�(GgafUniverse)�ɁA���̃��\�b�h���ŌĂяo���d�g�݂ɂȂ��Ă���B���̐�(GgafUniverse)���{template���������Ă���B<BR>
  * nextFrame() > behave() > preJudge() > judge() > [preDraw() > draw() > afterDraw()] > finally() <BR>
- * 上記の内、nextFrame() finally() は毎フレーム実行される。<BR>
- * behave() judge() は活動状態フラグ(_is_active_flg)が true、かつ、一時停止フラグ(_was_paused_flg)が false の場合実行される。<BR>
- * preDraw() draw() afterDraw() は、次フレームまでの残時間に余裕がある場合実行される。<BR>
- * 次フレームまでの残時間に余裕が無い場合、神はこの３メソッドをスキップするが、MAX_SKIP_FRAME フレームに１回は実行する。<BR>
- * 上記の nextFrame() 〜 finally() のオーバーライドは非推奨。オーバーライド用に純粋仮想(processXxxxxx()) を用意している。<BR>
- * initialize() は、上記の nextFrame() 〜 finally() を何れかを呼び出す前にインスタンスごとに１回だけ呼ばれる仕組みになっている。<BR>
- * 但し、生存フラグ(_can_live_flg)がfalseの場合（deleteされる）は、nextFrame() 〜 finally() は全て実行されない。<BR>
- * (※旧クラス名はGgafFactor)
+ * ��L�̓��AnextFrame() finally() �͖��t���[�����s�����B<BR>
+ * behave() judge() �͊�����ԃt���O(_is_active_flg)�� true�A���A�ꎞ��~�t���O(_was_paused_flg)�� false �̏ꍇ���s�����B<BR>
+ * preDraw() draw() afterDraw() �́A���t���[���܂ł̎c���Ԃɗ]�T������ꍇ���s�����B<BR>
+ * ���t���[���܂ł̎c���Ԃɗ]�T�������ꍇ�A�_�͂��̂R���\�b�h���X�L�b�v���邪�AMAX_SKIP_FRAME �t���[���ɂP��͎��s����B<BR>
+ * ��L�� nextFrame() �` finally() �̃I�[�o�[���C�h�͔񐄏��B�I�[�o�[���C�h�p�ɏ������z(processXxxxxx()) ��p�ӂ��Ă���B<BR>
+ * initialize() �́A��L�� nextFrame() �` finally() �����ꂩ���Ăяo���O�ɃC���X�^���X���ƂɂP�񂾂��Ă΂��d�g�݂ɂȂ��Ă���B<BR>
+ * �A���A�����t���O(_can_live_flg)��false�̏ꍇ�idelete�����j�́AnextFrame() �` finally() �͑S�Ď��s����Ȃ��B<BR>
+ * (�����N���X����GgafFactor)
  * @version 1.00
  * @since 2008/08/21
  * @author Masatoshi Tsuge
@@ -28,564 +28,564 @@ private:
 protected:
 
 public:
-    /** [r]神への近道 */
+    /** [r]�_�ւ̋ߓ� */
     GgafGod* _pGod;
-    /** [r]initializeが行われたどうかのフラグ(true=行われた) */
+    /** [r]initialize���s��ꂽ�ǂ����̃t���O(true=�s��ꂽ) */
     bool _was_initialize_flg;
 
-    /** [r]余命 */
+    /** [r]�]�� */
     DWORD _frame_of_life_when_sayonara;
-    /** [r]ノードが誕生(addSubされた）時からのフレーム数総計 */
+    /** [r]�m�[�h���a��(addSub���ꂽ�j������̃t���[�������v */
     DWORD _frame_of_life;
-    /** [r]ノードが誕生(addSubされた）時から、振舞ったフレーム数総計 */
+    /** [r]�m�[�h���a��(addSub���ꂽ�j������A�U�������t���[�������v */
     DWORD _frame_of_behaving;
-    /** [r]ノードが活動開始(onActive())時からの振舞ったフレーム数総計 */
+    /** [r]�m�[�h�������J�n(onActive())������̐U�������t���[�������v */
     DWORD _frame_of_behaving_since_onActive;
-    /** [r]相対フレーム計算用 */
+    /** [r]���΃t���[���v�Z�p */
     DWORD _frame_relative;
-    /** [r]ノード活動フラグ */
+    /** [r]�m�[�h�����t���O */
     bool _is_active_flg;
-    /** [r]一時停止フラグ */
+    /** [r]�ꎞ��~�t���O */
     bool _was_paused_flg;
-    /** [r]ノード生存フラグ */
+    /** [r]�m�[�h�����t���O */
     bool _can_live_flg;
 
-    /** [r]次フレームのノード活動フラグ、次フレームのフレーム加算時 _is_active_flg に反映される */
+    /** [r]���t���[���̃m�[�h�����t���O�A���t���[���̃t���[�����Z�� _is_active_flg �ɔ��f����� */
     bool _is_active_flg_in_next_frame;
-    /** [r]次フレームの一時停止フラグ、次フレームのフレーム加算時 _was_paused_flg に反映される */
+    /** [r]���t���[���̈ꎞ��~�t���O�A���t���[���̃t���[�����Z�� _was_paused_flg �ɔ��f����� */
     bool _was_paused_flg_in_next_frame;
-    /** [r]次フレームの一時非表示フラグ、次フレームのフレーム加算時 _can_live_flg に反映される  */
+    /** [r]���t���[���̈ꎞ��\���t���O�A���t���[���̃t���[�����Z�� _can_live_flg �ɔ��f�����  */
     bool _can_live_flg_in_next_frame;
 
-    /** [r]先頭ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが先頭ノードに移動する */
+    /** [r]�擪�m�[�h�Ɉړ��\��t���O�A���t���[���̃t���[�����Z���ɁA���m�[�h���擪�m�[�h�Ɉړ����� */
     bool _will_mv_first_in_next_frame_flg;
-    /** [r]末尾ノードに移動予約フラグ、次フレームのフレーム加算時に、自ノードが末尾ノードに移動する */
+    /** [r]�����m�[�h�Ɉړ��\��t���O�A���t���[���̃t���[�����Z���ɁA���m�[�h�������m�[�h�Ɉړ����� */
     bool _will_mv_last_in_next_frame_flg;
 
-    /** [r]あとで活動予約フラグ */
+    /** [r]���ƂŊ����\��t���O */
     bool _will_activate_after_flg;
-    /** [r]活動開始フレーム */
+    /** [r]�����J�n�t���[�� */
     DWORD _frame_of_life_when_activation;
 
-    /** [r]あとで非活動予約フラグ */
+    /** [r]���ƂŔ񊈓��\��t���O */
     bool _will_inactivate_after_flg;
-    /** [r]活動終了フレーム */
+    /** [r]�����I���t���[�� */
     DWORD _frame_of_life_when_inactivation;
 
-    /** [r]ノードが活動に切り替わった(_is_active_flg が false → true)瞬間に１フレームだけセットされるフラグ */
+    /** [r]�m�[�h�������ɐ؂�ւ����(_is_active_flg �� false �� true)�u�ԂɂP�t���[�������Z�b�g�����t���O */
     bool _on_change_to_active_flg;
-    /** [r]ノードが停止に切り替わった(_is_active_flg が true → false)瞬間に１フレームだけセットされるフラグ */
+    /** [r]�m�[�h����~�ɐ؂�ւ����(_is_active_flg �� true �� false)�u�ԂɂP�t���[�������Z�b�g�����t���O */
     bool _on_change_to_inactive_flg;
 
 
     /**
-     * コンストラクタ
-     * @param prm_name ノード名称（ユニークにして下さい）
+     * �R���X�g���N�^
+     * @param prm_name �m�[�h���́i���j�[�N�ɂ��ĉ������j
      */
     GgafElement(const char* prm_name);
 
     /**
-     * デストラクタ。自ツリーノードを解放する。 .
+     * �f�X�g���N�^�B���c���[�m�[�h���������B .
      */
     virtual ~GgafElement();
 
     /**
-     * 掃除(自ツリー) .
-     * 神が処理時間に余裕がでたとき等に、神が呼びだす。<BR>
-     * 配下ノードの中にノード生存フラグ(_can_live_flg)が false になっているノードがあれば prm_num_cleaning 個だけ delete する。<BR>
-     * @param prm_num_cleaning 解放するオブジェクト数
+     * �|��(���c���[) .
+     * �_���������Ԃɗ]�T���ł��Ƃ����ɁA�_���Ăт����B<BR>
+     * �z���m�[�h�̒��Ƀm�[�h�����t���O(_can_live_flg)�� false �ɂȂ��Ă���m�[�h������� prm_num_cleaning ���� delete ����B<BR>
+     * @param prm_num_cleaning �������I�u�W�F�N�g��
      */
     virtual void cleane(int prm_num_cleaning);
 
     /**
-     * ノード初期処理(単体) .
-     * インスタンス生成後、
-     * 何れかが呼び出される前に、最初に必ず１回だけ呼び出される。<BR>
+     * �m�[�h��������(�P��) .
+     * �C���X�^���X������A
+     * ���ꂩ���Ăяo�����O�ɁA�ŏ��ɕK���P�񂾂��Ăяo�����B<BR>
      */
     virtual void initialize() = 0;
 
     /**
-     * ノードのフレームを加算と、フレーム開始にあたってのいろいろな初期処理(自ツリー) .
-     * _is_active_flg_in_next_frame _was_paused_flg_in_next_frame _can_live_flg_in_next_frame を<BR>
-     * _is_active_flg _was_paused_flg _can_live_flg に反映（コピー）する。<BR>
-     * また、_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg が true の場合は、<BR>
-     * それぞれ、自ノードの先頭ノードへの移動、末尾ノードへの移動処理も実行される。<BR>
-     * その後、配下ノード全てに nextFrame() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して nextFrame() 実行後、次は behave() を実行することになる。<BR>
+     * �m�[�h�̃t���[�������Z�ƁA�t���[���J�n�ɂ������Ă̂��낢��ȏ�������(���c���[) .
+     * _is_active_flg_in_next_frame _was_paused_flg_in_next_frame _can_live_flg_in_next_frame ��<BR>
+     * _is_active_flg _was_paused_flg _can_live_flg �ɔ��f�i�R�s�[�j����B<BR>
+     * �܂��A_will_mv_first_in_next_frame_flg, _will_mv_last_in_next_frame_flg �� true �̏ꍇ�́A<BR>
+     * ���ꂼ��A���m�[�h�̐擪�m�[�h�ւ̈ړ��A�����m�[�h�ւ̈ړ����������s�����B<BR>
+     * ���̌�A�z���m�[�h�S�Ă� nextFrame() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� nextFrame() ���s��A���� behave() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void nextFrame();
 
     /**
-     * ノードのフレーム毎の振る舞い処理(自ツリー) .
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （ _is_active_flg && !_was_paused_flg && _can_live_flg ）の場合 <BR>
-     * processBehavior() をコールした後、配下のノード全てについて behave() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して behave() 実行後、次は preJudge() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̐U�镑������(���c���[) .
+     * �����t���O�A�����t���O���Z�b�g�A���ꎞ��~�t���O���A���Z�b�g<BR>
+     * �i _is_active_flg && !_was_paused_flg && _can_live_flg �j�̏ꍇ <BR>
+     * processBehavior() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� behave() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� behave() ���s��A���� preJudge() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void behave();
 
     /**
-     * 非活動→活動時に切り替わった時の処理(単体) .
-     * 非活動状態から活動状態に変化したときに１回コールバックされる。<BR>
-     * 呼び出されるタイミングはフレーム加算直後である。
-     * 必要に応じてオーバーライドする。<BR>
+     * �񊈓����������ɐ؂�ւ�������̏���(�P��) .
+     * �񊈓���Ԃ��犈����Ԃɕω������Ƃ��ɂP��R�[���o�b�N�����B<BR>
+     * �Ăяo�����^�C�~���O�̓t���[�����Z����ł���B
+     * �K�v�ɉ����ăI�[�o�[���C�h����B<BR>
      */
     virtual void onActive() {
     }
 
     /**
-     * 活動→非活動時に切り替わった時の処理(単体) .
-     * 活動状態から非活動状態に変化したときに１回コールバックされる。<BR>
-     * 呼び出されるタイミングはフレーム加算直後である。
-     * 必要に応じてオーバーライドする。<BR>
+     * �������񊈓����ɐ؂�ւ�������̏���(�P��) .
+     * ������Ԃ���񊈓���Ԃɕω������Ƃ��ɂP��R�[���o�b�N�����B<BR>
+     * �Ăяo�����^�C�~���O�̓t���[�����Z����ł���B
+     * �K�v�ɉ����ăI�[�o�[���C�h����B<BR>
      */
     virtual void onInactive() {
     }
 
     /**
-     * ノードのフレーム毎の判定事前処理(自ツリー) .
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
-     * processPreJudgement() をコールした後、配下のノード全てについて preJudge() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して preJudge() 数実行後、次に judge() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̔��莖�O����(���c���[) .
+     * �����t���O�A�����t���O���Z�b�g�A���ꎞ��~�t���O���A���Z�b�g<BR>
+     * �܂� ( _is_active_flg && !_was_paused_flg && _can_live_flg )�̏ꍇ <BR>
+     * processPreJudgement() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� preJudge() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� preJudge() �����s��A���� judge() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void preJudge();
 
 
     /**
-     * ノードのフレーム毎の判定処理(自ツリー) .
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * つまり ( _is_active_flg && !_was_paused_flg && _can_live_flg )の場合 <BR>
-     * processJudgement() をコールした後、配下のノード全てについて judge() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して judge() 実行後、<BR>
-     * 次フレームまでの残時間に余裕があれば preDraw() 無ければ finally() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̔��菈��(���c���[) .
+     * �����t���O�A�����t���O���Z�b�g�A���ꎞ��~�t���O���A���Z�b�g<BR>
+     * �܂� ( _is_active_flg && !_was_paused_flg && _can_live_flg )�̏ꍇ <BR>
+     * processJudgement() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� judge() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� judge() ���s��A<BR>
+     * ���t���[���܂ł̎c���Ԃɗ]�T������� preDraw() ������� finally() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void judge();
 
     /**
-     * ノードのフレーム毎の描画事前処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
-     * 活動フラグ、生存フラグがセット、<BR>
-     * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processPreDraw() をコールした後、配下のノード全てについて preDraw() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して preDraw() 実行後、次に draw() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̕`�掖�O����(���c���[)�i�t���[���X�L�b�v����ČĂяo����Ȃ��ꍇ������B�j .
+     * �����t���O�A�����t���O���Z�b�g�A<BR>
+     * (�܂� _is_active_flg && _can_live_flg)�̏ꍇ <BR>
+     * processPreDraw() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� preDraw() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� preDraw() ���s��A���� draw() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void preDraw();
 
     /**
-     * ノードのフレーム毎の描画本処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
-     * 活動フラグ、生存フラグがセット、<BR>
-     * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processDraw() をコールした後、配下のノード全てについて draw() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して draw() 実行後、次に afterDraw() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̕`��{����(���c���[)�i�t���[���X�L�b�v����ČĂяo����Ȃ��ꍇ������B�j .
+     * �����t���O�A�����t���O���Z�b�g�A<BR>
+     * (�܂� _is_active_flg && _can_live_flg)�̏ꍇ <BR>
+     * processDraw() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� draw() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� draw() ���s��A���� afterDraw() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void draw();
 
     /**
-     * ノードのフレーム毎の描画事後処理(自ツリー)（フレームスキップされて呼び出されない場合もある。） .
-     * 活動フラグ、生存フラグがセット<BR>
-     * (つまり _is_active_flg && _can_live_flg)の場合 <BR>
-     * processTerminate() をコールした後、配下のノード全てについて afterDraw() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して afterDraw() 実行後、次に finally() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̕`�掖�㏈��(���c���[)�i�t���[���X�L�b�v����ČĂяo����Ȃ��ꍇ������B�j .
+     * �����t���O�A�����t���O���Z�b�g<BR>
+     * (�܂� _is_active_flg && _can_live_flg)�̏ꍇ <BR>
+     * processTerminate() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� afterDraw() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� afterDraw() ���s��A���� finally() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void afterDraw();
 
     /**
-     * ノードのフレーム毎の最終処理(自ツリー) .
-     * 活動フラグ、生存フラグがセット、かつ一時停止フラグがアンセット<BR>
-     * （_is_active_flg && !_was_paused_flg && _can_live_flg）の場合 <BR>
-     * processFinally() をコールした後、配下のノード全てについて finally() を再帰的に実行する。<BR>
-     * 神(GgafGod)が実行するメソッドであり、通常は下位ロジックでは使用しないはずである。<BR>
-     * 神(GgafGod)は、この世(GgafUniverse)に対して finally() 実行後、<BR>
-     * 次フレームまでの残時間に余裕があれば cleane() を実行することになる。<BR>
+     * �m�[�h�̃t���[�����̍ŏI����(���c���[) .
+     * �����t���O�A�����t���O���Z�b�g�A���ꎞ��~�t���O���A���Z�b�g<BR>
+     * �i_is_active_flg && !_was_paused_flg && _can_live_flg�j�̏ꍇ <BR>
+     * processFinally() ���R�[��������A�z���̃m�[�h�S�Ăɂ��� finally() ���ċA�I�Ɏ��s����B<BR>
+     * �_(GgafGod)�����s���郁�\�b�h�ł���A�ʏ�͉��ʃ��W�b�N�ł͎g�p���Ȃ��͂��ł���B<BR>
+     * �_(GgafGod)�́A���̐�(GgafUniverse)�ɑ΂��� finally() ���s��A<BR>
+     * ���t���[���܂ł̎c���Ԃɗ]�T������� cleane() �����s���邱�ƂɂȂ�B<BR>
      */
     virtual void finally();
 
     /**
-     * ノードの何かの処理(自ツリー)(フレーム毎ではない) .
-     * 活動フラグがセット、( _is_active_flg = true )の場合 <BR>
-     * 直ちに processHappen(int) をコールした後、配下のノード全てについて happen() を再帰的に実行する。<BR>
-     * @param   prm_no 何かの番号
+     * �m�[�h�̉����̏���(���c���[)(�t���[�����ł͂Ȃ�) .
+     * �����t���O���Z�b�g�A( _is_active_flg = true )�̏ꍇ <BR>
+     * ������ processHappen(int) ���R�[��������A�z���̃m�[�h�S�Ăɂ��� happen() ���ċA�I�Ɏ��s����B<BR>
+     * @param   prm_no �����̔ԍ�
      */
     virtual void happen(int prm_no);
 
     /**
-     * フレーム毎の個別振る舞い処理を実装。(ユーザー実装用、単体) .
-     * behave() 時の処理先頭でコールバックされる。<BR>
-     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の振る舞いを処理を実装する。<BR>
-     * 想定している振る舞い処理とは、主に座標計算と移動処理等である。<BR>
-     * 本メンバ関数がコールバックされると言う事は、全ノード対して、nextFrame() が実行済みであることを保証する。<BR>
+     * �t���[�����̌ʐU�镑�������������B(���[�U�[�����p�A�P��) .
+     * behave() ���̏����擪�ŃR�[���o�b�N�����B<BR>
+     * ���̃����o�֐������ʃN���X�ŃI�[�o�[���C�h���āA�m�[�h�ʂ̐U�镑������������������B<BR>
+     * �z�肵�Ă���U�镑�������Ƃ́A��ɍ��W�v�Z�ƈړ��������ł���B<BR>
+     * �{�����o�֐����R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��āAnextFrame() �����s�ς݂ł��邱�Ƃ�ۏ؂���B<BR>
      */
     virtual void processBehavior() = 0;
 
     /**
-     * フレーム毎の個別判断処理を実装。(フレームワーク実装用、単体) .
+     * �t���[�����̌ʔ��f�����������B(�t���[�����[�N�����p�A�P��) .
      */
     virtual void processPreJudgement() {}
 
     /**
-     * フレーム毎の個別判断処理を実装。(ユーザー実装用、単体) .
-     * judge() 時の処理先頭でコールバックされる。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別判断処理を記述する。<BR>
-     * 本メンバ関数がコールバックされると言う事は、全ノード対してて、processBehavior() が実行済みであることを保証する。<BR>
-     * 本メンバ関数の存在意図として、processBehavior() で座標移動処理が全て完了した後、
-     * 本メンバ関数で当たり判定処理を実装するといった使い方を想定している。<BR>
+     * �t���[�����̌ʔ��f�����������B(���[�U�[�����p�A�P��) .
+     * judge() ���̏����擪�ŃR�[���o�b�N�����B<BR>
+     * ���̃����o�֐����I�[�o�[���C�h���āA�m�[�h�ʔ��f�������L�q����B<BR>
+     * �{�����o�֐����R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��ĂāAprocessBehavior() �����s�ς݂ł��邱�Ƃ�ۏ؂���B<BR>
+     * �{�����o�֐��̑��݈Ӑ}�Ƃ��āAprocessBehavior() �ō��W�ړ��������S�Ċ���������A
+     * �{�����o�֐��œ����蔻�菈������������Ƃ������g������z�肵�Ă���B<BR>
      */
     virtual void processJudgement() = 0;
 
     /**
-     * ノードのフレーム毎の個別描画事前処理を実装。(フレームワーク実装用、単体) .
-     * preDraw() 時の処理先頭でコールバックされる。 但し、神(GgafGod)が描画スキップした場合、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別描画事前処理を実装する。<BR>
-     * 個別描画事前処理とは、主に当たり背景描画などである。<BR>
-     * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みであることも保証する。<BR>
-     * さらに、本メンバ関数実行後、processDraw()、processAfterDraw() が呼び出されることも保証される。
+     * �m�[�h�̃t���[�����̌ʕ`�掖�O�����������B(�t���[�����[�N�����p�A�P��) .
+     * preDraw() ���̏����擪�ŃR�[���o�b�N�����B �A���A�_(GgafGod)���`��X�L�b�v�����ꍇ�A�t���[�����ŌĂяo����܂���B<BR>
+     * ���̃����o�֐����I�[�o�[���C�h���āA�m�[�h�ʕ`�掖�O��������������B<BR>
+     * �ʕ`�掖�O�����Ƃ́A��ɓ�����w�i�`��Ȃǂł���B<BR>
+     * �{�����o�֐����R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��āAprocessJudgement() �����s�ς݂ł��邱�Ƃ��ۏ؂���B<BR>
+     * ����ɁA�{�����o�֐����s��AprocessDraw()�AprocessAfterDraw() ���Ăяo����邱�Ƃ��ۏ؂����B
      */
     virtual void processPreDraw() {};
 
     /**
-     * ノードのフレーム毎の個別描画本処理を実装。(フレームワーク実装用／ユーザー実装用、単体) .
-     * draw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別描画本処理を実装する。<BR>
-     * 個別描画本処理とは主にキャラクタや、背景の描画を想定している。
-     * 本メンバ関数がコールバックされると言う事は、全ノード対して、processPreDraw() が実行済みであることを保証する。<BR>
+     * �m�[�h�̃t���[�����̌ʕ`��{�����������B(�t���[�����[�N�����p�^���[�U�[�����p�A�P��) .
+     * draw() ���̏����擪�ŃR�[���o�b�N�����B �A���ApreDraw() �Ɠ��l�ɐ_(GgafGod)���`��X�L�b�v���ꂽ�ꍇ�́A�t���[�����ŌĂяo����܂���B<BR>
+     * ���̃����o�֐����I�[�o�[���C�h���āA�m�[�h�ʕ`��{��������������B<BR>
+     * �ʕ`��{�����Ƃ͎�ɃL�����N�^��A�w�i�̕`���z�肵�Ă���B
+     * �{�����o�֐����R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��āAprocessPreDraw() �����s�ς݂ł��邱�Ƃ�ۏ؂���B<BR>
      */
     virtual void processDraw() = 0;
 
     /**
-     * ノードのフレーム毎の個別表示事後処理を記述。(フレームワーク実装用、単体) .
-     * afterDraw() 時の処理先頭でコールバックされる。 但し、preDraw() と同様に神(GgafGod)が描画スキップされた場合は、フレーム内で呼び出されません。<BR>
-     * このメンバ関数をオーバーライドして、ノード個別表示事後処理を実装する。<BR>
-     * 個別表示事後処理とは、最前面レイヤーで実現するフェードエフェクトや、常に最前面に表示される情報表示などである。<BR>
-     * 本メンバがコールバックされると言う事は、全ノード対して、processDraw() が実行済みであることを保証する。<BR>
+     * �m�[�h�̃t���[�����̌ʕ\�����㏈�����L�q�B(�t���[�����[�N�����p�A�P��) .
+     * afterDraw() ���̏����擪�ŃR�[���o�b�N�����B �A���ApreDraw() �Ɠ��l�ɐ_(GgafGod)���`��X�L�b�v���ꂽ�ꍇ�́A�t���[�����ŌĂяo����܂���B<BR>
+     * ���̃����o�֐����I�[�o�[���C�h���āA�m�[�h�ʕ\�����㏈������������B<BR>
+     * �ʕ\�����㏈���Ƃ́A�őO�ʃ��C���[�Ŏ�������t�F�[�h�G�t�F�N�g��A��ɍőO�ʂɕ\���������\���Ȃǂł���B<BR>
+     * �{�����o���R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��āAprocessDraw() �����s�ς݂ł��邱�Ƃ�ۏ؂���B<BR>
      */
     virtual void processAfterDraw() {};
 
     /**
-     * ノードのフレーム毎の個別終端処理を実装。(ユーザー実装用、単体) .
-     * finally() 時の処理先頭でコールバックされる。<BR>
-     * このメンバ関数を下位クラスでオーバーライドして、ノード個別の終端処理を実装する。<BR>
-     * 終端処理とは、フラグ管理の実行などである。<BR>
-     * 想定している振る舞い処理とは、主に座標計算と移動処理である。その他なんでも良いである。<BR>
-     * 本メンバ関数がコールバックされると言う事は、全ノード対して、processJudgement() が実行済みで 描画処理は終了していることを保証する。<BR>
+     * �m�[�h�̃t���[�����̌ʏI�[�����������B(���[�U�[�����p�A�P��) .
+     * finally() ���̏����擪�ŃR�[���o�b�N�����B<BR>
+     * ���̃����o�֐������ʃN���X�ŃI�[�o�[���C�h���āA�m�[�h�ʂ̏I�[��������������B<BR>
+     * �I�[�����Ƃ́A�t���O�Ǘ��̎��s�Ȃǂł���B<BR>
+     * �z�肵�Ă���U�镑�������Ƃ́A��ɍ��W�v�Z�ƈړ������ł���B���̑��Ȃ�ł��ǂ��ł���B<BR>
+     * �{�����o�֐����R�[���o�b�N�����ƌ������́A�S�m�[�h�΂��āAprocessJudgement() �����s�ς݂� �`�揈���͏I�����Ă��邱�Ƃ�ۏ؂���B<BR>
      */
     virtual void processFinal() = 0;
 
     /**
-     * ノードの個別何かの処理を記述。(単体)
-     * happen() 時の処理先頭でコールバックされる。
-     * 利用目的不定の汎用イベント用コールバック
-     * @param prm_no 何かの番号
+     * �m�[�h�̌ʉ����̏������L�q�B(�P��)
+     * happen() ���̏����擪�ŃR�[���o�b�N�����B
+     * ���p�ړI�s��̔ėp�C�x���g�p�R�[���o�b�N
+     * @param prm_no �����̔ԍ�
      */
     virtual void processHappen(int prm_no) = 0;
 
     /**
-     * 神に謁見 .
-     * @return  呼ばれて出てきた神
+     * �_�ɉy�� .
+     * @return  �Ă΂�ďo�Ă����_
      */
     virtual GgafGod* askGod() = 0;
 
-    //==================状態変移メソッド郡==================>
+    //==================��ԕψڃ��\�b�h�S==================>
     /**
-     * 活動状態にする(自ツリー・コールバック有り) .
-     * 正確には、次フレームから活動状態にする予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理で活動状態になる事になる。<BR>
-     * 自身と配下ノード全てについて再帰的に activateTree() が実行される。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     * 自ノードの processBehavior() で本メソッドを呼び出すコードを書いても、タスクシステムの仕組み上、<BR>
-     * processBehavior()は活動状態に実行されることになるので意味が無い。<BR>
-     * 他ノードへ実行したり、processFinal() などでの使用を想定。<BR>
-     * <B>[補足]</B>ノード生成直後は、活動状態となっている。<BR>
+     * ������Ԃɂ���(���c���[�E�R�[���o�b�N�L��) .
+     * ���m�ɂ́A���t���[�����犈����Ԃɂ���\��t���O�𗧂Ă�B<BR>
+     * �����āA���t���[���擪�����Ŋ�����ԂɂȂ鎖�ɂȂ�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� activateTree() �����s�����B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͊�����Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
+     * ���m�[�h�� processBehavior() �Ŗ{���\�b�h���Ăяo���R�[�h�������Ă��A�^�X�N�V�X�e���̎d�g�ݏ�A<BR>
+     * processBehavior()�͊�����ԂɎ��s����邱�ƂɂȂ�̂ňӖ��������B<BR>
+     * ���m�[�h�֎��s������AprocessFinal() �Ȃǂł̎g�p��z��B<BR>
+     * <B>[�⑫]</B>�m�[�h��������́A������ԂƂȂ��Ă���B<BR>
      */
     void activateTree();
 
     /**
-     * 活動状態にする(単体・コールバック有り) .
-     * 自ノードだけ次フレームから活動状態にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
+     * ������Ԃɂ���(�P�́E�R�[���o�b�N�L��) .
+     * ���m�[�h�������t���[�����犈����Ԃɂ���\��t���O�𗧂Ă�B<BR>
+     * �z���m�[�h�ɂ͉����e��������܂���B
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͊�����Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void activate();
 
     /**
-     * 活動状態にする(単体・コールバック有り).
-     * Nフレーム後に activate() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に activateAfter(DWORD) が実行される。<BR>
-     * activateAfter(1) は、activate() と同じ意味になります。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は活動状態の変化は無く一貫性は保たれる。<BR>
-     * @param prm_frame_offset 遅延フレーム数(1〜)
+     * ������Ԃɂ���(�P�́E�R�[���o�b�N�L��).
+     * N�t���[����� activate() �����s����邱�Ƃ�\�񂷂�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� activateAfter(DWORD) �����s�����B<BR>
+     * activateAfter(1) �́Aactivate() �Ɠ����Ӗ��ɂȂ�܂��B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͊�����Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
+     * @param prm_frame_offset �x���t���[����(1�`)
      */
     void activateAfter(DWORD prm_frame_offset);
 
     /**
-     * 活動状態にする(単体・即時・コールバック無し) .
-     * 自ノードについて、即座に活動状態にする。通常、初期化以外で本メソッドの使用は非推奨。<BR>
-     * onActive() コールバックは実行されない。<BR>
-     * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 『同一フレーム内』の残りの未処理のノードに対しては有効になってしまう。つまり、<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
-     * 他ノードのロジックが、「このノードが活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
-     * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
+     * ������Ԃɂ���(�P�́E�����E�R�[���o�b�N����) .
+     * ���m�[�h�ɂ��āA�����Ɋ�����Ԃɂ���B�ʏ�A�������ȊO�Ŗ{���\�b�h�̎g�p�͔񐄏��B<BR>
+     * onActive() �R�[���o�b�N�͎��s����Ȃ��B<BR>
+     * �����ɏ�Ԃ��ω����邽�߁A�ȉ��̓_�𗯈ӂ��āA�g�p����ۂ͒��ӂ��K�v�ł���B<BR>
+     * �w����t���[�����x�̎c��̖������̃m�[�h�ɑ΂��Ă͗L���ɂȂ��Ă��܂��B�܂�A<BR>
+     * �w����t���[�����x�ł����Ă��A���ɏ������ꂽ�m�[�h�Ƃ͈قȂ��ԂɂȂ�\�����傫���A<BR>
+     * ���m�[�h�̃��W�b�N���A�u���̃m�[�h��������ԂȂ�΁E�E�E�v���A���̏�ԁi�t���O�j�ɂ�菈�����򂵂Ă����ꍇ�A<BR>
+     * ����t���[�����̏������ʂ̐�����������鋰�ꂪ����B<BR>
+     * ���m�[�h�̉e���A�c���[�\����ǂ��l���Ďg�p���邱�ƁB<BR>
      */
     void activateImmediately();
 
     /**
-     * 活動状態にする(自ツリー・即時・コールバック無し)
-     * 自身と配下ノード全てについて再帰的に activateImmediately() が実行される。<BR>
-     * activateImmediately() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
+     * ������Ԃɂ���(���c���[�E�����E�R�[���o�b�N����)
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� activateImmediately() �����s�����B<BR>
+     * activateImmediately() �̐�����v�Q�ƁB<BR>
+     * �g�p����Ƃ��́A���m�[�h�̉e����ǂ��l���Ē��ӂ��Ďg�p���邱�ƁB<BR>
      */
     void activateTreeImmediately();
     //===================
     /**
-     * 非活動状態にする(自ツリー・コールバック有り) .
-     * 正確には、次フレームから非活動状態にする予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理で非活動状態になる事になる。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivate() が実行される。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+     * �񊈓���Ԃɂ���(���c���[�E�R�[���o�b�N�L��) .
+     * ���m�ɂ́A���t���[������񊈓���Ԃɂ���\��t���O�𗧂Ă�B<BR>
+     * �����āA���t���[���擪�����Ŕ񊈓���ԂɂȂ鎖�ɂȂ�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� inactivate() �����s�����B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͔񊈓���Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void inactivateTree();
 
     /**
-     * 非活動状態にする(単体・コールバック有り) .
-     * 自ノードだけ次フレームから非活動状態にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
+     * �񊈓���Ԃɂ���(�P�́E�R�[���o�b�N�L��) .
+     * ���m�[�h�������t���[������񊈓���Ԃɂ���\��t���O�𗧂Ă�B<BR>
+     * �z���m�[�h�ɂ͉����e��������܂���B
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͔񊈓���Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void inactivate();
 
     /**
-     * 非活動予約する(自ツリー・コールバック有り) .
-     * Nフレーム後に inactivateTree() が実行されることを予約する。<BR>
-     * 自身と配下ノード全てについて再帰的に inactivateAfter(DWORD) が実行される。<BR>
-     * inactivateAfter(1) は、inactivateTree() と同じ意味になります。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は非活動状態の変化は無く一貫性は保たれる。<BR>
-     * @param prm_frame_offset 遅延フレーム数(1〜)
+     * �񊈓��\�񂷂�(���c���[�E�R�[���o�b�N�L��) .
+     * N�t���[����� inactivateTree() �����s����邱�Ƃ�\�񂷂�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� inactivateAfter(DWORD) �����s�����B<BR>
+     * inactivateAfter(1) �́AinactivateTree() �Ɠ����Ӗ��ɂȂ�܂��B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͔񊈓���Ԃ̕ω��͖�����ѐ��͕ۂ����B<BR>
+     * @param prm_frame_offset �x���t���[����(1�`)
      */
     void inactivateAfter(DWORD prm_frame_offset);
 
 
     /**
-     * 非活動状態にする(単体・即時・コールバック無し)  .
-     * 自ノードについて、即座に非活動状態にする。通常、本メソッドの使用は非推奨。<BR>
-     * onInactive() コールバックは実行されない。<BR>
-     * 即座に状態が変化するため、以下の点を留意して、使用する際は注意が必要である。<BR>
-     * 『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性が大きく、<BR>
-     * 他ノードのロジックが、「このノードが非活動状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
-     * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
+     * �񊈓���Ԃɂ���(�P�́E�����E�R�[���o�b�N����)  .
+     * ���m�[�h�ɂ��āA�����ɔ񊈓���Ԃɂ���B�ʏ�A�{���\�b�h�̎g�p�͔񐄏��B<BR>
+     * onInactive() �R�[���o�b�N�͎��s����Ȃ��B<BR>
+     * �����ɏ�Ԃ��ω����邽�߁A�ȉ��̓_�𗯈ӂ��āA�g�p����ۂ͒��ӂ��K�v�ł���B<BR>
+     * �w����t���[�����x�̎c��̖������̃m�[�h�ɑ΂��Ă̂ݗL���ƂȂ�B�܂�A<BR>
+     * �w����t���[�����x�ł����Ă��A���ɏ������ꂽ�m�[�h�Ƃ͈قȂ��ԂɂȂ�\�����傫���A<BR>
+     * ���m�[�h�̃��W�b�N���A�u���̃m�[�h���񊈓���ԂȂ�΁E�E�E�v���A���̏�ԁi�t���O�j�ɂ�菈�����򂵂Ă����ꍇ�A<BR>
+     * ����t���[�����̏������ʂ̐�����������鋰�ꂪ����B<BR>
+     * ���m�[�h�̉e���A�c���[�\����ǂ��l���Ďg�p���邱�ƁB<BR>
      */
     void inactivateImmediately();
 
     /**
-     * 非活動状態にする(自ツリー・即時・コールバック無し)  .
-     * 自身と配下ノード全てについて再帰的に inactivateImmediately() が実行される。<BR>
-     * inactivateImmediately() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
+     * �񊈓���Ԃɂ���(���c���[�E�����E�R�[���o�b�N����)  .
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� inactivateImmediately() �����s�����B<BR>
+     * inactivateImmediately() �̐�����v�Q�ƁB<BR>
+     * �g�p����Ƃ��́A���m�[�h�̉e����ǂ��l���Ē��ӂ��Ďg�p���邱�ƁB<BR>
      */
     void inactivateTreeImmediately();
 
     //===================
     /**
-     * 一時停止にする(自ツリー) .
-     * 正確には、次フレームから一時停止にする予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理で一時停止になる事になる。<BR>
-     * 自身と配下ノード全てについて再帰的に pause() が実行される。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
+     * �ꎞ��~�ɂ���(���c���[) .
+     * ���m�ɂ́A���t���[������ꎞ��~�ɂ���\��t���O�𗧂Ă�B<BR>
+     * �����āA���t���[���擪�����ňꎞ��~�ɂȂ鎖�ɂȂ�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� pause() �����s�����B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͈ꎞ��~�̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void pauseTree();
 
     /**
-     * 一時停止にする(単体) .
-     * 自ノードだけ次フレームから一時停止にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は一時停止の変化は無く一貫性は保たれる。<BR>
+     * �ꎞ��~�ɂ���(�P��) .
+     * ���m�[�h�������t���[������ꎞ��~�ɂ���\��t���O�𗧂Ă�B<BR>
+     * �z���m�[�h�ɂ͉����e��������܂���B
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͈ꎞ��~�̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void pause();
 
     /**
-     * 一時停止状態にする(単体・即時) .
-     * 自ノードについて、即座に一時停止状態（ _was_paused_flg = true ）にする。通常、本メソッドの使用は非推奨。<BR>
-     * 即座に状態が変化するため、以下の点を留意して使用する際は注意が必要である。<BR>
-     * 変化した新たなフラグ状態は、『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性があり、<BR>
-     * 他ノードのロジックが、「このノードが一時停止状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
-     * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
+     * �ꎞ��~��Ԃɂ���(�P�́E����) .
+     * ���m�[�h�ɂ��āA�����Ɉꎞ��~��ԁi _was_paused_flg = true �j�ɂ���B�ʏ�A�{���\�b�h�̎g�p�͔񐄏��B<BR>
+     * �����ɏ�Ԃ��ω����邽�߁A�ȉ��̓_�𗯈ӂ��Ďg�p����ۂ͒��ӂ��K�v�ł���B<BR>
+     * �ω������V���ȃt���O��Ԃ́A�w����t���[�����x�̎c��̖������̃m�[�h�ɑ΂��Ă̂ݗL���ƂȂ�B�܂�A<BR>
+     * �w����t���[�����x�ł����Ă��A���ɏ������ꂽ�m�[�h�Ƃ͈قȂ��ԂɂȂ�\��������A<BR>
+     * ���m�[�h�̃��W�b�N���A�u���̃m�[�h���ꎞ��~��ԂȂ�΁E�E�E�v���A���̏�ԁi�t���O�j�ɂ�菈�����򂵂Ă����ꍇ�A<BR>
+     * ����t���[�����̏������ʂ̐�����������鋰�ꂪ����B<BR>
+     * ���m�[�h�̉e���A�c���[�\����ǂ��l���Ďg�p���邱�ƁB<BR>
      */
     void pauseImmediately();
 
     /**
-     * 一時停止状態にする(自ツリー・即時) .
-     * 自身と配下ノード全てについて再帰的に pauseImmediately() が実行される。<BR>
-     * pauseImmediately() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
+     * �ꎞ��~��Ԃɂ���(���c���[�E����) .
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� pauseImmediately() �����s�����B<BR>
+     * pauseImmediately() �̐�����v�Q�ƁB<BR>
+     * �g�p����Ƃ��́A���m�[�h�̉e����ǂ��l���Ē��ӂ��Ďg�p���邱�ƁB<BR>
      */
     void pauseTreeImmediately();
 
     //===================
     /**
-     * 一時停止状態を解除する(自ツリー) .
-     * 正確には、次フレームから一時停止状態を解除する予約フラグを立てる。<BR>
-     * そして、次フレーム先頭処理で一時停止状態が解除される事になる。<BR>
-     * 自身と配下ノード全てについて再帰的に unpause() が実行される。<BR>
-     * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
+     * �ꎞ��~��Ԃ���������(���c���[) .
+     * ���m�ɂ́A���t���[������ꎞ��~��Ԃ���������\��t���O�𗧂Ă�B<BR>
+     * �����āA���t���[���擪�����ňꎞ��~��Ԃ���������鎖�ɂȂ�B<BR>
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� unpause() �����s�����B<BR>
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͈ꎞ��~��Ԃ������̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void unpauseTree();
     /**
-     * 一時停止状態を解除する(単体) .
-     * 自ノードだけ次フレームから一時停止状態を解除にする予約フラグを立てる。<BR>
-     * 配下ノードには何も影響がありません。
-     * 本メソッドを実行しても、『同一フレーム内』は一時停止状態を解除の変化は無く一貫性は保たれる。<BR>
+     * �ꎞ��~��Ԃ���������(�P��) .
+     * ���m�[�h�������t���[������ꎞ��~��Ԃ������ɂ���\��t���O�𗧂Ă�B<BR>
+     * �z���m�[�h�ɂ͉����e��������܂���B
+     * �{���\�b�h�����s���Ă��A�w����t���[�����x�͈ꎞ��~��Ԃ������̕ω��͖�����ѐ��͕ۂ����B<BR>
      */
     void unpause();
 
     /**
-     * 一時停止状態を解除する(自ツリー・即時) .
-     * 自身と配下ノード全てについて再帰的に unpauseImmediately() が実行される。<BR>
-     * unpauseImmediately() の説明を要参照。<BR>
-     * 使用するときは、他ノードの影響を良く考えて注意して使用すること。<BR>
+     * �ꎞ��~��Ԃ���������(���c���[�E����) .
+     * ���g�Ɣz���m�[�h�S�Ăɂ��čċA�I�� unpauseImmediately() �����s�����B<BR>
+     * unpauseImmediately() �̐�����v�Q�ƁB<BR>
+     * �g�p����Ƃ��́A���m�[�h�̉e����ǂ��l���Ē��ӂ��Ďg�p���邱�ƁB<BR>
      */
     void unpauseTreeImmediately();
 
     /**
-     * 一時停止状態を解除する(単体・即時) .
-     * 自ノードについて、即座に一時停止していない状態（ _was_paused_flg = false ）にする。通常、本メソッドの使用は非推奨。<BR>
-     * 即座に状態が変化するため、以下の点を留意して使用する際は注意が必要である。<BR>
-     * 変化した新たなフラグ状態は、『同一フレーム内』の残りの未処理のノードに対してのみ有効となる。つまり、<BR>
-     * 『同一フレーム内』であっても、既に処理されたノードとは異なる状態になる可能性があり、<BR>
-     * 他ノードのロジックが、「このノードが一時停止状態ならば・・・」等、その状態（フラグ）により処理分岐していた場合、<BR>
-     * 同一フレーム内の処理結果の整合性が崩れる恐れがある。<BR>
-     * 他ノードの影響、ツリー構造を良く考えて使用すること。<BR>
+     * �ꎞ��~��Ԃ���������(�P�́E����) .
+     * ���m�[�h�ɂ��āA�����Ɉꎞ��~���Ă��Ȃ���ԁi _was_paused_flg = false �j�ɂ���B�ʏ�A�{���\�b�h�̎g�p�͔񐄏��B<BR>
+     * �����ɏ�Ԃ��ω����邽�߁A�ȉ��̓_�𗯈ӂ��Ďg�p����ۂ͒��ӂ��K�v�ł���B<BR>
+     * �ω������V���ȃt���O��Ԃ́A�w����t���[�����x�̎c��̖������̃m�[�h�ɑ΂��Ă̂ݗL���ƂȂ�B�܂�A<BR>
+     * �w����t���[�����x�ł����Ă��A���ɏ������ꂽ�m�[�h�Ƃ͈قȂ��ԂɂȂ�\��������A<BR>
+     * ���m�[�h�̃��W�b�N���A�u���̃m�[�h���ꎞ��~��ԂȂ�΁E�E�E�v���A���̏�ԁi�t���O�j�ɂ�菈�����򂵂Ă����ꍇ�A<BR>
+     * ����t���[�����̏������ʂ̐�����������鋰�ꂪ����B<BR>
+     * ���m�[�h�̉e���A�c���[�\����ǂ��l���Ďg�p���邱�ƁB<BR>
      */
     void unpauseImmediately();
     //===================
 
     /**
-     * さよならします。(自ツリー) .
-     * 自ノードを次フレームから「生存終了」状態にすることを宣言する。（削除フラグを立てる） <BR>
-     * 自ツリーノード全て道連れで生存終了(sayonara())がお知らせが届く。<br>
-     * 親ノードがさよならならすれば、子ノードもさよならせざるをえない。<BR>
-     * 生存終了とは具体的には、振る舞いフラグ(_is_active_flg)、生存フラグ(_can_live_flg) を、
-     * 次フレームからアンセットする予約フラグを立てること事である。<BR>
-     * _can_live_flg がアンセットされることにより、GgafSayonaraActor に所属することになる。<BR>
-     * 神(GgafGod)が処理時間の余裕のある時に cleane() メソッドにより、GgafSayonaraActor 配下ノードを<BR>
-     * delete することとなる。<BR>
-     * したがって、本メンバ関数を実行しても、『同一フレーム内』では、まだdeleteは行なわれず、<BR>
-     * GgafSayonaraActor 配下に移るだけ。（タスクからは除外されている）。<BR>
-     * 次フレーム以降でも直ぐには deleteされないかもしれない。<BR>
-     * インスタンスがすぐに解放されないことに注意せよ！（内部的なバグを生みやすい）。<BR>
-     * さよならした後『同一フレーム内』に、 _can_live_flg をセットし直しても駄目です。<BR>
-     * これは本メソッドで、GgafSayonaraActorに所属してしまうためです。<BR>
-     * @param prm_frame_offset 予約猶予フレーム(1〜)
+     * ����Ȃ炵�܂��B(���c���[) .
+     * ���m�[�h�����t���[������u�����I���v��Ԃɂ��邱�Ƃ�錾����B�i�폜�t���O�𗧂Ă�j <BR>
+     * ���c���[�m�[�h�S�ē��A��Ő����I��(sayonara())�����m�点���͂��B<br>
+     * �e�m�[�h������Ȃ�Ȃ炷��΁A�q�m�[�h������Ȃ点��������Ȃ��B<BR>
+     * �����I���Ƃ͋�̓I�ɂ́A�U�镑���t���O(_is_active_flg)�A�����t���O(_can_live_flg) ���A
+     * ���t���[������A���Z�b�g����\��t���O�𗧂Ă邱�Ǝ��ł���B<BR>
+     * _can_live_flg ���A���Z�b�g����邱�Ƃɂ��AGgafSayonaraActor �ɏ������邱�ƂɂȂ�B<BR>
+     * �_(GgafGod)���������Ԃ̗]�T�̂��鎞�� cleane() ���\�b�h�ɂ��AGgafSayonaraActor �z���m�[�h��<BR>
+     * delete ���邱�ƂƂȂ�B<BR>
+     * ���������āA�{�����o�֐������s���Ă��A�w����t���[�����x�ł́A�܂�delete�͍s�Ȃ�ꂸ�A<BR>
+     * GgafSayonaraActor �z���Ɉڂ邾���B�i�^�X�N����͏��O����Ă���j�B<BR>
+     * ���t���[���ȍ~�ł������ɂ� delete����Ȃ���������Ȃ��B<BR>
+     * �C���X�^���X�������ɉ������Ȃ����Ƃɒ��ӂ���I�i�����I�ȃo�O�𐶂݂₷���j�B<BR>
+     * ����Ȃ炵����w����t���[�����x�ɁA _can_live_flg ���Z�b�g�������Ă��ʖڂł��B<BR>
+     * ����͖{���\�b�h�ŁAGgafSayonaraActor�ɏ������Ă��܂����߂ł��B<BR>
+     * @param prm_frame_offset �\��P�\�t���[��(1�`)
      */
     void sayonara(DWORD prm_frame_offset = 1);
 
     /**
-     * 自ツリーノードを最終ノードに移動する(単体) .
-     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの最終にシフトする。<BR>
-     * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
+     * ���c���[�m�[�h���ŏI�m�[�h�Ɉړ�����(�P��) .
+     * ���t���[���̐擪����(nextFrame())�Ŏ��c���[�m�[�h���Z��m�[�h�O���[�v�̍ŏI�ɃV�t�g����B<BR>
+     * <B>[����]</B>�����ɏ��J�菈�������s�����킯�ł͂Ȃ��B<BR>
      */
     void moveLast() {
         _will_mv_last_in_next_frame_flg = true;
     }
 
     /**
-     * 自ツリーノードを先頭ノードに移動する(単体) .
-     * 次フレームの先頭処理(nextFrame())で自ツリーノードを兄弟ノードグループの先頭にシフトする。<BR>
-     * <B>[注意]</B>即座に順繰り処理が実行されるわけではない。<BR>
+     * ���c���[�m�[�h��擪�m�[�h�Ɉړ�����(�P��) .
+     * ���t���[���̐擪����(nextFrame())�Ŏ��c���[�m�[�h���Z��m�[�h�O���[�v�̐擪�ɃV�t�g����B<BR>
+     * <B>[����]</B>�����ɏ��J�菈�������s�����킯�ł͂Ȃ��B<BR>
      */
     void moveFirst() {
         _will_mv_first_in_next_frame_flg = true;
     }
 
     /**
-     * 所属ツリーから独立する(単体)
-     * extract() のラッパーで、生存確認のチェック付き。通常はこちらを使用する。
-     * @return  T* 脱退し独立した自ノードのポインタ
+     * �����c���[����Ɨ�����(�P��)
+     * extract() �̃��b�p�[�ŁA�����m�F�̃`�F�b�N�t���B�ʏ�͂�������g�p����B
+     * @return  T* �E�ނ��Ɨ��������m�[�h�̃|�C���^
      */
     virtual T* extract() override;
 
 
     /**
-     * 非活動から活動に切り替わったかどうか .
-     * ただし、onActive() オーバーライドで事足りる場合は、その方がすっきり記述できるはず。<BR>
-     * 他のノードの状態変化を知りたい時のために、本メソッドを準備した。<BR>
-     * @return  bool true:切り替わった／false:切り替わっていない
+     * �񊈓����犈���ɐ؂�ւ�������ǂ��� .
+     * �������AonActive() �I�[�o�[���C�h�Ŏ������ꍇ�́A���̕�����������L�q�ł���͂��B<BR>
+     * ���̃m�[�h�̏�ԕω���m�肽�����̂��߂ɁA�{���\�b�h�����������B<BR>
+     * @return  bool true:�؂�ւ�����^false:�؂�ւ���Ă��Ȃ�
      */
     bool onChangeToActive();
 
     /**
-     * 活動から停止に切り替わったかどうか .
-     * ただし、onInactive() オーバーライドで事足りる場合は、その方がすっきり記述できるはず。<BR>
-     * 他のノードの状態変化を知りたい時のために、本メソッドを準備した。<BR>
-     * @return  bool true:切り替わった／false:切り替わっていない
+     * ���������~�ɐ؂�ւ�������ǂ��� .
+     * �������AonInactive() �I�[�o�[���C�h�Ŏ������ꍇ�́A���̕�����������L�q�ł���͂��B<BR>
+     * ���̃m�[�h�̏�ԕω���m�肽�����̂��߂ɁA�{���\�b�h�����������B<BR>
+     * @return  bool true:�؂�ւ�����^false:�؂�ւ���Ă��Ȃ�
      */
     bool onChangeToInactive();
 
     /**
-     * 生存可能か調べる
-     * @return  bool true:生存可能／false:生存不可
+     * �����\�����ׂ�
+     * @return  bool true:�����\�^false:�����s��
      */
     bool canLive() {
         return _can_live_flg;
     }
 
     /**
-     * 活動中か調べる
-     * @return  bool true:活動中／false:非活動中
+     * �����������ׂ�
+     * @return  bool true:�������^false:�񊈓���
      */
     bool isActive();
 
     /**
-     * 振る舞い可能か調べる（＝一時停止されていないか）
-     * @return  bool true:振る舞い可能（活動中で一時停止では無い）／false:振る舞い不可
+     * �U�镑���\�����ׂ�i���ꎞ��~����Ă��Ȃ����j
+     * @return  bool true:�U�镑���\�i�������ňꎞ��~�ł͖����j�^false:�U�镑���s��
      */
     bool canBehave();
 
     /**
-     * 振る舞い状態に加算されるフレーム数を取得する .
-     * 何もセットしない場合、次のような値を返す。<BR>
-     * 1 Frame 〜 からの値になる。0 Frame状態は基本存在しない。但し例外的に<BR>
-     * 生成時コンストラクタ内、および、最初の initialize() 内では 0 Frame を返す。<BR>
-     * 初回実行の onActive()、processBehavior()、processJudgement() 等の中で 1 になっている。<BR>
-     * 以降、振る舞い態時にフレーム加算される。<BR>
-     * 「振る舞い状態」とは、canBehave() == true の条件成立時の事を意味する。<BR>
-     * @return 振る舞いフレーム数総計
+     * �U�镑����Ԃɉ��Z�����t���[�������擾���� .
+     * �����Z�b�g���Ȃ��ꍇ�A���̂悤�Ȓl��Ԃ��B<BR>
+     * 1 Frame �` ����̒l�ɂȂ�B0 Frame��Ԃ͊�{���݂��Ȃ��B�A����O�I��<BR>
+     * �������R���X�g���N�^���A����сA�ŏ��� initialize() ���ł� 0 Frame ��Ԃ��B<BR>
+     * ������s�� onActive()�AprocessBehavior()�AprocessJudgement() ���̒��� 1 �ɂȂ��Ă���B<BR>
+     * �ȍ~�A�U�镑���Ԏ��Ƀt���[�����Z�����B<BR>
+     * �u�U�镑����ԁv�Ƃ́AcanBehave() == true �̏����������̎����Ӗ�����B<BR>
+     * @return �U�镑���t���[�������v
      */
     DWORD getBehaveingFrame();
 
     /**
-     * onActive()からの振る舞い状態に加算されるフレーム数を取得する .
-     * 汎用オブジェクトなど、一度生成して使いまわす(deleteしない)場合、<BR>
-     * 消失時に inactivate() 、 出現時 activate() を繰り返すことを想定。<BR>
-     * getBehaveingFrame() と同じタイミングで加算されるが、onActive()でリセットされる。<BR>
-     * @return onActive()からの振る舞いフレーム数
+     * onActive()����̐U�镑����Ԃɉ��Z�����t���[�������擾���� .
+     * �ėp�I�u�W�F�N�g�ȂǁA��x�������Ďg���܂킷(delete���Ȃ�)�ꍇ�A<BR>
+     * �������� inactivate() �A �o���� activate() ���J��Ԃ����Ƃ�z��B<BR>
+     * getBehaveingFrame() �Ɠ����^�C�~���O�ŉ��Z����邪�AonActive()�Ń��Z�b�g�����B<BR>
+     * @return onActive()����̐U�镑���t���[����
      */
     DWORD getPartFrame();
 
 
     /**
-     * 相対経過振る舞いフレームの判定。
-     * 直前の relativeFrame(int) 実行時（結果がtrue/falseに関わらず）のフレーム数からの経過フレーム数に達したか判定する。
-     * 初回呼び出しは、getBehaveingFrame() == ０からの相対フレーム数となるため、１度は空呼び出しを行う（なんとかしたい）事になるかもしれない。
-     * 注意：入れ子や条件分岐により、relativeFrame(int) が呼び出される回数が変化する場合、相対経過フレームも変化する。
-     * @param   prm_frame_relative    相対振る舞いフレーム数
-     * @return  bool    true:経過フレーム数に達した/false:達していない
+     * ���Όo�ߐU�镑���t���[���̔���B
+     * ���O�� relativeFrame(int) ���s���i���ʂ�true/false�Ɋւ�炸�j�̃t���[��������̌o�߃t���[�����ɒB���������肷��B
+     * ����Ăяo���́AgetBehaveingFrame() == �O����̑��΃t���[�����ƂȂ邽�߁A�P�x�͋�Ăяo�����s���i�Ȃ�Ƃ��������j���ɂȂ邩������Ȃ��B
+     * ���ӁF����q���������ɂ��ArelativeFrame(int) ���Ăяo�����񐔂��ω�����ꍇ�A���Όo�߃t���[�����ω�����B
+     * @param   prm_frame_relative    ���ΐU�镑���t���[����
+     * @return  bool    true:�o�߃t���[�����ɒB����/false:�B���Ă��Ȃ�
      */
     bool relativeFrame(DWORD prm_frame_relative);
 
 };
 
-///////////////////////////////////////////////////////////////// ここからは実装部
+///////////////////////////////////////////////////////////////// ��������͎�����
 
 template<class T>
 GgafElement<T>::GgafElement(const char* prm_name) : GgafCore::GgafNode<T>(prm_name),
@@ -606,7 +606,7 @@ void GgafElement<T>::nextFrame() {
         return;
     }
 
-    //死の時か
+    //���̎���
     if (_frame_of_life_when_sayonara == _frame_of_life+1) {
         _is_active_flg_in_next_frame = false;
         _can_live_flg_in_next_frame = false;
@@ -626,7 +626,7 @@ void GgafElement<T>::nextFrame() {
         _frame_of_life++;
         if (_can_live_flg) {
             if (_will_activate_after_flg) {
-                //遅延play処理
+                //�x��play����
                 if (_frame_of_life >= _frame_of_life_when_activation) {
                     activate();
                     _frame_of_life_when_activation = 0;
@@ -635,7 +635,7 @@ void GgafElement<T>::nextFrame() {
             }
 
             if (_will_inactivate_after_flg) {
-                //遅延stop処理
+                //�x��stop����
                 if (_frame_of_life == _frame_of_life_when_inactivation) {
                     inactivate();
                     _frame_of_life_when_inactivation = 0;
@@ -652,23 +652,23 @@ void GgafElement<T>::nextFrame() {
         _on_change_to_inactive_flg = false;
         if (_is_active_flg && _is_active_flg_in_next_frame == false) {
             _on_change_to_inactive_flg = true;
-            onInactive(); //コールバック
+            onInactive(); //�R�[���o�b�N
         }
-        //活動、非活動の状態変化時
+        //�����A�񊈓��̏�ԕω���
         if (_is_active_flg == false && _is_active_flg_in_next_frame) {
             _on_change_to_active_flg = true;
             _frame_of_behaving_since_onActive = 0;
-            onActive(); //コールバック
+            onActive(); //�R�[���o�b�N
         } else if (_is_active_flg && _frame_of_life == 1) {
-            //生まれてそのままならば、いきなり一回だけonActive()。
+            //���܂�Ă��̂܂܂Ȃ�΁A�����Ȃ��񂾂�onActive()�B
             _on_change_to_active_flg = true;
             _frame_of_behaving_since_onActive = 0;
-            onActive(); //コールバック
+            onActive(); //�R�[���o�b�N
         }
 
 
 
-        //フラグたちを反映
+        //�t���O�����𔽉f
         _is_active_flg   = _is_active_flg_in_next_frame;
         _can_live_flg    = _can_live_flg_in_next_frame;
 
@@ -710,7 +710,7 @@ void GgafElement<T>::behave() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frame_relative = 0;
-            processBehavior();    //ユーザー実装用
+            processBehavior();    //���[�U�[�����p
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
@@ -736,7 +736,7 @@ void GgafElement<T>::preJudge() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frame_relative = 0;
-            processPreJudgement(); //フレームワーク用
+            processPreJudgement(); //�t���[�����[�N�p
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
@@ -763,7 +763,7 @@ void GgafElement<T>::judge() {
     if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frame_relative = 0;
-            processJudgement();    //ユーザー実装用
+            processJudgement();    //���[�U�[�����p
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;
@@ -1189,7 +1189,7 @@ T* GgafElement<T>::extract() {
     if (_can_live_flg) {
         return GGAF_NODE::extract();
     } else {
-        //_TRACE_("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ＜警告＞ "<<GGAF_NODE::getName()<<"は、死んでいます。");
+        //_TRACE_("[GgafElement<"<<GGAF_NODE::_class_name<<">::extract()] ���x���� "<<GGAF_NODE::getName()<<"�́A����ł��܂��B");
         return GGAF_NODE::extract();
     }
 }
@@ -1206,16 +1206,16 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
     while(GgafFactory::_cnt_cleaned < prm_num_cleaning) {
 
         if (pElementTemp->_pSubFirst) {
-            //子の子がまだのっている場合さらにもぐる
+            //�q�̎q���܂��̂��Ă���ꍇ����ɂ�����
             pElementTemp->cleane(prm_num_cleaning);
             if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                 break;
             }
         }
 
-        if (pElementTemp->_is_first_flg) { //最後の一つ
+        if (pElementTemp->_is_first_flg) { //�Ō�̈��
             if (pElementTemp->_pSubFirst) {
-                //子の子がまだのっている場合さらにもぐる
+                //�q�̎q���܂��̂��Ă���ꍇ����ɂ�����
                 pElementTemp->cleane(prm_num_cleaning);
                 if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                     break;
@@ -1229,7 +1229,7 @@ void GgafElement<T>::cleane(int prm_num_cleaning) {
         } else {
             pWk = pElementTemp;
             if (pWk->_pSubFirst) {
-                //子の子がまだのっている場合さらにもぐる
+                //�q�̎q���܂��̂��Ă���ꍇ����ɂ�����
                 pWk->cleane(prm_num_cleaning);
                 if (GgafFactory::_cnt_cleaned >= prm_num_cleaning) {
                     break;

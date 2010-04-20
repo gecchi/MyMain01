@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -9,12 +9,12 @@ GgafDx9Spline3D FormationIris001::_sp;
 
 FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_name, 30*60) {
     _class_name = "FormationIris001";
-    _num_Iris       = 7*_RANK_;    //ç·¨éšŠæ•°
-    _frame_interval = 25/_RANK_+5;   //ã‚¤ãƒªã‚¹ã®é–“éš”(frame)
-    _mv_velo  = 8000*_RANK_; //é€Ÿåº¦
-    //ã‚¹ãƒ—ãƒ©ã‚¤ãƒ³ç§»å‹•ã®å®šç¾©
+    _num_Iris       = 7*_RANK_;    //•Ò‘à”
+    _frame_interval = 25/_RANK_+5;   //ƒCƒŠƒX‚ÌŠÔŠu(frame)
+    _mv_velo  = 8000*_RANK_; //‘¬“x
+    //ƒXƒvƒ‰ƒCƒ“ˆÚ“®‚Ì’è‹`
     if (FormationIris001::_sp._num_basepoint == 0) {
-        //å¾Œæ–¹ã‹ã‚‰
+        //Œã•û‚©‚ç
         double p[][3] = { //           X  ,                       Y ,                         Z
            { MyShip::_lim_behaind - 500000 ,                    0.0 ,  MyShip::_lim_zleft * 0.8 },
            {      MyShip::_lim_front * 1.5 , MyShip::_lim_top * 0.2 ,                       0.0 },
@@ -22,15 +22,15 @@ FormationIris001::FormationIris001(const char* prm_name) : FormationActor(prm_na
            {      MyShip::_lim_front * 2.2 , MyShip::_lim_top * 1.0 ,                       0.0 },
            {      MyShip::_lim_front * 2.0 ,                    0.0 ,                       0.0 }
         };
-        FormationIris001::_sp.init(p, 5, 0.2); //ç²’åº¦ 0.2
+        FormationIris001::_sp.init(p, 5, 0.2); //—±“x 0.2
     }
 
-    //ã‚¤ãƒªã‚¹ç·¨éšŠä½œæˆ
+    //ƒCƒŠƒX•Ò‘àì¬
     _papIris = NEW EnemyIris*[_num_Iris];
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i] = NEW EnemyIris("Iris01");
         _papIris[i]->_pProgram_IrisMove =
-                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris001::_sp, 4000); //ç§»å‹•é€Ÿåº¦å›ºå®š
+                NEW GgafDx9FixedVelocitySplineProgram(&FormationIris001::_sp, 4000); //ˆÚ“®‘¬“xŒÅ’è
         _papIris[i]->inactivateImmediately();
         addSubLast(_papIris[i]);
     }
@@ -42,8 +42,8 @@ void FormationIris001::initialize() {
     for (int i = 0; i < _num_Iris; i++) {
         _papIris[i]->setGeometry(MyShip::_lim_behaind - 500000, 0, MyShip::_lim_zleft * 0.8);
         _papIris[i]->_pMover->setMvVelo(_mv_velo);
-        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view()); //å¼¾è¨­å®š
-        _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalé–“éš”ã§Activeã«ã™ã‚‹ã€‚
+        _papIris[i]->setDispatcher_Shot(_pDispatcherCon->view()); //’eİ’è
+        _papIris[i]->activateAfter(i*_frame_interval + 1);//_frame_intervalŠÔŠu‚ÅActive‚É‚·‚éB
     }
 }
 

@@ -1,4 +1,4 @@
-﻿#ifndef GGAFDX9COMMONHEADER_H_
+#ifndef GGAFDX9COMMONHEADER_H_
 #define GGAFDX9COMMONHEADER_H_
 #include "GgafCommonHeader.h"
 
@@ -15,7 +15,7 @@
 #endif
 #endif
 //http://www.ogre3d.org/forums/viewtopic.php?f=2&t=45140
-//意味を忘れたら、参照せよ
+//�Ӗ���Y�ꂽ��A�Q�Ƃ���
 
 
 
@@ -45,20 +45,20 @@
 #define ANGLE_PI (180000)
 #define ANGLE_2PI (360000)
 
-//3D空間の座標単位１に対してのPG内での座標単位の比率（PG内での座標単位を LEN_UNITで割ると3D空間の座標単位１になる）
+//3D��Ԃ̍��W�P�ʂP�ɑ΂��Ă�PG���ł̍��W�P�ʂ̔䗦�iPG���ł̍��W�P�ʂ� LEN_UNIT�Ŋ����3D��Ԃ̍��W�P�ʂP�ɂȂ�j
 #define LEN_UNIT (1000)
-//3D空間の座標単位１に対しての画面px数（画面高さなどを、PX_UNITで割ると3D空間の座標単位１になる）
+//3D��Ԃ̍��W�P�ʂP�ɑ΂��Ẳ��px���i��ʍ����Ȃǂ��APX_UNIT�Ŋ����3D��Ԃ̍��W�P�ʂP�ɂȂ�j
 #define PX_UNIT (10)
 #define PI (3.14159265358979)
 
-//ノードの happen 引数
+//�m�[�h�� happen ����
 #define GGAF_EVENT_ON_DEVICE_LOST 101
 #define GGAF_EVENT_DEVICE_LOST_RESTORE 102
 #define GGAF_EVENT_NOLOOP_UVFLIP_FINISHED 201
 
 
 
-//シェーダー2.0の限界のモーフターゲットは6個だった
+//�V�F�[�_�[2.0�̌��E�̃��[�t�^�[�Q�b�g��6������
 #define MAX_MORPH_TARGET 6
 
 #include <dxerr.h>

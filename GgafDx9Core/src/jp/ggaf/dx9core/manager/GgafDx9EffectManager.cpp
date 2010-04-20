@@ -1,4 +1,4 @@
-ï»¿#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -11,9 +11,9 @@ GgafDx9EffectManager::GgafDx9EffectManager(const char* prm_manager_name) :
 }
 
 GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
-    //æŒ¯ã‚Šåˆ†ã‘
-    char effect_type = *prm_idstr; //é ­ä¸€æ–‡å­—
-    char* effect_name = prm_idstr + 2; //ï¼“æ–‡å­—ç›®ä»¥é™
+    //U‚è•ª‚¯
+    char effect_type = *prm_idstr; //“ªˆê•¶š
+    char* effect_name = prm_idstr + 2; //‚R•¶š–ÚˆÈ~
     GgafDx9Effect* pResourceEffect;
     switch (effect_type) {
         case 'D':
@@ -46,8 +46,8 @@ GgafDx9Effect* GgafDx9EffectManager::processCreateResource(char* prm_idstr) {
             pResourceEffect = NEW GgafDx9PointSpriteEffect(effect_name);
             break;
         default:
-            TRACE("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") ãã‚“ãªç¨®åˆ¥ã¯ã‚ã‚Šã¾ã›ã‚“");
-            throwGgafCriticalException("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") ãã‚“ãªã‚¨ãƒƒãƒ•ã‚§ã‚¯ãƒˆç¨®åˆ¥ã¯çŸ¥ã‚Šã¾ã›ã‚“");
+            TRACE("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") ‚»‚ñ‚Èí•Ê‚Í‚ ‚è‚Ü‚¹‚ñ");
+            throwGgafCriticalException("GgafDx9EffectManager::processCreateResource("<<prm_idstr<<") ‚»‚ñ‚ÈƒGƒbƒtƒFƒNƒgí•Ê‚Í’m‚è‚Ü‚¹‚ñ");
             pResourceEffect = NULL;
             break;
     }
@@ -61,7 +61,7 @@ void GgafDx9EffectManager::onDeviceLostAll() {
     HRESULT hr;
     while (pCurrent != NULL) {
         hr = pCurrent->view()->_pID3DXEffect->OnLostDevice();
-        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ["<<pCurrent->getIdStr()<<"]ã® OnLostDevice() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::onDeviceLostAll ƒGƒtƒFƒNƒg["<<pCurrent->getIdStr()<<"]‚Ì OnLostDevice() ‚É¸”s‚µ‚Ü‚µ‚½B");
         TRACE3("onDeviceLostAll pCurrent="<<pCurrent->getIdStr() << " OnLostDevice() execute");
         pCurrent = pCurrent->getNext();
     }
@@ -74,7 +74,7 @@ void GgafDx9EffectManager::restoreAll() {
     HRESULT hr;
     while (pCurrent != NULL) {
         hr = pCurrent->view()->_pID3DXEffect->OnResetDevice();
-        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() ã‚¨ãƒ•ã‚§ã‚¯ãƒˆ["<<pCurrent->getIdStr()<<"]ã® OnResetDevice() ã«å¤±æ•—ã—ã¾ã—ãŸã€‚");
+        checkDxException(hr, D3D_OK, "GgafDx9EffectManager::restoreAll() ƒGƒtƒFƒNƒg["<<pCurrent->getIdStr()<<"]‚Ì OnResetDevice() ‚É¸”s‚µ‚Ü‚µ‚½B");
         TRACE3("restoreAll pCurrent="<<pCurrent->getIdStr() << " restoreAll() execute");
         pCurrent = pCurrent->getNext();
     }
@@ -84,9 +84,9 @@ void GgafDx9EffectManager::restoreAll() {
 
 GgafResourceConnection<GgafDx9Effect>* GgafDx9EffectManager::processCreateConnection(char* prm_idstr,
                                                                                      GgafDx9Effect* prm_pResource) {
-    TRACE3(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆé–‹å§‹ã€‚");
+    TRACE3(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬ŠJnB");
     GgafDx9EffectConnection* pConnection = NEW GgafDx9EffectConnection(prm_idstr, prm_pResource);
-    TRACE3(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" ã‚’ç”Ÿæˆçµ‚äº†ã€‚");
+    TRACE3(" GgafDx9EffectManager::processCreateConnection "<<prm_idstr<<" ‚ğ¶¬I—¹B");
     return pConnection;
 }
 

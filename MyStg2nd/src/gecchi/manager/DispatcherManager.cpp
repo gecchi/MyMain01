@@ -1,4 +1,4 @@
-Ôªø#include "stdafx.h"
+#include "stdafx.h"
 using namespace std;
 using namespace GgafCore;
 using namespace GgafDx9Core;
@@ -15,18 +15,18 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
     if (GgafUtil::strcmp_ascii("DpCon_Shot001", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_Shot001_Stock");
         Shot001* pShot001;
-        for (int i = 0; i < 100; i++) { //„Çπ„Éà„ÉÉ„ÇØ100ÂÄã
+        for (int i = 0; i < 100; i++) { //ÉXÉgÉbÉN100å¬
             pShot001 = NEW Shot001("Shot001");
             pShot001->inactivateImmediately();
             pResource->addSubLast(pShot001);
         }
-        pCOMMONSCENE->getLordActor()->addSubGroup(pResource); //ÊúÄÂæå„Å´addSubGroup„Åô„Åπ„ÅóÔºà„Åï„ÇÇ„Å™„ÅÑ„Å®Áõ¥„Åê„Å´ÂâäÈô§ÂØæË±°„Å´„Å™„ÇãÔºâ
+        pCOMMONSCENE->getLordActor()->addSubGroup(pResource); //ç≈å„Ç…addSubGroupÇ∑Ç◊ÇµÅiÇ≥Ç‡Ç»Ç¢Ç∆íºÇÆÇ…çÌèúëŒè€Ç…Ç»ÇÈÅj
     }
 
     if (GgafUtil::strcmp_ascii("DpCon_Shot002", prm_idstr) == 0) {
         pResource = NEW GgafActorDispatcher("DP_Shot002_Stock");
         Shot002* pShot002;
-        for (int i = 0; i < 100; i++) { //„Çπ„Éà„ÉÉ„ÇØ100ÂÄã
+        for (int i = 0; i < 100; i++) { //ÉXÉgÉbÉN100å¬
             pShot002 = NEW Shot002("Shot002");
             pShot002->inactivateImmediately();
             pResource->addSubLast(pShot002);
@@ -49,8 +49,8 @@ GgafActorDispatcher* DispatcherManager::processCreateResource(char* prm_idstr) {
 }
 
 GgafResourceConnection<GgafActorDispatcher>* DispatcherManager::processCreateConnection(char* prm_idstr, GgafActorDispatcher* prm_pResource) {
-    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" „ÇíÁîüÊàêÈñãÂßã„ÄÇ");
+    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" Çê∂ê¨äJénÅB");
     DispatcherConnection* pConnection = NEW DispatcherConnection(prm_idstr, prm_pResource);
-    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" „ÇíÁîüÊàêÁµÇ‰∫Ü„ÄÇ");
+    TRACE3(" DispatcherManager::processCreateConnection "<<prm_idstr<<" Çê∂ê¨èIóπÅB");
     return pConnection;
 }
