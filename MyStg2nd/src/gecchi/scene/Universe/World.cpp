@@ -109,6 +109,7 @@ void World::processBehavior() {
         }
     }
 
+
     //ƒJƒƒ‰ˆÊ’u‚ğs‚Á‚½‚è—ˆ‚½‚è
     if (VB::isPushedDown(VB_ZMOVE)) {
         _TRACE_("VB_ZMOVE!! now _pos_camera="<<_pos_camera);
