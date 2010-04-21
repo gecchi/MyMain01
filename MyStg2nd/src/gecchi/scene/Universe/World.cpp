@@ -87,9 +87,8 @@ void World::processBehavior() {
         GameScene* pGameScene = (GameScene*)obtainSceneFromFactory(2);
         addSubLast(pGameScene);
     }
-    if ( getSubFirst()->canBehave() ) {
-        VB::update(); //入力情報更新
-    }
+
+    VB::update(); //入力情報更新
 
     GgafDx9CameraViewPoint* pVP = pCAM->_pViewPoint;
     //TODO:止めてもframeは進む＿？
