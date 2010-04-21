@@ -17,7 +17,7 @@ float g_sx;
 float g_sy;
 float g_PowerBlink;   
 float g_BlinkThreshold;
-
+float g_MasterAlpha;
 //s0レジスタのサンプラを使う(＝固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
 
@@ -64,7 +64,7 @@ float4 GgafDx9PS_DefaultBoard(
 		out_color = tex_color;
 	}               
 	//α考慮
-	out_color.a = out_color.a * g_alpha; 
+	out_color.a = out_color.a * g_alpha * g_MasterAlpha; 
 	return out_color;
 }
 
@@ -74,10 +74,10 @@ float4 PS_Flush(
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0 );                
 	//α考慮
-	out_color.a = out_color.a * g_alpha; 
-	return out_color * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * g_alpha * g_MasterAlpha; 
+	return out_color 
 }
 
 

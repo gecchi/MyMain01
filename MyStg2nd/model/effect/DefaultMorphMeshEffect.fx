@@ -23,6 +23,7 @@ float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_PowerBlink;   
 float g_BlinkThreshold;
+float g_MasterAlpha;
 
 //soレジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -397,7 +398,7 @@ float4 GgafDx9PS_DefaultMorphMesh(
 		out_color = tex_color * g_PowerBlink;
 	} 
 	//α計算、αは法線およびライト方向に依存しない事とするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a * g_MasterAlpha; 
 
 	return out_color;
 }
@@ -405,13 +406,17 @@ float4 GgafDx9PS_DefaultMorphMesh(
 float4 PS_DestBlendOne( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv)*g_MaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse;
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return 	out_color.a;
 }
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * g_MaterialDiffuse * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return 	out_color.a;
 }
 
 technique DefaultMorphMeshTechnique

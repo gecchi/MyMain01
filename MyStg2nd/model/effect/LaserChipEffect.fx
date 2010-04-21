@@ -6,6 +6,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 float g_PowerBlink;   
 float g_BlinkThreshold;
+float g_MasterAlpha;
 float g_zf;
 
 //int g_kind; //チップ種類 1:末尾 2:中間 3:先頭 （末尾かつ先頭は末尾が優先）
@@ -204,7 +205,8 @@ float4 GgafDx9PS_LaserChip(
 ) : COLOR  {
 
 	float4 out_color = tex2D( MyTextureSampler, prm_uv);
-	out_color.a -= prm_col.a;         
+	out_color.a -= prm_col.a; 
+	out_color.a = out_color.a * g_MasterAlpha;        
 	return out_color;
 	//return tex2D( MyTextureSampler, prm_uv);
 }

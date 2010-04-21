@@ -12,6 +12,7 @@ float4x4 g_matProj;   //射影変換行列
 float3 g_LightDirection; // ライトの方向
 float4 g_LightAmbient;   // Ambienライト色（入射色）
 float4 g_LightDiffuse;   // Diffuseライト色（入射色）
+float g_MasterAlpha;
 
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 
@@ -69,7 +70,7 @@ float4 GgafDx9PS_DefaultAniMesh(
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a * g_MasterAlpha; 
 
 	return out_color;
 
@@ -86,7 +87,7 @@ float4 GgafDx9PS_DefaultAniMesh2(
 	//ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
-	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a * g_MasterAlpha; 
 
 	return out_color;
 }

@@ -34,6 +34,7 @@ float4 g_LightDiffuse;   // Diffuseライト色（入射色）
 float4 g_MaterialDiffuse;  //マテリアルのDiffuse反射色と、Ambien反射色
 float g_PowerBlink;   
 float g_BlinkThreshold;
+float g_MasterAlpha;
 
 //s0レジスタのサンプラを使う(固定パイプラインにセットされたテクスチャをシェーダーで使う)
 sampler MyTextureSampler : register(s0);
@@ -150,7 +151,9 @@ float4 PS_HoshiBoshi(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	return tex2D( MyTextureSampler, uv) * prm_col;// * g_MaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col; // * g_MaterialDiffuse;
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return out_color;
 }
 
 
@@ -162,7 +165,9 @@ float4 PS_Flush(
 	float2 uv = (float2)0;
 	uv.x = prm_uv_pointsprite.x * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.x;
 	uv.y = prm_uv_pointsprite.y * (1.0 / g_TextureSplitRowcol) + prm_uv_ps.y;
-	return tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_MaterialDiffuse;
+	float4 out_color = tex2D( MyTextureSampler, uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);// * g_MaterialDiffuse;
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return out_color;
 }
 
 technique HoshiBoshiTechnique

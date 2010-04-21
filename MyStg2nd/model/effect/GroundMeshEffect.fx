@@ -10,6 +10,7 @@ float4 g_MaterialDiffuse;
 
 float g_PowerBlink;   
 float g_BlinkThreshold;
+float g_MasterAlpha;
 
 sampler MyTextureSampler : register(s0);
 
@@ -64,7 +65,7 @@ float4 GgafDx9PS_GroundMesh(
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);                
 	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
-	out_color.a = g_MaterialDiffuse.a * tex_color.a * prm_color.a; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a * prm_color.a * g_MasterAlpha; 
 
 	return out_color;
 }
@@ -79,7 +80,7 @@ float4 GgafDx9PS_GroundMesh2(
 	//ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
 	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color; 
 	//α計算、
-	out_color.a = g_MaterialDiffuse.a * tex_color.a * prm_color.a; 
+	out_color.a = g_MaterialDiffuse.a * tex_color.a * prm_color.a * g_MasterAlpha; ; 
 
 	return out_color;
 }

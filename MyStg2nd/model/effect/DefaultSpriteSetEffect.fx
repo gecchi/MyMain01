@@ -9,7 +9,7 @@ float4x4 g_matView;   //View変換行列
 float4x4 g_matProj;   //射影変換行列
 float g_PowerBlink;   
 float g_BlinkThreshold;
-
+float g_MasterAlpha;
 
 float4x4 g_matWorld001;
 float4x4 g_matWorld002;
@@ -232,7 +232,7 @@ float4 GgafDx9PS_DefaultSpriteSet(
 	} else {
 		out_color = tex_color;
 	}               
-	out_color.a = out_color.a * prm_col.a; 
+	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
 	return out_color;
 }
 
@@ -241,10 +241,10 @@ float4 PS_Flush(
 	float4 prm_col    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0);
 	//α計算、テクスチャαとオブジェクトαの合算
-	out_color.a = out_color.a * prm_col.a; 
-	return out_color * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
+	return out_color;
 }
 
 //＜テクニック：DefaultSpriteSetTechnique＞

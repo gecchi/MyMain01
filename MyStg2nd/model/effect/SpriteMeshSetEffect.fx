@@ -15,6 +15,7 @@ int g_nVertexs;
 float g_zf;
 float g_PowerBlink;   
 float g_BlinkThreshold;
+float g_MasterAlpha;
 
 // ライトの方向
 float3 g_LightDirection;
@@ -239,7 +240,7 @@ float4 GgafDx9PS_SpriteMeshSet(
 		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	}
 	//α計算、αは法線およびライト方向に依存しないとするので別計算。固定はライトα色も考慮するが、本シェーダーはライトαは無し。
-	out_color.a = prm_col.a * tex_color.a ;    // tex_color.a はマテリアルα＊テクスチャα
+	out_color.a = prm_col.a * tex_color.a * g_MasterAlpha;    // tex_color.a はマテリアルα＊テクスチャα
 
 	return out_color;
 }
@@ -248,14 +249,18 @@ float4 PS_DestBlendOne(
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv)*prm_col;
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_col;
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return out_color;
 }
 
 float4 PS_Flush( 
 	float2 prm_uv	  : TEXCOORD0,
     float4 prm_col    : COLOR0
 ) : COLOR  {
-	return tex2D( MyTextureSampler, prm_uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * prm_col * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * g_MasterAlpha; 
+	return out_color;
 }
 
 technique SpriteMeshSetTechnique

@@ -8,7 +8,7 @@ float g_view_width; //画面幅(px)
 float g_view_height; //画面高さ(px)
 float g_PowerBlink;   
 float g_BlinkThreshold;
-
+float g_MasterAlpha;
 //float g_offsetU; //テクスチャU座標増分
 //float g_offsetV; //テクスチャV座標増分
 //float g_transformedX; //変換済みX座標(px)
@@ -448,7 +448,7 @@ float4 GgafDx9PS_DefaultBoardSet(
 		out_color = tex_color;
 	}               
 	//α考慮
-	out_color.a = out_color.a * prm_col.a; 
+	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
 	return out_color;
 }
 
@@ -457,10 +457,10 @@ float4 PS_Flush(
 	float4 prm_col    : COLOR0 
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
-	float4 out_color = tex2D( MyTextureSampler, prm_uv);                
+	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0);                
 	//α考慮
-	out_color.a = out_color.a * prm_col.a; 
-	return out_color * float4(7.0, 7.0, 7.0, 1.0);
+	out_color.a = out_color.a * prm_col.a * g_MasterAlpha; 
+	return out_color;
 }
 
 
