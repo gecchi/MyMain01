@@ -65,6 +65,7 @@ void* GgafFactory::obtain(unsigned long prm_id) {
     static GgafOrder* pOrder;
     static GgafOrder* pOrder_MyNext;
     static GgafOrder* pOrder_MyPrev;
+    DWORD waittime = 0;
     pOrder = ROOT_ORDER;
     void* objectCreation;
     if (pOrder == NULL) {
@@ -77,10 +78,16 @@ void* GgafFactory::obtain(unsigned long prm_id) {
             while (_is_working_flg) {
                 if (pOrder->_progress != 2) {
                     TRACE2("GgafFactory::obtain ＜客＞ 別スレッド工場さん、["<<prm_id<<"]の製造まだ～？、5ミリ秒だけ待ったげよう。pOrder->_progress="<<(pOrder->_progress));
-                    _TEXT_("…");
-                    ___EndSynchronized; // <----- 排他終了
+                    if (waittime > 1000*30) { //約３０秒
+                        throwGgafCriticalException("GgafFactory::obtain Error! ["<<prm_id<<"]の製造待ち時間、タイムアウト。\n何らかの理由でメインスレッドが停止している可能性が大きいです。");
+                    } else {
+                        _TEXT_("…");
+                    }
+
+                 ___EndSynchronized; // <----- 排他終了
                     Sleep(5);
                  ___BeginSynchronized; // ----->排他開始
+                    waittime += 5;
                     continue;
                 } else {
                     TRACE2("GgafFactory::obtain ＜客＞ おぉ、["<<prm_id<<"]は製造済みですね、さすが！。あざーす！");

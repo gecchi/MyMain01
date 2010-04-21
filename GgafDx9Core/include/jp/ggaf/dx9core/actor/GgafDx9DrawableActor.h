@@ -23,6 +23,15 @@ private:
     /** エフェクト資源接続 */
     GgafDx9EffectConnection* _pGgafDx9EffectCon;
 
+    /**
+     * draw()の使用禁止 .
+     * 世界(GgafDx9Universe)が全ての描画を行う仕組みになりました。
+     * GgafDx9Universe::draw() を参照せよ。
+     * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
+     */
+    void draw() override {
+    }
+
 public:
     /** 直近の描画時に使用されたテクニック名のハッシュコード */
     static unsigned int _hash_technique_last_draw;

@@ -123,6 +123,11 @@ void GgafDx9Universe::draw() {
 //                tmpAlpah = _pActor_DrawActive->getAlpha();
 //                _pActor_DrawActive->addAlpha((1.0/(MAX_DRAW_DEPTH_LEVEL - alphapoint))*i - 3.0);
 //            }
+
+            //マスターαを設定する。
+            GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+            _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
+                    _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
             _pActor_DrawActive->processDraw();
 //            if (alphapoint < i) {
 //                _pActor_DrawActive->setAlpha(tmpAlpah);

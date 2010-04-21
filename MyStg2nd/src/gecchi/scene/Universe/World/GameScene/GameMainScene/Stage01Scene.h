@@ -14,8 +14,6 @@ class Stage01Scene : public StageScene {
 
 public:
 
-	GgafDx9Core::GgafDx9BgmPerformer* _pBgmPerformer;
-
     Stage01MainScene* _pScene_Stage01Main;
     BackGround01* _pBackGround01;
 //    BackGroundStar* _pBackGroundStar;

@@ -49,6 +49,12 @@ void GameScene::processBehavior() {
         }
     }
 #endif
+    if (GgafDx9Input::isBeingPressedKey(DIK_O)) {
+        fadeinAlpha(3*60);
+    }
+    if (GgafDx9Input::isBeingPressedKey(DIK_P)) {
+        fadeoutAlpha(3*60);
+    }
 
     //サブシーンの切替えや平行実行のための、初期化、事前処理、フラグ処理等
     if (_pSceneCannel == _pScene_GameDemo) {

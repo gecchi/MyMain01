@@ -14,20 +14,27 @@ namespace GgafDx9Core {
  */
 class GgafDx9Scene : public GgafCore::GgafMainScene {
 private :
-    void processJudgement() override;
+    /**
+     * draw()の使用禁止 .
+     * 世界(GgafDx9Universe)が全ての描画を行う仕組みになりました。
+     * GgafDx9Universe::draw() を参照せよ。
+     * ノードツリー用 draw メソッドを下位で使えないようにするためprivateで実装。
+     */
+    void draw() override {
+    }
+
+    void processPreJudgement() override;
 
 public :
     /** 不思議なαカーテン */
     GgafDx9AlphaCurtain* _pAlphaCurtain;
+    /** BGM演奏者 */
+    GgafDx9BgmPerformer* _pBgmPerformer;
     GgafDx9Scene(const char* prm_name);
 
-    void fadein(float prm_velocity_alpha);
+    void fadeinAlpha(int prm_frame_fade);
 
-    void fadeinTree(float prm_velocity_alpha);
-
-    void fadeout(float prm_velocity_alpha);
-
-    void fadeoutTree(float prm_velocity_alpha);
+    void fadeoutAlpha(int prm_frame_fade);
 
     virtual ~GgafDx9Scene();
 };

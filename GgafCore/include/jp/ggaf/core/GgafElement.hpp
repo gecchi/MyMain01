@@ -810,7 +810,7 @@ void GgafElement<T>::draw() {
     if (_is_active_flg && _can_live_flg) {
         if (_was_initialize_flg) {
             _frame_relative = 0;
-            //processDraw();
+            processDraw();
         }
         if (GGAF_NODE::_pSubFirst != NULL) {
             T* pElementTemp = GGAF_NODE::_pSubFirst;

@@ -5,7 +5,8 @@ using namespace GgafCore;
 
 GgafCurtain::GgafCurtain() : GgafObject() {
     _curtain_length = 1.0f;
-    _now_curtain_length = _curtain_length; //Å‰‚Í•Â‚¶‚Ä‚¢‚é
+    _now_curtain_length = 0.0f; //Å‰‚ÍŠJ‚¢‚Ä‚¢‚Ü‚·
+    _state = OPENED;
     _opening_velocity = 0.0f;
     _closeing_velocity = 0.0f;
 

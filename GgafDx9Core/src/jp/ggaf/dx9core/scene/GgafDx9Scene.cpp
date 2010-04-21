@@ -7,24 +7,49 @@ GgafDx9Scene::GgafDx9Scene(const char* prm_name) : GgafMainScene(prm_name) {
     _scene_class |= Obj_GgafDx9Scene;
     _class_name = "GgafDx9Scene";
     _pAlphaCurtain = NEW GgafDx9AlphaCurtain(this);
+    _pBgmPerformer = NEW GgafDx9BgmPerformer();
 }
 
-void GgafDx9Scene::processJudgement() {
+void GgafDx9Scene::processPreJudgement() {
     _pAlphaCurtain->behave();
+    _pBgmPerformer->behave();
 }
 
-void GgafDx9Scene::fadein(float prm_velocity_alpha) {
+void GgafDx9Scene::fadeinAlpha(int prm_frame_fade) {
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->open(1.0 / prm_frame_fade);
+        if (getSubFirst() != NULL) {
+            GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
+            while(true) {
+                pScene->fadeinAlpha(prm_frame_fade);
+                if (pScene->isLast()) {
+                    break;
+                } else {
+                    pScene = (GgafDx9Scene*)(pScene->getNext());
+                }
+            }
+        }
+    }
 }
 
-void GgafDx9Scene::fadeinTree(float prm_velocity_alpha){
-}
-
-void GgafDx9Scene::fadeout(float prm_velocity_alpha){
-}
-
-void GgafDx9Scene::fadeoutTree(float prm_velocity_alpha){
+void GgafDx9Scene::fadeoutAlpha(int prm_frame_fade){
+    if (_is_active_flg && !_was_paused_flg && _can_live_flg) {
+        _pAlphaCurtain->close(1.0 / prm_frame_fade);
+        if (getSubFirst() != NULL) {
+            GgafDx9Scene* pScene = (GgafDx9Scene*)getSubFirst();
+            while(true) {
+                pScene->fadeoutAlpha(prm_frame_fade);
+                if (pScene->isLast()) {
+                    break;
+                } else {
+                    pScene = (GgafDx9Scene*)(pScene->getNext());
+                }
+            }
+        }
+    }
 }
 
 GgafDx9Scene::~GgafDx9Scene() {
     DELETE_IMPOSSIBLE_NULL(_pAlphaCurtain);
+    DELETE_IMPOSSIBLE_NULL(_pBgmPerformer);
 }

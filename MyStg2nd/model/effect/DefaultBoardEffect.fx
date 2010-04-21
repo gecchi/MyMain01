@@ -77,7 +77,7 @@ float4 PS_Flush(
 	float4 out_color = tex2D( MyTextureSampler, prm_uv) * float4(7.0, 7.0, 7.0, 1.0 );                
 	//Éøçló∂
 	out_color.a = out_color.a * g_alpha * g_MasterAlpha; 
-	return out_color 
+	return out_color;
 }
 
 

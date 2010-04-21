@@ -26,8 +26,6 @@ Stage01Scene::Stage01Scene(const char* prm_name) : StageScene(prm_name) {
     //GameMainScene‚ª‰ðœ‚µ‚Ä‚­‚ê‚é
     setProgress(STAGE01_PROG_INIT);
 
-
-    _pBgmPerformer = NEW GgafDx9BgmPerformer();
 	_pBgmPerformer->useBgm(2);
     _pBgmPerformer->set(0, "VIRTUAL_ON_11");
     _pBgmPerformer->set(1, "VIRTUAL_ON_09");
@@ -103,9 +101,6 @@ void Stage01Scene::processBehavior() {
         _pBgmPerformer->fadein(1, 420);
     }
 
-    _pBgmPerformer->behave();
-
-
 }
 
 void Stage01Scene::processJudgement() {
@@ -116,7 +111,5 @@ void Stage01Scene::processFinal() {
 }
 
 Stage01Scene::~Stage01Scene() {
-
-    DELETE_IMPOSSIBLE_NULL(_pBgmPerformer);
 
 }
