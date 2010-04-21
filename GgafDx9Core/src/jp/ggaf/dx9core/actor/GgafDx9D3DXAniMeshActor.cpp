@@ -17,6 +17,7 @@ GgafDx9D3DXAniMeshActor::GgafDx9D3DXAniMeshActor(const char* prm_name,
                                                                 "A",
                                                                 prm_technique,
                                                                 prm_pChecker) {
+    _actor_class |= Obj_GgafDx9D3DXAniMeshActor;
     _class_name = "GgafDx9D3DXAniMeshActor";
     _pD3DXAniMeshModel = (GgafDx9D3DXAniMeshModel*)_pGgafDx9Model;
     _pD3DXAniMeshEffect = (GgafDx9D3DXAniMeshEffect*)_pGgafDx9Effect;

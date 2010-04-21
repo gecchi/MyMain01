@@ -11,6 +11,7 @@ GgafDx9SphereActor::GgafDx9SphereActor(const char* prm_name,
                                                     "DefaultMeshEffect",
                                                     "DefaultMeshTechnique",
                                                     prm_pChecker) {
+    _actor_class |= Obj_GgafDx9SphereActor;
     _class_name = "GgafDx9SphereActor";
 }
 

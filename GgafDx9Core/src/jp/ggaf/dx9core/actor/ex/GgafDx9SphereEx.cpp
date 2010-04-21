@@ -4,6 +4,7 @@ using namespace GgafCore;
 using namespace GgafDx9Core;
 
 GgafDx9SphereEx::GgafDx9SphereEx(const char* prm_name) : GgafDx9SphereActor(prm_name, NULL) {
+    _actor_class |= Obj_GgafDx9SphereEx;
     _class_name = "GgafDx9SphereEx";
 }
 

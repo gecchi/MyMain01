@@ -17,6 +17,7 @@ GgafDx9PointSpriteActor::GgafDx9PointSpriteActor(const char* prm_name,
                                                             "P",
                                                             prm_technique,
                                                             prm_pChecker) {
+    _actor_class |= Obj_GgafDx9PointSpriteActor;
     _class_name = "GgafDx9PointSpriteActor";
     _pPointSpriteModel = (GgafDx9PointSpriteModel*)_pGgafDx9Model;
     _pPointSpriteEffect = (GgafDx9PointSpriteEffect*)_pGgafDx9Effect;

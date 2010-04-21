@@ -14,7 +14,7 @@ GgafDx9BoardSetActor::GgafDx9BoardSetActor(const char* prm_name,
                                                                     "b",
                                                                     prm_technique,
                                                                     NULL) {
-
+    _actor_class |= Obj_GgafDx9BoardSetActor;
     _class_name = "GgafDx9BoardSetActor";
 
     _pBoardSetModel = (GgafDx9BoardSetModel*)_pGgafDx9Model;

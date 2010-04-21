@@ -6,6 +6,7 @@ using namespace GgafDx9Core;
 
 GgafDx9GeometricActor::GgafDx9GeometricActor(const char* prm_name,
                                              GgafDx9Checker* prm_pChecker) : GgafDx9BaseActor(prm_name) {
+    _actor_class |= Obj_GgafDx9GeometricActor;
     _class_name = "GgafDx9GeometricActor";
     _isTransformed = false;
     _X = _Y = _Z = 0;
@@ -201,9 +202,13 @@ GgafGroupActor* GgafDx9GeometricActor::addSubBone(GgafDx9GeometricActor* prm_pGe
 }
 
 bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
-    if (_pChecker == NULL || _actor_class != MAINACTOR) {
-        return false;
-    } else {
+    if (_actor_class & Obj_GgafDx9GeometricActor) {
+        if (_pChecker) {
+            return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
+        }
+    }
+    return false;
+
 //        GgafDx9GeometricActor* pOtherActor = dynamic_cast<GgafDx9GeometricActor*> (prm_pOtherActor);
 //        if (pOtherActor != NULL && pOtherActor->_pChecker != NULL) {
 //            return _pChecker->isHit(pOtherActor->_pChecker);
@@ -211,15 +216,10 @@ bool GgafDx9GeometricActor::processHitChkLogic(GgafActor* prm_pOtherActor) {
 //            _TRACE_("GgafDx9GeometricActor::processHitChkLogic prm_pOtherActor("<<(prm_pOtherActor->getName())<<") is not GgafDx9GeometricActor")
 //            return false;
 //        }
-
         //本来は↑のようにdynamic_castするのが汎用的かつ安全。しかし、速度UPのため（dynamic_castを省きたいがため）に、
         //GgafDx9GeometricActorに決め打ちキャストしています。危険です。
         //座標を持たないアクターの_can_hit_flg を忘れずにfalseにすることによって、ここの引数にGgafDx9GeometricActorに
         //キャストできないポインタは来ないハズである。
-        //もし、万が一来たら・・・たぶん落ちる。その時にまた考える。
-        //TODO:考える。
-        return _pChecker->isHit(((GgafDx9GeometricActor*)prm_pOtherActor)->_pChecker);
-    }
 }
 
 

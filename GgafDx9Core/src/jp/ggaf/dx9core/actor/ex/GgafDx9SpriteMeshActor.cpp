@@ -13,6 +13,7 @@ GgafDx9SpriteMeshActor::GgafDx9SpriteMeshActor(const char* prm_name,
                                                          "SpriteMeshTechnique",
                                                          prm_pChecker) {
 
+    _actor_class |= Obj_GgafDx9SpriteMeshActor;
     _class_name = "GgafDx9SpriteMeshActor";
     _pUvFlipper = NEW GgafDx9UvFlipper(this);
     _pUvFlipper->forcePtnNoRange(0, 1);
