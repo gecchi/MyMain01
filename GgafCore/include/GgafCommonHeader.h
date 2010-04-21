@@ -255,6 +255,16 @@
 
 typedef DWORD actorkind;
 
+
+#define Obj_GgafActor                   (0x1)              //&B 00000000 00000000 00000000 00000001
+#define Obj_GgafMainActor               (0x2)              //&B 00000000 00000000 00000000 00000010
+#define Obj_GgafDummyActor              (0x4)              //&B 00000000 00000000 00000000 00000100
+#define Obj_GgafLordActor               (0x8)              //&B 00000000 00000000 00000000 00001000
+#define Obj_GgafGroupActor              (0x10)             //&B 00000000 00000000 00000000 00010000
+#define Obj_GgafSayonaraActor           (0x20)             //&B 00000000 00000000 00000000 00100000
+#define Obj_GgafActorDispatcher         (0x40)             //&B 00000000 00000000 00000000 01000000
+
+
 namespace GgafCore {
 class GgafUtil;
 class GgafRepeatSeq;
@@ -304,7 +314,7 @@ class GgafLinearOctree;
 class GgafLinearOctreeSpace;
 class GgafLinearOctreeElem;
 
-
+class GgafCurtain;
 }
 
 #ifdef _MSC_VER
@@ -349,5 +359,5 @@ class GgafLinearOctreeElem;
 #include "jp/ggaf/core/util/GgafLinearOctree.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeSpace.h"
 #include "jp/ggaf/core/util/GgafLinearOctreeElem.h"
-
+#include "jp/ggaf/core/util/GgafCurtain.h"
 #endif /*GGAFCOMMONHEADER_H_*/

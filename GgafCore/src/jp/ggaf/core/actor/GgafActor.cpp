@@ -7,13 +7,14 @@ GgafActor::GgafActor(const char* prm_name) :
     GgafElement<GgafActor> (prm_name) {
     TRACE("GgafActor::GgafActor("<<this<<") "<<prm_name);
     _class_name = "GgafActor";
+    _actor_class = Obj_GgafActor;
+
     _pStatus = NEW GgafStatus(10);
     _pStatus->set(0, 0);
     _pScene_Platform = NULL;
     _pGod = NULL;
     setHitAble(false);
     _use_octree = false;
-    _actor_class = 0;
     _pDependenceDispcher = NULL;
 #ifdef MY_DEBUG
     _TRACE_("new "<<_class_name<<"("<<this<<")["<<prm_name<<"]");

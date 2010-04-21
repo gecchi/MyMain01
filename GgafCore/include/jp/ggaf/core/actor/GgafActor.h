@@ -65,7 +65,7 @@ private:
 
 public:
     /** [r]アクターの階級(LORDACTOR/GROUPACTOR/MAINACTOR/0:その他) */
-    int _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:その他
+    UINT32 _actor_class; //1:GgafLoadActor 2:GgafGroupActor 3:GgafMainActor 0:その他
     /** [r]所属ディスパッチャー(NULLは未所属) */
     GgafActorDispatcher* _pDependenceDispcher;
     /** [r]アクター開始システム時刻 */

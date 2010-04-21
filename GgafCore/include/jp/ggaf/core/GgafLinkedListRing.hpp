@@ -32,8 +32,8 @@ class GgafLinkedListRing : public GgafObject {
 private:
 
     /**
-     * 専用の要素クラス .
-     * 実際の要素値をラッピング、前後のポインタを保持
+     * 専用の要素ラップクラス .
+     * 実際の要素値をラッピングし、前後ポインタを保持
      */
     class Elem {
     public:
