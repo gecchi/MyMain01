@@ -14,6 +14,8 @@ class GgafSayonaraScene : public GgafScene {
 public:
     GgafSayonaraScene() :
         GgafScene("SayonaraScene") {
+        _scene_class |= Obj_GgafSayonaraScene;
+        _class_name = "GgafSayonaraScene";
     }
     void initialize() override {
     }

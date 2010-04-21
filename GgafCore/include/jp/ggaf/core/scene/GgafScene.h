@@ -93,6 +93,9 @@ protected:
     GgafLordActor* _pLordActor;
 
 public:
+    /** [r]シーンのインスタンス種類 */
+    UINT32 _scene_class;
+
     /** [r]進捗ID具合(1～99) */
     int _progress;
     /** [r]１フレーム前進捗ID(1～99) */

@@ -255,6 +255,10 @@
 
 typedef DWORD actorkind;
 
+#define Obj_GgafScene             (0x1)              //&B 00000000 00000000 00000000 00000001
+#define Obj_GgafMainScene         (0x2)              //&B 00000000 00000000 00000000 00000010
+#define Obj_GgafSayonaraScene     (0x4)              //&B 00000000 00000000 00000000 00000100
+#define Obj_GgafUniverse          (0x8)              //&B 00000000 00000000 00000000 00001000
 
 #define Obj_GgafActor                   (0x1)              //&B 00000000 00000000 00000000 00000001
 #define Obj_GgafMainActor               (0x2)              //&B 00000000 00000000 00000000 00000010

@@ -25,21 +25,21 @@ public:
 
     GgafCurtainState _state;
 
-    int _curtain_length;
-    int _now_curtain_length;
-    int _opening_velocity;
-    int _closeing_velocity;
+    float _curtain_length;
+    float _now_curtain_length;
+    float _opening_velocity;
+    float _closeing_velocity;
 
     /**
      * コンストラクタ .
-     * @param prm_pScene カーテンを取り付けるシーン
+     * @param prm_curtain_length カーテンの長さ
      * @return
      */
-    GgafCurtain(int prm_curtain_length);
+    GgafCurtain();
 
-    virtual void open(int prm_opening_velocity);
+    virtual void open(float prm_opening_velocity);
 
-    virtual void close(int prm_closeing_velocity);
+    virtual void close(float prm_closeing_velocity);
 
     virtual void behave();
 

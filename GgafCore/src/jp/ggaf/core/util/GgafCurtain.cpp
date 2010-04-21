@@ -3,20 +3,20 @@ using namespace std;
 
 using namespace GgafCore;
 
-GgafCurtain::GgafCurtain(int prm_curtain_length) : GgafObject() {
-    _curtain_length = prm_curtain_length;
-    _now_curtain_length = prm_curtain_length; //Å‰‚Í•Â‚¶‚Ä‚¢‚é
-    _opening_velocity = 0;
-    _closeing_velocity = 0;
+GgafCurtain::GgafCurtain() : GgafObject() {
+    _curtain_length = 1.0f;
+    _now_curtain_length = _curtain_length; //Å‰‚Í•Â‚¶‚Ä‚¢‚é
+    _opening_velocity = 0.0f;
+    _closeing_velocity = 0.0f;
 
 }
 
-void GgafCurtain::open(int prm_opening_velocity) {
+void GgafCurtain::open(float prm_opening_velocity) {
     _opening_velocity = prm_opening_velocity;
     _state = OPEN;
 }
 
-void GgafCurtain::close(int prm_closeing_velocity) {
+void GgafCurtain::close(float prm_closeing_velocity) {
     _closeing_velocity = prm_closeing_velocity;
     _state = CLOSE;
 }
@@ -29,7 +29,7 @@ void GgafCurtain::behave() {
     } else if (_state == OPENING) {
         _now_curtain_length -= _opening_velocity;
         if (_now_curtain_length < 0) {
-            _now_curtain_length = 0;
+            _now_curtain_length = 0.0f;
             _state = OPENED;
             processOpenDone();
         } else {

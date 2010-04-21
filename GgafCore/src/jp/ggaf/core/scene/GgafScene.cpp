@@ -9,6 +9,8 @@ using namespace GgafCore;
 GgafScene::GgafScene(const char* prm_name) : GgafElement<GgafScene> (prm_name) {
     TRACE("GgafScene::GgafScene() " << prm_name);
     _class_name = "GgafScene";
+    _scene_class = Obj_GgafScene;
+
     _pLordActor = NEW GgafLordActor(this);
     _progress = -1;
     _progress_prev = -2;
