@@ -154,18 +154,18 @@ OUT_VS GgafDx9VS_DefaultMeshSet(
 float4 GgafDx9PS_DefaultMeshSet(
 	float2 prm_uv	  : TEXCOORD0,
 	float3 prm_normal : TEXCOORD1,
-	float4 prm_col    : COLOR0
+	float4 prm_col    : COLOR0      //キャラ単位マテリアルカラー
 ) : COLOR  {
 	//テクスチャをサンプリングして色取得（原色を取得）
 	float4 tex_color = tex2D( MyTextureSampler, prm_uv);        
-	//求める色
-	float4 out_color; 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	out_color =  g_LightDiffuse * prm_col * tex_color * power; 
+	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。     
+	float4 out_color = (prm_col * tex_color) * (g_LightAmbient + (g_LightDiffuse*power));  
+         
+	//out_color =  g_LightDiffuse * prm_col * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
+	//out_color =  (g_LightAmbient * prm_col * tex_color) + out_color;  
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
 		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	}

@@ -239,7 +239,11 @@ void LaserChip::processDraw() {
             hr = pID3DXEffect->SetMatrix(_ahMatWorld_front[i], &(pDrawLaserChipActor->_matWorld) ); //先頭がないので自信の_matWorld
             checkDxException(hr, D3D_OK, "LaserChip::processDraw() SetMatrix(_hMatWorld_front) に失敗しました。2");
         }
+        //このキャストは危険である
         pDrawLaserChipActor = (LaserChip*)(pDrawLaserChipActor -> _pNext_TheSameDrawDepthLevel);
+        //もしここらへんで意味不明なエラーになったら、
+        //GgafDx9SpriteMeshSetActorの[MEMO]を読み直せ！
+
         if (i > 0) {
             //アクティブを進める
             GgafDx9Universe::_pActor_DrawActive = GgafDx9Universe::_pActor_DrawActive->_pNext_TheSameDrawDepthLevel;

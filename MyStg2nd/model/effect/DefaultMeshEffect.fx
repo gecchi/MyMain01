@@ -64,14 +64,17 @@ float4 GgafDx9PS_DefaultMesh(
 
     //法線と、Diffuseライト方向の内積を計算し、面に対するライト方向の入射角による減衰具合を求める。
 	float power = max(dot(prm_normal, -g_LightDirection ), 0);          
-	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。              
-	float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
+	//ライト方向、ライト色、マテリアル色、テクスチャ色を考慮した色作成。      
+	float4 out_color = (g_MaterialDiffuse * tex_color) * (g_LightAmbient + (g_LightDiffuse*power));        
+	//float4 out_color = g_LightDiffuse * g_MaterialDiffuse * tex_color * power; 
 	//Ambient色を加算。本シェーダーではマテリアルのAmbien反射色は、マテリアルのDiffuse反射色と同じ色とする。
-	out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+	//out_color =  (g_LightAmbient * g_MaterialDiffuse * tex_color) + out_color;  
+
+    //Blinkerを考慮
 	if (tex_color.r >= g_BlinkThreshold || tex_color.g >= g_BlinkThreshold || tex_color.b >= g_BlinkThreshold) {
-		out_color = tex_color * g_PowerBlink; //+ (tex_color * g_PowerBlink);
+		out_color *= g_PowerBlink; //+ (tex_color * g_PowerBlink);
 	} 
-	//α計算、αは法線およびライト方向に依存しないとするので別計算。本シェーダーはライトα色は無し。
+	//α計算、αは法線およびライト方向、Blinkerに依存しないとするので別計算。本シェーダーはライトα色は無し。
 	out_color.a = g_MaterialDiffuse.a * tex_color.a ; 
 
 	return out_color;
