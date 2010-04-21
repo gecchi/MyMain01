@@ -38,6 +38,7 @@ void GgafDx9Universe::SeArray::play(int index) {
 }
 
 GgafDx9Universe::GgafDx9Universe(const char* prm_name) : GgafUniverse(prm_name) {
+    _scene_class |= Obj_GgafDx9Universe;
     _class_name = "GgafDx9Universe";
     for (int i = 0; i < MAX_DRAW_DEPTH_LEVEL; i++) {
         _apAlphaActorList_DrawDepthLevel[i] = NULL;
@@ -95,6 +96,11 @@ void GgafDx9Universe::draw() {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_NONE); //半透明要素ありということでカリングを一時OFF
             //但し、段階レンダリング不要であるにもかかわらず、半透明表示は、前後がうまく表示されないので避けるべき。
         }
+        //マスターαを設定する。
+        GgafDx9Scene* pScene = (GgafDx9Scene*)_pActor_DrawActive->getPlatformScene();
+        _pActor_DrawActive->_pGgafDx9Effect->_pID3DXEffect->SetFloat(
+                _pActor_DrawActive->_pGgafDx9Effect->_hMasterAlpha, pScene->_pAlphaCurtain->_alpha);
+        //描画
         _pActor_DrawActive->processDraw();
         if (_pActor_DrawActive->_fAlpha < 1.0) {
             GgafDx9God::_pID3DDevice9->SetRenderState(D3DRS_CULLMODE, D3DCULL_CCW);  //カリング有りに戻す

@@ -156,7 +156,8 @@ enum GgafDx9BlinkerMethod {
     BEAT_BLINK_PARABOLA_REV   //!< BEAT_BLINK_PARABOLA_REV
 };
 
-
+#define Obj_GgafDx9Scene          (0x10)             //&B 00000000 00000000 00000000 00010000
+#define Obj_GgafDx9Universe       (0x20)             //&B 00000000 00000000 00000000 00100000
 
 #define Obj_GgafDx9BaseActor            (0x80)             //&B 00000000 00000000 00000000 10000000
 #define Obj_GgafDx9GeometricActor       (0x100)            //&B 00000000 00000000 00000001 00000000
@@ -259,6 +260,9 @@ class GgafDx9Texture;
 
 class GgafDx9Scene;
 class GgafDx9Universe;
+
+class GgafDx9AlphaCurtain;
+
 class GgafDx9Util;
 class GgafDx9SphereRadiusVectors;
 class GgafDx9Quaternion;
@@ -370,6 +374,9 @@ class CWaveDecorder;
 
 #include "jp/ggaf/dx9core/scene/GgafDx9Scene.h"
 #include "jp/ggaf/dx9core/scene/GgafDx9Universe.h"
+
+#include "jp/ggaf/dx9core/util/GgafDx9AlphaCurtain.h"
+
 #include "jp/ggaf/dx9core/GgafDx9Util.h"
 #include "jp/ggaf/dx9core/util/GgafDx9SphereRadiusVectors.h"
 #include "jp/ggaf/dx9core/util/GgafDx9Quaternion.h"

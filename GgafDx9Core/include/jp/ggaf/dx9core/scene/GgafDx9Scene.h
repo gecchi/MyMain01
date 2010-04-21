@@ -13,8 +13,22 @@ namespace GgafDx9Core {
  * @author Masatoshi Tsuge
  */
 class GgafDx9Scene : public GgafCore::GgafMainScene {
-public:
+private :
+    void processJudgement() override;
+
+public :
+    /** 不思議なαカーテン */
+    GgafDx9AlphaCurtain* _pAlphaCurtain;
     GgafDx9Scene(const char* prm_name);
+
+    void fadein(float prm_velocity_alpha);
+
+    void fadeinTree(float prm_velocity_alpha);
+
+    void fadeout(float prm_velocity_alpha);
+
+    void fadeoutTree(float prm_velocity_alpha);
+
     virtual ~GgafDx9Scene();
 };
 

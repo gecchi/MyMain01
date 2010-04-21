@@ -14,7 +14,7 @@ class GgafDx9Effect : public GgafCore::GgafObject {
 
 protected:
 public:
-
+    D3DXHANDLE _hMasterAlpha;
     /** ƒ‚ƒfƒ‹’è‹`‚Ì¯•Ê–¼B(50•¶š‚Ü‚Å) */
     char* _effect_name;
     ID3DXEffect* _pID3DXEffect;
