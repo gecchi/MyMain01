@@ -144,6 +144,8 @@ public:
     }
 
 
+    void setDefaultPosition();
+
     /**
      * カメラの注視点を設定 .
      * @param prm_tX 注視点X座標

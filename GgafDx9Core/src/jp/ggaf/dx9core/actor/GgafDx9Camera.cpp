@@ -248,6 +248,18 @@ void GgafDx9Camera::setViewPoint(int prm_tX, int prm_tY, int prm_tZ) {
 void GgafDx9Camera::setViewPoint(GgafDx9GeometricActor* prm_pActor) {
     _pViewPoint->setGeometry(prm_pActor);
 }
+
+
+void GgafDx9Camera::setDefaultPosition() {
+    _X = 0;
+    _Y = 0;
+    _Z = _cameraZ_org * LEN_UNIT * PX_UNIT;
+    _pViewPoint->_X = 0;
+    _pViewPoint->_Y = 0;
+    _pViewPoint->_Z = 0;
+}
+
+
 GgafDx9Camera::~GgafDx9Camera() {
     DELETE_IMPOSSIBLE_NULL(_pVecCamFromPoint);
     DELETE_IMPOSSIBLE_NULL(_pVecCamLookatPoint);
