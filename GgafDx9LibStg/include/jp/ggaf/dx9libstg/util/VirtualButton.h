@@ -43,8 +43,6 @@ namespace GgafDx9LibStg {
 #define VB_MAP_BUFFER 200
 #define VB_NUM 29
 
-#define VB VirtualButton
-
 
 
 /**
@@ -112,53 +110,56 @@ public:
 
 
     static keymap _mapDIK;
+    static bool _is_init;
 
-    static VBMap* _pVBMap_Active; //現在フレームの入力状態
+    VirtualButton();
 
-    static VBMap* _pVBMap_Reset; //入力状態をリセットする位置
+    VBMap* _pVBMap_Active; //現在フレームの入力状態
 
-    static VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
+    VBMap* _pVBMap_Reset; //入力状態をリセットする位置
 
-    static vbsta isBeingPressed(vbsta prm_VB);
+    VBMap* getPastVBMap(DWORD prm_dwFrameAgo);
 
-    static vbsta wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta isBeingPressed(vbsta prm_VB);
 
-    static vbsta isNotBeingPressed(vbsta prm_VB);
+    vbsta wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
 
-    static vbsta wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta isNotBeingPressed(vbsta prm_VB);
 
-    static vbsta isPushedDown(vbsta prm_VB);
+    vbsta wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo);
 
-    static vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
+    vbsta isPushedDown(vbsta prm_VB);
+
+    vbsta isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
 
 
 
 
-    static vbsta wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo);
 
-    static vbsta isReleasedUp(vbsta prm_VB);
+    vbsta isReleasedUp(vbsta prm_VB);
 
-    static vbsta wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo);
+    vbsta wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo);
 
-    static vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
+    vbsta arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum);
 
-    static vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2) {
-        static vbsta vb[2];
+    vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2) {
+        vbsta vb[2];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         return arePushedDownAtOnce(vb, 2);
     }
 
-    static vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3) {
-        static vbsta vb[3];
+    vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3) {
+        vbsta vb[3];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
         return arePushedDownAtOnce(vb, 3);
     }
 
-    static vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3, vbsta prm_VB4) {
-        static vbsta vb[4];
+    vbsta arePushedDownAtOnce(vbsta prm_VB1, vbsta prm_VB2, vbsta prm_VB3, vbsta prm_VB4) {
+        vbsta vb[4];
         vb[0] = prm_VB1;
         vb[1] = prm_VB2;
         vb[2] = prm_VB3;
@@ -179,7 +180,7 @@ public:
      * VB_UP_LEFT_STC
      * VB_NEUTRAL_STC
      */
-    static vbsta getBeingPressedStick();
+    vbsta getBeingPressedStick();
 
     /**
      * 今PushedDownスティックの番号を返す。
@@ -194,13 +195,18 @@ public:
      * VB_UP_LEFT_STC
      * VB_NEUTRAL_STC
      */
-    static vbsta getPushedDownStick();
+    vbsta getPushedDownStick();
 
 
-    static vbsta isDoublePushedDownStick(DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
+    vbsta isDoublePushedDownStick(DWORD prm_frame_push = 5, DWORD prm_frame_delay = 5);
 
-
-    static bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay=30);
+    /**
+     * グルッとポンか否か
+     * @param prm_VB ポンのボダン
+     * @param prm_frame_delay グルッが成立する許容フレーム
+     * @return
+     */
+    bool isRoundPush(vbsta prm_VB, DWORD prm_frame_delay=30);
 
 //    /**
 //     * 今、prm_VB1と同時にPushedDownされたスティックの番号を返す。
@@ -217,11 +223,13 @@ public:
 //     */
 //    static vbsta getPushedDownStickWith(int prm_VB);
 
-    static void update();
+    void update();
 
-    static void init();
+    void init();
 
-    static void clear();
+    void clear();
+
+    virtual ~VirtualButton();
 };
 
 }

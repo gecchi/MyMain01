@@ -6,16 +6,15 @@ using namespace GgafDx9Core;
 using namespace GgafDx9LibStg;
 
 keymap VirtualButton::_mapDIK;
+bool VirtualButton::_is_init = false;
 
-VirtualButton::VBMap* VirtualButton::_pVBMap_Active = NULL;
-VirtualButton::VBMap* VirtualButton::_pVBMap_Reset = NULL;
-
+//標準キーボード割り当て
 VirtualButton::KEYBOARDMAP VirtualButton::_tagKeymap = {
                               DIK_Z,      // BUTTON1
                               DIK_X,      // BUTTON2
                               DIK_C,      // BUTTON3
                               DIK_A,      // BUTTON4
-                              DIK_S,      // TURBO
+                              DIK_S,      // BUTTON5
                               DIK_D,      // BUTTON6
                               DIK_ESCAPE, // PAUSE
                               DIK_UP,     // UP
@@ -43,356 +42,7 @@ VirtualButton::JOYSTICKMAP VirtualButton::_tagJoymap = {
                               1  // UI_CANCEL
                            };
 
-VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
-    static VBMap* pVBMTemp;
-    pVBMTemp = _pVBMap_Active;
-    for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
-        pVBMTemp = pVBMTemp->_prev;
-    }
-    return pVBMTemp;
-}
-
-vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
-    return _pVBMap_Active->_state & prm_VB;
-}
-
-vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
-    static VBMap* pVBMTemp;
-    pVBMTemp = getPastVBMap(prm_dwFrameAgo);
-    return pVBMTemp->_state & prm_VB;
-}
-
-vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
-    if (isBeingPressed(prm_VB)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
-    if (wasBeingPressed(prm_VB, prm_dwFrameAgo)) {
-        return false;
-    } else {
-        return true;
-    }
-}
-
-vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
-    if (isBeingPressed(prm_VB) && wasNotBeingPressed(prm_VB, 1)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWORD prm_frame_delay) {
-    //-------oooo-----o
-    //       <--><--->
-    //         |    `-- prm_frame_delay
-    //         `-- prm_frame_push
-    //過去に遡りながら検証
-    VB::VBMap* pVBMap;
-    pVBMap = _pVBMap_Active;
-    if (pVBMap->_state & prm_VB) {
-        //OK
-    } else {
-        return false;
-    }
-    pVBMap = pVBMap->_prev;
-    //直前は必ず押されていては駄目
-    if (pVBMap->_state & prm_VB) {
-        return false;
-    }
-    bool ok = false;
-    for (DWORD i = 0; i < prm_frame_delay; i++) {
-        pVBMap = pVBMap->_prev;
-        if (pVBMap->_state & prm_VB) {
-            //OK
-            ok = true;
-            break;
-        }
-    }
-    if (ok) {
-
-    } else {
-        return false;
-    }
-    ok = false;
-    for (DWORD i = 0; i < prm_frame_push; i++) {
-        pVBMap = pVBMap->_prev;
-        if (pVBMap->_state & prm_VB) {
-
-        } else {
-            //OK
-            ok = true;
-            break;
-        }
-    }
-    if (ok) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-
-
-////何所も押されていない→押した
-//bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
-//	if (_pVBMap_Active->_state[prm_VB]) {
-//		for (int i = 0; i < VB_NUM; i++) {
-//			if (_pVBMap_Active->_prev->_state[i]) {
-//				return false;
-//			}
-//		}
-//		return true;
-//	} else {
-//		return false;
-//	}
-//}
-
-vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
-
-    //現在は全て押されていなければならない
-    for (int i = 0; i < prm_iButtonNum; i++) {
-        if (isBeingPressed(prm_aVB[i]) == false) {
-            return false;
-        }
-    }
-
-    //３フレーム余裕を見る
-    //全ボタンについて、それぞれが以下のいづれかの動作になっているかチェック。
-    //↑ > ↓ > ↓ > ↓
-    //↑ > ↑ > ↓ > ↓
-    //↑ > ↑ > ↑ > ↓
-    //↓ > ↓ > ↑ > ↓
-    //↓ > ↑ > ↑ > ↓
-    //↓ > ↑ > ↓ > ↓
-    static bool prev1Flg, prev2Flg, prev3Flg;
-    for (int i = 0; i < prm_iButtonNum; i++) {
-        prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
-        prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
-        prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
-        if (prev1Flg) { //＊ > ＊ > ↑ >
-            continue;
-        } else if (prev2Flg) { //＊ > ↑ > ＊ >
-            continue;
-        } else if (prev3Flg) { //↑ > ＊ > ＊ >
-            continue;
-        } else {
-            return false;
-        }
-    }
-
-    //但し1つ前のフレームで、全て押されていては成立しない。
-    //（この条件入れないと、「同時押し→押しっぱなし」の場合、３フレーム連続で成立してしまう）
-    for (int i = 0; i < prm_iButtonNum; i++) {
-        if (wasNotBeingPressed(prm_aVB[i], 1)) {
-            return true;
-        }
-    }
-    return false;
-}
-
-vbsta VirtualButton::wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo) {
-    if (wasBeingPressed(prm_VB, prm_dwFrameAgo) && wasNotBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
-    if (isNotBeingPressed(prm_VB) && wasBeingPressed(prm_VB, 1)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo) {
-    if (wasNotBeingPressed(prm_VB, prm_dwFrameAgo) && wasBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
-        return true;
-    } else {
-        return false;
-    }
-}
-
-vbsta VirtualButton::getBeingPressedStick() {
-
-    return _pVBMap_Active->_state & VB_STC_MASK;
-
-//    for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
-//        if (isBeingPressed(i)) {
-//            return i;
-//        }
-//    }
-//    return 0;
-}
-
-vbsta VirtualButton::getPushedDownStick() {
-    if ((_pVBMap_Active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
-        return _pVBMap_Active->_state & VB_STC_MASK;
-    } else {
-        return 0;
-    }
-}
-
-
-vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_frame_delay) {
-    vbsta STC = getPushedDownStick();
-    if (STC == 0 || STC == VB_NEUTRAL_STC) {
-        return 0;
-    }
-    //-------oooo-----o
-    //       <--><--->
-    //         |    `-- prm_frame_delay
-    //         `-- prm_frame_push
-    //過去に遡りながら検証
-    VB::VBMap* pVBMap;
-    pVBMap = _pVBMap_Active;
-    pVBMap = pVBMap->_prev; //上のgetPushedDownStickで調査済みなので飛ばす。
-    bool ok = false;
-    for (DWORD i = 0; i < prm_frame_delay; i++) {
-        pVBMap = pVBMap->_prev;
-        if (pVBMap->_state & STC) {
-            //OK
-            ok = true;
-            break;
-        }
-    }
-    if (ok) {
-
-    } else {
-        return 0;
-    }
-    ok = false;
-    for (DWORD i = 0; i < prm_frame_push; i++) {
-        pVBMap = pVBMap->_prev;
-        if (pVBMap->_state & STC) {
-
-        } else {
-            //OK
-            ok = true;
-            break;
-        }
-    }
-    if (ok) {
-        return STC;
-    } else {
-        return 0;
-    }
-}
-
-
-bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
-    if (isPushedDown(prm_VB)) {
-        VBMap* pVBMap;
-        pVBMap = _pVBMap_Active;
-        bool up = false;
-        bool down = false;
-        bool left = false;
-        bool right = false;
-        for (DWORD i = 0; i < prm_frame_delay; i++) {
-            pVBMap = pVBMap->_prev;
-            if (pVBMap->_state & VB_UP) {
-                up = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_RIGHT) {
-                right = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_DOWN) {
-                down = true;
-                continue;
-            }
-            if (pVBMap->_state & VB_LEFT) {
-                left = true;
-                continue;
-            }
-        }
-        if (up && down && left && right) {
-            return true;
-        } else {
-            return false;
-        }
-    } else {
-        return false;
-    }
-}
-
-
-
-//vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
-//    if (isBeingPressed(prm_VB)) {
-//        static bool prev1Flg, prev2Flg, prev3Flg;
-//        //ボタンに押されていない期間が直前にあったか
-//        prev1Flg = wasNotBeingPressed(prm_VB, 1);
-//        prev2Flg = wasNotBeingPressed(prm_VB, 2);
-//        prev3Flg = wasNotBeingPressed(prm_VB, 3);
-//        if (prev1Flg) { //＊ > ＊ > ↑ >
-//            //OK
-//        } else if (prev2Flg) { //＊ > ↑ > ＊ >
-//            //OK
-//        } else if (prev3Flg) { //↑ > ＊ > ＊ >
-//            //OK
-//        } else {
-//            //NG
-//            return 0;
-//        }
-//
-//        //スティックに押されていない期間が直前にあったか
-//        static bool prev1N_Flg, prev2N_Flg, prev3N_Flg;
-//        prev1N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 1);
-//        prev2N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 2);
-//        prev3N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 3);
-//        if (prev1N_Flg) { //＊ > ＊ > Ｎ >
-//            //OK
-//        } else if (prev2N_Flg) { //＊ > Ｎ > ＊ >
-//            //OK
-//        } else if (prev3N_Flg) { //Ｎ > ＊ > ＊ >
-//            //OK
-//        } else {
-//            //NG
-//            return 0;
-//        }
-//
-//        for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
-//            //今は押している
-//            if (isBeingPressed(i)) {
-//
-//                //但し1つ前のフレームで、両方押されていては成立しない。
-//                //（この条件入れないと、「同時押し→押しっぱなし」の場合、数フレーム連続で成立してしまう）
-//                if (wasBeingPressed(prm_VB, 1) && wasBeingPressed(i, 1)) {
-//                    //NG
-//                    continue;
-//                } else {
-//                    //OK
-//                    return i;
-//                }
-//
-//            }
-//        }
-//        return 0;
-//    } else {
-//        return 0;
-//    }
-//
-//}
-
-void VirtualButton::clear() {
-    VBMap* pLast = _pVBMap_Active->_next;
-    VBMap* pWk;
-    for (VBMap* p = _pVBMap_Active->_prev; p != _pVBMap_Active; p = p->_prev) {
-        pWk = p->_next;
-        DELETE_IMPOSSIBLE_NULL(pWk);
-    }
-    DELETE_IMPOSSIBLE_NULL(pLast);
-}
-
-void VirtualButton::init() {
-
+VirtualButton::VirtualButton() {
     //環状双方向連結リスト構築
     _pVBMap_Active = NEW VBMap();
     VBMap* pVBMTemp = _pVBMap_Active;
@@ -413,7 +63,12 @@ void VirtualButton::init() {
     for (int i = 1; i < (VB_MAP_BUFFER - 1)/2; i++) {
 
     }
+    if (!_is_init) {
+        init();
+    }
+}
 
+void VirtualButton::init() {
     _mapDIK["DIK_ESCAPE"]       = 0x01;
     _mapDIK["DIK_1"]            = 0x02;
     _mapDIK["DIK_2"]            = 0x03;
@@ -584,8 +239,349 @@ void VirtualButton::init() {
     _mapDIK["JOY_BUTTON_07"]    = 7;
     _mapDIK["JOY_BUTTON_08"]    = 8;
     _mapDIK["JOY_BUTTON_09"]    = 9;
-
 }
+
+
+VirtualButton::VBMap* VirtualButton::getPastVBMap(DWORD prm_dwFrameAgo) {
+    static VBMap* pVBMTemp;
+    pVBMTemp = _pVBMap_Active;
+    for (DWORD i = 0; i < prm_dwFrameAgo; i++) {
+        pVBMTemp = pVBMTemp->_prev;
+    }
+    return pVBMTemp;
+}
+
+vbsta VirtualButton::isBeingPressed(vbsta prm_VB) {
+    return _pVBMap_Active->_state & prm_VB;
+}
+
+vbsta VirtualButton::wasBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+    static VBMap* pVBMTemp;
+    pVBMTemp = getPastVBMap(prm_dwFrameAgo);
+    return pVBMTemp->_state & prm_VB;
+}
+
+vbsta VirtualButton::isNotBeingPressed(vbsta prm_VB) {
+    if (isBeingPressed(prm_VB)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+vbsta VirtualButton::wasNotBeingPressed(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+    if (wasBeingPressed(prm_VB, prm_dwFrameAgo)) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+vbsta VirtualButton::isPushedDown(vbsta prm_VB) {
+    if (isBeingPressed(prm_VB) && wasNotBeingPressed(prm_VB, 1)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+vbsta VirtualButton::isDoublePushedDown(vbsta prm_VB, DWORD prm_frame_push, DWORD prm_frame_delay) {
+    //-------oooo-----o
+    //       <--><--->
+    //         |    `-- prm_frame_delay
+    //         `-- prm_frame_push
+    //過去に遡りながら検証
+    VirtualButton::VBMap* pVBMap;
+    pVBMap = _pVBMap_Active;
+    if (pVBMap->_state & prm_VB) {
+        //OK
+    } else {
+        return false;
+    }
+    pVBMap = pVBMap->_prev;
+    //直前は必ず押されていては駄目
+    if (pVBMap->_state & prm_VB) {
+        return false;
+    }
+    bool ok = false;
+    for (DWORD i = 0; i < prm_frame_delay; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & prm_VB) {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+
+    } else {
+        return false;
+    }
+    ok = false;
+    for (DWORD i = 0; i < prm_frame_push; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & prm_VB) {
+
+        } else {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+////何所も押されていない→押した
+//bool VirtualButton::isNonAfterPushedDown(int prm_VB) {
+//	if (_pVBMap_Active->_state[prm_VB]) {
+//		for (int i = 0; i < VB_NUM; i++) {
+//			if (_pVBMap_Active->_prev->_state[i]) {
+//				return false;
+//			}
+//		}
+//		return true;
+//	} else {
+//		return false;
+//	}
+//}
+
+vbsta VirtualButton::arePushedDownAtOnce(vbsta prm_aVB[], int prm_iButtonNum) {
+
+    //現在は全て押されていなければならない
+    for (int i = 0; i < prm_iButtonNum; i++) {
+        if (isBeingPressed(prm_aVB[i]) == false) {
+            return false;
+        }
+    }
+
+    //３フレーム余裕を見る
+    //全ボタンについて、それぞれが以下のいづれかの動作になっているかチェック。
+    //↑ > ↓ > ↓ > ↓
+    //↑ > ↑ > ↓ > ↓
+    //↑ > ↑ > ↑ > ↓
+    //↓ > ↓ > ↑ > ↓
+    //↓ > ↑ > ↑ > ↓
+    //↓ > ↑ > ↓ > ↓
+    static bool prev1Flg, prev2Flg, prev3Flg;
+    for (int i = 0; i < prm_iButtonNum; i++) {
+        prev1Flg = wasNotBeingPressed(prm_aVB[i], 1);
+        prev2Flg = wasNotBeingPressed(prm_aVB[i], 2);
+        prev3Flg = wasNotBeingPressed(prm_aVB[i], 3);
+        if (prev1Flg) { //＊ > ＊ > ↑ >
+            continue;
+        } else if (prev2Flg) { //＊ > ↑ > ＊ >
+            continue;
+        } else if (prev3Flg) { //↑ > ＊ > ＊ >
+            continue;
+        } else {
+            return false;
+        }
+    }
+
+    //但し1つ前のフレームで、全て押されていては成立しない。
+    //（この条件入れないと、「同時押し→押しっぱなし」の場合、３フレーム連続で成立してしまう）
+    for (int i = 0; i < prm_iButtonNum; i++) {
+        if (wasNotBeingPressed(prm_aVB[i], 1)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+vbsta VirtualButton::wasPushedDown(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+    if (wasBeingPressed(prm_VB, prm_dwFrameAgo) && wasNotBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+vbsta VirtualButton::isReleasedUp(vbsta prm_VB) {
+    if (isNotBeingPressed(prm_VB) && wasBeingPressed(prm_VB, 1)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+vbsta VirtualButton::wasReleasedUp(vbsta prm_VB, DWORD prm_dwFrameAgo) {
+    if (wasNotBeingPressed(prm_VB, prm_dwFrameAgo) && wasBeingPressed(prm_VB, prm_dwFrameAgo + 1)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+vbsta VirtualButton::getBeingPressedStick() {
+
+    return _pVBMap_Active->_state & VB_STC_MASK;
+
+//    for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
+//        if (isBeingPressed(i)) {
+//            return i;
+//        }
+//    }
+//    return 0;
+}
+
+vbsta VirtualButton::getPushedDownStick() {
+    if ((_pVBMap_Active->_prev->_state & VB_STC_MASK) == VB_NEUTRAL_STC) {
+        return _pVBMap_Active->_state & VB_STC_MASK;
+    } else {
+        return 0;
+    }
+}
+
+
+vbsta VirtualButton::isDoublePushedDownStick(DWORD prm_frame_push, DWORD prm_frame_delay) {
+    vbsta STC = getPushedDownStick();
+    if (STC == 0 || STC == VB_NEUTRAL_STC) {
+        return 0;
+    }
+    //-------oooo-----o
+    //       <--><--->
+    //         |    `-- prm_frame_delay
+    //         `-- prm_frame_push
+    //過去に遡りながら検証
+    VirtualButton::VBMap* pVBMap;
+    pVBMap = _pVBMap_Active;
+    pVBMap = pVBMap->_prev; //上のgetPushedDownStickで調査済みなので飛ばす。
+    bool ok = false;
+    for (DWORD i = 0; i < prm_frame_delay; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & STC) {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+
+    } else {
+        return 0;
+    }
+    ok = false;
+    for (DWORD i = 0; i < prm_frame_push; i++) {
+        pVBMap = pVBMap->_prev;
+        if (pVBMap->_state & STC) {
+
+        } else {
+            //OK
+            ok = true;
+            break;
+        }
+    }
+    if (ok) {
+        return STC;
+    } else {
+        return 0;
+    }
+}
+
+
+bool VirtualButton::isRoundPush(vbsta prm_VB, DWORD prm_frame_delay) {
+    if (isPushedDown(prm_VB)) {
+        VBMap* pVBMap;
+        pVBMap = _pVBMap_Active;
+        bool up = false;
+        bool down = false;
+        bool left = false;
+        bool right = false;
+        for (DWORD i = 0; i < prm_frame_delay; i++) {
+            pVBMap = pVBMap->_prev;
+            if (pVBMap->_state & VB_UP) {
+                up = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_RIGHT) {
+                right = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_DOWN) {
+                down = true;
+                continue;
+            }
+            if (pVBMap->_state & VB_LEFT) {
+                left = true;
+                continue;
+            }
+        }
+        if (up && down && left && right) {
+            return true;
+        } else {
+            return false;
+        }
+    } else {
+        return false;
+    }
+}
+
+
+
+//vbsta VirtualButton::getPushedDownStickWith(vbsta prm_VB) {
+//    if (isBeingPressed(prm_VB)) {
+//        static bool prev1Flg, prev2Flg, prev3Flg;
+//        //ボタンに押されていない期間が直前にあったか
+//        prev1Flg = wasNotBeingPressed(prm_VB, 1);
+//        prev2Flg = wasNotBeingPressed(prm_VB, 2);
+//        prev3Flg = wasNotBeingPressed(prm_VB, 3);
+//        if (prev1Flg) { //＊ > ＊ > ↑ >
+//            //OK
+//        } else if (prev2Flg) { //＊ > ↑ > ＊ >
+//            //OK
+//        } else if (prev3Flg) { //↑ > ＊ > ＊ >
+//            //OK
+//        } else {
+//            //NG
+//            return 0;
+//        }
+//
+//        //スティックに押されていない期間が直前にあったか
+//        static bool prev1N_Flg, prev2N_Flg, prev3N_Flg;
+//        prev1N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 1);
+//        prev2N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 2);
+//        prev3N_Flg = wasBeingPressed(VB_NEUTRAL_STC, 3);
+//        if (prev1N_Flg) { //＊ > ＊ > Ｎ >
+//            //OK
+//        } else if (prev2N_Flg) { //＊ > Ｎ > ＊ >
+//            //OK
+//        } else if (prev3N_Flg) { //Ｎ > ＊ > ＊ >
+//            //OK
+//        } else {
+//            //NG
+//            return 0;
+//        }
+//
+//        for (int i = VB_UP_RIGHT_STC; i <= VB_LEFT_STC; i++) {
+//            //今は押している
+//            if (isBeingPressed(i)) {
+//
+//                //但し1つ前のフレームで、両方押されていては成立しない。
+//                //（この条件入れないと、「同時押し→押しっぱなし」の場合、数フレーム連続で成立してしまう）
+//                if (wasBeingPressed(prm_VB, 1) && wasBeingPressed(i, 1)) {
+//                    //NG
+//                    continue;
+//                } else {
+//                    //OK
+//                    return i;
+//                }
+//
+//            }
+//        }
+//        return 0;
+//    } else {
+//        return 0;
+//    }
+//
+//}
+
+
+
 
 void VirtualButton::update() {
 #ifdef MY_DEBUG
@@ -692,3 +688,12 @@ void VirtualButton::update() {
     }
 }
 
+VirtualButton::~VirtualButton() {
+    VBMap* pLast = _pVBMap_Active->_next;
+    VBMap* pWk;
+    for (VBMap* p = _pVBMap_Active->_prev; p != _pVBMap_Active; p = p->_prev) {
+        pWk = p->_next;
+        DELETE_IMPOSSIBLE_NULL(pWk);
+    }
+    DELETE_IMPOSSIBLE_NULL(pLast);
+}
