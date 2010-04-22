@@ -220,93 +220,93 @@ void MyShip::processBehavior() {
 
     //オリジナルシステム VAMSystemの実装
     // (Viewpoint Adaptive Moving System 視点適応型移動システム)
-    _stc = VB::getBeingPressedStick();
-    if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
+    _stc = VB_PLAY->getBeingPressedStick();
+    if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
         //右サイドビュー(右から左へスクロール)
-        if (VB::isPushedDown(VB_UP)) {     // ↑
+        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // →
+        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_ADD, SW_NOP, SW_NOP); //前方
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // ←
+        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
             _way_switch.ON_LEFT(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
+    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
         //左サイドビュー(左から右へスクロール)
-        if (VB::isPushedDown(VB_UP)) {     // ↑
+        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // →
+        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_SUB, SW_NOP, SW_NOP); //後方
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // ←
+        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
             _way_switch.ON_LEFT(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
-    } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
+    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
         //トップビュー(上から下へスクロール)
-        if (VB::isPushedDown(VB_UP)) {     // ↑
+        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_ADD, SW_NOP, SW_NOP);    //前方
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // →
+        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // ←
+        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
             _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_SUB, SW_NOP, SW_NOP);  //後方
         }
-    } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
+    } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
         //ボトムビュー(下から上へスクロール)
-        if (VB::isPushedDown(VB_UP)) {     // ↑
+        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_SUB, SW_NOP, SW_NOP);    //後方
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // →
+        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // ←
+        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
             _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_ADD, SW_NOP, SW_NOP);  //前方
         }
-    } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
+    } else if (GameMainScene::_pGameMainScene->_pos_camera > CAM_POS_TO_BEHIND) {
         //背後ビュー（奥から手前にスクロール）
-        if (VB::isPushedDown(VB_UP)) {     // ↑
+        if (VB_PLAY->isPushedDown(VB_UP)) {     // ↑
             _way_switch.ON_UP(SW_NOP, SW_ADD, SW_NOP);    //上
         }
-        if (VB::isPushedDown(VB_RIGHT)) {  // →
+        if (VB_PLAY->isPushedDown(VB_RIGHT)) {  // →
             _way_switch.ON_RIGHT(SW_NOP, SW_NOP, SW_SUB); //右
         }
-        if (VB::isPushedDown(VB_LEFT)) {   // ←
+        if (VB_PLAY->isPushedDown(VB_LEFT)) {   // ←
             _way_switch.ON_LEFT(SW_NOP, SW_NOP, SW_ADD);  //左
         }
-        if (VB::isPushedDown(VB_DOWN)) {   // ↓
+        if (VB_PLAY->isPushedDown(VB_DOWN)) {   // ↓
             _way_switch.ON_DOWN(SW_NOP, SW_SUB, SW_NOP);  //下
         }
     }
-    if (VB::isReleasedUp(VB_UP)) {
+    if (VB_PLAY->isReleasedUp(VB_UP)) {
         _way_switch.OFF_UP();    // ↑ を離す
     }
-    if (VB::isReleasedUp(VB_RIGHT)) {
+    if (VB_PLAY->isReleasedUp(VB_RIGHT)) {
         _way_switch.OFF_RIGHT(); // → を離す
     }
-    if (VB::isReleasedUp(VB_LEFT)) {
+    if (VB_PLAY->isReleasedUp(VB_LEFT)) {
         _way_switch.OFF_LEFT();  // ← を離す
     }
-    if (VB::isReleasedUp(VB_DOWN)) {
+    if (VB_PLAY->isReleasedUp(VB_DOWN)) {
         _way_switch.OFF_DOWN();  // ↓ を離す
     }
     _way = (MoveWay)(_way_switch.getIndex()); //上記を考慮された方向値が入る
 
-    if (VB::isBeingPressed(VB_OPTION)) {
+    if (VB_PLAY->isBeingPressed(VB_OPTION)) {
         int tmp = _iMoveSpeed;
         _iMoveSpeed = _iMoveSpeed / 8; //オプション操作中移動は遅い
         (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
@@ -315,14 +315,14 @@ void MyShip::processBehavior() {
         (this->*paFuncMove[_way])();   //方向値に応じた移動処理メソッドを呼び出す
     }
 
-    if (VB::isPushedDown(VB_TURBO)) {
+    if (VB_PLAY->isPushedDown(VB_TURBO)) {
         //ターボ開始時
         _pEffectTurbo002->activate();
         _pEffectTurbo002->setGeometry(this);
         (this->*paFuncTurbo[_way])();
     } else {
         //Notターボ開始時
-        if (VB::isBeingPressed(VB_TURBO)) {
+        if (VB_PLAY->isBeingPressed(VB_TURBO)) {
             //ターボを押し続けることで、移動距離を伸ばす
             _pMover->_veloVxMv *= 0.95;
             _pMover->_veloVyMv *= 0.95;
@@ -345,7 +345,7 @@ void MyShip::processBehavior() {
     }
 
     //左右が未入力なら、機体を水平にする（但し勢いよく回っていない場合に限る。setStopTarget_FaceAngの第4引数より角速度がゆるい場合受け入れ）
-    if (VB::isBeingPressed(VB_LEFT) || VB::isBeingPressed(VB_RIGHT)) {
+    if (VB_PLAY->isBeingPressed(VB_LEFT) || VB_PLAY->isBeingPressed(VB_RIGHT)) {
 
     } else {
 
@@ -397,7 +397,7 @@ void MyShip::processBehavior() {
 
 void MyShip::processJudgement() {
     //ショット関連処理
-    if (VB::isBeingPressed(VB_SHOT2)) {//isBeingPressed
+    if (VB_PLAY->isBeingPressed(VB_SHOT2)) {//isBeingPressed
 
         //GgafActorDispatcherの性質上、末尾アクターが play していなければ、全ての要素が play していないことになる?。
         MyStraightLaserChip001* pLaser = (MyStraightLaserChip001*)_pLaserChipDispatcher->employ();
@@ -410,7 +410,7 @@ void MyShip::processJudgement() {
     }
 
     //ショットボタン
-    if (VB::isPushedDown(VB_SHOT1)) {
+    if (VB_PLAY->isPushedDown(VB_SHOT1)) {
         MyWave001* pWave = (MyWave001*)_pDispatcher_MyWaves001->employ();
         if (pWave != NULL) {
             pWave->activate();
@@ -422,7 +422,7 @@ void MyShip::processJudgement() {
                 pExplo001->setGeometry(this);
             }
         }
-    } else if (VB::arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
+    } else if (VB_PLAY->arePushedDownAtOnce(VB_SHOT1, VB_SHOT2)) {
         MyShot001* pShot = (MyShot001*)_pDispatcher_MyShots001->employ();
         if (pShot != NULL) {
             pShot->activate();
@@ -489,10 +489,9 @@ void MyShip::equipOption() {
 
 bool MyShip::isDoublePushedDown(vbsta prm_VB) {
     //過去に遡りながら検証
-    static VB::VBMap* pVBMap;
     DWORD dwFrameApply;
     DWORD dwFrameAgo = 1;
-    pVBMap = VB::getPastVBMap(dwFrameAgo);
+    VirtualButton::VBMap* pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
     //直前は必ず押されていては駄目、ニュートラルでなければだめ
     if ((pVBMap->_state & prm_VB) == 0) {
 
@@ -500,7 +499,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
         //その前の5フレーム以内のどこかで押していなければならない
         dwFrameApply = dwFrameAgo + 7;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
-            pVBMap = VB::getPastVBMap(dwFrameAgo);
+            pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
             if (pVBMap->_state & prm_VB) {
                 break;
             }
@@ -512,7 +511,7 @@ bool MyShip::isDoublePushedDown(vbsta prm_VB) {
         //さらにそこから以前5フレーム以内のどこかで押されていては駄目
         dwFrameApply = dwFrameAgo + 7;//許容フレーム
         for ( ; dwFrameAgo < dwFrameApply; dwFrameAgo++) {
-            pVBMap = VB::getPastVBMap(dwFrameAgo);
+            pVBMap = VB_PLAY->getPastVBMap(dwFrameAgo);
             if ((pVBMap->_state & prm_VB) == 0) {
 
                 break;

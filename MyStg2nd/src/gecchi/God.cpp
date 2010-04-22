@@ -7,39 +7,42 @@ using namespace MyStg2nd;
 
 
 DispatcherManager God::_dispatcherManager = DispatcherManager("DispatcherManager");
-
+VirtualButton* God::_pVbtn_PLAY = NULL;
+VirtualButton* God::_pVbtn_UI = NULL;
 God::God(HINSTANCE prm_hInstance, HWND _hWnd) : DefaultGod(prm_hInstance, _hWnd) {
-    VB::init();
+    God::_pVbtn_PLAY = NEW VirtualButton();
+    God::_pVbtn_UI   = NEW VirtualButton();
 
-    //仮想ボタン再定義
-    VB::_tagKeymap.BUTTON1    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT1)      ];
-    VB::_tagKeymap.BUTTON2    = VB::_mapDIK[ PROPERTY(MY_KEY_SHOT2)      ];
-    VB::_tagKeymap.BUTTON3    = VB::_mapDIK[ PROPERTY(MY_KEY_OPTION)     ];
-    VB::_tagKeymap.BUTTON4    = VB::_mapDIK[ PROPERTY(MY_KEY_ZMOVE)      ];
-    VB::_tagKeymap.BUTTON5    = VB::_mapDIK[ PROPERTY(MY_KEY_TURBO)    ];
-    VB::_tagKeymap.BUTTON6    = VB::_mapDIK[ PROPERTY(MY_KEY_BUTTON6)    ];
-    VB::_tagKeymap.PAUSE      = VB::_mapDIK[ PROPERTY(MY_KEY_PAUSE)      ];
-    VB::_tagKeymap.UP         = VB::_mapDIK[ PROPERTY(MY_KEY_UP)         ];
-    VB::_tagKeymap.DOWN       = VB::_mapDIK[ PROPERTY(MY_KEY_DOWN)       ];
-    VB::_tagKeymap.LEFT       = VB::_mapDIK[ PROPERTY(MY_KEY_LEFT)       ];
-    VB::_tagKeymap.RIGHT      = VB::_mapDIK[ PROPERTY(MY_KEY_RIGHT)      ];
-    VB::_tagKeymap.UI_UP      = VB::_mapDIK[ PROPERTY(MY_KEY_UI_UP)      ];
-    VB::_tagKeymap.UI_DOWN    = VB::_mapDIK[ PROPERTY(MY_KEY_UI_DOWN)    ];
-    VB::_tagKeymap.UI_LEFT    = VB::_mapDIK[ PROPERTY(MY_KEY_UI_LEFT)    ];
-    VB::_tagKeymap.UI_RIGHT   = VB::_mapDIK[ PROPERTY(MY_KEY_UI_RIGHT)   ];
-    VB::_tagKeymap.UI_EXECUTE = VB::_mapDIK[ PROPERTY(MY_KEY_UI_EXECUTE) ];
-    VB::_tagKeymap.UI_CANCEL  = VB::_mapDIK[ PROPERTY(MY_KEY_UI_CANCEL)  ];
-    VB::_tagKeymap.UI_DEBUG   = VB::_mapDIK[ PROPERTY(MY_KEY_UI_DEBUG)   ];
 
-    VB::_tagJoymap.BUTTON1    = VB::_mapDIK[ PROPERTY(MY_JOY_SHOT1)      ];
-    VB::_tagJoymap.BUTTON2    = VB::_mapDIK[ PROPERTY(MY_JOY_SHOT2)      ];
-    VB::_tagJoymap.BUTTON3    = VB::_mapDIK[ PROPERTY(MY_JOY_OPTION)     ];
-    VB::_tagJoymap.BUTTON4    = VB::_mapDIK[ PROPERTY(MY_JOY_ZMOVE)      ];
-    VB::_tagJoymap.BUTTON5    = VB::_mapDIK[ PROPERTY(MY_JOY_TURBO)    ];
-    VB::_tagJoymap.BUTTON6    = VB::_mapDIK[ PROPERTY(MY_JOY_BUTTON6)    ];
-    VB::_tagJoymap.PAUSE      = VB::_mapDIK[ PROPERTY(MY_JOY_PAUSE)      ];
-    VB::_tagJoymap.UI_EXECUTE = VB::_mapDIK[ PROPERTY(MY_JOY_UI_EXECUTE) ];
-    VB::_tagJoymap.UI_CANCEL  = VB::_mapDIK[ PROPERTY(MY_JOY_UI_CANCEL)  ];
+    //仮想ボタンを本、ゲーム用に上書きして再定義
+    VirtualButton::_tagKeymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT1)      ];
+    VirtualButton::_tagKeymap.BUTTON2    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_SHOT2)      ];
+    VirtualButton::_tagKeymap.BUTTON3    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_OPTION)     ];
+    VirtualButton::_tagKeymap.BUTTON4    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_ZMOVE)      ];
+    VirtualButton::_tagKeymap.BUTTON5    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_TURBO)      ];
+    VirtualButton::_tagKeymap.BUTTON6    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_BUTTON6)    ];
+    VirtualButton::_tagKeymap.PAUSE      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_PAUSE)      ];
+    VirtualButton::_tagKeymap.UP         = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UP)         ];
+    VirtualButton::_tagKeymap.DOWN       = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_DOWN)       ];
+    VirtualButton::_tagKeymap.LEFT       = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_LEFT)       ];
+    VirtualButton::_tagKeymap.RIGHT      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_RIGHT)      ];
+    VirtualButton::_tagKeymap.UI_UP      = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_UP)      ];
+    VirtualButton::_tagKeymap.UI_DOWN    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_DOWN)    ];
+    VirtualButton::_tagKeymap.UI_LEFT    = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_LEFT)    ];
+    VirtualButton::_tagKeymap.UI_RIGHT   = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_RIGHT)   ];
+    VirtualButton::_tagKeymap.UI_EXECUTE = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_EXECUTE) ];
+    VirtualButton::_tagKeymap.UI_CANCEL  = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_CANCEL)  ];
+    VirtualButton::_tagKeymap.UI_DEBUG   = VirtualButton::_mapDIK[ PROPERTY(MY_KEY_UI_DEBUG)   ];
+
+    VirtualButton::_tagJoymap.BUTTON1    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_SHOT1)      ];
+    VirtualButton::_tagJoymap.BUTTON2    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_SHOT2)      ];
+    VirtualButton::_tagJoymap.BUTTON3    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_OPTION)     ];
+    VirtualButton::_tagJoymap.BUTTON4    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_ZMOVE)      ];
+    VirtualButton::_tagJoymap.BUTTON5    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_TURBO)      ];
+    VirtualButton::_tagJoymap.BUTTON6    = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_BUTTON6)    ];
+    VirtualButton::_tagJoymap.PAUSE      = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_PAUSE)      ];
+    VirtualButton::_tagJoymap.UI_EXECUTE = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_UI_EXECUTE) ];
+    VirtualButton::_tagJoymap.UI_CANCEL  = VirtualButton::_mapDIK[ PROPERTY(MY_JOY_UI_CANCEL)  ];
 }
 
 GgafUniverse* God::createUniverse() {
@@ -48,6 +51,9 @@ GgafUniverse* God::createUniverse() {
 }
 
 God::~God() {
+    DELETE_IMPOSSIBLE_NULL(_pVbtn_PLAY);
+    DELETE_IMPOSSIBLE_NULL(_pVbtn_UI);
+
     GgafFactory::_is_working_flg = false;
     for (int i = 0; GgafFactory::_was_finished_flg == false; i++) {
         Sleep(60); //工場が落ち着くまで待つ
@@ -58,6 +64,6 @@ God::~God() {
     }
     _TRACE_("God::~God() 工場停止");
 
-    VB::clear();
+
     _pUniverse->dump();
 }

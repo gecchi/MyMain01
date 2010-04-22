@@ -31,6 +31,7 @@ void GameDemoScene::initialize() {
 
 void GameDemoScene::processBehavior() {
     if (getProgress() == GAMEDEMO_PROG_INIT) {
+        pCAM->setDefaultPosition();
 
 //        TamagoActor* pActor = (TamagoActor*)obtainActorFromFactory(111111);
 //        getLordActor()->addSubGroup(KIND_ENEMY_BODY, pActor);
@@ -72,7 +73,7 @@ void GameDemoScene::processBehavior() {
         _dwFrame_Title++;
 
         //ここに処理
-        if (VB::isPushedDown(VB_UI_EXECUTE)) {
+        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) {
             setProgress(GAMEDEMO_PROG_DECIDE);
         }
 
@@ -119,7 +120,7 @@ void GameDemoScene::processBehavior() {
     //<-----ループ
     //デモプレイかランキング時
     if (GAMEDEMO_PROG_DEMOPLAY <= getProgress() && getProgress() <= GAMEDEMO_PROG_RANKING) {
-        if (VB::isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEでタイトルへ
+        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) { //VB_UI_EXECUTEでタイトルへ
             setProgress(GAMEDEMO_PROG_TITLE);
         }
     }

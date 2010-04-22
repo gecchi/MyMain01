@@ -27,6 +27,7 @@ void GameBeginningScene::initialize() {
 
 void GameBeginningScene::processBehavior() {
     if (getProgress() == GAMEBEGINNING_PROG_INIT) {
+        pCAM->setDefaultPosition();
         setProgress(GAMEBEGINNING_PROG_BEGIN);
     }
 
@@ -40,7 +41,7 @@ void GameBeginningScene::processBehavior() {
         _dwFrame_Begin++;
 
         if (_dwFrame_Begin == 120) {
-            setProgress(GAMEBEGINNING_PROG_OPE); //タイトルへ
+            setProgress(GAMEBEGINNING_PROG_OPE); //自機選択
         }
     }
 
@@ -53,7 +54,7 @@ void GameBeginningScene::processBehavior() {
         //活動ループ
         _dwFrame_Ope++;
 
-        if (VB::isPushedDown(VB_UI_EXECUTE)) {
+        if (VB_PLAY->isPushedDown(VB_UI_EXECUTE)) {
             _selected_stage = 1;
             setProgress(GAMEBEGINNING_PROG_DECIDE);
         }

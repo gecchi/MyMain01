@@ -172,7 +172,7 @@ void MyOption::processBehavior() {
     } else {
 
         //オプション独立移動制御時
-        if (VB::isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && _pMyOptionParent->_is_handle_move_mode) {
             //オプションの広がり角より、オプション移動速度と、旋回半径増加速度にベクトル分解。
             //そのうちの旋回半径増加速度のみを設定。
             addRadiusPosition(GgafDx9Util::SIN[_angExpanse/ ANGLE_RATE] * _pMyOptionParent->_veloOptionsMv);
@@ -196,70 +196,70 @@ void MyOption::processBehavior() {
         _angExpanse = GgafDx9GeometryMover::simplifyAng(_angExpanse);
     } else {
         //オプション広がり制御
-        if (VB::isBeingPressed(VB_OPTION) && VB::isBeingPressed(VB_TURBO)) {
-            if (pWORLD->_pos_camera == CAM_POS_RIGHT) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
+        if (VB_PLAY->isBeingPressed(VB_OPTION) && VB_PLAY->isBeingPressed(VB_TURBO)) {
+            if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_RIGHT) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pWORLD->_pos_camera == CAM_POS_LEFT) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
+            } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_LEFT) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseSlow;
                 }
-            } else if (pWORLD->_pos_camera == CAM_POS_TOP) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
+            } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_TOP) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-            } else if (pWORLD->_pos_camera == CAM_POS_BOTTOM) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
+            } else if (GameMainScene::_pGameMainScene->_pos_camera == CAM_POS_BOTTOM) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse -= _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse += _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-            } else if (pWORLD->_pos_camera > CAM_POS_TO_BEHIND) {
-                if (VB::isBeingPressed(VB_RIGHT)) {
+            } else if (GameMainScene::_pGameMainScene->_pos_camera > CAM_POS_TO_BEHIND) {
+                if (VB_PLAY->isBeingPressed(VB_RIGHT)) {
                     _angExpanse += _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_LEFT)) {
+                if (VB_PLAY->isBeingPressed(VB_LEFT)) {
                     _angExpanse -= _angveloExpanseSlow;
                 }
-                if (VB::isBeingPressed(VB_UP)) {
+                if (VB_PLAY->isBeingPressed(VB_UP)) {
                     _angExpanse += _angveloExpanseNomal;
                 }
-                if (VB::isBeingPressed(VB_DOWN)) {
+                if (VB_PLAY->isBeingPressed(VB_DOWN)) {
                     _angExpanse -= _angveloExpanseNomal;
                 }
             }
@@ -361,7 +361,7 @@ void MyOption::processBehavior() {
     _pMover->setVxMvVelo(0);
     _pMover->setVyMvVelo(0);
     _pMover->setVzMvVelo(0);
-    if (VB::isBeingPressed(VB_SHOT2)) {
+    if (VB_PLAY->isBeingPressed(VB_SHOT2)) {
         MyCurveLaserChip001* pLaserChip = (MyCurveLaserChip001*)_pLaserChipDispatcher->employ();
         if (pLaserChip != NULL) {
             pLaserChip->_pMover->_vX = _Q._x;

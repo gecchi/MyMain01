@@ -41,7 +41,7 @@ void GameScene::initialize() {
 void GameScene::processBehavior() {
 #ifdef MY_DEBUG
     //ワイヤフレーム表示切替
-    if (VB::isPushedDown(VB_UI_DEBUG)) {
+    if (VB_PLAY->isPushedDown(VB_UI_DEBUG)) {
         if (GgafDx9God::_d3dfillmode == D3DFILL_WIREFRAME) {
             GgafDx9God::_d3dfillmode = D3DFILL_SOLID;
         } else {
@@ -103,6 +103,7 @@ void GameScene::processBehavior() {
         }
 
     }
+
 }
 
 void GameScene::processJudgement() {
